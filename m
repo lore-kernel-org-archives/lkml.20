@@ -1,79 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794482274;
-	b=eQJl06GaQJuR0dzEPazw2h2eveqDhBy6xGkLXnWzgL8/WyV2DDODHQZzhl4GDLB01FuE
-	 eZYsZ6o2SQYhKprLlBduYPad4P8Raio2wiLnkA+Yb0YuMj8AZ7giYN+FNo1wldjO7Li3N
-	 jL+D7IC1l/5qjymIh2c2SIxt/wDOTnn5XZ3njhdY+zlTwJVrC8ZRw0tR9SyRqIll4vGjz
-	 qzP3QrtMxxMnYur9ZDWxsNzQvk2RmWPoVc3NcHUCdnuDemQOYo5FeuOZnG9OQ4/YplELw
-	 YHIM/goXsE1NaW5ifehPwd/RQu/2kA6NNXsu7B2K1ImKBe/Pix/dslmZUYNAULTKIlg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482274;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GOIXyvEBp5Mk6/fa7dmjq+ngz+K78W9i84ablp4EwKk=;
-	b=aHAjyOmc/pjEAF4EyrDQUxWqT/FIv8lDlrqU9aiGSNPgQQIpPG35Yr9op68fIIi/IfEL
-	 wxFiWb+BkwLx0/J6owrDM0Ct5frfXnV521rmEus2LOlACMgdLjp1YWO9CuOKB290P6CbF
-	 FY+Bb8Wxwx2eXCvpnxqJKBoUcsAfn0b8lPEq9YH9exwZVQIeUaQrLDu5gdsIC2sllQ5V6
-	 0JuQpX0P5Fc4IOA0XN2q92vmIcfQCA3VTwJWuPL1DCUhUF2sFGoKDdY7m1I3l+YnFm0TQ
-	 mPFXm0HCaPV7PI8DTrkBvSUzcAEd11QG0WXN/9r69thLo7nyRxQQ0brcWYJokIt7QsQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aSHRJM4C;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1195E606A89C;
-	Thu, 12 Nov 2026 11:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aSHRJM4C
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794482273;
-	b=u2oHFIsJSmrbAftJPtV+RvjLHKwnU47Rq7KvCSWkBJobg8s4ECJhLZpDJ9y6AkBYjbao
-	 I1gZBn4J8kdkDsYuO8//aTrFKuH2fFcYgnaCf8SZEk2x+TOI1AhiOXiPp0B5/1iR9kGRE
-	 JdMqb31qvBaWxlayW4F1Pko6dshFeshtAkdNiFTZf+pCw/JP57UaW84bSeQXWOumZVWtq
-	 nhzG6envEXmN4b35a0wS6KZ6ftnXso7VjwjqZJKJwLHZ38anRpqeFEheYb2Gn/WNBEZ9D
-	 Y8URaPEXw3XKzngI1QrbtAYDu+17iea8mMWWzTkaDeChxvbut+73U0LwNfdZ+zaBNHg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794482273;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GOIXyvEBp5Mk6/fa7dmjq+ngz+K78W9i84ablp4EwKk=;
-	b=JXuCl3ZkAlOpYk/mNO5EVQ7SI/C6wPiVkrT3+UaHqbdIDX7DKnJSWDTgdOXY1jSVymkn
-	 Nn2tGuoGFiRpMg1+bJeE7pWYFGjEu5n+WQapF7lBFsdo0jkbGpg5tDAFR8+RIJMltAEpC
-	 Q17VqJEzIbPDpSaxv1EkBte4zxMR+aoBARmi22GvRv8oDqw542KVWA1oadjnF8OHkPRCW
-	 XqMDrqhxwu2aB27QXLv8ot0NanOkoiwgP/1t38Cqpfd+VquyjLopRuA4+0/XWoT+JFxfc
-	 tyDvHQg42+EfGwhkjsQAozE2NUsxOFPY3heWjTzsxNM8uzbrOazF5aCCKtlWHAXytbw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794482312;
+	b=wIUOxNngGO1+uNnNIDrwaUkU0vQn9gASpv/LO7BH7bslMYICfQakrGJvlDF/0fHI1q/7
+	 2VxB9mc+BCBiusMRgKyLInROIefeu7E2aqeKI8BdRldmFij7ruE8FtbARjwtYlMpSewfU
+	 A7kkE1dWpQ/GDk+FgfdrhgPTswuW9f2CPgGz9dbV6pSe48pjxvr637MbxDWs60M8hhIvi
+	 GfbiwcOi7C3fmsqlbbZz9KbB7QDFoMVa0FxjuZFdpWty9IAmDfRC5MCvhnF5J9ReRToFh
+	 YQh2WGb4x5/jh/VTM772ccwQoUUrPRpkYvidZqnaT/LUA2TDlPv6DtfA8ypSIsRN8Yw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482312;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=U6GG76bNPQmllyCs8tfFJpjMzWTUyjK3H6rQErrf2X8=;
+	b=Ljws7mmfykNo1eQFVqyjFs/Q6GJqT/nvDtdnk+DHnvJttN3pfeHiBR8qprPcLXYY39kv
+	 Pmq9ebJ0Z6KYbk0hvjGJDQI6ra29wD0NxCO1wJBAkb4T0YHx9oJ0mSoiDnVeYUSyUVMvI
+	 DNOa5tYtuKCH8RG/ChrIZG00HVcU+qVaADkBBSLSqZMFmNhwKJhvkbwGnLEUQAjer82fA
+	 zlDIGF9/OaStuYbajAO24h7diJCtB0NEGB4Hu44zRkToQPIQcjEX0l8tehmBUnNL47t3u
+	 HrNxBK2+jiUzy7nC1mGcn/xjKla9Bh7M2BJ0N5BiOIHE4jUpg+wN1M/qQi7TWb8N7vw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=sJGZ0KAK;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1B0701F00A0C;
-	Thu, 12 Nov 2026 11:17:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794482273;
-	bh=GOIXyvEBp5Mk6/fa7dmjq+ngz+K78W9i84ablp4EwKk=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=aSHRJM4CLuVXiC0+XWISuke//QNNIc1JA+cpcjmst4U9H37OwUtFqXZ7SY00pQOfk
-	 V5g1MGaRj49vZ/eVVQw2vtLB+3Ccup/MEGGo1jUzwLdDJQzlvOMAiLtoK2C05RhT2P
-	 bjjU+vbfPc1HhMo7NUQl+2Cg9XxFLFHeW4qpOYPZfwvcVpQBB2OJxYf4y3Q8hdd/Bh
-	 SYus29IyPVzNLSC8Z506wTEizeOMzMW1W/X3btCZhif4NQaTmU9Kliv4r0lZ5Movzn
-	 cVLJaBv8GucYk8Py9HvfWd9MEUowmlJjP1FQ3pnRtdMWmdDY+jfpzAf05QLnNpAQ/j
-	 hX/uRVyfmJ+nQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 70CFD49494;
-	Thu, 12 Nov 2026 11:17:52 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 11:17:52 +0000
-Subject: [PATCH] media: verisilicon: Only accept formats of the queue's
- kind in TRY_FMT
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BFD606A321;
+	Thu, 12 Nov 2026 11:18:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44BFD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=sJGZ0KAK
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:cdf:7464:6c04:36e4:ee87])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 33E8733D;
+	Thu, 12 Nov 2026 12:16:04 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794482164;
+	bh=8iAErcYO3j90+V2TvbkZ3pX/JwuaKTs880JZDQ4ZpCI=;
+	h=From:Subject:Date:To:Cc:From;
+	b=sJGZ0KAKG1/Q5NmCDs3vKUHor7Ud1tpEMNukRsSsvxdv5l25eswr6p7OFhFkocc/F
+	 co46ZZSvGWAAQGoy+2rZH03mKpgLEeME4W6bKIgJjDalvjZerH2rvyf1e6icTSoQ4O
+	 LPNSt3SyRwsbAUi6w2fnAtpeTka2X/rgrIlxDOVA=
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: [PATCH v5 00/11] platform/raspberrypi: Support vc-sm-cma and
+ prepare for bcm2835-isp driver
+Date: Thu, 12 Nov 2026 16:47:58 +0530
+Message-Id: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,122 +58,165 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-hantro-fmt-role-v1-1-e596d6f4828f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQ0MjXaBgSVG+blpuiW5Rfk6qrrmJcUqiUZKlRXJykhJQV0FRalpmBdj
- E6FgIv7g0KSs1uQRkjFJtLQAkwJ6acwAAAA==
-X-Change-ID: 20261112-hantro-fmt-role-743da2b98ccb
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794482272; l=4438;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=s3CPAFpQ1/qB9nw0SP8YBgc/jIrhI3ySnN7uPXYFxW4=;
- b=Y8ORNp5aA3bzodvaJDfM+grVFHRPKgG4txfK1ZC+0Y2b16sv5q50TTacSXLRObUFtAewOP/zd
- UZWgNf9SZr+ApgVTplkVfT1vH4lqo2pjGW2lxnGtJ3aqdpNY9aWFDL2
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOTU7DMBAF4KtEXuPK/yZdcQ/EwpmZUC8Sgx0sU
+ JW746agiogu32jmm3dmhXKkwo7dmWWqscQ0t2AfOganML8Sj9gyU0JZKbTgg+EVeJk4TIGPzis
+ PugdUlrWTt0xj/Ny455drzvT+0dTlOmRDKMQhTVNcjl31B8MzSHbZPcWypPy1NalyW/55Kv8+r
+ ZILLhAtCAI9WniKSKGkeUgh46Hhm1fVr+GEFHZnqGYYDBS86YGwv2Pom+Gl3xm6GQ4Mef8oDFm
+ 8Y5ib0Uu3M8ylh3copVGDxfEfY13Xb69SKeGnAQAA
+X-Change-ID: 20251030-b4-vc-sm-cma-f6727c39cd25
+To: Stefan Wahren <wahrenst@gmx.net>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Phil Elwell <phil@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ bcm-kernel-feedback-list@broadcom.com
+Cc: Martin Wetterwald <martin@wetterwald.eu>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, stable@vger.kernel.org, 
+ Dom Cobley <popcornmix@gmail.com>, 
+ Alexander Winkowski <dereference23@outlook.com>, 
+ Juerg Haefliger <juerg.haefliger@canonical.com>, 
+ Paul Elder <paul.elder@ideasonboard.com>, Umang Jain <uajain@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5634;
+ i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
+ bh=8iAErcYO3j90+V2TvbkZ3pX/JwuaKTs880JZDQ4ZpCI=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBq9aBqwleXQIx9ZSWeg+f+tYDQar1busURI8mme
+ En/d6LQb2SJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCavWgagAKCRBD3pH5JJpx
+ RXA1D/sHuM2/4ja4foh03jzvrrUxVrBOej4ErMzlAI3ZeQqggFHs8KQjLtSb5LoKNJNf325rKkI
+ ibgMZxODW7+LOXCurAKrHpq1xfUI87qqxMFLd/K/gGM4TTPEmDAES741FDu6cbor7T4sEyKAWlr
+ i9y6cucRY/P2qCMvhHQ2aDUzEc9UP0kS0D0w45CPl+5DR851d/+j+1fXn/weCBlkuf2FViqFhZV
+ yffd/IODv8AQHT5JlPxBarOb93wzybORwlA2rfVen2HT/QpaxniPK8Nxsfox5pxe1BJy/djvUUC
+ MigZx6M6b5F6HakzK5Ao1hYgpSpKj6HCi/0DDszyYkB6GTcg6fKzL+ZIrhTFybgw3kq2KchKiEa
+ PoB5yOKoBdr0GBnQyNmfGkiIf5p1mtLRcmtMKFtptreI+86O1tHUGiYKKt5UakN6E9tBd62IiGo
+ S6lczkA3FgVQZkbJaOKLiFjcwQdKSN+BLKd3X9IrV0xG8iHaEk+Ae6vxjIsOMPWxk3TQLUdNjRS
+ ELS3cDKCUAHpppPKtxPNrn7tN790Ft3LhTi4O77uKEajPV2Jb9r7RiNwW9hKtIzECUG+9qDCjlV
+ 0Hoxhz18oLenYfbx3ZExflYypxU3W65A86cw70KjFJdRD2e0pwkhaO6aKw7UcWPnuTTyFY9GgDV
+ MmJ4ZqyB4/w3u2g==
+X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
+ fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Hi,
 
-The format tables of the Hantro variants hold both the coded formats and
-the raw ones (codec_mode HANTRO_MODE_NONE). vidioc_enum_fmt() and
-hantro_get_default_fmt() filter them by kind, but hantro_try_fmt() looks
-the requested pixelformat up in the whole table. It therefore accepts a
-raw format on the coded queue and a coded format on the raw queue, and
-hantro_set_fmt_out() and hantro_set_fmt_cap() store it as
-ctx->vpu_src_fmt or ctx->vpu_dst_fmt.
+The vc-sm-cma driver allows contiguous memory blocks to be imported into
+the VideoCore VPU memory map. This series adds support for this driver
+and changes to VCHIQ MMAL layer required to get it functional.
 
-On an RK3588 running a 7.3 based kernel, a user who is only a member of
-the video group can set a raw format on the coded queue of the VEPU121
-JPEG encoder and of the VPU981 AV1 decoder with VIDIOC_S_FMT. When the
-application leaves sizeimage at zero, the driver computes it from the
-header size and the depth of the format. A raw format has neither, so
-the sizeimage of the coded queue stays zero, and the next VIDIOC_REQBUFS
-on that queue fails with -EINVAL after
+These changes have lived in the staging directory of the downstream
+Raspberry Pi tree since quite some time, but are necessary for getting
+the VCHIQ based peripherals like the ISP functional in mainline.
 
-  WARNING: drivers/media/common/videobuf2/videobuf2-core.c:951 at vb2_core_reqbufs+0x1ac/0x530 [videobuf2_common]
+To ease application of the patches by separate maintainers of the
+platform tree and media tree, I've moved the VCHIQ dependencies for the
+ISP driver from the v5 of the ISP series (linked in changelog) to this
+series as [PATCH 7-11/11].
 
-which is the WARN_ON(!plane_sizes[i]) check. With panic_on_warn set,
-this is enough for such a user to panic the machine.
+Stefan, Florian,
 
-From reading the code, the wrong format can do more harm than that:
-hantro_start_streaming() takes the codec mode from the format of the
-coded queue and uses it as the index into the codec_ops array of the
-variant, and HANTRO_MODE_NONE is -1. This was not observed. In the test
-above, which left sizeimage at zero, no buffer could be allocated on the
-coded queue and VIDIOC_STREAMON failed with -EINVAL too, so the index
-was never used. It has not been established whether another sequence
-gets that far.
+Would one of you be able to pick this series once it looks good to you?
 
-Treat a format of the wrong kind like an unknown one and fall back to
-the default format of the queue. With this change VIDIOC_S_FMT returns
-the default coded format on the nodes above.
+Earlier VCHIQ lived in staging so Greg picked it up, but now that it is
+destaged, I am not sure which tree is the correct one for this to land
+in mainline.
 
-Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20261110-hantro-jpeg-enc-fixes-v1-0-fc4dc7e985d2@gmail.com?part=1
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Also, please let me know if you would like to be marked as a Maintainer
+or Reviewer for the vc-sm-cma driver in the MAINTAINERS file?
+
+Thanks,
+    Jai
+
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
-Sashiko listed this as a pre-existing problem in the findings of its
-review of "[PATCH 1/6] media: verisilicon: Enforce a minimum CAPTURE
-sizeimage for the encoder" (in the review data on sashiko.dev, not in
-the review mail it sent to the list); it is not caused by that series
-and this patch does not depend on it.
+Changes in v5:
+- Rebase on v7.4-rc1
+- Fix comments from Stefan
+- Moved [PATCH 7-11/11] from the v5 of bcm2835-isp series
+- Link to bcm2835-isp v5: https://lore.kernel.org/all/20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com/
+- Link to v4: https://lore.kernel.org/r/20260916-b4-vc-sm-cma-v4-0-476d1142b5df@ideasonboard.com
 
-Tested on an Orange Pi 5 (RK3588S) with a 7.3 based kernel that carries
-out-of-tree patches, with a small test program run as an unprivileged
-user in the video group. Without the change the raw format is accepted
-on the coded queue of the VEPU121 JPEG encoder, of the VPU981 AV1
-decoder and of an H.264 encoder node that is not in mainline, and each
-of them logs the warning quoted in the commit message. With the change
-all three return their default coded format and the kernel log stays
-clean. The coded format on the raw queue case is fixed by the same
-check but was not exercised. On media-committers next the patch is
-build-tested only (arm64, W=1). The test program is available on
-request.
+Changes in v4:
+- Rebase on v7.3-rc1
+- Use Dave's .com email in commits and comments
+- Cut out all userspace import and VPU alloc code (from Dave)
+- Link to v3: https://lore.kernel.org/r/20260717-b4-vc-sm-cma-v3-0-6c4e77804e5d@ideasonboard.com
 
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit message, and I reviewed and tested it
-as described above.
----
- drivers/media/platform/verisilicon/hantro_v4l2.c | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v3:
+- Rebase on v7.2-rc1
+- Fix lkp bot errors with Kconfig dependencies
+- Switch from kzalloc with sizeof to kzalloc_obj
+- Link to v2: https://lore.kernel.org/r/20260105-b4-vc-sm-cma-v2-0-4daea749ced9@ideasonboard.com
 
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 83af9fa1ce94..64e32aef8b04 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -337,6 +337,9 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,
- 	vpu_debug(4, "trying format %p4cc\n", &pix_mp->pixelformat);
- 
- 	fmt = hantro_find_format(ctx, pix_mp->pixelformat);
-+	/* The format list mixes coded and raw formats, only take the right kind */
-+	if (fmt && coded != (fmt->codec_mode != HANTRO_MODE_NONE))
-+		fmt = NULL;
- 	if (!fmt) {
- 		fmt = hantro_get_default_fmt(ctx, coded, HANTRO_DEFAULT_BIT_DEPTH, HANTRO_AUTO_POSTPROC);
- 		pix_mp->pixelformat = fmt->fourcc;
+Changes in v2:
+- Drop patches that are not related to vc-sm-cma, or used for codec and
+  not ISP, so that is v1 PATCH 1, 2, 4, 5, 6, 7, 8, 12
+- Move v1 PATCH 11 to the top, adding a Fixes tag
+- Don't use global singletons for storing `struct vchiq_device` in
+  VCHIQ, instead converting the existing device drivers (audio) to be
+  stored inside `struct vchiq_drv_mgmt`
+- Update the vc-sm-cma driver to latest standards, like:
+    - Replace MODULE_ALIAS call with a proper device id_table
+    - Add kernel-doc comments for exported functions
+    - Move exported functions to a header under include/linux for use in
+      MMAL (and later V4L2 ISP and codec drivers)
+    - Use xarray instead of deprecated idr to map an integer ID to
+      imported/allocated buffer pointers
+    - Drop unnecessary pr_debug calls
+    - Replacing pr_xxx use with dev_xxx wherever possible
+    - Clean up stray comments
+- Link to v1: https://lore.kernel.org/r/20251031-b4-vc-sm-cma-v1-0-0dd5c0ec3f5c@ideasonboard.com
 
 ---
-base-commit: 55271157078b9a6fd3519ee21b567a684f7277ca
-change-id: 20261112-hantro-fmt-role-743da2b98ccb
+Dave Stevenson (5):
+      platform/raspberrypi: vchiq-mmal: Reset buffers_with_vpu on port_enable
+      platform/raspberrypi: Add VideoCore shared memory support
+      platform/raspberrypi: vchiq-mmal: Use vc-sm-cma to support zero copy
+      platform/raspberrypi: vchiq-mmal: Support sending data to MMAL ports
+      platform/raspberrypi: vchiq: Register vc-sm-cma as a platform driver
+
+Jai Luthra (6):
+      platform/raspberrypi: vchiq: Store audio device in driver management struct
+      platform/raspberrypi: vchiq-mmal: Include missing headers
+      platform/raspberrypi: vchiq-mmal: Move headers to include/linux
+      platform/raspberrypi: vchiq-mmal: Support ISP parameters and stats
+      platform/raspberrypi: vchiq-mmal: Support bayer and gray formats
+      platform/raspberrypi: vchiq: Add helpers for vchiq driver data
+
+ MAINTAINERS                                        |   8 +
+ drivers/platform/raspberrypi/Kconfig               |   2 +
+ drivers/platform/raspberrypi/Makefile              |   1 +
+ drivers/platform/raspberrypi/vc-sm-cma/Kconfig     |   9 +
+ drivers/platform/raspberrypi/vc-sm-cma/Makefile    |   5 +
+ drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c     | 810 +++++++++++++++++++++
+ drivers/platform/raspberrypi/vc-sm-cma/vc_sm.h     |  64 ++
+ .../raspberrypi/vc-sm-cma/vc_sm_cma_vchi.c         | 513 +++++++++++++
+ .../raspberrypi/vc-sm-cma/vc_sm_cma_vchi.h         |  64 ++
+ .../platform/raspberrypi/vc-sm-cma/vc_sm_defs.h    | 304 ++++++++
+ .../raspberrypi/vchiq-interface/vchiq_arm.c        |  13 +-
+ drivers/platform/raspberrypi/vchiq-mmal/Kconfig    |   3 +-
+ .../platform/raspberrypi/vchiq-mmal/mmal-vchiq.c   |  92 ++-
+ .../linux/raspberrypi}/mmal-common.h               |   8 +
+ .../linux/raspberrypi}/mmal-encodings.h            |  67 ++
+ .../linux/raspberrypi}/mmal-msg-common.h           |   0
+ .../linux/raspberrypi}/mmal-msg-format.h           |   0
+ .../linux/raspberrypi}/mmal-msg-port.h             |   0
+ .../linux/raspberrypi}/mmal-msg.h                  |   0
+ .../linux/raspberrypi}/mmal-parameters.h           |  86 +++
+ .../linux/raspberrypi}/mmal-vchiq.h                |   1 +
+ include/linux/raspberrypi/vc_sm_cma_ioctl.h        | 105 +++
+ include/linux/raspberrypi/vc_sm_knl.h              |  76 ++
+ include/linux/raspberrypi/vchiq_arm.h              |   9 +
+ include/linux/raspberrypi/vchiq_bus.h              |  10 +
+ 25 files changed, 2227 insertions(+), 23 deletions(-)
+---
+base-commit: bc71431221f5ba8bb33918399552636e059c2c45
+change-id: 20251030-b4-vc-sm-cma-f6727c39cd25
 
 Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+-- 
+Jai Luthra <jai.luthra@ideasonboard.com>
 
