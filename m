@@ -1,64 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794477831;
-	b=FX31BNzpIox6hm9DLI1JnSB06dHaCe6kA6jDZMB4wTFCxNCPZAnsZoitORYvJaoWOH3P
-	 X5OSrSU/ZZtCzl+bnwnYSt+aeAyZVoWZdYfR1hUHlLN9hmiFe2NNY6DqQIihDQT/qIv9A
-	 kM7RWiGxnbDOrUdLm/eOGZjNOr6ENf0IFsVqOLM6VQUbf688nYEXtSaY4a+EeHpfUlPMq
-	 yvQQd15Xu0LUgIQ0f9963StFo30xTRAVupXVE2LVDOcFZ19gij3mFsmkRdwz7zbDijHaX
-	 RBh9r5S4BL0/+zUNCpOnjL+MIidLcBh2EHX04er8wGx4OmRp62S82EiAjcWzSmNVu/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794477831;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=IpqQrUdn2qhnA27eiGBsYUdjhzGI02RMEz6Jntjyjrc=;
-	b=RKY3Y/zzxQUow496G61U1N0hDGkTtIlq3yxmT4+/VJ9yFs42klWJsUApjLjlvpn2eSIH
-	 BZy2OAlKXX8/GRIi8nk3Nrcpi5cVG92RLxiJYtcY8nYxUVqZbeDdMhc2sr3e/69V3qtNU
-	 pbcqRRKKlhcmujti3ju/UBOVe6h/FqYiDCzsAF7Is11bdfreqDgjezcerQgSyagiWsh3z
-	 R4PSrn2qUnU91N3KYKLcDRqU0YaHRHA+tJScJ5KnFzZoidpQNOPih2DEytCZuNVcUUbdn
-	 A5/bk7aq5FbXgJWDCXaDBg4Sh4dwOff81QMDA94U0Pa0dJ1vK70jD8oeVprsHSoiU4g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b="bxe1Yv/T";
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794477864;
+	b=cDcA3z9Hh2s2ZfG6ML1mOiApYK1Bd29LgvMySk+ySBQQo9xKvgUsDAJ/CdtjTtjllh2N
+	 6lKtU4Ex8bt8mJJJV4+X41CCGWMlzGjBt5pbIN0f627yfN014j1FT8t4zWBprEApT1keL
+	 zr6vsbFc0lANTWieriSmd9J6Y3pZcqYtlkl02i/Rgp+BHhHHF7n9XMCIp1MuS69Pi2fAa
+	 rcwEkq53XJ0Q/iZQFkXXq+jeQxqLEn0CQZh4Fmx6ROvqnnSIQhyLa2uof1SVzL2Ia7mYY
+	 OcQcTG1Jf5+ZGcqbsEGK29KJZbkyIhQqJYSjTQhygUHtoOPnuGyI+zdKCDuCsP6yWGw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794477864;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=HtuOLru1xJlLWQAB+8xJt0wpPE+TJSHN0z/mx/ydS8M=;
+	b=oix5ORsiKqnbkO1SUV40tugqh+xy8zr9xehJbCYDWkkzDUrD1RFLzFN7X+Nx4ACUHA77
+	 A3QnTCiZyhrh8Ml/sKvSRDnHaz27+Yf9WqUWP4WBJQQS4Q5xSu5n3o2XQFa3vaozGvGRr
+	 8TaOoqZf6dTtaDLRzvEkKMegtPCOz33RmtFxfwnnrgY97ac2xKRTU15lpQsSB3Vilw3X5
+	 +jT1R6VhJzOzL0ICVN60qwkky28mIIXstTlTykCuinaIr4VbirQ5idoBc0oCLqONefGQb
+	 2jhgoLU9LgfDeDjCDdoIFVnZDhYabycGlksyYIG5N1O4+oYMKcGCSCLiDhZYYo+l0dA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MGkX4002;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E295606A321;
-	Thu, 12 Nov 2026 10:03:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E295606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A912606A31C;
+	Thu, 12 Nov 2026 10:04:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=bxe1Yv/T
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=IpqQrUdn2qhnA27eiGBsYUdjhzGI02RMEz6Jntjyjrc=; 
-	b=bxe1Yv/TQfKAtfczi5Sj5QeQUzYLYU2jmvZ03C5/Ud2YCPSnaq2VbsGmXu+riBnY7aCefzE6OA1
-	gtm/KCSrlkNAT4OUsx8A8xdkVhm1ZqiiVMzpKgt9962Cj4Nzh9Qq+Q1Xf+HGsNUPaJpkef0EWMehC
-	7eR7Kymzkoye2lxY61VYCBi94fcWqfHPkAdknAvLEBcI0+vddruVjiLmW6HwV3SobSkVU+IhHYs01
-	+G9udSXGKwCKAHSDF5dCwFLTnLoiej1rrgBXn5w4yxLZHx5oA4NyVGxF3+5kiZeOgA64fknfsiaGR
-	IYheOpEaFZRq28wGMuVkiGW9EaKgO/kQfPDA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xRRej-0000000EDvP-3qVY;
-	Thu, 12 Nov 2026 18:03:46 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 12 Nov 2026 18:03:45 +0800
-Date: Thu, 12 Nov 2026 18:03:45 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: Sean Wang <sean.wang@mediatek.com>, Olivia Mackall <olivia@selenic.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] hwrng: mtk - wait long enough for the next word
-Message-ID: <avWPAXUIyv3KP0hb@gondor.apana.org.au>
-References: <20261026-rbrue-sheldon-upstreaming-mtk-rng-timeout-v1-1-551b4b6b4f86@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MGkX4002
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794477864;
+	b=ujXKuXdyMqbrPxcfvgT9k4hnQqIZOGuRiej9VSzZpBalTOSzpyPW4rwmkD+k5NNgQIZK
+	 9oDsGUMIaEk8xO0oNpsWwNoNV5XoIaWIYaK0xfr3Edc5ksR1I/+/MKtrJj+VRwZijMRO6
+	 Na/3nbTZUEPlicpTr1ujJZ66fdxNz4Xp+lmC0TZhtHpRl+BhhHQshYCV4V9MO/F50XhJo
+	 Gu93eyhqrQrUuYGjEkh7YIcW5qyIAaHp5o3kiB8HZ3TCH+l0kBqD5vqLmYgg+Pk+HcvDw
+	 Q1KR0Jt9yhrx70gVxgj4v17kzHs4zIIxPrdFy+RjWswuQB0M4KwxwvBNLvgsizOpReA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794477864;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=HtuOLru1xJlLWQAB+8xJt0wpPE+TJSHN0z/mx/ydS8M=;
+	b=Z56O2l9WubKjMVIiH3guK2vEPxN4mJR/CvZRWN78Asa1DblF90Dr6e99rI8TXmsZ1lyl
+	 MB9V1PkayKm/2TtMxSIuTU7hLU9u5l+6LBKnxUFp7orYHJWcDSxHN7u9iB990XRGwn9WK
+	 ck0aprzkfaMJeaVDmU56J1w/t061WpZErVm4iOV1IrHYdJv0BZoe6knf+KXP/xlcMLHbz
+	 UC7ZDiUP6pWjpkifzBQxNV5nGSbaL9nj4vusiKfFySqNZ2SF1Gzd8bxtOsLAZuEcM9eXJ
+	 0Q/dszkSIoxiKJf8QfA6WEss9L5IgiSEnRLvh44B19NHC1vw3BootxHCUXrAWIZEHCQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id BB9E71F00A05;
+	Thu, 12 Nov 2026 10:04:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794477864;
+	bh=HtuOLru1xJlLWQAB+8xJt0wpPE+TJSHN0z/mx/ydS8M=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=MGkX4002eDMdzvi02fAsUCul3fU4kG36dViyL5rTaIVUFxv9cHD1AB6wEKelMo0qu
+	 u9zUywbc9YWipv85QZCV8ZeWrbP5fMRX+7Qlc8oyGxUqkkm9Eo3vQWjiOxP8aFdJOw
+	 0Vc1brnbr3LDH56YSiyrlvMCUoCgeIOc67vhJE50fSZ5PIT+972naK9KhC7UBthb4r
+	 kaVgqDOzJdOMDDdCExpJ7IWmAem0PcXZWGP+z1RttpZzGCf1FaNXET5IVANMx1IPr+
+	 NrOlUmLiNac+WimTwIyE5ljlcclNtsMx+5hIbG6SLdEhmWM18NN2Q5MGUlnvlUZD06
+	 7hO0GjBfPjESw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1DFA249450;
+	Thu, 12 Nov 2026 10:04:23 +0000 (UTC)
+From: Suyuan Wang via B4 Relay <devnull+shyckless.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 10:04:18 +0000
+Subject: [PATCH] mshv_vtl: Release mem_dev through put_device()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,34 +82,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-rbrue-sheldon-upstreaming-mtk-rng-timeout-v1-1-551b4b6b4f86@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-hyperv-v1-1-67144d71878c@gmail.com>
+X-B4-Tracking: v=1; b=H4sIACGP9WoC/yXMQQ5AMBCF4avIrDXRVi1cRSwYg7GopqUh4u6K5
+ Zf8710QyDMFqLMLPEUOvNoEmWeAc2cnEjwkgypUJaVUYj4d+SiMQaO1RqpMCSl2nkY+vqOm/R3
+ 2fiHc3jXc9wMq+w0pagAAAA==
+X-Change-ID: 20261112-hyperv-55c5333ce654
+To: haiyangz@microsoft.com, decui@microsoft.com, wei.liu@kernel.org
+Cc: romank@linux.microsoft.com, ssengar@linux.microsoft.com, 
+ namjain@linux.microsoft.com, linux-kernel@vger.kernel.org, 
+ linux-hyperv@vger.kernel.org, mhklinux@outlook.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794477862; l=2707;
+ i=shyckless@gmail.com; s=default; h=from:subject:message-id;
+ bh=BjfU+Rbjqy4Z7JxZoJTtVEHtxruhAGS1/m1B8KB8IlY=;
+ b=WvAWhy9NDI3g+BAZA+frvhYpMFqdzLiDMXxRQ7QKq5MhBchStdcOIhAKz72CkCOwFTwVwG9vm
+ c62ncDw5JjvClk1l1pIw1oC5EIn73N+AJmoAfCP4m4UFfhQyhPiSZtW
+X-Developer-Key: i=shyckless@gmail.com; a=ed25519;
+ pk=pMtccVGiWES3bV+7YBFuBclkvq2n2HBHQ5azaBrK2lY=
+X-Endpoint-Received: by B4 Relay for shyckless@gmail.com/default with
+ auth_id=1498
+X-Original-From: Suyuan Wang <shyckless@gmail.com>
+Reply-To: shyckless@gmail.com
 
-On Mon, Oct 26, 2026 at 01:47:05PM -0500, Ryan Brue wrote:
-> mtk_rng_wait_ready() gives the generator 60 us to produce the next
-> 32-bit word. On MT8695 it takes longer: timed over 1421 waits, the
-> median was 82 us, the 99th percentile 92 us and the longest 225 us. So
-> most waits time out. A read that fails on its first word returns -EIO,
-> which a read from /dev/hwrng after a short idle period does more often
-> than not, and longer reads come back short.
-> 
-> Raise the timeout to 1 ms. Generators that are faster still return as
-> soon as the word is ready. On MT8695, 20 reads after idle periods all
-> succeeded, and a 256 KiB read returned in full at the same 63 KB/s.
-> 
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
-> ---
-> Found while bringing up mainline on the Amazon Fire TV Stick (3rd
-> generation, MT8695), whose RNG uses the mediatek,mt7623-rng compatible.
-> The board's devicetree is not upstream yet. The timings were taken with
-> a temporary print in mtk_rng_wait_ready().
-> ---
->  drivers/char/hw_random/mtk-rng.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+From: Suyuan Wang <stevewong@hust.edu.cn>
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+mem_dev is set up with device_initialize() and device_add(), but it is
+freed with a plain kfree(), both on the device_add() error path and on
+module exit:
+
+    device_del(mem_dev);
+    kfree(mem_dev);
+
+It has no release() callback either. Freeing an initialized device with
+kfree() skips the final put_device() and device_release(). On module
+unload this leaks the device name and the device_private allocated by
+device_add(), and on the device_add() error path at least the name is
+leaked. The leak is small, and the fix is to free the device the way
+the driver core expects.
+
+Give mem_dev a release() callback that frees it, and use put_device()
+on the error path and device_unregister() in mshv_vtl_exit(). Nothing
+else changes: the devm_memremap_pages() mapping is still torn down by
+device_del() as before.
+
+Found with a static analysis tool and checked by hand.
+
+Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
+---
+Compile tested with CONFIG_MSHV_VTL=y only, I don't have an OpenHCL
+setup to run it.
+---
+ drivers/hv/mshv_vtl_main.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/hv/mshv_vtl_main.c b/drivers/hv/mshv_vtl_main.c
+index 2d4fe24cecbf..bbf43330e129 100644
+--- a/drivers/hv/mshv_vtl_main.c
++++ b/drivers/hv/mshv_vtl_main.c
+@@ -1346,6 +1346,11 @@ static struct miscdevice mshv_vtl_low = {
+ 	.minor = MISC_DYNAMIC_MINOR,
+ };
+ 
++static void mshv_vtl_mem_dev_release(struct device *dev)
++{
++	kfree(dev);
++}
++
+ static int __init mshv_vtl_init(void)
+ {
+ 	int ret;
+@@ -1412,17 +1417,18 @@ static int __init mshv_vtl_init(void)
+ 	}
+ 
+ 	device_initialize(mem_dev);
++	mem_dev->release = mshv_vtl_mem_dev_release;
+ 	dev_set_name(mem_dev, "mshv vtl mem dev");
+ 	ret = device_add(mem_dev);
+ 	if (ret) {
+ 		dev_err(dev, "mshv vtl mem dev add: %d\n", ret);
+-		goto free_mem;
++		goto put_mem;
+ 	}
+ 
+ 	return 0;
+ 
+-free_mem:
+-	kfree(mem_dev);
++put_mem:
++	put_device(mem_dev);
+ free_low:
+ 	misc_deregister(&mshv_vtl_low);
+ free_hvcall:
+@@ -1439,8 +1445,7 @@ static int __init mshv_vtl_init(void)
+ 
+ static void __exit mshv_vtl_exit(void)
+ {
+-	device_del(mem_dev);
+-	kfree(mem_dev);
++	device_unregister(mem_dev);
+ 	misc_deregister(&mshv_vtl_low);
+ 	misc_deregister(&mshv_vtl_hvcall_dev);
+ 	misc_deregister(&mshv_vtl_sint_dev);
+
+---
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+change-id: 20261112-hyperv-55c5333ce654
+
+Best regards,
+--  
+Suyuan Wang <shyckless@gmail.com>
+
+
