@@ -1,45 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794444255;
-	b=01lY87tIwN6wDmNOXycRzT+rLB2VZZa65kZuzNmyEbZY2GncZXvkiG6QOzgQkdxQ+MD0
-	 3fvBvccLo78TsQT/VGh2mu6xmYfBxGW0ayQ5Ip1q/RIBT2C7+i7EymA2ScVddf5Tp8nJp
-	 GzpNWBatYs/5WbUWs/bIWPM9KjxMyKBXAAsWqh0E9cnsGMt0C7csQZm9CrifRax8UxrsX
-	 1MWUwQ8kckeExZSg8FO8KFWfhoQ1enyM1WA0cjYO5kYHDVfQz6tkUxYts7yYrb2nTJ2cw
-	 zjxYHuJ7RekZf7VmTwZRBbAomuz+fckMnvjKPEZy15Afe66oq2+BRLDl4MOhDvjQcQA==
+	t=1794444328;
+	b=SX0sLqsPzkXT1Hg4f+zMLE8De8y2L+JeRqw3JyPL8P6OFEa8Hu+6DtHsDNMnbK1plE0y
+	 3ROxH8/WVOP0uk7uof/WEFzLOc34woBPLaLuhFsV182vE12X18M9PQhLtqCMEHpWSoobN
+	 b34ZvX+yk0km/vNzcOXCxs9vaZ5EIAnF/ToNalTYSBqPE35hTzuvzpjifQlzH5mMCDccu
+	 Ox/TZxcU15zK64LKGnUZwq6M/Xkb/zWgKWP6Sw6HeB4i8WANcAl65Acxk6LZotXRePTJw
+	 Z9S4NrHsWlbovD10o3n2yJxel1Gi9wORc4/RJDvZr8fiXijo/2uGBY/lUunqUmm4o8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794444255;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=gjKALxOJFxG8UPiX46nDuXcwHUPMssJRgdYUqts3/dE=;
-	b=j5c+g5ROMYLh/2mfoUJPEofHiSfKWBjKVDSZudxkOqXr9o955ptMUUShzII179xts9BX
-	 ta3owzd8Uwbbc8yZLpMsMSvbHyEapM7WU8VdYfEMOubGqOEOUwuj1UDGZX5kqHjuxz+fg
-	 QzmT3Eu8KPoABRGU6IwTC+lsFA/a0mAIDcr6z1vIn8Dh1rZQ+rdfm9UUCkUV90CCyMmeT
-	 bA2ZtENDjuDYNyXtZDtR+1KbqbktXhJIxE0VNJD3rNBNzcSZg5F2MJUIO4rGreItWLhnd
-	 CaTjNuTsG1GQ6lnSEuihAVFoP/jcJlRfEpOydnG+xY4MbnImXvPjXG1V0hQg4etO9eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794444328;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=/9/b7fpxXybSpCPhzGmeCmyKWhnWmULZFd9jZs6GAL8=;
+	b=j3XE4vADzTm3yiqPfI1LlmbybSscj73luBwoQ2/UDlHITLgTIUc5UVTNRsDpVPOrRD7r
+	 3eeQJmMWqwd4raBjhYmhvrVZA0OdTJQZJsJ0lAeNz2GP35+tt04CO8s/MYiqe+Rg+LRuC
+	 4OJaFjBW5m2MszCnMZW8nmVWdzpfQuYpDUkyQCg5sqcR7tTRZAckJLi4VfJBcOu1+9IdH
+	 H9TBuOqbo0CNC8VM6b4kTJaeCKoZj2g+fFj7DBcSxLSeCtkiCHrpu90gVq7bK5Y2209Cc
+	 bCBJkMSQJPgJLnTrfJnugjPOxd6FtDugA2JSgH7Y9tPy3DsqYE5o9kNo1gVK7Ckx/tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mzxajcvg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9HOEMoi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407E6606A321;
-	Thu, 12 Nov 2026 00:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50123606A31C;
+	Thu, 12 Nov 2026 00:45:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mzxajcvg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7443D1F00A05;
-	Thu, 12 Nov 2026 00:44:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9HOEMoi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5C51F00A05;
+	Thu, 12 Nov 2026 00:45:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794444254;
-	bh=gjKALxOJFxG8UPiX46nDuXcwHUPMssJRgdYUqts3/dE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=mzxajcvgAkvhwfEdzB25fKJhTZUHAj8SD/wf32E1pJNu9cPU8MKu+RYBrTFytCT1k
-	 4fheQAzH4EgEJGVM7XuXSjUY3biTBc+lB0i+++l2lqAYb4/oBECVoUnX4MB1PM2Hx4
-	 n8X5uYdMXQoNHFZdP7h9XW2sMMfLd4jbKtw8JEWubCRJv8mOxD7d3Lb9dVxkB+dRWq
-	 ndNp0JjHE7Y98RJZO90TIC7zf62VB/NfO8d00KNtbZKLbn448dFBpxqrP3lwG87DFA
-	 Ac8CuMRduxFB0bUCM7dz6d13H9rB/uzpFOn7d9e+c1nrRW0BR9ooHV5Y5o1YDZdIkT
-	 3FVIalTGAYpMw==
+	s=k20260515; t=1794444327;
+	bh=/9/b7fpxXybSpCPhzGmeCmyKWhnWmULZFd9jZs6GAL8=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=g9HOEMoiLFmV0fvgqewSJFUQq1YBNtBhDKGVxlry0Db6KrH0BiZB5Whk9KaUHq4Oz
+	 GsLtRNBYD+mwr4BH/I29JXeToTSqUAo2bh8kRZgdsMVC/9MgL62aP+WKLS8LLhVvd6
+	 jhjxG9RyWVsvfjz+94HH4kI34lvswyDlfME6TRUlYtrsZBn9ioQjN8dRHYmS+9UvS0
+	 iITMNA/eNVzu32Mad8fZ7UwuwcasBSjCGxIoju+Gh2rlGkflZD1RgSjRdF2oQXlJar
+	 juGsQej+afyzqbcBOrdwhB8v/xg4fMjsxGQuCcoHpgvV8jHBuUkq+2CzuLOV1SDwNY
+	 6blonGzzPPy7Q==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 94015CE08D0; Wed, 11 Nov 2026 16:45:27 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:45:27 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-kernel@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org
+Subject: Re: [PATCH v2 6/7] rcutorture: Test the irqsave forms of atomic SRCU
+ readers
+Message-ID: <8e1c9b39-84fa-484e-8e08-ad543d8d94f5@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
+ <20261111145949.70845-7-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,236 +71,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 3/5] clk: stm32: Add STM32MP25 SYSCFG clock driver
-From: Brian Masney <masneyb@kernel.org>
-To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Christophe Roullier <christophe.roullier@foss.st.com>, 
- Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Brian Masney <masneyb@kernel.org>
-In-Reply-To: <20261110-ups_mp25_clk_syscfg-v2-3-624559bb8ec7@foss.st.com>
-References: <20261110-ups_mp25_clk_syscfg-v2-0-624559bb8ec7@foss.st.com>
- <20261110-ups_mp25_clk_syscfg-v2-3-624559bb8ec7@foss.st.com>
-Date: Wed, 11 Nov 2026 19:44:08 -0500
-Message-Id: <179444424838.1126566.15847633472676891180.b4-review@b4>
-X-Mailer: b4 0.17-dev-7ca47
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7204; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=TiNTrbXao3sKZzrEQ2J3r1cIhFom2KEL9P62Ql6x9l8=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK+ct9Sknq0Ry+unclc8lRjrZzp67Z+oyfTGay7Fy1rc
- Frdo7ixo5SFQYyLQVZMkWVJrlFBROoq23t3NFlg5rAygQxh4OIUgIl4nWdkmOfSeCji/1arRofp
- NknnhTx8mw+ls+8/OLH228L/bAW+HAz/zL623bin+0onUEJvJ6+m7f9vElw3P09oVInZJpr1uFO
- GFwA=
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111145949.70845-7-mathieu.desnoyers@efficios.com>
 
-Hi Gabriel,
+On Wed, Nov 11, 2026 at 09:59:48AM -0500, Mathieu Desnoyers wrote:
+> Nothing tests srcu_read_lock_atomic_irqsave() and
+> srcu_read_unlock_atomic_irqrestore(). Testing them in the normal readers
+> has two obstacles. rcutorture_one_extend() ends the readers of a CPU in
+> any order, but each irqrestore restores the state its own irqsave saw.
+> A reader extension may also enable interrupts or bottom halves within
+> a reader, which an irqsave reader forbids.
+> 
+> Add an atomic_irqsave module parameter. With it, the atomic readers of
+> each CPU alternate between the plain and the irqsave forms. A per-CPU
+> count tracks the irqsave readers: the first one saves the interrupt
+> state, and only the last one restores it. The others restore the
+> current state, with interrupts disabled. The irqsave readers run only
+> for a torture type without reader extensions: every srcu type but
+> busted_srcud. The parameter also stops readers from ending under
+> ->pi_lock, which would enable interrupts under a raw spinlock.
+> 
+> An irqsave reader checks that interrupts are still disabled when it
+> ends.
+> 
+> Add an atomic-srcu-irqsave run of SRCU-P to torture.sh.
+> 
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-> On STM32MP23x and STM32MP25x, the LTDC pixel clock is selected in the
-> SYSCFG DISPLAYCLKCR register among the DSI PHY byte lane clock, the LVDS
-> PHY pixel clock (reset value) and the LTDC kernel clock, the latter
-> being the one needed by the RGB (DPI) output.
-> 
-> No driver registers this clock, so the selection can't be changed from
-> its reset value and a display connected to the LTDC RGB output can't
-> work.
-> 
-> Add a driver registering this clock as a mux. The SYSCFG node is bound
-> to the STM32MP2 SYSCFG driver, which populates its sub-nodes, so the
-> driver is probed from the "st,stm32mp25-syscfg-clk" clock-controller
-> sub-node and uses the regmap of the parent SYSCFG node. The mux parents
-> are taken from the "clocks" property of the sub-node, and the clock is
-> exposed through a onecell provider so that the other SYSCFG clocks can
-> be added later.
-> 
-> Co-developed-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Again, much improved, thank you!
+
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+
+There may come a time when fault isolation requires testing *only*
+atomic SRCU _irqsave(), but let's avoid complicating things unless and
+until that actually happens.
+
+							Thanx, Paul
+
 > ---
->  drivers/clk/stm32/Kconfig                |  11 +++
->  drivers/clk/stm32/Makefile               |   1 +
->  drivers/clk/stm32/clk-stm32mp25-syscfg.c | 134 +++++++++++++++++++++++++++++++
->  3 files changed, 146 insertions(+)
->
-> diff --git a/drivers/clk/stm32/Kconfig b/drivers/clk/stm32/Kconfig
-> index 5dbd75cde657..a298983f5511 100644
-> --- a/drivers/clk/stm32/Kconfig
-> +++ b/drivers/clk/stm32/Kconfig
-> @@ -39,5 +39,16 @@ config COMMON_CLK_STM32MP257
->  	help
->  	  Support for stm32mp25x SoC family clocks.
+>  kernel/rcu/rcutorture.c                       | 80 +++++++++++++++++--
+>  .../selftests/rcutorture/bin/torture.sh       |  6 ++
+>  2 files changed, 81 insertions(+), 5 deletions(-)
+> 
+> diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
+> index 9889293c968b..2ec461414263 100644
+> --- a/kernel/rcu/rcutorture.c
+> +++ b/kernel/rcu/rcutorture.c
+> @@ -61,6 +61,8 @@ MODULE_AUTHOR("Paul E. McKenney <paulmck@linux.ibm.com> and Josh Triplett <josh@
+>  #define RCUTORTURE_RDR_MASK_1	(0xff << RCUTORTURE_RDR_SHIFT_1)
+>  #define RCUTORTURE_RDR_SHIFT_2	16	// Put SRCU index in upper bits.
+>  #define RCUTORTURE_RDR_MASK_2	(0xff << RCUTORTURE_RDR_SHIFT_2)
+> +#define SRCU_TORTURE_IRQSAVE	0x80	// In an SRCU reader index (MASK_1 or _2):
+> +					//  the atomic reader disabled interrupts.
+>  #define RCUTORTURE_RDR_BH	0x01	// Extend readers by disabling bh.
+>  #define RCUTORTURE_RDR_IRQ	0x02	//  ... disabling interrupts.
+>  #define RCUTORTURE_RDR_PREEMPT	0x04	//  ... disabling preemption.
+> @@ -134,6 +136,8 @@ torture_param(int, preempt_interval, MSEC_PER_SEC, "Interval between preemptions
+>  torture_param(int, read_exit_delay, 13, "Delay between read-then-exit episodes (s)");
+>  torture_param(int, read_exit_burst, 16, "# of read-then-exit bursts per episode, zero to disable");
+>  torture_param(int, reader_flavor, SRCU_READ_FLAVOR_NORMAL, "Reader flavors to use, one per bit.");
+> +torture_param(bool, atomic_irqsave, false,
+> +	      "Atomic SRCU readers alternate per CPU with irqsave readers");
+>  torture_param(int, shuffle_interval, 3, "Number of seconds between shuffles");
+>  torture_param(int, shutdown_secs, 0, "Shutdown time (s), <= zero to disable.");
+>  torture_param(int, stall_cpu, 0, "Stall duration (s), zero to disable.");
+> @@ -732,6 +736,69 @@ static void srcu_torture_init_forbidden_apis(void)
+>  	cur_ops->start_gp_poll = NULL;
+>  }
 >  
-> +config COMMON_CLK_STM32MP25_SYSCFG
-> +	tristate "Clock driver for stm32mp25x SYSCFG clocks"
-> +	depends on COMMON_CLK_STM32MP257
-
-Note for my future reference: The common has || COMPILE_TEST already.
-
-Also add:
-
-depends on SOC_STM32MP2 || COMPILE_TEST
-
-> +	select MFD_SYSCON
-> +	default COMMON_CLK_STM32MP257
-> +	help
-> +	  Support for the clocks provided by the stm32mp25x SYSCFG, i.e.
-> +	  the LTDC pixel clock source selection between the LTDC kernel
-> +	  clock (RGB output), the LVDS PHY pixel clock and the DSI byte
-> +	  lane clock.
+> +/*
+> + * With atomic_irqsave, every other atomic SRCU reader of a CPU disables
+> + * interrupts instead of preemption.  rcutorture_one_extend() may end the
+> + * readers of a CPU in any order, so the first one saves the interrupt state
+> + * and the last one restores it.  No extension may enable interrupts or bottom
+> + * halves within such a reader.  So the irqsave readers run only for a torture
+> + * type without extendables: every srcu type but busted_srcud.  No reader may
+> + * end under ->pi_lock.
+> + */
+> +static bool srcu_torture_irqsave_on;
 > +
->  endif
+> +struct srcu_torture_irqsave {
+> +	unsigned int count;	// Picks the form of the next reader.
+> +	int depth;		// Readers of this CPU that disabled interrupts.
+> +	unsigned long flags;	// Interrupt state before the first one.
+> +};
+> +
+> +static DEFINE_PER_CPU(struct srcu_torture_irqsave, srcu_torture_irqsave);
+> +
+> +static void srcu_torture_init_irqsave(void)
+> +{
+> +	if (!atomic_irqsave || !(reader_flavor & SRCU_READ_FLAVOR_ATOMIC) ||
+> +	    cur_ops->extendables)
+> +		return;
+> +	srcu_torture_irqsave_on = true;
+> +	cur_ops->no_pi_lock = 1;
+> +	VERBOSE_TOROUT_STRING("srcu_torture_init atomic SRCU, irqsave readers");
+> +}
+> +
+> +static int srcu_torture_read_lock_atomic(void)
+> +{
+> +	struct srcu_torture_irqsave *stip;
+> +	unsigned long flags;
+> +	int idx;
+> +
+> +	if (!srcu_torture_irqsave_on || in_nmi() ||
+> +	    !(this_cpu_inc_return(srcu_torture_irqsave.count) & 0x1))
+> +		return srcu_read_lock_atomic(srcu_ctlp);
+> +	idx = srcu_read_lock_atomic_irqsave(srcu_ctlp, flags);
+> +	stip = this_cpu_ptr(&srcu_torture_irqsave);
+> +	if (!stip->depth++)
+> +		stip->flags = flags;
+> +	return idx | SRCU_TORTURE_IRQSAVE;
+> +}
+> +
+> +static void srcu_torture_read_unlock_atomic(int idx)
+> +{
+> +	struct srcu_torture_irqsave *stip;
+> +	unsigned long flags;
+> +
+> +	if (!(idx & SRCU_TORTURE_IRQSAVE)) {
+> +		srcu_read_unlock_atomic(srcu_ctlp, idx);
+> +		return;
+> +	}
+> +	idx &= ~SRCU_TORTURE_IRQSAVE;
+> +	WARN_ON_ONCE(!irqs_disabled());  // Its section must be interrupts-off.
+> +	stip = this_cpu_ptr(&srcu_torture_irqsave);
+> +	local_save_flags(flags);  // Disabled: keep it so for the other readers.
+> +	if (!WARN_ON_ONCE(stip->depth <= 0) && !--stip->depth)
+> +		flags = stip->flags;
+> +	srcu_read_unlock_atomic_irqrestore(srcu_ctlp, idx, flags);
+> +}
+> +
+>  static void srcu_torture_init(void)
+>  {
+>  	rcu_sync_torture_init();
+> @@ -751,6 +818,7 @@ static void srcu_torture_init(void)
+>  		srcu_ctlp = &srcu_ctla;
+>  		VERBOSE_TOROUT_STRING("srcu_torture_init atomic SRCU");
+>  		srcu_torture_init_forbidden_apis();
+> +		srcu_torture_init_irqsave();
+>  	}
+>  }
 >  
-> diff --git a/drivers/clk/stm32/Makefile b/drivers/clk/stm32/Makefile
-> index e04727b59449..8088d172651f 100644
-> --- a/drivers/clk/stm32/Makefile
-> +++ b/drivers/clk/stm32/Makefile
-> @@ -2,3 +2,4 @@ obj-$(CONFIG_COMMON_CLK_STM32MP135)	+= clk-stm32mp13.o clk-stm32-core.o reset-st
->  obj-$(CONFIG_COMMON_CLK_STM32MP157)	+= clk-stm32mp1.o reset-stm32.o
->  obj-$(CONFIG_COMMON_CLK_STM32MP215)	+= clk-stm32mp21.o clk-stm32-core.o reset-stm32.o
->  obj-$(CONFIG_COMMON_CLK_STM32MP257)	+= clk-stm32mp25.o clk-stm32-core.o reset-stm32.o
-> +obj-$(CONFIG_COMMON_CLK_STM32MP25_SYSCFG)	+= clk-stm32mp25-syscfg.o
-> diff --git a/drivers/clk/stm32/clk-stm32mp25-syscfg.c b/drivers/clk/stm32/clk-stm32mp25-syscfg.c
-> new file mode 100644
-> index 000000000000..69b9a7592838
-> --- /dev/null
-> +++ b/drivers/clk/stm32/clk-stm32mp25-syscfg.c
-> @@ -0,0 +1,134 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) STMicroelectronics 2023 - All Rights Reserved
-
-It's currently 2026.
-
-> + * Author: Gabriel Fernandez <gabriel.fernandez@foss.st.com> for STMicroelectronics.
-> + */
+> @@ -790,9 +858,9 @@ static int srcu_torture_read_lock(void)
+>  		ret += idx << 3;
+>  	}
+>  	if (reader_flavor & SRCU_READ_FLAVOR_ATOMIC) {
+> -		idx = srcu_read_lock_atomic(srcu_ctlp);
+> -		WARN_ON_ONCE(idx & ~0x1);
+> -		ret += idx << 4;
+> +		idx = srcu_torture_read_lock_atomic();
+> +		WARN_ON_ONCE(idx & ~(0x1 | SRCU_TORTURE_IRQSAVE));
+> +		ret += ((idx & 0x1) << 4) | (idx & SRCU_TORTURE_IRQSAVE);
+>  	}
+>  	return ret;
+>  }
+> @@ -832,9 +900,10 @@ srcu_read_delay(struct torture_random_state *rrsp, struct rt_read_seg *rtrsp)
+>  
+>  static void srcu_torture_read_unlock(int idx)
+>  {
+> -	WARN_ON_ONCE((reader_flavor && (idx & ~reader_flavor)) || (!reader_flavor && (idx & ~0x1)));
+> +	WARN_ON_ONCE((reader_flavor && (idx & ~(reader_flavor | SRCU_TORTURE_IRQSAVE))) ||
+> +		     (!reader_flavor && (idx & ~0x1)));
+>  	if (reader_flavor & SRCU_READ_FLAVOR_ATOMIC)
+> -		srcu_read_unlock_atomic(srcu_ctlp, (idx & 0x10) >> 4);
+> +		srcu_torture_read_unlock_atomic(((idx & 0x10) >> 4) | (idx & SRCU_TORTURE_IRQSAVE));
+>  	if (reader_flavor & SRCU_READ_FLAVOR_FAST_UPDOWN)
+>  		srcu_read_unlock_fast_updown(srcu_ctlp,
+>  					     __srcu_ctr_to_ptr(srcu_ctlp, (idx & 0x8) >> 3));
+> @@ -1019,6 +1088,7 @@ static void srcud_torture_init(void)
+>  		WARN_ON(init_srcu_struct_atomic(&srcu_ctld));
+>  		VERBOSE_TOROUT_STRING("srcud_torture_init atomic SRCU");
+>  		srcu_torture_init_forbidden_apis();
+> +		srcu_torture_init_irqsave();
+>  	} else {
+>  		WARN_ON(init_srcu_struct(&srcu_ctld));
+>  	}
+> diff --git a/tools/testing/selftests/rcutorture/bin/torture.sh b/tools/testing/selftests/rcutorture/bin/torture.sh
+> index e7b578ec152f..18a03fad1038 100755
+> --- a/tools/testing/selftests/rcutorture/bin/torture.sh
+> +++ b/tools/testing/selftests/rcutorture/bin/torture.sh
+> @@ -519,6 +519,12 @@ then
+>  	torture_set "atomic-srcu" tools/testing/selftests/rcutorture/bin/kvm.sh \
+>  		--allcpus --duration "$duration_rcutorture" \
+>  		--configs "$configs_atomic_srcu" --trust-make
 > +
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/err.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +
-> +#include <dt-bindings/clock/st,stm32mp25-syscfg-clk.h>
-> +
-> +#define SYSCFG_DISPLAYCLKCR		0x5000
-> +#define DISPLAYCLKCR_DPIVSLVDS		GENMASK(1, 0)
-> +
-> +#define STM32MP25_SYSCFG_NUM_CLKS	(CK_SYSCFG_PIX_LTDC + 1)
-> +
-> +/*
-> + * The LTDC pixel clock source is selected in SYSCFG_DISPLAYCLKCR among
-> + * the DSI byte lane clock, the LVDS PHY pixel clock (reset value) and
-> + * the LTDC kernel clock, which is used with the RGB (DPI) output.
-> + *
-> + * The parents are listed in the DPIVSLVDS field order, while .index refers
-> + * to the "clocks" property of the node, ordered "ltdc", "lvds", "dsi" so
-> + * that the inputs missing on a SoC can be omitted at the end of the list.
-> + */
-> +static const struct clk_parent_data clk_pix_ltdc_parents[] = {
-> +	{ .index = 2 },	/* dsi */
-> +	{ .index = 1 },	/* lvds */
-> +	{ .index = 0 },	/* ltdc */
-> +};
-> +
-> +struct stm32mp25_syscfg_mux {
-> +	struct clk_hw hw;
-> +	struct regmap *regmap;
-> +};
-> +
-> +static inline struct stm32mp25_syscfg_mux *to_syscfg_mux(struct clk_hw *hw)
-> +{
-> +	return container_of(hw, struct stm32mp25_syscfg_mux, hw);
-> +}
-> +
-> +static u8 stm32mp25_syscfg_mux_get_parent(struct clk_hw *hw)
-> +{
-> +	struct stm32mp25_syscfg_mux *mux = to_syscfg_mux(hw);
-> +	unsigned int val;
-> +
-> +	regmap_read(mux->regmap, SYSCFG_DISPLAYCLKCR, &val);
-
-regmap return value is not checked and val is uninitialized if an error
-occurs.
-
-> +
-> +	return FIELD_GET(DISPLAYCLKCR_DPIVSLVDS, val);
-> +}
-> +
-> +static int stm32mp25_syscfg_mux_set_parent(struct clk_hw *hw, u8 index)
-> +{
-> +	struct stm32mp25_syscfg_mux *mux = to_syscfg_mux(hw);
-> +
-> +	return regmap_update_bits(mux->regmap, SYSCFG_DISPLAYCLKCR,
-> +				  DISPLAYCLKCR_DPIVSLVDS,
-> +				  FIELD_PREP(DISPLAYCLKCR_DPIVSLVDS, index));
-> +}
-> +
-> +static const struct clk_ops stm32mp25_syscfg_mux_ops = {
-> +	.get_parent = stm32mp25_syscfg_mux_get_parent,
-> +	.set_parent = stm32mp25_syscfg_mux_set_parent,
-> +	.determine_rate = clk_hw_determine_rate_no_reparent,
-> +};
-> +
-> +static int stm32mp25_syscfg_clk_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct clk_hw_onecell_data *clk_data;
-> +	struct clk_init_data init = { };
-> +	struct stm32mp25_syscfg_mux *mux;
-> +	int ret;
-
-Put in reverse Christmas tree order.
-
-> +
-> +	clk_data = devm_kzalloc_flex(dev, *clk_data, hws,
-> +				     STM32MP25_SYSCFG_NUM_CLKS);
-> +	if (!clk_data)
-> +		return -ENOMEM;
-> +
-> +	clk_data->num = STM32MP25_SYSCFG_NUM_CLKS;
-> +
-> +	mux = devm_kzalloc_obj(dev, *mux);
-> +	if (!mux)
-> +		return -ENOMEM;
-> +
-> +	/* The mux is a sub-node of the SYSCFG, whose regmap it shares */
-> +	mux->regmap = syscon_node_to_regmap(dev->parent->of_node);
-
-Instead of dev->parent->of_node, you can use:
-
-    struct device_node *np __free(device_node) = of_get_parent(dev->of_node);
-    mux->regmap = syscon_node_to_regmap(np);
-
-> +	if (IS_ERR(mux->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(mux->regmap),
-> +				     "failed to get the SYSCFG regmap\n");
-> +
-> +	init.name = "clk_pix_ltdc";
-> +	init.ops = &stm32mp25_syscfg_mux_ops;
-> +	init.parent_data = clk_pix_ltdc_parents;
-> +	init.num_parents = ARRAY_SIZE(clk_pix_ltdc_parents);
-> +	init.flags = CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT;
-
-clk_hw_determine_rate_no_reparent() already prevents reparenting, so
-CLK_SET_RATE_NO_REPARENT is redundant here. It doesn't hurt anything
-though.
-
-Brian
-
--- 
-Brian Masney <masneyb@kernel.org>
+> +	# Half the readers then use srcu_read_lock_atomic_irqsave().
+> +	torture_bootargs="rcutorture.reader_flavor=0x10 rcutorture.atomic_irqsave=1"
+> +	torture_set "atomic-srcu-irqsave" tools/testing/selftests/rcutorture/bin/kvm.sh \
+> +		--allcpus --duration "$duration_rcutorture" \
+> +		--configs "SRCU-P" --trust-make
+>  fi
+>  
+>  if test "$do_locktorture" = "yes"
+> -- 
+> 2.47.3
+> 
