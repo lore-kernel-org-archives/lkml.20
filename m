@@ -1,67 +1,137 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474658;
-	b=HgOp1UNibHZf/OSS33xZ27XHOrAmOGPSnU4qMutm34vMjux54r+25oDfncY80Zzkm7+4
-	 Zbzymxz2Owqdz3wczCB4fX4F2L7/11/n5TMFRF8DBa2p489z0EYwH9OIyVjhYzb+kJ7R4
-	 ue0AIQFEap/+gOXJAEyGja7lYCfL/o91h8AOXkIcuqT3+d9YWXuNk4I5Y+1cAI2hb5h7H
-	 IqGAPjKtHosprcyj7tMyfyzRHGePJwcgYhYFWfiSk7X3A0dJLmTBNbdtYHAQ/gRz8EjgO
-	 KJNOmo7qE6/1AcNlnPSv5Fv9KTtt3VCOl4t8obxJOZzw7XKQvzf1FLmA7m+do/7ekUQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474658;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=kL5yNFxOQr1bNwj2yp9xsvwd7EvfVdlHCAwOgWjtFQ8=;
-	b=PTLeOY3QDrBLrZlxpZJx/bPgn03zEqpPTZicBQcnb4evXaK0e71CweK/pcxDBhlUTD/u
-	 PXLzQzw+psey1/VMO5z+y1DbmoSYLinXPORLlMcL4+jAHn9g1ljiMGjTn3ho4jF/MXJCB
-	 BJGTxdPJWlkBBxgkwfPPEke2NTmJWjIh30mQPtFyIML7J1juC96f87lhmMjcbclJtXhWq
-	 qCiT/3Y0Cx40NPFT5mcQ0rwQctWRp0QISgnPgjxa7PYmY1OszNKPO4fu+aAOHusN9wPl7
-	 1fl+DUlo3vOwhFoWMZAV3Mhxi7upAwQSJs8zTNBhtQEGPmE1D+FVtS68C6T1PyydHeg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=F8Is5QRG;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794474664;
+	b=ZwwAQclbj/Hq+5hgAo3K3PQW7Hx9YR1DFcur6LttXCXW6IzA17ct/R69sHLP56JeTFDr
+	 nNQPsg0LRwkC0lCadbHt2p6rkKnqG5i34y+BTz/ODoT5D0zIaPrXMUqL/VXns6DBnn0ZC
+	 nF8r4uhyN3HkWbrTpDWfXnoToyC7EZsZecl0XC+oQQJAeagbFVUXIJh+cJauQKOfhx/04
+	 hYJ1qjwuWjA4whHFkiIVuUY96AH2jjRefH47HPXSIYJI56BEGU2cwhA6w2ko+zsuk9TjH
+	 IlddhFBGNhDkIDspWrzjt3EznrZZ/g76GY51PstBZbNUP1lKJkifR8bfIQV089fLAUQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474664;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=r78bJvOS+YOiPXNO3v++qrthGLT7Dlv3Zf3pQmblGtg=;
+	b=CXpyxW+NybJpEYxENlrD8EXRyrtR1lF0TYdwZqFkHuuozGI2i2l2mdk3qF4blYgF1VZq
+	 V8uPk1153TS9vK8GjMLBGNORzgl/4MDUCCmwYAjPPiuTF4VmnFust63ZRO+0tjGoY00fV
+	 1Jqby/yRxKekJwvgLX6dNggx23QBEbZRY/+Qgd2oqsKrEKbmvsHFftNeHDHhnthldtlPK
+	 ZLVxYeJXw7OgjUeJIFaOarg3tEHuqLhpinoMDyAspjs32mSwbEDajMx64ZlvvNSUjlxLm
+	 Imxm8WxFUlPt16wUF+P3TqJO8AYkRykosJkfOZjErkPcTY80J7nqwf9Lc7qnBLAoENA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b="pCH6/XWj";
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=XWi1Mqcz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E162606A31C;
-	Thu, 12 Nov 2026 09:10:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E162606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F020606A31C;
+	Thu, 12 Nov 2026 09:11:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F020606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=F8Is5QRG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794474612;
-	bh=kL5yNFxOQr1bNwj2yp9xsvwd7EvfVdlHCAwOgWjtFQ8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=F8Is5QRGRArslT0hQqs17+XCYi0XDx8/8CkFCti4JQVvG38wgGUX5j/QelAP40pdd
-	 Y94psaF1g5cgAQKo7UYaWm/xQclNCD9K/jdJvSk+1ky71HcdScColWSFNesdFld3HF
-	 ldO6dJBLI97Celqvk2R9VmG05yJdsiibTLNBsk5M=
-X-QQ-mid: esmtpgz11t1794474596t6e10af42
-X-QQ-Originating-IP: Ia2ZFIUMrwIr2+SQEeFPwzme45b8gAUcBlQNMeYD3iY=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 12 Nov 2026 17:09:55 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 5409456588328214645
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: rafael@kernel.org
-Cc: lenb@kernel.org,
-	sakari.ailus@linux.intel.com,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] ACPI: property: Fix leaked buffers after skipped properties
-Date: Thu, 12 Nov 2026 17:09:54 +0800
-Message-ID: <DC796DD7AB1437C8+20261112090954.1388267-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=pCH6/XWj;
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=XWi1Mqcz
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC7N4Fv2098017;
+	Thu, 12 Nov 2026 03:10:57 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=r78bJvOS+YOiP
+	XNO3v++qrthGLT7Dlv3Zf3pQmblGtg=; b=pCH6/XWjpgfOb5P4fUFTsITWZowcJ
+	als3ENvOKi6ILMd1JgCLDIvk+VZcpDYQ+ygKD08hPudB08JRmE9oMIMkQ82T6cia
+	35LqvZQhI3VK75dKwNpVg/l1DfvBCVXjGoKqFlEjFvu8uLZ7tDvRGSaheBciXzyB
+	MDHioNzSOvyo1/DChyLfWedKtu5vV3nTsOPYtNNUp+FsK+R/+OLeDNrapJjb43GI
+	N0HzP8rJh0J/jPK7sfTx1XzoCdbFs3sTThE6ig0aLWepGCCno4mA3eytDy6AhgVd
+	n9amZgNV1qZaW5MN6JvSIVkSP10GiGoj3Q5v9m/eu6TTHdCBi7P0WQzgg==
+Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010031.outbound.protection.outlook.com [52.101.85.31])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hw915gjkv-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 03:10:57 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EZVDKcTpQAZ6cifi0vT/Yk7GAVhjc733FlxWcQgcTLI59sTVyVDK3wVJXWFxJtnVu+6qFlm285rQWZkyQvmLwDERIsJETT5NqFLZBitkB93kHxgtp9S6qtnw2/XKENovKwGzL0YazatCDLxHcrctEkJhRBVXRsk70iz3T+JC2nmK0c2LvbzCgxN4uO1Lj5gjLCEK+UOXP87/j/UkRkUJ/XpkyLvxF7z2s6yZa/XVrZBuHF/D29pn9cRHeEFn8rILhXC++VgcI8jZaJRJQoBbLgK8VxI32/Yc04VEn/05MyUXL7G/ABe/LCfP23JyrGLY/ObeSnl9tGVJqlnA1WDDiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r78bJvOS+YOiPXNO3v++qrthGLT7Dlv3Zf3pQmblGtg=;
+ b=KblU+nJW9qx/cb5ZHnCwEL+VuMFJHuVA+kM8ueM46UROuf82Bo151Tf6n3A7ouGcgVSjxRlU5gPONLa3JkR6qAPiP6jqfsIUWr8sLQr3XlpxyM209F6NUoExpfaZyBZtWCeZDh7YYyHSfNclaAjXIH8AzUqM1AzvzRSjawvbo6DF2lRVKA9v5MlqRP2XUBGHUAUAUZlLWa7fpiKfsaaxGkborSOzbhi55FtFUTCvzMAA4x/ao2SXMSV4TM8i9NXZgt4ujOu9DSIXiYtzdmg72cS6BSPRJorLThVT5onIOF4FuOMGFSteztJoiTHP1x/DPq04Rk3nEb5U5x00Vg7VyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r78bJvOS+YOiPXNO3v++qrthGLT7Dlv3Zf3pQmblGtg=;
+ b=XWi1MqczGBBURit0XDttqFxLics8zTb9OE2sLR8Sth/A/mANOmlvrzA4MK/5CYZKYB+V162p3uOgtG0xlqqAudH2+AGG9xlruI0+pc7y5dU8PESFCygBDDWofBK4YI/EHmCtmtiMsdtN9G1CISkfMMB4T+gBu6/Kg4x5wEyzcm4=
+Received: from CY5PR19CA0050.namprd19.prod.outlook.com (2603:10b6:930:1a::34)
+ by PH9PR10MB782475.namprd10.prod.outlook.com (2603:10b6:510:3e8::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
+ 2026 09:10:54 +0000
+Received: from CY7PEPF000000F0.namprd05.prod.outlook.com
+ (2603:10b6:930:1a:cafe::19) by CY5PR19CA0050.outlook.office365.com
+ (2603:10b6:930:1a::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
+ Nov 2026 09:10:54 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ CY7PEPF000000F0.mail.protection.outlook.com (10.167.247.148) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 09:10:54 +0000
+Received: from DLEE207.ent.ti.com (157.170.170.95) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
+ 2026 03:10:33 -0600
+Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
+ 2026 03:10:33 -0600
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE215.ent.ti.com
+ (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Thu, 12 Nov 2026 03:10:33 -0600
+Received: from moteen-ubuntu-desk.dhcp.ti.com (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AC9ARXw1549289;
+	Thu, 12 Nov 2026 03:10:28 -0600
+From: Moteen Shah <m-shah@ti.com>
+To: <conor+dt@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <nm@ti.com>, <ssantosh@kernel.org>
+CC: <u-kumar1@ti.com>, <gehariprasath@ti.com>, <m-shah@ti.com>,
+        <vigneshr@ti.com>, <afd@ti.com>, <a-limaye@ti.com>,
+        <y-abhilashchandra@ti.com>, <johan@kernel.org>, <kees@kernel.org>,
+        <jm@ti.com>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH v4 0/4] soc: ti: Add TDA54 SCM configuration syscon support
+Date: Thu, 12 Nov 2026 14:40:23 +0530
+Message-ID: <20261112091027.1601122-1-m-shah@ti.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,67 +142,117 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MdX6KBrQ9NyucedZzOI13e4aPRB5YJmtlC4eAyT55xPct3WOATXmnaaO
-	16DLlehhi7M/gaKIloyNAZfvV8e4xf7/22ca21JXvXz+0Lll5DbcdSuFpR2wt/PuzMKYKLK
-	8OW+OUj5k0l3Is+xVkHKvXKEufAHO/JwbJOUCz6BiWcVgF1kGCQVdf7Z/9WmAP66O7OMt4S
-	9XoMVFVO5oXuE6O6cyzDBT9Py0OYL36hkI7KpkQP4Bmd2xk/covkbbpx7wreMmX4h5QLQHA
-	Ebj/GAT1b+C74Lbkqj+5/970gJB1YRsSJGHspurTL8gwva9pBi6vkgK6F3iu9a0i0ceCF35
-	MVkw1eG8Z263Y8S4bM813oSzslE9tT2cdJW3auhOalICe46guFs1qKg2bwRDdDQ21Ftt5/E
-	oC4CYe/SXKnA6eR5nmMiWvAWlTYshq6Q7/iVcmijh1uKji6YVkQvkV0DQ2yW9a74L+zepLQ
-	H5IAdhh7gAgByA4UAFcSe0lAxWMZUsUDUArFypW+CFwghJKyWKnN5kvQtzRpynGnnE9JUMv
-	7zcFewo3Yr8flbUcw1k35M/CpGi7VODW8Qriqf+zdzTzXHVNvL77MzZPjruku3mMikdZ85W
-	XaA6zZD57zl9ppT5yxLBeffBplrRMBbALzuT0P2gm91x3jk3cyHt+hLQaeGbupZMxUJPPfW
-	12k6yEshIYrHt55KuLWAr0r/aRCxX4wgzDoOmpIjiLaUwZvKpMWLhm3HwUtGcmwctDoYRmf
-	QppvN31WnS2Gt3NDxteKxo9TyDRR6GiEXWTaYo6MI1Tpr5CLNf5KDAjTBrR7Vvol+h64Zrs
-	jN18JcpX49f0JBti2G6x9b7QR5gfPIFrYVJke7IWUSjpCb8Wr9ypsqTwkWJADR4L3qAt/aA
-	d1JmnsjLZ+4TiVJwt/mc/Ojq9NsJPcxyU4G2PEDkpBD4gu387yNnAew5T1XN8RCGZ8jEpCI
-	WPEPW/MmciuuyZRpDyxT4JuUY5VjdTnwQe0VQpYZyQ5owRaDxPGNL3qOVsp8dXOdHyeYeF7
-	K2J7M61IuamIc+oGojUStzrBXvmi/bL2qZu2jO6hV7ZcHENtoXTo+ixisrAtY=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY7PEPF000000F0:EE_|PH9PR10MB782475:EE_
+X-MS-Office365-Filtering-Correlation-Id: 401a3f8c-f200-4adf-b3d0-08df409cdaf3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|18002099003|6133799003|261009221227099003|261009223027099003|13003099007|56012099006|261028144727099003|261021121427099003|261102130727099003|261102123227099003|261026140227099003|261026121527099003|261021123027099003|261022105027099003|261022075727099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	jWJ++Eex7y1MUtu5s+Qn40WAFJdt1iofxcIDkgQAvVFyQWmfRYteVzatkZCXpsJEmaSxN6i3zi4GZDk/U8zkZ5PEz1efuOLw68A60PbfLrUShmBkdioNG767aG5SDs23vZDbyHC1kFRXcJlbbKr7v62KPQcp9zufA3oybGDUw8ZDLfl3yL4Wfq87pUUjUmICU2xT8+y9Qkl/t0YO5oil3J4d7x3TwW31lTAN2m6AAt5Wa5YSuxdpNQMU2aiL2pRc2FKhsEo4b6W32JDMrkI7IQ9xpwMZeWueSJm7aMeakFwtLqQx4u7TVa6LmqGv/4Vk54jhGcKaxTtUXOMUMGTYAXGD5KUV97DjozvM9DjMbBAzv0CjD3B/RwcQb1Kyuhh23/xFRBHScS6Uqak4rkssRjMQ+K9oofEv+RX28seLLmTpH3NnRqpJn3WQcEPnnyZ4TZra1NnkCoC1cfNK82QeEFeHMBwAHRivW7TLPtV6O/UxQAykbbdvwAHorwHoh+tM+b1HMEch8SLphgrxae6DO8csAuoJiYPOM9DSDsdZplYrfcr9jNYZaFUJJtDXlWBIY4QN/LaL2TSLai4fFX7u6B1fMaQYoH8ebzdYW170iuViSGmP5V+dnWl8SJSFyR4P9GkEquIa04B4/R/1mhezaw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(18002099003)(6133799003)(261009221227099003)(261009223027099003)(13003099007)(56012099006)(261028144727099003)(261021121427099003)(261102130727099003)(261102123227099003)(261026140227099003)(261026121527099003)(261021123027099003)(261022105027099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	f1SJrJlNF2Ykz6knQ8hYfZtdLlUsf0eiRO6WanBqIu520tPftMMQNwpHYDMrdZEqxlev0pI2HbWMz6t5kl/KxuxQ4xTj9mZvWAGQwtaDOG+7k2sjqHDTOYJTKABp2vEKSfVRwbI+sBWo2uFvGsQsrGYojxREtSTIYSeR6VcMjacHd52Q48S/taJn4lIUC/CwE6CvAB8GVd3UvxxNxE03mkyxILxyhaFa+DgQP/PDGOOF23WYVpeRh4No0DS5e0z5p5zCV1NyfQmVA/+Er8krClgJ88oK3avKDt3uO55ygF7AdrM2WFelSYcO7TLqL1u5xBAwgZNn53d7owEDRZIVtMYEwft7cNyW51wrRvjL89cqYko6FekKkKnBDMv53mnXAOSvy0ytshAheq6CS6K+RxTMkFD9yDpl7YklAEpkYss3C36DnLVAIXa60alh1R97
+X-Exchange-RoutingPolicyChecked:
+	QM6FRTBuF+gvbbvj2Ulkb5hGC2/u3h1SyglFkJDoHZQTTc1jBtDRDH/mTNuzOemkxw7wZr0neY7q3xTkH+va+MtWGTRmNl+JsOxcbJIO0WT0IC/H6x6K7QDjjqnlIZ15NZVvbQpdzQfjmLtpcIhmE0o0UPfO9sSYcfrYICi1eDWEvHp6jWV0Q+moZA51BfweZ5igBrohfFq2M/mHPXHckBc4lqXC1Oiv2RYUf1WKKpFiv/zLaIlZaMrBO1ivQkjyMw1FzxQj5VkVVjhVNBKFfc9sJfwVCD/HSM2eDpsopr4YZ3J0WNfqSixJvxzSwJw+xwrklJKgLOqUoPaQYtQCcQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 09:10:54.1476
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 401a3f8c-f200-4adf-b3d0-08df409cdaf3
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY7PEPF000000F0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR10MB782475
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzNiBTYWx0ZWRfX5Ls/YSExcEYN
+ 3SMLXirsyphGcYYw7RJ5oyfNmLySzck2wf3pepQQbqt/iyPfdPh4XtuvWOgk6rsbD9jLiJAGo5v
+ EA+WFD+hyTKWpiaJj3B7hbR3kPPdWJY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzNiBTYWx0ZWRfXyDlKb/Pj4dNA
+ kam6LdeQjHmPHCvsGUDNV0FuN19et3syIoRz8QRbJXu3lC+0MgvoJqSW1yMa0d90so55OQKR0lb
+ OW6Ptjm/E7s6/FlUr10GMId6Tn4fOtxUcEbuchSE/ynSRyrynRBFAXiJjtUNQZpEQOAlp1X/ciN
+ sk/TTkwEs0OJjbE0oeyT2lP/jFi/u3C1oD5R4vo1aiyTSU2YgRcCXshqeFE2a4hm4DGeKrJiRaG
+ 7bnryF0dRoe8lS4rlDTvHk7SD/PYYSHMjK3s8Rsj8OEG+VW0RKqAfelMm44QOCoNkt1xx52uIaJ
+ YEU8zB3r8oKvv9D/SXrRw0oo8mXDoUAh1LnnvVWaDuFbX5yhgGFPhgYmdcNP/kVv5JmYz87oghO
+ YRB1R5WrDLGEQxzIcPjCHvU5bhONe8nC69oLPP7vu8hijaBt2bzJ6lexV4qn66AG9l9/kll0eKk
+ PKzKs3AgD0uFEgJpY2w==
+X-Authority-Analysis: v=2.4 cv=a8WlZkSF c=1 sm=1 tr=0 ts=6af582a1 cx=c_pps
+ a=mGKQszq4vdWEHw2ByKFqMg==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
+ a=UCzFRFlywXcFtRv7-asA:9
+X-Proofpoint-GUID: d3t8Rp0eUkTkq_Udebjdl8qDNNjwf-r9
+X-Proofpoint-ORIG-GUID: d3t8Rp0eUkTkq_Udebjdl8qDNNjwf-r9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 phishscore=0
+ clxscore=1015 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120036
 
-From: Xu Rao <raoxu@uniontech.com>
+This series adds support for the TDA54 SCM configuration region in the MCU
+domain. The region is shared by several peripherals, so it is exposed as a
+syscon regmap for other drivers to look up by phandle.
 
-acpi_data_add_buffer_props() compacts successfully parsed buffer
-properties into an output package, but stores their separately allocated
-evaluation buffers in props->bufs using the original input index.
-acpi_free_device_properties() only frees entries below the output
-package's successful-property count.
+Patch 1 adds the device tree binding for ti,tda54-mcu-scm-conf.
 
-If a property is skipped because of an invalid format, invalid types or
-a failed object evaluation, later successful entries can be stored past
-the range visited during cleanup. For example, a failed first entry and
-a successful second entry leave the allocation in bufs[1] while cleanup
-only visits bufs[0]. The evaluation buffer is then leaked when the
-properties are destroyed. Lists with no skipped entries do not exhibit
-this mismatch.
+Patch 2 converts the SoC attributes, revision string, and registered SoC device
+in k3-socinfo to device-managed cleanup.
 
-Store each evaluation buffer at the current output count before
-incrementing it. This keeps the ownership array compact and aligned with
-the cleanup bound without changing property order or buffer contents.
+Patch 3 splits the SoC decode and registration logic out of
+k3_chipinfo_probe() into k3_socinfo_register() and exports it, so drivers that
+read the JTAG ID through another access path can reuse the common K3 SoC
+identification logic. It adds the public header declaring the helper.
 
-Fixes: 103e10c69c61 ("ACPI: property: Add support for parsing buffer property UUID")
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Cc: stable@vger.kernel.org
----
- drivers/acpi/property.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Patch 4 adds the TDA54 SCM configuration driver. It provides proxy-aware
+register access with SCM unlock and claim handling, publishes the regmap
+through syscon, and registers TDA54 SoC information through the helper from
+patch 3. The option defaults to m on ARCH_K3.
 
-diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
-index 8ee5a1f0eb48..fb6b214f2335 100644
---- a/drivers/acpi/property.c
-+++ b/drivers/acpi/property.c
-@@ -523,7 +523,7 @@ static void acpi_data_add_buffer_props(acpi_handle handle,
- 		obj->buffer.length = buf_obj->buffer.length;
- 		obj->buffer.pointer = buf_obj->buffer.pointer;
+Changelog:
 
--		props->bufs[i] = buf.pointer;
-+		props->bufs[*count] = buf.pointer;
- 		package++;
- 		(*count)++;
- 	}
---
-2.50.1
+Changes since v3:
+Link to v3: https://lore.kernel.org/all/20261112081047.1550471-1-m-shah@ti.com/
+- Add the missing k3-socinfo public header to the helper patch.
+
+Changes since v2:
+Link to v2: https://lore.kernel.org/all/20261027083700.1964371-1-m-shah@ti.com/
+- Split the k3-socinfo device-managed cleanup changes from the exported SoC
+  registration helper into separate patches.
+
+Changes in v1:
+Link to v1: https://lore.kernel.org/all/20261019080736.944127-1-m-shah@ti.com/
+- No changes to the device tree binding patch.
+- Use devm-managed allocation for the SoC attributes and revision string in
+  k3-socinfo, and simplify the cleanup of the registered SoC device.
+- Enable fast_io for the TDA54 SCM configuration regmap.
+
+Moteen Shah (4):
+  dt-bindings: soc: ti: Document the ti,tda54-mcu-scm-conf
+  soc: ti: k3-socinfo: Use device managed allocations and unregistration
+  soc: ti: k3-socinfo: Export SoC registration helper
+  soc: ti: Add TDA54 SCM configuration syscon support
+
+ .../soc/ti/ti,tda54-mcu-scm-conf.yaml         |  78 +++++++
+ drivers/soc/ti/Kconfig                        |  16 ++
+ drivers/soc/ti/Makefile                       |   1 +
+ drivers/soc/ti/k3-socinfo.c                   | 111 +++++----
+ drivers/soc/ti/tda54-mcu-sysconf.c            | 217 ++++++++++++++++++
+ include/linux/soc/ti/k3-socinfo.h             |  11 +
+ 6 files changed, 391 insertions(+), 43 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-conf.yaml
+ create mode 100644 drivers/soc/ti/tda54-mcu-sysconf.c
+ create mode 100644 include/linux/soc/ti/k3-socinfo.h
+
+-- 
+2.34.1
 
