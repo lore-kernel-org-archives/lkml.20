@@ -1,62 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506963;
-	b=d9wi37E6lzCRK9qV1rGC9nHt8/I8miPZGPPR203emBlIppTf6xX9gA4PwCwHGS+EV4ER
-	 Ug9UvU9o4fNiqmfjgdNWdInK2jGIa0+ecBzBRPE2Mdm64nGiHW37HfTll1c9AdaaFDtnM
-	 0+y4J7x6rx/PYEVnz4jPTuoQSdALVwH5a8MEdeBvg7Q0dUSmyb2iSvEVP8015eJujqf6Y
-	 bBfe3CQoSL1sLq3O2VwncVFElNlv5BcJ9mBG8E0ewQAntSrIm+woJzuoJmbANcDS7sFYB
-	 bNoXJmZXdBFXcVG9yhxpvYpCuom/+d0V5nX4R4Ha+wQOBdmTWwdJXh7I26i4mySrEPg==
+	t=1794506981;
+	b=rZU8we/ZpjoBtsZEYpHJTzeXGTwqHZrIfoMrzxtAH7Y/O0ObZaoT5Jr5KBhIMUJdI7/p
+	 czTXep9lYD/HjNu+WXuhyG5zg/Me/hPDGYM+k7Q+ytl3jhMswxDW07pE16HuwgZZfV5Yo
+	 fc+Z9+u1wObCYDNYK8cWrUwqv3O0Kj07XhYFf2DEziQYtZ4X11tT+VHZ/3VK7rPmBrGRN
+	 WYwyBM6086vUYoJD67YfDNdCX2Ac09lL4TPaBAyCJSmFL6Qo9xpusYV68L3SrRnaDY3RY
+	 8nLz8YTOfpgA34yb3AcH6+LACS7b+bjY0XG10UVXvPWg1zCiTLVT6Klk1cEJJ8r64sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506963;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=sAIJKsddtsG4PZLTb3AFGJ2ogaGi60GX16MSJGzvEmk=;
-	b=hi6hN3GfXP7W81BnABXEjP7OxNTn57hNLYfInubHOlHcylS/MN/U3yLwbVD8XIOs576U
-	 K4O+ya8bDN60YxyiImnEqW5sjR/0sLEw33JKmGe2f/5vPL60GmjgS8s91ERoBwAN2aIGn
-	 oL9yCmAYDxXUiOte0lEnY6z7rZnU47VfzY6hGzZ0PadykSmINLmTacNYbUEk8lybo261+
-	 fDLiX3kwsyMu5BGukiyjji5v5GAx/dmIxzv+yKtdI1a5GPKeAqjG54t2kAjsv5zdCQl+j
-	 wmIWXbLKc2TsTy8rYL9KU07AKWy+tW94N7mOEVOuzd0VkThqK6vMUHRsJyRN7+KnhgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506981;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BaJY9G+O3FV1i4Zpgu7P0a7EUVdMBobV+mJJcOvaSzo=;
+	b=tau7XVm+jfzx9Y/jCMnclk8N8ZYzwhKfVLwbZWHbVj+UVBvd93xsdyL2D3ZHL0PBtaOj
+	 muPVNEbS1G72gx0CW4cw1uL+rPsPgVYep8hwnkjfU7S3tb3rKCGjk9ZJguY9/z3sD7C49
+	 lsACI8MMKafpLIS9cO+77H0kdZ9mSjU107JEVPRmtymoT1P5EWhv5WDu4cgh89JO/jGOo
+	 SZ1oXc4exSrdaT1EhJtpaut4J63VMp6/dlVzPk3lxFitq3n4/C6IPWfBpijo3j+4CfiCM
+	 Y3R1g1WU9vh4eHxnbZQxdJGqirHdTKPKaYF9AqFd9jWezvLo4Brsp0DoOlvFOWNPwIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kIgW7C7W;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 084D7606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:09:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 084D7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="j3ysJ/Az";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6D2606A31C;
+	Thu, 12 Nov 2026 18:09:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kIgW7C7W
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 50BC51516;
-	Thu, 12 Nov 2026 10:09:19 -0800 (PST)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EF4593F673;
-	Thu, 12 Nov 2026 10:09:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794506962; bh=sAIJKsddtsG4PZLTb3AFGJ2ogaGi60GX16MSJGzvEmk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kIgW7C7WqLM8XV7zDA8TE14RvzYRHPZw6v+7dkHVt5NZC6TLa/mSCzX7qh/kBk2k1
-	 3bf5QgekVvGaXdymPQyVSfnfDPWZNSy1cN/xUFiAOZL/Uo7AjnNJ3gP3m0k1d9mpvL
-	 wqBdLmpUnYcnR8X6rtmVP/onxfLdqpmGEz4xN6iQ=
-Date: Thu, 12 Nov 2026 18:09:20 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>, Suyash Mahar <smahar@meta.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Qi Liu <liuqi115@huawei.com>, Junhao He <hejunhao3@huawei.com>,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [PATCH v4 03/10] coresight: etm-perf: Serialize AUX topology
- access
-Message-ID: <20261112180920.GM9176@e132581.arm.com>
-References: <20261016-james-cs-multiple-per-threads-v4-0-dedf961aca0e@linaro.org>
- <20261016-james-cs-multiple-per-threads-v4-3-dedf961aca0e@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j3ysJ/Az
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E841F000C5;
+	Thu, 12 Nov 2026 18:09:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794506980;
+	bh=BaJY9G+O3FV1i4Zpgu7P0a7EUVdMBobV+mJJcOvaSzo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j3ysJ/AzR4MH4ikdO1YwwWaxii5G4sAtBGA6cMwZqjr0MixLbSbne7fyiCGMiq1Nm
+	 NPwKpU5w5Q+3g4vC9yB0mwBEmKfAhKhuz9JfQ1/st/eJXWm5raMg6NthedUntCrVQF
+	 xHuoWCx2h1QnUjuXlFG3nZfS5qJWqMsS+DvSoqIG4X8SJKIDDaNY7dJuUG4T3W9wmY
+	 fFPjqG9D4sfdmXo3sVKHEavtE2UdxHaS2WEU/Z/7F3u65rFdrsIviyvgyylKWo8OOj
+	 TFpxVAti0skO9O1Yv9sCNeIt0do5m6RDjGZUhYjCZZ1RvVB13KmLDmfFHUrBlY1H2h
+	 bKmr7x1CMyXUQ==
+Date: Thu, 12 Nov 2026 18:09:36 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jisheng Zhang <jszhang@kernel.org>, Fei Xie <fei.xie@horizon.auto>,
+	Pratyush Yadav <p.yadav@ti.com>,
+	Parshuram Thombare <pthombar@cadence.com>,
+	Konrad Kociolek <konrad@cadence.com>,
+	Mark Brown <broonie@kernel.org>, Jayshri Pawar <jpawar@cadence.com>
+Subject: Re: [PATCH v2 6/8] spi: dt-bindings: cdns,xspi: add ADI SC846
+ compatible
+Message-ID: <20261112-sincerity-snuff-9451330d3ed5@spud>
+References: <20261111-xspi-cadence-add-acmd-v2-0-d339046ada8b@analog.com>
+ <20261111-xspi-cadence-add-acmd-v2-6-d339046ada8b@analog.com>
+ <20261111-entomb-backdrop-815e4dc81c7e@spud>
+ <avWHJuW2Xj4BJ_cv@nsa>
+ <avWJrWwHe5ApSUbT@nsa>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,34 +69,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MquIn60EIiF6IsU4"
 Content-Disposition: inline
-In-Reply-To: <20261016-james-cs-multiple-per-threads-v4-3-dedf961aca0e@linaro.org>
+In-Reply-To: <avWJrWwHe5ApSUbT@nsa>
 
-On Fri, Oct 16, 2026 at 11:46:13AM +0100, James Clark wrote:
-> Perf AUX setup walks the CoreSight connections to select a sink, build
-> paths and acquire references to the devices and their helpers. Unlike
-> sysfs tracing, it does not hold coresight_mutex. Driver registration and
-> removal can therefore change or free connections while setup walks them.
-> Adding a CTI helper can also reallocate an existing device's output
-> connection array even when the device is already referenced by a path.
+--MquIn60EIiF6IsU4
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I agree that bus traversal and devices acquisition need protection.
+On Thu, Nov 12, 2026 at 09:41:17AM +0000, Nuno S=E1 wrote:
+> On Thu, Nov 12, 2026 at 09:32:36AM +0000, Nuno S=E1 wrote:
+> > On Wed, Nov 11, 2026 at 05:58:09PM +0000, Conor Dooley wrote:
+> > > On Wed, Nov 11, 2026 at 01:23:07PM +0000, Nuno S=E1 wrote:
+> > > > The Analog Devices ADSP-SC846 SoC integrates the Cadence xSPI contr=
+oller
+> > > > with its own PHY timing configuration and with the support needed f=
+or
+> > > > the auto command (ACMD) mode with the internal DMA, so it cannot be
+> > > > described by the generic "cdns,xspi-nor" compatible. Add a SoC spec=
+ific
+> > > > compatible for it.
+> > >=20
+> > > I assume it's the phy timing that means the cdns,xspi-nor compatible
+> > > cannot be used as a fallback?
+> >=20
+> > Exactly. Without proper phy settings we cannot probe the memory chips.
+> > There are some works being done to support phy tuning but even when
+> > that lands, not sure how generic it could be supported.
+> >=20
+> > Hmm, I guess you want the above mentioned in the commit right?=20
+>=20
+> Nevermind, it's already in there.
 
-> Hold coresight_mutex from sink selection through buffer allocation.
-> The allocation must also be protected because ETR buffers can look up a
-> connected CATU. Release the mutex before calling etm_free_aux() on error.
+ye I just wanted to clarify, because it wasn't entirely clear that this
+made it incompatible since I'm not a domain expert.
 
-However, my concern is about the locking semantics. We should clearly
-identify the races that coresight_mutex is intended to protect and
-limit its usage accordingly. My understanding is that coresight_mutex
-primarily protects CoreSight bus operations.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Holding it across the entire perf AUX setup might silence AI review
-warnings, but it may abuse the lock and hide synchronization issues in
-the CoreSight core APIs. OTOH, I'd say SysFS mode should not acquire
-such a big lock as well.
+--MquIn60EIiF6IsU4
+Content-Type: application/pgp-signature; name=signature.asc
 
-BTW, I think this change is a distraction from the per-thread fixes.
-My understanding is that this series aims to fix multithreading with
-a shared sink, so we can address device lifetime issues separately.
+-----BEGIN PGP SIGNATURE-----
+
+iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavYA3wAKCRB4tDGHoIJi
+0kxGAQCp0V8BVgNuNxizBOeL5wbELjJPl/O+CR2lqdIyCmaMKAD3QeiT17bUF4+H
+HUIHcyK3Zx6GdijCvQ1WfbKEsBoMBA==
+=VG+/
+-----END PGP SIGNATURE-----
+
+--MquIn60EIiF6IsU4--
