@@ -1,92 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478883;
-	b=fFFGE6pz2hJM4T6GaF+REJyXyUJgrya7RF6DKLNEjMjWUVGV5M5MR6IYrAcHvthLsG/g
-	 5mSOOwBTRXfQO7PqKfE9Y1LrzBEjn52YTYr78dqVTuPBmOxtmsSFVCVqWj/H7QVhcdtNb
-	 ZjH5SqZMi/MF1phwisnBHMeLLP79NpsBfaS0wAkEi3Brxf40P8r0sqCUoA/plQGRXcTaz
-	 9J+6ZLdUJzM5Z21dVcm9YuPNVnFaUJhfUNv7nWYK2MFCBCXc/5Z8Z7Ui5KLSXAZvNx+gP
-	 5KRdtBbppdGoNnZT2gVArmtlDz3ZREXHqhoGCsG3ohZQmNjc2Zx1C4m3vjR4UR3iRMA==
+	t=1794478926;
+	b=DVLvN3uLFpu053mj7zjYn5lt8DDnFHu6X5ePVjCKK1X1emXOzdFmFTtpqhs4ejnegMnr
+	 QrTmsyfw4I7jdRX7vFF9nAPKl7Gv1tPctocM0TGP3peD+eTTEfUzqOKe3fwP+7O4obnjG
+	 0yvqgDfJG5/ofL5E6uNv8TAMq+ZZLYkjQYpSgeX7g6H49ulQDGF4nNBrk5Y6de6oQ+qrz
+	 ZLi2XdbShWGGtaDNRDAbp/62QIsEQjkHFqJIHd54EA9FkZlquVFcADu5p6MrbwoL7fogl
+	 KZf5rdejsbGvcUc5xfYCCALdki4hnmIWJjG96txVFHvltn9EOl7VJ1jFxDVnPU7jSxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478883;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478926;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=S1lS42QJJDjNrflFWEXF0zE/DczLdsybPyVpeNgPhA8=;
-	b=yWwMa3sf2gWyXoIG8oL7huu1090ypungfxRB+v6jvg3E2JxYy/2xSJIXuV5EfclbMvdh
-	 4BSruCoYbkN1DLauNp9SccPG2MhwHFrIgjjPNV+vEDcQ6xBopVKxvZCBMEVxzhegnNHOu
-	 xr0qfW+qJrEDv4gVAt9AKIruti02lwOSpqbPRZYFHIicArrePc5OFvq1IxZcaIJ9ZA8SC
-	 AZADnnINHVNdihI1PPXxpc49oYMHa6cb9qH1resyt8FP7i+gUh9xnypfP99jkoUM4WhP1
-	 U3eSmpzEBxrzBOGXGex6kujC08L2l9phyNdrOWUR6qFcSw3xlfFsQ3LMd+Wjip3BTnQ==
+	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=uowx1pkDTb4NperQz2xtneX54qAZAB1zTdOS5Ap0tkI=;
+	b=DtWPd0y9sNg9XTKFARGV2T3VU9peAAHJ2mBGLXG7MANstNCFbMPJ4Iv7uKniO8yhhIul
+	 UGp26fCJ4R54fH6xT6IUo1HZJflGYV53Wd50p++T5cMuaBc7JlVPiGjrpukIqxvLIlgny
+	 lzf1fng4W4oJtk205jYs8ObJZnz+HyzlZDdkByiSfTOB0zpiMQs2dZPS0Z/4Vb5gTXMYo
+	 w76MFipzKtjCB7nUoQ1hHDWmxeyN+MjrMZFf13R6jsfmNpI7ZhMInjTYvyT7PYuElYRSc
+	 hp5/5dwkbhoExOFpHpZ+tS3+46AGh7QEVh2QesS1Nz3owRYOixGtWLI0q8UogYScBWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wmTEjqT8;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="y/SJe+ZR";
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7061606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:21:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7061606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E3F606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:22:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59E3F606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wmTEjqT8
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so6166910eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:21:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y/SJe+ZR
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1aefd1bf74aso579180c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:22:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794478882; x=1795083682; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S1lS42QJJDjNrflFWEXF0zE/DczLdsybPyVpeNgPhA8=;
-        b=wmTEjqT8OL9XZ6YSKLd0OtvFc+uCpTmipNxc4GP8iQc2Dg4JdG+C8j+kuMuluUjfYv
-         bKDuG2TNdSLZReqyqoZuRelmvZm1D5Tjp1paitQrLsApzoMjRvZeES4+9qJ8/Gb3adcX
-         IQFLEWx4mZFc6LcGxgQw8V0XghCf20XlVw15kYhilQpzyEsC9/ab4ImJb8KfpENokyx7
-         1n2yknj2GXZmoN0WoSAkTCTC5Jmu6yGcQg0Oj5PH8fH0jqx0kG1Xqd9o2MGbbRK6iUFP
-         O78CMo7vftnWtYbAbqg32WUA6YkeRKv9VSrxZjTma+NznNPlVY2/BHOF9wVwPPYYR5cn
-         EqBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794478882; x=1795083682;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794478924; x=1795083724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=S1lS42QJJDjNrflFWEXF0zE/DczLdsybPyVpeNgPhA8=;
-        b=ATATkp5Kvnarlg69ISycVvyM8SQn3ksSDyb8fezy0/ktIqf9vMCY2jKt5kS1fOJxE6
-         P0lnvTXEsq+LTcIHuifKlwdpW7gu1tQJF6Tgitc7aIFT+LZYebbtHISunb2BCT61PmGU
-         TMiYrM71d3Oq1nycsNWf0pXMzUNmEUQy+P6KQn2TiPgsDPrVjmzCdd3NQ4n1skgLBxCt
-         +6UetPVYucsg0/By/HQB0arw6zZA+ADGvMmozw2M1ENs91Bw2F7JFCF3jG226OG7CozR
-         IZW234VvKe34526/bKtP8NbBprRRppIZB2abJHVECs6WgLMj9+9DGg4PtRdr+M4CGunj
-         DVkA==
-X-Forwarded-Encrypted: i=1; AL+hErG8SlN3v1WSzwbARL8zrL2xsQ4EVDbZCK+GGkd64lHXjJCHIoi7HejcgVFktIHCJDyNFr+oFE0pTI7owEg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+l2juVvbdqTDWdFNF3DhB44veqELsj5oq4VfMITBKVm4G8OmBx
-	0DsUonDBLz0AWNBF5+d/6+9umQ1Yu1tKAzZ9Z9OUNY0Zn5iSQADc0o5M
-X-Gm-Gg: AYBFou0/aWs3Qq+rJEYCTxySGSnPWVGpYwtwR12AYM7RVleW6pEqgbVsNkATj7A6nmD
-	TsYaSUYdukkeg360odiH6IoDzQdHiiBzxCRSB5ECvfhJJZzKBqduue+exWg1JIzztT7ReZkYtMQ
-	uvPGprwxph7ixqDztN46wzUZk5LFAHBWSB6d3W4yPECglkSWolF5fPRaXovPI3vdpH7qPFye6B6
-	lTePjXkku9wTKOHo4Pkt0QnnMHTwNbZQI+4IRxr++mQygGAQQKmdETYySwQqX9hDfiDOKpz96pZ
-	LdsEOD8nZpZ85Z8nEKbZUaw4pRFfGHJo7ISVgAOCmvQ0jsJMo6Eca4kYTo9mAHKRb+Zh9ab2syj
-	aNWD4SKpQIflThkHf80grwQ8nLZyCp0bvaNc3Den4VSHnA0na9VStLzwFJ3Odf5hZ/L9F5nU/P+
-	4A+deFDH38QsZ6Q3vbXTeG8Wemzli8mBFryg5JzWGkFqf1evTLkKwwreC3gm/jB7zG5aeLZbOa9
-	NkIlCyKPDuiWlDjeN+GlIUz5n7dtBWjhraEn6A2w62dIjs8SzU7asG+LptbmUkg7+ReeJhXOC98
-	aE0vrPsNxTXD29yWPNuCqOmqXTwfKuxbmMLsXnUttw==
-X-Received: by 2002:a05:7301:5f01:b0:35e:2c6:d46c with SMTP id 5a478bee46e88-37685b80487mr7910437eec.10.1794478881435;
-        Thu, 12 Nov 2026 02:21:21 -0800 (PST)
+        bh=uowx1pkDTb4NperQz2xtneX54qAZAB1zTdOS5Ap0tkI=;
+        b=y/SJe+ZR9+2V7gOmXRL2T6cFYN7nJbVcJP+LyR9YosSapoxsfFfM/KqjPm80zG/5Ri
+         URw+DCJgemKoF9llBk4H0l4CkbA0LVSGLsYprU+2NAyC/CCkUEORehly4VbhibENBSNv
+         KAXanrYSaTlAXfVTwDZYsCbYoZE9D0YW5BIRurbg5Ld5hD/9lffY2BUXV9MryrhtjnpF
+         071b89pwqfp4tmr5M+5kwGlh6tsdLPEY/2cdhyVP/noDL3mMk+NoDXIaTgp7XoIiYYxz
+         deUTiwNVvSCAMFVydtYpEIGOqe17ou1jWEPD927oda4slvGeJQdFtbCvw4UuYFJ7sayM
+         CiMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794478924; x=1795083724;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uowx1pkDTb4NperQz2xtneX54qAZAB1zTdOS5Ap0tkI=;
+        b=vznDMHDHV9IMy2hCjmUnQsv6YfYVC9OQ30Pl2cr9II4/d9wD4V9GC5/accsl5eDVLV
+         cgODWDa1bFuGzjdBb+udFnL2kL6r+EL74RQKVKoZ4Jm9j4uauiHIXzlBJWrTkJs4uLmp
+         hDcrfIdXDeq8aS+5qBvXG9hfDXI9uXL4bKC93vqGOXj4vCjVTo5O5uQpE1f//j+WTFle
+         EZSJWErjQ0ca5BaSpbmBL3mKdXSIpamqL284EfDJU7hvf3LAypXUEaXbNuSsa7whqnMQ
+         qqFhTi9+DsFTuBYp/nNn+OUBDgIJtn83UFCGGXhJQ6ZqilaCguFKj8nqa6SZkq/aX7Rz
+         WhpA==
+X-Forwarded-Encrypted: i=1; AL+hErGaAskHNLt5adJXw/1S7K98wEtQ8DkOSE+7hKR3tyxe5XLXkEA8lqACGbLI9TRRv+mehbeBsxDMdu3qm0A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80yLk+NsTtaNyBZ2IvWjs7s16dsvi3TFXnWToJJiq0RYssx72e
+	OuIRTjN7VJz6j/npZTFa4EGr0z8pXO2vJwGaIMmNYVAAte9YOd4CI6dm
+X-Gm-Gg: AYBFou0xOc+OyZOXbQCmJiKdc6tIMBKWjsyiVFLEBAFDDNjyG9G5pDBOd3i+Rt9uzIG
+	00RxFtu3zYCAAEZ6l2FSKPE0XxEi2UTUrW90oo+uUsrcGADTW/pM9wMQm1IRhzkXMHnEN2UbWgf
+	tCfo7HSlRXWhNJPj1qS5T5gkqODfQgDoREhO9YrhZByb7WtKiJJNLUGNmsHZPbFcGhOZI6sf9ai
+	qFkqLbRYVxA0Kxw7S7/QkejygSN0Zh9Z9DmHCJue82lm4LrZfcX+Clv6V4yaAHafKJXUEtTaU5X
+	bHA2UeO8PQtrKhgCTa98qkvQnZrQDUF20E5u3nMZ8Zo9mlJ0IzAR4WC1b/6OT+ypuNciIXXPRz/
+	puUkoY9eYaiLKZ1DnyXargRa6sDgpTmZOIQ+ozCti+WCcAj9vdYJdTd3fV1C2HstgimBbXx/fAS
+	g7U5LmJaKtPJ7g56Tf2KNQAywUPy44kyf/oSYYKatEthpV8LBwuc2iOfEYxbrVv0ERI3mfhnnZ3
+	teJ1rYuJp9GwIuKFIR9seX6U6Qawmbp2+Dv5sPCEsAUSgA/x3dqGzdsXBmoNyOfWP0nBDruvCrS
+	j9jrDnrCilYlw38/kvSKxiHID+ch7fsJyKabDM5WYA==
+X-Received: by 2002:a05:7022:ed0b:b0:17a:a3d4:8b17 with SMTP id a92af1059eb24-1b4f5e9dde3mr1645864c88.12.1794478924186;
+        Thu, 12 Nov 2026 02:22:04 -0800 (PST)
 Received: from [127.0.1.1] ([183.242.161.82])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520bf3e18sm52398182eec.16.2026.11.12.02.21.18
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc14sm23649633c88.12.2026.11.12.02.22.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 02:21:21 -0800 (PST)
+        Thu, 12 Nov 2026 02:22:03 -0800 (PST)
 From: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
-To: Crystal Wood <crwood@redhat.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Gabriele Monaco <gmonaco@redhat.com>, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 02/10] tracing/osnoise: start_kthread: Always check OSN_WORKLOAD
+To: Steven Rostedt <rostedt@goodmis.org>, Gabriele Monaco <gmonaco@redhat.com>
+Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] rvgen: validate the monitor type
 Date: Thu, 12 Nov 2026 18:20:20 +0800
-Message-ID: <179447882048.254241.2527227025791137084@gmail.com>
-In-Reply-To: <20261028220120.4005187-3-crwood@redhat.com>
-References: <20261028220120.4005187-3-crwood@redhat.com>
+Message-ID: <179447882046.254241.15114935256138596418@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,61 +96,44 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 17:01:20 -0500
-Crystal Wood <crwood@redhat.com> wrote:
+From ef3ed8fae481c0ed3dd16c881aae455be9e92f2e Mon Sep 17 00:00:00 2001
+From: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+Date: Thu, 12 Nov 2026 14:26:10 +0800
+Subject: [PATCH 1/2] rvgen: validate the monitor type
 
-> We can get here on timerlat with OSN_WORKLOAD cleared via
-> osnoise_hotplug_workfn().
+The monitor type is pasted into the generated monitor as RV_MON_<TYPE>.
+Nothing checks it, so a typo yields a monitor that cannot build and the
+tool still exits 0:
 
-Confirming this from the other side, because it is worse than a stray
-thread.  On 7.3-rc7, with `rtla timerlat top -q -c 0,1` and cpu1 cycled
-offline and back online mid-run, the CPU coming up installs a
-"timerlat/1" kthread even though OSN_WORKLOAD is clear.  stop_kthread()
-picks the teardown path from the *current* OSN_WORKLOAD, so when the
-trace stops it takes the user-thread branch for that kthread:
+    $ rvgen monitor -c da -s test_da.dot -t bogus_type -n bm
+    $ grep RV_MON_TYPE bm/bm.c
+    #define RV_MON_TYPE RV_MON_BOGUS_TYPE
 
-    WARNING: at stop_kthread+0xc6/0xd0, CPU#1: rtla/57
-    WARNING: at __put_task_struct+0xdf/0x100, CPU#1: timerlat/1/72
-    WARNING: at free_task+0x7d/0x90, CPU#1: kthreadd/2
-    BUG: kernel NULL pointer dereference, address: 0000000000000018  (repeated)
+include/linux/rv.h defines only RV_MON_GLOBAL, RV_MON_PER_CPU,
+RV_MON_PER_TASK and RV_MON_PER_OBJ, so that macro never resolves.
 
-kill_pid() plus put_task_struct() is only right for the user thread,
-which owns the reference taken in timerlat_fd_open().  A kthread is owned
-by kthread_stop(), so the extra put frees it while it is still running.
-A plain offline (never bringing the CPU back) does not reproduce it,
-because nothing calls start_kthread() then.  So 02/10 fixes a null-deref
-here, not just a redundant thread.
+The accepted set is already in Monitor.monitor_types, which the help text
+prints.  Pass it to argparse as choices.
 
-One thing about the series itself:
+Signed-off-by: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+Assisted-by: LLM
+---
+ tools/verification/rvgen/__main__.py | 1 +
+ 1 file changed, 1 insertion(+)
 
-02/10 sets osn->sampling, but `struct osnoise_variables *osn` is not
-declared in start_kthread() until 04/10:
+diff --git a/tools/verification/rvgen/__main__.py b/tools/verification/rvgen/__main__.py
+index 246b43fa2..6053db5e5 100644
+--- a/tools/verification/rvgen/__main__.py
++++ b/tools/verification/rvgen/__main__.py
+@@ -38,6 +38,7 @@ if __name__ == '__main__':
+     monitor_parser.add_argument('-s', "--spec", dest="spec", required=True,
+                                 help="Monitor specification file")
+     monitor_parser.add_argument('-t', "--monitor_type", dest="monitor_type", required=True,
++                                choices=list(Monitor.monitor_types.keys()),
+                                 help=f"Available options: {', '.join(Monitor.monitor_types.keys())}")
+ 
+     container_parser = subparsers.add_parser("container", parents=[parent_parser])
+-- 
+2.43.0
 
-    @@ -2053,15 +2081,18 @@ static int start_kthread(unsigned int cpu)
-    +	struct osnoise_variables *osn = cpu_osn_var(cpu);
-
-so 02/10 alone does not compile with CONFIG_OSNOISE_TRACER=y.  Sashiko
-flagged this on v6 and it looks like it is still there in the posted
-version.  I applied 02/10 on its own on 7.3-rc7 to be sure:
-
-    kernel/trace/trace_osnoise.c: In function 'start_kthread':
-    kernel/trace/trace_osnoise.c:2043:25: error: 'osn' undeclared (first use in this function)
-     2043 |                         osn->sampling = true;
-
-    +	if (!test_bit(OSN_WORKLOAD, &osnoise_options)) {
-    +		if (!timerlat_enabled())
-    +			osn->sampling = true;
-
-Either move the "osn" declaration into 02/10, or keep
-`cpu_osn_var(cpu)->sampling` in this patch and let 04/10 switch it.  The
-second keeps each patch buildable on its own, which helps anyone
-bisecting the series.
-
-FWIW I also checked the "elder kernels deliver SIGKILL" note you added to
-timerlat-tracer.rst in 05/10: on 7.3-rc7 the user thread really is gone
-after offline, and rtla's supervisor only decrements its count, it never
-reforks.  So that paragraph reads correctly to me.
-
-Thanks,
-Chaosheng
 
