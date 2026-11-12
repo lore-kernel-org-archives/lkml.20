@@ -1,90 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481659;
-	b=DtP2xEqmoA441NXVgcO52sYuJjt/MjwCghhc1SRBuiG5r6Fqd2utwjknlThrJ++zqUK1
-	 DbzRX2H4sDTH+C5AZyPcSZfUs0n6MBKoMw4vCO9flUQzlZjjFDOyb5KKgz+sncAPzzBNM
-	 9XPwM7rIicQIUfIQB/uYScXED21m552UbgSnJLp0IAAsAarWjpMQXnMBmkBrmYIB88pjK
-	 PY5ZP/tj73tfg8XKCaVHsa+R6PcHc1yLeFtzdY02rrB1gfzF6kNGsb+mMIYDdm/QXItHL
-	 nNirIPYp6VtS84ZF+I48cDMXTgEpKAaT9oQkVwkyoH+ErpMFY5U+WzH1IEjTftPBFyw==
+	t=1794481673;
+	b=hW1gWhVr+4CpZNkWKcUIgwLTarK3uJU5mTZtlB/VweaqDrZGwKgvybxvOOmab+uCPjw/
+	 f5qw3/yrrNyVVzpWZPTbYRdsbELPIyRWO9kUwvQUwZxul0WwLGqA5swp3BRBdQE41AFBO
+	 jH5hyKlJPLJtCU/2+4mu3jTQV0eH/Tpsw0qzFRI1nFwidA6qbfZ2hmaQDOvGcGsx5v7W8
+	 gtHNVzJoL2xFHrLx5GKzYFlvWt2HRWMglODZz4C4rYux8ihOzd2LJG83X9vMJdTrX0XmE
+	 g02+rf09qcLlYlAwH6i1z8L+vbc121CyMOtSheotx/iGRYAYQXjeEqDgTdtFyFndUKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481659;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ws0rJ3BHKcyuqh88iur1fcc/LIJEujkm9TFhfxBE0eo=;
-	b=Wuz55TX1T3LcLvkFXlrdqyHwH36hssLoIZAroHXDbteTXRY3V+8/pIHMQB9GSJri1pao
-	 YniJ/ROfsVhIdn7YW1aOdLres95mFqwQXLF1mnOqOxqkIFnn5mqEc2+2Go8LQjkpdfnb6
-	 JmsTzw32oVIPrxPo+lTiKxiqp3Pwl1s02P40A0yatXAp/f8KyvGw5ryEDwEa7xdM2c7UP
-	 Gfdpo44rLbxFqHo56IqHjFOZEbxeMuDClXXE08myePZGlGoqHKSLC7xncrG92hcIu7J2I
-	 JDYa8KKlrmdl8bQYvAZE0Owq396wsGV01oIGA03oDqIxFPt2vuQkrrpDQekgGG81EiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481673;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=U/iOpJ55d/ZZTEeI13++J8llf2RohCP7ym6AgO7t1xM=;
+	b=GIbxgFEecsU3JPzYha2i9wwPVyBwvzVZdR1j0bi08gbD4PiysLoDp0eTosobrQP2CVDT
+	 56QWLRnuyi5TUdB2cQierBSltsHLOfU2VafffRafjscfKXPNu6vwBt4UOtdK5AjOx3QLW
+	 0cj1yrc6LmLVsxp+3HiE/daOh39CHr1EPhqAQJ8/3DWhqsrPPy5AvViFCpqKgAdepQ78t
+	 lE97GtUgMslFOuq9NOSU2ohYSyHz+mdz1hFjAfJ2K8BoAMzOCV/dsVKJtqjxERoXDSt3a
+	 NDigYmgc7FrhTjAsz9a4jzpVV1iwxD30yiI8Xc6FgD2fU3l7OR6Uy6Jph0Wl5YS9oVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CSGdUSl5;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AHZsH5t+;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NHECWIDp;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8748606A334;
-	Thu, 12 Nov 2026 11:07:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8748606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E71606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:07:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20E71606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CSGdUSl5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794481658; x=1826017658;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=TBghNC9ZtMX73TtTYTqP2zQ1cZeCo1aSnVvyXG7XBJw=;
-  b=CSGdUSl56hEU/HBuurC/FY2kBGirHZ+B40i4CavB0nyW5vGWzA+7P97W
-   muTpKxCQjCbr+yxtwVUhUpjogQKZ5d4/bB6xW7L18FMWF/cwZMyiz6H5n
-   VGcgeIDUS1ZfXW++BmibcPW4QteQU8lOev3kOluLlYK9PgmbXqhGnf1if
-   6AVQh79shyV9UopJl3o9lcOwPzJVyhX1Jzlg5pur5CnJ4NcbXmwLC3oap
-   Z+LdeRnpO4lfsivlS8vyUMTvauUa/EqC2m/ELjd+guClJ0fcm2j1K29tJ
-   VsQ/5iEVQjs0CNuyo2UCV9hKzDclLOb4SWAiBJUI3AO8iCvTt5i3v5t3g
-   w==;
-X-CSE-ConnectionGUID: 1O7vBXjNSLGVmTJh0T1hJQ==
-X-CSE-MsgGUID: VoFU0s82RaKxhaajwofJAw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3347570"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3347570"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 03:07:38 -0800
-X-CSE-ConnectionGUID: mkIocnx1QE6BDfGL3qBxPw==
-X-CSE-MsgGUID: aaOGbI5NRW2yONYMZsKaCg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="8962731"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.34])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 03:07:35 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3802A121B7C;
-	Thu, 12 Nov 2026 13:07:35 +0200 (EET)
-Date: Thu, 12 Nov 2026 13:07:35 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
-Message-ID: <avWd9y7c1FVbUB7E@kekkonen.localdomain>
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
- <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
- <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org>
- <avMM6a6xcDHT-zCR@houat>
- <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org>
- <avMgJ7MFks0sKD7T@houat>
- <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AHZsH5t+;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NHECWIDp
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC5ndCF441529
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:07:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=U/iOpJ55d/ZZTEeI13++J8llf2RohCP7ym6
+	AgO7t1xM=; b=AHZsH5t+C87h0eFYcKgEMidTQYJ1rggVGS6JuvHqJOK69xJ/8s7
+	UIuyj65P0U/RJSQNxazde8FB27TLm+zjM65pP2C26qiZKOycvPqEiXbN/FILzMNo
+	YfIo4Zh0MqZBi3RZ4XJmyVa552SF/FkhAw4IwJYTgSIoW/TwpriCH/6MXmobWKF8
+	ZKfwDdb7ch7wzpQcqYlIAJDFs5v38E1KuL9EmgHrPc7PMGpEKd97DAF/SwnNDjzI
+	XjF+1OM5vXq8Hgb79+75+DtCBBamezsRoOQasp5zUh1gLqf8vzKuaGMsVqRPB5Ud
+	Qg25ERRuQjnxClx1mJK5+obUe+TLp1Dv7/A==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw7nc151b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:07:52 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1aa0fb7f157so6403545c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:07:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794481672; x=1795086472; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U/iOpJ55d/ZZTEeI13++J8llf2RohCP7ym6AgO7t1xM=;
+        b=NHECWIDpGJY4Efmr1NlgvRKkj1AbIHtcK8Jq0IIBobvTZpn9OpYoVH1b60jdQBHe/a
+         Vikjbj/Y9gry1WsomM2w4q5nxJjtkH9aybd1sVdFqep90W8GSs+eZt/vT1gB7CJxHk2v
+         +Rg/Xhe81A3Emu57OYAfta/jjZpHb4BnQKCq2g146BsvPjm6tLeZLRs1/FIvgD2g+yM4
+         Da+PL4vbcCv9IUZPC7gGZKPEnhwPDK36jG/j7iw5U1D7RV+lNYWduwN2CjA+4zhX9Wju
+         pL5R0rEIJPXRZ2xNP54oivDOOjnzBZosfLlbLtphBNQDSA78vSGRBCIpJcm/YPifHftJ
+         JndA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794481672; x=1795086472;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U/iOpJ55d/ZZTEeI13++J8llf2RohCP7ym6AgO7t1xM=;
+        b=E8rwT5t4JyYn4nzaXeuJf9TsNGrthw1RnqYObKasqVYu2PohCEemj+3O4IpviRMioX
+         WVs4lqiRin9o2RJq0qT8+A48wpxo8gHm8YAlEMy/3HCxS1cgz1M9ClwljkVWTGGW1JTY
+         +ki/hFPwgNZdlrWmTo+MsrkZBelxi/rHFFEc8ajpcVIyvKCabxH7WeWPVLbOQYdruLdN
+         RJhsx6ikgAwjPE5MWvLdMJrvp/DSmEIMvyYZp9+8fm87EU18IPDu+UHtHGU+gX7eatDA
+         5aa7xL0p43VOtwa19kiiBDVmQwCWh3irJnmd+g5hD7hp77N/sqOp42TPTbqqZbvtaCfz
+         KiFA==
+X-Forwarded-Encrypted: i=1; AL+hErFqofn356dKqyAePBeCZSr44FChYcdKtDduQnk5zoTWGw4NA7TCObZrMOPfGvbdpp1cKSuzPo+BN8yHfsU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+M+M9dFYIgiDd4tgOgLhLXNE2A3VsOYboiorM6jdDY7hJSSGHh
+	ojWnEEL7syfCmLRRW3Obt7qoygKmpAmM8MdTYtcuUWbR1wlfIf7gMGRL/eDjNEChJRBAKV6oP3O
+	t3a3X1nGHOXM29kBH3h6uJvUq1j18xr0/yTT8V+SdgXgtwMthmPGbpusm5wGSJ8i2Xz8=
+X-Gm-Gg: AYBFou2j+skrFG2sUO9gSwMjmJQbLbsO6jdA7NB/xwGmYAM1rQuV1ObGGWebWi2JZrd
+	v7uNfcESjyGfIEGOb0D9DViv97lepuq9FESH6gHE86IKmFfJCvHPUva/Oi/mmsHhzXbayzjP5ZX
+	3ZSWZ8/uJIT7LPPMDmZWRzhl4XpQDY5SVnaJjdWtNOL8lds3rwqwpJmPL2CdrV8RvDg4oWUubiw
+	2kboUTPlHidueGB3ZMGOZdZylDp9z0RqIJsfHFD/0JHxmh4SGk4y1IFb0r1ALCgmanuS4Keuq7A
+	HKAFA7gPUOSAi3oxZzWWwwupuq+rEovuoabQJ+1gEukIDhSnpzIB4uwXI6MXzPXSe5MF3CqmAFJ
+	3LqTuFxtzjz4yU05g2roFaO31wQ42zH8J05/b6YPPpFknsUKjZmRvsOcsLHP3EN8h9GRs5kKqkE
+	aUPh6TFOL0UQvkO1uFod5lkg==
+X-Received: by 2002:a05:7023:d0d:b0:1a0:f970:4f5d with SMTP id a92af1059eb24-1b3c0310062mr5180294c88.17.1794481671458;
+        Thu, 12 Nov 2026 03:07:51 -0800 (PST)
+X-Received: by 2002:a05:7023:d0d:b0:1a0:f970:4f5d with SMTP id a92af1059eb24-1b3c0310062mr5180271c88.17.1794481670799;
+        Thu, 12 Nov 2026 03:07:50 -0800 (PST)
+Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2eeffsm24549909c88.9.2026.11.12.03.07.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 03:07:50 -0800 (PST)
+From: Peter Chen <peter.chen@oss.qualcomm.com>
+To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@nvidia.com>,
+        Kevin Tian <kevin.tian@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
+        Johan Hovold <johan@kernel.org>,
+        Fenglin Wu <fenglin.wu@oss.qualcomm.com>, iommu@lists.linux.dev,
+        linux-kernel@vger.kernel.org, Peter Chen <peter.chen@oss.qualcomm.com>,
+        stable@vger.kernel.org
+Subject: [PATCH v2] iommu: Hold group references across bus_iommu_probe()
+Date: Thu, 12 Nov 2026 03:07:47 -0800
+Message-ID: <20261112110747.1903321-1-peter.chen@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,176 +121,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: QKNi2fbE9Z3yAPn9tWgXMpHdLC1WYWr8
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA0NCBTYWx0ZWRfXxm1nTt3kCiHr
+ pZ1kzoNhUHnY+TmfLEqEiHCokxdQKwh8K6C5oSX6hLvz6KqDrCcHsP0yvPhqPV29iLzZAo3WRDt
+ 7wy1Io69qU+9O5fKDOoQnV7TiMemWtw=
+X-Proofpoint-GUID: QKNi2fbE9Z3yAPn9tWgXMpHdLC1WYWr8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA0NCBTYWx0ZWRfX4rve+fRTZbH4
+ VIWQsnQyspVrxMfR9tB0p5WUtB++KRBFepvrSfgsJN5zUfC7GyLGW8wucFBKxI23dXul5DSnUjI
+ inVS8iDy6n6YkOPFdPMdyrT8s9r9pwuSIG7aLs6JePp/EMjfdr7lWoNgfYcmYRkRJ6GLNLqmPui
+ ILHCOX48QFKh6rnqkWgzgFoVhG5EuVnB8uridHvPmQoMVGHwg7gueYJLSEOXc9sMEYpZekd3aFN
+ DM0GEzHifbmXMtP9c+Pm63xmJ0TU5JzjcVmJFcZyNbpSWMV8exHilvLwti9sVAeLS+cc3+wnJZR
+ j4P5Tq+ZPsltwM6uEv93cXD/TrWUEHneuXPJIsXuLJDQjLXN5ibXwP0Bm74ph6BeL0DXQQEdDKJ
+ ZaBCzVAfBu+WFqIp6jeZclYp6odzW4Lr5/IAqqmfy16NuzKrCUu9qGzgmm8qiMIZpXA8wYYxcgZ
+ ZcyEhrT00VdcsP4nFmA==
+X-Authority-Analysis: v=2.4 cv=A8b5rKWG c=1 sm=1 tr=0 ts=6af59e08 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=5nmvm-2Xiqt-MVby-jsA:9 a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 spamscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120044
 
-Hi Hans, others,
+bus_iommu_probe() collects the groups that are linked through
+group->entry, but the list does not hold a reference on them. Only the
+member devices do. A device of such a group may be released while the
+bus walk is still in progress, for example by a BUS_NOTIFY_REMOVED_DEVICE
+for a platform device that is depopulated concurrently. If the last
+iommu_group_put() then frees the group while it is still linked on the
+list, the second loop of bus_iommu_probe() walks and unlinks freed
+memory.
 
-On Tue, Nov 10, 2026 at 03:43:59PM +0100, Hans Verkuil wrote:
-> On 10/11/2026 15:17, Maxime Ripard wrote:
-> > On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
-> >> On 10/11/2026 13:33, Maxime Ripard wrote:
-> >>> Hi Hans,
-> >>>
-> >>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
-> >>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
-> >>>>> Hi everyone,
-> >>>>>
-> >>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
-> >>>>>
-> >>>>>> On media-centric camera pipelines, every entity is known at boot time
-> >>>>>> and described statically (for example via device-tree).
-> >>>>>>
-> >>>>>> The V4L2 framework assumes that every entity of the camera
-> >>>>>> pipeline is always present. This is a reasonable assumption for
-> >>>>>> integrated cameras in laptops or phones. However, in automotive systems,
-> >>>>>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
-> >>>>>> When the framework assumes all sensors are present, a single missing
-> >>>>>> camera can prevent the entire pipeline from operating.
-> >>>>>
-> >>>>> This series has been discussed at the Camera & ISP "unconference" in
-> >>>>> Pragues (during Linux Plumbers)
-> >>>>>
-> >>>>> The notes can be found here:
-> >>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
-> >>>>
-> >>>> What is missing in this discussion is how userspace can indicate that it
-> >>>> actually can handle partially instantiated pipelines.
-> >>>>
-> >>>> Today if one or more parts do not come up, the devices nodes are also not
-> >>>> created. This is typically exactly what you want.
-> >>>
-> >>> That's very arguable? We have plenty of other examples where we allow to
-> >>> show a software representation of something that isn't available in
-> >>> hardware, starting with virtually any memory buffer allocation, but also
-> >>> disabled CPUs, swapped pages, etc.
-> >>>
-> >>> For things a bit more related to drivers, things like USB root hubs are
-> >>> also pretty analogous. The "root" device will always be created, even if
-> >>> devices connected to it are non-functional, missing or whatever. It's
-> >>> the primary interface that these devices might or might not attach to.
-> >>>
-> >>> So it's a bit hard to understand why the device nodes not showing up is
-> >>> exactly what we always want.
-> >>
-> >> It's simply how V4L2 works today: video devices do not appear until
-> >> all components are instantiated.
+This is the "iommu_bus_notifier() being triggered during
+bus_iommu_probe()" case that commit da33e87bd2bf ("iommu: Handle yet
+another race around registration") left open. The sequence is:
 
-I think I've mentioned this before, but I do it once more: there's no
-concept of creating device nodes at the same time. It may happen roughly
-around the same time, but not atomically. There's always a chance that
-accessing device nodes of a device exposing multiple nodes fails for a
-reason or another. It may also be udev rules used different permissions for
-different set of nodes so the application can only access some of them.
+  CPU0 (driver's of_platform_populate / of_platform_depopulate() path)
+  CPU1 (arm_smmu_device_probe() -> iommu_device_register())
 
-> > 
-> > Sure but that's exactly what we're trying to change.
-> > 
-> >> Most video devices consist of multiple devices (bridges, i2c devices,
-> >> etc.) and unless all are found and initialized, you can't capture. So
-> >> bridge drivers postpone creating the video/media devices until
-> >> everything is there.
+  CPU0                                CPU1
+  of_platform_device_create(T)
+                                      bus_iommu_probe()
+                                        __iommu_probe_device(T)
+                                          allocates group X,
+                                          queues X on group_list
+  platform_device_unregister(T)
+    iommu_bus_notifier()
+      __iommu_group_remove_device(T)
+        iommu_group_put(X) -> kfree(X)
+                                        list_del_init(&X->entry)
+                                          <- use-after-free
 
-That's not the case obviously. If you have, say, three different cameras
-and one of them happens to be missing a driver in Kconfig, there's nothing
-that would technically prevent streaming video from the two others: it's a
-policy.
+The kernel dump is like below:
+  list_del corruption. next->prev should be ffffff8064a984e8,
+                       but was 0000000000000000. (next=ffffff8064a9a6e8)
+  kernel BUG at lib/list_debug.c:67!
+  Call trace:
+   __list_del_entry_valid_or_report+0x148/0x14c (P)
+   iommu_device_register+0x1d8/0x268
+   arm_smmu_device_probe+0x588/0x624 [arm_smmu]
+   platform_probe+0x74/0xb8
+   ...
+   deferred_probe_work_func+0xa4/0xf4
 
-And supposedly, there could be an application that *needs* all these three
-cameras to function, but does it then matter how that application is going
-to fail, is it because it lacks access to all of the hardware or just one
-piece of it?
+where next points at ->entry (offset 232) of a freed kmalloc-512 object,
+the released iommu_group of the depopulated device. That was seen
+on an Android 6.18-based kernel, but the code involved is unchanged in
+mainline.
 
-I'm in favour for making this reasonably easy for the user space to figure
-out, but we currently have no APIs that cover this (and so could be used by
-existing applications) so it's new behaviour that we're introducing. If we
-can't do better, then I'd introduce a Kconfig option, but I'd select that
-by default. I've seen tonnes of issues because of the current behaviour but
-no evidence creating device nodes proactively could be actually harmful.
+Take a group reference when a group is added to the list, and drop it
+once bus_iommu_probe() is done with the group. With the group kept
+alive, a group that has lost all of its devices in the meantime can
+simply be skipped: there is nothing left to attach a default domain to.
 
-So what I'd concentrate on is to provide information to the userspace on
-the device readiness status, so the userspace can figure out all devices in
-a Media device complex have been registered.
+Also drain the list on the error paths. Returning early used to leave
+the remaining groups linked to the dead on-stack list head, so
+list_empty(&group->entry) stays false for them and a later
+bus_iommu_probe() would never queue them for default domain setup again.
 
-Functional safety adds the requirement of detecting failures and how that
-is being done is probably fairly implementation specific. New APIs will
-very probably be needed for that as well (and they indeed should be behind
-a specific Kconfig option).
+Fixes: 41df6dcc0a3f ("iommu: Keep a list of allocated groups in __iommu_probe_device()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peter Chen <peter.chen@oss.qualcomm.com>
+---
+Changes in v2:
+- Replace the step list with a race diagram in the commit message.
+- Add Cc: stable.
+- Rebase on v7.4-rc1, no code change.
+- Delete the LLM Assisted-by tag.
+- v1: https://lore.kernel.org/all/20260929070737.3798358-1-peter.chen@oss.qualcomm.com/
 
-> >>
-> >> That also means that applications can safely assume that if a video device appears,
-> >> it is functioning.
-> > 
-> > Ish. The only safe assumption you can make about this is that it was
-> > functional at probe time. Anything after that is very much up in the
-> > air. If the device broken after probe for example, or if we have no way
-> > to tell if it's functional to begin with, that assumption is no longer
-> > true. So sure, that's what applications have been doing so far because
-> > there was no better way to do it, but I wouldn't qualify it as a "safe"
-> > assumption.
-> > 
-> >> If we add fault tolerance, and you allow video devices to appear even if they are
-> >> not functioning (or partially functioning), then that contract breaks.
-> >>
-> >>>
-> >>>> But here you allow partial instantiation, and how does userspace
-> >>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
-> >>>> There are no devices yet, so that can't be used, so what alternatives
-> >>>> are there?
-> >>>>
-> >>>> We've been discussion Fault Tolerant V4L2 for many years now, and every time
-> >>>> I raise this issue, but I never received any proposals.
-> >>>>
-> >>>> This must be solved.
-> >>>
-> >>> Is there any way to? You're saying at the same time that we must not
-> >>> create the device, but that an application would need to signal to that
-> >>> device that it can indeed be created. It's a circular dependency that
-> >>> cannot be solved on a per-device basis.
-> >>>
-> >>> During the meeting, we had a discussion that the media device should be
-> >>> created as a "skeleton", and then as other devices probe they would fill
-> >>> in the blanks. How would that not work? Also what is your main concern
-> >>> exactly that makes you ask to not do that in the first place (or make it
-> >>> opt-in)?
-> >>
-> >> Applications today assume that everything works when the device nodes appear.
-> >>
-> >> If you change the behavior, then they just see a skeleton driver and how
-> >> would they know that they need to wait until all components are found and
-> >> it is ready for use? Or what to do if some parts are faulty?
-> > 
-> > I really think that this discussion is not solely about probe. It's
-> > something we discussed during the meeting, but I think we should try to
-> > handle "my device was broken at probe" and "my device became broken
-> > while the system was up" exactly the same way.
-> 
-> If the HW breaks after probe, then you get EIO etc. errors. It's very rare and
-> the only requirement in that case is that you return an error and don't crash
-> the kernel. It's accepted that if the HW breaks, the application breaks as well.
-> And you have to replace your hardware.
-> 
-> It's been working like that for >23 years (that's when I started working with
-> V4L). This also means that for >23 years applications have exactly this expectation
-> of how video devices behave. It's really part of the uAPI even though I don't
-> think it is ever explicitly stated.
+ drivers/iommu/iommu.c | 41 +++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 37 insertions(+), 4 deletions(-)
 
-Do you mean things like VBI with this? MC was introduced around 15 years
-ago.
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index b486b8bbd1fc..6965b89e76bb 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -682,10 +682,14 @@ static int __iommu_probe_device(struct device *dev, struct list_head *group_list
+ 		/*
+ 		 * With a group_list argument we defer the default_domain setup
+ 		 * to the caller by providing a de-duplicated list of groups
+-		 * that need further setup.
++		 * that need further setup. The list holds a reference on each
++		 * group, as its devices may be released before the caller
++		 * gets to it.
+ 		 */
+-		if (list_empty(&group->entry))
++		if (list_empty(&group->entry)) {
++			iommu_group_ref_get(group);
+ 			list_add_tail(&group->entry, group_list);
++		}
+ 	}
+ 
+ 	if (group->default_domain)
+@@ -1951,6 +1955,18 @@ static void iommu_group_do_probe_finalize(struct device *dev)
+ 		ops->probe_finalize(dev);
+ }
+ 
++static void iommu_group_list_put(struct list_head *group_list)
++{
++	struct iommu_group *group, *next;
++
++	list_for_each_entry_safe(group, next, group_list, entry) {
++		mutex_lock(&group->mutex);
++		list_del_init(&group->entry);
++		mutex_unlock(&group->mutex);
++		iommu_group_put(group);
++	}
++}
++
+ static int bus_iommu_probe(const struct bus_type *bus)
+ {
+ 	struct iommu_group *group, *next;
+@@ -1959,7 +1975,7 @@ static int bus_iommu_probe(const struct bus_type *bus)
+ 
+ 	ret = bus_for_each_dev(bus, NULL, &group_list, probe_iommu_group);
+ 	if (ret)
+-		return ret;
++		goto err_put_groups;
+ 
+ 	list_for_each_entry_safe(group, next, &group_list, entry) {
+ 		struct group_device *gdev;
+@@ -1969,6 +1985,16 @@ static int bus_iommu_probe(const struct bus_type *bus)
+ 		/* Remove item from the list */
+ 		list_del_init(&group->entry);
+ 
++		/*
++		 * The bus notifier may have released every device of the group
++		 * since it was added to the list; there is nothing to set up.
++		 */
++		if (list_empty(&group->devices)) {
++			mutex_unlock(&group->mutex);
++			iommu_group_put(group);
++			continue;
++		}
++
+ 		/*
+ 		 * We go to the trouble of deferred default domain creation so
+ 		 * that the cross-group default domain type and the setup of the
+@@ -1977,7 +2003,8 @@ static int bus_iommu_probe(const struct bus_type *bus)
+ 		ret = iommu_setup_default_domain(group, 0);
+ 		if (ret) {
+ 			mutex_unlock(&group->mutex);
+-			return ret;
++			iommu_group_put(group);
++			goto err_put_groups;
+ 		}
+ 		for_each_group_device(group, gdev)
+ 			iommu_setup_dma_ops(gdev->dev, group->default_domain);
+@@ -1991,9 +2018,15 @@ static int bus_iommu_probe(const struct bus_type *bus)
+ 		 */
+ 		for_each_group_device(group, gdev)
+ 			iommu_group_do_probe_finalize(gdev->dev);
++
++		iommu_group_put(group);
+ 	}
+ 
+ 	return 0;
++
++err_put_groups:
++	iommu_group_list_put(&group_list);
++	return ret;
+ }
+ 
+ /**
 
-> 
-> To be clear: I really want to see Fault Tolerant V4L2 happening. It's clearly
-> very useful for a specific type of use-case.
-> 
-> But first we need a solution for this specific uAPI issue. Note that this is
-> now to opt-in to Fault Tolerance, but in the future we might have other opt-ins
-> as well that modify the behavior.
-
-I'd try to separate the early registration of devices from fault tolerance.
-The former probably is still a hard requirement for latter.
-
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-Kind regards,
+2.43.0
 
-Sakari Ailus
