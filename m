@@ -1,62 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484844;
-	b=mYGcUhCS0Pkwb0wxPaq8OOC7wsoDadq+2CW5DE3SgCAdn8+rmC3gj1RrN8Bi4X9zNaRL
-	 yq9MNXPKi6UkjX5lozo2cIln6lAw1V7a2HhTdcohrlzkdkkKCdLqpBqHHQP5b10kJoE4u
-	 bjCmLaKZksFCY1uLZ/3xj8BPTPI3v/L0jI7w/U/SyNYmvziEqike5HqB93Fr58B+4Fzr6
-	 bDgHuVSSpq3koaoVHwx+lIiBsyQmFQgEWueQtL8xj5w2MD/wLqhWfVZFtS5ePpRuP7K4U
-	 5YYoj2kk/C4HKCwm/C+AgNabOwslA9LfWnyX7Zc34pDujhZfkTuT/Qzkyjy1u2Gjkzg==
+	t=1794484896;
+	b=RXbAmc+Xwz2EJhOvFJQ3uDbVg78PR88ymTQs4kQF5vpcn5og2T8lJyyZXroyXEAPi2bZ
+	 ROCPfCT0f0z+/m7JWxFhIAOIt2axmKcu3btV1pA4iu5XPhBiYQ1MFqxmzpOEL7BlobZ8o
+	 Tjri4JpK5UwrMdFKHoQid7Y6ZpMIC1hG2p9HWMM5O5TyhtuI1VRtyYWIW3ZwFLisKS2+C
+	 15QKdp8MJeEOCSr2hkro9sM+9urtUAEzUKPxddeYOVpwwz1JloLBwBVGFqSaocSlWQzOU
+	 Wb/uX2Jdx+emaw2POoPNCBqZj4J3h2kISS5aHU0+2s2Mw6t7uWx+t1+GQzCBF3ofNbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484844;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=RgE6qh5s5sRj9jwHdylaP3f2Qab7dZpbONrZPzb6Q24=;
-	b=P4p2TdaQfs1M8eFS6cQWsxSoo3LkXK8LHrBQxjczPa/FDwLj1MhIWnY4C/uNFDmCk1+B
-	 AQCOi2BNFUrw7IOSiySw3adRQe2wk7PVsMQMBZXyscpXYtyGti/jOWEwL9E6F2DqJxBdX
-	 rvsxEqoE4TKsXCRe6YjIUOFzhGZlX1hxwbZT0Zwg8BtWBE8lkPJKodm0YjA1GB3yrlJOc
-	 9GwUYwXW9/5dztH9GGlw/McVw0RWswNDLD880xQqMi7Qx8WwTX3Oi9C+ybr6SpcxekBbT
-	 dthIR6MX9ooweRo2gn+ObolA00/sf6XJZmFvAQPbBM9G/Ii3fZpxialPmadOZ8mamPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484896;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=SrQYdejZ3O32TNHlFeTRApwB45XDzPQrsRBZYxShr1E=;
+	b=DCLv0rupfAs/Qo7NOzB/E75upfV526aszDEHR9ZaLF6q68xBDJmXR4FDsIBcRb9wdnf0
+	 +Tgq5Cxo9e+6jkqgEYsbmq5oVfGGQZtvcBdfdAbd0jzI6i7keGrItUOwto/Rr99gzwOFF
+	 QTB2Jau1HtNZPCZHjviDL+NzedcLvdYWj/dLjt7X+/DjS4xCgc0RkAGnOWrL32MKBRZvg
+	 +MHQa4Xq6GakFExNZylzVZuossGuPpe5OgSkKbE6AKT9JCgBFn6SY4lyMPVCSTCW+wGtv
+	 oh4j7TQvt+Am0A50yxbPoiodkGiktu6mh0EiXihv8ALZwEpN593S4RnyrDNbr3kOE0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QWecKIxK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=MfVfH7ls;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7306C60A2622;
-	Thu, 12 Nov 2026 12:00:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56370606A327;
+	Thu, 12 Nov 2026 12:01:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56370606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QWecKIxK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12B991F00ACE;
-	Thu, 12 Nov 2026 12:00:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794484844;
-	bh=RgE6qh5s5sRj9jwHdylaP3f2Qab7dZpbONrZPzb6Q24=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QWecKIxKs35TuANprpL/3f2b7njVWU06zNP1skmCV8jJmjsplVVOIaG3N5rM1fvcb
-	 q6vA5nM/HPHHhq6T+4jCYyMhJfU7GU8IdekVwfl2u2Lbk8Eak7IiwaMrm+MxvYzlP2
-	 rd/zFraYKNf5DU0gMHQkhUbZyEgE644qW9FafHub6PczRrvQdSC47A7iOjvoCLzRj3
-	 /92bE5Ypm6c1wsICrYRYXl6asMpcnZkn6KTx0T6BswkJtk69w0wxNatNbKYzLZ+ttF
-	 D9F7tb0uJLuYVVzsPA4n+hPckYcZJfPg2vVqBkYAS2sxquXkHgUPVQofHvfpbfFUFI
-	 QxniGEugdCGXw==
-Subject: Re: [PATCH net-next v2 5/7] net: phy: adin1100: Skip the soft reset
- on ADIN1110/ADIN2111
-From: netdev-bot+sashiko@kernel.org
-To: iustin.stolniceanu@analog.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, parthiban.veerasooran@microchip.com,
- hkallweit1@gmail.com, linux@armlinux.org.uk, marcelo.schmitt@analog.com,
- alvin.sipraga@analog.com, ciprian.regus@analog.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 12 Nov 2026 12:00:42 +0000
-Message-ID: <179448484265.2199510.11571056279428140346@kernel.org>
-In-Reply-To: <20261109085952.105331-6-iustin.stolniceanu@analog.com>
-References: <20261109085952.105331-6-iustin.stolniceanu@analog.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=MfVfH7ls
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=SrQYdejZ3O32TNHlFeTRApwB45XDzPQrsRBZYxShr1E=; b=MfVfH7lsakVXAX+0coNBN4yhPH
+	EsrW2GZiCjPev0CM14rkH0CQmMa6H7QIVqrI/LukmYS/ErOz9tmjYbcMOfZnfpqD/CMydA+lR8TB0
+	qwqkmzIS2sL3KSglt6HTdWN4tx29p9Yj9DCMtQs8sC6Zw8ZeB4J6W6P+BhoQYeZ3l+U1bhEhLWHWD
+	EIPa08ooR4oy47gWnsl7BE0GjqGrFiuwn8Q3GAlnTXrN4KLilDbydWho33rDYX/PjbRynVpugI+ro
+	009vKGyI38ZRwArx0zO1pGgFL4YqzLiZoqM6GsGFer3zDfNDQZSE64OXzHak5IoZMcqXAPIyWvlqD
+	D+hIiHwg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xRTUX-00DxF6-1L;
+	Thu, 12 Nov 2026 12:01:21 +0000
+Date: Thu, 12 Nov 2026 04:01:16 -0800
+From: Breno Leitao <leitao@debian.org>
+To: "illusion.wang" <illusion.wang@nebula-matrix.com>
+Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com, 
+	sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org, andrew+netdev@lunn.ch, 
+	pabeni@redhat.com, edumazet@google.com, horms@kernel.org, 
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v34 net-next 1/8] net/nebula-matrix: add channel layer
+Message-ID: <avWqOzt1ImFuvyXL@gmail.com>
+References: <20261112094925.6098-1-illusion.wang@nebula-matrix.com>
+ <20261112094925.6098-2-illusion.wang@nebula-matrix.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,128 +69,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112094925.6098-2-illusion.wang@nebula-matrix.com>
+X-Debian-User: leitao
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+> @@ -75,27 +215,32 @@ static int nbl_probe(struct pci_dev *pdev,
+>  	struct nbl_adapter *adapter;
+>  	int err;
+>  
+> +	nbl_get_func_param(pdev, id->driver_data, &param);
+>  	err = pcim_enable_device(pdev);
+>  	if (err) {
+>  		dev_err(&pdev->dev, "Failed to enable PCI dev, err=%d\n", err);
+>  		return err;
+>  	}
+>  
+> -	nbl_get_func_param(pdev, id->driver_data, &param);
+>  	/* never return fail when DMA_BIT_MASK(64) */
+>  	dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
+>  
+>  	pci_set_master(pdev);
+>  
+> +	err = nbl_probe_chip_deps(pdev, param.caps.has_ctrl);
+> +	if (err)
+> +		goto out_clear_master;
+> +
+>  	adapter = nbl_core_init(pdev, &param);
+>  	if (IS_ERR(adapter)) {
+>  		dev_err(dev, "Nbl adapter init fail: %pe\n", adapter);
+>  		err = PTR_ERR(adapter);
+> -		goto adapter_init_err;
+> +		goto out_clear_master;
+>  	}
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+nbl_get_func_param() now runs before pcim_enable_device(), but
+nbl_probe_chip_deps() still runs after pcim_enable_device() and
+pci_set_master().
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The commit message says the whole-chip CRSM_SFT_RST is "not an
-  issue with the generic SPI protocol" because adin1110 configures the…
-- [Low] The patch justifies dropping .soft_reset with "The MAC driver
-  already resets the chip before attaching the PHY".
-
---
-
-net: phy: adin1100: Skip the soft reset on ADIN1110/ADIN2111
-
-This patch removes .soft_reset from the ADIN1110 and ADIN2111 entries in
-the adin1100 PHY driver. On these MAC-PHYs, CRSM_SFT_RST resets the whole
-chip, which would undo the configuration that the upcoming OPEN Alliance
-TC6 support does in oa_tc6_init() before the PHY is attached.
-
-> This is not an issue with the generic SPI protocol, where the adin1110
-> driver configures the MAC in ndo_open, after phy_connect(). The OPEN
-> Alliance TC6 protocol support, added in a following patch, configures
-> the device in oa_tc6_init() before the PHY is attached, and the
-> configuration would be lost.
-
-[Severity: Medium]
-Does this hold on the resume path as well? phy_init_hw() is not only
-called at attach time. mdio_bus_phy_resume() also calls it when the PHY
-was suspended by the MDIO bus and mac_managed_pm is not set:
-
-drivers/net/phy/phy_device.c:mdio_bus_phy_resume() {
-    ...
-	ret = phy_init_hw(phydev);
-    ...
-}
-
-adin1110.c has no dev_pm_ops and never sets mac_managed_pm. The adin1100
-driver provides .suspend, so on system resume with the interface up, the
-sequence before this patch was:
-
-mdio_bus_phy_resume()
-  phy_init_hw()
-    adin_soft_reset()
-      CRSM_SFT_RST (whole-chip reset)
-
-Would that wipe what adin1110_net_open() programmed: CONFIG2 CRC_APPEND,
-the IMASK1 interrupt mask, the MAC address filter slots and CONFIG1 SYNC?
-Nothing in adin1110 writes them back. The link can then come up while
-the MAC is still at reset defaults, and it stays that way until the
-interface is taken down and up.
-
-If so, this patch also fixes an existing resume regression on the generic
-SPI path. Could the commit message describe that? And should it carry a
-Fixes: tag so stable picks it up? The tag would probably be:
-
-Fixes: 875b718ac380 ("net: phy: adin1100: add PHY IDs of adin1110/adin2111")
-
-> diff --git a/drivers/net/phy/adin1100.c b/drivers/net/phy/adin1100.c
-> index b946cb86b6c41..ddb91b0e7081f 100644
-> --- a/drivers/net/phy/adin1100.c
-> +++ b/drivers/net/phy/adin1100.c
-> @@ -341,7 +341,6 @@ static struct phy_driver adin_driver[] = {
->  		PHY_ID_MATCH_MODEL(PHY_ID_ADIN1110),
->  		.name			= "ADIN1110",
->  		.get_features		= adin_get_features,
-> -		.soft_reset		= adin_soft_reset,
-
-[Severity: Low]
-With .soft_reset gone, does anything on the generic SPI path still wait
-for the chip reset to finish before the PHY is accessed?
-
-The commit message says "The MAC driver already resets the chip before
-attaching the PHY". However, adin1110_probe() writes the reset and goes
-straight to MDIO bus registration:
-
-drivers/net/ethernet/adi/adin1110.c:adin1110_probe() {
-    ...
-	ret = adin1110_write_reg(priv, ADIN1110_RESET, ADIN1110_SWRESET);
-	if (ret < 0)
-		return ret;
-
-	ret = adin1110_register_mdiobus(priv, dev);
-    ...
-}
-
-There is no sleep and no poll of STATUS0.RESETC there. The commit message
-itself says MDIO reads return stale data until the reset completes. The
-oa_tc6 patch in this series ("net: ethernet: oa_tc6: Allow custom reset
-settle time values") says the ADIN1110 can need up to 10 ms after a
-software reset.
-
-Before this patch, phy_connect()->phy_attach_direct()->phy_init_hw()->
-adin_soft_reset() polled for SYS_RDY:
-
-	return phy_read_mmd_poll_timeout(phydev, MDIO_MMD_VEND1, ADIN_CRSM_STAT, ret,
-					 (ret & ADIN_CRSM_SYS_RDY),
-					 10000, 30000, true);
-
-That was the only readiness check on this path. phy_init_hw() now goes
-straight to config_intr(), which does a read-modify-write of
-ADIN_PHY_SUBSYS_IRQ_MASK. phy_attach_direct() then calls adin_resume().
-Either of these can run inside the reset window.
-
-The practical impact looks small, since the MDIO scan already raced this
-reset before the patch.
-
-The TC6 path handles this in oa_tc6_sw_reset_macphy(): it calls fsleep()
-for the settle time and then polls RESETC. Could adin1110_probe() do the
-same before calling adin1110_register_mdiobus()?
-
->  		.probe			= adin_probe,
->  		.config_aneg		= adin_config_aneg,
->  		.read_status		= adin_read_status,
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109085952.105331-1-iustin.stolniceanu%40analog.com
+Shouldn't nbl_probe_chip_deps() be on called earlier?
