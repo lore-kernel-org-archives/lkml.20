@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794523838;
-	b=CJSSqPfrA17YK3LLRWxx2djIllCqGErsuj/i1fAigIgZk64gZRe2UALv8KoWg7iY0hU7
-	 lwraGqzpe9MlY5PF/URTR5a8rwlJvp2tzlvmgHmp9v/iNxnebrPnK5xgmq+SiGFVzvEst
-	 6Stuz7fsR3krjAZzLpmz4WnV+/UBlBNh+2NNEqmY1v2HfNnqITtCn5m0Wg0QopFdvGSMJ
-	 2d6NIHJZqdzPCT3jNEn2cAsZzi+DVlPYNol/mjyw2bVl6B8vuKNu57MSSzB4j6exq5f4G
-	 BTUcTC855Q11wHpIX3jpPayi2XxE3cjRSGzWDbwZ8FPvYVwSYs0ALWM//IqbV3KV7wA==
+	t=1794523930;
+	b=f3x9OaC7BBW6HERZok8Yc1cjQD1heUtGL4n8L6uxHOh7sfbyHp3REQpdpxcHdz8pnRXq
+	 A/lBtifm8P7tI9bhy5loPxInGJ6poo5OFn0od+GtPT5Kpo+2aGRRNLhsJR1fZzWZTDGnv
+	 uHJenXVzg57eVqSU47WZMcg4hW/jkBhQeUnyRXKyvV6Pdn9dnS0IV7V6gHafkmfd0zyFJ
+	 T7eE8xYqewYt4ZDJmekokkvWOrie/rGmjx49OzIWKPIG42UD2YE08qln4tGwYLgYQvubJ
+	 e9LKokzS1GJw/z+oOB9CM71JCkeW3C0/isoCw7cc0via3wMTEP1khvJ4Wu89LGqHXMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794523838;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0TqqnxQNVR9PGz0qsU/cytTwrDEZUDTjkuJZAfCjgjk=;
-	b=pxL3xo0JN2/fyiVJZMowYq6lu+5RxO6MAbm2mHV0VbrnERY+Ldg2uG23KlX+kqT0nOQ3
-	 5QLJ7Nkful3CRRN0Co0D+pkzUHlZ+0UvCw7BdVznJ13PKEx26C6M6xWihErwxEcME6XpT
-	 1Utih4zJJDsgWUhwG0ETbdAaw0ylU3Smv6vBtz4eDvEP+vuXbBKlNrzP16DuzFAw7ObnT
-	 UgvF64eCQ44oraSTmkuBTFTO8T1y5u+Cp5N70WxxPTPfkmEEjO31OJw44yYcHYso0sbRE
-	 ADp3xR+dtnwvzTO9sWaEk3ucAQHGtPhwZxELITzr/cLOHrqpD4x4Z+13YcQlhps7ZDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794523930;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=HnFbRd2cUO/ogYhoab3tVa+ZjsPjiekhdbMq6gcnrhc=;
+	b=Tuprn6H9ihx0b9Dn8i0iPwV0nylfyUTrvYQ4+DHAyrLyoVIfSXU/WrnhkJi+u5ZYReTU
+	 1EEyFiLBZOHwVWj9aZhhiGrxzLaRux387HelyrazaHMoAFlEf/Bj3l0vqV41ElYUC/iFu
+	 2rGps5TyczhH93gAXh47zG8VOEBmbiRz40cWmmkAa17WO7YTSD3w90eFJmTx/jQ2FeVCb
+	 wWTT2F7eKrkHiT4/Mc+38NGfjA3Iu7jGoJ4Lj0X0bnJMLHWliR+7otOs/pkBA3BL+f85a
+	 nEgnEmnFiDrhGa89HPKZ7KPJxn1Jgaw5Ahm5ocoZ027HKQ3AfcyPxI8wDk7r47jRt7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ib1q3vLs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lyqW2l4i;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2252B606A31C;
-	Thu, 12 Nov 2026 22:50:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16409606A31C;
+	Thu, 12 Nov 2026 22:52:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ib1q3vLs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0321F000C4;
-	Thu, 12 Nov 2026 22:50:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794523837;
-	bh=0TqqnxQNVR9PGz0qsU/cytTwrDEZUDTjkuJZAfCjgjk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ib1q3vLs3nrjWX3UOR0N6gf6I7Izk3R5STAMgmrEseBFZ2+/2ZtaLtD/xHRZV48+g
-	 gdu2jbJ8rJ/E34iojbyi7lQ7kFgGmF1BapDESUJnU73YEDTFck/8O2UKwr2aOQ+6xK
-	 RkXUOhwUwQIlfXlLqJw9puz+w0Be+j12bJXOqOak=
-Date: Thu, 12 Nov 2026 14:50:36 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: =?ISO-8859-1?Q?J=E9r=E9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>, David
- Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev
- Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
- <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau
- <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: reject shmem collapse ranges beyond
- i_size
-Message-Id: <20261112145036.97f74a828755d5b9178a3e3a@linux-foundation.org>
-In-Reply-To: <avYBFPhB46XWAG4A@pedro-suse.tail5790ac.ts.net>
-References: <20261112142335.2749597-2-Jeremy.Jean@oss.cyber.gouv.fr>
-	<avYBFPhB46XWAG4A@pedro-suse.tail5790ac.ts.net>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lyqW2l4i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ADA11F000C4;
+	Thu, 12 Nov 2026 22:52:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794523929;
+	bh=HnFbRd2cUO/ogYhoab3tVa+ZjsPjiekhdbMq6gcnrhc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=lyqW2l4iaa67g+0HwmN2Un9DQV8xTfYC5uFM8H/wCiCRuJF5mmzuk3Fb/eY9CAJ+S
+	 u/NKBauFdVPRcJ/TEd8jVyF5VB37guMqFWqHiNqt1tIvK1ERYT7hIuqHqs0CoY+JW/
+	 xzoqMLE4i+cvyhdTFXIFi9rtMC+Ezj0d0FZFcG6j0k1vg7fzFRh8wtJZuUNqW9jGlG
+	 TU7K0qFkNhz0tWH7/zi7K+mCZKNQ48oTOJdfGSPz5qo0vJglUuD8FVNq0jrfBmxcML
+	 PtbACUSVHhtYsz+CZMRec7a9+VkXTRS6F2IaLrAU3FjzqXJcVsJCnUqlPDEctTyipP
+	 IMEDqDRG5HZrA==
+Subject: Re: [PATCH net] octeontx2-af: Fix keep PF_FUNC match for AF TX rules
+ in rep mode
+From: netdev-bot+sashiko@kernel.org
+To: kmahammadraf@marvell.com
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, sgoutham@marvell.com,
+ rkannoth@marvell.com, gakula@marvell.com, sbhatta@marvell.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, athapliyal@marvell.com
+Date: Thu, 12 Nov 2026 22:52:08 +0000
+Message-ID: <179452392874.2199510.9170447818850423839@kernel.org>
+In-Reply-To: <20261109105043.1986921-1-kmahammadraf@marvell.com>
+References: <20261109105043.1986921-1-kmahammadraf@marvell.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,42 +63,146 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 
-On Thu, 12 Nov 2026 18:11:35 +0000 Pedro Falcato <pfalcato@suse.de> wrote:
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-> On Thu, Nov 12, 2026 at 02:23:35PM +0000, J=E9r=E9my Jean wrote:
-> > MADV_COLLAPSE lets collapse_file() treat absent shmem pages as holes
-> > filled with zeros. It does not check i_size, which allows one present
-> > page to become a huge mapping that covers the whole collapse range,
-> > including pages beyond EOF. This makes those pages writable. A later
-> > file extension can expose their contents after F_SEAL_WRITE.
-> >=20
-> > Hold inode i_rwsem in read mode while collapsing shmem so i_size
-> > cannot change. Reject a collapse if its page range extends past
-> > i_size rounded up to PAGE_SIZE. Keep i_size_read() outside the
-> > page-cache XArray lock because its 32-bit SMP reader is not IRQ
-> > safe.
->=20
-> I don't think this is an issue. shmem/tmpfs purposefully maps with large =
-pages
-> across i_size, and collapsing across i_size is a feature, not a bug.
->=20
+Critical: 0 · High: 1 · Medium: 0 · Low: 3
 
-hoo boy, this again, See
-https://lore-kernel.gnuweeb.org/linux-mm/nwkpojnictbg6jicccpxyfi63ol4tmfajr=
-lx24u5xxoxx7lv5f@jkw3o7j6tlfs/T/
-and enjoy.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-It's not good that this sequence permits non-zero data to be exposed in
-areas which ftruncate() created - the ftruncate() contract says it
-doesn't do that.
+- [High] The fix is incomplete.
+- [Low] The commit message gets the scope of the bug wrong.
+- [Low] The Signed-off-by chain is malformed.
+- [Low] The comment above the changed condition in npc_update_tx_entry()
+  (drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c) still reads…
 
-J=E9r=E9my , you haven't explained why this matters.  Is there some
-userspace code which is encountering problems because of this?
+--
 
-Why did you propose cc:stable backporting?
+octeontx2-af: Fix keep PF_FUNC match for AF TX rules in rep mode
 
-Thanks.
+When rep_mode is enabled, npc_update_tx_entry() no longer clears the
+PF_FUNC mask for TX MCAM rules that the AF installs. Those rules now
+match on the target PF_FUNC instead of wildcarding it.
+
+> Currently, npc_update_tx_entry() clears PF_FUNC mask for AF-requested
+> rules. In rep_mode, that wildcard can make a TX rule match traffic for
+> other representors on the same TX interface, which can steer egress
+> traffic through the wrong rule.
+
+[Severity: Low]
+Is this the full impact of the old behaviour?
+
+For rte == true, rvu_rep_install_tx_rule() only sets req.vf. It never
+sets req.features:
+
+	if (rte) {
+		req.vf = pcifunc;
+	} else {
+
+npc_update_flow() returns early when features is 0, so PF_FUNC was the
+only key field for these entries. With mask = 0 the key was empty. Each
+of these entries then matched all egress on the NIX TX interface from any
+PF/VF, not just representor traffic.
+
+In practice, the lowest-indexed TX entry would take all TX traffic and
+loop it to LBK with the first representee's tag.
+
+All representors also share one PF_FUNC (rvu->rep_pcifunc), so PF_FUNC
+was never what told "other representors" apart.
+
+Since this patch carries a Fixes: tag, could the commit message describe
+the actual impact?
+
+> Fixes: 683645a2317e ("octeontx2-af: Add packet path between representor and VF")
+>
+> Signed-off-by: kmahammadraf <kmahammadraf@marvell.com>
+> Signed-off-by: Aditya Thapliyal <athapliyal@marvell.com>
+
+[Severity: Low]
+This isn't a bug, but the Signed-off-by chain looks off. The author is
+Aditya Thapliyal, but the first Signed-off-by is from kmahammadraf and
+there is no Co-developed-by tag.
+
+Per Documentation/process/submitting-patches.rst, should there be a
+Co-developed-by: line right before that Signed-off-by? Or should From:
+name that person instead? The DCO also asks for a real name, and
+kmahammadraf looks like a username.
+
+There is also a blank line between the Fixes: tag and the Signed-off-by
+block.
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
+> index ec004ea5154cb..4afd4a10cd649 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
+> @@ -1396,7 +1396,7 @@ static int npc_update_tx_entry(struct rvu *rvu, struct rvu_pfvf *pfvf,
+>  	/* If AF is installing then do not care about
+>  	 * PF_FUNC in Send Descriptor
+>  	 */
+> -	if (is_pffunc_af(req->hdr.pcifunc))
+> +	if (is_pffunc_af(req->hdr.pcifunc) && !rvu->rep_mode)
+
+[Severity: Low]
+This isn't a bug, but the comment above this condition still says the AF
+does not care about PF_FUNC. With this change, AF-installed TX rules in
+rep_mode match PF_FUNC exactly. Should the comment mention the rep_mode
+exception?
+
+>  		mask = 0;
+>  
+>  	npc_update_entry(rvu, NPC_PF_FUNC, mdata, (__force u16)htons(target),
+
+[Severity: High]
+Does this stop representor egress from going through the wrong TX rule
+when there is more than one representee?
+
+For rte == false, rvu_rep_install_tx_rule() uses the same target for
+every representee. It relies on sq_id to tell them apart:
+
+	} else {
+		req.vf = rvu->rep_pcifunc;
+		req.packet.sq_id = vlan_tci;
+		req.mask.sq_id = 0xffff;
+	}
+
+req.features is never set, and npc_update_flow() returns right away when
+there are no features:
+
+	if (!features)
+		return;
+
+As far as I can tell, nothing in the AF uses sq_id. It is declared in
+struct flow_msg in mbox.h and written in rvu_rep.c, and that is all.
+There is no NPC key field for it either.
+
+With this patch, PF_FUNC == htons(rep_pcifunc) is the only key field in
+every rte == false entry, so all of these entries have the same key.
+rvu_rep_install_mcam_rules() installs them at increasing indices, and
+the lowest-indexed matching entry wins.
+
+On the NIC side, rvu_rep_xmit() sends traffic for every representor from
+the same representor PF. It picks only the SQ, based on rep_id:
+
+	sq = &pf->qset.sq[rep->rep_id];
+
+Wouldn't all of that traffic hit the first rte == false entry? It would
+then get that entry's vtag0_def (the first representee's rep_id), and the
+RX rule that matches on vlan_tci would deliver it to the first
+representee.
+
+The unused sq_id match dates back to 683645a2317e. Still, the commit
+message says this patch stops a TX rule from matching traffic for other
+representors and steering it through the wrong rule. That still looks
+possible in the representor to representee direction.
+
+Does the SQ id need to be added to the MCAM key to fix this, rather than
+only changing the PF_FUNC mask?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109105043.1986921-1-kmahammadraf%40marvell.com
