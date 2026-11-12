@@ -1,53 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491863;
-	b=07ayUU03iREWHjyL+/OStWAT2PshNaTUYlHQ+LkuEWJZjCQC00lpRm9cIYpgQIBB5jVk
-	 XPb600th9U1t2HjabDCFxETWR6NwblYmvTYhjOKqRJ6VZ66IR0YTwCWSPlJEFKgfqVcL+
-	 HuqdleTMBu5kcprfJZqaAHVbufD1HGolpSaSDIgUwPHoGqS5J6AnYHSS7ytJIZGF+B8ww
-	 b6baLWq3CA3AX+KdpoJ0/Av96g0iID9wGoUm1xU5+R53jr25ZhT+IIzFqRmz++kpqnV/l
-	 UUKfp/o+XNte+GX+acEsqd8XFqDyvYdLk1rIvkrS89/1RtQuFSiZ1EngvFPvoLzZoYg==
+	t=1794491877;
+	b=3LBHnbLa8CCBXnnHgfBVgizl1FU/iiXGoij1/GBXAi7DsHXrtrlVebCNZvRVPFRHFFL+
+	 tK0BLCaNHmwT2+bl3rK2nhFYfk2c3T/jmLoFIfs9cQtJLB646pMKMivm11c/2lyZr7E49
+	 BWfHpE/OkyN64grrPDIJ+ZAQ7LQOOWmGVtw//+mPd4fnZ5dGGcie2BVvQb+eo82bcjvYz
+	 /yu51varekPTEuCP86Du+4eqkVmMnkTUW515aqp/7CwbWycC2RpAbjxy1ThQ1EW+IFTtr
+	 wa1ncPEjY6GxRGRJoz1VSYJCeZ80P1d5j+1nO5Mwac3nXlsx5D5rijzXux3JGLBsDCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491863;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=hJ1vQm3IllUiPCr6qBuNnx6AtdlXwu0bIhx9h/gO/+U=;
-	b=igdgowXf3TaB11V6ffkEa5cE0R5GPqBH0HhgNJeDXOJb9uRF6yQOG4hE6fjN1x15Nv2s
-	 AHmaXPwZqglcFFATqOfp9bGONbtsfWSfoYGzgqLMgJz4hrsviqkT07BT2+5GCN8THT53N
-	 W8Cr2qAPkqprVCd+QrHBL2egZ8MDpjc7tGEJar35wWflJxGDAq47Bon2riBSNoQFLVHWw
-	 RS3WYOTV+phP30HXjFwBIfWa/RQE9lb37Zrb10JldEwyDlR9Ba083Qx8d0p4bOTEJSckW
-	 0PU/R7iQLE37FzLpBvqtgm+ZrLRHg/n9H+LosUDZSdPmt+AIWlXr+naxsxg/j4G6Q2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491877;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=wdg8stMM6r5FBivxq5EOSdvuNXe49X33jADApWgpna0=;
+	b=EKkat43Dug/bTS7Z7khc81l7mdJbxXuFbRJ//VSfgahORj5UuQJAE3anKhPs9Tvx0qez
+	 KHMYEHpCmFugGp86Ay2bBX2I29BmSbrhxCBQcFNSb9lAQB5HcXTJwZz6wtjy9iKTuPFT3
+	 P6YF2jp+e/YXxMl1UEj7PUYPiD5mNLtN3EhWAurWIyhHuZauXqP4aLI1Slewm8crjUuUN
+	 ppKQhDwabaxqu7y2CFpSDvxGrKSeArNCAfz2iALuDuMlO8kumDDI716Sr62o6zIFWUuZB
+	 tpEm9ZsdS66ZfLMjNODJK2IK5AE46vmEuvldVDuTgmwhNhoi6gqSv0y8xmqJ2yIxwOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODhw8U4P;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A3A606A323;
-	Thu, 12 Nov 2026 13:57:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47A3A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <60065a2feb73f81a8e9e919940e0a96b18bc0423.camel@crapouillou.net>
-Subject: Re: [PATCH v2 3/9] MIPS: Ingenic: Do not force BUILTIN_DTB in
- Kconfig
-From: Paul Cercueil <paul@crapouillou.net>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>, Thomas Bogendoerfer	
- <tsbogend@alpha.franken.de>, Paul Burton <paulburton@kernel.org>, "Maciej
- W. Rozycki" <macro@orcam.me.uk>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
- "Christophe Leroy, David Heidelberg" <david@ixit.cz>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.de>,  Janusz
- Krzysztofik	 <jmkrzyszt@gmail.com>, Paul Boddie <paul@boddie.org.uk>,
- Olivier Louvignes	 <olivier@mgcrea.io>
-Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	letux-kernel@openphoenux.org
-Date: Thu, 12 Nov 2026 14:57:35 +0100
-In-Reply-To: <fdc48b799f3c2f43a70236ef4d68bf1527facc9c.1794471031.git.hns@goldelico.com>
-References: <cover.1794471031.git.hns@goldelico.com>
-	 <fdc48b799f3c2f43a70236ef4d68bf1527facc9c.1794471031.git.hns@goldelico.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49765606A32D;
+	Thu, 12 Nov 2026 13:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODhw8U4P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B681F00A06;
+	Thu, 12 Nov 2026 13:57:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794491877;
+	bh=wdg8stMM6r5FBivxq5EOSdvuNXe49X33jADApWgpna0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=ODhw8U4PU7NP+U07JtvrHQ7fu76dDLy178QWgpxgqEazVhYKBZGPLIoEgZis3SVGS
+	 hQDy8s6SGKHwCcswZeDrcCyFyHmmjh1B8CYSQAZSTEhrAE5Zaz+0h+Xq41B2MztB8l
+	 WspG5vC8CCIyhfeM0RzhKJzHrsE69lZGgiegiBQ6HpYGejFxwiouVHVpx0FWVoXh3Y
+	 ZF98zklsEGtHur1BtcNANtZUsILZoKQd4Utonsdsj20ZOqsJ6a0E3e2KMLxr7Drjh8
+	 DeobS4tVRNpaqSOGlAhSgQ8XfHHd06S0GKxW/yXutdhBS40zknt3k7hTol6e9Cnt5j
+	 F1Nd/XoO/2BBQ==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: saeed bishara <saeed.bishara.os@gmail.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
+ Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ Mina Almasry <almasrymina@google.com>, "Mike Marciniszyn (Meta)"
+ <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, Nikolay
+ Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, Alexander
+ Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stuart Clark <stuclar@meta.com>
+Subject: Re: [PATCH net-next v1 01/11] net: Get skb fragment addresses
+ through netmem
+In-Reply-To: <CAHfVqdVYBbs8zu40nEaCDvGVNeXHe2DXh0dGxEcgL3kP8S8_HQ@mail.gmail.com>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
+ <20261110102039.1002605-2-bjorn@kernel.org>
+ <CAHfVqdVYBbs8zu40nEaCDvGVNeXHe2DXh0dGxEcgL3kP8S8_HQ@mail.gmail.com>
+Date: Thu, 12 Nov 2026 14:57:52 +0100
+Message-ID: <87ld6yrw2n.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,53 +81,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Nikolaus,
+saeed bishara <saeed.bishara.os@gmail.com> writes:
 
-Le jeudi 12 novembre 2026 =C3=A0 09:10 +0100, H. Nikolaus Schaller a =C3=A9=
-crit=C2=A0:
-> Remove the unconditional selection of BUILTIN_DTB for MACH_INGENIC
-> when MIPS_NO_APPENDED_DTB is enabled.
->=20
-> The current Kconfig logic selects BUILTIN_DTB when
-> MIPS_NO_APPENDED_DTB is set, although this configuration is intended
-> to prevent the kernel from appending a DTB to the kernel image.
->=20
-> While the kernel gives precedence to a DTB supplied by the boot loader,
-> selecting BUILTIN_DTB still triggers additional build steps and may
-> add unnecessary code to the resulting uImage.
->=20
-> Note that BUILTIN_DTB controls the build process, not necessarily
-> whether a DTB is actually embedded in the kernel image. For example,
-> CONFIG_BUILTIN_DTB=3Dy with CONFIG_BUILTIN_DTB_NAME=3D"" still triggers
-> the generation of .builtin-dtbs.S, but does not embed a DTB.
->=20
-> The goal is to allow a configuration in which no .builtin-dtbs.S
-> is generated and no DTB is appended to or built into the zImage/uImage.
->=20
-> Fixes: f0f4a753079c ("MIPS: generic: Add support for Ingenic SoCs")
-> Fixes: 15205fc05482 ("MIPS: ingenic: Add support for appended devicetree"=
-)
+> On Tue, Nov 10, 2026 at 12:27=E2=80=AFPM Bj=C3=B6rn T=C3=B6pel <bjorn@ker=
+nel.org> wrote:
+>>
+>> skb_frag_address() goes through struct page, so a net_iov never has an
+>> address. Only unreadable memory should lack one: XDP and BPF read
+>> fragments through this helper, and AF_XDP UMEM will back readable
+>> net_iovs. netmem_address() also returns NULL, not a bogus pointer, for
+>> an unmapped highmem page.
+> Does this mean that skb_frag_address_safe() is practically identical
+> to skb_frag_address()? I assume highmem page is the only case where
+> non niov page isn't mapped.
 
-I don't think you can have two Fixes: tags...
+Yes to both. With this patch they're the same, so I'll have
+skb_frag_address_safe() call skb_frag_address() instead of keeping a
+copy. Its callers can move over separately.
 
-Cheers,
--Paul
+>>   *
+>> - * Returns: the address of the data within @frag. The page must already
+>> - * be mapped.
+>> + * Returns: the address of the data within @frag, or %NULL if the CPU c=
+annot
+>> + * read it.
+> "CPU cannot read" isn't accurate, I assume that in iouring case the
+> buffer is mapped to userspace.
 
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-> ---
-> =C2=A0arch/mips/Kconfig | 1 -
-> =C2=A01 file changed, 1 deletion(-)
->=20
-> diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
-> index 92bca520cd5ae..2135a69f9962c 100644
-> --- a/arch/mips/Kconfig
-> +++ b/arch/mips/Kconfig
-> @@ -127,7 +127,6 @@ config MACH_INGENIC
-> =C2=A0	select GPIOLIB
-> =C2=A0	select COMMON_CLK
-> =C2=A0	select GENERIC_IRQ_CHIP
-> -	select BUILTIN_DTB if MIPS_NO_APPENDED_DTB
-> =C2=A0	select USE_OF
-> =C2=A0	select CPU_SUPPORTS_CPUFREQ
-> =C2=A0	select MIPS_EXTERNAL_TIMER
+I'll use the netmem.rst term: "%NULL for unreadable netmem or an
+unmapped highmem page". Same for netmem_address() in patch 4 and
+MP_CAP_READABLE in patch 2.
+
+
+Bj=C3=B6rn
