@@ -1,47 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450256;
-	b=KfxyAC77mDflpLs1nGNzdXNjWDfWft6ZiV+/sbh+U+DymZU6mNP3lmif1wvF5V6x/XmD
-	 bSuxu1g1DxSoyfswva0TWqUhbPdC/FZk8R+2PaplK0I7x9F4y14eAoAc6ZCy/B+IPEyD9
-	 5qZYxDoAR30++MVJYRkFgp721BOYTN3Jsz/eFWGoniTS5+iCZljhjj7ME5dI4zYShVsqH
-	 nfFUzqbz1TNdIDD496oAs4Yj0YF6TaYvLuH7jXPjuAPiPf0eIiaZbHsLvq4gS2/wZh39C
-	 6curv0omgNT6Gp1ARpUxtJM19T02DpsmiqJ5ew5boV7b3VNhAj5xGcSAQDwQVu3TCaA==
+	t=1794450280;
+	b=kYfoNCHRvJZCZoF/xrUyqEz5cn4eB392mw8MKGrAul/vNJAp/YwpKdiiEteIVdzv+PMS
+	 77w6Z4pZGGVvTxqjKbDv39/rZjCBIl/g/LoxQOOeEvXJlVkt17C9kkfOiyka3/qHclx7B
+	 NksVbGs9Jnw0aWFQobDMLAy9AOZsGvMSqv+sV7QBehhb7AI4Lvs8u7aDB/pTcfXVFeSok
+	 HjehPAXjmhGcJfohWfZXk8jLVq7OnLjk1Q/q5IPQOMrIPOH0bpsHDEBpEY2yU8TzcGbBn
+	 wYfKiZ0dqWz0/Zwhl4Ou+7SoR9O0kbj/p/S9hsRSEWTUWtaXXWIiAUtxMly8YcSak7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450256;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=CMs2hiL6dqSvXmpMCUhFT/HCLWI00jj+E7D9u8d37HY=;
-	b=uWico86B2hk3NxpbbxrRAs4+EWpBODQK7iaLHK2WXEQnfftrv9nFqrIUNSDSLS/ORNOi
-	 zHla21vhuqMjim+AbtadeSQO5oDYmM/KYT/kZpMOwy2K+JkUTyYlIzZNjB8D+RQWpYHzm
-	 iRlT0+bcqV2+u4mDfnnSYIUNp35YhAtqjE/G6kdHGj+056q/ztjZzPvX5i4i+Ne6hMjf5
-	 +w6SVTfFeG5K6hL5yqld2I4c2Ln4/7ZThx4B92/xXSwIUNhpXHNm2bZ+wAaS7aUj6la+T
-	 Dh4DntVhsQlo0FH0iSSu6z4k1ebkA5tsFVIIdLIoLJNkB3Sxe0d3/MNMDzys28cUrWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450280;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=kVpUQkMwZfIP9qRjz990+OsHZvfaXMOvnj2vL1S7urw=;
+	b=LJHUHhUdt2pZ9sJ51UHoEFe07yrqZJKvSiwnAKmsqCaPahmK8O+daWzNuGzja0Rxpy0e
+	 pO5Aep+WU8Gki0Q52vcgSLZxicR0JDTS9p6n6D3dK3hbNgMP5qQDANJmN7OYTbn8xW29O
+	 xIFKequgrhh3yChQzQddXRA+oDmd2l1UXBMI8A8vP4pQd5jxqcm+SDiFoaZoFMW1jvOfI
+	 JIlcV/6Ajzs4hNsvZn2ORUqkadXWtQ6DyUztTzOWmUhEQe9jPI/lLZ+HQisXqjMuQ3HHc
+	 m14EcQaltw45o04Yxlki2TmlBUf3rUYaTpuvpD0VgwRZV8H8aa7KXXels2OSxA49omQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ECBexlUT;
-	arc=none smtp.remote-ip=220.197.31.7
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IcvOhHkq;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDF1606A31C;
-	Thu, 12 Nov 2026 02:24:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFDF1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C461E606A321;
+	Thu, 12 Nov 2026 02:24:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C461E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ECBexlUT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=CMs2hiL6dqSvXmpMCUhFT/HCLWI00jj+E7D9u8d37HY=;
-	b=ECBexlUTfMcU0TzeyeHJyBObIRgfVHH9ZR0gINCJCnsug2Cp4UNT/iEyM7AELu
-	++HPY/30SbDlpzGBbsnCLK4KAb/5NJYdGt6RNWEHhBFBsd/UnQhfg1jRwcd5pCMN
-	5bh6cJCv+0izBRSJr1M5OXFEgLIc2hTdKBEyTIWfsXgQw=
-Message-ID: <3b2e263b-6cef-4267-be94-50751dfee494@126.com>
-Date: Thu, 12 Nov 2026 10:23:18 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IcvOhHkq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=kV
+	pUQkMwZfIP9qRjz990+OsHZvfaXMOvnj2vL1S7urw=; b=IcvOhHkqrN6BsABjtt
+	AiAtewhOKiwYtdsc4HfeG9WBfT5gNdX1MlGDmXpc67mnZkaNmzZKmgSFzqCZf1hx
+	zT+xm4SW5I+OG4BTn8tNAtcdtdqeKa4Tabi57Sr0vZNQ/Ie2bphq/ipVbIp0sl7s
+	laQlfKs6c84CNEEpl+6StvDuM=
+Received: from Precision-7960.. (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDXj+5GI_VqPgXEGg--.53291S5;
+	Thu, 12 Nov 2026 10:24:12 +0800 (CST)
+From: Hans Zhang <18255117159@163.com>
+To: bhelgaas@google.com,
+	mani@kernel.org,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	thierry.reding@kernel.org,
+	ryder.lee@mediatek.com,
+	jonathanh@nvidia.com
+Cc: robh@kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-tegra@vger.kernel.org,
+	Hans Zhang <18255117159@163.com>
+Subject: [PATCH v3 3/5] PCI: tegra264: Use pcie_get_link_speed()
+Date: Thu, 12 Nov 2026 10:24:03 +0800
+Message-ID: <20261112022405.1230200-4-18255117159@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261112022405.1230200-1-18255117159@163.com>
+References: <20261112022405.1230200-1-18255117159@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,72 +72,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] nfc: llcp: fix SNL PDU size truncation in
- nfc_llcp_allocate_snl()
-To: netdev-bot+sinfo@kernel.org
-Cc: david@ixit.cz, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Linkui Xiao <xiaolinkui@kylinos.cn>, Guikun Yang <yangguikun19@qq.com>,
- stable@vger.kernel.org
-References: <20261111095907.3366028-1-xiaolinkui@126.com>
- <179439136381.2168702.3784011162899965365@kernel.org>
-Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <179439136381.2168702.3784011162899965365@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD33x8WI_VqBr_FDA--.30825S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tr4DuF1DJr4DWrWfXFy5Jwb_yoW8WF4Dpa
-	yjgrsYy3Z5Jr1xCa18ta1jva4Fq395GFy5Wr45Kr1Y9as8WF1UKrWIgr4Y9a4q9r9Ygw1F
-	vr42grs2yw1qvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UZZ2-UUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlBjmvWr1IxjZqwAA3B
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXj+5GI_VqPgXEGg--.53291S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uw4UCF4ftF1xtF1kuw1kAFb_yoW8Gr4kpF
+	W3J3yIyF48XrW5uFW7Wa15Z3WYvFn8AFWUJ3sIg3s7ZF9rJrWDWa4YyrWftFWakwsFvr15
+	JF1YqF1Fka1avrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zKFAl9UUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC6wzzl2r1I0wf-gAA3S
 
-Hi,
+Tegra264 was added after pcie_get_link_speed() was introduced and still
+indexes pcie_link_speed[] directly.  Convert it to the helper so it does
+not depend on the array being exported and cannot go out of bounds on
+invalid speed values.
 
-Thanks for the reminder.
+Signed-off-by: Hans Zhang <18255117159@163.com>
+---
+ drivers/pci/controller/pcie-tegra264.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-On 2026/11/11 18:02, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->   - Whether the issue was actually triggered, or is only theoretical
->     (e.g. found by LLM and not proven at runtime). If it was triggered
->     please include the symptoms, like the stack trace or kernel messages.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
-
-This patch is a fix for the issue previously reported here:
-
-Link: 
-https://lore.kernel.org/netdev/tencent_634C55A23C7CCCA3985283BFED46A69C9E09@qq.com/
-
-The commit message already includes:
-
-Reported-by: Guikun Yang <yangguikun19@qq.com>
-Link: 
-https://lore.kernel.org/netdev/tencent_634C55A23C7CCCA3985283BFED46A69C9E09@qq.com/
-
-To clarify: I did not reproduce this issue at runtime in my testing.
-The problem was identified by code review/static analysis of
-nfc_llcp_allocate_snl(), where the SNL PDU size can be truncated.
-So this is a code-review/static-analysis finding rather than a
-runtime-triggered crash in my environment.
-
-Please let me know if further information is needed. As requested,
-I will not repost the series just to add this clarification.
-
-Thanks,
-Linkui
+diff --git a/drivers/pci/controller/pcie-tegra264.c b/drivers/pci/controller/pcie-tegra264.c
+index c97576ab4a31..711b66287681 100644
+--- a/drivers/pci/controller/pcie-tegra264.c
++++ b/drivers/pci/controller/pcie-tegra264.c
+@@ -126,7 +126,7 @@ static void tegra264_pcie_icc_set(struct tegra264_pcie *pcie)
+ 		width = FIELD_GET(PCI_EXP_LNKCAP_MLW, value);
+ 	}
+ 
+-	value = Mbps_to_icc(width * PCIE_SPEED2MBS_ENC(pcie_link_speed[speed]));
++	value = Mbps_to_icc(width * PCIE_SPEED2MBS_ENC(pcie_get_link_speed(speed)));
+ 
+ 	/*
+ 	 * We don't want to error out here because a boot-critical device
+@@ -266,8 +266,8 @@ static bool tegra264_pcie_link_up(struct tegra264_pcie *pcie,
+ 
+ 	if (value & PCI_EXP_LNKSTA_DLLLA) {
+ 		if (speed)
+-			*speed = pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS,
+-							   value)];
++			*speed = pcie_get_link_speed(FIELD_GET(PCI_EXP_LNKSTA_CLS,
++							       value));
+ 
+ 		return true;
+ 	}
+-- 
+2.43.0
 
