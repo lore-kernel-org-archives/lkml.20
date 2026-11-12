@@ -1,94 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794482471;
-	b=HIxrfXbgh43MsgGsuVj03kvi51f5zDl7NF2hZi6WiqjXBOujVjbJT/6Z5d3wDpfbpxpZ
-	 Jqw4h1xE18SSApDBSqCdc0qXb9vs4YDyv7BpC3tsNwJad/gA03bQTsJf11Vy2vKCdOy/w
-	 Y1pUhLvPUwhE2mXvQcZGXPU2pM2dC4JAVrTiY+V8/wV/KS+O/U0r2qfz0xiG8OyNgBms7
-	 i/DHZhMQKSzafYhajpFqUbQwfQ9j0ArJ+kTAMphHBHUANkn/XpdEO+AcLFFTpBevVtUeh
-	 7z7L8HLo2xnLjsLqGijupyneoivx9+Pf2pIi1ZJOXuZJxd9zusceS2XIIIA+SdRn1PA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482471;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=JAI4OUL2TrWY37F5xvd0X+8qNL/eL8wyTrg+ONCjoEs=;
-	b=b+/YgCJKWDaitoaKQ23bElJdSVqFj8jUuz6FYGsmoTL/vcIZUNVBPLIsihb2R3lLA5XB
-	 ekk8t32QsPh+5+Jbkm4apuuJbYe8s7J1JR5LZrklU5Jn+iWl9/jy9QWdMIXaCjtkgj6nG
-	 OQMmKZ/Ounlh2A3BHvZylCbOrlwCT9h67yc1bte8g10harx/LQ847e+DVjiB8bwOFggff
-	 N9KuVWipHk/cTJFFpp+FdQ1Yzmt25qX8rADnpmjMo6JtHq8ecKqXfoZ5Xv1HWP0ZvGJh3
-	 o7scc6OJrLLAsTpW9TnO/9q31Af39GVMRaqR5WvhmW51uSsAMO44djUzoh1WFbk0qqA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=KJquWBYd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794482485;
+	b=V3yCT0veqA24/4DYfsU5GMxFuM0dKhgKtj0nUyCoFYf/a9nRPcg9Y4fLB12PcSFxigJr
+	 IdYJh9a8f5/a6UFCxuLRBOBMcKL+TCclun2EaXR54QPOK2/zo48FJCxBYezKWr/slzXD+
+	 L0BNaJd8jEK0pO12u367C+aZCIeZw4+RNhIOt6rjZKtLvF7wOqdyWuM53vHC27uZyf2yl
+	 KCfWiL+ZX3qEMSHiotvyc/Q4+MDsDGDvDMh59rQB5b4oqDnYlEHA7LUSAnsf5H+gyBYF8
+	 uqJHiaNC3Ii6UYpiKH3h0LgIrvBYbrWNF4lZP0wFX6+0uDJyl6DJQjflRLmE3hZuAwA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482485;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=MMnSDrSrXvV4F97gt6WM8daxklUWuNqIgikRmFjT6Po=;
+	b=1q2iW4Js/eKu1koUwfaB5eqO1AhodUdjWzJlQQrUIL+h8Z/vB3gfXe0Adxem6prUZ8Xz
+	 +1H6d1czQaZxKT06yTMW3yiXhQYQs94ZFFTlnn7ZOVx9M/rC8un3MYSB0rKSsfRdScvZW
+	 NjzJ+Y6Slu4oFBGEnuxood/xzdS59Mck00jwZnSVjFfO8xd+fFLRHrT5MD2HvRNbfAf7s
+	 HhLvTyM1rG6tIgZGLDTWAvhYtzRzXrM18RSSRbjqOWMFZTGqZd0zMlzYIz2Ei7L6s/tn6
+	 i17sp2eZ2jiaiYGIxq6tH9O89wtCuI0sfL7DJNuzAyScQy54V2/y6ucX1KP+lKCn8ow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="Zg5SEKX/";
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FF5606A32A;
-	Thu, 12 Nov 2026 11:21:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71FF5606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFA9606A8A3;
+	Thu, 12 Nov 2026 11:21:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FFA9606A8A3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=KJquWBYd
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0529D202C92;
-	Thu, 12 Nov 2026 12:21:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794482469;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JAI4OUL2TrWY37F5xvd0X+8qNL/eL8wyTrg+ONCjoEs=;
-	b=KJquWBYdNO1p925AQ2jlEP1Br5a9Mv2C66vC3uv2eUhDSMbM9gunU33rBNI0DT90fdgjQ3
-	xrSx7CTPKVmyBq47XMOpD1/V02W673G1jKnu6OFLCxi4ts9Xpy7laauDW/QR2yPQaYNtaH
-	a79bqRMYx0qC2AkMzITaUxMytkLC2j5GeerenUqYjlwNSFT+OMwPtkB/TVnznRN9leoHQy
-	snA3fHwYVC+aqQvLlrfx5qlRFezAV+dIFr7vUN3AYVcad3S2L/F8ZtkuzzMbzrm2m8GXej
-	hbItJV4XXuUdcF/2jMI/EPKkXqEQOw7CEakVrrlUqVv2JbVqieghKr2N3lcaMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794482469;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JAI4OUL2TrWY37F5xvd0X+8qNL/eL8wyTrg+ONCjoEs=;
-	b=PES9tuqo9Rc2Gnym6fcwG8dfYWu1DGmo17wmPa9qqTQHjTS8hP1WW4PtkxX/r6LYy9gBJN
-	8BjLO3tCeaspT9vRtBWGmvXnCUOZIJ5qkHZHVH+jJJixfA2BQnm/XP0XCN/1QLylEiJYXU
-	qql9Icoea27xCOmdNq5cMMNEKsmhJsZOpIWXoi1Y0MMj6kLVX8h4F4lZEzY1HAFR30KY/j
-	OesXXmzpix65Q3jzfj1n3JYRVVHe5/7uEi3iQ9dDSTfbeAEGZ6eginhNJqqOL8W2K9pDqM
-	3rLyN8RORqpJoKlf2ALWPtOkz7St8mngyFDx99Jb1E4ReWoUfbvR1iwdw8osyA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794482469; a=rsa-sha256;
-	cv=none;
-	b=RbCN62QjvVPGiuIyH0q18mcoTd+ZabtKUJhZO45YrUSkyoQ6yXvhc1+ZXSREh4PTcVW+xs
-	wd+E6hGHT/NVYmp2Qpd1gpM+oIhO7xlNSFe4qaJFvqbZe4nw2XPPryzAgYeK+sm0A6SqO9
-	Rbso7sB5rtOBbsPaGLShEzL4rp6jPnVFeINhHKK7maTw/xLtEthnCQI++w0uiiwgPi/cFz
-	lEYIxx0iuudGCyVAkhqN5NbJKuY1C65yxKZvtsehYVdxTwq5RZkrpZikDCJJ1wbrV1tyub
-	hFqGdrca+Pb8ByyB5dJwMjaxTV9rVPeDPcpkW2sc14Rezd0u5i057oJIBsj1Sw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <45683ba0cf239f394b621d84cbd5535f7eae410f.camel@pengutronix.de>
-Subject: Re: [PATCH v6 14/15] reset: starfive: jh71x0: Support discontiguous
- reset IDs
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>, Brian Masney	
- <bmasney@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Stephen
- Boyd	 <sboyd@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-riscv@lists.infradead.org, Hal Feng
- <hal.feng@starfivetech.com>
-Date: Thu, 12 Nov 2026 12:21:08 +0100
-In-Reply-To: <20261008123338.11081-15-changhuang.liang@starfivetech.com>
-References: <20261008123338.11081-1-changhuang.liang@starfivetech.com>
-	 <20261008123338.11081-15-changhuang.liang@starfivetech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Zg5SEKX/
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2iDTD2854172;
+	Thu, 12 Nov 2026 11:21:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=MMnSDrSrXvV4F97gt
+	6WM8daxklUWuNqIgikRmFjT6Po=; b=Zg5SEKX/amD2LGPHYT4uVm7BiMxi/VVo8
+	YQzyjUQK7RVgacwg8fMwFIKT31RQDodVj8+E4AzGTrbHnfoVQeP+V10TqjVshMCK
+	O+4utPSfgpZmS1Ygvue0az4QtZD+h+vJGVCJXz6a0A/aegr53ED28oenWxf7sn2y
+	1ga7BrYfvd6EdpMWBtYFl4yITsa7XckbYvtS7/8FtFkP42D9u8ETda1I/DFI59KH
+	PyvicpsHMmFq9r7js4UxYe0/9R+JkkHv/DvqtjhFrb+tZzsv+Kp26trEsfLkqbet
+	KBAoz7SB4La9gozgC8CXe9oKVzMIhBJjUXJ7khBDZa+O1H8Thhkog==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsuq771pk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 11:21:10 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC8Jadj016766;
+	Thu, 12 Nov 2026 11:21:09 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hv3328hhe-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 11:21:09 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ACBL5It31392248
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 12 Nov 2026 11:21:05 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A140B20043;
+	Thu, 12 Nov 2026 11:21:05 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 734122004E;
+	Thu, 12 Nov 2026 11:21:05 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 12 Nov 2026 11:21:05 +0000 (GMT)
+From: Mikhail Zaslonko <zaslonko@linux.ibm.com>
+To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Ilya Leoshkevich <iii@linux.ibm.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+        Pasha Tatashin <pasha.tatashin@soleen.com>,
+        Pratyush Yadav <pratyush@kernel.org>,
+        Dave Young <ruirui.yang@linux.dev>, Jiri Bohac <jbohac@suse.cz>,
+        Jonathan Corbet <corbet@lwn.net>, Usama Arif <usama.arif@linux.dev>,
+        linux-s390@vger.kernel.org, kexec@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH v1 1/8] s390/kdump: Enable crashkernel CMA infrastructure
+Date: Thu, 12 Nov 2026 12:20:58 +0100
+Message-ID: <20261112112105.1169118-2-zaslonko@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112112105.1169118-1-zaslonko@linux.ibm.com>
+References: <20261112112105.1169118-1-zaslonko@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,163 +100,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA0NCBTYWx0ZWRfX5fm9gCXrtvvs
+ jENSgShuIdasX7+rCHDZpd5oJvUj6Nx2AyB3wHuy3J3q5iuIZ5QVCKmJOXPnj5kMPgtq3ejXkU6
+ xJNP3YJd0ZxhPpVHDFueK6UqLjywl3M=
+X-Authority-Analysis: v=2.4 cv=HbCB3SE8 c=1 sm=1 tr=0 ts=6af5a126 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=SCa88stCgWRd7v6xzU4A:9
+X-Proofpoint-ORIG-GUID: WYNyKYsdZIHeuyg1NO0I0DxAJdSWsDow
+X-Proofpoint-GUID: WYNyKYsdZIHeuyg1NO0I0DxAJdSWsDow
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA0NCBTYWx0ZWRfX1ZuujC63B89K
+ 7MMHcx9LS7RqU3LmSX7KatbW3BH8e9uMFhPXz2O16+jWjrWOZWVCyE1Ii8WEvNKYNdZBl+EVL4y
+ mjxiAikCNgytuPDYwGr/1oAJU5mhqtqM1KNWy9R5HjfscseFrfpV/gZalaPKKzhDfVjBUEUkMwY
+ mdDCCJ4KkQtJLzSxNZdz+l2fsWWG/9V4GiKhqlpkux4zFFbmyKy4hAKgJvaITz6Q41VnA28RiVf
+ 0ovNrZZNkK2evJmF4hWh0J5bc+fgCup3DiwB+eCIe/pDDp3g8/MLXDBgyN4SI7hympobaq1bGR4
+ eF+BQIv68LXjitG0A0bgaAm0W9pahGniuDztyaGGvlOtcHFd6RSwDnveJAWZXnXyuc4s/Xa9EoR
+ GbgxNYHgYUrrG7QY+6436AjI0q3Pvy/b23bl1jLNMg6awOwXI3qO8CMxpBcOe+93NEZeR6ftbZo
+ BfdVkIgePmi5MsVKFkg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 phishscore=0
+ impostorscore=0 priorityscore=1501 clxscore=1015 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120044
 
-On Do, 2026-10-08 at 05:33 -0700, Changhuang Liang wrote:
-> The reset IDs exposed to consumers of the StarFive JHB100 reset
-> controllers do not map one-to-one to the hardware reset bits.
->=20
-> Add struct jh71x0_reset_info, which describes the number of resets, the
-> assert/status register offsets and, for discontiguous controllers, a
-> table mapping reset IDs to hardware bits. Add
-> reset_starfive_jh71x0_register_with_info() to register such a
-> controller, and translate the reset ID in the update and status
-> callbacks when a map is provided.
->=20
-> Existing users of reset_starfive_jh71x0_register() are unaffected.
->=20
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  .../reset/starfive/reset-starfive-jh71x0.c    | 99 ++++++++++++++++---
->  .../reset/starfive/reset-starfive-jh71x0.h    | 19 ++++
->  2 files changed, 107 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/reset/starfive/reset-starfive-jh71x0.c b/drivers/res=
-et/starfive/reset-starfive-jh71x0.c
-> index 29ce3486752f..fd1c755a0017 100644
-> --- a/drivers/reset/starfive/reset-starfive-jh71x0.c
-> +++ b/drivers/reset/starfive/reset-starfive-jh71x0.c
-[...]
-> @@ -29,19 +36,40 @@ jh71x0_reset_from(struct reset_controller_dev *rcdev)
->  	return container_of(rcdev, struct jh71x0_reset, rcdev);
->  }
-> =20
-> +static unsigned long
-> +jh71x0_reset_id_to_hw_id(const struct jh71x0_reset_map *map, unsigned in=
-t nr_resets,
-> +			 unsigned long reset_id)
-> +{
-> +	for (u32 i =3D 0; i < nr_resets; i++) {
-> +		if (map[i].reset_id =3D=3D reset_id)
-> +			return map[i].hw_id;
-> +	}
-> +
-> +	return JH71X0_RESET_ID_INVALID;
-> +}
-> +
->  static int jh71x0_reset_update(struct reset_controller_dev *rcdev,
->  			       unsigned long id, bool assert)
->  {
->  	struct jh71x0_reset *data =3D jh71x0_reset_from(rcdev);
-> -	unsigned long offset =3D id / 32;
-> -	u32 mask =3D BIT(id % 32);
-> -	void __iomem *reg_assert =3D data->assert + offset * sizeof(u32);
-> -	void __iomem *reg_status =3D data->status + offset * sizeof(u32);
-> -	u32 done =3D data->asserted ? data->asserted[offset] & mask : 0;
-> -	u32 value;
-> -	unsigned long flags;
-> +	unsigned long offset, flags;
-> +	void __iomem *reg_assert;
-> +	void __iomem *reg_status;
-> +	u32 mask, done, value;
->  	int ret;
-> =20
-> +	if (data->info && data->info->discontiguous) {
-> +		id =3D jh71x0_reset_id_to_hw_id(data->info->map, data->info->nr_resets=
-, id);
-> +		if (id =3D=3D JH71X0_RESET_ID_INVALID)
-> +			return -EINVAL;
-> +	}
+Select ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION to build the generic
+crashkernel CMA code: reserve_crashkernel_cma() and crashk_cma_ranges[].
 
-Why is this lookup done in the ops?
-It should be done once in fwnode_xlate instead.
+s390 keeps its own reserve_crashkernel(), the CRASH_* definitions in the
+new asm/crash_reserve.h are only there to satisfy the generic header.
+arch_add_crash_res_to_iomem() returns false because setup_resources()
+already inserts the crashkernel resource.
 
-> +
-> +	offset =3D id / 32;
-> +	mask =3D BIT(id % 32);
-> +	reg_assert =3D data->assert + offset * sizeof(u32);
-> +	reg_status =3D data->status + offset * sizeof(u32);
-> +	done =3D data->asserted ? data->asserted[offset] & mask : 0;
-> +
->  	if (!assert)
->  		done ^=3D mask;
-> =20
->=20
-[...]
-> @@ -132,3 +170,42 @@ int reset_starfive_jh71x0_register(struct device *de=
-v, struct device_node *of_no
->  	return devm_reset_controller_register(dev, &data->rcdev);
->  }
->  EXPORT_SYMBOL_GPL(reset_starfive_jh71x0_register);
-> +
-> +int reset_starfive_jh71x0_register_with_info(struct device *dev, struct =
-device_node *of_node,
-> +					     void __iomem *assert, void __iomem *status,
-> +					     const u32 *asserted,
-> +					     const struct jh71x0_reset_info *info,
-> +					     struct module *owner)
-> +{
-> +	struct jh71x0_reset *data;
-> +	int ret;
-> +
-> +	if (info->discontiguous && (!info->map || !info->nr_resets))
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "discontiguous controller without a valid ID map\n");
-> +
-> +	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	data->rcdev.ops =3D &jh71x0_reset_ops;
-> +	data->rcdev.owner =3D owner;
-> +	data->rcdev.nr_resets =3D info->nr_resets;
-> +	data->rcdev.dev =3D dev;
-> +	data->rcdev.of_node =3D of_node;
+Signed-off-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
+---
+ arch/s390/Kconfig                     |  3 +++
+ arch/s390/include/asm/crash_reserve.h | 24 ++++++++++++++++++++++++
+ 2 files changed, 27 insertions(+)
+ create mode 100644 arch/s390/include/asm/crash_reserve.h
 
-You can add a custom fwnode_xlate that does the
-jh71x0_reset_id_to_hw_id() translation if info->map is set.
+diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
+index 7138d923d86f..1a99fcf520bf 100644
+--- a/arch/s390/Kconfig
++++ b/arch/s390/Kconfig
+@@ -331,6 +331,9 @@ config ARCH_SUPPORTS_CRASH_DUMP
+ 	  This option also enables s390 zfcpdump.
+ 	  See also <file:Documentation/arch/s390/zfcpdump.rst>
+ 
++config ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION
++	def_bool CRASH_RESERVE
++
+ config ARCH_DEFAULT_CRASH_DUMP
+ 	def_bool y
+ 
+diff --git a/arch/s390/include/asm/crash_reserve.h b/arch/s390/include/asm/crash_reserve.h
+new file mode 100644
+index 000000000000..7e04db630bc6
+--- /dev/null
++++ b/arch/s390/include/asm/crash_reserve.h
+@@ -0,0 +1,24 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _ASM_S390_CRASH_RESERVE_H
++#define _ASM_S390_CRASH_RESERVE_H
++/*
++ * s390 crashkernel alignment and address limits.
++ */
++
++#define CRASH_ALIGN		HPAGE_SIZE	/* matches KEXEC_CRASH_MEM_ALIGN */
++
++#define CRASH_ADDR_LOW_MAX	(4UL << 30)	/* 4 GB */
++#define CRASH_ADDR_HIGH_MAX	ULONG_MAX
++
++/*
++ * s390 keeps its own reserve_crashkernel() and manages its own
++ * iomem resources via setup_resources(). Prevent the generic
++ * insert_crashkernel_resources() from inserting duplicates.
++ */
++#define arch_add_crash_res_to_iomem arch_add_crash_res_to_iomem
++static inline bool arch_add_crash_res_to_iomem(void)
++{
++	return false;
++}
++
++#endif /* _ASM_S390_CRASH_RESERVE_H */
+-- 
+2.55.0
 
-> +
-> +	spin_lock_init(&data->lock);
-> +	data->assert =3D assert;
-> +	data->status =3D status;
-> +	data->asserted =3D asserted;
-> +	data->info =3D info;
-> +
-> +	ret =3D devm_reset_controller_register(dev, &data->rcdev);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to register reset controller\n"=
-);
-> +
-> +	dev_info(dev, "Registered %u resets\n", data->rcdev.nr_resets);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(reset_starfive_jh71x0_register_with_info);
-> diff --git a/drivers/reset/starfive/reset-starfive-jh71x0.h b/drivers/res=
-et/starfive/reset-starfive-jh71x0.h
-> index db7d39a87f87..36f198139602 100644
-> --- a/drivers/reset/starfive/reset-starfive-jh71x0.h
-> +++ b/drivers/reset/starfive/reset-starfive-jh71x0.h
-> @@ -6,9 +6,28 @@
->  #ifndef __RESET_STARFIVE_JH71X0_H
->  #define __RESET_STARFIVE_JH71X0_H
-> =20
-> +struct jh71x0_reset_map {
-> +	unsigned long reset_id;
-> +	unsigned long hw_id;
-> +};
-> +
-> +struct jh71x0_reset_info {
-> +	unsigned int nr_resets;
-> +	unsigned int assert_offset;
-> +	unsigned int status_offset;
-> +	bool discontiguous;
-
-This seems superfluous, (map !=3D NULL) means discontiguous already.
-
-> +	const struct jh71x0_reset_map *map;
-> +};
-> +
-
-regards
-Philipp
