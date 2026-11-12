@@ -1,81 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.77.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453202;
-	b=VL8goODzdKN719J3kGmznPNKKaOXFjC10yTwcmKKK/quHSlwJsOLe1RblN0/OWLtGQO4
-	 TcUhlJB3E9XFAVuHvmnakoXu1HkUvhPcotfjwtVXMmYiVFk6UiUYnx3ZlGGYn60F5zg0D
-	 p86Ncd0OMj0tFMbrMargS4cmToicowQmqPq2iWfRk55pop/G8/V1ntJeHCwaD22Zkf43o
-	 DcfHwreOJtFKLLaWY/mWCcqUH/ehu5vDflsk+pL5ulROWvxGLJpXpMqSlAoiTW0ZXlK0U
-	 364S0xwMTkjRPMFcIKpYJ2cHglfFrpenThlFB9ApQ3VHjTDHNO3Rf4u3ZBlZkM0xwNw==
+	t=1794453287;
+	b=f8SvJG18Cx1X0FI9na4GTTbvRAQSt+ruImIdJIKbN6mZMUCHkYwexcP0HlyzQhJjzzuL
+	 W9qqI7EW9VA9SbKhmJF12geNMO1Ti281eEKXoLdOEMgF94bR0kPu/a+axkHmQQOGF+HN0
+	 5xdbJZvtOt5g6OTY7XPyvsQvZr1k+DzaAk0Y5WkdeRld9dpjCF3jbjPLic3ShzURzfRSH
+	 uZnBj//r31VJm64kaMpW+3mH0fZ3WrnGBvpRNTDX81zz5z1aXdbJZAxmOUayP3kbj1dnK
+	 4sxtj1kD3+GQ50Vn4bcuodcUnbIyMnOaNwggX+tigsjzLYGN/YwNHrmcheCsEUkPavQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453202;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=JUogQn/BAmhleQtwWRRnNTBjM0tCYwYemH8LUz+qbt4=;
-	b=ZEUbWioqf7JZ8KW1/kWoy3jYpNvLLmdrbrD7n5oi0hZitdrJaodGv5AXxfrlM6X621ZK
-	 FaTmkYdlM7xjQg9BbvgVNywnOi+8ofZxVtnKYQZ1EV8Se3OHBb8QKPPc00+i0MkpW+Z1t
-	 eNs1AlB3OvCB0jLz3VWsgvwP7ZamdSBmA/KS5zZ/Fy6V1wiI3hgO380uqPtxldaim4oXY
-	 UvRfr949ga2Uka151KHmcAduqMwHSspUX0b0nSvJPQpKP1yqjx0k2wClbiyuX+ETGeF1a
-	 7MaolZ4y/IDiSe14m7M3Amoj1HbgvQej27zpfaoe/klK3s9iRy29OZpJ/xf96Ijba2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794453287;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/30VWyBplrHuByc3jnpm/ewinby2W6T19rzhjR/lb94=;
+	b=kgkc5DxnsGhMBPdrHwKj50CBYng1Y+wuB04t9+q6VO8LcoiUT1vVN0QP5lMsFxDYqKcE
+	 NjQN+m9rVLgsFKkZ9TkECpuz0HllwVEqCpjkhhTOTfAFLJU2ef7pN3ShK7CBhNdRQYxck
+	 O1YAfK5DUxpgkV+CU7In/nXemOxtpi+LD0DmuXpBo5Mxw6jWyVDY8IwyETC/W3P7GpPum
+	 rJGPzSiNFgiNpUBYyLN1gMMvnYcJBLTv+1cjV6P4qwzckfE2lsSqqE+aZb9ZynunV3+Xp
+	 GCNT6beHoLLS1Ct5Qtlg9VNttQVl+lCxcGr8O1eohutARGiVYI3cAimEOFF/n7LBvOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=IucemCCT;
-	arc=none smtp.remote-ip=44.246.77.92
-Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B51606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:13:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76B51606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Ey1jhzMo;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 95856606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:14:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95856606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=IucemCCT
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Ey1jhzMo
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794453202; x=1825989202;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=JUogQn/BAmhleQtwWRRnNTBjM0tCYwYemH8LUz+qbt4=;
-  b=IucemCCTv+p/orkhyuDEp/FH7IlqOSvfv8C2rkHdO6C0vA1ENjkob1ua
-   PoFZLEUj4OmbW8Wz665IZzVcfadikCBW6vUGH9+8YSvcbElgqD3fNMQh+
-   f49hYn964xKq4yWumkKqL0anmYgXXPhWl7Lkc6GsCP0xOUEG9xCey3iyR
-   KEo56JJzfwgPwzF/l6Sf77dCP31BK8wcx36Itc86FYVVAbBUUR1mOmZgZ
-   HNHWtw4xDfZ1jfm6lBq9Fd7H/n90A2u5CrKKLNmZPndRmjxccHrsaQsMh
-   WuXuCPZc40IVH5+FmeYLwkEU+6ndv1CsEWFiWadsmfz//b8FJ6NoLNxbS
-   g==;
-X-CSE-ConnectionGUID: AI13IQ2ZQ7WsDp5G9DpvPA==
-X-CSE-MsgGUID: 9U2ELaH+R+qU4aQhMNpkOA==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33777135"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 03:13:19 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:23536]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.5.141:2525] with esmtp (Farcaster)
- id a3bdc8c7-cdae-4c42-82cf-ecc576a2ae8e; Thu, 12 Nov 2026 03:13:19 +0000 (UTC)
-X-Farcaster-Flow-ID: a3bdc8c7-cdae-4c42-82cf-ecc576a2ae8e
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 03:13:19 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 03:13:18 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>
-CC: Arnd Bergmann <arnd@arndb.de>, <nh-open-source@amazon.com>, "The AWS Nitro
- Enclaves Team" <aws-nitro-enclaves-devel@amazon.com>
-Subject: [PATCH 19/19] MAINTAINERS: Take over the Nitro Enclaves driver
-Date: Thu, 12 Nov 2026 03:07:15 +0000
-Message-ID: <d4f58e7ee5ff15e5a01181860d07057f77f3b109.1794393487.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300000.git.graf@amazon.com>
-References: <cover.1794300000.git.graf@amazon.com>
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=Ey1jhzMoUiJ3GqO4Zw52/9rP5yP77vtL+oskHizqy+0Tsqp4q6nbD1HTIFU0pcqy3L3kBDOWaBW3s
+	 eOaGCqKjmv7KZ9LqtVWUvwuOTpi+zr12xiiuq+/XyXkotKm9yK9pYkDL6uzwRx6/51LISbrRa72jY3
+	 17evi/txqUCMBZq8=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af52f21224-e2673;
+	Thu, 12 Nov 2026 11:14:44 +0800 (CST)
+X-RM-TRANSID:2ee96af52f21224-e2673
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af52f225ed-f0845;
+	Thu, 12 Nov 2026 11:14:44 +0800 (CST)
+X-RM-TRANSID:2ee66af52f225ed-f0845
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: pmladek@suse.com
+Cc: john.ogness@linutronix.de,
+	rostedt@goodmis.org,
+	senozhatsky@chromium.org,
+	paulmck@kernel.org,
+	printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH v2] printk: ringbuffer: Annotate speculative record reads
+Date: Thu, 12 Nov 2026 11:14:41 +0800
+Message-ID: <20261112031441.120773-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,31 +73,87 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Alexandru Ciobotaru has moved on from Nitro Enclaves, so the driver needs
-a new maintainer. I take it over.
+Readers may copy a finalized record while a writer recycles its storage.
+prb_read() checks the descriptor again after copying and rejects records
+that have changed, but the plain metadata and text accesses still trigger
+KCSAN reports.
 
-Signed-off-by: Alexander Graf <graf@amazon.com>
+Annotate the speculative copies, line counting and length read with
+data_race(). Retain READ_ONCE() for text_len so that the size check and
+copy use one snapshot. The descriptor validation continues to determine
+whether the copied record can be used.
+
+OpenAI Codex assisted with analysis and patch preparation.
+
+Fixes: b6cf8b3f3312 ("printk: add lockless ringbuffer")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
 ---
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+- Mark the speculative text_len snapshot with data_race(), retaining
+  READ_ONCE() and documenting the reader-side validation.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065d..20e4a56a197ee 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19834,7 +19834,7 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux.git
- F:	arch/nios2/
+ kernel/printk/printk_ringbuffer.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
+
+diff --git a/kernel/printk/printk_ringbuffer.c b/kernel/printk/printk_ringbuffer.c
+index 46a79ec0940a..8a1075d00d0a 100644
+--- a/kernel/printk/printk_ringbuffer.c
++++ b/kernel/printk/printk_ringbuffer.c
+@@ -1894,9 +1894,10 @@ static bool copy_data(struct prb_data_ring *data_ring,
+ 	if (data_size < (unsigned int)len)
+ 		return false;
  
- NITRO ENCLAVES (NE)
--M:	Alexandru Ciobotaru <alcioa@amazon.com>
-+M:	Alexander Graf <graf@amazon.com>
- R:	The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>
- L:	linux-kernel@vger.kernel.org
- S:	Supported
+-	/* Caller interested in the line count? */
+-	if (line_count)
+-		*line_count = count_lines(data, len);
++	if (line_count) {
++		/* Racing text is rejected by the caller's descriptor recheck. */
++		*line_count = data_race(count_lines(data, len));
++	}
+ 
+ 	/* Caller interested in the data content? */
+ 	if (!buf || !buf_size)
+@@ -1904,7 +1905,7 @@ static bool copy_data(struct prb_data_ring *data_ring,
+ 
+ 	data_size = min_t(unsigned int, buf_size, len);
+ 
+-	memcpy(&buf[0], data, data_size); /* LMM(copy_data:A) */
++	data_race(memcpy(&buf[0], data, data_size)); /* LMM(copy_data:A) */
+ 	return true;
+ }
+ 
+@@ -1969,6 +1970,7 @@ static int prb_read(struct printk_ringbuffer *rb, u64 seq,
+ 	atomic_long_t *state_var = &rdesc->state_var;
+ 	struct prb_desc desc;
+ 	unsigned long id;
++	u16 text_len;
+ 	int err;
+ 
+ 	/* Extract the ID, used to specify the descriptor to read. */
+@@ -1984,12 +1986,16 @@ static int prb_read(struct printk_ringbuffer *rb, u64 seq,
+ 	if (err || !r)
+ 		return err;
+ 
+-	/* If requested, copy meta data. */
+-	if (r->info)
+-		memcpy(r->info, info, sizeof(*(r->info)));
++	if (r->info) {
++		/* The record may be recycled; the descriptor is rechecked below. */
++		data_race(memcpy(r->info, info, sizeof(*r->info)));
++	}
++
++	/* The descriptor recheck below also rejects a raced length. */
++	text_len = data_race(READ_ONCE(info->text_len));
+ 
+ 	/* Copy text data. If it fails, this is a data-less record. */
+-	if (!copy_data(&rb->text_data_ring, &desc.text_blk_lpos, info->text_len,
++	if (!copy_data(&rb->text_data_ring, &desc.text_blk_lpos, text_len,
+ 		       r->text_buf, r->text_buf_size, line_count)) {
+ 		return -ENOENT;
+ 	}
 -- 
-2.47.1
+2.51.0
+
+
 
