@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794457694;
-	b=YYL0XjGke1KHYw6wsO1Ap7CaQy+ZILhV/ZcnsRIlMXWMZC869Ah5rWKfCzkP4Vfl5MYA
-	 loemg9nkL9IEjaSBu5oEtiQ3i+lanzjUmbTCd+F/FUi9PEzPDfpgo8t3zq1CoedV8PeBA
-	 Zw8nZXRllMLNTpKJSSiCAytOAYPwflp2knfXA87Jc+iX35UMsUtTF82N6QItsMy0JNVMn
-	 6x+Xb6rbLvjHz3uLxEEFerRKqfvCkQjxFfhxq8QspI/29PSQedgW1caBCquBuljdT8kC7
-	 tXJH+zHpgoxERNDNC5XkeB5q7GuzI3bgXzEy9WiIUU4WYeycbDDT6a+M5C5xRq9rAZw==
+	t=1794457797;
+	b=wXSW8UKQSe+mTIgFLeVwR/4urbUKHX2SOJK1UGOfTLbJbWxcV+KWXD9NjOeRRiwSebEZ
+	 9W718/Kf0ySvsTA3bOdmhk4NcomuQJ28kWql1hsA2YGp4cu6TSX818aif3Zap7D9hUyuF
+	 MZBnkkq/cbBXMPV3TIRbF3PEAJchaBaBuT31Y9QuatDl0m/NbuXVuLiB+s50Li05mKVvM
+	 mXHFR30L9gYEON/bJktSpjBQZfX3nkSVlRzyeeDqzf4eBJHUWEHrgQdyZydnm2A288ZgD
+	 QH7wjI6UcmcGcbvheOLWBt+oL92rMBuE1Da8+TAyb3CdauwD0cUnmuybbJqdGOIaX4Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794457694;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794457797;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=72SUPaxQEhtOUv0mlFo4kwCDiyNMot1/Xsy1W1QLG5M=;
-	b=vyCjWHNqANMHx/BE+QTw9leLEgo2BwhS5xq6NXH3j8nHOWPi+Vnk7cDCeyfHKnOtATT5
-	 d37m9XBhpKGqeoXGvklR9oMlzC3TmkEtp061+IHokQdrOXdYxYb/y1h9Y9+YI1WhhPFmN
-	 R9z7TxexUYqcIMIpgR1qa4FwfGLFrdawRtcvM5KEvwfjwUSjUANd1Ywdifojmrqrj0IeO
-	 TL0XhX62kLxuWIEY4DxcYCSIf3E4ldlPhXz0q3zs/kcZWjAbQQjGFUHLW4ldmOtwKntrT
-	 cxYHXxunzFQGwi+hkAfDuXOwbFW1QnFE3HDo5bv+FfRM9Hdb0qOWP6slgF9RqcQAP3Q==
+	bh=TgVNlb9qjM6ZO+q5UoCrsvegC7I7n+tFz3ZHn9Xe214=;
+	b=sjYzpnviaDfFy6pKzP7y1+NYD2MJyoEuQbmtf42lyS1Iqho7qmE87/1FT/0qyQ+yXXcZ
+	 cEAPLaJVI17UezFpfc9lgv26PtzASZoUunUnrL2oUsRUZuHjXcqhBqdlZimagnoubUDZ/
+	 MpbFRn0ofThOGA/p9A6LcaVIdfsJfQyNv8Ramod2YgoXYDskiKQHYPRNTLN4oAdeiwT+H
+	 1UW4vMw9sTWtBJGggNsfCEEsOSZ6koTYAG/cv6J+wv2pPWYGY5To8UZ3f84J82Y+4sp8D
+	 j6PfH3SHrjT2xb/c/1OJu5vE21ZAroJh6fdtgyB8GaRjtjfCzDVDpPlAwYKmQiB24iw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jAYdlGdb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oozVrttH;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84CCE606A321;
-	Thu, 12 Nov 2026 04:28:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A139606A31C;
+	Thu, 12 Nov 2026 04:29:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jAYdlGdb
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oozVrttH
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794457694;
-	b=SFWBhESwlidwwEV0qKMgBY2ZnL4PlBbqnmLLn8Xc0OuTrnlQpqXOEHdcZ1ZARWXB4r3Z
-	 C0QaXlosLxcykZ1fhQdFQLkECXcnqLPOeNMxgOKvkrAxqJIAVg7R+O7GVtFOpG1E0NAG4
-	 9DkEyMrwj7/k9/aTu/4rxRv3klfWn1YABBPwhFbq1dN6J2Ac0p6tP3fBA0arW1ved5M3K
-	 DPBoTGyl8cxi9pReYSfPCVcR3Gpxn1jP7DnxP9EPu4y7b/eEUqGXxtOmBGMCk3/OQAMuM
-	 0s67sooqKZiopzdaSXWaTd0FvIOQcY5kEe2mw6Fydm/2l1w26QswRAlSkvkiUMO6m/g==
+	t=1794457796;
+	b=T/JbhDJwZ7TL2ROEuCafRS0E+xcAjB1IbEW6v3sMvoygGZOYKIOA20JWOQbk+0X6wKoA
+	 hdlV8ZI/F8aZsA/iqiwFuoUxXwaySDBgSnWaSgbXxMpUfLi/36MGhmaZuIc2zh3l5fGv4
+	 XiL2172hVKm/cBlQikqv94s9WWQe5G0pXaBrMoliTdFz+mtmwZR8f73/kmiQVHgHlpxSY
+	 rrXDrp4IM6rq1tQaC+M++pzy/ZpVJnJ8Q1Tz6dXM7tldxLOkqT2q8MfTHgO73hNvsVCfe
+	 kVelLS5Z3cpxbOVCVzSiiXVB9HKX0HNKLPk66X+QWCqrJkgdCIv+tWSMGQL5CcPxNtg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794457694;
+	c=relaxed/relaxed; t=1794457796;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=72SUPaxQEhtOUv0mlFo4kwCDiyNMot1/Xsy1W1QLG5M=;
-	b=Qexr0B5DD9ZfgQrL78js+v4VQeODkmbGTvyMTH1fjUqyxXWzL3666RgSaz+EZPZoVBCi
-	 U67qdks5MT6e2ZOKa/aPbWALQgKXQde+KlX4qEWPT36ueQjxfwojfb2byKa9vPAvX/6Ex
-	 m46hhpAWq2c+mTbBgikvLIQHi519m1ae3QfOaVV/lIbnrA6EnZ9ba7Vjao6A6JBcmodx5
-	 YsLsV5spMFcccUzMTVCPJa94PcG0wqPBMa47V4TzGIE3QbkpX0Nk28KyA0Ir4es7OX27a
-	 IEoA4ECc19TXbHv3oNWsZeO0IAeLo6hR6XGjinKo8L3xo2cyA7iQ3Y04Av7YP6BcLXw==
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=TgVNlb9qjM6ZO+q5UoCrsvegC7I7n+tFz3ZHn9Xe214=;
+	b=p6JecLNlHz1x7IsjnLTS65A0PO3jHy5eUKoWaEZKcsYQNUlIxJJivO8UEWmJ1xFv2G8+
+	 tutP4xtxqUtqOzgFpY5Hqyk7b0S/WOc6HPraZOX1iWjaTpupgHKLz1U9o1wn9LFHQrDTs
+	 aMarCL/HDoZ0e2vcKjewpNHFDe0UNaWqtmXoVHsAVANMppdBEZPUIvL5t5iyFdy19goxG
+	 ES6MKkqEaVP3kQQcT3VSgx/goxERC0DmSV1AF539uyHqOmipDQ2g3mz2c+c5UNlllJ88r
+	 KimUPn+ztF2PlNbqq3CcoPtokM9GJg6RxSp4u10wZn6j1SD4VDp8zy4qTcdsvqxZzDw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B31FB1F00A05;
-	Thu, 12 Nov 2026 04:28:13 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6B2731F00A05;
+	Thu, 12 Nov 2026 04:29:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794457694;
-	bh=72SUPaxQEhtOUv0mlFo4kwCDiyNMot1/Xsy1W1QLG5M=;
+	s=k20260515; t=1794457796;
+	bh=TgVNlb9qjM6ZO+q5UoCrsvegC7I7n+tFz3ZHn9Xe214=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=jAYdlGdb2kyRa3L+kma6sqWrC33UCCk0UGKVw++zzTKTkVb5CGv28i/LhDGhRC1nb
-	 NJU93Ie/o0EITV1N4Tx3FxE7WxYa4nZpkoQOJILTdicpSga6fsb1ZHaln/YC+Z73Sz
-	 WxzUGzU4CTzmfd1Ytosbbyr7ZxGxgLRngnteJS8cW47IwrxZ2xf06KykVq5kc37QLL
-	 vJOgh4yIZNjg+0kWwBhqBWh9nA8yhgrNKUzYbRY4LS8yZsCyFujZKymoaNk1A5fBAn
-	 5RJlXzjZCLku+Lxyc70mE1DKGZjfs4Vyqf/cqKL6iZ8L3oih/4RHQiXtDPGn1thzBV
-	 b1yHBmtxhoa1g==
+	b=oozVrttHVAQ9s8HODN3qyThbZ5p0FGSSp26Qc/yPdpzRgNbKJ2cGrwNMKtsGz4GXE
+	 YGCt8owh/YD8807ZfyKR2v7T2tnoWWlB0sP2SDUx/E0ZjGHDAw1Dw9gFsO0I26T3oF
+	 DCDKfkw6BkT6hfew+jSu+lsTEH9oVriBOmYxP8BmYOT6GhkVw0U+VPaG5Ktq2axiPE
+	 VI6oC0tNSxnCF7TGl3DkHkwzcc+sVyHgFjVVbt+1eYKO/cusyIBLY5cE5lPFOkbK0p
+	 t+wRtvmYvhhsPBiCl+PzExcfxzkjSAY5OSO/Sez0b/J2MQu34LYJdA2I4fgPMXW0g0
+	 0eUCTQkP1zUzw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0F79E4927F;
-	Thu, 12 Nov 2026 04:28:13 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 04:28:13 +0000
-Subject: [PATCH] usb: typec: tcpm: Cancel the timers before destroying the
- worker too
+	by lkml.kernel.org (Postfix) with ESMTP id EF36B4927F;
+	Thu, 12 Nov 2026 04:29:55 +0000 (UTC)
+From: Yusuke Hayashi via B4 Relay <devnull+yusuke8h.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 04:29:55 +0000
+Subject: [PATCH] staging: bcm2835-audio: remove unused
+ bcm2835_audio_retrieve_buffers() declaration
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,121 +84,67 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-tcpm-unregister-timers-v1-1-7230fda5612b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCQAxG4auUrA00g4rjVcRFnf6tETqWZCpC6
- d0ddfkt3lvJYQqnc7OS4aWuz1whu4bSvcsjWPtqCm04ikjgkuaJl2wY1QuMi04w5zD0coj7Uxt
- jpBrPhkHfv/Hl+rcvtwdS+d5o2z4PaLCIegAAAA==
-X-Change-ID: 20261112-tcpm-unregister-timers-2fd159480999
-To: Badhri Jagan Sridharan <badhri@google.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Guenter Roeck <linux@roeck-us.net>, Xu Yang <xu.yang_2@nxp.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794457692; l=3576;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=uO7oLFJ9U2ade7oBvcd7yir9nsFmvPybpTlJOuoRoAM=;
- b=12OwEeV8fEQtCgyW1E7aRWtRJbppNwN/xgiR2qmXBfUwQldX0xlNfYjZAL3iuCnkAOaajjTJV
- gO/caxTbEwSBO/Und6USQU0+xqw8TQo1001UkPihPbgv2oWHVqWPt23
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+Message-Id: <20261112-bcm2835-audio-unused-decl-v1-1-3b63a24b033b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAMJA9WoC/x2MQQqAIBAAvxJ7biHXiugr0cF0q4WyUIwg+nvSc
+ WBmHogchCP0xQOBL4ly+AyqLMCuxi+M4jIDVdQqpQgnu1OnGzTJyYHJp8gOHdsNa2pNNvSkuYP
+ cn4Fnuf/3ML7vB0o0Dc1rAAAA
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-staging@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Yusuke Hayashi <yusuke8h@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794457795; l=1434;
+ i=yusuke8h@gmail.com; s=20261112; h=from:subject:message-id;
+ bh=a+TgyUI6wkUkFO2I4cpqAGWsRWGHAWy+RkqW/CQr8tE=;
+ b=bFuG0CHsUqIN8TsqRDo45PNlrMwwZoe6/DklH1Tqgyl9UR6UthH5+qMZ4VkD64Y1ybu8lGEc6
+ BozwNImwss8CQG4yK414WsNFnI5f7Fz6qGtJvrZ1v3leU9tHGXi/E20
+X-Developer-Key: i=yusuke8h@gmail.com; a=ed25519;
+ pk=7SzYbbTWl4u1a0gmKeMxAqo7g7F1K7tnWWGWQ+LnNNs=
+X-Endpoint-Received: by B4 Relay for yusuke8h@gmail.com/20261112 with
+ auth_id=1495
+X-Original-From: Yusuke Hayashi <yusuke8h@gmail.com>
+Reply-To: yusuke8h@gmail.com
 Content-Transfer-Encoding: 7bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+From: Yusuke Hayashi <yusuke8h@gmail.com>
 
-tcpm_unregister_port() clears port->registered, destroys the kthread
-worker and only then cancels the hrtimers. A timer handler running on
-another CPU that has already seen port->registered set can still call
-kthread_queue_work() once the worker is freed, or with port->wq
-already NULL:
+bcm2835_audio_retrieve_buffers() is declared in bcm2835.h, but its
+definition and sole caller were removed in commit d7ca3a71545b
+("staging: bcm2835-audio: Operate non-atomic PCM ops").
 
-  CPU0                           CPU1
-  tcpm_unregister_port()         state_machine_timer_handler()
-                                   if (port->registered)
-    port->registered = false;
-    kthread_destroy_worker(port->wq);
-    port->wq = NULL;
-                                   kthread_queue_work(port->wq, ...);
+Remove the orphaned function declaration.
 
-The timers are cancelled after the worker is destroyed on purpose:
-works that run while the worker is flushed can start a timer again
-(see the commit in Fixes). Cancelling only before would bring that
-back, so cancel them on both sides. hrtimer_cancel() waits for a
-handler that is running, so after the first round no handler that
-missed the cleared flag is left; the second round removes a timer that
-a work started during the flush. tcpm_reset_port(), called later, only
-cancels.
-
-Fixes: ca4d8344a72b ("usb: typec: tcpm: fix tcpm unregister port but leave a pending timer")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206898@kernel.org/
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Signed-off-by: Yusuke Hayashi <yusuke8h@gmail.com>
 ---
-Sashiko found this while reviewing an unrelated tcpm patch of mine:
-https://lore.kernel.org/all/sashiko-outbox-206898@kernel.org/
-Its suggestion was to cancel the timers before destroying the worker
-instead of after; that would undo the commit in Fixes, hence both.
-
-Compile-tested only (arm64 W=1): the window is a few instructions in
-the unbind path and I have no reproducer.
-
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the change and the commit message, and I reviewed it.
+Found while scanning staging headers for declarations without definitions
+with an AI coding assistant, verified against commit d7ca3a71545b, and
+compile-tested with Clang 18 (LLVM=1 W=1 C=2) and GCC 13 (W=1 C=2) with
+CONFIG_SND_BCM2835=m.
 ---
- drivers/usb/typec/tcpm/tcpm.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
+ drivers/staging/vc04_services/bcm2835-audio/bcm2835.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index d721baef5210..c7e0e09b1cbe 100644
---- a/drivers/usb/typec/tcpm/tcpm.c
-+++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -8987,18 +8987,29 @@ struct tcpm_port *tcpm_register_port(struct device *dev, struct tcpc_dev *tcpc)
- }
- EXPORT_SYMBOL_GPL(tcpm_register_port);
+diff --git a/drivers/staging/vc04_services/bcm2835-audio/bcm2835.h b/drivers/staging/vc04_services/bcm2835-audio/bcm2835.h
+index 5a1348747ff4..54ad749129fc 100644
+--- a/drivers/staging/vc04_services/bcm2835-audio/bcm2835.h
++++ b/drivers/staging/vc04_services/bcm2835-audio/bcm2835.h
+@@ -107,6 +107,5 @@ int bcm2835_audio_write(struct bcm2835_alsa_stream *alsa_stream,
+ 			void *src);
+ void bcm2835_playback_fifo(struct bcm2835_alsa_stream *alsa_stream,
+ 			   unsigned int size);
+-unsigned int bcm2835_audio_retrieve_buffers(struct bcm2835_alsa_stream *alsa_stream);
  
-+static void tcpm_cancel_timers(struct tcpm_port *port)
-+{
-+	hrtimer_cancel(&port->vdm_discovery_timer);
-+	hrtimer_cancel(&port->enable_frs_timer);
-+	hrtimer_cancel(&port->vdm_state_machine_timer);
-+	hrtimer_cancel(&port->state_machine_timer);
-+}
-+
- void tcpm_unregister_port(struct tcpm_port *port)
- {
- 	int i;
- 
- 	port->registered = false;
-+	/*
-+	 * A timer handler that saw port->registered still set may queue
-+	 * work: wait for it before the worker goes away. Works that run
-+	 * while the worker is flushed may start a timer again, so cancel
-+	 * the timers once more afterwards.
-+	 */
-+	tcpm_cancel_timers(port);
- 	kthread_destroy_worker(port->wq);
- 	port->wq = NULL;
--
--	hrtimer_cancel(&port->vdm_discovery_timer);
--	hrtimer_cancel(&port->enable_frs_timer);
--	hrtimer_cancel(&port->vdm_state_machine_timer);
--	hrtimer_cancel(&port->state_machine_timer);
-+	tcpm_cancel_timers(port);
- 
- 	power_supply_put_system_batteries(port->fixed_batt, port->fixed_batt_cnt);
- 	tcpm_reset_port(port);
+ #endif /* __SOUND_ARM_BCM2835_H */
 
 ---
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261112-tcpm-unregister-timers-2fd159480999
+change-id: 20261112-bcm2835-audio-unused-decl-426a1123b3e8
 
 Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+Yusuke Hayashi <yusuke8h@gmail.com>
 
 
