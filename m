@@ -1,77 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794442696;
-	b=UziF9pYybGtPMpxASpliqvDm5Ji+DmEbAc/cjUGM+SH51IfwdxAuXRepDwk04pARx6o9
-	 7Jiwb7Gm+ahPni9Zsx/k5ar/Z9WbZ7zaG/CO8NpgWIy2mAbHbHJ3HC1JMdoqB/6OwvLUb
-	 AwzQ+zVw86HQXOPLBjrxBTPgJoCJ0laj/YIaMD9/lqZkEFg6ygGs+M2ZWZOTNS+C6cNOM
-	 QgIq35mG0hFgqvnYsj4hagl/X23tzJW4vCLboTgYHsNr2vnjtcdSJoykzaY1Zwvu3cRoj
-	 H6wRv83Fe3admz5+B18kIv3eCMZZiwmwvibZxh1P7ipSatiMmRD34t3GN/pXx7yq5Nw==
+	t=1794442852;
+	b=fREabxTQmSzwsaqD0ERS0ZGVtwQBdVWYcu3UqobvPicQULVmw98h+97EbaHfJy8qf0KI
+	 COxzA7lZVSQjIS1RXzldFLxxsVhTmjYwYkruapPvXYhhF2h5JbdQdOZObxpxzPYUsUIoi
+	 SKQgzeRPrKm+Gp+wM/P2HPyIXdPz8dDhg6V5fJq7zCFmblrF85hi6uMbsNi/NoR//usAr
+	 4Z50M00TVBQ8mLVYhmnL1m0dVvKmhjk4i3L5UBHsrSm2Qs8wpdr5tO9j4662APqg/SQ5C
+	 MO4FlLU4zz0JMCDhmmxFR4AmOrhgOq7yq7Cj2q6W9nkN5GN7BR4aXlK2MYIt9Um5K2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794442696;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=z3bxrbFKkTpEcIw/694YZcQAAJ2hY4OxEzRQP2+fKzs=;
-	b=itBY2W+zsFNtA6++3UNSmvOFlhx3OCno+sbB78YTYKvU486MmzIpCRPCYOb6Se6K3cim
-	 HCryow2PzDUK5GQiE6zcUw/y9C/VDzkHS0UKq+f47LQfKbPDvOAPYezdWwEbNSbMCxAFD
-	 uia+HE5v/nfOv6OCQmqYbp4PwtVfJ6M4ANePDb6JiZIzRmwK09uBWca/buAAyPVlyVGj3
-	 8verijT+ZJur04/tizdpjS85TEZo0YKkHUSJIVbLeoiQJLIFm0hwZDgKWQHOP6wVgKOlV
-	 MW6fsmw1revGouPp3x6i2/5pcJVGjIzr+Z8jrBKPUM/8RFjYAsgWgOhHScGAXAXU1DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794442852;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4u/i0K/kZxeNYTNdEkP+SGosn3lLleQQ1euUt+BT4f0=;
+	b=B4aX3r6nT4fmxRKeL1wmO8Ao1bVoFfeQjoIPdLSn6iJU9ezy1tdIv8d/+x01Jp5BOXzU
+	 uaQOf6pbOkZMcAkk3alPrXx3QGEvznzQbCY06HBDIA9XKEo5crQ9qeVtlLs+ncsA1Ozoy
+	 Vy5Au3bgtHqgx6d7uhK3WbcIVZuUL5z9gkpKhlZ4FEaDTUcLNwm6ox4FZG/GAG8TBCiK3
+	 oqqqmR96O37qFIkOzghS3q0eQgL3/6rCUkPWRpmgGeXboHl4dR+GfYgHshjzM1kNvkXrF
+	 o3eIDFHBH6toSLCrG8rrUKGTFE14Gj2BIsmn6bcoV7N/LiW9CzDy6QeBHSI/0wus1BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=ZrRhNlrY;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BzP5PfQP;
+	arc=none smtp.remote-ip=209.85.210.179
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE60F606A326;
-	Thu, 12 Nov 2026 00:18:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE60F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAA7606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:20:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEAA7606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=ZrRhNlrY
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A6EDB40E0222;
-	Thu, 12 Nov 2026 00:18:13 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id JJGyk9gKJ3av; Thu, 12 Nov 2026 00:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794442690; bh=z3bxrbFKkTpEcIw/694YZcQAAJ2hY4OxEzRQP2+fKzs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZrRhNlrYInjq8W95c6Wszmwi9s0dscV7SbTx6PBfhuQlvPM+g3g3FcJQBcKN9Mmft
-	 bGgQCsyDk2BU/ZmP1FMQctzE0fm/eIF1949yiJeNL6QD84Id+So5ztIHGkePqRMxG2
-	 Q6Qe5aHsT3aCLsTDi8elt3HRkbgRGTvxm+l4CAeEjA1qVXxdeQ2HaohYZWlN/3pAhF
-	 7OxV8y04OI4WpAVichrFIPl92wfzz+Vqcd4LJ5KbxaiRzaZ3QwwK7spApt+WGGM3yc
-	 YM17jXn76MpIosY0fWerrnCno1ONS72eunXlyepBMSQK7PexqGk9zJ6I3YvUR5D+oX
-	 0eUetBeCGWeqPdst/0VNG3H91M64/U9nymmUXABbUrJ5jEanZkZS0lzuNdU9K6syRl
-	 FiZhqavdQmo76RwoSgmD8Wm3AWEGcaT1MI3fgkxjlwfkntrkBmqWGr0qO0PhYhlPFu
-	 DvE3bJioOZ+9c2kZTlw3yZUbTfmINiGaNl8Dtt3rk8EkWIarBjErObyMQCqJ0qy1Xd
-	 OvyVXHelsNGfeRW3kcmIeY/ryVO1VdKOuD4hIxuAYSGBtnjjAd8d9uim+BQjmuwRro
-	 kldIFzVlFjeNSnw8du4WwSbnI7jmUrzeP35WKUt/+vSWq4UCxKj8uhjc3MuACkaBB5
-	 pOUH/S8apA6Q4C5sk+S/q9Dc=
-Received: from stx.tnic (unknown [209.52.143.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id BB26940E0218;
-	Thu, 12 Nov 2026 00:18:03 +0000 (UTC)
-Date: Wed, 11 Nov 2026 16:17:52 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Andrew Luebke <andrew.luebke@gmail.com>
-Cc: Tony Luck <tony.luck@intel.com>, Aristeu Rozanski <aris@redhat.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] EDAC/i5000: Fix the slot loop and re-enable the
- driver
-Message-ID: <20261112001752.GCavUFsCwZIRkfLI7T@fat_crate.local>
-References: <20261111232529.407154-1-andrew.luebke@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BzP5PfQP
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a058315c79so1919350b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:20:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794442851; x=1795047651; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4u/i0K/kZxeNYTNdEkP+SGosn3lLleQQ1euUt+BT4f0=;
+        b=BzP5PfQP5IOY+08Ovdd8G+oGzosODbOdBwPQj2+lm5GPJfWiOD55XAsPyaWQKEiT4j
+         FGFVitsqzvURcqIsMXGabmGJdxDPOJ7Yb6rgNIpQTYnzVpJF5Ejp34ERLSYKgHyIOZnJ
+         2dksh8kbcR8r8Xp7XBheLmbCUTIvp8fZZyP4M8g93he06ABh8fZGrOQ8c/4MlubSpqby
+         d2y9SfdO3gTu1zYiCrsWNrw9KakiRqEzX54N67NACwraed+UifJrZFpX4sAHmfbi1N8T
+         3eHy3pfh8gaX+0pdm6n0RBH3oifeoA1JT6HD+VVRVLNWZ3ildyEsg+fqa9avJD84FGM5
+         jzHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794442851; x=1795047651;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4u/i0K/kZxeNYTNdEkP+SGosn3lLleQQ1euUt+BT4f0=;
+        b=1p4tzrl9RpjNQoCjVI9D2QFI+kWhrCGwL6jz2pKsU//Pbz5M3pCr/gOpi6gTi4p7RC
+         eFQZqI7JSaDkcyo0UJBRchbeoaIqhMpkM6lZLs3xHmOsRHUi1TKFCwIAJkRWhbjwk5Fj
+         3X6ixHoauNCDiGxetpmh8YNAmXipq7eDI8wlNIBjrWRYDvjBfWerIzsBAxeyDbx2eAje
+         Wvt7vTbGHE7KcWe3K6kzopHeb8w22marEuaV9uteoAq0p/MZSXBmPaXvSyeY8B71qePL
+         TW5+p3yMhS6kQcDG90PVz1DOn16US8xDZQolx76ftWLPfXmWedDykBOgRwF5lpvCQ7JL
+         UnzQ==
+X-Forwarded-Encrypted: i=1; AL+hErGOWodqd3cxIPEjiJ4BRqYOFPBsSvDnqsttB3KqzAbYKH949thpht9sFwmHieheNk33mfEzvcYWKvR3CyA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+t7If9fp3frQ0yO+9hur3/KMckng9ZGbju637tze34Kt/U4wVy
+	a24fenjX2H+ut18pXffngR6o0zoQ6yLttB8YWO5BM83bv7qX2oWG2q02
+X-Gm-Gg: AYBFou1A64lsfVhbKGwRBNJfvU61nwVAfIk8myrx6I9c9TaI+Et0Wev6YqZj7DkpXnJ
+	vfGa6nmKsU48E07u9KbfQ4F6NNCN0Y4yorkIBD5CQ5EmvKxYUl939WLpSYtP9PaeyzzAqEi8mtQ
+	XCG6106/RGMuEfXEv6nq32TBct1SaGjCF8PQWWKpz6KFLtsfGx11EjdfX5hSkUAG5Wj/T4CeG8q
+	6Figpl12aINigh+WijEjXJlwRATU+JtLeUryK3Lr4BzVxNcseHPL1CDplv9ckWX2w2pjvGWhPpy
+	7opku6Dvs4GxxxVEeO8KhmjZitSPY+5XcBRgEedGZTaNe3EtZ0QvVz9CK1pXg11rVJTHY381Zt/
+	lmW867Pt6O1fVc9wBigbqEjRu5dTfzFREzmSva4mQQqa0eOZcDFPnrtWRwZvrl4i7BKT3lKk/Vc
+	8g2vQ23ge/0+O+0t7LF7aDVeKSEgRtD77i0XTVrI9n1bIe+iDBTmNNGLGz+kjZrijJwEotYmBYf
+	C5xn7d0t47jhcIRUStu0Q5Yew8J4PSQIuF6YvNG2uYjU6SWq4sBInbCZVsDcqaP5qxs4+sO8M2W
+	WUpifOH3paXOgWFA/KZ3YbQBikNDCXZepyC08MQJTuS/q2asClUJug==
+X-Received: by 2002:a05:6a20:2589:b0:3e2:7e05:49b0 with SMTP id adf61e73a8af0-3f2ff5d26d7mr3934258637.50.1794442850892;
+        Wed, 11 Nov 2026 16:20:50 -0800 (PST)
+Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:28::1d2:6e])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaac46b20sm2647262b3a.30.2026.11.11.16.20.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 16:20:50 -0800 (PST)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v4] net: dsa: motorcomm: Add devlink info and resources
+Date: Thu, 12 Nov 2026 08:20:29 +0800
+Message-ID: <20261112002031.1475005-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,30 +100,242 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111232529.407154-1-andrew.luebke@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 03:25:27PM -0800, Andrew Luebke wrote:
-> Analysis and test kernels were prepared with LLM help; the tests ran on my
-> hardware.
+Expose the ASIC model via devlink info (ASIC_ID), and register devlink
+resources for ACLs and meters.
 
-Just out of curiosity, was all the energy you've spent on fixing this
-- especially the AI tokens - worth the effort?
+Signed-off-by: David Yang <mmyangfl@gmail.com>
+---
+v4:
+ - remove FDB-related changes
+v3: https://lore.kernel.org/r/20261109163117.1792478-1-mmyangfl@gmail.com
+ - remove the buggy sub-resources
+v2: https://lore.kernel.org/r/20261108094512.1285796-1-mmyangfl@gmail.com
+ - fix issues reported by sashiko
+v1: https://lore.kernel.org/r/20261106184811.350700-1-mmyangfl@gmail.com
+ drivers/net/dsa/motorcomm/Makefile  |   1 +
+ drivers/net/dsa/motorcomm/chip.c    |   8 ++
+ drivers/net/dsa/motorcomm/chip.h    |   2 +
+ drivers/net/dsa/motorcomm/devlink.c | 111 ++++++++++++++++++++++++++++
+ drivers/net/dsa/motorcomm/devlink.h |  18 +++++
+ 5 files changed, 140 insertions(+)
+ create mode 100644 drivers/net/dsa/motorcomm/devlink.c
+ create mode 100644 drivers/net/dsa/motorcomm/devlink.h
 
-This chip is documented on something called the retro web:
-https://theretroweb.com/chips/317 and it says it is from 2006 and it sports
-DDR2 memory. So that is retro alright.
-
-The HP xw8400 has a whopping quad-core Xeon in it.
-
-But whatever...
-
-Now, if you really wanna do this, can I jot you down as the one who will be
-testing any future patches for that driver?
-
+diff --git a/drivers/net/dsa/motorcomm/Makefile b/drivers/net/dsa/motorcomm/Makefile
+index 9eaa59f699e8..0b31d815ce43 100644
+--- a/drivers/net/dsa/motorcomm/Makefile
++++ b/drivers/net/dsa/motorcomm/Makefile
+@@ -2,6 +2,7 @@
+ obj-$(CONFIG_NET_DSA_YT921X) += yt921x.o
+ yt921x-objs := chip.o
+ yt921x-$(CONFIG_NET_DSA_YT921X_LEDS) += leds.o
++yt921x-objs += devlink.o
+ yt921x-objs += mdio_bus.o
+ yt921x-objs += mib.o
+ yt921x-objs += pcs-921x.o
+diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+index a1d0ce35f4f3..855637d0548d 100644
+--- a/drivers/net/dsa/motorcomm/chip.c
++++ b/drivers/net/dsa/motorcomm/chip.c
+@@ -26,6 +26,7 @@
+ #include <net/ieee8021q.h>
+ 
+ #include "chip.h"
++#include "devlink.h"
+ #include "leds.h"
+ #include "mdio_bus.h"
+ #include "mib.h"
+@@ -2141,6 +2142,8 @@ static void yt921x_dsa_teardown(struct dsa_switch *ds)
+ 
+ 	yt921x_leds_remove(priv);
+ #endif
++
++	dsa_devlink_resources_unregister(ds);
+ }
+ 
+ static int yt921x_chip_detect(struct yt921x_priv *priv)
+@@ -2475,6 +2478,10 @@ static int yt921x_dsa_setup(struct dsa_switch *ds)
+ 	if (res)
+ 		return res;
+ 
++	res = yt921x_devlink_setup(priv);
++	if (res)
++		return res;
++
+ #if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
+ 	res = yt921x_leds_setup(priv);
+ 	if (res)
+@@ -2563,6 +2570,7 @@ static const struct dsa_switch_ops yt921x_dsa_switch_ops = {
+ 	.port_add_dscp_prio	= yt921x_dsa_port_add_dscp_prio,
+ #endif
+ 	/* chip */
++	.devlink_info_get	= yt921x_dsa_devlink_info_get,
+ 	.teardown		= yt921x_dsa_teardown,
+ 	.setup			= yt921x_dsa_setup,
+ };
+diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
+index fc315f1d8f87..55a36716266c 100644
+--- a/drivers/net/dsa/motorcomm/chip.h
++++ b/drivers/net/dsa/motorcomm/chip.h
+@@ -248,6 +248,7 @@ enum yt921x_app_selector {
+ #define   YT921X_PORT_LEARN_MODE_AUTO			YT921X_PORT_LEARN_MODE(0)
+ #define   YT921X_PORT_LEARN_MODE_AUTO_AND_COPY		YT921X_PORT_LEARN_MODE(1)
+ #define   YT921X_PORT_LEARN_MODE_CPU_CONTROL		YT921X_PORT_LEARN_MODE(2)
++#define YT921X_LEARN_UCAST_CNT		0x18043c
+ #define YT921X_AGEING			0x180440
+ #define  YT921X_AGEING_INTERVAL_M		GENMASK(15, 0)
+ #define YT921X_FDB_IN0			0x180454
+@@ -312,6 +313,7 @@ enum yt921x_app_selector {
+ #define   YT921X_FDB_IO2_PRIO(x)			FIELD_PREP(YT921X_FDB_IO2_PRIO_M, (x))
+ #define  YT921X_FDB_IO2_NEW_VID_M		GENMASK(11, 0)
+ #define   YT921X_FDB_IO2_NEW_VID(x)			FIELD_PREP(YT921X_FDB_IO2_NEW_VID_M, (x))
++#define YT921X_LEARN_MCAST_CNT		0x180504
+ #define YT921X_FILTER_UNK_UCAST		0x180508
+ #define YT921X_FILTER_UNK_MCAST		0x18050c
+ #define YT921X_FILTER_MCAST		0x180510
+diff --git a/drivers/net/dsa/motorcomm/devlink.c b/drivers/net/dsa/motorcomm/devlink.c
+new file mode 100644
+index 000000000000..6be9630e1e5e
+--- /dev/null
++++ b/drivers/net/dsa/motorcomm/devlink.c
+@@ -0,0 +1,111 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2026 David Yang
++ */
++
++#include "chip.h"
++#include "devlink.h"
++#include "tc.h"
++
++int
++yt921x_dsa_devlink_info_get(struct dsa_switch *ds, struct devlink_info_req *req,
++			    struct netlink_ext_ack *extack)
++{
++	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
++	int res;
++
++	if (!priv->info)
++		return -ENODEV;
++
++	res = devlink_info_version_fixed_put(req,
++					     DEVLINK_INFO_VERSION_GENERIC_ASIC_ID,
++					     priv->info->name);
++	if (res)
++		return res;
++
++	return 0;
++}
++
++static u64 yt921x_devlink_occ_get_acl(void *ctx)
++{
++	struct yt921x_priv *priv = ctx;
++	unsigned int count = 0;
++
++	mutex_lock(&priv->reg_lock);
++	for (unsigned int i = 0; i < YT921X_ACL_BLK_NUM; i++)
++		count += hweight8(priv->acl_masks[i]);
++	mutex_unlock(&priv->reg_lock);
++
++	return count;
++}
++
++static u64 yt921x_devlink_occ_get_meter(void *ctx)
++{
++	struct yt921x_priv *priv = ctx;
++	u64 count;
++
++	mutex_lock(&priv->reg_lock);
++	count = bitmap_weight(priv->meters_map, YT921X_METER_NUM);
++	mutex_unlock(&priv->reg_lock);
++
++	return count;
++}
++
++enum yt921x_devlink_resource_id {
++	YT921X_DEVLINK_RESOURCE_ID_NONE,  /* DEVLINK_RESOURCE_ID_PARENT_TOP */
++	YT921X_DEVLINK_RESOURCE_ID_ACL,
++	YT921X_DEVLINK_RESOURCE_ID_METER,
++};
++
++struct yt921x_devlink_resource {
++	const char *name;
++	devlink_resource_occ_get_t *occ_get;
++	unsigned short size;
++	unsigned char id;
++	unsigned char parent_id;
++};
++
++static const struct yt921x_devlink_resource yt921x_devlink_resources[] = {
++	{
++		"ACL", yt921x_devlink_occ_get_acl,
++		YT921X_ACL_NUM,
++		YT921X_DEVLINK_RESOURCE_ID_ACL,
++		DEVLINK_RESOURCE_ID_PARENT_TOP,
++	},
++	{
++		"meters", yt921x_devlink_occ_get_meter,
++		YT921X_METER_NUM,
++		YT921X_DEVLINK_RESOURCE_ID_METER,
++		DEVLINK_RESOURCE_ID_PARENT_TOP,
++	},
++};
++
++int yt921x_devlink_setup(struct yt921x_priv *priv)
++{
++	struct dsa_switch *ds = &priv->ds;
++	int res;
++
++	for (unsigned int i = 0; i < ARRAY_SIZE(yt921x_devlink_resources);
++	     i++) {
++		struct devlink_resource_size_params size_params;
++		const struct yt921x_devlink_resource *r;
++
++		r = &yt921x_devlink_resources[i];
++
++		devlink_resource_size_params_init(&size_params, r->size,
++						  r->size, 1,
++						  DEVLINK_RESOURCE_UNIT_ENTRY);
++
++		res = dsa_devlink_resource_register(ds, r->name, r->size, r->id,
++						    r->parent_id, &size_params);
++		if (res) {
++			dsa_devlink_resources_unregister(ds);
++			return res;
++		}
++
++		dsa_devlink_resource_occ_get_register(ds, r->id, r->occ_get,
++						      priv);
++	}
++
++	return 0;
++}
+diff --git a/drivers/net/dsa/motorcomm/devlink.h b/drivers/net/dsa/motorcomm/devlink.h
+new file mode 100644
+index 000000000000..184b9f05742e
+--- /dev/null
++++ b/drivers/net/dsa/motorcomm/devlink.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (c) 2026 David Yang
++ */
++
++#ifndef _YT_DEVLINK_H
++#define _YT_DEVLINK_H
++
++#include <net/dsa.h>
++
++struct yt921x_priv;
++
++int
++yt921x_dsa_devlink_info_get(struct dsa_switch *ds, struct devlink_info_req *req,
++			    struct netlink_ext_ack *extack);
++int yt921x_devlink_setup(struct yt921x_priv *priv);
++
++#endif
 -- 
-Regards/Gruss,
-    Boris.
+2.53.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
