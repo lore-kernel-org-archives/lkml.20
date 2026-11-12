@@ -1,70 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447368;
-	b=Q295c5Rxave1UpdANCEqOCZACz6Q4QY3LkHl8YjKkIScHoHPYLNTiMur8tmBh5WC6Y8L
-	 5/qheO2WamvFrMJk56eIjn1BZEc1AUmuM/Ej9yMWDCcL3OytgrPclXZOr7krALdjZG1QP
-	 OApeyPnCUmCJADDnTk4eDgmSClL1dtUD/ii0SoOPM6hxRJ7znQ685Jt5y3p1CHwawys5j
-	 XDXMBUAJ4Oiw6juB1aAtcL/9ExVz1fMnWgyWBUW7Q+JDUpNudr003rljcg+HPqY6avQ64
-	 FleDqPHXIeTlAIudsi41sLHAQKtj2EoQmq1bIgi1RbXTike4WkM016tQdU2PwEHZtXw==
+	t=1794447377;
+	b=FmHCI2Tcho6vSkz/y+eu6JQpofWO3l1AnmqqB1dMJG5nQM9scF/uC3BjJqtW73Ah5XJ/
+	 VKORqe4IZey1t7nxen8Dhpckp5Fy9blbpVw1nKXFuVQYZlNBVjInRm6lu4grpKW1qEFPf
+	 qZMvJjusZlIXSkAWWhPDO1YXn61yW9nTWYatlPw+7OFybYL4Yo19nQXgbSOH0M2R515sI
+	 0gs7p+ighuhwMr6FgPPJ0gwZKPkazmhNFsSgFvm5xuce0aq6y/4nl4HioKKte0px8bV2+
+	 B1cCSEczo6/UyR4p4VcHGwm3rA89Di1KP+oe011PVG8wQKaOmPTsEYFFTZmVoTeLzAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447368;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:Content-Type:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=N7w3mU3Z/aQ234J6T+KznqfhqxGooAWYmjTC1watK8g=;
-	b=lRqQVz5OpmEM8M7XAcqLeT8YO+IdDGs3a9c2tBxtmMWRMBnrMwe+He2XHrAiQ9ZNnvqJ
-	 2IHSO5O07DQo8rn5iN6jAtuB9GCIsglg3EtBW8UwVQt49EGhsrxykhCO3F1nLxcDvbd+S
-	 sRQuQq5OyHo76FZpQ4j21vKuHaPCCrzAFbqR5pnyD4rH0APWJY1+vpxxFebBinj6Z/MbX
-	 mGcfZiIDm2a8FORtQB5fiBPkd1CQzvGWoLblqnyUmiA61ZN71Ll222gfYg77CIVmnxf8x
-	 mRQqjFr2x18+cpsCMHxhDx9x3ft7rYU4pceMBYVuGx2pSOWagGsiWbn/8LseyUKXScg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447377;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=ELLqdcOAA9rFtchadf0YpKl1TUOHi1tEx6RNAEsB1Ng=;
+	b=Sols82Fm4MvDZBVnQFZl6e7JCwpht/8mFW+cx5zz4lTn49Y9aw9Ak/KDSiMLvnQDzoWG
+	 o9jqFPMgvTBFCJ3V4/291ZBkzh0cQYm5/SlZfHxvac6W5pgO6Ky++pQhT9jnZFUoQMUep
+	 6FW/HCF8xhTJogdDnmu/0SBK2kYXv3oTo1s4c5zf23iO0Wzw01svA4MLKanYJa+qp0e1B
+	 KRPxD1GZ7H9RHqAmVS2dbrLoqszn7y6zD5gWzk1K1oku1iNd71dhVuq0cZvJUWq0GSW1H
+	 TM5VaWhcJXA6rveRxH1mDMF1fIc56rg/YNx+ZOa9sI6wK/7sMQrWn1WGrwViYKLDASg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jnpUM+nz;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57D0606A334;
-	Thu, 12 Nov 2026 01:36:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B57D0606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 6b8b89e2de3911f19a56ed5b684f684d-20261112
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:b233f480-255c-4cfc-9f14-6b08b8beca87,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:d3e16174d883be0d854b7b11a293285b,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15|50|99,EDM
-	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 6b8b89e2de3911f19a56ed5b684f684d-20261112
-X-User: yuyang@kylinos.cn
-Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yuyang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 306454315; Thu, 12 Nov 2026 09:36:02 +0800
-From: Yu Yang <yuyang@kylinos.cn>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Brett Creeley <brett.creeley@amd.com>,
-	Shannon Nelson <sln@onemain.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI/MSI: Skip address mask check for MSI-X entries
-Date: Thu, 12 Nov 2026 09:35:49 +0800
-Message-Id: <20261112013549.1130072-1-yuyang@kylinos.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311BD606A337;
+	Thu, 12 Nov 2026 01:36:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 311BD606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jnpUM+nz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=EL
+	LqdcOAA9rFtchadf0YpKl1TUOHi1tEx6RNAEsB1Ng=; b=jnpUM+nz1+F/CW7Tu3
+	DAHsc0kE5QXayzPzFu9XS8WRwY+e0Wcbqf9ceGXoQehX7uADa6N6yfMe137Kcwae
+	RUbhVuHNJg9otWS/iVd4slqDLUr2C8CuGhIO73dFv4FTAYV443bFWZLf6NX++I4x
+	Ct5SxfU9FN32OBmYE5VvqP3QQ=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wCnA2zdF_VqvPswHA--.52798S2;
+	Thu, 12 Nov 2026 09:35:27 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io,
+	agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	bmarzins@redhat.com
+Cc: dm-devel@lists.linux.dev,
+	magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li Youhong <liyouhong@kylinos.cn>,
+	syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v5] md: fix sync_work vs array teardown races
+Date: Thu, 12 Nov 2026 09:35:23 +0800
+Message-Id: <20261112013523.120428-1-dayou5941@163.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <87mrriun77.ffs@fw13>
-References: <20261109-pci-fix-msix-alloc-failure-v1-1-6370c0b84354@kylinos.cn>  <87mrriun77.ffs@fw13>
-Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,40 +70,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCnA2zdF_VqvPswHA--.52798S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Ary7Gr1DCw4fKryfAw1DJrb_yoWxWr18pr
+	WrJFn8Gr4Dt3yxZFZrK3WDua4Yvw1Sq3yDJryxWa4fAw1SyF47uFy09F1jvFWDJas3tayU
+	Zw4rJFZxuFyq9FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jj_M-UUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3QAWxGr1F+CIuAAA3X
 
-Hi Thomas,=0D
-=0D
-Thanks for the review and the suggested approach.=0D
-=0D
-> The core cannot rely on random implementation details of drivers and=0D
-> architecture code. It fails gracefully when the provided address limit=0D
-> is violated to prevent hard to diagnose subsequent failures.=0D
-=0D
-I agree, and I am not proposing to rely on those details. My concern with=0D
-the pci_msi_broken approach is that it disables MSI unconditionally,=0D
-including on platforms where the MSI allocator returns a 32-bit address=0D
-and MSI works fine. ahci_init_irq() uses MSI as the first choice for=0D
-single-port controllers and as a fallback for multi-port controllers, so=0D
-this would cause a functional regression on such systems (falling back to=0D
-MSI-X or INTx instead of MSI).=0D
-=0D
-> Coming back to your AHCI controller. That's broken to begin with. Assume=
-=0D
-> that MSI-X is not supported then MSI setup would fail the same way. You=0D
-> don't notice because MSI-X is always enabled on x86 platforms.=0D
-=0D
-Understood. The device's MSI capability is 32-bit while its MSI-X=0D
-capability uses 64-bit addresses.=0D
-=0D
-Would a device-specific flag meaning "MSI-X supports 64-bit addresses=0D
-even though the MSI capability is 32-bit" be acceptable? That would keep=0D
-MSI enabled with the existing 32-bit msi_addr_mask, use a 64-bit mask for=0D
-MSI-X, and keep the verification in place instead of skipping it. The=0D
-quirk would only affect this ZX-200 AHCI device.=0D
-=0D
-Please let me know which direction you and Bjorn prefer. I will also fix=0D
-the Fixes: tag as pointed out by the Sashiko review.=0D
-=0D
-Thanks,=0D
-Yu=0D
+From: Li Youhong <liyouhong@kylinos.cn>
+
+dm-raid tears down arrays via md_stop(), which cleared mddev->pers
+without waiting for previously queued sync_work. That work could
+then call remove_spares() with pers == NULL, or keep using mddev
+after raid_dtr() frees it.
+
+do_md_stop()/md_stop_writes() already call stop_sync_thread() before
+teardown. Do the same in md_stop(). Because md_start_sync() may still
+use mddev after unlocking / clearing MD_RECOVERY_RUNNING, flush
+sync_work whenever it is busy rather than only when work_pending().
+
+Calling stop_sync_thread() from md_stop() can drop reconfig_mutex,
+which introduces two follow-on issues:
+
+- When nothing is in flight, keep reconfig_mutex if the caller held
+  it (gate the idle early-return with work_busy()). Otherwise clear
+  of an inactive array can race with do_md_run().
+
+- While the mutex is dropped, mddev->thread may run
+  md_reap_sync_thread() and queue event_work. Flush event_work on
+  the raid_ctr() error path before raid_set_free().
+
+Separately, the read-only path in md_check_recovery() queued
+sync_work without honouring MD_RECOVERY_FROZEN, unlike the
+read-write path. Check FROZEN there so freeze/stop cannot race
+with a new queue.
+
+Fixes: db5e653d7c9f ("md: delay choosing sync action to md_start_sync()")
+Fixes: 81e2ce1b3d5a ("md: delay remove_and_add_spares() for read only array to md_start_sync()")
+Reported-by: syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a53c2918175b36cfd601
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
+---
+v5:
+- Restore idle early-return in stop_sync_thread() gated by work_busy(),
+  so locked callers keep reconfig_mutex and do not race with do_md_run().
+- Flush event_work before raid_set_free() on the raid_ctr error path
+  (md_stop() may drop the mutex and let md_reap queue it).
+- v4: https://lore.kernel.org/linux-raid/20261111015027.4029184-1-dayou5941@163.com
+
+v4:
+- Always flush_work(&sync_work) in stop_sync_thread(); do not delay
+  clearing MD_RECOVERY_RUNNING (that can drop MD_RECOVERY_NEEDED via
+  md_check_recovery, and does not cover the successful sync_thread
+  registration path).
+- v3: https://lore.kernel.org/linux-raid/20261110063045.912703-1-dayou5941@163.com
+
+v3:
+- Honour MD_RECOVERY_FROZEN before queueing sync_work on the
+  read-only md_check_recovery() path.
+- (superseded) delayed MD_RECOVERY_RUNNING clear on not_running.
+- v2: https://lore.kernel.org/linux-raid/20261109023055.2164333-1-dayou5941@163.com
+
+v2:
+- Drop the pers NULL check in md_start_sync().
+- Call stop_sync_thread() from md_stop() before clearing pers,
+  matching do_md_stop()/md_stop_writes().
+- v1: https://lore.kernel.org/linux-raid/20261106083543.249267-1-dayou5941@163.com
+
+ drivers/md/dm-raid.c |  7 +++++++
+ drivers/md/md.c      | 41 ++++++++++++++++++++++++++++++++---------
+ 2 files changed, 39 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index ac019a0f5a92..f82c09d858de 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -3319,6 +3319,13 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	md_stop(&rs->md);
+ 	mddev_unlock(&rs->md);
+ bad:
++	/*
++	 * md_stop() may drop reconfig_mutex so mddev->thread can run
++	 * md_reap_sync_thread() and queue event_work; wait for it before
++	 * freeing raid_set. Skip if INIT_WORK has not run yet.
++	 */
++	if (rs->md.event_work.func)
++		flush_work(&rs->md.event_work);
+ 	raid_set_free(rs);
+ 
+ 	return r;
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63cb3..79c564320f18 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -5184,7 +5184,14 @@ static void stop_sync_thread(struct mddev *mddev, bool locked)
+ {
+ 	int sync_seq = atomic_read(&mddev->sync_seq);
+ 
+-	if (!test_bit(MD_RECOVERY_RUNNING, &mddev->recovery)) {
++	/*
++	 * If nothing is in flight, keep reconfig_mutex when locked so
++	 * callers such as do_md_stop() cannot race with do_md_run().
++	 * work_busy() is required: md_start_sync() may clear RUNNING and
++	 * still use mddev after unlocking.
++	 */
++	if (!test_bit(MD_RECOVERY_RUNNING, &mddev->recovery) &&
++	    !work_busy(&mddev->sync_work)) {
+ 		if (!locked)
+ 			mddev_unlock(mddev);
+ 		return;
+@@ -5192,14 +5199,20 @@ static void stop_sync_thread(struct mddev *mddev, bool locked)
+ 
+ 	mddev_unlock(mddev);
+ 
+-	set_bit(MD_RECOVERY_INTR, &mddev->recovery);
++	if (test_bit(MD_RECOVERY_RUNNING, &mddev->recovery)) {
++		set_bit(MD_RECOVERY_INTR, &mddev->recovery);
++		/*
++		 * Thread might be blocked waiting for metadata update which
++		 * will now never happen
++		 */
++		md_wakeup_thread_directly(&mddev->sync_thread);
++	}
+ 	/*
+-	 * Thread might be blocked waiting for metadata update which will now
+-	 * never happen
++	 * md_start_sync() may still use mddev after unlocking. Always
++	 * flush so teardown waits for that work to return; checking
++	 * work_pending() is not enough once the work is running.
+ 	 */
+-	md_wakeup_thread_directly(&mddev->sync_thread);
+-	if (work_pending(&mddev->sync_work))
+-		flush_work(&mddev->sync_work);
++	flush_work(&mddev->sync_work);
+ 
+ 	wait_event(resync_wait,
+ 		   !test_bit(MD_RECOVERY_RUNNING, &mddev->recovery) ||
+@@ -7101,6 +7114,14 @@ void md_stop(struct mddev *mddev)
+ {
+ 	lockdep_assert_held(&mddev->reconfig_mutex);
+ 
++	/*
++	 * md_check_recovery() may have queued sync_work; that work accesses
++	 * pers. Wait for it here before __md_stop() clears pers, as
++	 * do_md_stop()/md_stop_writes() do.
++	 */
++	set_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
++	stop_sync_thread(mddev, true);
++
+ 	/* stop the array and free an attached data structures.
+ 	 * This is called from dm-raid
+ 	 */
+@@ -10494,9 +10515,11 @@ void md_check_recovery(struct mddev *mddev)
+ 
+ 			/*
+ 			 * Let md_start_sync() to remove and add rdevs to the
+-			 * array.
++			 * array. Honour MD_RECOVERY_FROZEN like the read-write
++			 * path so freeze/stop does not race with a new queue.
+ 			 */
+-			if (md_spares_need_change(mddev)) {
++			if (md_spares_need_change(mddev) &&
++			    !test_bit(MD_RECOVERY_FROZEN, &mddev->recovery)) {
+ 				set_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
+ 				queue_work(md_misc_wq, &mddev->sync_work);
+ 			}
+-- 
+2.25.1
+
