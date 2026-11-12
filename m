@@ -1,76 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.162
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495447;
-	b=fYgVxUjb1z3dVfOhJzt2YFVAN3jxiFV8C2E2clmCaz4Mp1kTiyDL1Iis4AKO+tJhGQuZ
-	 utG4HT8rxHoJmhkE0ufusF0ijqg6d1ldJwD1GibOW2YosubopLlG42W6OPqBbKgrTBjnm
-	 Xq5LKcvMv15ckv82nb6xtcvmyhMwoMU204wUW+UiTh/jSt35igF07xowJAlz1epknhqzx
-	 qXoboMI4BG+zQQJaJVHIdeVGpHWy6ocNFT+XHXiIJ9eitJb4RQkAF4e68yjAGcwH6Ws26
-	 ljpO04ahpILWyK5+bjrR19gUizPyvBp08l3uikcIQZYAus9Q/3nf1Nx/vbNs8NbOVtQ==
+	t=1794495503;
+	b=LrodXksoX/2IMMQVqvT+epCWFES5ttVIy5muP8cY+XPPGiEg/603ikljqaJYt3+q8rEp
+	 PbVz/KWZfKYqws925QmV665ICgxLlP7SCGUpkjXcP+51vELEL8j2wB3nR8qYsix1q2q06
+	 j7hnzNY0KGsr2NvFKeNtkLIEDyO09h83q4YpT4fILotnET+yywtm25wTnovuiu5Xabm8a
+	 kaimJQmsRwWOO9wmAiMlEp6xThmuzZ7QW1gmjQnzBJIwA+5iLixOxd47nSwyDbYl9ob+7
+	 KMhZhwhU8CgL0CKc31tCq3xu23tLXKoX+bZc/9BL1QOpTZ1S+4AcOeb5JIhgZvwdvdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495447;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=mS1ut25pAkhX06KpI5+b6SzLMFwF8RaPMcofkkPb8+I=;
-	b=WQVawRr0OCEi6i7RGeB3arx2L3fYKO4IybcsFJwlOJrsUSCEVz/fZyCgFeXjR5pLoKPO
-	 VhvNiIQj9MhCEBVtOEi1ysTZQToqkbkhOQ3x+YnWplMVcNVTpPaVUIEw4h/H9qySWDNSe
-	 2HEexP+g2pWK4B+sZtjcY4xFOlKbk2nk8+7JeEmuPxHY8rZUAD4v+V4LyW3Lc40MCHYD/
-	 wUrlt/+ePvwFUlIXwkSJksy0nP2GPqpLNY9GdL9q7zXLsoODhwYjcpbMXPAugrqO+5fAx
-	 Fn67TPEWg4kK7xJRKORu33y/kEidxkdMNKTbA/sJ6+7KVSoaDw1TgBt7GCzU14bpsBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495503;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=QUP6SPSOZxiHeyhbfS+dXlCbcG1HRBsJUZYj782mpUM=;
+	b=UbvDSZVkj3Fc1iwUUD/oXe341An3UjI+xkiJ/+ndMYVYEQojDduPTnFh7JyMKltlRgXg
+	 3kdjB7FNK7WHiLOm8nD6WY/4bIBE7Q3n6lYDUGUgi/X+rTxYga8V6gLIbHMQ2doWv/cDt
+	 NVGv2VurtY7+smIFVO0D8FzJq5z2KoEEQQgTppT/1mI05/M5/4aBPV/ZN2sAA5A/TCQoC
+	 3uHsI1f2GXWSoIpd2ICVLuG/TB2TtY8otWdJfkkkkwJv+8bNYrP8Y6BJ24o0wNuFYM2i7
+	 oBRgpMlO5iWwrAhXaOqAljG43fNov1CYUxu423vx/2PJwpXfl3IuufpsrPGQxRmvMKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.48
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Eahz2/CO";
+	arc=none smtp.remote-ip=91.218.175.162
+Received: from mta0.migadu.com (out-162.mta0.migadu.com [91.218.175.162])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8029606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:57:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8029606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-990703f817fso2115372241.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:57:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794495446; x=1795100246;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mS1ut25pAkhX06KpI5+b6SzLMFwF8RaPMcofkkPb8+I=;
-        b=j/aYgaCb3sFquyJjD0+cH9b/iGe7HVhjpThxa7ezIqVdf0XSQ45aigcp8kBsEvhDMA
-         BzziJvOthk09d5JoTkgQ/qac6rBHYL8RfTNApOB9W1vb/1W+WqQA4Y7s3zLY7kTXaFQj
-         fynlL9wkiTBdxCZCKCUZTjtoLseMliVOSRnp56u9OTeUfnXFnO2wuRzwRc8H5uRH/P1H
-         1BxkcOz4eKXxFXYldvdzl7onJsXjsgbLGs6QiaqlSpcvN2/kczM0t9Lmke42VUNiF2vC
-         QNpVNZnaNl7Sncr+X8AAReMO2io3tn+SZraUx7mrOj1f/9zdk/yE1Xx3Jx6VJ26msF/Y
-         c0Nw==
-X-Forwarded-Encrypted: i=1; AL+hErGSdGOoDy7vUVziVlx4IpOswJnbkJ8dTLioESJx3Kn7vq60uOBp4vHRjAmLHMuxcOfPlYueP41UtWwA0PQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WKHz7tJEr5qy9yASJe9mThs4QRTgEmkpISSHUMKp6uGqs5jji
-	j0KwfWPoXN1drrLhFk36QfaEUy9Xjm9RfMyR4mTNsXmai9WTwPQ7dicg6texrViuLjU=
-X-Gm-Gg: AYBFou10VJw3NE/kiwdnGeEHbwBS1lKU+W0SpVMHCSFd0G8m19vwBE1N56DhJE5LtYP
-	ZS6+L9phWrodtXOe55G3GwCBbfD4nyi8KJkjjuEvPB55og04Day/ASacIlIlcerpUvP58zjN8+v
-	KR7di6CmXp5AwBY87qHNuGZWjphvMfZJCbGYx7uqttbpUz21ZUa3dY2fuTIF+WvSAVMFccBr7zm
-	BEGbY3nAP1MuICxyasHwaHWu17XhUA3SrEMBtZnZtJEvdop5D4FkTyJzNGWqOKozkkozjij93wO
-	gAjY1UvnugBOxo4qHmarFfW1krXRkAEEHtsBKDPj9Ul8wGByIv1O6ItK6Ax3iEaXZ3Y1/DBdKlt
-	P6ss+VZiyMRcARx/+4u0flEd29csoid1uP+jn9/Se88iIZXcg1ACMqklBNTn/AZOH6U83SG7uLT
-	wgr9/ItfJ7A41FezVhy3KPD7cUE5MjopcT4YOHggaZDzxnK+FXNPpgZGp1V9lAdgaZRV1TW5Yl3
-	+HIQXaLUYdAkF+m8YatUhKJRmsnC9KR+7LBnnSVDw6LX3HwY8Z4GLFBS0LLi18LrrJZ8LCwWf7/
-	3UsP8YQv5/Hro0nPqxvjGwHyjU7X+7RtW5IlNC2UmWeEBRdzuSVPI8Na2R5/tZZygP4=
-X-Received: by 2002:a67:e7cc:0:b0:7cc:2bb7:1335 with SMTP id ada2fe7eead31-7d50619786fmr2627250137.33.1794495445681;
-        Thu, 12 Nov 2026 06:57:25 -0800 (PST)
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com. [209.85.217.52])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c2019bf87sm6086910241.11.2026.11.12.06.57.24
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 06:57:25 -0800 (PST)
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7d2b25786d9so2275430137.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:57:24 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHZz31CaFNEIeYZCCYiyCtcf/UQCMl3QB19+ionnI4YtqjIfSH1BMuFnM/8iz1EaEkPIrgdNwv6qxDmyis=@vger.kernel.org
-X-Received: by 2002:a05:6102:f10:b0:7c3:9982:67d7 with SMTP id
- ada2fe7eead31-7d50609c9damr2546296137.16.1794495444511; Thu, 12 Nov 2026
- 06:57:24 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EB6606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:58:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07EB6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Eahz2/CO
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=i9Q3SmOpz+KPYEpALmvkIJWw5TduFHLPeDEKt173MjA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794495501; v=1; x=1795100301;
+ b=Eahz2/CO7aEKj+nbHgYn+vvFzcU3PoOkMG4OSAmzc9p9jCPCplEyMZQ9DibkaDV72ND7vSKD
+ gsH49oOsdVUaJHxlxngU1OVs7JxA5RVFe2shGIhTnwxQ+MesLtgY3JXlLosat65Nb7uCR0RzoXI
+ NwZm3Kj8vZ41ccQlVQIea798=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5ac9d45833a0da8a;
+	Thu, 12 Nov 2026 14:58:20 +0000
+X-Mizu-Trace-ID: 5ac9d45833a0da8a
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Sascha Bischoff <sascha.bischoff@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Timothy Hayes <timothy.hayes@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH v2 00/10] irqchip/gic-v5: Fix misc IRS and ITS host driver issues
+Date: Thu, 12 Nov 2026 14:58:14 +0000
+Message-ID: <20261112145814.853424-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
+References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,113 +76,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
- <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-5-1b2072e8c37e@ideasonboard.com>
-In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-5-1b2072e8c37e@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 12 Nov 2026 15:57:11 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUUvhf=zEmd2tfodo7zf1hh9n8m88Okk7KZpq0n=mDR2A@mail.gmail.com>
-X-Gm-Features: AclHuK_otbzgK2u3WYfd1DmRW9SD98NHgBcVxYwHNEPtms-IkWdgisCPqESp0Ec
-Message-ID: <CAMuHMdUUvhf=zEmd2tfodo7zf1hh9n8m88Okk7KZpq0n=mDR2A@mail.gmail.com>
-Subject: Re: [PATCH v4 05/13] arm64: renesas: r8a78000: Add FCPVD and VSPD nodes
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-media@vger.kernel.org, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Paul,
+Hi Sascha,
 
-On Mon, 9 Nov 2026 at 14:35, Paul Elder
-<paul.elder+renesas@ideasonboard.com> wrote:
-> Add DT nodes for the FCPVD and VSPD IP cores in the R-Car X5H SoC.
->
-> Use the SGD1 clock as it is likely to be the clock used for data flow.
->
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+I found a couple more issues in the GICv5 host driver while looking
+into pKVM support for GICv5. Rather than explain the fixes, I thought
+I'd send you patches for two of them instead. If you think they're
+useful, please include them in v3. They apply on top of this series.
+Boot tested on the GICv5 FVP with a two-level device table.
 
-Thanks for your patch!
+For the third one, the thing I spotted is that if the IDLE poll after
+an IRS_MAP_L2_ISTR write times out, gicv5_irs_iste_alloc() clears the
+level 1 entry and frees the level 2 IST, but nothing cancels the map.
+The IRS can still complete it and use the freed table. Keeping the
+table isn't enough either, since the next allocation in that range
+rewrites the level 1 entry while the map may still be running
+(R_SDVFP). vgic_v5_alloc_l2_vmt() and the ITT frees after a timed-out
+invalidate have the same shape. The question is, can an IRS miss the
+poll, or is a timeout here only ever a dead IRS?
 
-> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> @@ -1574,6 +1574,196 @@ mdlc_aon: system-controller@c1338000 {
->                         bootph-all;
->                 };
->
-> +               fcpvd0: fcp@c5010000 {
+Cheers,
+/fuad
 
-Please preserve sort order:
-  1. Sort by unit address,
-  2. Keep similar nodes together.
+--- >8 ---
 
-[...]
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Subject: [PATCH] irqchip/gic-v5: Invalidate the level 1 DTE when registering a device
 
-> +               fcpvd9: fcp@c5019000 {
+With a two-level device table, gicv5_its_device_register() makes a
+level 1 DTE valid when it allocates the level 2 table that it points
+to. However, gicv5_its_device_cache_inv() invalidates the ITS caches
+with ITS_INV_DEVICER.L1 clear, which doesn't invalidate the level 1
+DTE. An update isn't guaranteed to be visible to the ITS until a cache
+invalidation that covers it completes (R_HQFDL in the GICv5
+specification). An ITS that cached the level 1 DTE while it was invalid
+can keep dropping events for the DeviceIDs in its range.
 
-> +               vspd0: vsp@c4800000 {
+Set ITS_INV_DEVICER.L1 on every device invalidation. It covers the
+level 2 DTE as well, and has no effect with a linear device table.
 
-Do you want to sort the VSPs within the VSP group by unit address,
-or by label?
+Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
 
-By unit address:
+Notes:
+    Setting L1 on every invalidation turns each registration and
+    teardown into a range invalidate, both rare paths, and keeps the
+    function simple. Setting it only when registration allocates the
+    level 2 table would miss a registration that fails after the
+    allocation, which leaves the level 1 DTE valid.
 
-    "vspd0: vsp@c4800000"
-    "vspb0: vsp@c50c0000"
+ drivers/irqchip/irq-gic-v5-its.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Note that adding the vspd* in a later patch than the vspb*
-means the latter need to be moved in front of the fcp* :-(
+diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+index 101aceec68f63..83952e30178b1 100644
+--- a/drivers/irqchip/irq-gic-v5-its.c
++++ b/drivers/irqchip/irq-gic-v5-its.c
+@@ -372,10 +372,11 @@ static int gicv5_its_device_cache_inv(struct gicv5_its_chip_data *its,
+ 	u64 didr;
+ 
+ 	didr = FIELD_PREP(GICV5_ITS_DIDR_DEVICEID, its_dev->device_id);
++	/* L1 also covers an L1 DTE that a registration may have just made valid. */
+ 	devicer = FIELD_PREP(GICV5_ITS_INV_DEVICER_I, 0x1)	|
+ 		  FIELD_PREP(GICV5_ITS_INV_DEVICER_EVENTID_BITS,
+ 			     its_dev->itt_cfg.event_id_bits)	|
+-		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x0);
++		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x1);
+ 
+ 	guard(raw_spinlock_irqsave)(&its->inv_lock);
+ 
 
-By label:
+--- >8 ---
 
-    "vspb0: vsp@c50c0000"
-    "vspd0: vsp@c4800000"
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Subject: [PATCH] irqchip/gic-v5: Clean a level 2 device table before making it valid
 
-> +               vspd1: vsp@c4808000 {
+gicv5_its_alloc_l2_devtab() allocates a zeroed level 2 device table and
+writes the level 1 DTE that points to it with VALID set. Unlike the
+other ITS tables, the new table isn't cleaned to the PoC first. On a
+non-coherent ITS, the zeroes can still sit in the CPU caches when the
+ITS reads the table, so it can take stale memory as a valid level 2 DTE
+for a DeviceID that nothing has registered.
 
-> +               vspd2: vsp@c4810000 {
+Clean the table before the level 1 DTE is written.
 
-> +               vspd3: vsp@c4818000 {
+Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ drivers/irqchip/irq-gic-v5-its.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> +               vspd4: vsp@c4820000 {
-
-> +               vspdb0: vsp@c4828000 {
-
-> +               vspdb1: vsp@c4830000 {
-
-> +               vspdb2: vsp@c4838000 {
-
-> +               vspdb3: vsp@c4840000 {
-
-> +               vspdb4: vsp@c4848000 {
-
->                 fcpvi0: fcp@c5030000 {
-
-Shouldn't we keep al FCP nodes together?
-Same for the VSP nodes.
-
->                         compatible = "renesas,fcpv";
->                         reg = <0 0xc5030000 0 0x1000>;
-
-For the contents of the nodes (except for the renesas,fcp properties,
-as I couldn't find the VSP<->FCP links in the documentation):
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+index 83952e30178b1..b2d61ba3828cb 100644
+--- a/drivers/irqchip/irq-gic-v5-its.c
++++ b/drivers/irqchip/irq-gic-v5-its.c
+@@ -416,6 +416,8 @@ static int gicv5_its_alloc_l2_devtab(struct gicv5_its_chip_data *its,
+ 	if (!l2devtab)
+ 		return -ENOMEM;
+ 
++	gicv5_its_dcache_clean(its, l2devtab, BIT(span) * sizeof(*l2devtab));
++
+ 	its->devtab_cfgr.l2.l2ptrs[l1_index] = l2devtab;
+ 
+ 	l1dte = FIELD_PREP(GICV5_DTL1E_SPAN, span)			|
