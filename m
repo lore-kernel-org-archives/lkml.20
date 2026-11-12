@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794444085;
-	b=bsIKa5OT4RHzMoz7ValLfB3Qhx9imR84v3d8XujpzgHVpx0qcOYRar+SV0rqa9JWUsZ6
-	 Mhr3aUfaUAeQU4EhQkqiJQBQ1+nTLMamPhXW/eAz7wvRAeT33tCNny8GbeJLAc7SKEVb4
-	 hoYUkDHDM9oeVoecDwNruqZucnFLHST7zu0UYOwzb9UJ/E4TMWEBlbuZKByBODMAd/6LW
-	 JQ7yFFQ9e7V2q/KFG2qUFoLbNiW1Ly+FVsbeaeNPXEbQvF31DfV5CzbTPMVxUCDVuijRe
-	 CVq2+Nxk3E9p4wVfkENhifG03qgWzFMPIDMWiu4T3Qsvcvf91PHPf600Xl7nFH9rYTw==
+	b=NkuKEbaRI7waKIiGBkt8Ys3ibkopBvVHhb4immXUm5+u+LhmjshI0hQ1UQLHSBDhRZcY
+	 qAPz+33wAsG/+KxUWssAod/2WZ0DhgmPbWRBrwXXZhU9LLQKv0MyIQ3TJfGfusQTi5MBp
+	 +59xXQNdV77uHSmKoxHwY8FUdoQLN4r7vqYR1YQdIPbdayT+m7360KUNeTu40Kvi/b3eh
+	 WYnjBQ3Jh+N0ZOf/3H/N/Mz6XgZ0gpVZnOIFJ0g6mvoE2csR0aaPMyGGrNOv3g9KJEZCi
+	 aY+p96BOQ46/IJHcduCOhv4DPXMRuYx5NCeTwp3MhKrrEelqZh1tJdv94Z77cd38lrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794444085;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=sFiTj1V9ORohuicZdlyi6G8w7v9+PWw4rbDBBSUy/HI=;
-	b=PCwPZu8lpPwxQUZB8fpmmDwCIcOXHlFYuz1dxbeqTKaKwlTleYnN4KmQK7yOj86+dnAq
-	 WvX0f26UA6GkL97ydhct05z5ndxD0Nj39aNieEakuB5a+mx2ez0QzZsMx8FmEYTGazO2U
-	 SLJsgmDHPHurqUpGgl1SDBp37sC6QrhZP3Amscsa6naszae5+zb1HODF59xbESq7Ker5X
-	 Cz9GIcsJdvDZszp9kISensRqEy1pshp48OExO1peatkYd64v1DuS85G0OmmnwOSGwbnr8
-	 UxqNQbH5UkLhg8ApBTRHpBeQF6CXXPdDr5B4mtMR/1PIoibCKOasLqHYmNUXPGDpFzA==
+	bh=izpK0qiPp9EDp8rLCg6Dje1fDMudES+DfbenuKy5KPY=;
+	b=ZHj8CHI1BV9/J1e4Lur5+sNbBZFwb+wbCEKG5+OaSYcQuTsD7FTq9qVaJiyhtXQ/z/Pe
+	 Z5cS8hGUE5Ks7S07sb8wb8UOuNwwv6elB+GYVXUWN7wCfJ37e0kh5EFTpD00QFye9O8qO
+	 3yFbaQz3Qb9VFUKLXvioqoF+nOTx1aQMX0C11rIxkzv3XYCgCGRMottmdMLkLvu9ZVEEX
+	 bdROOfB1hvJ3flYbD3trjRY1VmOQ3UiOr627H0OTJffOhxgs3ZSw67j+WXz+JCbykvJil
+	 B1Q9+5wNJcZSuZfTM1qHyxK+NYSOmGNzJc7MlOl112hlxQqA6NV/8a2PzZz6XJOU9Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hX0aa1cA;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="J/3F0HPb";
 	arc=none smtp.remote-ip=209.85.215.200
 Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA79606A8AD
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:41:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BA79606A8AD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295DC60A260D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:41:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 295DC60A260D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hX0aa1cA
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd652c0385bso2479601a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:41:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=J/3F0HPb
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cdb869327e7so3224163a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:41:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794444079; x=1795048879; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794444084; x=1795048884; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sFiTj1V9ORohuicZdlyi6G8w7v9+PWw4rbDBBSUy/HI=;
-        b=hX0aa1cAZuU/cWlJiAGzqRhuzmmFjiavmDF1monemszKlOm4RissaytZrtK59qSRwh
-         qvoWzqyuwjvKs2bZV8voXGBbRVhl6FMNE/DVXlPZ0e3P8NvHWQOAe6nnaQNl9LvFfrHP
-         FVqpLqYoUiiLf4xD2PuR+zs6OkVHvhoK3IXUndKvq2TdpcqqAI8vksbQCScUvu+DhbzE
-         qWMB/t9iwVHrp6Ch9izFQjXGvE5Bx/XwCQhIF+DELq/h2003auRjoO/BWO/7r26vsKVw
-         7L9K8Y/GuXhvulSpB+NtYaRyFvs65BG3WPxS17u7npqu68+mc8ZP8UWfTZydfUvskLtc
-         gF2w==
+        bh=izpK0qiPp9EDp8rLCg6Dje1fDMudES+DfbenuKy5KPY=;
+        b=J/3F0HPbxmMssjL2YGdtICYkjUPYF5mEBw6p0geVV8v5RDPQIqAnRPtGFwDJrcPC7J
+         PihVv9jcsjamuf0O85qOMP3b2DK+8aAQqPSK1PLFc5//IglVOHEbPgRH9lUbpzbfUdhp
+         G6RjIt+JO1rIGqPyiEmoKl9kawf0HSmCWtdSy4QACqU+OdFxX55U3HZ0QmQYNtPGcf80
+         eKe/8/Ev8QRyqm1LovRcbdXEp4aheY4oS7PXgpV22s8mbVGGW4mjSsSIC0dbfJIwNqsq
+         1TfQbt/39mph01aChZOVDep7glrCLHAY+rj4JMLLmrlb+VZ4MZ4+D1zFj8KQIfdi12DS
+         8QBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794444079; x=1795048879;
+        d=1e100.net; s=20260707; t=1794444084; x=1795048884;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sFiTj1V9ORohuicZdlyi6G8w7v9+PWw4rbDBBSUy/HI=;
-        b=f/uATSevXQmc8bev1aq13/z3tApU/0NLTjwwD4JJvKmQ44sXUBYzxWyQjcAgF0AICz
-         5wBj2CvsDGCUVysjWtsgjHmpsQtGl0h2FC3czXP/CKoM7Wc/vZC983vUyrJ8chdtxe+O
-         3AAZNFtoQDB4LHlx0O8akOYDtYQiU/MryX32fmd6VwcCW/mnjySdUL3e+RYPSM0F9I0C
-         ZwR6uc6Pk1FGJOTQskS3gjb/br8NlShup6iya28bitq2yyZ4s1af/3ASRDUcbke2REJX
-         zgRAyyCV5VI/drRdi7NI3XSRbVTQCSMbctuMhmhHXWv8gJ5PLBXI4GEdIbfHrZ6XEu7h
-         e3Hw==
-X-Forwarded-Encrypted: i=1; AL+hErGAz4AZDR3TZJL9tMvq5ywmH3fGaa/4eQ/CUYUNio7F93u6nQExjb52vH9eqxhwsDqw5P7VnKIekVC5xXg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Zprm89+gqD81C1aWBbNp0+ZYRjHH9gN/OhuFguPJwoHNHYBvk
-	1fC0KbPxzKI3yy5+/OiW4Eh4KQ5P8FGJy1iFFu+vBMomvN13nEC5A+efybFArrheT1QvxqGG3Gf
-	eppsUVWGYfrhC6JrcxRcZGQ==
-X-Received: from plih6.prod.google.com ([2002:a17:903:37c6:b0:2e8:ac89:717d])
+        bh=izpK0qiPp9EDp8rLCg6Dje1fDMudES+DfbenuKy5KPY=;
+        b=w3NTpAOMIzNylVrzbUfyJu37cUDMv95Cu9+qo9wbhh9jaM6WRlvN2IfKzHKuHnhQ4l
+         FV5cyQabjLwrSLnFklL6Z5Nim0JAozhh929ZHkX9VgdkQy8wC1plRwNb64DIlRnWED4E
+         Wxn+JZncO9ObPAZ0X48eSkyP2OoILDJfv8l/a53MxOWOFibWApg7Y40g8N4ZIhp38a30
+         4uLOct3VDdacD0q8d4vFq+FEble+No1zLCGXELYc4I8yVP4pWx6jjKtwnXL2xC0bHvpi
+         Lk3YOMJW/wwlluPiD2BmSDlIwVJtye43yqKjt0JL1gVzRhB1XMAN7+fpMqi8UYZ1VfWa
+         KORQ==
+X-Forwarded-Encrypted: i=1; AL+hErHz9bxyEfMKJWtzMQYkLWu7WyUeTFnaa4PK6SHju4D0QKdiNcTf5WL1UQrItHP7jjn4XvAPM9allm3WQdo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XDHwzbXXoD9YizRc3aeXTqfMjTMr2lrSwKsnbvhPLM0TYLHZa
+	Px8p+zdmNZLa5mgCAeVh56bCPUc72bZfzsFhJmtZyeXHtEi+2TbAbX56FsB7rd+cUOIOlvUkGZL
+	Zwis8rIImnMAmSkpt8tVHNA==
+X-Received: from pgq9.prod.google.com ([2002:a63:1049:0:b0:cd8:b3c4:e64d])
  (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:2710:b0:3a6:f1d2:57f3 with SMTP id 98e67ed59e1d1-3b182fd55a2mr3751521a91.58.1794444079037;
- Wed, 11 Nov 2026 16:41:19 -0800 (PST)
-Date: Thu, 12 Nov 2026 08:41:10 +0800
+ 2002:a05:6a21:748b:b0:3ef:ed4d:520b with SMTP id adf61e73a8af0-3f2fd195b16mr3698235637.21.1794444084204;
+ Wed, 11 Nov 2026 16:41:24 -0800 (PST)
+Date: Thu, 12 Nov 2026 08:41:12 +0800
 In-Reply-To: <20261112004112.3059801-1-stanleyjhu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261112004112.3059801-1-stanleyjhu@google.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261112004112.3059801-2-stanleyjhu@google.com>
-Subject: [PATCH v6 1/3] rpmb: core: Guard frame requests and teardown with mutex
+Message-ID: <20261112004112.3059801-4-stanleyjhu@google.com>
+Subject: [PATCH v6 3/3] scsi: ufs: rpmb: Drop the unregistered ufs_rpmb bus
 From: Stanley Jhu <stanleyjhu@google.com>
 To: "Martin K . Petersen" <mkp@kernel.org>, Jens Wiklander <jenswi@kernel.org>, linux-scsi@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
@@ -95,135 +95,46 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.d
 	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-rpmb_route_frames() invokes the provider callback without serialization,
-which causes two races:
+ufs_rpmb_probe() assigns ufs_rpmb_bus_type to dev.bus without ever
+calling bus_register(). Since commit 36f35b8df697 ("driver core: reject
+devices with unregistered buses"), device_register() rejects
+unregistered buses with -EINVAL and UFS RPMB region registration fails.
 
-1. Concurrent callers on the same rpmb_dev interleave multi-frame
-   authenticated sequences on the region's single result register and
-   receive each other's responses without error.
-2. rpmb_dev_unregister() calls device_del() and allows the parent
-   provider device to be freed while an in-flight rpmb_route_frames()
-   call still dereferences rdev->dev.parent, causing a use-after-free.
+ufs_rpmb_bus_type defines no callbacks and has no drivers, and
+consumers look up regions through /sys/class/rpmb. Drop
+ufs_rpmb_bus_type and leave dev.bus unset.
 
-Serialize rpmb_route_frames() and rpmb_dev_unregister() with a mutex in
-struct rpmb_dev and clear descr.route_frames on unregistration so new
-requests fail with -ENODEV. Also update the stale kerneldoc note
-advising providers to unregister from their parent release callback,
-which cannot run while the child rpmb_dev still holds a parent
-reference.
-
-Fixes: 1e9046e3a154 ("rpmb: add Replay Protected Memory Block (RPMB) subsystem")
+Fixes: b06b8c421485 ("scsi: ufs: core: Add OP-TEE based RPMB driver for UFS devices")
 Cc: stable@vger.kernel.org
+Reviewed-by: Bean Huo <beanhuo@micron.com>
 Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
-Jens, if this looks good to you, an Acked-by would let Martin take
-the whole series through the SCSI tree. Patches 2/3 and 3/3 depend
-on this one.
+ drivers/ufs/core/ufs-rpmb.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
- drivers/misc/rpmb-core.c | 20 ++++++++++++++++++--
- include/linux/rpmb.h     |  3 +++
- 2 files changed, 21 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/misc/rpmb-core.c b/drivers/misc/rpmb-core.c
-index ecf14acf230a..0fda893dd74d 100644
---- a/drivers/misc/rpmb-core.c
-+++ b/drivers/misc/rpmb-core.c
-@@ -45,6 +45,8 @@ EXPORT_SYMBOL_GPL(rpmb_dev_put);
-  * @rsp:	rpmb response frames
-  * @rsp_len:	length of rpmb response frames in bytes
-  *
-+ * Context: Might sleep.
-+ *
-  * Returns: < 0 on failure
-  */
- int rpmb_route_frames(struct rpmb_dev *rdev, u8 *req,
-@@ -53,6 +55,10 @@ int rpmb_route_frames(struct rpmb_dev *rdev, u8 *req,
- 	if (!req || !req_len || !rsp || !rsp_len)
- 		return -EINVAL;
+diff --git a/drivers/ufs/core/ufs-rpmb.c b/drivers/ufs/core/ufs-rpmb.c
+index 11d2d8e789d0..6803f3e62d78 100644
+--- a/drivers/ufs/core/ufs-rpmb.c
++++ b/drivers/ufs/core/ufs-rpmb.c
+@@ -28,10 +28,6 @@
+ #define UFS_RPMB_SEC_PROTOCOL		0xEC	/* JEDEC UFS application */
+ #define UFS_RPMB_SEC_PROTOCOL_ID	0x01	/* JEDEC UFS RPMB protocol ID, CDB byte3 */
  
-+	guard(mutex)(&rdev->lock);
-+	if (!rdev->descr.route_frames)
-+		return -ENODEV;
-+
- 	return rdev->descr.route_frames(rdev->dev.parent, req, req_len,
- 					rsp, rsp_len);
- }
-@@ -62,6 +68,7 @@ static void rpmb_dev_release(struct device *dev)
- {
- 	struct rpmb_dev *rdev = to_rpmb_dev(dev);
+-static const struct bus_type ufs_rpmb_bus_type = {
+-	.name = "ufs_rpmb",
+-};
+-
+ /* UFS RPMB device structure */
+ struct ufs_rpmb_dev {
+ 	u8 region_id;
+@@ -206,7 +202,6 @@ int ufs_rpmb_probe(struct ufs_hba *hba)
+ 		ufs_rpmb->sdev = sdev;
+ 		ufs_rpmb->region_id = region;
+ 		ufs_rpmb->dev.parent = &sdev->sdev_gendev;
+-		ufs_rpmb->dev.bus = &ufs_rpmb_bus_type;
+ 		ufs_rpmb->dev.release = ufs_rpmb_device_release;
+ 		dev_set_name(&ufs_rpmb->dev, "ufs_rpmb%d", region);
  
-+	mutex_destroy(&rdev->lock);
- 	ida_free(&rpmb_ida, rdev->id);
- 	kfree(rdev->descr.dev_id);
- 	kfree(rdev);
-@@ -123,8 +130,9 @@ EXPORT_SYMBOL_GPL(rpmb_interface_unregister);
-  * rpmb_dev_unregister() - unregister RPMB partition from the RPMB subsystem
-  * @rdev: the rpmb device to unregister
-  *
-- * This function should be called from the release function of the
-- * underlying device used when the RPMB device was registered.
-+ * This function should be called from the remove or unbind callback of the
-+ * underlying device used when the RPMB device was registered, never from
-+ * a device release callback.
-  *
-  * Returns: < 0 on failure
-  */
-@@ -133,6 +141,12 @@ int rpmb_dev_unregister(struct rpmb_dev *rdev)
- 	if (!rdev)
- 		return -EINVAL;
- 
-+	scoped_guard(mutex, &rdev->lock) {
-+		if (!rdev->descr.route_frames)
-+			return 0;
-+		rdev->descr.route_frames = NULL;
-+	}
-+
- 	device_del(&rdev->dev);
- 
- 	rpmb_dev_put(rdev);
-@@ -164,6 +178,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
- 	rdev = kzalloc_obj(*rdev);
- 	if (!rdev)
- 		return ERR_PTR(-ENOMEM);
-+	mutex_init(&rdev->lock);
- 	rdev->descr = *descr;
- 	rdev->descr.dev_id = kmemdup(descr->dev_id, descr->dev_id_len,
- 				     GFP_KERNEL);
-@@ -194,6 +209,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
- err_free_dev_id:
- 	kfree(rdev->descr.dev_id);
- err_free_rdev:
-+	mutex_destroy(&rdev->lock);
- 	kfree(rdev);
- 	return ERR_PTR(ret);
- }
-diff --git a/include/linux/rpmb.h b/include/linux/rpmb.h
-index ed3f8e431eff..11a5d2646e38 100644
---- a/include/linux/rpmb.h
-+++ b/include/linux/rpmb.h
-@@ -7,6 +7,7 @@
- #define __RPMB_H__
- 
- #include <linux/device.h>
-+#include <linux/mutex.h>
- #include <linux/types.h>
- 
- /**
-@@ -48,12 +49,14 @@ struct rpmb_descr {
-  * struct rpmb_dev - device which can support RPMB partition
-  *
-  * @dev              : device
-+ * @lock             : serialises requests and protects them against teardown
-  * @id               : device_id
-  * @list_node        : linked list node
-  * @descr            : RPMB description
-  */
- struct rpmb_dev {
- 	struct device dev;
-+	struct mutex lock;
- 	int id;
- 	struct list_head list_node;
- 	struct rpmb_descr descr;
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
