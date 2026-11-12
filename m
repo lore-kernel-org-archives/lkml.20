@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794460551;
-	b=VzNge0CnSs3SmOYfireKMSkWV/z3fwcJd2MUF1XM/yIB52jdTt6FjbDOhkp77HYgHNQt
-	 +hMWSsJdVNdGNxoh4onG5+aNyCCzmwXbB0rjHkEY3bmqyoSk/iIxOnJonu/KzPmjB2KA5
-	 WQcsD47YzLycEP3fhXrXOibSKYhh9klE28sRteWEGQ6Nx/gtdzHvX/sU/CJQqXaY9ee8p
-	 o7WKVoMrMYuf5Q9B4rSW110Z1gF/pTWlVUyTKNEk4kM+cfchqih11ztb26Vx4r2h90Crk
-	 TR6AR6Tixjd0tQ8VKU52DShJWwUevm58XnBALDgy6H9BWuQn5OCVdt2Rgck9LOhgq9g==
+	t=1794460553;
+	b=RqBDzjMZO3iSQsZ2vx4HNsD7owMLyMyrVgNTCeHqzy3K7zpgRLJQsc9GVH8Miwl+G0Pa
+	 FJzO7680ShDjHiZf6nS/cmT0gGcDPzto4JWx5Z8TYINJnEsbJ1eAIpSQjZWaIe+9vgU6A
+	 kZkG6OIuqSsAssZeL63pG8BRS3iUU6EWYsSHrD5wwdoIgPlMaCmlq8zf599jalvJc1IgR
+	 hv0g+hLkK2/UA0eR6rNjVOOtlgX1/vDYAYMUDTq/XFeOXbBDcKCP9qehNK7qR8zDc5ltH
+	 RrYFc6ZZ0WlQoUFBhutOiLaMg6ftLCVHAOkSlS5fgc8URq4oXk7Gn8IMyuSJCO+e29g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794460551;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794460553;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=oOfImB3qy0T90q2O/tjXznngWxo1sLRzTsMD5yze5WY=;
-	b=0K4gq/R6EXhmM3Vdr+jsVFpf1CaPL4RJvbMA6lck3YQmVIQmCNlKgkFaxQ7WI81jIPrH
-	 euVFtiEmigqSwax9zasHt+clp4LNkyHqx5vuR3bsaOKhEYk2iyhWe3dYh2Q9Qy7WkxJeF
-	 5hwolvLa2t9TnmFCPKCZlvtlgtGTy+SjJreAuLb8HhwfJNKtXnOUvGuii7ZiqhSZ+0kzu
-	 eZB9qj5KMMTJyNfQgbx+JMKoNu6+o6owyqxX7NoAEguDGCFnPSTWyri9j5bSeYehsheif
-	 LtWRTq6f5jrdf9UWK/orbiZCplMyL3BWJAZU9DoOijrTTGLXcW3U7FwpuncdxAR249w==
+	bh=Kss5zYTX8gJ/UL/NQYhNcENTaHA0lrV423hmMcyAORM=;
+	b=v7r1wv+riuKt3/jXbSn3CVH771DJGmaocfe7hb6bZC6II1HYUH3YkFWoYvABnXZIhkrW
+	 Uk2c3GIu3gl5osxCVLZ1TdeQiorEHJ/Mk6rV1xLpATfZfs1odN3rwwINbXRL6ybz3QGUm
+	 vntYeH7wWA69lv2QMilCNVfephxPiBz1jAls3Iahv/bzX9s4cspDLfZK57RcMFUfPVXii
+	 47fWA+PmNARjLPOciZ9w51Se/6Z/A0vUosjSxrG41XueH2viIxYXXnOJwWziHekt/l6Ji
+	 HTLJB27BUMkxRfe58z6B5bqdh9MPjQ+089rbm6uiB5wvibuX8PInhmrNH1QtAxlxM0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gFRMwEKA;
-	arc=none smtp.remote-ip=209.85.215.198
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Fl+5NysC;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FF7606A895
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:15:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9FF7606A895
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4042A606A8A8
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:15:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4042A606A8A8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gFRMwEKA
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd5fd34fee0so2315504a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:15:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Fl+5NysC
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ad53f538d2so3247630a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:15:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794460550; x=1795065350; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794460553; x=1795065353; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oOfImB3qy0T90q2O/tjXznngWxo1sLRzTsMD5yze5WY=;
-        b=gFRMwEKAJw5ZuY8NYu46R1Od99zHrRk1T0WQ0ByyqQxFWo/FO8b9BYmwtbPrDKiZ4I
-         8iJCPyF+DH0SbIdKg5EZqRNnZ77zN0vEGA1kJhIaWIoWSEvmP3Zav+xWvkrahTbDNTP0
-         DC3CuAjEV4udKvZxQwIiIOJIM/OGdzJW+nyM1i/D+lbRkFuBfzvF0ILfOL+XDEnivDJt
-         I8JW59AuBx2T2ND73bowbCI162DDMy4rcDDza7wh2NWGxem38TL8iR8ofuG9jli+UW1n
-         GKl2bJ8LUOuIR+FMxw5RFrZ5jkFhw7LMLhKjPHydwZ0aGZrDTZL49OEalhPI2/d69xw8
-         36bg==
+        bh=Kss5zYTX8gJ/UL/NQYhNcENTaHA0lrV423hmMcyAORM=;
+        b=Fl+5NysCNE4cetjhJNZkHOzmwhkL9ndl2tFlcVOkbe57X6yLtjMB4lRRritkHVMWPZ
+         4B0YJZ30Qs2Vw0mlrp3bRPEcp2+Lbl+3aDOhOuGvam6Q2Ea6s0R9BxvSXde03Bns0lhH
+         yos0du/Q6gcDwVPOujMuy+fAXjS3C3MBXQciHmYhSOb6LWb0wiyEnK9fAATE5a713FEp
+         xg2jPl9TtO0q7qoIPx/JXYrvSBGzYJUnjjFtUKzZ4CREfECVJtj4+K/bAKSxO25lsNY+
+         gITSJ1onzgOSZNz8vKdqfUUuri8BQ7QL3xsjj55edFY7Lsf+HF1/Rv/8yeiUQEeRkll+
+         mHLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794460550; x=1795065350;
+        d=1e100.net; s=20260707; t=1794460553; x=1795065353;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oOfImB3qy0T90q2O/tjXznngWxo1sLRzTsMD5yze5WY=;
-        b=PrvVdGw6SSveSEqzpz5LgguPwaIAnp5VVbd8epLC7TkQnQEA67ikppvD17vhSDh9o4
-         tlPH5KgYIr5jfEEqW+T+6qjO293qSxoYQxZZxkCPz9nOYMEf+0DsIzXtJgDv5R+nXx67
-         FpGgmXL/N23m6m8SSr570bfQ/iLR6yFLLDAv0kHfc8O1hTDp4qjH/79Sg5uM2Trh9LcB
-         UeeoMJBLoiuS6Tfb6jrTJlv5xjGwIQnD3cr+pnTWfLX1gAULmyznsWYNUwTB2geNAmXS
-         5ngBlk3E6uAyTfwCphMhQY9agzbafUuHhosdRt1OoHAEzp4SxBuhgydDe5gculjHW3iQ
-         TibQ==
-X-Forwarded-Encrypted: i=1; AL+hErGjfWF9nW5B+WR8c8RPVPigxxcgnibl0wIXkYhPoWCBttat3EntdBqR56Sag/OzUfy42yAmR7JNilOkMNU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tEb/ybhYD0anB143R//o9+oEziMNK2ae131WXrxoxHiNKs6vG
-	RXwmVq6Zy/N3bK0lzBIjqnRSSGuN0M7ALBuzRRBt8XUd0+OpB0RXiySc+X/Ci3RyouTlnh5HFtu
-	EsfJEhS8nbfeDmu7RaQTKiA==
-X-Received: from pgbo22.prod.google.com ([2002:a63:5a16:0:b0:cdb:5e5a:97a0])
+        bh=Kss5zYTX8gJ/UL/NQYhNcENTaHA0lrV423hmMcyAORM=;
+        b=FEU9lOia0PliP6QR9roQ4HpiIaASE8VpD95SSZxh8ONgrrfkCuVzk8UsVACvhYHkmx
+         R7x9R0ekGWHvy4uO8nFgI7bN5X0l3gdn153Lu4P2oySSZYr2WamS6nsi+m/yjjtc2MKP
+         O1eLTfO4esqvPH/nUTs1sPY/O6Oden5SCk5YDHZBM4h/5sj7LxcPw7xXDqKvNySYRRaf
+         Ag09Wi9IKMxPMYgxScPVhYPJ3vyNEnNM3u7hWJUJtFMaw1UnWf8vWXu3OT1qznhWCokx
+         XQ+3Y0l8BCUdn/tyx8vsTaN3yUwzr1Ds01SRnf0HTJYIZrpTxgi0aLL3NyYvkm+oBPGB
+         nplQ==
+X-Forwarded-Encrypted: i=1; AL+hErHSVINjhRsuAKrszRcsJQwVVhvx0/uT93IZrWu6k5Qpmg4K4VbvRTNEFoHMXaIbkSP4sKLFtk7671cjOKU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9c4QnCEgYgM/sBmeD/Qpdd/vEs7n2dA/2RVUpqFaCBcxbiv5O6
+	gvSVnCBQdMsVnU49iFo4ZCh0tphQnqwRgRepgmK75CI+r4q2Hf2urKEPkBHwGZexjsnGvITeyxc
+	UHH2/BXS5aejioTRam0za8A==
+X-Received: from pgfd2-n2.prod.google.com ([2002:a05:6a02:6542:20b0:cc7:492f:3ac1])
  (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:3988:b0:3dd:d729:c62c with SMTP id adf61e73a8af0-3f2ff4d7c53mr4552825637.54.1794460549897;
- Wed, 11 Nov 2026 21:15:49 -0800 (PST)
-Date: Thu, 12 Nov 2026 13:15:35 +0800
+ 2002:a17:90b:5405:b0:3b1:7329:a127 with SMTP id 98e67ed59e1d1-3b182efada7mr3990080a91.20.1794460552446;
+ Wed, 11 Nov 2026 21:15:52 -0800 (PST)
+Date: Thu, 12 Nov 2026 13:15:36 +0800
 In-Reply-To: <20261112051542.1539779-1-stanleyjhu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261112051542.1539779-1-stanleyjhu@google.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261112051542.1539779-3-stanleyjhu@google.com>
-Subject: [PATCH 2/9] scsi: ufs: core: Defer link recovery on reserved PM
- command timeout
+Message-ID: <20261112051542.1539779-4-stanleyjhu@google.com>
+Subject: [PATCH 3/9] scsi: ufs: core: Wait for the reserved tag in ufshcd_get_dev_mgmt_cmd()
 From: Stanley Jhu <stanleyjhu@google.com>
 To: linux-scsi@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>
 Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
@@ -98,126 +97,72 @@ Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-When a device management command sent by a PM callback times out,
-ufshcd_eh_timed_out() runs ufshcd_link_recovery() inline:
+ufshcd_get_dev_mgmt_cmd() allocates the reserved tag with
+BLK_MQ_REQ_NOWAIT and assumes that holding hba->dev_cmd.lock makes the
+allocation succeed. That lock only serializes the owners of the tag. A
+busy tag iterator holds its own reference on the request, and the tag
+is freed only when the last reference is dropped:
 
-1. The PM callback holds hba->dev_cmd.lock, a read lock on
-   hba->clk_scaling_lock, and the only reserved tag while it waits
-   for the command.
-2. The command times out and ufshcd_eh_timed_out() resets the host.
-3. The reset runs ufshcd_verify_dev_init(), which needs the same tag
-   and lock, so host init fails with -ENOMEM in SDB mode and
-   deadlocks on hba->dev_cmd.lock in MCQ mode.
+1. A PM callback, e.g. __ufshcd_wl_suspend(), sends a query request and
+   waits for it in ufshcd_issue_dev_cmd().
+2. The request times out. blk_mq_timeout_work() takes a reference on
+   it in bt_iter() and calls ufshcd_eh_timed_out(), which completes it
+   with scsi_done().
+3. The PM callback wakes up, frees the request, releases
+   hba->dev_cmd.lock and retries the query from a retry loop such as
+   ufshcd_query_attr_retry().
+4. The retry calls ufshcd_get_dev_mgmt_cmd() before
+   blk_mq_timeout_work() has dropped its reference. The tag is still
+   busy, the NOWAIT allocation fails, ufshcd_exec_dev_cmd() triggers
+   WARN_ON_ONCE(!cmd) and the query fails with -ENOMEM.
 
-Instead, stop the host controller, schedule the error handler and
-complete the command with DID_TIME_OUT, so the PM callback releases
-the tag and locks before recovery runs.
+The timeout handler is not the only trigger. Other busy tag iterators,
+e.g. scsi_host_busy() called from ufshcd_gate_work(), take the same
+reference, so the tag can stay busy after its owner has freed the
+request. Holding hba->dev_cmd.lock therefore does not guarantee that
+the NOWAIT allocation succeeds.
 
-The remaining tail of ufshcd_eh_timed_out() then only handles SCSI
-commands, so drop the reserved command branch there.
+Fix this by dropping BLK_MQ_REQ_NOWAIT so that the allocation waits
+until the reference is dropped and the tag is freed. Since the patch
+"scsi: ufs: core: Defer link recovery on reserved PM command timeout",
+the timeout handler no longer allocates a reserved tag while it holds
+a reference on a reserved request, so the wait ends when
+ufshcd_eh_timed_out() returns. Also correct the comment about why
+hba->dev_cmd.lock is held, and state that the function must not be
+called while holding a reference on a reserved request.
 
-Fixes: 01d5e237b339 ("scsi: ufs: core: Handle PM commands timeout before SCSI EH")
-Cc: stable@vger.kernel.org # 7.3.x: cd37a69c367b: scsi: ufs: core: Remove an always-false WARN_ONCE()
-Cc: stable@vger.kernel.org # 7.3.x: 22d14117ec18: scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs
-Cc: stable@vger.kernel.org # 7.3.x: 3a7e551ae4bc: scsi: ufs: core: Fix double release in ufshcd_eh_timed_out()
+Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
 Cc: stable@vger.kernel.org # 7.3.x
 Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- drivers/ufs/core/ufshcd.c | 60 +++++++++++++++++++++++++++++++++------
- 1 file changed, 52 insertions(+), 8 deletions(-)
+ drivers/ufs/core/ufshcd.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index e9dcab35a4cd..6a5f5fa732d9 100644
+index 6a5f5fa732d9..6d789f3badf1 100644
 --- a/drivers/ufs/core/ufshcd.c
 +++ b/drivers/ufs/core/ufshcd.c
-@@ -7147,7 +7147,7 @@ static void ufshcd_err_handler(struct work_struct *work)
- 	spin_unlock_irqrestore(&hba->host->host_lock, flags);
+@@ -3366,14 +3366,17 @@ static void ufshcd_dev_man_unlock(struct ufs_hba *hba)
+ static struct scsi_cmnd *ufshcd_get_dev_mgmt_cmd(struct ufs_hba *hba)
+ {
+ 	/*
+-	 * The caller must hold this lock to guarantee that the NOWAIT
+-	 * allocation will succeed.
++	 * hba->dev_cmd.lock serializes the owners of the reserved tag. A busy
++	 * tag iterator, e.g. the block layer timeout handler, may still hold a
++	 * reference on the previous request after its owner freed it. Hence
++	 * the allocation may have to wait until that reference is dropped.
++	 * Must not be called while holding a reference on a reserved request.
+ 	 */
+ 	lockdep_assert_held(&hba->dev_cmd.lock);
  
- 	/* Complete requests that have door-bell cleared by h/w */
--	if (!stop)
-+	if (!stop && ufshcd_is_hba_active(hba))
- 		ufshcd_complete_requests(hba, false);
- 	spin_lock_irqsave(&hba->host->host_lock, flags);
- again:
-@@ -9689,6 +9689,50 @@ static void ufshcd_async_scan(void *data, async_cookie_t cookie)
- 		dev_err(hba->dev, "%s failed: %d\n", __func__, ret);
+ 	return scsi_get_internal_cmd(
+ 		hba->host->pseudo_sdev, DMA_TO_DEVICE,
+-		BLK_MQ_REQ_RESERVED | BLK_MQ_REQ_NOWAIT);
++		BLK_MQ_REQ_RESERVED);
  }
  
-+/*
-+ * Claim @scmd before stopping the HBA in case normal completion raced with
-+ * scsi_timeout(), then complete @scmd so the PM caller releases
-+ * hba->dev_cmd.lock and the reserved tag before error recovery runs.
-+ */
-+static void ufshcd_eh_pm_cmd_timed_out(struct ufs_hba *hba,
-+				       struct scsi_cmnd *scmd)
-+{
-+	struct request *rq = scsi_cmd_to_rq(scmd);
-+	struct ufs_hw_queue *hwq;
-+
-+	if (!hba->mcq_enabled) {
-+		if (!ufshcd_clear_outstanding_reqs(hba, BIT(rq->tag)))
-+			return;
-+		ufshcd_hba_stop(hba);
-+		ufshcd_force_error_recovery(hba);
-+		set_host_byte(scmd, DID_TIME_OUT);
-+		scsi_done(scmd);
-+		return;
-+	}
-+
-+	hwq = ufshcd_mcq_req_to_hwq(hba, rq);
-+	if (ufshcd_is_hba_active(hba))
-+		ufshcd_mcq_poll_cqe_lock(hba, hwq);
-+	scoped_guard(spinlock_irqsave, &hwq->cq_lock) {
-+		if (test_bit(SCMD_STATE_COMPLETE, &scmd->state))
-+			return;
-+	}
-+	spin_lock_irq(&hba->host->host_lock);
-+	hba->force_reset = true;
-+	if (hba->ufshcd_state != UFSHCD_STATE_ERROR)
-+		hba->ufshcd_state = UFSHCD_STATE_EH_SCHEDULED_FATAL;
-+	spin_unlock_irq(&hba->host->host_lock);
-+	ufshcd_hba_stop(hba);
-+	ufshcd_mcq_compl_all_cqes_lock(hba, hwq);
-+	ufshcd_force_error_recovery(hba);
-+	scoped_guard(spinlock_irqsave, &hwq->cq_lock) {
-+		if (!test_bit(SCMD_STATE_COMPLETE, &scmd->state)) {
-+			set_host_byte(scmd, DID_TIME_OUT);
-+			scsi_done(scmd);
-+		}
-+	}
-+}
-+
- static enum scsi_timeout_action ufshcd_eh_timed_out(struct scsi_cmnd *scmd)
- {
- 	struct ufs_hba *hba = shost_priv(scmd->device->host);
-@@ -9698,6 +9742,11 @@ static enum scsi_timeout_action ufshcd_eh_timed_out(struct scsi_cmnd *scmd)
- 		return SCSI_EH_NOT_HANDLED;
- 	}
- 
-+	if (!ufshcd_is_scsi_cmd(scmd)) {
-+		ufshcd_eh_pm_cmd_timed_out(hba, scmd);
-+		return SCSI_EH_DONE;
-+	}
-+
- 	/*
- 	 * Handle the timeout directly to prevent a deadlock between
- 	 * ufshcd_set_dev_pwr_mode() and ufshcd_err_handler().
-@@ -9718,13 +9767,8 @@ static enum scsi_timeout_action ufshcd_eh_timed_out(struct scsi_cmnd *scmd)
- 				return SCSI_EH_DONE;
- 		}
- 
--		if (ufshcd_is_scsi_cmd(scmd)) {
--			set_host_byte(scmd, DID_REQUEUE);
--			ufshcd_release_scsi_cmd(hba, scmd);
--		} else {
--			set_host_byte(scmd, DID_TIME_OUT);
--		}
--
-+		set_host_byte(scmd, DID_REQUEUE);
-+		ufshcd_release_scsi_cmd(hba, scmd);
- 		scsi_done(scmd);
- 	}
- 
+ static void ufshcd_put_dev_mgmt_cmd(struct scsi_cmnd *cmd)
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
