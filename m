@@ -1,86 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794477953;
-	b=TPbzR3hQ1146ICY4XMTV1KRjxNSTN92kGlp2Oc4dmTY256nP5O1GlIRQXFWAos7mwyyE
-	 LyD9S/xUbLl3szL4F2dDA5IxtNrIfAo2QXzAD7y45E0uUxDJsoaee1j5wVNeSa7VMtDE/
-	 2m9ekre7D51oiRPtPU82BabcrNx1xOgW9C46Sf34DbiP/1F4RFkuQ58UKWORUAX9DN6g1
-	 GHan2/GHbJ4RRsGABjApCtoWdGpB3IqR44X9zOKcpt+6zqYYZHqHgc4QX/mzzf665vUyz
-	 N52qbiAEmwWNmOlh0TAmtDTjrNiSjxYlJoMUfa9c1QH8VDoOxFYhiBxjFqs4lcGpPDw==
+	t=1794477968;
+	b=v8f/nhd8mqyrLODfl/v8AjrDjkQp5rDqHQHsdq4+oUj171HEE+lyyCmkoSFhoVTb9qL8
+	 4fHKep0oE9j2+3opQPpNf4/B3WDnjW5RxWOt41QmK/P4h7voWxUeVH9nzT33C92Q2Nxbx
+	 eVntnSFxx0EgVOmXh0CUBfQRE24gJtGEmi2AlHm0Mi8j5TcJ6QQcBWlNPeMm0y71Ovhn9
+	 AiHyowJlWuTpjftg4f/UdyW8dpUU+p+GqV2Ts6CeG26d51GA5Z8+TCV8mE81AHInejuGI
+	 mD25/g6vNk3LGBg50BeIIcoZlGYMHm3uxYjylk+4Z7VKYsVmAHXhipboh09dQanDIlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794477953;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=eJpy9wKtB4AptXoRSNPEobdF3i9APnAHY5bJ3PMNze4=;
-	b=nLLaXlRSNxekIGZ/o7IXE9272Py9TiIMw+AlLe83FBGexllo3DtUlr1+NL15TbfgsDyr
-	 IMQoE8fuFYCUA4i2DxVvmgtBL/hhDVJXgbh/8YLw1Z0xu4Ov5lD4QC11x/6Fh1NHotj/T
-	 /5ZL9EV7qQGSdUEB69rIIKsama4rCU0S98YhF5ygwJvDRKjlluHo0ABFIwzLL/vVwle6T
-	 v0kA5XObbA2g+5EaS3H12ZajBUi75NXsBu7iwuK/Yc2jcPEWx5CY6FTDVTqhBgPqq/cee
-	 0f75VqA00ivmvSl1bL5P5E7nz0ycuEzCHCLxMIMKpPRniJAZfGlpI9i9yuHC2x+sDeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794477968;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=KwqEOHogSWf29GMTvbcaDBvWnXtsNEWUuQTRLlnKv3Q=;
+	b=hota5Qr4tqq1MOdtjs3SZ/FFPTpVUFH564hv/ODZ8ZMVknzUUQ+SUWLUK6NK6gDQ3I6q
+	 f0mIOvb7M5y+ZXkAnzO/YXR92xCyEJ6sGM23m4lEHP4XmL+6DeBBPy61JmF8RzcTl9dAp
+	 gJXaFPLaTVm7hAurVeTFnurjJbGj1ygLljgRXOqUZUMoPU/0fMCdz3WxVjT2TntdXnCdM
+	 AwDnoEUWJsBKagEvFDlDCnQ5wCQZWjJ773ApriV6HWyafk23hMEVYCFXJOTetBMKdbNbw
+	 1oMqMigexsDfvaZNVKsukd36inSQF/iNffHhp7mwmbFc3a0XjRN71p9kFKICKlAxzMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BgeZ82+B;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kUkHdNHq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA768606A336
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:05:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA768606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151AC606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:06:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BgeZ82+B
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-490f38e9688so585005f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:05:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794477951; x=1795082751; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=eJpy9wKtB4AptXoRSNPEobdF3i9APnAHY5bJ3PMNze4=;
-        b=BgeZ82+Bo79QHpxPv/epRE2RPqK3+ISRFH03lBH5hq3yEXiIpVlggZssbSik1sTmls
-         ryG9W1bKSHK/vMPfLMVQjFN7G8f6tv6LVAHq1TNvqTmvLqMwi9lJTgVeQKQJ8rfEM4Wa
-         9M+NN5cOwyVUAOmm4f/8gq9c+zbjV0Ahw+Rz1y5Sn4Rr+nnFZ2Ef1MPD0K1dxnCR9Hbe
-         hJD30ngytOwvzcBKYF2HMEDEVlJhnWBfPJGC47kYKiKcuIWyBFss1rM923YOvhQyJOXl
-         LG9cSq03kz/tOi1fMcez3i9xXAw4GVPLl5Q+rAJ2AYfc2XMtozYXyAMFTsR9PUYtJNBc
-         wLBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794477951; x=1795082751;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eJpy9wKtB4AptXoRSNPEobdF3i9APnAHY5bJ3PMNze4=;
-        b=JKmgcOwWHcWsFVvm1fBzm8CaTfKmvAPZ4MVBJGl4DKLoQFSPHX6mTW7mt3YziItyFg
-         6zLIe3aNoYgAmV8Pg3yjIUlPut8i5IDCULzuP6JwTgmdiBp/ONpHGEd4jqS0hRNXWmgi
-         ZG2B/GEai/YlnWYKdAwVJud0LeVswU/HlpeQn/CdlAQfpURbfMIFIknmnnaCDJ7rFdXm
-         rE0aw+/iYmeiz1H80XyMQTCCoLHWROhmAkD/8w0RZAPqiN3nqbN/P/eAJnu8IVd4JOqi
-         0fOZKya2ySwxZiLNFPJtfIf04mffkqIgMGhWwUXNjMQTxjWoAQVyVEF9wzvktayk/4fd
-         MnAg==
-X-Forwarded-Encrypted: i=1; AL+hErEbwcMoQB1uhq0x0+IGI++pIqJU4R7P1Epu4n8o0eVaJQFhMAzFr+5Ll5fseKc+yHmCck9HOrAi14LlrBY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8Z46JpT5VvH97PzkRqNq/biTV4pLP5L+YXUY4aBCa1YPoF/DE
-	7LcfvWfF1wauI4vi1BISRgbCoRkIqcfxW0GsG1Uq1shI6LibNgTt9vTg
-X-Gm-Gg: AYBFou294FzmHazglzszKzC/DsheKmMc/lHNxgL1rFGu7UynA2DbI97yp1jDFtLm7SD
-	9gG+ePKkpAv13/9Mhv6UuN042WcFWaJ6dz1/SN/e6ddAUEe676KqI8S8ED1cy3CRoDE+EUec1zU
-	84DmOIE3oljeRGrhjRywzTdFvozzuhmQwqG32l7cuGYWuGIM3jj15Nyh00pwMBelvNBsuSLe7sd
-	GBGUKIV/EXMlWBW3K5CR0WU92hxra4i+RLUOaTCR2IHV5oVLVgnXoJEgTEDlZFNiTWy5lLfx6dj
-	+gRKVfT8CyB4iiSnt3zctNkSHG1H8QC6a6V8TGowYX92Ezw/JVaJbxioSTigt6LuY9s2e7vWIOy
-	wD2R4SuHfiSsHMNkYp3rNQkS8wv/p8Byh7GpfEE8cFI//66h1VUuL5GdGhdebPRAVDCAg66PYe7
-	La6QQGcfTd8EkTJ8jss8kN0zfdVz+M+i2HtzvspDqYqFcS7FIx3YJo+SuEDXfzW30eo3gqEKqPY
-	fVcK1+8gwtYYYy/8YDTWlNdkoJtPOxtOO1kgMxqKcKdNa/R1A74yquqV3utC5mer0fUcGBGvRfg
-	0tBBHZ5q9A7C4NxQXvB/FcSYj1jtwA9T4CDcPjB9Vdza/lPUVWwO
-X-Received: by 2002:adf:d032:0:b0:48a:f4d4:e1f3 with SMTP id ffacd0b85a97d-49afede0d3amr2836432f8f.13.1794477950811;
-        Thu, 12 Nov 2026 02:05:50 -0800 (PST)
-Received: from smtpclient.apple ([217.111.110.194])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498367b99bcsm16587079f8f.51.2026.11.12.02.05.49
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 12 Nov 2026 02:05:50 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kUkHdNHq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09AA01F00A05;
+	Thu, 12 Nov 2026 10:06:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794477967;
+	bh=KwqEOHogSWf29GMTvbcaDBvWnXtsNEWUuQTRLlnKv3Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kUkHdNHqa/8UOtYlysZtF0KFLAjhEFo/5to8EELIoPLiwm6VmR3IIA260N8CNGaky
+	 KkDiBeU3h0Nn2vYbZPllEeda3T6N5g11mPKNl/1Jb5vHSVIqfbsY0d/b08Ry7r0LvB
+	 T1T6TACqDbRtokbhdJvctY+41oDq+BKsiSgJ9JG69gMfZHmyX2O7bupBt6zaX993eW
+	 EoaBOx5ODQyok7TlKjgHJddYKIYisbKSvioby4lqOq2mNX1iEJh92SeWnzSDAtercv
+	 CEBk6h/ndNQrTBOMgteCIH4u6ed+BiF6254VR1/dEAT2mG1XTagp0uQVZuBmrrWoVS
+	 eCo5IxoBK9mpQ==
+Date: Thu, 12 Nov 2026 10:06:03 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Patrick DELAUNAY <patrick.delaunay@foss.st.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>, dario.binacchi@amarulasolutions.com,
+	Linux STM32 <linux-stm32@st-md-mailman.stormreply.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] firmware: psci: handle unsupported SET_SUSPEND_MODE in
+ PC mode
+Message-ID: <20261112-illegal-slick-rottweiler-bdc9ea@sudeepholla>
+References: <20261029191624.1.I5f8f3d75a566b72250d629ac6f43cf0d387c0218@changeid>
+ <20261030-origami-tarantula-of-contentment-a70ab2@sudeepholla>
+ <4690f55f-dc13-4e43-82f9-d508253f6c64@foss.st.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,315 +63,108 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH ipsec] xfrm: use software GSO for inner tunnels without
- crypto offload
-From: Usman Malik <usmalik90@gmail.com>
-In-Reply-To: <179354432643.3131.245171497251536441@kernel.org>
-Date: Thu, 12 Nov 2026 11:05:38 +0100
-Cc: steffen.klassert@secunet.com,
- herbert@gondor.apana.org.au,
- davem@davemloft.net,
- edumazet@google.com,
- kuba@kernel.org,
- pabeni@redhat.com,
- horms@kernel.org,
- netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- cratiu@nvidia.com,
- leon@kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <33CCA7F8-9B0F-42F8-999B-32E9AF5826D1@gmail.com>
-References: <20261028-xfrm-inner-gso-v1-1-1908f0eb7313@engineer.com>
- <179354432643.3131.245171497251536441@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4690f55f-dc13-4e43-82f9-d508253f6c64@foss.st.com>
 
-On Sun, 1 Nov 2026 14:45:27 +0000, Sashiko AI review wrote:
-> [Severity: Critical]
-> Can this cause AES-GCM IV reuse for the transport-mode software SA
-> traffic that this change sends to xfrm_output_gso()?
+On Fri, Oct 30, 2026 at 11:04:51AM +0100, Patrick DELAUNAY wrote:
+> Hi,
+> 
+> On 10/30/26 09:32, Sudeep Holla wrote:
+> > On Thu, Oct 29, 2026 at 07:16:25PM +0100, Patrick Delaunay wrote:
+> > > The PSCI specification makes PSCI_SET_SUSPEND_MODE optional. If it
+> > > returns NOT_SUPPORTED when Linux requests platform-coordinated (PC)
+> > > mode, Linux can assume that PC mode is in effect. Treat this response
+> > > as success so PSCI power-domain providers can initialize when firmware
+> > > does not support OS-initiated (OSI) mode.
+> > > 
+> > > Continue to report an error when OSI mode is requested but
+> > > SET_SUSPEND_MODE is not supported.
+> > > 
+> > So, your platform advertises the presence/support for OSI mode and yet
+> > opted for not implementing SET_SUSPEND_MODE ? If so, it is indeed a
+> > firmware bug as reported.
+> > 
+> 
+> I think it is no realy a platform bug but a too strict management in Linux
+> kernel, for PSCI power domain.
+> The OSI mode is not yet supported by the STM32MP25 platform in Linux at
+> upstream but I introduce PSCI domains in device tree (but without idle power
+> domain) just to prepare this activation in next steps.
+>
 
-Thanks for the review.
+Fair enough, that shouldn't be a problem.
 
-The concern is right, and it is not new. Packets with
-skb->inner_protocol set, such as vxlan, geneve or ip6tnl, over a
-tunnel-mode SA already go through xfrm_output_gso() when an ESP GSO
-handler is registered, and with software crypto they hit it today.
-Jeremy Jean posted the fix as patch 4/7 of "xfrm: fix ESP IV generation
-and ESN authentication".
+> As the PSCI support is not activated in Firmware (TF-A BL31), the firmware
+> correctly expose its capacities (PSCI_OS_INIT_MODE =0) => PSCI feature
+> indicate that OSI is not supported (FF_SUPPORTS_OS_INIT_MODE = 0) =>
+> PSCI_SET_SUSPEND_MODE function is not supported (optional when OSI
+> is not supported)
+> 
+> in Linux side, the power domain driver
+> (drivers/cpuidle/cpuidle-psci-domain.c)
+> 
+> correctly check the support of OSI:
+>     bool use_osi = psci_has_osi_support();
+> 
+> in STM32MP25 platform use_osi = false, so the driver request
+> Plafrom Cooordinated mode (PC mode) as expected
+> But here  the GENPD driver try to use optional function to set mode:
+> 
+>     /* let's try to enable OSI. */
+>     ret = psci_set_osi_mode(use_osi);
+>     if (ret)
+>         goto remove_pd;
+> 
 
-=
-https://lore.kernel.org/netdev/20260930144523.435271-6-Jeremy.Jean@oss.cyb=
-er.gouv.fr/
+IMO we should make this psci_set_osi_mode() call only when use_osi == true
+above. If it is passing false, it is setting PC mode but as comments states
+it may be assuming OSI mode and proceeding further which is completely wrong.
+I would bail out of psci_cpuidle_domain_probe() early if use_osi is false.
 
-It calls secpath_set() on each segment before xfrm_output2(), so every
-segment keeps its own xo->seq until esp_xmit() or esp6_xmit() reads it.
+> And the problem occurs here because the optional function is called but the
+> normal use case is not handled (OSI mode not supported / PSCI_SET_SUSPEND_MODE
+> not supported)
+> 
 
-This patch moves the same packets over a transport-mode SA without an
-offload device onto that path, so it must not be applied before that
-fix.
+Agreed, but I would check before calling here. The proposed fix hides
+PSCI_RET_NOT_SUPPORTED error for PC-mode setting. So clear NACK for that.
 
-Teaching xfrm{4,6}_transport_gso_segment() an inner IP tunnel would add
-new functionality. Before 0aae2867aa60 these packets never reached the
-ESP GSO handlers with software crypto, and the transport handlers do not
-produce a valid ESP packet for them. Restoring the software GSO for SAs
-without an offload device is the smaller change, and the one stable can
-take.
+> 
+> With the proposed patch, the Linux kernel can have PSCI domain in device
+> tree even when PSCI OSI support is deactivated in PSCI firmware (or not yet
+> activated): the domain are always ON (GENPD_FLAG_ALWAYS_ON).
+> 
 
-I tested this on v7.3 with a tbf qdisc on the egress veth, so the
-segments wait in the queue before validate_xmit_skb(). The traffic was
-TCP through an ip6tnl tunnel over an rfc4106(gcm(aes)) SA, with
-esp6_offload loaded, 3 MB per run and 3 runs per case. All kernels carry
-patch 1/7 of the series, so the esp6 IV off-by-one does not mix into the
-counts. The sender capture was decrypted with the SA keys.
+Do you see any issue failing in psci_cpuidle_domain_probe() instead ?
 
-kernel                     SA mode     IV values reused per run
-v7.3 + 1/7                 tunnel      50, 50, 51
-v7.3 + 1/7 + this patch    tunnel      92, 51, 51
-v7.3 + 1/7 + this patch    transport   50, 51, 50
-v7.3 + 1/7 + 4/7 + this    tunnel      0, 0, 0
-v7.3 + 1/7 + 4/7 + this    transport   0, 0, 0
+> NB: I hesitate between the current patch and a patch in PSCI power domain
+> driver:
+> 
+>     /* let's try to enable OSI. */
+>     ret = psci_set_osi_mode(use_osi);
+> + if (ret == -EOPNOTSUPP && !use_osi)
+> +    ret = 0;
+> 
+>     if (ret)
+>         goto remove_pd;
+> 
 
-There is no transport-mode row without this patch, because those packets
-take the SKB_GSO_ESP path and arrive malformed, which is the bug this
-patch fixes. Each reused IV value is shared by up to 7 segments of one
-GSO packet, and for one pair under each value ct1 XOR ct2 equals pt1 XOR
-pt2, so the keystream is shared. Without the qdisc every case is 0.
-Plain TCP over either mode goes through esp6_gso_segment() and is 0 in
-every case. v2 will state the dependency on that fix and carry this
-test. I will post it once the series is in the ipsec tree, rebased on it
-and tested again on that base.
+See above, if the driver is assuming OSI mode is set after the call like the
+comment states, it better check if use_osi = true.
 
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but transport-mode SAs with
-> a crypto offload device (x->xso.dev !=3D NULL) still set SKB_GSO_ESP =
-here
-> for packets with skb->inner_protocol set.
+> but I patch PSCI firmware driver because I think it is a more generic place
+> to handle optional PSCI function.
+> 
 
-Agreed. When the hw_enc_features of the device do not cover the whole
-gso_type, validate_xmit_skb() segments the packet through
-esp{4,6}_gso_segment() and xfrm{4,6}_transport_gso_segment() with the
-same transport header. v2 will name that path in the changelog. The fix
-for it belongs in the transport GSO handlers, as a separate change.
+If we have to handle it in the psci, I would rather not make a call to the
+firmware if PSCI_FEATURES(PSCI_1_0_FN_SET_SUSPEND_MODE) returns not supported.
+That is the expectation for any ABI the firmware said it doesn't support.
+Making unsupported ABI call to the firmware may result in unexpected behaviour
+and must be avoided.
 
-> [Severity: Low]
-> This is a pre-existing issue, but x->xso.dev is read here with a plain
-> load, and xfrm_dev_state_free() can clear it at the same time:
-
-Pre-existing, and the new test only uses the value as a boolean. I would
-leave a READ_ONCE() conversion of x->xso.dev to a separate cleanup that
-also covers xfrm_dev_offload_ok() and the NETIF_F_HW_ESP_TX_CSUM check.
-
-pw-bot: cr
-
-Usman
-
-
-> On 1. Nov 2026, at 15:45, netdev-bot+sashiko@kernel.org wrote:
->=20
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->=20
-> Critical: 1 =C2=B7 High: 0 =C2=B7 Medium: 0 (1) =C2=B7 Low: 0 (1)
->=20
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let =
-patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your =
-reply
-> (one such reply per series is enough).
->=20
-> - [Critical] The patch sends more traffic into xfrm_output_gso(), and =
-on
-> that path AES-GCM IVs can repeat.
->=20
-> Pre-existing issues:
-> - [Medium] This problem wasn't introduced by this patch, but =
-transport-
-> mode SAs that have a crypto offload device (x->xso.dev !=3D NULL) =
-still=E2=80=A6
-> - [Low] This problem wasn't introduced by this patch, but =
-xfrm_output()
-> reads x->xso.dev with plain, unmarked loads: in =
-xfrm_dev_offload_ok()=E2=80=A6
->=20
-> --
->=20
-> xfrm: use software GSO for inner tunnels without crypto offload
->=20
-> This commit changes xfrm_output() to use xfrm_output_gso() for GSO
-> packets with skb->inner_protocol set. Before, that only happened in
-> tunnel mode. Now it also happens when the SA has no offload device. =
-The
-> goal is to stop the SKB_GSO_ESP path from producing malformed ESP =
-packets
-> for ipip/ip6tnl traffic over transport-mode software SAs when
-> esp4_offload/esp6_offload are loaded.
->=20
->> diff --git a/net/xfrm/xfrm_output.c b/net/xfrm/xfrm_output.c
->> index e305ba32e356b..c370d28a83f50 100644
->> --- a/net/xfrm/xfrm_output.c
->> +++ b/net/xfrm/xfrm_output.c
->> @@ -808,7 +808,8 @@ int xfrm_output(struct sock *sk, struct sk_buff =
-*skb)
->> skb->encapsulation =3D 1;
->>=20
->> if (skb_is_gso(skb)) {
->> - if (skb->inner_protocol && x->props.mode =3D=3D XFRM_MODE_TUNNEL)
->> + if (skb->inner_protocol &&
->> +    (x->props.mode =3D=3D XFRM_MODE_TUNNEL || !x->xso.dev))
->> return xfrm_output_gso(net, sk, skb);
->=20
-> [Severity: Critical]
-> Can this cause AES-GCM IV reuse for the transport-mode software SA
-> traffic that this change sends to xfrm_output_gso()?
->=20
-> Before this point, xfrm_output() has attached a sec_path with
-> sp->olen =3D 1, so the skb carries an xfrm_offload. xfrm_output_gso() =
-then
-> calls skb_gso_segment(). In skb_segment()->__copy_skb_header(),
-> __skb_ext_copy() only takes a reference on the extension:
->=20
-> include/linux/skbuff.h:__skb_ext_copy() {
-> ...
-> refcount_inc(&ext->refcnt);
-> dst->extensions =3D ext;
-> ...
-> }
->=20
-> So all segments seem to share one struct xfrm_offload.
->=20
-> For each segment, xfrm_output2()->...->xfrm_replay_overflow_offload()
-> writes to that shared xo:
->=20
-> net/xfrm/xfrm_replay.c:xfrm_replay_overflow_offload() {
-> ...
-> if (!skb_is_gso(skb)) {
-> XFRM_SKB_CB(skb)->seq.output.low =3D ++oseq;
-> xo->seq.low =3D oseq;
-> ...
-> }
->=20
-> The XFRM_SKB_CB() copy belongs to each skb, but xo->seq.low is in the
-> shared extension.
->=20
-> Encryption happens later, at qdisc dequeue time, in
-> validate_xmit_skb()->validate_xmit_xfrm()->esp_xmit(). That code reads
-> the shared value:
->=20
-> net/ipv4/esp4_offload.c:esp_xmit() {
-> ...
-> seq =3D xo->seq.low;
-> ...
-> esp.seqno =3D cpu_to_be64(seq + ((u64)xo->seq.hi << 32));
-> ...
-> }
->=20
-> XFRM_GSO_SEGMENT is not set on this path, so nothing advances
-> xo->seq.low per segment. esp_output_tail() then copies esp->seqno into
-> the AEAD IV. esp6_xmit() does the same.
->=20
-> Segments can wait in the qdisc while the xfrm_output_gso() loop keeps
-> running. For example, dequeue_skb() returns nothing while a
-> TCQ_F_ONETXQUEUE txq is stopped by BQL or a full ring, or another CPU
-> may already be running the qdisc. In that case, won't later segments
-> overwrite xo->seq.low before the earlier ones are encrypted?
->=20
-> Each packet would still have a distinct esph->seq_no on the wire, but
-> the explicit IVs would be the same. That is GCM nonce reuse under one
-> key. The receiver takes the IV from the packet, so decryption still
-> succeeds and nothing reports the problem.
->=20
-> veth is noqueue, so in the test setup validate_xmit_skb() runs before
-> the next segment's xfrm_output_one(). That would hide this.
->=20
-> Tunnel-mode software SAs already use this mechanism today. In the base
-> tree, however, these transport-mode packets, including the vxlan and
-> geneve traffic that worked, went down the SKB_GSO_ESP path. There,
-> xo->seq.low advances per segment within one validate_xmit_xfrm() call,
-> on an extension owned by a single GSO skb.
->=20
-> Could the sec_path be unshared per segment, or the IV be taken from =
-the
-> per-skb XFRM_SKB_CB() sequence? Another option would be to fix
-> xfrm{4,6}_transport_gso_segment() instead of rerouting these packets.
->=20
-> [Severity: Low]
-> This is a pre-existing issue, but x->xso.dev is read here with a plain
-> load, and xfrm_dev_state_free() can clear it at the same time:
->=20
-> net/xfrm/xfrm_state.c:xfrm_dev_state_free() {
-> ...
-> WRITE_ONCE(xso->dev, NULL);
-> xso->type =3D XFRM_DEV_OFFLOAD_UNSPECIFIED;
-> netdev_put(dev, &xso->dev_tracker);
-> ...
-> }
->=20
-> The new !x->xso.dev test is only used as a boolean, and either value
-> leads to a valid path. At worst it is a data race that KCSAN can see,
-> like the one already in xfrm_dev_offload_ok():
->=20
-> struct net_device *dev =3D x->xso.dev;
->=20
-> Further down in xfrm_output(), the check-then-dereference also uses =
-two
-> plain loads. This patch does not touch it:
->=20
-> if (x->xso.dev && x->xso.dev->features & NETIF_F_HW_ESP_TX_CSUM)
->=20
-> Would it make sense to read x->xso.dev once with READ_ONCE() into a
-> local variable and use that for these checks?
->=20
->>=20
->> skb_shinfo(skb)->gso_type |=3D SKB_GSO_ESP;
->=20
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but transport-mode SAs with
-> a crypto offload device (x->xso.dev !=3D NULL) still set SKB_GSO_ESP =
-here
-> for packets with skb->inner_protocol set.
->=20
-> The commit message says:
->=20
-> "An SA with crypto offload that falls back to software
-> segmentation in validate_xmit_xfrm() takes the same path."
->=20
-> Is the reroute/overflow fallback in validate_xmit_xfrm() the only way =
-to
-> get there? validate_xmit_skb() also does this:
->=20
-> net/core/dev.c:validate_xmit_skb() {
-> ...
-> if (netif_needs_gso(skb, features)) {
-> struct sk_buff *segs;
->=20
-> segs =3D skb_gso_segment(skb, features);
-> ...
-> }
->=20
-> That runs whenever the device's hw_enc_features don't cover the whole
-> gso_type, for example SKB_GSO_ESP | SKB_GSO_IPXIP4. The call chain =
-would
-> then be:
->=20
-> skb_gso_segment()
-> esp4_gso_segment()
-> xfrm4_transport_gso_segment()
->   inet_gso_segment()   /* inner IPIP, transport header at inner L4 */
->=20
-> followed by validate_xmit_xfrm()->__xfrm_transport_prep()->esp_xmit().
-> That writes the ESP header 4 bytes into the inner IP header, which is
-> the same malformed layout the commit message describes.
-> xfrm6_transport_gso_segment() has the same limitation.
->=20
-> Could the commit message mention this fallback as well?
->=20
-> --=20
-> Sashiko AI review =C2=B7 =
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028-xfrm-inner-gs=
-o-v1-1-1908f0eb7313%40engineer.com
-
+-- 
+Regards,
+Sudeep
