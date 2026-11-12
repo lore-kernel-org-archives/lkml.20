@@ -1,76 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794513115;
-	b=pURXIRY7ZumE7qFXyTDnrEKDB2SpFiQSV2dlRLokt0iyEbnPySMi741kK+98DRdyZFD8
-	 C36NkKaTVl9Zhz/wWMGUqkj5lujY5rnL2BpqtrugFGEtcgombpN0t2vQufRyYeS4smwgH
-	 5H/Ey9dhzg98kOct+4Z9Ts5+0FzeYeanMkpAAFt92hzt6wwT44NLmlk5XRnaTYIgoQjGc
-	 qHXzRkmcZaC2wky1fatA7bu1yL96kDsoTyeAE+299gN9VoY17Dtpr+B35KAs9RZMzo23v
-	 AwOcANf5cZls2Zb8zcAd70wl+o5wn39bedREzjX/Mczrq3urCle7axETv4yIBZHwJTQ==
+	t=1794513119;
+	b=xdgO9orFTx7TDPIIGD6gx0LHl6U1MEhR91SSj9SziaFuyHTyR4VD043+PdXOR8R/272E
+	 GN/dFa+UzoA1GKNs5D7Fy4u4PfXLoDQgeKcbuKeOaQS0rjTBsBOaZ7OuZw7Bc+haWMoia
+	 AWOYETLyVUE83eC7MC3TfLtTGdyyEfLQkLTDf6Rl5uLM1BlEXjGeFNapHFTk0Zub5xYqN
+	 hvy16eKCPVsGjG8dNL0WVUWZEwAU9vI+hm1rqBnfl66cEbwOvVZL06wj/bXyiFQw2oj/i
+	 XuXz8kB++dRULxTwfQoFKREEocbbQ/indz0rymP6pRskABSk+m4KHiWYDXffuuTE5Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794513115;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=3MfZj507MMC+kYJd+NbJOCDQqm4lY2g+JzGBMiwexkc=;
-	b=WSE74efJxPF+h5PBmp5+UWGtMC5OZsAenG+75ikHtvAzQEOKLQGfUel6QufCK9XKvHWq
-	 DxHSeo/8kJjvQx0cqzv+b5rCxsZp7fmMU6DIEkWpD9sNsKvT+noFVMVSU3HWKVmwStywo
-	 +s8GH45IL6/fQOtlpVLESgswfZyfzb1FZNfswxj7Ajbiv/Il9ZfQIqG4Q4ad9UcHj/QEw
-	 unTqpaT5n0ZCp/vUL3hfEzmhwNBoJh7cCLLUTN8emiX9HU6NKXg0wYI62FShnSB60MmUS
-	 Rxaw9VR3ZM+COPzb3Ju9Hn8QGogcF1Y4FA/jlUH2ClqAX6Nx4vcwSOfBkSUJaooJYJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513119;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=j7QUpc5QEE9kBpCKZyh0iyL6xxgGtTTl37sbWRN+Zw4=;
+	b=Eurww+G+f/um7UGeWPs2aenHboOSqHsS/coIhFGLXvEsUnH6SJIcy8IVTxZJ+vHh4i1x
+	 gAkt3zwNZbPYW6TA5eyCN+9bgG8BlaKaMz4mAu6XsNdR7vc6FL8hL0u6Y7hkCpHjctKJm
+	 cJUa3hX38WavEnQfqlqnxs1kkXBhg1pBf1jNKypJuVjdfYOCvrSOA5Rf51OOhebqGVZSS
+	 /6lovap3ejcd5rHQcUc6zmjrUO5qgFdzYKUrHWdIxB3Nl/WgD0xU1Qp+bBzQnrb4IPiR4
+	 jqslxukM7qG1iGNDCbalnQCUQpTOk3PcZS6zDaGsui2ixOhz0lG5dhK10dLhdG1J6Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=s5MNDvrn;
-	arc=none smtp.remote-ip=44.202.169.37
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5A6606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:51:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E5A6606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O8mbTamL;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2B40606A327;
+	Thu, 12 Nov 2026 19:51:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2B40606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=s5MNDvrn
-Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
-	by cmsmtp with ESMTPS
-	id RZ5fxodFfJFmFRaptxg95Q; Thu, 12 Nov 2026 19:51:53 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Rapsx9SW78cn4RaptxpiD1; Thu, 12 Nov 2026 19:51:53 +0000
-X-Authority-Analysis: v=2.4 cv=Qrde3Uyd c=1 sm=1 tr=0 ts=6af618d9
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=sozttTNsAAAA:8
- a=3OfnbWqpRXkE7MXKp-4A:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=3MfZj507MMC+kYJd+NbJOCDQqm4lY2g+JzGBMiwexkc=; b=s5MNDvrnZfVFU0eoxUz96jY+9a
-	+sDLh5t+2OLuO1qHSYRp2Jh4PNJKff6xWIZhhNjeusu0CRlYpEA9ufKafpUVV+QPe6l2RsTgKIRDa
-	yg6RkQhTjGZ6bMjviG5PgyrhE06NsJ0ke4vcmVuwokGV+1eOMO2hVm65uRUmwSWF60aIWoe0i0xg8
-	CxKjsz7L/16Rv4YHNSTiR0KHmLrPvpMtviVVscfNIQWTPCaOeZ7d4a21o+WrAcgSv2x1VtPS5UVh3
-	PunOrtLlhd5peVwknvVP5gkx/IDZd+/otI8wEaR7aWbFlAJNnyU6uWrsDqnqL+eQbjZSaxgvBoX0W
-	zKJ2Q+iw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:48542 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xRaps-000000016KU-2p9m;
-	Fri, 13 Nov 2026 01:21:52 +0530
-Date: Thu, 12 Nov 2026 11:51:51 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Andrew Davis <afd@ti.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (emc1403) Fix table name to match driver
-Message-ID: <d93134c3-2635-4ee3-a13b-34b005dfc2e2@roeck-us.net>
-References: <20261111181154.445315-1-afd@ti.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O8mbTamL
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3E6FB143D;
+	Thu, 12 Nov 2026 11:51:55 -0800 (PST)
+Received: from gaia.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1180A3F632;
+	Thu, 12 Nov 2026 11:51:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794513118; bh=DQuepZdvb97HHTMPODLKmAYIFhr3Z/1G4UK+ckClajs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=O8mbTamLisORL88fsLmFTt2aRZhz1miWAsT+CLuTMSMVY6pXAFFnQkgQLXuxEy+JA
+	 pbWFbK5fKVmTncFtO6SNMds8Z25XwvT5DSn90RIcATtf8ZRj4FOVOgaN6uLqp95vdN
+	 0f73Fi50k6g49hHehJUEH/pGrnRHnyOuWIoysuBA=
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: (subset) [PATCH v2 0/3] arm64/gcs: Store the GCSCRE0_EL1 register value not userspace mode
+Date: Thu, 12 Nov 2026 19:51:49 +0000
+Message-ID: <179451296803.3304937.17452903421973790393.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261105-arm64-gcs-store-gcscre0-v2-0-954d5bffd69f@kernel.org>
+References: <20261105-arm64-gcs-store-gcscre0-v2-0-954d5bffd69f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,38 +64,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111181154.445315-1-afd@ti.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xRaps-000000016KU-2p9m
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:48542
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 32
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfILKeWpZ6VF4R47tWGctsEOXKoYjNRr6hLWIyAvk38eblX4gy6aPqiuXN5itcAIvHs6UXmQN6cHb5x5Bqv3MO+65Y+NpLnXgLrw+BCgwheoirxoTIk1M
- HyfpoxMd+cy8wd2aBTDp+D64WQ+YBb8dk1uUfPACbTQdXsb2PdMHxYQBgmsgKSZg+CFrl/NHEBUvnCo0bDsR6h/5egJXBxlG/puai77035ff0DaJTQMaTSN0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 12:11:54PM -0600, Andrew Davis wrote:
-> The temperature conversion time table is called "ina3221" but this
-> driver is "emc1403", this looks to be a copy/paste error. Rename
-> the table to match the driver.
+On Thu, 05 Nov 2026 13:00:11 +0000, Mark Brown wrote:
+> At present we store the userspace GCS mode for a task using the prctl()
+> value set by userspace rather than the mode configuration written to
+> GCSCRE0_EL1 which means the register value needs to be generated on each
+> task switch when the new task uses GCS.  Since the mapping between the
+> two is easily reversable switch things around and store the value that
+> we need in the context switch path.
 > 
-> Signed-off-by: Andrew Davis <afd@ti.com>
+> [...]
 
-Applied.
+Applied to arm64 (for-next/fixes), thanks!
 
-Thanks,
-Guenter
+[1/3] arm64/gcs: Ignore attempts to change GCS mode during signal return
+      https://git.kernel.org/arm64/c/d395db3dcd4c
