@@ -1,64 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450504;
-	b=w79RWo30b1mCDtt3+Tc+CEb9N1v8Ft0xXtYe8r/VdtwH+atAyb+vAl7DxKRRxsWstESi
-	 X+lTnptKfJ631zSorgT4dd4iibp1EwB25aJNbpN8D/7YX/GJ5J/Yzj8FQMJ+T5JWdNTsu
-	 +oDafOOkFwj4b0n8AKOiLeKZ8lYfOpSewLvhSYpT1Dyu/oCaRoMqXRrnenpSckWJ+846r
-	 iIZmbl7U+2u6kISr6cMspim7N8xidmfPpxb1aqHlvklwPhyAIjUtXyQe2S5z9jpa6YOwr
-	 OhOXKQJ++sgB8IyjtJar831183kuhQojfrqNN34PRqT31aL12VdpDk+k/xCo7Ue+nZw==
+	t=1794450584;
+	b=t54FtLBipW9zS6+ENc0ghPeYNykyzM3MuKggr2OF+xEYKVu0vGOiceXWMm1DmB0SsK4x
+	 NOTl9CpcX2rCKZy88QzUQEhPmHHl7mu9eX9a+ymq73ERyTIkne+z3+TGxnnGvYIfL/MY+
+	 RTKuSYVqSBatKC6FtCU+yGmAWqGCd4uvddHY61ED/cGwHas0ATVfa272dND5AN5r0g7/Z
+	 sjvJW5oYNv4NLv8W9ELYIU4ol4NomAyCfjRZH0XZB9LR4WQak6Lm3NVdzv8H6Gsa6RQlV
+	 LNsRjweQyz3Q3AiotnpC5uSNvw1Muv5YvVPig2gW7ZtcRJ4Xq2KdH5XckA7gDsvgwDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450504;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450584;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=I4EKeLYusuwV9UZSDwAKboaaUngjXvxm9EAu3qSXbis=;
-	b=t9Xi0E5E0sB058ZicnW8aggO77l1nRfEX2NqcBo87qGKaKN7GTofEDbxS2B7quFUBVYA
-	 PqxF4YWa2UzAc3VkmIrn1j4jeoihjEy91yhzCkeHH8OH78q5GTiz5txMDgL+tf4G+LOmb
-	 YN6R0bebImsijm773ebOG3bexwlEXua0SSj8mA9f9J8X0CVwrV/kKx8KRjt104J9Tbp0w
-	 Zn8Uv+t89yTvgF8eFzI001hs/MYRglbIKOAvVmVMtha9ZIXCiQ87STQAh0+sczwgJhwpc
-	 BLJoLwyc7ykDy5LlGIfe56yHf6PmDXZwgF45D82kn7Affpmxdaibz1iqwQuUhJs2z9g==
+	bh=3iloLVp+MdOfHSiAG7FWE9RZU0xMne9BbzFysEHDF+4=;
+	b=E14MnBdn/iOkrp35bEfo3pzGcbV6R8YnM57/DWJKaue3PByypA9O5pLqlhvLUJqTqUBT
+	 XXDn9WDJAVw04JUS994RbiF3M9aBFA70JiItT6Zn3Byq0EUNSimXSQf7p9eEen1Co8Zhy
+	 8Oxsi994H1jAt7e1Gx72xJ0xKk2SarBpjzxdlDiKhEKGPeXepeWpoSZaL28q4eIea8uje
+	 wGQVxdno/l/yeDtaHe8V86ILYV8OC+mij6hit5BHBerYVVhx+zwr9QmaFFYKwdppe+/sy
+	 41pQ9SW+pODJGjBgQgAwvoubUbJyNXc/B3cq8DVEv8kaSzSlYzjP7hftyf8bNW5nUWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiyhv3ot;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989F5606A323;
-	Thu, 12 Nov 2026 02:28:24 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=X+EvqbIE;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4479F606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:29:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4479F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiyhv3ot
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BFE51F00A05;
-	Thu, 12 Nov 2026 02:28:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794450504;
-	bh=I4EKeLYusuwV9UZSDwAKboaaUngjXvxm9EAu3qSXbis=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oiyhv3ot5t0hTyhk+LOCNGB2tDYfrjJmpw3GAUQuxaF5/i+FjJC+XfH+Ks40jnCRr
-	 OAwtS+rwHxfwl3XxHbYmszltVWZXFd4JPMRitDyzuhT+k1QdkGk8XShwWHJTfkMOw3
-	 IbNurWr+61zDP/H/GpSJ+3F+l7sIjCVhDizSFOZFJVOD8vCpPPxsuucikaduLzhl0E
-	 AuZlFvmGum8z0qXl9GwDxWgCH+2zYQr3UGCdxw2HR++GMpn7wnnVKs2lH4yh8jIo7C
-	 IgkEJkWhycNj10xwyajofSWMcnppyU/I/7DmlD94dhwdKVeW3h6I3GiEgoNfCEEJQ6
-	 iuuQRXbNevbUQ==
-Date: Wed, 11 Nov 2026 18:28:22 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: zhu xin <zxyan0222@gmail.com>
-Cc: netdev-bot+sinfo@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- richardcochran@gmail.com, muhammad.nazim.amirul.nazle.asmade@altera.com,
- rohan.g.thomas@altera.com, rmk+kernel@armlinux.org.uk,
- o.rempel@pengutronix.de, wojciech.drewek@intel.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v10 0/3] net: stmmac: dwxgmac2: timestamp
- interrupt support + Agilex5 fix
-Message-ID: <20261111182822.580e871b@kernel.org>
-In-Reply-To: <CAP7veT+buHRMu6f3o5RaKFdv3fABkWKgkO6KFn5js4PEeB8b0w@mail.gmail.com>
-References: <20261109134506.2794160-1-zxyan0222@gmail.com>
-	<179423231463.488859.16977464890948797360@kernel.org>
-	<20261111152012.3506cf35@kernel.org>
-	<CAP7veT+buHRMu6f3o5RaKFdv3fABkWKgkO6KFn5js4PEeB8b0w@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=X+EvqbIE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=X+EvqbIEcbQ2M4ftPqcIwRjuDnGa/LYANqq9oNal+OR4EMTFQXAycmbivOhBy6prQoNECYKIzdR5K
+	 iIp5l6V4VTaRNwdvZO31xtwP3PISeYQ+V53VompU2OYVEw0AdHIKhe7RWciiJ8JdcZBDmYU54b3TO3
+	 9QrAUTNv2hloesSE=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af5249106f-b85ee;
+	Thu, 12 Nov 2026 10:29:41 +0800 (CST)
+X-RM-TRANSID:2ee16af5249106f-b85ee
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26af5249318b-ef5a3;
+	Thu, 12 Nov 2026 10:29:41 +0800 (CST)
+X-RM-TRANSID:2ee26af5249318b-ef5a3
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: pmladek@suse.com
+Cc: john.ogness@linutronix.de,
+	rostedt@goodmis.org,
+	senozhatsky@chromium.org,
+	printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] printk: ringbuffer: Annotate speculative record reads
+Date: Thu, 12 Nov 2026 10:29:40 +0800
+Message-ID: <20261112022940.118080-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,37 +71,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, 12 Nov 2026 10:18:41 +0800 zhu xin wrote:
-> On Thu, Nov 12, 2026 at 7:20=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> =
-wrote:
-> >
-> > On Mon, 09 Nov 2026 13:51:54 +0000 netdev-bot+sinfo@kernel.org wrote: =
-=20
-> > >  - What hardware the change was tested on. For driver fixes please
-> > >    mention the device (and if relevant firmware version) used for
-> > >    testing, or say that the change was not tested on real hardware.
-> > >
-> > > Please do not repost the series just to address the above. Instead,
-> > > reply to this email with the missing information, so that reviewers
-> > > can take it into account. If the series needs another revision for
-> > > other reasons, please include the information in the commit messages
-> > > then. =20
-> >
-> > You are at v10 and still getting these automated emails.
-> > What's going on? =20
->=20
-> As for what is going on: I answered the bot's full questionnaire once,
-> in a direct reply at v7 [1], and since v10 the same facts are
-> described in the cover letter.  The bot, maybe, evaluates the
-> individual commit messages, where I never put the information,
-> assuming the reply and the cover letter would count.  They do not,
-> so the emails kept coming.  I will fold the tested-on and
-> found-by-inspection statements into the commit messages with the
-> next revision, which should settle it.
+Readers may copy a finalized record while a writer recycles its storage.
+prb_read() checks the descriptor again after copying and rejects records
+that have changed, but the plain metadata and text accesses still trigger
+KCSAN reports.
 
-Read what I quoted. It literally tells you to put it in the commit
-message on revision. How many times do you have to receive this?
-Please either pay attention or stop sending patches.
+Annotate the speculative copies and line counting with data_race(), and
+sample text_len with READ_ONCE(). The descriptor validation continues to
+determine whether the copied record can be used.
+
+OpenAI Codex assisted with analysis and patch preparation.
+
+Fixes: b6cf8b3f3312 ("printk: add lockless ringbuffer")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+---
+ kernel/printk/printk_ringbuffer.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/kernel/printk/printk_ringbuffer.c b/kernel/printk/printk_ringbuffer.c
+index 46a79ec0940a..077721608099 100644
+--- a/kernel/printk/printk_ringbuffer.c
++++ b/kernel/printk/printk_ringbuffer.c
+@@ -1894,9 +1894,10 @@ static bool copy_data(struct prb_data_ring *data_ring,
+ 	if (data_size < (unsigned int)len)
+ 		return false;
+ 
+-	/* Caller interested in the line count? */
+-	if (line_count)
+-		*line_count = count_lines(data, len);
++	if (line_count) {
++		/* Racing text is rejected by the caller's descriptor recheck. */
++		*line_count = data_race(count_lines(data, len));
++	}
+ 
+ 	/* Caller interested in the data content? */
+ 	if (!buf || !buf_size)
+@@ -1904,7 +1905,7 @@ static bool copy_data(struct prb_data_ring *data_ring,
+ 
+ 	data_size = min_t(unsigned int, buf_size, len);
+ 
+-	memcpy(&buf[0], data, data_size); /* LMM(copy_data:A) */
++	data_race(memcpy(&buf[0], data, data_size)); /* LMM(copy_data:A) */
+ 	return true;
+ }
+ 
+@@ -1984,12 +1985,13 @@ static int prb_read(struct printk_ringbuffer *rb, u64 seq,
+ 	if (err || !r)
+ 		return err;
+ 
+-	/* If requested, copy meta data. */
+-	if (r->info)
+-		memcpy(r->info, info, sizeof(*(r->info)));
++	if (r->info) {
++		/* The record may be recycled; the descriptor is rechecked below. */
++		data_race(memcpy(r->info, info, sizeof(*r->info)));
++	}
+ 
+ 	/* Copy text data. If it fails, this is a data-less record. */
+-	if (!copy_data(&rb->text_data_ring, &desc.text_blk_lpos, info->text_len,
++	if (!copy_data(&rb->text_data_ring, &desc.text_blk_lpos, READ_ONCE(info->text_len),
+ 		       r->text_buf, r->text_buf_size, line_count)) {
+ 		return -ENOENT;
+ 	}
+-- 
+2.51.0
+
+
+
