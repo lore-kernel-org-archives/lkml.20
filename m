@@ -1,72 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794521041;
-	b=cs76yR90aFXDqxio8KCEkWy1A7jevaoUYXVzJqC4fYQL3km05c3epUOaElCz7Cd0uqqE
-	 sLw6fPcJoahVDGvnxsRJiCN2NxMHz7JKeUZWIea6uD5DEbj1dHLSORfG/PtIe3DcxKJOI
-	 Tktz3R6ApJtXJAceIDLrWrZXNycvC0A/iPIxV42CTCQjcQn5WwMVhe23ntCDAtjwSCM5t
-	 Gr1mbiBtqTSh+l8XB3YP+ZgJpsmQUkjO96/uhEdcHOMzL+y1/nV/xluRervtW1Z4//1m0
-	 PY9P0iFi9UxcINQ95NtEEOGqSmpUsFh4h+kXKntLEjQb16D768QwMQRoV+r3Lis/4bA==
+	t=1794521155;
+	b=u/tHCHdcHNCFkFrJDsTJ+xfsm2DTGRXEkpuGLrMowXgpPb0717pE0Lks6iYGv/dKrP1c
+	 kMG5wF6tZlhV1wcwlpnYEvGCyLREFFuJsRg9r36/LhqCBzUXeVsMILQ+M0Kw8rHX7RjBd
+	 bpRdtPC3ub3b3IqfAml4a5yzuftyn67hbm6gQQywIJbyNzzVRTAk5vF3czXULN/i1bg5z
+	 2ZnhnviF1gIoWQKZoJvNWKT2FmgK6fYOVEUFewsovz7PpzO9K0rXp5Z5zK6Jo5GTrhvrG
+	 Sg2StDOWeUjY9o82S148QAQ7QJKX1QCaq3uP7SXM/nB1Xy0g8ywtZlLZmWkPi1rMOoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794521041;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794521155;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=OApFv+JTRWklrvgE3dh5H3kzXm8cpf7tKiKBdjrK9qk=;
-	b=I2zNCFIw7uB8vsoooqND1/TxOBWvOxDmFThBUeuEmBLZQ/4netYHnsByodzWRwg/6urU
-	 FMzOkOd831i39hvo4EZ/XLSXj5M8uw0ZLWVjYlz6cgOA7yTkfpiVJQUOJD7n1xko6K1cJ
-	 kjyagT20prah0Vjln9DAdcR2PY1nnrvPrKW75AZAYFXxHX+6FFXHyYzqmLH9y2jp2uULK
-	 GTues4oBEa83hpEHHws9OYo0bfi3Hk228f/oTpHNiDTPtzzGhUEz8THx9MVO7wjOVr5fH
-	 APPjLKmC+ANNPW3fIlDh3H/wv72IbO/GRwV/l2YXedkPsJ2pcDMIsE75D0yzv998Zag==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=gS1rjdMlRb4/K9zyYzLkZk0j6UEfbGKlcQ3VHcPrCP8=;
+	b=ZZSW1pQ1O758B7CcltUbSlLriFo10tAabCuma2r45JVzmfEQaVY56gwRuisr02a+9plS
+	 109nW1jZPz41xguSY349bWg/doaCeNsxX2TB1K5/h9Sj7fk5mop/pgXvF+qqsS7DwSprI
+	 apBp7JOiCtg6Axi6EXZ35dY7a9O4JqWUkBwB4aL/yDH+63kETzty72YBnmJqIJyjEWe47
+	 YzsBJWuso5EPRlqDO8JHK4xefrBSFeg5bJk6NYpv9JfLsXLKgLMyqFKyAXmGgTokHw4Wb
+	 1rQ8Gj5mWAJAomrbM39YUNZ1iljZ8vyl6cBdezIv8RtCeAnT2vDSEzVY1kMXdIja3Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="i5z/FryY";
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sbr9LbjB;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE72606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:04:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FE72606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE82606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:05:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AE82606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=i5z/FryY
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2eaf3f829b3so2451545ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:04:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sbr9LbjB
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36f6295304dso315890eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:05:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794521040; x=1795125840; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OApFv+JTRWklrvgE3dh5H3kzXm8cpf7tKiKBdjrK9qk=;
-        b=i5z/FryYinfyYzqyqeviHVNYmTVAzDoNJWWkomkHDyjfAGMv0DsG8PVtoasKXoqTAf
-         T2F6o+QLAX69FFvTyZedumQumkbj1G8r+RsOgSkjpIh3jGkr1c2u/VmIlLpCz8320gtN
-         ICPL04Pe2Wj7oyal7kHKdQ9rGXy+n9MIyOyvT7+LozBk+Fz1TuNl9NOS8CQeOds/fiaB
-         SMQpWik2s4zngd/kayY264Vqr1vKC8APfPF1/WX7YayRuUELMNGZk3uNnhQ8hcVwgBgQ
-         lIQNIjeo9m3cMz3MxeUX9LpHwLBMqiFBrj4lVxG0SVhOUWdvNsJ6kKvXich61HPbCP0H
-         FNaQ==
+        d=gmail.com; s=20260707; t=1794521154; x=1795125954; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gS1rjdMlRb4/K9zyYzLkZk0j6UEfbGKlcQ3VHcPrCP8=;
+        b=sbr9LbjBPYV6M2I9MIvUhdctg7bsyrPjWmfMyEcbLDk87qf2gDMyTY7lS4/coaDAof
+         BETIZZlIq6qyNptH8aATXZ1QMTPELfib925KGYgmWhPm1chcuZpyxDGK29DobMHwR5Fg
+         2S+QB9CzEEl7YKwBFnvKMhXIhw+OLIMYV27ItpSWjELzKD6dMmsGCrK8bQBAFQjSlL5N
+         Kt+Zm7kh1h7BB9LjvaiJMj2kx4kKnMmMkFjHCA0SiWtSxsHeuq4eQYyEKlim7bat/+xk
+         1Vbb8wO1q8OPdQkdjW4LSb9H2rc4RA/eFicN5CooSQnKPIODHA1x2/2SmoM7T0Lnu0JY
+         2mlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794521040; x=1795125840;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
+        d=1e100.net; s=20260707; t=1794521154; x=1795125954;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OApFv+JTRWklrvgE3dh5H3kzXm8cpf7tKiKBdjrK9qk=;
-        b=rAPhcgk8nUH9X4hYwKybOOSyxFXw2SphFEQa4WHZc8bsNO8nAOTS39KFhCSNUs2BON
-         BvS37C9UY2sJzzLnGgKoo6CIjg1W8MZ79nqdBELht0j2lMCEjqG0UU0Yi92ALOlzUkRu
-         aJJm2USpLOCQktSHcZePazwmcl6dlaEvRf+dM+YFABN6fINyK2jafVaW9EeWaXO1V25s
-         JEqvDtfhHmsr1fhhHUQHlhXvOHBMbeCxODBqObPjUVb/7AsDIGb/tiGUiskuoenY7GzM
-         VXqSyv64vLU0eas9C0xg7/Q5ryolt/cuZtu64SRkH+vJnafPC2KociYhkOT1BB4MiRPf
-         vSJQ==
-X-Forwarded-Encrypted: i=1; AL+hErHoumyrFSnsESmjlX4xJ0z2+uS9QyxZsUVEuiPdlplS2AyxmJGoHxI3eec+oL9/+ZrCyfpU49nU780rO2g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kGFA5xYZ6lc5XVghSMqAXX4MvUnMUPXoJ8/K47WtQvoW6s43o
-	0x4gXKt9Ft0TgwQ4Qwn9noX9KDuxe9a+/S9+ksTc4d6bSifISvfQdL8Bf72lZrbUqsKRPtgePs2
-	Ue+KkIA6w+GY/+26PEkih9j6YfA==
-X-Received: from plfh6.prod.google.com ([2002:a17:902:f546:b0:2ed:ab54:eb4f])
- (user=dylanbhatch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:e84a:b0:2e9:7dda:bfc7 with SMTP id d9443c01a7336-2ee0dcd0647mr5450575ad.66.1794521039977;
- Thu, 12 Nov 2026 14:03:59 -0800 (PST)
-Date: Thu, 12 Nov 2026 22:03:55 +0000
+        bh=gS1rjdMlRb4/K9zyYzLkZk0j6UEfbGKlcQ3VHcPrCP8=;
+        b=nTbEv7cGj/nM2dmjvkfc2tqL4iBcImBXyldp7Qxce1Ip3rORgnRrtZ6nMrDhQOtCwX
+         AYs+svTR+6bcYTr1K4WocCtLRPMQtiOkJYexwfUJ40tkhQwMJCUTrFRSpYQYVZiCkqWu
+         vHHelvhAoJ16weJAi2EgFpHgTe4OglIf50nKutC1cHO4gmqf3gGixA7f71htLCzf2puC
+         TO7kzon0KScOTuULyN8TJPg/gKiY5AB6oqDQZChAxxiqN5be5yjPn0XxiuNfmObXVrLS
+         N3qb/s3z01Tdr91m9FLrK0puX3QQGITHlFoY6d2+JOVplvDBGU76rkyz7Bn+PNPrip+j
+         JJZA==
+X-Forwarded-Encrypted: i=1; AL+hErFBftbj5BBhhsHZRUHTwK8xLiXCCAm25veBGA1tnzCE3WbARsZz5/eNdDaP5qGennSTRvyUotNNjeqQzlo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/1tZsDDErnscS1hlD1reJdq3JSP/qREOdNM4YobHiLdxuKPmUk
+	kMnqR62BI7LhUER+28Mx8yHHSXXn5CnsQ4Hgk2Y9GZ3hX8TKYc4kh/MB
+X-Gm-Gg: AYBFou1nNfTw+s4QtMUPCRKxnXU6RP/yqvj7EFGvLTf60Qa2RP5pFObeDrEbgyO/f8O
+	wOt/ZT3DdjnvDi7TCcCnozwfsDzZY03h1WONa/HZTmU594aYf3tW6Bw0Pl3ABOCBgCWH75FlsKe
+	CGgSDxuhkYx0HdBEcDvTn2lmUmfY1jbpU94xRZHJZ/DDCMi6E9aSgPJHGrLSAGkadqdUkeQjTKd
+	q2TYWZp39eNiH64pCLZVdpEqbAB397QjDVjkY/rCLpbowKB0Rv1/SlCZAazaFtgV+l4w2ybwPcg
+	NzrD7gx5gcEPXM9XTYwkQgQeQ+Sv81KKEPz1vVODt6dHe21d06osvKm2BWUbAeHpcx1tAbpcp+c
+	Az88LpUP0rNexrdB3NP16bJTpm0QyX9276n6yKjcK0keedMHtHUypxlonAJ+IexTv2jwf/701me
+	SH5zghYxqSYgqUpVvFMzt4tGC2w6ki03Rvrv8IHKgeOZQ7xph4lqG1TC3Xu0Z8z0ynKPpNlcc7F
+	Py0mA64QkuVYAzME88QyU6lA69AK9RyEhcvDuye4+xygqLIssm6/Ri/tCTst7/MwKePr0NWogs9
+	vWEdTFacKR0dmuoA/jDsCH5A6EgJz7/XGoRY5Hlq+GyjR8dIrmXAG6meLt6WSpwcYjHCsLEnpL/
+	gCAzXrC3TqRJdLJLPwgF1+Nzk5P743GCrb3wA6ysvL97njhDeQ7VObTiJVsulBpAa/bGAo1HivE
+	tfAunjk79O9HJ3DpuBFtSLKtQ+aJTZsU1UEEe99e4rwA==
+X-Received: by 2002:a05:7300:d0a2:b0:36e:ff7e:e57f with SMTP id 5a478bee46e88-3796628f98fmr454214eec.19.1794521153797;
+        Thu, 12 Nov 2026 14:05:53 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3797f98b9b2sm428304eec.6.2026.11.12.14.05.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 14:05:53 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/3] iio: proximity: sx93xx: keep the IRQ balanced across suspend and resume
+Date: Fri, 13 Nov 2026 03:35:47 +0530
+Message-ID: <20261112220547.508369-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261108012904.4555e72b@jic23-hlaptop>
+References: <20261101102518.22757-1-kapoorarnav43@gmail.com> <20261108012904.4555e72b@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,132 +105,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261112220355.1952137-1-dylanbhatch@google.com>
-Subject: [PATCH v2] klp-build: Allow passing options to make via '--'
-From: Dylan Hatch <dylanbhatch@google.com>
-To: Josh Poimboeuf <jpoimboe@kernel.org>, Miroslav Benes <mbenes@suse.cz>, Petr Mladek <pmladek@suse.com>, 
-	Joe Lawrence <joe.lawrence@redhat.com>, Song Liu <song@kernel.org>
-Cc: live-patching@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Dylan Hatch <dylanbhatch@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Livepatch builds rely on reproducing the original kernel build
-environment, including any make flags or command-line variables used
-during the original build (such as 'CC=...', 'KBUILD_BUILD_TIMESTAMP=...',
-or custom wrapper Makefiles via '-f').
+On Sun, Nov 08, 2026 at 01:29:04AM +0000, Jonathan Cameron wrote:
+> All 3 of these look fine to me, but given they aren't totally trivial
+> I'm going to leave them for a while in the hope someone will test at least
+> one of them! If it looks like that's not happening I may pick them
+> up in a week or two.
 
-While these options can already be passed through the MAKEFLAGS
-environment variable, passing them directly on the command line is more
-ergonomic.
+Please don't pick these up yet, I found a problem with v4.
 
-Refactor the make invocations to use a common MAKE array and allow
-passing arbitrary make options after '--' on the klp-build command line:
+Moving disable_irq_nosync() to the end of suspend leaves the interrupt
+enabled while suspend holds data->mutex for the register writes. If the
+sensor fires then, the threaded handler blocks on the mutex, and since
+disable_irq_nosync() doesn't wait for it, it runs once suspend returns,
+against a paused sensor. Sashiko pointed this out on sx9310, and sx9324
+and sx9360 have the same pattern.
 
-  klp-build [OPTIONS] PATCH_FILE(s) [-- MAKE_OPTIONS]
+I'll send v5 that calls disable_irq() before taking the mutex and
+enables the interrupt again if suspend fails.
 
-Acked-by: Song Liu <song@kernel.org>
-Signed-off-by: Dylan Hatch <dylanbhatch@google.com>
----
-v1: https://lore.kernel.org/r/20261103233909.1364531-1-dylanbhatch@google.com
-
-Changes in v2:
-- Clarify in the commit message that this is an ergonomic alternative to
-  MAKEFLAGS rather than new functionality (Josh Poimboeuf)
-
- scripts/livepatch/klp-build | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
-
-diff --git a/scripts/livepatch/klp-build b/scripts/livepatch/klp-build
-index b52a8489d9f67..1fd405d43ef43 100755
---- a/scripts/livepatch/klp-build
-+++ b/scripts/livepatch/klp-build
-@@ -125,7 +125,7 @@ trap trap_err ERR
- 
- __usage() {
- 	cat <<EOF
--Usage: $SCRIPT [OPTIONS] PATCH_FILE(s)
-+Usage: $SCRIPT [OPTIONS] PATCH_FILE(s) [-- MAKE_OPTIONS]
- Generate a livepatch module.
- 
- Options:
-@@ -158,11 +158,23 @@ process_args() {
- 	local long
- 	local args
- 	local patch
-+	local klp_args=()
-+	local make_args=()
-+
-+	while [[ $# -gt 0 ]]; do
-+		if [[ "$1" == "--" ]]; then
-+			shift
-+			make_args=("$@")
-+			break
-+		fi
-+		klp_args+=("$1")
-+		shift
-+	done
- 
- 	short="hfj:o:vdS:T"
- 	long="help,show-first-changed,jobs:,output:,no-replace,verbose,debug,short-circuit:,keep-tmp"
- 
--	args=$(getopt --options "$short" --longoptions "$long" -- "$@") || {
-+	args=$(getopt --options "$short" --longoptions "$long" -- "${klp_args[@]}") || {
- 		echo; usage; exit
- 	}
- 	eval set -- "$args"
-@@ -237,6 +249,7 @@ process_args() {
- 
- 	KEEP_TMP="$keep_tmp"
- 	PATCHES=("$@")
-+	MAKE=("make" "${make_args[@]}")
- 
- 	for patch in "${PATCHES[@]}"; do
- 		[[ -f "$patch" ]] || die "$patch doesn't exist"
-@@ -317,12 +330,12 @@ set_kernelversion() {
- 
- 	stash_file "$file"
- 
--	if [[ -n "$(make -s listnewconfig 2>/dev/null)" ]]; then
-+	if [[ -n "$("${MAKE[@]}" -s listnewconfig 2>/dev/null)" ]]; then
- 		die ".config mismatch, check your .config or run 'make olddefconfig'"
- 	fi
--	make syncconfig &>/dev/null || die "make syncconfig failed"
-+	"${MAKE[@]}" syncconfig &>/dev/null || die "make syncconfig failed"
- 
--	kernelrelease="$(make -s kernelrelease)"
-+	kernelrelease="$("${MAKE[@]}" -s kernelrelease)"
- 	[[ -z "$kernelrelease" ]] && die "failed to get kernel version"
- 
- 	sed -i "2i echo $kernelrelease; exit 0" scripts/setlocalversion
-@@ -526,7 +539,7 @@ fix_patches() {
- clean_kernel() {
- 	local cmd=()
- 
--	cmd=("make")
-+	cmd=("${MAKE[@]}")
- 	cmd+=("--silent")
- 	cmd+=("-j$JOBS")
- 	cmd+=("clean")
-@@ -539,7 +552,7 @@ build_kernel() {
- 	local log="$TMP_DIR/build.log"
- 	local cmd=()
- 
--	cmd=("make")
-+	cmd=("${MAKE[@]}")
- 
- 	# When a patch to a kernel module references a newly created unexported
- 	# symbol which lives in vmlinux or another kernel module, the patched
-@@ -859,7 +872,7 @@ build_patch_module() {
- 	cflags+=("-fdata-sections")
- 	[[ $REPLACE -eq 0 ]] && cflags+=("-DKLP_NO_REPLACE")
- 
--	cmd=("make")
-+	cmd=("${MAKE[@]}")
- 	if [[ -v VERBOSE ]]; then
- 		cmd+=("V=1")
- 	else
--- 
-2.56.0.611.g1030f0b940-goog
-
+Thanks,
+Arnav
