@@ -1,85 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.63.162
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794497181;
-	b=poz/wdH+w2YwcllWb5yzFAsv8uqF4AIfPWBHzYonWawDK9SGwz7zH2uhjUJC/h+gG6xk
-	 /EBKWch2pMdrlhmS9dl3vLMTY6m9GdY0r1f0I4p0MgwkwG2id8lbFvx5/AHxGwQrj28MX
-	 /N27uOm0MHcKxbgwXIpKNto8BqLPM3VfqsZSa8820fGu3NFM2on3rjMYzF8i136ScVBem
-	 tthbvcVe6J5LMo4rkb+bPvYq/6MRxo23PAu3Irf/6MjyGRb7h6au9qgqRc1soYlL8yEsv
-	 9eY7dZdXMt6rjLC9+Q6HZvyH59Z2xsdcMB2WjtAAzJ9lzjZaTqsMPdtHXh4zzhH01iQ==
+	t=1794497216;
+	b=jeRToelSliHx7n88U/5g0Fw9RNbgaYov33s7r/C5hGrwJUnTh0ueffFhuazBs4xKakwL
+	 AFj0VM2zyrJBrChs9b2gplo6UbgJsPit/rAEf5F/4CF9QR3x+mAL7Ry7wNQ1PkNChjvw3
+	 fdYpQzr9zywLSS1vaiAPaZxrVfoErwDW/rWIGg3GLNC7IEkNba5LwxCVR7BOM5+QJhjcF
+	 i8RHhCPuw5YVW+5hCE5ku1syIb3M58gvooZF+bZ01D657Sy5FZu/rjh3qZKfOjXx/fqH0
+	 36hGYncdYzIB7XlX8ffWpFE5iTsgiZV145bdhWxVI60fFzNYkg7gtHA/9I11e4DdG8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794497181;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=S5SzpuE9K1j8lcY7r96zLl/v/riOJlJqayes6pUVvY8=;
-	b=nzV/xJjFojBjwiKSr0rRH/DGywiF8B0ztWB/wYoGUKNIdn/+w0cB6EA8LGBBx0v3ZAiN
-	 T6bD3Mgg3ykS5OU/7TUzEG94tFTiddx2VrqO70FK6MQLJZQXdgpTePH4nO5wG5jQnI1F0
-	 DclzvtQKGGs4AWE/0ktJQvHWGGumIWnsP7dUUZfeN7ad1qkGOGFD5+QlTKv4jlcvVYQCd
-	 vMJ9pR46UWDxePNOG1r/nCp3x7QzqixMHlk+L/jFNOvV8H9LZCtlC0oI/HkZ525roLf0/
-	 GptXxXBwZfIRY3CswAt2Vcvinn7uKBnY5/Cz07A7E+PCDOSiOirGq/tYUlROs5DiBjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794497216;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Content-Language:Cc:Subject:To:Content-Type:Content-Transfer-Encoding:
+	 X-PPP-Message-ID:X-Rspamd-Server:X-Rspamd-Queue-Id:X-NC-CID;
+	bh=Nt+yBHmXSjaIToP16PMOG2IX8UplziGRkLpPT0bEWH8=;
+	b=U9LaRBvUv+bnX2Ah3vyfdZ4vqrCz7JpbUtHKo24y2CC2oiyLAmc1RrOuUDfwjBOGq+cx
+	 9WCoQN2JkZbIviHubP2owfcOJhXPaMOlPfE7xjoT4encf2Ax0y/PJ2MoeqHmzB/e0CrKX
+	 OeYz7QX/UeS269aAyhQ+wBigZgYoJvcw0gCfzg7y1O7dnL9qExazWgdMxUIo0NpenIuJx
+	 zldReX1LOtsxJfDPA1CAW//CEJypFcjRrFFkKKLUzX2eLBxz3DWX7Sh+ktWgctGMOKetU
+	 CAax8q5ovPWgtGzJM3kU2/eN6qAVcnwTf18FP39bTBGWpQrlwfCO+VQJNhUhtNx/7sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C3+eQTZO;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A506606A32E;
-	Thu, 12 Nov 2026 15:26:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A506606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=PVdBHDbE;
+	arc=none smtp.remote-ip=188.68.63.162
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FC0606A338
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:26:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6FC0606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C3+eQTZO
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E79AE1516;
-	Thu, 12 Nov 2026 07:26:14 -0800 (PST)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 45BF23F632;
-	Thu, 12 Nov 2026 07:26:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794497177; bh=btEnX4uDhjrUHVzZrwRd+YJ2duMYbN+7dhmt6hZ8QcE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=C3+eQTZOzu1UELo2VKOMsYJ7L2S8YhbY8UfFsu/BvGX/rhLuuRVXaThVsd5Y0C8BK
-	 EHr+DnD1m5w7cpb0Bjcuis2I5Ozpjto38/PtiO/dQr2gTQJXID7h/fAXhiYcdFi1Rm
-	 djJbY6xjQgg5L6eMYfqJIxM9cMpalkGPCK70ZerE=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Tian Zheng <zhengtian10@huawei.com>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	maz@kernel.org,
-	oupton@kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	corbet@lwn.net,
-	pbonzini@redhat.com,
-	yuzenghui@huawei.com,
-	wangzhou1@hisilicon.com,
-	yangjinqian1@huawei.com,
-	caijian11@h-partners.com,
-	liuyonglong@huawei.com,
-	tangchengchang@huawei.com,
-	yezhenyu2@huawei.com,
-	yubihong@huawei.com,
-	linuxarm@huawei.com,
-	joey.gouly@arm.com,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	fuad.tabba@linux.dev,
-	mark.rutland@arm.com,
-	seanjc@google.com,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	skhan@linuxfoundation.org
-Subject: Re: [PATCH v5 11/15] KVM: arm64: Reserve dirty ring space for the HDBSS buffer
-Date: Thu, 12 Nov 2026 15:26:12 +0000
-Message-ID: <avXak02I6i0tLLN9@LeoBrasDK>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <fee835a5-a027-4b68-b933-6f8e81987bce@huawei.com>
-References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-12-zhengtian10@huawei.com> <auikG0clmr19sAjh@LeoBrasDK> <afcbf19b-bd13-4afc-ab56-8bc50c793e50@huawei.com> <au30DqzWIFny1tpr@LeoBrasDK> <d81243e3-d790-4ee8-9b28-36d35591ee77@huawei.com> <avIOZTvQF-1sxs2p@LeoBrasDK> <90775cb3-84ab-4690-a252-1ac41488118f@huawei.com> <avMSw3LLDIFT3kSR@LeoBrasDK> <fee835a5-a027-4b68-b933-6f8e81987bce@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=PVdBHDbE
+Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4jQPPd4G62z3tsv;
+	Thu, 12 Nov 2026 16:26:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1794497205;
+	bh=Nt+yBHmXSjaIToP16PMOG2IX8UplziGRkLpPT0bEWH8=;
+	h=Date:From:Cc:Subject:To:From;
+	b=PVdBHDbE7aSp3TrlBVrtb73R/eDBQBv+8Om42CimsAiDYlT6aLEluyf3euzsHTSQ9
+	 ElLg3U8W+JJrVD3GXB71UTGKVokWWPTgQQ2fNQ82iZxSw3M9L67nA90XIHh5mzWs07
+	 cvXzn0tpaaDtvXPD4vHfaAs2x/EY7JVY0gYqy3TYwNq+4JLAqrQGKwacKtgUqc4ha6
+	 BpCaE900NmTvPk7XNoznpHwgMWoJ7FDN8QK/A7uKR6mR0AdvHrVR9si+L18eaLW+63
+	 n9PoFrVv/DRoKeU3F9pkfsNgjRWhO/ZPqY2TD+kRSY+PFICmBg1cCK+6pWUwxlGK22
+	 Vm787b+TjjveQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4jQPMd0C3yz42bb;
+	Thu, 12 Nov 2026 16:25:01 +0100 (CET)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jQPMc2QjYz8svW;
+	Thu, 12 Nov 2026 16:24:59 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id A82F75F9ED;
+	Thu, 12 Nov 2026 16:24:54 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <f03086b6-7fb1-4b52-859e-78cd52c9177d@leemhuis.info>
+Date: Thu, 12 Nov 2026 16:24:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,267 +73,213 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
+ LKML <linux-kernel@vger.kernel.org>
+Subject: regressions with available fixes that take their time towards
+ mainline as of post 7.4-rc2
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <179449709545.2619925.1359828242195083426@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: A82F75F9ED
+X-NC-CID: /aEkXTqnkxjOfkyGknT0I8F98S7rnm0EPw87pNxsy40/DRTSXM4=
 
-On Thu, Nov 12, 2026 at 09:15:02PM +0800, Tian Zheng wrote:
-> 
-> 
-> On 11/10/2026 8:49 PM, Leonardo Bras wrote:
-> > On Tue, Nov 10, 2026 at 04:54:30PM +0800, Tian Zheng wrote:
-> > > 
-> > > 
-> > > On 11/10/2026 2:18 AM, Leonardo Bras wrote:
-> > > > On Mon, Nov 09, 2026 at 12:00:52PM +0800, Tian Zheng wrote:
-> > > > > 
-> > > > > 
-> > > > > On 11/6/2026 11:36 PM, Leonardo Bras wrote:
-> > > > > > On Fri, Nov 06, 2026 at 06:36:04PM +0800, Tian Zheng wrote:
-> > > > > > > 
-> > > > > > > 
-> > > > > > > On 11/2/2026 10:54 PM, Leonardo Bras wrote:
-> > > > > > > > On Tue, Sep 29, 2026 at 06:36:51PM +0800, Tian Zheng wrote:
-> > > > > > > > > The dirty ring reserves room for CPU-side dirty buffers via
-> > > > > > > > > kvm_cpu_dirty_log_size(). Report the HDBSS buffer entry count
-> > > > > > > > > through it, so a full buffer flush always fits in the ring.
-> > > > > > > > > 
-> > > > > > > > > Pin the HDBSS buffer size to PAGE_SIZE when dirty-ring is enabled,
-> > > > > > > > > via kvm_arch_dirty_ring_size_updated(): a larger buffer only
-> > > > > > > > > shrinks the soft_limit and forces more frequent userspace drains.
-> > > > > > > > > 
-> > > > > > > > > Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
-> > > > > > > > > ---
-> > > > > > > > >      arch/arm64/kvm/arm.c | 8 ++++++++
-> > > > > > > > >      arch/arm64/kvm/mmu.c | 8 ++++++++
-> > > > > > > > >      2 files changed, 16 insertions(+)
-> > > > > > > > > 
-> > > > > > > > > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> > > > > > > > > index 9d7bdece149a..5a7046acb62e 100644
-> > > > > > > > > --- a/arch/arm64/kvm/arm.c
-> > > > > > > > > +++ b/arch/arm64/kvm/arm.c
-> > > > > > > > > @@ -215,6 +215,14 @@ static int kvm_arm_default_max_vcpus(void)
-> > > > > > > > >      	return vgic_present ? kvm_vgic_get_max_vcpus() : KVM_MAX_VCPUS;
-> > > > > > > > >      }
-> > > > > > > > > 
-> > > > > > > > > +void kvm_arch_dirty_ring_size_updated(struct kvm *kvm)
-> > > > > > > > > +{
-> > > > > > > > > +	if (!system_supports_hdbss())
-> > > > > > > > > +		return;
-> > > > > > > > > +
-> > > > > > > > > +	kvm->arch.hdbss_buffer_size = KVM_ARM_HDBSS_DEFAULT_SIZE;
-> > > > > > > > > +}
-> > > > > > > > > +
-> > > > > > > > 
-> > > > > > > > On the same subject as a previous patch:
-> > > > > > > > I don't think this is the best approach, on top of adding a new weak
-> > > > > > > > function to take care.
-> > > > > > > > 
-> > > > > > > > Maybe during the dirty-ring allocation, on vcpu creation, we could take
-> > > > > > > > into account the requested dirty-ring size, and just allocate the HDBSS
-> > > > > > > > buffer taking that into account. That would make it simpler, don't you
-> > > > > > > > agree?
-> > > > > > > > 
-> > > > > > > > Thanks!
-> > > > > > > > Leo
-> > > > > > > 
-> > > > > > > Hi Leo,
-> > > > > > > 
-> > > > > > > The "set once" guard we're discussing comes from the patch that adds the
-> > > > > > > ioctl, and it isn't really needed. We discussed this earlier [1]: we can
-> > > > > > > just initialize hdbss_buffer_size to PAGE_SIZE at VM creation and let
-> > > > > > > the ring reservation use it directly. **That also means
-> > > > > > > kvm_arch_dirty_ring_size_updated() can be removed.** Thanks for your
-> > > > > > > suggestion.
-> > > > > > 
-> > > > > > :)
-> > > > > > 
-> > > > > > > 
-> > > > > > > As for why PAGE_SIZE is the right value in ring mode: the HDBSS buffer
-> > > > > > > is flushed on every VM exit, so a larger buffer doesn't reduce the flush
-> > > > > > > frequency. It only inflates the ring reservation (64 + size/
-> > > > > > > sizeof(u64)), which shrinks the soft_limit and forces more frequent
-> > > > > > > exits to userspace for the ring to be drained. Draining the dirty ring
-> > > > > > > from QEMU is more expensive than draining the HDBSS buffer from the
-> > > > > > > kernel, so the smallest buffer gives the best performance. In this mode,
-> > > > > > > a larger buffer provides no benefit to users.
-> > > > > > 
-> > > > > > Humm, if properly dimensioned larger buffers would be benefitial for
-> > > > > > memory-intensive workloads, unless they are guest_exiting for other
-> > > > > > reasons in the meantime.
-> > > > > > 
-> > > > > 
-> > > > > Agreed, and the workload I tested is on the "unless" side. The guest
-> > > > > exits constantly for other reasons, so the larger buffer never got a
-> > > > > chance to pay off, and only cost ring capacity.
-> > > > > 
-> > > > > > > 
-> > > > > > > In my tests, I also saw performance degrade when more space is reserved.
-> > > > > > > 
-> > > > > > 
-> > > > > > Humm, what kind of workloads did you test?
-> > > > > > Did you have the chance to monitor what were the reasons for VM exiting?
-> > > > > > 
-> > > > > 
-> > > > > For the workload question, it's a Redis server in the guest under redis-
-> > > > > benchmark (SET-only, 2KB values, 1M keys, 100M requests). The traffic is
-> > > > > network-driven, so the guest exits constantly to service requests. The
-> > > > > HDBSS buffer only accumulates entries between two exits and is flushed
-> > > > > on every exit, so it rarely fills regardless of size. A larger buffer
-> > > > > only inflated the ring reservation, which shrinks the soft_limit and
-> > > > > makes the ring-full exit and userspace drain fire more often.
-> > > > > 
-> > > > > > I am not saying this is mandatory for the HDBSS implementation, but the
-> > > > > > whole idea of letting the user choose their own HDBSS buffer size is
-> > > > > > because different workloads may benefit from different buffer sizes: if a
-> > > > > > VM writes a lot to new memory, and exits very little for other reasons,
-> > > > > > then a larger buffer will cause the VM to guest_exit much less often.
-> > > > > > 
-> > > > > > Does that make sense?
-> > > > > > 
-> > > > > > Thanks!
-> > > > > > Leo
-> > > > > 
-> > > > > It does make sense. That's exactly the workload where a larger buffer
-> > > > > pays off, and the next version no longer gets in its way. The two ioctls
-> > > > > are no longer mutually exclusive.
-> > > > > 
-> > > > > The only coupling left is the reservation. hdbss_buffer_size starts at
-> > > > > SZ_4K at VM creation, so a ring enabled right away reserves for the
-> > > > > default buffer (64 + 512 entries), and the minimum ring size accepted is
-> > > > > unchanged from v5. KVM_CAP_ARM_HDBSS_BUFFER_SIZE is the gate. When the
-> > > > > ring is already enabled, a size is accepted only if its reservation
-> > > > > still fits in the ring, otherwise -EINVAL. In the other order, ring-
-> > > > > enable validation rejects a ring too small for the configured size.
-> > > > 
-> > > > I don't think this is needed. If using dirtyring, we don't need to allow
-> > > > user to set hdbss size: HDBSS size should be sized according to the
-> > > > dirty-ring dimensions, that are set by userspace before the first vcpu is
-> > > > created.
-> > > > 
-> > > > 
-> > > > > So SZ_4K is just the conservative default for guests that exit often.
-> > > > > Anything larger, within what the ring can reserve, is up to the user.
-> > > > > 
-> > > > > Does this work for you?
-> > > > 
-> > > > I still think we should do PAGE_SIZE for dirty-bitmap. Dirty ring should do
-> > > > based on the dirty-ring size, and maybe review the use of reserved
-> > > > entries, or it's accounting.
-> > > > 
-> > > > What do you think?
-> > > > 
-> > > > Thanks!
-> > > > Leo
-> > > 
-> > > Hi Leo,
-> > > 
-> > > Thanks for your review. It does make sense!
-> > > 
-> > > I agree that dirty-bitmap mode will keep PAGE_SIZE as the default, and
-> > > in that mode the ioctl stays available for a larger buffer.
-> > > 
-> > > In ring mode we will drop the ioctl, the two remain mutually exclusive,
-> > > and the buffer will be derived from the ring size userspace configured
-> > > before the first vCPU is created:
-> > > 
-> > > ```
-> > > hdbss_buffer = clamp_t(unsigned long,
-> > >                         rounddown_pow_of_two(ring_size / 16),
-> > >                         SZ_4K, KVM_ARM_HDBSS_MAX_SIZE);
-> > > ```
-> > > 
-> > 
-> > Are you allocating 1/16th of the ring size in bytes as an hdbss buffer?
-> > That's confusing. I recommend we rather have something like:
-> > 
-> > ring_entries = ring_size / sizeof(struct kvm_dirty_gfn);
-> > hdbss_entries = ring_entries / 2; // Or any number we decide to use here.
-> > hdbss_buf_size = hdbss_entries * sizeof(hdbss_buf_entry);
-> > 
-> > Then we do
-> > hdbss_buf_size = clamp_t(unsigned long,
-> >                           rounddown_pow_of_two(hdbss_buf_size),
-> >                           SZ_4K, KVM_ARM_HDBSS_MAX_SIZE);
-> > 
-> > So it's clear what is what here.
-> > Just dividing by 16 above can be confusing to whoever is reading the code.
-> > 
-> > 
-> > > A buffer entry is 8 bytes and a ring entry is 16 bytes, so:
-> > > 
-> > > ```
-> > > buffer entries = buffer_size / 8
-> > > ring entries   = ring_size / 16
-> > > ```
-> > 
-> > Remember to use the sizeof instead of fixed numbers.
-> > 
-> > > 
-> > > This means ring_size / 16 reserves at most one eighth of the ring
-> > > entries for the HDBSS buffer. That keeps the usable ring above 85% while
-> > > the buffer still grows with the configured ring size, and the result is
-> > > independent of the kernel page size, with SZ_4K as the only minimum.
-> > 
-> > Yeah, remember that if you are dealing with the ringbuffer like this, an
-> > user can request a 4k ringbuffer and we just won't be able to use hdbss, as
-> > it means 4k/16 entries, and hdbss has the minimum of 4k/8.
-> > 
-> > As I mentioned, maybe this approach of reserved entries is not the right
-> > way of dealing with it in arm64.
-> > 
-> > > 
-> > > One eighth is the ratio that looks reasonable to me so far. What do you
-> > > think?
-> > > 
-> > 
-> > I see no reason why it could not be higher than that. It all depends on how
-> > you want to deal with the full buffer in the future patchset. If hdbss
-> > buffer is full, it has to exit and drain to the dirtyring. The guarantee
-> > you seek with reserved entries is that all hdbss entries fit in the
-> > dirty-ring.
-> > 
-> > As long as the user is required to drain entries until the dirty-ring is
-> > not 'full' anymore, we could easily work with dirty-ring having twice as
-> > many entries as the hdbss buffer.
-> > 
-> > How does it sound?
-> > 
-> > Thanks!
-> > Leo
-> 
-> Hi Leo,
-> 
-> Thanks for the suggestion.
-> 
-> For the next version I'll still go with the reservation scheme. It's the
-> safest approach I can think of. The guarantee I want is that a full
-> buffer flush always fits in the ring by construction, without depending
-> on how quickly userspace drains it.
+Hi Linus!
 
-Of course, it should never depend on how quickly userspace drains the ring.
-My point is that reserved entries is not the only option that satisfies 
-that.
- 
-> 
-> I'll also switch to sizeof(struct kvm_dirty_gfn) and
-> sizeof(hdbss_buf_entry) instead of the hardcoded 16 and 8, and size the
-> HDBSS buffer at half the ring entries as you suggested.
-> 
-> On the 4K ring case: HDBSS can't fit there. One option is to just not
-> enable HDBSS in that scenario, but I'll start with returning -EINVAL for
-> now. I'm happy to switch to the other option if you think that's better.
-> 
+How much do you care about the following you wrote earlier this year in
+https://lore.kernel.org/all/CAHk-%3Dwi86AosXs66-yi54%2BmpQjPu0upxB8ZAfG%2BLsMyJmcuMSA@mail.gmail.com/
 
-Return -EINVAL meaning what? userspace can't set the dirty-ring to 4k? that 
-could break a lot of users.
+""[...] if it's a regression with a known commit that caused it, I think
+the rule of thumb should generally be "[fix] within a week", preferably
+before the next rc.""
 
-Disabling HDBSS for that range could be the solution, but then we 
-would have HDBSS being used for dirty-rings above some size, which could be 
-kind of odd in the code, and possibly lead to trouble in the future.
+I'm asking, as I see regressions left and right taking much longer --
+even when they easily could be fixed within that timeframe or maybe a
+little more. And my efforts to motivate people to get at least somewhat
+closer to that rule of thumb seem less and less fruitful, as people
+ignore me partially or completely -- just like the "Expectations and
+best practices for fixing regressions" in
+Documentation/process/handling-regressions.rst, which even give a bit
+more time than your rule of thumb.
 
-That's one of the reasons I mentioned reserved entries may not be the best 
-solution for us.
+Of course I could ask you every week to pull some fixes directly (like I
+did the past cycle) or even collect them in a tree and submit them as PR
+to you (the idea came up there). But well, bypassing subsystem
+maintainers' knowledge and their CIs should be an exception, as it will
+lead to problems or disaster sooner or later for obvious reasons (and I
+guess won't scale either).
 
-Thanks!
-Leo
+I also fully understand that the AI patch influx is a reason why some
+regressions take longer to get fixed, as my inquiries and prodding put
+even more load on already overloaded people. At the same time the
+current patch volume seems to be the new normal for at least the near
+future. And overall the core problems that lead to slowly fixed
+regressions from what I see are the same as before, they just occur more
+often.
+
+The core problem is basically: the "no regression" rule is well known,
+but people interpret vastly differently how to realize it in practice --
+and often it's reviewing, committing, and mainlining fixes, as outlined
+a few months ago here in an analysis for the maintainers summit:
+https://lore.kernel.org/ksummit/75dc0e2d-2deb-4776-977c-1de7c33465e1@leemhuis.info/
+
+Instead of approaching this from a theoretical and retrospective side,
+let me this time point out regressions that are unfixed right now
+despite available fixes:
+
+
+######
+# drm/msm/a8xx: failure during boot
+
+Caused by 93b6c8d10fad (v7.4-rc1). Known before the merge window.
+Proposed fix is a oneliner submitted to a different subsys on
+2026-10-21. It got two Tested-by:, but no reply from the maintainer yet.
+A prod from me about one week after submission didn't have any effect
+afaics:
+https://lore.kernel.org/all/20261021080517.2161-1-okerixx@gmail.com/
+
+Report:
+https://lore.kernel.org/lkml/ar_AuRr1eaZzOfw9@baldur/
+
+Side note: here the msm maintainer explains why he mainlined the culprit
+despite the known regression:
+https://lore.kernel.org/lkml/CACSVV00x091i7BKW+bj0RUnkd4rOrHXbhZ4zF6SuTU1NAqsFTA@mail.gmail.com/
+
+On a wider note:
+There is no way for maintainers to automatically filter patch
+submissions that fix user-reported recent regressions, which would allow
+maintainers to prioritize such fixes (and me to better keep an eye on
+those, too). This could have helped here, as the maintainer recently
+applied fixes to his fixes branch, so it not like he is on vacation of
+something like that. So he might not even be aware the patch fixes a
+regression (that, admittedly, is strictly speacing a problem of another
+subsystem, as it exposed it) -- or was unavailable for some time and
+when coming back simply deleted old mails (which I can relate to, but
+well, it's bad when it comes to regression fixes).
+
+
+######
+# phy: qcom: qmp-pcie: link never retrains and the root port comes up
+with no endpoint
+
+Caused by 910b828b22b7 (v7.3-rc1). A revert was posted about a month ago:
+https://lore.kernel.org/lkml/20261013-qmp-pcie-skip-reset-revert-v1@michaelburch.net/
+
+I prodded the thread about two weeks ago; three days later it got
+"Reviewed-by" from a subsystem reviewer. Today the maintainer finally
+accepted the patch, so maybe it will hit mainline soon now.
+
+On a wider note:
+Might be a variant of the problem mentioned above: maintainers have no
+way to automatically filter and prioritize patch submissions that fix
+user-reported and recent regressions.
+
+Could also be confusion on how to handle user-reported regressions from
+recent development cycles. Lorenzo voiced those recently:
+https://mastodonapp.uk/@ljs/117191681502501017 But he is not the only
+one from what I see; that has always been the case, but it seems your
+recent statement "Non-critical fixes to long-standing issues are simply
+not appropriate for this late in the release cycle." in the Linux
+7.1-rc5 announcement made this worse. Or maybe I'm confused, as I assume
+the follow statement of yours is still true:
+
+"I do consider "regression in an earlier release" to be a regression
+that needs fixing. There's obviously a time limit: [...]"
+https://lore.kernel.org/all/CAHk-=wis_qQy4oDNynNKi5b7Qhosmxtoj1jxo5wmB6SRUwQUBQ@mail.gmail.com/
+
+
+######
+# arm64: dts: imx8qm-ss-conn: USB 3.0 broken on Apalis iMX8QM
+
+Caused by 73c3b40e536d (v7.4-rc1). Known for two weeks. Author and
+committer is also the maintainer for the area in question. Posted a
+revert nearly a week ago, but it is no heading towards mainline so far
+afaics:
+https://lore.kernel.org/lkml/20261106161809.3512378-1-Frank.Li@oss.nxp.com/
+
+
+######
+# drm/msm/dp: SoC to reset
+
+Caused by 1bda647ce61b (v7.4-rc1). Know for a week. The affected user
+reported this by way of posting a patch for it, but it didn't get a
+reply yet.
+https://lore.kernel.org/lkml/20261104072048.3486286-1-burke.cates@gmail.com/
+
+On a wider note: I see more users that are affected by a regression are
+directly posting a patch for it. Those fixes thus lack a "Reported-by:"
+tag, which makes it even harder for reviewers and maintainers to see
+when a patch is a regression fix and prioritize those.
+
+
+######
+# drm: amdgpu: Black screen after boot with newer kernels in multi-GPU
+system
+
+Caused by 11c141672045 (v7.3-rc1). Known for 10 weeks, bisected about a
+month ago. Reported at least six times by now afaics:
+https://gitlab.freedesktop.org/drm/amd/-/work_items/5762
+https://gitlab.freedesktop.org/drm/amd/-/work_items/5979
+https://gitlab.freedesktop.org/drm/amd/-/work_items/5806
+https://gitlab.freedesktop.org/drm/amd/-/work_items/6120
+https://lore.kernel.org/amd-gfx/20261014080523.186533-1-rezanikzadch@gmail.com/
+https://lore.kernel.org/amd-gfx/CAGxFSwnJYc03fN+XWU8oLW9EbXhmetQuj1s3-m8UdZHoBdGJ8Q@mail.gmail.com/
+
+Fixes are being prepared for more than three weeks now, but not yet ready:
+https://lore.kernel.org/lkml/20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com/
+https://lore.kernel.org/lkml/20261111-vfct-regression-v6-0-393797bbb6e3@amd.com/
+
+A revert was considered and even submitted a month ago, but not
+performed because it would "trade one regression for annother":
+https://lore.kernel.org/dri-devel/20261019194106.2796150-1-alexander.deucher@amd.com/
+
+Might be the case, albeit the changes that would have been reverted do
+not have a Fixes: tag. So this is not a clear case and might be a misfit
+in this mail, still wanted to mention it due to the relatively huge
+number of reports and the time it takes so far to get this resolved.
+
+
+######
+# ntfs3: SEEK_DATA reports WOF compressed files as holes, cp creates
+zero-filled copies
+
+Caused by c61326967728 (v7.0-rc1). The affected user reported this by
+way of posting a patch for it more than a month ago now, but it didn't
+get a reply yet.
+https://lore.kernel.org/lkml/20261005223318.19303-1-marcin@mennemann.net/
+
+
+######
+# wifi: iwlwifi: BE200: Wi-Fi interface becomes unusable due to firmware
+faults
+
+Known since the end of June. Two reports, both reporters saw the issue
+starting to happen around the 7.1 timeframe -- but the cause was later
+bisected to the 6.5 change e9b63341dc15, so it looks like something
+(another kernel change, firmware, ...) exposed the problem earlier this
+year:
+https://bugzilla.kernel.org/show_bug.cgi?id=221675
+https://bugzilla.kernel.org/show_bug.cgi?id=221898
+
+A fix was attached to bugzilla and confirmed to be working at the end of
+August -- and even merged to iwlwifi tree back then. It was then posted
+to the lists end of September:
+https://lore.kernel.org/all/20260930122439.08094e4c344f.Ic0a4bf544fd6ebaf1fc62b40bf463bd289e58cf0@changeid/
+
+Since then it's also in -next, these days as fdd83f3ad06a26 ("wifi:
+iwlwifi: honor the per-channel 320 MHz regulatory flag"). Near the end
+of the latest merge window I asked why it's taking so long, but in reply
+I only got "You really need to stop pressuring people. Everyone's
+overloaded. Heaping more on doesn't help.". The fix from what I see is
+still not on its way towards mainline. That being said: it feels a bit
+like I'm missing something here -- but OTOH from both reports (one of
+them linked in the fix) it looks like it's a recent regression that
+takes quite a while to get fixed, despite an available fix.
+
+######
+
+Ciao, Thorsten
