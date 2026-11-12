@@ -1,102 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794446962;
-	b=IydhJoJvq6Bg+rGjpgAim8nX1l7uMD08kx87P9zR2fhrsiaTc4MkRbwetx0146BNBYDS
-	 HNhtxDfnHXDSW3+M/7dxQIAs6OLlOg6os/lfDWpnlDuXEAmNzk6rYvQ5cNPtK1p7F7qlE
-	 LMBP4gQaefcsZkCwFb+08TUsJCEqNYYmYAB4WyVnYAcL1EKGkduXdo6ocXTDWOjvWWULH
-	 QrzQk0I94wunJcRuqV3t6DymvSNbJcqstO8OEN7a4JU1agqutPSdrWh4xj4gKNiJ/ZyY2
-	 bXLNa2U644c7pbIvTmi7ch38eMFCsZ+ZD+rH5OHgRqP4aeL6i6h11G9qU+ou6ubr+dA==
+	t=1794446969;
+	b=P24Hww/cIpyIsRYjN4JTPjCR93xngyAQ8jVQOua2s/g4IHIf8Xokxm8H/Hn/Rl+YtKAP
+	 s5bPsT8W2itOpJ/Sx5bY4249jIiTdYh203I069RX1fG/Ix9JlI6QPfa0KmkfJrdYjnwBd
+	 hdmbhL/NrIpt2AeLmYleS9QbHjV0zA9UPM2sZOxSgCCAbZdY5bYY15Kpb9zGtpzCGuZIA
+	 TTW8iOYSOjRc9+oN8Qq4co7nbf5WlKYFAQYetlpZ9bb6NiL7bs9ABvqPIM16XUFaCVsqN
+	 t8Ly9GSzOyLRHOCBo9V5q/wHB7d1GUFPDjvBgx6OiB4YIgkiuKhbAtwdjAKwn6ge03Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794446962;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=naeHT3lsD43WVFFXOIg9/UkqxmnGM41dLQc0bv16TWs=;
-	b=gRv5iFoGWI3xHznqkrdlmSdG6eX8JZ5hkDuOILogqEZZYGacn3kYs0qGX+//eONGCO/T
-	 Ifjnpw/bd3hKbtm2xsUE7JNdxd+ohe/lVYvCVSAM7HiaKmHaooMFQYyeQPVO4NbGkjLYP
-	 iqckuUehxg6BpSy8FeICOAIvW71z4TSBl0PRy1iT2dsGXARxmIULquYnkVN+8R0lLBbuv
-	 ruiRYmShMHRN0UcrRn9847Q29dxHqJNju5B2iKC8hCTJdrZZ7gpJ8xLyBTAelOQ3UKh9z
-	 TJ+frvLotA8LCn3riC+hNPkA4JG43iw8h86h5oHO614Tg9OykX6KOskOvQgsJnJ9nfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794446969;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=SZxy7Yx5F8CCUEM8n5KMaftz8PulPwrUSyE4Y9PNbKc=;
+	b=ugHT9Pjs6k5z29E3Eet7pJGraPgbrYZ34mdXBjiBB1qAjtXrjRaK6TDRS6cQmX1OXHTx
+	 ICeX6Jb3KRDCPBpzg7Z2FeDdH8KXHhFIHDKnh/i29YFjtPZ6larLKfARCbKVs64LO70Yf
+	 UH65cgqAhH0wu4Pqw4/Y2WwMW0x8+yVllRwudMfTCwcEgYYkIfUsBqJB/8fqUjc8E0zof
+	 xQiuGPInJe/WgmGxhsKfaIK1ECATvF4lznzFiNGXRJ6eNu+pZDF1ixBfDNB0G0xU2CxZX
+	 45PB6j2gy9Df1M3K0pHN0b4FgvYprM+X9jvNdbpOK8EACM8FvK8e6jwEtkDWYUovW7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dR+4nUqB;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ePswrXmr;
+	arc=none smtp.remote-ip=209.85.167.178
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588666070228;
-	Thu, 12 Nov 2026 01:29:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 588666070228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C003606A98D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:29:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C003606A98D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dR+4nUqB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794446961; x=1825982961;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=drwpAsrOFw4B/qCkDMxl8Rzegtt/n6DW8SOYJld6ACA=;
-  b=dR+4nUqBg1xP5hLwWGCi48LPh3R4Z1e+9HVF2DiAxa7vIuqzFzs5+cEK
-   dANeswCa4jq/MwJLiRYwr/0HCp1iV3EQPYPalLgNQ3Iv2YEeCmQnvqq6F
-   SLoiLNo3H9LawT65jaCBZGLOUMPHJWgUMYN/17xSY7H3O2uldga4R2MRu
-   1MrHAn+n6djSYIwAEYYc6Y1jLHw6i/1oiBpDToboA7+lcAR3ejJPNMQME
-   XhjJQcDFxBsS5y3JOKfz532lZFemDySb0t4xxJa+7Oq8o4wJ2Msg0RrqW
-   aQcKL22n6RuXXJ8fEPgf4G+deuSx+LUJZt83aZ7gxWLJYXx7OXGGKqSyz
-   w==;
-X-CSE-ConnectionGUID: z6iaWYs6Sdyk7hKAW7KkjQ==
-X-CSE-MsgGUID: uYM3Prp+RXKTG44qjaS7BQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3306724"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3306724"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 17:29:20 -0800
-X-CSE-ConnectionGUID: wXIAkD9OSb+cGo57KrKyqA==
-X-CSE-MsgGUID: KnBwmaLHRL28S7SM9UOKBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="10415943"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa013.fm.intel.com with ESMTP; 11 Nov 2026 17:29:14 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xRJcl-000000010BX-15iQ;
-	Thu, 12 Nov 2026 01:29:11 +0000
-Date: Thu, 12 Nov 2026 09:28:40 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Alejandro Colomar <alx@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Andreas Schwab <schwab@linux-m68k.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Len Brown <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 2/6] string: Warn if the prefix is the empty string
-Message-ID: <202611120922.GqXZB0lH-lkp@intel.com>
-References: <cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ePswrXmr
+Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-53dbe9b8d6eso322562b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:29:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794446968; x=1795051768; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SZxy7Yx5F8CCUEM8n5KMaftz8PulPwrUSyE4Y9PNbKc=;
+        b=ePswrXmrqY74VuUNi1gfTCIMrE5QoOOccd0EiC2rm2EpWOZA9hiaTI7neyjPLmfgsq
+         BLfkf7mgk0AhcT2lWBcI04N3GIvVzFC27jvBx2C5/KheACnMd1bNQSfuy3mb1Kxhtpo8
+         IWHGx0zavIypRpdI9PfZQYOp4cdTKWVvQz7RXuyKacm0dmKdtT0F7rGpNM3tG0QNpf7R
+         6c0QS1deqNr6eEZgyorLzS1rwPls6auuWaX9d0vPG1zsl2uGNJ8CHRDGJbrx+CCgMjns
+         oC3wCVX4zcF//lZrZT8ioXdhi47sfsG4SFRk0AV+D72y57+3FfspcPzN5ZrlqxRkDWaU
+         FpHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794446968; x=1795051768;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SZxy7Yx5F8CCUEM8n5KMaftz8PulPwrUSyE4Y9PNbKc=;
+        b=f7PsTMqgrkujL6PA1pADekvTVtb3trqEjmdf4Aqx436DqNVaZFcqDJyjagWywNuAoo
+         laICU24e4MYigU8SDpmxOAs/BIG1lyE9G+bZZthlFPv0q/xznIssfZFFEH2jFYT48oo0
+         Q0EoPGW9XYPE2ceiJENvQMiA/f8tryvLgY6n+0uXVpQTJr1BErL+9ZxPHX8AKc1aqyn+
+         jLaurQyc1+QEPneEV6Wuy1SpQLykqABpDDsEoC+JmOMaMUsv7iX0Mzw7iRyupbNXAV8M
+         o4AiYvepZ5lXNtOeGLUQc4LAZSJ5NEvYJeCzHGJXH7VBIRM7WieAl+HkoINb4lh0kNCy
+         xDpQ==
+X-Forwarded-Encrypted: i=1; AL+hErFBw30reNQlDWbqP/KJfUguVKMT7iX9skydrHQ2oQRYbBwMqY8JYG+EoE1UM1Qq53t2SUzH7V0JxkL0hOE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Qimhipm4WrHoxs3iVxYmxROTcF6xR3teHm5gfmUBdpH/tXb/A
+	h04jREtD0EI2TGtHO3CAR7GeBZ2/kf7L8UK+hf/yuGL/8CpD6ZzGymuz
+X-Gm-Gg: AYBFou2zYMDmG5P+jePPXXuHup3/g1PR8iMoeQrz1MJ/wBylK+Tj0W8aCtIPdutB7wy
+	WpO6Ih1JkfvHF/cHuDVi7wFf8W3gCE7+w9BU34hk1iSEOFNoilkiSFVWeH5zAMMjcbE7/nDgH29
+	Tpv9/D5FAvM7Y6kUlKvVgHAHDguvJXVpCI1/D8ZF10i9kRjH+tTs0E9xtpc7YbR3OI0SlEawriT
+	rANwtRCV7B1KyPPFTuLGKFYZ4EScptIxC7p+qEanyM5vFdBkij47Uuuy6htJm9Gx3r/FYb4lpRN
+	8EWTW/YZaQ21R5XryvJ0P2ZVQSqoH6+CY/yl31vrQBJSQ/gwCYu13S+9lYxPQJoP+ZfVFd6HWk7
+	XZmiEEbVsrx/NOvP/AdfZL9Q0sn4y0tqVd4trBV2vm19oKGjgxbsGb3G0AgaLdGkEhFgIQ6YhtD
+	gIsYRvX2l1qG4WBV6p2P2XL3gMreWDlDsdqlYgapXXjF6nPUqOJrGVCC+P58sa/9Bn8Xcb4Ga0D
+	s++bxfOIvjFs6vUy1KHtYdt6ljdzNovcgDB9FTK+6tlkisohqsRlZXe8S6ttCX0I/heIu5ZbK+8
+	dbZNdL8PBfzBcCkIYzAlHanZVS0rW4ATNn3H1RCEyNOp27/ueXmm5oxYJFjhAKx3Z2cQ9lYfOFP
+	HeVs8Z2Qp4VOTy2b8rqLBdcCg0LJQtRU9oa9ENzfZmCRMXmwf4qATm0pcn7Hn8sgzwDzQ1kpN7G
+	MLYaUVPZm0lXpHV526FMPns5TWTxOjl550awvaiF3GIoOAJ1zhj/8Yftak6uuYzrjaLNGsCjd9w
+	Ak=
+X-Received: by 2002:a05:6808:c2f5:b0:540:8ca:36e3 with SMTP id 5614622812f47-56cd7d08af0mr1074469b6e.19.1794446967621;
+        Wed, 11 Nov 2026 17:29:27 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905738049sm6823481b6e.10.2026.11.11.17.29.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 17:29:27 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 11 Nov 2026 18:28:33 -0700
+Subject: [PATCH v3 54/58] mtd: rawnand: fsl_ifc: retain chip state across
+ removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,80 +95,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-54-ce537999741d@gmail.com>
+References: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-0-ce537999741d@gmail.com>
+In-Reply-To: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-0-ce537999741d@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-Hi Alejandro,
+Separate active bank membership from ownership of the shared IFC NAND
+controller. Retained chip references keep the controller lock and chip
+metadata alive after removal, without retaining hardware mappings.
 
-kernel test robot noticed the following build errors:
+Disconnect before device-managed resources disappear and drop the shared
+controller reference from each chip's final release callback.
 
-[auto build test ERROR on kees/for-next/hardening]
-[also build test ERROR on driver-core/driver-core-testing driver-core/driver-core-next driver-core/driver-core-linus kees/for-next/pstore kees/for-next/kspp linus/master v7.4-rc2 next-20261110]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Run NAND cleanup during disconnection; the final core-owned put only
+releases retained allocation and layout data.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alejandro-Colomar/string-Add-strprefix-and-deprecate-str_has_prefix/20261111-205515
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git for-next/hardening
-patch link:    https://lore.kernel.org/r/cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx%40kernel.org
-patch subject: [PATCH v4 2/6] string: Warn if the prefix is the empty string
-config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261112/202611120922.GqXZB0lH-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c628d639fc66f8e6d8ab1f0cc6b1df38f974e020)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261112/202611120922.GqXZB0lH-lkp@intel.com/reproduce)
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/mtd/nand/raw/fsl_ifc_nand.c | 46 +++++++++++++++++++++++++++----------
+ 1 file changed, 34 insertions(+), 12 deletions(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611120922.GqXZB0lH-lkp@intel.com/
+diff --git a/drivers/mtd/nand/raw/fsl_ifc_nand.c b/drivers/mtd/nand/raw/fsl_ifc_nand.c
+index 20ae012adbaa..8b48c94ea8c5 100644
+--- a/drivers/mtd/nand/raw/fsl_ifc_nand.c
++++ b/drivers/mtd/nand/raw/fsl_ifc_nand.c
+@@ -40,6 +40,7 @@ struct fsl_ifc_mtd {
+ /* overview of the fsl ifc controller */
+ struct fsl_ifc_nand_ctrl {
+ 	struct nand_controller controller;
++	unsigned int users;
+ 	struct fsl_ifc_mtd *chips[FSL_IFC_BANK_COUNT];
+ 
+ 	void __iomem *addr;	/* Address of assigned IFC buffer	*/
+@@ -961,11 +962,20 @@ static int fsl_ifc_chip_init(struct fsl_ifc_mtd *priv)
+ 	return 0;
+ }
+ 
+-static int fsl_ifc_chip_remove(struct fsl_ifc_mtd *priv)
+-{
+-	ifc_nand_ctrl->chips[priv->bank] = NULL;
++static DEFINE_MUTEX(fsl_ifc_nand_mutex);
+ 
+-	return 0;
++static void fsl_ifc_chip_remove(struct fsl_ifc_mtd *priv)
++{
++	struct fsl_ifc_nand_ctrl *ctrl;
++
++	ctrl = container_of(priv->chip.controller, struct fsl_ifc_nand_ctrl, controller);
++	guard(mutex)(&fsl_ifc_nand_mutex);
++	ctrl->chips[priv->bank] = NULL;
++	if (!--ctrl->users) {
++		priv->ctrl->nand = NULL;
++		ifc_nand_ctrl = NULL;
++	}
++	nand_storage_put(&ctrl->controller.storage);
+ }
+ 
+ static int match_bank(struct fsl_ifc_global __iomem *ifc_global, int bank,
+@@ -981,8 +991,6 @@ static int match_bank(struct fsl_ifc_global __iomem *ifc_global, int bank,
+ 	return (cspr & CSPR_BA) == convert_ifc_address(addr);
+ }
+ 
+-static DEFINE_MUTEX(fsl_ifc_nand_mutex);
+-
+ static int fsl_ifc_nand_probe(struct platform_device *dev)
+ {
+ 	struct fsl_ifc_runtime __iomem *ifc;
+@@ -1016,30 +1024,35 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
+ 		return -ENODEV;
+ 	}
+ 
+-	priv = devm_kzalloc(&dev->dev, sizeof(*priv), GFP_KERNEL);
++	priv = kzalloc_obj(*priv);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+ 	mutex_lock(&fsl_ifc_nand_mutex);
+ 	if (!fsl_ifc_ctrl_dev->nand) {
+-		ifc_nand_ctrl = devm_kzalloc(fsl_ifc_ctrl_dev->dev, sizeof(*ifc_nand_ctrl),
+-					     GFP_KERNEL);
++		ifc_nand_ctrl = kzalloc_obj(*ifc_nand_ctrl);
+ 		if (!ifc_nand_ctrl) {
+ 			mutex_unlock(&fsl_ifc_nand_mutex);
++			kfree(priv);
+ 			return -ENOMEM;
+ 		}
+ 
+ 		fsl_ifc_ctrl_dev->nand = ifc_nand_ctrl;
+ 
+ 		nand_controller_init(&ifc_nand_ctrl->controller);
++		nand_storage_init(&ifc_nand_ctrl->controller.storage, ifc_nand_ctrl);
+ 	} else {
+ 		ifc_nand_ctrl = fsl_ifc_ctrl_dev->nand;
++		nand_storage_get(&ifc_nand_ctrl->controller.storage);
+ 	}
++	ifc_nand_ctrl->users++;
+ 	mutex_unlock(&fsl_ifc_nand_mutex);
+ 
+ 	ifc_nand_ctrl->chips[bank] = priv;
+ 	priv->bank = bank;
+ 	priv->ctrl = fsl_ifc_ctrl_dev;
++	priv->chip.controller = &ifc_nand_ctrl->controller;
++	nand_set_controller_data(&priv->chip, priv);
+ 	priv->dev = &dev->dev;
+ 	priv->vbase = vbase;
+ 
+@@ -1071,12 +1084,19 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
+ 	ret = nand_scan(&priv->chip, 1);
+ 	if (ret)
+ 		goto err;
++	ret = nand_set_lifetime(&priv->chip, priv);
++	if (ret)
++		goto cleanup_nand;
+ 
+ 	/* First look for RedBoot table or partitions on the command
+ 	 * line, these take precedence over device tree information */
+ 	ret = mtd_device_parse_register(mtd, part_probe_types, NULL, NULL, 0);
+-	if (ret)
+-		goto cleanup_nand;
++	if (ret) {
++		nand_disconnect(&priv->chip);
++		fsl_ifc_chip_remove(priv);
++		mtd_put_master(mtd);
++		return ret;
++	}
+ 
+ 	dev_info(priv->dev, "IFC NAND device at 0x%llx, bank %d\n",
+ 		 (unsigned long long)res->start, priv->bank);
+@@ -1087,6 +1107,7 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
+ 	nand_cleanup(&priv->chip);
+ err:
+ 	fsl_ifc_chip_remove(priv);
++	kfree(priv);
+ 
+ 	return ret;
+ }
+@@ -1099,9 +1120,10 @@ static void fsl_ifc_nand_remove(struct platform_device *dev)
+ 
+ 	ret = mtd_device_unregister(nand_to_mtd(chip));
+ 	WARN_ON(ret);
+-	nand_cleanup(chip);
++	nand_disconnect(chip);
+ 
+ 	fsl_ifc_chip_remove(priv);
++	mtd_put_master(nand_to_mtd(chip));
+ }
+ 
+ static const struct of_device_id fsl_ifc_nand_match[] = {
 
-All errors (new ones prefixed by >>):
+-- 
+2.53.0
 
-   In file included from scripts/mod/devicetable-offsets.c:4:
-   In file included from include/linux/mod_devicetable.h:31:
-   In file included from include/linux/device-id/hv_vmbus.h:6:
-   In file included from include/linux/uuid.h:11:
->> include/linux/string.h:575:2: error: call to undeclared function 'WARN_ON_ONCE'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     575 |         WARN_ON_ONCE(len == 0);
-         |         ^
-   1 error generated.
-   make[3]: *** [scripts/Makefile.build:185: scripts/mod/devicetable-offsets.s] Error 1
-   make[3]: Target 'scripts/mod/' not remade because of errors.
-   make[2]: *** [Makefile:1424: prepare0] Error 2
-   make[2]: Target 'prepare' not remade because of errors.
-   make[1]: *** [Makefile:248: __sub-make] Error 2
-   make[1]: Target 'prepare' not remade because of errors.
-   make: *** [Makefile:248: __sub-make] Error 2
-   make: Target 'prepare' not remade because of errors.
-
-
-vim +/WARN_ON_ONCE +575 include/linux/string.h
-
-   555	
-   556	/**
-   557	 * str_has_prefix - Test if a string has a given prefix
-   558	 * @str: The string to test
-   559	 * @prefix: The string to see if @str starts with
-   560	 *
-   561	 * This is similar to strprefix(), but returns an offset instead of
-   562	 * a pointer.
-   563	 *
-   564	 * Unlike for strprefix(), if the prefix is an empty string, the
-   565	 * behavior is undefined.  If you need to support arbitrary prefixes,
-   566	 * use strprefix().
-   567	 *
-   568	 * Returns:
-   569	 * * strlen(@prefix) if @str starts with @prefix
-   570	 * * 0 if @str does not start with @prefix
-   571	 */
-   572	static __always_inline size_t str_has_prefix(const char *str, const char *prefix)
-   573	{
-   574		size_t len = strlen(prefix);
- > 575		WARN_ON_ONCE(len == 0);
-   576		return strncmp(str, prefix, len) == 0 ? len : 0;
-   577	}
-   578	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
