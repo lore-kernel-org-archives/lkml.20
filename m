@@ -1,41 +1,41 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794472675;
-	b=5bUtED+vWvtoA58/7vBCk37pZcLkuKBSmx697/k3AOjM/ARKUKlKsQBfaKWDt86cv8AZ
-	 laKr/WkB+6C3viTkqMZGVrchZosf17wpfBvSATcRiKsvZ4qPSFSb492RfhxaBmMAPAVYn
-	 BDoEy+cyiRNKh/88NWr7vCWlkzDoWbACJwpXF5GjUx4h9pD8WNmQJvwXNRUZE+1dzDPrq
-	 FIhc7TR/7Xt/laEkN4eXL614/BzalJLu3LHbVLj3DdMlmKun0/5gVKhczSMW6PHFDHM10
-	 UOr9BrOc9XxUBFGiwQLGHW5sSTxNW4lgF3o/goUXPRYuowpWTQQ1Zx76qYMnkiPh/1w==
+	t=1794472677;
+	b=sdAoPJe3DTakowRjDb4VNK1Cuokul2Vg9K+0iR/Jx4OaZ9PRK9UtUOIWs2VqreheGjA2
+	 20O8VsH3G3Od5JrNehc9gml+lenoLa2j0s9JwlIH1WXqzhqe/vOmBls7WVtIIBjV8MNhB
+	 1C/cvxtc2LRaFd+px3kH3DlezWwd5jjWotvMMSCHwuaLsZzq32phOZtXL7Gt24Kdqieem
+	 NdxQ4VUUdGmWeAA9Yi6L0ThmHEXUOgKiy5wGjdqbd+cRQ+HaPBsVpy8sM6RXN+CcJIhRy
+	 FAAIZMLQ/c6FhJP7OnR5jlD7ISOwiWJ+d/Q2hC1T5w3MglfVjLAD+ZGAYG7gl25HwIQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472675;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472677;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=zvpxNltnoRhKlZ4umQ97ogrVT407veX7MU/gxnhUc1I=;
-	b=Cl7hHCV900XvePNcvGMQPgJ2leIBkchgzAQKqmtKLM6ZWEpS4mR+Vg/LNwBNBMTdFOPO
-	 bTAijvDD2S0QDK2aSg1Dmz6UraG6j382fr9S5EyqjGJ51wBQwqbX4L//LgvrE9zoMF7N6
-	 C9ewlN1+jiEusBfMo76fRqIxPyyU08f+H3TVjpq5ZCoExWtKwlMApxXRw4qGQSxPfYS8r
-	 PR6fb4JlQMW58fdi9tRq5YGYe2d7jxd/j+6mw/7xNqe0zli+lKgZ+b0Q0IFozSoUv4ZI0
-	 J4TeO/FBW9HEZYSDoMizQt0/UE7Ayyl8TIR4HLBMHDq9qrLNxcBDe2JzeXEJUZS1mVg==
+	bh=XXMGwQsYizNLnUe2v/zGi4EH5z9PqXTWn118mziKXJk=;
+	b=OdijprcMTYdM6sI+IZ0w3BD763JdnGENMCezM/lweicfjo/Fu4wvO1JThD4cF14paabo
+	 svwlQ1KLC0chIrYD9wf5s9nN7MQBStGyHxkPusCWQLyLaeEUD2tNY0gcI13MVsxwDa7HL
+	 LPbEcxRTY44yoTnqN0StZxJjDYYHJybPX1zkvHXme6T7QFhjf7y+wKdPpH11kewX6dcQj
+	 rhO2Nhxmzzqd0ML3VBXOIl7Ild7efqRV6aSozcLcujadxJOxkOd/oxi1lq3M1E20Xw2qk
+	 O2Jaf6uS/PUqmhZOwhJZRlihZJeiMq9Q+LeFAwYK9/yNluvyIXQFG4Z/aJ8H1lCrvxA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ZM4sIPc8;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="bncrrTM/";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEE0606A8A3;
-	Thu, 12 Nov 2026 08:37:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABEE0606A8A3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7764060707A0;
+	Thu, 12 Nov 2026 08:37:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7764060707A0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ZM4sIPc8
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bncrrTM/
 Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
 	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 71D65201C9E;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 7E3F1202C8B;
 	Thu, 12 Nov 2026 09:37:51 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794472671;
@@ -43,39 +43,40 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zvpxNltnoRhKlZ4umQ97ogrVT407veX7MU/gxnhUc1I=;
-	b=ZM4sIPc8S1DcgDtXxmNAfWD+wM9kajOi06GOXIOulkPq5FZpMhR/v5u9HQh/Gml07OfRdO
-	rpuCWY26Ph8eZJyLww1mWKSBMk8YxYg1xymR1TzRdt6jr2iZ2HymDT7M1oJeNLrfVDQOTE
-	tYd9zAS22kbkbnAAl21Su2igqUET8vGJJl3AnnJp+6QnNdFG1LhifpQy4i6aBhGB46aiCw
-	1g42viDa+lOWDOjOPMmerJA7mvbKblrSjZHBkgkEiYf/Rqse7KOo/41kZR3MYeNgizCkQ+
-	WlIfidLb1Mj2qSjrJnKe0rJ4OKGMbUlM5X7JKsyYDeFHk//1kzXF/0BLWML/Kw==
+	bh=XXMGwQsYizNLnUe2v/zGi4EH5z9PqXTWn118mziKXJk=;
+	b=bncrrTM/tpkzk1y5xzhzH3bqguL+PJYyKFD4W9OUOLh093rfhBAFz47FJ82pOqdk717wae
+	05ZyFqa9RgABjStP1D8okRbR3Xi1xdKCtbSrEwF7Lqf7to1eEHw7xzV/oGFas4LJYVTZNo
+	QgySP+iFyc3RWtveGOoxq+Ppj+K2nDbdPd0Op3W9vG1ZFKEFrkAdg1eBqfcOqj1cqfdgpv
+	8rZtAq6ULDokFPRQGnHJazF8NlTt4vf74yKsb3uJryF3mEAhip54W0PuX/JFX5XD6SR+0i
+	JcnqCUSXwIGlAYO5C2hJA1Mk4HTZZ6qxTvGPWXay+cnHJnzGxB4+ZkAJdcw4YA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794472671;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zvpxNltnoRhKlZ4umQ97ogrVT407veX7MU/gxnhUc1I=;
-	b=UFftBhFlhfTPOLlMNePFB5JB8wBhPEiIhaWhlsMaGwohQ2NS1DdBO7Yhn/M6f3sd5J336F
-	JWyazagxrVvlBIS9sll/9XOA45zcFMTwMr1H+Tq9XKipz93oqI+fL/lugwKZ1FdrvQWiSu
-	LpgURmGCru9vff2aH3YX2fs79wHTeFCAUfECMUP7RghqgvV8N5Ew/HflZXpkWHwTLFtMue
-	KFYr3QlreMkM/2FfjfYVqHAZoVRkcxDvCLxJUEvfC07fLzAaKW7MQo2ljwlWVy4qcoN2u7
-	SNU4mCt7C14wadMB922X1UzRFqyZV6x3aT1Z891H548TcaqJxpGvZkVXGdhu4w==
+	bh=XXMGwQsYizNLnUe2v/zGi4EH5z9PqXTWn118mziKXJk=;
+	b=das9aUNZvt+bERafWGB+rRgz/EUorxFmDiCXba67n0/ttaAA3jCH1bIDeFGAZY4MyAVm6B
+	rvI253yzxlq1/Q4egTHkuieEjvXa9gsmG01w4ZDLnKLnWqoxzXJiJGLqyRTuSU0ep6OXAB
+	78Osi8TClZhtLXPKRNHZ0GNsyFxjSfzYJn/raXeQzCVO3BRWDos4zVMZFtpVMaPTZ7uhXg
+	4t6EWPHD6IUnkcYb9VPMqbAveijNPbtZHNgZHWqjQWfCgWDK927o5R5IntEOux2CQkasuS
+	NkXW//7RfYmwi6HiPtPgg1zXNNHGnkcYUSBMcVw2FfgliUUeiwFfWbqhIHAFog==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794472671; a=rsa-sha256;
 	cv=none;
-	b=S+jmSHIxcn+brHOcs4FPZ5A/5jAvVojyjNBQawPt7C28LyN4Mrjk1q89OLxhlUtD6OMEki
-	JeJBf3pXJE3hrHMh71+5Jsu/609DdEyAzDWYTvAVub7xn0lrsuR/E2GI/tEeZEPgfXnTVz
-	tLdBucFhSmvW0KB2UxnCxfxANru5Ttbjxuz2ZeaAuK8KNDcGNNJW0aki1BHQLeoNpF87aj
-	ZcXXzfb3gwOdu0hrg3Bj6OVc006ragDSq3+snOnAbzP8jYIwFY3tYmrVyghKhNnireuB92
-	2hZHDGVTJdf4MxMggAd1WSi6eqcEKUkdJ5Spc9FA+gaX+ijves8blwgV5ojJxw==
+	b=d+h9MYBqeP+CmrdIZ7DI4C4sJ2JwDhPG8UpfhSOpdUxVTpvgTEECkRRaRxElAf8dd8/XMV
+	kLQ2haIKFtUxdwFssUTml4Zi01PMiE02qNnz9rjwF/H2fJofkQ6TxhEeJDZjQc0vLfcWdK
+	YJXDksOESo78tQq72NTcElt6LOrLlQrXzZHT/01OuiwHmA8AcAV67hiFXZAI+7awsqzJHo
+	Myorwh06hTGYSnXlc+deOwWWg8NLGL5/3S8AaAuEqqjO0KwLCPr5oMHZYEIKZ9BUTf31xM
+	Y8LtPjYEQcRLv8CeInxcOqriLj3zmHVHnmIRPHQrkKAuaOYjn8sDH8htOjYu9Q==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
 Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 53F37381242; Thu, 12 Nov 2026 09:37:51 +0100 (CET)
+	id 5A7EF3814A3; Thu, 12 Nov 2026 09:37:51 +0100 (CET)
 From: Oleksij Rempel <o.rempel@pengutronix.de>
-Date: Thu, 12 Nov 2026 09:37:45 +0100
-Subject: [PATCH net-next v2 02/10] net: ieee8021q: add pcp_to_tt()
+Date: Thu, 12 Nov 2026 09:37:48 +0100
+Subject: [PATCH net-next v2 05/10] net: dsa: realtek: rtl8365mb: describe
+ the ports of each chip
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,7 +88,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-rtl8365mb-dcb-ingress-v2-2-f8e6fbdf8c99@pengutronix.de>
+Message-Id: <20261112-rtl8365mb-dcb-ingress-v2-5-f8e6fbdf8c99@pengutronix.de>
 References: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
 In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
 To: "David S. Miller" <davem@davemloft.net>, 
@@ -101,138 +102,128 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de
 X-Mailer: b4 0.14.2
 
-Add a helper that maps an IEEE 802.1Q Priority Code Point (PCP) to the
-corresponding 802.1Q traffic type, complementing the existing
-ietf_dscp_to_ieee8021q_tt().
+Record which ports each chip has, report one more than its highest
+port to DSA as the port count, and reject a devicetree port the chip
+does not have. Lower the family maximum to 8 to match.
 
-It is very nearly an identity map, except that PCP 0 (Best Effort) and
-PCP 1 (Background) are swapped: per 802.1Q-2022 (Annex I, Table I-2)
-Background is a lower priority than Best Effort even though it carries
-the higher PCP value. PCP 2..7 map straight through to the matching
-traffic type, and values above 7 are rejected with -EINVAL. This decodes
-the 8P0D encoding (Table 6-3), where every PCP value is a priority and
-none carries drop eligibility.
+Commit ca5ecd4246d4 ("net: dsa: realtek: rtl8365mb: correct the max
+number of ports") raised the port count of all chips to 11, but no
+supported chip has a port above 7.
 
-Drivers that classify ingress traffic by PCP need this to map into a
-priority-ordered internal space without misordering Best Effort and
-Background. The first consumer, the realtek rtl8365mb DSA driver, lands
-later in this series.
+Since commit 51a4a22301b0 ("net: dsa: realtek: rtl8365mb: use dsa
+helpers for port iteration"), setup also programs unused ports, so
+every probe writes per-port registers of ports 8..10. Their learn-limit
+writes go to 0x0A28..0x0A2A, above the learn-limit registers of ports
+0..7. We have not seen a visible effect from these writes.
 
 Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
 ---
 Changes in v2:
-- use a lookup table instead of the switch (Luiz)
-- check the lookup table size at build time
-- kernel-doc: cite Table 6-3 instead of Table I-7, fix the sentence on
-  7P1D/6P2D/5P3D, document the stub's return value
-- commit message: cite Table 6-3 instead of Table I-7
-- reword the @IEEE8021Q_TT_BE kernel-doc and the enum title
-- keep Linus's Reviewed-by: the mapping is unchanged
+- New in v2. The QoS patches after it handle ports 0..7 only.
 ---
- include/net/ieee8021q.h      | 15 ++++++++++++---
- net/core/ieee8021q_helpers.c | 42 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 54 insertions(+), 3 deletions(-)
+ drivers/net/dsa/realtek/rtl8365mb_main.c | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/include/net/ieee8021q.h b/include/net/ieee8021q.h
-index 8bfe903dd3d00fb432b32e3150d77f3a43d00f0c..c6c8c94ec7fb39603f631d50928f2354bfcd8f81 100644
---- a/include/net/ieee8021q.h
-+++ b/include/net/ieee8021q.h
-@@ -7,11 +7,14 @@
- #include <linux/errno.h>
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index da06f952a053d1497647a2c6f15a861fc21860f9..1e6cdc61f6bd3b3f74e422dbbcfdcb67cc0532a7 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -115,7 +115,7 @@
+ #define RTL8365MB_PHYADDRMAX		7
+ #define RTL8365MB_NUM_PHYREGS		32
+ #define RTL8365MB_PHYREGMAX		(RTL8365MB_NUM_PHYREGS - 1)
+-#define RTL8365MB_MAX_NUM_PORTS		11
++#define RTL8365MB_MAX_NUM_PORTS		8
+ /* Valid for the whole family except RTL8370B, which has 4160 entries.
+  * RTL8370B is mentioned in vendor code but it might not even belong
+  * to the same RTL8367C family.
+@@ -707,6 +707,7 @@ struct rtl8365mb_extint {
+  * @name: human-readable chip name
+  * @chip_id: chip identifier
+  * @chip_ver: chip silicon revision
++ * @port_mask: ports the chip has
+  * @extints: available external interfaces
+  * @jam_table: chip-specific initialization jam table
+  * @jam_size: size of the chip's jam table
+@@ -719,6 +720,7 @@ struct rtl8365mb_chip_info {
+ 	const char *name;
+ 	u32 chip_id;
+ 	u32 chip_ver;
++	u32 port_mask;
+ 	const struct rtl8365mb_extint extints[RTL8365MB_MAX_NUM_EXTINTS];
+ 	const struct rtl8365mb_jam_tbl_entry *jam_table;
+ 	size_t jam_size;
+@@ -726,11 +728,20 @@ struct rtl8365mb_chip_info {
  
- /**
-- * enum ieee8021q_traffic_type - 802.1Q traffic type priority values (802.1Q-2022)
-+ * enum ieee8021q_traffic_type - 802.1Q traffic types (802.1Q-2022)
-  *
-  * @IEEE8021Q_TT_BK: Background
-- * @IEEE8021Q_TT_BE: Best Effort (default). According to 802.1Q-2022, BE is 0
-- * but has higher priority than BK which is 1.
-+ * @IEEE8021Q_TT_BE: Best Effort (default). The enum value is not the 802.1Q
-+ * priority. IEEE 802.1Q-2022 (Annex I.4, Table I-2) gives Best Effort priority
-+ * 0 and Background priority 1, and says that priority 1 is lower than priority
-+ * 0. The enum orders the traffic types lowest first, so Background is 0 and
-+ * Best Effort is 1.
-  * @IEEE8021Q_TT_EE: Excellent Effort
-  * @IEEE8021Q_TT_CA: Critical Applications
-  * @IEEE8021Q_TT_VI: Video, < 100 ms latency and jitter
-@@ -38,6 +41,7 @@ enum ieee8021q_traffic_type {
- #if IS_ENABLED(CONFIG_NET_IEEE8021Q_HELPERS)
- 
- int ietf_dscp_to_ieee8021q_tt(u8 dscp);
-+int ieee8021q_pcp_to_tt(u8 pcp);
- int ieee8021q_tt_to_tc(enum ieee8021q_traffic_type tt, unsigned int num_queues);
- 
- #else
-@@ -47,6 +51,11 @@ static inline int ietf_dscp_to_ieee8021q_tt(u8 dscp)
- 	return -EOPNOTSUPP;
- }
- 
-+static inline int ieee8021q_pcp_to_tt(u8 pcp)
-+{
-+	return -EOPNOTSUPP;
-+}
+ /* Chip info for each supported switch in the family */
+ #define PHY_INTF(_mode) (RTL8365MB_PHY_INTERFACE_MODE_ ## _mode)
++#define PORT_MASK(_m) \
++	((_m) + \
++	 BUILD_BUG_ON_ZERO((_m) & ~GENMASK(RTL8365MB_MAX_NUM_PORTS - 1, 0)))
 +
- static inline int ieee8021q_tt_to_tc(enum ieee8021q_traffic_type tt,
- 				     unsigned int num_queues)
- {
-diff --git a/net/core/ieee8021q_helpers.c b/net/core/ieee8021q_helpers.c
-index bbacdfff9b4c2ec14779baa79d341527fed1920c..b052120e67c525ac5a45b26de4cb879a0d758d17 100644
---- a/net/core/ieee8021q_helpers.c
-+++ b/net/core/ieee8021q_helpers.c
-@@ -2,6 +2,7 @@
- // Copyright (c) 2024 Pengutronix, Oleksij Rempel <kernel@pengutronix.de>
- 
- #include <linux/array_size.h>
-+#include <linux/if_vlan.h>
- #include <linux/printk.h>
- #include <linux/types.h>
- #include <net/dscp.h>
-@@ -222,3 +223,44 @@ int ietf_dscp_to_ieee8021q_tt(u8 dscp)
- 	return SIMPLE_IETF_DSCP_TO_IEEE8021Q_TT(dscp);
- }
- EXPORT_SYMBOL_GPL(ietf_dscp_to_ieee8021q_tt);
-+
-+/* Index: the PCP, which in 8P0D is the 802.1Q priority. Priority 0 is Best
-+ * Effort and priority 1 Background, the reverse of their enum order.
++/* Copper ports are 0..3 on the RTL8365MB-VC and 0..4 on the others. Extension
++ * interfaces are port 6 on the VC and ports 6 and 7 on the others, as the
++ * extints rows show.
 + */
-+static const u8 ieee8021q_pcp_to_tt_map[] = {
-+	[0] = IEEE8021Q_TT_BE,
-+	[1] = IEEE8021Q_TT_BK,
-+	[2] = IEEE8021Q_TT_EE,
-+	[3] = IEEE8021Q_TT_CA,
-+	[4] = IEEE8021Q_TT_VI,
-+	[5] = IEEE8021Q_TT_VO,
-+	[6] = IEEE8021Q_TT_IC,
-+	[7] = IEEE8021Q_TT_NC,
-+};
+ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
+ 	{
+ 		.name = "RTL8365MB-VC",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x0040,
++		.port_mask = PORT_MASK(GENMASK(3, 0) | BIT(6)),
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) },
+@@ -742,6 +753,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
+ 		.name = "RTL8367S",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x00A0,
++		.port_mask = PORT_MASK(GENMASK(4, 0) | BIT(6) | BIT(7)),
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(SGMII) | PHY_INTF(HSGMII) },
+ 			{ 7, 2, PHY_INTF(MII) | PHY_INTF(TMII) |
+@@ -754,6 +766,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
+ 		.name = "RTL8367SB",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x0010,
++		.port_mask = PORT_MASK(GENMASK(4, 0) | BIT(6) | BIT(7)),
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) |
+@@ -768,6 +781,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
+ 		.name = "RTL8367RB-VB",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x0020,
++		.port_mask = PORT_MASK(GENMASK(4, 0) | BIT(6) | BIT(7)),
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) },
+@@ -3140,6 +3154,16 @@ static int rtl8365mb_setup(struct dsa_switch *ds)
+ 		dev_info(priv->dev, "no interrupt support\n");
+ 
+ 	dsa_switch_for_each_port(dp, ds) {
++		if (dsa_port_is_unused(dp))
++			continue;
 +
-+static_assert(ARRAY_SIZE(ieee8021q_pcp_to_tt_map) ==
-+	      (VLAN_PRIO_MASK >> VLAN_PRIO_SHIFT) + 1);
++		if (!(mb->chip_info->port_mask & BIT(dp->index))) {
++			dev_err(priv->dev, "port %d does not exist on %s\n",
++				dp->index, mb->chip_info->name);
++			ret = -EINVAL;
++			goto out_teardown_irq;
++		}
 +
-+/**
-+ * ieee8021q_pcp_to_tt - Map an IEEE 802.1Q PCP to a traffic type
-+ * @pcp: IEEE 802.1Q Priority Code Point value
-+ *
-+ * Decode @pcp with the 8P0D row of Table 6-3 (IEEE 802.1Q-2022, 6.9.3). In that
-+ * row the priority equals the PCP, and no PCP carries drop eligibility. Then
-+ * look up the traffic type for that priority in Table I-2. The enum values of
-+ * Best Effort and Background are not their priorities, see
-+ * &enum ieee8021q_traffic_type.
-+ *
-+ * The other rows of Table 6-3 (7P1D, 6P2D, 5P3D) are not decoded here.
-+ *
-+ * Return: the traffic type, or -EINVAL if @pcp is above 7. Without
-+ * CONFIG_NET_IEEE8021Q_HELPERS, the stub returns -EOPNOTSUPP.
-+ */
-+int ieee8021q_pcp_to_tt(u8 pcp)
-+{
-+	if (pcp >= ARRAY_SIZE(ieee8021q_pcp_to_tt_map))
-+		return -EINVAL;
-+
-+	return ieee8021q_pcp_to_tt_map[pcp];
-+}
-+EXPORT_SYMBOL_GPL(ieee8021q_pcp_to_tt);
+ 		/* Cascading (DSA links) is not supported yet.
+ 		 * Historically, the driver has always been broken
+ 		 * without a dedicated CPU port because CPU tagging
+@@ -3349,7 +3373,7 @@ static int rtl8365mb_detect(struct realtek_priv *priv)
+ 
+ 	dev_info(priv->dev, "found an %s switch\n", mb->chip_info->name);
+ 
+-	priv->num_ports = RTL8365MB_MAX_NUM_PORTS;
++	priv->num_ports = fls(mb->chip_info->port_mask);
+ 	mb->priv = priv;
+ 	mb->cpu.trap_port = RTL8365MB_MAX_NUM_PORTS;
+ 	mb->cpu.insert = RTL8365MB_CPU_INSERT_TO_ALL;
 
 -- 
 2.47.3
