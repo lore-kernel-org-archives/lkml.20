@@ -1,58 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478230;
-	b=yNKPqTjRK/0j0XqHaa5zCJ/GKuZ5mGob3+Ph2HsMEIGVWPOFmK+9MIrkLRCRiYtmGq6X
-	 NXDdXQp5SPUs4C1G9jEPsjwHqce/8wf3e2h7geySJWh3ksFmChJ/TZ3urUTr/FEfwnUHR
-	 arWNAZnpSZAsC1bgk53tl9FoaoEoubfq6IFGlWeduWPXHD4PDxX5Mpbni5EigCWT1+PUG
-	 lZyW34M/tf7APHpHw6+Y55lCNNZc4VIL/s12J6h17dQ1JNSimgdzztFUh2X4RvN4Z2t9p
-	 1Rw/zIyL+NT4ViVBIzvt6ICvSvt8MXhjlD6bUboPpgKPfNF1DuzdKCNvUHz/y+Vkw3Q==
+	t=1794478275;
+	b=yNwYGB6S2Eb38WHmsLrlSGTnhhcgExdUXiDPiWVicmOnLRnSwVLjuY53oSpp1SRuaevL
+	 7Nq/lI4nai6H8nSTxtgz+w+IQ+856+Mvo1x/9BmF5A+Z1V/UYpnODzmqMGMk+Jer8ZAZk
+	 lWnPbVJVVrbeJ82CM7bH6NkjWtFFk7MnIjnf3eCzdBJaDXVSuQliefZ/bXapaxxPMGpAP
+	 Img62o93G8nkg1tXQSaIItwFPjkdtPZvrqZKbJiAIlGjYEOl5eincP0A1HuGp10OOqtqF
+	 0dRaFRJperSH5xk5Jm9TvHyiTyw36NN3dRHWIZNISFTRjLB7Y65Vo/hkshcSsyotb6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478230;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=y/zLthRnX7yTRnf7egHecMWGCTPbyrEFlzgjpwL5G5M=;
-	b=IcrNHz0+zzchOfYRN/xmNdHkEq2aPb6JigMvY4z3b/9JvkmjVtOYL5BovLwRJNsAaPWw
-	 ZSe9XRSgkMm3X0YXZQCB9s0zaGDzBNFTvLnQ1a+R1UbYG9m8KH7wayNhTFUi4UEycNVy9
-	 mei7QDU3ENZ/A7rAvp6yIKQvtGIMTTF27ehMXGf2D1zJtV/ze+LUv3hSHNu07SoH6zoo4
-	 te1E7nBh5tosPK6isjTVPlVm/wrMKS7R+zuCKW3pbIjMn8wrcK/jldnpVJksf54i35JzB
-	 QZmBmNej98hcBR3FhR/k789p2b+eaH1pyB8DmArr8Q61rLtPRculKg8aP7If3cY7sFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478275;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=7Q0PBfVVJl39z4M/NZGwQrOiJIvhiLbfabOfTbTalbs=;
+	b=HhtLyD0EDwGcurLhsDIz+2XA7wO/TBuFuRFyhvEbCHqmrxpY3FPdpVNnHXmRVV7scpUK
+	 NIzeRhnepvbZs9xUSWm4mx5Eo8N/EAb0WRsC9I5vmPu66UqCPVR587dKpwwHURU/2Td7H
+	 bcD5mrGDF2pIq2SxoxiJo6M0cVRXU2BXzlOHBCh/IUbT5GNMGt/PF+gmNtop4o/YiSmQY
+	 3BSSnpCIjB40SvWZysr2VKNbs80JCDoW6Je1mCAvQf0i/AyApRDG32zczxSnk2WIeFsBP
+	 sVhaLkOlaQiuLo318zv8XJV8sPmn68I8nMIRaosP44sfQVy0zdb2x6ooI8h/7vX/Nfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IvaqGJzC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=LqMs+jU7;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 5BD41606A336;
-	Thu, 12 Nov 2026 10:10:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0418606A327;
+	Thu, 12 Nov 2026 10:11:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0418606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IvaqGJzC
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 565901F00A08;
-	Thu, 12 Nov 2026 10:10:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794478230;
-	bh=y/zLthRnX7yTRnf7egHecMWGCTPbyrEFlzgjpwL5G5M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IvaqGJzCAbRI3QdbxVDEL6+UooLRW6llzafBpOAyS9uTctdlc36PcBzQfwK/St4QY
-	 BLuo3t+G8dHcruUoSDqkQq37NPCdsh9DbJ6EhTm4oUD8HKvP7wAwt7AxGPr7I+lRvo
-	 pHtDQJx3VlqdT0Ym06fjxfhXNkRJAo6imEAO0b8p5f9p9TXOpFNSGoxM4DiAaD8tM8
-	 6Y8x1MTUcnh23P9TCEcxmis1aWw+5W/Wx3zwbjSOlYTDP8+n8ibY68853eE4pDbD81
-	 PHsjRxGsbrTwd5PraW4BYYPhBUb1YRlYPBknWxrRMZ5XWs3SjhDy+Wt70rsEP87Zv+
-	 5jvttrJCM2OIA==
-Date: Thu, 12 Nov 2026 11:10:26 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Tengfei Fan <quic_tengfan@quicinc.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Ling Xu <quic_lxu5@quicinc.com>, Bharath Kumar <quic_bkumar@quicinc.com>, 
-	Chenna Kesava Raju <quic_chennak@quicinc.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: lemans: Remove secure FastRPC context
- bank
-Message-ID: <qhttib7t7zpd4w6cbbolsderbrjs3ucmujz6efuuksgaxqprhl@oic5yvb6xqva>
-References: <20261111-lemanscb10-v1-1-7164700b7be6@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=LqMs+jU7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=7Q0PBfVVJl39z4M/NZGwQrOiJIvhiLbfabOfTbTalbs=; b=LqMs+jU7fv6JRVCZaBJAjZvZVW
+	mxpqLYwG9rQez3RkdF+5Ue2RvIjCYhd17DMzbFTCLuVRGgqKJRQcnzxSCp8n7xY5Pw9MNDYuQ0R0i
+	PpyKWu4aUqkNstOi9kJdqxxGehZUtZR0EUJ8/pfrYytIUsO4UchNeu9+LZgQfA9Il4Jgs8yGFbeJl
+	YfBk8LLuY7VncB1UQ4xLX6RRQghGD/uawN8m8xxJ3wvd8crFNRm/U5iIZbRExYLN5+E5rLw6F7XEB
+	gSv89dd/eQBvCO6xuUaNBXr7bJBy0RRWhqZQQ0ggInoCHIkLSaIBH2Khc1BAnt9y2l3lUSveO2IIr
+	r9m2XCcQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRRlt-0000000AB67-2HST;
+	Thu, 12 Nov 2026 10:11:09 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 5C70530066A; Thu, 12 Nov 2026 11:11:08 +0100 (CET)
+Date: Thu, 12 Nov 2026 11:11:08 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jiri Olsa <jolsa@kernel.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+	Naveen N Rao <naveen@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jason Baron <jbaron@akamai.com>, Alice Ryhl <aliceryhl@google.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Alan Maguire <almagui@kernel.org>,
+	x86@kernel.org, linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH 01/13] static_call: Index code text reservation lookups
+Message-ID: <20261112101108.GE2669272@noisy.programming.kicks-ass.net>
+References: <20261109194916.1089703-1-jolsa@kernel.org>
+ <20261109194916.1089703-2-jolsa@kernel.org>
+ <20261112090734.GH2668804@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,22 +78,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111-lemanscb10-v1-1-7164700b7be6@oss.qualcomm.com>
+In-Reply-To: <20261112090734.GH2668804@noisy.programming.kicks-ass.net>
 
-On Wed, Nov 11, 2026 at 10:18:32PM +0530, Ekansh Gupta wrote:
-> FastRPC context bank 10 is reserved for the secure PD feature available
-> in downstream. The secure PD feature is not supported upstream and the
-> context bank must not be used by any other PD.
+On Thu, Nov 12, 2026 at 10:07:34AM +0100, Peter Zijlstra wrote:
+> Looking at this in a little more detail; I'm confused. 
 > 
-> Using this context bank for a non-secure PD results in an SMMU
-> non-secure global fault.
-> 
-> Remove the context bank from the upstream device tree to prevent it from
-> being assigned to an unsupported PD.
-> 
-> Fixes: df54dcb34ff2 ("arm64: dts: qcom: sa8775p: add ADSP, CDSP and GPDSP nodes")
-> Cc: stable@kernel.org
-> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> ---
+> You're literally adding an index, so that you can find the
+> static_call_size, while all you really need is static_call_addr().
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+/size/site/ obviously :-)
+
+> That is, you could have just created an array of relocated site->addr
+> and sorted that, that would safe you a ton of indirection all around.
+> 
+> That is:
+> 
+> 	index->entries[i] = (long)static_call_addr(start + i) - (long)&index->entries[i];
+
+Should be:
+
+ 	index->entries[i] = (long)static_call_addr(start + i) - (long)index->entries;
+
+They have to all be relative to one location in order for sorting to
+make sense.
+
+> That will make your lookup take at least half the amount of loads.
+> 
+> 
+> Also, you really should support modules, there is no point being fast
+> until you load a module.
