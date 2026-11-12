@@ -1,69 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.123
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794498134;
-	b=kzV0Yiq8xjVzlVRfs4WsOV/aEHcLugkwQJpgEv2HYNjdRxXPg+BIWHfIxSrrA+zw8SjF
-	 BFJrCrK+zZZcllkRS/6pJUODBE1Gh2FnrxavvmGP33nYzNwdyvhvo/jhMNIrzs+8Vl9Cd
-	 s3zp0/ko+0eIj6IKbr7V0KIq1r2IMb9opdipqgIzp6vU9P1rUAxsUkOpcDn7FljkP/q+1
-	 kFh/F8e6sM8EZiFPaFAJuLy3dbp2AtDOfvTub/4/SEubwjsczFxg4zEs+h701pEZ+Ttfo
-	 8OivXUnBRuFDmCtbKNjfqGrjLNlVnFZCb3K9+xzyMVj57F5dwezfQBIuDhezax6Wffw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794498134;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=Uh7fl6cs1PVEbR/PJH3BoDhrcr0LvPtMBzd8SabRK88=;
-	b=Z0QmbezXHly7Q0cpyOtqfzC2Vx1nDZPupiHgRVfdykZHr1vC0b0wDM9bnig4QNr/k0bm
-	 KZ8oYNyRd3Mtmz+F53yHuHFNRsn3CBdljephqOoz/uuzPcZQaCx9iVm51gNTou0mcB65l
-	 3ar1sa3rEhvo2Bj/BUAE2VFPznYvIeLcNh7/y2hK3rwnDsf6qUTTNu7BmIugX4GAvgHfi
-	 w67YUb8EvQlmFUkNiI6Z8PrfBJoakVH29e87H4yAJAHhe8vUAwZgjtlEhHnG0lP1gEhGV
-	 1J33ka+IzQySDyOsS7f9ZrYhYI4eu/i/tBHCHlZYh+HzdG2eMaTSz7LCD0vufH2Cbqw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=fZmI4PSc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.123
-Received: from sender6-pp-g123.zoho.com (sender6-pp-g123.zoho.com [165.173.180.123])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794498136;
+	b=GiNqR4R1pdLkYJMAyKXEl9JHI9Ii3HqD8puwokJxOZGUJ2RzcRQqAdwPQ4FEVxuUr1yx
+	 9bnisuTPq/cw8AtHZYVc0nDTWlkOr7xzEWNwIDVAoGebsE+Pf+pgSsr4ag1f3CgQl6Aa0
+	 ulw/W8kZnfZbcZYk7B+7Anw8yCmr7ZPkwGP3OrnDqgKVzx8jCYk+cqmmNj842pNKHfxHX
+	 /xkHWnI9EuGs7SMPOrdRHy/j2uuzD321FXdRtURh/eZa+20ukWF3LacxLZ38WC3PgS+y8
+	 7VZMSLmKwKLtay1RSeqhRyQ1U4VRd5YlNVySfI57QM/ZNGavRwBRd/TncvOSozriHmA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794498136;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Nw0rU2FPZDBAmxecoPkgTAUCcAR/un1WkIa+aTG+JeE=;
+	b=m1TXuIHiXUleyiu1XAlvHd7JsnUjndbGUbTN7dBn35jI/zFus1lPMPuBt4JUmrp67QTF
+	 FM88feKgKSZdhO4dHpuZKh3cp7Obq7gSQv2HCBOLMX/A6+fHXNY+N/xolGMRor8e2DsVi
+	 Y3+s0vufQyLXxRxdIedPlF3xYtt1LWf+Oogx7uEL8BsqLP9V0n3UDL2Mg7CUhI5NljkEF
+	 J4UeRgpITNk3Er1e/RIRng6efRaTOTecgLpof4vsxK0iyignU+1K93QwhA8iLGfQ5AjmO
+	 lWx+kBHmRO/BsyGn3erhyJ9oQOhdTkKaVtSqgLkdHuekZ57D8GzgZVhBXFXmi/mxzlA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JnCNwn06;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6A3606A8AF;
-	Thu, 12 Nov 2026 15:42:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A6A3606A8AF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF57606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:42:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDF57606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=fZmI4PSc
-ARC-Seal: i=1; a=rsa-sha256; t=1794498116; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ATbbiYPtQrCsYyhZI0s2tcM5OriqoQeUNrmIU0YaRmaHMe3OgbTe9q9Mk/qAXceZoyFZCLbf5BHfezHgE/vf2n85172I8vC0IepsqcPGqQ9mo/vwcnRT75hcdNlmXOexmMzyhZJHXFi624PCAAhfz6kjRqCS/tBkh0stMMF/Jks=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794498116; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Uh7fl6cs1PVEbR/PJH3BoDhrcr0LvPtMBzd8SabRK88=; 
-	b=b64EHH7BupnnD5E4mwsor80la7EI7Jh7FQ5Qu2anYDPtXxjaqVnShinafrXeipd6YjBIY8gJthla26LY1fP6VkFBzXSxW45u1Fp+c0TxYskYCFYjuNhryKlTp5l1Yz6fWI/equx3uMBmZ32c7TdXIKhU8hY+0KI+zk3SrnPMWgU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=fZmI4PScS9/4+ZsEGKpxqhMRt8d/uSqQHp/8xJSH2D/En9cX/KMJBQ8uSvQc9AqEtcG4IwhPdjCpigXO67GwFDb5FE2uvF5pparaFV69K8RU0oMigKerZ/BCTaGYRPY9BXA8dvDDMxbSiFf6k2J8WNMDGx5h/qIzhvkSwT55ymY=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Uh7fl6cs1PVEbR/PJH3BoDhrcr0LvPtMBzd8SabRK88=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794498113981703.0755610994747;
-	Thu, 12 Nov 2026 07:41:53 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id E215C180BC0; Thu, 12 Nov 2026 16:41:49 +0100 (CET)
-Date: Thu, 12 Nov 2026 16:41:49 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Carlo Caione <ccaione@baylibre.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Brian Norris <computersforpeace@gmail.com>, 
-	Maxime Coquelin <maxime.coquelin@st.com>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Michael Turquette <mturquette@linaro.org>, Stephen Boyd <sboyd@codeaurora.org>, 
-	David Laight <david.laight.linux@gmail.com>, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] clk: divider: Fix round-closest for rates above
- the parent rate
-Message-ID: <avXdsS-uYDyTLjVF@venus>
-References: <20261112-upstream-clk-divider-large-rates-v2-0-18f3bb888b0c@baylibre.com>
- <20261112-upstream-clk-divider-large-rates-v2-2-18f3bb888b0c@baylibre.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JnCNwn06
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b6399ebb41so3899861b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:42:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794498135; x=1795102935; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nw0rU2FPZDBAmxecoPkgTAUCcAR/un1WkIa+aTG+JeE=;
+        b=JnCNwn06PjxyQDiELf4Rfdmp+wgP+KRfCNC5nLy9B2mkL40nTf2bJtK39cvTUenCDj
+         TZgzPqRF+pAmazjZ0DGQQmvORzDXe9jxp9dyLoXvfTJRdB0X/aNeYGqyT8tBGrzUYvc4
+         E6b6xdxNwNPqlNIXqGmnCimGvoX7PJfhr3qOlWC73QG6zWzy/nGKQXt0er9amqi7B7p7
+         4fgJx29aiUkbsNN6T65Lvzvs/rwFrxIFLiKAs0IzPoazDVMYTy4iAgMxeymie3N0OYqk
+         dTQl8GAmR60WesBa0rLX5tm0LAwPDvTxDSdmvshpXzeEEWJD9BZqIcNox8yB82Z5Pyu0
+         MOgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794498135; x=1795102935;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nw0rU2FPZDBAmxecoPkgTAUCcAR/un1WkIa+aTG+JeE=;
+        b=KC8b5BL67xMrN1uGnEFU2dITqVGO2T6qcWtCg3T+eoVbS2L62g/ch7KDoWmApYeI+0
+         POI2xrKveCVuRkhsvh25nIml4TdGclpNc2qwcZktAYdvDxTRZTDQp8AeWJm7sKWrvkSp
+         kRVMDJd+0BwCd8fph4rV/XTIo9xx8HFbcFEteX+aTo592GQ+KwUAPFNfEgf8X43qhbNP
+         qmO9NFRos5C705WGiZSltheC+SLli4uv8gdmc9OxEsKIfoUXCIgIORFSRDWPSdqEO1rf
+         2RmxgEXr1UPWNAowrwrL8qnJScN36AS+GMiGGV9pbsoRPBo72HY0VwkfyyT+BHnpRLWe
+         ZvCw==
+X-Forwarded-Encrypted: i=1; AL+hErGY8u75UUuIfLw69TpF6LlhKCXcjCmwOVC3up3goEZW9WhA4G4j4NXp6KyA8h9negAcsvjvSZA/9OYCnnU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8iT7Je9FA2YlY4VappqtjKmoTayFs2To1Juk57k4gZa/DAuerm
+	kMFjnlRXHwmVoY3YaGpEjHdoFqbQKOSzjW+0eCAeujkopenHxb2t+m8R
+X-Gm-Gg: AYBFou0Q9OYjbeDpT40SwX2hNbxKbq3VQmDSMnVq+cFXVvXlS+bdRUu7EY30nufinj/
+	QOfKJpHAVis6Is7k7tZuq6ouT+e9jEpuJ/Bl6hnHcMuLwaVG7CXSULuFLpFbonp1azNMO0ZEXTG
+	f2bhJ3rov1AckO8B2TNvnoUvM1UrePOloJCIF9PdXAdPkWAY3eXf1jcr6cLh4EkStziQyYjJWn8
+	DnyyTbnWzZNV5VyyJ7RpzSZM7gkiBajY9GISg2dWV0aWWUZWWwsG70+OA9++qnKvyHqdFSk71/y
+	7/pUhYRBFfKZQzIv+tMbr2n1fpKzM1902vAPKlv2HbqRLU5+Mesfa/X8UsS+51w+ZkLWlv5mlLh
+	Q8THKA9Q+yGU31ILvb9l+6+v0r4Ezko8V+vcFbq89spgkj/F3tGUjbHa0F2GYNcd9XyyrW/FiWD
+	L5YGOeQPTdV7Hxc1RCBLzV6ykNvHZ6bMX1FMrRlCRQHj3rMngAZbea/Q8PfevASof+j2+B4b0v5
+	5K3w88fKixbm9EVclXCCwQbGBbDYg4crfRCL6Qp6aAjzAi8mqw6axFZobmLuGbEP440bqFFRSBz
+	YK2Paaar1zA/1Wm0lcx/XVjxwmVKEmzlAEqEUeqW5E8FWOmC02dnkVWMYLG7/kU0Ll55NN0orrx
+	opa6zDcsUpmqkvrJSKSpBHQ1C+qg=
+X-Received: by 2002:a05:6a21:687:b0:3e2:8114:12e3 with SMTP id adf61e73a8af0-3f2fe6cd569mr6738913637.41.1794498134691;
+        Thu, 12 Nov 2026 07:42:14 -0800 (PST)
+Received: from localhost.localdomain ([2405:9800:b901:33ad:21c4:c32f:67c1:d87c])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7de3619sm3790596b3a.5.2026.11.12.07.42.10
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 12 Nov 2026 07:42:14 -0800 (PST)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: linkinjeon@kernel.org,
+	stfrench@microsoft.com
+Cc: icb@fastmail.org,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	ematsumiya@suse.de,
+	lsahlber@redhat.com,
+	hyc.lee@gmail.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v6 2/8] ksmbd: sign with the negotiated SMB 3.1.1 signing algorithm
+Date: Thu, 12 Nov 2026 22:41:49 +0700
+Message-ID: <20261112154155.20255-3-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261112154155.20255-1-mike.michalo@gmail.com>
+References: <20261112154155.20255-1-mike.michalo@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,89 +108,227 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6btm4vxg26vgmuxm"
-Content-Disposition: inline
-In-Reply-To: <20261112-upstream-clk-divider-large-rates-v2-2-18f3bb888b0c@baylibre.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.473.96
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
+decode_sign_cap_ctxt() stores the algorithm picked from the client's
+SMB2_SIGNING_CAPABILITIES context in conn->signing_algorithm, but it
+runs before init_smb3_11_server(), which then overwrites it with
+AES-CMAC. As a result the negotiate response always selects AES-CMAC,
+even for a client that only offered HMAC-SHA256, and every SMB 3.1.1
+connection is signed with AES-CMAC.
 
---6btm4vxg26vgmuxm
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/3] clk: divider: Fix round-closest for rates above
- the parent rate
-MIME-Version: 1.0
+Keep the negotiated algorithm and sign with HMAC-SHA256 when that is
+what was negotiated.
 
-Hi,
+Connections of the same session can now have negotiated different
+algorithms. MS-SMB2 takes the algorithm from the connection a message
+travels on (3.1.4.1, 3.1.5.1), and a client that follows 3.2.4.2.2.2
+offers only the already negotiated algorithm on further connections, so
+for it nothing differs. A client that offers another list on a new
+connection, as the Samba client can, signs the binding request with the
+session signing key and the algorithm of the connection that set up the
+session. smbd verifies it that way, and smbtorture's
+smb2.session.bind_negative_smb3signCtoH and HtoC tests expect such a
+bind to succeed. Do the same: store that connection's algorithm in the
+session and use it together with the session key, while channel keys
+keep using their own connection's algorithm.
 
-On Thu, Nov 12, 2026 at 10:37:00AM +0100, Carlo Caione wrote:
-> When the requested rate is above the parent rate, _div_round_closest()
-> computes a down divider of 0 and divides the parent rate by it. Asking a
-> CLK_DIVIDER_ROUND_CLOSEST divider without CLK_SET_RATE_PARENT for its
-> maximum rate with clk_round_rate(clk, ULONG_MAX) then traps on x86.
->=20
-> No divider goes above the parent rate, so the smallest one is the
-> closest. Return it before dividing.
->=20
-> Fixes: 26bac95aa88c ("clk: divider: fix selection of divider when roundin=
-g to closest")
-> Signed-off-by: Carlo Caione <ccaione@baylibre.com>
-> ---
+An AI assistant was used to draft the patch and as an independent
+reviewer. Testing is described in the cover letter.
 
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Fixes: 378087cd17ee ("ksmbd: add support for negotiating signing algorithm")
+Cc: stable@vger.kernel.org
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+---
+ fs/smb/server/auth.c              | 14 ++++++++++++--
+ fs/smb/server/auth.h              |  4 ++--
+ fs/smb/server/mgmt/user_session.c |  1 +
+ fs/smb/server/mgmt/user_session.h |  2 ++
+ fs/smb/server/smb2ops.c           |  4 +++-
+ fs/smb/server/smb2pdu.c           | 20 ++++++++++++++++++--
+ 6 files changed, 38 insertions(+), 7 deletions(-)
 
-Greetings,
+diff --git a/fs/smb/server/auth.c b/fs/smb/server/auth.c
+index 0c51ca0cb14db..fc6ace49584b1 100644
+--- a/fs/smb/server/auth.c
++++ b/fs/smb/server/auth.c
+@@ -504,19 +504,29 @@ void ksmbd_sign_smb2_pdu(struct ksmbd_conn *conn, char *key, struct kvec *iov,
+ /**
+  * ksmbd_sign_smb3_pdu() - function to generate packet signing
+  * @conn:	connection
++ * @signing_algorithm:	signing algorithm the key was generated for
+  * @key:	signing key
+  * @iov:        buffer iov array
+  * @n_vec:	number of iovecs
+  * @sig:	signature value generated for client request packet
+  *
+  */
+-void ksmbd_sign_smb3_pdu(struct ksmbd_conn *conn, char *key, struct kvec *iov,
+-			 int n_vec, char *sig)
++void ksmbd_sign_smb3_pdu(struct ksmbd_conn *conn, __le16 signing_algorithm,
++			 char *key, struct kvec *iov, int n_vec, char *sig)
+ {
+ 	struct aes_cmac_key cmac_key __cleanup(aes_cmac_zeroize_key);
+ 	struct aes_cmac_ctx cmac_ctx;
+ 	int i;
+ 
++	if (signing_algorithm == SIGNING_ALG_HMAC_SHA256_LE) {
++		u8 mac[SMB2_HMACSHA256_SIZE];
++
++		ksmbd_sign_smb2_pdu(conn, key, iov, n_vec, mac);
++		memcpy(sig, mac, SMB2_SIGNATURE_SIZE);
++		memzero_explicit(mac, sizeof(mac));
++		return;
++	}
++
+ 	/* This cannot fail, since we always pass a valid key length. */
+ 	static_assert(SMB2_CMACAES_SIZE == AES_KEYSIZE_128);
+ 	aes_cmac_preparekey(&cmac_key, key, SMB2_CMACAES_SIZE);
+diff --git a/fs/smb/server/auth.h b/fs/smb/server/auth.h
+index 7ce9c42d58f1e..5a10482678ee4 100644
+--- a/fs/smb/server/auth.h
++++ b/fs/smb/server/auth.h
+@@ -59,8 +59,8 @@ int ksmbd_krb5_authenticate(struct ksmbd_session *sess, char *in_blob,
+ 			    char *sess_key);
+ void ksmbd_sign_smb2_pdu(struct ksmbd_conn *conn, char *key, struct kvec *iov,
+ 			 int n_vec, char *sig);
+-void ksmbd_sign_smb3_pdu(struct ksmbd_conn *conn, char *key, struct kvec *iov,
+-			 int n_vec, char *sig);
++void ksmbd_sign_smb3_pdu(struct ksmbd_conn *conn, __le16 signing_algorithm,
++			 char *key, struct kvec *iov, int n_vec, char *sig);
+ int ksmbd_gen_smb30_signingkey(struct ksmbd_session *sess,
+ 			       struct ksmbd_conn *conn);
+ int ksmbd_gen_smb311_signingkey(struct ksmbd_session *sess,
+diff --git a/fs/smb/server/mgmt/user_session.c b/fs/smb/server/mgmt/user_session.c
+index 15662fd745abb..87aba04a8cbdd 100644
+--- a/fs/smb/server/mgmt/user_session.c
++++ b/fs/smb/server/mgmt/user_session.c
+@@ -557,6 +557,7 @@ int ksmbd_session_register(struct ksmbd_conn *conn,
+ 	int ret;
+ 
+ 	sess->dialect = conn->dialect;
++	sess->signing_algorithm = conn->signing_algorithm;
+ 	memcpy(sess->ClientGUID, conn->ClientGUID, SMB2_CLIENT_GUID_SIZE);
+ 	ret = xa_err(xa_store(&conn->sessions, sess->id, sess,
+ 			      KSMBD_DEFAULT_GFP));
+diff --git a/fs/smb/server/mgmt/user_session.h b/fs/smb/server/mgmt/user_session.h
+index 5f0f6276e3168..931ca102b8392 100644
+--- a/fs/smb/server/mgmt/user_session.h
++++ b/fs/smb/server/mgmt/user_session.h
+@@ -48,6 +48,8 @@ struct ksmbd_session {
+ 	u64				id;
+ 
+ 	__u16				dialect;
++	/* Signing algorithm of the connection that created the session */
++	__le16				signing_algorithm;
+ 	char				ClientGUID[SMB2_CLIENT_GUID_SIZE];
+ 
+ 	struct ksmbd_user		*user;
+diff --git a/fs/smb/server/smb2ops.c b/fs/smb/server/smb2ops.c
+index 747276b171bd1..c5b3cf34494e7 100644
+--- a/fs/smb/server/smb2ops.c
++++ b/fs/smb/server/smb2ops.c
+@@ -320,7 +320,9 @@ int init_smb3_11_server(struct ksmbd_conn *conn)
+ 	conn->ops = &smb3_11_server_ops;
+ 	conn->cmds = smb2_0_server_cmds;
+ 	conn->max_cmds = ARRAY_SIZE(smb2_0_server_cmds);
+-	conn->signing_algorithm = SIGNING_ALG_AES_CMAC_LE;
++	/* Keep the algorithm chosen from the client's signing capabilities */
++	if (!conn->signing_negotiated)
++		conn->signing_algorithm = SIGNING_ALG_AES_CMAC_LE;
+ 
+ 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_LEASES)
+ 		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_LEASING |
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 7ff001dd33bf9..79c03420d1226 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -1858,6 +1858,8 @@ static __le32 deassemble_neg_contexts(struct ksmbd_conn *conn,
+ 	bool posix_ctxt_seen = false;
+ 
+ 	ksmbd_debug(SMB, "decoding %d negotiate contexts\n", neg_ctxt_cnt);
++	/* A previous, failed NEGOTIATE must not leave its algorithm behind */
++	conn->signing_negotiated = false;
+ 	if (len_of_smb <= offset) {
+ 		ksmbd_debug(SMB, "Invalid response: negotiate context offset\n");
+ 		return status;
+@@ -13040,6 +13042,7 @@ int smb3_check_sign_req(struct ksmbd_work *work)
+ {
+ 	struct ksmbd_conn *conn = work->conn;
+ 	char *signing_key;
++	__le16 signing_algorithm;
+ 	struct smb2_hdr *hdr;
+ 	struct channel *chann;
+ 	char signature_req[SMB2_SIGNATURE_SIZE];
+@@ -13059,8 +13062,14 @@ int smb3_check_sign_req(struct ksmbd_work *work)
+ 		len = get_rfc1002_len(work->request_buf) -
+ 			work->next_smb2_rcv_hdr_off;
+ 
++	/*
++	 * A key must be used with the algorithm it was generated for: the
++	 * session key with the one of the connection that created the
++	 * session, which can differ from this connection's when binding.
++	 */
+ 	if (le16_to_cpu(hdr->Command) == SMB2_SESSION_SETUP_HE) {
+ 		signing_key = work->sess->smb3signingkey;
++		signing_algorithm = work->sess->signing_algorithm;
+ 	} else {
+ 		chann = lookup_chann_list(work->sess, conn);
+ 		if (!chann) {
+@@ -13068,8 +13077,10 @@ int smb3_check_sign_req(struct ksmbd_work *work)
+ 			    !(hdr->Flags & SMB2_FLAGS_SIGNED))
+ 				return 0;
+ 			signing_key = work->sess->smb3signingkey;
++			signing_algorithm = work->sess->signing_algorithm;
+ 		} else {
+ 			signing_key = chann->smb3signingkey;
++			signing_algorithm = conn->signing_algorithm;
+ 		}
+ 	}
+ 
+@@ -13083,7 +13094,8 @@ int smb3_check_sign_req(struct ksmbd_work *work)
+ 	iov[0].iov_base = (char *)&hdr->ProtocolId;
+ 	iov[0].iov_len = len;
+ 
+-	ksmbd_sign_smb3_pdu(conn, signing_key, iov, 1, signature);
++	ksmbd_sign_smb3_pdu(conn, signing_algorithm, signing_key, iov, 1,
++			    signature);
+ 	/* Restore the request as received, for the SMB 3.1.1 preauth hash */
+ 	memcpy(hdr->Signature, signature_req, SMB2_SIGNATURE_SIZE);
+ 
+@@ -13110,6 +13122,7 @@ void smb3_set_sign_rsp(struct ksmbd_work *work)
+ 	u16 command;
+ 	int n_vec;
+ 	char *signing_key;
++	__le16 signing_algorithm;
+ 
+ 	hdr = ksmbd_resp_buf_curr(work);
+ 	command = le16_to_cpu(hdr->Command);
+@@ -13117,12 +13130,14 @@ void smb3_set_sign_rsp(struct ksmbd_work *work)
+ 	if (command == SMB2_SESSION_SETUP_HE &&
+ 	    (!work->session_setup_binding || hdr->Status != STATUS_SUCCESS)) {
+ 		signing_key = work->sess->smb3signingkey;
++		signing_algorithm = work->sess->signing_algorithm;
+ 	} else {
+ 		chann = lookup_chann_list(work->sess, work->conn);
+ 		if (!chann) {
+ 			return;
+ 		}
+ 		signing_key = chann->smb3signingkey;
++		signing_algorithm = conn->signing_algorithm;
+ 	}
+ 
+ 	if (!signing_key)
+@@ -13133,7 +13148,8 @@ void smb3_set_sign_rsp(struct ksmbd_work *work)
+ 
+ 	iov = smb2_get_sign_rsp_iov(work, hdr, &n_vec);
+ 
+-	ksmbd_sign_smb3_pdu(conn, signing_key, iov, n_vec, signature);
++	ksmbd_sign_smb3_pdu(conn, signing_algorithm, signing_key, iov, n_vec,
++			    signature);
+ 	memcpy(hdr->Signature, signature, SMB2_SIGNATURE_SIZE);
+ }
+ 
+-- 
+2.43.0
 
--- Sebastian
-
->  drivers/clk/clk-divider.c | 5 +++++
->  1 file changed, 5 insertions(+)
->=20
-> diff --git a/drivers/clk/clk-divider.c b/drivers/clk/clk-divider.c
-> index c3f46f9ee451..ed60fa9b04fa 100644
-> --- a/drivers/clk/clk-divider.c
-> +++ b/drivers/clk/clk-divider.c
-> @@ -254,6 +254,11 @@ static int _div_round_closest(const struct clk_div_t=
-able *table,
->  	int up, down;
->  	unsigned long up_rate, down_rate;
-> =20
-> +	/* No divider goes above the parent rate: the smallest one is the close=
-st */
-> +	if (rate >=3D parent_rate)
-> +		return table && !(flags & CLK_DIVIDER_POWER_OF_TWO) ?
-> +		       _get_table_mindiv(table) : 1;
-> +
->  	up =3D _get_div_round_up(parent_rate, rate);
->  	down =3D parent_rate / rate;
-> =20
->=20
-> --=20
-> 2.56.0
->=20
-
---6btm4vxg26vgmuxm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr13j0ACgkQ2O7X88g7
-+ppY8A//fE6Nh/xZTO3YsJsn0eANWgMNKG4ZBCX41Fu3hR/yIu5MhPGprF9ysAQi
-Ncd9zgTtglUsGlmnqrRCIefbZ7YNOF1g8X7pk6Pec43IfJQxRpiFxCA83EP5RR+3
-Kq8SOvGpcByjQfaP9Dvy9CyoMsT4zh6ByY2YCRwrx8jNOI6/e1I7yRLvgV41M/dP
-spfBJ+9qyE6v6+qmBTqGECIWJkyiHVxUGibl2Oi4vjQnEXmkCImfzX3IO1g6seZs
-KxoNerI5SufQKg3oT155hU4KMGk1YUMEn4jX0mOOcjJJLM4cUcTteQCHrvwHiHHD
-dyF0hjqPIs+rAGZZRjzfbP8NGvxMA3rpv1vlMh02baXCO4MH3dpgjO9bvzUSA8oW
-aEviSeYCG0s43hdTVsTlXHEF8Q+DOuSCT82yqh6xep9oxwqHzzJ8FDPaBdTaM7IM
-2R8FBhUIjrkEb+IBltl4x9MGVPGEAVhTH6sCMeXAOB0Wo3SoW0Oot32MB+Wlf1j+
-oBlvrZqlxTfLhXCQ/xjkqJRP0W6XK+KOjbaONmOBE+iQuAXYWQ5OoCPqGy48HDdU
-z9SvcwJqVrad5dxbnsJ8AItpdt4Lgp2VhHBzb9S/Cf0Gqx6r2cMhB1FrZhMR4K+R
-T3r3YPhZV/DtaViRdwo2A0zT+UcxJ5oL7ZCNAiC/TXWV4Kp58gI=
-=OWAT
------END PGP SIGNATURE-----
-
---6btm4vxg26vgmuxm--
