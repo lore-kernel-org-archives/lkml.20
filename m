@@ -1,54 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794456016;
-	b=FrygRzUuYDmK5cZnl7uuIJt89ZZq5lfaPa9itnUXACx29l61irAuwHED2b3jRcstsDz1
-	 KLaT35+kujJ9kWsECK+dJqPsqCTw9EtgZ0x/ASff2v+b0U+N/H9l4oU6foFZs9XAO3FPc
-	 GghfNRtjpG5eiWlvu1zpNJoYgCOIu/NViLEGWSeMYgYZED+YoJRnhBAl6Nneqyt0SMO5t
-	 +qnZF6LTdQ7xnL2LeuKD27+L2SWpHMePuzfXkRq7n7Exa6p19Ak/nUXvlyOGKIJVF1Xgr
-	 wy120o3bcjrOvmprsH46bEuaKJa2Sxv6HdTxwzQquHM9hgJh9khMWQRMxCHANld9LbA==
+	t=1794456103;
+	b=kcMeKbgC5sSC03mu2joCxKpvNlh4A58/KwGrW/oDRUlcqZ0aFHHyoix6P8nN2DTuLR8y
+	 62fjJZ6tNVEavFynCEU7phHYpv9dK4j89+eSXCFqHAGjApbvlStB4FxuuI8ob3ot2DOrE
+	 S5vQvyL7ESbfklo8NAr9uPeDxiCFVmJ/to6mQh1dfISDHZAJCF26Hgh6HM2qM3MxmaoTU
+	 2vLlb5iCH5z11hpEawplaX3bgD7XwtDS2XrCZkZY3djpCvG7zad3OLP8Nf+FSJ5omWkcH
+	 7AWSHYreAfMOdGb5Ce4624hF35NNZuPBoyZMme7D4EVrUtJY46XE3hx8oAGGPlDvKmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794456016;
-	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
-	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=KNv41jA8q+1vr1ybXb+ci7oKXbVrazZL7oRggdFyj4o=;
-	b=u5Fg+QbKvA7cCOaqMY9P3NlZLVp1OrURMLLztXI5+jCfpzY5cOIol5ONo92lZlTpJTTr
-	 PtTVdqgu2qdwcXCXbhZ8tBHhvXXXbix+6vdpJzIsZn1lWnPGyK5F50A+s1KcFYM/Nwhu7
-	 VXHZnzXtLFHD7dPrh7EBsp0U/kjVwdnp/L0LbntqhUbojgZG2tilal+jcMSTxgkmp5fhW
-	 WZiGbEAd3PCX273dq/XxbU+HZoDAHNFnWvSbSSzO6ZUaOthS529VvPJcD3UnDELIDsSRc
-	 c6Sg9p+0jMPNhGSR/I3K0spTNrOrqJOS2SWwrlQHDj66UFBcDlfssybUNYd/liczz2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794456103;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=ANLz23Rke/l4eT311lEL+8VsHPwwlR8dTechKyhxJwA=;
+	b=KLFfToiFtEBIgki4K3L4cTRKmeebTpaUDaTpzY4TLrxYZTmietu9zNd0C/KSMAjb+mhS
+	 pJWGMEY4LfpUaldg3K5ADb7VdHpKGmaFnVy4a6CWdPkwLrQxXxtHrXaah2FExJFRyhAJd
+	 iBIsfT1fG46cXURaAGH1Bt4aycB8F/hlRWGIJaoCDK6jHJlNdSbQHFOsq1xVRcZONKt9t
+	 QyIYYPwQmyWYcNVRF6YyUSqM25fA6niL5D/xqrG6jgKfKLcY8Pfrfeht0VR78bYnP2Evf
+	 3C6tK3IXBsoh3U/hUnwpuSojGR7V02xolQeUkfACOnKl/OU8cXg3KyI+kENfS68yyRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AF97B606A324;
-	Thu, 12 Nov 2026 04:00:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF97B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8AxdvDMOfVqq8oeAA--.22868S3;
-	Thu, 12 Nov 2026 12:00:12 +0800 (CST)
-Received: from [127.0.0.1] (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJBx5czIOfVq6uEzAA--.13029S2;
-	Thu, 12 Nov 2026 12:00:09 +0800 (CST)
-Subject: Re: [PATCH] lib/smp_processor_id: Don't warn if there is only one CPU
-To: Huacai Chen <chenhuacai@loongson.cn>,
- Andrew Morton <akpm@linux-foundation.org>, Ingo Molnar <mingo@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Huacai Chen <chenhuacai@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261111092421.3771992-1-chenhuacai@loongson.cn>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <1c59d1d6-6ed2-f84e-49ce-2d1baeac6834@loongson.cn>
-Date: Thu, 12 Nov 2026 12:00:08 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MOfIkSRb;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7281606A31C;
+	Thu, 12 Nov 2026 04:01:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7281606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MOfIkSRb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=AN
+	Lz23Rke/l4eT311lEL+8VsHPwwlR8dTechKyhxJwA=; b=MOfIkSRbAu9v+sKwb7
+	k9BpOeaM6Deq5uRkrb5UD5qwRVuMpL9InnVi5CStr1+TzaEdQo1ialmc9iQg19ZT
+	mdOhfsrenhKOXCjK2roi3vQzvZzMZhRSgI0yKdqw2iZN7j5NyY9sK9cBJpvQgqBw
+	OGBC4ezI0ZswuWeiwU98lbMm0=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wB3ZzkMOvVqkjBRHA--.54029S2;
+	Thu, 12 Nov 2026 12:01:21 +0800 (CST)
+From: Hongxing Xu <xing1989093@163.com>
+To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	mhi@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] bus: mhi: host: pci_generic: Add per-device ACPI reset
+Date: Thu, 12 Nov 2026 12:00:58 +0800
+Message-Id: <20261112040058.1986-1-xing1989093@163.com>
+X-Mailer: git-send-email 2.40.0.windows.1
+In-Reply-To: <c231a7b7-9036-4001-9ed2-e1c049f02dfd@oss.qualcomm.com>
+References: <20261109110352.1621-1-xing1989093@163.com> <c231a7b7-9036-4001-9ed2-e1c049f02dfd@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,50 +65,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261111092421.3771992-1-chenhuacai@loongson.cn>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:qMiowJBx5czIOfVq6uEzAA--.13029S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj9xXoW7GF45Jw47GrWxGrWfAr1kJFc_yoW3Xwc_KF
-	4S9rWUCrW0vrsxG3ZFga1UZF17Z3409a1kW347trW3Xwnrt348Jrs7K3Z3Zw43KryxJrZ5
-	Jan3Wr1avwn8AosvyTuYvTs0mTUanT9S1TB71UUUUb7qnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbqxYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr1j6F4UJwAaw2AFwI0_Jw0_GFyle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
-	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
-	WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
-	CYjI0SjxkI62AI1cAE67vIY487MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48J
-	MxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r1q6r43MI8I3I0E5I8CrVAFwI
-	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
-	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
-	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0L0ePUUUU
-	U==
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wB3ZzkMOvVqkjBRHA--.54029S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJr17Gry8Ar1Dtw1xJryUGFg_yoW8uF1rpF
+	W7tw4DKr4kJrWIyr18Ja18ZFWI9395tF45KF1fJ39rAan8ZrW2yFW5tw1Fva9rCrs3X34Y
+	9FWaqryDuF909rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UsiSJUUUUU=
+X-CM-SenderInfo: 50lqwiqzyzimqt6rljoofrz/xtbC+xGqZ2r1OhHJcwAA3p
 
-On 11/11/26 5:24 PM, Huacai Chen wrote:
-> When CONFIG_DEBUG_PREEMPT is enabled on a Non-SMP (single-core) kernel,
-> calls to smp_processor_id() in preemptible contexts trigger some false
-> positive "BUG: using smp_processor_id() in preemptible" warnings, which
-> are harmless noise because the process always executes on CPU 0 and CPU
-> migration is impossible.
+Jeff,
 
-...
+You are right, and my wording was wrong. I will remove the claim from the
+commit message.
 
-> Reported-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+Now the background, which I should have led with.
 
-Hi all,
+On Windows wwan modules are reset through PLDR. The platform firmware exposes
+an ACPI method that drives the module's power and reset pins (FCPO#, RESET#,
+PERST#) instead of resetting the SoC with the link in place, and the Windows
+driver uses it for that. I am adding the Linux equivalent so that the same
+board can be supported without a vendor driver.
 
-Just for reference, here is the related LoongArch patch that
-fixes the specific callers in cacheinfo and local TLB flush:
+What that path gives us, beyond simply being what the platform provides:
 
-LoongArch: Fix preemptible warnings in cacheinfo and local TLB flush
-https://lore.kernel.org/loongarch/20261111113738.862-1-yangtiezhu@loongson.cn/T/#u
+  - It does not depend on the endpoint's PCIe function being usable. No MMIO
+    access, no config space access, no link.
+  - The platform owns the pin sequence and the timing, so the host does not
+    have to estimate it with a fixed delay.
+  - The link goes down with the module's power, so the endpoint is
+    re-enumerated and starts from a clean PCIe and MHI state.
 
-Thanks,
-Tiezhu
+Concretely, on two of our modules, RW135R (SDX35) and RW151 (SDX81), writing
+soc_reset from Ubuntu reproduces exactly the situation your commit message
+describes, and it does so every time rather than occasionally. The module does
+come back on the bus, but it comes up reporting a MHI system error:
+pci_generic takes MHI_CB_SYS_ERROR, logs "firmware crashed" and forbids
+runtime PM, and from there nothing gets the MHI state back. The only thing
+that recovers the module is a reboot, which is also the only step in the whole
+flow that actually toggles PERST#. Resetting the same module through the ACPI
+method recovers it every time, because the module is power cycled and the link
+is retrained, instead of staying up across a reset that only targets the SoC.
+
+So I am not asking for SOC_RESET to change. On these two boards it is not the
+reset that gets the module back, and the platform already provides one that
+does.
+
+The point is narrower: these boards provide the host with a reset path that
+the MHI driver currently has no way to reach, and the MediaTek vendor driver
+already uses it. I only hope that the MHI driver can use this method as well.
+
+Thanks for catching the first paragraph.
 
