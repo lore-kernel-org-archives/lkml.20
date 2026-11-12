@@ -1,54 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472493;
-	b=HamZkUnIaZgKU0PviWtqebbU6bmzakDnh7tZ8iwpYkDmvuJcV/Pmr7HfGjBTtpQljcLc
-	 oSUudUcZcsmi29JgRIur2agbRNxapT7lsnN8EdwMvgtN9744rTnnREth8E8kFkL8PYpgq
-	 fq0M/HzvOZW3RhoD/KXeVBaGY3j64snUuyU9gW4BqiDg7yFuvTT+RQv8eUar+CSmn7tSg
-	 luu4HRtMJXtpwwrIP58jBcfrR2zOBCKXELKAu37skF0d6MLDvKDRk4/CnHvXtwD+TopYp
-	 o9f7OGAI+bWkaB+HWGC02lbvYOJxiUni5hLCifA3VenDkZUTh1KLYP+aJPWyYTarDAw==
+	t=1794472518;
+	b=m79i7AISEhdctEZ+LTjpyakBnlY22Q08UM+RlKx4D7+OYpHNGSo7dbecYndXG2UKTsBT
+	 hi39wMvXx0qZaDUr0A4uoYTcPDQaq+l4v24Rf6hog51wCPglMe7TKx5fD8gqdxwaI6dSw
+	 Nj9+NV/E4vxE7DnVy76H8r7C5MQyM+5PS0El0ghUPKhse0UFRrvjFsal58FO2BQaexRPT
+	 3Y6JAE3aUyqjg5QwhJSgSJgnt4u2bGnh3MGiB7o3C4hDnz/dBwIEdWxGLYKdx+fNCoXTO
+	 wTF52OTRLuydoqVRlQCK3RUwEH5pTLBxufBaijJ2JAVpEstRErFqSEiPIBj1sdDH8Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472493;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Up5j8TzM0Yy5snipwPfxPFv5mWJlT3wquG3RxXthBZY=;
-	b=ZGM6q6kJ6Ce2n7ytX0yAQb/Z2rf9km3CS1x4dpaKJQdmwOVV4CoCOwieEOPv7lJd5Shw
-	 a2FhGduLTjCwxGoUWDOviGy/zqklQsytZu37j9+3rhuAvOWKgZx31Sx+rHINb4wILcaij
-	 P4csHFjI3+k16pCb/N/epAeMZqcIo2hwxReDRSW3AlDrNLGvgfBAEGMxqMNlY63Elg0yT
-	 MdYzA+D5w9BdWL9HE3nM6/S9298aqN0XeUo4jZL2pXQ3Y+oBkCvWZObxbuHriYdFEb2en
-	 l2MfJzDnoKI0n3C/FC/ZJQr6PyVaXYJoKuV2BbtT7iZzpPtrJ476uu5eaLLyHbqbxFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472518;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=thYjGMCcQahnwH6w61hdDqOfxPW/G3rPGhil4Sq0LIM=;
+	b=SigGL6rc/QccVIOtS987+guZA+Q3lHBGWyOFC6MIxBBYlGY9UsYrRmyYMXg8mjLYBFzx
+	 UqFpnwjgoUBg6m8MTQi/RqEmeiowBQkop+1iBYF9lMmJ+AoNpa4QIcDhGfKanJQHeWikl
+	 N/XjwGgQnoty7R30bD8nXTrbucETLOlSWzAsOlH3K+b7MmkIn7VEoEkSZzOeBQ9fxKm2f
+	 Ucb+zg+2qZ/uNkABoIvsy1GGJFEAuaU+MGdPSJdc+Fwtd/k3f3pUoOrl58yMVWFzvS4r7
+	 2PCtBrfz8DNOQDb5L3R/yCHvlyRjybAs6ttG/qsmURlm7QhVZqa9pKNnyuAycMIH2zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ej68i5BY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C2IMod4C;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CF7606B707;
-	Thu, 12 Nov 2026 08:34:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0647B606A33D;
+	Thu, 12 Nov 2026 08:35:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ej68i5BY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F9131F00A08;
-	Thu, 12 Nov 2026 08:34:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C2IMod4C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 507041F00A06;
+	Thu, 12 Nov 2026 08:35:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794472493;
-	bh=Up5j8TzM0Yy5snipwPfxPFv5mWJlT3wquG3RxXthBZY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ej68i5BY75arsjTGasmRdWC+rEebnr8+zb6tSnR1zawq3K3rjE6cC2JMg0rROTEMw
-	 TCfHAmVECuO7NZIi4gNwHXwxaDQaAFitEEeIGGhjYFteZ3vI0JhYbgJnsmraEWG45J
-	 23o1qrSD9ZdNhujG66uaqYjANu0/DJ9+Mdw2AH9qbxz5gzxULF+4Rw1WWDYGOU69ar
-	 Apf6lEFOKNSDA1hkN/l9O1K1txJ+8hDmwjbYRksRp6lda/Sdl1VIrozOzdXu2ZSvvx
-	 1Kkqjajsw2B94RQhG/bbOrv5i61beVMaVkylBNLoxkszLalz425mEKgB4tZ7VTtJcx
-	 IzYiZAZn1B7ug==
-Date: Thu, 12 Nov 2026 14:04:49 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-	mani@kernel.org, mchehab+huawei@kernel.org,
-	neil.armstrong@linaro.org, stable@vger.kernel.org
-Subject: Re: [PATCH] phy: HiSilicon: Fix device node reference leak in
- hi3670_pcie_get_resources_from_pcie()
-Message-ID: <avV6KSL8Q6vVHsrO@parshuram>
-References: <20260917134144.2153731-1-vulab@iscas.ac.cn>
+	s=k20260515; t=1794472517;
+	bh=thYjGMCcQahnwH6w61hdDqOfxPW/G3rPGhil4Sq0LIM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=C2IMod4CB+R5XGxG4VOYHZciiXdHL6Vy4RLeqQqLsfcyzMdr/A0y6aBUf4uEKiaXB
+	 xk215SPm+75NuyOmu2tafTSs3En0QxuTjDPpSOVcVRpI7gdpExTrEt1rpdYOlmg2ai
+	 s6NkwPomdOOg92LlYU/n2K7liO+046LjTg+bNzskvdT6HDb10jAczHuFHuHg/+dilR
+	 yesffkgDUJeT9f1IuTWi8boP4ukqPXtkwnncCqoy1cvKB7DeYuUQ5x14TkGp0phWQ1
+	 XmP2vQ7y1qvmrZ9HtOFYnmv+zdGXepioz6J7dUn35z8QHMKuIMQKF1jQZm+bahFU7p
+	 JsO8zT6QhTMfQ==
+Message-ID: <sashiko-outbox-210743@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] irqchip/riscv-imsic: Complete vector moves
+ without a timer
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Troy Mitchell" <troy.mitchell@linux.dev>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261112-imsic-remote-sync-irqwork-v2-2-680f65b24ff6@linux.dev>
+References: <20261112-imsic-remote-sync-irqwork-v2-0-680f65b24ff6@linux.dev>
+ <20261112-imsic-remote-sync-irqwork-v2-2-680f65b24ff6@linux.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 08:35:16 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,45 +60,134 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917134144.2153731-1-vulab@iscas.ac.cn>
 
-On 17-09-26, 13:41, Wentao Liang wrote:
-> hi3670_pcie_get_resources_from_pcie() obtains the "pcie" child node
-> with of_get_child_by_name(), which takes a reference on the node, but
-> never releases it: both the "Didn't find pcie device" and the "Failed
-> to get APB regmap" error paths, as well as the success path, return
-> without calling of_node_put().
-> 
-> The node is only needed for the device lookup, so drop the reference
-> right after bus_find_device_by_of_node().
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] irqchip/riscv-imsic: imsic_remote_kick() in
+  __imsic_local_sync() wakes idle CPU
+- [Low] irqchip/riscv-imsic: missing Fixes trailer for commit
+  0f67911e821c
+--
 
-We already have 1499f3d3407f ("phy: hisilicon: hi3670: Fix OF node and device reference leaks")
+commit 41f6c7fe40c982e58c49f5640f84619e2a018221
+Author: Troy Mitchell <troy.mitchell@linux.dev>
 
-> 
-> Fixes: 73075011ffff ("phy: HiSilicon: Add driver for Kirin 970 PCIe PHY")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/phy/hisilicon/phy-hi3670-pcie.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/phy/hisilicon/phy-hi3670-pcie.c b/drivers/phy/hisilicon/phy-hi3670-pcie.c
-> index 87eac058a4bc..35e634279794 100644
-> --- a/drivers/phy/hisilicon/phy-hi3670-pcie.c
-> +++ b/drivers/phy/hisilicon/phy-hi3670-pcie.c
-> @@ -570,6 +570,7 @@ static int hi3670_pcie_get_resources_from_pcie(struct hi3670_pcie_phy *phy)
->  	}
->  
->  	pcie_dev = bus_find_device_by_of_node(&platform_bus_type, pcie_port);
-> +	of_node_put(pcie_port);
->  	if (!pcie_dev) {
->  		dev_err(dev, "Didn't find pcie device\n");
->  		return -ENODEV;
-> -- 
-> 2.34.1
+> irqchip/riscv-imsic: Complete vector moves without a timer
+>
+> When a vector moves, the new CPU clears move_prev only after the old CPU
+> has released the old vector. If the new CPU syncs first, it arms a timer
+> on itself and retries a jiffy later. That CPU is often the one entering
+> idle and taking over the broadcast interrupt, with its tick already
+> stopped, so the timer is not programmed. The move then completes only on
+> the next interrupt of that CPU, which took up to 0.5s on an idle
+> SpacemiT K3. Until then the IRQ is still marked as moving and further
+> affinity changes of it return -EBUSY.
+>
+> Let the old CPU queue the sync work on the new CPU once it has released
+> the old vector, and remove the retry timer. Wait only while the old
+> vector still points to the new vector, since a released old vector may
+> already belong to another move.
+>
+> IMSIC synchronization no longer depends on a timer.
+>
+> Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
 
--- 
-~Vinod
+[Severity: Low]
+This fixes a bug in the two-step vector move synchronization and local
+retry timer.  Should it include a Fixes tag?
+
+  Fixes: 0f67911e821c ("irqchip/riscv-imsic: Separate next and previous poi=
+nters in IMSIC vector")
+
+> diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/ir=
+q-riscv-imsic-state.c
+> index f6373e4019a22..36f4b7ede76a5 100644
+> --- a/drivers/irqchip/irq-riscv-imsic-state.c
+> +++ b/drivers/irqchip/irq-riscv-imsic-state.c
+
+[ ... ]
+
+> @@ -151,13 +164,13 @@ static bool __imsic_local_sync(struct imsic_local_p=
+riv *lpriv)
+>  		mvec =3D READ_ONCE(vec->move_prev);
+>  		if (mvec) {
+>  			/*
+> -			 * If the old vector has not been updated then
+> -			 * try again in the next sync-up call.
+> +			 * If the old vector has not been updated then keep
+> +			 * this vector dirty. The old CPU kicks this CPU once
+> +			 * it has updated the old vector. A released old vector
+> +			 * may already belong to another move.
+>  			 */
+> -			if (READ_ONCE(mvec->move_next)) {
+> -				ret =3D false;
+> +			if (READ_ONCE(mvec->move_next) =3D=3D vec)
+>  				continue;
+> -			}
+> =20
+>  			WRITE_ONCE(vec->move_prev, NULL);
+>  		}
+> @@ -199,30 +212,15 @@ static bool __imsic_local_sync(struct imsic_local_p=
+riv *lpriv)
+> =20
+>  			WRITE_ONCE(vec->move_next, NULL);
+>  			imsic_vector_free(vec);
+> +
+> +			/* Let the new CPU finish the move it may be waiting for */
+> +			imsic_remote_kick(mvec->cpu);
+>  		}
+
+[Severity: Medium]
+Does calling imsic_remote_kick(mvec->cpu) here wake the destination CPU
+out of cpuidle right after it takes over the broadcast timer?
+
+When CPU1 enters a timer-stop idle state and moves the broadcast IRQ to
+itself via cpuidle_enter_state() -> tick_broadcast_enter(), it runs
+__imsic_local_sync() synchronously while CPU0 is still processing its
+sync_work IPI:
+
+CPU0                              CPU1
+                                  cpuidle_enter_state()
+                                    tick_broadcast_enter()
+                                      ...
+                                        imsic_vector_move(old_vec, new_vec)
+                                          imsic_vector_move_update(old_lpri=
+v, ...)
+                                            imsic_remote_kick(CPU0)
+                                          imsic_vector_move_update(new_lpri=
+v, ...)
+                                            __imsic_local_sync(new_lpriv)
+                                              /* mvec->move_next =3D=3D vec=
+ */
+                                              /* leaves new_vec->move_prev =
+set */
+                                    target_state->enter()
+imsic_local_sync_work()
+  ...
+    WRITE_ONCE(vec->move_next, NULL)
+    imsic_vector_free(vec)
+    imsic_remote_kick(CPU1)       <-- IPI wakes CPU1 from idle
+
+CPU1 has already enabled new_vec->local_id in its local EIE CSR during its
+own __imsic_local_sync(), so the IPI wakes CPU1 out of wfi or
+riscv_sbi_hart_suspend() solely to clear new_vec->move_prev, forcing it
+through tick_broadcast_exit() and another idle entry cycle.
+
+In addition, cpuidle_enter_state() keeps local IRQs disabled on CPU1 from
+before tick_broadcast_enter() until after target_state->enter() and
+tick_broadcast_exit().  Until CPU1 re-enables IRQs and services the IPI,
+new_vec->move_prev remains non-NULL, so if a third CPU enters
+tick_broadcast_enter() with an earlier expiry during that window,
+imsic_irq_set_affinity() still sees imsic_vector_get_move() !=3D NULL and
+returns -EBUSY.
+
+Finally, when imsic_vector_move() runs on old_vec->cpu (such as from
+tick_handle_oneshot_broadcast() or imsic_irq_ack() -> irq_move_irq()), the
+first imsic_vector_move_update(old_lpriv, ...) runs __imsic_local_sync()
+synchronously and calls imsic_remote_kick(new_vec->cpu) before the second
+imsic_vector_move_update(new_lpriv, ...) has set new_vec->move_prev or
+marked new_vec dirty, kicking new_vec->cpu twice.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-imsic-remo=
+te-sync-irqwork-v2-0-680f65b24ff6@linux.dev?part=3D2
