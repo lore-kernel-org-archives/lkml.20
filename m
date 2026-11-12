@@ -1,79 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794490851;
-	b=31eR97fF12e1sx0VNq57Lxn7ek4WW3NLB+bq7O8QrRD9qrFWp6+1BRBLHXXEzr6Crdhx
-	 X1K+PoBjdr7zG3xHQSX975OjcjTc+mSCc34EhdfPftXGftVNmQ/vbryxJHP+nMY8dPPMb
-	 DJwv5SlkaMig2sFy8vHvGTDTYvD2cJRUgHxc2XBAgMyes36k865qKOAqi3VVJD8liiLrs
-	 9G6JYlntT/3LBptfRqrJoZMn9IwC5IzSovlkbyTnVwsRK7WLGetOumfzyYFfRyq61TI+J
-	 WHcYduWvS5kht0FCBrUX+5biiU39zSJS+ZDT85WNZqsDYdBwc+R79qLHOF9IXcOfalQ==
+	t=1794490863;
+	b=Pns4VtNrhwTv/gUcrROCympl3n7Y5urcaVN4N2ftQi2M7iSDQwD5Lf+yZfXSITew3HVT
+	 YA+54vDkdxyXD20itW664JauxqM5vSSeNXTRaT/K3eSZ+FKkdBLiaUrBAhhmPmCEzcUpp
+	 Ba+nb2l+hDpKdVft3d0MH5qhFBPR53jTmSIJTTBL2So8c0PIbCa+gs9PAxNUrjn1vhoUl
+	 9/Z/icHZ3E02VdYliov+ae1D1tywV9B9pRZSRRoqAPyXoiUwTIUProSz4AHxekLMV63eI
+	 SA2p3wMOoBW52u3P4Kl2R//JjChHwUJaiIPhMjXl/dL5a9eXQVUY1fcot1TY/WiIyjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490851;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=DfrilG09OuyxTH5qMaImAYWIUsCGZ3zn5Mg/WIjTOtY=;
-	b=zrxFykG6KwTETZteBoA4Ay1Yd7cmzAv9ebTbsND99Raum9h0OPVnrwG4pRC46i1X+6eV
-	 8ucMkscn664IO2oL1269deBuiXK0sdzXRWqChcZjfI+SbLXAi7cVQO6/6wIcZojg13ON5
-	 PvKQ0h/0vDDOLPNAHorZ1nJJQM9DDW+G8EJd0t1n/jAC5Y//20vObqIe/ASK3aIyBMe6C
-	 8P9fKs08S/VekiaheSRMwSm+OpbfSDDLIEmnOuT/Q1L4j/HEeDmXtBH9kyQWBPANAW8cr
-	 nmDaRCjzVum/uVWnLpvq5H72Sll+g2lNVY+3V42DW52BU0OzOj8YOKoH60U0Rf4IhaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490863;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=zcZOYtsVTv31lVYaNP6RLbKLvR8+yhhBm9mhbhr/iKE=;
+	b=B7+IsURkPOG903rPP3UOcFc5Lo7c5p6cwmQSsaY1c79XHQvkFFCRKHK6xxVieHPOIq2X
+	 CGDrFtYFsEjpfFXBigiz0quOemFeKGZkw8rv93GGWqUxadqe0QLkc7JRyzG0nxF3Li1Uk
+	 jgOc9r7b13lXXP6kt7rTKRIIZAxPWGnHKOkDnh9SYq48HlMhAuyzs+KJEm5Ge4K515HTv
+	 FHEUcbmR87klXleHdUn2zXHQI30U6Ns+AiW9gc13ERu1vcCi8cPcmAjkT8z06Wz48FBuN
+	 xTKKvtha26mbtswhy0VsAAGjCF5BseQtsrRzvsh9y1i37D4aLk7WM5SeBDAcNgr9G8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=v8gOuI28;
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yonu3wmr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D281B606A335;
-	Thu, 12 Nov 2026 13:40:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D281B606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C995606A327;
+	Thu, 12 Nov 2026 13:41:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=v8gOuI28
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794490850; x=1826026850;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DfrilG09OuyxTH5qMaImAYWIUsCGZ3zn5Mg/WIjTOtY=;
-  b=v8gOuI28HovNFvkkw3pBobJSs8ppZjJEF/yYu225Na+vVF7fiTMFmX+/
-   hHQgparr2uTz8sPi3yiSsizYPpnigLNr9oFXNXBssBN04zNXzIVgvF/Ks
-   bTv7Ia4uIxRL78qTp6ytlElT5Llw4CbDNx9Z4bvFIPdB7hqAB+DYjeskS
-   eGH5GeaB72XU0zBGFFkan6fP66vz4YBCdUGFUZeyIMWdJPxrYK2p1gFse
-   4dFSFt09bNlDhAekKtDbWMpnbnIGsd3EKJIKTzE7Z9e7rWZq8NAWtSTst
-   tnw9uVs0rHggBplFUKe9sG2GSdmzW294Dz2CeU2u0oqVpJ1ea0oMEh0ZK
-   w==;
-X-CSE-ConnectionGUID: SDvyZbn6QDGT5JU82SqcEw==
-X-CSE-MsgGUID: YIop3FYCS5KKTvmwO/UCJg==
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="65446573"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 06:40:49 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Thu, 12 Nov 2026 06:40:49 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex01.mchp-main.com
- (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Thu, 12 Nov 2026 06:40:47 -0700
-Date: Thu, 12 Nov 2026 14:40:46 +0100
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Joe Damato <joe@dama.to>
-CC: <netdev@vger.kernel.org>, Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, <edumazet@google.com>, <horms@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>
-Subject: Re: [PATCH net-next 1/5] net/mlx4: factor VLAN parsing into
- mlx4_en_prep_vlan()
-Message-ID: <20261112134046.xab7dntf7or3dsgw@DEN-DL-M70577>
-References: <20261110231304.1859217-1-joe@dama.to>
- <20261110231304.1859217-2-joe@dama.to>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yonu3wmr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB38C1F00A05;
+	Thu, 12 Nov 2026 13:41:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794490862;
+	bh=zcZOYtsVTv31lVYaNP6RLbKLvR8+yhhBm9mhbhr/iKE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Yonu3wmrYZO8QH3w1HXbsKpwGYVcENzULirtc+rC4xIhTzxXLe8imyh9Wsy+ItVwd
+	 hBl+SPQuH39iG8rpqFyAQ74d4UzPaV07pGSCOB28vRxa1+zx2HbmHl2HwkXEZiC5FV
+	 2Ju2NdqmaRS6aAzWIyDH1qU5TAlYWns+gGL0Kf5AbK43+c3NDoXVayjIFKOSQsK+od
+	 FEc3DT4RbjS8MqKXnAy9xJppBHvp+WF28kcptd3ykeZ017qen8Nftwz21ZwL18j0CP
+	 cK6nlnzRa5dODjVazj/M9h4B7NCVTp9EzoOX3bm0Kh8h8j01eubv/h+kWEFXnXkjHA
+	 r9D+pUlHgkl9Q==
+Date: Thu, 12 Nov 2026 19:10:58 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Igor Paunovic <royalnet026@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org,
+	kernel@collabora.com,
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Subject: Re: [PATCH v18 0/7] usb: dwc3: introduce Rockchip glue driver
+Message-ID: <avXB6ga-QVfks8RF@parshuram>
+References: <20261021-b4-rockchip-dwc3-rockchip-glue-v18-0-60000d03fca2@collabora.com>
+ <179353091270.2955.16595397888583885694.b4-reply@b4>
+ <aufM3PCuU9CM8zFo@venus>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,12 +66,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110231304.1859217-2-joe@dama.to>
+In-Reply-To: <aufM3PCuU9CM8zFo@venus>
 
-> Extract the code which converts an skb VLAN tag into WQE fields into a
-> small helper. This helper will be used by a follow-up series implementing
-> software USO, to avoid code duplication.
+On 02-11-26, 00:46, Sebastian Reichel wrote:
+> Hi,
+> 
+> On Sun, Nov 01, 2026 at 04:31:52PM +0530, Manivannan Sadhasivam wrote:
+> > On 2026-10-21 20:05 +0200, Sebastian Reichel wrote:
+> > > The recent Rockchip platform have a combined PHY, which does USB3 and
+> > > DisplayPort as well as muxing the lines in arbitrary order. Changing its
+> > > enabled functionality requires a PHY reset and as the PHY provides a
+> > > clock to the DWC3 controller, this can result in an SError. Apart from
+> > > that the PHY might not start up correctly when the DWC3 PIPE interface
+> > > is running. This series prepares a Rockchip specific DWC3 glue driver to
+> > > help out with these problems. To become useful more patches are needed
+> > > on the Rockchip USBDP PHY side, which are send separately.
+> > > 
+> > > This was split from the USBDP cleanup series. v17 has a dependency on
+> > > the patches that have been merged to phy's for-next branch. There are
+> > > some additional Rockchip USBDP phy fixes, which depend on this series
+> > > (which is effectively also a fix).
+> > 
+> > What is the merge strategy for this series?
+> 
+> I see these options (ordered by my preference):
+> 
+> 1: Vinod merges everything; the USB side is mostly a new driver
+>    and thus there is not much conflict potential
 
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+I need ack from Greg for that
+> 
+> 2: Vinod provides an immutable branch with the first two patches,
+>    USB tree merges the immutable branch and the remaining series.
+
+I can do that
+
+> 
+> 3: Everything is merged through USB; this would block the final
+>    cleanup for USBDP from being applied for yet another cycle.
+> 
+> 4: Vinod merges patches 1+2, USB patches are merged one cycle
+>    later and final USBDP patches are merged two cycles later.
+> 
+> P.S.: I will have to send another version for the correct Sashiko
+> feedback on the DWC3 side.
+
+Ok
+
+> 
+> Greetings,
+> 
+> -- Sebastian
+
+
+
+-- 
+~Vinod
