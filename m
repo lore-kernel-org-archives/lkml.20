@@ -1,99 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484761;
-	b=vNeofAVSEC7CnElDCA0HXYGBku9trfGwbNbhNr2Uum4oXaD+Dw2gNgN+ZL4gNKX+ZHKz
-	 wIzNsQJcNe7XxnOi5yvl/x7OddX09CKLsiaqWZ3Rs/SldyrUtxUKPZE3Fuo3r0ojoOl2U
-	 i4F47QZWTnGBkiItQAQWsoJyIKucSa+npfUSsnIMtjBL6D9DmAOmbMI3/NUfbuBpfjine
-	 rWFtOmeAw7gMiLIrSk0l2X/iPeVVLmJcUoTA3jJbWgBbi4X+dv4wuY62Cr4rxs3LfEzbC
-	 eMlVWbzjcNBw53r4wOTQ2Zee1Hc5LoI5KcS0TiTdpF3W94Mu+QBFHo9KpsjHPydKYcg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484761;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=XGkQWQUPPqTVyUnHum1hbkxRtjJRRu5gjrKtGjsWYE8=;
-	b=VeEiE9oCTFIzFD6dzM5NdK9jkiP1zU+kN5Imy3OJ+E4SDO9OlG7bqmenME1WHdFX0zWo
-	 qlWlTzFfm9Poeev9n3z3dXiHYTAtIHK0lnisgQQ7qNL6vYbDymhjp9zHNBWqg9NRYVQm9
-	 wtEWhx03POrK0bwCsctieatzflw1zN/FbRYEDl/J2f7qrGzw70evadMb3yxELCs6vYs01
-	 kipI9BDKJ8AOw7RlBaN/BnxRIQaRY9kS9wVuotEd+AQ/L86ccbWiKh2KHMfWQ1CHbtrOS
-	 +nOa2DslfY4ty3hvfRHqyKHRLQQF8uiTQKY1BXjSzlJpy1CFkZXdWuPpubDC5a4aFNQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ab3UbyWb;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794484794;
+	b=cMcVL3CltmHEYdzOBpo42l9o6hzvnoVROTTw/S085ajXciFSLIvCa+gYInJuzYDTQrcN
+	 dcCrBlaOsGqbeSx5FpRHd/IHaR0vmE04rS3jP+9ZDSRn7brCYpLFZM4sldVJzxCwY09Ia
+	 jb9dRD6P/Y2xE0P+Wu6sVkGC7LEf1BmD3Cfy6roynuBwmHLRYgiI1bQtED05tMrL+JmWx
+	 dcQLuz1J7YBo5lVGcusYNoW3iuIlx9/tVSDPrBgSixlqbpLPkMKBe1bWNY0WEdK5Ww6KR
+	 iaQLDBDdpt7062NeVfhsGJ1BDtldjRNae0xCrY1DiGLUsrVQideGvfXODiq2qqTXG/A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484794;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=ZR6uEupV3b8QdmVl/kBFL9B59flqS8UblZlb2kXnBgc=;
+	b=vxB6M2SScEcryrcwN31a6Hk1uPiMONTLmNDNPbqgwfb6sTTu8P4dQOFg4H9JSHBGUiYK
+	 YUpPm2tQlxokP6ELxETwSHm43RIlrSdq2e4smWpueiLsMQPr78j2q1HmmdHKiFe2eHa3W
+	 /Zt8NzcZ/vWqr7FgK8hk9hAreM0uCUnfwzAgtIf+QhvxgycnpZWqTvGv0LBIgx1GeAtTW
+	 bGH0KPqhPeN2Q2G8ZsRm2YByVBj/pm0aw0+5ywZPR5Q27hs/PsuvyLeH0jlAHMzpIdE6c
+	 ncXKd8YYEoh2cy7owcUuALEWQkqDqEVyEd7N+hOxFpgR3dM31vzB3OTzm0o7EADrCSw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Odek9yIx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=drrfBw5V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FE7606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:59:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00FE7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E73606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:59:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7E73606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ab3UbyWb
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8b904d10882so1870619b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:59:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Odek9yIx;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=drrfBw5V
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACAUQQ01629024
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:59:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZR6uEupV3b8QdmVl/kBFL9B59flqS8UblZlb2kXnBgc=; b=Odek9yIxy2RQwzEJ
+	ShuYPAxPgB7O7ey45gGAkbeykB2677X//cT4Ih6YUaCDlpecCZmYQA+xXbM6WBHE
+	SsACw6Zd09s/8R5YviUMlrf+fy4kCkzEiHADo6/FE1e1T5e5dsrHwGHmHyFY0+Lv
+	+N18vgPWUdy0aiOwtM8gGKcospPvMGIwvU8zOvnztsL0x8IFW+ePNH1w2zPOUOq/
+	cMN/riIJ/+HwZxzp0heE3brsoWbjURCPNpc77rMAjSUvPXgNtAYcHKfcXchmpK0j
+	pbr1Wz5sBEdCPB7RHVsRu5powGIPuZSAUPrWmqEYBv8AHXc/4Egdo3+wcep+NVSa
+	GBMm+g==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwbs0099r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:59:52 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ed08be1c84so63253265ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:59:52 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794484792; cv=none;
+        d=google.com; s=arc-20260327;
+        b=G/bTp1SLYHupU+D7+8yaC5ilSal4Gd2iIGhcaoC9HBPS44bSUsjkkGw4fDGL09tzRc
+         sDymRmm95g0BevgVGbN0Qr7ls7B+x8DxA6H86WzJTkzn89f5o+7ZslavgGA8pLbk7tlJ
+         +QLd6RfCa/5XHK1CeBStPSJTBQwqfI1HWRPVJt82XqpOtqWT9q/bUD8ncKSnPR+KzR4k
+         opI46LK50FUQa6QiJqr096VJKug4RIFSmVGyetjldP8fLBjKBkeOETDbrnnYva6ZF/dt
+         gXYjIf+1N7R0dZkrK2Y8hXYWSsjug2ZsPdeqW7p+QT9aEk6r7bNEtLw2NZdPVsyga64i
+         Yd9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZR6uEupV3b8QdmVl/kBFL9B59flqS8UblZlb2kXnBgc=;
+        fh=BmIetJXn8mxRYveCP0GYXR+26TcZJWPmT9IAvyRSws0=;
+        b=bevQWvZJrz+j9x7xmkH8sncD00ha8DhMI62KzZsB721Oxktgmh4F8gDIxVZVt5jnRi
+         Z2MAznV1cDymNGsCpWaVgAn/Vhp3ehKenUGmC5Vt0091Fwp5Ktu6fEJQ1oTybtBrhAe3
+         ToFgpOiCiStP3o9JFnAxNGE8481l7MU39m18aotvdXpFeEg0rv4kMN9Z0+iYa/ys3Ap1
+         GGdeQBMwgbJlJM94JtYDiwuYDj6/wGBxSJ6pCYrnjlgIG7W01XqJy0oUo5RcmLgQgABj
+         OcVNfvnEHkxAXkyYIbJXG1JxqGcyipmJHXfscoDDF9eB4LzsdO7Sk1APlr2xiKfPOgO1
+         xhCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794484760; x=1795089560; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XGkQWQUPPqTVyUnHum1hbkxRtjJRRu5gjrKtGjsWYE8=;
-        b=ab3UbyWbcgXwXJW3Ybl0YOl9lqd2Wue1dbPeC3wp4y53+xf9O7K02ZVoQAGGzqwoii
-         MaHT+DWpmWyUlWpJq2WkNqXcMPtHC20N3e714izzYuTo27REFUSIJ8/Re2qCw+l80a96
-         w2ObMf2FUcY3pwhoNIhZt+7t7cjXzTvb3dYDWADEg0v3gkCBt7ZYkuj5ZbK9Yvl/zbgW
-         mMvF/YtecJOCNjuhX913UrYDbPiVrVu82vMxf95y1azHkZmPf68GBnU+W9IK/ojcM2uo
-         CSlezRDKwVZVT7eUYnKUX+urB/WhFHkaC0We0K9Nllo84ni57NNNDcLd/b317lkUj0N0
-         OjbA==
+        d=oss.qualcomm.com; s=google; t=1794484792; x=1795089592; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZR6uEupV3b8QdmVl/kBFL9B59flqS8UblZlb2kXnBgc=;
+        b=drrfBw5VhXgSUxmeQBsuifFk8gVMmGGMBij0Pwgdfjq/Z3snOvgX61IDvQtnhk53Vp
+         UYN8bhjxF3KV0J0xyM0IvIl1dBYF31aHN83OgEsDCN3hEnB52Iic/7eeSe3MKGFgKyUK
+         kU7voNQvxz4QIrDRaHYMHADADuF51r2h2sE0rJl8cOHE8Xh74KNY6LrXYGxoUOehAOzJ
+         JzWJ7PgxuEVSN0HhRWxQb5JlgLei+pWfFHe4Fa4X5vuR7BJkH24XJhmMVE21d81Gl6SP
+         JXdC9RRe7lqndam+cR0cDEfkOIxpE18C7fdsTEy9XCyO+1OxjThKfVSoTuFrNhSmCE55
+         VoLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794484760; x=1795089560;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XGkQWQUPPqTVyUnHum1hbkxRtjJRRu5gjrKtGjsWYE8=;
-        b=pgQl4IlEX1U+sqMlM3jxM96wOS7qS2xwcouJjboGpYDV3sr4nc6dwPBVd/yjKIBSd2
-         MrFuvNtGE0xm2Ree8wp6oZY52VHOT88YJCJ8rL9AGOEYB7VpwN3RTbF3sEdShZsrwsyv
-         8Vu/Liqa8wMz7Ht8Zu2cd24IfYUiTH7pz+bHjH4NOMfT0F8+01SlDq3fSI+Ax7r8CrFd
-         K05MN8mD4ScEWu6Fiqfvx6LQpR+tUFbrQsp8QedPxBT72+fB/oZrtyzRAQNUi/L3D8wy
-         crhwvJ3dqOsR3aLVjmvv2qw/7B9aHpI+zH888p5XF2lBJ8SBwjp/YfMpF5ZcA9VzxFsf
-         ECPw==
-X-Forwarded-Encrypted: i=1; AL+hErFRhbA1GaGBSa4rcbmlTIQ6YeeXCixL+Rq+6sWRun/zzK3bZgPYR9qCkhUw7XhLRir6/ZlOKQ+AAwTFyec=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8LKeMNjHdZUqEhMsvDNQ9TkNm2/RyxpZByDQ/A7Ygs6r4GnF2x
-	8bZ4gxDfF738WwEtQ3EPegybr8O6TytRaCJUZaG7s5E7r+Y4j+ydZJY9
-X-Gm-Gg: AYBFou2io6/uORVhYmdTfh9Qtn9IldHIwZnlfNdIoPKUhOOI1xnoglC0s+io/KSARGO
-	c1OWlk8UoKiqDhbQWHjYxnxC8J8BBP3ZPcBKF/Fvz6wiW7WUiryehPPrH/nn+3Yw8IOMRORBKJb
-	okeDTzXrURbemQjmmc+jN1LG3qHCh/wXy0WETVHB6+fUoV3pKi10GYVLZmxG64MgBvn0dV39J2I
-	019YFs3HmbuVQTENtq+allusFplEN577RyP0CFdu6JQ+A0dwja5cwy/+G7lpwvWUycH1YCFOP3E
-	K/ViW2GH0Fnavm6viu7fse6VTHehFa0iZ0gsPYlYB3O3rj6QE2UmmzlA/HWrCsu8E3RWXd5ofMT
-	2OSE2rINyI0kiNxWGlatolXUhs8zIXsZW29RVOxks+QWbsrVDiDXtAcay/hIAmHnCCrICA7NNJ3
-	xhTbfyhV6CUtJ91xscVfep5fOFYDJqviBBgIBCrwyCl6ja78x8Q1euYHKAGbwB+ZqmoSQ/Qdql0
-	R4T85B94ahUyaYQ3FlLY/tfkdtHYpsAe7xI5zW8mULkYSY7BK7LGsOsYIdFktovVC+u6jDjo+3g
-	pcM0lKGGGTRu3VnXVBa1rfrOYIJ9bpYITdjDccuvHTu4P1Kr63j7/F6HwiF/wSfVXjIYiQzing=
-	=
-X-Received: by 2002:a05:6a21:3a87:b0:3e2:6ee4:a758 with SMTP id adf61e73a8af0-3f2fead83demr5830011637.54.1794484760038;
-        Thu, 12 Nov 2026 03:59:20 -0800 (PST)
-Received: from localhost.localdomain ([152.136.45.109])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baabad405fsm3234798b3a.57.2026.11.12.03.59.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 03:59:19 -0800 (PST)
-From: diasyzhangqing@gmail.com
-To: tytso@mit.edu,
-	adilger.kernel@dilger.ca
-Cc: libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Qing Zhang <diasyzhang@tencent.com>,
-	syzbot+f111db4cb2acd44eb2f4@syzkaller.appspotmail.com
-Subject: [PATCH] ext4: wait for tail page commit before truncating a failed write
-Date: Thu, 12 Nov 2026 19:59:06 +0800
-Message-ID: <20261112115906.17915-1-diasyzhangqing@gmail.com>
-X-Mailer: git-send-email 2.43.7
+        d=1e100.net; s=20260707; t=1794484792; x=1795089592;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZR6uEupV3b8QdmVl/kBFL9B59flqS8UblZlb2kXnBgc=;
+        b=TEsnQ2SWCagQg5fV4RoZo5QzUj1sCyELPrCstR7mTBbWncoCvToDlovR/B9QwR19DJ
+         tbU8xWVqAjdmsfXGS37GE1ySXJRwe3DOc4qoURaXraKaJbbONx1ZmuKQLgqnhalTgVaI
+         H2bEDbEPPmSevtf6BEMhkNPT9Y8TGBy1thj4F1YN13yfuNK1Q8be0DAihoRKUIsUEwwL
+         95vAuESmvAxGyOgyzfs7imd5PY9p311OqqSEEDD0AydhfC4IKE7puieD/NeFuFzWzTbc
+         rwpDn/oadVBHg3rbtoWNdpismliYrn1Pg0C9PFBsBYmIxqSr4EdJeoABtMxbzJ2VCr4e
+         Fz5A==
+X-Forwarded-Encrypted: i=1; AL+hErHPnwBcmIa4JdD6/+QA+HsuAY21Gk5J0vTNkHdJRnu0KnnOddbM5zYPm5oEDZIa9XtJXHXMd6oEUq+c1HM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KQkFSYGD369Wl2+oNIr/1nmoJ7nspTx9ERVja0AciZ+nTK9QV
+	qGziReLv1XwY0RYO9ViT98zTkTMplExzY5z4qIns9u9TIG/OlO5RnP1JTiv0fFjLtev2uz/4jKd
+	oVTfEYc47gNqnCDauXwBOv7BMMVdRrBHPUNu3ifUmRfULDJ3CQjZ5dwWJyHJ4sFRnZb/afzfu4t
+	eVwbUunVK4Ii4TfQ3gi/286Xz676C/5YeHfiiDO+pdug==
+X-Gm-Gg: AYBFou3PWx4sdQaaVbsbImJ/10f2Gm1OB9yBAoS3Ww0Wv+jVx87gVVnvF8Rzh/3/e0Q
+	m4Bh4/VsS95/ldM7Mv0xnufkSdeNhPlGklQ4t1ugel2Qkb117yMBTgaeCfWDID4RJg9BR68x0DW
+	X9K8EAlF2qM23jqu2MkrQOo3a2iyM5ZI2N/wclh99bn3IpZ1RZxtEitDwA9w==
+X-Received: by 2002:a05:6a20:938a:b0:3e2:8513:a1a with SMTP id adf61e73a8af0-3f2fd595d81mr5860996637.15.1794484791710;
+        Thu, 12 Nov 2026 03:59:51 -0800 (PST)
+X-Received: by 2002:a05:6a20:938a:b0:3e2:8513:a1a with SMTP id
+ adf61e73a8af0-3f2fd595d81mr5860973637.15.1794484791221; Thu, 12 Nov 2026
+ 03:59:51 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,72 +127,243 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261013-genpd-boot-performance-floor-v1-0-a765dc83e6d7@oss.qualcomm.com>
+ <20261013-genpd-boot-performance-floor-v1-1-a765dc83e6d7@oss.qualcomm.com>
+In-Reply-To: <20261013-genpd-boot-performance-floor-v1-1-a765dc83e6d7@oss.qualcomm.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 12:59:39 +0100
+X-Gm-Features: AclHuK_O5nFvGtE_KeD3RvWxSqq8Y9bCLDqrXk6wDOSNp9OUWlbNX9mKOhOCpr0
+Message-ID: <CAPx+jO8bFnK9omp7GyCYqfSP=8c0ihQeF8Us2TwDCz6ieVjJRg@mail.gmail.com>
+Subject: Re: [PATCH 1/4] pmdomain: core: Support a boot performance floor
+ until sync_state
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA0NyBTYWx0ZWRfX6H19AJTePDmE
+ 0nRlgUqG8uyLrYEbz7kxQjahI7OTs9gE/yIWofYARso6wgaHqbFmaEcCIIYLCpKvv+yxFqO378b
+ OzYdpjaa1bbBQOXykK9u1DqKtc0qLnQg0fmv9pYVOHMsnfBGXAO0dFSmYm31d74/aG/5q/aY2mQ
+ 0yaIualclamNcZIxC5I5YgB6Ul296s8WlFKUQwrlRmnyj7fScB3bEojSwOz+hIQ9tP7ozA0WMS7
+ 23pXjZ7CBgD8evsaEh0gaZrDstHGIbx3RspW3JjMC9DSrAzAUbXrzWtuiua3JwwpMPmrPepeV2o
+ gNkYWBXqaVTGLGGDU6OzOq6xOmx/u20LEis6hnvcnkDl3pwjLdPvfbk2eVQZAyXXYBMuxCibfb8
+ h0NJefv/OYwrzOPBV+3Usb9/Esr+iAqIMTByRCzNzCgviCMFLv1P+xK4zVOhOgqc9DYmtM7CL+c
+ rPoyK0+BMUBYpP/hnnA==
+X-Authority-Analysis: v=2.4 cv=AsF7T+9P c=1 sm=1 tr=0 ts=6af5aa38 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8 a=IuyjCjZgo-2BtYxH3yoA:9
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA0NyBTYWx0ZWRfX93IA1ufvQJrg
+ y1bixiqHKamubwzggMK6vjVIQMhPC7WhoIeYQ3A+mAQZnhv6ycWgMz2psf9Tl50ju6+G1KWJpsm
+ sQRJ/WVIMUkRvR36WWbT6bGENWhAif8=
+X-Proofpoint-GUID: eX23GXpnQXEEc7rjMfjIu6qZYaTKhluc
+X-Proofpoint-ORIG-GUID: eX23GXpnQXEEc7rjMfjIu6qZYaTKhluc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120047
 
-From: Qing Zhang <diasyzhang@tencent.com>
+On Tue, Oct 13, 2026 at 2:49=E2=80=AFPM Abel Vesa <abel.vesa@oss.qualcomm.c=
+om> wrote:
+>
+> Some providers retain conservative performance votes until their
+> sync_state() callbacks run to accommodate hardware configured by
+> firmware. Enforcing this policy inside the provider hides the floor
+> from genpd when aggregating performance requirements towards parents.
 
-In data=journal mode, a failed extending write can leave buffers beyond
-i_size attached to the committing transaction. When blocksize < PAGE_SIZE,
-invalidating these buffers in the partial tail folio returns -EBUSY,
-triggering a warning in ext4_journalled_invalidate_folio() and leaving
-invalidation incomplete.
+Perhaps elaborate a bit more what this means for the performance
+states for the parents.
 
-Call ext4_wait_for_tail_page_commit() before truncating the page cache
-in ext4_truncate_failed_write(), as is already done when shrinking a file
-via ext4_setattr(). The helper releases the folio lock before waiting
-for the commit to finish, then retries invalidation.
+>
+> Add a provider-specified boot_performance_state for domains using
+> GENPD_FLAG_POWER_UNKNOWN. Clamp the effective domain vote without
+> changing individual consumer requests, and reaggregate those requests
+> when sync_state releases the floor. Zero imposes no additional floor.
 
-Fixes: 53e872681fed ("ext4: fix deadlock in journal_unmap_buffer()")
-Reported-by: syzbot+f111db4cb2acd44eb2f4@syzkaller.appspotmail.com
-Closes: https://syzbot.appspot.com/bug?extid=f111db4cb2acd44eb2f4
-Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
----
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+Why do we need to hook this up to GENPD_FLAG_POWER_UNKNOWN?
 
- fs/ext4/ext4.h    | 1 +
- fs/ext4/inode.c   | 2 +-
- fs/ext4/truncate.h |  2 ++
- 3 files changed, 4 insertions(+), 1 deletion(-)
+>
+> Apply the floor before runtime power-on even without a preceding
+> performance request. Do not skip an unchanged consumer request if the
+> boot performance floor has yet to be applied.
+>
+> Report sync-time performance errors and continue the normal power-off
+> attempt. Leave the provider sync callbacks and existing performance
+> error handling in place, without introducing retries or a new recovery
+> policy.
+>
+> Assisted-by: LLM
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  drivers/pmdomain/core.c   | 45 ++++++++++++++++++++++++++++++++++++++++-=
+----
+>  include/linux/pm_domain.h |  6 ++++++
+>  2 files changed, 46 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+> index 964e44c2f78f..6f2b406ce049 100644
+> --- a/drivers/pmdomain/core.c
+> +++ b/drivers/pmdomain/core.c
+> @@ -512,6 +512,10 @@ static int _genpd_set_performance_state(struct gener=
+ic_pm_domain *genpd,
+>         struct gpd_link *link =3D NULL;
+>         int ret;
+>
+> +       /* Keep consumer votes intact; clamp only the effective domain vo=
+te. */
+> +       if (genpd_is_power_unknown(genpd) && genpd->stay_on)
+> +               state =3D max(state, genpd->boot_performance_state);
+> +
+>         if (state =3D=3D genpd->performance_state)
+>                 return 0;
+>
+> @@ -555,6 +559,12 @@ static int _genpd_set_performance_state(struct gener=
+ic_pm_domain *genpd,
+>         return ret;
+>  }
+>
+> +static bool genpd_needs_boot_performance_state(struct generic_pm_domain =
+*genpd)
+> +{
+> +       return genpd_is_power_unknown(genpd) && genpd->stay_on &&
+> +               genpd->performance_state < genpd->boot_performance_state;
+> +}
+> +
+>  static int genpd_set_performance_state(struct device *dev, unsigned int =
+state)
+>  {
+>         struct generic_pm_domain *genpd =3D dev_to_genpd(dev);
+> @@ -563,7 +573,7 @@ static int genpd_set_performance_state(struct device =
+*dev, unsigned int state)
+>         int ret;
+>
+>         prev_state =3D gpd_data->performance_state;
+> -       if (prev_state =3D=3D state)
+> +       if (prev_state =3D=3D state && !genpd_needs_boot_performance_stat=
+e(genpd))
+>                 return 0;
+>
+>         gpd_data->performance_state =3D state;
+> @@ -1180,6 +1190,14 @@ static int genpd_power_on(struct generic_pm_domain=
+ *genpd, struct device *dev,
+>                 }
+>         }
+>
+> +       /* A consumer may enable a domain without first requesting an OPP=
+. */
+> +       if (genpd_needs_boot_performance_state(genpd)) {
+> +               ret =3D _genpd_set_performance_state(genpd,
+> +                                                genpd->performance_state=
+, depth);
+> +               if (ret)
+> +                       goto err;
+> +       }
+> +
+>         ret =3D _genpd_power_on(genpd, true);
+>         if (ret)
+>                 goto err;
+> @@ -3794,6 +3812,25 @@ int of_genpd_parse_idle_states(struct device_node =
+*dn,
+>  }
+>  EXPORT_SYMBOL_GPL(of_genpd_parse_idle_states);
+>
+> +/* Called with the domain lock held. */
+> +static void genpd_sync_boot_state(struct generic_pm_domain *genpd)
+> +{
+> +       unsigned int state;
+> +       int ret;
+> +
+> +       genpd->stay_on =3D false;
+> +       if (genpd_is_power_unknown(genpd) && genpd->boot_performance_stat=
+e) {
+> +               /* Reaggregate real votes, excluding the boot performance=
+ floor. */
+> +               state =3D _genpd_reeval_performance_state(genpd, 0);
+> +               ret =3D _genpd_set_performance_state(genpd, state, 0);
+> +               if (ret)
+> +                       pr_err("%s: Failed to sync boot performance state=
+: %d\n",
+> +                              genpd->name, ret);
+> +       }
+> +
+> +       genpd_power_off(genpd, false, 0);
+> +}
+> +
+>  /**
+>   * of_genpd_sync_state() - A common sync_state function for genpd provid=
+ers
+>   * @np: The device node the genpd provider is associated with.
+> @@ -3813,8 +3850,7 @@ void of_genpd_sync_state(struct device_node *np)
+>         list_for_each_entry(genpd, &gpd_list, gpd_list_node) {
+>                 if (genpd->provider =3D=3D of_fwnode_handle(np)) {
+>                         genpd_lock(genpd);
+> -                       genpd->stay_on =3D false;
+> -                       genpd_power_off(genpd, false, 0);
+> +                       genpd_sync_boot_state(genpd);
+>                         genpd_unlock(genpd);
+>                 }
+>         }
+> @@ -3841,8 +3877,7 @@ static void genpd_provider_sync_state(struct device=
+ *dev)
+>
+>         case GENPD_SYNC_STATE_SIMPLE:
+>                 genpd_lock(genpd);
+> -               genpd->stay_on =3D false;
+> -               genpd_power_off(genpd, false, 0);
+> +               genpd_sync_boot_state(genpd);
+>                 genpd_unlock(genpd);
+>                 break;
+>
+> diff --git a/include/linux/pm_domain.h b/include/linux/pm_domain.h
+> index 14e0e346c610..5927d9485054 100644
+> --- a/include/linux/pm_domain.h
+> +++ b/include/linux/pm_domain.h
+> @@ -129,6 +129,11 @@ struct dev_pm_domain_list {
+>   *                             powered on during boot, genpd will preven=
+t it
+>   *                             from being powered off until the ->sync_s=
+tate
+>   *                             callback is invoked for it.
+> + *                             Providers may also set boot_performance_s=
+tate
+> + *                             before pm_genpd_init() to specify a perfo=
+rmance
+> + *                             floor until sync_state. This must be a va=
+lid
+> + *                             provider performance level, not a corner =
+index.
 
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index f38fec3167fb..505ec38fa508 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -3214,6 +3214,7 @@ int ext4_get_fc_inode_loc(struct super_block *sb, unsigned int ino,
- extern int ext4_inode_attach_jinode(struct inode *inode);
- extern int ext4_can_truncate(struct inode *inode);
- extern int ext4_truncate(struct inode *);
-+extern void ext4_wait_for_tail_page_commit(struct inode *inode);
- extern int ext4_break_layouts(struct inode *);
- extern int ext4_truncate_page_cache_block_range(struct inode *inode,
- 						loff_t start, loff_t end);
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 10cd85d4c721..f59c4a5b7561 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -6845,7 +6845,7 @@ int ext4_sync_inode_metadata(struct inode *inode, struct writeback_control *wbc)
-  * buffers that are attached to a folio straddling i_size and are undergoing
-  * commit. In that case we have to wait for commit to finish and try again.
-  */
--static void ext4_wait_for_tail_page_commit(struct inode *inode)
-+void ext4_wait_for_tail_page_commit(struct inode *inode)
- {
- 	unsigned offset;
- 	journal_t *journal = EXT4_SB(inode->i_sb)->s_journal;
-diff --git a/fs/ext4/truncate.h b/fs/ext4/truncate.h
-index ce84aa2786c7..c10e4ab4242e 100644
---- a/fs/ext4/truncate.h
-+++ b/fs/ext4/truncate.h
-@@ -17,6 +17,8 @@ static inline void ext4_truncate_failed_write(struct inode *inode)
- 	 * We don't need to call ext4_break_layouts() because the blocks we
- 	 * are truncating were never visible to userspace.
- 	 */
- 	filemap_invalidate_lock(mapping);
-+	if (ext4_should_journal_data(inode))
-+		ext4_wait_for_tail_page_commit(inode);
- 	truncate_inode_pages(mapping, inode->i_size);
- 	ext4_truncate(inode);
- 	filemap_invalidate_unlock(mapping);
--- 
-2.43.0
+What's a "corner index"?
 
+> + *                             Zero disables the boot performance floor.
+>   */
+>  #define GENPD_FLAG_PM_CLK       (1U << 0)
+>  #define GENPD_FLAG_IRQ_SAFE     (1U << 1)
+> @@ -221,6 +226,7 @@ struct generic_pm_domain {
+>         unsigned int suspended_count;   /* System suspend device counter =
+*/
+>         unsigned int prepared_count;    /* Suspend counter of prepared de=
+vices */
+>         unsigned int performance_state; /* Aggregated max performance sta=
+te */
+> +       unsigned int boot_performance_state; /* Provider-specified boot f=
+loor */
+>         cpumask_var_t cpus;             /* A cpumask of the attached CPUs=
+ */
+>         bool synced_poweroff;           /* A consumer needs a synced powe=
+roff */
+>         bool stay_on;                   /* Stay powered-on during boot. *=
+/
+>
+> --
+> 2.54.0
+>
+
+Kind regards
+Uffe
