@@ -1,77 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794525980;
-	b=Lbw23RoHM1Zk8nW017wUOxgtJ3sA883OrdisTZ8VgiO8RJ90IMR1KcwOlkhmqcl2ES6R
-	 3bFSA+phq57VCVihai0sYpACjCGKeDEE6+7uNZEz1HAJbO4LGEWiCrCvjpd+MJ/VLQahD
-	 YgpXs8grziXRhRtZXBpzsObRZSVLKlXjn3DMV1KBc6yHARVlJHimjfDbnb4c/GYypzR2H
-	 nJFGeXxMKZfYlno/zq2sRr3KhWIERYWV0dGQB6AkSNraTMKNYIGRkOMCTLYqXayQKVdms
-	 11Iq1c15QjWvd4gL0UjX+m0jFEJaS+IHBW4uvn6QP2bhY/qFvTXitWt9BBRiXnBELWA==
+	b=l3lNLpshMcz51vWCOGwur95bSouOHaRX/eCFKptphGezZzXW5M1xwxM8jII4rWCdIJ7K
+	 dDxho5jwXNcbMHHym9cGEGdxXDHA6451BqiCNWI+IvNZMPxkf2hFa9PWkx8wO0y6vDoCx
+	 RgE8ntr+jhZ6HjycidFPWwvMZGmAR6Xrel9BXRu+CD8lqB3Bwibj6kz9jY5Hvt8+b43Ct
+	 h9ieTb+HwCRoexJ6nXNwTsr2+IUlTjuXThkrvsM4Uy6hclUCHs65ySnqfe8m8orCik/xu
+	 FPpNip1Q7wk6x2AxO5CmSpJ5whah/EYd2+g6XH9YPCssjNgeDqyAspwO1cTfTcUAAbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794525980;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=J38QC4zGVSApOWHxQZjig0u/JJFe43mjBO118XfzzAo=;
-	b=Uu4SLKSNubLgL9h1bvN1wtLnRhZ1HiOlPT4v6WWsfPiYp7fvWJtns03AtFpQq4Vy+nQ8
-	 ILmR5nEyBzpvIgcUH4ducZAXBzLAQ5xsSpDdee7A9UBZ0Kp3X3fyeG4v1WLKMj953Jad7
-	 XxQjN2EeZsACFw6qjXzxlz/KoT17i8Wdknu4MahjlPRhTSSl+zuio9opA6DTkTR0n1c7s
-	 KF42uhyDcpZ7yN171ClswZN+956fcR/SquZ0265rYfPN2So5kfElzZdWdzbzBzjGxXLaJ
-	 GZpSPFbR3QlF8HUhh/ioTNwYD+DKKpRX2h/bHLkGc3lxAsJcFl4Z7Vq2DXi5MrlhTQg==
+	bh=meZuQntashJTcd7s3yiRtBHxVh9sQmthI/UbfhQzfC0=;
+	b=LBxjeOJYhme3w1xmWXIaXorLi1fqp4NsZo0fgtfkucQEIFACgkwxDxhope7lWYyn11PN
+	 XnLE2Dd5NChVW9pktItW0pqqL3dlpKoRKLFhq5a8il7DW7gYUUGB+p5hMf4/xsTq2d3oY
+	 taydrhokYJF2DtXaseVt5h8iU+dPe//FhI/t920fr4HQsS3v9pxkvFbjOMYjwBHv44Bw6
+	 iww8EElrD6zMM2aAgmLDs6XOlFadMwTeEug29tk82zjPbtDBt2w4VF9fQx17MDAzRioRc
+	 eqDZTRc1llemmSQRLbvfn33tPXFpa7OXl/0SKb8bUgpBzROt/1uT4jV9uMFgi09oc3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=arTc5cP9;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MieY4qOQ;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B38606A321;
-	Thu, 12 Nov 2026 23:26:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1B38606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF31606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:26:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FF31606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=arTc5cP9
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B759640E015B;
-	Thu, 12 Nov 2026 23:26:17 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id ev7x31dU7Kdu; Thu, 12 Nov 2026 23:26:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794525973; bh=J38QC4zGVSApOWHxQZjig0u/JJFe43mjBO118XfzzAo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=arTc5cP9scb4LG+BWouiq/NIRHh4gIHtyH8p3oAAJD9LLoGhFRI30iChgzndC4zoe
-	 A27aXxLJXQITbh2dYvdph8BjP/AITZdKsrvJg8/SO4poMuOUlqo1+t45AYwOaKeHRf
-	 ZSrj2k16PSYaB+h68qmltmRtK2RN1fEeP2G1sCs9JLU0EomgqRosgIENEV1D24WKWw
-	 J7RLbUfy+0nun1a52Iba+5YM4VTPJXY6BSE4X9BJGO9G+9vqv0S17702n2XvMiqGDK
-	 DyRf//qlLlZ7uACmIXd47roW+rJBx+ihiUSshEKEmWV541PkT7HY3MdewbW98KwLs9
-	 VzDOgeMZW+/El6XQr/rzPZbN2TR3w5A9YHGuSJNc0RBivZo/Lro1UbPbfc1hvkyzp9
-	 igMUg6LtGt0dlvd2yvDcsPMTt4myYqjzyf6nn4fhLFgt9u9K461wkQoAazb0dNWmzi
-	 ty58s6SL1sp50fD9mS1Qtn+6vzigerDaXf0xU22wdTeMNiEGAdv7fvoeP6Zfx4LwUz
-	 /lPcTaUn6Em4igTXP1QmhUIo0smvE8/S2PBFeg8GonmYDjIWYi/w4tDxkXU/ZFTOUI
-	 K5/oScXHq5KEsSH1yVhhfRVMMjVuFM9MJ3JPQxzE8zswLwgfklbGQ9FAhVFrf8L2Yw
-	 2iGJp3v3SOhjZlmJbkip3LgQ=
-Received: from stx.tnic (unknown [209.52.143.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 02AA840E0231;
-	Thu, 12 Nov 2026 23:26:06 +0000 (UTC)
-Date: Thu, 12 Nov 2026 15:26:02 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Andrew Luebke <andrew.luebke@gmail.com>
-Cc: Tony Luck <tony.luck@intel.com>, Aristeu Rozanski <aris@redhat.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] EDAC/i5000: Fix the slot loop and re-enable the
- driver
-Message-ID: <20261112232602.GAavZLCp3bZ7oNPR5c@fat_crate.local>
-References: <20261112181121.565824-1-andrew.luebke@gmail.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MieY4qOQ
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33fb4680717so440121eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:26:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794525979; x=1795130779; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=meZuQntashJTcd7s3yiRtBHxVh9sQmthI/UbfhQzfC0=;
+        b=MieY4qOQ6pZCIr5Q+lFQVjXxwPdVfoiH5Y7ie0qONvaiteOGiCfww5p+6jOvUxjJi/
+         i6QJTbx3moiDt0L3+PJqL6CYnAMPOi8AfnlB7SFJvPN6+n2dywupbWkGGew0uyqFtqb5
+         9GF2qkhHJ+rQK7uZ3IcX2rxFEGjwg2CttKgzE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794525979; x=1795130779;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=meZuQntashJTcd7s3yiRtBHxVh9sQmthI/UbfhQzfC0=;
+        b=FmNdDproJZ1MsO/PX0RGX8bJlQFRKTJFV4QxNfCenSboV+FPdSuq0BtEottvE3qxKn
+         6gym1XvxaIDyzd0LoPWVpbvu9pDmCXf7i86JMEixarRkyF36krI7QZGG6aYgioyHq5YG
+         6inBI4/yVOdAFU9ZrWfPfWqYt2mfhTpKu5WZKLKmZV0d4la8I1T/fEz+jk2uAfMwEi8V
+         4KkziIKBptWoCPweKMWf+EPDTBv4gLZTIxpMJU3EwyK1xlUZbK+TWe2o4fhwPQjyJXeK
+         5MtDa1WAbKGtS+CQaQDNvDnV/QOz8v7S6KNpo/G7/BzIFEiN+XPlp7rrxI6qSMKb4ADN
+         oyvQ==
+X-Forwarded-Encrypted: i=1; AL+hErHNsMh2GAOKRYFwbHi3kwJoY/6TP6DxM3ifTSY3HqWqWEeb9vB8KtEpVl6IEqGQzt4WskbsZrsnaKUZ0p8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JQwuKh8hcujXiDYGq84b5v2XT99mjUpG3K7QTePODn/B3PhI5
+	4Z3FQXzk9DiShcP5b16L6g+QQdXtvQmNm0IyFCsqTe93QJOflGpdmRXfqvTitkhwPg==
+X-Gm-Gg: AYBFou2Kp4/IqJDHoxqN2+CLIW3/JjsPpjHMsS9ZXLlthHWDzoWwf6Agi2HHXYF0PCa
+	NL37E7vln9Z+QR7P15rrNbYld+i3Io+Ta6O2jXYq/h9xNZGWNbPbalTLXISsVYJjy3a0wzCpr1R
+	sFnpsYaQCXnzVojmGH7WECVPTk6RuBS2yf2k9YYeoW4Q4LCaIiA/sm5S2Cqytd7ThNO3EKp05DM
+	TudGU0TlnzklhKh15MHYYTBCbc533kSmVRa6o21j9niCETonajxkxVjDDV8JGeyt7hGxH11e32T
+	PFwyb3MwF3vTUVYQo/H7CWaUpt6/s3g5+Z1GAFWjIbO6BAoIrHIkdqfFQdEmFwN7PmuNLZmaXjO
+	9ys1IO6ECgHzCSjwfwrPA+j/vBODDE7otkh4ArkcoHDhAUnrSzYyVbAjxZ3a3gl2ctVHWbyD1ML
+	tFGYg3QQ0glIaK+Li62OuJ3Wu8Lhq8Enf/qNx0ZCFf9WMywxCAgKR6BSepqbY+q0+MIVTwd62GX
+	HFWiXeTvq6hNb9GIkXac/0xok7vbGrHGLGaa1Pqg+ixZfwTYmbMll1nME7Q1s0uLwNv1qJ72EIE
+	H5lNRDIMmZaGIbyKzjlWl54G0Ve94CEJ4gGEDAcV/6LXOenaCa2EYsqIxX+PPqTSV3DhPx9V14h
+	r/IK3TxKqOK3iMg==
+X-Received: by 2002:a05:7301:b07:b0:369:4c3f:8a5 with SMTP id 5a478bee46e88-37966a5b9eamr527768eec.14.1794525979231;
+        Thu, 12 Nov 2026 15:26:19 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:616b:3e06:cec4:c2f9])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3795591f4f8sm1521913eec.13.2026.11.12.15.26.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 15:26:18 -0800 (PST)
+Date: Thu, 12 Nov 2026 15:26:16 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	Mariano Marciello <mmarciello@google.com>,
+	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
+Subject: Re: [PATCH 5/9] clk: google: Add CPM clock driver
+Message-ID: <avZLGHs0OPoC_VGb@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.5.I82dc05365979021379fe730d6d52792a87ff15ed@changeid>
+ <179372634472.2573818.17532943286609086157.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,26 +110,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112181121.565824-1-andrew.luebke@gmail.com>
+In-Reply-To: <179372634472.2573818.17532943286609086157.b4-review@b4>
 
-On Thu, Nov 12, 2026 at 10:11:19AM -0800, Andrew Luebke wrote:
-> Andrew Luebke (1):
->   Revert "EDAC/i5000: Mark as BROKEN"
+Hi Jerome,
+
+Thanks for the review, and sorry for some delay. There was a lot to dig
+into here.
+
+On Tue, Nov 03, 2026 at 06:19:04PM +0100, Jerome Brunet wrote:
+> > Google Tensor SoCs (used on Pixel phones) manage many resources
+> > (including most clocks) using a Central Power Manager (CPM)
+> > co-processor. We communicate with CPM using mailboxes, abstracted in the
+> > cpm_request_client(), etc., API.
+> > 
+> > The clock tree is largely not represented fully by this driver, because
+> > CPM hides most of the divider, mux, and parent details, instead
+> > maintaining its own internal table of mappings for divider and mux
+> > values. The one exception is for some of the DPU clocks, where several
+> > clocks and dividers are exposed directly, and the firmware API works on
+> > divider values instead of clock rates. I attempt to represent this
+> > properly with dividers and parents, although I don't have the full
+> > display stack running to verify everything yet.
+> >
 > 
-> Aristeu Rozanski (1):
->   i5000_edac: fix slot number passed to determine_mtr()
+> As you say, the clock tree is not fully represented here. Beyond that, CPM
+> owns the clocks themselves, as the driver acknowledges by setting
+> CLK_GET_RATE_NOCACHE.
 > 
->  MAINTAINERS               | 1 +
->  drivers/edac/Kconfig      | 1 -
->  drivers/edac/i5000_edac.c | 4 +---
->  3 files changed, 2 insertions(+), 4 deletions(-)
+> The driver keeps a partial copy of CPM's state in the kernel:
+> 
+> - Rate tables below hard-code what the FW has (or should have) instead
+>   of rounding the rate, even though there seems to be a ROUND_RATE_OP_ID.
 
-Applied, thanks.
+Aaah, ROUND_RATE would be lovely except ... the firmware implementation
+has a giant "TBD" / "error: not supported" instead :(
 
--- 
-Regards/Gruss,
-    Boris.
+If there are major must-haves (or, very-nice-to-haves) in this firmware
+API, I can see if we can get them added, but that's usually easier on
+not-yet-launched products, whereas Pixel 10 is more than a year old
+already. I'll see what's possible though.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+> - kernel handles PLL parenting and divider math for the DP clocks, while the
+>   firmware can also switch them to what looks like the oscillator, out of
+>   the kernel's view. So the math is likely duplicated as well
+
+I'd have to do a little more research to be sure to what extent the
+firmware actually changes any of these behind the scenes. I'd imagine
+that for the only divider-exposed clock (DP), it probably doesn't, but
+I'm not sure at the moment.
+
+I get your point though; it's certainly not beautiful, and may be
+difficult or impossible to maintain in general.
+
+> This middle ground cannot be kept consistent. CCF assumes it knows the
+> topology and computes rates from it, but the firmware makes the actual
+> decisions. The DP clocks already show it: the tree can report a parent the
+> hardware does not use, and .recalc_rate()/.determine_rate() can disagree
+> with what CPM programmed.
+> 
+> I would advise to follow a model closer SCMI. What you are doing here looks
+> a lot like it.
+> (see drivers/firmware/arm_scmi/clock.c and drivers/clk/clk-scmi.c)
+> 
+>  - Put the LPCM service protocol (request word layout, dst_id, timeout,
+>    error translation) in the CPM firmware/soc driver, behind a small API
+>    shared by clk and reset. Philipp asked for the error helper on 6/9; the
+>    whole request encoding is common, not just the errors.
+
+I'll try to do some more sharing similar to what you're suggesting. But
+full disclosure: the similarities are still somewhat rare in general.
+Within a given service (so in this case, you're talking about
+CPM_COMMON_LPCM_SERVICE, used by clock, reset, and *part* of pmdomain),
+the protocol is largely shared.
+
+But this series also touches CPM_COMMON_LPB_SERVICE (also in pmdomain)
+and hints at some CPM_COMMON_PMIC_SERVICE support (RTC and PMIC); and
+there are at least 5 more defined servies, as well as a few other
+bespoke protocols. Those each have distinct request and response/status
+encodings. (Unfortunately.)
+
+So, I'll try to consolidate what I can, but it probably won't go super
+far.
+
+>  - Make the clock driver a thin CCF adapter: each CPM clock is an opaque
+>    endpoint, and gate/rate requests go to the firmware. Get rates from the
+>    firmware (round-rate op) instead of local tables. Model no topology the
+
+As mentioned above, round-rate is a no-go :(
+
+I also don't see any way to query firmware for supported rates. Off the
+top of my head, the best I can come up with is sweeping through rates
+on SET_RATE and guessing, until we find something that doesn't return
+INVALID_ARGS...
+
+>    kernel does not own. If parents must be exposed, the firmware should
+>    describe them, as SCMI does, rather than the kernel hard-coding them.
+
+I also do not think topology description is possible with any existing
+firmware. I would think if we were revisiting how to do this more
+sanely, it would make sense to stop exposing the topology at all, but
+TBD.
+
+Anyway, thanks for your thoughts. I'll see what I can do about
+ROUND_RATE, but also am interested in your opinion on the best way
+forward with the existing firmware API.
+
+For some positive notes:
+
+The vast majority of these clocks do not actually support multiple rates
+(at least, not in the tables here), nor do they expose any topology. So
+I think I can just remove their rate table, and only rely on
+(1) GET_RATE or
+(2) SET_RATE, which will only succeed if you get the exact supported rate.
+
+On some other clocks that support multiple rates (e.g.,
+HSIOS_MPHY_REF_TCX0_CLK), I don't believe we ever need clk_set_rate().
+We only use clk_get_rate(). So, probably same story as the 1-rate
+tables.
+
+A few others (DSI0/DSI1) seem to never use any get/set_rate operations,
+at least on any Pixel drivers. So that probably can also be omitted.
+
+I think that _only_ leaves DP clocks.
+
+All in all, maybe I can strip a lot of this down quite a bit, and work
+on DP separately.
+
+Brian
