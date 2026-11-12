@@ -1,96 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794445839;
-	b=rpz145RuTZLxVlpqmipeRRETSFhHX7AB4wXWeW6kBp9Nicb6BQ7DJDWcBilpaJfpt6rv
-	 WyJKFVBnRX1XEu4zicuP8Q/whcYJBBckAl0X0kDR6vEJJn20GECPbU0BZ+F/s2WczBQu+
-	 +bRy29pdJbuj+EnhXoMwadVf9sNUhaCvc8D1c4IO9pwQerJPt63maYl2v22xbxumNs58H
-	 FrG3G/GTgvt/Szf5cyxXfRz0usFXZ7GQ5vj2PqTgggyczLaJoLPSF68AHi1Y4PNra61WD
-	 sQU6gms9u39bDEbED8O9RPe9K+b9dam4Aj+IzokLUth88aJPLtMgES1S9TlKuYki+9Q==
+	t=1794445857;
+	b=l3WJmEqi+DtlbPH/LPH4W2X0Vi4j9bb1SGQchRJEZbr+/Q4ukrz7ZBqWV7l6GiACBrRa
+	 TWp1/PdYjdzyaj077eXiRfeS27woh2HxwS4OJ8B54AUCuZIMMOC4Z+qxvrRjeUbPGvYl1
+	 1AveWxeGRPviwrt5a52J3UwvSQXw2CJ/h4py/QNWGOW3unOltBpn5pUA+hCHDjltQmSNs
+	 7gHzEBBNSJkaOrg11osL78eH9jzuQdrZxSdBUunWOJFcTF//xVlOUmShPMgsXUPm6xUQY
+	 0QNHPmVpWlOGHrDgjFGaf4hUEaznBQi0Cokkbfy8hSQ76DMTuJ9PDufRabzqEaQzb5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794445839;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794445857;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=gm2pXlyoDZjy2jUYL1gRIjcpASld1ugjhk6MsltZUAM=;
-	b=TOgJ3Bj1r062YDZpveW3Q31o31Tld4u2OW955syxBsRdMarMoxC7NWm9Ev9h69ibrPdp
-	 +W9T5yGaNZIJ6YRt3Uru2j9htRKVX9meskQsJL5Z9aw7CR34Zu6NYhG66ygY1nyOjLaRB
-	 1Kwuzc67COPPHCSn9QMOOTni9YvC0IkoHprH6BQ1yoalTNBWZW8ywhKw3vwPgHEuIDDXj
-	 snSVGZXXdkbWGcDB+McvjcXMSRSkRAjjr+GT0Rj+NCd2G4uCoZ8ASIUMuDYUFIRD0w1Ck
-	 +YoQn+H1IXeyE+ZwHU3m/z+tlo1aFeyS4WCVk4Nk/rJ80rYzySJnQnns+PYA7z91UFg==
+	bh=Sg33oRoQoVee7JjFWfxdDgNWAM0j8s13PpiFv5cw7Ks=;
+	b=dSjmp41DJFmV+dutehxcZuZl+B+41yo/sn3j0XFIUq7sx4VOuDZsNF9UyQuRdClayIKq
+	 sLvTwOeGcU36CboJB/1D6j87LZzLLaBF0kNlUnBQeC3oCTuWIsFKt14JRapgKPNKvhKAK
+	 wUvgazk/wNBkFRjZYTBjdXsqPWORdqSU8RQRsLiwvM5l9NomP0HuTx05vC/pssljt+bdQ
+	 3UnZG5GMGMWkMrirURjm3XU0fqC99ZIcbqG167JmTSvG6SawuXqdqMFGZd11sJVf+Jf8I
+	 HeFDFUE+FdoI17H1tyn9OyxZPfqIFN6LEdEsJHGU3fNtgMd59FBNKAOkWte/6ksfdMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FPhiae9V;
-	arc=none smtp.remote-ip=74.125.224.138
-Received: from mail-yx2-f10.google.com (mail-yx2-f10.google.com [74.125.224.138])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=lKnZCupj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064D4606A891
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:10:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 064D4606A891
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E80606A324;
+	Thu, 12 Nov 2026 01:10:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FPhiae9V
-Received: by mail-yx2-f10.google.com with SMTP id 956f58d0204a3-67bdda532c4so1568286d50.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:10:38 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=lKnZCupj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1571F00A05;
+	Thu, 12 Nov 2026 01:10:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794445838; x=1795050638; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gm2pXlyoDZjy2jUYL1gRIjcpASld1ugjhk6MsltZUAM=;
-        b=FPhiae9VhKky2ggLWcSUiklrtrMVy4pLyo9qcbzdaN6JNm7714vgYkniAB02pDuERk
-         1lVRk8xAp8AggRKi33PiQACUETWTAgQCTOR/aZCIoL1zGyhQwd27UZIBL1K2j0d+F5nN
-         6iekq6nsQzAnH63Lht29vTAOi/YeBn0Asj0FFQ7BPDJpfzrQkrtIUpIHZTeZEmvlkDAq
-         9DZ47/k5E5N5oUWEiXPVY7HfUquRC5xRaQoidNygGyRm/YBbGiaM0rWg98ewAa3LpD/0
-         ez01sr+kmFSvEARX9Zby/jrizzeX+T667tgIZcsqVWsQgqPzveH/wXlfhQaW08b48Gp3
-         XC/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794445838; x=1795050638;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gm2pXlyoDZjy2jUYL1gRIjcpASld1ugjhk6MsltZUAM=;
-        b=FQY0AaUppnshJUeR9zP7UY9n86/lVdcdcmuD/jHqH6Ljmv6DwbfuNCGUfDPSdIbx/t
-         mvOr1096cDx2R4QT5GT1AL1nGD6n8cd04Mcdm9T0BfKjO/GUPeFcRYQtJILAXt5r7o1c
-         G5aAsRA9tF8tnaJ7wUmMUF4i4JJ92IbLdhsDnbnr7XEP6atd2h+4NN130BaQp6iWgjxN
-         CeVr7sVmQpLyAOjHLMhcVKP1a2DWol7uIPdrrNbg4WPljp+D7elR2NfIWDD7QI1ZRfF3
-         KgLqGQydVvaNjgl9jVMY0WGMfPkkMYZSeVjAEzArpNeC/VP6E+bpsyuKGtRlbW65/oMD
-         14Ww==
-X-Forwarded-Encrypted: i=1; AL+hErGu6LqNJsPvjARqJzTPde26boJ/N6Kmv7yglF6HYRKDzNklq/Otz3+6qrud1/AEw+VB7AoiIm/dQ6XtKR8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9yA8p1GXr3gSA1QaI4NExaDP2idHAm2YHcatt0vnLh54s49aLU
-	5YEAugGq6uKcdPStaoZjVLQZnPQT6uIdfF5YEaE3+YTh3ILY/8sIywgs
-X-Gm-Gg: AYBFou3VOU4TGsPuYret69t++gAIwA6eaaxWYyOitvWzK/SztDbJGj8mahClrdx3dSF
-	JJES/7E/mzd9FVnSqj7XPQDuhUUQ1u1LBCNqpLTK+tguV03lMEuPZQKP3qw/vXvcMb5IYHzLPWE
-	vAT0dCtFOm6XqvkrMT8RSUv0RPVjuBcgDRamJLZVq7NCUvbA/+eMrvVRf/EjkPeYraG5Wd1ln1z
-	ribFOTyN5PrvTBi2EEJrIRTjy66QPSJkR3qvPmrHUN42UxS0GbPC0juarDD+BhxXfmd4UxnLu1G
-	lCIHg6qoLmmTdwLF2wdwpcHEZtQg9wMfZgb49sH2BSnTZi9KKPqOfYS5W65Znv4daAZDl02/QWG
-	y80p5q06qNUqxW2S4F02X2nx3pHPP5IFSJWn7oxGshMjh4lmnoP3QRtDy6NRUknJ6KZvmR30DES
-	3NQeaoWQNor2/IdZ2YDs03oZXbXLGXhWR6b6jArBFubLGrWCK3r/bmu/KCdaP8gMeAB3DJySyi8
-	e3Vz2HkcwUl3uN9byoyV777t7C9m/vDk3POXNQOad3PAG00Aibpoopjq+vaWm6/pW7MYlwsUaWJ
-	+LChfNDbtmbckfWRbpvD5Z7+2eUGJB3tnndFqN8Wjw==
-X-Received: by 2002:a05:690c:39c:b0:8a9:cdd:faa with SMTP id 00721157ae682-8b3a81dc415mr23588437b3.93.1794445837938;
-        Wed, 11 Nov 2026 17:10:37 -0800 (PST)
-Received: from athenadria-developer.attlocal.net ([2600:1700:1350:96b0::42])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c6e207adcsm2591300d50.15.2026.11.11.17.10.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 17:10:37 -0800 (PST)
-From: Hezekiah Mogere Joseph Mayaka <hmjm081106@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Hezekiah Mogere Joseph Mayaka <hmjm081106@gmail.com>
-Subject: [PATCH] staging: media: atomisp: Remove unneeded return statements in irq.c
-Date: Wed, 11 Nov 2026 19:10:25 -0600
-Message-ID: <20261112011025.101375-1-hmjm081106@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	d=linux-foundation.org; s=korg; t=1794445856;
+	bh=Sg33oRoQoVee7JjFWfxdDgNWAM0j8s13PpiFv5cw7Ks=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lKnZCupjO3yK/mZZLk2i8vWpoqQEGkjX8ITOF3AYYtxE3G6XA1uUb51AaGXZTwWa/
+	 I3b2szAXQ8ib2XBaVlgoYYPQ49mmsO6AHettz9pXLqrhqXGVKq4tnBjgHN8mZXfgjP
+	 d90Qak/JcVpBqA88A28EAG/1S+Cc7ngN/v41xxyY=
+Date: Wed, 11 Nov 2026 17:10:55 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev, Sasha Levin
+ <sashal@kernel.org>, Bradley Morgan <brads@mainlining.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Mark
+ Brown <broonie@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Leon Romanovsky <leon@kernel.org>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>, Thorsten Leemhuis
+ <linux@leemhuis.info>, "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook
+ <kees@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
+ <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Alexei Starovoitov
+ <alexei.starovoitov@gmail.com>, Julia Lawall <julia.lawall@inria.fr>, SJ
+ Park <sj@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v5 3/6] agents: add a skill to determine stable tags
+Message-Id: <20261111171055.527b4bf3da705367bc78a64c@linux-foundation.org>
+In-Reply-To: <20261111225940.1573565-4-tytso@mit.edu>
+References: <20261111225940.1573565-1-tytso@mit.edu>
+	<20261111225940.1573565-4-tytso@mit.edu>
+X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,92 +67,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Remove the bare return statements at the end of void functions, along
-with the blank lines before them. They have no effect and checkpatch.pl
-warns about them:
+On Wed, 11 Nov 2026 17:59:35 -0500 "Theodore Ts'o" <tytso@mit.edu> wrote:
 
-  WARNING: void function return statements are not generally useful
+> From: Sasha Levin <sashal@kernel.org>
+> 
+> Whether a fix needs a stable tag, and which releases it should reach, is
+> decided by hand and is often missed or left too broad. Add a skill that
+> sends the agent to stable-kernel-rules.rst for the decision and the tag
+> format, lists the kinds of changes the stable trees take and leave out
+> in practice, and adds the checks agents tend to get wrong: finding the
+> first release that contains each introducing commit, checking that the
+> fix applies to the oldest affected release, giving every stable tag the
+> same version, and following the subsystem's stable policy.
+> 
+> If the decision cannot be made, the skill returns no tag. Point the
+> bug-fix procedure in coding-assistants.rst at the skill.
+> 
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Link: https://patch.msgid.link/20261020161642.3713052-4-sashal@kernel.org
+> Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+> ---
+>  Documentation/process/coding-assistants.rst |  6 +-
+>  agents/skills/stable-tag/SKILL.md           | 72 +++++++++++++++++++++
+>  2 files changed, 76 insertions(+), 2 deletions(-)
+>  create mode 100644 agents/skills/stable-tag/SKILL.md
+> 
+> diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
+> index ca1cc255606b..81ee530a8a7f 100644
+> --- a/Documentation/process/coding-assistants.rst
+> +++ b/Documentation/process/coding-assistants.rst
+> @@ -37,6 +37,8 @@ The following skills are available:
+>  
+>  * agents/skills/find-fixes/SKILL.md determines the Fixes tag of a bug fix, or
+>    checks an existing one.
+> +* agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
+> +  returns its stable tag, or checks an existing one.
+>  
+>  Licensing and Legal Requirements
+>  ================================
+> @@ -83,8 +85,8 @@ these steps:
+>     another one. The fix must not add build warnings and must pass the
+>     checkpatch.pl checks (see submitting-patches.rst).
+>  6. Commit the working fix with a detailed message describing the problem, the
+> -   solution and a Fixes tag determined with the find-fixes skill.  Do not
+> -   add a Signed-off-by tag.
+> +   solution, a Fixes tag determined with the find-fixes skill, and a stable
+> +   tag if the stable-tag skill calls for one.  Do not add a Signed-off-by tag.
+>  7. Identify the maintainers and lists using scripts/get_maintainer.pl.
+>     Documentation/process/security-bugs.rst shows how to do that.
+>  8. Indicate what could not be done. If the fix could not be built or tested, or
+> diff --git a/agents/skills/stable-tag/SKILL.md b/agents/skills/stable-tag/SKILL.md
+> new file mode 100644
+> index 000000000000..d87bcc95089d
+> --- /dev/null
+> +++ b/agents/skills/stable-tag/SKILL.md
+> @@ -0,0 +1,72 @@
+> +---
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +name: stable-tag
+> +description: >-
+> +  Decide whether a Linux kernel fix should be backported to stable kernels
+> +  and return verified Cc: stable tag lines. Use when preparing or reviewing
+> +  bug-fix patches, drafting their commit messages, or checking an existing
+> +  stable tag.
+> +---
+> +
+> +# Determine a stable tag
+> +
+> +Read Documentation/process/stable-kernel-rules.rst. It says which changes go
+> +to stable and how to write the tag, its prerequisites and its version. Follow
+> +the rules for skills in Documentation/process/coding-assistants.rst.
+> +
+> +Judge a change by what it does, not by how its description labels it: a
+> +"cleanup" that releases a resource on an error path fixes a leak. In practice,
+> +the stable trees take:
+> +
+> +- Fixes for crashes, oopses, BUG and WARN splats, hangs, lockups, RCU stalls,
+> +  deadlocks, data corruption and security issues.
+> +- Fixes for use-after-free, double free, NULL pointer dereferences,
+> +  out-of-bounds accesses, integer overflows, uninitialized data, reference
+> +  counting errors, and memory or resource leaks.
+> +- Fixes for races, including data races.
+> +- Fixes for incorrect behavior, such as wrong results, wrong hardware
+> +  programming, or endianness and type errors.
+> +- Fixes for problems reported by syzbot, other fuzzers, or the KASAN, KMSAN,
+> +  KCSAN and UBSAN sanitizers.
 
-Signed-off-by: Hezekiah Mogere Joseph Mayaka <hmjm081106@gmail.com>
----
- .../media/atomisp/pci/hive_isp_css_common/host/irq.c | 12 ------------
- 1 file changed, 12 deletions(-)
+Marco had some thoughts on this just today:
 
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
-index 61dea386361a..6ca8fcd61b36 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
-@@ -60,7 +60,6 @@ void irq_clear_all(
- 
- 	irq_reg_store(ID,
- 		      _HRT_IRQ_CONTROLLER_CLEAR_REG_IDX, mask);
--	return;
- }
- 
- /*
-@@ -104,8 +103,6 @@ void irq_enable_channel(
- 		      _HRT_IRQ_CONTROLLER_MASK_REG_IDX, mask);
- 
- 	irq_wait_for_write_complete(ID);
--
--	return;
- }
- 
- void irq_enable_pulse(
-@@ -120,7 +117,6 @@ void irq_enable_pulse(
- 	/* output is given as edge, not pulse */
- 	irq_reg_store(ID,
- 		      _HRT_IRQ_CONTROLLER_EDGE_NOT_PULSE_REG_IDX, edge_out);
--	return;
- }
- 
- void irq_disable_channel(
-@@ -150,8 +146,6 @@ void irq_disable_channel(
- 		      _HRT_IRQ_CONTROLLER_CLEAR_REG_IDX, me);
- 
- 	irq_wait_for_write_complete(ID);
--
--	return;
- }
- 
- enum hrt_isp_css_irq_status irq_get_channel_id(
-@@ -212,7 +206,6 @@ void irq_raise(
- 			    (unsigned int)addr, 1);
- 	gp_device_reg_store(GP_DEVICE0_ID,
- 			    (unsigned int)addr, 0);
--	return;
- }
- 
- bool any_virq_signal(void)
-@@ -251,7 +244,6 @@ void cnd_virq_enable_channel(
- 			irq_disable_channel(IRQ0_ID, IRQ_NESTING_ID[ID]);
- 		}
- 	}
--	return;
- }
- 
- void virq_clear_all(void)
-@@ -260,8 +252,6 @@ void virq_clear_all(void)
- 
- 	for (irq_id = (irq_ID_t)0; irq_id < N_IRQ_ID; irq_id++)
- 		irq_clear_all(irq_id);
--
--	return;
- }
- 
- enum hrt_isp_css_irq_status
-@@ -302,8 +292,6 @@ void virq_clear_info(struct virq_info *irq_info)
- 
- 	for (ID = (irq_ID_t)0 ; ID < N_IRQ_ID; ID++)
- 		irq_info->irq_status_reg[ID] = 0;
--
--	return;
- }
- 
- enum hrt_isp_css_irq_status virq_get_channel_id(
--- 
-2.56.0
+https://lore.kernel.org/CANpmjNMvM_TCs7Fao9+gM-NNpQyBKYumSuWOt_03ZX+tLwbjWw@mail.gmail.com
+
+And Documentation/process/stable-kernel-rules.rst does ask for real
+things, not theoretical stuff.
+
+Also, I would keenly like to see changelogs clearly explain *why* a
+backport is proposed.  As I have said 1000 times, "when fixing a bug
+please clearly describe the userspace-visible runtime effects of that
+bug".  Can we pleeeeeeeeeeze get this requirement clearly enshrined in
+this patcset somewhere where the LLMs will read it and comply?  It's
+really simple for the LLMs to cook up a paragraph for this, if so
+directed.
 
