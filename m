@@ -1,59 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.85.9.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.121.94.183
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494619;
-	b=P5FMa0q3fY2OfI39rkyJ6aa65Ipnw8P+EeAkX5OyYz2AR5jmuHexZwbWcNVpPqOUCEfk
-	 /V0QIE7ADmzCV5vBK3gcY3eZyFOZgjdgFl9W9S2hF5Noc/tmu/HH0nFBJVN+D0VLOn/xt
-	 6SFq4rt7XaTJZ1tF7fPrXhKUitJRFhajk+cIAXTkTr5dS5O8r8KuQ3ef7OzDJKtD9eexZ
-	 X7u1wN2pMCBb9K3B/+JRaXsQCgNdweeQrwlAtNtWgEJkUfoWpSim2RBjGKyuIZMVVzFlU
-	 H23jxlTILMZhsxy70p0+ADG7CUVOFaCJf10MGTXUzJS7R06Zo7XA3A9a/YVRgk89QtQ==
+	t=1794494626;
+	b=oKudWoxW1GcnIVjFBCX2V378tdGbKSn3Vmzqql9JTOiV6cYozmC5Il/iLWPFj4sVm3Cj
+	 C2QOeSWmS7fo97PrxALeNXHiB24UE7r/QQGnQxUsCu5gzspmyekvRyK/4uX3iGTlswulJ
+	 sUgrVjTzh9C5wB+9xnprZcpT8kEkZAv44RzhuiC35cNXf/5euAGWtD/QJ5fVNBdjJWtj+
+	 VTV5UsOe3FgomKamlbIpU7Biktxqos3QCFyPYUQfyay+u0htou54Or8zKlRkGDekm+Dqg
+	 m341Q/t4HZyb+cyOa9FRT415r2Yoo6vpkQ7Jz/VA63OJB3txekPeUEqlVzI7fUji4SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494619;
-	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version;
-	bh=BmLmIRXTRT6cun9WV23K9Y6TFiMIhvIIl7/j6XtjqH0=;
-	b=FdC0SS8jX2nD9NRXb0FK0ZXpyK6l2ADN0036iOl+sqdMx96miPIA5cOgc/NpO1ELpcpP
-	 +XsoDz5/K94PWuuZDssI6WEKCY7TMqm9UvKwxCgdw+BlF83DoHVsmd31RdpDT1gtbseuW
-	 yyfShoEXFGiewxskpYbDwTTQwoU7ghJypKBwmZEVGXx/75av+1dHQAh32ehLW5H2JE+qu
-	 qLPz/HLSq2d537TTFURXW+8GAWMAVy6CLahAOcWZuuaU55R138BlErUqXRE7HjOApxj4U
-	 36mJyH8RpsJJ174zH0EDW77kAQRgmwPvkio1kFN9aMitxBwPzzPwnatIXV6eXFRfNqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494626;
+	h=DMARC-Filter:X-KPN-MessageId:Received:Received:DKIM-Signature:
+	 X-KPN-MID:X-CMASSUN:X-KPN-VerifiedSender:Received:Date:From:To:Cc:
+	 Message-ID:In-Reply-To:References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Priority:Importance:X-Originating-IP;
+	bh=od0sDb61Vyxn7jJRWeS+kkhSMP4jrGQol+QTMNRF7m0=;
+	b=IBru/fe2LJAN7cloe7lo4/YchGhl957NusUcpu+s6OMOV2+1HsbF8tC5OKAl+FPJGyo8
+	 WWHYj+rt6XkUa8r17acq2QDsy3WTPgpVlQN7n59HOMtqlcwpzCLZX0O5jg5CyImK+q/mG
+	 CIWPqo9Y/rTkZfnJAXg/Tj83DQTVDmplaFzhho4cM95V7aq5rVamYU+jJUBV5m5oMvDVc
+	 Go8HtU+usT+nRJC3Ike985OdWwZXJ88G1ewpDpyQ5ZmiKmf/gJhMUYPZ28bC0r6U6Qjy8
+	 fjdj80P71QUOPFqlpReuNRh38FE0L8wLkFic5vb7uNrPwGDX8kiYSy9bjWkMw+CwUQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=irl.hu;
-	spf=pass smtp.mailfrom=irl.hu;
-	arc=none smtp.remote-ip=95.85.9.111
-Received: from irl.hu (irl.hu [95.85.9.111])
+	dmarc=pass header.from=xs4all.nl;
+	spf=pass smtp.mailfrom=xs4all.nl;
+	dkim=pass header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=YfRkTgqQ;
+	arc=none smtp.remote-ip=195.121.94.183
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.183])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id ECDF3606A321;
-	Thu, 12 Nov 2026 14:43:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECDF3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
-Received: from [192.168.2.4] (51b6855e.dsl.pool.telekom.hu [::ffff:81.182.133.94])
-  (AUTH: CRAM-MD5 soyer@irl.hu, SSL: TLS1.3,256bits,ECDHE_RSA_AES_256_GCM_SHA384)
-  by irl.hu with ESMTPSA
-  id 00000000000C60CB.000000006AF5D092.000045AF; Thu, 12 Nov 2026 15:43:30 +0100
-Message-ID: <504167422048bb8197a1ca3fac079cec9dea1ae7.camel@irl.hu>
-Subject: Re: [PATCH] ALSA: hda/tas2781: Only accept CRC-less V1 data if all
- entries are valid
-From: Gergo Koteles <soyer@irl.hu>
-To: regressions@lists.linux.dev
-Cc: med.jebabli@gmail.com,
-  Cristian Castellano <cristian.castellano@icloud.com>,
-  stable@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
-  Jaroslav Kysela <perex@perex.cz>, linux-sound@vger.kernel.org,
-  linux-kernel@vger.kernel.org,
-  Thorsten Leemhuis <regressions@leemhuis.info>,
-  Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-  Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>
-Date: Thu, 12 Nov 2026 15:43:20 +0100
-In-Reply-To: <7cd4c010f13ee085e3aa4396705b6b06ed58f7e1.camel@irl.hu>
-References: <20261103-tas2781-v1-nocrc-fix-v1-1-a769c27f21ce@gmail.com>
-	 <7cd4c010f13ee085e3aa4396705b6b06ed58f7e1.camel@irl.hu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38ED6606A331
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:43:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38ED6606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=YfRkTgqQ
+X-KPN-MessageId: 709a0b30-dea7-11f1-b91f-005056992ed3
+Received: from mta.kpnmail.nl (unknown [10.31.161.188])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id 709a0b30-dea7-11f1-b91f-005056992ed3;
+	Thu, 12 Nov 2026 15:43:35 +0100 (CET)
+Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.190])
+	by mta.kpnmail.nl (Halon) with ESMTP
+	id 70af84d2-dea7-11f1-b812-00505699693e;
+	Thu, 12 Nov 2026 15:43:35 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:subject:message-id:to:from:date;
+	bh=od0sDb61Vyxn7jJRWeS+kkhSMP4jrGQol+QTMNRF7m0=;
+	b=YfRkTgqQnxqO/91/hesLveZ2fxSQYJIVkiuLMlFK1lFxqTncAH8zPh0DrbgwooXF7fNBiy7rGuYho
+	 6PITkBDfNSHF4N0a3OkYGKHAC6Q6o5efJ1GtFoEDxennrNFbU3Xc++kI4msAnUrANP9QbE8tF5wg7g
+	 vucwqAsKttr2stkKZdIAY7FfhNVv0gPafvaL06ahN6HIzxZfyFnEM2m/5T+ltrIlPCfZAz1MBdjQwn
+	 MZizqm4RKr5CcZuRUGO8UTFpNo/SSgHR6Kwt9g4XnTQMc4VQgDmYqtCibj6SsfrRz7REssiPwZDkVw
+	 lhH0irhvOC5FPT2IDuqlwsThcbEvO3g==
+X-KPN-MID: 33|Z4TXQhp2FhjmyMaCgy2XBZaHAdldqYiNjPl9y4mPDO44gTKe8JIT2wnKoKoBYPN
+ GwIUJyoYWnRjmhD2gg/+EX1KhFsn1F10Qsp5rVZCSvx0=
+X-CMASSUN: 33|TYSEE/PoiuTVLIcD3FbHwsz030mnYA/ltY768Pm9Tl8kBX5hGQ2AKg2dW7NwY36
+ impqVpoWNsqdJIrmumzrJhA==
+X-KPN-VerifiedSender: Yes
+Received: from cpxoxapps-mh04 (cpxoxapps-mh04.personalcloud.so.kpn.org [10.128.135.210])
+	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
+	id 70a4d10a-dea7-11f1-aa48-005056995d6c;
+	Thu, 12 Nov 2026 15:43:35 +0100 (CET)
+Date: Thu, 12 Nov 2026 15:43:35 +0100 (CET)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>, Meta kernel team <kernel-team@meta.com>,
+	linux-fsdevel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Message-ID: <186109292.1132834.1794494615590@kpc.webmail.kpnmail.nl>
+In-Reply-To: <avW_E0stwo6e-y58@linux.dev>
+References: <20261111215058.1837351-1-shakeel.butt@linux.dev>
+ <1984940723.1098701.1794483492769@kpc.webmail.kpnmail.nl>
+ <avW_E0stwo6e-y58@linux.dev>
+Subject: Re: [PATCH v4] kernfs: allocate inodes and dentry outside
+ kernfs_rwsem
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,45 +85,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+Importance: Normal
 
-Hi,
 
-On Wed, 2026-11-04 at 16:55 +0100, Gergo Koteles wrote:
-> Hi Mohamed,
->=20
-> On Tue, 2026-11-03 at 10:27 +0100, Mohamed Yassine Jebabli via B4 Relay
-> wrote:
-> > From: Mohamed Yassine Jebabli <med.jebabli@gmail.com>
-> >=20
-> > Commit 408249089c48 ("ALSA: hda/tas2781: Accept V1 calibration data
-> > without CRC") only checked the first device entry. On machines where
-> > the BIOS populates fewer entries than p->ndev, the remaining all-zero
-> > entries are applied and tas2781_cali_preproc() divides by zero on
-> > playback open.
-> >=20
-> > Accept CRC-less V1 data only if every expected entry is non-zero and
-> > self-consistent (R0 * 1/R0 close to 1.0), otherwise reject it as
-> > before.
-> >=20
->=20
-> ...
->=20
-> > =20
-> > +/*
-> > + * V1 data without CRC is only trusted if every expected device has a
-> > + * populated, self-consistent entry: R0 (Q27) * 1/R0 (Q31) must be
-> > + * close to 1.0 in Q58.
-> > + */
->=20
-> Just out of curiosity, where do Q27, Q31, Q58 come from?
-> I couldn't find anything about these.
->=20
->=20
+> Op 12-11-2026 08:29 EST schreef Shakeel Butt <shakeel.butt@linux.dev>:
+> 
+>  
+> On Thu, Nov 12, 2026 at 12:38:12PM +0100, Jori Koolstra wrote:
+> > 
+> > > Op 11-11-2026 16:50 EST schreef Shakeel Butt <shakeel.butt@linux.dev>:
+> > > 
+> > >  
+> [...]
+> > > +	new = new_inode(sb);
+> > > +	if (!new)
+> > > +		return -ENOMEM;
+> > >  	down_read(&kf_root->kernfs_rwsem);
+> > > -	inode = kernfs_get_inode(sb, info->root->kn);
+> > > +	inode = kernfs_get_inode_locked(new, info->root->kn);
+> > >  	up_read(&kf_root->kernfs_rwsem);
+> > >  	if (!inode) {
+> > >  		pr_debug("kernfs: could not get root inode\n");
+> > > 
+> > > base-commit: ecdfc51a6a78aaf1c4ac1d8b6ea199cc2ed020ac
+> > > -- 
+> > > 2.53.0-Meta
+> > 
+> > Does this compile? I added a bool parameter to kernfs_get_inode_locked(),
+> > for this patch to be able to do a lookup first, but you haven't added that.
+> > I think you want to set lookup=true everywhere, right?
+> > 
+> 
+> Yes, it builds on vfs-7.5.directory (base-commit ecdfc51a6a78).
+> Christian's fixup there dropped @lookup, so kernfs_get_inode_locked()
+> now takes just (inode, kn).
 
-I think it would be good to be able to see which commits were generated
-by an LLM. This way, people wouldn't have to scour the internet trying
-to verify hallucinations. Furthermore, it would be possible to see what
-percentage of the kernel consists of public domain/LLM code.
+Ah, I didn't notice that.
 
-Best regards,
-Gergo
+> 
+> I don't think this patch needs @lookup.  inode_insert5() already
+> returns an inode that is already hashed, so an ilookup() first only
+> changes things for an inactive node.
+
+Fair enough, I was thinking you added it on purpose becasue ilookup() does
+not get the inode_hash_lock lock. But if you see no regression by always
+taking the lock, it's cleaner to get rid of the lookup flag.
+
+At any rate, feel free to add:
+
+Reviewed-by: Jori Koolstra (CIQ) <jkoolstra@xs4all.nl>
