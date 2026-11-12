@@ -1,105 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794445473;
-	b=NbKVB3f3+wkRlIEZ/Bmzr7XT6mTFrweaGA42z8kdBvSFG+VqRN7KlyXtlvxy8U5Hqw3T
-	 0AuLMH8gI2HeKG3fKkrVMhrZHURGrJpQEFmwzvtVHpPW29v3i9FAnBbMuP5bthkkPa/nm
-	 zhWBbF25qRz/GBOOAsYx1tbCXOra9q0VA0oLOKgbFYY4L4xqB8uXcKOWVYLwPKtPOKlYC
-	 c4BU3+6X6QvEguVwVAdc0zHvsYZ+uh8egO+n3UZr5s4/DwXfw0qhQQL6Vvbw7o7gg65Of
-	 9YSKBJlC2/gQ39odhmdjSQo00e0qmMukGOPKCC+ao9gcRSV22xCql2vG00JejQnXpsQ==
+	t=1794445472;
+	b=30+pOsB4nBfpTKxAaiaT+rXlEHMJnR8G65oksZ8ICVC+joSuON4bGTkZzUOURLh7hekm
+	 AAh6JWyjCgZhKaIK8gNjym1bPPgRPyBRPQl+noZONRcvZnVlRPttiW6or7wDN5JI9wAXs
+	 lHX5/22cNu2g++0wF/rFmcj4OBKNCsxqhFcqfUYWY36za30U1XnQmBv61QGil1zQj4ep7
+	 ZvPupPTCleSXzmH0g3jYtbcVPUUmGTfiu7Oj2BhkA2RGtEjXjOjDP/eqnb1WknJV4oLFb
+	 67OH/ZlvSq6VEWplFNFmshwlspnQCh61Ye/Lc5bJIlCNQTlhj7pOjAmq8uPJN1GZXkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794445473;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=ImXBWGlfZVszV/Tkddt3FR7QWzPa65TkJvi8WUZhBmU=;
-	b=OyCec336LuPcB4BoAkgX7kVATU+naT7e/Mh0GZBfvC3HOS/IFFgkilwptpzu/a4nC9XS
-	 7hRCWUFBD9ZXr8mtjQMonG/GdvT3oA9k+j75xhHMj3lXl2MDsn98gWT5UV2++x5smxW6i
-	 zaPYbu+z/5UhIa3UmbeQZ3GvzPQGUmGzzU+0VLkQJigJqfyNeSJzShaR3rkX7fPshcPFU
-	 UP7xAMQLHoEHTHdC/rB7LNBvCmpxT5CMwbrqMBe+4VE/KvWHIjzsnbjc17ZNB8HA04STH
-	 +jDFzh3TNcjy4V9JRXiIk2gvqBibJowtAGTgbq6iTHxBRojwpWyXuIetVAKfDVyfDMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794445472;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
+	bh=godrn0AcTpKNoux8k0g+v99edPET2QoTMO3KwbRZ7w8=;
+	b=r3xO6rFa/AkD5kqQmmyDPB62ji6rT1cxWywCKCjM4Th7ZgZ2P0bwY8dfgKcs/xPYa1gG
+	 0fEaPgPrzwO8jRFuwtCXXWcFAlj13RYBAu923v+YjWvVXKzOf8Z5md33xz5XnWaF5KaWj
+	 wHf240KJxQNFpgL9vPykztfguXTOLNVjNoE1MQ9lpCgeB49xiq0xddRaswyWoZjQHkb1B
+	 Z7KWfMnxXrqw7Syz7/8Tifat9wGCcaNbns61nd8pGiCUHTbL56n5+hv/4tHcib7EBlr57
+	 RV/FvefdxzqinIEG3/08XbU92N3OnUzWXQVKSWcvzceuorcss+CZ+Uc16dU8dAKr2SA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AISAJ9bb;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA7B606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:04:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BA7B606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AISAJ9bb
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso1442677a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:04:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794445472; x=1795050272; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ImXBWGlfZVszV/Tkddt3FR7QWzPa65TkJvi8WUZhBmU=;
-        b=AISAJ9bbeU8GfdfXc0hLt7sMbDWH+hMBgyUtmeidknJQeLdeCBSqQ++3Ab4McAJkWR
-         cyjHGHKPWZzGDjet/7z2iDyQHRyGnIe0HOdif98bx4pz+lYySI0+lCGOf7CeW2pHWIzv
-         tpEDH/VJX+VnjRJHCVZeNsYXOyzUXqAldn6kkUhTXMYZ+sWD0fa4Fc+tKpTZu0IWHlFt
-         irjynHqGN/7GuyKtbmfM4Qje2w8qHPEyAIAcozxd1LS8veIrrThANyqqXGD3oVTjmZiB
-         HOIJg46NX89zi+SYaRrcx29ZvLGnCEStm56k8tduYDPHOn//AwYmnhWpqU28Qgdby59I
-         wSLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794445472; x=1795050272;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ImXBWGlfZVszV/Tkddt3FR7QWzPa65TkJvi8WUZhBmU=;
-        b=JSv2T7fqUrpzEkO7MJCOf6iurBJQ9eRqSWRl3vKTbYQwEq9NLGW2Dw0TRoBKc1I5Lp
-         Auj6gM8qVJzhveYSJNzhZQ+ysw10FAC0NAlSd4ZvJcBgW1EYHVo2ENBTqIPFjVwvCfiJ
-         Mz61q7+zuQQ93dUtbqx6Sn6OSWmPATnBC9dj1cg3QTfyFH5nfwsO8AUfe3dORzJO0UtF
-         ogCwqIao2n03guI4+IiB4/zyj1JxuTMZ0gYkklTapE+sj6IAoRh9ymwilfv2iHRQp2+Y
-         RE/+bAX/UopvFI+mgfTcBvUvOVzWZ564KDquBIzxfTP8/9R/I4WQCC/zTbpQeKvEBxSl
-         B1Zw==
-X-Forwarded-Encrypted: i=1; AL+hErHgIIHUJNnD3SHX+Tlbibq+eBGENUFzRz5TNHDkq6p7y72cqSiJHl89o/DbHnVnrpxQ7b/jfZI+7FawrmE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ThFYgjCBU7Fjmt8aRVvY9SNVoCKAxlgp/uY80fttY3MUb+WNB
-	7mrjDZ3FUkW1NCeiTLW0/pKrjfHS1RGQc3Q8aJfy5kmANQLLBKk+vHI9
-X-Gm-Gg: AYBFou3D6toPQyuXapwx5c9xZkBTn7DHNN4FQ9V1GrC5uvlNASu/9krDivBZRXDzS9Y
-	xYyBn/bgvhvWicrpviEgRsiknwczLk9KzMnoAXiI9oxBfobAgLReE8mXMPAYi7WgIpSHVCn01S+
-	vAZ7pKTNqZY9VHE2+IivYVTJUVhIL9ZugF5PLrmb8EETe57nSnFtrW+qAS4TjA2r+hVcZzsNR8Z
-	9cBhqR5Hbt9EtVVyl0BpeKUGdxVgmfQ/ULeigexNDkf0H0CpsXimGnlPBD2LF7t449MlIT9XUkR
-	0YbHuieaTYFoACtvrrJFevo95520+0sWFN8ttY9kd5ySfTqeLILuO+hSLDyjvutMBIIUfynYTEP
-	/JweUuxKY+ZYG6qWH4/erhFSjwJnI01yFPX8I3O74nkwkd17qz/wtdLOg/bk//MbBtEy/tyamQo
-	IdoeIV6tO7ZsnRkXTmZ+kcAQE3At2w39vlyrrTrfSJMQY7PCkcF+TJnqEhPxSOIR17OqdElrdgF
-	CsFur+zQWkPC8FwV0Dj+tZs9wxTiuj6VQP/cOIdO4WcvZhuWU5SVkkUjMo+231H/R/dVqkuHMSN
-	KtW9HFxUXte5KyQP2GkPc/x2Vp5Wa5FZ1ZGfyKlVc+qxsu3S5Qhcqd6O38gUknTkdk0LaHugyFP
-	4TbqAx5XNq3ns7QvyQw+3LEBp7rAYyE40jw==
-X-Received: by 2002:a17:90b:590c:b0:3a8:699f:959d with SMTP id 98e67ed59e1d1-3b182f28bd7mr3487343a91.31.1794445472226;
-        Wed, 11 Nov 2026 17:04:32 -0800 (PST)
-Received: from localhost ([153.61.198.252])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d7a26e5sm2247647a12.18.2026.11.11.17.04.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 17:04:31 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 12 Nov 2026 01:04:30 +0000
-Message-Id: <DMSTTWR4MAET.1VEV3R66S7ZFY@gmail.com>
-Cc: "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman"
- <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Song
- Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri
- Olsa" <jolsa@kernel.org>, "John Fastabend" <john.fastabend@gmail.com>,
- "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "Steven Rostedt" <rostedt@goodmis.org>, "Masami
- Hiramatsu" <mhiramat@kernel.org>, "Mathieu Desnoyers"
- <mathieu.desnoyers@efficios.com>, "JP Kobryn" <jp.kobryn@linux.dev>,
- <linux-trace-kernel@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf-next v2 2/5] bpf: Check program recursion per task
- via bpf_ctx
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: <mikeba@sentinelone.com>, <bpf@vger.kernel.org>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>
-In-Reply-To: <20261111-bpf-preempt-v2-r2-v2-2-9d8f6b952ad2@sentinelone.com>
-References: <20261111-bpf-preempt-v2-r2-v2-0-9d8f6b952ad2@sentinelone.com> <20261111-bpf-preempt-v2-r2-v2-2-9d8f6b952ad2@sentinelone.com>
-Content-Transfer-Encoding: 8bit
+	dmarc=pass header.from=hygon.cn;
+	spf=pass smtp.mailfrom=hygon.cn;
+	arc=none smtp.remote-ip=101.204.27.37
+Received: from spam01.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91CBA606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:04:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91CBA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jQ2GM51XNzVcB5;
+	Thu, 12 Nov 2026 09:04:11 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jQ2GK48TJzVcB5;
+	Thu, 12 Nov 2026 09:04:09 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id D9B8BDC2D;
+	Thu, 12 Nov 2026 09:04:01 +0800 (CST)
+Received: from qiuzhiteng-2U-Workstation.hygon.cn (172.25.64.90) by
+ cncheex04.Hygon.cn (172.23.18.114) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.36; Thu, 12 Nov 2026 09:04:09 +0800
+From: Zhiteng Qiu <qiuzhiteng@hygon.cn>
+To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>
+CC: Ying Huang <ying.huang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>,
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn
+	<joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
+	<gourry@gourry.net>, Alistair Popple <apopple@nvidia.com>, Xin Hao
+	<xhao@linux.alibaba.com>, Dave Hansen <dave.hansen@linux.intel.com>, Yuan
+ Zhong <zhongyuan@hygon.cn>, Shifei Ge <geshifei@hygon.cn>, Jianyong Wu
+	<wujianyong@hygon.cn>, Shijie Huang <huangsj@hygon.cn>, Yibin Liu
+	<liuyibin@hygon.cn>, Fengyu Wang <wangfengyu@hygon.cn>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, Zhiteng Qiu <qiuzhiteng@hygon.cn>
+Subject: [PATCH v4] mm/migrate: don't batch the TLB flush when there is nothing to batch
+Date: Thu, 12 Nov 2026 09:03:57 +0800
+Message-ID: <20261112010357.2739389-1-qiuzhiteng@hygon.cn>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,35 +65,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-On Wed, Nov 11, 2026 at 11:39 AM Mike Bazov via B4 Relay <devnull+mikeba.sentinelone.com@kernel.org> wrote:
-> As a result, the same program can now run in two tasks at once on one
-> CPU. Programs that use a per-CPU map as scratch space across helper
-> calls may see another run's data, where the run was dropped before.
+NUMA balancing migrates one folio at a time, but since commit
+7e12beb8ca2a ("migrate_pages: batch flushing TLB") it still unmaps
+with TTU_BATCH_FLUSH like any other MIGRATE_ASYNC migration.  When the
+batch contains one small folio mapped only once, there is nothing to
+batch, and the batched unmap can leave mm->tlb_flush_batched pending,
+so the NUMA scanner's next change_pte_range() can call flush_tlb_mm()
+before changing the PTE table.  With migrations running concurrently,
+that state keeps being refilled, and on this workload the scanner
+often flushes the whole mm as it walks the PTE tables.
 
-The kernel has such scratch space too: bpf_raw_tp_regs.
-bpf_get_stack(), bpf_get_stackid() and bpf_perf_event_output() of fentry,
-raw_tp and tp_btf progs take a slot of it with get_bpf_raw_tp_regs().
-It doesn't disable preemption. Three tasks on one cpu:
+This slows scanning and keeps mm->tlb_flush_pending raised longer.  On
+x86, a migration that unmaps a PROT_NONE PTE while
+mm->tlb_flush_pending is set gets true from pte_accessible() and needs
+a flush too; with batching, the resulting arch_tlbbatch_flush() is a
+full flush.  The two feed each other.  In one run, 33% of the
+migrations overlapped a scan pass, although passes covered only 9% of
+the time.
 
-  task A              task B              task C
-  level 1, regs[0]
-  <preempted>
-                      level 2, regs[1]
-                      <preempted>
-  put: level 1
-                                          level 2, regs[1]
-                      uses the regs of C
+On a 2-socket, 384-CPU x86 machine without INVLPGB, with v7.3, a
+120 GiB anonymous working set on 4 KiB pages and 384 threads (three
+balancing on/off pairs per kernel):
 
-B sends a sample or a stack trace with the regs of C.
-This is an existing bug. Today it takes two or more progs.
-With this patch A, B and C can be in one prog.
-Doesn't hold the series, but I had to mention.
+                                     v7.3          patched
+  throughput loss from balancing     13.0-16.5%    0.5-6.3%
+  TLB interrupts per migrated page   202-210       12.7-13.6
+  average scanner mmu_gather time    ~90 ms        ~6.7 ms
 
-> Fixes: ca06f55b9002 ("bpf: Add per-program recursion prevention mechanism")
-> Fixes: a46023d5616e ("tracing: Guard __DECLARE_TRACE() use of __DO_TRACE_CALL() with SRCU-fast")
-> Fixes: 439ebd5b5708 ("bpf: Add sleepable support for raw tracepoint programs")
+The mmu_gather times were measured in separate instrumented runs.
 
-I don't think we will be sending them to stable soon.
-This is a big behavior change.
-Backports only after next merge window.
+So don't ask for a batched flush when the batch holds a single small
+folio that is not mapped shared; try_to_migrate_one() then uses
+ptep_clear_flush() for each PTE it encounters.  Large folios retain
+their existing flush behavior.  migrate_pages_batch() computes the
+flags, since it knows how many folios it is migrating.  PMD-mapped
+THPs are not affected, since set_pmd_migration_entry() flushes them
+regardless of TTU_BATCH_FLUSH.
+
+Signed-off-by: Zhiteng Qiu <qiuzhiteng@hygon.cn>
+---
+Changes in v4:
+ - Compute the try_to_migrate() flags in migrate_pages_batch() with a
+   helper and pass them to migrate_folio_unmap() instead of a bool, as
+   suggested by David.
+ - Go back to v2's check, limited to small folios, using
+   folio_maybe_mapped_shared() as Zi suggested.  folio_mapcount() would
+   stop being a good hint for large folios once try_to_unmap() batches
+   them better (David).
+ - Shorter comment (Zi).
+
+Changes in v3:
+ - Use folio_mapcount() for the check, as Ying suggested.
+ - Cut the changelog down.
+
+Changes in v2:
+ - Pass the try_to_migrate() flags directly and use single_folio in
+   the VM_WARN_ON_ONCE(), as suggested by Ying.
+ - Rewrote the changelog after looking into why b99a342d4f11 does not
+   avoid the flush here.
+
+v3: https://lore.kernel.org/r/20261109122915.2150586-1-qiuzhiteng@hygon.cn
+v2: https://lore.kernel.org/r/20261107143456.1590658-1-qiuzhiteng@hygon.cn
+v1: https://lore.kernel.org/r/20261106041628.1177963-1-qiuzhiteng@hygon.cn
+
+The table was measured on v7.3 with the same check as v4.  On mm-new
+with v4, three balancing on/off pairs gave a 1.9-2.9% loss and
+13.2-14.6 TLB interrupts per migrated page.
+
+I re-ran the tests on v4: mm/migration selftests 6/6, LTP move_pages
+and migrate_pages 14/14, 30 minutes with compaction forced every 30 s,
+and 4.5 hours of NUMA balancing racing with fork(), MADV_DONTNEED and
+move_pages(), 4 of them on a CONFIG_DEBUG_VM kernel, all without
+warnings.  Splitting partially mapped 2 MiB THPs during NUMA migration
+still gets the batched flush (0.115-0.120 TLB interrupts per migrated
+page), and 64 KiB mTHP and a MAP_SHARED mapping shared by two processes
+behave like base.
+
+No Fixes: tag, as this is a performance trade-off that has been there
+since v6.3 and nobody has reported it as a regression.  Happy to add
+one if you think it should have one.
+
+ mm/migrate.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/mm/migrate.c b/mm/migrate.c
+index cb699ea59d33..8eb14b0a5d73 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -1218,11 +1218,28 @@ static void migrate_folio_done(struct folio *src,
+ 		folio_put(src);
+ }
+ 
++/*
++ * Batching the TLB flush only helps when the rmap walk can clear more than
++ * one PTE.  A single small folio mapped once has nothing to batch, and the
++ * batched unmap would leave mm->tlb_flush_batched pending.
++ */
++static enum ttu_flags migrate_ttu_flags(struct folio *folio,
++					enum migrate_mode mode,
++					bool single_folio)
++{
++	if (mode != MIGRATE_ASYNC)
++		return 0;
++	if (single_folio && !folio_test_large(folio) &&
++	    !folio_maybe_mapped_shared(folio))
++		return 0;
++	return TTU_BATCH_FLUSH;
++}
++
+ /* Obtain the lock on page, remove all ptes. */
+ static int migrate_folio_unmap(new_folio_t get_new_folio,
+ 		free_folio_t put_new_folio, unsigned long private,
+ 		struct folio *src, struct folio **dstp, enum migrate_mode mode,
+-		struct list_head *ret)
++		enum ttu_flags ttu, struct list_head *ret)
+ {
+ 	struct folio *dst;
+ 	int rc = -EAGAIN;
+@@ -1344,7 +1361,7 @@ static int migrate_folio_unmap(new_folio_t get_new_folio,
+ 		/* Establish migration ptes */
+ 		VM_BUG_ON_FOLIO(folio_test_anon(src) &&
+ 			       !folio_test_ksm(src) && !anon_vma, src);
+-		try_to_migrate(src, mode == MIGRATE_ASYNC ? TTU_BATCH_FLUSH : 0);
++		try_to_migrate(src, ttu);
+ 		old_folio_state |= FOLIO_WAS_MAPPED;
+ 	}
+ 
+@@ -1835,9 +1852,11 @@ static int migrate_pages_batch(struct list_head *from,
+ 	LIST_HEAD(unmap_folios);
+ 	LIST_HEAD(dst_folios);
+ 	bool nosplit = (reason == MR_NUMA_MISPLACED);
++	bool single_folio = list_is_singular(from);
++	enum ttu_flags ttu;
+ 
+ 	VM_WARN_ON_ONCE(mode != MIGRATE_ASYNC &&
+-			!list_empty(from) && !list_is_singular(from));
++			!list_empty(from) && !single_folio);
+ 
+ 	for (pass = 0; pass < nr_pass && retry; pass++) {
+ 		retry = 0;
+@@ -1924,8 +1943,10 @@ static int migrate_pages_batch(struct list_head *from,
+ 				continue;
+ 			}
+ 
++			ttu = migrate_ttu_flags(folio, mode, single_folio);
+ 			rc = migrate_folio_unmap(get_new_folio, put_new_folio,
+-					private, folio, &dst, mode, ret_folios);
++					private, folio, &dst, mode, ttu,
++					ret_folios);
+ 			/*
+ 			 * The rules are:
+ 			 *	0: folio will be put on unmap_folios list,
+
+base-commit: 56b90edee105e976d4870b9a048e6965dc0eac56
+-- 
+2.51.0
+
+
