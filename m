@@ -1,45 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794514340;
-	b=HMcv/y4J44y2d+n6A4mc+pU3Ik/eXNnPT6EYEt8vHX09Kd6Idmu/WlQr0h6EDQY+d182
-	 WDRa8gorHec1xqXdewPt05G1tRkY4fAGj0xRvXjtl2rjVOysxeN2lUJ8WeVSkS67tyfIi
-	 /QENrkRQNgtvlUmarIRlCrbwnGMrof5KajRRTCurt6M+IoToxKg56U4PUOkoBCmeKEbbB
-	 TMkLu1KgS8cU1fuGbCnanI0VXORZrOlMhXv1kb3O0h4te4EQl19Ko2tHe4GreyyNSyrME
-	 zgiP1kKxPTvW2jz5GCWYyfvHXqTx6IKqU8S/er+R65kY6wcSNfV/Ayudv7ite4lFElA==
+	t=1794514391;
+	b=vpzV7Ye8kEOdYDiebGBhn0nOTixFXjnY17nnBASyololI2D0qYpKLK2614dWYossG3Cr
+	 m7qPRpPxmSWiqMsEH1hHGK3knf3NJOXR57h7MnmFdGdrDgaaEeYXvEhjPkqxz4y7j8WK9
+	 6fm/AbQkxntV9TT0n6SO7L+IBgtSldh4WE/CQM8x/nkYamJlMeuWBq1IxR3UyD4QN5fXW
+	 Zfhm3jSRbH8/j/Veb3re8xQJ/dltrQCr8eZSbde26ic0FUCa7dF+e/G6QMmsnFkZO09rv
+	 +zwHIQBkjMpLkRj/9JjrQ8X/h1u95FB4r2GV1WxEQ359zH/kNZo5635KHhLtIY7rUGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794514340;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=9fpTTl/wf6AJr6umSE+CPRu2oJNdc9XyyktaSY9PbpY=;
-	b=2KUOVpcMBeAWK9F2ZW4SFSYu8eyHgXF5ElZeJBS7z4tWf1Egn+q3GG3aZhpPIok/aWlO
-	 1rWBlek619mot+su6j6mms6LKwnNMVRKqIt7dlUGNAhrmJCNK1JdwkqycSaNrm/m7SRbY
-	 xKtIt/f9ukLj/aIhfzC2yY0/s1+ybxLoHuIMjeYifMNLAZ2Jg/tAwO/2aWeXYcwZcGHHy
-	 XN4qU2NZOfSEJSovIbLHi3l3W3IcF82xeMB5EiYqLtD1IJoKAxwukNMwINPd/kIEQcPom
-	 ib/YPZCSGHOrHX2fGc77NGPby3VMWj8aflY5PK85uzqj6CDwlwUYg8owVegUPjtdo6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794514391;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=gv6kUfncabuP+ZVdtrbbHCGIexNhvbwVVXmfviemsuk=;
+	b=N6pIrzYMTHJCEO7O4o5dwbZh04q/62DRGvkv+R6n8pLbWi1+uGek4kdOUYC2W0nqMP6k
+	 Xy59dtdF6SJh8iEpVLjy+TeQyk+HpUMnVIz92ZKaTLwun0JRGcRAyhR4IVxj6qR5xKm/D
+	 8cQVkckEMgQFoSPrKu3RcnxybD2JAQm64KGuTQ80zFf4BrphQhly7ZgmYxIL5T6ec/qZW
+	 jPDacyxaGoiDpUeDMW35smiB/EWk19THsrVpvi2uzhJsS2bpePN0bIzeV3YT6XnQho9rG
+	 +Q74SZgajx+lp9UnudJ7Zu0exvFTKZhO5SdjHyFgrFLNxahom9OwvdrY0ULpaoFONnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wd5LR3x5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iutMHWw4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A4C606A332;
-	Thu, 12 Nov 2026 20:12:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E02E606A31C;
+	Thu, 12 Nov 2026 20:13:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wd5LR3x5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEBF41F000C4;
-	Thu, 12 Nov 2026 20:12:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iutMHWw4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550A31F000C4;
+	Thu, 12 Nov 2026 20:13:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794514340;
-	bh=9fpTTl/wf6AJr6umSE+CPRu2oJNdc9XyyktaSY9PbpY=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=Wd5LR3x5Me6L4DjYpH7RjJgvEIUHTnafELJfE4lbU73zmNdBaldXlR3sSNQXDE0rx
-	 cpCXv20hOL/iaqJ73OPT+LEExBym1VzA0yKj2SlRFh4FEHhSrCukhXuMSztKOjwdqM
-	 zynzj1q6PuePZXVZNMDojDXujpUxwsQcgY1AR23TTvny+9nAq1OxdKf/CLd+CdJuzT
-	 3nh0ePxvJMBi9fOqhjY4bt3pPmXbZ7n1OWo63UjkDT4Z7+c5hQwUWZTI8TY85CXaYN
-	 RetJuVMppPAVUFs8M7LyohWaw+CDp5DnIt9p++Ndi5cEoOcczjyjweM+CMEQMZ62/o
-	 ul+IDIXwa6dSA==
+	s=k20260515; t=1794514390;
+	bh=gv6kUfncabuP+ZVdtrbbHCGIexNhvbwVVXmfviemsuk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iutMHWw4g7rhbFZrf/orTMdre66B/MthrJTwTXM219nq7BedireH7yePdiNPbYVUP
+	 lbwHLVbSSyOjfMLoezwIKRtiKG7hsakyp68BkgoYV8VSM6RT+/JN5XYkskxNSyFNzU
+	 NnFVsWBEzRNDPaBD97qFnqVGdET0yDtPO+Lm1/F9lO5BNSCgq423YWQ5+HkI0dg+Hb
+	 vcLkU9pMVZSN7wUq4sGtTgTeYhNzquwNFLTliF5ik7JhIs4OcnMm5lLO6DhRkLMMrY
+	 fbPGIJtFtzSILwkWoc2l2ZmT1Nki/AELfvexs16Hnxtyw8dwsHQJp2ODqzrratLOF2
+	 kHe24GslBVztA==
+Message-ID: <46821acb-2db9-42e1-b93d-8b6d39f259eb@kernel.org>
+Date: Thu, 12 Nov 2026 21:13:03 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,66 +51,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] spi: atmel: poll short PIO transfers
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?= <jensemil.schulzostergaard@microchip.com>
-Cc: Ryan Wanner <ryan.wanner@microchip.com>, 
- Mark Brown <broonie@kernel.org>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, linux-spi@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261112-spi-atmel-poll-short-pio-transfers-v1-1-240ccc868cc3@microchip.com>
-References: <20261112-spi-atmel-poll-short-pio-transfers-v1-1-240ccc868cc3@microchip.com>
-Date: Thu, 12 Nov 2026 20:12:09 +0000
-Message-Id: <179451432977.339049.8591158302502636785.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1791; i=broonie@kernel.org;
- h=from:subject:message-id; bh=B3s9LTuJyrYMtGqpBf4YhavMI4ad7zNib44eomiVWMs=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+yS4IOTDds4S3tibr5Utl4U1HmcIfSShF+tl5Jdvtj
- HkdPDepo5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABMRZmVkmG18l1NKqPvphB+H
- 7oVxsDndtLPrunVj5pVtcieOuzsv/MDwPzcgmmXNZXPfWK2G3QGHiz5pMIVnyIfV3fG5dNeTuSW
- eEwA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
+To: Rob Herring <robh@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261021022446.3619435-1-robh@kernel.org>
+ <avWbmsjkYo2LMJKs@parshuram> <20261112125346.GA3821108-robh@kernel.org>
+ <avX9Qrcapcnutdgh@baldur>
+ <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+In-Reply-To: <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> Every PIO transfer enables the controller interrupt and sleeps in
-> wait_for_completion_timeout() until the interrupt handler has drained the
-> receive data. For a transfer of a few bytes, the interrupt, the
-> completion and the two context switches take several times longer than
-> the transfer on the wire. Devices that do their register IO over SPI,
-> such as SPI attached Ethernet switches, issue one message of a few short
-> transfers per register access, so this overhead dominates their register
-> access time.
+On 12/11/2026 20:22, Rob Herring wrote:
+> On Thu, Nov 12, 2026 at 12:30 PM Bjorn Andersson <andersson@kernel.org> wrote:
 
-> Busy-wait on the status register instead of enabling the interrupt when
-> the transfer is estimated to take less than polling_limit_us, 30 us by
-> default, as spi-imx does. The estimate uses the effective clock rate and
 
-How big is the FIFO?
+(replying only to parts of the message)
 
-> the word delay. Setting the module parameter to 0 disables polling.
 
-If this is dubious enough to require the module parameter we shouldn't
-be doing this.  Most likely it's perfectly sensible and we should just
-do it as standard, other drivers don't make this optional.  If we do
-have a parameter it needs to be documented.
+> 
+>>> Can the QCom folks stop doing that! Coordinate applying the series or
+>>> take the binding and dts changes in 1 tree.
+>>
+>> I assume you're referring to "QCom folks" in the sense "any maintainer
+>> touching a binding change related to a qcom platform"?
+> 
+> No, primarily you and the submitter I guess. Submitters should be
+> aware of dependencies in their series and suggest how things are
+> merged. Otherwise, it falls on you to care that warnings are getting
+> introduced.
 
-> @@ -725,6 +736,9 @@ static void atmel_spi_next_xfer_fifo(struct spi_controller *host,
->  
->  	dev_vdbg(host->dev.parent, "atmel_spi_next_xfer_fifo\n");
->  
-> +	if (as->poll)
-> +		spi_writel(as, IDR, SPI_BIT(RXFTHF) | SPI_BIT(OVRES));
+We all have been swamped with patches and Qualcomm have been probably
+the busiest arm64 platform for months now.
 
-We should ensure there's no interrupt handler running or that could run
-in future, especially with PREEMPT_RT which puts everything into a
-thread.  If we timed out a transfer then an interrupt could be
-delivered while we're polling and try to also process things.  A lock
-while updating the flag and checking the flag before doing anything in
-the interrupt would probably do the trick.
+for i in arch/arm64/boot/dts/* ; do echo "${i}:$(git log --no-merges
+--oneline v7.0..v7.4-rc1 -- $i | wc -l)" ; done
 
--- 
-Mark Brown <broonie@kernel.org>
+qcom: 1016
+freescale: 485
+renesas: 215
+
+Qualcomm SoC got one more maintainer, so there is catching up, but
+probably not enough.
+
+> 
+> I would not care so much when there are transient warnings in next,
+> but I don't want to be the one chasing them down. But AFAICT, it's
+> always me. No one beats me to it and I'm not all that fast in
+> noticing. I just compare all the warnings by platform for Linus vs.
+> next with "gl-diff-dtb-warning -p arm64" from this repo[2], and look
+> for things moving in the right direction. Of course this is all after
+> applying which isn't ideal.
+
+FWIW, I do test all Samsung ones and I look only at some of Qualcomm
+boards, because there were just too many warnings to have a clean
+dtbs_check for qcom. I do report them to Bjorn/Konrad [1], but that's
+indeed only subset of entire qcom ecosystem. I know that a few other SoC
+platforms keep track (TI at least).
+
+[1] https://krzk.eu/#/builders/102
+
+
+> 
+>> Do you have some CI/guidance/tooling for Vinod (and other subsystem
+>> maintainers) to perform system-wide DT-validation when considering
+>> merging a binding change?
+> 
+> This one is an ABI break because it adds new required properties. I do
+> have some tooling that looks for ABI changes, but haven't committed it
+> because I haven't figured out the best way to deploy it. I think for
+> anything that is an ABI change, the binding and dts files need to go
+> in together.
+> 
+> I think it is time to reconsider the default of bindings go in with
+> the driver. That works okay for new bindings as long as the platform
+> maintainer doesn't take .dts changes before bindings land (also an
+> issue). However, for cases like this, we need the opposite order. We
+> need to figure something out because this is only going to be more of
+> an issue as we get to warning free (and we are close).
+
+We have been talking about this for some time and recent consensus was
+that SoC maintainers can freely take such bindings when driver subsystem
+maintainers lag behind. The case here is a bit opposite - driver
+subsystem was before SoC.
+
+So let's change the generic recommendation/policy? Whenever patchset
+touches bindings and DTS, and the bindings do not need any driver
+updates like they add only front-specific compatibles, the SoC should
+take entire set?
+
+
+Best regards,
+Krzysztof
+
