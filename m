@@ -1,100 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794485789;
-	b=bZzitjb1cRPs45xEMSfkz4LDfYqTfPBFLRU3qWYRM6eF5p5e8HvJYN4LrE1NBBfszYT0
-	 5QJ8z5pHW8C3efxhzFDAFHDW1+956OWVEYKrM9EVwWYZHu+P31uWYas1a6Y/YslpvME3H
-	 JAUT/6rUnPdtWT3T7qCeRw3gCMx3/4D4y/Bbs5fK+0AZ0a9+KCrJiQI8SqRv7290YgfnS
-	 OQJCVuO9pOLvUZVNt6n4o0V2qE9IErNmfZWRw8dh5Ap2jS+p3k1A6rD9c1TsDT3A3CEoY
-	 wKDfG4bGpJWbpAanQP4erRnM77FFqvWdpNEwcncr6Org+KCJh48bXxupn+8bwqzVxOQ==
+	t=1794485790;
+	b=ZgLne7An8exc9b4ZDvwrKCWgTUObAY3sAaQrJmvQ9xg+csKNuhfD73CYZ5cBdIb6C2xH
+	 7IqDv425FkRwp+NFqdGNujfArgAkA7ywKTpcTlSemFsAJfJ51XjglcgYXOsLxrCMrj4g6
+	 b/nmN+b/vXPLNTFLhMjRjDcJaRZansv7Zh11kwRoA+dCUcNBn4gJyYXdXS3VxEpDV2fwL
+	 qdG42OhJk6mx6TbwiKxbPKgPIywSUBcjH49tCW/BB9yZCIpqswRLKONY5hcg0BslHrNBp
+	 +q+xKFZggGYGndsQh0dEBFWazrPbNhptcX8jrn9IY/6mk4/k0BtXCmqOGlwnbj8HWDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485789;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=q1l9kCQFpxB8dabUGd45sO6QQcnMpjxeKqAqJFRtMGo=;
-	b=AauLBU57GsAca1fyT+YKfhjmHvsE9f5nF+nihkrmtI/d1viosuqneyu+lsQ3xn/yuy+a
-	 SfGDhOwi8RyI5k5tkygp077wydh/OeuhIcMhgCfS9jDD5gQrKmgT/ATlQVVSNghyPG9+O
-	 SYojdHLKrT181SpCz9yl8/uk3Cl1FL3GF0G8zXKXC0MuThUJ/I3dL3imcQ9E/tlB/ZRBF
-	 trqan9LgslM3BviEixUZn9rPWahxNtmFfZhFhvKRKaqFEEDccuwuiGUrKkwYbmtInPAk2
-	 F6esKEhB1hzQokruaMHCZxemJFfDwzsuKgLOG/PtVjhvzatkSDZePhs2DhD/Ws/THOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794485790;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DCibk3esbM9aP9RQ7ZoKH3SlkoeG0DaznIMSZGChnao=;
+	b=AC2qKonJBxkiXPUu4LQ/EX6uJJOkWz5n4fyzuZ1UgVbkG2H2U7CTbsOmTgzXE8U1Gb4H
+	 mmzEI95+tSVG4KT3OEFItkS92/iyy5l9PKM5dGE2pqH+QaAJLOFrujgjKF31k2XqGu8Lx
+	 UsU94JXofHrmvPeUdn1To6s2cUTb5zj+mHnLyXpyBusBvZAAARV2KN/3F7YaaYRpG9qWR
+	 VKWGZDM0MOIEPssBvBrw/jHy4aABp+93ZKxWTFFQob3a21e/vsjtzrEIyJG6UGmtEYpto
+	 wb6mV99eQfyXHCZ9irsuhuImnDWGrB0gzvV/XJT/FSTDRmGviljEEHE8b2tP6DhfVKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=dkamjsEH;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=becholey.ch;
+	spf=pass smtp.mailfrom=becholey.ch;
+	arc=none smtp.remote-ip=185.70.43.97
+Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29883606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:16:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29883606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=dkamjsEH
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso36909755e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:16:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794485786; x=1795090586; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q1l9kCQFpxB8dabUGd45sO6QQcnMpjxeKqAqJFRtMGo=;
-        b=dkamjsEHnqTTm6zxLCGGvG4deMHTQmxQCtrCBf9PPyGrFgo9qqByuBksWKD07W7fHr
-         wzp8xNUgoFSEqd1EJVbs10N8xgM9XNax/C+w6Ktu85eOAcokzFKJCZGmnbsIETFrJV15
-         pnvuzQ/EkOAUvNtdPn5mXnG82eZ8FRsNs6GdeGnB+8WBcbNJjMiRpq3tL8xvq6+cjnkC
-         urcMm04MvwQV+JZnxAyCbtz60yZG8vE5o7gTz4uu0F70V3O+W8Eqc5jEYPwAPKrYKd2Q
-         Ii9hSrZ3oikGd+qDsmdioUPFjHOoM/9bbDgh7miAvN/oHdmpLLOvhZXVSDXIz90ffenz
-         rtjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794485786; x=1795090586;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q1l9kCQFpxB8dabUGd45sO6QQcnMpjxeKqAqJFRtMGo=;
-        b=QcseYci4L7xkhJRq0mzFPE1UzlNFFyXSVVwLI99v0+4KL8C18WuX/x9t4agp/8QvXv
-         B6CNZi5c2v/SYhUqaK5ZWyCQohwHCu0tuikYHK8iTHTk4NoyvulRxH/1soGYkMdJL2ii
-         hogJTZsPKrbWGRgHWxYUTBTq1ZScKYUe0nmaHx/pA+w/qY8rIqFLtBwkyDqDV2n0mIps
-         rXD+v+SjnzYr+WwpQYl1GOCGAw1PdR+d1nO7YO9qKdPMII39LsrQ0eImAt6DwUpJqhPe
-         2Ln9w2pXWlxLuMq5Z9V4kgRZXY/z6H1LfSGqrk5n6SBlpjbJN62QC7Ytpp89f7ySqS6J
-         3Vzg==
-X-Forwarded-Encrypted: i=1; AL+hErHWKBF3x1qUY1p4BQ+2eSgWUI7kiJc3l+h7W7B3wl0oOSyjvfZMSqrKAyNjQQAx7RWcgWhNvWkMLf0AUUk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CqP9OUFrtOtWqgfVD04WKlHHCjwlm+hBPFlr8N4ANaC9KibAs
-	z0E6GGN/VkzdEl8hLIgWe+G5YOdypCcxgeoh3l4UbPdNucTIonzNUXg0nU/K2Q+GRMg=
-X-Gm-Gg: AYBFou3knaH12k5o2Lpcv+0g+9P0ZbndphTq8Bd/e+xQ0LGq0rvlJTq6FN14LCuNcJl
-	kgQabcbMYPNfDmgyBA/Un65qPajkUX7e6gLinbFUFMxD41DYFVsfsT+8V36pqU2r/RdBJ9X1O4W
-	mjv8efpXm7voAUYiRZA3mP+U8dPmcxHtuGy5r5xOj5PdW34Ac3z9nOGslleMMfrXZfsUtcsN8hw
-	loz47z76kJ4QZi4vdIU11k2e9WTkKjSN4LyVORPC8kfcecj4VMzxym9dXqjPRjuYOX4UqrsW4u1
-	op35uxGjSkZw1FVJR2TxBxgkrxLl2XmwoxxrZZ/g/lr3zYYT/yfOyI3d7qt7nZ/apQ6upvgtXeu
-	BMZvY2zyI0JzjzXJPgYYu0QCrdPAEw2iL6KLrkUX5AWt4WSsJ71ZhlNuSrOlL0cCw9Q63aQPnH/
-	+cfCxVIeb3+JuwexOWHh3SUgtUaOIvAF8ojQUWhfHEr+tvI1H4JwrF16VZxJhHDCnqy1Ck3po3Q
-	NjPqHxBJNOr+OuRWUxjJUgcYw3KBR+kd1PQ8KEQWfGsY8dEg5Oc2oqLynBB1QLe6GAGpuB5bsVQ
-	T7MFfSfsUyOCSCNFfqyC/Ls9AEwI
-X-Received: by 2002:a05:600c:4504:b0:4a3:5a91:5f61 with SMTP id 5b1f17b1804b1-4ba09375b67mr98996565e9.14.1794485786500;
-        Thu, 12 Nov 2026 04:16:26 -0800 (PST)
-Received: from localhost ([195.94.151.204])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e29daa5sm70743175e9.12.2026.11.12.04.16.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 04:16:25 -0800 (PST)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Thu, 12 Nov 2026 13:20:23 +0100
-To: Wang Xiaolei <wangxiaolei01@kaihong.com>
-Cc: linusw@kernel.org, florian.fainelli@broadcom.com, rjui@broadcom.com,
-	sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
-	daniel@dragonzap.com, iivanov@suse.de, andrea.porta@suse.com,
-	phil@raspberrypi.com, linux-gpio@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Jonathan Bell <jonathan@raspberrypi.com>
-Subject: Re: [PATCH 3/3] pinctrl: bcm: Use pinconf_generic_dt_free_map in
- brcmstb
-Message-ID: <avWvB1MV3BMAnJaO@apocalypse>
-References: <20261106070628.1428691-1-wangxiaolei01@kaihong.com>
- <20261106070628.1428691-4-wangxiaolei01@kaihong.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977AA606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 977AA606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
+	s=protonmail; t=1794485786; x=1794744986;
+	bh=DCibk3esbM9aP9RQ7ZoKH3SlkoeG0DaznIMSZGChnao=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=mCaQ3qoSm+rFH/KLRwA7LURfaWqUZwGE7CtopOUZiRHMYuNNGGU3ZWEwdcxoPksOs
+	 uAKDusQph1BkDvTn5OmO2Gyx3GVqIwgH6WC9FWr72GMTqZTWgZ5PtbAtsuSI1E4hNI
+	 oDa15dHlXYBEAVy2/sNl+fFO8w8NiZlRRyuQ5lHqBuZS7EikEj4CLoKMyKXsNqoObE
+	 1tv3EIrQQ39ikBaMOTbtOQmHubeAv3kBdcIohygsj64nq3b2iwlbdzrWcRr/07NWxT
+	 ONC6zKX4uKYHQynwTki8xie6x1lMPR/cHuuFX//pVywr7Fk9g50kWplUQohvpTTkAa
+	 Znc67iY3BZF4w==
+Date: Thu, 12 Nov 2026 12:16:20 +0000
+To: johannes@sipsolutions.net
+From: Alexandre Becholey <alex@becholey.ch>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org
+Subject: [PATCH] wifi: rsi: fix use-after-free of in-flight USB rx buffer
+Message-ID: <20261112121524.96610-1-alex@becholey.ch>
+Feedback-ID: 60743817:user:proton
+X-Pm-Message-ID: af1b45cd88e1635e254e5e2ad6feabbfdd8f2597
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,69 +58,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106070628.1428691-4-wangxiaolei01@kaihong.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Wang,
+When an rx URB completes successfully but the packet is rejected
+(actual_length is 0 or larger than the skb, or the rx queue already
+holds RSI_MAX_RX_PKTS skbs), rsi_rx_done_handler() jumps to the out
+label with status still set to -EINVAL. There it first calls
+rsi_rx_urb_submit(), which allocates a new skb, stores it in
+rx_cb->rx_skb and resubmits the URB with that skb as transfer buffer,
+and only then frees rx_cb->rx_skb because status is non-zero.
 
-On 07:06 Fri 06 Nov     , Wang Xiaolei wrote:
-> Replace the hand-written dt_free_map callback with the generic
-> pinconf_generic_dt_free_map() helper, which wraps
-> pinctrl_utils_free_map(). This drops the duplicated free loop and
-> pairs the callback with the pinconf_generic_dt_node_to_map_all()
-> already used for dt_node_to_map.
-> 
-> The driver already selects GENERIC_PINCONF, so no Kconfig change is
-> needed.
-> 
-> Cc: Jonathan Bell <jonathan@raspberrypi.com>
-> Cc: Phil Elwell <phil@raspberrypi.com>
-> Signed-off-by: Wang Xiaolei <wangxiaolei01@kaihong.com>
+At that point rx_cb->rx_skb is the buffer of the URB that was just
+submitted. The in-flight buffer is freed, the next packet received on
+that endpoint is written into freed memory, and the skb of the
+completed URB is leaked. A USB device bound to rsi_91x can trigger this
+by sending a zero-length packet on a bulk IN endpoint right after
+probe, followed by a normal packet. With dummy_hcd and KASAN on current
+master this shows up as:
 
-Please CC:stable.
+  BUG: KASAN: use-after-free in dummy_timer+0x95f/0x3360
+  Write of size 2560 at addr ffff88800f5add40 by task swapper/1/0
 
-Reviewed-by: Andrea della Porta <andrea.porta@suse.com>
+The device chooses the contents and length of the data (up to about
+2.9 KiB per packet in our tests) that end up in freed memory. In one
+run the freed page had been reused for a kmalloc-4k slab and the write
+went into a live object. Each zero-length packet also leaks one skb.
 
-Many thanks,
-Andrea
+Commit b07e3c6ebc0c ("rsi: Fix use-after-free in rsi_rx_done_handler()")
+made the handler bail out on the next completion, but the in-flight
+buffer was still freed.
 
-> ---
->  drivers/pinctrl/bcm/pinctrl-brcmstb.c | 15 +--------------
->  1 file changed, 1 insertion(+), 14 deletions(-)
-> 
-> diff --git a/drivers/pinctrl/bcm/pinctrl-brcmstb.c b/drivers/pinctrl/bcm/pinctrl-brcmstb.c
-> index 2b942ca7196b..e81c5b295a05 100644
-> --- a/drivers/pinctrl/bcm/pinctrl-brcmstb.c
-> +++ b/drivers/pinctrl/bcm/pinctrl-brcmstb.c
-> @@ -180,26 +180,13 @@ static void brcmstb_pctl_pin_dbg_show(struct pinctrl_dev *pctldev,
->  	seq_printf(s, "function %s", fname);
->  }
->  
-> -static void brcmstb_pctl_dt_free_map(struct pinctrl_dev *pctldev,
-> -				     struct pinctrl_map *maps,
-> -				     unsigned int num_maps)
-> -{
-> -	int i;
-> -
-> -	for (i = 0; i < num_maps; i++)
-> -		if (maps[i].type == PIN_MAP_TYPE_CONFIGS_PIN)
-> -			kfree(maps[i].data.configs.configs);
-> -
-> -	kfree(maps);
-> -}
-> -
->  static const struct pinctrl_ops brcmstb_pctl_ops = {
->  	.get_groups_count = brcmstb_pctl_get_groups_count,
->  	.get_group_name = brcmstb_pctl_get_group_name,
->  	.get_group_pins = brcmstb_pctl_get_group_pins,
->  	.pin_dbg_show = brcmstb_pctl_pin_dbg_show,
->  	.dt_node_to_map = pinconf_generic_dt_node_to_map_all,
-> -	.dt_free_map = brcmstb_pctl_dt_free_map,
-> +	.dt_free_map = pinconf_generic_dt_free_map,
->  };
->  
->  static int brcmstb_pmx_free(struct pinctrl_dev *pctldev, unsigned int offset)
-> -- 
-> 2.34.1
-> 
+Free the skb of the completed URB before resubmitting, so that the
+buffer of the newly submitted URB is left alone.
+
+The bug was found by AI agents (Claude Mythos and Claude Opus models). The
+analysis and the patch were reviewed by a human, who also reproduced the
+bug on x86_64 and aarch64 with current master.
+
+Fixes: a1854fae1414 ("rsi: improve RX packet handling in USB interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexandre Becholey <alex@becholey.ch>
+---
+Notes for reviewers (not part of the commit message):
+
+Trigger: an emulated USB device (raw-gadget + dummy_hcd under QEMU)
+with ID 1618:9113 that reports the firmware as already running
+(FW_STATUS_REG bit 0), so no firmware file is needed. Right after
+probe it sends a zero-length packet on bulk IN 0x81 and then a
+2900-byte packet on the same endpoint. No action on the host is
+needed. The reproducer is available to maintainers on request.
+
+Trace from torvalds/master 067c5c24cef2 (x86_64, QEMU q35, KASAN):
+
+  BUG: KASAN: use-after-free in dummy_timer (drivers/usb/gadget/udc/dummy_h=
+cd.c:1411 (discriminator 18) drivers/usb/gadget/udc/dummy_hcd.c:1514 (discr=
+iminator 18) drivers/usb/gadget/udc/dummy_hcd.c:2035 (discriminator 18))
+  Write of size 2560 at addr ffff88800f5add40 by task swapper/1/0
+ =20
+  CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted 7.4.0-rc2-00092-g067c5c2=
+4cef2 #1 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS Arch Linux 1.17.=
+0-2-2 04/01/2014
+  Call Trace:
+   <IRQ>
+   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+   kasan_report (mm/kasan/report.c:595)
+   kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
+   __asan_memcpy (mm/kasan/shadow.c:106 (discriminator 1))
+   dummy_timer (drivers/usb/gadget/udc/dummy_hcd.c:1411 (discriminator 18) =
+drivers/usb/gadget/udc/dummy_hcd.c:1514 (discriminator 18) drivers/usb/gadg=
+et/udc/dummy_hcd.c:2035 (discriminator 18))
+   __hrtimer_run_queues (kernel/time/hrtimer.c:2079 kernel/time/hrtimer.c:2=
+136)
+   hrtimer_run_softirq (kernel/time/hrtimer.c:2153)
+   handle_softirqs (kernel/softirq.c:669)
+   __irq_exit_rcu (kernel/softirq.c:703 kernel/softirq.c:542 kernel/softirq=
+.c:786)
+   irq_exit_rcu (kernel/softirq.c:809)
+   sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discrimin=
+ator 37) arch/x86/kernel/apic/apic.c:1062 (discriminator 37))
+   </IRQ>
+ =20
+  The buggy address belongs to the physical page:
+  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0xf5a
+
+dummy_hcd is the emulated host controller copying the received packet
+into the URB buffer that rsi_rx_done_handler() freed.
+
+The same report reproduces on arm64 (QEMU virt), and on v7.3.1 as well
+as master; rsi_91x_usb.c is identical in v7.3.1, v7.3.4 and 067c5c24cef2.
+
+Testing on v7.3.1: with the patch the reproducer runs clean (10/10),
+without it KASAN reports the use-after-free (2/2), and rx keeps working
+after zero-length packets.
+Testing on master 067c5c24cef2: with the patch clean (10/10 with
+dummy_hcd), without it KASAN (3/3); rx keeps working after zero-length
+packets (15/15 plugs), also on an emulated xHCI host (no KASAN report
+there either way: the controller writes the freed buffer by DMA).
+
+Thanks,
+Alexandre Becholey
+
+ drivers/net/wireless/rsi/rsi_91x_usb.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/wireless/rsi/rsi_91x_usb.c b/drivers/net/wireless/=
+rsi/rsi_91x_usb.c
+index 8765cac6f875..bd049ca72919 100644
+--- a/drivers/net/wireless/rsi/rsi_91x_usb.c
++++ b/drivers/net/wireless/rsi/rsi_91x_usb.c
+@@ -295,13 +295,13 @@ static void rsi_rx_done_handler(struct urb *urb)
+ =09status =3D 0;
+=20
+ out:
+-=09if (rsi_rx_urb_submit(dev->priv, rx_cb->ep_num, GFP_ATOMIC))
+-=09=09rsi_dbg(ERR_ZONE, "%s: Failed in urb submission", __func__);
+-
+ =09if (status) {
+ =09=09dev_kfree_skb(rx_cb->rx_skb);
+ =09=09rx_cb->rx_skb =3D NULL;
+ =09}
++
++=09if (rsi_rx_urb_submit(dev->priv, rx_cb->ep_num, GFP_ATOMIC))
++=09=09rsi_dbg(ERR_ZONE, "%s: Failed in urb submission", __func__);
+ }
+=20
+ static void rsi_rx_urb_kill(struct rsi_hw *adapter, u8 ep_num)
+--=20
+2.53.0
+
+
