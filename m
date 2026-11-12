@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524676;
-	b=NfkKmm8B6UQPmECmTelZ3xqTD1FutW/074arewzmTT3WMB8z4wFzsZdfjNipCKuJ20U8
-	 E/Eelxqgd7C/VFjOxkeOSF37seoQpxa0pVhr2n+cijbWUbbyXR+2jJeBJmjb37VBLN045
-	 btK7bI1yeBiXjfW1+vt/4OF95HgO+GZvS8o7gaO1rhJ3oLW4AgAYeLKMNKeadoQdMdDGy
-	 myA3Qc6pOCW3s0Ol8yWgQ2FvWLd0dXTj+mIVO3dZuDyESW3YcCY9LXTsSlKTiEL+FV/pc
-	 EmlIC6mY7vcN5BxS6UGoHIbGhkm5C3gaKRk+wHE7V+defRsC48CoWA1yG1wjufHnDag==
+	t=1794524682;
+	b=JuGHL/EczoITd03FUYIfMNPXKd+E042ovU6gVxBE2COCVtf1kgsYcFq5yi9jqZG+jTVu
+	 vtOQJCxFf+KGeqVR2Ki12bKhmUisGK35K9e4Hgjts6XVmiv9a3Lrobv2cvWYaDsscvrho
+	 VFs++PtAVLAUVLDwDF6DB7JXxiQfE+j8p8sr/wyXCyOY0v9cGFWqTNuS56LuUY35rAAeA
+	 xhE4PbsbZl2KHaxENDmzB6zhn42RjMDOAHGHqbjOd6PxpQSMPea99SHyHQKBQ69drWAbG
+	 1EbLRa9/cYve0mJ1TghKm8GbMcAMMmCQ7LbEOdCieZPyMnFggGKfEzeOkgf6W9upB1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524676;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524682;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=sBij7smZOouUHznKTorIJM3XynGFmmLDsT0WPy2roWk=;
-	b=RAkvFg3WysFjj+muoFcbkIG+eh0kr0fFGdyz/ATvmRtFbkTfPbMB/xHXkCJD7f1YsKAm
-	 IRvCApwfrOApjiJ2dmNgD8iDU6Ul3/rA1EuTHt2qNE2G6F5L1eG5godsNc1d8Q9rCa3BD
-	 OStNeBW6mXiXjRGcJmkcRqWq67NdobuMLyoNBDiYfbk+rOzKtpSzWcli1XjI4Vj4LQoDs
-	 BDyo3sulRuTWrn/s4v5AmIpija+guxWVWF3lRuMvySuraUuE2tNFKRmFiezb6UkgsnI1t
-	 y1/ouTRWwBN/CpjYfOaas3IT08gFhtd7iD5Q5+W03IUx3CfyfSqiyk9PHuakf8UzcsQ==
+	bh=f+UcsNuMg4Yueaqy8xslzDAXYJR5HIy/+gngqmLcoZw=;
+	b=vNptRlVmOZSkz4PzHgQxlsmkBvr5EsCUjYr91KAHcGsovpx+2Y9YuH/FrbqB4aeTfwi6
+	 xkdEUqbsB8i//WHoXMBjwKh221vN1lrOnAS5aATFGROVCWYJePGnGpZ2X8W5nzav7ELYT
+	 +R/ZuubE3gIG0yTT5H5Jr1reA3LMETUmz3emLHY7mkWhjw9L4c4N80dimfvcLz2Y5sMA2
+	 jYUd4V+nV1rJZrxuQHRewnmSzvX5bG+2k3hKPAF0MBQFOSkHh0tppVdIkxyMXRuUHk+D6
+	 5ujgKZoacSuwtr9VdtAuh2TCp9DlTUvuB+8sb421VfsKPNXFrE1tww+XNjtPvtnsghw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrisdown.name;
 	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=g3TrqJRx;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=DzqJjArN;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A69606A89C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:04:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62A69606A89C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D30A606A880
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:04:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D30A606A880
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=g3TrqJRx
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-498f5fa5103so115629f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:04:36 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=DzqJjArN
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a214af2076so2192235e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:04:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794524675; x=1795129475; darn=vger.kernel.org;
+        d=chrisdown.name; s=google; t=1794524681; x=1795129481; darn=vger.kernel.org;
         h=user-agent:message-id:content-disposition:content-type:mime-version
          :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sBij7smZOouUHznKTorIJM3XynGFmmLDsT0WPy2roWk=;
-        b=g3TrqJRxgRsnkLphS/3LDrRwOP3Ro7TfCsv3eiTwFgUpiIz4nvnt8+exbs24XvOIQE
-         K8PeM3VaWexSyusrw4TonxZcqsQrmfq9HB0G20C575ZU5K/Rc7scmAUbeGrgtI9tsqbR
-         /meyk91eh7FBgtXnj5Y9nt6h7uPQNFtupnekk=
+        bh=f+UcsNuMg4Yueaqy8xslzDAXYJR5HIy/+gngqmLcoZw=;
+        b=DzqJjArNYGAIl6zdpt1MVlcVMAEg3i9Bv3igbA7SLQpdqnWFXwXBIDoQmHcOaUQOI5
+         564kWKL8biyZ8H5a0RJMzUAhoCEe+QwyXKnkBTwV27p6z2IhtXINSncQL3faneIi4/Sb
+         BE2XXkUX4erjZ6Y/gbInxffZHcTwtXemwmio8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794524675; x=1795129475;
+        d=1e100.net; s=20260707; t=1794524681; x=1795129481;
         h=user-agent:message-id:content-disposition:content-type:mime-version
          :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sBij7smZOouUHznKTorIJM3XynGFmmLDsT0WPy2roWk=;
-        b=ivxDAjw0Gq1HYM7ErEKvwohdUGfkDtfWMasIuFjOPYSEEIzYjhWBgUK51JXZYi5M8w
-         1BsE38MP6sCOGrwdllD1zWyBdrW5X/QgOXhufWxSebu3qtiWmPPH6iizkWdvgJll09Sv
-         8ew55kzIo3neLMKNmJrmHSr0Iet0LwB7REQlE6jlTcWcOAtAT3TdOcnSS/juMR/4mTOX
-         u5fkX2Gpg3OrCGj3iPCWJpdVQpTRMu34gPW5KYDNu3KZcQmmY4i0v5SNTZA2z6nHCLdQ
-         U65WhVcgrbwKagJ9gsBM/2tcETaXec3JpVIhoH4j4iOAvXRMhwlOQMLavHDbFraiBCHp
-         XZiQ==
-X-Forwarded-Encrypted: i=1; AL+hErGieOJedySl/iKcGC7Zljoi99HPtnwhGYYICv9bVoRsI3E9hFLrCO7ELc4+Mvg5ipkZLGrQC1OV5fViKk0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8P99UZnI7wJVxFw/jaanNHRyUgGEqAco3CYadObGkFqhVBAnzP
-	C0n840nymNJwScxX/kLJ5+SWauidPqqwgt9Ry+Z2FJOHLJfzlFpX/N2Ev25q9U/WByI=
-X-Gm-Gg: AYBFou1WRyMhy7t5HpRxFmqZvJ9UiRmMVUnKlUFZHOy+rfQ1QELWDia2484UlOjaq47
-	ozPQ+WHoTv8P0eXfAYzr0j0GWw5kXhR6lveNw+yW2JTokHrkCoSAB8XppQ0TvnQgzlEiyMr8aoa
-	tzrOVD7LHzITekYBsJZvIiMCQuWC1J0UWrN2yCjmxicvmgTzH1LkH4AWzG9Yo+Q7+4eJ7x5PohM
-	ikXWCvHya782LIumHzjZT9O4tQVl8fm1+WKRQ0GpEVzE2xMlHwTDXG9dmJG1IEb5GBG8ZZVgqpN
-	7qEbLXVYgVH0lw7TcHsg+hNg1jBAsnCNX1NOh1ziC+yIbyXuDklnDhbsRXIr5T2uvNgwxFN2wFe
-	+D5Coh8U3U119ucfSOH/YiJaLT1v4uTnlFK2JhYGvxL7kL/2qOJwV45aGVONGyOKviEvvlkh3ki
-	feqS/y5jEpRjNNZ7vfuNNAXw1Qdy8GOrkdwKbRF8scSCL3QHmkBww1/RAWX6X4KXyAio+FiLxL9
-	ZBAiY1S/3UYa8nNcYmaMISAuAox4YI2gOzz5UWsXRO4QTcCLjp/KBiLUoYXJej24jKobSuoC5r/
-	yo0BwYXvZlB0BlFeCdlEUtaFODQvL2+tUoBaJa2PDzOmNoYk/p/4xpvRA2/cLh5sAEtPIRuwzsW
-	kxICJfuLK2ryKm52SNmL0lquF4JWHWzX0GTW1thVEV4w4QFCVLSfi9O+DpnKyrfV47fWmiBFANY
-	uBqApHkguielA+129Iwt2X3On5t9tfWFl2WMyeQQRBB9QIGfRMwvoxneqLoQ==
-X-Received: by 2002:a5d:588b:0:b0:48e:202:6718 with SMTP id ffacd0b85a97d-49c71b5d3cemr1948117f8f.25.1794524674865;
-        Thu, 12 Nov 2026 15:04:34 -0800 (PST)
+        bh=f+UcsNuMg4Yueaqy8xslzDAXYJR5HIy/+gngqmLcoZw=;
+        b=AxDzHL397A79dUPAb0pM2HwyOK+8gg0rFIxREKRzj3EuDfeI1Z9ZD4T7rOodpbF75P
+         +/ro1n3EYctBar/rFGsS6s4pEr7DJ7z9SKAiYSLoUTdzve4HDBwnB/alJnXnbLmgavBl
+         Eoeu7E75H0CIEOfE02uH0sKA0adbxH4OobUaPyKcjeSrjdubqEYrh6GyAmVjNfPZRDdy
+         gLXmlWhn5+aJeW2kkqoFulNiJqmL1EJWIQOuqPcQL2Edy8M525fOEHV4P0ImngI21eCG
+         M3Ah3v4tijUHicdc3KCNxMGMMvevRho01vk0rvRYkYkqzkF6lfMSrOcSuhh6yndRALZL
+         STrw==
+X-Forwarded-Encrypted: i=1; AL+hErFBKBqq09QDuvBxTtr3oHbkwBpv84EH9mvvJ57q5u1A7M4qzH23dP6iy/u+F75b7k103r0GBMivjT2w950=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/h/OnzyuGXvjfeoSNVeVL5HHg+bMS071nm51WnUfIaDmxQXTi4
+	0PLXYAQkRn3RobL3HlK4de0w6Q7mc1omxkJ1SgpCVjGjAjuWtR5/s9M6ylq9tAEYhkw=
+X-Gm-Gg: AYBFou1hMaVZvOfi2IKYjzJVe8CbV/JNYrBwSyDA0dXaAGS7hrNgXyRPNoMi05sWPQA
+	cTWxRugigdIua5/vdy+jUMxxkeQlctwPBUYV02VoDtsmVAeK/62rKRVxp3EfQq0bryt4cIjNHWo
+	2+RTocI70b2SMmGpyfyf3llochnGGZiJQy5s4A4LOLcEVco8jogKAlTXQULESSrdZmAJV2hI/4K
+	jxgd/UklBffcfe6kPk8rczmHHx+crQ3n1cA+XeheZjJGmQgnKHC3kjmksw0fNCXUNrKiawvS+Ss
+	av/pyXe9ZIf8h/BkHlWbNjizlDsLH6k7FRSimKKFaY74sO6k2So2hCmfrlyiLphfXhQP7LZDOVj
+	izMb3ggcMAL3Fw9l/rBXFNhlULv3hxFnqjwZclyatINFZ3AXrQuiXsvTxSHA2rPwrcMeY0kw/Gi
+	9OSEXskRHvfwHewKEXQXrrWXKjDebL822MYu9fFRP179JLgQKj+yLBrkmNG4Nt1vKsmFz2bzAvT
+	1saHN1SqXHs0JaiwU2gHfHdJyoyFF48bfhzuA+1FYeQeNznT0qoW0raqjZiezd3345aFyIjAL4L
+	AAEuUnPK/GhCNf6FJwJcRQkOeE5rPSuqFOWAD9Cefbzti05ts1E77ZxraDKyrZJHfLTkbGvsoAp
+	RKDL7rcXNHOVLkZX9BRBdHvMRTmX3+OR9M/ne6kK2c566CWXkqHkRXiLL9BF7RcVdsXqegpcOAy
+	Iey2P1cG4ZNYEl0f8rWtiZzeUwuMnXX7QrAvVd6ldrgxzxc7LQp+pof0DJjQ==
+X-Received: by 2002:a05:600c:c84:b0:4a1:e57b:667c with SMTP id 5b1f17b1804b1-4bb55a68429mr14978415e9.26.1794524680651;
+        Thu, 12 Nov 2026 15:04:40 -0800 (PST)
 Received: from [172.18.0.2] ([199.201.64.8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c608d10b2sm2213288f8f.44.2026.11.12.15.04.32
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c608d10b2sm2213849f8f.44.2026.11.12.15.04.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 15:04:34 -0800 (PST)
-Date: Thu, 12 Nov 2026 15:04:28 -0800
+        Thu, 12 Nov 2026 15:04:40 -0800 (PST)
+Date: Thu, 12 Nov 2026 15:04:35 -0800
 From: Chris Down <chris@chrisdown.name>
 To: Petr Mladek <pmladek@suse.com>
 Cc: John Ogness <john.ogness@linutronix.de>, Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt <rostedt@goodmis.org>, Marcos Paulo de Souza <mpdesouza@suse.com>, Naveen Kumar Chaudhary <naveen.osdev@gmail.com>, printk@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 05/17] printk: Do not accept an empty name or devname as a preferred console
-In-Reply-To: <20261111154816.71103-6-pmladek@suse.com>
-References: <20261111154816.71103-1-pmladek@suse.com> <20261111154816.71103-6-pmladek@suse.com>
+Subject: Re: [PATCH v7 06/17] printk: Prefer the console either via name or devname exclusively
+In-Reply-To: <20261111154816.71103-7-pmladek@suse.com>
+References: <20261111154816.71103-1-pmladek@suse.com> <20261111154816.71103-7-pmladek@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,14 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
-Message-ID: <20261112150428.860b24f1e2f53848@chrisdown.name>
+Message-ID: <20261112150435.fede0e5e012fb9c6@chrisdown.name>
 User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
-Hi Petr,
-
-Thanks for splitting this out! I've tested that this works well.
-
 Reviewed-by: Chris Down <chris@chrisdown.name>
-Tested-by: Chris Down <chris@chrisdown.name>
-
-Chris
