@@ -1,68 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501090;
-	b=5T0EFIauUWHtvEokiz0NkYmtXamwXCB+EATmaRk/Lero7lSXF/e2ryCxykPqeSqHkUoE
-	 aU8q42n0mcf8rAYaondkJqx5GvLt0fV0Bp/+fZrQ4aasX1JTJmjWkW28y11WDupZGn5mT
-	 bYKzpyF7CYFhwIAJhKDroImA8ash53XSR0fe9wAbSlnNJBFR81eIwJlZxdcHy4PFcwtVc
-	 ojyYLuXsC/jZ8oquLLVfzPfYKfYeyfVYxP9RF9CjcjW/T87YylCNhqt95t3nq64PlUrvy
-	 AtckfUtiahCFCOQI/3d/CMRBYZmrvnyAA/LPm7kF6gDYjbQqi/lCjr8cOxT7P8mvoSA==
+	t=1794501094;
+	b=4WNtnoYFVXytNMU4xpjuQFmiTt3CYQXy+SD3MvULvUk6HR4O8aruBDaVmlmAVbHYe+Jg
+	 0moOQo1h1p0QNc/2SjErOX0hKjHJWLQVKbarJuYbJxIonjNa8RR01x+BQ+JM9YnYFs5tC
+	 zWqxZkAn3aSy40ip0fjTidILQPWTkh5yDHd9m29l9CkuP7SDHYpdRI0bNiz65dssas5yR
+	 usOI7BQeBuWv4Zt7ptoL1A/J6jg05hbMRo1gFTlvEd9WNeDGnPtqoczyo0We0eLjMi/KD
+	 9uzd7lp3AylcsQEiMnauNSH12XQbeL5I1Mr6sJHvemCBBYXqwojj84IlPRaReWyinyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501090;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=NXHP9rMA5Jf8CLZLVoZt/ydGAK7mnAO+64jaDQMpezQ=;
-	b=YJ3JfrCRhP6n5ZT+yG6RHE+GfXOidixvDkclnGVpAAFsD+qqosT6fUbGjalFcUuoqQAo
-	 91gDhEXlEJgz8ePEcCFDLD6VzXAjIdvYc/zAK48j5CkYC6pAvZqlYsMkgpCSc6c3UcHxK
-	 +UjAGDLf6JzfBCNVEoodNXerlQC4CmBSixK6YvaKMHomfSh7zqaszhC2GWc34aDY63HDp
-	 2MWaDxkK+ZOMPhEGUvMVpRJ7W+9EKZTq+QgPuEx4MfgciqV4lyDyjWw5qcnGd4a6fAFN9
-	 XUzuXvm+XeXZKjDGW+00Xj7ZfOaBs2fHoFuqk7owsokL37MLBz3TTnDcIPPEDA9nAWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501094;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=L4k8tn6wHgp+FD5mSJIkhTPS81LhTC+x46dz1w6wzR4=;
+	b=d5Yd1AR0iIGFQldn2joTJUNiJVfIfTUa+v8YMzkrj4mG0pKK6uxDMCJKmQiQ8ZIW0KZc
+	 w1vUCE5druQDO2ez3C7JF7b6/e15TEguieTu5VL6JxwVYNzaibSVjWE1e2y6eHWAKBbru
+	 uzX4tURFbnBRSQ1Ye8vSsb8f+4XpkFCTJd81Sq3PkPuMpw1l4XXrnW8QNELOkfSsw3WGA
+	 5wmmZFvJBNPEYisg7RfafshgBVXIHTFbCzgBbFTdPdzDrb+14NImlZMIJFMXeqam4onR3
+	 qC7tMWUq0zRqDPdQ1hXjrq2bx3biQFalcXgil1qwh6o4SuMDLHo3o2dP6bZ9qcQN6fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Dg8xYo+i;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gz3uGHOV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD3F606A89A;
-	Thu, 12 Nov 2026 16:31:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDD3F606A89A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE38606A335
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:31:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Dg8xYo+i
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=NXHP9rMA5Jf8CLZLVoZt/ydGAK7mnAO+64jaDQMpezQ=; b=Dg8xYo+i5qYGvtChOj6GMyc4ct
-	mBnTLoGePkq+8YXRuP0TMs/x53PffymBSVL8jWc+zW2Xbq8KBsvBtw3fne7+5O+rkpk3acMZc8DQ5
-	W4jUoRslL/Xyck+MO+rgLS8gy7YnxhyQqlvvmy/UTP0fwofrbsc0pq9Hbtx1e+aY2mpwbyUHDyJyV
-	t59j2XAdQ1C5d/JuC5v4t9VF11hOVZm5kb4b+mdak4OlPgWTRTceSr6GQvWj5d72IVHxeucKkPcyS
-	e6wXM2ZzhAjbtPo8qTz/9zw4xfuFl02Qz21Xl0+yk682CX5uTFG5qarNKAuH4gy1WTyQy1fYcggcX
-	TU/oK4SQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRXhs-00000008xQd-19qT;
-	Thu, 12 Nov 2026 16:31:24 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id B58ED303011; Thu, 12 Nov 2026 17:31:23 +0100 (CET)
-Date: Thu, 12 Nov 2026 17:31:23 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tao Cui <cui.tao@linux.dev>, tj@kernel.org, void@manifault.com,
-	changwoo@igalia.com, mingo@redhat.com, sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH 2/2] sched_ext: Block a retained donor before PI deboost
- routes it back to sched_ext
-Message-ID: <20261112163123.GW1779021@noisy.programming.kicks-ass.net>
-References: <20261112144935.583937-1-cui.tao@linux.dev>
- <20261112144935.583937-3-cui.tao@linux.dev>
- <20261112152118.GD1813469@noisy.programming.kicks-ass.net>
- <avXjsO_fLaUC_4mG@gpd4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gz3uGHOV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC98C1F000C9;
+	Thu, 12 Nov 2026 16:31:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794501093;
+	bh=L4k8tn6wHgp+FD5mSJIkhTPS81LhTC+x46dz1w6wzR4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Gz3uGHOVR/D+zD0tPtAK4HWWguZgLvgMrLvjjExgW84cCKRQdIf7+RkP8qVfBLWCs
+	 TE4OWV7XSwu6/jIiyQlplQu7eXBY4+HZOzTonopCE1Ocw2XH7oVXQsfDkKv3T6g3Z1
+	 Wkw0f85vjupik4orxGpTAWR+LixgaIO99/Yn0fOIl32MZaxS61fXpqdUb1+/T2IBAZ
+	 svG/hPU01rWxrlc5rw8NG56QWm+Gr2SG8q+F7EfyToPLdW/IwNIRpRihjoeraIuM1N
+	 78FUau3NJ+xT1GOiGYHiqGlnCIp+X6ehaQG+suz9stdfYm8OZGNLjFpKQdT2yDqEhc
+	 r7EVP1SgTtRHw==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Thu, 12 Nov 2026 18:31:10 +0200
+Subject: [PATCH 5/9] x86/mm/pat: don't warn about W^X violations before
+ mark_rodata_ro()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,23 +53,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avXjsO_fLaUC_4mG@gpd4>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-fixes-x86-v1-5-791adb8d6670@kernel.org>
+References: <20261112-fixes-x86-v1-0-791adb8d6670@kernel.org>
+In-Reply-To: <20261112-fixes-x86-v1-0-791adb8d6670@kernel.org>
+To: Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ x86@kernel.org
+Cc: Mike Rapoport <rppt@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Tom Lendacky <thomas.lendacky@amd.com>, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.1-dev
 
-On Thu, Nov 12, 2026 at 05:05:04PM +0100, Andrea Righi wrote:
+The kernel text is mapped RWX until mark_rodata_ro(), so W^X violations
+that verify_rwx() detects before that can be false positives.
 
-> To recap, we ran into this while developing the proxy-exec support for
-> scx. Earlier versions were handling the PI deboost case too and we also
-> explored passing next_class into sched_change_begin(). But that didn't
-> make it into the final version and it was left as a future improvement,
-> to keep things simpler.
+CHECK_WX is enabled by default with STRICT_KERNEL_RWX and it reports
+mappings that remain W+X after mark_rodata_ro().
 
-> Would it make sense to revisit the old idea passing next_class into
-> sched_change_begin(), so we can handle entry into EXT consistently
-> before recording the queued/running state and replace the separate
-> class-entry preparation hooks?
+Drop the warning about W^X violations before mark_rodata_ro().
 
-As per my follow up email, I think all we need is for the existing
-switching_to callback to return a boolean to indicate if the class is
-willing to accept blocked tasks.
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+---
+ arch/x86/mm/pat/set_memory.c | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
+
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index a1bea16a3c3bb..a674433850dc9 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -718,21 +718,15 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
+ 	if (!rw || nx)
+ 		return new;
+ 
+-	end = start + npg * PAGE_SIZE - 1;
+-
+ 	/*
+-	 * If the kernel text is still RWX, gently complain, this could be a
+-	 * false positive.
+-	 * Once debug_checkwx() becomes mandatory for CONFIG_STRICT_KERNEL_RWX,
+-	 * the warning can be removed completely.
++	 * The kernel text is RWX until mark_rodata_ro() and the entire kernel
++	 * page table is verified after the text is protected, so there is no
++	 * need to warn.
+ 	 */
+-	if (!kernel_set_to_readonly) {
+-		pr_warn_once("CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
+-		  (unsigned long long)pgprot_val(old),
+-		  (unsigned long long)pgprot_val(new),
+-		  start, end, pfn);
++	if (!kernel_set_to_readonly)
+ 		return new;
+-	}
++
++	end = start + npg * PAGE_SIZE - 1;
+ 
+ 	WARN_ONCE(1, "CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
+ 		  (unsigned long long)pgprot_val(old),
+
+-- 
+2.53.0
+
