@@ -1,118 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.28
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.22
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794501205;
-	b=Elezj2ee1DK6zeOzs1f5aWctlItRslBiIgYPQcHOF7YXZhvtOEkZyoGCeg92cb0Ii8Ay
-	 uCCEWvpF+VQioHzyVCe4sK1fnWtMU4+N3GW7iTL47Fe3ouxwlmm4vx60vf6kMXvExij5i
-	 +RWSf+q1PNhPLPKTU/0WGO2QJJuC8lkW+fAt1aDF58RS/OLC0nNOnf94CaaGKyWY8h691
-	 8nHhjQEY8EplAOTg+ZWjUHwmaLggw36ltibt5QJCgFmd2+rI47ntYiXrkvMvQ5l4errWV
-	 EJNDdcuZBCeaVkhW9HKvy6nF75MF59zP5ZcbkwjQXZI/vsxlObjQVaiPWDOUWBS2fTA==
+	t=1794501206;
+	b=b2z6RBF+2hYP1zjvPNtwbx+mB8VDhpuI+NvKZZk/QSA00ELVhgIKJqjiqQCJkKq5Y6Sg
+	 K2YUwgMmf+pgBxvNTwjL4co7u3EJPt+sgLBZWjBKLXCXEA9FAS8ZoWKNod5xMz/5zvhCD
+	 RnTJU1sVy77rGLYzxN9oCgEOQFG6kvQE6ZiXUF3+qTgmQc7FH31yMoPuqfFxrVvLHYGa8
+	 1Ucoio3dMNkrht75sHFM7R6e5DCjJoG69gLp2d4BBY1nZB4C4VJk8/vhVrN+7iBEtnXas
+	 97pjKDLJliwsAu1eeQiHHBYdElYY6cWOFVSQBA70fx3h7k/EOgG9YxZKuFK6R/CSQlg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501205;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501206;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-MS-Reactions:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=MdDMpn1E237DWMEcWSJ+1x4vI1+JS6BzFl+hQXT8pFc=;
-	b=XJQu+2TxK6HwwIV5FV74OjXomzb15bnfbeijLA4XiAytwx0Oamb1VITDnRb60nuatipz
-	 34BAUoKMJRb5k1ushtVd5z9M/XRcQbeSUtTSly2BGW4SCvIAJ1zcuJEfvaqsAEmjD83Ay
-	 Ga/rZlpROJm6UIULBFTvqRA3LY7BNt6gjTuq53bBgtaVhATwC7rcKCk89eJP9Z6yQ3M5s
-	 EU4t53O6eZRLF3FH1DO0+ZvV4YGouHDcg2AUcQYUU5TnKTL6YRmzPRSqxNkrSrKuOtnpV
-	 05e7bnsYDMeITLb/ZhTaf+T4+GewhNg8wn3zF/UZKsW/p3qzaDU2sQqwsroknztJfhw==
+	bh=m2KYMCk5KXldDP8Pn2ubwgmOHu9jpVvXGouBmsN2LCA=;
+	b=jk0lCdf8SSGNii2+55H+jn7uBLD/h4B4b8rROp0tT2TFKV0x7abwDnMofki0kE4kEXTd
+	 YmKcdlGahmQ0eqEJvlti5dSojUts1If1M78oC9CkuHWLJCYODOWzUK6+AgHwyBVG4Y5He
+	 VmSCukNprGLHfHGETZXzxLctbj/fps1ULq+pSubEOcrAHOM/Bp7FocJqSU2fzJzVCdHoc
+	 eU+bLl9TSNQqkqmZuknPgmTjZSAPqG8GKD9A6ch7afZT0hQ6C+ETMTtIiNDMW2QTJRuAR
+	 iHg1UoUHCxAV2uZ7JYFqUD3URggrQs1uHBRB8yXgOYO2O2h775Iahwi01f6y5Luqorg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lohlGJF0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.28
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010028.outbound.protection.outlook.com [52.101.61.28])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DYrhNfoM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.22
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013022.outbound.protection.outlook.com [40.93.196.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9187160A2602;
-	Thu, 12 Nov 2026 16:33:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9187160A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2116760A2614
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:33:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2116760A2614
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lohlGJF0
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DYrhNfoM
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bD5mXiKtK+RDImc5uiuPzv4JupOq9QIAJ2/++jUvTXTTKUHjNkN7A/OfspaP5xWnu3eFi8yUn5MSTgM0PTxf0kLxLDTQP8k0VHLFu2d/hrS0khhkO/0oEFGzLslRNbtGySlrXGqdPgu56n/cMR4NF1HNu399c7R5jBlZbeOYhaZYfamcKYXQ9LBkLNuuZRiaZaWyTWtBaCzd9/MhUmgvU450jX48YlfUX3e3Us2SgPSk8qyt3dRb49ELMLyTlQRG5fKEwLpF8W/XQpED5y0+1Ab5Guilba8PqTg07Zn7z1XBlTQWfvgvOkcGD2UA3zXWhL5FVJDi0UakSObGzM0OPw==
+ b=IgV5CyFnl6OsuxAuoa+AdmgaTPTkaNSrRRa5aA6KywU1+C7IuaKoC5eaYMVTOoJEWxEyx7vPz+RXrzXUjaDeodNAvnXJrCaSj9pdcBXWMEah9hiG9OAjSJiTLVXF1EhYS4OO1ozfMGo39G+siNYkV7dYqYss9v9t+4m8z+XhsMQPPCcJUsPO8p3IggPBakGbKjbDy/wuzObItohCoIwqsEMhaXID8+srfo5avmd3UbTIGLzTssDi8H92YnyCg4mVRut5KXVsJQxSNgOtkogqswDon0rhYUyfuFEOY7+TZ5/uR2YSaIrC4Jyohib6Vf4lj2y2xwG453pRGZt6wb7vtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MdDMpn1E237DWMEcWSJ+1x4vI1+JS6BzFl+hQXT8pFc=;
- b=YM4eX6t+OQGd0wT+Ue1LMCvsD/tq6b3WYdhTTfRaSFykjxgSYgg8+/ZWiAxQoz77SWvERY60LZfmaRrP9Jzl3ZIislPLlUWUFmWCzJ18N4emSWSaGWkWlce+HZONb/mKRXJAVYMvx7OwnPsppdS5qZLR/GOpr81VvzSDBXq+JNuIC6uAiyvoS58b/QSNQpTGRUPWm24EJIYuf2Odd/uVPeqvv9jF+iNjXPLXSzA2wCdnocf7gnXDT9UzDmgUjNOgzzljbnKJy/SQ9WXFiUOIm0MrAdnyDloa09BwuOtjpnm3olptv9x1uY3IE3PSCj6FxNg2M3BgR/p8AMW2oytHIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=m2KYMCk5KXldDP8Pn2ubwgmOHu9jpVvXGouBmsN2LCA=;
+ b=mUwCkqPUmWXRNFAwSlQasdGthT1DEDh2ZxAMHWS+i2t4DhtPFWJWaL6q37YEtyuR4HGrDsPJYYpbbmsP/iR6eWkRK6yXhu9LqTtPJaGDKFlTQ8TrVc//tJ68szOLSSkuBUVmGWrtP6kLAtTyt7Aqr71vZeRxNq4++T73LIt0vlRMRT8UG6mgd/ICYVEWdlzKdKDSpv6B8202f0FgmQmNjznnCLPNZ4UmXHGxAmwaYfRMkyYdG0ZD1J4TwRAng6Nj30+AyRUrR+ldA3mBIk7RDRYd6W5ii2tRhxVUE4eUM+dQqOqcRx6/lFwkSf/Xiy9CqwSr+i35/PDYopuRf4XMFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MdDMpn1E237DWMEcWSJ+1x4vI1+JS6BzFl+hQXT8pFc=;
- b=lohlGJF0GtlI+2QR3tEh57/riOgWpTtMWYUYKyy1ItotCTGGCNwdv6X4O+5ZdOgoT07KaqJIwZjPIin/tBeAtmQBWdIjwO9EgPwS+INlfUXJe5UUxTaK6rAxj9omAnkopccRLOQ7CoLBfj9TYU7xC6B6TfWGekE/oJWEPF74atY=
-Received: from SJ0PR03CA0271.namprd03.prod.outlook.com (2603:10b6:a03:39e::6)
- by MN0PR12MB5930.namprd12.prod.outlook.com (2603:10b6:208:37d::14) with
+ bh=m2KYMCk5KXldDP8Pn2ubwgmOHu9jpVvXGouBmsN2LCA=;
+ b=DYrhNfoMX4UxoZD5LGPLrMlI1jdnMTnQ+l5Z7rk290ThVwAOaLuCxEyrt+/hoNhNv0YBWpiUP8G4aeXySVdvqN8tOiTBdUIAyfPo5vqTdg4E7SnrYEmCZFhVdhwQsQReyAkcbD01Ip1gmf+i3jdKMchGI3pWrr/cZuggaJ9ItpOvIjT/8h40I3DkVMRIGBJRyaPwXrRahQp+o9N9y9hdoLlA5LdyqJBRbMqodWPe9/rD4k7A6vWOIe/oWDJ4oPtesPn9L9TEH9bDsIaGSVufoD+G3qLw2RZphD9iA8Q3DAdvjFWHWxO14NK93vVPMMBaCxCbXXOKJhrylAYWE5VNuw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by SA0PR12MB4399.namprd12.prod.outlook.com (2603:10b6:806:98::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 16:31:46 +0000
-Received: from PH4PEPF0000B60E.namprd21.prod.outlook.com
- (2603:10b6:a03:39e:cafe::81) by SJ0PR03CA0271.outlook.office365.com
- (2603:10b6:a03:39e::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Thu, 12
- Nov 2026 16:31:46 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- PH4PEPF0000B60E.mail.protection.outlook.com (10.167.243.89) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.0 via Frontend Transport; Thu, 12 Nov 2026 16:31:45 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 10:31:45 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 10:31:38 -0600
-Received: from amd.com (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53 via Frontend
- Transport; Thu, 12 Nov 2026 10:31:30 -0600
-Date: Thu, 12 Nov 2026 16:31:27 +0000
-From: Ankit Soni <Ankit.Soni@amd.com>
-To: Samiullah Khawaja <skhawaja@google.com>
-CC: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Lu Baolu
-	<baolu.lu@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse
-	<dwmw2@infradead.org>, Pranjal Shrivastava <praan@google.com>, Robin Murphy
-	<robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, Alex Williamson
-	<alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>, Pratyush Yadav
-	<pratyush@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, "David
- Matlack" <dmatlack@google.com>, Andrew Morton <akpm@linux-foundation.org>,
-	Vipin Sharma <vipinsh@google.com>, Nicolin Chen <nicolinc@nvidia.com>, "John
- Starks" <dev@jstarks.net>
-Subject: Re: [PATCH v7 02/18] iommu/pages: Add APIs to
- preserve/unpreserve/restore iommu pages
-Message-ID: <wirs4vcszlt6wkw2wfauhjnxve4n5ivnnpkg35fqid34htepet@fn4opgt3lt2x>
-References: <20261110040828.1774343-1-skhawaja@google.com>
- <20261110040828.1774343-3-skhawaja@google.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 16:33:20 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
+ 16:33:20 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Alexandru Elisei <alexandru.elisei@arm.com>,
+ =?utf-8?q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>
+Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
+Date: Thu, 12 Nov 2026 11:33:17 -0500
+X-Mailer: MailMate (3.0r7038)
+Message-ID: <3A5BEC5A-BAFA-4541-8ACA-43E57C7DBCFD@nvidia.com>
+In-Reply-To: <avXoJSGh5xjGFgod@raptor>
+References: <20261103061629.972669-1-mpenttil@redhat.com>
+ <avWpWBl1nPcRVmpQ@raptor> <79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
+ <avXoJSGh5xjGFgod@raptor>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BN9PR03CA0391.namprd03.prod.outlook.com
+ (2603:10b6:408:111::6) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,241 +108,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261110040828.1774343-3-skhawaja@google.com>
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH4PEPF0000B60E:EE_|MN0PR12MB5930:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1e51c2a-fd48-4c3c-376e-08df40da7150
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA0PR12MB4399:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09256116-69b4-46e0-69e2-08df40daa9ce
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|82310400026|23010399003|36860700016|4143699003|261026140227099003|261022113327099003|11063799006|10067099003|56012099006|261026130827099003|261022105027099003|261022115727099003|261021121427099003|261026121527099003|261021130227099003|261028144727099003|261022075727099003|261021123027099003|261102130727099003|261021135927099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|10067099003|4143699003|11063799006|56012099006|261026121527099003|261022105027099003|261026140227099003|261028144727099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	gcv8q9LASyoR5PTbwBTxNOvb4rZ3kqFw02Fm0J0H57WeB2+DEDd7PEmGIpBF2pb5xhSCtMs7MmCaIxqmIx7ZD33okUEvXGBfrDhP1KYqukh7CjNW3XNjlEbVQbdUFKP7AyMoAL24wVupD6D9uxnV49kNWTjVl7yeM6hJ0EI+ZHsREHDxQudL91iSEoBP0UjoUeBe/F7rvGaW+pTQ6SNdhV3wA7q4+jsrvs2ToylzESyoXEWGSWrSIGE4SsOG6ohsi0DzJQM+Os6fXJ3CpV/+yFkL3hF1U0F3s0L1FmdIeyRA8TujVuw3RxsyzhanaSHaO4za7c8vou37r6E4X77/tmvGF08oS1J2ysv5C0ICavDEOuk4skLppOruht7U1uW0VBeZfOCzaBdK1uIhs9KegEoNsT/Uo+q34z4j7JdccFvFwca66gnDuPP3y6/UC/HxmU5NSN7bDh4tbRP5W0GxEErsR1ifFPdf9R5kHoXQ/DG1vLgOwhQSW1EfhO5OUvKOKQt1IA0VNzg4DHrhnOJYkFnmarx7udN0iZPdrGJD89aezpxcU5796sDi8mqHbVmoJjiTESymm1qvwSZtnic+XoVHMkfFN1O2MQwYvvAwWmuoi/FDAUV+2nFynTwQ32hUKsL6HmzJJyRRa5iIEmSikmFPUGQUx3CBDEvxrVKNjFE8/TRBIWcEpzXV9w83wqDMRqsD2JZcaAtuhZf7THdXJw==
+	NnDtCHCpEicAV3xc0o49gyGRL+w5WKfVCQfSSKc4+rjCbznun6rk4kjwgNxkXJwadM+eIG/LrmHdS+VS4uuV3eYyopBM9JoQpnzx9PSOIy2jhYwEq8SdicuJuAphpYEeGj88vi69y9slbyXriPSFkqnjxzLxlcVcDHSCma75/XKeVx4CotGtcWUE9DYh2l9QO2kACCT3U7wDsyrBo8Brc1CpIoyMn8FDaPjsin4lpmN2uiItvz6kiciNHmy3vzbcRpbHPYg2E1klxXWqiMjwSo9w2omms/ootA+gwnsONptB6Bc7tc/bhnG36zYLEOdRuGCGw2XmpQbSUA/LqP+6tazqL6xn5zT5ZTkD1+u7KsOtJHhYF8bgKtNmeDtuiZHXYXeGkBViYFEvtyxdYTt7ZKm9nw9g4nYRP6I2eWFK6/DqHxCOjtovssbSxdSuQzplc3sKXXsFnerU2tlTYljtRuykJNegig7x465DXBWVUfOTJSDyrXHxtTdCq0TM3z0wugXRnjNtF5AT8MJBrQAGmhHI0JHl3l+nS8zZ+H5AISzA096DCllQPfAIpglqpYQAYf8Ev5S6+eLIB4KyDgeAq+dPMlw1z/CStOxvlj6M2Av7gGpeAAhhr4cXUEp4WqYd4ey15QSf8PUjr9t0CYcRddIrOeDT4C5cEHkPBYf208U=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(4143699003)(261026140227099003)(261022113327099003)(11063799006)(10067099003)(56012099006)(261026130827099003)(261022105027099003)(261022115727099003)(261021121427099003)(261026121527099003)(261021130227099003)(261028144727099003)(261022075727099003)(261021123027099003)(261102130727099003)(261021135927099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	kOoCFkF49m1skZCxHv5Pvl5fQfalUkBQ7P4+ACALb97CV/1XWms1yGMa+S7C+RiheRv7yD2Dt1//anSF0sP157J+lviqgUOeUq4Cx//zasOHRUe/Py2TpefNDbgnkw8J0/kycG+NsPhfI+fC5N9c3UPAkSxYTBofTv05gC92W9+FBPmNj3flwxw/nCBbv14CaRb4Hh8Nj0IWNeRuJ24YqpKUhqRjrnBxK6N09fHjbNjfv01MKCzvq+dNOdx02iMsx1nH2h08Il0vYEbmA3x6sD+au6nHlmM8LY1aIYpgHfvVpt0cmfyF/LHBbv3KKdhLj0+G1ZvkGLDHVS4eJV/M4goggdrthJvB8desqcdrN9RlUkN4ciPCUiYfEp0jOIbtGe2l4Tgr2FwnykLZT3XpQ5T2iShe1Dhb7/UD1Sxs2AwGO+I1iPv58g01iJD6GiYX
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:31:45.6794
+	=?utf-8?B?WEpXN3JHZG10UFJjckhWWWpMZEV6NmJWNlRqelZlYy9IUTBuaitIREtuK1F0?=
+ =?utf-8?B?Y3oxYUQ1UTZQQ2R2RmxCUSswTUI4Z3Z6TENDWDMxQ3ArZUV5aEErdW8vSEdl?=
+ =?utf-8?B?MXFnYkVUdWFGdnB5YVQwS3U0OXgzVEkxd01VZUUyVHNsWGl0R0ErTlBtbzE0?=
+ =?utf-8?B?SVdET3FoMnF4alkveExoZEsrd05KZFd3TVE0SzJRY05IN0ZLY2ZubGp6M0o5?=
+ =?utf-8?B?cE9jN3U2emxzTWxkREdmUnJxQnd1aU9hV01SREZBVXk3SndpRDVodkpKektk?=
+ =?utf-8?B?U29wVWRCMXpjdTBUY0pqT0VMcHZYUURVQUJPeWNHUzBsY01nNkNaUk5wSGRR?=
+ =?utf-8?B?TENWSXo4U2JYNWFMTUdJaUpPN1FKMGhYdWR6OWJDb3d1TnMxZjcyUkNncXdl?=
+ =?utf-8?B?dW5pODdxWVRMRnRxVjhzOUlkWlZpU3BYZFMrUUpwOGZlbFlVelE5WEpINVAy?=
+ =?utf-8?B?Z29VVmNDY2NKN3FvUmEvdTdJRmM3em9zV2l1K05YUWl3a1kzd0ZoRERON2xr?=
+ =?utf-8?B?OFhYblB1TkxGR3RSVVlhWVczcmhxaHplN0hqdk82MDNrWjAzMW83Y3E3UEFR?=
+ =?utf-8?B?dEMySGJXRzIvWU9acGlyREQ5VHpIaERXdE1hS3RRajJXTERXSWR4Q0UrYVFN?=
+ =?utf-8?B?QkYwSmVObTBUa2QvcGZaVGNNL0lRSytRa3hublp3MTJZaUUweE1NZ1JhcS9J?=
+ =?utf-8?B?YU5XS0NTcUhLTjdueE1ES3JqOXA1WGNFYmpkaE16NGtGelUzYkk1Rk9lMGJj?=
+ =?utf-8?B?cTJmaUMrK1JYbzM4akxhMkF5V25mN0Z1eXVZL2ZVZUZ3YVBmcUlPclU4KzJP?=
+ =?utf-8?B?NUc0OEhITnRZQ0tQK2d0elFTNUFTRmExRGIrV0JzUDNkQW5Vd1FDZGZHZzhY?=
+ =?utf-8?B?NS9TSDEvSVRhZEdCRVZTTXRJRVE3SmZnZjEvQS9wOWlFOWRoTStPMlZMd1dJ?=
+ =?utf-8?B?RHR6MysrUUJpa082TURaNHdzSWUvaEJNR0lqOFVyWEpEL3M2SHRWNGRETEZL?=
+ =?utf-8?B?emhlOSt0QWVOazVSYlFBejlHZUxuaHlwQU83VGlMMGVhakhNUkwxN3U3akQz?=
+ =?utf-8?B?OW4vcVBiTUs1RFZTTnh4VEhObU5GL3FmdGRFU3EySjBDQUp0bVVNSjhXYWV5?=
+ =?utf-8?B?Y2xmanYxQmMvNXhSQjN6ait5YitPZTh5TlZxbVM4aW1RRS81bFF3NzZ1MnNo?=
+ =?utf-8?B?QTNsWkVlVlp3QlF5cmpyc0JaU2ZTMUxCd05NOVFwKzRFd0JEaTBQdGNlaEM4?=
+ =?utf-8?B?Y0gxVnI1b1A4NWcxSVdhVEZDNjhzUlFRc2daWWM5dW13MldWVUpvWCsyd1d0?=
+ =?utf-8?B?ZWV5NXZEemVBajZDMHdOVmpKNnd6YzZtNE8yVGM4cXB0d3ZWZTRsS3RVM05l?=
+ =?utf-8?B?Rk9xWUdkTlUvRW5ZQ1lkdFdyTFJsN3lNM2x4eVlvTUttL2M3dXpCelFxdTQ0?=
+ =?utf-8?B?NXNoTVVEYkdQWExabHZTbTJlK3JMVExBZDlJcE9QUFpTN0x5UmVmZ0Z3UjMx?=
+ =?utf-8?B?VlJ6S201MHE5cXh6ckxoYTNxWTRRUzNXcHZQTkZpdGdsUWw1ZmFydUhvRXdi?=
+ =?utf-8?B?QVhacnUwcTV2U3FRU08zWWZ1V1lPRnBiTm9UYnNGYzJLOWlyb0Qxc0t0Y21U?=
+ =?utf-8?B?TERPSkVxWkpqQ3J4c0lRMHRMSnJSN0tPUEFpV1NOV05UUzJmdDNjeUpzcUZH?=
+ =?utf-8?B?WTBkWEdtanhWdldTOVUvMnhzNHhMeGs3L0lkY3krZmJib29mOExRUzhtbDRt?=
+ =?utf-8?B?RWJVR3A1S1h1ZVhNdHNnb3lkaFJGdHNNbUdJS1d6bGxsdTQvRHBlYlNLdGRH?=
+ =?utf-8?B?QVA2a3VJb293TnRCRnF1a3VLY29iZHNYZXJNWFFRa01BeklPTjFtYytFSUp3?=
+ =?utf-8?B?ZnhnelBUbi8zN05ySkdacW1QYWIrRmdFYXZteWlFTitBZGlsY0F6a2ZmWE9U?=
+ =?utf-8?B?REsrcUZUYzF3cC9WK2FWUytGNUZKVWFzWTZuRlY0RFUyOHdkRVJIVURMQUhK?=
+ =?utf-8?B?YUh0UlM5eTgvWSt3WVpaZTM1bWUxVkRXaFVPNzRlK1BodDByWVZzVnRlN3NB?=
+ =?utf-8?B?OG10VzUzOEliaXNtay9mWC8yQU43eWxEUldYdDIrUmxIdmJqMTJ0WHB0Rkwy?=
+ =?utf-8?B?eE9GUkxYYUlOaWdwWGlVb3VPaDNHWGdGSldBWEV1aHVZUmluNUtJY2NhNEUw?=
+ =?utf-8?B?K2lMRFZwcmhqS0Q2NGk1Y0ZtSVRMbGx2TW1GQmp4VGxpL01RYmI5cTl6UDFt?=
+ =?utf-8?B?Vk5DSUhUa0M1NVdHSEJWTStCaUpXWEpsQXJzcDBzN1F0MGcwY3RveGdqUk9W?=
+ =?utf-8?Q?MRyJ7I4Ebde0GQZBLA?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09256116-69b4-46e0-69e2-08df40daa9ce
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:33:20.7046
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1e51c2a-fd48-4c3c-376e-08df40da7150
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH4PEPF0000B60E.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5930
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5OY8h6VTj3qiF2LQcfEQCmqOSlbNnsU/44aRMVZ98E2SfH8UIVBSMlLIjAvA/WgF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4399
 
-On Tue, Nov 10, 2026 at 04:08:08AM +0000, Samiullah Khawaja wrote:
-> IOMMU pages are allocated/freed using APIs using struct ioptdesc. For
-> the proper preservation and restoration of ioptdesc add helper
-> functions.
-> 
-> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+On 12 Nov 2026, at 11:24, Alexandru Elisei wrote:
 
-Reviewed-by: Ankit Soni <Ankit.Soni@amd.com>
+> Hi Mika,
+>
+> On Thu, Nov 12, 2026 at 04:00:09PM +0200, Mika Penttilä wrote:
+>> Hi Alexandru!
+>>
+>> On 11/12/26 13:56, Alexandru Elisei wrote:
+>>> Hi Mika,
+>>>
+>>> I want to help getting this series merged, and I've been familiarizing myself
+>>> with hmm and device migration, please bare with me if the questions I'm asking
+>>> are obvious or downright silly.
+>>
+>> Thanks for the interest and willing to help! I am preparing a v18 of the
+>> series and plan to post it early next week.
+>
+> The series is big, and as far as I can tell the MM people are hard at work
+> reviewing bug fixes. It might be better to wait a while, to give people a
+> chance to have a look? I know that if I see a series being reposted often,
+> I am less inclined to review the patches since probably a new iteration
+> will be posted soon. But I can only speak for myself, you know best.
 
-> Reviewed-by: Pranjal Shrivastava <praan@google.com>
-> Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
-> ---
->  drivers/iommu/iommu-pages.c | 109 ++++++++++++++++++++++++++++++++++--
->  drivers/iommu/iommu-pages.h |  30 ++++++++++
->  2 files changed, 135 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/iommu/iommu-pages.c b/drivers/iommu/iommu-pages.c
-> index 3bab175d8557..0aa18c771baa 100644
-> --- a/drivers/iommu/iommu-pages.c
-> +++ b/drivers/iommu/iommu-pages.c
-> @@ -6,6 +6,7 @@
->  #include "iommu-pages.h"
->  #include <linux/dma-mapping.h>
->  #include <linux/gfp.h>
-> +#include <linux/kexec_handover.h>
->  #include <linux/mm.h>
->  
->  #define IOPTDESC_MATCH(pg_elm, elm)                    \
-> @@ -28,6 +29,13 @@ static inline size_t ioptdesc_mem_size(struct ioptdesc *desc)
->  	return 1UL << (folio_order(ioptdesc_folio(desc)) + PAGE_SHIFT);
->  }
->  
-> +static inline void iommu_folio_update_stats(struct folio *folio,
-> +					    unsigned long nr_pages)
-> +{
-> +	mod_node_page_state(folio_pgdat(folio), NR_IOMMU_PAGES, nr_pages);
-> +	lruvec_stat_mod_folio(folio, NR_SECONDARY_PAGETABLE, nr_pages);
-> +}
-> +
->  /**
->   * iommu_alloc_pages_node_sz - Allocate a zeroed page of a given size from
->   *                             specific NUMA node
-> @@ -80,8 +88,7 @@ void *iommu_alloc_pages_node_sz(int nid, gfp_t gfp, size_t size)
->  	 * rather large, i.e. multiple gigabytes in size.
->  	 */
->  	pgcnt = 1UL << order;
-> -	mod_node_page_state(folio_pgdat(folio), NR_IOMMU_PAGES, pgcnt);
-> -	lruvec_stat_mod_folio(folio, NR_SECONDARY_PAGETABLE, pgcnt);
-> +	iommu_folio_update_stats(folio, pgcnt);
->  
->  	return folio_address(folio);
->  }
-> @@ -95,8 +102,7 @@ static void __iommu_free_desc(struct ioptdesc *iopt)
->  	if (IOMMU_PAGES_USE_DMA_API)
->  		WARN_ON_ONCE(iopt->incoherent);
->  
-> -	mod_node_page_state(folio_pgdat(folio), NR_IOMMU_PAGES, -pgcnt);
-> -	lruvec_stat_mod_folio(folio, NR_SECONDARY_PAGETABLE, -pgcnt);
-> +	iommu_folio_update_stats(folio, -pgcnt);
->  	folio_put(folio);
->  }
->  
-> @@ -131,6 +137,101 @@ void iommu_put_pages_list(struct iommu_pages_list *list)
->  }
->  EXPORT_SYMBOL_GPL(iommu_put_pages_list);
->  
-> +#if IS_ENABLED(CONFIG_IOMMU_LIVEUPDATE)
-> +/**
-> + * iommu_unpreserve_pages - Unpreserve pages that were preserved in KHO
-> + * @virt: Virtual address of page to be unpreserved
-> + */
-> +void iommu_unpreserve_pages(void *virt)
-> +{
-> +	kho_unpreserve_folio(ioptdesc_folio(virt_to_ioptdesc(virt)));
-> +}
-> +EXPORT_SYMBOL_GPL(iommu_unpreserve_pages);
-> +
-> +/**
-> + * iommu_preserve_pages - Preserve pages using KHO
-> + * @virt: Virtual address of page to preserve
-> + *
-> + * Returns 0 on success, negative error on failure
-> + */
-> +int iommu_preserve_pages(void *virt)
-> +{
-> +	return kho_preserve_folio(ioptdesc_folio(virt_to_ioptdesc(virt)));
-> +}
-> +EXPORT_SYMBOL_GPL(iommu_preserve_pages);
-> +
-> +/**
-> + * iommu_unpreserve_pages_list - Unpreserve a list of KHO preserved pages
-> + * @list: List of pages to unpreserve
-> + */
-> +void iommu_unpreserve_pages_list(struct iommu_pages_list *list)
-> +{
-> +	struct ioptdesc *iopt;
-> +
-> +	list_for_each_entry(iopt, &list->pages, iopt_freelist_elm)
-> +		kho_unpreserve_folio(ioptdesc_folio(iopt));
-> +}
-> +EXPORT_SYMBOL_GPL(iommu_unpreserve_pages_list);
-> +
-> +/**
-> + * iommu_restore_pages - Restore pages that were preserved in KHO
-> + * @phys: Physical address of page to restore
-> + */
-> +void iommu_restore_pages(u64 phys)
-> +{
-> +	struct ioptdesc *iopt;
-> +	struct folio *folio;
-> +	unsigned long pgcnt;
-> +	unsigned int order;
-> +
-> +	folio = kho_restore_folio(phys);
-> +	if (!folio)
-> +		panic("Failed to restore preserved IOMMU page %llx\n", phys);
-> +
-> +	iopt = folio_ioptdesc(folio);
-> +
-> +	/*
-> +	 * For the restored pages incoherent is set to false as these are not
-> +	 * mapped using the DMA_API. The remapping of these pages using DMA_API
-> +	 * is not needed as these are not going to be written to by the new
-> +	 * kernel.
-> +	 */
-> +	iopt->incoherent = false;
-> +
-> +	order = folio_order(folio);
-> +	pgcnt = 1UL << order;
-> +	iommu_folio_update_stats(folio, pgcnt);
-> +}
-> +EXPORT_SYMBOL_GPL(iommu_restore_pages);
-> +
-> +/**
-> + * iommu_preserve_pages_list - Preserve list of pages using KHO
-> + * @list: List of pages to preserve
-> + *
-> + * Returns 0 on success, negative error on failure
-> + */
-> +int iommu_preserve_pages_list(struct iommu_pages_list *list)
-> +{
-> +	struct ioptdesc *iopt;
-> +	int ret;
-> +
-> +	list_for_each_entry(iopt, &list->pages, iopt_freelist_elm) {
-> +		ret = kho_preserve_folio(ioptdesc_folio(iopt));
-> +		if (ret)
-> +			goto err;
-> +	}
-> +
-> +	return 0;
-> +
-> +err:
-> +	list_for_each_entry_continue_reverse(iopt, &list->pages, iopt_freelist_elm)
-> +		kho_unpreserve_folio(ioptdesc_folio(iopt));
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(iommu_preserve_pages_list);
-> +#endif
-> +
->  /**
->   * iommu_pages_start_incoherent - Setup the page for cache incoherent operation
->   * @virt: The page to setup
-> diff --git a/drivers/iommu/iommu-pages.h b/drivers/iommu/iommu-pages.h
-> index e9e605b5fa3a..3c409ec3d170 100644
-> --- a/drivers/iommu/iommu-pages.h
-> +++ b/drivers/iommu/iommu-pages.h
-> @@ -53,6 +53,36 @@ void *iommu_alloc_pages_node_sz(int nid, gfp_t gfp, size_t size);
->  void iommu_free_pages(void *virt);
->  void iommu_put_pages_list(struct iommu_pages_list *list);
->  
-> +#if IS_ENABLED(CONFIG_IOMMU_LIVEUPDATE)
-> +int iommu_preserve_pages(void *virt);
-> +void iommu_unpreserve_pages(void *virt);
-> +int iommu_preserve_pages_list(struct iommu_pages_list *list);
-> +void iommu_unpreserve_pages_list(struct iommu_pages_list *list);
-> +void iommu_restore_pages(u64 phys);
-> +#else
-> +static inline int iommu_preserve_pages(void *virt)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +static inline void iommu_unpreserve_pages(void *virt)
-> +{
-> +}
-> +
-> +static inline int iommu_preserve_pages_list(struct iommu_pages_list *list)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +static inline void iommu_unpreserve_pages_list(struct iommu_pages_list *list)
-> +{
-> +}
-> +
-> +static inline void iommu_restore_pages(u64 phys)
-> +{
-> +}
-> +#endif
-> +
->  /**
->   * iommu_pages_list_add - add the page to a iommu_pages_list
->   * @list: List to add the page to
-> -- 
-> 2.56.0.506.g506a7eabc5-goog
-> 
+Totally agree. It is better to wait until MM people finish the bug fixes.
+
+Thanks.
+
+
+Best Regards,
+Yan, Zi
