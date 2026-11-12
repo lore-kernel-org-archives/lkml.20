@@ -1,64 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503344;
-	b=aYU7bjmf3CIqeVdhn4aYk0fiS789YpXEn8XuGMSbqtTLb7bOaeJDJaGW5cshgAZxLHRd
-	 enbsx5bvTsaBGb0sVZSx3RMaFAE1QBHy8Rdn78JpCkI8tK+aScfBSglX7kwZXhj9itX4R
-	 XCTI2GeMN3+z0uEgPKMandTSAODEzfQDy/RwvpuzM91mKH/Jk+r5EPYkUgUPcx1KexY9K
-	 Xrpt3WSY+Fu8BPkjZPRBJ78tSGjYzgfkvNYDwYMAAhb7xsKcA9marSBqaCF/KAj8X5WOq
-	 jX+b7Co3P8Sb1RhD3vy4J7WCB2VKMLecdY6hb66v4QfFrsOMn73pdcpzAd+BgRYT0wQ==
+	t=1794503356;
+	b=hTDP61zxrYBywHr70UyWH8B0x1A+HJQsjcnUt7XfSUApi3AA9GCwBZj/na9bLDqECVDp
+	 OC8/0otqsM51Dmt2CeSYIxauCbqSLjMlmPJsdy3OR6Qld93faJRa2MupWuE/X103bRUPA
+	 6cfG0UaIIuoYc2mY5YZL7n1hfb3qjJyMps2yZvQQYy0qnoymn8rEoc5JWg4kHPfjZ19b2
+	 +LtOIR3fbFSqkvVmGl4uSEAkaKfb9y+G7q5PJlFtXZq8333BPHTrEsX8OpDAPLq15D/o+
+	 P9vp4T/97nHAUsgZ7deGa3fmAb5I9Sm5nNbw3xZcE9l04B0eM5CXI7jTASGgUMShyvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503344;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503356;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=oj2TNmHu0aGvGVnFAhxBXVtL1PvBAFJMiuWObtt4eU8=;
-	b=T5dmVN8maITF/iZ4r2PmPmjJProAAA3dcVc7g85/OzEodEcH5aVH0MHOBk7IE402NZKV
-	 r1xsoABUzJqYE3tc7Q5sx1Yvh/JjnuAxzbdFwrDLWXbx0ymzcPyJaOuFotQ3+gE5ELptV
-	 T6AcrSgSL5i80FB8C4kOY5my8KbO2EKZSXdl2gA/BNPpggEZvz6nJtOmTfhX0twaGsY0R
-	 Z9tKfaRO0yhLYDkX0EgVX+GxpxA+CiSN40FOVnfpGaLJ6BJveAtQylJwYi/Cn39It5Ffl
-	 n83PW+EfhVlNGeaxA9zXTghy8Uj43wWi80vuE4OKHOLSyL49l83LMWsFEDnR3aTqH6g==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pDkrQb08D5M8j1MP1dcWcJZplXdGWPMsv1pB47P3qyg=;
+	b=R3kcB7/9eoNrwYXjk7tFNzUg3OuAsyyz+CmE7wn9/DV5dOeLL9ILn7pNShmBoFeiU9Lu
+	 OepLRVgC6DuuDNXxzhmFKJ/MN8qo0sVkvJWUEWAKPG1GEL1TZrjFKEIKgpl+hacOXqzYh
+	 N1UAAg29iFdo6SOEsJ6+VTMLnV+MVi19zDUTvyn8U4wNnSvAX6uGQD/M/yVikLULWlpJV
+	 FEoM1gepz4O58izPc7O+ZC1SFZGVxiqnGsYU4BEC0FZOaw1wleyJP3QKgDBahipiq7Nup
+	 Q2xeOwtV2TdDDbu2CGYarSX8i5nhVK2VBdG5orf+mTkyN2sD+hdCBQvWWJ10iB/OA4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=packett.cool;
 	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=KNTpMS5P;
-	arc=none smtp.remote-ip=91.218.175.119
-Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=l0GZ8dvA;
+	arc=none smtp.remote-ip=91.218.175.134
+Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B470C606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:09:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B470C606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBB7606A331
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:09:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FBB7606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=KNTpMS5P
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=l0GZ8dvA
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=W6VeXoYsDeuooRLOPur5oKNEUPcbNXvMYUsUnI6yMhQ=;
+DKIM-Signature: a=rsa-sha256; bh=AEUTIZyGb3mCSCpfGc5hg6pIGxMhxghjc7n8dp9pmKU=;
  c=simple/simple; d=packett.cool;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794503340; v=1; x=1795108140;
- b=KNTpMS5PiD58A1ons/DpdJZmpZOCajmxxKBM5F/RE+ZjoQuNDaELQmTkqYAwdvagMjqJPCOH
- VyVorLwW83zHYFDRVk9P6fnbphJ1ZPIVuU/7JmkCTfDGeBw/ma+fwnFbeaP6RRKc9ypS1qR3P2h
- ipGeKR709smjl2/rMw2zt6CDTkzPrBN71Ds1fLAaz78BUPpwF+3E83msDbhgNXUZh4jt2ri2HIj
- Sak3LhdsE0QAL95+jlxE2NM8uPvNuHnRUNWNPQa5+3MHZsX0n2eNmAk1Nr1zRLXLyh7V9Be9bEH
- Et+M8i7ydeO2Z0C2nSxkkowNxTqr+0WISXwIcDxn9lV2Q==
+ t=1794503353; v=1; x=1795108153;
+ b=l0GZ8dvA/INoJIxMcEleWaeT2K3Ut8NTJJ4/le6/b6ZXOT08HyAfhGj493iR9A59RnS/jzWO
+ Irw1iNb3N7TjjdrpkneMmEy6hblS0bws0HlT0bR8QoAIKZK+0tjjSB87xEEBMQoYb0BKo3Xrkhv
+ OBVQfj4+XZjhJLBYkSygo9DNVSYSkxGePKyXmiX0D42CSgB2vUxpB/1GoVYMzeyu00UaLpp52b2
+ RJlqqTR3lXO5Q19AuHOsQMS4vArgP+YHqoKrko+1IuMfUCNCGw6RpukF1dB986vh9X3AyIysq9h
+ YLGeC8Sk2sOTkP6eSe1Nd+G0sNtWH8c8s2IrUbuJQ3GoQ==
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cc99491184bea011;
-	Thu, 12 Nov 2026 17:09:00 +0000
-X-Mizu-Trace-ID: cc99491184bea011
+Received: by smtp.migadu.com with ESMTPS id fd5fd19beb92ad4a;
+	Thu, 12 Nov 2026 17:09:13 +0000
+X-Mizu-Trace-ID: fd5fd19beb92ad4a
 X-Migadu-Flow: FLOW_OUT
 From: Val Packett <val@packett.cool>
-To: 
-Cc: Val Packett <val@packett.cool>,
-	Marc Lainez <marc.lainez@gmail.com>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
-	Danila Tikhonov <danila@jiaxyga.com>,
+To: Val Packett <val@packett.cool>,
 	Sebastian Reichel <sre@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Marc Lainez <marc.lainez@gmail.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
+	Danila Tikhonov <danila@jiaxyga.com>,
 	Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
@@ -72,10 +72,12 @@ Cc: Val Packett <val@packett.cool>,
 	phone-devel@vger.kernel.org,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/5] Add driver for Qualcomm QGauge (qcom_qg) fuel gauge
-Date: Thu, 12 Nov 2026 14:07:26 -0300
-Message-ID: <20261112170841.2189322-1-val@packett.cool>
+Subject: [PATCH 1/5] dt-bindings: power: supply: add Qualcomm QGauge fuel gauge
+Date: Thu, 12 Nov 2026 14:07:27 -0300
+Message-ID: <20261112170841.2189322-2-val@packett.cool>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261112170841.2189322-1-val@packett.cool>
+References: <20261112170841.2189322-1-val@packett.cool>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,61 +89,147 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi o/
+From: Marc Lainez <marc.lainez@gmail.com>
 
-This series adds a driver for the "qgauge" battery fuel gauge
-present in Qualcomm PMICs like PMI632, PM6150, PM7250B, PM2250.
-The PMI632 is used in SDM632, SM6115/SM4250, SM6125 based phones.
+Document the QGauge fuel-gauge block handled by the qcom_qg driver, with
+compatibles for the PMI632 and PM6150 PMICs.
 
-This series was tested on sm6115-motorola-{cebu,guamp}, whose basic
-dts has been submitted as [1].
-
-There have been two attempts at making this driver, the first one
-"WIP! power: supply: Add rude driver for QGauge" as found in
-various development forks [2] was rather infamous for wild capacity%
-swings due to load variation :D
-
-The second one was submitted to msm8953-mainline at [3] by
-Marc Lainez, and it behaved much better thanks to the use of
-power_supply_batinfo_ocv2cap.
-
-This is a continuation of that work, carrying his From/S-o-b on
-modified patches with explicit permission. I have added the
-SDAM read via NVMEM API, fixed the batt_info leak and did some
-general cleanup.
-
-With the SMB5 work also going on right now, we'll finally have
-full battery support on these awkward pre-battmgr generations!
-
-[1]: https://lore.kernel.org/all/20261109221453.658316-1-val@packett.cool/
-[2]: https://github.com/sm7150-mainline/linux/commit/76879bf7a71f4f8f66b9bcd7175069ca7bbf4274
-[3]: https://github.com/msm8953-mainline/linux/pull/242
-
-Thanks,
-~val
-
+Signed-off-by: Marc Lainez <marc.lainez@gmail.com>
+Signed-off-by: Val Packett <val@packett.cool>
 ---
-
-Marc Lainez (2):
-  dt-bindings: power: supply: add Qualcomm QGauge fuel gauge
-  power: supply: add Qualcomm QGauge (qcom_qg) fuel gauge driver
-
-Val Packett (3):
-  iio: adc: qcom-spmi-adc5: Add ADC5_BAT_THERM_100K_PU
-  arm64: dts: qcom: pmi632: Add missing bat_therm ADC channel
-  arm64: dts: qcom: pmi632: Add battery fuel gauge node
-
- .../bindings/power/supply/qcom,qg.yaml        | 105 +++
- MAINTAINERS                                   |   7 +
- arch/arm64/boot/dts/qcom/pmi632.dtsi          |  41 +
- drivers/iio/adc/qcom-spmi-adc5.c              |   2 +
- drivers/power/supply/Kconfig                  |  13 +
- drivers/power/supply/Makefile                 |   1 +
- drivers/power/supply/qcom_qg.c                | 807 ++++++++++++++++++
- 7 files changed, 976 insertions(+)
+ .../bindings/power/supply/qcom,qg.yaml        | 105 ++++++++++++++++++
+ MAINTAINERS                                   |   6 +
+ 2 files changed, 111 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/power/supply/qcom,qg.yaml
- create mode 100644 drivers/power/supply/qcom_qg.c
 
+diff --git a/Documentation/devicetree/bindings/power/supply/qcom,qg.yaml b/Documentation/devicetree/bindings/power/supply/qcom,qg.yaml
+new file mode 100644
+index 000000000000..79dd18d87879
+--- /dev/null
++++ b/Documentation/devicetree/bindings/power/supply/qcom,qg.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/power/supply/qcom,qg.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm QGauge Fuel Gauge
++
++maintainers:
++  - Val Packett <val@packett.cool>
++
++description:
++  The QGauge (QG) block found in some Qualcomm PMICs (PM6150, PMI632)
++  provides battery fuel gauging through hardware voltage and current
++  FIFO sampling, open circuit voltage (OCV) measurement, and coulomb
++  counting. The hardware has a multi-state FSM (S1-S7) that automatically
++  transitions between active sampling and low-power sleep states.
++
++allOf:
++  - $ref: /schemas/power/supply/power-supply.yaml#
++  - $ref: /schemas/nvmem/nvmem-consumer.yaml#
++
++properties:
++  compatible:
++    enum:
++      - qcom,pm6150-qg
++      - qcom,pmi632-qg
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    items:
++      - description: Battery missing interrupt
++      - description: Battery voltage low interrupt
++      - description: Battery voltage empty interrupt
++      - description: FIFO data update done interrupt
++      - description: Good OCV measured interrupt
++      - description: FSM state change interrupt
++      - description: QG event interrupt
++
++  interrupt-names:
++    items:
++      - const: batt-missing
++      - const: vbat-low
++      - const: vbat-empty
++      - const: fifo-done
++      - const: good-ocv
++      - const: fsm-state-chg
++      - const: event
++
++  io-channels:
++    items:
++      - description: ADC channel for battery thermistor temperature
++
++  io-channel-names:
++    items:
++      - const: batt-therm
++
++  monitored-battery: true
++
++  nvmem: true
++
++  power-supplies: true
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-names
++  - monitored-battery
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    pmic {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      fuel-gauge@4800 {
++        compatible = "qcom,pmi632-qg";
++        reg = <0x4800>;
++
++        interrupts = <0x2 0x48 0x0 IRQ_TYPE_EDGE_BOTH>,
++                     <0x2 0x48 0x1 IRQ_TYPE_EDGE_BOTH>,
++                     <0x2 0x48 0x2 IRQ_TYPE_EDGE_RISING>,
++                     <0x2 0x48 0x3 IRQ_TYPE_EDGE_RISING>,
++                     <0x2 0x48 0x4 IRQ_TYPE_EDGE_RISING>,
++                     <0x2 0x48 0x5 IRQ_TYPE_EDGE_RISING>,
++                     <0x2 0x48 0x6 IRQ_TYPE_EDGE_RISING>;
++        interrupt-names = "batt-missing",
++                          "vbat-low",
++                          "vbat-empty",
++                          "fifo-done",
++                          "good-ocv",
++                          "fsm-state-chg",
++                          "event";
++
++        nvmem = <&pmi632_sdam_2>;
++
++        monitored-battery = <&battery>;
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b253b10dd436..7b76b07ed66f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23328,6 +23328,12 @@ F:	drivers/firmware/qcom/qcom_pas.h
+ F:	drivers/firmware/qcom/qcom_pas_tee.c
+ F:	include/linux/firmware/qcom/qcom_pas.h
+ 
++QUALCOMM QGAUGE FUEL GAUGE DRIVER
++M:	Val Packett <val@packett.cool>
++L:	linux-arm-msm@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/power/supply/qcom,qg.yaml
++
+ QUALCOMM SMB CHARGER DRIVER
+ M:	Casey Connolly <casey.connolly@linaro.org>
+ L:	linux-arm-msm@vger.kernel.org
 -- 
 2.56.0
 
