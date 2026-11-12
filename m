@@ -1,66 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794513382;
-	b=bxHNFK9jd/73TVBxDJkqLanozQ7FQbKaFJeUcOFe2VAxOwH5+NtVNlcu7xNQUpIoVMbl
-	 8cEP9+NlkPGXp+Odxajg8OWAUGahWxqsvUXmaS2AiCK6nr1Yx2xNF6pPGWtUeoakUZa71
-	 zr/wF3P1qXZsgT8tcquXXNGSo9DibQUKwQtvLf38jLLO0D3lO/jkxPx1Buf2ORDC41W8X
-	 r682LBs3J4IVPpayuXVV1O2gsTTIiU4FNA5yEhXItE89jgwThGor+oLjwrq1OpG9RTk+/
-	 gErHF7eSK4cUI0Nus0Lhb8F47WZHhkCkPHxu403eQJWiIkxd0fmP1rVOWqHLvb3PK1A==
+	t=1794513437;
+	b=PQk6kIiskxhGggnmW8zErebOF1Bq2o6VaE0JrZpLPn4S9HKkcVuG4gjRwqQU3y1Gzbro
+	 WEuQf+PCNl0O5axUm4ZeVQOc1e9NUjwCy4KuwdaZ1pdKz/z7I9toYtOSJTQ8QSXta0HAD
+	 GRYrKfzrvJViHb/667c9HcU14yUW6MXKwK5CCxcn6ZDb1yMX7IiO/ykKjn2F4wxqKlQa5
+	 gciwRXzfk8X1sIdgLdLrYEDf41Lykcl/qBvAe54AWHJviFaMr+xd+2Dq6g2tvAF3YwQkQ
+	 ZzeKFYwF6aU03iju8Ew5tXjFrvUVvx1D6yE1BpLvFNUPzuhBIRCXFVCE9HNEAf+GwBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794513382;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=dy7J2cqt4EEbhgyUkhhB/eUew1aRMhzOU6Itpm1/KVM=;
-	b=sZ5Yh+073HsQy45fAb6K/1JCAa9U10BUA6GhNpTqdU1IB7/JppCQZBBMB9Fzzk+QMtY9
-	 +acR1KtpUWsLXWcMYc2YDv1WnY1TdiYdvPrMB0yuZeGJw+9bXwoJCcLcrLOHneiMBzjSH
-	 0LcGDKJ987yY9NHOSkq+lC5NnQo94EwpMkQbLJt54DpQJsS5q3bscnlVrMxmyE+qYsYm1
-	 raZ9AV6bq96Mzb3Umf6AoGNq7lH4eJW5mLfjBFPEa/qNtR6ztW+ikN/labufhujbRmwc2
-	 6NK8QEx48HOhJan9RGUHRRF5CJgSRF84nTXXD7W63gn6gaBEm/aDeWHiPSgTy7xb73w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513437;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CzDxUF6io59AUzkKBaAU66gKnCGGQN9HKIMVkGQr1fQ=;
+	b=asODGDTyAYPauLneYVagWU+5GDrYoGMOE/Jq9fxi0P4DaUfPmqIOepjN3LXV6gMRc6Ba
+	 j58fBdrabRGdD2AVpbeyRr/pPOm3SSpK2yABshTsmdZoPrG7Pep35CS80oqvuWX7vLtGu
+	 L3rAwr1m17buEGaUM0UlLbqn2E85ueqwIQHVvfg2xgUP0v+bXDmxHwA40AUditJMVP2cw
+	 btWdbCcITNRNTe/2DoEn4VndHxMy2Cx53aQsoIIllqHuFHAh7/0Vq/vBGqBCL92/WttWt
+	 BFXXHE8zkKJtvdA4FrGAlK/3PA0mdR/LqSUK2yaQzej4sSpdodVB3CKJY+R3/HSMNIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eP3Lmg48;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6FA08606A31C;
-	Thu, 12 Nov 2026 19:56:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FA08606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vuqN8AiL;
+	arc=none smtp.remote-ip=209.85.160.180
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538BA606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:57:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 538BA606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eP3Lmg48
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A540A339;
-	Thu, 12 Nov 2026 11:56:18 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4216A3F632;
-	Thu, 12 Nov 2026 11:56:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794513381; bh=MSLq4lZa+23a127MIJrZJzb7fcJCl4lsinfpBlFpp+U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eP3Lmg48Ypld/7C31ui42awQpCJDOfAsfarhWTq9s+PV9zm8lGkhvmKby+wskzJXX
-	 lsrCENHkmeQWPeCvlsYrMdy89v5MHnw5d6yo9On8UMikdy6OPQ2m4oOuYSPZSfhiPU
-	 Bv9EX+f7Z/nU1dSAWXE7IziRUbNBJ2QxyGl+vt6k=
-Date: Thu, 12 Nov 2026 19:56:10 +0000
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-	f.fainelli@gmail.com, vincent.guittot@linaro.org,
-	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-	d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
-	philip.radford@arm.com, david@kernel.org,
-	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
-	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v15 10/35] firmware: arm_scmi: Add Telemetry resources
- enumeration
-Message-ID: <avYZ2t_GoT7BN2nU@pluto>
-References: <20261109091221.2532706-1-cristian.marussi@arm.com>
- <20261109091221.2532706-11-cristian.marussi@arm.com>
- <20261112100145.00000560@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vuqN8AiL
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-536c8f958d7so790301cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:57:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794513435; x=1795118235; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CzDxUF6io59AUzkKBaAU66gKnCGGQN9HKIMVkGQr1fQ=;
+        b=vuqN8AiLpAawFUwEbsflV39EWisNA7pPWcQPclrwWh/dzQgpYKnMgG7+Mh9504+EPp
+         91Ld3TSaarfjoNBWrJvJcFIq7fhFbuHkRgG7QWlbrZ+DNsoAg11KnqygrP8xPHO5axIy
+         w5BN20XTw0j3LA75J2jEtV2Q7GDCQgaQMp1hQevrWCDcbHpjLlN9umNXv+VbNsnCcnrK
+         /l54kA9c145dl8URjgScHlFuVO4450jaL4ZK7q/KBtbTLDLoIUz1fGIhMJP9TBqDMCTC
+         kLN+VAimubs6M5FHI4r+RNv+fFFUi750h5rJ4FyBE7CKyIWejDn4iXmM5T1/Ka80olCx
+         5N+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794513435; x=1795118235;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CzDxUF6io59AUzkKBaAU66gKnCGGQN9HKIMVkGQr1fQ=;
+        b=hv7l8E9A8Y1/sJ+j00zpU7jfXUA8+x7y5BPh4wk/iMMjUsyL6Y7biYMDEjplKmIq7L
+         Gy45/jEzFQP1IXa16t4apq2OTUn9WZh1xF6VqRJs/JNtMLnMKIhURxGNLHPdLeJtQKC1
+         +xbW9d2tEp79bv4yQ6mIhy//yRKKPlFNNIR6I/qCMQ4FP2fb5V9y8seSl+3ubL57pNft
+         C0/tzYK3Z9Ga/p0Kxi1LSmzR7QHojENNCEsNItqHLBDm2Dusl/TLeU5MaRAAVS0txpRY
+         fONVpcUuTr0BsWg/5DBdv/ra55SAKEMMqpQM0wDlCZkee5WXXkaPyQNcTATsoXis1M6G
+         VlpQ==
+X-Forwarded-Encrypted: i=1; AL+hErH5n2lxmvmHVSG/SdxQBZJsKnYehB69ImqrgfWpMzHN1oYTDPWtDIMmoVSmOFPih0nKtdNCZCDpESp83CU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9FtUmDBTgt0Pok2gWXILILozMqdz3mQ56ctGYtENubIE+Nnnn
+	TfN2RJq9lUdHWeZj9Soh6UbMHz2ut6/92Fs0gjvo2m/rQuQZ/vkjcLu6
+X-Gm-Gg: AYBFou21DGa45yZmtGjbo8zo9sKJ5HwlAFi7yqz9ed9lvCtf0Rx55+TPhze0VfBN77h
+	yE2yuPWAIMWCqb/h5GdyKba8M3XeDzyBsV5cfbdMrqrSs7Bzm0gEeBV8SD7BZ4XbcfdqqzGTs1m
+	xhkq3H9rTdbEWZJd5enVZ9OvqS+AzbzeroGG+jLwI8loImXlL5wxoCu5UZvN+w9qSnn4OooVM1i
+	+1iV6MCpdZcOf+gWaPDh1Vdl0N3BXWMWuxXBUowXK6yvcLdAj9xMFkPjvK+uQA9FR1H1d9qgZJW
+	4pbM3w4DL/M/yvclAe2Qbr28mXVdJtt7LLeC9S/jvu8kohS3QsONECf94cAruflxljGQIy9gW1Z
+	p/zbEoNKLqiPywC2U0639O4mEmsBsJWvGNfd+Xcs/jeTF5SLsBmsz2Dlg4JllhtVDs8ZX8p8Eid
+	Z9/Rve7eiSJieBWvO4cWvSc6/avWwigPti1HVFuNQzCzsWcxNsNKv6+Drxav5Nc6aB5bFsyS01O
+	w+jziyKk7xaUk6J+VLJdu6aoQSVksMcuHHpOXUi7HKuvcmPzY2UhlamysC/w8Yt3YBVgUQLn8ub
+	ZDL+m2vcJ1gmg6UJMVDyPh1aX+IvMXFvdLzv+Is2rxNcL7lv59H/
+X-Received: by 2002:a05:622a:8586:b0:55a:e65b:d959 with SMTP id d75a77b69052e-55ae65be1eamr2000351cf.8.1794513435248;
+        Thu, 12 Nov 2026 11:57:15 -0800 (PST)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad034918fsm2504851cf.4.2026.11.12.11.57.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 11:57:14 -0800 (PST)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Wei Liu <wei.liu@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>,
+	Yu Zhang <zhangyu1@linux.microsoft.com>,
+	Easwar Hariharan <easwar.hariharan@linux.microsoft.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	iommu@lists.linux.dev,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v2 0/2] iommu/hyperv: Don't free a paging domain the hypervisor did not delete
+Date: Thu, 12 Nov 2026 14:56:58 -0500
+Message-ID: <20261112195710.1417744-4-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,92 +106,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112100145.00000560@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 10:01:45AM -0800, Jonathan Cameron wrote:
-> On Mon,  9 Nov 2026 09:11:56 +0000
-> Cristian Marussi <cristian.marussi@arm.com> wrote:
-> 
-> > Add basic Telemetry allocation and initialization routines, introducing and
-> > wiring-up the logic needed to enumerate all the SCMI Telemetry resources
-> > optionally using a lazy on-demand scheme: this approach factors in the
-> > flexibility needed to minimize the amount of initialization work based on
-> > the effective access pattern used by the upper layer ABI.
-> > 
-> > Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
-> 
-> Hi Cristian,
-> 
-> This stretches across the patch set but first elements related to it are
-> in this patch.  How do we handle larger values of de_data_sz?
-> 
+The Hyper-V IOMMU driver frees a paging domain's page tables even when
+HVCALL_DELETE_DEVICE_DOMAIN fails and the hypervisor still has the
+domain. Patch 1 fixes this when a domain is freed, and patch 2 when the
+allocation of a new domain fails after the domain has been created.
 
-We dont. This was somethig that was on my todo list initially, but then
-I realized that there was NO FW-side plan to actually implement anything
-larger than 64bit.
+Changes since v1:
+- Patch 1: WARN when HVCALL_DELETE_DEVICE_DOMAIN fails (Jason). Kept
+  the Reviewed-by tags from Easwar and Jason. Rebased on current
+  mainline (067c5c24cef2).
+- Patch 2: new. Handle the same failure in the error path of
+  hv_iommu_domain_alloc_paging() (Jacob).
 
-> The spec allows (and it's useful for things like histograms)
-> DEs to have an integer multiple of 64 bits for a single element.
-> In the shared memory buffer that just ends up with a bunch of matching
-> IDs with discovery via the parsing done in this patch.
+Both are compile-tested only (x86_64 with HYPERV and HYPERV_PVIOMMU,
+W=1). I have no Hyper-V guest with the para-virtualized IOMMU to test
+them on.
 
-And I know that the spec allows it, but supporting this possible, but
-currently NON-implemented, feature would have added some non trivial
-complexity across all the stack to the benefit of no one.
+v1: https://lore.kernel.org/all/20261105192738.70664-2-oss.patchbox@gmail.com/
 
-When someone will implement for real such big DE FW-side, the change
-will follow and of course there will need to be an ABI change.
+Yuho Choi (2):
+  iommu/hyperv: Don't free a paging domain the hypervisor did not delete
+  iommu/hyperv: Keep a new domain's page tables if it cannot be deleted
 
-Given that I am currently in fact shedding a lot of already supported
-and tested features (groups/single_sample/notifs etc etc) to slim down
-the series dropping stuff that is indeed not implemented FW side (as we
-discussed), and would never be used, I would put this kind of support
-for big-data DEs in the same category of future possible work...
+ drivers/iommu/hyperv/hv-iommu-guest.c | 29 +++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
 
-This remind me, though, that I wanted to place a check on de_data_sz
-so as to bailout with -ENOTSUPP when such data appears with the current
-implementation...
 
-> 
-> The only (I think) today to dump that from this patch set is
-> to use the shmti dump interface.  That's not exactly nice!
-> 
-> I messed around with (well chatted with an LLM about) a couple of
-> options.
-> 
-> 1. Make the whole stack aware of multi line DEs. So all the requests
->    get to return more data.
-> 2. Adding indexing so you can get a multi line DE in multiple calls.
->    That makes the interface for a bulk read a bit odd.  Userspace will
->    have to be cleverer given variable sized elements.
-> 
-> Given this is a ABI related aspect, needs figuring out sooner rather
-> than later I think.
-> 
-
-Talking about the ABI, since you mentioned in the other patches:
-
-As of now only the ABI_VERSION IOCTL is 'size-versioned' and there are
-flags to indicate supported features (both HW and ABI feats) AND fields
-with reserved spare space scattered all around IOCTLs so that it should
-be possible to add minor features using spare space and flags without
-changing ABI version, up to a certain point of course: if the changes
-are too radical a new ABI needs to be introduced and  ABI VERSION will
-be bumped.
-
-This seemed an acceptable middle ground to me to avoid the complexity of
-having all the IOCTL structs 'size-versioned' and related flexibility that
-maybe is unneeded in this case...but I could be wrong (maybe the delayed
-future possible work to support >64bit DEs is a good reason to have an
-ABI that is more flexibile without the new of breaking changes...)
-
-Beside this I did not find really so many examples of ABIs using full
-per-IOCTL size versioning, and given my relative small experience on
-this and the lack of feedback till now (beside a lot of chats witth LLMs
-:P) I stick with this easier ABI layout.
-
-Thanks,
-Cristian
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+-- 
+2.43.0
 
