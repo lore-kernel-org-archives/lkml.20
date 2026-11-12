@@ -1,60 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478396;
-	b=mEyXTLb59MBtdexa+HP0gr2X0rRFktGI1rhqUEoeupK2DEbSm0rau5pwuVq7M7QkJE6o
-	 tjfq/gC0g/gTatALKnevwgBUhhb1yo8ZNq6e4vBzYYbJESzyNqfPu9ixHSO7rVCPIa6Hy
-	 M6YiFVyUHb33J3HZWhPIDshBXubDTzF32ar1qWoLqqsPedsngkTgtLoQXgTgAWmjdmTPd
-	 Z25a0E4LCLtEkawhYsvVRpn2o1/RKeStgiUlIyLZ1RjAgE9TPseVnvZjG1CimmMikDNyM
-	 EzA+WiWwNFoyOBtGDcwKrQxGdA3gZvXOqQHQFvSaXa2CBlTFdSTsBQW4NnB89LJv3bw==
+	t=1794478419;
+	b=itU1BceNh9kC2B21MTtA2WDcc6tArOjZoFqy6RBmWKmn7MhfLK5Fq2Hk2j9IVs5WX7wI
+	 mVpkElO58YJz8kANBuIUwOGu0zCLzdv9OfEy+x5A03uo2UDuhSrogdKdMUiblHZ1JbOzb
+	 nYAeKBWDE2xUq9RKM3EtrBeoZCO2hGce2kcZvBErFK6lKeB6qVT5RZYyWtX8CmPZ8r1Td
+	 pyU0Cjuc3HCX68bSTy3oeaADk+fvcTaazlcdWUncCfzO/YiRTzBL7pMtU+XENtdPiFcrU
+	 qeCqEJnwmEef2gj4Z1Ack7NYnjOSFMa4jXTZdoCWOZZ2zcRl/tHcsPypnn0fW4qDjnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478396;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478419;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wtvm4bUz4M3LTVqusNXCR/CjAB5YqrK+oM377d5ahbo=;
-	b=fYY0UEFEpfVW6xMQ+Spfi8piJ4kz4dg1zjOmBXml3ywmSHr2itE4n7VBbWJxQ6z9gIPP
-	 c2mCwSZ7ZTfx4DLhkXU5H/CWbokkNaIbiJT/SPuO0ysNaC5Z7P/kZf48dE323Xnja07nE
-	 qYTvhuIGZUVeLfP+XdZiR38B8+SWTh7udYNumuwZXUT6JFo9qQINgbmyCcYCK6uPKrRBi
-	 8/7MjwhzLUfeG6T9ZBXlnT337gmuI1x+z7OCK3715L9Kq1FNm5DXE92ooO2sFy8Dzkxc0
-	 iiXGCOiAWC83QFW3C5qkeOKZAWGYiJdqOoqov+sRVxfx+cwbbdOPNOjdDqRmE+wI8MA==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=ZmNNrkYoDlObKGEWXN/NM8TQ0vBE+3eTJ9t0fVYsCNk=;
+	b=dde+jFhNZoGYMXZwa07Y4ifaCEvURivHnJRhxXHCbKQ3DvK2PBFB1IrBcTP/V4b9ltcu
+	 ZOCadUy4EPZJFf6AzLoHl5OR8RQnsWdaOkfvTt/Q0Aq9mXQjLNgNizk3yq6+3dx0MJdJA
+	 BuCjsp4aQpdvkr+uczY+fzKfNuBGnAPRJI7RMw3piUIYZYnWjKmTOsXCob6GDGLqU7YxZ
+	 U8pKibPvSCMlppJHJ3ESYXRiGQTJgWF3NVQhCXzSdlXOkU1b6mhauLCTZ2TEUzLLMJSJt
+	 gp7BGJXv/AmRvNjekIcfTtivSuMB2QsyPg+RO4kCyLnt4lwKj3ytQ5uxrVLkqtmgGLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=et7P3CEt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YGTg2ZDf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 78151606A33D;
-	Thu, 12 Nov 2026 10:13:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044CF606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:13:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=et7P3CEt
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3BF161F00A06;
-	Thu, 12 Nov 2026 10:13:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YGTg2ZDf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F24AA1F00A05;
+	Thu, 12 Nov 2026 10:13:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794478396;
-	bh=wtvm4bUz4M3LTVqusNXCR/CjAB5YqrK+oM377d5ahbo=;
+	s=k20260515; t=1794478418;
+	bh=ZmNNrkYoDlObKGEWXN/NM8TQ0vBE+3eTJ9t0fVYsCNk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=et7P3CEtmIsa+Oex5SrpZMGXuy0LFl5uTSPe+GnmBwygD9vZLtxlcwNZQP/2NiL04
-	 fdWQ8/XxZX3c4EtM/QhsWmTmCbliYZ29uO25MANGCdd6ofuRZNcbAzx+xvLLmu8B5I
-	 +PTlMEQxwo9GOvUbwE/rH/joIQC/ClD5J9VuegfBJ4xx8dY7mB+45CvSpGj1Nt4ZFY
-	 eDC6PgdBGfFQBalRYzydyskDi/wkYdRD/DBbgBLniYfjM8OMZ5wyHY3pZ77aaI0CSo
-	 XwAicgA0lfLkcUAFXTB7YEh2tYsnecXWy8nt5vNRZBTOb9axnovgAJiRSTri0tL4uN
-	 h8IPyJRZppnAA==
-Date: Thu, 12 Nov 2026 11:13:12 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Linghui Wu <linghui.wu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>, 
-	Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>, Shuai Zhang <shuai.zhang@oss.qualcomm.com>, 
-	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/3] power: sequencing: qcom-wcn: support SW_CTRL wake
- IRQ
-Message-ID: <ixgltkv3v6soazi6h335tm3eiuomiyw6lcdlxl4sczngcoe7jl@2jlv7z6dyrrt>
-References: <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
- <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
+	b=YGTg2ZDf3iYzt2uYHKEqZhYIdqLwemfsaiXCvrbzHPTvXrChKwnX4kZuFOLJX3VRu
+	 2w5jyR403QHNohpvEprbr9c0+06LLW7cCLHgl5qf/wSj9AnZ1aQ60yMGyh+DopNZ1o
+	 T0oERaGZ7cobW+IZ2f5Ob1uc+2IPxbI1nvK50I94uiK2kSYd1tT2FLrQzcXQvFcJID
+	 b5lHiZLpE2BnhbCnvcnVDy9F2ysWmSOu/IZdirBBZpLG+vpPVVfpogoYfeeU8twVXZ
+	 C0AWUYxpM9IBngJum+WCKEhlNBl9WtSiNV+T4b4BJN1LxGJdKeAIQQVASqTylhcD8j
+	 rm7EFKnqbSYGw==
+Date: Thu, 12 Nov 2026 10:13:34 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Patrick DELAUNAY <patrick.delaunay@foss.st.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	linux-kernel@vger.kernel.org, dario.binacchi@amarulasolutions.com,
+	Linux STM32 <linux-stm32@st-md-mailman.stormreply.com>,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] firmware: psci: handle unsupported
+ SET_SUSPEND_MODE in PC mode
+Message-ID: <20261112-attentive-gregarious-beagle-9c1fbd@sudeepholla>
+References: <20261029191624.1.I5f8f3d75a566b72250d629ac6f43cf0d387c0218@changeid>
+ <20261030-origami-tarantula-of-contentment-a70ab2@sudeepholla>
+ <4690f55f-dc13-4e43-82f9-d508253f6c64@foss.st.com>
+ <a2432129-613b-4f17-813d-82ac8af9b6d6@foss.st.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,28 +65,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a2432129-613b-4f17-813d-82ac8af9b6d6@foss.st.com>
 
-On Thu, Nov 12, 2026 at 03:20:06PM +0800, Linghui Wu wrote:
-> Some WCN3990-family devices use the SW_CTRL GPIO to indicate that
-> resources need to remain available while the application processor is
-> suspended.
+On Thu, Nov 12, 2026 at 10:40:48AM +0100, Patrick DELAUNAY wrote:
+> Hi,
 > 
-> Teach the Qualcomm WCN power-sequencing driver to use the existing
-> SW_CTRL GPIO as a dedicated wake IRQ when the power sequencer is marked
-> as a wakeup source. The PM core keeps the IRQ disabled during normal
-> operation and arms it for system suspend.
+> To complete my previous answer,
+> In  last PSCI specification v1.3, we found this description:
+> "
+> 5.21 PSCI_SET_SUSPEND_MODE
+> 5.21.3 Caller responsibilities
+> The caller must be able to cope with the following error return codes:
+> • NOT_SUPPORTED, in which case the calling OS can assume the platform will
+> work in platform-coordinated mode. In this case, the PSCI_FEATURES feature
+> flag 0 for CPU_SUSPEND is also 0.
+> "
 > 
-> The series documents wakeup-source for the WCN PMU binding and enables
-> it for the Shikra CQM, CQS and IQS EVKs.
-> 
-> The series has been validated on linux-next on Shikra hardware.
->
 
-When addressing sashiko comments in v5, please make sure to send this as
-a new thread, not a reply to existing threads on the list.
+Yes, I can't disagree with that, but ...(see below)
 
-Thanks,
-Bart
+> My patch only implements this behavior:
+> the PSCI stack in Linux assumes PC mode when SET_SUSPEND_MODE is not
+> supported.
+> 
+
+To reiterate my earlier point: if PSCI_FEATURES reports that a function is
+unsupported, we shouldn't invoke that FID in the first place. Dealing with an
+unexpected NOT_SUPPORTED return from an advertised FID is a separate case, and
+we must keep that handling unconditional as it currently stands.
+
+-- 
+Regards,
+Sudeep
