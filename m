@@ -1,72 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794471757;
-	b=OuMYQvETVWqXPLGm0i/DiQ7gfdjnsniqM5BIyCig6wnzAYS/CgmYdYO8c/twxR72hrSv
-	 YFqu0YZr13q3KxGlIk4q8uz6N98zgYxnq1GZbrTF0THrGtZvqWaPELq9ljSTAdmbnaqfs
-	 VzcC4jpnPCexjPKp3/Ep2T1eq26jsT6OZSrWTUN0gU0qpiYAAMVbsprFTfBUPHXHuZTuq
-	 CZOOfFy3EnUhnZ1Z22maEBpIT0lkIzT07vHuUNXUrLQLeGIXmn8fW1LpVXvssQaSW90Aw
-	 q/SN6L4bAib1MMeVS4kARRtlbvN9MBR3TkJuK0QtijIoNgzcT3vspA760YJ05pJHBeQ==
+	t=1794471784;
+	b=tlXNzr0evWYbWmxpNphDowJKKLCeXwN7fWbAR2Um5OHvQ5CnISQ9s0oXVYUvcoaKRoAp
+	 1XdNSZM1tZmkkkertGi1fnODA1gHHwT1PHqVOb02BQLR8sD+hAGJtlcBt3I8c63EoemcX
+	 E73sGamUTpxdVktVUBWKCSC9fBUZIYyS6gt25BH/y8CaODiVuDgomyycrfnkrymUn10xX
+	 X9i9UtZ/d9G39LRCPmZmQycK1J6Ug6GopSXqjWavv9nXkZeVDtUqBm9KZpzrqMib9H2k8
+	 PCfyMco0F8yE/THTRQsHoaEm6oPuzuPRcMx0/ngJfcIs/kKYwhb8EWzFL7sWYkcrPuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471757;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=BDpJwbTGNyEZBddgupUtTkbcG64c1MCzi1j9+WCer18=;
-	b=lqW8rNBMfQhRDCz2DkirgFsO5LYclF8L7M4ttJG7wALF4AAUVY30aNd0J9aMs9CxHZ1d
-	 XeuxxSgl9tNHGcKftKgYQx7+aNVnFK7oxeGzZ2wPpjXMDKcYowmyvymcVoHwBUAw7orFf
-	 e5AR1T+XcEREw+3ah68zU7e5KaouPglyTFpc95XCyzuNRr67T1RpAP24jV7scwiAJIu66
-	 IpAKyg6oO57LieV+xixdoVP81H6JYoXUQKWBE9jbuErDZHLVfHNGDLXLftgp5Fhv4xWak
-	 ruFdmYSSAk1zUUIvmt+IdFAuRXzraMb701DDM7RJvPGmLrpgH2E/LANzo5l7jzq12vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471784;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=IMVMSY1N9cWE50jOBa7XB5ola70F+EY/IlZ2ZpXdsZU=;
+	b=WmqhDHgzSnPsjS+Tw0l4CNzooKeUCZyV3nyQYz1/qx0jVaENJI1IQLJtyjsf+V+K2kcn
+	 bliY9asMPdz81B5ium30Fq3LO1Xh0tXei39r6laGsfiXf4/HMH8pVE43modxmO/Tiw2KE
+	 laYgK8aEC/Yaztf/S+st3VwanMkck9gaC6CoIXrzLkOnx3NW4BIIRl2fH5HSJzu6ZIvpx
+	 4Umos0zu/0hhF7yxc0HitkQTpFDYBaQ40/9rmCr36WizLT8njDG+G9gsEmcnnSzT78W1n
+	 InEmGNdHRUvQguEF2fONbCmKaXzlxSuU/qwOqU+itRaOVNBeid7UDNj1sF/homN3AQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=JMY58nXi;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 51F61606A323;
-	Thu, 12 Nov 2026 08:22:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51F61606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uqMmGXbQ;
+	arc=none smtp.remote-ip=209.85.210.41
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06D8606A331
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:23:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A06D8606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=JMY58nXi
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uqMmGXbQ
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7f84a55cc06so2421679a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:23:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=JMY58nXirTmLFo6cDYgwP5FTqY56vSQPrYRHGbZ936HHki5HZygNb/JvGTbs4HmHbwFANl2Me0/F0
-	 8TfqMfbiMK/Dma+Yhib2L71+0mfuX0SqFgXLhODoR/TohudZXc3JS62s7V78m/tvuSF444g9Bjkff9
-	 tig0kCZ5eWn/e6zw=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af5774a1f4-80478;
-	Thu, 12 Nov 2026 16:22:34 +0800 (CST)
-X-RM-TRANSID:2ee86af5774a1f4-80478
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from utest (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af57744de0-f911e;
-	Thu, 12 Nov 2026 16:22:34 +0800 (CST)
-X-RM-TRANSID:2ee66af57744de0-f911e
-From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-To: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
-Cc: elder@kernel.org,
-	gregkh@linuxfoundation.org,
-	greybus-dev@lists.linaro.org,
-	johan@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-usb@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: [PATCH] greybus: verify the received message size covers the message header
-Date: Thu, 12 Nov 2026 08:22:29 +0000
-Message-ID: <20261112082230.33584-1-shishunbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6af55517.a0c627da.5d811.0010.GAE@google.com>
-References: <6af55517.a0c627da.5d811.0010.GAE@google.com>
+        d=gmail.com; s=20260707; t=1794471782; x=1795076582; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IMVMSY1N9cWE50jOBa7XB5ola70F+EY/IlZ2ZpXdsZU=;
+        b=uqMmGXbQnJ1MynnAHssFD7u504cZ7mF5/foFaj+J4vVrepxKy8NSjmFf7hWJdu9e+N
+         JNh3HJ73kycnQqxXl7OKfBITf9hPqFRo0214onyeG4sZdpIccZ1BcoJuUWwM/3hyLLSt
+         sTbCxMnMs5YGANaKsHVdZyZX9Tq0uQybi/EOesprykpNXvTfBfSnWMuAVlFVuMJROqBE
+         Fqi3CzLKu8xaSVz4fnMcGC2etk+GX9yfGkaz2/hsFCqwWt8FrXt0TFTlxPqHh/bnaVO4
+         vyHBRGr+kRpnDkefiFOM72+fLicMUUYFt8z+WrNuwrdUYzfONU0H22gFFwp4Ru2CBmWR
+         038Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794471782; x=1795076582;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IMVMSY1N9cWE50jOBa7XB5ola70F+EY/IlZ2ZpXdsZU=;
+        b=LAuqy72j1s+PTOMAfQhUROop2EtMunrB5GRd1aVvHi5gs2G+dvoGsKwc0MLWBy90AF
+         Z64IIU6YBtJ+5bwjMAasgbTl3MYG545Yby7D0PBeCrv4E0IS+PVXClEyqysF4qu6JbnB
+         YalaoYUwxlWfu8yRR/s4IYHbvrwb2ytwlVzhZhoOwW7J0TVJaDDmxeQIjMzFIK/D+zpc
+         pYBxBXpjj+sTyX+O/DTmgZrt4yc00BebLmHJJ9qbKi8PUOA0jWnyYxkIPcSoqPyVyoMd
+         gBWDr9XE99kx8obDVOo+vVxDUnY7rV5OZ4+HNyhpFsy3eNqLH+BJr9mD7puxx+nCVPmr
+         xFcg==
+X-Forwarded-Encrypted: i=1; AL+hErGZ4NdJeWc8ENVXYyDG039wJL4c2+WRlpUY+eBwbZMD7PMrefQXpysK9ZSYmMIl+U50B5f3SwSBCIsNpto=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/vqxAmOkvHav6rKiQ8uDytI9MFBp/eG/nKCPF/IM84myWvEmA6
+	t6ZzQf0Qk2Gu5IAygZOTo0kZ5lqGySna+Xk1ig8yyg6rPeJYm3lAPxId
+X-Gm-Gg: AYBFou2aShqSLPEMLcYkhYTfhJIN2nxa/tTJuHBDfogCNlbFZFNdTqfWOqUdfGM3AOJ
+	4UaaJp8fU4V1JAxBwRtOSwNhLHGLnMhaDz7Av66gy5WhzkQSHh16ZF35wPuCE61urfhJX64oiNL
+	qOiEVEiyvAkjzE5pDrn9tqoOyWXR+pOapoo0X5eaWx8FvvZF6gPFeiwWvo69CVnEPD9q246KbP4
+	vp7ktQwH4Wb1iCL2SfYI396bJt81gDBwelPg+Is3Uy9ACpqG72UHgrsl2D+iG9UMpYTo3y4UOVi
+	Fo+DGTBt3CuNGvOh945CP23EYoy9ItHPzl53rGdb40uIxu+a4QlLthyI+jmwFButyoZlFZithhC
+	zj0xZlnvW02Nr2BQbzX5F0PHoaYUe8KZPTqpg9IxfIoI0YzrK6fN5Zr/Vx7W+18pncglB+65Rb+
+	lRuTKeASMke27Sgm1mYas7Y8WutnnZRoeSG2A7s9vXW+zs2ey78EE1ukhEWvBimpDjOlFo9WDcP
+	o0UqsJqRV8RKpXY+qb4pyvDcy8zt+emSZC+z1CttowXqrxPXUj9LEmjf5ypfv0BCPEtq6KdwjLD
+	F94BD1P3fODxM1qpqZ6W6ndwHmU73lk88Po6nJFYsCC1WWCY/DEWR8BDyYgIYa697BLnvGJKLEg
+	1gK4Y5SstSeGsmbJVQwIzPLm4UPeych+AZfEkCYBjQ3R8tgo6QmxUetLjvFnKoFQ6gGBqXFPfCG
+	U4DZ1gdD9nE8mmV2CU97y1cZRynB8snkjjWWVnmwzR8TnDql2oQbI=
+X-Received: by 2002:a05:6808:1645:b0:4e8:721f:2824 with SMTP id 5614622812f47-56b98031f11mr4803302b6e.60.1794471782468;
+        Thu, 12 Nov 2026 00:23:02 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905d3bab2sm7411157b6e.12.2026.11.12.00.23.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 00:23:02 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v4 0/5] dmaengine: dw-axi-dmac: fix termination and pause
+ acknowledgment
+Date: Thu, 12 Nov 2026 01:22:49 -0700
+Message-Id: <20261112-submit-dw-axi-dma-stop-pause-v1-v4-0-3ebc24b243db@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,68 +94,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OTW6DMBAF4KtEXndajKnBWfUeVRb+GYOrYpBNS
+ KqIu3ecbFA3qeTNs2a+eTeWMQXM7Hi4sYRryGGKFJqXA7ODjj1CcJRZXdWS86qDfDZjWMBdQF8
+ DuFFDXqYZZn3OCCsHq4Tn2MqWS8VImRP6cL1f+Dw9MhFfaJfClgmjadMkHe1QvojE2IeIb489m
+ hgC3Ug/95IrL9L/+9CrwDYdWq5QITYf/ajD96udRlb6rPXeU8+9mjzZaEem860Sfz2x83j13BP
+ kiXfvvNGdkdztvW3bfgHG2N2aogEAAA==
+X-Change-ID: 20261108-submit-dw-axi-dma-stop-pause-v1-c93f1e767169
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Sergey Khimich <serghox@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Sia Jee Heng <jee.heng.sia@intel.com>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-In gb_connection_recv(), the size of the received data is checked
-against sizeof(struct gb_operation_msg_hdr) and against the message
-size encoded in the header (msg_size), but msg_size itself is never
-checked against the header size.
+Keep cyclic mode in each descriptor so failed preparation and queued
+work cannot change the completion handling of another transfer.
 
-If a peer sends a message whose header claims a size smaller than
-the header itself (e.g. header.size == 3), the two existing checks
-both pass (size >= sizeof(header) and size >= msg_size), and the
-message is dispatched with the undersized msg_size.
+Use the layout-aware channel enable check during termination and retain
+transfer resources when the channel does not stop. Preserve suspension
+status for the pause and resume paths, including acknowledgments that
+arrive after a polling timeout or during another channel's interrupt.
 
-In gb_operation_create_incoming(), this leads to an unsigned
-integer underflow in:
+Keep a pending pause across cyclic segment completion and resume the
+segment only after the client releases the pause. Track the active
+descriptor until completion so queued work cannot reissue it while its
+interrupt is pending.
 
-	request_size = size - sizeof(struct gb_operation_msg_hdr);
-
-The underflowed request_size then wraps back around in
-gb_operation_message_alloc():
-
-	message_size = payload_size + sizeof(*header);
-
-causing kzalloc() to allocate a buffer that is too small to hold
-the message header.  When the response is later prepared in
-gb_operation_response_alloc(), reading
-request_header->operation_id reads past the end of the undersized
-allocation, triggering a KASAN slab-out-of-bounds report.  When
-header.size is zero, kzalloc(0) returns ZERO_SIZE_PTR and the
-same read dereferences an invalid address.
-
-Verify msg_size >= sizeof(header) in gb_connection_recv() so that
-the "Caller has made sure we at least have a message header"
-assumption in gb_operation_create_incoming() actually holds.
-
-Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
-Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
-Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/greybus/operation.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Changes in v4:
+- Add a preparatory fix for cyclic mode leaking between transfers,
+  following Sashiko's review. Store the mode in each descriptor so
+  failed preparation, error recovery and queued work cannot change
+  another transfer's completion handling.
+- Link to v3: https://patch.msgid.link/20261110-submit-dw-axi-dma-stop-pause-v1-v3-0-35fdfba8b61d@gmail.com
 
-diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-index 7e12ffb2dd60..da53c0e026f0 100644
---- a/drivers/greybus/operation.c
-+++ b/drivers/greybus/operation.c
-@@ -1047,6 +1047,13 @@ void gb_connection_recv(struct gb_connection *connection,
- 	/* Use memcpy as data may be unaligned */
- 	memcpy(&header, data, sizeof(header));
- 	msg_size = le16_to_cpu(header.size);
-+	if (msg_size < sizeof(header)) {
-+		dev_err_ratelimited(dev,
-+				    "%s: invalid message header size (%zu < %zu)\n",
-+				    connection->name, msg_size,
-+				    sizeof(header));
-+		return;
-+	}
- 	if (size < msg_size) {
- 		dev_err_ratelimited(dev,
- 				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
--- 
-2.53.0
+Changes in v3:
+- Wrap the atomic polling calls by argument group and correct their
+  continuation indentation, following Andy's review.
+- Move the termination return-value check simplification into the
+  channel-enable polling patch.
+- Separate the pause-loop conversion to atomic polling from the
+  pending-request and cyclic-restart changes.
+- Annotate the suspend-wait helper with its channel-lock requirement.
+- Pack the lock-protected flags into existing padding while keeping
+  cyclic separately writable, following Andy's review.
+- Link to v2: https://patch.msgid.link/20261109-submit-dw-axi-dma-stop-pause-v1-v2-0-64adc48df793@gmail.com
 
+Changes in v2:
+- Use readx_poll_timeout_atomic() for the single-argument status helpers
+  and express the termination polling interval and timeout in milliseconds,
+  following Andy's review.
+- Track pending suspend requests separately from confirmed suspension so
+  resume can handle acknowledgments received after a pause timeout.
+- Use the atomic polling helper, including its final status check, and
+  report -EAGAIN if resume cannot yet cancel a pending suspend request.
+- Defer cyclic restart while paused and track the active descriptor until
+  completion, preventing resume or issue_pending from reissuing it.
+- Reset pause state on successful termination and channel allocation;
+  clear stale status when starting a new descriptor.
+- Link to v1: https://patch.msgid.link/20261108-submit-dw-axi-dma-stop-pause-v1-v1-0-c48ec19e9ee4@gmail.com
 
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>
+To: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.Li@kernel.org>
+To: Sergey Khimich <serghox@gmail.com>
+To: Sia Jee Heng <jee.heng.sia@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: dmaengine@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+James Hilliard (5):
+      dmaengine: dw-axi-dmac: keep cyclic mode in the descriptor
+      dmaengine: dw-axi-dmac: poll the correct enable bit during termination
+      dmaengine: dw-axi-dmac: retain descriptors when termination times out
+      dmaengine: dw-axi-dmac: use atomic polling for suspend acknowledgment
+      dmaengine: dw-axi-dmac: preserve pending pause requests
+
+ drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 149 ++++++++++++++++++-------
+ drivers/dma/dw-axi-dmac/dw-axi-dmac.h          |   9 +-
+ 2 files changed, 115 insertions(+), 43 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261108-submit-dw-axi-dma-stop-pause-v1-c93f1e767169
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
