@@ -1,119 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794471245;
-	b=xB046OIEwMQOC/xBzg5wTkfi8uktAFP6OxzTQZpUtAfmnJx41FbSeEsh17UPBE/6x2IA
-	 zv9tNOZ2pbKgqnxFI32PEO8iKZ4d/i/D0HQ8PksDxoGLUHLI5Rv3u4fquz8GNuURgP3MH
-	 0gnS9EznNpw7SPSEBUZAnwCfKZnPU2J11V2jWxdfQfQrTwu8J5lQBiSQ1+dv6UaSLJju2
-	 DYCrH4m/8+LFANoYQZZwNBlQncKbqaS7L6YNBHdt0thx/hm2KAZWPrp8T+hmsWTj/CJD2
-	 Mave7faq34dk41gQ5CAjArOB7AbccXGdbU8fQwsh6IwgqPoJ+8qb9MA0jiEEN4bDM/Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471245;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=DMHEYgOdqvRoaIoBzq+1xGsjU8NWukhmEboUfrer25o=;
-	b=gNnkfk8RK3Nkqs46GGyZm5dFTl46CCmKdnI8g+Htwq+/uDf2odKSNJRjiAODHOJ3FquZ
-	 9gCH2hJuTdlpjaizeZkOIgvJMzd4lyYbSdglt6kdH7fvenHXTGUSFNNhm0M1rdS/Pf1UP
-	 nivrB/QywAeK2tIUjMlYH8mfHB6aOOmwU98kBtsXSp+TAIRhJLC5+5MnR8MdAYELn54oH
-	 Wh8GDE+eSMe8EZ5a9UK8nt2vcd/Ov1LscEVaSAgf2QvPya8MEdIqQRx3WuYhId5bfFtrX
-	 I7PvqrEqjamerELcx1HwmJb3FRWv6bFwqA90e/dOU4mntsbLxrYkFPKKy2enNe8Fx4g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EKXzdu5L;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.50
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012050.outbound.protection.outlook.com [52.101.48.50])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.36
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794471307;
+	b=up5ctef9/E6UulltFr7T0rcBWpf+lYavXx6SffSMi2H+U6RrT4qumgWvXJ7PwIh3NzcB
+	 ITao8RhLcrUgh19+VCrWSyca6xgYDDHO3S/dnY0isVfyrnawoUKkNBwLI1XoT1/22SfK+
+	 cNBwbHMwP1wKqPz7k5lxkacj9hwNP4Ece6UegdbHm79PTgol4nuQyJLCFV5i7ICazFSmv
+	 hINqG7///44NT42WC4XQ7QnR1KzcqRJfUXqD1Mv8cSvcLrjjR/xIDvZ3RcQW8dvcqFk+v
+	 0HcOsimYtX/Ver9Pz28GIySDEpaORrRYXqAa7h0G19tPDA1o3UVeYOFsDlatZZ92tew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471307;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=5LrhcM08sLorKQVpwZjpNM1KLr7mAptthBEY0BzD/1w=;
+	b=0xDi9jv+jyAqOWKHl1//kAlrzfPzHnU/5KLlIZmB5eo7agcclXTZ2lJ4BsNrxqwAmlLF
+	 UwznNyK1FNH09yFXxhD5ynQO3ep5W9EdLG8plIImt+l30ZwoxlDs9GQuojtO0pdJLBV37
+	 P1awU3wUU56s9u4ZHxV77+xZhnshVMET9MvjaVT2s+n2T/zdY5jbJkb2BvIEg1Gk+/3Fe
+	 7ozL6j/+lZ/JaBd70/xGWHoy8p1OMAnbZSuv1O7d3q0YwIR/0h3iBWcY+9GGGiiwigQtd
+	 WBnEKHjTTsjHsYwp1K5oeHJt+kPnmLolfyhvAuWegBLz3srmGy4XLr6XMV+bKXoIOZg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kN5Riccv;
+	arc=none smtp.remote-ip=91.218.175.36
+Received: from mta0.migadu.com (out-36.mta0.migadu.com [91.218.175.36])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA805606A31C;
-	Thu, 12 Nov 2026 08:14:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA805606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF57606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:15:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DF57606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EKXzdu5L
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ofg71QExNwuTfkFvp70A8/PMtK/UwuqvNaVVS3xTE3mR3dTYG+Ru8Z38tRtVQ4OpqcW2TjwtmyJDhYJl9T8FSY9maTL6jqayBGutC53Vsk1sXUTf0pgz+2HIwRrSm7WTuMgey5T+x8khFbF0D9NyNna3NthAgshYsgwOq97vvB/X0uR+/pb7apJG1/807/gWvKGj+AAk4BNZ3DmrHebOYhzKCHwwqSOMHeHra8q9D2Ql5+LPW5/8wNosxjvE9TJa8ds1CVqcKhnODI70spgIY2J9jhDbE05PuKBLL144C2uF3we/1bAxK9xtEmAOzjMhZhasvTfupWGhvZyZ+ZZQuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DMHEYgOdqvRoaIoBzq+1xGsjU8NWukhmEboUfrer25o=;
- b=H9wookEFzr9kc7fQcJAoq2ZMCsOK6XkFxuyG6uWN2yyy/LqF9iWyuTWhfAOH3oEraBt3OMt2nHaIVlu6R1bKN3Rs7Oay8wOFDQqkf963vj5yfY74PFFrsgqhUmcYdc8fM04omrgytiyKVcAyPc3Zrujvh8LA/Qxyhd2WdIfZ2M8UNLv25p8waBPyDTUf/OZ+tHmTMq5Gp5BnRnnGIFEofT/2b0FUgBY9eXqPXWBBphrEAf1oZLcYeYg26aVhOTkXZCMUHj9nPN6gtYMN5d6o5J0uAZ5m98LKqFc3EyLc6QyxJJUGLdMiL9n1xroTcAeIGem1IzR9tKh1Uirh/E/r6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=linuxfoundation.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DMHEYgOdqvRoaIoBzq+1xGsjU8NWukhmEboUfrer25o=;
- b=EKXzdu5LpoExvnM/VjJ8N1BdV+skY3wKXolljtNBxHBgBBBmHf7orAdt4xme9DW6Mg3ExTmOUUahh6DHyrsCJj+VzglkFUvArruRMitq9ozJxYMVgEHsse+u8wXQEijiMR+BK10+XbaiGaxC2v/L8+czeXJxy/ncIn/mrodl//hcRndUCUae/cPHw4wtyvq6pBTEX/uqvfK7jObul/rOhaMH7194JqtcaJNFN24O1BSws10C6jXwftCItmwVL0O9GsIC2V+E8g3U++pnh7s+SsUKuS+uKMmAa37WfNDIJkiev32ifhi2MJ0FhSuO48wLHxo6Vnzu+qUThoHpOtY1PA==
-Received: from MW4PR04CA0086.namprd04.prod.outlook.com (2603:10b6:303:6b::31)
- by CH3PR12MB8212.namprd12.prod.outlook.com (2603:10b6:610:120::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 08:13:58 +0000
-Received: from CO1PEPF0001885E.namprd02.prod.outlook.com
- (2603:10b6:303:6b:cafe::27) by MW4PR04CA0086.outlook.office365.com
- (2603:10b6:303:6b::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 08:13:58 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CO1PEPF0001885E.mail.protection.outlook.com (10.167.249.247) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 08:13:58 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
- 2026 00:13:41 -0800
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
- 2026 00:13:40 -0800
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.9)
- with Microsoft SMTP Server id 15.2.2562.56 via Frontend Transport; Thu, 12
- Nov 2026 00:13:34 -0800
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
-	<rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Johan Hovold
-	<johan@kernel.org>
-CC: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Saeed Mahameed <saeedm@nvidia.com>, Leon Romanovsky
-	<leon@kernel.org>, Mark Bloch <mbloch@nvidia.com>, Amir Tzin
-	<amirtz@nvidia.com>, Moshe Shemesh <moshe@nvidia.com>, Shay Drory
-	<shayd@nvidia.com>, Parav Pandit <parav@nvidia.com>, Przemek Kitszel
-	<przemyslaw.kitszel@intel.com>, Jacob Keller <jacob.e.keller@intel.com>, "Gal
- Pressman" <gal@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, Leon Romanovsky
-	<leonro@nvidia.com>
-Subject: [PATCH V3] driver core: auxiliary bus: Fix IRQ sysfs directory cleanup
-Date: Thu, 12 Nov 2026 10:13:19 +0200
-Message-ID: <20261112081319.3466442-1-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kN5Riccv
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=h4GvArQMrEiTRwfEHf4rZ5pF+aKj8NBbvpgZjU0P818=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794471304; v=1; x=1795076104;
+ b=kN5RiccvttyQa8sBP/UNxvNsXewbaL8IL8SaGD3jUHt5YkfE9KChXdqo/XkmWK+33HyX2O6L
+ iSSpCk2T/MuzWWWNVOxCyJStnQbe9pJ4rWcw2N3BSylh1ubnHs0PpFjUWat/ciYPr0YD7w5HbCt
+ 6D/UezCfNSvnhTvc6TO62nO0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id bf7d0b889862177b;
+	Thu, 12 Nov 2026 08:15:03 +0000
+X-Mizu-Trace-ID: bf7d0b889862177b
+X-Migadu-Flow: FLOW_OUT
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Subject: [PATCH v3 0/2] irqchip/riscv-aplic: Use trigger specific flow
+ handlers in MSI mode
+Date: Thu, 12 Nov 2026 08:14:41 +0000
+Message-Id: <20261112-aplic-affinity-fix-v3-0-943d25cfbfad@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,122 +61,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF0001885E:EE_|CH3PR12MB8212:EE_
-X-MS-Office365-Filtering-Correlation-Id: 051540f3-d025-4b69-324e-08df4094e6da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|36860700016|82310400026|10067099003|11063799006|260925021311599003|260925022911599003|260925021911599003|56012099006|261022105027099003|261028144727099003|261026140227099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	Mwij12s21BcR7ckIZYwcvqfDkN45KeybY6C60ATb22Ipf8i4AAw96AQWBtf0X0qqLyAxizy7er3noCoqMoKXRd34rib+M3TWdUe7JVdhqdzXwFWQqkomVSxpo+n8eVnumh7A4jJc6edd/qnrK9pTb2KPivAd9GZJDlqZ5/YZOGv99iA/e0WMwp+wg/SzDinw7mKX+kB+tzhd2SvdwMNuUPIWwFnHyz/Yp7BLzbrAWV8ot6ObWstZn80iZc7cWoZCQ05Xo9jeUZWnGYsHS4xMmQmP5R2BKB/JXygtDXt71VG2XKWXMMZNuhIJG94QI6IcIItlocr3tk99n98y5C6A60QlYIKsE68O+BmL4C3OCwAjMq18+tuNepbOvjVWGFMNtKVHBiWnWHbx5hD1Qtt+Q1SrD8C7Bk2T3VL9ZwkQN7cFg/i6TaZ0QTg2nWMhG+OmPOTVRrnmz8EmBc+N+CZa1jyY6/+HBINX3f5xdHSyXFCfk9619V4WTBwg1dVDTqq8fBJda86pT5D8uKOqJOZwBeMrFB9Z4gXVK/EI8m+qRnz00q0dxZftOF0pPoL6sWXQB87fcjDRWAnlgRYug8U5Y81DDS04mnIzHIpMUg4kqQafUedhHXAaOXylkXzUG0lD13/d6/PKhW9RiLZUyFUENpn8dIDsl3RzMtNeStpjA/JOtDimRi/euK75tp4nloWnK9AyS3ESpSeYD9W+7E40LA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(36860700016)(82310400026)(10067099003)(11063799006)(260925021311599003)(260925022911599003)(260925021911599003)(56012099006)(261022105027099003)(261028144727099003)(261026140227099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	nNW4Q1Ggb6u+yPXoOtOWvwFwSnhPtIAO8GlzlgU69itvb4Aj643nX3i3dufCmmglZwsaat45by8LYjvPPs3JF4MTN3VmrxGo9tSBqqJPbFzkh/e6gQgFtzg70aBlNlHS9/xbSQeSodUKqB6+SslILLFyJMk/aHpl4uSivBD89YLoT6OxpV/QNI9ooLoYuy/rS4THRlB4VVcPnGgd27FhuF2ACEDhiKH19A+ssT+zp8szdPB8IxjtSSBqMrnZnZNgqnw0jM1o1HA46pgmDXmE0AiBcrk2gZioW+uvmW3OLvwRV04cVWgznAwpyMD0biOVcw0y5Sgb3LHN4iPuCgMvdRnuyYIaHV6/yrtAqtrLapW3jGj3KQDFQsmPPIhmHJaAUj7PIqQqrRSJ87muldOn3ukqhTG9kPFy6nXdRYfleRwhvi1pdBZPM8W4VylWYJPz
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 08:13:58.1224
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 051540f3-d025-4b69-324e-08df4094e6da
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF0001885E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8212
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NMQ6DMAxFr1JlriuHAIVOvUfVIQmmuEKACEQgx
+ N1L6MLA+Kzv9xbhqGdy4nFZRE+eHbfNBup6EbbSzYeAi41FhFGKOeagu5ot6LLkhocZSp4gQx0
+ bhaZARWJ77Hrazrv09f6zG82X7BBMYVGxG9p+3qteht0ekBLjs4CXIIESldninlKSqmfNzTjdC
+ vIiBHx0UEg8VUSAkFoZK5OZmDJ7VKzr+gPrNSPzCQEAAA==
+X-Change-ID: 20260909-aplic-affinity-fix-80a4b30bd03e
+To: Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>
+Cc: Anup Patel <apatel@ventanamicro.com>, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Troy Mitchell <troy.mitchell@linux.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1642;
+ i=troy.mitchell@linux.dev; h=from:subject:message-id;
+ bh=h4GvArQMrEiTRwfEHf4rZ5pF+aKj8NBbvpgZjU0P818=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFlfSxs/BR22lmAruvCvSXB7t6/YlkVKESsbXl5+fIYry
+ eeCyKwDHaUsDGJcDLJiiizdD3i2FfhE2RYIFPrCzGFlAhnCwMUpABN5ysrwV1AtZskZ5zdOM0R1
+ ssOaJI9pPxY5ezSmJkDiFe85NvZ7/IwMr3l+/5mwYkHTeoYJH20lJyae6YtIsf/ENFHHZ97EtX+
+ TWQE=
+X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 
-From: Amir Tzin <amirtz@nvidia.com>
+In MSI mode the APLIC handles all sources with handle_fasteoi_irq().
+For edge-triggered sources this loses an interrupt which arrives on
+the new CPU while the previous one is still being handled after an
+affinity change. The fasteoi flow also never calls irq_ack(), where
+IMSIC applies an affinity change deferred while a previous vector move
+was in flight. Such a change stays pending, and later affinity changes
+of the interrupt only update the pending mask.
 
-In case an auxiliary device with IRQs directory is unbound, the
-directory is released, but auxdev->sysfs.irq_dir_exists remains true.
-This leads to a failure recreating the directory on bind.
+Use handle_edge_irq() for edge-triggered sources and
+handle_fasteoi_ack_irq() for level-triggered sources.
 
-[] mlx5_core.sf mlx5_core.sf.2: mlx5_irq_affinity_request:167:(pid 1939):
-   Failed to create sysfs entry for irq 56, ret = -2
-[] mlx5_core.sf mlx5_core.sf.2: mlx5_eq_table_create:1195:(pid 1939):
-   Failed to create async EQs
-[] mlx5_core.sf mlx5_core.sf.2: mlx5_load:1362:(pid 1939):
-   Failed to create EQs
-
-The irqs directory state is described by three pieces: the sysfs group,
-the irq_dir_exists flag and the irqs xarray. Currently, only the sysfs
-group removal is managed by the devres API, and on unbind the group is
-removed while the flag and xarray are left intact. Thus, a subsequent
-bind sees irq_dir_exists still set and skips recreating the directory.
-
-Manage all three under a single release function passed to
-devm_add_action_or_reset(), so the whole directory state is created and
-destroyed as a unit.
-
-Fixes: a808878308a8 ("driver core: auxiliary bus: show auxiliary device IRQs")
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Amir Tzin <amirtz@nvidia.com>
-Reviewed-by: Mark Bloch <mbloch@nvidia.com>
-Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
 ---
- drivers/base/auxiliary_sysfs.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+Changes in v3:
+- Add Suggested-by: Thomas Gleixner to patch 1
+- Add braces around the multi-line if/else branches
+- Link to v2: https://patch.msgid.link/20261110-aplic-affinity-fix-v2-0-6c143b8b4e8c@linux.dev
 
-V3:
-- New approach.
-- Retitle, and add Danilo's Suggested-by.
-- Drop Jacob's Reviewed-by, as the approach changed.
+Changes in v2:
+- Use handle_edge_irq() for edge-triggered sources instead of calling
+  the parent ack from the EOI callback
+- Use handle_fasteoi_ack_irq() for level-triggered sources
+- Split into two patches
+- Link to v1: https://patch.msgid.link/20261104-aplic-affinity-fix-v1-1-e538cd76e563@linux.dev
 
-V2:
-https://lore.kernel.org/all/20260219210435.1769394-1-tariqt@nvidia.com/
+---
+Troy Mitchell (2):
+      irqchip/riscv-aplic: Use handle_edge_irq() for edge-triggered MSI sources
+      irqchip/riscv-aplic: Apply pending affinity changes for level MSI sources
 
-V1:
-https://lore.kernel.org/all/1761200367-922346-1-git-send-email-tariqt@nvidia.com/
+ drivers/irqchip/Kconfig               |  1 +
+ drivers/irqchip/irq-riscv-aplic-msi.c | 20 +++++++++++++++++++-
+ 2 files changed, 20 insertions(+), 1 deletion(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260909-aplic-affinity-fix-80a4b30bd03e
 
-diff --git a/drivers/base/auxiliary_sysfs.c b/drivers/base/auxiliary_sysfs.c
-index dea7f46f7dd0..656ba057dc98 100644
---- a/drivers/base/auxiliary_sysfs.c
-+++ b/drivers/base/auxiliary_sysfs.c
-@@ -22,21 +22,32 @@ static const struct attribute_group auxiliary_irqs_group = {
- 	.attrs = auxiliary_irq_attrs,
- };
- 
-+static void auxiliary_irq_dir_release(void *data)
-+{
-+	struct auxiliary_device *auxdev = data;
-+
-+	xa_destroy(&auxdev->sysfs.irqs);
-+	auxdev->sysfs.irq_dir_exists = false;
-+	sysfs_remove_group(&auxdev->dev.kobj, &auxiliary_irqs_group);
-+}
-+
- static int auxiliary_irq_dir_prepare(struct auxiliary_device *auxdev)
- {
--	int ret = 0;
-+	int ret;
- 
- 	guard(mutex)(&auxdev->sysfs.lock);
- 	if (auxdev->sysfs.irq_dir_exists)
- 		return 0;
- 
--	ret = devm_device_add_group(&auxdev->dev, &auxiliary_irqs_group);
-+	ret = sysfs_create_group(&auxdev->dev.kobj, &auxiliary_irqs_group);
- 	if (ret)
- 		return ret;
- 
- 	auxdev->sysfs.irq_dir_exists = true;
- 	xa_init(&auxdev->sysfs.irqs);
--	return 0;
-+
-+	return devm_add_action_or_reset(&auxdev->dev,
-+					auxiliary_irq_dir_release, auxdev);
- }
- 
- /**
-
-base-commit: b71c101bbb9814d163c00234d43c41f0a17907d4
--- 
-2.44.0
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.dev>
 
