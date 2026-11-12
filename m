@@ -1,73 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476816;
-	b=xS39Z8aO2j5fo3AodaSfX+QKn07pra+tZpVdktJDoZDhvzp06zD8uvAX+F0ngWZowxsF
-	 lGKTWW8aV6PcHPWYExtHbhoIy6voXxvqVFXQZzzkUTEGZsMVgP6Pg/FCDQZ4EGdwakOwo
-	 CznShYL1ao2BMh169bsuV7q4qqkllEDPVncVLmp6IwcaJnVQkncuCYrgB9rqS38zVImH0
-	 bbMkzsmHwpih7KXrfshZBx07DKtdLwBIXjg29v+UOWpYPIohJ+phG0oK+sMpQU1bS5bYk
-	 Pm0eUkHAlL+0p/pxbiocnJuQR2o457WQdrSa13TVzDg59OIFjAPMsPTBh8AzwVFOKFA==
+	t=1794476831;
+	b=3dHmmYgbjgF30waAVrpZIatfQUUeRHPLFlz/jwa3841JFlHBMiNzRKBTg3lju4a5rIJU
+	 FFrils+bmbce2OwEgfL6QDa0Ve3iMouM3T8upW6cbZJQDZsu1wzStuTNbN6MR8e0Da5xS
+	 6x7IOIq/Qi5HkGLe/CsKObeMhdeJGGBd7hoyDENjbHLkIfnflJa2e/kJ+/mvbk+fxKkxH
+	 LAt5oBXsKNJjmNWTtm4qDdULykCmejUomurcYIyt2ByVTZoxs7PEJFy1t/xdSMkDGuD6z
+	 wPsGTd28uRQVARGif5h7g/ygaEFPuGHOnZjI9xPC0+IEs0Ms4CypcafpETyuuZhralg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476816;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=96AFcjsFUu64ph602ohCRRpMTvRHlkWjdKbxPsrp7iE=;
-	b=MSXros0wvYropaB26ECSETRknqbnJ544vNpIbAhXa+mYPfmUxDv7wh0GcghEAx78grL/
-	 AclPDJZhsPuPGMc4vJIaq+9TQzJBMQc2qyLuK8Xx62Ma6u3HSEQlHNxpAOlLRox13t1IM
-	 /6Cv98qZN3YC2wqX5PnbdbNu5cleo4HXSdcIkOWKB2G+bCNagufCpoqBDltJgqbuBDu/x
-	 ykcjGGMKFtgdk2lilplEw3KdkgkLlcMSOvnu8aXRshB1FU8qTwLBcF5jHAOfqbW6Kdtt6
-	 VfbdBqJIKRzRwcIIe7WgsExR8lE+3ioV7wesrH2+uapNRPZHUUgs5HbsN+XfE50kwgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476831;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Spam-Status:X-Rspamd-Server:
+	 X-Stat-Signature:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=IUEN/06paFC/THJ4bOAKhrNup8nm5V2kwQONxp9Ne0U=;
+	b=V3vpLMQe8vBd2KImKjbvz0oAcYis5kAObTtbPbDasxutw9CUsmM05eTzE5f0xPM+r+Kk
+	 ShxTBj9Zcs05ijVO/avhmpPWr6VIlmfREBRT0z31zM64FOMDegrayGdw5Qy/Pl30TuU05
+	 E0oA5TpIiytBkVjaQGiwr/+gGzgerlQxbW+C9bfqCEtTkrrDOd64ja/njICFjq2BFbn5S
+	 Pu3WJVrEjUBWm/zAeaTaj3DwF29XmMiN+q3UnXd7UWwSst27epqsTQ+08qO7f/y5gEXng
+	 AO+ikwriDB0d7g5NmnbgqEWnWAdmhiZtb1HfV1B7ZMe9fKckq1qXzVxfuLsxBKgjgnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=P6Hc+lk1;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D12C2606A333;
-	Thu, 12 Nov 2026 09:46:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D12C2606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Vf4Fla3c;
+	arc=none smtp.remote-ip=216.40.44.11
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC32606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:47:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFC32606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=P6Hc+lk1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=P6Hc+lk1AHb4PhEPbvSOTb2Q1s9CfFt4dgm4nA0qxZm+UPbEpBw+GMNrhSiJjUgeSofztcZG5w10l
-	 K/f8hy09tLhw+xS0OnqfOPMZB9CASsuy/n40vnnXt/oJk08LVcwE2uXw2FjBb5COG3UDAhnal1Frwh
-	 nHtBXem2mexnFjxA=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af58b08ad0-df203;
-	Thu, 12 Nov 2026 17:46:49 +0800 (CST)
-X-RM-TRANSID:2ee56af58b08ad0-df203
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.net (unknown[223.64.115.200])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af58b07794-fbc5d;
-	Thu, 12 Nov 2026 17:46:49 +0800 (CST)
-X-RM-TRANSID:2ee16af58b07794-fbc5d
-From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Hangbin Liu <hangbin.liu@linux.dev>,
-	Hangbin Liu <liuhangbin@kylinos.cn>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sunwenbo@cmss.chinamobile.com,
-	1342116488@qq.com
-Subject: [PATCH net-next v2 0/2] ipv6: fix rt6_fill_node() multicast route query handling
-Date: Thu, 12 Nov 2026 17:46:28 +0800
-Message-Id: <20261112094630.197244-1-sunwenbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.33.0
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Vf4Fla3c
+Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay02.hostedemail.com (Postfix) with ESMTP id 29044120537;
+	Thu, 12 Nov 2026 09:47:09 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf19.hostedemail.com (Postfix) with ESMTPA id 1BA5C20029;
+	Thu, 12 Nov 2026 09:46:57 +0000 (UTC)
+Date: Thu, 12 Nov 2026 04:46:42 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Mel Gorman <mgorman@techsingularity.net>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>, Seiji Nishikawa
+ <snishika@redhat.com>, Mian Yousaf Kaukab <ykaukab@suse.de>, LKML
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/3] sched/rt: Do not account migrate-disabled tasks as
+ pushable
+Message-ID: <20261112044642.0f28f038@fedora>
+In-Reply-To: <20261110232057.4144723-2-mgorman@techsingularity.net>
+References: <20261110232057.4144723-1-mgorman@techsingularity.net>
+	<20261110232057.4144723-2-mgorman@techsingularity.net>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,43 +63,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout06
+X-Stat-Signature: 3wh15w3pankncthe4m1tenxjrd5cj1x5
+X-Rspamd-Queue-Id: 1BA5C20029
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18/AcSWmWtkvlWspLm0pnOlLUK1ECZEgiw=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=IUEN/06paFC/THJ4bOAKhrNup8nm5V2kwQONxp9Ne0U=; b=Vf4Fla3cQzMGunZlPTfReLpNS+X+9+P07s3BW4lkweLcLkRvw4dDLf3jendkPxhPmyytmGMWNcchuipeaRISj/4/zYCV27rPolOJh+jiyzkRSOiu5zcqbNaN4z2FlSyODtXBwdz9Yp6nTa1fa6GtPniaWiBflE9cz089IvaIuyg=
+X-HE-Tag: 1794476817-755240
+X-HE-Meta: U2FsdGVkX1/18wpdaowKmmYygTzzEim+rPEGV81vmc1LnWonwQYISCnGVnZN3/fImtsuqh/50jhk5YdZJ6knwD01Imo2ThqqieUXmDyKMBajlzf1fajFIpdrbmQ6Azx0pmcAKq6bIoLcpnHNS35D9Y6lv7rFM6FMD5g3IK2T5NBGg/qQ4dQE3UGSv/oyXuxQ8lfg0EmN6qiL1NBgLfqQdz6etXwljRdWft5zDhk+NMs7pS2lYCwlQGVxidzm8wFoTO1JCvAlboCx12AHF1mz2pu5e3sqvqURQ/j58mG8s/Y+bKC/TcPa2exr0D7sX6dhLkg+yxq5ZgpIrsWYplCQCjciN91Hg+detHXM8UfNZV88nURuJfZeD931uqLJzPe8
 
-When querying an IPv6 multicast route with an input interface via
-"ip -6 route get <mcast_addr> from <src_addr> iif <dev>", rt6_fill_node()
-currently calls ip6mr_get_route() unconditionally and masks any negative
-error returned by ip6mr_get_route() with -EMSGSIZE at nla_put_failure.
+On Tue, 10 Nov 2026 23:20:55 +0000
+Mel Gorman <mgorman@techsingularity.net> wrote:
 
-Patch 1 checks mc_forwarding before calling ip6mr_get_route(), matching
-IPv4 rt_fill_info() so queries succeed with RTA_IIF when multicast
-routing is disabled. Patch 2 preserves the negative error returned by
-ip6mr_get_route() instead of overwriting it with -EMSGSIZE when
-multicast forwarding is enabled.
+> -stable warning: This patch is part of a series and applying just this
+> 	patch on its own breaks the !RT_PUSH_IPI case.
 
-Thanks to Hangbin Liu for reviewing v1 and pointing out the error
-masking issue in rt6_fill_node().
+I don't see why this is 3 patches. It looks like patch 2 and 3 could be
+folded into this one.
 
-Changes in v2:
-- Reword patch 1 commit message for clearer tone and carry
-  Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>.
-- Add patch 2 to preserve negative errors returned by ip6mr_get_route()
-  instead of returning -EMSGSIZE from nla_put_failure, with
-  Suggested-by: Hangbin Liu <liuhangbin@kylinos.cn>.
-- Verify both mc_forwarding=0 and mc_forwarding=1 (MRT6_INIT) cases in
-  a UML kernel alongside W=1 builds on UML, x86_64 allmodconfig, and
-  x86_64 allyesconfig.
-
-Link: https://lore.kernel.org/netdev/20261111094528.425826-1-sunwenbo@cmss.chinamobile.com/ [v1]
-
-Wenbo Sun (2):
-  ipv6: check mc_forwarding before calling ip6mr_get_route()
-  ipv6: preserve ip6mr_get_route() error in rt6_fill_node()
-
- net/ipv6/route.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
-
--- 
-2.33.0
-
-
-
+-- Steve
