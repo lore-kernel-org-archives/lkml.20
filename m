@@ -1,112 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501510;
-	b=luuE4ZFvtfu/ixT/TcbgjO4ARvDsrJ1XQ7c7vIpdqnXm1jFqjoGzMsDk4ZXqmTcAa6if
-	 PbB8B1rA9p69QDWim/MA1hXeGPIFBfxtlFYYPmnok2y7GPmrnn1KhvS6KMluepVWD0oBo
-	 l4XwpLIBiNXSULwuTx22J5btI4ad4u3V4+OCwXRCC94dPrH4HwE1z70n2jqFU/8hTyk+W
-	 /lG1VG33vYtxgyupfGIEez+o8bOwSsTRtf/n7y9EfvS+8PjZDggLWuLglsGsgmWEzPa6N
-	 h6GixhPIV1FQLJrc4vH0G1pJOxaJu7NJf3j2oEuNPx+vz/M0r3GULtwvN8WbSytBjKg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501510;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HL8L4IpUvUUPTtG27BG7kHSmyHJUUDovtBAsyYb2BDU=;
-	b=5dYdweBesmqun2yzk4oqrbQU5fSBt1b/i1H5i3yj3C+Up0r97nxaUZhxkYLV/4yTMxHF
-	 yqxJ8dz1leW7K6sQR2HHk4rZlNaJ94ySqVonMUQq0npnolzFLy/Yt1ifsfgBPSDDFPp/r
-	 IQj75PJ0RCS51pRxchEjvLTW8A7tFGLG9MUkCUJBEDOKCQg1NnGT7WyePgdcgBDR0xjx4
-	 ZUWf7aZA68f2pP0lNmdvDyJWsuusSk3m6gReqYn0o8YYv9eGFqpWsfOe82I+gxMCTlegV
-	 lxPgxYWQl0f8iptd+t1/rTGn0ZCHbWkpiMF2IoXd/be/3mK2YqyGLKyHVtOLUcR6e/w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Wr10mOdd;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794501516;
+	b=fPVubyebhAhqB5BSQPkhV5bPD2mjrzVAwbKZig9LvXBzGurmTq0vtIwOZyGEyQEnr610
+	 WsgTLnMThXSrvkcP0cj4bOJqZOv3xXi6+GAIxrkBR0QdHpG0pJ3zTp7Z8avuGpTey/rq4
+	 kyXjzG7a2OgRB1xGrImWK0uj01NmvwVBuZR1pPTBv2bnA6c7LXnwBhWnGT/cm6TsON2Ex
+	 HuR49ne/yLNZuZqqpfluKLJnR9YdYD0WK3qYfkn1RhzWsGNf9eN4XLSdHpUk7fwTKgYPA
+	 saNgD5WWGe2h6I1qctPNLFk7Sg0kUW5HNUCamczXD2O9q+1vB5RdAdJ/JcWwKdJEZOw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501516;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=mX5XJiOggtCU2h3cbhrU4EW9IR9MqjeUg5nelCtC63g=;
+	b=DI/IpWLvZ0JKYXBZWwhx80B9s47LNczjZLDfi6MLwiPoqB0bo3NF24+JFbcfAstNr7NB
+	 Pd862KlNzirh/z7bMqz4ollpgixHkVyg+besARgFJkTE+QNPV6nCkgl3DcyprHXU7PVnu
+	 Ef9X40rb69JiOivyUjPlbNrPJLhAPvPKPumCOrBpmcC72JhqABHHx+8KooaSuJagcMH2S
+	 gDMiumpc6yIlsRqlaVPDIa2n/0a4FkI8DUVLziwQLr4ZPmUtfpEmitlvdoX1XvcLY5o5q
+	 cehUchuB6CqWRBYFU78i2yYuAEQs/Q2+znQj2Tdc4F84LjN+MhHoATw3aKMwkqd91ig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=kw8Rxbyb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4849C606A8B2
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:38:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4849C606A8B2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A676860A382A;
+	Thu, 12 Nov 2026 16:38:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A676860A382A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Wr10mOdd
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so152085e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:38:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794501509; x=1795106309; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HL8L4IpUvUUPTtG27BG7kHSmyHJUUDovtBAsyYb2BDU=;
-        b=Wr10mOddlfa/pzhq4PfzcmPk3F38hvDn0shkyN1ZzixzDDSXZORBoW5bD89ZjC1zB3
-         vYs3GTWkMCrenY0ddpVxqlKEZZd5PS+Ou7xj3m17vVWb+PHcfBtouUunCVqhgxbzUUw3
-         8DL9IIdldtPwhvX9XsuORbitXDNGmPbE3VUK6JO4ymoi97szlEkBCQRQg3cZejqvOpXC
-         YJj47AlZU+HWJyc1o0Xdtl93n3sJZWx11pQVq87LjAefe86E59RQoT2RB19mD5pANWqS
-         UZkAFYBMLQq8q9/vD1XKOR3MnjVdhkYooqmCH1W0L9hIkcuvW5RE9n5+ixcOihgMwnVM
-         SuSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794501509; x=1795106309;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HL8L4IpUvUUPTtG27BG7kHSmyHJUUDovtBAsyYb2BDU=;
-        b=bQVU0AE0RPhbSiI6VNaxf+xYPhasWO8WNxhIq6E/AcT7IYsDlCdJ0O+BNImZOZD+2y
-         25bdt4sK8+5vZMFqbgUwivOOaqBsZOO/q7J9nT3bVRe/Dy1AQOiMOcT5JSezO89atJy5
-         tEwQ47ZHn4+STEWYj+cy+YxLg9g04+jWpIidO0rpPzkrAz2e0UeHJqz7+yqDXmUlKx1+
-         B8D+Nmua1vyzNMPQKCX+IQfCNwuuidh9mnDaoYWc3yzKSQVXwrKqihhGlW7XpYNOKcmL
-         eDbWX+msTXtHg0nUZp+ge+pkKffD0DUvQF89zwIEzEVayPatVGbK9X4ZPMZR2paV1XGk
-         rKIQ==
-X-Gm-Message-State: APuU4Z8VrAG5N0j1zUrUxI96mIfMV0dDzpylqk8OUfKb7UlRvp4K32pA
-	ZEbePxP+GeDqPbkpHGR4R/EroZdOdHaWatJw2IVGjnrGnVPLyh7ooCwDJkK4ECJ2Bt1AgFL7+Gv
-	2QDJRyMY=
-X-Gm-Gg: AYBFou2j5ekBFTyAQZH02zqcwvSh9TC7CL4SxtrR4MJFZL4vuUDa2CmBPL0HBTLFb0V
-	wavioUAOYbb61/R+c/3GceNLYpHwpFK435SxrZTtoQZtGWWL9Es6pgtwtNMUwkxmYsUdWSNu8Uk
-	GSQbbLEIc9pDrVCHW5S47MQcT6VeK3FAphxf+spWBmNGJRAQpoaBR5bdDM6ztmeYHMT41VAzx0A
-	fzkUKo9JQ7DyRMvzLPeLbLiMgV10GmGJSNm0pgXm8vgBJ4gZQsVO0gHiJ8Yk2J9u3sWhCqWRHtm
-	vSpGlflXKnE1Ev32SJhUQ9DK8yzj3mGCCy6v+/ewqYx5Y+VcWrKcu6wAvN/lEveqLaa0nxsp83U
-	uhdlKwwXLCTUtLy4HC58iCCwQMN/2RJrNgThkElkclaRtzMbq6GdqOQ7o7l1kAFRzHx8+rWeJn1
-	SC+UsKxlkClyKwxNe5IQwL4UWGy51GjnLZHouaW4z8PSmVUaRENTMvVTgzd2EK6GkrGyI7RURoW
-	Q5pR1/PNlS4HtNEF/I1GcYjkXq78lNxU1j7jtmnEneqoyq+cy0A1GJADCC+k3dxvR3xYf1OiTn0
-	Enf7jx6H8FCubQspfMY1Tj4FFGLS4N+pKxEPZrzLIKIBt8GVvdhPbVydd/WgZCqbmA==
-X-Received: by 2002:a05:600c:b86:b0:4a3:2f35:38b4 with SMTP id 5b1f17b1804b1-4ba09377b2amr107214675e9.10.1794501508654;
-        Thu, 12 Nov 2026 08:38:28 -0800 (PST)
-Received: from linux.fritz.box ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223a29sm226827f8f.8.2026.11.12.08.38.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:38:28 -0800 (PST)
-From: Marco Crivellari <marco.crivellari@suse.com>
-To: linux-kernel@vger.kernel.org
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Marcelo Tosatti <mtosatti@redhat.com>
-Subject: [PATCH v3 3/5] tick/nohz: Remove tick_nohz_idle_restart_tick()
-Date: Thu, 12 Nov 2026 17:38:11 +0100
-Message-ID: <20261112163813.524336-4-marco.crivellari@suse.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261112163813.524336-1-marco.crivellari@suse.com>
-References: <20261112163813.524336-1-marco.crivellari@suse.com>
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=kw8Rxbyb
+ARC-Seal: i=1; a=rsa-sha256; t=1794501488; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=aSu/hFLbuCH20PxHrtQGMjLUcLKDgWItFuL1RiCjtSRoel8xKiFBwg+BOoAddlsDEG5Rc0wlOCMihwvzoqtbuMsd46s5FHRwXKc38/saXVQn/tEsWkvaVPTevkVxhHicHh1fe1vmIwzWNUEXBeSsaOFg0+mCqg0HlOJQgeMtfgE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794501488; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=mX5XJiOggtCU2h3cbhrU4EW9IR9MqjeUg5nelCtC63g=; 
+	b=GIlOxFCKPlQayYMyEGzFg+GRISBCqbD54tDLuAz33adJXwXOVMbvamPgm8svNJZlJkE6W4JFbeAY5y8hU4bycqoqOsmF3bCc8omd7mpq3pGI6sy0HQAc6WwUsvIVhlG1l9ar1t+zw9ljsqNJcivTdcWWdDbWAxaZAzI92d7XhfM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=kw8RxbybnuvWjvJvdKn+53IYxRjna1/UrcEoJ7O2oEPIMTfrjj54FEdK7lHqGaMh6HsVPS0pTiDW5wllRlKhQZelxh6A4A2u/LJt8eL5tSmr4IlG6vJh5Ch3y/E1lI/rfZFXGx9Uj3zWRbBzNaOTn+JUWhiL/0pGXboLMqEORAY=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=mX5XJiOggtCU2h3cbhrU4EW9IR9MqjeUg5nelCtC63g=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794501486774956.4551935908814;
+	Thu, 12 Nov 2026 08:38:06 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id CBC96180570; Thu, 12 Nov 2026 17:38:01 +0100 (CET)
+Date: Thu, 12 Nov 2026 17:38:01 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: aiyengar1990@gmail.com
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
+	Pranjal Shrivastava <praan@google.com>, linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	Shawn Lin <shawn.lin@rock-chips.com>, Simon Xue <xxm@rock-chips.com>, 
+	Finley Xiao <finley.xiao@rock-chips.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: iommu: arm,smmu-v3: Allow a clock
+ and a reset
+Message-ID: <avXqeBBO_osbgdgU@venus>
+References: <20261112-smmu-v3-pcie-pd-v2-0-3a77bbb6b2c4@gmail.com>
+ <20261112-smmu-v3-pcie-pd-v2-1-3a77bbb6b2c4@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,68 +75,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="axwnauw6ygxsatcc"
+Content-Disposition: inline
+In-Reply-To: <20261112-smmu-v3-pcie-pd-v2-1-3a77bbb6b2c4@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.497.36
+X-ZohoMailClient: External
 
-Polling idle now leaves dynticks idle through tick_nohz_idle_exit()
-before cpu_idle_poll(), which restarts the tick where needed.
-tick_nohz_idle_restart_tick() has no users left: remove it.
 
-Suggested-by: Frederic Weisbecker <frederic@kernel.org>
-Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
----
- include/linux/tick.h     |  2 --
- kernel/time/tick-sched.c | 17 -----------------
- 2 files changed, 19 deletions(-)
+--axwnauw6ygxsatcc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 1/4] dt-bindings: iommu: arm,smmu-v3: Allow a clock
+ and a reset
+MIME-Version: 1.0
 
-diff --git a/include/linux/tick.h b/include/linux/tick.h
-index 8bfbb053f4fd..686f7e58738b 100644
---- a/include/linux/tick.h
-+++ b/include/linux/tick.h
-@@ -130,7 +130,6 @@ extern bool tick_nohz_tick_stopped(void);
- extern bool tick_nohz_tick_stopped_cpu(int cpu);
- extern void tick_nohz_idle_stop_tick(void);
- extern void tick_nohz_idle_retain_tick(void);
--extern void tick_nohz_idle_restart_tick(void);
- extern void tick_nohz_idle_enter(void);
- extern void tick_nohz_idle_exit(void);
- extern void tick_nohz_irq_exit(void);
-@@ -145,7 +144,6 @@ static inline int tick_nohz_tick_stopped(void) { return 0; }
- static inline int tick_nohz_tick_stopped_cpu(int cpu) { return 0; }
- static inline void tick_nohz_idle_stop_tick(void) { }
- static inline void tick_nohz_idle_retain_tick(void) { }
--static inline void tick_nohz_idle_restart_tick(void) { }
- static inline void tick_nohz_idle_enter(void) { }
- static inline void tick_nohz_idle_exit(void) { }
- static inline bool tick_nohz_idle_got_tick(void) { return false; }
-diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-index cb3117453eaa..b4149f40b5f1 100644
---- a/kernel/time/tick-sched.c
-+++ b/kernel/time/tick-sched.c
-@@ -1372,23 +1372,6 @@ static void tick_nohz_dyntick_stop(struct tick_sched *ts, ktime_t now)
- 	kcpustat_dyntick_stop(now, ts->last_tick - TICK_NSEC);
- }
- 
--void tick_nohz_idle_restart_tick(void)
--{
--	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
--
--	if (tick_sched_flag_test(ts, TS_FLAG_STOPPED)) {
--		/*
--		 * Update entrytime here in case the tick restart is due to temporary
--		 * polling on forced broadcast. The tick may be stopped again later within
--		 * the same idle trip. The idle_entrytime was updated recently but make sure
--		 * no tiny amount of idle time is accounted twice.
--		 */
--		ts->idle_entrytime = ktime_get();
--		tick_nohz_dyntick_stop(ts, ts->idle_entrytime);
--		tick_nohz_restart_sched_tick(ts, ts->idle_entrytime);
--	}
--}
--
- static void tick_nohz_idle_update_tick(struct tick_sched *ts, ktime_t now)
- {
- 	if (tick_nohz_full_cpu(smp_processor_id()))
--- 
-2.56.0
+Hi,
 
+On Thu, Nov 12, 2026 at 08:20:22AM +0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> Some SoCs feed the SMMUv3 from a clock that the OS controls. On the
+> Rockchip RK3588 the MMU-600 for PCIe runs from ACLK_MMU_PCIE, whose only
+> other consumers are the PCIe controllers. When no PCIe controller is
+> enabled, the clock framework gates it as unused, and the SMMU can no
+> longer be accessed. The same SMMU also has a reset line in the CRU,
+> SRST_A_MMU_PCIE.
+>=20
+> Allow a single clock and a single reset, so that both can be described.
+> The architecture defines no clock or reset inputs; the MMU-600 TRM lists
+> one clock and one reset signal, and the one integration that needs this
+> has one of each. An implementation with more clocks or resets can add
+> them with names and a specific compatible.
+
+You can trim that down quite a bit. Don't take over AI text 1:1.
+
+>=20
+> Link: https://support.arm.com/documentation/100310/0202/Signal-descriptio=
+ns/Clock-and-reset-signals
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml b/D=
+ocumentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> index 3c044e4f03d4..29b81b4fb650 100644
+> --- a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> @@ -63,6 +63,17 @@ properties:
+> =20
+>    msi-parent: true
+> =20
+> +  clocks:
+> +    maxItems: 1
+> +    description:
+> +      Clock of the SMMU's register and memory interfaces, on SoCs where =
+the
+> +      OS has to keep it running.
+> +
+> +  resets:
+> +    maxItems: 1
+> +    description:
+> +      Reset of the SMMU, on SoCs where it is controlled by the OS.
+
+The ', on SoCs where it is controlled by the OS.' is completley
+useless for both. You need to review your AI output and not take
+it over without doing any thinking yourself.
+
+Greetings,
+
+-- Sebastian
+
+>    nvidia,cmdqv:
+>      description: |
+>        A phandle to its pairing CMDQV extension for an implementation on =
+NVIDIA
+>=20
+
+--axwnauw6ygxsatcc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr162kACgkQ2O7X88g7
++pp8TA/6AvacCvvFrtEJ9uEds7WG2pqKKql3tDgbixgwWbdt4jb9Uno84nloIhoH
+j3vlNNjCs1I7sfA9KxDhGSbqZM1Q3EPis3hoktky7vefI8Gk/g6hzxilqwOmKrKK
+GJRIRdKDCb5osCgwrqpENYPD8XweBOFu6DKigsdQG/Y+14WfJM2q9DF5mqhwleZL
+KTU2j7l0uIeDzrXVhCCQR10zMOJBo1iRL6JZmkvGEv2ph4CsdB3NjV0eG01CVK86
+TRnfdKSvT3+L6IPOu7XlCoHQ4BP7wtWOB4Dpb13SxjNXGBSWu0QV6XbZp5lulmdU
+d2mNUCrU7P42tdgIVSwGVBwYYyymCvqEnukqAEucWjrvGFD8eSZM2wSANBlbnijS
+A5qcPBVfoTjTIUVZg2/bK7yf6mU1oY6kLSZ3w5vIlJ2pNFemTYAv1ZWfs2QPOGqw
+6Cro+Q2DTCuU8eSqOVEmzP4BibPeDdNz3M91VvdzW5AD1WXHz4ZWrpueYE4ZtvZi
+BOKFfh5QakYt1YXvQU1iw1Nzg8CMyoaLPiZS4vaZg9eK5Z972fm1QAwoMs9jsbNH
+hkL/pRIO+517K3U8QHdFJtJevY0ta1vna0itB7GH8IsR0ntE6E6vpRaUA74VsRr4
+hD977z7kgv3TjVM1pGp0P4VybhXtvwcU7M4hJXMTRuEsOzwbx6A=
+=Wdr0
+-----END PGP SIGNATURE-----
+
+--axwnauw6ygxsatcc--
