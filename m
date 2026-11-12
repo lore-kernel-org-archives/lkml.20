@@ -1,112 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476378;
-	b=5BTrPSJr8lX6pOOa3VhWjdIygtssipOPuXBK6XlfXeej7xB9lGOBzeu5sD9pbtg7Zl7W
-	 XIK5w7kp6PZkvh9RicAhloIxUHKQ6dAmdjcICkT/GTNOwHMptNLHg+Ofe1nbhe+VtQ/gu
-	 ldJB/jC3FTFuhXeNOs6XmHyf9pmolxI2B6+PJBSaHry+YnbrQnJe2nYAlMR2ZyqRVxKeV
-	 BqusWGYDqR8RhdMohrUKTbIkZQnF3dblGNS5NCf7GxNb4dZoVfxCobHtm4v8L/W+H0ST5
-	 6aDFtWp5jGhFRs9yTBVW0O2ULSq6zmRoMyf8LZmxdXroklui1ahJWHS6zYG0bbkwoqQ==
+	t=1794476380;
+	b=uQNzfRdYhnK+yCgj0mB5ugnVWSCHDOHxErCQ9euUzpz8Oxm1frS6KA1MRHsukvBna6s2
+	 GXpw6qV9oH+PV4F5+crbl3wbiYsX/6aq205YFIdWaDY3Y1S55HXmPKgZbkUs8XIcK95tS
+	 aeFJ3qPdqunA3tRsarNUAkwQyOCiwyQ/Ft1G3UWX2Qcukjt6ZNOn9xbgIWCKrbDgxPGeA
+	 vXST042zlSArB1+pDY+SQTtDoUX/ADOTKBnDi/6KTRkaUKP0zkmy7oxsKCzKVkEXiXcwB
+	 BZh+BuHg+Rpbu+GOCcE+f3x+xeOsrUFTltEOQj5kNVIzJc8OCh4gz/MDHp8IXk37ZHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476378;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=BK/ZnEcuLjdw49CN59om4khY9WBfb0Arfn9F00Ole6A=;
-	b=U6NXcdS32e7o0eJkGdvfqFkG39AgpNJ12EAl3cV97GOCDR+Ps/hu8IPvBK2e9cMD2PhM
-	 1FXS2iXfLt0noaC1dzU93pI5mUoZqvwa9gn7pSmfCXtJQY6KuC2T8G2z/poVwwU+LXDJp
-	 eYWnSFPhE227MpCItohJtLAers/O7JdoiZOFWdUnIgg/V6w12WdkxIOf8s6cbBoWTQCFp
-	 xdRFAWUMquqEm+gLtOdpUu/5QME/s7zj7u9xBPr//ButENgsaco2F6NBmuzBsf9P0aVsd
-	 rlgBHGzpLKotdFAJoyolhyeRX9Uye+R5vz0SbSvujpziXKPVINhPHrVaefxSnDK8qMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476380;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=+qZVe7H4KMKBxamxaLHZL9oGHtOAsg+pNoHshyfPpG4=;
+	b=gN1G7ccS7VIvP1xKJ9948DZYvE21h6B8bwL/yPESj99Xty5fNLPmBSzDuFVTMlkTMjzO
+	 saOqx07FzWs4W90ULeFq3RQ5tKKvxW244v5xDWRbhE3/AuwVa2H9Z+txUBphcTBzk+5Ti
+	 jPVScIf/rW+KR4EKJDogzxxDjZNyvIgwA9RMiTrGUqKGEL3JP9ZzQHN1inEF69jW7nvu1
+	 DPG7eaT/nERjH2/O5u6yXIIFhpADQuJZ1BsAPogRSFqXq8VF3F/qnVpPruo/ozlPAPI/t
+	 XsZL1MyI49l/Jl5yo5b7UhTC+2MpbzZRVqC8fnwfrMgSk7JMyzoWnOmMogXFpivvmoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AHCKhbfc;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Sr4Aa2+q;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODECxA9y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F244606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:39:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F244606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3575606A336
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:39:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AHCKhbfc;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Sr4Aa2+q
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC9Hb1Y2514499
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:39:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BK/ZnEcuLjdw49CN59om4khY9WBfb0Arfn9F00Ole6A=; b=AHCKhbfcyL1cC0Dh
-	u8QJLwloAUVu7iPz9m3lpO96RgeDR/3NDx3Qp3hE7LTacerJQ99pY3V//uf/u7R/
-	ySJqviGkjEl5Ft8l/npxEytdbiI/jJ8DGWKNuEA5mLfH42Ieh4Ba6F3LdaMlypbj
-	qTVbAn3FCtap8nk0ZNExqNUatFKFizIpYJu+tio1X1SFNWDI0Qu6tICJYk3xYBwg
-	cKNLOHihkfnQd41Py4P7Oy+pyB2LmjibMNt2DKMJ6OIvV8ru1tyLvjPg1tP47Olj
-	t0vvQbLvGH8GUiWvU4JkN7tSJ+mhn8Le+XYRk0tbJHonl0mASgewsgWGEXne4IAA
-	Q9V4Xw==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvwm1tym9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:39:37 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b1755b2f26so1985203a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:39:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794476377; x=1795081177; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BK/ZnEcuLjdw49CN59om4khY9WBfb0Arfn9F00Ole6A=;
-        b=Sr4Aa2+qDXeTuvwAAvfb4g0lJC9cEN+udUjyfW7hmhDsFYyA36YaOVdprk2V1layhp
-         E/y3x4MZcxIEnB2wv4oibgEpCQ9HAnThcWRlDIYXRsHmhdbZWJmuMaATuIAeHxSqEYdt
-         DASxSzq3Cs8znC06Ph5cQidREiPnb2xyWFDio9VBEgTmDdjfkRg9DPgmjBiq6OG7yEl5
-         SQK9fh4UxeiZ2hQQYk3kLsEiymqs5IkaTG7p7Xtu+pGqdgt5IguteboyJNWgASIRYtVG
-         nZ5QJs4nxGm4ZUAaIIKfKZZgbX5u8V5ILQFbnC+Udq+1i7to0EB2bkmN4E37MRLjuXZP
-         xrQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794476377; x=1795081177;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BK/ZnEcuLjdw49CN59om4khY9WBfb0Arfn9F00Ole6A=;
-        b=05LoYTLQmPcDWOoa7m0hCm7zwYGYyhh4n5DBUUImJNnEgjhzUKq7SA5GlBIPmBdID3
-         QVj0C7bbIs4rHqCbseVhpQkD+v72fL3hCK+4zp3QRERaaZU+kaPwf/5XsjSl19i5e4su
-         kh3YkrvOV3UeZFoOdZJS0UTvNt1WXT7GjB7FTK4W0NErs3NxkDEmj+FPj1MQrRd57VV4
-         Q/6reE5Be1/CznQzb3dEre78uCg7h/AkHWekLObL8Os1We2glQ/MSR8REn9yg0Cw1nwY
-         tgAAz+LTCXTdwCB/uT+yE8y+F0j2TzwNcCgyRJeAkotsz/riS0sI3rPs/GcafhsIkukI
-         hgVQ==
-X-Forwarded-Encrypted: i=1; AL+hErGUQ1IYACPFli+r5Zcm9tkBw4JnNTpnb3EzZB86joKnNnA79R63k8Nf0W7joqUDeJB3Rs8ok/tc27Nt94o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dH2s0OVn/u3bx1iiCuAU42XDGvV9RxzW4i8YpwV2rAfkaT3rc
-	MymqlovySH/gCyHEHdsBlXcIW84zMLxJQ8VNa25LVPWKNxomAhIa97GtvAnLSGo7s0T/KopLnsC
-	y25GvijYUNSxRAMgweJfOmgN6qcOPoUKE+hLGWGE/RKkKGxfvSLTFqmBiOongjt7kUKQ=
-X-Gm-Gg: AYBFou2WY6wgqLdvkB2pyys2o60UtDcrGieneNZAgZWe4Z8kiL4Igauv22t30bRSgjL
-	C+VW3OZ3H3P1XUifYi8X+yl2AC85u7z8lJAzzhgVb3Nk3Z87tJnwDmIUh7YtwQ8hgrt5Owu8N5i
-	YoqGwDhtx/nKtjKSk2blXdyysZHak/5YKJC+ekmARfWxUpsfXFvRSwFKrjZSlt5us6DI7b4F2JW
-	Pficyg3B4H1izaJOaq3b2ezg8i3w6Ygrlb7Lp4ONsfd2ivo78TLoPJsrdU5YjIo2+KqYg91VXrN
-	E/Y+1j9Unzh4TwaPeSZzoHNQvLG1UyU7bTrfzrk3cV+gxLXplOTMHjPnj9U69k2YfHH/n1zO3cf
-	WdLax2gIAEjQbqlLvhegDdRM3abhDxGG9L29Au1XmRgcd0WHaYnSzYDipCsGnnKAco0smIPxxtl
-	02v/I=
-X-Received: by 2002:a17:90b:4d8c:b0:3b0:9f53:e8a8 with SMTP id 98e67ed59e1d1-3b182f413fdmr4807311a91.52.1794476376701;
-        Thu, 12 Nov 2026 01:39:36 -0800 (PST)
-X-Received: by 2002:a17:90b:4d8c:b0:3b0:9f53:e8a8 with SMTP id 98e67ed59e1d1-3b182f413fdmr4807299a91.52.1794476376061;
-        Thu, 12 Nov 2026 01:39:36 -0800 (PST)
-Received: from [10.218.31.125] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d7bdd57sm2580615a12.24.2026.11.12.01.39.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 01:39:35 -0800 (PST)
-Message-ID: <c52cfd06-ac5f-4a43-8988-bc3c4a027473@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 15:09:30 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODECxA9y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5761B1F00A05;
+	Thu, 12 Nov 2026 09:39:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794476379;
+	bh=+qZVe7H4KMKBxamxaLHZL9oGHtOAsg+pNoHshyfPpG4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ODECxA9y1Z6siZR8OwuwDYoboqLxQIe+qqo+J8zI+sp0yRBw8eyM3kziDFpXndHzD
+	 SzqJb37cgvobwr0NhpIFwN6EKQcHRMQMtWLqjPtFdI7TkHoKwVLstwdAltvciPMEFH
+	 uDcWdPxB0/l9k5ljUxPxSlpK9BJavvlwQsqsMQeCe9qv6QmxxVGqG2G7xHjOS0/I4m
+	 pm7Azv+TNXUWwscLesUbHMh/wGg7iGAy23eT4GBCeBVnA98fELahFI0yW9V/965Va7
+	 XmsaZ18t1AuZZJB9uyJWo214iVZacmLDi9/tKYe5X6ZQpQOA/nI2KKKYY0kJHS5u+I
+	 fISEXgbfmoBCQ==
+From: David Hildenbrand <david@kernel.org>
+To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261110-khugepaged-latency-fix-v3-0-6eea743cf9a3@kernel.org>
+References: <20261110-khugepaged-latency-fix-v3-0-6eea743cf9a3@kernel.org>
+Subject: Re: [PATCH v3 0/3] mm/khugepaged: bound mmap_lock hold time when
+ walking an mm's VMAs
+Message-Id: <179447637396.7058.8722598190835864744.b4-ty@b4>
+Date: Thu, 12 Nov 2026 10:39:33 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,455 +66,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] tpm: Introduce Qualcomm TPM driver
-To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-        Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
-        Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-arm-msm@vger.kernel.org, op-tee@lists.trustedfirmware.org,
-        linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
-References: <20261019-tpm_qcom_driver-v4-0-6889b9804ba7@oss.qualcomm.com>
- <20261019-tpm_qcom_driver-v4-2-6889b9804ba7@oss.qualcomm.com>
- <672d7be2-072d-424a-80f7-025c70440b08@oss.qualcomm.com>
-Content-Language: en-US
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-In-Reply-To: <672d7be2-072d-424a-80f7-025c70440b08@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=KsnYSmWN c=1 sm=1 tr=0 ts=6af58959 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=LlorywCyHCjHwqFkWEEA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: fJE5xgBSX-U2oGrJTp5b7rG8ya7sdGpQ
-X-Proofpoint-ORIG-GUID: fJE5xgBSX-U2oGrJTp5b7rG8ya7sdGpQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzOCBTYWx0ZWRfXz2+wHgL+sIeo
- MJt/ao9ma1DSRBOY3IYhfXn/OoOiCldPM5fxmxpfDJ2mJGcDhfhsjQW4NLeNClqzzJVv94ePhBV
- 9iKfuvKvh2/BGwB+BhcfinLNDmmGdJdLLXVoZNBAqwwuFBI1rBe2p2t5y7iwqm5DiOy1dp/DMGj
- QfDB5R3iqYHO7vntwU1kJ+Z7LlqbDSqu4FKtqHQwxyJdnNB5WZIuxQBYgjH9+vveztN1/VHFR9P
- Gkd6yeyEv4YFtJ+ntZZgj8btPGkD4Rg+0RetFlAwMQfaGZF9U/mNTCGvgFIa2IW3nUeRa54ZhmF
- e9UuG40qcxGXoOr9QONp20fWuK3XeFFsOXAy9eDUJKABeYY6TfNRo+I8tGlsBn/iIrgdsAryTFg
- Hpyy7pUVrqm3+b/fqZkYYPwkTmatVby0yNiDfT6RZ+UIjcw0nsx1q4iovmsANQh4BCJ8J41hUM/
- amtCRzSTQJX9INjC9Sw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzOCBTYWx0ZWRfX3fxv1qzGdU7a
- 7NNz58tY5NLWGgohLzJEir150H0dSJVTBEY+zsAhCkJisjOBvM45lkeHaGZqQTYsxAvgW3CD6U8
- l2/DaY72ljAhNJv4t7gN0ssrHkPNTcc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0
- spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120038
+X-Mailer: b4 0.16.0
 
-> On 10/19/2026 8:21 PM, Kuldeep Singh wrote:
->> Add a TPM chip driver for platforms where a TPM 2.0 instance is
->> implemented by a Trusted Application (TA) running in Qualcomm's Trusted
->> Execution Environment (QTEE), reachable over the QCOMTEE object-IPC
->> transport.
->>
->> The driver discovers the qcom.tz.tpm TEE-bus device, opens a session
->> with the TPM TA, and register with tpm interface. This exposes the TA
->> through the standard /dev/tpm interface and the existing tpm2 command
->> layer. OS need not be aware underlying TPM instance is dTPM or fTPM.
->>
->> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-
-Hi Amir,
-
-Sorry for delayed response as I was away on vacation for more than
-2weeks and hence couldn't catchup on the thread.
-
-[..]
-
->> +/* Max buffer size supported by TPM TA */
->> +#define TPM_QCOM_MAX_COMMAND_SIZE	SZ_4K
->> +#define TPM_QCOM_MAX_RESPONSE_SIZE	SZ_4K
->> +
+On Tue, 10 Nov 2026 17:19:10 +0000, Lorenzo Stoakes (ARM) wrote:
+> This series introduces a couple small changes to khugepaged to improve its
+> behaviour both in the face of mm->mmap_lock contention and to reduce that
+> lock contention when possible.
 > 
-> I also mentioned it in V2, why using different naming convention across different macros.
-> Why not QCOMTEE_TPM_MAX_COMMAND_SIZE?
+> Looking at the first change - if the mmap lock is contended, an attempted
+> mmap trylock in collapse_scan_mm_slot() will result in the scan being
+> aborted wherever it happens to be, and when next the mm is processed it
+> starts from the beginning again.
 > 
+> [...]
 
-Seems last time you recommended to prefix TPM_QCOM_* as it's TPM
-specific macros. :P
-From
-v2(https://lore.kernel.org/linux-arm-msm/6e2034eb-0192-4286-beb2-ba7f1186344c@oss.qualcomm.com/):
+Applied, thanks!
 
-> +/* Max buffer size supported by TPM TA */
-> +#define MAX_COMMAND_SIZE		SZ_4K
-> +#define MAX_RESPONSE_SIZE		SZ_4K
+tree: mm/core.git
+branch: thp-7.5.misc
 
-These names are confusing, rename to something like
-`QCOM_TPM_MAX_COMMAND_SIZE` and `QCOM_TPM_MAX_RESPONSE_SIZE`.
+Applied patches will appear soon in mm-next, followed by linux-next.
 
-Since both macros are 4K I am thinking to keep just single macro
-TPM_QCOM_REQ_RESP_SIZE instead.
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
 
->> +#define QCOMTEE_TPM_GET_TA_VERSION_ID	0x0001000
-> 
-> nipik: For constant either use 0x00001000 or 0x1000. not 28-bit.
-> Why not U like others just for consistency.
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
 
-Seems I leveraged constants directly from QTEE.
-This I'll update to 'U' format.
-> 
->> +#define QCOMTEE_TPM_TA_VERSION_MAJOR	GENMASK(31, 16)
->> +#define QCOMTEE_TPM_TA_VERSION_MINOR	GENMASK(15, 0)
->> +
->> +struct tpm_qcom_ta_version_req {
->> +	u32 command_id;
->> +} __packed;
->> +
->> +struct tpm_qcom_ta_version_resp {
->> +	u32 status;
->> +	u32 command_id;
->> +	u32 version_num;
->> +} __packed;
->> +
->> +#define QCOMTEE_TPM_TYPE_ID		0x0080000
->> +#define QCOMTEE_TPM_TYPE_DTPM		0x6454504dU
->> +#define QCOMTEE_TPM_TYPE_FTPM		0x6654504dU
->> +#define QCOMTEE_TPM_TYPE_NONE		0x4e6f6e65U
-> 
-> This is an unused macro.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
 
-Ack.
-We support only ftpm/dtpm and in case of any other value, returning
-probe failure so we can drop this.
-
-> 
->> +
->> +struct tpm_qcom_type_req {
->> +	u32 command_id;
->> +} __packed;
->> +
->> +struct tpm_qcom_type_resp {
->> +	u32 command_id;
->> +	u32 status;
->> +	u32 tpm_type;
->> +} __packed;
->> +
->> +/*
->> + * dTPM SPI transfer optimization:
->> + * TRANSFER_START before a burst of commands, TRANSFER_END once done.
->> + */
->> +#define QCOMTEE_TPM_TRANSFER_ID		0x0000002
->> +#define QCOMTEE_TPM_TRANSFER_END	0
->> +#define QCOMTEE_TPM_TRANSFER_START	1
->> +
->> +struct tpm_qcom_transfer_req {
->> +	u32 command_id;
->> +	u32 transfer_state;
->> +} __packed;
->> +
->> +struct tpm_qcom_transfer_resp {
->> +	u32 command_id;
->> +	u32 status;
->> +} __packed;
->> +
->> +struct tpm_qcom_private {
->> +	struct tpm_chip *chip;
->> +	struct device *dev;
->> +	struct tee_context *ctx;
->> +	struct tee_param_objref tpm_svc_obj;
->> +	bool is_dtpm;
->> +};
->> +
->> +/* UUID of the QTEE-bus device representing the TPM TA. */
->> +static const uuid_t tpm_qcom_uuid =
->> +	UUID_INIT(0xaabcb593, 0x7083, 0x5536,
->> +		  0xac, 0x27, 0x3d, 0x2d, 0x89, 0x41, 0x9d, 0xdb);
->> +
->> +static void tpm_qcom_release_object(struct tee_context *ctx,
->> +				    struct tee_param_objref object)
->> +{
->> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
->> +
->> +	inv_arg.id = object.id;
->> +	inv_arg.op = QCOMTEE_MSG_OBJECT_OP_RELEASE;
->> +	inv_arg.num_params = 0;
->> +
->> +	tee_client_object_invoke_func(ctx, &inv_arg, NULL);
->> +}
->> +
->> +static int tpm_qcom_get_client_env_obj(struct device *dev,
->> +				       struct tee_context *ctx,
->> +				       struct tee_param_objref *client_env_obj)
->> +{
->> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
->> +	struct tee_param param[2] = {};
->> +	int ret;
->> +
->> +	inv_arg.id = TEE_OBJREF_NULL;
->> +	inv_arg.op = QCOMTEE_ROOT_OP_REG_WITH_CREDENTIALS;
->> +	inv_arg.num_params = 2;
->> +
->> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_INPUT;
->> +	param[0].u.objref.id = TEE_OBJREF_NULL;
->> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_OUTPUT;
->> +
->> +	ret = tee_client_object_invoke_func(ctx, &inv_arg, param);
->> +	if (ret < 0 || inv_arg.ret != 0) {
->> +		dev_err(dev, "get client env obj failed: ret=%d, invoke_ret=0x%x\n",
->> +			ret, inv_arg.ret);
->> +		return -EINVAL;
->> +	}
->> +
->> +	*client_env_obj = param[1].u.objref;
->> +	return 0;
->> +}
->> +
->> +static int tpm_qcom_get_svc_obj(struct device *dev,
->> +				struct tee_context *ctx,
->> +				struct tee_param_objref client_env_obj,
->> +				struct tee_param_objref *tpm_svc_obj)
->> +{
->> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
->> +	struct tee_param param[2] = {};
->> +	u32 tpm_uid = QCOMTEE_TPM_UID;
->> +	int ret;
->> +
->> +	inv_arg.id = client_env_obj.id;
->> +	inv_arg.op = QCOMTEE_OP_CLIENT_ENV_OPEN;
->> +	inv_arg.num_params = 2;
->> +
->> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT;
->> +	param[0].u.ubuf = (struct tee_param_ubuf){ .addr = &tpm_uid,
->> +						    .size = sizeof(tpm_uid) };
->> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_OUTPUT;
->> +
->> +	ret = tee_client_object_invoke_func(ctx, &inv_arg, param);
->> +	if (ret < 0 || inv_arg.ret != 0) {
->> +		dev_err(dev, "get TPM service obj failed: ret=%d, invoke_ret=0x%x\n",
->> +			ret, inv_arg.ret);
->> +		return -EINVAL;
->> +	}
->> +
->> +	*tpm_svc_obj = param[1].u.objref;
->> +	return 0;
->> +}
->> +
->> +static int tpm_qcom_send_command(struct tpm_qcom_private *pvt_data,
->> +				 void *req, size_t req_len, void *resp,
->> +				 size_t *resp_len)
->> +{
->> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
->> +	struct tee_param param[3] = {};
->> +	u8 locality_arg = 0;
->> +	int ret;
->> +
->> +	inv_arg.id = pvt_data->tpm_svc_obj.id;
->> +	inv_arg.op = QCOMTEE_TPM_OP_SEND_COMMAND;
->> +	inv_arg.num_params = 3;
->> +
->> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT;
->> +	param[0].u.ubuf = (struct tee_param_ubuf){ .addr = &locality_arg,
->> +						   .size = sizeof(locality_arg) };
->> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT;
->> +	param[1].u.ubuf = (struct tee_param_ubuf){ .addr = req, .size = req_len };
->> +	param[2].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_OUTPUT;
->> +	param[2].u.ubuf = (struct tee_param_ubuf){ .addr = resp, .size = *resp_len };
->> +
->> +	ret = tee_client_object_invoke_func(pvt_data->ctx, &inv_arg, param);
->> +	if (ret < 0 || inv_arg.ret != 0) {
->> +		dev_err(pvt_data->dev,
->> +			"send_command invoke ret: %d, err: 0x%x\n",
->> +			ret, inv_arg.ret);
->> +		return ret ?: -EINVAL;
->> +	}
->> +
->> +	*resp_len = param[2].u.ubuf.size;
->> +
->> +	return 0;
->> +}
->> +
->> +static int tpm_qcom_get_ta_details(struct tpm_qcom_private *pvt_data)
->> +{
->> +	struct tpm_qcom_ta_version_req ver_req = {
->> +		.command_id = QCOMTEE_TPM_GET_TA_VERSION_ID,
->> +	};
->> +	struct tpm_qcom_ta_version_resp ver_resp;
->> +	size_t resp_len = sizeof(ver_resp);
->> +	struct tpm_qcom_type_req type_req = {
->> +		.command_id = QCOMTEE_TPM_TYPE_ID,
->> +	};
->> +	struct tpm_qcom_type_resp type_resp;
->> +	int ret;
->> +
->> +	ret = tpm_qcom_send_command(pvt_data, &ver_req, sizeof(ver_req),
->> +				    &ver_resp, &resp_len);
->> +	if (ret < 0 || resp_len < sizeof(ver_resp) || ver_resp.status != 0)
->> +		return ret ?: -EIO;
->> +
->> +	dev_info(pvt_data->dev, "TPM TA version %u.%u\n",
->> +		 FIELD_GET(QCOMTEE_TPM_TA_VERSION_MAJOR, ver_resp.version_num),
->> +		 FIELD_GET(QCOMTEE_TPM_TA_VERSION_MINOR, ver_resp.version_num));
->> +
-> 
-> Just to confirm, Are you sure this does not produce compile time warning. Check it.
-> I belive GENMASK generate "unsigned long" and %u is not correct?
-
-version_num is u32 and VERSION_MAJOR/MINOR is also within 32bit range so
-that's why kept %u.
-Warning will be triggered but output value will not be stripped as it's
-within 32 bit range.
-Let me fix it.
-> 
->> +	resp_len = sizeof(type_resp);
->> +	ret = tpm_qcom_send_command(pvt_data, &type_req, sizeof(type_req),
->> +				    &type_resp, &resp_len);
->> +	if (ret < 0 || resp_len < sizeof(type_resp) || type_resp.status != 0)
->> +		return ret ?: -EIO;
->> +
->> +	switch (type_resp.tpm_type) {
->> +	case QCOMTEE_TPM_TYPE_FTPM:
->> +		dev_info(pvt_data->dev, "TPM type: fTPM\n");
->> +		pvt_data->is_dtpm = false;
->> +		break;
->> +	case QCOMTEE_TPM_TYPE_DTPM:
->> +		dev_info(pvt_data->dev, "TPM type: dTPM\n");
->> +		pvt_data->is_dtpm = true;
->> +		break;
->> +	default:
->> +		dev_err(pvt_data->dev, "unsupported TPM type: 0x%08x\n",
->> +			type_resp.tpm_type);
->> +		return -EIO;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +/* fTPM does not implement this command and to be invoked via dtpm only. */
->> +static void tpm_qcom_transfer(struct tpm_qcom_private *pvt_data,
->> +			      u32 transfer_state)
->> +{
->> +	struct tpm_qcom_transfer_req req = {
->> +		.command_id = QCOMTEE_TPM_TRANSFER_ID,
->> +		.transfer_state = transfer_state,
->> +	};
->> +	struct tpm_qcom_transfer_resp resp;
->> +	size_t resp_len = sizeof(resp);
->> +
->> +	tpm_qcom_send_command(pvt_data, &req, sizeof(req), &resp, &resp_len);
->> +}
->> +
->> +static int tpm_qcom_cmd_ready(struct tpm_chip *chip)
->> +{
->> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
->> +
->> +	if (pvt_data->is_dtpm)
->> +		tpm_qcom_transfer(pvt_data, QCOMTEE_TPM_TRANSFER_START);
->> +
->> +	return 0;
->> +}
->> +
->> +static int tpm_qcom_go_idle(struct tpm_chip *chip)
->> +{
->> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
->> +
->> +	if (pvt_data->is_dtpm)
->> +		tpm_qcom_transfer(pvt_data, QCOMTEE_TPM_TRANSFER_END);
->> +
->> +	return 0;
->> +}
->> +
->> +/*
->> + * The raw TPM2 command in @buf is sent directly as send_command's UBUF-in
->> + * param and the raw TPM2 response is read back from its UBUF-out param.
->> + */
->> +static int tpm_qcom_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz,
->> +			 size_t cmd_len)
->> +{
->> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
->> +	struct tpm_header *header = (struct tpm_header *)buf;
->> +	size_t resp_len = PAGE_ALIGN(TPM_QCOM_MAX_RESPONSE_SIZE);
-> 
-> Why PAGE_ALIGN? Why not using TPM_QCOM_MAX_RESPONSE_SIZE directly?
-> In 16K page, it increases the size to 16K, is it what you want?
-
-Thanks for spotting!
-Need 4K only. Need to drop PAGE_ALIGN from here.
-> 
-> 
->> +	size_t copy_len;
->> +	int ret;
->> +
->> +	if (cmd_len > TPM_QCOM_MAX_COMMAND_SIZE) {
->> +		dev_err(&chip->dev, "len=%zd exceeds TPM_QCOM_MAX_COMMAND_SIZE\n",
->> +			cmd_len);
->> +		return -EIO;
->> +	}
->> +
->> +	u8 *response __free(kfree) = kzalloc(resp_len, GFP_KERNEL);
->> +	if (!response)
->> +		return -ENOMEM;
->> +
->> +	ret = tpm_qcom_send_command(pvt_data, buf, cmd_len, response, &resp_len);
->> +	if (ret < 0) {
->> +		dev_err(&chip->dev, "TPM command failed: cmd_len=%zu, tpm_cc=0x%08x, ret:%d\n",
->> +			cmd_len, be32_to_cpu(header->ordinal), ret);
->> +		return ret;
->> +	}
->> +
->> +	copy_len = min_t(size_t, bufsiz, resp_len);
-> 
-> Does this min_t means the result turncation and discarding is acceptable!?
-> Should not we do the min_t at the allocation time:
-> 
-> size_t resp_len = min_t(TPM_QCOM_MAX_RESPONSE_SIZE, bufsiz);
-
-I checked return values from QTEE for ftpm/dtpm and seems max is 4K only
-i.e response size.
-TA implementation has check where resp_len < 4K is rejected with error
-and tpm data output < 4K always.
-So, cannot add min_t in beginning but definitely above code should be
-updated. I'll dig more on best implementation and fix in next rev.
-
-> 
-> 
->> +	memcpy(buf, response, copy_len);
->> +
->> +	return copy_len;
->> +}
->> +
->> +static const struct tpm_class_ops tpm_qcom_ops = {
->> +	.flags = TPM_OPS_AUTO_STARTUP,
->> +	.send = tpm_qcom_send,
->> +	.cmd_ready = tpm_qcom_cmd_ready,
->> +	.go_idle = tpm_qcom_go_idle,
->> +};
->> +
->> +static int tpm_qcom_ctx_match(struct tee_ioctl_version_data *ver,
->> +			      const void *data)
->> +{
->> +	return (ver->impl_id == TEE_IMPL_ID_QTEE);
->> +}
->> +
->> +static int tpm_qcom_probe(struct tee_client_device *tee_dev)
->> +{
->> +	struct device *dev = &tee_dev->dev;
->> +	struct tpm_qcom_private *pvt_data;
->> +	struct tee_param_objref client_env_obj;
->> +	struct tee_param_objref tpm_svc_obj;
->> +	struct tpm_chip *chip;
->> +	int err;
->> +
->> +	pvt_data = devm_kzalloc(dev, sizeof(*pvt_data), GFP_KERNEL);
->> +	if (!pvt_data)
->> +		return -ENOMEM;
->> +
->> +	dev_set_drvdata(dev, pvt_data);
-> 
-> This line is duplicated!? It is also bellow.
-
-My bad! Will drop other one.
+[1/3] Revert "mm/khugepaged: remove definition of struct khugepaged_mm_slot"
+      https://git.kernel.org/mm/core/c/3734f01d
+[2/3] mm/khugepaged: scan mm's more efficiently under mmap_lock contention
+      https://git.kernel.org/mm/core/c/f4720f7b
+[3/3] mm/khugepaged: release contended mmap read lock after scanning enough VMAs
+      https://git.kernel.org/mm/core/c/f616e41a
 
 -- 
-Regards
-Kuldeep
+Cheers,
+
+David
 
