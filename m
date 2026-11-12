@@ -1,106 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.27
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794479562;
-	b=H8Fd2TB/FD4Oz+jJQQ69ksK6qlXlL8n2yMNLl3Db8iGOVm1uwqEOr36pVwWeF+doJCL2
-	 ww4/EfMBVRk/3kgFtV5wY0R0MWMdNAAJJdzV62EWlTwoeOKG8kJwJB6UsQyhGMDdMYfdP
-	 KjcRhkxXo6RCV52AhSewN+S1WRl4bTkVw71BqIlDJ7a+Y95MtbzzZNC0Avxga0xtoSiOV
-	 NbG2dnoK933U/JFXBykKcpMEtwLlPugpQhFUKWsuIB/XqsVtWD9jocMJ73U1kmIHT5bRe
-	 hnzBeemtNn5LEhMjMJf1nPZNqbJ1URLn4jctQGEmaQrLxO3e+NnNuywKMA9FmotIQgw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479562;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fH+39H/zKk54sTrjhSoBk1Fl6mLIeFvgf8yLmERk//8=;
-	b=U0Xufn3jp++uE9cWPBPVXPOjG3YM8RAQ93UVNnBwmqKaYAAkOSqj2yBhSpKLqKTb6B2r
-	 LBETCIaCGHpcTE+Qsj0I7Al9St+VzTGoC5tHx/jnyd5S8bu3NuuYThgAwUJVPxrMai7AF
-	 eXCy7yA7KyERPMPs5qIb7OTaGvKX0Yg6DjruYMuIai4PFr1iIzLsCwPJkqX6L1vo0iPyr
-	 tzi0ib7cXc9lM63uhcyUiH0l5GDsrPkAw0WNcNKGsPsOnzy4aW4ag52xHP2bLkkrfQeb9
-	 KUqYRf6w3le0xI5ROamltK2K8wXU066uY0LZ9FRPWk8SbueiBqWvZU+6FgPbtLRtR4A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=sTAjBgzh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.27
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010027.outbound.protection.outlook.com [52.101.229.27])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794479579;
+	b=nd8BYtgYFhedaZ86r6JDcU6SMmlmjQhrRxfDsY7kYgbhPn7exNilaF9LWdN5BaLUJU9R
+	 oEFQUhY6C2O6G8tZxIvoponZLhEc9ecY+Oaul4ZYUmyf4DuM6EGvfGCd29s6qR9i3eLX9
+	 efqk/cFDH8LUbkYxbyoberJ6IA5S4gvIVGB0Tf3X3Sh1uNpwfVSHezd8kXEhyMQKMZXq9
+	 CVWXeEZnFdTmWxqz4R33tmu8PhGawGgjnTZVDevENNg539fBXdcZb0A6QgaaJd2DedxQ6
+	 S6r+t5jNXjjyteuObNDNgQxGs9iy/FZLTDV7QRECO4yjfuMNgAGwfpCAlTz8usyPKdA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794479579;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=7asrFaHTzZllDDUNciX3JSRX5gXUC5F4fBVc9Jkwf0E=;
+	b=0UJdqs4GhwfSDAoko7yE4+1jniLZacCE97EDZPG6OXzvnlFDRHItjcKT7s7GcCJkPLvf
+	 dFlCK+gmuB+gAIcq/rLIEK9uCW/xWPsftRWSnKg7oU/TnmL2nY+L3DYdCx7V5TMiZ+rDK
+	 p+PvP4dp5MRZ5bVVr8rBy7yj2XMS7MuO0q0yazR8hI767tKNeLGrKLsOdTfjuata0xqm9
+	 yI3XNLVhb2M4o4ydlMxRW25s8Bd8U0WSwk/O3RYl0k4pG/fDDFsAvHS77i7rmFaHC7DBU
+	 rEDfZ+eQmMvWS1MxCyNZGB45XOUbs75/p/xdD9K/DARy0t1BTiJCN7lJbKtrn0SF9ag==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGb2yDtZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99C6606A31C;
-	Thu, 12 Nov 2026 10:32:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A99C6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF86606A31C;
+	Thu, 12 Nov 2026 10:32:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=sTAjBgzh
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ltlMuFiTpGDqh7gHi3V6ctzQlEddYJZMRLvwAqhwRELJpX7vVQnV1NO+ywwutRzkD7OMXshNuW83GN/MQJReW9WVhkip/3STLX+4GN/PdJEtkFcNPvMOthnDZ3VjAfvj6WdSYSh4u3cveBKdATYF3IVrjWeOOLOJ+ktHc4teffuM5RJPFeV8S5eL3zJjEEkJkGXT0N3+ilrQ0e5/VP4W3eQxLwOolkahh9/WP+qKRARCsTKighRgc1y35lf23uM2WjTk1VDmQxu5iizn0TgsG/MT34+vvZrSxG74pbdgsB7nXNyomdcxdI8DMq6597CXx7/fkFvD1h0cacoS5AQ8ZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fH+39H/zKk54sTrjhSoBk1Fl6mLIeFvgf8yLmERk//8=;
- b=kw8LtRa+CR7LDHe+gq7WrGAQ5rQIgaJiWrjpDAYGcHzqRYAdaUlYneTeUfWIG94nR/ht1tgjMTI+hRnVOeu31YH8+yCTVAQ9xPq5JCgK97f+/Ac1LOaw4mMf2HVj0mZGtUsM5EJ8Vwr5paDECoulZ44iO6P/zEaqy3XhUF1lVkkqk0Jt29FgIlnJ2mKJ+4KLCENz11Pxy6GsZr2BLBcC6FgGwnG67J5QHjfLE2bbWGoK3uoXj3RMjGLxYHDJtWwfvnZyHL16YrnDaHJ3kfWS4NKwrqNXsy/mivC74TppVYsQdTLUtz7b9vogWzmzQhX9qeWun+8Lw2D1wlt9YXM0kQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fH+39H/zKk54sTrjhSoBk1Fl6mLIeFvgf8yLmERk//8=;
- b=sTAjBgzhHwTtcP4PtZ31No29sJ1NWH+QnENFzPRsNTn1Fm25240FGqX06YXnIGK9F0Lca/q5F4c60AmZZwo79aHFxBOrkcYpl0HXtDD3qWMVbCs3biKzA2TgV+SiN7uiiCgrsvD0QIh3sr4nA68RCDhvjr2R837g5XGfA9robhg=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15) by TYRPR01MB12667.jpnprd01.prod.outlook.com
- (2603:1096:405:1b9::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 10:32:36 +0000
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180]) by OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180%7]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
- 10:32:36 +0000
-Date: Thu, 12 Nov 2026 11:32:16 +0100
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 02/10] dt-bindings: display: Document Renesas RZ/G3E
- display subsystem
-Message-ID: <avWVsEFmoDWgesqZ@tom-desktop>
-References: <cover.1792770965.git.tommaso.merciai.xr@bp.renesas.com>
- <71044c23cbd6698d495db101527725bd7607197f.1792770965.git.tommaso.merciai.xr@bp.renesas.com>
- <20261104-lurking-griffin-of-tornado-ca7ac8@quoll>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-lurking-griffin-of-tornado-ca7ac8@quoll>
-X-ClientProxiedBy: VIVP296CA0099.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:355::16) To OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGb2yDtZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1E9D1F00A05;
+	Thu, 12 Nov 2026 10:32:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794479579;
+	bh=7asrFaHTzZllDDUNciX3JSRX5gXUC5F4fBVc9Jkwf0E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SGb2yDtZZqWFVT0guABW2rgY6yde91AMAt54K9zUMc6UNmu7S/V4fgWu69fKsfyPV
+	 7Es8RO7tpcRecCeER9guaREA7sPOuG3WBLnorqOoYS6/o/S+jqXwzN2exs1B8sA3N/
+	 ZF4JGs3m2/skadvs75aHgR/H6ByuPWU7sQ1BdFy1mJYih50uf3Zp+ccuiPVeVwtDCA
+	 bR7Q5WXN7kDBxMaW3Jvayc6JUP0xbthJyaw/KGsHM7Svirv2yXY2jesLK5/Jg9PZyO
+	 7OsRdD1RmzyyESGfks3oK20chkDsepDNhUJxWgPddg2c6NE2aQVDzmY1ONk0PsuEG1
+	 X2DZOwBkjArtw==
+Date: Thu, 12 Nov 2026 16:02:46 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Val Packett <val@packett.cool>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Wei Deng <wei.deng@oss.qualcomm.com>
+Subject: Re: [PATCH v7 5/8] Bluetooth: hci_qca: Support QCA2066 on M.2
+ connector via pwrseq
+Message-ID: <avWVnjF86FLFvfOC@debian>
+References: <20261005-monza-wireless-v7-0-5a6de7662dcb@oss.qualcomm.com>
+ <20261005-monza-wireless-v7-5-5a6de7662dcb@oss.qualcomm.com>
+ <bc7730e4-8b47-4c2b-84ef-277749f2aab8@packett.cool>
+ <CAFEp6-3Mt-CCJEz=RAJUh6pxH-Ssgkqfx3QQfyzvS9HwzFp9QQ@mail.gmail.com>
+ <906ebec9-de19-4a1e-9472-dcf8529fa232@packett.cool>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,136 +69,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSOPR01MB295138:EE_|TYRPR01MB12667:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef1088a6-8a2e-4d61-02c6-08df40a84475
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|52116014|366016|1800799024|38350700014|10067099003|5023799004|11063799006|4143699003|56012099006|261022105027099003|261022075727099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261102123227099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	J3lrSkczU1QR1hVsuizQqa/CwSlAsBsrgWN/EL6X6xfvHOWpYXSAsJdJp3MlsoCT0MMDMXerjtdPHn4ehYPHRi4d2vDsLjbCEBt9QtovjEN8osmUWLNSbQvaJucXCfan83sfoTxLCXPYxmQ4RZo7EjnB0/YqYJGXcKEWh+/8YyJ2b3CshAzfh53EHG3k6YOxpnf8qIXAVRFH/IvcShK4HbUBc3gw+UNui1+0jJ3BwRMVjflJiy/cQsAdu2TZ+GxEuYG6IB3ih1uaN+MHxMe/2F3ZMoT1XjUwFGcXV9l06+iG14x2KnFpSZ2N2YxZIZaOPFgNY8F9hniN5UehOVh6evVQPAnRtZUY/78O7ftLDuUz4gYpdJtmpCiehP5DUClMxd0T9Xs3IXWYLP7jRlnam44LnAIg7OIdyhMDfR7g3nPqQvF904VgUh78V23KB2BwIbZsE51KI6yadJzygEXozjjvzr98dC92dnHiwIaQHF6rKiWyqk0P8ihK9FG7hbQNneA3ywdWzEXqN6VqCYUIlPVfhOJzsjFA4deCHxmUgqmZY08wAUBrlWwlMRvh2nqr8Ffttc7fbM0r53Z5SsdO1W/9n5GHpXH6zJkG0/gXxyJUxM2Yn5fzvJqNyB+43kxfGvy1yoY72/84PyWBOqsNpEskGXD6aXXrAb+Z15t/weo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(52116014)(366016)(1800799024)(38350700014)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261102123227099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5q/kkxgziyab2jeB4Eh8fuUiDyxImnE/YVS0fIFeJhE4Guf924StmSgf/Mx0?=
- =?us-ascii?Q?gdhcuAusJwmn5EkmKTx4cexvKppslfHSpl+rlQ8j3U6l6Hdza+/MeVL7ly6v?=
- =?us-ascii?Q?4dNT/PIRe4dXa3fqDSU77HXYu14ioOWjN27tljbUIAQX/RHHFyFcCbodg8nD?=
- =?us-ascii?Q?BchaOxq28YhKAQPOWRv8aPHjOYI0vx7L7Ur85Dm6M7IEBpchKJ9lCJPDzAHg?=
- =?us-ascii?Q?IBIhM+WOAEyIpS1CUxR+3r1JPhXzRCiGRaH/hMvVd3Xuas8j0ZUFnRDiP0ZI?=
- =?us-ascii?Q?ZevZCpZjCHFuryQhvNwjoIyd6hLZIhZxbDNSzy6g3FbXLv5ukce/LhhdY+tM?=
- =?us-ascii?Q?XPCK04wK5IQcjOMFSfrPcajSReDgyAUOUrkX/NZweyI20iAqqCLxqamUKBjO?=
- =?us-ascii?Q?20PskL5OCvGy+q6JIUmkwMHekv7zd+no4azlqE83btijl6mT3NAbD9Dv6L3l?=
- =?us-ascii?Q?71S2runXc5qDMYJjqXLwwRH1OwdVwWL09cO9LIyLZL7MNrs5s1Gv4+VKb+P1?=
- =?us-ascii?Q?HWChukAcGFP6mg/7vy4M7X6hcskUmlp0YP1XLLETjcJn39vy3H6u2KWYwuHU?=
- =?us-ascii?Q?/Q07Ehz6YvyzcswmWpNi4Ln1U1n7zR5XLv805mRL2DusUJbOl9YXp6rZje30?=
- =?us-ascii?Q?BXFiNLISjOhwGVbn2SFCPhfB3Bw4b3O8JX6P64IN+CLsSyw6b6McGeN2JK82?=
- =?us-ascii?Q?6zw0rGZd04LF/slzXlOz39hvYFVT2PEfGcGL6X2LKIix7YqUgWtjBKgtLEDk?=
- =?us-ascii?Q?w/ASWB9Op7iEAbXV1SAiZbv85rPXXfyWUDcCObbXkxGz5ILU+WiyzQlsFwzq?=
- =?us-ascii?Q?8xIqPKTUrQ7wxT0zdLJUij1FQoVBDZr2l4ga+8JhXy7VRtQtz2B/FMmMwDfy?=
- =?us-ascii?Q?ESuHizuB+wmcsg337OnTuh/fZbvCA6pj+736nIi1b+LMY4KCMYX+DEzzvxGq?=
- =?us-ascii?Q?dky6QGTDawAv1neLt5whAaCrHyR3RxhJ88l8CICROOepqGWedWNQmCak7HZY?=
- =?us-ascii?Q?onunUWh5GPSY8deysGtRPyltOwpJJomdxYI1pIvYMuLbvF25ZjLoWfYunLhb?=
- =?us-ascii?Q?iyVQZNEXZIzm8/1Y8GqOLedys4Sn1KGDevkf6fkj078JDepGyPnGJaDGFIEN?=
- =?us-ascii?Q?Y4dIeh8/Xye9gtW6FMGwq8n2PcT2qIgWNo4asi9pmx1DvDpNMW/suk9H85iz?=
- =?us-ascii?Q?emChiEHbCS2BqT7Z0ivqRQvZtxJ5HYGS7op2q15hhfluN4aZSKw5AVDsBYMj?=
- =?us-ascii?Q?/VIaDa2Yif3n8T3/D5hFmLrguzLIKVj8+NONrhUbY/Ypj53J5sCe4ygPd6bf?=
- =?us-ascii?Q?Smxz+XufPCQ9orus+dY7GBBw+HbNz8kqejAlO6XaWfbLmpYx7134qLgQOX+n?=
- =?us-ascii?Q?afUIUEVejWYm+zWKMJFXcRBZQVD5nM8bloaUxOrlPoPKuiJCuqb0VEUawgbU?=
- =?us-ascii?Q?4xaDaOP8qNCweZ5+H8VCJAMyOeWEr5irfuUx0GjE+/TUDPtSECwAldaP8S8I?=
- =?us-ascii?Q?57ZNL1wmv/GBF3IQk4unLPrLdL+9XCuVBSsviHHMKtYI3pQWvrEqeifYG0Ww?=
- =?us-ascii?Q?PJXiUu9rQRW3zA1WRGGRjRzaBszSatPBWyvm1RcbGLhiPeAPrc2uRNJ7EbQo?=
- =?us-ascii?Q?PrKyh9oVVsllcz4NgYX7CNje8Wv3wjL3RoYlQ6NLGPLnUb69kwEQFiVRnCdf?=
- =?us-ascii?Q?pgHK3Q1VjJPfPsZIq+X5M6svnWUWNe0a+PSFh/tnm02tfsFhE8eA6FOJJ4VP?=
- =?us-ascii?Q?eRf1XOOwYdswMRLdu18n7K93wfMPo3XwQvRdbkynew53FtOI+zqS?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef1088a6-8a2e-4d61-02c6-08df40a84475
-X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB295138.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 10:32:36.0484
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0rvPyI7uTGQSw7YTBPtONhq3DogixX3vcc/w7TUmut40azOUJ6RYfz29WpEtgEDmVwUm5p26d8W3+1U+WZacDEIlLpAIqy+rKPHcr8L1Jat29VA5glRK6zgLhEKkmm56
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB12667
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <906ebec9-de19-4a1e-9472-dcf8529fa232@packett.cool>
 
-Hi Krzysztof,
-Thanks for your review.
-
-On Wed, Nov 04, 2026 at 11:19:47AM +0100, Krzysztof Kozlowski wrote:
-> On Fri, Oct 23, 2026 at 06:47:35PM +0200, Tommaso Merciai wrote:
-> > The Renesas RZ/G3E (R9A09G047) SoC has two LCD Controllers, LCDC0 and
-> > LCDC1, each containing a Display Unit (DU). The two DUs are separate
-> > instances of the same IP, with their own registers, interrupt, clocks,
-> > reset and VSP, and are therefore described by two device tree nodes.
+On Mon, Oct 12, 2026 at 04:10:26PM -0300, Val Packett wrote:
+> 
+> On 10/9/26 1:40 PM, Loic Poulain wrote:
+> > Hi Val,
 > > 
-> > The DSI encoder and channel 1 of the LVDS encoder can be fed by either
-> > DU, the source being selected at runtime. Driving those outputs from
-> > either DU requires handling both DUs as a single display subsystem.
-> > 
-> > Document the renesas,r9a09g047-display-subsystem node that groups the
-> > two Display Unit instances.
-> > 
-> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > ---
-> > v8->v9:
-> >  - New patch.
-> > 
-> >  .../renesas,r9a09g047-display-subsystem.yaml  | 44 +++++++++++++++++++
-> >  MAINTAINERS                                   |  1 +
-> >  2 files changed, 45 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/display/renesas,r9a09g047-display-subsystem.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/display/renesas,r9a09g047-display-subsystem.yaml b/Documentation/devicetree/bindings/display/renesas,r9a09g047-display-subsystem.yaml
-> > new file mode 100644
-> > index 000000000000..e23cc53a1fea
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/display/renesas,r9a09g047-display-subsystem.yaml
-> > @@ -0,0 +1,44 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/display/renesas,r9a09g047-display-subsystem.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Renesas RZ/G3E Display Subsystem
-> > +
-> > +maintainers:
-> > +  - Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > +
-> > +description:
-> > +  The Renesas RZ/G3E display subsystem is a virtual device needed to list the
+> > On Thu, Oct 8, 2026 at 12:58 AM Val Packett <val@packett.cool> wrote:
+> > > 
+> > > On 10/5/26 9:21 AM, Loic Poulain wrote:
+> > > > For QCA2066 (and other QCA chips) on M.2 connectors, the UART enable is
+> > > > controlled by the W_DISABLE2# signal managed by the pcie-m2 power sequencer
+> > > > rather than a dedicated BT enable GPIO.
+> > > > 
+> > > > When the serdev controller has an OF graph (indicating it is connected to
+> > > > an M.2 connector), acquire the 'uart' pwrseq target from the connector's
+> > > > power sequencer and use it to control BT power instead of the bt-enable
+> > > > GPIO. This is factored out into qca_serdev_get_m2_pwrseq().
+> > > > 
+> > > > Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+> > > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > > > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > > > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > > > ---
+> > > >    drivers/bluetooth/hci_qca.c | 47 +++++++++++++++++++++++++++++++++++----------
+> > > >    1 file changed, 37 insertions(+), 10 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+> > > > index 1d27ff98034ba99d0783e48db5c605f3b31117ea..b6ec1a57248e2cf4bd138898ffc5cad45b1b4a8b 100644
+> > > > --- a/drivers/bluetooth/hci_qca.c
+> > > > +++ b/drivers/bluetooth/hci_qca.c
+> > > > @@ -1875,6 +1875,9 @@ static int qca_power_on(struct hci_dev *hdev)
+> > > >                        /* Controller needs time to bootup. */
+> > > >                        msleep(150);
+> > > >                }
+> > > > +
+> > > > +             if (qcadev->bt_power.pwrseq)
+> > > > +                     pwrseq_power_on(qcadev->bt_power.pwrseq);
+> > > >        }
+> > > > 
+> > > >        clear_bit(QCA_BT_OFF, &qca->flags);
+> > > > @@ -2396,6 +2399,34 @@ static int qca_init_regulators(struct qca_power *qca,
+> > > >        return 0;
+> > > >    }
+> > > > 
+> > > > +static void qca_serdev_put_pwrseq(void *data)
+> > > > +{
+> > > > +     pwrseq_put(data);
+> > > > +}
+> > > > +
+> > > > +static int qca_serdev_get_m2_pwrseq(struct qca_serdev *qcadev)
+> > > > +{
+> > > > +     struct serdev_device *serdev = qcadev->serdev_hu.serdev;
+> > > > +     struct pwrseq_desc *pwrseq;
+> > > > +
+> > > > +     if (!of_graph_is_present(dev_of_node(&serdev->ctrl->dev)))
+> > > > +             return 0;
+> > > Seems like of_graph_is_present does *not* return false for the existing
+> > > (non-connector) setup which is currently used in all the laptop device
+> > > trees..
+> > If I understand the issue correctly, this can only occur when a UART
+> > 'port' is left unconnected, in which case the failure is legitimate.
+> > The laptop device trees should be fixed accordingly, either by
+> > connecting the port to the corresponding M.2 device or by using the
+> > usual Bluetooth UART child-node approach. I don't see this issue in
+> > mainline.
 > 
-> We do not take bindings for virtual devices, because you do not need
-> them. Instantiate your driver from existing bindings, instead of
-> creating fake device just for Linux drivers.
+> So it looks like this is because commit 014501d141ed ("arm64: dts: qcom:
+> hamoa: Add graph port/endpoint anchors to pcie4_port0 and uart14")
+> unconditionally added the uart14 endpoint to hamoa.dtsi itself in
+> preparation for the future transition to proper M.2 descriptions.
+> 
+> The laptop dts'es themselves still have the older child-node description for
+> bluetooth, with a dummy port { uart14_ep: endpoint {}; }; that's not used
+> yet.
+> 
+> Could the check be extended to actually verify that there's actually
+> something the graph endpoint is connected to? Or should that commit be
+> reverted?
+> 
 
-Thanks for sharing.
+Taken care now: https://lore.kernel.org/linux-arm-msm/20261112-hamoa-dt-fix-v1-1-55efbac840f4@oss.qualcomm.com/
 
-I will drop this patch into the next version, also I will
-instantiate the driver from existing bindings like you suggested.
+I shouldn't have given my r-b tag for the offending patch :/
 
-Kind regards,
-Tommaso
+- Mani
 
-> 
-> > +  Display Unit instances that comprise the graphics subsystem.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: renesas,r9a09g047-display-subsystem
-> > +
-> > +  ports:
-> > +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> 
-> Properties have only one type and ports is already defined as object for
-> graph.
-> 
-> Why isn't this a graph?
-> 
-> Best regards,
-> Krzysztof
-> 
+-- 
+மணிவண்ணன் சதாசிவம்
