@@ -1,113 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794497812;
-	b=5JnlBG9mdvqyKsl5gU5B1fTxTw9sffEuhLUOYbM9et2gTimZ8GIP1hlBv5gOW9eN0hC+
-	 lK20KaBaJIIuhF0pfy1PFYV2DDhzgsqzFUoB+zdasG5sPM2D+y1veoWTHQS3aUSLKu0kX
-	 tbr6INt8WA0jRqnCF/PgugBcrcbc2gtOSFFr5FxC4CYLzr87fnvHR71hRcZ9RKknq7SIS
-	 mZb15FR88jwL6xvUrFhsRtKntbtckQ4URyFV54LiH0y+7ZWwnhtKh6THy/HWSOzYjaGZm
-	 DkNT0+wJMwRqqgtd5pIiwtTAvVNEXRv3ujRNrxjSdGWr97O9EDC0+I7nf6BH12VAKmQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794497812;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Y0ibUOV8qb2w57M8b54S8KkbL/HbqzP6ta1cCOvmksM=;
-	b=fpFqkdkUsjb2Fw+GuiyC1J4jGzfPRtjYKQ4TAbMo53HvJZwNghpMUyZhrAse9HxhdMO2
-	 H6hPonmjzvhjLOULmYuBwU8JO4HEi3NDLBsyRPFtOPyxI7bvReILpNc7rOQflxPAKxLID
-	 ljoFrwTho1JkdulTKDCywem7N78rOxJa9x/6p2W0BvJ/dzndYgB6dbRZep4ePLv6SjEb8
-	 66MXyMQhUkt5V6VhM8oRYieme+I1Zgn/3Lqghy0PO94h0dyfTp5wYOnfpXsIAxzX3xQIu
-	 hLsqk7O/DTclEawrHTqCxcUjYormBOfbLFjD/3migBIS++DXflOsZltlN+2v1YinUbA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="phRKJV4/";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZSC4SzMU;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794497912;
+	b=RupPx4rXBeZtt4SM6/w9Ro7JwmdSdKj3FmvT8bvGapnQ9RREktbdo3e4+Ps4/UVzgkWe
+	 7lYJBaHWWa3OJD+EHTc2du5IsG6vqMJj8VuGvwAb2jdia2dE966w+17I7+VfVEtodJK01
+	 y+fd53mazvRjIjQXAmTqZOSk9W45vW6gSdfyqx4iPtR7RJcuzSrBVeu7ntbDNvi53F7VM
+	 1Go7y8Za8F90bfUpYVM6gHlW06Z5y4cw4yF9haeJHoU3dM+WX4tYHDkAd6AZbnpxnBysi
+	 KLJoqoT2V648VmE1v02NLPLKykOETIGR/aeV+kG8aOIWALjYs22X0zhYaDnvkbSahtQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794497912;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=pKhdkOg4+OQGspY1LZu+s7JqzDxc8ChrBM982ubKraY=;
+	b=Eev4a2ZXbW17hW0/i4198d+YpKtnJH8l8bmmltxYofaZdETqc9kenITTPeGBFsYei5My
+	 7BNxFH33W73aJOvBdd7rNmKf+I5tVQdwR4oJ/8BlA5z8NkdmMR9v1IfZ37vrz9Og7/Az1
+	 mLWPCJ/++vCPFxOHClsbCNZ2camuAJEUa+0Dzcl205EbmL5eRaJY75B64icgaEnrWonQk
+	 GoScW7fvOSnXEWYUhuBm+Wp6Gv/NFs73oCPzPM+Q3DOBkjICL0/XQl7lfsG7Sj/ReaIX6
+	 TtO+X0SnLOx8UNm4qTwBx+4ddatszVWHaQ3rVao3ZtaMgaYOe+4zTo8zlW2f27pdbgg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=mCo1QkN1;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=3z861lLU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.169
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.169])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01BA606A8B9
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:36:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F01BA606A8B9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA51606A323;
+	Thu, 12 Nov 2026 15:38:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BA51606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=phRKJV4/;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZSC4SzMU
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFZD3r2593506
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:36:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Y0ibUOV8qb2w57M8b54S8KkbL/HbqzP6ta1cCOvmksM=; b=phRKJV4/S1WG1+TR
-	3fjydgQD+giUjPJGsH+XrQ5NP5rf3DyNzV4ZHC/etGvHhOlLkVps+cymh9t1H+Eq
-	OjZ47RykDusG+MPbSptzrvMQtkF7H6O5oHoSyMgF8jQ29EaqTB0rIjl42ZKnH8O/
-	uXiuTTt7EmAxgTBFJi7WSgY4wUrt7roeyOzm2VJMXjYX/9jsZvVDs74qWCc4bnX0
-	v7/uzrCIPUYJ1MZVYF8PiK5BmQh05AqfhRGRL6EHDUuq8f2ItOkNioDmYQnGxm7B
-	QZPmGNdyuDoIZKfUd3cnRei/fRwURBkZrTIBs+EH+eImRak+pzLjAS1HaJr2PPG3
-	yF3mEQ==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwbx311kx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:36:51 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7d2f2df81bbso2980021137.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:36:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794497810; x=1795102610; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y0ibUOV8qb2w57M8b54S8KkbL/HbqzP6ta1cCOvmksM=;
-        b=ZSC4SzMU4+A59ojdOC23Wz8eLEzvllQ5ISwar8q7wCuiQoXZXjv4lbkNUrlTvhSKl3
-         r7AnhYFP8O5tiNPOPmmLMXQJgy1GW5FlDVKe+ykUYeqs4CzoXGSU0wycJFrJw+7N8FSn
-         mKP9e28MrAB5RmAKENzUFMc32GJBpwcqQzZ5HxtLaypLxmTZjyRCaPOew2d1fOrmFq6y
-         ToZGoFtH9VPNoKatdeG+7n7i4Y02yHs84s4U1jxcEHviS7hNzQPz/wl3sWFFwjXgMus/
-         tkRDMfoZbwWiGTnukJi/9aW3fPg9DzB4uShwB49isyzK8JgiBtTHmPrr0oFiDAWhX8B0
-         N1Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794497810; x=1795102610;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y0ibUOV8qb2w57M8b54S8KkbL/HbqzP6ta1cCOvmksM=;
-        b=aj0mFxtCNMU8c/3XzJ0vCnUB1/Oyo9MDN8kmQh3HMLFj9nMUTVgMpvlAoWFZDhpeAC
-         PcgjYPfOeGi0csTme3DiV/hHFXKmFvZPDEkjD8lKVK9jKDJf/QkAsw4tdvWfk58ow7l9
-         tWjHAFO2IdGnybQR0znSrFWYpCturvSP8O81Aezj0PgnB0sm0q5iyQXdSG6FOPaYyAH3
-         tg6EzV7+Dq2Zb7eZ2kWX49n262GUUSr4IHE2hkKk5mqEsVfhz4tZdEjSurt9bhhj7muL
-         wpb0GNLmz3BtwWFS9plwCdiYY25GgkYH++MjnixTGnEg+I1THX9vvKNmGSgJx/cf39+W
-         JWrg==
-X-Forwarded-Encrypted: i=1; AL+hErHPpy3cocCquWuvxTzWcDWmwbrfXgs0udIbjvC0KfXCcPWqSTAEbMsmrueBNGB4cEbdk21Z5ULN8sAPwAQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z951A+PYI/ceiWk1ndXpxOAfpjaoJb00mQz+90X5cnbL03o12F6
-	BkUM02ZIV1FY/Ki3jmubLGh8651qxM1FCdFkDvfxp/nOy2Qbzblqotbfw6+DX29omJvZTcqcJGA
-	bIwPrpbkA69ZADpF8wqHmFqqvk5mSGqbuC/5J8BZTh1o8++hc0X8tcZvA+OdjfIINe/Y=
-X-Gm-Gg: AYBFou2cGxWqWWdR0wRwPfzu+AN2PZ1PshbkiV2SDzFjDOUDZc1/Wm4i/krgf4Lp2Rg
-	w4+CGh2j8RdKK1uK81gvcYTZz+7EKHTJRB+e79cp6yp4PrfaZxgbE7m7ZAn1sM3r3Z9bgOQN+2l
-	mqi1tzFNANTLtbbtzVg9xthdn5+OvDttzA0jPLQKmcwWaWuJI1HplVeqswYax5wOS9ruVaM5PcB
-	78eu5pOjDT1EMeQkjPAo8NFGIgg5rBzChZbkZY7HUKcyILiZsnZmNqS3kcau3XYLKZWPyLRoA7T
-	2cbtxJtnw5ounnOSyN+4cK7jEGeRsh2bE0kFR6Y0Q7pVo6+zU9YmzeIrRwPBktzepF2Rexv+yO2
-	Pm2C8woi+sCTWCMaRkeCa3jlfkEyQHWVL+N4xPhd1PVlCajWYhzbkvF+v++CfiDrBQ7Sq2BaLOB
-	t3BQ==
-X-Received: by 2002:a67:e713:0:b0:7d2:d9f8:21cf with SMTP id ada2fe7eead31-7d5061e6d25mr2848352137.29.1794497810020;
-        Thu, 12 Nov 2026 07:36:50 -0800 (PST)
-X-Received: by 2002:a67:e713:0:b0:7d2:d9f8:21cf with SMTP id ada2fe7eead31-7d5061e6d25mr2848347137.29.1794497809457;
-        Thu, 12 Nov 2026 07:36:49 -0800 (PST)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba09536ebfsm138353235e9.5.2026.11.12.07.36.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 07:36:48 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 16:36:40 +0100
-Subject: [PATCH v2 3/3] phy: phy-snps-eusb2: Enable AHB2PHY bus clock on
- Nord
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=mCo1QkN1;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=3z861lLU
+ARC-Seal: i=1; a=rsa-sha256; t=1794497901; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=MTvARN8eftGDYMs/FNrMR5MOHqe0CJxYamgmZLJ8H9Qa/hAtt6tMb1iaJzWmuKIa28
+    x6DmbEK/eUEAT4FgCklljoqy4kNawaVOgLd51Znzomt9O9vOzroLw32QHt5OcxfiFwMX
+    xEHYFQELMMZVGjwjAnytC+hYArVTFj1m5uL9tLyKdTNQAwgJiTM80u/1JTT/6dehmhvp
+    CyvBjopFrjIOI7U/a8iBQhO5srjnbIr9ZvboogbNv5Qc8gkXl+i7EBXtPa53Sgh+mW4t
+    DWVqHOJIJ84L2TlPwM+S2lKcjDMmDU+UeOVAQYkKr9YrnvoSggRFI4n/0I8BnmNfW99A
+    R3jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794497900;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=pKhdkOg4+OQGspY1LZu+s7JqzDxc8ChrBM982ubKraY=;
+    b=ihu6jzpzalHlXiOXcw/ZRHaoH2rkzPbPm/j2nlyzLCTLFPE0Mw3UHIVJxjyUnW/O7p
+    K1v7gdJs+n1ljPa2tUSlLDYtdlOaZ8bGHiWejpcOXHugt6ogi3VgmZOpVYwhKHzyyh2s
+    eWu1hvm6gH1qncduN4EOemILC+jiJBOloIdaIxUyTW2bcPYhcUpBkfDa2JCmGXx97xxk
+    igtH/B+Tp42VV4KEYrd5RI92Q0fO5AluZzsLU87WmqnSt7+f4fWDSH1qrzX8fpmYJUuw
+    +JEaQsbRC7Djsi81aQc2DDLTwNNIs7LfI6GEgSU2+sQ0rhsjoaNg6ElVrRZCcD8MrdNy
+    y+6Q==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794497900;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=pKhdkOg4+OQGspY1LZu+s7JqzDxc8ChrBM982ubKraY=;
+    b=mCo1QkN1kOQIqoaUadHZP/8fS/JHWqwIgPnFl4OkXsIjqzhukWTHY7r35FSSj3oPRS
+    Ea8TjobwA3NmZX4eMPxZnCmOKU8Va19Q+sDX18c4jw9uNkKL71LlcYU/l5B98eFFDYKn
+    bkMFyKNBVOadbAlNtJ5T4f4Ns6VlwvgIbeox7fh/yGYR04GA75Y9wsyJsMLrF811oTUM
+    mcUouI561Su034cWf0k3Q0wJB58eVM8Ul09dDuaJeUPSXOvx3qqrj7IZlewvu59sIv/j
+    vvBewHqRY3CSLQAVQxm/ybnhgbD17mu1RILbsBmLUKEKftIgoU5l3VbItVWXGHMAuDjJ
+    2Gqw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794497900;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=pKhdkOg4+OQGspY1LZu+s7JqzDxc8ChrBM982ubKraY=;
+    b=3z861lLUdCKVsY54z0FQ+MyHg1ZZZzmT/Dt09u1bAC0CBpiSq3ivNz0kzVr2SD6EDq
+    s5z9ulp34+OdqNbpb4DQ==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV35pZz8iNKp1rK7chac7b5mVucO+Qp4KTQNe8"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22ACFcKD1N
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Thu, 12 Nov 2026 16:38:20 +0100 (CET)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,122 +93,204 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-qcom-nord-ahb2phy-clk-v2-3-30ad3d947217@oss.qualcomm.com>
-References: <20261112-qcom-nord-ahb2phy-clk-v2-0-30ad3d947217@oss.qualcomm.com>
-In-Reply-To: <20261112-qcom-nord-ahb2phy-clk-v2-0-30ad3d947217@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2158;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=0QzX4LF5lSbbC5DnVnFoOIfhrWUJ8IJ91S32d9U04Kg=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq9d0IFspCQD45JtUKwA3clwnZ7bmvYBwIdZa1e
- /7hBukkXemJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCavXdCAAKCRAFnS7L/zaE
- w7fuD/0ZS7mqp98din/mP8QmeXGunJjymxEuRF2XUjni4YRHwtMJ0LSakLhsu0AYQ2rZE0vBiZ5
- rwY1EPw49QYvrNww/r2rRuVhbJwU4ZUfyNaDDOSHsgTJrfViZFm3XnmKHtZcL6slqE8QgbG1P0e
- sEThUdV38phJ9BR+suWYqkFQqpY52cSSeVybV6pGILbXDQ2EeZPVCGwpm1H2ZwY6Owgj7PpREUC
- /eOpBiC87IPeTAph3bak/eDPS8yd/BHJXdqrJZJeSqUlLtNavxfut/QBoMufkxad0FCCvvJCZ0S
- 63lhaSq7PY1P9c18tnHjWFrSgXFLEtRcHWiG0io2A+0M16Z+T99XHo+iBXYR47YYTdNEiGqu8S6
- tAuS296MjQ7tLZO5tqa8BRWfSG2w+V8MSWDXjXANJ9p9DJ776NGj3zPzIGOwnC40wL0hSBAKQM6
- LieB15SYTWg1kv3XCA2Mg4xhFBfIENTa7VZp5QliOtJl12A1FslXPVQSYnQMcoe8zaqjNDePjmh
- hlRarEfv51WoEYnBf2BTuw9sqVkm5gg7htUPefjl+5ZYN6W72tWlzfpAK/N8R2tQuiwecKuh76+
- i/jZQLh18pe6d++ugaG5Hp5mrIIJQSjvPteUVH/oFJRK5vAlUnk0GfAJQYQM7vU8lJ8v2iF+uqG
- PIS3fW7tcynB0ag==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Authority-Analysis: v=2.4 cv=S+5MU4sP c=1 sm=1 tr=0 ts=6af5dd13 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=bNGo_Fnal8ggQfzXgYoA:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2MiBTYWx0ZWRfXxPfWrylk1z2J
- g0qzXp/Y9+MJIFwcjXgglwuvXlIj6WzhsEbIQ+9mZTi/BnVzupziuMmwC5AdwwhlyMok+NBLqS6
- lhhxAfFXdqivVQjPobgYdRdGJ+GVuhKr1Gg8YQJoXP1k2e+IPw2x52JwwHfO5seFql94kcPo9Gh
- L/jGZUInQ858zwRslvh6Agvde1dycF+wcx7RlwmzkfwgL9YlYX2DZHpmyCbdYkrTf+vU2LH4QMW
- xby5WOKudkyIKhJq0d7iNf5XOvH8Djvtx7yKz07GKQuegaseFyiHGzgd6JTjp+Pwj6gCjhXB+mF
- KXqL1/gf67ysQjnahXg7yekwURMmCLppIz9et+GWmxmQ65hKKc/XsxDF96Iwfor+Yl1wqAecbvS
- doEdrbVGgUkwl9RbGJ63x8BAPEaQcliR1NfYlYXhNqLEcsud89oXQQxC0a2lMaMnqKfALm79mqJ
- Ipo4mYL9dLG5zE9OwNg==
-X-Proofpoint-ORIG-GUID: PL4XXj3FGB2V-4ozdMxA8lagixqSsWpE
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2MiBTYWx0ZWRfX63vcBeSDm7qP
- T4f5tVGM3GJh2PMWD0hRzHaXlZujCkFDco/OXgOpoSisNSFamSYtoBH3lBsdapfEADEMUDM740D
- nHLDFpZTLjLeDCzNkHWC6jAUmHfg5WM=
-X-Proofpoint-GUID: PL4XXj3FGB2V-4ozdMxA8lagixqSsWpE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_02,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 malwarescore=0
- adultscore=0 spamscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120062
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v2 5/9] MIPS: Ingenic: Update Ingenic XBurst
+ implementation IDs
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <f91a0c53b35ff28bed26622f46d562b5a6150008.camel@crapouillou.net>
+Date: Thu, 12 Nov 2026 16:37:49 +0100
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Paul Burton <paulburton@kernel.org>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>,
+ "Christophe Leroy, David Heidelberg" <david@ixit.cz>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Takashi Iwai <tiwai@suse.de>,
+ Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+ Paul Boddie <paul@boddie.org.uk>,
+ Olivier Louvignes <olivier@mgcrea.io>,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ letux-kernel@openphoenux.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <3892D527-E3F1-49CA-8557-2C62E2C015C4@goldelico.com>
+References: <cover.1794471031.git.hns@goldelico.com>
+ <2e21dc4889ec55bf210dfc205bfadb57acb93eda.1794471031.git.hns@goldelico.com>
+ <f91a0c53b35ff28bed26622f46d562b5a6150008.camel@crapouillou.net>
+To: Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Hi Paul,
 
-On Nord, the eUSB2 PHY registers sit behind the AHB2PHY_0 bridge, gated
-by NE_GCC_AHB2PHY_CLK. When nothing else holds it, e.g. on boards
-where only the USB20-only controller is in use, clk_disable_unused()
-gates the bridge and PHY init accesses go nowhere:
+> Am 12.11.2026 um 15:03 schrieb Paul Cercueil <paul@crapouillou.net>:
+>=20
+> Hi Nikolaus,
+>=20
+> Le jeudi 12 novembre 2026 =C3=A0 09:10 +0100, H. Nikolaus Schaller a =
+=C3=A9crit :
+>> Add PRID implementation constants for Ingenic XBurst and XBurst II
+>> processors and handle the corresponding implementation IDs in
+>> cpu_probe_ingenic().
+>>=20
+>> The PRID table is updated based on Programming Manuals and hardware =
+tests:
+>> - jz4780: 0x3ee1024f (confirmed on CI20 board)
+>> - x1000:  0x2ed1024f (unconfirmed)
+>> - x1600:  0x00d00000 (confirmed on LX16 board)
+>> - X1830:  0x00d00100 (unconfirmed)
+>> - X2000:  0x00132000 (read out from LX20 board)
+>> - X2600:  0x001320xx (confirmed 0x00132000 on LX26 board)
+>>=20
+>> Additionally, clean up extra spaces in the comments for
+>> PRID_IMP_XBURST_REV2 and PRID_IMP_XBURST2.
+>>=20
+>> Distinguish XBurst1 implementations with different SIMD ISA revisions
+>> and identify XBurst II processors using PRID_IMP_XBURST2.
+>> The XBurst II classification follows the Ingenic vendor kernel.
+>>=20
+>> Keep the existing writecombine handling unchanged, since no
+>> independent evidence justifies changing the cache attribute for
+>> XBurst II.
+>>=20
+>> Public references:
+>> - Ingenic Community, public SoC datasheets and programming manuals:
+>>   https://github.com/Ingenic-community/datasheets/tree/main/X
+>>   Includes the X1600 programming manual (X1600_PM_20220117.pdf)
+>>   and documentation for other X-series SoCs, including X1000,
+>>   X1830 and X2000.
+>> - Ingenic, XBurst1 CPU Core Programming Manual:
+>>   https://cdn.hackaday.io/files/1855627939084608/XBurst1_Core_PM.pdf
+>>   Documents the XBurst1 core architecture and CP0 configuration.
+>> - Ingenic, XBurst Instruction Set Architecture Programming Manual:
+>>   =
+https://www.setphaserstostun.org/ci20/X1000_M200_XBurst_ISA_MXU_PM.pdf
+>>   Documents the original XBurst SIMD instruction set.
+>> - Ingenic, XBurst2 CPU Core Programming Manual:
+>>   =
+https://www.manualslib.com/manual/2646351/Ingenic-Xburst-2-Cpu-Core.html
+>>   Documents the XBurst2 core architecture.
+>> - Ingenic, MIPS-LINUX toolchain R6.0.0 release notes:
+>>   https://www.ingenic.com.cn/news-detail/nid-343.html
+>>   Distinguishes MSA, MXA and MXU/MXU2 support in the toolchain.
+>> - Ingenic, MIPS-LINUX toolchain R6.2.1 release notes:
+>>   https://www.ingenic.com.cn/news-detail/nid-348.html
+>>   Documents MXU3 support and identifies X2000 as an MSA target.
+>>=20
+>> The public references document the available CPU, SoC and ISA
+>> information. The PRID implementation handling follows the Ingenic
+>> vendor kernel.
+>>=20
+>> AI assistance: ChatGPT was used to help review the PRID definitions,
+>> compare the Ingenic vendor implementation with the upstream code,
+>> and draft the commit message with public references. The code =
+changes,
+>> hardware observations, and final patch were reviewed by the authors.
+>>=20
+>> Co-developed-by: Paul Boddie <paul@boddie.org.uk>
+>> Signed-off-by: Paul Boddie <paul@boddie.org.uk>
+>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+>> ---
+>>=20
+>> Notes:
+>>     Changes in V2:
+>>     - removed the PRID_IMP_XBURST2_R2 definition and hints for an =
+x2100 as
+>>       there is no public reference
+>>     - merged into single commit changing the PRID definitions and =
+code
+>>     - reviewed details and rewrote commit message
+>>    =20
+>>     Open Issue:
+>>     Olivier Louvignes <olivier@mgcrea.io> pointed out that he has
+>>     simply reused the definition of the X1830 for the X1600. This
+>>     sets c->writecombine differently (_CACHE_CACHABLE_WA) from
+>>     _CACHE_UNCACHED_ACCELERATED as we do here.
+>>     Both settings appear to work but it needs expert comment which
+>>     is the right/better one.
+>>=20
+>>  arch/mips/include/asm/cpu.h  | 9 +++++----
+>>  arch/mips/kernel/cpu-probe.c | 7 +++++++
+>>  2 files changed, 12 insertions(+), 4 deletions(-)
+>>=20
+>> diff --git a/arch/mips/include/asm/cpu.h =
+b/arch/mips/include/asm/cpu.h
+>> index add26f08e8029..79fd9a0747cf2 100644
+>> --- a/arch/mips/include/asm/cpu.h
+>> +++ b/arch/mips/include/asm/cpu.h
+>> @@ -47,7 +47,7 @@
+>>  #define PRID_COMP_CAVIUM 0x0d0000
+>>  #define PRID_COMP_LOONGSON 0x140000
+>>  #define PRID_COMP_INGENIC_13 0x130000 /* X2000, X2100 */
+>> -#define PRID_COMP_INGENIC_D0 0xd00000 /* JZ4730, JZ4740, JZ4750,
+>> JZ4755, JZ4760, X1830 */
+>> +#define PRID_COMP_INGENIC_D0 0xd00000 /* JZ4730, JZ4740, JZ4750,
+>> JZ4755, JZ4760, X1830, X1600 */
+>>  #define PRID_COMP_INGENIC_D1 0xd10000 /* JZ4770, JZ4775, X1000 */
+>>  #define PRID_COMP_INGENIC_E1 0xe10000 /* JZ4780 */
+>> =20
+>> @@ -186,9 +186,10 @@
+>>   * These are the PRID's for when 23:16 =3D=3D PRID_COMP_INGENIC_*
+>>   */
+>> =20
+>> -#define PRID_IMP_XBURST_REV1 0x0200 /* XBurst=C2=AE1 with =
+MXU1.0/MXU1.1 SIMD
+>> ISA */
+>> -#define PRID_IMP_XBURST_REV2 0x0100 /* XBurst=C2=AE1 with MXU2.0 =
+SIMD
+>> ISA */
+>> -#define PRID_IMP_XBURST2 0x2000 /* XBurst=C2=AE2 with MXU2.1 SIMD
+>> ISA */
+>> +#define PRID_IMP_XBURST 0x0000 /* XBurst1 */
+>> +#define PRID_IMP_XBURST_REV1 0x0200 /* XBurst1 with MXU1.0/MXU1.1 =
+SIMD
+>> ISA */
+>> +#define PRID_IMP_XBURST_REV2 0x0100 /* XBurst1 with MXU2.0 SIMD ISA =
+*/
+>> +#define PRID_IMP_XBURST2 0x2000 /* XBurst2 with MXU2.1 SIMD ISA */
+>> =20
+>>  /*
+>>   * These are the PRID's for when 23:16 =3D=3D PRID_COMP_NETLOGIC
+>> diff --git a/arch/mips/kernel/cpu-probe.c =
+b/arch/mips/kernel/cpu-probe.c
+>> index 489612ed9d498..69b68d00b66f7 100644
+>> --- a/arch/mips/kernel/cpu-probe.c
+>> +++ b/arch/mips/kernel/cpu-probe.c
+>> @@ -1768,6 +1768,13 @@ static inline void cpu_probe_ingenic(struct
+>> cpuinfo_mips *c, unsigned int cpu)
+>> =20
+>>   switch (c->processor_id & PRID_IMP_MASK) {
+>> =20
+>> + /* XBurst=C2=AE1 with ISA */
+>> + case PRID_IMP_XBURST:
+>> + c->cputype =3D CPU_XBURST;
+>> + c->writecombine =3D _CACHE_UNCACHED_ACCELERATED;
+>> + __cpu_name[cpu] =3D "Ingenic XBurst";
+>> + break;
+>=20
+> What SoCs actually use PRID_IMP_XBURST? The JZ4730?
 
-  xhci-hcd xhci-hcd.2.auto: can't setup: -110
+The x1600 has a PRID of 0x00d00000.
 
-Add Nord-specific match data that requests both "ref" and "bus" clocks,
-reusing the existing Qualcomm init sequence. The bus clock is enabled
-and disabled together with the ref clock in phy init/exit.
+It is a little confusing how these numbers have been assigned over time.
 
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/phy/phy-snps-eusb2.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
++#define PRID_IMP_XBURST 0x0000 /* XBurst1 */
++#define PRID_IMP_XBURST_REV1 0x0200 /* XBurst1 with MXU1.0/MXU1.1 SIMD =
+ISA */
++#define PRID_IMP_XBURST_REV2 0x0100 /* XBurst1 with MXU2.0 SIMD ISA */
 
-diff --git a/drivers/phy/phy-snps-eusb2.c b/drivers/phy/phy-snps-eusb2.c
-index ee473b32f116d..4c70d15210c68 100644
---- a/drivers/phy/phy-snps-eusb2.c
-+++ b/drivers/phy/phy-snps-eusb2.c
-@@ -452,6 +452,16 @@ static const struct snps_eusb2_phy_drvdata sm8550_snps_eusb2_phy = {
- 	.num_clks       = ARRAY_SIZE(qcom_eusb2_hsphy_clock_names),
- };
- 
-+static const char * const nord_eusb2_hsphy_clock_names[] = {
-+	"ref", "bus",
-+};
-+
-+static const struct snps_eusb2_phy_drvdata nord_snps_eusb2_phy = {
-+	.phy_init	= qcom_snps_eusb2_hsphy_init,
-+	.clk_names	= nord_eusb2_hsphy_clock_names,
-+	.num_clks	= ARRAY_SIZE(nord_eusb2_hsphy_clock_names),
-+};
-+
- static int snps_eusb2_hsphy_init(struct phy *p)
- {
- 	struct snps_eusb2_hsphy *phy = phy_get_drvdata(p);
-@@ -607,6 +617,9 @@ static int snps_eusb2_hsphy_probe(struct platform_device *pdev)
- 
- static const struct of_device_id snps_eusb2_hsphy_of_match_table[] = {
- 	{
-+		.compatible = "qcom,nord-snps-eusb2-phy",
-+		.data = &nord_snps_eusb2_phy,
-+	}, {
- 		.compatible = "qcom,sm8550-snps-eusb2-phy",
- 		.data = &sm8550_snps_eusb2_phy,
- 	}, {
+Obviously the x1600 is newer than X1830 (likely PRID_IMP_XBURST_REV2)
+or jz4780 and x1000 being PRID_IMP_XBURST_REV1.
 
--- 
-2.47.3
+So it may or may not be a PRID_IMP_XBURST_REV3? But we don't know.
+
+>=20
+> If it's really used somewhere, you'll also need to add a compatible =
+string for
+> it in Documentation/devicetree/bindings/mips/cpus.yaml. I guess just
+> "ingenic,xburst".
+
+Ok, will check.
+
+BR and thanks,
+Nikolaus
 
