@@ -1,61 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501875;
-	b=ejd7AV1SUmjEeE3DzSwVXfDulzm37ZfMnkH9wnTInxFM6ekEmzai6Qc3Agr3JSiDIzgV
-	 fjNKmXojpJVMwWKOBtydptaCl9QJFSG7Ee6xvHD3NYbcWW/vgAk+gT+xSyCESoUFmOdI4
-	 4aRA5eRltd0ck50U2NzU1ER39PQ4FA6G9EzeVFxMgz+3GSZexgb3o6BNAhomcDIEyv1OB
-	 ePknHrAjboasQIAHio9eva/BT8JTzD61gSrUUN9fVSpyKO1y3BtAlPuM53pEoz3HasgZy
-	 0K/NLYaJG8u+8x6oTrT2NKatF8d8ViyoSeEN1mUI6yeCx+/o944c2nEUumtfOMWyNGA==
+	t=1794501880;
+	b=AJ1FB/b4f4EVPvFRpxHZh5RARXoYVt6XETf1C6M7JpVbIAK/L74NnIY5LrchlQBQ3o5z
+	 KPH2kEqEVtY2xh6RlpiLRH77RIawE/Ft6mIUD6ZPGEEP+KWIUxdYiAgYQ9NjqKiAr8Ksn
+	 M3bP0/RWLkG69cucyPxnYt0vfXVXnXaoTae8IdRA/T6kn3qIgIxbtC5igs+m5KSdLH0R3
+	 TqoY9UXqqj2Ywc7+zbIDHo7Tp08cPqEIz2/dv5RLw76A9TaiylNGBs+pWIsRWYMCV2Udd
+	 8w4aUCrS3xcVEW9BRb5ba8TDy7pGDTE8gCPMW1M+Ee97lG7WTNbSIb8BevYVtMi46Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501875;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=z3ViWfJ9W+khV6jKvNxkFVN2vN2++OeGsa5sOa2jAVQ=;
-	b=2foLb5pilY95CMG/w3CwxwktQtsLtXxd5VoOJ1LhVdgA84SgKAEVS0Wl29tX1fIsjM/v
-	 3GSz6rU85z4G6E7lX5SdeVGb7KrUQ/UVsy0nD6aWXknnAUDbcmbaUaR5q0t38ScRxTy3O
-	 6v5poIaSBYt41F2DESsMjgWzsqwLGXOoFUOlFAWk8Oe6rF896tqTEYpTHUIVUHeIrvcB2
-	 oPi5RxiOsPR3w5Riy3BMAOFF+wBxXmf+VjAQmomDcXM1QPh8DCEzaUY91R9yjAVLiRaBC
-	 FAXxqpYf/gp3ytwZONriiQWaUMjWAsk9v63Yzth6uTaFrP/2FNKg/gE2SEaHGxj5uEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501880;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=L0I0n48oV5o7BRj/oH4f6pc2kqveIFdpMiqQByS78r4=;
+	b=pCUaVQst+cJxpfqqB8pH5mIM0FDMPQ2LTSszB0CWuZyENqD/lc/crCqQJSBYvPhPQLtd
+	 de1OCwp772hi9MWOTbcmVI/R1dpldl/Avzyj0Ggd7dFaZLCk1eWM8umy8XBQbmF5kEDaw
+	 Zoy/eoUrOV3KaYcFznHHHMOd8Q4g65ahcigp0wYHI9S/sJuWRR6C9sS3sCRtLjJlbZ5Dl
+	 yDNbiJ9tFZSCQLBd1s5FQOgYXF7eH4O41DcuI1W2npNwhfBfsBVK5k6bqpfooqdPTf4Rs
+	 uTaFlzxBNbAC0VnaJvtNuDuZDlLFR+5Y5/uCMvOjCdUOTfoF9R3vhQC9uvFZO5Sb7kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZSr+Xzy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=SuIlegSD;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D43B606A32E;
-	Thu, 12 Nov 2026 16:44:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F00606A331
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:44:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62F00606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZSr+Xzy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154421F000C8;
-	Thu, 12 Nov 2026 16:44:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794501874;
-	bh=z3ViWfJ9W+khV6jKvNxkFVN2vN2++OeGsa5sOa2jAVQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aZSr+XzyEtwhvDw3MrhY+Ck11MPK+xpKHGFqub+SieyaGcwHTo0cxeO/xn1ijmMWQ
-	 4L+2lxL1x1uE51enm/D0/sLf3MTn/SjVKdGKiK4nIF44oczOzjzkv1PMxT+ewuOEB2
-	 QNtHipzl7S59V2X4V4d6tl59HAaY441SCchQ7PivDpXq6ryIB9B+ArXkkFozrlddMy
-	 9Yprwgk2b0yZ/qlbTN2K6j6MAGAB+CdbJA3SAQTSo89sOtVPjnq42NCFdeWV8d0lVh
-	 FSttW9QRRjDH3brY2JnjumOeXYbjgIX4/5q8dbR03/sVcyI5w/1DBLAhOzPfLHr/MS
-	 1y7fNFL1yz6lA==
-Date: Thu, 12 Nov 2026 17:44:31 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Michael Riesch <michael.riesch@collabora.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
-Message-ID: <avXrRoIt0slXyaWs@houat>
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
- <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
- <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org>
- <avMM6a6xcDHT-zCR@houat>
- <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org>
- <avMgJ7MFks0sKD7T@houat>
- <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=SuIlegSD
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so155153eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:44:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794501879; x=1795106679; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L0I0n48oV5o7BRj/oH4f6pc2kqveIFdpMiqQByS78r4=;
+        b=SuIlegSDTiqLxvrjbgM1Q95iPFjnvtJm1AHCpbYH/Aa1M6ec3/6OeF0Inudj0wOHYZ
+         yZ7mAckhOQmOJVRTYUhe2ll5Ca8hBUUGL8CDuNM+jE2if7teqm7z7i2a60bjAqE65pzp
+         K1mWu1/+QywHczH0apEZY2OsitrAMzx8FfRoo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794501879; x=1795106679;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=L0I0n48oV5o7BRj/oH4f6pc2kqveIFdpMiqQByS78r4=;
+        b=OIRB+Mt2K/dEHtxiSQgqj4GIDQVDUBvgiAupsQe4kuSxEDQ58L1NeUn9t7GHB1/E1N
+         z/r/3sxLbMCftRRtUJZfx7aiP8JwyU1A7oi54JIn7oAeeRUSedlrWeukth+TB0h+oAJL
+         0KiZInYaan96++zPwBBFTZwgxEICb4VqoBc19ofKpwNTkuhFVIREpsgwTFAYJdvR+tUJ
+         xsoVf9VQm5VmJC98tlzawpSPLaEc2HKOk7/pb5/qXQq3GPvz6YF2sEDtFOjsWeMJWtfg
+         stHLlhd0pkZijEAU8gC0LE6X0eYMjp+WIZXXbWcgL/I4YP53uQEB0nJ1ovj4RAdjVF+u
+         nz3Q==
+X-Forwarded-Encrypted: i=1; AL+hErEoFYkzRMRwpCqG+ZCYIfQV28q6b3OZTTIlkMCwD3v7oIdl66af49W49chQS9kezeep5C1R+gNgViiObVQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/PcOSaZnPh4ntdubveMemB4z0qxYqQPDr/IYoS3nz0kPvPB7QA
+	UwmN98N60SShOCafeVvV3HsIksCTXUsU1+YNDIPzsrvR7+usmW7tCU5Wrg4wy3VQTg==
+X-Gm-Gg: AYBFou0Oml1qDBFbBVEfIJ6QX+Ea9m2X+380bJyM0UNQDet6+VeTMmP/hXn1DrISMdq
+	vmz2ggNfbaBqZiLdw2sJEtWP/IAy/fxWNa1h9pkVKX7YGE2Tii/5l4D4x1aQjiJXDGTH13VRxTT
+	Hq5Mk/Qx642yTBgRkeWz7p/noE6MVNObJjIlNoepN1jDxUh4a4rw89QcWDS6KAcbxgDfNv8Yqel
+	vRWFcllij6IVSL/eF9gNVl+vIo6oLOgWQqevwdrcP69M0xEe7oU4tmzBbXc6WWJBm7bG6XjEG9s
+	ErilwibdGLHtn5qteVIqlPNsESiv5a99xzfA2HricF6VwY2VJtLclSpUs7ufWRnCRNqoeWcFcTp
+	o3hzI7f/3OREP5FBSFR1YeV8IMrj6E5wZSCn01UaPX+vsRTnhkvH77tKIDcNOPGhBhSbuqZJwFM
+	8o1pjdi1wAiLR+fqZ8vrfO5h5FjCRLuYkHtJIkklAOAS8XkEZmKC/yqd9L/8V2vYkMYZARtvbTe
+	oR82NKXU+/Htk6mJUZ2LV0jP49A8dBgrMZXu1loJXIN9aTCWm1wUr2pwG8lOFzwdLcixNyMsodu
+	EvIQvuCL+DhgGmFLt4k4XzYK7sWLUIkkE9mPaJKPo5W1eDIUOIq6BdqTso0RAdJ2AnUD
+X-Received: by 2002:a05:701b:4551:20b0:194:3a84:e67d with SMTP id a92af1059eb24-1b5031b37dcmr81202c88.44.1794501879423;
+        Thu, 12 Nov 2026 08:44:39 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:5446:563c:ac92:43a8])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b5031b2519sm137097c88.13.2026.11.12.08.44.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 08:44:37 -0800 (PST)
+Date: Thu, 12 Nov 2026 08:44:35 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	Andy Shevchenko <andy@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent
+ to dependency
+Message-ID: <avXs826ikSctpUnA@google.com>
+References: <auzlLwlleGLPsLcw@google.com>
+ <CAJZ5v0g25xQeRaLJWJyAo2fcJko+gZ7w6JhX7FzMgRx2+uuimw@mail.gmail.com>
+ <au0oKFb9CmNzc6Cg@google.com>
+ <CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com>
+ <avOw_4ZkqtKFHu1B@google.com>
+ <2c3bda2b-ccc3-4430-8e09-81b25f6fcda7@rowland.harvard.edu>
+ <avSa97F1Nu1LTSCA@google.com>
+ <fc43eb13-816b-4cd0-9711-848fdab605ef@rowland.harvard.edu>
+ <avUHG8mLuTOUMr8O@google.com>
+ <CAJZ5v0j+8_fOc_EEGx4tquqcaH3-nmHd0YMJRb38t2Rw40iV3g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,199 +112,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="phinazzthwazdk47"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJZ5v0j+8_fOc_EEGx4tquqcaH3-nmHd0YMJRb38t2Rw40iV3g@mail.gmail.com>
 
+On Thu, Nov 12, 2026 at 05:13:09PM +0100, Rafael J. Wysocki (Intel) wrote:
+> On Thu, Nov 12, 2026 at 1:24 AM Brian Norris <briannorris@chromium.org> wrote:
+> > I'll give this some time in case Rafael had any other thoughts/replies,
+> > but unless something major changes, I'll plan to write/test/submit v3
+> > where rpm_idle() calls pm_runtime_mark_last_busy() (part of Rafael's
+> > proposal), and *not* make it conditional (i.e., no
+> > pm_runtime_use_autosuspend_always()).
+> 
+> That will work for me.
+> 
+> > (Or, Rafael is free to do so, since it's his idea. Just let me know so I
+> > don't waste my time on it. But I figure he'd rather someone else do the
+> > work.)
+> 
+> I can cut that patch.  It is going to be a one-liner if I'm not
+> mistaken and I'd like to write a changelog for it.
 
---phinazzthwazdk47
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
-MIME-Version: 1.0
+OK.
 
-On Tue, Nov 10, 2026 at 03:43:59PM +0100, Hans Verkuil wrote:
-> On 10/11/2026 15:17, Maxime Ripard wrote:
-> > On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
-> >> On 10/11/2026 13:33, Maxime Ripard wrote:
-> >>> Hi Hans,
-> >>>
-> >>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
-> >>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
-> >>>>> Hi everyone,
-> >>>>>
-> >>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@ke=
-rnel.org> wrote:
-> >>>>>
-> >>>>>> On media-centric camera pipelines, every entity is known at boot t=
-ime
-> >>>>>> and described statically (for example via device-tree).
-> >>>>>>
-> >>>>>> The V4L2 framework assumes that every entity of the camera
-> >>>>>> pipeline is always present. This is a reasonable assumption for
-> >>>>>> integrated cameras in laptops or phones. However, in automotive sy=
-stems,
-> >>>>>> cameras (e.g. rear-view or surround-view) can be damaged or discon=
-nected.
-> >>>>>> When the framework assumes all sensors are present, a single missi=
-ng
-> >>>>>> camera can prevent the entire pipeline from operating.
-> >>>>>
-> >>>>> This series has been discussed at the Camera & ISP "unconference" in
-> >>>>> Pragues (during Linux Plumbers)
-> >>>>>
-> >>>>> The notes can be found here:
-> >>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killara=
-us.ideasonboard.com/T/#u
-> >>>>
-> >>>> What is missing in this discussion is how userspace can indicate tha=
-t it
-> >>>> actually can handle partially instantiated pipelines.
-> >>>>
-> >>>> Today if one or more parts do not come up, the devices nodes are als=
-o not
-> >>>> created. This is typically exactly what you want.
-> >>>
-> >>> That's very arguable? We have plenty of other examples where we allow=
- to
-> >>> show a software representation of something that isn't available in
-> >>> hardware, starting with virtually any memory buffer allocation, but a=
-lso
-> >>> disabled CPUs, swapped pages, etc.
-> >>>
-> >>> For things a bit more related to drivers, things like USB root hubs a=
-re
-> >>> also pretty analogous. The "root" device will always be created, even=
- if
-> >>> devices connected to it are non-functional, missing or whatever. It's
-> >>> the primary interface that these devices might or might not attach to.
-> >>>
-> >>> So it's a bit hard to understand why the device nodes not showing up =
-is
-> >>> exactly what we always want.
-> >>
-> >> It's simply how V4L2 works today: video devices do not appear until
-> >> all components are instantiated.
-> >=20
-> > Sure but that's exactly what we're trying to change.
-> >=20
-> >> Most video devices consist of multiple devices (bridges, i2c devices,
-> >> etc.) and unless all are found and initialized, you can't capture. So
-> >> bridge drivers postpone creating the video/media devices until
-> >> everything is there.
-> >>
-> >> That also means that applications can safely assume that if a video de=
-vice appears,
-> >> it is functioning.
-> >=20
-> > Ish. The only safe assumption you can make about this is that it was
-> > functional at probe time. Anything after that is very much up in the
-> > air. If the device broken after probe for example, or if we have no way
-> > to tell if it's functional to begin with, that assumption is no longer
-> > true. So sure, that's what applications have been doing so far because
-> > there was no better way to do it, but I wouldn't qualify it as a "safe"
-> > assumption.
-> >=20
-> >> If we add fault tolerance, and you allow video devices to appear even =
-if they are
-> >> not functioning (or partially functioning), then that contract breaks.
-> >>
-> >>>
-> >>>> But here you allow partial instantiation, and how does userspace
-> >>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
-> >>>> There are no devices yet, so that can't be used, so what alternatives
-> >>>> are there?
-> >>>>
-> >>>> We've been discussion Fault Tolerant V4L2 for many years now, and ev=
-ery time
-> >>>> I raise this issue, but I never received any proposals.
-> >>>>
-> >>>> This must be solved.
-> >>>
-> >>> Is there any way to? You're saying at the same time that we must not
-> >>> create the device, but that an application would need to signal to th=
-at
-> >>> device that it can indeed be created. It's a circular dependency that
-> >>> cannot be solved on a per-device basis.
-> >>>
-> >>> During the meeting, we had a discussion that the media device should =
-be
-> >>> created as a "skeleton", and then as other devices probe they would f=
-ill
-> >>> in the blanks. How would that not work? Also what is your main concern
-> >>> exactly that makes you ask to not do that in the first place (or make=
- it
-> >>> opt-in)?
-> >>
-> >> Applications today assume that everything works when the device nodes =
-appear.
-> >>
-> >> If you change the behavior, then they just see a skeleton driver and h=
-ow
-> >> would they know that they need to wait until all components are found =
-and
-> >> it is ready for use? Or what to do if some parts are faulty?
-> >=20
-> > I really think that this discussion is not solely about probe. It's
-> > something we discussed during the meeting, but I think we should try to
-> > handle "my device was broken at probe" and "my device became broken
-> > while the system was up" exactly the same way.
->=20
-> If the HW breaks after probe, then you get EIO etc. errors. It's very rar=
-e and
-> the only requirement in that case is that you return an error and don't c=
-rash
-> the kernel. It's accepted that if the HW breaks, the application breaks a=
-s well.
-> And you have to replace your hardware.
+There's potentially quite a bit of follow-up, including patch 5 of this
+series (to drop now-redundant .runtime_idle() callbacks), but I can roll
+that separately if you'd like. (Would you want to make an immutable
+branch for other subsystems to pick the 1-liner up? Or just apply such
+patches to your tree, as it seems the IIO maintainer was probably OK
+with that?)
 
-It's very rare, but it's also because v4l2 has largely side-stepped
-entire use-cases. It's incredibly rare for a sensor to stop working but
-not the CPU on a phone. It's very likely to happen on a car. The only
-difference is that v4l2 is marginally used on cars.
+I also feel like there's probably room for unit tests in this area, but
+again, I can do that separately if they still seem valuable.
 
-> It's been working like that for >23 years (that's when I started working =
-with
-> V4L). This also means that for >23 years applications have exactly this e=
-xpectation
-> of how video devices behave. It's really part of the uAPI even though I d=
-on't
-> think it is ever explicitly stated.
->=20
-> To be clear: I really want to see Fault Tolerant V4L2 happening. It's cle=
-arly
-> very useful for a specific type of use-case.
+> After that patch though, using pm_runtime_mark_last_busy() elsewhere
+> will be mostly redundant except for pm_runtime_*_autosuspend().  Since
+> all of them call pm_runtime_mark_last_busy() (AFAICS), it looks like
+> last_busy can be updated directly in rpm_suspend() when RPM_AUTO is
+> passed to it, but if so, rpm_suspend() can simply set the autosuspend
+> timer unless it is already running and so last_busy can be eliminated
+> entirely.  I guess that should be done too (in follow-up patches)?
 
-It's not clear what you take out of that discussion though then. If
-you're stating that we shouldn't reevaluate ever the fact that a driver
-should only probe if it's functional at probe, and then report EIO, that
-means we can't handle the "it was broken before boot" and "it became
-broken after boot" after the same way. So do you disagree with that
-design goal and would prefer something else? ..
+__pm_runtime_put_autosuspend() still sticks out, but it's nearly gone.
+Its only user is just re-implementinng pm_runtime_put_autosuspend(), so
+obviously it doesn't actually make a difference. I've been waiting for
+someone to finish this patch...
+https://lore.kernel.org/all/20260806-smmu-rpm-v4-1-8183d007331c@oss.qualcomm.com/
 
-> But first we need a solution for this specific uAPI issue. Note that this=
- is
-> now to opt-in to Fault Tolerance, but in the future we might have other o=
-pt-ins
-> as well that modify the behavior.
+So I think you may be correct.
 
-=2E.. Or are you open to letting device probe even if we don't know
-whether they are functional or not, but only with an opt-in toggle?
+> Moreover, after all of that the difference between pm_runtime_put()
+> and pm_runtime_put_autosuspend() will become somewhat academic, so is
+> the difference worth retaining?  Or can we just say "If you set the
+> autosuspend delay, all async suspends will be deferred" and drop the
+> "autosuspend" variant?.
 
-Maxime
+That's my preference. I think having so many put() variants hurts a lot
+more than it helps, and especially so if the differences are nearly
+nonexistent.
 
---phinazzthwazdk47
-Content-Type: application/pgp-signature; name="signature.asc"
+> I also have to say that I agree with your remarks regarding the
+> .runtime_idle() callback.  I don't think it has ever been particularly
+> useful and life without it would have been simpler.  I'd be happy to
+> just get rid of it at one point.
 
------BEGIN PGP SIGNATURE-----
+Great! If a few other things settle, and I find that I'm able to clean
+up my existing patches to my liking, then I hope to submit such patches
+at a later time.
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCavXs7wAKCRAnX84Zoj2+
-dn4fAYC/JDY8AKZhObf7Q/W8WYJ0pGQR7XXN3SzC8C3F9ASAmRP/hWn7/fA4OyjS
-2icHROQBgKG3AffCWtHNQ601Yqp9DYljm2AnooBU76FpG/JHBRc1O1XMwXpTPdgS
-qfkAl/Wqpw==
-=Kltg
------END PGP SIGNATURE-----
-
---phinazzthwazdk47--
+Brian
