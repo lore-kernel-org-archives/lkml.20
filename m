@@ -1,62 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794525946;
-	b=rfscejnreK08br4BRKDP4YSqvntOi/5aUSrUnX/x9//R5/hbZkS2AaGhI1BeYk7ajIKp
-	 NbG2F7Wwor1H6gUZirdkc9LpEGz79Yjk3YtOkWSt1F7nNo90DWBdW6ZFKeBAPJ1IlKY9c
-	 qHdl8jW1U+1qL3fzA36O0vFE9Uk1uHW+qnUBM5OGZAEpbegwvlUjjuoG+OEtUOxJzfIj6
-	 05fZK+B1qyr676mC/ls6Ro+vUolGRGwyNHrvpwexWOSUaYZ6wXRgZkQGU+dNvfQ9yqqiR
-	 LUC5Pw3iq+Ce7T8SPVDk4PH/m2Z+8rkqQgtDGlo3g+fECy8l2O7bwTFrzeb3uv8lvxQ==
+	t=1794525980;
+	b=Lbw23RoHM1Zk8nW017wUOxgtJ3sA883OrdisTZ8VgiO8RJ90IMR1KcwOlkhmqcl2ES6R
+	 3bFSA+phq57VCVihai0sYpACjCGKeDEE6+7uNZEz1HAJbO4LGEWiCrCvjpd+MJ/VLQahD
+	 YgpXs8grziXRhRtZXBpzsObRZSVLKlXjn3DMV1KBc6yHARVlJHimjfDbnb4c/GYypzR2H
+	 nJFGeXxMKZfYlno/zq2sRr3KhWIERYWV0dGQB6AkSNraTMKNYIGRkOMCTLYqXayQKVdms
+	 11Iq1c15QjWvd4gL0UjX+m0jFEJaS+IHBW4uvn6QP2bhY/qFvTXitWt9BBRiXnBELWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794525946;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Infomaniak-Routing;
-	bh=T76uH9psnvSA8tO0kynH0zC7r5rVBFkGZPHF2OjedBI=;
-	b=MLZX0PyAYXBZb3TwKsEie07v72QWylLj1S05+Gi/Ma+Ktn5uZjK5SoaQoFEoggB9Apxz
-	 PUiDmw2B3Al6khNhC/Eiv32F4oRBuAcw5i9SCdgZ6alaJyHPAxGWTMLF6CPyA1SucJe6L
-	 UOjLy24djvsXCY++gbOhBtOYb0O08lrnS50XJk7vNkvzPxWURb6sXeeYd73oH6vDNURlK
-	 6jpBRhBjK4tG7bY4qsPEbgZmYHiv0LdhBxRRM/H1lwcMYI/RLTq1+/CWOlIjQl9BPgROI
-	 /PvtnfGfmDPiCyRazmhafm4ewVbCdL3rC5IAqnw8YlBRw7I31U6blM/puP24ZxOv3UQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794525980;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=J38QC4zGVSApOWHxQZjig0u/JJFe43mjBO118XfzzAo=;
+	b=Uu4SLKSNubLgL9h1bvN1wtLnRhZ1HiOlPT4v6WWsfPiYp7fvWJtns03AtFpQq4Vy+nQ8
+	 ILmR5nEyBzpvIgcUH4ducZAXBzLAQ5xsSpDdee7A9UBZ0Kp3X3fyeG4v1WLKMj953Jad7
+	 XxQjN2EeZsACFw6qjXzxlz/KoT17i8Wdknu4MahjlPRhTSSl+zuio9opA6DTkTR0n1c7s
+	 KF42uhyDcpZ7yN171ClswZN+956fcR/SquZ0265rYfPN2So5kfElzZdWdzbzBzjGxXLaJ
+	 GZpSPFbR3QlF8HUhh/ioTNwYD+DKKpRX2h/bHLkGc3lxAsJcFl4Z7Vq2DXi5MrlhTQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=digikod.net;
-	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=hEx1FvkR;
-	arc=none smtp.remote-ip=84.16.66.174
-Received: from smtp-42ae.mail.infomaniak.ch (smtp-42ae.mail.infomaniak.ch [84.16.66.174])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=arTc5cP9;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B0E606A31C;
-	Thu, 12 Nov 2026 23:25:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0B0E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B38606A321;
+	Thu, 12 Nov 2026 23:26:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1B38606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=hEx1FvkR
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jQc295Rklz84;
-	Fri, 13 Nov 2026 00:25:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794525937;
-	bh=T76uH9psnvSA8tO0kynH0zC7r5rVBFkGZPHF2OjedBI=;
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=arTc5cP9
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B759640E015B;
+	Thu, 12 Nov 2026 23:26:17 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id ev7x31dU7Kdu; Thu, 12 Nov 2026 23:26:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794525973; bh=J38QC4zGVSApOWHxQZjig0u/JJFe43mjBO118XfzzAo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hEx1FvkRwD99totD/HdQ0Et1+kpn16dVcqrdWj61iv4rgSMkwTBCoZpVFt39JMgRN
-	 OHp76Z26d3/GlWObC6E+G856bHToN0RGny1JXVoRqdvH5z4mMExNBB+rkmX+KCFS9A
-	 4RJKuGKKcQQf5E8Ku2Kjqe4iweEdpDhl9ArpsRgc=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jQc284b6Jzfc3;
-	Fri, 13 Nov 2026 00:25:36 +0100 (CET)
-Date: Fri, 13 Nov 2026 00:25:36 +0100
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
-Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, 
-	Shuah Khan <shuah@kernel.org>, Dwi Siswanto <me@dw1.io>, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] landlock: Simplify landlock_get_fs_access_mask()
-Message-ID: <20261113.ojir0eich9Ja@digikod.net>
-References: <20261108-b4-landlock-refer-nonfs-layer-v2-0-2b405fc1b3aa@gmail.com>
- <20261108-b4-landlock-refer-nonfs-layer-v2-3-2b405fc1b3aa@gmail.com>
+	b=arTc5cP9scb4LG+BWouiq/NIRHh4gIHtyH8p3oAAJD9LLoGhFRI30iChgzndC4zoe
+	 A27aXxLJXQITbh2dYvdph8BjP/AITZdKsrvJg8/SO4poMuOUlqo1+t45AYwOaKeHRf
+	 ZSrj2k16PSYaB+h68qmltmRtK2RN1fEeP2G1sCs9JLU0EomgqRosgIENEV1D24WKWw
+	 J7RLbUfy+0nun1a52Iba+5YM4VTPJXY6BSE4X9BJGO9G+9vqv0S17702n2XvMiqGDK
+	 DyRf//qlLlZ7uACmIXd47roW+rJBx+ihiUSshEKEmWV541PkT7HY3MdewbW98KwLs9
+	 VzDOgeMZW+/El6XQr/rzPZbN2TR3w5A9YHGuSJNc0RBivZo/Lro1UbPbfc1hvkyzp9
+	 igMUg6LtGt0dlvd2yvDcsPMTt4myYqjzyf6nn4fhLFgt9u9K461wkQoAazb0dNWmzi
+	 ty58s6SL1sp50fD9mS1Qtn+6vzigerDaXf0xU22wdTeMNiEGAdv7fvoeP6Zfx4LwUz
+	 /lPcTaUn6Em4igTXP1QmhUIo0smvE8/S2PBFeg8GonmYDjIWYi/w4tDxkXU/ZFTOUI
+	 K5/oScXHq5KEsSH1yVhhfRVMMjVuFM9MJ3JPQxzE8zswLwgfklbGQ9FAhVFrf8L2Yw
+	 2iGJp3v3SOhjZlmJbkip3LgQ=
+Received: from stx.tnic (unknown [209.52.143.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 02AA840E0231;
+	Thu, 12 Nov 2026 23:26:06 +0000 (UTC)
+Date: Thu, 12 Nov 2026 15:26:02 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Andrew Luebke <andrew.luebke@gmail.com>
+Cc: Tony Luck <tony.luck@intel.com>, Aristeu Rozanski <aris@redhat.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] EDAC/i5000: Fix the slot loop and re-enable the
+ driver
+Message-ID: <20261112232602.GAavZLCp3bZ7oNPR5c@fat_crate.local>
+References: <20261112181121.565824-1-andrew.luebke@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,57 +83,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261108-b4-landlock-refer-nonfs-layer-v2-3-2b405fc1b3aa@gmail.com>
-X-Infomaniak-Routing: alpha
+In-Reply-To: <20261112181121.565824-1-andrew.luebke@gmail.com>
 
-On Sun, Nov 08, 2026 at 09:23:50PM +0100, Günther Noack wrote:
-> Return the handled FS access mask as it is, instead of artificially
-> adding LANDLOCK_ACCESS_FS_REFER to it.
+On Thu, Nov 12, 2026 at 10:11:19AM -0800, Andrew Luebke wrote:
+> Andrew Luebke (1):
+>   Revert "EDAC/i5000: Mark as BROKEN"
 > 
-> Since commit d6c7cf84a24f ("landlock: Simplify initially denied access
-> rights"), the merge operation already bakes the initially denied
-> access rights (LANDLOCK_ACCESS_FS_REFER) into the a layer's handled FS
-> access rights. -- They don't need to be added explicitly any more.
+> Aristeu Rozanski (1):
+>   i5000_edac: fix slot number passed to determine_mtr()
 > 
-> No functional change.
-> 
-> Signed-off-by: Günther Noack <gnoack3000@gmail.com>
-> ---
->  security/landlock/domain.h | 12 ++++--------
->  1 file changed, 4 insertions(+), 8 deletions(-)
-> 
-> diff --git a/security/landlock/domain.h b/security/landlock/domain.h
-> index d9ebf4857fce..812c324cb6ef 100644
-> --- a/security/landlock/domain.h
-> +++ b/security/landlock/domain.h
-> @@ -262,16 +262,12 @@ static inline access_mask_t
->  landlock_get_fs_access_mask(const struct landlock_domain *const domain,
->  			    const u16 layer_level)
->  {
-> -	access_mask_t handled = domain->layers[layer_level].handled.fs;
-> -
->  	/*
-> -	 * Handles all initially denied by default access rights, but only for
-> -	 * layers handling filesystem accesses.
-> +	 * Initially denied by default access rights are already included for
-> +	 * layers handling filesystem accesses, see
-> +	 * landlock_upgrade_handled_layer_config().
->  	 */
-> -	if (handled)
-> -		handled |= _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
-> -
-> -	return handled;
-> +	return domain->layers[layer_level].handled.fs;
+>  MAINTAINERS               | 1 +
+>  drivers/edac/Kconfig      | 1 -
+>  drivers/edac/i5000_edac.c | 4 +---
+>  3 files changed, 2 insertions(+), 4 deletions(-)
 
-Could we add a small companion KUnit test to make sure the semantic
-doesn't change?
+Applied, thanks.
 
->  }
->  
->  static inline access_mask_t
-> 
-> -- 
-> 2.56.0
-> 
-> 
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
