@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478138;
-	b=lYEpKHgNAfcEdZeVyywcpwHT1YFSaXqX5p0VLOw0045BkfYUiH+0laNF3YglQv2zY7ei
-	 /czVF3mPFm/sqWqtg5N1RC5J3GHTxGVh7B+wMkWUWQK4HV3o8FxrVtR4kw+TQSXIAr5jZ
-	 V6VVy/e7cOjZ6aDng8DQBQiWoMJ/PQbgHJwx+HBZ8lt3Erw0qqEa7AOyECii9vzTIxH5F
-	 bAdMilqSPZydf6tbu71bJiEdZnTCAIcjMZrL7VLh/yGIiyymNIw44n+iBWn1Hxk9hZAm+
-	 7Wmk+TM8/6X9IRtlC0Gc8qQvNOsX3oWZ/mtUxiS1nMxIZhFuINVVzOeARDa74swxO8g==
+	t=1794478136;
+	b=ZZ99O8bNIlDBl/NNqeViTBC1MZskIqPjnOy3jTo9eSRt3t4LBZ/b87C9ChM7KCQEopwP
+	 eV7JXfL5oOmZDt1GL4djQ3zRkfgoG4Af2KWn31i7YUQrEeSq41Hc8jZPPVQUQzG9uuT1U
+	 pWcNOSB6mq3leUCX7Fl7BQwvDJrGLgb7doilfCrFZVGAgtS4IikSTsOvW5UmmZuWC9rgp
+	 RJPQOToPviHcckjqKQ4/2MOSJJFOoYPQEEXB+c/RaWWw4BeRljC3voVj4uuc2dMgNvRSV
+	 NosDRDXjCaIjvEsp2ZVuTSRY03xxhpeyFee/4Gk/FY5FnAWROhVqebrwzW+bkTeeYjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478138;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478136;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=c3Uerz6NVXCytr6ykqOceV0YspUsXoDMSUv7FULrkyw=;
-	b=w3ph0eKShvgJWfReOpIUMoWNfQRHyXk3tfu0x1DSgIrKxHwwW7B/f/iuzomPG6jwNws7
-	 TjUWfz9ehwcbEnZ1dneFsYb1rkVNdMDTOGiVjRrHPCM4AsYW+WcOTCineN8QRzhZs6sdg
-	 jT7uJ2whRCize0pTGatupsI8Cn4yf4uiCLreX0ZB9CVQ9IiZDag1lwxpytdvtgWk5WTl4
-	 fkohm6gftEwNihZqgxu+WLNWXj+aakP6ZAIEFwqbhiLjB7PXwyk4y2xhWQ4B/RrPMnJFf
-	 sOMZedRamPM+X98H2FynuGEC8vdI/4hVD4ypiJY/UAW9Mu0c4AHsd3N8bhBMjlSe+1Q==
+	bh=GYZI2TbfNbB54zmF9fDhfS5KLR8hYBAK5ZU+ntDYVgU=;
+	b=Q7tSaedzNfWUquZYBJGhiAUiJ8uKavLkwkK2uamNbZ8yfn6DRZ0Io575kHrLNXNHTeeW
+	 1ZQPcGuEeNS80GMWbZh8+i3E4oYENoFhcI4RR31UnxDUBY3/HLoS8fOCR6kzb+qZCnkqS
+	 9ob5E91QAe+HFdwEBG81MGmnz5GMaq+KjN4R2Ps2Cmjkffsga5tEkEVRVHA2mylKyHUsm
+	 e0ccK3/MNtbGhKx70miUL7Cl/zj57UlDG/jh8tp4gz7aBfBM1L/KERuuE90qm2h9rLZBN
+	 GXLRPCJKw2sdbS5mRHPdZKOFS6H0vtgubCuhT4FL33Hf32wCsU/c3FZWsS9RMbef4XQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GypQxgVu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ilD9MwXC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA12606A895;
-	Thu, 12 Nov 2026 10:08:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E297606A321;
+	Thu, 12 Nov 2026 10:08:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GypQxgVu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94C951F00A07;
-	Thu, 12 Nov 2026 10:08:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ilD9MwXC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE9D21F00A05;
+	Thu, 12 Nov 2026 10:08:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794478138;
-	bh=c3Uerz6NVXCytr6ykqOceV0YspUsXoDMSUv7FULrkyw=;
+	s=k20260515; t=1794478135;
+	bh=GYZI2TbfNbB54zmF9fDhfS5KLR8hYBAK5ZU+ntDYVgU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GypQxgVuK7RYKnec/3ahLhDPgn7nqYKDh0Kg3WWvfwCVdQUGd3h3voj2frxlM+6Qi
-	 z3NI/dAQWtQJ8mKUNDVKBmYVvmGaRYeybH362jCeh6CuxooymGb2iEo/Zd69cf87Fh
-	 hxnJ/BRIlV7HkIFy2VuGprKduVtpzo5bP7tNaY3yrTvqh7zUfaRNBiy40ykDX/spfs
-	 mIuK6EH1gEzTZYxnUwvFyqqDEfV2fLut+4IqbbqkkCm9wnRNEPCastwFaVqmxtSVWc
-	 biYCEr4Ta9+RTto73oyIKxtZ/JtpVs1jA20u3nnwn9VNQjzvIz2HV7GP+fePxQR5Fg
-	 RiA6AUIfPOpgA==
-Subject: Re: [PATCH net-next v2 4/6] eth: mpnic: UDP segmentation offload
+	b=ilD9MwXC5520N6YeS3vN2b1mHsCczauLN+nyrrr3AMQHF0l0WlxTlGo84+HMj6DMZ
+	 RWOG9ZmfNQy08QesKrSx0GEsZC8oG+ors7gmYzDY1xdJQeUphUxFVW5QVuiO8vx+Mk
+	 9jMBMqSjdAxP+hbUWgIG/KpgUe+fM5dvLJJMN8iacQ+lHNnkbPjojDci+GSFiUi5wg
+	 Eysxtl/lQOEL3Ds0N4gQQsWkQsXFqZpu3FKu/wPDth3wWeftrRQpGYa0dmrcCmDWL/
+	 jXGmECaG5F4xlKiclG1pFOQOfIGXw6BHG2q4i3axooSTYCSz5ooKmE+qB/7739G8hs
+	 62BSxYn/kpiJw==
+Subject: Re: [PATCH net-next v2 1/6] eth: mpnic: Tx checksum offload
 From: netdev-bot+sashiko@kernel.org
 To: daniel.zahka@gmail.com
 Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
  andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  pabeni@redhat.com, dimitri.daskalakis1@gmail.com, mohsin.bashr@gmail.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 12 Nov 2026 10:08:57 +0000
-Message-ID: <179447813712.2199510.12165491734923049464@kernel.org>
-In-Reply-To: <20261110-mpnic-lso-v2-4-ccd37b051d08@gmail.com>
-References: <20261110-mpnic-lso-v2-4-ccd37b051d08@gmail.com>
-X-sashiko-severity: Medium
+Date: Thu, 12 Nov 2026 10:08:54 +0000
+Message-ID: <179447813438.2199510.8203457737182862437@kernel.org>
+In-Reply-To: <20261110-mpnic-lso-v2-1-ccd37b051d08@gmail.com>
+References: <20261110-mpnic-lso-v2-1-ccd37b051d08@gmail.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -64,90 +64,104 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] This patch adds `skb->len < MPNIC_MIN_FRAME_LEN ||` to the
-  generic `skb_is_gso(skb)` branch of mpnic_features_check()…
+- [Low] The new per-queue Tx counter `twq.csum_partial`, which reaches
+  userspace as the qstats `tx-needs-csum` value, goes up too early.
 
 --
 
-eth: mpnic: UDP segmentation offload
+eth: mpnic: Tx checksum offload
 
-This commit adds NETIF_F_GSO_UDP_L4 support for non-encapsulated udp4
-and udp6 packets. As for TCP, the UDP checksum is seeded with a zero
-length. It also makes mpnic_features_check() fall back to software GSO
-for skbs shorter than MPNIC_MIN_FRAME_LEN.
+This adds generic Tx checksum offload (NETIF_F_HW_CSUM) to mpnic, including
+for encapsulated skbs via hw_enc_features. It adds mpnic_features_check() to
+make sure the skb header layout fits the Tx descriptor fields. CSO frames are
+counted and reported through the netdev qstats needs_csum counter.
 
 > diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-> index b78f8599bbe8f..2a0560b7dd19e 100644
+> index 93abdec44642f..65de6d999d548 100644
 > --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
 > +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
 
 [ ... ]
 
-> @@ -369,7 +384,8 @@ netdev_features_t mpnic_features_check(struct sk_buff *skb,
->  		return features & ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
+> +static void
+> +mpnic_tx_offloads(struct mpnic_ring *ring, struct sk_buff *skb, __le64 *meta)
+> +{
+> +	struct mpnic_tx_hdrs hdrs = {};
+> +
+> +	if (skb->ip_summed != CHECKSUM_PARTIAL)
+> +		return;
+> +
+> +	mpnic_tx_fill_hdrs(skb, &hdrs);
+> +
+> +	*meta |= cpu_to_le64(FIELD_PREP(MPNIC_TWD_CSUM_OFFSET,
+> +					skb->csum_offset / 2) |
+> +			     MPNIC_TWD_FLAG_REQ_CSO);
+> +
+> +	u64_stats_update_begin(&ring->stats.syncp);
+> +	u64_stats_inc(&ring->stats.twq.csum_partial);
+> +	u64_stats_update_end(&ring->stats.syncp);
+
+[Severity: Low]
+Should this counter be bumped only after the frame is actually queued to
+the hardware?
+
+mpnic_tx_offloads() increments twq.csum_partial for every CHECKSUM_PARTIAL
+skb before mpnic_xmit_frame_ring() calls mpnic_tx_map():
+
+> @@ -230,6 +263,8 @@ static netdev_tx_t mpnic_xmit_frame_ring(struct sk_buff *skb,
+>  	MPNIC_XMIT_CB(skb)->bytecount = skb->len;
+>  	MPNIC_XMIT_CB(skb)->desc_count = 0;
 >  
->  	if (skb_is_gso(skb) &&
-> -	    !FIELD_FIT(MPNIC_TWD_MSS, skb_shinfo(skb)->gso_size))
-> +	    (skb->len < MPNIC_MIN_FRAME_LEN ||
-> +	     !FIELD_FIT(MPNIC_TWD_MSS, skb_shinfo(skb)->gso_size)))
->  		return features & ~NETIF_F_GSO_MASK;
+> +	mpnic_tx_offloads(ring, skb, meta);
+> +
+>  	if (mpnic_tx_map(ring, skb, meta))
+>  		goto err_free;
 
-[Severity: Medium]
-This check applies to every GSO type. That means TCP GSO skbs shorter
-than 60 bytes now fall back to software GSO too, not just UDP ones.
+mpnic_tx_map() can fail in two ways. One is dma_map_single() or
+skb_frag_dma_map() returning a mapping error. The other is the head or a
+fragment being larger than FIELD_MAX(MPNIC_TWD_LEN). In either case the
+error path frees the skb and counts it as dropped:
 
-The commit message body only talks about UDP. The only mention of this
-check is the v2 changelog below the "---", and that text is dropped when
-the patch is applied:
-
-  v2:
-  - fall back to SW GSO for skbs shorter than MPNIC_MIN_FRAME_LEN, since
-    HW LSO would segment the zero padding as payload
-
-Should the commit message describe the effect on TCP? Or should the
-check move into the earlier "eth: mpnic: TCP segmentation offload"
-patch?
-
-With only the TSO patch applied, TCP seems to have the same problem. In
-that version, mpnic_features_check() rejected GSO only when gso_size
-didn't fit MPNIC_TWD_MSS. So a short TCP GSO skb reaches
-mpnic_xmit_frame_ring() with HW TSO enabled, and gets padded first:
-
-drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:mpnic_xmit_frame_ring() {
+mpnic_xmit_frame_ring() {
     ...
-	if (skb_put_padto(skb, MPNIC_MIN_FRAME_LEN))
-		goto err_drop;
+err_free:
+	dev_kfree_skb_any(skb);
+	ring->tx_buf[tail] = NULL;
+	ring->tail = tail;
+err_drop:
+	mpnic_tx_flush_doorbell(ring);
+
+	u64_stats_update_begin(&ring->stats.syncp);
+	u64_stats_inc(&ring->stats.twq.dropped);
+	u64_stats_update_end(&ring->stats.syncp);
     ...
 }
 
-Then mpnic_tx_lso() seeds the TCP pseudo-checksum from the padded
-length:
+The csum_partial increment is never undone. mpnic_get_queue_stats_tx()
+then reports it as tx->needs_csum, so the same packet shows up as both
+dropped and checksummed by the device, even though it never reached the
+hardware.
 
-	payload_len = cpu_to_be16(skb->len - skb_checksum_start_offset(skb));
-	csum_replace_by_diff(&tcph->check, (__force __wsum)payload_len);
+The same ordering is still there later in the series. mpnic_tx_offloads()
+also bumps hw_gso_wire through mpnic_tx_lso() before mpnic_tx_map() runs.
 
-Locally generated TCP GSO skbs are always longer than 60 bytes. A GSO
-skb built from a virtio_net_hdr can be shorter, though. Sources include
-tun/vhost and packet sockets with a vnet header. Such an skb can carry
-a tiny gso_size and only a few bytes of payload.
+One option is to have mpnic_tx_offloads() report which offload it used,
+and update the stats only after mpnic_tx_map() succeeds. Note that fbnic
+uses the same count-before-map pattern in fbnic_tx_offloads().
 
-In that case, wouldn't the receiver get the zero padding as TCP stream
-data, with a valid checksum?
+> +
+> +	*meta |= cpu_to_le64(FIELD_PREP(MPNIC_TWD_L2_HLEN,
+> +					skb_mac_header_len(skb) / 2) |
+> +			     FIELD_PREP(MPNIC_TWD_L3_IHLEN, hdrs.i3len / 2));
+> +}
 
-The check is still present at the end of the series, so the final tree
-is fine. The TSO commit on its own would still corrupt data if someone
-bisects to it or backports it alone.
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110-mpnic-lso-v2-0-ccd37b051d08%40gmail.com
