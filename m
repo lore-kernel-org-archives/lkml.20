@@ -1,52 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794464797;
-	b=ED4LVLhTbMwP8l+UhHNb9XOe8tSsXVB3QyhJ4DmH9vmImzXpEGCe0/J1hd1TWJBI0ELf
-	 Xa3DHBH8Ts08HHO8A1Q//FSYHJ5tCU/NzgtlH01LSTZRaFzzLxGV+2y78sXYDfZkpxbbf
-	 NUVTsW49QEpfYnSOGbYz1URauKQZ2yuX9+abnY92dMii5S5r6TBU+oGwbOUP44gI9dZ6P
-	 7+GpBKflC9wVxyQR2r9JQ7MZV5YeVNI6aBXhlLKZ4wRvY7q35NVE0VNdOYEPHJ/R6uPzW
-	 VfwSjROcUB991frt0AMJNqPbI7xqHquTpKWM2IWlzB7HPHoNa0X6tInZ00l/NFMmVYQ==
+	t=1794464841;
+	b=zkFL0XVWOWVV8Q/9Gg2xbsoq2Q8ehq2CdBfItQI7bAsekbylH/vzxx/96FP36h5UJaCd
+	 d4i62y9mqmSoeoUCDNiEPR9viVdbjHQcwUYXLnpgeZyQJgSkfL8B4d0l/9Vs9dzqpdC0U
+	 3+Ys+0UR9UiHCN9wrnLrj45Nd4+cr35bVpymR4qkqRHH8xPWlYvU0Y1YHVwhdvh0c6pxK
+	 XVdGm5x6lfCO7RaAWoeLj3dYAdwhdpE0ZCjyshnACwzdPzWQozX4wR6adCreFdyWDU+de
+	 kMmVboAtTw21bOoNCpCt/wbkVkA5YAWwS5g/F6q7wJfr96iihfcxXvXHqf3rPhk5NOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794464797;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=HQqBrTbEZxsA8ilEZ7vX7+ePIXnnagD5L9RGTt8hUKU=;
-	b=GlbrxLeaL7mTnjut/gx/g8i14oVTpl3yPJPhoQ3nJJscn1yVwqo59xXd1lWuO1p/qlCI
-	 IRRfff0+3CEnRntAdUGLETCZfyutYiO3kXSEzsmsbKb3QdZVUyq7NxqNrbXhECX608Fis
-	 +mR9tmXFL9EJiPLp2GEfgV8BLyKUeYso51CeeQ3hD7LpHWgAONBpHmpuUEWTlMAogVCOX
-	 dnF5lxAZj+FcAThG/PeREwG3IBDrY3HsoImdTbJzJTZvzZ9xaKcsKxzFqgkbmUrruQU8r
-	 oo8kHihauDFce7d/njQS1NLPgVgZcfWI854PyB+EUXNTRmziDztkW4uA5xDeWYHDrGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794464841;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type;
+	bh=RF8nSYHgZ3mAndPkH0mt47AX5IWuspIpOM9gMeupC3M=;
+	b=0MlYHtYb6TgnsTE3HvOyMr0piMvVHgLAZD03sEx5SnnBLAHjk5JF9ntm2nCVXTtVcuS3
+	 fa3PyMuYLRxVh0LxULwUu/vTh2ezE97bdZpk+6uO2qYC56V+76hcP4HDKvBy0HCRki8O0
+	 TIwaM7ZC/pmQhcQe3LjPqpsffKenP1m9jNcHmSCGXoL95vyOx+SIjXbY5Fe7whWkgaEJy
+	 De+HvRyfbCEOdv+ITlypSN1uLJaSvXrouCneF+z6F37mNaSEJ1/llzQH4HFkWKUEFz9h5
+	 8+t6QnxJ8ZoQXfwSLCymK3L4zfD7CnwxTlq4Hh1Htokqe//QUNYoKpBtWh7+qwhyNEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=UrOqU3G3;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=ffroot.co.za;
+	spf=pass smtp.mailfrom=ffroot.co.za;
+	dkim=pass header.d=ffroot-co-za.20260707.gappssmtp.com header.i=@ffroot-co-za.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=oALOAzYZ;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C78606A33D;
-	Thu, 12 Nov 2026 06:26:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3C78606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22266606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:27:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22266606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ffroot.co.za
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=UrOqU3G3
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C2AEC10E394;
-	Thu, 12 Nov 2026 07:26:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794464784;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=HQqBrTbEZxsA8ilEZ7vX7+ePIXnnagD5L9RGTt8hUKU=;
-	b=UrOqU3G31RyOiOqFQExBFk/gH/aWva67ebwxY/V4/r0OTjA6A1UFpegkRCSIk+tE0mFD33
-	Wtq9qE24rFg0BigDkfjPT5qwA8YrIwZQ3w3riH6OlpJm2nnWA/jN/cHH7CsoiG+Zjv5H8s
-	E/36RtsB4sX3SoI6dWvu3cJq9oiVsR3iyJSf5l3MVmnzmE8thu8sBqXr3R3PmsiNsje4+B
-	u/2Sg8e5L1PhKDwi2FUzuKeGyk3GJFv1gMY3l1XSVsP4WkfoC2zBLgDqUQQVb1pWSd3hmx
-	oklxgLxwfH6TWsiJPNTQWy0acnm0ueUh9EjoilfioFqZJTV4QX2/rNgY2fFCNA==
-Message-ID: <c3cbd7ab-e689-4a9b-b311-af43980738d2@nabladev.com>
-Date: Thu, 12 Nov 2026 02:22:10 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=ffroot-co-za.20260707.gappssmtp.com header.i=@ffroot-co-za.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=oALOAzYZ
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e47347279so2478741f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:27:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ffroot-co-za.20260707.gappssmtp.com; s=20260707; t=1794464838; x=1795069638; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=RF8nSYHgZ3mAndPkH0mt47AX5IWuspIpOM9gMeupC3M=;
+        b=oALOAzYZM+oMzDxJH9B2GI5my8j2p0IDL8+qPlDJUCJEYhlsBObm4Pk2X9QbvtFSpZ
+         2LyZDB49iDJ9+DtBhTuvu87YPbCsw/OSEJ5hJ2a0O6e7R1UzPKAPJX2NugKrRwtbtuq0
+         3xC7W0RvAhGt+Qpx1VejPwHmlIT6VNajbZNU458fy6aueaBfNXqYFMW4jKMc/DI3TQQi
+         9Md/6tcZfofUoCwcALJPp26LEblCgoDZsESSyGZKCOdgOe7+3gW0qf0q93u/IoFJUcD+
+         uAYr5zfl7Q04WWv1nrxz6w+1RJBlxuYXZud+4X4NC12tJX840RdKGPQLBTmmYRJgKDZn
+         l77g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794464838; x=1795069638;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=RF8nSYHgZ3mAndPkH0mt47AX5IWuspIpOM9gMeupC3M=;
+        b=xSZoBVX9p+SVClYct53LEle0Cux2OySD84sj4ORPgOidJ5TnM3VR5iUj4YFD4kDVzB
+         kHxbn18Q0IEcczYfqtKdwH3xr8R/7n/bmtxmQg/lkcyOMJdpXzospIrryhA8J18xbGbY
+         DBEpE/TWnPodkQKzkbCXVnUf0jVf0tbfWDf0AgGeaGUUGTA875WeAqo9zx1Aoz2JTSCh
+         cntaLoi5esfi4kJlvqVWABuL4QJVN46d2oXsHifqjXAk6oKqiqjIp2wtH7/ZVPgrwnN9
+         Fj8ncAVX+St/iUIrLfZIUYVbxkINkp+jfbeGGbRx12+hg8/wvXe1PHyWcn/R9BmcLASA
+         x1gA==
+X-Forwarded-Encrypted: i=1; AL+hErEg2DWBIS3wzwCN5gS6NfeISzhk5LrJpnJgK3bZnxmDeBoG26DBur/njJebBPREIZMUFQh3DSFOaX1V2pE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XGPAwGn/cIm6D1jJ0z/bNS0xEUSz08W1AGUhFB2odVBcOj7bo
+	e9xjJlWiLY7xcPm114jYUpjO2h4ePWVL0KVIgtS2P2TC2yeTnA1fCGiByph0JBUNndI=
+X-Gm-Gg: AYBFou0x3Jm0MYtBth1ZMSi8LNZNf50G7+ZwfDiyrRQyhUIFsSEYX4PWbdz8xUOXjRr
+	alI60dohu2gUhKxR9FddkHsXJyDXjPBGT+23mb7oWxkI80Eu6xrgW4naMPUbK6r9E9GLYaZ+qis
+	SQ+PwOaw+8ugkyA2tif9HAAH55KHRbSXe1qXmuuGWudfgI6nXs4P70SQ3eie2G9xSl4xxSy1lOo
+	YUGqg7WZIzuq3UBNTVweMJ5J0HWdUrNfI4Bw3zasRFPWMSHMXyMeoXo2MzMtd6OMkyU5/g7/56n
+	icWGEGB9iX7BualzkmjtYi5NHyAZrt4CPT6Ri+cKs6Tc2fkPo0/XYvsBccFwyBLwkUwLpbdPZSE
+	yps4A6bEwMo2x7CTpxS2B7tSU4Z/01hbXsAeHMURPLSedXPK1S7uHdxNtGXeYZfzwG2XjafyrGJ
+	ynrh8Txsg6qJWfsj52LYXrXjuQ3SfVtUhIHcbVCB8DDt08UhpWCPN3GKpEUE5hRkkOLL1UdfJz/
+	3eehvr/tjoJDl5cv83AxOk6TyMkSK8TaPxlZVDxqH/yw9yyHA3/NJgfl3YyyAHLK63r6PIkN2Fy
+	sPHB2XmGhk13NcxiD7GEkdedtQiDxtb8OiS/pP28oNZRRe3/s1PebxbEtI7eizMSiKYQwkhwFVl
+	xTTw=
+X-Received: by 2002:a05:6000:460b:b0:493:2eb8:e7fa with SMTP id ffacd0b85a97d-499c888ce81mr7051233f8f.43.1794464838079;
+        Wed, 11 Nov 2026 22:27:18 -0800 (PST)
+Received: from andrew.office ([192.145.132.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4982eedfb36sm14820585f8f.0.2026.11.11.22.27.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 22:27:17 -0800 (PST)
+From: Andrew Gaylard <ag@ffroot.co.za>
+To: Lee Jones <lee@kernel.org>
+Cc: Dvorkin Dmitry <dvorkin@tibbo.com>,  Wells Lu <wellslutw@gmail.com>,
+  Linus Walleij <linusw@kernel.org>,  linux-arm-kernel@lists.infradead.org,
+  linux-gpio@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH 09/10] pinctrl: sunplus: Validate pin_func index in
+ sppctl_dt_node_to_map()
+In-Reply-To: <20261111215256.1982044-10-lee@kernel.org> (Lee Jones's message
+	of "Wed, 11 Nov 2026 21:51:54 +0000")
+References: <20261111215256.1982044-1-lee@kernel.org>
+	<20261111215256.1982044-10-lee@kernel.org>
+User-Agent: mu4e 1.12.14; emacs 30.2
+Date: Thu, 12 Nov 2026 08:27:11 +0200
+Message-ID: <sa6se1636ps.fsf@andrew.office>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,55 +103,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mmc: mmci: stm32: handle mmc power up
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: linux-mmc@vger.kernel.org,
- Christophe Kerello <christophe.kerello@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
- kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20261030215427.488298-1-marex@nabladev.com>
- <CAPx+jO8sc8gbxNQTjK2tx+1UPLqwwEof3E9vknHNc4kmbeB7oA@mail.gmail.com>
- <51207e63-ec60-4805-bf6a-b10647ee3866@nabladev.com>
- <CAPx+jO89Z0Z241L1jyB_3sUygdEwGicqT-WfHc6ppG8egHUO2w@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <CAPx+jO89Z0Z241L1jyB_3sUygdEwGicqT-WfHc6ppG8egHUO2w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
 
-On 11/11/26 12:45 PM, Ulf Hansson wrote:
+Lee Jones <lee@kernel.org> writes:
 
-Hello Ulf,
+> In sppctl_dt_node_to_map(), the validation loop checks that pin_num is
+> within sppctl_pins_all_sz, but does not validate pin_func (bits 15:8)
+> before indexing sppctl_list_funcs[pin_func] for fully-pinmuxed pins.
+> Check that pin_func is less than sppctl_list_funcs_sz when pin_type
+> selects a mux function.
+>
+> Fixes: aa74c44be19c ("pinctrl: Add driver for Sunplus SP7021")
+> Closes: https://sashiko.dev/#/bug/linux-977252d6-b0cc-4d3a-ae2d-59d1e2f8a649
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
 
->>>> -       if (ios.power_mode == MMC_POWER_OFF) {
->>>> +       if (ios.power_mode == MMC_POWER_OFF ||
->>>> +           ios.power_mode == MMC_POWER_UP) {
->>>>                   /* Only a reset could power-off sdmmc */
->>>>                   reset_control_assert(host->rst);
->>>>                   udelay(2);
->>>
->>> What exactly will this reset?
->> The controller.
-> 
-> Okay, I see.
-> 
-> In that case, this reset also makes us reset preceding updates to any
-> other registers, for example the clock register. I would not recommend
-> doing that here, but perhaps there is no better option.
-
-Does that pose a problem in the MMC_POWER_OFF/UP state ? I agree this 
-would pose a problem in the MMC_POWER_ON state, but here the card is not ON.
-
-> If I may I suggest an alternative solution, perhaps we can manage this
-> in the ->runtime_resume() callback instead. If the power_mode ==
-> MMC_POWER_OFF, perhaps do this reset there instead? Would that work?
-> 
-> Anothing thing that caught my eyes was the MCI_STM32_PWR_CYC bit that
-> gets written at MMC_POWER_OFF. This bit becomes cached in
-> host->pwr_reg, hence it's also rewritten at MMC_POWER_ON. Is that
-> intentional?
-I _think_ so, this seems to be used to power cycle the card.
+Reviewed-by: Andrew Gaylard <ag@ffroot.co.za>
+Tested-by: Andrew Gaylard <ag@ffroot.co.za> # on a Figment Design HW84 board
