@@ -1,49 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794469552;
-	b=V8KqpPmBGSRBt7s0JvB2dj0kXYHOGXsmKcF57no0qZ/ysXQLVIz3RfrxECXaO2NEuyNm
-	 sLVgWKXFSxcx69eA4N13Pkuzi2qSgPuCc8y4MoSa6iNxnl57Tx6ufiSl+ZAyCeAuzu2k1
-	 MKjMzuXr69SkrSnkOgyoRfdr7vohKf9cE+Fk1u4clTy71Fnfra6lGOoX41hdmNx6c4Q1a
-	 Cgu+nRQA4zz0IzyH6JqvFXU+oB+RRjIgTpLkyuzb4/tOXW/IMZdeFIYa10i2AHitCyC1u
-	 8DA6kBUW/Da20numcNMKvfCe2Qbk9mHfhJseJEhGFSfedhGGiZm3bLHU2wJcStWrl+A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=1ipUC7H77lYfFhyAhG5tjsj3Mmie5BRjwo0na4izMPx9AOShZ+grh4BIXOjkCJS8SYUO
+	 eFECWmG0Xjtojz6WXJ6g8lrd8eHHZ/6s3mrzwtxvXR8gmI2hQg/jX5WDLZ6QatypB1YRr
+	 95pLSfCqKVTl9/XwAB1pczPyo1L+pOxSjtSytEcbP4yJHODsCM8YQE+a8MLXSiT3HfgVQ
+	 Xb+0DzirAGz75yYshpCFM4+CjfXDsnmprSGoEez2tcnMTh+WI+vwKNMPAO9US2j9rjDGS
+	 ppsm4xNfdSDbDP8zARMHXblaQKfv0mU9xZh9ojgzMxzfuXTNPdtnKXe4B19RUIxTe4w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794469552;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=IKKC/UM4m3qaxcA+tytyNl/vCPkOElZC3udRKzR6ZA4=;
-	b=BSloWh1NBy8VGzFcRsiyCrEujR/MUAt5Ghw5o3u38y9uV2Yd4jmsfRXKGhoVkdxHK4Fx
-	 TJXr19g3M4X+K75pmeOlwqlnRFfdhrBZ67VjhK9UF0jtcmNiHP5iNHM+CsDdeMK83csk8
-	 ZjDgLDBUbS/Mt0IXJwVWwC4czmUIFD1od3IqluVmHWNEYXV+1LonYHdHiQSFlbAFZWH8L
-	 DiAJLc2rkFrcoZ0s4B/UE6lEdsgZjsvDSdH2uha0puxOrfgwj0UCM5MkSfOfhkwzw9lgA
-	 X/NSfVZJxGZm5x6sB3MWIbggQ4YObNaKLrO4gdMHvhmbfyNPUqYnTTqDTfvX9Z5Cpjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXfc0DEV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=y3w7lCKhUDSJO1hMkA378GpKP59GBJjooc29uy32nbU=;
+	b=B8iomBkcTJGClFG8FSWWTDP16eCiwsj7d1yGBk3USVYy3EZ/MFKSQ0RWTahgyp1hlBES
+	 GsPo049LvHaUyeQeawtEiDlnRybKxzwZZhY8IF39dss//ZDy5MpZIuEje9SD6e/p8HNHK
+	 F4GVBv5Bs4kBvxN2pVHCxs1qV8QVlZJ2XRi/IKsbN21Rku0CPXIt6Xb3ZdcBEfa7SLK9E
+	 bDdmOPtpvXvdH22kx4ca8lEKp3xeu5rOTz3rAAXASaP8mTxntj95vwjwtPEh3kIhsUwJ+
+	 FDlyClVVGRgVbmJ2Mb9ycUWW/3epILafTVAF8D2SVloJFOpQXw9YS/CF2cr7aS5B1ig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=laveeshbansal.com;
+	spf=pass smtp.mailfrom=laveeshbansal.com;
+	dkim=pass header.d=laveeshbansal.com header.i=@laveeshbansal.com header.a=rsa-sha256 header.s=zoho header.b=EqxCaVpx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B646F606A327;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B65606A321;
 	Thu, 12 Nov 2026 07:45:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72B65606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=laveeshbansal.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=laveeshbansal.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXfc0DEV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7231F00A05;
-	Thu, 12 Nov 2026 07:45:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794469552;
-	bh=IKKC/UM4m3qaxcA+tytyNl/vCPkOElZC3udRKzR6ZA4=;
-	h=From:Date:Subject:To:Cc;
-	b=HXfc0DEVWKfH6VyNWACNMJn9Gor/zzB9+VjvpAasAU4qUw/qcCh84P5WA9gVLqKWV
-	 +uroVi0brDy7u7r7yMo9UnNBDiGhZgVXt4vhE/EOVfR/3vxCrOdMFqNX6LkYYQqo2/
-	 qSNBZoFdh3GLCWHanNyaLB6JvQ+bpzs8dWIhimqOsVj5vMph6LrDtFujWYaiMbD0jD
-	 85gd//NB9j/Ospi6KccfkGzQCU50GeDgo9HRS2yj8t1QiNNfnFuSOAv22x/OkptWT/
-	 STzOj7bTWumh/8WWZbHgJlBEwjPCj4ZPxmIExkKsh/ohLZnwH90OKPTruHmp2XtpF3
-	 tDzCkb/87CnDg==
-From: Yixun Lan <dlan@kernel.org>
-Date: Thu, 12 Nov 2026 07:45:43 +0000
-Subject: [PATCH] pmdomain: core: connect consumer with supplier via device
- link
+	dkim=pass (1024-bit key) header.d=laveeshbansal.com header.i=@laveeshbansal.com header.a=rsa-sha256 header.s=zoho header.b=EqxCaVpx
+ARC-Seal: i=1; a=rsa-sha256; t=1794469439; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=oCUrl9IwMAMXQQlv0+PSYzq5FNDjzyU5MXLX5EPwX+ZbdC0yBhl+tULfTqhG4O4GB6GihjnbDrqqF/1sUWlOasYD4ZjH0gVNxzaY8oEZgWVYLWEW8hVecwiw9KJfJV72iErscjNXJAGyjk6w9QJ7VgxFDETpDuixGC1KYAuYvu0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794469439; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=y3w7lCKhUDSJO1hMkA378GpKP59GBJjooc29uy32nbU=; 
+	b=D//EkCDesnrkC8hSBSKs+caHHhQisMJnJEaqS6WJWsy/F1WWoK3dh/p/CXWyK3QEqTRs+Ou2M6KTZbnPvU9V7PORmdEs16SMoimcOH+hCSQ14aMfaRO4YxEwBJP0icoZg4u6PEy+qFtRsTcB8zjX1VnXSpRFxNDEr51OAcnVw6E=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=laveeshbansal.com;
+	spf=pass  smtp.mailfrom=laveeshb@laveeshbansal.com;
+	dmarc=pass header.from=<laveeshb@laveeshbansal.com>
+DKIM-Signature: a=rsa-sha256; b=EqxCaVpxSxZ2zq+LHH34yhkhLvzHMY6AqtXagGyp0K1P3wY3nMUYchRyTkQNa3IJGKOE+vLqCpnyO8YRZsvvJ0y3HCi0rY0xdMxS40Bskc9fiq7zSH9ppfusXxs/sTcFhphgVwUSBuUGotIYYLQ09Arh6GXCLOztx1JWBb5LqqE=; c=relaxed/relaxed; s=zoho; d=laveeshbansal.com; v=1; bh=y3w7lCKhUDSJO1hMkA378GpKP59GBJjooc29uy32nbU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794469437222955.0085428812287;
+	Wed, 11 Nov 2026 23:43:57 -0800 (PST)
+From: Laveesh Bansal <laveeshb@laveeshbansal.com>
+To: David Howells <dhowells@redhat.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Lukas Wunner <lukas@wunner.de>,
+	Ignat Korchagin <ignat@linux.win>,
+	"David S . Miller" <davem@davemloft.net>,
+	Denis Kenzior <denkenz@gmail.com>,
+	Maximilian Stahlberg <maximilian.stahlberg@uni-bremen.de>,
+	keyrings@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] X.509: Add KUnit tests for the certificate parser
+Date: Wed, 11 Nov 2026 23:42:46 -0800
+Message-ID: <20261112074246.99421-3-laveeshb@laveeshbansal.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261112074246.99421-1-laveeshb@laveeshbansal.com>
+References: <20261112074246.99421-1-laveeshb@laveeshbansal.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,142 +73,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-01-pm-device-link-v1-1-8932e0862378@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrDuQCSqkVyldaDLR0TaVREUQ7
- 26syw/e+3dIHIUTPIsdIq+S5Bcy6FGA7ZvQMYrLBq10TUQaFeH0RZenlvEjYUTjnVOeK9OUBvJ
- viuxl+zdf79tpaQe28xWC4zgBE5L2HnUAAAA=
-X-Change-ID: 20261112-01-pm-device-link-9fdd0fe59a49
-To: Ulf Hansson <ulfh@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Icenowy Zheng <uwu@icenowy.me>, linux-pm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5218; i=dlan@kernel.org;
- h=from:subject:message-id; bh=rCIzxjBGzLtWtA/9HuxoKy2Z3j8sZKgmeE7iPstfpdY=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBq9W6q20YqcaI2cKi+EUxMpYAxUUj1aqNY5HHt9
- ekY0IzYDqiJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCavVuqhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+3E/w/+KpA3MUqhFe9/TlB+f3FW1Yn75TK5DzrNAzbFHwqqZ8KwhEBoAuAe/
- 42J+ZaAunZXVbhEh4rRrppVozgWC74G30uUaoHfAORvQq9dYtwHFQTu8kZSH18zrxLkTEx/tpOq
- lcGSrmw0G6eX4sbkfG/H5xTAvniqk2e60uDxTB00hDQ1AeekjW33JWCs8IPbYcqFn1DkxB57K1j
- FOUGugg8FGTvmtPaPIPGdKzEFM28X7la3SijJtBGz5jjefKeJMD4V3dW7BqIoX3l53srPSHtO6C
- n6BuDG5i3BwCOvoB27WYOlsOM8ftHEZhAG/X7YaYSoCESIf/PfP9ztjcwUyDgwTOYCtcJjpN+WW
- 7UjTp1rP/YEo3h9J3NwvrgfLihw1ijUdt/DFrqkEIonEgxNK4cTBMbm+LRNY5/uL8lSH8xVGAc8
- DpR4I/VnZXfx57GjLvaRyIHDdYbAIbj/fztaKUcFcO1F0AR/YcNtNREEeN3JQgC8SshJqtuCvKn
- tN2vH8OIkIEC37FZw8gORV6W7pdtdMSxaJ3g60nCm7DRiDVW6PgseOe3lzQPhitxUXjH+xPz+rU
- U5FowduMY3UkhPLeAuZPEMPNKPV0k72X2P/AQmP8GcmRrwR5xeJAolLO46PF7u3UPBCywndjVuo
- yseDsBi9ykxxEagT5oYV63KUnl1IA0=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Connect downstream Power Domain consumer with the supplier through
-the device link API, So when the pmdomain driver is unloaded or unbinded,
-the consumer can be automatically notified and purged gracefully.
+Add a KUnit test for x509_cert_parse() that builds a small certificate
+in memory with different Subject and Issuer names. It checks that a
+certificate with an empty Subject parses, and that a Subject with a
+member that is not a SET and an empty Issuer are rejected.
 
-Signed-off-by: Yixun Lan <dlan@kernel.org>
+Signed-off-by: Laveesh Bansal <laveeshb@laveeshbansal.com>
 ---
-The power domain drivers under pmdomain subystem suffer fom
-the problem that unable to notify the downstream consumer with
-module unload or unlink event, left with stale sysfs interface.
- Curently, the solution is a) use builtin_platform_driver() API
-to disable the module unloading b) adding suppress_bind_attrs flag
-to disable the unlink interface, which prevent it from being 
-triggered from user space.
+Without patch 1, x509_empty_subject fails and the other three cases pass;
+with it, all four pass (arm64 QEMU/KVM guest, cbbddb6b08cc, 7.3.0).
+ crypto/asymmetric_keys/Kconfig            |  11 ++
+ crypto/asymmetric_keys/Makefile           |   1 +
+ crypto/asymmetric_keys/x509_parser_test.c | 160 ++++++++++++++++++++++
+ 3 files changed, 172 insertions(+)
+ create mode 100644 crypto/asymmetric_keys/x509_parser_test.c
 
-Take spacemit K3 platform [1] for example, without this patch,
-Removing spacemit_pm_domains module will trigger a failure to
-remove power domain, access pm_genpd_summary will result an
-kernel oops, See detail log below
-
-domain                          status          children        performance
-    /device                         runtime status                  managed by
-------------------------------------------------------------------------------
-lcd1                            on                              0
-    cac88000.dp                     unsupported                 0           SW
-lcd0                            off-0                           0
-audio                           on                              0
-gpu                             on                              0
-    cac00000.gpu                    active                      0           SW
-vpu                             off-0                           0
-
-gpu  lcd1  pm_genpd_summary
-
-(gpu and lcd1 isn't clean up)
-
-[  181.353671] spacemit_pm_domains spacemit_ccu.k3-apmu-pmdomain.3: failed to remove domain gpu: -16 - state may be inconsistent
-[  181.353889] PM: genpd_remove: unable to remove lcd1
-[  181.353896] spacemit_pm_domains spacemit_ccu.k3-apmu-pmdomain.3: failed to remove domain lcd1: -16 - state may be inconsistent
-
-[  206.228045] CPU: 5 UID: 0 PID: 2560 Comm: cat Not tainted 7.3.0-rc12 #81 PREEMPTLAZY
-[  206.238002] Hardware name: SpacemiT K3 Pico-ITX (DT)
-[  206.243027] epc : summary_show+0xaa/0x308
-[  206.247081]  ra : summary_show+0x264/0x308
-[  206.251224] epc : ffffffff809f50fa ra : ffffffff809f52b4 sp : ffffffc601273a80
-[  206.258542]  gp : ffffffff82333b98 tp : ffffffd601d5ec80 t0 : ffffffff80026b38
-[  206.265859]  t1 : ffffffd6092d3cb0 t2 : ffffffff81601810 s0 : ffffffc601273b10
-[  206.273177]  s1 : ffffffd601b92470 a0 : ffffffd601b92588 a1 : 000000000000000a
-[  206.280494]  a2 : ffffffd609ae8000 a3 : 0000000000000000 a4 : ffffffd601d5ec80
-[  206.287811]  a5 : 0000000000000000 a6 : ffffffffffffe000 a7 : 0000000000000000
-[  206.295128]  s2 : ffffffd6092d3cb0 s3 : ffffffd601b92470 s4 : ffffffd601b94040
-[  206.302447]  s5 : 0000000000000000 s6 : 0000000000000003 s7 : ffffffff8221e3a8
-[  206.309764]  s8 : 0000000000000001 s9 : ffffffff8172b8c8 s10: 0000000000000004
-[  206.317082]  s11: 0000000000000000 t3 : 000000000000017a t4 : 0000000000000002
-[  206.324399]  t5 : 0000000000000000 t6 : ffffffd609ae7178 ssp : 0000000000000000
-[  206.331804] status: 0000000200000120 badaddr: 0000000000000010 cause: 000000000000000d
-[  206.339829] [<ffffffff809f50fa>] summary_show+0xaa/0x308
-[  206.345206] [<ffffffff804b67f8>] seq_read_iter+0xe0/0x390
-[  206.350671] [<ffffffff804b6b86>] seq_read+0xde/0x158
-[  206.355697] [<ffffffff8063dee4>] full_proxy_read+0x54/0x88
-[  206.361250] [<ffffffff8047a03e>] vfs_read+0xae/0x380
-[  206.366275] [<ffffffff8047adc2>] ksys_read+0x6a/0xf0
-[  206.371301] [<ffffffff8047ae68>] __riscv_sys_read+0x20/0x30
-[  206.376944] [<ffffffff8101fa6a>] do_trap_ecall_u+0x19a/0x518
-[  206.382674] [<ffffffff81033acc>] handle_exception+0x16c/0x178
-[  206.388503] Code: 0a13 c00a 4c05 4b0d 3783 540a 3823 f804 3423 f804 (6b9c) 8552
-[  206.396050] ---[ end trace 0000000000000000 ]---
-Segmentation fault         cat /sys/kernel/debug/pm_genpd/pm_genpd_summary
-
-====================================================================================
-
-With this patch applied, either unload the module or trigger an
-unbind operation, the downstream gpu, lcd1 will exit gracefully
-
-or
-
-domain                          status          children        performance
-    /device                         runtime status                  managed by
-------------------------------------------------------------------------------
-
-Link: https://patch.msgid.link/20261108-04-k3-pm-support-v3-0-b9dc0857039b@kernel.org [1]
----
- drivers/pmdomain/core.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-index 964e44c2f78f..870fc8083bca 100644
---- a/drivers/pmdomain/core.c
-+++ b/drivers/pmdomain/core.c
-@@ -3543,6 +3543,8 @@ static int __genpd_dev_pm_attach(struct device *dev, struct device *base_dev,
- 		return -EPROBE_DEFER;
- 	}
+diff --git a/crypto/asymmetric_keys/Kconfig b/crypto/asymmetric_keys/Kconfig
+index c73979b2e98e..ca2c11f82e32 100644
+--- a/crypto/asymmetric_keys/Kconfig
++++ b/crypto/asymmetric_keys/Kconfig
+@@ -126,4 +126,15 @@ config VERIFY_PEFILE_KUNIT_TEST
  
-+	device_link_add(dev, &pd->dev, DL_FLAG_AUTOREMOVE_CONSUMER);
+ 	  If unsure, say N.
+ 
++config X509_PARSER_KUNIT_TEST
++	tristate "KUnit tests for X.509 certificate parsing" if !KUNIT_ALL_TESTS
++	depends on KUNIT && X509_CERTIFICATE_PARSER
++	default KUNIT_ALL_TESTS
++	help
++	  Enable KUnit tests for the X.509 certificate parser.  The tests build
++	  small certificates in memory and check which Subject and Issuer
++	  names x509_cert_parse() accepts.
 +
- 	return 1;
- 
- err:
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261112-01-pm-device-link-9fdd0fe59a49
-
-Best regards,
---  
-Yixun Lan <dlan@kernel.org>
++	  If unsure, say N.
++
+ endif # ASYMMETRIC_KEY_TYPE
+diff --git a/crypto/asymmetric_keys/Makefile b/crypto/asymmetric_keys/Makefile
+index 35172685c533..1ce91737ac89 100644
+--- a/crypto/asymmetric_keys/Makefile
++++ b/crypto/asymmetric_keys/Makefile
+@@ -22,6 +22,7 @@ x509_key_parser-y := \
+ 	x509_cert_parser.o \
+ 	x509_loader.o \
+ 	x509_public_key.o
++obj-$(CONFIG_X509_PARSER_KUNIT_TEST) += x509_parser_test.o
+ obj-$(CONFIG_FIPS_SIGNATURE_SELFTEST) += x509_selftest.o
+ x509_selftest-y += selftest.o
+ x509_selftest-$(CONFIG_FIPS_SIGNATURE_SELFTEST_RSA) += selftest_rsa.o
+diff --git a/crypto/asymmetric_keys/x509_parser_test.c b/crypto/asymmetric_keys/x509_parser_test.c
+new file mode 100644
+index 000000000000..c005b6fe68a6
+--- /dev/null
++++ b/crypto/asymmetric_keys/x509_parser_test.c
+@@ -0,0 +1,160 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * KUnit tests for the X.509 certificate parser.
++ *
++ * The cases build a minimal certificate in memory, vary the Subject or Issuer
++ * name, and call x509_cert_parse().  The key and signature are dummies, so
++ * Issuer and Subject must differ or the parser tries to verify the signature
++ * as a self-signed certificate.
++ */
++#include <kunit/test.h>
++#include <linux/cleanup.h>
++#include <linux/err.h>
++#include <linux/slab.h>
++#include <linux/string.h>
++#include "x509_parser.h"
++
++/* Name DERs: empty, CN=x, CN=y, and one whose member is not a SET. */
++static const u8 name_empty[] = { 0x30, 0x00 };
++static const u8 name_cn[] = {
++	0x30, 0x0c, 0x31, 0x0a, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x03,
++	0x0c, 0x01, 0x78
++};
++
++static const u8 name_other_cn[] = {
++	0x30, 0x0c, 0x31, 0x0a, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x03,
++	0x0c, 0x01, 0x79
++};
++
++static const u8 name_not_a_set[] = { 0x30, 0x03, 0x02, 0x01, 0x00 };
++
++static const u8 cert_version[] = { 0xa0, 0x03, 0x02, 0x01, 0x02 };
++static const u8 cert_serial[] = { 0x02, 0x01, 0x01 };
++/* sha256WithRSAEncryption, NULL parameters */
++static const u8 cert_sig_algo[] = {
++	0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
++	0x0b, 0x05, 0x00
++};
++
++/* 2026-01-01 to 2036-01-01 */
++static const u8 cert_validity[] = {
++	0x30, 0x1e,
++	0x17, 0x0d, '2', '6', '0', '1', '0', '1', '0', '0', '0', '0', '0', '0', 'Z',
++	0x17, 0x0d, '3', '6', '0', '1', '0', '1', '0', '0', '0', '0', '0', '0', 'Z'
++};
++
++/* rsaEncryption with a dummy 4-byte key; the key is not parsed here */
++static const u8 cert_spki[] = {
++	0x30, 0x16,
++	0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
++	0x01, 0x05, 0x00,
++	0x03, 0x05, 0x00, 0x01, 0x02, 0x03, 0x04
++};
++
++static const u8 cert_signature[] = { 0x03, 0x05, 0x00, 0x01, 0x02, 0x03, 0x04 };
++
++/* Write tag, length (up to 255) and @len bytes of @val at @out. */
++static u8 *put_tlv(u8 *out, u8 tag, const u8 *val, size_t len)
++{
++	*out++ = tag;
++	if (len > 127)
++		*out++ = 0x81;
++	*out++ = len;
++	memcpy(out, val, len);
++	return out + len;
++}
++
++static u8 *put_raw(u8 *out, const u8 *val, size_t len)
++{
++	memcpy(out, val, len);
++	return out + len;
++}
++
++static struct x509_certificate *parse_cert(struct kunit *test,
++					   const u8 *issuer, size_t issuer_len,
++					   const u8 *subject, size_t subject_len)
++{
++	/* The parsed certificate keeps pointers into this buffer. */
++	u8 *cert = kunit_kzalloc(test, 256, GFP_KERNEL);
++	u8 tbs[160], body[256], *p = tbs, *q = body;
++
++	KUNIT_ASSERT_NOT_NULL(test, cert);
++	/* Keep tbs[] and body[] large enough for the fixed parts plus the names. */
++	KUNIT_ASSERT_LE(test, issuer_len + subject_len, 64);
++
++	p = put_raw(p, cert_version, sizeof(cert_version));
++	p = put_raw(p, cert_serial, sizeof(cert_serial));
++	p = put_raw(p, cert_sig_algo, sizeof(cert_sig_algo));
++	p = put_raw(p, issuer, issuer_len);
++	p = put_raw(p, cert_validity, sizeof(cert_validity));
++	p = put_raw(p, subject, subject_len);
++	p = put_raw(p, cert_spki, sizeof(cert_spki));
++
++	q = put_tlv(q, 0x30, tbs, p - tbs);
++	q = put_raw(q, cert_sig_algo, sizeof(cert_sig_algo));
++	q = put_raw(q, cert_signature, sizeof(cert_signature));
++	p = put_tlv(cert, 0x30, body, q - body);
++
++	return x509_cert_parse(cert, p - cert);
++}
++
++/* RFC 5280 allows an empty Subject, so the certificate must parse. */
++static void x509_empty_subject(struct kunit *test)
++{
++	struct x509_certificate *cert __free(x509_free_certificate) =
++		parse_cert(test, name_other_cn, sizeof(name_other_cn),
++			   name_empty, sizeof(name_empty));
++
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cert);
++	/* raw_subject_size counts the contents, not the tag and length. */
++	KUNIT_EXPECT_EQ(test, cert->raw_subject_size, 0);
++}
++
++/* Control: the same certificate with a one-RDN Subject parses. */
++static void x509_named_subject(struct kunit *test)
++{
++	struct x509_certificate *cert __free(x509_free_certificate) =
++		parse_cert(test, name_other_cn, sizeof(name_other_cn),
++			   name_cn, sizeof(name_cn));
++
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cert);
++	KUNIT_EXPECT_EQ(test, cert->raw_subject_size, sizeof(name_cn) - 2);
++}
++
++/* A Subject member that is not a SET must be rejected, not looped over. */
++static void x509_subject_not_a_set(struct kunit *test)
++{
++	struct x509_certificate *cert __free(x509_free_certificate) =
++		parse_cert(test, name_other_cn, sizeof(name_other_cn),
++			   name_not_a_set, sizeof(name_not_a_set));
++
++	KUNIT_EXPECT_EQ(test, PTR_ERR_OR_ZERO(cert), -EBADMSG);
++}
++
++/* The Issuer must not be empty. */
++static void x509_empty_issuer(struct kunit *test)
++{
++	struct x509_certificate *cert __free(x509_free_certificate) =
++		parse_cert(test, name_empty, sizeof(name_empty),
++			   name_cn, sizeof(name_cn));
++
++	KUNIT_EXPECT_EQ(test, PTR_ERR_OR_ZERO(cert), -EBADMSG);
++}
++
++static struct kunit_case x509_parser_cases[] = {
++	KUNIT_CASE(x509_empty_subject),
++	KUNIT_CASE(x509_named_subject),
++	KUNIT_CASE(x509_subject_not_a_set),
++	KUNIT_CASE(x509_empty_issuer),
++	{}
++};
++
++static struct kunit_suite x509_parser_suite = {
++	.name = "x509_parser",
++	.test_cases = x509_parser_cases,
++};
++
++kunit_test_suite(x509_parser_suite);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("KUnit tests for the X.509 certificate parser");
+-- 
+2.54.0
 
