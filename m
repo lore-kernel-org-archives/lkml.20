@@ -1,61 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794456103;
-	b=kcMeKbgC5sSC03mu2joCxKpvNlh4A58/KwGrW/oDRUlcqZ0aFHHyoix6P8nN2DTuLR8y
-	 62fjJZ6tNVEavFynCEU7phHYpv9dK4j89+eSXCFqHAGjApbvlStB4FxuuI8ob3ot2DOrE
-	 S5vQvyL7ESbfklo8NAr9uPeDxiCFVmJ/to6mQh1dfISDHZAJCF26Hgh6HM2qM3MxmaoTU
-	 2vLlb5iCH5z11hpEawplaX3bgD7XwtDS2XrCZkZY3djpCvG7zad3OLP8Nf+FSJ5omWkcH
-	 7AWSHYreAfMOdGb5Ce4624hF35NNZuPBoyZMme7D4EVrUtJY46XE3hx8oAGGPlDvKmg==
+	t=1794456118;
+	b=n1F4Ggag6hTWyALwp8E6AoYVYfalNhFFYAklF37OiDnSZJBT5uQSPxKP1V83QPkYUPfm
+	 UEOlHMzu0VwUbS48LiofhGZihy/AqoYljQvjsGbaB9PU7b38L0idOkyVnGXe3QBULDljh
+	 FVjQI3A0DIiVQeakP8opDufMA0fEq85eD7q9ogdLctfQre5jG6ACLt02Fg+EUb+DTllFp
+	 OTHwtTjXVLuBe6axOetbI1mpUeLZArNGpuOr83V6w5Eu2j7KKz/VUwMAVwSoEeU5LZOOB
+	 JVM1UWgrp1n/1nU5W/S5jSKATKdv1w0dd5d2E+AdoMlZUCVmfGK/qbDgj52HtxeoQeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794456103;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=ANLz23Rke/l4eT311lEL+8VsHPwwlR8dTechKyhxJwA=;
-	b=KLFfToiFtEBIgki4K3L4cTRKmeebTpaUDaTpzY4TLrxYZTmietu9zNd0C/KSMAjb+mhS
-	 pJWGMEY4LfpUaldg3K5ADb7VdHpKGmaFnVy4a6CWdPkwLrQxXxtHrXaah2FExJFRyhAJd
-	 iBIsfT1fG46cXURaAGH1Bt4aycB8F/hlRWGIJaoCDK6jHJlNdSbQHFOsq1xVRcZONKt9t
-	 QyIYYPwQmyWYcNVRF6YyUSqM25fA6niL5D/xqrG6jgKfKLcY8Pfrfeht0VR78bYnP2Evf
-	 3C6tK3IXBsoh3U/hUnwpuSojGR7V02xolQeUkfACOnKl/OU8cXg3KyI+kENfS68yyRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794456118;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=6Eh5gMzjLNrE9pzuzA3bYCBZpoMbXdPIaF66JFz3LTM=;
+	b=L+/cTV0dDWTXAeY8o5nCsO4VdCn8tOGfZjrdlp122OodHulm6VmwVwy6pmTmHhSWChVa
+	 Wlp+yf3cQEOPA/VHFwATltjuWBC0IZnU44KA8zVZ/q1KpsBkbkwrJaUArt0nGmaTSVxel
+	 UiL0c0SSCGquwRaYpmVbPEMu47V6bTet2hXy63VKbU6ANIX+HH1ejgDh7M2YDu7yMzuSI
+	 8JIrPXcyjBSHAKfL6oLh36tnLp2sZ446bKobK5e7voODMnNNFFkwIcPBzHSx8xqBph+oq
+	 0mtzP8QQYrb6UOnRG0J9lAJYfoFbvVBoq6pIHqYcBaPjpKWfTAd0ZMPyqxVKbNCcOYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MOfIkSRb;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=dankook.ac.kr;
+	spf=pass smtp.mailfrom=dankook.ac.kr;
+	dkim=pass header.d=dankook-ac-kr.20260707.gappssmtp.com header.i=@dankook-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KdAKyYMu;
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7281606A31C;
-	Thu, 12 Nov 2026 04:01:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7281606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AA1606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:01:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90AA1606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dankook.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dankook.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MOfIkSRb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=AN
-	Lz23Rke/l4eT311lEL+8VsHPwwlR8dTechKyhxJwA=; b=MOfIkSRbAu9v+sKwb7
-	k9BpOeaM6Deq5uRkrb5UD5qwRVuMpL9InnVi5CStr1+TzaEdQo1ialmc9iQg19ZT
-	mdOhfsrenhKOXCjK2roi3vQzvZzMZhRSgI0yKdqw2iZN7j5NyY9sK9cBJpvQgqBw
-	OGBC4ezI0ZswuWeiwU98lbMm0=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wB3ZzkMOvVqkjBRHA--.54029S2;
-	Thu, 12 Nov 2026 12:01:21 +0800 (CST)
-From: Hongxing Xu <xing1989093@163.com>
-To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] bus: mhi: host: pci_generic: Add per-device ACPI reset
-Date: Thu, 12 Nov 2026 12:00:58 +0800
-Message-Id: <20261112040058.1986-1-xing1989093@163.com>
-X-Mailer: git-send-email 2.40.0.windows.1
-In-Reply-To: <c231a7b7-9036-4001-9ed2-e1c049f02dfd@oss.qualcomm.com>
-References: <20261109110352.1621-1-xing1989093@163.com> <c231a7b7-9036-4001-9ed2-e1c049f02dfd@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=dankook-ac-kr.20260707.gappssmtp.com header.i=@dankook-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KdAKyYMu
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b31ca7e0bcso43397077b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:01:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dankook-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794456116; x=1795060916; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6Eh5gMzjLNrE9pzuzA3bYCBZpoMbXdPIaF66JFz3LTM=;
+        b=KdAKyYMuYZofS2NMibKZIgNh2OtbF9bBkLbZHhk1ID6gsVSR7oqpDEVNXLv2HOIPBU
+         Ovr4fG6LVHA2GpaVMhEvkJxH0bRlRcKsrc9XNALo3ty5njB8kJoRxjeDZXHTnuH/gFYI
+         c6cF3h0VkpdaFm8W0UtN38l3geZeK5SjtgvcIKSwOFc0oVGoHCVF2t3p3R5rWhowd//z
+         JdS0sFR/vJOJwVqIuAILZ7KaRQ6RvrAcmH4VFkikUiYsPyNhpCa8w/YxpqLpNkrqEgnB
+         ZhizjJ9Zgy8gUccaL5ZumXMF/nFY6cFEqBlvkYt64HEJOvXVyjhH6x4Se2j4k52b6Sj1
+         qygg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794456116; x=1795060916;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6Eh5gMzjLNrE9pzuzA3bYCBZpoMbXdPIaF66JFz3LTM=;
+        b=ozP+s5h6/+JxIUdXYWq8dtZS/qJVctfZn3IWZVxLRBVcTuTDvuTKlIttoGbYlbu+Bt
+         9kDs0EFr6qMS07A21MJjAa2DDjrgUTTOl6eDs61CmzCrkssfL8pNQTI3zcBoYxZFogzK
+         r8JLOh43dK3U9BRppSQhKfMFBSD/A4zKar3Q8/Q8wL+pssa701qA2s/tlifOgDS92yUt
+         flpeLSTcCBdddP+BIea9EVLVmY2KzDR/zUSp6YLRgL6uhHl9xbf+mjfKclMgRMazsI+2
+         lnAw+IfIcF7vNtIJXvw8Ubc5NGAK/LzhW+osbXBXk3pa/F+1tX3RCQYOfNWNS4FYm40H
+         hFyw==
+X-Forwarded-Encrypted: i=1; AL+hErH6r3RXTIMU6l4Iwt6QQYtyu8Z7EIyPCtq3XQ+7rbgUOhIM1esRAtVZwWa8GpUSWzTgUWnSlEzwdX3OrZE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9MLQwuD9sgChm1+ZjjfzNMkkjtsGG/sZ/WieB8lGqe/AHmFzLt
+	vErAv5CdLf0qM4S2ayYzndglZMFVE7DQRODZ37+nn7RyIYZLmwVSagW0A9/LrOU8ink=
+X-Gm-Gg: AYBFou3bcAf52/Wg1XosGyHx/Rx02ubLKMd0W+VmpSPl0PUQpC6e9CjJVx8H9X49z/a
+	SoNH9dIxMhB7jqYQ0kiauUrFSygboI4OMjD2HBPNawZN59gh+s8z5vGkMiBL4fuI6FjVd8e13GT
+	8qkashD6JcvnXQH7zDtp43Zr811zZMhbt6i50RhGQXaH02A+83t8Qn3qEwx022mZ30Vx36V9ZkI
+	E8mkVQrJe90YoxKCVxoSkvoE5oV+2zHXzYN9STkbDukAONSzBhWzfWCM0sI0AQu2J6zXG1T1Q/i
+	xFV9oeCgwcHwH7QSkaERx/WduEbwrtqqUjqXeqTNynTTTXVvKmBvAkBHvNs/SNmkV3Xg7gDMcLS
+	8Eit0cg45SEpFNoGY1Eqh5heWu1C9USMEWr6egUytxg7FDHdjgJ4gALdAb77M0gRjK31aELDSd1
+	gN4HaUqtE5FyIz0QLRJXw9Rz6fRs3abb5gW+pEa3V9xzaSMaAHrmFlbnL63DhZzrJt80QODSyXq
+	RlT1Li7aXRxpQJBwI7A1FRKikqU2JsHsi6zusMj6cr6vb29j2Ixb/KVwZ7W52oCoXFF8gXTn40P
+	YQlTZJSMQdr9B5jC9Bp6YHXI
+X-Received: by 2002:a05:690e:4505:20b0:679:fa73:7313 with SMTP id 956f58d0204a3-67c67effe84mr2408584d50.22.1794456116554;
+        Wed, 11 Nov 2026 20:01:56 -0800 (PST)
+Received: from myarch ([220.149.255.19])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c589cf1fcsm6209654d50.13.2026.11.11.20.01.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 20:01:55 -0800 (PST)
+From: fixca <jaehoon1744@dankook.ac.kr>
+X-Google-Original-From: fixca <jaehoon1744@gmail.com>
+To: shumingf@realtek.com
+Cc: broonie@kernel.org,
+	Vijendar.Mukunda@amd.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	JaeHoon Kim <jaehoon1744@dankook.ac.kr>
+Subject: [PATCH RFC 0/1] ASoC: rt1320: LG gram 16Z95U speaker works with the BIOS init values
+Date: Thu, 12 Nov 2026 13:01:42 +0900
+Message-ID: <20261112040143.6945-1-jaehoon1744@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261111013953.4011-1-jaehoon1744@gmail.com>
+References: <20261111013953.4011-1-jaehoon1744@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,53 +102,52 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wB3ZzkMOvVqkjBRHA--.54029S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJr17Gry8Ar1Dtw1xJryUGFg_yoW8uF1rpF
-	W7tw4DKr4kJrWIyr18Ja18ZFWI9395tF45KF1fJ39rAan8ZrW2yFW5tw1Fva9rCrs3X34Y
-	9FWaqryDuF909rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UsiSJUUUUU=
-X-CM-SenderInfo: 50lqwiqzyzimqt6rljoofrz/xtbC+xGqZ2r1OhHJcwAA3p
 
-Jeff,
+From: JaeHoon Kim <jaehoon1744@dankook.ac.kr>
 
-You are right, and my wording was wrong. I will remove the claim from the
-commit message.
+Hi Shuming,
 
-Now the background, which I should have led with.
+Follow-up on the silent RT1320 speaker on the LG gram 16Z95U (SSID
+1854:056c), from the "SoundWire audio for LG gram 16Z95U" thread. Thanks
+to Mark for applying the two ACP patches, and to Vijendar for confirming
+the AUDIO1_TX pin.
 
-On Windows wwan modules are reset through PLDR. The platform firmware exposes
-an ACPI method that drives the module's power and reset pins (FCPO#, RESET#,
-PERST#) instead of resetting the SoC with the link in place, and the Windows
-driver uses it for that. I am adding the Linux equivalent so that the same
-board can be supported without a vendor driver.
+The speakers now work, with one change in the RT1320 driver: using the
+values from the BIOS SDCA function initialization table of the SmartAmp
+function instead of rt1320_vc_blind_write[].
 
-What that path gives us, beyond simply being what the platform provides:
+Results on 7.2.15 (version_id=2, dev_id=0x6981):
 
-  - It does not depend on the endpoint's PCIe function being usable. No MMIO
-    access, no config space access, no link.
-  - The platform owns the pin sequence and the timing, so the host does not
-    have to estimate it with a fixed delay.
-  - The link goes down with the module's power, so the endpoint is
-    re-enumerated and starts from a clean PCIe and MHI state.
+  rt1320_vc_blind_write[]     stream runs without errors, silent at 0 dB
+  BIOS init values (patch)    speakers work, correct L/R, no distortion
 
-Concretely, on two of our modules, RW135R (SDX35) and RW151 (SDX81), writing
-soc_reset from Ubuntu reproduces exactly the situation your commit message
-describes, and it does so every time rather than occasionally. The module does
-come back on the bus, but it comes up reporting a MHI system error:
-pci_generic takes MHI_CB_SYS_ERROR, logs "firmware crashed" and forbids
-runtime PM, and from there nothing gets the MHI state back. The only thing
-that recovers the module is a reboot, which is also the only step in the whole
-flow that actually toggles PERST#. Resetting the same module through the ACPI
-method recovers it every time, because the module is power cycled and the link
-is retrained, instead of staying up across a reset that only targets the SoC.
+The BIOS table has the same structure as rt1320_vc_blind_write[]. The
+differences are listed in the patch description. Two of them stand out:
 
-So I am not asking for SOC_RESET to change. On these two boards it is not the
-reset that gets the module back, and the platform already provides one that
-does.
+ - The L/R mapping in 0x1000db15-0x1000db23 is swapped compared to the
+   driver, and the swapped (BIOS) mapping gives the correct channels on
+   this machine.
+ - Several registers are written only by the BIOS table (0xc5c2-0xc5d0,
+   0xc050-0xc063, 0xc582, 0xc60b, 0xc682, 0xdc20, 0xcd00, 0xcf02,
+   0xce1b-0xce44), and 0xc900/0xc901 and 0xd471/0xd479 have different
+   values.
 
-The point is narrower: these boards provide the host with a reset path that
-the MHI driver currently has no way to reach, and the MediaTek vendor driver
-already uses it. I only hope that the MHI driver can use this method as well.
+The attached patch is a test patch against v7.2.15, not meant for merging:
+it changes about 50 registers at once and I do not know which ones are
+required. DSP firmware and RAE files are still not loaded on this
+machine, so the speaker protection that Windows sets up (R0 calibration,
+EnableAdvanceMode) is not active.
 
-Thanks for catching the first paragraph.
+Questions:
 
+ 1. Which of these registers does this design actually need? I can
+    test a smaller patch, or narrow it down by removing groups of
+    registers if that helps.
+ 2. Would you prefer the driver to apply the BIOS
+    "mipi-sdca-function-initialization-table" in general, or a
+    per-machine table like in this patch?
+ 3. Could Realtek provide DSP firmware / RAE files for this machine
+    for linux-firmware?
+
+Thanks,
+JaeHoon Kim
