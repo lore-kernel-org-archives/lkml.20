@@ -1,75 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486799;
-	b=IMwtURSn0CgwmdPKtSaUH3RNvhOZmO70IPqhyhExNvFfjyS3tlbSsTMEKG5GsbXlQo9J
-	 6xpdmkAZ8TyOGoJOb/9r1+5nqvadISCQWxAj0TutOGjnLbpq19tQi/WQqwSsgl43pu3v4
-	 SoBto8pU+5k/4YDf+aNs2JBuYcNL3o5CFcZDkWDPQLCY5VjzZW0TdwsbZdztSCJ0D5siU
-	 7OQkD80iyuOtztxkAbbH5ILqKsEESDQHrbYOhzTeww6ohN1b7U8yg4at2kLVnkn6CIvl4
-	 8gpDsdCFbBOxl3n4tSdHAPgttZnEpbXSFXDlcefjOSeWESM0+SO1Gbw2HjnBhUJDNiw==
+	t=1794486812;
+	b=o4R1OjLsuPt5lUq5Tc1w+2+zc8BvbOPPED3PNSDznkihxsqXz43kmnnJAyl2x4Etg0mR
+	 lWMqFD44uBhWda/Y+KYIA+nWbrWEQUjz0y2z57/LI0t8KqikPtKzLJGy52gfmCcLGPcAw
+	 nE1IJbdNJPJmKYy5ZAC+VjILTVlcsdGRW22cp09GNfwzPkwuSfPPcnC6xIgXR7a2e5MjF
+	 JiA+5VbYjW6y3qjMaLw5+F5XuAh7YcKFSHkmF9RpWufpkX7VYId3iL29DERCS5fChN/s+
+	 rNPA4lb4mH9SObC/+LonwcwGeTTrq49nSdXQIzoL03sdhjLwXAVm4zjXoKHurwwwzKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486799;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DFTNJC77J9tgE0ZUnDgATKIY1weLjDkKxfUFz6j/nbA=;
-	b=Wa3aFOohvDNiI1hhR/5tcq6RDToNsIUYFVgKV9enB3+ZtOGonq7r903/DwKCH9WQZKiZ
-	 IXbUrFsTvcdTYa1aduIr8glXtTz5phZIoI8LoDEHKKvLMafxVM4wrb/XM2/+hNYOJhGP8
-	 Jwm3XaU1hE7kHZ9ipRs8IxkGsaZ46mN7+ShgKRly1jzcAdtR6yUXNlJy10+bkiqGWv2nA
-	 ibB1I+KcjafwO/Xsw1qPdGucZ7NYom5rGvkAmaHB7wH4ViWlVSS8XvfDegIWJpuIhpS4m
-	 3GDQSktAEkZHFgQtyvARJUc4RwK1eUUSTZ8WqqD+6qxolWOxkm/zN6kJE1CicQ/aClQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486812;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=J7e/HQWh9pXQoKTp7kH2sZAez1f8qPQApyE7NMQ7Dcc=;
+	b=scBfoURkYcjaUcuu96VYJt5qqGnFanII8IOHBzMUBLyqNpH05FFlJDJrHQOzhiVf/EM4
+	 EyS7qxEoGWSc4khtVEIe/eqdFuQbOkZ1lTX/THVQ2PryJyUKTh6EasWgloSzqu+xaMryV
+	 mAVzJ47CPri3Ys56toKnpMkBD3AWqjpYzKsy/vPADC9g0f6yhneU1h1MNbOXVvEvUj9oL
+	 GN6+PUIHLDk9EhkQqMA1G7xVxgn/cqR92/9PfVo7k1Kk6T6KtZFCNobZWGoPbQ5hukKzK
+	 Kzvww+zEnExlknTbo6XZXRmr5CySv8Dud/C0QemKMB9kka/1hYib0zcJYEJLhaf1R8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcnyYf4L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F587606A321;
-	Thu, 12 Nov 2026 12:33:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcnyYf4L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E91D1F00A05;
-	Thu, 12 Nov 2026 12:33:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794486799;
-	bh=DFTNJC77J9tgE0ZUnDgATKIY1weLjDkKxfUFz6j/nbA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IcnyYf4Lnmvno4HSaDYNqpLViApXQJxkxsTrmbBk1kxUnJoVojSJPuh7/q27zkDUe
-	 tspkSE3MSu6vxUJRoLTa7pCfCX2QRUgHs88Isq+w5Jqo8J/IJrVwRqefO9H016yWWv
-	 VF5EkeRCe5dSMxXZhQRCBXRjsdXQvhVu87d074n/znSQB/iUlkSFLToer3QfZnmI3m
-	 RGjscswltykJ4albLnBEHIJYeq7/eYGI7b7TFKoRIxYgODlHTf8YewkEMXYtZWd+qe
-	 5gAsaUol72u4NigCA9c5k8cUiVZOwLd5uZxmAsQvEBhkjfVry2KnkmuNxFHWRo4+8j
-	 KxGaZYiCTX+dQ==
-Date: Thu, 12 Nov 2026 12:33:07 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
-	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
-	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
-	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
-Message-ID: <avWxV0AcMe_5bAdc@gremlin>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
- <avWgulaWoKBfIFlo@pedro-suse.tail5790ac.ts.net>
- <avWtxdIHSJJ_uNwG@gremlin>
- <avWunRPQJQctsvYl@gremlin>
- <avWw2I3Or0z1OmqE@pedro-suse.tail5790ac.ts.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 602C8606A332
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:33:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 602C8606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-568249fbf5eso5364299b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:33:32 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794486811; x=1795091611;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J7e/HQWh9pXQoKTp7kH2sZAez1f8qPQApyE7NMQ7Dcc=;
+        b=KHRAo+23IT4CiNvQ3JOedn7Stje/qQhuPn0XUbENckIGGw+bhumYCiPBPcJMVpZDKV
+         WHyemCBoPEgSrzTcu+VEcY66ITbWqg9GZd62NaQWBUZyPwmM9e9QfMKZ51NgR1zw90OZ
+         cIT4hIWOAPQQaUwbmREPi980vfm0xGartSNeBvrB3TZ1roWkGyeE3e0/f4KVia+bgnoJ
+         Z9Gr4KmCU50zje0udvbXPjKWZcpbfQA29M0samqDWH/YJRhk8s9fe9LSGHSM8TOwaiq/
+         Qh+iPEHWrmBaHqOpi15b9++ksL8t0mibudwZtEVZuubYBCzv1/sy3pOtNQCoXflZeAT2
+         QwbA==
+X-Forwarded-Encrypted: i=1; AL+hErGAh1mH4S3Sy2ShE9D4K4CXemPs3zssST7vLBolHoXRJyRP3WDpjyVQiJjaKb0ziLOnLIgI+UNmIY10UlE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HXoaUWtPkNM9Yyvze88FrITQbQorZO+rBFn+TTwjrKZaezn7p
+	rta06Z07TNX+CrgIENKTMyXGWSxO0lDzmepICqBb58Y44nzJwN6Muj3SHAhWhkd2Mg4zWwndKyO
+	Ns8wVeVQY3QlwD6nl/feKcbcmJ83tvyz6EgN2g36NP8nyIr+UMeN9lnXHmGg=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,42 +58,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avWw2I3Or0z1OmqE@pedro-suse.tail5790ac.ts.net>
+X-Received: by 2002:a05:6808:4fe3:b0:556:82f5:5aaf with SMTP id
+ 5614622812f47-56b97d11f1amr5246723b6e.49.1794486811208; Thu, 12 Nov 2026
+ 04:33:31 -0800 (PST)
+Date: Thu, 12 Nov 2026 04:33:31 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af5b21b.0f67a820.5686f.00e7.GAE@google.com>
+Subject: [syzbot] Monthly ext4 report (Nov 2026)
+From: syzbot <syzbot+list388317f27f7b9295f8ac@syzkaller.appspotmail.com>
+To: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Nov 12, 2026 at 12:28:50PM +0000, Pedro Falcato wrote:
-> On Thu, Nov 12, 2026 at 12:18:46PM +0000, Lorenzo Stoakes (ARM) wrote:
-> > On Thu, Nov 12, 2026 at 12:17:21PM +0000, Lorenzo Stoakes (ARM) wrote:
-> > > On Thu, Nov 12, 2026 at 11:21:38AM +0000, Pedro Falcato wrote:
-> > > > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> > >
-> > > Thanks!
-> > >
-> > > > > diff --git a/mm/mmap.c b/mm/mmap.c
-> > > > > index 7618e72766a5..4cb18b217048 100644
-> > > > > --- a/mm/mmap.c
-> > > > > +++ b/mm/mmap.c
-> > > > > @@ -1313,11 +1313,18 @@ void exit_mmap(struct mm_struct *mm)
-> > > [ ... ]
-> > > > > +	if (mm_is_oom_victim(mm))
-> > > > > +		tlb_flush_mmu(&tlb);
-> > > >
-> > > > I see there's a different tlb_flush_mmu() call below (in the actual function).
-> > > > Is tlb_flush_mmu() idempotent?
-> > >
-> > > No, tlb_flush_mmu() is cromulent.
->
-> Naturally.
->
-> >
-> > (kidding, yes it's idempotent :P)
->
-> Great! Thanks for the cromulent reply.
+Hello ext4 maintainers/developers,
 
-That's gracious of you to say. I'm glad it has embiggened the debate,
-however serendipitously, and I can only hope it hasn't furthered the cause
-of antidisestablishmentarianism.
+This is a 31-day syzbot report for the ext4 subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/ext4
 
---
-Cheers, Lorenzo
+During the period, 2 new issues were detected and 1 were fixed.
+In total, 29 issues are still open and 189 have already been fixed.
+There are also 13 low-priority issues.
+
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 8189    Yes   KASAN: out-of-bounds Read in ext4_xattr_set_entry
+                  https://syzkaller.appspot.com/bug?extid=f792df426ff0f5ceb8d1
+<2> 6060    Yes   kernel BUG in ext4_do_writepages
+                  https://syzkaller.appspot.com/bug?extid=d1da16f03614058fdc48
+<3> 588     Yes   WARNING in ext4_mb_load_buddy_gfp
+                  https://syzkaller.appspot.com/bug?extid=fd3f70a4509fca8c265d
+<4> 358     Yes   WARNING in ext4_iomap_begin (3)
+                  https://syzkaller.appspot.com/bug?extid=626aa13bf52efc3aa86e
+<5> 3       Yes   KASAN: use-after-free Read in xattr_find_entry (2)
+                  https://syzkaller.appspot.com/bug?extid=fb32afec111a7d61b939
+<6> 1       Yes   KASAN: use-after-free Read in ext4_read_inline_data (2)
+                  https://syzkaller.appspot.com/bug?extid=085a394c92518a04fd09
+<7> 1       Yes   memory leak in __pcs_replace_full_main
+                  https://syzkaller.appspot.com/bug?extid=4d078516add5f4f12cea
+<8> 545     Yes   kernel BUG in ext4_mb_use_inode_pa (2)
+                  https://syzkaller.appspot.com/bug?extid=d79019213609e7056a19
+<9> 79      Yes   INFO: rcu detected stall in wb_workfn (4)
+                  https://syzkaller.appspot.com/bug?extid=5b4f4f81240931b16844
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
