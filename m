@@ -1,55 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794522850;
-	b=IGlCy+NTUkAhpYmzF1QfTKI6JvKpxd4eqEzfs+1g8P1akEeeVmSptynINrXS3k4wUZAl
-	 0EPURAWenQc4brY5udoUUw3BcepnR3I/a8pcikRfogOuBSWgan393GIzBUHax012ncqN2
-	 ms5uMY6PXDtKx+360X2fUgpJn97h/x3PRDSkyWzGB01lR83lC4H2wfyO1XgWW83CombaI
-	 VHIHd7osHAfH9aC7aTNFWektLhHovSbZ0WzsfkaJUI0kN8Ewn1fg0MvX0xavKipnWnFem
-	 DTkhxDSjXtlXrO5SgAUT21xHkNszHDhg0LrQDr+9tAODFF+wj+NaBAv+2u61gMoD+qg==
+	t=1794522853;
+	b=YBy6MZsojiK1fs92ZXp2WRG3Yg29GLTD0+AAh65KA+3TeK8eQnMRLUZzF3KpfK8ujIk/
+	 fGljo3li4+1yEtYub4jhLLTF4dtSxGYsg2NZeEyIe1gOaRRRU6JcnQnghU42TNKTlFzne
+	 IUR9efHSjHVnc1I51Rui5uuATs+Ygr/VIHm//wjR+sSBrAkfgX4hmzJ0ScnJOIFK0zI9s
+	 lV/74hSTpuZ1jOSk6O7mKrDVTJZi6gA2B9l6C54ONTHh4OP3w05HRg2/fd0Yc5WE5W/bs
+	 lfcY9EPnfz5WlHjcb3y0OCwusqxt9+pyqL4WPkTNqU6z7neUKWwdpiStWyaRHEncY8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794522850;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=L54BL4DHIvMAW1f3YiW+oYF8hYcaZJufQX76TBLYLdU=;
-	b=JgEm4UUhYt8airLfNY3GBWv0VJ8gFFQu4t6tr3xxPqfRoc9OGMlXknHDeR7bACbWEnQB
-	 NQIuByIIaSonh9d8goXuVevnnAgyJ6E3t9qqd1+tVVYRyavvcCa++APMZWEEiHvmBU8mi
-	 9pJsT1PpfZeUwh4+RxyChv8CGo5vf0ETYPW6U/RUtOmBSrS1pkrDOVAK5dhB/Ggk7B8mT
-	 ck+K3BRHuMwXuQX2pEdGaGiOQDrplkmcpFNxi3beBYhclhynsdVMmDEJLj+269JQiYKYs
-	 emNs9FnKt3K0IsnM5bw8SFce4Gc35OvjihnMNmRn355xdMb6bzah7Ux1A+PZcZbk88w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794522853;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=RZmkQsegMJj7uMwYkqEnAyJP3f797VptXlgVvu0XiXk=;
+	b=09e5s+spKLw6WwQDCE+53gisPaO8ByBnnOj5SuxnQd+DPHaDqt4ACrN4uQsXCu7eFKLC
+	 dEUEAS03hOsWZtJYhcg/Duo7uLZwgLxK383gjT8CJXmeKHsiHB0zvs4FS6qcU8Hz1N5jW
+	 pLoZhb6v00BUONVxDT6e+njbJA4Q2tF9v5AfxX9mg2mYb/Y0meayzfUJ2DioQQ/k22Ftw
+	 ysGDdNQyaD7c553PPtEwJ5A2vwX1r6k5Yy/ixnJ/ifVezwIYIjqa4sk4UoO3XbJIYlIjY
+	 wSssmuURPFKUsDqqKjR2GvSflVVdjeJdjivu/JwFC2Q13r0D9vFxnkf8LosEQCxkfuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJoVZPlJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZM+kP8bg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42918606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:34:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4536606A32D;
+	Thu, 12 Nov 2026 22:34:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJoVZPlJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED0BA1F000CA
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:34:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZM+kP8bg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D0D1F000C9;
+	Thu, 12 Nov 2026 22:34:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794522850;
-	bh=L54BL4DHIvMAW1f3YiW+oYF8hYcaZJufQX76TBLYLdU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UJoVZPlJiTZrzn1oXQ/5OxdB8wHJB8+rzKDEFY62J3nEpjYRAV2gtEw3OQdS5mTDz
-	 yOcfkStlDafZ12xiMCVoAyeu3UFDeTsbB6PpvNLceucyOiPpLb7hhs7uCYC3PdJReW
-	 d5pob9ICjwbzB2ESNeN+ZBsMv60C0GjpSsriLP7aoFOVQPoatGHYQV7ayqiW2P9GRA
-	 jRqpwPTr8FEk/jzu9ByNkm2LmUDY2bDwHX2gz6nJwZ2ms4zKLItOErDVpItObNgH6B
-	 eMnmwSzkfzU8AWnySyP7uyPajL2C5vqTOvlolL8vGdFc4brO04oZT2IjgYmnzWaJtU
-	 USly9VqcMdI2A==
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4d30639709so48740666b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:34:09 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFoEv+bWItcGDefUumIOH00E36I99CoCx2RMSqYR9qvCF7+LFQszPU4XqdYBNZ/ooG2WyaNOtAJs766VBY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zFxOKU7TL0AcbhanNbTPCEzSNfKjJEGpCb7V7F1sxiwsxTedd
-	xu4rBFR2GmJuJUo5H3FdW2WZuQszwVZvFMG3Merd06k0tALpKnUQyHnPWdrTcT08bky2jkl7Lau
-	LQtNt9Xj6+Eu5/FFaObJSgRB5+UQ8cy8=
-X-Received: by 2002:a17:907:8691:b0:c40:4965:72bd with SMTP id
- a640c23a62f3a-c509640bfcbmr53255166b.19.1794522848652; Thu, 12 Nov 2026
- 14:34:08 -0800 (PST)
+	s=k20260515; t=1794522853;
+	bh=RZmkQsegMJj7uMwYkqEnAyJP3f797VptXlgVvu0XiXk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZM+kP8bg96LTcgRrl2O4tGJEin6FVZ7fV8cdLYYi9RGQjd1Ol44XopCDh7O3rYhgi
+	 eYdIxmx6rQwupBV1dD3kXO1s/5tTfFLoR2gAWrjHekiffpv6X21tT/8ec1RLo9NVWX
+	 hLgMaP/hzxEc+rRtp+hb8fq2/XYBeW/qDDvuWxVwzohPvW8MSB3PUelUcffzzwhMb/
+	 sygPytE9j/V3kEq95ft3hExbLSJDXdN2UL+exfS7DXxiVBhhudY0xwEXQQYY+bu/WA
+	 4CkKrv4Ae+GkOmdnhcQAaOTu7xtpRl5rK07scbQvWKp9484/kLciakm28D7Bx4Cmhm
+	 Rsz/ThonRFqVw==
+Date: Thu, 12 Nov 2026 16:34:11 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Yaozhong Li <yaozhonguwl@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Joseph Chen <chenjh@rock-chips.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chris Zhong <zyw@rock-chips.com>,
+	linux-rockchip@lists.infradead.org,
+	Heiko Stuebner <heiko@sntech.de>, mfd@lists.linux.dev,
+	Lee Jones <lee@kernel.org>, devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Zhang Qing <zhangqing@rock-chips.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: Re: [PATCH v6 1/3] dt-bindings: mfd: rk8xx: add board level power
+ hold GPIOs
+Message-ID: <179452285047.1753442.18416322410277903479.robh@kernel.org>
+References: <20261101154053.3874-1-yaozhonguwl@gmail.com>
+ <20261101154053.3874-2-yaozhonguwl@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,41 +66,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112183607.1660070-1-icb@fastmail.org>
-In-Reply-To: <20261112183607.1660070-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 13 Nov 2026 07:33:55 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_BhzKwYCy6GDJt0UzWQe9yraU=txbNpMo6knCMnMdB=w@mail.gmail.com>
-X-Gm-Features: AclHuK81xXH_-OPmQs1rrhBNOCj9FNwZiuS9DtIXUEAS2tO0Y36wabUvT3pnOSE
-Message-ID: <CAKYAXd_BhzKwYCy6GDJt0UzWQe9yraU=txbNpMo6knCMnMdB=w@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: ignore the allocation size create context on a
- read-only share
-To: Ian Bridges <icb@fastmail.org>
-Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101154053.3874-2-yaozhonguwl@gmail.com>
 
-On Fri, Nov 13, 2026 at 3:36=E2=80=AFAM Ian Bridges <icb@fastmail.org> wrot=
-e:
->
-> On a read-only share, ksmbd refuses writes over SMB, even from a user
-> whose account could write the files in the underlying filesystem. Such
-> a user can still open an existing file for write on the share, but the
-> WRITE requests that follow are refused.
->
-> If the open carries an SMB2_CREATE_ALLOCATION_SIZE create context,
-> smb2_open() still calls vfs_fallocate() on the file, and the filesystem
-> allows it because of the user's write permission. The user can thereby
-> reserve any amount of disk space through the read-only share, up to
-> filling the filesystem. The file's size and data do not change.
->
-> Ignore the context on read-only shares. It requests space for a file
-> being created or overwritten, and such a share permits neither.
->
-> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ian Bridges <icb@fastmail.org>
-Applied it to #ksmbd-for-next.
-Thanks!
+
+On Sun, 01 Nov 2026 23:40:50 +0800, Yaozhong Li wrote:
+> Some boards route "power hold" lines from the SoC into the board's power
+> circuitry. Those lines have to be held asserted while the system is
+> running and released before the PMIC shutdown request is written,
+> otherwise the rails can drop and come back up instead of staying off.
+> 
+> Add power-hold-gpios to describe those lines and power-hold-delay-ms for
+> the settle time. The driver reads them for every RK8xx variant that is
+> the system power controller, so define them once, in a schema shared by
+> the seven RK8xx bindings, and reference it from each. The bindings
+> switch to unevaluatedProperties: false so that the shared properties are
+> allowed, except rk817, which keeps additionalProperties: false and lists
+> the two properties: it also references dai-common, of which it only
+> allows a subset.
+> 
+> The array is bounded at two entries. Firefly's vendor kernel handles
+> exactly two such lines, pmic,hold-gpio and pmic,stby-gpio, and its board
+> files use one or both of them, with an RK808 and with an RK818.
+> 
+> The lines are released from the PMIC's power-off path, so they are only
+> meaningful when the PMIC is the system power controller. Require that.
+> A board adding these lines is expected to switch to the generic
+> system-power-controller property at the same time, so the deprecated
+> rockchip,system-power-controller spelling is not accepted here.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
+> ---
+>  .../bindings/mfd/rockchip,rk801.yaml          |  5 ++-
+>  .../bindings/mfd/rockchip,rk805.yaml          |  3 +-
+>  .../bindings/mfd/rockchip,rk806.yaml          |  1 +
+>  .../bindings/mfd/rockchip,rk808.yaml          |  5 ++-
+>  .../bindings/mfd/rockchip,rk816.yaml          |  5 ++-
+>  .../bindings/mfd/rockchip,rk817.yaml          |  4 ++
+>  .../bindings/mfd/rockchip,rk818.yaml          |  5 ++-
+>  .../mfd/rockchip,rk8xx-power-hold.yaml        | 42 +++++++++++++++++++
+>  8 files changed, 65 insertions(+), 5 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/mfd/rockchip,rk8xx-power-hold.yaml
+> 
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
