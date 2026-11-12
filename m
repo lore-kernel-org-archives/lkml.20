@@ -1,101 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794443008;
-	b=GoXFBIZzzfmhr9np8UPksOK2QV4DGyeITA7ogGz9nDiZ62xC3n9mERGoQs5bjoHmw/zQ
-	 x1rHsYTID2kS+cJ09+GnN+7defx9Hpiyqt5x9yMpID8fXaOj94G4BmZL2HpS6t1FAoYmn
-	 yfq5fT2SPLhkOFflX/ZE6kkjCKKkYfe1Ol4BKAngVd8KLLyBUJSeVLrRNNNR/eqC9S2qN
-	 Jn+tyPK91VBn7OkKncgKW1cd7ubAJftmGIDokWDmVn+pM396+1H8uioJ5+lT4b1C8GRWQ
-	 FBVTRrigcicQf/sRajB74vn8Z9InKpoiJUbwa/S1sHlv0k0zZvvjc1temlYTmZiBE3w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794443008;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794443040;
+	b=0x+mCVWx94opU1saIPILAZdZZZpev6mqHMEt+vDmYJEngcEpvVUSeU+SuFuOX8Elu091
+	 48IQbOLMEhJBvF4DRMkRl1iVWB+UojhdpKiPu6YjUgZVH5+68USZq79KxYSisP8Yea08F
+	 8FEpfWLxeDKmpCz19GJXu3iwik1Ta1Fy6WvYDXWiOglwBnMfNDudVYj5DxZ6emprF5QKY
+	 KEV75Fuva3ey/sWgcTZOdpQBh0JVtgDmAxgWbfGXJFE7FYnXLBd5358S7r+9qoVcdku+e
+	 VYZBbRDMR7dCGeC8uHHaNC9TEVzSbGd+pLLYoYhN+99Fd4Gbs1D4rPlwztBHXtT9O7w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794443040;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7gFvsNqBDXUT4BnAgicfRx6qITAPLA5lFq/xnuZcz3Q=;
-	b=u9IaaLxwriD9GHPv8SqNwQRRu/gMmcxGbmZcAbtMLfjLgex+GU4ssHPqY7t2ukB1e62V
-	 iALUk+W/HfXHiV+9tyh30VPW+eBOMEhT1rTCrD4fdEm2KxSqPk26VSWF7SQ62AtOqd/EL
-	 wMUleHmQlm8uDyZ4Fia6XzzVer8crX7Rbw5Kt4iK9TnCbKImPSxudiCD5ayVM/GHTCfE5
-	 3TmsClwDRT61/dtngkTReTox444LX92Be+hXXD5x5CbC6rFHb2OTBbNuY7D/T/oAWb796
-	 x3qc8T07vcSlh2HoiIYIDrKqCyJuWkDhcy3l+AeqLbXlxe1ov+1bql3NDx1fXhWva/g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="iM/BJw1W";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=AvOYiSMUQBE8hHq85U7RnqlX2B8KEnkOUGs6NK6p6bU=;
+	b=uqJ9fo/dw6sDLs/qaB6y8KYIZzj4Prg3HHrRvomK8djUEg0Eqh99BB+S8ZNMXYSQxaP+
+	 sdL+4MyoRfKgQh94fYUY8oTqUWR2D9QB6I4PQxVUqehLuffiCaO6TuGgX6681Rewq2V6t
+	 WEhaTuTLOmnck4zSEiRselyHo+2l9xNbKMvpTgrjYxCNEdlZZtB0HZfmblnd6m6wTnYhj
+	 eo8eJ5k+r9hlwt4VfzsCv8OUnWfyCbeXlzItmzXZQPCOKphyVJXWC3UAtIVljgaUXDqmu
+	 W6Gou1ZkAN8B/G97S3CU+84lcW2s4HivqVdtZM9jQ1CyO5ypq4V69DcHFaqKLg92qJA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="jM/eBsyx";
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ECDB606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:23:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ECDB606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1943D606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:23:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1943D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iM/BJw1W
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5383c97c8cfso40751cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:23:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794443006; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OmTWZdEPeOd/7EarpuHUq41m83Zsnm2edW3AVq1vq6jVEJaYqXNCqF6rdrtXNJl6OR
-         VDKxWnidgddTt9D5TEgMWHaAD9OPLQqliZU0ET/OAHH+wDuZegOYW9h32gEpN0SyzwPu
-         FvIgVqGykYgaK1HOIqRFGRBFrlgLnfx+oOxCSrvJzTHHKL0AoHjzbYGNJEeFwoAIq61s
-         LXYs59JUdPjMgAhha/ZZCu1+cle4Q2fUpDhzxWpF9N+xsdGhZoXCOAf0lrN/11vwyD0k
-         xJx93z+2Yi2BWuN9cN4Z1cP3TvINkrZ3nsozj05j2LnP/Y1uaJSCQXlnbJQhea+URtty
-         B2uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7gFvsNqBDXUT4BnAgicfRx6qITAPLA5lFq/xnuZcz3Q=;
-        fh=XYtZDEHHpe4fxtSCdoZRo4l/aGE+yLL5LdVYMJQB0cs=;
-        b=MItxBUfGKyVVliiXsZbBN4NJ3fj77A7yoDpMsaH324wpoxbWIPwEgJGHDP6UkQ+GQn
-         GgsZJE4TtOisTiNyPAJavA8w68V/w0u4KIOT9c1vEv/cNiZvOc6G2F/OP9SW+9D/Up93
-         mVcMOnQeyi1BzSsQ7g1e/eoT3VlQo2th4maWQxJaGMtuT5G63IBX89CQQtzAkUwKo8Yf
-         rQet3RejaYCvCBz06lP6TmhDIh5fsR27zyFCDVUPsmK7nz8eiGUlwDYxOVvz5fsEgEJI
-         qtp3EuiUy0IqY/vA+HGomb1duWfc5THy4so+YN5/eEUXt9mXy95prssyeReeVYSexR0v
-         ngaQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=jM/eBsyx
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b3acec6677so5571344c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:23:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794443006; x=1795047806; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=chromium.org; s=google; t=1794443039; x=1795047839; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7gFvsNqBDXUT4BnAgicfRx6qITAPLA5lFq/xnuZcz3Q=;
-        b=iM/BJw1W0apDQHJdqA/gcDzgg/HDv2K6K+45sPJwUSZqHrp/pEmu3dQyjzySFhC8QN
-         imzHnfbbCh5Fkj/94z+CbkrjD/a2eVpMH5ChBrg6crT3nR9dz6OaQ8cwNBkOVqnY0hMz
-         7gERY78EDX/dldJiwj8V/ISGBABsezeLprGLCjjiKbk3LL5C5mqnmN3Nq2T0A0MLYVQU
-         2l6dOlYeSz4fISJ8SKmh5i1fnXcE4QNtMfbwQAiSJG9xerX5wdE5ZzWU6pGvHcvGgVbi
-         jw4GJjlX2bwuyyr+X9CFIRuAHcYIX8GY9czhSqAo4IIdQNRw6mrPUCNwk1AMIEjqCbx8
-         OIEw==
+        bh=AvOYiSMUQBE8hHq85U7RnqlX2B8KEnkOUGs6NK6p6bU=;
+        b=jM/eBsyxf0242IeUk/QFUPK8XD5A2U7cZB5APpSpLED0Ce/mRZUDfV/L19c/zszsQm
+         xaQ5b4rlHZ5g/PUtovJIzpy0ObuWoyeT/mck5BuHSHfgQqzVE40Im6Xz7fvVqKsVkVkK
+         3yEUP4JP6zTPoCgon9IoLXM6LLP3X5VjaywdY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794443006; x=1795047806;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794443039; x=1795047839;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7gFvsNqBDXUT4BnAgicfRx6qITAPLA5lFq/xnuZcz3Q=;
-        b=wCqvuGeZqEPHunVsUY2MsqdJEVUSj5LJSlHslc46Z3y7+8zIv0p9ujg7QiqPPLf6+4
-         TnHenHJa8YNvlbuuvy73LO3H+zvmL68f+0N7B+iC53Up5VfqTF00qP7PGLkp5UWddZpy
-         V1AD5ZBXIArZwVUZC/JE1DgOi5b6bX+B1a0UQKJ0PCAounDDUnQZHUyqwZAigu+D2A1L
-         bRWTvKecsUXdIMfRIC0ZfKACk6/e9SR6d0cnVRGBGyrwI1jU2W6ecIxkZBj5+A//8NeH
-         lTRJ6DHF2x48lRR6Ai0HbOyGQxafz/2Yzh4HbkVWbp9MKt7QfLkaf2MD3b5xVpSl4f4V
-         xcng==
-X-Forwarded-Encrypted: i=1; AL+hErHnVzHtMyCGcIFUdz8oeNQB3qDfg6ErL/HAdQIKmOtkaZdDZaViXJW3Au9u44aJkn6GlRJsUoXLNwzo0Ic=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/c8F/odXHp+gHsEHJb5ReZRtsUgI+2ZVO81VQ7ZRAA/8fn0BD9
-	p5SDsRB9hXoi6pSOqTH5AObBW4jOX6C6LD52u7Y4kmpr73NYEkV8m74TMOgNFBo4eJ92uIvLvM2
-	J5rW0tFVptNyVzOt8qbmd5tdetIfrP+UycZCRcQjw
-X-Gm-Gg: AYBFou24tV47wyTHGS8bn9z9fE/csy1+mdDeGWE8gun71Y1/oXhkd5gqDGs8YJIaqZ8
-	4Z/E09LLs99Shualx8wv5+9zWb8qvkpeTXlOrhGundYn8crHiZAkCq6diVsbn+m7APjouIk6WKz
-	ibslhYy6wkQ5Z5MXK4bIs+w/afaNNzuZ2RqjCiEo8QQV9vvA1kt3kEm0ynbhkUNgnBREat0s8ZP
-	KrEQZRTJBvaB3Id+DOgJ5yy3Tsn8+iunzLId7nqiM7681FLRXMFhSK4ztzQ4EQA4bXWKRyDZLwv
-	2Dpv7G3+0BRJlVyZZf8rxOiup4SD6O/fII0Nf0o0VCwaubI6qqECT1vtmbk4WNpxeE8axXuybE2
-	Lp//kI75CVq43rT6WU4/xH2txpnCMY8+SRFMXiPT7x/Qc4rcl6soasJ7VPxr3jfgGyLFe/Idecb
-	nnj0iqN21C+11+DvO69WiIj7e+qQ==
-X-Received: by 2002:a05:622a:a15:b0:52f:9ed4:8d76 with SMTP id
- d75a77b69052e-55990ed99a3mr5033851cf.14.1794442963091; Wed, 11 Nov 2026
- 16:22:43 -0800 (PST)
+        bh=AvOYiSMUQBE8hHq85U7RnqlX2B8KEnkOUGs6NK6p6bU=;
+        b=gHR252SZ9xCJXPModVt6GnCAM17XlHJZLLkrTrF+86PYpnfilUfX+TXhHI9IXtf0nj
+         CLPOF6Gk5p0zaYP7J3kcHm9vBWSRqjpiC56xqLMYkVAS2PIQxquQ/GhWHH/AJY0FurqK
+         V1TW5xnLlMUPitk7k0PgAave075uAzkQ1yVhRlLzmOn4l1oHtrN3hPrEUpF20CIFbgEq
+         9A2JlifH2WG7X6vawOXXB/Un65Ck44h/6Iog43yaGp87mlX8zNDY08t6A1xxreU7mtih
+         g4h8tSL75eT9q/mF2zJw0cj4wid3cQeCFtme2FwMxn8sWi30SdNvF+NBQSEM3mlqrgbQ
+         UINQ==
+X-Forwarded-Encrypted: i=1; AL+hErFHMK3Bgwl7jL/VnhvvGosG0WrnGK+f0nbo42jIDb9zGnXa5GeFne3shqNYOwvlxuwzMr/R16LWHZtTiog=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xozYyvFphy5ZwfeVFQB45v/f86+Lq52cPVaLlCD1cy3dgZTEW
+	bGwopmNSIcPMTFDtFhZoVGgF5SVaHpegXftHSX8euqPjWQToX89aXEdUDocl+GwCgw==
+X-Gm-Gg: AYBFou0UOH8Ltstnf5z/xxA0S9al2t7+U2I+sX74x3KMGJf4CjpzgADv/s3Qf/nkHlP
+	sH1megaLgVkCTtdiWF0lMs3LfXLsq22+QldVymYTH9UMVYqOgBvX0vmXJBppYJ62GjNohpYUsu6
+	6zIqHSbUn7SlAfP0zRfOTn1USIHWLxeEZ6Mu0FJ0zNxCJPUMVDq2L+dIhNI6ymZz6ea+x6WBCtY
+	kpZKIeYEY67T7ewWtE5LYf7b8b0d1JjrV2gykoIG7G5DuJebFoCAahqhDMLaLLJtHS0ikrOqbzs
+	QUY0aBLjVqhH1bsFRwEQwfGzzmDIqFULnCztIlguawQl7F6WVAc43tF7wZf9+dNM0zeCqvAG1OV
+	d5zk8bElXSotE25T/Ve8mXAJ0WHU+csuH1VLybOq8S8ruTCZCziPmcSIozPgy78smUzb0hHJEIh
+	+fDMaZSHPirH293/pMI04FzI39TYerpvokZivNeu/qnLqejHGyJ7N5vhZeG7TbRXxjVUheAWZs3
+	lcQcDvK05t7RDYesJtAPNne798doicpXl9uWXByLXwm7JyJkRDPoj/BIngTVrFdI62Uy6uqB5zL
+	/6lcspZx+7VQxU0u5Qv6Qda4KJ1x4i9FV0liWksWoPApUHjVtnmDgyxXXeQQvSrP9zJWFw==
+X-Received: by 2002:a05:7022:1711:b0:1a3:65d7:efae with SMTP id a92af1059eb24-1b3c03185acmr3161801c88.21.1794443039027;
+        Wed, 11 Nov 2026 16:23:59 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:5446:563c:ac92:43a8])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b3b5890c0esm19834613c88.1.2026.11.11.16.23.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 16:23:57 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:23:55 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Alan Stern <stern@rowland.harvard.edu>,
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	Andy Shevchenko <andy@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent
+ to dependency
+Message-ID: <avUHG8mLuTOUMr8O@google.com>
+References: <auuICAm4BC_8Pzs5@google.com>
+ <CAJZ5v0jTX1FgeS9FCV=+V4uacSgLQBVsSPnU27ybgUGg57GUOA@mail.gmail.com>
+ <auzlLwlleGLPsLcw@google.com>
+ <CAJZ5v0g25xQeRaLJWJyAo2fcJko+gZ7w6JhX7FzMgRx2+uuimw@mail.gmail.com>
+ <au0oKFb9CmNzc6Cg@google.com>
+ <CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com>
+ <avOw_4ZkqtKFHu1B@google.com>
+ <2c3bda2b-ccc3-4430-8e09-81b25f6fcda7@rowland.harvard.edu>
+ <avSa97F1Nu1LTSCA@google.com>
+ <fc43eb13-816b-4cd0-9711-848fdab605ef@rowland.harvard.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,63 +112,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110112546.261415-1-hao.ge@linux.dev> <20261110112546.261415-6-hao.ge@linux.dev>
-In-Reply-To: <20261110112546.261415-6-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 12 Nov 2026 00:22:32 +0000
-X-Gm-Features: AclHuK_CzL4RP99FDahiZaf4bltPjfDSR925sbwaiHf5mOE6wBtoi0bQgJsZ6U4
-Message-ID: <CAJuCfpHWe6gB7rYvTrW=ufqPtFtquGW_u2v1yV_9uuXtnn-KbA@mail.gmail.com>
-Subject: Re: [PATCH v4 5/9] mm/vmalloc: BUG_ON() on an unaligned range in __vunmap_range_noflush()
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Potapenko <glider@google.com>, 
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>, 
-	Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fc43eb13-816b-4cd0-9711-848fdab605ef@rowland.harvard.edu>
 
-On Tue, Nov 10, 2026 at 11:25=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> The PTE loop of the unmap path stops only at addr =3D=3D end.  With an
-> unaligned end addr never lands on end, so the loop walks past the
-> range and keeps clearing.  With an unaligned start the loop begins
-> in the page containing start, which extends below the range.  Either
-> way the unmap clears the mappings adjacent to the range, and that is
-> nearly impossible to debug afterwards.
->
-> vmap only installs page-aligned, page-granular mappings, so an
-> unaligned unmap request is never a legitimate teardown, and there is
-> no way to tell which pages the caller meant.  Check addr and end at
-> the entry of __vunmap_range_noflush() and bug out before any PTE is
-> cleared.
->
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
->  mm/vmalloc.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index 86fbb1d2b27a..0565cbfe325c 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -518,6 +518,8 @@ void __vunmap_range_noflush(unsigned long start, unsi=
-gned long end)
->         pgtbl_mod_mask mask =3D 0;
->
->         BUG_ON(addr >=3D end);
-> +       BUG_ON(!PAGE_ALIGNED(addr) || !PAGE_ALIGNED(end));
+Hi Alan,
 
-Again, not pretty but I don't see a better way that does not involve
-adding early exit checks to all its users.
+On Wed, Nov 11, 2026 at 03:20:16PM -0500, Alan Stern wrote:
+> On Wed, Nov 11, 2026 at 08:42:31AM -0800, Brian Norris wrote:
+> > Hi Alan,
+> > 
+> > On Tue, Nov 10, 2026 at 10:47:59PM -0500, Alan Stern wrote:
+> > > So yes, in the current scheme a parent's inactivity period doesn't start 
+> > > until all its children are suspended (unless the ignore_children flag is 
+> > > set, but never mind that now).
+> > 
+> > But to be clear, that's not actually how runtime PM works today. It only
+> > works this way for the very small handful of drivers where the parent
+> > calls pm_runtime_mark_last_busy() in .runtime_idle(). I think several
+> > people have acknolwedged that this is a bit of a hack, or at least a
+> > missing feature in runtime PM, and probably should be extended more
+> > widely.
+> 
+> I have to agree; it seems like something we missed.  But then, I've 
+> always had something of a blind spot for pm_runtime_idle().  In fact, my 
+> overall impression has been that in practice, drivers relying on 
+> pm_runtime_idle() for anything nontrivial would be more or less mutually 
+> exclusive with drivers relying on autosuspend.
 
-> +
->         pgd =3D pgd_offset_k(addr);
->         do {
->                 next =3D pgd_addr_end(addr, end);
-> --
-> 2.25.1
->
+I also had that impression. But of the approx 60 drivers that implement
+runtime_idle, there are at least 4 GPU drivers: nouveau, radeon, xe_pci
+and amdgpu (I'm sure they all copied each other to some extent). There's
+also some greybus, drivers/misc/mei/gsc-me.c, and a handful of others.
+
+I suppose you can determine for yourself what's "nontrivial"; and in
+many cases, they re-implement many of the same idle checks inside their
+runtime_suspend(), so it doesn't matter too much.
+
+> But of course, 
+> maintainers are free to do whatever they want.
+> 
+> > > The parent's autosuspend delay therefore 
+> > > should take into account the expected time before one of the children 
+> > > may have to be resumed, as well as the expected time before the parent 
+> > > itself may be asked to do something that doesn't involve any children.
+> > > (Note that if a device has more than one child, the expected time before 
+> > > any of its children will be resumed can be different from the expected 
+> > > time before any single particular child will be resumed.)
+> > 
+> > "Expected time before a child may have to resume": isn't that child
+> > last_busy + child delay?
+> 
+> No; that value is the expected time before the child may be 
+> autosuspended.  Not to mention that you're mixing up clock times 
+> (last_busy) with time intervals (time before).
+> 
+> >  So that expected time is already in the past by
+> > the time the child autosuspends.
+> 
+> You must have misunderstood what I wrote.  Think of it this way: Let's 
+> say the last remaining active child goes into runtime suspend at time T.  
+> Let's also say that the parent expects none of the children will need to 
+> resume until time T + D.  Is D sufficiently large to make it worthwhile 
+> for the parent to suspend and then resume?  If not, the parent should 
+> remain active.  If yes, the parent should autosuspend -- and the length 
+> of time the parent should wait before autosuspending is on the order of 
+> the value of D (let's call it D*) that corresponds to this crossover 
+> point.  Thus the parent's autosuspend delay should be set to D*, or 
+> something close to it, in order to achieve both objectives.
+
+OK, thanks for explaining again.
+
+I suppose that makes sense, and so Rafael's
+rpm_idle()-implies-mark_last_busy() proposal makes sense.
+
+> > My point here was that I think Rafael was overly concerned about
+> > precisely tuning parent autosuspend delays at the same time as changing
+> > the runtime PM core behavior. Yes, they clearly can be tuned in user
+> > space; but he was suggesting a phase-in / opt-in approach to this
+> > change, because it might harm system power if it's not re-tuned.
+> 
+> Is anybody really trying to tune precisely parent autosuspend delays?  
+> On what basis?  I'm doubtful that anyone is sufficiently serious about 
+> it to be annoyed at this PM core change (i.e., setting last_busy when a 
+> child suspends).
+
+I fully agree with you, which is why I don't see why we should make
+Rafael's proposal conditional. We should just make the change, IMO.
+
+> > > > At the same time, it makes it harder to reason about the runtime PM API
+> > > > surface -- because currently, .runtime_idle() is a primary reason that
+> > > > pm_runtime_put() and pm_runtime_put_autosuspend() are different.
+> > > 
+> > > I wouldn't put it that way.  My feeling is that pm_runtime_put() could 
+> > > be replaced by pm_runtime_put_autosuspend(), since they should behave 
+> > > identically for devices that don't use autosuspend.
+> > 
+> > Ah, but that's not actually true! pm_runtime_put_autosuspend() skips
+> > .runtime_idle(). It (semi)directly calls rpm_suspend().
+> 
+> Like I said above, a blind spot regarding pm_runtime_idle().  And/or an 
+> impression that a driver might want to use pm_runtime_idle() or 
+> autosuspend but not both.
+> 
+> Anyway, pm_runtime_put_autosuspend() could easily be modified to call 
+> pm_runtime_idle() before rpm_suspend() if the device doesn't use 
+> autosuspend.  That's not likely to bother anybody.
+
+Sure.
+
+One way or another, I'd like to eliminate the differences. And I'd
+prefer doing so by removal, rather than addition, if possible. TBD how
+it ends up looking, after the current topic.
+
+> > I appreciate all the responses. One particular part I did have questions
+> > on, which I'll mostly copy/paste:
+> > 
+> > [Rafael:]
+> > > Now, let me acknowledge that some drivers evidently want rpm_idle() to
+> > > always set the autosuspend timer instead of suspending the device
+> > > right away.  That may be because of the "unwanted parent suspends"
+> > > problem at hand or for other reasons.
+> > 
+> > Do we have any idea what the "other reasons" could be? For example,
+> > because driver writers found it too difficult to find all the
+> > appropriate places to call pm_runtime_mark_last_busy()? (Does commit
+> > b3db492e8335 ("PM: runtime: Mark last busy stamp in
+> > pm_runtime_put_autosuspend()") help? Or should pm_runtime_put() behave
+> > similarly?)
+> 
+> I have no idea.  Outside the area where I mainly work, I don't know what 
+> sorts of things driver writers are doing.  If you know any people who 
+> are doing this, you should ask them directly.
+
+There's so much ancient history and copy/paste that it's a bit hard for
+me to find out who's doing this for what reasons, outside of nicely
+documented changes like commit c537d3457542 ("iio: adc: stm32-adc: fix
+runtime autosuspend delay when slow polling").
+
+> > I see that USB is one of the subsystems where .runtime_idle() calls
+> > pm_runtime_mark_last_busy(), and I thought you (Alan) might have some
+> > more background on that.
+> 
+> I don't remember exactly why that was done, but probably it was meant to 
+> carry out the behavior we've been discussing (autosuspend delay should 
+> start when the device and all its children become idle).
+
+OK, thanks for your thoughts. In any case, maybe it doesn't matter why,
+if we're simply going to move that behavior into the runtime PM core
+as-is.
+
+I'll give this some time in case Rafael had any other thoughts/replies,
+but unless something major changes, I'll plan to write/test/submit v3
+where rpm_idle() calls pm_runtime_mark_last_busy() (part of Rafael's
+proposal), and *not* make it conditional (i.e., no
+pm_runtime_use_autosuspend_always()).
+
+(Or, Rafael is free to do so, since it's his idea. Just let me know so I
+don't waste my time on it. But I figure he'd rather someone else do the
+work.)
+
+Regards,
+Brian
