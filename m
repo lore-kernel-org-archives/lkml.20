@@ -1,97 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794455360;
-	b=154GJBuFrB9HCh1rVWPUzFycilDr+eNVtWWi1w4D6JbfaKnZIXB0PbVCntMah8Ttyuio
-	 la2pPBwLC/oSY/9RPTjrSRxNnEOAnk2kpgIPPoQ66jLXQTy81vCvLI8X/G6O+ifDdPuER
-	 IErrYq5GWcBx/6ApMzy36buMr/5Z3IsiKcQO0KQP1N93gMFRn8OFbKOSyf0Ysic1V8jHp
-	 BGaZoPBW4ncgU4YSds/vPaL2U6STO6kdGcktn37DW5wTFgHg0yPvagcN1uIBGDkTEzuFQ
-	 cJuPz0kdJO+xD8bpazFwYdNKARfutQ45yWpesOWuUgtNVLHiEHsLx/xZg+jZrRxlhSw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794455360;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=25tsZUpiQ0lVQNm9JwfGrkVYEdwIvgyagRg9J+KAyDA=;
-	b=rbveB4AqaeZixKZIHYI8xWqWboBxgkvxMff/bXcGymPJho1W6zOc09qbgBtVj0Nx+mHp
-	 eyA4NdeXUImoT2dko8BFED1Vdau9tvPqqTvMHXkz+BtWFQFvrMH/KP8ZstbJ6wHGFthIb
-	 ulvzPHtIRaprIckoXTVyS1vifYtGjQpkX9n8jSpvpm27ARk+P9l+Y9XfxMt7zmkMrrqw5
-	 CtewojlT58597ugwgpzUQX60pGF0lVpf0TpLmK0lEZaTUaXhFzKgAV3lM++X0bB1oA4pX
-	 NXJLr/pXuhPCPFLlvi2fKDL/VuReP5KaYOK09baBko9A7GQQ4nlXUpNaqil3Y5iE6mA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hOFGclu4;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794455481;
+	b=b26AlhLbtYShRfvXuogIB4yKiNTZOS2/pK39GQmu8yP0PTzqdFyKz1OSdyRUEBA9SWSV
+	 fCGYadrwOTrV+0DIpBDrrbtlT3WGQ+wCCEVOoeZQ18eDvDwwPhxcinlsiHb1l8cIVLq44
+	 UxMZSFGaDc40qoRHGFFZZnj2Nv/d9NdJ++oU8Or/dcHICjs5BX5bnBEhS9lMYPofTiQiJ
+	 YJpLCeos8efqbD6iwmTZERbd6SeRxe1isf4im6UagibhBCRmuSFzKNJ9y0S9aN8PH5EWo
+	 xDrzJhugjsfBuub0IyWWg9LrzZ6IZILFV3FIZIiZ1D4CBPPihGGqNxPtKbnUqS2RiIg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794455481;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=od2MTFJr2n07GulawypdnHc+XDeU/CQF54c7+qeGSkg=;
+	b=C7o/ULCdbcUdvqn0Gisa3iTjDhGia/hHcGplfAdnoaKNKLKlc1W4oBZcyeseFkchPpUP
+	 zmi/RY7BfTMLFvOEiC9jvgFO0SVWWA3Mp4NTumtKQyd+eUOe7I95MAFpSTTI3sH2tsjqq
+	 nw7UplYdCFfpAu8x2UD1WfbT9g/CCDo79tGlKVW8KTRwqnLCWkDWsNL9jO8vztd4Rg49e
+	 QOGg9nlUq1+MCLaiVBDB+qVp8O79ahUm9u4x746XEpqMxmgoqn/9gWS8uliaaH1zHNuEr
+	 3sCyAU7p5Rb5ekUqefVtd2H7kibK4Yz7mA98tZ9toHLlnR/J9XlggGDmHxsQHkY2rpg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Pyois4i7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D425F606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:49:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D425F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 330DB606A323;
+	Thu, 12 Nov 2026 03:51:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 330DB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hOFGclu4
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so2396298a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:49:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794455359; x=1795060159; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=25tsZUpiQ0lVQNm9JwfGrkVYEdwIvgyagRg9J+KAyDA=;
-        b=hOFGclu4HudCtVI9CQuP8pEykqKRvrYhDMXesAcE3Fu7IzxEMClz7O3PelcWZZ6w25
-         eszIQU79C2e3saIwpL3wfee0hRUHfYEr1nchlZtxF9Mq6l4yiFOm0ho0oZsB5kzh6zX5
-         AURwc2ibA1EQYPnlQyhV9SkKjg6xsXTBXXzlM4S1Go8b8z9MebhuJdKjZ0by/aWiNIwp
-         H1LgIxhVyUjqYNRoYr+k7LjVC5uKyYOtG1VAaYHVZZgar3sopj7q+XzbhnOtKmDYs17k
-         xi9j4V9wu3EFFTkag2USrKV1zCFk3NUtSuwSPp2geOlL8/Z64lTkEtG+zxnWYP3dZ89K
-         AT1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794455359; x=1795060159;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=25tsZUpiQ0lVQNm9JwfGrkVYEdwIvgyagRg9J+KAyDA=;
-        b=EO/qoLUQ/IjZIhooEz68vXGzuAhm15lGqQeU9tisGD+qKvg560f+gdWzFK/kFKLvnW
-         bx8l5KRLnTUs4aJbIyAvEI+S2Do/Qytkeb/FD89gvAzzQN5nYDqV7TVUEnpmvB3jHR7U
-         C0G3h22r3NuZh3acOjSaQlG2NU3OoA9sD+Kne+P/tleFyreFgYtbDIfdTnwTxskGw58i
-         jOSibXKpzw1ydcNP1CcsN7MHAv4te+HoGMkac9MlpQ6XUwe1f8cE1h+jCOZWZlD8zHXr
-         XDXqbVlsnjp22sVxpBP0VXDJ3TABeJss/mOxr6y287UEcH0uf/IF5j5H5b8y2pyDLlnu
-         G2Bg==
-X-Forwarded-Encrypted: i=1; AL+hErEkLgs1bBWAT75sb72NIGwqPwXehTlcqnJK560kcegHptdvjAfzA5HJaBCjpR4TFh6mYHXqOFO4/1ki8KM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hZ2PEBj33CTsKMuos5BV4hfb1Jb1rgXyl8Leu/TqVvjWkKk0Z
-	vuuROQBl3McvQjTMNBHAm1uyLhzto/2yqXp389oDUqIJh5s1ywuuf4Aj
-X-Gm-Gg: AYBFou0QWljeRDuEV+ado5WDE4wCG3b1yS1BRSQUFbeZHp7nccapByWi5gi/3baGEu7
-	lMRWLHra6HIrdRenJcc0CJUg4NxawL15LGlCgTxDaYL4bjjC6XTStFDpxzXFdJQ4VxS28Fyf8Re
-	ZmkONekbFnL1SGrmQEzi/1o4BvheKZ1YVQwTTS44R5sy1phvc4oII6TrolGh9QjodJMGofGYnZp
-	fQ2FsC2F0MEcy+DO4wxjuI0f5bNsrXTHnTowmV41OC8Ef/yKFsuEGd5Lv/P4FiiQuq6BYQyMZrZ
-	jzHd2AIjLzRD6ojjKNAUjaFKsbmdkaFc48ZUui4tEZGZlXyHsjpINtObaiQ7jVW/uihEaAnzTes
-	2WbkAg1MhqpIv8hvRdfBuDedLh/9XYC0DpSXzUvUJYlsd+9400Ve/nRuO3BGAg4kaInqTl6R3NS
-	phIAg/Yao3oSVc+gC//16yatS4PZbs8nu/9I6+d6lITkqks2cGKnoAW1gQ2/SPQJdNW29LZKDIc
-	27lU/YN93x4y0OLKj3MXEip9FpcjOyKd94o85uDp4YlDd0Z3vUC84Qpg39/2/3bTJIcAv/MxQHV
-	jYOHa2b1sfD1c4x4bpkLXwj2UsHpoKLQqAg9G3xb0GuFryVbHS77BGP1WkpNJlsb63GipR+rTk4
-	4YgWVAjrC
-X-Received: by 2002:a17:90a:da83:b0:3ac:4e18:2390 with SMTP id 98e67ed59e1d1-3b182defb03mr4367944a91.7.1794455359061;
-        Wed, 11 Nov 2026 19:49:19 -0800 (PST)
-Received: from thinkpad.tail59a646.ts.net ([112.199.224.229])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c4eea2sm2135404a91.5.2026.11.11.19.49.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 19:49:18 -0800 (PST)
-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
-To: TAKANO Mitsuhiro <takano32@gmail.com>,
-	linux-perf-users@vger.kernel.org
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] perf stat: Count kernel events in a group led by a tool event
-Date: Thu, 12 Nov 2026 11:49:13 +0800
-Message-ID: <20261112034914.3704801-1-hang.zhengyang1010@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <sashiko-outbox-208886@kernel.org>
-References: <20261111-tool-pmu-leader-v2-1-3faa0fb98c51@gmail.com> <20261111110616.2249764-1-takano32@gmail.com> <sashiko-outbox-208886@kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Pyois4i7
+ARC-Seal: i=1; a=rsa-sha256; t=1794455460; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=miLEUgmPqEBpcIUKRBbHJcTMV73hdJYQRlNyUHE0BMSpiI6fmHAvyb8adXuq5UAVbQ5AowDfkohUjSyVu+k9TIoCaCCOZe1uLoN5joY5e+7CbIxAzfia9iiro8XAF6cqusXOVcSrvTqq1m2g8N17KFFLZT5Wz6HoyGFUnqhIrU0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794455460; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=od2MTFJr2n07GulawypdnHc+XDeU/CQF54c7+qeGSkg=; 
+	b=YcBfySgNNac/Gr2W4Mj6FBzx3G6IXTcAbeQ0ey3pTxW0C+MjtgJlD504YjKtwwJ3WnKu8aUXWIvxgqSth5Ey4Ez9fr1BITAPSqG2aPvNL3PdwrvsBBZKQxsbnSFNLzSlNjXpBZWHm7torfuRhaGA7MuoDfFKTbqkGblF/uGopVo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=Pyois4i7O2HfzlPfTxnQqjrvraZ4PYa2L7WfF+E+HQyBKTQl1iq2FfSYXWJNNSv/XN0XEVfp0220gEvkOq8QdQrVA+7X7K6mJMUNvwZCRfqOCFy0/RRFwnoEXHvyO080ZDeXpVD175i3pUubojIrbLnxpghFq8X4nPmn7OFsZDE=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=od2MTFJr2n07GulawypdnHc+XDeU/CQF54c7+qeGSkg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794455458780967.2624418168582;
+	Wed, 11 Nov 2026 19:50:58 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id 9CDA2180BC0; Thu, 12 Nov 2026 04:50:53 +0100 (CET)
+Date: Thu, 12 Nov 2026 04:50:53 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>
+Cc: aiyengar1990@gmail.com, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
+	Shawn Lin <shawn.lin@rock-chips.com>, linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	Simon Xue <xxm@rock-chips.com>, "finley.xiao" <finley.xiao@rock-chips.com>
+Subject: Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the
+ RK3588 PCIe SMMU
+Message-ID: <avU2I_QzCiBPVTDC@venus>
+References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+ <10924894.NyiUUSuA9g@diego>
+ <ea8fa04c-4a8c-4c55-b4fa-f37d74267e93@rock-chips.com>
+ <9_7qTfdNSViwtNUGq9D13w@sntech.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,23 +76,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="x7tmavbsaviu3rdb"
+Content-Disposition: inline
+In-Reply-To: <9_7qTfdNSViwtNUGq9D13w@sntech.de>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.450.56
+X-ZohoMailClient: External
 
-On Wed, 11 Nov 2026 11:33:19 +0000, sashiko-bot@kernel.org wrote:
-> [...] leave tool event members enabled during -D / --control and
-> leave tool event leaders disabled during exec workloads?
 
-Both happen without this patch too, with tool events outside any
-group (perf-tools-next cc905a18a647):
+--x7tmavbsaviu3rdb
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the
+ RK3588 PCIe SMMU
+MIME-Version: 1.0
 
-  $ perf stat -e user_time,system_time -- dd if=/dev/zero of=/dev/null bs=1 count=300000
-  -> user_time 0, system_time 0
+Hi,
 
-  $ perf stat -D 400 -e user_time,system_time -- sh -c 'dd ... ; sleep 0.6'
-  -> user_time 173 ms, system_time 137 ms, though dd ends within 400 ms
+On Wed, Nov 11, 2026 at 10:53:28AM +0100, Heiko St=C3=BCbner wrote:
+> Am Mittwoch, 11. November 2026, 09:02:30 Mitteleurop=C3=A4ische Normalzei=
+t schrieb Shawn Lin:
+> > Hi Heiko
+> >=20
+> > =E5=9C=A8 2026/11/10 =E6=98=9F=E6=9C=9F=E4=BA=8C 16:49, Heiko St=C3=BCb=
+ner =E5=86=99=E9=81=93:
+> > > Am Dienstag, 10. November 2026, 09:40:44 Mitteleurop=C3=A4ische Norma=
+lzeit schrieb Shawn Lin:
+> > >> Cc: Simon and Finley
+> > >>
+> > >> =E5=9C=A8 2026/11/10 =E6=98=9F=E6=9C=9F=E4=BA=8C 15:11, Arun Iyengar=
+ via B4 Relay =E5=86=99=E9=81=93:
+> > >>> The MMU-600 in front of the PCIe controllers of the Rockchip RK3588
+> > >>> (mmu600_pcie) is enabled for every RK3588 board, but its node descr=
+ibes
+> > >>> neither the power domain it lives in (RK3588_PD_PCIE) nor its clock
+> > >>> (ACLK_MMU_PCIE). Both are held by any enabled PCIe controller, whic=
+h is
+> > >>> why nobody noticed: on a board that enables no PCIe controller in t=
+hat
+> > >>> domain (an Orange Pi 5 with its M.2 slot in SATA mode, or any RK3588
+> > >>> board without PCIe), genpd powers the domain off and the clock fram=
+ework
+> > >>> gates the clock as unused after boot, while arm-smmu-v3 stays bound.
+> > >>> At reboot, arm_smmu_device_shutdown() then writes CR0 and polls CR0=
+ACK on
+> > >>> the dead block, the interconnect stalls, "reboot: Restarting system=
+" is
+> > >>> never reached and the board only comes back ~90 s later when the
+> > >>> watchdog fires.
+> > >=20
+> > > We have a work-around for that in some boards, manually disabling the
+> > > smmu until now. As the SMMU is part of the SoC and always present
+> > > the general DT practice is to have it always enabled, as it does not
+> > > depend on the actual board design.
+> > >=20
+> > > Hence we end up in the situation described above.
+> > >=20
+> >=20
+> > I notice that mmu600_php is disabled in rk3588-base.dtsi. If describing
+> > the SMMU that way is incorrect, should we enable mmu600_php as well? I'm
+> > asking because I see a different picture in the RK3588 TRM: both
+> > mmu600_php and mmu600_pcie reside under PD_PHP, not PD_PCIE. Therefore,
+> > even without any PCIe controller enabled, PD_PHP should remain powered
+> > on (it is never added in rk3588-base.dtsi, so it should be outside the
+> > kernel=E2=80=99s scope). How does the original problem occur in that ca=
+se?
+>=20
+> The original problem is the smmu probing (probably during boot when
+> everything is still powered), not doing anything with it and on shutdown
+> the smmu driver wanting to access the smmu registers and thus ending
+> in a hang.
+>=20
+> So the problem is not necessarily the power-domain, but can also be
+> the clocks getting turned off during clk_disable_unused.
+>=20
+>=20
+> As for not disabling it, the case is also the some for things like the
+> video-encoders - they are also present all the time, so we don't have
+> devicetree wiggling for them.
+>=20
+> The fully correct thing would be, power-domain + clock handling
+> and adding runtime-pm to the smmu for when it is not in use.
+> So this would then not require any special thinking
+>=20
+> And yes, I think the other smmu should also use the same handling.
+>=20
+> @Arun care to also add a runtime-pm patch? :-)
 
-The first is what TAKANO's "perf stat: Start tool events when
-enable_on_exec is used" fixes.
+Adding runtime PM support is already WIP:
 
-Thanks,
-Hang
+https://lore.kernel.org/all/20260929034510.2023173-1-praan@google.com/
+
+(this is also needed to avoid potential crashes with system
+suspend/resume on RK3588, since we enable PCIe IOMMU by default)
+
+Greetings,
+
+-- Sebastian
+
+--x7tmavbsaviu3rdb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr1N5oACgkQ2O7X88g7
++poq8Q/+P0pOInRktOpa7ipZqr7ZZw0Ry5Z09iTXZlgJa5ImtfUKuwho88ecAs+Y
+AijE7yqpKPfi/a0xBUyWWdrGYWhEBZo97uvlxNlLT1I5TnPXz/8xY6fP8iW09TpN
+TssTFHUZH1jwpkMZx56idljsFwIwDkhbxjApqnW0CjQi9He8qx88w6AXzHC603VH
+zSxHgSpyTCkNigp7txnzxrt9x1/5PZool+9mt/ougKDtOZHaQP4r8PRqvJPcMBWr
+Qmn5WjkMUSaiOGv+E7WKuBO3gz5RoymMqwGdQFG6s+TnyRxvmy7ZiJZBOZcGiR8a
+NdN9Ow2Q3Mh+XrSJZj5De+LWjBRbSB5urw149w07xE/1HxOFlbpR/V8nNDlBIgXT
+JoUcNTKo/NMlkj8KauGJXcQUNsaNFCIQGSngnn+FyKG5rRyiGXPuaP9cDplZcVv3
+WYYMtYOxLnT3ouNJ+wq6kF8N2sVzx+ezZw1ipCXVXVu2Gl49GlAIGknuBwZLVwd7
+ZoM+PwQEy/AyNQY8Maefctg5zh49lZhzA7fMV5Lcg1ErLnhuBG6qBsY8N/snDPwi
+EFANmXjlRCRQ8Yot+LigovbQuOZBLfUGF5Ql0u+/t8L4eyO1I53JvsRfG0k+NoZ1
+aYj+apKKbcr0SFiobCOTeHLNM9DhA132MPfpMR3sVmc7aDqDq/s=
+=RkWx
+-----END PGP SIGNATURE-----
+
+--x7tmavbsaviu3rdb--
