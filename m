@@ -1,97 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.64
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794481778;
-	b=eeKL/bGlQ0OaMzA1mbo+LRLxi21C2WViUtYSqyuD/hH8UsZ/wFrn0kVVRDfKjhuNn56n
-	 kD/6d/ChlOked6377hdrr+BhxFKmQgX9mSMGyvb+zo/drI9vQvlVOA0Xb447+v2c4hujO
-	 /M2c9PRbK1Tk0QjFYR1wdcFKimd2ARhe/XOSOwh87Vfa8DgqhYRtFHdTzBc4XS8F2UCl1
-	 iMe9On7XXktdwvTZ2IDfdp0f/nvh02EKfzxPUcqb77jKRwIMdIWkmODdvBnKkwbeSD1r+
-	 0oOZH1mgiiyLu9o5hmcaW+MF1vHfUooJTINzcLWOxzAux8Zu07yHj+ZWKupwigxtnOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481778;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=FVxlTlX40YKtO/GMYcSquoT/YfnpG+GrGrMZ9EHrYQs=;
-	b=Hp9i5XcSEplzxlMWZ4TszHJroC/SF3vNZEr/BRnlSbgO/S1vTRJ5A4glLQD/2TiEO85z
-	 BPmpgg47MM6EyN674zXBH5o0qyOoURMwnjaqHK3DvLXiI4hrbEvge8U7ee154/rDMCHXV
-	 aX5YPNJcNWXvf7lOKabiPjAJV9b89nEt2qSreNaBow6SXFdT/ouhnG3DIzN0XcUpXtunV
-	 FS0C0YEr0wglv8wX7iQsjmqqGrtAfxttdvwK52mQxqdXJsD4UbFFeTHb/DaLQKYStSa8J
-	 3AbScNl0es+Se5tIYA9qnHhqYiR8q7JGp3q6opWV0r4C64WGxDjOn215vMmEIL1+9og==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KllOMYCu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.64
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011064.outbound.protection.outlook.com [40.107.208.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794481807;
+	b=maYiRwsAf8o8y3DVU+ce2mRzR9/EkKYYI5HUWY8AzFCvx5PCWTQdlTMNVG69gKBXwSNC
+	 E1bvYRa7Bm1jwXbI7/6Ww5Y79LOb5plTQ/nuLn0qiaXQv2jv8spQ/FiA+JKH9/s9NcasB
+	 AWrcHbMZ83aOSV9m0cLT+naFiFuD91wPols28i/GC4H7RFO636VeiXxFjCe3UlLM1cjDk
+	 wv2msaicB+HrypqI6ADVuX694cfiEHkzXi6FkslvvtBgSChPV5QZDLjJupMfdxRs336fC
+	 A2u3CP/P6gG2+D7Gc+CxolaOUMd6z4r4L2H1s8G2KfqfO4B12H7OtLcBekleFsKJdnA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481807;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=3o+S+io1/3KXyuW9s9/1hpYnBD4T2kW7+RqGSG8XCbM=;
+	b=2L+PvN3xnSZsy4C3d3fDuuchIzRopBaKsn5ia35XoN2OVswZNz65nNpJjVbbjyCnjnp1
+	 fyMFakOgME1BT0UCBvedo19U/57/F36Rt47yjPo2KCk+Lj+/Cn+Pcva23nSc5M9kote0s
+	 VZ5jZ8hF6JX/pnHLvyYy14yL7QgAw1DFG2kFHsS5zjPIcGAj7rK8Bc/yhTATJ/9VGmf6j
+	 4gmndJtS5RA2WEhTmhjZWBvt3l+tWzaKLoxOm1m138QM5XTPmh+aL7/RFA2MDn6M3QAu3
+	 pKqKJofWVw0SVF4iJzLXU2JAgMqCwi0qZcSni6GOsP08Uvtyk4UH6REUsDApD4LhEgQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NH8AacNf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE49606A31C;
-	Thu, 12 Nov 2026 11:09:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEE49606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D087606A335;
+	Thu, 12 Nov 2026 11:10:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KllOMYCu
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EY2vdT8wUkVSMY5imBp9QHZPx5Tk0QQuSuOUB84vfCmraQrKOYlOSi0ShvKopkyFqWDfRBUl30pF0Rmx54DX8lska5tKAOKUKbgBFD1qdCejx4IFMQylscEsA7xO1XpAip4QE5TlYV4FWWakYevVvQNxyLk1xgjYX8B1TdpDQ8tUi9n4ihvane0wW9iV9tIfzhwvjB7l4/IuNMzfPxGYnOcWxxrQCAFLOMHTUFVeVp5eRgvOM0VTLCbNk9nIKjTfzYjxdTCEQz0xXeXeXfcXjYzfzaM3GkAQxr+reksVM4Fi9gVClGXE/aT1971csEPMq/K2wgmZoRSaMasybBDJCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FVxlTlX40YKtO/GMYcSquoT/YfnpG+GrGrMZ9EHrYQs=;
- b=izyUZmp3qEduapIarvusTMeTOK2hiLCI1zAZ+uO0JcnoOyTj8YqZtgyXVy/DfYwg/+/Zmtc3XXmx/pYbvi2G5jC8II8zJzD2JQDP1SnHhJjATGZYSUN0twqEIES6TVNeNMFnq/nhAEmNOONnc6Cro9fhVPgQURukZsJJyPYTbV5qIprtM69h6c+9Fqn/cM06rA4bfw0ZnAcVSMN1kUb7lLg12LmzLyVZDbfWODGGpzJDZgFCsxBXd519EUpQddMuk8fGg7hgxJpyNjprtIQyT/5YQclWun2lNP3o1q4fs+4Dq5h54weYc5dhZg7g7u2Wfv5v/rIt7p+p3wUEZsMFfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FVxlTlX40YKtO/GMYcSquoT/YfnpG+GrGrMZ9EHrYQs=;
- b=KllOMYCuWv7QJgoyHzzgxAqfUuqoerl4Jn94NsWaZ/a71FEF0Iy+MjdAI8eyCQGDIgojbDlm1DPoM5HVsK42r4zUL+OCpbaLCLxsUkChJPyoWWC64yMIXoY4jJG+/VuHXBhSDjrRYDFf0TXk0Z+LvMC9Ll1X/rtIMsdL2b9+KXg=
-Received: from DM6PR02CA0120.namprd02.prod.outlook.com (2603:10b6:5:1b4::22)
- by IA0PR12MB7774.namprd12.prod.outlook.com (2603:10b6:208:430::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 11:09:32 +0000
-Received: from CY8PEPF00000054.namprd05.prod.outlook.com
- (2603:10b6:5:1b4:cafe::ae) by DM6PR02CA0120.outlook.office365.com
- (2603:10b6:5:1b4::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Thu, 12
- Nov 2026 11:09:32 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY8PEPF00000054.mail.protection.outlook.com (10.167.247.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 11:09:31 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 05:09:31 -0600
-Received: from [192.168.0.101] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 12 Nov 2026 05:09:25 -0600
-Message-ID: <3b28aa06-1496-42b1-b1d2-c654c7a1ff0c@amd.com>
-Date: Thu, 12 Nov 2026 16:39:23 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NH8AacNf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67CD91F00A08;
+	Thu, 12 Nov 2026 11:10:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794481807;
+	bh=3o+S+io1/3KXyuW9s9/1hpYnBD4T2kW7+RqGSG8XCbM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=NH8AacNffgQHnCQHXthR/vBvCxJxEUtijQbHm9I9Q+udGpLl3UBR0vTwgGg+UfkWZ
+	 6MZFGK1EIyIXrSu0/d7iJTZd3S2csUWaohlwV2tV+0MGkZc9RYhyDHp4MXcsaDHOr0
+	 FvemAJnqE3uSKEtxxLYz0Dar5zAJR3BDC975r+Ip0pn11uaQYF/06Ool1juHXqIkNl
+	 6GNQnzMaxkzIBS4RbxtfkcE7jSKOjeje9anMIADyj5cCLgTvYo8X34+fwfKF73G31V
+	 18ByJ+VGBUTbM4oEbcbUTtcb0uPcpfOvdUw2dX2a766JW++/kTiZ050NwoSYi85Wue
+	 QFHsCNHn2l6Tw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E29F3AA9F46;
+	Thu, 12 Nov 2026 11:10:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,80 +53,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC] perf/x86/amd/lbr: Don't freeze the LBR on PMI for
- user-only filters
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>, Puranjay Mohan
-	<puranjay@kernel.org>
-CC: Sandipan Das <sandipan.das@amd.com>, <linux-perf-users@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Peter Zijlstra <peterz@infradead.org>, "Ingo
- Molnar" <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa
-	<jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
-	<adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, "Thomas
- Gleixner" <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H . Peter Anvin"
-	<hpa@zytor.com>, Andrii Nakryiko <andrii@kernel.org>, Ravi Bangoria
-	<ravi.bangoria@amd.com>
-References: <b7456dbb-16fd-45b4-8742-e9ea3f896317@amd.com>
- <20261105170340.165507-1-puranjay@kernel.org>
- <CAEf4BzZeVd4boXX4Hy1sKAM=dUPS7dvdmrOPybGrrZV+bU7eAA@mail.gmail.com>
- <CAEf4BzaGnsOhpz=bOxoSEyy-8W0epd5Go6juimoqDge+Rc-+Dw@mail.gmail.com>
-Content-Language: en-US
-From: Ravi Bangoria <ravi.bangoria@amd.com>
-In-Reply-To: <CAEf4BzaGnsOhpz=bOxoSEyy-8W0epd5Go6juimoqDge+Rc-+Dw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PEPF00000054:EE_|IA0PR12MB7774:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33b0c68d-b61d-40c9-8756-08df40ad6d71
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|7416014|376014|1800799024|82310400026|11063799006|4143699003|261102123227099003|261021121427099003|261022075727099003|261026121527099003|56012099006|22082099003|18002099003|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	zNnhFg5JJ2M/uAdMfcltPd216nFC5lJOwWfW/LTsDS1Rfv7wYmfqMm2ta4SPTm5lWscASKmqFF3fh4DYZ/h98rOVXLU+jaYKwKcWQIdckHKnF1Udm33B6YtAOUyjgWV+ElqFadhUeYOyl7ehUYLuATzIFw/PNZ2GsoScdM8xeAXyBTio7bJk+/tBQL68bXoViw4GYcdQzaCecPfSY6oPZ/6vK7wdYrcRlyC/jBrHtuPWUcRS/RkBRBGb+fG52XTTdqm11xjz6v/Q1Bse6w+dO1+mB8WR4Vy7S79ZXwePwYUE2Hyk+41gwSUnuqnnOALwrJvGheBxyHqM2OkXMJPUQS4YWBetDLTzdK79bShYyLgM0NpPq52bAsUU2tGrCeLlpKM+1qE/2c1fay+9j6gel4kukQXv0O6EiWffCURhySDyXJXMCdaAgSCyBXZy/NCoyPjFzP5fU4MZIPukRMr5RzZruvYhX+y8xLoSjFAMNNWwVnznvITT3l8OayFFRRmxETOELN0b2pWpmBIb+GnYkYyeGj5AJEadGb/oPv0t3ixx4PvOuG48ZdMSMqHjJaeBBHBUmdHb4Oph7dZrJ6Ap87Uv1lbVIHHztWBSo9Bh+qN3dmFApntfafCZcRnEoaFSXjiXuZgm94AddwmT9xtuQV8u3YEi8YEEGVGhcblInTqn1f8H2dW9TA4aRlDEZio25/QLIiJbGVnYW+xoZ+jbQQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(376014)(1800799024)(82310400026)(11063799006)(4143699003)(261102123227099003)(261021121427099003)(261022075727099003)(261026121527099003)(56012099006)(22082099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ZKDkwyYFUBb53RphUrwfisUDW5rPEnK7AnbQqBMx8EqAM8HX3eoH9tsBKZXZjnDJEpr5Lc5MlpKuKoswmRziXP0zgrpRjRx49Zyfy3HAdR9BHi30WqxZ1GCjc0chBby+IYCopjBumh0gO9cvo4fWIN+vsvVhZfSfG4+Bsk+ChxWa50i/OI/D06Fva38g8lb6bH7H+/h4zBuEQlr0Ykh5qTTCTQI0R30tVNHhc/JkoFNO+o0KrjwsQxVoffh/IuA43vyFotzb+vVDjhyymxEjmXcW6NfiKEDJO80+oZub+6wH4lSjrsgCrOu1d0Xu+i9d5DjX6IBd5CgLIdRx+tkmv4STBimIGmOpxPBCL5egoRCQmx0RMSUSpIcKZy00b8qeE6fO0ZfQOQDvAbqwHTkVSpR/QP/dKr6gSk8HY8tN4zRuBfiaLS9+2r6LB0HZ+xXP
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 11:09:31.8694
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33b0c68d-b61d-40c9-8756-08df40ad6d71
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY8PEPF00000054.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7774
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: ag71xx: let both QCA9550 MACs use MII,
+ RGMII and SGMII
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179448180592.2021886.2401928322346836474.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 11:10:05 +0000
+References: <20261106221607.16215-1-rosenp@gmail.com>
+In-Reply-To: <20261106221607.16215-1-rosenp@gmail.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: netdev@vger.kernel.org, chris.snook@gmail.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, o.rempel@pengutronix.de, linux-kernel@vger.kernel.org
 
-Puranjay, Andrii,
+Hello:
 
->> heh, so we basically either
->>
->> a) opt-in freeze with *new config*, but do it *only for non-kernel LBR*
->>
->> or
->>
->> b) opt-out freeze *only for non-kernel LBR* _unconditionally_, but
->> without adding any new config
->>
->> In both cases we have a behavior that makes sense in practice, but a)
->> adds some new config, while b) doesn't add anything. End result is the
->> same, just more configuration and need to change user space code to
->> opt-out the freeze.
->>
->> Is a) worth it, or we should stick to b) and keep it simple, Sandipan?
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Have you run a PGO experiment with the patch, and does it show a
-benefit? Also, have you seen any regression in any benchmarks? If
-no-freeze regresses some of them, we may need to give the user an
-option to keep the freeze enabled. No?
+On Fri,  6 Nov 2026 14:16:07 -0800 you wrote:
+> The GE0_SGMII bit of the QCA955x ETH_CFG register selects which GMAC
+> gets the SerDes (QCA9558 datasheet, 10.8.1): when it is clear, GMAC0
+> connects as RGMII/MII and GMAC1 as SGMII, and when it is set, the other
+> way around. The driver only allows the second layout, with SGMII on
+> GMAC0 and RGMII/MII on GMAC1, but boards like the TP-Link Archer C7
+> use the first one, with GMAC0 on RGMII.
+> 
+> [...]
 
-Thanks,
-Ravi
+Here is the summary with links:
+  - [net] net: ag71xx: let both QCA9550 MACs use MII, RGMII and SGMII
+    https://git.kernel.org/netdev/net-next/c/7cb4cf087038
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
