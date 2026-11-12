@@ -1,75 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524364;
-	b=KpPuOW5Ve++BJrwh/bAEiipO8egxYbHKJHf3WZdyX4X80BaHS4f2CSiJNuPTZppggpG7
-	 Sz1kDJG8gkEvTOkccAEH7t4AqJdBp1pS1+73M6BL7ddVpyMjwwJ1ATSKqdItbvco+KwNh
-	 DUz0dO5lWZOD99WFhkwRuV/lGrZxM1w9A4qQU9pUym+maRdfMQOnO4yVTmIEqgYoxBb24
-	 k1kkuhFBn2E6AzhsGAz5SRc24z7jvSuIlQmQgWAU/hw4CHt4VqMU+Dl1/A96hRdewnJHD
-	 1gdS8qp34iRsFqpAfTS1BPmVVbZIi3qY6Twp28CANILzTsVELorln1iAXSP2umt1RuA==
+	t=1794524365;
+	b=5FdItZxceZKAx12bb4KxAi1tSu20iBtf4gW4fGEHV+WYI16x/8NtmyVy/IskE1ZQnIlu
+	 /WjIX2k/BGI/wHLPRWQMisXPU9dLCRj0MRuapLoslMd1ii2dOlwXawqqDsc6DLO1OjFU+
+	 GPgPZSb8JGt8PE993cdLmnpYanHiIHf06VwAf7c7jOWpyE61pFpeH/ChGsM+hYYqZ70jn
+	 fthmAek8fYJ14m1EgZ8lZMSTrS7JydJwytukuiKbkj3Sl5ivlUCc8WSFrQt5BXjnVwa9m
+	 B1qxM5SxQc9W+coQaEWuidfpl9pnqSsM2gtuCiijTLshOdfzn+n/55pBktMs3bNqEEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524364;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524365;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=miZw+tpBz1NZvPzoLi0FsIcx38rJ60qNj9YHT0PyrbM=;
-	b=Qm1YMe1PRl5K1PQtQKyCLQTSDc4/bU8NEfpCj41GXW87XMk1ybq+VCUd60OcWxpwG1uF
-	 MQ5sJYpQ1w3aBpKdZAtHEyZo+SGxz/TKeeGbmN1mYdM281AKHDbTGpI7L18stjC5dTAqk
-	 y3S18wy/TLyMTwfWxjpj/3iDmBIG2RljwGZIq6qqSMpqYK1wFHrmT1A/UDv+myT1lneoy
-	 ccC2A0YJVZJRi5LtbQc6MmvqWuJU0bh7kIuDmyDWaN/1HgezeCcxjDiEf1MubgpbWGxcv
-	 xXjWS6oG4WTvLypWaQSWsBkPPNTRlQUKY2fTfnY2TPeHrCRwZd9l3yCgmeLuvKpL+lQ==
+	bh=NF40bNuB+7T3fRZ/y9lOpNllM4G0uCoTbmZ6ZV1+NjE=;
+	b=qIwiVioO0bqRD7TXFiSZ/hsWQ0il1qbJc/ZeHerphO+g9NzZ3IYRbpEO06vWlcvR8mvm
+	 MbhgNZNAa536qNuNkmJtvlcEYicBewNoPiXUhf8k0I9FBD8mfjVR/QSyiOPjwl6XH6VYe
+	 KqQQxk/cx5gCVSNf3VQJihjNQyO8T44+g7SgvKExBITyAzZjg6QLIxr/Klm4uKgpFrGTa
+	 JdzxufGfdAzyIP1JOlsS2T2W6F9wNHXOvVFZHMyDyt1x9sK76fno4/YLz3FN65cRBO50Q
+	 7Br4oVVWHvObmbgtlA65IEe7spIEKrQURE2KSAxXkUrqfZ3txMadVDswFDYt0zdYtyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	arc=none smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2765460A381E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:59:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2765460A381E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A222060A3837
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:59:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A222060A3837
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b336de3d38so3297727b3.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:59:23 -0800 (PST)
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b3402105b9so4099027b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:59:24 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794524362; x=1795129162;
+        d=1e100.net; s=20260707; t=1794524364; x=1795129164;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=miZw+tpBz1NZvPzoLi0FsIcx38rJ60qNj9YHT0PyrbM=;
-        b=i+v/L9hHZwAZnlRp/fAzcRA0SVX8ytEPFzsHssxTlzpdiNEYVEBlj9iyrl0v0m10T1
-         j+rN1UrcbO6aAZnfYmo1IxAnI3MNevIdo59j7TfAoVQqQf15jhBIAPL+I4Y+jYP85cu3
-         zPKABfVg016XfqzMcioHAAm6yf/yJfWFRrb4kj+jZjG0CeXH1l4o8z//oslkPbclm0Ze
-         b8rmHBk1dXmCu0Fco0CgJaVbkvzL5Swx1Z2PZAypLT9nXAJC6lrcH5VeMkgrpTx29flP
-         rQYtbaXYqOcMbsM125pht9TmXkudySEm2nK+tXD3MJ/StLsDIK+U/DjG2GTZB7+uAl3J
-         QQIg==
-X-Forwarded-Encrypted: i=1; AL+hErHR46BwISt0irV6TI6clv/Sl9u4J9u/ECsPJEnpTbRx/JDkwmSNw683AIVaWFueBSqS7gDIwDTs2PZ1uQA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/rJznL4Bpp4r/2SczNeo1uFqFAUFK9z7F/1hufTjImj/PyFMD
-	vtGVNYC+RyqC79jsdEa0iarEr/yqMKnrXN61VU3quM07bl7C/2YzXcQH
-X-Gm-Gg: AYBFou03ezXmWuczP+Hvdq2fLRqf+uI23pCpXZUO1XbU/Q4pFSnXUN/gGD6yidWvU1z
-	08UVN+ZyhBd8DHUEpqnh2SjXioKt9rC4xFjJeHc3Y27Y8JV3GlZJXUAOBuqJ9VO4BcvkwHiHO4R
-	er8zr6m5fpwNWOe3AviqmiiZb4hHEpsaouuwQ4XzSEPDv9yeQIFRJ2CdGttZIeRyH6TG61bep5E
-	RePw8NFS/7/XdZfDkLxvossUXg3Kp1laACYFe1ivYD5hMIRZ19cdkveJXUmeQtOTKRy6LyPGf7i
-	J3tnWoUkgkvGO/MOnUNjbuoFXtCr0sEmnEBDErT3ImZPAert4NZZepnp4bUWmY1enLp4nm70ZWT
-	XvZmfzce4LT5YN75DE2kmpqlW4ZeKGDbYE0LlYVA6BsiTtJqNgzvP/oGNht4AMxdKB+F4IeRkYi
-	0a5Ychk+3F2pZQWAI/gNdLzVhYThIC4Hxvclga6U+ueLWWgCYJ0dbohG697HhirXPZ5+eU7ItuJ
-	yLTItaTsjWNzmn93o1BBRdYcghK3enty9B1xzI152sM4CJYBZNwmST0LnCB5d0d+nihxnbk0QiN
-	i5dWxHhOE0QTfECdm+D7xNYEHWvgdmcGLtgq/FWSw6vZZQ2h5C8KHgVYk+SUdqR60ovNYJLONM7
-	qq8wSTBNiLBhh/PRGxKvew4cT70dy+RPbNppbDXqnEzUzByXZC0tJ5ZZeHW5MVjdL0OzLy9IYTR
-	Le6RInfmDpX5Z/6Zrd7iehEecR
-X-Received: by 2002:a05:690c:e251:10b0:8b3:23f3:134d with SMTP id 00721157ae682-8b4aa2b33a1mr4256467b3.42.1794524362017;
-        Thu, 12 Nov 2026 14:59:22 -0800 (PST)
+        bh=NF40bNuB+7T3fRZ/y9lOpNllM4G0uCoTbmZ6ZV1+NjE=;
+        b=QQ3QzLjfR3nAuko6PmVMxXPH7311cULzYRgVw8iIeg52lR/lV20x9Ap0Zk4TSLCJC4
+         KmNd7Kn/mXHpJFD33rvxqN3TfSvwqmGRn2pJYHPWsL+l4DBPPdxLKXg38OB0ZhZuraDz
+         K+J+kPUBnh3Ysg6i+FvguQJhN5c4I7TOkuFKa2sfv6ENuMtIfpXk5uuGZuBvTNJaJrAG
+         BLzxynxY1/KWVfqCAl0k+XZfej+gJluOqvn4wwHx3t43z2Y88bCEhWQQUy0xI197svcv
+         QWjsozwshCnyXbfJonBnPEEEuwJ01lWeampCKcPQyIqWO0sBkJ2NpSN5LUOmq8aV9A65
+         R71g==
+X-Forwarded-Encrypted: i=1; AL+hErEgRLtK4uDJSlqWcUBq3ckEdawoRVcKJ+nreqw7PGHaMA9oMYP6oAz0JCWQs8BGr97e88OqErGtIJEHNj8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TiPCdTavFoEgSK6gzaUbfxv+lpVK2yr3O2DsJIvno59rhll5p
+	AHNufCNg2RMx9oqzxJl9ZuU7Ij4RlhSbOpKeWIojkwHis35GyNuhlY3E
+X-Gm-Gg: AYBFou11OX0Pkt8yfUrOMqq0RiA1A1nwlnEQfpNWnUO8GL4LilihYeSiCQOWaWF3S1D
+	dMsZGUE0KaedCQyXnkH3Tr28B+IhMEitOvk/Xbsnp8YC4uRtrcK+zMR0JlqjFxqgVvUo3VAJiEv
+	tLqC3DsPXmkTIFNmQ/K/r+tbSFcsErKR96fnz+Skj3ZT+7sxyxNa9Wr7bIxIvMrQHOqPeT/G8ZW
+	lQenaHs8xvnECq+e2DRggRN0G88r75ZkzhKUwh9ozXuo76Jt0ndpKaX5r1JfLD6ddEtIcF9BbyR
+	JWjuFUX4qtRTtl04h3m9wLQ88JuzTrdZunmRdOwZ196RLwGmzf7qjs+pviWuyBkVLabcBuUQ4AH
+	VRjqstOskemnxlYTdI7M2B/lQIyqD9L9WIuNGy/ZSzzPbfGySKM9ZCAqNKgWU0zixIslnhvN2hw
+	obDrFhynVWldmX/vPMj3XaQPGXPQcza5ruPoa5y/0CNeZXCDd0u2XGw4654YshHiuoffzhn7xzg
+	EbVsN2GgYdEQq8P86wOEUfI+lU9Om+1qdyEjk1sk9RVqRu5NkTvOu2iqn5VQtQqq5ckaqayJkHz
+	TSCic/4VmnilD6UXG3UIgOyx1LTUWwklkSfMUFh1dJa1S6bo/GpCDebpyLHMcxZ9ZdwY+v+JYZP
+	I84YY/gr638JwWlWOEXhE08wYIdXGdwJLQWqnI5v/wNFlcNG5e+Rb/XA81Np0q3m8MRlgqWkchG
+	527HXrh3SL/mg/LFS0pb2O7H9B
+X-Received: by 2002:a05:690c:dc3:b0:8b0:a432:5686 with SMTP id 00721157ae682-8b4aa2da2f3mr5950117b3.44.1794524363601;
+        Thu, 12 Nov 2026 14:59:23 -0800 (PST)
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa8f354asm7261077b3.14.2026.11.12.14.59.20
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa8f354asm7261077b3.14.2026.11.12.14.59.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 14:59:21 -0800 (PST)
+        Thu, 12 Nov 2026 14:59:23 -0800 (PST)
 From: Joseph Telaak <joseph@telaak.dev>
-Date: Thu, 12 Nov 2026 17:58:58 -0500
-Subject: [PATCH RFC 08/13] drm/powervr_sgx: Add contexts, the scheduler and
- SUBMIT_JOBS
+Date: Thu, 12 Nov 2026 17:58:59 -0500
+Subject: [PATCH RFC 09/13] drm/powervr_sgx: Add the client command checks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,7 +80,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261112-powervr-sgx-v1-8-c69b84bac011@telaak.dev>
+Message-Id: <20261112-powervr-sgx-v1-9-c69b84bac011@telaak.dev>
 References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 In-Reply-To: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 To: dri-devel@lists.freedesktop.org, 
@@ -103,1363 +102,909 @@ Cc: imagination@lists.freedesktop.org, Frank Binns <frank.binns@imgtec.com>,
  linux-kernel@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.16.0
 
-- Render contexts, each a drm_sched entity with its priority, on one
-  scheduler that runs one job at a time.
-- SUBMIT_JOBS with syncobj waits and signals (binary and timeline).
-  Sync is explicit: the out-fence goes on the VM's reservation as
-  bookkeeping only, and other drivers sync through the dma-buf
-  sync-file ioctls.
-- Hardware fences signaled in order from the microkernel's interrupt,
-  on a reclaim-safe workqueue. A microkernel that doesn't count
-  finished jobs is polled instead.
-- A job that runs past its timeout resets the GPU. Its context is
-  guilty, the others innocent; the guilty context's queued jobs fail.
-  If the GPU can't be restarted, the driver sends a wedged uevent
-  (rebind) and fails every job with -EIO.
-- Tracepoints for kicks, interrupts and completions.
+Userspace describes a job's work as plain structs, never as a firmware
+structure: a render command and one TA-kick command per kick. Each
+starts with its size and a chain of extensions
+for the fields only one core has.
+
+The kernel copies each struct as copy_struct_from_user() does: a
+shorter struct reads as zeros, and non-zero bytes past what the kernel
+knows are -E2BIG. It walks the extension chain (at most 16, each name
+once; one this core doesn't accept is -EOPNOTSUPP) and checks what it
+copied, so a racing writer can't change a checked value. Every field is
+checked against the core's table: ranges, masks, alignment, and for an
+address the heap it must lie in and an extent mapped in the job's VM.
+Then the cross-field rules (depth and stencil with ZLS, tile
+rectangles), and only then does it build the firmware command from the
+checked values.
+
+The structs, their extensions and the per-core check tables come from
+one XML description. The generated tables are committed, so the build
+needs no generator.
 
 Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- drivers/gpu/drm/powervr_sgx/pvrsgx_job.c   | 1028 ++++++++++++++++++++++++++++
- drivers/gpu/drm/powervr_sgx/pvrsgx_job.h   |  143 ++++
- drivers/gpu/drm/powervr_sgx/pvrsgx_trace.c |    5 +
- drivers/gpu/drm/powervr_sgx/pvrsgx_trace.h |  134 ++++
- 4 files changed, 1310 insertions(+)
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd.c        | 234 ++++++++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd.h        | 132 +++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_checks.c |  62 +++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_checks.h |  13 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_defs.c   | 353 ++++++++++++++++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_defs.h   |  43 +++
+ 6 files changed, 837 insertions(+)
 
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_job.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_job.c
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd.c
 new file mode 100644
-index 000000000..bc1e8ea28
+index 000000000..0da4f387c
 --- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_job.c
-@@ -0,0 +1,1028 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd.c
+@@ -0,0 +1,234 @@
++// SPDX-License-Identifier: MIT
 +/* Copyright © 2026 Joseph Telaak */
 +
 +/*
-+ * Contexts, jobs and the scheduler. One drm_sched scheduler with a credit limit
-+ * of one: a single job on the GPU at a time. Each job becomes one kernel CCB
-+ * command and is complete when the microkernel has finished it. A microkernel
-+ * that counts finished jobs (PVRSGX_UKFW_DONE_SEQ) interrupts for each one, and
-+ * a slow poll is only a backstop; with an older one, completion is also polled
-+ * every jiffy while jobs are out.
++ * Client commands: the copy from userspace and the per-field checks, from
++ * the per-core tables in pvrsgx_cmd_defs.c. The per-command cross-field
++ * rules are in pvrsgx_cmd_checks.c.
 + */
 +
-+#include <drm/drm_auth.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_exec.h>
-+#include <drm/drm_file.h>
-+#include <drm/drm_gem.h>
-+#include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_print.h>
-+#include <drm/drm_syncobj.h>
-+
-+#include <linux/capability.h>
-+#include <linux/dma-fence-chain.h>
-+#include <linux/dma-resv.h>
-+#include <linux/ktime.h>
-+#include <linux/module.h>
-+#include <linux/sched/mm.h>
-+#include <linux/slab.h>
++#include <linux/bits.h>
++#include <linux/errno.h>
++#include <linux/string.h>
 +#include <linux/uaccess.h>
-+#include <linux/workqueue.h>
++
++#include "pvrsgx_cmd_defs.h"
++
++static const struct pvrsgx_cmd_ext_def *ext_find(const struct pvrsgx_cmd_def *def, u32 id)
++{
++	for (u32 i = 0; i < def->nr_exts; i++) {
++		if (def->exts[i].id == id)
++			return &def->exts[i];
++	}
++	return NULL;
++}
++
++static int take_exts(const struct pvrsgx_cmd_def *def, u64 uptr, u8 *all, u64 *present)
++{
++	u32 n = 0;
++
++	*present = 0;
++	while (uptr) {
++		const struct pvrsgx_cmd_ext_def *ed;
++		struct drm_powervr_sgx_ext head;
++		u8 *dst;
++
++		if (++n > PVRSGX_CMD_MAX_EXTS)
++			return -EINVAL;
++		if (copy_from_user(&head, u64_to_user_ptr(uptr), sizeof(head)))
++			return -EFAULT;
++		if (head._padding_4 || !head.name || head.name >= 64 ||
++		    pvrsgx_cmd_ext_owner[head.name] != 1 + def->type)
++			return -EINVAL;	/* unknown, or another command's */
++		if (*present & BIT_ULL(head.name))
++			return -EINVAL;
++		ed = ext_find(def, head.name);
++		if (!ed)
++			return -EOPNOTSUPP;	/* this command's, but not on this core */
++		dst = all + ed->offset;
++		if (copy_from_user(dst, u64_to_user_ptr(uptr), ed->size))
++			return -EFAULT;
++		/* the copy is what counts: a racing writer can't change what was checked */
++		if (((struct drm_powervr_sgx_ext *)dst)->name != head.name)
++			return -EINVAL;
++		*present |= BIT_ULL(head.name);
++		uptr = ((struct drm_powervr_sgx_ext *)dst)->next;
++	}
++	return 0;
++}
++
++int pvrsgx_cmd_copy(const struct pvrsgx_cmd_def *def, u64 uptr, void *all, u64 *present)
++{
++	const void __user *src = u64_to_user_ptr(uptr);
++	struct drm_powervr_sgx_cmd_head *head = all;
++	u32 size;
++	int err;
++
++	memset(all, 0, def->all_size);
++	*present = 0;
++	if (!def->supported)
++		return -EOPNOTSUPP;
++	if (!uptr)
++		return -EINVAL;
++	if (get_user(size, (const u32 __user *)src))
++		return -EFAULT;
++	if (size < sizeof(*head) || size > PVRSGX_CMD_MAX_SIZE)
++		return -EINVAL;
++	/* -E2BIG for non-zero bytes past what this kernel knows, as everywhere */
++	err = copy_struct_from_user(all, def->size, src, size);
++	if (err)
++		return err;
++	if (head->size != size)
++		return -EINVAL;
++	return take_exts(def, head->extensions, all, present);
++}
++
++int pvrsgx_cmd_take_elem(const struct pvrsgx_cmd_def *def, const void *elem, u32 stride,
++			 void *all, u64 *present)
++{
++	const struct drm_powervr_sgx_cmd_head *head = elem;
++
++	memset(all, 0, def->all_size);
++	*present = 0;
++	if (!def->supported)
++		return -EOPNOTSUPP;
++	if (stride < sizeof(*head) || head->size != stride)
++		return -EINVAL;
++	/* obj_array_get() copied min(stride, def->size) and checked the tail */
++	memcpy(all, elem, def->size);
++	return take_exts(def, head->extensions, all, present);
++}
++
++static u64 cmd_field_get(const u8 *all, const struct pvrsgx_cmd_field *f)
++{
++	u64 v = 0;
++
++	memcpy(&v, all + f->offset, f->size);	/* little-endian: the low bytes */
++	return v;
++}
++
++static int check_field(const struct pvrsgx_cmd_core *core, const struct pvrsgx_cmd_field *f,
++		       const struct pvrsgx_cmd_ctx *ctx, u64 v)
++{
++	switch (f->check) {
++	case PVRSGX_CMD_CHECK_NONE:
++		return 0;
++	case PVRSGX_CMD_CHECK_ZERO:
++		return v ? -EINVAL : 0;
++	case PVRSGX_CMD_CHECK_RANGE: {
++		u64 max = f->limit ? ctx->limits[f->limit] : f->max;
++
++		return v < f->min || v > max ? -EINVAL : 0;
++	}
++	case PVRSGX_CMD_CHECK_MASK:
++		return v & ~f->mask ? -EINVAL : 0;
++	case PVRSGX_CMD_CHECK_ADDR:
++		if (!v)
++			return f->optional ? 0 : -EINVAL;
++		if (core->va_bits < 64 && v >> core->va_bits)
++			return -EINVAL;
++		if (v & (f->align - 1))
++			return -EINVAL;
++		if (f->heap == PVRSGX_CMD_HEAP_CLIENT)
++			return 0;	/* VM_MAP maps only client heaps; check_mapped covers it */
++		if (f->heap >= PVRSGX_CMD_HEAP_MAX || !ctx->heaps[f->heap].size ||
++		    v < ctx->heaps[f->heap].base ||
++		    v - ctx->heaps[f->heap].base >= ctx->heaps[f->heap].size)
++			return -EINVAL;
++		return 0;
++	}
++	return -EINVAL;
++}
++
++static int check_fields(const struct pvrsgx_cmd_core *core, const struct pvrsgx_cmd_field *fields,
++			u32 n, const struct pvrsgx_cmd_ctx *ctx, const u8 *all)
++{
++	for (u32 i = 0; i < n; i++) {
++		int err = check_field(core, &fields[i], ctx, cmd_field_get(all, &fields[i]));
++
++		if (err)
++			return err;
++	}
++	return 0;
++}
++
++int pvrsgx_cmd_check(const struct pvrsgx_cmd_core *core, const struct pvrsgx_cmd_def *def,
++		     const struct pvrsgx_cmd_ctx *ctx, const void *all, u64 present)
++{
++	const struct drm_powervr_sgx_cmd_head *head = all;
++	int err;
++
++	if (!def->supported)
++		return -EOPNOTSUPP;
++	if (head->_padding_4)
++		return -EINVAL;
++	err = check_fields(core, def->fields, def->nr_fields, ctx, all);
++	for (u32 i = 0; !err && i < def->nr_exts; i++) {
++		const struct pvrsgx_cmd_ext_def *ed = &def->exts[i];
++
++		if (present & BIT_ULL(ed->id))	/* absent: all zero, rev 1's "off" */
++			err = check_fields(core, ed->fields, ed->nr_fields, ctx, all);
++	}
++	return err;
++}
++
++static int mapped_fields(const struct pvrsgx_cmd_core *core, const struct pvrsgx_cmd_field *fields,
++			 u32 n, const struct pvrsgx_cmd_ctx *ctx, const u8 *all)
++{
++	for (u32 i = 0; i < n; i++) {
++		const struct pvrsgx_cmd_field *f = &fields[i];
++		u64 addr, size, samples = ctx->rt_samples ? ctx->rt_samples : 1;
++
++		if (f->check != PVRSGX_CMD_CHECK_ADDR || !f->extent)
++			continue;
++		addr = cmd_field_get(all, f);
++		if (!addr)
++			continue;	/* an optional address left out */
++		switch (f->extent) {
++		case PVRSGX_CMD_EXTENT_BYTES:
++			size = f->extent_bytes;
++			break;
++		case PVRSGX_CMD_EXTENT_RT_DEPTH:
++			size = (u64)ctx->rt_pad_width * ctx->rt_pad_height * 4 * samples;
++			break;
++		case PVRSGX_CMD_EXTENT_RT_STENCIL:
++			size = (u64)ctx->rt_pad_width * ctx->rt_pad_height * samples;
++			break;
++		case PVRSGX_CMD_EXTENT_PDS_ROWS: {
++			u32 rows;
++
++			memcpy(&rows, all + f->extent_field, sizeof(rows));
++			size = (u64)rows * core->pds_row_bytes;
++			break;
++		}
++		default:
++			return -EINVAL;
++		}
++		if (!size || !ctx->mapped(ctx->priv, addr, size))
++			return -EINVAL;
++	}
++	return 0;
++}
++
++int pvrsgx_cmd_check_mapped(const struct pvrsgx_cmd_core *core, const struct pvrsgx_cmd_def *def,
++			    const struct pvrsgx_cmd_ctx *ctx, const void *all, u64 present)
++{
++	int err = mapped_fields(core, def->fields, def->nr_fields, ctx, all);
++
++	for (u32 i = 0; !err && i < def->nr_exts; i++) {
++		const struct pvrsgx_cmd_ext_def *ed = &def->exts[i];
++
++		if (present & BIT_ULL(ed->id))
++			err = mapped_fields(core, ed->fields, ed->nr_fields, ctx, all);
++	}
++	return err;
++}
++
++u64 pvrsgx_cmd_ext_mask(const struct pvrsgx_cmd_def *def)
++{
++	u64 mask = 0;
++
++	for (u32 i = 0; def->supported && i < def->nr_exts; i++)
++		mask |= BIT_ULL(def->exts[i].id);
++	return mask;
++}
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd.h
+new file mode 100644
+index 000000000..ec5c29dff
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd.h
+@@ -0,0 +1,132 @@
++/* SPDX-License-Identifier: MIT */
++/* Copyright © 2026 Joseph Telaak */
++
++/*
++ * Client commands: copied from userspace with their extensions, then checked
++ * field by field from the per-core tables in pvrsgx_cmd_defs.c.
++ */
++
++#ifndef PVRSGX_CMD_H
++#define PVRSGX_CMD_H
++
++#include <linux/types.h>
 +
 +#include <uapi/drm/powervr_sgx_drm.h>
 +
-+#include "pvrsgx_ccb.h"
-+#include "pvrsgx_device.h"
-+#include "pvrsgx_pm.h"
-+#include "pvrsgx_drv.h"
-+#include "pvrsgx_dump.h"
-+#include "pvrsgx_fw.h"
-+#include "pvrsgx_job.h"
-+#include "pvrsgx_prime.h"
-+#include "pvrsgx_kobj.h"
-+#include "pvrsgx_trace.h"
-+#include "pvrsgx_validate.h"
-+#include "pvrsgx_vm.h"
++#define PVRSGX_CMD_MAX_SIZE 4096U
++#define PVRSGX_CMD_MAX_EXTS 16U
++#define PVRSGX_CMD_TYPES_MAX 8U
 +
-+#define PVRSGX_MAX_JOBS		64
-+#define PVRSGX_MAX_SYNC_OPS	64
-+static unsigned int job_timeout_ms = 2000;
-+module_param(job_timeout_ms, uint, 0444);
-+MODULE_PARM_DESC(job_timeout_ms, "How long a job may run before the GPU is reset (default 2000 ms)");
-+
-+/*
-+ * Two jobs on the GPU at once, so one render's TA runs while another's 3D
-+ * finishes. Off until proven: it needs the microkernel to take a TA while a 3D
-+ * is in flight. A reset then cancels both, and both contexts are refused.
-+ */
-+
-+static struct pvrsgx_job *to_pvrsgx_job(struct drm_sched_job *sched_job)
-+{
-+	return container_of(sched_job, struct pvrsgx_job, base);
-+}
-+
-+static const char *fence_driver_name(struct dma_fence *fence)
-+{
-+	return "powervr_sgx";
-+}
-+
-+static const char *fence_timeline_name(struct dma_fence *fence)
-+{
-+	return "sgx";
-+}
-+
-+static const struct dma_fence_ops pvrsgx_fence_ops = {
-+	.get_driver_name = fence_driver_name,
-+	.get_timeline_name = fence_timeline_name,
++enum pvrsgx_cmd_check {
++	PVRSGX_CMD_CHECK_NONE = 0,
++	PVRSGX_CMD_CHECK_ZERO,	/* padding */
++	PVRSGX_CMD_CHECK_RANGE,
++	PVRSGX_CMD_CHECK_MASK,
++	PVRSGX_CMD_CHECK_ADDR,
 +};
 +
-+struct pvrsgx_usage *pvrsgx_usage_new(void)
-+{
-+	struct pvrsgx_usage *u = kzalloc_obj(*u);
++/* CLIENT has no range: VM_MAP only maps client heaps, and the mapped check covers it. */
++enum pvrsgx_cmd_heap {
++	PVRSGX_CMD_HEAP_CLIENT = 0,
++	PVRSGX_CMD_HEAP_PDS_PIXEL,
++	PVRSGX_CMD_HEAP_MAX,
++};
 +
-+	if (u)
-+		kref_init(&u->ref);
-+	return u;
-+}
++enum pvrsgx_cmd_limit {
++	PVRSGX_CMD_LIMIT_NONE = 0,
++	PVRSGX_CMD_LIMIT_TILES_X,
++	PVRSGX_CMD_LIMIT_TILES_Y,
++	PVRSGX_CMD_LIMIT_MAX,
++};
 +
-+struct pvrsgx_usage *pvrsgx_usage_get(struct pvrsgx_usage *u)
-+{
-+	kref_get(&u->ref);
-+	return u;
-+}
++enum pvrsgx_cmd_extent {
++	PVRSGX_CMD_EXTENT_NONE = 0,
++	PVRSGX_CMD_EXTENT_BYTES,
++	PVRSGX_CMD_EXTENT_RT_DEPTH,
++	PVRSGX_CMD_EXTENT_RT_STENCIL,
++	PVRSGX_CMD_EXTENT_PDS_ROWS,
++};
 +
-+static void usage_release(struct kref *ref)
-+{
-+	kfree(container_of(ref, struct pvrsgx_usage, ref));
-+}
++/* One field's check. Offsets are into the command's all-struct (pvrsgx_cmd_defs.h). */
++struct pvrsgx_cmd_field {
++	const char *name;
++	u16 offset;
++	u8 size;		/* 4 or 8 */
++	u8 check;
++	u8 limit;		/* RANGE: replaces max when set */
++	u8 heap;		/* ADDR */
++	u8 extent;		/* ADDR */
++	bool optional;		/* ADDR: 0 means none */
++	u16 extent_field;	/* PDS_ROWS: offset of the u32 row count */
++	u32 align;		/* ADDR */
++	u32 extent_bytes;	/* BYTES */
++	u64 min, max;		/* RANGE */
++	u64 mask;		/* MASK */
++};
 +
-+void pvrsgx_usage_put(struct pvrsgx_usage *u)
-+{
-+	if (u)
-+		kref_put(&u->ref, usage_release);
-+}
++struct pvrsgx_cmd_ext_def {
++	u32 id;			/* DRM_POWERVR_SGX_EXT_* */
++	u16 size;		/* sizeof its struct */
++	u16 offset;		/* in the all-struct */
++	const struct pvrsgx_cmd_field *fields;
++	u32 nr_fields;
++};
 +
-+static void context_release(struct kref *ref)
-+{
-+	struct pvrsgx_context *ctx = container_of(ref, struct pvrsgx_context, ref);
-+	struct pvrsgx_device *sdev = ctx->sdev;
++/* A command on one core. Not supported: a value it depends on is unknown there. */
++struct pvrsgx_cmd_def {
++	const char *name;
++	u8 type;		/* enum pvrsgx_cmd_type */
++	bool supported;
++	u16 size;		/* sizeof the base struct */
++	u16 all_size;		/* sizeof the all-struct: base and every extension */
++	const struct pvrsgx_cmd_field *fields;
++	u32 nr_fields;
++	const struct pvrsgx_cmd_ext_def *exts;	/* the extensions this core accepts */
++	u32 nr_exts;
++};
 +
-+	pvrsgx_render_ctx_fini(sdev, ctx);
-+	pvrsgx_transfer_ctx_fini(sdev, ctx);
-+	/*
-+	 * The next command flushes the GPU's data caches, or a later client at
-+	 * the same addresses reads this one's.
-+	 */
-+	mutex_lock(&sdev->ccb_lock);
-+	sdev->fw.cache_control |= PVRSGX_CC_INVAL_DATA;
-+	mutex_unlock(&sdev->ccb_lock);
-+	pvrsgx_vm_put(ctx->vm);
-+	pvrsgx_usage_put(ctx->usage);
-+	kfree(ctx);
-+}
++struct pvrsgx_cmd_core {
++	const char *name;
++	u32 va_bits;
++	u32 pds_row_bytes;
++	u32 max_samples;	/* RT datasets: 1, or 4 where 4x is known to work */
++	const struct pvrsgx_cmd_def *cmds[PVRSGX_CMD_TYPES_MAX];
++};
 +
-+void pvrsgx_context_put(struct pvrsgx_context *ctx)
-+{
-+	kref_put(&ctx->ref, context_release);
-+}
-+
-+static void context_put(struct pvrsgx_context *ctx)
-+{
-+	pvrsgx_context_put(ctx);
-+}
-+
-+/*
-+ * How many of the oldest jobs on the GPU the microkernel says it has finished,
-+ * when it counts them (PVRSGX_UKFW_DONE_SEQ); otherwise -1. Jobs finish in
-+ * order, and POWER and cleanup commands are never on the active list.
-+ */
-+static s64 jobs_finished(struct pvrsgx_device *sdev)
-+{
-+	const struct pvrsgx_fw_ta3d_ctl *t = sdev->fw.cpu[PVRSGX_FW_TA3DCTL];
-+
-+	if (!(sdev->fw.features & PVRSGX_UKFW_DONE_SEQ))
-+		return -1;
-+	return (u32)(READ_ONCE(t->done_seq) - sdev->done_seq);
-+}
-+
-+static bool job_done(struct pvrsgx_job *job, u64 consumed)
-+{
-+	if (job->done_cpu)
-+		return (s32)(READ_ONCE(*job->done_cpu) - job->done_val) >= 0;
-+	return job->ccb_seq <= consumed;
-+}
-+
-+/* Whether the oldest job on the GPU is done; for the hard IRQ handler. */
-+bool pvrsgx_job_oldest_done(struct pvrsgx_device *sdev)
-+{
-+	struct pvrsgx_job *job;
-+	unsigned long flags;
-+	bool done;
-+
-+	spin_lock_irqsave(&sdev->fence_lock, flags);
-+	job = list_first_entry_or_null(&sdev->active, struct pvrsgx_job, node);
-+	done = job && (sdev->fw.features & PVRSGX_UKFW_DONE_SEQ ? jobs_finished(sdev) > 0 :
-+		       job_done(job, pvrsgx_ccb_consumed(sdev)));
-+	spin_unlock_irqrestore(&sdev->fence_lock, flags);
-+	return done;
-+}
++/* What a command is checked against: its VM, its RT, the device. */
++struct pvrsgx_cmd_ctx {
++	struct {
++		u64 base, size;
++	} heaps[PVRSGX_CMD_HEAP_MAX];	/* size 0: refuse every address */
++	u64 limits[PVRSGX_CMD_LIMIT_MAX];
++	u32 rt_pad_width, rt_pad_height;	/* the RT's size in whole tiles */
++	u32 rt_samples;				/* 0 is 1 */
++	bool (*mapped)(const void *priv, u64 addr, u64 size);
++	const void *priv;
++};
 +
 +/*
-+ * A page fault stalls the faulting requestor, and the SGX545 raises no host
-+ * event for it: check the BIF here, and end the job at once rather than at its
-+ * timeout. Only while jobs are out, so the core is powered.
++ * A command at a user pointer, with its extensions, into @all (def->all_size
++ * bytes; absent extensions zero). @present gets a bit per extension sent.
 + */
-+static bool pvrsgx_job_fault_check(struct pvrsgx_device *sdev)
-+{
-+	bool fault;
-+	int idx;
-+
-+	if (READ_ONCE(sdev->faulted) || READ_ONCE(sdev->lost) || !READ_ONCE(sdev->powered) ||
-+	    !drm_dev_enter(&sdev->base, &idx))
-+		return false;
-+	fault = sgx_rd(sdev, SGX_CR_BIF_INT_STAT) & sdev->cr->bif_int_stat_fault_req;
-+	drm_dev_exit(idx);
-+	if (!fault)
-+		return false;
-+	WRITE_ONCE(sdev->faulted, true);
-+	drm_sched_fault(&sdev->sched);
-+	return true;
-+}
-+
-+/* Signal every job the firmware has finished. Runs in the IRQ thread and the poll work. */
-+void pvrsgx_job_process_done(struct pvrsgx_device *sdev)
-+{
-+	struct pvrsgx_job *job, *tmp;
-+	unsigned long flags;
-+	bool more, reap = false;
-+	LIST_HEAD(finished);
-+	bool cookie;
-+	u64 consumed;
-+	s64 n;
-+
-+	mutex_lock(&sdev->done_lock);
-+	/* Under the lock a reset fails the old jobs under: no count from before it. */
-+	consumed = pvrsgx_ccb_consumed(sdev);
-+	cookie = dma_fence_begin_signalling();
-+	spin_lock_irqsave(&sdev->fence_lock, flags);
-+	n = jobs_finished(sdev);
-+	list_for_each_entry_safe(job, tmp, &sdev->active, node) {
-+		if (n >= 0 ? !n : !job_done(job, consumed))
-+			break;
-+		if (n > 0) {
-+			n--;
-+			sdev->done_seq++;
-+		}
-+		list_move_tail(&job->node, &finished);
-+		if (job->type == DRM_POWERVR_SGX_JOB_TYPE_RENDER) {
-+			sdev->renders_done++;
-+			reap = true;
-+		}
-+	}
-+	more = !list_empty(&sdev->active);
-+	spin_unlock_irqrestore(&sdev->fence_lock, flags);
-+
-+	list_for_each_entry(job, &finished, node)
-+		pvrsgx_prime_flush(job, true);
-+	spin_lock_irqsave(&sdev->fence_lock, flags);
-+	list_for_each_entry_safe(job, tmp, &finished, node) {
-+		list_del_init(&job->node);
-+		if (job->type == DRM_POWERVR_SGX_JOB_TYPE_RENDER)
-+			atomic64_add(ktime_get_ns() - job->start_ns, &job->ctx->usage->render_ns);
-+		trace_pvrsgx_job_done(job->type, job->hw_fence->seqno);
-+		dma_fence_signal_locked(job->hw_fence);
-+	}
-+	spin_unlock_irqrestore(&sdev->fence_lock, flags);
-+	dma_fence_end_signalling(cookie);
-+	mutex_unlock(&sdev->done_lock);
-+
-+	if (reap || !list_empty_careful(&sdev->inval_waits))
-+		queue_work(sdev->free_wq, &sdev->reap_work);
-+	if (more && pvrsgx_job_fault_check(sdev))
-+		return;
-+	/* With a count the interrupt does it, and the poll is only a backstop. */
-+	if (more)
-+		mod_delayed_work(sdev->wq, &sdev->poll_work,
-+				 sdev->fw.features & PVRSGX_UKFW_DONE_SEQ ? HZ / 10 : 1);
-+}
-+
-+static void reap_work_fn(struct work_struct *work)
-+{
-+	struct pvrsgx_device *sdev = container_of(work, struct pvrsgx_device, reap_work);
-+	unsigned long flags;
-+	u64 done;
-+
-+	spin_lock_irqsave(&sdev->fence_lock, flags);
-+	done = sdev->renders_done;
-+	spin_unlock_irqrestore(&sdev->fence_lock, flags);
-+	pvrsgx_kobj_reap(sdev, done);
-+	pvrsgx_ccb_inval_reap(sdev, false);
-+}
-+
-+static void poll_work_fn(struct work_struct *work)
-+{
-+	struct pvrsgx_device *sdev = container_of(to_delayed_work(work), struct pvrsgx_device,
-+						  poll_work);
-+
-+	pvrsgx_job_process_done(sdev);
-+}
-+
-+static struct dma_fence *pvrsgx_run_job(struct drm_sched_job *sched_job)
-+{
-+	struct pvrsgx_job *job = to_pvrsgx_job(sched_job);
-+	struct pvrsgx_device *sdev = job->ctx->sdev;
-+	u32 data[6] = {};
-+	struct dma_fence *fence;
-+	unsigned long flags;
-+	bool cookie;
-+	int err, idx;
-+
-+	if (sched_job->s_fence->finished.error)
-+		return NULL;
-+	/* A reset context's queued jobs build on work that never finished. */
-+	if (READ_ONCE(job->ctx->state) != DRM_POWERVR_SGX_CONTEXT_STATE_OK)
-+		return ERR_PTR(-ECANCELED);
-+
-+	/* Allocated at submit: nothing here may wait for memory (dma-fence signalling). */
-+	fence = job->hw_fence_mem;
-+	job->hw_fence_mem = NULL;
-+	spin_lock_irqsave(&sdev->fence_lock, flags);
-+	dma_fence_init(fence, &pvrsgx_fence_ops, &sdev->fence_lock, sdev->fence_context,
-+		       ++sdev->fence_seqno);
-+	spin_unlock_irqrestore(&sdev->fence_lock, flags);
-+	job->hw_fence = dma_fence_get(fence);
-+
-+	/* After unbind the doorbell is gone (pvrsgx_job_unplug). */
-+	if (!drm_dev_enter(&sdev->base, &idx)) {
-+		err = -ENODEV;
-+		goto fail;
-+	}
-+	/* The job's runtime-PM reference, taken at submit, keeps the GPU up. */
-+	if (sdev->lost) {
-+		err = -EIO;
-+		goto fail_exit;
-+	}
-+
-+	pvrsgx_prime_flush(job, false);
-+	WRITE_ONCE(job->ctx->vm->ran_gen, sdev->fw_gen + 1);
-+	if (job->type == DRM_POWERVR_SGX_JOB_TYPE_RENDER) {
-+		mutex_lock(&sdev->kobj_lock);
-+		sdev->renders_submitted++;
-+		mutex_unlock(&sdev->kobj_lock);
-+		err = 0;
-+		for (u32 k = 0; k < job->render.nkicks && !err; k++) {
-+			pvrsgx_render_job_build(job, k, data);
-+			err = pvrsgx_ccb_send(sdev, PVRSGX_KCMD_TA, data, &job->ccb_seq);
-+		}
-+	} else if (job->type == DRM_POWERVR_SGX_JOB_TYPE_TRANSFER) {
-+		pvrsgx_transfer_job_build(job, data);
-+		err = pvrsgx_ccb_send(sdev, PVRSGX_KCMD_TRANSFER, data, &job->ccb_seq);
-+	} else {
-+		/* A NULL job is a no-op command: done when the microkernel has taken it. */
-+		err = pvrsgx_ccb_send(sdev, PVRSGX_KCMD_PROCESS_QUEUES, data, &job->ccb_seq);
-+	}
-+	if (err) {
-+		drm_err_ratelimited(&sdev->base, "job not sent to the microkernel (%d)\n", err);
-+		goto fail_exit;
-+	}
-+
-+	job->start_ns = ktime_get_ns();
-+	trace_pvrsgx_kick(job->type, job->ccb_seq, fence->seqno);
-+	dma_fence_put(sdev->last_fence);
-+	sdev->last_fence = dma_fence_get(fence);
-+	spin_lock_irqsave(&sdev->fence_lock, flags);
-+	list_add_tail(&job->node, &sdev->active);
-+	spin_unlock_irqrestore(&sdev->fence_lock, flags);
-+	mod_delayed_work(sdev->wq, &sdev->poll_work, 0);
-+	drm_dev_exit(idx);
-+	return fence;
-+
-+fail_exit:
-+	drm_dev_exit(idx);
-+fail:
-+	cookie = dma_fence_begin_signalling();
-+	dma_fence_set_error(fence, err);
-+	dma_fence_signal(fence);
-+	dma_fence_end_signalling(cookie);
-+	return fence;
-+}
++int pvrsgx_cmd_copy(const struct pvrsgx_cmd_def *def, u64 uptr, void *all, u64 *present);
 +
 +/*
-+ * A job ran too long. Blame its context, fail what was on the GPU, and start
-+ * the microkernel again from a clean control block and an empty CCB, rather
-+ * than rescan the old one.
++ * An array element obj_array_get() already copied at @stride (a TA kick):
++ * its head.size must equal @stride. Copies it into @all and walks its extensions.
 + */
-+static enum drm_gpu_sched_stat pvrsgx_timedout_job(struct drm_sched_job *sched_job)
-+{
-+	struct pvrsgx_job *bad = to_pvrsgx_job(sched_job), *job, *tmp;
-+	struct pvrsgx_device *sdev = bad->ctx->sdev;
-+	bool fault = READ_ONCE(sdev->faulted), lost, cookie;
-+	unsigned long flags;
-+	int idx;
++int pvrsgx_cmd_take_elem(const struct pvrsgx_cmd_def *def, const void *elem, u32 stride,
++			 void *all, u64 *present);
 +
-+	drm_sched_stop(&sdev->sched, sched_job);
-+	/* Every fence on the GPU and in the queue waits on what follows. */
-+	cookie = dma_fence_begin_signalling();
-+	/* After unbind (pvrsgx_job_unplug) the hardware is gone: fail, touch nothing. */
-+	mutex_lock(&sdev->reset_lock);
-+	lost = READ_ONCE(sdev->lost) || !drm_dev_enter(&sdev->base, &idx);
-+	if (lost)
-+		goto fail;
-+	if (fault)
-+		drm_err(&sdev->base, "job page fault at 0x%08x (BIF status 0x%08x); resetting\n",
-+			sgx_rd(sdev, SGX_CR_BIF_FAULT) & sdev->cr->bif_fault_addr,
-+			sgx_rd(sdev, SGX_CR_BIF_INT_STAT));
++/* Every field on its own: padding, ranges, masks, addresses' heaps and alignment. */
++int pvrsgx_cmd_check(const struct pvrsgx_cmd_core *core, const struct pvrsgx_cmd_def *def,
++		     const struct pvrsgx_cmd_ctx *ctx, const void *all, u64 present);
++
++/* Every address's extent is mapped in the VM (with the VM's lock held). */
++int pvrsgx_cmd_check_mapped(const struct pvrsgx_cmd_core *core, const struct pvrsgx_cmd_def *def,
++			    const struct pvrsgx_cmd_ctx *ctx, const void *all, u64 present);
++
++/* The extension names @def accepts, a bit per name (DEV_QUERY COMMANDS_GET). */
++u64 pvrsgx_cmd_ext_mask(const struct pvrsgx_cmd_def *def);
++
++#endif /* PVRSGX_CMD_H */
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_checks.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_checks.c
+new file mode 100644
+index 000000000..ae0848f3c
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_checks.c
+@@ -0,0 +1,62 @@
++// SPDX-License-Identifier: MIT
++/* Copyright © 2026 Joseph Telaak */
++
++/*
++ * The cross-field rules of the client commands, run
++ * after pvrsgx_cmd_check() has checked each field on its own.
++ */
++
++#include <linux/bits.h>
++#include <linux/errno.h>
++
++#include "pvrsgx_cmd_checks.h"
++
++/* SGX545 ZLS control bits that use the stencil address. */
++#define ZLS_STENCIL_BITS 0x3U
++/* SGX545 3D flags bit that uses the stencil address. */
++#define FLAGS_3D_STENCIL BIT(8)
++/* ZLS addresses are offsets from a 1 MiB-aligned base; the 1 GiB limit is assumed. */
++#define ZLS_BASE_MASK 0xfff00000U
++#define ZLS_OFFSET_LIMIT_LOG2 30
++
++int pvrsgx_check_render(const struct pvrsgx_cmd_core *core, const struct pvrsgx_cmd_render_all *r,
++			u32 samples)
++{
++	/* The SGX545 extension; all zero when it wasn't sent or on another core. */
++	u32 zls = r->sgx545_render.zls_control, flags = r->sgx545_render.flags_3d;
++	u64 depth = r->base.depth_addr, stencil = r->base.stencil_addr, base, limit;
++
++	/* Multisampled depth and stencil are per sample and always stored. */
++	if (samples == 4 && !zls)
++		return -EINVAL;
++	if (zls && !depth)
++		return -EINVAL;
++	if (((zls & ZLS_STENCIL_BITS) || (flags & FLAGS_3D_STENCIL)) && !stencil)
++		return -EINVAL;
++
++	if (!depth && !stencil)
++		return 0;
++	if (!depth)
++		base = stencil;
++	else if (!stencil)
++		base = depth;
 +	else
-+		drm_err(&sdev->base, "job timed out (ccb %llu, consumed %llu); resetting\n",
-+			bad->ccb_seq, pvrsgx_ccb_consumed(sdev));
-+	WRITE_ONCE(bad->ctx->state, DRM_POWERVR_SGX_CONTEXT_STATE_GUILTY);
-+	pvrsgx_coredump(sdev, bad);
-+	/* Stopped before any fence signals: userspace may free the jobs' memory then. */
-+	pvrsgx_fw_halt(sdev);
++		base = depth < stencil ? depth : stencil;
++	base &= ZLS_BASE_MASK;
++	limit = BIT_ULL(core->va_bits < ZLS_OFFSET_LIMIT_LOG2 ? core->va_bits :
++			ZLS_OFFSET_LIMIT_LOG2);
 +
-+fail:
-+	mutex_lock(&sdev->done_lock);
-+	spin_lock_irqsave(&sdev->fence_lock, flags);
-+	list_for_each_entry_safe(job, tmp, &sdev->active, node) {
-+		list_del_init(&job->node);
-+		if (job->ctx != bad->ctx)
-+			WRITE_ONCE(job->ctx->state, DRM_POWERVR_SGX_CONTEXT_STATE_INNOCENT);
-+		dma_fence_set_error(job->hw_fence, lost ? -ENODEV : job != bad ? -ECANCELED :
-+				    fault ? -EFAULT : -ETIME);
-+		dma_fence_signal_locked(job->hw_fence);
-+	}
-+	spin_unlock_irqrestore(&sdev->fence_lock, flags);
-+	mutex_unlock(&sdev->done_lock);
-+	if (lost)
-+		goto out;
-+
-+	/*
-+	 * No power-off handshake with a hung microkernel, which cannot answer:
-+	 * straight into the full start (clocks, scripts, a reset that drains
-+	 * pending faults, the first kick).
-+	 */
-+	sdev->reset_count++;
-+	sdev->fw_running = false;
-+	/* The restart's reset clears the BIF's fault state. */
-+	WRITE_ONCE(sdev->faulted, false);
-+	if (pvrsgx_fw_start(sdev)) {
-+		drm_err(&sdev->base, "microkernel did not restart: device lost\n");
-+		/* Lost: the cores stay in reset, and run_job fails every job. */
-+		pvrsgx_fw_halt(sdev);
-+		WRITE_ONCE(sdev->lost, true);
-+		/* DMA is off and the fences are signaled: tell userspace to rebind. */
-+		drm_dev_wedged_event(&sdev->base, DRM_WEDGE_RECOVERY_REBIND, NULL);
-+	}
-+	drm_dev_exit(idx);
-+out:
-+	mutex_unlock(&sdev->reset_lock);
-+	dma_fence_end_signalling(cookie);
-+	drm_sched_start(&sdev->sched, 0);
-+	return DRM_GPU_SCHED_STAT_RESET;
-+}
-+
-+/* The puts that can reach a VM's release, which takes reservations. */
-+static void free_job_work(struct work_struct *work)
-+{
-+	struct pvrsgx_job *job = container_of(work, struct pvrsgx_job, free_work);
-+
-+	pvrsgx_prime_put(job);
-+	pvrsgx_render_job_fini(job);
-+	context_put(job->ctx);
-+	kfree(job);
-+}
-+
-+static void pvrsgx_free_job(struct drm_sched_job *sched_job)
-+{
-+	struct pvrsgx_job *job = to_pvrsgx_job(sched_job);
-+	struct pvrsgx_device *sdev = job->ctx->sdev;
-+
-+	/* Taken at submit, for this job: the GPU may suspend once none are left. */
-+	pvrsgx_power_put(sdev, 1);
-+
-+	drm_sched_job_cleanup(sched_job);
-+	dma_fence_put(job->hw_fence);
-+	kfree(job->hw_fence_mem);	/* never run */
-+	INIT_WORK(&job->free_work, free_job_work);
-+	queue_work(sdev->free_wq, &job->free_work);
-+}
-+
-+static const struct drm_sched_backend_ops pvrsgx_sched_ops = {
-+	.run_job = pvrsgx_run_job,
-+	.timedout_job = pvrsgx_timedout_job,
-+	.free_job = pvrsgx_free_job,
-+};
-+
-+/*
-+ * Teach lockdep that the locks run_job, the completion and the timeout take
-+ * are taken while fences are pending, which reclaim can wait for: an
-+ * allocation that can reclaim, made under any of them, is then reported at
-+ * once instead of when memory runs low.
-+ */
-+static void lockdep_prime(struct pvrsgx_device *sdev)
-+{
-+	if (!IS_ENABLED(CONFIG_LOCKDEP))
-+		return;
-+	fs_reclaim_acquire(GFP_KERNEL);
-+	might_lock(&sdev->reset_lock);
-+	might_lock(&sdev->done_lock);
-+	might_lock(&sdev->ccb_lock);
-+	might_lock(&sdev->kobj_lock);
-+	fs_reclaim_release(GFP_KERNEL);
-+}
-+
-+int pvrsgx_job_init(struct pvrsgx_device *sdev)
-+{
-+	const struct drm_sched_init_args args = {
-+		.ops = &pvrsgx_sched_ops,
-+		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
-+		.credit_limit = 1,
-+		.timeout = msecs_to_jiffies(job_timeout_ms),
-+		.name = "powervr_sgx",
-+		.dev = sdev->base.dev,
-+	};
-+
-+	int err;
-+
-+	spin_lock_init(&sdev->fence_lock);
-+	mutex_init(&sdev->reset_lock);
-+	INIT_LIST_HEAD(&sdev->active);
-+	INIT_DELAYED_WORK(&sdev->poll_work, poll_work_fn);
-+	INIT_WORK(&sdev->reap_work, reap_work_fn);
-+	sdev->wq = alloc_workqueue("powervr_sgx", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
-+	if (!sdev->wq)
-+		return -ENOMEM;
-+	sdev->free_wq = alloc_workqueue("powervr_sgx_free", WQ_UNBOUND, 0);
-+	if (!sdev->free_wq) {
-+		destroy_workqueue(sdev->wq);
-+		return -ENOMEM;
-+	}
-+	lockdep_prime(sdev);
-+	pvrsgx_coredump_init(sdev);
-+	sdev->fence_context = dma_fence_context_alloc(1);
-+	err = drm_sched_init(&sdev->sched, &args);
-+	if (err) {
-+		pvrsgx_coredump_fini(sdev);
-+		destroy_workqueue(sdev->free_wq);
-+		destroy_workqueue(sdev->wq);
-+	}
-+	return err;
-+}
-+
-+/*
-+ * Unbind. Nothing reaches the GPU again: the firmware stops, the jobs on it
-+ * fail with -ENODEV, and run_job fails the queued ones (-EIO, @lost) without
-+ * touching the hardware.
-+ */
-+void pvrsgx_job_unplug(struct pvrsgx_device *sdev)
-+{
-+	struct pvrsgx_job *job, *tmp;
-+	unsigned long flags;
-+	bool cookie;
-+
-+	drm_sched_wqueue_stop(&sdev->sched);
-+	/* A reset under way finishes first; one after this sees @lost. */
-+	mutex_lock(&sdev->reset_lock);
-+	WRITE_ONCE(sdev->lost, true);
-+	pvrsgx_fw_stop(sdev);
-+	mutex_unlock(&sdev->reset_lock);
-+	cancel_delayed_work_sync(&sdev->poll_work);
-+	/* Stopped: nothing translates any more, so unmapped memory can go. */
-+	pvrsgx_ccb_inval_reap(sdev, true);
-+
-+	mutex_lock(&sdev->done_lock);
-+	cookie = dma_fence_begin_signalling();
-+	spin_lock_irqsave(&sdev->fence_lock, flags);
-+	list_for_each_entry_safe(job, tmp, &sdev->active, node) {
-+		list_del_init(&job->node);
-+		dma_fence_set_error(job->hw_fence, -ENODEV);
-+		dma_fence_signal_locked(job->hw_fence);
-+	}
-+	spin_unlock_irqrestore(&sdev->fence_lock, flags);
-+	dma_fence_end_signalling(cookie);
-+	mutex_unlock(&sdev->done_lock);
-+	drm_sched_wqueue_start(&sdev->sched);
-+}
-+
-+/*
-+ * System sleep: no new job reaches the GPU, and the jobs on it finish, or the
-+ * timeout's reset ends them, within a job timeout. -EBUSY aborts the suspend.
-+ */
-+int pvrsgx_job_quiesce(struct pvrsgx_device *sdev)
-+{
-+	long left = msecs_to_jiffies(job_timeout_ms) + HZ;
-+
-+	/* A reset restarts submission; stop it again after one. */
-+	for (int i = 0; i < 2; i++) {
-+		struct dma_fence *last;
-+
-+		drm_sched_wqueue_stop(&sdev->sched);
-+		/* Set only by run_job, which is stopped. Jobs finish in order. */
-+		last = sdev->last_fence;
-+		if (!last || dma_fence_is_signaled(last)) {
-+			flush_work(&sdev->reap_work);
-+			return 0;
-+		}
-+		left = dma_fence_wait_timeout(last, false, left);
-+		if (left <= 0)
-+			break;
-+	}
-+	drm_err(&sdev->base, "GPU still busy: not suspending\n");
-+	drm_sched_wqueue_start(&sdev->sched);
-+	return -EBUSY;
-+}
-+
-+void pvrsgx_job_unquiesce(struct pvrsgx_device *sdev)
-+{
-+	drm_sched_wqueue_start(&sdev->sched);
-+}
-+
-+void pvrsgx_job_fini(struct pvrsgx_device *sdev)
-+{
-+	drm_sched_fini(&sdev->sched);
-+	cancel_delayed_work_sync(&sdev->poll_work);
-+	cancel_work_sync(&sdev->reap_work);
-+	/* Drains the jobs' final puts, which drm_sched_fini may have queued. */
-+	destroy_workqueue(sdev->free_wq);
-+	destroy_workqueue(sdev->wq);
-+	pvrsgx_coredump_fini(sdev);
-+	dma_fence_put(sdev->last_fence);
-+	sdev->last_fence = NULL;
-+}
-+
-+static enum drm_sched_priority sched_priority(s32 p)
-+{
-+	switch (p) {
-+	case DRM_POWERVR_SGX_CTX_PRIORITY_LOW:
-+		return DRM_SCHED_PRIORITY_LOW;
-+	case DRM_POWERVR_SGX_CTX_PRIORITY_HIGH:
-+		return DRM_SCHED_PRIORITY_HIGH;
-+	default:
-+		return DRM_SCHED_PRIORITY_NORMAL;
-+	}
-+}
-+
-+int pvrsgx_ioctl_create_context(struct drm_device *drm, void *data, struct drm_file *file)
-+{
-+	struct drm_powervr_sgx_ioctl_create_context_args *args = data;
-+	struct pvrsgx_device *sdev = to_pvrsgx_device(drm);
-+	struct pvrsgx_file *sfile = to_pvrsgx_file(file);
-+	struct drm_gpu_scheduler *sched = &sdev->sched;
-+	struct pvrsgx_context *ctx;
-+	int err;
-+
-+	if (args->flags)
++	if (depth && depth - base >= limit)
 +		return -EINVAL;
-+	if (args->type != DRM_POWERVR_SGX_CTX_TYPE_RENDER &&
-+	    args->type != DRM_POWERVR_SGX_CTX_TYPE_TRANSFER)
++	if (stencil && stencil - base >= limit)
 +		return -EINVAL;
-+	if (args->priority != DRM_POWERVR_SGX_CTX_PRIORITY_LOW &&
-+	    args->priority != DRM_POWERVR_SGX_CTX_PRIORITY_NORMAL &&
-+	    args->priority != DRM_POWERVR_SGX_CTX_PRIORITY_HIGH)
-+		return -EINVAL;
-+	if (args->priority == DRM_POWERVR_SGX_CTX_PRIORITY_HIGH &&
-+	    !capable(CAP_SYS_NICE) && !drm_is_current_master(file))
-+		return -EACCES;
-+	if (args->type == DRM_POWERVR_SGX_CTX_TYPE_TRANSFER && args->param_buffer_pages)
-+		return -EINVAL;
-+	if (args->param_buffer_pages &&
-+	    (args->param_buffer_pages < 0x100 ||
-+	     args->param_buffer_pages > pvrsgx_heaps(to_pvrsgx_device(drm))->pb_max_pages))
-+		return -EINVAL;
-+
-+	ctx = kzalloc_obj(*ctx);
-+	if (!ctx)
-+		return -ENOMEM;
-+	ctx->vm = pvrsgx_vm_lookup(sfile, args->vm_context_handle);
-+	if (!ctx->vm) {
-+		kfree(ctx);
-+		return -ENOENT;
-+	}
-+	ctx->sdev = sdev;
-+	ctx->type = args->type;
-+	ctx->usage = pvrsgx_usage_get(sfile->usage);
-+	kref_init(&ctx->ref);
-+	err = ctx->type == DRM_POWERVR_SGX_CTX_TYPE_RENDER ?
-+	      pvrsgx_render_ctx_init(sdev, ctx, args->param_buffer_pages) :
-+	      pvrsgx_transfer_ctx_init(sdev, ctx);
-+	if (err)
-+		goto err_put;
-+	err = drm_sched_entity_init(&ctx->entity, sched_priority(args->priority), &sched, 1, NULL);
-+	if (err)
-+		goto err_put;
-+	pvrsgx_vm_user_get(ctx->vm);
-+	err = xa_alloc(&sfile->contexts, &args->handle, ctx,
-+		       XA_LIMIT(1, PVRSGX_MAX_FILE_CONTEXTS), GFP_KERNEL);
-+	if (err) {
-+		err = err == -EBUSY ? -ENOSPC : err;
-+		goto err_entity;
-+	}
-+	return 0;
-+
-+err_entity:
-+	drm_sched_entity_destroy(&ctx->entity);
-+	pvrsgx_vm_user_put(ctx->vm);
-+err_put:
-+	context_put(ctx);
-+	return err;
-+}
-+
-+static void context_destroy(struct pvrsgx_context *ctx)
-+{
-+	/* Its queued jobs are on the GPU or cancelled before its VM's mappings may go. */
-+	drm_sched_entity_destroy(&ctx->entity);
-+	pvrsgx_vm_user_put(ctx->vm);
-+	context_put(ctx);
-+}
-+
-+void pvrsgx_context_destroy_all(struct pvrsgx_file *sfile)
-+{
-+	struct pvrsgx_context *ctx;
-+	unsigned long handle;
-+
-+	xa_for_each(&sfile->contexts, handle, ctx) {
-+		xa_erase(&sfile->contexts, handle);
-+		context_destroy(ctx);
-+	}
-+}
-+
-+int pvrsgx_ioctl_destroy_context(struct drm_device *drm, void *data, struct drm_file *file)
-+{
-+	struct drm_powervr_sgx_ioctl_destroy_context_args *args = data;
-+	struct pvrsgx_context *ctx;
-+
-+	if (args->_padding_4)
-+		return -EINVAL;
-+	ctx = xa_erase(&to_pvrsgx_file(file)->contexts, args->handle);
-+	if (!ctx)
-+		return -ENOENT;
-+	context_destroy(ctx);
 +	return 0;
 +}
 +
-+struct pvrsgx_context *pvrsgx_context_lookup(struct pvrsgx_file *sfile, u32 handle)
++int pvrsgx_check_transfer(const struct pvrsgx_cmd_transfer_all *t)
 +{
-+	struct pvrsgx_context *ctx;
-+
-+	xa_lock(&sfile->contexts);
-+	ctx = xa_load(&sfile->contexts, handle);
-+	if (ctx)
-+		kref_get(&ctx->ref);
-+	xa_unlock(&sfile->contexts);
-+	return ctx;
-+}
-+
-+int pvrsgx_ioctl_get_context_state(struct drm_device *drm, void *data, struct drm_file *file)
-+{
-+	struct drm_powervr_sgx_ioctl_get_context_state_args *args = data;
-+	struct pvrsgx_context *ctx;
-+
-+	if (args->_padding_c)
++	if (t->base.first_tile_x > t->base.last_tile_x ||
++	    t->base.first_tile_y > t->base.last_tile_y)
 +		return -EINVAL;
-+	ctx = pvrsgx_context_lookup(to_pvrsgx_file(file), args->handle);
-+	if (!ctx)
-+		return -ENOENT;
-+	args->state = READ_ONCE(ctx->state);
-+	args->reset_count = to_pvrsgx_device(drm)->reset_count;
-+	context_put(ctx);
 +	return 0;
 +}
-+
-+/* What one job needs from its submission, held until it is pushed. */
-+struct job_args {
-+	struct pvrsgx_job *job;
-+	struct pvrsgx_signal *signals;
-+	u32 nsignals;
-+	/* Earlier jobs of this submit whose signals this job waits on. */
-+	u32 *intra;
-+	u32 nintra;
-+	bool inited;
-+	/* Once pushed: the job's finished fence, for later jobs' waits. */
-+	struct dma_fence *done;
-+};
-+
-+static void job_args_fini(struct job_args *ja)
-+{
-+	for (u32 i = 0; i < ja->nsignals; i++) {
-+		if (ja->signals[i].syncobj)
-+			drm_syncobj_put(ja->signals[i].syncobj);
-+		dma_fence_chain_free(ja->signals[i].chain);
-+	}
-+	kvfree(ja->signals);
-+	kvfree(ja->intra);
-+	dma_fence_put(ja->done);
-+	if (ja->job) {
-+		if (ja->inited)
-+			drm_sched_job_cleanup(&ja->job->base);
-+		pvrsgx_prime_put(ja->job);
-+		pvrsgx_render_job_fini(ja->job);
-+		context_put(ja->job->ctx);
-+		kfree(ja->job->hw_fence_mem);
-+		kfree(ja->job);
-+	}
-+}
-+
-+/* The latest earlier job of this submit that signals handle at point, or -1. */
-+static int intra_signaller(const struct job_args *prev, u32 nprev, u32 handle, u64 point)
-+{
-+	for (int k = nprev - 1; k >= 0; k--) {
-+		for (u32 s = 0; s < prev[k].nsignals; s++) {
-+			if (prev[k].signals[s].handle == handle &&
-+			    prev[k].signals[s].point == point)
-+				return k;
-+		}
-+	}
-+	return -1;
-+}
-+
-+static int job_sync_ops(struct drm_file *file, struct job_args *ja,
-+			const struct drm_powervr_sgx_obj_array *arr,
-+			const struct job_args *prev, u32 nprev)
-+{
-+	struct drm_powervr_sgx_sync_op *ops;
-+	int err = 0;
-+
-+	ops = pvrsgx_obj_array_get(arr, sizeof(*ops), PVRSGX_MAX_SYNC_OPS);
-+	if (IS_ERR_OR_NULL(ops))
-+		return PTR_ERR_OR_ZERO(ops);
-+
-+	ja->signals = kvcalloc(arr->count, sizeof(*ja->signals), GFP_KERNEL);
-+	ja->intra = kvcalloc(arr->count, sizeof(*ja->intra), GFP_KERNEL);
-+	if (!ja->signals || !ja->intra) {
-+		err = -ENOMEM;
-+		goto out;
-+	}
-+	for (u32 i = 0; i < arr->count && !err; i++) {
-+		u32 type = ops[i].flags & DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_MASK;
-+		bool timeline = type == DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_TIMELINE_SYNCOBJ;
-+		struct dma_fence *fence;
-+
-+		if ((ops[i].flags & ~PVRSGX_SYNC_OP_FLAGS_MASK) ||
-+		    (type != DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_SYNCOBJ && !timeline) ||
-+		    (!timeline && ops[i].value)) {
-+			err = -EINVAL;
-+			break;
-+		}
-+
-+		if (!(ops[i].flags & DRM_POWERVR_SGX_SYNC_OP_FLAG_SIGNAL)) {
-+			int k = intra_signaller(prev, nprev, ops[i].handle, ops[i].value);
-+
-+			/* Its fence exists once that job is armed: added then. */
-+			if (k >= 0) {
-+				ja->intra[ja->nintra++] = k;
-+				continue;
-+			}
-+			err = drm_syncobj_find_fence(file, ops[i].handle, ops[i].value, 0, &fence);
-+			if (!err)
-+				err = drm_sched_job_add_dependency(&ja->job->base, fence);
-+			continue;
-+		}
-+
-+		ja->signals[ja->nsignals].syncobj = drm_syncobj_find(file, ops[i].handle);
-+		if (!ja->signals[ja->nsignals].syncobj) {
-+			err = -ENOENT;
-+			break;
-+		}
-+		ja->signals[ja->nsignals].handle = ops[i].handle;
-+		ja->signals[ja->nsignals].point = ops[i].value;
-+		if (timeline) {
-+			ja->signals[ja->nsignals].chain = dma_fence_chain_alloc();
-+			if (!ja->signals[ja->nsignals].chain)
-+				err = -ENOMEM;
-+		}
-+		ja->nsignals++;
-+	}
-+out:
-+	kvfree(ops);
-+	return err;
-+}
-+
-+static int job_create(struct drm_file *file, const struct drm_powervr_sgx_job *in,
-+		      struct job_args *ja, const struct job_args *prev, u32 nprev)
-+{
-+	struct pvrsgx_file *sfile = to_pvrsgx_file(file);
-+	struct pvrsgx_device *sdev = sfile->sdev;
-+	struct pvrsgx_context *ctx;
-+	struct pvrsgx_job *job;
-+	int err;
-+
-+	if (in->_padding_c || in->_padding_4c)
-+		return -EINVAL;
-+
-+	switch (in->type) {
-+	case DRM_POWERVR_SGX_JOB_TYPE_NULL:
-+		if (in->flags || in->cmd || in->ta_kicks.count ||
-+		    in->rt_dataset_handle)
-+			return -EINVAL;
-+		break;
-+	case DRM_POWERVR_SGX_JOB_TYPE_RENDER:
-+	case DRM_POWERVR_SGX_JOB_TYPE_TRANSFER:
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	ctx = pvrsgx_context_lookup(sfile, in->context_handle);
-+	if (!ctx)
-+		return -ENOENT;
-+	if (READ_ONCE(ctx->state) != DRM_POWERVR_SGX_CONTEXT_STATE_OK) {
-+		context_put(ctx);
-+		return -ECANCELED;
-+	}
-+	if (sdev->lost) {
-+		context_put(ctx);
-+		return -EIO;
-+	}
-+
-+	job = kzalloc_obj(*job);
-+	if (!job) {
-+		context_put(ctx);
-+		return -ENOMEM;
-+	}
-+	job->ctx = ctx;
-+	job->type = in->type;
-+	INIT_LIST_HEAD(&job->node);
-+	ja->job = job;
-+	job->hw_fence_mem = kzalloc_obj(*job->hw_fence_mem);
-+	if (!job->hw_fence_mem)
-+		return -ENOMEM;
-+
-+	err = drm_sched_job_init(&job->base, &ctx->entity, 1, sfile, file->client_id);
-+	if (err)
-+		return err;
-+	ja->inited = true;
-+
-+	if (job->type == DRM_POWERVR_SGX_JOB_TYPE_RENDER) {
-+		if (ctx->type != DRM_POWERVR_SGX_CTX_TYPE_RENDER)
-+			return -EINVAL;
-+		err = pvrsgx_render_job_init(file, job, in);
-+		if (err)
-+			return err;
-+	} else if (job->type == DRM_POWERVR_SGX_JOB_TYPE_TRANSFER) {
-+		if (ctx->type != DRM_POWERVR_SGX_CTX_TYPE_TRANSFER)
-+			return -EINVAL;
-+		err = pvrsgx_transfer_job_init(file, job, in);
-+		if (err)
-+			return err;
-+	}
-+
-+	err = job_sync_ops(file, ja, &in->sync_ops, prev, nprev);
-+	if (err)
-+		return err;
-+	err = pvrsgx_prime_ranges(file, &in->cache_ranges, job);
-+	if (err)
-+		return err;
-+	return pvrsgx_validate_job(sdev, job);
-+}
-+
-+int pvrsgx_ioctl_submit_jobs(struct drm_device *drm, void *data, struct drm_file *file)
-+{
-+	struct drm_powervr_sgx_ioctl_submit_jobs_args *args = data;
-+	struct drm_powervr_sgx_job *in;
-+	struct job_args *ja;
-+	struct drm_exec exec;
-+	u32 n = args->jobs.count;
-+	u32 pushed = 0;
-+	int err = 0;
-+
-+	args->failed_index = ~0u;
-+	if (args->_padding_14 || !n)
-+		return -EINVAL;
-+	if (drm_dev_is_unplugged(drm))
-+		return -ENODEV;
-+
-+	in = pvrsgx_obj_array_get(&args->jobs, sizeof(*in), PVRSGX_MAX_JOBS);
-+	if (IS_ERR(in))
-+		return PTR_ERR(in);
-+	ja = kvcalloc(n, sizeof(*ja), GFP_KERNEL);
-+	if (!ja) {
-+		kvfree(in);
-+		return -ENOMEM;
-+	}
-+
-+	for (u32 i = 0; i < n; i++) {
-+		err = job_create(file, &in[i], &ja[i], ja, i);
-+		if (err) {
-+			args->failed_index = i;
-+			goto out;
-+		}
-+	}
-+
-+	/*
-+	 * One runtime-PM reference per job, from here, where resuming may sleep and
-+	 * no reservation is held, to free_job; never in run_job, which signals fences.
-+	 */
-+	for (u32 i = 0; i < n; i++) {
-+		err = pvrsgx_power_get(to_pvrsgx_device(drm));
-+		if (err) {
-+			pvrsgx_power_put(to_pvrsgx_device(drm), i);
-+			goto out;
-+		}
-+	}
-+
-+	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT | DRM_EXEC_IGNORE_DUPLICATES, 0);
-+	drm_exec_until_all_locked(&exec) {
-+		for (u32 i = 0; i < n; i++) {
-+			struct drm_gpuvm *gpuvm = &ja[i].job->ctx->vm->gpuvm;
-+
-+			err = drm_exec_prepare_obj(&exec, drm_gpuvm_resv_obj(gpuvm), n);
-+			drm_exec_retry_on_contention(&exec);
-+			if (err)
-+				goto out_exec;
-+		}
-+	}
-+
-+	/*
-+	 * All or nothing. First each job's waits on earlier jobs of the submit,
-+	 * then arm it; a wait that can't be added fails the call, and the armed
-+	 * jobs, never published, are cleaned up unpushed (job_args_fini). Then
-+	 * publish and push every job, which can't fail. The VM's reservation,
-+	 * held throughout, keeps the order.
-+	 */
-+	for (u32 i = 0; i < n; i++) {
-+		struct pvrsgx_job *job = ja[i].job;
-+
-+		for (u32 d = 0; d < ja[i].nintra; d++) {
-+			err = drm_sched_job_add_dependency(&job->base,
-+							   dma_fence_get(ja[ja[i].intra[d]].done));
-+			if (err) {
-+				args->failed_index = i;
-+				goto out_exec;
-+			}
-+		}
-+		drm_sched_job_arm(&job->base);
-+		ja[i].done = dma_fence_get(&job->base.s_fence->finished);
-+	}
-+
-+	for (u32 i = 0; i < n; i++) {
-+		struct pvrsgx_job *job = ja[i].job;
-+		struct dma_fence *done = ja[i].done;
-+
-+		dma_resv_add_fence(drm_gpuvm_resv(&job->ctx->vm->gpuvm), done,
-+				   DMA_RESV_USAGE_BOOKKEEP);
-+		for (u32 s = 0; s < ja[i].nsignals; s++) {
-+			struct pvrsgx_signal *sig = &ja[i].signals[s];
-+
-+			if (sig->chain) {
-+				drm_syncobj_add_point(sig->syncobj, sig->chain, done, sig->point);
-+				sig->chain = NULL;
-+			} else {
-+				drm_syncobj_replace_fence(sig->syncobj, done);
-+			}
-+		}
-+		drm_sched_entity_push_job(&job->base);
-+		ja[i].job = NULL;	/* the scheduler owns it now */
-+		pushed++;
-+	}
-+
-+out_exec:
-+	drm_exec_fini(&exec);
-+	/* The references of the jobs not pushed. */
-+	pvrsgx_power_put(to_pvrsgx_device(drm), n - pushed);
-+out:
-+	for (u32 i = 0; i < n; i++)
-+		job_args_fini(&ja[i]);
-+	kvfree(ja);
-+	kvfree(in);
-+	return err;
-+}
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_job.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_job.h
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_checks.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_checks.h
 new file mode 100644
-index 000000000..87d3744c7
+index 000000000..06b14ae15
 --- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_job.h
-@@ -0,0 +1,143 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_checks.h
+@@ -0,0 +1,13 @@
++/* SPDX-License-Identifier: MIT */
 +/* Copyright © 2026 Joseph Telaak */
 +
-+#ifndef PVRSGX_JOB_H
-+#define PVRSGX_JOB_H
++#ifndef PVRSGX_CMD_CHECKS_H
++#define PVRSGX_CMD_CHECKS_H
 +
-+#include <drm/gpu_scheduler.h>
++#include "pvrsgx_cmd_defs.h"
 +
-+#include <linux/kref.h>
-+#include <linux/list.h>
-+#include <linux/types.h>
++int pvrsgx_check_render(const struct pvrsgx_cmd_core *core, const struct pvrsgx_cmd_render_all *r,
++			u32 samples);
++int pvrsgx_check_transfer(const struct pvrsgx_cmd_transfer_all *t);
 +
-+#include "pvrsgx_render.h"
-+#include "pvrsgx_transfer.h"
-+
-+struct drm_device;
-+struct drm_file;
-+struct drm_syncobj;
-+struct dma_fence_chain;
-+struct pvrsgx_device;
-+struct pvrsgx_file;
-+struct pvrsgx_vm;
-+
-+/**
-+ * struct pvrsgx_usage - A file's GPU time, for fdinfo
-+ *
-+ * Its contexts hold it too: a job may finish after its file has closed.
-+ */
-+struct pvrsgx_usage {
-+	/** @ref: Held by the file and by each of its contexts. */
-+	struct kref ref;
-+	/** @render_ns: Time render jobs of the file spent on the GPU. */
-+	atomic64_t render_ns;
-+};
-+
-+struct pvrsgx_usage *pvrsgx_usage_new(void);
-+struct pvrsgx_usage *pvrsgx_usage_get(struct pvrsgx_usage *u);
-+void pvrsgx_usage_put(struct pvrsgx_usage *u);
-+
-+/**
-+ * struct pvrsgx_context - A queue of jobs in one VM
-+ */
-+struct pvrsgx_context {
-+	/** @ref: Held by the handle and by each job. */
-+	struct kref ref;
-+	/** @sdev: The device. */
-+	struct pvrsgx_device *sdev;
-+	/** @vm: The VM its jobs run in. */
-+	struct pvrsgx_vm *vm;
-+	/** @usage: Its file's GPU time. */
-+	struct pvrsgx_usage *usage;
-+	/** @entity: Its scheduler queue. */
-+	struct drm_sched_entity entity;
-+	/** @type: enum drm_powervr_sgx_ctx_type. */
-+	u32 type;
-+	/** @state: enum drm_powervr_sgx_context_state. */
-+	u32 state;
-+	/** @render: The firmware half of a render context, else NULL. */
-+	struct pvrsgx_render_ctx *render;
-+	/** @transfer: The firmware half of a transfer context, else NULL. */
-+	struct pvrsgx_transfer_ctx *transfer;
-+};
-+
-+struct pvrsgx_signal {
-+	u32 handle;
-+	struct drm_syncobj *syncobj;
-+	struct dma_fence_chain *chain;
-+	u64 point;
-+};
-+
-+/* Bytes of an import a job reads or writes: @rows rows of @size, @stride apart. */
-+struct pvrsgx_cache_range {
-+	struct drm_gem_object *obj;
-+	u64 offset;
-+	u64 size;
-+	u32 stride;
-+	u32 rows;
-+	bool write;
-+	bool import;
-+};
-+
-+/**
-+ * struct pvrsgx_job - One submitted job
-+ */
-+struct pvrsgx_job {
-+	/** @free_work: The final puts, off the scheduler's queue. */
-+	struct work_struct free_work;
-+	/** @base: The scheduler job. */
-+	struct drm_sched_job base;
-+	/** @ctx: The context it was submitted on. */
-+	struct pvrsgx_context *ctx;
-+	/** @type: enum drm_powervr_sgx_job_type. */
-+	u32 type;
-+
-+	/** @hw_fence: Signalled when the firmware has finished the job. */
-+	struct dma_fence *hw_fence;
-+	/** @hw_fence_mem: @hw_fence's memory from submit until run_job initializes it. */
-+	struct dma_fence *hw_fence_mem;
-+	/** @ccb_seq: Kernel CCB command that carries the job. */
-+	/** @start_ns: When run_job sent it to the microkernel. */
-+	u64 start_ns;
-+	u64 ccb_seq;
-+	/** @node: In pvrsgx_device.active while on the GPU. */
-+	struct list_head node;
-+	/**
-+	 * @done_cpu: Word the firmware sets to @done_val when the job is done;
-+	 * NULL for a job that is done when the CCB has taken it.
-+	 */
-+	u32 *done_cpu;
-+	/** @done_val: Value of *@done_cpu once the job is done. */
-+	u32 done_val;
-+	/** @render: The render job, for a render context. */
-+	struct pvrsgx_render_job render;
-+	/** @transfer: The transfer job, for a transfer context. */
-+	struct pvrsgx_transfer_job transfer;
-+
-+	/** @ranges: The bytes of imports the job reads or writes, flushed around it. */
-+	struct pvrsgx_cache_range *ranges;
-+	/** @nranges: Number of @ranges. */
-+	u32 nranges;
-+	/** @signals: Syncobjs to signal with the job's fence. */
-+	struct pvrsgx_signal *signals;
-+	/** @nsignals: Number of @signals. */
-+	u32 nsignals;
-+};
-+
-+int pvrsgx_job_init(struct pvrsgx_device *sdev);
-+void pvrsgx_job_fini(struct pvrsgx_device *sdev);
-+void pvrsgx_job_process_done(struct pvrsgx_device *sdev);
-+void pvrsgx_job_unplug(struct pvrsgx_device *sdev);
-+int pvrsgx_job_quiesce(struct pvrsgx_device *sdev);
-+void pvrsgx_job_unquiesce(struct pvrsgx_device *sdev);
-+bool pvrsgx_job_oldest_done(struct pvrsgx_device *sdev);
-+void pvrsgx_context_destroy_all(struct pvrsgx_file *sfile);
-+struct pvrsgx_context *pvrsgx_context_lookup(struct pvrsgx_file *sfile, u32 handle);
-+void pvrsgx_context_put(struct pvrsgx_context *ctx);
-+
-+int pvrsgx_ioctl_create_context(struct drm_device *drm, void *data, struct drm_file *file);
-+int pvrsgx_ioctl_destroy_context(struct drm_device *drm, void *data, struct drm_file *file);
-+int pvrsgx_ioctl_get_context_state(struct drm_device *drm, void *data, struct drm_file *file);
-+int pvrsgx_ioctl_submit_jobs(struct drm_device *drm, void *data, struct drm_file *file);
-+
-+#endif /* PVRSGX_JOB_H */
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.c
++#endif /* PVRSGX_CMD_CHECKS_H */
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_defs.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_defs.c
 new file mode 100644
-index 000000000..5c70244c3
+index 000000000..f73c80199
 --- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.c
-@@ -0,0 +1,5 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_defs.c
+@@ -0,0 +1,353 @@
++// SPDX-License-Identifier: MIT
 +/* Copyright © 2026 Joseph Telaak */
 +
-+#define CREATE_TRACE_POINTS
-+#include "pvrsgx_trace.h"
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.h
++/*
++ * The per-core client-command tables, generated by gen_cmd.py from the command
++ * description powervr_sgx_cmd.xml; both live in the driver's source repository,
++ * https://github.com/The1TrueJoe/powervr_sgx.
++ */
++
++#include <linux/array_size.h>
++#include <linux/build_bug.h>
++#include <linux/stddef.h>
++
++#include "pvrsgx_cmd_defs.h"
++
++/* The uAPI layout, pinned. */
++static_assert(PVRSGX_CMD_COUNT <= PVRSGX_CMD_TYPES_MAX);
++static_assert(sizeof(struct drm_powervr_sgx_cmd_render) == 80);
++static_assert(sizeof(struct drm_powervr_sgx_cmd_render) % 8 == 0);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_render, depth_addr) == 16);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_render, stencil_addr) == 24);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_render, pixel_event_pds_addr) == 32);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_render, bg_pds_secondary_addr) == 40);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_render, bg_pds_primary_addr) == 48);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_render, pixel_event_pds_rows) == 56);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_render, bg_pds_secondary_rows) == 60);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_render, bg_pds_primary_rows) == 64);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_render, bg_depth_f32) == 68);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_render, depth_bias_units) == 72);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_render, depth_bias_factor_f32) == 76);
++static_assert(sizeof(struct drm_powervr_sgx_cmd_ta_kick) == 24);
++static_assert(sizeof(struct drm_powervr_sgx_cmd_ta_kick) % 8 == 0);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_ta_kick, vdm_base) == 16);
++static_assert(sizeof(struct drm_powervr_sgx_cmd_transfer) == 56);
++static_assert(sizeof(struct drm_powervr_sgx_cmd_transfer) % 8 == 0);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_transfer, bg_block_addr) == 16);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_transfer, pixel_event_pds_addr) == 24);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_transfer, pixel_event_pds_rows) == 32);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_transfer, first_tile_x) == 36);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_transfer, first_tile_y) == 40);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_transfer, last_tile_x) == 44);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_transfer, last_tile_y) == 48);
++static_assert(offsetof(struct drm_powervr_sgx_cmd_transfer, bg_depth_f32) == 52);
++static_assert(sizeof(struct drm_powervr_sgx_ext_sgx545_render) == 24);
++static_assert(sizeof(struct drm_powervr_sgx_ext_sgx545_render) % 8 == 0);
++static_assert(offsetof(struct drm_powervr_sgx_ext_sgx545_render, zls_control) == 16);
++static_assert(offsetof(struct drm_powervr_sgx_ext_sgx545_render, flags_3d) == 20);
++static_assert(sizeof(struct drm_powervr_sgx_ext_sgx545_ta_kick) == 24);
++static_assert(sizeof(struct drm_powervr_sgx_ext_sgx545_ta_kick) % 8 == 0);
++static_assert(offsetof(struct drm_powervr_sgx_ext_sgx545_ta_kick, ta_flags2) == 16);
++
++const u8 pvrsgx_cmd_ext_owner[64] = {
++	[DRM_POWERVR_SGX_EXT_SGX545_RENDER] = 1 + PVRSGX_CMD_RENDER,
++	[DRM_POWERVR_SGX_EXT_SGX545_TA_KICK] = 1 + PVRSGX_CMD_TA_KICK,
++};
++
++static const struct pvrsgx_cmd_field sgx545_render_fields[] = {
++	{
++		.name = "depth_addr",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, base.depth_addr),
++		.size = 8,
++		.check = PVRSGX_CMD_CHECK_ADDR,
++		.heap = PVRSGX_CMD_HEAP_CLIENT,
++		.align = 1,
++		.optional = true,
++		.extent = PVRSGX_CMD_EXTENT_RT_DEPTH,
++	},
++	{
++		.name = "stencil_addr",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, base.stencil_addr),
++		.size = 8,
++		.check = PVRSGX_CMD_CHECK_ADDR,
++		.heap = PVRSGX_CMD_HEAP_CLIENT,
++		.align = 1,
++		.optional = true,
++		.extent = PVRSGX_CMD_EXTENT_RT_STENCIL,
++	},
++	{
++		.name = "pixel_event_pds_addr",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, base.pixel_event_pds_addr),
++		.size = 8,
++		.check = PVRSGX_CMD_CHECK_ADDR,
++		.heap = PVRSGX_CMD_HEAP_PDS_PIXEL,
++		.align = 16,
++		.extent = PVRSGX_CMD_EXTENT_PDS_ROWS,
++		.extent_field = offsetof(struct pvrsgx_cmd_render_all, base.pixel_event_pds_rows),
++	},
++	{
++		.name = "bg_pds_secondary_addr",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, base.bg_pds_secondary_addr),
++		.size = 8,
++		.check = PVRSGX_CMD_CHECK_ADDR,
++		.heap = PVRSGX_CMD_HEAP_PDS_PIXEL,
++		.align = 16,
++	},
++	{
++		.name = "bg_pds_primary_addr",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, base.bg_pds_primary_addr),
++		.size = 8,
++		.check = PVRSGX_CMD_CHECK_ADDR,
++		.heap = PVRSGX_CMD_HEAP_PDS_PIXEL,
++		.align = 16,
++	},
++	{
++		.name = "pixel_event_pds_rows",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, base.pixel_event_pds_rows),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_RANGE,
++		.min = 1,
++		.max = 63,
++	},
++	{
++		.name = "bg_pds_secondary_rows",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, base.bg_pds_secondary_rows),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_RANGE,
++		.min = 1,
++		.max = 63,
++	},
++	{
++		.name = "bg_pds_primary_rows",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, base.bg_pds_primary_rows),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_RANGE,
++		.min = 1,
++		.max = 63,
++	},
++	{
++		.name = "bg_depth_f32",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, base.bg_depth_f32),
++		.size = 4,
++	},
++	{
++		.name = "depth_bias_units",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, base.depth_bias_units),
++		.size = 4,
++	},
++	{
++		.name = "depth_bias_factor_f32",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, base.depth_bias_factor_f32),
++		.size = 4,
++	},
++};
++
++static const struct pvrsgx_cmd_field sgx545_sgx545_render_fields[] = {
++	{
++		.name = "zls_control",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, sgx545_render.zls_control),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_MASK,
++		.mask = 0x001ff007,
++	},
++	{
++		.name = "flags_3d",
++		.offset = offsetof(struct pvrsgx_cmd_render_all, sgx545_render.flags_3d),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_MASK,
++		.mask = 0x00000180,
++	},
++};
++
++static const struct pvrsgx_cmd_ext_def sgx545_render_exts[] = {
++	{
++		.id = DRM_POWERVR_SGX_EXT_SGX545_RENDER,
++		.size = sizeof(struct drm_powervr_sgx_ext_sgx545_render),
++		.offset = offsetof(struct pvrsgx_cmd_render_all, sgx545_render),
++		.fields = sgx545_sgx545_render_fields,
++		.nr_fields = ARRAY_SIZE(sgx545_sgx545_render_fields),
++	},
++};
++
++static const struct pvrsgx_cmd_def sgx545_render = {
++	.name = "render",
++	.type = PVRSGX_CMD_RENDER,
++	.supported = true,
++	.size = sizeof(struct drm_powervr_sgx_cmd_render),
++	.all_size = sizeof(struct pvrsgx_cmd_render_all),
++	.fields = sgx545_render_fields,
++	.nr_fields = ARRAY_SIZE(sgx545_render_fields),
++	.exts = sgx545_render_exts,
++	.nr_exts = ARRAY_SIZE(sgx545_render_exts),
++};
++
++static const struct pvrsgx_cmd_field sgx545_ta_kick_fields[] = {
++	{
++		.name = "vdm_base",
++		.offset = offsetof(struct pvrsgx_cmd_ta_kick_all, base.vdm_base),
++		.size = 8,
++		.check = PVRSGX_CMD_CHECK_ADDR,
++		.heap = PVRSGX_CMD_HEAP_CLIENT,
++		.align = 4,
++		.extent = PVRSGX_CMD_EXTENT_BYTES,
++		.extent_bytes = 4,
++	},
++};
++
++static const struct pvrsgx_cmd_field sgx545_sgx545_ta_kick_fields[] = {
++	{
++		.name = "ta_flags2",
++		.offset = offsetof(struct pvrsgx_cmd_ta_kick_all, sgx545_ta_kick.ta_flags2),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_MASK,
++		.mask = 0x02c80000,
++	},
++	{
++		.name = "_padding_14",
++		.offset = offsetof(struct pvrsgx_cmd_ta_kick_all, sgx545_ta_kick._padding_14),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_ZERO,
++	},
++};
++
++static const struct pvrsgx_cmd_ext_def sgx545_ta_kick_exts[] = {
++	{
++		.id = DRM_POWERVR_SGX_EXT_SGX545_TA_KICK,
++		.size = sizeof(struct drm_powervr_sgx_ext_sgx545_ta_kick),
++		.offset = offsetof(struct pvrsgx_cmd_ta_kick_all, sgx545_ta_kick),
++		.fields = sgx545_sgx545_ta_kick_fields,
++		.nr_fields = ARRAY_SIZE(sgx545_sgx545_ta_kick_fields),
++	},
++};
++
++static const struct pvrsgx_cmd_def sgx545_ta_kick = {
++	.name = "ta_kick",
++	.type = PVRSGX_CMD_TA_KICK,
++	.supported = true,
++	.size = sizeof(struct drm_powervr_sgx_cmd_ta_kick),
++	.all_size = sizeof(struct pvrsgx_cmd_ta_kick_all),
++	.fields = sgx545_ta_kick_fields,
++	.nr_fields = ARRAY_SIZE(sgx545_ta_kick_fields),
++	.exts = sgx545_ta_kick_exts,
++	.nr_exts = ARRAY_SIZE(sgx545_ta_kick_exts),
++};
++
++static const struct pvrsgx_cmd_field sgx545_transfer_fields[] = {
++	{
++		.name = "bg_block_addr",
++		.offset = offsetof(struct pvrsgx_cmd_transfer_all, base.bg_block_addr),
++		.size = 8,
++		.check = PVRSGX_CMD_CHECK_ADDR,
++		.heap = PVRSGX_CMD_HEAP_CLIENT,
++		.align = 16,
++		.extent = PVRSGX_CMD_EXTENT_BYTES,
++		.extent_bytes = 0x200,
++	},
++	{
++		.name = "pixel_event_pds_addr",
++		.offset = offsetof(struct pvrsgx_cmd_transfer_all, base.pixel_event_pds_addr),
++		.size = 8,
++		.check = PVRSGX_CMD_CHECK_ADDR,
++		.heap = PVRSGX_CMD_HEAP_PDS_PIXEL,
++		.align = 16,
++		.extent = PVRSGX_CMD_EXTENT_PDS_ROWS,
++		.extent_field = offsetof(struct pvrsgx_cmd_transfer_all, base.pixel_event_pds_rows),
++	},
++	{
++		.name = "pixel_event_pds_rows",
++		.offset = offsetof(struct pvrsgx_cmd_transfer_all, base.pixel_event_pds_rows),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_RANGE,
++		.min = 1,
++		.max = 63,
++	},
++	{
++		.name = "first_tile_x",
++		.offset = offsetof(struct pvrsgx_cmd_transfer_all, base.first_tile_x),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_RANGE,
++		.min = 0,
++		.limit = PVRSGX_CMD_LIMIT_TILES_X,
++	},
++	{
++		.name = "first_tile_y",
++		.offset = offsetof(struct pvrsgx_cmd_transfer_all, base.first_tile_y),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_RANGE,
++		.min = 0,
++		.limit = PVRSGX_CMD_LIMIT_TILES_Y,
++	},
++	{
++		.name = "last_tile_x",
++		.offset = offsetof(struct pvrsgx_cmd_transfer_all, base.last_tile_x),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_RANGE,
++		.min = 0,
++		.limit = PVRSGX_CMD_LIMIT_TILES_X,
++	},
++	{
++		.name = "last_tile_y",
++		.offset = offsetof(struct pvrsgx_cmd_transfer_all, base.last_tile_y),
++		.size = 4,
++		.check = PVRSGX_CMD_CHECK_RANGE,
++		.min = 0,
++		.limit = PVRSGX_CMD_LIMIT_TILES_Y,
++	},
++	{
++		.name = "bg_depth_f32",
++		.offset = offsetof(struct pvrsgx_cmd_transfer_all, base.bg_depth_f32),
++		.size = 4,
++	},
++};
++
++static const struct pvrsgx_cmd_def sgx545_transfer = {
++	.name = "transfer",
++	.type = PVRSGX_CMD_TRANSFER,
++	.supported = true,
++	.size = sizeof(struct drm_powervr_sgx_cmd_transfer),
++	.all_size = sizeof(struct pvrsgx_cmd_transfer_all),
++	.fields = sgx545_transfer_fields,
++	.nr_fields = ARRAY_SIZE(sgx545_transfer_fields),
++};
++
++const struct pvrsgx_cmd_core pvrsgx_cmd_core_sgx545 = {
++	.name = "sgx545",
++	.va_bits = 32,
++	.pds_row_bytes = 16,
++	.max_samples = 4,
++	.cmds = {
++		[PVRSGX_CMD_RENDER] = &sgx545_render,
++		[PVRSGX_CMD_TA_KICK] = &sgx545_ta_kick,
++		[PVRSGX_CMD_TRANSFER] = &sgx545_transfer,
++	},
++};
++
++/* sgx530: render depends on a value not yet known there. */
++static const struct pvrsgx_cmd_def sgx530_render = {
++	.name = "render",
++	.type = PVRSGX_CMD_RENDER,
++};
++
++/* sgx530: ta_kick depends on a value not yet known there. */
++static const struct pvrsgx_cmd_def sgx530_ta_kick = {
++	.name = "ta_kick",
++	.type = PVRSGX_CMD_TA_KICK,
++};
++
++/* sgx530: transfer depends on a value not yet known there. */
++static const struct pvrsgx_cmd_def sgx530_transfer = {
++	.name = "transfer",
++	.type = PVRSGX_CMD_TRANSFER,
++};
++
++const struct pvrsgx_cmd_core pvrsgx_cmd_core_sgx530 = {
++	.name = "sgx530",
++	.va_bits = 28,
++	.pds_row_bytes = 0,
++	.max_samples = 1,
++	.cmds = {
++		[PVRSGX_CMD_RENDER] = &sgx530_render,
++		[PVRSGX_CMD_TA_KICK] = &sgx530_ta_kick,
++		[PVRSGX_CMD_TRANSFER] = &sgx530_transfer,
++	},
++};
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_defs.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_defs.h
 new file mode 100644
-index 000000000..aab9bc2f6
+index 000000000..611e46e39
 --- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.h
-@@ -0,0 +1,134 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_defs.h
+@@ -0,0 +1,43 @@
++/* SPDX-License-Identifier: MIT */
 +/* Copyright © 2026 Joseph Telaak */
 +
-+#undef TRACE_SYSTEM
-+#define TRACE_SYSTEM powervr_sgx
++/*
++ * The per-core client-command tables, generated by gen_cmd.py from the command
++ * description powervr_sgx_cmd.xml; both live in the driver's source repository,
++ * https://github.com/The1TrueJoe/powervr_sgx.
++ */
 +
-+#if !defined(PVRSGX_TRACE_H) || defined(TRACE_HEADER_MULTI_READ)
-+#define PVRSGX_TRACE_H
++#ifndef PVRSGX_CMD_DEFS_H
++#define PVRSGX_CMD_DEFS_H
 +
-+#include <linux/tracepoint.h>
-+#include <linux/types.h>
++#include "pvrsgx_cmd.h"
 +
-+#include "pvrsgx_fwif.h"
++enum pvrsgx_cmd_type {
++	PVRSGX_CMD_RENDER,
++	PVRSGX_CMD_TA_KICK,
++	PVRSGX_CMD_TRANSFER,
++	PVRSGX_CMD_COUNT,
++};
 +
-+/* A command handed to the microkernel (kernel CCB, doorbell rung). */
-+TRACE_EVENT(pvrsgx_kick,
-+	TP_PROTO(u32 type, u64 seq, u64 fence_seqno),
-+	TP_ARGS(type, seq, fence_seqno),
-+	TP_STRUCT__entry(
-+		__field(u32, type)
-+		__field(u64, seq)
-+		__field(u64, fence_seqno)
-+	),
-+	TP_fast_assign(
-+		__entry->type = type;
-+		__entry->seq = seq;
-+		__entry->fence_seqno = fence_seqno;
-+	),
-+	TP_printk("type=%u ccb=%llu fence=%llu", __entry->type, __entry->seq,
-+		  __entry->fence_seqno)
-+);
++/* A command with every extension it can take on any core: absent ones zero. */
++struct pvrsgx_cmd_render_all {
++	struct drm_powervr_sgx_cmd_render base;
++	struct drm_powervr_sgx_ext_sgx545_render sgx545_render;
++};
 +
-+/* A render's last kick: the dataset and the per-frame values it was given. */
-+TRACE_EVENT(pvrsgx_render_kick,
-+	TP_PROTO(const struct pvrsgx_fw_ta_cmd *cmd, u32 w, u32 h, u32 rgn_next, u32 cmd_off),
-+	TP_ARGS(cmd, w, h, rgn_next, cmd_off),
-+	TP_STRUCT__entry(
-+		__field(u32, rtdata)
-+		__field(u32, w)
-+		__field(u32, h)
-+		__field(u32, frame)
-+		__field(u32, rt_entry)
-+		__field(u32, rgn_this)
-+		__field(u32, rgn_next)
-+		__field(u32, cmd_off)
-+		__field(u32, pb_desc)
-+		__field(u32, te_screen)
-+		__field(u32, te_mtile0)
-+		__field(u32, te_mtile1)
-+		__field(u32, mt_tiles)
-+		__field(u32, screen_size)
-+	),
-+	TP_fast_assign(
-+		__entry->rtdata = cmd->rt_data;
-+		__entry->w = w;
-+		__entry->h = h;
-+		__entry->frame = cmd->frame;
-+		__entry->rt_entry = cmd->rt_data_entry;
-+		__entry->rgn_this = cmd->region_headers;
-+		__entry->rgn_next = rgn_next;
-+		__entry->cmd_off = cmd_off;
-+		__entry->pb_desc = cmd->pb_desc;
-+		__entry->te_screen = cmd->te_screen;
-+		__entry->te_mtile0 = cmd->te_mtile[0];
-+		__entry->te_mtile1 = cmd->te_mtile[1];
-+		__entry->mt_tiles = cmd->mt_tiles;
-+		__entry->screen_size = cmd->screen_size;
-+	),
-+	TP_printk("rtdata=0x%08x %ux%u frame=%u entry=0x%08x rgn=0x%08x next=0x%08x cmd_off=0x%x pb=0x%08x te_screen=0x%08x mtile=0x%08x,0x%08x mt_tiles=0x%08x screen=0x%08x",
-+		  __entry->rtdata, __entry->w, __entry->h, __entry->frame,
-+		  __entry->rt_entry, __entry->rgn_this, __entry->rgn_next,
-+		  __entry->cmd_off, __entry->pb_desc, __entry->te_screen,
-+		  __entry->te_mtile0, __entry->te_mtile1, __entry->mt_tiles,
-+		  __entry->screen_size)
-+);
++struct pvrsgx_cmd_ta_kick_all {
++	struct drm_powervr_sgx_cmd_ta_kick base;
++	struct drm_powervr_sgx_ext_sgx545_ta_kick sgx545_ta_kick;
++};
 +
-+/* The microkernel's interrupt, in the hard handler. */
-+TRACE_EVENT(pvrsgx_irq,
-+	TP_PROTO(u32 status),
-+	TP_ARGS(status),
-+	TP_STRUCT__entry(
-+		__field(u32, status)
-+	),
-+	TP_fast_assign(
-+		__entry->status = status;
-+	),
-+	TP_printk("status=0x%08x", __entry->status)
-+);
++struct pvrsgx_cmd_transfer_all {
++	struct drm_powervr_sgx_cmd_transfer base;
++};
 +
-+/* A job seen done, just before its hardware fence signals. */
-+TRACE_EVENT(pvrsgx_job_done,
-+	TP_PROTO(u32 type, u64 fence_seqno),
-+	TP_ARGS(type, fence_seqno),
-+	TP_STRUCT__entry(
-+		__field(u32, type)
-+		__field(u64, fence_seqno)
-+	),
-+	TP_fast_assign(
-+		__entry->type = type;
-+		__entry->fence_seqno = fence_seqno;
-+	),
-+	TP_printk("type=%u fence=%llu", __entry->type, __entry->fence_seqno)
-+);
++/* Extension name -> 1 + the command it belongs to, 0 for none. */
++extern const u8 pvrsgx_cmd_ext_owner[64];
 +
-+/* A job's imports flushed from the CPU caches. */
-+TRACE_EVENT(pvrsgx_flush_imports,
-+	TP_PROTO(u64 fence_seqno, u32 nimports, u64 bytes, u64 ns, bool after),
-+	TP_ARGS(fence_seqno, nimports, bytes, ns, after),
-+	TP_STRUCT__entry(
-+		__field(u64, fence_seqno)
-+		__field(u32, nimports)
-+		__field(u64, bytes)
-+		__field(u64, ns)
-+		__field(bool, after)
-+	),
-+	TP_fast_assign(
-+		__entry->fence_seqno = fence_seqno;
-+		__entry->nimports = nimports;
-+		__entry->bytes = bytes;
-+		__entry->ns = ns;
-+		__entry->after = after;
-+	),
-+	TP_printk("fence=%llu %s imports=%u bytes=%llu ns=%llu", __entry->fence_seqno,
-+		  __entry->after ? "after" : "before", __entry->nimports, __entry->bytes,
-+		  __entry->ns)
-+);
++extern const struct pvrsgx_cmd_core pvrsgx_cmd_core_sgx545;
++extern const struct pvrsgx_cmd_core pvrsgx_cmd_core_sgx530;
 +
-+#endif /* PVRSGX_TRACE_H */
-+
-+#undef TRACE_INCLUDE_PATH
-+#define TRACE_INCLUDE_PATH .
-+#undef TRACE_INCLUDE_FILE
-+#define TRACE_INCLUDE_FILE pvrsgx_trace
-+#include <trace/define_trace.h>
++#endif /* PVRSGX_CMD_DEFS_H */
 
 -- 
 2.50.1
