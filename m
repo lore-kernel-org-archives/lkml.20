@@ -1,60 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480925;
-	b=LFmAEQRcMX5JPHpjclBf1wzHgADzPGWFf5Wsh+HkeFKTTJIDWJEF8PjaPSpPWuC1G15k
-	 ni0DInq3y8LCe93yFYzorfrIjTptioUStAzRaRXONqR0fejf8XlbxBYEin4gRgeTfenpe
-	 RPQbIUvK8dpYbBUtEyAaeJpceUMHiUmMBTbBkvJ4M6wqsKnmcyMv1KA42c0jczU8r4Y0Q
-	 M/zSkaRf/vN0Cgjux3YJe+j5sSGorSxg8o3rfdp2YHyWtNeZQwFOct7TRIsYYjAbjGS/l
-	 aNhTPPCgF+6tkqHg65G/vixS3Blh5ejSqxO21DPfT2dtMpMiJQWRztmMPyvsjleSGVQ==
+	t=1794480991;
+	b=O98KzOOd8goMLMCV948oy1JO4+zPc6DXjK7ggV3ikgOQZ9VnnQdmR0Zizgomog1GUJKE
+	 8n4M/qFcVVl3+sAlIi+/lDD+Or35pZZMU0tTS4HG3EDZsCPowrBb4KTR3vMEzgh/Wao/Z
+	 vdWcccbYWpUnZno9aJrm9W7YppjBloiwcWVGd3Vg5JkntPTiyrrUwU2xSK1oA6jR1LU2A
+	 mvEaU/0AoNUF1y8J7pEw73YMOR9blRT3kgESFK6dHPJeOiX/c8xdUupDgQcozbMiSHzAH
+	 eH6OHQhgTuns2U4KYe3ef/XHSr3ev0LomBPH+zgkRwLbIkV0gTLfIdU8zO6ZImTvtpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480925;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MmheJU6Q1TfEreGKF6QGCIAOg0LXxZZYNAd2NqNTzw8=;
-	b=mnbVWhTX7BZtOpFkYZsUAIpqVW8XPA9MBwU7f5CckpZM+6a2ETAx3vnSd0g61pwUuDc+
-	 4NINeHg5/0gAZKcdPFkKM72eQIBPVRN1vs4n+qKR/j0vP8zNnSJMy7eyTZF1zQFBiYlLA
-	 IcRJerlmiiFOnLyEHuDJTqnUpAcf1xpooiUKFNq0PClsW4WXo6SLK5t+wtxKUFCnMszLi
-	 1ubRLpedZstqsUew4MjAjzrGl3iGKcTHL+V0185eVyzwAvfa0hFW3zyOYea5bN4RJXgyu
-	 rIEZ7ra/MfIU3GzZvauz6KI8V8HDYfzq22/tva2/qpcslgNbwwQ7uawghPEqkmK3UtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480991;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=KCo8Qlmn/2+C+uMj43DMnRWaevfzJkszOGCL93tK9P0=;
+	b=qSA/nR13lVFYcNS5HrNF6hDBEKHoNbiMJbrQMjYadZJaFGllUW9kzmhTQ5JtpqCuALkO
+	 A6bjK2oC6Y8volug1aLKqdaJ9I6K1ZbiWDmyvqlz0ZvLwzgQ2eNItzlqoQs0HlLmdaoO7
+	 oCJvvVk8C0yoawE6zS6AN0qxvGTvlM0HhJVrXwd7XbOOhdIg8b2zobeeeaHT2od61tVgw
+	 cQq2RYmAY9IRTIIl3K9zEspc0DzhUjNwhubbT0mziClUybIeVYvfQqSC2G5/pTxDxE1MV
+	 NDCSiF+8UsZsaIonPBBmjqiqGzow9QKpJcoNJIsGp73HXPZlnkiNJCFum5gn5ZVxjew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aWaWETBU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=XFP6shXp;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9D8606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:55:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33A7606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:56:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C33A7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aWaWETBU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C1901F00A06;
-	Thu, 12 Nov 2026 10:55:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794480925;
-	bh=MmheJU6Q1TfEreGKF6QGCIAOg0LXxZZYNAd2NqNTzw8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aWaWETBULe5lqRTShuLTEzxp415DFCyuF3dsXHtF7yFzc+Kn7Id2TOuqeaO+Kxte4
-	 rtkTWAvtps0ZdvaexqhiAowoW7uZyrxVkJWTu0jm2q71E7PWh08gg8bta4z4bfG/rA
-	 qMXA1ioROTPQqukYSGYwDi6EN0NVMgNlhixe5lPvnp5fnySScGOD1hM6uMWB0Bk3ap
-	 6sDxoW73DjdzfoLweO7EzI3FgS+CxndvzAAuefvS1R7DIs8vHgAjRLNEhGKtFfBbte
-	 GX4cRddlvQwbxvfj14H72gFiI5aaQyLSM5RonsFF/xsHQb6t03J6/WJHDe1DRobYUV
-	 +ySQ4q1HP1uog==
-Date: Thu, 12 Nov 2026 10:55:19 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=XFP6shXp
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=KCo8Qlmn/2+C+uMj43DMnRWaevfzJkszOGCL93tK9P0=; b=XFP6shXpg4c1I447/LkDftO/OA
+	rDOfbp59dF/wmdUBpET9AZJtVGc7v2mIrG/SOREqkKiF5m6KEfQWXEngHy80bIsPZRFbhgBj7hd4Y
+	J2x0L5trkYo8clK2+TeyqzwGf9021UcjgjNI4Buzshnaa/JdUIfmtDcEyKAEH7Kpanw+MNHr/eZGg
+	uUgHjiLqXYsqTYI8RJiqfyFfz00dpUhl4k3+J4RTEtDphZcMMKOffV/v6bCzkOKqiqzlcPVdFOd8F
+	Uzc/KXzPvxy1E3ulPALmlhlpO3p3dDIlRzadD+Z1yjafcmDLrEP40x7gexdykAswEeH6hPz7ceJdS
+	HoLK9pCA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRSTh-0000000ADgA-3ARP;
+	Thu, 12 Nov 2026 10:56:25 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 4698A300882; Thu, 12 Nov 2026 11:56:24 +0100 (CET)
+Date: Thu, 12 Nov 2026 11:56:24 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Qiliang Yuan <qiliang.yuan@linux.dev>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] mm/khugepaged: release contended mmap read lock
- after scanning enough VMAs
-Message-ID: <avWbD-FfFJbFOuQB@gremlin>
-References: <20261110-khugepaged-latency-fix-v3-0-6eea743cf9a3@kernel.org>
- <20261110-khugepaged-latency-fix-v3-3-6eea743cf9a3@kernel.org>
- <avNrPKIoZ3JHiAjh@gremlin>
- <a1ee8e44-5a3b-4bef-aeff-eb19d354f767@kernel.org>
+Subject: Re: [PATCH 2/2] sched/fair: Avoid re-syncing runtime_enabled on root
+ domain changes
+Message-ID: <20261112105624.GM2668804@noisy.programming.kicks-ass.net>
+References: <20261111-bug-sched-fair-offline-active-v1-0-4f54523c5a70@linux.dev>
+ <20261111-bug-sched-fair-offline-active-v1-2-4f54523c5a70@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,46 +76,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a1ee8e44-5a3b-4bef-aeff-eb19d354f767@kernel.org>
+In-Reply-To: <20261111-bug-sched-fair-offline-active-v1-2-4f54523c5a70@linux.dev>
 
-On Thu, Nov 12, 2026 at 10:26:46AM +0100, David Hildenbrand (Arm) wrote:
-> On 11/10/26 20:09, Lorenzo Stoakes (ARM) wrote:
-> > On Tue, Nov 10, 2026 at 05:19:13PM +0000, Lorenzo Stoakes (ARM) wrote:
-> >> khugepaged walks an mm's VMAs under the mmap read lock in
-> >> collapse_scan_mm_slot(), checking for ineligible VMAs first, and skipping
-> >> them if encountered.
-> >>
-> >> It charges cc->progress 1 page against the /sys/.../pages_to_scan budget
-> >> when these are encountered, however only checking this budget once an
-> >> eligible PMD-spanning VMA is encountered.
-> >>
-> >> It can therefore hold the mmap read lock for a long time if there are a
-> >> large number of ineligible VMAs present in an mm, over which time no mmap
-> >> write locks (and thus no VMA write locks) can be acquired.
-> >>
-> >> Address this by checking whether the mmap lock is contended after 1-10
-> >> ms (depending on CONFIG_HZ), i.e. the granularity of jiffies. This is a
-> >> long time for a lock to be held, so is a reasonable compromise for
-> >> determining when best to do this.
-> >
-> > Oops I left this in from the previous approach :)
-> >
-> > Replace with:
-> >
-> > 	Address this by checking whether the mmap lock is contended after 1024
-> > 	VMAs scanned. This was measured to take around ~100 us on a fast
-> > 	machine, and given VMA eligibility checking is a light operation, it is
-> > 	likely this will remain at the same order of magnitude for slower
-> > 	machines.
-> >
-> > 	This therefore establishes a reasonable upper bound on how long a
-> > 	contended mmap lock is held.
-> >
-> > Thanks! :)
->
-> Fixing it up as I am applying :)
+On Wed, Nov 11, 2026 at 08:24:21PM -0500, Qiliang Yuan wrote:
+> rq_online_fair() calls update_runtime_enabled(), which walks every task
+> group and takes each group's cfs_bandwidth lock to copy its quota state
+> into the CPU's cfs_rq. A sched domain rebuild reaches it for every
+> active CPU through rq_attach_root(), with the rq lock held and
+> interrupts disabled.
+> 
+> The walk only matters when the cached state may be stale. While a CPU
+> is online, tg_set_cfs_bandwidth() updates runtime_enabled on it under
+> the rq lock, and it holds cpus_read_lock() so it cannot miss a CPU that
+> is coming up. Only unthrottle_offline_cfs_rqs() clears runtime_enabled
+> behind its back, and a CPU that has never been online has not been
+> visited at all.
+> 
+> Track this in a per-rq flag that update_runtime_enabled() sets after
+> the walk and unthrottle_offline_cfs_rqs() clears, and skip the walk
+> while it is set.
+> 
+> With 4000 cpu cgroups on a 32-CPU VM booted with rt_group_sched=0,
+> switching a 4-CPU cpuset to a partition root and offlining or onlining
+> one CPU take (median of 20 partition switches and 16 hotplug operations):
+> 
+>   operation         before (ms)  after (ms)  change
+>   partition root           7.68        1.21    -84%
+>   cpu offline             30.96       13.44    -57%
+>   cpu online              28.48       12.82    -55%
 
-Cheers!
+How do you end up with 4k cgroups ?!? That's wild.
 
---
-Cheers, Lorenzo
+Also, why do you care about the rebuild performance? I'm not entirely
+sure it makes sense to add data for something that 'never' happens. Do
+we really need a new member variable for this?
+
+> Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
+> ---
+>  kernel/sched/fair.c  | 11 +++++++++++
+>  kernel/sched/sched.h |  2 ++
+>  2 files changed, 13 insertions(+)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index e245a31b0544e..e2f67bdc3031e 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -7798,6 +7798,15 @@ static void __maybe_unused update_runtime_enabled(struct rq *rq)
+>  
+>  	lockdep_assert_rq_held(rq);
+>  
+> +	/*
+> +	 * tg_set_cfs_bandwidth() keeps runtime_enabled up to date while the
+> +	 * CPU is online, so only the first activation and the one following
+> +	 * unthrottle_offline_cfs_rqs() need the walk.
+> +	 */
+> +	if (rq->cfsb_runtime_valid)
+> +		return;
+> +	rq->cfsb_runtime_valid = true;
+> +
+>  	guard(rcu)();
+>  
+>  	list_for_each_entry_rcu(tg, &task_groups, list) {
+> @@ -7816,6 +7825,8 @@ static void __maybe_unused unthrottle_offline_cfs_rqs(struct rq *rq)
+>  
+>  	lockdep_assert_rq_held(rq);
+>  
+> +	rq->cfsb_runtime_valid = false;
+> +
+>  	/*
+>  	 * The rq clock has already been updated in the
+>  	 * set_rq_offline(), so we should skip updating
+> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> index 1d76950dbb0a1..1a73383204384 100644
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -1412,6 +1412,8 @@ struct rq {
+>  #ifdef CONFIG_CFS_BANDWIDTH
+>  	call_single_data_t	cfsb_csd;
+>  	struct list_head	cfsb_csd_list;
+> +	/* cfs_rq->runtime_enabled is in sync with the quota of every group */
+> +	bool			cfsb_runtime_valid;
+>  #endif
+>  
+>  	atomic_t		nr_iowait;
+> 
+> -- 
+> 2.43.0
+> 
