@@ -1,94 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794462535;
-	b=s3ePfps16zTOGQN0cWWJaBWfYIku/I3tOh/hJusBPwc9UrrQw8TXS+fD+jflolfDtiU0
-	 msi/VPRE+CU55mBAcmD72gzzS7hQuH4JPmdXeco5X1wNzw/Ity4D8EWB0mlaV5IRWs26C
-	 1vZBW3wkuQRQ9LNq58ohv+HaxueTZ+zVy5/MUeCEOV/8DIFiM1t/MleVdW8Sp+nf7mnTe
-	 UgUTDO/LS3Elmzlw6Zklg3Ijs9bS0H3PiAoTue/yBZ2XrYAecf6vFy73eJF3tUSTEm5Ns
-	 1OsppW/Esn5AFPT/PXWhDu7y1Ky2KqNnF1XERPSsTCWCG9cE7ckNxUzcbE5heT0naIw==
+	t=1794462568;
+	b=zlLVF/t690IztlDc5KsQhGVKfSMncolwu1f6//nCBWNbF23fBFc7L6kXrU4DlJVPiHJ7
+	 SZEQihzr1g0qJYUdTwp5EH9hzCYQ1DyFK3kckbBHbr7ukvaXvpLTWgJ0qAtXArK4AF3fU
+	 f+b+pp6+crISuVJIb6ebGAN4JD3+TDDTVRm/Bagm8tp/OVgKBtqqt8GDHEfmahmjHU3Bv
+	 fd2M5pHr+vf5VyH4waxwlYG6ZJBCqK/Pgyvrizd7IIAN5i7jCyXm8n1Bg3C0omwp5EFym
+	 2rZHQJUyyfQHg00uq1DWDn4Pf7LDiAT2bwfidLv6Kv9U8HsRN7aqsjUAY9FC0nvVZPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794462535;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
-	 Content-Type;
-	bh=W7Ysid1cXg0p+/0+QsMK/kbJ2LSq7UefW1HWxAbpeBM=;
-	b=ZbiJmFBkWatz9Z9rnK+JkySG3Fp9ACrsryD9IgDSeXr25Mzn/NjuSy+eKjwcKNNFO2J6
-	 P2jhf2Tcgp38pe6rfUdxc3qeaQLLY/aqmZsJRuQ3XFNxeg0dOL38CPJGCafmgNOm5BsJ3
-	 uMw1DDFhNB9+Snp8hMKmpCTxo6Ul4v8vjJSZX2/zCrC5c0cwQbur8pMnVtaMXEZd6aHnx
-	 eQU9zIOWdNdTQvlemcUDLScrTU03+RBDJtnnU8ComNAtqzbnJ8H1Vft6H7bAbjUvwYVVd
-	 Oq/AxQ6V99sEod0XBt8Fj+pHslRu5SDG9b9lXGTIETKnpTIVCiAQeWWdud8hokOf/jA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794462568;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=2s63RbVzPaeSMEDqulBo4WSLSy7FX64O3I4ORCTozYs=;
+	b=5Rr/nHvGbylXsh7Lx1SJlwbH1nU5TAhSLFPrlVl/l3d7W5GXdnpnx7BFrIWwnpBDnPmO
+	 7xWvE01la+rj7oX3Hu1eRoOtMfzT0NPN2y5+KKSVIjzPtEWzifdNLpH77hq00S5NvEl27
+	 tzqWb3ViF5ZXx2hs27iDAqASNCmGFHRmelhYEW4aRNP5Zt1idUt0XdyCsnBA5CiV0W0YO
+	 jQcd0VuaalpGIDpTafZ+R2fL7b3ehiFsGUvTODLQfIzzRMXftcjlwGpX5XhpSmuj7GKuz
+	 MgPk66/dYrtGrLfyQtOWrFaDZD47fq+wFv2cTKW/NAl1prLiEkO/JWdJ9kB71nwRp+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="QecEl+c/";
-	arc=none smtp.remote-ip=209.85.210.227
-Received: from mail-pf1-f227.google.com (mail-pf1-f227.google.com [209.85.210.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=djkjU0yo;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F99606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:48:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7F99606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4564C606A31C;
+	Thu, 12 Nov 2026 05:49:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4564C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=QecEl+c/
-Received: by mail-pf1-f227.google.com with SMTP id d2e1a72fcca58-8a60f90a924so1598654b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:48:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794462534; x=1795067334;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W7Ysid1cXg0p+/0+QsMK/kbJ2LSq7UefW1HWxAbpeBM=;
-        b=J1zvaHIvAQh18K5gh0xbwsgCsz+v+j5tACfARkvo4Hmdu9+L9YqZKLIXk+QumOgse4
-         TFywcdGPicOjuj8htEVi/wliPkTxE36FL5kvEAskXfO//wXwroZtIXMrNnrFLP0qAfjI
-         Q/5QvOZIv96SOBr5K5sN+kkvt5iCiK0EXz8uFE6DuZkCvxD9EipISgrArKlp+6iCjBWr
-         dNMFMggAjrK36Boq/8PrxckRRNdyzL/w+Tcn8HwRG2vnRKUyz/gI85brvzSpIiGbc85C
-         Osot2dr/nlBKY+pHfFsrgbNei3AWozdGJmjKp4sIaSvGIiv2jkzREp3bv+4EwGnDmJnH
-         f8xg==
-X-Forwarded-Encrypted: i=1; AL+hErGEd8X+NBx0U40Ls/ZEHQJjfe0pudJeoYi+dIm+xxo7fgADvnJCzllPjvi+cLLlXtkMo83ugpTkehWVuro=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2D3GaxxYYazZ2BEZIQH7EH4KawQRlik2jvT/dlFejUYTHGkrl
-	0k7HwTpd3VxIo4FFOAKiWQzLNnyPtX1Z/6yJb+NyD+oU+AgCVjCVkZF2bOwJwZWsPxbDhLkeHrG
-	vS9Yfxu2tb+SerrwMZazkNZDkLda1c5O4xC9Iqrs2iA8RZ/zkTl5+BEkRFbG5DZo7ZYqf0OmZ8B
-	FO0xY3CDzDqaf9uQn97AFC6P+Ju1AbubZeLUu9oKfZD7MiyMykwHoWanrQTTUih3y63ad5esD2B
-	abTftn6v9CZB7FR
-X-Gm-Gg: AYBFou03/KPysO+TSpFfF+o01yHfuQDNhz+XKoSg7Milf8OtgfMbcMjCcdCtcLz/OGO
-	lzsovvujahdNIpGGGpQ0bfuMZ5Mu8d4qoBcpGLwCcyeRLgj4aiYggnFptDb5CX7P5Xz4u1JydQJ
-	s4AvRKfrXWLwygxfjFNsOnd7MXqhJLSJE7MgB0i/tMQTY/Xf9723SzREdHCmAgYscQel/hhD+Pw
-	gFb0eq18KnCu4yP5zrF5lH6vlVB+ca7w+73ye7NX0+Y/ajQUcHfN7xRICKCcaa2mCMlyZApgvNH
-	KkoEUWSyrY2cLcMPfAQZ1QZpzEzmjJGSxAcOCUGVNJ4SkRsgO4jeAOEpMTYQNs/kV6c4cRF1dvq
-	VYcxvB7e8JGjkAnTiBKnUnpTk9LHDlcg0IAtjFgjW+5LzFyW4KgsJe7nY2uN5Gy+I5gEsiWvW+0
-	sQ46ykBP0WguppnfM3FanYvBSJ/JQcowuM
-X-Received: by 2002:a17:90b:4ac2:b0:3ac:7449:40b4 with SMTP id 98e67ed59e1d1-3b182f2386cmr4589231a91.45.1794462533617;
-        Wed, 11 Nov 2026 21:48:53 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b197c125d0sm1148971a91.1.2026.11.11.21.48.52
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 11 Nov 2026 21:48:53 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-3ab20dc2aceso2114021fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:48:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794462531; x=1795067331; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W7Ysid1cXg0p+/0+QsMK/kbJ2LSq7UefW1HWxAbpeBM=;
-        b=QecEl+c/3/ecI0dT7ekwuCqeuc6E6MRsLCkvg8K+nM6oI6vx3OgYSrn8unKUFcMnsK
-         zvdEPjHcxeTse0gnwv/uETG16gN87WJEc+2zjv6CeF7QwokQH0oYN3CjOwiPTOY6YkDi
-         ltKjIm9QlmjW9cBn3AGUHRAqqK3Xkmv7HltIw=
-X-Forwarded-Encrypted: i=1; AL+hErGMO41nR/WHDQk9yb9tWfUwk3BqS1aj8L6972Dywp194iXnxtDNx8yXabutcf0wigL8Vf+Q0JQBRIAd9uY=@vger.kernel.org
-X-Received: by 2002:a2e:a98b:0:b0:3ab:1dcd:934c with SMTP id 38308e7fff4ca-3ae1bf10d93mr2744231fa.1.1794462531167;
-        Wed, 11 Nov 2026 21:48:51 -0800 (PST)
-X-Received: by 2002:a2e:a98b:0:b0:3ab:1dcd:934c with SMTP id
- 38308e7fff4ca-3ae1bf10d93mr2744181fa.1.1794462530604; Wed, 11 Nov 2026
- 21:48:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=djkjU0yo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794462568; x=1825998568;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2s63RbVzPaeSMEDqulBo4WSLSy7FX64O3I4ORCTozYs=;
+  b=djkjU0yoTEXq/KMM3jrGAIQagjKWIBkgvC79tiY/YgsJwYNszZ6oB7Tf
+   +OS6U/HPR0tqZm/4/LhxQOoV2V2u4XrzA48FlcL3U6kVdEAD3kl72BqrH
+   efBRALwkPMX6Yd7rodS+zR5JX6jWXj3jQnU72a5By4Uep6ehmQjRllorV
+   m7sJ7Y0kxNG/KYd+VcDrNyf/cAY4pXj7FCpgwIKCywxyk0uGsz/TZmSUs
+   pb4GqAI8+L7q8NwlEAOtuvvqMwZwNHoEYKPck59H4oO10astzYhq0ahSW
+   RfUaArdb7+1C0iIk6El3v5H8gXvMw3WufJMmv2LuI7dk0AclML58d9ueo
+   g==;
+X-CSE-ConnectionGUID: QZl3XOnvQqeeDUE1wN/eEQ==
+X-CSE-MsgGUID: ipIMXxI2Rxq37tqsm2zIKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3134027"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3134027"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 21:49:27 -0800
+X-CSE-ConnectionGUID: O0VHcGJvQhmb85wtnPTcrg==
+X-CSE-MsgGUID: ZGiETdIkSk2f2LIvAryIkg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="8889057"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa008.fm.intel.com with ESMTP; 11 Nov 2026 21:49:26 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 6268A99; Thu, 12 Nov 2026 06:49:24 +0100 (CET)
+Date: Thu, 12 Nov 2026 06:49:24 +0100
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Andrei Rusu de Castro <arc@empyreal.works>
+Cc: Mika Westerberg <westeri@kernel.org>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] thunderbolt: Optionally keep PCIe tunnels up through
+ suspend-to-idle
+Message-ID: <20261112054924.GK259790@black.igk.intel.com>
+References: <20261111-tb-s2idle-keep-pcie-2a2a66a2@empyreal.works>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,211 +83,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1794374897.git.zack.rusin@broadcom.com> <90467782be23b83fd3e9a6afe2f1d2149eaf9db9.1794374897.git.zack.rusin@broadcom.com>
- <CALMp9eR2tm=RkNk_cYsYj0SZmcUBTfxpYiqtLbtCE4TJ4H6jzg@mail.gmail.com>
-In-Reply-To: <CALMp9eR2tm=RkNk_cYsYj0SZmcUBTfxpYiqtLbtCE4TJ4H6jzg@mail.gmail.com>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 12 Nov 2026 00:48:37 -0500
-X-Gm-Features: AclHuK8ZMoRLTwx7GdlQFNy0IhAHQdBDtS2QIwUSLiDD8CGm6dyYo5afDPhKYYI
-Message-ID: <CABQX2QNsMCke2vKuXarXbvVcC2H4FNq2=zNqrq2PO1Hv2cfSDA@mail.gmail.com>
-Subject: Re: [PATCH v3 06/12] KVM: x86: Forward VMware hypercalls to userspace
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	Doug Covelli <doug.covelli@broadcom.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	Shuah Khan <shuah@kernel.org>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	David Woodhouse <dwmw2@infradead.org>, Paul Durrant <paul@xen.org>, Xin Li <xin@zytor.com>, 
-	Francesco Lavra <flavra@baylibre.com>, =?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
-	Liran Alon <liran.alon@oracle.com>, Arbel Moshe <arbel.moshe@oracle.com>, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000c0b28f06600ddd06"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261111-tb-s2idle-keep-pcie-2a2a66a2@empyreal.works>
 
---000000000000c0b28f06600ddd06
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-On Wed, Nov 11, 2026 at 7:29=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
-rote:
->
-> On Tue, Nov 10, 2026 at 10:05=E2=80=AFPM Zack Rusin <zack.rusin@broadcom.=
-com> wrote:
-> >
-> > Add KVM_VMWARE_ENABLE_HYPERCALL.  When it is enabled, exit to userspace
-> > with KVM_EXIT_VMWARE when an L1 vCPU executes VMCALL or VMMCALL with
-> > VMware's magic value in EAX, and let userspace complete the call by
-> > updating the guest's registers or by having KVM inject #UD, #GP or #PF.
-> >
-> > VMware guests reach the hypervisor through the "backdoor": either the
-> > I/O-port interface that KVM already emulates or, on newer guests,
-> > VMCALL or VMMCALL, with the same commands and register conventions.
-> > VMware's userspace implements the roughly one hundred commands, and
-> > reviewing the command list on the mailing list found none that needs
-> > to be handled in KVM (see the Links), so leave them in userspace.
-> >
-> > Only claim calls that carry the magic value, so that the same VM can
-> > still use Xen, Hyper-V or KVM hypercalls.  Never claim a call from L2:
-> > the only L2 hypercall that L0 handles itself is Hyper-V's L2 TLB flush,
-> > which doesn't use RAX as an input.
-> >
-> > Pass operands and results through KVM_SYNC_X86_REGS instead of defining
-> > a second register ABI; KVM_EXIT_HYPERCALL returns a single value in
-> > RAX, while backdoor commands use RAX through RBP.  Report the CPL and
-> > leave the privilege policy to userspace, as VMware Tools call the
-> > backdoor from user mode.  Instead of completing the call, userspace can
-> > have KVM inject a validated #UD, #GP or #PF at the hypercall, and may
-> > update the registers as well to keep the partial progress of a
-> > high-bandwidth transfer.
-> >
-> > Don't forward hypercalls of vCPUs whose state is protected, as KVM
-> > can't access their registers: reject the flag for VMs with protected
-> > state, omit it from their VM-scoped KVM_CHECK_EXTENSION result, and
-> > ignore it once a vCPU of a VM set up with the legacy KVM_SEV_ES_INIT
-> > becomes protected.
-> >
-> > Link: https://lore.kernel.org/r/c60b32a3-e699-4a8c-8d52-09b34c4d5269@re=
-dhat.com
-> > Link: https://lore.kernel.org/r/CADH9ctD1uf_yBA3NXNQu7TJa_TPhLRN=3D0YZ3=
-j2gGhgmaFRdCFg@mail.gmail.com
-> > Link: https://lore.kernel.org/r/CADH9ctBivnvP1tNcatLKzd8EDz8Oo6X65660j8=
-ccxYzk3aFzCA@mail.gmail.com
-> > Link: https://lore.kernel.org/r/aIEmawm9gLflg8zt@google.com
-> > Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
-> > ---
->
-> [ ... ]
->
-> > +static int complete_vmware_hypercall_exit(struct kvm_vcpu *vcpu)
-> > +{
-> > +       struct kvm_vmware_exit *vmware =3D &vcpu->run->vmware;
-> > +       u32 pad1 =3D READ_ONCE(vmware->pad1);
-> > +       u32 inject =3D READ_ONCE(vmware->hcall.exception.inject);
-> > +       u32 pad2 =3D READ_ONCE(vmware->hcall.exception.pad2);
-> > +       u32 vector =3D READ_ONCE(vmware->hcall.exception.vector);
-> > +       u32 error_code =3D READ_ONCE(vmware->hcall.exception.error_code=
-);
-> > +       u64 address =3D READ_ONCE(vmware->hcall.exception.address);
-> > +
-> > +       if (pad1 || pad2 || inject > 1)
-> > +               return -EINVAL;
-> > +
->
-> Should this check kvm_is_linear_rip(vcpu, vcpu->arch.cui_linear_rip),
-> like the fast PIO completions do?
+On Wed, Nov 11, 2026 at 10:57:08PM +0000, Andrei Rusu de Castro wrote:
+> Every system sleep puts the USB4 routers to sleep, which takes all
+> tunnels down, and the connection manager re-creates them on resume. A
+> PCIe device behind a tunnel disappears from the bus in between. An
+> external GPU that drives a display does not survive that: on a ROG Flow
+> Z13 (GZ302EA) with an RTX 5090 in a Razer Core X V2 driving an external
+> monitor, the GPU driver found the device gone after suspend-to-idle, the
+> enclosure was removed and re-added under a compositor still using it,
+> and the desktop froze.
 
-Yes, I think it should. It seems Xen has the same check. Thank you for
-spotting this!
+It is supposed to work so that the tunnels get re-established before the
+native stacks are resumed, for that we have the device links. In you case
+it may be that they are missing.
 
-I'll fix it in the next version alongside the issues sashiko found
-(most of them valid). afaict one thing that this fix doesn't cover is
-if userspace swaps in different vcpu state that happens to have the
-same linear RIP. That's a preexisting blind spot though.
+> For suspend-to-idle the domain can keep running instead. Add a module
+> parameter, s2idle_keep_pcie, off by default. When it is set, the target
+> state is suspend-to-idle and the software connection manager has a PCIe
+> tunnel, leave the routers, links and control channel running and keep
+> the host interface in D0 by saving its PCI state in the noirq phase, so
+> the PCI core does not put it into D3. The devices behind the tunnel then
+> go through an ordinary PCI suspend and resume. Without a PCIe tunnel, in
+> other sleep states and with the firmware connection manager nothing
+> changes.
 
-z
-
---000000000000c0b28f06600ddd06
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIHh2
-ojIoVc+3rn2irljZv3qzzE3vW23R3iHaCmMN+AQSMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTExMjA1NDg1MVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAA6K3wUCPVcdX/KTXHg0WvMYuBl83T1MRwsPq4Fg
-TtIJamnHoRyG9hIrpfGcBkNDYNhKCU6IlIfP+NCiHctqFspBnCk+A8Fcqz6xaFAg1aGPMu5IhCgm
-/dOzGq9QUJ6v/aVCF0PNK0JRB0CEKew6aDAnZkKw6t9g3hZ0jkmU9uVQxKfXwW6njrvWd8ow3dEy
-lZsMQ2WosgYdHOdrIRglt260kTCzTIvO0L3MFTIxsS1N5iD2fCSGJ5Wx7O1G4JNy98uWRgqyFVel
-z111ia6n47Y5NVkrA1MfW+KR0lk9dds1z0CAyc0XaAA5ta22UJXamPo0B+xFUrsa3EQKzIHOVLQ=
---000000000000c0b28f06600ddd06--
+I don't think this is a good idea to be honest. We should really understand
+why the PCIe link is not coming back as it should be and for that it would
+be good if you can share full dmesg with thunderbolt.dyndbg=+p in the
+kernel command line.
