@@ -1,66 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492476;
-	b=wl6ZNfbw6ve9MM8s0+z4ZxI3eFGZwGYz14t2h61upFhb0EtWRfjRJqPcq6rV8Nymhu9S
-	 I55He+Njruc5hbyaat0UUmAoSRGaNgHuminDQ+PRnCshFExjGmHWYQe9ZoedDP9MV8MsH
-	 X0hfoqxuzVCpuEeXrf2W5Ux0QbxriWCnsygh/KnlOGbx5gERIeEfTFfMbpXEynOTReQEe
-	 raN3aFvj6RKS20C5erT8GrrzU/SFty2QiIhMK5Xf+q6V+3RMCvfKxpY7FWrejx8oRCU/x
-	 o3fBIAegJAXzF47x8E5kitAC6FFEWfbqVqQYewQwqCFbDI5B2dBBe9VwF1x5QPrDNqg==
+	t=1794492545;
+	b=OmLvKHcsi9nVRWI7hcXhEZnoRW6pjJ5MCYgNPAfaCvLC5ifoQHZS/zUoH0ezHG40uQOQ
+	 Qza9MG1yhhAbjIFgm2fePcggBoQnBiT4kfowQscp1eG2u4afOZKmNmvRQtuWzav9demGo
+	 9/ZyFQ61O4lJ17n/aU5upJe7ISv6pFAELuN4prkZ5SzZLzXAaeVZnBkOcWxAAC3qXnbQt
+	 9+q7j05kSTSEIptp6FrfgtOuQm2xzpm35bKbTk0WyFAlWvPmLER4XHaoeU4vFwpF+yrsA
+	 Ls2K/pTs6PbBZRpt9rg2aIaw+P59exGUV5L+faHVtVM1fCrblg1YvUjHEJJeiiITR7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492476;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-ID:
-	 In-Reply-To:References:To:Cc:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:X-Debian-User;
-	bh=O1wOFcRJ3hIXdERyUkMm64zL7bpMn661NvAFyLUUNM8=;
-	b=W/5CGuSFdrZMovs6+CHSdukJTyVMt10Ieb0p6QvywGUy98xc64ib7fBMarnFmYG1GKeU
-	 dT3l+gzNScggTeN86/U/i6nshFgUbMiGLqQ2BBZZibMyEWHPn/wM2OV4TaDr55aQ/vyDg
-	 kgmgUzFS/fCOEF9HwmZcdroyAVhfG75GDr2nypAHCRzmC44evudDE+ro/Au06yQY0bNPZ
-	 IEucgXEjezscVNQ2XMiY1bHJ1sMdf8doC4K24xDUiziv/BT0y+obJSeH/NOWZepE7z4rd
-	 S3sR++oFkrl9bGfhCI2haENRbMIl+jjotl8kQtoXECdX+DCdgMcZyb2Tok397m7UeWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492545;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3r3YK91+4doEhazd+Tla/QmKvzSykFfCA7OhTKV88Mc=;
+	b=cZthGBvYsMLY9vG6eop4JyKbBAg+JQl+uP3x1zXr4BeQ6nQBpYhiX16zbBDw79zAHVme
+	 S49LI7iLYYDVTFcVXSnbZg60o6rn2oL944utR7w4Dh5q+Yf8uaRjHG/4svMEfFqhDCcwu
+	 RGyzeZYzf0is2XTJSg4/fjVA7ebSEb6KO0gv/ps3hV+4zEzL+j8bRmhRkWOKVsUVI0Zyn
+	 rPzytCh0/uecgTZTi7ZYah3TPaQ26fU/oIcSHQkg8sOvrg43YIGZIzpbT+/nq8075E2JL
+	 fQUOLqRUx0VGo7FoNVYMjnjLDPCP64j0dAYgGJ6AoA1NVNjFJWFuBYydFo3tmjDfb7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=iyl3uyGf;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jZrKInB/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EE4606A8BD;
-	Thu, 12 Nov 2026 14:07:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00EE4606A8BD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42EA606A323;
+	Thu, 12 Nov 2026 14:09:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=iyl3uyGf
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:MIME-Version:Content-Transfer-Encoding
-	:Content-Type:Cc:To:References:In-Reply-To:Message-ID:Date:Subject:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=O1wOFcRJ3hIXdERyUkMm64zL7bpMn661NvAFyLUUNM8=; b=iyl3uyGfKS3yVx3sdLRDFnhZ0c
-	nQc7Tuo5srLnjH1c1t4KGPUH0QdWh2MuKbz631tmKq5CB8SjzDQ4UdHVob8qB/9u5m5FLNTvjWBj/
-	irl523qKFJ4xvoP9pcv62WMhvDr+P6ny1JEGoHfBKJN7JLCRg/mmNfMvMbemZSHvcbfCFq1gW+gmq
-	qrou/5+kmSvcYtuwQ0ru9aqk3nTC84CldkAGUi4HY0cxC09XoQJyXQPcF6JIyxNRO72+JploGRJ4k
-	1HndD/bgAYbYUZPcp3RUQ5+vwhsdb39n2ySHV7wdD1mySjC+D9pKzB8xxEMS3OokqdQn9SMoUPOuM
-	ZoXSp/TA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <emfox@debian.org>)
-	id 1xRVSs-00E1Y4-0u;
-	Thu, 12 Nov 2026 14:07:46 +0000
-From: Emfox Zhou <emfox@debian.org>
-Subject: Re: [PATCH v2] media: i2c: ov13858: cap analogue gain at 15.5x
-Date: Thu, 12 Nov 2026 22:07:35 +0800
-Message-ID: <179449245510.342962.8870341202699077471@debian.org>
-In-Reply-To: <20261002093507.43584-1-lsa.uz@pm.me>
-References: <20261002093507.43584-1-lsa.uz@pm.me>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZrKInB/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82231F00A05;
+	Thu, 12 Nov 2026 14:09:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794492545;
+	bh=3r3YK91+4doEhazd+Tla/QmKvzSykFfCA7OhTKV88Mc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jZrKInB/dw9y7sshA7jXo61/laxLjxtNTGogkJSw4mbYJdGM5Z0lvvgBXztPKXOMU
+	 h2cDV1ssFEl1HHKGRP5V45NJEAA3j+/Oxd6QEmEtEtFnk4uPGaArZBYLUvOV6FwD3g
+	 JdAj9NqyACwoZDbUYb50924lD3+tZmdiDWSTVHLqGKd/MHfSaVUFBYGThoEvNHy28o
+	 cHfsQ5hddnsnmcw/Diuopv9jRDmWXkMOKk4H3DQmBZ2eUq7gJYa6KceOqCmYSLzmKo
+	 sHYzZHqfPMPcRdKrOkmAWdZuYgoH7uhzzuVTZ3eoWbgq/6ral1ujjDn0am+NHOY+2r
+	 fEJq2rZC0QjJQ==
+Date: Thu, 12 Nov 2026 08:09:02 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Cc: jbrunet+clk@baylibre.com, p.zabel@pengutronix.de, krzk+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org, sboyd@kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	michal.simek@amd.com, conor+dt@kernel.org, bmasney+clk@redhat.com,
+	linux-clk@vger.kernel.org
+Subject: Re: [PATCH 2/2] dt-bindings: clock: convert zynq-7000.txt to yaml
+Message-ID: <179449254210.403147.12378067448658354620.robh@kernel.org>
+References: <20261111150812.1874449-1-radhey.shyam.pandey@amd.com>
+ <20261111150812.1874449-3-radhey.shyam.pandey@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,38 +60,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Debian-User: emfox
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111150812.1874449-3-radhey.shyam.pandey@amd.com>
 
-Hi Sergey,
 
-Tested-by: Emfox Zhou <emfox@debian.org>
+On Wed, 11 Nov 2026 20:38:12 +0530, Radhey Shyam Pandey wrote:
+> Convert the Zynq 7000 clock controller binding to DT schema format.
+> 
+> ps-clk-frequency becomes optional with a documented 33 MHz default. The
+> text version listed it as required, but zynq-7000.dtsi does not set it
+> and five in-tree boards (zynq-cc108 and zynq-zc770-xm010 through xm013)
+> never override it, so requiring it would reject device trees that are
+> already in use.
+> 
+> trace_emio_clk is added to the clock inputs. It is the external trace
+> clock feeding the debug trace mux, which the text version never listed.
+> The example is corrected the same way: it used can_mio_clk_23, which
+> does not match the mio_clk_XX form this binding defines for an EMIO
+> clock on a MIO pin.
+> 
+> clock-output-names is enumerated as 48 const entries instead of the
+> prose "shall be a list of the outputs below", so the names and their
+> order are now checked. The clock cell is an index into that list.
+> 
+> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+> ---
+>  .../bindings/clock/xlnx,ps7-clkc.yaml         | 145 ++++++++++++++++++
+>  .../devicetree/bindings/clock/zynq-7000.txt   | 110 -------------
+>  2 files changed, 145 insertions(+), 110 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/clock/xlnx,ps7-clkc.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/clock/zynq-7000.txt
+> 
 
-Same conclusion here, from a Surface Pro 8 (Tiger Lake, IPU6) on 7.4-rc2 with
-libcamera 0.8 and its software ISP.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-I did not measure raw Bayer the way you did, so I cannot add points to your
-table, but a manual gain sweep at a fixed exposure shows the same ceiling.
-Requesting 4x, 8x, 16x, 32x and 64x and taking the mean of the centre crop
-after the ISP:
-
-	4x	35
-	8x	53
-	16x	77
-	32x	77
-	64x	77
-
-Above about 0x7c0 nothing more comes back, which is consistent with your 0x800
-and up entries.
-
-What I can add is the loop's side of it. With the control left at 0x1fff the
-auto exposure parks at 63.99 and stays there; with v2 applied it settles at
-15.5 instead, and the picture settles to about 101 (8-bit luma) over the tail
-of a twelve frame capture.
-
-One thing I noticed and did not chase: with ANA_GAIN_MIN left at 0 the first
-frames of a stream request gain 0, i.e. 0x0000 in 0x3508. It recovers within
-four frames so I am not asking for a change, but ov13b10 and ov08x40 both use
-0x80 as their minimum, and 0x80 is also this driver's default.
-
-Thanks,
-Emfox
