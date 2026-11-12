@@ -1,55 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794514707;
-	b=dh13R6R93IfvmVFEVdzxH6jC3vG8nGbNEnPw0coHbQ10XcYiOaQMHpMfKOUQN7OsYdsk
-	 swAtOJN406hAHAj7SfMA5aly07WNE8zH6t9OzjmNHjHMdXyNEQBqk7G4wLmoOatOAg/HI
-	 mqP3sc7uO16NzytnUuWRlAWifO0taHRMu147LlepsBxiqa+9e6CQxK7CYZECPoUBi8Vaf
-	 ci0IzRYQtb0j0OUrG+EsVBS+Sa7Z1cXILqJfhuQuCJshaIP0jij9gHgm+ZyLIP65t11ie
-	 6ZqNbZgb8cL2tE7VmyyQZ2jPWDiyI2vfQN/gl0E450dSQ34YV0V7jkb30Lo+FgvPFDQ==
+	t=1794514744;
+	b=LS1G6l/NOtYwZ2pXZ5MAqGx+ixkNkJvYrjYnK0MddxfJ8j6+KLze3BcNuQuQpWPE9VrL
+	 I6ewn019ohNNRBnNTxIrFiCfpw951j24xgV2eUQuSbXd+rzjsfi7S5Nfp9RvQiS2Hi30r
+	 UeR90XEJymzu2udgfJVFU8WbR5Mzu4rXrfldzFXsq4veA0Ver59d4qkCUbrcGhCyIFM5A
+	 /1aDOlLyf4U/Mt3sTegwv1A/eJGOSmPpCxmINYCXJHtPIwGIvW0Th3iRaAk7B5TEFkwGS
+	 6l/VUkU5fouYaXNnC1hmkO/mgfoSVeL6/6IDQUcTUGNkaJmMB4ZnaGNsJwFq9O2anYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794514707;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PELjK/L9jce4ay8aMBxnTmm3MZS6/0vTv4b1DOTHnXs=;
-	b=wdHCQLhrv5LvlLdCfz0k5smsQ6JQReZxyTJICRaijech+C/LopRKbUv+giFR77s9ufRV
-	 R1fdBZITYw8Sr5LKPuqTY4bBO6e+IPSJiKuVgEiRk+FCF1QBZ/rFUq49vfEKam8J7R8hN
-	 V6tiLDFgrR3CdRe+gzUeyN/Sgy/lbPt9B3JDL3slvsVaEONCSp0dZ+V/xaR8O6Dvz6tvV
-	 YUjhyhSV09BHogRio0oPC81bYMIeQ6AgqMBJ5W82dRgI22GAcyYW02v45zPmiZtTMAHzv
-	 FEf2wKEO/8b94U47emr3BwRaXZGjJRe/D6Yx4nXSBBqvVM9uwH2zoMyz2PRjxSQq7YA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794514744;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Pd/Fz0NSov9VvgLaDQPolSMBTkMy373wbjRwbPkuO9c=;
+	b=MVTXQWRuTjsFw6vVCv7hNjmZumBTBPDrasJWxd56nDtZNO8Mc6lEdaQTO0F0wQ+umg2l
+	 2m6xezSTZLn7T48L31/NjTMewJgaz/ERR9nQ/bvXLwJumGaOw3dPEGKYUKwGvDyPDN3x2
+	 JJP7gz5ejVF828AbSBk1bUzmLTuSWJN2ikG7oRzG8HwTsfi27bf/ZYe7G1FKu5s5uuw2I
+	 0UjOFQn8R9K9kkETsyhJMxh2fCpGHS5MmeYhzO7eUlQO80fH1WduXDyTBiWuopx5jfZvd
+	 BIEZVdGdRPkWUuUPCuIiWVkmb56wwURQmaN0hwCJlOzDnFy+1G78kos7mfgfD3sONEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RV51zSWA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=serhei.io;
+	spf=pass smtp.mailfrom=serhei.io;
+	dkim=pass header.d=serhei.io header.i=@serhei.io header.a=rsa-sha256 header.s=fm3 header.b=JOHduZNj;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=fGO0UrtO;
+	arc=none smtp.remote-ip=103.168.172.153
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB28606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:18:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D129606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:19:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D129606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=serhei.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=serhei.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RV51zSWA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69B511F000D1
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:18:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794514707;
-	bh=PELjK/L9jce4ay8aMBxnTmm3MZS6/0vTv4b1DOTHnXs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=RV51zSWAeX3l/5mLe0fPRliGyDx+PvZFURqVBlheSHcmcZOr7xCw/H2ruJIbBadKZ
-	 FHLR/OWlUbeu4rGlh0xRIygVUxNlxHYE+bp6HXrNkc1Ipb+2P3nm8Kc/0SyV7ISGh4
-	 TuE1gaetH5yPGzok2F9hb+btdrpFYQn/7EdW+GfsBVzhuGLxg5l94MAeni55Fgqs75
-	 ZHYbDDjM9jg0y/L7yxQKaxx7tEtYWK3HxSCep7gzYUxXot783rYRC7J5k84FZzeC3T
-	 zkrDiT/RxHgLEBWbdDFqUsbl4XfNwD+qAaJQ8hPoNDWh7rbOnMd2x5Ji/iXdG5l/WS
-	 B6Y/Zk1OMzQXg==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5c1479be604so202604e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:18:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEoiGOO/MhWSTiTwwBcG73L/Mv8F4ht5Rvb+Q5tLVqX3+kxkrvVj3FUfa08fQM/WGCKJY9I9FtPo6wPeg8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AsMMPR/8bzT9RxixJq370AC6TIeJeSyh2TKkIf1Fz81z4amqq
-	7HECcv4QCGEYbu0t6jh7D7ViekzwpYNKZFk0e/vkI4LKRA/kG+8nsQg7jOqNiRK6lyh4UgVyb3Y
-	AU+x/vRVm9aZRkD8uSFbrLwxUye5yMP4=
-X-Received: by 2002:a05:6512:1292:b0:5bc:f2fb:f50c with SMTP id
- 2adb3069b0e04-5c1709cd3afmr151270e87.53.1794514705799; Thu, 12 Nov 2026
- 12:18:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=serhei.io header.i=@serhei.io header.a=rsa-sha256 header.s=fm3 header.b=JOHduZNj;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=fGO0UrtO
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 9F8DA1400496
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:19:02 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Thu, 12 Nov 2026 15:19:02 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=serhei.io; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm3; t=1794514742; x=1794601142; bh=Pd
+	/Fz0NSov9VvgLaDQPolSMBTkMy373wbjRwbPkuO9c=; b=JOHduZNjrkq/QS6mMO
+	zAk1uIWZbV7Y92Iy/FRB6YX2+5TVDTymP34LKlSCSL9S+k7NuK23YSTyEW3RVh2O
+	d9U2oVJsaJeEaC6B4YNdmmQvrPlz/kOxWoblhCrco6esXqMdPi37RUG+ZcWenMTC
+	DWvtwGxYdNu7sXQhXzZftOhxmTsBOe1DSba8V+3KhkkeqKgSQVB79K0kHpB1AAmK
+	TmBFzsIbaG12PmezvzG39P5wDdwDnVc+mVsCu4D9Si5S+q25Lo0sns2IJYc9Vhqj
+	uwqbSskZlWvcMxg3SoKJRP6Or/r5eq2SINhCDZq3RWPI0/u3bQihLeGE+PAiit8n
+	Qdyw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1794514742; x=1794601142; bh=Pd/Fz0NSov9VvgLaDQPolSMBTkMy
+	373wbjRwbPkuO9c=; b=fGO0UrtOl9ztH2p1t+cxSj6SiggfL63pUtvAgcArm8qF
+	KBGAMLhJjh9IK2/ulZBy0nlCWdLnKCHPBgG/Hp8xxnh0bNKoH8jrYQ/9itxIbZqK
+	dmYe35gwhnCTKWT2Nqu1ZGezK7sL9UMpjVv981tKeCot/N454HKaCj8n58Lz3CQa
+	l097ys+zFjzR6bp/Lt+pIFxyVZHrzOO7gn6bze6GOqRMiMzCDI8jXkOZLI9s0dh2
+	LXLCWeR8Qkn6AITqfMDaKYZZvVb2+8y7KCMJ1l9rEFK6k3mwcfVA91ZiUJNVuAD5
+	N6BlGeG6FqkLDfLD3yBgVIshNhVn0d+7twRP7Dqw0Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=serhei.io a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794514742; d=serhei.io;
+	mf=PHNlcmhlaUBzZXJoZWkuaW8+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:SJ5S79f6GDnu7PLSb8KbFoxAgC6HJANVjd9OIOK2exbfhpL
+	8cgo0EkmnD1MGOlo3sYm4MWyVK9O8SDDTSQr9D/liTLMnQ/10RgqBSOqlTLAkafb
+	kb990bAMag5u8+PPNZQ6G6y4MnzoPr8PejuA/2lviCndIzTIZMoTB4DIxSaXAdqi
+	z1cTka8534YQ997HKCeFeeBkTKQ0NwCPBMjynSjuhDqhqOw+xkBW0K9amVlXHgY4
+	LIAkXjunZ/S8JkQ/Gh4U2tznd542yQrmDci1dc7fIjefbwG0IofcvAdDoB5wn6SX
+	7rxlLf0Grk3s2p7M0VnF3YP25eRLlcIqiubddXw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=10;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:YDtsX0n6DK0q3Y4cpmr5gSLJux7gIoiB2mvugyJ2Slo=:RpmM1chiChDqBEHS9lHvJQUrOiOWom1tibzj6zesxvo=;
+X-ME-Sender: <xms:Nh_2aiNiB4BYVafKfF1HyYhgZBvveyU1Gedcr4cGN52F1D82OTBjmQ>
+    <xme:Nh_2avPADFpRXHfj1UzNuNNpRrP2OCh7PmDlibVzzYPK12SrvkvpVPZyJWFOmWKvK
+    z0ORJiEAUL48dI6PVkZBFJiLgpD_R0KQVUQUdaIS2wgdGp4P9j1PMM>
+X-ME-Received: <xmr:Nh_2aim9Gl57DewAEvrwlzXBNd-0grMAnE31wAzqCy6MXJ1UhPdJLoGAfFBEJ46gTx8ekUpm_LAo8QW6l1siLM27OoA>
+X-ME-Proxy-Cause: dmFkZTEdJ2UiuK6WZYRL7YvZ1g44i1kvZqB7K/kQ3WpKe0d7p9FtoACs+sGhG1VOXl7LxM
+    xVVZqvUaO+RuKdJN6qW5cKxwJO4HKk478+z+L/V8BfONQGIrg9L3nn8eZTt7xWXKrkrfV0
+    tAwCSLO+v+5S5DWhUboQKYNVzgLDudGw0dEFm0M06SGT2fHqesE9AoGFug8zd/UFeOXkdG
+    p+QmISgVjYGfLdBSup/fUfJshSF37XvaRGBSPNN4HEyrAO4pvZUK/3sMXHDrG8qvWHDCaj
+    HXq6d3vCgjdKfZsIgxHfk/buEEKd19fNgZATKnuCDlgWCnLLIBcSyNwaIJKw58ZREfMAU4
+    VK1UVjePUEXq1Lhlw0P9L1jWQ7HPIHXKurUlIwYgJszD2X3YJ0/3ARarR8fFUhIAlxzcAq
+    EdwSKHx1Jxyo0EZwSJVj7G0YVchZa4p2oYLgUiBQ8roevKO9v57DewuJS/5KVB/yAOtNzT
+    5g5bBQbxBLA42zvd4KFRSEd+0WqP35Ri7psRPDQzh0eZ1yw3Fb+gMjZugIj9s83LGUGW3a
+    5AzgTmgYpl1eQAFonoZof089ygu/mlgFD7HgalNQhvGFS6lGffgq/Cynm5V8jpQNfyS0gn
+    I5BUcG+So0x8q4UwuLNDrTHmXKDAqAKG63U3VnWEgyF3yMMuO8j6grS1ogdg
+X-ME-Proxy: <xmx:Nh_2alszBv7f45auLUpZX9obeCnOqKJlGixAPA1HVmxABj1uO7Q1XQ>
+    <xmx:Nh_2atq6dswOg4zhRJ8OYEqjVO__X9F3s_u2H9yFIn8gaBWH4-qoCA>
+    <xmx:Nh_2arfVlsTdiLTf2rOKWpBq0fQxxUvsLzdqrC0v41BrO0i0sXTa8w>
+    <xmx:Nh_2almiQLeFVaB1efvkQq1eRqxv6xcHdmCGCcsg-O69xuxy3cHIeA>
+    <xmx:Nh_2amXmYnhiTof1pfQL-jSOmLyhZIvoH566olPJD1-btxr_t1y74s4r>
+Feedback-ID: i572946fc:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 12 Nov 2026 15:19:01 -0500 (EST)
+From: Serhei Makarov <serhei@serhei.io>
+To: acme@kernel.org,
+	irogers@google.com,
+	namhyung@kernel.org,
+	james.clark@linaro.org
+Cc: jolsa@kernel.org,
+	adrian.hunter@intel.com,
+	peterz@infradead.org,
+	mingo@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	serhei@serhei.io
+Subject: [PATCH v2 1/2] perf inject: Support piped data with --convert-callchain
+Date: Thu, 12 Nov 2026 15:18:32 -0500
+Message-ID: <20261112201833.78630-1-serhei@serhei.io>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,159 +130,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111225940.1573565-1-tytso@mit.edu> <20261111225940.1573565-3-tytso@mit.edu>
-In-Reply-To: <20261111225940.1573565-3-tytso@mit.edu>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 12 Nov 2026 21:18:12 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0iaHqEkr+WqHLfJ6qYaC6n73BCo0NiKgQhf466Cr_RQzA@mail.gmail.com>
-X-Gm-Features: AclHuK-IiYj--CiaJbtqzk4cWOHkMMr3R1ChUBdeGcZceIdAKYSCedVswaPimxM
-Message-ID: <CAJZ5v0iaHqEkr+WqHLfJ6qYaC6n73BCo0NiKgQhf466Cr_RQzA@mail.gmail.com>
-Subject: Re: [PATCH v5 2/6] agents: add a skill to determine Fixes tags
-To: "Theodore Ts'o" <tytso@mit.edu>
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev, 
-	Sasha Levin <sashal@kernel.org>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Leon Romanovsky <leon@kernel.org>, 
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>, Thorsten Leemhuis <linux@leemhuis.info>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter <error27@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
-	Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>, 
-	Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 12:00=E2=80=AFAM Theodore Ts'o <tytso@mit.edu> wrot=
-e:
->
-> From: Sasha Levin <sashal@kernel.org>
->
-> Blame and existing Fixes tags can point to code movement instead of the
-> change that introduced a bug. Add a skill that sends the agent to the
-> description of the Fixes: tag in submitting-patches.rst, and adds the
-> checks agents tend to skip: pinning down the bug before searching,
-> following the code past moves and refactors, comparing each candidate
-> with its parent, tagging a later commit that only exposed the bug as
-> well, handling merges, reverts, backports and bugs older than the Git
-> history, and taking the commit ID and subject from the commit rather
-> than typing them.
->
-> If the origin cannot be established, the skill returns no tag. Point the
-> bug-fix procedure in coding-assistants.rst at the skill.
->
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> Link: https://patch.msgid.link/20261020161642.3713052-3-sashal@kernel.org
-> Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+When profiling applications without framepointers or non-framepointer
+distros, it's helpful to pipe stack sample data directly to perf
+inject --convert-callchain, e.g.:
 
-Looks reasonable to me.
+perf record -F 999 --call-graph dwarf -o - -- myapp \
+  | perf inject --convert-callchain -i - -o perf.data
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+This piped setup doesn't store stack samples on disk, removing a major
+performance bottleneck for DWARF stack unwinding as noted in [1].
 
-> ---
->  Documentation/process/coding-assistants.rst |  8 ++++-
->  agents/skills/find-fixes/SKILL.md           | 39 +++++++++++++++++++++
->  2 files changed, 46 insertions(+), 1 deletion(-)
->  create mode 100644 agents/skills/find-fixes/SKILL.md
->
-> diff --git a/Documentation/process/coding-assistants.rst b/Documentation/=
-process/coding-assistants.rst
-> index b8f2c74e46fc..ca1cc255606b 100644
-> --- a/Documentation/process/coding-assistants.rst
-> +++ b/Documentation/process/coding-assistants.rst
-> @@ -33,6 +33,11 @@ or send mail. A skill returns its result with the evid=
-ence for it, or says what
->  is missing. Do not fill a missing result with a guess or a placeholder, =
-and do
->  not finalize the work until it is resolved.
->
-> +The following skills are available:
-> +
-> +* agents/skills/find-fixes/SKILL.md determines the Fixes tag of a bug fi=
-x, or
-> +  checks an existing one.
-> +
->  Licensing and Legal Requirements
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
->
-> @@ -78,7 +83,8 @@ these steps:
->     another one. The fix must not add build warnings and must pass the
->     checkpatch.pl checks (see submitting-patches.rst).
->  6. Commit the working fix with a detailed message describing the problem=
-, the
-> -   solution and a Fixes tag. Do not add a Signed-off-by tag.
-> +   solution and a Fixes tag determined with the find-fixes skill.  Do no=
-t
-> +   add a Signed-off-by tag.
->  7. Identify the maintainers and lists using scripts/get_maintainer.pl.
->     Documentation/process/security-bugs.rst shows how to do that.
->  8. Indicate what could not be done. If the fix could not be built or tes=
-ted, or
-> diff --git a/agents/skills/find-fixes/SKILL.md b/agents/skills/find-fixes=
-/SKILL.md
-> new file mode 100644
-> index 000000000000..12b6ea83876d
-> --- /dev/null
-> +++ b/agents/skills/find-fixes/SKILL.md
-> @@ -0,0 +1,39 @@
-> +---
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +name: find-fixes
-> +description: >-
-> +  Determine the bug-introducing commit and return a verified Fixes tag f=
-or
-> +  a Linux kernel fix. Use when preparing or reviewing bug-fix patches,
-> +  drafting their commit messages, or checking an existing Fixes tag.
-> +---
-> +
-> +# Determine a Fixes tag
-> +
-> +Read the description of the Fixes: tag in
-> +Documentation/process/submitting-patches.rst. It says which commit to na=
-me
-> +and how to format the tag. Follow the rules for skills in
-> +Documentation/process/coding-assistants.rst.
-> +
-> +- First establish exactly which bug the fix addresses: the failure, how =
-it is
-> +  triggered and the code involved. Trace only that bug. If the search le=
-ads
-> +  to a different bug or subsystem, go back to the fix.
-> +- Name a commit from the history of the tree the fix applies to. A stabl=
-e
-> +  backport of that commit, or a commit that exists only on another branc=
-h, is
-> +  not a valid tag.
-> +- Treat blame output, an existing Fixes tag and a bisection result as le=
-ads,
-> +  not answers. Follow the code back through moves, renames, file splits =
-and
-> +  older implementations to the commit that made it wrong.
-> +- For each candidate, compare the commit with its parent and explain why=
- the
-> +  code was correct before and wrong after. Keep apart the commit that ad=
-ded
-> +  the code, the commit that made it wrong, and a later commit that only =
-made
-> +  the bug reachable, which gets a tag of its own.
-> +- Check each parent of a merge, whether the bug was reverted and later
-> +  reintroduced, and whether a backport differs from its upstream commit.
-> +- If the bug is already present in the first commit of the Git history, =
-name
-> +  that commit: Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2"). Confirm that th=
-e bug
-> +  exists there instead of using it as a default. A shallow clone boundar=
-y is
-> +  not an introducing commit; report the limit instead.
-> +
-> +Take the commit ID and subject from the commit itself instead of typing =
-them.
-> +Return the tags with that explanation and the candidates you rejected. I=
-f the
-> +origin cannot be established, return no tag and say what is missing.
-> --
-> 2.53.0
->
->
+To support piped output, write a modified copy of the event attributes
+in perf_event__repipe_attr. This gets around the inability to modify
+event attribute records in-place after they are written to the pipe.
+
+[1]: https://rwmj.wordpress.com/2023/02/14/frame-pointers-vs-dwarf-my-verdict/
+> The first most obvious thing is that even with the smallest stack
+> data collection, DWARF’s perf.data is over 10 times larger, and it
+> balloons even larger once you start to collect more reasonable stack
+> sizes. For a single minute of data collection, collecting 10s of
+> gigabytes of data is not very practical even on high end machines, and
+> continuous performance analysis would be impossible at these data
+> rates.
+
+Signed-off-by: Serhei Makarov <serhei@serhei.io>
+
+---
+
+v2 changes)
+ * Rebased onto perf-tools-next/perf-tools-next which includes the
+ existing size-calculation fix (cf Ian Rogers, commit daac18e7c42c).
+---
+ tools/perf/builtin-inject.c | 68 +++++++++++++++++++++++++------------
+ 1 file changed, 46 insertions(+), 22 deletions(-)
+
+diff --git a/tools/perf/builtin-inject.c b/tools/perf/builtin-inject.c
+index ce7562fc788c..9fd02a6f5849 100644
+--- a/tools/perf/builtin-inject.c
++++ b/tools/perf/builtin-inject.c
+@@ -229,6 +229,7 @@ static int perf_event__repipe_attr(const struct perf_tool *tool,
+ 				   union perf_event *event,
+ 				   struct evlist **pevlist)
+ {
++	union perf_event *event0;
+ 	struct perf_inject *inject = container_of(tool, struct perf_inject,
+ 						  tool);
+ 	struct perf_event_attr attr;
+@@ -258,6 +259,25 @@ static int perf_event__repipe_attr(const struct perf_tool *tool,
+ 		goto out;
+ 	}
+ 
++	if (inject->convert_callchain) {
++		/* Copy event to repipe with corrected final attributes,
++		   without confusing downstream users of pevlist: */
++		event0 = event;
++		event = (void *)inject->event_copy;
++		if (event == NULL) {
++			inject->event_copy = malloc(PERF_SAMPLE_MAX_SIZE);
++			if (!inject->event_copy)
++				return -ENOMEM;
++			event = (void *)inject->event_copy;
++		}
++		memcpy(event, event0, event0->header.size);
++
++		event->attr.attr.sample_type &= ~(PERF_SAMPLE_REGS_USER | PERF_SAMPLE_STACK_USER);
++		event->attr.attr.sample_regs_user = 0;
++		event->attr.attr.sample_stack_user = 0;
++		event->attr.attr.exclude_callchain_user = 0;
++	}
++
+ 	if (!inject->itrace_synth_opts.set) {
+ 		ret = perf_event__repipe_synth(tool, event);
+ 		goto out;
+@@ -519,6 +539,18 @@ static int perf_event__repipe_sample(const struct perf_tool *tool,
+ 	return perf_event__repipe_synth(tool, event);
+ }
+ 
++static bool evsel__has_dwarf_callchain(struct evsel *evsel)
++{
++	struct perf_event_attr *attr = &evsel->core.attr;
++	const u64 dwarf_callchain_flags =
++		PERF_SAMPLE_STACK_USER | PERF_SAMPLE_REGS_USER | PERF_SAMPLE_CALLCHAIN;
++
++	if (!attr->exclude_callchain_user)
++		return false;
++
++	return (attr->sample_type & dwarf_callchain_flags) == dwarf_callchain_flags;
++}
++
+ static int perf_event__convert_sample_callchain(const struct perf_tool *tool,
+ 						union perf_event *event,
+ 						struct perf_sample *sample,
+@@ -526,7 +558,7 @@ static int perf_event__convert_sample_callchain(const struct perf_tool *tool,
+ {
+ 	struct perf_inject *inject = container_of(tool, struct perf_inject, tool);
+ 	struct evsel *evsel = sample->evsel;
+-	struct callchain_cursor *cursor = get_tls_callchain_cursor();
++	struct callchain_cursor *cursor;
+ 	union perf_event *event_copy = (void *)inject->event_copy;
+ 	struct callchain_cursor_node *node;
+ 	struct thread *thread;
+@@ -535,6 +567,10 @@ static int perf_event__convert_sample_callchain(const struct perf_tool *tool,
+ 	u64 i, k;
+ 	int ret;
+ 
++	if (!evsel__has_dwarf_callchain(evsel))
++		return perf_event__repipe(tool, event, sample, machine);
++	cursor = get_tls_callchain_cursor();
++
+ 	if (event_copy == NULL) {
+ 		inject->event_copy = malloc(PERF_SAMPLE_MAX_SIZE);
+ 		if (!inject->event_copy)
+@@ -2650,18 +2686,6 @@ static int __cmd_inject(struct perf_inject *inject)
+ 	return ret;
+ }
+ 
+-static bool evsel__has_dwarf_callchain(struct evsel *evsel)
+-{
+-	struct perf_event_attr *attr = &evsel->core.attr;
+-	const u64 dwarf_callchain_flags =
+-		PERF_SAMPLE_STACK_USER | PERF_SAMPLE_REGS_USER | PERF_SAMPLE_CALLCHAIN;
+-
+-	if (!attr->exclude_callchain_user)
+-		return false;
+-
+-	return (attr->sample_type & dwarf_callchain_flags) == dwarf_callchain_flags;
+-}
+-
+ int cmd_inject(int argc, const char **argv)
+ {
+ 	struct perf_inject inject = {
+@@ -2956,15 +2980,15 @@ int cmd_inject(int argc, const char **argv)
+ 	if (inject.convert_callchain) {
+ 		struct evsel *evsel;
+ 
+-		if (inject.output.is_pipe || inject.session->data->is_pipe) {
+-			pr_err("--convert-callchain cannot work with pipe\n");
+-			goto out_delete;
+-		}
+-
+-		evlist__for_each_entry(inject.session->evlist, evsel) {
+-			if (!evsel__has_dwarf_callchain(evsel) && !evsel__is_dummy_event(evsel)) {
+-				pr_err("--convert-callchain requires DWARF call graph.\n");
+-				goto out_delete;
++		/* For on-disk data, check evlist up-front.
++		   For piped data, evlist is not available yet;
++		   check in perf_event__convert_sample_callchain. */
++		if (!inject.session->data->is_pipe) {
++			evlist__for_each_entry(inject.session->evlist, evsel) {
++				if (!evsel__has_dwarf_callchain(evsel) && !evsel__is_dummy_event(evsel)) {
++					pr_err("--convert-callchain requires DWARF call graph.\n");
++					goto out_delete;
++				}
+ 			}
+ 		}
+ 
+-- 
+2.56.0
+
