@@ -1,57 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=146.20.161.82
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504813;
-	b=Qp8P6Q7/WdTBYW5bs2bJurbNLS8ZUL0firFYb5fCVTFef06qfVCIZ0jmwG9jVExO+uzd
-	 dVhEbzKbOryK131kgAtVUbpR0RH43UrbepKkWqZ/poDhTzlPgR5g8ILcPG0KCuOWTOBdz
-	 eWBDQkrN59PtEVaq/hxXZJPHqx2ofjXvV1RvJ0tAFo4qWIOrRog75E+M9a8FXILwAdIyU
-	 gVwwA5+JsLitNqZ9i+4Sz+GWk6Q4jSGw00lX070Y2JHaN9g9c8C46PM86sjnmrppSDuV5
-	 OzfKkHh9a+CRTamqqJoH+26y04WvM51L3XpciFIrlbtm4RlDpF2T9W8uBwCO08WWOGw==
+	t=1794504829;
+	b=XTunnNNbgtqYhMZtgjN1t1hr3q22DEpJ7+HNr1sFAjHXpGkix8u3togUiIXp1MoSEl7Q
+	 zEtEFssaMKQV54T17yGOAQRMoSeUQ1siOP5NnbyLDLBfX+C2QErRioDE1htLXVoW/cJ1f
+	 zxd+qwBTechU5rO2ssPUVl8s2pT2YvjUN7CWBIvbvWs30PD7cEd9UXjS63ET8IVHGrwYI
+	 r+udXppmoNocJFEL4MlhXWgj9nVRLFXW+Lx4Kwzz0qwjctrAlEbY8RWXBMnY3Q1DXDbV2
+	 VaA/OgLhY0b7lpQZEiBHpRVoSMkTp6EV0agm3t9bFfkBHGviSJhbWwVbTbzfkS0glHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504813;
-	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Classification-ID;
-	bh=L/oYB+JT/KtB7c1nfTYh19/iMevVNz+00g+BT8ptenQ=;
-	b=HF2L1tYDVotz+e8x7SWKm1wK1k0sh4kCLV980rgUVC/zLA1+tk/SuojnKL42reAE+xG3
-	 4RPslmHioqmsUtKPm0Oq2ZnubKScAN0/MleFPOtkkd7arcwK6i2Met5y/x9GblXhb/cxe
-	 aYm4LZlm3bZvbw4Z8x4VEI0FdvUs0ddQQ4kAue3leMSojqjLl97xWGHhKrCOToi4IIj/Y
-	 rhDuvgr+g3pgB3n6TlDeonRkAdPchYsnpHuApreVVft3BqG3df31EHuvTSB5yGCYBnHQC
-	 s6T8B2vw51IGqNiK++QiYZbG9cbtsnBZk31m/eK0Ree9Igb5iEwsneIIWOOo2U8/bqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504829;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ycakN5YjUyMtm7P6Yc24ptE+AqG+iCzKA8oeWY6lkDw=;
+	b=qEANkeF7y3ZQ7j8YIJi1Z6qBqJfUU07yfyO+7gyU7b6GnRt3bBxNzyc2N331zeWNhPxo
+	 TyETj34UzBpPapsA+j7Eo84C45zpnkhn+ZFG3tFYkg0oMvMOektYQK6ri49awTDWnE07q
+	 Q6LsDKoCHIQLvdseu9BlfPO/7+Yc2MfHCOD3PeV0iy7NRmRSbRzc468uU75uiagndZPcV
+	 alfQROBR9+HXiRLZAF0zusTBq0M9u4FoH2sUSHTb5ICF//EegTOjGCEF7YX/A6uOARpG/
+	 h/85Ox/cvvMMUjgTT414fKDe4VRVT2WbALzEFrxNMwNTtUe/4Ul2auPEsawydwNEjrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mev.co.uk;
-	spf=pass smtp.mailfrom=mev.co.uk;
-	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=QvsjVsQ9;
-	arc=none smtp.remote-ip=146.20.161.82
-Received: from smtp82.iad3b.emailsrvr.com (smtp82.iad3b.emailsrvr.com [146.20.161.82])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Eg25RM/I";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3C6606A8B9
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:33:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB3C6606A8B9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB08606A327;
+	Thu, 12 Nov 2026 17:33:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=QvsjVsQ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-	s=20221208-6x11dpa4; t=1794504805;
-	bh=nGTfKS/3xRm1S3N2otPrhgtKNSK+HZHF4OsBjyuC6PY=;
-	h=From:To:Subject:Date:From;
-	b=QvsjVsQ9Cv0630M94mqb5HcjhGkKa+Io+MXpRmY7oazVzwoyBoKYFcRyABuwDsHq6
-	 fjlkRx7CKnbj+ckAob2UCXQrKvVRU6ejVo1IPVGJlM+1av+0SJkXIjY6KC6Oc84jSL
-	 vJr8+Q+uTrEHNhNAVkUyXIx3bRETm3Sc44PD5H1Q=
-X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp11.relay.iad3b.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 1DD5940312;
-	Thu, 12 Nov 2026 12:33:25 -0500 (EST)
-From: Ian Abbott <abbotti@mev.co.uk>
-To: linux-kernel@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] comedi: fix another race between polling and detaching
-Date: Thu, 12 Nov 2026 17:33:14 +0000
-Message-ID: <20261112173314.118594-1-abbotti@mev.co.uk>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eg25RM/I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9759D1F000C5;
+	Thu, 12 Nov 2026 17:33:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794504828;
+	bh=ycakN5YjUyMtm7P6Yc24ptE+AqG+iCzKA8oeWY6lkDw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Eg25RM/IVsGXwrk3RjJVO2Lf/7Hd8Lkd1P08UHbytrg8EB00XhzP4OxIMdEQl+P1c
+	 DsfHioxgNAuM+ersGyZIrmrRVnZeLtnGsIZfzR2JQ8SG6il2Y1ZGK/O2jPgnumTAxs
+	 X7Z9Yr+zJIleUicK6ozTcmUA3F31bO/PMPIHxs/XZlNg1NFOha7j6kxQqAKCKgh8L2
+	 Xf/DtfYI6ax/1O8rsUgNG0nHntQ40AsKJPmlc7Q+3kEp1qDHoZDP6IWZeBFFhfaB06
+	 EWjq5UnOJo4QftxMnhCtUAbdnVKzOlEdxTO04ICqfgIBb9NW8rkLrrurenyHVFtz/1
+	 uTPjAYQEsL1XA==
+Date: Thu, 12 Nov 2026 09:33:48 -0800
+From: Kees Cook <kees@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Emanuele Ghidoli <ghidoliemanuele@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: soc-core: reset rtd->num_components after
+ allocation
+Message-ID: <202611120930.442D702AF@keescook>
+References: <20261109102536.357134-1-ghidoliemanuele@gmail.com>
+ <87bj7yw9e2.wl-tiwai@suse.de>
+ <87FF4A7B-853C-466A-AB01-2D9137DEE6CC@kernel.org>
+ <EAAF07EF-6B11-4EA5-A5AF-A7787CA2F196@kernel.org>
+ <853110dc-2ab9-4271-9e81-20ce5068ecc0@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,197 +67,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Classification-ID: f5525a93-3ac4-4702-89ae-099d7d99a9c6-1-1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <853110dc-2ab9-4271-9e81-20ce5068ecc0@sirena.org.uk>
 
-Commit 35b6fc51c666 ("comedi: fix race between polling and detaching")
-fixed a race between the polling file operation and a "detachment" of
-the comedi device (unlinking it from the low-level comedi driver) that
-is performed via the COMEDI_DEVCONFIG ioctl command.  It did that by
-refusing to detach the comedi device if there are any tasks sleeping on
-any of its wait queues.
+On Wed, Nov 11, 2026 at 01:09:25PM +0000, Mark Brown wrote:
+> Please fix your mail client to word wrap within paragraphs at something
+> substantially less than 80 columns.  Doing this makes your messages much
+> easier to read and reply to.
 
-That commit did not address a similar problem of having to detach the
-comedi device when the low-level hardware device is being removed from
-its bus.  The actual detachment is handled by
-comedi_device_detach_locked() that is called with the comedi device's
-main mutex locked and its `attach_lock` rw_semaphore write-locked.  It
-calls comedi_device_cancel_all() which will wake up any tasks on the
-wait queues, marks the device as no longer attached, and calls
-comedi_detach_cleanup() to do further cleaning up.  The problem is that
-cleaning up frees the storage that contains the wait_queue_head_t
-objects that tasks may have been sleeping on.  Although those tasks have
-been woken up, they are probably stuck trying to read-lock the
-`attach_lock` rw_semaphore.
+Yeah, this is a standing problem with K9-Mail, which is what I have on
+my phone. I only use it when I'm AFK but I need to reply to something
+urgently, such as when I break what looked like basically all soc sound :(
 
-To address the problem of woken up tasks stuck trying to read-lock the
-`attach_lock` rw_semaphore, call new function
-comedi_device_has_sleeper() to check if any tasks are on any of the wait
-queues.  If that returns true, temporarily unlock the `attach_lock`
-rw_semaphore and call schedule() until the wait queues are all clear.
-Repeat that as necessary after write-locking the `attach_lock`
-rw_semaphore again, although that shouldn't really be necessary.  It is
-now safe to free the storage containing the wait_queue_head_t objects.
+All the other android clients don't really seem to measure up, except
+for this particular gap. :( I'll try to remember to manually wrap lines
+in the future.
 
-Also change the poll() file operation handler to return non filtered-out
-events when the comedi device is marked as not attached, otherwise the
-polling task will not get removed from the wait queues that the "detach"
-handling task is waiting to become empty.
-
-Apart from poll(), the read() and write() file operation handlers also
-sleep on the wait queues, but currently they go to sleep while the
-`attach_lock` rw_semaphore is still read-locked.  This will block the
-"detaching" task indefinitely when it is trying to write-lock the
-rw_semaphore, so there is no race.  That problem is not dealt with by
-this patch.
-
-The change introduced by commit 35b6fc51c666 ("comedi: fix race between
-polling and detaching") no longer needs to refuse to detach the comedi
-device if any tasks are queued on the wait queues, so remove that check.
-Those tasks will have already been woken up by other code (because the
-comedi device has no data acquisition commands active) and should remove
-themselves from the wait queues (now that the poll() file operation
-handler will return non filtered-out event), so the modified clean-up
-code in this patch will now deal with the non-empty wait queues during
-detachment.
-
-Cc: <stable@vger.kernel.org> # 6.19+
-Fixes: ed9eccbe8970 ("Staging: add comedi core")
-Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
----
-Patch needs backporting to 6.18.y and earlier.
----
- drivers/comedi/comedi_fops.c | 26 +++++++++--------------
- drivers/comedi/drivers.c     | 40 +++++++++++++++++++++++++++++++++++-
- 2 files changed, 49 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/comedi/comedi_fops.c b/drivers/comedi/comedi_fops.c
-index 6d71ceeff6fc4..461d4e8d7ad4a 100644
---- a/drivers/comedi/comedi_fops.c
-+++ b/drivers/comedi/comedi_fops.c
-@@ -859,13 +859,6 @@ static int is_device_busy(struct comedi_device *dev)
- 			continue;
- 		if (comedi_buf_is_mmapped(s))
- 			return 1;
--		/*
--		 * There may be tasks still waiting on the subdevice's wait
--		 * queue, although they should already be about to be removed
--		 * from it since the subdevice has no active async command.
--		 */
--		if (wq_has_sleeper(&s->async->wait_head))
--			return 1;
- 	}
- 
- 	return 0;
-@@ -2608,7 +2601,7 @@ static int comedi_mmap(struct file *file, struct vm_area_struct *vma)
- 
- static __poll_t comedi_poll(struct file *file, poll_table *wait)
- {
--	__poll_t mask = 0;
-+	__poll_t mask = DEFAULT_POLLMASK;
- 	struct comedi_file *cfp = file->private_data;
- 	struct comedi_device *dev = cfp->dev;
- 	struct comedi_subdevice *s, *s_read;
-@@ -2617,6 +2610,7 @@ static __poll_t comedi_poll(struct file *file, poll_table *wait)
- 
- 	if (!dev->attached) {
- 		dev_dbg(dev->class_dev, "no driver attached\n");
-+		mask |= EPOLLERR | EPOLLPRI;
- 		goto done;
- 	}
- 
-@@ -2624,10 +2618,10 @@ static __poll_t comedi_poll(struct file *file, poll_table *wait)
- 	s_read = s;
- 	if (s && s->async) {
- 		poll_wait(file, &s->async->wait_head, wait);
--		if (s->busy != file || !comedi_is_subdevice_running(s) ||
--		    (s->async->cmd.flags & CMDF_WRITE) ||
--		    _comedi_buf_read_n_available(s) > 0)
--			mask |= EPOLLIN | EPOLLRDNORM;
-+		if (s->busy == file && comedi_is_subdevice_running(s) &&
-+		    !(s->async->cmd.flags & CMDF_WRITE) &&
-+		    !_comedi_buf_read_n_available(s))
-+			mask &= ~(EPOLLIN | EPOLLRDNORM);
- 	}
- 
- 	s = comedi_file_write_subdevice(file);
-@@ -2636,10 +2630,10 @@ static __poll_t comedi_poll(struct file *file, poll_table *wait)
- 
- 		if (s != s_read)
- 			poll_wait(file, &s->async->wait_head, wait);
--		if (s->busy != file || !comedi_is_subdevice_running(s) ||
--		    !(s->async->cmd.flags & CMDF_WRITE) ||
--		    comedi_buf_write_n_available(s) >= bps)
--			mask |= EPOLLOUT | EPOLLWRNORM;
-+		if (s->busy == file && comedi_is_subdevice_running(s) &&
-+		    (s->async->cmd.flags & CMDF_WRITE) &&
-+		    comedi_buf_write_n_available(s) < bps)
-+			mask &= ~(EPOLLOUT | EPOLLWRNORM);
- 	}
- 
- done:
-diff --git a/drivers/comedi/drivers.c b/drivers/comedi/drivers.c
-index 3f75485338a10..a9acf98138c92 100644
---- a/drivers/comedi/drivers.c
-+++ b/drivers/comedi/drivers.c
-@@ -153,6 +153,21 @@ int comedi_alloc_subdev_readback(struct comedi_subdevice *s)
- }
- EXPORT_SYMBOL_GPL(comedi_alloc_subdev_readback);
- 
-+/* Check if any task is sleeping on any subdevice wait queue. */
-+static bool comedi_device_has_sleeper(struct comedi_device *dev)
-+{
-+	int i;
-+	struct comedi_subdevice *s;
-+
-+	lockdep_assert_held(&dev->mutex);
-+	for (i = 0; i < dev->n_subdevices; i++) {
-+		s = &dev->subdevices[i];
-+		if (s->async && wq_has_sleeper(&s->async->wait_head))
-+			return true;
-+	}
-+	return false;
-+}
-+
- static void comedi_device_detach_cleanup(struct comedi_device *dev)
- {
- 	int i;
-@@ -161,11 +176,34 @@ static void comedi_device_detach_cleanup(struct comedi_device *dev)
- 	lockdep_assert_held_write(&dev->attach_lock);
- 	lockdep_assert_held(&dev->mutex);
- 	if (dev->subdevices) {
-+		for (i = 0; i < dev->n_subdevices; i++) {
-+			s = &dev->subdevices[i];
-+			comedi_free_subdevice_minor(s);
-+		}
-+		while (comedi_device_has_sleeper(dev)) {
-+			/*
-+			 * Temporarily unlock the attach_lock to allow sleeping
-+			 * tasks to remove themselves from the subdevice wait
-+			 * queues.
-+			 *
-+			 * This relies on the poll file operation handler
-+			 * returning an unfiltered event.
-+			 */
-+			up_write(&dev->attach_lock);
-+			dev_dbg(dev->class_dev,
-+				"detach: waiting for wait queues to empty...\n");
-+			do {
-+				schedule();
-+			} while (comedi_device_has_sleeper(dev));
-+			dev_dbg(dev->class_dev,
-+				"detach: wait queues should now be empty\n");
-+			/* Lock the attach_lock again. */
-+			down_write(&dev->attach_lock);
-+		}
- 		for (i = 0; i < dev->n_subdevices; i++) {
- 			s = &dev->subdevices[i];
- 			if (comedi_can_auto_free_spriv(s))
- 				kfree(s->private);
--			comedi_free_subdevice_minor(s);
- 			if (s->async) {
- 				comedi_buf_alloc(dev, s, 0);
- 				kfree(s->async);
 -- 
-2.53.0
-
+Kees Cook
