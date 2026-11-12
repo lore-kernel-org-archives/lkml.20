@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506207;
-	b=AG8nVjF/scsB6cXi3Bb18PBKvUy0LCrh18HS0LghZYnrhPL3QGdkgIy8sVCjNXcP9LZ9
-	 FQG1CtcCo6/mKpjauMsFuBNOFwQiCChc4ELSD47LMzXLOpt2eqFy5irv2oFFlYCc+GxZc
-	 i5LVTty3fHJBN92uyFSSwLDyEHLeel8NyG8lfHi6JByqaISTt74sV+5KmH4b24HHCYljy
-	 G1tu3OkIYZrL0eF3e8fpFlmOwjJB7qmJG1WWfqICvcQX19yAZ+Pa/hB9d5LMsjzgZMhXT
-	 tc/LnKLoZoG4mmvlirYbQo5VND2DNw5jCY7x9B9HrIzM0qOmFVQ7Uoe/5A62WUyb+9w==
+	t=1794506208;
+	b=qIN0+Kh43NLLJ4zwR3X/HzWY6AFwFPJI6FqXayIBrxxVXlqwnmJZX1iHujOrUR6WVob3
+	 MBSFwBYdkl3F8ZSx4hqyu+nSSqAx3qnOF7W7qxfr0fajQFH3mQmU5SIK6w2+/58VM6Uza
+	 OCvK6758crGQc9lED9f/RSENsbNFT5TIpzireK5qjFDR8BJkjqb0fsgALl3z5s0FY6S1a
+	 DOc63adxK+hdjvpCLFVw9fREa2l+nkpy3JKhFW8v9iYbOkCvbgiEEJRXgSv2MIiTYDGgx
+	 PEkPwuRjAsuTk26c6HBjqoctqV+PguJl93d13SurBf2kH8c/6Uq9coskYj+cleiZLgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506207;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506208;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=nNm8Cx2ZfHbw8ESTnrWh1uOe82GeZsKFiVEtoCEnJGE=;
-	b=tB//arAJkH5CXFWPiU5QOvDUfWp7Kt6IJdTxSf7J/rxIC7k+RI6heuTEfW/EUQr7JCYk
-	 HUznwFgqgVb2yZPGwtbU78v2w78C64Dm5sVSKpNVtnffNGDNZ8qGp4fxox+w99XgYbLGo
-	 /PsvFzC/mFMVc8++3co/8kxWLJOoOx7Kf0xNuM78Hcw+a57rFao7YYs3u40u2nVzHBvTx
-	 tPKfy2NMm7OehuUfYxZ8BmNJ2HoslHzxe2gXTAO2aouxp4qXKSz0Nkmqb6sSJexQizBXh
-	 FxICELAjyX9w3uBuWSw+mjHjK1Ld9uaQ62qASmb9B80O8SfWVuvyURMdu4ppXbHdiHA==
+	bh=3wIm4YG5YTs5SCnZuWti0ur7cF4MpcSiaNujKUCPewA=;
+	b=1M2HLGz+5jDjjt8pjg9PdhSxq0+pEqAmeBoueVzlXJUCmRdTwmQ78wAgAlxrgTxDqln6
+	 qH4SKZSKnBqlC0SG+rzxDVA7rqQLuJLPGvL/QxRfwS+TzZQhkMTQUFcytYUWwE1E+mHbX
+	 EvNSgyckhtIi+blnmk6iEPaAJ4jJUqkI600pOdARyalGTw5Y8ZJGC2rW0RUTlz11Dcwg2
+	 ENwei4ONmUIy28Uh26bnrQR8g0wPlACv1P4sueS3nF7nb3ZRq0J5GAu2b9/oDxk9I7RWz
+	 69+u980nNETHRZaP12NHcIeqC5QX/vekrgVobzye3OhjVQZOFFsdS1RcgWmyLZiW9Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CQHo2KIP;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="lQ2/s6Cl";
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2182F60A263B
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:56:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2182F60A263B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F2D60A2623
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:56:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39F2D60A2623
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CQHo2KIP
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4919a880834so34685f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:56:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lQ2/s6Cl
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b001cd92bso15715f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:56:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794506205; x=1795111005; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794506207; x=1795111007; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nNm8Cx2ZfHbw8ESTnrWh1uOe82GeZsKFiVEtoCEnJGE=;
-        b=CQHo2KIPRQenaqgEzE2NoSegb7WfWqir3iaN4h22UZ2lsokznkDCJ9BQ50/QIEr39X
-         SEj0M8yyiAu5UfFhMzsPYNkJq0KJFEvqOb82y2irGjhYO0uKliAXFOcw6WBkOtlaDEev
-         ge0nAxzVnn0RemgEhMj8Rx5ruBBYj9AHHPgsM454AZ5LCMss9GKhngC5xV/zlJp810mu
-         ICiUmA5MkZz0UvkPFJRHsOR5pVCH4sNVgqOKRcQ3A02WAVEYLI9QxgjBn4oarpb5pQb7
-         cTXbJIZwsiIOs59TAJOJ1u2gTY7mSQrAuyKp//cBinHMF/y0DOvxI7y8hqnx7qV7/bt3
-         3A1w==
+        bh=3wIm4YG5YTs5SCnZuWti0ur7cF4MpcSiaNujKUCPewA=;
+        b=lQ2/s6Cl33XsyCyF27w3eyHqmufAD0KHzqu5nL+iUpWS67tXUGNNWySAMcHeXmc6U6
+         IlyN5wHZA5fyYowqHM81jezUufltq1pm/WEs8oK3AKJt1kk3mRnra/mpDRCSxZTPZl1m
+         NWQv4dSfNaqrxiKZ/tfP67pPqIE3Mpfrd2fbC6SEuSvusSIV/No1uXvIVf1vITGg3aSm
+         sJITIlg4oZR8777KdW+uW03M/PoVN83BPb/YyRdLUL6ixGnNYg+nvSunPiUZlVcPll79
+         HrMgEMQJKxHU2D+brejsuHbSDtClgAYoWvCIhiBxng21vp3tbHdfLvJdwcuLJqyVXlKd
+         /GwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794506205; x=1795111005;
+        d=1e100.net; s=20260707; t=1794506207; x=1795111007;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nNm8Cx2ZfHbw8ESTnrWh1uOe82GeZsKFiVEtoCEnJGE=;
-        b=NhRaW47Uo4wZTLWG/77inHumI3w0Ynb03K4EAVjTawv6WzPCWeCCae+GzlGORd/jqn
-         cnRyo2dsAHyBcKNOhaTo3d4FRv5E9RwRUWu7zBg11tUX4LiwMUzcE/Z6NifPpTjaa1ft
-         MxjzTyGzU4haHZ+00rqqOy5IgPhn87T9k6ssPea1zAr4VHljeuKeEFW6hE1R8WMq/6dN
-         wyXFRUzwTZWbEm1RVwO1C27xh5pNRplFnHGS4SzLukKM13GlT9NRWiBvpuP5MS6WVlRf
-         ETypTc7tq4bLXuJu9iVmBbpeb1gfBtMX0y53EBPOAT17ghgVhe4KzbOKM1tbALyQjCW2
-         Cphg==
-X-Forwarded-Encrypted: i=1; AL+hErHavZN45oHfTCgwy/nebSZNgYCHq3FI+/j/154ncHt/+iEACKBDKRw4GA6ucHHGsmoVp+9c8zN0faWJKXk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Y10AgIr5jGYjHAW8bSq2MkSsOoCq7HCVTS8fRBfOEeYgtuz7L
-	7ljS2bpAE7ekmWtXjTW76g2c5gigMDLOdKsHzSN90QTnZBD1AiGkdOUj
-X-Gm-Gg: AYBFou2dShDCPLnB+1I/mkUDYh0VL63YE1CRCvUSUqAB2ZWMZBaQOQ9qiDHloMid/Ke
-	yzCyttKNzeO5i6pK/97Rjp4z5NG/EZXJ2GxpR8rrl3pkx6kbzSTzElvwyK1qZHWtLjEUQU7jOeQ
-	n4i379CS1pOwpqE+ow+ieK7V+tPuJhPrtaULLWGEEVqmF68RPsq79XEO0dyufh+TnwX8PlNYQ8z
-	DKSn/zYytBWLk3xS54xElJ/SrbbSQV4i0Pl8aZdQc7FWNK/f6GBS64MtybUtszibPDCB0cqEUHQ
-	fArJF4NvzrRjLNPAHRzZuAKzm1guIIGppL4Mllud/fC2+oDAoJ9xJkyMyifEtaLHfuQqsh+m/x2
-	oqAH0BiJ8wR3wl2ggrK21NISR9alyiijxcUadHJrjq2WeUNmoDy0sWhtqtobMYeL/aD5MIfgBx5
-	KuV4vfH8pqbreP0ougqcVMBoZO0sq0Z2EK/i6irk6DwNK5gF6UKDs4IqC/xnUoxs9IH0rwy0zRe
-	a73WyZvfR0x9AQBxmU1QV6yJ9dDEpzX+ofyNyOSMuzKciiVXVbB3ctPXmnCsPvd8i8JphMQjVpW
-	wV7R5wR+r8JDI0S3Bg2WDxIJxJ/r7FRORjHy3QX0UOqC+fCZ6w9fNKukfaTmDzVoV1oajo6jLmb
-	vFHlT6BHKXuIiuXqjhl8rWHlAmRHe1wRBV9LZpXtBF4sIX0nQNB9KU7n70g2GzzNooh2B9JsUAl
-	DSFTOmxf45olOmcKit5h7XHjJKRD+3arFIrk+Rx3efBrGqnbpeRxWvSh3shDj8jwY=
-X-Received: by 2002:a05:6000:2288:b0:49c:6a45:ca33 with SMTP id ffacd0b85a97d-49c70ed923amr259032f8f.9.1794506205465;
-        Thu, 12 Nov 2026 09:56:45 -0800 (PST)
+        bh=3wIm4YG5YTs5SCnZuWti0ur7cF4MpcSiaNujKUCPewA=;
+        b=ckJp5UIFimetBXQjcSo0BTo/QvvC1B9j+aRmda9+SSCXbLYhK8NZkxIQ52iYo3OfUK
+         NgsZzdaths/6CnSZens3glQiYmdk5eAQxwrVCOAF72Kc9+62MfyJWe/vT1EjQbk2Xh5B
+         gejekdkABZBVRpFJwpcn3B1RFBsJwbd3QaBndlKE7wfLuT+04tSBwoTbQsHqH/gOHty3
+         I2GMstJmWPCT7Jsgs0bWc71ic5Jn9xJBni1+NCRqOZnipa1u36jaqsH9SYL8xpvpcu3S
+         77F3oB0yKFdye1+0XfY3CqHVOJKp9fULQURtjc6zOcNztoXBemCKtDOE2bMebtopKzmZ
+         9pqA==
+X-Forwarded-Encrypted: i=1; AL+hErGXL/71xaDDA+WOJ5Q6nZDAfXuRgJ+zpI9qC+mth3yolyKAG4govQPPuPPIW0gVTqE85LG/q91dp5HjdzM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z96YzY6sjZXByVJfX9vVYiUfDQqGEQH7QS3C1lh8M6b4VTprpOy
+	PuIaYehAX5ceRoYQzC0+dEXpZK8S9YpKotyPAuitoXVTRN/XB4C6zhGj
+X-Gm-Gg: AYBFou1AWqjTqlt/YgvjR1qcf/Pvu9eEmViQW3z11gBsVxSqxGy223p421ik0aryM5h
+	zng8kTrRJfs43dwd7sAXOwaR+PQFdQoAvvqOya0ITF0wQS55I7e4LfL4ffnE5+0hnmqd7JunU9l
+	JoKqUsmWz2NZO5mLTvARhFqsfCK1fWYIavZFKfyRGAHyYkn/67fTHety6U1zkTmthZI//XckP3i
+	A9cdzL7lM6Yf5pHzQ+P8oFIkBUgel/GHfpcX6EdUMFj5AEiNbvuX4DsoWV7BMxJAuJ+kveptfvs
+	BuO8PL8Y9T4nW4OP4dn3lqgljf30Pd3tCo+uIwSyyojDi/p5QHnFRqS0fDRd09JqtQCulh+1dCG
+	JLJ4Cb9xQlXpBwnq399ztQeCmr3hm3zaIZyoegPtRhkKwabOwKorlMpyrTmaRZQ+KZtLZsZ3bw3
+	CMV4IyNUsJ1nvQOMQwKsDAZHiURg6BNdnTm0lUPPPKOoa434l9/K/Ux3w93TprSkYYt4UN8y2NL
+	iy4GQILKFPEFhvVXVgIwiyKlySTXRnSWrodcONcZjfytpU0MH/WMubamgPWAuvNs7vyI4goJbI4
+	rABGM6w31cxdyaeZN8wz6/kT8fIDmGqhl6ctQR2uvdTFGASh2EXbig3iagGG4n/13m9Qi5thWMv
+	BsofwljLXiSeFpyQuWPPXgSftFsHPXtpXBeRladWN0HwrtD6qnLwrC86PACZAIxWeexAnqUir0j
+	VU7SZdtC2pGoCAn9o2KtUtvCqoieLd8KSnRT6S9Ot1Vw==
+X-Received: by 2002:a05:6000:24ca:b0:492:7fa6:efd4 with SMTP id ffacd0b85a97d-49c6fd933e3mr428161f8f.9.1794506206544;
+        Thu, 12 Nov 2026 09:56:46 -0800 (PST)
 Received: from zitrone.tail45b538.ts.net ([2a02:810d:a1:6000:900:be5c:7a9c:c176])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c193fsm547430f8f.13.2026.11.12.09.56.44
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c193fsm547430f8f.13.2026.11.12.09.56.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:56:44 -0800 (PST)
+        Thu, 12 Nov 2026 09:56:46 -0800 (PST)
 From: Andreas Wendleder <gonsolo@gmail.com>
 To: linux-wireless@vger.kernel.org
 Cc: Johannes Berg <johannes@sipsolutions.net>,
@@ -91,9 +91,9 @@ Cc: Johannes Berg <johannes@sipsolutions.net>,
 	jpeisach@ubuntu.com,
 	rosenp@gmail.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC wireless-next 3/4] wifi: b43: RX header handling for the AC microcode
-Date: Thu, 12 Nov 2026 18:56:39 +0100
-Message-ID: <20261112175640.40603-4-gonsolo@gmail.com>
+Subject: [PATCH RFC wireless-next 4/4] wifi: b43: A-MPDU for the AC microcode
+Date: Thu, 12 Nov 2026 18:56:40 +0100
+Message-ID: <20261112175640.40603-5-gonsolo@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261112175640.40603-1-gonsolo@gmail.com>
 References: <20261112175640.40603-1-gonsolo@gmail.com>
@@ -108,151 +108,217 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RX header of the AC microcode keeps the MAC status at 0x10, the TSF at
-0x14, an 11ac chanspec at 0x16 and the power of the two antennas at 0x09
-and 0x0a. Decode the channel (including the 80 MHz block with the position
-of the primary channel), the signal, and the HT-SIG and VHT-SIG-A bytes
-that precede the frame for the rate, bandwidth, guard interval, coding
-and stream count.
+The microcode builds the aggregates and sends the block acks. Accept block
+ack sessions on both sides (ampdu_action) and set
+IEEE80211_HW_AMPDU_AGGREGATION on the AC cores.
 
-The microcode sets the decryption error bit on frames it never decrypted,
-because no hardware key is programmed (the 4-way handshake message 3 and
-DHCP replies carry it). Pass such frames up; mac80211's own decryption
-still rejects anything corrupt.
-
-Only microcode revision 832 has been tested.
+Frames of a session that the microcode gave up on are put back on the
+ring, up to four times, with the retry bit set; the block ack window lets
+them follow later frames. The cache info limits an aggregate to four MPDUs,
+longer ones lose their later MPDUs.
 Signed-off-by: Andreas Wendleder <gonsolo@gmail.com>
 ---
- drivers/net/wireless/broadcom/b43/xmit.c | 91 ++++++++++++++++++++++--
- 1 file changed, 85 insertions(+), 6 deletions(-)
+ drivers/net/wireless/broadcom/b43/dma.c  | 48 ++++++++++++++++++++++++
+ drivers/net/wireless/broadcom/b43/main.c | 37 ++++++++++++++++++
+ drivers/net/wireless/broadcom/b43/xmit.c | 22 ++++++++++-
+ drivers/net/wireless/broadcom/b43/xmit.h |  2 +
+ 4 files changed, 108 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/net/wireless/broadcom/b43/dma.c b/drivers/net/wireless/broadcom/b43/dma.c
+index 404f75f..ef05327 100644
+--- a/drivers/net/wireless/broadcom/b43/dma.c
++++ b/drivers/net/wireless/broadcom/b43/dma.c
+@@ -34,6 +34,9 @@
+  * into separate slots. */
+ #define TX_SLOTS_PER_FRAME	2
+ 
++/* Times an unacknowledged A-MPDU session frame is put back on the ring */
++#define B43_AC_AMPDU_REQUEUE	4
++
+ static u32 b43_dma_address(struct b43_dma *dma, dma_addr_t dmaaddr,
+ 			   enum b43_addrtype addrtype)
+ {
+@@ -1378,6 +1381,7 @@ int b43_dma_tx(struct b43_wldev *dev, struct sk_buff *skb)
+ 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(skb);
+ 
+ 	hdr = (struct ieee80211_hdr *)skb->data;
++	b43_get_priv_tx_info(info)->requeues = 0;
+ 	if (info->flags & IEEE80211_TX_CTL_SEND_AFTER_DTIM) {
+ 		/* The multicast ring will be sent after the DTIM */
+ 		ring = dev->dma.tx_ring_mcast;
+@@ -1466,6 +1470,7 @@ void b43_dma_handle_txstatus(struct b43_wldev *dev,
+ 	static const struct b43_txstatus fake; /* filled with 0 */
+ 	const struct b43_txstatus *txstat;
+ 	int slot, firstused;
++	struct sk_buff *requeue = NULL;
+ 	bool frame_succeed;
+ 	int skip;
+ 	static u8 err_out1;
+@@ -1568,6 +1573,29 @@ void b43_dma_handle_txstatus(struct b43_wldev *dev,
+ 			else
+ 				txstat = status;
+ 
++			/* A session frame the microcode gave up on goes back
++			 * on the ring, as the stock driver requeues it; the
++			 * block ack window lets it follow later frames.
++			 */
++			if (!skip && !txstat->acked &&
++			    (info->flags & IEEE80211_TX_CTL_AMPDU) &&
++			    !(info->flags & IEEE80211_TX_CTL_NO_ACK)) {
++				struct b43_private_tx_info *pi =
++					b43_get_priv_tx_info(info);
++
++				if (pi->requeues < B43_AC_AMPDU_REQUEUE) {
++					struct ieee80211_hdr *hdr =
++						(void *)meta->skb->data;
++
++					pi->requeues++;
++					hdr->frame_control |= cpu_to_le16(
++						IEEE80211_FCTL_RETRY);
++					requeue = meta->skb;
++					meta->skb = B43_DMA_PTR_POISON;
++					ring->used_slots--;
++					break;
++				}
++			}
+ 			frame_succeed = b43_fill_txstatus_report(dev, info,
+ 								 txstat);
+ #ifdef CONFIG_B43_DEBUG
+@@ -1606,6 +1634,26 @@ void b43_dma_handle_txstatus(struct b43_wldev *dev,
+ 		if (skip > 0)
+ 			--skip;
+ 	}
++	if (requeue) {
++		if (dma_tx_fragment(ring, requeue)) {
++			struct ieee80211_tx_info *info =
++				IEEE80211_SKB_CB(requeue);
++
++			b43_fill_txstatus_report(dev, info, status);
++			ieee80211_tx_status_skb(dev->wl->hw, requeue);
++		} else if (free_slots(ring) < TX_SLOTS_PER_FRAME) {
++			/* The requeued frame took the slots this status freed:
++			 * the ring is still full, keep the queue stopped.
++			 */
++			if (!ring->stopped) {
++				b43_stop_queue(dev, ring->queue_prio);
++				dev->wl->tx_queue_stopped[ring->queue_prio] =
++					true;
++				ring->stopped = true;
++			}
++			return;
++		}
++	}
+ 	if (ring->stopped) {
+ 		B43_WARN_ON(free_slots(ring) < TX_SLOTS_PER_FRAME);
+ 		ring->stopped = false;
+diff --git a/drivers/net/wireless/broadcom/b43/main.c b/drivers/net/wireless/broadcom/b43/main.c
+index 5830acb..6b80b5e 100644
+--- a/drivers/net/wireless/broadcom/b43/main.c
++++ b/drivers/net/wireless/broadcom/b43/main.c
+@@ -5479,6 +5479,39 @@ static int b43_op_get_survey(struct ieee80211_hw *hw, int idx,
+ 	return 0;
+ }
+ 
++static int b43_op_ampdu_action(struct ieee80211_hw *hw,
++			       struct ieee80211_vif *vif,
++			       struct ieee80211_ampdu_params *params)
++{
++	struct b43_wl *wl = hw_to_b43_wl(hw);
++
++	/* Only the AC-PHY path builds session frames */
++	if (!wl->current_dev || !b43_ucode_is_ac(wl->current_dev))
++		return -EOPNOTSUPP;
++
++	switch (params->action) {
++	case IEEE80211_AMPDU_TX_START:
++		return IEEE80211_AMPDU_TX_START_IMMEDIATE;
++	case IEEE80211_AMPDU_TX_STOP_CONT:
++	case IEEE80211_AMPDU_TX_STOP_FLUSH:
++	case IEEE80211_AMPDU_TX_STOP_FLUSH_CONT:
++		ieee80211_stop_tx_ba_cb_irqsafe(vif, params->sta->addr,
++						params->tid);
++		return 0;
++	case IEEE80211_AMPDU_TX_OPERATIONAL:
++		return 0;
++	case IEEE80211_AMPDU_RX_START:
++	case IEEE80211_AMPDU_RX_STOP:
++		/*
++		 * The microcode deaggregates and sends the block acks, mac80211
++		 * reorders.
++		 */
++		return 0;
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
+ static const struct ieee80211_ops b43_hw_ops = {
+ 	.add_chanctx = ieee80211_emulate_add_chanctx,
+ 	.remove_chanctx = ieee80211_emulate_remove_chanctx,
+@@ -5501,6 +5534,7 @@ static const struct ieee80211_ops b43_hw_ops = {
+ 	.stop			= b43_op_stop,
+ 	.set_tim		= b43_op_beacon_set_tim,
+ 	.sta_notify		= b43_op_sta_notify,
++	.ampdu_action		= b43_op_ampdu_action,
+ 	.sw_scan_start		= b43_op_sw_scan_start_notifier,
+ 	.sw_scan_complete	= b43_op_sw_scan_complete_notifier,
+ 	.get_survey		= b43_op_get_survey,
+@@ -5590,6 +5624,9 @@ static int b43_setup_bands(struct b43_wldev *dev,
+ 			hw->wiphy->bands[NL80211_BAND_5GHZ] = &b43_band_5GHz_aphy;
+ 	}
+ 
++	if (b43_is_ac_core(dev))
++		ieee80211_hw_set(hw, AMPDU_AGGREGATION);
++
+ 	dev->phy.supports_2ghz = have_2ghz_phy;
+ 	dev->phy.supports_5ghz = have_5ghz_phy;
+ 
 diff --git a/drivers/net/wireless/broadcom/b43/xmit.c b/drivers/net/wireless/broadcom/b43/xmit.c
-index cf9e7a5..dee6cc6 100644
+index dee6cc6..163e713 100644
 --- a/drivers/net/wireless/broadcom/b43/xmit.c
 +++ b/drivers/net/wireless/broadcom/b43/xmit.c
-@@ -855,6 +855,7 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
- 	u32 macstat;
- 	u16 chanid;
- 	int padding, rate_idx;
-+	s8 ac_signal = 0;
- 
- 	memset(&status, 0, sizeof(status));
- 
-@@ -874,6 +875,31 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
- 		chanstat = le16_to_cpu(rxhdr->format_351.channel);
- 		break;
+@@ -1160,7 +1160,27 @@ bool b43_fill_txstatus_report(struct b43_wldev *dev,
+ 			frame_success = false;
+ 		}
  	}
-+	if (b43_ucode_is_ac(dev)) {
-+		/* AC ucode (rev 40+) header: RxStatus1 @0x10, TSF @0x14,
-+		 * 11ac-style chanspec @0x16, per-antenna power @0x09/0x0a.
+-	if (status->frame_count == 0) {
++	if (report->flags & IEEE80211_TX_CTL_AMPDU) {
++		/*
++		 * minstrel_ht ignores session frames without this; one report
++		 * per MPDU
 +		 */
-+		const u8 *h = _rxhdr;
-+		u16 cs = get_unaligned_le16(h + 0x16);
-+		s8 p0 = h[0x09], p1 = h[0x0a];
-+
-+		macstat = get_unaligned_le16(h + 0x10);
-+		mactime = get_unaligned_le16(h + 0x14);
-+		/* 80 MHz chanspec: centre channel and the primary's position */
-+		if ((cs & 0x3800) == 0x2000)
-+			cs = (cs & 0xff00) |
-+			     ((cs & 0xff) - 6 + 4 * ((cs >> 8) & 0x7));
-+		chanstat = ((cs & 0xff) << B43_RX_CHAN_ID_SHIFT) |
-+			   B43_PHYTYPE_N;
-+		if ((cs & 0xc000) == 0xc000)
-+			chanstat |= B43_RX_CHAN_5GHZ;
-+		if (p0 == -128)
-+			ac_signal = p1;
-+		else if (p1 == -128)
-+			ac_signal = p0;
-+		else
-+			ac_signal = max(p0, p1);
++		report->flags |= IEEE80211_TX_STAT_AMPDU;
++		report->status.ampdu_len = 1;
++		report->status.ampdu_ack_len = status->acked ? 1 : 0;
 +	}
++	if ((report->flags & IEEE80211_TX_CTL_AMPDU) &&
++	    (report->status.rates[0].flags &
++	     (IEEE80211_TX_RC_MCS | IEEE80211_TX_RC_VHT_MCS))) {
++		/* Sent with two rate blocks: attempts at each */
++		report->status.rates[0].count = status->frame_count;
++		if (status->fb_count && report->status.rates[1].idx >= 0 &&
++		    (report->status.rates[1].flags &
++		     (IEEE80211_TX_RC_MCS | IEEE80211_TX_RC_VHT_MCS)))
++			report->status.rates[1].count = status->fb_count;
++		else
++			report->status.rates[1].idx = -1;
++	} else if (status->frame_count == 0) {
+ 		/* The frame was not transmitted at all. */
+ 		report->status.rates[0].count = 0;
+ 	} else if (status->rts_count > dev->wl->hw->conf.short_frame_max_tx_count) {
+diff --git a/drivers/net/wireless/broadcom/b43/xmit.h b/drivers/net/wireless/broadcom/b43/xmit.h
+index d403a28..b6723be 100644
+--- a/drivers/net/wireless/broadcom/b43/xmit.h
++++ b/drivers/net/wireless/broadcom/b43/xmit.h
+@@ -412,9 +412,11 @@ static inline u8 b43_kidx_to_raw(struct b43_wldev *dev, u8 firmware_kidx)
+  * The structure is placed in (struct ieee80211_tx_info *)->rate_driver_data
+  *
+  * @bouncebuffer: DMA Bouncebuffer (if used)
++ * @requeues: times the frame was put back on the ring (AC-PHY A-MPDU)
+  */
+ struct b43_private_tx_info {
+ 	void *bouncebuffer;
++	u8 requeues;
+ };
  
- 	if (unlikely(macstat & B43_RX_MAC_FCSERR)) {
- 		dev->wl->ieee_stats.dot11FCSErrorCount++;
-@@ -884,10 +910,19 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
- 	if (phystat0 & B43_RX_PHYST0_SHORTPRMBL)
- 		status.enc_flags |= RX_ENC_FLAG_SHORTPRE;
- 	if (macstat & B43_RX_MAC_DECERR) {
--		/* Decryption with the given key failed.
--		 * Drop the packet. We also won't be able to decrypt it with
--		 * the key in software. */
--		goto drop;
-+		/* The AC ucode sets this bit on frames it never decrypted: this
-+		 * port programs no hardware keys on AC, and it shows up even on
-+		 * unprotected EAPOL frames. Dropping here killed
-+		 * 4-way handshake message 3 and DHCP replies; mac80211's own
-+		 * software decryption still rejects anything really corrupt.
-+		 */
-+		if (b43_ucode_is_ac(dev)) {
-+			b43dbg(dev->wl,
-+			       "RX: DECERR passed up (len %u, macstat %04x)\n",
-+			       skb->len, macstat);
-+		} else {
-+			goto drop;
-+		}
- 	}
- 
- 	/* Skip PLCP and padding */
-@@ -931,7 +966,11 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
- 	}
- 
- 	/* Link quality statistics */
--	switch (chanstat & B43_RX_CHAN_PHYTYPE) {
-+	switch (b43_ucode_is_ac(dev) ? B43_PHYTYPE_AC :
-+		(chanstat & B43_RX_CHAN_PHYTYPE)) {
-+	case B43_PHYTYPE_AC:
-+		status.signal = ac_signal;
-+		break;
- 	case B43_PHYTYPE_HT:
- 		/* TODO: is max the right choice? */
- 		status.signal = max_t(__s8,
-@@ -955,7 +994,47 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
- 		break;
- 	}
- 
--	if (phystat0 & B43_RX_PHYST0_OFDM)
-+	if (b43_ucode_is_ac(dev) &&
-+	    (phystat0 & B43_RX_PHYST0_FTYPE) == B43_RX_PHYST0_PRE_N) {
-+		/* HT frame: the six bytes before the frame are HT-SIG: MCS and
-+		 * 40 MHz bit in byte 0, coding/STBC/short GI in byte 3.
-+		 */
-+		const u8 *sig = plcp->raw;
-+
-+		status.encoding = RX_ENC_HT;
-+		if (sig[0] & 0x80)
-+			status.bw = RATE_INFO_BW_40;
-+		if (sig[3] & 0x80)
-+			status.enc_flags |= RX_ENC_FLAG_SHORT_GI;
-+		if (sig[3] & 0x40)
-+			status.enc_flags |= RX_ENC_FLAG_LDPC;
-+		status.enc_flags |= ((sig[3] >> 4) & 0x3)
-+				    << RX_ENC_FLAG_STBC_SHIFT;
-+		rate_idx = (sig[0] & 0x7f) <= 15 ? sig[0] & 0x7f : -1;
-+	} else if (b43_ucode_is_ac(dev) &&
-+		   (phystat0 & B43_RX_PHYST0_FTYPE) == B43_RX_PHYST0_STD_N) {
-+		/* VHT: the six bytes are VHT-SIG-A1/A2 */
-+		const u8 *p = plcp->raw;
-+		u32 a1 = p[0] | (p[1] << 8) | (p[2] << 16);
-+		u32 a2 = p[3] | (p[4] << 8) | (p[5] << 16);
-+		u8 nsts = ((a1 >> 10) & 0x7) + 1;
-+
-+		status.encoding = RX_ENC_VHT;
-+		if ((a1 & 0x3) == 1)
-+			status.bw = RATE_INFO_BW_40;
-+		else if ((a1 & 0x3) == 2)
-+			status.bw = RATE_INFO_BW_80;
-+		if (a1 & 0x8) {
-+			status.enc_flags |= 1 << RX_ENC_FLAG_STBC_SHIFT;
-+			nsts /= 2;
-+		}
-+		status.nss = max_t(u8, nsts, 1);
-+		if (a2 & 0x1)
-+			status.enc_flags |= RX_ENC_FLAG_SHORT_GI;
-+		if (a2 & 0x4)
-+			status.enc_flags |= RX_ENC_FLAG_LDPC;
-+		rate_idx = ((a2 >> 4) & 0xf) <= 9 ? (a2 >> 4) & 0xf : -1;
-+	} else if (phystat0 & B43_RX_PHYST0_OFDM)
- 		rate_idx = b43_plcp_get_bitrate_idx_ofdm(plcp,
- 					!!(chanstat & B43_RX_CHAN_5GHZ));
- 	else
+ static inline struct b43_private_tx_info *
