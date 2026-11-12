@@ -1,112 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472346;
-	b=2x7DWHN6S/BUo2yTmABGSbT3jdsX0+v6nXNLSuJnN+UGg6IDUUiDKaVyYn5lFqFkfXBl
-	 n/7dX6vV6CF1e9mrBCapR/U2nAu0pZPGPVGdxnY59SyzPNqMP0Q47MfBjqZS9aoa/geNH
-	 o5ZXLr4b2+UchpvKR4LAvpyr/NL9DaVtqtbR9pWpth3I+NroDjFIscMYV1HBImj0i7MZ4
-	 +MpsdbbmhMSI9H8BdiO13Avnbm6STdkgSZtaKqNauwpkGMCTg2OeaqzjAhyUjWJ8uGVYD
-	 eu2tJq8eGiwLtUNOKu//0q13CvlR1zlGutTXZhx4YhkozXz8yuCpRMqnhr6456LON6A==
+	t=1794472347;
+	b=D/JUp7p/YsACS5IiVGzAamlCST5wXbEbgRdpcg8wdZI+30x3CUixEiIa8J/07/0e0INi
+	 vPYKs72YqV4LZPjfqrIgt/57IFs/LlhOaDpCkCk7yRCw4WgNQSOAvq7IiGqVDYvI2u2di
+	 d1r4XXLs063ePazhbouomCNm410heXlZrh94AeVtdRE/6xtyxKmuDcsJayqOxCtddeBUb
+	 I6PUPswUQPgSRPawgAQY1rAZzjWRa0IgyJ1WwwROjJh46+p6ALOariP0zdJEz/Fw2fHJk
+	 fVNkZhbp0lYp3HRKWQC8znMRWhGT8nQp620YGHN4bSNsDQWnxC7uWOM5Ncbh8tHlJ3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472346;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=zEk/fVzROC4wD3xuMlUk2KD0H5ZpB6YjFyZz1YUQCNk=;
-	b=kyiDvp8gjWs+Nnb/8F6n9J0XEdpMsTAjt800kZHblfhviIB1wH3kzGJLzcaGiDsIKEo3
-	 Sd0S3fao5ms7i4LhNq/ECZht/IFohsXsVa9fsi6WSqbAtcSFGbi7jwKpZtqinBiypDFlm
-	 B+3uLdwSvT1fjpDvPygEfcpHf/UXW3ulz74pLZ59KvI28zUODshzaHDXge7vlOgLPsDGU
-	 T/LLE7mctfPfOz8Tnr+AEXuVGHPbsL2zG8p7n05pJ3PKoAKkgfUJnYmfUlSs06yi5CJB9
-	 uVWrYkvemLWj445rt+/FOm7CnRShsQIaWcbo/OSfiva4D7BvxVddZwOWj+bhQvpThzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472347;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Message-ID:In-Reply-To:
+	 References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Correlation-ID;
+	bh=OexHV2jkzmUB3KUYxDmJ9ACHH6etmTUSSH2bbmegmmo=;
+	b=h/+swI7nhxsXOk0HtOxBDs0TDl2vWYIYbPlUhfvivzVdSf9tR5S/u4s8Ofl59UhBRdMK
+	 6IlO3VMYtz6JIQtqqnFs2eEdnXztMFFvXXD7PW+wRsvPyuSUiwO+IfkkDand/xpf2sZer
+	 +CD1u6/YmhY/O8wnAaAltng4Q085yHeApczcGFTtIFqF+sdFCUnrMKiQMYewPoYx1KSSw
+	 LsdoLerP/P+Uwpqy0nWUeVQQ6gzHaiOsk9l9Ab3f9sIRPyviZA1ZEIcmvAtgAnuLpYDTI
+	 0qHWajxAzIpdkFVlkdPUmkbLFsWSNUtt1axowDZEWdBdvSBRyX0458/T6W2siX4iBjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GI91eWHa;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BOaPZ1jt;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="YexZpL/G";
+	arc=none smtp.remote-ip=95.215.58.179
+Received: from mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 641A0606A8AE
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 641A0606A8AE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACDFF606A8B6
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:32:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACDFF606A8B6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GI91eWHa;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BOaPZ1jt
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2Zfam3812899
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:32:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=zEk/fVzROC4wD3xuMlUk2K
-	D0H5ZpB6YjFyZz1YUQCNk=; b=GI91eWHaywUHSEc94yy+dqeoBtOBuGh2mVA07q
-	YlDeXRMP7F6rLdmOqWngdoPoKb/r3gE5nNUXYTKtkqWblHuvbAs8D//1f8EVuaCP
-	PfamF0fioLvN+8Dqn25UZYJJX1hRsMWjUIM3CCld1wssHqpUbtFVsl6VEBExSdGy
-	5Nwjgatmx/23rVgK+IpJkqUrjwwaJFCLfX1F+7zGRIg4Aw4DCMMN4Wnm2W5g7AYo
-	D+hH87+nhiNdboFqeFb8d/w4RdT8X7NfpbPsbku7bQs3n5r5QopGSs2tgfNYVoCK
-	Tyvi3UqQRjpoEZ/7OWZi2+ae1in3ACHscsawMoD4CFvOKkEA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvvw0jy5d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:32:24 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b0f667a666so5622609a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:32:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794472343; x=1795077143; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zEk/fVzROC4wD3xuMlUk2KD0H5ZpB6YjFyZz1YUQCNk=;
-        b=BOaPZ1jtfE7/aJ98tLecvPKO/emI99wL0vxZ4eWZ5KW+l78ioJaKMtpU2a5motAAg+
-         myLKB+O6PiELawQkz3pMIvB0HO6BBoHTdeNgKCkTxmiSBGkJzq9egQh9rNqK2w1W/+2K
-         H4R7SUTOPYv0RXNQCByf2QUVmsewbf2k+Ev6hofSz6yoVjQGwIl70JRNIBxCebXOFkmB
-         A0KLDRAYoK8GT6DL2TKyaCD5hPl6I6uooqc/EjH8A3OBmbvv9q9egV//y/BXQRm9XXXN
-         k3ZL3dIWLu1kcoa6HOef8tNUbgyinZHVS1djiXhUAjX6jmhzPlgoiun7xVg9rxAdryZ5
-         eaCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794472343; x=1795077143;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zEk/fVzROC4wD3xuMlUk2KD0H5ZpB6YjFyZz1YUQCNk=;
-        b=r8dvogMdqMytsr88w11ASDlB5sChJgC8Ikpxv//ZrAjS04DXkIIse40HeCaTztByFf
-         Q66xGa1gDw7ILkkQAJ0TeehvnTyHN7yBOC/nct6RHq0+xrAebwDOw2tFM5DK8Q6nSgwM
-         /Ynnrf1sBDD1DG8mElkt9orKH7Gr2uo0+xLrHbf8PrsSqcdo/W0B60aXGzJKboY5QkQj
-         PX6N23+whhWyVHstBak14r7R6QeNwDRRkfXUxLXV8eGkrwgWw7YyhUhhQcfugYKxF8c6
-         1skt3yw6N5ygqOarUduPsMaOSzAM9VzQsuzb01rgP3a+PBKFRdyK0qzQl6ECV1BUyiUZ
-         OdUw==
-X-Forwarded-Encrypted: i=1; AL+hErEBZMOma4aYMw6LVANXr1x9QAS1hu54mixa6mqLICVYpuFe8D1zhDv/7aiaj/X7TJRuaVEKzfN7IWfCB1E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+aEpThwGT3xsQ30Ne8Fwbq/fd60SLehztFhljaqnwR/6xTOlGY
-	xwQOEUZCvEpUYLUZMLepPCndF5E3Qfip6FJOrtTsYyXsy4h40XbbSOM3kUynxSQ2+AX5ZJJg3rn
-	Q7eyCiq5ezdCwbucjTEO3pW3aZMuTNHleonKl74bQqbpdFmGdcoJIBZ31KiwXDSLsdkQ=
-X-Gm-Gg: AYBFou1oly9ARpgECyktJstxlZfenFGiL6tnYWCzZMz6sm7ot+xcXPjnpqkEgFrYGqX
-	TU6JeEgQjhiHMHyCeupnfT/Gxp0Qs9Hxd3trVXgm7IhQph7VgztReyxVgP7e9FeBZjukP9JuIqv
-	disi924KLRTc5kZZ+fjyHfsuXxsVutnz64BsdZc2q6rYXtGAnsthDXdqafxhF4ejZPLe0aYz/oI
-	S6++aJzqy10SIU9aYbyJXHJb97bN9/AGsUcVk86GkU90iJVklIi+AShrTcI9SDNJHajl8XFfmb6
-	aykNag1W3O+MKAQsOrn7numApa6Rk23BAfL39RHPlHwyF+HeWLaFCY8Xn5AwSa1pwAo7dUi83ul
-	VJkO+2fwqW7POvYkebWVWlQGVFju4FFfINhZaozcI7CCG/AJPuWK5gO+zYJlG/EJRkx0swrJCye
-	P+TCaUgGOZgv1pwniFCiCQcXqPEoADc+EGrXcvvUGgZ4mStMf6192YewGhlpyCy+3wTDSW4i8CF
-	A==
-X-Received: by 2002:a17:90b:2f04:b0:3ad:c4e9:7beb with SMTP id 98e67ed59e1d1-3b182ee3b45mr4552159a91.43.1794472343065;
-        Thu, 12 Nov 2026 00:32:23 -0800 (PST)
-X-Received: by 2002:a17:90b:2f04:b0:3ad:c4e9:7beb with SMTP id 98e67ed59e1d1-3b182ee3b45mr4552128a91.43.1794472342533;
-        Thu, 12 Nov 2026 00:32:22 -0800 (PST)
-Received: from hu-madhgane-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce55c1sm3518029a91.3.2026.11.12.00.32.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:32:22 -0800 (PST)
-From: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
-Subject: [PATCH ath-next 00/15] wifi: ath12k: add initial Wi-Fi 8 support
- for QCN9575
-Date: Thu, 12 Nov 2026 14:02:14 +0530
-Message-Id: <20261112-wifi8_qcn9575_bringup-v1-0-3f30fbc2bb69@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YexZpL/G
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OexHV2jkzmUB3KUYxDmJ9ACHH6etmTUSSH2bbmegmmo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794472344; v=1; x=1795077144;
+ b=YexZpL/GbOXSNExWWu391KEx4IBGVDGoRFSoV4hfOCJVcHIAL4H2mrOT53bARYl4uv8JwMIX
+ lI4L9GHGPEz726dJoedOf7aZXodbwSC2lCTXVATqVLcsT9B7KZ3WaB9fYmrY1z7zfgE/UAIdXsp
+ FouudAlCtwI4WVwAaSWTaeZI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5d4ba3925192b16f;
+	Thu, 12 Nov 2026 08:32:24 +0000
+X-Mizu-Trace-ID: 5d4ba3925192b16f
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 12 Nov 2026 09:32:21 +0100
+From: Denis Benato <denis.benato@linux.dev>
+To: Andrei Rusu de Castro <arc@empyreal.works>
+Cc: Corentin Chary <corentin.chary@gmail.com>,
+	"Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <ec9515fb-6698-4e7e-8a88-5b3fa2f50c51@linux.dev>
+In-Reply-To: <20261111-asus-wmi-tpolicy-5fbc4e09@empyreal.works>
+References: <20261111-asus-wmi-tpolicy-5fbc4e09@empyreal.works>
+Subject: Re: [PATCH] platform/x86: asus-wmi: write the thermal policy only
+ when it changes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,157 +68,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAI559WoC/yWMQQ6CMBAAv0L2bBO3hhb9ijGklAWWw4ptURLC3
- yl4nExmVogUmCI8ihUCfTnyWzLgpQA/OOlJcZsZ9FUbRNTqxx1X9cfLvbRl3QSWfp6Us4ascXg
- zSJDbKVDHy/l9gkuDEloSvP4mzs1IPh1b2LYd5n0X2oMAAAA=
-X-Change-ID: 20261112-wifi8_qcn9575_bringup-a76e76a1361e
-To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
-        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
-        llvm@lists.linux.dev,
-        Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: mQRwkRCbxmOjplSd9aTWtFc8F0i_wQ7E
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX2joLTPwTf6TL
- ASBHD4SbIPZ375A22+7JW+RZid5iYlNaw/PTwZ5fAKFuFssZbFKBIpkXGuNR45hQDp9XmnVrqCF
- ixo2tD0iXa2GqrvQRreGF8SLVsBd69x3MRTuTvt+VsE81iESYHMQpShJl7T1nVWhtMg4FXkU2r7
- rmFks490xTqU30Fm4Us6+6Eq31cj6BaPqWBWKlpH8A3Sjuzpw6t9vHx/ALw5UWv2wv0WR/uNwyj
- pfpxQMpPMm32mA1mLZxRydj0fW5DawmoY0GpSna7QuyaEMWrc1ojVn/2xwnp2lsEfwmWtNESLJH
- QXvVyolyVIkVQz5Za2H4LHmwAU7d4sAtyZwILb79y1qdSVk+FN+tWoO6Kqx8avHWQaGRTmFeWgZ
- /1X+CpRWqtRNzS44cbsUEGQ5F1WAqGknup8rGAvyrDz/Ouq2mvWJVSajRUBjH+Fbz77G4jX3S7o
- y8HPafnxFs+xo300Hpw==
-X-Proofpoint-ORIG-GUID: mQRwkRCbxmOjplSd9aTWtFc8F0i_wQ7E
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX7LHu1XXkRRGY
- 7g86Jrm4SLxP17at9Cx52tDfEJAYvyeDLEYHK6B87L3FzFTcFQv/6eOTCfv8DiTnYdcW+Q4gZ1x
- 6KjNBjdjyowDqTuOXZDgB0PrPmRR6wA=
-X-Authority-Analysis: v=2.4 cv=ct8OAF4i c=1 sm=1 tr=0 ts=6af57998 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=uhRKEIYKi0VZnCLPkisA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 clxscore=1015 phishscore=0 bulkscore=0
- malwarescore=0 impostorscore=0 priorityscore=1501 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120033
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Correlation-ID: <ec9515fb-6698-4e7e-8a88-5b3fa2f50c51@linux.dev>
 
-QCN9575 is a Wi-Fi 8 (802.11bn) PCIe target that represents a new
-hardware family distinct from the existing Wi-Fi 7 devices (QCN9274,
-IPQ5424). It supports 2.4 GHz, 5 GHz, and 6 GHz bands across upto two
-radios.
+11 nov 2026 22:44:03 Andrei Rusu de Castro <arc@empyreal.works>:
 
-This series adds the initial bring-up scaffolding needed to register
-QCN9575 with the ath12k driver. No protocol-level 802.11bn features are
-enabled yet; the goal is to establish a functional base with the new
-ATH12K_DEVICE_FAMILY_WIFI8 family tag and a dedicated wifi8/ subdirectory
-that follow-up series can build on.
+> On the ROG Flow Z13 (GZ302EA), writing the throttle thermal policy makes
+> the firmware re-apply its own package power limits for that mode, also
+> when the written mode is the one already set. Userspace re-asserts the
+> current platform profile on events such as AC plug and unplug, so power
+> limits tuned after a profile change are silently replaced by the
+> firmware's table for the unchanged mode.
 
-Patch 1 moves the PCI window register constants from pci.c into
-per-device structures, so Wi-Fi 7 and Wi-Fi 8 can each define
-independent window layouts instead of sharing one fixed set of
-constants.
+Hi Andrei,
 
-Patches 2 and 3 extend the shared QMI layer: a larger WLAN config
-message to describe the CE and service pipe count QCN9575 requires,
-and support for downloading an extended firmware binary.
+Thanks for spotting this!
 
-Patches 4 through 12 introduce the wifi8/ subdirectory with its own
-Makefile, followed by the hardware scaffolding: hw_params, HAL
-register table, HAL ops and descriptors, unified firmware image
-support, MHI channel/event config, CE and service pipe map, WMI
-resource config, and hw ops.
+>=20
+> Remember whether the firmware is known to be in the cached mode and skip
+> the WMI call in the platform_profile handler when the requested profile
+> matches it. A failed write clears that state, and so does restore from
+> hibernation, where the firmware starts afresh, so the next profile write
+> reaches it again. The throttle_thermal_policy attribute and the fan
+> curve reset still write the mode every time.
 
-The final two patches integrate QCN9575 into the driver: a mac80211
-ops skeleton is added and hooked in, and the series closes with the
-Wi-Fi 8 PCI driver scaffolding. QCN9575's device ID is intentionally
-left out of the PCI id table in this series, so the module builds and
-links cleanly but no physical device can match and probe; the id
-table entry lands in the follow-up CP/DP series once the device is
-actually functional.
+I don't agree with this: if the userspace requests a power profile change t=
+he driver must honor that request.
 
-Each patch compiles and links cleanly on its own; where follow-up
-patches fill in callbacks, stubs are used to keep the tree
-bisect-safe.
+The core issue here is not the application of the requested power profile b=
+ut the fact that asus-armoury can get out-of-sync with what is set versus w=
+hat is reported.
 
-This series has been boot-validated on internal firmware version
-WLAN.WBO.1.0-01410-QCAHKSWPL_SILICONZ-1 together with the remaining
-Wi-Fi 8 enablement patches (CP, DP setup, MAC datapath) that complete
-device bring-up; those patches will be posted as a follow-up series.
+I would suggest fixing that issue instead: when the platform profile is cha=
+nged, if a custom tdp is set you should make limits re-apply (or, perhaps e=
+ven easier, reflect the fact custom TDP got disabled, albeit I am not sure =
+this is true for every laptop and I highly doubt that).
 
-In addition, each ath12k driver patch contains Tested-on: tags for
-existing platforms where it was verified that there are no
-regressions.
+This way the kernel honors requests from the user without reporting false i=
+nformation, with the added bonus that even if the profile switched (without=
+ unplugging/plugging in the laptop) the reported status is faithful.
 
----
-Madhavan Ganesan (15):
-      dt-bindings: net: wireless: add ath12k wifi device QCN9575
-      wifi: ath12k: refactor PCI window selection to per-device layout
-      wifi: ath12k: add extended QMI WLAN cfg for CE and service pipes
-      wifi: ath12k: add QMI support for extended firmware binary download
-      wifi: ath12k: add Wi-Fi 8 directory and base module scaffolding
-      wifi: ath12k: add initial Wi-Fi 8 hw params and init helper for QCN9575
-      wifi: ath12k: add Wi-Fi 8 HAL register table and hal init hook for QCN9575
-      wifi: ath12k: add Wi-Fi 8 HAL ops and descriptor definitions for QCN9575
-      wifi: ath12k: add unified firmware image support for QCN9575
-      wifi: ath12k: add Wi-Fi 8 MHI config for QCN9575
-      wifi: ath12k: add Wi-Fi 8 CE config and service pipe map for QCN9575
-      wifi: ath12k: add Wi-Fi 8 WMI init for QCN9575
-      wifi: ath12k: add Wi-Fi 8 hw ops for QCN9575
-      wifi: ath12k: add and hook Wi-Fi 8 mac80211 ops skeleton for QCN9575
-      wifi: ath12k: add Wi-Fi 8 PCI driver scaffolding for QCN9575
- 
- .../bindings/net/wireless/qcom,ath12k-wsi.yaml     |   9 +-
- drivers/net/wireless/ath/ath12k/Makefile           |   1 +
- drivers/net/wireless/ath/ath12k/ahb.h              |   6 +
- drivers/net/wireless/ath/ath12k/core.h             |   4 +
- drivers/net/wireless/ath/ath12k/fw.c               |   8 +
- drivers/net/wireless/ath/ath12k/fw.h               |   1 +
- drivers/net/wireless/ath/ath12k/hal.h              |  10 +
- drivers/net/wireless/ath/ath12k/htc.c              |  18 +-
- drivers/net/wireless/ath/ath12k/htc.h              |   8 +
- drivers/net/wireless/ath/ath12k/hw.h               |   5 +
- drivers/net/wireless/ath/ath12k/mhi.c              |   4 +-
- drivers/net/wireless/ath/ath12k/pci.c              |  46 +-
- drivers/net/wireless/ath/ath12k/pci.h              |  11 +-
- drivers/net/wireless/ath/ath12k/pcic.c             |  22 +-
- drivers/net/wireless/ath/ath12k/qmi.c              | 484 ++++++++++++++++++++-
- drivers/net/wireless/ath/ath12k/qmi.h              |  73 +++-
- drivers/net/wireless/ath/ath12k/wifi7/ahb.c        |   6 +
- drivers/net/wireless/ath/ath12k/wifi7/hal.h        |   9 -
- drivers/net/wireless/ath/ath12k/wifi7/hw.c         |  14 +
- drivers/net/wireless/ath/ath12k/wifi7/pci.c        |   4 +
- drivers/net/wireless/ath/ath12k/wifi7/pci.h        |   8 +
- drivers/net/wireless/ath/ath12k/wifi8/Makefile     |  10 +
- drivers/net/wireless/ath/ath12k/wifi8/ce.c         | 404 +++++++++++++++++
- drivers/net/wireless/ath/ath12k/wifi8/ce.h         |  13 +
- drivers/net/wireless/ath/ath12k/wifi8/core.c       |  31 ++
- drivers/net/wireless/ath/ath12k/wifi8/hal.c        | 434 ++++++++++++++++++
- drivers/net/wireless/ath/ath12k/wifi8/hal.h        | 171 ++++++++
- drivers/net/wireless/ath/ath12k/wifi8/hal_desc.h   |  88 ++++
- .../net/wireless/ath/ath12k/wifi8/hal_qcn9575.c    | 124 ++++++
- .../net/wireless/ath/ath12k/wifi8/hal_qcn9575.h    |  15 +
- drivers/net/wireless/ath/ath12k/wifi8/hw.c         | 250 +++++++++++
- drivers/net/wireless/ath/ath12k/wifi8/hw.h         |  14 +
- drivers/net/wireless/ath/ath12k/wifi8/mhi.c        |  70 +++
- drivers/net/wireless/ath/ath12k/wifi8/mhi.h        |  10 +
- drivers/net/wireless/ath/ath12k/wifi8/pci.c        | 105 +++++
- drivers/net/wireless/ath/ath12k/wifi8/pci.h        |  11 +
- drivers/net/wireless/ath/ath12k/wifi8/wmi.c        |  57 +++
- drivers/net/wireless/ath/ath12k/wifi8/wmi.h        |  13 +
- 38 files changed, 2512 insertions(+), 59 deletions(-)
----
-base-commit: 91d8a01977701d10b0037e4adfcec21d8dd6d48f
-change-id: 20261112-wifi8_qcn9575_bringup-a76e76a1361e
+Best regards,
+Denis B.
 
+>=20
+> On a GZ302EA running 7.4-rc2 with this change, re-asserting the current
+> profile, as happens on AC unplug, leaves package power limits set from
+> userspace in place.
+>=20
+> An LLM assisted with finding the cause, writing this change and its
+> description, and running the test above on my GZ302EA.
+>=20
+> Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
+> ---
+> drivers/platform/x86/asus-wmi.c | 17 +++++++++++++++++
+> 1 file changed, 17 insertions(+)
+>=20
+> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-=
+wmi.c
+> index b33ebdb21..4f37a83c2 100644
+> --- a/drivers/platform/x86/asus-wmi.c
+> +++ b/drivers/platform/x86/asus-wmi.c
+> @@ -315,6 +315,8 @@ struct asus_wmi {
+>=20
+> =C2=A0=C2=A0=C2=A0 u8 throttle_thermal_policy_mode;
+> =C2=A0=C2=A0=C2=A0 u32 throttle_thermal_policy_dev;
+> +=C2=A0=C2=A0 /* the firmware is known to be in throttle_thermal_policy_m=
+ode */
+> +=C2=A0=C2=A0 bool throttle_thermal_policy_synced;
+>=20
+> =C2=A0=C2=A0=C2=A0 bool cpu_fan_curve_available;
+> =C2=A0=C2=A0=C2=A0 bool gpu_fan_curve_available;
+> @@ -4183,9 +4185,11 @@ static int throttle_thermal_policy_write(struct as=
+us_wmi *asus)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "throt=
+tle_thermal_policy");
+>=20
+> =C2=A0=C2=A0=C2=A0 if (err) {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asus->throttle_thermal_policy_synce=
+d =3D false;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_warn("Failed to set throttl=
+e thermal policy: %d\n", err);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return err;
+> =C2=A0=C2=A0=C2=A0 }
+> +=C2=A0=C2=A0 asus->throttle_thermal_policy_synced =3D true;
+>=20
+> =C2=A0=C2=A0=C2=A0 /* Must set to disabled if mode is toggled */
+> =C2=A0=C2=A0=C2=A0 if (asus->cpu_fan_curve_available)
+> @@ -4302,6 +4306,16 @@ static int asus_wmi_platform_profile_set(struct de=
+vice *dev,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EOPNOTSUPP;
+> =C2=A0=C2=A0=C2=A0 }
+>=20
+> +=C2=A0=C2=A0 /*
+> +=C2=A0=C2=A0=C2=A0 * Write the mode only when it changes. The firmware a=
+pplies its whole
+> +=C2=A0=C2=A0=C2=A0 * power table for a mode each time the mode is writte=
+n, replacing
+> +=C2=A0=C2=A0=C2=A0 * package power limits tuned since then (ROG Flow Z13=
+ GZ302EA), and
+> +=C2=A0=C2=A0=C2=A0 * userspace re-asserts the current profile on power-s=
+upply events.
+> +=C2=A0=C2=A0=C2=A0 */
+> +=C2=A0=C2=A0 if (asus->throttle_thermal_policy_synced &&
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asus->throttle_thermal_policy_mode =
+=3D=3D tp)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+> +
+> =C2=A0=C2=A0=C2=A0 asus->throttle_thermal_policy_mode =3D tp;
+> =C2=A0=C2=A0=C2=A0 return throttle_thermal_policy_write(asus);
+> }
+> @@ -5404,6 +5418,9 @@ static int asus_hotk_restore(struct device *device)
+> =C2=A0=C2=A0=C2=A0 struct asus_wmi *asus =3D dev_get_drvdata(device);
+> =C2=A0=C2=A0=C2=A0 int bl;
+>=20
+> +=C2=A0=C2=A0 /* The firmware booted afresh; the next profile write must =
+reach it. */
+> +=C2=A0=C2=A0 asus->throttle_thermal_policy_synced =3D false;
+> +
+> =C2=A0=C2=A0=C2=A0 /* Refresh both wlan rfkill state and pci hotplug */
+> =C2=A0=C2=A0=C2=A0 if (asus->wlan.rfkill)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asus_rfkill_hotplug(asus);
+> --=20
+> 2.56.0
