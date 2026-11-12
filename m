@@ -1,49 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.76.250
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.76.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504429;
-	b=VEagh4GJQmHdVm6XsX7XDU6XRvffRgxSbiwzI/0BH+UeFUSoUV7TK/e4jixYLs15Zxhp
-	 CVt//eex8dbomqQ3qbNP8WDWZLEB+ItdDs1gXe06A0BBUZPcDX2hB6y67RUAI6WuqyIHx
-	 xGiy0AfjcNm/Cl9oBjI6bJVw/BBv+Z3hdmfJAI/a/qy2RSDtTXA1uggifBZwdWHOy4Aw5
-	 eLVDwUzdm/M+FbmuS0CvC2aP0aq1hJDokPHybokyPJF+OljrUXUYqQcFrpLLGg6Q9itTa
-	 mEabXnMgDCh3nMVd/Isvm3vTFfOFze2fMQcKJBmt4Ced5gvEuXGwKcivQ0NTpSyi7kg==
+	t=1794504433;
+	b=urpNBhUpQUiBOv/hTr0swtLLrDiMjiFLzqHTk7QNx1r5WrHghNylGEos8JhZ2kWnvGMu
+	 7O3t12tx32VUudcHN2UXJGUbJMG1WhoQa1JePTB01cZ6mmyANmH9xYW45UTrX74TXDQA5
+	 jpPCP+Fs2i1RPesrEOB3DSKjWgckVayA9FXq4RZWZiVo1QDGfxCXjGjhklxsUa8i4OAyJ
+	 JJu+tVU3uiN7JxRcZR5Xrikncos1kCuFrEhWufarciY+uqFKHoHV/QrXJlqTJWzHSHQk/
+	 JNSchDUhK5Zcg7zHYux1XMX4L7TPdEd809haqvvACdAUxys22BOgzbZtMbjDcOkR2zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504429;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504433;
 	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
 	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Info-Out:X-JNJ;
-	bh=GYhzPzJ+niR5fwLT9fpKA2jNHCnHjWfyT1VOIah+Sog=;
-	b=ZRkaqP7Ou+EeY4hwbCQBICqG+qR7CUkEetLNALU10uBc/G7UXH9EM64v141HAZBeeS09
-	 Lo6yL2TSbxSNHf8EzDHQaeWwaMVZ9DoOvhmjzPq67FVG5cCb8oWxZg5ML7sJFVNKpOx1V
-	 IozK1bVJMMHEUDHqe77C5OnD6JaEoXv21/XiP+fv3A2FgvAE817bB8ZfLVRnH6iyHZGc1
-	 iwA6iLWJd6un3GR9XSBMuvs/jFUtS7jsdtYCVy9HQcqlFXcyUygi82uzOzFQtzKqbr1/t
-	 rcxEV8/2AGi+AOTxY1o/I4pfrHxN+sQ3MGpoMJama+YmWJo/OUIydOrz21p813+zFrg==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Info-Out:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-JNJ;
+	bh=G1YaDgljhMWYy78r6ov/OYhjHLl3ERI4xtxraK2i2dk=;
+	b=vwjWarswXurnWvFk+riZLDy4VvilJhumLF+pe/0xRWIzyHotSTTTaGSAD1zw5DFz4AlZ
+	 idukF3NoZKcM3jtmcVlrYVEMg6NX/CO9wbj8326b9HzLvOG6X1WLvat9aV0L03ojzGP73
+	 eqLPGmSPvSvficol5BzMJoiJ+WFEd+fiIlkTqgABJ9d7qbDvPvkZ/O7+MCmuHgmOhP6s+
+	 fcAwnIAkBiwXLrLrCdUl0BJ0iUsnFbF2d1TJRG5FHbTgxvNf7jlKOHRWZ31dGgz8dzpun
+	 x7v1qKKY4/r7jQVeuj/h9NreCQd4A+JlOyvVpMs5EXeJpBfDJgb5LiRXo7vOZmAUpaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=tawheed.cc;
 	spf=pass smtp.mailfrom=tawheed.cc;
-	dkim=pass header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b="xY/RMbpj";
-	arc=none smtp.remote-ip=57.103.76.250
-Received: from outbound.st.icloud.com (st-2006l-snip4-10.eps.apple.com [57.103.76.250])
+	dkim=pass header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b=LX5Fzj1y;
+	arc=none smtp.remote-ip=57.103.76.246
+Received: from outbound.st.icloud.com (st-2006l-snip4-5.eps.apple.com [57.103.76.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8AB7606A891
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:27:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8AB7606A891
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163FC606A33E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:27:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 163FC606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tawheed.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tawheed.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b=xY/RMbpj
+	dkim=pass (2048-bit key, unprotected) header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b=LX5Fzj1y
 Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-8 (Postfix) with ESMTPS id BEC12180483C;
-	Thu, 12 Nov 2026 17:27:04 +0000 (UTC)
-X-ICL-RepId: 01a1d0cc-7ce5-780c-ae34-85d6deb50945
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tawheed.cc; s=sig1; t=1794504427; x=1826040427; bh=GYhzPzJ+niR5fwLT9fpKA2jNHCnHjWfyT1VOIah+Sog=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=xY/RMbpjwlMUjIEcIuQ6jH+i0+XZM+FgmPi67T1TDQBj0Uu2KfBJBoOZAn2WQAcNQ8ACwKnS7ovpzXvotzBHjW6qeV8LbH8Ym2kXQKkfiz/iZMTNGi0GdqbE/iuTUiI0xnkBNUwgiRPRMeogWPkPyzVPs4cU6CEaO7DxHqV4CP2Ct7cIp+W/8PVa8HrpliZxCgoLbbJ6BkqY36JCJybHJKi/JoW5KXqFbUbVUegGpcFsC435YVZlOI4h/JPXKQwAGEm400yceNtKqK5cBI1HZDEvFRoACzbedPBzeXqIdoDlnZHv4xRcpPWRRNeCkO0XqjdJC2rH3HHy3a2mAj0Cbw==
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-8 (Postfix) with ESMTPS id 5AA3618052D2;
+	Thu, 12 Nov 2026 17:27:09 +0000 (UTC)
+X-ICL-RepId: 01a1d0cc-8ee0-7131-bd57-891faf1f46e1
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tawheed.cc; s=sig1; t=1794504432; x=1826040432; bh=G1YaDgljhMWYy78r6ov/OYhjHLl3ERI4xtxraK2i2dk=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=LX5Fzj1yoLam6i2fDPLpdwD8uM0IaHj4uqEbMh1UiLVss5+T+R65MaLM3p8+ApXEmR/l9n4l9KdEyhu6UPXurJmRrCJVyfT2dz6eVCrWLoi/7Evft1sNfOC3u6s/Frg2Y6lgNo3TFNDpUAW5ZC7YKx2xtJXa0YtXyIADmTvljrhYlHDrZDwpJHFUOxcByyRlkpXJboNeirQ581Sw8HXYBzB2OsaDD+IDGy4/hPaWJep/ogu5mHFkRq9TO0ydvRRyZaSZQn67UWDcWWEUemo61zFGSHqKaJaWpzQ4Q/c3O7MLIAXll+8yWu/9tqp2ZP9iegTmMIJU3GEdXPKOMgSfxw==
 mail-alias-created-date: 1711150425226
 Received: from DESKTOP-HUABEFD.localdomain (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-8 (Postfix) with ESMTPSA id 8A84E1804822;
-	Thu, 12 Nov 2026 17:27:03 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-8 (Postfix) with ESMTPSA id 34B911804807;
+	Thu, 12 Nov 2026 17:27:08 +0000 (UTC)
 From: Tawheed Makhdoomi <_@tawheed.cc>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
@@ -55,10 +56,12 @@ Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/3] HID: spi-hid: support the pre-release protocol (Surface Pro X digitizer)
-Date: Thu, 12 Nov 2026 12:26:38 -0500
-Message-ID: <20261112172641.407-1-_@tawheed.cc>
+Subject: [RFC PATCH 1/3] dt-bindings: input: hid-over-spi: add the Surface Pro X touch digitizer
+Date: Thu, 12 Nov 2026 12:26:39 -0500
+Message-ID: <20261112172641.407-2-_@tawheed.cc>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261112172641.407-1-_@tawheed.cc>
+References: <20261112172641.407-1-_@tawheed.cc>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,112 +72,63 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 7QVNLYoIUqxGItn_imZgZiJ4YX0naxar
-X-Proofpoint-GUID: 7QVNLYoIUqxGItn_imZgZiJ4YX0naxar
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2OSBTYWx0ZWRfX/a4AuOTKcwZ8
- 2F6sML8m62ulMN8o9GeRvC9So/wdzxwa7xPRw4bvd6OYlOkUKfyHkv41eIJAC31CPoDN73E2LlI
- njl8qS5RxFLwTh9RLAkPIm/42gqS5SvPD2OhvId6LYtTy+lnpDZZ0HUu3haMaWdu3G3e4ZrO4tF
- X+y8htlPRMO6HArGkTqVe7zSeUeLcWtu8PwtgDXmq+M0nr+30pzRtoSmYGkPcoBln36MdaYZW/8
- syHk7yb4Dl3jiQSFZAMW3NuzwihEVFTTGobgK/Jqikw0xj89JQpQWg2aendjPQ8Yqon+sjsutx8
- ZKxuC5fozeMhekLkkX0OODHVmMzIrDJ4yNJdvE3wEOG//XFrGoIhLsbDVDIrqM=
-X-Authority-Info-Out: v=2.4 cv=QPZlhwLL c=1 sm=1 tr=0 ts=6af5f6e9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2OSBTYWx0ZWRfX+d2/9DFZPv4J
+ jFGlkKNckX5IBnlVSP68mC9OJFUI0/GcGNLU6STtSQ/27Rqusn9yuoSzroNp5bLp17rzJ22tUhv
+ fVa7DZNZ11CXKOcMtb3FldUIw+ZkfpgdUY3Z97lJs+ED3SlvaIH4l++A/hawvK9Yt/tZLWmwlbh
+ dhssrvbK2ZAq4NsCehPrxciTejpLbTzYn6gCnqP1Tk4UyZhNpvJm4yKJSypMEENyF66b+IhlB5r
+ 64qPBwD8Ynlwt7aDei07+KzsLsFySHNsX+jn3wtAyVq6zLRcDYtUQWisHF+QzHRdyfOXHRaUsF9
+ uA6VQ60f9LVkJj4gQQdavNoksLmeXyQLJW6ewzj3/in+ZUjAIMyFx1OCTQkB4s=
+X-Authority-Info-Out: v=2.4 cv=DPIacCNb c=1 sm=1 tr=0 ts=6af5f6ee
  cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
  a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=cm27Pg_UAAAA:8
- a=VT7vhFcB3mNHmCdLKwgA:9
-X-JNJ: AAAAAAABOmJ0Lw2TubZ8VMoJ5/JOsAKMeBTi46bsET319JztIicEnMJlxpRUpLtn/b6nMQ
- uecfKmtO3J7QSo2Uiors/hv+sdkrXAedM5bI1wfvbz6aOpszN/84o17CKtovX4B44APrsC
- h/x58p4b9cOvh3HZZDXziYsKDXrw8VXP/A3C69HITvYZEgw+0PDFiyXsmeiv44uqNPAjfc
- e+RtRxJQB/futCJPz2J6HzPGQTJ6G2VvbwRUeWQfQ0cR7uslGkVUBw4n+k47KzRN6XMwB/
- /wkZXA3o+PuxaQX+Lp3bYZu+GaxR3WDon1g2VfECqtBvZPJERmLEQrTwYLP5mjC4zMQLXz
- lehCKtCtEqOWt/Xmf2OEl/IGA4oUXgYfYTLb6Y+xjUOQ3BK/jB13KY98gJzznOVr4olmai
- IicsA5PjyPhnmlSZPsEyoP2KAlYQhQ60xN8Uou3Z2VIuO1xfwEwDoLl2m0fpd/W6gtfUGj
- WgqVwV8x+R9NOwESkzb96gdhD9eMcqtJ1oDC12GUqMKS54kFJpI6nQfkAdICXKa7GPwUOy
- d8NjTjM4IrdCBgPQoaVOZzcIQVbM6n5K/AcO5S6LNmzUxXd4oGNbfdSbtdXFVgW70yNjhu
- dS4zyMjy1PfPNfSVOaLGkva4bE+y2AWMJvdbwmPHSf/B1O1E8q0pvmoiB7q3FG5WUSoFNn
- HF+GSum/eqqMGgs3LDO17VCzotLvLDH8dXMEL2bzgFaAMREsbmv2zoCYk4ZVRIA+QGJmPy
- 3FKGZsvPPQ80TK6zg8vcetTX7EBzK2ByoHkYKLNcnbAUVzkWrocUBZC6qA+0swqhgL2X0/
- pnndIVJFpb4pFI8COhoN1DZit09+CaXVELPVUPN3Sv5Mi0LOwkYWeTJqVPvIYgRixWjz2x
- dQGOgoUwaNKEpF553O42WZ10HA+KSIxne7Tl0/tJm6D0fi8TACvX/sWC9ZzKAAf1AFk050
- 9TZ7kZcZaBUKDkFsApxPD2Cyo1YJnxRJteru4UIQRC4E5cWN+DQeFm8SSPoTYl5ByLjRH6
- YFoBE5T5pggog6R+vBMDeNCDOun52MmmnBRNhhSgkRpX8tnCe0Opxj1M3kpjhAeatJ3/de
- DJUq1iMSNzKt0v0n9DaLqlk6meMUTAFo+VrJ6nj/apdMUwGx4OIN8+dGCgj+uXNa1ObLF7
- oC+s8EFx9LHxASxjWapbnyPZHXvakRINMF2Elc+BBo61sJ5u22I09j3Bw8pEN7KPOFA2Gu
- idH5d+9zd6IpQnyHkWQuJXUjYsoAFnP2Ugq7eUlQb24ymV1mozxAGNEPTc2Bq/uKfMYyC5
- j6hZvxDJLTAWaeyJFj08nTtZA/IwmKnZLdYn+L4qNJlw==
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=kibvr5HLtuNvmma_iept:22
+ a=NVRLzpS9o0UsCidzZbzm:22 a=qbu17giZulXrqSllDoYA:9
+X-Proofpoint-GUID: rchbc6Xd6FJgGyVZH4zVT5SrropzxIOp
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2OSBTYWx0ZWRfX1rU3IKUvccWX
+ jwcokhBSnueyYoTpAxQqL1hLVgTRDitfOQNRUkh6XJNXD0Xkzxww8wQNpptyuOcLZpPu8Hk1mNp
+ yzHb5TxKoQ04CpCtOuqntd0sRX8LBtI=
+X-Proofpoint-ORIG-GUID: rchbc6Xd6FJgGyVZH4zVT5SrropzxIOp
+X-JNJ: AAAAAAABj8t4DSeqyfIq+BIrbvGqz1fyWhtx2MmKarWXW6gQc7rbbp9nNJslPXqbDsYHiI
+ H3O3NkfhN1ChyoEGKBAlTmYQ5RjHEaueQBU7WXk82i/QCAsTuz7nYPMecuzgLf7r2PTvo4
+ PhqQqshGQJGp5x6WG8OlXWFN1YZaa25YvcUGlJoFeRGs4ffnXMWc0QslLIV0tnGtDl1pzC
+ 5lrE1dEbA3iYY5mkLRJmNbGOAqgRhka1HOj/K4alR9X0oHFg9sGQ/QLWFhx9islGQQAU1u
+ 1nBBsbkvcUm6kKu6hYmlo5ILppYdE0VG2ydo2FAD19TK7TavKDCwfUwQ3CiBCn3RW8sLIq
+ sJ7IbUf52daSjW5i4t3bxCKfHHzzNv+fOo7QIBXcwDQdYedOvpTyXURg11xOrghNSs7/bW
+ /lTnFWyDF8wDo3JFHD9PjdSa55Ty0xe15UKBlqA2xWwbrKhdOshTBg6dNiVJfDrySQp0d4
+ vFsgB+ue+Ep1XNGsG8/834TmWEezIoAqCIwh9sMe+op2KRGU4/rPAOxdhjmKrmATGeH1Bt
+ sckmwTOPIaVm0/u13BvWtygtN+okTHUKOGx1v1i3vt/bGZ45mEjJzlfn0A7ma2mUHtTEFl
+ U3M6Z7ANvXKKobrUsIfPgEFGIlTc9GMjnr0kScDrkCTNn1n0uEGGvJAr6u/RLrMrUe9MJh
+ kL4jUUaV/OgoYjTgFkvHY4AHFB5sIEnmxeGMbREY2wzeI26YV/HxbsuHf68XBhAPbqrTiq
+ f2yhP9D8NpXeSiMAr0mFhoE833Nlwxcwpv4hiHFqRgcDHJuajXslSKfdoNBf8yfqoHkNBm
+ DhFODtwJO14VtFxl7O+3MXpSkZjeOTWVIDdXhESbjQ1t0Yh3
 
-This RFC series sits on top of Jingyuan's "[PATCH v7 00/11] Add spi-hid
-transport driver" [1]. It adds support for digitizers that speak the
-pre-release revision of the HID over SPI protocol, the one Microsoft's
-original 2022 spi-hid driver targeted. The motivating device is the
-Microsoft Surface Pro X (Qualcomm sc8180x), whose touch/pen digitizer
-(045E:0996) ships this way.
+The touch and pen digitizer of the Microsoft Surface Pro X (vendor 0x045e,
+product 0x0996) is a HID over SPI device, but its firmware implements a
+pre-release revision of the protocol (input header version 2, device
+descriptor bcdVersion 0x0100) rather than HID over SPI 1.0, so the driver
+cannot treat it as a "microsoft,g6-touch-digitizer".
 
-With v7 as posted, the Pro X digitizer binds (via the g6 compatible), but
-every input report is rejected with "Unknown input report version (v 0x2)".
-The differences go beyond the version nibble:
+Microsoft does not publish a part number or generation for this
+digitizer, so name it after the product it ships in, like the
+"microsoft,surface-sam" embedded controller.
 
- - input header: report type in the high nibble of byte 0, a fragment id,
-   and a 12-bit length across bytes 1-2
- - input body: a 3-byte body header (length, content id), no report type
- - output: a 6-byte header (opcode, register address, version + 12-bit
-   length) followed by a 4-byte body header (content type, length, id)
- - requests are addressed to per-function registers: device descriptor at
-   a fixed register, report descriptor at wReportDescRegister,
-   features/output reports at wOutputRegister
- - a 28-byte device descriptor carrying those registers, bcdVersion 0x0100
- - SET_FEATURE and output reports are not acknowledged
+Signed-off-by: Tawheed Makhdoomi <_@tawheed.cc>
+---
+ Documentation/devicetree/bindings/input/hid-over-spi.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Patch 2 keeps all of this behind a per-device "protocol" field in
-struct spi_hid_conf, in small helpers, so the v3 paths (g6, ACPI) are
-unchanged. Patch 3 adds the Pro X match data. Patch 1 adds its compatible.
-
-Tested on two Surface Pro X SQ1 (LTE) units on top of v7 (plus an
-out-of-tree sc8180x DT): the device and report descriptors are accepted,
-the HID device is created, iptsd's GET_FEATURE/SET_FEATURE succeed, and
-multitouch works (5 simultaneous contacts, no driver errors).
-
-Questions, which are why this is an RFC:
- - Would you take support for the pre-release protocol revision at all,
-   given it's in shipping hardware? If so, is a per-device protocol field
-   in spi_hid_conf the right shape, or would you prefer something else?
- - The compatible is named after the product
-   ("microsoft,surface-pro-x-touch-digitizer"), since Microsoft publishes
-   no part number or generation for this digitizer. Is that acceptable?
-
-Known gaps / observations:
- - Fragmented input reports are not supported in the v2 path (fragment id
-   ignored); I have not seen this device send fragments.
- - COMMAND (e.g. SET_POWER), output reports and suspend/resume are not
-   exercised by my testing yet.
- - Once, on the first boot after installing a new kernel, the boot-time
-   probe saw no interrupt at all (IRQ count stayed 0); unbind/bind fixed it
-   and later boots were fine. That looks like a reset-response edge lost
-   at probe. v7 has no timeout/retry for that case; I'm not sure yet
-   whether it's specific to this device.
- - Around a rebind, one "Unknown input report version" from the power-up
-   window can appear, because the version check runs before the
-   reset-pending check. Harmless, but noisy.
-
-The matching sc8180x DT change will go via the Surface Pro X DT work.
-
-[1] https://lore.kernel.org/r/20261024-send-upstream-v7-0-abad13174b43@chromium.org
-
-Tawheed Makhdoomi (3):
-  dt-bindings: input: hid-over-spi: add the Surface Pro X touch
-    digitizer
-  HID: spi-hid: support the pre-release HID over SPI protocol revision
-  HID: spi-hid-of: add the Surface Pro X touch digitizer
-
- .../bindings/input/hid-over-spi.yaml          |   1 +
- drivers/hid/spi-hid/spi-hid-core.c            | 327 +++++++++++++++---
- drivers/hid/spi-hid/spi-hid-core.h            |   4 +
- drivers/hid/spi-hid/spi-hid-of.c              |  26 ++
- drivers/hid/spi-hid/spi-hid.h                 |  27 +-
- 5 files changed, 344 insertions(+), 41 deletions(-)
-
-
-base-commit: 04fd628c5c27c93b623b5b6b88fd52d4444d5a7b
+diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yaml b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
+index bed0746f0..beb7e0922 100644
+--- a/Documentation/devicetree/bindings/input/hid-over-spi.yaml
++++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
+@@ -27,6 +27,7 @@ properties:
+   compatible:
+     enum:
+       - microsoft,g6-touch-digitizer
++      - microsoft,surface-pro-x-touch-digitizer
+ 
+   reg:
+     maxItems: 1
 -- 
 2.43.0
 
