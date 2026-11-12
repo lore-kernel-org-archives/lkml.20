@@ -1,99 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794480348;
-	b=dDZUQ1TZRjSHgCJmK5LTbvHdoZROy9RW2Nt8qE5NXEsF4395ePXQnqBwcLt7vNrfOmdc
-	 iobWakkcxisVAjSqFtbc6lCUm/79c53SDrki8IqlnN/8WiNHmGYjFGOnH4aOvvjoNtSFH
-	 m/fPlG07YzSsUUMLstQ+KeXF0TEmjKCqkk4jM348yZyQNwk9kJBEQ7vE5ovRuhp32Ierb
-	 YBkfztNEk9f9yhUBhSsUROQzyDu4q8o1kpRMLsfl0gAUnDsHs7DQroz6HDazLbddU8p1m
-	 lTCFDmsvjyp4TAMlKovkcmEnD5G2oePR+GyUZdCIRleFA6Fy42OpmpasFKgm34gZ7Sw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480348;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ddYVXCpBhwQ+2ajmiZG9m0k4vsq/lXRN7BsHqaZoQkw=;
-	b=0Yv+/InBk8Dm1/d+TxeEINlqcNAqi4Q1H1BgaY2N4D4BibJYY/sQ1MDnyAnjyWq+8Q9F
-	 ns0//vv0e7/2qEPBiFbK4y9JS0osrFy0v57+POFWgCFiq5zEeKcH1tEfjBluzcqisZfZF
-	 tSSAa4MMoUwQ5HEsU5LeJBWkXGYC3jj3Ssh0AhUfRYkJp40E7Q2IPlOS3l/Txu9pLWw+C
-	 4WJZG1jbMuR9hs6oGF7hQhkcCIiATs3WWhyPlN4LhkW7mSygNzyNNO5eVKF2flqZROro2
-	 JHFRXYEfpNYk2Sfe74Fmwyklycfi9v/HW8VGgTapAW9yYgMGfx3I7JP3TN1yd1fIMQA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xcPiMBtA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.52
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794480356;
+	b=iHc9BOwjmIH8Tc/hEPk2ovnccEDrRCsCiPIvsi1BSqiOAy73dyg57J9iwjYgNUnrH3eh
+	 0ObH7W88n23Yq9C6piT/JIZYRtYew8NgjTUehb+WviFa2wJYSodwatiMe+nQIUp3NG0YJ
+	 TaOpwOdCpTGXsP5GcgjeUFP7riC2WWnhfiJ+aAWf3I5eYGFQ1Xt7oiQ/lXVsd8+NCBkA7
+	 yciLqKaUp1xcmq0dHHDXLaJrsYYArgOOiIXkQ72tEXj3tCbJupq4q/EXSPYZiMn2q+gO3
+	 Q0XKNCqpFCDhlhmiEMhGHALAH0L+3yEKB+Y38TR1DG294ZOzqFnd/qUvyLw4nxduvLA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480356;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=tSYotEmmpwO0914M6sxzeqhwcBbbWulbYcdw+O9tcI8=;
+	b=4iaX/dXsEit5SDSZGGV5EqyQYra4kzZCHMjxDLFv7I8EBJPuPB+tu4UIgr26yVBzcmeJ
+	 444jMLm82p3TyKqhVh9owOxRlVLSRu6VWtTEVYXNgi2i3MPW2kNeBuSBkl5iLnAhPz+Uz
+	 EwwWBUKCA2PIElbsGbM00pmJK1oQ3ZVjdRM0ow/ot5J5vLtXRO8X51V16B5jTApJP5dVD
+	 646kTs/n7u5sNaEo1h/WN7LnLOzY1b4IlwIuqMNZLKjz9B5odjXg1UpNXuadDjuxjcWHl
+	 tBuw6vyyPp+1nuUgxGz1zNAbaOvS33Kue9pHLwXCffMenVW3zUjxv6f/qC6THGVUZ2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=QM+hxa8S;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=QM+hxa8S;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF5F606A8A8
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:45:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAF5F606A8A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C82606A33E;
+	Thu, 12 Nov 2026 10:45:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C82606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xcPiMBtA
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6b8e2d8df4fso2433562eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:45:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794480347; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VVxbcq7Vw6vrlmXZbTDAYptlBiCHojKLD8sxmaaAi01hwBHgIeQG8aje7Bjsn+xjGK
-         c8udaOtwYXRLrB2SYcO1DGuUgmfrURpNN7nf9T4DEbXoTx3hOJoH3c7kR9oT9fmgqMPA
-         yryXuDVFtgTdN07LpB4KK8ynWIvci90Y73CJXHm4RIWLOCCbVZj/LWHmP2P7BZx1gZTQ
-         BI3sWCsSxoaQqPwl4tkzywt5XY3f6YeFyk9YQBCYBXyhBrFni4+Z0UqxB7TXah4RBy5T
-         xl9ph+6+81RNOH5c9In2mCHGPG4JjnPECQDDq+utg3Fm4tuX3rdQLspBG9D+piNxnNCS
-         pTVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ddYVXCpBhwQ+2ajmiZG9m0k4vsq/lXRN7BsHqaZoQkw=;
-        fh=CPruOmcUOcWRoD2p3XFomAPPlDtQUW6qJm4cw5RJLTA=;
-        b=j00+7JLj7LygBeHyAa7CpKUA345oCE8Mzxx44iKyL36z9/fpnUkB32aw09xjqBGBJZ
-         VVLcyiaXmYCusXQca8dVdZGobsRAsDnkPtHfnAj68HR0XVCiZcPcj01sNON5XGba2K41
-         sb5BQwLWFLSVWqP6RneD73Hto2IjF2W4YkuNcV1JCSPHA3QcKyUXQeRdM1f+ig5AOc8w
-         yn4Y4XfAR0LolGtTtMQWiBjxXEf8Oz+TYFzdmSwNFOg3tAZR1MsvTSCElkfsad0RCh5j
-         akFFhbjwWMQIOs+d9n7qaGyOa2pfcRSrTcrm8XpnPXvp8hk9QgK7z2Nokh+djPawj1Qj
-         NxOw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794480347; x=1795085147; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ddYVXCpBhwQ+2ajmiZG9m0k4vsq/lXRN7BsHqaZoQkw=;
-        b=xcPiMBtAELHn3sgyKErFDHKe52oZIdZV/+UcUTJI51MVq34g1dR2eDj2nxtlt6O8gN
-         ujxl9Kp9NnxitTdfcTiU7WqI0qa/lANz4ihDJAVj0BDAMGEHP7tr+TCelsKdxbzp18G3
-         76DyE+oRDfmbDAilSh4EmN3LaR10QHrrnzWL9YKFcGqWSCIHGZYuP1NjuC1z+BZN3dFM
-         8snWKAclZQnbkdGtLr68y3k5r2aQuv9o4eFn/9v/7VnPHBWCpEpPHp7/LGS5cDcJrUgg
-         2dKjCloKWuJEZjPp+YRKZgkOxYf+LYmZJAACS2/6j4uCcShl9ONNzfmKBhuj3OeIQYKM
-         8Chw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794480347; x=1795085147;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ddYVXCpBhwQ+2ajmiZG9m0k4vsq/lXRN7BsHqaZoQkw=;
-        b=eDcrk9me3NkDCXHarFtxQQEjBM1Z7VWXjN+zepdZdPiGi64LQvEKXmfsrMyzN4YCkY
-         JnRrY8L5WG65amcDz4YILpuKRSLTF2LjNWqknCwtJK1s/RtlLuSWVJBmlDCpCIbu7+gl
-         zqR7rCSPrAEYruZhJqm4KPXbMCoD/yFlFDxxcszBZ8G8fuXgsnSCKNYpgkoP0hNomISl
-         OHR/hYzsFnIku6AkVot48TMVaXMskYNMg3yaRcFEtwNBkaQiz7Gla+vx3NoKlGdnU7dl
-         FEN1qTf+/JsyyHVk9z6gIkV8T34HiXmajde1xeWJ3cv41eHroORRdgettGSUOlQFffK6
-         9YHA==
-X-Forwarded-Encrypted: i=1; AL+hErEW+qdDs53q0snEwreK9i0n22UJ30uX05wKYM/Xa+pnHZBHSmfCNlWUoz6OcSLdiZeRFRM/7Ar6jigwm2Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9nhS+qDSD31kiidqFKKOQ0CcDtb8tGxMeUfzzdO81JSE7GZCc
-	SwcDj9ckTQ4UXXc38e1kc3wXtMuWakCIcBJCtBBUyJi4KmJF9zYBefnJ9qjN4d7APd91HYPUbij
-	taImRx/ths1gIcTi3lnfHWxsNrwQpVXE=
-X-Gm-Gg: AYBFou1+yfAzYs9oTvdFQxgBgvZgMcFrdw7cYmhd+olzTrCziU/L9900PP/rQD4G+PY
-	1kbEPiIccb2RvOhAYd0rr/8ayZ8Q3t1ohCleOSnivkC67FPCNxq0sGWYb9xc9LBo/S6AIzVUfPf
-	bVBOTPdT9ZRbxE8v09dZXEtPumB/vcDNyPnPm5KXIFc39mLY5B7hF0wmyNBjg0KNhHV1COq0FVl
-	PHQknD1rCznZt9unZQuGAk7vVa3ZqV1T4fQg9j8AdQAHQy/CPLxxeI3sIgZaAllJ33YtlAGM1rq
-	EsixtKXv3UzYlQJZg6uounBq+TUaRka53h/DcY6g8NolUfMbLaL8Ikv4tsWEbLI17PSE+G6UCEM
-	A/YQCK0oQYEk4SsJjHYie6zrXqhKWF3g4IJJ4M0M=
-X-Received: by 2002:a05:6820:1621:b0:70d:77b7:6879 with SMTP id
- 006d021491bc7-7191788d816mr3318135eaf.36.1794480346869; Thu, 12 Nov 2026
- 02:45:46 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=QM+hxa8S;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=QM+hxa8S
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6C17021C82;
+	Thu, 12 Nov 2026 10:45:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794480353; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=tSYotEmmpwO0914M6sxzeqhwcBbbWulbYcdw+O9tcI8=;
+	b=QM+hxa8SO3kXjLDKLwIaK+hPE+CFmebUEyVLd9wWlZ8yPay0XuEKWjb2hHPlFXwrG7DMHy
+	0iAJIRyF4VSIwnjFD/uNrmNED/6mEviFTEPN33IWXPPN/7tE3xgqOLmkgHgIR9pNySZ6Qf
+	Eg0gzzfNWpjJUOahQYicH3ABXC1CCb4=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=QM+hxa8S
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794480353; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=tSYotEmmpwO0914M6sxzeqhwcBbbWulbYcdw+O9tcI8=;
+	b=QM+hxa8SO3kXjLDKLwIaK+hPE+CFmebUEyVLd9wWlZ8yPay0XuEKWjb2hHPlFXwrG7DMHy
+	0iAJIRyF4VSIwnjFD/uNrmNED/6mEviFTEPN33IWXPPN/7tE3xgqOLmkgHgIR9pNySZ6Qf
+	Eg0gzzfNWpjJUOahQYicH3ABXC1CCb4=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 06AE713432;
+	Thu, 12 Nov 2026 10:45:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id YOzfM+CY9Wr4VwAAD6G6ig
+	(envelope-from <oneukum@suse.com>); Thu, 12 Nov 2026 10:45:53 +0000
+From: Oliver Neukum <oneukum@suse.com>
+To: petkan@nucleusys.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Oliver Neukum <oneukum@suse.com>
+Subject: [PATCH net 1/1] net: usb: rtl8150: break cycle between tasklet and URB
+Date: Thu, 12 Nov 2026 11:45:11 +0100
+Message-ID: <20261112104548.693456-1-oneukum@suse.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,24 +93,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <avA1wXhTMs9eY2NF@chrisdown.name> <6B8E9261-3FF8-441B-8F47-7D35834A8D35@gmail.com>
-In-Reply-To: <6B8E9261-3FF8-441B-8F47-7D35834A8D35@gmail.com>
-From: elenchist <elenchist.dev@gmail.com>
-Date: Thu, 12 Nov 2026 19:45:34 +0900
-X-Gm-Features: AclHuK8UhlNcIj8rZxl-jPAQ-TNb4Ro929pQ1QbaMvl25O9AF4j0sdfra1fF6R8
-Message-ID: <CANYAW49zq97w7ptUO6xkXZ3e+CNMzWH7qxQ1bQu4an1L6_kXuw@mail.gmail.com>
-Subject: Re: [PATCH v2] mm: memcontrol: Don't lose track of exiting OOM victims
-To: Chris Down <chris@chrisdown.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Tejun Heo <tj@kernel.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Zhan Xusheng <zhanxusheng1024@gmail.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	regressions@lists.linux.dev, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 6C17021C82
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-10.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	DKIM_TRACE(0.00)[suse.com:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TAGGED_RCPT(0.00)[netdev];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:dkim,suse.com:email]
+X-Spam-Score: -10.51
 
-My mail client turned the backslashes in the reproducer into yen
-signs, sorry.  Every yen sign there should be a backslash: the printf
-format in overkill.c ends in backslash-n, and in run.sh each of the
-two "$" right after "echo" has a backslash in front of it.
+The tasklet can resubmit the URB, which in turn can
+resubmit the tasklet. The cycle needs to be broken.
+The simplest way to do so is to prevent the resubmission
+of the URBs by poisoning them.
+
+Fixes: eff674a514bd3 ("USB: rtl8150_disconnect() needs tasklet_kill()")
+Signed-off-by: Oliver Neukum <oneukum@suse.com>
+---
+ drivers/net/usb/rtl8150.c | 31 ++++++++++++++++++++++++++-----
+ 1 file changed, 26 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/usb/rtl8150.c b/drivers/net/usb/rtl8150.c
+index d51e43170e03..846e6329d571 100644
+--- a/drivers/net/usb/rtl8150.c
++++ b/drivers/net/usb/rtl8150.c
+@@ -343,6 +343,13 @@ static int alloc_all_urbs(rtl8150_t * dev)
+ 		return 0;
+ 	}
+ 
++	/*
++	 * They need to be blocked so that open()
++	 * can unblock them
++	 */
++	usb_block_urb(dev->rx_urb);
++	usb_block_urb(dev->tx_urb);
++	usb_block_urb(dev->intr_urb);
+ 	return 1;
+ }
+ 
+@@ -353,11 +360,18 @@ static void free_all_urbs(rtl8150_t * dev)
+ 	usb_free_urb(dev->intr_urb);
+ }
+ 
++static void reenable_all_urbs(rtl8150_t *dev)
++{
++	usb_unpoison_urb(dev->rx_urb);
++	usb_unpoison_urb(dev->tx_urb);
++	usb_unpoison_urb(dev->intr_urb);
++}
++
+ static void unlink_all_urbs(rtl8150_t * dev)
+ {
+-	usb_kill_urb(dev->rx_urb);
+-	usb_kill_urb(dev->tx_urb);
+-	usb_kill_urb(dev->intr_urb);
++	usb_poison_urb(dev->rx_urb);
++	usb_poison_urb(dev->tx_urb);
++	usb_poison_urb(dev->intr_urb);
+ }
+ 
+ static inline struct sk_buff *pull_skb(rtl8150_t *dev)
+@@ -425,6 +439,11 @@ static void read_bulk_callback(struct urb *urb)
+ 	netdev->stats.rx_bytes += pkt_len;
+ 
+ 	spin_lock_irqsave(&dev->rx_pool_lock, flags);
++	/* prevent an eteral loop */
++	if (test_bit(RTL8150_UNPLUG, &dev->flags)) {
++		spin_unlock_irqrestore(&dev->rx_pool_lock, flags);
++		return;
++	}
+ 	skb = pull_skb(dev);
+ 	spin_unlock_irqrestore(&dev->rx_pool_lock, flags);
+ 	if (!skb)
+@@ -518,7 +537,7 @@ static void intr_callback(struct urb *urb)
+ 	res = usb_submit_urb (urb, GFP_ATOMIC);
+ 	if (res == -ENODEV)
+ 		netif_device_detach(dev->netdev);
+-	else if (res)
++	else if (res != -EPERM)
+ 		dev_err(&dev->udev->dev,
+ 			"can't resubmit intr, %s-%s/input0, status %d\n",
+ 			dev->udev->bus->bus_name, dev->udev->devpath, res);
+@@ -751,6 +770,7 @@ static int rtl8150_open(struct net_device *netdev)
+ 	if (!dev->rx_skb)
+ 		return -ENOMEM;
+ 
++	reenable_all_urbs(dev);
+ 	set_registers(dev, IDR, 6, netdev->dev_addr);
+ 
+ 	usb_fill_bulk_urb(dev->rx_urb, dev->udev, usb_rcvbulkpipe(dev->udev, 1),
+@@ -969,8 +989,9 @@ static void rtl8150_disconnect(struct usb_interface *intf)
+ 	if (dev) {
+ 		set_bit(RTL8150_UNPLUG, &dev->flags);
+ 		tasklet_kill(&dev->tl);
+-		unregister_netdev(dev->netdev);
+ 		unlink_all_urbs(dev);
++		tasklet_kill(&dev->tl);
++		unregister_netdev(dev->netdev);
+ 		free_all_urbs(dev);
+ 		free_skb_pool(dev);
+ 		dev_kfree_skb(dev->rx_skb);
+-- 
+2.56.0
+
