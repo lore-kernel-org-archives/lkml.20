@@ -1,99 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.4
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.82
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794478027;
-	b=aLKE9TC1x86LQe71EJNUEKX89lg2rFstvAU2ovik+aLuXdZOgbeLfxeDRvxMCiN6K1Sk
-	 Y/TO51ABEN6n4buwYufO9pl2m0Cds/r06YKIRoD1R74QcEfpAdQX2D4Y7TiStdjciiveJ
-	 bxZXfaHAWthbQTuMsm0ha5374b+CDWDryckCfD/RiXVn7JIqp4yWl1Xly+gIbO6gCUO8A
-	 0SaPV2AnPXC/b7xnVtp0xyAqhlNmshmDQm7SJKmJnoDy6dvYQP73owg1RGql84rlsCn5O
-	 G0U/FjnGJ0+qd2qpNlVFgToTYcIBUT1aOGOW5tkAh3dXTGzuoxTd4OKnLbYw4HT05SA==
+	t=1794478034;
+	b=iL8brdzciOu430SqY6sR/agFdGJPqKLK+RCFptaKihIz52newiOeuoYRw0iRdz9HJCGn
+	 NM6FVUwRVtU1fzkNYY0c5hzYZdg4P4k2p7NFy2xDGjsAtr1cVzssOFcXMc4EiFKLPW1PM
+	 xcOjv/OgZZLPYL4pnCkHRZO0KUOZySQBvD2Y2n60JFy+EBp58OeMfGme+BlP4k3Mtr2p0
+	 udzN3c6uMyXWwZS3zay2xi/D184PUw1/vUl5xRdB4EHFpMlSDqnF82aSwpuuqk8xQ0pOs
+	 WaK5IplXn2iGK7OVk8rlXsqTSt9G1reyTakxRwPkb1sIQ0BK18AvcvgrV0YoKTqobOg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478027;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=H4bAaTrCqmctSADeFqQQX+kGXr4lncxWKiQe5n9FcE4=;
-	b=V8YMzebopJ51q+DU4kb6fUr6YcWtPpXv6DvnfuX9OHisUajRO3+71ZO4aju3tNR6LL1h
-	 RQY8KYhKV92pW4tIYfZyZsuE2xCOPhzHlLZ5+xwY2GP65LDdyOEbD/BYwTNthc7zjTC86
-	 XK3y09/CJnfpA6faxAXfn+tjsV4rDqm0znm4jmybEDpd67OoiHEOYwIkLrT186TGWgLVY
-	 vRlc7cljQbM7s3nuxuRDG49lV155vqJ9ze93FnkCq6TyzOces4zmLLPCm7ogsVy3tkkka
-	 DpnZcAtQWdBFj553Xr4DGrILumE+A6+sf1gHCVxFN5lnZZbGEpy3rIB4HTDbs/gRgNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478034;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=RA3Z10wD7RDLkl1LQhXqveUCzhHEJEYzO4jR3113zUk=;
+	b=pnWTPziWXyCR8ILn0f3L+6RkG+D+bJDK+VQ6MpSXWuyofIC3FB/OwlAHUo1Z+TiWrkIj
+	 zJmG/fUVQ1F0Dmq1OnAtHxfUhkhx0klK8G4ZsdRrTmN0iSsXap+x4/P05K904h57nOOHg
+	 kIrqyI9KwBWheRfiRo3MqKB1aINIDI43624wF6fl8QGp2HnOBmBuqjRKKux7j+Lb4rYog
+	 axQvt1bekF9k7IyEwmduD4Ka+P96qleCUtcc5ViEKsGBz3hXWyDtfXkVGc/ijOLhx46Os
+	 1QJgAobS60PAtb+vvWrbS1AfPiM8GUVwZFzjaAbtrPn4AUV9ri57hjcYBn3iSGV/KFA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=CEVCSt52;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.4
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011004.outbound.protection.outlook.com [52.101.70.4])
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=A1A38LOW;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=voTzo6s7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.82
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.82])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19804606A323;
-	Thu, 12 Nov 2026 10:07:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19804606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49BB606A333;
+	Thu, 12 Nov 2026 10:07:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B49BB606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=CEVCSt52
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aqWbAD7nEoMXpFOO5RWD3j8ACtrf8j1SS/YPrJblLyGnswgziV0pXva58cL8rOb7XXS/z5za2dabXr/0K5DbqLEbhMsHsrINV9MTraqEKj/gZgW4Sgmj9daCabg6QgXuyydmma5nCkTH5LOAyU8Zxk1UQq8e+yUxxZiVrQbrRFaHBE0gwYeeFA3yUudCJJUsELqQdfYPyIFRxLdgeoBMtPBpN1OIzR4bSuT8wD3mCMwkTPbCFyvDNbU37HLa+9csvZqo8/MduK3H2chOivjPfN6TnwRbPV1jvcOj9lq7bRZ0kaZVy3Juaw3H2ahQz+ytonhKJ95dJ/vve2KYYzfkuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H4bAaTrCqmctSADeFqQQX+kGXr4lncxWKiQe5n9FcE4=;
- b=ACcL8aUs+o2NyFA+37rq6Wr5PZE5VUPZTJ7/4ph74l/UZBPp9yVFzR9N8erWQ+pu0hngBYGNbIW+3828HxN3a3v0KyhInm87RoA/kvH7+vjXuCnKRDCiG2+dZ/6WoRS6GMD5VUwyDnxY8aFzQ4xXIFSdFQTePAOWZwYcofw+AR+Zpqz3945CZCe7qoNVsQq0ZG69yZ9kWMzBXYo2MuWydWFbCs34z03eU4kQV2Iq1wiaYqT+hEzRCX2avOQup63wi8A4TpOoeyA0zVx4NErt3ivsioizVT+L5D9+b4WHMcAbEcMfWYpJUxC54ymmhOGofeY9T1/EY3qC91YJISsEqQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H4bAaTrCqmctSADeFqQQX+kGXr4lncxWKiQe5n9FcE4=;
- b=CEVCSt52akwimUvq7ADgNOHRcXKt+sbxLb1oTDO8WxTWL7eD3DMaqblmQYFe1bVQKEUCQDXP5cloE0kx/2cM1MzPIr1SeAC81fkwBdOQzc0TwYFT66Z+lO4XipMMvD1fmjo9JCxHiRIBTVNP5FoARxgpZQfO0lOuMFpAe4ur53zRqCmoOIQQ6c/TT3EaH6dqj2/tx2y1gDV+6TPlls6ifM8u5Gnn88NBQVGWOpjJABlX5TFhH6EJtRLrluofmgV83wEjAnoQUeFXlHWeaVvCJ4aHXjGvZ9pFanmivLPsmRAMHJ+EaQu5rtbcgCzoF/L/bVpUoE6MxkUcjMDP25rQkw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM6PR04MB4472.eurprd04.prod.outlook.com (2603:10a6:20b:23::20)
- by PA4PR04MB7998.eurprd04.prod.outlook.com (2603:10a6:102:c5::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 10:07:03 +0000
-Received: from AM6PR04MB4472.eurprd04.prod.outlook.com
- ([fe80::aed9:e8b9:c352:9ba0]) by AM6PR04MB4472.eurprd04.prod.outlook.com
- ([fe80::aed9:e8b9:c352:9ba0%6]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
- 10:06:27 +0000
-From: Stefan Ghetu <stefan.ghetu@nxp.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>
-Cc: Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Stefan Ghetu <stefan.ghetu@nxp.com>
-Subject: [PATCH v2 0/5] ASoC: fsl_asrc/fsl_easrc: fix memory safety issues
-Date: Thu, 12 Nov 2026 12:01:00 +0200
-Message-Id: <20261112100105.123845-1-stefan.ghetu@nxp.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AS8PR04CA0133.eurprd04.prod.outlook.com
- (2603:10a6:20b:127::18) To AM6PR04MB4472.eurprd04.prod.outlook.com
- (2603:10a6:20b:23::20)
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=A1A38LOW;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=voTzo6s7
+ARC-Seal: i=1; a=rsa-sha256; t=1794478030; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=XWV0fGqYErWZql2iGhouFxsrUOFN60KTxfYsJG7LqCJORolfiKRcs6UiMxrKS9Gf16
+    nZ2FdiYiF8R2tCdrykHZldEo86i/REhsnDKyjuoCjfpts6cy0yKUDtRfY4OWrZ82I57l
+    qAOHjGKCIFmq6TfL9j3BnYAGnV6NyU6g6tbfQssdG80+nmFxLcYwAK0Xm0DsumALoU9n
+    nTwjkKfZtKLqZd+aigWiNDJwX3cA0Wvon7dE5Z4BF2MvFv9TkCNbO9cRj/MaQCvtLgyC
+    3R+w68/Lk3PiY5l+02NR2Olp749FpL3QutsUVI0JFMcG/onnXoTw3D8rMbfb/WhqFxrW
+    telA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794478030;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=RA3Z10wD7RDLkl1LQhXqveUCzhHEJEYzO4jR3113zUk=;
+    b=mxvzKQbYJkVWWg7RjGeQMJzha8VN85CbpSSnBYv5scZ+EGbLuV6pUTTJf0SW3syJMW
+    bCv4GwltsuaUb7Bkr5OdsZZwd4avwmNeaD/iTkk9Th6EQlJeEuvyf//v5he+cksZTIC9
+    7aPuS4AL3Q3LDTs8MVPjvY2snz6clnP52GRy71cG288B6j5SSG35uLt0k4/Ryc1ekNn2
+    vgitjbs9Oy+qmb4k3vVvy9dgcf4JtrR4tQHUkCmtLKOXJpD8mqzfGchEwS8uJTo8lfWA
+    M4kJ2ZY4m3P+2PdFT6DQrFHRUOSXkMZcTVooUeaAbb+UVptW+jk0bE644xvewYZouT9D
+    soiA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794478030;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=RA3Z10wD7RDLkl1LQhXqveUCzhHEJEYzO4jR3113zUk=;
+    b=A1A38LOW9F6acPfut8wGJ8aC+WvmOo+Vqn05JE+or/SKWrZMWCSKSssFjdCcnLLAiK
+    KCrTReoL4EatVmgBOB3SXX77xf7Ks+Dk4oNPT3cFW1sLhkAxEfh2ltsZ6ZgUrh6N13fO
+    f6gQzsvTVHAsy3rLn9hxKBklEyOYM9oi/4ZGOz4qDton9OOfNbxSc9IumRBksjlKJXJh
+    vSmDM1Ak8Mnikk/tF38KLdbGDppzjhAQhEWalsIifjCHsLnsR8Io73Ftxb7iTL5Dj0IP
+    MGvxsd8Svm5BpuDX0siAn8TIH2Jjo4IZ2/dk0m68qOXnW+PEAIlMRxuj+UG7CY8JyrWW
+    29VQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794478030;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=RA3Z10wD7RDLkl1LQhXqveUCzhHEJEYzO4jR3113zUk=;
+    b=voTzo6s7h+H1VwoU6pbBx1a/Pc1ZqpXa3mZnT1Tz4SsT3iWuML6wzSSohLNGdIuqMR
+    o2hg8YF+0STgY/mfKGCw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV35pZz8iNKp1rK7chac7b5mVucO+Qp4KTQNe8"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22ACA79BFM
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Thu, 12 Nov 2026 11:07:09 +0100 (CET)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,105 +93,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM6PR04MB4472:EE_|PA4PR04MB7998:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6763a21e-4807-4ccd-3e8e-08df40a469c8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|19092799006|10067099003|11063799006|260925021311599003|260925022911599003|260925021911599003|56012099006|261022105027099003|261022075727099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261021121427099003|261102123227099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	G8ektGFkcl2RXMwlAMzlWEXRJs/oKQXqvhd0G3QVhDDZSH0k9W0lgUK+S4L83OSeCu8R/B5HsPifDIOekTdZU0j/e0el4g2bt2TrQF/7Ny3ChL95q6Cxjdi/uV11h0MujJ7M1VF2WP+h5tfC3f+PrxglyhebmV8dgo+RpNiCI6Z/UIEViML/nw7QG1ozSu7r3H1l8JUenmaItd+Spwn+Paaf97qw8mQt001EWSa0OhT9ckfSbwMPMd0ddt6/n8x0fxvqVRUvlMV0CwJFRt/GLQ6mYpxf8cKQsCsPeOuPgYjPHHCgyOC4wAQpcBeA1lXCLJuT2GH6by/ucm0RC5qgyxfnHq/VesqRfx1bMMsiz2VQpRloHDzYkW1lXoN9juKVMoOQ7ckUKchX7MwlBozNxB0piH1iVIUIDmdrZXppVwuguLlwgZQWYTh/zqcRnXfLLy3mUgIuhxOvr9I8gbH6iqo11Qfk714TFVYu+WJyrqK/WiCOR9p/4i3mSgjjKidJCjePKc+KhHUqzGAqsyFGNufccSKwj+u3TyoKDtllVxvmU11zc9ZHqWZJXOOQL7DkZlFY/xPVBbZUfBv3RvsAFhQlqLU+0y/7r5ToQHyDFXvtA4KHBrWfOP4DDYLcBirF
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB4472.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(19092799006)(10067099003)(11063799006)(260925021311599003)(260925022911599003)(260925021911599003)(56012099006)(261022105027099003)(261022075727099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?IGphgyIYDe1o7/i/+86hEfYUIIU8L6VmfIlmSPLyanA3cGzLFMU8zKW9NNgg?=
- =?us-ascii?Q?gW/1nYXbAyiODZlAu1n5LGUv3V5qrp2zrzbKnCLz4Y0b84Y4jne6QIuRLvVA?=
- =?us-ascii?Q?pshYMGvDaeQKpleRsFiEVRSDKz/YEqfXMU1zcE+QWzi46AxtuTf46UM0px69?=
- =?us-ascii?Q?2rz+hY3R45N+8NIY5uclcYf2RBU+ZVjHHd5IXKSO4hBaJhXcd0OPUwN+efWY?=
- =?us-ascii?Q?zeStef1K62DcwXVhzRjxmzJ4cbRzTOlASWsYBaoIPtPcoSz8XFG3+qZaLKgL?=
- =?us-ascii?Q?YK4f1aeS71JiDwF0vDrM4xqVce75b23ijbasayDlvZ46qMKOyPmuj3UvFthd?=
- =?us-ascii?Q?icUjmW+v6yiZZnNR7VTyNHIHjoEgPAZ4S7fD73VkXQrZR35LpW5FZIGKLZm/?=
- =?us-ascii?Q?tos7pF2P47b+OITTTX7UnldUoMiTS/Pwj0D96dJn2jUxw8d523Ms6sgvOq07?=
- =?us-ascii?Q?FxVjPFpHO+n94y3mon1wDrTTQncCj8ExaC8eQo/WAaGSVXpYfd8DVeBeTtGz?=
- =?us-ascii?Q?rkh8P4N3Lvq6Uyv0n+vMbOjIu43J/S8OldKB3LH4fnHrFNpWk4LxBT2Dms3B?=
- =?us-ascii?Q?PbsYxNVGQuVTPQ81pm6qf5pwj0oYEXtbvGpJLD9dmjMnjhCrL7esQmNCdDgW?=
- =?us-ascii?Q?sB0B41S5GxkMoFJqo3ymnjrno58TJoAhl8r2JniDq/oJyGiaUMHWFCS/jF3n?=
- =?us-ascii?Q?KDbBGyB5QQnug+1sJJKQjLDDs5ZX+gkIauUWqRmseW7q8y8GsL3hnSHioY2g?=
- =?us-ascii?Q?5Xe24xYsl2oSDo7WRBuDCKvWj1Hv45MH4R6Ph8hPjJkN8IMaH9R8OCWR7/ts?=
- =?us-ascii?Q?l+sR6JhW9xF17Rhr3aeWpd3xQER/wzFXtUumG6+R0quvauFKTpxxmDacy328?=
- =?us-ascii?Q?bvGzgG3ByxISZLxPhCrWsPh390GEyAq6sD8u9jkdc00Lg8+2rlFPHSQrAZgc?=
- =?us-ascii?Q?ClNr+C5NhHi6VZzhN1d2LG5yM4sdUyeXBE+qG7EWuagFvzprvx7esenbEwGk?=
- =?us-ascii?Q?pycReadjpTfflHO4FxxHZ4sttOqMbp3wCQdoXEb9mNWo9aNTbQvyn811yD3b?=
- =?us-ascii?Q?z5HmkT0mMPpwbsAKsZoiX2YXC+HGN+R6yc5clBm2xRz0JRPTTY9whAWMZ/1F?=
- =?us-ascii?Q?olDgMng7taIx1aOkmk43nAl7o90BeWJeOS7n9G2ItRPfvdZ2seAn4V3kTdMH?=
- =?us-ascii?Q?F5BFZ4Cw5b+j1ipgDy9v/HsveGMH4zM/wY9VQ4eLAvsfbx8THV/tJXyjPV3r?=
- =?us-ascii?Q?XQoSNO7jUOL/wU/Awgcrzr0f0bs4SuF/FeeDJO6bta5xw2j9Qp+hJKq8GK88?=
- =?us-ascii?Q?XlxrfS/Jol11nRApB8tPoyorjR8/I5L0XR+9+6TPuFMTjXwcRfASrfJOH1oh?=
- =?us-ascii?Q?cpz9qnrCfCQ+OnAaCi8CBv/gwgC0J+QTiMJG3TScRH0vkguFlzJGzDuVUmQ1?=
- =?us-ascii?Q?j94ZvhBFHgSgrjoXNYBx3Ql/l/gucs+t7j//kRdUVQHb4nDzVCn6JCj0fS4W?=
- =?us-ascii?Q?A5H7BqMWqjMaPhSqyGY4mhcUZijBHveJQpsXlzAqyQq+8KfVV+I/NbqxRCmd?=
- =?us-ascii?Q?sTNX37pROiS8UQJL2NlAhkkb7LBxzJLZgYoxLTRljjheisLW3vIxe/7L8jiA?=
- =?us-ascii?Q?HlUHjp1Gla3m0UcjDR+ZzoyCzdbR3RKwPWBp3uaSfMuyNfw5YcrkZyBY+dag?=
- =?us-ascii?Q?3DZSUyRVIQERSDaEyozO0A7l9piwBuujVOMTOImLIHu0bThNZLmHJ9d2aZOv?=
- =?us-ascii?Q?eV1AWjh06g=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6763a21e-4807-4ccd-3e8e-08df40a469c8
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB4472.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 10:06:26.7617
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w+sCYKlCzmGMI+EUey3GzNYYVta/g/NZ/35RmKawPlgSfQJTHPWDKF6mFxKzcqrGeIisMKFJg9KZwzORsI7Ndg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7998
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v2 2/2] dt-bindings: i2c: ingenic,i2c: Add the X1600
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <384F58FF-41C4-46AC-8B2A-1B6ABCDA6981@goldelico.com>
+Date: Thu, 12 Nov 2026 11:06:39 +0100
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <C17AD04D-6EE7-4CF8-8DB1-FED4A16C66AB@goldelico.com>
+References: <20261024212520.91401-1-olivier@mgcrea.io>
+ <20261024212520.91401-3-olivier@mgcrea.io>
+ <33b5ee36-e293-4356-9906-54e99ba3557e@kernel.org>
+ <at8jCGfp9dKjieoo@zenone.zhora.eu> <20261109190345.61480-1-olivier@mgcrea.io>
+ <384F58FF-41C4-46AC-8B2A-1B6ABCDA6981@goldelico.com>
+To: Olivier Louvignes <olivier@mgcrea.io>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-This series fixes memory safety issues in the ASRC and EASRC drivers
-that can be triggered by a user with access to their PCM or compress
-devices:
+Hi Olivier,
 
-1. fsl_asrc_m2m: the output FIFO drain can write past the end of the
-   output buffer.
-2. fsl_asrc: a repeated hw_params() leaves a stale asrc->pair[] entry
-   that points to freed memory after close, and hw_free() after a
-   failed hw_params() can release the pair of another stream.
-3. fsl_asrc_dma: DMA channels are leaked on a repeated hw_params(), and
-   released twice after a Back-End configuration error.
-4. fsl_easrc: the same repeated hw_params() issue for EASRC contexts.
-5. fsl_asrc_m2m: more than one task per compress stream leads to double
-   DMA channel release and a stale pair entry.
+> Am 10.11.2026 um 07:31 schrieb H. Nikolaus Schaller =
+<hns@goldelico.com>:
+>=20
+> Hi Olivier,
+>=20
+>> Am 09.11.2026 um 20:03 schrieb Olivier Louvignes <olivier@mgcrea.io>:
+>>=20
+>> Hi Nikolaus,
+>>=20
+>> On Mon, Oct 26, 2026 at 10:54:49AM +0100, Andi Shyti wrote:
+>>> I'll wait for Nikolaus ack/r-b for applying the patches.
+>>=20
+>> Could you have a look at v2 when you have a moment? It is the version
+>> after your review of v1: the spike filter programmed on the X1000 and
+>> later, and the X1600 falling back to ingenic,x1000-i2c. It still =
+applies
+>> on i2c-host and on v7.4-rc1.
+>=20
+> Yes, it is not forgotten.
+> I just have to solve another issue before.
 
-Patches 2 and 4 make the pair/context release ownership-checked; patch
-5 relies on them. Please apply in order.
+I have tried to test that. Unfortunately the x2600 board (which is the =
+only
+one where we use I2C for the RTC chip) does not run reliably and =
+randomly
+crashes and damages the =C2=B5SD card contents. I wasn't able to find =
+out yet if it
+is mmc/dma or dma or a bug in the x2600-sdhci driver or something with =
+cpu
+caches or a hardware issue with RAM timings.=20
 
-Validated on i.MX8MP (EASRC) and i.MX8QM (ASRC).
+So at the moment I have no device using I2C at high speed to do real =
+tests.
 
-Changes since v1:
-- Patch 1: drop the 8-bit output path, ASRC does not support 8-bit
-  output (Shengjiu Wang).
-- Patches 2-5: add Reviewed-by tags, no code changes.
+Please go ahead and if I find something we can write updates later on.
 
-v1: https://lore.kernel.org/linux-sound/20261110120743.6301-1-stefan.ghetu@nxp.com/T/
+BR and thanks,
+Nikolaus
 
-Stefan Ghetu (5):
-  ASoC: fsl_asrc_m2m: fix out-of-bounds write when draining the output
-    FIFO
-  ASoC: fsl_asrc: fix pair ownership on repeated or failed hw_params
-  ASoC: fsl_asrc_dma: release DMA channels on repeated hw_params
-  ASoC: fsl_easrc: fix context ownership on repeated hw_params
-  ASoC: fsl_asrc_m2m: allow only one task at a time per stream
-
- sound/soc/fsl/fsl_asrc.c     | 22 ++++++++++++++++++++++
- sound/soc/fsl/fsl_asrc_dma.c | 27 ++++++++++++++++++---------
- sound/soc/fsl/fsl_asrc_m2m.c | 30 +++++++++++++++++++-----------
- sound/soc/fsl/fsl_easrc.c    | 10 ++++++++++
- 4 files changed, 69 insertions(+), 20 deletions(-)
-
-
-base-commit: b810335a0699d1810683796b0e3ffe8827ddfe6c
--- 
-2.34.1
 
