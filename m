@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794490485;
-	b=brhmM1aXOkTq2cmXGDGE1PWEnEEBwaYXvd4X+bizqIrVdjkzxdrsROy6/74fNnAw2W/t
-	 whYmg0DB5A+zYdmsKYlukQjERNvcuTfP919tOqy54VBkV/uzYAS923mCUncr/WlkeqYqC
-	 qr/TblBA9W8ga+ngx7BQbK+wi3OsvORhA5tTVo6ALnbTtkLNBTAfRQazQxPe9LpphbIgP
-	 /pssHBdS8LIlQfU/EXukL/qLRH4ZNhAmGss1TKhtT6JY6sAae1UnYTxQwETyZvH1EpotF
-	 VectNbGFB41O23zMRR0wKIMepS47gO1zy9/TivNS4IsQszWqTaZzEy9kGWZEzsgIeqQ==
+	t=1794490487;
+	b=zhlQ5iLZxg938iGBcH3N+V3RDcQlzQhFSKFAtZKz03wyt0RBCAdqSrpfJsICqs6tZmoY
+	 4m+tnqUlP97x4M6sKHCRDR47rQdI9uoNfbXZqBpjESxskGJA2TEfLidN29nEgDwkR2PlQ
+	 gG3UVuzBhWwMy/GTXS3A2XhexJvWacDUUclN49EH6uXFQ2ogPzVxQspqe7acqZmsuu0Ev
+	 ln1KNLzdn0vaqKQ+NOYxnCecrQIfGqcITmtpOFyNA8ibFKoSNHyICazkQ5R8FhMqfGqp3
+	 mZ7lwAkttw6+6ClK7i2dNh6ftvNfkhkwh1XMvizRsu8VL8KCIRAgUbMjEECvyxudnPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490487;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=ZBHTfkePstkdhYPStihPwpZhe6evYsJ4HxGFWI7xQIQ=;
-	b=fU7YyztJrl9fNN7NmFS0TcjwRUynM1MXHDieDiy+EsDGn/oeXxBAo+y48QGjyAoRVzYC
-	 LESSnV3Ab/otwNk0iD8Vd+C7uA0SVFK0WyjWVBLZyc8sXgmkBoMlLIMXP/zX7kbURJ6zB
-	 Yl2UayyCGG7YkhRUhjZoN6X0J2XnrtbiZBjcGSQSc4Xf9RvlkBo7PC3ruqHgqewa51ill
-	 vZ0Mhz/LQHm1z/z+OvdsBp/qGh1zW2AkR3unAuQAwLh0uytIaeq0tI/Ykp9lb8sX2RUzO
-	 UASBSO8SE69gdcgn41Es3076QVHmvOFpJrgQo4/cBP7mIy8bt/BDj7QFiKUfS3Rd6Xw==
+	bh=DDK7BM+LNY1zenO7UXmBvgVSJIdNruMwi6HSl3NgWao=;
+	b=UYEdu6lx/XJLD7UIdQ+VB1TDGVZnCTeR+fXZmv/8xCihJ8PohwsrXR+3pzGHQxt81WRw
+	 CnCDgCL2rIncZ2ao4hEPN95ANVOYxBp2Fbu7OkPpAM3bKI9EGGWmC4niUQmc0EnKoO1AX
+	 mIeQDKOhX+9KQSrsUfQ2NHqoMRNfD4dg1ockk6/ZFOYYH1GEqk39J+BBMzNRaNfuU7tvZ
+	 DjzCjo0OTm/wWK692MCdPunAW/j0JHo07YTZ5sBuehQRy48D2Nmb/M/rNxFoCGgVRhgRh
+	 mhfIQ7T6XgH2FJM0mY2m1dCJo8uzuh4ueBXauh6RR/6P+qiwvw1AVF9zMvCF24l6jnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=WXo9wn0N;
-	arc=none smtp.remote-ip=113.46.200.218
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=L3lQXezW;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7DF606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B7DF606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCBB606A88D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CCBB606A88D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=WXo9wn0N
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=L3lQXezW
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=ZBHTfkePstkdhYPStihPwpZhe6evYsJ4HxGFWI7xQIQ=;
-	b=WXo9wn0NXhZX7pp7ZUMh/iOPIRLVlUIH2p8LTgXE7ANDOBqTMLMcJn+ioAx56LEYcQClNy3LR
-	fhpJPlEmx97/Kbdl53DCIYli9z7cMxKnOY197T93hS34sNl3vH29acpUDwGroc1TguVRSPeD6C6
-	amzAd2VIz8neRJeZS5pH9T0=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jQLvT1T7hzpStr;
-	Thu, 12 Nov 2026 21:33:57 +0800 (CST)
+	bh=DDK7BM+LNY1zenO7UXmBvgVSJIdNruMwi6HSl3NgWao=;
+	b=L3lQXezWkisHtYCNiZ2zOgIz2NtvfsQKZPdAZraNZAFnhAh+nAQcBMMiS7N1ar80mxNglW58q
+	zmzbEGYP5LErlsVmP08iEmVF6fA+xbaw+XBt2g0oI7eCn3uW1v01mpGM9nAPjpFL1kypxBoXh8i
+	8LtP2Wf1zzQyBuGLd157xs4=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jQLw72RN5z1prKK;
+	Thu, 12 Nov 2026 21:34:31 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id B50E040579;
-	Thu, 12 Nov 2026 21:34:36 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id BEEF240575;
+	Thu, 12 Nov 2026 21:34:40 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 21:34:35 +0800
+ 2026 21:34:39 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
@@ -77,10 +77,12 @@ To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
 	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
 	<kexec@lists.infradead.org>
-Subject: [PATCH v8 00/11] kexec: Rework segment loading and fix CMA retries
-Date: Thu, 12 Nov 2026 21:34:07 +0800
-Message-ID: <20261112133418.4044428-1-ruanjinjie@huawei.com>
+Subject: [PATCH v8 03/11] arm64: kexec_file: Load the other segments with common helpers
+Date: Thu, 12 Nov 2026 21:34:10 +0800
+Message-ID: <20261112133418.4044428-4-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261112133418.4044428-1-ruanjinjie@huawei.com>
+References: <20261112133418.4044428-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,86 +97,184 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-ARM64, LoongArch, RISC-V, x86 and powerpc build the elf core header
-and place it together with the initrd and the DTB with almost identical
-code.
+Use the common segment helpers to load the elf core header, the initrd
+and the DTB instead of open coding them.
 
-This series reworks that path into common helpers that the architectures
-reuse, and fixes the CMA page and elf core header leaks in the arm64
-and LoongArch placement retry loops.
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Mike Rapoport <rppt@kernel.org>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ arch/arm64/include/asm/kexec.h         |  4 +-
+ arch/arm64/kernel/kexec_image.c        |  3 +-
+ arch/arm64/kernel/machine_kexec_file.c | 81 ++++++--------------------
+ 3 files changed, 20 insertions(+), 68 deletions(-)
 
-The patch organization is as follows:
-
-- Patch 1 moves the release of the elf core header into the generic
-  post-load cleanup, so that the architectures no longer free it
-  themselves.
-
-- Patch 2 adds the common helpers
-
-- Patches 3-7 convert arm64, LoongArch, RISC-V, X86 and Powerpc to
-  reuse the common helpers
-
-- Patches 8-11 fix the CMA pages leaked by the retry loops and
-  the loop that makes no progress
-
-Tested with kexec_file_load() on arm64, LoongArch, RISC-V, X86 and
-Powerpc under QEMU, including the CMA retry paths, loading a crash
-kernel and booting the second kernel, with the agent help.
-
-This series is also available at:
-	https://github.com/ruanjinjie-eng/linux/tree/kexec_rework_cma_bugfx_v9
-
-Changes in v8:
-- Rework the common code as Mike suggested: the core provides building
-  blocks and the architectures uses them (Mike)
-- Build the elf core header once and only place it on the retries (Mike)
-- Keep the segment order and the arch placement policy unchanged (Mike)
-- Convert x86 and powerpc as well
-- Move the CMA fixes to the end of the series (Mike)
-- Link to v7: https://lore.kernel.org/all/20261026075201.699550-1-ruanjinjie@huawei.com/
-
-Previous Versions are as below:
-- v6: https://lore.kernel.org/all/20260921090450.807575-1-ruanjinjie@huawei.com/
-- v5: https://lore.kernel.org/all/20260918100442.3841135-1-ruanjinjie@huawei.com/
-- v4: https://lore.kernel.org/all/20260907125404.922123-1-ruanjinjie@huawei.com/
-- v3: https://lore.kernel.org/all/20260826092541.3905933-1-ruanjinjie@huawei.com/
-- v2: https://lore.kernel.org/all/20260729031235.2840255-1-ruanjinjie@huawei.com/
-- v1: https://lore.kernel.org/all/20260723131242.1537633-1-ruanjinjie@huawei.com/#t
-
-Jinjie Ruan (11):
-  kexec: Free the elf core header in kimage_file_post_load_cleanup()
-  kexec: Add helpers to load the elf core header, initrd and FDT
-  arm64: kexec_file: Load the other segments with common helpers
-  LoongArch: kexec_file: Load the other segments with common helpers
-  riscv: kexec_file: Load the extra segments with common helpers
-  x86: kexec_file: Use the common segment helpers
-  powerpc: kexec_file: Use the common segment helpers
-  kexec: Extract kexec_free_segment_cma() from kimage_free_cma()
-  kexec: Add kexec_rollback_segments() helper
-  arm64: kexec_file: Fix CMA segment placement retries
-  LoongArch: kexec_file: Fix CMA segment placement retries
-
- arch/arm64/include/asm/kexec.h             |   4 +-
- arch/arm64/kernel/kexec_image.c            |  15 ++-
- arch/arm64/kernel/machine_kexec_file.c     |  87 ++++----------
- arch/loongarch/include/asm/kexec.h         |   3 +-
- arch/loongarch/kernel/kexec_efi.c          |  15 ++-
- arch/loongarch/kernel/kexec_elf.c          |   3 +-
- arch/loongarch/kernel/machine_kexec_file.c |  80 +++++--------
- arch/powerpc/kexec/elf_64.c                |   9 +-
- arch/powerpc/kexec/file_load_64.c          |  18 +--
- arch/riscv/include/asm/kexec.h             |   4 +-
- arch/riscv/kernel/kexec_elf.c              |   3 +-
- arch/riscv/kernel/kexec_image.c            |   3 +-
- arch/riscv/kernel/machine_kexec_file.c     |  83 ++++----------
- arch/x86/kernel/crash.c                    |  25 +----
- arch/x86/kernel/kexec-bzimage64.c          |   8 +-
- arch/x86/kernel/machine_kexec_64.c         |   4 -
- include/linux/kexec.h                      |  14 +++
- kernel/kexec_core.c                        |  25 +++--
- kernel/kexec_file.c                        | 125 +++++++++++++++++++++
- 19 files changed, 254 insertions(+), 274 deletions(-)
-
+diff --git a/arch/arm64/include/asm/kexec.h b/arch/arm64/include/asm/kexec.h
+index 892e5bebda95..e7c4604a999f 100644
+--- a/arch/arm64/include/asm/kexec.h
++++ b/arch/arm64/include/asm/kexec.h
+@@ -125,9 +125,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image);
+ #define arch_kimage_file_post_load_cleanup arch_kimage_file_post_load_cleanup
+ 
+ extern int load_other_segments(struct kimage *image,
+-		unsigned long kernel_load_addr, unsigned long kernel_size,
+-		char *initrd, unsigned long initrd_len,
+-		char *cmdline);
++		unsigned long kernel_load_addr, unsigned long kernel_size);
+ #endif
+ 
+ #endif /* __ASSEMBLER__ */
+diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
+index f4ad22447259..a2a7c283b331 100644
+--- a/arch/arm64/kernel/kexec_image.c
++++ b/arch/arm64/kernel/kexec_image.c
+@@ -104,8 +104,7 @@ static void *image_load(struct kimage *image,
+ 		/* Try to load additional data */
+ 		kernel_segment = &image->segment[kernel_segment_number];
+ 		ret = load_other_segments(image, kernel_segment->mem,
+-					  kernel_segment->memsz, initrd,
+-					  initrd_len, cmdline);
++					  kernel_segment->memsz);
+ 		if (!ret)
+ 			break;
+ 
+diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+index 097ee397e949..82122ded1467 100644
+--- a/arch/arm64/kernel/machine_kexec_file.c
++++ b/arch/arm64/kernel/machine_kexec_file.c
+@@ -68,54 +68,33 @@ int arch_crash_populate_cmem(struct crash_mem *cmem)
+  * valid locations, this function will undo changes to the image and return non
+  * zero.
+  */
+-int load_other_segments(struct kimage *image,
+-			unsigned long kernel_load_addr,
+-			unsigned long kernel_size,
+-			char *initrd, unsigned long initrd_len,
+-			char *cmdline)
++int load_other_segments(struct kimage *image, unsigned long kernel_load_addr,
++			unsigned long kernel_size)
+ {
+-	struct kexec_buf kbuf = {};
++	unsigned long initrd_load_addr = 0, orig_segments = image->nr_segments;
++	struct kexec_buf kbuf = {
++		.image = image,
++		/* not allocate anything below the kernel */
++		.buf_min = kernel_load_addr + kernel_size,
++		.buf_max = ULONG_MAX,
++	};
+ 	void *dtb = NULL;
+-	unsigned long initrd_load_addr = 0, dtb_len,
+-		      orig_segments = image->nr_segments;
+ 	int ret = 0;
+ 
+-	kbuf.image = image;
+-	/* not allocate anything below the kernel */
+-	kbuf.buf_min = kernel_load_addr + kernel_size;
+-
+ #ifdef CONFIG_CRASH_DUMP
+ 	/* load elf core header */
+-	void *headers;
+-	unsigned long headers_sz;
+ 	if (image->type == KEXEC_TYPE_CRASH) {
+-		ret = crash_prepare_headers(true, &headers, &headers_sz, NULL);
+-		if (ret) {
+-			pr_err("Preparing elf core header failed\n");
++		ret = kexec_prepare_elf_core_header(image, true, NULL);
++		if (ret)
+ 			goto out_err;
+-		}
+ 
+-		kbuf.buffer = headers;
+-		kbuf.bufsz = headers_sz;
+-		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+-		kbuf.memsz = headers_sz;
+ 		kbuf.buf_align = SZ_64K; /* largest supported page size */
+-		kbuf.buf_max = ULONG_MAX;
+ 		kbuf.top_down = true;
++		kbuf.memsz = image->elf_headers_sz;
+ 
+-		ret = kexec_add_buffer(&kbuf);
+-		if (ret) {
+-			vfree(headers);
++		ret = kexec_add_elf_core_header(image, &kbuf);
++		if (ret)
+ 			goto out_err;
+-		}
+-
+-		vfree(image->elf_headers);
+-		image->elf_headers = headers;
+-		image->elf_load_addr = kbuf.mem;
+-		image->elf_headers_sz = headers_sz;
+-
+-		kexec_dprintk("Loaded elf core header at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+-			      image->elf_load_addr, kbuf.bufsz, kbuf.memsz);
+ 
+ 		ret = crash_load_dm_crypt_keys(image);
+ 		if (ret)
+@@ -124,56 +103,32 @@ int load_other_segments(struct kimage *image,
+ #endif
+ 
+ 	/* load initrd */
+-	if (initrd) {
+-		kbuf.buffer = initrd;
+-		kbuf.bufsz = initrd_len;
+-		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+-		kbuf.memsz = initrd_len;
++	if (image->initrd_buf) {
+ 		kbuf.buf_align = 0;
+ 		/* within 1GB-aligned window of up to 32GB in size */
+ 		kbuf.buf_max = round_down(kernel_load_addr, SZ_1G)
+ 						+ (unsigned long)SZ_1G * 32;
+ 		kbuf.top_down = false;
+ 
+-		ret = kexec_add_buffer(&kbuf);
++		ret = kexec_add_initrd(image, &kbuf);
+ 		if (ret)
+ 			goto out_err;
+ 		initrd_load_addr = kbuf.mem;
+-
+-		kexec_dprintk("Loaded initrd at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+-			      initrd_load_addr, kbuf.bufsz, kbuf.memsz);
+ 	}
+ 
+ 	/* load dtb */
+-	dtb = of_kexec_alloc_and_setup_fdt(image, initrd_load_addr,
+-					   initrd_len, cmdline, 0);
+-	if (!dtb) {
+-		pr_err("Preparing for new dtb failed\n");
+-		ret = -EINVAL;
+-		goto out_err;
+-	}
+-
+-	/* trim it */
+-	fdt_pack(dtb);
+-	dtb_len = fdt_totalsize(dtb);
+-	kbuf.buffer = dtb;
+-	kbuf.bufsz = dtb_len;
+-	kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+-	kbuf.memsz = dtb_len;
+ 	/* not across 2MB boundary */
+ 	kbuf.buf_align = SZ_2M;
+ 	kbuf.buf_max = ULONG_MAX;
+ 	kbuf.top_down = true;
+ 
+-	ret = kexec_add_buffer(&kbuf);
++	ret = kexec_add_fdt(image, &kbuf, initrd_load_addr, image->cmdline_buf,
++			    &dtb);
+ 	if (ret)
+ 		goto out_err;
+ 	image->arch.dtb = dtb;
+ 	image->arch.dtb_mem = kbuf.mem;
+ 
+-	kexec_dprintk("Loaded dtb at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+-		      kbuf.mem, kbuf.bufsz, kbuf.memsz);
+-
+ 	return 0;
+ 
+ out_err:
 -- 
 2.34.1
 
