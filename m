@@ -1,62 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480796;
-	b=Wdmu3zDBfny0ZTyPosRD/z8K+XPMMxYAtstVFoPEaEmO0El4X1N6iZyt9gH2VhSJ6RXQ
-	 QTpAN2E01gGEkUQEVVqDEOSih/YO5RpXu8WD41fGDtulVmnIElKXuw0uWkXPLyMIhdhsC
-	 EY1lYg3hrgawVqXJIxh4ODSabcFnS3i8bO8P93Y4UuS+dt8R0Z/hWeDd5FvsS8MtklZib
-	 JBxOMc4orEryMnFrxqMo/qAWr50KH6T4FN5LBv1Aqi9XHw+6jZ17bTxMOIiB5KZg9cjIY
-	 myabrNzXg/pa2KfqWq8yKfS5rFZWvBdovjOHOn7C12iaZFkTDsN7ZMLkF+jiAwyDUYA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480796;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=YkfsgtQgDkRJaBVA+m0bj+SaLpO/MI4c2Nw9+WXxjHw=;
-	b=jDTNPSAO0i4sXCqeXJkKEHSL7IXC8Mo9R8TEkmuVB6W9hWo6gqTWJ9pdHTc3QNg6McZS
-	 hPVSGJneNeuloHVtgCZkpPfNgZOiHnOTUxNdKOeOqJEnAVNmv8cRfjoKtkv0dUAVgPN2y
-	 F3bT7SKwTUpaVjwe30CorPe4LU4uCM5RwJZ03HgFj8k4BvrfmtKbS4aA0Y0yp5BOOWAJj
-	 frRRZGRGEfWlUTWF9Woz+QnA+wUB4sphmWBMoQ8QoXKl5ZTxNL02xBiyTcz8o2h+b5KDG
-	 rMCgT8VV0cCPBu/ReGwiYF/pqTvJ/OEHSIb2wTQkGcd3tso4NH+v9e7SnI0K4NZ4LHg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rbox.co;
-	spf=pass smtp.mailfrom=rbox.co;
-	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=vA5prnCr;
-	arc=none smtp.remote-ip=185.226.149.38
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794480808;
+	b=pHH9o1v71oBXEeonJs6TfHSqN82xdCKhG9PAptudJSOcAdbj/tJXZg4jdsqLd1sw9gLe
+	 HtICrz9wOfZsML2m1a2IrQDkLwkusuM5hhZQkMJxz6d8pJMWrkSQZv74284JYiCrxEwmG
+	 SUcxaEHjxf9ba2eT5A96G5A6X8pnsTa5c06wLAqFrxemAxyc/jHWWTYlAxVkHLb1HLoXQ
+	 03PmX7UgDkME3m791H6mHoLfepiLIwVh/kFM+bbFupSa3zTzTUstDx2LYykuLnxgkvprs
+	 mNBMAGsnxkIPNE4J+E3JL8GTH2ZcFagC552kzFuDL4J9igw3SdTa2p6oqQEBOVY2/1g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480808;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:X-ZohoMailClient;
+	bh=tLqa2FMlsnasCoo7Flq+ndrdNn8MeKqOwSnsMbw1pOY=;
+	b=Wxenffg9eYSwmpR/yVOatTgt/r9DaSmwyshBYaQgiQ4OuWKCpKl7LmdYd2wnV1dYC5v4
+	 seMis7YBeU9JYcTB4JR7UqniA58esEcRjsCKDskcMRnQWrxRBDepH2ov3ODf7TWjFW2Oi
+	 wekYXdTqBE0lwgAGH3UkHZpetiXpcfa/SaR3HW2gJbXf7OQuP1kS6dt2ICdHmW/uvT2Sh
+	 QMlmNphw22Et0CHdwDsL1/S/IilW/eAUueTJzeS+02Gjl4ObSvwrC/zdHDTdmgipk+DqN
+	 sxIUD+CExfkkCC5cvXIYrmMbFU8jmB2qee5sx2vpFkn6Pd74kVBJoYGyf6nMUs2d0GA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ziyao.cc;
+	spf=pass smtp.mailfrom=ziyao.cc;
+	dkim=pass header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=gTIN1Kf1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
+Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952A7606A31C;
-	Thu, 12 Nov 2026 10:53:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 952A7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBED606A323;
+	Thu, 12 Nov 2026 10:53:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CBED606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=vA5prnCr
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1xRSQY-004vrT-LI; Thu, 12 Nov 2026 11:53:10 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
-	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
-	bh=YkfsgtQgDkRJaBVA+m0bj+SaLpO/MI4c2Nw9+WXxjHw=; b=vA5prnCrpzhzImvR6dL1hZ5aRx
-	7AZfRRw/AHFTjjH14a9+SL6btoKJD7r3qjUU6vZluBY4yiXzj4EkPT7O3tsVzytYT9F8Q6omZRhfC
-	rjSP+lIYyhcccVt4FQ1thHaQ3EB6KMYIe/k57NBQvE7wNuU7BcbkkS9ovsfC6acXFlZtcWsM9txun
-	FJ2/cNs1c28l736y6d8qTxoZ2gOebmT3UyROCGjzS51oBTV7NUGLlU0rIXGpJBU9fe5CFAQJcq0nj
-	ZkQsf115+s82VBjiu2kpUJLwMUDvyKVnUlu0npvonOx6HadHmshrDy+wIJxfA6Fzg6b31WLoCZrH5
-	IrE54w5A==;
-Received: from [10.9.9.74] (helo=submission03.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1xRSQT-0004QY-4T; Thu, 12 Nov 2026 11:53:05 +0100
-Received: by submission03.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1xRSQD-005W3c-UH;
-	Thu, 12 Nov 2026 11:52:50 +0100
-Message-ID: <b4dbeace-95ad-4b0e-8f13-a418ab59e8df@rbox.co>
-Date: Thu, 12 Nov 2026 11:52:48 +0100
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=gTIN1Kf1
+ARC-Seal: i=1; a=rsa-sha256; t=1794480779; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=BTHypljfRAlk3PgTfQxskdtuHNyT2eHhwDSiPxWGcIxxpp5EKRnJ9l+nwrKju1zF32gR5z4S+iYv6e0UOFFOJVukfdb78fs5wDpiizkF3aMI9YuQIHDRiOUHu1oYn4wFVQnzBD0whvsnuWpeVq2kHHZ9mEQOh1x+KGICvTM65bk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794480779; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=tLqa2FMlsnasCoo7Flq+ndrdNn8MeKqOwSnsMbw1pOY=; 
+	b=CH5rP2keafftl/e1MuUB8BRJ33woDqE+wNT/OnRtWXmlfi0E5Gt6anyAJ6nxg0Pe62OJ1t3oTh+JITovKbcfT3eeIQ8BnYkBps3ThTSFFnNzdFJ/lqE1rf6w7Ex/JT7PWP1aGzNJCIweSHxFLYC62xkN/gXRllCOXFyHQxBK+sg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: a=rsa-sha256; b=gTIN1Kf1OSDmSisFgXIGp5nzx0VF2FjdVAGWgze/GM97/5ObZWtXtixYOhOLTr5oOTMCHDXorlaH4phnj1Ijw0LsTX2uCTBCgF0TGLh3mNdZJPOpthgOr3pRIIJpI9Y9+OzZrIUx0AlL3cHOa6dmeFr8HOhPr59+d/J2v/9qirE=; c=relaxed/relaxed; s=zmail; d=ziyao.cc; v=1; bh=tLqa2FMlsnasCoo7Flq+ndrdNn8MeKqOwSnsMbw1pOY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794480778136240.92925563025153;
+	Thu, 12 Nov 2026 02:52:58 -0800 (PST)
+Date: Thu, 12 Nov 2026 10:52:43 +0000
+From: Yao Zi <me@ziyao.cc>
+To: aiyengar1990@gmail.com, Ulf Hansson <ulfh@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Kevin Hilman <khilman@linaro.org>, Caesar Wang <wxt@rock-chips.com>,
+	Elaine Zhang <zhangqing@rock-chips.com>
+Cc: linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Yao Zi <me@ziyao.cc>, Igor Pecovnik <igor@armbian.com>
+Subject: Re: [PATCH v2 2/2] pmdomain: rockchip: report domain errors once,
+ with dev_err_probe()
+Message-ID: <avWae91pfLv9vyUv@pie>
+References: <20261112-pmdomain-rockchip-v2-0-5cd942a23df7@gmail.com>
+ <20261112-pmdomain-rockchip-v2-2-5cd942a23df7@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,36 +72,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Michal Luczaj <mhal@rbox.co>
-Subject: Re: [PATCH net] vhost/vsock: Fix socket state constant
-To: netdev-bot+sinfo@kernel.org
-Cc: Stefan Hajnoczi <stefanha@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Bobby Eshleman <bobbyeshleman@meta.com>, "Michael S. Tsirkin"
- <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261112-transport-reset-state-fix-v1-1-5698375f52a9@rbox.co>
- <179447976386.2168702.18392043659968828325@kernel.org>
-Content-Language: pl-PL, en-GB
-In-Reply-To: <179447976386.2168702.18392043659968828325@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-pmdomain-rockchip-v2-2-5cd942a23df7@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.473.96
+X-ZohoMailClient: External
 
-On 11/12/26 11:36, netdev-bot+sinfo@kernel.org wrote:
+On Thu, Nov 12, 2026 at 08:23:30AM +0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> When a power domain clock is not available yet,
+> rockchip_pm_add_one_domain() returns -EPROBE_DEFER, and both it and its
+> callers rockchip_pm_domain_probe() and rockchip_pm_add_subdomain() print
+> that with dev_err():
+> 
+>   rockchip-pm-domain ...: power-domain: failed to get clk at index 1: -517
+>   rockchip-pm-domain ...: failed to handle node power-domain: -517
+> 
+> once per probe attempt, and the second line twice for a nested domain.
+> On an RK3588 board whose NPU domain clock appears late this is more than
+> 20 error lines before the domain finally probes, and the reason of the
+> deferral is not recorded. Other failures are reported twice (once where
+> they happen and once by the callers), or only by the callers, which name
+> the node but not what failed: a missing pm_qos phandle and a pm_qos node
+> without a regmap print nothing in rockchip_pm_add_one_domain(), and a
+> failed clk_bulk_prepare() only has the message of the clk core, which
+> names neither the device nor the domain.
+> 
+> Report every error once, where it happens, with dev_err_probe(), and
+> drop the "failed to handle (subdomain) node" messages from the callers.
+> A deferral is then quiet and keeps its specific reason in
+> /sys/kernel/debug/devices_deferred, such as "failed to get clk at index
+> 1", and -ENOMEM, which the callers used to print, is quiet as well. The
+> return values are unchanged, except that a failed
+> syscon_node_to_regmap() for a pm_qos node now returns its own error
+> instead of -ENODEV: it can be -EPROBE_DEFER (a syscon regmap that is
+> not registered yet, or a syscon clock or hwlock that is not available
+> yet), which must not turn into a probe failure.
+> 
+> Fixes: 7c696693a4f5 ("soc: rockchip: power-domain: Add power domain driver")
+> Fixes: 6be05b5ec161 ("soc: rockchip: power-domain: add support for sub-power domains")
+> Suggested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  drivers/pmdomain/rockchip/pm-domains.c | 98 +++++++++++++++-------------------
+>  1 file changed, 43 insertions(+), 55 deletions(-)
+> 
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
+> index 00c7e78f89b5..be077fb52f40 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+> @@ -804,28 +804,22 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
+>  	int error;
+>  
+>  	error = of_property_read_u32(node, "reg", &id);
+> -	if (error) {
+> -		dev_err(pmu->dev,
+> -			"%pOFn: failed to retrieve domain id (reg): %d\n",
+> -			node, error);
+> -		return -EINVAL;
+> -	}
+> +	if (error)
+> +		return dev_err_probe(pmu->dev, -EINVAL,
+> +				     "%pOFn: failed to retrieve domain id (reg)\n",
+> +				     node);
+>  
+> -	if (id >= pmu->info->num_domains) {
+> -		dev_err(pmu->dev, "%pOFn: invalid domain id %d\n",
+> -			node, id);
+> -		return -EINVAL;
+> -	}
+> +	if (id >= pmu->info->num_domains)
+> +		return dev_err_probe(pmu->dev, -EINVAL,
+> +				     "%pOFn: invalid domain id %d\n", node, id);
 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
+These look like code clean-up instead of fixes, thus should be split
+into a separate patch, especially when we probably want to backport the
+real fixes. This applies for many places below.
 
-Discovered by reading the code and not getting it.
+Aside these unnecessary code changes, this patch seems in a better shape
+than the very first version[1] I submitted a week ago, which seems,
+unfortunately, being ignored.
 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by LLM and not proven at runtime). If it was triggered
->    please include the symptoms, like the stack trace or kernel messages.
+I'll drop the second patch in my series and use yours instead. But
+please search before sending patches next time to avoid duplicated work.
 
-Not triggered at runtime. It's a correctness fix, I didn't try to work out
-what could/would actually go wrong.
+-- 
+Thanks,
+Yao Zi
+
+Meow-mrrp-mrow, I'm a cat.
+
+[1]: https://lore.kernel.org/linux-rockchip/20261105001257.1368266-1-me@ziyao.cc/
