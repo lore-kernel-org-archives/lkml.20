@@ -1,82 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794472677;
-	b=zkH6kUlZe89ygnGM3OqwA0+wPl575YmqwGJBBLRelUjHnJyuDTnn6K5oK4EHAWC3XBGG
-	 XxBAyMYMzGNxpc0fNvpIWctdPsTmCMx+0YUvPFWOT9d1wcBIz0wGFs2n2TyzP6aNccQYi
-	 NdqZhA2f16LUCvIDcDx+4uMkDIJnOCMegcFC8D7dA0ezjIjGT90uUc3puXbNaEVd9FC9n
-	 NK/QEdQzqUnY3qzAwAWBB09IYUjCtQgeWraO/x39OEBigfIwd4CY1yIakV04R3ovuS0zm
-	 lGx0d8SMW/8iV5c2c2hAMov0JcQgGzv1UfDNMFV9oP8VVMmeYA8Af7GbfUY4ml3gfjQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472677;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=jC9c6LkMym15AEkB1ECUvRiuZK+RQD+M0yuFjSaKyCk=;
-	b=QaxzcRlijpZ04SVPsMOjpMjdSgo44M6jgEDhMNAH5oHZyGAz5+GHkSOHIgo2vRG6ufq/
-	 qErXYz08P1ImZ5lrfVAltty+/LJvY3VhDtzVw1Mce35gx1ZKIfkarDub4j5QHC5DEealo
-	 /ylW/2FIP8LlYF3pzi9M+MbEGR/PQF9BKeTbXfRCwqqBuAnlVReB8ncmAVPaEUzJiFM4B
-	 WOIV/1Yez9nL1jm3sIArolNy1fhqC+oOkvet8+KE6Ovaqq5yjzcXs4Zhw30OWO1PS2Lc7
-	 kGice662s2rs8JqzPcxBD29Zg7pEeAXgRRKW0bU9WTts4X3O75/YACGvuayPa0zxyAg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aE3Ebg0h;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794472719;
+	b=VpZS/TpUEmCoorCGRpetn7yR/DBgg/K0mqqxDhmTFdXvxCBS9E62FfF+XYmKuImFjvWD
+	 jn2yKrsVhXCS27jUwuC90au+u1Zor+gjIEzYPQ+6NWkvM+h9accZjeIgc0Vizy2hy+a25
+	 6BoM/EOIHuxEshrFviYwfkWwLYS1UxqwE5AykjdjpcCQNN75oWlATnNfTLOtGRw1VGDmi
+	 26zZ+H9gUSde0fEBYqpgQmkOmUp7WtX7s4VAwJ14f/Vgj0Wg58wnzUFdbizvTuC7HcinO
+	 SxSbUGRplbZLCXTM2pOLpy6LZulTw6ZFEhXvpsozxZnmC4DRtLqQ6pX6JzI/iSy+z7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472719;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=dvTW0HYPuDs0zvfRlKwp5jFkeDKeUCmm+3AkWFYGUPc=;
+	b=Uyi8DHfdsZRyoyoi5meZ3OcZkCJtDhN0VrSeuEuKoFVVP666cwdLniozl7NQaey81HwG
+	 ELWWp5BQVH0dIJuJCKM+zjMMfKfTJbgQyIM6yv/BcXvLCb/CZAZJqT4m6QujgxjLfT1K3
+	 9V8+RzOHdHXlULhiEvBVQNzniVE6BcE2i8eh1QO2sBCkzskrqx1sBP5ys637uG+n14cFC
+	 lscxO3fK7zGYMaYvfDc36Kz921qeqzJY2CVMZVyJr4hj7l48aKFRjckl/UQr9dN2187kH
+	 DGxdjXnwIoLiQuvQqhmNIVoTFNV1sHEOLwA2cuGZnVXnTRFAbzgc6Ouu+m2Qc4C8mtw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lsBV7ql1;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7750F607079F;
-	Thu, 12 Nov 2026 08:37:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7750F607079F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2F0606A338
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:38:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC2F0606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aE3Ebg0h
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
-	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 98FDA2058D6;
-	Thu, 12 Nov 2026 09:37:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794472671;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jC9c6LkMym15AEkB1ECUvRiuZK+RQD+M0yuFjSaKyCk=;
-	b=aE3Ebg0h6TFQiTzZoy3x4W6/nRoyAjYB+y1P+mgEe+AOdJNZtk5iT8PmIpdiaDpnIyw0oP
-	Ro0pchV+cIw3YXt3B1HPZ9csgbD918EtN5s3wgJHBLFL6No5pNvOJ+ViSEC0H6UneV/IfE
-	osbDNOcmXUgDZP/ZwtZycWYGjqJYCl51FfX24PdI6od6gRprQyiXz/kcjngfpcRgEfvNQ9
-	k1/djtTmgDA216B65I9smQE3IldYG8GYuvJUXBAFARe2JfdTcROUqSdXICcGTWzdz0GowS
-	cVrg/+Y6OOXZHllBxpjANnIJ/yiMwpNQHCI+1D7L10LER/RkwD68im1uR5uYSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794472671;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jC9c6LkMym15AEkB1ECUvRiuZK+RQD+M0yuFjSaKyCk=;
-	b=g3nE3URI7TWqzGKmfY9ofiwLLsJcl1km1NcZiWeULmGK29qIgA+MKzdKjCagTOgdkgwtVP
-	nVSV+w4dQ8MXneSpgbPpM+wM7P5kit0MMlNmccc+1lPb/F+qhQku+aC6u+ZfNL+mc7joLT
-	I1/X6Z7tWibX3ZJySbYXI2je/HpQ1FlvbqlITp+f59Ng1cDpBr1FIlQMhwuk0jUUt7Mgry
-	iVGKYl73ToRaXq8TWvst6E+3B4aA7BDhpmvCa9OCoLGWkEBccoGevaKKYYQ25Ou/9camE9
-	i9UOE9rnMttx43P6nejK1097rPLJOQb1zv51hGiWqgX1HPsOt2rXed6qeVOyZQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794472671; a=rsa-sha256;
-	cv=none;
-	b=F+k3//k17sE5AKdJsKkm/NWGi/bNhzUQGXTGblzXqWtVo04HhOf6xGCp4SlOywRNWi8yCc
-	LT33CYhPRYWnh+5HNfUf/zx957fR+xS16NWAs2zp6rXNuO3be4I8OoCh44vDnua9SCbfMA
-	Cm6g6uyvSNNpLG827jVc0LfXopb8FOfEDwfslVjBevmzSqDrGgeigI4j3pSMba3mdoOOR1
-	YRdgxRgc+c2pSds+am4uc1qqXF91Vu+Z7hvq1ScY/kR6ccd6Ai6MwpwvyFcXwKgU0SYJbk
-	OozJxEjnPc2JnobQpIshduV74rJbBboTswAE+Ljam6P/jpX7LySgseYUoYS3rg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 60341381DD5; Thu, 12 Nov 2026 09:37:51 +0100 (CET)
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-Date: Thu, 12 Nov 2026 09:37:51 +0100
-Subject: [PATCH net-next v2 08/10] net: dsa: realtek: rtl8365mb: program
- the PCP of untagged frames
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lsBV7ql1
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b16896b8ceso1524547a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:38:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794472718; x=1795077518; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dvTW0HYPuDs0zvfRlKwp5jFkeDKeUCmm+3AkWFYGUPc=;
+        b=lsBV7ql1n0dCE2h8c0NkPG41Gu1R9GylPG5seCstfGAGl783cHDW+zZf30utOij1r1
+         w5c17Y1FMzPebPW/TEctmTXtmSuAfsweVrkFf1WgMX/vh23+GfdrMybvwOYngGpYHuCs
+         0achl4yGpsWJsUv7eSb4Lssiz/163tWdnGs1QWioqehR6NcI0vUzAWznNHRpHlL9gmWP
+         XRATI/0/lw3+SG9hKnZI4YyIg9sRu1noRx+BWiVcgjt1I/y6kN3QN4ioBlPCr36F14k4
+         9z75JIUpKLKU+gUknfnAe4m54agtVDRmIJ6rLUkakliyyfm0CYCWg2FWgDV5jgm00hZZ
+         TgTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794472718; x=1795077518;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dvTW0HYPuDs0zvfRlKwp5jFkeDKeUCmm+3AkWFYGUPc=;
+        b=eSnLDQL3qylHldUwO/A7BnNAZakreOEFUWzF4zbkn0yAMboviFjE7bEpmL/kcZmbwv
+         wji0cpThB0P7sy5roB8G2ZwCZBM85yipPUv/iMXRMtlJG9w4BeVE/gzl2JgQfHjRGequ
+         unR6D6NfVuMtF03MwowfIecgNmspCxZkzIzqo65yBz7NZ/OxMCxFQuPmJ2kt2ujviAOq
+         kilj60U2qLxB7QtgcxrkbU78+XZ8RKR49YzWl9/whEAJ9BOgAGHz957o61kMAZ6cCFat
+         ZxMPPuq6BaK3H0gzZXu0QksmFZ91kYU8LX3+s23Oo+l/SjbHK8ZhCKzug89aISB/UnpI
+         pyng==
+X-Forwarded-Encrypted: i=1; AL+hErFNMnpklqRNtEFa+9jw+BypPts9voV03ZkLVpDb2V0mH44nnOnuBVhtqv+5KASU+bfvrVuK5SpkF42arz0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7sDab+sNBCFh16cfD0xMPPC3QzqumuThHiiXpY5IDOAsDngLF
+	As3n808Y5v8nKV8ehaF6XhvimmZ7IAWw0tt2TcIeQ9ekrLlAsrjKPsro
+X-Gm-Gg: AYBFou2pzJ90fkh3yrKoqBp+Vyo64C1KTt/OLm/+8NwZVbxOl7FQ2iBReA8NquEwMvF
+	cKXU/W9RJbj4/YUbDr28lapJhHdBxDrMiTOqtqg2u4ZOhGdplYRFBF83KJvKDas986RO1ah772B
+	F8vouMa1J6PbkaCdbg5o64+nYLw26J+n6MEPUm8ar182yVsZzvwhQEabasHJC8FYglgNrxShLAB
+	7WmPRH2ptq8sXaFyHuSFmYGEQgdQtvr2odRp9QUC0bCyEtRlb9w5FQwJiw7R/byl1XoS0ZUyMvE
+	BztZ8IOcTAIJROzBoBTbAM8xpEDREyM8//iNs6N+kGDMrZoRVS8EnAbJXLEnLeFlaccJStkAQa9
+	uIlIvbTSipQhbrWUNTS9x8TZIWKICXnuZq35UQH61+a/JFkfVmgZyOR36A02Ua2HpVzDNefduCe
+	TuHNF++Pq81ix/vTc1YtMeZSnxRK6Tw0IpuxlujYt7GXs/UWWiilV4DKPAMZrQv8Ik370HC7j7D
+	Pt+XDxEQpbd3n26el4rJogwCo2SIYxIHkqFhHmibICT8S3dVFE9+LQ+qlKbrFmne90AlzAPpPX4
+	HVgfm/8K7rqdQ1vxCck095sEcQ3MYKF2TGEwKp/GbyhJ7MU6M2EqYj2PHw0IF8jAAdm8djrvuw=
+	=
+X-Received: by 2002:a17:90b:1d0b:b0:3b0:bd53:8e5d with SMTP id 98e67ed59e1d1-3b182fb601fmr3766750a91.58.1794472718076;
+        Thu, 12 Nov 2026 00:38:38 -0800 (PST)
+Received: from KASONG-MC4 ([43.132.141.24])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c8ab32sm3786590a91.13.2026.11.12.00.38.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 00:38:37 -0800 (PST)
+Date: Thu, 12 Nov 2026 16:38:20 +0800
+From: Kairui Song <ryncsn@gmail.com>
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: David Hildenbrand <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>, 
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
+Subject: Re: [PATCH] mm/mglru: deactivate anon folios into the oldest
+ generation
+Message-ID: <avV52J2rD19cjM2J@KASONG-MC4>
+References: <20261112081928.3014946-1-ridong.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,182 +105,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-rtl8365mb-dcb-ingress-v2-8-f8e6fbdf8c99@pengutronix.de>
-References: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
-In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Linus Walleij <linusw@kernel.org>, 
- Luiz Angelo Daros de Luca <luizluca@gmail.com>, 
- =?utf-8?q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de
-X-Mailer: b4 0.14.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112081928.3014946-1-ridong.chen@linux.dev>
 
-Program the PCP that the switch gives to untagged frames whenever the
-port default priority is set.
+On Thu, Nov 12, 2026 at 04:19:28PM +0800, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
+> 
+> folio_deactivate() is used by MADV_COLD and DAMOS_LRU_DEPRIO to move a
+> folio towards eviction. lru_deactivate() does that by deleting the folio
+> from its LRU list, clearing PG_active and PG_referenced, and adding it
+> back with lruvec_add_folio().
+> 
+> With MGLRU, lru_gen_folio_seq() places a swap-backed folio that is not
+> in the swap cache, i.e. an anon or shmem folio, into max_seq - 1,
+> regardless of its refs. That generation is active per
+> lru_gen_is_active(), so such a folio never reaches an inactive
+> generation, and a folio that has aged into min_seq + 1 is moved to a
+> younger generation instead. PGDEACTIVATE is still counted. Other folios
+> are not affected: with their refs cleared they are placed into the
+> oldest generation.
+> 
+> On a 4-generation memcg, 64MB of aged anon memory in min_seq + 1 ends up
+> in max_seq - 1 after MADV_COLD, while 64MB of file memory in the same
+> generation ends up in min_seq.
+> 
+> As a result, MADV_COLD can make anon memory less likely to be reclaimed.
+> It can be reproduced with a single process in a memcg with swap enabled:
+> 
+>   1) map two 64MB anon regions A and B and fault them in, A first;
+>   2) age the memcg twice through /sys/kernel/debug/lru_gen, so that both
+>      regions are in the same generation, min_seq + 1;
+>   3) apply MADV_COLD to B only, A is the control;
+>   4) reclaim the size of one region from anon only:
+>      echo "64M swappiness=max" > memory.reclaim;
+>   5) count the swapped out pages of A and B from /proc/self/pagemap.
+> 
+> B is expected to be swapped out instead of A. Three runs on mm-new:
+> 
+>                      A swapped out        B (MADV_COLD) swapped out
+>   before             16384 pages          15 ~ 128 pages
+>   after              0 ~ 157 pages        16384 pages
+> 
+> Use lruvec_add_folio_tail() for MGLRU, which treats the folio as
+> reclaiming and adds it to the tail of the oldest generation, the same
+> place lru_deactivate_file() puts a clean file folio. The other folios,
+> which were added to the head of the oldest generation, are now added to
+> its tail as well, so they are reclaimed first as MADV_COLD intends.
+> 
+> Fixes: 081488051d28 ("mm/mglru: fix underprotected page cache")
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> ---
 
-With PCP trust, the switch classifies an untagged frame by this value.
-The value is 0 after reset, so untagged frames would be Best Effort
-whatever the port default priority is. PCP trust is added by "net: dsa:
-realtek: rtl8365mb: offload DCB apptrust".
+...
 
-The switch also puts this value into the tag it adds on egress. So far,
-an untagged frame that left a VLAN-tagged port carried PCP 0. With a
-default priority set, it now carries that priority as its PCP. The
-standards require this:
+> 
+>  mm/folio.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/folio.c b/mm/folio.c
+> index ea3adb6a89d7..c412d9b398e4 100644
+> --- a/mm/folio.c
+> +++ b/mm/folio.c
+> @@ -583,7 +583,16 @@ static void lru_deactivate(struct lruvec *lruvec, struct folio *folio)
+>  	lruvec_del_folio(lruvec, folio);
+>  	folio_clear_active(folio);
+>  	folio_clear_referenced(folio);
+> -	lruvec_add_folio(lruvec, folio);
+> +	/*
+> +	 * For MGLRU, lruvec_add_folio() places anon folios that are not in
+> +	 * the swap cache into the second youngest generation, which is an
+> +	 * active one. Add the folio to the oldest generation instead, like
+> +	 * lru_deactivate_file() does for clean folios.
+> +	 */
+> +	if (lru_gen_enabled())
+> +		lruvec_add_folio_tail(lruvec, folio);
+> +	else
+> +		lruvec_add_folio(lruvec, folio);
 
-IEEE 802.1AC-2016, 13.1: "The priority parameter of the
-M_UNITDATA.indication shall take the value of the Default Priority
-parameter for the SAP on which the MA_DATA.indication was received."
+Hi Ridong,
 
-IEEE 802.1Q-2022, 6.9.4: "For untagged frames, the priority parameter
-signaled in the corresponding M_UNITDATA.indication is taken to be the
-received priority."
-
-IEEE 802.1Q-2022, 6.9.3: "The priority and drop_eligible parameters
-are encoded in the PCP field of the VLAN tag using the Priority Code
-Point Encoding Table for the Port". With the default priority
-regeneration (Table 6-4) and the 8P0D encoding (Table 6-2), the PCP
-equals the Default Priority.
-
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
----
-Changes in v2:
-- New in v2. PCP trust needs it, or untagged frames would be Best
-  Effort.
----
- drivers/net/dsa/realtek/realtek.h       |  6 +++++-
- drivers/net/dsa/realtek/rtl8365mb_qos.c | 18 +++++++++++++++++-
- drivers/net/dsa/realtek/rtl8365mb_qos.h |  3 ++-
- drivers/net/dsa/realtek/rtl83xx-qos.c   | 14 ++++++++++----
- 4 files changed, 34 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/dsa/realtek/realtek.h b/drivers/net/dsa/realtek/realtek.h
-index 9a7906331cbdeef03c59cb4859c32c6fef2020d9..a9bdadbea3cbe19eeef0f33762318f022881e75f 100644
---- a/drivers/net/dsa/realtek/realtek.h
-+++ b/drivers/net/dsa/realtek/realtek.h
-@@ -165,8 +165,12 @@ struct realtek_ops {
- 	 * priority. A *_prio getter returns an iprio or a negative errno.
- 	 */
- 	int	(*qos_get_port_prio)(struct realtek_priv *priv, int port);
-+	/* Set the priority of @port to @iprio, and make @untag_pcp the PCP
-+	 * given to untagged frames on @port. @untag_pcp is an 802.1p
-+	 * priority, not an iprio.
-+	 */
- 	int	(*qos_set_port_prio)(struct realtek_priv *priv, int port,
--				     u8 iprio);
-+				     u8 iprio, u8 untag_pcp);
- 	int	(*qos_set_pcp_prio)(struct realtek_priv *priv, u8 pcp, u8 iprio);
- 	int	(*qos_set_dscp_prio)(struct realtek_priv *priv, u8 dscp,
- 				     u8 iprio);
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_qos.c b/drivers/net/dsa/realtek/rtl8365mb_qos.c
-index 378cd6ed7fe6447cc7508fef90dec4c5332cf3e1..2a849d0e4898a712d8f4babd5cdd03fe8e207814 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_qos.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_qos.c
-@@ -64,6 +64,14 @@ static_assert(RTL8365MB_QOS_QMAP_DEFAULT < RTL8365MB_QOS_NUM_QMAPS);
- #define RTL8365MB_QOS_1Q_REMAP_REG(_pcp) \
- 	(0x0865 + (_pcp) / RTL8365MB_QOS_SELS_PER_REG)
- 
-+/* PCP given to untagged frames, one 3-bit field per port */
-+#define RTL8365MB_QOS_PORT_UNTAG_PCP_REG(_p) \
-+	(0x0851 + (_p) / RTL8365MB_QOS_SELS_PER_REG)
-+
-+/* Ports 0..7 fit in 0x0851..0x0852 */
-+static_assert(RTL8365MB_QOS_PORT_UNTAG_PCP_REG(RTL8365MB_QOS_MAX_PORTS - 1) <=
-+	      0x0852);
-+
- /* Port-based (default) priority, one select per port */
- #define RTL8365MB_QOS_PORT_PRI_REG(_p) \
- 	(0x0877 + (_p) / RTL8365MB_QOS_SELS_PER_REG)
-@@ -184,7 +192,8 @@ int rtl8365mb_qos_get_port_prio(struct realtek_priv *priv, int port)
- 					       rtl8365mb_qos_sel_mask(port));
- }
- 
--int rtl8365mb_qos_set_port_prio(struct realtek_priv *priv, int port, u8 iprio)
-+int rtl8365mb_qos_set_port_prio(struct realtek_priv *priv, int port, u8 iprio,
-+				u8 untag_pcp)
- {
- 	int ret;
- 
-@@ -192,6 +201,13 @@ int rtl8365mb_qos_set_port_prio(struct realtek_priv *priv, int port, u8 iprio)
- 	if (ret)
- 		return ret;
- 
-+	ret = rtl8365mb_qos_regmap_update_field(priv,
-+						RTL8365MB_QOS_PORT_UNTAG_PCP_REG(port),
-+						rtl8365mb_qos_sel_mask(port),
-+						untag_pcp);
-+	if (ret)
-+		return ret;
-+
- 	return rtl8365mb_qos_regmap_update_field(priv,
- 						 RTL8365MB_QOS_PORT_PRI_REG(port),
- 						 rtl8365mb_qos_sel_mask(port),
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_qos.h b/drivers/net/dsa/realtek/rtl8365mb_qos.h
-index a3568d47f6c6ee9566074af0ec493ff4bbdbf44b..71949ece4af8fae5c49cf105ddaa3db9bc622cf2 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_qos.h
-+++ b/drivers/net/dsa/realtek/rtl8365mb_qos.h
-@@ -20,7 +20,8 @@ struct realtek_priv;
- int rtl8365mb_qos_pridec_init(struct realtek_priv *priv);
- int rtl8365mb_qos_qmap_init(struct realtek_priv *priv);
- int rtl8365mb_qos_get_port_prio(struct realtek_priv *priv, int port);
--int rtl8365mb_qos_set_port_prio(struct realtek_priv *priv, int port, u8 iprio);
-+int rtl8365mb_qos_set_port_prio(struct realtek_priv *priv, int port, u8 iprio,
-+				u8 untag_pcp);
- int rtl8365mb_qos_set_pcp_prio(struct realtek_priv *priv, u8 pcp, u8 iprio);
- int rtl8365mb_qos_set_dscp_prio(struct realtek_priv *priv, u8 dscp, u8 iprio);
- 
-diff --git a/drivers/net/dsa/realtek/rtl83xx-qos.c b/drivers/net/dsa/realtek/rtl83xx-qos.c
-index 0a02e6c4538a919e30e3c35594c7e7e7cdc3cf81..08091586901291e45ad1a2c64730cdcc30298b7a 100644
---- a/drivers/net/dsa/realtek/rtl83xx-qos.c
-+++ b/drivers/net/dsa/realtek/rtl83xx-qos.c
-@@ -5,7 +5,7 @@
-  * is an 802.1Q traffic type. dcbnl uses 802.1p priorities. An 802.1p priority
-  * equals the PCP value in the default PCP decoding (IEEE 802.1Q-2022 6.9.3).
-  * This layer converts at its edges: every priority it hands a backend is an
-- * internal priority.
-+ * internal priority, except the 802.1p PCP given to untagged frames.
-  *
-  * The backend maps internal priorities to its egress queues itself.
-  */
-@@ -60,6 +60,7 @@ EXPORT_SYMBOL_NS_GPL(rtl83xx_qos_init, "REALTEK_DSA");
- int rtl83xx_qos_init_port(struct dsa_switch *ds, int port)
- {
- 	struct realtek_priv *priv = ds->priv;
-+	int untag_pcp;
- 
- 	if (!priv->ops->qos_set_port_prio)
- 		return -EOPNOTSUPP;
-@@ -68,8 +69,13 @@ int rtl83xx_qos_init_port(struct dsa_switch *ds, int port)
- 	if (dsa_is_unused_port(ds, port))
- 		return 0;
- 
--	/* Best Effort, not internal priority 0, which is Background */
--	return priv->ops->qos_set_port_prio(priv, port, IEEE8021Q_TT_BE);
-+	untag_pcp = ieee8021q_tt_to_pcp(IEEE8021Q_TT_BE);
-+	if (untag_pcp < 0)
-+		return untag_pcp;
-+
-+	/* iprio is Best Effort, not 0, which is Background */
-+	return priv->ops->qos_set_port_prio(priv, port, IEEE8021Q_TT_BE,
-+					    untag_pcp);
- }
- EXPORT_SYMBOL_NS_GPL(rtl83xx_qos_init_port, "REALTEK_DSA");
- 
-@@ -104,6 +110,6 @@ int rtl83xx_port_set_default_prio(struct dsa_switch *ds, int port, u8 prio)
- 	if (tt < 0)
- 		return tt;
- 
--	return priv->ops->qos_set_port_prio(priv, port, tt);
-+	return priv->ops->qos_set_port_prio(priv, port, tt, prio);
- }
- EXPORT_SYMBOL_NS_GPL(rtl83xx_port_set_default_prio, "REALTEK_DSA");
-
--- 
-2.47.3
-
+One question here, why MGLRU/CLRU have to use two different ways to
+add the folio back?  Will this cause over aggressive reclaim of the
+folio?
