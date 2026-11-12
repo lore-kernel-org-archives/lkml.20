@@ -1,100 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794514919;
-	b=j5PSbihnvxGFwAW5CH+7GDeDtkrzdrUOvxosDx6pj3VCw9t9XyNG0f4AjzymwqvopWXl
-	 Lz6PEkreWsc8yWzQ+z3weXgjtEyoyLCfSr5VAoRL764QZgZo5MI+IFlkGDpnRTYXSaJQI
-	 nwdat8QHcGF6sU3WVlkmRV5RsTC1mRJTV/ms0nsaenspnXiDg7O/+hHlXsZYYH/92d7Ra
-	 A3LjE+kifH9rSSvskva8v+SxpVqYb6z5/nrrtKHQfVDpCUeV3tfaN6KWU/yYssLSTl8Il
-	 bIEsIFdkcmc7jvkuVyOOw0UQNdCBhUmQYE6uxD4ZtplMQXHNaOrwCrfipZHgj99T7XA==
+	t=1794514934;
+	b=U2YoIwVLkhF3fbfvtG3iB5Z/pegnOXYknRWcu21PshJpaw7/t9s1w1KJVe/FpNV3F4j8
+	 pYt/GSk0vhVjmWMuImhfoqi1Mrwtu637Mb+2wvzjM/6wElSVrb8HNXVHy5ThgJc0t0cyz
+	 +a3xGYrWItbU1eBe8EbeGj8n5Vxujxna1rLIjvuoCBtA7l5JwK4kcOVZCpv/TMgKSOUbY
+	 UPXXbgXACj78eQPOw+uSRmjvh97l5HxQ8ARjNNlvydaR17VJU/lEiTPbCGtO2QBNPqeMY
+	 8F8m0BihJEr+YcyOb9K25TIclJ6ow4yo/HPW6bgoQRf9kULIYCiNtOmoj7O8dG8JfWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794514919;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=HLVKQ5q/RC7N1G6VFkxAy6YbPfLl1hH8SPJjv+91rpU=;
-	b=MZH8CIjMORow1624Qb4e102a4+A62OCM0pMRLbG5TYuLy2Nuz9iytrwgzIZu4ArH/SmW
-	 7e0AuFIZ3XXI/Hv+K3ugxgxzcr2BzkV4D2HDN5iB3ukIuasPKXXKElQQ1lnV0aT7/YRRZ
-	 pGNwqcUqbddVQSkutKbsoZ2xIewBA3APQOnl6nysUmSf8J4VySieauls7R9ZFDsThoO8F
-	 PRMZKEktOj1m6OAEKBRsp4ZaD6GpazBWQedmZ1TtT+YY6ND1wRNiPcT29hO52nS/naU/5
-	 nnS4coDvdhHp7R1wNg0nq8rS4oBSKlmSuY1kJEGn5QopM4Pp7TOBeXSBanZF1dGNgIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794514934;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ffNri5wPyaoWDuKhZ9FxbDlSlTSKcXafOoFdLA+gTVM=;
+	b=lVDbDeUfLMT/W6xuRkv9cMEHjnOGFrR1cgzdt9MtW/PuBHn9q4LwsFsuhNXVL+uai5AK
+	 YYzmbhYDvMf2i/yYOL0V8jZDMvjJYxJCDOv0uBHeInPwTRUEidK/u6HGfHi3RDG9Y+By9
+	 F720KIqpCoku25yYCZ4p3+R+bhr6RtU3xETesQAJkk9a1mvD25lpU7efU89PJ8Ge6CDoA
+	 dGyVrmvebPnDJ1NkZYyY68IMZ2shrYi4GGGaWQ3WLQjesuyBKqxLuPvw/NEqcolb/+xvS
+	 kjQnSA4WMXhOV9sUfL0QoqlMtsm9FKZFwgzAcJI5bvPetnK7CgQo744uU0BmFkIygGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QHu2CNIq;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2HtaYb0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437F8606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:21:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 437F8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9DDD4606A31C;
+	Thu, 12 Nov 2026 20:22:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QHu2CNIq
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e9f6a16afcso22285ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:21:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794514917; x=1795119717; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HLVKQ5q/RC7N1G6VFkxAy6YbPfLl1hH8SPJjv+91rpU=;
-        b=QHu2CNIqST2nEYggP6ih40MK9P1PuDGS206mM+0PL3apX84hoqBNgLDi3Jw6FO3Rgd
-         kZqoY35q0bwhxdt+Yw6Su0gbjn6teoE+Fc/8EjRRbF/qouzl/EZDYc/ipqz9ISA5R37k
-         RpdfzbrE+4sEGl8p90XD754lUx7ohx3J5QCi7Y2OdU3F1qgyQe254//j2I/TxmYFYHjH
-         8cOEDXY7yz2kJHa5+w9LBgkqpNj7Zg1evC3KHU/ntsm646f3SbPYO/tiol92QXWoNUm7
-         Bkz1IEd6Zt66EjtSwvvsG+R1R0LjMgTzBSJFUKLtUr5LKR3fI0B1GdZYiuccBCivZZw0
-         qltw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794514917; x=1795119717;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HLVKQ5q/RC7N1G6VFkxAy6YbPfLl1hH8SPJjv+91rpU=;
-        b=yGGkR66UK7Rj+yKa0a9XvrzQKfeSJCzTQjC7tqlUMxVbdevX161J4pUyWivcoUU2Ki
-         NjtQJjLJwglAZMYLz/psnJGwOxzCgY3QZUJYtcXsXwZa5fq2gb02oruLR87ST4gpuEHj
-         77eDyAjDg9PtYh8PTdlOURF4lJ1+id8Gh11ydAqYW9UI9buUzaZqmFpAy1iNto1cJEdR
-         wZsUX+PAf1nM8AuuuKsHlFo530FFUtuKQ0Xw1YcqlAnmaEHzvEq0mqcAI1F1Gsvvkd3s
-         AHk3Juvq4IQhQT31EVVWcYU7d7S+nHoWNnZ2kR3q0JG+y48NUz+DfTPXtuA3W1X4mRdq
-         kT1g==
-X-Forwarded-Encrypted: i=1; AL+hErFkxYG3zkNid/z8s8EEQKs4sSczu5EHM3tD6eqU64Mzc+6zio2NQYZccC8OGKPMicMzOJCOYCwgro6NnSM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IVXDA6gXzqiDVV1R5Ej403JOexx3FZiWo9bgDRLbGteF6UOX7
-	5O0G1wc7Tl40I8IEYKhUR1fSX7IX2iEO/9r7904iGMoSaEcg86qylN1KfoF7xEL0Qw==
-X-Gm-Gg: AYBFou3FwTiLTlN9sBR4+T+WMRUmG6I5wj/4v5tg4ZpUnQ9qemDX3m8QIXWhzr8LXFO
-	dsYmwJiKfHBtkfESNUaycWQ2nGD9kNDR9JTTDzhOki2IQCcDjHip2AN10qReAx2/NtYL2omLKPl
-	w3LptS0YE4W4bU7dXRH798ds7akNcehEzStdfG8ZfPw7oT5DzG5bhdYMgdk50BlS0RlwSf2Dusu
-	4zxiznjl5sJIlS4Pks8X3J0jR80CnBlCXmJShAhgkGYpaOYOkbrQlkV2er58QZAmyd3KWTxA44b
-	crlMYLoZCixx3uzlMgeys8FsmrvjCy5/4Eq7DBmpsbcb8y0zc+oD16/Lo+h1unwkyhz7yE/5msA
-	RMQT79VfmQ8gxprlK52i1KTrGJtwDNkcLKK01/in7cef1TXhhbddlbSVHkksw0LkjZSrlIbBAes
-	twRqb4+tNBEy7qNKfCj+S/Zy77rp3bhQL8S8KQ83TNmE2jjBWN6ujMAL+I/K7ZIBgfXln2bANbT
-	tQm7rITTzzQR1XnixT9iGHeJBTSdHcd+XRMdesoqQyCxbcqe3RUWgCfFN3YRy4S6InyTA+VD35L
-	Edb/wwQ2H1qbFxcigFes4u7JgCmDnajE16Dl4ti2IvmAjhJeD5tyUexDuTOn0LMbDFpNApC3Ofl
-	i+ngLqlasrpWC33kNOyzOd+5IPKloHJJ8fHBjZhynInGm3xrKiHTvp1PbORBOerXzOa6ByaAlB6
-	xu7ePjVWtSxjJft8aZ84dTvpT/KUbrC6PE9Xc0rMVf7XnjM9lejOpclspLrBtSpbK5SjsY
-X-Received: by 2002:a17:903:2f91:b0:2d5:db38:8010 with SMTP id d9443c01a7336-2edf6d2417cmr6462905ad.15.1794514916908;
-        Thu, 12 Nov 2026 12:21:56 -0800 (PST)
-Received: from google.com (130.155.125.34.bc.googleusercontent.com. [34.125.155.130])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc1889960sm227016a12.15.2026.11.12.12.21.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 12:21:55 -0800 (PST)
-Date: Thu, 12 Nov 2026 20:21:51 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Chris Wiseman <chriswiseman@google.com>
-Cc: Alice Ryhl <aliceryhl@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
-	Todd Kjos <tkjos@android.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] rust_binder: reject sync transaction with pending
- sync work
-Message-ID: <avYf351-Z3Q2Cd9-@google.com>
-References: <18e70d7c82c722e3.3137322e32332e3235332e313736.191fb9.0000sendgmr@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2HtaYb0
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 059E11F000C4;
+	Thu, 12 Nov 2026 20:22:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794514934;
+	bh=ffNri5wPyaoWDuKhZ9FxbDlSlTSKcXafOoFdLA+gTVM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G2HtaYb0RYo+2Rg0DlGRfceiiYpMWFEDJHtWMm5QL9V+DTGJARH/Jgy5SKuV1YIBa
+	 RR4GVmiYY0f4uZ3zWXbMs7xNNIwEXAm6Ko14uFv15kWrsUACnjrRsE7TbsnzgB2L87
+	 mCBtFGGdWpEJgXxIoZ1Yu44Nt5cQt0vJ2Fh8MuaJLd/UrGcaFl6Hu1CW1JsgzFvl+p
+	 Nno54RXQHwEzyGAjV8vm0jvCSXbgtkwr5OEvfr7k2xaNc7z1qhqTVkd5I/6ySD3Wee
+	 Xf2WIYLqiBBtDAlXGM+uQ8YaXE4mTqOXvcZsrgmymUQvsiNU4tGELxr7S3XHCEYEuX
+	 mzU6gudkDNWDQ==
+Date: Thu, 12 Nov 2026 21:12:16 +0100
+From: Nicolas Schier <nsc@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Julian Braha <julianbraha@gmail.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Arnd Bergmann <arnd@arndb.de>, Kees Cook <kees@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	llvm@lists.linux.dev, Linus Torvalds <torvalds@linuxfoundation.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v2 5/6] Eliminate CONFIG_CC_HAS_ASM_GOTO_TIED_OUTPUT
+Message-ID: <avYdoI-g8YPwNwUG@levanger>
+Mail-Followup-To: Nicolas Schier <nsc@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Julian Braha <julianbraha@gmail.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Arnd Bergmann <arnd@arndb.de>, Kees Cook <kees@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	llvm@lists.linux.dev, Linus Torvalds <torvalds@linuxfoundation.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	linux-riscv@lists.infradead.org
+References: <20261111-kconfig-toolchain-updates-v2-0-b2d9415c1757@kernel.org>
+ <20261111-kconfig-toolchain-updates-v2-5-b2d9415c1757@kernel.org>
+ <avWkWm1N5rv52GG4@levanger>
+ <20261112174753.GC4107043@ax162>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,45 +90,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <18e70d7c82c722e3.3137322e32332e3235332e313736.191fb9.0000sendgmr@google.com>
+In-Reply-To: <20261112174753.GC4107043@ax162>
 
-On Wed, Nov 11, 2026 at 05:23:24PM +0000, Chris Wiseman wrote:
-> When a thread replies to a transaction with TF_DEFER_COMPLETE, its
-> BR_TRANSACTION_COMPLETE work item stays in inner.work_list while the
-> next blocking read waits in Process.ready_threads. A new incoming
-> synchronous transaction can then be queued behind that deferred
-> completion in inner.work_list. If the thread's read buffer only has
-> room for the deferred completion, the ioctl returns to userspace with
-> inner.current_transaction cleared while the incoming synchronous
-> transaction remains queued in inner.work_list.
+On Thu, Nov 12, 2026 at 10:47:53AM -0700, Nathan Chancellor wrote:
+> On Thu, Nov 12, 2026 at 12:34:50PM +0100, Nicolas Schier wrote:
+> > On Wed, Nov 11, 2026 at 05:52:07PM -0700, Nathan Chancellor wrote:
+> > > -config CC_HAS_ASM_GOTO_TIED_OUTPUT
+> > > -	depends on CC_HAS_ASM_GOTO_OUTPUT
+> > > -	# Detect buggy gcc and clang, fixed in gcc-11 clang-14.
+> > > -	def_bool $(success,echo 'int foo(int *x) { asm goto (".long (%l[bar]) - .": "+m"(*x) ::: bar); return *x; bar: return 0; }' | $CC -x c - -c -o /dev/null)
+> > 
+> > The comments reads as if gcc 8 to 10 are affected.  Is the comment
+> > somehow misleading, or should we still keep this until gcc-10 is the
+> > minimum gcc version?
 > 
-> If that thread sends an outgoing synchronous BC_TRANSACTION before
-> draining its work queue, Thread::transaction_inner sets
-> inner.current_transaction to Some(t_out), and the read phase of the
-> same BINDER_WRITE_READ ioctl pops the pending incoming transaction and
-> overwrites inner.current_transaction with Some(t_in). This orphans
-> t_out from the sender's transaction stack so
-> Thread::unwind_transaction_stack aborts on exit, leaving a permanent
-> Arc<Thread> <-> DArc<Transaction> reference cycle that pins both
-> Arc<Process> instances and their mapped ShrinkablePageRange pages
-> after the processes exit.
+> It is a little misleading. GCC 11 was the first version that supported
+> asm goto with outputs, so this program will not compile with GCC 8 to 10
+> as a result:
 > 
-> Resolve the TODO in Thread::transaction_inner by rejecting outgoing
-> synchronous transactions with EINVAL in Thread::top_of_transaction_stack
-> when inner.work_list contains any item where
-> DeliverToRead::should_sync_wakeup() is true. Checking
-> should_sync_wakeup() in top_of_transaction_stack() fails fast before
-> Transaction::new() allocates the target buffer or translates flat
-> binder objects, and ignores non-transaction work items in
-> inner.work_list.
+>   <stdin>: In function 'foo':
+>   <stdin>:1:51: error: expected ':' before string constant
 > 
-> Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
-> Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Carlos Llamas <cmllamas@google.com>
-> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
-> ---
+> The bug that it is trying to trigger was fixed during the GCC 11
+> development cycle between the initial asm goto with outputs commit and
+> the final release. As a result, for GCC, if it supports asm goto with
+> outputs, it supports tied outputs in the expected manner.
+> 
+> This test was mostly to catch buggy versions of clang, as asm goto with
+> outputs was first shipped in clang-11 but using tied outputs breaks the
+> build until they were fixed to be compatible with GCC in clang-14:
+> 
+>   <stdin>:1:29: error: invalid operand in inline asm: '.long (${1:l}) - .'
+>   int foo(int *x) { asm goto (".long (%l[bar]) - .": "+m"(*x) ::: bar); return *x; bar: return 0; }
+>                               ^
+>   <stdin>:1:29: error: unknown token in expression in '.long' directive
+>   <inline asm>:1:9: note: instantiated into assembly here
+>           .long () - .
+>                  ^
+>   2 errors generated.
+> 
+> So if the compiler results in CONFIG_CC_HAS_ASM_GOTO_OUTPUT=y, we know
+> that CONFIG_CC_HAS_ASM_GOTO_TIED_OUTPUT=y will be present as well.
 
-Aside from the "patch threading" issue, this LGTM. Thanks!
+ah ok, thanks for clarification!
 
-Acked-by: Carlos Llamas <cmllamas@google.com>
+Reviewed-by: Nicolas Schier <nsc@kernel.org>
+
+-- 
+Nicolas
