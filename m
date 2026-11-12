@@ -1,72 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481421;
-	b=3k8vV0T8HSgf4n0rVJo2vwa7JqKwnkcDdeqC5OnBzz7U5OPzMsXglnrK276GnM+m0UiK
-	 4MLtOuVWiNSzel6eeH+y6hFZH2oiKVWGGvWCFwIWw1HDB4qXr+YUJusbk3DRFMbhQ/MwL
-	 lF70Czl2S/nepIJUzhcygAsnQ2Hk1jEibF8oZvGY6Palxz4F3kiD61zq+ON38+1B+WztB
-	 yhXL3Rvx7IrQTJezO0mpnUb8GdT4kou66WSdal0wkQrLFh3R04L0EFh7Gd21sCI6JR/s2
-	 Ft7qtFjEPXdPPj5D3Dy3xDvzRmVuTt0zmiZIfiSrVlIjO0z6Vvf9JnueuYVQ2lTRSCA==
+	t=1794481433;
+	b=jUPY3SPSWTojTsfmPVoX0Y3lQO8l4pa7x/eyBFiGshEpPUWAhMj1oq3BfY6vYrwY3sXd
+	 zcYGguz/fc/FEM8dpwCNZm7NLRzRDZrxZLJpQAcr8lHtheyrNG8mvV1gn93+SMRn/vmjy
+	 vv17oQHTeQyqRieV6fejglTthAy2aTDdu4G6raOWmNQtAHYx4mFbpAyEn1qAi3p+jROxs
+	 2Oit0+xRxZObo8KOe3/8U0ZzKdTpCLTJTsF7e+lvMH5Rv1r0d1qrOR6qclwNevvexUaOe
+	 AcrH0aqL9ACjEQSx83gRKoDX+CshHsp5iuD0i0WmWxrW79KCbMVNPiLlvZ0S87pfn9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481421;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NL90eQvmf7oSmDtQxpeoM+o7UAHRN5i93I3Z8Hdt/Y0=;
-	b=urV4lHZFit78F9nrAjSZuKV1Er+JXgS9HB7AmUe4g5qq05kVERPhxDRa+Ay1L64JsXpb
-	 unBE4Vlq1dCfXdR4MggMXwjf1t7OTQxB5SwzXigoEh114bejl8uLVRh4Nx8lcO4vBF6sC
-	 d4xx5qbpYDwx6LOs/aRR8b40KDGO/eKtJurxCoTbqzq9McZy1VdPBh1rsFMuad/BhjbBB
-	 /MnV5AghGzExoCa3F9Ge5yOSaEhQleRhO4pv4Z30vVymh3HlDSv+2BvBjCn7S175a+8XY
-	 OwQaMBZ+qJYtS4uRmnpsa1nnzahogUM6IwLYde5O8pP7G01VfpD7Ju+/UmDHTP4w/nQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481433;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Subject:From:To:Cc:X-Mailer:References:In-Reply-To;
+	bh=7DL6NZ+BkMPV7VqBQUXBvWcIZ0TJ2DQpusktaObjwcA=;
+	b=35I+y7I1KdjHHoS1r9pLbAmjfNz/+Zxw6ot5R4UywoWCco9yQxZ+z/XwboBcFKT3f74x
+	 WGOGqf6suBijLDxt9EoWmi9Y681SwEPT92UoV/qMEnQOh8CPyG+JzEe/Dvlrk/w1He3xT
+	 aHCotjRrj9v+7ABe3MKr70uQ7ezxqE7Uvmmff6lL0g7N7VPxVMZiQd+tbTVsZv1yeXrif
+	 AU9a8/V/OC3TXxZEZ9Jg/WlrnbKjOCcwhq7lVhYEprE0OlHhJhTb7v2962YBmIhl8l9oc
+	 WAwsEFJJ0vv8uuyqSdknCM+mXCx9oS7e6FoZogj6rNtE8EA71gUnKTHA0n6TMMyu67Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XiANUSYq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bTHF5xOZ;
+	arc=none smtp.remote-ip=209.85.219.51
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A20606A32A;
-	Thu, 12 Nov 2026 11:03:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223B4606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:03:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 223B4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XiANUSYq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE5611F00A05;
-	Thu, 12 Nov 2026 11:03:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481421;
-	bh=NL90eQvmf7oSmDtQxpeoM+o7UAHRN5i93I3Z8Hdt/Y0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XiANUSYq7HUgR/c8fZWcWOwFWGYAsb6pXFnpXvRjnFQxTRcAUMYmq+6ZWOxb9KxVu
-	 A+7besaPWCB77jQ2L0tbcs6iRrubXZDh3+KAtwB0fdzJLNTYRIWApVuaQzspqS/arT
-	 ZYJosfzUTYA6dEePxBX0urqKahp6brnwUIP07hkQKRMgyykdPtYzhN06uzcQ+9in0H
-	 SE8zMyJqBNEusSrkJzGxbHpgMc6JdtC3fo3vhfODgYPm5fSqvvXu2rKjwsFTB4O93W
-	 vkniD/z7ulBy94/T9SEIBdXebyfQLf5PhOf7Wst5nwNowc4bDvyNtsoC6cj1sLVARo
-	 o9/pSs42AsN4A==
-Date: Thu, 12 Nov 2026 11:03:29 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
-	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
-	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
-	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, Michal Hocko <mhocko@suse.com>, 
-	Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 11/12] mm/madvise: send UFFD_EVENT_REMOVE when installing
- guard regions
-Message-ID: <avWW5t1BiD7pbzIZ@gremlin>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bTHF5xOZ
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91ea5600c9cso11107216d6.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:03:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794481432; x=1795086232; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7DL6NZ+BkMPV7VqBQUXBvWcIZ0TJ2DQpusktaObjwcA=;
+        b=bTHF5xOZC5ct22O4VSF5DGZdCzLfPtQcvnyeZBW5YGxHf4Hu9NvdPMpmXwL3e1UF43
+         7sIULqSy3m5xcOCehqDMQDBgzENiQoJpHkIhlyB9xr+sdCKc47ktGru5X8g0i7SXTng/
+         7fM7WSEl56hr3jeCEOAcbZ5Eds1lD9KL4Qs+5Ukw3UFYzLM1M3viUjZQiunDbrrjT2t3
+         8uGN8vdiURQ111vP+2qfGvI9TTzoG9LE+OP8877Mbg/jvni1oLAVVZ6SfJ10LkMALIuM
+         nn3ZGR4T3iOSyOa2qq9UN2UIvj1TORTEZpO6s0gnn7ZcgF8Zg6XcvDyC0njkUJcJehlV
+         Frow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794481432; x=1795086232;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7DL6NZ+BkMPV7VqBQUXBvWcIZ0TJ2DQpusktaObjwcA=;
+        b=ESJFJPGG3B8hgiev+gDFuQw8wcxZPnM4jiUqciOZv026HLAAzZ9dEhkulsfZzruVLW
+         n5qNmuxC3IRNAbOqSa5/wMfy7IhndjW/FX2xtd5q0bB2o8UIloLaHpmHDIT9fSO/RJuo
+         rwrrxzSMH0mjrxiHqY9KcRHYtQGZKphewLZm5G+x7k78z5RG2zpvrPhEyc9vOKMEwqrM
+         tbtW2k+lL0G8l0tkglSs/cXR4FZsdwmEjkaU70DN4BIOL7OL3a3Kum93w5IduihLcgYR
+         3qi9OPUfWyhbVJ/Hp837v+jxxQ0uUqznzlPDzcbnzuEprrZjipxMTmxk0FnQsIrLw+ji
+         k0eA==
+X-Forwarded-Encrypted: i=1; AL+hErGP1t8e2IRkwIeU1qvg8EfJzvQfYUl1T3QIJzwGXuyoo3kI32op+HksoW/mXqJPpW0b/AVuGiFdmyCjJZg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9TALx/HreGBLB0/0GcNThDxnx9FU+apJFr25GEV3NAQPxGEgaM
+	4kjx94YrFht1afjJhfmiejo4XR71hIvUmVMoVjWsxRFUTKMsFT84spKjcnp+gg==
+X-Gm-Gg: AYBFou0T14TBg/VwBFtgoc5i0bcWDni+q9XZ9tMdJ0lABPxXOAQFUE5SlIP+fIYn8cw
+	1Ji1WnEzq2BnBfgCEwHUgG46LnpejSxGobWQb0ahzvygL6fT/LZIomDvUTH1Twde7NCCNgNUqdZ
+	1zzCO75Xou2p/yy/TQgKH/Rz+dk1oaQLePfQun/ENLwcnkPVpmRufTRBmoT7lEH3TklDMu4lBMs
+	iZQAytfWHvOzSB4GsC0z8qpwEDoic6R0Koj4oPitgCwXpFDKgFSpbfbHIZ5krZUBQu7cB9OfMMt
+	HG4hud+pwh7dNo/j+BXuW7vS/VpIB2QSWZJAyoPE+SnD/lCYaPZNrp4drNVpOVKw9DFEp5JTCWb
+	yIP1FoPzpe8ZVut+O3iZXm1PyQ31NZ3nf+eNxfupeSRSNOIzY9OKWmF/8bUmWSccgOYnKtZGlp9
+	IiNjT/hGBGrZi47Nj3JK1I0NlBJDex+G5/pKoyqdPa+Cw04aqFVG0BfyBx1Vvps2CGYNaZLyOyn
+	y5cLicOuDX8rpFxhW2FYDp7AJwwM2evKpf76sCUoZfiBFjX+YJy+0nUAln7uvvZJC3ferfy83Va
+	zjx4T3PhQeNCfUlB8hjZrwX2VtPZlrMGw6w=
+X-Received: by 2002:a05:6214:5291:b0:91f:1bd3:d98a with SMTP id 6a1803df08f44-91f1bd3f546mr9764396d6.6.1794481432126;
+        Thu, 12 Nov 2026 03:03:52 -0800 (PST)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f20176493sm1379066d6.5.2026.11.12.03.03.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 03:03:51 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,99 +87,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 12 Nov 2026 06:03:50 -0500
+Message-Id: <DMT6KSM217ED.NPICK8VGAPQ0@gmail.com>
+Subject: Re: [PATCH net-next v2 4/6] eth: mpnic: UDP segmentation offload
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
+ <pabeni@redhat.com>, <dimitri.daskalakis1@gmail.com>,
+ <mohsin.bashr@gmail.com>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20261110-mpnic-lso-v2-4-ccd37b051d08@gmail.com>
+ <179447813712.2199510.12165491734923049464@kernel.org>
+In-Reply-To: <179447813712.2199510.12165491734923049464@kernel.org>
 
-On Wed, Nov 11, 2026 at 12:55:19PM -0500, Tal Zussman wrote:
-> MADV_GUARD_INSTALL zaps whatever is mapped in the range before
-> installing the guard markers. However, unlike MADV_DONTNEED and
-> MADV_REMOVE, madvise_guard_install() does not call userfaultfd_remove(),
-> so the userfaultfd manager is not told that the pages are gone.
+On Thu Nov 12, 2026 at 5:08 AM EST, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 >
-> On an anonymous VMA, the zap drops uffd-wp and RWP protection along with
-> the pages. Writes and accesses to the range after the guard is removed
-> are then not reported, and the manager cannot know that it has to
-> protect the range again.
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
 >
-> To fix it, send UFFD_EVENT_REMOVE before zapping. Guard install on a VMA
-> registered with userfaultfd already takes the mmap lock instead of the
-> VMA lock, so we can drop the lock for the event and look the VMA up
-> again afterwards.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
 >
-> As with MADV_DONTNEED, the call can now return -ENOMEM if the VMA goes
-> away while the lock is dropped, or -EINVAL if it is replaced by a VMA
-> that does not support guard regions.
->
-> Fixes: 662df3e5c376 ("mm: madvise: implement lightweight guard page mechanism")
-> Closes: https://lore.kernel.org/linux-mm/3f4b0d1b.bbf84.1a1c55cb666.Coremail.18670333770@163.com/
-
-This report was super-synthetic AI slop
-
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-
-Sorry I hate this.
-
-Since this was already silently broken, I think the right solution is to simply
-disallow guard region installation for uffd-armed VMAs.
-
-I had the AI go look for users, and it seems nobody is relying on this (glibc,
-android, CRIU, etc.), and there's really no sensible world in which somebody's
-combining the two. So I think fine to do that.
-
-It was simply an oversight (reflex action is to disable new features for hugetlb
-+ uffd)
-
-I'll send a patch separate from this, please drop it from the series.
-
-> ---
->  mm/madvise.c | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
->
-> diff --git a/mm/madvise.c b/mm/madvise.c
-> index e8b05dc899f1..6413f0e65381 100644
-> --- a/mm/madvise.c
-> +++ b/mm/madvise.c
-> @@ -1166,6 +1166,29 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
->  	if (!is_valid_guard_vma(vma, /* allow_locked = */false))
->  		return -EINVAL;
->
-> +	/*
-> +	 * Installing guards zaps the range, so report it to a userfaultfd
-> +	 * manager like MADV_DONTNEED does. The VMA can change while the mmap
-> +	 * lock is dropped for the event, so look it up again.
-> +	 */
-> +	if (!userfaultfd_remove(vma, range->start, range->end)) {
-> +		mark_mmap_lock_dropped(madv_behavior);
-> +		mmap_read_lock(madv_behavior->mm);
-> +		madv_behavior->vma = vma = vma_lookup(madv_behavior->mm,
-> +						      range->start);
-> +		if (!vma)
-> +			return -ENOMEM;
-> +		if (!is_valid_guard_vma(vma, /* allow_locked = */false))
-> +			return -EINVAL;
-> +		/*
-> +		 * The VMA may have been split while the lock was dropped.
-> +		 * Handle the part in this VMA. The remainder is handled by the
-> +		 * next iteration of madvise_walk_vmas().
-> +		 */
-> +		if (range->end > vma->vm_end)
-> +			range->end = vma->vm_end;
-> +	}
-> +
-
-(separate rant - that we have to a. know to do it and b. write duplicative
-open-coded crap like this is a perfect example of why uffd is such an utterly
-broken mm feature that should never have been merged...)
-
->  	/*
->  	 * Set atomically under read lock. All pertinent readers will need to
->  	 * acquire an mmap/VMA write lock to read it. All remaining readers may
+> - [Medium] This patch adds `skb->len < MPNIC_MIN_FRAME_LEN ||` to the
+>   generic `skb_is_gso(skb)` branch of mpnic_features_check()=E2=80=A6
 >
 > --
-> 2.39.5
+>
+> eth: mpnic: UDP segmentation offload
+>
+> This commit adds NETIF_F_GSO_UDP_L4 support for non-encapsulated udp4
+> and udp6 packets. As for TCP, the UDP checksum is seeded with a zero
+> length. It also makes mpnic_features_check() fall back to software GSO
+> for skbs shorter than MPNIC_MIN_FRAME_LEN.
+>
+>> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
+ethernet/meta/mpnic/mpnic_txrx.c
+>> index b78f8599bbe8f..2a0560b7dd19e 100644
+>> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>
+> [ ... ]
+>
+>> @@ -369,7 +384,8 @@ netdev_features_t mpnic_features_check(struct sk_buf=
+f *skb,
+>>  		return features & ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
+>> =20
+>>  	if (skb_is_gso(skb) &&
+>> -	    !FIELD_FIT(MPNIC_TWD_MSS, skb_shinfo(skb)->gso_size))
+>> +	    (skb->len < MPNIC_MIN_FRAME_LEN ||
+>> +	     !FIELD_FIT(MPNIC_TWD_MSS, skb_shinfo(skb)->gso_size)))
+>>  		return features & ~NETIF_F_GSO_MASK;
+>
+> [Severity: Medium]
+> This check applies to every GSO type. That means TCP GSO skbs shorter
+> than 60 bytes now fall back to software GSO too, not just UDP ones.
+>
+> The commit message body only talks about UDP. The only mention of this
+> check is the v2 changelog below the "---", and that text is dropped when
+> the patch is applied:
+>
+>   v2:
+>   - fall back to SW GSO for skbs shorter than MPNIC_MIN_FRAME_LEN, since
+>     HW LSO would segment the zero padding as payload
+>
+> Should the commit message describe the effect on TCP? Or should the
+> check move into the earlier "eth: mpnic: TCP segmentation offload"
+> patch?
+>
+> With only the TSO patch applied, TCP seems to have the same problem. In
+> that version, mpnic_features_check() rejected GSO only when gso_size
+> didn't fit MPNIC_TWD_MSS. So a short TCP GSO skb reaches
+> mpnic_xmit_frame_ring() with HW TSO enabled, and gets padded first:
+>
+> drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:mpnic_xmit_frame_ring() {
+>     ...
+> 	if (skb_put_padto(skb, MPNIC_MIN_FRAME_LEN))
+> 		goto err_drop;
+>     ...
+> }
+>
+> Then mpnic_tx_lso() seeds the TCP pseudo-checksum from the padded
+> length:
+>
+> 	payload_len =3D cpu_to_be16(skb->len - skb_checksum_start_offset(skb));
+> 	csum_replace_by_diff(&tcph->check, (__force __wsum)payload_len);
+>
+> Locally generated TCP GSO skbs are always longer than 60 bytes. A GSO
+> skb built from a virtio_net_hdr can be shorter, though. Sources include
+> tun/vhost and packet sockets with a vnet header. Such an skb can carry
+> a tiny gso_size and only a few bytes of payload.
 >
 
---
-Cheers, Lorenzo
+Local sashiko review surfaced the same complaint and wanted me to pull
+the check forward one commit. I decided against it. The UDP case is
+easily reachable because the user chooses the gso size. I don't think
+producing a TSO skb shorter than 60B is really possible. The
+virtio_net_hdr cases should have a min GSO size of TCP_MIN_GSO_SIZE set
+in virtio_net_hdr_to_skb().
+
+> In that case, wouldn't the receiver get the zero padding as TCP stream
+> data, with a valid checksum?
+>
+> The check is still present at the end of the series, so the final tree
+> is fine. The TSO commit on its own would still corrupt data if someone
+> bisects to it or backports it alone.
+
