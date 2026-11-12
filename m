@@ -1,63 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484314;
-	b=oUyI7AV/0sbhqnkRESzHlU68K4GVeN6c6CkGoC+snpKjpmEu+3OBJ8smt8s+mQDxMs/w
-	 l3UungVFufExQyR8gsKgCAfJd444cddW+HtCY87iTSVCelpSRSgaa/h46T9sWXP1ZrRgg
-	 NdVZ9k0g250knXVW5jYjhWJXcH7kmA8OTeNNBQ33pyfpYXU2fYqzwsCpqwVjqrwPm/72V
-	 Ye+YNR9lZyHXGzoY9B7q426tUbhkT/lFXKkqCTg/6iBFjGvKlipPE7fG9CfwgyoUYLaxi
-	 7+jk9yAEXYIufwPTA1T2EPJXX7uMgxtHhavDzcOGhobw0hgzEIJL1WtxiExMVYFGlUA==
+	t=1794484368;
+	b=FWhOcBH8gA/qLGc2/VtFjZs2Cl3FwseaT7iEMWGaz6JTH30fh5l8VFWecFKTGRBv7YkB
+	 WJZemZNCl/rZhf5bx2/4ZQ9LKxesJRJNL4bAqGx2XWUTux1GGUd7OE5bEXcwzwhflypL/
+	 48Q1W8D5sSBuVdWrVnmE9AHdiJCqCkPSXZerAJqOmcIO/23MpZz+xsjItCt5R4x/WH+5k
+	 APm4kKREwDfysgAN2u0Buf6sJC6pe6Eqs6JlnJ+B+GmCa2dg7d2LoNvANgmiMeZzi03DE
+	 RezU2J31VMQCFK7FiN13aDcA5podQ77joERcbzP20Qqjhs10fRwBWjJp2I6b0Ph8ovA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484314;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6R6toNBIUivUY49SbPVzsOWR13YYc6Q05DyfYkrwtKU=;
-	b=WNbqrB+rnZj0z1sr88uYhEM2x7Vl6d/kkj1nlSselBPc+0C9TY/PP7ApW8tVrNSo2t1Y
-	 9TJOTQLXMqvkG5R4pkhBvDYQhWQwpTx1pOcTrorO/1smp6yJiRz0C35rPfIiHGHHt/FE2
-	 tbbpynKZ9pc3rTmOflEe2EZu+aXwNJHKl16MIeMmVtBuhnIQfwXy5vaomqnvrC5WfLO/k
-	 6UXuspguBwqNk9eyGEDor+z00fbPuT5DbNDWWfb9wfOKD5jmGXTsfpqXjY+Ss7MxwdfLr
-	 uOAT+hzcSUIWjEex+dvvPpTYK/kjRSU6mrAp02rxuUhr7sNfGgNoBZREErTENrnI7Ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484368;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ab65Y+/YS/ftn0XtRf+D21POuuZDeeWSaeiwjaGmWKM=;
+	b=Dk1YwI5CFPnQpABSCxNcrJ9903L85NBkNO+r2arbu9XBA1zlNh0GLcZ1utBxpAyIFlPu
+	 PrV7J7Oi+VGFzAgvPmBSbnqjzXEKKRKmkJeSYSuOKydUtAPEkjheaChb78+ZgaVR+ynPv
+	 TpiCkKq9tIbZwd4Jqwp7LEnH/mU1yoOB96M/pwbgXqJQHu7EhxbvsGPTLHTc1lIe5nzRD
+	 vfKJdMMdR9njaMvVSGltAvi8ywoppnGrqYJwv1avFhLcw84fnB4bGayI6tXEI6WW+6aDe
+	 WlbUYfZpfIogeuvXjg+wS+wmbgUaL302sADJnmGd3FHVXFkRAwKZUWPfCLSqJN20bsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=TtVbtc7c;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JciomXZa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 567D3606A321;
-	Thu, 12 Nov 2026 11:51:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 567D3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06967606A321;
+	Thu, 12 Nov 2026 11:52:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=TtVbtc7c
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=6R6toNBIUivUY49SbPVzsOWR13YYc6Q05DyfYkrwtKU=; t=1794484314; x=1795693914; 
-	b=TtVbtc7ceYK43A0qJYJPRllpoZEHlClOLnU1qDM+3OKrKNiEqLQfJ5ItSD2GjEdgg/e5j4mjGDW
-	9taxb613RS3QK05Z0lLzeGCvTxcBxNAlGe+6Phmty7W9InoWZbVyLp/xSjExaAPKPqzVS0w94Vw9K
-	edc4+/mwrKfPyCMIrYY//bJt4ZJNW7GFCWgt0hcdaekwuKi7UIHBqgV6cUmzYjBFNn7s1qHEqUnSM
-	WJUGrWUftUqu+b9VonZsf6+dh974YNp4yEQC7KqYHK0eLAfXbkJpR7LofIJfgFYGsjWSbFIVcCPzC
-	yb23yKCinffAXtEpd34PMIZ71oQfPJ5JUenQ==;
-Date: Thu, 12 Nov 2026 12:51:48 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>,
- <dri-devel@lists.freedesktop.org>, <linux-omap@vger.kernel.org>,
- <hns@goldelico.com>, <linux-kernel@vger.kernel.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-Subject: Re: [PATCH] drm/omap: dss: fix handling deferrals
-Message-ID: <20261112125148.23235dec@kemnade.info>
-In-Reply-To: <DMSHYXQ01R6O.3F13LZ51TUPCP@bootlin.com>
-References: <20261111-gta04-drm-regression-fix-v1-1-1de27d5ba46a@kemnade.info>
-	<33f63eaf-42a0-4b3f-a21c-3752436d07b4@ideasonboard.com>
-	<DMSHYXQ01R6O.3F13LZ51TUPCP@bootlin.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JciomXZa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDF661F00A05;
+	Thu, 12 Nov 2026 11:52:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794484367;
+	bh=ab65Y+/YS/ftn0XtRf+D21POuuZDeeWSaeiwjaGmWKM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JciomXZaUjqGr0rn+i52tzTnVMKf61Ev/r6LPScfy3/DHjKOGHeScELqCPIMBBPlE
+	 ctID8uzarSzJ+lo7upBGVmq2V8xtl5tnfs/cB+SqHYLHbajDMl3JXyuXoq6iIMGLaS
+	 P/y1+WblHvuQml3Bi8eNhvWXoq1nttW3GnSWLFokZJcUeOM6yIoklaaYb3p4yq09r+
+	 kwLPkSBfkFsF+Tiucs3ZfCvR/I4CEgOuCSjcFU0Xwm5gWwbn/fGHeHGO2k6DhfnfU7
+	 DuXsXuV9XgADgIxMopbBrjiRn2Fm6wsL5HTd3PVU2pQnTVkJerK9EXIz1ZTrThwqaH
+	 di4aUgCf/gR1w==
+Date: Thu, 12 Nov 2026 12:52:44 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>, 
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mfd@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	iommu@lists.linux.dev, linux-usb@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH 02/17] dt-bindings: firmware: qcom,scm: Document Halliday
+ SCM
+Message-ID: <20261112-fabulous-nautilus-of-joviality-dd8d5a@quoll>
+References: <20261109-halliday-dts-v1-0-289114ab8197@gmail.com>
+ <20261109-halliday-dts-v1-2-289114ab8197@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,75 +76,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261109-halliday-dts-v1-2-289114ab8197@gmail.com>
 
-On Wed, 11 Nov 2026 16:46:51 +0100
-"Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
+On Mon, Nov 09, 2026 at 12:33:14AM +0000, Stanislav Aleksandrov wrote:
+> Document the SCM on the Qualcomm Halliday SoC.
+> 
+> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/firmware/qcom,scm.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-> Hello Andreas,
-> 
-> On Wed Nov 11, 2026 at 3:56 PM CET, Tomi Valkeinen wrote:
-> > Hi,
-> >
-> > On 11/11/2026 14:22, Andreas Kemnade wrote:  
-> >> Forward the error given by of_drm_get_bridge_by_endpoint() if it is
-> >> EPROBE_DEFER to ensure output gets initialized later when available.
-> >>
-> >> On GTA04/OMAP3 no display was found, but it appeared after doing
-> >> rmmod omapdrm ; modprobe omapdrm
-> >>
-> >> Fixes: b7e9b93fc8ecf ("drm/omap: dss: don't create a panel_bridge")  
-> 
-> Ouch, sorry about breaking this driver. To my excuse the old code removed
-> by b7e9b93fc8ecf was (ans still is) pretty obscure.
-> 
-> >> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
-> >> ---
-> >>   drivers/gpu/drm/omapdrm/dss/output.c | 5 +++++
-> >>   1 file changed, 5 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
-> >> index 36d37deac8026..220ed7e003080 100644
-> >> --- a/drivers/gpu/drm/omapdrm/dss/output.c
-> >> +++ b/drivers/gpu/drm/omapdrm/dss/output.c
-> >> @@ -24,6 +24,11 @@ int omapdss_device_init_output(struct omap_dss_device *out,
-> >>
-> >>   	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
-> >>   	if (IS_ERR(bridge)) {
-> >> +		if (PTR_ERR(bridge) == -EPROBE_DEFER) {
-> >> +			ret = PTR_ERR(bridge);
-> >> +			goto error;
-> >> +		}
-> >> +  
-> > Shouldn't we just return PTR_ERR(bridge) here? The error label will call
-> > omapdss_device_cleanup_output(), which cleans up things set up later in
-> > this function.  
-> 
-> Indeed.
-> 
-> 
-> Additionally, by looking at the omapdss_device_init_output() code right
-> now, the goto-based error management appears:
-> 
->  1. unnecessarily complicated: only one goto for only one line of rollback
->     code
-> 
->  2. potentially wrong, or at least doing too much, because
->     omapdss_device_cleanup_output() does two things:
-> 
->       a. drm_bridge_put(out->next_bridge): but when goto is invoked the
->          out->next_bridge pointer has not been touched yet
->          (I assume we should not touch the refcount in this case)
-> 
->       b. drm_bridge_put(out->bridge): unneeded because the goto is inside
->          an 'if (!out->bridge)', thus there is no reference at all to put
-> 
-> Do you agree with these findings?
-> 
-of_drm_get_bridge_by_endpoint never returns NULL (indicated by Sashiko).
-So we have dead code there anyways. So the patch is dead code elimination
-and not fixing bugs.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Regards,
-Andreas
+Best regards,
+Krzysztof
+
