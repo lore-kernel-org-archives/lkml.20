@@ -1,71 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476478;
-	b=rBEuUXSAXjrQrcPYCn5JOtJn0Qhk/DtE7oPPnnaw9gvXng7HTRxxURqOsqBz6kY8zFCf
-	 ifD8v40FbMMtkDRTJ6BXXTkByf8H09tjBujYuuMjhB26onMcAxuj49yLpfrbrSSMbe/kg
-	 qJs6qEAQg57oF+2cpmM2nzdgdUwh6Kp/zsSb++Y3mBLORp8iNNtckWeej3wNTiqhnhcPp
-	 pYpB6UgkzxNLjEJKViCqykEsRTPCJEExOQKtsvpsP0QX8gV3AwRCWYuRA1m4MCzlBPSS4
-	 XPcYHvqdEaR142fj6v/mlcjwmgCXIj0nKYXWOct3dCLdvBIOsB0QF4MbCHqXUPXB8+w==
+	t=1794476499;
+	b=lr2IIhBprYgA7ov6Cl8+Y/wUSe/d/iVloInrxKM+KBUuh5OUSjuHavtNHwbRBVvGSD71
+	 lJrxk3jM5yTkLC3ORanz1VCTdh7XsKcoPn1+9XUYBckyP2R8L7dEXGGFvdh0U9+VR7FLZ
+	 ads3OIlsS1xht+qZEYQr+HmLuzs1XCAk/s/ewCoNYtV50nLueR8x62x7A45M3tdHfSNN3
+	 WNfLru7h0zSim/ST7Afj80Qt0x8NO91KYiMAoah0nEAKH96yoFerwAjaxpPwcBNr8XZzc
+	 z8sQCUQa2kbyFZi5kE04Nl+LelugLX5S5eFgC4yQkwY+m/0hQ++P1QiOvES0AS9zgyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476478;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LYSO9/G+nFBoVNURsqyo9sHLReLzezHi8+C++TTDM7Y=;
-	b=ubAkytt7JOtNss/pNVsNkY/FKg7SQaOgc4rXOdRZ1RX19fqO4gPh3/vPKJkovJCjK9sG
-	 S3q2CkqIh5r7+WwZp7Rtb4P/kNadHb0QbkHl/x+SxaEOq7EXp3fLorbs1FzUmRg4qBKpr
-	 bb2dsI08CzC3OECC7BgEDd4Nh6hySnm6s7JKk1tywar8EuT7ghc4uxscAZmM3MMhMrSo7
-	 47XoppOI67PEvJxm3tgzN1/QBNAXKbUzigNvLmIfArLwYaOXTpZ+0jjIOY1LhS4o3c0gb
-	 hRgMzYCdDhnWCDpxwrO54IxmwzbLo0b28SVSmZu62qyIzEeuBA+cyA1yie8W7B1TUaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476499;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=220ugqDuyQyPHtA/XrNCqAcUUimFC+lFQ4mNPAn6NRA=;
+	b=qi5Ig11aMnvYdSS6o5aaWNh6g1Q1y9jXI8QBJHkCLZsrlfneJmp1sF6WgD541KRgDFaM
+	 uaRKtPzctRQUO++YS0B7Zs3B1AOu9tytbJQ0eN9PUqVTWrJo8F92hWU028VvWSJbJ0czd
+	 Al/1wY7OBjkzBo4tAaEVq5QxrzPZ+wvrcfkcaICcuQiPu9pAIgDoVHh7CSSfd+S5W9a9d
+	 NER9Z9Wx+9c5o3pX8+zRWlP3/83Spg1E8Xyxomd236y3eo1L8SVD52qHoLtfk30DbO/Qj
+	 T82aRVgNdYzIi/w3yEarRE+GVCbUgeSNERCVuBF8F+dNKxfOMNPCBYCS5ApXT9Hkqkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MJaPo8bf;
-	arc=none smtp.remote-ip=91.218.175.179
-Received: from mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D25606A336
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:41:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45D25606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="vmzj/Kff";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5EE8606A889;
+	Thu, 12 Nov 2026 09:41:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5EE8606A889
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MJaPo8bf
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MEFt2EAwBQt77VedDYefJ9IZ2Qype05DO122KbkmEHI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794476476; v=1; x=1795081276;
- b=MJaPo8bfsoa2dlVqkiOwG1Zpdv18+RF+Fdz9rYnNYTs8NS/Ndp8g0Z4zz0p3RoXekXkm/hbi
- qQMXHhE2ZjdfCV6yJns1DID7lYaMkWa2WQsOp0scDWYfQ1hxtillXg1YBYUxMSukZkHYPZ0aIZm
- W4MFAQOc2EaIzAvly8HWb2YY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id f85c0bce8482aa4e;
-	Thu, 12 Nov 2026 09:41:16 +0000
-X-Mizu-Trace-ID: f85c0bce8482aa4e
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 12 Nov 2026 17:41:03 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	MD Danish Anwar <danishanwar@ti.com>,
-	Murali Karicheri <m-karicheri2@ti.com>,
-	Wojciech Drewek <wojciech.drewek@intel.com>,
-	Ravi Gunasekaran <r-gunasekaran@ti.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, 1342116488@qq.com
-Subject: Re: [PATCH net] net: hsr: clean up synced addresses and allmulti in
- hsr_del_port()
-Message-ID: <avWJrwDyT8HJHWSN@fedora>
-References: <20261111060143.183670-1-sunwenbo@cmss.chinamobile.com>
- <avULIJLRzOEoefJI@fedora>
- <avUQ5dAMMRlUTNzq@fedora>
- <20261112064459.81535-1-sunwenbo@cmss.chinamobile.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vmzj/Kff
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 09344153B;
+	Thu, 12 Nov 2026 01:41:35 -0800 (PST)
+Received: from [10.0.129.47] (e122027.cambridge.arm.com [10.0.129.47])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C443D3F632;
+	Thu, 12 Nov 2026 01:41:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794476498; bh=wsUciV+efeTQCIVGRFWUTHzo6OWjjig7oVL2Hlvu3Do=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vmzj/KffMUnSTgxJ9oWy92AHHsu+KlvSL1PYaGD6G5XriiSu8w8KE7KGTzZaTN6U5
+	 CER5uSOeYHgUJTU2rmyJyLEMApaNv/fSaEtfVj0gBCjwmC88P/COYdfHvGwPi1GTMG
+	 BNkhuxNjxLgDR3CtZUwX6xR3qq/K74GnFMcPcVQY=
+Message-ID: <a25321ce-7593-4c75-a529-e19c273638ef@arm.com>
+Date: Thu, 12 Nov 2026 09:41:26 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,92 +53,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112064459.81535-1-sunwenbo@cmss.chinamobile.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/12] KVM: arm64: CCA: Prepare Realm memory management
+To: Kohei Enju <enju.kohei@fujitsu.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+ Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
+ Oliver Upton <oliver.upton@linux.dev>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
+ <yuzenghui@huawei.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>,
+ Alexandru Elisei <alexandru.elisei@arm.com>,
+ Christoffer Dall <christoffer.dall@arm.com>, Fuad Tabba <tabba@google.com>,
+ linux-coco@lists.linux.dev,
+ Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+ Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
+ <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
+ Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>
+References: <20261111145758.217946-1-steven.price@arm.com>
+ <avV-P2_fOkFWQVnM@FCCLS0092175.localdomain>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <avV-P2_fOkFWQVnM@FCCLS0092175.localdomain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 02:44:59PM +0800, Wenbo Sun wrote:
-> Hi Hangbin,
+On 12/11/2026 09:08, Kohei Enju wrote:
+> Hi Steve,
+
+Hi Kohei,
+
+> On 11/11 14:57, Steven Price wrote:
+>> This series adds the memory management plumbing for CCA, building on the
+>> basic RMM support [1]. Thank you to those who reviewed v1 - I'm
+>> attempted to address all the comments.
+>>
+>> The patches introduce internal Realm VM state and RMI feature checks,
+>> prepare Realm stage-2 setup and teardown, and provide RTT mapping and
+>> invalidation helpers. Realm memslots are restricted to the lower half
+>> of the IPA space because the protected and shared halves alias each
+>> other. The final patch connects the helpers to KVM's stage-2 MMU
+>> operations.
+>>
+>> This is the memory management portion of the larger Realm host series.
+>> Realm descriptor creation, REC entry and exit, activation, and the new
+>> uAPI follow in the integration stack. This series alone does not enable
+>> Realm creation.
+>>
+>> As before there's an integration branch[2] that includes the realm
+>> creation, REC entry/exit etc building on top of this series. I've also
+>> pushed a git branch[3] of just this series.
+>>
+>> Changes since v1:
+>> - Add a guest_memfd prerequisite patch that checks whether the backing
+>>   file supports mmap when preparing an arm64 memslot.
+>> - Combine the RMI availability and feature checks into one patch, and
+>>   move Realm vCPU feature restrictions to the integration stack.
+>> - Correct Realm IPA sizing and RTT teardown, including teardown before
+>>   activation, RTT accounting, and handling of missing or folded RTTs.
+>> - Rework RTT mapping to respect IPA and physical alignment, handle
+>>   partial RMI progress, and retry interrupted operations.
+>> - Preserve private mappings when a Realm guest_memfd memslot deletion is
+>>   rejected, and tighten Realm fault handling and stage-2 destruction.
+>>
+>> [1] https://lore.kernel.org/all/20261007073537.2454351-1-suzuki.poulose@arm.com/
+>> [2] https://gitlab.arm.com/linux-arm/linux-cca
+>>     branch: cca-host-mm/v2/integration
+>> [3] https://gitlab.arm.com/linux-arm/linux-cca
+>>     branch: cca-host-mm/v2/mm
+>>
+>> Steven Price (7):
+>>   KVM: arm64: CCA: Reserve the RMM mode
+>>   KVM: arm64: guest_memfd: Check mmap support when preparing memslot
+>>   KVM: arm64: CCA: Check RMI support and features at init
+>>   KVM: arm64: CCA: Add basic infrastructure for creating a realm
+>>   KVM: arm64: CCA: Tear down RTTs
+>>   KVM: arm64: CCA: Add Realm RTT mapping and invalidation helpers
+>>   KVM: arm64: CCA: Support runtime faulting of memory
+>>
+>> Suzuki K Poulose (5):
+>>   KVM: arm64: CCA: Introduce Realms
+>>   KVM: arm64: Handle attributes in stage2_unmap_range
+>>   KVM: Allow architectures to reject memslot changes before invalidation
+>>   KVM: arm64: CCA: Prevent memslot modifications after Realm creation
+>>   KVM: arm64: CCA: Add Realm stage-2 MMU operations
 > 
-> Thank you very much for the Reviewed-by and for raising this question!
+> I've tested the integration branch [2] including this series on our
+> hardware using the QEMU-VMM proposed in:
+>   https://lore.kernel.org/qemu-devel/20261002202026.1204110-1-mathieu.poirier@linaro.org/
 > 
-> On Thu, Nov 12, 2026 at 09:05:41AM +0800, Hangbin Liu wrote:
-> > Sorry. I just got a question.
-> >
-> > hsr_del_port() is called via dev unregister or hsr_dellink() -> hsr_del_ports().
-> > The hsr_dellink() also calls unregister devices.
-> >
-> > The unregister process will stop a device if it's up. And hsr_dev_close() has
-> > called dev_uc_unsync() and dev_mc_unsync().
-> >
-> > Could you share more details on how you performed the testing?
+> The Realm guest VM (32 vCPUs, 16 GiB RAM) booted successfully. To
+> exercise the guest with a more realistic workload, I also performed a
+> full Linux kernel build, which completed successfully.
+
+Awesome - thank you very much for testing.
+
+> A Tested-by tag might not be carried over to the next revision, if any,
+> but anyway, for this series:
 > 
-> Here is why hsr_dev_close() does not clean them up in those paths, and
-> how the test reproduces it:
-> 
-> 1. Call order in hsr_dellink() (net/hsr/hsr_netlink.c):
->    hsr_dellink() calls hsr_del_ports(hsr) *before*
->    unregister_netdevice_queue(dev, head). Inside hsr_del_ports(), every
->    port is removed from hsr->ports via list_del_rcu(&port->port_list)
->    and freed. When unregister_netdevice_many_notify() later invokes
->    netif_close_many() -> hsr_dev_close(), hsr_for_each_port_rtnl(hsr,
->    port) sees an already-empty list, so dev_uc_unsync() and
->    dev_mc_unsync() are never called on the slaves.
+> Tested-by: Kohei Enju <enju.kohei@fujitsu.com>
 
-Oh, since dev_uc_unsync() and dev_mc_unsync() is never called by
-hsr_dev_close(), should we remove them from there?
+Thanks,
+Steve
 
-On the other hand, the comment of dev_uc_unsync() said it is intended
-to be called from the dev->stop.
-
-So we need to chose one place for these undoes. I personally agree to
-add it in hsr_dellink() as all the hsr info is remove in hsr_dellink.
-
-> 2. Similarly, when a slave is unregistered directly while hsr0 is UP,
->    hsr_netdev_notify() (NETDEV_UNREGISTER) calls hsr_del_port(port)
->    before any close/dellink takes place.
-> 3. Also, hsr_dev_close() never calls dev_set_allmulti(port->dev, -1)
->    (and dev_close() preserves IFF_ALLMULTI), so the allmulti refcount
->    leaks even if hsr0 is brought down before deletion.
-
-Yes, I see the allmulti is not called in hsr_dev_close.
-
-> 
-> Here are the exact test steps I ran in UML (using veth pairs):
-> 
->   ip link add veth0 type veth peer name veth0p
->   ip link add veth1 type veth peer name veth1p
->   ip link set veth0 up && ip link set veth0p up
->   ip link set veth1 up && ip link set veth1p up
->   # Create hsr0 with slave1=veth0, slave2=veth1 (RTM_NEWLINK)
->   ip link set hsr0 up
->   # Set IFF_ALLMULTI (SIOCSIFFLAGS) and add 01:00:5e:00:12:34 (SIOCADDMULTI)
->   # Verify IFLA_ALLMULTI on veth0 == 1 and /proc/net/dev_mcast has 01005e001234
->   ip link del hsr0
->   # Re-check IFLA_ALLMULTI on veth0 and /proc/net/dev_mcast
-> 
-> Observed results on unpatched kernel:
->   [BEFORE DEL] veth0 allmulti_refcnt=1, synced_mcast(01005e001234)=1
->   veth0: left promiscuous mode
->   veth1: left promiscuous mode
->   [AFTER DEL]  veth0 allmulti_refcnt=1, synced_mcast(01005e001234)=1
-> 
-> Observed results with this patch:
->   [BEFORE DEL] veth0 allmulti_refcnt=1, synced_mcast(01005e001234)=1
->   veth0: left promiscuous mode
->   veth0: left allmulticast mode
->   veth1: left promiscuous mode
->   veth1: left allmulticast mode
->   [AFTER DEL]  veth0 allmulti_refcnt=0, synced_mcast(01005e001234)=0
-
-Thanks, this reproducer is more detailed. Would you please
-add this info in the --- part of next patch?
-> 
-> I will also send a v2 with an updated commit message noting explicitly
-> that hsr_dev_close() sees an empty port list (along with your
-> Reviewed-by). Please let me know if you have any further questions.
-
-Please drop my reviewed by tag if the code changed.
-
-Thanks
-Hangbin
