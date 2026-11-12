@@ -1,66 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794456822;
-	b=bPLbIjXC982JVXtwPP82g6Gi4LnSqqgZNgSQZcs1iYNw0AvZJT1/gBY5CG5o4S9zT+x4
-	 Jy50zLgI9ESrGL66e625oE78Lwy3HfS9OfLmVSx8N+kiqUWaOwumKykD4XYMo7L7NJ2LR
-	 TRTo2keUPMjmj3gEDxhRelxN1555lbIcpjE5zwH2gVwQTZp+KoImBjP493eYXcrLUQGpu
-	 d92bA+Y8kEDPgR95Xj3jq84KIt+G/wVTKC4/i1JmTvtjIGIxPc5CgSAQfA8VgKJX6o5/r
-	 pE6j2mQLoDBK6XffPWxMSi/nFtmFpey3ohLKUS9ZhdDNBpqOYuh7BuNz1e7W1RFJe2g==
+	t=1794456833;
+	b=iEvVTBeqK3z5OTGOCMEKxt8U8xU+MgdWEqiG3pnV9yNczeAUMEOU+JAK4DTYZ1xAceJx
+	 HQOawe5CZpcyhrR357LyFPgLDO3ts/piIqRSppPOa4k7BlEB9cUWhUFKD1jTBXgwwd/uZ
+	 P7m+E0jRMVhaIpfAR9p9Kk0nw3xmMLlYDXRcQu2hu4Q/i4ZHU1tOKgGIry9XDgbuJlXbf
+	 v4RKuIehKpn4bIAenmK7SD0EofCByH/UeSv0615iSNIPtKkoRA4oGoAo+WXlFrLMRmEJ0
+	 JdwCDB0WV/Y0sV/Nvbf9s4+H3zNeZ8xYiIMF0oT9toedSCqdyB77wZXLQFuQ9pMiQ7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794456822;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	b=X9KoB1fzaGxOXxZ0cndFFQ22o27kDx3z5jY/Z6rT2f6Z809pm8PnTWsTJ6SxvRu968/d
-	 YpojSoV9Al6lCaMK8xREpaT81REuFm/G5dnkdGfAIn6DANPd4O7AXyS5VsBr07/U08+2h
-	 peKPLHvlvcZDaFaj9j35PdQafGXa1936/nY95DX8B9YLs4RPR5eAK524yImvTQpy1M+5G
-	 EIf4504XLaxlgEhppaG1FivLD20f6nhj1zdpdVO/wfpGzslKOEADrpkJOYAn05u+9ungw
-	 03L/7ccrkfW59q93n/n0IsVaZ6MGAR9I+WxhEbkA3CCERq1tdJ8L5UAmXQ6lHf07vhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794456833;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=rODyJNP1eRbwsvo0ejMbgwXsyozwZdJn6vA9ylKRYvQ=;
+	b=3xGrPNQ+AjTfw3WrDLqfgYZ5S+8VmqddPkOj8BG3JvWABT5Io+t+6gp2rE03XD2yPqPA
+	 LMBYeX0D82rZg9oO2rhG8/gYkwq2znak34ctikCTdbBTm1/QPYN6W0w2cQwW2DfGmCh+u
+	 DnaZF22IY2ZK4h9BU7v0RY+Feq8ae1g0AsJBOOaxFz36es60tBTVMa4TPUJqmoDgoTRmK
+	 cDkLb6uhgmpNDKM+HoezowM9kqOh3dfCsjYczlj/R26l0DwSgN7r3I4nV3H+u1zVMcs4c
+	 U6RcPw+KlSg9D26NEOoH5ggK2EjM9wO/dSyB9Sw1wBnx8C5GcgR50pjtprhyfC11mjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LBSmcK8U;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="D3/5FXi6";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA14606A321;
-	Thu, 12 Nov 2026 04:13:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB9D606A323;
+	Thu, 12 Nov 2026 04:13:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LBSmcK8U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09601F00A05;
-	Thu, 12 Nov 2026 04:13:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3/5FXi6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FDC71F00A07;
+	Thu, 12 Nov 2026 04:13:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794456821;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LBSmcK8Uq825T5Yh2FSpWHL1M7tuqT2t3wXpKRLlSLa3uXS1Nv3aaquyIJ0DLZ2Pt
-	 ch5YVpbRc/xMp0mCHRhrjwr27PJVHPzrOT6G0V+upyRrRFbhdMc9Zfs1Mu7rkBa7i1
-	 GosTsaTx/xyD2TcPFv+RNsXOZRIfnZwcZfo3brlsP7LwkxySQpVFffLeoSBTtkfyxg
-	 qVbJQ5V6K5o6VyQXuInRAOl5bKrDVl/yOk3bvEt0/A4BkPhEP9Wgw2yXOaTXP5Xg8p
-	 Hgpmq7JgCguP2qA/rkVi4XI4xGxm2lDBICYTRWsYYu6TxiKyu3/8AxczmffW5K+uAC
-	 mXDxc5vbw3JYQ==
-From: netdev-bot+sinfo@kernel.org
-To: Xia Yan <yanxia@cmss.chinamobile.com>
-Cc: netdev@vger.kernel.org, Felix Fietkau <nbd@nbd.name>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Yanqing Wang <ot_yanqing.wang@mediatek.com>,
- Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- yana06070@163.com
-Subject: Re: [PATCH net-next v2] net: ethernet: mtk-star-emac: fix device_node
- leak in mtk_star_probe()
-Date: Thu, 12 Nov 2026 04:13:40 +0000
-Message-ID: <179445682040.2168702.1032780874409478036@kernel.org>
-In-Reply-To: <1794455490000.585551.2561101329908158128@cmss.chinamobile.com>
-References: <1794455490000.585551.2561101329908158128@cmss.chinamobile.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1794456832;
+	bh=rODyJNP1eRbwsvo0ejMbgwXsyozwZdJn6vA9ylKRYvQ=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=D3/5FXi6a7aKp/reI0nFI6ZIePVE4SbRO8JGnc9CmOQNnn6Qn0QkK/HLu+Gg07MHa
+	 h5ighos4A75bJlyWyJDTlHOruB8eHEpHudCCQax8FKVO5qMTv/hCAxqo65Y2DYqNZ9
+	 FUme+1Qkdfanel8T5gqrrMEOXE1ZWuR8VRox8yS2w+N8HDkK6hd391QKH1bjKIWn6Z
+	 vtw3tBDr8j+gqC6y1WgpGwC2RZCkk00GmiCJIj3Qxp5zYj4Bdeyfix6tBdbTEokMjL
+	 43TfO1YewkXxEhRoPM7/BlUUUQHNjNm4sunJ8dIjgyEdtQYrnXx8Zq8AaiAVBmFwme
+	 IK018KGfQOsNQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,21 +49,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 01/11] kbuild: calculate list, composite object
+ state per object
+From: Nathan Chancellor <nathan@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+ Aaron Tomlin <atomlin@atomlin.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
+ linux-modules@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Nicolas Schier <n.schier@fritz.com>, Kees Cook <kees@kernel.org>
+In-Reply-To: <20261104-build-speedup-v5-1-0f6018be8dae@kernel.org>
+References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+ <20261104-build-speedup-v5-1-0f6018be8dae@kernel.org>
+Date: Wed, 11 Nov 2026 21:13:34 -0700
+Message-Id: <179445681468.2545603.12225674913375832812.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1637; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=TmgTJdW29nIRrm5geWplrT1THomTV0P5Pwume7Dyr18=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFlfbT623t8Qe33Z3PYQk9nKHP/fzr+2PXvL1o4TlseXr
+ Vlbf+d2SUcpC4MYF4OsmCJL9WPV44aGc84y3jg1CWYOKxPIEAYuTgGYyNmfDP+M2POs2SffEzK4
+ NlHnmzZ/CkdQfqXtN9ZNL9vOeTo/MvzMyHDbvzXwb9OO7nWe66cfi102yX35RvP9f77ZGvs9O/w
+ 8+yILAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-Hi!
+> When each object's command line is expanded, kbuild has to figure out on
+> multiple occasions whether it's built-in or part of a module and which
+> composite object it belongs to.
+> 
+> This causes the time spent on each directory in the kernel tree to grow
+> O(n^2) with its object count, which is especially problematic for instance
+> in drivers/gpu/drm/amd/amdgpu with 310 objects.
+> 
+> No-op builds (i.e. make -j $(nproc) when nothing has changed) are
+> particularly impacted by this.
+> 
+> Fix the issue by calculating this data once and looking it up thereafter
+> instead of recomputing it over and over again.
+> 
+> This has a particularly large impact on allmodconfig builds.
+> 
+> Whole build, 128-thread Threadripper 9980X, best of N runs:
+> 
+>                                          before   after     delta
+>                                          -------------------------------
+>   x86 defconfig, no-op make, gcc            1.1s     1.1s    -0.02s (-2%)
+>   x86 defconfig, no-op make, clang          1.3s     1.3s    -0.01s (-1%)
+>   x86 allmodconfig, no-op make, gcc        15.3s    14.5s    -0.83s (-5%)
+>   x86 allmodconfig, no-op make, clang      16.2s    15.5s    -0.65s (-4%)
+>   x86 allmodconfig, touch mm/vma.c, gcc    35.0s    34.3s    -0.77s (-2%)
+>   x86 allmodconfig, touch mm/vma.c, clang  33.7s    33.2s    -0.51s (-2%)
+> 
+> Reviewed-by: Nicolas Schier <n.schier@fritz.com>
+> Reviewed-by: Kees Cook <kees@kernel.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Seems like a nice win.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+-- 
+Cheers,
+Nathan
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
