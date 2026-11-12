@@ -1,95 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794511188;
-	b=cIJ1YaCyzlupO804MrEjJxHk6WIm+2GH5bO2f9eDZeKniDSaUWnO9gPybvWf6pj0M8kz
-	 yfU6nLNbMZDVj98yexgrtiyyeqlTWE6XFHLoHVjl8SAQrGJX0ltTbru0TSXbPH8zRwWV8
-	 21Eu2X06FhrJkwE2anXtf7RxZboDBDdT8ZfJbE6yLfAN59drqJMgVzmEFrDTEEoCyj+BO
-	 BdPsXj5P8EiVC5+NYJ/AQfFzrNBjrh5MOdu65Z2YAEskfJ7HdcUzZLfdkHw4Z8iT1c+eB
-	 kzzTXKdby2FFl2/UbDydECVXoMuUzE74jKnhb1ZrXtB+dax/Rwi+sBUOfFKCR3v79IA==
+	t=1794511213;
+	b=wfoKxVzLdtsXghf+tdfVoSgs2WL95mpBa5a3PxHuL0EFOZdxHFFDgObA2k5BLMOrt9NI
+	 Ycfd+FBzQ6r3BlPapMzCdtTacM1WMDyV1wMWVhK+RI2LSw+xgvYX7Bvyua0RqIuQiS36Y
+	 yzbeO217QSSmyled+ZB2AHi7kbqkxZnybmyHpqLF8sTeULCno3TOxSmtn7Ywqmrv1MIEv
+	 ZoUMMtu5ubPxdLgm6P4mFf4Z79OETCuyaubA0ysDyISVpgdupeAT8Np7mfppqmwg6fcBU
+	 gVd/nR/3IeglETkis9E0IW5yYSezM+GQ+Yn2+ah9AqkDx06s0AEJadZ5KjCHlzRZouw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794511188;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 CC:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Originating-IP:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version;
-	bh=a/3/vOknZNV5rMhfsRlvw02gGnblZnfFUGDt0wyzhjE=;
-	b=w8Ns7z30usfY+so0CfnjJleSgRqMc81Z5toqf6X55mEBYXozSc3Qo/BAPcb4J29ghE8c
-	 s98Du2JoeA3Ft+7d02waDSxStaxkNLfpNF1gk3XuoIVrdnRUFFmFVNY8W/XeZt8ZJpu/j
-	 WFfe+tMAFQ8kNxh2a3VdwbuRO9pwP3K2PzDlj52p3tFsjGEmnQae9kp7M7gC91PIFtJAJ
-	 06OHZtJgMegaRqLvNIszKwNIEnysXLSU04+SkNvc2HLLz1i6w7/RfCRAx+WgTqNzULUlg
-	 1IqT1jh8z4Vrk6q9KdDAZn7goj5tHtw4VbfPnvb2KD9TVEPp+vUQIDe13cpI7KCUWQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794511213;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=6m0jb+42bLB8LuKMpGgRNsw9nHlOHHRHCPu/r8lmSNo=;
+	b=2YKa7dWH+z0RYRfedQFi2eRsQpqnKYwxT23rdRMXtIgWdMDLxSGxlJZR7nxNBGSdr6XE
+	 w1cKX2EhFEmpVzqW7JIkHL1z94DHJYakPqeGBcXgdsMfy8OQNb9jll08YojZA/UuCwYRD
+	 aFL46aNSPuCWyRb8RXbcjGm1VDUdjiXpQzZMU+tcSoaGsHwJbkpNNvQ/KsuHCioRbXSr8
+	 X+J+GhTufxrfCPrkInBWo/M/U7QsY2n50FsCHsUwbIgFIwZ7rrRfgucGbeK0vPQV9A8LG
+	 PuDv0Q8lneQGSQEiuUuU1r2XHc4axoSx0pB0bDNOvzLgMwyWfOtlcMbv+nWh4C3MfiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ReSOOSyy;
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kaiuZyvc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9498606A31C;
-	Thu, 12 Nov 2026 19:19:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9498606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEF9606A33D;
+	Thu, 12 Nov 2026 19:20:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ReSOOSyy
-Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFapVR3401241;
-	Thu, 12 Nov 2026 11:19:16 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pps82601-s2048-2026-q3; bh=a/3/vOknZNV
-	5rMhfsRlvw02gGnblZnfFUGDt0wyzhjE=; b=ReSOOSyylrPqQ7w5znHrlGE8xe5
-	SRq+nMfSWT9+K3w+QUWwgPFl18x3t8ZXFwVDYz8hzD0ukBdvnAXhHPR5hDNzXYia
-	aIihrOdNs5daQ8LmrSNo9p8y7iFxcu/fzoSy0jp185nK8K00p875CxDwNBZq9/aw
-	58lWmQWM2WF+Ob9S4vaoNqEAf8TT9oHqaT8YpssjLnJ1UvZJgkZMS12AM4FFfVSt
-	WSes2w+bUupqKzGdsWbVHyKtN8emlkxnK4XoHnSBxwkoSZkybMBfL3AooSUuDK+y
-	+Ry8GGkx3VTTUy+aemx2CdOtJi6eni9KrHkdFjhhR3AgWNK+/wjgKPnTc6A==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hvaudygk7-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Thu, 12 Nov 2026 11:19:16 -0800 (PST)
-Received: from localhost (2620:10d:c085:208::7cb7) by mail.thefacebook.com
- (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Thu, 12 Nov
- 2026 19:19:14 +0000
-Date: Thu, 12 Nov 2026 11:19:13 -0800
-From: Bobby Eshleman <bobbyeshleman@meta.com>
-To: Michal Luczaj <mhal@rbox.co>
-CC: Stefano Garzarella <sgarzare@redhat.com>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>,
-        Simon Horman <horms@kernel.org>, Jonathan Corbet
-	<corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Stefan Hajnoczi
-	<stefanha@redhat.com>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang
-	<jasowangio@gmail.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Eugenio
- =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-        Shuah Khan
-	<shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
-        Donald Hunter
-	<donald.hunter@gmail.com>,
-        Eric Dumazet <edumazet@kernel.org>, <virtualization@lists.linux.dev>,
-        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>, <kvm@vger.kernel.org>,
-        <linux-kselftest@vger.kernel.org>, <sargun@sargun.me>,
-        <jlinbox@meta.com>
-Subject: Re: [PATCH net-next v5 4/7] vsock: add a netlink command to assign
- the g2h device to a netns
-Message-ID: <avYRMQww+ui4uPkz@devvm29614.prn0.facebook.com>
-References: <20261103-vsock-guest-ns-v5-0-48179b9b66b8@meta.com>
- <20261103-vsock-guest-ns-v5-4-48179b9b66b8@meta.com>
- <c34123f3-e006-4c25-b8d7-cdf0784926f4@rbox.co>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kaiuZyvc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085091F000C4;
+	Thu, 12 Nov 2026 19:20:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794511213;
+	bh=6m0jb+42bLB8LuKMpGgRNsw9nHlOHHRHCPu/r8lmSNo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=kaiuZyvcCIolncEDEueqVuLsyDvf+OkQRQFmNQkiDPMH9BEnfxvyvJkFmG1/OVFJu
+	 ER/V7FqY+ViZcr+3y7G3ugGYgVke+oG9yeaVS+zjspfJujw+wtvuEPE4wuTCNujJQF
+	 Gdv4gR4gEDB5ugco1G8matkSn9721H5gei3q3D3w/Hb6lpCP+6oL7yvcPvd5V8hLeK
+	 SuK0JbiWATcFPGQnZlwzce984Ol0gPfoPLdb3GmwC2d/p2C7yT32xllGHkMcg5q2F/
+	 86dH8veqZACgpDzypS+6QayLHrZOeL9XS1OdfbZXI8qIhjuHjF3z+iaUJqwrfqlGzz
+	 C0JC6nqTtf9MA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F16EB392624F;
+	Thu, 12 Nov 2026 19:20:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,59 +53,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <c34123f3-e006-4c25-b8d7-cdf0784926f4@rbox.co>
-X-Authority-Analysis: v=2.4 cv=AKwTwrWT c=1 sm=1 tr=0 ts=6af61134 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=xtH7KyWI9dI7BmFOsl-x:22 a=VwQbUJbxAAAA:8
- a=Bgyc4cfSFuLOcWupkI0A:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
-X-Proofpoint-GUID: _cVSF3NSQ_uvq6t-vYkVz_6cKrlEOdZl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA3NyBTYWx0ZWRfX3ZEYaRYhoxQ8
- usrYrAigjaSSywUkrAML7m082FIZ9ahPa6osa/uLjGeURPOoNHW2DhRuRRqH8MO5qwe2ciVft8x
- NzE7lxNSVPJe1XXp4Iu0HiPfj/GkiZbi02cvfDvuuS1vqU0Dny9tFRHJC3vtiINZYIGuWEUewzN
- /pMtixzbQdUxfpN1rfc6nnBqAYW9q0Ky2ibw9EME0SEzeY7HcGeT2r5acmDJw0SBasnebv2sJlr
- LOI44viL/MzNw28pNFndfNU3SA9UhdAjQ4D7hArvOtZ7qvUs5y1MXsC6daoxsnOk2WaxPJ26iKd
- i8ii47IdwImq/MU8O5a30jphsmPyMdE6uBQGDiLehzjiXvuJyoYLckgbgQgywBSY8qgj+uq7rjL
- mkuSU6j7uiGvjX7zfAwE6UzWaBPzhUdmmcIOGq/Rao8qXqZ9wDo1sRuegm/RrlJTdCtyMCNC/qg
- DbgNkydXQ0fm7nWHtNQ==
-X-Proofpoint-ORIG-GUID: _cVSF3NSQ_uvq6t-vYkVz_6cKrlEOdZl
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA3NyBTYWx0ZWRfX0xgaferDqxVz
- fMjqjg/jghUeB/xn0OclUvGqHgL1ZiEL1sSDvdnPbjicEh9BXwwcUZZaGmFvNK+/7wz5h2yn+we
- AGI5UprcQ0+lFYfR17uH1zSuSF+OCBQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_02,2026-11-11_03,2025-10-01_01
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] ppp: restore uncompressed fallback during CCP
+ negotiation
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179451121152.604801.16504171266860549530.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 19:20:11 +0000
+References: <20261111155112.149204-1-qingfang.deng@linux.dev>
+In-Reply-To: <20261111155112.149204-1-qingfang.deng@linux.dev>
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, leitao@debian.org,
+ tristan@talencesecurity.com, hataegu0826@gmail.com, norbert@doyensec.com,
+ Brice.Goglin@ens-lyon.org, akpm@osdl.org, Matt_Domsch@dell.com,
+ paulus@ozlabs.org, linux-ppp@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev-bot+sashiko@kernel.org
 
-On Thu, Nov 12, 2026 at 11:34:49AM +0100, Michal Luczaj wrote:
-> On 11/4/26 02:53, Bobby Eshleman wrote:
-> 
-> > +/* Avoid breaking the socket when another thread has changed its sock->state
-> > + * while we were asleep.
-> > + */
-> > +static void vsock_connect_close(struct socket *sock)
-> > +{
-> > +	sock->sk->sk_state = TCP_CLOSE;
-> > +	if (sock->state == SS_CONNECTING)
-> > +		sock->state = SS_UNCONNECTED;
-> > +}
-> > +
-> 
-> It'd be nice to have it as a separate commit. If I'm not mistaken, this
-> itself solved the vsock_connect() vs. transport reset
-> (vhost_vsock_reset_orphans(), virtio_vsock_reset_sock(),
-> vmci_transport_handle_detach()) races. And those were already reported a
-> couple of times, including a recent NIPA/Sashiko Severity-Medium[1].
-> 
-> [1]:
-> https://lore.kernel.org/netdev/179447093204.2199510.8895677421994612994@kernel.org/
-> 
-> thanks,
-> Michal
-> 
+Hello:
 
-That's fair, will break out on its own.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Thanks,
-Bobby
+On Wed, 11 Nov 2026 23:51:11 +0800 you wrote:
+> ppp_ccp_peek() enables SC_COMP_RUN when sending a CCP Configure-Ack,
+> before userspace sets SC_CCP_UP. Data traffic during this window can
+> reach pad_compress_skb() while CCP is still negotiating. If compression
+> succeeds, len is positive, but the SC_CCP_UP check fails and the packet
+> falls through to the error path instead of being sent uncompressed.
+> 
+> Deflate and BSD-Compress have already advanced their compression state
+> by then. Dropping the packet can desynchronize with the peer's state,
+> causing decompression errors.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] ppp: restore uncompressed fallback during CCP negotiation
+    https://git.kernel.org/netdev/net-next/c/f03ef07adfae
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
