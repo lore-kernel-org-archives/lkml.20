@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794514336;
-	b=k1MBx7w126aj13cgoZ0g6JHl9IdvMEu9Sac7gwemLicTl+3mlwB4Hy/J5l5hygUJPlmD
-	 dJFZ6tkvwM4zBJGVQTbi5bwcbrcCEoS33gIpv5geB8/Zfio75SA3fl876BmYqurJHALsB
-	 BRKN7G3fyjGmueesH8TF+OgUpU+w8LOZ13RdB9tDEd9UP4hiAcyMvpInikWt8lBUtOUj7
-	 FgNF5Jv8kHFLtOUudQ3+LHx5L5E2jBM4zHdOmf7Jz8pE3fo5oAYFTD2jlkfGtN/kQPqDQ
-	 IJM0qPg0nm1Ht0DpjmUg6AGelyJFzaEX1Y7fO77Od4s4I5+wmatMEnOfBydcrzYHdMw==
+	t=1794514340;
+	b=Mzs+6rTq5jD3x7FnLrDXEhjp7dapaoUZFc1RIGlUAJ2RdotC7m6Gp4phmnnJurlOtr0y
+	 aSNEdxfWqDhbydWLSYMMOkxG9WbuZ5T0Lv/cnNgde0ibf5ASSO/KN8P68hk2eVBAV5/Db
+	 FVGUUzPpCo80IXiQTa2ELMw4fIqhrY1L342qaCU/JRJmT7YXnw/i3IrOO0PCXudQn6zwy
+	 IQJEXeOzMvzidbYnZsHvIXtBWUzMKrncxY/54ktF0B3N2mT6pl51BAkxQyUFxgVCRnSbw
+	 lB7cMM/ArN2JcG911GVQhzEI3CjDtuoI/CdKjnbN1uQ2HsQuFP/yQ+0GWXrO6h4EYUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794514336;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=enhyFaTlmSe8qk8N5fvqsVTmYc4LqDIJpmhNr1L+Z9o=;
-	b=DyadpI3Cx0/U8cYgzsvOQUvv6tCLPSaY/o5glU/eRDn7e2L0k5i6yFVLioGFq/P4V7np
-	 hukKGaO7BNPXKgfJca3nvfqKxpx8Tg7qa0TefMr7EzMXLH/cAQuEZbVo8wNOLA85ofAQH
-	 000+qib5ORQV/3E1a7nQrsy7Y+AqLF01mfzfarDrx2u5H/D/VWbZ+p5O2TgFnSdRBQBI5
-	 S+i0Ag7e2Crip4XX3FygzO92irKCJOs+t5yM8TRbeKaG0a/CkbmpXhDQqaXvWFcsnYUi8
-	 9qs2p3HnodMkkKV7DRCP/+vcpCyn4ZhlgX0h2qjg6Dq7Ldw9KBkRiPNf+Dj9ZuSMQbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794514340;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=eakRgnWHv93CEQPpJprbZeATRfmw83XT/BkhRlCQLg8=;
+	b=we4hfwzvJUhFk5fCqWfmlYB0RbJZntbirHLanlrm6wuT0dOTQ2FpSxJAsIgZozuLVEwB
+	 JUrjgr9ZcfTWuLGZuEcax5TGEf1Evl6abUWRdGmZ2HJ4dQBqjiPeZIz+FARWXoTi4xBWT
+	 uk3B5CfD9Qu+OqaJiM/zngwBJTvenp1yBXXd6cl3q7vr6YF2omVQqGCIeK9SvouyTRkKt
+	 J/1wzEtJKFfVtH1Sacc9dVUaAAS2rQbQBIKXVI9tg3SOqyTDaT2rcldfWgUX4TXHbnmh4
+	 hc65mbqdV0uifbrCG1hgQA13UUC/PrYu6pcDN23gmect6zPVHTrTmFbCJLLQkPOZJnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=COQMd70Z;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSHbJVnv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B2B606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:12:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B2B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 023E0606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:12:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=COQMd70Z
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1a8cc11ac42so153618c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:12:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794514335; x=1795119135; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=enhyFaTlmSe8qk8N5fvqsVTmYc4LqDIJpmhNr1L+Z9o=;
-        b=COQMd70Z413zqJ2b83x0DveGH91bv22XH6Fu5Dh63m8XVUoTwCuc5f9GtEnVzY+Bkd
-         yJf/TdgURq9P7AeNueC4IPw6YG+Sja1eGXQOZjEsW+kTQDMf+09aw/UCMNIV8SBLIrkc
-         G+pq0dssMQUu1Ft7e1uefalVUKBIN3N8abtazJY90TRuUtWk0lKH6UFyDEGAcsrVBxd8
-         Pu7ZlpM6GNbVQmZgPZu40vf4795fG446BJ57Ic2YuFq5QDRXnzEEZdUTWTJhik0n3/52
-         iygA3IjK3CHG4/+BQpyVkxvmqeQ8p+vjpir+UsOOOZEieT45XErNImj71yXK0/i4TzJ7
-         GkJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794514335; x=1795119135;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=enhyFaTlmSe8qk8N5fvqsVTmYc4LqDIJpmhNr1L+Z9o=;
-        b=RuU4tn8OoKY68sUjWZ8btroCOHKB+29vuJdtCpIPdbWhypAq0qAUOrI5dXGWQmgFFU
-         Q+pG35J/tV0xLBjf/A56fx8aQNqGIJSuSrIeaTVbw7ahyJb8jNH3WlmKDFpveRRnW8Yu
-         eno9CmtItTXRA7Loas8fF7o6LtuQYUltMvZcPMVgpA6l7yhqOWRC3l0cdHaVVvXPdBey
-         LoCrEUVJF9Ix0+3jJCFXbv5tPz5ZeLXH6CVV1otQ8bvHfe3ACOdBcvXmFMNc06EVDpjw
-         coKgDFJb7h1Hc9PdZ7xKWPpJ0hGSQgvMMTpij9zAASHaRADhQwKiUpESaaXlwBR+70N1
-         P2gQ==
-X-Forwarded-Encrypted: i=1; AL+hErHX+ekkgNpEZcrwOTYT6wI2CLN8ZdmV+DrJjhzdUXTPCmCS4dWyTSh5a8F5KLtXHUqtBp/vXIYkjQu94C0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9EBoTUlWrDVq5TrNJuldtbe0dCQ7GuCVF8NklRnHis0vpBxXKH
-	IKXAwApRxS+OHAk9wZjg48OT4IkNjUDmHkCNiuljr9Mf2/lh2o82269e
-X-Gm-Gg: AYBFou2NnJsG9hU340Kj+Fz6+TYVWVx+ULOy1tm14jo8DAQXW2UR+nSTWrDPNlVx8E5
-	TAsYzS9k5HHmNuYPNTJF/n+xy24P6UBgB/CobzD+EAro+1dyDSYKLTBSoZ0tja0zjjkTy4dovQ8
-	TvnPVKDmJdZzPB0CX36Yu8+5uxscxl7TB31m5zEdlQ/gP/SiPh9y5kHJZTvrHJs2iVx/DJwBrce
-	OueearGXjr+VzUg/SkeEp0/XNdnnMOzP6h41mY8rVfpqwyKES3smdAPCI+PvEW3e+3F98ijnA3L
-	QBkDlDCo6y1iNSJ8vLQ1PZvELggi6ukCwcEthuwqnUMsrR7TbI7ggpCn4H0d33GRHO3qhj3o77C
-	T0GW6DNpOVL6wEGoCXS4SyywAlFWF3dTKR6UitswdlQ7A/GRRBSgThbdm2CTQ7exPlTTeJPBYeq
-	PB3QhrCJDQzprpNONjssUk1dePdORFbNL1c5VA6V7JbBEI5rdL7/F79Tn1AtVww1KRLJpPy8XP9
-	PwtIi8dQe7+mKkN8SuncIcRlun/kU6OUEHDPOYY9/UYfS7d651zD4VP83fvustJy/Eg2qKJrfj4
-	+wkH8gO2SZFCl+7Hg10I1ZpJsKlvBhSfnN1cYfeREBMoIW563B/3AXI6G8NtVSNjVAaOPR9eBJu
-	Myxtj5KWWowDV3mphfxvdJN+b9tAflb/ZaI5KT7u/fN/arz8DOwzJJxBUYFmxPaeW2S+kTFLsjV
-	8CpzNGd0liSjKkH/7ao6mWapqONo+Li2gfnSCoburRkg==
-X-Received: by 2002:a05:7022:299:20b0:1a9:cad6:5b58 with SMTP id a92af1059eb24-1b503150119mr501572c88.39.1794514335221;
-        Thu, 12 Nov 2026 12:12:15 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50313d8f5sm1908017c88.3.2026.11.12.12.12.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 12:12:14 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: accel: mc3230: Leave chip in standby on mount matrix probe failure
-Date: Fri, 13 Nov 2026 01:42:08 +0530
-Message-ID: <20261112201208.476450-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110070206.1452-1-laixiangwu@cmss.chinamobile.com>
-References: <20261110070206.1452-1-laixiangwu@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSHbJVnv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9F01F00923
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:12:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794514339;
+	bh=eakRgnWHv93CEQPpJprbZeATRfmw83XT/BkhRlCQLg8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bSHbJVnvKo5zci/a1AG3EHF0wmI3lxnUuv9gNNDuCIUa9Xii0VLak9IqJNPLZgz07
+	 Ep6uTeYWFnkORVWYYXWAyg7SZgXCKfvNk6z/NhDifM4Id8WAepGw8vhSpVItzOqscD
+	 TF2VhaDh2DH2yMOTWY94XPcZy9echX8uG/ncBVHz+DJB5Pr9MgK8ft8ydYXyix3mve
+	 hWrCBu+M9W+3Ln+9mf4dO2kVpEd9Z//hls+ej6fWmz+gownoDGd2DyLr0VO7cJstov
+	 /3YNA8WdNblZK+OsyjcZjgG5Ukde7JElh2g3+Jlod2YdTbI5vfAxx3cuANNhpcxa16
+	 a74kXQpbTvR9w==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3adef977ad9so1426321fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:12:19 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEDMoV2UQqtfNslVEBUk6yPjTX+DKuXOO78BPP38vwBp6jtRWgpAbtEAXLnjZKKZridvzKRePV+LnuzlV8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lcJNLJIKt4KsdesGxJJtcvm75BE8Q8Wtzj2nq1DgLCV5l3wAG
+	c1cFe/s6ZmLzjixAt2q9qqpLWsuqqCQ6q9gXMXs30I+ozj1aKTgh5fNSmGYJImtrv6+yFnMrYqq
+	DDeByxMB+KmcTZ+mmx1MMRWLNZoCu0bM=
+X-Received: by 2002:a05:6512:1325:b0:5c1:4c83:ae37 with SMTP id
+ 2adb3069b0e04-5c1705faa61mr179985e87.2.1794514338096; Thu, 12 Nov 2026
+ 12:12:18 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,12 +59,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261111225940.1573565-1-tytso@mit.edu> <20261111225940.1573565-2-tytso@mit.edu>
+In-Reply-To: <20261111225940.1573565-2-tytso@mit.edu>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 12 Nov 2026 21:12:06 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jQh5o8rT0EDZ+zMXmPn8i0Dz+FoRK92OeYGeHbzrf4Lw@mail.gmail.com>
+X-Gm-Features: AclHuK89jLhFcAKrJXWTO7te7t_zZMTV5xHcIHChc6as7m7NjdEkpvKrRplXSrU
+Message-ID: <CAJZ5v0jQh5o8rT0EDZ+zMXmPn8i0Dz+FoRK92OeYGeHbzrf4Lw@mail.gmail.com>
+Subject: Re: [PATCH v5 1/6] agents: add infrastructure for agent resources
+To: "Theodore Ts'o" <tytso@mit.edu>
+Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev, 
+	Sasha Levin <sashal@kernel.org>, Bradley Morgan <brads@mainlining.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Mark Brown <broonie@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Leon Romanovsky <leon@kernel.org>, 
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>, Thorsten Leemhuis <linux@leemhuis.info>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter <error27@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
+	Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 03:02:06PM +0800, Xiangwu Lai wrote:
-> The mount matrix is read from firmware only and does not need the
-> chip at all, so move it before the WAKE transition.  That way the
-> chip is only woken up once the remaining steps cannot fail anymore.
+On Thu, Nov 12, 2026 at 12:00=E2=80=AFAM Theodore Ts'o <tytso@mit.edu> wrot=
+e:
+>
+> From: Sasha Levin <sashal@kernel.org>
+>
+> Add agents/ as a home for skills and other resources for
+> coding assistants. Describe the skill layout in coding-assistants.rst,
+> together with the rule that skills only inspect and report, and add a
+> MAINTAINERS entry covering the directory.
+>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> Link: https://patch.msgid.link/20261020161642.3713052-2-sashal@kernel.org
+> Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 
-Reviewed-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+Fine with me, so
+
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+
+> ---
+>  Documentation/process/coding-assistants.rst | 14 ++++++++++++++
+>  MAINTAINERS                                 |  6 ++++++
+>  2 files changed, 20 insertions(+)
+>
+> diff --git a/Documentation/process/coding-assistants.rst b/Documentation/=
+process/coding-assistants.rst
+> index 509dbf23a099..b8f2c74e46fc 100644
+> --- a/Documentation/process/coding-assistants.rst
+> +++ b/Documentation/process/coding-assistants.rst
+> @@ -19,6 +19,20 @@ For guidelines on content generated by AI coding assis=
+tants see:
+>
+>  * Documentation/process/generated-content.rst
+>
+> +Agent resources
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +Skills for coding assistants live under ``agents/skills/``, one director=
+y per
+> +skill with a ``SKILL.md`` entry point in the `Agent Skills format
+> +<https://agentskills.io/specification>`_. Each skill points at the proce=
+ss
+> +documents that apply to its task and adds only what assistants tend to g=
+et
+> +wrong.
+> +
+> +Skills inspect and report. They do not change files, create commits or t=
+ags,
+> +or send mail. A skill returns its result with the evidence for it, or sa=
+ys what
+> +is missing. Do not fill a missing result with a guess or a placeholder, =
+and do
+> +not finalize the work until it is resolved.
+> +
+>  Licensing and Legal Requirements
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 222b7fc2c3aa..eb348cc9588f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -734,6 +734,12 @@ F: Documentation/filesystems/afs.rst
+>  F:     fs/afs/
+>  F:     include/trace/events/afs.h
+>
+> +AGENT RESOURCES
+> +M:     Sasha Levin <sashal@kernel.org>
+> +L:     workflows@vger.kernel.org
+> +S:     Maintained
+> +F:     agents/
+> +
+>  AGPGART DRIVER
+>  M:     David Airlie <airlied@redhat.com>
+>  L:     dri-devel@lists.freedesktop.org
+> --
+> 2.53.0
+>
+>
