@@ -1,69 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476312;
-	b=GfjS0BDXJc/DyuRcjf++XmT5MzqRai//dwE/ZbIAR7EBmQ4KImwBJofogTlnpGjBKI5Y
-	 3QdDzk3ZnFVpkWdjqBrmtnvy3MD5AvSSuXzctQ4v2wKJ+pOSyVVmonq/HbadkKyWN1A3M
-	 8kL6m8ePsHYUU1Oa1Lz+PnfcJQPtlLVk9sHezptG/x8SRnz22O7cbuPOqxqtk/TNZdPkN
-	 b//SoMu0WmIae832pM1ye8PT3/AuOpaMDbm4sxYZ4f6Zt8+lcjNZ90CR1Bx5jm+42AA17
-	 d/EvcbaOSJWWDtggAIZ5vhwRnYf4WMnt2JJZkl+WBTpCT+FG5w5bxXrgCfZK18DFYZA==
+	t=1794476309;
+	b=mhJoI7oojXGzEP+a+EFw4rOHW5iwydAa5FacSvtIiM1hzH8zco9h4A4lXV8mgeo7cNch
+	 MwDR6fYQf8A6MDe5/9bmneBNIXHR1AcAYgi8qnDIQBKY0i9TUmOCovbnPva4xOU8vhRcw
+	 ELhnBzSwllT0mONW1wnerZ71WpitwDnjMTQBXyuGaM2XYBjvO1SOqV5sH6VE2PuHCXNKE
+	 76Usy5Dzj7fX3Pkh1Hd0AVHFLv899bavVTDKVVIDLpCApSlXzfMobEWE02RlxlhqqRDf/
+	 ueAjBCDV7sQZ6gK9MzOHJ4Es8zW3rpOVbEo8c2yPhKerVzD/qXZEk1fYtxXeUtWow/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476312;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xxPjeJOonREX1Xv47QX7J8EQOUdHx478nuGBDOpBjAE=;
-	b=04dwaL+WsO0sgps/gRnlo8KZnnlZ/oNDjXq1brmLzGW5n3BNDPPgtIHtF0qluso+ojOF
-	 vJOsD5k9DL7bAEDGFzoeTHo6msrUIA7PkWU1GCgwUClq/VsjKTnBr2mrcXkZ3/v+lnmI+
-	 XsUUK09d0nv9GfwRgX6IbGVfHOMxexOgkAHET/uyFCbt0NcDuggN8bMonJbexo29IrP/y
-	 iJG/caVoyJ5c4/f57oJT4r32ep1CP3JVnITZggXF/qahDe94lVTEvbRL58Sn7QQ+IGqK/
-	 UfaEcUiW+bTEQ/4DxloPUx5ZG1gM6kovOXly5Du5QNDs4w4ahJRfpNhwbw+dIyyex/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476309;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=U2TDbKAnFz/PUpn8r3Gfv9DpcDc8O6+4aawWDP9AXUE=;
+	b=YfMdUbi58vykIMFxRlGhl8aUKdX5RJpp60UA0QARJxF38jPr6KWcKaV7GeJiVFTdHhbp
+	 vbQTK6Cb5pU8NdM7ICID57NbTLqVzdLxnfYqLNrjPT/n4LN9ZKpOKUNhgz0PovtACJ5mF
+	 4KyIUcpJsHOsFaMHZNUsMPdveN0kqzCNtA4ChZAk5TJqPdAbpKg97UIjeNjD56W3UxAdn
+	 avNXiofWw+bcDmoSXe3glqaD2fQEuWDRcW77lyrK/1W4MEENhktqlRuf0CmZ36q3jMLEI
+	 vJYA1O7Ya8BsPvbuvyPCf/o1vq6fmzPxzY/bOXAfcygMsAFtQOOYt+szH4jsDblOBwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=HwSm580b;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31CA3606A32A
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PgSIoqhe;
+	arc=none smtp.remote-ip=91.218.175.140
+Received: from mta0.migadu.com (out-140.mta0.migadu.com [91.218.175.140])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1983606A321
 	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:38:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31CA3606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1983606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=HwSm580b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=HwSm580bIFqc4Igm7b7dHlWH3Y89Y5jJY1s6WUkQECkI7HPC17vvaz8BgCxmJiJXFWVWOxtf6Pgaa
-	 a03GeKMLE/YPY9dchR6FkKk7cVA9aTING0muzUv/nTJYoCPtgydg9y2BVcdow1puYeHjHrQ4E2jpHS
-	 cL+GYUPHwWp9/Fkc=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af5890b93e-df070;
-	Thu, 12 Nov 2026 17:38:26 +0800 (CST)
-X-RM-TRANSID:2ee56af5890b93e-df070
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from utest (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af5890c33c-fb735;
-	Thu, 12 Nov 2026 17:38:26 +0800 (CST)
-X-RM-TRANSID:2ee46af5890c33c-fb735
-From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-To: johan@kernel.org,
-	elder@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: greybus-dev@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com,
-	dan@pereq.eu
-Subject: [PATCH v2] greybus: verify the received message size covers the message header
-Date: Thu, 12 Nov 2026 09:38:23 +0000
-Message-ID: <20261112093823.37567-1-shishunbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112071228.33017-1-shishunbo@cmss.chinamobile.com>
-References: <20261112071228.33017-1-shishunbo@cmss.chinamobile.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PgSIoqhe
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Bt1xUj/VmyXvca7gxum1cF/z09pb5LjCLbZsA6IbGVw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794476307; v=1; x=1795081107;
+ b=PgSIoqhe2Ly6GkaoGdIa4ifVpEXj1dtW4gsnWYN99EyBn9m/dpugt7RZTIYumJGH1RGYP8Aw
+ D075tWfV1o/7IVJJeF8gOsKqAhUP05zBsNnHWszm9+4eKvT5myY9kAWStWwID7bIw6PvOUSfgnx
+ 26u9WN1KU0muJ7Gak5oklx5g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 01d0cf1fa9ea3b88;
+	Thu, 12 Nov 2026 09:38:26 +0000
+X-Mizu-Trace-ID: 01d0cf1fa9ea3b88
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 12 Nov 2026 10:38:21 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Krzysztof Kozlowski <krzk@kernel.org>, linux-wireless@vger.kernel.org,
+ Noah Weinberger <NoahWeinberger2003@proton.me>,
+ "pkshih@realtek.com" <pkshih@realtek.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "security@kernel.org" <security@kernel.org>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_wifi=3A_rtw88=3A_sdio=3A_check_p?=
+ =?US-ASCII?Q?acket_length_against_remaining_RX_data?=
+In-Reply-To: <912f7250-d1bb-43cd-8efc-9ad7b0c4f1a9@kernel.org>
+References: <tKht3w_knueblApO8rdPrR1QcEs6-nv-6y_7lYwYWCYqQJJ2ZiPAgcGJZuiQVeotGyIaO3EZ9j_0jFwlc5ESOzzhNSRjQu5vvUGR1kf2MUE=@proton.me> <43A4B4D6-EB5F-4079-8BE9-A452DA8B2AB6@linux.dev> <912f7250-d1bb-43cd-8efc-9ad7b0c4f1a9@kernel.org>
+Message-ID: <9EEA5565-0A03-41F8-91ED-C50D4A632AE3@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,69 +68,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-In gb_connection_recv(), the size of the received data is checked
-against sizeof(struct gb_operation_msg_hdr) and against the message
-size encoded in the header (msg_size), but msg_size itself is never
-checked against the header size.
+On November 12, 2026 10:24:53 AM GMT+01:00, Krzysztof Kozlowski
+<krzk@kernel.org> wrote:
+>On 10/11/2026 02:34, Luka Gejak wrote:
+>> Hi Noah,
+>> 
+>> Thanks for looking into this. A few comments below.
+>> 
+>> On November 8, 2026 11:27:09 PM GMT+01:00, Noah Weinberger
+>> <NoahWeinberger2003@proton.me> wrote:
+>> 
+>>> Subject: [PATCH] wifi: rtw88: sdio: check packet length against
+>remaining RX data
+>> 
+>> This doesn't apply to rtw-next, which is the tree rtw88 patches should
+>be
+>
+>This was a report, not a patch whihc can be applied. It's visible by
+>lack of DCO.
+>
+>
+>
+>Best regards,
+>Krzysztof
+>
 
-If a peer sends a message whose header claims a size smaller than
-the header itself (e.g. header.size == 3), the two existing checks
-both pass (size >= sizeof(header) and size >= msg_size), and the
-message is dispatched with the undersized msg_size.
+As Noah wrote in private email, emphasis on submission and version of the
+patch:
 
-In gb_operation_create_incoming(), this leads to an unsigned
-integer underflow in:
+>Hi Luka,
 
-	request_size = size - sizeof(struct gb_operation_msg_hdr);
+>Thanks for the detailed review >and for pointing me to the >existing fix
+>in
+>rtw-next. I’ll drop this >version of the patch.
 
-The underflowed request_size then wraps back around in
-gb_operation_message_alloc():
+>I appreciate the corrections >and the guidance on the target >tree,
+>testing
+>and submission format. I’ll >keep those in mind for future >patches.
 
-	message_size = payload_size + sizeof(*header);
+>Thanks,
+>Noah
 
-causing kzalloc() to allocate a buffer that is too small to hold
-the message header.  When the response is later prepared in
-gb_operation_response_alloc(), reading
-request_header->operation_id reads past the end of the undersized
-allocation, triggering a KASAN slab-out-of-bounds report.  When
-header.size is zero, kzalloc(0) returns ZERO_SIZE_PTR and the
-same read dereferences an invalid address.
-
-Combine the two existing checks into one that also verifies
-msg_size >= sizeof(header), so that the "Caller has made sure we
-at least have a message header" assumption in
-gb_operation_create_incoming() actually holds.
-
-Suggested-by: Dan Carpenter <dan@pereq.eu>
-Link: https://lore.kernel.org/all/sashiko-outbox-210716@kernel.org/T/
-Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
-Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
-Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
----
- drivers/greybus/operation.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-index 7e12ffb2dd60..dcb38dc29cff 100644
---- a/drivers/greybus/operation.c
-+++ b/drivers/greybus/operation.c
-@@ -1047,9 +1047,9 @@ void gb_connection_recv(struct gb_connection *connection,
- 	/* Use memcpy as data may be unaligned */
- 	memcpy(&header, data, sizeof(header));
- 	msg_size = le16_to_cpu(header.size);
--	if (size < msg_size) {
-+	if (msg_size < sizeof(header) || msg_size > size) {
- 		dev_err_ratelimited(dev,
--				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
-+				    "%s: incomplete or invalid message 0x%04x of type 0x%02x received (%zu < %zu)\n",
- 				    connection->name,
- 				    le16_to_cpu(header.operation_id),
- 				    header.type, size, msg_size);
--- 
-2.53.0
-
-
-
+Best regards,
+Luka Gejak
