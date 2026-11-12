@@ -1,65 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794443248;
-	b=5g8UakZSoYDtdvU+ZFL3zLjZPIQuuA1vZFYuJNs5XgTNQWrdInTAwPpfU55qRBPHC3VZ
-	 MAJVX/iIOirBmcfonaR0vecoFrwelfl7grdcgYRaLDev+hE0CIiLKnqvHa+wrOAbdqAtK
-	 ertk7XbVxQuBbhSYAdKGgrh4Z5snGHo5AQ+cTpfE+oGThJ6yfbeEWyvRkSXZp7hYnbC2D
-	 BfFb4XGmw3fXqS9lGODORlIBEZ5AsGuHvpbZO7OrjorHCeEYtOosgJ1woiHMO4mlN60qM
-	 klqAr0NMm1y66DqNBrWpLgt9OCaQ/ThoFVtMP8s6t2Ifw/tJImUsnmF4Kxf7+NdRceA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794443248;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=GNf62tlfKk2RqLqLMlYG6wDc1/oZ2jd//U0ZTkJvYmQ=;
-	b=jO5bwRoYAj0BGLIopIJ3y0/i/2ZFDyR/C497ZxhL8/UbLKK46cGg88oiTqgnoLbDmaoM
-	 mthvhGfzLw1BMU73/3R06W1UqXPAcGDDstT8OR3SU3bonZOARV1YT/gXKcFYpuPeYVfBN
-	 8PhoVBQA4Zs0b1EC01vnNLZuuFzXhJFoEQGvKKS9NZzXKAuqWeZRgE4WuDjv1Noc2l7SD
-	 0O/xlz2hMtVKM8aQMcbm26mYfkTzxtzqiRvYynNW0MS6Ut1/069tLXrovtP7FVOtnGNoE
-	 VtrECvKMZOKhQTtqiUcqyohljuNP3Yvr1ZXh/mL9SkZp0UGPaYRlkrz9r+Mo79lRX8Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=a7cCPrDn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794443339;
+	b=3dHflMP5sHL6uQXSarAoAmW7q1ogQ6mxL5eEfyDwJkq277paMyXq93bIX1k2bmmvXwME
+	 89eWhD9wbczGI13ZDanShFNjn4xvH4jM8OlSysznsP3i1gSRyU/8XKKmVnTnUxxk/WDxv
+	 AqQuGeuudnP9c4m3mhgen3WERh4yTSv4kMMfgjhDKwXlY7y/oYM8naucgiCCIvXWcQRkd
+	 3CIijesIp6j8GtP/PvpLHZFu7y/OertezXvHvPle/VOnzzPEZW/jhZtSY0JV1DyayMiza
+	 QwHT7FbkudEz60vqhM4mUjL92uO+K0K5RUqCHV3ptQAjFgsyP0VMs2VTOfcyjgnZGlQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794443339;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=NrSzbFzhb/48pQwefucbagWYjcsLjKvWanQjAidltxQ=;
+	b=i+VjzbRksWKDowR4P5aaBBZpo5DTjJ48dhNDsMNfsLAiYduTs4zTGpBIGuF8JrbKySgS
+	 /dkRnLIXTf/u5FVMK+cNwCuK7ljquohNhlMyncb2DF2HoHIyf4Jzx6M9PUr7r6/ccoWTn
+	 i3nN7KSOZh1xDnjxtVycn+uCdM8WmxiSpp0K0oACzpteVoQYLUUgi26djzFB121H/H7Nx
+	 Qw+WGuargVanZ8dJhlGoKRyTSYhqBtDGIKEAggEjoP4HVkSU/jSEfk4cZCmpv8MHv2dMK
+	 fqw6WojDB1oqrsIk8p4Uo2CuWvKnmx7zbsb0VRzUbRmpK2LHHJVsZ2YEvQWJIYamWRA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PAFYordc;
+	arc=none smtp.remote-ip=209.85.128.179
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DA3606A31C;
-	Thu, 12 Nov 2026 00:27:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67DA3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA2E606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:28:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FA2E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=a7cCPrDn
-ARC-Seal: i=1; a=rsa-sha256; t=1794443241; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=QQiIZ4wkcrUZ8Q31LHrYUyKETf383N6C8kbwlGYimCrDDNYcPKkRRiOyKgKqTIS6UlW+hTCIaFz55vqG3NHzkK+iD6cRtqiWSeAjSQfZWzByph8yuFMKn4CBdF5ji6+Groo5asNYMU3FWPeV3lN95lMyHEF9lvSgDtzHuEtr1vM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794443241; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=GNf62tlfKk2RqLqLMlYG6wDc1/oZ2jd//U0ZTkJvYmQ=; 
-	b=eLyrMXRlgKCxJsw4CgE7hy1cX05BgCDGUHoitWOBizxbyK5s0wsOZ6/Aps2BoXu2mkaVBtajHnzOeYU8J5RTtI0QI3pW1WTBcgZZxCeT0YBMzH63YrX+sKGlpZJMXCMpRbZw8hQZiJ9g071fL/Y6b++JqJeUtjmPdkfOGQKhZ8g=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=a7cCPrDnUSMSlfqG7ad0k2vtyMv3nY2I4+WI3JQ442/O6mZvzXJLWAe3l9xQjae2liprG6+n+EfreJeGxrg6VCSaeoRw72fXLG/cD2Iz3bK0e7h7a/OG5yim6ddXO6/ERsqGOOb6oJCl1X3ugRboIbUQ7ultM9Mhqq8uwSSZuO0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=GNf62tlfKk2RqLqLMlYG6wDc1/oZ2jd//U0ZTkJvYmQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794443240705650.4648776249144;
-	Wed, 11 Nov 2026 16:27:20 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 76628180BC0; Thu, 12 Nov 2026 01:27:17 +0100 (CET)
-Date: Thu, 12 Nov 2026 01:27:17 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Badhri Jagan Sridharan <badhri@google.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	RD Babiera <rdbabiera@google.com>, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] usb: typec: tcpci_rt1711h: Enable SOP' communication
-Message-ID: <avUHy1y8ik_qmzHM@venus>
-References: <20261103-husb311-cable-comm-v1-0-6217dabc1a85@flipper.net>
- <20261103-husb311-cable-comm-v1-3-6217dabc1a85@flipper.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PAFYordc
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b32b2e691aso4008997b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:28:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794443338; x=1795048138; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NrSzbFzhb/48pQwefucbagWYjcsLjKvWanQjAidltxQ=;
+        b=PAFYordcAlFwxsujOd7fSn/4PQJ6fa3zPVS6mw55aYy5QF43dixpt3/3X0PUtkRqzq
+         Un0sHWSZJcdTv2azHZrdTifJBVehAMUfZTakao+ijmw9SiJ4wy4CF+IXYI/JBLEBGQzZ
+         PGDmzt8yGq+e3VAqiMx3dgyeWoGZRnUyCyWJmu0RPIvQEMkt0KVjs8V4AtRcd3aFbrqo
+         HnqvhDjnevub0HGIGBNQ6wq2w9w/4T1ny09gndrXUK/+NyFrJh+ofxlhZyh9xMY7FWNg
+         ffnW5N2qqx6jsey4o9v1NtDC0B030Obxowvm99m3FQbkALcAJS5yePSk21EEhikrmkPz
+         AiTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794443338; x=1795048138;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=NrSzbFzhb/48pQwefucbagWYjcsLjKvWanQjAidltxQ=;
+        b=r7lz4RM+V7ikiqLC1g/1iGH1NSm40kksuT+8bdlXh1RjaQGhtWDvHuA+mJAZddy+Qp
+         ZqBxfp70T7GMR0WS39r4TysBJuOcS2psKeQvZcDf/V0TGt5PJ/XvikQkM4E/MhU2NxX0
+         2w1pJdoy6qODqGAzXL5yeiwLcdKztevsopgU30yFNK2ApuUQgbTJYsdzuuCQmtDU5666
+         /9z1EgyrZ07NNqW6W7GYUtsQ/6nUy2f6q4e2e1VwRTI/vjFw/In/Aq7GrK1ZJzfQDtlN
+         kPfpd6+rLjODlOj+ooHctSSdSytwQEouX+709mmnqqAogYvsnFc0ibZbRBNchZM4dDHM
+         QdHw==
+X-Forwarded-Encrypted: i=1; AL+hErEmkMtI4+Oy64obfLb/cSFB5fp5kWXxAaTlqnC1vBkxmBkqyq5VVyUMjVP/YaYG6AnhtsoxJp3HBApXTQk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81zMN6lZfTSEqaoLoLUfMbw8wRHLZjbdeVVg7YAnNIoRwbYXOt
+	l3wqR+yc457KRvccWsgHaCCeRwlHdMZZfXtQuCZ19a7GqUEItGGMtAml
+X-Gm-Gg: AYBFou0ifKzvHfXby5YCttqDLE/l9V8PJHa70lvFqhENs13JDK0pxPKyZS1uJLZiDuU
+	40+4ons3UhFO/AyxDn6ODWP2VWBcr4qnZYHOmiAquS/0HW/DwFRo6RI998r8y2K4RkSzMXC0ykZ
+	CEWX1jRWp7T7RIrLePA32wCs7I/4VN1a3tjgWgFa0frTx66H8+5Pj39aTfihdpjRAdQRU+kXSrW
+	gNEFK4pxmUoGx6Y8aBQ7v5uQbJGzQBcEzl9ZjpgDvNT5i24P/0/WAgpxLWfsvx8u3wmdcqSTkxn
+	uHDTRg2CG9++HjYz6F4OEbBg/GrzcUHGnTNh4q6ZH0X5mwpfgRWkce5eoRttHLtjh9Fidpl9erH
+	PfwuIjxBGRht57GzasV0ZOQqvrimk1vKEPiuioUnpXNnULCDXYkJ/Sd0F90Z2LW9iQVs+31NvQe
+	PPNWUyEy1/p7uxnDeIqcgrv2+Ctauh7lPl6G1yk5wm54f4k2Hn0LM6RsZp2tJHmePa+CkwWL4wi
+	pEzRxKNcpJXSR8ASpBW24+FXjVeuZZsZl4WSbAcU2Znt2r0Lz+dA8JpOpLGDmS1NMYEqK9saPfR
+	apYZmRGlcwcOZ/aszdGfISEb8xzDzcYL8ocgipymAaeNFjnznjEBTOIkIbWBmU91fpWogaKkzNC
+	MdIJSRhwyu5UdBK0w9Hw92DIYzJV6EyWuKsF1YFs7u05jDuHTz/+AD/XKuvLPnw==
+X-Received: by 2002:a05:690c:c0c3:b0:8b0:6722:6734 with SMTP id 00721157ae682-8b3bb155926mr6839747b3.34.1794443338082;
+        Wed, 11 Nov 2026 16:28:58 -0800 (PST)
+Received: from localhost (107-220-129-194.lightspeed.chrlnc.sbcglobal.net. [107.220.129.194])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3933a6554sm57571227b3.12.2026.11.11.16.28.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 16:28:56 -0800 (PST)
+From: Matt Turner <mattst88@gmail.com>
+Date: Wed, 11 Nov 2026 19:28:56 -0500
+Subject: [PATCH] vgacon: Fall back to the dummy console if mapping VGA
+ memory fails
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,79 +93,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ibp6kjttaa5v7lwv"
-Content-Disposition: inline
-In-Reply-To: <20261103-husb311-cable-comm-v1-3-6217dabc1a85@flipper.net>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.427.16
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-vgacon-ioremap-null-v1-1-6dd05bf390ef@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrE2iIoiriEW1gxFaaRFJ4+6Kt
+ /sW7w/gyTF5aJIAjk72bE2ESBNQkzQjIetoyLO8FHF4jlJZg2wdrXJDcywLSl2oStRFX2cVxOf
+ maODrq7bdb3/0M6n9TcF9P4NsHx93AAAA
+X-Change-ID: 20261111-vgacon-ioremap-null-ad4c7184b807
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
+ stable@vger.kernel.org, Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1460; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=br3GFCtz3RXFRK3DsA4LkWP9fcwbxa8J0zn4MRkuUF4=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLK+criL7v37qOiykO8rawfHuuk+WyP0ikzsHuj9nsVwQ
+ sin7fCvjo8sDGJcDDPFFFni1iuyzGrbsdTntPQvmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
+ EMjQMYqHyOkxaGQWF5emFummFRQ55OWXJJZk5ucV6+UXpOYVpBfopWWmlWRk5BcVpwKN0MtLLTF
+ 1dXQzMjQwsXS0MHOycDQ1cXZ2MnRyc3R0dnUysjQ3MXC2dDRxtTRn4OIUgLnmUTAjQ9v1oF3ZfR
+ 8OxC4xawm0WOOg2hj571rb9g/LopWvnRE9dpPhnybXhpaPzH/zz0vn7L19vfNZ3UWnSt4l31dM5
+ BKapXb7CDMA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
+On Alpha, setup_arch() registers vgacon whenever CONFIG_VGA_CONSOLE is
+enabled. On Marvel (EV7) systems whose SRM console is serial, no VGA
+hose is set, so marvel_ioremap() finds no hose for 0xb8000 and returns
+NULL. vgacon_startup() then probes video memory through that NULL
+pointer and oopses in console_init():
 
---ibp6kjttaa5v7lwv
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 3/5] usb: typec: tcpci_rt1711h: Enable SOP' communication
-MIME-Version: 1.0
+  Unable to handle kernel paging request at virtual address 0000000000000000
+  pc is at vgacon_startup+0x174/0x910
 
-Hi,
+VGA_MAP_MEM() is ioremap() on Alpha and powerpc and can fail. Treat
+failure like a failed probe and fall back to the dummy console. If a
+VGA card is present, locate_and_init_vga() still switches to vgacon
+once PCI is up.
 
-On Tue, Nov 03, 2026 at 03:21:24PM +0400, Alexey Charkov wrote:
-> These TCPCs transmit and receive SOP' as the TCPCI specification
-> defines, so let TCPM discover e-marked cables through them and learn
-> their current and speed ratings.
->=20
-> Tested on a HUSB311 with an e-marked 5A EPR cable.
->=20
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> ---
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Matt Turner <mattst88@gmail.com>
+---
+ drivers/video/console/vgacon.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+diff --git a/drivers/video/console/vgacon.c b/drivers/video/console/vgacon.c
+index e7e6750f1f87..09f7c376b468 100644
+--- a/drivers/video/console/vgacon.c
++++ b/drivers/video/console/vgacon.c
+@@ -324,6 +324,8 @@ static const char *vgacon_startup(void)
+ 	}
+ 
+ 	vga_vram_base = VGA_MAP_MEM(vga_vram_base, vga_vram_size);
++	if (!vga_vram_base)
++		goto no_vga;
+ 	vga_vram_end = vga_vram_base + vga_vram_size;
+ 
+ 	/*
 
-Greetings,
+---
+base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+change-id: 20261111-vgacon-ioremap-null-ad4c7184b807
 
--- Sebastian
+Best regards,
+--  
+Matt Turner <mattst88@gmail.com>
 
->  drivers/usb/typec/tcpm/tcpci_rt1711h.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/usb/typec/tcpm/tcpci_rt1711h.c b/drivers/usb/typec/t=
-cpm/tcpci_rt1711h.c
-> index af8356df6b98..232eb721fb3d 100644
-> --- a/drivers/usb/typec/tcpm/tcpci_rt1711h.c
-> +++ b/drivers/usb/typec/tcpm/tcpci_rt1711h.c
-> @@ -337,6 +337,7 @@ static int rt1711h_probe(struct i2c_client *client)
->  	chip->data.set_vbus =3D rt1711h_set_vbus;
->  	chip->data.set_vconn =3D rt1711h_set_vconn;
->  	chip->data.start_drp_toggling =3D rt1711h_start_drp_toggling;
-> +	chip->data.cable_comm_capable =3D true;
->  	chip->tcpci =3D tcpci_register_port(chip->dev, &chip->data);
->  	if (IS_ERR_OR_NULL(chip->tcpci))
->  		return PTR_ERR(chip->tcpci);
->=20
-> --=20
-> 2.56.0
->=20
-
---ibp6kjttaa5v7lwv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr1B+UACgkQ2O7X88g7
-+ppRhw//XrjHVBFnOoOQqJq55OAGjwuREYjNOyPCt0LUoXAdtSbpckkzOcYA5Jg2
-TjJi/sEH+GTJ4vtJ8xFRPfSv63YF8uSNCGphCAyDvGyAjbBpqzdAU4YMjOFuhGHK
-LVpRqYeKk5qmbd8xPF2H3B84ohj3WFhIr+zlZTkDoIAciQSN597A5jMhvFHgPS8U
-PH3zvkq1SHJr5IT09pBDQPeWVNYK+zKemWINFDZ3bR669gdgx+bfsDce9HI54DgV
-gfyRddsp8jMZPx0XDlo7Q61jmfoRfP5HhonCivA9UUCXzaosX4VvECMcc2WwnOHj
-8vlQTrYYxiy5UqwthfsAhzxC4NqQQRlg7NbG1Cgro+fq2a7cJ6N2Y35+BC8kKu24
-OP5Gim+Da8EFO59BIwP6IlCy7qsGuGTXHiP8Y0ceYBZ8mZZkli7QdgSNC1C8ZaCL
-Blo/02K4zHBY9aCSTCEaxTR7qW7tPEufTpQ1mkkH6hmBIZri/cfiYNnMt4F/aLwy
-1TG1JAyw1bVXvet4VEyNyJNYdCC88DrSbRv0Q7jhLYE2v3ztJGH1Nu2H/L1c0ZdV
-PmEHh2aJ73KsJQPaeHhKDKEfDxiiIhuqXd9s8iWsV7wXiSaoWOGiaW2QOjBHc8vi
-oIAcmrrhGAX2mg4VwEiY8q8G6gn2LbdVvIgjFfI/xLxA89Et/Hc=
-=Euuy
------END PGP SIGNATURE-----
-
---ibp6kjttaa5v7lwv--
