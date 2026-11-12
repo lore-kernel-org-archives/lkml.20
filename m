@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794470814;
-	b=cac84NOkiaqQezf+J5qkB60QdA007eQDeRoUaUBJCvQaNFA9d6aHm3wp8B28bGJzYGLS
-	 26aaZRqNk9p0ZD2sa4W0A+ew3nTuBBSG8+XqX7nt2C2WOWMyt33Q3XtnmPkaAyH8bvp+c
-	 c2bDuLQu/90pPZLLhRkPTEDUDE88K8ez0QfMgl/+SbmjENTQfR3ediL8ECSxOajFX/BVb
-	 k2+KOGO8Vfs3Dbx8N3PDvPhIGAnSaO1NPuwGlFGDEUxktli9SWCqFUzQkl6W3y8INlr+C
-	 GsogTame39GvYjzUteBe3oKbxbtuz3Ja3cPt/eYCIZfbSHXoyHPLsaofjy4E4A2swCA==
+	t=1794470917;
+	b=um9C5gf96W9mFcqDC0LHwhJpFJ7U/brmZi/lyl7zByiRCEvjIeYNvseZeJFQZacIim/t
+	 w2f7vwBzDBAeG4MtLxk/ErCMkn5qk5BarilkBFbxTVRW9Clzkj45eGQFKS9kMHyYqA3dY
+	 XJjP/BbBfkDux9/YnVTLr8nkTdA2o1+E7BuVPKcSeeNh9qE/PvDQlXf9Mzjsc9dhUzj2W
+	 LikTCMuRVVvA7TobtLgJXOFEtH6jbwTTAUaQywN96jBZZ+0sRggxUdOzuojLLPFb8N/yU
+	 rKYI3gZOzjbwumBrKBKMFp73Na1PNCFiXkxIWArGPuGjXMnVbXwIUuN5Veep6o8o8gg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794470814;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=37tJxthq6UuPtApN+/b2dwoGQdtEbno5ZACuGEcRRlc=;
-	b=LbKECGWFSOyGi2KKSZAgcUtHJrGfpXDW+RBaaLuGZNuaFc9vB63x0AD8yDT9N7nfGC52
-	 O8pRWqNHiEzMx72olPnW28G/83WmItRe0SZUxtYYOwt4h48KXg9q5tCB9jvR8C4Q8M29Y
-	 9EaY4les/C1OYeQxXWf1iilH+2WTOgPspqYY4XC693EzJvfOM7fL5dnOyb+BmFWIJ9TDv
-	 gHBDstGj5PpsBIdbmq2ufkO59fYq04HZPRgvOeCF4cToB3XVFN8ua1+nc7LDBRcBU/j3a
-	 R7xY5Trk6fibOFtTl3GxKDKoFf96m25NtJ1C7vgaMWYPj1+wCfGT5lkLj5oDYm50FUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794470917;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kDMtd9AuZgk5VE9f/1gIA8QVaFrQdHJET/5OfnQ2nBI=;
+	b=h5lgYYTDrcMDQ/ThFtAMP9pi5s66ofhdSTHv13ilNcALWeQsEB8YAcnx/Ra+u2nneLU3
+	 6dZPMXwx3d5Y9DkATaLq0hrMqUOTYt3mx0DR82uwVd0xq59p3a0RQ3EsRiKa+K/m2Qxlf
+	 dgRwB7g4st5gaQ+0HCmDgmhOsjNc2Qqrt4o8fSuQCTz7jdosL28sEKcsWCrBpVEDjSl6Y
+	 gWLRWf6ENHiIvhvQ3EPYFKqg7ku59+DxyX3Oao7sB/Oh71YD8Q40Wo+UxGUyopWq12mUs
+	 H2TIR7ik7tR6JagUYXqQgB3AVa2f2HM5QM2Q26wTTvKK3iu1iQdcHkc430VgXVr9awg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EtWmw92a;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE34E606A31C;
-	Thu, 12 Nov 2026 08:06:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EtWmw92a
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794470814;
-	b=Q8xoRfDguTqu5ttAP1ESlMCfsNKuPVSKBAbsaRw3XQrBaXsIBrzKZFfWJFbpaTEP/Xo7
-	 gOl/8YV9WmD5nJPEBvgzmIKU0Oa6FAlVwDtq/94fXuPyJhVDu/5WRPOU9FUx/3ishEfJC
-	 9v96UzOHlVtx5xHBF5qO8A7NS8SpBqnlYT6mZaX2nL+ReUz+sCsI5ScYdBXX4+yMJvGY7
-	 ouJTzVjzlJrnn7Qy+vJ9jR07LEWHhIX3Ji4yccNaWNpizFQk5rhj3lB34L5cgd7HlCbIW
-	 u8wnQSgVc0sAbM1O4i/Rynjz7n5q3ViFVomZzixA7ouDm6HIXYaFpzvZUhuB+9MaWXw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794470814;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=37tJxthq6UuPtApN+/b2dwoGQdtEbno5ZACuGEcRRlc=;
-	b=m62mO/P9i10rXD6xz5m7hq5fstvWNfrwN1Q+U9i/oZ2Ua08UOurbK0tnvMv2LOKhy9oJ
-	 RrgrjVM3rGQByR10J5RRerZ04DcVr72tPYkNEKgAd382Oh3ZuSzHz6wtCQH/Jb+wKfC3c
-	 PX+gYwXLhM8Ko2N/TXS78sSkMYaCHt+luNA00R+nmIIxj71+F+0y6Qy9fJ3y4TN8Asj/k
-	 7oRtDKj6tiIzqxL7tVPdAKta+B/Ei2npZ6o7T49gVyg7C3ZcPvaKq7w9CYAZQOqtzDZS6
-	 fygH8UsmcYV7vuw5X4D1bi7XXtL3JWXj997/Ql6wzeOASG6BB2siqJ4hegJypN9FWQA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hq1aCalB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6238F1F00A05;
-	Thu, 12 Nov 2026 08:06:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794470814;
-	bh=37tJxthq6UuPtApN+/b2dwoGQdtEbno5ZACuGEcRRlc=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=EtWmw92aX0aFBAe3tgapdUoP6HSkoSkMQUyLVlNFYRHYWP1fPGaDTUNq3S3TpH7vi
-	 ZaoWgA71hn+HFz6hksdcFh+qRjchL+MgEshoy8DTUZPPsMP5Ir5cNL0Fosc9D2VFoF
-	 DZsKeJX+0dwAi9oplT2CQMoQOS4qtOhqTrbc2xSow8Lz+sOnUwdVdJO2a03nng2gDP
-	 Ui1f7Y3zfj7TStzvMsvoNi69IGJN1qTp6h46mGaiD+prXmkrX0AmFPVPk9jjbPfrWW
-	 0N1Zldht7E0M8Au1M8pq6ZA+DL5VKU7L3ruKzDHEsHz+UWDR/GkPNAV99TsVvECmfn
-	 M6j96KLPe1gIw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B7BBD49336;
-	Thu, 12 Nov 2026 08:06:52 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:06:53 +0000
-Subject: [PATCH] PM / devfreq: Do not change the frequency of a suspended
- device
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E856606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:08:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E856606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hq1aCalB
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so2009189b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:08:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794470916; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KL1n6Y/OBkcLy5WQ7nJQ4S2JHK6YnCx75068O5a10YEt4iz3s1FTsWNw6sa0W8bP1d
+         1L1IFr83OgSpxHPjYcyYWXZQok0s77pL00oPIcYElC7lZkdecgfZCpIaZgeUUiqU0l9t
+         qw+zCbTqo6aqnrDcAuXgnhz0ZOQ4ChWjoUV4uFzYS2scVMP66N9dTkTvY6UtllfO5e+S
+         QLt8UIVpll/OFgONRzhzc0O7CT0wLIH4VfsrP1ihpi9mVhsblLwJHjOcq9eqPreMw6U8
+         VJRNCvqTzMa3ALoD7KmvIbCVFJ9mPNiCef5qOJdJtwwIL2dHsODNrm1ujvhee32fkQQk
+         1NOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kDMtd9AuZgk5VE9f/1gIA8QVaFrQdHJET/5OfnQ2nBI=;
+        fh=DmRtECbmsaWgtNFqffhxP4jj/tzHoGr3JKMVJSQPF2U=;
+        b=njVk9pZPSovlOWbUSwYyAmCi3SX59EYACbHdRTkm/NcxhuFJJFFqyGZ6OUvKi/90RJ
+         /K9kBV6CWb3DOaOkAUaQzWiK5SsJqVr9n3JQYJ1ZwRlghl+1WfINC1ERB2OuQW2ZSASe
+         1HvbDqg8lrwJ1V7OA+9KW3ryHr5+jmwNNskGFVDhC2l76l14x5AjLXM9RUREzAW5ZuV0
+         z0zrrt5S2GKBdjKQPuTKOp4b2FGAgCdCKWWrq6IEB6WLMh88Qy/HkLc3keN2uNSbmT4q
+         hz5vF4SFWECy9a+RRSCkZbClPvodBsveXMSHGqWU5xZALw5A/skPVdzTbf0+vXsiEKpQ
+         bPcw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794470916; x=1795075716; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kDMtd9AuZgk5VE9f/1gIA8QVaFrQdHJET/5OfnQ2nBI=;
+        b=Hq1aCalBjUX+hftGAF0sQQvOE5y/T1N0TfViPwPBboDD/eT0ynKEYkdVjhd7Co1CAW
+         iL5JHDieuIsiIepq75M/Ty4DMIJzCobwGeA8sC6YmiUgTTrc0QJE2kCM6wfvbclgFpAu
+         ZJNbAwo/MZH53DIjLbUWyOdr4YxWkT7pmm7kmEDEkM0ziWOjpbXG8gvRw94C5tyt8lKN
+         /yJn9UdUQ3e0S843pAIH5fn1WzRVkSnLEsAyi6ouE1AUzY5VbwLz/atxipHHhfXZKgI7
+         80uJRVNdM5znG7ZsC9xoaN6eizYfIg0bWkMqVp2KpO6FY+QyxVCGiy3CEhMwN5jAm6km
+         9OJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794470916; x=1795075716;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kDMtd9AuZgk5VE9f/1gIA8QVaFrQdHJET/5OfnQ2nBI=;
+        b=g9fKfY31eLs8fb6m7CmwDgAUW6y+mrhnrC6UXKoP5qb/JgBlpD1I+pf/CYjWL7aDC+
+         7DezlzhcpMPpPssh6njodBd49kmmwFsyF4UXUuflkK2PydMoACxd2hpOD+gBeNwNcQbA
+         dN6dAcJCfiZkHMORr/33VaFyCeFvQX4ZM6gUJ2JvRN8GsI21WXnHSljnTdRLq4CfYS5B
+         yt56hbitxtwkHZr4iFo8D5SuTp/p4vd6Opjjkg4ODjRZ48gX1ATKwu7eqiHp/XTSm6nI
+         JtfbVSBD7CRsqfva8DUGODTIoECY5LgGjIPBkxNjGyGWd0KL+Lx53o6WLl3y5Uz69JV4
+         dKdA==
+X-Forwarded-Encrypted: i=1; AL+hErHAtzdOCy6nD2zLKHLZr5Xoub1Tr908RwAngh+QFXaHRRBhKXrWnqxtUggr21y1zxMQ8KTn9zwoNMssAvc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EFp3Bdq7p/5xQwBWFg0kb78Y6PdkKMV1fsueNtlVJckcBMPVr
+	AWG4w2WvEHXCAfLNDI9dht3ugc4pCZGzoh1rS5xPAyMrSbfmFSciVTLRQeARTJVlCAbSccW4FTt
+	D6yhk7qXwRL0qNP1ig7LqQ1SXjnsg2DE=
+X-Gm-Gg: AYBFou1/hR+2mw9AmyU7LevdbSqXwK+UsArM1I7n4+WhyWn1PDvVEOPwHmmcpwClmh0
+	cmsKMOpIVzLD7wftziam0BQpfBBydlK7UgnSPe6DLzFNB2+iaels/h982xCIePXpOabFp6BJEs8
+	V5vcFIunFOE2t96zY8tO1v3yTJgfykG0MNBxoJ8BABgiaGCl4246KR5J8xKoX7PgYQDjQK3WEUr
+	kwkWn2pByq0TEa8Z0CRZzqbwD8Gs/o6vWQgp4eLthhxSxxA4JqNS1V3+bVQCRdqnGJq6HgGCehJ
+	rZZ4vpIQy0+WerIGRFEBmrLUl8tt8W11Prp71zY8jODGyIZr0sVvx70c4gmBup02+0IHh2mS7ym
+	Dw0QwEt+c/0PRM09XG8ir0ZTkPEyPEpl1LXhJCyA=
+X-Received: by 2002:a05:6a20:eec8:10b0:3e8:ef7a:36 with SMTP id
+ adf61e73a8af0-3f2fe1b1765mr3423325637.31.1794470915725; Thu, 12 Nov 2026
+ 00:08:35 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,244 +104,275 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-devfreq-suspend-sync-v1-1-af64603ef43e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0WN2w6CMBBEf4X02SbbDW2BXzE89LLVmoDaAtEY/
- 90CRt9mkplzXixTipRZV71YoiXmeB1LEYeKubMZT8SjL50hoBJCIPe0hER3nud8o9Hz/Bwd184
- 0wUkhJRhWrrdEIT427LHfe57thdy0sr6LQpmLb9pnf11XfWXwk633gfiWqUYyZFVoQtMtYoVZk
- 4m76zDEqatag4hKgm9JgwdALVBR7YO0AFZYaZVuTKtZ/35/AAf60MP/AAAA
-X-Change-ID: 20261112-devfreq-suspend-sync-7ca8fc51550a
-To: MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794470812; l=9265;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=sz4IHAsVIZYsbyOu7vGLOdfU1fixm3Q4YunFaWxkBUc=;
- b=dEIp4QPrEY6u/zn+ul1s1SnwIzq4SO8WsKH7FsNXztXT7CnHqu6Hu1NhNQudXDJ1tA49kbIHW
- wMCHAfImJNPA95df51Wft15W9Sa+fDTCrMZb6hKmmyFQnbFBoEnH/Jd
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261110102039.1002605-1-bjorn@kernel.org> <20261110102039.1002605-6-bjorn@kernel.org>
+ <CAJ8uoz2JMEKkzO-V7jtreS9q1Btmo0URosXzBGW7f=jhFnUzxg@mail.gmail.com> <875wy3890k.fsf@all.your.base.are.belong.to.us>
+In-Reply-To: <875wy3890k.fsf@all.your.base.are.belong.to.us>
+From: Magnus Karlsson <magnus.karlsson@gmail.com>
+Date: Thu, 12 Nov 2026 09:08:21 +0100
+X-Gm-Features: AclHuK9uAFcDfAXPRS66WSxOqj4MPsdyk4TznHA4ZGIRxwNJp8XNoIhiQkWvOq8
+Message-ID: <CAJ8uoz3MYvKnrHrPee3pYHx5HGCteisAauah1+wjYz+eH3EKCw@mail.gmail.com>
+Subject: Re: [PATCH net-next v1 05/11] xsk: Install UMEM page pool providers
+ in the core
+To: =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, 
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, netdev@vger.kernel.org, 
+	bpf@vger.kernel.org, io-uring@vger.kernel.org, 
+	Mina Almasry <almasrymina@google.com>, 
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, 
+	Alexander Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Stuart Clark <stuclar@meta.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Wed, 11 Nov 2026 at 20:26, Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org> wrot=
+e:
+>
+> Magnus Karlsson <magnus.karlsson@gmail.com> writes:
+>
+> > On Tue, 10 Nov 2026 at 11:36, Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org> =
+wrote:
+>
+> >> diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
+> >> index 18966bbdb5b7..c620a0c32c17 100644
+> >> --- a/net/xdp/xsk_buff_pool.c
+> >> +++ b/net/xdp/xsk_buff_pool.c
+> >> @@ -104,10 +101,30 @@ struct xsk_buff_pool *xp_create_and_assign_umem(=
+struct xdp_sock *xs,
+> >>         pool->fq =3D xs->fq_tmp;
+> >>         pool->cq =3D xs->cq_tmp;
+> >>
+> >> -       for (i =3D 0; i < pool->free_heads_cnt; i++) {
+> >> +       return pool;
+> >> +
+> >> +out:
+> >> +       xp_destroy(pool);
+> >> +       return NULL;
+> >> +}
+> >> +
+> >> +/* Only copy mode and driver zero copy use heads */
+> >> +int xp_alloc_heads(struct xsk_buff_pool *pool)
+> >> +{
+> >> +       struct xdp_buff_xsk *xskb;
+> >> +       u32 i;
+> >> +
+> >> +       if (pool->heads)
+> >> +               return 0;
+> >> +
+> >> +       pool->heads =3D kvzalloc_objs(*pool->heads, pool->heads_cnt);
+> >> +       if (!pool->heads)
+> >> +               return -ENOMEM;
+> >> +
+> >> +       for (i =3D 0; i < pool->heads_cnt; i++) {
+> >
+> > Now I get why you are not reusing the existing xdp_buff_xsk infra, you
+> > are removing them here for the PP case. Please mention this in the
+> > cover letter of the previous patch. There might be a good argument for
+> > it at least in aligned mode. It is wasting memory versus performance.
+> > Today when memory is expensive and also for umems that are shared
+> > between many sockets, the current scheme in the xsk_buffer pool for
+> > aligned mode might not be worth it.
+>
+> Will do!
+>
+> > I have two questions for you. What would the performance be if you
+> > moved the aligned mode over to use the same free_list as unaligned
+> > mode and then use that in PP? Would reuse more code, but would it be
+> > fast enough?
+> >
+> > If that is not performant, what if you instead decreased the cost of
+> > the current pre-allocated xskbs in aligned mode by just creating a
+> > single copy per umem and using those in PP? Might be a good thing for
+> > regular xsk drivers too these days, but do not know if it will work
+> > for you.
+> >
+> > I do not know if any of these suggestions would work, but I think you
+> > should examine them as less code paths is generally a good thing. You
+> > might also improve the non-PP case too by optimizing it for your case!
+>
+> Neither would help the provider. The page pool hands out net_iovs, so it
+> needs one per chunk anyway, and the driver brings its own xdp_buff.
+> net_iov, reuse and state are 69 bytes per chunk, against 128 for an
+> xdp_buff_xsk; free_list would add those 128 on top. Nor is reuse on the
+> hot path: the page pool recycles in its own cache and ring, and gives
+> chunks back only when it is destroyed or its ring is full. The hot path
+> is the FILL claim and the RX ring flush.
+>
+> I don't like the reuse[] fixes size tho...
+>
+> One copy per UMEM doesn't work either: an xdp_buff_xsk holds pool, rxq,
+> DMA addresses and cb, so it can only be shared by pools of the same
+> device and queue, and those already share the pool.
+>
+> For driver ZC I agree, heads add up with a shared UMEM: 32 MB per pool
+> for 1 GB of 4K chunks. Unaligned mode allocates a head per chunk too,
+> though, so moving aligned mode to free_heads saves nothing by itself;
+> heads would have to be sized by the rings. Worth a look, with numbers,
+> but in a separate series.
 
-Once a driver has called devfreq_suspend_device(), its device may be
-clock gated or powered down, but devfreq can still call ->target() for
-it: a PM QoS or sysfs min_freq/max_freq change, a devfreq cooling state
-change, the userspace governor's set_freq, an OPP notifier or a change of
-the passive governor's parent all end up in devfreq_update_target()
-whatever the device state. DEVFREQ_GOV_SUSPEND only stops the load
-monitoring of the governors that poll.
+Agreed, that would be too much tangential work for this series.
 
-This is fatal where the clock is managed by firmware that has to access
-the device's power domain to change the rate. On RK3588 with the GPU
-core clock on SCMI_CLK_GPU, TF-A programs the GPU GRF to set the rate,
-and with the GPU power domain off that ends in an asynchronous SError.
-
-Drivers cannot filter these calls reliably in ->target(): the suspend
-count changes without devfreq->lock, and devfreq_suspend_device() and
-devfreq_resume_device() only take the lock around the suspend and resume
-frequency changes, so an update can run between a driver's check and its
-clocks going off, or be overwritten by the resume frequency. Returning 0
-from ->target() without changing the rate makes devfreq record a
-frequency the device does not run at, and returning an error loses the
-request.
-
-Track the suspended state under devfreq->lock. devfreq_suspend_device()
-sets it in the critical section that applies the suspend frequency, and
-devfreq_resume_device() clears it in the one that restores the resume
-frequency. While it is set, devfreq_update_target() neither evaluates the
-governor nor calls ->target(). It records that an update was asked for,
-and devfreq_resume_device() runs that update instead of restoring the
-resume frequency, which may lie outside limits set in the meantime. So
-requests made while the device is suspended take effect on resume. If
-the governor was removed in the meantime, it restores the resume
-frequency as before.
-
-Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
-Link: https://lore.kernel.org/r/20261110140232.061d6844@fedora1.home
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-This comes from the review of a panthor patch [1] that kept devfreq from
-changing the RK3588 GPU clock rate while the GPU is suspended by
-filtering the calls in its ->target(). Boris Brezillon pointed out that a
-driver cannot do that without races, and that the devfreq core should not
-call ->target() between devfreq_suspend_device() and
-devfreq_resume_device(). This patch does that in
-devfreq_update_target(), which every governor and every core path (PM
-QoS, sysfs, OPP notifier, passive parent) goes through, so no governor
-needs a change.
-
-It applies on top of "PM / devfreq: Resume at the frequency from before
-suspend" [2], which changes the same lines of devfreq_suspend_device().
-The panthor side, "drm/panthor: Suspend devfreq until the GPU is first
-resumed" (dri-devel), pairs panthor's devfreq suspend and resume calls,
-which this change relies on across a system suspend.
-
-ufshcd already skips rate changes in its ->target() while its clock
-scaling is suspended; with this patch devfreq stops calling it in that
-state. No other driver was tested.
-
-One change of behaviour to point out: a device on the passive governor no
-longer follows its parent once it is suspended itself. devfreq_suspend()
-walks the device list newest first, so it usually suspends a passive
-device before its devfreq parent, and cpufreq_suspend() runs after
-devfreq_suspend(). What the parent does after that, such as an
-exynos-bus parent going to its suspend frequency, was followed by the
-passive device so far and is now deferred until devfreq_resume(). I
-have no such hardware to test on. If a passive device should keep
-following its parent there, the passive governor's notifiers could be
-exempted; please tell me if you want that.
-
-Concurrent devfreq_suspend_device() and devfreq_resume_device() calls
-for one device (a driver's runtime PM against devfreq_suspend() and
-devfreq_resume()) are still only ordered by the atomic suspend count, as
-before. This patch does not change that.
-
-Tested on an Orange Pi 5 (RK3588S) running a v7.3-based kernel with
-this patch, [2] and the panthor patch, with the GPU core clock on the
-firmware-managed SCMI_CLK_GPU and a 200 MHz opp-suspend: min_freq,
-max_freq, the userspace governor's set_freq and the devfreq cooling
-state written while the GPU was runtime suspended, also right after a
-suspend-to-idle cycle, no longer end in an SError and take effect on
-the next GPU job; 200 runtime suspend/resume cycles with max_freq
-toggling every ~35 ms and a 3 minute sustained load ran without an
-SError or WARN.
-The governor check in devfreq_resume_device() was added after these
-runs; it only matters when the governor is removed while an update is
-pending.
-
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit message, and I reviewed it and tested
-it as described above.
-
-[1] https://lore.kernel.org/r/20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com
-[2] https://lore.kernel.org/r/20261110-devfreq-resume-freq-v1-1-90de450ccbd0@gmail.com
----
- drivers/devfreq/devfreq.c | 40 ++++++++++++++++++++++++++++++----------
- include/linux/devfreq.h   |  7 +++++++
- 2 files changed, 37 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
-index 043cdc37bd0b..45588de327dd 100644
---- a/drivers/devfreq/devfreq.c
-+++ b/drivers/devfreq/devfreq.c
-@@ -408,6 +408,16 @@ int devfreq_update_target(struct devfreq *devfreq, unsigned long freq)
- 	if (!devfreq->governor)
- 		return -EINVAL;
- 
-+	/*
-+	 * The device may be powered down while it is suspended. Leave it
-+	 * alone, devfreq_resume_device() does the update.
-+	 */
-+	if (devfreq->suspended) {
-+		devfreq->update_pending = true;
-+		devfreq->pending_freq = freq;
-+		return 0;
-+	}
-+
- 	/* Reevaluate the proper frequency */
- 	err = devfreq->governor->get_target_freq(devfreq, &freq);
- 	if (err)
-@@ -1162,8 +1172,11 @@ int devfreq_suspend_device(struct devfreq *devfreq)
- 			return ret;
- 	}
- 
-+	mutex_lock(&devfreq->lock);
-+	devfreq->suspended = true;
-+	devfreq->update_pending = false;
-+	ret = 0;
- 	if (devfreq->suspend_freq) {
--		mutex_lock(&devfreq->lock);
- 		/*
- 		 * devfreq_set_target() records the frequency it sets as the
- 		 * one to resume at. Keep the frequency from before suspend
-@@ -1173,12 +1186,10 @@ int devfreq_suspend_device(struct devfreq *devfreq)
- 		resume_freq = devfreq->previous_freq;
- 		ret = devfreq_set_target(devfreq, devfreq->suspend_freq, 0);
- 		devfreq->resume_freq = resume_freq;
--		mutex_unlock(&devfreq->lock);
--		if (ret)
--			return ret;
- 	}
-+	mutex_unlock(&devfreq->lock);
- 
--	return 0;
-+	return ret;
- }
- EXPORT_SYMBOL(devfreq_suspend_device);
- 
-@@ -1200,13 +1211,22 @@ int devfreq_resume_device(struct devfreq *devfreq)
- 	if (atomic_dec_return(&devfreq->suspend_count) >= 1)
- 		return 0;
- 
--	if (devfreq->resume_freq) {
--		mutex_lock(&devfreq->lock);
-+	mutex_lock(&devfreq->lock);
-+	devfreq->suspended = false;
-+	ret = 0;
-+	if (devfreq->update_pending && devfreq->governor) {
-+		/*
-+		 * Run the update deferred while suspended. It takes the
-+		 * limits set meanwhile into account, unlike resume_freq.
-+		 */
-+		devfreq->update_pending = false;
-+		ret = devfreq_update_target(devfreq, devfreq->pending_freq);
-+	} else if (devfreq->resume_freq) {
- 		ret = devfreq_set_target(devfreq, devfreq->resume_freq, 0);
--		mutex_unlock(&devfreq->lock);
--		if (ret)
--			return ret;
- 	}
-+	mutex_unlock(&devfreq->lock);
-+	if (ret)
-+		return ret;
- 
- 	if (devfreq->governor) {
- 		ret = devfreq->governor->event_handler(devfreq,
-diff --git a/include/linux/devfreq.h b/include/linux/devfreq.h
-index dc1075dc3446..71b5193673f7 100644
---- a/include/linux/devfreq.h
-+++ b/include/linux/devfreq.h
-@@ -167,6 +167,10 @@ struct devfreq_stats {
-  * @suspend_freq:	 frequency of a device set during suspend phase.
-  * @resume_freq:	 frequency of a device set in resume phase.
-  * @suspend_count:	 suspend requests counter for a device.
-+ * @suspended:	 the device is suspended, frequency updates are deferred
-+ *		 until it is resumed. Protected by @lock.
-+ * @update_pending:	 a frequency update was deferred while suspended.
-+ * @pending_freq:	 the frequency argument of the deferred update.
-  * @stats:	Statistics of devfreq device behavior
-  * @transition_notifier_list: list head of DEVFREQ_TRANSITION_NOTIFIER notifier
-  * @cdev:	Cooling device pointer if the devfreq has cooling property
-@@ -210,6 +214,9 @@ struct devfreq {
- 	unsigned long suspend_freq;
- 	unsigned long resume_freq;
- 	atomic_t suspend_count;
-+	bool suspended;
-+	bool update_pending;
-+	unsigned long pending_freq;
- 
- 	/* information for device frequency transitions */
- 	struct devfreq_stats stats;
-
----
-base-commit: 9a222650d9e70d0027126e4df5b00b1b5b678a97
-change-id: 20261112-devfreq-suspend-sync-7ca8fc51550a
-prerequisite-change-id: 20261110-devfreq-resume-freq-e42eaeb6f8f8:v1
-prerequisite-patch-id: 36df3d7446ebdbd5093a58ba2aa8a83d2ecf9cf2
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
-
+> >>                 xskb =3D &pool->heads[i];
+> >>                 xskb->pool =3D pool;
+> >> -               xskb->xdp.frame_sz =3D umem->chunk_size - umem->headro=
+om;
+> >> +               xskb->xdp.frame_sz =3D pool->chunk_size - pool->headro=
+om;
+> >>                 INIT_LIST_HEAD(&xskb->list_node);
+> >>                 if (pool->unaligned)
+> >>                         pool->free_heads[i] =3D xskb;
+> >> @@ -115,11 +132,7 @@ struct xsk_buff_pool *xp_create_and_assign_umem(s=
+truct xdp_sock *xs,
+> >>                         xp_init_xskb_addr(xskb, pool, (u64)i * pool->c=
+hunk_size);
+> >>         }
+> >>
+> >> -       return pool;
+> >> -
+> >> -out:
+> >> -       xp_destroy(pool);
+> >> -       return NULL;
+> >> +       return 0;
+> >
+> > Agree with Stan that these changes should be in a separate commit.
+> > Think also about if it would make sense to put your page_pool changes
+> > in yet another commit.
+>
+> ACK!
+>
+> >>  }
+> >>
+> >>  void xp_set_rxq_info(struct xsk_buff_pool *pool, struct xdp_rxq_info =
+*rxq)
+> >> @@ -212,9 +225,24 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
+> >>          */
+> >>         hlist_add_head(&pool->dev_node, &netdev->xsk_pools);
+> >>
+> >> -       if (force_copy)
+> >> +       if (force_copy) {
+> >>                 /* For copy-mode, we are done. */
+> >> +               err =3D xp_alloc_heads(pool);
+> >> +               goto out;
+> >> +       }
+> >> +
+> >> +       if (xsk_pp_supported(netdev)) {
+> >> +               err =3D xsk_pp_bind(pool, netdev, queue_id);
+> >> +               if (err)
+> >> +                       goto err_unreg_pool;
+> >> +
+> >> +               pool->umem->zc =3D true;
+> >>                 return 0;
+> >> +       }
+> >> +
+> >> +       err =3D xp_alloc_heads(pool);
+> >> +       if (err)
+> >> +               goto out;
+> >>
+> >>         if ((netdev->xdp_features & NETDEV_XDP_ACT_XSK) !=3D NETDEV_XD=
+P_ACT_XSK) {
+> >>                 err =3D -EOPNOTSUPP;
+> >> @@ -267,8 +295,10 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
+> >>  err_unreg_xsk:
+> >>         xp_disable_drv_zc(pool);
+> >>  err_unreg_pool:
+> >> -       if (!force_zc)
+> >> -               err =3D 0; /* fallback to copy mode */
+> >> +       /* An old page pool may still own chunks of a failed provider.=
+ */
+> >> +       if (!force_zc && !pool->pp)
+> >> +               err =3D xp_alloc_heads(pool); /* fallback to copy mode=
+ */
+> >> +out:
+> >>         if (err) {
+> >>                 pool->umem->flags =3D umem_flags;
+> >>                 xsk_clear_pool_at_qid(netdev, queue_id);
+> >> @@ -301,7 +331,10 @@ static void __xp_clear_dev(struct xsk_buff_pool *=
+pool)
+> >>         struct net_device *netdev =3D pool->netdev;
+> >>
+> >>         netdev_assert_locked_ops_compat(netdev);
+> >> -       xp_disable_drv_zc(pool);
+> >> +       if (pool->pp)
+> >> +               xsk_pp_unbind(pool);
+> >> +       else
+> >> +               xp_disable_drv_zc(pool);
+> >>         xsk_clear_pool_at_qid(netdev, pool->queue_id);
+> >>         hlist_del(&pool->dev_node);
+> >>         pool->netdev =3D NULL;
+> >> @@ -474,7 +507,7 @@ static void xp_check_dma_contiguity(struct xsk_dma=
+_map *dma_map)
+> >>
+> >>  static int xp_init_dma_info(struct xsk_buff_pool *pool, struct xsk_dm=
+a_map *dma_map)
+> >>  {
+> >> -       if (!pool->unaligned) {
+> >> +       if (!pool->unaligned && pool->heads) {
+> >>                 u32 i;
+> >>
+> >>                 for (i =3D 0; i < pool->heads_cnt; i++) {
+> >> diff --git a/net/xdp/xsk_pp.c b/net/xdp/xsk_pp.c
+> >> index fdd55265a6cd..c2214e718cdb 100644
+> >> --- a/net/xdp/xsk_pp.c
+> >> +++ b/net/xdp/xsk_pp.c
+> >> @@ -8,6 +8,9 @@
+> >>   *       +-----RX ring-------+
+> >>   */
+> >>
+> >> +#include <net/netdev_lock.h>
+> >> +#include <net/netdev_queues.h>
+> >> +#include <net/netdev_rx_queue.h>
+> >>  #include <net/page_pool/helpers.h>
+> >>  #include <net/page_pool/memory_provider.h>
+> >>  #include <net/xdp_sock_drv.h>
+> >> @@ -15,6 +18,8 @@
+> >>  #include "xsk.h"
+> >>  #include "xsk_queue.h"
+> >>
+> >> +#define XSK_PP_DMA_ATTR        (DMA_ATTR_WEAK_ORDERING | DMA_ATTR_SKI=
+P_CPU_SYNC)
+> >> +
+> >>  enum xsk_pp_chunk {
+> >>         XSK_PP_USER,    /* owned by userspace */
+> >>         XSK_PP_POOL,    /* owned by a page pool */
+> >> @@ -30,6 +35,8 @@ struct xsk_pp {
+> >>         refcount_t refs;
+> >>         u32 nr_pools;
+> >>         bool dma_need_sync;
+> >> +       /* RX queue of the provider, NULL once it is removed */
+> >> +       struct netdev_rx_queue *rxq;
+> >>         u8 *state;
+> >>         u32 reuse_cnt;
+> >>         u32 reuse[];
+> >> @@ -236,11 +243,225 @@ static int xsk_pp_nl_fill(void *mp_priv, struct=
+ sk_buff *rsp,
+> >>         return 0;
+> >>  }
+> >>
+> >> +/* The queue no longer uses the provider, and its DMA stopped */
+> >> +static void xsk_pp_detach(struct xsk_pp *pp)
+> >> +{
+> >> +       pp->rxq =3D NULL;
+> >> +       spin_lock_bh(&pp->lock);
+> >
+> > Just curious, but why this protection of the fq here?
+>
+> After a normal unbind the queue is already stopped, so nothing reads
+> FILL anyway. It matters when the restart fails and the old queue keeps
+> running; I have a net fix that keeps the provider on such a queue until
+> a retry succeeds... but maybe it's better to introduce the lock then.
+> Let me noodle on it for the next rev.
+>
+>
+> Bj=C3=B6rn
