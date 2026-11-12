@@ -1,62 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794482422;
-	b=R54y5BXieQLMZAJXvgBTs4jbTmAJZ5qOy0UxiV0Dvij41EceFX3AtDJvZXZL4ZnSyA3e
-	 uywkdgJSI1GiFuSVSR3t17IU5Kg01T06nzFUcIg3/cZAXPRSWEX1UuWUBpDeKuFIoAIFD
-	 TNGOAfFchPZ00LONzGqNFr6tcLdD2ykoCjV122Sn83snLvIbq3oUPNpdBlxPb2t06Lz9/
-	 OkhbRhFYMwBBRYze2z2nw1LbomdX8ft8SvgJyCBvzEbgpmNwS/bSrNiNA+NayYpFfy+/7
-	 mhmC2Pz8xTE+9xzqMfm6jJng6hdCkHUppqMhTBiN6X2eS+TEHRYPd42fNM0AeoJA1Rg==
+	t=1794482425;
+	b=DpqIDdN2brlFYPRYKYjWBwlodNwQkKlV42/g/OwAmyyrkIcebaDXqI9/n1uX+CT9kyLs
+	 mX9bt23BjkaA0x5IYb6X/2XFMzDfDCbqYjauCHaGp1Cu95dqFH1SmyrXSgiB893AAD4JP
+	 JQhO08IChrigyixvyVfCgRg54QU9oset+PnEfPV8lNj8RmlAfTiheKsEys7IT0nUXfm3H
+	 Znzb8b8v8YQ9/XlLUg5yVf1bIpBLd8Ffsdpdw6XU6KBMu6uCVgwSevfYPJjfTfsM8tcWW
+	 MUkVz/wATNwz3Vq8Z8e9oPFdmVu+nIL0W8IYkTFG2gssVMYs4N9oJCCKh/hrvnp0rFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482422;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482425;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=D0muWOhoQ0tEZKS30AGh6Dci91ILHagLlBaq3eYFtng=;
-	b=Hsb6StaVhwnGvyjyaFw07NTijYXgr8g428iLHuM5XeNteE0nV1E6OfcTfchUCSm4bd4S
-	 WmAxm9+i+4pRdkCzcsFpN3nMlMjrO/P5ad/gcGsJGbGnGiNjOogsKd+8OOPiB9hBTI3xV
-	 qVFYVpiCjoauDqd9RNZ0Lu2eGzk09anZxS4flXrMfS8U0jwsiRkkp4zVUiJzB+CfZ+7mV
-	 jC20BjjjB2rORC0qwfRfnmoSGWXuQSxOZVx6N6J06RD3GfgkUKVKvdapOAMLKOdsiQVtm
-	 1sZBbzgJUfEU7mzAxMJLPfSb7VnI7BoGXJIrymv1bHzTfsWzRtZsyYpk0LnQtUIvCUA==
+	bh=FE4RJwnrzj/juNXS/pesyp3PaSMEL7UzGYHpGBwwCZg=;
+	b=HgnKhlQwWOu/QLVCu71QNrzA5+Ct+b6ZApcpd4Bz9RoFQej1jG2rqNNtmpI0Jbm9t2YM
+	 Gpk1h3zonmEcMCWLRcu49RL4a3H2MxX8OceIxAHT07IZ3gY6/KoQUwIGDDR46Q+APY7Qo
+	 j75Iy6reYes6yWRaDNh3l1a8M+4PUgDfTjhsb4sTIFQJKzdQf7wpD2fjecA/WgkpaKN8G
+	 BA8uN2/mKh0BM2aTb3mFWY61IUp/P7xBped14xmpx2adQdEHDsTAaZ98ufH4Vq4hP41xa
+	 lMgrXNTL2yd6Vji9/VOeNbYgGqz12WM7ZKC2CbIT9AHHBayGwC5bIddgkMHFn4tcH6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="W/JWJ4q0";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFmfv9Aj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A871F606C161;
-	Thu, 12 Nov 2026 11:20:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCEF606CCE1
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:20:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W/JWJ4q0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6431F00AD8;
-	Thu, 12 Nov 2026 11:20:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFmfv9Aj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0A31F00A05;
+	Thu, 12 Nov 2026 11:20:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794482422;
-	bh=D0muWOhoQ0tEZKS30AGh6Dci91ILHagLlBaq3eYFtng=;
+	s=k20260515; t=1794482425;
+	bh=FE4RJwnrzj/juNXS/pesyp3PaSMEL7UzGYHpGBwwCZg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=W/JWJ4q0trAwrNUTMwd48kyOdE2oujP6zEW7lypxH+tskkuk6rRNqy4YJh89lu78D
-	 Gh5dV03HXI5iRQphl6ZGbAJ6NCrAL41KUSaQ/+G+BW3+Zvzkr8t+McTSt0KeqWAjdW
-	 xr+Xo7GyAIS+KcH2f6d5Rv0DqPS/cIAzvrlkHSMeM10o++oMq7xgMT6oOvngoya4aE
-	 94WFzO6LV5PAwfglSdn64Xn5CiPBGeQR/ORM6gw1tahivyOIhkVI9Y5V8pgq95g2aK
-	 QsMO4WjgcD1KoTTzlvHnVeY9w3eIe0aIemLcC01Pym/FKr+F3LdF3//EQd77bF/eYM
-	 DIueSeqbKbvnQ==
+	b=SFmfv9AjkY55CXOtjrtFSwkJwjsJ7hkt0Py4imkOR3MKAIbz/XmktVMUndaIhdrPd
+	 rH238z1DeQMNsIQExdku2cmVaKF6gnfGw9BYJUvhLKSGBqMIQgMn4fMMKE8s1qObZb
+	 zHtl5kTAMzVUNQ4eZ+RRACXKToT0G6GaaMFY5ALNwbx1wdEmAGhTY7wxs3SesHeq/V
+	 NOZLmO6LfU6om0CIIUjstFUl7w6g17cjqi3FaYLX7dxxRmrzUCMEAAn/Eccwatf1Zn
+	 t2P03i2YLED0oHYs7Rs4cqGPq/pwD+TSEnxuomx8qzD2L0gm1O/C9VWqK3+3D8kI8F
+	 TCQJd+9hezKsw==
 From: Vinod Koul <vkoul@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, 
- Billy Tsai <billy_tsai@aspeedtech.com>, 
- Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: linux-aspeed@lists.ozlabs.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261020-upstream_pcie_rc-v10-0-fba209af8656@aspeedtech.com>
-References: <20261020-upstream_pcie_rc-v10-0-fba209af8656@aspeedtech.com>
-Subject: Re: [PATCH v10 0/3] Add ASPEED PCIe PHY support
-Message-Id: <179448241801.492462.15920568972028232724.b4-ty@kernel.org>
-Date: Thu, 12 Nov 2026 16:50:18 +0530
+ Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Diederik de Haas <diederik@cknow-tech.com>
+Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261021102155.609575-1-diederik@cknow-tech.com>
+References: <20261021102155.609575-1-diederik@cknow-tech.com>
+Subject: Re: [PATCH] phy: rockchip: inno-usb2: Remove redundant dev_err()
+Message-Id: <179448242246.492462.10363037701797404099.b4-ty@kernel.org>
+Date: Thu, 12 Nov 2026 16:50:22 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,26 +65,18 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Tue, 20 Oct 2026 19:59:48 +0800, Jacky Chou wrote:
-> This patch series adds support for the ASPEED PCIe PHY, including the
-> device tree bindings and the PCIe PHY driver.
+On Wed, 21 Oct 2026 12:21:20 +0200, Diederik de Haas wrote:
+> The devm_request_threaded_irq() function already automatically logs
+> detailed error messages on failure since commit
+> 55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()")
+> So remove the now-redundant driver-specific dev_err() calls.
 > 
-> Summary of changes:
-> - Add device tree binding documents for ASPEED PCIe PHY
-> - Implement ASPEED PCIe PHY driver, including reference clock handling
->   and an AST2700 host bridge reset sequence
-> - Update MAINTAINERS for the new bindings and driver
 > 
-> [...]
 
 Applied, thanks!
 
-[1/3] dt-bindings: phy: aspeed: Add ASPEED PCIe PHY
-      commit: 020ee21a7ae584f116183867c41e8f8bddecaae7
-[2/3] phy: aspeed: Add ASPEED PCIe PHY driver
-      commit: 256cc8295557c134421d0b48ea37f6c9d4f232fe
-[3/3] MAINTAINERS: Add ASPEED PCIe PHY driver
-      commit: be45a1d5c3fed409d909d031547183144a806718
+[1/1] phy: rockchip: inno-usb2: Remove redundant dev_err()
+      commit: 4ed7bb658700a8d47d7256330390c04fb5cf2d2b
 
 Best regards,
 -- 
