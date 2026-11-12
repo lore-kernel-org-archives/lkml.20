@@ -1,78 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.27.248.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794514694;
-	b=nFXJs/Jm1yG3ybT3bfUHuhPrsxUQDDAhdvtKEGaZPzr+++3XTNOmavU4qwJi2b5boF4/
-	 p53Vt7+IJSmQc7egKFbyt+aPUBDavoWrScfXKGHPDdhAod+TfENxLo0RQKm3ssoLC8HG7
-	 jH9AbdKp8yD8J6jvRHtGG57dQiavDElY1r2JmvUweFq+174F73+wgBnOUMc7ABPp5ArFL
-	 ked7WITZ8BEc5dIX1qiOIfeuNsdKkBZCkbiFfZSEaG4qxdjShZijYg50gBRQR+IAaWqQ1
-	 spOQX6uw1Tmqqryc9UkEhJfzMByiD8Dh0VS0U4C5YjEt0F01HkySEXurNHJBre1N+Ag==
+	t=1794514707;
+	b=dh13R6R93IfvmVFEVdzxH6jC3vG8nGbNEnPw0coHbQ10XcYiOaQMHpMfKOUQN7OsYdsk
+	 swAtOJN406hAHAj7SfMA5aly07WNE8zH6t9OzjmNHjHMdXyNEQBqk7G4wLmoOatOAg/HI
+	 mqP3sc7uO16NzytnUuWRlAWifO0taHRMu147LlepsBxiqa+9e6CQxK7CYZECPoUBi8Vaf
+	 ci0IzRYQtb0j0OUrG+EsVBS+Sa7Z1cXILqJfhuQuCJshaIP0jij9gHgm+ZyLIP65t11ie
+	 6ZqNbZgb8cL2tE7VmyyQZ2jPWDiyI2vfQN/gl0E450dSQ34YV0V7jkb30Lo+FgvPFDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794514694;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
-	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:X-PPP-Message-ID:X-PPP-Vhost:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=oCp10RO+jykX6nh8+oWUvgkuTw62mXWM+Aa3/9kcvNA=;
-	b=UDer2wqWDN1YNvctPFL5JxEHGcRnWX4G97QTHTXIElfOCupsGcLE+XByB0HJdZkw3eR1
-	 5g/EWi6oWgoUoqIuQgU7E0pilGWjXclFu9QG8sj2ZzWKh30TuHdXCQYs4jUqO+eJeHwKS
-	 2b9gP1qgsXN86Y6DKuZZu5e14wsErikK4bAnJqcKLkJThzEK2HXSXvDPM91f2s+ec5xtZ
-	 fk2HmOm8FqyCYgieJ0D6agCXf8LRrCEsUd8aq+WgSyF3aya282gJLsMqSUp+b7Tvio5rc
-	 8ztFS2sS3plfWPN1bptawnljvlq818+DpmM/seqKlAOLnIrtCHH8DHGh0SU8w/Vh5qQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794514707;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=PELjK/L9jce4ay8aMBxnTmm3MZS6/0vTv4b1DOTHnXs=;
+	b=wdHCQLhrv5LvlLdCfz0k5smsQ6JQReZxyTJICRaijech+C/LopRKbUv+giFR77s9ufRV
+	 R1fdBZITYw8Sr5LKPuqTY4bBO6e+IPSJiKuVgEiRk+FCF1QBZ/rFUq49vfEKam8J7R8hN
+	 V6tiLDFgrR3CdRe+gzUeyN/Sgy/lbPt9B3JDL3slvsVaEONCSp0dZ+V/xaR8O6Dvz6tvV
+	 YUjhyhSV09BHogRio0oPC81bYMIeQ6AgqMBJ5W82dRgI22GAcyYW02v45zPmiZtTMAHzv
+	 FEf2wKEO/8b94U47emr3BwRaXZGjJRe/D6Yx4nXSBBqvVM9uwH2zoMyz2PRjxSQq7YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=antheas.dev;
-	spf=pass smtp.mailfrom=antheas.dev;
-	dkim=pass header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=GaHoiUxZ;
-	arc=none smtp.remote-ip=37.27.248.198
-Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RV51zSWA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A681606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:18:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A681606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB28606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:18:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=GaHoiUxZ
-Received: from relay10 (localhost.localdomain [127.0.0.1])
-	by relay10.grserver.gr (Proxmox) with ESMTP id B3A174692D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:18:05 +0200 (EET)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay10.grserver.gr (Proxmox) with ESMTPS id C6BFF46929
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:18:04 +0200 (EET)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 9BA95202368
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:18:02 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1794514684;
-	bh=oCp10RO+jykX6nh8+oWUvgkuTw62mXWM+Aa3/9kcvNA=;
-	h=Received:From:Subject:To;
-	b=GaHoiUxZaJQlitnJv3qLmaEjZXnhvGnUagcOd8jQsbcai9hrtix+BaagLICNIkVsX
-	 AzqL5sFVNOyMlGMtOTwWsK6d3mRYjSaRCGWg506Y+2VMHdqwaBamnZKvgUdENqQT9W
-	 gwtX+cN+glhRcK5+UI4p08LOC5S7IPYdFkFKYK5Ch/PkKueMIVjp2wxiwGoGkx2F8x
-	 7bOEwfK4IyVCD/yex+4u66pPT2dpvcx7gyTYgVX2k8DJ653Xa5KQbpQBnz300ZLOkO
-	 HnofG7/s3/BF9tONpb5KMt0u79zoPA/LS153J8W/T7fUirbdUSMk3pbPpPWp0YO7ek
-	 tjN5oCjQfW5NA==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 209.85.216.52) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pj1-f52.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-3b17cf2fa0aso92292a91.0
-        for <linux-kernel@vger.kernel.org>;
- Thu, 12 Nov 2026 12:18:02 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErFNgMupqHHLP0Mw5lO419nWTCgJatqgm2ZVcdGUNvJtkEgvthmZ1apIBIgAIVpocjQOJGHbnVrSkmFRm3c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8EpbDf4SjG+TF5cU6eCdg05CX1xquc/9ty1g6/Q8NBHL7s7snr
-	peL3WL96srMPnea7m7nTcU0Xyg81zxGtL3/7FRQFQsS8nqVH+kK1k9QYTNXBBpgTD2rI+FriT5v
-	OKLpSfkzGm6dDSuRXAB1osVR7SOdjxP4=
-X-Received: by 2002:a17:90b:2543:b0:3b1:ae88:5c31 with SMTP id
- 98e67ed59e1d1-3b1b0cc9714mr187431a91.43.1794514680813; Thu, 12 Nov 2026
- 12:18:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RV51zSWA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69B511F000D1
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:18:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794514707;
+	bh=PELjK/L9jce4ay8aMBxnTmm3MZS6/0vTv4b1DOTHnXs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=RV51zSWAeX3l/5mLe0fPRliGyDx+PvZFURqVBlheSHcmcZOr7xCw/H2ruJIbBadKZ
+	 FHLR/OWlUbeu4rGlh0xRIygVUxNlxHYE+bp6HXrNkc1Ipb+2P3nm8Kc/0SyV7ISGh4
+	 TuE1gaetH5yPGzok2F9hb+btdrpFYQn/7EdW+GfsBVzhuGLxg5l94MAeni55Fgqs75
+	 ZHYbDDjM9jg0y/L7yxQKaxx7tEtYWK3HxSCep7gzYUxXot783rYRC7J5k84FZzeC3T
+	 zkrDiT/RxHgLEBWbdDFqUsbl4XfNwD+qAaJQ8hPoNDWh7rbOnMd2x5Ji/iXdG5l/WS
+	 B6Y/Zk1OMzQXg==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5c1479be604so202604e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:18:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEoiGOO/MhWSTiTwwBcG73L/Mv8F4ht5Rvb+Q5tLVqX3+kxkrvVj3FUfa08fQM/WGCKJY9I9FtPo6wPeg8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9AsMMPR/8bzT9RxixJq370AC6TIeJeSyh2TKkIf1Fz81z4amqq
+	7HECcv4QCGEYbu0t6jh7D7ViekzwpYNKZFk0e/vkI4LKRA/kG+8nsQg7jOqNiRK6lyh4UgVyb3Y
+	AU+x/vRVm9aZRkD8uSFbrLwxUye5yMP4=
+X-Received: by 2002:a05:6512:1292:b0:5bc:f2fb:f50c with SMTP id
+ 2adb3069b0e04-5c1709cd3afmr151270e87.53.1794514705799; Thu, 12 Nov 2026
+ 12:18:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,286 +59,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-ayaneo-ec-module-power-v1-1-00d42014bed3@jler.org>
-In-Reply-To: <20261112-ayaneo-ec-module-power-v1-1-00d42014bed3@jler.org>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Thu, 12 Nov 2026 21:17:49 +0100
-X-Gmail-Original-Message-ID: 
- <CAGwozwEVkdSpY==gBPE4E+10Ggs3zowYGWqjw2p+z1Jh9nNi6g@mail.gmail.com>
-X-Gm-Features: AclHuK-BPFs-BFNAjJjl4LREkB81AzejKKi14MW70FR7X1QsXTPuVy5ZVN-Iyhk
-Message-ID: 
- <CAGwozwEVkdSpY==gBPE4E+10Ggs3zowYGWqjw2p+z1Jh9nNi6g@mail.gmail.com>
-Subject: Re: [PATCH] platform/x86: ayaneo-ec: Restore controller power when
- the modules are refitted
-To: lily@jler.org
-Cc: Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	=?UTF-8?B?TWF0w61hcyBNYXJ0w61uZXo=?= <hello@matias.me>,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261111225940.1573565-1-tytso@mit.edu> <20261111225940.1573565-3-tytso@mit.edu>
+In-Reply-To: <20261111225940.1573565-3-tytso@mit.edu>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 12 Nov 2026 21:18:12 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0iaHqEkr+WqHLfJ6qYaC6n73BCo0NiKgQhf466Cr_RQzA@mail.gmail.com>
+X-Gm-Features: AclHuK-IiYj--CiaJbtqzk4cWOHkMMr3R1ChUBdeGcZceIdAKYSCedVswaPimxM
+Message-ID: <CAJZ5v0iaHqEkr+WqHLfJ6qYaC6n73BCo0NiKgQhf466Cr_RQzA@mail.gmail.com>
+Subject: Re: [PATCH v5 2/6] agents: add a skill to determine Fixes tags
+To: "Theodore Ts'o" <tytso@mit.edu>
+Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev, 
+	Sasha Levin <sashal@kernel.org>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Leon Romanovsky <leon@kernel.org>, 
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>, Thorsten Leemhuis <linux@leemhuis.info>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter <error27@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
+	Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>, 
+	Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179451468412.1377401.18121817199971222142@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 12 Nov 2026 at 21:06, lilytaylor42 via B4 Relay
-<devnull+lily.jler.org@kernel.org> wrote:
+On Thu, Nov 12, 2026 at 12:00=E2=80=AFAM Theodore Ts'o <tytso@mit.edu> wrot=
+e:
 >
-> From: lilytaylor42 <lily@jler.org>
+> From: Sasha Levin <sashal@kernel.org>
 >
-> On the AYANEO 3, releasing a Magic Module means writing the eject
-> command and then turning controller power off. Once the modules are
-> fitted again, power has to be turned back on before the controller
-> reappears. Today userspace has to watch for that. If nothing is
-> running when the modules are refitted, the controller stays off and
-> the device has no built-in input.
+> Blame and existing Fixes tags can point to code movement instead of the
+> change that introduced a bug. Add a skill that sends the agent to the
+> description of the Fixes: tag in submitting-patches.rst, and adds the
+> checks agents tend to skip: pinning down the bug before searching,
+> following the code past moves and refactors, comparing each candidate
+> with its parent, tagging a later commit that only exposed the bug as
+> well, handling merges, reverts, backports and bugs older than the Git
+> history, and taking the commit ID and subject from the commit rather
+> than typing them.
 >
-> The EC raises no event when a module is attached or removed, so poll
-> the module register while controller power is off. Once a module has
-> been taken out and both are attached again for a second, turn the
-> power back on, as the vendor's Windows software does. Power turned off
-> with both modules left in place stays off. Notify controller_modules
-> and controller_power so userspace can poll() instead of re-reading.
+> If the origin cannot be established, the skill returns no tag. Point the
+> bug-fix procedure in coding-assistants.rst at the skill.
 >
-> The investigation, code and this changelog were produced with an AI
-> coding assistant (Claude Code). It decompiled the DSDT and traced EC
-> query events to confirm that module changes raise no event, wrote the
-> patch, and ran the tests below on my AYANEO 3 while I removed and
-> refitted the modules.
->
-> Signed-off-by: lilytaylor42 <lily@jler.org>
-> ---
-> Built in-tree on platform-drivers-x86 for-next (568051916) with W=1 and
-> x86_64_defconfig plus AYANEO_EC=m: no warnings before or after.
->
-> Tested on an AYANEO 3 (Bazzite 45, 7.3.3 kernel), built as a module
-> against the running kernel, with no userspace module handling running:
-> after eject and power off, refitting both modules turned power back on
-> 1.2 s after both were seated and the controller re-enumerated. Power
-> turned off with both modules attached stayed off.
->
-> Independent of this patch: after power returns, the controller first
-> connects in a state that does not answer GET_DESCRIPTOR and reconnects
-> about 11 s later, so enumeration takes ~32 s with the default scheme and
-> ~12 s with the port's old_scheme quirk set. That happens with the
-> unpatched driver too.
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> Link: https://patch.msgid.link/20261020161642.3713052-3-sashal@kernel.org
+> Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 
-Hi,
-this is the responsibility of the program that powered off the
-controller. This driver contains no logic for when to power or unpower
-the controller. It only provides a hook for userspace to access the EC
-addresses required for it.
+Looks reasonable to me.
 
-If this driver was the one to power off the controller this would make
-sense. But that's not the case. You used software to eject the modules
-and turn off the controller. Therefore, you should expect that
-software to decide when to turn on the controller again.
-
-AYANEO_MODULE_SETTLE is especially problematic since you are embedding
-logic into the driver about arbitrarily turning on the controller. In
-this case, you'd use something like a new abi auto, to decide to turn
-on the controller automatically. This would not interfere with current
-software that handles polling on its own, such as hhd. But it is a
-large code change compared to making the userspace software that
-initiated the ejection handle it.
-
-Best,
-Antheas
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 
 > ---
->  Documentation/ABI/testing/sysfs-platform-ayaneo-ec | 10 ++-
->  drivers/platform/x86/ayaneo-ec.c                   | 90 ++++++++++++++++++++++
->  2 files changed, 99 insertions(+), 1 deletion(-)
+>  Documentation/process/coding-assistants.rst |  8 ++++-
+>  agents/skills/find-fixes/SKILL.md           | 39 +++++++++++++++++++++
+>  2 files changed, 46 insertions(+), 1 deletion(-)
+>  create mode 100644 agents/skills/find-fixes/SKILL.md
 >
-> diff --git a/Documentation/ABI/testing/sysfs-platform-ayaneo-ec b/Documentation/ABI/testing/sysfs-platform-ayaneo-ec
-> index 4cffbf5fc..8c70be0c3 100644
-> --- a/Documentation/ABI/testing/sysfs-platform-ayaneo-ec
-> +++ b/Documentation/ABI/testing/sysfs-platform-ayaneo-ec
-> @@ -7,13 +7,21 @@ Description:
->                 the controller power (e.g. for power savings). Write 1 to
->                 turn on, 0 to turn off. File is readable and writable.
+> diff --git a/Documentation/process/coding-assistants.rst b/Documentation/=
+process/coding-assistants.rst
+> index b8f2c74e46fc..ca1cc255606b 100644
+> --- a/Documentation/process/coding-assistants.rst
+> +++ b/Documentation/process/coding-assistants.rst
+> @@ -33,6 +33,11 @@ or send mail. A skill returns its result with the evid=
+ence for it, or says what
+>  is missing. Do not fill a missing result with a guess or a placeholder, =
+and do
+>  not finalize the work until it is resolved.
 >
-> +               After power is turned off, the driver turns it back on
-> +               once a module has been removed and both modules are
-> +               attached again, as the Windows software for this device
-> +               does. Power turned off with both modules left attached
-> +               stays off. Userspace can poll() this file for changes.
+> +The following skills are available:
 > +
->  What:          /sys/devices/platform/ayaneo-ec/controller_modules
->  Date:          Nov 2025
->  KernelVersion: 6.19
->  Contact:       "Antheas Kapenekakis"  <lkml@antheas.dev>
->  Description:
->                 Shows which controller modules are currently connected to
-> -               the device. Possible values are "left", "right" and "both".
-> +               the device. Possible values are "left", "right", "both"
-> +               and "none". While controller power is off, changes can be
-> +               waited for with poll().
->                 File is read-only. The Windows software for this device
->                 will only set controller power to 1 if both module sides
->                 are connected (i.e. this file returns "both").
-> diff --git a/drivers/platform/x86/ayaneo-ec.c b/drivers/platform/x86/ayaneo-ec.c
-> index 7c6a06330..3f89f8f9d 100644
-> --- a/drivers/platform/x86/ayaneo-ec.c
-> +++ b/drivers/platform/x86/ayaneo-ec.c
-> @@ -9,6 +9,7 @@
+> +* agents/skills/find-fixes/SKILL.md determines the Fixes tag of a bug fi=
+x, or
+> +  checks an existing one.
+> +
+>  Licensing and Legal Requirements
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
 >
->  #include <linux/acpi.h>
->  #include <linux/bits.h>
-> +#include <linux/devm-helpers.h>
->  #include <linux/dmi.h>
->  #include <linux/err.h>
->  #include <linux/hwmon.h>
-> @@ -19,6 +20,7 @@
->  #include <linux/pm.h>
->  #include <linux/power_supply.h>
->  #include <linux/sysfs.h>
-> +#include <linux/workqueue.h>
->  #include <acpi/battery.h>
->
->  #define AYANEO_PWM_ENABLE_REG   0x4A
-> @@ -43,6 +45,13 @@
->  #define AYANEO_MODULE_RIGHT    BIT(1)
->  #define AYANEO_MODULE_MASK     (AYANEO_MODULE_LEFT | AYANEO_MODULE_RIGHT)
->
-> +/*
-> + * The EC raises no event when a module is attached or removed, so the
-> + * module register is polled, and only while controller power is off.
-> + */
-> +#define AYANEO_MODULE_POLL_MS  500
-> +#define AYANEO_MODULE_SETTLE   3       /* polls with both attached before power on */
+> @@ -78,7 +83,8 @@ these steps:
+>     another one. The fix must not add build warnings and must pass the
+>     checkpatch.pl checks (see submitting-patches.rst).
+>  6. Commit the working fix with a detailed message describing the problem=
+, the
+> -   solution and a Fixes tag. Do not add a Signed-off-by tag.
+> +   solution and a Fixes tag determined with the find-fixes skill.  Do no=
+t
+> +   add a Signed-off-by tag.
+>  7. Identify the maintainers and lists using scripts/get_maintainer.pl.
+>     Documentation/process/security-bugs.rst shows how to do that.
+>  8. Indicate what could not be done. If the fix could not be built or tes=
+ted, or
+> diff --git a/agents/skills/find-fixes/SKILL.md b/agents/skills/find-fixes=
+/SKILL.md
+> new file mode 100644
+> index 000000000000..12b6ea83876d
+> --- /dev/null
+> +++ b/agents/skills/find-fixes/SKILL.md
+> @@ -0,0 +1,39 @@
+> +---
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +name: find-fixes
+> +description: >-
+> +  Determine the bug-introducing commit and return a verified Fixes tag f=
+or
+> +  a Linux kernel fix. Use when preparing or reviewing bug-fix patches,
+> +  drafting their commit messages, or checking an existing Fixes tag.
+> +---
 > +
->  struct ayaneo_ec_quirk {
->         bool has_fan_control;
->         bool has_charge_control;
-> @@ -58,6 +67,12 @@ struct ayaneo_ec_platform_data {
->         struct mutex hwmon_lock;
->         bool restore_charge_limit;
->         bool restore_pwm;
+> +# Determine a Fixes tag
 > +
-> +       /* Turns controller power back on once the modules are refitted */
-> +       struct delayed_work module_work;
-> +       bool module_removed;
-> +       unsigned int module_settle;
-> +       u8 module_state;
->  };
->
->  static const struct ayaneo_ec_quirk quirk_fan = {
-> @@ -395,11 +410,69 @@ static int ayaneo_remove_battery(struct power_supply *battery,
->         return 0;
->  }
->
-> +static void ayaneo_module_watch(struct ayaneo_ec_platform_data *data)
-> +{
-> +       data->module_removed = false;
-> +       data->module_settle = 0;
-> +       data->module_state = AYANEO_MODULE_MASK;
-> +       queue_delayed_work(system_freezable_wq, &data->module_work,
-> +                          msecs_to_jiffies(AYANEO_MODULE_POLL_MS));
-> +}
+> +Read the description of the Fixes: tag in
+> +Documentation/process/submitting-patches.rst. It says which commit to na=
+me
+> +and how to format the tag. Follow the rules for skills in
+> +Documentation/process/coding-assistants.rst.
 > +
-> +/*
-> + * While controller power is off, wait for a module to be taken out and
-> + * for both modules to be attached again, then turn the power back on.
-> + * This mirrors the vendor's Windows software and means a refitted
-> + * controller works even when no userspace program is watching. Power
-> + * turned off with both modules left in place stays off.
-> + */
-> +static void ayaneo_module_work(struct work_struct *work)
-> +{
-> +       struct ayaneo_ec_platform_data *data =
-> +               container_of(to_delayed_work(work), struct ayaneo_ec_platform_data,
-> +                            module_work);
-> +       struct kobject *kobj = &data->pdev->dev.kobj;
-> +       u8 power, modules;
+> +- First establish exactly which bug the fix addresses: the failure, how =
+it is
+> +  triggered and the code involved. Trace only that bug. If the search le=
+ads
+> +  to a different bug or subsystem, go back to the fix.
+> +- Name a commit from the history of the tree the fix applies to. A stabl=
+e
+> +  backport of that commit, or a commit that exists only on another branc=
+h, is
+> +  not a valid tag.
+> +- Treat blame output, an existing Fixes tag and a bisection result as le=
+ads,
+> +  not answers. Follow the code back through moves, renames, file splits =
+and
+> +  older implementations to the commit that made it wrong.
+> +- For each candidate, compare the commit with its parent and explain why=
+ the
+> +  code was correct before and wrong after. Keep apart the commit that ad=
+ded
+> +  the code, the commit that made it wrong, and a later commit that only =
+made
+> +  the bug reachable, which gets a tag of its own.
+> +- Check each parent of a merge, whether the bug was reverted and later
+> +  reintroduced, and whether a backport differs from its upstream commit.
+> +- If the bug is already present in the first commit of the Git history, =
+name
+> +  that commit: Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2"). Confirm that th=
+e bug
+> +  exists there instead of using it as a default. A shallow clone boundar=
+y is
+> +  not an introducing commit; report the limit instead.
 > +
-> +       if (ec_read(AYANEO_POWER_REG, &power) ||
-> +           ec_read(AYANEO_MODULE_REG, &modules))
-> +               goto again;
-> +
-> +       /* Turned back on elsewhere, e.g. by userspace */
-> +       if (power == AYANEO_POWER_ON)
-> +               return;
-> +
-> +       modules = ~modules & AYANEO_MODULE_MASK;
-> +       if (modules != data->module_state) {
-> +               data->module_state = modules;
-> +               sysfs_notify(kobj, NULL, "controller_modules");
-> +       }
-> +
-> +       if (modules != AYANEO_MODULE_MASK) {
-> +               data->module_removed = true;
-> +               data->module_settle = 0;
-> +               goto again;
-> +       }
-> +
-> +       if (!data->module_removed || ++data->module_settle < AYANEO_MODULE_SETTLE)
-> +               goto again;
-> +
-> +       if (!ec_write(AYANEO_POWER_REG, AYANEO_POWER_ON)) {
-> +               sysfs_notify(kobj, NULL, "controller_power");
-> +               return;
-> +       }
-> +
-> +again:
-> +       queue_delayed_work(system_freezable_wq, &data->module_work,
-> +                          msecs_to_jiffies(AYANEO_MODULE_POLL_MS));
-> +}
-> +
->  static ssize_t controller_power_store(struct device *dev,
->                                       struct device_attribute *attr,
->                                       const char *buf,
->                                       size_t count)
->  {
-> +       struct ayaneo_ec_platform_data *data = dev_get_drvdata(dev);
->         bool value;
->         int ret;
->
-> @@ -407,10 +480,15 @@ static ssize_t controller_power_store(struct device *dev,
->         if (ret)
->                 return ret;
->
-> +       cancel_delayed_work_sync(&data->module_work);
-> +
->         ret = ec_write(AYANEO_POWER_REG, value ? AYANEO_POWER_ON : AYANEO_POWER_OFF);
->         if (ret)
->                 return ret;
->
-> +       if (!value)
-> +               ayaneo_module_watch(data);
-> +
->         return count;
->  }
->
-> @@ -518,6 +596,18 @@ static int ayaneo_ec_probe(struct platform_device *pdev)
->                         return PTR_ERR(hwdev);
->         }
->
-> +       if (data->quirks->has_magic_modules) {
-> +               u8 power;
-> +
-> +               ret = devm_delayed_work_autocancel(&pdev->dev, &data->module_work,
-> +                                                  ayaneo_module_work);
-> +               if (ret)
-> +                       return ret;
-> +
-> +               if (!ec_read(AYANEO_POWER_REG, &power) && power == AYANEO_POWER_OFF)
-> +                       ayaneo_module_watch(data);
-> +       }
-> +
->         if (data->quirks->has_charge_control) {
->                 data->battery_hook.add_battery = ayaneo_add_battery;
->                 data->battery_hook.remove_battery = ayaneo_remove_battery;
->
-> ---
-> base-commit: 5680519168f65666d2c03cc6ed8fe2b7052aee12
-> change-id: 20261112-ayaneo-ec-module-power-66f183285f3e
->
-> Best regards,
+> +Take the commit ID and subject from the commit itself instead of typing =
+them.
+> +Return the tags with that explanation and the candidates you rejected. I=
+f the
+> +origin cannot be established, return no tag and say what is missing.
 > --
-> lilytaylor42 <lily@jler.org>
+> 2.53.0
 >
 >
->
-
