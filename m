@@ -1,97 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794465717;
-	b=479WCro9wvWakR4oIc67evzc9wA+VBhhOL4a6h0vSgnCrX+svMiJWFc3lKGyiUDz20RQ
-	 4VUZXtKBdTlsqFGWYGocBuLM99R/AQiI4hsRWF/3IkmqYxbKzfUbe/2VOKlUNd6HnnyBJ
-	 X8z5JAMDcWcgVoRAkt2PGUEBOQSLG/kOTRncJu7E2Q1MdTgblp7551PcOB2P9LzX2U9mb
-	 AKjzft31w4p40Xmf9dEO3ijI1FUN0Ijo8vDlAvOBLf7teYM5u4yPOYUA5NRQJxV43/+eJ
-	 1e4i1sBIsl19xwxYgBzNuMVM+J9gwjKgI4BVFlU/FaAObl6USIDWzz5EIgOe3x/6Iig==
+	t=1794465855;
+	b=FjwkdorBnv/kuMJPx0j+t5zwr1Hu1O/gVqYPVZm3vOrk8tHpbg/5R1npkBXNYPVEyMLw
+	 jQcE0j0ZiLcCIDt7Q7m5Dv4s4gfGsepX8x53IxU1mcE2gaAFlEX6J54mdu4A4UR/nmMgX
+	 Zghd3ZBgmn1drIPV+q01vzb2NVRuH4dzq0CgyHeDZqHG9ASNIbeKzbMg52AOxfvHZ/0vh
+	 NZncDI6rd6RyCvLf1zF38j5xdgqghrC1ra0mmfIY+z7xIJd1i0P/WtrzoPmmh6b+nX7XK
+	 c9IfvT2ymFRoeX6BsKd2w8llKO1Njn5GYOsf05kgfLzOWC5aJr2wB8DPr3FOb0L7o2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794465717;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JhjE2gc4HCfp4cOufnT59igJMtUPToCGKDk00xlKwCA=;
-	b=g4zAo/mMq+/3zeFbVf0WuXGDHAXuIUfbVHI46P6i4fkLmDXh5aeXh/+HRCM7lMOprlX7
-	 LNl1v8wQq0XsfOungPnBQz6Xv/b9bOlJhcw8mKtZ9XsG2O3f4n0T7eIXGu0nT71iJTS74
-	 pWyt+dMCoEefZ75YZ2KzeGj1bzfC+D5W//6zEeKkXz3egPkXIjgwFkB+xzpyF+owmSBId
-	 eZOocZ6y0EnB0PUvwNc/TpkX4iUnvaiRaSbRGCrrfhuuTTsXIEpru4TFG8xwmDX61dJCe
-	 qct3vSxCTkDfX7LGE+EstFm/p96QMLYJC5NiNPXVh/eL0hTRqic1M5bMTOTEe9e7/hA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794465855;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LF9n98QRNcI8KcKRc0NfOW1JF05UjKGzVQmJu0n7DWY=;
+	b=kSWocrNYAJKtBcjdITh2d4SRO2HP4JqT3+sCFuLskpFXb+hJHjBNstGTuTGdkBktVChA
+	 IM+iQcCCbfhiP+F714yVOZqlxnhBWGPejlbJTy50dxtD+JrI+/yrgUN8bQuFvsgYOrsAy
+	 Cnm7vhZ3NMlvfXU3qVrOMQyNSjBLfmR9eNmTYDfg+XAhc85xRvE1VJ+R+96myfidEM2YA
+	 n6ArncVspz0noP7yaINP41TUkHQj9gyPafVZiIteH+KDSnSzsrkbfhSLBle2g4GsmBTG+
+	 Q93RTcccYngmMAa9Xq+FHOWXHMpSpO3+pEUnf43Kp8ppWhpzgc2tS+gUyehcMlU2DSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VNVrijZa;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bj60Ge9A;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0336A606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:41:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0336A606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D913C606A31C;
+	Thu, 12 Nov 2026 06:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VNVrijZa
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3282db206d3so4557051eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:41:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794465716; x=1795070516; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JhjE2gc4HCfp4cOufnT59igJMtUPToCGKDk00xlKwCA=;
-        b=VNVrijZacLMb1WaNLqUE6IG4SRphjBseYTkbf45k5znMbHA36aJScj+izsgxdeb37+
-         ubshanwahK8YyhDvrrRp0LYP4R44zzpIuKUBDJY0T+d8pql6bMWNwLQMPO/GvBV897AU
-         ZZpVSf+NBRmPwd5gCfkx0NXIZDiHasdKw2lZ+tRdyqX/rWcsq9vEJ7StTfrG5y9QooRE
-         M06Hc8KOGxDUorJTDljJZT6KPEKdMxAjiBAxSkFyFEmVNmpPzBmZ7ll8QYlAX1p/F8Rh
-         FS/BhjMWDsRsXEFhEwBK9MA1PyKR7+BtBCFJ0ZeS/fJVIXxogmjG4WjyHIpb16kWWWgm
-         /Dwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794465716; x=1795070516;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JhjE2gc4HCfp4cOufnT59igJMtUPToCGKDk00xlKwCA=;
-        b=bu7GsUwXm52qYefxxgAHo3Ysbvy+U7H9ZvYbl9MQuQhUDW8Ynbd716Z8SZmudjMqTa
-         EcVpoBqPq0PmcDQvVUxx2YYjutb9owDqWoz7zNslFK+eaX6wIA2279gRyeekY5T0X66q
-         1d8LF+kk9PNjIGWBs9SbRK+oNyZgFVFKJDruwEia+NUZfTzGPFPCFA/+ywkkWAfHpLBT
-         xjSCzHba5V/6oNS0quK/zJ/HdaEhreRcF9SIEIoGdAP2p+nUmCaFgfmwf8KY2ivCYqnY
-         +7DmX7cMNMSmHGwtYOCvjwLXeSZFIRZht2AGlpEdpxf3CDN6jDnSfns25hLYcOQq8xds
-         RXew==
-X-Forwarded-Encrypted: i=1; AL+hErFqv0hbVjYrlk6RIk3dIv4cm6Xekk6gGSUVEMkuhaT3zFY+99buMjKTz4ixbcleyqgFCDpcRzdwSUBiOTk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6ax2+vLVCRtyteflbFqKWy2CjEX6JESLOd+tPR8TxhCksu0tT
-	IiUgx3mc2xuVYITE/m3NlTqRHQ12EjoSH9shBit427IGwWMK0uNwThkF
-X-Gm-Gg: AYBFou0I6tmZFu+AZZicYpSO336LIMghjw1J5zmsDPHl5erOwlscyuoSOgi2kA3hCAK
-	Tcz1s6F0VIvWhqXrLMAEoE27xZARbhdTq9naD39kBQWmbaAlMGOU3a81WLTrPTnc5xSN3BzYZas
-	iPvGuuPAuvXEdWSmOgUyzd/4+xuDvjgWQ9KzJZNdjbsnDdcBy4GLArN9VxN8esaJPi3aif678T2
-	JQlC6o9aBLs5bPi8b0vU8Tv2KehrqScfa3uFm5T99yrL9r/bDxD5CI5lrhQXRiJElkv9CkRhtlT
-	aWmcgEUwwqOkrAHleGj5d9i+qy5Bt3Xzoqz9gLXnn58/yr1EdDkWC/8z01H9lKHttd/9dmAB2OA
-	JETB5X15PnCRvp0s9JZ7P7Xt7ClgfBLFvFm+ooW5E+mIWTLQ1cLEY+exaQgi3OiZS12r+Iw8aoQ
-	e4qqc5QtgV+TzDjVZ9eb5MRvCuYVPJc31TurOXMo1wVp62GPb+KnxKfCr9GPY2RH3Qqr9yy1kp7
-	TkRQZPKix4mN5VqeLQ7WEGpNf0318ASNH8z7p7PgBcU8Xrpb0GG139HpRtup9cvTnmJGjB+hDfx
-	YNq014uE9DhmgH7qM30si2KZjnXrEipMXJT3JhU=
-X-Received: by 2002:a05:7301:5f87:b0:377:678:2309 with SMTP id 5a478bee46e88-37706782738mr3563883eec.15.1794465715885;
-        Wed, 11 Nov 2026 22:41:55 -0800 (PST)
-Received: from amd.ban-spse ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm22055758eec.11.2026.11.11.22.41.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 22:41:55 -0800 (PST)
-From: Priyanka Mani <priyankamani2100@gmail.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH] KVM: nSVM: Check full nested state size before writing to user buffer
-Date: Thu, 12 Nov 2026 06:41:43 +0000
-Message-ID: <57324d544da1e92cf3b30ff7c40595dfbca1933d.1794465097.git.priyankamani2100@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bj60Ge9A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC1881F00A05;
+	Thu, 12 Nov 2026 06:44:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794465855;
+	bh=LF9n98QRNcI8KcKRc0NfOW1JF05UjKGzVQmJu0n7DWY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Bj60Ge9AVK+3dwjfAY1gUJrzOEcUB2z1s3qgudnaKaeNT5tzJl7YtFxPtDJNSuHak
+	 nuM1F3e+9KpE+q8QKR0U9w8kxH6WkzplTL68tVs4bbrM4KuAbfGObLj6mvHln7yQcf
+	 llkcYDcgUL5DDGhYtUITqBHj/tvGX6dyOVKgXYYlATt0eZL17r/QeUmIVC9ZJcedVM
+	 aQgUDPzQzCyAeZ3DdLaJEdbmxq1xNhbjkugk0XT+gu8BvsD0P3Zg382FM8RS3GgSK8
+	 8zkWrvxaYfixSIKUXomXjE1rHbEN7U3vBwTRk3gXG2ozHJTmUYfo+Mt/14qt9IViYj
+	 BsJcNJcSs56qg==
+Date: Wed, 11 Nov 2026 22:44:13 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: acme@kernel.org, adrian.hunter@intel.com, bvanassche@acm.org,
+	elver@google.com, james.clark@linaro.org, jolsa@kernel.org,
+	justinstitt@google.com, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, llvm@lists.linux.dev,
+	mingo@redhat.com, morbo@google.com, nathan@kernel.org,
+	ndesaulniers@google.com, peterz@infradead.org
+Subject: Re: [PATCH v12 08/20] perf dsos: Skip BPF and OOL DSOs in
+ dsos__find_kernel_dso()
+Message-ID: <avVgPUFGCPycCWSI@google.com>
+References: <20261111174213.3526604-1-irogers@google.com>
+ <20261111174213.3526604-9-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,69 +62,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261111174213.3526604-9-irogers@google.com>
 
-svm_get_nested_state() compares the userspace-provided buffer size against
-kvm_state.size before adding KVM_STATE_NESTED_SVM_VMCB_SIZE for a vCPU that
-is in guest mode.  When L2 is active and userspace passes a size that is
-large enough for the header but too small for the vmcb12 payload, KVM thus
-skips the early exit, copies out the header, clears and fills the full 4KiB
-vmcb12 area past the end of the buffer described by userspace, and only
-then does the caller notice that the returned size is larger than the
-provided one and fail with -E2BIG.
+On Wed, Nov 11, 2026 at 09:42:00AM -0800, Ian Rogers wrote:
+> In machine__process_ksymbol_register(), set the binary type of non-OOL
+> ksymbol DSOs to DSO_BINARY_TYPE__BPF_IMAGE (which
+> machine__process_bpf_event_load() upgrades to
+> DSO_BINARY_TYPE__BPF_PROG_INFO on PERF_BPF_EVENT_PROG_LOAD), and update
+> dsos__find_kernel_dso_cb() to skip DSO_BINARY_TYPE__BPF_PROG_INFO,
+> DSO_BINARY_TYPE__BPF_IMAGE, and DSO_BINARY_TYPE__OOL so that
+> dsos__find_kernel_dso() does not match ksymbol DSOs in machine->dsos.
+> 
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>  tools/perf/util/dsos.c    | 3 +++
+>  tools/perf/util/machine.c | 9 ++++-----
+>  2 files changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/tools/perf/util/dsos.c b/tools/perf/util/dsos.c
+> index 1574c8885d78..fbbf98c4ccae 100644
+> --- a/tools/perf/util/dsos.c
+> +++ b/tools/perf/util/dsos.c
+> @@ -475,6 +475,9 @@ static int dsos__find_kernel_dso_cb(struct dso *dso, void *data)
+>  	 * is_kernel_module() treats it as a kernel cpumode.
+>  	 */
+>  	if (!dso__kernel(dso) ||
+> +	    dso__binary_type(dso) == DSO_BINARY_TYPE__BPF_PROG_INFO ||
+> +	    dso__binary_type(dso) == DSO_BINARY_TYPE__BPF_IMAGE ||
+> +	    dso__binary_type(dso) == DSO_BINARY_TYPE__OOL ||
+>  	    is_kernel_module(dso__long_name(dso), PERF_RECORD_MISC_CPUMODE_UNKNOWN))
+>  		return 0;
+>  
+> diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
+> index 5eb5efa4eb90..0334cb01349a 100644
+> --- a/tools/perf/util/machine.c
+> +++ b/tools/perf/util/machine.c
+> @@ -769,6 +769,10 @@ static int machine__process_ksymbol_register(struct machine *machine,
+>  			dso__set_binary_type(dso, DSO_BINARY_TYPE__OOL);
+>  			dso__data(dso)->file_size = event->ksymbol.len;
+>  			dso__set_loaded(dso);
+> +		} else {
+> +			dso__set_binary_type(dso, DSO_BINARY_TYPE__BPF_IMAGE);
 
-As a result, KVM writes up to 4KiB beyond the buffer userspace said it
-has, and if that memory isn't mapped, the ioctl fails with -EFAULT instead
-of the documented -E2BIG without reporting the required size.
+Shouldn't this move into the if statement below?  At least it should
+check if the ksym_type is BPF.
 
-Compute the full size before the check, as vmx_get_nested_state() does, so
-that a too-small buffer is rejected without writing anything to it.
+Thanks,
+Namhyung
 
-Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE and KVM_SET_NESTED_STATE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Priyanka Mani <priyankamani2100@gmail.com>
----
-Tested on an AMD EPYC 7763 host by booting the patched kernel under QEMU
-(nested SVM) with KASAN and lockdep.  A reproducer enters L2, exits to
-userspace from L2 and calls KVM_GET_NESTED_STATE with
-size = sizeof(struct kvm_nested_state).  Without this patch, KVM writes
-4096 bytes past the 128-byte buffer before returning -E2BIG, or returns
--EFAULT if the next page is unmapped.  With this patch, KVM returns
--E2BIG and reports size = 4224 without writing to the buffer.
 
-KVM selftests nested_set_state_test, state_test, smm_test, hyperv_svm_test,
-svm_nested_vmcb12_gpa, svm_nested_pat_test and the other nested SVM tests
-give identical results with and without the patch.  kvm-unit-tests' SVM
-tests could not be run in this nested setup.  Not tested on Intel; the VMX
-path is unchanged.
-
- arch/x86/kvm/svm/nested.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 1cecb82702e2..9a70136172f3 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -1916,6 +1916,9 @@ static int svm_get_nested_state(struct kvm_vcpu *vcpu,
- 
- 	svm = to_svm(vcpu);
- 
-+	if (is_guest_mode(vcpu))
-+		kvm_state.size += KVM_STATE_NESTED_SVM_VMCB_SIZE;
-+
- 	if (user_data_size < kvm_state.size)
- 		goto out;
- 
-@@ -1925,7 +1928,6 @@ static int svm_get_nested_state(struct kvm_vcpu *vcpu,
- 		kvm_state.hdr.svm.gpat = 0;
- 		if (l2_has_separate_pat(vcpu))
- 			kvm_state.hdr.svm.gpat = svm->vmcb->save.g_pat;
--		kvm_state.size += KVM_STATE_NESTED_SVM_VMCB_SIZE;
- 		kvm_state.flags |= KVM_STATE_NESTED_GUEST_MODE;
- 
- 		if (vcpu->arch.nested_run_pending)
-
-base-commit: cbe54fc3462b3949ab27b9ae81fb9ddb509040c7
--- 
-2.43.0
-
+> +			if (is_bpf_image(event->ksymbol.name))
+> +				dso__set_long_name(dso, "", false);
+>  		}
+>  
+>  		map__set_start(map, event->ksymbol.addr);
+> @@ -780,11 +784,6 @@ static int machine__process_ksymbol_register(struct machine *machine,
+>  		}
+>  
+>  		dso__set_loaded(dso);
+> -
+> -		if (is_bpf_image(event->ksymbol.name)) {
+> -			dso__set_binary_type(dso, DSO_BINARY_TYPE__BPF_IMAGE);
+> -			dso__set_long_name(dso, "", false);
+> -		}
+>  	} else {
+>  		dso = dso__get(map__dso(map));
+>  	}
+> -- 
+> 2.56.0.542.g3ef89b7020-goog
+> 
