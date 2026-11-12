@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491903;
-	b=Sq2ssUquiyYEosRUkRhX/tiNBs3yVE0k8rh/45MyCeBxqmGk2CzDocG+Zs7ptCTtyNgV
-	 gaHgm7Kmoolu+LATgg6C0tjU8f7J1LI5CKlIIc61Op+dMzBtRqTMi0lydyIikDh14VKmo
-	 8Ba0TYHhDMxJ9PWFALZ8xB0t6Ti0zmTVn13CwcTphRV75VLWEY9ZYmfT4nOXdIGHk4xnz
-	 kpBxBYvhWIzBhfKegxJijRQAQHGzYMRTlVfMnkaYZvOmeY2A1jr6w7hppleXiJbD3Vs7i
-	 2lpMieQ8I5PikQ20z0fcj3t1p0UKMqSLTmuKD09/lI5Q0dEro4U/pXnXJKNoIXDvWsQ==
+	t=1794491912;
+	b=ZPqDvo/LfkJf8txAv5zTlcIWduycrSC4+vTxjLv1KGT6Z5IBId3OmplOscmodHAterCp
+	 94Vp22tPylazFCfjVt8ilbwq46CL1kSWKuFe4SfuIu1PYxSMxrSKVfPT0ehF9VUQLp1cE
+	 Mhh88Rn7R4vHJh1s3W/m/myxixWMt4LYP3TrmLCQc+I0PaywL7WonsJGnnSXil3YRivaT
+	 UuG4vGleHHblfkzXpbGww9hHC+oypZZAZIZ8rinSwVx4YO/SBA9t/fTYapN87acreHRea
+	 XtRCKw2NYmVKvw9cVAUnevpFMynV57AklcZNWH1Yi1gE1+irDDyfiCVtdgDWwrH36JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491903;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491912;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 MIME-Version:Content-Type:Content-Disposition;
-	bh=koBShxuECwa4MuNz2aTe3kw1fBo7B1Ydf3EYIIPkXLw=;
-	b=mENJowmV2bzISwXu9LtR/PYIMf3LAsRBccqkN9dcI7XizipsrZIQtVHcEIHP6qWo8+zm
-	 8JRkiBZ+9WsGKXKPmZe6p2Nk2q/twP6ST2VllTjYHzWilGPtA56OLr8Z5rKNpjbZUwpBy
-	 dShdS3CMRv+OJrlcYef4ozBpsPBTMWzlRSiPMEHB/e/8obsiALzzvBTh171YgIyEzF/uN
-	 0hulEzmJbuizxdx43Gvl0OveQ25rnaMRZ4cpIDU7dlwYc0nwlulEdsPvJrChYba+gUT+h
-	 l2l4rRqzeHnXFMqgle0slyYxWZ4Bl0CstLI/OGGRRnjYAE8w5cLaq6uI93odPtR7Sxw==
+	bh=1WFjlZ/A259pG4RFiOgrqZl0jkTLi1a/YpaoB+6ZJmk=;
+	b=gzamO/3KEOAXmm8IghxL43P+99EEFUPvpdoelQPgwECBEZAjbqyrx3S5grBB0IrpZKnM
+	 0PiRuTKF7lO2xWqcFO7yzOGDIXZD/3U07oSZO2zX+tnSqeyUNlkOPtsFpK76fGV/iwqUt
+	 YgXTFySE/r55SC95loADFJ7cnpWCpI1GAYQvGwUSAflkw9zUnMaXiRvimHdXSjvSR5nTN
+	 YI2ittunmAIw3cR20BD1UKScg5eqY4oI0sdgMljvEj6sxrqVq6sKmPoMZHhJW+agSxHQE
+	 SeRwVEWq+FtaJy5ma2oFD04LS4b5iFJUWWqRm07Qe+4d3XLmhDJYX4F2H5sMrLXNG3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjsmsYPe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T6OcDGJs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035D160A260E;
-	Thu, 12 Nov 2026 13:58:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE23D606A8A8;
+	Thu, 12 Nov 2026 13:58:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjsmsYPe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 281971F00A05;
-	Thu, 12 Nov 2026 13:58:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T6OcDGJs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BF7A1F00A05;
+	Thu, 12 Nov 2026 13:58:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794491902;
-	bh=koBShxuECwa4MuNz2aTe3kw1fBo7B1Ydf3EYIIPkXLw=;
+	s=k20260515; t=1794491911;
+	bh=1WFjlZ/A259pG4RFiOgrqZl0jkTLi1a/YpaoB+6ZJmk=;
 	h=Date:From:To:Cc:Subject;
-	b=KjsmsYPe8owv7rERkxwVFCfVuUYpQcmt+zKe3a2bE56zPBSQQN/G9lwUOhxHo+EWH
-	 BZ+qb3M5firUSxlJiaQ5HUm4FE/lGcwMpDmBaK0xdkxX1VB1LGptjVy1fB12wzMQWK
-	 b8rowPGTyIHUjHZdB4KiFCPbDVvS3xBDwOY1g23rzcYx7NI0A6oXI7EtlP10iiK1ku
-	 j0Xwz4WhLKF8me1Lt6n+YP/uDbCP+dtCz80lJjblqx2ef75AsHh1r+56ijFwrZWwVz
-	 cYlD4vqxCd3S3CPnDSVST9XhLxJgCYh4/bsUh7w3HlT83H7C7yqvzBeBZLaqOjBS4M
-	 Zmk2/nKacCz4g==
-Date: Thu, 12 Nov 2026 13:58:18 +0000
+	b=T6OcDGJsjiO7qWEVr5fRS2QH6Liu4YHEOVgRB4YTdLSMbBjG4Nja/MgCBBnt1YSp5
+	 LEp8YTge6uaPOATDreGjqhKN64UNmdx0EOk/DXHBrmkHxSlnZuqpw5DxuYfBnEofR8
+	 sLVnU22SuEaLi9ZEv2fkeJnVvGDQp/5UsMt7PLyFxZhmcxYJ1iJ7oauH8d8+6o1Hmz
+	 bL1mNn9ZNu+IbPrPrn9PCxqLaiGnP9Diq8fz8xq+UMypZNxsPED6o7Haogt/8Q+3tN
+	 /9k8xDgJhyc7lYCwP17R22O/Eue6i1JmwWSQEz3MVP+ajOjpumjbctaTsyWN8akkiV
+	 hTfBOxlKqmk3g==
+Date: Thu, 12 Nov 2026 13:58:27 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
+To: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Networking <netdev@vger.kernel.org>
+Cc: David Yang <mmyangfl@gmail.com>, Kees Cook <kees@kernel.org>,
+	Kees Cook <kees+treewide@kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Sean Young <sean@mess.org>
-Subject: linux-next: manual merge of the v4l-dvb tree with the origin tree
-Message-ID: <avXF-hdMaFjI2_gE@sirena.org.uk>
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the net-next tree with the origin tree
+Message-ID: <avXGA_FRXwZM7ExI@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,31 +60,31 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wEfI88s8h40XiHcx"
+	protocol="application/pgp-signature"; boundary="OU8HZEtbhbcIIM6g"
 Content-Disposition: inline
 
 
---wEfI88s8h40XiHcx
+--OU8HZEtbhbcIIM6g
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi all,
 
-Today's linux-next merge of the v4l-dvb tree got a conflict in:
+Today's linux-next merge of the net-next tree got a conflict in:
 
-  drivers/media/rc/rc-main.c
+  drivers/net/dsa/motorcomm/chip.c
 
 between commit:
 
-  0af298e62e5cf ("treewide: refresh kmalloc_obj() conversions")
+  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
+oc_obj() family")
 
 =66rom the origin tree and commit:
 
-  8da461248793a ("media: rc: struct rc_map should have entries and capacity=
-")
+  a9a173f81c83e ("net: dsa: motorcomm: Free the MIB block on port teardown")
 
-=66rom the v4l-dvb tree.
+=66rom the net-next tree.
 
 I fixed it up (see below) and can carry the fix as necessary. This
 is now fixed as far as linux-next is concerned, but any non trivial
@@ -91,312 +93,129 @@ is submitted for merging.  You may also want to consider cooperating
 with the maintainer of the conflicting tree to minimise any particularly
 complex conflicts.
 
-diff --combined drivers/media/rc/rc-main.c
-index 4bf645ac8d7b5,e2e99ea635166..0000000000000
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@@ -8,7 -8,6 +8,6 @@@
-  #include <media/rc-core.h>
-  #include <linux/bsearch.h>
-  #include <linux/spinlock.h>
-- #include <linux/delay.h>
-  #include <linux/input.h>
-  #include <linux/leds.h>
-  #include <linux/slab.h>
-@@@ -114,8 -113,6 +113,6 @@@ struct rc_map *rc_map_get(const char *n
-  			pr_err("Couldn't load IR keymap %s\n", name);
-  			return NULL;
-  		}
-- 		msleep(20);	/* Give some time for IR to register */
--=20
-  		map =3D seek_rc_map(name);
-  	}
-  #endif
-@@@ -155,7 -152,7 +152,7 @@@ static struct rc_map_table empty[] =3D=20
-  static struct rc_map_list empty_map =3D {
-  	.map =3D {
-  		.scan     =3D empty,
-- 		.size     =3D ARRAY_SIZE(empty),
-+ 		.entries  =3D ARRAY_SIZE(empty),
-  		.rc_proto =3D RC_PROTO_UNKNOWN,	/* Legacy IR type */
-  		.name     =3D RC_MAP_EMPTY,
-  	}
-@@@ -202,10 -199,11 +199,11 @@@ static int scancode_to_u64(const struc
-   * @rc_map:	the rc_map to initialize
-   * @map_name:	name to assign to the table
-   * @rc_proto:	ir type to assign to the new table
--  * @size:	initial size of the table
-+  * @size:	number of entries the table must be able to hold
-   *
-   * This routine will initialize the rc_map and will allocate
--  * memory to hold at least the specified number of elements.
-+  * memory to hold at least @size entries; the capacity is rounded up
-+  * to a power of two.
-   *
-   * return:	zero on success or a negative error code
-   */
-@@@ -213,15 -211,15 +211,15 @@@ static int ir_create_table(struct rc_de
-  			   const char *map_name, u64 rc_proto, size_t size)
+diff --combined drivers/net/dsa/motorcomm/chip.c
+index c753c746490a1,a1d0ce35f4f3f..0000000000000
+--- a/drivers/net/dsa/motorcomm/chip.c
++++ b/drivers/net/dsa/motorcomm/chip.c
+@@@ -1405,9 -1405,6 +1405,9 @@@ yt921x_dsa_port_bridge_join(struct dsa_
+  			    struct netlink_ext_ack *extack)
   {
-  	struct rc_map_table *scan;
-- 	unsigned int alloc;
-+ 	unsigned int capacity;
-  	char *name;
+  	struct yt921x_priv *priv =3D dsa_to_yt921x_priv(ds);
+ +	struct yt921x_port *pp =3D &priv->ports[port];
+ +	struct net_device *brport_dev;
+ +	struct dsa_port *dp;
+  	u16 ports_mask;
+  	int res;
  =20
-  	name =3D kstrdup(map_name, GFP_KERNEL);
-  	if (!name)
-  		return -ENOMEM;
+@@@ -1417,12 -1414,7 +1417,12 @@@
+  	ports_mask =3D dsa_bridge_ports(ds, bridge.dev);
+  	ports_mask |=3D priv->cpu_ports_mask;
  =20
- -	capacity =3D roundup_pow_of_two(size);
- -	scan =3D kmalloc_objs(struct rc_map_table, capacity, GFP_KERNEL);
- +	alloc =3D roundup_pow_of_two(size);
- +	scan =3D kmalloc_objs(struct rc_map_table, alloc);
-  	if (!scan) {
-  		kfree(name);
-  		return -ENOMEM;
-@@@ -231,12 -229,12 +229,12 @@@
-  		rc_map->name =3D name;
-  		rc_map->scan =3D scan;
-  		rc_map->rc_proto =3D rc_proto;
-- 		rc_map->len =3D 0;
-- 		rc_map->size =3D alloc;
-+ 		rc_map->entries =3D 0;
-+ 		rc_map->capacity =3D capacity;
-  	}
+ +	dp =3D dsa_to_port(ds, port);
+ +	brport_dev =3D dsa_port_to_bridge_port(dp);
+ +
+  	mutex_lock(&priv->reg_lock);
+ +	pp->isolated =3D br_port_flag_is_set(brport_dev, BR_ISOLATED);
+ +	pp->hairpin =3D br_port_flag_is_set(brport_dev, BR_HAIRPIN_MODE);
+  	res =3D yt921x_bridge_join(priv, port, ports_mask);
+  	mutex_unlock(&priv->reg_lock);
  =20
-  	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n=
-",
-- 		alloc, alloc * sizeof(struct rc_map_table));
-+ 		capacity, capacity * sizeof(struct rc_map_table));
-  	return 0;
+@@@ -1845,10 -1837,9 +1845,9 @@@ yt921x_phylink_mac_link_down(struct phy
+  	int port =3D dp->index;
+  	int res;
+ =20
+- 	/* No need to sync; port control block is hold until device remove */
+  	pm =3D priv->ports[port].mib;
+  	if (pm)
+- 		cancel_delayed_work(&pm->work);
++ 		cancel_delayed_work_sync(&pm->work);
+ =20
+  	mutex_lock(&priv->reg_lock);
+  	res =3D yt921x_port_down(priv, port);
+@@@ -2002,11 -1993,11 +2001,11 @@@ static void yt921x_dsa_port_teardown(st
+  	struct yt921x_port *pp =3D &priv->ports[port];
+  	struct yt921x_mib *pm =3D pp->mib;
+ =20
+- 	/* get_stats64() might not be synchronized with port_teardown(), hold
+- 	 * the MIB block till the device teardown
+- 	 */
+- 	if (pm)
++ 	if (pm) {
+  		disable_delayed_work_sync(&pm->work);
++ 		pp->mib =3D NULL;
++ 		kvfree(pm);
++ 	}
   }
  =20
-@@@ -256,8 -254,8 +254,8 @@@ static void ir_free_table(struct rc_ma
-  		name =3D rc_map->name;
-  		scan =3D rc_map->scan;
+  static int yt921x_dsa_port_setup(struct dsa_switch *ds, int port)
+@@@ -2014,12 -2005,11 +2013,11 @@@
+  	struct yt921x_priv *priv =3D dsa_to_yt921x_priv(ds);
+  	struct yt921x_port *pp =3D &priv->ports[port];
+  	const struct yt921x_info *info =3D priv->info;
+- 	struct device *dev =3D yt921x_priv_to_device(priv);
+- 	struct yt921x_mib *pm =3D pp->mib;
++ 	struct yt921x_mib *pm;
+  	int res;
  =20
-- 		rc_map->size =3D 0;
-- 		rc_map->len =3D 0;
-+ 		rc_map->capacity =3D 0;
-+ 		rc_map->entries =3D 0;
-  		rc_map->name =3D NULL;
-  		rc_map->scan =3D NULL;
-  	}
-@@@ -280,37 -278,38 +278,38 @@@
-  static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
-  			   gfp_t gfp_flags)
-  {
-- 	unsigned int newsize =3D rc_map->size;
-+ 	unsigned int new_capacity =3D rc_map->capacity;
-  	struct rc_map_table *newscan;
- =20
-  	lockdep_assert_held(&rc_map->lock);
- =20
-- 	if (rc_map->size =3D=3D rc_map->len) {
-+ 	if (rc_map->capacity =3D=3D rc_map->entries) {
-  		/* All entries in use -> grow keytable */
-- 		if (newsize >=3D IR_TAB_MAX_ENTRIES)
-+ 		if (new_capacity >=3D IR_TAB_MAX_ENTRIES)
+- 	if (!pm && (BIT(port) & yt921x_info_ports_mask(info))) {
+- 		pm =3D devm_kzalloc_obj(dev, *pm);
++ 	if (BIT(port) & yt921x_info_ports_mask(info)) {
++ 		pm =3D kvzalloc_obj(*pm);
+  		if (!pm)
   			return -ENOMEM;
- =20
-- 		newsize *=3D 2;
-+ 		new_capacity *=3D 2;
- =20
-- 		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
-+ 		dev_dbg(&dev->dev, "Growing table to %u entries\n", new_capacity);
+  		pp->mib =3D pm;
+@@@ -2027,20 -2017,15 +2025,15 @@@
+  		pm->port =3D pp;
+  		u64_stats_init(&pm->syncp);
+  		INIT_DELAYED_WORK(&pm->work, yt921x_mib_poll);
+- 		/* Start disabled, so that the enable below always pairs with
+- 		 * either this disable or the one from a previous teardown
+- 		 */
+- 		disable_delayed_work_sync(&pm->work);
   	}
  =20
-- 	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES)=
- {
-+ 	if (rc_map->entries * 3 < rc_map->capacity &&
-+ 	    rc_map->capacity > IR_TAB_MIN_ENTRIES) {
-  		/* Less than 1/3 of entries in use -> shrink keytable */
-- 		newsize /=3D 2;
-- 		dev_dbg(&dev->dev, "Shrinking table to %u entries\n", newsize);
-+ 		new_capacity /=3D 2;
-+ 		dev_dbg(&dev->dev, "Shrinking table to %u entries\n", new_capacity);
-  	}
- =20
-- 	if (newsize =3D=3D rc_map->size)
-+ 	if (new_capacity =3D=3D rc_map->capacity)
-  		return 0;
- =20
-- 	newscan =3D krealloc_array(rc_map->scan, newsize,
-+ 	newscan =3D krealloc_array(rc_map->scan, new_capacity,
-  				 sizeof(struct rc_map_table), gfp_flags);
-  	if (!newscan)
-  		return -ENOMEM;
- =20
-  	rc_map->scan =3D newscan;
-- 	rc_map->size =3D newsize;
-+ 	rc_map->capacity =3D new_capacity;
- =20
-  	return 0;
-  }
-@@@ -342,9 -341,9 +341,9 @@@ static unsigned int ir_update_mapping(s
-  	if (new_keycode =3D=3D KEY_RESERVED || new_keycode =3D=3D KEY_UNKNOWN) {
-  		dev_dbg(&dev->dev, "#%d: Deleting scan 0x%04llx\n",
-  			index, rc_map->scan[index].scancode);
-- 		rc_map->len--;
-+ 		rc_map->entries--;
-  		memmove(&rc_map->scan[index], &rc_map->scan[index+ 1],
-- 			(rc_map->len - index) * sizeof(struct rc_map_table));
-+ 			(rc_map->entries - index) * sizeof(struct rc_map_table));
-  	} else {
-  		dev_dbg(&dev->dev, "#%d: %s scan 0x%04llx with key 0x%04x\n",
-  			index,
-@@@ -358,7 -357,7 +357,7 @@@
-  		/* A previous mapping was updated... */
-  		__clear_bit(old_keycode, dev->input_dev->keybit);
-  		/* ... but another scancode might use the same keycode */
-- 		for (i =3D 0; i < rc_map->len; i++) {
-+ 		for (i =3D 0; i < rc_map->entries; i++) {
-  			if (rc_map->scan[i].keycode =3D=3D old_keycode) {
-  				__set_bit(old_keycode, dev->input_dev->keybit);
-  				break;
-@@@ -410,7 -409,7 +409,7 @@@ static unsigned int ir_establish_scanco
-  	 * Binary search for an existing mapping for this ir command.
-  	 */
-  	lo =3D 0;
-- 	hi =3D rc_map->len;
-+ 	hi =3D rc_map->entries;
-  	while (lo < hi) {
-  		i =3D lo + (hi - lo) / 2;
-  		if (rc_map->scan[i].scancode =3D=3D scancode)
-@@@ -423,18 -422,18 +422,18 @@@
-  	i =3D lo;
- =20
-  	/* No previous mapping found, we might need to grow the table */
-- 	if (rc_map->size =3D=3D rc_map->len) {
-+ 	if (rc_map->capacity =3D=3D rc_map->entries) {
-  		if (!resize || ir_resize_table(dev, rc_map, GFP_ATOMIC))
-  			return UINT_MAX;
-  	}
- =20
-  	/* i is the proper index to insert our new keycode */
-- 	if (i < rc_map->len)
-+ 	if (i < rc_map->entries)
-  		memmove(&rc_map->scan[i + 1], &rc_map->scan[i],
-- 			(rc_map->len - i) * sizeof(struct rc_map_table));
-+ 			(rc_map->entries - i) * sizeof(struct rc_map_table));
-  	rc_map->scan[i].scancode =3D scancode;
-  	rc_map->scan[i].keycode =3D KEY_RESERVED;
-- 	rc_map->len++;
-+ 	rc_map->entries++;
- =20
-  	return i;
-  }
-@@@ -464,7 -463,7 +463,7 @@@ static int ir_setkeycode(struct input_d
- =20
-  	if (ke->flags & INPUT_KEYMAP_BY_INDEX) {
-  		index =3D ke->index;
-- 		if (index >=3D rc_map->len) {
-+ 		if (index >=3D rc_map->entries) {
-  			retval =3D -EINVAL;
-  			goto out;
-  		}
-@@@ -474,7 -473,7 +473,7 @@@
-  			goto out;
- =20
-  		index =3D ir_establish_scancode(rdev, rc_map, scancode, true);
-- 		if (index >=3D rc_map->len) {
-+ 		if (index >=3D rc_map->entries) {
-  			retval =3D -ENOMEM;
-  			goto out;
-  		}
-@@@ -503,15 -502,15 +502,15 @@@ static int ir_setkeytable(struct rc_de
-  	int rc;
- =20
-  	rc =3D ir_create_table(dev, rc_map, from->name, from->rc_proto,
-- 			     from->size);
-+ 			     from->entries);
-  	if (rc)
-  		return rc;
- =20
-  	scoped_guard(spinlock_irqsave, &rc_map->lock) {
-- 		for (i =3D 0; i < from->size; i++) {
-+ 		for (i =3D 0; i < from->entries; i++) {
-  			index =3D ir_establish_scancode(dev, rc_map,
-  						      from->scan[i].scancode, false);
-- 			if (index >=3D rc_map->len) {
-+ 			if (index >=3D rc_map->entries) {
-  				rc =3D -ENOMEM;
-  				break;
-  			}
-@@@ -556,7 -555,7 +555,7 @@@ static unsigned int ir_lookup_by_scanco
- =20
-  	lockdep_assert_held(&rc_map->lock);
- =20
-- 	res =3D bsearch(&scancode, rc_map->scan, rc_map->len,
-+ 	res =3D bsearch(&scancode, rc_map->scan, rc_map->entries,
-  		      sizeof(struct rc_map_table), rc_map_cmp);
-  	if (!res)
-  		return -1U;
-@@@ -596,7 -595,7 +595,7 @@@ static int ir_getkeycode(struct input_d
-  		index =3D ir_lookup_by_scancode(rc_map, scancode);
-  	}
- =20
-- 	if (index < rc_map->len) {
-+ 	if (index < rc_map->entries) {
-  		entry =3D &rc_map->scan[index];
- =20
-  		ke->index =3D index;
-@@@ -644,7 -643,7 +643,7 @@@ u32 rc_g_keycode_from_table(struct rc_d
-  	spin_lock_irqsave(&rc_map->lock, flags);
- =20
-  	index =3D ir_lookup_by_scancode(rc_map, scancode);
-- 	keycode =3D index < rc_map->len ?
-+ 	keycode =3D index < rc_map->entries ?
-  			rc_map->scan[index].keycode : KEY_RESERVED;
- =20
-  	spin_unlock_irqrestore(&rc_map->lock, flags);
-@@@ -1278,7 -1277,6 +1277,6 @@@ void ir_raw_load_modules(u64 *protocols
-  			*protocols &=3D ~proto_names[i].type;
-  			continue;
-  		}
-- 		msleep(20);
-  		available =3D ir_raw_get_allowed_protocols();
-  		if (!(*protocols & proto_names[i].type & ~available))
-  			continue;
-@@@ -1841,7 -1839,7 +1839,7 @@@ static int rc_prepare_rx_device(struct=20
-  	rc_map =3D rc_map_get(dev->map_name);
-  	if (!rc_map)
-  		rc_map =3D rc_map_get(RC_MAP_EMPTY);
-- 	if (!rc_map || !rc_map->scan || rc_map->size =3D=3D 0)
-+ 	if (!rc_map || !rc_map->scan || rc_map->entries =3D=3D 0)
-  		return -EINVAL;
- =20
-  	rc =3D ir_setkeytable(dev, rc_map);
-@@@ -2075,10 -2073,12 +2073,12 @@@ void rc_unregister_device(struct rc_de
-  	if (dev->driver_type =3D=3D RC_DRIVER_IR_RAW)
-  		ir_raw_event_unregister(dev);
- =20
-- 	timer_delete_sync(&dev->timer_keyup);
-- 	timer_delete_sync(&dev->timer_repeat);
-+ 	if (dev->driver_type !=3D RC_DRIVER_IR_RAW_TX) {
-+ 		timer_delete_sync(&dev->timer_keyup);
-+ 		timer_delete_sync(&dev->timer_repeat);
- =20
-- 	rc_free_rx_device(dev);
-+ 		rc_free_rx_device(dev);
+  	mutex_lock(&priv->reg_lock);
+  	res =3D yt921x_port_setup(priv, port);
+  	mutex_unlock(&priv->reg_lock);
+- 	if (res)
++ 	if (res) {
++ 		yt921x_dsa_port_teardown(ds, port);
+  		return res;
+-=20
+- 	if (pm)
+- 		enable_delayed_work(&pm->work);
 + 	}
  =20
-  	/*
-  	 * lirc device should be freed with dev->registered =3D false, so
+  	return 0;
+  }
+@@@ -2625,11 -2610,11 +2618,11 @@@ static int yt921x_mdio_probe(struct mdi
+  	struct yt921x_priv *priv;
+  	struct dsa_switch *ds;
+ =20
+ -	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+ +	priv =3D devm_kzalloc_obj(dev, *priv);
+  	if (!priv)
+  		return -ENOMEM;
+ =20
+ -	mdio =3D devm_kzalloc(dev, sizeof(*mdio), GFP_KERNEL);
+ +	mdio =3D devm_kzalloc_obj(dev, *mdio);
+  	if (!mdio)
+  		return -ENOMEM;
+ =20
 
---wEfI88s8h40XiHcx
+--OU8HZEtbhbcIIM6g
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr1xfkACgkQJNaLcl1U
-h9Cpbwf/Rj9Zp51BFTH4I5TQ/NwjDG0K+bGSwoxQYJM+dPqHZG6pHug7KlbW3dI1
-nUSxm/mCTbeAUlHWj6MKn5ojfsFcbcGF7EiUX29XDHe3YbVWYBv6xs55HZt0oSnh
-QFTZkR52W2VCkXfV1hwxYGtOBdVYQZF3joOABq2ueXVGEy1CNDhR6mu2/BB1roPv
-rVArXDBkpJVZK4eR5UATUkT42+VgbMAYP5F5JyEi81NlOncLBqdNO5aS3oIP3yYU
-S6DkzHtREvY+BXYb76VC/KnE3dBwBW+qGR1CX0W1CuWwNwnS2e4HNs1iFod2ewFt
-YOp+FiKdJwpkSi14JLhbhLWSA6xknA==
-=UV8U
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr1xgIACgkQJNaLcl1U
+h9Dz+wf/WjVsj1JlTDn8w9piCTafKl7f17Bok+ZllEi/4xN7rMchGtmhNT+PtcM2
+Brv2C9DbjEiItqZhKqX8Os9KF03EWbAqkSi11GNLY9RF/s7qRCytvXzJ0f+Tzbmv
+Sw7o/vlYcaLiSYYrnT0D95lNNxUAO1ZD0ITi6Btjmss7r4OSJV54LUYBg9vn7oZV
+8jGa+wmpUxbrGFTiioJXQzFQUhzBrR/TUoErr6OQsdHenHx/NtY9X/9SGsufZ1A4
+CFcB75ybakEgd94jQyxOXgkNIR+v/vuDqo3MOk0ZSmG+wlky8Ev5gYIgAXJD82wo
+YOi9n680nYBkYhTWgumcKSN8T+bvhg==
+=06us
 -----END PGP SIGNATURE-----
 
---wEfI88s8h40XiHcx--
+--OU8HZEtbhbcIIM6g--
