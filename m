@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491374;
-	b=A/y8uOaKS8XVfecxTdPBN22ESJNy71c/7n1BfFcZzcvp9OzmyJHm/CGMIS7dR4Nw/E1J
-	 s5/4eyxfbYm+eH/5u4UWtKI1xULS605akm9y4NcXfD5SvxP0kwXN3loEWYn8I9nCYjpzv
-	 unSrw7pdN9ZLW+d5iGq6SZtt77UtbCqeo5nY46aKZy76PdG1sZ7Sgze/1Au9hNTvXiz6Y
-	 xe40oe5u/VrB1RmHAr3Hx8YHJVlWAUWSJuEbv4eq1/Vco39eDzUYYwaCTu/ZzAHLCPPKP
-	 SAVWQwNEA8+qvABGjPa95PaE1wzrWxU+btwChSFUTwIy3I3ajZWgfjCJSEW4sVCqutw==
+	t=1794491377;
+	b=emo6NRPsF/G/Zd35Wiu3VcAos+ytQWpmgfKvDsjKVjrYraEF8NyHVBCLUJgmQCBWvFCA
+	 SLnIGbEDCinC/CG2psMAQa5zY3gaFkXRe7twylm6fIPpOFpVhkpS9ePd3BsKKR/mWm7eR
+	 6yvy7pltvU+fF03cL88jxKxMGqvI4uzXSGHPBJU/Qz1f0hAGMrxSbq4TMGEdg1/ZX6M+u
+	 xnHgTuXMnp7PLOIDRmx1zf/6BnTgO6NqAVtMo3ErQmCXh7Wvm20g/IgiAwsySXRl66hSu
+	 8MgfNiVSKISZsPIZQyiCblTuCuImiTtRD9Lx7C2m2ZigRmrhPJZDxhzJxuVQRtian/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491374;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491377;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jQ9FeRAXZK1KkJCdEA8O5o1oktiZUjTf4lBe7KLzAWY=;
-	b=zOmE6VkyG+cxQMZvP6L9LeLNAhHgCLHcFUIZBiCR+pONAnvnEA5/2eMmsPC5iHfPp+nN
-	 0WEhSsFUGWXMdrihcQ1rm3YXdRrUt7sys0a4MYMlGSIm7p7EoauFVzO3xc5Xx9jZBQ+Bk
-	 WTx7iy3HH9QtTF/HqWm3VkYvybmDV0BaOUo8QhDn+YKcs5e+c6QcyOEfFYAv7gwvU/qdo
-	 TNSLSFsaG2MwSqKDwIKmDBgpms+3O0/ftN1ydpAa5IOBNQgbbXW7NgDbWvVT32cad6vCt
-	 vONe/pu9m4QPjyR9eqFF6+FVbY87dlXIt3Sr4mxS5W07W0W37QzZck2bjC6NKMOUQLQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=2vHG4fjXWFVR+UOug7O+NH5YlX7OSBRB9SJwAE/JWnA=;
+	b=vqukUODMK18p+t4TINVenwwMDUWRpAAzeKt8vkIyEBNGE3X0/qeGRlVh+avhdF51l7YU
+	 HS6ACWOJc2gi0TLAG4AmlB91S9jpfTIfewgnxBvMSEGCBppnJoU9wTyhBawtzUu7ZYu5i
+	 mhC3DgNDRq9zy7WbuHTOWwkyh1b6QXl80lvLiLz8RHmWsTVkOAqHKsZYK9sWPFGOTdFB5
+	 9TkiRQb//Roim8fjeZ/AkZJp9MWwz+A59CQrHX1h6qK0XRuB8m+tgt0R187T2N9ZG/voV
+	 gMyMzxPKNP6qRoO6jquFoxlcZwdKOHRz87xcLKzvZrBwGWOUC8eTyK0/olUgwN0wT/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="G/0APneT";
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="b80b3/Xu";
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC62606A88C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:49:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC62606A88C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C31606A8AA
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:49:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17C31606A8AA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G/0APneT
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cdb628232d2so2576523a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:49:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b80b3/Xu
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a594d313a3so2609911b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:49:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794491373; x=1795096173; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jQ9FeRAXZK1KkJCdEA8O5o1oktiZUjTf4lBe7KLzAWY=;
-        b=G/0APneTalyZHNVJn+Orz7dqjahcrBHq3vJs0ca7CF+dDsWBekJzRxJ7E84Jn6TuXj
-         ho/NduaEqmLieP1DbioyaxdUdFPdw1fQc5AqwdUDjXTEZZuh/xUF8scHsmyBkhZ5lhOQ
-         gR2Vrbo6QgbNaJGFQz9h6cRGgXwXAdJjCrY23YZCgv31Zztyh8NHF9UflNNn7auHOAuk
-         BbaUGUPzOVTD+ZEHKrEEB7E8Axx205z6iAQXz0A3a3QYOKEpx1UbQ+NaLlcFxAimWJXV
-         AhUZ3TMPW7QhILA7tbIZ2xS4m/8QdTp1uDcT+kSnNWsXqHQ0jaP2paYGQ7JcMUMkUFrX
-         NTug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794491373; x=1795096173;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794491376; x=1795096176; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jQ9FeRAXZK1KkJCdEA8O5o1oktiZUjTf4lBe7KLzAWY=;
-        b=Asr+L1ouewsI04iKXsZYdVW8dmF3pAg147nsLU01RY9q6o790/wjwsEVAi63+Bfk7A
-         r+EVXGFE6dsvyI6W4D5crTHDsB9zBwj3pgBB8uKgmp+p1MIeZqeI2U7MTMsnDfeG2B2q
-         qS85rGE/1HnpXCwLDaiObL4j6323ABfZD6V3+zs9QYdtfCocqf8A1P7YHhOJG0HZeUTA
-         PGzLqlJmQ/7NQ9+fRkOVEIFWk2XSc/Wxka0rRw6aBMqH4julPvDFOLcb+tCFByDmy7x5
-         T+FEKSbeeNYmJJ4f84XUWplZXnAP1mvqY78UXDixRQht8hvGyy9Ho/JuoxRVklF/9zQh
-         52cQ==
-X-Forwarded-Encrypted: i=1; AL+hErEGktqUp04/dfHuVO7Ot4VT9R45QgISjCjhTMNzFzZcuTpk7IeqdjzYfYQI/Lw5eB3ArnKKsSWeL++f2d8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8j/xYOuLgpNdv6SZD/8YDTN4Fa5S7GWFU8lfbW1Dr9mRUGgD9e
-	UM1zfJdSKr4kD51aOZ4Fm2R1HIHPRWTWpuRsMP+N/ewWncfIIyuttRoHM1K2eVDYF1s=
-X-Gm-Gg: AYBFou1qesJldghG64333zsEb6jQXUFlDltV822uXm5LDCbJgbWDOnr478Nl2D6jRS4
-	0YW0U1ExvwdJuaC1Z10D35YT+863niVCT85rGjzZmqUCLOrBcKvhJIOny1j6ZxD9t6yRlI6XL9z
-	hO8J3YU+mhf+0mQDy1aLkFNSYxgkgR+AQlVzAcBVmHLm05FnNaxgjNGzBD8vov1WS6brePkOQpw
-	Yrf+gaTz6RUH7Sjv3n+A345R4a71Rv9XERCv/sfc/VwLZf0fbAcTuhV3wBBE9NuDvYiwRjsWci3
-	KKHFkyunXE+fhIwHXWseTICrvThL2IpWQ7Cb6+t1zZxvDzYJ3PTtkGjRjeR1TmWPbSIGKso21Ar
-	/nz5cQxkDJDqJH+TmWd4C1yB1ReQSsjJrLpebo4RVU4QuMNpnHdTgGRkIvFibHmfiOblfINyGmI
-	U4Vu+YoFCkGh5pfP4ObRodGZPT8Xi1ZLMwxvHhrNwPi3DQDP0CS8BJzwx9eZ7YyJ8EdjtfXJFid
-	5/CX/xAe1pIdcAnTzirETC/f1H1d1fO6P2v5W8j9VcSUtGFPpFmypjxMQkGX5fiaPPeDZWdKnk0
-	mEXQAmSesF4I588bz+HgT8QTDlok5x21qo8vzZTy4g==
-X-Received: by 2002:a05:6a21:4801:b0:3e1:8300:f6d with SMTP id adf61e73a8af0-3f2ff2d2523mr6322723637.59.1794491372834;
-        Thu, 12 Nov 2026 05:49:32 -0800 (PST)
+        bh=2vHG4fjXWFVR+UOug7O+NH5YlX7OSBRB9SJwAE/JWnA=;
+        b=b80b3/XucWAvkorPAcPXrSbu/T5ngQ7xU55B3sEoq0kWuXSr3jk/K95ufVNyALs1mQ
+         It/fh4+/vaVtl+3W3nK3Tya3xGeZiyt6oOJlWDUNpsYz06WeERQfu9Fpf0cjH7EdprcO
+         yyUvW9lm+MqFn/wp88qecQJXTfuo79RAuskBik7l7DKZm2tsDg4GRCWjJjfvl9kpQUCT
+         Yc/MJUJenBluKUBKjJvWg4pUxa/L8YkSAWS9TkpalvUtS1oMNl2WirfmQIkY4YyRtUYc
+         3BnAnnPVLjb+Og8rmMGS5AIK7yjpHVAQJXqQA+gs0XzmvuoDHcUfgEFeqMFZ+4L4X8rR
+         SFyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794491376; x=1795096176;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2vHG4fjXWFVR+UOug7O+NH5YlX7OSBRB9SJwAE/JWnA=;
+        b=S4W7U6B1vOQPyDkoL5rFfwIIKCs5SP2h22Gd/qbnxHmEe6jIu9YBWPafIdQwsY6kAY
+         NiSe1IYxKT/NJEKl6fVpjKqwzM2iSnhnGpedlTo0i+x46XFrbFsmK5hRqfyHmC3yOeHZ
+         03wTiDZThyska6KXU4JGYbbVcC7H58xIc1/09PR9VHHpK5RFVBLSNyJyTqNu9kBMpqDg
+         nt0ryqCj0rMPpIjNqk4I/UazjMSo17gssTOKBceYGfCH7rym+YhPoCL5Lo7YtFp1p7Np
+         nU2myYIluD5xMfSH1QiqV/T7utgxdJsk/oS7Euld/VaPBDAqQX3txvGM0zhue2nR/Nj/
+         tGlg==
+X-Forwarded-Encrypted: i=1; AL+hErFXk3LIePAr9poDAGbEvZCFPjv+Jq2PPIwJWbcHw0s3Rv1GPfUZCcbS6bMJxF2e2PKKeqiXmZg9DfhEYBU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SOQG8KKHhFizfgPeBxWj9QqJSh2C1Y3eWfFWwI0MeXqPBR77V
+	u886EiAHd1MoFIwob/ZrXK7DZgzE/2sNSAcyEiM7lBXhjLWC1RTa5umC
+X-Gm-Gg: AYBFou1pU7P6KnpiK/cBYSi68JojG+NBvIUsTDUfWXSASzUC59JYIBkqd4esTObYIOm
+	HTCW5IL9qeUK6wBF8diJU6WKmCn169GvEo/1Mdog2Y5W7BtPfjAXSEh+627okC/dUcHyx7PsITp
+	Lv8qFFm9TCCGI6+KfI+pRtw0zf0awl5y23m5sdwd7JRZoSKgHymsjOoRyLamUt6SmUzOjhaQQvc
+	Lqck7btiJiA9+YEFdA9E5m61nexhAtLEsp8Q3BU0DOBiJQVRhPBSSzTshhAc4j7Wii27+p9I6at
+	ePGUzz82Ky15fCK/pkyHzqUuOstY30o0WzHq+9x0cSSNc4wy8LxhA59p+YBXry8G7aPsoz33hAP
+	Vmlk7QUvGxY2QdiidKUueyp6UJqoiQK3FnOUeHVMc8jYNUiIGcgNz7PJlo3zumG6vPb3gqU3bzA
+	ZvHzw9kxjLASXZ0eWVjF0u/v7XvvakF68m+V8S77jduR5GtcmPZaubpPAYuyUMhyAu+peFYxBE8
+	Z9bTAxAd3MeRVPtSPlBgaGOAMKTX9i/NUw/uWytV+0l4bcXV43heUa8UjdD4tMLoZtsye1NkiTP
+	Fk5NqHUTI5r2AkKF+sLMn5B33j2JCKgqBBrQLMIBpA==
+X-Received: by 2002:a05:6a21:407:b0:3e2:7882:f14d with SMTP id adf61e73a8af0-3f2ffac4031mr5937239637.70.1794491376116;
+        Thu, 12 Nov 2026 05:49:36 -0800 (PST)
 Received: from DESKTOP-NM9EKIA ([180.67.33.100])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa2a6c51sm3550580b3a.14.2026.11.12.05.49.29
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa2a6c51sm3550580b3a.14.2026.11.12.05.49.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 05:49:32 -0800 (PST)
+        Thu, 12 Nov 2026 05:49:35 -0800 (PST)
 From: Joonhoe Kim <26rote@gmail.com>
 To: sre@kernel.org
 Cc: konrad.dybcio@oss.qualcomm.com,
@@ -89,10 +90,12 @@ Cc: konrad.dybcio@oss.qualcomm.com,
 	linux-arm-msm@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] power: supply: qcom_battmgr: Kaanapali current sign and charge current limit
-Date: Thu, 12 Nov 2026 22:49:25 +0900
-Message-ID: <20261112134927.95-1-26rote@gmail.com>
+Subject: [PATCH v2 1/2] power: supply: qcom_battmgr: fix the battery current sign on Kaanapali
+Date: Thu, 12 Nov 2026 22:49:26 +0900
+Message-ID: <20261112134927.95-2-26rote@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261112134927.95-1-26rote@gmail.com>
+References: <20261112134927.95-1-26rote@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,32 +107,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Patch 1 fixes the sign of the battery current_now on Kaanapali.
-Patch 2 exposes the firmware charge current limit on SM8550-class
-batteries as charge_control_limit and charge_control_limit_max.
+The Kaanapali battery firmware reports the battery current with
+discharge positive: on a Lenovo Y700 Gen 5 (TB323FU) current_now reads
+-9.1 A while charging and +0.57 A on battery. The power_supply ABI has
+charging positive, and upower reports such a charging battery as
+discharging.
 
-Patch 1 has no code change. Its sign is still checked only on the
-Lenovo Y700 Gen 5 (TB323FU, Kaanapali); Konrad asked Jingyi on v1 to
-check QRD/MTP [1], and there has been no reply yet.
+Other firmware behind the same callback uses the ABI sign [1], so
+negate the value only for qcom,kaanapali-pmic-glink.
 
-Changes in v2:
-- 2/2: use guard(mutex) [Konrad]
-- 2/2: return -ENODATA when the firmware reports a zero maximum [Konrad]
-- Rebased on next-20261111
+Fixes: 16a7c32e586e ("power: supply: qcom_battmgr: Add support for Glymur and Kaanapali")
+Link: https://lore.kernel.org/all/20260829054546.86210-1-jan.brummer@tabos.org/ [1]
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+---
+v2: no code change; reworded the device name.
 
-Link to v1: https://lore.kernel.org/all/20261016124806.1789-1-26rote@gmail.com/
+The sign is checked only on the Y700 Gen 5. On v1 Konrad asked Jingyi
+to check QRD/MTP; no reply yet:
+https://lore.kernel.org/all/0e5b7d2e-e141-4ce4-a873-b65bd9ef3c4a@oss.qualcomm.com/
 
-[1] https://lore.kernel.org/all/0e5b7d2e-e141-4ce4-a873-b65bd9ef3c4a@oss.qualcomm.com/
+ drivers/power/supply/qcom_battmgr.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Joonhoe Kim (2):
-  power: supply: qcom_battmgr: fix the battery current sign on Kaanapali
-  power: supply: qcom_battmgr: expose the charge current limit
-
- drivers/power/supply/qcom_battmgr.c | 61 +++++++++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
-
-
-base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
+index d6e3edbab..58e103e08 100644
+--- a/drivers/power/supply/qcom_battmgr.c
++++ b/drivers/power/supply/qcom_battmgr.c
+@@ -316,6 +316,7 @@ struct qcom_battmgr {
+ 	struct pmic_glink_client *client;
+ 
+ 	enum qcom_battmgr_variant variant;
++	bool current_inverted;
+ 
+ 	struct power_supply *ac_psy;
+ 	struct power_supply *bat_psy;
+@@ -1574,6 +1575,8 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
+ 			break;
+ 		case BATT_CURR_NOW:
+ 			battmgr->status.current_now = le32_to_cpu(resp->intval.value);
++			if (battmgr->current_inverted)
++				battmgr->status.current_now = -battmgr->status.current_now;
+ 			break;
+ 		case BATT_TEMP:
+ 			val = le32_to_cpu(resp->intval.value);
+@@ -1804,6 +1807,9 @@ static int qcom_battmgr_probe(struct auxiliary_device *adev,
+ 	else
+ 		battmgr->variant = QCOM_BATTMGR_SM8350;
+ 
++	battmgr->current_inverted = device_is_compatible(dev->parent,
++							 "qcom,kaanapali-pmic-glink");
++
+ 	ret = qcom_battmgr_charge_control_thresholds_init(battmgr);
+ 	if (ret < 0)
+ 		return dev_err_probe(dev, ret,
 -- 
 2.53.0
 
