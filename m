@@ -1,100 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794519192;
-	b=tnVjWrhVLMXwJI/MGrbVBzH8T8wzMpAyKg5PEQmsjnLXe2MM3gcgElJdUJSMW2M0NGs2
-	 3GaQOQdSfP4lOzyTC8r5thThn8tvNdcbK9RH8Y0SoiSqyq/KWWLDYLZsk9bz21hNGDuyG
-	 KBDfO4XddVj5zHFZKg5VUzaSsSYz9XxnArmTg4P66GSUnJFShGNcQ7B5eSYbKg0wOf8C8
-	 Nb6NcLjFiWgaX+tw2nIrIU83fum4Ebvg1OdLGdlS7QA57OQqVKJm9nc3yZa5PmIH9D/AZ
-	 XezYcN5Ku1O4WcEROQGWqLSAtOSY90ikR2Zy4IdcrpH/3RaPemK55I1eswBFVPLsb9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794519192;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=prF5tjXqgroH+cDLlU5bcd95xTZWZ1bQNjqAX/0GDh8=;
-	b=viUUPrqtpnQgwrGTnlMqXTMRy3zMwjhR1IySMvKe50/tfkmQ2aIIlEndbS4PHTvNAxG3
-	 i19prucbt0dw4s9QGnd6KR2lVi1/PwMLxtGL4A7lAFrpC1alw21ZUD9tpLHHpSKNqcCa8
-	 k3gffxOrEFywI7IB08MwB4MWFwGMqPIPYjhDm855MrKwM3gEOuacivUFgp5JaIh9L6uFg
-	 n+OZL7q3eZ4C/AgTvn6JoVMyuM+P/w8EKv+g/+SiHKrBdFllZDAKJ0tjDFZawXE36tbr1
-	 SV5pTnhWraDunPO8aT1BUZlAKMC+sig/+TGbOieyAePoyQo3L7Y0/bgqqs8dWo9MQ0A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=c+r70Miw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794519231;
+	b=qOcHcNVfCcDgr58J8bd0A37pKMtkMKnFtZcaKD60nkAlihIav4vrdww7LThUykKSPQXN
+	 75pRqLeUrgB/btbc38Mv1G3IDBbbExggKmrbvfdm2rSCGZVMrvuWG34/JpqIBU7smZT1A
+	 Sx1gzsWo4jYOJ3y64maUE5oBUYhnUqcLJcu8ezgiP8/coRkwUqSIIarScajhpfxQMiI2H
+	 JgQLb/slCabfRA5XeSpQLVrsDHEtyvyJFOAy8sUOZbnYj0kXfOjzWabEgf6+nzHMy1PJX
+	 Ngjh3XnPkEMF/hOohztyJBxanicNr7G+e/UGMq3YyEWU5QTK6MMEeSDicTtGZuK6HHQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794519231;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=B1nHuEfs2ZwDEq4F5sl2TrpESM/akN0rejt8We1Bf8g=;
+	b=rF5VDFLT7MEDEGIW2dMCneV6bq7d2nnRy5BoUW3A9Erv8bCeMuDj5GrO/ZEZI3twKMr/
+	 JmOes4acRN7ZLP3heTWMc44kpapqpkBeST9hTdOlvJQB50wvx4t3EnHHAvBcSEQp5dijC
+	 UqE6E9S+aR7SHwNaW0MQa6x5/HxGNorPNoqlmKG9OzNZWn8ueae+eww+MzSeV3NqFh7R4
+	 fpukucPuz6gJAz6x/UsRMrEO+BzeIcuBmP6UQjXjteTTap/6M9UK0JhXdbKrvqpRtFbDw
+	 Uac4YiA3AilFhbNItPurqqehW8yqkhb6QZvijQkcOLVOlt0QOFWFYCoTpOA3x8kUMBw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=Bhw6envU;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE51606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:33:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DE51606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D57B606A31C;
+	Thu, 12 Nov 2026 21:33:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D57B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=c+r70Miw
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-533202fe429so39751cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:33:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794519191; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W/w/v3zyAR6TOJ3gvQ1lL9leANIx2dmzdA3ug7kwjWmeJ3I1HR/5r0VvW5TqVIoigh
-         ZKHDTFjLvr6UMs0YPFoEkR4oiocG6BeM8Q4vdtkU3y/gs+x5mixDwQTXxp0vKArKoXDW
-         34GDNiAyfgaQ5eTtPorfGWIAfvdCnHLcuZVT/TmUdeLRVW+XVVNq+oNxBll7dQC5BDn0
-         TMg0W5Frbb4HX/Zp4pTfjjaDAaKqu8BY65XU+oWKMJZkDDl4leMpE7vj/0Ww4SfdY9A6
-         1iOq6JRjgcvuRHWNJkDRcWJzBxQmfXnDLSSrP7lVbm4QDzdJLgWmZOAn7NF+RLANTQWx
-         TpKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=prF5tjXqgroH+cDLlU5bcd95xTZWZ1bQNjqAX/0GDh8=;
-        fh=WRpKnHmg79JUd0SUvOvm9rftINcyUCSc0gyZDoW5HkE=;
-        b=U6kTXSAp3JyKZAE9N/JYNHGSJ5a/z6tUtLrNb6SdlT+1pFVU/8eg5zcvDLWRauSIfn
-         9E+4DbDKBENfmnHbWlnCm8i8vSCSappSOI5KDtzvyKUfLnFg/XY/D5UbOhhOd6gbXIay
-         LyMiJKYWBq/KOlVVbobypdqYgmVLbzph7T8Z7tYTC1amdujvD7lkZGANn9rik4LsR9U0
-         DbQoLjyXVzY3MF7y32pIvDHHia5nMAkyOI9CQPfbNiHljizkoXX8IAfLXJQsq06F8paG
-         PZz8tQ0Qu5q1QoNDtHj/XwYIwekib20af7z+zSktMe9nJ5DoPHSaKdRTMxLOmWQF+UP8
-         OxUw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794519191; x=1795123991; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=prF5tjXqgroH+cDLlU5bcd95xTZWZ1bQNjqAX/0GDh8=;
-        b=c+r70MiwL5ihIwSFWBN7qSBDWPpBrkCxc6G8ewKG5Ylo0ToK6UNLaaaYAAA46JNOan
-         4z7xWO4AMdQ8dbi4747cL9NCLq+mfA2JZiVgB73FJlId3AOE4H9GAbbd877tRR5ikVGA
-         ysi5pkoASc08N7066rqoHHNWRREgldfIpcMm45xeZ+lfxiRAPyhmSFxt6QuV2Ue0t3Gq
-         r2N9D02E35cMcEW1drj8gI27mUhM2EjbEA+U7VjAM7GodRJgyDzse1hZAWv3i6kGysRv
-         tHRs9FYf+1SSvNQpUaHqCA8ogUc0hmy7NFcrf8o0GNjhsIqC2gAQxXKMEELoQ+LJhVMS
-         Js+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794519191; x=1795123991;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=prF5tjXqgroH+cDLlU5bcd95xTZWZ1bQNjqAX/0GDh8=;
-        b=S5IxWl7H5u2SU/QLQRrb319/bJAPYQ58xxInI0lrY/POLbOOJGQhxJ+YcU0gzwOMST
-         /qBvk79o7RPFYRJ7tSUZrW8mSQ+goNnwRK1O+SWy+G/vkAuDM35/XHp6EgtGpobD/44s
-         vtPV9n3kxEFsDF857H8UkD0rXdxrejR0HHmaFfi6jQ0e3L0pbceRlwUo/pD6Tc28lfHQ
-         Sc4hVdpSIIiRY7zUj1rOK7NF28kavhYGhi4Kv9mAA09p1OWUtQJPuM2VbhYHeh+zjT3z
-         rFnvVbs/8L+1cnaLRqL+GOoNAZysfryvoVMb25fc7Tk6gwD3rx03g581WUjWzzXYcpAq
-         PY4w==
-X-Forwarded-Encrypted: i=1; AL+hErE+7E9gzm1gwrk4HzQJxUjJMafcOUlhZzE0SrS6R6frlrypNlhKwoaZbeho0oek9T2Kkz+W654djm9dj7o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9R1Q23SiSQsG8NAsEeXFEy0zoVTuhBN7ljP6sADXj2/ai62eyb
-	n4DYes0BRh6s02aa3oWrZI6OhO4VB5enj6Dq3Ht6Ys9Hpk9wUo4uzeXS57BlInLBSIVL4ei3Z/R
-	CgrHFuzRxlpI4xikj6IZKW3Y95LXIvAOrlwzTLHGB
-X-Gm-Gg: AYBFou0ernnllUCtXVmPnYdQUNobyamqN6J+rqyqmC3Rho4+pOpf0+tMYwP1kKRXkdl
-	Z7VCa2sN6oQbglc2ZYK2lsbMBbD+y3pU8XkzJD0UzHPOMIByDfLVWakQGIBDKYV/lD7lpjNOwwN
-	ueQ3JC3ZGiGrTxXRgT/3ntM4aJjZ20zO17muv6qax1zyTAhi0wtk3rRai8css6q0A9hojdDNQUI
-	LDy/CfVgTvRnhu7OxXyB6akTuBPwTpNI4JpXCC3mhUTZ1XAY80wfCtLMiNHBn4S3XpQ/sY9RxCM
-	UlgtS3wRr9nwakHQDybG1mYMFQ4X0wf/YaVR/Tjf4QeiTt10mXkqxIFB+gU1rZwMf8oR8gVQ3c/
-	zETN3YiZSjWJSD1zIwVUOPt+ebPZukseuOV5mRvjRRqeQTX91N3S0o8ppBR63KVfu2UA=
-X-Received: by 2002:a05:622a:1e12:b0:536:6ae9:f55f with SMTP id
- d75a77b69052e-55afcae990emr1186911cf.7.1794519190580; Thu, 12 Nov 2026
- 13:33:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=Bhw6envU
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jQYY413stzlqkZW;
+	Thu, 12 Nov 2026 21:33:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1794519221; x=1797111222; bh=B1nHuEfs2ZwDEq4F5sl2TrpE
+	SM/akN0rejt8We1Bf8g=; b=Bhw6envUHArq5lyI50d2Acpiyod8FqX+3dRtI076
+	ScyuXWP90v0QNIDrvfG8afLaFkhi/OGg37E3T4aDVX2T67OGoshOAeBbHyoqPsPZ
+	PyITlON0S8LHTcFarX2HZu1+xprQf6M5dbWDSilGUB8eaqTOxGt7P7eT7NUJLFVU
+	1iBoInBois3cSgYa6afG2EtYfbgtz7QSH5GWnetS3LdED3gmNEmI1cqtQ5bb9IXV
+	1vtWEEbeNCGoOcy6iRyEKEvUQ5l9iQFb6u7hKjawTK7KH3HSwEUwflX8X1fhHRKJ
+	HeoE4fVbJpvPXz2lGWGZzMmRGkZi2Ho9KCqjN+oPvEeeiQ==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id STmJZHg_h9mo; Thu, 12 Nov 2026 21:33:41 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jQYY14KsFzllCWh;
+	Thu, 12 Nov 2026 21:33:41 +0000 (UTC)
+Message-ID: <92a82300-a454-4ee5-a191-0ce5a2ee58c7@acm.org>
+Date: Thu, 12 Nov 2026 13:33:40 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,209 +70,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAAcuPuJUt=Qf6uuTVv63jiY_iCjsvjso1T=WYSFQB=i6Wzb2Vw@mail.gmail.com>
- <CAP-5=fWYxRTZmFQZZECLapQCUug-bs3cwTmwYA5SxBy0=0bKdQ@mail.gmail.com> <CAAcuPuLkaC_=c4NPxNmO3HK8dw8j=cH6M+nyfzYERMfZOKh8tA@mail.gmail.com>
-In-Reply-To: <CAAcuPuLkaC_=c4NPxNmO3HK8dw8j=cH6M+nyfzYERMfZOKh8tA@mail.gmail.com>
-From: Ian Rogers <irogers@google.com>
-Date: Thu, 12 Nov 2026 13:32:58 -0800
-X-Gm-Features: AclHuK-0mcpzVSbtDp10Qu2TQXFVJn9tlshi_Fs0QymOKakVYwrCs2-tCyKvVfA
-Message-ID: <CAP-5=fVr+EHr_RpLiA45ZK8OkDNG8AdmgK+pz7kxd6G3zWXO1g@mail.gmail.com>
-Subject: Re: [PATCH] tools api io: Return high-bit bytes as unsigned characters
-To: szpuszi <szpuszi@gmail.com>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] RDMA/srpt: Prevent uninitialized read buffer
+ disclosure
+To: liuyong <pkfxxxing@gmail.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ linux-rdma@vger.kernel.org, target-devel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, security@kernel.org
+References: <20261110030809.913063-1-pkfxxxing@gmail.com>
+ <20261110030809.913063-2-pkfxxxing@gmail.com>
+ <20261110052827.963143-1-pkfxxxing@gmail.com>
+ <20261111065342.1282709-1-pkfxxxing@gmail.com>
+ <20261112094138.1390409-1-pkfxxxing@gmail.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261112094138.1390409-1-pkfxxxing@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 12:25=E2=80=AFPM szpuszi <szpuszi@gmail.com> wrote:
->
-> Hi Ian,
->
-> `tools/lib/api/Makefile` does not set -funsigned-char, so building
-> libapi standalone (`make -C tools/lib/api` on x86_64, where char is
-> signed by default) hits this directly: `filename__read_str()` calls
-> `io__getdelim()` -> `io__get_char()` and silently stops on bytes in
-> 0x80-0xff.
->
-> Even if perf's -funsigned-char is also passed down to the libapi build,
-> `io__get_char()` is a `static inline` in a public header
-> (tools/lib/api/io.h) with fgetc()-style negative error/EOF returns.
-> Casting to `(unsigned char)` fixes the underlying bug in the header
-> itself rather than relying on every caller of <api/io.h> compiling
-> with -funsigned-char. The `-fsigned-char` flag on `api-io.o` is just so
-> the regression test keeps exercising this path under perf's default
-> -funsigned-char build.
+On 11/12/26 1:41 AM, liuyong wrote:
+ > +		target_init_cmd(cmd, ch->sess, &send_ioctx->sense_data[0],
+ > +				scsilun_to_int(&srp_cmd->lun), 0,
+ > +				cmd->sam_task_attr, dir, 0);
+ >  		goto busy;
 
-It is only a bug if chars are signed. I thought by default it was
-unspecified whether they were signed or not, hence char having 3 types
-- signed, unsigned and unspecified. At least in the Chris Mason review
-prompts we're pretty explicit that chars are unsigned:
-https://github.com/masoncl/review-prompts/blob/main/kernel/subsystem/build.=
-md
-```
-Unsigned char (-funsigned-char): Top-level Makefile enforces unsigned
-char on all architectures. Checking char < 0 is dead code or incorrect
-logic.
-```
+srpt_get_send_ioctx() zeroes ioctx->cmd, hence the current code
+triggers a NULL pointer dereference in target_send_busy()
+(cmd->se_tfo == NULL) if srpt_get_desc_tbl() fails. That is a separate
+bug that can be triggered remotely. Please move this change into a
+separate patch, mention the NULL pointer dereference in its description
+and explain in a comment why the target_init_cmd() return value is
+ignored.
 
-> If you'd also like me to check whether perf passes -funsigned-char
-> through to the libapi build and send a separate patch for that, let me
-> know.
+ > +			/* Make CPU writes and zeroed data visible to the RDMA device. */
+ > +			if (!ib_uses_virt_dma(sdev->device))
+ > +				dma_sync_sg_for_device(sdev->device->dma_device,
+ > +						       ctx->sg, ctx->nents,
+ > +						       DMA_TO_DEVICE);
 
-So I ran a check and I don't see `-funsigned-char` being passed into
-libapi in the cc command line. So maybe there's a bug. I see
-Makefile.perf exporting CFLAGS.
+This is unrelated to the information leak. If a DMA sync is missing
+between filling the buffer and posting the RDMA WRITE, then that issue
+applies to all data written by the backend and also affects other
+users of the RDMA R/W API, e.g. nvmet-rdma. Additionally, this code
+relies on how rdma_rw_ctx_init() maps the S/G list. If a sync is
+needed, it should be added to the RDMA R/W API. Please leave this out
+of this patch.
+
+ > +	/* Control CDB handlers may leave part of the response untouched. */
+ > +	if (cmd->data_direction == DMA_FROM_DEVICE &&
+ > +	    !(cmd->se_cmd_flags & SCF_SCSI_DATA_CDB))
+ > +		sg_zero_buffer(sg, sg_cnt, send_ioctx->buf_len, 0);
+
+__target_submit() only zeroes the first S/G element for control CDBs.
+I think it's better to fix this in the target core by zeroing the
+entire buffer there since that benefits all fabric drivers that provide
+their own S/G lists. With that change, srpt only has to zero the part
+of the buffer beyond cmd->data_length, for all READ commands.
+
+ > +static void srpt_zero_read_tail(struct srpt_send_ioctx *ioctx)
+
+The S/G lists of the RDMA contexts are chained and are passed to the
+target core as cmd->t_data_sg / cmd->t_data_nents. Hence, this function
+can be replaced with a single call:
+
+	sg_zero_buffer(cmd->t_data_sg, cmd->t_data_nents,
+		       ioctx->buf_len - cmd->data_length, cmd->data_length);
+
+ > +		for (i = 0; i < nbufs; i++)
+ > +			total_len += be32_to_cpu(idb->desc_list[i].len);
+ > +		if (total_len != be32_to_cpu(idb->len))
+ > +			return -EINVAL;
+
+Please log the mismatch with pr_err(), similar to the check above it.
+That makes it easier to debug interoperability issues with initiators.
+
+Please also mention which tests have been run against the new version.
+
+Do the SRP tests from https://github.com/linux-blktests/blktests still
+pass?
 
 Thanks,
-Ian
 
-> Thanks,
-> Wojciech
->
-> On Thu, Nov 12, 2026 at 6:27=E2=80=AFPM Ian Rogers <irogers@google.com> w=
-rote:
-> >
-> > On Thu, Nov 12, 2026 at 9:06=E2=80=AFAM Wojciech Szpucha <szpuszi@gmail=
-.com> wrote:
-> > >
-> > > From: Wojciech Szpucha <szpuszi@gmail.com>
-> > >
-> > > On signed-char builds, io__get_char() returns negative values for byt=
-es
-> > > 0x80-0xff. This makes filename__read_str() silently truncate non-ASCI=
-I
-> > > input in standalone libapi builds.
-> > >
-> > > Cast the byte to unsigned char before returning it as int. Add regres=
-sion
-> > > tests compiled with -fsigned-char, since perf defaults to -funsigned-=
-char
-> > > and already avoids the issue.
-> > >
-> > > Fixes: e95770af4c4a ("tools api: Add a lightweight buffered reading a=
-pi")
-> > > Signed-off-by: Wojciech Szpucha <szpuszi@gmail.com>
-> >
-> > Can you provide more context of where this is a problem? The code
-> > builds with -funsigned-char :
-> > https://lore.kernel.org/linux-perf-users/20260306191908.2065682-1-iroge=
-rs@google.com/
-> > and so we may be failing to pass CFLAGS through properly for the libapi=
- build.
-> >
-> > Thanks,
-> > Ian
-> >
-> > > ---
-> > > Tested on Ubuntu 24.04 x86_64, GCC 13.3.0: standalone libapi reads 0/=
-4
-> > > bytes before the fix and 4/4 afterwards. The API IO regression fails
-> > > before and passes after. libapi and perf build successfully; checkpat=
-ch
-> > > passes. Full perf suite and kernel builds were not run.
-> > >
-> > > https://github.com/szpuszi/linux-perf-io-test/actions/runs/4325770722=
-9
-> > >
-> > >  tools/lib/api/io.h        |  2 +-
-> > >  tools/perf/tests/Build    |  1 +
-> > >  tools/perf/tests/api-io.c | 33 ++++++++++++++++++++++++++++++++-
-> > >  3 files changed, 34 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/tools/lib/api/io.h b/tools/lib/api/io.h
-> > > index 1731996b..25e2008d 100644
-> > > --- a/tools/lib/api/io.h
-> > > +++ b/tools/lib/api/io.h
-> > > @@ -91,7 +91,7 @@ static inline int io__get_char(struct io *io)
-> > >                 if (ret)
-> > >                         return ret;
-> > >         }
-> > > -       return *io->data++;
-> > > +       return (unsigned char)*io->data++;
-> > >  }
-> > >
-> > >  /* Read a hexadecimal value with no 0x prefix into the out argument =
-hex. If the
-> > > diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
-> > > index 58858f3d..c3ba1fca 100644
-> > > --- a/tools/perf/tests/Build
-> > > +++ b/tools/perf/tests/Build
-> > > @@ -79,6 +79,7 @@ perf-test-$(CONFIG_DWARF_UNWIND) +=3D dwarf-unwind.=
-o
-> > >  endif
-> > >
-> > >  CFLAGS_dwarf-unwind.o +=3D -fno-optimize-sibling-calls
-> > > +CFLAGS_api-io.o +=3D -fsigned-char
-> > >
-> > >  perf-test-y +=3D workloads/
-> > >
-> > > diff --git a/tools/perf/tests/api-io.c b/tools/perf/tests/api-io.c
-> > > index 0ba3d5cc..f283712e 100644
-> > > --- a/tools/perf/tests/api-io.c
-> > > +++ b/tools/perf/tests/api-io.c
-> > > @@ -98,7 +98,7 @@ static int do_test_get_char(const char *test_string=
-,
-> > > size_t buf_size)
-> > >         for (i =3D 0; i < strlen(test_string); i++) {
-> > >                 ch =3D io__get_char(&io);
-> > >
-> > > -               EXPECT_EQUAL(ch, test_string[i]);
-> > > +               EXPECT_EQUAL(ch, (unsigned char)test_string[i]);
-> > >                 EXPECT_EQUAL(io.eof, false);
-> > >         }
-> > >         ch =3D io__get_char(&io);
-> > > @@ -118,6 +118,7 @@ static int test_get_char(void)
-> > >                 "12345678abcdef90",
-> > >                 "a\nb\nc\nd\n",
-> > >                 "\a\b\t\v\f\r",
-> > > +               "\x7f\x80\xfe\xff",
-> > >         };
-> > >         for (i =3D 0; i <=3D 10; i++) {
-> > >                 for (j =3D 0; j < ARRAY_SIZE(test_strings); j++) {
-> > > @@ -290,6 +291,34 @@ static int test_get_dec(void)
-> > >         return ret;
-> > >  }
-> > >
-> > > +static int test_get_line_non_ascii(void)
-> > > +{
-> > > +       static const char test_string[] =3D "a\xc3\xa9\xff\nnext\n";
-> > > +       char path[PATH_MAX];
-> > > +       struct io io;
-> > > +       char *line =3D NULL;
-> > > +       size_t line_len =3D 0;
-> > > +       int len, ret =3D 0;
-> > > +
-> > > +       if (setup_test(path, test_string, 2, &io))
-> > > +               return -1;
-> > > +
-> > > +       len =3D io__getline(&io, &line, &line_len);
-> > > +       EXPECT_EQUAL(len, 5);
-> > > +       EXPECT_EQUAL((int)line_len, 5);
-> > > +       EXPECT_EQUAL((int)strlen(line), 5);
-> > > +       if (line_len =3D=3D 5)
-> > > +               EXPECT_EQUAL(memcmp(line, test_string, 5), 0);
-> > > +       len =3D io__getline(&io, &line, &line_len);
-> > > +       EXPECT_EQUAL(len, 5);
-> > > +       EXPECT_EQUAL((int)line_len, 5);
-> > > +       EXPECT_EQUAL(strcmp(line, "next\n"), 0);
-> > > +
-> > > +       free(line);
-> > > +       cleanup_test(path, &io);
-> > > +       return ret;
-> > > +}
-> > > +
-> > >  static int test_get_line(void)
-> > >  {
-> > >         char path[PATH_MAX];
-> > > @@ -337,6 +366,8 @@ static int test__api_io(struct test_suite *test
-> > > __maybe_unused,
-> > >                 ret =3D TEST_FAIL;
-> > >         if (test_get_line())
-> > >                 ret =3D TEST_FAIL;
-> > > +       if (test_get_line_non_ascii())
-> > > +               ret =3D TEST_FAIL;
-> > >         return ret;
-> > >  }
-> > >
-> > >
-> > > base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
+Bart.
