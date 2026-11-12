@@ -1,45 +1,42 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794445967;
-	b=ioGpKc9crArFF7WW5bCuChWOxo+2OCNCUbzx9Kj4lfMQ9JVLn3E2j3VECbC5EIRbgw0F
-	 5fRNEhvQlTqCoAnHGcA0ZyPoZojQaVuX7NbJDc2wpd/m2cgr8SbkoEHdPvRCeHjUxgkRU
-	 V0alhfTEnnpNcMVXR+04dQM5uAhFwK6UEErlUtJWnKsqmBsht+GHhfXDeCXpHZMC6ugXx
-	 ixVPLSPSJlbL0rstviTAaMCiLphouJugKH5y9NUEymW6kq6ZioKkHk2WswQkFi1VPd7zC
-	 4bIUxo9yNPcXfxuRr1tMZrfDchOxlv7MZvE9cYZYH/hiRee4mtyu222TqSvX1xGLkyQ==
+	t=1794445985;
+	b=fgHdF6//8B1XAjHm9QwA518eavRLhjzFbg5EIoUQc20QegSvHmiEAB7QiQ1zeqVv3fib
+	 u5h1S6nKQwmaDvgBXuKQaRjANRQ8ursC7zYRk1FjEM0+ySkTwmutHdZ5i7g9X3rTuKApF
+	 KJpskTzE9wBGmRgKR6mw4I24RL++fm5ADBXiHpkVryP/+TbkZkKYsdKRVY3E62P7XJcNq
+	 ikDjoLFoAjtm/c1sUHktmADz+/pQU19LpB3SsOgnRF9bCzWpxRUD7YyGnFXfEKliCrXJf
+	 fp+iQ7IxRvBSM2NtwibZ51uduPqAXXzilVs55GIYJM21UPmK4Ke813ECmmtF5p4fl6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794445967;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=UxlV4a3M30q0vAHXDvaMQA3mY8eqASGH3vqh2XF8R/Q=;
-	b=qhUcWP9vDT35Rwah/DtsocSqw9itHgb3mGAVg7mOWEYhkrH+/pM5X/Ha6d7TfNt+F0Hh
-	 jxXyKPKH9//AMp9wnGrm0ESohYw6PyMUPuZgqdQyz4mEqe3V+7pPJx1UL3eDhpwYmDFVz
-	 aWMiXRi/Q771T8KlZZyh/cUnPKamc3rc8rYjtKnQzHL8HjESHPL30Zl2mHrd72gqlDsr1
-	 Nbt2E8qAXv54sp/DMlxKctfLmY9tGu93O79oGviw1UsjXYVPD6VM+ylzvMhebfICSecM1
-	 lRdXVwUZ8BG4SSRMbQZ+8GQ5nzL3Fr+OpwC5YTuFJDykfPOry3QAfIOjp/05+478l2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794445985;
+	h=DMARC-Filter:Received:Received:MIME-Version:Date:From:To:Cc:Subject:
+	 In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Rspamd-Server:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
+	 X-HE-Meta;
+	bh=vnsLhBN164EzqyiuGu2MUPWUtyYxu/RLkDq1eK2AONk=;
+	b=Q0qg7iXkt8zIiBS3EX2EpBkqgPZ0W5xd+NeuHy7tL1MHcU5/AMNqr23DAseZSGg0SOa1
+	 BSM1J0s1rouDQkRVn2c4giFdNJXhjd0/lE886I8ShiakafgD1wqtS6FRIsVtRXMxPiwrZ
+	 Sv9fazCQvEbSlMW6ZmfGgODWz1FMWLPK4r+r5Qj/K5s/j9UAjWfIthRiaN5MyNbCsxYwP
+	 JWYMQHOL5CS+Q3thMVr9mZVfAskH4oXbc3tjVziORiTmb7SLyiNW77h2Fr2givvEA3cZw
+	 NGXrmhZa3PLh7VieV/udNqXK/cguaWJ9gVUfJq3CI594zZEPoVZwzqUgJsmkrMTUDLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S9pvUdri;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.11
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EC4606A331;
-	Thu, 12 Nov 2026 01:12:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S9pvUdri
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0031F00A0E;
-	Thu, 12 Nov 2026 01:12:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794445967;
-	bh=UxlV4a3M30q0vAHXDvaMQA3mY8eqASGH3vqh2XF8R/Q=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=S9pvUdriOhbYLyHxIBTeNni47sNic5kBZR4fxbotM5tMvlI4HVnXb/fqvtQKemASX
-	 ZTlbH/kvl/GOsCAlMA98p8SBFI20Q/RLP5acO7GABwy2+gYC2r6bp9wh4xkR0oIcud
-	 8zSLInxCUvp+A8LNNqqthFoKY4O9mfPyZ0VEcNJ+y3u//7dRed5U7k7bnScC/QvcjY
-	 /7byhuR8JsNaaZ4OVpyRwbFu89PMuGvFDqnih87l6B1HObBspbkCx3IwGwCeG95RPh
-	 j6z4itGBS7+OYNHlLkd3Qc/V7v87ktD+L4ePuZsPMIYEBG9QmqunbiXR5JYOpyLayB
-	 k61rd2JoSeH1A==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23702606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:13:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23702606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay02.hostedemail.com (Postfix) with ESMTP id C3C41120490;
+	Thu, 12 Nov 2026 01:13:03 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf16.hostedemail.com (Postfix) with ESMTPA id 6A2742001C;
+	Thu, 12 Nov 2026 01:13:02 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,51 +46,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Date: Wed, 11 Nov 2026 17:13:02 -0800
+From: Joe Perches <joe@perches.com>
+To: Phillip Lougher <phillip@squashfs.org.uk>
+Cc: akpm@linux-foundation.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/18] Squashfs: convert SQUASHFS_FRAGMENT_* to inline
+ functions
+In-Reply-To: <20261111235940.c9bdd0f2b5faee753f9496ea@squashfs.org.uk>
+References: <20261107052843.725239-1-phillip@squashfs.org.uk>
+ <20261107052843.725239-4-phillip@squashfs.org.uk>
+ <32fd1f6ad824796b525ffaa3ebdd8d2610858bf3.camel@perches.com>
+ <20261111235940.c9bdd0f2b5faee753f9496ea@squashfs.org.uk>
+Message-ID: <657676fd307b604b70f262251718aea9@perches.com>
+X-Sender: joe@perches.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 1/4] clk: ti: fapll: remove ti_dt_clk_name helper
-From: Brian Masney <masneyb@kernel.org>
-To: Ettore Chimenti <ettore.chimenti@linaro.org>
-Cc: Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Tony Lindgren <tony@atomide.com>, 
- Michael Turquette <mturquette@linaro.org>, 
- Andrew Goodbody <andrew.goodbody@linaro.org>, 
- Rouven Czerwinski <rouven.czerwinski@linaro.org>, 
- linux-omap@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Brian Masney <masneyb@kernel.org>
-In-Reply-To: <20261028-patch-ektor5-dm8168-clk-v2-1-dc6bf0fabae4@linaro.org>
-References: <20261028-patch-ektor5-dm8168-clk-v2-0-dc6bf0fabae4@linaro.org>
- <20261028-patch-ektor5-dm8168-clk-v2-1-dc6bf0fabae4@linaro.org>
-Date: Wed, 11 Nov 2026 20:12:39 -0500
-Message-Id: <179444595968.1126566.13848954974182834412.b4-review@b4>
-X-Mailer: b4 0.17-dev-7ca47
-X-Developer-Signature: v=1; a=openpgp-sha256; l=835; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=DEnXSMsETh+lUsRQKmnyTu+nLmcTo8kUNcm4UVk8TNU=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK+CnVaPPH9OLHNMurRZVfezRzn1xZrfGHhLJQV09m50
- NxVUbi8o5SFQYyLQVZMkWVJrlFBROoq23t3NFlg5rAygQxh4OIUgIlYJjEyrPhlfeNA5jsOWx75
- /5d/Zn9mWct42ub142iVA4n2kx37Whj+e93sUzyrcqnfr0qrcq72sXe+K6+++vOpQytrX8JNO/M
- EXgA=
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+X-Rspamd-Queue-Id: 6A2742001C
+X-Rspamd-Server: rspamout08
+X-Stat-Signature: q3nyt9qtwemmkeqcqsq8hf6ahmj6be3u
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1+7QTeDzWaSJe9bP9QxSP88adfpH7pI82A=
+X-HE-Tag: 1794445982-454551
+X-HE-Meta: U2FsdGVkX1+swfVjj81J6jnNXEFxJhHWGxKjBmotMZyC3wUrzZDECEpjufM2H2O8tH6xIB9ehVWBhngJ3NmacJN54jK/Xv74sRGsk+3XLmZuQYi0oRFwbJI8ejuBsG8D9Un9w2qAzUI0Mlg++EJjJzNEhta3WIm4QH9e3yDlICzOOr1kYlZtTnGw7P7w0XLzh2v969q/fUOkPpkuqsQ4JgohlgPjzqWBkn6w1B4niG2oyiOJKdHFzwkzmX4+Y7qhEx/khD2U1t5XnP6Nu/f/vCKpU7XDGY/ABki4/heaKw19Y05iYgpqOOFDOzRQqA7ZVrxgRp0LCPugehJyBqnTrw==
 
-> The fapll driver uses multiple `clock-output-names`, so we cannot use the
-> DT helper in this driver because that would assign the first clock
-> output name as the parent name. This change do not affect other SoCs as
-> the only consumer is DM816x.
+On 2026-11-11 15:59, Phillip Lougher wrote:
+> On Sat, 07 Nov 2026 02:05:28 -0800
+> Joe Perches <joe@perches.com> wrote:
 > 
-> Fixes: 9e56a7d4263c ("clk: ti: Update pll and clockdomain clocks to use ti_dt_clk_name()")
-> Signed-off-by: Rouven Czerwinski <rouven.czerwinski@linaro.org>
-> Tested-by: Andrew Goodbody <andrew.goodbody@linaro.org>
-> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+>> On Sat, 2026-11-07 at 05:28 +0000, Phillip Lougher wrote:
+>> > Convert old fashioned #define macros into inline functions.  This has
+>> > the following improvements:
+>> >
+>> > 1. Inline functions are typed, which makes the width and sigedness of
+>> >    input and outputs explicit, which reduces errors.
+>> []
+>> > diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
+>> []
+>> > @@ -51,4 +51,31 @@ static inline s64 squashfs_mkinode(u32 start, u16 offset)
+>> >  {
+>> >  	return ((s64)start << 16) | offset;
+>> >  }
+>> > +
+>> > +/* fragment and fragment table defines */
+>> > +static inline s64 squashfs_fragment_bytes(u32 fragments)
+>> > +{
+>> > +	return fragments * sizeof(struct squashfs_fragment_entry);
+>> 
+>> Needs a cast to make the multiply work properly no?
+>> 
+>> 	return (s64)fragments * sizeof(struct squashfs_fragment_entry);
+> 
+> That is fixed in patch 7 (in the original patch-set). This is because
+> it was reported by an AI and so it is fixed in a separate patch with
+> an explanation of exploit and reproducer.
 
-I see what you are doing here but can you give a more detailed commit
-message / argument here in favor of the change to make it easier on
-others that will evaluate this about whether or not it should be
-backported to a different kernel.
-
-Brian
-
--- 
-Brian Masney <masneyb@kernel.org>
+Should be corrected the first time instead.
