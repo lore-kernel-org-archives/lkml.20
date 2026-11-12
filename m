@@ -1,88 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494806;
-	b=DQEe9cFNY7Hy5QylUwzfOnZbGjkTJjMly2TNiWWWQWsKgdeIfQjQabbLOSWi84Cz+ozb
-	 JtIR1drqz3jyGizTJ+kaexh1CMe259qvuvlHkhck8yCTrLhNWtgnSm9mxkDGQLve7IFfa
-	 neVQM+WpTH5GztdjQQ1Jmt/mV5+9k18xaenc/0woUU19+ixw18A4Q7DXXLsVtWXZ49ZyD
-	 YYhrm8vZAIgdFC+jSvshMlI/GeR+rMvqwEawI0o6KIrpl4THifldbxgqMN3NPMfxbUo8g
-	 cPP7r2j/cRDPvMCXgMl51BfWDYMbAbBNoS83vpwfO+/x6oJewHYtLvpZd4GaKpQZxHw==
+	t=1794494807;
+	b=ETYxwoSwJapfoDgmWZs1pX6JILOsRmIcsIUAeG5U68LK3pvWiBK+lA6a0ClCd06o8fVP
+	 KE5KvJvwACOfMxsU5oaZa0a3aTjnLDCRh5SWWuysYY73a3sok6p8ay910BAqQedzB85hL
+	 itmzT1DZsyziAW/RHcDoxQzeN6tXwaCzmjY1SZ+LMiwqRt6gyvMXxgQ/KcYEGxyReFC5L
+	 MSGGzU8wdMvo9MoZ3KRh+ZVlt/HkeHI5VaFeEjIQ/4oFS22IakLt3GyUFUcFvxvVfeVuL
+	 W8HM3gUe7Kpz0R9XaXHNWYgEItKBvEmxQICHmCRTNYjjHO+HIqStHqWYUUhQpKaBjbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494806;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=/hafU5ZqWQn7Ed1VMFu7z2rJjDnpY9h268ShvCRjPto=;
-	b=MNHI/p/7W4Fa2f7oUneliB84txuE26+JvKis7dk1gMF9c/hNqHpp0oHx0FUAjzC0Q++8
-	 ruOqwTooD7xA/HbhBbX6vO9mqSki2ydwVUe24dCvOQMkAUZaT1urfSrU+PR9tvqOHvdTa
-	 pDq81JWfVQVttFuQYLpapGbPigDX0/p+uGkAm7jKduet+bCSpKG9WliNJdzT3Y7QSbfUe
-	 dSvnNmMHr7SsE/dqQACFVuj/diOjoc8izJxLR5Q8qLdy2dvOvDIGrf58JrYF1XNGmczrJ
-	 Kw2lVa7lWaQ+FQtLb1V6HSa+6/Q/Km6xncAeiO/DXOpH3d1tf80z2ulRfQY/IUeEL3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494807;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=DeS1JutKTfuhS5q6pNbvmoX+jSrEwDPcQETf0SHwj/c=;
+	b=M6fy5/vwCa2lj57WVljaPamwM0JXGgEP7XCKyV0hpihnPSHyDrhKpZI3Vp88I0r4tWn2
+	 F2ueYr2QQtscBhY+i4kXuWXw23XfvD4dVimK45xe24GUMnF7yNozpiF7tVEp4TD6dUqwa
+	 uh7YKA/nXNUlihVlRH4+Z1avDYxrrU4sIf2vYdJ5tVsS1aFw3aQvKrl4kGgCxXSfk9ODu
+	 6rAb5zmYPIcYl6xWIvukHDESiZXTib+WFpNX01dCmGO1ek0Oss8QHQzOHAW1sUqN9J4zI
+	 gMEvasQdBequ1/HXiKz2Tsr2rXe5ng8UFxFhtbp5tk60OsJsj/ULIhLfv7W9z3HhAuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=none header.from=linux-m68k.org;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tfHR10w8;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	arc=none smtp.remote-ip=209.85.221.179
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8EC7606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:46:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8EC7606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8793A606A335
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:46:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8793A606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tfHR10w8
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1b244fb7fffso5440534c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:46:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794494805; x=1795099605; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/hafU5ZqWQn7Ed1VMFu7z2rJjDnpY9h268ShvCRjPto=;
-        b=tfHR10w8f6H7uSBIHChEh0ZFUclNmqzVoWhRdxtDipIsIg+KbPSom0zO0e80dSXS+l
-         eO10nKOKO6oVj99HCV8VoHf2EFJE56OBM4ZTLf/C2Ljz/29T19NjIn5lQRWaXbQaKmij
-         9gjxbr5NNdVXxrrbBOjlHgb0M8DmlurezxH4BKxl4UiU1ywpeUeWwFuu2395Y/J0oqtb
-         jYMjhQcfkojnP/DLn9m7OPIO1UebXDdoJKxFqVxFJ34gjc639CkehNP+VmMpeNejBIra
-         Fab4aPsWf0ogIw1lcQlVc5SfFAf7Z+eBmym7Ns66ZZKD08B2k/mClMik8uyfMxIEVGZS
-         7g6Q==
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5ee1e4e3abcso559515e0c.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:46:47 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794494805; x=1795099605;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/hafU5ZqWQn7Ed1VMFu7z2rJjDnpY9h268ShvCRjPto=;
-        b=WfUehNzuaTKlllolx5Za9xyyBZIj6+fJ2IuhgRIrvgxyzoAm54MpEHalEUMZweQMKl
-         V9jF0qc8XcLBtkIcTOBvj4yixo8lfBIlyjhF6j3GbhgptNHl2/pk9bXtsYgANkNP0jt9
-         cATrVdlI6w1Os1NbVyt7+F5CvkxuoaNftqrcqUY/buCKQmalvLfFALZLGfHchP6TClzT
-         v2TE5JxmFYWSBcggB30dPZJMXqdNLK/LiWghCOjbv1p/amzAjQNEtErcr+rz8GKJfZTt
-         zEHoUZaM5fzyRvGVSv97E41J0kiu8YGLtIRO37R1Ub+gSNWKyDxxiBwZzGKIejr2T5ju
-         Qe7w==
-X-Gm-Message-State: APuU4Z/rJ5hg8IDKDFwxCIxluyBh/caSQ89mFEpMeG5viCfmfbCiDwx2
-	HGKcghHaHUXBpHzjap+QMSAMOqhCkBtxYJAbLLWo/hOlfWF90x2oMOVQJS1lkQ==
-X-Gm-Gg: AYBFou0NXMraia+/hdYxLBZBhbu7Kp14K4KM/jtOp5E44U2R84SbLK6u2f9niDbFUkD
-	XvqvL/XgurDnomm1JRkAIU7Kenw+A8cTAe99WasrJ+tTtajnfU9S0wJfmSjp3cptWObvAqEuusq
-	4J+XKTj0yVYL1qwxTrfcGysaMbMfyhFOkcgLiwS1tnVf0Wbnvxh13l3/oda9Rvdd8KQXwVs10Vx
-	pRkZbuvsig04Gd4/ds1Z2uwcjt+5u60ibW+zpRAFByBsjgjVTHMrxsB8ai1qvAcTJ05QJlpQnS/
-	fhnZhztCHb8IOZaPd6qBXX/vuWscYk8J9VKOgSKopPtwnIJ5H80uRNgig8tl0tYVv5TbyXbzfy/
-	oMx2yaPVwt2kBUlxKChyVdi6ujIpZiiyJEzTvoVSHUfhPAJPDFmx5wwMMRHKaDCFE3zyacOopN2
-	pXQadNPdzdad/Z6X1jjH5FGz2rmE0Mw3/bkegUezirjq5adiqEElZEkCzD355RVlzVrYyI2Gt92
-	Uh1LTxwiiJ2KYX76vKbwQeVY2xecGyROhDIa/1wo+0J///8Wx82RnGZEltHna0aGAQPca7fdX++
-	/8nvs7f4ZAnqONBCsle/LHnIxFQKWI58e98uCxP8kpXDbXRdrQvM
-X-Received: by 2002:a05:7022:5f11:b0:185:4ad4:3d15 with SMTP id a92af1059eb24-1b3c023c407mr4645042c88.1.1794494804782;
-        Thu, 12 Nov 2026 06:46:44 -0800 (PST)
-Received: from ubuntu ([110.9.142.4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b502a5d5cfsm181971c88.4.2026.11.12.06.46.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 06:46:43 -0800 (PST)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Akinobu Mita <akinobu.mita@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] fault-inject: use a shared initialization helper for the random state
-Date: Thu, 12 Nov 2026 23:46:34 +0900
-Message-ID: <20261112144636.840042-1-ekffu200098@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1794494806; x=1795099606;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DeS1JutKTfuhS5q6pNbvmoX+jSrEwDPcQETf0SHwj/c=;
+        b=b3YvZJBXiF4kpdc5/jG1J02sgJACEJaaFjK4QaGcOKbxml3OItOp/9vP2mfDODIf5A
+         619HI7e3q9xdwre+FQVafN7PB9ieSZrVvtpxKa7ZQqp6TlW8XAv5fu3lFaLPRKcEBK32
+         cv4ilQ9njDQr8mZRckm80KoGqqWJzDa/fca/Pm/q0NkrQ/iwuk2LndCCHZy/Y51EO9XU
+         m32tasgPezA8yL7AO+sNESyqPX52lPmW0m0GPhITnUwq6lRaGG4LotCx/348HpARDQ9k
+         h5ybfONs3t6r636I8y5BazOXk/bq0Tq1aFVTb7xoa65Vn6qttImx/wHxxXQWWjhqF6l9
+         c/DA==
+X-Forwarded-Encrypted: i=1; AL+hErFmeCaUqlKLLEOM19gFr0TDlS5+0/h5WN2tEg8ip8zllRcztmGG31q+SHird6yUsUUekMb1iIYYRBcIF48=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vQQVcgm1zQhziKhqICamz/SXXeLEutRJ9ajmiwwldMeTwCiUU
+	ri5YDzf+yQRJf41e9xpmDzwqQFAXatfzEBfej5YTTzB9NNiKM4VDlG+eSnEmDELiI9o=
+X-Gm-Gg: AYBFou2/HjKBV9IoCvifL+IYnwZTPkmMgfxFUw3w1GCks4ULQf4vgFcmECTSXxDpVf/
+	vpYrWIUO49DGlCjmliu4yS059ZYPV3OhraYkUOsUdVcP/WWT+zJZCtSaQXfYq0zrTNGMKkqi/Tm
+	CBFUoX+QF01POP43Wffu41Rqz/fkd6V5u1SNNIMQLQVUG6PXZNGyHQWPbRQ5TWAhezENd847Xnj
+	Lxq//4tlCEHOFJ5cgmM/9pzraYgn8Luxk3F1oSBB6OSbfWujwteiXVIFWWy2z+WDR9I3XMkkaVI
+	KqvBzujuF5q1HG5Tg+sio0kVL3bzZRU4TmKFtAbdLx844ct42vzXxh3Cg/M/HKqVT4vcb+Iqjex
+	yc8EI4tG4qhD7ScUmJKq8Ak+ANjaCL2PCSQ1OLkvq7WttyPavYAM24OUJZXrHef+zJXGHdSdOub
+	f2p3jiIy/eOIq3IKqpmEauikU+8yN+209LLkv7eOylfLqc/H50TIj9IKmjsOc2vu0SRvPHomeGT
+	RM4E/054dHrXfk6HsmjBBJucAvyEkycqjNxs/RarsoK+4I3IdDzCTAtDnX6FAh/LRvkpkjujMdB
+	pce0WIcvnsPGo450xARTetQDV0ZnYzUfS1RehHxG1pFcaivwJTqTBrtq6tp8/GkBl3xFN+Z+521
+	6cjjUH8WNq4okWRV4
+X-Received: by 2002:a05:6122:1797:b0:5ea:d32a:16de with SMTP id 71dfb90a1353d-5ee1c44ac5dmr2135167e0c.15.1794494806611;
+        Thu, 12 Nov 2026 06:46:46 -0800 (PST)
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com. [209.85.221.180])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee3246f80asm60712e0c.13.2026.11.12.06.46.45
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 06:46:45 -0800 (PST)
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5eaf169fe3dso1398730e0c.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:46:45 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGutFyJ/Pwks8d0V6754iPKhN43oTq/PyJ9gMP25uabInbhrWPqL7VCM+X6PvEtnv1owaISd7VKDgPvmro=@vger.kernel.org
+X-Received: by 2002:a05:6122:398e:b0:5ce:d56f:efac with SMTP id
+ 71dfb90a1353d-5ee1c4995fdmr2096272e0c.21.1794494805148; Thu, 12 Nov 2026
+ 06:46:45 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,98 +81,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
+ <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-3-1b2072e8c37e@ideasonboard.com>
+In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-3-1b2072e8c37e@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 12 Nov 2026 15:46:34 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVKr2fGN3k0LYHhoFp3Rp7_=KfTB6tQkGYDof0Em0HVtA@mail.gmail.com>
+X-Gm-Features: AclHuK-vYdrIZUHe9zqdC5qY90reiPN1Oa4nwuum4GsEnnZB7I1s1LzmhCydy1o
+Message-ID: <CAMuHMdVKr2fGN3k0LYHhoFp3Rp7_=KfTB6tQkGYDof0Em0HVtA@mail.gmail.com>
+Subject: Re: [PATCH v4 03/13] arm64: renesas: r8a78000: Add FCPV[BI] nodes
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-media@vger.kernel.org, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
 
-fault_rnd_state can be seeded from setup_fault_attr(),
-fault_create_debugfs_attr() and fault_config_init(), and each of them
-uses its own guard. Configuring fault injection in more than one way
-leads to useless reseeding.
+Hi Paul,
 
-To prevent this, use a shared initialization helper fault_random_init()
-in all three places. So fault_rnd_state is seeded only once per boot.
+On Mon, 9 Nov 2026 at 14:35, Paul Elder
+<paul.elder+renesas@ideasonboard.com> wrote:
+> Add DT nodes for the FCPVB and FCPVI IP cores in the R-Car X5H SoC.
+>
+> Use the SGD1 clock as it is likely to be the clock used for data flow.
+>
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
----
-As discussed in [1], I didn't add any tags other than my S-o-b.
-But feel free to add tags if needed :)
+Thanks for your patch!
 
-[1] https://lore.kernel.org/all/20261105160209.1504867-1-ekffu200098@gmail.com/#t
----
- lib/fault-inject.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
+> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> @@ -1574,6 +1574,78 @@ mdlc_aon: system-controller@c1338000 {
+>                         bootph-all;
+>                 };
+>
+> +               fcpvi0: fcp@c5030000 {
 
-diff --git a/lib/fault-inject.c b/lib/fault-inject.c
-index 9182d457baf5..599bd06fe453 100644
---- a/lib/fault-inject.c
-+++ b/lib/fault-inject.c
-@@ -1,7 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- #include <linux/kernel.h>
- #include <linux/init.h>
--#include <linux/once_lite.h>
- #include <linux/prandom.h>
- #include <linux/debugfs.h>
- #include <linux/sched.h>
-@@ -13,12 +12,25 @@
- #include <linux/interrupt.h>
- #include <linux/stacktrace.h>
- #include <linux/fault-inject.h>
-+#include <linux/spinlock.h>
- 
- /*
-  * The should_fail() functions use prandom instead of the normal Linux RNG
-  * since they don't need cryptographically secure random numbers.
-  */
- static DEFINE_PER_CPU(struct rnd_state, fault_rnd_state);
-+static DEFINE_SPINLOCK(fault_rnd_lock);
-+static bool fault_rnd_initialized;
-+
-+static void fault_random_init(void)
-+{
-+	spin_lock(&fault_rnd_lock);
-+	if (!fault_rnd_initialized) {
-+		prandom_seed_full_state(&fault_rnd_state);
-+		fault_rnd_initialized = true;
-+	}
-+	spin_unlock(&fault_rnd_lock);
-+}
- 
- static u32 fault_prandom_u32_below_100(void)
- {
-@@ -51,12 +63,7 @@ int setup_fault_attr(struct fault_attr *attr, char *str)
- 		return 0;
- 	}
- 
--	/*
--	 * __setup handlers run before slab and workqueues are initialized,
--	 * but prandom_init_once() calls kmalloc() and schedule_work(). So use
--	 * DO_ONCE_LITE() instead.
--	 */
--	DO_ONCE_LITE(prandom_seed_full_state, &fault_rnd_state);
-+	fault_random_init();
- 
- 	attr->probability = probability;
- 	attr->interval = interval;
-@@ -246,7 +253,7 @@ struct dentry *fault_create_debugfs_attr(const char *name,
- 	if (IS_ERR(dir))
- 		return dir;
- 
--	prandom_init_once(&fault_rnd_state);
-+	fault_random_init();
- 
- 	debugfs_create_ul("probability", mode, dir, &attr->probability);
- 	debugfs_create_ul("interval", mode, dir, &attr->interval);
-@@ -462,7 +469,7 @@ static const struct config_item_type fault_config_type = {
- 
- void fault_config_init(struct fault_config *config, const char *name)
- {
--	prandom_init_once(&fault_rnd_state);
-+	fault_random_init();
- 
- 	config_group_init_type_name(&config->group, name, &fault_config_type);
- }
+Please preserve sort order:
+  1. Sort by unit address,
+  2. Keep similar nodes together.
 
-base-commit: e6514b988537d8577052c88b2a44c79610e8821a
+> +               fcpvb0: fcp@c5038000 {
+
+Do you want to sort the FCPs within the FCP group by unit address,
+or by label?
+
+For the contents of the nodes:
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.53.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
