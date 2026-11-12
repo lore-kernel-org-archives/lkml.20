@@ -1,49 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794479605;
-	b=VQLzBoEvP4Oo4MKCFBSO0qXA0Z3wsMpCk6Zirg0aN7mzdIa5UnRkJ+OEdkh6H107S1IP
-	 0GkMYwgH2KXG4LbAKctrzB/8VeGX+L/QtXDMlYgA9fcg2KWzxaNIAolM3K+7SUuk1IC4E
-	 hka0G38P9eylf5YZhZEDKDNLfh/NQWH5xhrPSHxHRlKN/LOvXWF9nkYcSUlAPH9a3cbYm
-	 ksqbrJa6VcMwQat5iJBBtjsDmhJ4O0F4W7KUVmgTXGrIrsv6sN4B3JH5p2b64vEnCqBOk
-	 0In4VtvJdBaO2tz8Ily7bly1xWHZye7SE8q4kmUDD0G6U30wd9tJHIirCerNhTWBmzQ==
+	t=1794479631;
+	b=ca3PwApfY00wlFoxo3M6uqs1we1IfGtcIhch54gmQlRY8j6mYfLJY0dVHgDLLOYbiUzy
+	 7YrTc9bSzUaEettD15t8pBUgNIRZKRfHloxBYNU5Mqyv1X5/E5eHIei6A7mQFJLiQyhtn
+	 1Q3ywZOcH/sXBXG6bqmQzVo5DgceWzegODwbZRzkSaNAk8Brq4kxUgA3L1W840sN3u5SN
+	 rJeLG6x20IoA/L91k2nu/OGgg9ZVWSO9mjRbAUGbuq8O4ftokBOoRMscUyX15LtiyaAbC
+	 /wsl6dlkTiSFYXmbdha8gLB7gYN8W1xaL/wentb+fQLoX7Si0mScEOb2ZSGq9vcuULA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479605;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=bUP3NtMygj44XOC9NIS0tz33TI6f+ov6Dat/ckuHzGw=;
-	b=sL9MW4bOo6muWe5VIQW4sQ8+UnINEN8h1/QRcAZDCuTqAd718zdTOFN3C+0t+rMRKzEA
-	 JJC3eoEXHogRTM9yZ4lg33MkIsrDRR0R023cG+8dxfywFuY5yooSUIVBhK3JyqjSVWkeT
-	 63lwqxySq3YVQt6f+nrQd2qpWYBF5dwQyJN5KsBVbww0UZgPEMuYWKAdLf2tjYtG67WEy
-	 RoRu87rgHWBtYp/sdn8uaf7h5PmJCNNaQRZE4J9FjL0UioKE+ag79XT/zOh21Ar6VWPJC
-	 GWblAeSkcrUV+3mwD8YWEFbBwyRhR9fLcYpxcYkEbNZZL0+PSMz9+zhPGuSe+jKkNEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794479631;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+aHQkk84/jyWq1Sa4aXoN8rFXFkbow5EARyg7OTXn+Y=;
+	b=ELMFMhoEvZcfKQnoXol2jKqDlED5b89LftrrYbBkBTXZBCGqREzAJiV03N3zt5u6PA+m
+	 udKCB6UsL103Azio2PlPKRDlciZ+B7lCm0pBwBv1VS+vfxW3l219JlscYvVU5AV4hXDpF
+	 440vwWfVYPj5snUuqV47RAImjSyOrpbPqW4lA3LdMXbEx/FbiBqdWVHJn6ZQCn6CL2B3m
+	 LDAW+x+ux8f2rMFiZElKHt8mWuTfLsItjRKClVLR6tBZEdYsJaKrUqHR+r+Atg/gZ8Iwf
+	 Uxkota5HCV++Cjz4Cs4Y1afMmhYLsvggibMRQalRCZJWcd1ZdGDdjLCAcFvfL1aaH+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lybmBeWp;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 83415606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:33:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83415606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIhTJaMD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAA1606A323;
+	Thu, 12 Nov 2026 10:33:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lybmBeWp
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7D4FB153B;
-	Thu, 12 Nov 2026 02:33:20 -0800 (PST)
-Received: from [10.211.55.3] (unknown [10.57.14.230])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B9E6D3F673;
-	Thu, 12 Nov 2026 02:33:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794479603; bh=rHpte5JUHErycSmpZgoWPKziiNyMTSiJNyaOEd0FNZE=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=lybmBeWpD5Cs4KIWrf2IXqDog8y7zyiMqMcD7tCwYrrXCUeI7YiELTfzyZdOs6j+P
-	 1wo0yJPYQHKueylGSsFlVAI+Jcn56O/017JSIsd3BS0PXfrWzZCB101VuHRIi6SbBx
-	 q45FBU2JQZrjcW/dDaWq4UwFmF3busLwl2JDUlLA=
-Message-ID: <e96561c9-2c25-4bd6-b57d-2355cb850906@arm.com>
-Date: Thu, 12 Nov 2026 10:33:20 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIhTJaMD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0E211F00A05;
+	Thu, 12 Nov 2026 10:33:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794479631;
+	bh=+aHQkk84/jyWq1Sa4aXoN8rFXFkbow5EARyg7OTXn+Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WIhTJaMDCbntg/CKE6hWj2qG9UcfTu46mxNfCVJd3PM6nU2CwAnfD/rNIw9+0TXgr
+	 2x3EfnnydyDZORVGf8LIfESmomjDLYhisRnb7MsqgTxiN3iT2I8fkb+riKRJIruKW0
+	 Dhgg6D525FZZ+jCQfzTSujfaG+WCFZFnKdsV8bBaQrMpjHPsv+CTTeFsiB7tBnVz9f
+	 bJMUFS9r8VnIllKNetZUbAsHSpeYDV5Ibnrcp8yF7Cwnnk51v77a0NqQBiYmRL9Hap
+	 B/5/u2etmF8B8ZrDDl6Z6bZY+9uGl/eMSnu73BTlhYk4LcrhEhKrB6wKTy47CUFf2E
+	 /X42EBe/uwcOg==
+Date: Thu, 12 Nov 2026 11:33:47 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Eric Dumazet <edumazet@kernel.org>, Lee Jones <lee@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	mfd@lists.linux.dev, Martin Kaistra <martin.kaistra@linutronix.de>, 
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v4 3/8] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch function
+Message-ID: <20261112-unselfish-congenial-waxbill-c7f9e3@quoll>
+References: <20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
+ <20261105-devel-vstrassheim-soce-dsa-ml-v4-3-02f3cde2afa1@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,104 +65,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH] fs/resctrl: Report why a schemata write failed
-To: Reinette Chatre <reinette.chatre@intel.com>,
- Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
- Dave.Martin@arm.com, james.morse@arm.com, babu.moger@amd.com,
- tglx@kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-References: <20261104102304.703535-1-ruanjinjie@huawei.com>
- <0bece210-cd99-4f4c-83cc-c58b59b7ebec@intel.com>
- <5e6fc827-d5ca-4e72-ab8b-3ad63d530c19@huawei.com>
- <0a2b0685-ed32-4e7a-b724-1b5be075ca19@intel.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <0a2b0685-ed32-4e7a-b724-1b5be075ca19@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261105-devel-vstrassheim-soce-dsa-ml-v4-3-02f3cde2afa1@linutronix.de>
 
-Hi Jinjie, Reinette,
+On Thu, Nov 05, 2026 at 03:16:47PM +0100, Vasilij Strassheim wrote:
+> Add a binding for the Ethernet switch function integrated into SoC-e
+> SWIP cores.
+> 
+> Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> ---
+>  .../bindings/net/dsa/soce,swip-switch.yaml         | 96 ++++++++++++++++++++++
+>  1 file changed, 96 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+> new file mode 100644
+> index 000000000000..daac779c466d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+> @@ -0,0 +1,96 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/dsa/soce,swip-switch.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: SoC-e SWIP FPGA Ethernet switch function
+> +
+> +maintainers:
+> +  - Vasilij Strassheim <v.strassheim@linutronix.de>
+> +
+> +description:
+> +  Ethernet switch function of the SoC-e Switch IP (SWIP) FPGA core. The port
+> +  count and presence of VLAN and STP register blocks depend on the FPGA
+> +  synthesis configuration.
+> +
+> +$ref: dsa.yaml#/$defs/ethernet-ports
+> +
+> +properties:
+> +  compatible:
+> +    const: soce,swip-switch-00-04-0c-10
+> +    description:
+> +      This compatible identifies the register layout; its suffix gives
+> +      the offsets of the core version and feature identification
+> +      registers (0x00, 0x04, 0x0c, and 0x10). Port counts and optional
+> +      features depend on the FPGA synthesis configuration and are
+> +      detected at runtime using this register layout.
+> +
+> +  reg: false
+> +
+> +  reg-names: false
 
-On 05/11/2026 15:58, Reinette Chatre wrote:
-> Hi Jinjie,
-> 
-> On 11/5/26 12:32 AM, Jinjie Ruan wrote:
->> 在 2026/11/5 3:18, Reinette Chatre 写道:
->>> On 11/4/26 2:23 AM, Jinjie Ruan wrote:
-> ...
-> 
->>>> diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
->>>> index cafebdff70dc..cfb59cbc4135 100644
->>>> --- a/fs/resctrl/ctrlmondata.c
->>>> +++ b/fs/resctrl/ctrlmondata.c
->>>> @@ -367,8 +367,11 @@ ssize_t rdtgroup_schemata_write(struct kernfs_open_file *of,
->>>>  			continue;
->>>>  
->>>>  		ret = resctrl_arch_update_domains(r, rdtgrp->closid);
->>>> -		if (ret)
->>>> +		if (ret) {
->>>> +			rdt_last_cmd_printf("%s: failed to update the domains: %pe\n",
->>>> +					    r->name, ERR_PTR(ret));
->>>
->>> Please instead display the schema name (s->name) to user space as that is the name
->>> that the user use to interact with the schemata file. 
->>> Is it necessary to print error code again? This is the same error returned to
->>> user space, no?
->>>
->>> I do not know what resctrl fs can claim here about hardware state - could such
->>> a write then partially succeed on MPAM side? If so, best fs can display may be
->>> something like "failed to update all domains". If so, could user space follow this
->>> with a read of schemata file to see which domains failed? User may want to retry
->>> in such scenario ... but back to earlier question, this sounds like a permanent
->>> failure (until CPUs are back online) when attempting to make domain configuration
->>> changes that does not sound right here.
->>
->> There are some cases not permanent:
->>
->> - PCC/MPAM-Fb MSC returns -EIO in case of protocol errors or timeouts
->> （mpam_fb_send_request() or smp_call_on_cpu()）;
->>
->> - -EINVAL when the calculated PARTID is out of bounds
->> (resctrl_arch_update_one()).
->>
->> Both will roll back and retry after the cause is resolved will succeed.
-> 
-> Could you please provide more detail about the above "roll back and retry"? 
-> 
-> I am trying to view this from user space side. The "PARTID is out of bounds"
-> sounds like a bug in the "should never happen" category. I am not familiar
-> with everything that can fall into the "protocol errors or timeouts"  bucket.
-> Would it be worthwhile for user to try again when these are encountered?
-> Could "-EBUSY" be more appropriate to help user know when it is worthwhile
-> to retry? If it is not possible to retry, does that mean a permanent failure
-> for which the domain should rather be removed to prevent user from encountering
-> the same issue over and over?
+I don't get why do you need these two above?
 
-Any MPAM-Fb error is considered unrecoverable and triggers a disable of
-MPAM. (The same response as to an MPAM error interrupt.) This in turn
-disables resctrl on that system. Errors are still reported to resctrl so
-that the user doesn't see success for an action even if any subsequent
-action will fail. This policy may be revisited, in the future, if we
-encounter systems where there are recoverable MPAM-Fb errors that are
-actually seen to happen. The first line of defense would be a retry
-within the MPAM driver and then if that is insufficent reporting a
-timeout to the user.
+> +
+> +  ethernet-ports:
+> +    type: object
+> +    patternProperties:
+> +      '^ethernet-port@[0-9a-f]+$':
+> +        type: object
+> +
+> +        properties:
+> +          reg:
+> +            maximum: 30
+> +            description: Switch port index, from 0 through 30.
+> +
+> +          phy-mode:
+> +            enum:
+> +              - mii
+> +              - gmii
+> +              - rmii
+> +              - rgmii
+> +              - rgmii-id
+> +              - rgmii-rxid
+> +              - rgmii-txid
+> +
+> +        required:
+> +          - reg
+> +          - phy-mode
 
-As it stands I don't think the user will have time after a MPAM-Fb
-failure to read the last_cmd_status before the resctrl filesystem is
-torn down.
-
-Thanks,
-
-Ben
-
-> 
->>
->> I verified these error cases using fault inject for mpam_touch_msc().
->>
-> Thank you very much for all this testing.
-> 
-> Reinette
-> 
-> 
+Best regards,
+Krzysztof
 
