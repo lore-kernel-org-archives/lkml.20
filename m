@@ -1,145 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480324;
-	b=5IYrpwWJFyBZy+eV9NJkNXk12JRbFOGcvmiQWdGU81epcjpW7dl3r5X62NYfbn/+Nj1s
-	 YqIxr41gmur8QCNmIQT+fA3GmLtsUqumBvd+ZMAj35FXjfsR9vre1kAHY8pZw+td5SSIk
-	 JbIi0mmRqx6Y1/F035ogGmTwraFx+pYwNOiNsJP3Y47NgE1VAABcuuVHn0GkEYzy0LU/J
-	 2OKD5s38ZdScirB5ukLSawAZ0TcAlGnrS8QZAUIYOmbUexPMcQlNF8xjIFYTV45JjADb8
-	 9EAJiTXstqtfL7A9k/zPXoaGuI+BM8orSfeYp41TQ0Fy9L4uSkUmrSkddeZJXVA7RnA==
+	t=1794480328;
+	b=RBK3SDUVNTFVSNJiRPXC+K/4UcJrkuJulAPlLyGQPln4NolX29Wd6F15mqEWoFTeLf/F
+	 PjEmYUeZf4Wc80IjRQMkI+GrZNcXFd/AbKtjT61G5M1LnIQNZjyGL6atMk4/uMkuGXFyC
+	 Kkwylv34S4UnftJjqGd6IlXeFXOqoODwozXrc548lZpUssGAnB5SFAR1mlbmE3Y3nFmNs
+	 iTEm8EZiI+zenIyD5TvQEqF17Hha17iilKW7Z9ah4YxPIUtmyxNkxGYVfCxKSyHTbP/eu
+	 fTU4O4ninr/6NHALL4XQGIoSxXBtWtaU8+c7+Qj0IV7RotHCPNfzPc+LDSaVBWpBotQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480324;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XnCYVNofTC0C6ktldCAu6GTGzm+Q8FA6+tvEuphsY/w=;
-	b=Ie9DtX17qV6hamhvRP3quKimRfP331vRSZi741n8sjchD+/KVHjQ9PRBFVY7AS+SS8zk
-	 feuCUkQWhYq7EllENV2V0rmCsLc34n2JemD1T1Dgx3selLfp4CnNq4A/wKg3uJbkCXMrs
-	 tLB/jn53gvClwyKENQNjY6VBIkySqBy7/i8QoII8eApvDsIlsBG3gMha0ToZyg2d/X+Lj
-	 maWCiTBWCiSEG5IKJZq5AuS/kMlLesUeicqBZ0o78gYTm4KblzISWWplFeMYUuFxuuodC
-	 PzzenCKEP7x1/uqf/kU/ETJLeSLnoZZHYTNUpaXc+A0ArJEnPN6KuBqqfWOoMGE1emw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480328;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=T16O+6zhR+p9Je0siluHmer56Vdp74YQqdb4noZIbnA=;
+	b=pgKHPsxaO3p5/tSSVzKSjC6CxwI72PlxPO3tJYtwzpO7ES1xTY0ebqIYNgNjbx3kS51W
+	 K4rJ6+AGddYf8AM2fY3Z6GbHvGK9+OpAW5IBOdRJPYnAU/NMxJn14BfaUd9Dqf/u+Deqc
+	 AiUbPzGHRLO+1M52byFZTExlSqvfhQc6H3Xz2j8AeHpIGaKqYEL7KtkeEhclg58wW3zCi
+	 y+zBpYMKneN+WxSQ3Uq9CtrC4lI1oigRYS5pnAldqGW/R077naCKsJLQHhYpsN4b60Rw5
+	 5y/1DIr/Ariy84JkS4tIO3VV23jHPi/LOIkLo/6A4jvOI7wuwo5BAgopVjEks3O9t+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Zp09kXBl;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=Fr4fi5b1;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB27606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:45:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DB27606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E89606A886;
+	Thu, 12 Nov 2026 10:45:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67E89606A886
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Zp09kXBl
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3720addb068so7337900eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:45:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794480323; x=1795085123; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XnCYVNofTC0C6ktldCAu6GTGzm+Q8FA6+tvEuphsY/w=;
-        b=Zp09kXBl3tmzhNDXnluIDoVu4hJxPbk8hdtimF2khZPOnmQNb/S51ybbT4EWDLGxFw
-         Be7xVzGkqwAHxCgQynyRwNUgCxhCFxrW3KOQASvFTF9D8v9z5Ty/Z1wOAnlUMbVzE4Go
-         RWxAo8OlK4tyKB8j6Qr7/bQpjb+eWhQrynqXYzLMO/fX+PBfZdj1SoaL4IBkHxGx3rjg
-         mVHJPVd0NHLJYHqnhTFUjKsz2XzQFt1cG2JrXhnnmVTqrUwPrdc8l7KrkRFHqmzbjUAQ
-         D8vzOQKHC5fSAMhWu8rcUEyk7QBhECesNnISmx9JsCfbfMYsY2GZ9zBZS2JUP9fCcIAv
-         Om5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794480323; x=1795085123;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=XnCYVNofTC0C6ktldCAu6GTGzm+Q8FA6+tvEuphsY/w=;
-        b=nEhMvq8olFYc+d+kZdoN+/zf+zmoI60PdmND+QQ8IouzIuPq/Vm3MrjvCANgI7uDis
-         K2Kk8C/FIEIeDp8S0Ib2EgrIiEh9UHzJDM02GWO+DwPpdbHzM98TFdhGKI1AQYFKYg8/
-         YRTgJQ3LHTFqlduIgjoTxqr9sXm+WXSaYrimksX0CQdwvvjz30aZ0TWyeA2p8E0kb0zC
-         6ucV5U6MHBoRk5qgWBOV6fjZZcNuP3Wik8KuwGWU2x7KCW8oZYdD+JkQHzf7BnZoGc7H
-         THca7dFffH/dd/t9cGcBrx1qV1UtMusTW99xLxD8+kEF4LtZqSI/GLjaXS6eGdSTeoNe
-         N88A==
-X-Forwarded-Encrypted: i=1; AL+hErGfxqrE3N9N+qWdyT+VjqHiB3grnA6ROBvK+Xyfy1+bJFlgHCQ1ZUf9BMb+p4Aq29PCyIWDxuUwbTbKIGQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8aLjwRVAnnBnJ1w2lUd+2oeTJqUZ3kPl989fAMyhvwM66gXTfY
-	JLuruSMP8Q2VG2bRyPq8CBkrcRj/hODEW9kDhzguC8KN/phyRkVXTscBTPUbfoy84wY=
-X-Gm-Gg: AYBFou2GjnR+TaDXvqGcvLHRpI2t99DqZ+qfOZBm93woyPEiX3HCOO9Hk9yezm053wu
-	3huVrILyPEF5HzxKjiitwqj58dhsWJ+Qn8h2v3N9Zb2z0mhIJ2Clup0FcNldWPwNtjFeMiveaVS
-	hJb2gAz9CeO3xB3U9NNCHrGB8xyB9+aX7SnfhGf/DMcQsuFnQjR664qelHzhjDihuaG/rpzsxgp
-	a0wHWrGpu4aFJ9x+4gVZo8ke2i1e4U+0OBFiuXSS2x9TOqfPRDGnDmgBEIKbZgiSEENW4pO+hUd
-	6i8+IKUuo/15nSc8v+721CLs8f1wna0UhLuQ0BPb3oUlAK8LuM2wFO0qKDUybOnSXjUKOkVzOaZ
-	Wa7+1LzcrTu5UJ81T7mH6Avkk/EwKL37UWm/w8jbWvWqasdfbr5zdnlcePbuf8GDcx+QA8x8QXt
-	OwmBpypHNvPJXIG2Vgyg0veZXRl3t/NQ9D6Km6ZmmnliU5tkh4puqF4wKShThtROvuA1G+rfu0E
-	U4rdfPc2qTJvnpEj7f0lujN8yPy1VP/Hqm5yKPzGQSFT9lqkyxvJQz2N29K1Vk+0Qa3TUr2TW+q
-	YSWh2jcwZ3UeTQbnkSrJ7unYieM7RG7UgA5HWqklxoldI+oSg9N9LF3QvX2lfaQ7lJg=
-X-Received: by 2002:a05:693c:69c8:b0:369:fe81:a575 with SMTP id 5a478bee46e88-37686756684mr5116143eec.35.1794480322588;
-        Thu, 12 Nov 2026 02:45:22 -0800 (PST)
-Received: from FR9WL0RHKY.bytedance.net ([139.177.225.242])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3772121e654sm13228694eec.2.2026.11.12.02.45.04
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 02:45:22 -0800 (PST)
-From: Yunhui Cui <cuiyunhui@bytedance.com>
-To: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	dennis@kernel.org,
-	tj@kernel.org,
-	cl@gentwo.org,
-	oleg@redhat.com,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	bjorn@kernel.org,
-	pulehui@huawei.com,
-	puranjay@kernel.org,
-	broonie@kernel.org,
-	cuiyunhui@bytedance.com,
-	dave@stgolabs.net,
-	david.laight.linux@gmail.com,
-	jszhang@kernel.org,
-	tglx@kernel.org,
-	conor.dooley@microchip.com,
-	thuth@redhat.com,
-	ajones@ventanamicro.com,
-	ben.dooks@codethink.co.uk,
-	rkrcmar@ventanamicro.com,
-	samuel.holland@sifive.com,
-	zong.li@sifive.com,
-	debug@rivosinc.com,
-	seanwascoding@gmail.com,
-	andybnac@gmail.com,
-	menglong8.dong@gmail.com,
-	cyrilbur@tenstorrent.com,
-	wangruikang@iscas.ac.cn,
-	atishp@rivosinc.com,
-	apatel@ventanamicro.com,
-	arnd@arndb.de,
-	nathan@kernel.org,
-	nick.desaulniers+lkml@gmail.com,
-	morbo@google.com,
-	justinstitt@google.com,
-	qingfang.deng@siflower.com.cn,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	bpf@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH v10 9/9] riscv: select HAVE_CMPXCHG_LOCAL
-Date: Thu, 12 Nov 2026 18:41:49 +0800
-Message-Id: <20261112104149.38589-10-cuiyunhui@bytedance.com>
-X-Mailer: git-send-email 2.39.2 (Apple Git-143)
-In-Reply-To: <20261112104149.38589-1-cuiyunhui@bytedance.com>
-References: <20261112104149.38589-1-cuiyunhui@bytedance.com>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=Fr4fi5b1
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 39641A1D1C;
+	Thu, 12 Nov 2026 11:45:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794480325; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=T16O+6zhR+p9Je0siluHmer56Vdp74YQqdb4noZIbnA=;
+	b=Fr4fi5b1wCL+Fg4ssReUwsqcv56xg4taF+xh+R99agxlrCMrf3fm7vaENef/zrJbDpcOo5
+	uMUaUN3MzBqhPsHBXh/u9EpfADPVgAqOKYlkP5c8ZHMSAFzia4j24ECi4QNv5Z3+TweXOU
+	i+og69zLgp4tlIX23Y0rtLEwTBHR09YQfHcN+ot9Ahed/v5iPy/sk/R6fFF+d+meNWYYLC
+	eXtzsxeAqRhslf5vOt37M7ucjSEE4nhenfbez4NB3MsbnVg8cNzm8W5yImFpRO0oAuzBqo
+	BnMFqaM3HS6JNTkywOm5M+U7Ct+veXgC2DBNUrLX/zLSKEtGsf1/hlTbeieeJg==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Thu, 12 Nov 2026 11:45:15 +0100
+Subject: [PATCH net-next v7 1/9] net: bcmgenet: ring the doorbell when the
+ last frame of a batch is dropped
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -149,32 +57,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-nb-genet-mtu-nn-v2-v7-1-43a5d90b3256@tipi-net.de>
+References: <20261112-nb-genet-mtu-nn-v2-v7-0-43a5d90b3256@tipi-net.de>
+In-Reply-To: <20261112-nb-genet-mtu-nn-v2-v7-0-43a5d90b3256@tipi-net.de>
+To: Doug Berger <opendmb@gmail.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Now that RISC-V provides this_cpu_cmpxchg(), select
-HAVE_CMPXCHG_LOCAL so mm/vmstat.c and lib/percpu_counter.c can use
-this_cpu_try_cmpxchg() instead of serializing per-CPU counter updates
-with local_irq_save() and local_irq_restore().
+bcmgenet_xmit() only writes the producer index at the end of a batch. The
+error exits return before that write. If the dropped frame was the last of
+an xmit_more batch, the frames queued before it stay in the ring until the
+next transmit. The queue is still running, so the watchdog does not fire.
 
-Suggested-by: Davidlohr Bueso <dave@stgolabs.net>
-Link: https://lore.kernel.org/r/20260826010748.zphu3wh2hlm4t4o2@offworld
-Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+It came out of a sashiko review, not a bug report. Those exits only run
+when a clone, an allocation or a DMA mapping fails, and a later patch adds
+one more.
+
+Write the producer index on those exits too.
+
+Fixes: ddd0ca5d60b3 ("net: bcmgenet: add support for xmit_more")
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- arch/riscv/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 31 +++++++++++++++-----------
+ 1 file changed, 18 insertions(+), 13 deletions(-)
 
-diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-index bde1f1885038f..458ef01e926a4 100644
---- a/arch/riscv/Kconfig
-+++ b/arch/riscv/Kconfig
-@@ -155,6 +155,7 @@ config RISCV
- 	select HAVE_ARCH_VMAP_STACK if MMU && 64BIT
- 	select HAVE_ASM_MODVERSIONS
- 	select HAVE_BUILDTIME_MCOUNT_SORT
-+	select HAVE_CMPXCHG_LOCAL
- 	select HAVE_CONTEXT_TRACKING_USER
- 	select HAVE_DEBUG_KMEMLEAK
- 	select HAVE_DMA_CONTIGUOUS if MMU
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index 61f5a4c2f0cd9..1114fe46d2f73 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -2122,6 +2122,15 @@ static void bcmgenet_hide_tsb(struct sk_buff *skb)
+ 	__skb_pull(skb, sizeof(struct status_64));
+ }
+ 
++static void bcmgenet_tx_kick(struct bcmgenet_priv *priv,
++			     struct bcmgenet_tx_ring *ring,
++			     struct netdev_queue *txq)
++{
++	if (!netdev_xmit_more() || netif_xmit_stopped(txq))
++		bcmgenet_tdma_ring_writel(priv, ring->index,
++					  ring->prod_index, TDMA_PROD_INDEX);
++}
++
+ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ {
+ 	struct bcmgenet_priv *priv = netdev_priv(dev);
+@@ -2153,8 +2162,7 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		if (!skb) {
+ 			spin_lock(&ring->lock);
+ 			BCMGENET_STATS64_INC((&ring->stats64), dropped);
+-			ret = NETDEV_TX_OK;
+-			goto out;
++			goto drop;
+ 		}
+ 		nr_frags = 0;
+ 	}
+@@ -2173,8 +2181,7 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	skb = skb_share_check(skb, GFP_ATOMIC);
+ 	if (!skb) {
+ 		BCMGENET_STATS64_INC((&ring->stats64), dropped);
+-		ret = NETDEV_TX_OK;
+-		goto out;
++		goto drop;
+ 	}
+ 
+ 	/* Retain how many bytes will be sent on the wire, without TSB inserted
+@@ -2184,10 +2191,8 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+ 	/* add the Transmit Status Block */
+ 	skb = bcmgenet_add_tsb(dev, skb, ring);
+-	if (!skb) {
+-		ret = NETDEV_TX_OK;
+-		goto out;
+-	}
++	if (!skb)
++		goto drop;
+ 
+ 	for (i = 0; i <= nr_frags; i++) {
+ 		tx_cb_ptr = bcmgenet_get_txcb(priv, ring);
+@@ -2212,7 +2217,6 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		if (ret) {
+ 			priv->mib.tx_dma_failed++;
+ 			netif_err(priv, tx_err, dev, "Tx DMA map failed\n");
+-			ret = NETDEV_TX_OK;
+ 			goto out_unmap_frags;
+ 		}
+ 		dma_unmap_addr_set(tx_cb_ptr, dma_addr, mapping);
+@@ -2254,10 +2258,7 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	if (ring->free_bds <= ring->stop_thld)
+ 		netif_tx_stop_queue(txq);
+ 
+-	if (!netdev_xmit_more() || netif_xmit_stopped(txq))
+-		/* Packets are ready, update producer index */
+-		bcmgenet_tdma_ring_writel(priv, ring->index,
+-					  ring->prod_index, TDMA_PROD_INDEX);
++	bcmgenet_tx_kick(priv, ring, txq);
+ out:
+ 	spin_unlock(&ring->lock);
+ 
+@@ -2274,6 +2275,10 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	}
+ 
+ 	dev_kfree_skb(skb);
++drop:
++	/* The dropped frame may have been the last one of the batch */
++	bcmgenet_tx_kick(priv, ring, txq);
++	ret = NETDEV_TX_OK;
+ 	goto out;
+ }
+ 
+
 -- 
-2.39.5
+2.53.0
 
