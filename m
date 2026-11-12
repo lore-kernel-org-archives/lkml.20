@@ -1,55 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495207;
-	b=32YIC/xFPHki2QpbY+Y+Wf6KVqq1PyhJ7Dg86Tx9UIs4YfOBQy2SDZ/mgSa05YdThS/h
-	 NcZaq+lnCnjkUfdi1k7fkuawyQNA+T7cFDN91L/SD4zqlT1lfPQpa8CRujv655sy5gmv8
-	 BzPepY+M+A3ZnLAqvPBkGKgELpKaeeaz1X1syq3eyojKaN+0TQ7P0RAU0uqEaUAHjjGBS
-	 H6B+L3O0xNdMIqgHG+R6lbjAXsMdcOknjdtzIdc8XCRm6m4J9Sk0HcywirkDCLkUlX9a1
-	 OM37UsbzHQSrlniWLwM53iflhd4f2TVPVkV6ZM3BM1VcBL3/Eeykmb9Y6Yxnt+tcfIg==
+	t=1794495211;
+	b=Hy7dIJwjwQfOy1jzOZqUlrX22NwAQSHPvmeSi8c/pTYpPj+FYC4yzVK5OWu216JfSTpj
+	 xc5vPTceyvCuc9uPM3mfUKU2VpIy9pmkLCDroN5ZffU0or8YYTbwoHdfCuPyJSASbv1ya
+	 zb6oURAyMuzU5dE/8Ly/WUmSx9LIsMpER146kB13XXDuUQis0Zk0WDiungV0fG9Jr6Prp
+	 phy1n/1fmfOKDMdyWHJRCDma0U/a49P4WcKh3idq/qxMKiRKUL/GUBt5fmBgEmsplZ9Ae
+	 AYKu1057xnkLIU8Q/8kO06bpcvSPo68rNIFNNIdpNesQJSAbcsV6wa6COv2oHNdO8Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495207;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=L/v5qWn68YMFs8B3Gf+RGYVilFpufPgqWHu/IxMthQ0=;
-	b=uuCW2KAxxIVDVV/n6MkyeeZgfFRHBSI+yS2viyrv8YLL6MNlRXK8tyZziOBy+Kic74tM
-	 VWWu8ShB5SiIvgLhjI9DymWJWaMCmKJdyTrrkXjn1C2P5XRvbMDToxMzFIbGv9q+2hXXZ
-	 WCdSOPXr8pAPoiYMEnkBIT9Sw8nNaJjtWj54ZxIKJGHDMyNGTaSNk5Z4XsfrwQNFHE8Ov
-	 pkSb8+/RxZe0HNJt8Bq2FcIrmHzTLF2wQQvFD59GA9Q0mXwhAPCJXiKLvfZT9kIOrD2Lm
-	 PZxsOSpysouF+szdY80D611d4AJdcbxHd+QEL+mv6TyyfH/DWRudI8zPRrZbf/fZ+uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495211;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=UBXnliURw1WYp3chrqS7sjRbFTt6XEXbMT1fDo9/1TM=;
+	b=k0WkBC8jp8SEp/9JQwXWc5wZ+xPP3RpSlE/VpRP80stzw0WLMQ8XTj9UyRl8qQ7CuEFi
+	 ZevJCAohyoJ+xmDseK77juG24UKmPD2MOhgWya/jhtLd0BfX5mmjhvMU1Hm7CQDqXB8Y2
+	 im9swdd4rStxRTU1ZK0/8/8ELR8TTUBWG3MrxLZrQyL4EemXoqs3of7I9MwTTVY5DipnQ
+	 wu1ZINpAq40qdW46tCbI5arTKS14Eh7QvpXpNhdsVD4taMUnFmutlPW8V2tMUeboF9amy
+	 Ahgu7bQa4dSeff7aaeZGinkqwY1dlppTjweG1Rq3dXTwpBKoUMAExea+Q412pYgm26Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oYJzdJAf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSUSIwfp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE68606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:53:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3AB5606A321;
+	Thu, 12 Nov 2026 14:53:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oYJzdJAf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D06B1F00A06
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:53:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSUSIwfp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67991F00A08;
+	Thu, 12 Nov 2026 14:53:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794495207;
-	bh=L/v5qWn68YMFs8B3Gf+RGYVilFpufPgqWHu/IxMthQ0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=oYJzdJAf4aYMUDBQEeXrpfh22yWpBUKHypF3AObESHT65Ioymi2bT+MZHtB7j6SC0
-	 BDC47WbS3H91OaFjK0ky2fJyhYMyly+R2jaIdF8k3Mz+fV5OVOOaUuMxgZ601idQ1M
-	 8tmVJvDeIddpGiu4yvsMw6Sj5UfgXpzqnrUeIUCY94FOoZl+y1KoJgYZwtaPLzJH66
-	 yxd7/HWXaYbOwbUU2EU9wbOZrmEFJds9rtL63bGYZAyG+06C6hDrbywawjrEagNk1/
-	 x9eAYDW1ovPA0RvsTno7FDg4CpJxUFRdrC8QwyKL6o+8qtm7gANLT5VDVRNfFtyZ/E
-	 01pS85LUPEwWA==
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7d2da166818so2317661137.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:53:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEf2tX0mB2YwyR3R9ts5YQ6F2NbJR+JpXHKIfC8ITiMjylsuIhiIWbZojoYqK5peL/bVtTA57GSgk4dodk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8aeIgG2e+5/99dxstYdo3/2+3rKrBgmhdpxODERDLp8E28m++P
-	z4na3bssjz9MxL6ZAHerGlelyTGPkO0uOKXnuSZEYPzM48TPw6Hvw/t7mbQemHwGxv32OiWK5ZD
-	8wq5XMsUM3JLu/o4jOJfV201pB0UWvzQ=
-X-Received: by 2002:a05:6102:2c81:b0:7c1:9f20:36ad with SMTP id
- ada2fe7eead31-7d4ee0f082cmr2674233137.2.1794495206400; Thu, 12 Nov 2026
- 06:53:26 -0800 (PST)
+	s=k20260515; t=1794495210;
+	bh=UBXnliURw1WYp3chrqS7sjRbFTt6XEXbMT1fDo9/1TM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=BSUSIwfpwBS95bhGX07VGZDkvg5eJbUBRjTovvFvuyyl9O4KKBkRLMpDjQWmkCCv2
+	 14m3/vbC/nnjlVkglV3QPl3riOJFD5UvK39YWhOEfVVmFRUJ6aRnkuKMGk2TlFeMjl
+	 fF/cbZbYAcderFGW12psD5gJtpIIDqGl1SFcnrBPY22izW2LGGLEjRj9nv2UFbNeja
+	 ikfgKQrbKaFPQxmwodBjYhUvcCNmek0dufRRAc0o9J9WdFqNM4qoL/zLgX4ZpXxN5U
+	 f9k4ZswwSCr/tGFWel0B7PdTbQGT86nnmEhWHpnSnsbHTQhx6EGPCoN97SjZQisZGn
+	 MibpFZab8bc+w==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
+ Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ Mina Almasry <almasrymina@google.com>, "Mike Marciniszyn (Meta)"
+ <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, Nikolay
+ Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, Alexander
+ Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stuart Clark <stuclar@meta.com>
+Subject: Re: [PATCH net-next v1 06/11] page_pool: Coordinate refill with
+ memory providers
+In-Reply-To: <avT2Fj5qjbJkArpg@devvm16445.scu0.facebook.com>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
+ <20261110102039.1002605-7-bjorn@kernel.org>
+ <avOtxBw_grmuDJae@devvm16445.scu0.facebook.com>
+ <87tslnrwgt.fsf@all.your.base.are.belong.to.us>
+ <avT2Fj5qjbJkArpg@devvm16445.scu0.facebook.com>
+Date: Thu, 12 Nov 2026 15:53:27 +0100
+Message-ID: <87y0ayqexk.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,154 +83,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-btrfs-link-unlink-fsync-v1-1-a817d4a890af@columbia.edu>
-In-Reply-To: <20261111-btrfs-link-unlink-fsync-v1-1-a817d4a890af@columbia.edu>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Thu, 12 Nov 2026 14:52:49 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H4xx2_ik775aK9KzNdBF+M=do+01FKVdL-KcdWNaSJnyw@mail.gmail.com>
-X-Gm-Features: AclHuK89qaA7CCVafBDQqtIfrsEWX0NuC-UZNceAjGa8T_eBaD9Xl1LYLKe2ANU
-Message-ID: <CAL3q7H4xx2_ik775aK9KzNdBF+M=do+01FKVdL-KcdWNaSJnyw@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: fix loss of fsynced file after link into new dir
- and unlink
-To: mt4022@columbia.edu
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
-	Filipe Manana <fdmanana@suse.com>, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2026 at 9:42=E2=80=AFPM Mani Tofigh via B4 Relay
-<devnull+mt4022.columbia.edu@kernel.org> wrote:
->
-> From: Mani Tofigh <mt4022@columbia.edu>
->
-> If we create a file, add a hard link to it in a new directory, remove
-> its old name and then fsync the file through a file descriptor opened
-> before the unlink, the file is gone after a power failure.  Example:
->
->   mkdir /mnt/A
->   fd =3D open("/mnt/A/foo", O_CREAT | O_WRONLY)
->   mkdir /mnt/A/B
->   ln /mnt/A/foo /mnt/A/B/bar
->   unlink /mnt/A/foo
->   fsync(fd)                     /* or fdatasync(fd) */
+Stanislav Fomichev <sdf.kernel@gmail.com> writes:
 
-fdatasync and fsync do exactly the same thing on btrfs, so no need to comme=
-nt.
+> On 11/11, Bj=C3=B6rn T=C3=B6pel wrote:
+>> Stanislav Fomichev <sdf.kernel@gmail.com> writes:
+>>=20
+>> > On 11/10, Bj=C3=B6rn T=C3=B6pel wrote:
+>>=20
+>> >> diff --git a/include/net/netdev_rx_queue.h b/include/net/netdev_rx_qu=
+eue.h
+>> >> index 989120cbf452..ca12cbf7b825 100644
+>> >> --- a/include/net/netdev_rx_queue.h
+>> >> +++ b/include/net/netdev_rx_queue.h
+>> >> @@ -33,6 +33,12 @@ struct netdev_rx_queue {
+>> >>  	struct pp_memory_provider_params mp_params;
+>> >>  	/* stamps the page pools of each queue allocation */
+>> >>  	u32				mp_gen;
+>> >> +	/* NAPI of the running queue, for memory provider wakeups. Set while
+>> >> +	 * mp_armed, and if the provider has a refill_done op. Written under
+>> >> +	 * the ops lock, read under RCU, see netif_mp_wake().
+>> >> +	 */
+>> >> +	struct napi_struct __rcu	*mp_napi;
+>> >> +	bool				mp_armed;
+>> >
+>> > The comment should explain why mp_napi !=3D napi? (I do not understand=
+ why)
+>>=20
+>> Fair. It's the same NAPI, with other rules. napi is the driver's
+>> association: read under the ops lock, and not cleared when the NAPI is
+>> deleted. Provider wakeups run without that lock, from socket syscalls
+>> and ->release_netmem().
+>>=20
+>> mp_napi is an RCU copy, set only while the device is up and the queue
+>> isn't restarting, for providers with ->refill_done(). netif_napi_del()
+>> clears it before its grace period. Setting it also schedules the NAPI
+>> once, which replays wakeups lost while the queue was stopped. I'll put
+>> that in the comment.
+>
+> And all this only to make sure that we are not recycling something from
+> the old pp into the new one? And reworking existing pointer to change/upd=
+ate
+> its lifetime is not gonna do it?
 
->   <power fail>
->
-> After log replay, B and B/bar don't exist and the file is gone.
->
-> The fsync uses the file's dentry, which is still the unlinked A/foo.
-> The inode is new, so btrfs_log_all_parents() finds no parent in the
-> commit root, and log_all_new_ancestors() then takes the fast path for a
-> single link.  That path walks up from the dentry's parent A and never
-> logs B.  On log replay the inode ref for B/bar is skipped because B
-> doesn't exist, and the inode ends up with no links.
->
-> Fix this by not taking the fast path when the inode had a link, unlink
-> or rename in the current transaction.  The slow path finds the parents
-> from the inode refs in the subvolume tree and logs B and A.  That only
-> adds a search of the subvolume tree.
->
-> The problem is old, e.g., v7.1 loses the file as well.  It was only
-> hidden, by a fallback to a transaction commit, between
-> commit 0f24ea456ae1 ("btrfs: tracepoints: add trace event for
-> btrfs_log_all_parents()") and commit 36f9aafa46f5 ("btrfs: fix
-> unnecessary transaction commit fallback from btrfs_log_all_parents()").
->
-> With the fix, the file and its data survive.
->
-> This bug was identified and confirmed with the help of a deterministic
-> hypervisor currently under development.  The C reproducer below however
-> hits it every time.
+No, it's how the provider wakes the queue when chunks show up: userspace
+posts FILL and calls {e,}poll() or sendto(), or an old page pool
+releases chunks after a restart. It replaces ndo_xsk_wakeup.
 
-This last paragraph is useless in the changelog because:
-
-1) It's pointless to know that it was found using a hypervisor under
-development.
-Unless it exists, has a name, and is available somewhere, it adds
-nothing useful.
-
-2) Who reads the change log after commiting the patch, has no idea
-what the C reproducer is.
-The link to the reproducer is after the ---, so it does not get to the
-changelog.
-Plus, the log should should be as self contained as possible, with no
-links to  personal github accounts that may disappear anytime.
-The reproducer is also unnecessarily long and complex, nearly 400 lines.
-At the top of the changelog we already have simple steps to reproduce,
-that is enough.
-
->
-> CC: stable@vger.kernel.org
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
-> ---
-> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/bt=
-rfslink.c
->
-> It uses dm-flakey to drop all writes once fsync returns.
->
-> No Fixes: tag since this looks older than the single link fast path.
-> ---
->  fs/btrfs/tree-log.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/btrfs/tree-log.c b/fs/btrfs/tree-log.c
-> index 85ef3c26e0e4..4f24b277f1b7 100644
-> --- a/fs/btrfs/tree-log.c
-> +++ b/fs/btrfs/tree-log.c
-> @@ -7543,9 +7543,13 @@ static int log_all_new_ancestors(struct btrfs_tran=
-s_handle *trans,
->
->         /*
->          * For a single hard link case, go through a fast path that does =
-not
-> -        * need to iterate the fs/subvolume tree.
-> +        * need to iterate the fs/subvolume tree. But not if the inode ha=
-d a
-> +        * link, unlink or rename in the current transaction, since then =
-the
-> +        * dentry used for the fsync may be an unlinked one, whose parent=
- is
-> +        * not the parent of the remaining link.
->          */
-> -       if (inode->vfs_inode.i_nlink < 2) {
-> +       if (inode->vfs_inode.i_nlink < 2 &&
-> +           inode->last_unlink_trans < trans->transid) {
-
-So this now introduces the possibility of entering the fast path for
-an inode with no refs (link count of 0),
-wich will result in the function returning 1 (coming from the
-btrfs_search_slot() call), and triggering a
-transaction commit.
-
-Early after the tracepoint call we should have:
-
-if (inode->vfs_inode.i_nlink =3D=3D 0) {
-    ret =3D 0;
-    goto out;
-}
-
-See:  https://sashiko.dev/#/patchset/20261111-btrfs-link-unlink-fsync-v1-1-=
-a817d4a890af%40columbia.edu
-
-Otherwise it looks good, thanks.
+But! I think that rxq->napi can do it: make it RCU, clear it when the
+NAPI is deleted, and have the driver poll the queue once after enabling
+its NAPI, as fbnic does. A wakeup that hits a stopped queue is then
+covered by that poll, so mp_napi and mp_armed go (and with them the
+error-path bugs Sashiko found...) I'll do that in v2.
 
 
->                 ret =3D log_new_ancestors_fast(trans, inode, parent, ctx)=
-;
->                 goto out;
->         }
->
-> ---
-> base-commit: 4c34f0909344e48d917afac0eeffb6e1c2681524
-> change-id: 20261111-btrfs-link-unlink-fsync-28ea82e5c56b
->
-> Best regards,
-> --
-> Mani Tofigh <mt4022@columbia.edu>
->
->
->
+Bj=C3=B6rn
