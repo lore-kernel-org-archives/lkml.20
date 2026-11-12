@@ -1,113 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794477061;
-	b=Ngc6MAtffq2BuuXctBXSNYzFGf3fQZkZlsuyW+vkYft0roJGOQMmXTkt+yZ+2Uhl3cFF
-	 qv9nss3Q1dHdSv3AILUar8LpOQakuuH/OCjjYPUExWJOCVabLdmo7CDBLUV1JG1IC7V7T
-	 I5Yaxx36n2gjCpfJIkP8w1e8Wd18WwS3cO5qAAhe1uGfxEaRx+glk6LlIvquNWvL8j8k/
-	 6vu28F4A7nFTAWOGpGk3WnuIFaKy43eqTklzS9hZVU9tAWvlGtZPaOOCKbjFHQrU4qMSa
-	 PpgbIqok8STwGJGGvSXVHH9HnigM59MJ9ETkxas+zErWBcDQK53U+qkaqECCBcAnVEQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794477061;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=PWjpZTISxAW1ioWo7zAlKfMSm3zMo7GsaFnXjvMiMuw=;
-	b=LN1JdQvbpcCu5t18cbHySQFZ9dJwc2rCENOw77RzJ8I58OhluOMwnBE1DNN+IKC2sDnR
-	 vvfwAhgMiipGASMXmVuPoaxb4UZT6BYD++LspO95eJzYoFlVBDdU+HFeoEuSfokv9ihXR
-	 fSuFePnoBf0q5HDkdmcAUagkuCLMnRJOXm+Y8xpK52voO14xrgBPPsxlG+WEVIRWU7LGY
-	 w8YMMoVQYeXPMBjpQx2Hk6wcsWbcpEcdllUT3AOS2ULX7D+z39HQT6Q0ZqcPXjUG2Dz3n
-	 Z2oBnb13Dou7ijPQ4YIg62rPtzLcb7YjhQrIW55rdUv3++ysd9j1f7dUy76NXEBBlQg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RXWiPM9g;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=KXyVzv0L;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.64
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794477142;
+	b=b8e77yOtd3pUqNmvL0X0nAGEDf4ooJkma9PIeqyLvR2K5z+o5sJSn18jCvjKBya9LU1M
+	 GsCM61fSMkL8YI5PxOPAuE3x9V0ULKbWKYT+AuWLHrIKz/OJwwzoj5oSEOapeP6thj+5Z
+	 GZ+J6/KJP1CuEZkNJZdqCp40WSI74+Fs6GEPWjsfG2A2jHPpxe918yW4ru+oQmyz52Oq2
+	 zymmRgQcpw42mH3Kxud3dOTu+RPIsI5kPL6QHBq9UbMwD3sLcBMdqqvbomWjyah3mbUC5
+	 zXHGIeN1ppjTm57YjjGp6grSAaI5q6iC/Ayc2BwjZJFYUzexNeMxZM/eoXmkj+n6vJQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794477142;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=eICWT9mOH9GYKNEuFVRfcXk8QFDAoSIkQV/mIuYhqNE=;
+	b=mwHe+YPJjlVibkWol3W9YiXN34YmYpc0SsPg0lnMS83A6SKgCN586le0p3HQS5i+FEXF
+	 T3hmk/68/kUu/GV6vpFAQoLYBlmRArT5hT9AKY4zrgL/vrCo2ZbBJ/2XKpEm6pKE7qd4N
+	 FH+2hCwqsV6cmi6pObq9KJWOf8I2O32BLyhVwH6jR0Fwb1IOVwJEdWMR+rnP+Bb0RRK9d
+	 VQJbmDxP4mWKMBQNZQz6r0Yi21x4+vMhbdPdN60m+hDpichhSWDv5ZwCBOpJF9wHyB8yh
+	 ToWXxbceekir4KgtOWK80g+ShciNAL9ZzDDxwQL82NFEf9+n8KoA7yLCBr5njoAPo4Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=usOOyN6M;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.64
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011064.outbound.protection.outlook.com [40.107.208.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22969606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:51:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22969606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5693A606A31C;
+	Thu, 12 Nov 2026 09:52:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5693A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RXWiPM9g;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=KXyVzv0L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794477060;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PWjpZTISxAW1ioWo7zAlKfMSm3zMo7GsaFnXjvMiMuw=;
-	b=RXWiPM9glKt8c84teQV76D3GrDKVCOBLB6mn2I1ijFJCQb4OMmrlLDFWCcFqryVtl+9qRw
-	S3cfhJCt406aNjQazTVjoMN1ShBkX16QufH020lkNxDnsh6+qRCYZrayYpANo3TONKVu6z
-	RBoTMv3PIYpNxhWQR2LTSjOAj9vwT1o=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-675-MXe5BRKJNYu4v4a0oamZxA-1; Thu, 12 Nov 2026 04:50:58 -0500
-X-MC-Unique: MXe5BRKJNYu4v4a0oamZxA-1
-X-Mimecast-MFC-AGG-ID: MXe5BRKJNYu4v4a0oamZxA_1794477058
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-492b5408dedso2923124f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:50:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794477057; x=1795081857; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PWjpZTISxAW1ioWo7zAlKfMSm3zMo7GsaFnXjvMiMuw=;
-        b=KXyVzv0La1EfoYmGOSDKursoJv+qB7cu2AJUrUEF+n8lT7MCegQ6v5eAFLcMOoxTDA
-         MIRxwqu8JNwlXDP9IIP+vlCNr6Dyyn8ppqi1Wl9Rfiux8jDryy5qgvsyQugg59ylrxbV
-         CtfS2Kx1304JWpicaWTxUB/Ts31PlHSunJAL973MX6sviRV4hGudIt80nYsG8MndH9Z3
-         licU8sniPAMzlXmxntNJUNxafI5BH28UZlvgsEDW4ahZMUvlXPSDv7JKT8mTbNhhYcoJ
-         GKVvDaiv4Kjv3WLys74kpWVx1O0MY5pZBYpNmC+4s37WIjxCoQNTAghsCzwEv2Mxi738
-         m7Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794477057; x=1795081857;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PWjpZTISxAW1ioWo7zAlKfMSm3zMo7GsaFnXjvMiMuw=;
-        b=FbjkDMeAouIXNQa8t9p08iz8Ya5OkEmDpKKOack/fDhqNF1AFx6jR50RJrDdffOfYw
-         xoJC4ixbEiT5rGffSU3hKNICfRZLrSIihEmYKu1exf1lmZoy4DekfUA/GGaUdfJLF9X5
-         K5OXcZ6c3WrWjudpVgV8z0h6uTEgMpvx1QtWk6+iLCny/t/b9x3OkfjtTd/8rnQWJd5C
-         +NWsDtP7+N71QtptlVA95Fz9WrZHFRJwj286m9adWVDgeJti5bbTuIbABMpsYXU5pd6I
-         US9Cjfp8r38+eiy+N4b32ToKkJFCL98VBFLRezahPP8xh1l8rl1nlP1ifYVqvngjxKhn
-         DL7g==
-X-Forwarded-Encrypted: i=1; AL+hErF3vwcipTLV5BWm3fCFKK0JPPSRfVmH3yfGgQ7+GI13t2ASv6jCaXbgeASa5LhyY0dRrRh0iOIZpCXQJFo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FzElW6mNmBolkmz4vcToXOkp9/uVcng4B8jtxDDPnBqeCPW9F
-	uPzfJpMqrOaICx5gqJs/SqDcKNWPdgatBa8F3PlWnuGWOwGliBTuf7BHyok1vG0P5a/8zx+Vbcw
-	ICeB6LSCF/ylQbJ7FDXsLTTB9b4xAPeH574apn5Epwu0+oFNcrx4vSxjobgK2ukjo6g==
-X-Gm-Gg: AYBFou2D/cTn/lY4idokH8vAQLnxWEFVGR1+EYNipmcPmQcSg+VE9OY7OYZw/JT4WVV
-	R7I1Y3D4300kTqeXAwX/ZyLuwOyiJ8T5Laa0WQ/TM83wNYxfFP4BY+5joASG8EScYxvzKvHPqRV
-	vxVneDTl4KYNYXRzSXD7DNFDOnkrKXGxfcIazIqq/aK/j2uuFCXScQWGJU15vfHbRKvUvtisdQW
-	k0jySJRyEwrK89w61mwjXELUbxjd6P/Zxbn+c2MGbabac8BEyXk+sMO6M7Jcsz/sMc38jBO3CgN
-	QpvGscsaAfc7oTgt/KRSu0gzy9+FpyowHq41q7rb55T79B5+jAr6kU8MKiPHbIHVW08ANFP1ilz
-	3Ba6G+fLPXIcwgSx+0ODFdi38kjdYh0AcABb7E+2rvg==
-X-Received: by 2002:a5d:5f91:0:b0:48d:f9a4:bd68 with SMTP id ffacd0b85a97d-499c7dfe760mr9013246f8f.27.1794477057324;
-        Thu, 12 Nov 2026 01:50:57 -0800 (PST)
-X-Received: by 2002:a5d:5f91:0:b0:48d:f9a4:bd68 with SMTP id ffacd0b85a97d-499c7dfe760mr9013178f8f.27.1794477056650;
-        Thu, 12 Nov 2026 01:50:56 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1511:2900:ff37:b35c:a97:952d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-499823761f5sm10614988f8f.2.2026.11.12.01.50.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 01:50:55 -0800 (PST)
-Date: Thu, 12 Nov 2026 04:50:52 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: zhaoguohan@kylinos.cn
-Cc: jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
-	kvm@vger.kernel.org, virtualization@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] vhost: set dirty log bits without pinning pages on
- x86
-Message-ID: <20261112044557-mutt-send-email-mst@kernel.org>
-References: <20261112085631.128819-1-zhaoguohan@kylinos.cn>
- <20261112085631.128819-2-zhaoguohan@kylinos.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=usOOyN6M
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=b26Y/4KQr1m1hOtVHRuDe0v6JGyqOypvNlvkX8pzJDQQJXLH+P3+bxSDFirl/T/JO/z6nz08dZBiv6VTMMJ8UG/e3oWNwFBGVqT5ulQVxJMX9mniIpGvRAo0E5++WFkEjLyTgqDPK1MQHuiHUATjI+0Z5ktmBGKYin1JNmEr46SuTGrjQX5BLmqYVS9HHm2kavWW2yh1RGLhWJjl+IVcz+lwdFGhU0P6ZKKS6zLmhZeQzn/Ghd5/B1xLM6odwqvsLjHpmSKvyjRs6V0QxU08Nnc8UAJQRK9clE7a8kIbWGGP9NbtT30jSATeKwcDm4Lil485ZOYqh9aA7IxhtxcfgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eICWT9mOH9GYKNEuFVRfcXk8QFDAoSIkQV/mIuYhqNE=;
+ b=S8W7/Whn4IO3IoTmUZJ6lm4dWk1J2yFVqBj5AewPrADdjKc20P7eV/OpOtsU6Lg65nF5gNkyvXjtFX1BrxWghpb14nArVP0XMNEOGCSRDLwZ678PCGq/yg5XepZeMTFx0JfSO7frwf7VTjj81Jlfkx05aMoqqpe9Nq86wB+XGB+yw8/L8EBDxHXl1GbIbefgMP4LVWt+Toi+0Eel9l32tNERGgPvHIkAoqylHOIopWfXX2ykq75t+OQKsOJ1wVw2PZbUXwuhjt1QU9iJOQLzkrZCsdIDKTaF3Pec8KM/eJ1xlk0wiCRwQ6E+S1DZFUs/Tc9Kss2Xci35A9CONh2BAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eICWT9mOH9GYKNEuFVRfcXk8QFDAoSIkQV/mIuYhqNE=;
+ b=usOOyN6MIeuMuQcUV2e/y4jqgXOVx6DiNbS3GV9OTevYY1XN6pvrp69R2MS85kVpP8ngVExX4EOBNdqtRU4vXxgFHwPdFwgvbFgOcXwiYwuOyQxaNU0Km0W4d4N6vJeeBTpK80LFufgzMq5pfoj2Hoa8z1jbeEuQvnXntk3603s=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB8291.namprd12.prod.outlook.com (2603:10b6:8:e6::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Thu, 12 Nov
+ 2026 09:52:19 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
+ 09:52:19 +0000
+Message-ID: <698c5faa-609f-405e-a33a-a48fefd8d411@amd.com>
+Date: Thu, 12 Nov 2026 10:52:14 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] media: synchronize CPU access to imported DMA-BUFs
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Hans de Goede
+ <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+References: <20261107104703.44111-1-kmehltretter@gmail.com>
+ <20261107105946.GA96745@killaraus.ideasonboard.com>
+ <avUvHGb4talXW7qS@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <avUvHGb4talXW7qS@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0447.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c6::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,136 +105,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112085631.128819-2-zhaoguohan@kylinos.cn>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB8291:EE_
+X-MS-Office365-Filtering-Correlation-Id: adb1ef29-20b0-4d2f-99d7-08df40a2a3a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|1800799024|23010399003|376014|18002099003|22082099003|6133799003|10067099003|11063799006|4143699003|261009223027099003|56012099006|261102130727099003|261026121527099003|261022075727099003|261021121427099003|261021135927099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	/lnZGPgeo1HEhOBtZpRHj+rcGRPF4eUbfNC8ESJNX2D1GKCj4ta0/DhXHi+t51g4HaNCpJqlSNDOoaSC33ZJ9mU6gqWaSkNtsMYZZHE6CjLf5HMJvDH82++nBOhDx5pZhv+XBxfie2H2oVeikUQr5OiioJLYB8xWppfsK9aGtNqf9BYvwroYuCyyyu72iUH00Tcf0kCM4ELCmnpCoMlnvCP4cHB0T9Hz5yvOyczBkLEYa8pFtjqaMmaro9tAnRGBYftkVThBnDKQMM3mBxngHIfKN3TY9+xtFfd3v5W5GDVnes5Vq0Ws2onxjiHWu1Oh8czTvZa6/lsIHLJmKIQ0t01984SALzK+lzADPlHOuSMLFXYb+Kr8BPqTve4caSPsa5JETurmirlvDOsxk6uGkIRb+iu5yFpwibUc8Fjaf0pADSEUwUieqUVH+gEbw43md6SpXS2ZHrZwoPoTQ968J4LlwMfTjRNLUUc2HCx+fPz4tWWV3caN1HHtDwXYQv4D5QBWdH1AcUCHzf605lQKpHk4J2rZZ05G7a/+Z6LFX5fQLqTPNnf2zXejC7rxe0ogJhaR46uRAfN5WYDMpL05ZBKqEHW3P50qjm+swC9fO3fP3axyKFC7cCh6JoFdNToM
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(10067099003)(11063799006)(4143699003)(261009223027099003)(56012099006)(261102130727099003)(261026121527099003)(261022075727099003)(261021121427099003)(261021135927099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y3gybUIzanV0OWJFbnIzVGdKQWZUbjI3KzdZNEVsYVpxRmhncHB1SDVOc3dx?=
+ =?utf-8?B?bVF6VVUwUzhKOW1ZeEVwQXBoTWswSUxYelJVcVRuMG5iWE82SVZ6eDg1aC9n?=
+ =?utf-8?B?dGFaTTVnSjNQZy9NNzVjTjYyaEJlT1RWejltTWQ2eDU0Ri92eitXby8rNnpR?=
+ =?utf-8?B?eDZNNkk2aGRRUXRJUkorZitBeG51czc5NGxpM0pyYjlBVkZOZGJ5TEc3cTZU?=
+ =?utf-8?B?YlB5VXh2UXEvc0REK2ViRXoxWnVCNUs2WjFiZy9zMzBkaGlzc1JadVRYMTBi?=
+ =?utf-8?B?RVNWZExYMnpJTjVzNlFocVdnMW9qS3FubHArOURpbVpGMUNpdHVzNDl6Rndz?=
+ =?utf-8?B?Q09mck5rSmVYZ1VTRFFGdkg4MTBYa04vcW4wNEIyREhpdHB4eFM2cUV6K01w?=
+ =?utf-8?B?RGh3QXhjMm52bVVwTTBYaWRENzA0UGdoZjNXWkJrcWNPbUk1UTNJOWd4ZFZk?=
+ =?utf-8?B?UHhKbnowbzAwSm5wc2NWdHRIM1ozREhTU0J5STJXQWRWREx2MmZaVWE0ZXVq?=
+ =?utf-8?B?SzZwNUd4ZzJlcXJqL3F5eUV5MUFFNzB0U1ErWjB6bnduS1lWLzN0RDROUGYx?=
+ =?utf-8?B?Q3E1c21ZbitXOXRHb1JOcEVOeEhrSmF0SUd6V0NHdmVIOU43LzZNckpPTHZx?=
+ =?utf-8?B?VlhVSGRwZFJydVQybkp4VWVrTHBHcW8yZVR5Mkg1LzVTYkpCdERtQVh0eFVv?=
+ =?utf-8?B?UHJuWmQxVW9EclJVdGJpSEV5bGUxN3FZM2pmSVlNUkcwNmFONkFWcVlURXpp?=
+ =?utf-8?B?cXo4bGI4QjJmRFFhS0pBQWNvdVNwc2t1d3RzS3ZjVUhCS2JaMG00Z01OaFlR?=
+ =?utf-8?B?SUxRVzlUNXZTdHY5bmxFTHErUHpodGR3c3JTT0tZUER3eGp2aEZ1NVdaQ2l3?=
+ =?utf-8?B?emZQQXJLalBvSWJkS0ljWEtsdjF1ZFcvTGx0c0tFd2hxb1dWQ3ZLY00yVnhx?=
+ =?utf-8?B?eTJoeTh3Y0tac2hWSWJCWDltOEZOeWhEZ3hlQSt0S3J2dzFHektVbzByY2hE?=
+ =?utf-8?B?RUhnQWNrMUZsQ1I0NHpPaUthamtkMGJsQUp3cE5TTXB1dXlIdzJCSkxja3dh?=
+ =?utf-8?B?ZEVMdlUydlZxdkVGdnkrbjMvdkhaZHY1N29kb3JTVnVJWUttM0hCTGI3dUxS?=
+ =?utf-8?B?a1dWYWRCckNRaU14RXBWekZXbEt3ODA4eEZVanltQmhMR1pQdVpzRmJzbXdw?=
+ =?utf-8?B?T2JsUU9oOFp0VU1vaFlsZzZ2UXRDcVFhUkx6THgyS05vQU95b0U2NWFDVncz?=
+ =?utf-8?B?VStnek5KNDVNb0M3NGRzVGdpQ1hnaDRwWThBTXh0aUxLcU1zZndOSjBwL25t?=
+ =?utf-8?B?Y09QRDhGR25kY2tKZG9TSDRER1ZmNHdxazVMZ2xPNWlIdElER2FqZ2JkL3FX?=
+ =?utf-8?B?M1FQaEZGdkhRREYxaXhzckd0WGpXNy9YY1Nsd2JIejUrMERSMG9BQVBmYlVO?=
+ =?utf-8?B?VFBxUkpNWHRGVWJHZTZoMlR2SEhWNTFtOXU4M2ZqNXRFb2MyWlphUkFMNVRN?=
+ =?utf-8?B?T3o5STlRV2tOVGs5cGNRVEEvNXNGNE9YQ3RjV3dMYThSZkdrZVZxSDh1YXRj?=
+ =?utf-8?B?QUd2Vkl1Z09rbTNtU3NtNDZMd2VzNkZtd1c1MGpjZU1BS2hnYmFyelB1bUMw?=
+ =?utf-8?B?ZjdYY29FTTRUNUNNS09tSGVhM0w1OTdmSVExU0R3QWJWOEhvbjdXbmgwanZz?=
+ =?utf-8?B?U3BxTjdiMmViNmZuTFF3cFVOdy9hbnd6T3V5THpoVm5wTU0wUDRvV1plN2h5?=
+ =?utf-8?B?ZEpmcXlCV0gyT1k2cENtU0g4bUcvdG1ZeDBnS3hQdTNFZjBqTXp4Qk1lb1dT?=
+ =?utf-8?B?UlFJQkREekdTaDY5SHk0TWV0Q04vTmRydytjZTdzRHdsNERwUERNTkhOQmxX?=
+ =?utf-8?B?UnJMbWNDd21sQnVOOUUrYldqeG5nL201YXJuMTJuK2JTOFBycktKL3QwUXNi?=
+ =?utf-8?B?UXJWTGIrUi9WUEdKNHFCVXpqWncrSWZvb29ES2d4OXN0WFdiSmN6emZMVnQw?=
+ =?utf-8?B?VW5uR2pVWjd4QW9OcVlwcTQxajZOaDRWa3RkOWNhdHJYM0xTVncvTXdZa1Bo?=
+ =?utf-8?B?akJ4bnRSR0sxYjFjVzIxTUtTbWJUMWFRb0FoZWFLUHlFTHkvaWM0R2NrZTN5?=
+ =?utf-8?B?TmduWFZiRnhSQy9qT3lxWHhFT3lUdVlFUU8wZGdiaXVxTUoxQVNEbWVicWti?=
+ =?utf-8?B?RitFQ2dSbHFaaVp4Nm5LcDZ4VkR3SHhlMW9zVm43Z2Yrc3ovKzlTZzJ3bEwx?=
+ =?utf-8?B?dURYOXIvZGMwUDVjYll1WUZwMjlXV29nSjFidEd6TmlOYnFUVEJSWllidktl?=
+ =?utf-8?Q?w0j6kFvlk3OKDmpwdi?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: adb1ef29-20b0-4d2f-99d7-08df40a2a3a1
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 09:52:18.9439
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: srqAgoRqYJz5Pe+u/UJ6Jw6xdlhQV/nLp1UKWSbiZCJgVoLwwyaDyKE4AD5ZpMkj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8291
 
-On Thu, Nov 12, 2026 at 04:56:30PM +0800, zhaoguohan@kylinos.cn wrote:
-> From: Khan Zhao <zhaoguohan@kylinos.cn>
+On 11/12/26 04:16, Karl Mehltretter wrote:
+> On Sat, Nov 07, 2026 at 12:59:46PM +0100, Laurent Pinchart wrote:
+>> Hi Karl,
+>>
+>> We discussed in v1 how this is not the right approach. Why are you
+>> posting a v2 without addressing that ? You need to go back to the design
+>> table.
+>>
 > 
-> set_bit_to_user() pins the log page with pin_user_pages_fast(), maps it
-> with kmap_atomic(), sets one bit and then unpins the page and marks it
-> dirty. This runs for every bit set in the dirty log, e.g. on each used
-> ring update while logging is enabled for live migration.
+> v1 ended with two conflicting positions on non-coherent DMA-BUFs:
 > 
-> log_write() always passes a byte address and a bit number in [0, 7], so
-> the update can be done as a byte-sized cmpxchg on the user address. On
-> x86, try that first using unsafe_try_cmpxchg_user() inside a
-> user_access_begin()/user_access_end() section with page faults disabled.
-> If the access faults (page not present, read-only or needing COW), or
-> the cmpxchg loses to concurrent updates of the same byte four times in
-> a row, fall back to the existing pin/kmap/set_bit path, which can fault
-> the page in.
+> - Laurent [1] and Nicolas [2]: end_cpu_access(WRITE) only marks the CPU
+>   cache dirty, and non-coherent DMA importers clean before starting DMA.
+>   Persistent DRM/KMS imports then need a sync call on each submission.
+> - Christian [3]: devices must access DMA-BUFs coherently with the CPU,
+>   using begin/end_cpu_access() around CPU accesses. Importing a buffer
+>   with dirty CPU caches onto a non-coherent device is intentionally
+>   unsupported. Today cma_heap and system_heap sync all mapped
+>   attachments inside begin/end_cpu_access().
 > 
-> unsafe_try_cmpxchg_user() is only implemented on x86, so other
-> architectures keep using the existing path.
+> On my Pi 500+ with a USB UVC camera (640x480 YUYV) and V3D on CMA
+> DMA-BUFs:
 > 
-> On an x86_64 KVM guest (i7-12800HX host), a synthetic used-ring
-> workload with logging enabled went from 243.60 to 171.11 ns per
-> descriptor, averaged over five alternating runs. This is the
-> end-to-end cost per descriptor, not live migration performance.
+> - Without vb2 CPU sync, V3D reads stale data on 8/8 zero-copy frames.
+> - With vb2 begin/end_cpu_access() on cma_heap, zero-copy V3D is clean
+>   (0/8 stale). CPU capture takes 91 us/frame without a V3D import, and
+>   144 us/frame when an idle V3D PRIME import is attached.
+> - With a test heap that tracks CPU cache state and syncs imported BOs
+>   at V3D job submission, zero-copy V3D stays clean (0/8 stale) and the
+>   idle-V3D CPU read drops back to 89 us/frame.
 > 
-> Signed-off-by: Khan Zhao <zhaoguohan@kylinos.cn>
-> ---
->  drivers/vhost/vhost.c | 50 ++++++++++++++++++++++++++++++++++++++-----
->  1 file changed, 45 insertions(+), 5 deletions(-)
+> Question to all: should I look at opt-in cache-state tracking in
+> dma-buf (with a sync call before DMA submission), or keep
+> begin/end_cpu_access() as is and handle CPU consumers via V4L2 cache
+> hints?
+
+A sync call before DMA operation is something we intentionally rejected.
+
+Background is that exporters should export the buffers as they need/use it and not have specialized handling just to serve importers which would be not testable without the importer etc...
+
+What we could do is to consistently use begin/end_cpu_access() and/or let exporters expose if their buffers might be dirty in the CPU cache so that importers can properly reject them.
+
+Regards,
+Christian.
+
 > 
-> diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
-> index e29f154706da..9c3045504709 100644
-> --- a/drivers/vhost/vhost.c
-> +++ b/drivers/vhost/vhost.c
-> @@ -2527,11 +2527,7 @@ long vhost_dev_ioctl(struct vhost_dev *d, unsigned int ioctl, void __user *argp)
->  }
->  EXPORT_SYMBOL_GPL(vhost_dev_ioctl);
->  
-> -/* TODO: This is really inefficient.  We need something like get_user()
-> - * (instruction directly accesses the data, with an exception table entry
-> - * returning -EFAULT). See Documentation/arch/x86/exception-tables.rst.
-> - */
-> -static int set_bit_to_user(int nr, void __user *addr)
-> +static int set_bit_to_user_slow(int nr, void __user *addr)
->  {
->  	unsigned long log = (unsigned long)addr;
->  	struct page *page;
-> @@ -2550,6 +2546,50 @@ static int set_bit_to_user(int nr, void __user *addr)
->  	return 0;
->  }
->  
-> +#ifdef CONFIG_X86
-> +static bool set_bit_to_user_fast(int nr, void __user *addr)
-> +{
-> +	u8 __user *p = addr;
-> +	u8 old;
-> +	int retries = 4;
-> +	bool success = false;
-> +
-> +	/*
-> +	 * log_write() passes a byte address and a bit number in [0, 7].
-> +	 * On x86, update just that byte to avoid crossing a page boundary.
-> +	 * Bound retries so a contended byte cannot hold up the worker.
-> +	 */
-> +	pagefault_disable();
-> +	if (!user_access_begin(p, sizeof(*p)))
-> +		goto out;
-> +	unsafe_get_user(old, p, fault);
-> +	do {
-> +		if (unsafe_try_cmpxchg_user(p, &old, old | BIT(nr), fault)) {
-> +			success = true;
-> +			break;
-> +		}
-> +	} while (--retries);
-> +fault:
-> +	user_access_end();
-> +out:
-> +	pagefault_enable();
-> +	return success;
-> +}
-> +#else
-> +static bool set_bit_to_user_fast(int nr, void __user *addr)
-> +{
-> +	return false;
-> +}
-> +#endif /* CONFIG_X86 */
-> +
-> +static int set_bit_to_user(int nr, void __user *addr)
-> +{
-> +	if (set_bit_to_user_fast(nr, addr))
-> +		return 0;
-> +	/* Resolve faults, or use the native bit layout on other architectures. */
-> +	return set_bit_to_user_slow(nr, addr);
-> +}
-> +
->  static int log_write(void __user *log_base,
->  		     u64 write_address, u64 write_length)
->  {
-
-
-Actually why do we need all the unsafe trickery, is there
-a reason? below seems way simpler?
-
-+static int set_bit_to_user(int nr, void __user *addr)
-+{
-+       u8 __user *p = addr;
-+       u8 old;
-+       int i, ret;
-+
-+       if (get_user(old, p))
-+               return set_bit_to_user_slow(nr, addr);
-+       for (i = 0; i < 4; i++) {
-+               ret = __try_cmpxchg_user(p, &old, old | BIT(nr), fault);
-+               if (!ret)
-+                       return 0;
-+       }
-+       return set_bit_to_user_slow(nr, addr);
-+}
-
-
-
-
-
-
-
-
-> -- 
-> 2.43.0
+> [1] https://lore.kernel.org/r/20261021175900.GG15441@killaraus.ideasonboard.com/
+> [2] https://lore.kernel.org/r/7e4c7707880e9092180d28484ecf674be29b40a0.camel@ndufresne.ca/
+> [3] https://lore.kernel.org/r/1e798600-5a76-412a-959c-94313629baf4@amd.com/
+> 
+> Thanks,
+> Karl
 
