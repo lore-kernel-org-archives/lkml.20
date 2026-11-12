@@ -1,61 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.85.9.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794496696;
-	b=FuBVw00CpymvV0jS7/EYavsH/9fnfn5uF1j53CoKBL9L7QJTB+ucLC00C7eK9ZTtaItV
-	 Q8SwBwczY4AKt8//Ny3hLRwDwmA846dki1If+h6XxlZQt68XRUQCJp8TbFW0jOA5xmLfj
-	 EGPKu2XneI+tHah9r8MRAW/r2tcxjFqaEudKRIAsRNNxmqJsj7Fcn14dbxw5Y+usPYQFr
-	 buuRtddgEb9hXaLXQdw6uSALuJT9eokFtzYv1mIoPi5NqwcAM1rNVjATjViycdyF+DPYL
-	 DbSCCthfonIh5M+MCinyGqRziCBapPaChNVADfkKUVI+E4+az/VhPbEKx1/2m2rvVCQ==
+	t=1794496726;
+	b=0peHWBv+ZdNG1d7hc3rcaGSt8ymVSevKSXR9pdO6uD20tFi/mZt/LfBXFymz/O1zwQAK
+	 uBV4+gF3qwbTe5I8bPXvyh8g5cNWI7zf6wqBUdI1YrO9UPhuMbb8iP5ifM+93xXN3o0iF
+	 LRL6DmsO7pvKw4pNCdS2J/EcRrgHwnLcCkdSGa1btLlboy7QAz8PsuMYv4oNaM+H6QKLd
+	 d6LkpIcnAwKgyCRZrlrLnH5NCbcAQdV8K/HG99ZHXFEZLjC9WM5AqoBSC8QkAnD18PBrL
+	 Uvdo4stVP8VvfiecD58mfRtUZ/DL7wlwK4FkcM2eBDdX7d2cu8y+khJcZ3SS8uKRs8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496696;
-	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version;
-	bh=r+yQthmGpU4dLS0axjn4IZvfIRlCVOqVLewaA/Ebjsk=;
-	b=HOwKldXGBVmhE1JDFgmHZA4zHtREBlUzsWIE0+7OA9huUmchBOwXAISKe+52QRb/Wom6
-	 ijMF6mp3PzA9q/aI7f5bIpJoofrj5O/4kD0g6WHdkSNY2gtpzmug/B2nfela145w/dwn5
-	 mnOPlf/HWo/sl7abC65XWqV8fdmUTTRDlvhyOZStS3lZlacndVlwk9dmw5BBTh2pmIfMf
-	 Cl52nGAJEjNGwVyI/egfArLNV6jsrbxkVVGzzFoTqvRw775HW6JrSOP9hrfcf3cOof8hu
-	 IwSZD7BXLHDwwUbwYbm8flSSDP8hYIFXV92v/+K9Zq425dtN7xSZXPmCpXLBlITkvKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794496726;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=8Cah2Nuh85bMwNGmNplY7i5n+nc08E8LSVCaDdk5q2k=;
+	b=2AJzPAD6sDbZkUtdI8pdEDjtWhBqGOG7vI8JP1KlS385A8VvH35NjDGzeYx0e0aqDvdY
+	 7NYXX1F7hJOBBGKGtV6KsLliNeqPjnpH6TutTBPOc0mIzueWXf9if1fHIByLKERd9UQ7Q
+	 9GSko86fGZLO92yVsqN+6gh41NgREc1LSPsuFCddOXEPFCfjWgiWovdd/v89Pf1Qma9vW
+	 3GMyVSAUcEJMCYCKmPlmgLjJskGen5OwZDnbIrLUqDDhuCbyiMYn31QFdGmXA1awSAYnB
+	 KnKSOUpVJQim314wTJuC+fN2UboL6HXjdT/Z0dGT+/YsH/AjgGSp40pEFXyvgqY2IEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=irl.hu;
-	spf=pass smtp.mailfrom=irl.hu;
-	arc=none smtp.remote-ip=95.85.9.111
-Received: from irl.hu (irl.hu [95.85.9.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=B3KEpRzl;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id BDD3B60A262E;
-	Thu, 12 Nov 2026 15:18:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDD3B60A262E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
-Received: from [192.168.2.4] (51b6855e.dsl.pool.telekom.hu [::ffff:81.182.133.94])
-  (AUTH: CRAM-MD5 soyer@irl.hu, SSL: TLS1.3,256bits,ECDHE_RSA_AES_256_GCM_SHA384)
-  by irl.hu with ESMTPSA
-  id 00000000000C60CB.000000006AF5D8B5.00004720; Thu, 12 Nov 2026 16:18:13 +0100
-Message-ID: <0c5d5163d292c238a27a77eda2690d8cec025b77.camel@irl.hu>
-Subject: Re: [PATCH] ALSA: hda/tas2781: Only accept CRC-less V1 data if all
- entries are valid
-From: Gergo Koteles <soyer@irl.hu>
-To: Mohamed Yassine JEBABLI <med.jebabli@gmail.com>
-Cc: regressions@lists.linux.dev,
-  Cristian Castellano <cristian.castellano@icloud.com>,
-  stable@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
-  Jaroslav Kysela <perex@perex.cz>, linux-sound@vger.kernel.org,
-  linux-kernel@vger.kernel.org,
-  Thorsten Leemhuis <regressions@leemhuis.info>,
-  Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-  Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>
-Date: Thu, 12 Nov 2026 16:18:03 +0100
-In-Reply-To: <CAN6p6iiFz-JXOt9iFUPa3x4Aqu2c96=ERf0AMZ6pPVWspd=jLw@mail.gmail.com>
-References: <20261103-tas2781-v1-nocrc-fix-v1-1-a769c27f21ce@gmail.com>
-	 <7cd4c010f13ee085e3aa4396705b6b06ed58f7e1.camel@irl.hu>
-	 <504167422048bb8197a1ca3fac079cec9dea1ae7.camel@irl.hu>
-	 <CAN6p6iiFz-JXOt9iFUPa3x4Aqu2c96=ERf0AMZ6pPVWspd=jLw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AA760A2607
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:18:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87AA760A2607
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=B3KEpRzl
+Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
+	by cmsmtp with ESMTPS
+	id RGMNxbo6DAR1iRWZax2rMu; Thu, 12 Nov 2026 15:18:46 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id RWZTxR1Xeb2qJRWZUxUqaX; Thu, 12 Nov 2026 15:18:40 +0000
+X-Authority-Analysis: v=2.4 cv=A7tsP7WG c=1 sm=1 tr=0 ts=6af5d8d5
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=YjZJqjhXHxlD0Mfa010A:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=8Cah2Nuh85bMwNGmNplY7i5n+nc08E8LSVCaDdk5q2k=; b=B3KEpRzlj0Zx
+	bB9m/IVrg3WMAHfMOyn10bm0j15PTvkcIYbSDjmMxSf3X7djdlyloLAe20J0Qaq7ywdCMDhXDorU2
+	6/azB3n5dTJd7UQ5CIbuO0kAyjElsjBsC2DV0GI2u0buD5pzqhq1u+F7RjWAlVmlPCI6EaLGr13Hi
+	UgtFij5jlwPAXkrHg7/0A/DpBdpEXLsgoFRdC3xbipPNEqN2MICRQ+J16n8h94uzGCssd/ZeTiGad
+	95SxRvecLr8z/DBGpGJxpE24jxvTjY7VBynK+WYy8+rTYhj0pY2HqUEW/Orz7zvHZniQfcUpjTrAf
+	gxNUwkS52nDU6ZayBLUY4g==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:57714)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xRWZT-00000003LgJ-1hVi;
+	Thu, 12 Nov 2026 20:48:39 +0530
+Message-ID: <96902e72-6a75-42b4-9d30-ea54e82ee933@roeck-us.net>
+Date: Thu, 12 Nov 2026 07:18:38 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,34 +75,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] hwmon: (dell-smm) Add Dell Pro Precision 7 16 PW716260
+ to fan control whitelist
+To: Shady Abu-Hussein <shady.abh@gmail.com>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
+ <pali@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261111150435.75965-1-shady.abh@gmail.com>
+ <20261111172733.84217-1-shady.abh@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261111172733.84217-1-shady.abh@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xRWZT-00000003LgJ-1hVi
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:57714
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 1
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfAGWymnVIMd8QuYaFLqoobF4CB4qCy5MEnCtpIG1Abv9oT49hG/dPwxk08a7pqh3wj8mk/89hW4Qk6dsaahZfSSHmq44tBTaHiekwDRh/0O7N2MbcALb
+ V69Nn2MCpxkHVbMiXYqe0t1ZLDialc9AzERDXu7f8OFtCN+14L3wwhJTdnV7F+AD+llG2xSSr3xkM07lpDxzK26/5d89tiIXZnVy40YXyOF5QnGxISOOf6RP
 
-Hi Mohamed,
+On 11/11/26 09:27, Shady Abu-Hussein wrote:
+> On the Dell Pro Precision 7 16 PW716260 the firmware fan control
+> cannot be overridden using the default SMM method, writes to pwmX
+> are ignored and pwmX_enable returns -EINVAL. The firmware AC fan
+> policy also requests speeds below the minimum sustainable speed of
+> the fans, so one fan repeatedly stops and restarts every few
+> seconds at low load.
+> 
+> Add the machine to the fan control whitelist using the
+> I8K_FAN_30A3_31A3 SMM codes. With this, writing 1 to pwm1_enable
+> disables automatic fan control, the fans follow the requested
+> state (0: off, 1: ~2500 RPM, 2: ~3950 RPM), and writing 2 to
+> pwm1_enable restores automatic fan control.
+> 
+> Tested on BIOS 1.5.0 with kernel 7.2.15.
+> 
+> Signed-off-by: Shady Abu-Hussein <shady.abh@gmail.com>
 
-On Thu, 2026-11-12 at 16:09 +0100, Mohamed Yassine JEBABLI wrote:
-> Hi Gergo,
->=20
-> Regarding the Q27/Q31/Q58 formats: they are not from any documentation; I
-> inferred them from the data. Reading the first word of each entry as Q27
-> gives a plausible speaker resistance (3.82 ohm on my Legion Pro 7, 3.64 o=
-hm
-> on Cristian's Yoga Pro 9), and reading the second word as Q31 gives exact=
-ly
-> its reciprocal, within 1e-4, on both machines. So, for a consistent entry=
-,
-> R0 =C3=97 InvR0 ~=3D 2^27 =C3=97 2^31 =3D 2^58.
->=20
-> The V2 dump from the ASUS ROG Xbox Ally X thread (with a valid CRC) fits
-> the same pattern: r0 =3D 0x3c5f7222 (~7.55 ohm in Q27) and invr0 =3D 0x10=
-f615d5
-> (~0.1325 in Q31, i.e. 1/7.55).
->=20
-> My guess is Q5.27 and Q1.31, but I have no TI reference to confirm it.
->=20
-> Finally, all testing was done on my own hardware: the original patch was
-> tested on my Legion Pro 7 16IRX9H, and I reviewed and own the changes.
->=20
+There is no change log. What changed in v2 ? Do you really expect me to
+track that down myself ?
 
-Ah okey, these are TI fixed point formats.
+Guenter
 
-Thanks,
-Gergo
+> ---
+>   drivers/hwmon/dell-smm-hwmon.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/hwmon/dell-smm-hwmon.c b/drivers/hwmon/dell-smm-hwmon.c
+> index 5ec487843..250d8c1e6 100644
+> --- a/drivers/hwmon/dell-smm-hwmon.c
+> +++ b/drivers/hwmon/dell-smm-hwmon.c
+> @@ -1687,6 +1687,14 @@ static const struct dmi_system_id i8k_whitelist_fan_control[] __initconst = {
+>   		},
+>   		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_30A3_31A3],
+>   	},
+> +	{
+> +		.ident = "Dell Pro Precision 7 16 PW716260",
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Dell Pro Precision 7 16 PW716260"),
+> +		},
+> +		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_30A3_31A3],
+> +	},
+>   	{ }
+>   };
+>   
+
