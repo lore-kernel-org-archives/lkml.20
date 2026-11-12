@@ -1,56 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794482425;
-	b=DpqIDdN2brlFYPRYKYjWBwlodNwQkKlV42/g/OwAmyyrkIcebaDXqI9/n1uX+CT9kyLs
-	 mX9bt23BjkaA0x5IYb6X/2XFMzDfDCbqYjauCHaGp1Cu95dqFH1SmyrXSgiB893AAD4JP
-	 JQhO08IChrigyixvyVfCgRg54QU9oset+PnEfPV8lNj8RmlAfTiheKsEys7IT0nUXfm3H
-	 Znzb8b8v8YQ9/XlLUg5yVf1bIpBLd8Ffsdpdw6XU6KBMu6uCVgwSevfYPJjfTfsM8tcWW
-	 MUkVz/wATNwz3Vq8Z8e9oPFdmVu+nIL0W8IYkTFG2gssVMYs4N9oJCCKh/hrvnp0rFQ==
+	t=1794482432;
+	b=NnLpRhi4xdFWpXcHrE9tx1RFQhzPckaFbnQxl/V7jkBnMsFDcoOf9CzHARDvEMmtF2al
+	 +n0dLk79KVk6dVJ+bjI30bURLZV3J4HswiY78ADTcxg6Q8dt4eUGbeqXa29ghrLzPvXO5
+	 6SYIwImbBWWVPexc8QqSr/rTslYw+f3SKqNDsOj1Ct+Q4/gHuehjmXSs1Q+HRwPNn+5Oh
+	 7irrRtFK07qpeozspptdsez7TH+zoMoIAsRPfZt5w9dPA1yrF6LHBQxRIfk3VAf72Ww65
+	 /+vyXplXAs8/oKZpv5NhstXH/ifc+u+UAxkr7C9HKbmI3S+5uvJZE8A/OPFceR1/7zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482425;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482432;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=FE4RJwnrzj/juNXS/pesyp3PaSMEL7UzGYHpGBwwCZg=;
-	b=HgnKhlQwWOu/QLVCu71QNrzA5+Ct+b6ZApcpd4Bz9RoFQej1jG2rqNNtmpI0Jbm9t2YM
-	 Gpk1h3zonmEcMCWLRcu49RL4a3H2MxX8OceIxAHT07IZ3gY6/KoQUwIGDDR46Q+APY7Qo
-	 j75Iy6reYes6yWRaDNh3l1a8M+4PUgDfTjhsb4sTIFQJKzdQf7wpD2fjecA/WgkpaKN8G
-	 BA8uN2/mKh0BM2aTb3mFWY61IUp/P7xBped14xmpx2adQdEHDsTAaZ98ufH4Vq4hP41xa
-	 lMgrXNTL2yd6Vji9/VOeNbYgGqz12WM7ZKC2CbIT9AHHBayGwC5bIddgkMHFn4tcH6Q==
+	bh=hAfL/WFmB05akBiWgGs8l8XrwU7+jMrFoaHWisRpDqE=;
+	b=tUmvDEGfK/Ohh76gTCI0dJhW7dAIlsihEqOupkCAvHo+G8+t0vaGS/5zg7K5mNZmj+5z
+	 Phf0MfKX+QVWd9FiFCcDS0oVFiDIEDkrAkYHLIziJXZXUV3egGOlRvTpysFklbbu+bUWr
+	 0v5NdMLtFdj5G+LHrn1NIC7/mR+6fECOyEP+VQHxWdAbf6Dyt8CqxqpTfdjrjlCCjDmv/
+	 TiBQHtpemokbZCFKveYKaGyFveef+T1jsAt+SAQZbUXQzwEcIJ/VALhL+mW6G89WTWPEM
+	 qPcYYd6coonuULaDDhpSkYU8GwxBBBJ+GKQBZYqBYTLb0AXOMssafiNnqKz/V7yPIxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFmfv9Aj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9B82kd8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCEF606CCE1
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:20:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77256606E757;
+	Thu, 12 Nov 2026 11:20:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFmfv9Aj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0A31F00A05;
-	Thu, 12 Nov 2026 11:20:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9B82kd8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 953891F00A09;
+	Thu, 12 Nov 2026 11:20:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794482425;
-	bh=FE4RJwnrzj/juNXS/pesyp3PaSMEL7UzGYHpGBwwCZg=;
+	s=k20260515; t=1794482432;
+	bh=hAfL/WFmB05akBiWgGs8l8XrwU7+jMrFoaHWisRpDqE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=SFmfv9AjkY55CXOtjrtFSwkJwjsJ7hkt0Py4imkOR3MKAIbz/XmktVMUndaIhdrPd
-	 rH238z1DeQMNsIQExdku2cmVaKF6gnfGw9BYJUvhLKSGBqMIQgMn4fMMKE8s1qObZb
-	 zHtl5kTAMzVUNQ4eZ+RRACXKToT0G6GaaMFY5ALNwbx1wdEmAGhTY7wxs3SesHeq/V
-	 NOZLmO6LfU6om0CIIUjstFUl7w6g17cjqi3FaYLX7dxxRmrzUCMEAAn/Eccwatf1Zn
-	 t2P03i2YLED0oHYs7Rs4cqGPq/pwD+TSEnxuomx8qzD2L0gm1O/C9VWqK3+3D8kI8F
-	 TCQJd+9hezKsw==
+	b=O9B82kd8G3xrpV7RRBTWam1Xbr5BivytF0MyJC0hZPGsQTfR2S6JIx9WTBLucYoEh
+	 eTrPgMRUvFY9s4CMw+AQ/HMrXIVCwhrVk/qs7uXt1a/ofmJsL9L1VX9IvlYPQObpJp
+	 ekBo398K8SVCEO75zGzCbxtaUqpvrb2niUUSvjDw41/MhP45sFWq6flqfa4+DtbmOA
+	 1VxAxZ2Knel6Qe107ru9mBRtye9E5wJ+3pqySdSOHdGJCWQjU0VL3u8/sO11PTNfKP
+	 PsyOiqeWIMkP56w3YInIhb5zK9Kc9eMGPVboa8IRkKrXDV0YAw1SH5uJfaM9Jfz3c0
+	 tkhIPklAbSsyw==
 From: Vinod Koul <vkoul@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Diederik de Haas <diederik@cknow-tech.com>
-Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261021102155.609575-1-diederik@cknow-tech.com>
-References: <20261021102155.609575-1-diederik@cknow-tech.com>
-Subject: Re: [PATCH] phy: rockchip: inno-usb2: Remove redundant dev_err()
-Message-Id: <179448242246.492462.10363037701797404099.b4-ty@kernel.org>
-Date: Thu, 12 Nov 2026 16:50:22 +0530
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ gopikrishna.garmidi@oss.qualcomm.com, jagadeesh.kona@oss.qualcomm.com, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
+ Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, nitin.rawat@oss.qualcomm.com, 
+ sibi.sankar@oss.qualcomm.com, Taniya Das <taniya.das@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+In-Reply-To: <20261028-glymur_ufs_qcb_enablement-v5-0-09cda5e3bab3@oss.qualcomm.com>
+References: <20261028-glymur_ufs_qcb_enablement-v5-0-09cda5e3bab3@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 0/3] Add UFS support for Glymur Qualcomm
+ SoC
+Message-Id: <179448242524.492462.1764919670468855498.b4-ty@kernel.org>
+Date: Thu, 12 Nov 2026 16:50:25 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,18 +78,17 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Wed, 21 Oct 2026 12:21:20 +0200, Diederik de Haas wrote:
-> The devm_request_threaded_irq() function already automatically logs
-> detailed error messages on failure since commit
-> 55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()")
-> So remove the now-redundant driver-specific dev_err() calls.
+On Wed, 28 Oct 2026 17:54:45 +0530, Pradeep P V K wrote:
+> This series adds the device tree support for the UFS PHY and UFS
+> Host Controller, along with the required PHY driver updates to
+> enable UFS support on the Glymur Qualcomm platform.
 > 
 > 
 
 Applied, thanks!
 
-[1/1] phy: rockchip: inno-usb2: Remove redundant dev_err()
-      commit: 4ed7bb658700a8d47d7256330390c04fb5cf2d2b
+[3/3] phy: qcom-qmp-ufs: Add Glymur support
+      commit: a3ed89addd954c5c2ab6f745da93559612392d7d
 
 Best regards,
 -- 
