@@ -1,102 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794456979;
-	b=imFQe5pyZ/49HuRdeDXpuJxeYgU91RspBcYHPef/11nXPOLwxz3ahbs/Yvhl7FG11dZm
-	 bhvdP9ybzxaW9XrIVwGX+6uI1FgFQpZ2VHp9CXawKesLZvU9jwOn4KuaU5sezMzm1dLNT
-	 gmQL5rrKjJL8NJyHMBY9Qe10lv5c41uS4Llxt2ipipJqvpybKRof7LxSVeOCJUXqlGSDg
-	 EaB9twlvXXWkXhMEHABZvY5hWYp1cHc3aZ4SG0k46RC1fuHAP2JIUkcxZUBHUJZVvodd7
-	 EGlzzBed6gE6R79Hz6rQwnPPig7PL4gQTnE672kzCoTGPtq7Yf2XssEo33mH4B0JHSg==
+	t=1794456984;
+	b=5pvG2WM5YT5oIBQXA84VPjCseGQsKKomr5p1eVZT4d9vYt6PyPMPXeTOZlIcoXpbim+v
+	 NDbY7ybxH0tI8GhS62G9/f37kXyTYl+P7AnRgOFcQmxDipYV5LNSncpN351Xjdsm8ij/t
+	 ELP5fURjTlOxKfbtWYRC+KMA+VaQP8nhpD1sNfuFfbGNbus4hreRCxbcunelClgoGJ74M
+	 6lAM685jWq+7uhK1+WH1FhiIxEhbHmUvdKoX9v188ODOTjs8XLjaMHJsOgTT33385PBlA
+	 eG+gwOjZJ1ekdJU8a6ekg/MOKIDD7B0JOOVW4Qd+8iq7ivvGzDaSOGsdoeI4KcF25QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794456979;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794456984;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=cx07ziGcA50aUj85Mm/ZBnVBryK8gFtKvDY2YMtoJYc=;
-	b=mRlCQUkJzA+AeYuNP9FxUAOAbgFkS1JH1gSxO6S1mwWCSovJgm1HuPuiQfEvf0sb0FmJ
-	 J3DVtNy/pAKNtJCHcX/0nnKpdWcXlTNdw80FE/RakTRby6lg+6cRymNrYjUvMZmaPYcXN
-	 pB/adiNI74xEfyxsZ7VERcLXnBUsPJTvsKsb75P5673Vo7FnV+qm/GAZFW7GM5rz4jTMH
-	 fV/PotPgvkChAwTQR3xiNAgG/bbdXqsFA1k7JnHLLTzfPiDoGB4EOxzkOUPH080lFrHyh
-	 pZtAv4SNE22QvjPEedvfBra72p0dhrMboakzzAkxQ4AMsmNq4uwWyBhqtHbVw2ioGgA==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=s2N20RhQr/YOAKPDCSdEAE8oN4tSPCYZQS7opDtl91Q=;
+	b=cG4214f6Xdp3G2djhSJnPuV8aHedpHDFZrq57B0djbnaGTyNIoxyFxUc78n3zDL7/MJJ
+	 XtmnXfdN6xthIgJVtbiH3uiNv5V3X35UMlhERS350cxzZF6GQtdBZxy+XmTYNMmzykN0p
+	 cDHn6c51iRM1WQww7uVMh1Y/qdXwIcB5QBZwuo1PEmzi/79xXcrgF3qlC5hS1kWJuHmBP
+	 cUGriyIUh7EJ+eKmOYRgaGSfvmvmd9VwtQT0+9Q6fc3bSb6q3/3chX/3t7LkkpJLLYrd3
+	 tqF/YHPWtCQebYz8CJwusdoQLUIyzIkPPRrP2c2GhaZr4y7uo0aPYXU79SFsjaWPQ6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RmJGZdJg;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QP67SBAM;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BDD606A33E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:16:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72BDD606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D891606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:16:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D891606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RmJGZdJg
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-37628596783so3608253eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:16:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QP67SBAM
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-37000e7234bso3364004eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:16:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794456978; x=1795061778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cx07ziGcA50aUj85Mm/ZBnVBryK8gFtKvDY2YMtoJYc=;
-        b=RmJGZdJg942OY9rPhScQBPvnVkEnUGRlsngqVgdkiF3pKXoGg2y1cYTwH4oLb8CQg2
-         5N585j9GpOm7a6X5s5k+2F0qU3kMRG0Id6ymOAWHgSX9fYdQTwd7cksIITmK2Y5HXVCH
-         63sRX9aIvluSZaVFvwDpVH1jBUVkYrv3HZT7LIl4X8K+9c0goL5LoyrxNSlZxGIpHstH
-         u5Mx4zbi0PpsGq/6RETVOripdngpUkEHMA0Wu60KDVQHebkEwI6X6GM52/sMvAY+MHqm
-         KzyvfCC3pvLX71DTrsb4OBfQAZe1Nv3lTGMyOUnCGnXQ1MSUZY/8tyjocmoE0RMOf2x7
-         gI8w==
+        d=gmail.com; s=20260707; t=1794456982; x=1795061782; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=s2N20RhQr/YOAKPDCSdEAE8oN4tSPCYZQS7opDtl91Q=;
+        b=QP67SBAM23zUNaqYoBg6CpDHBt11Ax94dSCWVQ4s3uQUhnR84RGSQHcxARG2kxdPV3
+         VQLohyToK4lxcPv8Pwkc3sTkl7lqs0qTzxhez1xm0BT47N39MbehG8GlkJ0JBj6SbSbI
+         p50WKCyzoM8OEcHsgyT2cDmCqr8VWF8qjfSbaNV8Z8M5swInQP/57Vsd7DemrR1I1w16
+         FbyafcgSnKxRuqOa2eabxEiWjmc8PAuMBgZ1dqo4tTgFs1kHvGBHwoYGPli5H3v0V9Kp
+         Sr8zM2TftiZXOPYAmweG7QrcmxqyEtf98tx3IZYfevMrY+k6ASdXdj5fUDOrdh6583on
+         aKZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794456978; x=1795061778;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cx07ziGcA50aUj85Mm/ZBnVBryK8gFtKvDY2YMtoJYc=;
-        b=Gqc5OReVpq/PNx2HRIcx45vYqU/dV67fzLCUTpwx43va+6ZIIc77kmwgexLBjly9qY
-         SADqknjdEmxUFtXZmLh0nQODFJQ9umO6B5BjbUo2ff+AqN98f4Mf/E5LmB6gpZHBdcdo
-         K6j0aBd3g+UKTmqOJ5QLrryGnAtS6nuzM47hGrPCGPUP6Ipm/waJ66QEnrJBYlNpUjJS
-         PSPqaR1YQyEbLZ3eqdjJAj4PFv9i2oQ4gq1hAZQQgqyamwMRe16UezSk98sdamuVqgse
-         yGXOHOBJz341qY2cCaEHqyaTuOa030NZiGqXixidFcExNfxkOZPIaYqgW09Nw2PJ0yx5
-         NRaA==
-X-Forwarded-Encrypted: i=1; AL+hErEtQvtUtBsOq/sM9y49iaJf8CAujItHlVcBc1+MW+YjlOH96tYeMgvJFqhcfZmWUtToetl1xsYQsNS1hd8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Rex60JpPRI/2w6Z67IP9XHUCIf6XEpBwJe/DGpYqyVjkOLFjK
-	stUVlWvmH8zQTFT+jTt2xDmsXxMSqP1GIhWbG390ik5uh208aDWnTlk4
-X-Gm-Gg: AYBFou3UUMGl3TZ6anCbx5l8hrTeiQPlgVc+akLEB7bl49AjiQuhufPcGGlThmKElHz
-	59Oku4ZyBHV0rwHxmuS926yp11LSZsqRt/qKLG87CkQIC7+HrNbmBsHWC2iAzClXo9xlIG5HZ7M
-	V45iDEDMazF0f9itG++hAUj7hK2ifTpw5mR2jOyPprEM+OYCBlGbPXNCpUjKQT0j2cBdLcKGDIB
-	WODSnRY5UUWhdEz9pSCExPQTDiAYUHi2EnNjCJeJgR7+DnPDlhImmPLyE0H5VUBl9HYXk9q5p68
-	Yossky7C6q/uJJ/T7riFVp3nacR33HL13e4J/jIVAtFsotNyUiomWcX0aFwa9Om9R4XAn+eTUL4
-	Dt+JmBEBuj2+0ZiPZGVC0syoR1HS3JGnB071eE/F3uIG8vGMGp/9cLrQ0089SVcNIMXJ+lzVfjr
-	D6lfR1doLPwqdO8/kH5T1hJuFbkuAaHGnoPgOCujnZ/4RwU2IDdAo3UUgCXP12oTJEPtF2IMadg
-	Fcxy33ik3RLk+JfeVOZ9g9RhqBNcHUt9Tg6YnFtb9QpPGwJZj4Jw3VakZwzwnVZPBHjiyd168Th
-	wnGRHrBw
-X-Received: by 2002:a05:701b:45d8:20b0:1ab:9266:f50 with SMTP id a92af1059eb24-1b3c03766d2mr4147018c88.46.1794456978493;
-        Wed, 11 Nov 2026 20:16:18 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794456982; x=1795061782;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s2N20RhQr/YOAKPDCSdEAE8oN4tSPCYZQS7opDtl91Q=;
+        b=xjd5uYD8GBuU0ZRN2c+DebOGuSwM6DlIkohp7S1ck0wGJbLckMsEDkhGNcFbT2hYHp
+         o9Kq8PtKq2iWoF3EerQqAefB4HAIFo8QjLdj8quSfesGDVkP1I9PBqFNZ6B7YckoZID0
+         H8bKnbfWq8fp/Uv068j6LY2B5WbS08D5A+IVsnmPFFv5sQSNQ7HpTWrQx5FNrvbw5ccP
+         j2zbZ/SHOU4QRDGN1U5obbfYFLb/Nmq8ujTA+G173GQqHNCLJdhX0VMXwXXcTx2P/Azf
+         82Rv5RvFIIxJaYez8GbktAvmFcMjw2bIej++riky+rwj3gwjKvS3bTVZIHwH6XyPW4eF
+         zwnQ==
+X-Forwarded-Encrypted: i=1; AL+hErHLCGODHnRLtHtCRHmP1JaunHD3MvGomZAj6q8+xs2Id8j54AubggAtAj86yh2kDyxntsS+C0m8H97YICI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lapDk5CeyA5uE+zlFPViP+Zo+hR2rfHO29Nf2qDLZpjF1790x
+	K7z7nxrBCkMJwwjEGP2rofAlV6B/MSJ4qxeqntET2aPHjwuSSJ3aVeNE
+X-Gm-Gg: AYBFou2M1nnyQIeGh9/3d68AqoyFWh96f/s85BTxinC3cdVn5Z1iN/0EYGKQCzxaE+i
+	foaloNVGHIW/qzuWziIu+AjvE1TeFNFcfsRf4ANOJbfI3/fggB5f/eyz691UFVdonNLWZ3fZn1n
+	ZNniLrjMn5ijEqdb7bfXYGxziq0cqn2Ul0cy/YfZxj9O6dmzqlKnCg+xpY7nlQes6+iGJ2fQEHo
+	JEl4Rl066IUIzZGRn+94O/sdvnJTaWDX1uhkLfFKYTDJ0HclLpp9n026vD0bdSJMKjXsAmArOBd
+	V+y390yRd02RX5pzKwJoKj9b+k3QjBt48G9Bu8Vxl5gO5If7scb+vOrE5BmfPeu1TkK5FQv51D/
+	ED0PGrVguMk9/WUaVVfcQuM6nph2wdqjHw0Sp8Vl2yzWtx6T6Ex5XeYLS/37GlusaxaAauapcrj
+	71mE+apb0azIMxZA7wrDeGFbCJOHmpzfUhk1AuSDrTSn0sshwvESolCl+NpmyleCfaCyTaixrtY
+	AM5ip9dHy67kQR6gsAtqraCG3NAqo26UgaRj41bxa72d1yu6XNbhYfF7NLwYfTPT32SJmhLuZGQ
+	tNXonLCBpjl5TJWt4Yp9yQ2aoQoa7w==
+X-Received: by 2002:a05:7022:2204:b0:190:b2de:1549 with SMTP id a92af1059eb24-1b3c023c732mr5532385c88.1.1794456982355;
+        Wed, 11 Nov 2026 20:16:22 -0800 (PST)
 Received: from eldorado ([2600:8802:b00:1f88::287])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890c0esm21300801c88.1.2026.11.11.20.16.15
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890c0esm21300801c88.1.2026.11.11.20.16.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 20:16:15 -0800 (PST)
+        Wed, 11 Nov 2026 20:16:19 -0800 (PST)
 From: Florian Fainelli <f.fainelli@gmail.com>
 To: linux-mips@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
-	stable@vger.kernel.org,
+Cc: =?UTF-8?q?=E5=91=A8=E7=90=B0=E6=9D=B0=20=28Zhou=20Yanjie=29?= <zhouyanjie@wanyeetech.com>,
 	Paul Cercueil <paul@crapouillou.net>,
+	Florian Fainelli <f.fainelli@gmail.com>,
 	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
 	Paul Burton <paulburton@kernel.org>,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	=?UTF-8?q?=E5=91=A8=E7=90=B0=E6=9D=B0=20=28Zhou=20Yanjie=29?= <zhouyanjie@wanyeetech.com>,
 	Jiaxun Yang <jiaxun.yang@flygoat.com>,
 	linux-kernel@vger.kernel.org (open list),
 	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK),
 	hns@goldelico.com,
 	paul@boddie.org.uk
-Subject: [PATCH v3 1/3] clk: ingenic: Poll JZ4780 CPU1 power status atomically
-Date: Wed, 11 Nov 2026 20:14:20 -0800
-Message-ID: <20261112041422.2997275-2-f.fainelli@gmail.com>
+Subject: [PATCH v3 2/3] MIPS: Ingenic: Add XBurst SMP support
+Date: Wed, 11 Nov 2026 20:14:21 -0800
+Message-ID: <20261112041422.2997275-3-f.fainelli@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261112041422.2997275-1-f.fainelli@gmail.com>
 References: <20261112041422.2997275-1-f.fainelli@gmail.com>
@@ -109,44 +109,508 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The CPU1 clock enable callback runs under the clock framework's spinlock
-with interrupts disabled. Its readl_poll_timeout() can sleep between
-reads, which is invalid in this context when SMP powers up CPU1.
+From: 周琰杰 (Zhou Yanjie) <zhouyanjie@wanyeetech.com>
 
-Use readl_poll_timeout_atomic() with the existing interval and timeout.
-This is a prerequisite for the JZ4780 SMP bring-up path. The original
-CPU1 clock implementation by Zhou Yanjie is already upstream.
+Add support for the second XBurst core on the JZ4780, based on Zhou
+Yanjie's 2020 series and Paul Burton's original CI20 SMP implementation.
+Use the CP0 mailboxes for inter-processor interrupts.
 
-Cross-built for CI20; the subsequent SMP-enabled image brought up both
-CPU cores. Development and validation used Codex assistance.
+XBurst stops its private cache clock when executing WAIT. Write back
+the data cache before entering idle so that the other core can access
+data belonging to the sleeping core.
 
-CC: stable@vger.kernel.org
-Fixes: 6673db4f3f26 ("clk: JZ4780: Add function for enable the second core.")
-Link: https://lkml.kernel.org/r/1582215889-113034-3-git-send-email-zhouyanjie@wanyeetech.com
+Link: https://lkml.iu.edu/hypermail/linux/kernel/2005.2/03488.html
+Link: https://lists.openwall.net/linux-kernel/2020/05/13/1482
+Link: https://lists.openwall.net/linux-kernel/2020/05/19/1099
 Reviewed-by: Paul Cercueil <paul@crapouillou.net>
 Tested-by: Paul Cercueil <paul@crapouillou.net>
+Signed-off-by: 周琰杰 (Zhou Yanjie) <zhouyanjie@wanyeetech.com>
+[florian: forward ported to latest version]
 Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 ---
- drivers/clk/ingenic/jz4780-cgu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ MAINTAINERS                           |   3 +-
+ arch/mips/Kbuild                      |   1 +
+ arch/mips/generic/init.c              |   3 +
+ arch/mips/include/asm/ingenic-smp.h   |  20 +++
+ arch/mips/ingenic/Kconfig             |   2 +
+ arch/mips/ingenic/Makefile            |   5 +
+ arch/mips/ingenic/ingenic-smp-entry.S |  54 ++++++
+ arch/mips/ingenic/ingenic-smp.c       | 247 ++++++++++++++++++++++++++
+ arch/mips/kernel/idle.c               |  26 ++-
+ 9 files changed, 359 insertions(+), 2 deletions(-)
+ create mode 100644 arch/mips/include/asm/ingenic-smp.h
+ create mode 100644 arch/mips/ingenic/Makefile
+ create mode 100644 arch/mips/ingenic/ingenic-smp-entry.S
+ create mode 100644 arch/mips/ingenic/ingenic-smp.c
 
-diff --git a/drivers/clk/ingenic/jz4780-cgu.c b/drivers/clk/ingenic/jz4780-cgu.c
-index 1e88aef7ac0f..1809f8859c7e 100644
---- a/drivers/clk/ingenic/jz4780-cgu.c
-+++ b/drivers/clk/ingenic/jz4780-cgu.c
-@@ -242,8 +242,8 @@ static int jz4780_core1_enable(struct clk_hw *hw)
- 	spin_unlock_irqrestore(&cgu->lock, flags);
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 222b7fc2c3aa..7128df320bab 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13150,8 +13150,9 @@ L:	linux-mips@vger.kernel.org
+ S:	Maintained
+ F:	arch/mips/boot/dts/ingenic/
+ F:	arch/mips/generic/board-ingenic.c
++F:	arch/mips/include/asm/ingenic-smp.h
+ F:	arch/mips/include/asm/mach-ingenic/
+-F:	arch/mips/ingenic/Kconfig
++F:	arch/mips/ingenic/
+ F:	drivers/clk/ingenic/
+ F:	drivers/dma/dma-jz4780.c
+ F:	drivers/gpu/drm/ingenic/
+diff --git a/arch/mips/Kbuild b/arch/mips/Kbuild
+index e901bf554483..4912ab80d143 100644
+--- a/arch/mips/Kbuild
++++ b/arch/mips/Kbuild
+@@ -12,6 +12,7 @@ obj- := $(platform-y)
+ # The object files are linked as core-y files would be linked
  
- 	/* wait for the CPU to be powered up */
--	retval = readl_poll_timeout(cgu->base + CGU_REG_LCR, lcr,
--				 !(lcr & LCR_SCPUS), 10, timeout);
-+	retval = readl_poll_timeout_atomic(cgu->base + CGU_REG_LCR, lcr,
-+					   !(lcr & LCR_SCPUS), 10, timeout);
- 	if (retval == -ETIMEDOUT) {
- 		pr_err("%s: Wait for power up core1 timeout\n", __func__);
- 		return retval;
+ obj-y += generic/
++obj-$(CONFIG_MACH_INGENIC) += ingenic/
+ obj-y += kernel/
+ obj-y += mm/
+ obj-y += net/
+diff --git a/arch/mips/generic/init.c b/arch/mips/generic/init.c
+index 1d712eac1617..38f294887c17 100644
+--- a/arch/mips/generic/init.c
++++ b/arch/mips/generic/init.c
+@@ -13,6 +13,7 @@
+ 
+ #include <asm/bootinfo.h>
+ #include <asm/fw/fw.h>
++#include <asm/ingenic-smp.h>
+ #include <asm/irq_cpu.h>
+ #include <asm/machine.h>
+ #include <asm/mips-cps.h>
+@@ -113,6 +114,8 @@ void __init device_tree_init(void)
+ 	unflatten_and_copy_device_tree();
+ 	mips_cpc_probe();
+ 
++	if (!register_ingenic_smp_ops())
++		return;
+ 	if (!register_cps_smp_ops())
+ 		return;
+ 	if (!register_vsmp_smp_ops())
+diff --git a/arch/mips/include/asm/ingenic-smp.h b/arch/mips/include/asm/ingenic-smp.h
+new file mode 100644
+index 000000000000..ea81c333820d
+--- /dev/null
++++ b/arch/mips/include/asm/ingenic-smp.h
+@@ -0,0 +1,20 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/* Copyright (C) 2013 Paul Burton <paulburton@kernel.org> */
++#ifndef __ASM_INGENIC_SMP_H__
++#define __ASM_INGENIC_SMP_H__
++
++#include <linux/errno.h>
++#include <linux/init.h>
++#include <linux/kconfig.h>
++
++#if defined(CONFIG_MACH_JZ4780) && defined(CONFIG_SMP)
++int __init register_ingenic_smp_ops(void);
++void xburst_secondary_cpu_entry(void);
++#else
++static inline int register_ingenic_smp_ops(void)
++{
++	return -ENODEV;
++}
++#endif
++
++#endif /* __ASM_INGENIC_SMP_H__ */
+diff --git a/arch/mips/ingenic/Kconfig b/arch/mips/ingenic/Kconfig
+index f595b339a4b8..583f8d3651df 100644
+--- a/arch/mips/ingenic/Kconfig
++++ b/arch/mips/ingenic/Kconfig
+@@ -64,6 +64,8 @@ config MACH_JZ4780
+ 	select MIPS_CPU_SCACHE
+ 	select SYS_HAS_CPU_MIPS32_R2
+ 	select SYS_SUPPORTS_HIGHMEM
++	select SYS_SUPPORTS_SMP
++	select SMP_UP if SMP
+ 
+ config MACH_X1000
+ 	bool
+diff --git a/arch/mips/ingenic/Makefile b/arch/mips/ingenic/Makefile
+new file mode 100644
+index 000000000000..fc3b1bf1f25a
+--- /dev/null
++++ b/arch/mips/ingenic/Makefile
+@@ -0,0 +1,5 @@
++# SPDX-License-Identifier: GPL-2.0
++
++ifdef CONFIG_SMP
++obj-$(CONFIG_MACH_JZ4780) += ingenic-smp.o ingenic-smp-entry.o
++endif
+diff --git a/arch/mips/ingenic/ingenic-smp-entry.S b/arch/mips/ingenic/ingenic-smp-entry.S
+new file mode 100644
+index 000000000000..250a0c89c955
+--- /dev/null
++++ b/arch/mips/ingenic/ingenic-smp-entry.S
+@@ -0,0 +1,54 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (C) 2013 Paul Burton <paulburton@kernel.org>
++ * XBurst secondary CPU reset entry
++ */
++
++#include <asm/addrspace.h>
++#include <asm/asm.h>
++#include <asm/asmmacro.h>
++#include <asm/cacheops.h>
++#include <asm/mipsregs.h>
++
++#define CACHE_SIZE	(32 * 1024)
++#define CACHE_LINESIZE	32
++
++	/* The CP0 REIM register only stores the upper 16 address bits. */
++	.section .text.smp-entry, "ax"
++	.balign 0x10000
++	.set noreorder
++LEAF(xburst_secondary_cpu_entry)
++	mtc0	zero, CP0_CAUSE
++	li	t0, ST0_CU0
++	mtc0	t0, CP0_STATUS
++	ehb
++
++	/* Invalidate both private caches before entering cached code. */
++	li	t0, KSEG0
++	ori	t1, t0, CACHE_SIZE
++	mtc0	zero, CP0_TAGLO
++	ehb
++1:	cache	Index_Store_Tag_I, 0(t0)
++	cache	Index_Store_Tag_D, 0(t0)
++	addiu	t0, t0, CACHE_LINESIZE
++	bne	t0, t1, 1b
++	 nop
++
++	mfc0	t0, CP0_CONFIG
++	li	t1, ~CONF_CM_CMASK
++	and	t0, t0, t1
++	ori	t0, t0, CONF_CM_CACHABLE_NONCOHERENT
++	mtc0	t0, CP0_CONFIG
++	mtc0	zero, CP0_PAGEMASK
++	ehb
++
++	/* CPU0 publishes these in RAM before releasing CPU1 from reset. */
++	la	t0, xburst_cpu_entry_sp
++	lw	sp, 0(t0)
++	la	t0, xburst_cpu_entry_gp
++	lw	gp, 0(t0)
++
++	la	t0, smp_bootstrap
++	jr	t0
++	 nop
++END(xburst_secondary_cpu_entry)
+diff --git a/arch/mips/ingenic/ingenic-smp.c b/arch/mips/ingenic/ingenic-smp.c
+new file mode 100644
+index 000000000000..3cdb953c7a87
+--- /dev/null
++++ b/arch/mips/ingenic/ingenic-smp.c
+@@ -0,0 +1,247 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * XBurst SMP support, based on Paul Burton's CI20 implementation and
++ * Zhou Yanjie's 2020 JZ4780 SMP series.
++ * Copyright (C) 2013 Paul Burton <paulburton@kernel.org>
++ */
++
++#include <linux/clk.h>
++#include <linux/cpu.h>
++#include <linux/interrupt.h>
++#include <linux/of.h>
++#include <linux/of_clk.h>
++#include <linux/sched/task_stack.h>
++#include <linux/smp.h>
++
++#include <asm/addrspace.h>
++#include <asm/irq_cpu.h>
++#include <asm/mipsregs.h>
++#include <asm/r4kcache.h>
++#include <asm/smp-ops.h>
++
++#include <asm/ingenic-smp.h>
++
++#define read_c0_corectrl()	__read_32bit_c0_register($12, 2)
++#define write_c0_corectrl(val)	__write_32bit_c0_register($12, 2, val)
++#define read_c0_corestatus()	__read_32bit_c0_register($12, 3)
++#define write_c0_corestatus(val)	__write_32bit_c0_register($12, 3, val)
++#define read_c0_reim()		__read_32bit_c0_register($12, 4)
++#define write_c0_reim(val)	__write_32bit_c0_register($12, 4, val)
++#define read_c0_mailbox0()	__read_32bit_c0_register($20, 0)
++#define write_c0_mailbox0(val)	__write_32bit_c0_register($20, 0, val)
++#define read_c0_mailbox1()	__read_32bit_c0_register($20, 1)
++#define write_c0_mailbox1(val)	__write_32bit_c0_register($20, 1, val)
++
++#define XBURST_MBOX_IRQ		(MIPS_CPU_IRQ_BASE + 3)
++#define CORECTRL_SWRST(cpu)	BIT(cpu)
++#define CORECTRL_RPC(cpu)	BIT(8 + (cpu))
++#define CORESTATUS_MIRQ(cpu)	BIT(cpu)
++#define REIM_ENTRY		GENMASK(31, 16)
++#define REIM_MBOXIRQ(cpu)	BIT(cpu)
++
++static struct clk *cpu1_clock;
++static DEFINE_RAW_SPINLOCK(smp_lock);
++
++/* Referenced by the uncached secondary CPU reset entry. */
++unsigned long xburst_cpu_entry_sp;
++unsigned long xburst_cpu_entry_gp;
++
++static irqreturn_t xburst_mbox_interrupt(int irq, void *dev_id)
++{
++	unsigned int cpu = cpu_logical_map(smp_processor_id());
++	u32 action, status;
++
++	raw_spin_lock(&smp_lock);
++	if (cpu == 0) {
++		action = read_c0_mailbox0();
++		write_c0_mailbox0(0);
++	} else {
++		action = read_c0_mailbox1();
++		write_c0_mailbox1(0);
++	}
++
++	status = read_c0_corestatus();
++	write_c0_corestatus(status & ~CORESTATUS_MIRQ(cpu));
++	irq_disable_hazard();
++	raw_spin_unlock(&smp_lock);
++
++	if (action & SMP_RESCHEDULE_YOURSELF)
++		scheduler_ipi();
++	if (action & SMP_CALL_FUNCTION)
++		generic_smp_call_function_interrupt();
++
++	return IRQ_HANDLED;
++}
++
++static void __init xburst_smp_setup(void)
++{
++	struct device_node *np;
++	u32 entry, reim;
++	unsigned int cpu = 0;
++	u64 hwid;
++
++	for_each_of_cpu_node(np) {
++		hwid = of_get_cpu_hwid(np, 0);
++		if (!of_device_is_available(np) ||
++		    hwid >= ARRAY_SIZE(__cpu_number_map))
++			continue;
++		if (cpu >= nr_cpu_ids) {
++			of_node_put(np);
++			break;
++		}
++		__cpu_number_map[hwid] = cpu;
++		__cpu_logical_map[cpu] = hwid;
++		set_cpu_possible(cpu, true);
++		cpu++;
++	}
++
++	/* Program the shared reset vector with mailbox delivery masked. */
++	reim = read_c0_reim();
++	reim &= ~(REIM_MBOXIRQ(0) | REIM_MBOXIRQ(1));
++	write_c0_reim(reim);
++	write_c0_mailbox0(0);
++	write_c0_mailbox1(0);
++	write_c0_corestatus(0);
++
++	entry = KSEG1ADDR((unsigned long)xburst_secondary_cpu_entry);
++	write_c0_reim((reim & ~REIM_ENTRY) | (entry & REIM_ENTRY));
++}
++
++static void __init xburst_prepare_cpus(unsigned int max_cpus)
++{
++	struct device_node *np;
++	u32 reim;
++	int ret;
++
++	ret = request_irq(XBURST_MBOX_IRQ, xburst_mbox_interrupt,
++			  IRQF_PERCPU | IRQF_NO_THREAD, "core mailbox", NULL);
++	if (ret) {
++		pr_err("XBurst: cannot request mailbox IRQ: %d\n", ret);
++		return;
++	}
++
++	reim = read_c0_reim();
++	write_c0_reim(reim | REIM_MBOXIRQ(0));
++	set_c0_status(STATUSF_IP3);
++	irq_enable_hazard();
++
++	if (!cpu_possible(1))
++		return;
++
++	np = of_get_cpu_node(1, NULL);
++	cpu1_clock = of_clk_get(np, 0);
++	of_node_put(np);
++	if (IS_ERR(cpu1_clock)) {
++		pr_err("XBurst: cannot get CPU1 clock: %ld\n",
++		       PTR_ERR(cpu1_clock));
++		return;
++	}
++
++	ret = clk_prepare(cpu1_clock);
++	if (ret) {
++		clk_put(cpu1_clock);
++		cpu1_clock = ERR_PTR(ret);
++		pr_err("XBurst: cannot prepare CPU1 clock: %d\n", ret);
++	}
++}
++
++static int xburst_boot_secondary(int cpu, struct task_struct *idle)
++{
++	unsigned long flags;
++	u32 ctrl;
++	int ret;
++
++	if (cpu_logical_map(cpu) != 1 || IS_ERR_OR_NULL(cpu1_clock))
++		return -ENODEV;
++
++	raw_spin_lock_irqsave(&smp_lock, flags);
++	ctrl = read_c0_corectrl() | CORECTRL_SWRST(1) | CORECTRL_RPC(1);
++	write_c0_corectrl(ctrl);
++	back_to_back_c0_hazard();
++
++	ret = clk_enable(cpu1_clock);
++	if (ret)
++		goto unlock;
++
++	xburst_cpu_entry_sp = __KSTK_TOS(idle);
++	xburst_cpu_entry_gp = (unsigned long)task_thread_info(idle);
++	/* Publish bootstrap state before CPU1 starts using its private cache. */
++	r4k_blast_dcache();
++	/* Complete cache writeback before releasing reset. */
++	mb();
++	write_c0_corectrl(ctrl & ~CORECTRL_SWRST(1));
++	back_to_back_c0_hazard();
++unlock:
++	raw_spin_unlock_irqrestore(&smp_lock, flags);
++	return ret;
++}
++
++static void xburst_init_secondary(void)
++{
++	clear_c0_status(ST0_IM);
++	irq_disable_hazard();
++}
++
++static void xburst_smp_finish(void)
++{
++	unsigned int cpu = cpu_logical_map(smp_processor_id());
++	u32 reim;
++
++	raw_spin_lock(&smp_lock);
++	reim = read_c0_reim();
++	write_c0_reim(reim | REIM_MBOXIRQ(cpu));
++	raw_spin_unlock(&smp_lock);
++
++	change_c0_status(ST0_IM, STATUSF_IP3 | STATUSF_IP2 |
++			 STATUSF_IP1 | STATUSF_IP0);
++	irq_enable_hazard();
++	local_irq_enable();
++}
++
++static void xburst_send_ipi_locked(int cpu, unsigned int action)
++{
++	if (cpu_logical_map(cpu) == 0)
++		write_c0_mailbox0(read_c0_mailbox0() | action);
++	else
++		write_c0_mailbox1(read_c0_mailbox1() | action);
++	back_to_back_c0_hazard();
++}
++
++static void xburst_send_ipi_single(int cpu, unsigned int action)
++{
++	unsigned long flags;
++
++	raw_spin_lock_irqsave(&smp_lock, flags);
++	xburst_send_ipi_locked(cpu, action);
++	raw_spin_unlock_irqrestore(&smp_lock, flags);
++}
++
++static void xburst_send_ipi_mask(const struct cpumask *mask, unsigned int action)
++{
++	unsigned long flags;
++	int cpu;
++
++	raw_spin_lock_irqsave(&smp_lock, flags);
++	for_each_cpu(cpu, mask)
++		xburst_send_ipi_locked(cpu, action);
++	raw_spin_unlock_irqrestore(&smp_lock, flags);
++}
++
++static const struct plat_smp_ops xburst_smp_ops = {
++	.send_ipi_single = xburst_send_ipi_single,
++	.send_ipi_mask = xburst_send_ipi_mask,
++	.init_secondary = xburst_init_secondary,
++	.smp_finish = xburst_smp_finish,
++	.boot_secondary = xburst_boot_secondary,
++	.smp_setup = xburst_smp_setup,
++	.prepare_cpus = xburst_prepare_cpus,
++};
++
++int __init register_ingenic_smp_ops(void)
++{
++	if (!of_machine_is_compatible("ingenic,jz4780"))
++		return -ENODEV;
++
++	register_smp_ops(&xburst_smp_ops);
++	return 0;
++}
+diff --git a/arch/mips/kernel/idle.c b/arch/mips/kernel/idle.c
+index 80e8a04a642e..46526997a4c6 100644
+--- a/arch/mips/kernel/idle.c
++++ b/arch/mips/kernel/idle.c
+@@ -18,6 +18,7 @@
+ #include <asm/cpu-type.h>
+ #include <asm/idle.h>
+ #include <asm/mipsregs.h>
++#include <asm/r4kcache.h>
+ 
+ /*
+  * Not all of the MIPS CPUs have the "wait" instruction available. Moreover,
+@@ -71,6 +72,23 @@ static void __cpuidle rm7k_wait_irqoff(void)
+ 		"	.set	pop					\n");
+ }
+ 
++/* XBurst gates its private cache clock in WAIT; write back dirty data first. */
++static void __cpuidle xburst_wait_irqoff(void)
++{
++	unsigned long pending = read_c0_cause() & read_c0_status() & CAUSEF_IP;
++
++	if (!need_resched() && !pending) {
++		r4k_blast_dcache();
++		__asm__ __volatile__(
++			".set push\n"
++			".set mips3\n"
++			"sync\n"
++			"wait\n"
++			".set pop\n"
++			: : : "memory");
++	}
++}
++
+ /*
+  * Au1 'wait' is only useful when the 32kHz counter is used as timer,
+  * since coreclock (and the cp0 counter) stops upon executing it. Only an
+@@ -156,10 +174,16 @@ void __init check_wait(void)
+ 	case CPU_CAVIUM_OCTEON_PLUS:
+ 	case CPU_CAVIUM_OCTEON2:
+ 	case CPU_CAVIUM_OCTEON3:
+-	case CPU_XBURST:
+ 	case CPU_LOONGSON32:
+ 		cpu_wait = r4k_wait;
+ 		break;
++	case CPU_XBURST:
++		if (IS_ENABLED(CONFIG_MACH_JZ4780) &&
++		    IS_ENABLED(CONFIG_SMP))
++			cpu_wait = xburst_wait_irqoff;
++		else
++			cpu_wait = r4k_wait;
++		break;
+ 	case CPU_LOONGSON64:
+ 		if ((c->processor_id & (PRID_IMP_MASK | PRID_REV_MASK)) >=
+ 				(PRID_IMP_LOONGSON_64C | PRID_REV_LOONGSON3A_R2_0) ||
 -- 
 2.53.0
 
