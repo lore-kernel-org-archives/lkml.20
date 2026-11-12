@@ -1,47 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504079;
-	b=yY0Tc325u2Vc3UscTzJFk/3XDmYbQX1EWP1wRj8jZDLwVBVUz5Xe3eNSQuw8OjOR/TKV
-	 orGaIpPeSLq4V8JcvK/atbIcHW2waO5Gmkv8SgpA6VYKMXabbMnEbqynpEZGJNmAkmoqC
-	 BR2Y1aH//JiV8B3oQ5Nj4uZ0r8LqqZ422HtZMwOA55NpHrfz+DTKaVOaDVVy5kOmaY2Ew
-	 xziU0eU50LcgA/qj4zgyBJ/GpV1k4Uf2Rjd0dCh99n2caXkjv45ffpw+x2Wpj0L/lVzAt
-	 xPO9dED24plktSwteheprsYfiv2OKnfDxW5lK9eGQhJ+k+nhKh3U3OOgP5KZObnjuDQ==
+	t=1794504082;
+	b=z4UyEe/Ne3ZaaUVKy4mGnE9OEW/ij8S+OzYy9sSjhSS6wu3gkkCFTTjdA/HgripC2SIy
+	 w5yCjPAsp/dEedWhrnNhPOi6Y3c6v75i4Mf6DthW2mXHb6hmk9HWFj4jkGS2DPRmD8WXF
+	 NzbfE+8y/Gs+jVyeBQT0YJ0BlpQ6EAEeyxZJjYO/YxweXCEAaxQW+rMSnZNqD7sEiJKUc
+	 s6VlqU3eCeqV8yGSF5U0rcq5CTA8vWPyPV+d+G0arIRA6I58zVxD3c1fmPcJyyIPLXxLI
+	 Ouo2qsvyPETNH9HrV1iX66ezK9GvMVdR+D9msSAM9Y+W8WaSDDEgTDfugdy7aF+TMTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504079;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=eXdLq4VpQrc3pLNlS0vz0mjfNa2LKyEz8zqt+39dnpA=;
-	b=l5aWpGcm822ttwC9YHSLVsS6FH/PTMBHkyB7dZEvjHj8ehmhY/1oigYFJz4gfNX4jGy3
-	 QYGNdwOCUjuR1K594yTpYr4SvygO4muwa4/EmFzndwoETTf13beDWZP2mSPFiiHoVBptI
-	 j37A4bcCnUtA0e2Gii7kcUnuAPl+44KzPQ5E7SCmvJj+DXvYM6oOhOwvKmtomwInTPjQy
-	 43zYLHbnvBPNS+BEMIYZJ5BsYI/nCcb3AhVHvpgVucBBBhtob8Dpumekgc1ehXU3+xR4O
-	 ey3UMBLPerhKmQJdxv40IaKD2U6KvGcHWmgKO67/Yw+xZqC1aUYCV+EjMnI7Gl/Hqsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504082;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=5yEBX8ZKycqZOP6+Y73EyUw52cEw6hCVyTtC7UHxHx4=;
+	b=1U2k1YAIryf4mjGApKerZnoedgT5rY2bO5/g7/OTZhtH8T2QNx+TGxzlayCYKrwuc2FT
+	 qED8J0Rw/0ef31eNQtyQz4LB10btnC3L1geCoJ142PUQKuHon5k95Ocyi1V1eVpglhcws
+	 1fr4A12j8K2wnJUw8oGSiLbdO6K8T+Fkz/qSBHHHhXuvU6C4TbHrYUib50OweOiQHx9zd
+	 xK0pcwEFfTcivOyKi5JhpvLRaGYGiLLfMGh0MfVvPONWmiq7XrboRYVCWhwxLcImRhO8x
+	 xrOxhmrRaBuo84sYtYH1pA4XubPXaOXGdLHpllOz+tvGTlMZIvsDpcGyDIgZ450qzaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Nfke2sL/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=m973B4rI;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6D9606A31C;
-	Thu, 12 Nov 2026 17:21:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18FC4606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:21:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18FC4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nfke2sL/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27BA1F000C4;
-	Thu, 12 Nov 2026 17:21:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794504078;
-	bh=eXdLq4VpQrc3pLNlS0vz0mjfNa2LKyEz8zqt+39dnpA=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=Nfke2sL/sXeXWgIPPISdEdw7sGin5a53bUK+xzslYxXJR8Tg627nY3WJIABgaNWPL
-	 w8zG2LCYd4bNIlUQ3kZMoQDOvih/c48INhQ/T/rkT7SCqoQg47iBwFezynk9plkpSU
-	 cEixol31RYjGYIcQkK3ZcLBQEGnO7KDDL8mZJN+/FY2viUkvLoEbiTC90iKvBbXVdg
-	 jQPhSS1WVZvlAshJ7PRvufjMAa+dQ9dnR1ICF+j0EYTEElM3j2vCtBsT345WiUR1ah
-	 Trpk0bf2Y27/gKgcemJUuZhgG0zjmXStvRRryH4Y4Crq9XuWgpiZQYl4KNKmRc+U9K
-	 5aCfwZy0GaI5g==
-Message-ID: <c4bcc25b-636c-4eb9-ad04-3c267af877ce@kernel.org>
-Date: Thu, 12 Nov 2026 18:21:09 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=m973B4rI
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=5yEBX8ZKycqZOP6+Y73EyUw52cEw6hCVyTtC7UHxHx4=; b=m973B4rIKJKWkH31TLIyylMdEG
+	h2FYJt3osVqGgZAKePwq8VGo8dr0WXFB/Sjr2pO6T5V7CSOEP5HqzAhUBhCesVLoDRG81ldhZt4fx
+	L+b7r7MxSoTKVKDZ6ZbywXqnHTb6qbWiCWtCWgPoebHp3eeoZmZILjqkk/ttpbfqpMdWGicVgKmC6
+	Kg5Op+G+2qxHLHQjoTz7MnNLfUN2nM7cdc2M8gSW/VJIPIxqJixZ0daIuaec8h99Uj5mz0HZJal9b
+	s2Je+/s4YfqiYcA4ht8yohRl9a8KzJuCR/Iw3bfWPx/Kj4pkkIP+NMPSfzIDwHLBsyMP4+PEtm031
+	XXUPdQ5Q==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xRYUA-00E84s-0a;
+	Thu, 12 Nov 2026 17:21:18 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Thu, 12 Nov 2026 09:21:07 -0800
+Subject: [PATCH] arm64: proton-pack: Don't query firmware for Spectre-v4 on
+ SSBS CPUs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,93 +63,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] arm64: defconfig: Enable the Parade PS195 bridge
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20261112-mahua-hdmi-v1-0-b463d7b1dd7e@oss.qualcomm.com>
- <20261112-mahua-hdmi-v1-3-b463d7b1dd7e@oss.qualcomm.com>
- <2dfe6739-2d36-4e47-b7fd-c10fb5374317@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <2dfe6739-2d36-4e47-b7fd-c10fb5374317@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-arm64-spectre-v4-off-v1-1-f03c21744559@debian.org>
+X-B4-Tracking: v=1; b=H4sIAIL19WoC/x3MTQqAIBBA4avErBtQk4yuEi0sx5pFP4wRgXT3p
+ OW3eC9DImFK0FcZhG5OfOwFuq5gXv2+EHIoBqNMq7U26GVrLaaT5ksIb4tHjOiUi01wtlHdBCU
+ 9hSI//3YY3/cDw0OtA2YAAAA=
+X-Change-ID: 20261112-arm64-spectre-v4-off-707f3d74308b
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ atish.patra@linux.dev, thepacketgeek@gmail.com, kernel-team@meta.com, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2261; i=leitao@debian.org;
+ h=from:subject:message-id; bh=LWkbKAGp3Y7xDCW1oETznHpRWADRbc7ruRh+moLNX7M=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9fWLed+k3k0ibZR7//SagnIMHagA9+NN/gfB7
+ 7QsG7yM0N6JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavX1iwAKCRA1o5Of/Hh3
+ bUl3D/9s4UxixQz9H1237FraklLHh/z3vqlJrSBY/2LDDrBkVI3UJu9lMIQRl/+/1lZpj0/6Nq/
+ aRYv6fgyL4/j44IJiNHyMQLADFuZBlS2oJOdHvODgSLJhfcuCxpQxovcfZWaa5iFmjeUdL6FBS7
+ mwNDby/KY9vrPsvoN5oraVm1wC++s0rP74QdnDhWV5d9kJMMs4jBERlZ+ZUp7A1SR/+wzsRHOXB
+ NpfhkeHSnGaedEpau4ntrMmI/rcaaUM8Dlh6kLIh2G9CIC705aUq9p6WiHL3OUM4HElr0L3UUKv
+ 3zHtzvn4+p544aVs76lkvbb/8tLWBtXeCck4o0fKwmR6TH1lYP38zEHfVjK+fqvPdN2e7z8BCcV
+ Woc/SGT8REoodInHG8vSA4ZVeOpnU6Mbnksd2RmhwEWmvB1QT1/csNDsqfV0XLZQSji4xu0cwmB
+ G1Oo1Ew80kEqAQGeysOyv8w972Z7DsHHQFDKfxfkaGmqI3ihpqiZARSLUnl9SMhYrN2emoqmE1T
+ xWnxE/NfyRUJHPyixAOLe94XR0MLOhGjpkACaKQRAZWF1CuZz0pBwE/7IY0k58Ecy075lqC4rJO
+ ru3QCj1umUHfl2kJPtHm7eNDgoFSbdgbuJZ1vqhunWT6j2U+MPx5NVKpUtx/JnEm5Nr0BSVSvqk
+ zphorDxVfiFCXrQ==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On 12/11/2026 17:14, Krzysztof Kozlowski wrote:
-> On 12/11/2026 11:15, Nabige Aala wrote:
->> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
->>
->> Enable the PS195 bridge driver as a module for HDMI output on Glymur,
->> Mahua and Kalambo CRDs.
-> 
-> Same comments as previous patches from you. Don't send Qualcomm internal
-> stuff, that's defconfig for all SoC platforms so you need to properly
-> describe it. What is Glymur? Samsung Glymur? It's impossible to get what
-> you are referring here to.
-> 
-> By coincidence I know what is Glymur, but how Glymur could have Parade
-> chip? It's not possible.
+On a CPU that implements SSBS, booting with mitigations=off or
+ssbd=force-off makes spectre_v4_enable_hw_mitigation() set DSSBS and
+PSTATE.SSBS and return SPECTRE_VULNERABLE. spectre_v4_enable_mitigation()
+then treats the CPU like one without a hardware mitigation and queries
+firmware for SMCCC_ARCH_WORKAROUND_2.
 
-And good examples:
-8b8d8aa9d482b08d5315e4d26631b9891c90e02e
-6f422914412bde4c431706079525c581bf439e03
+Firmware answers that query about its own mitigation. For a CPU with
+SSBS it can report that none is needed, as
+SMCCC_ARCH_WORKAROUND_RET_UNAFFECTED or SMCCC_RET_NOT_REQUIRED.
+spectre_v4_get_cpu_fw_mitigation_state() turns both into
+SPECTRE_UNAFFECTED, so spectre_v4_state keeps its initial
+SPECTRE_UNAFFECTED value. The kernel logs "detected: Spectre-v4", then
+reports "Not affected" in sysfs and PR_SPEC_NOT_AFFECTED from prctl(),
+although every CPU runs with SSBS set. KVM follows spectre_v4_state and
+tells guests that ARCH_WORKAROUND_2 is not required.
+
+Before commit c28762070ca6 ("arm64: Rewrite Spectre-v4 mitigation code"),
+a CPU with SSBS never queried firmware, and the same configuration
+reported "Vulnerable", which seems the correct approach, given
+mitigation=off ?! Same for prctl().
+
+Only fall back to firmware on CPUs without SSBS. When
+spectre_v4_enable_hw_mitigation() returns SPECTRE_VULNERABLE for a CPU
+with SSBS, the mitigation was disabled on the command line, whatever
+firmware says.
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ arch/arm64/kernel/proton-pack.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/kernel/proton-pack.c b/arch/arm64/kernel/proton-pack.c
+index 3bcf86154d95cd..80c5f6a198241c 100644
+--- a/arch/arm64/kernel/proton-pack.c
++++ b/arch/arm64/kernel/proton-pack.c
+@@ -638,7 +638,7 @@ void spectre_v4_enable_mitigation(const struct arm64_cpu_capabilities *__unused)
+ 	WARN_ON(preemptible());
+ 
+ 	state = spectre_v4_enable_hw_mitigation();
+-	if (state == SPECTRE_VULNERABLE)
++	if (state == SPECTRE_VULNERABLE && !this_cpu_has_cap(ARM64_SSBS))
+ 		state = spectre_v4_enable_fw_mitigation();
+ 
+ 	update_mitigation_state(&spectre_v4_state, state);
+
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20261112-arm64-spectre-v4-off-707f3d74308b
 
 Best regards,
-Krzysztof
+--  
+Breno Leitao <leitao@debian.org>
+
