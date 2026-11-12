@@ -1,59 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489017;
-	b=IqjuUCxSOIlHNDhhXYFdQ5P02PldSe+6MY50MjMiW9pSbR9zn4yslwxE+My7cCjGZMJN
-	 2mGWVRQewX14Y5ryuAKOqR2DJeLKoc8mDwih3p+VfTe5b4hoNTd1mU+QDCHnPMNZtXXen
-	 APWKx76Ne7RtTx+03dX8jto9Kng1sJ1pf4A0ad9UFGWYnymGLD5V1jw+1gDQh2MhfRAyL
-	 HElyMF9LtewgL8cfHMSTu0VU/8jDQYEd7Rqf4Iry0BcMqbUORuNOTYYz/oo/ud99LXA4o
-	 BS9//b/E3kH6P9cwHu4m7KKyKJKA4AG/7SD6C1YN2KgCmq0bvO3WGSn2P1CslZsLGyg==
+	t=1794489023;
+	b=M99N4ANgSd3pTKbEpqehQ3rVBUcC33+T4q72C+Ni4FF7CFcD7uucc3irgnqJoBkSwHuA
+	 TOyD3ZNKYRZYD3MzzbSeXTI05DTRfHaE/yrCvNxgoUG9kQN+Vqs364GY3CjTrf57MSOK7
+	 oZuff89rtq5I/IUX9t/z0vzq/kVY1AlFQvQi6Z1Evr3sJFRZn39QJc4y3IkFkgagJwBga
+	 +kMT9xrAg58uDMK7xRwTfu9KtAJAzaN6T4hSu8D0rdCIdWMi5vRZomPuqP/VIObAgxZUl
+	 GdRLMcE9o6zBxApwsuLigolO4ERjXUNjKj5nWTYmnk7f04AR+p0u68IOjWvBEpQthrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489017;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
-	b=gcTdH5fDTFPn8jYCkBAvgxzEXHvWqw4xHNGaeEiJjabmIv8RcF2de2Tn6dFbjJqVKvQo
-	 xwgj1RPk6l2edO6nBM+WtmpVBymLsmUJ55nuhO6r6cY6wfZWyTA52etmTx1R8YJA0RAXp
-	 pT3yhu1zzoNrgLhj8pi6drOCy9xYO9gDjI26hDXfKpO0qibv9Xs/pHGNTzdK2IkQazies
-	 BUelpnCxUNBaB0MxjNr1AD/kM0wVIkymd88EFAolkM7SeDvPRoAdIqLuhlWIezPWl/++/
-	 BvCqKeMkJ/XEFXWT8BQCBvcXqjZP3FNwABy9n41lWroWL0iEIXHoAQhRCV5lxqHDDrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489023;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/ScJysAfHU/3UcDNAAYnWlZ68uEE/9WuK+T2tCuHaVA=;
+	b=BMCxFJhnIzfI89YLtvpz/YJGBCCDdC8ydOGetd99hm4CefVYq1925nFLks7u3CjQtq5Y
+	 3z24kTtid2FU+t7SWLz4boA6NFqPkb6JPVYEawfDCBUaXtASr0n5vHFkBnpDlPhCeNqox
+	 d3/aRfqVYDNFoP5VEFYI5BUTbtearR/B2dUrhW5TSCxqOzrDwaMCNZzvfP0Ae+QiXME9e
+	 XbJ/u+nvVyY10cl3tsoirw0IP4Eq8bcsw3rEFcU2xyhmxx8YD57ixhyxViyCxUepFf6R7
+	 +bLDbiRKyOSj75xmJMGzayq/3FRozGooxuPVTh/K2W6/eWNDAjxESYNg3aCXgUlKhuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxYVUuYA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sSC54di3;
+	arc=none smtp.remote-ip=95.215.58.10
+Received: from mta1.migadu.com (out-10.mta1.migadu.com [95.215.58.10])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1C0606A332;
-	Thu, 12 Nov 2026 13:10:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9769D606A880
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:10:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9769D606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxYVUuYA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93ECC1F00A0A;
-	Thu, 12 Nov 2026 13:10:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794489016;
-	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MxYVUuYAKmeGNr7LH7dlub4crKyb10O6m1oEZEZAjnckl+2vnbWelnSqghZYQiNa0
-	 JlVHOLuSfBXu2XPNzWABuxpD4h7YQH0MDn6Ud5nOClPYO+KoonloBRzoxkCGMvtiV8
-	 x9zyeOIoVL+ewtfYSri2+ddi3iIvyYItqbXhy7pZIY+nLgw2T8kX5ntBs9H4HdSLR+
-	 DPkNmm8fVIJMKqSD6zXp76WvpRTzXiPkwRPdv1SVUuBNpUleilyEGJSF0rCmSkhMEX
-	 4K7D6y684D2+7pC/8EPM+T9QEcs+tDJC0t5pQ8X1Sc+67+qtVh2upQqS3pWodeuWLs
-	 FpiOz3RuK/DIg==
-From: netdev-bot+sinfo@kernel.org
-To: Kalpesh Solanki <skalpesh942@gmail.com>
-Cc: Jay Vosburgh <jv@jvosburgh.net>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Oliver Hartkopp <socketcan@hartkopp.net>,
- Jiale Yao <yaojiale02@163.com>
-Subject: 
- Re: [PATCH] bonding: reject IEEE 802.15.4 and 6LoWPAN devices in bond_enslave
-Date: Thu, 12 Nov 2026 13:10:16 +0000
-Message-ID: <179448901611.2168702.17174519811846942598@kernel.org>
-In-Reply-To: <20261112130833.233208-1-skalpesh942@gmail.com>
-References: <20261112130833.233208-1-skalpesh942@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sSC54di3
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Khvjz3OMMUyRYmhS0+smYP9TQ+oix+8/Op5iUO6ggxk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794489020; v=1; x=1795093820;
+ b=sSC54di3GgxMKWcYF2sSz/O0xlW8ZapetPfB185w55XaPUrxYTxmnsq1q7z2OKmPXlczUrBp
+ N+e7mA+F8zvvZSV6U7M+EjV5GgZqBIypCf7FmRr77XgHWYqopk6nFS7hiW3QBfDWDximHNd2ovj
+ 4QNEu8eHP1y3frIV8evzTZmI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6a1e810a2867f43e;
+	Thu, 12 Nov 2026 13:10:19 +0000
+X-Mizu-Trace-ID: 6a1e810a2867f43e
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org
+Cc: void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
+	liwanwu@kylinos.cn,
+	usama.arif@linux.dev,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH 2/6] sched_ext: Make scx_bpf_cid_node() a benign lookup for invalid cids
+Date: Thu, 12 Nov 2026 21:09:30 +0800
+Message-ID: <20261112130934.563321-3-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112130934.563321-1-cui.tao@linux.dev>
+References: <20261112130934.563321-1-cui.tao@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,25 +74,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+From: Tao Cui <cuitao@kylinos.cn>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+scx_bpf_cid_node() is documented to return NUMA_NO_NODE when @cid is
+invalid or there is no scheduler. Its implementation goes through
+scx_cid_to_cpu(), whose cid_valid() calls scx_error() on an invalid
+value, so an invalid @cid does end at NUMA_NO_NODE, but only after
+flagging the whole scheduler for exit.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Bounds-check @cid in the kfunc instead, keeping the documented benign
+return and leaving the aborting validation to the paths whose contracts
+call for it.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+Fixes: 5cadf7545cc6 ("sched_ext: Add a CID NUMA node lookup kfunc")
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+---
+ kernel/sched/ext/cid.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+diff --git a/kernel/sched/ext/cid.c b/kernel/sched/ext/cid.c
+index 8e04a8494e11..b09b2c73ccec 100644
+--- a/kernel/sched/ext/cid.c
++++ b/kernel/sched/ext/cid.c
+@@ -690,6 +690,16 @@ __bpf_kfunc s32 scx_bpf_cid_node(s32 cid, const struct bpf_prog_aux *aux)
+ 	sch = scx_prog_sched(aux);
+ 	if (unlikely(!sch))
+ 		return NUMA_NO_NODE;
++
++	/*
++	 * Bounds-check @cid here rather than letting scx_cid_to_cpu() do it:
++	 * its cid_valid() aborts the scheduler on an invalid value, while
++	 * this kfunc is documented as a benign lookup that returns
++	 * NUMA_NO_NODE.
++	 */
++	if (cid < 0 || cid >= num_possible_cpus())
++		return NUMA_NO_NODE;
++
+ 	cpu = scx_cid_to_cpu(sch, cid);
+ 	return cpu < 0 ? NUMA_NO_NODE : cpu_to_node(cpu);
+ }
+-- 
+2.53.0
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+base-commit: 5b740a72b55c4267ba4d8010f17dde26b26f52d3
