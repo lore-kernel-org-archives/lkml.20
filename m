@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478393;
-	b=i3m0WwzcphB3eOOizcJ4KgJCR+novJkdJt1TJmq8vmMSbQRoFg33AQR2eWyUNEGVj/vW
-	 hY+Wf/W1Au3QridhOXxKSuStyrt5hT58wz3/ULj+0z/AQRU3yx7aWmYWCGBRgI/47qS5V
-	 yK6C6R+otqQbKKvDwJQQeuBfFMdvot8lddVnZKryLv3/WMe8yQZk0vHI4l2XpJSlY9CVR
-	 8AS3Ysd7MSmnZq7phu7nc7Mn6pLFM/7Ej1jBt+tc0nVbUxaWJ/Ood+AekdqNNIvCDq/zf
-	 rCaQIH43od0zqVii3sLuKIck3qiDXBp+WTZ6wKRlMX+Q6zGwWg3dCP9lAIKWKkBmvcg==
+	t=1794478396;
+	b=mEyXTLb59MBtdexa+HP0gr2X0rRFktGI1rhqUEoeupK2DEbSm0rau5pwuVq7M7QkJE6o
+	 tjfq/gC0g/gTatALKnevwgBUhhb1yo8ZNq6e4vBzYYbJESzyNqfPu9ixHSO7rVCPIa6Hy
+	 M6YiFVyUHb33J3HZWhPIDshBXubDTzF32ar1qWoLqqsPedsngkTgtLoQXgTgAWmjdmTPd
+	 Z25a0E4LCLtEkawhYsvVRpn2o1/RKeStgiUlIyLZ1RjAgE9TPseVnvZjG1CimmMikDNyM
+	 EzA+WiWwNFoyOBtGDcwKrQxGdA3gZvXOqQHQFvSaXa2CBlTFdSTsBQW4NnB89LJv3bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478393;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=2BmWYKOiyjIsi4QXb/VAu1SFL4RNR0NUHUQfqyXSb28=;
-	b=Ot5xTx6+HX2NgvRpSvOlrSP2WQARgUsowmxNVGMgj3NOXWWdc3BcG+xO3RkoVWbkFVSA
-	 163hUzqiBwqV/EaZTwsf7rYuPz8+P+uf1iYv6KCKZ1lxUyEJ7gHdAMnWXrMX3L2Y66HDW
-	 lwtlVihE8drisFUEoMD0GbWOJAxwZekvxhrA4uYcQGjSAHecckYD8tchDYimhAMz3Afy4
-	 IoyUVzM0szdDadXdQoN6upWfyDnLxvN8UxK/JUc1ALdFlu8320VAWDH6EKLrRJOW3whg8
-	 WayHChyk+NSjJugkt7NDVgEUkRSsmxBHc7lTO+wMtsleDILxim/rnKs8NBUkOcd7+ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478396;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wtvm4bUz4M3LTVqusNXCR/CjAB5YqrK+oM377d5ahbo=;
+	b=fYY0UEFEpfVW6xMQ+Spfi8piJ4kz4dg1zjOmBXml3ywmSHr2itE4n7VBbWJxQ6z9gIPP
+	 c2mCwSZ7ZTfx4DLhkXU5H/CWbokkNaIbiJT/SPuO0ysNaC5Z7P/kZf48dE323Xnja07nE
+	 qYTvhuIGZUVeLfP+XdZiR38B8+SWTh7udYNumuwZXUT6JFo9qQINgbmyCcYCK6uPKrRBi
+	 8/7MjwhzLUfeG6T9ZBXlnT337gmuI1x+z7OCK3715L9Kq1FNm5DXE92ooO2sFy8Dzkxc0
+	 iiXGCOiAWC83QFW3C5qkeOKZAWGYiJdqOoqov+sRVxfx+cwbbdOPNOjdDqRmE+wI8MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=q0TPU5yP;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=et7P3CEt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9604B606A323;
-	Thu, 12 Nov 2026 10:13:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9604B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 78151606A33D;
+	Thu, 12 Nov 2026 10:13:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=q0TPU5yP
-Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id C61571A055D;
-	Thu, 12 Nov 2026 10:13:10 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf03.hostedemail.com (Postfix) with ESMTPA id 14D266000F;
-	Thu, 12 Nov 2026 10:13:03 +0000 (UTC)
-Date: Thu, 12 Nov 2026 05:12:49 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Wenwu Hou <hwenwur@gmail.com>
-Cc: mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tracing/hwlat: Store the maximum latency in nanoseconds
-Message-ID: <20261112051249.7c19f22e@fedora>
-In-Reply-To: <20261111031304.1442318-1-hwenwur@gmail.com>
-References: <20261111031304.1442318-1-hwenwur@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=et7P3CEt
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3BF161F00A06;
+	Thu, 12 Nov 2026 10:13:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794478396;
+	bh=wtvm4bUz4M3LTVqusNXCR/CjAB5YqrK+oM377d5ahbo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=et7P3CEtmIsa+Oex5SrpZMGXuy0LFl5uTSPe+GnmBwygD9vZLtxlcwNZQP/2NiL04
+	 fdWQ8/XxZX3c4EtM/QhsWmTmCbliYZ29uO25MANGCdd6ofuRZNcbAzx+xvLLmu8B5I
+	 +PTlMEQxwo9GOvUbwE/rH/joIQC/ClD5J9VuegfBJ4xx8dY7mB+45CvSpGj1Nt4ZFY
+	 eDC6PgdBGfFQBalRYzydyskDi/wkYdRD/DBbgBLniYfjM8OMZ5wyHY3pZ77aaI0CSo
+	 XwAicgA0lfLkcUAFXTB7YEh2tYsnecXWy8nt5vNRZBTOb9axnovgAJiRSTri0tL4uN
+	 h8IPyJRZppnAA==
+Date: Thu, 12 Nov 2026 11:13:12 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Linghui Wu <linghui.wu@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>, 
+	Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>, Shuai Zhang <shuai.zhang@oss.qualcomm.com>, 
+	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/3] power: sequencing: qcom-wcn: support SW_CTRL wake
+ IRQ
+Message-ID: <ixgltkv3v6soazi6h335tm3eiuomiyw6lcdlxl4sczngcoe7jl@2jlv7z6dyrrt>
+References: <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
+ <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,57 +64,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 4fy5uz88u5rz8yxckudtndmo5esdexp6
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 14D266000F
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX198Fmx32fbNpCc2swGmT014WFRtB7xiuzE=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=2BmWYKOiyjIsi4QXb/VAu1SFL4RNR0NUHUQfqyXSb28=; b=q0TPU5yPLZ947aX3Sv3isuOYZBA7m2KqP762P/02ChGLc6vvPi3+qhkwOX7XLjBCSH1wp2Wxihf264VSdeWIX1XHdIsIqWoH5B3Bww0FFqONTl5WPZWRLDRi61cw/bwR1zvdWYxJACh5iXbWtX0OcK2qlavTYf6dXp1CiJ/GPGY=
-X-HE-Tag: 1794478383-904335
-X-HE-Meta: U2FsdGVkX1+Afnel4CygBPUzz6ifRPiBAp2WGZmEnf5aajhccC3buV9ITyD0sRbT2qBarctUj7GMLNH0pEmdUy8M+YF7/AFduefpXVF7Ngd7ytBKF7XnY7lg5vBy1Nq9F2MRpa5MaOS1dEKhekwfqoyQkudIJfTU27ify8xrU6sU2FcgXP+fC4t03pLcfcIaTi1URKGjlcAfy54/3Mos5uL+ZofYT0kAc3pzP9gjt/2wqMGOQbaEumEtNyGEOAZWVP5MYQY3lnFhuQqYf64D/K/Z7XsItUMKLw1SmSVdVT7rU05CVvZt4e/Y4uyDFVBOKvu7XsoOESQZeLdyIRb72EugCaEQY9ag
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
 
-On Wed, 11 Nov 2026 11:13:04 +0800
-Wenwu Hou <hwenwur@gmail.com> wrote:
-
-> tr->max_latency is expected to hold nanoseconds: tracing_max_lat_read()
-> converts it with nsecs_to_usecs() to print the usecs documented in
-> hwlat_detector.rst, and the other latency tracers store nanoseconds there
-> too.
+On Thu, Nov 12, 2026 at 03:20:06PM +0800, Linghui Wu wrote:
+> Some WCN3990-family devices use the SW_CTRL GPIO to indicate that
+> resources need to remain available while the application processor is
+> suspended.
 > 
-> Fixes: e7c15cd8a1133 ("tracing: Added hardware latency tracer")
-> Signed-off-by: Wenwu Hou <hwenwur@gmail.com>
-
-Amazing that this bug has been here for 10 years and nobody noticed.
-
-> ---
->  kernel/trace/trace_hwlat.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Teach the Qualcomm WCN power-sequencing driver to use the existing
+> SW_CTRL GPIO as a dedicated wake IRQ when the power sequencer is marked
+> as a wakeup source. The PM core keeps the IRQ disabled during normal
+> operation and arms it for system suspend.
 > 
-> diff --git a/kernel/trace/trace_hwlat.c b/kernel/trace/trace_hwlat.c
-> index 65e184d800ff1..701b6a542e51a 100644
-> --- a/kernel/trace/trace_hwlat.c
-> +++ b/kernel/trace/trace_hwlat.c
-> @@ -293,7 +293,7 @@ static int get_sample(void)
->  		s.count = count;
->  		trace_hwlat_sample(&s);
->  
-> -		latency = max(sample, outer_sample);
-> +		latency = max(sample, outer_sample) * NSEC_PER_USEC;
+> The series documents wakeup-source for the WCN PMU binding and enables
+> it for the Shikra CQM, CQS and IQS EVKs.
+> 
+> The series has been validated on linux-next on Shikra hardware.
+>
 
-The real fix is to just use nanoseconds in the calculations. The only
-reason it was doing the conversions was to match max_latency anyway.
-
-The time recorded in the events would need to be converted to
-microseconds too, if the raw numbers are in nanos.
+When addressing sashiko comments in v5, please make sure to send this as
+a new thread, not a reply to existing threads on the list.
 
 Thanks,
-
--- Steve
-
-
->  
->  		/* Keep a running maximum ever recorded hardware latency */
->  		if (latency > tr->max_latency) {
-
+Bart
