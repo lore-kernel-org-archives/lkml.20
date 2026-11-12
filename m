@@ -1,85 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794461790;
-	b=v7Z7nEMQbJ2vRPZkGDs/ZyZJt0FwiiyndCyQfrMIrbwl0Hfr63HtVn1v5+vx6hXLhGZw
-	 7eeXt/84Vp4YIPNRQQdf5NDv+pgVeyRMl4Z0s3vQdW7I+KTPVRbP5jCl1qmQhzHiFXRNa
-	 z3djnEjNRFLdBcHQGaPclU4SglO0U78tKLVOv2OnzM18LF0PnFmdAD3wp2lapgCg8DNYI
-	 VSO6OPcweIm/TKqBzRda9xupUlUpz0Lo2FbahtZbMMEt1Vp6bT9cu6NPJKYMRpvnzs/sI
-	 uFFES2jRONUNcGMroChxgjsoY5rpjUncMaq3FhRvv8as65DJR5U8CRd9jLKrr9FFhXw==
+	t=1794461825;
+	b=HHTQ7E5TUazEiwVAHSgUq+7BpH11gtUGiOryA8cMekExNE7i6beldr/8fqRxcLkVD3R5
+	 TZX6bsDpXASC0rUGRpUCBhNuMg3eLrvRZbGLAWwqNXDxbUIKlrID09m1tnl7DL/RE0856
+	 Y9F5Qfy5HEPYImLniVxVwPJVl/St58UeuzwG5ynnPk1PylPtN/q15wLvs7AOuVCQL9MY4
+	 6+umAUrKsFv2FmIt+3GLDu2Y8PXvN5Bn2LzXPi+Je9HVGFLB19VoGIMcEnF8iE3ZYI52L
+	 KFUujqdLbKTe6Vqz9wAzoslRbNyL8G41DnM518Q0zwMqLaFhPW1mDsikhWiMwTie0YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794461790;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=e2soeXJ852281gC+OC2yZSX9G2s4v3lG9pbKt+VP0DM=;
-	b=oIZbjexoff789Uvra+E9N8AtkEFnWW9+GQr4uJf2RwDoVlI3OZQPYy6l4fhCPU2YBHMQ
-	 D+ZS/7qWwOfSHBcI9nuEE80QYIxei/JVOgtVIEWUzDMBggsVvVGmsybLk05yFCBdAFl7z
-	 j39Q+BnWvD9WNUDyw9NSegaCFKLwEwjBRncHgw4zPlTucDKRh85033JCxUt1LmR16wKOX
-	 dTj5tmKTEWzlf9ubS6jGdl5iSHohCQocZdbb5Y3i5P8mp0S0w0GTslY7fCumgt7P4Z0Xe
-	 8NeMFmPfwnT238T4ls8SrMVTWY0xY3lfooTg68IkBg75XG9wToYI3npaH6TWZPTjT1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794461825;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=EG9t4mZCkW5bj94FWQdTBwdy/NVixZXrhszDaNAIfek=;
+	b=5f1lerMtENtaJ2AcxyXP6YDH0+dhNCeUkn3OA2aT1BETodgRb8CcJx5hpF9bcb0KBhs9
+	 DWtx0euPFv0r2Y6URONzwSiffdGExpd8/Afkt/YfECsV1Ye5jZ+XDmlkI9mscCsamRCL8
+	 ne85EyPK5Q15thX5I40nKkI7C04K2Pdfo24+LV9zZ0Y2xAoKzffE7xjLxDcLfIhKGQ1vd
+	 CpcK2Zd9XZQ/ZEbNbNq6T8vmQzIR9bwkOCo6Wz4ePA6lwk8lmmUP3PRqKDZg8du2YIP2Q
+	 pm8MshPvLsHPaorxQ2P1lavfm5GYNhRe9IOxu4wzbb5BjIJC/CmYctUhJXUqkbVRtXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EzLeINlq;
-	arc=none smtp.remote-ip=209.85.222.170
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=PQzR9qQI;
+	arc=none smtp.remote-ip=95.215.58.142
+Received: from mta1.migadu.com (out-142.mta1.migadu.com [95.215.58.142])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42888606A33C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:36:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42888606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4EC606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:37:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E4EC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EzLeINlq
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93f2049ea7aso266896585a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:36:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794461788; x=1795066588; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=e2soeXJ852281gC+OC2yZSX9G2s4v3lG9pbKt+VP0DM=;
-        b=EzLeINlqWKLSrVyAYeG69cub/PpkhXEpvLI85c2/Wn4DBrX36De6eOjOc825yh2/s8
-         /BMocYYbFGCIGlSENImF1edskqevAV/Kuf1SeaFnM5vAAp8DG8IO1FgayCsUEWs73OHL
-         1RmURtZJc9D4dd17Nf7TyLA18R4yata5cpiLNB4SZ3wXp+wb6mfksV9V6NYOJLevPnzx
-         KS0lFdrtd+eUvcxCI5cIGAuAdA3+x/lK/g0n6XOLpuLtAwXE7FSdI5GYz16DwRhEZcI+
-         e0xi/xTmcXSNKhZMTs2dmsnafffo4Jcsb0EhR1rdi49ZUTTTqLCosCyqFBij3UK+VNvA
-         tckg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794461788; x=1795066588;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e2soeXJ852281gC+OC2yZSX9G2s4v3lG9pbKt+VP0DM=;
-        b=oS/OLyyDe/RZOOIO7FZnMhQADJ3T2IigY7TqdQN+pvte/Y/j1/l1pPynh2HSgIyTps
-         xUxJJZpu7e9vr/LtPfkNLtg1sKxaNiDFSn4tb6eOCPiiB5sz30PrDJPeuz31Z8Vw5NP3
-         93w6W5w2l6D4b81P+SKT/u3OaJuzjYricpnI2qkziiSKpkLveizMgiIONwbUwzXJubt5
-         jqjiGunUXPshj4gY9eoMwAfKeAhQ7TGgYDXB6NTVsr3y/O5pi2WlqEcFcxKVf1ZgVZoJ
-         dW10BZ/UXkzAHT5zFnu5n/HX81kH3fZycUJBOBuzlZwjB747Z3ja+9au+XsJWHNVPl/p
-         Pg+g==
-X-Forwarded-Encrypted: i=1; AL+hErGeatNtZPTvnpVcDn2nJuzIzbeeeFAT3yh8vj4hs58AW+vkDWmc8VK1ViOMhHOEE60R2ZRN566+MuYlXPA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Ul9v5mYzvQ3XYnjUcjmR4XeQ9K7uqTjjPiErd1OzfL6XQwElf
-	I2z4Fvq6xFOdxUR7FqMMM97d0EQiea4rDT6mMtP/xhUskPyT4EBLLNGnztGts+e7ZFg=
-X-Gm-Gg: AYBFou2/GttU0c4pLNMp+u8n4uHcASYiEHdlBhrKGo4ZcpbdPUvO9tkP9M24thtc1rE
-	gQWQ8+lRLVijdEHKHjqt+TDYpOzjRkVPKnm4DeOO5jw7l2A0q2TH5LqhhEqaJg0r71A7DPFiyBr
-	FbcHJsB4UxYb0aKKMd7zeey0ryAbhkSGtT4UFN656KX0BJ2FC5sLfVD6n/uTfXyVJo8CidSBjNE
-	qBJnz1WMPd//mZXzpFPMecfuEkvl5O2YwQ28DKP6mwGimPb6jR7b4vYW21FUK5zxw6LpADHZ9hE
-	JyQpQxmtbqgwI7hOPy6QNuYiNkH96hnkGUSIVWZFifxMl2tuhY+R52BYz7zzEbq6/lfu6AjeQyk
-	c7WX376TpGMynfmOdFmNOfPq/fa782ZqPTNRYiRUvpSEcF4DIxbSA0zQj3UMOQSj6Tt+ds/8ptl
-	1yhxC5HaOcfOXbagCRpARZ9+m92WrHqHo6ODFSXhflQ2R/9zpyiIMicTc+65LTgpaAfSSwSBrzc
-	hu4PsHVCTXusLa3fzEX0VyksNVoIXPFz+QvoYkWrxNRwQwvhywa4FiBL4jnyvk2aX/LwHi2vEoi
-	2S2GsJ1YZcYK9OStETf7yRXWWa6vwoWJ/r5SlTO6KS+ua3mfm5tIMAHe54NbRiKMNA3J8sQQbXy
-	6Y2eOGaI=
-X-Received: by 2002:a05:620a:4481:b0:93c:c2c2:40eb with SMTP id af79cd13be357-947b0046fb4mr764496385a.66.1794461787830;
-        Wed, 11 Nov 2026 21:36:27 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e4fa312sm647786285a.0.2026.11.11.21.36.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 21:36:27 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=PQzR9qQI
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EG9t4mZCkW5bj94FWQdTBwdy/NVixZXrhszDaNAIfek=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794461822; v=1; x=1795066622;
+ b=PQzR9qQIbf3p4A6OWITxFkEazjhTHdcwK7OI1p4iFcr8SPq+7VSMyf4XnRUKbDv46KMeCvmA
+ S/wt951G7wn+0UBeO/l8PJGFm9Bs0jLxRXBioeWSBcc9PyG4Y5PGGPAR6WsG5k1u6xV3G0a+3BB
+ TYocxRN4QlHq1XIuWLf+Zbho7ApxQDUsQcBtoV7EWb17Z5JNClD/iEt6HwY2AlUkTDSZD9HhPLg
+ DYV1qoenas49Q9Y0/RiCqhOJgzWCpFI4hL2DK3Cr7VtRYBf+P5Vz5tA8nUiMM5lemdQQIQ3xC16
+ zAAsQs7M5/z+VGBgjVgMIVIdNaNy9qtXDvUDZV5kkqXcg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0f7c7ee188fea858;
+	Thu, 12 Nov 2026 05:37:02 +0000
+X-Mizu-Trace-ID: 0f7c7ee188fea858
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 12 Nov 2026 13:36:54 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Chen-Yu Yeh <chenyou910331@gmail.com>
+Cc: Alex Shi <alexs@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>, Yanteng Si <si.yanteng@linux.dev>,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/25] docs/zh_TW: process: sync 4.Coding.rst with the
+ English original
+Message-ID: <avVQdrfqVqRfY5ex@wyuan.org>
+References: <20261106113142.706783-1-chenyou910331@gmail.com>
+ <20261106113142.706783-4-chenyou910331@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,85 +69,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 08/13] mm: convert miscellaneous VMA flag tests to use
- vma_flags_t
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Rik van Riel <riel@surriel.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>, 
- SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>, 
- David Rientjes <rientjes@google.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- John Johansen <john.johansen@canonical.com>, 
- Georgia Garcia <georgia.garcia@canonical.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
- Roberto Sassu <roberto.sassu@huawei.com>, 
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, damon@lists.linux.dev, 
- linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org, 
- linux-integrity@vger.kernel.org, selinux@vger.kernel.org
-In-Reply-To: <20261105-late-2026-vma-flags-v1-8-0d3cd15ab75f@kernel.org>
-References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
- <20261105-late-2026-vma-flags-v1-8-0d3cd15ab75f@kernel.org>
-Date: Thu, 12 Nov 2026 00:36:24 -0500
-Message-Id: <179446178440.482102.12362401790016415292.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261106113142.706783-4-chenyou910331@gmail.com>
 
-On 2026-11-05 21:30 +0000, Lorenzo Stoakes (ARM) wrote:
-> Replace use of the legacy vm_flags_t flags with vma_flags_t values in the
-> remaining straightforward VMA flag tests scattered throughout core mm, HMM
-> (and its test module), DAMON and the OOM reaper.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Fri, Nov 06, 2026 at 07:31:18PM +0800, Chen-Yu Yeh wrote:
+> -內核長期以來都有其標準的代碼風格，如
+> -:ref:`Documentation/translations/zh_CN/process/coding-style.rst <tw_codingstyle>`
+> -中所述。在多數時候，該文檔中描述的準則至多被認爲是建議性的。因此，內核中存在
+> -大量不符合代碼風格準則的代碼。這種代碼的存在會給內核開發人員帶來兩方面的危害。
+> +核心長期以來都有其標準的程式碼風格，如
+> +:ref:`Documentation/process/coding-style.rst <tw_codingstyle>` 中所述。在其中
+> +大部分時間裡，該文件中描述的準則至多被認為是建議性的。因此，核心中存在大量不
+> +符合程式碼風格準則的程式碼。這種程式碼的存在會給核心開發人員帶來兩方面的危害。
 
-Acked-by: Gregory Price (Meta) <gourry@gourry.net>
+Sorry, but wait a minute.
 
--- 
-~Gregory
+You used <tw_codingstyle> label here, but after rendering, the html
+output is still "Documentation/process/coding-style.rst", which is
+pointing to the zh-tw translation, not the original one. So it is
+inconsistent, right?
+
+During my review of these patches, I didn't pay close attention to this
+point. I'm so sorry. I originally thought that the compilation of Sphinx
+would have pointed out the problem like this, but it turned out that I
+had misunderstood the grammar of this "ref". Therefore I can see that
+there're some instances in this serie doing like this.
+
+I suggest that in this series, either use the full path to refer to a
+file directly, or stick to the discouraged writing style and wait until
+once these two series are completed, we can then carry out a thorough
+cleanup. What do you think?
+
+Regarding the "ref" of one specific section, I remember that it could be
+referred to using a relative path, and with a label?
+
+So please drop my review trailer, or directly point out that I'm
+misunderstanding this again.
+
+Thanks.
 
