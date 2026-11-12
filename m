@@ -1,124 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794500012;
-	b=RGFbv7F0T0KQc83FumkHECw4yp52XyL2zjQq2UF1dRJSrPljs73aAkusiL60Z4DFqO+d
-	 VktXmttBRcxxOz56YQ8Yw4CnorJPet3p10kYGWkrDaFm5tgWz7oU0rvT6BmYuC9AwR9tu
-	 MsqwbFe1oK71M47uGwwdQpWWHoCYcsMc/T8ZaVY4nF2uJQpwHlwxCnHZCYfe5ZWvH/HIS
-	 339BQo2mlY9tT6LyH1UVjlGNYUx+lsQzfmrB8BKWD+B/UQiqBnvbnjUGhtMEHb8Oa4xSB
-	 Y+AxEuPC/JOoKFGNL3JAKzC0xsPpfpGdVJrQcSGEWfAg1xVlhHJhLsyOQSCYlbgLBwg==
+	t=1794500039;
+	b=1mwhqrcbLU5BdEFtdo+3JLWv/9lgg9ohRCLNDJtiVj4ymj2X0lLNagu3VJiZfTA5NzW4
+	 u04QytcJzxQZO8imQEfmduLwr4v/FAQD5Qo7V5jqqYn8wTaXW/7Nf02KXDL/N6kXNn7uq
+	 eYHEg+NEaXMVGaY/ZGfwyzJP2O1t/lRVfgw/R3YlufaeP9/9csSqTFu2M8NADulis34yB
+	 sJSMYwvG+6u+S9SYEJmPJUW0lLbg3gBCeYIsbrAEzad2XMcVXJ/np6mz++t7iV3sMEgmZ
+	 VmTZiv0v1rXlZslULcPfpgnujgR7FbcaCuZPbLB0I8MDbaA0huvTwpFDmFgTfr5MRNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794500012;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/SNlzExwuTi3WbPB+pJy/Rdg9j690l3UVVEipCGae4g=;
-	b=B/2kBoHMJnF2z49GJLY6mpDpyPXC+MZujxRh9AObVbijkPbx47qeaJ1oef/bQmGBpb28
-	 QIXXlNc2EdL04gkb6pkUVSsNeUafVOm4Pz5AXvR/joyaBwLKTIwbLcg+2HcXMapXkCd2g
-	 1lm9ORIaFXRzwYI7R+kDZy+6sp41mOfCDYZsF+vYFUwETtZxUFgcdhavbK+/LJ3wFJcRv
-	 PaVErtP3WOXp7GfTO36MW0GsZS1O8VJzjiWoCiBeB+lKt0kCMOZ4t0dgNOT1E7DcbxvVU
-	 JUi9Sh+uxIOA/tTD62YF1PfZc1/7TOLRcFI+Nsvg+3+mhMqk82BApQ6zwOLRrqo2JZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794500039;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=c4OknN5YfqROvQIcmXbW+MOiSND7LTxhC21JuzqOEYM=;
+	b=cBaBsxuFF0W2RRH66LBuytV0AiVo8Ea0aCK3fxwArX9O6Exr0osqeaqHDbszyHPRSIzB
+	 aaZCBDSbo1LXOL7IBVQL99BDLF9r2MhPOo8weTCOfnOV5xQhLYHZH0Wt8UbqhuWu51y0k
+	 0/nQbj0/fQXbv406r54HJXI9+AqXiOQi9uIY/MoXqgBlp0/gUv+1gA3rV71n64zhIGUeb
+	 1dkA2ACAoXL4tYZ5at1IL9zSM/utYcKPzIJ/PasfyKXt+KKvx3HtZE1l5eXhnVLpTmLMK
+	 yYHIbVWSMPqTIK0soeyQTjFtzprC8YnHDhzeMm7L5uCa8tmUKo8oRaTqqPgUEwA+XSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b="mscvbfX/";
-	arc=none smtp.remote-ip=74.125.224.45
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BBJqyU5j;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2D1606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:13:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA2D1606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8686E606A32A;
+	Thu, 12 Nov 2026 16:13:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8686E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=mscvbfX/
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-67d8221074dso715380d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:13:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1794500010; x=1795104810; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/SNlzExwuTi3WbPB+pJy/Rdg9j690l3UVVEipCGae4g=;
-        b=mscvbfX/np19cXZfqf03A5JubaZGcQnOdRPEso5ZtATeXHb8C7Bvj23mu7X64g/EN3
-         QwAOJlPBVZukq6OpcBrzGmArUgoPeZw2Vt5kYDbU9kFGnmdIW4tgN52NieHN6bY0yI/Y
-         8qGXx3lM5/s/FVRkcsAVaU/y70hq1jAH4meA7Z2HjyH023lPYtWE7cG6D4uT4QYoVLru
-         9atHvOkISWTpFFYJHw2yLsCEH7KhKFFPJjGjGQiKyY/8mITUKqDsFHtqUfiHayOrFGpy
-         HCBf4ccp+/B91i7vol6oNv5MfCIBqxSriklzVvFsQegtN3eVRHj0VXbRiRFTlwXd784N
-         RshA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794500010; x=1795104810;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/SNlzExwuTi3WbPB+pJy/Rdg9j690l3UVVEipCGae4g=;
-        b=znZIE1Gvxr0gZLsTElxpIVC9nS2IP8FYNUHFK7s+DbJhYMwvUHEG9si/t4b07cn6Ms
-         nrlbSIoH7uqs5lLLDuPXhKnuTPm+4X0WNvHv9wGjLlERJ4hwO4CmN9GJ6FqWEXWizvmP
-         /JNLqtdcF39zAbKcoK58DPD5mJ0otbpDUa/+Uk9Rtq87DMDFSmSxvyKAykVLqoR2ifZO
-         fR5WpDJDs7uCs4IYK3jxYkYrM3OQB7lW6ZivIMI2XN/YJJVONhg0fXDaQ67/CcoBMqn6
-         7OvOWm/O6mHBtM9WlwFeYD3DO5Qa0/s16nP1hJ92eBDhnO0Tvrl11e1owbUMHZduJ36S
-         /+KA==
-X-Forwarded-Encrypted: i=1; AL+hErHxNqtwWgnj6yU3XenIdeqgEsCBCqoLo40CHcW4IxsiA3Jwm4WTAA1CtokXVW1IjmBU4QLLf5DR3b4HCFc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/pX0x5H347MdcMXb2oQUXTdrxUllxEYcmf3h/QrQV0e5/ShroL
-	b6zte92r6+/nahD7lZAt+XsFbZlWe+NLJoC2oqdJsZNqGwl0oD3syqREbwZgrp8vPQ4=
-X-Gm-Gg: AYBFou1BycVHq5qIcQrpLdVSi+Sp3uhsIbmM/P0b4NDs7ouIDWxAKxrc2/0OeQCT8HQ
-	gEI6el/Tte+pf+/d6qkJvCLUBAYBCJYD4BLUQkxU4L8HF2ri3Ze+iKuF1/ueapsm0IAt/Zs1RB9
-	T9uAmTJqWrNXFwW96whY6fp57JPy1pbYfWVkRwpFB066XWSW3k0r2Ulgp/aCiglgXj2czfDIld9
-	e04VXgdLwc/czcnB9XTLN+16X/IUv+mtD1KMYAWMYyxKYkhIaTaF29dAiu7WC3Llm24gfRcOkBC
-	zECbUARu+t2ThPzd4WyNuUwSloZHo9Wt4wFFzophLewAfUMIBcNBB960XwK7Njc5xMteCtL4uU3
-	EnfJi0FPDS4uuDKz1p9Er32bx4653/qd3KmneBBEC2gHlzkvJmNK7d9pmDeqUIalWCRA6kEzZzt
-	WDEh2yWq/cV+jVQYyWgs+WaqfYAZMhBDQACmqjM+YdvAVFA1Q4tMtZVWQPTbkF7NyQad1M1bFlf
-	eKs7g2ShfcAP97UC0/S7pIiGZFVL/WNiAm42tcX+IEPJypih/rQP0u7zm5G4aypLnZCWQoJrf9o
-	HKdqcFdGHpypua1WALw1OhJjHC3A
-X-Received: by 2002:a53:d711:0:b0:67c:1557:7b48 with SMTP id 956f58d0204a3-67c67fd9f14mr3153613d50.64.1794500010621;
-        Thu, 12 Nov 2026 08:13:30 -0800 (PST)
-Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b393409120sm73138157b3.27.2026.11.12.08.13.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:13:29 -0800 (PST)
-Date: Thu, 12 Nov 2026 11:13:25 -0500
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	David Rientjes <rientjes@google.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>,
-	Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Usama Arif <usama.arif@linux.dev>, Kairui Song <kasong@tencent.com>,
-	Balbir Singh <balbirs@nvidia.com>,
-	=?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Yu-cheng Yu <yu-cheng.yu@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>,
-	Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	Mark Brown <broonie@kernel.org>,
-	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 02/13] mm: cachestat: count each page only once
-Message-ID: <avXlpVZTs5_ytZtV@cmpxchg.org>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-2-3d2454362e8d@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BBJqyU5j
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794500039; x=1826036039;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=P3eY0n6vlSPXz45ttiFWukVb0XOFJGYuxSNON9DZg6w=;
+  b=BBJqyU5jLzrqm3uwjT8AVddpzs6xLM8oFHeV/3JM0OWnv6lEME/tTfZJ
+   Xn6400iOKCX88MED6MoPk3FYQ0zdrkDZGxsUjNtG0e25R54yH/O3a2E46
+   GAuAs6bHW0R+2xXOi/St9t3Eg+qiWIj2HoA6rtdryL2OB1PQdRIaez/hv
+   a8tosv6hDYtU52S3dIqto5b2vh0xk/EEyegzTx8CZxXbJMaf1V2CNqTQl
+   AkQ/o2rhOJHqOH+F7ic/RRiYUpyfT9VjlG4vX9bDxAnkCZM/h+wu8v9nM
+   iBzBihdV3WW0Qa/rv1Uwg4lhB/3piVvncgup9e/HEUSwjKG+CWQjA+Dnq
+   A==;
+X-CSE-ConnectionGUID: enQjiMIpRJWEae4mN7CqDQ==
+X-CSE-MsgGUID: o7d23q4JThKh0PPbaBJNUg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3210554"
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="3210554"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 08:13:58 -0800
+X-CSE-ConnectionGUID: YpTlbcAPQJGxf1iKlOYuBw==
+X-CSE-MsgGUID: 7vG+U6ikQHSqNIVXrFRQLg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="8519157"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.6])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 08:13:51 -0800
+Date: Thu, 12 Nov 2026 18:13:49 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Raul E Rangel <rrangel@chromium.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Richard Genoud <richard.genoud@bootlin.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Timur Tabi <timur@kernel.org>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v12 5/8] serial: core: allow drivers to reserve flushed
+ transmit storage
+Message-ID: <avXlve7ROG9jb6AH@ashevche-desk.local>
+References: <20261111-submit-serial-8250-dma-cancel-v1-v12-0-9e3456bc2555@gmail.com>
+ <20261111-submit-serial-8250-dma-cancel-v1-v12-5-9e3456bc2555@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,45 +105,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-2-3d2454362e8d@kernel.org>
+In-Reply-To: <20261111-submit-serial-8250-dma-cancel-v1-v12-5-9e3456bc2555@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Nov 11, 2026 at 06:13:16PM +0000, Lorenzo Stoakes (ARM) wrote:
-> From: Chris Mason <mason@kernel.org>
+On Wed, Nov 11, 2026 at 03:16:30PM -0700, James Hilliard wrote:
+> uart_flush_buffer() resets the transmit FIFO before calling the driver's
+> flush callback. An asynchronous DMA transfer can still access that storage
+> after the callback returns, while a new write can immediately reuse it.
 > 
-> It turns out that filemap_cachestat() can unwittingly return incorrect
-> page counts, if large folios are present.
+> Add uart_xmit_block() and uart_xmit_unblock() so a driver can reserve the
+> flushed storage until its transfer and completion callbacks have retired.
+> Serialize the reservation with FIFO producers using the port lock.
 > 
-> This can occur due to underflow - nr_cache is nearly 2^64 on a 64-bit
-> kernel if the input range starts more than 64 pages into a folio that is
-> split during the call.
+> While the storage is reserved, write_room() reports no space and write()
+> and put_char() accept no data. Defer write-ready notifications until the
+> reservation is released, preserving one-shot TTY wakeups. Keep the flush's
+> write-ready notification under the port lock so it cannot race another
+> reservation.
 > 
-> It can also occur due to pages after a large folio being skipped if the
-> range starts in its second or later XArray slot and the call reschedules at
-> that folio.
+> Wake tty->write_wait after flushing even when writes remain blocked.
+> tty_wait_until_sent() waits for the logical FIFO to empty, independently
+> of whether its storage can be reused. Notify these drain waiters without
+> invoking the line discipline's write_wakeup() callback, so a reservation
+> does not prevent a completed logical flush from waking a drain waiter or
+> consume a one-shot write-ready notification prematurely.
 > 
-> Finally it can be caused by pages being counted twice due to folios in the
-> range being split or collapsed during the call.
+> Suppress ordinary TX starts while the FIFO storage is blocked. Preserve
+> high-priority flow-control characters, which use separate storage.
+> Releasing the reservation wakes writers through the existing TTY wakeup
+> path. This preserves immediate logical flushing while applying write
+> backpressure until the storage is reusable.
 > 
-> filemap_cachestat() walks the page cache under the RCU read lock only,
-> and for each entry it counts the pages that lie in the range. It does
-> not track how far it has counted, so the counts are only right if the
-> walk returns each index once.
+> Track port readiness separately from DMA ownership. Retirement releases the
+> reservation even during startup or shutdown, while writes and wakeups stay
+> gated until successful startup or resume. Reopening or restarting a port
+> wakes deferred writers with either a new or retained FIFO. Restart queued
+> output when reusing a FIFO after suspension. Keep its write-ready
+> notification pending until the retained output drains below the normal
+> wakeup threshold. Share that threshold check with generic 8250 and OMAP
+> TX DMA completion through uart_write_wakeup_if_needed().
 > 
-> But a large folio can be split during the walk, or small folios can be
-> collapsed into a large one, and the next entries then cover indices that
-> were already counted.
+> Publish resume readiness under the same port lock as the TX restart,
+> without clearing any reservation. A concurrent flush can then reserve a
+> new transfer without resume releasing its storage prematurely.
 > 
-> Resolve the issue by tracking the current index as one past the last index
-> in the folio, and explicitly using xas_set() to set the current position in
-> the XArray.
-> 
-> Additionally, add a check for folio_last_index reaching or exceeding
-> last_index and break out of the loop if so.
-> 
-> Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ ljs: updated to use curr_index, fixed comments, updated commit message ]
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Assert the port-lock requirement at uart_write_wakeup(), alongside the
+> reservation helpers, so callers cannot inspect readiness or release a
+> one-shot notification concurrently with a reservation change.
 
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+...
+
+>  void uart_write_wakeup(struct uart_port *port);
+
+> +void uart_xmit_block(struct uart_port *port);
+> +void uart_xmit_unblock(struct uart_port *port);
+
+These are not used in the below helper, so, move them after it, with that
+the uart_xmit_*() and uart_write_*() will be grouped.
+
+> +/**
+> + * uart_write_wakeup_if_needed - notify writers when queued output is low
+> + * @port: port to be processed
+> + *
+> + * Keep one-shot write-wakeup notifications pending until fewer than
+> + * %WAKEUP_CHARS remain in the transmit FIFO. This also applies to output
+> + * retained across suspend and resume.
+> + *
+> + * Context: @port->lock held.
+> + */
+> +static inline void uart_write_wakeup_if_needed(struct uart_port *port)
+> +{
+> +	if (kfifo_len(&port->state->port.xmit_fifo) < WAKEUP_CHARS)
+> +		uart_write_wakeup(port);
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
