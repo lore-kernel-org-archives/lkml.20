@@ -1,88 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794469519;
-	b=jKyAD17tQuxArVI6mA/uS+SFV6XdX5WKINixwjjxQfwGjm+aapwuey3MpsUmLROBelsX
-	 t578AzVtpKBTWyon1iuLtoRGSXBXIs6or2wFfqk+cTMHNH+94XkbgCDNvUZRWnYce3nmk
-	 2B0J0YZYDzx6S1L5JGfosZQQ64Pni4AMM2/DXWgBjtbQxDSAf+ztLf48J6CPEaVb5k28T
-	 SNdowBM31oVoQ0GqPXLNGRJg5PN/CE7Qqn4+7DzhsA8osIxlavE/GlG3fF+/E+VoHxYWt
-	 s1+5JickedbdBrFjR23fLmUWTF0sLXq2BmawTolfmayQgutKJVN0fKoxjAGILkGs3ag==
+	t=1794469552;
+	b=V8KqpPmBGSRBt7s0JvB2dj0kXYHOGXsmKcF57no0qZ/ysXQLVIz3RfrxECXaO2NEuyNm
+	 sLVgWKXFSxcx69eA4N13Pkuzi2qSgPuCc8y4MoSa6iNxnl57Tx6ufiSl+ZAyCeAuzu2k1
+	 MKjMzuXr69SkrSnkOgyoRfdr7vohKf9cE+Fk1u4clTy71Fnfra6lGOoX41hdmNx6c4Q1a
+	 Cgu+nRQA4zz0IzyH6JqvFXU+oB+RRjIgTpLkyuzb4/tOXW/IMZdeFIYa10i2AHitCyC1u
+	 8DA6kBUW/Da20numcNMKvfCe2Qbk9mHfhJseJEhGFSfedhGGiZm3bLHU2wJcStWrl+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794469519;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=XonEwXskiTjcZGriLRKPr8S1lDz0l/ASP2xVg5gbydQ=;
-	b=NfeQ7thPaTwNLxBBJCtEHlE9tDzxjv69F3Gif+fygv0U/TXdmLpL6KTwqr/bL+9MW6Ah
-	 eMVk8f0fd8A8y2FLwCfWQhDh4n2GHJKulsEyqyiQ8Eh97jFnvWoprB8HCLyTDdhiC6Ubj
-	 NY8k5zvEhw1HgiaJUiN7zAkREdb81waJl7cZUqC2DhjDoS7f33IyouPYtALFMHtpwjsoL
-	 TKZ8hUT9ynl07ECHbhDFvU/e9d8KptsjvRa7E2GagdQjccRniw70/RxuqwhgeXGQ4XbSn
-	 vxPQ6dQ6pPGzeH2pSqpahr0uSkNMFiMEb7zMbcCbgBul3/20dxYWGLkeRD9qvEmG0xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469552;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=IKKC/UM4m3qaxcA+tytyNl/vCPkOElZC3udRKzR6ZA4=;
+	b=BSloWh1NBy8VGzFcRsiyCrEujR/MUAt5Ghw5o3u38y9uV2Yd4jmsfRXKGhoVkdxHK4Fx
+	 TJXr19g3M4X+K75pmeOlwqlnRFfdhrBZ67VjhK9UF0jtcmNiHP5iNHM+CsDdeMK83csk8
+	 ZjDgLDBUbS/Mt0IXJwVWwC4czmUIFD1od3IqluVmHWNEYXV+1LonYHdHiQSFlbAFZWH8L
+	 DiAJLc2rkFrcoZ0s4B/UE6lEdsgZjsvDSdH2uha0puxOrfgwj0UCM5MkSfOfhkwzw9lgA
+	 X/NSfVZJxGZm5x6sB3MWIbggQ4YObNaKLrO4gdMHvhmbfyNPUqYnTTqDTfvX9Z5Cpjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q+cJ30Wu;
-	arc=none smtp.remote-ip=74.125.227.133
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXfc0DEV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6217F606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:45:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6217F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B646F606A327;
+	Thu, 12 Nov 2026 07:45:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q+cJ30Wu
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2eb040841a9so3825215ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:45:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794469518; x=1795074318; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XonEwXskiTjcZGriLRKPr8S1lDz0l/ASP2xVg5gbydQ=;
-        b=Q+cJ30WuvyyKwWaMoR9MNCuroMXGxhHndbLUsXZTdo9zR5c1E7btKUbkUhbEQHAShQ
-         Gh4FrFiNML+eItfpsFfjpylghgiY+w1llfUmvVAOtYfHxMcZLneX22RHjEZGjAPXRSWP
-         pwCOmbWKiZ81inM2Dl3Snu4XDAX2HX5JFS+Vg/r+GzrBTtYAw+ZWyKErNwL4Hu1Dg0BH
-         qe6DWHumDSuh6kA/ZLcrpKkUZfpD6rHFUue3aE4s4pi5pwirhYtxIa2jJWYJbTgRRwGR
-         uJzsK+C3JThA7+LdpmWpEozh+Y2XiKlojR5gYMEaA3jiHjZ1Y+ACQQzH7TPgfWgZD+/2
-         Enww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794469518; x=1795074318;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XonEwXskiTjcZGriLRKPr8S1lDz0l/ASP2xVg5gbydQ=;
-        b=cEAAmJGsL4u+ohLxd47dAZ0jRct92B0rbzWwRirkR4fZ6PftaOzpZhlIr1MdPDUd3j
-         5qELusH33/254h7hJ242TJkNIkNjyKAcx3W0IXGBQyp0UQhV1/rKnNxiKHUwMK+MwXLE
-         xcU87xS95IAHD/G+y9jQ2CYS2NSonNTh73EeyiRjJGRdNZYmTs4S+Aeu4eZPO28kiMI1
-         tLlxVKtnOduPFz0U+gr7p/HwAf1zcM05A+A/SaeziOcNjudJPSLzePXMk8ynnzr5uE+3
-         BA8S5VIpEIt3FQUh3NjbnLo0pTknGXHevSf3wEgmZyELCVl3nvfDehHKIlPbK0AmRH1K
-         ymAw==
-X-Forwarded-Encrypted: i=1; AL+hErHWTFbr/6VkSw0epTlkrJJSF0Ez0l6+RxVHPjG/gDkRuRjO4/5QN+VcY4yf0MBvbPRTLGJaAWvlbpsPdn4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94V3D2JtZtiCua4jWMl3atO52yumaa1cD2EktTejXn8jWrbEQY
-	itT4XOC0auGJ1IW6v4H1U33584M7uawLxxsXUDkaewm2YV/oFHOBptVS
-X-Gm-Gg: AYBFou24vXq7oJuOI407aXfdsfghGRwujBiJcdpDyijDegMknvX8L2YfmJyBCbxdIl5
-	2vrelyRXUM+ajUqgwjwgSSWkcpX0HU7VdDchWWetXursfuLwmrqlBAEFjTTTZZHib8+/c69NzRb
-	GEus+Q/OWZyKmPXrQTcasf33+B7lJnma6KLLXLgBhVR4wn224EmJ/5cVxLnoUc9huJyGqIgnsPy
-	aJR8ueKNZ1of13TBL8YG/uLhS6bC+7uXyyNWemDU3o5MmqmW9FwvSZCrxiwWCcnVB0Qm8Z8pcfR
-	bjLOCFd4a2nzTpJHGUEfOq/fpKfePx2UsBtKhU4Vg6ERFiIhuNDk4qZ1QFtxr/ASSLjtkp8aO/R
-	NFfEKt2ZZiycRR2Z2aY57GNPRzLFvK792XZO2clflV7yMkeH9L9K0F2iUI4K8v/nRjR/CZhseHd
-	krwxQIFYkpD8qDK0dRU8BhHWi9IP62scKtD/4j4TR+99jhfcEcW3Q6l2xc/alAdJsbxoJrK5OuV
-	of/6Iv1reHVrdt7qNC1it2p9pOOT1rDdxiHCxaBGjrgN5wRmgPdQcU6XjZakzWvJTEv1GmnRZco
-	9BRDHY7KNMAC/jxxwSSylVSH2oXRenPPhaTK
-X-Received: by 2002:a17:902:fc4b:b0:2ed:dddf:8489 with SMTP id d9443c01a7336-2edf166fbbamr12780695ad.12.1794469518391;
-        Wed, 11 Nov 2026 23:45:18 -0800 (PST)
-Received: from [10.125.112.22] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6dd2225sm30454285ad.56.2026.11.11.23.45.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 23:45:17 -0800 (PST)
-Message-ID: <eef4c5ee-2487-4668-bf24-742af6d71484@gmail.com>
-Date: Thu, 12 Nov 2026 15:45:09 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXfc0DEV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7231F00A05;
+	Thu, 12 Nov 2026 07:45:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794469552;
+	bh=IKKC/UM4m3qaxcA+tytyNl/vCPkOElZC3udRKzR6ZA4=;
+	h=From:Date:Subject:To:Cc;
+	b=HXfc0DEVWKfH6VyNWACNMJn9Gor/zzB9+VjvpAasAU4qUw/qcCh84P5WA9gVLqKWV
+	 +uroVi0brDy7u7r7yMo9UnNBDiGhZgVXt4vhE/EOVfR/3vxCrOdMFqNX6LkYYQqo2/
+	 qSNBZoFdh3GLCWHanNyaLB6JvQ+bpzs8dWIhimqOsVj5vMph6LrDtFujWYaiMbD0jD
+	 85gd//NB9j/Ospi6KccfkGzQCU50GeDgo9HRS2yj8t1QiNNfnFuSOAv22x/OkptWT/
+	 STzOj7bTWumh/8WWZbHgJlBEwjPCj4ZPxmIExkKsh/ohLZnwH90OKPTruHmp2XtpF3
+	 tDzCkb/87CnDg==
+From: Yixun Lan <dlan@kernel.org>
+Date: Thu, 12 Nov 2026 07:45:43 +0000
+Subject: [PATCH] pmdomain: core: connect consumer with supplier via device
+ link
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,121 +53,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/migrate: improve mlock tracking for PTE-mapped
- large folios
-To: Kiryl Shutsemau <kas@kernel.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: hughd@google.com, akpm@linux-foundation.org, ziy@nvidia.com,
- matthew.brost@intel.com, joshua.hahnjy@gmail.com, byungchul@sk.com,
- gourry@gourry.net, ying.huang@linux.alibaba.com, apopple@nvidia.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261110123218.1579490-1-chenwandun1@gmail.com>
- <5f9c449e-43b3-4732-9c14-8199418cace0@kernel.org>
- <avS7FfzvjieHufUE@thinkstation>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <avS7FfzvjieHufUE@thinkstation>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-01-pm-device-link-v1-1-8932e0862378@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrDuQCSqkVyldaDLR0TaVREUQ7
+ 26syw/e+3dIHIUTPIsdIq+S5Bcy6FGA7ZvQMYrLBq10TUQaFeH0RZenlvEjYUTjnVOeK9OUBvJ
+ viuxl+zdf79tpaQe28xWC4zgBE5L2HnUAAAA=
+X-Change-ID: 20261112-01-pm-device-link-9fdd0fe59a49
+To: Ulf Hansson <ulfh@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Icenowy Zheng <uwu@icenowy.me>, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5218; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=rCIzxjBGzLtWtA/9HuxoKy2Z3j8sZKgmeE7iPstfpdY=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBq9W6q20YqcaI2cKi+EUxMpYAxUUj1aqNY5HHt9
+ ekY0IzYDqiJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCavVuqhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+3E/w/+KpA3MUqhFe9/TlB+f3FW1Yn75TK5DzrNAzbFHwqqZ8KwhEBoAuAe/
+ 42J+ZaAunZXVbhEh4rRrppVozgWC74G30uUaoHfAORvQq9dYtwHFQTu8kZSH18zrxLkTEx/tpOq
+ lcGSrmw0G6eX4sbkfG/H5xTAvniqk2e60uDxTB00hDQ1AeekjW33JWCs8IPbYcqFn1DkxB57K1j
+ FOUGugg8FGTvmtPaPIPGdKzEFM28X7la3SijJtBGz5jjefKeJMD4V3dW7BqIoX3l53srPSHtO6C
+ n6BuDG5i3BwCOvoB27WYOlsOM8ftHEZhAG/X7YaYSoCESIf/PfP9ztjcwUyDgwTOYCtcJjpN+WW
+ 7UjTp1rP/YEo3h9J3NwvrgfLihw1ijUdt/DFrqkEIonEgxNK4cTBMbm+LRNY5/uL8lSH8xVGAc8
+ DpR4I/VnZXfx57GjLvaRyIHDdYbAIbj/fztaKUcFcO1F0AR/YcNtNREEeN3JQgC8SshJqtuCvKn
+ tN2vH8OIkIEC37FZw8gORV6W7pdtdMSxaJ3g60nCm7DRiDVW6PgseOe3lzQPhitxUXjH+xPz+rU
+ U5FowduMY3UkhPLeAuZPEMPNKPV0k72X2P/AQmP8GcmRrwR5xeJAolLO46PF7u3UPBCywndjVuo
+ yseDsBi9ykxxEagT5oYV63KUnl1IA0=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
+Connect downstream Power Domain consumer with the supplier through
+the device link API, So when the pmdomain driver is unloaded or unbinded,
+the consumer can be automatically notified and purged gracefully.
 
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+The power domain drivers under pmdomain subystem suffer fom
+the problem that unable to notify the downstream consumer with
+module unload or unlink event, left with stale sysfs interface.
+ Curently, the solution is a) use builtin_platform_driver() API
+to disable the module unloading b) adding suppress_bind_attrs flag
+to disable the unlink interface, which prevent it from being 
+triggered from user space.
 
-On 11/12/26 03:01, Kiryl Shutsemau wrote:
-> On Wed, Nov 11, 2026 at 09:00:10AM +0100, David Hildenbrand (Arm) wrote:
->> On 11/10/26 13:32, Wandun Chen wrote:
->>> From: Wandun Chen <chenwandun@lixiang.com>
->>>
->>> Commit ab521b4142aa ("mm/rmap: improve mlock tracking for large folios")
->>> mlocks a large folio when all its pages are added in one rmap operation.
->>> However, when a PTE-mapped large folio is migrated, remove_migration_pte()
->>> restores PTEs individually, passing nr_pages = 1 to the rmap helpers. As a
->>> result, PG_mlocked is not set on the destination folio.
->>>
->>> Reclaim can restore mlock in try_to_unmap(), but Mlocked in /proc/meminfo
->>> remains undercounted until that scan occurs.
->>>
->>> Restore mlock once the full mapping has been restored in a locked VMA
->>> under one page table lock, rather than waiting for try_to_unmap() to
->>> restore the mlock state.
->>>
->>> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
->>> ---
->>>  mm/migrate.c | 10 +++++++++-
->>>  1 file changed, 9 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/mm/migrate.c b/mm/migrate.c
->>> index 94033c222e04..140e291d4587 100644
->>> --- a/mm/migrate.c
->>> +++ b/mm/migrate.c
->>> @@ -353,6 +353,7 @@ static bool remove_migration_pte(struct folio *folio,
->>>  {
->>>  	struct rmap_walk_arg *rmap_walk_arg = arg;
->>>  	DEFINE_FOLIO_VMA_WALK(pvmw, rmap_walk_arg->folio, vma, addr, PVMW_SYNC | PVMW_MIGRATION);
->>> +	unsigned long nr_ptes = 0;
->>>  
->>>  	while (page_vma_mapped_walk(&pvmw)) {
->>>  		rmap_t rmap_flags = RMAP_NONE;
->>> @@ -446,9 +447,16 @@ static bool remove_migration_pte(struct folio *folio,
->>>  			else
->>>  				folio_add_file_rmap_pte(folio, new, vma);
->>>  			set_pte_at(vma->vm_mm, pvmw.address, pvmw.pte, pte);
->>> +
->>> +			nr_ptes++;
->>>  		}
->>> -		if (READ_ONCE(vma->vm_flags) & VM_LOCKED)
->>> +		if (READ_ONCE(vma->vm_flags) & VM_LOCKED) {
->>> +			if (folio_test_large(folio) &&
->>> +			    nr_ptes == folio_nr_pages(folio) &&
->>> +			    !(pvmw.flags & PVMW_PGTABLE_CROSSED))
->>> +				mlock_vma_folio(folio, vma);
->>>  			mlock_drain_local();
->>> +		}
->>>  
->>>  		trace_remove_migration_pte(pvmw.address, pte_val(pte),
->>>  					   compound_order(new));
->>
->> I guess pte batching would be one way of handling it, but that requires more churn.
->>
->> The spirit is similar as in try_to_unmap_one(), where we count the number of
->> ptes in one VMA. For consistency, I would call it "ptes".
->>
->> @Kiryl, can you take a look?
-> 
-> Looks right to me. Agreed on "ptes".
-> 
-> With that adjusted:
-> 
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Take spacemit K3 platform [1] for example, without this patch,
+Removing spacemit_pm_domains module will trigger a failure to
+remove power domain, access pm_genpd_summary will result an
+kernel oops, See detail log below
 
-I'll rename it to ptes and send a v3 with Reviewed-by tag.
+domain                          status          children        performance
+    /device                         runtime status                  managed by
+------------------------------------------------------------------------------
+lcd1                            on                              0
+    cac88000.dp                     unsupported                 0           SW
+lcd0                            off-0                           0
+audio                           on                              0
+gpu                             on                              0
+    cac00000.gpu                    active                      0           SW
+vpu                             off-0                           0
 
-On pte batching: following the swap_pte_batch()/do_swap_page()
-precedent, restore could scan consecutive migration entries with
-matching flags and do one set_ptes() plus one folio_add_*_rmap_ptes();
-a full-folio batch would even set PG_mlocked for free via the rmap
-helpers.
+gpu  lcd1  pm_genpd_summary
 
-However, try_to_migrate_one() creates migration entries per-PTE with
-per-PTE flags, so restore batches will often be truncated by flag
-changes. For such folios the ptes counting in this patch remains the
-only way to restore mlock (it survives batching with a one-line
-change: ptes += nr). So I'd like to land this first and do the pte
-batching as a separate follow-up series.
+(gpu and lcd1 isn't clean up)
 
-Thanks,
-Wandun
+[  181.353671] spacemit_pm_domains spacemit_ccu.k3-apmu-pmdomain.3: failed to remove domain gpu: -16 - state may be inconsistent
+[  181.353889] PM: genpd_remove: unable to remove lcd1
+[  181.353896] spacemit_pm_domains spacemit_ccu.k3-apmu-pmdomain.3: failed to remove domain lcd1: -16 - state may be inconsistent
 
+[  206.228045] CPU: 5 UID: 0 PID: 2560 Comm: cat Not tainted 7.3.0-rc12 #81 PREEMPTLAZY
+[  206.238002] Hardware name: SpacemiT K3 Pico-ITX (DT)
+[  206.243027] epc : summary_show+0xaa/0x308
+[  206.247081]  ra : summary_show+0x264/0x308
+[  206.251224] epc : ffffffff809f50fa ra : ffffffff809f52b4 sp : ffffffc601273a80
+[  206.258542]  gp : ffffffff82333b98 tp : ffffffd601d5ec80 t0 : ffffffff80026b38
+[  206.265859]  t1 : ffffffd6092d3cb0 t2 : ffffffff81601810 s0 : ffffffc601273b10
+[  206.273177]  s1 : ffffffd601b92470 a0 : ffffffd601b92588 a1 : 000000000000000a
+[  206.280494]  a2 : ffffffd609ae8000 a3 : 0000000000000000 a4 : ffffffd601d5ec80
+[  206.287811]  a5 : 0000000000000000 a6 : ffffffffffffe000 a7 : 0000000000000000
+[  206.295128]  s2 : ffffffd6092d3cb0 s3 : ffffffd601b92470 s4 : ffffffd601b94040
+[  206.302447]  s5 : 0000000000000000 s6 : 0000000000000003 s7 : ffffffff8221e3a8
+[  206.309764]  s8 : 0000000000000001 s9 : ffffffff8172b8c8 s10: 0000000000000004
+[  206.317082]  s11: 0000000000000000 t3 : 000000000000017a t4 : 0000000000000002
+[  206.324399]  t5 : 0000000000000000 t6 : ffffffd609ae7178 ssp : 0000000000000000
+[  206.331804] status: 0000000200000120 badaddr: 0000000000000010 cause: 000000000000000d
+[  206.339829] [<ffffffff809f50fa>] summary_show+0xaa/0x308
+[  206.345206] [<ffffffff804b67f8>] seq_read_iter+0xe0/0x390
+[  206.350671] [<ffffffff804b6b86>] seq_read+0xde/0x158
+[  206.355697] [<ffffffff8063dee4>] full_proxy_read+0x54/0x88
+[  206.361250] [<ffffffff8047a03e>] vfs_read+0xae/0x380
+[  206.366275] [<ffffffff8047adc2>] ksys_read+0x6a/0xf0
+[  206.371301] [<ffffffff8047ae68>] __riscv_sys_read+0x20/0x30
+[  206.376944] [<ffffffff8101fa6a>] do_trap_ecall_u+0x19a/0x518
+[  206.382674] [<ffffffff81033acc>] handle_exception+0x16c/0x178
+[  206.388503] Code: 0a13 c00a 4c05 4b0d 3783 540a 3823 f804 3423 f804 (6b9c) 8552
+[  206.396050] ---[ end trace 0000000000000000 ]---
+Segmentation fault         cat /sys/kernel/debug/pm_genpd/pm_genpd_summary
 
-> 
->>
->> BTW, why don't we care about that in try_to_migrate?
-> 
-> try_to_migrate_one() unmaps the folio whether the VMA is VM_LOCKED or
-> not, so there is no mapping left to keep mlocked; removing the rmap
-> munlocks the source.
-> 
-> The mlock is rebuilt on the destination in remove_migration_ptes(),
-> which is the path this patch fixes.
-> 
+====================================================================================
+
+With this patch applied, either unload the module or trigger an
+unbind operation, the downstream gpu, lcd1 will exit gracefully
+
+or
+
+domain                          status          children        performance
+    /device                         runtime status                  managed by
+------------------------------------------------------------------------------
+
+Link: https://patch.msgid.link/20261108-04-k3-pm-support-v3-0-b9dc0857039b@kernel.org [1]
+---
+ drivers/pmdomain/core.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+index 964e44c2f78f..870fc8083bca 100644
+--- a/drivers/pmdomain/core.c
++++ b/drivers/pmdomain/core.c
+@@ -3543,6 +3543,8 @@ static int __genpd_dev_pm_attach(struct device *dev, struct device *base_dev,
+ 		return -EPROBE_DEFER;
+ 	}
+ 
++	device_link_add(dev, &pd->dev, DL_FLAG_AUTOREMOVE_CONSUMER);
++
+ 	return 1;
+ 
+ err:
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261112-01-pm-device-link-9fdd0fe59a49
+
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
 
