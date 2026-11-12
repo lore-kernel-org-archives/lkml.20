@@ -1,106 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466205;
-	b=fsLnp9XZNYpLp5/FM6T0tHoxnUg3TWkYvZBe4PCFoUals4XEFeZZUo5lML8d1d7eaXrt
-	 4AOdYMhoSW/82Tpingp2CcPao/l1vNb3RJMaRTg/M92cIxuHozxZTnpm8kUYR5Fidp49i
-	 d7Ky+m2ruwzvLGS7zr4SD8ZQ1hkKGQRyW1FtoNq0EKQLu1759eFfmKhRk+PY9Mbf+ps8l
-	 gguNYqHoumDeXCiToOOJ5FljJZfVxXb3h5NeckPt9xfA05Fo6A0SwM1nbHiLahKHDboN+
-	 x6pb54KpRwZjhf0S8Hzq/bFhxvb+9jqsf8qgD9LBbl5kOwhC9gAsd4AwtjdoPWfcv4g==
+	t=1794466206;
+	b=CRGC0Iaw+oQosoC2vTF8w87LoahOVYlarerlrc6363ZPPGSVJBRF/0casdgKw9q+d7bX
+	 cECDpAiAjE5IQ9DiqGqmOMx5SWokW5+Wx1+f1PooTqlHPRWf4k5CCkEG8If9UE9N4a2sV
+	 fqO/AlvmX3Or67MjxFWzo9FqPeYaBk7h4tfcs5N5aPnuSqoEfB/3izr70B0cIdQrZxuJT
+	 WEyyGPidcDMSd+eZH/AjNRobnkNwRxpbvL535njXQNC8NjR/yLHcq2Asl7vw6S47Q1EWN
+	 7Cve4MClyOQNENXlMO+KGJP6a8ycCPbWpYRMynwqnFgLv2TlRK+w3zQNsrfEVz4y+wA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466205;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466206;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=mOQDgVzOyktpz8+qz3IlalooRsKj4SHXFb4LM5pg8j4=;
-	b=vY9SPoUmuH0SKrOnkCywbToyAEXNaNlnbcABwqlUh20wfNrFejom9vkK7ywO021k9mkE
-	 M0qcTEo1bf+Dl5+7zqKbiIf94yoe7iR5LGnQi2b8vNTGkxnQxyPwdweBD8QKB2Cb4y7nD
-	 Hdatu111oGMt4svz6VsieExZxHe4goGdXW//sXNezcS1fubK5d+Gt5lvGj5m1ztX1SLQf
-	 8gbhZdnNLbw3IRn/l99zb/Za2nDL+tE3IUldOIbY39KJl9Yfu0FoaVoRZyehGfiWW0ivZ
-	 U9Z3f/cR1wB0RUvL+85n19nNEXqAqp5UDNnvNDc7REZ7qMOaZkvBJfe3jhwaTVeNsEg==
+	bh=zJP1ksxof1hR+6LodwAgrvIXoMCXKKWVQGfaWA7IZwo=;
+	b=BQjiRBeINVnV+JRKY07QVTf/x7DZR3fo09a4fXtN/PhWYAZde4q/CMDyXXJvh2M9O05E
+	 L0ckAY4R0N3Th34rEOgc3TnyFMjHmQRPOTYEXs6/GTZjfcf4fTGPjTE2K04gSrSdqSS4f
+	 8n6d3ddOzjGJ8bqmXCjfDriUPWML+c4ki/6dDlAFsYTU+XB4Fu4N/HZAf1m14vRRAm+M+
+	 48/gKIM1uN/PUgHoeWqdYoQtb/0Nsfz2Xqz+zFDQMvgC/R0AMUK7vZhugO5VZhNpXp59H
+	 bJDVhVDH0mC4EOIs1KPP1gxf5mrLJyDQ22JOPre7WeF54MqOAA8aR1xtQzBhmDa5tlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DyG+yWyJ;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uHuW7N6S;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1BE60A2637
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:50:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A1BE60A2637
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6C560A3809
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:50:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD6C560A3809
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DyG+yWyJ
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso5546783c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:50:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uHuW7N6S
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b6b22be970so1500842b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:50:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794466204; x=1795071004; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794466205; x=1795071005; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mOQDgVzOyktpz8+qz3IlalooRsKj4SHXFb4LM5pg8j4=;
-        b=DyG+yWyJp6unqrCxTWhL660epBUYvjEdhjvWkxvTNsvJsFTvFsOpOlYYS84Fdsm/NV
-         hgf5g5DtJO2quifgZESmVxAqqKN10TDwlCRQZwM9S4ujQZV7rkP8cq45RMv4LHXWaebA
-         jfa0bmBE8CdQlxBNs4tR+UmNUoCHA0Pg2NcyOCd4ghz0CLli6caA1G6DEZg/ysnSYHha
-         O6cGoqxRcuaGIlYcctgCqRYbJ68MNjktzNpNIXp7U8uVp6P8vMuLMLurX04cGWgPu63x
-         kZRNClnfnwqRNrsAJtKnqVR01WKcTzkM7wuLJNjP8JmS745MZa9XDIwiwRMb9fNF+qMK
-         XT5A==
+        bh=zJP1ksxof1hR+6LodwAgrvIXoMCXKKWVQGfaWA7IZwo=;
+        b=uHuW7N6SAgO0S6QUr8upV+RcLfEuSd30MoZYeVObXYrWLi0wRtwIbIObZiuOfYI0Pt
+         HfVqAwyxeaBFEc0MC4or8cR1ec9ng5cq+w4n+FwV4ooE/8Fg9/eGhWea4ZaIZ/7m0YcY
+         vXCt3h87Dlbt8VA5q5CVRi9JDRKtf3qSxsKvcHGjg3Ixnw0Hq7VCC8eytLG7qhfVbKIv
+         CjxF1wCob82W70AvGCEeV3jhpI1FAvGLWB3cLismsTTcGV3CTrHqDCxaU1f7597YYcuV
+         3Ox09XJX0gfFls8U6Mh9KYjKs8mx8cBkfiChtytQb6uHB4A8wXy1D7mRmAB4zj6sR1nr
+         Ij8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794466204; x=1795071004;
+        d=1e100.net; s=20260707; t=1794466205; x=1795071005;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mOQDgVzOyktpz8+qz3IlalooRsKj4SHXFb4LM5pg8j4=;
-        b=R4CBG3RlHolaVkzFje6ZBKY7QSyyHRS77Fip7mXSvDHuiyhJt5DBJD1AcDiWKUp+kx
-         JUcRcXAZvX/YRCsWScxrNOxsAi6cEf9pTKqax+UmsbvTGQowMj4up3xh5eBu7I/dCYkM
-         a+uJz6Dk24dmR4kpOGmY10TrJknFoHOLGV7j1obKUPejtMuTFuZT3k/gdr4ZdOghVkua
-         lt7VXerYP2v8znrkQQGxQHRynTkMRT+R7VF8t7/2c3MFyS+gR907AzBy2od7s/csWCZs
-         8E/1QWSSF7pzYsX+s9l3IWzQ8Bn4TzsZ1dIU0TtzbU8wNSOBLj7csgAA514X20a6SwK1
-         XtTw==
-X-Forwarded-Encrypted: i=1; AL+hErEGThscscZV2d2UBAesJG5SeqoHb3Zp4TaFXLKS4W/Yg2OKGF4LJVqmEfLanxnAMMPzrt0yshz6xUQ42/I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BPEohHi/nEGhUSksK9TKkTJsiWw40D/KZUsdkI7Ff3oMI37yT
-	28l4Ca1uetesiNvQ3+QmsqTzmD9yt4TS7GPVMBu2oJ1Tyr2gDmpDVvHV
-X-Gm-Gg: AYBFou0Lv+DQD4s3DtAav1UhIijIpQephPpPwA5i7Y6TWmdrVjBkcg9KWmxLSZfaknI
-	oiOp4SeWx/x2ozTmWrpbCrJhhA8UqhQLN2F6RNp80AZ2jvo/lWW85zZN5dVgFe5h428y88dpYD1
-	mQKtMGzBojg/pqeCNbZ7vLWS6qkLDq79Sjpdin0uyBuPVyxJFEzN8fVQXTt0QxnE2bvw1xVJzAL
-	OKDED25umPqvjiONtoNDTOFxRzFpAbOSs8Pqrfpy4swvxj+pGzZhK+FFsbhChlKvxWrooHq3ee6
-	D3nknO2Ea49kWj3sZ2+b+TFkSHj0k9ykOIVrLiOFJvKby00eudfK4hOlLBIJQj4qILZsDaEDJbq
-	kazKt+0l/tRxe6rG/2IUEtcRgpCRjO0DKiMbCwnv9oMHerwCbU8+SuttgGTL84CF9rbT7hSGGAX
-	YzxmLQO9BDs1OIZuPtCC5kwjWEMINv/oSw5JAHP1nuQU2Mk5tv48GdWpkCaadYpy3gNHdfjSV3X
-	UHO/FAfot5UunWtoW2quE3x5UhyDca9KB+OXNEDVbHtZg57kwJGa+fKzn0fvWkNNxZsjW35Obov
-	XiJfQZ/oBgOGqXtDjCXYhiTgRGPmOyVlGt9NpwIgi3VfSd3mYojsTy9UDuiaFnau4Ur7lGiwvSr
-	OMZx2HnGNb2oDgh4eTnYOP/kqDOSQ19XkHO33lQ==
-X-Received: by 2002:a05:7301:3f19:b0:36a:532e:4abe with SMTP id 5a478bee46e88-3768701e279mr6579211eec.35.1794466204006;
+        bh=zJP1ksxof1hR+6LodwAgrvIXoMCXKKWVQGfaWA7IZwo=;
+        b=B+PH/ejEbd0/Gq8SLPSSnYKDCDfhIPScpyBJmcyR8UPxIczVxke01KevFm+ktTiw72
+         RUgBafwHBEceUBZxkryju54BwxodWglA7Nvjx8aPslt8+9AAhrdOXCzYhOI6I7/iS5y5
+         cZPEhi4U45LkM3dWPtdTI86GMqvYRBXqHeFuMHSdOhmMtwSMjnvrGam2gLUZJmutz2nD
+         vQGcwTUjp9o9qwDGq25jzo5QBvXFFUSNpKVxHElcZg0WLyuEwmcG9Oa434GspkBjHJ2A
+         N0wjVEnEx50zOTtT3X5LeYuXo5CVD2jE0VZSS1G1M5hKrTil8oklBD+IWQrwDtOTEZsF
+         0i0w==
+X-Forwarded-Encrypted: i=1; AL+hErF7lYkylVVzwWehU/eFhxe2wqI5XR05ic2d8zPoW30eOsU0NABp+zFYf5Ax4UMrWBL9f27+KUUAJJvzN6s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+vMNA35H9oKXspStN86qjHu4xo9CpiFzQ4IdL+F4E0UkJaXyJQ
+	vF0t4VOVdwe/XgEDjMuyeEAkU68eZXuc8BCsG2yNToMyX8Ci49rWF2WT
+X-Gm-Gg: AYBFou2t8ObZErdkAMBJq63DHGmqdQlvZaXbbnr+K1/MiLeLGWBRSFN9ZviHNBI10/U
+	w2p3ruwrRzh9qTsVD8l7yzSkQ5O3NsrMAJQa5MIdn/Cmn7GPW1N+NnY6YzwAYKxekUnHf6794kM
+	fKyzdklcUBSeOUhmzoFaP204Wo9HO9qgQLxRteaW/tl2Fg4mYZKtZV/hQIn/U6HMgOwE8SzOVy0
+	YMHVInN1kFDjJPtZAV968Abufb2jgJ+hBw128SIxFoZ66RpPbwxMzeKuuFcAmKOjKFsI2bA2UCA
+	WMHA10UMBEO5ikYuir+Ff+Cbdp2vsnkUgyX5fQGvUtXDw0onOyJBO/YrOu3aOZyG0a0iyujBJzY
+	dcirsEuFOYDhNdFKV3qUBQMR9AZg25lM6ZmBh9NCu58wRrHqOIM4dWTk+R0vBB3yW4gm6Bi33gj
+	lRs6gypXqZw+arAp9dNS8lssKpd+QUtBiKspWHYlcMIYCKnJ6pvo6ul3aoBoHQo70v/h9ZRkNrn
+	gVPebxH+qLx+klTRPAikS0AzOXBe5VIGc6jqpkMvMKWz+vyAe5GYjgXtmlFahiPjIy1+TKGUgyg
+	g1tUxADDMbI3biBHntIiPqAWcJxnmox7s+lRQ3bL+buntZKtM3CqZA+2pEg1g/eZ6X09+Wu2T25
+	tdxvoLoSLbnE6oTJeH5NZ9U64p7YeIHvzxbrcFQPwjmd6KFM=
+X-Received: by 2002:a05:6a00:f8d:b0:886:3a6c:a9da with SMTP id d2e1a72fcca58-8bc1bcd60d1mr4357599b3a.26.1794466205184;
+        Wed, 11 Nov 2026 22:50:05 -0800 (PST)
+Received: from localhost.localdomain ([183.96.175.225])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab1228e2sm3097511b3a.41.2026.11.11.22.50.01
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
         Wed, 11 Nov 2026 22:50:04 -0800 (PST)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:182d:659:ffce:39a4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfadsm27190961eec.19.2026.11.11.22.50.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 22:50:03 -0800 (PST)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: Mark Brown <broonie@kernel.org>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>,
-	Kris Bahnsen <kris@embeddedTS.com>,
-	Mark Featherston <mark@embeddedTS.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-input@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/5] Input: ads7846 - drop platform data support
-Date: Wed, 11 Nov 2026 22:49:53 -0800
-Message-ID: <20261112064957.1796975-2-dmitry.torokhov@gmail.com>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261112064957.1796975-1-dmitry.torokhov@gmail.com>
-References: <20261112064957.1796975-1-dmitry.torokhov@gmail.com>
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	Joonho Lee <mynameisjune111@gmail.com>
+Subject: [PATCH v31 08/17] ALSA: virtio: Retain queued messages through device reset
+Date: Thu, 12 Nov 2026 15:49:20 +0900
+Message-ID: <20261112064929.11211-9-mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261112064929.11211-1-mynameisjune111@gmail.com>
+References: <20261112064929.11211-1-mynameisjune111@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,502 +109,506 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Now that all in-tree board files (including board-nokia770, spitz, and
-db1000) have been converted to Device Tree or software nodes, legacy
-platform data support is no longer needed.
+Keep the control queue available through snd_card_free() so close-time
+STOP and RELEASE commands can still be submitted. Block new control
+requests and mark pending messages canceled before reset, then release
+their queue references only after reset and queue deletion.
 
-Remove struct ads7846_platform_data and associated callbacks, parse
-device properties directly without allocating a temporary structure,
-and delete the unused header file.
+For PCM queues, detach each remaining virtqueue buffer after the device
+has stopped DMA and retire its message without reporting a normal
+completion. Detach all queues before deleting them so outstanding DMA
+mappings are unmapped and no token remains for a late device completion.
 
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Protect event callback admission with the event queue lock. Disabling
+events waits for an active dispatch, and later callbacks see a closed
+gate before ALSA objects are freed. Enable and pending-event draining
+share the same lock.
+
+Reclaim pending event buffers after a failed probe without dispatching
+notifications into ALSA objects that have not been constructed. Record
+the queue's prior enabled state under its lock before closing admission.
+
+Track successful virtqueue initialization so teardown and failed restore
+cleanup call del_vqs() only for an initialized queue set.
+
+Fixes: 9d45e514da88 ("ALSA: virtio: handling control messages")
+Assisted-by: LLM
+Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+
 ---
- arch/arm/mach-pxa/spitz.c           |   1 -
- drivers/input/touchscreen/ads7846.c | 230 ++++++++++------------------
- include/linux/spi/ads7846.h         |  45 ------
- 3 files changed, 84 insertions(+), 192 deletions(-)
- delete mode 100644 include/linux/spi/ads7846.h
+sound/virtio/virtio_card.c    |  110 ++++++++++++++++++++++++++++++++---------
+ sound/virtio/virtio_card.h    |    6 ++
+ sound/virtio/virtio_ctl_msg.c |   64 +++++++++++++++++++++---
+ sound/virtio/virtio_ctl_msg.h |    4 +
+ sound/virtio/virtio_pcm.h     |    2 +
+ sound/virtio/virtio_pcm_msg.c |   42 ++++++++++++++--
+ 6 files changed, 193 insertions(+), 35 deletions(-)
 
-diff --git a/arch/arm/mach-pxa/spitz.c b/arch/arm/mach-pxa/spitz.c
-index 5eaf38243b9e..191292d10eb8 100644
---- a/arch/arm/mach-pxa/spitz.c
-+++ b/arch/arm/mach-pxa/spitz.c
-@@ -21,7 +21,6 @@
- #include <linux/platform_data/pca953x.h>
- #include <linux/property.h>
- #include <linux/spi/spi.h>
--#include <linux/spi/ads7846.h>
- #include <linux/spi/corgi_lcd.h>
- #include <linux/mtd/sharpsl.h>
- #include <linux/mtd/physmap.h>
-diff --git a/drivers/input/touchscreen/ads7846.c b/drivers/input/touchscreen/ads7846.c
-index 40652c0cfd22..9bcb2ef129cd 100644
---- a/drivers/input/touchscreen/ads7846.c
-+++ b/drivers/input/touchscreen/ads7846.c
-@@ -27,7 +27,6 @@
- #include <linux/property.h>
- #include <linux/gpio/consumer.h>
- #include <linux/spi/spi.h>
--#include <linux/spi/ads7846.h>
- #include <linux/regulator/consumer.h>
- #include <linux/module.h>
- #include <linux/unaligned.h>
-@@ -104,8 +103,9 @@ struct ads7846 {
- 	u16			vref_delay_usecs;
- 	u16			x_plate_ohms;
- 	u16			pressure_max;
-+	u16			settle_delay_usecs;
- 
--	bool			swap_xy;
-+	bool			keep_vref_on;
- 	bool			use_internal;
- 
- 	struct ads7846_packet	*packet;
-@@ -134,16 +134,11 @@ struct ads7846 {
- 	bool			disabled;	/* P: lock */
- 	bool			suspended;	/* P: lock */
- 
--	int			(*setup_spi_msg)(struct ads7846 *ts,
--					const struct ads7846_platform_data *pdata);
- 	void			(*read_state)(struct ads7846 *ts);
- 	int			(*filter)(void *data, int data_idx, int *val);
- 	void			*filter_data;
--	int			(*get_pendown_state)(void);
- 	struct gpio_desc	*gpio_pendown;
- 	struct gpio_desc	*gpio_hsync;
--
--	void			(*wait_for_sync)(void);
- };
- 
- enum ads7846_filter {
-@@ -221,9 +216,6 @@ enum ads7846_cmds {
- 
- static int get_pendown_state(struct ads7846 *ts)
- {
--	if (ts->get_pendown_state)
--		return ts->get_pendown_state();
--
- 	return gpiod_get_value(ts->gpio_pendown);
- }
- 
-@@ -811,11 +803,6 @@ static int ads7846_filter(struct ads7846 *ts)
- 
- static void ads7846_wait_for_hsync(struct ads7846 *ts)
- {
--	if (ts->wait_for_sync) {
--		ts->wait_for_sync();
--		return;
--	}
--
- 	if (!ts->gpio_hsync)
- 		return;
- 
-@@ -1055,29 +1042,26 @@ static int ads7846_resume(struct device *dev)
- 
- static DEFINE_SIMPLE_DEV_PM_OPS(ads7846_pm, ads7846_suspend, ads7846_resume);
- 
--static int ads7846_setup_pendown(struct spi_device *spi,
--				 struct ads7846 *ts,
--				 const struct ads7846_platform_data *pdata)
-+static int ads7846_setup_pendown(struct ads7846 *ts)
- {
-+	struct device *dev = &ts->spi->dev;
-+	u32 debounce;
-+
- 	/*
- 	 * REVISIT when the irq can be triggered active-low, or if for some
- 	 * reason the touchscreen isn't hooked up, we don't need to access
- 	 * the pendown state.
- 	 */
--
--	if (pdata->get_pendown_state) {
--		ts->get_pendown_state = pdata->get_pendown_state;
--	} else {
--		ts->gpio_pendown = devm_gpiod_get(&spi->dev, "pendown", GPIOD_IN);
--		if (IS_ERR(ts->gpio_pendown)) {
--			dev_err(&spi->dev, "failed to request pendown GPIO\n");
--			return PTR_ERR(ts->gpio_pendown);
--		}
--		if (pdata->gpio_pendown_debounce)
--			gpiod_set_debounce(ts->gpio_pendown,
--					   pdata->gpio_pendown_debounce);
-+	ts->gpio_pendown = devm_gpiod_get(dev, "pendown", GPIOD_IN);
-+	if (IS_ERR(ts->gpio_pendown)) {
-+		dev_err(dev, "failed to request pendown GPIO\n");
-+		return PTR_ERR(ts->gpio_pendown);
+diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
+--- a/sound/virtio/virtio_card.c
++++ b/sound/virtio/virtio_card.c
+@@ -70,23 +70,13 @@
  	}
- 
-+	if (!device_property_read_u32(dev, "ti,pendown-gpio-debounce",
-+				      &debounce))
-+		gpiod_set_debounce(ts->gpio_pendown, debounce);
-+
- 	return 0;
  }
  
-@@ -1085,18 +1069,17 @@ static int ads7846_setup_pendown(struct spi_device *spi,
-  * Set up the transfers to read touchscreen state; this assumes we
-  * use formula #2 for pressure, not #3.
-  */
--static int ads7846_halfd_spi_msg(struct ads7846 *ts,
--				 const struct ads7846_platform_data *pdata)
-+static int ads7846_halfd_spi_msg(struct ads7846 *ts)
- {
- 	struct spi_message *m = ts->msg;
- 	struct spi_transfer *x = ts->xfer;
- 	struct ads7846_packet *packet = ts->packet;
--	int vref = pdata->keep_vref_on;
-+	int vref = ts->keep_vref_on;
- 	unsigned int offset = 0;
- 	unsigned int cmd_idx, b;
- 	size_t size = 0;
- 
--	if (pdata->settle_delay_usecs)
-+	if (ts->settle_delay_usecs)
- 		packet->count = 2;
- 	else
- 		packet->count = 1;
-@@ -1166,7 +1149,7 @@ static int ads7846_halfd_spi_msg(struct ads7846 *ts,
- 			x->rx_buf = &packet->rx[l->offset + b].data;
- 			x->len = 2;
- 			if (b < l->count - 1 && l->count > 1) {
--				x->delay.value = pdata->settle_delay_usecs;
-+				x->delay.value = ts->settle_delay_usecs;
- 				x->delay.unit = SPI_DELAY_UNIT_USECS;
- 			}
- 			spi_message_add_tail(x, m);
-@@ -1181,13 +1164,12 @@ static int ads7846_halfd_spi_msg(struct ads7846 *ts,
-  * Set up the transfers to read touchscreen state; this assumes we
-  * use formula #2 for pressure, not #3.
-  */
--static int ads7846_setup_spi_msg(struct ads7846 *ts,
--				  const struct ads7846_platform_data *pdata)
-+static int ads7846_setup_spi_msg(struct ads7846 *ts)
- {
- 	struct spi_message *m = &ts->msg[0];
- 	struct spi_transfer *x = ts->xfer;
- 	struct ads7846_packet *packet = ts->packet;
--	int vref = pdata->keep_vref_on;
-+	int vref = ts->keep_vref_on;
- 	unsigned int count, offset = 0;
- 	unsigned int cmd_idx, b;
- 	unsigned long time;
-@@ -1196,7 +1178,7 @@ static int ads7846_setup_spi_msg(struct ads7846 *ts,
- 	/* time per bit */
- 	time = NSEC_PER_SEC / ts->spi->max_speed_hz;
- 
--	count = pdata->settle_delay_usecs * NSEC_PER_USEC / time;
-+	count = ts->settle_delay_usecs * NSEC_PER_USEC / time;
- 	packet->count_skip = DIV_ROUND_UP(count, 24);
- 
- 	if (ts->debounce_max && ts->debounce_rep)
-@@ -1293,61 +1275,6 @@ static const struct spi_device_id ads7846_spi_ids[] = {
- };
- MODULE_DEVICE_TABLE(spi, ads7846_spi_ids);
- 
--static const struct ads7846_platform_data *ads7846_get_props(struct device *dev)
+-/**
+- * virtsnd_event_notify_cb() - Dispatch all reported events from the event queue.
+- * @vqueue: Underlying event virtqueue.
+- *
+- * This callback function is called upon a vring interrupt request from the
+- * device.
+- *
+- * Context: Interrupt context.
+- */
+-static void virtsnd_event_notify_cb(struct virtqueue *vqueue)
 -{
--	struct ads7846_platform_data *pdata;
--	u32 value;
--
--	pdata = devm_kzalloc_obj(dev, *pdata);
--	if (!pdata)
--		return ERR_PTR(-ENOMEM);
--
--	pdata->model = (uintptr_t)device_get_match_data(dev);
--
--	device_property_read_u16(dev, "ti,vref-delay-usecs",
--				 &pdata->vref_delay_usecs);
--	device_property_read_u16(dev, "ti,vref-mv", &pdata->vref_mv);
--	pdata->keep_vref_on = device_property_read_bool(dev, "ti,keep-vref-on");
--
--	pdata->swap_xy = device_property_read_bool(dev, "ti,swap-xy");
--
--	device_property_read_u16(dev, "ti,settle-delay-usec",
--				 &pdata->settle_delay_usecs);
--	device_property_read_u16(dev, "ti,penirq-recheck-delay-usecs",
--				 &pdata->penirq_recheck_delay_usecs);
--
--	device_property_read_u16(dev, "ti,x-plate-ohms", &pdata->x_plate_ohms);
--	device_property_read_u16(dev, "ti,y-plate-ohms", &pdata->y_plate_ohms);
--
--	device_property_read_u16(dev, "ti,x-min", &pdata->x_min);
--	device_property_read_u16(dev, "ti,y-min", &pdata->y_min);
--	device_property_read_u16(dev, "ti,x-max", &pdata->x_max);
--	device_property_read_u16(dev, "ti,y-max", &pdata->y_max);
--
--	/*
--	 * touchscreen-max-pressure gets parsed during
--	 * touchscreen_parse_properties()
--	 */
--	device_property_read_u16(dev, "ti,pressure-min", &pdata->pressure_min);
--	if (!device_property_read_u32(dev, "touchscreen-min-pressure", &value))
--		pdata->pressure_min = (u16) value;
--	device_property_read_u16(dev, "ti,pressure-max", &pdata->pressure_max);
--
--	device_property_read_u16(dev, "ti,debounce-max", &pdata->debounce_max);
--	if (!device_property_read_u32(dev, "touchscreen-average-samples", &value))
--		pdata->debounce_max = (u16) value;
--	device_property_read_u16(dev, "ti,debounce-tol", &pdata->debounce_tol);
--	device_property_read_u16(dev, "ti,debounce-rep", &pdata->debounce_rep);
--
--	device_property_read_u32(dev, "ti,pendown-gpio-debounce",
--			     &pdata->gpio_pendown_debounce);
--
--	pdata->wakeup = device_property_read_bool(dev, "wakeup-source") ||
--			device_property_read_bool(dev, "linux,wakeup");
--
--	return pdata;
--}
--
- static void ads7846_regulator_disable(void *regulator)
- {
- 	regulator_disable(regulator);
-@@ -1355,12 +1282,15 @@ static void ads7846_regulator_disable(void *regulator)
+-	struct virtio_snd *snd = vqueue->vdev->priv;
+-	struct virtio_snd_queue *queue = virtsnd_event_queue(snd);
++static void virtsnd_event_drain_locked(struct virtio_snd *snd,
++				       struct virtqueue *vqueue)
++{
+ 	struct virtio_snd_event *event;
+ 	u32 length;
  
- static int ads7846_probe(struct spi_device *spi)
- {
--	const struct ads7846_platform_data *pdata;
- 	struct ads7846 *ts;
- 	struct device *dev = &spi->dev;
- 	struct ads7846_packet *packet;
- 	struct input_dev *input_dev;
- 	unsigned long irq_flags;
-+	bool swap_xy;
-+	u16 x_min = 0, y_min = 0, x_max = 0, y_max = 0;
-+	u16 pressure_min = 0, pressure_max = 0;
-+	u32 val32;
- 	int err;
- 
- 	if (!spi->irq) {
-@@ -1391,14 +1321,6 @@ static int ads7846_probe(struct spi_device *spi)
- 	if (!ts)
- 		return -ENOMEM;
- 
--	if (spi->controller->flags & SPI_CONTROLLER_HALF_DUPLEX) {
--		ts->setup_spi_msg = ads7846_halfd_spi_msg;
--		ts->read_state    = ads7846_halfd_read_state;
--	} else {
--		ts->setup_spi_msg = ads7846_setup_spi_msg;
--		ts->read_state    = ads7846_read_state;
--	}
--
- 	packet = devm_kzalloc_obj(dev, struct ads7846_packet);
- 	if (!packet)
- 		return -ENOMEM;
-@@ -1416,40 +1338,48 @@ static int ads7846_probe(struct spi_device *spi)
- 	mutex_init(&ts->lock);
- 	init_waitqueue_head(&ts->wait);
- 
--	pdata = dev_get_platdata(dev);
--	if (!pdata) {
--		pdata = ads7846_get_props(dev);
--		if (IS_ERR(pdata))
--			return PTR_ERR(pdata);
--	}
-+	ts->model = (uintptr_t)device_get_match_data(dev);
-+	if (!ts->model)
-+		ts->model = 7846;
+-	guard(spinlock_irqsave)(&queue->lock);
++	lockdep_assert_held(&virtsnd_event_queue(snd)->lock);
+ 	do {
+ 		virtqueue_disable_cb(vqueue);
+ 		while ((event = virtqueue_get_buf(vqueue, &length))) {
+@@ -94,6 +84,26 @@
+ 			virtsnd_event_send(vqueue, event, true, GFP_ATOMIC);
+ 		}
+ 	} while (!virtqueue_enable_cb(vqueue));
++}
 +
-+	device_property_read_u16(dev, "ti,vref-delay-usecs",
-+				 &ts->vref_delay_usecs);
-+	if (!ts->vref_delay_usecs)
-+		ts->vref_delay_usecs = 100;
++/**
++ * virtsnd_event_notify_cb() - Dispatch all reported events from the event queue.
++ * @vqueue: Underlying event virtqueue.
++ *
++ * This callback function is called upon a vring interrupt request from the
++ * device.
++ *
++ * Context: Interrupt context.
++ */
++static void virtsnd_event_notify_cb(struct virtqueue *vqueue)
++{
++	struct virtio_snd *snd = vqueue->vdev->priv;
++	struct virtio_snd_queue *queue = virtsnd_event_queue(snd);
 +
-+	device_property_read_u16(dev, "ti,vref-mv", &ts->vref_mv);
-+	ts->keep_vref_on = device_property_read_bool(dev, "ti,keep-vref-on");
-+
-+	swap_xy = device_property_read_bool(dev, "ti,swap-xy");
-+
-+	device_property_read_u16(dev, "ti,settle-delay-usec",
-+				 &ts->settle_delay_usecs);
-+	device_property_read_u16(dev, "ti,penirq-recheck-delay-usecs",
-+				 &ts->penirq_recheck_delay_usecs);
-+
-+	device_property_read_u16(dev, "ti,x-plate-ohms", &ts->x_plate_ohms);
-+	if (!ts->x_plate_ohms)
-+		ts->x_plate_ohms = 400;
- 
--	ts->model = pdata->model ? : 7846;
--	ts->vref_delay_usecs = pdata->vref_delay_usecs ? : 100;
--	ts->x_plate_ohms = pdata->x_plate_ohms ? : 400;
--	ts->vref_mv = pdata->vref_mv;
-+	device_property_read_u16(dev, "ti,debounce-max", &ts->debounce_max);
-+	if (!device_property_read_u32(dev, "touchscreen-average-samples", &val32))
-+		ts->debounce_max = (u16)val32;
-+	device_property_read_u16(dev, "ti,debounce-tol", &ts->debounce_tol);
-+	device_property_read_u16(dev, "ti,debounce-rep", &ts->debounce_rep);
- 
--	if (pdata->debounce_max) {
--		ts->debounce_max = pdata->debounce_max;
-+	if (ts->debounce_max) {
- 		if (ts->debounce_max < 2)
- 			ts->debounce_max = 2;
--		ts->debounce_tol = pdata->debounce_tol;
--		ts->debounce_rep = pdata->debounce_rep;
- 		ts->filter = ads7846_debounce_filter;
- 		ts->filter_data = ts;
- 	} else {
- 		ts->filter = ads7846_no_filter;
- 	}
- 
--	err = ads7846_setup_pendown(spi, ts, pdata);
-+	err = ads7846_setup_pendown(ts);
- 	if (err)
- 		return err;
- 
--	if (pdata->penirq_recheck_delay_usecs)
--		ts->penirq_recheck_delay_usecs =
--				pdata->penirq_recheck_delay_usecs;
--
--	ts->wait_for_sync = pdata->wait_for_sync;
--
- 	ts->gpio_hsync = devm_gpiod_get_optional(dev, "ti,hsync", GPIOD_IN);
- 	if (IS_ERR(ts->gpio_hsync))
- 		return PTR_ERR(ts->gpio_hsync);
-@@ -1461,20 +1391,28 @@ static int ads7846_probe(struct spi_device *spi)
- 	input_dev->phys = ts->phys;
- 
- 	input_dev->id.bustype = BUS_SPI;
--	input_dev->id.product = pdata->model;
-+	input_dev->id.product = ts->model;
-+
-+	device_property_read_u16(dev, "ti,x-min", &x_min);
-+	device_property_read_u16(dev, "ti,y-min", &y_min);
-+	device_property_read_u16(dev, "ti,x-max", &x_max);
-+	device_property_read_u16(dev, "ti,y-max", &y_max);
- 
- 	input_set_capability(input_dev, EV_KEY, BTN_TOUCH);
- 	input_set_abs_params(input_dev, ABS_X,
--			pdata->x_min ? : 0,
--			pdata->x_max ? : MAX_12BIT,
--			0, 0);
-+			     x_min, x_max ? : MAX_12BIT, 0, 0);
- 	input_set_abs_params(input_dev, ABS_Y,
--			pdata->y_min ? : 0,
--			pdata->y_max ? : MAX_12BIT,
--			0, 0);
--	if (ts->model != 7845)
-+			     y_min, y_max ? : MAX_12BIT, 0, 0);
-+
-+	if (ts->model != 7845) {
-+		device_property_read_u16(dev, "ti,pressure-min", &pressure_min);
-+		if (!device_property_read_u32(dev, "touchscreen-min-pressure", &val32))
-+			pressure_min = (u16)val32;
-+		device_property_read_u16(dev, "ti,pressure-max", &pressure_max);
-+
- 		input_set_abs_params(input_dev, ABS_PRESSURE,
--				pdata->pressure_min, pdata->pressure_max, 0, 0);
-+				     pressure_min, pressure_max, 0, 0);
-+	}
- 
- 	/*
- 	 * Parse common framework properties. Must be done here to ensure the
-@@ -1488,12 +1426,18 @@ static int ads7846_probe(struct spi_device *spi)
- 	 * Check if legacy ti,swap-xy binding is used instead of
- 	 * touchscreen-swapped-x-y
- 	 */
--	if (!ts->core_prop.swap_x_y && pdata->swap_xy) {
-+	if (!ts->core_prop.swap_x_y && swap_xy) {
- 		swap(input_dev->absinfo[ABS_X], input_dev->absinfo[ABS_Y]);
- 		ts->core_prop.swap_x_y = true;
- 	}
- 
--	err = ts->setup_spi_msg(ts, pdata);
-+	if (spi->controller->flags & SPI_CONTROLLER_HALF_DUPLEX) {
-+		ts->read_state = ads7846_halfd_read_state;
-+		err = ads7846_halfd_spi_msg(ts);
-+	} else {
-+		ts->read_state = ads7846_read_state;
-+		err = ads7846_setup_spi_msg(ts);
-+	}
- 	if (err)
- 		return err;
- 
-@@ -1514,13 +1458,12 @@ static int ads7846_probe(struct spi_device *spi)
- 	if (err)
- 		return err;
- 
--	irq_flags = pdata->irq_flags ? : IRQF_TRIGGER_FALLING;
--	irq_flags |= IRQF_ONESHOT;
-+	irq_flags = IRQF_TRIGGER_FALLING | IRQF_ONESHOT;
- 
- 	err = devm_request_threaded_irq(dev, spi->irq,
- 					ads7846_hard_irq, ads7846_irq,
- 					irq_flags, dev->driver->name, ts);
--	if (err && err != -EPROBE_DEFER && !pdata->irq_flags) {
-+	if (err && err != -EPROBE_DEFER) {
- 		dev_info(dev,
- 			"trying pin change workaround on irq %d\n", spi->irq);
- 		irq_flags |= IRQF_TRIGGER_RISING;
-@@ -1554,14 +1497,9 @@ static int ads7846_probe(struct spi_device *spi)
- 	if (err)
- 		return err;
- 
--	device_init_wakeup(dev, pdata->wakeup);
--
--	/*
--	 * If device does not carry platform data we must have allocated it
--	 * when parsing DT data.
--	 */
--	if (!dev_get_platdata(dev))
--		devm_kfree(dev, (void *)pdata);
-+	device_init_wakeup(dev,
-+			   device_property_read_bool(dev, "wakeup-source") ||
-+			   device_property_read_bool(dev, "linux,wakeup"));
- 
- 	return 0;
++	guard(spinlock_irqsave)(&queue->lock);
++	if (queue->vqueue != vqueue || !snd->event_vq_enabled)
++		return;
++	virtsnd_event_drain_locked(snd, vqueue);
  }
-diff --git a/include/linux/spi/ads7846.h b/include/linux/spi/ads7846.h
-deleted file mode 100644
-index a04c1c34c344..000000000000
---- a/include/linux/spi/ads7846.h
-+++ /dev/null
-@@ -1,45 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/* linux/spi/ads7846.h */
+ 
+ /**
+@@ -131,6 +141,7 @@
+ 
+ 	for (i = 0; i < VIRTIO_SND_VQ_MAX; ++i)
+ 		snd->queues[i].vqueue = vqs[i];
++	snd->vqs_initialized = true;
+ 
+ 	/* Allocate events and populate the event queue */
+ 	virtqueue_disable_cb(vqs[VIRTIO_SND_VQ_EVENT]);
+@@ -158,8 +169,12 @@
+ {
+ 	struct virtio_snd_queue *queue = virtsnd_event_queue(snd);
+ 
++	guard(spinlock_irqsave)(&queue->lock);
++	if (!queue->vqueue)
++		return;
++	snd->event_vq_enabled = true;
+ 	if (!virtqueue_enable_cb(queue->vqueue))
+-		virtsnd_event_notify_cb(queue->vqueue);
++		virtsnd_event_drain_locked(snd, queue->vqueue);
+ }
+ 
+ /**
+@@ -172,13 +187,19 @@
+ {
+ 	struct virtio_snd_queue *queue = virtsnd_event_queue(snd);
+ 	struct virtio_snd_event *event;
++	bool dispatch_events;
+ 	u32 length;
+ 
++	guard(spinlock_irqsave)(&queue->lock);
++	dispatch_events = snd->event_vq_enabled;
++	snd->event_vq_enabled = false;
+ 	if (queue->vqueue) {
+-		guard(spinlock_irqsave)(&queue->lock);
+ 		virtqueue_disable_cb(queue->vqueue);
+-		while ((event = virtqueue_get_buf(queue->vqueue, &length)))
+-			virtsnd_event_dispatch(snd, event);
++		while ((event = virtqueue_get_buf(queue->vqueue, &length))) {
++			/* Reclaim used buffers even when failed probe cannot dispatch. */
++			if (dispatch_events)
++				virtsnd_event_dispatch(snd, event);
++		}
+ 	}
+ }
+ 
+@@ -338,6 +359,43 @@
+ }
+ 
+ /**
++ * virtsnd_reset_vqs() - Stop device access and unmap outstanding buffers.
++ * @snd: VirtIO sound device.
++ *
++ * Context: Any context that permits to sleep.
++ */
++static void virtsnd_reset_vqs(struct virtio_snd *snd)
++{
++	struct virtio_device *vdev = snd->vdev;
++	unsigned int i;
++
++	virtio_reset_device(vdev);
++
++	/* Deleting a virtqueue does not unmap its outstanding descriptors. */
++	for (i = 0; i < VIRTIO_SND_VQ_MAX; ++i) {
++		struct virtio_snd_queue *queue = &snd->queues[i];
++		unsigned long flags;
++		void *msg;
++
++		spin_lock_irqsave(&queue->lock, flags);
++		if (queue->vqueue)
++			while ((msg = virtqueue_detach_unused_buf(queue->vqueue)))
++				if (i == VIRTIO_SND_VQ_TX || i == VIRTIO_SND_VQ_RX)
++					virtsnd_pcm_msg_cancel(msg);
++		if (i == VIRTIO_SND_VQ_EVENT)
++			snd->event_vq_enabled = false;
++		/* IRQ callbacks must never see a detached ring as live. */
++		queue->vqueue = NULL;
++		spin_unlock_irqrestore(&queue->lock, flags);
++	}
++
++	if (snd->vqs_initialized) {
++		vdev->config->del_vqs(vdev);
++		snd->vqs_initialized = false;
++	}
++}
++
++/**
+  * virtsnd_remove() - Remove VirtIO and ALSA devices.
+  * @vdev: VirtIO parent device.
+  *
+@@ -349,13 +407,14 @@
+ 	unsigned int i;
+ 
+ 	virtsnd_disable_event_vq(snd);
+-	virtsnd_ctl_msg_cancel_all(snd);
+ 
+ 	if (snd->card)
+ 		snd_card_free(snd->card);
+ 
+-	virtio_reset_device(vdev);
+-	vdev->config->del_vqs(vdev);
++	virtsnd_ctl_msg_cancel_all(snd);
++
++	virtsnd_reset_vqs(snd);
++	virtsnd_ctl_msg_cleanup(snd);
+ 
+ 	for (i = 0; snd->substreams && i < snd->nsubstreams; ++i) {
+ 		struct virtio_pcm_substream *vss = &snd->substreams[i];
+@@ -383,8 +442,8 @@
+ 	virtsnd_disable_event_vq(snd);
+ 	virtsnd_ctl_msg_cancel_all(snd);
+ 
+-	virtio_reset_device(vdev);
+-	vdev->config->del_vqs(vdev);
++	virtsnd_reset_vqs(snd);
++	virtsnd_ctl_msg_cleanup(snd);
+ 
+ 	for (i = 0; i < snd->nsubstreams; ++i)
+ 		cancel_work_sync(&snd->substreams[i].elapsed_period);
+@@ -408,10 +467,13 @@
+ 	int rc;
+ 
+ 	rc = virtsnd_find_vqs(snd);
+-	if (rc)
++	if (rc) {
++		virtsnd_reset_vqs(snd);
+ 		return rc;
++	}
+ 
+ 	virtio_device_ready(vdev);
++	virtsnd_ctl_msg_enable(snd);
+ 
+ 	virtsnd_enable_event_vq(snd);
+ 
+diff --git a/sound/virtio/virtio_card.h b/sound/virtio/virtio_card.h
+--- a/sound/virtio/virtio_card.h
++++ b/sound/virtio/virtio_card.h
+@@ -45,8 +45,11 @@
+  * struct virtio_snd - VirtIO sound card device.
+  * @vdev: Underlying virtio device.
+  * @queues: Virtqueue wrappers.
++ * @vqs_initialized: Virtqueues allocated by virtio_find_vqs().
+  * @card: ALSA sound card.
+  * @ctl_msgs: Pending control request list.
++ * @ctl_msgs_blocked: Control requests are blocked during teardown or suspend.
++ * @event_vq_enabled: Event callbacks may dispatch, protected by the event queue lock.
+  * @event_msgs: Device events.
+  * @pcm_list: VirtIO PCM device list.
+  * @jacks: VirtIO jacks.
+@@ -62,8 +65,11 @@
+ struct virtio_snd {
+ 	struct virtio_device *vdev;
+ 	struct virtio_snd_queue queues[VIRTIO_SND_VQ_MAX];
++	bool vqs_initialized;
+ 	struct snd_card *card;
+ 	struct list_head ctl_msgs;
++	bool ctl_msgs_blocked;
++	bool event_vq_enabled;
+ 	struct virtio_snd_event *event_msgs;
+ 	struct list_head pcm_list;
+ 	struct virtio_jack *jacks;
+diff --git a/sound/virtio/virtio_ctl_msg.c b/sound/virtio/virtio_ctl_msg.c
+--- a/sound/virtio/virtio_ctl_msg.c
++++ b/sound/virtio/virtio_ctl_msg.c
+@@ -15,6 +15,7 @@
+  * @list: Pending message list entry.
+  * @notify: Request completed notification.
+  * @ref_count: Reference count used to manage a message lifetime.
++ * @cancelled: Request canceled during device teardown.
+  */
+ struct virtio_snd_msg {
+ 	struct scatterlist sg_request;
+@@ -22,6 +23,7 @@
+ 	struct list_head list;
+ 	struct completion notify;
+ 	refcount_t ref_count;
++	bool cancelled;
+ };
+ 
+ /**
+@@ -100,7 +102,7 @@
+ 
+ 	INIT_LIST_HEAD(&msg->list);
+ 	init_completion(&msg->notify);
+-	/* This reference is dropped in virtsnd_ctl_msg_complete(). */
++	/* The caller owns this reference; send adds a queue reference. */
+ 	refcount_set(&msg->ref_count, 1);
+ 
+ 	return msg;
+@@ -134,6 +136,7 @@
+ 	int rc;
+ 
+ 	virtsnd_ctl_msg_ref(msg);
++	/* This reference stays with the queue until completion or teardown. */
+ 
+ 	/* Set the default status in case the message was canceled. */
+ 	response->code = cpu_to_le32(VIRTIO_SND_S_IO_ERR);
+@@ -147,12 +150,17 @@
+ 		psgs[nouts + nins++] = in_sgs;
+ 
+ 	scoped_guard(spinlock_irqsave, &queue->lock) {
+-		rc = virtqueue_add_sgs(queue->vqueue, psgs, nouts, nins, msg,
+-				       GFP_ATOMIC);
++		if (snd->ctl_msgs_blocked)
++			rc = -ENODEV;
++		else
++			rc = virtqueue_add_sgs(queue->vqueue, psgs, nouts, nins,
++					       msg, GFP_ATOMIC);
+ 		if (!rc) {
+ 			notify = virtqueue_kick_prepare(queue->vqueue);
+ 
+ 			list_add_tail(&msg->list, &snd->ctl_msgs);
++			if (notify)
++				virtqueue_notify(queue->vqueue);
+ 		}
+ 	}
+ 
+@@ -168,9 +176,6 @@
+ 
+ 		goto on_exit;
+ 	}
 -
--struct ads7846_platform_data {
--	u16	model;			/* 7843, 7845, 7846, 7873. */
--	u16	vref_delay_usecs;	/* 0 for external vref; etc */
--	u16	vref_mv;		/* external vref value, milliVolts
--					 * ads7846: if 0, use internal vref */
--	bool	keep_vref_on;		/* set to keep vref on for differential
--					 * measurements as well */
--	bool	swap_xy;		/* swap x and y axes */
--
--	/* Settling time of the analog signals; a function of Vcc and the
--	 * capacitance on the X/Y drivers.  If set to non-zero, two samples
--	 * are taken with settle_delay us apart, and the second one is used.
--	 * ~150 uSec with 0.01uF caps.
--	 */
--	u16	settle_delay_usecs;
--
--	/* If set to non-zero, after samples are taken this delay is applied
--	 * and penirq is rechecked, to help avoid false events.  This value
--	 * is affected by the material used to build the touch layer.
--	 */
--	u16	penirq_recheck_delay_usecs;
--
--	u16	x_plate_ohms;
--	u16	y_plate_ohms;
--
--	u16	x_min, x_max;
--	u16	y_min, y_max;
--	u16	pressure_min, pressure_max;
--
--	u16	debounce_max;		/* max number of additional readings
--					 * per sample */
--	u16	debounce_tol;		/* tolerance used for filtering */
--	u16	debounce_rep;		/* additional consecutive good readings
--					 * required after the first two */
--	int	gpio_pendown_debounce;	/* platform specific debounce time for
--					 * the gpio_pendown */
--	int	(*get_pendown_state)(void);
--	void	(*wait_for_sync)(void);
--	bool	wakeup;
--	unsigned long irq_flags;
--};
--
--- 
-2.56.0.567.gdb80ae8cd5-goog
-
+-	if (notify)
+-		virtqueue_notify(queue->vqueue);
+ 
+ 	if (nowait)
+ 		goto on_exit;
+@@ -184,6 +189,11 @@
+ 			rc = -ETIMEDOUT;
+ 		}
+ 
++		goto on_exit;
++	}
++
++	if (READ_ONCE(msg->cancelled)) {
++		rc = -ENODEV;
+ 		goto on_exit;
+ 	}
+ 
+@@ -227,9 +237,33 @@
+  * virtsnd_ctl_msg_cancel_all() - Cancel all pending control messages.
+  * @snd: VirtIO sound device.
+  *
+- * Context: Any context.
++ * Context: Any context. Blocks new senders and marks pending requests canceled.
++ *          Existing senders are woken when their request completes or after
++ *          the device has been reset.
+  */
+ void virtsnd_ctl_msg_cancel_all(struct virtio_snd *snd)
++{
++	struct virtio_snd_queue *queue = virtsnd_control_queue(snd);
++	struct virtio_snd_msg *msg;
++
++	guard(spinlock_irqsave)(&queue->lock);
++	snd->ctl_msgs_blocked = true;
++	list_for_each_entry(msg, &snd->ctl_msgs, list) {
++		WRITE_ONCE(msg->cancelled, true);
++	}
++}
++
++/**
++ * virtsnd_ctl_msg_cleanup() - Release messages left after queue teardown.
++ * @snd: VirtIO sound device.
++ *
++ * This must be called after device reset, buffer detachment, and del_vqs(),
++ * when no queue callback or DMA access can still reach a message. The queue
++ * object and its lock must remain alive until this function returns.
++ *
++ * Context: Any context.
++ */
++void virtsnd_ctl_msg_cleanup(struct virtio_snd *snd)
+ {
+ 	struct virtio_snd_queue *queue = virtsnd_control_queue(snd);
+ 
+@@ -244,6 +278,20 @@
+ }
+ 
+ /**
++ * virtsnd_ctl_msg_enable() - Allow control requests after queue restoration.
++ * @snd: VirtIO sound device.
++ *
++ * Context: Any context.
++ */
++void virtsnd_ctl_msg_enable(struct virtio_snd *snd)
++{
++	struct virtio_snd_queue *queue = virtsnd_control_queue(snd);
++
++	guard(spinlock_irqsave)(&queue->lock);
++	snd->ctl_msgs_blocked = false;
++}
++
++/**
+  * virtsnd_ctl_query_info() - Query the item configuration from the device.
+  * @snd: VirtIO sound device.
+  * @command: Control request code (VIRTIO_SND_R_XXX_INFO).
+@@ -295,6 +343,8 @@
+ 	u32 length;
+ 
+ 	guard(spinlock_irqsave)(&queue->lock);
++	if (queue->vqueue != vqueue)
++		return;
+ 	do {
+ 		virtqueue_disable_cb(vqueue);
+ 		while ((msg = virtqueue_get_buf(vqueue, &length)))
+diff --git a/sound/virtio/virtio_ctl_msg.h b/sound/virtio/virtio_ctl_msg.h
+--- a/sound/virtio/virtio_ctl_msg.h
++++ b/sound/virtio/virtio_ctl_msg.h
+@@ -68,6 +68,10 @@
+ 
+ void virtsnd_ctl_msg_cancel_all(struct virtio_snd *snd);
+ 
++void virtsnd_ctl_msg_cleanup(struct virtio_snd *snd);
++
++void virtsnd_ctl_msg_enable(struct virtio_snd *snd);
++
+ void virtsnd_ctl_msg_complete(struct virtio_snd_msg *msg);
+ 
+ int virtsnd_ctl_query_info(struct virtio_snd *snd, int command, int start_id,
+diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
+--- a/sound/virtio/virtio_pcm.h
++++ b/sound/virtio/virtio_pcm.h
+@@ -128,6 +128,8 @@
+ 
+ void virtsnd_pcm_msg_reset(struct virtio_pcm_substream *vss);
+ 
++void virtsnd_pcm_msg_cancel(struct virtio_pcm_msg *msg);
++
+ int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss, unsigned long offset,
+ 			 unsigned long bytes);
+ 
+diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
+--- a/sound/virtio/virtio_pcm_msg.c
++++ b/sound/virtio/virtio_pcm_msg.c
+@@ -305,6 +305,35 @@
+ {
+ 	guard(spinlock_irqsave)(&vss->lock);
+ 	return vss->msg_count;
++}
++
++/**
++ * virtsnd_pcm_msg_cancel() - Cancel a message detached during device reset.
++ * @msg: Message returned by virtqueue_detach_unused_buf().
++ *
++ * Reset cancellation retires the queue token without treating it as a device
++ * completion. In particular, it does not advance the PCM hardware pointer or
++ * schedule period work.
++ *
++ * Context: Process context with the PCM queue lock held.
++ */
++void virtsnd_pcm_msg_cancel(struct virtio_pcm_msg *msg)
++{
++	struct virtio_pcm_substream *vss = msg->substream;
++	bool wake;
++
++	{
++		guard(spinlock)(&vss->lock);
++		msg->length = 0;
++		vss->xfer_enabled = false;
++		if (WARN_ON_ONCE(!vss->msg_count))
++			return;
++		vss->msg_count--;
++		wake = !vss->msg_count;
++	}
++
++	if (wake)
++		wake_up_all(&vss->msg_empty);
+ }
+ 
+ /**
+@@ -367,16 +396,21 @@
+ 
+ /**
+  * virtsnd_pcm_notify_cb() - Process all completed I/O messages.
+- * @queue: Underlying tx/rx virtqueue.
++ * @queue: Underlying tx/rx queue wrapper.
++ * @vqueue: Queue that raised this callback.
+  *
+  * Context: Interrupt context. Takes and releases the tx/rx queue spinlock.
+  */
+-static inline void virtsnd_pcm_notify_cb(struct virtio_snd_queue *queue)
++static inline void
++virtsnd_pcm_notify_cb(struct virtio_snd_queue *queue, struct virtqueue *vqueue)
+ {
+ 	struct virtio_pcm_msg *msg;
+ 	u32 written_bytes;
+ 
+ 	guard(spinlock_irqsave)(&queue->lock);
++	/* Reset can detach the queue before the transport drains its IRQs. */
++	if (queue->vqueue != vqueue)
++		return;
+ 	do {
+ 		virtqueue_disable_cb(queue->vqueue);
+ 		while ((msg = virtqueue_get_buf(queue->vqueue, &written_bytes)))
+@@ -394,7 +428,7 @@
+ {
+ 	struct virtio_snd *snd = vqueue->vdev->priv;
+ 
+-	virtsnd_pcm_notify_cb(virtsnd_tx_queue(snd));
++	virtsnd_pcm_notify_cb(virtsnd_tx_queue(snd), vqueue);
+ }
+ 
+ /**
+@@ -407,7 +441,7 @@
+ {
+ 	struct virtio_snd *snd = vqueue->vdev->priv;
+ 
+-	virtsnd_pcm_notify_cb(virtsnd_rx_queue(snd));
++	virtsnd_pcm_notify_cb(virtsnd_rx_queue(snd), vqueue);
+ }
+ 
+ /**
