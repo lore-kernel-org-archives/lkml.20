@@ -1,105 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794518331;
-	b=DH/Pmtoa2zFRS8guduYu5QoZnyqIyHOzV9tH9/tV7skKDveMFmp9N84Ys5HwdHkiR4MC
-	 dF7WV3k2Gq0Ht+eT2ixQEzgcd/+n1TBXaeVjcxSi+MG2E1hC2TI/AuQ7lgLR+9GnUEFiP
-	 N8MopdE1HwQOp2QPNcrwjslwTKME7SjO2WyOnep17xrXGdopomvJQ6Mpung/iR9C/VOZE
-	 bbs1nj18McQ4ikZpYFD+1zhwSY1gWkR4qJRZu7+MLjLiZug+p6G0f2ChCRTMdqhq2xHHC
-	 LQOTOwHWiI7elMKqnGCOEOb48e0jKygtcMmYSv7fXD+y8v+J/vjv7i/kSScXUvOtnNQ==
+	t=1794518333;
+	b=HtGUBtw8t0iUBswiwm2tphar0+ihclnBIGdshI+hAT4WTrvi+JHMGcMXELrg2+KvTQyM
+	 zlq13JE2GPTURvg2ANByN1SLGOFI9jgMUzzh52f3ulLw0dbkjfGoD9CcQHf+2q8XTKv6C
+	 J5AU5yxmbsqoraUo7DsAPOvmsXtX13/aN0wlosS0/gP7z4xN3GvB34Upw+h3+KT3mghGV
+	 dPlh3c6x4eshXKjKatLfRPRi7pBWs+J3POKNxRoRn8lAqfxyJTOQUcgEhdR/D2DDUtPDE
+	 jmWioNI1oawAaswSHUfV2O+H4zB/TpqKu9TcF6cL8/ReP8ri+W49oFtUKc8OiwmwvmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794518331;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=oR1ZjXRhUcdoMnMdn9TMY7271yE7yog6gXeZYHWU2oU=;
-	b=yfxEUkIkijxar3SY1YuW9icotsETYQm2ZxXyf7WH0LYLf+NwpOAh6kHTPfEBsUsPP+4G
-	 Hzw8G3VPPq1cV+UHMX9Z26voHtKqYZAejlydEPMiIKQS+KY2Ld/kOrhSqxfYqNLtQIGWa
-	 NaJePScmDdc14csz4p8FU1CMfZEcL7g9mCR+6kl0+47y+Wwd5mN7PYG3egctWp/7oC8AN
-	 eYsxcF/EVJam6YFo8RyZg9p0PHluTOKYcLEl3lZo5Ga5Yw1orZIwFRp78W8e3WdoXcTfF
-	 eTMcWE7lT15vyCSU/+tq4nTQNwIt5lVCm7jSyGWeQL3mwjqkTQ/P6/QFyY3yzn/L+rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794518333;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=NWZiXsZIO9JbQ9mqYN0WWdRXv+kVOWB/KKAR39dAavU=;
+	b=XiFYRpljDKWj0LxthhOerPSWSmOuDDRdudZLEFGXqJdmy53BghpApkf6t0lsdVq6r8hE
+	 Iafp4ddYjubYnE1sTOnraqq7EBTZtqYDrhai5DtKSV2JOV/bcpesqUjdWsgt7YlHhoEC9
+	 YvW78DjNzLcTpSlWPi2kGJFWQF6jkdeENdbOoC+QYd/8j1V7OGCsorXMPL/Ied42Ipwjg
+	 gPUMo86cRsBm/pcoEPomWcLaveRVa/HsIEKJZjy34sH4Mk3MF851epwvw0g9PmcPeRY+E
+	 BBQR7uNMGi416Ra5rKLHiD0mk9n6fZMS5U29IzRRYYTw4yWjwbFqRTgMFeF+S/jHJPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=TSGMLEGx;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1UNwTerQ;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=TSGMLEGx;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1UNwTerQ;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AE1606A327;
-	Thu, 12 Nov 2026 21:18:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98AE1606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Vsex3fdN;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D1CF606A335;
+	Thu, 12 Nov 2026 21:18:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D1CF606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=TSGMLEGx;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1UNwTerQ;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=TSGMLEGx;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1UNwTerQ
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6F14922290;
-	Thu, 12 Nov 2026 21:18:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794518328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oR1ZjXRhUcdoMnMdn9TMY7271yE7yog6gXeZYHWU2oU=;
-	b=TSGMLEGxWuiJ8RKvtKhE60V739Y3gABoW1gbRjIG+5wDLwx8VeZsv6h9bnwgs1bMFC1nX5
-	5P+sgBtdHPPtdwvxAgsW+Vj3b9aAqxYV7LQ1x7oISsRQidB1eW/M8FX5tES2RkMJAFR6sV
-	j+Ax8fxvdQDrvrITnkwolzBA6rC1sqM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794518328;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oR1ZjXRhUcdoMnMdn9TMY7271yE7yog6gXeZYHWU2oU=;
-	b=1UNwTerQ+Bk1aljOcyoL+YElSiCCf6QBTZdK5Am0rzc5vsE0y98QajhTayBgFZ6idK1iIS
-	X5dUXtByg0uBKPCA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794518328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oR1ZjXRhUcdoMnMdn9TMY7271yE7yog6gXeZYHWU2oU=;
-	b=TSGMLEGxWuiJ8RKvtKhE60V739Y3gABoW1gbRjIG+5wDLwx8VeZsv6h9bnwgs1bMFC1nX5
-	5P+sgBtdHPPtdwvxAgsW+Vj3b9aAqxYV7LQ1x7oISsRQidB1eW/M8FX5tES2RkMJAFR6sV
-	j+Ax8fxvdQDrvrITnkwolzBA6rC1sqM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794518328;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oR1ZjXRhUcdoMnMdn9TMY7271yE7yog6gXeZYHWU2oU=;
-	b=1UNwTerQ+Bk1aljOcyoL+YElSiCCf6QBTZdK5Am0rzc5vsE0y98QajhTayBgFZ6idK1iIS
-	X5dUXtByg0uBKPCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 458CB134A0;
-	Thu, 12 Nov 2026 21:18:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ssYHCTgt9mqkZQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 12 Nov 2026 21:18:48 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id B9D4722BD9; Thu, 12 Nov 2026 22:18:43 +0100 (CET)
-Date: Thu, 12 Nov 2026 22:18:43 +0100
-From: Jan Kara <jack@suse.cz>
-To: Zhu Jun <zhujun2@cmss.chinamobile.com>
-Cc: jack@suse.cz, brauner@kernel.org, viro@zeniv.linux.org.uk, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] buffer: Annotate the remote buffer LRU occupancy check
-Message-ID: <dzuz4ea2o4d3nismuvcis56awwl636rnm3ecgbzhb3ylevgheu@5t433wwg45wq>
-References: <20261112015047.114119-1-zhujun2@cmss.chinamobile.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Vsex3fdN
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 64E861516;
+	Thu, 12 Nov 2026 13:18:48 -0800 (PST)
+Received: from [10.211.55.3] (unknown [10.57.14.230])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C003D3F632;
+	Thu, 12 Nov 2026 13:18:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794518331; bh=GjzrUYC0FSKDkhN90grSXlqpyDPaHp92cULgUh2tfzI=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=Vsex3fdNuqG3xF0tWSe+ChHgcFjCFRm+bCis60U/M/RAh/iE2ON/wppdCijNGYfMc
+	 1nH8aCS+WxJsjv+lKCCstbW5NQbFFdazIZGbLKOnFkbarvFK/ReYFO3VfWNttcZX5C
+	 BbgLuYLCC6NKGDEyeKJ7y0lEQaIThQIIHHiDsmXk=
+Message-ID: <7aa50421-6e92-4ea6-be39-88045e682a9f@arm.com>
+Date: Thu, 12 Nov 2026 21:18:36 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,77 +53,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112015047.114119-1-zhujun2@cmss.chinamobile.com>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH v5 RESEND 5/7] fs/resctrl: Release the limbo RMIDs when
+ the CDP state changes
+To: Reinette Chatre <reinette.chatre@intel.com>,
+ Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
+ Dave.Martin@arm.com, james.morse@arm.com, babu.moger@amd.com,
+ corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, fenghuay@nvidia.com,
+ tan.shaopeng@fujitsu.com, will@kernel.org, gshan@redhat.com,
+ zengheng4@huawei.com, jic23@kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20261110133938.3768632-1-ruanjinjie@huawei.com>
+ <20261110133938.3768632-6-ruanjinjie@huawei.com>
+ <3c48dac2-78af-44c9-b546-e5fcf7bbd8d6@intel.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <3c48dac2-78af-44c9-b546-e5fcf7bbd8d6@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu 12-11-26 09:50:47, Zhu Jun wrote:
-> has_bh_in_lru() reads another CPU's buffer LRU while that CPU may install
-> or invalidate entries. The local BH LRU lock does not serialize this
-> remote occupancy check, which KCSAN reports as a data race.
-> 
-> The check only decides whether to send a drain IPI and never dereferences
-> the sampled pointer. Mark the occupancy check as an intentional data
-> race with data_race().
-> 
-> Fixes: 42be35d0390b ("fs: only send IPI to invalidate LRU BH when needed")
-> Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+Hi Reinette, Jinjie,
 
-Looks good. Feel free to add:
+On 11/11/2026 18:33, Reinette Chatre wrote:
+> Hi Jinjie,
+> 
+> On 11/10/26 5:39 AM, Jinjie Ruan wrote:
+> 
+>> still carry those RMIDs are accounted to the next user of each RMID.
+>>
+>> The CDP state that matters is the one that changes the PARTIDs used by
+>> the monitors, which is not necessarily the CDP state of the L3
+>> resource. MPAM gives every CLOSID two PARTIDs in all MSCs while CDP is
+>> enabled on any resource, so enabling CDP on L2 alone also changes the
+>> PARTIDs the L3 monitors use. Add resctrl_arch_mon_cdp_enabled() to let
+>> the architecture report this. Only MPAM can be affected, so the RMIDs
+>> are only released where the RMID depends on the CLOSID. On x86 the
+>> RMID does not depend on the CLOSID, and resctrl_arch_mon_cdp_enabled()
+>> returns false.
+> 
+> nack. The helper name and value returned on x86 is the first hint that this
+> is not right. For x86 the value is not a statement about x86: CDP exists on
+> x86 and can be enabled, so a function called resctrl_arch_mon_cdp_enabled()
+> returning false reads as wrong until the comment above it explains that what
+> is really being reported is whether CDP changes the IDs the monitors use.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+The invariant that the limbo handler is currently relying on is that the
+mapping of rmid index to the underlying hardware monitor index is fixed.
+For MPAM, if cdp is enabled at all then the mapping is changed and so
+the invariant does not hold between mounts. MPAM's emulation of CDP is
+why it breaks the invariant. resctrl shouldn't need to care about this
+MPAM specific reason and should only care whether or not the invariant
+is upheld or not. In the future, MPAM may use more than the two existing
+indexing schemes. For instance, if we wanted to have one memory
+bandwidth monitor per monitor group, without assignment, then we would
+need to limit the number of monitor groups.
 
-								Honza
+> 
+> Every architecture now needs to match this. This looks more like forcing
+> every architecture to indicate whether it has the same quirk as MPAM.
+> 
+> If there is no way to handle this in MPAM driver then handling this should at
+> least be contained between resctrl filesystem and MPAM driver. This should not
+> be forced on all architectures.
 
-> ---
-> Changes in v2:
-> - Use data_race() without READ_ONCE().
-> - Drop the added comment, as suggested by Jan Kara.
+I don't see a way for the MPAM to keep the same RMID for when it is
+emulating CDP and when it's not.
+
 > 
->  fs/buffer.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> I trust the MPAM folks to say whether it can or cannot be done in MPAM driver.
+> If this is not possible in MPAM driver then it looks like this needs to go back
+> to include the L2 CDP check as was done in previous version. With this check 
+> gated by IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID) it does hint "MPAM"
+> but would also need a comment to explain why that is done.
 > 
-> diff --git a/fs/buffer.c b/fs/buffer.c
-> index 5d3852b726d6..2d2d61495b4d 100644
-> --- a/fs/buffer.c
-> +++ b/fs/buffer.c
-> @@ -1437,7 +1437,7 @@ bool has_bh_in_lru(int cpu, void *dummy)
->  	int i;
->  	
->  	for (i = 0; i < BH_LRU_SIZE; i++) {
-> -		if (b->bhs[i])
-> +		if (data_race(b->bhs[i]))
->  			return true;
->  	}
->  
-> -- 
-> 2.51.0
-> 
-> 
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+
+Would something like an rmid indexing generation count be any better or
+is that just overthinking it?
+
+int resctrl_arch_rmid_indexing_generation(void);
+
+If the indexing never changes the arch could always return 1 and if it
+does change the architecture can bump the number on every change. It
+would still never change when resctrl is mounted.
+
+Thanks,
+
+Ben
