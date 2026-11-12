@@ -1,72 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794513170;
-	b=nYWFDDCQUvP/7+n1+o9g72XDCgzEACX99SGEcM63kKbbSFH1l6/AQewmb44W1GAQ8GbV
-	 1EYjau8ctOLZOQcGYP3TFsH1tuJ3lbdWfU1D8qZ+xMT+UeVYsxqau2TRiZi5mllen162O
-	 Fx2c+0lTW5Q+1P8HeDbXQupqNueAVg2HJuyEwbBxe7EdFbrgcxD2UN6kOTOo/MUgvwAAo
-	 LzqMD/P/2e6pPwMiBO+35fmRMGizG3pJoPcLky2R5f2y5X6n0seTVAzrNDXguJ4RtzLDW
-	 4eJIYt79iUQulis46zQ5WEXu+T4ETbyWIpRtSCucUgK2FfPCGu91YEjjpR8qpxhzIpA==
+	t=1794513184;
+	b=GEqIJZvw7ZdtNDQqG/hIiKS3VDoCm9BGr7RAULM1Zvtq9v2+vR9AO8Y4/ZVMD5s23E2b
+	 U6s6s8+G8GuvOXgPPHLmTxkqr+CrdPbMDTjc/ECqwdzKQsaKAVw799Ibr9MTmyKlVYBzs
+	 GAmqfhpss1dzHWDIywlMGg/ZEExE0K+WPF8VxZJW/QDLKs0dnbeRcWahRpoh6l+hpolCS
+	 aGm7O3apk6lSC9eXSVwIhOxT81+gVBiWRjiEUa3eTuvpWYCSTuEG9S43EEdJkqsH56XfL
+	 +85YyHOvGbQP2E2N6xpVhfiX+eIQOoPEZXHcpDhttO52T0K5Fd5ulwTXjCs2jbkQzxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794513170;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6g6Q2Oc4KxDyRr8E2Y5ffCl+6LA2NNHiXLm26F3enDk=;
-	b=aggTOCa50ZcPt+BPEOjHPErjqBLsiUViLLH3xHkY2vaAjq7Ua8t4rJCENWn4cfNa1lgI
-	 O7n2+INYhN4+mbrF7tHDaP2q4IDTQXqsQlm3NxXQAtjrqlVqLY2KmMiSyXJmDHhMdu0O/
-	 2W0C1GS4doO2ho6D01WtRtbAV28nZUxSdfuM2EC4ls1mYwHUjh3bvH6gdeipv4MpSX3+e
-	 UOJ+rsri5KgYojnAeNbVLG4iqGCpBxqCGkEeJhzKu4ZRpy5wUqTatCJqtbJsQCP1e6+Kh
-	 MSjDlMcKP+yXscPqfC6Arv9Ddpj0p6eRoQ7AwFWdcCtV5+FnwS1Xh8qpzDau2l4tFxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513184;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=KrAKCc1OnJY4LbejaA118mCBpDZA++ULUTspBpWDwjI=;
+	b=u8v9uyKeVsWbfsCwQrGhcZiXQ7m4iVKLy6SzRt3iZa4WLFtvJ3hbRb4XDiuReyE766vM
+	 mq6+rTpPF4rMcxHQbjY+Ss9012qC9rgSfV6QQgAvN905KjPSZSlBbFmT0a62C9+HM6n0Y
+	 F7sTGE6ToCfUc4PxhejSULIwkdXUmvls+ACMBxwDkcN/6lrkHsENdgTHPHCKalp1xGODv
+	 E+dOebZvZ56/Fm2u1ntEK/Vq+DffHsVSgCGz8qcoGNyWJNqgHIRD98HIQuVo4y+MqBjP2
+	 BjrNUNfoZyfeaV2acHazW5zSpuODaB348ZyxRgI5AcOEjy5xeWwq0pcYj/DHa+8C8rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PGVBP0Cq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DB3606A31C;
-	Thu, 12 Nov 2026 19:52:50 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KIa6jf8x;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 881F4606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:53:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 881F4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PGVBP0Cq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C1991F000C4;
-	Thu, 12 Nov 2026 19:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794513169;
-	bh=6g6Q2Oc4KxDyRr8E2Y5ffCl+6LA2NNHiXLm26F3enDk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PGVBP0Cq7hu3Aw59R/1O0fE7lSUgGcOn3+9OHQCe3HyuoSz6a92FnrAyvz8+EPbPa
-	 yu7y63LGnBGu1f4FLWbTpUsdlT+e+MmGDiGfGguzDB9RjfGiByDYmwXctb60H1XVPG
-	 n7DhppG2/LGiSGaLWbdmJJmRrqSImkajVb0R4o+3beSJB9cV9l1RB+JiAFg8M2Yz0L
-	 cRoI8Wkp4eJiBvBD4QahPkfBYkzL+b1N5rwVevc+qmnKlWXpbFBPflPIlAO/djwqut
-	 EGCpFo/7a8c29CELEkIsvGusYTeMFuBAZOzBkMsNP8d3VLHjM0l5iyvVdTVrdUbaH+
-	 BPC3+JxTwU8uw==
-Date: Thu, 12 Nov 2026 19:52:38 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
-	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
-	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
-	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, Michal Hocko <mhocko@suse.com>, 
-	Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 12/12] mm/userfaultfd: check hugetlb end alignment in
- UFFDIO_UNREGISTER pre-scan
-Message-ID: <avYVPp7fHNg8WSUB@gremlin>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-12-00713d368976@columbia.edu>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KIa6jf8x
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1608B143D;
+	Thu, 12 Nov 2026 11:53:01 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E67833F632;
+	Thu, 12 Nov 2026 11:53:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794513184; bh=UVssr2h0mtTlZR3uknoInjfb4xYkRuFDnS+ok0EQ/Js=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KIa6jf8xPIhnYjIt1/ah9uwMyqR51klIIHUVgOF56JSTCncADpFq7xBqP2MixQIcJ
+	 lar+vP5zIri1gYTsurYMR/2zyxKxAviqSzUjHuInf/T5u3xfuEFZ4PJbUNfJxKzJlC
+	 BXRRfQxb5Z7xmfdWLFC8XyLxLlUthyJ2GWqdnZEw=
+Date: Thu, 12 Nov 2026 19:52:56 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: linux-arm-kernel@lists.infradead.org,
+	Beata Michalska <beata.michalska@arm.com>
+Cc: Will Deacon <will@kernel.org>, Vladimir.Murzin@arm.com,
+	suzuki.poulose@arm.com, xuewen.yan94@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH 0/3] arm64: errata: Update AMU workarounds
+Message-ID: <avYZGOO_gku8RUKj@arm.com>
+References: <20261111124005.2688820-1-beata.michalska@arm.com>
+ <179451296804.3304937.3878967781756339834.b4-ty@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,93 +64,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111-uffd-state-fixes-v1-12-00713d368976@columbia.edu>
+In-Reply-To: <179451296804.3304937.3878967781756339834.b4-ty@b4>
 
-hugetlb vs userfaultfd is a bit like the alien vs. predator of worst mm features
-of all time (TM)
+On Thu, Nov 12, 2026 at 07:49:28PM +0000, Catalin Marinas wrote:
+> On Wed, 11 Nov 2026 13:39:26 +0100, Beata Michalska wrote:
+> > This short series updates errata for AMU core & const counters.
+> > The last patch in the series tries to optimize a bit the paired
+> > readings of both counters, so that the workaround checks do not
+> > skew the results. It is also intentionally the last one, as it
+> > will not apply on older stable kernels.
+> > 
+> > 
+> > [...]
+> 
+> Applied to arm64 (for-next/fixes), thanks! I left the 3rd patch to Will
+> for the upcoming merging window.
+> 
+> [1/3] arm64: errata: Extend the workaround for broken AMEVCNTR01 counter
+>       https://git.kernel.org/arm64/c/139a9b7d5a07
+> [2/3] arm64: errata: Add Cortex-A715/A720 AMU core counter workaround
+>       https://git.kernel.org/arm64/c/be7771458582
 
-On Wed, Nov 11, 2026 at 12:55:20PM -0500, Tal Zussman wrote:
-> UFFDIO_REGISTER and UFFDIO_UNREGISTER both scan the VMAs of the range
-> before changing anything. For a hugetlb VMA, userfaultfd_register()
-> rejects a range whose start or end is not huge page aligned there.
-> However, userfaultfd_unregister() only checks the start.
->
-> An unaligned end only fails later, when vma_modify_flags_uffd() cannot
-> split the VMA there. At that point, userfaultfd_clear_vma() already
-> cleared the WP or RWP protection. The ioctl returns -EINVAL and the VMA
-> stays registered, but accesses to its pages are no longer reported. This
-> requires a caller passing a misaligned range.
->
-> To fix it, check the end of a registered VMA in the pre-scan as well.
-> The ioctl still returns -EINVAL, but no longer unregisters the VMAs
-> before the misaligned one first.
->
-> Fixes: cab350afcbc9 ("userfaultfd: hugetlbfs: allow registration of ranges containing huge pages")
-> Fixes: f369b07c8614 ("mm/uffd: reset write protection when unregister with wp-mode")
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
->  mm/userfaultfd.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
->
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index bf42fabb5afd..c0076c8b4e9d 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -3983,6 +3983,18 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
->  		if (!vma_can_userfault(cur, cur->vm_flags, wp_async))
->  			goto out_unlock;
->
-> +		/*
-> +		 * A range ending inside a registered hugetlb vma must end
-> +		 * huge page aligned, as in userfaultfd_register().
-> +		 */
+Ignore this one, I applied v2 but b4 still remembered.
 
-Hmm I think this is more or less saying what the code is doing :) so I think
-unnecessary. Maybe worth using the words 'cursed' and 'eldrich' here to describe
-what's going on? Or possibly just e.g.:
-
-	/* See check in userfaultfd_register(). */
-
-> +		if (cur->vm_userfaultfd_ctx.ctx && vma_is_hugetlb(cur) &&
-
-This first check is pretty horrid to spell out loud, maybe do something like:
-
-	do {
-		const struct userfaultfd_ctx *vma_ctx = cur->vm_userfaultfd_ctx.ctx;
-		...
-		if (vma_ctx && vma_is_hugetlb(cur) && end <= cur->vm_end &&
-		    end > cur->vm_start) {
-		    ...
-		}
-
-> +		    end <= cur->vm_end && end > cur->vm_start) {
-> +			unsigned long vma_hpagesize = vma_kernel_pagesize(cur);
-
-Could be const?
-
-Also is vma_kernel_pagesize() right? If the VMA is hugetlb, then that'll end up
-as hugetlb_vm_op_pagesize() which is huge_page_size(hstate_vma()), but it seems
-userfaultfd is full of this crap and yeah ok. Fine :)
-
-> +
-> +			if (end & (vma_hpagesize - 1))
-
-Could do:
-			if (!IS_ALIGNED(end, vma_hpagesize))
-
-Instead?
-
-
-> +				goto out_unlock;
-> +		}
-> +
->  		found = true;
->  	} for_each_vma_range(vmi, cur, end);
->  	VM_WARN_ON_ONCE(!found);
->
-> --
-> 2.39.5
->
-
---
-Cheers, Lorenzo
+-- 
+Catalin
