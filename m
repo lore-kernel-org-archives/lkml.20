@@ -1,108 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501229;
-	b=DHeRs+OUyPSsmEOZfMm17xg/hRcZuDRMdhp37YoFihqW+xYr9e2S4dBdzKkPIUScZyQL
-	 RmY/umnSDvtRAyYhUc3/K2CbauMAygRyc4bBj5exykWO0cScnT0s6vKjbopqxXmpnod1Q
-	 aTR+HHR1AJVdrpbzfmvRZlmX4vtsi9NxCYcZ5KR5rorugmzfGh6rFOL1r6seZGafCQKr5
-	 udCMnR7yOwEXf10G0UZx9yh66xtw1YW8X28ZUQkBTwQqnFYDodubQBHgbuqRMYpuQpqnw
-	 qdJmVeBEzeILjQBzlMVhwB7YwdEtfvGGDf5yczwY10qx4rJk8bXlyfAOruH1y0vVO4A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501229;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=gyJuNAeoXszdWFzMU5/1mECWPAANZRNlmYnCDitqtII=;
-	b=cmDoZHY1m419VhCsMosddKiXjlW9Obx6KEjQda/+ofG3DLjoaFmYnmfwxyVFg2D+j9lp
-	 kM45ID5MD7X5qC5OL/6Xr9F/CsUI/SFRKjaJuvBZOehSEGv8KLF1iQD6a7pa48HhF8PXF
-	 omiaUrq0hB6KcldKPfqTB7xb9pVCvRUTOpC2Dg3jPUKOAieFe0p5Tk7PWdLc7MDw33srF
-	 tGpsMrf1zVues6WfmgWfHH1dGZ+V4WTwKRdvOF5FVHFQfUqpsnFwgqvf/qb2DXtd6IziT
-	 WwZg64i2h18wcy29zi2omJXlwYNpEmNp8F/44i+ezsPm3iVFxKnPBq0ymX7t9aHRosg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AQ1O4O+C;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.39
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794501261;
+	b=wix8YtzXa8qsjrT+mQ+RhlHTzthOTTrtXtPIljifWHv56PbTsNRs/jNGrd45YHGqJk35
+	 1l7vtFvYsVr0darTdfBjlilHv2IhiZlMPmU95UkNJYiMxFCAhPNNhisjMog4eqJYjmi8X
+	 R2D2/ksmfI8uYLa9GA/MWycvJDqpjCutPvhWa6rAj+omPE9gV49GGQxZjhy/ExqEzPqac
+	 7J/DDGqVrJqsxNHpC3FXxf2wSc+lwu+lijhgBRb+8OIqsYE1F3nfJ4o43LaRw+rqVm0b1
+	 uBiSufq/TXy45lnJwV7YKP9CAMtpw9WhqmAPdxJaRmPErNurVMLxVvVOTJzB5Rs56Ig==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501261;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:CC:
+	 References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=67O3Kv9GxmQvXDo03HPXJ4aw6OZ8A4VmfYlF/5snj90=;
+	b=hzJCgh0h9vqkdTuqEBSyXnl0ya19bydf6nJQKQvor62Kjxc3UIJY3edOKb30Xk2tidvp
+	 xInbYd77A5rtBNtx72U/w8EIdOjeCpds8UXMYBXPYEUIUf/Y1itX38Y3zxw7Ip3EGwz6w
+	 UBLRVWMDjNkg3gqcRcs9l08JxzpiOV9MCNExLjvEgCGk2/JjDMS6nzhRJODrnhrujOAPk
+	 plJXYT/6KUin0/+qHp+eaSYW49EbYykkVn60TPU9jWqV/La4T7vulLpxhoJk0nP9wrqdU
+	 f7eLUApmjlz1MBz4r0DcE4NdTiU/1kMtickGrWa9UFWAZbeS8CjMxKQKjftHRK8kZ3w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=L+9woj8T;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.39
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013039.outbound.protection.outlook.com [52.101.72.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88DD60A2623
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:33:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C88DD60A2623
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD8A606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:34:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DD8A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AQ1O4O+C
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1a8cc11ac42so4482267c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:33:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794501228; x=1795106028; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gyJuNAeoXszdWFzMU5/1mECWPAANZRNlmYnCDitqtII=;
-        b=AQ1O4O+CnBvsL9liNvWZ3q49mbpN4U96ovP7fMhFg5HLVFpZ63BOy4LXGh01oL3veU
-         nT+KDclIHFCUos4TZhssNnxmT/sNB0I8nhrkVGCsrD+Dpp/YmM+EGOVYKgeJr3bqHr3n
-         DJdXX+edd8qL9bd9BiVS1OoLecKMbXpFnNX6vGm50Sl/W2iOn0R4flS/T6U++BZuqaHi
-         dtfzGR39P9l/FMyT3YVkFPchMJ4IFNnHANhze0vs7Zkqp1w5onvRATa/Lh3mllAXeoWh
-         yM0wxFVjGk7MmTplwTLd9qSOAerRZM7vKpoh7kIK19kRHiwe1oZ32MyCjrsiucpNuY2A
-         AOJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794501228; x=1795106028;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gyJuNAeoXszdWFzMU5/1mECWPAANZRNlmYnCDitqtII=;
-        b=Y7C7qRJUxcpZC4TzxPiWGyzPsCIfqp/rmFwqDibaDajvwi5igETGcW6SJI0L5V6+B8
-         Mna3ZeiDTGmU26F5WUdbG7tyNQSYbkLqPmTJjlHX1IUwIxExULkoNQE0MC8+fISzm4aj
-         T5SMaXheM9dc2SmT+K8NfSEfd5tfo11+Sszsawzfmce5QJL86yTjWR+MxGHhNZDgEzTx
-         QUIHBZ9rzrcBPPf1WU34C5w2AR94AEVvTFmtOe9j8dC6Zhz6bogfEaBkS3mhJGVFvg08
-         InPA947D3/ZPTeDdnIASAvg2592qyLG1bKRmNjzepgMsD85AZRxyuHS68W46a6CqGr/c
-         dk8Q==
-X-Forwarded-Encrypted: i=1; AL+hErGsQ1lsHbWhE1mmSy2rd3AsbNxWknexfODDycVknYKIQC22JaCYxWxVJnC7aAG5gV26NbDvCAiRjG0vmv0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8jw2d5FMHBxD014NZg9POR9N979fQeP6jrm2BgUmTszJO4U6MX
-	ipsWiBouSjjhezQK8rT5lED1pyTXl9gsgnbmfXvUZb/1509zcjKcPQ4OS9J8vAGD
-X-Gm-Gg: AYBFou2S9ineab+L39sg7zbMWv31WukZchJ10Ec0X9OyuuhCQ9naDCT56gS2C5RaFDt
-	E2ZY89kH7v2nqut6AJPvXAa3lBR1e9REceGscPeuXQVMZSlxI55HIOGHaPGQWtG5Jll3RCyQVTf
-	wxetd9I0u1rvJ8rKpp/1kRgeKlY2uiwYtjMO+noFgrCi1nktuQgwRU959EPdbUbrJoxfkkiKFKq
-	o1xPDzXOpd36uio5UBD1ntL1YxIQ1+2eBfs0OC7EEPqnMHqgnFestYVt8Zmu/Fr0xTGI1E8KzGl
-	drbnoPwB24psttzRhAFIOid9t2PEuuQ9m6sYAopDdS+a2AbxNIEeakG0rvS3yCWADBAMOk6fNZn
-	oIl+2N0pN9Z+ea7vmCGR7KePwy3RaNNZsSeDj3KydRSLKGRtoPrCrAwJzt7GbtsLBsS+jPMViGq
-	vK0pCTA10dDe7VAnGAO43l2ySqzLCzTs6GMXVMXQv2blbtyMivpnoSX6SvsnMcXB6BGetXbsTsj
-	LQSNN3zRsLQbWB0iNANwQyhZx+te/xFd5WaIis3E2xpnhFPTaOJiKwPcVMov56J9T1COvlhDwkb
-	pKIMTyjttILjyEKbkWfEgEfiGJKQ6v6oyJRt6cqSqKc7nRXuDJ9OzoMCWpA3DWlenUdd6T+LAht
-	mJvUpv01lRNRFiELoRh0DxvEK4AF1iF6zjhy0g32N13u+i9zEevEiXgyQ8nePtrJH/LoHpkuv
-X-Received: by 2002:a05:7022:3a85:b0:185:fd0c:4585 with SMTP id a92af1059eb24-1b50312b3b0mr80585c88.33.1794501227470;
-        Thu, 12 Nov 2026 08:33:47 -0800 (PST)
-Received: from Mac.localdomain (198-27-228-154.fiber.dynamic.sonic.net. [198.27.228.154])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm230248c88.0.2026.11.12.08.33.46
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 08:33:46 -0800 (PST)
-From: Ahmad Byagowi <ahmadexp@gmail.com>
-To: netdev@vger.kernel.org,
-	vadim.fedorenko@linux.dev,
-	andi.shyti@kernel.org
-Cc: linux-i2c@vger.kernel.org,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 3/3] ptp: ocp: support the WiWi revision 02 Time Card
-Date: Thu, 12 Nov 2026 08:33:32 -0800
-Message-ID: <20261112163333.12523-4-ahmadexp@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261112163333.12523-1-ahmadexp@gmail.com>
-References: <20261112163333.12523-1-ahmadexp@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=L+9woj8T
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nTROlTOzd5nhuP0tBZPwHPHbSeP+biNQ3iKgMV9crQMGPXgA0LpdZ3FSGBQozmXchTxjHttIguH3R+2vBWttih7XFGKBy5Eu1OmnnR/ifUHYvqqunXqckutILuwooMifE73Bhuo+Lb90e8KY4ci6A/RL/2eug5QFYnJCwjwLEkfBdkIbx9i4potyrWrrK6OqSEuTCnkxudpR3Lcj2kdxnRJt2I+GkcD2sk0o6o+3KMEIJxL4ZCAYD+yHrrJRmsoI0MY+HCUlbxK4IzfgDmqqrTxBrUbOF8EhAiJYfM92R0EkTforIhK2uiGBRVYN66OYBxn0mbKJUl4ii4g7MeZWVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=67O3Kv9GxmQvXDo03HPXJ4aw6OZ8A4VmfYlF/5snj90=;
+ b=Rp6f7W7FhCSq0HvK/uMA1QV+N46ZwdD43Wzm3eZELDAzXoDRFpI9AvMd3pag425rQJmtRoz1B6081bz9Fgk4ODISup3xX4b39wdDWedhsqinH59ymPk/SFezM8wkUkguU+HGHGJi6MEOfchinpoYykbA5fGhrA4pd7Ps1/GuviWJHDS3cLGPVtG54f/k+SFWOahdr0g91rQrNel9n27SK7yEf8vqsdwzgKsxl6UTQtUtXnEGnckMVDPWfBvMSyYlPjezmf1Oi4XGvW7EeG6iikdjJVnoxuxWvKzpw+jczj+dcJ7V5OlOk69Wne80hDy3kHR3KWy91Sjbe0dfJBxljg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=67O3Kv9GxmQvXDo03HPXJ4aw6OZ8A4VmfYlF/5snj90=;
+ b=L+9woj8TNFRSEZ5Q12Af6S8w5ih1tPXvgn2mRh/VyySXkXNjxpS2ghW82UfMC7hKD60x17gDakWfUSWPyapT3+i+EBv7J4gvPXwhCJiiDGbrtNfXVlGsiCzeWtu9iD8WxVmrkARoKmERT9i/X4AORihApWvbv7IQyOmx0wmMJwlZGWRy0x9KPSqHfb+Ccig6+y8iaRHXwzVYpHxfEQ7HN6vs2TOKBu2XbN3iZgig6Db9BOVezbmDP0gGSG/osCN3VyT2mopV91j8g7+Uu2o4nTT7Ux+9RBQc2me42AnZ2PQOEC+GcSFldjUBZcuzvPQgGJCk+2Gzr91YKGqv/OaSZw==
+Received: from AM9P193CA0015.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:21e::20)
+ by PRAPR10MB5446.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:295::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
+ 2026 16:34:07 +0000
+Received: from AM7PEPF00000054.EURPRD83.prod.outlook.com
+ (2603:10a6:20b:21e:cafe::55) by AM9P193CA0015.outlook.office365.com
+ (2603:10a6:20b:21e::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Thu, 12
+ Nov 2026 16:34:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AM7PEPF00000054.mail.protection.outlook.com (10.167.242.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.0 via Frontend Transport; Thu, 12 Nov 2026 16:34:07 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
+ 2026 17:35:04 +0100
+Received: from [10.48.87.100] (10.48.87.100) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 12 Nov
+ 2026 17:34:06 +0100
+Message-ID: <c1a68f83-d511-4a61-9362-22eb1390ad6b@foss.st.com>
+Date: Thu, 12 Nov 2026 17:34:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,406 +104,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Linux-stm32] [PATCH] firmware: psci: handle unsupported
+ SET_SUSPEND_MODE in PC mode
+From: Patrick DELAUNAY <patrick.delaunay@foss.st.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>
+CC: Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi
+	<lpieralisi@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	<dario.binacchi@amarulasolutions.com>, Linux STM32
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20261029191624.1.I5f8f3d75a566b72250d629ac6f43cf0d387c0218@changeid>
+ <20261030-origami-tarantula-of-contentment-a70ab2@sudeepholla>
+ <4690f55f-dc13-4e43-82f9-d508253f6c64@foss.st.com>
+ <20261112-illegal-slick-rottweiler-bdc9ea@sudeepholla>
+ <a1f17bcd-e67e-45bb-9c06-9e7d213b7e98@foss.st.com>
+Content-Language: en-US
+In-Reply-To: <a1f17bcd-e67e-45bb-9c06-9e7d213b7e98@foss.st.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PEPF00000054:EE_|PRAPR10MB5446:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c35f9b4-9dde-4764-250d-08df40dac59e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|18092099006|22082099003|6133799003|10067099003|18002099003|13003099007|261026121527099003|56012099006|4143699003|11063799006|261009223027099003|261021123027099003|261022075727099003|261021121427099003|261022105027099003|261028144727099003|261026140227099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	9oTV0yZes1ox6sr+PNnF80BVFTVnnOp8oDz/26Z0AwXdQ78CH/HN/gD9+yBaLuaSdK/Nw+5q8+5B5KoLqaaMrUgMeLoIuTEaQwfnIgMnAOZ9SCjnnE8UlbEHFJESGDl41IUILEa29B31jdO5qWpOGyLcNILvKIV6cnTNyoQRVEOihBIhbwhXf28BP+5SDo5bVf5uS2MOVrKjHz0OUfsS6i1AWVXJTzzXQLr0Fcin8sjG0Y/vs5VZ+gD63gYp/o5NAxkpKDy6V9WzFTnEMo9Db7QN08JiROPs5km225VOrC7Wj9b2DdyqsjnBXD6BYrdzAut2fU7WQN2ZL746ElPgAcjRI0yYCRFM38myyn81T5Qos2TryCpvl+FPpuyI9sWqne4pXdjX1xyDdI4xnO0dcVplVSAjTD1020/rR0jREi5QFGLj5bWoFokfuPdCSJIBjwQK+DaWtmFILhRPvUIPuQQ4ZaUKlZhhG2VN64tm/msocximCFeHzQjRsn8YS5/GsQ6hQKvwFWoTwNn+mmLkFvWt/FfDsldFELtQRt0uFzd2oqU2fnj0y130Lolj8XAB7KhsQti77yzwQrt31QA1h8RW4gDnI3FVp8d05odt21u/hUTk+ai3AbmiIWFqAWx2WDuqVWgV51k/fx73TpXvlnBkYuiQej/zo/mC82N3WTA=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(18092099006)(22082099003)(6133799003)(10067099003)(18002099003)(13003099007)(261026121527099003)(56012099006)(4143699003)(11063799006)(261009223027099003)(261021123027099003)(261022075727099003)(261021121427099003)(261022105027099003)(261028144727099003)(261026140227099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	xyn9c4TCBu36LXuogFOe2LItyH4m1yn1tAyxdApDcmVIdlu+HLssmqsNqfKeEQAXTKbuv5ede/5Tgglx9p6h3g9UbMiukFx+Yj5FhiEKD+0BJp3/NjDWqMCmEXFTBbUFrTRJJ1lNf15CXGnTz0Ictt+kpU4KgYY1XuEWcFFVADrce7WhBBVZnCoVkfMMcZNMyqWfs1pVuASC8kSAa8+5gThntTf7z60bLkFk01m0iF6VEiC5B3j7rCgVPrjo0ozWyYoEP4Uqna5nfXB9bwWpbEbIR3uKZXl6SFgjOegvo19eIJhzZP2YbcveP73vqHM3MkXP8v3EgH4OCumc8buqIdJDDp0Hp/28qAGXFUJ2N5jUvQ6Ar8HB3LXCPnvO8wTLJb9vA/BnS5BvGt2kxZXlyN6+sfQYe0S7oAVnedVsldQg/AJ3do9ke10LUa3l0HFS
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:34:07.1563
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c35f9b4-9dde-4764-250d-08df40dac59e
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM7PEPF00000054.EURPRD83.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PRAPR10MB5446
 
-Match WiWi 2163:1008, subsystem 10ee:0007. NetTimeLogic uses the PCI
-Revision ID for incompatible interface changes. Revision 02 identifies
-the LitePCIe/MSI-X interface; the Xilinx subsystem ID and FPGA build
-number do not identify the register interface. Reject unknown revisions
-and check BAR0 and the MSI-X layout before accessing FPGA registers.
-Do not probe a CoreList or require exact versions of individual cores.
+Hi,
 
-Report the full 32-bit image ID as the running firmware build. Derive
-signal and frequency capabilities from the supported revision, not the
-legacy FB build-number thresholds. Retain legacy version behavior on
-other cards.
+On 11/12/26 11:36, Patrick DELAUNAY wrote:
+> Hi,
+>
+> On 11/12/26 11:06, Sudeep Holla wrote:
+>> On Fri, Oct 30, 2026 at 11:04:51AM +0100, Patrick DELAUNAY wrote:
+>>> Hi,
+>>>
+>>> On 10/30/26 09:32, Sudeep Holla wrote:
+>>>> On Thu, Oct 29, 2026 at 07:16:25PM +0100, Patrick Delaunay wrote:
+>>>>> The PSCI specification makes PSCI_SET_SUSPEND_MODE optional. If it
+>>>>> returns NOT_SUPPORTED when Linux requests platform-coordinated (PC)
+>>>>> mode, Linux can assume that PC mode is in effect. Treat this response
+>>>>> as success so PSCI power-domain providers can initialize when 
+>>>>> firmware
+>>>>> does not support OS-initiated (OSI) mode.
+>>>>>
+>>>>> Continue to report an error when OSI mode is requested but
+>>>>> SET_SUSPEND_MODE is not supported.
+>>>>>
+>>>> So, your platform advertises the presence/support for OSI mode and yet
+>>>> opted for not implementing SET_SUSPEND_MODE ? If so, it is indeed a
+>>>> firmware bug as reported.
+>>>>
+>>> I think it is no realy a platform bug but a too strict management in 
+>>> Linux
+>>> kernel, for PSCI power domain.
+>>> The OSI mode is not yet supported by the STM32MP25 platform in Linux at
+>>> upstream but I introduce PSCI domains in device tree (but without 
+>>> idle power
+>>> domain) just to prepare this activation in next steps.
+>>>
+>> Fair enough, that shouldn't be a problem.
+>>
+>>> As the PSCI support is not activated in Firmware (TF-A BL31), the 
+>>> firmware
+>>> correctly expose its capacities (PSCI_OS_INIT_MODE =0) => PSCI feature
+>>> indicate that OSI is not supported (FF_SUPPORTS_OS_INIT_MODE = 0) =>
+>>> PSCI_SET_SUSPEND_MODE function is not supported (optional when OSI
+>>> is not supported)
+>>>
+>>> in Linux side, the power domain driver
+>>> (drivers/cpuidle/cpuidle-psci-domain.c)
+>>>
+>>> correctly check the support of OSI:
+>>>      bool use_osi = psci_has_osi_support();
+>>>
+>>> in STM32MP25 platform use_osi = false, so the driver request
+>>> Plafrom Cooordinated mode (PC mode) as expected
+>>> But here  the GENPD driver try to use optional function to set mode:
+>>>
+>>>      /* let's try to enable OSI. */
+>>>      ret = psci_set_osi_mode(use_osi);
+>>>      if (ret)
+>>>          goto remove_pd;
+>>>
+>> IMO we should make this psci_set_osi_mode() call only when use_osi == 
+>> true
+>> above. If it is passing false, it is setting PC mode but as comments 
+>> states
+>> it may be assuming OSI mode and proceeding further which is 
+>> completely wrong.
+>> I would bail out of psci_cpuidle_domain_probe() early if use_osi is 
+>> false.
+>>
+>>> And the problem occurs here because the optional function is called 
+>>> but the
+>>> normal use case is not handled (OSI mode not supported / 
+>>> PSCI_SET_SUSPEND_MODE
+>>> not supported)
+>>>
+>> Agreed, but I would check before calling here. The proposed fix hides
+>> PSCI_RET_NOT_SUPPORTED error for PC-mode setting. So clear NACK for 
+>> that.
+>>
+>>> With the proposed patch, the Linux kernel can have PSCI domain in 
+>>> device
+>>> tree even when PSCI OSI support is deactivated in PSCI firmware (or 
+>>> not yet
+>>> activated): the domain are always ON (GENPD_FLAG_ALWAYS_ON).
+>>>
+>> Do you see any issue failing in psci_cpuidle_domain_probe() instead ?
+>>
+>>> NB: I hesitate between the current patch and a patch in PSCI power 
+>>> domain
+>>> driver:
+>>>
+>>>      /* let's try to enable OSI. */
+>>>      ret = psci_set_osi_mode(use_osi);
+>>> + if (ret == -EOPNOTSUPP && !use_osi)
+>>> +    ret = 0;
+>>>
+>>>      if (ret)
+>>>          goto remove_pd;
+>>>
+>> See above, if the driver is assuming OSI mode is set after the call 
+>> like the
+>> comment states, it better check if use_osi = true.
+>>
+>>> but I patch PSCI firmware driver because I think it is a more 
+>>> generic place
+>>> to handle optional PSCI function.
+>>>
+>> If we have to handle it in the psci, I would rather not make a call 
+>> to the
+>> firmware if PSCI_FEATURES(PSCI_1_0_FN_SET_SUSPEND_MODE) returns not 
+>> supported.
+>> That is the expectation for any ABI the firmware said it doesn't 
+>> support.
+>> Making unsupported ABI call to the firmware may result in unexpected 
+>> behaviour
+>> and must be avoided.
+>>
+>
+> Ok, it is clear
+>
+> Thanks for the review
+>
+> you can drop this patch and I will propose an other patch in PCSI CPU 
+> idle
+>
+> driver to no more request "PC mode" with psci_set_osi_mode()
+>
+> when use_osi= false
+>
+>
+> Patrick
 
-Translate a copy of each peripheral resource by 0x02000000 and its
-interrupt input by 32. Use aligned 32-bit UART and XIIC register I/O.
-Leave GNSS2 unregistered: it is not wired on the tested production
-image. Do not change other cards' resource tables or access modes.
 
-Open the UART, I2C and SPI inputs before probing children: SPI NOR
-identification can wait for an interrupt. Enable timing inputs after
-registering the PHC and its consumers. Keep unused inputs masked and
-leave child interrupts available through removal.
+Patch replaced by PSCI CPUIdle domain patch:
 
-Reject WiWi devlink flash updates before looking up or modifying MTD.
-The flash header differs from Celestica and the vendor update path
-requires a modified spi-xilinx. Device recognition is not validation
-of an update path.
+[PATCH] cpuidle: psci: Skip SET_SUSPEND_MODE when OSI is unsupported
 
-Thomas Schaub of NetTimeLogic described the production register layout
-and interrupt gate on 10 November 2026 and the PCI revision convention
-on 11 November.
+https://lore.kernel.org/all/20261112172241.1.Ibe6dddf06a4b7e5b24af24dc85d053e36f940549@changeid/#r
 
-On a revision 02 production card, devlink reported build 0x0000800f.
-The driver allocated 64 MSI-X vectors, registered the PHC, PPS and
-three UARTs, and exposed four generator and four frequency-counter
-groups. SPI NOR and both at24 devices bound. The PHC advanced
-3.000441080 s over three one-second sleeps, with each delta inside
-the host monotonic bounds. PCIe AER counters did not change. The clock
-reported UNSYNCED at probe; the test did not establish PPS lock or UTC.
+https://patchwork.kernel.org/project/linux-arm-kernel/patch/20261112172241.1.Ibe6dddf06a4b7e5b24af24dc85d053e36f940549@changeid/
 
-Tool-origin disclosure: Codex assisted with the driver changes, tests
-and changelog using the supplied hardware evidence and revision rule.
 
-Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
----
- Documentation/networking/devlink/ptp_ocp.rst |  36 +++-
- drivers/ptp/ptp_ocp.c                        | 163 ++++++++++++++++++-
- 2 files changed, 190 insertions(+), 9 deletions(-)
-
-diff --git a/Documentation/networking/devlink/ptp_ocp.rst b/Documentation/networking/devlink/ptp_ocp.rst
-index f94b759d9..2515dcccd 100644
---- a/Documentation/networking/devlink/ptp_ocp.rst
-+++ b/Documentation/networking/devlink/ptp_ocp.rst
-@@ -54,7 +54,8 @@ selected with the component name.
-      - Description
-    * - (none)
-      - The card's own flash, written through the SPI controller the driver
--       exposes.  The card runs the new image after its next reset.
-+       exposes. Not supported on WiWi. The card runs the new image after
-+       its next reset.
-    * - ``fw.cpld``
-      - The configuration flash of the TAP CPLD on ADVA TimeCard X1 boards,
-        programmed over I2C with the MachXO3 in-system programming commands
-@@ -73,3 +74,36 @@ with the standard devlink status notifications.
- Example::
- 
-     $ devlink dev flash pci/0000:02:00.0 file adva-cpld.bin component fw.cpld
-+
-+WiWi production firmware
-+========================
-+
-+WiWi Time Cards with PCI ID ``2163:1008`` and subsystem ID ``10ee:0007``
-+use the PCI Revision ID to identify the register interface. The driver
-+supports revision ``02`` (LitePCIe/MSI-X) and rejects unknown revisions
-+before accessing FPGA registers. Incompatible interface changes require
-+a new revision. The driver also checks the BAR and MSI-X layout before
-+initializing the card.
-+
-+The image ID at BAR0 offset ``0x02020000`` identifies a firmware build,
-+not the register interface. The running ``fw`` version in devlink reports
-+the full image ID, for example ``0x0000800f``. Compatible builds need not
-+have the same image ID or individual core versions. PCIe access to the
-+CoreList is not required.
-+
-+The image uses the Celestica LitePCIe production map: add ``0x02000000``
-+to the peripheral offsets and use aligned 32-bit MMIO. Interrupt input
-+``n`` uses MSI-X vector ``n + 32``. The per-input enable mask is at BAR0
-+offset ``0x1800``. The driver enables the SPI interrupt before probing
-+the flash and defers timing interrupts until the PHC is ready. GNSS2 is
-+not wired to pins on the tested image; no second GNSS port is registered.
-+The separate EEPROM and RGB I2C inputs (17 and 18) have no handlers in
-+this driver and stay masked; these are distinct from its I2C input 7.
-+
-+WiWi firmware updates through ``devlink dev flash`` are not supported.
-+The WiWi image has a different flash header from the Celestica image.
-+The golden image at flash offset zero boots the update image via MultiBoot
-+with watchdog fallback. The vendor's programming path requires a modified
-+``spi-xilinx`` driver. Recognizing the SPI NOR does not validate that path
-+or the image header. Successful clock registration does not establish
-+GNSS synchronization or valid UTC.
-diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-index 625a85b2d..10ad2fbeb 100644
---- a/drivers/ptp/ptp_ocp.c
-+++ b/drivers/ptp/ptp_ocp.c
-@@ -34,6 +34,23 @@
- #define PCI_VENDOR_ID_CELESTICA			0x18d4
- #define PCI_DEVICE_ID_CELESTICA_TIMECARD	0x1008
- 
-+#define PCI_VENDOR_ID_WIWI			0x2163
-+#define PCI_DEVICE_ID_WIWI_TIMECARD		0x1008
-+
-+/* WiWi production firmware uses the Celestica map behind LitePCIe. */
-+#define OCP_WIWI_MMIO_OFFSET			0x02000000
-+#define OCP_WIWI_IRQ_OFFSET			32
-+#define OCP_WIWI_MSI_ENABLE			0x1800
-+/* Upper 32 bits: UARTs, I2C and SPI can interrupt during probe. */
-+#define OCP_WIWI_PERIPHERAL_IRQS	(BIT(3) | BIT(5) | BIT(7) | \
-+					 BIT(9) | BIT(10))
-+/* PPS/TS0/TS1, TS2, GEN1-4 and TS3/TS4. */
-+#define OCP_WIWI_TIMING_IRQS			(GENMASK(2, 0) | BIT(6) | \
-+						 GENMASK(16, 11))
-+/* Leave unwired GNSS2 (4), HWICAP (8) and EEPROM/RGB I2C (17/18) masked. */
-+#define OCP_WIWI_IRQS				(OCP_WIWI_PERIPHERAL_IRQS | \
-+						 OCP_WIWI_TIMING_IRQS)
-+
- #define PCI_VENDOR_ID_OROLIA			0x1ad7
- #define PCI_DEVICE_ID_OROLIA_ARTCARD		0xa000
- 
-@@ -404,6 +421,9 @@ struct ptp_ocp {
- 	struct delayed_work	sync_work;
- 	int			id;
- 	int			n_irqs;
-+	bool			wiwi;
-+	u32			wiwi_image_id;
-+	void __iomem		*wiwi_msi;
- 	struct ptp_ocp_serial_port	port[__PORT_COUNT];
- 	bool			fw_loader;
- 	u8			fw_tag;
-@@ -1321,6 +1341,13 @@ static struct ocp_resource ocp_adva_x1_resource[] = {
- static const struct pci_device_id ptp_ocp_pcidev_id[] = {
- 	{ PCI_DEVICE_DATA(META, TIMECARD, &ocp_fb_resource) },
- 	{ PCI_DEVICE_DATA(CELESTICA, TIMECARD, &ocp_fb_resource) },
-+	{
-+		PCI_DEVICE_SUB(PCI_VENDOR_ID_WIWI, PCI_DEVICE_ID_WIWI_TIMECARD,
-+			       PCI_VENDOR_ID_XILINX, 0x0007),
-+		.class = PCI_CLASS_MEMORY_OTHER << 8,
-+		.class_mask = 0xffffff,
-+		.driver_data = (kernel_ulong_t)ocp_fb_resource,
-+	},
- 	{ PCI_DEVICE_DATA(OROLIA, ARTCARD, &ocp_art_resource) },
- 	{ PCI_DEVICE_DATA(ADVA, TIMECARD, &ocp_adva_resource) },
- 	{ PCI_DEVICE_DATA(ADVA, TIMECARD_X1, &ocp_adva_x1_resource) },
-@@ -2173,6 +2200,12 @@ ptp_ocp_devlink_flash_update(struct devlink *devlink,
- 	const char *msg;
- 	int err;
- 
-+	if (bp->wiwi) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "WiWi flash updates are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
- 	if (params->component) {
- 		if (!bp->has_cpld ||
- 		    strcmp(params->component, ADVA_CPLD_COMPONENT)) {
-@@ -2219,7 +2252,10 @@ ptp_ocp_devlink_info_get(struct devlink *devlink, struct devlink_info_req *req,
- 	u32 id;
- 
- 	fw_image = bp->fw_loader ? "loader" : "fw";
--	sprintf(buf, "%d.%d", bp->fw_tag, bp->fw_version);
-+	if (bp->wiwi)
-+		snprintf(buf, sizeof(buf), "0x%08x", bp->wiwi_image_id);
-+	else
-+		sprintf(buf, "%d.%d", bp->fw_tag, bp->fw_version);
- 	err = devlink_info_version_running_put(req, fw_image, buf);
- 	if (err)
- 		return err;
-@@ -2331,20 +2367,29 @@ ptp_ocp_register_spi(struct ptp_ocp *bp, struct ocp_resource *r)
- }
- 
- static struct platform_device *
--ptp_ocp_i2c_bus(struct pci_dev *pdev, struct ocp_resource *r, int id)
-+ptp_ocp_i2c_bus(struct ptp_ocp *bp, struct ocp_resource *r, int id)
- {
-+	struct xiic_i2c_platform_data wiwi_data;
-+	struct pci_dev *pdev = bp->pdev;
- 	struct ptp_ocp_i2c_info *info;
- 	struct resource res[2];
- 	resource_size_t start;
-+	const void *data;
- 
- 	info = r->extra;
-+	data = info->data;
-+	if (bp->wiwi) {
-+		wiwi_data = *(struct xiic_i2c_platform_data *)info->data;
-+		wiwi_data.force_32bit_access = true;
-+		data = &wiwi_data;
-+	}
- 	start = pci_resource_start(pdev, 0) + r->offset;
- 	res[0] = DEFINE_RES_MEM(start, r->size);
- 	res[1] = DEFINE_RES_IRQ(pci_irq_vector(pdev, r->irq_vec));
- 
- 	return platform_device_register_resndata(&pdev->dev, info->name,
- 						 id, res, ARRAY_SIZE(res),
--						 info->data, info->data_size);
-+						 data, info->data_size);
- }
- 
- static int
-@@ -2369,7 +2414,7 @@ ptp_ocp_register_i2c(struct ptp_ocp *bp, struct ocp_resource *r)
- 
- 	sprintf(buf, "%s.%d", info->name, id);
- 	devm_clk_hw_register_clkdev(&pdev->dev, clk, NULL, buf);
--	p = ptp_ocp_i2c_bus(bp->pdev, r, id);
-+	p = ptp_ocp_i2c_bus(bp, r, id);
- 	if (IS_ERR(p))
- 		return PTR_ERR(p);
- 
-@@ -2640,7 +2685,7 @@ ptp_ocp_serial_line(struct ptp_ocp *bp, struct ocp_resource *r)
- 	 */
- 	memset(&uart, 0, sizeof(uart));
- 	uart.port.dev = &pdev->dev;
--	uart.port.iotype = UPIO_MEM;
-+	uart.port.iotype = bp->wiwi ? UPIO_MEM32 : UPIO_MEM;
- 	uart.port.regshift = 2;
- 	uart.port.mapbase = pci_resource_start(pdev, 0) + r->offset;
- 	uart.port.irq = pci_irq_vector(pdev, r->irq_vec);
-@@ -3036,6 +3081,13 @@ ptp_ocp_fb_set_version(struct ptp_ocp *bp)
- 
- 	version = ioread32(&bp->image->version);
- 
-+	if (bp->wiwi) {
-+		/* Revision 02 defines capabilities; report the build ID. */
-+		bp->wiwi_image_id = version;
-+		bp->fw_cap = OCP_CAP_BASIC | OCP_CAP_SIGNAL | OCP_CAP_FREQ;
-+		return;
-+	}
-+
- 	/* if lower 16 bits are empty, this is the fw loader. */
- 	if ((version & 0xffff) == 0) {
- 		version = version >> 16;
-@@ -3068,7 +3120,6 @@ ptp_ocp_fb_board_init(struct ptp_ocp *bp, struct ocp_resource *r)
- 
- 	bp->flash_start = 1024 * 4096;
- 	bp->eeprom_map = fb_eeprom_map;
--	bp->fw_version = ioread32(&bp->image->version);
- 	bp->sma_op = &ocp_fb_sma_op;
- 	bp->signals_nr = 4;
- 	bp->freq_in_nr = 4;
-@@ -3109,7 +3160,26 @@ ptp_ocp_register_resources(struct ptp_ocp *bp, kernel_ulong_t driver_data)
- 	int err = 0;
- 
- 	table = (struct ocp_resource *)driver_data;
--	for (r = table; r->setup; r++) {
-+	for (; table->setup; table++) {
-+		struct ocp_resource translated = *table;
-+
-+		r = table;
-+		if (bp->wiwi) {
-+			/* GNSS2 is instantiated but not routed to FPGA pins. */
-+			if (r->setup == ptp_ocp_register_serial &&
-+			    r->bp_offset == offsetof(struct ptp_ocp,
-+						    port[PORT_GNSS2]))
-+				continue;
-+			/* Leave the shared resource table unchanged. */
-+			if (translated.offset)
-+				translated.offset += OCP_WIWI_MMIO_OFFSET;
-+			if (r->setup == ptp_ocp_register_ext ||
-+			    r->setup == ptp_ocp_register_serial ||
-+			    r->setup == ptp_ocp_register_i2c ||
-+			    r->setup == ptp_ocp_register_spi)
-+				translated.irq_vec += OCP_WIWI_IRQ_OFFSET;
-+			r = &translated;
-+		}
- 		if (!ptp_ocp_allow_irq(bp, r))
- 			continue;
- 		err = r->setup(bp, r);
-@@ -5786,6 +5856,12 @@ ptp_ocp_detach(struct ptp_ocp *bp)
- 	platform_device_unregister(bp->i2c_ctrl);
- 	if (bp->i2c_clk)
- 		clk_hw_unregister_fixed_rate(bp->i2c_clk);
-+	/* Child removal can need interrupts, notably SPI NOR reset. */
-+	if (bp->wiwi_msi) {
-+		iowrite32(0, bp->wiwi_msi);
-+		iowrite32(0, bp->wiwi_msi + 4);
-+		ioread32(bp->wiwi_msi);
-+	}
- 	if (bp->n_irqs)
- 		pci_free_irq_vectors(bp->pdev);
- 	mutex_destroy(&bp->cpld_lock);
-@@ -5951,6 +6027,49 @@ ptp_ocp_sync_work(struct work_struct *work)
- 	queue_delayed_work(system_power_efficient_wq, &bp->sync_work, HZ);
- }
- 
-+/* The PCI revision identifies the register interface, not the FPGA build. */
-+static int ptp_ocp_wiwi_validate(struct pci_dev *pdev)
-+{
-+	u32 table, pba;
-+	int cap;
-+
-+	if (pdev->revision != 0x02)
-+		return dev_err_probe(&pdev->dev, -ENODEV,
-+				     "Unsupported WiWi PCI revision %#02x\n",
-+				     pdev->revision);
-+
-+	cap = pci_find_capability(pdev, PCI_CAP_ID_MSIX);
-+	if (!(pci_resource_flags(pdev, 0) & IORESOURCE_MEM) ||
-+	    pci_resource_len(pdev, 0) != 0x04000000 || !cap ||
-+	    pci_msix_vec_count(pdev) != 64 ||
-+	    pci_read_config_dword(pdev, cap + PCI_MSIX_TABLE, &table) ||
-+	    pci_read_config_dword(pdev, cap + PCI_MSIX_PBA, &pba) ||
-+	    table != 0x2000 || pba != 0x1808)
-+		return dev_err_probe(&pdev->dev, -ENODEV,
-+				     "Unsupported WiWi PCI layout\n");
-+
-+	return 0;
-+}
-+
-+static int ptp_ocp_wiwi_irq_init(struct ptp_ocp *bp)
-+{
-+	void __iomem *msi;
-+
-+	msi = __ptp_ocp_get_mem(bp, pci_resource_start(bp->pdev, 0) +
-+			      OCP_WIWI_MSI_ENABLE, 8);
-+	if (IS_ERR(msi))
-+		return PTR_ERR(msi);
-+	bp->wiwi_msi = msi;
-+
-+	/* LiteX stores bits 63:32 before bits 31:0, as little-endian words. */
-+	iowrite32(0, msi);
-+	iowrite32(0, msi + 4);
-+	if (ioread32(msi) || ioread32(msi + 4))
-+		return -EIO;
-+
-+	return 0;
-+}
-+
- static int
- ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- {
-@@ -5972,6 +6091,14 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	}
- 
- 	bp = devlink_priv(devlink);
-+	bp->wiwi = pdev->vendor == PCI_VENDOR_ID_WIWI &&
-+		   pdev->device == PCI_DEVICE_ID_WIWI_TIMECARD;
-+	if (bp->wiwi) {
-+		/* Validate before IRQ setup, bus mastering or FPGA writes. */
-+		err = ptp_ocp_wiwi_validate(pdev);
-+		if (err)
-+			goto out_disable;
-+	}
- 	err = ptp_ocp_device_init(bp, pdev);
- 	if (err)
- 		goto out_disable;
-@@ -5987,18 +6114,33 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 
- 	INIT_DELAYED_WORK(&bp->sync_work, ptp_ocp_sync_work);
- 
-+	if (bp->wiwi) {
-+		err = ptp_ocp_wiwi_irq_init(bp);
-+		if (err)
-+			goto out;
-+	}
-+
- 	/* compat mode.
- 	 * Older FPGA firmware only returns 2 irq's.
- 	 * allow this - if not all of the IRQ's are returned, skip the
- 	 * extra devices and just register the clock.
- 	 */
--	err = pci_alloc_irq_vectors(pdev, 1, 17, PCI_IRQ_MSI | PCI_IRQ_MSIX);
-+	if (bp->wiwi)
-+		err = pci_alloc_irq_vectors(pdev, 49, 64, PCI_IRQ_MSIX);
-+	else
-+		err = pci_alloc_irq_vectors(pdev, 1, 17,
-+					    PCI_IRQ_MSI | PCI_IRQ_MSIX);
- 	if (err < 0) {
- 		dev_err(&pdev->dev, "alloc_irq_vectors err: %d\n", err);
- 		goto out;
- 	}
- 	bp->n_irqs = err;
- 	pci_set_master(pdev);
-+	/* SPI NOR needs IRQs now; timestamp consumers are not ready. */
-+	if (bp->wiwi_msi) {
-+		iowrite32(OCP_WIWI_PERIPHERAL_IRQS, bp->wiwi_msi);
-+		ioread32(bp->wiwi_msi);
-+	}
- 
- 	err = ptp_ocp_register_resources(bp, id->driver_data);
- 	if (err)
-@@ -6047,6 +6189,11 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 			goto out_dpll;
- 		}
- 	}
-+	/* All handlers and the PHC are ready for timestamp interrupts. */
-+	if (bp->wiwi_msi) {
-+		iowrite32(OCP_WIWI_IRQS, bp->wiwi_msi);
-+		ioread32(bp->wiwi_msi);
-+	}
- 	queue_delayed_work(system_power_efficient_wq, &bp->sync_work, HZ);
- 
- 	return 0;
+>
+> _______________________________________________
+> Linux-stm32 mailing list
+> Linux-stm32@st-md-mailman.stormreply.com
+> https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
