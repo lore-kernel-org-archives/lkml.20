@@ -1,95 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481319;
-	b=R0D/zJ21f3sxZsueIh7SpReCudJTfxYVKXiTMMX5A2Iuhv6tkjw/k5QrR3ZAminek/ae
-	 oFUyUSY4WgNkbGc/47D1gFMhDhgBdIm34hto+IfoC74uAMzW/VFZi/7tlgpJewG2aiHEB
-	 k3ExhyXhx0xp/LwiLnRwZKK12p+gCL9QkAa4vne2ZsYzfLcIMMppI2hmK1jB8oAvJ/g2h
-	 z8fW8BcJjhdFthQJm1P1iLzobSbo7AJom4I3vipfIz1K25eEzKDr8CZBcQHrnzQ+jlRIw
-	 RMMXYRViOCALWgwrAZApC2l8YV5k5sEKhk/ucEP9aAaoObbxco1WnRkra5x+mjh3xjA==
+	t=1794481342;
+	b=PF4a3foBQLLP6et2ovFkRooIj0r2wMd4Ig+UIZZ2eoQVB70Xz79bO4XC2AgrZ5ydlI4g
+	 srtwktyKgQKDCxgqjYeSsTZTngMLulgBMrKlniEBrXiiEURwy9uqV9QP43etw9Dqf2jhQ
+	 N2VdIorplCha79ke2eDBl0D51voCZbnMShjHm6ke3iQbOqaTJA6qQNRDm8VOJ3XqGxeIc
+	 IiOENauZdJJXqRMqM5EmKy1CnkrHpc2Kt++TRb6anqCXnLR+SgwcO3aBZ53qzc061WcO1
+	 S7wrkVIOpwxRAL1ItdJom+g+J7B9Etm9z+6U734nSB7gI7a+UnTXb1NxaetXu3xDRQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481319;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=uSUy1vY1eFE30aKfLNhqOPUvCuItfxCfRy/wTy6x1VY=;
-	b=WCeG2PqBIzHHqdLyPBAS4kMwxT4pdrnFejP4T+deyzYcCQ01JMRs8OnlTj2OJ2aZRm4n
-	 QGR3DRVEF/S07F9tO+wox+V7QibJoQ/6wfuFhsrjiwoN1ks/LDulZTSDrCH40V+1zzvTH
-	 D+64r+t6iCdGkXrjm0HQQIsvJB6iLnxJGt5kzgvcwCKXZ9GLABJOoDguNXaut6VsDuwOv
-	 1zu99liZ5WdQtcmvY9FggvmfoqcVlofJco2c1Ifuqg7x3Ar4JVzSVl7+CR8HiIlw0p3tW
-	 Snnxo864okY5EBRdJLOenaedLwwyz4Xz9AWbKmlVi3tbO8zb8lNMKAeO3pGPjuvy9pA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481342;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Rspamd-Server:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=MLBNurMu74zK5/JLIz4Q/wOK32rcLNUYysfbDLmGV2g=;
+	b=x3joWWpLh0fWnE+qS+S5nFAFgdi6RRmRsoeTjjJlgUN3mNEeq4Hq4/Yt2w+5EMY1McU/
+	 n8V2Oz96l1JVh8Fc7tJaEHwkJa96EhiU+kadZQierkagvKVD8HtuWwkmDyHz9+qekAlnV
+	 m3cggGy4cCzZ0CZNsw6uAoygn+P4iIVVsHfZh7vnaThaWS2asTFrlwcJi6SqvMqwrZp5I
+	 MDKK5q/yiFB+TZVHQWrV8Mafrv4/+wBZCxv1EbPj8NWfu7+4mA17L4T//9vWF3CT2TNPV
+	 gLNgX5IH/dTDUWtvSt0cqoIL9Flh0X1NkAvHE0d0kk3jAt5MXclywVWtxjuVArY0ZDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IdZWTBpR;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bn3plYk3;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C593606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:01:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C593606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B6E606A31C;
+	Thu, 12 Nov 2026 11:02:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63B6E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IdZWTBpR
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a215e64962so45202675e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:01:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794481318; x=1795086118; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uSUy1vY1eFE30aKfLNhqOPUvCuItfxCfRy/wTy6x1VY=;
-        b=IdZWTBpRDQ5xZAT7yTt94VHQiSSk7N/muTB1y1ZdpsF+RxvcXpOuu6OmERaXGwlGdY
-         JvpgokfrDJbSXXEdUepY4Hg3Xi1hbHRfmRW5ZTDN1WiRM9047j9DtfIrzIXcQgoA5KHQ
-         ON19ikSn2rjglTnqfhvqN/JyJjK/pPgVZinrIUSf4OPYFMzEy5bX4gNFLm0hGwYmk1uE
-         g7TSAIrbf3itX2iIf2gf47jP5Q22XWSixtJKeLrjNUZ5ciLABAOdN2rxhTcxjBFpVUQV
-         3zR5Qmz1WulkdmyTxntVtRoKgMOrJ4P0auA6QdqH2CpdVOLATOeLzOroPG9k0xSIpt1s
-         Q/RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794481318; x=1795086118;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uSUy1vY1eFE30aKfLNhqOPUvCuItfxCfRy/wTy6x1VY=;
-        b=FL0CtDCDw0gSg8FFRQ2eQp/ghTlpbiboS9+elZdqW7wuNeeGljoEL3x98vZPAWlVVL
-         3Qi7H4BKOhGJMrNI/KlLOaSoEr9Vy37ZVOUMKmLX0ShlItSMIcWUn5+lNer/71UBhZs0
-         d6oGhgsIRnXmH1F7Jn+41SSqnL4zToCCTsnkOJGsTTirbgvKeXD9g0xTFDfmWVzU5Udo
-         Nh7w4vAWaacIu1WQi0HxRrDDqOr7XT7bZKYeq7AVotcRLeekpQE4wXsbD2Kqm3xt6F0w
-         FIi+V399DssSS07/e64PXdHExoGk0K+kkpuQvEIdIV2+WcN3O5132lH1eLCJcupY7vCX
-         L0gQ==
-X-Forwarded-Encrypted: i=1; AL+hErG/rY7x5LCbdikPKgC84SIfhlcjFwloNnAddQm5J4TCZh2zLcb7V9LJiN8Q+iUAFk0U+yw6erJzB1qS+uE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/S1ApD9rBxAZq7fZ5suZ+bsS2OE/YQrbKgo9eZCDCC/uSCPwdd
-	BHknuqBJfkHXkOub2LQeEQV0HQr1Nd/wAiEfCnuPLGGdJXfmZnRJI93lfxKHf9Xx
-X-Gm-Gg: AYBFou3hC7pPWp1D8w/+nIxPzQ09c2ZNzGu3mSTYeu7G393sm8DOul8Nqcw/r6eSFN9
-	Bmr9PZsZL2LW98YJbeA+GpZpKXyPiVQXqPyeyZSvTvXbMpWa8qPwioCjWtBldj1PFO/jOGsWdy3
-	ZVRvbzrGuBLgKhYMOaYPZBsmzd37zmyREWYtbDiRHqWKWCeyy2ODz2eZdzDRQCuCtKPzpleg9wk
-	aKkX84ifhFu4TxiYujxG6shjj9cKLMH/A/3budeeRhJiC++MtmhZosDKGJWkEDZInGIQg60KsRc
-	qESlyJ/LAqXylRBnFRUqGToE/KA9nAkDvkbDh+y0YV3jWSc/fyKK5Z31mpPpQxJYvBbOQwUNFsh
-	gYg4m7f23+FM+9wXAiYTxYnaGtyRFLJB3EaiVbB2my78ZYNBX8JZER7fLH1ButUKOZObtreAOrg
-	wcE5PCUgmkY8+tSUKnCJuEhANoQQS0mw3BWc1IVpReIxrQmutZzqwlU2Mo5dU2Gfp5u3DYCkIk7
-	4v8Rd5Ba/KHiZd5Hc4uEDFBvCJvIeEi4Lm9W7ZHSqYYIUnWwZ1FU4oaPUF7oIQ2mF/IZkti7YEr
-	UOUscju8Bv6lgQ2JVRi9I8/Xa4AH9jtPjP0kaFS5L6KnB4UHdoh7Iya8
-X-Received: by 2002:a05:600c:e554:b0:4bb:534b:ada4 with SMTP id 5b1f17b1804b1-4bb534badf0mr5110835e9.33.1794481317703;
-        Thu, 12 Nov 2026 03:01:57 -0800 (PST)
-Received: from localhost.localdomain ([188.190.249.216])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2acf81sm58579815e9.14.2026.11.12.03.01.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 03:01:57 -0800 (PST)
-From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/4] wifi: ath12k: unregister the thermal devices of a radio only once
-Date: Thu, 12 Nov 2026 13:00:07 +0200
-Message-ID: <20261112110008.1229-4-tvlad744@gmail.com>
-X-Mailer: git-send-email 2.45.1.windows.1
-In-Reply-To: <20261112110008.1229-1-tvlad744@gmail.com>
-References: <20261112110008.1229-1-tvlad744@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bn3plYk3
+Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id 189181A0578;
+	Thu, 12 Nov 2026 11:02:13 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf12.hostedemail.com (Postfix) with ESMTPA id 1051817;
+	Thu, 12 Nov 2026 11:02:03 +0000 (UTC)
+Date: Thu, 12 Nov 2026 06:01:50 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Haoli Zhang <26031212468@stu.xidian.edu.cn>
+Cc: mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ syzbot+37e1793bdb0061ea3a47@syzkaller.appspotmail.com,
+ 25031212117@stu.xidian.edu.cn, byu@xidian.edu.cn
+Subject: Re: [PATCH v3] tracing: ring-buffer: serialize shrink with NMI
+ readers
+Message-ID: <20261112060150.7fd677dd@fedora>
+In-Reply-To: <20261111094301.2213435-1-26031212468@stu.xidian.edu.cn>
+References: <20261111094301.2213435-1-26031212468@stu.xidian.edu.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,44 +62,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 1051817
+X-Rspamd-Server: rspamout08
+X-Stat-Signature: fhpjrxe8kmbwb3xdu9weo6rn7u1qogrw
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19KuSRyjj3kZpinHmEmz+io+tglLFQ+FAs=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=MLBNurMu74zK5/JLIz4Q/wOK32rcLNUYysfbDLmGV2g=; b=bn3plYk3IC7ItRvnIkgmewWwoX0KtH2W9haKSrVSk7Kuplm6BfLU8UL9pLJuJce0CoFliirNDQDgMNYutpTvgXznjXCjjLqpgekdsLJVGq9OS9HGecz3O4Dc70p4vR+pIfDrwGE7ToHrPUtHUCtxmTGIQVornAZwERoABjKqdKA=
+X-HE-Tag: 1794481323-159622
+X-HE-Meta: U2FsdGVkX18tIA76OVX8a94CzBM4AXHoOGr+hqgE9+rKzeFBwL7B3whDbiFdoP/6l42mfRkfZFXlblnMtsjH9xLZVlC91Sb3UDVl8ZO4ZQ5Gn3xMwEpHjV9hoFBGvf7Bx+X7uWZ95O4Idg5EieqYFd3e7byoZw/KqjaqIfbwkFiJ5kpG54+6MQZWC+MdUvNS/v6gwK1AKQJRSsLZ4fONeMEW967MjpxYLp1AkLlF1mdqcH0WyfR/tFZ+RoCr7Q5mp6WeYzultPZkNLCv2QxksIklZxKxX7zbpsN9ypEQvmG5Kve0lWpDDBZlO7/Qm0U4MFZWB3wmckI/kCTwkw6s5JqW1WAf8K7EyIjQSa0ZbDQrJlHPv8xtl3ByqrOCvF8m3DxfqfgpK84yObQIo+t8AoQ/7G6qrH1xqcAaiW2PQL+jPKT3bgLJgCrRWGxKXefY
 
-ath12k_core_reconfigure_on_crash() calls ath12k_thermal_unregister(),
-and the devices are registered again only when the start that follows
-reaches ath12k_core_pdev_create(). If it does not, because the firmware
-crashes again or the start fails earlier, the next restart unregisters
-the devices a second time:
+On Wed, 11 Nov 2026 17:43:01 +0800
+Haoli Zhang <26031212468@stu.xidian.edu.cn> wrote:
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000050
-  Workqueue: ath12k_wq ath12k_core_restart [ath12k]
-  pc : hwmon_device_unregister+0x24/0x90
-  lr : ath12k_thermal_unregister+0x7c/0xf4 [ath12k]
-  Call trace:
-   hwmon_device_unregister+0x24/0x90 (P)
-   ath12k_thermal_unregister+0x7c/0xf4 [ath12k]
-   ath12k_core_restart+0x3c/0x210 [ath12k]
+> The syzbot report shows a use-after-free in rb_is_reader_page(), reached
+> from rb_move_tail(), with the freed page released by rb_remove_pages().
+> Source inspection suggests that a detached reader page can retain a link
+> into the range removed during a shrink. This patch addresses that possible
+> stale-link path and coordinates NMI readers with page removal.
+> 
+> When an NMI reader cannot acquire reader_lock, rb_reader_lock() falls back
 
-Skip the radios that have nothing registered.
+What NMI readers?
 
-Fixes: 151322bccdbd ("wifi: ath12k: add basic hwmon temperature reporting")
-Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
----
- drivers/net/wireless/ath/ath12k/thermal.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The only time NMI reads the ring buffer is on a crash
 
-diff --git a/drivers/net/wireless/ath/ath12k/thermal.c b/drivers/net/wireless/ath/ath12k/thermal.c
-index 97fc49c40ac1..7707ae4eb683 100644
---- a/drivers/net/wireless/ath/ath12k/thermal.c
-+++ b/drivers/net/wireless/ath/ath12k/thermal.c
-@@ -257,7 +257,7 @@ static void ath12k_thermal_cleanup_radio(struct ath12k_base *ab, int i)
- 	struct ath12k *ar;
- 
- 	ar = ab->pdevs[i].ar;
--	if (!ar)
-+	if (!ar || !ar->thermal.cdev)
- 		return;
- 
- 	hwmon_device_unregister(ar->thermal.hwmon_dev);
--- 
-2.43.0
+> to reading the ring buffer without the lock. Gate lockless NMI readers
 
+Yes, it reads without a lock because the system crashed and the NMI
+handler is doing a *BEST EFFORT* to read the ring buffer to see if it
+can produce output that tells us why the system crashed.
+
+> while rb_remove_pages() removes pages. Drain readers that entered before
+> the gate before changing the page list. New NMI readers that cannot acquire
+> reader_lock while the gate is closed skip that CPU. Readers that acquire
+> reader_lock remain serialized by it. The drain loop calls cond_resched()
+> while waiting for readers to exit.
+> 
+> During shrink, redirect reader_page->list.prev if it points to a page being
+> removed. Also detect a stale reader_page->list.next and redirect it after
+> reconnecting the ring to the surviving successor link, including the
+> transferred head flag.
+> 
+> When an NMI reader skips a CPU while resize_in_progress is set, treat that
+> CPU buffer as empty in the empty-query helpers. This lets ftrace_dump_one()
+> make progress instead of retrying forever when peek/consume also skip the buffer. Entries on a skipped CPU may be omitted from the dump.
+> Clear event on every consume retry. Cache whether it is padding
+> before unlocking. This avoids reading event fields after unlock.
+> Clear timestamps on skipped peek and consume operations.
+> 
+> The NMI fallback increment of record_disabled is intentionally retained.
+> The existing fallback comment says an unlocked NMI read may corrupt the
+> buffer and that recording must remain disabled afterward; the existing
+> unlock path does not undo that disable. The nmi_readers counter is separate
+> and tracks only the temporary lifetime of a lockless NMI read.
+> 
+> Fixes: 83f40318dab0 ("ring-buffer: Make removal of ring buffer pages atomic")
+
+This is not a fix.
+
+> Reported-by: syzbot+37e1793bdb0061ea3a47@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=37e1793bdb0061ea3a47
+
+No the bug report has NOTHING TO DO WITH NMIs!
+
+
+> Co-developed-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
+> Signed-off-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Haoli Zhang <26031212468@stu.xidian.edu.cn>
+> 
+> ---
+> v3:
+
+I'm not adding this complexity to handle the best effort case of an NMI
+reading the ring buffer during a crash.
+
+NAK!
+
+-- Steve
