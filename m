@@ -1,63 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450617;
-	b=E/7NvToe8Op33z14awGwTTlTjhqWD8LSd/OZu1z7TdWSXqJ401sKfcv3Q4YaqSpbrzlx
-	 HFumH9pc2nxBx07tUfZ9ERPQHL7zO6XCsHYsQK+4g7dZ++uko/j/p1L1DEXDa+3VvtkJj
-	 Ae256w644eSvhwhhrQSEC8Y1x7GU1mKEPlwlgRE2CHdIdRklBfHM5cGrRiJp3pjejoL5n
-	 2nXEsypG187q+PfVEBYbxEwpsp4ptBuRkEbvfasui/W0E++K/6moqRwB7Zq4aFChOTuj/
-	 M4ywbiIpFGwDXG85UIVzhlhf+SB9EGi6ZwljnQnkZ//Hoqdt8odJS9v9ZwPVcmQ9vKg==
+	t=1794450626;
+	b=rKzLQ3sfVt9qXW0UJxUIwcg05xse3I+ziFAmpYBcd9AZU/XXf5Wd3T3NOQIdvM7S/jJy
+	 +c3FbfylEug0ayC4u+u/zPgw29BEsmxWXKpwNBLSWRkEfW6tREgvnmEi5RvEhgIfceaEM
+	 Wetdzjls5u5nKQeR9QN3W7q7ZDtY2vl3PFbSMz7pCmykq2ld0ezHJhl4eVJM9FEoIbvGK
+	 NqDhqOFfz/2dXSAPK+y+zGTRZ69MDh2ZW8z0lYi3Z5wQy6DZormys/S1AtrUmFjXQ0jqv
+	 DOQ4Sc4iBKXofFDN4qrALQ5b+NDpR76IRdE2VAkdnHwM4RdlD4PaLM8tzawdm4Z0vmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450617;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450626;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=oAKsCevx3uX25D7nBgvsehpj1Do0NWR5rPVL5dcze5M=;
-	b=Sqv0cbXJFifdD6GNWHLFk49jTYlzoT6ohdx995Yce+lTwV0H8l3Azqj8FH+zTZQEy3Vx
-	 fLWLLIsCVbWARuUSCJRPpQYGWhGnKIp6K7QstgOcMok5HWaHiPgw3Zz6TKx0v1WuOETQ3
-	 UtqgoRCo8JJOaKgGh0wePKHJ2/8t0mJ7ileh8t5dpesem5LJgjHdhhqq6YsHtxuqMKOM+
-	 1xO7ya40VuhA8vJolaxb+IOuOFLz/jLcpQRVDZwUnaAcKsnlWoPQXnYZC2CfCMvZMHy1B
-	 DxPOktYEmXhSQvaKcgXdPmV7zVXRazBXT37twg67gzoVbT0HyjtNIY5FxawThbpEtig==
+	bh=n9S1OY6SpcMsf7cQVxs9wiXOIhv8Y8pMCiR1hHn5Wzk=;
+	b=TuwmCov6tg05taL+sHNBcSDFOm+BkgllzdXQIICBcvARgjVjpyGGtRTx3nLWXOAPWybk
+	 UnaU2QxIED+FydShznnuHXfkd78V1pTZ+bX3S5walKFo3byuT0XflyC5jzulg+9Pvk3zR
+	 Lt1qZAsIzemfZ1DxOUzNeB78SUQcNnDL5+aPOktzde42E1+IgukRp6gcvhG1wSAxsyvkG
+	 Z5xBC7MRQHY/HZF871LPq4SmeRDNEF+yfiTPUuldWoR/fjlxW5G2w77YlZlw2X4rj7Aap
+	 bMz2CZ1WLuPd61Cd1t7xAcX1dfveGHNmSINr8zJsEVEcO7iJBDjPEPIh8OaAkSKvh+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=naVsIZeS;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73C0F606A31C;
-	Thu, 12 Nov 2026 02:30:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73C0F606A31C
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=VYj4Dliy;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA2F4606A31C;
+	Thu, 12 Nov 2026 02:30:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA2F4606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=naVsIZeS
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=VYj4Dliy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=naVsIZeSE9U3e65WdrwP6bK5b/8aqj1JQOrDKfcu1i/hT0X9e0iQg0RlIuer/fRi7rW9sAkJU7tCg
-	 ibybtsPqdGh31odb9rAOFJPH3lDsECEWI/nCCq5gdnS9q/nn+kFfEyMkonjn01lzD6YA+I+J95isA7
-	 n3RJhbKtYYNXrUPs=
+	b=VYj4DliyMQ4bzc2JVPNp3ba7I66E3rTO8N2X7pTWuWwOckkzH2Qp7HaJfR2awzOTKW5DqKfeN+9Yu
+	 jiulTiXtCL5zlfLUQG1Ekkreh3tlVuwlKolVMn+vS1peZ6NLmCOZbpQh8o64laswr2HV3LCx/NrCP9
+	 835UCkorNJAgc81k=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af524b7092-b8611;
-	Thu, 12 Nov 2026 10:30:15 +0800 (CST)
-X-RM-TRANSID:2ee16af524b7092-b8611
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af524be549-7c7b5;
+	Thu, 12 Nov 2026 10:30:23 +0800 (CST)
+X-RM-TRANSID:2ee86af524be549-7c7b5
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from devin-VMware-Virtual-Platform (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af524b6e2d-ef184;
-	Thu, 12 Nov 2026 10:30:15 +0800 (CST)
-X-RM-TRANSID:2ee76af524b6e2d-ef184
+	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af524bdef0-ee27f;
+	Thu, 12 Nov 2026 10:30:23 +0800 (CST)
+X-RM-TRANSID:2ee36af524bdef0-ee27f
 From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: axboe@kernel.dk
-Cc: linux-block@vger.kernel.org,
+To: Jason@zx2c4.com
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	wireguard@lists.zx2c4.com,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] blk-mq: Mark concurrent accesses to dispatch_busy
-Date: Thu, 12 Nov 2026 10:30:13 +0800
-Message-ID: <20261112023014.118106-1-zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] wireguard: Mark concurrent accesses to reused indices
+Date: Thu, 12 Nov 2026 10:30:22 +0800
+Message-ID: <20261112023022.118119-1-zhujun2@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,99 +76,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Dispatching on different CPUs updates the same hardware context's
-dispatch_busy estimate without a common lock. Scheduling and debugfs also
-read it concurrently, as reported by KCSAN.
+Removing a handshake entry from the index table does not wait for RCU
+readers that already found it. Reinserting the entry assigns a new index
+while those readers may still compare the old entry's index, which KCSAN
+reports as a data race.
 
-Use READ_ONCE() and WRITE_ONCE() for the shared estimate. The EWMA remains
-an approximate dispatch hint; concurrent updates do not need to preserve
-every observation.
+Use WRITE_ONCE() for index reassignment and READ_ONCE() for index
+comparisons in the table walks. Keep the existing RCU lifetime protection
+and locked collision check.
 
 OpenAI Codex assisted with analysis and patch preparation.
 
-Fixes: 6e768717304b ("blk-mq: dequeue request one by one from sw queue if hctx is busy")
+Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
 Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
 ---
- block/blk-mq-debugfs.c | 2 +-
- block/blk-mq-sched.c   | 4 ++--
- block/blk-mq.c         | 8 ++++----
- 3 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/net/wireguard/peerlookup.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/block/blk-mq-debugfs.c b/block/blk-mq-debugfs.c
-index 6754d8f9449c..d8b4e3b606e6 100644
---- a/block/blk-mq-debugfs.c
-+++ b/block/blk-mq-debugfs.c
-@@ -488,7 +488,7 @@ static int hctx_dispatch_busy_show(void *data, struct seq_file *m)
- {
- 	struct blk_mq_hw_ctx *hctx = data;
+diff --git a/drivers/net/wireguard/peerlookup.c b/drivers/net/wireguard/peerlookup.c
+index 99651a86ac95..c8d943711a6a 100644
+--- a/drivers/net/wireguard/peerlookup.c
++++ b/drivers/net/wireguard/peerlookup.c
+@@ -129,11 +129,11 @@ __le32 wg_index_hashtable_insert(struct index_hashtable *table,
  
--	seq_printf(m, "%u\n", hctx->dispatch_busy);
-+	seq_printf(m, "%u\n", READ_ONCE(hctx->dispatch_busy));
- 	return 0;
- }
- 
-diff --git a/block/blk-mq-sched.c b/block/blk-mq-sched.c
-index d7b45778732b..66e03b676838 100644
---- a/block/blk-mq-sched.c
-+++ b/block/blk-mq-sched.c
-@@ -92,7 +92,7 @@ static int __blk_mq_do_dispatch_sched(struct blk_mq_hw_ctx *hctx)
- 	LIST_HEAD(rq_list);
- 	int count = 0;
- 
--	if (hctx->dispatch_busy)
-+	if (READ_ONCE(hctx->dispatch_busy))
- 		max_dispatch = 1;
- 	else
- 		max_dispatch = hctx->queue->nr_requests;
-@@ -300,7 +300,7 @@ static int __blk_mq_sched_dispatch_requests(struct blk_mq_hw_ctx *hctx)
- 			return 0;
- 		need_dispatch = true;
- 	} else {
--		need_dispatch = hctx->dispatch_busy;
-+		need_dispatch = READ_ONCE(hctx->dispatch_busy);
+ search_unused_slot:
+ 	/* First we try to find an unused slot, randomly, while unlocked. */
+-	entry->index = (__force __le32)get_random_u32();
++	WRITE_ONCE(entry->index, (__force __le32)get_random_u32());
+ 	hlist_for_each_entry_rcu_bh(existing_entry,
+ 				    index_bucket(table, entry->index),
+ 				    index_hash) {
+-		if (existing_entry->index == entry->index)
++		if (READ_ONCE(existing_entry->index) == entry->index)
+ 			/* If it's already in use, we continue searching. */
+ 			goto search_unused_slot;
  	}
- 
- 	if (hctx->queue->elevator)
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 5ae22d556540..322bad6896d4 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -2007,7 +2007,7 @@ static void blk_mq_update_dispatch_busy(struct blk_mq_hw_ctx *hctx, bool busy)
- {
- 	unsigned int ewma;
- 
--	ewma = hctx->dispatch_busy;
-+	ewma = READ_ONCE(hctx->dispatch_busy);
- 
- 	if (!ewma && !busy)
- 		return;
-@@ -2017,7 +2017,7 @@ static void blk_mq_update_dispatch_busy(struct blk_mq_hw_ctx *hctx, bool busy)
- 		ewma += 1 << BLK_MQ_DISPATCH_BUSY_EWMA_FACTOR;
- 	ewma /= BLK_MQ_DISPATCH_BUSY_EWMA_WEIGHT;
- 
--	hctx->dispatch_busy = ewma;
-+	WRITE_ONCE(hctx->dispatch_busy, ewma);
- }
- 
- #define BLK_MQ_RESOURCE_DELAY	3		/* ms units */
-@@ -2587,7 +2587,7 @@ static void blk_mq_insert_requests(struct blk_mq_hw_ctx *hctx,
- 	 * Try to issue requests directly if the hw queue isn't busy to save an
- 	 * extra enqueue & dequeue to the sw queue.
- 	 */
--	if (!hctx->dispatch_busy && !run_queue_async) {
-+	if (!READ_ONCE(hctx->dispatch_busy) && !run_queue_async) {
- 		blk_mq_run_dispatch_ops(hctx->queue,
- 			blk_mq_try_issue_list_directly(hctx, list));
- 		if (list_empty(list))
-@@ -3235,7 +3235,7 @@ void blk_mq_submit_bio(struct bio *bio)
- 
- 	hctx = rq->mq_hctx;
- 	if ((rq->rq_flags & RQF_USE_SCHED) ||
--	    (hctx->dispatch_busy && (q->nr_hw_queues == 1 || !is_sync))) {
-+	    (READ_ONCE(hctx->dispatch_busy) && (q->nr_hw_queues == 1 || !is_sync))) {
- 		blk_mq_insert_request(rq, 0);
- 		blk_mq_run_hw_queue(hctx, true);
- 	} else {
+@@ -145,7 +145,7 @@ __le32 wg_index_hashtable_insert(struct index_hashtable *table,
+ 	hlist_for_each_entry_rcu_bh(existing_entry,
+ 				    index_bucket(table, entry->index),
+ 				    index_hash) {
+-		if (existing_entry->index == entry->index) {
++		if (READ_ONCE(existing_entry->index) == entry->index) {
+ 			spin_unlock_bh(&table->lock);
+ 			/* If it was stolen, we start over. */
+ 			goto search_unused_slot;
+@@ -208,7 +208,7 @@ wg_index_hashtable_lookup(struct index_hashtable *table,
+ 	rcu_read_lock_bh();
+ 	hlist_for_each_entry_rcu_bh(iter_entry, index_bucket(table, index),
+ 				    index_hash) {
+-		if (iter_entry->index == index) {
++		if (READ_ONCE(iter_entry->index) == index) {
+ 			if (likely(iter_entry->type & type_mask))
+ 				entry = iter_entry;
+ 			break;
 -- 
 2.51.0
 
