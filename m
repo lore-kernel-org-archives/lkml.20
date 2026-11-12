@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501080;
-	b=N4vX8KSKX8LCy6bTRaxwDRm/LHiCEZspgzTAYfOTXCYyP7Yw0y2p1iI+7w1YpFTJidQL
-	 SC1W3zPtpxJsezoSuty+kDmwhUr8cXN2z2d4IfkVrupRXPatsGyp27Q9icYWa0H6/lak3
-	 2QcNsz3oGYT3vmQFOhuQgGJ4PA8q0ZRnOgL06H1QSJyHy5aNRbvLTwYK53BfpEHa41EXJ
-	 A9NLoIKf9utKOsNFlAqqGCmm0vU7o5UsQv775eNlV467JtQbMXVfGJ0qsPy7QeJ6pnBsg
-	 yDPUFo+JLEA2j4I0cyPiQ2A/0wDvlYYYTGw1AvINHnh3ECeqO/rqHxITNo8D+37+Tdw==
+	t=1794501084;
+	b=Dyz1NSfMbPTtCsymSx8r23dw0lxNuXpDtef9hHVjbzKhQj4MguOmw7NxIxbCQk+o0MUm
+	 wVHLhF52oDKjQ1DzGWr2bahANPozIPwWuy5ilvfiKlqXQ7V9f+ljUF1JD0jVJS6/xBo/r
+	 YZs5YijpHMnOJPMDrNFraSKRSrz3mKh4jaN5azhF6VVejKiWE55BddUrCtlEee0lUSwMT
+	 UoHpP/CPGClRGUJ4C+QlS0u9t5o7WgyuwXWDPlnfU8/2uVBV9HEHx+uGp7NDYwbJ89LFC
+	 lwzt9frm/TlgTI4x7pk1eGp+67iL6y/giy6aeB0ZeTIfg0gcW1HkWF8ZnUBCybp+D/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501080;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501084;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=PIMkHHsGvTQ8orHN0lDgvswNZ891skgsXy3ktpSlRWk=;
-	b=gKEZ460Oq9gloPT8wAGh8uEHZmn8bfQz/Oh41QY8/noq7pZefixDKDNlZj+Ti/I6DgMk
-	 /yoZFT05thkScPw20Y0vETLKuaXMx1guaD4CAF2EIfpsK+btz27l20wN/FuTu4mwqYNmP
-	 ZFwtPHwR9pCqly1BVbgJ8JUK4OvI2+izQOQ2ZzHrXF3/HmlZcecICp20pfBQk7bAyeq4E
-	 neqK1lO7g+72cuQfJ4kf4hYCcIv5+DyAvSSHqQ13TTcjH5dtWl46uKYFe9tI42XWJQ27e
-	 Y5ED5t+bowRAQgswzBf2qqV4m++5CBw0C5duj72dfQ75oNT6qtw6w0nJyqF0JkkTK8A==
+	bh=t7FDNrKyK6VBQjLPAN2SUOn5Hj1rulITu1zeui1Iwx4=;
+	b=RS77Q2O7b9HyDZVDLEkALUkVgh6wutU/exmN5Xuedg2rK5VDB8iFJsa4tdVoSXpYkH66
+	 Gzx23RespbeY0Mz9uZm+Am5dXOqWaNt/ep5MNnf3sjPOdYV9aGbKtlWGh6xKrLDdI4JUk
+	 FfOHBZwuU2CINTjI9zg16prB/A4j7fp6+o0ni94ZJchxoKRzVdSYchfs1nAaZ674WJ3Ls
+	 yA8owS+aftEvFJVfo3kVXj9tL9i/EWDjq8VPLz4FZNzedYswFfchTPpyYmeHSSRdE4QJr
+	 wgtzb0SHYkg0mVzJkNmVhyISQgMkz8vfJLOT1PK2tOnw9aYvngE7yX3a8MmRIkRSUvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q2t9zxZp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LkL/j4VW";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F21606A33B
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:31:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5061606A336
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:31:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q2t9zxZp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E9CA1F000C4;
-	Thu, 12 Nov 2026 16:31:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LkL/j4VW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90B761F000C4;
+	Thu, 12 Nov 2026 16:31:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794501080;
-	bh=PIMkHHsGvTQ8orHN0lDgvswNZ891skgsXy3ktpSlRWk=;
+	s=k20260515; t=1794501083;
+	bh=t7FDNrKyK6VBQjLPAN2SUOn5Hj1rulITu1zeui1Iwx4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Q2t9zxZp4Jtw908FdZFxHQGmi1rTS5qT4sawJkOYWVvTFQIb3rajD07d1+7MNXe0p
-	 qcL2OLNMc4qrbM9hA6GFafbNI76jlvArsqv0rNL2R9kgFFTbJjbBSUgEG3yY+SEddv
-	 q7MigcFEH40//YBJc+lXjK7MlELc8MyP6QHA3i3xV+PyMiEOwmAu4XObRgGfIZ2AG/
-	 jx7LlnvdLJWvGEYMTg9RgCwBzDc34p3Nzz8Uh98TkqgERagiLJHCwZugSH7SOBoKMa
-	 O3P3Ze34g70vslHmHF8zZu0OzJDpWNY8/bcdT4RJVpvjm7UbvceIHdJ5kG/hC0NaBP
-	 lZ5Ov0zJZd2dQ==
+	b=LkL/j4VWFtp/M5086uW540o4bsa2YZ7DSm7VaXkncn4H6Av6iURspp1E9Kqn1WAMW
+	 jcuOhd48+w0NU1/dk+Y3fNkxgaIUdmtzUquh2uOHLQXCmdwG/CM0yglBOLJm+NEUeS
+	 3VwHZpBr21Y/vLD/ix9b3nAUTBE/14AiqZw9ZK7SB2Jl/Mlpea6mzIBzbs7agB+uNB
+	 4jHNG3dhPl/TJu+zNqi2hhWVDhuMycDgvr5mhg2reraiauSCCgXeGR4X+NjVX7aU+3
+	 1uwubRotW6/Q9XD8+bfjx0Q2RS3HdziDDQdqhrlTx/bSQYsgl0bmviCtPYxQO5vriN
+	 LcHWZjodulIuA==
 From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Thu, 12 Nov 2026 18:31:06 +0200
-Subject: [PATCH 1/9] x86/mm/pat: flush the TLB when only an alias mapping
- changed
+Date: Thu, 12 Nov 2026 18:31:07 +0200
+Subject: [PATCH 2/9] x86/mm: don't set kernel_set_to_readonly when write
+ protecting fails
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-fixes-x86-v1-1-791adb8d6670@kernel.org>
+Message-Id: <20261112-fixes-x86-v1-2-791adb8d6670@kernel.org>
 References: <20261112-fixes-x86-v1-0-791adb8d6670@kernel.org>
 In-Reply-To: <20261112-fixes-x86-v1-0-791adb8d6670@kernel.org>
 To: Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
@@ -67,90 +67,71 @@ Cc: Mike Rapoport <rppt@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
  Tom Lendacky <thomas.lendacky@amd.com>, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.1-dev
 
-CPA flushes the TLB only when CPA_FLUSHTLB is set. cpa_process_alias()
-sets the flag only in alias_cpa and never in the original request.
+mark_rodata_ro() ignores the result of write protecting the kernel text
+and rodata. It can fail when CPA cannot allocate a page table to split a
+large page, and then a part of the text and rodata stays writable.
 
-When the requested range already has the new protection and only its
-alias changes, the alias keeps stale TLB entries. For example:
+kernel_set_to_readonly is set anyway, and CPA enforces the static
+protections of rodata from then on. On 64-bit the next call,
+set_memory_nx() for the data, may find the writable rodata and warn
+about a conflict with the static protections, which does not say what
+actually went wrong.
 
-	/* the vmalloc mapping is created read-only */
-	p = vmap(pages, nr, VM_MAP, PAGE_KERNEL_RO);
+Report the failure and set kernel_set_to_readonly only when write
+protecting succeeds.
 
-	/* only the direct map changes and nothing is flushed */
-	set_memory_ro((unsigned long)p, nr);
-
-Setting ->force_flush_all in cpa_process_alias() does not help: it only
-chooses how the TLB is flushed, and cpa_flush() is skipped entirely
-without CPA_FLUSHTLB.
-
-Worse, when the alias wasn't changed at all, for example when the primary
-mapping changes from ROX to RO or vice versa, ->force_flush_all in
-cpa_process_alias() causes an unnecessary flush of all TLBs.
-
-Propagate CPA_FLUSHTLB from the alias update to the original request, and
-flush the entire TLB only when an alias actually changed.
-
-Fixes: ab5130186d74 ("x86/mm/cpa: Flush direct map alias during cpa")
 Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- arch/x86/mm/pat/set_memory.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ arch/x86/mm/init_32.c | 8 ++++++--
+ arch/x86/mm/init_64.c | 8 ++++++--
+ 2 files changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index b1d5c5a0ffb41..fb2413cb8d314 100644
---- a/arch/x86/mm/pat/set_memory.c
-+++ b/arch/x86/mm/pat/set_memory.c
-@@ -1975,7 +1975,8 @@ static int cpa_process_alias(struct cpa_data *cpa)
+diff --git a/arch/x86/mm/init_32.c b/arch/x86/mm/init_32.c
+index 0908c44d51e6f..8323c1f599f25 100644
+--- a/arch/x86/mm/init_32.c
++++ b/arch/x86/mm/init_32.c
+@@ -741,12 +741,16 @@ void mark_rodata_ro(void)
+ {
+ 	unsigned long start = PFN_ALIGN(_text);
+ 	unsigned long size = (unsigned long)__end_rodata - start;
++	int err;
  
- 		alias_cpa = *cpa;
- 		alias_cpa.vaddr = &laddr;
--		alias_cpa.flags &= ~(CPA_PAGES_ARRAY | CPA_ARRAY);
-+		alias_cpa.flags &= ~(CPA_PAGES_ARRAY | CPA_ARRAY |
-+				     CPA_FLUSHTLB);
- 		alias_cpa.curpage = 0;
+-	set_pages_ro(virt_to_page(start), size >> PAGE_SHIFT);
++	err = set_pages_ro(virt_to_page(start), size >> PAGE_SHIFT);
+ 	pr_info("Write protecting kernel text and read-only data: %luk\n",
+ 		size >> 10);
++	if (err)
++		pr_err("Failed to write protect kernel text and read-only data: %d\n",
++		       err);
  
- 		/* Directmap always has NX set, do not modify. */
-@@ -1984,9 +1985,11 @@ static int cpa_process_alias(struct cpa_data *cpa)
- 			alias_cpa.mask_set.pgprot &= ~_PAGE_NX;
- 		}
+-	kernel_set_to_readonly = 1;
++	kernel_set_to_readonly = !err;
  
--		cpa->force_flush_all = 1;
--
- 		ret = __change_page_attr_set_clr(&alias_cpa, 0);
-+		if (alias_cpa.flags & CPA_FLUSHTLB) {
-+			cpa->flags |= CPA_FLUSHTLB;
-+			cpa->force_flush_all = 1;
-+		}
- 		if (ret)
- 			return ret;
- 	}
-@@ -2003,7 +2006,8 @@ static int cpa_process_alias(struct cpa_data *cpa)
- 					       __START_KERNEL_map - phys_base;
- 		alias_cpa = *cpa;
- 		alias_cpa.vaddr = &temp_cpa_vaddr;
--		alias_cpa.flags &= ~(CPA_PAGES_ARRAY | CPA_ARRAY);
-+		alias_cpa.flags &= ~(CPA_PAGES_ARRAY | CPA_ARRAY |
-+				     CPA_FLUSHTLB);
- 		alias_cpa.curpage = 0;
+ #ifdef CONFIG_CPA_DEBUG
+ 	pr_info("Testing CPA: Reverting %lx-%lx\n", start, start + size);
+diff --git a/arch/x86/mm/init_64.c b/arch/x86/mm/init_64.c
+index 8b6d86fb5a42e..a68998f359bf3 100644
+--- a/arch/x86/mm/init_64.c
++++ b/arch/x86/mm/init_64.c
+@@ -1365,12 +1365,16 @@ void mark_rodata_ro(void)
+ 	unsigned long text_end = PFN_ALIGN(_etext);
+ 	unsigned long rodata_end = PFN_ALIGN(__end_rodata);
+ 	unsigned long all_end;
++	int err;
  
- 		/*
-@@ -2015,12 +2019,15 @@ static int cpa_process_alias(struct cpa_data *cpa)
- 			alias_cpa.mask_set.pgprot &= ~_PAGE_NX;
- 		}
+ 	printk(KERN_INFO "Write protecting the kernel read-only data: %luk\n",
+ 	       (end - start) >> 10);
+-	set_memory_ro(start, (end - start) >> PAGE_SHIFT);
++	err = set_memory_ro(start, (end - start) >> PAGE_SHIFT);
++	if (err)
++		pr_err("Failed to write protect the kernel read-only data: %d\n",
++		       err);
  
--		cpa->force_flush_all = 1;
- 		/*
- 		 * The high mapping range is imprecise, so ignore the
- 		 * return value.
- 		 */
- 		__change_page_attr_set_clr(&alias_cpa, 0);
-+		if (alias_cpa.flags & CPA_FLUSHTLB) {
-+			cpa->flags |= CPA_FLUSHTLB;
-+			cpa->force_flush_all = 1;
-+		}
- 	}
- #endif
+-	kernel_set_to_readonly = 1;
++	kernel_set_to_readonly = !err;
  
+ 	/*
+ 	 * The rodata/data/bss/brk section (but not the kernel text!)
 
 -- 
 2.53.0
