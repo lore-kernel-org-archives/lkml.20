@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794490495;
-	b=nY8pxzOttbPFpgbDq+E4lRFfV733KBF+cpSwzh1mywcQicS5HwppsvnxZM/tr7pKcCkU
-	 x3iJxVbfnrt7/KxwYgXuANF7y+3dpAtbgTLu+Bz5zX4v5AxLIXfcuI1kKcKNqaRmXuE8x
-	 DPbxXKYp9wjsRv+a2jFnXT4+gfO6lnQjdjnE/gyYPLPOTbUa7bWRnAhYTEJQLNg5OcP3w
-	 0eml+JGYTalKmL0oufomkC3J5xOJkeU+Z8k7Cy8ENA1OIloblGGT9PO8Vl1c9tZ7CTrpG
-	 1B2l0SmJJs/w6Xx49v+1Ea9NbyHTeZbkiYJXpEZcYmLjbf5v/I5iTkvAo2BXmp4KtXA==
+	t=1794490491;
+	b=X4byEJGTllo63jKKYVzz+gsTbuW4b3NjZg3YeZHGAMU5fowKhDOkBHO1FJOM6jLTmxXg
+	 jfVpPc2OmDTpZkEjP6cD3oSD9MmcisALkrn4UI3QldMZhJyhbpmAzbeTjvZ5wTql0Rwab
+	 OEm1G6CEQHMaqzQiDc1kcvdZvuxWUYYABxh1aNsKJBVYrnNhH4tN4Y0rDWfOG9MwoKt9L
+	 uVlqMzYPHek0P1WdtHSy1huXdKmB17+PVcYOhYRITNs3yEC54nWpgKOqvy26aU/RrwU0N
+	 mCZaIQyG6nqKjM0gXxQu3c4Ea7t466HvAC28lqVneG8EJUageaw8pr6j+qNa1YbndNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490495;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490491;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=LDrMUXDiGwEodm+UO1zYbp0STV2HpN8QjsxDMPk/zv4=;
-	b=zGeeo7RemRd/ae/suyXSAT8oNyZFXWCq4UOxrwK/ZKLGBZIbCHeSe06Cfv3/r0WG9vSW
-	 HgQ1ThQVdCj2hjUeXGSBQvsW8G9ZxyARPgLQSC2Cf4BxiAlacpKH2TsvS2s14KNcfXelB
-	 Bkwg0UGhAHFFtf5pOPY4lDCeN3GfltanLG0ALu+fiExA3ktLiFu+8Vx+wfVYW2S1idMdV
-	 0wa6RvHKr3Hg8lSBBko8iXb4eel7dw+MAUkTQ7IiR9OMy3+3dz4fragacfAnE6qG7bnaq
-	 12rW/HHrjdwhdz3RVFqkHKUOCekFoEdH5hyfscDHU7L9+sYVuQ7OqhPuPD2YNkFd9GQ==
+	bh=VAYr9WX92dg3SvFjZudKbj8hGUmjBf0kHQsMj3Huy2A=;
+	b=Apy0rVWMXMo0+qwzTD1P8BvBQr4pNIZrGrD0pnGdBzhpypbP5HG7AOkiwPZFmxy0Xsrv
+	 UWehmoJeCOxAJKk7NgQRsPsH331IY2mkzcuYPf1OxKwRievjDEcIWSJ8cs5w+7gy4+ibl
+	 9WuvHFe8EWdkAAEUb1uz1scobliCrMxCTwFt8a4XzIJEhvEPyhS6JiXu2QVnLHyNNQA1H
+	 BkKsNwkF9UwQhl5bgZnOpWL6dZM3HppPfudVfvUIzEmaDjsH2cPIsJ4nTPMN/r8dp45OZ
+	 6RRQW+6LrlENksdCTyFmIcksknZIQ6+Vs3HaNNtC98SpjlIDXEO0S+jUBjlWwVSlk6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=B4ZY9D3j;
-	arc=none smtp.remote-ip=113.46.200.219
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=gxvGi8l5;
+	arc=none smtp.remote-ip=113.46.200.220
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B8460A381E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7B8460A381E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D892D606A8BF
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D892D606A8BF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=B4ZY9D3j
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=gxvGi8l5
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=LDrMUXDiGwEodm+UO1zYbp0STV2HpN8QjsxDMPk/zv4=;
-	b=B4ZY9D3jYXEUivvy5xzhpPy/FAqMkWeNLbZEsmKs9U6vsxCJ8fSWmCWeg5u7pyPrHGer38JHp
-	a6Oi2PTBdFwcS3EuQuyWqRyzHBTMMFyH5wKsaKfm5bZju6VsHXuho8Z2+uNpRyrXiGeyk358NBC
-	THl9TyI1Ur49hbWWTOT/wlI=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jQLwG1Msnz1prLQ;
-	Thu, 12 Nov 2026 21:34:38 +0800 (CST)
+	bh=VAYr9WX92dg3SvFjZudKbj8hGUmjBf0kHQsMj3Huy2A=;
+	b=gxvGi8l5GYdAixG1QRWsiSMLXXsHyOINqSPUArEqcmmeWhWDwV6nk3CkHtY7MDp+FMWYyzx6n
+	HOBPUbx0XU/w94jHsTYt7dspTnSwdWfKEmGxB/qdyl9efuTCs2wvrwlVEjkDtbQfNn79EZnH2fE
+	I8C2D6gS4O3csk5lTZtUg8E=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jQLwW62KXz12LD4;
+	Thu, 12 Nov 2026 21:34:51 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 9DBC540537;
-	Thu, 12 Nov 2026 21:34:47 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 4125240575;
+	Thu, 12 Nov 2026 21:34:46 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 21:34:46 +0800
+ 2026 21:34:44 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
@@ -77,9 +77,9 @@ To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
 	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
 	<kexec@lists.infradead.org>
-Subject: [PATCH v8 08/11] kexec: Extract kexec_free_segment_cma() from kimage_free_cma()
-Date: Thu, 12 Nov 2026 21:34:15 +0800
-Message-ID: <20261112133418.4044428-9-ruanjinjie@huawei.com>
+Subject: [PATCH v8 07/11] powerpc: kexec_file: Use the common segment helpers
+Date: Thu, 12 Nov 2026 21:34:14 +0800
+Message-ID: <20261112133418.4044428-8-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261112133418.4044428-1-ruanjinjie@huawei.com>
 References: <20261112133418.4044428-1-ruanjinjie@huawei.com>
@@ -97,85 +97,91 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-Arch loaders truncate nr_segments when a placement fails, so the CMA
-pages of the dropped segments become unreachable.  Export a per-segment
-helper so they can be released first.
+load_elfcorehdr_segment() builds the elf core header from the powerpc
+crash memory ranges and places it as a segment.  The header needs
+powerpc specific post processing, so keep building it here, but use
+kexec_add_elf_core_header() to place it.
 
-No functional change intended.
+elf64_load() also loads the initrd by hand, use kexec_add_initrd()
+for it.
 
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Christophe Leroy <chleroy@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: Baoquan He <baoquan.he@linux.dev>
 Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- include/linux/kexec.h |  2 ++
- kernel/kexec_core.c   | 25 ++++++++++++++-----------
- 2 files changed, 16 insertions(+), 11 deletions(-)
+ arch/powerpc/kexec/elf_64.c       |  9 ++-------
+ arch/powerpc/kexec/file_load_64.c | 14 ++++----------
+ 2 files changed, 6 insertions(+), 17 deletions(-)
 
-diff --git a/include/linux/kexec.h b/include/linux/kexec.h
-index 89cb47521d6d..be7c827e8f7e 100644
---- a/include/linux/kexec.h
-+++ b/include/linux/kexec.h
-@@ -529,6 +529,7 @@ extern bool kexec_file_dbg_print;
+diff --git a/arch/powerpc/kexec/elf_64.c b/arch/powerpc/kexec/elf_64.c
+index d9a466cd602e..1ef444494641 100644
+--- a/arch/powerpc/kexec/elf_64.c
++++ b/arch/powerpc/kexec/elf_64.c
+@@ -96,18 +96,13 @@ static void *elf64_load(struct kimage *image, char *kernel_buf,
  
- extern void *kimage_map_segment(struct kimage *image, int idx);
- extern void kimage_unmap_segment(void *buffer);
-+void kexec_free_segment_cma(struct kimage *image, unsigned long idx);
- #else /* !CONFIG_KEXEC_CORE */
- struct pt_regs;
- struct task_struct;
-@@ -540,6 +541,7 @@ static inline int kexec_crash_loaded(void) { return 0; }
- static inline void *kimage_map_segment(struct kimage *image, int idx)
- { return NULL; }
- static inline void kimage_unmap_segment(void *buffer) { }
-+static inline void kexec_free_segment_cma(struct kimage *image, unsigned long idx) { }
- #define kexec_in_progress false
- static inline bool kexec_is_in_progress(void) { return false; }
- #endif /* CONFIG_KEXEC_CORE */
-diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
-index f4a31565c447..03b396869e34 100644
---- a/kernel/kexec_core.c
-+++ b/kernel/kexec_core.c
-@@ -571,22 +571,25 @@ static void kimage_free_entry(kimage_entry_t entry)
- 	kimage_free_pages(page);
- }
+ 	kexec_dprintk("Command line: %s", cmdline ? cmdline : "");
  
--static void kimage_free_cma(struct kimage *image)
-+void kexec_free_segment_cma(struct kimage *image, unsigned long idx)
- {
--	unsigned long i;
-+	u32 nr_pages = image->segment[idx].memsz >> PAGE_SHIFT;
-+	struct page *cma = image->segment_cma[idx];
+-	if (initrd != NULL) {
+-		kbuf.buffer = initrd;
+-		kbuf.bufsz = kbuf.memsz = initrd_len;
++	if (initrd) {
+ 		kbuf.buf_align = PAGE_SIZE;
+ 		kbuf.top_down = false;
+-		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+-		ret = kexec_add_buffer(&kbuf);
++		ret = kexec_add_initrd(image, &kbuf);
+ 		if (ret)
+ 			goto out;
+ 		initrd_load_addr = kbuf.mem;
+-
+-		kexec_dprintk("Loaded initrd at 0x%lx\n", initrd_load_addr);
+ 	}
  
--	for (i = 0; i < image->nr_segments; i++) {
--		struct page *cma = image->segment_cma[i];
--		u32 nr_pages = image->segment[i].memsz >> PAGE_SHIFT;
-+	if (!cma)
-+		return;
+ 	ret = get_reserved_memory_ranges(&rmem);
+diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
+index 0cf03cee35a7..77652db7d1ca 100644
+--- a/arch/powerpc/kexec/file_load_64.c
++++ b/arch/powerpc/kexec/file_load_64.c
+@@ -416,9 +416,8 @@ static int load_elfcorehdr_segment(struct kimage *image, struct kexec_buf *kbuf)
+ 	/* Fix the offset for backup region in the ELF header */
+ 	sync_backup_region_phdr(image, headers, false);
  
--		if (!cma)
--			continue;
-+	arch_kexec_pre_free_pages(page_address(cma), nr_pages);
-+	dma_release_from_contiguous(NULL, cma, nr_pages);
-+	image->segment_cma[idx] = NULL;
-+}
+-	kbuf->buffer = headers;
+-	kbuf->mem = KEXEC_BUF_MEM_UNKNOWN;
+-	kbuf->bufsz = headers_sz;
++	image->elf_headers = headers;
++	image->elf_headers_sz = headers_sz;
  
--		arch_kexec_pre_free_pages(page_address(cma), nr_pages);
--		dma_release_from_contiguous(NULL, cma, nr_pages);
--		image->segment_cma[i] = NULL;
+ 	/*
+ 	 * Account for extra space required to accommodate additional memory
+@@ -427,13 +426,9 @@ static int load_elfcorehdr_segment(struct kimage *image, struct kexec_buf *kbuf)
+ 	kbuf->memsz = headers_sz + kdump_extra_elfcorehdr_size(cmem);
+ 	kbuf->top_down = false;
+ 
+-	ret = kexec_add_buffer(kbuf);
+-	if (ret) {
+-		vfree(headers);
++	ret = kexec_add_elf_core_header(image, kbuf);
++	if (ret)
+ 		goto out;
 -	}
-+static void kimage_free_cma(struct kimage *image)
-+{
-+	unsigned long i;
+-
+-	image->elf_load_addr = kbuf->mem;
  
-+	for (i = 0; i < image->nr_segments; i++)
-+		kexec_free_segment_cma(image, i);
- }
- 
- void kimage_free(struct kimage *image)
+ 	/*
+ 	 * If CONFIG_CRASH_HOTPLUG is enabled, the elfcorehdr kexec segment
+@@ -442,7 +437,6 @@ static int load_elfcorehdr_segment(struct kimage *image, struct kexec_buf *kbuf)
+ 	 * memory in the FDT prepared for kdump.
+ 	 */
+ 	image->elf_headers_sz = kbuf->memsz;
+-	image->elf_headers = headers;
+ out:
+ 	kfree(cmem);
+ 	return ret;
 -- 
 2.34.1
 
