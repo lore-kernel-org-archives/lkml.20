@@ -1,90 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=139.138.37.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474505;
-	b=0L9FhV7Z5NTcMplyZXLJt49W/rixwvxi9VIJJ75CP/ZrtdwDj9yNSjqa7V0D1Z06EXXG
-	 NwLa0MhE9YTN7CM+Obe6HdrX1fRr5sPKmKT7zCwle1jjwjNQKWzPNpvOD+yrDdSdPMVsh
-	 gS6rpmQKir43fIm/At8zbuaT4dY1avE7eHxr/+fUpsOGo5xWy435ymhtM8s961mFc+EOn
-	 bE7yk7oUhetp4H8nbjRBGpiMkyUG3NlV6hXrdK/DtozHpPuD0maJm4r2VATwSOREGiWOU
-	 AT7+6L63FvuW2r/ejsD6hXFOL2jUyh9wIVi2g/Ovz3w2fk4DN3qJr6CY1kVIdr0ev9w==
+	t=1794474506;
+	b=nUY4MwpeQVegPYOBseItr+T/E4A13xIELjs9Ch82CD4h3Jxo5CSRZ3oQ09ds51zuzPnw
+	 Om8zi3adG1CLhtfCI1rsLOQeMEW5/ql2vvVDKIwAN/hZRiEvGArQcsuJ7zeyGr4EiAgZI
+	 Z3VXTmR+dpcRwtcrwc4SnBQiLLdrALC4oJW7h89/h5xMJv0xUMe4AujMMen2o+gNTuYYb
+	 4VRZ6dMTjG8j7RBceAYCVTPph42RC6vewm8WBjslbYZg4x7wfHXyro03gChNfhx2qbbL4
+	 pNZCa9OVIzWXNNaeb7C4MUSTPVOqKoYd4lBE9qjVMrjeTmoLJ5ohHYAqCriX1AM7FxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474505;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:Received:Received:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=s27wvHS07SuwEnoAPuKZTYMrrXbi2Voqx1f7y+dH6O0=;
-	b=1YVLsTbYS7dxAzdPhq6caCN9qo5k5HHMJ2cpV9r+4F0PvUXsbEIZIgVasKeOw5mhhfAy
-	 MYtxQr1hYvzingBwB3THK34EQw6+SbnrkFOrxT6fAAHpI5vA+79FaHstnYr4PLCrz59Aj
-	 H8fxCrINs7h7uWy5lI9hpuMmmjlSZeUuj3n7JxQ7CIzkZhpqeCy4RGf+rtigqpgJlD3TB
-	 6J4pehcq9axpvlcxGqCu9bg14/PqBpl8uLV8uSM6vXlQVLy/R9BnVpKIOruvTZgOFN6QY
-	 e0J4MaDHgIkoYBinH9hHrxm3JNWCQOYRmbXi4gRT4eCmTs5L1tMu1xK02X/ZLNvG0qQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474506;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=sT5JORa4hluQX/UGABU9ltevF9DMtn7AClnTuZFBi64=;
+	b=mQH1DaW0tmiA2X/mkFNlrUzSbzBdMkEs3uvitdrwX7jx2AcYr/WQ3zfmLOcQzza+zb7D
+	 DGm4/een6romcsXW5ENxI84Mh+/8ovaq6OfSXoNdOLwhd8+8dNx8i71d1jJYihmRrWL5h
+	 BOfW1jG2Wd0LYh4RIOomlb4x915ci0K+lARp8RvpAHEWhx9oT1bo7trbJ7ltSexpMfXOo
+	 RApD5O36aKpm+GP6Hzx1H5w1t91Box4NC5wtuigC/id0t3fnukKohi7O5jjpG/q0jsTr7
+	 ydYMZs5GELUvbXQKFOWBag+buUAjJsdS52SCfA7ogPyRQwtVvLi8/df7Jkbj6tmdWEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fujitsu.com;
-	spf=pass smtp.mailfrom=fujitsu.com;
-	dkim=pass header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b="epVh3cc/";
-	arc=none smtp.remote-ip=139.138.37.100
-Received: from esa12.hc1455-7.c3s2.iphmx.com (esa12.hc1455-7.c3s2.iphmx.com [139.138.37.100])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dK91/CBD";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4925B606A321;
-	Thu, 12 Nov 2026 09:08:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4925B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DADB606A889;
+	Thu, 12 Nov 2026 09:08:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=epVh3cc/
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1794474512; x=1826010512;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9Tx2kYwYrf5VVNfDHDCGqna3I8YOzDbxeRSc934oNm0=;
-  b=epVh3cc/pkQhLt3UJdzvm86Y3kYvCJLNwaNki17DbQXtEzkIRLkOGHby
-   EK4nuiDMTsJXGpmSsUjeajFTQphuvbxYDyoQHn40j3g3VFmzjpjlMatyy
-   U2yUK3aQqQMy3sOXnl9gplkvZBgV8flXp1v3ekdMSiK+ICh69GFiF6OlD
-   tZDbjCddW4HiSxK5nJYlAxrht6FwH2Zg+GTxRzW4xErPOutt6MqHmHgKL
-   lBvoWJQETE8lnq1XWjaBu9Rf5+UwM+CEaqGpnuIfsLK+1IJs1St8qFWnH
-   m6twrJOmy/8SzaDnuaVQVU6fQosg0EClOyY7RGS7JrmndrtSMRkyooEQg
-   w==;
-X-CSE-ConnectionGUID: NG+XFSSlTIm7W4O3T9sDMA==
-X-CSE-MsgGUID: 751GRAQ1SmamqssaWwpKGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="239285216"
-X-IronPort-AV: E=Sophos;i="6.27,209,1786978800"; 
-   d="scan'208";a="239285216"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa12.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 18:08:24 +0900
-Received: from az2nlsmgm2.o.css.fujitsu.com (unknown [10.150.26.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id E5C131003E6D;
-	Thu, 12 Nov 2026 09:08:16 +0000 (UTC)
-Received: from az2uksmom4.o.css.fujitsu.com (unknown [10.151.22.204])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id 9215B1C000EB;
-	Thu, 12 Nov 2026 09:08:16 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.9.86.149])
-	by az2uksmom4.o.css.fujitsu.com (Postfix) with SMTP id 706EA405EFB;
-	Thu, 12 Nov 2026 09:08:07 +0000 (UTC)
-Date: Thu, 12 Nov 2026 18:08:06 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Steven Price <steven.price@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>, Will Deacon <will@kernel.org>, 
-	James Morse <james.morse@arm.com>, Oliver Upton <oliver.upton@linux.dev>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>, 
-	Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev, 
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Gavin Shan <gshan@redhat.com>, 
-	Shanker Donthineni <sdonthineni@nvidia.com>, Alper Gun <alpergun@google.com>, 
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>, 
-	Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com, Lorenzo Pieralisi <lpieralisi@kernel.org>
-Subject: Re: [PATCH v2 00/12] KVM: arm64: CCA: Prepare Realm memory management
-Message-ID: <avV-P2_fOkFWQVnM@FCCLS0092175.localdomain>
-References: <20261111145758.217946-1-steven.price@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dK91/CBD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4979C1F00A05;
+	Thu, 12 Nov 2026 09:08:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794474506;
+	bh=sT5JORa4hluQX/UGABU9ltevF9DMtn7AClnTuZFBi64=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dK91/CBDUKHnx4fnxpXkYT6g6EjYNWdbEfh28QaH4eiXnsV7Q65lDqVP7CnvE/zD7
+	 3PL8LPJSkPlTXKqXQzkgMcC6n9oadyiqPqaJ9OF34qhg86EiHvtApGY8+jOLYvnrYx
+	 qly7FN3cuvvW7NQV/qLx8+0BJlyHWHjTc5Iar9JQ0rKVKYAR9Bfm8GlYty1323KO0S
+	 J04aUVbMlpTo5op0oUgccIMziBFU87+0zggpYiSVWSQCj2jUOHloi27gGFT/Nd/ysB
+	 QdHoyqzJDffQdW6oAxuFCBOd4NijXG9eV0U6VyzlVUDPyQwZO+dbO9y81oIC2gPQRL
+	 gbnVwvLiJ/FEA==
+Message-ID: <a6da0f9b-c292-471e-8bf6-5f67b735591a@kernel.org>
+Date: Thu, 12 Nov 2026 10:04:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,79 +51,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111145758.217946-1-steven.price@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 3/5] mm/memory-failure: Add a pre-online poison
+ registry
+To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Breno Leitao <leitao@debian.org>
+Cc: Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
+ Richard Cheng <icheng@nvidia.com>, Naoya Horiguchi
+ <nao.horiguchi@gmail.com>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Oscar Salvador <osalvador@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
+ Harry Yoo <harry@kernel.org>
+References: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
+ <20261010162017.62506-4-shaikhkamal2012@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261010162017.62506-4-shaikhkamal2012@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Steve,
+On 10/10/26 18:20, Shaikh Kamaluddin wrote:
+> A frame can be known bad before its backing memory is onlined. A CXL
+> Type-3 device retains poison as DPA-based Media Error Records and can
+> report those records through GET_POISON_LIST after a reboot, kexec, or
+> device hotplug.
+> 
+> CXL poison can be retrieved while a region is being prepared, before
+> dax/kmem calls add_memory_driver_managed() for the range. At that point
+> there is no initialized struct page on which memory_failure() can
+> operate. The poison information must therefore be retained until the
+> corresponding pages pass through memory initialization.
+> 
+> Add a registry of sorted, nonoverlapping poisoned PFN ranges. Each
+> registration represents one owner and its independently managed memory.
+> For example, a CXL region registers the poisoned PFN ranges translated
+> from its device poison records and receives an opaque handle for that
+> range set. A second CXL region receives a separate handle for its own
+> ranges.
+> 
+> The owner uses its handle to remove exactly its registration after the
+> associated memory can no longer enter the allocator. Removing one CXL
+> region's registration does not affect poison ranges registered by
+> another region.
+> 
+> Keep each registered range set immutable and protect the registration
+> list with RCU. This keeps allocator-side lookups lockless while allowing
+> a registration to be removed safely after an RCU grace period. A later
+> patch will consult the registry before initialized pages are released
+> to the buddy allocator.
+> 
+> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+> ---
 
-On 11/11 14:57, Steven Price wrote:
-> This series adds the memory management plumbing for CCA, building on the
-> basic RMM support [1]. Thank you to those who reviewed v1 - I'm
-> attempted to address all the comments.
-> 
-> The patches introduce internal Realm VM state and RMI feature checks,
-> prepare Realm stage-2 setup and teardown, and provide RTT mapping and
-> invalidation helpers. Realm memslots are restricted to the lower half
-> of the IPA space because the protected and shared halves alias each
-> other. The final patch connects the helpers to KVM's stage-2 MMU
-> operations.
-> 
-> This is the memory management portion of the larger Realm host series.
-> Realm descriptor creation, REC entry and exit, activation, and the new
-> uAPI follow in the integration stack. This series alone does not enable
-> Realm creation.
-> 
-> As before there's an integration branch[2] that includes the realm
-> creation, REC entry/exit etc building on top of this series. I've also
-> pushed a git branch[3] of just this series.
-> 
-> Changes since v1:
-> - Add a guest_memfd prerequisite patch that checks whether the backing
->   file supports mmap when preparing an arm64 memslot.
-> - Combine the RMI availability and feature checks into one patch, and
->   move Realm vCPU feature restrictions to the integration stack.
-> - Correct Realm IPA sizing and RTT teardown, including teardown before
->   activation, RTT accounting, and handling of missing or folded RTTs.
-> - Rework RTT mapping to respect IPA and physical alignment, handle
->   partial RMI progress, and retry interrupted operations.
-> - Preserve private mappings when a Realm guest_memfd memslot deletion is
->   rejected, and tighten Realm fault handling and stage-2 destruction.
-> 
-> [1] https://lore.kernel.org/all/20261007073537.2454351-1-suzuki.poulose@arm.com/
-> [2] https://gitlab.arm.com/linux-arm/linux-cca
->     branch: cca-host-mm/v2/integration
-> [3] https://gitlab.arm.com/linux-arm/linux-cca
->     branch: cca-host-mm/v2/mm
-> 
-> Steven Price (7):
->   KVM: arm64: CCA: Reserve the RMM mode
->   KVM: arm64: guest_memfd: Check mmap support when preparing memslot
->   KVM: arm64: CCA: Check RMI support and features at init
->   KVM: arm64: CCA: Add basic infrastructure for creating a realm
->   KVM: arm64: CCA: Tear down RTTs
->   KVM: arm64: CCA: Add Realm RTT mapping and invalidation helpers
->   KVM: arm64: CCA: Support runtime faulting of memory
-> 
-> Suzuki K Poulose (5):
->   KVM: arm64: CCA: Introduce Realms
->   KVM: arm64: Handle attributes in stage2_unmap_range
->   KVM: Allow architectures to reject memslot changes before invalidation
->   KVM: arm64: CCA: Prevent memslot modifications after Realm creation
->   KVM: arm64: CCA: Add Realm stage-2 MMU operations
+Oh no, another source of poison information. That doesn't sound like a good design.
 
-I've tested the integration branch [2] including this series on our
-hardware using the QEMU-VMM proposed in:
-  https://lore.kernel.org/qemu-devel/20261002202026.1204110-1-mathieu.poirier@linaro.org/
+-- 
+Cheers,
 
-The Realm guest VM (32 vCPUs, 16 GiB RAM) booted successfully. To
-exercise the guest with a more realistic workload, I also performed a
-full Linux kernel build, which completed successfully.
-
-A Tested-by tag might not be carried over to the next revision, if any,
-but anyway, for this series:
-
-Tested-by: Kohei Enju <enju.kohei@fujitsu.com>
-
-Thanks,
-Kohei
+David
