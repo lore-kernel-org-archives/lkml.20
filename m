@@ -1,94 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794485756;
-	b=A2BqkiMIpsgHl3bYq592SZfLpgWOqMOPCTFt4h1u+CyVtNnuZewWBURUuATDJJBEDMx1
-	 1eSjpxKPEyLUndxG9Fno95j9hZMsaOzENO+lidNmVnVCEnONnuRS8B/EVIzzUrPxezJvQ
-	 ca8178MwR7cd2UKKwFh+ES1nmm/cz8rO0VTM2hvKoPkyIylOJgGbJOOAmUTPM0ZWFQ7Cy
-	 43A86tNejJwSyPhw1ZvtJXcflJHF5cRm2rrKtNlmWWu3iNkOByYhHbvbCzBb28zZBdtHE
-	 VT6w/8HUu2N/9caBZWUt9UDQbd92RO6gQJpmOogMUHxUvsG3v5OHIliWQntf451EXFA==
+	t=1794485763;
+	b=zBwdvA5k6w39z0hI2iiaQ6x+DS+L6BOi213696AKH7R2LlQUOUexOWF5bLekBeT57wx8
+	 tpVh7buA1mgOFVy7xHHeo2ev9XtsMz2rUwgbUijc2kuRXW1mbJNT4R5IZwCILC7/zLDmD
+	 5/jwtmEySIBEH3ZOYDT+0Jzm7BBU4JuWhY7DIVKNfIGSN5kzGlV7qR2fvjelbl9tpMTpp
+	 J6je+hhLQbiyLUGoiSYfrJJPGcNSIOzA8ZIZest/otUS6rTSzWX2m67vU0lYRPBwVVFAn
+	 kNf/aNBFJqQhNnMcnAqlV4ienM4jFfsKr3O1KIiYBmrMCRkIM0qIc8zKQXZMM72pqRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485756;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794485763;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=B5dwS+JSg4KVRmJk8D3bUXhM4YDMd6Zv8kscnFZDGw0=;
-	b=BSIpt+7QgNjOPO9jYZIY3g1vmU5xmkWXSZE5Nte4zC+RBzvU1Cx97AaQ4d5SHD98RP5P
-	 Fy/VdNzDI0sJOjEaZImm0wp39Vvx8YmAYmfRDt+DuwDxeGcll0GC9PZRFSZDvkX6FlCUB
-	 GM0KT4dXdRrE6cm1MK0FzgBljd9gVsT7VTC7WDWqRz0u+w7b3L8I6zNG9oGRD9uklGvzO
-	 WxY9f6yYEp6n/4iC+HNfwG4NdcSNSb51WwDNXJixZcNSONNVmHyxr5+VsUso15JEYrrNU
-	 /Xzgn6nyeu8PAkGIgqCDZodMJvpSkdN85Mo09/HpzuoxlIya0KGFNND7wkJHEehJYJA==
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Day4XSXUwJwiabk4eYh/9BgBg5zitkrGJ+hEmjA9keI=;
+	b=sKPDhmfylbvnbSOYCFi1MUC3XgGjPxz2Tu4SzWRQms4fxWurTC8qprIdsSigmeYpIoZo
+	 o2jbbInxkVvOZ+5hnpUwsIJuswvqUIDXRD8H3UQls806vuNSSKZJ4k5Phq8pb6+FkoCMh
+	 85EDEQFgbBHew0q1mXK5mGk40dp/D6EzvbJTfJJaxyP1TI91b1ArzwGEvu/17SMSjOOiy
+	 JjCYI6Lt844lMn4KPsLlwysfJ+fGbAwEy1r43ICi9MG4Jwntd4173pQqPvnNXNv3IjKSw
+	 T2KwIyfJ6pOJFIPoUBl41k2UWjeEWQGZXjMlIoul/y2FK6ci3Ur+hgxAQ9wf17/hryQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ojOTqk+E;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="TrIfo/c2";
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2828606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:15:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2828606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A35A606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:16:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A35A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ojOTqk+E
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33bb5afa736so198975eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:15:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TrIfo/c2
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b587591414so4854206a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:16:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794485755; x=1795090555; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B5dwS+JSg4KVRmJk8D3bUXhM4YDMd6Zv8kscnFZDGw0=;
-        b=ojOTqk+EuQHLzkYchUS8u1NhiDCGXK6+ZTCp8wr8E8MxxCh6KGaOgiWkpF9wEo+Aq5
-         9Oycc0UkhL75g3VBdDtUpJCTnJSC1961/Ty9O1jYte/X+dRsz+xqcfSrjIcKf1ktYBSg
-         yvi8ppQpABu72JEff7Nh7ulrGWgNHwO74ICgPLrmHDqi8h0LBdXi2KFgRYqOFXW+zsTV
-         gKbECRsgfuHX9IZdhPZhwYHiYwByF08YDUIdizh9MpdBNl3bgqBxoDpzMEEL+JNJUxb8
-         pVxAyZD40+j7XJ2C9YUzyWlSHctrH2XTkZzJb4cPoZvBn0+WviVhYPraFFQKGUBZ7rBT
-         D/4g==
+        d=suse.com; s=google; t=1794485762; x=1795090562; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Day4XSXUwJwiabk4eYh/9BgBg5zitkrGJ+hEmjA9keI=;
+        b=TrIfo/c20w4B3bsZKiGOj4vaPS888vkqmTuI8IfJRgT9cLuZGAWB8DiBZiSW1Ryeed
+         ZhcDaF0gzmo2bK2Vqag1M9v9EHXay1TY0epCzjHJ3eWYZhyR4iVfJ78UE1tJUfYXoPN0
+         awjLjLfW7fREyntaHl7U1TUy66pA9GbZeL+MX7/Ar3DwEVusJXbumVmLvc9dNZH00Sfj
+         3isorvrMzs/hlzqujwXfildQMv1e+SJJ/Tv4IVFYbI1A6FFM5jnSL2YpsT2bdMr3DJW7
+         8OHSKu4NjfjLxgLNHZJB9CsZ8bsNXc6+Sbd21Y87wK/eZvWbTpn5EtY+r/R8UsQfK490
+         lLDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794485755; x=1795090555;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B5dwS+JSg4KVRmJk8D3bUXhM4YDMd6Zv8kscnFZDGw0=;
-        b=DNz0yCDBa6pD839nL80F+E+z55mMFXbMT+/W5xyf8jKEGXnOFVhZ26TNSj7PmVX0Va
-         P+a+N8PnnHYlxteSaC5+oB2RT1LKdgumZWS5T0tU7DiO4LyJopatzXjyP7PHm0NKbMF7
-         VjrS1uCQEXcmeDICCaZAlFx7a/fGp2V7T9WXO7y9PZa/gg7VK/RXtAfymtalQLZzzE4+
-         UDNn/PPD/DMNj0ppIXYC99pqbTU9KKtSvrjXXq30ZnTZwDeNqulZUWHyt6yp4miUeGMl
-         jqZ7g0HaAAVD0ha+3YoMv9RuAMuWl3ollsAflTDpu+xgA9vSNU2FR6jvyNsvndS6im0a
-         c0+A==
-X-Forwarded-Encrypted: i=1; AL+hErGGQdCRBuhwCyhnqmifAJxY1uNGAuQvBGYAoMcmg/vz4QUdUXVovg1RNnVvbufLIoqpSJOB4DiZNZH0Mw0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+q20C+yeXbHqreUKH3VFoJJ9jPb4gu5M69QsxPgmiwLdb41bru
-	6hfjzdKqccoXCe0KtgtMMJB4OmkGu5Ysu9BrzVzBEz2hP7S2JK5AW1Yl
-X-Gm-Gg: AYBFou2bSkxeyUzxU0Z/3ELI186Bi+LuXKZPqSb1BU1CAX17VTZEBkK9WnapFKpOc12
-	IV7gc7eoPDrRIvUxU2e6rwOezhki0mgggvDvapUqLN4dWMqqChUGOmzCwnVlRiHkA9F24f++S5e
-	N9vbZpeBln9rCelYRgMUFJ4crf5QkCMkhetr+rhKnsXFlQQzA0I4NY3Nh2SOFnFIsyOhucE4MqK
-	/Zbd2Lne9rvq0ZFiDsx563PgQNbQaJtD1nWLQ7Eh9E1WcEUYyt6wrlXMTI30Gger8wwsauH83tF
-	k7r2Zlh0L/Jqh2GOBiujS9uN50r1N9P/Ub8WhfgbWg9u2APX3qg15TVJLU6fK2WPWjh7sHK1b0F
-	Lhzy2IgXX9qLc+yX1OvKXSt8BbRACvE+j60PTT2Dn58QAjkg5Q+6SqyZsN5kUmfgKcPd6hjI1SN
-	ArVwJ1qUXSaEtIAGF6rZ7TWGzE8J6C8uQR9kgrL9dTCDDVPA4N/sQ4tcMkXeTtY+hr9yaXvMN8B
-	GFsvNLHtPonOiH1OLdv2vROm1uzyax1aDxZF97eBrmgl8SjudNCdmiIjbx/X0jOqUoYDnzwbXEd
-	ykVHm18ypG6OqdMxA9Vg6yhH07igsGP8DrTscPa+41wEowE1LtUcwY3nrPfLrfc5z4Caxra5/6d
-	6
-X-Received: by 2002:a05:7300:7aa5:b0:36a:e7a:e89 with SMTP id 5a478bee46e88-37685c76d17mr8719831eec.2.1794485754829;
-        Thu, 12 Nov 2026 04:15:54 -0800 (PST)
-Received: from mi-ThinkCentre-M760t.mioffice.cn ([43.224.245.234])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060dc0csm29740235eec.14.2026.11.12.04.15.52
+        d=1e100.net; s=20260707; t=1794485762; x=1795090562;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Day4XSXUwJwiabk4eYh/9BgBg5zitkrGJ+hEmjA9keI=;
+        b=I+LyGyV4f3xaH1r/M/z/yRIrZzqD5KZBXL1oZUD5vAv24YAZPpzjcra1/U7SHwwaEQ
+         q9+WnMAWaN95rgGiW/JaNa43Ja6xGKMjSWsE7L+6PnOLr0wCfClJ/HHqYYQjtgsUlT2+
+         TjuYYwjmm1krXHHzpGZkfBmu4bCyYb/Un80C6jRyJwUgJEALkuvZBnu6dLzeejWtnnab
+         i0KCp0xdaZia9FLkkjzT51I2UxxEWW/IqdeTCJcwpth8FuimF6j8xYQA1eDiRDTRIRD6
+         1SuCiLIiFDZunVMAwLia8G1p8Dp64592r92kTx9W51md1X0YRZhz/z/MvdPhadN9/frq
+         0YMQ==
+X-Forwarded-Encrypted: i=1; AL+hErGrD77WEyMqWEEqm04vtxaEvc+pq/+pWvcOu40QoNU0hX4AWs94dc4E5D0B2RymC9dVFpL6sT6GEdHBOq4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/pc00aorEfwofqKIlrETiW1N796c1nipKpJuRCSTANPzXNBSdC
+	GQtm8Ftzv59AthISw0rJV321wTuE4IVV32UsxjwxBu7e60YiS7b/ttZs1pnJFg/cw08=
+X-Gm-Gg: AYBFou0GpMzMWsxLSVDA6M5yBFg0CRdnhQMKGnF914cOKXcREemiWS+r8G/MoOfDxhm
+	qTZaGxjRk6PnWyYs35GIrlGuxTPpjXO2aIgY/KINnHFpd8it4LkGyGP6AnfxJr7rT4vTbP/utpM
+	gqQ/5upj3FqtSeHiS8Kb7fBOcR0LMtH5gJR7UNHV8zoJ4AlzGALiOIkkYGUrlxArqFdwV9bpGH1
+	NgvqgzI0rOHfJtOmXIRUibbScFNSXi7xd9Zf10bC8P/SK7+u5qNauXGdxLRToSKqOLbWDTfJCPm
+	Cs8PMDqi1yMgkB8S7o8/X0RSNrTyhvpEipDo8Ajk52z/Ctne7fP4dXusd3bBsyk/f8eA+D/Xwn4
+	hkUIugmLry7eObwCDhQGMfMrZjXO/fZ0pEAa4zUw7RC1GM2eaHJ8FUAhF9sd8pKSLHVzadCArIb
+	yQjamzpjgxliR1Y8RDZweoNuzJtIju9WrGfYRGffi1ayYnBBBJTMAcr8exrGtEvJ87Zg+EhSE1w
+	xZG7LAZIenpw55ibGnidC1+JEE0wSdi60ylPWtxJzg63QBtZrtJvn54rzC0Gl67tF8aj1FICuoD
+	Uf6jy6ALM13SXMRtCmqzaquau4bNDjnrW4a9Ro+L9u0r/QxoNA==
+X-Received: by 2002:a05:6402:84c:b0:6b5:867c:879c with SMTP id 4fb4d7f45d1cf-6b77780e6d0mr4095632a12.35.1794485761603;
+        Thu, 12 Nov 2026 04:16:01 -0800 (PST)
+Received: from localhost ([195.94.151.204])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835d2c05dsm16127012f8f.25.2026.11.12.04.16.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 04:15:54 -0800 (PST)
-From: Wenwu Hou <hwenwur@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wenwu Hou <hwenwur@gmail.com>
-Subject: [PATCH v2] tracing/hwlat: Do the latency calculations in nanoseconds
-Date: Thu, 12 Nov 2026 20:15:01 +0800
-Message-ID: <20261112121502.2070755-1-hwenwur@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 12 Nov 2026 04:16:00 -0800 (PST)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Thu, 12 Nov 2026 13:19:57 +0100
+To: Wang Xiaolei <wangxiaolei01@kaihong.com>
+Cc: linusw@kernel.org, florian.fainelli@broadcom.com, rjui@broadcom.com,
+	sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+	daniel@dragonzap.com, iivanov@suse.de, andrea.porta@suse.com,
+	phil@raspberrypi.com, linux-gpio@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] pinctrl: bcm: Use pinconf_generic_dt_free_map in
+ bcm2835
+Message-ID: <avWu7T8_dutAW8ro@apocalypse>
+References: <20261106070628.1428691-1-wangxiaolei01@kaihong.com>
+ <20261106070628.1428691-3-wangxiaolei01@kaihong.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,89 +103,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106070628.1428691-3-wangxiaolei01@kaihong.com>
 
-tr->max_latency is expected to hold nanoseconds: tracing_max_lat_read()
-converts it with nsecs_to_usecs() to print the usecs documented in
-hwlat_detector.rst, and the other latency tracers store nanoseconds there
-too.
+Hi Wang,
 
-Do all the latency calculations in nanoseconds instead, and only convert
-the durations to microseconds when recording the hwlat event.
+On 07:06 Fri 06 Nov     , Wang Xiaolei wrote:
+> Replace the hand-written dt_free_map callback with the generic
+> pinconf_generic_dt_free_map() helper, which wraps
+> pinctrl_utils_free_map(). This drops the duplicated free loop and
+> handles both CONFIGS_PIN and CONFIGS_GROUP map types.
+> 
+> The error path in bcm2835_pctl_dt_node_to_map() uses the same helper.
+> The driver already selects GENERIC_PINCONF, so no Kconfig change is
+> needed.
+> 
+> Signed-off-by: Wang Xiaolei <wangxiaolei01@kaihong.com>
 
-Fixes: e7c15cd8a1133 ("tracing: Added hardware latency tracer")
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Wenwu Hou <hwenwur@gmail.com>
----
-Tested in a 4-vCPU KVM guest; all three hwlat modes worked as expected.
+Please CC:stable.
 
-Changes in v2:
-- Perform the latency calculations in nanoseconds instead of converting
-  only the maximum latency, as suggested by Steven Rostedt.
-- Convert the durations to microseconds only when recording the hwlat event
-  to preserve the existing event format.
+Reviewed-by: Andrea della Porta <andrea.porta@suse.com>
 
- kernel/trace/trace_hwlat.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+Many thanks,
+Andrea
 
-diff --git a/kernel/trace/trace_hwlat.c b/kernel/trace/trace_hwlat.c
-index 65e184d800ff1..a16905ac12b0d 100644
---- a/kernel/trace/trace_hwlat.c
-+++ b/kernel/trace/trace_hwlat.c
-@@ -203,14 +203,12 @@ static int get_sample(void)
- 	time_type start, t1, t2, last_t2;
- 	s64 diff, outer_diff, total, last_total = 0;
- 	u64 sample = 0;
--	u64 sample_width = READ_ONCE(hwlat_data.sample_width);
-+	u64 sample_width = READ_ONCE(hwlat_data.sample_width) * NSEC_PER_USEC;
- 	u64 thresh = tracing_thresh;
- 	u64 outer_sample = 0;
- 	int ret = -1;
- 	unsigned int count = 0;
- 
--	do_div(thresh, NSEC_PER_USEC); /* modifies interval value */
--
- 	kdata->nmi_total_ts = 0;
- 	kdata->nmi_count = 0;
- 	/* Make sure NMIs see this first */
-@@ -229,7 +227,7 @@ static int get_sample(void)
- 
- 		if (time_u64(last_t2)) {
- 			/* Check the delta from outer loop (t2 to next t1) */
--			outer_diff = time_to_us(time_sub(t1, last_t2));
-+			outer_diff = time_sub(t1, last_t2);
- 			/* This shouldn't happen */
- 			if (outer_diff < 0) {
- 				hwlat_err(BANNER "time running backwards\n");
-@@ -240,7 +238,7 @@ static int get_sample(void)
- 		}
- 		last_t2 = t2;
- 
--		total = time_to_us(time_sub(t2, start)); /* sample width */
-+		total = time_sub(t2, start); /* sample width */
- 
- 		/* Check for possible overflows */
- 		if (total < last_total) {
-@@ -250,7 +248,7 @@ static int get_sample(void)
- 		last_total = total;
- 
- 		/* This checks the inner loop (t1 to t2) */
--		diff = time_to_us(time_sub(t2, t1));     /* current diff */
-+		diff = time_sub(t2, t1);     /* current diff */
- 
- 		if (diff > thresh || outer_diff > thresh) {
- 			if (!count)
-@@ -286,8 +284,8 @@ static int get_sample(void)
- 			do_div(kdata->nmi_total_ts, NSEC_PER_USEC);
- 
- 		s.seqnum = atomic64_inc_return(&hwlat_data.count);
--		s.duration = sample;
--		s.outer_duration = outer_sample;
-+		s.duration = time_to_us(sample);
-+		s.outer_duration = time_to_us(outer_sample);
- 		s.nmi_total_ts = kdata->nmi_total_ts;
- 		s.nmi_count = kdata->nmi_count;
- 		s.count = count;
--- 
-2.43.0
-
+> ---
+>  drivers/pinctrl/bcm/pinctrl-bcm2835.c | 16 ++--------------
+>  1 file changed, 2 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/pinctrl/bcm/pinctrl-bcm2835.c b/drivers/pinctrl/bcm/pinctrl-bcm2835.c
+> index 725e880ae086..69a92cd7bfe0 100644
+> --- a/drivers/pinctrl/bcm/pinctrl-bcm2835.c
+> +++ b/drivers/pinctrl/bcm/pinctrl-bcm2835.c
+> @@ -760,18 +760,6 @@ static void bcm2835_pctl_pin_dbg_show(struct pinctrl_dev *pctldev,
+>  		irq, irq_type_names[pc->irq_type[offset]]);
+>  }
+>  
+> -static void bcm2835_pctl_dt_free_map(struct pinctrl_dev *pctldev,
+> -		struct pinctrl_map *maps, unsigned num_maps)
+> -{
+> -	int i;
+> -
+> -	for (i = 0; i < num_maps; i++)
+> -		if (maps[i].type == PIN_MAP_TYPE_CONFIGS_PIN)
+> -			kfree(maps[i].data.configs.configs);
+> -
+> -	kfree(maps);
+> -}
+> -
+>  static int bcm2835_pctl_dt_node_to_map_func(struct bcm2835_pinctrl *pc,
+>  		struct device_node *np, u32 pin, u32 fnum,
+>  		struct pinctrl_map **maps)
+> @@ -916,7 +904,7 @@ static int bcm2835_pctl_dt_node_to_map(struct pinctrl_dev *pctldev,
+>  	return 0;
+>  
+>  out:
+> -	bcm2835_pctl_dt_free_map(pctldev, maps, num_pins * maps_per_pin);
+> +	pinconf_generic_dt_free_map(pctldev, maps, num_pins * maps_per_pin);
+>  	return err;
+>  }
+>  
+> @@ -926,7 +914,7 @@ static const struct pinctrl_ops bcm2835_pctl_ops = {
+>  	.get_group_pins = bcm2835_pctl_get_group_pins,
+>  	.pin_dbg_show = bcm2835_pctl_pin_dbg_show,
+>  	.dt_node_to_map = bcm2835_pctl_dt_node_to_map,
+> -	.dt_free_map = bcm2835_pctl_dt_free_map,
+> +	.dt_free_map = pinconf_generic_dt_free_map,
+>  };
+>  
+>  static int bcm2835_pmx_free(struct pinctrl_dev *pctldev,
+> -- 
+> 2.34.1
+> 
