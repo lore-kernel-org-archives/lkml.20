@@ -1,79 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491032;
-	b=M3yzK4EMTj3yIxAEIRy7h7d4j6kNv2nkhAnjhuMZP2WJcFM3J5orztYv/x43YRswcb5L
-	 LOEbL8ndXUgx8g2wcuId8vQ4cUzXpc9SM1dakukzC+xPnOGqFMouiFP5Uq6cpM/shQuud
-	 dq8TbuBlxoaEdePclUM8VfZnZOcj4Xltzr7sU5yN1UCw2LoyfRhaDtozwmzC9ZAIj4J/D
-	 jqKdZULsqyX4DTywy9Zd9ps2ZmEXldUED9IslNnriYr2oQyinm468vzYEJgp+lJMPuo9n
-	 3+f21FYCxeHUAjxLtLiWgekCK5PkyKvU9aObYuGkGhXGjf1hROMDjWLsf0N4EX9fCLg==
+	t=1794491044;
+	b=ld3lSU6y8dEJh0SPBKGUmYxA/hDnl4OLO6T23S5hnd1hzg+quFh9mUWYlFS1ZEi5MQhS
+	 4qG3hoV5Q+wVjGeA+uG52s2Oc5okGPV+nrkfx+KYwUkwRxa2+S82n8b0HlCEWU37rdb9B
+	 KV2DCAKzVKwSGqpvpmulPUK7XTqrwnq+ubdroKRcQ/7KxWrF5IxWLcBB6kuQUcCKEfUSd
+	 3K2w59pAaW2aF1LLHIBaM6uB3zwAA8Z06NQDFJZECpDBbb1nkHOcpEuvrfddTQ5AKKudS
+	 NciZlybWx4tlWjXjdqKTTPcuurZg0urCCjAPW7l7sL0JJQHjC0ZK/gtO2+06smlfxSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491032;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=VxOpdanBTNNue1alsU1irSoWxQrGWAWPxOQ3iRVu+z8=;
-	b=J2CJQUwB6JUSdzZ89dT9P9518VN+mRxgM0gYpdnMnbHXIjNxsaItQk7s91hviLV5SkOC
-	 4f/YIwqhNQGLgGwofuLHyJVmHmamcKFWaz5sFnqpxQhczoKrAQ1R9PHhZ8tGj2+8dlKNE
-	 KMUOJCU5eJZsFGHOonZjcpfcFyRM9/cr3AgcuDAu9AVvlPfeLFIbB+xXgUUJsVDJQPrc4
-	 isp2iTI1foXlCofw2Jb0xru2iD3m4QS6UnbQX6SCbj5/VrFGPARFFwCsJwUAaicYrSHPN
-	 cVNmRsb4hpfxRd2Pn98TzMLkFpDEKP3Je+vlRmPvDCUZakhcyEDQSLmNUpwdRQIPxbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491044;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1ObhwPum69aDUV39SNJmJP04Yb8owKhA7mNwPpuepF8=;
+	b=FunOM6+47syIYG1rhCQdQtrCHVN4ccW4SSjkn6IbJk5bgYebN98TITrdpk2j2tchzG7/
+	 dONSZaYzfgXNhmtmf3PKI/HbTDk1RDXU1PHHXLI1GFFQMcWQGPLd4eG7nfJLnGCU2XcX1
+	 bqdJTljSaWDoU8DygakPUA2CuRMygcKmP7OB9XK6ODpykZnRsZBdV48CDM0ESoPoqIHNO
+	 R8jj1nvA5lsYz7W9c5m38sSAXhe9GLBZQnYhEQGUAYmBoBcG7N7+BjYwMRRe3kKzuX79p
+	 zzCMVs6GO8leaVW+b9rKuce+gp0IMN/GhkyjFbi0Wds9CbY1KTg/BNoaC9OhfgH/9NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=HiEsg05j;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YAnvGcrD;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=isKD7XaP;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC219606A31C;
-	Thu, 12 Nov 2026 13:43:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC219606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D8F606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:44:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12D8F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=HiEsg05j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794491031; x=1826027031;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=LoKVXxBlF6G5G7uhLeP+QLHXu/VsSMcYJ+6Nn7/f51k=;
-  b=HiEsg05j6CAKZhmTN+1BtvB2Rs/ivtWVO3lQVNFABLjfYdgXay+pO4tH
-   v8i9JJ14YvJWNpAX6eECrbZzmank9idS2gKADRHbykhZxZYhuh/GjnqEg
-   ZOE72pXSnb0fMWYwV1jBw9clBE1FvuVaI65jCvHFBz71a8kPgVW8l5RPn
-   4Ju6Sk7hR7IikBIKQdjX3hR++vSC3nh4icQtzJvUDyF3HHGSWSyrdOWQz
-   QWP+S7Wtmz/wjOEtOIt+GO6GwFsWHbecM3bmbnWZJuo+/QxTlfo/J22ZN
-   2kPHAw/t02jVu0kVbzfxj8ifw1RoO6OaJHy8w3Fx2TlQgiymvhLBay4re
-   Q==;
-X-CSE-ConnectionGUID: AkdiOhkuQuO+skhyaRgHVA==
-X-CSE-MsgGUID: Zxbb6DEXR6G8pGhS+ZKjaA==
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="297833517"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 06:43:50 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Thu, 12 Nov 2026 06:43:50 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex04.mchp-main.com
- (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Thu, 12 Nov 2026 06:43:47 -0700
-Date: Thu, 12 Nov 2026 14:43:46 +0100
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Joe Damato <joe@dama.to>
-CC: <netdev@vger.kernel.org>, Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, <edumazet@google.com>, <horms@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>
-Subject: Re: [PATCH net-next 5/5] net/mlx4: flush pending doorbell when
- dropping a TX skb
-Message-ID: <20261112134346.zvctvknj4mc5s2pm@DEN-DL-M70577>
-References: <20261110231304.1859217-1-joe@dama.to>
- <20261110231304.1859217-6-joe@dama.to>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YAnvGcrD;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=isKD7XaP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794491042;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1ObhwPum69aDUV39SNJmJP04Yb8owKhA7mNwPpuepF8=;
+	b=YAnvGcrDVJH0Ub8/z3dmAkc14w9MuJWHX913dFLrq2P7GcoVAChnJM+sbY9QkvrcKJouOD
+	K7v9JROQ1AzoolaLrQ2oL9D2dJqpIKd2ptnrufeBz6R29vjrJrpwGdqMLgQDh9SlWhGxB5
+	yMiZC9tlMuFjle9FLyJr+7xYvE06UG4=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-646-GOn4Tg1fPKawrU4rxH_XUQ-1; Thu, 12 Nov 2026 08:44:01 -0500
+X-MC-Unique: GOn4Tg1fPKawrU4rxH_XUQ-1
+X-Mimecast-MFC-AGG-ID: GOn4Tg1fPKawrU4rxH_XUQ_1794491040
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c504bdea834so222376766b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:44:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794491040; x=1795095840; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1ObhwPum69aDUV39SNJmJP04Yb8owKhA7mNwPpuepF8=;
+        b=isKD7XaPxeYF7ge77GAW3uvPieIkX/mWvfKhUW+4MGBxTzkS48NvxOAvg3x+9jmky7
+         jnd7LKdNHm41rJyON7Cfi3kDEWmbU085Tw2Xev93EQC8m0pE95p6HedGBth654YK90Av
+         wCfx3c/b86YKe1SIAqRVfpwXmH26BHVEkgkYHd8/b6EN7JxEnVIGnvcVAIz5ZZm/YqeR
+         TDrWUOtv+S2Pb7CoHuHbX8AvlHkaQnWvyjdeff/UJoIG80OmC9T+fFeAbpRCIGZWIzmi
+         fIUcaYVBwfX13mvxkUiYyHOB6Usv5QASwyFB0aGyi72RIjl1yGsXztzv8XTD37Aan/2f
+         mTeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794491040; x=1795095840;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1ObhwPum69aDUV39SNJmJP04Yb8owKhA7mNwPpuepF8=;
+        b=dB/pF+58RhPWifiyGPukcYR4SUKkojjjoNRNsMUN73APGYC/jYYYFrxRRFUtEmm/IO
+         z9H1/gwWT8d/mSjyy4TLNboVdEYsz+IVNkWNI8EPTQCndNraSgqTccCYBKXgLhcR/eYI
+         dSeSA9U7zZre2G02BRApUc/o9SezZpZoxeTpEIJgwJdGaVJPgI8uaUmTdCs3qpCzoH+1
+         Tizg2/vfTxQeHcjkmmnVG74I/u2tG+0DIUhF1Zhvu+BqFKNLNjyc8eTylrS0PJXOevyD
+         UC/i/VpYaj+f/utskIKnRvsKC/7z96ZxXRY8B19LnfP5MDuMlwxts3JlF1FRSnezV10N
+         NUDA==
+X-Forwarded-Encrypted: i=1; AL+hErH4q/XDPq9laMSDkPl7O1d9JTCr6i3o0xyJ/UcOt8E+ei1FfUzA3yRQiF75cLTpu/pAqHFVRQy2inPh0Pk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+9wKX1jf9QdKCp185erhcBRlcO8KvvJUJ7WMBc6d3HtGPPibyu
+	pydMQybumJNyRBnymAV84YCMpQRKa2BihczAIrE4r81w5/QWny0GpmB3HK3MDHqM2WjSs6sNFkM
+	HeKx/lAX6V1Q5xdbm7sdLs+4yMKFNxzVbT/V7L+tzDrfYcuOqdkVJN4JHxlWAy79rww==
+X-Gm-Gg: AYBFou32blB4b00HYUCb9b4v8WjPPWIVhncaX24+a/WCg85lfpOd8Wu1jShBmmB0QS3
+	xLXJmWjUc3THlUDgIOymhZmQF5vLztiGCCGvcud5z/m9KqclTA5pwBZS6hwiawhWNIODmraRbjC
+	h1uwFGBn75T1/iHmwfpgB50X0XKMMDPCzx7K12v/Vxj+dE50o3iT7GAIKPH8tvHZFALI3f9kPrz
+	tCu/M3U3efO8U3WelCVHEQcvKXBdQXr+v23b4kcfj5sRKJBFC+rksrSKfTB+GBfddQhKFaS/CDR
+	neAo9icmOYQseuNcXeNo4Dx4Anm/016vOAEgxwn1/IjAcV281SgEFwn9284l1FGOvICJnZABUnF
+	34NlwFozezFDbb22MnJodcMJ628bNs8KZlzY1f3+NP93MzNLwnfQZ2jWUiTSFYh8dtMF2SuvW2B
+	h3TScIOBAtrsEh35W7FQmRxafLxw4uY1n4U6pATqT3qoe5
+X-Received: by 2002:a17:907:9448:b0:c49:a571:c4f9 with SMTP id a640c23a62f3a-c5066aaaab9mr461892466b.13.1794491039983;
+        Thu, 12 Nov 2026 05:43:59 -0800 (PST)
+X-Received: by 2002:a17:907:9448:b0:c49:a571:c4f9 with SMTP id a640c23a62f3a-c5066aaaab9mr461890566b.13.1794491039561;
+        Thu, 12 Nov 2026 05:43:59 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a3a6930sm349521366b.5.2026.11.12.05.43.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 05:43:59 -0800 (PST)
+Message-ID: <62abc297-daf8-415f-9450-202d226ebd9e@redhat.com>
+Date: Thu, 12 Nov 2026 14:43:57 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,45 +112,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261110231304.1859217-6-joe@dama.to>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2] net/sched: cls_flow: avoid integer overflow
+ in perturb_period
+To: Wei Tao <taowei@kylinos.cn>, jhs@mojatatu.com, jiri@resnulli.us,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org
+Cc: horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261106063823.99731-1-taowei@kylinos.cn>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261106063823.99731-1-taowei@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> If mlx4_en_xmit drops an skb (for example because DMA mapping fails) and
-> that skb happens to be the last one in the batch, the doorbell for the
-> WQEs posted earlier in the batch isn't written.
-> 
-> The queue stays awake, though, so those WQEs are eventually announced to
-> the HW after the next TX, but that depends on traffic and could induce
-> latency.
-> 
-> Avoid all of that by writing the pending doorbell in the drop path.
-> 
-> Signed-off-by: Joe Damato <joe@dama.to>
-> ---
->  drivers/net/ethernet/mellanox/mlx4/en_tx.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/mellanox/mlx4/en_tx.c b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
-> index 123071a47bed..3166837711be 100644
-> --- a/drivers/net/ethernet/mellanox/mlx4/en_tx.c
-> +++ b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
-> @@ -1135,6 +1135,9 @@ netdev_tx_t mlx4_en_xmit(struct sk_buff *skb, struct net_device *dev)
->  
->  tx_drop_count:
->  	ring->tx_dropped++;
-> +	/* an earlier skb in this batch may have deferred the doorbell */
-> +	if (ring->doorbell_pending)
+On 11/6/26 07:38, Wei Tao wrote:
+> @@ -486,7 +487,13 @@ static int flow_change(struct net *net, struct sk_buff *in_skb,
+>   		if (tb[TCA_FLOW_PERTURB]) {
+>   			if (mode != FLOW_MODE_HASH)
+>   				goto err2;
+> -			perturb_period = nla_get_u32(tb[TCA_FLOW_PERTURB]) * HZ;
+> +			val = nla_get_u32(tb[TCA_FLOW_PERTURB]);
+> +			if (val > INT_MAX / HZ) {
+> +				NL_SET_ERR_MSG_MOD(extack, "invalid perturb period");
+> +				err = -EINVAL;
+> +				goto err2;
 
-I think checking !netdev_xmit_more() here would let you ditch the new ring
-state, but it seems bnxt does it the same way, so fine by me.
+Sashiko noted the added code could by simplified/substituted with
+a  NLA_POLICY_FULL_RANGE(NLA_U32, &range):
 
-> +		mlx4_en_xmit_doorbell(ring);
->  tx_drop:
->  	dev_kfree_skb_any(skb);
->  	return NETDEV_TX_OK;
-> -- 
-> 2.53.0-Meta
->
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106063823.99731-1-taowei@kylinos.cn
 
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+/P
+
