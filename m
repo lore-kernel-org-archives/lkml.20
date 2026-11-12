@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.170
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794498640;
-	b=t2at07CvEmUtnJRJAgiTlN0R86sz1sx01veDktIx9FWuWU68xSFbnGepnqxS+KUcdxvy
-	 ZpiMMZD4A2oTMOjQJQXlzdr1FQ0Rod8IBtug5+sniSVZC9nCdM2IqEGtJ9+vIw73XHyHG
-	 kls3nutjTgbboW1Brs4xasRcy0DR/2gqSSG4dM9+iex01co/6uLEYiK/t1AetTkVOOVVQ
-	 dCuoG9VRMU2rkVNjQC540LM7UX13ee1t+yWGDPQlP1UGS8uIxFabC9TpIpTiQYCnxGlFg
-	 AOYJuZx7dy3HC3TnBz1AyaNlJWrR1707SulYV9WPSWck3cZWs6ibdkhxmqMXVHOrOtg==
+	t=1794498680;
+	b=jfxp2KkoE72nfNn1NkPz5RJSVCO6mW4ZMfzROTXLP4fp18wtH4ltS2p/3L+YrtlQ/6iy
+	 ZMSorAG0S/YCO7YPKRHvHmVlzi8rRiwsdGBKqJ/By8PkIryH6cTdZJvMRGqkgub+s5Vfy
+	 Fn0XKe4NMBkeZUrwWUNlXeFBbuByl3LTbHNTvct0grGnsXbhVy+xON9b30j3Gew5nbQeY
+	 g+uDDrG3UaGJuMN5wVeJJoil6k/GPHcxuS7g/sHCjRq0ZJkBWSq+t4ymLwvYtQsyBeg5F
+	 f7UJbqsqeh/4b2CXHEGowmzrRzi59t2DTgj+bNj89/FBbi15UHk+HWyRjC6+906qQTw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794498640;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794498680;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1J5Kag5a9R9WjXv4Vm2podHkmWJUILcyb3bqAyrnJ/g=;
-	b=T5ALaB1ANmHhtwHxW5yjq4m0xkf9ZBsEgcM7FBrLW/F6VQIGA3LUWLJonRewxgyTEzYO
-	 G2k5HQ75q3hbquTNmp8dkcnywIYqBfTKam9gHMAgfWgwZYgWMZ7TjHPdstAhbnqijA93F
-	 +9JcLjlWrLCC6aWdc80LMjhSDJgEiuu1yuKuN4ZoZyi2oB2AlRE+1jsiz5xORN/yFk1Jo
-	 diI5BeVN2vGvoRxtJJ0Fe2bs616Kr4PcEiMallzqUdOtDzZ6D15Vlzp/l13aeBRNh1Pjj
-	 epVWPmu9X7P2ktbFfSuAf1E7YInhh85nlHErnT/pbCuARZNUKuvXkoEbb8DwbzLb4HQ==
+	bh=SHdxAN7HZz6R7h3iP2OmBErMKSektM89NlydJ5odNjM=;
+	b=0V6boqZ2RQJMDSdrg8sJHoHwMoj/k6zu0EKXHKNENHaKsMLeJBBt1fJhVy1/BS94zQep
+	 BSUgND7PX1p3Ukk8sMV/cyCVJnmTQ2/j6sE+b4KPYKiGn9euNEGefELrtY6VRxLj6f3BR
+	 iF+an8DVlskgz4lm9PBe4umC6GbRJILiXoJLQ/puabTPz6MPnAcP8VEpjhi2BdDii8OcV
+	 Gl6f/n59y9vCjryRAUp03F9hIbazIblSeVESA30ez85XdEGUKYckMWBNw1Q9MldxHXNUc
+	 HlBh71cRDlAqL8Ug2H8l3P02rRoShI++9UwYoCwXvzvlQqsA5g5EdLq3jyxiBoGHWgA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mp3SDaMN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="iL2Z/9wQ";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFAE606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:50:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AFAE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF46606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:51:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CF46606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mp3SDaMN
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5383c97c8cfso272901cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:50:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794498639; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iL2Z/9wQ
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b2f59de176so3429487b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:51:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794498679; cv=none;
         d=google.com; s=arc-20260327;
-        b=p1+oqb0UGskkib5eW9Fb7AeR87hsTlgWvIBrrclAwxfbhJyjXU929bUh/ImU7AcMBx
-         gn14V2vj/7iCtCiy7CZYSuFszbChUfVfnwJPj2rfrSVcMAeZuJTaJKJGJuxJQnRJGxtU
-         Svci+b0fswiFmRnwDJULwRIni1CSlL3qGo5yswe450H7qjmzjo0Y3V9Vh4mRTSmVL4ah
-         cy1k7Nbhre5mkqbhvv9A9CoumCMgxKEwEE2VxdxefXnP8kjJec6KfoSygH2r8UgKbFOy
-         p3oI85lGzJO08j3j2AMEXpjcu6lN0TJL0f2EIlm8GqmQuHumLY3RZR4XPE+N4bd7nit/
-         CzGA==
+        b=mcLAesdBBe4Lvs5Shdtp7W2OCLCPl2dXh/5yJFnD1pvpkffN3/AkciKMAOut5w8YxQ
+         QXgcVmyd7GRnmVNDhF1a3N7RkwdkFnplXEI1aJyC/yQSXKdbUl/zt1gJpy41ATlrPypH
+         6K91QrcrNIpMjMoVlZ/CtGzxXtd8SU/WwE3UpRhjYvKqWzZnlUYYqsg889WfDLEF5x11
+         YwfRkqdB58BgZAJ6RxhTSQOI/fiQ05nyzVR/kqXmSXImGBPG/AUuBhLim7DqdU4H2ZtE
+         3W7MpSGOd4jw25jH/MK40oNUPKNsZhDaOGyDl40V0yWXxKxrGefowD1JckDjjtgUU38Q
+         sriQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=1J5Kag5a9R9WjXv4Vm2podHkmWJUILcyb3bqAyrnJ/g=;
-        fh=yFLNSNs8Ru+KqvN80FIAsREMys9PAH0OFtMMaVQezyQ=;
-        b=k6Ut/U7aFeNXWgfF2gLTmqEVn1Hjogp6u8iOylR3lrU3KQxrjllC78B1gUJIqVDpog
-         oEvRTlKBqsk0wacTvNlYU32o0uxSylvqCB1xkG6IwjD3IiQvlYeLbh1rUJ26A1NoeQf5
-         BtzMyFDH4IKLgrqLoSP7FlsQEtGDe7/TozD5d6Ogf/LBXo9gHzv6qE93t1Lz3a9SDBR0
-         E6DQW0ByMF2Ud9oUf+//BuHqdllPdQCVA6+Ur5UciC2owk5DrJKhALFOSY2ByfPWurYP
-         DPF14U8L32CRXni0uakFa543pcV5c727fQHW2eNtjoU9KIAWCh0eKQJbBIvFWO6c7Fuf
-         iXMQ==;
+        bh=SHdxAN7HZz6R7h3iP2OmBErMKSektM89NlydJ5odNjM=;
+        fh=wBGE+pZlBkcAIc/AYoOQh4Vek4BfNxMhHAZyiPv5SNQ=;
+        b=nJ66h6G7se8OpxUm5sxZx3LmFvWnKkKtmE5X7l43KTyIUMJUJUxx2FlE3bn24brmoA
+         F3rs3HSvHt5akBYASYnoquPoyXxzJKndau4aaF0NJ+Upbo80HRtEoD+8YYcK7YG7000O
+         c32zhg0UJe2X4s637IpYUHxUp3GlNCwYN9M3oSdhQPgrs+0S1UyLbHwxmtTkiKmh8Buy
+         a/5kuJVcuDgw7Ri7/erB1GnibO0+oVnmDUsg+bMyt9F8l36z347PAQf7iPiyA/41Ar7V
+         PZN8BQX2wSAFQhtBzXEfmDzVmdgrd1yb78jVgczRH1xfyTAUC0EGkELvh3Xa2sGB++uA
+         PyKw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794498639; x=1795103439; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794498679; x=1795103479; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=1J5Kag5a9R9WjXv4Vm2podHkmWJUILcyb3bqAyrnJ/g=;
-        b=mp3SDaMNkYr7EcFK2XDLWz+FCR7u62/Q0PQ7DbkSrGGm8vZx3BirTekN9Bz2w778JC
-         0majZE+SgSCzdwzgyp+tOg+ObYfiF+LZn1nV4/zZJTpmgWTjNQH5UfKSI5owHUuQBeNo
-         IsAltOhADi6WxE78meSP12d4P2OnAj8rsl47d+yGOfdYQoYzAGHHzQBnAGA79SZ7k9T9
-         MB3D8se6s+zlcUfWxED0uqyHHcPVsFPZdRkm3gmwQ0H3d1dp8VzrknhqeSpaZlV7NCDd
-         mCpDuf/0CMZlGqFf3dbicf4sABPgz4Rmr6Q183tOqoEjHKGxpPIpfIBeVYAMQ2Wv8Qve
-         QnEA==
+        bh=SHdxAN7HZz6R7h3iP2OmBErMKSektM89NlydJ5odNjM=;
+        b=iL2Z/9wQo+bSDRES11m2R++cFdAV1GIjPGscvPW1Cc6YY9IZ51igiHBFqF4/bmYYvu
+         oG57X2WJ6sXghtOSe//7D8WqT1sB9TLmI9MF/PnsN5mu+9FhV9J0VUjRoH0tNl4LeuH+
+         uAVRTfLYgNLj2pzniJKgxysz+8/ZABaVNmvkCEgCM6EwAuQYjbT6tRGInIUQ8rqyJ4uP
+         way5GROHSSUnA48sbb54C9we6DFsppAiyLgnCeavU3bwI5ZBGiy0VQpvzQIKcRL9JxPt
+         aFxqAMLiKAqYei83HQ5P1dIdL2dgyays1XJli+F9yIXHAQaWb7NqNSIrpXmXEOg62rRx
+         Bsyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794498639; x=1795103439;
+        d=1e100.net; s=20260707; t=1794498679; x=1795103479;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1J5Kag5a9R9WjXv4Vm2podHkmWJUILcyb3bqAyrnJ/g=;
-        b=LkL9ix+Grh1yItbNBxuQpMdLTyEbdjQpHZ8f5JBXRNdkmn1ZWKdOqppBA5/TtI4CAE
-         43vRpCv5iPOXbXmw3wzMO0/btHvsnOFepEZkNEPZZKCNuLcYK/LX3SsCXLOjdFCKzdus
-         Phc1MPK8qlw38xfvIodXGbJDsuGr5rt/JuNPe7LzyDTzBuo6UfOj4QY9FJykhOakLC3U
-         GR2BPIQ7N9YnDarUkT+0y1v+d4saXf7KjCk5cBL4Yx/cdSGDNqb5IVMI1pky+4JtIHf9
-         FUU6HwrFbtyZ518jAfTpJs0jQ9whW1DwrRe4ZqtcME/p8zSUbXACm5abuDuPYs9FaeuA
-         z0UQ==
-X-Forwarded-Encrypted: i=1; AL+hErHbBoXtGWUYslHndUxFBFEgUFHT3QVjuWbUD0jrwfQU3+h2zMgORd3deJ6DlK9bEkAWUcPYvZW4L3zEOuI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+s0SoAjnVMFiUieqxR5b9gBk9Bk9vlKWtFW/HOkxs+V893ensL
-	CnZ+l0KxSJk5TOYOKiyrJ8AANOwLIx64XT1M8E4hV0IrjcovqtV2+vbWXTSdPJRKWpogpn1AdvT
-	dz4cNkvFfOaYwG6rXcItT6/LDWCe52Crqkl1FhuB3
-X-Gm-Gg: AYBFou3vIpRiNJE4DR3fnlkiRl/zX8MQAPf+uzyDnx/kJqQKjThkOyoQPw3SIb5QC9K
-	L9L4X323XH5kiEreRqYVygufu+PdVY8K8bWRnq5REJGgBQfiSVH8sNZecybXVPzk35RS8LxmIP3
-	KiCSiK6y2t/nnETm28KfgOvWGnEwUKUuHeK5oqNxYMri/XVXjshzlHl07aXCgNyfpwqxf9eVzj0
-	p4hp285nQamrmVzYps7lC/VWTt45DSlJ0P4P4iTMlBac0M5Y5byx+qQJ4y+6MKzOg3vhw9ybC+p
-	unlUFHrHnFTlBT8XOJctATAoZRLjNR7xXuiilMqE4SXHqkZHDMdclWNfVBig9tiWRvGdv5xwvNG
-	H2QY21YhOdpzhP+NLW+al3jK5SEmUP/MfufOl81F03mrec8ESbSmOP2MaMqDW/w+l3MCBUbA4Td
-	FuEDtcy6329v7SWgtsgmz2ka5JwA==
-X-Received: by 2002:a05:622a:c14:b0:532:8423:1e78 with SMTP id
- d75a77b69052e-55990231239mr18865281cf.10.1794498638566; Thu, 12 Nov 2026
- 07:50:38 -0800 (PST)
+        bh=SHdxAN7HZz6R7h3iP2OmBErMKSektM89NlydJ5odNjM=;
+        b=1hTF3HvWh3+dC0ijsu17yggxJO6EBqzYSMPKKr4c8gCzF4iZwzxPFRNwIXyBY3dDKw
+         RexhUOFJqe//KvZw+g4GlnGV1Y26LVUI5lD7In6CB6uSMiz+wWnKbow1GUXuDoiyH7ZH
+         paYf2a8K9T61OMK0dU/Lih+RvoypATL+THQ39P3iwd0g2LK0OIpXLtlHT/K29V3I6fyZ
+         1fZStoARiwHYNFT0s11FdHETkISpzOW9E0TRVr87ZJ54PjwK01hhQw2J+5fSBcsttk8g
+         6hWI2g4vCJhuipp8PmcEZImXG7nmBRkXtfsKxLIhNrzTsDVZUeJ3LVqFcEXllfglU4yQ
+         Xwqw==
+X-Forwarded-Encrypted: i=1; AL+hErF9wAB8G8GmZmmj02wTczxcJnjpIpCws/317vk0sKUJUxmYPWnz8tPPG8sqCb0NC03/lcCPhq0n3fl+HlA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9JCPqsQtNDiUMSPxeDeWq9IlWZWgbnXCmA8MJtmXlXOB2d4lww
+	tQp19i05AxBjyqWPR7XHdxwvLvEHiiaz2I85Yb/dJNLyjYg6+ajQKaklnRCjrxyYIlrE37Ma8S3
+	fdMDv4gbKgp72urqUg4OwcYzgD+JRofM=
+X-Gm-Gg: AYBFou3UDlqLNlT8G0S5UgXQ3qv06wlb8EfWr4B6QVZLo2V4bzqQopmiffOzQnoS5Un
+	yfcBw/aXQbSRLl77T3TVB6pp+RvnUHQVExCr0U1GNRklcKYZ4AoiAaF3sgKp+02NYYk+Ooy2JG9
+	m7WD9KQwVM6orgXRZeejcje9ClYse09rxaycIcsP5PjTXryOcvdyRVR1wJhJfyjQFnbqiLdD3yL
+	KS2aytP1IqNgiGDo/oO5P0AOB9OFrRCU8/ZjD1zT8oRNUtLb7PDOLutjFYSF9oBDA8hCPNqUsXY
+	8/Tpq3OTT0tftmWrZUoEWP7Xzbx4dYGpBR+tV9E3VtuXD9H11ZTUAKkI0Pic0g/Bpf232VRLi6W
+	jGLJbd8G7lGr1bCaDlbnssMIyzN+5NnE9yMXvfsRr6z3dm85I3+XFZmFDIVCe5HuM08iYgA==
+X-Received: by 2002:a05:6a00:4f90:b0:8a0:4493:50b3 with SMTP id
+ d2e1a72fcca58-8beb1fd9e3cmr15135b3a.2.1794498679329; Thu, 12 Nov 2026
+ 07:51:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,98 +104,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110112546.261415-1-hao.ge@linux.dev> <20261110112546.261415-2-hao.ge@linux.dev>
- <CAJuCfpHjSZhPPpRudAdrDPzz8dGK=Mx62CYCNoO4MC9OhnGd=A@mail.gmail.com> <aa6caf61-a4a1-4c51-aae7-ebb767f3430c@linux.dev>
-In-Reply-To: <aa6caf61-a4a1-4c51-aae7-ebb767f3430c@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 12 Nov 2026 07:50:27 -0800
-X-Gm-Features: AclHuK8tTrX5dxrTUPnpF2OR-DhefKyRTvk3c3hlnhcxw9TdWFm-p4sWJVSI-pQ
-Message-ID: <CAJuCfpEC-YR7NrX_J4U-eyP-2T=E02OKKEO0eSjFMzja+BFLww@mail.gmail.com>
-Subject: Re: [PATCH v4 1/9] mm/kmsan: undo the shadow mapping when the origin
- mapping fails
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Potapenko <glider@google.com>, 
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>, 
-	Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	stable@vger.kernel.org
+References: <20261112075827.255602-1-hui.zhu@linux.dev> <avVx_1BEP7fIzGDK@KASONG-MC4>
+ <avV0IbvSx4iuv0tF@tiehlicka> <7718d4d0-58bf-4281-8256-fa726f753159@linux.dev>
+In-Reply-To: <7718d4d0-58bf-4281-8256-fa726f753159@linux.dev>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Thu, 12 Nov 2026 23:50:41 +0800
+X-Gm-Features: AclHuK-DauIlr6X0qTL4R9gghp2Up-lZkVCGGgcBB0M_Z_UKEKTL-VonoqZxN1c
+Message-ID: <CAMgjq7CUMuNSdCXZ7_kDdo9+0BFvPNHuO=mq=ct_Q5YUyyckvQ@mail.gmail.com>
+Subject: Re: [PATCH] mm/mglru: check need_resched() in fill/drain_evictable()
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2026 at 11:49=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wrote:
+On Thu, Nov 12, 2026 at 5:01=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
 >
-> Hi Suren
+> Hi Michal and Kairui,
 >
-> On 2026/11/12 05:03, Suren Baghdasaryan wrote:
-> > On Tue, Nov 10, 2026 at 11:24=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrot=
-e:
+> 2026/11/12 16:09, Michal Hocko:
+> > On Thu 12-11-26 16:03:54, Kairui Song wrote:
+> >> On Thu, Nov 12, 2026 at 03:58:27PM +0800, Hui Zhu wrote:
+> >>> From: Hui Zhu <zhuhui@kylinos.cn>
+> >>>
+> >>> lru_gen_change_state() migrates folios in batches of up to
+> >>> MAX_LRU_BATCH (4096) folios under lruvec_lock_irq().  A full batch
+> >>> keeps local interrupts off for up to about a millisecond, and CPUs
+> >>> contending for the same lru_lock spin with interrupts disabled for
+> >>> that long.
+> >>>
+> >>> The caller already reschedules between batches, but a batch itself
+> >>> only ends after 4096 folios.  Stop it early when a resched is
+> >>> pending; the caller restarts the migration where it left off.  A
+> >>> remote resched_curr() sets TIF_NEED_RESCHED directly in the target's
+> >>> thread_info, so the flag can still be set with interrupts off.
+> >>>
+> >>> This follows walk_pud_range(), which already pairs need_resched()
+> >>> with a MAX_LRU_BATCH cap, and commit 6e9be217a3ce ("mm/mglru: use a
+> >>> smaller batch for reclaim").
+> >>>
+> >>> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> >>> ---
+> >>>   mm/vmscan.c | 6 ++++--
+> >>>   1 file changed, 4 insertions(+), 2 deletions(-)
+> >>>
+> >>> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> >>> index 6a1af9b92349..47f2cb25eb46 100644
+> >>> --- a/mm/vmscan.c
+> >>> +++ b/mm/vmscan.c
+> >>> @@ -5533,7 +5533,8 @@ static bool fill_evictable(struct lruvec *lruve=
+c)
+> >>>                     success =3D lru_gen_add_folio(lruvec, folio, !act=
+ive);
+> >>>                     VM_WARN_ON_ONCE(!success);
+> >>>
+> >>> -                   if (!--remaining)
+> >>> +                   /* stop early to shorten the irq-off section */
+> >>> +                   if (!--remaining || need_resched())
+> >> Hi Hui,
 > >>
-> >> kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
-> >> the origin pages. If the second mapping fails, the first one is left
-> >> mapped, and the callers do not roll it back. The next vmap of the
-> >> same metadata range hits the stale PTEs again and fails with a
-> >> WARN_ON() and -EBUSY in vmap_pages_pte_range().
+> >> I've been thinking about a different design, what if we just
+> >> delete the `--remaining` check completely, and check
+> >> spin_is_contended on the lruvec and need_resched()?
 > >>
-> >> Undo the shadow mapping on that error path, the same way
-> >> kmsan_ioremap_page_range() cleans up after a partial failure.
-> >> __vunmap_range_noflush() only clears the PTEs; nothing has touched
-> >> the shadow mapping, so no TLB flush is needed.
-> >>
-> >> Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_p=
-ages_range_noflush()")
-> >> Cc: stable@vger.kernel.org
-> >> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-> >> Reviewed-by: Dev Jain <dev.jain@arm.com>
-> >> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> >> ---
-> >>  mm/kmsan/shadow.c | 4 ++++
-> >>  1 file changed, 4 insertions(+)
-> >>
-> >> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
-> >> index 0c88d89bf0d6..2166086d3dc3 100644
-> >> --- a/mm/kmsan/shadow.c
-> >> +++ b/mm/kmsan/shadow.c
-> >> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long =
-start, unsigned long end,
-> >>                                             o_pages, page_shift);
-> >>         kmsan_leave_runtime();
-> >>         if (mapped) {
-> >> +               /* Undo the shadow mapping set up above. */
-> >> +               kmsan_enter_runtime();
-> >> +               __vunmap_range_noflush(shadow_start, shadow_end);
+> >> In the optimal case we don't need to keep lock/unlock the lruvec
+> >> at all so this is faster. And it still avoids lock contention or
+> >> blocked schedule, and it might be even more responsive as we are
+> >> release the lock earlier on contention.
+> I like the spin_is_contended() idea and will add it.  This file
+> already uses it (lru_gen_look_around() bails out if the PTL is
+> contended), and security/keys/gc.c uses exactly this combination in a
+> long list walk under a spinlock.
+> > Wouldn't this result in too much lock bouncing in the end? Would it mak=
+e
+> > sense to reduce the batch instead?
 > >
-> > Sorry, there is a problem here. You introduce "can_resched" check to
-> > avoid calling cond_resched() later in the series (in patch #7), but at
-> > this point __vunmap_range_noflush() can be called with GFP flags which
-> > do not allow blocking. Before recent Ulad's change called "kmsan:
-> > remove hard-coded GFP_KERNEL flags" this function was called only with
-> > GPF_KERNEL but now that's not the case. I think you can move
-> > introduction of can_resched flag into this patch.
+> This worry is fair.  Under sustained contention each yield costs an
+> unlock, a requeue and a restart (microseconds), while one folio move
+> costs a few hundred nanoseconds, so the migration could slow down by
+> tens of times, with cgroup_lock and cpus_read_lock held for all of it.
+> Requiring a minimum of work per hold bounds this: only honor
+> spin_is_contended() after MIN_LRU_BATCH folios in the current hold.
+> Each hold then moves at least ~64 folios (~15us), and a waiter still
+> waits only ~15us instead of the ~1ms of a full MAX_LRU_BATCH batch.
 >
-> Agree. I just went back and looked at Ulad's b186a94227b7 ("kmsan:
-> remove hard-coded GFP_KERNEL flags").
+> I'd still keep the batch cap itself as a backstop, though.  Both
+> triggers are event driven: with interrupts off the local tick cannot
+> set TIF_NEED_RESCHED, so it takes a remote wakeup targeting this CPU,
+> and spin_is_contended() takes somebody grabbing this lru_lock.  On a
+> quiet system neither may ever fire, and one batch becomes the whole
+> lruvec: 100GB of 4K folios is ~25M of them, i.e. seconds of irq-off
+> inside a single rcu_read_lock() section, enough for an RCU stall. And
+> toggling MGLRU on a quiet machine is a common case.
 >
-> So will do next version. But perhaps it is better to make it a separate
-> prep patch in the same series? Because besides this call site, the other
-> places that call __vunmap_range_noflush() need to be changed as well.
+> Reducing the batch alone would also work and is simpler, but it pays
+> the unlock/relock round trip even when nobody is waiting, and on a
+> loaded machine the unconditional cond_resched() every small batch
+> stretches the whole switch more than yielding only when somebody
+> actually wants the lock or the CPU.
+>
+> So how about all three combined, like jbd2_log_do_checkpoint() does
+> (batch cap || need_resched() || spin_needbreak()):
+>
+>      if (!--remaining || need_resched() ||
+>          (moved >=3D MIN_LRU_BATCH && spin_is_contended(&lruvec->lru_lock=
+)))
+>          return false;
 
-Agree. Moving that into a separate patch at the beginning of the
-series with its own changelog and explanation would be cleaner.
-
->
-> Thanks
-> Best Regards
-> Hao
->
-> >
-> >> +               kmsan_leave_runtime();
-> >>                 err =3D mapped;
-> >>                 goto ret;
-> >>         }
-> >> --
-> >> 2.25.1
-> >>
+Do we really need the `moved` counter? Other than that it looks good
+to me. Thanks!
