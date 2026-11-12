@@ -1,64 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484754;
-	b=WYKj9VtNjORSKTzqwjvcTUU17k5PG+5pYLke3lyC2sboZV/AuEz1yB/W5hb7m7DN7nAC
-	 3bkmPTTr3DQrKPAqGdcZgS05SrWFzrJg5/x+hDH6zDO2bYyc1w6EzXlPLc9wqKDpx7mvK
-	 sd1mSFMmNSfu6guAVsMI05KnTrONYm5NLGy1i6Y4yQ/0s6MUxLCjQfDdoi24ESVOr6wbE
-	 yLlywrZJP5Cc1mr+hiAngsBERVj6j2f3j/kguH1jFa+nPuXblyWoYO46aHhfPPVVmQUtZ
-	 WlT28nUdpPZOix+wSwB0KZGCYkJgFp6k7b3rCNYryCYfTgjoihYm6VU7s7QvCqE53hg==
+	t=1794484762;
+	b=wtnitx07CnuQTHayWn9sb884zEuPiGZOsLRe2C+Q/lirIXSA+ZfLIlopK4v5T1AG3B9f
+	 9WsAXji03nruDCS//zgQ9zdFmpqWXllaNCjDj4vdmH1hfPtUaB2m+Fh6tionLH0AI9D7t
+	 dG5UwgTqZD51oqqOZbdGfLTzpvHMgR6qo/zo5xICtqggXoHDZkd7syroE5M/ymGh/5ZG3
+	 FmSpicIPg0dDsNKoC/XbiMiFaH2L42Ftn7+U0TIUmZqJtKdYbkrQcvGsqGWow7bpNCog1
+	 O8bPBdXr7Mtzu8ynn6QpmOgNypgBj799Dt+2acwSeLleq9F5RnsJVOHazQz4z3oiPLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484754;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 User-Agent;
-	bh=Kii4d1l8a9WqO76mq39yEuoHq+1skubE8Z+vWj++inQ=;
-	b=qCHZSa0U4vNDxPE9QqJuM5M7qowP/WdOIKigjUJFvpBHC47YvvpwL7b4QyZocv3AJHXA
-	 CwSLup2DcUGTFdMBMcFA0vzJKDMp2BCYHEyJRnJUYngfbGV/TfTIbrtP68jkMh+VyMxjI
-	 vRh71fICcnNCeYC72vcKCSUhfOtgev/IQl2ldRVua+AZfmoVvVhJ0hQMd9wPqjfWT0HrV
-	 gy8GwSoMwpEXWkGxz8LsjvQDGrIoOSfHk90qsPT8zXIVkiK/b8wSJbJLNTgggTmhq4yqL
-	 FKFLWNDtZIKZQa5upUs6HeRtZaKub45JDmtbVvxHC4sWEv7ZDEaAUrZyF5ySu4VeLFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484762;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=8Exqu4NcRdV/N84WhnKHI+8tv0Q8pqFx+3FzcBJtyiQ=;
+	b=dzWx2KBq+f58XuHEy3Nd2dRhLYjcr7GF/sQACpzltYHPNW5OmrYvXOlil4uaJN4N9Mkv
+	 zeYYA5x0W0HooR50qoIrNesSWR1zPnLYxPUVemHvqJt0dzgAVK5jBdOmqFqNS5fdljKHb
+	 6/1VEGRvQ9pWBAUG0FDCbEky2MkY11uUBj/mobSJtc/illxjrh4QyubxtdAaDLNpuzIqx
+	 dfHQwVW/i9ylNWlZTdTmw+XatGooet6PUOfntQkrjqRtrvIrC5EsfOChhMTPbgF/dg2fJ
+	 1VGljVIcKUxgA3BGuKg3jZ2olf+zuopMAeg86MbYRyV1kizHULOoasWvvg+X6N2F5fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZr9jiYM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28BFD606A31C;
-	Thu, 12 Nov 2026 11:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZr9jiYM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6321F00A05;
-	Thu, 12 Nov 2026 11:59:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794484754;
-	bh=Kii4d1l8a9WqO76mq39yEuoHq+1skubE8Z+vWj++inQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NZr9jiYMQACePlXmIejgrEHj9jfkpM7XdYH7LrYIm+P3nN3FYtwkXntutAt3tAYbH
-	 IvltLuN71gbyPWXRf2r27zZc7mIDyWIOlEk+vIIb1mL//qJcmvKU8yPoqWPQu9Rduz
-	 dk+PCON81vO8RZji9RPoqyuLNpPWMNvQqk9Ds/UEPHwL554Eut6UcCyqzAjh7zMteH
-	 aNJ0CMDLEztnJU+PLluUS3PampaBI58wXJGinfXnWcsq9f31q2yT7TypRZwWMJUXS6
-	 ki0RABOv5U29mzYd5Ct6b1T6WWjY9ZnScIXcDR11EamBvUJrfcPONZxmiOljWau9Z1
-	 htrTqKjGReABA==
-Date: Thu, 12 Nov 2026 06:59:11 -0500
-From: Brian Masney <masneyb@kernel.org>
-To: Johnny Liu <johnliu@nvidia.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Prashant Gaikwad <pgaikwad@nvidia.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	Aniruddha Rao <anrao@nvidia.com>, devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] clk: tegra: bpmp: Do not cache the EMC clock rate
-Message-ID: <avWqD-Rm5-85Dj5c@x1g10>
-References: <20261102121202.2431928-1-johnliu@nvidia.com>
- <20261102121202.2431928-5-johnliu@nvidia.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55C2606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:59:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B55C2606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-567ac848d83so4897195b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:59:21 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794484761; x=1795089561;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8Exqu4NcRdV/N84WhnKHI+8tv0Q8pqFx+3FzcBJtyiQ=;
+        b=Utkf5AENjQ6wwPDGecya7nXV4smcjZGXGfpicpQw8nmN0yE7zb28r0XejbQEbovBdO
+         WnVlDwVhc5BNCR9tuSgKISCbVg08RGuK6ParlqYFd0GHtyJy5pUTmujxlRCLlWieKWO5
+         EAZLR6z+7EBK9b9HpC5ICCnsoqrP8+PedycOmub0MSuq40/l+G45Wl/xHzjtF2sFL02Q
+         TB6Ex0Lz+s0ieS4MpVWZmr8oj7STs/hVjo2jzrajZjpqJ3ts5x9NLNEImro2zhXWbpgb
+         kp6orLZ7pha/TC2sq7V6+Bi0WlSLDYCA7TUc64FEZS/wgSTcXxNwrvpgAI2PEjWPwPLx
+         QoFQ==
+X-Forwarded-Encrypted: i=1; AL+hErENLG+uThvWpZ4+g6sDb9qUk8aNOD1WETMyIMpn0t1xQVaP45UQP8GTh/isOAEKcphixia4om/kq6ne4NU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kSW/DHTtz19pGCVjARthsxVJeLRclMCkPCdCGPOlwDbz2vv4k
+	W8iUmkyux4qA93wQd6eQGvSTqyS38AlVIFS+0Dxim6Sj5QFD7+29GW3Mb+/4PR/McVB5l23X7B6
+	M9ftsvz0y+GYPvj1z6GBIhT2hWa/KGHmYujo1peYAFAes18hdzUZTacggTWo=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,22 +58,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102121202.2431928-5-johnliu@nvidia.com>
-User-Agent: Mutt/2.4.2 (2026-08-30)
+X-Received: by 2002:a05:6808:1a09:b0:53a:ad3c:17aa with SMTP id
+ 5614622812f47-56b98620830mr5072770b6e.55.1794484760823; Thu, 12 Nov 2026
+ 03:59:20 -0800 (PST)
+Date: Thu, 12 Nov 2026 03:59:20 -0800
+In-Reply-To: <20261112115906.17915-1-diasyzhangqing@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af5aa18.41d0a7c9.ab0b9.0108.GAE@google.com>
+Subject: Re: [PATCH] ext4: wait for tail page commit before truncating a
+ failed write
+From: syzbot <syzbot+f111db4cb2acd44eb2f4@syzkaller.appspotmail.com>
+To: diasyzhangqing@gmail.com
+Cc: adilger.kernel@dilger.ca, diasyzhang@tencent.com, diasyzhangqing@gmail.com, 
+	jack@suse.cz, libaokun@linux.alibaba.com, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	tytso@mit.edu, yi.zhang@huawei.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Nov 02, 2026 at 12:12:02PM +0000, Johnny Liu wrote:
-> EMC clock scaling is managed by the BPMP itself without kernel
-> involvement. When the rate changes on the BPMP side, clk_get_rate() on
-> the kernel side returns the stale value cached by the common clock
-> framework instead of the rate programmed by the BPMP.
-> 
-> Set CLK_GET_RATE_NOCACHE on the EMC clock, identified by the per-SoC
-> emc_clk_id from the BPMP SoC data, so that rate queries are forwarded to
-> the BPMP.
-> 
-> Signed-off-by: Johnny Liu <johnliu@nvidia.com>
+> From: Qing Zhang <diasyzhang@tencent.com>
+>
+> In data=journal mode, a failed extending write can leave buffers beyond
+> i_size attached to the committing transaction. When blocksize < PAGE_SIZE,
+> invalidating these buffers in the partial tail folio returns -EBUSY,
+> triggering a warning in ext4_journalled_invalidate_folio() and leaving
+> invalidation incomplete.
+>
+> Call ext4_wait_for_tail_page_commit() before truncating the page cache
+> in ext4_truncate_failed_write(), as is already done when shrinking a file
+> via ext4_setattr(). The helper releases the folio lock before waiting
+> for the commit to finish, then retries invalidation.
+>
+> Fixes: 53e872681fed ("ext4: fix deadlock in journal_unmap_buffer()")
+> Reported-by: syzbot+f111db4cb2acd44eb2f4@syzkaller.appspotmail.com
+> Closes: https://syzbot.appspot.com/bug?extid=f111db4cb2acd44eb2f4
+> Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
+> ---
+> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Acked-by: Brian Masney <masneyb@kernel.org>
+Patch testing via #syz test is temporarily disabled.
+See https://github.com/google/syzkaller/issues/8122 for details.
 
+>
+>  fs/ext4/ext4.h    | 1 +
+>  fs/ext4/inode.c   | 2 +-
+>  fs/ext4/truncate.h |  2 ++
+>  3 files changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+> index f38fec3167fb..505ec38fa508 100644
+> --- a/fs/ext4/ext4.h
+> +++ b/fs/ext4/ext4.h
+> @@ -3214,6 +3214,7 @@ int ext4_get_fc_inode_loc(struct super_block *sb, unsigned int ino,
+>  extern int ext4_inode_attach_jinode(struct inode *inode);
+>  extern int ext4_can_truncate(struct inode *inode);
+>  extern int ext4_truncate(struct inode *);
+> +extern void ext4_wait_for_tail_page_commit(struct inode *inode);
+>  extern int ext4_break_layouts(struct inode *);
+>  extern int ext4_truncate_page_cache_block_range(struct inode *inode,
+>  						loff_t start, loff_t end);
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 10cd85d4c721..f59c4a5b7561 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -6845,7 +6845,7 @@ int ext4_sync_inode_metadata(struct inode *inode, struct writeback_control *wbc)
+>   * buffers that are attached to a folio straddling i_size and are undergoing
+>   * commit. In that case we have to wait for commit to finish and try again.
+>   */
+> -static void ext4_wait_for_tail_page_commit(struct inode *inode)
+> +void ext4_wait_for_tail_page_commit(struct inode *inode)
+>  {
+>  	unsigned offset;
+>  	journal_t *journal = EXT4_SB(inode->i_sb)->s_journal;
+> diff --git a/fs/ext4/truncate.h b/fs/ext4/truncate.h
+> index ce84aa2786c7..c10e4ab4242e 100644
+> --- a/fs/ext4/truncate.h
+> +++ b/fs/ext4/truncate.h
+> @@ -17,6 +17,8 @@ static inline void ext4_truncate_failed_write(struct inode *inode)
+>  	 * We don't need to call ext4_break_layouts() because the blocks we
+>  	 * are truncating were never visible to userspace.
+>  	 */
+>  	filemap_invalidate_lock(mapping);
+> +	if (ext4_should_journal_data(inode))
+> +		ext4_wait_for_tail_page_commit(inode);
+>  	truncate_inode_pages(mapping, inode->i_size);
+>  	ext4_truncate(inode);
+>  	filemap_invalidate_unlock(mapping);
+> -- 
+> 2.43.0
+>
