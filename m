@@ -1,72 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.162
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495503;
-	b=LrodXksoX/2IMMQVqvT+epCWFES5ttVIy5muP8cY+XPPGiEg/603ikljqaJYt3+q8rEp
-	 PbVz/KWZfKYqws925QmV665ICgxLlP7SCGUpkjXcP+51vELEL8j2wB3nR8qYsix1q2q06
-	 j7hnzNY0KGsr2NvFKeNtkLIEDyO09h83q4YpT4fILotnET+yywtm25wTnovuiu5Xabm8a
-	 kaimJQmsRwWOO9wmAiMlEp6xThmuzZ7QW1gmjQnzBJIwA+5iLixOxd47nSwyDbYl9ob+7
-	 KMhZhwhU8CgL0CKc31tCq3xu23tLXKoX+bZc/9BL1QOpTZ1S+4AcOeb5JIhgZvwdvdw==
+	t=1794495528;
+	b=Jj4QJk5H0Lti838xzzSoliOxXQcUBa7gMzTcJ0OaF4O+MIpRXRtjUWRrvc71LoVOeECI
+	 1vWcBeauZbvyvPh5h1FvScWYnbO/v/w1UMc8QACdEfzzB97b1kdabFBIRFcT1s047F7T7
+	 w08TgPB95aK+huCeGrD0LdL74J0MIg7uaWAptU8inYvJPn5wauLVMViI50CtqIwQjDYGc
+	 xKPgh+v1aj2mstD6Y0frK2n1z5eR3dQJ9taFuRmmMiNC1A1oUDdl6VHu9ryLMWdeAHcaB
+	 wFIae9gmyxyjFlfxPmtqDFpK5+m95qzH9DKbjpB7/iuddT8jNx7ut++ymWSssyUNwyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495503;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QUP6SPSOZxiHeyhbfS+dXlCbcG1HRBsJUZYj782mpUM=;
-	b=UbvDSZVkj3Fc1iwUUD/oXe341An3UjI+xkiJ/+ndMYVYEQojDduPTnFh7JyMKltlRgXg
-	 3kdjB7FNK7WHiLOm8nD6WY/4bIBE7Q3n6lYDUGUgi/X+rTxYga8V6gLIbHMQ2doWv/cDt
-	 NVGv2VurtY7+smIFVO0D8FzJq5z2KoEEQQgTppT/1mI05/M5/4aBPV/ZN2sAA5A/TCQoC
-	 3uHsI1f2GXWSoIpd2ICVLuG/TB2TtY8otWdJfkkkkwJv+8bNYrP8Y6BJ24o0wNuFYM2i7
-	 oBRgpMlO5iWwrAhXaOqAljG43fNov1CYUxu423vx/2PJwpXfl3IuufpsrPGQxRmvMKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495528;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Ahp2R8XXPiuO6iEjfb6UKUnsMrVVlx0bOA5QMiN/SCg=;
+	b=Gh2bXRg6ZCEncxDgJkXRFZ/iz60Q85ye508Hfc4D2b5UEbIZaGPSqB59/On/Zctg4MRp
+	 W4AC/CQbmP9w1CVXVh3Od2w76Cj/+JVXHFM0zKQ/3xAHRyYp5Y06vAqIHYbp4f/q2tNvt
+	 yvGVLj+zti/tne7vrvXodtvh/Aie1Irod+5w0CPea4C3Knx+a73TXNHBH2FciVKcYtjFT
+	 Jfs54atI9li2d2x0qthNNqyKVF62c6v9qjneipiM+CozdjmJm2SlvigEnrkSvcnwPHYR/
+	 HEhDXtx7oaMGnmj3opGA3tVyVK4T/WT7alMtQF2VQbGCr/pP6CsfvR0/Ej5Wk1mmzoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Eahz2/CO";
-	arc=none smtp.remote-ip=91.218.175.162
-Received: from mta0.migadu.com (out-162.mta0.migadu.com [91.218.175.162])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=evi7clWU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EB6606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:58:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07EB6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF17606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:58:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Eahz2/CO
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=i9Q3SmOpz+KPYEpALmvkIJWw5TduFHLPeDEKt173MjA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794495501; v=1; x=1795100301;
- b=Eahz2/CO7aEKj+nbHgYn+vvFzcU3PoOkMG4OSAmzc9p9jCPCplEyMZQ9DibkaDV72ND7vSKD
- gsH49oOsdVUaJHxlxngU1OVs7JxA5RVFe2shGIhTnwxQ+MesLtgY3JXlLosat65Nb7uCR0RzoXI
- NwZm3Kj8vZ41ccQlVQIea798=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5ac9d45833a0da8a;
-	Thu, 12 Nov 2026 14:58:20 +0000
-X-Mizu-Trace-ID: 5ac9d45833a0da8a
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Sascha Bischoff <sascha.bischoff@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Timothy Hayes <timothy.hayes@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v2 00/10] irqchip/gic-v5: Fix misc IRS and ITS host driver issues
-Date: Thu, 12 Nov 2026 14:58:14 +0000
-Message-ID: <20261112145814.853424-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
-References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=evi7clWU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D241F00A06
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:58:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794495528;
+	bh=Ahp2R8XXPiuO6iEjfb6UKUnsMrVVlx0bOA5QMiN/SCg=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=evi7clWUqzfu5IwbwBr1JJlISMJDxPDhvh6uAAOyCg4ZnCnklbxu8+ZjPmsyAJp/0
+	 aP8kAcEIz52VuMwJki7SyO4fuxYHvB3MavOJRR03w0bl2i7fAv32f91k/+09mGMrj3
+	 iWt4HXcH3d0ZZxsnA6Rm9vsEqznM4YC0+n0a6kqqns3tv22HaO3JdV6Q+ZvJtYkBfF
+	 h9guIvmInAtJSD2Thdtkqr1TC4gRLGYeJpVypaDuYlIneKDv92USZioY1YD+c92ZTM
+	 GNRqYI1l0LabEgiidIKy/Ghen9POAU1/k4/CNgnT6u71WupklB+95qmRViP8rE0x3t
+	 oi8M7RhZ7wVeQ==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab3b29a298so36358241fa.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:58:48 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGjnHZja4eiz6u5WqPl+Qh53jIVC6pXyQNexEW0oUphfBhXKBNrsrHVNTXfCST4yEY4aVvkCwqTzDgAsLQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9heYuV9XcRO0Ie+/P2yuQgKpwpmPw1/vonTDfB/Z+OJPUFyG3a
+	83gMnp6GxGmkzkqD083P0E8f0nNz7xWDzNfOsFONrIo2x9Nj9o4nSNyAamofTrQu3sYWrtZjadB
+	iX5FDENbzG9CqEbJKUJfV9G6UuEQ2TIY=
+X-Received: by 2002:a05:651c:e0c4:10b0:3ae:25db:795 with SMTP id
+ 38308e7fff4ca-3ae25db0827mr3381781fa.12.1794495527049; Thu, 12 Nov 2026
+ 06:58:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,109 +59,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261112-a733-clk-v7-0-db7c5451ffa2@pigmoral.tech> <20261112-a733-clk-v7-6-db7c5451ffa2@pigmoral.tech>
+In-Reply-To: <20261112-a733-clk-v7-6-db7c5451ffa2@pigmoral.tech>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Thu, 12 Nov 2026 23:58:33 +0900
+X-Gmail-Original-Message-ID: <CAGb2v64Ye4wEiE3y2msoFh1P5Cs7dvXQ_vESmVFEJ=qhkp9PVQ@mail.gmail.com>
+X-Gm-Features: AclHuK-IX9I87FO9BVEBpEeLaHk1PETWtM0mWihOigloFLp60Bd_bejTc7ChEns
+Message-ID: <CAGb2v64Ye4wEiE3y2msoFh1P5Cs7dvXQ_vESmVFEJ=qhkp9PVQ@mail.gmail.com>
+Subject: Re: [PATCH v7 6/8] clk: sunxi-ng: a733: Add mod clocks support
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, netdev@vger.kernel.org, 
+	Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, 
+	Andre Przywara <andre.przywara@arm.com>, Norman Herms <dockseed@proton.me>, 
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sascha,
+Hi,
 
-I found a couple more issues in the GICv5 host driver while looking
-into pKVM support for GICv5. Rather than explain the fixes, I thought
-I'd send you patches for two of them instead. If you think they're
-useful, please include them in v3. They apply on top of this series.
-Boot tested on the GICv5 FVP with a two-level device table.
+On Thu, Nov 12, 2026 at 4:15=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.tec=
+h> wrote:
+>
+> Add the module clocks found in the Allwinner A733 SoC, including video,
+> storage, interfaces and others. While most of these clocks are similar
+> to those in the A523 SoC, this implementation accounts for changes in
+> register offsets and introduces support for new modules.
+>
+> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+> Tested-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> ---
+>  drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 1087 ++++++++++++++++++++++++++=
+++++++
+>  1 file changed, 1087 insertions(+)
+>
+> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-n=
+g/ccu-sun60i-a733.c
+> index 8bc603393f5a..5ea65bf5b5e0 100644
+> --- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
+> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
 
-For the third one, the thing I spotted is that if the IDLE poll after
-an IRS_MAP_L2_ISTR write times out, gicv5_irs_iste_alloc() clears the
-level 1 entry and frees the level 2 IST, but nothing cancels the map.
-The IRS can still complete it and use the freed table. Keeping the
-table isn't enough either, since the next allocation in that range
-rewrites the level 1 entry while the map may still be running
-(R_SDVFP). vgic_v5_alloc_l2_vmt() and the ITT frees after a timed-out
-invalidate have the same shape. The question is, can an IRS miss the
-poll, or is a timeout here only ever a dead IRS?
+[...]
 
-Cheers,
-/fuad
+> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm2_asrc_clk, "i2spcm2_asrc", i2=
+spcm2_asrc_parents, 0x1224,
 
---- >8 ---
+This and the csi master clocks later have an underscore in the clk name str=
+ing.
+They should have hyphens instead. I will fix it when I apply the patches.
+No need to resend just for this.
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Subject: [PATCH] irqchip/gic-v5: Invalidate the level 1 DTE when registering a device
+> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master0_clk, "csi_master0", csi_ma=
+ster_parents, 0x1800,
 
-With a two-level device table, gicv5_its_device_register() makes a
-level 1 DTE valid when it allocates the level 2 table that it points
-to. However, gicv5_its_device_cache_inv() invalidates the ITS caches
-with ITS_INV_DEVICER.L1 clear, which doesn't invalidate the level 1
-DTE. An update isn't guaranteed to be visible to the ITS until a cache
-invalidation that covers it completes (R_HQFDL in the GICv5
-specification). An ITS that cached the level 1 DTE while it was invalid
-can keep dropping events for the DeviceIDs in its range.
+This one.
 
-Set ITS_INV_DEVICER.L1 on every device invalidation. It covers the
-level 2 DTE as well, and has no effect with a linear device table.
+> +                                 0, 5,         /* M */
+> +                                 8, 5,         /* N */
+> +                                 24, 3,        /* mux */
+> +                                 BIT(31),      /* gate */
+> +                                 0);
+> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master1_clk, "csi_master1", csi_ma=
+ster_parents, 0x1804,
 
-Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
+This one.
 
-Notes:
-    Setting L1 on every invalidation turns each registration and
-    teardown into a range invalidate, both rare paths, and keeps the
-    function simple. Setting it only when registration allocates the
-    level 2 table would miss a registration that fails after the
-    allocation, which leaves the level 1 DTE valid.
+> +                                 0, 5,         /* M */
+> +                                 8, 5,         /* N */
+> +                                 24, 3,        /* mux */
+> +                                 BIT(31),      /* gate */
+> +                                 0);
+> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master2_clk, "csi_master2", csi_ma=
+ster_parents, 0x1808,
 
- drivers/irqchip/irq-gic-v5-its.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+And this one.
 
-diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
-index 101aceec68f63..83952e30178b1 100644
---- a/drivers/irqchip/irq-gic-v5-its.c
-+++ b/drivers/irqchip/irq-gic-v5-its.c
-@@ -372,10 +372,11 @@ static int gicv5_its_device_cache_inv(struct gicv5_its_chip_data *its,
- 	u64 didr;
- 
- 	didr = FIELD_PREP(GICV5_ITS_DIDR_DEVICEID, its_dev->device_id);
-+	/* L1 also covers an L1 DTE that a registration may have just made valid. */
- 	devicer = FIELD_PREP(GICV5_ITS_INV_DEVICER_I, 0x1)	|
- 		  FIELD_PREP(GICV5_ITS_INV_DEVICER_EVENTID_BITS,
- 			     its_dev->itt_cfg.event_id_bits)	|
--		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x0);
-+		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x1);
- 
- 	guard(raw_spinlock_irqsave)(&its->inv_lock);
- 
+> +                                 0, 5,         /* M */
+> +                                 8, 5,         /* N */
+> +                                 24, 3,        /* mux */
+> +                                 BIT(31),      /* gate */
+> +                                 0);
 
---- >8 ---
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Subject: [PATCH] irqchip/gic-v5: Clean a level 2 device table before making it valid
+These were flagged by a review agent comparing the driver against the datas=
+heet
+and BSP code.
 
-gicv5_its_alloc_l2_devtab() allocates a zeroed level 2 device table and
-writes the level 1 DTE that points to it with VALID set. Unlike the
-other ITS tables, the new table isn't cleaned to the PoC first. On a
-non-coherent ITS, the zeroes can still sit in the CPU caches when the
-ITS reads the table, so it can take stale memory as a valid level 2 DTE
-for a DeviceID that nothing has registered.
 
-Clean the table before the level 1 DTE is written.
-
-Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- drivers/irqchip/irq-gic-v5-its.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
-index 83952e30178b1..b2d61ba3828cb 100644
---- a/drivers/irqchip/irq-gic-v5-its.c
-+++ b/drivers/irqchip/irq-gic-v5-its.c
-@@ -416,6 +416,8 @@ static int gicv5_its_alloc_l2_devtab(struct gicv5_its_chip_data *its,
- 	if (!l2devtab)
- 		return -ENOMEM;
- 
-+	gicv5_its_dcache_clean(its, l2devtab, BIT(span) * sizeof(*l2devtab));
-+
- 	its->devtab_cfgr.l2.l2ptrs[l1_index] = l2devtab;
- 
- 	l1dte = FIELD_PREP(GICV5_DTL1E_SPAN, span)			|
+ChenYu
