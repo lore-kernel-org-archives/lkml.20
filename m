@@ -1,54 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.189
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794464794;
-	b=1aoIvnabpcx3ZX9EeaPbpicWIiIBc0qk80TkiKucTfmDyT/DDtUeL/CHzaUMHPXsqE6K
-	 y0kO1jD7GjMrqyIn9q10PPPZilta+4TkiiDa50RbD7kofb7NkzcLxAUeuj925RdYXqgLD
-	 LkAsxj4ctbhbZAYtdF7DuNMJ8cURILJiJ9/OyrhzGEt10w1yBpwcRPrrGjXtH9w+oFcxi
-	 Oe3eJbRgkOTGWcf7jSN5hrTrqWnunT42rM9Qnnteqva1zR3d+Q5bo3nvgnCos7o/PuW7+
-	 pF6WcDKnte8cgDjU5cE2vjkRL0S1YqnS2LmqbMUJtzvPUPuGOg2qDkX/L7ksGlfmBXA==
+	t=1794464797;
+	b=ED4LVLhTbMwP8l+UhHNb9XOe8tSsXVB3QyhJ4DmH9vmImzXpEGCe0/J1hd1TWJBI0ELf
+	 Xa3DHBH8Ts08HHO8A1Q//FSYHJ5tCU/NzgtlH01LSTZRaFzzLxGV+2y78sXYDfZkpxbbf
+	 NUVTsW49QEpfYnSOGbYz1URauKQZ2yuX9+abnY92dMii5S5r6TBU+oGwbOUP44gI9dZ6P
+	 7+GpBKflC9wVxyQR2r9JQ7MZV5YeVNI6aBXhlLKZ4wRvY7q35NVE0VNdOYEPHJ/R6uPzW
+	 VfwSjROcUB991frt0AMJNqPbI7xqHquTpKWM2IWlzB7HPHoNa0X6tInZ00l/NFMmVYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794464794;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=FzuBWSCpGeQukn6FXOSBWpNu0IM30YG8f/xbcMJEj9M=;
-	b=GTPkphCQM3RIBt5VvVA08dDsTsXYFjqPOCv1Wq2wTpH/g0SXvb8DGcwRu3z0gM8eG6wZ
-	 ijKUgx5Ydrowe6Fm72Chzi2HX+DCwzoHqOfv02ETSuvg4+76egbT9Zerws83bMYnfUUcz
-	 YnohJ1iWQXAk9p9SX/AqLWh2I3oPyq0qBcgWkanK8RZu84Pp0TYRqSf4cJgJQfU9dztzE
-	 RcAXOW94ZlN8mxj3ywNca91BZpdMvQrdv0xWOZeysF0q5KoZe+WppsQEwNHtLTk2i+sej
-	 opr38dINwpXdo94i3ZpbyCzn3kW7XGVD/v9WQ20udt4yyMtyk0AjWQAcgoM+hv4Tnjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794464797;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=HQqBrTbEZxsA8ilEZ7vX7+ePIXnnagD5L9RGTt8hUKU=;
+	b=GlbrxLeaL7mTnjut/gx/g8i14oVTpl3yPJPhoQ3nJJscn1yVwqo59xXd1lWuO1p/qlCI
+	 IRRfff0+3CEnRntAdUGLETCZfyutYiO3kXSEzsmsbKb3QdZVUyq7NxqNrbXhECX608Fis
+	 +mR9tmXFL9EJiPLp2GEfgV8BLyKUeYso51CeeQ3hD7LpHWgAONBpHmpuUEWTlMAogVCOX
+	 dnF5lxAZj+FcAThG/PeREwG3IBDrY3HsoImdTbJzJTZvzZ9xaKcsKxzFqgkbmUrruQU8r
+	 oo8kHihauDFce7d/njQS1NLPgVgZcfWI854PyB+EUXNTRmziDztkW4uA5xDeWYHDrGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xdv6OXXd;
-	arc=none smtp.remote-ip=91.218.175.189
-Received: from mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=UrOqU3G3;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E1D606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:26:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92E1D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C78606A33D;
+	Thu, 12 Nov 2026 06:26:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3C78606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xdv6OXXd
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YSdVHcPOxp7Mxpr75S83EeGKEHU4uT3ofCAOXt4L8qg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794464790; v=1; x=1795069590;
- b=xdv6OXXdejomL8Jyz21uc0ZO1TWdK2t3WFcFLwxceXm+B0C0fNYTeZ7LwgHTkmy16OJ29GNk
- izgILyNfylss6MC2zDXOz4c+0rS0DOdEGwM0hqjnTrytoKxV3wbmWkq74DfSFK34no72/4fqXNT
- YodGPR3YUvWpYFCabU8JqSAg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8df4261c904f80f8;
-	Thu, 12 Nov 2026 06:26:30 +0000
-X-Mizu-Trace-ID: 8df4261c904f80f8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <73501214-76ff-4716-bb8e-f83fff26bfba@linux.dev>
-Date: Thu, 12 Nov 2026 14:27:55 +0800
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=UrOqU3G3
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C2AEC10E394;
+	Thu, 12 Nov 2026 07:26:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794464784;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=HQqBrTbEZxsA8ilEZ7vX7+ePIXnnagD5L9RGTt8hUKU=;
+	b=UrOqU3G31RyOiOqFQExBFk/gH/aWva67ebwxY/V4/r0OTjA6A1UFpegkRCSIk+tE0mFD33
+	Wtq9qE24rFg0BigDkfjPT5qwA8YrIwZQ3w3riH6OlpJm2nnWA/jN/cHH7CsoiG+Zjv5H8s
+	E/36RtsB4sX3SoI6dWvu3cJq9oiVsR3iyJSf5l3MVmnzmE8thu8sBqXr3R3PmsiNsje4+B
+	u/2Sg8e5L1PhKDwi2FUzuKeGyk3GJFv1gMY3l1XSVsP4WkfoC2zBLgDqUQQVb1pWSd3hmx
+	oklxgLxwfH6TWsiJPNTQWy0acnm0ueUh9EjoilfioFqZJTV4QX2/rNgY2fFCNA==
+Message-ID: <c3cbd7ab-e689-4a9b-b311-af43980738d2@nabladev.com>
+Date: Thu, 12 Nov 2026 02:22:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,395 +57,54 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 7/9] mm/vmalloc: undo partial mappings inside the
- mapping functions
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org
-References: <20261110112546.261415-1-hao.ge@linux.dev>
- <20261110112546.261415-8-hao.ge@linux.dev>
- <CAJuCfpFHaahsCNkXCOn8ks65yj_bPy33cOLZ5BW=rtTOuedLqw@mail.gmail.com>
+Subject: Re: [PATCH] mmc: mmci: stm32: handle mmc power up
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: linux-mmc@vger.kernel.org,
+ Christophe Kerello <christophe.kerello@foss.st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+ kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261030215427.488298-1-marex@nabladev.com>
+ <CAPx+jO8sc8gbxNQTjK2tx+1UPLqwwEof3E9vknHNc4kmbeB7oA@mail.gmail.com>
+ <51207e63-ec60-4805-bf6a-b10647ee3866@nabladev.com>
+ <CAPx+jO89Z0Z241L1jyB_3sUygdEwGicqT-WfHc6ppG8egHUO2w@mail.gmail.com>
 Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAJuCfpFHaahsCNkXCOn8ks65yj_bPy33cOLZ5BW=rtTOuedLqw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <CAPx+jO89Z0Z241L1jyB_3sUygdEwGicqT-WfHc6ppG8egHUO2w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Suren
+On 11/11/26 12:45 PM, Ulf Hansson wrote:
 
-Thanks for your review.
+Hello Ulf,
 
-On 2026/11/12 09:15, Suren Baghdasaryan wrote:
-> On Tue, Nov 10, 2026 at 11:25 AM Hao Ge <hao.ge@linux.dev> wrote:
->>
->> The vmap entry points may install some PTEs and then fail, leaving a
->> partial mapping behind.
->>
->> The callers do not agree on who cleans it up. pcpu_map_pages() and
->> kmsan_ioremap_page_range() roll back what they mapped, while
->> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
->> __vmalloc_area_node() expect a clean range from the mapping function.
->> For them the leftovers stay mapped, and the next attempt to map the
->> same range trips the WARN_ON(!pte_none()) in vmap_pages_pte_range().
->> A leftover huge pmd is even worse. During the retry, vmap_try_huge_pmd()
->> calls pmd_free_pte_page() on it, and the x86 implementation cannot
->> tell a leaf entry from a page table and frees the mapped page.
->>
->> After discussing with Suren and Ulad, we decided to put the rollback
->> into the entry points of the vmap API rather than into every
->> low-level helper. __vmap_pages_range_noflush() undoes the whole range
->> it was asked to map when it fails, and vmap_page_range() undoes its
->> range for the ioremap-style mappings.
->>
->> The rollback is __vunmap_range_noflush(), which only clears the PTEs.
->> No TLB flush is needed, nothing has touched the mapping yet.
->> vmap_pages_range_noflush() also drops the KMSAN metadata of the
->> failed mapping.
->>
->> The undo walk skips its cond_resched() when the caller's gfp mask
->> cannot block. __vmalloc() with GFP_ATOMIC or GFP_NOWAIT can run in
->> atomic context, where cond_resched() cannot schedule.
->> __vunmap_range_noflush() takes a can_resched argument for that, which
->> the sleepable callers pass as true.
->>
->> Suggested-by: Uladyslau Rezki <urezki@gmail.com>
->> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->> ---
->>  include/linux/kmsan.h |  8 ++++--
->>  mm/kmsan/hooks.c      | 18 ++++++++-----
->>  mm/kmsan/shadow.c     |  7 ++---
->>  mm/vmalloc.c          | 61 +++++++++++++++++++++++++++++++++----------
->>  mm/vmalloc.h          |  6 +++--
->>  5 files changed, 72 insertions(+), 28 deletions(-)
->>
->> diff --git a/include/linux/kmsan.h b/include/linux/kmsan.h
->> index 7da9fd506b39..0016c032d1e7 100644
->> --- a/include/linux/kmsan.h
->> +++ b/include/linux/kmsan.h
->> @@ -150,11 +150,14 @@ int __must_check kmsan_vmap_pages_range_noflush(unsigned long start,
->>   * kmsan_vunmap_kernel_range_noflush() - Notify KMSAN about a vunmap.
->>   * @start: start of vunmapped range.
->>   * @end:   end of vunmapped range.
->> + * @can_resched: whether the unmap walk may call cond_resched(); pass
->> + * false from atomic context.
->>   *
->>   * KMSAN unmaps the contiguous metadata ranges created by
->>   * kmsan_map_kernel_range_noflush().
->>   */
->> -void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end);
->> +void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end,
->> +                               bool can_resched);
->>
->>  /**
->>   * kmsan_ioremap_page_range() - Notify KMSAN about a ioremap_page_range() call.
->> @@ -355,7 +358,8 @@ static inline int __must_check kmsan_vmap_pages_range_noflush(
->>  }
->>
->>  static inline void kmsan_vunmap_range_noflush(unsigned long start,
->> -                                             unsigned long end)
->> +                                             unsigned long end,
->> +                                             bool can_resched)
->>  {
->>  }
->>
->> diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
->> index 107f66841274..0cd1edaa1120 100644
->> --- a/mm/kmsan/hooks.c
->> +++ b/mm/kmsan/hooks.c
->> @@ -136,13 +136,16 @@ static unsigned long vmalloc_origin(unsigned long addr)
->>                                                  KMSAN_META_ORIGIN);
->>  }
->>
->> -void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end)
->> +void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end,
->> +                               bool can_resched)
->>  {
->>         if (!kmsan_enabled)
->>                 return;
->>
->> -       __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end));
->> -       __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end));
->> +       __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end),
->> +                              can_resched);
->> +       __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end),
->> +                              can_resched);
->>         flush_cache_vmap(vmalloc_shadow(start), vmalloc_shadow(end));
->>         flush_cache_vmap(vmalloc_origin(start), vmalloc_origin(end));
->>  }
->> @@ -171,8 +174,9 @@ static void kmsan_iounmap_pages(unsigned long start, unsigned long end)
->>                 if (origin)
->>                         __free_pages(origin, KMSAN_IOREMAP_META_ORDER);
->>         }
->> -       __vunmap_range_noflush(shadow_start, shadow_end);
->> -       __vunmap_range_noflush(origin_start, origin_end);
->> +       /* ioremap metadata mappings are always GFP_KERNEL, so resched is safe. */
->> +       __vunmap_range_noflush(shadow_start, shadow_end, true);
->> +       __vunmap_range_noflush(origin_start, origin_end, true);
->>         flush_tlb_kernel_range(shadow_start, shadow_end);
->>         flush_tlb_kernel_range(origin_start, origin_end);
->>  }
->> @@ -207,7 +211,7 @@ int kmsan_ioremap_page_range(unsigned long start, unsigned long end,
->>                 mapped = __vmap_pages_range_noflush(
->>                         vmalloc_shadow(start + off),
->>                         vmalloc_shadow(start + off + PAGE_SIZE), prot, &shadow,
->> -                       PAGE_SHIFT);
->> +                       PAGE_SHIFT, gfp_mask);
->>                 if (mapped) {
->>                         err = mapped;
->>                         goto ret;
->> @@ -217,7 +221,7 @@ int kmsan_ioremap_page_range(unsigned long start, unsigned long end,
->>                 mapped = __vmap_pages_range_noflush(
->>                         vmalloc_origin(start + off),
->>                         vmalloc_origin(start + off + PAGE_SIZE), prot, &origin,
->> -                       PAGE_SHIFT);
->> +                       PAGE_SHIFT, gfp_mask);
->>                 if (mapped) {
->>                         err = mapped;
->>                         goto ret;
->> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
->> index 2166086d3dc3..452760a333e4 100644
->> --- a/mm/kmsan/shadow.c
->> +++ b/mm/kmsan/shadow.c
->> @@ -247,7 +247,7 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
->>         origin_end = vmalloc_meta((void *)end, KMSAN_META_ORIGIN);
->>         kmsan_enter_runtime();
->>         mapped = __vmap_pages_range_noflush(shadow_start, shadow_end, prot,
->> -                                           s_pages, page_shift);
->> +                                           s_pages, page_shift, gfp_mask);
->>         kmsan_leave_runtime();
->>         if (mapped) {
->>                 err = mapped;
->> @@ -255,12 +255,13 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
->>         }
->>         kmsan_enter_runtime();
->>         mapped = __vmap_pages_range_noflush(origin_start, origin_end, prot,
->> -                                           o_pages, page_shift);
->> +                                           o_pages, page_shift, gfp_mask);
->>         kmsan_leave_runtime();
->>         if (mapped) {
->>                 /* Undo the shadow mapping set up above. */
->>                 kmsan_enter_runtime();
->> -               __vunmap_range_noflush(shadow_start, shadow_end);
->> +               __vunmap_range_noflush(shadow_start, shadow_end,
->> +                                      gfpflags_allow_blocking(gfp_mask));
->>                 kmsan_leave_runtime();
->>                 err = mapped;
->>                 goto ret;
->> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->> index 3f98056f8c7e..d1986f68eab4 100644
->> --- a/mm/vmalloc.c
->> +++ b/mm/vmalloc.c
->> @@ -372,8 +372,12 @@ int vmap_page_range(unsigned long addr, unsigned long end,
->>         if (!err)
->>                 err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
->>                                                ioremap_max_page_shift);
->> -       if (!err)
->> +       if (err) {
->> +               /* Callers are ioremap and arch setup code, always sleepable. */
->> +               __vunmap_range_noflush(addr, end, true);
->> +       } else {
->>                 flush_cache_vmap(addr, end);
->> +       }
->>
->>         return err;
->>  }
->> @@ -429,7 +433,7 @@ static void vunmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
->>  }
->>
->>  static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
->> -                            pgtbl_mod_mask *mask)
->> +                            pgtbl_mod_mask *mask, bool can_resched)
->>  {
->>         pmd_t *pmd;
->>         unsigned long next;
->> @@ -451,12 +455,14 @@ static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
->>                         continue;
->>                 vunmap_pte_range(pmd, addr, next, mask);
->>
->> -               cond_resched();
->> +               /* The undo path may run in atomic context. */
->> +               if (can_resched)
->> +                       cond_resched();
->>         } while (pmd++, addr = next, addr != end);
->>  }
->>
->>  static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
->> -                            pgtbl_mod_mask *mask)
->> +                            pgtbl_mod_mask *mask, bool can_resched)
->>  {
->>         pud_t *pud;
->>         unsigned long next;
->> @@ -476,12 +482,12 @@ static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
->>                 }
->>                 if (pud_none_or_clear_bad(pud))
->>                         continue;
->> -               vunmap_pmd_range(pud, addr, next, mask);
->> +               vunmap_pmd_range(pud, addr, next, mask, can_resched);
->>         } while (pud++, addr = next, addr != end);
->>  }
->>
->>  static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
->> -                            pgtbl_mod_mask *mask)
->> +                            pgtbl_mod_mask *mask, bool can_resched)
->>  {
->>         p4d_t *p4d;
->>         unsigned long next;
->> @@ -496,7 +502,7 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
->>
->>                 if (p4d_none_or_clear_bad(p4d))
->>                         continue;
->> -               vunmap_pud_range(p4d, addr, next, mask);
->> +               vunmap_pud_range(p4d, addr, next, mask, can_resched);
->>         } while (p4d++, addr = next, addr != end);
->>  }
->>
->> @@ -512,7 +518,8 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
->>   *
->>   * This is an internal function only. Do not use outside mm/.
->>   */
->> -void __vunmap_range_noflush(unsigned long start, unsigned long end)
->> +void __vunmap_range_noflush(unsigned long start, unsigned long end,
->> +                           bool can_resched)
->>  {
->>         unsigned long next;
->>         pgd_t *pgd;
->> @@ -529,7 +536,7 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
->>                         mask |= PGTBL_PGD_MODIFIED;
->>                 if (pgd_none_or_clear_bad(pgd))
->>                         continue;
->> -               vunmap_p4d_range(pgd, addr, next, &mask);
->> +               vunmap_p4d_range(pgd, addr, next, &mask, can_resched);
->>         } while (pgd++, addr = next, addr != end);
->>
->>         if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
->> @@ -538,8 +545,9 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
->>
->>  void vunmap_range_noflush(unsigned long start, unsigned long end)
->>  {
->> -       kmsan_vunmap_range_noflush(start, end);
->> -       __vunmap_range_noflush(start, end);
->> +       /* The unmap paths are sleepable, keep the resched point. */
->> +       kmsan_vunmap_range_noflush(start, end, true);
->> +       __vunmap_range_noflush(start, end, true);
->>  }
->>
->>  /**
->> @@ -727,18 +735,32 @@ static int vmap_pages_range_noflush_walk(unsigned long addr, unsigned long end,
->>   * The caller is responsible for calling flush_cache_vmap() after this
->>   * function returns successfully and before the addresses are accessed.
->>   *
->> + * On failure the mapping is torn down before returning, so a retry
->> + * sees a clean range. When @gfp_mask cannot block, the teardown
->> + * skips cond_resched(), it may run in atomic context.
->> + *
->>   * This is an internal function only. Do not use outside mm/.
->>   */
->>  int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->> -               pgprot_t prot, struct page **pages, unsigned int page_shift)
->> +               pgprot_t prot, struct page **pages, unsigned int page_shift,
->> +               gfp_t gfp_mask)
->>  {
->> +       int err;
->> +
->>         if (WARN_ON_ONCE(page_shift < PAGE_SHIFT))
->>                 return -EINVAL;
->>
->>         if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC))
->>                 page_shift = PAGE_SHIFT;
->>
->> -       return vmap_pages_range_noflush_walk(addr, end, prot, pages, page_shift);
->> +       err = vmap_pages_range_noflush_walk(addr, end, prot, pages, page_shift);
->> +
->> +       /* Undo the PTEs installed before the failure. */
->> +       if (err)
->> +               __vunmap_range_noflush(addr, end,
->> +                                      gfpflags_allow_blocking(gfp_mask));
+>>>> -       if (ios.power_mode == MMC_POWER_OFF) {
+>>>> +       if (ios.power_mode == MMC_POWER_OFF ||
+>>>> +           ios.power_mode == MMC_POWER_UP) {
+>>>>                   /* Only a reset could power-off sdmmc */
+>>>>                   reset_control_assert(host->rst);
+>>>>                   udelay(2);
+>>>
+>>> What exactly will this reset?
+>> The controller.
 > 
-> I remember we discussed this before that __vunmap_range_noflush() will
-> be unmapping the entire range between addr and end instead of the
-> range vmap_pages_range_noflush_walk() actially mapped and your reply
-> was that this keeps things simple and avoids adding extra code in the
-> common path when we do not fail. This was bothering me, so I looked a
-> bit deeper and I think there is an issue with this approach.
-> vmap_pages_pte_range() fails with -EBUSY if it encounters an already
-> installed PTE. So, if this happens, we immediately bail out of mapping
-> the range and will be unmapping the entire range, including these
-> existing PTEs. I don't think that's ok.
->
-
-You were right, I did not really think the -EBUSY case through.
-when the walk trips over a PTE that is already there, everything
-from that point on is somebody else's mapping, and the undo as
-it stood would clear it. sorry for this.
-
-
-> A fix might be quite simple. vmap_pages_range_noflush_walk() already
-> counts how many pages we processed in nr variable. If we propagate
-> that one level up then we could unmap only the range we actually
-> mapped.
-
-Right, thank you very much for helping sort this out. This makes
-it a lot clearer.
-
-Thanks
-Best Regards
-Hao
-
+> Okay, I see.
 > 
->> +
->> +       return err;
->>  }
->>
->>  int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->> @@ -750,7 +772,18 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->>
->>         if (ret)
->>                 return ret;
->> -       return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
->> +
->> +       ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift,
->> +                                        gfp_mask);
->> +       /*
->> +        * The page tables undo themselves on failure. Tear down the
->> +        * metadata that was fully set up before the mapping failed.
->> +        */
->> +       if (ret)
->> +               kmsan_vunmap_range_noflush(addr, end,
->> +                                          gfpflags_allow_blocking(gfp_mask));
->> +
->> +       return ret;
->>  }
->>
->>  static int __vmap_pages_range(unsigned long addr, unsigned long end,
->> diff --git a/mm/vmalloc.h b/mm/vmalloc.h
->> index d8372a4f65c4..9ea28845f713 100644
->> --- a/mm/vmalloc.h
->> +++ b/mm/vmalloc.h
->> @@ -40,10 +40,12 @@ void clear_vm_uninitialized_flag(struct vm_struct *vm);
->>
->>  int __must_check __vmap_pages_range_noflush(unsigned long addr,
->>                 unsigned long end, pgprot_t prot,
->> -               struct page **pages, unsigned int page_shift);
->> +               struct page **pages, unsigned int page_shift,
->> +               gfp_t gfp_mask);
->>
->>  void vunmap_range_noflush(unsigned long start, unsigned long end);
->>
->> -void __vunmap_range_noflush(unsigned long start, unsigned long end);
->> +void __vunmap_range_noflush(unsigned long start, unsigned long end,
->> +                           bool can_resched);
->>
->>  #endif /* __MM_VMALLOC_H */
->> --
->> 2.25.1
->>
+> In that case, this reset also makes us reset preceding updates to any
+> other registers, for example the clock register. I would not recommend
+> doing that here, but perhaps there is no better option.
+
+Does that pose a problem in the MMC_POWER_OFF/UP state ? I agree this 
+would pose a problem in the MMC_POWER_ON state, but here the card is not ON.
+
+> If I may I suggest an alternative solution, perhaps we can manage this
+> in the ->runtime_resume() callback instead. If the power_mode ==
+> MMC_POWER_OFF, perhaps do this reset there instead? Would that work?
+> 
+> Anothing thing that caught my eyes was the MCI_STM32_PWR_CYC bit that
+> gets written at MMC_POWER_OFF. This bit becomes cached in
+> host->pwr_reg, hence it's also rewritten at MMC_POWER_ON. Is that
+> intentional?
+I _think_ so, this seems to be used to power cycle the card.
