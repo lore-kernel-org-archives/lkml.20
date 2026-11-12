@@ -1,77 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794485984;
-	b=kiXzo0HCSXur4w/4T3T3RT9CgVVCNj4Tn+9ESk4vEnoHMbH2CCRql8Qyis/5OMhWbn79
-	 DuMXxlkns32+vYgNMq9hd0amAKFG6dW/qMt+7wpP0WRhnP3UJpKcF74TPfJ0Seoy1P9Jo
-	 ml1DAraAtYpAsV9XxB6oEhwOZPg0yOPSj1d79QLc8CwMLet+OMnBM5iIT/hNxxJEGF1+k
-	 ctyW+m6qWAtm09Hate963FK3Mcn1NOxquxdAI9bU0BDm+LHzqRmnFLlHjWP8b9Uuzg4QZ
-	 v+2O1to6RI5I3Lh/ZQtAMUlHCqJwkn8Pt3UNF8uzQg/8nQP2mnfgO+BR0quyXEtqV4g==
+	t=1794486011;
+	b=dIPtGhC2FDWhr0y6eHod8embQRpNyIwgp+oy8zPDoUhptWEWjhIt6rBnha1FIgWCSDwP
+	 LbCISLhVU7yjAFTQmnaxCFEJLCZSXSJxw00y8wSjTPWn1KU62qNy9X1KpBC+RsXyJDqBi
+	 RqZB5GI1tQwbeWoOrgh2vQBADX37zverbF+d8wTOA5oJS52J5Z8o4YS8xVcEwcvANaqhI
+	 AJ6oJV111CAYuxvwBEXjmW8xz1hQy2nIDlXYkpNGdzDGH5nZRocR6nYKralUo9wP5pasI
+	 7wUtE8btBcoG5FGCG0cf62a8fas96Wy8FMAZRKOH7W765RN8lAquIc3s6lGBjmWsbvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485984;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6lBfSop40ANpomb/oJdRrK/QOYFNcTX2jfeonW12esM=;
-	b=3044Ux06vW/Sn6COWAXt9jvqlcW8ktzMQjwTj+Bxq7ad2lXuCufzaL4GkESDaaiu4an7
-	 XgNKiFSQMeVoDlwOcQtTCPzSPdFoIxXQvvU0wTTm6XXmQe4FvAYeBT/ijI03AOXEn5bEp
-	 TXuA7pGSK5WPNi+YrJkpLoBmax3FA4mQrt6A5Fw3hLuJzRfib47SuLW7kZ5DBkqV+CGZa
-	 fg2Ed+kfolMlNt3Oa7L8l4vovR8mMI8CaZO/xyz0revokLds5gSmSn/T0Wau4eLvkEvRm
-	 FR+t/hhOMua/2ilUEwBv+UiUeYz6AwWIxTD9i7M5sJID+f0MFf7DQVQYX433XVF3FIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486011;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=QRKjoaIFdZcdNI6xhQFS3ddkteDcVtqc9gdnFl/fkT8=;
+	b=LzksKksyGxwa12t38vxb+YqnCAy1NErQVOtYTuc+ChZA6TIMJV7Mw8SIIRfzeRUfTWOG
+	 hT5Xp+PlVkxYn5Ygi8+Kq9uL7oNDCR1xxsnozM9hE8eE/Z4cfmZV5FqO9W9DQ9+WM0dI1
+	 y741kVqL06ObdJQQkeEDHv1tsFKI/DsltDQai3R6WN94selWzRU84ExpiyeFSNDALx1kK
+	 bavPd4detxh+14gdE7MeAdy8uRUXgJXjiqh9qDdIz3OWeN9EHncantq3VkTNdOUCxpFQC
+	 az32zRYQpZYqfpKMNnRmzDZ1c58wIZwNmEgckd3/u+H6DVODwDeBZV2UeNEua7e6wRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=R80vod0w;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQfVpejc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB916606A31C;
-	Thu, 12 Nov 2026 12:19:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB916606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42E9606A31C;
+	Thu, 12 Nov 2026 12:20:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=R80vod0w
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=6lBfSop40ANpomb/oJdRrK/QOYFNcTX2jfeonW12esM=; b=R80vod0w55bkVZUag495J9bzuS
-	SPEiBMIv+2WoAIFNxquYkU5bx2O/LYfO0wXypaBYnA9nm9plSzDhGDayaCyLxL1I50n1r2GBUKfV0
-	OceCfGRPOE1Bu3rVkf0iBr7eqd5egCd2Nrbta7j5qD1O0kw14/TipfzA3X23C0nVXNm95sG/fO1D2
-	H2+77rsuQGDFdbWvRqDnU6UFZuTdWBkHOAUQDZw1uqhDy2eos2++cbrzZVYIIQDuj6XBuyr3gwH+e
-	r5nIIuV5REeA/o9VOW/PWSR8kyPNUT6b5RaqMVnjZE0V5AxhW4AL4SgzRLU/aehMoTZaVH71lgrge
-	whwwRCsQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRTmB-0000000AJ4o-0yz4;
-	Thu, 12 Nov 2026 12:19:35 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 6CF5C300882; Thu, 12 Nov 2026 13:19:33 +0100 (CET)
-Date: Thu, 12 Nov 2026 13:19:33 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, lukasz.luba@arm.com,
-	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org,
-	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
-	sched-ext@lists.linux.dev, qyousef@layalina.io,
-	christian.loehle@arm.com, pierre.gondois@arm.com,
-	sshegde@linux.ibm.com, kayracizmeci@gmail.com,
-	tim.c.chen@linux.intel.com
-Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
-Message-ID: <20261112121933.GW1813469@noisy.programming.kicks-ass.net>
-References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
- <20261106151947.3991524-9-vincent.guittot@linaro.org>
- <20261109155418.GL1779021@noisy.programming.kicks-ass.net>
- <CAKfTPtA-nrgGQGcBPqNoPk4atOHakyZK9Fk-4AsrHBrnvPXTLQ@mail.gmail.com>
- <20261111090155.GF2668564@noisy.programming.kicks-ass.net>
- <CAKfTPtBfQd5nD9jNdayGbEW_P2bDMvOm=GZ3Q-gu+O6KkQmKbA@mail.gmail.com>
- <20261112094910.GK2668804@noisy.programming.kicks-ass.net>
- <CAKfTPtBNx9Dpe4zBAzJU1iabp6riGAN8v-GP9bc5fh8NZq57hQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQfVpejc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A930C1F00A05;
+	Thu, 12 Nov 2026 12:20:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794486011;
+	bh=QRKjoaIFdZcdNI6xhQFS3ddkteDcVtqc9gdnFl/fkT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XQfVpejct8QeB9NZ51N6O1V3g3ZH9YkXem9kxeyJJoa5NC4cRIHuT9QcieiSfXDZ3
+	 N+uChjN6O+l/RER049Z/eCva2FzVdiF0w6PUZSWi+b4x4pHJGivFS1B99wgp6dQ9lu
+	 to0w2fUuavUq+f1LNFoc8HGk1RYeUX6BWcEzi7iVrjCiLMxkaXsXh7CGi5HDpBUh5o
+	 narHMflWwgHSIRIydIgXJBIdUn7tHQJagFDCo2ccNQ44ISNPtCo99MBN59mHIuDvec
+	 9ERC7m0Nip+ePwehmvVI926wgohzGg4K2zvH5U8Retj2v5jV+pISOg4A6js/kcr//V
+	 7TJJzreLmwWUA==
+From: netdev-bot+sinfo@kernel.org
+To: kmahammadraf <kmahammadraf@marvell.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Sunil Goutham <sgoutham@marvell.com>, Ratheesh Kannoth <rkannoth@marvell.com>,
+ Geetha sowjanya <gakula@marvell.com>, Subbaraya Sundeep <sbhatta@marvell.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Satha Rao <skoteshwar@marvell.com>
+Subject: 
+ Re: [PATCH net v2] octeontx2-af: fix TX scheduler queue index width for CN20K
+Date: Thu, 12 Nov 2026 12:20:10 +0000
+Message-ID: <179448601020.2168702.8636848899122995799@kernel.org>
+In-Reply-To: <20261112121907.2576520-1-kmahammadraf@marvell.com>
+References: <20261112121907.2576520-1-kmahammadraf@marvell.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,54 +66,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKfTPtBNx9Dpe4zBAzJU1iabp6riGAN8v-GP9bc5fh8NZq57hQ@mail.gmail.com>
 
-On Thu, Nov 12, 2026 at 12:29:14PM +0100, Vincent Guittot wrote:
-> On Thu, 12 Nov 2026 at 10:49, Peter Zijlstra <peterz@infradead.org> wrote:
-> >
-> > On Thu, Nov 12, 2026 at 08:01:17AM +0100, Vincent Guittot wrote:
-> >
-> > > I don't want to take any random task from the rq but only one that is
-> > > meaningful. Why do you think having a dedicated pushable list like rt
-> > > and deadline isn't worthwhile?
-> >
-> > Well, effectively cfs_tasks *is* the pushable list. The below patch
-> > makes no effective difference, and can be argued to be an optimization.
-> > Currently every consumer of cfs_tasks goes through can_migrate_task()
-> > and every task that has nr_cpus_allowed == 1, will fail that function.
-> >
-> > The thing seems to be that you want additional constraints on your list;
-> > like dropping tasks after one push attempt. The other classes don't do
-> > that, they do the same thing cfs_tasks does and keep all runnable tasks
-> > that can migrate on the list.
-> >
-> > I'm not against adding another list per-se, I'm just struggling to
-> > understand your extra semantics, because its not _just_ another pushable
-> > list, it has some extra flavour.
-> 
-> The main case is to periodically look for another CPU when a task is
-> put back in the runnable list. I also have other cases like patch 20
-> where several short tasks end up selecting the same CPU or when the
-> short task finally can run 1st and should look for another CPU.
-> Because anything can happen between wakeup preempt and pick_task_fair
-> I don't know if the 1st item is the one that might to be pushed or how
-> much requested it
+Hi!
 
-I've yet to go read 20; but can we cure all this by making cfs_tasks a
-RB-tree and imposing some convenient order on it?
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Perhaps sort on {se->slice,se->exec_start}, that way the shortest slice
-that hasn't ran for the longest is first. So when all slices are equal
-length, it is similar to what we have now, but when there are multiple
-slice lengths, the shorter ones are preferred.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-That is; instead of trimming the length of the 'list', make sure the
-right task ends up at the right place.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
 
-Another option is to so an augmented list, normally sorted on
-se->exec_start, but augmented on se->slice, such that normally you pick
-in longest-not-ran order, but can also pick in shortest slice order.
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
