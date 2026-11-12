@@ -1,63 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480865;
-	b=I5qr3Iu7OYZpCx5TzsLBWHUtRPys3aeB6Rp3kLZIZGGBig2F0kQ/JLjV4L6gX64e4Sbj
-	 MUQTdyQyZgnc971FnCF6Vko4855D+7VyzVVnaSlj2VDkXSyl0IL+zCUj+Pm4a/0jUEhuT
-	 YbIGrH/DpbvtadI6pSv/jzprwEidf0+Zwig8kqazR0Qv24gplOYRJ4kNkCE9eKOiigaSX
-	 Rx7qxP6acUgEohduUV/eYx5yOsIoov2AuJY2pEYq6JcxcyHLYTDuI7rh7t1rFmkiMTAkY
-	 AlIgl7VzKg0oPF+UpvPBh9LYmga4GQc8/FC2asMH1iYSL2niituH/Hpk5o9r0778H7g==
+	t=1794480910;
+	b=Sfbctibf7Bu3KFjq/0xcHRa9t2ytits5tS/98APeIoIFgPbj8siXRCG4NrEmQi+nft2U
+	 Peg6SkApyaX9qSGomFzV07FGBv4JuEAgvYU76T/SMxUjCMpyejpRAVMs0/HwACxUqIs9t
+	 SjdmWKyGEag7Tobk/0y/6rh8SUmlTeXoyqxN13Z2QD3B3OAhNcG/i2S4NJBKilIvyscQq
+	 aUtP+3A27TiPkCdEgpzD0U+YKBFnlmgix1EEY9GK7FVTXn562Z4EzO4+o2F0iGDUI1uxz
+	 d5lbLZFNsHYGPs9janARyJdVl+NbkkDj0TlaggEQ9UZCnVKKbB/pK8KZvNyknfGNxVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480865;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=Nzr1i8kmgcqILZlSzSWseg8RY9ufaj9ibgqjyLSLbkg=;
-	b=I/5a4B8ulr+WWVUvkIiPHtiqDETQJPqAMykN3eQdQzD2pBmF9HmccSIhEKDkh/IiNfag
-	 iiQFFuCzPUmjC8ePjqlA1dsiwNLO3KP5vPzzAO7d2jcwhkbQ32g2uZQi9jGnRYqPRlxCP
-	 RAu/4VV6Ml7NjeRrildK7r8T3/vXD6bY6azizzohXQYj7VyxE7eChA4HeBvQWQHHPV5o8
-	 QVuhXGV4izaXQ88BlTxTfHhW4kbG+YRSnNLYX+P32DdSQBVBOVwZNoeDeY49VgaopCjlb
-	 rXsaNJGCgX6CFHfCeAHZOAZDP1zVqjvclTJSHc68J70kUo78njLJqruZA0edbPETnoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480910;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hBBRka0fgdENvERIYsPzoLXmI7OdvHBhAV6rADe9TMQ=;
+	b=tdXMhfCbSTjVbWC4IiKGpjczM5bDZftdwYA+lNNZxCQIB8iX+C6BOlR67eMz5Mwmva69
+	 W/1B7HGBFOuxxvnxC2UfmLuFYItxxTmwKGhNfaDckvQsv2tfJ7DhuhYqWzzpVhnEx0MBn
+	 f029wXa/r4sjXwknYUCLx8XRkz4Cv+lkKs+K63oy9hyHMbUNijF874RPEKIp0Y9mxFEat
+	 0txDrCvvBFwBzS4yfnzsb/4LiqOwJNpF1WE40o5ysP2ue57deAvdQMmzyB9PG1uK5nQ0I
+	 1Ya7M4HIRrCfIZ4SA/WI53Rkr4S1GlhGSDXddFBLeeVGkCrn5JlJMZ8TsoAvrfUL/sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nnyaW9fu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVR6HgOg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E401D606A327;
-	Thu, 12 Nov 2026 10:54:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826B8606A323;
+	Thu, 12 Nov 2026 10:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nnyaW9fu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219031F00A05;
-	Thu, 12 Nov 2026 10:54:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVR6HgOg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735FB1F00A05;
+	Thu, 12 Nov 2026 10:55:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794480864;
-	bh=Nzr1i8kmgcqILZlSzSWseg8RY9ufaj9ibgqjyLSLbkg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nnyaW9fuM4QMfEs07StEF0ZXXF5G+Pmg+xGPZPoCbCplbHS3SywWWgJowBdyU9Wce
-	 ZZxuOVQkxtJ0nZxojNilzoTZH2uH4ZNmwtefwlqvaaFEKA7T+8DkHbVYC9mGuWAI6h
-	 atqB1VCCVgovVHA0zWvAexLyzzX+aPFoRB9f+Wg1akpS4586Xp2PiifqrQWrcHqhyT
-	 WJEYQtFrVP4sVZa9gAG4L/+eiUSEB8BnAENojDQNLwM2Y6T+Y7H96jt4ZEHfUnk/+x
-	 3NooBYNei3UAoCrLdXO8UBaU+YaUDd8ctgtiJalbzqcN9n/3cWLKdHeHI4FLZCCCi+
-	 Pk9w1YxvKtgRQ==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Umer Uddin <umer.uddin@mentallysanemainliners.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add support for Samsung Galaxy Tab A 10.1 (2019, 4G)
-Date: Thu, 12 Nov 2026 11:54:15 +0100
-Message-ID: <179448080494.71722.17775679288828912464.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109-gta3xllte-support-v2-0-85c31b6efebd@mentallysanemainliners.org>
-References: <20261109-gta3xllte-support-v2-0-85c31b6efebd@mentallysanemainliners.org>
+	s=k20260515; t=1794480910;
+	bh=hBBRka0fgdENvERIYsPzoLXmI7OdvHBhAV6rADe9TMQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mVR6HgOg/ceImyZhmMvUyCD1gCi9KdMcx9kDP6BtyYopaWHif25AK0lFQXIz3PlLm
+	 zvj/wn+r8mOdfmobgmEkg1F5syvIhoNuPdQ0wq/7Bt4XHmUBfShWInqaA3hMM0qgAk
+	 bCf+ouF4iY6V9bVOC1ovlXEnT7k/BLwoWZoFLHA9hnQ8Yln0CfvmEvcWw3Uhd4/CQL
+	 R3wgbLkxrrOeBi8R+QVPPIlQ6OpYmhYd7Z2hIKu7PV5KakhWIHd6htoTsjaYROEZP6
+	 1fsO3oSdzbA9kWGhJD8pLIphaoAQSehJAY1gwsvr18zimH2uEhz1LPhYVDHRsm92/Y
+	 ddIb4UYpAYEUg==
+Message-ID: <9d1fa2c1-7090-417f-adfc-0b128c37622e@kernel.org>
+Date: Thu, 12 Nov 2026 11:55:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,35 +51,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=799; i=krzk@kernel.org; h=from:subject:message-id; bh=/UDUY46rb+THvC5XKdaD5CIzIRZSc9hvKG7hXVQOvHU=; b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq9ZrXtBre9ERaktNJORcTcKjnI82iK0zZMGsfr K9VYECADsWJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavWa1wAKCRDBN2bmhouD 1x7tEACPOvFgrInugGpJchVAQ1S0WkbfrDJM5d/ENDyzsvj2xBvRKrQS2lreM5YGUlfR527J/6W zHwHXN0VGIddV4MuqzdWZ+tyt8Ea+QfvwVmCcmQIWSGMdbdXXyHM4Kb7PDd+qC7zzY1/tkLixCX BgQ6bbUcfo6Gyzd+EZtYXkZ7lkq/PtWMD1azW1PcWJxZg9XX5ZEBj8kO5NNtujBNOlTV7KEN2oC rRpVglv7Vei+fegrCVS2CCSfr75AUhPBPZDzrU5w5dnYZu305QDDdvoiPP01OEgSD+qZ8BAi75H ba6rb/3anG0ar+ErhNe/ks2BGyy0nHFhu7iY0xhIM0oA+qcz04VwueYXXfS//am3zIMGL9XYIel 4Cydfpy4wt/9Gevb13TasmVQ0l/ftjv0gImD+4PstFQMWcrWq+/F5V+XcC5Zxw55LHv1TymeSvz vOhFfPBAlrDqwj9HHXZvLzIjKU5JLqeTUNe+5eKYz9pyT72yqeetzt4HqE3TkrLwAwb4+cMKbaJ 4BbOBl3MxJqqX7dnQfLKQNdGfX/2KBi9LT9dQjXNDQvmY03P+HFRJZCepOwTBY3jJNVZcABK17h TrLfSKv9SIiORuj1cpKOxIjSGy4I5Uywlc2CMkVc1Z3fbWvjyfA0eCBUpjDEjUbUCRH0apnG3D8 +7XQfsA2ExnxCy
- w==
-X-Developer-Key: i=krzk@kernel.org; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] memcg: flush nr_charged_bytes when the obj stock trylock
+ fails
+Content-Language: en-US
+To: Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand
+ <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Meta kernel team
+ <kernel-team@meta.com>, cgroups@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org
+References: <20261112013220.4064478-1-shakeel.butt@linux.dev>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
+ KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
+ 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
+ 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
+ tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
+ Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
+ 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
+ LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
+ 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
+ BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
+ QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
+ gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
+ CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
+ UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
+ XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
+ 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
+ FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
+ QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
+ 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
+ icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
+ uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
+ SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
+ cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
+ La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
+ FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
+ bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
+ +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
+ jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
+ CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
+ HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
+ SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
+ 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
+ 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
+ 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
+ wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
+ NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
+ OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
+ jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
+In-Reply-To: <20261112013220.4064478-1-shakeel.butt@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-On Mon, 09 Nov 2026 21:02:01 +0000, Umer Uddin wrote:
-> This series adds support for Samsung Galaxy Tab A 10.1 (2019, 4G).
+On 11/12/26 02:32, Shakeel Butt wrote:
+> When interrupt code, such as an RCU callback in softirq, runs on top of
+> a task that holds the obj stock lock, its trylock fails and the bytes go
+> to objcg->nr_charged_bytes. Nothing empties that counter while every CPU
+> using the objcg keeps it in its stock, so it can grow without limit.
 > 
-> The device trees have been tested with dtbs_check W=1 and scripts/dtc/dt-check-style
-> with --mode strict flag and both results in no warnings.
+> Users see memory.current and the "kernel" field of memory.stat keep
+> growing while the cgroup's real usage does not. With memory.high or
+> memory.max set, the cgroup is reclaimed, throttled or even OOM-killed
+> for memory it does not use. The counter is 32-bit, so after 4 GiB it
+> wraps, and those 4 GiB stay charged to the cgroup and its ancestors
+> until reboot, even after the cgroup is removed.
 > 
-> This initial bringup consists of:
->  * pinctrl
->  * internal eMMC
->  * gpio-keys
->  * simple-framebuffer
+> Fix it by uncharging the whole pages in nr_charged_bytes whenever the
+> trylock fails.
 > 
-> [...]
+> Fixes: 200577f69f29 ("memcg: objcg stock trylock without irq disabling")
+> Reported-by: Chris Mason <mason@kernel.org>
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Cc: stable@vger.kernel.org
 
-Applied, thanks!
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-[1/2] dt-bindings: arm: samsung: samsung-boards: Add bindings for SM-T515 board
-[2/2] arm64: exynos: Add initial support for Samsung Galaxy Tab A 10.1 (2019, 4G)
+> ---
+>  mm/memcontrol.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index f5f567f7d4a9..091401cecf39 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -3553,6 +3553,8 @@ static void __refill_obj_stock(struct obj_cgroup *objcg,
+>  	int i, slot = -1, empty_slot = -1;
+>  
+>  	if (!stock) {
+> +		nr_bytes += atomic_read(&objcg->nr_charged_bytes)
+> +			? atomic_xchg(&objcg->nr_charged_bytes, 0) : 0;
+>  		nr_pages = nr_bytes >> PAGE_SHIFT;
+>  		nr_bytes = nr_bytes & (PAGE_SIZE - 1);
+>  		atomic_add(nr_bytes, &objcg->nr_charged_bytes);
 
-Both are here:
-https://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux.git/commit/?h=next/dt64&id=a7e7ce777ab5ccb24a4906b79e1a3645e191dc9b
-
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
