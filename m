@@ -1,83 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794483925;
-	b=CIMKGYlGuWy9EY0Xg0OEAUlrt29rDPeoMO+pK42NHwOszFJaYzIHcVTYv8du47kkqMW3
-	 D2YlcgGminkLxFEUIFN4hBlmZEcuS2gAl9enoxb7ziDHRBDuyyVTpnY9aEX7M+pWSqRU8
-	 /DGTXVZegO9W9U+58rhZ4C4PdsUyAXbVjUuRTN5s9VknME4xNdFyoFQS+G9oYTIApgKYG
-	 vnXytancpRU5PqVVIfmTrwBiv7QVJ085/CACBFeFxjwRYWS4jMqxkmb7RsNkxcypk3tfe
-	 c3UvB9rpzo5EFEEFNXBT1O1Ybmq5waBtxA1m2obumBKRbMDO9pLn0ULsbs2LKwxipuA==
+	t=1794484006;
+	b=W1yPE/D+tUon5d64FTSB+cf+L1vc8wco43niC8XRZFeZvE6qJiTxhwrd589X5vUQhhV1
+	 hGzU661PmjjU0Tme1fCprsiis9iXuozn3kaw3uTwBZDFSq3OeOxBFM2GpA25Zuk3vFdup
+	 92k+f+6Tk6EEiuc0qRJaJR86x7ID0fn6pJAsFWSfOap8N6XcmhE8fZGKa8cB2K5uymV9e
+	 4F7PkKoXbquHU0pEH8ZVGfuErDkbz8sD3lbLyiQuphffDJ0yke5s3o/BLhwTk8GQXH9No
+	 vEb73Y89xPZB/gkEW2vjjXlaPZGauGVE1fIM4xhY+vg2uMECTeUv3hwnuIkpEUkKGag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794483925;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=+HOiY7t+6Ht5kHOkHA2FZLOJZLjbuqmVxYfSgV4Fl4o=;
-	b=K9Gfw92qSQpSl8fpa5d2F0080axzxIPPfmXhAFhvWz6uBfVTRR+YpL2nUGTf5EIRLVNf
-	 esezY0Dj6ljXx9f8+SJVTQ/2X0qDXExzKdq3WGU+qIC8Xlt9LpjiNLUJlHrYiYdwlQSaf
-	 EtSNYK+lnQYMLsDzYFGgDlg8HRWG2sZuUrFelSh/O1uVASg8+eicfbKyUr82a7BMORM/r
-	 FzIVwjDayNPbrJcNvXh2EDrNaZ2N21SsMyYRP8SGbAae4AludpUXq5WA9EQZGT7U56KH3
-	 TLD+7gjtN48WoPyazDFu+O9/em4obusK95R8eZD21gt30qMWco6/zfnv6ygI1sIeAgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484006;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=96B1aoUOIGHnE7djBvHarqc+Lm2Nf+DJ9a9DH1Eo88M=;
+	b=AVes7mbEE4EmLZU6p+bzeu77QJy5n7tFZNcqs3jfPRwWbKRZ3oAVv8L+/Md7/Vtf59pA
+	 5xojuggFI7KK55zeI/ehfKCCQIDIf5UYQbuMZvmAmXBMHUizvEOLQr31o09jJFal9d/64
+	 RhPa7WjJL3uQOAEHYX1H4fGKq0q5OKrVf+/2tcRyMqja2UakVo4gnGtNE90nYbOU6Brnu
+	 oA7+5EGZssv4rzgOcryQniYImLFdOkt1gGuKI4mljubLafDN/h4pTLWP8hedevGRmHHK7
+	 b4jJnG7PJQWlQ1u6epfMXgviNUrtte7v5gy0Y8pZzJhexviPAjeOObls7O0XCz6rY4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=K3xooDCT;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8eJ0S19h;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sFwoYwPN;
+	arc=none smtp.remote-ip=95.215.58.240
+Received: from mta1.migadu.com (out-240.mta1.migadu.com [95.215.58.240])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD061606A31C;
-	Thu, 12 Nov 2026 11:45:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD061606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3971606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:46:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3971606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=K3xooDCT;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8eJ0S19h
-Date: Thu, 12 Nov 2026 12:45:17 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794483919;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+HOiY7t+6Ht5kHOkHA2FZLOJZLjbuqmVxYfSgV4Fl4o=;
-	b=K3xooDCTtoxJZQDgV9I7H2+ev6J11md9UHLOAON+cxSf8+iv2pjdX+patbdGxUMfaMP8Vl
-	ESbeTvnze4rfuVRlovHf4EuP2m+bFabuofouKCRb4p8dYBPK4LiIW79x2F2/t71avlBXcm
-	BfiMlMNLaDAbrBc7AsczAvZIS95nUysvZ0nQqHUfXWQp50BrlpXruB3ndkmREoJH66y0P9
-	k49NVkx7YR/WHMzRyxCMjPlL40gx4O8RkhzQPh3KlVBtpKsylgLjsX3NGZBARq/wstKR2s
-	L3j3AEaoGvr/ivVD8dYgUjuMrS8z0rALgG1Bb3symr+L9uRIGGj451I01vX8FQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794483919;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+HOiY7t+6Ht5kHOkHA2FZLOJZLjbuqmVxYfSgV4Fl4o=;
-	b=8eJ0S19h+N5fpVcW8D5IHRytFJFj2Qq24YIjN58GKiNsp5QIeRAD6G73nB9xk8pwhwDb0h
-	9NQCWZl7C0eaPpCA==
-From: "Ahmed S. Darwish" <darwi@linutronix.de>
-To: Nicolas Schier <nsc@kernel.org>
-Cc: Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	John Ogness <john.ogness@linutronix.de>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
-	Daan De Meyer <daan.j.demeyer@gmail.com>,
-	Luca Boccassi <luca.boccassi@gmail.com>,
-	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
-	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 10/10] kconfig: Introduce OVERLAY= for make checkconfig
-Message-ID: <avWmzbh3rp7TawCn@lx-t490>
-References: <20261106091922.7560-1-darwi@linutronix.de>
- <20261106091922.7560-11-darwi@linutronix.de>
- <avQNgXSWhODyc5Fc@derry.ads.avm.de>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sFwoYwPN
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZQ7JHupEs5ZJXUtjdROehyBc6MRz+EliNGYfLnFlSq8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794484002; v=1; x=1795088802;
+ b=sFwoYwPNt0kv98ueZexib9aPjCHFphoSWzEa4k8En/s6G2anpQQQfvasGVJhJf/a3J6Dw8nz
+ Gy+5RAWBPFppRLampuxNyodDK2SXZnxS39pZVGTCQCjgeFqnAt56nq8exznTB84w4jW8vITqOZB
+ jPregJQYiDzyUaTvgZ2690vE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7e426e4f5600eeba;
+	Thu, 12 Nov 2026 11:46:42 +0000
+X-Mizu-Trace-ID: 7e426e4f5600eeba
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 12 Nov 2026 12:46:39 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Mehmet Fide <mehmet.fide@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
+CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mehmet.fide@screeningeagle.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v10_2/3=5D_wifi=3A_rt?=
+ =?US-ASCII?Q?w88=3A_support_channel_switch_in_AP_mode?=
+In-Reply-To: <20261111121525.358041-3-mehmet.fide@gmail.com>
+References: <20261111121525.358041-1-mehmet.fide@gmail.com> <20261111121525.358041-3-mehmet.fide@gmail.com>
+Message-ID: <F9A94BCB-D3DD-4ACB-AEA5-118611FCBE08@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,38 +66,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avQNgXSWhODyc5Fc@derry.ads.avm.de>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hi Nicolas,
+Hi Mehmet,
 
-On Wed, 11 Nov 2026, Nicolas Schier wrote:
->
-> Please add the optional overlay arguments right here:
->
-> 	$(Q)$(checkconfig) check -r "$(RULES)" -c "$(KCONFIG_CONFIG)" $(addprefix -o , "$(OVERLAY)")
->
+Thanks for the v10, the rtw_core_stop() change looks good to me. I just
+have one comment below.
 
-Sure, will do.
+On November 11, 2026 1:15:24 PM GMT+01:00, Mehmet Fide
+<mehmet.fide@gmail.com> wrote:
 
-> <bike-shedding>
-> ... or let kconfig-policy-checker read the 'OVERLAY' environment
-> variable itself.
-> </bike-shedding>
+> diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c b/drivers/net/wireless/realtek/rtw88/mac80211.c
+> index 5e40cf06a9e3..e6c9866fd599 100644
+> --- a/drivers/net/wireless/realtek/rtw88/mac80211.c
+> +++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
 
-I'm not a big fan of environment variables, especially in the sensitive
-domains of auditing and validation.
+[ ... ]
 
-I've built a lot of Linux systems with Yocto, Debian tooling, etc., and
-environment variables led to some of the hardest debug sessions.
+> @@ -438,6 +443,11 @@ static void rtw_ops_bss_info_changed(struct ieee80211_hw *hw,
+>               rtw_set_dtim_period(rtwdev, conf->dtim_period);
+>               rtw_fw_download_rsvd_page(rtwdev);
+>               rtw_send_rsvd_page_h2c(rtwdev);
+> +             /* restart replay resumes it, a beacon without CSA ends it */
+> +             if (conf->csa_active)
+> +                     rtw_fw_csa_start(rtwdev, vif);
+> +             else
+> +                     rtw_fw_csa_stop(rtwdev, vif);
+>       }
 
-One checks CI logs, Yocto build logs, etc., and nothing directly leads to
-the problem at hand.  Only to realize some hours later that it was an
-environment variable some layer on top of you has erroneously set :(
+[ ... ]
 
-Thanks!
+> +static void rtw_ops_channel_switch_beacon(struct ieee80211_hw *hw,
+> +                                       struct ieee80211_vif *vif,
+> +                                       struct cfg80211_chan_def *chandef)
+> +{
+> +     struct rtw_dev *rtwdev = hw->priv;
+> +
+> +     mutex_lock(&rtwdev->mutex);
+> +     rtw_fw_csa_start(rtwdev, vif);
+> +     mutex_unlock(&rtwdev->mutex);
+> +}
 
---
-Ahmed S. Darwish
-Linutronix GmbH
+As far as I can see this op normally has nothing left to do.
+__ieee80211_channel_switch() sets csa_active and sends the beacon change
+before it calls the op:
+
+        link_conf->csa_active = true;
+        ...
+        if (changed) {
+                ieee80211_link_info_change_notify(sdata, link_data, changed);
+                drv_channel_switch_beacon(sdata, &link_data->csa.chanreq.oper);
+        }
+
+For rtw88 changed is only set there when there is a CSA beacon, so it
+always carries BSS_CHANGED_BEACON. The path above then starts every
+countdown, not only the one after a restart, and in the normal flow
+rtw_fw_csa_start() in the op returns early because csa_vif already
+matches.
+
+Maybe drop the op and say in the comment above that this path starts
+the countdown? Or is it kept on purpose?
+
+Best regards,
+Luka Gejak
