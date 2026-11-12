@@ -1,70 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476729;
-	b=M7z4BOQdHBxtzaxZ0VXSo38PH34xjr+SchQyvNVlGshVPT+peXaNiPn7/RrgQ+sG6TYk
-	 h72w9GmOyLYTQ6TUD0wm+ah/UxDf8Bjv7Ouh6OkysPTomvCY5IOmBHP3rIVly4MgO56r0
-	 TGwfSoCvwwX0WJVTy4Ec4dAilab+qHcIgroPceQV1spEDhVvdmN0BnOGwHjTqgYNWbAMW
-	 e4PFZbMwLHb2dy3VdV8nqk+wLJLVqMAUWrJsMSGDO1ebdrehjCRDnRTHT4ccjtLkVgGiI
-	 GqBF03tDgPbXxyWKdU1qKDDgJlfdhJfWW5/u4KXoF0Qm4vfuP7I+6wKR6vC8n9nZBxg==
+	t=1794476780;
+	b=iDIY9MUNkKSYu28cU1D5gVraVNCQLlVBPBNfZGKbLAeVxaknwMu0kp93wnKM9mz14Xet
+	 drJkLh6NGMcl9l4TcVb4BVLeTuZnME+FYlGINZ9lWCw4rbGlulr09eGIZ4m3d7D8a7LX0
+	 8fJyHzt4cm3KUFKWlomZGJEHE2ftdchnJPvgH3/XZmPwAgSbhN4Z2L+Mrajn4hhYm/3nV
+	 OE0bVCF1rg61veWCBLFI1KkVu24elrJvboLJ+wMuVwuHz+2EP6oQczfIUxE+6nPrZHYC7
+	 oPGiYpCHB0zhihvidAhjkjo48NiQCG2OMbkE5e5jOXFAxrpaxoUZzVBdWA25bzjbqNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476729;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=uKwkGpbKTSm+TeC+5PE4mVU5+tF0hJnI8MkhBwgF5Is=;
-	b=f0kiyGMnMkW1EMpGUP4TF7HgDLeNiC0jKCdgnMNkthT2doYIO+P6pFzuZvK0ViVTVIHz
-	 bPM+ay6NozrrQrOAuHCXvjwnxj3C1UrDVgUB70Z+tFWFZf0EA2bxUoiETBUahmvBIGmcr
-	 5Kw6WwzbphQqR40l2zxfMxI2POVJ723oI/Dz6ivVKvW4q63ZUfi74EO/mj0XnyiqMYYs8
-	 TTk/KsqO6W3pxG3kzd7FO+H9dhSN9a3x5wB7Xqcx7tnD9xZDSxoAG8bOw4c9S3D/CYCvd
-	 /5SkWIH/VozXEDQAzx4QSn81e+W8J+6YKiETTP/iQET7LOKlGMRSq67vCWVGt0JMTdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476780;
+	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=zF4RKurSPbtIZr5y6aisxGcnIy7a/9xHHcRfZOEEHKY=;
+	b=OFm0/0qj5sEWeGPUjYTJqgmsXheoOPIWUc+9M0gOVk4VBhO2fiq6heEgbZw7RE7ORuwm
+	 KKdpNjlEOteGn1q3xzMl/d32NnxFp/nPT3SQjpC5CPamM+zGQFbupxTzSr7SBbKPoGJec
+	 z0kqTpxLOy0aUootE/m6qlEoDJ+FlfzCaf4pISlgScEiJaRpEAgf11KcNh4cvXdgfNcL/
+	 ZmBYkTsPz4ObffFHRoxZom0rV9ndTfQAEybXVnJGA8W9ROUiO9AtYVIUj25t0/bcueprM
+	 HTilw5sdDkfUCLAwg0JYkESHpQV+7O/aZQ9s326+mYRcuY4Y8dBJjRcFGVfr6TsYN7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=nYIwTd1T;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=2pXqmXMP;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14579606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:45:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14579606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B592606A323;
+	Thu, 12 Nov 2026 09:46:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B592606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=nYIwTd1T
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 038901FB1F;
-	Thu, 12 Nov 2026 10:45:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794476719;
-	bh=uKwkGpbKTSm+TeC+5PE4mVU5+tF0hJnI8MkhBwgF5Is=; h=From:To:Subject;
-	b=nYIwTd1TXIHzMzyjHUt6ACpVqDRCGfeI3oXz1tIdjri8GqMNB+v5D1HAyRabie0V/
-	 JRUaLA0OVVPSW1Sb+6IM0MZXNPv/QCMNanBGHX3iABB5ccTtWB7voffjip+Gvt3Bty
-	 8S91W3X7zqfdvc58FcBd6HL7JlA6qphkaKLRPsuaFbnHFrHZWIJQLeHYN4i8BKlKJe
-	 Nn/EJ8eJFihGH0bKk5HSOwE3GPQ55ccioJYFqBJwAeaJfg7tSt4LFpDSImsNOyk2OD
-	 +hW6Wouyfgh1FckyEwan3n9ArSga7l7TU/eDwU2QNh/97YDg6Y4ED2psE7dUAXegO6
-	 r23KhXIseXyUA==
-Date: Thu, 12 Nov 2026 10:45:15 +0100
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Alexander Stein <alexander.stein@ew.tq-group.com>,
-	regressions@lists.linux.dev,
-	Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, linux-phy@lists.infradead.org,
-	Aristo Chen <aristo.chen@canonical.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Fabio Estevam <festevam@nabladev.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Adam Ford <aford173@gmail.com>,
-	Marco Felsch <m.felsch@pengutronix.de>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] phy: freescale: fsl-samsung-hdmi: initialize default
- rate
-Message-ID: <20261112094515.GA47236@francesco-nb>
-References: <20260903054811.9720-1-aristo.chen@canonical.com>
- <13219248.O9o76ZdvQC@steina-w>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=2pXqmXMP
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 85196A0064;
+	Thu, 12 Nov 2026 10:46:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794476777; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=zF4RKurSPbtIZr5y6aisxGcnIy7a/9xHHcRfZOEEHKY=;
+	b=2pXqmXMP8GV7SvW37kAVDSxQn4a35G1NODITlm961BJyJKuTT4HfH7yNcaBeBN4U7Eb3SF
+	oGoK1o/QgNZ93MnAS6xYwRJFTIckJQVngdNqeBszfwHk3jZwF+9MUSzkvqSL3rUdWWOmIn
+	/pZph+Gzp5APYCp3MmrS3XrDTJCFBDAo3ae2EZafPKBes8q1zu2HSsGOWEeCZsq//Hfd54
+	pGZ6TMzePxnA/mbDS9PvreQE1Wmuurcx6zATx0sTy2N6DxcJwEygFLY7y6YKTnpcurFyiV
+	mvOoMIx7Pmbs9BvgaXK6x1zNAiFJO+3VECTyNllVrq9nQZM3UDeQXq2vkYWX/Q==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,49 +53,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <13219248.O9o76ZdvQC@steina-w>
+Date: Thu, 12 Nov 2026 10:46:16 +0100
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: aiyengar1990@gmail.com
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Corentin Labbe <clabbe.montjoie@gmail.com>
+Subject: Re: [PATCH net-next v2 2/2] net: stmmac: dwmac-sun8i: Enable jumbo
+ frames up to MTU 2018
+In-Reply-To: <20261112-sun8i-emac-jumbo-v2-2-aca0cf23cf17@gmail.com>
+References: <20261112-sun8i-emac-jumbo-v2-0-aca0cf23cf17@gmail.com>
+ <20261112-sun8i-emac-jumbo-v2-2-aca0cf23cf17@gmail.com>
+Message-ID: <328e66e47898b772f2956649bf4cf795@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-+regressions list and Emanuele
+Hi Arun
 
-Hi,
+On 12.11.2026 09:41, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On Wed, Nov 11, 2026 at 08:11:39AM +0100, Alexander Stein wrote:
-> Am Donnerstag, 3. September 2026, 07:47:58 Mitteleuropäische Normalzeit schrieb Aristo Chen:
-> > The HDMI PHY clock reports 74.25 MHz when cur_cfg is unset, but does
-> > not establish that rate in hardware. The common clock framework caches
-> > the reported rate when registering the clock and skips a first
-> > clk_set_rate(74250000) request because the rate appears unchanged.
-> > 
-> > Consequently, a display whose initial mode uses a 74.25 MHz pixel clock
-> > can leave the PHY with its bootloader register state and receive no
-> > TMDS signal. Requesting another rate first avoids the issue because the
-> > set_rate callback configures the PHY.
-> > 
-> > Program the 74.25 MHz table entry with the reference clock enabled
-> > before registering the clock provider. recalc_rate can then report the
-> > configured rate, and a skipped first rate change is safe. Also enable
-> > the reference clock when restoring that configuration on resume.
-> > 
-> > Fixes: 6ad082bee902 ("phy: freescale: add Samsung HDMI PHY")
-> > Signed-off-by: Aristo Chen <aristo.chen@canonical.com>
-> 
-> Unfortunately this breaks my platform (imx8mp-tqma8mpql-mba8mpxl.dts).
-> With this patch applied I get the following errors in kernel log:
-> > fsl-samsung-hdmi-phy 32fdff00.phy: PLL failed to lock
-> > fsl-samsung-hdmi-phy 32fdff00.phy: error -ETIMEDOUT: failed to configure default rate
-> > fsl-samsung-hdmi-phy 32fdff00.phy: probe with driver fsl-samsung-hdmi-phy failed with error -110
-> 
-> Reverting fixes my platform and HDMI as expected.
+> [...]
 
-Same here on v7.4-rc2, on all the Toradex i.MX8M Plus boards in our CI
-(Verdin iMX8M Plus on Dahlia, SMARC iMX8M Plus), with the very same
-three errors.
+> Limit max_mtu so that a frame with two VLAN tags and the FCS fits in
+> 2044 bytes (MTU 2018). A device tree max-frame-size can still lower it.
 
-#regzbot ^introduced: c01ccf91b257
-#regzbot title: phy: fsl-samsung-hdmi: i.MX8MP HDMI PHY probe fails with "PLL failed to lock"
+max-frame-size is only parsed for the snps,dwmac compatibles, not for 
+sun8i.
 
-Francesco
+> [...]
 
+Thanks,
+Nicolai
