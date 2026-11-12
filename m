@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794515467;
-	b=fO5sAaHH6c/sn7dXLHStcL13HGui3Jypx0QroPgRc6pdKQ6Fuj+aCKSc9z0ZPFdMV2k+
-	 0r8EwR0F86XWNZqSgG6sNaQYto79k1oukMzyBY5DNyqAIBNAkSwFTPojtzaEZF1MtWB6d
-	 I4Qnae/HXiJwZMgahQnvMv8Zsqy3DLyAsBK3BZ1+rbWEWqSQRIrK6T8ohTex9OlOSRKy1
-	 GhKeRcOQ5ly7CEN1j7hmzZ3GYBsMJq53mIq6mjl9Z5J58HMwwpsflUE7ddHzXKKnxSIzw
-	 NIMs8r9bAt27782iUdcLNTPdvHt3G4aMrMETR4hkPd0HUtN9nzdvTeTu4j0Lx7zfWvA==
+	t=1794515483;
+	b=Q0NpyhRu3jDD1ihxZ4ZIo1j3Za5Sp2heYtsVo3SjOFg4lTVpb1lG189jaPrTHK1BEYWg
+	 Z/yN+XTrkGNUGUN1s/sCNIGrs/wu/Smi0jYr+yrElOz70oN0cxL/+ZWOX+kS52uYuShKU
+	 qJMq/trlafQekVSr8o0TycYDzs513jUQRB7iTDw3C/fhdHUEafKukCpEHABK/0t/adGp1
+	 ksyZZ+vJcpToFvuEQqc/mRFSHl1+KBD48w7GF74PwVFd8fyPFT5PB5rsJcmKPE7jOx50n
+	 x6kZQLxwgtkf3Z2Lx1GwJ3QT/joZifzWI28Iryh+nR+lnpo1kwYd4CuAz0uOD4s4kaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794515467;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/ubvRwcccWxNSpvErPp2UoWwkLJEHMxbyrj8UkWM8eI=;
-	b=T0EoVtzmqSlCFQP564lE25ARLTTPKThy8codTa1JZOrjN7W634gy7Exs92BTUqxp7YBY
-	 2OISEPfAGaj66t+tSwT9Di4SzkKyUMgxDF+ilHWoOMv7wXbNFSkh5P2XnqHiDsmF3yXu8
-	 UwGu0dOxeh46HbaGrhijk/MUjiwnyvON3WM4Wr3VhibuBZ15DJEDaxZS9v5FcGQEl6/t1
-	 xUwJBgjiQYgPyd1EMXdmbjnERLRnM7JLC0cEp4NDGQfTdt5EcbZSDRmfwsga2RacySyG0
-	 lrXOeIz/iZqnM2p4jGDmYLKg1YME9Ey/xoBu4YGVYFLVCl0I4+WKe4ofjjgbXgyYH1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515483;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
+	bh=+Mws4qymTJcNUhGtjGCXpJPWsRTgs5A+EyptBbipnB0=;
+	b=3wuRNpJG4tGE8SkJbY8pW7TQyjz4EIUCWYURJCT1mwgOE17NUGcppD2el3266qpDIsb7
+	 A6lEe8YCK6wu0KFMOrM/penk3ynjwMJjdciaDISOzxNuuZeC8YhorcSL2iAjomig/BVPY
+	 rxRRIhQK58Cj/Ywse5i5XApZWdwIF75zfhRrTUw+Dmw60LNcCQH3VM03jHgJxCtBSPanZ
+	 BZkMbT4F+2Wg4O8rqoriGeljzs4srbSIk1FoumgGfNXhoCLqrARxxXGRJuHWEYmBBZ7xj
+	 fd12FnagAbnTu0sQg95pIVxQFNyjfFDvexha221Mg56GbCurRNDPeA9B6pXxfU6E2Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YL+30wZl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE4A606A31C;
-	Thu, 12 Nov 2026 20:31:06 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Y9xqWS1S;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 618FD606A31C;
+	Thu, 12 Nov 2026 20:31:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 618FD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YL+30wZl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A8471F000C4;
-	Thu, 12 Nov 2026 20:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794515466;
-	bh=/ubvRwcccWxNSpvErPp2UoWwkLJEHMxbyrj8UkWM8eI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YL+30wZlS3rLh0LeYgGh3r2fl8dbqxa4BVc2cZYACexmclv8smqaglQhJXIa+CBMB
-	 NU5iiWe/1RB9aPIE6m90iNaRY7mQiN5B/RT777CXw8WayNq8s5VcB6JhqOCXuZsqVI
-	 AlMn8YPLtrT5zH+2tCR3DquiYl5lbhe4gcFTXba/kohtiD1dmXn5OiwmlQo4tkCtQf
-	 3g9J6dOl8xNyD3VPu7Y8mp1Or+xSLausei4DzmwB+h3aUUksDRitynPUtLuzX9LQLl
-	 9WQ5LpsNfQtYemhDVfrP416SkjNY10qLRx+aT+azNsjqC6VwY09hCGiKg7vc/N/95p
-	 TY2jtnGIuNj0Q==
-Date: Thu, 12 Nov 2026 12:31:06 -0800
-From: Kees Cook <kees@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>,
-	Mariia Nikitash <nikitash.mariiaw@gmail.com>, hverkuil@kernel.org,
-	mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA
- drivers
-Message-ID: <202611121228.D57E624119@keescook>
-References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
- <20261108210232.13800dd3@pumpkin>
- <avDmyLYpWOQ2WB-i@debian>
- <202611120947.AC428BE4B@keescook>
- <20261112190702.480740d2@pumpkin>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Y9xqWS1S
+Received: from vm-dev.d0aziqou4eyuzblxqhi51nu2sc.xx.internal.cloudapp.net (unknown [4.246.87.102])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 0314420B716D;
+	Thu, 12 Nov 2026 12:31:19 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0314420B716D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794515479;
+	bh=+Mws4qymTJcNUhGtjGCXpJPWsRTgs5A+EyptBbipnB0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Y9xqWS1SHJtm6kzo6v68NpWz9uL1VyJqdkBy5Dg7SdryNv5X5lvE9J5l1uOJ5zJnk
+	 wwadLzUgubsnPQmKuNkSGjFA6Fbz93R1vRXQkpa9/IsJITdUmL6VlNcQX/X8B01J06
+	 421NIuMwU/RchtxPc3+lfKw/AddPabV4NY6cfoE8=
+Date: Thu, 12 Nov 2026 13:31:07 -0700
+From: Tahera Fahimi <taherafahimi@linux.microsoft.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Yaxiong Tian <tianyaxiong@kylinos.cn>, axboe@kernel.dk,
+	mathieu.desnoyers@efficios.com, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/3] Tracing: Accelerate Kernel Boot by Asynchronizing
+Message-ID: <avYiC0Csf45o44CQ@vm-dev.d0aziqou4eyuzblxqhi51nu2sc.xx.internal.cloudapp.net>
+References: <20260204015103.155025-1-tianyaxiong@kylinos.cn>
+ <20260204191552.881a00764093cf63557a372a@kernel.org>
+ <20260206152511.41782db1@gandalf.local.home>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,26 +64,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112190702.480740d2@pumpkin>
+In-Reply-To: <20260206152511.41782db1@gandalf.local.home>
 
-On Thu, Nov 12, 2026 at 07:07:02PM +0000, David Laight wrote:
-> But both snprintf() and seq_buf are far more expensive than doing the
-> strlen().
-> There is the separate issue that strlcpy() manages to needlessly inline a
-> strnlen() in a lot of the call sites - instead of deferring it to the
-> helper function.
+On Fri, Feb 06, 2026 at 03:25:11PM -0500, Steven Rostedt wrote:
+> On Wed, 4 Feb 2026 19:15:52 +0900
+> Masami Hiramatsu (Google) <mhiramat@kernel.org> wrote:
+> 
+> > Looks good to me.
+> > 
+> > Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Hello all,
 
-Right, my driving goal here isn't about performance, it's about
-correctness (as much as possible given our giant codebase). We don't
-need the most perfect fast implementation if it's too easy to shoot our
-feet. strlcat() requires an external bounds that has no strict tie to
-the destination argument, and it has no bounds information at all for
-the source argument.
+Following up on this series, I am evaluating the series on x86_64, with base kernel 6.1.192 and I
+see boot time improvement.
 
-If we're in fast-path, we have a different set of criteria. And seq_buf
-was actually designed for that, as it trades storage for speed: it keeps
-the needed offsets in memory, but that makes it fast for stuff like
-perf.
+> Thanks, I'll add this to tracing/core.
+Steve, would this series be suitable for queueing for an upcoming merge window?
 
--- 
-Kees Cook
+Thanks,
+Tahera
+> -- Steve
