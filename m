@@ -1,84 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.245.243.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501923;
-	b=yLgWcxS9DtPcc03HF8espAa89PE5/DmIiNIr7N3b1987W7e0JIZAR6xNjd0SQXgqWrxU
-	 7Vj36sEm4lSLY0YcF2S3gCdWGqx4VRc9utGtXu3vS0gJdXJpfVBTLT6X9nVYTeWYAgZaJ
-	 gSy0zD7CzY4eyg8vho5DVkpVywuEyRzyQX5YLfJuZ9dfIQr7l7eCpiBCIuDWyT8h3macR
-	 SIM0fiPMHAwbgn3N+w2QfXku5WgQbUhtY3KSbNZUDkYN/tewgLv9BUVVmoun8vmju0fJb
-	 ATAMvIv0PhM04eK5KCrdm4k2JWMbNeUG5rJnNA411ETrnFNwpUdePmsSa+dpbctTP9A==
+	t=1794501966;
+	b=BYG1avb4OxcaBoaSAdJCHjiKzvf7lAJMF7K1C8pG4Rv0pzBw4za6FhwYOrJrt05OcFap
+	 XTIsoS7BSUK1zP07Bjs+LA36GDCAnyjxs71jDiDQzyditpQlV8sB9Uzm6uJ6LUasV92Uq
+	 kBNDCMDiPsad2E8YxsRFy1GyJul7d9h70CyrsZ72JZmlPodmW6N99ALq4bLv6eyx1Zqvj
+	 VbZjHFVmYjfkzWxYBLfsLU13cwAE7oUYm1Nz/fhtYzfs0eKrI5Q9rg8iXxwJdJOHUMpiL
+	 crfjzck8vkMjQBB+a7v7Ov8yH4/shNkGV3PukyzdIajebg4mF4fIeFyJ902DoeqOVqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501923;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=nPlghjJQHTi8UZkaTa1+oXme21voZk/Qt9DJCI8EY78=;
-	b=yvZhrwFbKSI9u1+xsUqyrYu1RjTuYKHl0CP1eaIfC1mna2p9qRwFECl0ZhqKP+5NeunG
-	 pwHepeIi3FiMo93S84rY1mZxVi2drqQDgLGYxUH5IuLpC1ivKzVG3aieFVZURlRmuMbg6
-	 UVlj8rpaDy4wJi6Z33gtolF5QqKb7d3eyXv+4dexJIcprYsjKXc8TflXgTerY53v8Gn7S
-	 R9Z5TfVNNJVL9m+oC5r+DBTDKc9S6wHRqEdy5hjBFTcwrIA7Mhl7ocVCRLk9qsYTW3ctE
-	 54YiR4mqyKEnzRDaPQDKYKvAHW1lf8sM33nFxu+4hQ52ThuqOme5hvCsOXKLR75l+pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501966;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=tfzQxxWeLzH5F3hwJGBP8SJilKA+fkDjCsVxJYymu8E=;
+	b=LYnQ5peI0ORxLOU37zcSO8GJphVId9g5tAGPizl3b0heGVX7f2pxqhhbHOnQI2x5D5I9
+	 aDbXF/f2pucFRMfRaoLSrPZ7Wr7qBbUwd1p6MlH4gkh2Zz2uVaSHxssqWW8u55pC8F7of
+	 KTH3QvK7wZZeSwS//eoOHoYo/Ev7+BWzlyEk1GGUOlsh76NRxFxh3shTFmlIK9OeMv3AU
+	 uipxgrifJZh6i3QIh51FjbKXQXDczPFI6aqoLe1JGZH18lsRzFvHEtUCOvbS6as//MMz5
+	 13PfYyurLE76cpHOn+VEccc3P2eGBpY8bXAQ/wKs5+K6C3JdjwaexG+OJkCw+NOP3TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=OHU53M1U;
-	arc=none smtp.remote-ip=44.245.243.92
-Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C3co+VPB;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0E9606A31C;
-	Thu, 12 Nov 2026 16:45:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE0E9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC612606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:46:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC612606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=OHU53M1U
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C3co+VPB
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15ea896ddc8so6848038c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:46:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794501922; x=1826037922;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=nPlghjJQHTi8UZkaTa1+oXme21voZk/Qt9DJCI8EY78=;
-  b=OHU53M1UpQRuEYm5E2B4g9JjmQyrZ+FHfi/25firyVGBuIDUCMu0HZRz
-   aB06S5QzWjP5MorjDacCAadzw4Mgsw3uOIdQd4YP8RGGfN6+U1+tEG2Ag
-   D1X7KufErPk7RQCs+e24a4MQWfHzMhXTxCmu07ppxkNqAB8W6WSgUEWQe
-   tB1gxBTrrIVFpf+euM39nrcd4gvSN7Xm4Kxc55IkGbuUqbI3carIOLUmF
-   HTXfmM0YF7p9Hjiuw1HHSmnyyUAeNLGMtc6Kx+9X72J0HKL5DYl4taesp
-   clzN4P9AKPXZXTvYvtokaN9Xs5uhiRtHOoc4KUVfCkPhgpeDe2aVwHa8U
-   Q==;
-X-CSE-ConnectionGUID: JDwR471zQzabr4MaEeQ0OQ==
-X-CSE-MsgGUID: UtJ/A5JnR6+JRy9R/07xJg==
-X-IronPort-AV: E=Sophos;i="6.27,210,1787011200"; 
-   d="scan'208";a="33343637"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:45:22 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:13743]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.12.127:2525] with esmtp (Farcaster)
- id 8c8c2008-3ce1-4ff7-9460-e60988eeef12; Thu, 12 Nov 2026 16:45:21 +0000 (UTC)
-X-Farcaster-Flow-ID: 8c8c2008-3ce1-4ff7-9460-e60988eeef12
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 16:45:21 +0000
-Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 16:45:21 +0000
-From: Surendran Kanagaraj <surenkj@amazon.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>, Peter Huewe <peterhuewe@gmx.de>
-CC: Jason Gunthorpe <jgg@ziepe.ca>, <linux-integrity@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	<linux-doc@vger.kernel.org>, Jonathan McDowell <noodles@earth.li>, "Breno
- Leitao" <leitao@debian.org>, <nh-open-source@amazon.com>, Alexander Graf
-	<graf@amazon.de>, Gunnar Kudrjavets <gunnarku@amazon.com>, Josh Levinson
-	<joshlev@amazon.com>
-Subject: [RFC PATCH v3 7/8] tpm: Show timeouts and durations for TPM 2.0 chips
-Date: Thu, 12 Nov 2026 16:45:06 +0000
-Message-ID: <20261112164506.83817-1-surenkj@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112163846.97654-1-surenkj@amazon.com>
-References: <20261112163846.97654-1-surenkj@amazon.com>
+        d=gmail.com; s=20260707; t=1794501965; x=1795106765; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tfzQxxWeLzH5F3hwJGBP8SJilKA+fkDjCsVxJYymu8E=;
+        b=C3co+VPBMXdVur0EJSiLbqAe5jcOgIJABG1p6mnKkCjuDx5ArRZPpzqXInQsdWQkjw
+         62y63T7mJfEgh3fTGRbq6GDjXE8n3yVCcuWLrqA18UxdEXleLUFyTXQl/hW2cGv2e5bc
+         cdgFE1TTc/FfcYymWoiBYuc56TSo6+B8x8lulUvcAqU19MkTCSBSAeR0CB10de1iwm1e
+         hifvSfAD5+IFLk1K3J5AhI04SvtFyCDjHOohvume8jMh8nu7TBhhc2Z3MLPK6l6Rezr0
+         aM4BkniVOGiqiS88qQ5abqpsM5rsAI2AzjW1OVq64irnbEhCR4EDCM26Mc0Mt5tdmMcB
+         Zj0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794501965; x=1795106765;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tfzQxxWeLzH5F3hwJGBP8SJilKA+fkDjCsVxJYymu8E=;
+        b=t6LSfSiQYDKWOgOdQDFFvIsdbwgrS7nC7HUIPIbDkpYvhxI1FQVl/l6Q2Xy+fFJqt5
+         OXONQ7ng5Xb/NYTcVBYwVnGHqLYf4+gxElxZg39CgL51XeLlxBDa1mBl6o+yA4N1pGaJ
+         JYwx96eewpKMXqI1c2pErdfmtq0blmXRLYwLIUJfEdG2xIjFGDTH6wUpCAtu3qI5OQFi
+         +u8rrWVZqV9Ba8jRG2jSAVeuP1nCidt6WLsMR9Ia7MiCpL89j17ao4JIGnuZc3JZlr81
+         WPlbqr3wMjl74yk3QyEucdfT6wKoyx2mxClvk7+8uUx0XRHxrHndGqbXw6Kch1ljT/vI
+         XhNQ==
+X-Forwarded-Encrypted: i=1; AL+hErEqra1q7+/b2PlDNvhq7oXle0UQtBCfsLrjX+vbgSBBr6FFsyEJ5f3PmBWPgYWt8H1M212yXorOfgOd734=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HF8j07ZbiK2rZb5LO6g6a1IDEr0bLWzpC8bJdKVT2nrf+R0jT
+	DcwhP61+bbUpnRLxG1DZAx9316tCY+d7hlbBy4rLdgmJicpIELrwxgMO
+X-Gm-Gg: AYBFou15j/Np5pk+1vSfPiq9yKJytPzaPtBYZ49GE7r+h3j5gpKSkXf8T7es5/LyQsx
+	TtOcmu81U3c/7wsrzD+aIi/r0uUPA/yLQ+peAB/V8Oa/uVdQgbjI09vyM3yevI9K/iZQcOHOX/6
+	LGu3LPu/HsI/tovO7wuaYJ0FaIuIFbQ2M12fbuR1WH6msCuI/rmT7IUzKEfv+EC9SZVO3PEjFG0
+	5AiItLyMUl8WBbdciEj4jn8MLgrUurjIPlRLxVs849d2IAvuVTGHldezu24IV/eWwBG4TwuvU1g
+	UxY9ea4MdvTdJmXYbDc9bPOnF8rEw3KVPfgLgLhGu1LrUIn54A/8XhNjNe+ukXADOdpfdhWG4h+
+	cMC+EaW1Cy7AgQrV+/1Q/Lehf/4XvR+EnC48GCzGE7y7Pv3nRzLvKfyhGTaeZQM3bSMOusZ4dNb
+	PlDnjdamUqaYq1HK2O16TcZimMgZoQxUl9yKB2JO+bPWL7kTKXO5GRj0qwfYaim20/VVvRMUy76
+	ll/dYFJ6rRuy7zVIwKV0XjojHTpP+9rQtb5l8WG/QmxiIVQhDwugH1lAe2jua0Txb1ZS+BCYf9r
+	8MxXMbDI77AuThGHl/zRzn0JowJU9JhgWBKXPk/jQb3Gg4U6+d160dgjdoLcbp+33D6GnHRRJiV
+	uW18ZJ06lW7lO3ITBJw2YvVSiQ7eMP43HwPkd0ZHbIIte
+X-Received: by 2002:a05:7022:ea24:b0:1a9:e382:cedc with SMTP id a92af1059eb24-1b5030fb905mr111453c88.46.1794501964586;
+        Thu, 12 Nov 2026 08:46:04 -0800 (PST)
+Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:2c54:4647:b67e:c94c])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm287090c88.0.2026.11.12.08.46.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 08:46:03 -0800 (PST)
+From: Ho Jie Feng <hjf3108@gmail.com>
+To: Stanislaw Gruszka <stf_xl@wp.pl>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ho Jie Feng <hjf3108@gmail.com>
+Subject: [PATCH wireless-next v3 0/7] wifi: rt2x00: improve the throughput of rt2800usb
+Date: Fri, 13 Nov 2026 00:45:34 +0800
+Message-ID: <20261112164544.3176458-1-hjf3108@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,71 +97,68 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The timeouts and durations files exist only for TPM 1.x chips, so a
-TPM 2.0 chip exposes none of its wait limits, even when tpm.limits= or
-a driver's ->adjust_limits() hook changes them.
+This series improves the throughput of rt2800usb.
 
-Both files read the limits table, so add them to the TPM 2.0 attributes
-too. A TPM 2.0 chip reports none of these values, so for it "[adjusted]"
-means that tpm.limits= or a driver's ->adjust_limits() hook set one of
-the shown values, or that validation changed one. TPM 2.0 chips get no
-device/ links, so the files are /sys/class/tpm/tpmX/timeouts and
-durations.
+Implements
+- Frequency offset calibration
+- Better fallback rates
+- Aggregation
+- GRO
 
-Signed-off-by: Surendran Kanagaraj <surenkj@amazon.com>
----
- drivers/char/tpm/tpm-sysfs.c |  2 ++
- drivers/char/tpm/tpm2-cmd.c  | 17 +++++++++++++++++
- 2 files changed, 19 insertions(+)
+Tested on WNDA4100 RT3593, 5 GHz with iperf3
 
-diff --git a/drivers/char/tpm/tpm-sysfs.c b/drivers/char/tpm/tpm-sysfs.c
-index b289a7f6f085..6bfc366fa120 100644
---- a/drivers/char/tpm/tpm-sysfs.c
-+++ b/drivers/char/tpm/tpm-sysfs.c
-@@ -340,6 +340,8 @@ static struct attribute *tpm1_dev_attrs[] = {
- 
- static struct attribute *tpm2_dev_attrs[] = {
- 	&dev_attr_tpm_version_major.attr,
-+	&dev_attr_durations.attr,
-+	&dev_attr_timeouts.attr,
- #ifdef CONFIG_TCG_TPM2_HMAC
- 	&dev_attr_null_name.attr,
- #endif
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index 629caaeffa17..8cc1a262d668 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -41,9 +41,26 @@ int tpm2_find_hash_alg(unsigned int crypto_id)
- }
- EXPORT_SYMBOL_GPL(tpm2_find_hash_alg);
- 
-+static bool tpm2_limits_adjusted(struct tpm_chip *chip, unsigned long mask)
-+{
-+	const struct tpm_limit_entry *e = chip->limits.entry;
-+	int limit;
-+
-+	for_each_set_bit(limit, &mask, TPM_NR_LIMITS) {
-+		if (e[limit].src != TPM_LSRC_DEFAULT ||
-+		    e[limit].flags & TPM_LF_CLAMPED)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- int tpm2_get_timeouts(struct tpm_chip *chip)
- {
- 	tpm_limits_update(chip, NULL);
-+	chip->timeout_adjusted = tpm2_limits_adjusted(chip, TPM_LIMIT_INTF_MASK);
-+	chip->duration_adjusted =
-+		tpm2_limits_adjusted(chip, TPM1_LIMIT_DURATION_MASK);
- 	chip->flags |= TPM_CHIP_FLAG_HAVE_TIMEOUTS;
- 	return 0;
- }
+  patch                          before        after
+                                 TX    RX      TX    RX
+  2 crystal calibration          27.7  31.6    28.5  69.7
+  3 MCS16 to MCS8 TX status      27.0  70.0    29.4  70.0
+  5 RX bulk aggregation          30.5  67.8    30.5  80.9
+  7 threaded NAPI with GRO       30.5  80.9    30.5  161.7
+
+RT3070 did not have any visible change for both TX and RX.
+
+Patch 5 added WARN_ON_ONCE to get_rx_seg_len, but it will always
+trigger due to a bug due to USB data toggle. The fix will be sent
+in another patch.
+
+Changes in v3:
+- Crystal calibration: save the frequency offset of the beacons in
+  rt2x00lib_rxdone_skb() instead of fill_rxdone, through rxdesc
+- RX aggregation: enable it for usb_maxpacket >= 512
+- GRO: Add locking and reference mt76 on how it is done
+
+Changes since v2:
+- Correct the link tuner start and stop conditions
+- Extend fallback and MCS retry calculation to all devices with 3 TX chains
+- Remove TX AMSDU and fast-xmit
+
+Ho Jie Feng (7):
+  wifi: rt2x00: start the link tuner when an interface is added
+  wifi: rt2800: calibrate the crystal of RT3593 with the beacons
+  wifi: rt2800: make MCS 16 fall back to MCS 8 on devices with 3 TX
+    chains
+  wifi: rt2800: don't report an A-MPDU length to minstrel_ht
+  wifi: rt2800usb: enable RX bulk aggregation
+  wifi: rt2800: support A-MSDU in A-MPDU
+  wifi: rt2x00usb: use a threaded NAPI with GRO for RX
+
+ drivers/net/wireless/ralink/rt2x00/rt2800.h   |   1 +
+ .../net/wireless/ralink/rt2x00/rt2800lib.c    |  89 +++++++++-
+ .../net/wireless/ralink/rt2x00/rt2800lib.h    |   1 +
+ .../net/wireless/ralink/rt2x00/rt2800usb.c    |  33 +++-
+ .../net/wireless/ralink/rt2x00/rt2800usb.h    |   6 +
+ drivers/net/wireless/ralink/rt2x00/rt2x00.h   |  37 ++++-
+ .../net/wireless/ralink/rt2x00/rt2x00dev.c    | 152 ++++++++++++++----
+ .../net/wireless/ralink/rt2x00/rt2x00lib.h    |   2 +
+ .../net/wireless/ralink/rt2x00/rt2x00link.c   |  10 ++
+ .../net/wireless/ralink/rt2x00/rt2x00mac.c    |  13 ++
+ .../net/wireless/ralink/rt2x00/rt2x00mmio.c   |   2 +-
+ .../net/wireless/ralink/rt2x00/rt2x00queue.h  |   5 +
+ .../net/wireless/ralink/rt2x00/rt2x00usb.c    |  62 +++++--
+ 13 files changed, 365 insertions(+), 48 deletions(-)
+
+
+base-commit: 3c311bf321442d4c4f452a1a08bc9efce242a1f9
 -- 
-2.47.3
+2.53.0
 
