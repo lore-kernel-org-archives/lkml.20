@@ -1,62 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486011;
-	b=dIPtGhC2FDWhr0y6eHod8embQRpNyIwgp+oy8zPDoUhptWEWjhIt6rBnha1FIgWCSDwP
-	 LbCISLhVU7yjAFTQmnaxCFEJLCZSXSJxw00y8wSjTPWn1KU62qNy9X1KpBC+RsXyJDqBi
-	 RqZB5GI1tQwbeWoOrgh2vQBADX37zverbF+d8wTOA5oJS52J5Z8o4YS8xVcEwcvANaqhI
-	 AJ6oJV111CAYuxvwBEXjmW8xz1hQy2nIDlXYkpNGdzDGH5nZRocR6nYKralUo9wP5pasI
-	 7wUtE8btBcoG5FGCG0cf62a8fas96Wy8FMAZRKOH7W765RN8lAquIc3s6lGBjmWsbvA==
+	t=1794486020;
+	b=VmBNNsAXP/CzsBXpkS6XBESmuP0bVHvUHBH/yS/qg9LwTHOepW2Oh+H9lbdxk42GOyIK
+	 nW5P54xvRr4QJ/aW9KLqVWwTcqodYrlqtcuzBXC76PRtrzopoN2O9xyZb761jpcVDRtzs
+	 z9T/gjDhp2fAif2pFTawjNN9epQ846Kkl2egr25axGesGfW/INA2IAtA+KLIS74d4ekjl
+	 +AqAoN8qF+mJWJfuqdZLcumszY8z2v8Usqqz7d3Qokw+TAPHEt8suooMTYV7b3D9uxpLN
+	 OvTD+Jm5G7eljiMBSghf9t5oB/0cjaMZfP23FesFD6PCoA3p+JUyC4ox60lfWVEaSeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486011;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=QRKjoaIFdZcdNI6xhQFS3ddkteDcVtqc9gdnFl/fkT8=;
-	b=LzksKksyGxwa12t38vxb+YqnCAy1NErQVOtYTuc+ChZA6TIMJV7Mw8SIIRfzeRUfTWOG
-	 hT5Xp+PlVkxYn5Ygi8+Kq9uL7oNDCR1xxsnozM9hE8eE/Z4cfmZV5FqO9W9DQ9+WM0dI1
-	 y741kVqL06ObdJQQkeEDHv1tsFKI/DsltDQai3R6WN94selWzRU84ExpiyeFSNDALx1kK
-	 bavPd4detxh+14gdE7MeAdy8uRUXgJXjiqh9qDdIz3OWeN9EHncantq3VkTNdOUCxpFQC
-	 az32zRYQpZYqfpKMNnRmzDZ1c58wIZwNmEgckd3/u+H6DVODwDeBZV2UeNEua7e6wRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486020;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UqAiL1iJo++zOrpUVuiW5V4oKItw6i+FFF5j6fUCEVA=;
+	b=ysfwSi31+OvI6FX7+yE6DWh83i8642fQy0v+8mEG1MkhHKm/XSvzD+stZqFgW1zRIMyl
+	 60nwqP0FZeDnHIKnSN2Gi+KiDpfpvNqYL369mhTjYF/eNVbbUG3fzi6zjD+i+TagilD71
+	 hOmytjibRqjJZ4VG1B9ooTo9WGYYISbkvnQh/AYex/UbtcuqJeRvO5AD/6X6iEj3/GadE
+	 8IK6SRCx7bDQiJ5CYFMK56Xc0xQ4WzPpvNJvREMhjVAlvHffQyKzlepJBNm6+El3ajPP5
+	 3PlHMsOd5R7RKtcrLFw5zVJuNINH9UwkNE9fU8pvSKMp9ofSqwDNQUCmM8akgUsIj4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQfVpejc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=r5key+SK;
+	arc=none smtp.remote-ip=115.124.30.110
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42E9606A31C;
-	Thu, 12 Nov 2026 12:20:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1129606A336;
+	Thu, 12 Nov 2026 12:20:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1129606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQfVpejc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A930C1F00A05;
-	Thu, 12 Nov 2026 12:20:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794486011;
-	bh=QRKjoaIFdZcdNI6xhQFS3ddkteDcVtqc9gdnFl/fkT8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XQfVpejct8QeB9NZ51N6O1V3g3ZH9YkXem9kxeyJJoa5NC4cRIHuT9QcieiSfXDZ3
-	 N+uChjN6O+l/RER049Z/eCva2FzVdiF0w6PUZSWi+b4x4pHJGivFS1B99wgp6dQ9lu
-	 to0w2fUuavUq+f1LNFoc8HGk1RYeUX6BWcEzi7iVrjCiLMxkaXsXh7CGi5HDpBUh5o
-	 narHMflWwgHSIRIydIgXJBIdUn7tHQJagFDCo2ccNQ44ISNPtCo99MBN59mHIuDvec
-	 9ERC7m0Nip+ePwehmvVI926wgohzGg4K2zvH5U8Retj2v5jV+pISOg4A6js/kcr//V
-	 7TJJzreLmwWUA==
-From: netdev-bot+sinfo@kernel.org
-To: kmahammadraf <kmahammadraf@marvell.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Sunil Goutham <sgoutham@marvell.com>, Ratheesh Kannoth <rkannoth@marvell.com>,
- Geetha sowjanya <gakula@marvell.com>, Subbaraya Sundeep <sbhatta@marvell.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Satha Rao <skoteshwar@marvell.com>
-Subject: 
- Re: [PATCH net v2] octeontx2-af: fix TX scheduler queue index width for CN20K
-Date: Thu, 12 Nov 2026 12:20:10 +0000
-Message-ID: <179448601020.2168702.8636848899122995799@kernel.org>
-In-Reply-To: <20261112121907.2576520-1-kmahammadraf@marvell.com>
-References: <20261112121907.2576520-1-kmahammadraf@marvell.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=r5key+SK
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794486016; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=UqAiL1iJo++zOrpUVuiW5V4oKItw6i+FFF5j6fUCEVA=;
+	b=r5key+SKJXGj1+bXX49WECb1aClddZsDYgZgjTTuFvz0Qqb/oONqoxmuGnf7swfgpGvKSLoiIdrfmdcu8jF5N51LEII9n677t644c+Iqh8jWtqQuNB5nCVr6w5Ya3pVC5SDDxOpV2PvGZGvPmLsvIVaSZcM+KUntnNihmmZFTsY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R681e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=jinyue.li@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XEc1a7Q_1794486015;
+Received: from aa8c952a0f58..(mailfrom:jinyue.li@linux.alibaba.com fp:SMTPD_---0XEc1a7Q_1794486015 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 12 Nov 2026 20:20:15 +0800
+From: Li Jinyue <jinyue.li@linux.alibaba.com>
+To: bpf@vger.kernel.org,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>
+Cc: Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf] bpf: Fix soft lockup in fd_array_map_free()
+Date: Thu, 12 Nov 2026 12:20:15 +0000
+Message-Id: <20261112122015.3356106-1-jinyue.li@linux.alibaba.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,29 +69,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+fd_array_map_free() walks all map entries to assert that the map is
+empty before its memory is freed. max_entries is not bounded, and the
+free runs from the bpf_map_free_deferred work item, so with a large
+max_entries the scan occupies the CPU for a long time without a
+scheduling point:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+  watchdog: BUG: soft lockup - CPU#1 stuck for 26s! [kworker/u8:5:8894]
+  Workqueue: events_unbound bpf_map_free_deferred
+   epc : fd_array_map_free+0x7c/0xea
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Add cond_resched() to the loop, matching what commit 4406942e65ca
+("bpf: Fix RCU stall in bpf_fd_array_map_clear()") did for
+bpf_fd_array_map_clear().
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+Fixes: 04fd61ab36ec ("bpf: allow bpf programs to tail-call other bpf programs")
+Signed-off-by: Li Jinyue <jinyue.li@linux.alibaba.com>
+---
+ kernel/bpf/arraymap.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+diff --git a/kernel/bpf/arraymap.c b/kernel/bpf/arraymap.c
+index 0ce26b538075..3c908373333e 100644
+--- a/kernel/bpf/arraymap.c
++++ b/kernel/bpf/arraymap.c
+@@ -924,8 +924,10 @@ static void fd_array_map_free(struct bpf_map *map)
+ 	int i;
+ 
+ 	/* make sure it's empty */
+-	for (i = 0; i < array->map.max_entries; i++)
++	for (i = 0; i < array->map.max_entries; i++) {
+ 		BUG_ON(array->ptrs[i] != NULL);
++		cond_resched();
++	}
+ 
+ 	bpf_map_area_free(array);
+ }
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+-- 
+2.25.1
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
