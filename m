@@ -1,113 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484265;
-	b=NK3TTFUs8Rra6gZ3v9ZEJP98inR4Ai2LGRFq/gXYEIteJFUH6HpwSs03qLtFYXHHMOeC
-	 QRIJhHm025qHMjBQELuOoFa8ab0lSz97wpyIBPyeorSA1hWB3ock1PCtWZZZv8IwOxa2e
-	 hbsT/F7UJo4ssuwTKSq28D7vfRERHhsPwuhd+a+y0q7OUSQ+fVqsf3wS/k7ef+bAg14lf
-	 uhr+i8jghzOg8lkGae7XH+KVvqFejH9zxXY/FCGJMeALG3QK1l1qS1u17uH0Xuy7h6FWz
-	 IKm4BfJiyAK8LnTkg5MjZli3dtnzzSxSbBld1zPlgt2IDtdkRhWaXHAMdPkFXuToLeA==
+	t=1794484276;
+	b=ccQMBf3YAQr4jEki0G1KiaIJYxneAxrMwMKwwbFtAoVzB9HRS+qCv3Y1GcuwYAzpe2fK
+	 rzwo/3vIYh2Nu9IHNuI3SQo4Er46TOvyb+opOQnZCoC+bG3dVJCdMUnpywc7RrbRdI6jh
+	 jooqXo7d52XcdOH+WVbfohFLjowBLXs4ffd0QtDp3K+ctbWFJOEKaPXJA0jlldgqzeE9H
+	 9bqPemKS9YRdLqAA9DC9mNQpss/E0XaYU6ZyGDC6D5VVFjYOPltbCaNcC1ig7YkISIqZ6
+	 9a3azZE0M8RACa/g5NgW6EZooyTd4oDXxE8wsDOmGRwbeWcwKi9Vxp4PBwwLSwxAONQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484265;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=HJV05ozMgQQR5oMBTD4lVubnc5m+oMLMSDiH05BrgJo=;
-	b=v52WCdRv1D1uFlPdifFM4IILSUtqLwA2lMEv/WOnTf7YGVOkKVyd5Bjk3ysFwKOpCOge
-	 3k8igU+Hb84OD1tijlTmjwnKSesmdKGQI1rTqNiFS/chtPfqqkB0T4DeB3m33wD+A1htB
-	 F/HsvQGU0mGv+6Yc+TExYkQe5ryHeru7JS3ERTHGcI0b7bxXABR7vrinS/iQTwceQeH7r
-	 A0juDOZ6+9QMclsNpXDFervcvNKPe6eIUcCwZKWNtP9FAoXwl9QFqr+iIrgoto1IeApJ2
-	 ERYxb4wTyuPqlmjr1PC5X8MdCFPUdmoJ+i2m6/vaVIq5Wjipmax1fonTRkZ0zk9G7pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484276;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=g7FWRyAWx3iB3hlRZqVCNdy5X/7Do0taWr0Tn8+qOx8=;
+	b=a4oTz3pgcXmo7+cgHpe2ArNCohTthx20MPTR9hwjXupXKYhhes9a2K3nq62/++tJ+Q1i
+	 ZAyMDesOSlonTucnN3WrxacYsVYNY+FM1CI5npj3//stgugz//+iTyIV6uYQZaniY93PS
+	 BAnASkEClTglBKail8UC1N6bDgiLshTb4k2NpKtDMxksUXUIUJRYE/NMB+cOtGAPjr5my
+	 lNXvc3Nb+qi7Ihr3GdubE7QzyPIwqF1mqY8hUCyw55AX6CVuY1r7OH5ZnSWCrdIKW4RZD
+	 VJkHJsJ+MTsMEm2IO7ZMiN+k8GTD7a3njDh5uAyO69636E35gyBqTfUjCnKWUcLQxDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OlaWAyPQ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fepBsLRR;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=nGqxesdb;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DB0606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:51:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91DB0606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4F2606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:51:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C4F2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OlaWAyPQ;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fepBsLRR
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACAmiU32555149
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:51:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HJV05ozMgQQR5oMBTD4lVubnc5m+oMLMSDiH05BrgJo=; b=OlaWAyPQmxzF+Xys
-	250SgtYy6aMFRtP5j1LHgvALDWsPYKUVXeW20Qr+su0AhQvDnkFNb+5slp9+HPjV
-	aVrwn4BetA5ZLFO0jg8l2leJ6FyKquLHIu3ILvkkmMk7bhENPP5KYcfndOJJQgsm
-	Jmbz91+3uGQSGQhNAVUfUWenSrL4aGD5r9NGcYTiUMdudWCGLXuu10VNODdQEYRA
-	gmhJ62R6/qj5T8oQgn539euq181GrKrw8rHtu5fxN7iuPM7vg/tVQJLSutLvCTz8
-	1VWNuh/HcATHzYugn30N7xGzkcmHG+Oqk2aoIlSVcscFNE/YFHDyDkZud1qeqc8Y
-	3dnBhg==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwc1j06ec-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:51:03 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e8e16d22d8so66379595ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:51:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794484262; x=1795089062; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HJV05ozMgQQR5oMBTD4lVubnc5m+oMLMSDiH05BrgJo=;
-        b=fepBsLRRniJHdsT45aPOuXmbekNHk8qsvgvpZevKY5rpsMdw1kISwUlpHBkv84LPFF
-         2a8FUMrAVNPF3ggvQu9UfgAfu+ZQb2cA1T3bosK7TiImUip9gQPgYm1l/bCO41VPI0fy
-         lBurt/KIkUPyuiaN+syhejGu6h5pFlpZPjVTsFpthQUf97Y+U4Aq4SqpEPUUOJuU3PhV
-         S94Nxmn7RCkTEOdXAJK6FB8FbN8wIzUR04aS4JRhafchAFdVE6iyN0enuPCnjJGCbuLo
-         fBZd+7yxoQMO7ARzfwBxPJwdfDJgNqkaANzf+vf+o+qGifh/8pNH5jUAzyvfvEvhGEYl
-         hm5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794484262; x=1795089062;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HJV05ozMgQQR5oMBTD4lVubnc5m+oMLMSDiH05BrgJo=;
-        b=DrETybQ0v4j/riZGoMHIjUva9eTpIoixr2JYAFHs4YvgnSvR/3WfvOoMP09v7KfXI5
-         Kt2BqUAxS+qHcT+MnwzTHVwLvJGJwaNS+GQPbFDJxNiHop9S8bDHGo1ST5S1KqGUWCCP
-         Ww/JpCAAZiUWZhvhCgEBDWV3P7094RbGEwsMOBNg7JceLyepRAv9Ykyrdc5UTleQm0PD
-         H2/S1XW8155eKac5up1FUADlD7x7cQq6YSSjc1865KJys0QFHXylbET5s29yLu6Yn2fI
-         6bCkju5V4Qe0seeWIY1eoPZb6WqIFG+UvTWafGYKMH0Y7ElfV5cr7lK8Kqr7LLRjXkP3
-         h7gQ==
-X-Forwarded-Encrypted: i=1; AL+hErEiDeVDCaTCmrtUcUCiY50XVikbxcpMy1YmN9NXCa6n60Ifk9lSsdwY/8C8rgkmHeYNz5Kt4iZNc5NeOMo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/femABZ5+s7Tgydi009R8V3fb5oVopVRpSVAOp3USqhFN09QFc
-	kkfSuczzYnj7ykT2ozZ8LhDYULbbNAyheHzDaIeqFQKQLvBMrkdIokB2JWzZXE/6g2TgRfVt5Y1
-	HFXI3MljWFEjGfIVApmxDHdlZW6dcmcJC95JVR/QWqa18BYedMBBqrwukoP4b6RpveH92ND10M5
-	E=
-X-Gm-Gg: AYBFou2GiBJaAVf20WPW6bL9Q2JsaVabL1D+Wrl+/7eNIztbWYICM2cwy8bf+UX8MEa
-	RXjgAOpCNLIQb9qM0vAKKAhfjESIQ6VCUHB0t6r0iy/FMSPTIv7w8jJ9OSEltcr3ApKZXBMDLrE
-	jNJu9vmMSw4urunFjvFKruCU0qPLqfXGM8uls8hWTdtqvl2Sv9/dt0N2kR1ShShK87jc9uLq4vl
-	XFIQSvXOvdfm/BzgXaPkn70ZWGV8HQODvNfNKT5YKOQWxo6EXzqJFPxdpz1CI1diySIdVrEWfep
-	Lus6Y6NrwgDiFHrmtvxbZXp5nqdLRRxGlopAeUby8yNnp5HJyM6/YZFi6ZIh6LcGf94LoETCrKr
-	+m9kYpoTLHumZvlQ1/m+vdY8mQOFX7JSvRcHgOaSxMULIj3ojeJV9TI1Ta2lOUbC4xITOvuCpPw
-	kbtb74nTY=
-X-Received: by 2002:a17:902:ec84:b0:2ed:130f:869d with SMTP id d9443c01a7336-2edd7acd66bmr55971775ad.43.1794484262464;
-        Thu, 12 Nov 2026 03:51:02 -0800 (PST)
-X-Received: by 2002:a17:902:ec84:b0:2ed:130f:869d with SMTP id d9443c01a7336-2edd7acd66bmr55971575ad.43.1794484261955;
-        Thu, 12 Nov 2026 03:51:01 -0800 (PST)
-Received: from [192.168.0.111] ([124.123.194.0])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6a415d3sm33309415ad.9.2026.11.12.03.50.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 03:51:01 -0800 (PST)
-Message-ID: <6b02b6d1-1bed-4304-b11a-bf2bd3e8f852@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 17:20:55 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=nGqxesdb
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=g7FWRyAWx3iB3hlRZqVCNdy5X/7Do0taWr0Tn8+qOx8=; b=nGqxesdbR6d9Ua9L5bkKBBOjTh
+	QgctO79YpZ67I/sIEPJREr9odbEn46+T5jArFC2qvjaSlHzKVoJFT68z5nEpJ2m3KSD8cX6e4q+0E
+	4LVcnUroWVuHJwVAi+imRMbSvxMcbw1DtgNOxDad6JaHMTLv8vTq3qvi/JpJJr1XokqiU6NTKVlNk
+	BuxgTME0IfkiV5dHsySQOwRX7AsDfbolv/zREnYR71PAsDy3EZEfwbiu/1hWBfRHLngjklD6cjZPe
+	Rnm7TogyRoZwEA5xHu3Z65nis7i7sKT/asvrrP/oEpqs676c4vzajclvUX9pWeRKs6Zvh6t/AQc8j
+	uenTHG0w==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xRTKg-00DwvO-2J;
+	Thu, 12 Nov 2026 11:51:10 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Thu, 12 Nov 2026 03:48:01 -0800
+Subject: [PATCH] mm: kmemleak: drop kmemleak_lock in scan_block() when it
+ is contended
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,74 +63,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 v6 9/9] ASoC: qcom: lpass: Add support for LPASS codec
- v4.0
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261106-add_shikra_support-v6-0-2cda302237cc@oss.qualcomm.com>
- <20261106-add_shikra_support-v6-9-2cda302237cc@oss.qualcomm.com>
- <85fdd5f0-a729-40db-918d-f1367459e4f3@kernel.org>
-Content-Language: en-US
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-In-Reply-To: <85fdd5f0-a729-40db-918d-f1367459e4f3@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA0NyBTYWx0ZWRfXwLFMET+hlZ1i
- NOzSog2Fvfdpi4Qs8Wy+/3haLKjLQdVZWJ+Snjn5/wk2cS5/xXLqcdGmLMDcQxR+hNyg4YT/muW
- dYd3wfNZy21xhrUdbtDCaL0u5bBg8Bw=
-X-Proofpoint-ORIG-GUID: 6GQ12hGZ6r1y1OQ2sp5VwAAKB0aJ4MEE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA0NyBTYWx0ZWRfXzE8/g4b2SSLA
- ZqdzPhHi4IZ1K6nuC88mBccdgJT29mDUO8nq9Mzt299u3SOyVHVIrkNqPTlSKRJQsH5rSA+sYJR
- VLYbxdpEAXpwDnsRXM0Tm7NjH65l9gsueisQU5Jmb+ula3iU/M9Kiz0/gKC4orfjRcrnzRaWb0E
- jQS5QsXGrIj+obrU2uE4aFUn79kkQhKhfUxQsqKjKoxT5rvLV5TtZJshDrV1iNWVFhns2gFV4CT
- IvdwRyj/2vSo8aCpe4AK4+AWky1ee9m+67kzxhiIktrbfFX/8Cgh/VLuNirL+IlxgMRnCIY05Q1
- fVS/zzI7GiXxjxtegwqyTJWh2s5MEJoQGlw4nPYAB7a/oq7yttxWOBoRy8a1XW7/oJS7iwB1emy
- ovsc4jcvtFDAmY5Fd4pjsv7ra4E6nEvc220VpKji4wHE1zRVf8yfj3VrFIIko3XodKSDrcYLAuV
- HwdCjZ7OQWGAoQaljjw==
-X-Proofpoint-GUID: 6GQ12hGZ6r1y1OQ2sp5VwAAKB0aJ4MEE
-X-Authority-Analysis: v=2.4 cv=Vqe2kO2n c=1 sm=1 tr=0 ts=6af5a827 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=H4FFYLkF8j2uoF0yKy44mg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=1p-7M3_SpvjJ0s4hP8UA:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0
- bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120047
+Message-Id: <20261112-kmemleak-scan-lock-break-v1-1-95808108d03c@debian.org>
+X-B4-Tracking: v=1; b=H4sIAHGn9WoC/x3MywqAIBCF4VeJWTeQRtdXiRZmYw2WhUIE0rtnn
+ d23OH+EQJ4pQJ9F8HRx4MMliDwDvSq3EPKcDLKQtUhDu9O+kbIYtHK4Hdri5D83U9eKlkypZQX
+ pfnoyfP/pYXyeF+laqspqAAAA
+X-Change-ID: 20261111-kmemleak-scan-lock-break-7b9818ef3c25
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, vlad.wing@gmail.com, 
+ harry@kernel.org, kernel-team@meta.com, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3656; i=leitao@debian.org;
+ h=from:subject:message-id; bh=5T6aw43QawtVXoj03pz2K45DQEaN5hI2WF6eNsaihxk=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9agrMcaniPNKq+f+xzNvrI/ZBfuc29YpGKNtc
+ sAnAZOJ/nSJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavWoKwAKCRA1o5Of/Hh3
+ bRw9EACJvTJW9K5mhUfirEyEVQ7Lx169JsyzK8Pr3C3zk4+GuqS1zUsehkhFsfBw4NPj50QHuZY
+ rOoLy6jTBW53IJp+y49qmaIcq4PflE8OFKmcN+HXWjotnfNMgkba+Es9AM5iAAQjXo4CqpSvsGw
+ JFa92bugEDjpOtSE2ypXIZ/yo1ikNPHZJpZEiZL2Td5N9pZhm63fUDHq25lR5KWPzQiCHfBzRG1
+ G1Co7fSMivFc4a+QPe+GRdkvoyo/V6yDLstg0XLnhejUI/Sk0bvdWltBziLhNgVqq4IxT4XhGwJ
+ OuNkZUalLv/eMHTyQ12KmpPd59Dsx+NooOpCv9COmBzFiTAQRPCkzeihgx75dM2kiOixvAu3pxy
+ uhjODEH59TxiYxICL/kC4Qrj+OcsToEJVpsdu7GThI+9NrMKHlcfVAm/H6DQt4tImOxCr19UK4c
+ uuDtrBNMbAncBqme2egCrCrxABykQb7BWBmNdwMe/w1u3HTojKQpA5oL1RbkJ+UxuI3g6Vz7AVN
+ u07eok+uVTMf2I0fexXIYzaU4FsbIYfhJHoGZx65zkUo4B1OO/r5a3FvrbzZzS525RIbOKJNu0Y
+ XDJqHj3boK7l81n7AnCDbtAceVcgiol7/zq91i441F+RkOarNH94tKOKrHSqqSDbBWTj7mGkxam
+ cmE63B5CpL/q1aQ==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
+kernel_lock is a damn hot lock, used on allocations, free, NET_RX, etc.
+It is also used on the scan, so, while scanning, most of the system is
+mostly waiting for the lock.
 
-On 11/9/2026 8:32 PM, Srinivas Kandagatla wrote:
->
-> On 11/6/26 12:33 PM, Mohammad Rafi Shaik wrote:
->> version = LPASS_CODEC_VERSION_4_1; break; @@ -2175,6 +2178,7 @@ static
->> const struct of_device_id va_macro_dt_match[] = { { .compatible =
->> "qcom,sm8250-lpass-va-macro", .data = &sm8250_va_data }, { .compatible =
->> "qcom,sm8450-lpass-va-macro", .data = &sm8450_va_data }, { .compatible =
->> "qcom,sm8550-lpass-va-macro", .data = &sm8550_va_data }, + { .compatible
->> = "qcom,hawi-lpass-va-macro", .data = &sm8550_va_data }, { .compatible =
-> Why do you need this change if hawi is compatible with sm8550?
+On meta fleet, this is, by far, the most contented lock. This is not
+a big deal, because very few hosts run with kmemleak enabled, but,
+I think we can do better here.
 
-Thanks Srini for the comments. Although Hawi can reuse the SM8550 VA match data, its DT clock interface differs (|lpr| instead of|macro|, plus|heartbeatpulse|).
-Hence, Hawi uses a standalone compatible and needs this match entry.
+scan_block() takes kmemleak_lock once per block and keeps it, with
+interrupts disabled, for up to MAX_SCAN_SIZE bytes: 512 words, each
+needing up to two object tree lookups. Every allocation and free in the
+system needs the same lock to insert or remove its object, so each of
+them can wait for a whole block.
 
-Thanks,
-Prasad
+Keep taking the lock once per block, but in auto scan mode, check every
+64 words whether anybody is waiting for it and, if so, breathe (aka
+release it and take it again so that the waiters go first)
 
+Releasing the lock is seems safe because it only keeps the object trees
+stable during each lookup, and scan_block() does not use an object found
+under it past the word being processed.
 
->
-> --srini
->> "qcom,sc8280xp-lpass-va-macro", .data = &sm8450_va_data }, { .compatible
->> = "qcom,shikra-lpass-va-macro", .data = &shikra_va_data }, {}
->> -- 
+Tested in an arm64 KVM guest with 48 vCPUs, KASAN and lockdep, running
+stress-ng sock, fork and dentry workers on 8 CPUs during five scans.
+The kmemleak_lock wait times of the other CPUs, from the lock_contended
+and lock_acquired tracepoints:
+
+                   average     p99     p99.9
+  no scan            3.7us    <16us    <32us
+  scan, before      15.8us   <256us   <512us
+  scan, after       11.7us    <64us   <256us
+
+The cost is a slower scan, as the scanner now queues behind the
+waiters: the five scans took 179s instead of 118s.
+
+This patch does not change interactive users (echo scan > kmemleak in
+debugfs), given current != scan_thread, and scan_breathe() will not be
+called.
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ mm/kmemleak.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/mm/kmemleak.c b/mm/kmemleak.c
+index 1bca27787df625..da6d1dcdd6f6ad 100644
+--- a/mm/kmemleak.c
++++ b/mm/kmemleak.c
+@@ -112,6 +112,7 @@
+ #define SECS_FIRST_SCAN		60	/* delay before the first scan */
+ #define SECS_SCAN_WAIT		600	/* subsequent auto scanning delay */
+ #define MAX_SCAN_SIZE		4096	/* maximum size of a scanned block */
++#define SCAN_LOCK_BATCH		64	/* words between lock waiter checks */
+ 
+ #define BYTES_PER_POINTER	sizeof(void *)
+ 
+@@ -1539,6 +1540,18 @@ static int scan_should_stop(void)
+ 	return signal_pending(current);
+ }
+ 
++/*
++ * Release kmemleak_lock and take it again if anybody is waiting for it, so
++ * that allocations and frees do not have to wait for a whole block.
++ */
++static void scan_breathe(unsigned long *flags)
++{
++	if (raw_spin_is_contended(&kmemleak_lock)) {
++		raw_spin_unlock_irqrestore(&kmemleak_lock, *flags);
++		raw_spin_lock_irqsave(&kmemleak_lock, *flags);
++	}
++}
++
+ /*
+  * Scan a memory block (exclusive range) for valid pointers and add those
+  * found to the gray list. Return non-zero if the scan was interrupted.
+@@ -1561,6 +1574,14 @@ static int scan_block(void *_start, void *_end,
+ 			break;
+ 		}
+ 
++		/*
++		 * Only the background scan thread breathes, scans requested
++		 * through debugfs keep the lock and finish sooner.
++		 */
++		if (current == scan_thread && ptr != start &&
++		    !((ptr - start) % SCAN_LOCK_BATCH))
++			scan_breathe(&flags);
++
+ 		kasan_disable_current();
+ 		pointer = *(unsigned long *)kasan_reset_tag((void *)ptr);
+ 		kasan_enable_current();
+
+---
+base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
+change-id: 20261111-kmemleak-scan-lock-break-7b9818ef3c25
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
+
