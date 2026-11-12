@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492345;
-	b=rpGLdWNhA6pbsA8cjU4hPBhDhwuWYy4MZbc3vDNcws21GSGMAIBPZUbJHy+3KaNe3/yy
-	 /0Ixj1cUmsMdagyWrqwgB3fqAWkmOcgShKMahIHSz3lJNMAmHh4N5JZS+S/tNuL6wgrUK
-	 1fNpqMRn9BtiDYDSQPmB5XgdqIQmGMCnuUu/atchZ7/bqQKzg1u3HRHal8n7NpBWB19Sm
-	 1UStIjp9DcFvqCPY8xR7fLxV6hH/vN6/dHwQqnA5Lddb9PRl7zPpaU9GVCsDlVPl4dFT6
-	 rBc+UviP3MW837LknweWCaNScZ0t4x1k2vVPDLJGTWBvwgB9JzdarZRlwaSiRrqb0XQ==
+	t=1794492362;
+	b=Rag08tfOc6W76yqOVhHOVc8jHoX2AZzZrjNQ4kh5vsorIb98RuIxW9CbLrivYvZBQDwX
+	 xBaBqKP3iarzrJ6XroxTKTQCNoxkkXySbnCGVzNB69XAV6Etk9iAFNRaUnz1ULD6JfMWm
+	 UFvgi2AJwuLQX0gGlSJ7l9/NWm7eD/ZLmDkbHGqY9/2p0rahoiKIgpsMkgmLm/hD6dufP
+	 dU2RzSEjyMQT8QJ1Vd9/EM5REYo2qJ7AnGZGjrxivpBmaqfHl041UF7t/R1Gmed7leRXl
+	 F1BsXskCVJDGM8bsvG7MAnnBaxJ3P24QJWHqxM5ZMAiKNVhzke9ksXQo3fiHqaBxrWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492345;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=ccZWgR7dmlMI77SvdnZJfxt5XPzWoiMS7ZxdcshawL8=;
-	b=AmVLRBvrMLc0SjVSpi/wLWjZQK29h8kwi2qcm9mQyq/HwifYBckZeu9EkjoZEW1Juq8y
-	 z2u7Rjy/jv8R+XeIW3LtDTEC4TH6/v/MJjWRKgyP0CiT+3ieY5pXPfoO4x6V+KCXn6sFa
-	 rSzubI/NG+LEwJztxX0dkjnvPmm9+Ewd4YjUofaCiJoxU5FTLkwUV3BNmmEx9GL7R9yd/
-	 0UBwDHcsKNk/nBOkpBKcZwCFEn+LlCD272fUN30f3b0KUtAQlOCbmxLl85n7n2kavpudE
-	 xfbs+xDqtVzbQbwQVclwHuNVN48OJM2P+G86KhQszXxS0gYV+U2vDHL66UmxVkfD+fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492362;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=UHcEtyB0yA1THnFsWZ2Wl79PiRGX6jv8MGr7r5Mm5oQ=;
+	b=TcGthZDha1RVakDIhLZKpZFKwlycfT1XgaK1fSJTo4EGivHtg7nKkxdJTK58a5A53izz
+	 BFDWaMaw38NnOLx4u+qayGWq8dc4CiDLVwQ9ICzZ4jYpDSlHmdFkTaSnrPWzOADIGQmF3
+	 N+5Nn+0d7TMooD1NoEauxPOk6NAzFTP8ohQ8jnDtf7MarY0f3psxkPuiqXKqbm0LBCRuS
+	 tTJOwj2vQl+JgpU8NHqBDZVWX5RfIIjWLDYuwJABA66l+oaoGrTsj5zrG9hMBU38ZVYNJ
+	 wXnXnQSFE+oep53jZGoKU9DQBCWl0FfoPl756tzMhAEWzAGvem0EELJAUfh8+1ef4zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="i/UfKCOm";
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DDC3606A321;
-	Thu, 12 Nov 2026 14:05:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DDC3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dzUgcZgR;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC392606A321;
+	Thu, 12 Nov 2026 14:06:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC392606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=i/UfKCOm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=ccZWgR7dmlMI77SvdnZJfxt5XPzWoiMS7ZxdcshawL8=; b=i/UfKCOmWEcqm5tB7RRNDaNgt5
-	AQic0RfgmdLRngj53swzQuj3/xti5yzRH5UggFv/KKhxSB6cJyARDM5k0+ZOiLYhl9QExy3cQNivF
-	IEwl72Bsy/j4xS8InlClIlrTQIdw1a3uQ/xcN0at0IIpJWxHG3ihQ+fXmzBdL+2sV4sYNHUu/OsfX
-	QFmDp5gxFGA79clNRcD6o2pMx+ifDoxsAjLJB4V+Bx0E+Dk8g8C8jH0sgdYeBcKRz4dg9hAQM1UoV
-	LMgxlKn8h9FWx8P1JlGB+/T41vYjSI1XVgxonDAllFpeNM8PYM4VnVxN+78jI2MEjH+pDhp0zU3j/
-	B7Yskgbw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xRVQi-00E1WS-1F;
-	Thu, 12 Nov 2026 14:05:32 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 12 Nov 2026 06:04:58 -0800
-Subject: [PATCH net] netconsole: harden the enablement through configfs.
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dzUgcZgR
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0E7631477;
+	Thu, 12 Nov 2026 06:05:57 -0800 (PST)
+Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3BDF23F673;
+	Thu, 12 Nov 2026 06:05:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794492360; bh=Mxm+FO/LqIX2SxX0HPT4J1sozJkLEgywzHYHr0SPB3k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dzUgcZgR6mSbU6ehR2kKUguPjL8mrH+cCHUyX2a5LritajwPynqZ5KV4gxy+3k6Mt
+	 cQioLIOkIoQlpW5m6VM+RmA5lltiBWC8OYCSUISQJkNAVt/CxxbDKDbvG1ttr42bRq
+	 mgm0u3bUSmSerrzgcc6q1Z1kd/cTrtGo2H8bryKk=
+Message-ID: <f8d23034-0d28-4726-829e-51cf687e5589@arm.com>
+Date: Thu, 12 Nov 2026 14:05:55 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,109 +53,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-netcons_double_cleanup-v1-1-d5ff8167e05a@debian.org>
-X-B4-Tracking: v=1; b=H4sIAI/H9WoC/x3MYQrCMAwG0KuE7/cKTRXRXkVkbFnUwEhHu4kwd
- nfBd4C3o2k1bci0o+rHmhVHJu4I8h78pcEmZEKK6cLMKbiuUrz1U9nGWXuZdfBtCefTGCPzVVh
- u6AhL1ad9//Edrisex/EDx5ipVW0AAAA=
-X-Change-ID: 20261112-netcons_double_cleanup-43b00118c1c9
-To: Gustavo Luiz Duarte <gustavold@gmail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel-team@meta.com, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2721; i=leitao@debian.org;
- h=from:subject:message-id; bh=5wcjJzy/USJaZfmSnamW/hrROjyCXQQqW4AJILq8p8E=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9ceo+r3xwF/1X732ecFof2CxLKj5fdcvjqjm9
- oxf2PvljRyJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavXHqAAKCRA1o5Of/Hh3
- bYhcEACMsDSTjiVuOzE0ZgnKG1DSmfbqw/2Cdj/5Qoj4Y4iRax8wQtC0XvGtXmtCVMZ72P/1Rwa
- oo120CAnU4NyWLVLW4RgPTkgjfCVALCE30b/SlsG3gHp6ML3I32HwYiw5PbkKbLSfwSuo9Yd+cd
- r9kiu/UppQ+Qy3AF09HOdxIbCjAgLPV4t2pwb7PMdqguhsQcpy+s9fnM4i1tt3NMkW52cCcdypP
- 0Pj8hbP4/shZsXd4Hb9LdVUByNACuece+9ayyKhi6u9dv5m2pVDNc37T+cfOWHFSgZLEJT0ZD0+
- XlavgpurVQ9tO4e0JoNu6gnl5Kwzy+AYQxHSBDwj2fQirBpssuKRJaXZFxrAZrBF957e8dhbWpL
- OFgpuEnnFxF83R3hA8uRsD5+ZTftXII6CXsbTbBNrMUN4tHaK4bKoZn/UxXyU1LQvkXi7vV5KhB
- VoQirriKEr+knWeZGSWXgAhdGog5dFauipGHSYoOCTZQzS43lHPMHg1eRg2WRK71TSNlNBQrmHk
- SgknsLu/LjPlgOf/ZD+2CVIFOHgxJ0xj603nRqID7sPpkyOOJwsFv+qHJi3H4bHCia7w4A92Ei7
- qwOsFbuZ6pz7nT/6a60IXS5GWQdieF1xiloJiirTyYkotGJcAGzQeHcN6BtMZqTZLAQdvPR/LnI
- yNtVPdDtCp2sCog==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ACPI: CPPC: Scale EPP values to the register width
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: viresh.kumar@linaro.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, zhanjie9@hisilicon.com, superm1@kernel.org,
+ zhangpengjie2@huawei.com, Sumit Gupta <sumitg@nvidia.com>
+References: <20261112131316.827708-1-christian.loehle@arm.com>
+ <592580a1-ba88-4e22-b586-4aa2425f9760@arm.com>
+ <CAJZ5v0gXjngKSxX0Ku2wccWj9+oDQ7YqS6ziFZXDzMgm5GjVzg@mail.gmail.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <CAJZ5v0gXjngKSxX0Ku2wccWj9+oDQ7YqS6ziFZXDzMgm5GjVzg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-There is a possible race when enabling/disabling the target through
-configfs with netdev events that can call a null pointer dereference.
+On 11/12/26 14:01, Rafael J. Wysocki (Intel) wrote:
+> On Thu, Nov 12, 2026 at 2:58 PM Christian Loehle
+> <christian.loehle@arm.com> wrote:
+>>
+>> On 11/12/26 13:13, Christian Loehle wrote:
+>>> The EPP sysfs interface uses 0-255, but ACPI permits 4-8 bit fields.
+>>> Writing 128 to a 4- or 6-bit SystemMemory field currently succeeds but
+>>> stores zero, selecting maximum performance.
+>>>
+>>> Scale writes to supported narrow EPP registers and normalize reads to
+>>> 0-255. Cover both EPP setters and cppc_get_perf() so saved firmware values
+>>> round-trip correctly.
+>>>
+>>> Fixes: 922607a2b462 ("cpufreq: CPPC: Add support for autonomous selection")
+>>> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+>>> ---
+>>>  .../ABI/testing/sysfs-devices-system-cpu      |  5 ++
+>>>  drivers/acpi/cppc_acpi.c                      | 46 +++++++++++++++++--
+>>>  2 files changed, 47 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
+>>> index d219fc27a0c9..c63b5cfd993c 100644
+>>> --- a/Documentation/ABI/testing/sysfs-devices-system-cpu
+>>> +++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
+>>> @@ -322,6 +322,11 @@ Description:     Energy performance preference
+>>>               performance increase/decrease and the result of the hardware's
+>>>               energy efficiency and performance optimization policies.
+>>>
+>>> +             For supported EPP registers narrower than eight bits, values are
+>>> +             scaled and rounded to the nearest hardware preference.
+>>> +             Reads use the same 0-255 scale and may differ from the requested
+>>> +             value due to the reduced precision.
+>>> +
+>>>               Writing to this file only has meaning when Autonomous Selection is
+>>>               enabled.
+>>>
+>>> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+>>> index 11a9f9eb6b4a..10b52163eb56 100644
+>>> --- a/drivers/acpi/cppc_acpi.c
+>>> +++ b/drivers/acpi/cppc_acpi.c
+>>> @@ -38,6 +38,7 @@
+>>>  #include <linux/iopoll.h>
+>>>  #include <linux/ktime.h>
+>>>  #include <linux/list.h>
+>>> +#include <linux/math64.h>
+>>>  #include <linux/mutex.h>
+>>>  #include <linux/rbtree.h>
+>>>  #include <linux/rwsem.h>
+>>> @@ -2841,6 +2842,25 @@ int cppc_get_highest_perf(int cpunum, u64 *highest_perf)
+>>>  }
+>>>  EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
+>>>
+>>> +/* Keep the EPP interface on an 8-bit scale, including firmware readback. */
+>>> +static u64 cppc_scale_epp(const struct cpc_register_resource *reg,
+>>> +                       u64 epp, bool to_reg)
+>>> +{
+>>> +     unsigned int width = reg->cpc_entry.reg.bit_width;
+>>> +     u32 max;
+>>> +
+>>> +     if (reg->type != ACPI_TYPE_BUFFER || width < 4 || width >= 8)
+>>> +             return epp;
+>>> +
+>>> +     max = BIT(width) - 1;
+>>> +     if (to_reg)
+>>> +             return DIV_ROUND_CLOSEST_ULL(epp * max,
+>>> +                                          CPPC_EPP_ENERGY_EFFICIENCY_PREF);
+>>> +
+>>> +     return DIV_ROUND_CLOSEST_ULL(epp * CPPC_EPP_ENERGY_EFFICIENCY_PREF,
+>>> +                                  max);
+>>> +}
+>>> +
+>>>  /**
+>>>   * cppc_get_epp_perf - Get the epp register value.
+>>>   * @cpunum: CPU from which to get epp preference value.
+>>> @@ -2850,7 +2870,15 @@ EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
+>>>   */
+>>>  int cppc_get_epp_perf(int cpunum, u64 *epp_perf)
+>>>  {
+>>> -     return cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
+>>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
+>>> +     int ret;
+>>> +
+>>> +     ret = cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
+>>> +     if (!ret)
+>>> +             *epp_perf = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
+>>> +                                        *epp_perf, false);
+>>> +
+>>> +     return ret;
+>>>  }
+>>>  EXPORT_SYMBOL_GPL(cppc_get_epp_perf);
+>>>
+>>> @@ -3150,6 +3178,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>       bool auto_sel_non_pcc;
+>>>       bool epp_pcc;
+>>>       bool epp_non_pcc;
+>>> +     u64 epp;
+>>>       int ret;
+>>>
+>>>       if (!cpc_desc) {
+>>> @@ -3159,6 +3188,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>
+>>>       auto_sel_reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
+>>>       epp_set_reg = &cpc_desc->cpc_regs[ENERGY_PERF];
+>>> +     epp = cppc_scale_epp(epp_set_reg, perf_ctrls->energy_perf, true);
+>>>       if (!enable && auto_sel_reg->type == ACPI_TYPE_INTEGER &&
+>>>           auto_sel_reg->cpc_entry.int_value == 1)
+>>>               return -EOPNOTSUPP;
+>>> @@ -3177,7 +3207,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>                       return ret;
+>>>       }
+>>>       if (epp_non_pcc) {
+>>> -             ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
+>>> +             ret = cpc_write(cpu, epp_set_reg, epp);
+>>>               if (ret)
+>>>                       return ret;
+>>>       }
+>>> @@ -3205,7 +3235,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>               }
+>>>
+>>>               if (epp_pcc) {
+>>> -                     ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
+>>> +                     ret = cpc_write(cpu, epp_set_reg, epp);
+>>>                       if (ret)
+>>>                               goto out_unlock;
+>>>               }
+>>> @@ -3235,9 +3265,17 @@ EXPORT_SYMBOL_GPL(cppc_set_epp_perf);
+>>>   */
+>>>  int cppc_set_epp(int cpu, u64 epp_val)
+>>>  {
+>>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
+>>> +
+>>>       if (epp_val > CPPC_EPP_ENERGY_EFFICIENCY_PREF)
+>>>               return -EINVAL;
+>>>
+>>> +     if (!cpc_desc)
+>>> +             return -ENODEV;
+>>> +
+>>> +     epp_val = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
+>>> +                              epp_val, true);
+>>> +
+>>>       return cppc_set_reg_val(cpu, ENERGY_PERF, epp_val);
+>>>  }
+>>>  EXPORT_SYMBOL_GPL(cppc_set_epp);
+>>> @@ -3496,7 +3534,7 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+>>>               if (ret)
+>>>                       goto out_err;
+>>>       }
+>>> -     perf_ctrls->energy_perf = energy_perf;
+>>> +     perf_ctrls->energy_perf = cppc_scale_epp(energy_perf_reg, energy_perf, false);
+>>>
+>>>       if (CPC_SUPPORTED(auto_sel_reg)) {
+>>>               ret = cpc_read(cpu, auto_sel_reg, &auto_sel);
+>>
+>> +CC Sumit's actual email, sorry about that.
+> 
+> So I'm assuming that this one is for Sumit to pick up and send again
+> along with a new version of
+> 
+> https://lore.kernel.org/linux-acpi/20261112080442.4007723-1-sumitg@nvidia.com/
+> 
+> Or please let me know if that is not the case.
 
-My robot was able to come up with a reproducer by adding a bunch of
-msleeps() around.
+Yup, while it fixes an issue by itself technically, I don't think there
+are any affected platforms.
+I'm hoping that Sumit this (and the limit-write-at-init) patch as a series
+for all our convenience (and hopefully to get Sashiko to review them too).
+(I guess I should've mentioned that in the notes.)
 
-The race is basically this one:
-
-  CPU 0 (enabled_store)             CPU 1 (netconsole_netdev_event)
-  current_enabled = true
-                                    nt->state = STATE_DEACTIVATED
-                                    do_netpoll_cleanup()
-                                      np->dev = NULL
-  nt->state = STATE_DISABLED
-  list_move(&nt->list, &target_cleanup_list)
-  do_netpoll_cleanup()
-    __netpoll_cleanup(): np->dev->npinfo
-
-And kasan reports:
-
-  KASAN: null-ptr-deref in range [0x0000000000000108-0x000000000000010f]
-  RIP: 0010:__netpoll_cleanup
-  Call Trace:
-   do_netpoll_cleanup
-   netconsole_process_cleanups_core
-   enabled_store
-   configfs_write_iter
-
-The disable path used to call netpoll_cleanup(), which skips a netpoll
-without a device, until it started deferring the release to
-target_cleanup_list.
-
-Re-check the state under target_list_lock, which the notifier holds when
-it stops a target, and queue the target only if it is still enabled.
-Mark it disabled either way, as before.
-
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Fixes: 97714695ef90 ("net: netconsole: Defer netpoll cleanup to avoid lock release during list traversal")
----
-Given this is not super critical or hardly faced in production, I am
-sending this to net-next, even with a 'Fixes:' tag.
----
- drivers/net/netconsole.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-index a9f9477da1ec77..4b546194f7179c 100644
---- a/drivers/net/netconsole.c
-+++ b/drivers/net/netconsole.c
-@@ -1143,11 +1143,10 @@ static ssize_t enabled_store(struct config_item *item,
- 		 */
- 		mutex_lock(&target_cleanup_list_lock);
- 		spin_lock_irqsave(&target_list_lock, flags);
-+		/* An interface event may have stopped and released it */
-+		if (nt->state == STATE_ENABLED)
-+			list_move(&nt->list, &target_cleanup_list);
- 		nt->state = STATE_DISABLED;
--		/* Remove the target from the list, while holding
--		 * target_list_lock
--		 */
--		list_move(&nt->list, &target_cleanup_list);
- 		spin_unlock_irqrestore(&target_list_lock, flags);
- 		mutex_unlock(&target_cleanup_list_lock);
- 		netconsole_unregister_console(nt);
-
----
-base-commit: c88fd6989aea9237a60a4859139a265bfb7ddc0b
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
-change-id: 20261112-netcons_double_cleanup-43b00118c1c9
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
-
+And sorry about ACPI/CPPC having such high traffic lately, I'm expecting once
+we've got the issues ironed out and the new features supported it'll be a
+lot more boring :)
