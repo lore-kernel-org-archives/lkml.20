@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492853;
-	b=b+jZiboV8dsvnJ8CEorralKrzk9yiks01cSOdC4QuQ5Mr8P8IsWLdOpNZeg0iCjNTuFg
-	 IPyK8DBcr0MZSJhtjrOm7UYWRK9TlglaRESUPVDSo7xNgVz9qT0Z+bEupAdnOT4bBBjpX
-	 a2LfAnGdqnIRJH1LzTpvZ8GTxcFaxyHgGq0vdkBv1AdaevJoN3e/Dkul7e4Iyiud5QfoT
-	 8HAc4cyxSKe4PZukEaryHyxqxDD9B2RzLwBLxJTiWzNkHL7KAKZcEg8WiazTkJws5dmyO
-	 a3TAteYagyJbP7PIGw0OwI4qBK4mhgnfhrWq6cTxOFPIA2vM/Qq1hDz6g7YkAp0F2ug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492853;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4zxWTrc6W0S4kY6XxXSoPARJ/LzyYdm9uxXTWXtxR/s=;
-	b=RJGgvo7ZvduA67AAHJCEDNRdMjeerklRO4daKWqczmfn1dTf4CZu2gyBpXzEKgytSy39
-	 FVEwbR0zZLOHcEm53Ap0iDMgVACcewxFVRuRlqwEKwovcQfQelqeYO+5LZgsRGo7ZOScv
-	 +afxDkA/7YcYW0c3n8IdV4LJL9qg0VhutAmg1R4AsXhEPKXVvAy7IfLPqI59KBSctoGL8
-	 8StbcvsZdzwjJeAG0ktmK3MBfUFJTlR7aV40Dy6wBxP39kThl+VJAYvZ7rQdCsN+PQ+7m
-	 3EG+Fajks5Y0vZe/NaO0JUmUwbTfqXPfLCalEijow+sJrGhDrgN8Igdk62v+Zoptmxg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oFMDqzvK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794492864;
+	b=U1/HtHS3mYCrhvT/oQkAJRKqaXZ9LnMxsSW8DWC+/lIQADPOJLC7/5hPeWJkYpEQjCPk
+	 ewuLhpZ0CzcKTmbmZ7K7Tuzch+6iuWflVxYDRfjNfcUETHsfjXPJ1uC+FZPn9A1mFW8qu
+	 XiyqwuwamKNK0emVjfaDXz6vHIphgeZK41gFgNuqOzm8HJRr34B9HyunkFwt1XRuj+uBb
+	 VFWWW+wIPiSUjwBrTO6snLOCucu5iYxziS3LbdfiM1fk9JEGhNFyjsxIOIL94mxDb5r02
+	 3e/Ra2P2NpTwRsUD0GZawbHvv2N6xPO3ofz+qlVU38v/0JHS5Zdly2vxDUyTHnCo7kQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492864;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=;
+	b=jEB2N0FbrehnvVqUPlLWwL2YeXhofrvALCuofJrmYTVLhKAfqbNzHZvqO6d56D/fl2p+
+	 x7d0W9/MWHLzn11QYPSNq/2DHApT2RyDu0dzNlsUpsrp4OrBQet459Z5d/rfI/hF2u5AJ
+	 qx/yXnSQ3tUQ7GjGMxzWFqe9QUQZjCGlNaSydD+tMnY/N4NXqfI9/8nFdMKgDmfgPHeKn
+	 sxcanTHhVNKYqsXSToHvqa4/mMJC4zp7wcQQ/zdVaRRYqZMcy7Z3GVY23uHxky9atRfHF
+	 leAfdRK2Nk755wxl9T9PyBpjno4Eqv/UFgfzDQ/giheynN6WCa0aAqNC84msA7daM7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NAA3skTk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D73606A321;
-	Thu, 12 Nov 2026 14:14:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92E9606A31C;
+	Thu, 12 Nov 2026 14:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D92E9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oFMDqzvK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A5C41F00A05;
-	Thu, 12 Nov 2026 14:14:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794492852;
-	bh=4zxWTrc6W0S4kY6XxXSoPARJ/LzyYdm9uxXTWXtxR/s=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=oFMDqzvKyJYhVaW5CKrC096Aa/DneOH/BontTwXZbxw32cwBqY4zKFoZ7xfLhvVTr
-	 vIyBmIUc/BcSe7OP+yckF1QGt+/A4FSzfrU5l33lp2r0v3YzGqxvLJSX10PYBYX5ue
-	 uQNv+3g6AXonbUr55a7csLZWKEILNfqcYmoHFAtFmY0PfKuReU3phke+dZ9PF0Jadr
-	 V63qpWTKH2n6cBzv7P+HSNbwZZ1+6mwYZtdyU4Lx+y3nQhurmkUgMy9CcQAkHjxYnj
-	 M5ENffPFl2/GeHqoJbxGAJtgdF0APZY/wXtBMHRIx0kvpLEoIhvH1vSXOcmLobokB4
-	 x6SqVIJQCULIw==
-Message-ID: <72684fa2-57d9-4e92-8bff-9213a27215b8@kernel.org>
-Date: Thu, 12 Nov 2026 15:14:09 +0100
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NAA3skTk
+ARC-Seal: i=1; a=rsa-sha256; t=1794492841; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=LuyQY12bW/Z83IwfAOxYJxZ41E4wry34UxveT0D7p1+KeG7vuh/g3/Z4PL/QiweY1cAObHPOqdNN/ST9ovLVoulqLB6bQcsSTjpu6+AM2Ic610a4k2B4uTEqtRfchqN3tPwu9RVXJDXtLkU6M0IGvzogik9csYMt7ietj2/S8js=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794492841; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=; 
+	b=Jh3Jwp/xcKr3QKgJDQDf4E73hZu+wtI6ebEk8TbtrWlJP3CZ3MCU6v+pPsoAksowh2AxTMeOVC88QvUJRBWyiUjmn39z10Wfj6SFAwyNTbQsd4y688beAE9MMxDrreNbjzLFt1UAHYle0tb/I2Nc2jHyyiRzD5tU14dDYcElZ2U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
+	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=NAA3skTkaOCGS4WxaR16OMOYO4CU8JVVcpLMtoI7vIovt4Dfwq56POyv8ssffi5G2sLrZk5OMqH5Z9I5dqeVZXLfMkODQj1dVWmhQg9vXsc96zy1cvmu6WHRHj/Gvwhr50LP6e9o0juz27pfKKS/2LPFjTjLzkGAov5QTWIWmCM=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794492839836438.0202804362593;
+	Thu, 12 Nov 2026 06:13:59 -0800 (PST)
+Message-ID: <f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com>
+Date: Thu, 12 Nov 2026 15:13:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,66 +59,58 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH 3/3] media: em28xx: fix refcount underflow in
- em28xx_free_v4l2()
-To: Nguyen Duy Nhat Anh <neganhat@gmail.com>, mchehab@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com
-References: <20261022194618.14170-1-neganhat@gmail.com>
- <20261022194901.14302-1-neganhat@gmail.com>
- <20261022194901.14302-3-neganhat@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20261022194901.14302-3-neganhat@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 2/6] media: verisilicon: Don't hold the VPU in reset
+ after remove
+To: Philipp Zabel <p.zabel@pengutronix.de>, aiyengar1990@gmail.com,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Hans Verkuil <hverkuil@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>,
+ Tharit Tangkijwanichakul <tharitt97@gmail.com>, stable@vger.kernel.org
+References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
+ <20261112-hantro-robust-v2-2-18561fd48838@gmail.com>
+ <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
+Content-Language: en-US
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+In-Reply-To: <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 22/10/2026 21:49, Nguyen Duy Nhat Anh wrote:
-> em28xx_free_v4l2() is registered as the v4l2_dev release callback, invoked
-> when v4l2_dev's reference count drops to zero.
-> 
-> Calling v4l2_device_unregister() from inside this callback causes an extra
-> call to v4l2_device_put() on a zero reference count, triggering a refcount_t
-> underflow (0 -> -1) and a kernel BUG in lib/refcount.c.
 
-Huh? v4l2_device_unregister doesn't call v4l2_device_put AFAICS.
+Le 12/11/2026 à 11:19, Philipp Zabel a écrit :
+> On Do, 2026-11-12 at 08:30 +0000, Arun Iyengar via B4 Relay wrote:
+>> From: Arun Iyengar <aiyengar1990@gmail.com>
+>>
+>> On the RK3588, the resets of the AV1 decoder include the AXI and APB
+>> bus interface resets (SRST_A_AV1_BIU, SRST_P_AV1_BIU), which also cover
+>> the Verisilicon IOMMU of the decoder. When the driver is unbound, the
+>> driver core runtime resumes the device and, through the runtime PM
+>> device link, its IOMMU. hantro_remove() then asserts the resets, and
+>> when the IOMMU autosuspends 100 ms later, vsi_iommu_suspend() writes to
+>> its registers while they are held in reset, which raises an SError and
+>> panics the system:
+> If vsi-iommu accesses require these bus interface resets to be
+> deasserted at certain points, why doesn't it request its own reset
+> controls?
+>
+> Depending on implicit assumptions like another driver not asserting its
+> exclusively controlled resets seems fragile.
 
-This doesn't sounds right.
+There is a side note on IOMMU doc saying that once the IOMMU has been
+enabled it can't be disabled for security reasons.
+That means that writing 0 on VSI_MMU_AHB_CONTROL_BASE register in vsi_iommu_disable()
+could raise an SError so I would suggest to remove this line from IOMMU driver.
 
 Regards,
+Benjamin
 
-	Hans
-
-> 
-> Fix this by removing v4l2_device_unregister() from em28xx_free_v4l2() and
-> calling it in em28xx_v4l2_fini() during teardown instead.
-> 
-> Reported-by: syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=809dfc586f33fc44b6ac
-> Signed-off-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
-> ---
->  drivers/media/usb/em28xx/em28xx-video.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-> index d653341ffd16..45b62655ca3b 100644
-> --- a/drivers/media/usb/em28xx/em28xx-video.c
-> +++ b/drivers/media/usb/em28xx/em28xx-video.c
-> @@ -2332,7 +2332,6 @@ static void em28xx_free_v4l2(struct v4l2_device *v4l2_dev)
->  	struct em28xx *dev = v4l2->dev;
->  
->  	v4l2_ctrl_handler_free(&v4l2->ctrl_handler);
-> -	v4l2_device_unregister(v4l2_dev);
->  	dev->v4l2 = NULL;
->  	kfree(v4l2);
->  	kref_put(&dev->ref, em28xx_free_device);
-> @@ -2462,7 +2461,7 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
->  	 * The em28xx_free_v4l2() release callback will be invoked once all
->  	 * userspace file handles to the video device nodes are closed.
->  	 */
-> -	v4l2_device_put(&v4l2->v4l2_dev);
-> +	v4l2_device_unregister(&v4l2->v4l2_dev);
->  
->  	return 0;
->  }
-
+>
+> regards
+> Philipp
