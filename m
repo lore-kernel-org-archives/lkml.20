@@ -1,100 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794524471;
-	b=ZZjbKkxFvX8Tr0COjsesbNmU3gionh3h7WbZlh8MRrk3n8Ngyya6bXoF4JxOUda73Z0Y
-	 OlcB70q+04s20jUz3AidaiHqbb+PVrof7Ou6gT+CHa5x+GTeufYOdm8eXiPpUSwcGtt6y
-	 sperLMdvU1TE9o/AZtowZOUq5+Rh7V5rPmTqUTMouw/fHncfKIoyyUkB9JiCBLGoi4rMW
-	 aPVXZIqkl+IrJyhFPdHmdTpl6gocgm+GpcxD7zdvwjZyvAdc7WoNYUqjqsE6co5o4exBp
-	 r/D7JO0JEUXwnVRu1xhU3sYs0Kz7UA9ecz2pLUtRcnHcnUb8A9dfvsztokDadTDl6iQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524471;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794524565;
+	b=I4qbRgSfY2sX9oRQzNj3TniLIOjO4+1iTIxLiO5ohx5S7FLdxL3n1lPuCmQwT9NZC2tR
+	 b7HtIJCxiqEkPhq+4QHIQXKUrsZz+bD46/ws3LKL004LOazV3W5XvskrM4q0dvpA69mhw
+	 7LUk+rLGqRQuetTTOu8Pl5wl+xSJPshs1sOKJHmmXt251cB3f35HNZin1Qu/zUQyhVwtj
+	 WzM+kGPYwHKps4W9MCGy7hggm+JNBzb7sVplejO4HYYCYzyzZ7HDiQVk++/6t6P1hQGTa
+	 1+j7KU6/e9n8UT2w8rTVOVqTNEpzn+ZQui5YTbc6cRJkH8hOPji3cv34eQjZPqbT2ng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524565;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=vKFbfdMvXjvxtZz44CJBuXtclzOrS0keJtHN0viUnbU=;
-	b=CxSiyJZLXd/hkIePHRd8DGL05+dhn+/jAXAxXFyLsZUf8MJq8P4ioVjb25dCBXknYV+Z
-	 8UUB1HW65LeIQZsj66++zCtIoDaZqbSU/NEsLizBv+3eaoUa5fj+GZLHQTnnATyWGQQUb
-	 heKbfSz8OCiWComa+8cmuVqA0tOCQUIg6BXVPIJCJFStd1xF6XhYSzzy+pY6h6aOuvDoI
-	 UM4IiqhFuJWN7TnU04I3w0M51lho/zitMYezyBhiACT+XDLzhpIjqHGSGMW+WIcmfq4pD
-	 +bqbBkbI3eYsIRPf1eyxq6f8YIhWxgW361cx7T+lW1CvJ9+vrYTwwHxFMnTEFvAYsKA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=CXlT56pF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Message-ID:User-Agent;
+	bh=UdI2gv0nE+PpiDHQRvxALGPPGMmK/uE84Q/kSWgFWc8=;
+	b=UQOj8nZ3J7km1pBUiyvYhQf5e8+piPnDtferFPhT2VVynFE2igqN+7zST2MpZ921q7MU
+	 UJJnWma2udnF0ridD7FDOIhFH0iMVDqmiA9Wjkqw5f/Wwy4GyJC8lhAU0WdBWcIKU4pr6
+	 gl8cE0B4bDWeg3TyfINSnHj6QpIKxkTvWPv7UqzcXS5q++rB7f171wtkNkqigiPevDd53
+	 ry/EzYAtbbuijtj7Fm7Dw0vsIVTcFP/QoMb4enqgavJooo90cdVecZrnxrJgD7eu+2qFC
+	 2rtRPy/BWfNYyuA+Rl5IoAWv4ub76dhEfrmH9QT2Xj5y0b6OLD38QAJSO5JmEfcWpdw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=cl52A514;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CA0606B176
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:01:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5CA0606B176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C70606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:02:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01C70606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=CXlT56pF
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-67c2c2ac1c3so424407d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:01:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794524470; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TmIsxNixpd8w1jz03LB3ii3pPamZNy++NigZKm08KAPR7TlOW1nWG2l4f2LPCEQc+h
-         8tTIfweSFIU60PoAtT0pdHdeXlh5Ih+ZASsIq81ohPf5cB8erWFPiA8szoHC+3dL+EOT
-         MZILe+gf9oGoW4BNWHntogj5cKt3YRYOIardC0AmF5rFIYKuTBXrKrl5A5og+yKJEO1/
-         KDlT5S7h4QAwq3kImpQHZgqzXMG/uT3eyxbKcqUBfw3qTVBObRVuj3k1UAkS54pCNwY4
-         /GmYEhobPA9zXXFEjsaKzjeBnz61FaTKmSSgYw7dCMACr80HYMR7tvbN3yeo5FMi2n+3
-         U1jA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vKFbfdMvXjvxtZz44CJBuXtclzOrS0keJtHN0viUnbU=;
-        fh=2fgyKA2S7b/5C0SMXqSbLfvBcEWq+5JRYYjuKmCb3d0=;
-        b=Xb/tcVv2szZPJWfyYcBRnp0yUyccjS/TQxw/OTD+bCM8rHAIYz4uCJS346D4C5WnAd
-         538hr6zdTYPY0yW47wEuoBFWPobIDKQoXBAaIhISFs1ltzPWhQCjAZJQzfAmHWPyxoJS
-         dQ5qSRl3OetSPU33nvOP5Z0TE0PeWW7rPaUc0HHJzt3YMjdVs/RkkpaRkE78ZDt7xRnK
-         hhD/SpLDlfvnCGK55kBcT2QeCk7Yt/GFAl9OUrIlSb+QyVwSSIoMcYmGRFqWZkJsQNN4
-         mp5h2wU8Ydof61KDxxMirkMQ/2kWwylPx/unliF47CFvxkAU4Jm0CmC3MjHq6o0unZTW
-         DrdA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=cl52A514
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so3200205e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:02:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794524470; x=1795129270; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=chrisdown.name; s=google; t=1794524563; x=1795129363; darn=vger.kernel.org;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vKFbfdMvXjvxtZz44CJBuXtclzOrS0keJtHN0viUnbU=;
-        b=CXlT56pFul1lv1YPKO8zZAVXf8GTj+cVomOhtG7fVNxd1Jizl65XkXtdLpXxhxYkfK
-         MG5qJRszhp4MR5CBfSPPc3BXoOxA2LGLqbkxcpi3ENrSA6WnFNDe8b+q+gKzjladg5tP
-         PG3HzYXcvOZDkQHF9bTQRJL1loqbWULjtrhJO5HKRR8Z3GLoJ7CLuW4n11zrTmHyGw41
-         kahbPkzAa7mK9d4QhaOd9CrBPzwFxXJDHISZBKi6iTpqyGesDYyLxfNNm48K9K4LuOVp
-         9Sq9yEzO66xQvYpCpcyrxaSXwGYjasHUy9jgXCFFw+2b9l15TM+VPB70lVoYZfL2CuhS
-         1YSQ==
+        bh=UdI2gv0nE+PpiDHQRvxALGPPGMmK/uE84Q/kSWgFWc8=;
+        b=cl52A514dZp9s/iyCKuRlFULJYoeu+l+XDeZgfaa8mqtOB/O2+RLH73XsImvRmlSmN
+         HxhCuWFxKFmvtxF5R/ePkRzklwD51D1+ATvORMP+rU6PXjdu5XcOfenvXhLwY1vPvyTx
+         uiy9856AXZJMF1iGSMGU6449sTXFav1K9/l7s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794524470; x=1795129270;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794524563; x=1795129363;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vKFbfdMvXjvxtZz44CJBuXtclzOrS0keJtHN0viUnbU=;
-        b=wUjPXdeF28oB5Kf7km1CTZz9AWSZ4mmfvwbShbeVLxhaeV1/u3YTtjNk0l7nhzTrj/
-         gjiKW5865yxigzB7Zwru9cCb8cNwfSNEFKEUrETpcfl5L0ryD8Najup+oAj8W3tMKjoV
-         fhmmHF2R3WnvUI3zz10sxtndc/Tx600OyQBPwtFTVVooOdswC+aNw3rIJH9kvwALu5Lc
-         SHLJ0OT6A5zS69zFpMac/VnbwsVMw85fI6lcGYPDYCsbyH0+6eHlQmuTWm0XMFCYtRF+
-         BrE72mVRmFI1h4gpSBwg7ZBmIen1NHo2ks2/OGmW6h7lVN4NEeir0Hm3eSpfrQ0ydN4K
-         fEHw==
-X-Forwarded-Encrypted: i=1; AL+hErHIqsfu/w1kiM1+Y7T9Ix3OYeNW7W7wEYoonK7dIoaGln+BmM6s2QbcjOjfOIwmZ+7IdU30HQn1ZLacyf8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9afVulKRDgGvXniA50o3yQ/PqAarFLwARmpg4vN0eNqNE3/TIH
-	qOowAbYEII52o9GZ4b9pzgX45UFAeaOUfWTbYyNoECr+OhbPsZtKpEcYx8ctgYZI97dPyEuM2Yc
-	DRqjHZCjdhVg46ozgfX3l78NkCJDHMmI=
-X-Gm-Gg: AYBFou1K3FN9NeO/4k+Odr69Y3ZR9OQUKozJPSXj89WxCf8vAe3t7PBS6Cz4vNmTNdQ
-	Co5TRAZ5advjgg7NJ8zX7SJS9v9oUjdVjxGcOEX3fIxAqLXqX1miK6Q+0kr0EqG1Z6lhGxBeMDt
-	uEBBy6Mmq1SmqDoSB10lTTUO02I4MRBH3huYPviN7O3F12zpejEos8nXgKOYP+8FdM+e5RAdLM9
-	cTOn9hvhkhkYYlmGDgz1Egd3y8iVxNo8syTt14gZIu/9SftgcHsMsCE1IkPcz71RCAZJfZ5D82H
-	rVwhCaQszq+Tg7UnT1FxZPpzRxX3YtH8AQ4YyyD+qoLqXtFXZflv+XAJJIIkOzWsr3yeZWWGeF0
-	ocPrTRLE70i/oarPhkIudyezFqa6UUbaqdbXSrTRWv1zbHkwzHO5mPyDrSDwYCPJZF/fgzCc=
-X-Received: by 2002:a05:690e:1182:b0:67c:1eb5:48d0 with SMTP id
- 956f58d0204a3-67d895a730emr587688d50.21.1794524470098; Thu, 12 Nov 2026
- 15:01:10 -0800 (PST)
+        bh=UdI2gv0nE+PpiDHQRvxALGPPGMmK/uE84Q/kSWgFWc8=;
+        b=NwMXO7hXa440ktZvMM64EU6bHDdmij5KLTeJWZjfhASjPkpR8L6Ch08PYFG+GB/qkR
+         Gzu5eDNEyUN+Xh3nOJNuAVTC9J+xxtZ65bUyoC3/enXAYeSQfnGKGyU94NDG1dHdWvbW
+         PQKFrvLNocLk7zCYb/i+A3V0UfLmB60bPPF+sx0Bn1jvy+QgUCusncocd2PJU2xR3dFs
+         ayVP+DbGvP+0reS/KSFUXwmYAoaTmJftEHUsWwc/qnI3z0pMHnhNDUwu5zYulvoKLaXA
+         zVnbiVCV84aGyS8Y50Z1tYJ5yQFmBn7A0s732BUljiJ23UTnl7qeysXDh2AFf45e3/Sb
+         9/mw==
+X-Forwarded-Encrypted: i=1; AL+hErG3zz04VA2Z0wR2+FkPe6AERsZXLR6nHfvnURcDQ+qHhKITkne9ZMFN+PFRMkO8uplolTFJ77eSLymETUM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z91JzsPb2Ne/r2n1u0y0BDoNztCrMSguQRZETm8gRZVGHZMQklo
+	EZztYQNF1e4QK/mCbrqs3HS1twT8vE/kdxMAxNjwYHyaPJ3l4itq1m/wFVpwatBomRI=
+X-Gm-Gg: AYBFou3SRvj+hM9nSNOGCo1vMA5xfEwAutfE0/QqM8L0YzX4D6TOguiiuy2TVDwrdF7
+	8C9ir1eq5jsJ6Bn4YxTbwOuJ/hAI/XSZThr8Z8WPdbvCc7NNfceDoN4FTt4lMMOj+bZE326dpfY
+	8TW/hWu6nnxjUNKZbaieDppP2WYOFxzlbYnyjIGAx6QNXZX890Rbth820sfPuGxYrLNjBMXRX3c
+	7DZZeyBLERK8G6p3nhmLdmbKPgvJSa6qydbbGgKba5PCu78aYBQ4k9I72dy6KPdUysq51SnhhYV
+	2pQ7yqvhFMbq9CzJIFmFdvTxP4ergT+mkH6Bbios3LZ45YNRHibwZI1aR22PX9NcOIEHuLE6VLE
+	K6dmK6O8g3va6R5T3yuZrU9Lv6S1IbCs8wuQdAh1NxnFxXDAagj9wmNpAagQ1Vt0YF9KTG8mXyD
+	+iy3yItfAwjXzI0fWoi8ygUVoN+c4bxCFw6dQmOSd4B7ATnN4ECpenspVOagRHXSg3J6POAlRT+
+	i5URVt1+PCb2Ropgo2gO2ws+oL74ziuVynPvKBRY9mIcr429TyFBnKcRVTZ19+rX9F/WobGfMoe
+	2H1NdQzp2+dUlJTefC508eXu+Kdm02lP/Y0wfhAajvGKwgo6z9Y6xQZF2++hYsB80IyGOfc4E4Z
+	afCdr66mXvA60BUTSHp+djaow4wZtpekb+NwPClp2rxdL7AVPVkOvw4sXj1MwZMdGp2AUnYAhUZ
+	HKqMPnj59PF88y3ZMTPPFDfiJDArZk33n9/8UOZSyO+2YR4knrskiyGfn5nA==
+X-Received: by 2002:a05:600c:a596:b0:4b5:d95c:2380 with SMTP id 5b1f17b1804b1-4bb55a86fb2mr7941995e9.11.1794524563487;
+        Thu, 12 Nov 2026 15:02:43 -0800 (PST)
+Received: from [172.18.0.2] ([199.201.64.8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5720f6basm816285e9.4.2026.11.12.15.02.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 15:02:42 -0800 (PST)
+Date: Thu, 12 Nov 2026 15:02:23 -0800
+From: Chris Down <chris@chrisdown.name>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Christian Brauner <brauner@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tejun Heo <tj@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, Meta kernel team <kernel-team@meta.com>, linux-fsdevel@vger.kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] kernfs: allocate inodes and dentry outside kernfs_rwsem
+In-Reply-To: <20261111215058.1837351-1-shakeel.butt@linux.dev>
+References: <20261111215058.1837351-1-shakeel.butt@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,31 +94,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-gx-formatter-use-spinlock-v2-0-763241aeca52@baylibre.com>
- <20261111-gx-formatter-use-spinlock-v2-2-763241aeca52@baylibre.com>
-In-Reply-To: <20261111-gx-formatter-use-spinlock-v2-2-763241aeca52@baylibre.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Fri, 13 Nov 2026 00:00:59 +0100
-X-Gm-Features: AclHuK_m4BWciMvBzZXogG5H22e1sIVJEt1HWBlLSLAAMEV4Eu9tlsQViR8cFLo
-Message-ID: <CAFBinCB7Okxzq0cjAdpynmJb-oOuiYkGaf6w--091_nU0OJFKQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] ASoC: meson: gx-formatter: add lockdep_assert_held check
-To: Valerio Setti <vsetti@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Message-ID: <20261112150223.f13e8b526933f9fd@chrisdown.name>
+User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
-On Wed, Nov 11, 2026 at 11:12=E2=80=AFAM Valerio Setti <vsetti@baylibre.com=
-> wrote:
->
-> The documentation of 'struct gx_formatter_ops' states that
-> formatter's callbacks for enable/disable/prepare are called with the
-> spinlock held. Validate this by adding 'lockdep_assert_held()' in
-> 'gx_formatter_enable'/'gx_formatter_disable'.
->
-> Suggested-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-> Signed-off-by: Valerio Setti <vsetti@baylibre.com>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Hi Shakeel,
+
+Shakeel Butt writes:
+>+	new = new_inode(sb);
+>+	if (!new)
+>+		return ERR_PTR(-ENOMEM);
+
+Not a big deal, but one thing changed from v3 that the changelog doesn't
+mention. Without an ilookup() first, every caller now needs the
+preallocated inode even when one is already hashed. Before this patch
+iget_locked() returned a hashed inode without allocating. So when
+new_inode() fails, decoding a handle for a live node whose inode is
+cached now fails with -ENOMEM, and a stale handle gets -ENOMEM instead of
+-ESTALE. kernfs_iop_lookup() does the same for a node that already has an
+inode.
+
+ From a quick check I did with failslab limited to inode_cache and an fd
+held open on a cgroup2 directory, open_by_handle_at() on its handle
+succeeds without this patch and fails with ENOMEM with it.
+
+Now, new_inode() only fails there for an OOM victim, or in a memcg whose
+OOM killer is disabled or has nothing left to kill, and those tasks are
+failing most other allocations too, so I don't think it's worth
+complicating kernfs_get_inode_locked() for. But it is a second case
+besides an inactive node where an ilookup() first changes the result.
+
+Not a problem, just an observation, so feel free to add:
+
+Reviewed-by: Chris Down <chris@chrisdown.name>
+
+Thanks!
+
+Chris
