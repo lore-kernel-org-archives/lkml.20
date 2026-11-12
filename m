@@ -1,54 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.35.192.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452759;
-	b=FlTJ4Senhby5Eqby+GPFWI0OHHxp5IrxmSZSlLhJ5HgJWzRjzJZS+O4Ssry5D1HCbiX9
-	 XxxB8IfwC0rB9h0oHbKla8t0DEp/PVJfh/r/Pr0YD5eG2ao/xTscoUSz1MMPHivUxi2mM
-	 9vcM2WRFgVogX7K5EatwLUamFanLN8S229edE13sZXqtgY1kZEg//vkxDAZ2kVG6bqG8Q
-	 56sK8prFa+pY9hE7GopLSAGruuL99NJMfAzkywsljHmqhPwXSvrDUAoESfpRTX0Rhol95
-	 CVEZIYnHo0CuX0YQlsknsdPJo7V5BP+su3bVoxl9tSMEgl7WieGlIwXqSDYwtxQSxkw==
+	t=1794452841;
+	b=rm9j9s0y3QtkvK4ArhlW0X9ZpVuESlG0UlXWjWry7tbeehE6snYEVKk0Wc8F+n17fFJO
+	 BzAxggHNz6H9YzIzoS697cP+4l+WemEIHcIBDgbjFAkKRBeCQb6Cayx4UsX8NCyjFH8Sf
+	 Wr5st4pzoPrk3UlFTDgB4sTPgHA5hz8QN02cDhxax21rXs62zpXplgU/ZSAYEI4EfQaar
+	 nnVOa2WqdIOX2ILh9e/bC8lIe7196KDJwX9ulJ4EO0tl322tTEVQSwOaBGBxN5FkNCIWQ
+	 9d/JqHOJWeeRRthgW00pPVhRHybY1L32R9LKPWx2V5zS4uWsA8hG8uG5n5nGbcIjjGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452759;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+p8m1xXCOpMHRar5y3t+7zIQNJagHd7hv3urfwSVoHY=;
-	b=VRaVULMcF0JFjPhiFAFEBq2pCsQ94WEKHdbQPx4NE0A+Tlh6RziEyCDXPmiq76eNEPXB
-	 ZgOWxJrJVEyaqQjtHRuBQk8rvjaCpQSjri5imOeyMAEfXAqHXuqfJrg+67VjUBZ0FMZFA
-	 bY36BN8PnVDwKpYMIKR4hEmTnDMkZZ7n8Hojni1j+kJcOUWLDlbG1Ns4qdlC3aZjKRKVx
-	 Ka1wiIGkpENq//t8FofWFzqyowVNRuKjGQtKj+0z+RN7OE1SYVxh79JemNDccsiK7xUnK
-	 2GnWKBE9X1MeD0lR1KN/BXhdbIbq5HOWdKOurmuY6M0uTVVkIhYm5nmhjfoWYrhsNxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452841;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=ptqTEKaa/wQCxX5FQBv36t/SEDmI+dFQJlctOlurQO0=;
+	b=GUE5kRCVNS7vtUCrmdmCfTqpzJD+eC5dWGd5gvsnmvVxbFl32Jv7reZxFI+85LtfM1T9
+	 tPjDTAF8UxWv9nd+q4+7dReCI70zGIKzS3hiCuTBIGA551XEYQjGeLIIkRVmv4wvCHu5K
+	 QAMs9BPyEK1j5rjkqQzN4qPqdBbMqheVQ6r6tNzTY29qNO9w4rojd0uJpEsxFC5+DiB8q
+	 hiE5VDDcc8Ub1I50IqBQfk6GfJera4MetXklksC0saGyUU8azYVIdWqMqolG/GHjDk2Ar
+	 VPke0tWWiCfkJnw6oVGVIGGUu35+AZ2KoyV2949Uf9VcF+/0QA8ij///L62/0BQzhKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k5NTGYqx;
-	arc=none smtp.remote-ip=91.218.175.32
-Received: from mta0.migadu.com (out-32.mta0.migadu.com [91.218.175.32])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=IGRfpG9W;
+	arc=none smtp.remote-ip=52.35.192.45
+Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D223606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:05:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D223606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B33A606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:07:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B33A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k5NTGYqx
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Rscbj3ii3KXkedD9Ow5GtxaK25H7qUUhhe198y9+pqU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794452756; v=1; x=1795057556;
- b=k5NTGYqx+Ej5c09JHDIEjuF6TeZNDFAC5aPg3p/egPViB3BFXWjoVBeosPD4ZLURp1bEo8qk
- whre2bHnmbYq+LUveuBty+VmUUfaoHayUIpRYL7llbz78hogV2VvP/aWw5mkWPwLWKyZ05qMgG3
- JXRSp5lwyNrfJBldK2DoiQSQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 481f0c4052730cb6;
-	Thu, 12 Nov 2026 03:05:56 +0000
-X-Mizu-Trace-ID: 481f0c4052730cb6
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8b256809-79b1-4438-ae3e-4cceb32cd7c2@linux.dev>
-Date: Thu, 12 Nov 2026 11:05:50 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=IGRfpG9W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794452841; x=1825988841;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=ptqTEKaa/wQCxX5FQBv36t/SEDmI+dFQJlctOlurQO0=;
+  b=IGRfpG9WjpbYEtoDxGB/sH9QIs1jIedJGRAO7e4HX4aO3AVfZDGwUxcv
+   4EdJU1xyLMuygCKipU5UyGUrr5C/Yg23k5+ELjWNIle/dyu+WooIShR4x
+   Hx651mcbsHSoB9Wce3Cv16z2fWdJWavkFBwLvVP/eFQgQ+nexlbtX2/EW
+   mklGckL8RDrtiCBMyW5/BszTIG7XszpI0fLNYI9WTgyW4kIH6OcBBVdAG
+   YgT8PE86BrKaXFVvaJEM8PiM87+ioSnpF2hsetlgfhSQoqHJUedZCLI8f
+   VapOn58Bu12kLAyj3esXCbJvwcjtoTXzNVg9I8iQCM1RgFXVxFqGl4YkT
+   g==;
+X-CSE-ConnectionGUID: t84JfkZRT5qoVkqkr8JN6w==
+X-CSE-MsgGUID: 8NIr0k5VS+WynXbp0R/VSA==
+X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
+   d="scan'208";a="33546894"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 03:07:18 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:24529]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.10.61:2525] with esmtp (Farcaster)
+ id 4cf5e5c8-93b3-4b54-b719-798688cbffaa; Thu, 12 Nov 2026 03:07:18 +0000 (UTC)
+X-Farcaster-Flow-ID: 4cf5e5c8-93b3-4b54-b719-798688cbffaa
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 12 Nov 2026 03:07:18 +0000
+Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 12 Nov 2026 03:07:16 +0000
+From: Alexander Graf <graf@amazon.com>
+To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>
+CC: Arnd Bergmann <arnd@arndb.de>, <nh-open-source@amazon.com>, "The AWS Nitro
+ Enclaves Team" <aws-nitro-enclaves-devel@amazon.com>
+Subject: [PATCH 08/19] nitro_enclaves: Let the region tracking arrays fall back to vmalloc
+Date: Thu, 12 Nov 2026 03:07:04 +0000
+Message-ID: <0b291c97efac8ddf131faf84495a8407d5ffcd4d.1794393487.git.graf@amazon.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <cover.1794300000.git.graf@amazon.com>
+References: <cover.1794300000.git.graf@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,265 +85,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] cgroup/cpuset: Keep an active housekeeping CPU in
- the top sched domain
-To: Guopeng Zhang <guopeng.zhang@linux.dev>, longman@redhat.com
-Cc: cgroups@vger.kernel.org, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, shuah@kernel.org, mathieu.desnoyers@efficios.com,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>, Ridong Chen <chenridong@xiaomi.com>
-References: <20261111134250.16852-1-guopeng.zhang@linux.dev>
- <20261111134250.16852-2-guopeng.zhang@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261111134250.16852-2-guopeng.zhang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
+NE_SET_USER_MEMORY_REGION allocates two tracking arrays that grow with
+the region, and for a large region kzalloc_objs() fails with a WARN.
+Neither needs physically contiguous memory, so allocate both with
+kvzalloc_objs(), with __GFP_NOWARN since a region can push even
+kvmalloc() past its limit.
 
+Fixes: 7dc9d4309fdb ("nitro_enclaves: Add logic for setting an enclave memory region")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexander Graf <graf@amazon.com>
+---
+ drivers/virt/nitro_enclaves/ne_misc_dev.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-On 11/11/2026 9:42 PM, Guopeng Zhang wrote:
-> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
-> 
-> Boot-isolated CPUs remain in top_cpuset.effective_cpus, but are excluded
-> from its scheduling domain. A partition can therefore take all boot
-> domain housekeeping CPUs while leaving effective_cpus nonempty. For
-> example, on a 32-CPU system with all CPUs online and
-> isolcpus=domain,10-31:
-> 
->    echo 0-9 > A/cpuset.cpus
->    echo root > A/cpuset.cpus.partition
->    Oops: general protection fault
->    RIP: 0010:build_perf_domains+...
-> 
-> tasks_nocpu_error() also rejects valid CPU replacements because it does
-> not account for CPUs returned by the update. With a fresh cgroup A under
-> the same boot configuration:
-> 
->    echo 2-31 > A/cpuset.cpus
->    echo isolated > A/cpuset.cpus.partition
->    echo 0-4 > A/cpuset.cpus
->    cat A/cpuset.cpus.partition
->    isolated invalid (Parent unable to distribute cpu downstream)
-> 
-> The update should return CPUs 5-31 to top_cpuset, including housekeeping
-> CPUs 5-9, and leave A valid. This replacement failure also occurs without
-> boot isolation and under populated local parents.
-> 
-> Extend tasks_nocpu_error() to take an explicit mask of CPUs being
-> returned and use it for local and remote updates. Require an active
-> HK_TYPE_DOMAIN_BOOT CPU to remain in top_cpuset. For other populated
-> parents, check within their current exclusive grant so an ancestor
-> update cannot credit CPUs that the parent no longer owns.
-> 
-> CPU hotplug can also empty the top scheduling domain. Pass no returned
-> CPUs during its availability check, and only invalidate a partition to
-> restore the top domain if it can return an active boot domain
-> housekeeping CPU. Still invalidate a populated partition that has no
-> active CPU of its own.
-> 
-> Fixes: 9b496a8bbed9 ("cgroup/cpuset: Prevent leakage of isolated CPUs into sched domains")
-> Fixes: 0c7f293efc87 ("cgroup/cpuset: Add cpuset.cpus.exclusive.effective for v2")
-> Co-developed-by: Ridong Chen <chenridong@xiaomi.com>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-> ---
->   kernel/cgroup/cpuset.c | 85 ++++++++++++++++++++++++++++++++++--------
->   1 file changed, 70 insertions(+), 15 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 3052413e41e7..85f92ae0c6f4 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1181,18 +1181,54 @@ static void update_partition_sd_lb(struct cpuset *cs, int old_prs)
->   }
->   
->   /*
-> - * tasks_nocpu_error - Return true if tasks will have no effective_cpus
-> + * tasks_nocpu_error - Return true if tasks or the top domain lack active CPUs
-> + * @parent: parent partition, NULL for a remote partition
-> + * @cs: the partition
-> + * @xcpus: exclusive CPUs that @cs will hold after the update
-> + * @del_cpus: exclusive CPUs to be returned to @parent, can be NULL
-> + *
-> + * @del_cpus may include CPUs that are also in @xcpus and will stay in
-> + * @cs. They are skipped by the @xcpus check, so callers can pass the
-> + * current effective_xcpus of @cs without masking it first.
-> + *
-> + * top_cpuset always has tasks. Boot-isolated CPUs remain in its
-> + * effective_cpus but are excluded from its sched domain, which must
-> + * retain an active boot domain housekeeping CPU.
->    */
->   static bool tasks_nocpu_error(struct cpuset *parent, struct cpuset *cs,
-> -			      struct cpumask *xcpus)
-> +			      const struct cpumask *xcpus,
-> +			      const struct cpumask *del_cpus)
->   {
-> +	const struct cpumask *mask;
-> +	int cpu;
-> +
-> +	/* A populated @cs must have an active CPU in @xcpus. */
-> +	if (!cpumask_intersects(xcpus, cpu_active_mask) &&
-> +	    partition_is_populated(cs, NULL))
-> +		return true;
-> +
->   	/*
-> -	 * A populated partition (cs or parent) can't have empty effective_cpus
-> +	 * A populated @parent must keep an active CPU in @mask, either from
-> +	 * its effective_cpus or from @del_cpus, that isn't taken by @cs.
->   	 */
-> -	return (cpumask_subset(parent->effective_cpus, xcpus) &&
-> -		partition_is_populated(parent, cs)) ||
-> -	       (!cpumask_intersects(xcpus, cpu_active_mask) &&
-> -		partition_is_populated(cs, NULL));
-> +	if (!parent)
-> +		parent = &top_cpuset;
-> +
-> +	/* CPUs outside the parent's current grant cannot be returned. */
-> +	mask = parent->effective_xcpus;
-> +	if (parent == &top_cpuset)
-> +		mask = housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT);
-> +	else if (!partition_is_populated(parent, cs))
-> +		return false;
-> +
-
-The mask selection looks right to me. HK_TYPE_DOMAIN_BOOT is the right
-one for top_cpuset, since CPUs returned by an isolated child are not in
-HK_TYPE_DOMAIN yet. Limiting a local parent to its effective_xcpus also
-correctly drops stale CPUs in del_cpus after the parent shrinks.
-
-One corner case: validate_partition() also calls this for an invalid
-cs whose parent is not a valid partition. If the parent is an invalid
-partition without cpuset.cpus.exclusive, reset_partition_data() has
-cleared its effective_xcpus, the loop does nothing, and we return true
-when the parent is populated. The child's prs_err then changes from
-PERR_INVPARENT to PERR_NOCPUS, which reports the wrong reason. The old
-code did not do that. How about:
-
-	  else if (!is_partition_valid(parent) ||
-			   !partition_is_populated(parent, cs))
-			  return false;
-			
-The invalid parent case is already reported by PERR_INVPARENT/PERR_NOTPART.
-
-Nit: the comment "Return true if tasks or the top domain lack active
-CPUs" doesn't cover local parents. Maybe "Return true if @cs or @parent
-would lack active CPUs; for top_cpuset, only active boot domain
-housekeeping CPUs count".
-
-
-> +	for_each_cpu_and(cpu, mask, cpu_active_mask) {
-> +		if (cpumask_test_cpu(cpu, xcpus))
-> +			continue;
-> +		if (cpumask_test_cpu(cpu, parent->effective_cpus) ||
-> +		    (del_cpus && cpumask_test_cpu(cpu, del_cpus)))
-> +			return false;
-> +	}
-> +	return true;
->   }
->   
->   static void reset_partition_data(struct cpuset *cs)
-> @@ -1724,7 +1760,7 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->   	 */
->   	compute_excpus(cs, tmp->new_cpus);
->   	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
-> -	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
-> +	    tasks_nocpu_error(NULL, cs, tmp->new_cpus, NULL))
->   		return PERR_INVCPUS;
->   	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
->   		return PERR_NOCPUS;
-> @@ -1828,7 +1864,7 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->   		if (!capable(CAP_SYS_ADMIN))
->   			WRITE_ONCE(cs->prs_err, PERR_ACCESS);
->   		else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
-> -			 cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
-> +			 tasks_nocpu_error(NULL, cs, excpus, cs->effective_xcpus))
->   			WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
->   		else if (prstate_housekeeping_conflict(prs, PRS_ROOT,
->   						       excpus, tmp->delmask))
-> @@ -1961,7 +1997,8 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->   	 */
->   	if ((cmd != partcmd_disable) && !newmask) {
->   		compute_excpus(cs, tmp->delmask);
-> -		nocpu = tasks_nocpu_error(parent, cs, tmp->delmask);
-> +		nocpu = tasks_nocpu_error(parent, cs, tmp->delmask,
-> +					  is_partition_valid(cs) ? cs->effective_xcpus : NULL);
->   	}
->   
->   	if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
-> @@ -2497,7 +2534,9 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->   	if (cpumask_empty(trialcs->effective_xcpus))
->   		return PERR_INVCPUS;
->   
-> -	if (tasks_nocpu_error(parent, cs, trialcs->effective_xcpus))
-> +	if (tasks_nocpu_error(is_remote_partition(cs) ? NULL : parent, cs,
-> +			      trialcs->effective_xcpus,
-> +			      is_partition_valid(cs) ? cs->effective_xcpus : NULL))
->   		return PERR_NOCPUS;
->   
->   	return PERR_NONE;
-> @@ -3997,6 +4036,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->   	static nodemask_t new_mems;
->   	bool cpus_updated;
->   	bool mems_updated;
-> +	bool nocpu;
->   	int partcmd = -1;
->   	struct cpuset *parent;
->   
-> @@ -4008,9 +4048,23 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->   	if (!tmp || !cs->partition_root_state)
->   		goto update_tasks;
->   
-> -	if (is_remote_partition(cs) && (cpumask_empty(subpartitions_cpus) ||
-> -				       (cpumask_empty(&new_cpus) &&
-> -					partition_is_populated(cs, NULL)))) {
-> +	/* Do not count any CPUs as returned during this hotplug check. */
-> +	nocpu = tasks_nocpu_error(is_remote_partition(cs) ? NULL : parent, cs,
-> +				  &new_cpus, NULL);
-> +	if (nocpu && (parent == &top_cpuset || is_remote_partition(cs))) {
-> +		/*
-> +		 * Only invalidate a partition for an empty top sched domain if
-> +		 * it can return an active boot domain housekeeping CPU. A
-> +		 * populated partition with no active CPU must still be invalidated.
-> +		 */
-> +		cpumask_and(tmp->addmask, cs->effective_xcpus,
-> +			    housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
-> +		if (!cpumask_intersects(tmp->addmask, cpu_active_mask))
-> +			nocpu = cpumask_empty(&new_cpus) &&
-> +				partition_is_populated(cs, NULL);
-> +	}
-> +
-
-This is hard to follow. nocpu is computed first and then partly undone,
-so that only a partition owning an active housekeeping CPU gets
-invalidated.
-
-Do we really need this? When hotplug leaves top_cpuset with no active
-CPU, cpuset_handle_hotplug() already clears subpartitions_cpus and
-invalidates all the partitions under it. If we handle an empty top
-sched domain the same way, this block can go away.
-
-Longman, what do you think?
-
-> +	if (is_remote_partition(cs) && (cpumask_empty(subpartitions_cpus) || nocpu)) {
->   		WRITE_ONCE(cs->prs_err, PERR_HOTPLUG);
->   		remote_partition_disable(cs, tmp);
->   		compute_effective_cpumask(&new_cpus, cs, parent);
-> @@ -4023,10 +4077,11 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->   	 * 2) parent is invalid or doesn't grant any cpus to child
->   	 *    partitions.
->   	 * 3) subpartitions_cpus is empty.
-> +	 * 4) top_cpuset needs an active boot domain housekeeping CPU from cs.
->   	 */
->   	if (is_local_partition(cs) &&
->   	    (!is_partition_valid(parent) ||
-> -	     tasks_nocpu_error(parent, cs, &new_cpus) ||
-> +	     nocpu ||
->   	     cpumask_empty(subpartitions_cpus)))
->   		partcmd = partcmd_invalidate;
->   	/*
-
+diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.c b/drivers/virt/nitro_enclaves/ne_misc_dev.c
+index 821624c93795b..ac33fbcd41f35 100644
+--- a/drivers/virt/nitro_enclaves/ne_misc_dev.c
++++ b/drivers/virt/nitro_enclaves/ne_misc_dev.c
+@@ -938,15 +938,17 @@ static int ne_set_user_memory_region_ioctl(struct ne_enclave *ne_enclave,
+ 
+ 	max_nr_pages = mem_region.memory_size / NE_MIN_MEM_REGION_SIZE;
+ 
+-	ne_mem_region->pages = kzalloc_objs(*ne_mem_region->pages, max_nr_pages);
++	ne_mem_region->pages = kvzalloc_objs(*ne_mem_region->pages, max_nr_pages,
++					     GFP_KERNEL | __GFP_NOWARN);
+ 	if (!ne_mem_region->pages) {
+ 		rc = -ENOMEM;
+ 
+ 		goto free_mem_region;
+ 	}
+ 
+-	phys_contig_mem_regions.regions = kzalloc_objs(*phys_contig_mem_regions.regions,
+-						       max_nr_pages);
++	phys_contig_mem_regions.regions = kvzalloc_objs(*phys_contig_mem_regions.regions,
++							max_nr_pages,
++							GFP_KERNEL | __GFP_NOWARN);
+ 	if (!phys_contig_mem_regions.regions) {
+ 		rc = -ENOMEM;
+ 
+@@ -1036,7 +1038,7 @@ static int ne_set_user_memory_region_ioctl(struct ne_enclave *ne_enclave,
+ 			dev_err_ratelimited(ne_misc_dev.this_device,
+ 					    "Error in slot add mem [rc=%d]\n", rc);
+ 
+-			kfree(phys_contig_mem_regions.regions);
++			kvfree(phys_contig_mem_regions.regions);
+ 
+ 			/*
+ 			 * Exit here without put pages as memory regions may
+@@ -1049,7 +1051,7 @@ static int ne_set_user_memory_region_ioctl(struct ne_enclave *ne_enclave,
+ 		ne_enclave->nr_mem_regions++;
+ 	}
+ 
+-	kfree(phys_contig_mem_regions.regions);
++	kvfree(phys_contig_mem_regions.regions);
+ 
+ 	return 0;
+ 
+@@ -1057,8 +1059,8 @@ static int ne_set_user_memory_region_ioctl(struct ne_enclave *ne_enclave,
+ 	for (i = 0; i < ne_mem_region->nr_pages; i++)
+ 		put_page(ne_mem_region->pages[i]);
+ free_mem_region:
+-	kfree(phys_contig_mem_regions.regions);
+-	kfree(ne_mem_region->pages);
++	kvfree(phys_contig_mem_regions.regions);
++	kvfree(ne_mem_region->pages);
+ 	kfree(ne_mem_region);
+ 
+ 	return rc;
+@@ -1448,7 +1450,7 @@ static void ne_enclave_remove_all_mem_region_entries(struct ne_enclave *ne_encla
+ 		for (i = 0; i < ne_mem_region->nr_pages; i++)
+ 			put_page(ne_mem_region->pages[i]);
+ 
+-		kfree(ne_mem_region->pages);
++		kvfree(ne_mem_region->pages);
+ 
+ 		kfree(ne_mem_region);
+ 	}
 -- 
-Best regards
-Ridong
+2.47.1
 
