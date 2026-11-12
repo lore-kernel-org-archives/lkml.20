@@ -1,112 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487912;
-	b=dz8e2Otu2Oft5OkbU0xkkWU6/4Q2mftqOPGMvxKKGpoNhgggFg2vwrFA2Sd9Tn4bj0pS
-	 28px0SueQaRg3NaPD4b4xBFuHfOTVcBEVkdwYmJzxiT650gDb6Lc05UZfarrjRZs6keOa
-	 AJEfeHenOKsxq5Dy0MrZiUIV3FLsHZu7lgaGUqdAQDc0cGr7qGwToqqSAcuo1d0k+baNb
-	 Wh0C1lJC2Ki6qoMHl9LpDFSTM4yYQYfQEa1yjKIUe2JL4VKNpidnf0wzwwSmZd6Uf1utY
-	 wgRb9J6xvQwxW8Jv3+ljaek6zUWV09/c9RyFc4HG2f21Le6634wKLNv05ZA0fWpjXdA==
+	t=1794487937;
+	b=288DrwB78Z/PdijGkxIu0inbFRTfvO5J2mtyjvK7pIzWMUM9Id6gT4IMUxT2mxV9KXQD
+	 AUfWHVYsoshkQSsXZtNnXKfF+p+aFY80JyoX7CD6JzCbwCiSZC1Iqz58ylKdEKnUJh5tu
+	 Tq6911xfug7dYpxOdu+leHD6FUiBoyakCdVaR4T0QZRq1qeQJxN45iQ7Xi9t506RliAgQ
+	 4bEBEZPhvzn6IdSJ/nRuoSpKR4npMtpUA21pBGCvMQuLUQD1HYyV3Oa32W0uG9vnC6tCF
+	 S1jKqVK966kBWtlgImLzymXKIj8OaBL76dxKTlpw0mGrOc9I6AaBWYuQRDJTBlfSx+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487912;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Xon4MxyvfV7RksGi/nZjGymYtYhAhYgMqriG4HzeboY=;
-	b=djS1tMTgE0a3wQsz7FbskhP/rOt3r6/rX0Wzta210NSq8N40tdQVIBUZvmgOzL/gXbgo
-	 3ZvxGFJ84OCpG1ZZdRJfBGOi23SSB75XuU8U7VcbnyDl4xZwkjG3r71nxzNPEtHvwIgVQ
-	 E3hYR7J5ub+oda9VFgd5taqZqmWUzHs/TM2QLtJ0L+IcaB/qu8e06jt253JtQcCx0xLiM
-	 aZWw3OwZ8B1zf7rdwcCR/raKw2TM16GafPOBa8jsWL5q6uPbnBKe392Gxe5M7Itxs/IAy
-	 tK2Kekcae6hmFn8iCZQgdcW43nTcBb2aO2qR5bIZBJiaY3CcZIchrl6y8ipoMrhabJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487937;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KWl2nH8QGR76CCLtZk6bqGKfbZExirp/BPFDBGPTkYk=;
+	b=oYd1RWT4Gz7AITUWZXZiKqJC8swXja//7o1OCj8kukmmjRdQhSP9bB3JV2xLBprIVfWW
+	 qgioqf/IhhYQEhVGXzXlIN4CigEOKqkkgS2c/hiv2j8B4j2zjlFL7Lv+Uj1s7mShpauC2
+	 kLI/5D+ayA/304YBBaCo+/3zMW91mNE0gMMAtijmHWplN6UARnVnNcfmcGttqxwxd0kW0
+	 0tKQWp+dfGDbuql1wVmBR14hk9xMabclmJZH4cEtlFjEFuA3yLyKT9Cgsod+FPTT/xyV9
+	 +zolQW+EV09QI8t+FfI/yPsAhdUNbckGpeouMJWas4AnCQoLK4TTYGUrerKcZALECmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VbRs5i+1;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KmFryWxt;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=n3VRUvKO;
+	arc=none smtp.remote-ip=115.124.28.170
+Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com [115.124.28.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABB3606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:51:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ABB3606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301EB606A323;
+	Thu, 12 Nov 2026 12:52:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 301EB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VbRs5i+1;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KmFryWxt
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC8vWMl4149282
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:51:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Xon4MxyvfV7RksGi/nZjGymYtYhAhYgMqriG4HzeboY=; b=VbRs5i+1+/PtZ9UA
-	E4uuAhmEG7XRPSBXVxphmO9LZEF86BXyAACeumnvnU+2S47/gjdwPTaTI7ohSV+A
-	5OAXUJmog0c+ULJBs4SKDeyMuZFkZd+bwxtrgRFqIkXp7oZD7wPCUrOw3136k2gS
-	mdN4Qa5xvJZZgl/zFOZ+X1FdK37wh812F2JK8JIgUSLPsimpcOHzUBZgJPLou0lg
-	Bf65oSOEkEp9QgH9SEN6mm8qutVbW3yU28b8jimwtVErGmJdugurqcHAAOfdezxj
-	JOH4bhADL9e2gDRLh5cqXMPF4nqsgCTSIjWnku9OExQvCK0I8Z8T9jBav6TIXJYG
-	HbU28A==
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvxc63f3e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:51:51 +0000 (GMT)
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8255327a28fso5343952a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:51:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794487911; x=1795092711; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xon4MxyvfV7RksGi/nZjGymYtYhAhYgMqriG4HzeboY=;
-        b=KmFryWxt0ppgR9ha5R9psCo19GZT94mu1GCpaRj+YrbWVazIvU+M+KSyXeUKiNko1W
-         wejQtE4bC4Rlpr5zhG1UI2heEP7Hgh8HFFFdEu4qsM51soaDGwUgPjsXfvJQ0zDyRLCl
-         ZwkNEuOT25HuPAQAYsFiRf2R4knq5ceSF8QyRvLvp715jjABjBWd6BbFzzoUCAALHYB3
-         F/StiNWj7vlh03WlPRu3cAjA1LuK1aMGenAaM3vzZxsen0HOOQyNtS8OfJ/bbs3LJEuE
-         /ENcsmF5qDKzUKCEKIesrZBEtLJo3SbpqVp/oz8S3GxrKqIreYeVZoI6CbMUCCt9abye
-         Romw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794487911; x=1795092711;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xon4MxyvfV7RksGi/nZjGymYtYhAhYgMqriG4HzeboY=;
-        b=QDXYjZTRtZdj0fJzRVuV8638ipVoNZcTRIRVbJIK/MuTBCjsdhe5aqmRlj6xx/VyF8
-         VbNYO+szsru8mOFrdQAV2mmquac7tu/DZuz6pWbfb85w1ZuePegsHhGpmGupAQdsCkUG
-         E3SryhScYGS2qh4R0Hs3KSB38bSU9eBJKsBSl5+wT4JVTt3kLuwuAiEFSEL5+XNInSAA
-         0X+recm1/M0JjIqMQp/6kmwlcfPGw9el5NIRBz2Cg0WFZyRtKe/1UOqKndxl7RCLdk98
-         vd0/cgeFK8u7IofqlgSgwlac3/HU2mDshuIbRn6mZg06uKvtTHsTjVbkH0SkQk7Xkcrn
-         PHMg==
-X-Forwarded-Encrypted: i=1; AL+hErEiVJYpAltao7qKHV5uzUQJY3EiSiAvMNGRvGi5C0XZoZvh+P0KuSFn2A4t1BXqHU+YSNANOquDsOu1xis=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/fQIRXmbV07fs67xB6/VphJcUy+2vDbm23zh1eQnWknLYhwOc
-	5f018ug4hG+w7RWtbizSB2dpIBANRe6OQRlrQ4N2ybs7dmKm5L+P5CQ1WuanwudbFfp4/OAi2CC
-	JBWm1wYD4SxYEjPrwoyP/8/9gkKwWQFH07w2X2w5emcWuqjT9s5tiV5rmfygNsm4PE6Y=
-X-Gm-Gg: AYBFou0TrZVs/wCT7Ta0+CxoiMygKnL3EyYAcmB+J9XFiC+g1VCaAUXXqQD465TNe3w
-	saMXy1PnSjwI8msHzyZcunkUzQou1DoMIo11aUAi0ki5df2neBENwvojdtzG0jwv/yClhS3dVYV
-	8BRMdnG84/5I3x0dLdzEHJ+2ffhMU/h8Bvrc7/8PGK6h3uI4X1DbODW086Rz8OJba3UOipg+Tbl
-	zS1mXSrJJUpqxiZFxyRlP6n17iJI1EN6KyqsyTDmpbDDLaozHhsguaG8tjAwZrjjHRn/awD90xa
-	K5hnN76ThHtiO4s35BfxXc0qemR9WL9L861KPQwW16BG3YmFCduzi2MoxYSM9RqxwclvpFgXz7K
-	NzDO6LQyCX5IFjo8u9K8Npr1vSWC/FcMSV4wU1vIJYd6HJ2RqQONO0ztE24tee2q24iHQViLSFP
-	8/TT5PCg==
-X-Received: by 2002:a05:6830:906:b0:80c:d34f:5f5e with SMTP id 46e09a7af769-860f292723cmr7032492a34.23.1794487910665;
-        Thu, 12 Nov 2026 04:51:50 -0800 (PST)
-X-Received: by 2002:a05:6830:906:b0:80c:d34f:5f5e with SMTP id 46e09a7af769-860f292723cmr7032459a34.23.1794487910241;
-        Thu, 12 Nov 2026 04:51:50 -0800 (PST)
-Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcbc7eecsm7608191a34.15.2026.11.12.04.51.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 04:51:49 -0800 (PST)
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 18:21:08 +0530
-Subject: [PATCH v2 2/2] arm64: dts: qcom: shikra: Correct QCE node
- configuration
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=n3VRUvKO
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1794487925; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=KWl2nH8QGR76CCLtZk6bqGKfbZExirp/BPFDBGPTkYk=;
+	b=n3VRUvKOwIzpuLc/YV1XH7nyFfNt6qwb2oGsjp24WiDe5k2/VFegqJJi+lECBNMRSoi8P0iVX/+JN1/ZjRm96RRuhJGTf4Mhq2E9GhTWXAp/PZB3m5w+8CuhtdkFXnoYJpJXDD86xXZxcsz3Z6t5qa48QmghnEHrK6oe2+hUroM=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04498484|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.20549-0.0143386-0.780171;FP=3337311923600399844|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033025068124;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.k0cpdZq_1794487922;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.k0cpdZq_1794487922 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 12 Nov 2026 20:52:04 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+	netdev@vger.kernel.org
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	Maoyi Xie <maoyixie.tju@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	M Chetan Kumar <m.chetan.kumar@linux.intel.com>
+Subject: [PATCH net 0/5] net: wwan: iosm: validate MUX DL lengths and offsets
+Date: Thu, 12 Nov 2026 20:51:56 +0800
+Message-ID: <20261112125201.1019-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,95 +69,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-shikra_qce_fix-v2-2-2ce112cc2ccf@oss.qualcomm.com>
-References: <20261112-shikra_qce_fix-v2-0-2ce112cc2ccf@oss.qualcomm.com>
-In-Reply-To: <20261112-shikra_qce_fix-v2-0-2ce112cc2ccf@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-ORIG-GUID: tqZS5KM0Nx9kpmHYBwq5AF92GS-VZRVo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1MSBTYWx0ZWRfX/LsN6Dt+UW4E
- XfaqjNwAF6paUa95V+jylYSQC3/oApHJYm05EnSaLwpGcrCiLUHIj4NzQb/Mkf2oXVDp0Sos2m7
- Qmy8EBlVm6liam2GnRjaVtHcHA56jR+5axZsmi0ESPECf1B3x92r7ddQsyoDY5fQclqwilFAyZX
- RFMlVonEdUqiSCBK6ERsGKa15ND02Wt3hylEoYAqsFb9p9K8X8axMU8hAGRMBy4ySvsUk7Ztokj
- fF64YT3bvafzijO8Ljlu1yitXJkk0z6PYA+R0xNXKF+u6apWl/0XSfUBdc/AZ/KTPSJU+MZSYrP
- wFHGexD+jsAfMEmRESonESUTfuq8PVEMkSlur7/G3124VK6ufNgMaFKG2MlQc4Ucr/IM64CAfPj
- Gpojp/QRvvrXnQlgUXe9rkFnT354M+cLx/bEpl1gfXaN8y41BsCgcHUdAXtNLfWZADnzMv2SSV/
- VKwGzVofH8+mGlIpSpQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1MSBTYWx0ZWRfX+mzAlKfQ6Fn+
- NoEMSvXOIhEiwVfjtXBUtn2FAeqeGZZumLdQJeJR7G/yW7ZticQ+kL2JZSRPPAubUCujkK+Ysjw
- 3ny2+iGAaF+f4RMUHYsPqAwaKrRg2Uk=
-X-Proofpoint-GUID: tqZS5KM0Nx9kpmHYBwq5AF92GS-VZRVo
-X-Authority-Analysis: v=2.4 cv=O/ysLx9W c=1 sm=1 tr=0 ts=6af5b667 cx=c_pps
- a=OI0sxtj7PyCX9F1bxD/puw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=nsAWE0-7qdAvx2JcIW4A:9 a=QEXdDO2ut3YA:10
- a=Z1Yy7GAxqfX1iEi80vsk:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 lowpriorityscore=0 priorityscore=1501
- bulkscore=0 adultscore=0 malwarescore=0 impostorscore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120051
+Content-Transfer-Encoding: 8bit
 
-Shikra QCE requires an explicit core clock, which is missing from the
-current configuration. Add core clock and adjust fallback compatible to
-match updated binding description.
+Several lengths and offsets the MUX downlink decoders work with are
+supplied by the modem: the size of the received block comes from a
+device written transfer descriptor, and the ADGH datagram length, the
+ACBH block length, the command chain offsets and the length a command
+header declares for its parameter are all read from the block itself.
+None of them is bounded against what actually arrived, so a truncated or
+enlarged DL block makes the driver read past the received data, hand the
+network stack a payload the device never declared, walk a command chain
+that points back at itself, or decode the bytes of one command a second
+time as the command following it. The aggregated datagram block path is
+already covered by commit 526b8ef54668 ("net: wwan: iosm: bound device
+offsets in the MUX downlink decoder") and is not touched here.
 
-Cryptobam is controlled remotely and its clocks are therefore managed by
-remote crypto subsystem.
+This series adds those bounds. The checks only relate the device
+supplied lengths and offsets to the received data: no command type,
+response or protocol semantics change, so a conforming modem behaves
+exactly as before. Patch 4 is the prep change for patch 5, it stops the
+driver from copying the received parameter union by value and from
+building its answer inside the received block.
 
-Fixes: 099cd05d200b ("arm64: dts: qcom: shikra: Add ICE, TRNG and QCE nodes")
-Tested-by: Wenjia Zhang <wenjia.zhang@oss.qualcomm.com> #on shikra device
-Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/shikra.dtsi | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+cmd_len is not used the same way in the two paths. In the aggregated
+path the parameter boundary is next_cmd_index, or the end of the
+received block for the last command: the flow control decoder already
+keeps a backward compatible handling for a cmd_len that does not match
+the header and its parameter size, so the field is not a hard bound
+there. In MUX Lite it is an upper bound when it covers at least the
+header; a smaller value is not taken as a usable declaration and the
+received length stays the limit. That is a compatibility tolerance, not
+a valid input: the protocol requires 0x10 or more.
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-index 0a95ad5a5582..d5f0ef863173 100644
---- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-@@ -1208,7 +1208,7 @@ cryptobam: dma-controller@1b04000 {
- 		};
- 
- 		crypto: crypto@1b3a000 {
--			compatible = "qcom,shikra-qce", "qcom,sm8150-qce", "qcom,qce";
-+			compatible = "qcom,shikra-qce", "qcom,ipq4019-qce", "qcom,qce";
- 			reg = <0x0 0x01b3a000 0x0 0x6000>;
- 			dmas = <&cryptobam 4>, <&cryptobam 5>;
- 			dma-names = "rx", "tx";
-@@ -1219,9 +1219,8 @@ crypto: crypto@1b3a000 {
- 				 <&apps_smmu 0x96 0x0011>,
- 				 <&apps_smmu 0x98 0x0001>,
- 				 <&apps_smmu 0x9f 0x0>;
--			interconnects = <&system_noc MASTER_CRYPTO_CORE0 0
--					 &mc_virt SLAVE_EBI_CH0 0>;
--			interconnect-names = "memory";
-+			clocks = <&rpmcc RPM_SMD_CE1_CLK>;
-+			clock-names = "core";
- 		};
- 
- 		qfprom: efuse@1b44000 {
+A parameter too short for the member its command type reads is dropped
+with -EMSGSIZE, which also ends an aggregated block at that command.
+
+Patch 3 also delimits the command chain by the received length:
+block_length is checked to cover the ACBH header and not exceed the
+received buffer, but skb->len is what bounds the commands. The
+array_index_nospec() call of the walk is gone with these explicit
+checks: it bounds a byte offset by sizeof(struct mux_cmdh), which
+turns every legal offset past that size into zero, while the checks
+constrain the same value against the received length.
+array_index_nospec() is kept only for if_id, an actual array index.
+
+Patch 2 relies on the ADGH header check introduced by patch 1, and patch
+5 relies on the ACBH block validation from patch 3 and on the parameter
+pointer introduced by patch 4. Patches 1 through 3 apply cleanly and
+build individually against the base, the series applies cleanly and
+every commit builds, W=1 drivers/net/wwan/iosm/ is clean.
+
+Found by reviewing the DL decode path against the MUX protocol
+structures. Not reproduced on a live modem: reaching it needs a device
+that truncates or enlarges its own downlink blocks.
+
+The series is based on the net tree at 145480b28ca8 and applies to it
+cleanly.
+
+Fang Xieyan (5):
+  net: wwan: iosm: validate the MUX DL block length
+  net: wwan: iosm: validate the ADGH datagram length
+  net: wwan: iosm: bound the ACBH command chain walk
+  net: wwan: iosm: pass the DL command parameter by pointer
+  net: wwan: iosm: validate the command parameter length
+
+ drivers/net/wwan/iosm/iosm_ipc_mux_codec.c | 197 ++++++++++++++++++++++-------
+ 1 file changed, 151 insertions(+), 46 deletions(-)
 
 -- 
-2.34.1
+2.50.1
 
