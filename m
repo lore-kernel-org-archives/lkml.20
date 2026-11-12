@@ -1,70 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489014;
-	b=iFSbFRb3NiOeimh5xndbluc2HhRoCCToHsSaTrjaQwDK/WxNPMmDo4CpdpxoDO5B2cGi
-	 IpAcWAzWI1G9TnVoLJU/voOZc9x6KD67UU2O6qQyu4x8gEWLKuW3F9evdwpuIaZNQz1oy
-	 9wDx7AnHYiDquEFsHMuNw+KIY7ab9ZXUHc59vpCNZFoBjqZ9tdErJtAefX8+mT1VcJWvC
-	 atH21cnQCvu6YEXL7w///pcNLWxrbn56QPnrbEjV0VgTu8ZLUhWE76Y72akz/k2BXs0mq
-	 ruN6fG4zNqLJ/MH1s1nxREtUzNaFHIiXV7Dv6nIURW7XUO36mq7796vwrRhB6L/jDjQ==
+	t=1794489017;
+	b=IqjuUCxSOIlHNDhhXYFdQ5P02PldSe+6MY50MjMiW9pSbR9zn4yslwxE+My7cCjGZMJN
+	 2mGWVRQewX14Y5ryuAKOqR2DJeLKoc8mDwih3p+VfTe5b4hoNTd1mU+QDCHnPMNZtXXen
+	 APWKx76Ne7RtTx+03dX8jto9Kng1sJ1pf4A0ad9UFGWYnymGLD5V1jw+1gDQh2MhfRAyL
+	 HElyMF9LtewgL8cfHMSTu0VU/8jDQYEd7Rqf4Iry0BcMqbUORuNOTYYz/oo/ud99LXA4o
+	 BS9//b/E3kH6P9cwHu4m7KKyKJKA4AG/7SD6C1YN2KgCmq0bvO3WGSn2P1CslZsLGyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489014;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=VZ5eT6B75LMWy1ddL3HEmfKOZCeeu08WJvkuJTYb4oI=;
-	b=w39pkZNWI7xzEqfrXj3dI5+bZzhpAGSGx95rTf0/7S8pkLiW6iDnSXaHKmkdg7xHstIP
-	 9zW+iY9IrR+sCEv42cTM6sGZmblm4qsVQVOZqd6Th/zUb5gqUAUpjbKJ75EpdSmJydeVK
-	 SHWHtKjEu8Di9luEyADTyUXybVn9O59oLrwyccqtNrTRmlP5+rettkxV4Y+lMy7OxUxPu
-	 zrSjvFN7vv6fo6IHqkz0eb0lSqdhT0/76Qw/Y/HJlAEIp639Ew8458L1do5tkGUv4rxOL
-	 QD9qeYr1saqgh3FxuqatqNo8wStr48ltqewWmLUAvQPaz8lEdLLnfiTTCnftR4oTpsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489017;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
+	b=gcTdH5fDTFPn8jYCkBAvgxzEXHvWqw4xHNGaeEiJjabmIv8RcF2de2Tn6dFbjJqVKvQo
+	 xwgj1RPk6l2edO6nBM+WtmpVBymLsmUJ55nuhO6r6cY6wfZWyTA52etmTx1R8YJA0RAXp
+	 pT3yhu1zzoNrgLhj8pi6drOCy9xYO9gDjI26hDXfKpO0qibv9Xs/pHGNTzdK2IkQazies
+	 BUelpnCxUNBaB0MxjNr1AD/kM0wVIkymd88EFAolkM7SeDvPRoAdIqLuhlWIezPWl/++/
+	 BvCqKeMkJ/XEFXWT8BQCBvcXqjZP3FNwABy9n41lWroWL0iEIXHoAQhRCV5lxqHDDrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GFy0xwG+;
-	arc=none smtp.remote-ip=95.215.58.4
-Received: from mta1.migadu.com (out-4.mta1.migadu.com [95.215.58.4])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxYVUuYA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F476606A88B
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:10:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F476606A88B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1C0606A332;
+	Thu, 12 Nov 2026 13:10:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GFy0xwG+
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ngqf9+sqR9FZGAPuRCkZiauWpsW12zu/jja2vEiaVxU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794489011; v=1; x=1795093811;
- b=GFy0xwG+FtzOpEQ2/54N26lfYTcrOGxomcHIe4iFujyrLrJm+jm7GUG8ER7wYon0bz7SE2va
- cqEtLaJhAIRQh6lPJF+Do7kHihtgrhj344JHjwvSwCFN6OP81SsvXzPcA0/V0s/xiC89YACEL0o
- FR8f8ikz2HMWgO23vePzNbI8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 944e6862ae57fa88;
-	Thu, 12 Nov 2026 13:10:10 +0000
-X-Mizu-Trace-ID: 944e6862ae57fa88
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org
-Cc: void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com,
-	liwanwu@kylinos.cn,
-	usama.arif@linux.dev,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH 1/6] sched_ext: Reject DSQ iterator kfuncs in tracing programs
-Date: Thu, 12 Nov 2026 21:09:29 +0800
-Message-ID: <20261112130934.563321-2-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112130934.563321-1-cui.tao@linux.dev>
-References: <20261112130934.563321-1-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxYVUuYA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93ECC1F00A0A;
+	Thu, 12 Nov 2026 13:10:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794489016;
+	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MxYVUuYAKmeGNr7LH7dlub4crKyb10O6m1oEZEZAjnckl+2vnbWelnSqghZYQiNa0
+	 JlVHOLuSfBXu2XPNzWABuxpD4h7YQH0MDn6Ud5nOClPYO+KoonloBRzoxkCGMvtiV8
+	 x9zyeOIoVL+ewtfYSri2+ddi3iIvyYItqbXhy7pZIY+nLgw2T8kX5ntBs9H4HdSLR+
+	 DPkNmm8fVIJMKqSD6zXp76WvpRTzXiPkwRPdv1SVUuBNpUleilyEGJSF0rCmSkhMEX
+	 4K7D6y684D2+7pC/8EPM+T9QEcs+tDJC0t5pQ8X1Sc+67+qtVh2upQqS3pWodeuWLs
+	 FpiOz3RuK/DIg==
+From: netdev-bot+sinfo@kernel.org
+To: Kalpesh Solanki <skalpesh942@gmail.com>
+Cc: Jay Vosburgh <jv@jvosburgh.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Oliver Hartkopp <socketcan@hartkopp.net>,
+ Jiale Yao <yaojiale02@163.com>
+Subject: 
+ Re: [PATCH] bonding: reject IEEE 802.15.4 and 6LoWPAN devices in bond_enslave
+Date: Thu, 12 Nov 2026 13:10:16 +0000
+Message-ID: <179448901611.2168702.17174519811846942598@kernel.org>
+In-Reply-To: <20261112130833.233208-1-skalpesh942@gmail.com>
+References: <20261112130833.233208-1-skalpesh942@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,84 +63,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Tao Cui <cuitao@kylinos.cn>
+Hi!
 
-bpf_iter_scx_dsq_next() and bpf_iter_scx_dsq_destroy() take the target
-user DSQ's raw spinlock, but they are in scx_kfunc_ids_any, which is
-also registered for BPF_PROG_TYPE_TRACING.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-For an active root scheduler without ops.sub_attach, the compatibility
-path in scx_prog_sched() lets an unassociated tracing program resolve to
-that scheduler. The tracing program can then call the iterator kfuncs
-while the target DSQ lock is already held.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-For example, a scheduler which mixes FIFO and priority-queue insertions
-into a user DSQ triggers scx_error() from scx_dispatch_enqueue() while
-holding that DSQ's lock. scx_claim_exit() emits sched_ext_exit before
-the lock is released:
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
 
-  scx_dispatch_enqueue()
-    raw_spin_lock(&dsq->lock)
-    scx_error()
-      scx_claim_exit()
-        trace_sched_ext_exit()
-          tracing BPF program
-            bpf_iter_scx_dsq_new(dsq_id)
-            bpf_for_each(scx_dsq, p, dsq_id, 0)
-              bpf_iter_scx_dsq_next(it)
-                raw_spin_lock_irqsave(&dsq->lock)
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-The tracing program recursively acquires the same raw spinlock and locks
-up the CPU. Because the tracepoint runs before scx_finish_exit(),
-disable_irq_work is not queued and the scheduler cannot enter its normal
-disable path.
-
-Reject the two iterator kfuncs from tracing programs at verification
-time. The kfuncs remain available to SCX struct_ops and syscall
-programs. bpf_iter_scx_dsq_destroy() has no independent live
-reproduction: its cursor only links into the DSQ after at least one
-successful next(), which deadlocks in the same window first. It is
-included for symmetry.
-
-This extends the coverage of commit b07a7450f6ef ("sched_ext: Reject
-rq-lock-taking kfuncs in tracing programs") and commit 4c2e0751d5e6
-("sched_ext: Reject scx_bpf_destroy_dsq() in tracing programs").
-
-Fixes: 650ba21b131e ("sched_ext: Implement DSQ iterator")
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- kernel/sched/ext/ext.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 536648378ea3..063b2964099a 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -12166,8 +12166,10 @@ static const struct btf_kfunc_id_set scx_kfunc_set_any = {
-  * when scx_locked_rq() returns NULL. Taking it while the context already holds
-  * an rq lock, the same one or another cpu's, can deadlock.
-  *
-- * scx_bpf_destroy_dsq() takes a user DSQ lock. A tracing program can run while
-- * that lock is already held and recursively acquire it.
-+ * scx_bpf_destroy_dsq() takes a user DSQ lock. So do
-+ * bpf_iter_scx_dsq_next() and bpf_iter_scx_dsq_destroy(), the latter only
-+ * after a successful next() has linked the cursor. A tracing program can
-+ * run while that lock is already held and recursively acquire it.
-  *
-  * Before returning, scx_bpf_sub_grant() and scx_bpf_sub_revoke() invoke
-  * ops.sub_caps_updated() of the sub-schedulers whose caps changed, so those ops
-@@ -12184,6 +12186,8 @@ BTF_ID_FLAGS(func, scx_bpf_cidperf_set, KF_IMPLICIT_ARGS)
- BTF_ID_FLAGS(func, scx_bpf_sub_grant, KF_IMPLICIT_ARGS)
- BTF_ID_FLAGS(func, scx_bpf_sub_revoke, KF_IMPLICIT_ARGS)
- BTF_ID_FLAGS(func, scx_bpf_destroy_dsq, KF_IMPLICIT_ARGS)
-+BTF_ID_FLAGS(func, bpf_iter_scx_dsq_next, KF_ITER_NEXT | KF_RET_NULL)
-+BTF_ID_FLAGS(func, bpf_iter_scx_dsq_destroy, KF_ITER_DESTROY)
- BTF_KFUNCS_END(scx_kfunc_ids_no_tracing)
- 
- /*
--- 
-2.53.0
-
-base-commit: 5b740a72b55c4267ba4d8010f17dde26b26f52d3
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
