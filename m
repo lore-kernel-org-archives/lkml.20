@@ -1,73 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794499668;
-	b=dEX/O85+hr5bSzjDPbycBmq5lsUEVRzq1kKyGzsS6t7U897QuEnc9W89JIgqn3n/OqJm
-	 J9crPtD6qaerbEL1XzQsQC7uTxLGwowd88xcPW3UeNFzzSCnldeVnmElwI1QS1ozJPw52
-	 Ov9YFsF+pAsX7TK64YDFl4YU2YG9IRWyg5ET8yF+i3xz4JtPEu0yvOpGZnO31hKloiFqZ
-	 hwCBUVWuHCTfwL0r+0R1+fug5hW448tb2hR7biD4Neu7PNTno6cnHzep7LeCPh7wtFGv3
-	 Re5YGMQIRgbhdganfZZ7+/yUCD68mudLbrmyeMmbdDeZV1viCtjeDIuk91plHsGS64A==
+	t=1794499715;
+	b=qSAFmnfQ4bw+xGeRh8zDePUPIqhl9NwRYymX+e21AWxnATHAAR1OryvENCKPRXNAGQt8
+	 JsT0q/t98swXsYK5o78MeQJtaDsvFko5+L0YBG7c4vm/jHgu+IhpbA9Z6v56tQgI1ctmr
+	 9sX6LFjYBGxCDNx7mI2Sc162qENIalsXf3iJ3oUMbjlu789H2uo5jBC1O1r+27GBTeRYB
+	 h1r9k6wISlbIfl63ovab+bFeSljSgyvUGXca1QAWdDy4W2kVVaCepeclHEPXethfJO7A6
+	 jSwrVdEC5f0w2jHI0cAW1ULaUQ+vuEvWlIxSm1ykMxOUMYXkt+vAUZVQ7AgrytOm5ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794499668;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=GxEAh1VPtSYJm7RgQ8GwuBf7Xw9of2C5ciQVntp50E0=;
-	b=fTI+TwfdGM2X+A3Tlggc6PSJIFRzKSC2Ohetj/EWgdwQnCA+psAYVRV+q3q3EfjBkukO
-	 eKboB5CRjb7Oh3xs6wOu5o/+/QpgZr4jdRkWlXLjbfv+2OH7y3WjwUaTAjWKspWNqiw97
-	 /t39GQyMaqNdZUO3de6B/w0t6qQe1EKpW1ngaSoC6WfC45cfosJzZidx26Xrk4MvhC+6P
-	 7tpFotso3JJJ3gUqHdnrHeNhPvaI21QR2nidon9csDS/blmhWETXcPMUXVmSrbzrUFMQo
-	 2iOk+0NNpM9FVFsusqoDa/9WDKX5bO0IUteGPcl2GVPWX83Xp6I5sl6vn4DqV0+y6mQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499715;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=+T3ab9ZuDlb9AtgbzYcZLqb0pcIRcAvo/vUSdxHxz0c=;
+	b=Q+dW6yDiK1tc1Lz935sfRnMxarqBLof1H4lGHVCajWYCKREnVxA8cxLY9AzszqfKHltU
+	 xu4dYuFqumT2zdmlft61Vxd8uRQf6wTGBiEeRKzkv2sbGGaE3KrmH893BWwEtxImRpTiG
+	 06UHTHLRgjo1DBvVRUXq9DI+7ks9C5WeWV+H3sYerFAD0+ZjUrPOxiqClbi95NE3NfF1h
+	 BVrWzJY9nv8lyXYvuX9OiIxOdRGVDDeQU6bfCqZPE1aTrbJqUOYwNLQGcNEw52At3YFk1
+	 bAAJ4RciDUEe5ifCXCi6MsFqHqvbXIkiZJ+NL8R8es8VzN7pWv2gA8+9kMHOBKg+/MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=TP3FNqnB;
-	arc=none smtp.remote-ip=162.62.58.216
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="KRUt/2rK";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FSWB8QHv;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="KRUt/2rK";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FSWB8QHv;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BDF606A32E;
-	Thu, 12 Nov 2026 16:07:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72BDF606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24371606A323;
+	Thu, 12 Nov 2026 16:08:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24371606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=TP3FNqnB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794499661; bh=GxEAh1VPtSYJm7RgQ8GwuBf7Xw9of2C5ciQVntp50E0=;
-	h=From:To:Cc:Subject:Date;
-	b=TP3FNqnBPbHOWz6OGI0NiaRMQCeo8Ph+Womix3t9hLHDIwvKypNaMF8wOzRB+R4Yc
-	 AkxGfcNWoGPgRRXEYqU+dUveBZx+TgYVzYwNaOYFCKGfCDcWPwh0QFqoyL/CVz2Z0w
-	 x0VPno+JaHufd/cTm85g4OBdDDxjiVyabaW6GGUg=
-Received: from [172.18.4.77] ([202.113.185.209])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id 1E7B98F9; Fri, 13 Nov 2026 00:07:39 +0800
-X-QQ-mid: xmsmtpt1794499659tr0eenu2o
-Message-ID: <tencent_444214B18F57945FAADD37F108ABD3A22906@qq.com>
-X-QQ-XMAILINFO: NYXSVuwhoxRbJ+PBQO6iO+2Qb3cYRBc/B4kjx1OTwvBa+gMuvI8lRkK7cayto/
-	 Pm/QnoaHNXbgzcfiBXM32OuKDKXE5U9V6yW63MaOHcsGBBZJcxhcROf14ynK+txvuJhRmnL09SkE
-	 IqW+Tj0iI7fr295urfw7Vav3QIhLjngZc0gZtkwcHK2Li5ugIxboNlP+5hCvuMG538C+STTAGLS4
-	 1eOpXUAMXPkFc6Fu/jhOVsQ8XYTxVYaVARiOaHlhn7EDZD0n64MKixv2k3+snLBFyEsX0yszv5gZ
-	 4w5BGNZoWzv3natZdmGNuxus3H58Kuh/qPQsBSlF2ayvBaz5TVJkorAMaHvutpnMT/UM/iVUuIxC
-	 1NcHCrjHus5k1KWAaGcHLZrAZYQJQ2VS0hENiDoasgN1y0POfMHOzF7yQVXaXvTt3l/eS0Pnmqaq
-	 Xue9gRom4QAuC9rQgRxHIqD3edKN1pk+Yn2mCHA7l+dEX60fo0mbJY97HaiYS12lPZZTXJlok1lm
-	 OwVTPotYyWUdZefAeP4NdC3qSbDEzk2eywz2Hg38X96fc3G3V60ShNAD1D3cTBuPSgFgidNJYc8Y
-	 G0C/G8MzTTMxuzfIqCo3bq/Zw612JNlJYJZY1ndfaYEYe27OkcANyCozPOhtpfDukU2DXK8r1bGb
-	 xV/z0CA/HDvjseEP/tLWj+25t3B38gsBwYc+BtP4/fl4bfK0K02psKImcrGTWQf9phCwu0QhBUjE
-	 E7plNn7XbEZKHnzh3QxM+tMnn/EnF+auKXQkdUoorow3IzF1ufl2q/AOwYkAvd7v+hGdMXCLkPgB
-	 YQPPjmhAjbhm4B2LIIKJsAXRjLb+27ITd4gfDWOisw5z716+TEIkNKcUVYxny6KpyhsY9uueJCht
-	 jcv9ZgzQtkWNrxC5mt4TrZummofFxxJ6OxhP6NPNwOvP14kl4cb76E8m+b0iP6tInMb7mx+L4aNl
-	 zbS+6BQDNZRjEMWQ50+vhFVQfPCHE/HV6lsJhbJ6JXvjTZDJ5b9aBGaWLZLWUPwBit+AGx0pRZmy
-	 WlM6XJA7K2rQJ1SkmLjqXyNut/VvQ=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [Bug report] partitions/aix: unbounded lvname string read panics the
- boot partition scan (regression in v7.1)
-X-OQ-MSGID: <aix-lvname-oob-20261112@qq.com>
-Date: Thu, 12 Nov 2026 20:00:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KRUt/2rK;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FSWB8QHv;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KRUt/2rK;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FSWB8QHv
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 118CE21E6B;
+	Thu, 12 Nov 2026 16:08:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794499713; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+T3ab9ZuDlb9AtgbzYcZLqb0pcIRcAvo/vUSdxHxz0c=;
+	b=KRUt/2rKwrPs3sMDIuJyMXommGdOYM0nzrPzs7Z3iopgik2l2//gV9DFuYm5GgLMQ4POe9
+	o2USyaY1VE9XW9/M5/A8VPOZA1t441CQHiZDgfKZ4TI9ZxQ8r27SR+L0NwmP16mYRWnMX+
+	Vvx0bkEnvdk6oRY91rFnc+cJWho8BZY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794499713;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+T3ab9ZuDlb9AtgbzYcZLqb0pcIRcAvo/vUSdxHxz0c=;
+	b=FSWB8QHvnGUEaCFhAnHsU04CKsBJVvy83XOZE+W934YlVKuXD+597aE4ihv+8p2f7APua7
+	+ceuqTju3GmkufDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="KRUt/2rK";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=FSWB8QHv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794499713; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+T3ab9ZuDlb9AtgbzYcZLqb0pcIRcAvo/vUSdxHxz0c=;
+	b=KRUt/2rKwrPs3sMDIuJyMXommGdOYM0nzrPzs7Z3iopgik2l2//gV9DFuYm5GgLMQ4POe9
+	o2USyaY1VE9XW9/M5/A8VPOZA1t441CQHiZDgfKZ4TI9ZxQ8r27SR+L0NwmP16mYRWnMX+
+	Vvx0bkEnvdk6oRY91rFnc+cJWho8BZY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794499713;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+T3ab9ZuDlb9AtgbzYcZLqb0pcIRcAvo/vUSdxHxz0c=;
+	b=FSWB8QHvnGUEaCFhAnHsU04CKsBJVvy83XOZE+W934YlVKuXD+597aE4ihv+8p2f7APua7
+	+ceuqTju3GmkufDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3101C13432;
+	Thu, 12 Nov 2026 16:08:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xpkCK3rk9WrfKwAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 16:08:26 +0000
+Date: Thu, 12 Nov 2026 16:08:25 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Steve Sistare <steven.sistare@oracle.com>, 
+	John Hubbard <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+	Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org, 
+	iommu@lists.linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 7/9] RFC: net: limit folio refcount when rearranging
+ skb frags
+Message-ID: <avXkTuDG89QZgvOr@pedro-suse.tail5790ac.ts.net>
+References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
+ <20261110-refcount_overflow_stable-v3-7-318625d63a98@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,126 +137,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-refcount_overflow_stable-v3-7-318625d63a98@kernel.org>
+X-Rspamd-Queue-Id: 118CE21E6B
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,suse.cz,linux-foundation.org,nvidia.com,linux.alibaba.com,linux.dev,arm.com,intel.com,gmail.com,sk.com,gourry.net,redhat.com,cmpxchg.org,fb.com,surriel.com,szeredi.hu,zeniv.linux.org.uk,arndb.de,ziepe.ca,8bytes.org,oracle.com,toxicpanda.com,davemloft.net,kvack.org,vger.kernel.org,lists.linux.dev];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCPT_COUNT_GT_50(0.00)[62];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email]
+X-Spam-Score: -12.01
 
-Hi Jens,
+On Tue, Nov 10, 2026 at 09:35:47PM +0100, David Hildenbrand (Arm) wrote:
+> Various networking features take additional references to frag pages
+> that are still referenced elsewhere when rearranging skb frags, for
+> example software GSO segmentation, TCP receive coalescing of clones, SACK
+> shifting and MTU probing. This is an effective way for multiplying folio
+> references held by an skb, allowing for exceeding folio refcount limits.
+> 
+> This is not specific to large pagecache folios, but with them it is a
+> lot easier to reach the refcount limit, as page table mappings can cheaply
+> create many references.
+> 
+> Let's use skb_frag_try_ref() and skb_frags_try_ref() in skb_segment(),
+> skb_try_coalesce(), skb_shift() and tcp_clone_payload(). All of these can
+> already fail, and their callers handle that.
+> 
+> skb_split() can still add one reference when splitting a frag. But each
+> split also allocates a new skb that is charged to the socket, reaching
+> the refcount limit that way would require a lot of socket memory, and the
+> references go away once the data was acked, so it's not that relevant in
+> practice. Making skb_split() fail is more involved, so let's leave it alone
+> for now.
+> 
+> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Booting a kernel with CONFIG_AIX_PARTITION=y on a disk whose AIX LVM
-logical volume name area contains no NUL byte panics during the
-automatic partition scan. The name is read from disk into a
-kmalloc(16384) buffer and then handed to seq_buf_printf() as a C
-string, so vsnprintf() walks past the end of the allocation:
+Acked-by: Pedro Falcato <pfalcato@suse.de> 
 
-  BUG: KASAN: use-after-free in string+0x4a9/0x4f0
-  Read of size 1 at addr ffff888004ab4000 by task swapper/0/1
-   string
-   vsnprintf
-   seq_buf_printf
-   aix_partition+0xd42
-   msdos_partition
-   bdev_disk_changed
-   disk_scan_partitions
-   virtblk_probe
-  unable to handle page fault for address: ffff888004ab4000
-  Oops: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN NOPTI
-  Kernel panic - not syncing: Fatal exception
-
-## How the bound was lost
-
-The lack of NUL termination in on-disk lvname strings is a known
-property. d43fdae7ba ("partitions/aix: append null character to print
-data from disk", 2018) says so explicitly and bounded the pr_warn()
-consumer with a local buffer:
-
-  char tmp[sizeof(n[i].name) + 1]; // null char
-  snprintf(tmp, sizeof(tmp), "%s", n[i].name);
-
-At that time the other consumer was equally bounded:
-
-  char tmp[70];
-  snprintf(tmp, sizeof(tmp), " <%s>\n", n[lv_ix].name);
-  strlcat(state->pp_buf, tmp, PAGE_SIZE);
-
-c2d466b9fe ("block: partitions: Replace pp_buf with struct seq_buf")
-removed that pair in favour of a direct call, as part of eliminating
-local tmp buffers:
-
--				char tmp[70];
--				snprintf(tmp, sizeof(tmp), " <%s>\n",
--					 n[lv_ix].name);
--				strlcat(state->pp_buf, tmp, PAGE_SIZE);
-+				seq_buf_printf(&state->pp_buf, " <%s>\n",
-+					       n[lv_ix].name);
-
-seq_buf_printf() bounds the destination, but the source is now the raw
-on-disk string with no length limit, so the read is unbounded. The
-pr_warn() path kept its 2018 buffer and is still safe; only this
-consumer regressed.
-
-alloc_lvn() fills the whole allocation from disk with no terminator
-handling (block/partitions/aix.c):
-
-  size_t count = sizeof(struct lvname) * LVM_MAXLVS;   /* 64 * 256 */
-  p = kmalloc(count, GFP_KERNEL);
-  read_lba(state, lba, (u8 *)p, count);
-
-struct lvname is just char name[64], and lv_ix is bounded by
-state->limit (DISK_MAX_PARTS = 256, equal to LVM_MAXLVS), so the array
-index itself is in range - it is the string read that runs off the end
-of the 16 KiB object.
-
-## Affected versions
-
-Checked by fetching block/partitions/aix.c at each tag:
-
-  v7.0      char tmp[70] + snprintf   bounded
-  v7.1      seq_buf_printf            unbounded
-  v7.2      seq_buf_printf            unbounded
-  v7.3      seq_buf_printf            unbounded
-  v7.4-rc2  seq_buf_printf            unbounded
-
-So this is a regression introduced in v7.1 and still present in
-mainline.
-
-## Reproduction
-
-The trigger is the boot-time partition scan; no userspace action, no
-race, no special mount options. CONFIG_AIX_PARTITION=y is already
-enabled in distribution kernels.
-
-An image whose lvname area is filled with non-NUL bytes panics 3/3.
-The negative control differs only in having a NUL-terminated short
-name: the same code path parses it normally and prints
-"vda1 <lv000000>" with no KASAN report.
-
-## Suggested fix
-
-Restore the read bound. Either give the conversion a precision:
-
--	seq_buf_printf(&state->pp_buf, " <%s>\n", n[lv_ix].name);
-+	seq_buf_printf(&state->pp_buf, " <%.*s>\n",
-+		       (int)sizeof(n[lv_ix].name), n[lv_ix].name);
-
-or terminate every name once, right after the read in alloc_lvn(),
-which also covers any future consumer:
-
-  if (read_lba(state, lba, (u8 *)p, count) < count) {
-          kfree(p);
-          return NULL;
-  }
-+ for (i = 0; i < LVM_MAXLVS; i++)
-+         p[i].name[sizeof(p[i].name) - 1] = '\0';
-  return p;
-
-I prefer the second: the 2018 fix bounded one consumer at a time, and
-this regression happened because the other one lost its buffer.
-Terminating at the source removes that class of mistake.
-
-Reproducer (image builder for both the positive and negative case,
-serial logs) available on request. Happy to send this as a patch if
-you prefer.
-
-Fixes: c2d466b9fe ("block: partitions: Replace pp_buf with struct seq_buf")
-
-Thanks,
-Guikun Yang
-
+-- 
+Pedro
