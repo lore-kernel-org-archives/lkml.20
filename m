@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492894;
-	b=aHzVwpNErmyWv8rcNuMm9gr/nuyvkeJfUpkvGh3tUP0kybT8vz3tWPuoffYWRL89S1DK
-	 EfaCerjJAd+TSRRDJmW9u1rcuycvu+TDJbs+mP7++DIxIAUzJf1cD/sb+6pqpMMx+jOrd
-	 kMPl3fgt8PwuPTo3cEtOC8klo4dyJn3/mc5/zy+xLD2v2mc0ctaReRGuvDZsyVUQnGgHs
-	 DtpRF/kzB+cLYeNXAwiLSPZjKoiJ2uJSBTAzJm7l97yvgzQIuS4uC/8QvrT6AL/7JDCnP
-	 fMs2dmG+g1vV2OS4T2YD2ctDxfp/N89GjD9Bd0mfkmDtgmBOARIecG4dn8iQr6poACw==
+	t=1794492896;
+	b=vqs2Zne84VzgXIH0i84Mg+AGvUaktqlUI/xbTaoMmC5cDigt1ARToU54rOR7A9QWM+G/
+	 PaUGR4kMRycFfYwFvXQq5ju1Qi9pTo32wk+oQa4m3uTvIVBFJSUxYlNeQyEhyWvXeQJNA
+	 oiEM0ZNsTiIvI2BQRWH8MHK4YkGWGn/DiFu2XP+LOEA2vNZbo5HFy4DZ0m2CDkNd9eIvR
+	 oJXFxMW59cpePgVzBZyDwetUjK82kJmJ+9UEjg44Oi9jmOdqtP9HXWEAJpfGk/hNRTnDH
+	 tSgi7avTL0mVE5o12M15rni+kvFZKaRxS+Mko1pkT5svoWb17SxHEaU73F8TRIPhc/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492894;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492896;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=xAClSiqpxgiWtN6dUqngBZJDx0kh28kPHWYf1nhrDXA=;
-	b=42Vz8z7derI1rtx2THTalxUHyL190szkGFzzVqCke5pGul86tCKPe4uv3QjNVK80eeOP
-	 tror1w8KUwVBQ95JyjMQYQb8ajp2uGn4koaUgNL946ZK48xRvkajsG1ZNZbEJJKAW4Nq/
-	 atSmZR01u0cU4ESG8r6c7q+OdY5gXXdU9TObfc4NaIlnM+AoUzXwaUS3c6CB8AsTWG7Sl
-	 O9PTB4tuL6Nr1e3EceHDdD8s8rSnLFNRXEzk1P/ttF2IR3+f+xIM6gVVi8H/1/rcpLp+V
-	 YHGwXt7wKDTzmZGcjSnrG3Oulrhb18xnbK888uFQzOp9J8W8fRyWvGg7CcdehIPCb4Q==
+	bh=O56ZQfqWB5aX6ZB7RcIEU+Nqg1mDJyhodrAqIyNtFBQ=;
+	b=GhIjWU6o2QBiGT7jYR826X5+9vwklIGZzkd9rhyKGzQN6NygZkValiH8Cn0Igk4TAPgY
+	 daplgK7YtW2NPmmrUV9Wz4rlmAmPUft79dAh79Psri+AzCkINhLPsJ2Ka5+go4ZFFHrrr
+	 GX3x1LWiyWtJqO9vfjXDphGvcqzjH8T4yEUF+JqLCupq3K47QxqIj+/uHfOHE361rWPwv
+	 zy1hKqwB9YY96GYwwhNkskz7gYWcHR4MFJCy0DIhJsZ7hUdYq/gGSzbWiRpN2ququK0DN
+	 asFsFaKriw4zem3Cfha27SaKcKNasPJg8ksMef4pX2EHQghp83sWSIoOXk+yp++oFxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jfrnVgTz;
-	arc=none smtp.remote-ip=209.85.221.70
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="TFLVI/3f";
+	arc=none smtp.remote-ip=209.85.128.72
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E554606A88B
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:14:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E554606A88B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F552606A8BA
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:14:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F552606A8BA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jfrnVgTz
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-49337a224a8so3583504f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:14:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TFLVI/3f
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a17741243eso26763445e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:14:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794492893; x=1795097693; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794492895; x=1795097695; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xAClSiqpxgiWtN6dUqngBZJDx0kh28kPHWYf1nhrDXA=;
-        b=jfrnVgTzpxLUTf/eoqYwvOS2cAv8xZz8nodQW6ZnOEkjIqMsKK4HwbX/AnnnP9uFa3
-         fjJ49ZWwutbFXu0cKoML/jqLSjljRv/B7n8VsCpnuymjV57R+pj1L49nqUgzWiU1AuVA
-         /eLPWVmcEewRSMj0OTTkezz89TJbNUwpnsazNv9gdOEVQee8s7yjwepxaTCBPXYc4acs
-         jHsymJXwk9Z/NelXTT1L0yQn6Am27pOkRbeeKrKwDHO1weQ9m/7NoTSKKb9fV9MKi6Q9
-         fDnhCEct5mNFMIri322dAkKoDQwQJbIXvtQF8d1ZkiGHsVrP/ipAFqReRfw2tHXT7Hpk
-         5FkQ==
+        bh=O56ZQfqWB5aX6ZB7RcIEU+Nqg1mDJyhodrAqIyNtFBQ=;
+        b=TFLVI/3f8Un7nDd2xva8NW7C51ujpEGmf0rm4NH9swHZV04Rti9q8ZUDyXfkxU/Xjb
+         VR9IGllStHG4pVbmu/k3cYhvBHYf/Y/WARRodAVr30n257IciuwIq+Mzc59ySxBbcrwX
+         rJpBq2lu2CEMM2OrS2ydre4dWQt/mAvkU0SxjOEhxPQuH9PLVcCpasBPMd+74apC8/V7
+         CKtjhsXuKZwurFoLPw16dJ1CPeGpIyD3sg6Mz09eL+hwT3Zzq1cHIlKwQcmVv1lQFhum
+         2KFAyH4P0BmWeT5LZf1bfv2a2wR8/GobVgKDiTmRhzl7mgstJCZONsjhh8hhH/NhT6KN
+         Tv6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794492893; x=1795097693;
+        d=1e100.net; s=20260707; t=1794492895; x=1795097695;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xAClSiqpxgiWtN6dUqngBZJDx0kh28kPHWYf1nhrDXA=;
-        b=2fcnciGrfg5OkLAvl5nNoN9iNtJfrF3JrTrzPbxdqgwCYykOPLxcm/linjxXkRGXrd
-         EKYn1jcvj3f/XboEzWacEAEge5qq8a4M3ryC6U2jXXmDBu4K0Iv6/wSq6FP4sx+Ja7H+
-         ioT1+mG+aX7W9MGwXXtNULAMJ3LEvtf790lkxPecKjOgNwkRXsYpHPDJLvLBSkDJJruK
-         ZQoa8NsPqZpvuk13fJxMjvlOQ8ryrE3k/B2okrnWOMFt6nJe6/nd821MCS6YbxNfwHpi
-         jN9J4RRN6qM19/YsgjQDd4xy+IMj6uKWa43nHzRTwMsR/knT7UUMgjdbGbzoeg/3wppG
-         blNA==
-X-Forwarded-Encrypted: i=1; AL+hErFW/svwjEZplnAS4tJVSPHd6kxNR3Lqmq8BaBssb9w/oi4SjZcYqh8Z10Xi2LP2AH2HTqgKtcj4ruaqNyE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9yvd18KalUVao1xMXSzJ0ATCwW3j7DM3p/cgZH2J22e3SszL/R
-	eIQO5GXwCF7pCg0XIfiXoeKgXnkgddHnNPD10e2REeId5nLN2QOcvVRFVd+w8heMrSB7g+jKw56
-	w7rOarxzjfn/KUQ3BIDk18w==
-X-Received: from wrol12.prod.google.com ([2002:adf:f48c:0:b0:48e:55f9:4a97])
+        bh=O56ZQfqWB5aX6ZB7RcIEU+Nqg1mDJyhodrAqIyNtFBQ=;
+        b=rSHkyBT8dXj75IXz/NDPpKc5oo6rjitDA5/2HB3Jh1PfVemO5lI1eRdJrMv5KeuCoB
+         RrxCcFqrCtUXhDePTrxbmCiAUae05tPI309tei1VxPq0Dmvt/L7/x17Av+zpPhzDJtXF
+         57obF1udbOguU6NupRkx69BFQE0iWmu8BO0t++4oIRppvQ3FRmtQ+cbYrePkxRKUfmpZ
+         EJuiVNAvQf7kHEFQjNi0fm+JjchrYsS2kfiNKY0mr5NCJ+hoUfdBd5AekuDw2h3+Hnhu
+         CV5ss6U85T1izaJiyzOtHLX4qkeuTIaaDxprkdnz4c8hoSJHUGxBX8DmPBSBxA+H35xx
+         p/fA==
+X-Forwarded-Encrypted: i=1; AL+hErELZJ2/WJcY6JSQeK8t+4Ppk9mMRE1wytfQVIb+BCT0+h+rObtVBsT9eywxkC5/nieIrnnv/EA4kEXajNg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3GuXTUsuxgItUybpPftuI8QtlPFQDMOsPKtEmZ3b/W0/yYO2N
+	POvZ6zOMLHjQEl5+bLJjA3ucySAB/zG3Xwb0d2NEsisa1jyx+w0mo2D72QT+4K1m2WFqmMquJqw
+	RGbbvgyAhJA7aFwJ4BkLTQQ==
+X-Received: from wmbz21.prod.google.com ([2002:a05:600c:c095:b0:4a1:f80d:2f25])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:4013:b0:48e:d27:bef2 with SMTP id ffacd0b85a97d-499c77414eemr9585917f8f.21.1794492892370;
- Thu, 12 Nov 2026 06:14:52 -0800 (PST)
-Date: Thu, 12 Nov 2026 14:14:34 +0000
+ 2002:a05:600c:46c5:b0:4a1:825a:56fd with SMTP id 5b1f17b1804b1-4ba093ab88emr111149475e9.32.1794492894569;
+ Thu, 12 Nov 2026 06:14:54 -0800 (PST)
+Date: Thu, 12 Nov 2026 14:14:36 +0000
 In-Reply-To: <20261112141440.3050124-1-vdonnefort@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261112141440.3050124-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261112141440.3050124-4-vdonnefort@google.com>
-Subject: [PATCH v1 3/9] ring-buffer: Hold buffer->mutex in trace_rb_cpu_prepare()
+Message-ID: <20261112141440.3050124-6-vdonnefort@google.com>
+Subject: [PATCH v1 5/9] ring-buffer: Validate event length against rb_page_capacity()
 From: Vincent Donnefort <vdonnefort@google.com>
 To: rostedt@goodmis.org, mhiramat@kernel.org, 
 	linux-trace-kernel@vger.kernel.org
@@ -90,77 +90,122 @@ Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-ring_buffer_reset() walks buffer->cpumask twice across synchronize_rcu()
-under buffer->mutex. If trace_rb_cpu_prepare() adds a CPU in between,
-the second loop resets an undisabled buffer.
+In rb_reserve_next_event(), the absolute timestamp path compares length
+against rb_subbuf_max_data_size(). The latter subtracts the event
+header while rb_calculate_event_length() already accounts for it, which
+incorrectly rejects valid reservations of ring_buffer_max_event_size().
 
-Hold buffer->mutex in trace_rb_cpu_prepare() to synchronise it with the
-ring buffer reset instead of locking the entire hotplug path. As a
-consequence, the cpus_read_lock() in ring_buffer_subbuf_order_set() can
-be dropped. The one in ring_buffer_resize() still stands because it
-schedules insertion or deletion of ring buffer pages on each CPU.
+Compare against commit_page capacity instead so event headers are
+accounted for consistently on both sides. This check also applies to
+normal timestamp mode, so share it across both paths.
 
-Fixes: b23d7a5f4a07 ("ring-buffer: speed up buffer resets by avoiding synchronize_rcu for each CPU")
+In rb_reserve_next_event(), commit_page is stable and avoids accessing
+the mutex-protected buffer::subbuf_order, rendering the early calls to
+rb_subbuf_max_data_size() in ring_buffer_lock_reserve() and
+ring_buffer_write() unnecessary. Drop them.
+
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- kernel/trace/ring_buffer.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ kernel/trace/ring_buffer.c | 44 ++++++++++++++------------------------
+ 1 file changed, 16 insertions(+), 28 deletions(-)
 
 diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 32d3c47dbdf0..80f500ffd7ac 100644
+index 80f500ffd7ac..9834f9dae440 100644
 --- a/kernel/trace/ring_buffer.c
 +++ b/kernel/trace/ring_buffer.c
-@@ -2824,10 +2824,10 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
- 	buffer->clock = trace_clock_local;
- 	buffer->reader_lock_key = key;
+@@ -625,23 +625,6 @@ static __always_inline unsigned int rb_subbuf_capacity(struct trace_buffer *buff
+ 	return rb_subbuf_size(buffer) - BUF_PAGE_HDR_SIZE;
+ }
  
-+	mutex_init(&buffer->mutex);
- 	init_irq_work(&buffer->irq_work.work, rb_wake_up_waiters);
- 	init_waitqueue_head(&buffer->irq_work.waiters);
- 
+-/**
+- * rb_subbuf_max_data_size - Get the maximum payload size of a single event
+- * @buffer:	A trace buffer
+- *
+- * Return: The maximum data payload size that can be stored in a single event.
+- */
+-static __always_inline unsigned int rb_subbuf_max_data_size(struct trace_buffer *buffer)
+-{
+-	struct ring_buffer_event *event;
 -
- 	bsize = sizeof(void *) * nr_cpu_ids;
- 	buffer->buffers = kzalloc(ALIGN(bsize, cache_line_size()),
- 				  GFP_KERNEL);
-@@ -2923,8 +2923,6 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
- 	if (ret < 0)
- 		goto fail_free_buffers;
- 
--	mutex_init(&buffer->mutex);
+-	/*
+-	 * surely rb_subbuf_capacity() is bigger than
+-	 * RINGBUF_TYPE_DATA_TYPE_LEN_MAX (see ring_buffer_event_length).
+-	 */
+-	return rb_subbuf_capacity(buffer) - RB_EVNT_HDR_SIZE - sizeof(event->array[0]);
+-}
 -
- 	/* Persistent ring buffer needs to flush cache before reboot. */
- 	if (start && end) {
- 		buffer->flush_nb.notifier_call = rb_flush_buffer_cb;
-@@ -3330,8 +3328,9 @@ int ring_buffer_resize(struct trace_buffer *buffer, unsigned long size,
- 		return 0;
+ static unsigned long rb_calculate_nr_pages(struct trace_buffer *buffer, unsigned long size)
+ {
+ 	return max(DIV_ROUND_UP(size, rb_subbuf_capacity(buffer)), RING_BUFFER_MIN_NR_PAGES);
+@@ -4143,7 +4126,7 @@ rb_update_event(struct ring_buffer_per_cpu *cpu_buffer,
+ 		event->type_len = DIV_ROUND_UP(length, RB_ALIGNMENT);
+ }
  
- 	/*
--	 * Keep CPUs from coming online while resizing to synchronize
--	 * with new per CPU buffers being created.
-+	 * Insertion or removal of pages in a ring buffer is scheduled on its
-+	 * own CPU if online, so cpu_online_mask must stay stable. Must be taken
-+	 * before buffer->mutex.
- 	 */
- 	guard(cpus_read_lock)();
+-static unsigned rb_calculate_event_length(unsigned length)
++static unsigned long rb_calculate_event_length(unsigned long length)
+ {
+ 	struct ring_buffer_event event; /* Used only for sizeof array */
  
-@@ -7475,8 +7474,6 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 	if (psize > RB_WRITE_MASK + 1)
- 		return -EINVAL;
+@@ -4986,12 +4969,13 @@ rb_reserve_next_event(struct trace_buffer *buffer,
+ 	if (ring_buffer_time_stamp_abs(cpu_buffer->buffer)) {
+ 		add_ts_default = RB_ADD_STAMP_ABSOLUTE;
+ 		info.length += RB_LEN_TIME_EXTEND;
+-		if (info.length > rb_subbuf_max_data_size(cpu_buffer->buffer))
+-			goto out_fail;
+ 	} else {
+ 		add_ts_default = RB_ADD_STAMP_NONE;
+ 	}
  
--	guard(cpus_read_lock)();
--
- 	/* prevent another thread from changing buffer sizes */
- 	guard(mutex)(&buffer->mutex);
- 
-@@ -8077,6 +8074,8 @@ int trace_rb_cpu_prepare(unsigned int cpu, struct hlist_node *node)
- 	if (cpumask_test_cpu(cpu, buffer->cpumask))
- 		return 0;
- 
-+	guard(mutex)(&buffer->mutex);
++	if (unlikely(info.length > rb_page_capacity(cpu_buffer->commit_page)))
++		goto out_fail;
 +
- 	nr_pages = 0;
- 	nr_pages_same = 1;
- 	/* check if all cpu sizes are same */
+  again:
+ 	info.add_timestamp = add_ts_default;
+ 	info.delta = 0;
+@@ -5061,9 +5045,6 @@ ring_buffer_lock_reserve(struct trace_buffer *buffer, unsigned long length)
+ 	if (unlikely(atomic_read(&cpu_buffer->record_disabled)))
+ 		goto out;
+ 
+-	if (unlikely(length > rb_subbuf_max_data_size(buffer)))
+-		goto out;
+-
+ 	if (unlikely(trace_recursive_lock(cpu_buffer)))
+ 		goto out;
+ 
+@@ -5208,9 +5189,6 @@ int ring_buffer_write(struct trace_buffer *buffer,
+ 	if (atomic_read(&cpu_buffer->record_disabled))
+ 		return -EBUSY;
+ 
+-	if (length > rb_subbuf_max_data_size(buffer))
+-		return -EBUSY;
+-
+ 	if (unlikely(trace_recursive_lock(cpu_buffer)))
+ 		return -EBUSY;
+ 
+@@ -6575,11 +6553,21 @@ EXPORT_SYMBOL_GPL(ring_buffer_capacity);
+  */
+ unsigned long ring_buffer_max_event_size(struct trace_buffer *buffer)
+ {
++	struct ring_buffer_event *event;
++	unsigned long max_data_size;
++
++	/*
++	 * surely rb_subbuf_capacity() is bigger than
++	 * RINGBUF_TYPE_DATA_TYPE_LEN_MAX (see ring_buffer_event_length).
++	 */
++	max_data_size = rb_subbuf_capacity(buffer) - RB_EVNT_HDR_SIZE -
++			sizeof(event->array[0]);
++
+ 	/* If abs timestamp is requested, events have a timestamp too */
+ 	if (ring_buffer_time_stamp_abs(buffer))
+-		return rb_subbuf_max_data_size(buffer) - RB_LEN_TIME_EXTEND;
++		return max_data_size - RB_LEN_TIME_EXTEND;
+ 
+-	return rb_subbuf_max_data_size(buffer);
++	return max_data_size;
+ }
+ EXPORT_SYMBOL_GPL(ring_buffer_max_event_size);
+ 
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
