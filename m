@@ -1,85 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794502794;
-	b=KK8u/29dNc824ULnoOnFtJRfXpsDYtJp0rs3OhcAIcHgB+1mMx7KoHaujWaePAK79QEE
-	 ryuJpjY/a6lhUfzR+FMKM7lpEEM+CupeiRu7BDlF0Q5zGo7wtRLisvSQbPe60ea0aw/6C
-	 GNFK8PD9LpwdAYAqb7gbS6t613+7S+OWaXbaeMXx0M66FMCRrEzYOCyRpp80OqrySSWYq
-	 7ELIr/ztHvBhzVSgkyCJSqULLDPlDr/KaHdHaLRJBygi/SfgLAqgf9xrjCB2OwE1FwCLz
-	 d6+dt1Zg1kwN5CVGZ1ZgPoQfFHUJ7XD/TClvFoY7gT82fxNheJ0ydVkgv3G/daCTnQw==
+	t=1794502807;
+	b=dgaN/9WDisVUI/z0dGoMA0OGhOYY05yq22uiorWohNSUOznSIlq87RtxmvXi8tx7+n9p
+	 A37SgIe97kMcQcyCzDuY4HlQeM1SQSgqGZql6C3Df5yuL2SrUee8fyTMdlpDCTDXeuGNE
+	 ibl7vM2iCAv6sQu0F6dlWDYJjCS8ZTX3heX8hSegCSkZ6+N2VB4m04oBgYD6sRbQj79XF
+	 iFsnJd9ceRddYBB4XQa2P9PMIntnxtsal+2UwETGSNGTgrwnlqG4LckEqhUx7kz+9OXKf
+	 d02/3mbEeE9vR9zGeD4ltxvNJ8TckcjO/gwZOhElqrafmGMtntOa9WUtoHHCzqaC5sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502794;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=b7AojsWQdmnu8z7CsRmtwQ/iZVkZjTk5+I2/AfHY1s0=;
-	b=VX5ENuGngZqMZlP9DNXi1n73Zi1aZcTfM/SI6IBHSA09KuQCOKRluwLULHrlkqorbwUy
-	 fLnNttQGp4US5PJXuDHfCb8Yn9uqdzPZJ79CXww24ZFhIm93UEI57//KuLHPQILNqzAdJ
-	 tZb+IBaxyulRum7DMf3c/NcDTRe35nSkTcecKmWadgWl8mNKF0Ue8nTnLQWsMzoIDSCEn
-	 s/XWim09PUGOst+FqS+e7sV9vFcNG2iSzFNlr08oPlxy1bQcf7X2OCQZhrHNZiyYxs0kt
-	 vSOBGBnE6m2ltA1SaIUlrZF5E/qupoBkHRFpnPJlsp5rb2yAt6uAO0Q7VhC1GxaTtDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502807;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=2t3rma/Ew3CnXoPjdRN4C34eFYI/aS1ma94AQq7BCFM=;
+	b=QVGZhOa8EPcJQlp/uXbpYgckPiK6HwR8V61qdleUrb6aLyXGW0ZEIxwx0Q8icF6XPWfe
+	 HVG0xuqgjGvR5aJEHMtKUWUUMQ9+i6Ko9ql9+WOpaT262/OwDDoaCspbj+o077t469vc4
+	 TCt90NFvG0njJHsNcZAfYlrOtN921hqAwDrKCUyaC+CUr6JtxDuCj0p3IycEAn8EsEPY+
+	 dp/yGPOlrCyBktuHLOBFYF5pY5BdrlW6PSffCzXnTXU+Gc6kDgVVVyVun344fsftVkgb2
+	 e/7MBMMPfIpul2C7qDEUHj2QkSF1k1N08MggA1xZJ6c8HAtyFBHdgo8Lx6Vl9U4CzXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=ZU30IxzG;
-	arc=none smtp.remote-ip=209.85.222.178
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVIbPuJp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28357606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:59:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28357606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92818606A32D;
+	Thu, 12 Nov 2026 17:00:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=ZU30IxzG
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-9441591aa5cso124857085a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:59:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794502793; x=1795107593; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=b7AojsWQdmnu8z7CsRmtwQ/iZVkZjTk5+I2/AfHY1s0=;
-        b=ZU30IxzGF8dTAnKh0hg/WW7t2ylFe3MYJYBXubmCf1/k0kqtiBJ0BHFnlPIecHUaEU
-         +IOyPQjcJanpVIfwQEyjiCo6R8ZX6eRq5qe/70rgSGI7XTTUsHeaJdEJ+rt86dO3O4QG
-         IEUiGAj+qbzlD2oBfD0mzrQlpkwUxvBln1wYn9oA8cukVPeDq7dpLvSUXGYb6dXLyEFE
-         vRplzbwFbfz1dfysSc4/vI7lT75Et/sbZuEzEjHfpQS+gx9dYciD/G51J8TE2ue/slis
-         bnZQPk0+xQgbm/k2K/jwW5N5aOs1hrfOWqwRb16xam3/PsiW/U5odSFtLBlksi86RNx9
-         J0SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794502793; x=1795107593;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b7AojsWQdmnu8z7CsRmtwQ/iZVkZjTk5+I2/AfHY1s0=;
-        b=1GDUonfhqX4bGCZoY9HUKlEjdLUI9P3eqGD3Lj9k9itg0XFcZHjcdzsYCi2HBWM0q+
-         aU22N8+aSmKZ36Mp9xvbkpvRX7oi3SU4fI6uZ5vy/BCnrlu9Wt28LptNxUV14P3nW2sa
-         dlZYiz7lIc+xBkBWsrIf6Io7EY0rEAesJohzZqT+P24eea/hduIq4IzSlyIQ9InT77oI
-         Wnvwo1W5cpuH7AvgnYsbK3TZv7X+7lH3feFo99IpYBqU+GuaXG8TG8LZieKlV8hHbXnY
-         FQWpRiN4CVc14ZTH4xjhziRosZW/Mayz1S9WVkERh/6ABH8FgALW9GjczgPBfT0brWXl
-         6FUA==
-X-Forwarded-Encrypted: i=1; AL+hErFZVa8JbmGWnyEXLznhPVaDJ+gJL6kPQAPcoV1+3h4PXDDU1/w9yCICuK+0uL3JIVnGxVGtrAIqka4C61c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kYaU9xj1kzgIT0siMUm0ZVZljFQBr65C9mwORyC2pEScrxxEo
-	cz1344mHr7sleEqX1vZvyDwop37RcT4H13LosVkBLs5RiH0QAZTAzOIWgfCH6bPvi/g=
-X-Gm-Gg: AYBFou1PxcifnEtFeCwROvARSZvw1i6U26+QrrCIvLPzb0Gugl/geIH8ADW7XEd0NOm
-	9WtUNpVSl649Hl77Z8udgPmnx+Dnq5XYCBK6p5QpO4sTmuNESnMkK9E8K4MWX5kwtV72cTIORno
-	4co8OHmSpG7F2n8FdFHPw4Pr6f/FYmkzbh1maaH2LNpb8kbmp31KPO+w6oweDCNu1eTTl6GEOCj
-	bQWNIGGhjeod/4umus3kHnCwWhhf5DvKGvPl6TbKwXURkx1VKZLBBQyslLC09bUbLvSd6/SkX2Q
-	kDGAjeRkcf1rezQzyfI7JY9JEG+EqxIOs29BDfckffjwKLAGsbJmUvSc3df+sp/dgrYEclIGp0N
-	IVh8PFMv4V6O1p3+/wCvqnqwIVrVfM903kHjMGOxzqAW8km5yttn1Ek8O7JzBS9pCQgnEGjWQRo
-	d81rKUILT3ETKIqkh7hGXR5r/j5DhqpPyjaHTUK1swvix/5gto+YPIzVBJlcH45xBUWy4OJmoun
-	YojrIviceNERrvpoLDLIkbQzDFrKMshcD4Z+w+HR8ANrviL41AtWIWaBjdyw/3Oz+7q7CSu2vV2
-	Wbx5qgX8gmF7ucvI4o63MiZZh9pmSqxzwgZtOYk10sr73m39vr6Ag4f7kRMPspW0iMU+/InNlSs
-	+8Amfw0U=
-X-Received: by 2002:a05:620a:6088:b0:945:f5c0:a630 with SMTP id af79cd13be357-94932e8795amr549937885a.40.1794502793241;
-        Thu, 12 Nov 2026 08:59:53 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94935073633sm220651485a.37.2026.11.12.08.59.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:59:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVIbPuJp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C936F1F000C5;
+	Thu, 12 Nov 2026 17:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794502806;
+	bh=2t3rma/Ew3CnXoPjdRN4C34eFYI/aS1ma94AQq7BCFM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=GVIbPuJpt2daDa2Cmj4ciL9lXYBHUbxhVyQh/XPnkYNB+9PVo7WLwwVCbZgUN2l03
+	 xdA++VzAKpIHN0SxKrCn0RLLElp7ADLuPY0LaUYM3C1unsoYSfbtDKlrF2bXga4RQq
+	 zjOymZqbxxfPot2XudOH6gnGQIaOYqQfAR91WdVCmFsoaQFvhnQB63PX+1YVT8i1I8
+	 BbALjaArVnhmELBkEpDBSAwA9hgGjxnuKMItexDxOxDI0ur2tCWig8jFi9qzydU2DN
+	 lDry8qnMsLBizxglkuUtZepM3mjyZfkw4nh6tilwyXpyVCQUEcTUvOv+gxn6mfsMwp
+	 GDsd3NdNJP54A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B42CE380AA75;
+	Thu, 12 Nov 2026 17:00:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,75 +53,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
- Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
- Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
- Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
- Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
- "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
-Date: Thu, 12 Nov 2026 11:59:50 -0500
-Message-Id: <179450279073.482102.1691484916250559829.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v3 1/2] ipv6: fix cached route reuse for control
+ messages
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179450280527.175938.11721831202062050976.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 17:00:05 +0000
+References: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
+In-Reply-To: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, willemdebruijn.kernel@gmail.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, yana06070@163.com,
+ shuah@kernel.org, linux-kselftest@vger.kernel.org, willemb@google.com,
+ tpluszz77@gmail.com
 
-On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
-> The OOM killer can quickly trigger again after having selected a
-> victim. That victim might not have freed its memory yet, but its mm will
-> be marked MMF_OOM_SKIP by this point, so the OOM killer will ignore it.
-> 
-> This can cause the OOM killer to kill an innocent process when the first
-> might have freed enough memory to relieve the memory pressure.
-> 
-> Fix the issue by freeing the memory before marking the mm MMF_OOM_SKIP.
-> 
-> Note that the task which calls mmput() might not be the victim - if it
-> took a reference on the mm (e.g. ptrace), it may hold the last reference
-> and release it when it calls mmput().
-> 
-> Therefore we cannot rely on current to tell whether the mm belongs to an
-> OOM victim. Instead, partially revert commit b3541d912a84 ("mm: delete
-> unused MMF_OOM_VICTIM flag") to reinstate MMF_OOM_VICTIM, which
-> mark_oom_victim() sets on the victim's mm, and check that.
-> 
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: bf3980c85212 ("mm: drop oom code from exit_mmap")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Hello:
 
-I was able to reproduce/observe the unfreed batch and the second victim
-issue.  In the base series i could kill a second victim with the
-in-flight oom in about 26/512 attempts, and 0/512 attempts with this
-patch.
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+On Mon,  9 Nov 2026 09:45:25 +0800 you wrote:
+> A connected IPv6 UDP or ping socket can reuse its cached route when an
+> SO_MARK cmsg requests another mark. A packet can then bypass a prohibit
+> rule instead of failing with EACCES.
+> 
+> ip6_sk_dst_lookup_flow() reads the cache even when connected is false.
+> UDP clears connected after parsing IP or socket control messages. Ping
+> always passes false.
+> 
+> [...]
 
+Here is the summary with links:
+  - [net,v3,1/2] ipv6: fix cached route reuse for control messages
+    https://git.kernel.org/netdev/net/c/f778e80b3daf
+  - [net,v3,2/2] selftests: net: exercise SO_MARK on connected sockets
+    https://git.kernel.org/netdev/net/c/6785ad21822c
+
+You are awesome, thank you!
 -- 
-~Gregory
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
