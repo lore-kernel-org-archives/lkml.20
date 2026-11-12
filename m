@@ -1,74 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794524368;
-	b=CgQTttBWqaYM1oX8ShyGpwGGShrZihN/nU92KkkR3CKGyf0TI1hF+9J4jwabi7AsCZXp
-	 PvNICwMjee/zD2gTz/RcX2y1ik+Q8y/mk+HnQr4figUT4KRIGa3HY6aqXuf5ipNk4nTTa
-	 o4tn76e8ndtCMB7zzPFcpi/HUnN0+6pm5w4T2BqRbUTyPq5HNn5MXLVZwJoTKdGJX6tBz
-	 W1SbZIEKFvugvKg+zG25zM2Dxz2unWXxsCeI2CSsRAHLda7gmtL0VwLORK6Pgw1Qm/50Z
-	 rOl5YDhM2Vip0K//xsxfA8VTNpcXKuuqUCgq7W+Po5chEUU9TB4H7rlhK3Yncaa40OA==
+	b=ECc5vnQCVTRhi5F2Xbof5nX9HdqbFpjHqgYDYOcwUt/qurgT8Y12rJirlAX8ePRprrrI
+	 hhrA1YQSV+xMjiN+vxvEmHVoKwZzz7midPW3xfFCF/iseoHOBjNbrIdDw1Ecu3+SG8pxb
+	 N2b8dido99CmQBhGOQ9va7Jhvj4DiUXS2ef5+jFaqrGqDOJA1/WP6X0NoRDKyhJz64d1c
+	 I+7dAweXdY57tQSQ91W2LTReEKrYrtkoF+ZOgd12tLwqPBkDchcfuhvExzGTK7ha7erKk
+	 KweQUSWN1krAy/hmP8cm1KHn0gIWnl6d90z1Rzl09WKySBxsj+mTeJ+RAD7nua+bLRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794524368;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=BDYM+yW663bYUGvFJnjht8/k1bmpbxpBhBrf1z1za1A=;
-	b=yYtNxEV9mdinTEVcR+BoY1rQkYenhACSkd4E3q8Ye1TdFiIhjc/bvJtyPRANKjjvMCrq
-	 7F+nA98wtfdqcpNB3r3BTW5j1zaFzKJ3Q1NivUEAHZ+S0w91M7hGoXGKnsfU6gkzpXJFQ
-	 vS2UPfE6xmspznFI2qrLLBYeqXOPxPPMOPVttnRMFZmkqt3z46XMmdPreKczDnUxZo9Jq
-	 IVdzlbF9uI/wYk+0S1b+gRT/Xpjlg2EZGh0DQByERO2GezcqD1r2REQYam0DXZ3TWJ5KW
-	 bY+sBFSl+XiJ6dHnXVWga0xn0vYFLF0bTHllO/fLafAhN7ioei2QCuKsPmhH+twl9DQ==
+	bh=TMJTt9NA8HcdUNf+HD9i5DdzdafzHrVtU1L0YPheFA4=;
+	b=DN+b0sKpo5ls4UX0yZa0WAvRDPAIQ19HNclduhQ3VhA7Iib43G+WqVdQeDEd4q7AsDiD
+	 X1fnitF+acpxC7jJ5Nm+NfzVxLmDUx5cnw/uNv4ii9hOc57Y/WDNSYF/IKh+BFs7PaM5j
+	 wJ9DneyizG4kkXEz5FlAc7JJmCBEKPhDuTFJI0vXm7pp/sywPixC7Um48XkV8SezK1xkd
+	 sXq/cFx6zTJ7I1emARIG7U6q56DTqbWWW1IThHap5B7FdafCkBZtKmarf7sqWBiActhDV
+	 P+VEqd5bp3pEMosl0PNA+6V+dc3QlbWKI6RbAIFh9FdATMbcsmsyfFfNDGQVamr7VRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.169
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	arc=none smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDD160A5BDC
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:59:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DDD160A5BDC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184E560A5BD5
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:59:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 184E560A5BD5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b3b31a6290so3571317b3.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:59:26 -0800 (PST)
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b0d126f631so4635437b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:59:27 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794524366; x=1795129166;
+        d=1e100.net; s=20260707; t=1794524367; x=1795129167;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BDYM+yW663bYUGvFJnjht8/k1bmpbxpBhBrf1z1za1A=;
-        b=kKvAHIKN9riJezpwsbPINGyAXLhHs5H1i1XLfxx+rw+8aAZVW+7xnVfCUo9LOOyucg
-         5Pbs9fpFmdgOUNc60qJ4Fk9mveukZLNLoAqKbIlTmDfeThU/1Aw3+qt/5BPTAzf9CoFm
-         vPhpFXracSB6I9/EHl1opCOm4eQMWPJ9U74pEf4WJOx6DXKFecaJ9zS5oExbWrLfMuHE
-         Y2V9p85IfFXqdyr8Zn9qee1Pk8cVY7w3sel+QH4525rS50S+yEMShqo7L86XEtTOTQbY
-         ybj+jDENEETPUJFiPd2Sw9jTsAzUe1KXesz7eIdzjVtUlVzvD/miYV5fX2BnMDMGw0WC
-         v4BQ==
-X-Forwarded-Encrypted: i=1; AL+hErFMeQUhdv9eE+LXsGhOOTeMrxnyAUuC6RtkVBpOWu1JAdYuuqXMxhS/qiWe9wUcuBvrr5L4I0CoLF+ZPv8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9nvEwxTVT8au9m+MBYkhCQaIUKOd06rQNsjkd4+R+r59eACzQI
-	PmaUXVnNBMA51AOdYW9JjJdAxWabhpng1g6OZ/ETLmTbBT8Rabxq9vDW
-X-Gm-Gg: AYBFou0EmZm9qqjYAm/wBz0iSkyhSlLCHXH3zTuOXHkm3c3Q1hAusdzS+5zKuHQdWQr
-	ioGknCzO1LwSxQXG1TuR7mypSX4m65l7+Q4ch1FSAcKYtLfv9dlYT2dNVZ+T8/my+mfrUEBscUn
-	XBnBxmXvrPD5JhbGXSDVGHQdHj9pkn+I2qcgN9P5VaeW5sx9tFHdLr9Gi0f2cMiuMsn97Mb9kJC
-	3wjA1pFn5VZEUshEltX8l1uIQhkZ6oG9leRuwpwBiOnrNgTiOi1616GYRyjswTHjaLL7ISBn8d1
-	dWR+19lVhh2gEH701gd5km2ebHjPlIaUbREVJy3IyRlCJ3Fmws2H3iAdlWMQ0y1kXTPnys/lT4I
-	4KpMD9LenrCHwtjN++VVOhUfItet5yIoDO6zsnOnl9futsKO2Cvi3sHNngHtVTxbribn5CI1+Rm
-	nowhNEZAJmUdyy497Ka64JqvsphJdlm6W0ctu601r0thS3gyliVRGuhTiWmtga+ySOedb7+83oj
-	+64vl1+Yr6l56B9iV+GVvBHjAqNrk/1VEOVUBHmB5DqYZ6CSqxiFNhYtn5nz94fJPBeuKRSdDon
-	QXuXkc+/WLW3FRrB7uNupt/apWoQvStRvBlX+Q9egFao8WTpntD4/rwRdnLk27T7cGhtOciei2/
-	lJ9bbJiei3/kZeUfBJltfOwGLuZUxk7v2Sid87SN28c6doWzGKKqxOhHfZ0aSw43p4XH5uCWcjc
-	XcqFaq95Lmfi6Ipqj31rOsZgCbDsU=
-X-Received: by 2002:a05:690c:a409:20b0:8b3:549:b0a5 with SMTP id 00721157ae682-8b4aa35f395mr4022027b3.54.1794524365229;
-        Thu, 12 Nov 2026 14:59:25 -0800 (PST)
+        bh=TMJTt9NA8HcdUNf+HD9i5DdzdafzHrVtU1L0YPheFA4=;
+        b=wOwLRt67J88KR03KwOWVX//7/ji10rjHZp2BB1o0IFOBEQ/NUPSZSfY2oBZHA9ef4o
+         fEUCAQTZ1M4mCWfI8BIeAs9fEUGDyW8NoTx7fdPVrKYnDgXKqqq/o21k6sGos4GLzaLF
+         /hDIBJfBVU2yaqScGJsUpyT2wj6+ZUktSlgXat0y9Z8Lm9VEvqdJZGpmHKs3Y6UXdoaD
+         /m7aLer3SValwgcMZzUt1h0rvnWq80SftctyvAg+RWRHmD5yr5ZojnCI+lneSLBsf6Sb
+         ubTOkx1s3dGsRW9y5fflwaRC2oWaY/Py6+MLsIlzv0xqAdT+lbx+YLvoHri/bPLWcprx
+         0ODw==
+X-Forwarded-Encrypted: i=1; AL+hErEBA6ySuibOnz3O+S5HM+LK+n3G/VEF0HJDKoPJEJkhG+n3JA3/aL7jXP/Cs8l9Sxyb/R3IesfALpcU9Jo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+JlZ8+sYVg4p+2Wt1MGiOvaICfRMIOBHUhRYhWP9R0yak4SdK6
+	E41+1/C2p1Iw8CsCwUEh0DKyERteOVLyz7TeAbvfkdxtA+Va+cLKAfh4
+X-Gm-Gg: AYBFou34F/mJGpba/1o0KBlFnkMkwtorK9RI/28zWtRmPIb4oKVk7OCRYmh2UHG6ZsP
+	voMpMQEtO3LP0KFnfOS2hR3r9e5HnTFL7VtymsaZhtaS/rbvjq34wLD+2nL7+GotJkpFD9PZHHL
+	G7FePPFb5C7mO5OlnzzgakL2r7wb547CJOlPC++c1afmul38rrr7Wx96IxIWbZ/+tEqZJ4K0nzo
+	3UbJSEJPBGELpNPtWQd4w7XemvcvYXa/eV/P0euYPQ67PjbCcnYQ+yo8ftHo3piZJFyWb/hsR0t
+	oMjEuQ5FiUxD5DioJiRoeavPwZyFSUlX8JcRDBZ7AZ3sRjOvWCs2LdPcxaqaxrnoGudIEhpzOYI
+	ioTF62x7X0nYzPQsgjqj3a7+XmkiC+3peDuj+lBfSgkQTcsniQPhBjIb/f3Ww8ovs1bR191x+LD
+	8qKAb3E3KBHucfQSy+yKzL0ypzT4AA1x+5i0a9Yobk+M9RYpAqCsl7Gs6Tfb7pVdllSViCwMuVk
+	qB5vIq/U8HrMNVh/dTXkFpSkjuuMQY2tUEyTI+LUntLQCLlEVJiaJGAF0ec5z+2qm/ze+X5CS0O
+	iCa7YP+BIPtaRMKjWHIKz9OP8UcEDcStznfQ6vyg0pU1WmSOVtjynjxqQYxARavCXFQBuCpfhP9
+	iDdan1J8W/ESGrqFQGZJcFxvxDsZP5k4bDTB1D199PyBer09pK/I+3xKgVzbhakBiYWxV7SL3Uv
+	DaueR9uO1yh5oeK+qct7N2lDQN
+X-Received: by 2002:a05:690c:386:b0:8b0:a4c4:1b16 with SMTP id 00721157ae682-8b4aa177242mr8090967b3.1.1794524366911;
+        Thu, 12 Nov 2026 14:59:26 -0800 (PST)
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa8f354asm7261077b3.14.2026.11.12.14.59.23
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa8f354asm7261077b3.14.2026.11.12.14.59.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 14:59:24 -0800 (PST)
+        Thu, 12 Nov 2026 14:59:26 -0800 (PST)
 From: Joseph Telaak <joseph@telaak.dev>
-Date: Thu, 12 Nov 2026 17:59:00 -0500
-Subject: [PATCH RFC 10/13] drm/powervr_sgx: Add render jobs
+Date: Thu, 12 Nov 2026 17:59:01 -0500
+Subject: [PATCH RFC 11/13] drm/powervr_sgx: Validate shader code in the
+ kernel
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,7 +81,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261112-powervr-sgx-v1-10-c69b84bac011@telaak.dev>
+Message-Id: <20261112-powervr-sgx-v1-11-c69b84bac011@telaak.dev>
 References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 In-Reply-To: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 To: dri-devel@lists.freedesktop.org, 
@@ -102,1333 +103,891 @@ Cc: imagination@lists.freedesktop.org, Frank Binns <frank.binns@imgtec.com>,
  linux-kernel@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.16.0
 
-- A render job is the client's TA kicks and render, built by the kernel
-  into the microkernel's TA command from checked command fields.
-- One parameter buffer (the tiler's output) serves every client, mapped
-  outside every client heap; its first render context sets its size.
-- Render target datasets: render details, region headers and tail
-  pointers, kernel-owned.
-- Transfer jobs (3D-only blits), which only the test tools use so far.
+A client's USSE task could read the core's registers with ldr, which no
+page directory can stop. So client shader code only runs from code
+objects that UPLOAD_CODE filled, and the kernel checks every 8-byte
+word first: it must match a known instruction form, and it may not be
+ldr, str, setl or savl, or a branch out of the object. Code objects are
+mapped read-only for the GPU, and the code bases cover exactly the two
+USSE heaps, so a task can run nothing else.
+
+The table of instruction forms is generated from the ISA description.
 
 Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- drivers/gpu/drm/powervr_sgx/pvrsgx_render.c   | 952 ++++++++++++++++++++++++++
- drivers/gpu/drm/powervr_sgx/pvrsgx_render.h   | 122 ++++
- drivers/gpu/drm/powervr_sgx/pvrsgx_transfer.c | 175 +++++
- drivers/gpu/drm/powervr_sgx/pvrsgx_transfer.h |  38 +
- 4 files changed, 1287 insertions(+)
+ drivers/gpu/drm/powervr_sgx/pvrsgx_usse.c       | 236 ++++++++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_usse.h       |  45 ++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_usse_table.h | 342 ++++++++++++++++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_validate.c   | 188 +++++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_validate.h   |  25 ++
+ 5 files changed, 836 insertions(+)
 
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_render.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_render.c
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_usse.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_usse.c
 new file mode 100644
-index 000000000..00b444d05
+index 000000000..9aa0cd4ab
 --- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_render.c
-@@ -0,0 +1,952 @@
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_usse.c
+@@ -0,0 +1,236 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/* Copyright © 2026 Joseph Telaak */
 +
 +/*
-+ * Render contexts, RT datasets and render jobs: everything the microkernel
-+ * needs for a TA kick and the 3D after it, built by the kernel from the
-+ * client's CMD_RENDER and CMD_TA_KICK streams.
++ * The USSE instruction check behind UPLOAD_CODE (pvrsgx_validate.c): each
++ * word must be exactly one form of the table generated from the isaspec
++ * description, with every operand in a register file and number the form
++ * allows, and branch and phase targets inside the object. Nothing here
++ * depends on the device, so the same code also builds for a host fuzzer.
++ */
++
++#include <linux/array_size.h>
++#include <linux/bitops.h>
++#include <linux/bits.h>
++#include <linux/kconfig.h>
++
++#include "pvrsgx_usse.h"
++
++enum pvrsgx_usse_kind {
++	USSE_OK,
++	USSE_REFUSE,
++	USSE_BR,
++	USSE_PHAS,
++};
++
++enum pvrsgx_usse_slot_kind {
++	USSE_SLOT_NONE,
++	USSE_SLOT_DST,
++	USSE_SLOT_DST1,
++	USSE_SLOT_SRC,
++	USSE_SLOT_SRC0,
++};
++
++/*
++ * How an operand's number bit 6 reads: part of the number; a flag for r, o,
++ * pa, sa and i under C10 format control, which is on at program start and the
++ * only setfc allowed keeps so; or, for every register file, a flag while
++ * format select (that bit of the word) is set.
++ */
++#define USSE_NUM	0
++#define USSE_C10	1
++#define USSE_SEL(bit)	(0x80 | (bit))
++
++#define USSE_MAX_SLOTS	4
++#define USSE_MAX_PIECES	3
++#define USSE_ALWAYS	0xff
++
++/* An operand slot: its value is the pieces' bits, each shifted into place. */
++struct pvrsgx_usse_slot {
++	u8 kind;
++	/* USSE_NUM, USSE_C10 or USSE_SEL(). */
++	u8 fmt;
++	/* The slot exists only while this bit of the word is set. */
++	u8 when;
++	struct {
++		u8 lo, width, shift;
++	} p[USSE_MAX_PIECES];
++};
++
++struct pvrsgx_usse_form {
++	u64 mask, match;
++	u8 kind;
++	u8 slots;
++};
++
++#include "pvrsgx_usse_table.h"
++
++/* The forms of each instruction set (pvrsgx_core.h). */
++static const struct {
++	const struct pvrsgx_usse_form *forms;
++	u32 n;
++} isas[] = {
++	[PVRSGX_ISA_SGX545] = { pvrsgx_usse_forms, ARRAY_SIZE(pvrsgx_usse_forms) },
++};
++
++/* The register files an operand's bank and extension bits select. */
++enum usse_file {
++	USSE_R,		/* temporaries */
++	USSE_O,		/* outputs */
++	USSE_PA,	/* primary attributes */
++	USSE_SA,	/* secondary attributes */
++	USSE_INDEXED,	/* through idx1 or idx2 */
++	USSE_CG,	/* constants c0-63, then globals g0- */
++	USSE_IDX,	/* the index registers */
++	USSE_IMM,	/* an immediate */
++	USSE_I,		/* internal registers */
++};
++
++/* By bank | extension << 2 (dst, src) or << 1 (src0, dst1). */
++static const u8 dst_files[8] = {
++	USSE_R, USSE_O, USSE_PA, USSE_INDEXED, USSE_SA, USSE_CG, USSE_IDX, USSE_I,
++};
++
++static const u8 src_files[8] = {
++	USSE_R, USSE_O, USSE_PA, USSE_SA, USSE_INDEXED, USSE_CG, USSE_IMM, USSE_I,
++};
++
++static const u8 src0_files[4] = { USSE_R, USSE_PA, USSE_O, USSE_SA };
++
++/* g46 on (number 110) is undocumented; i0-i3 and idx1-idx2 are what exists. */
++#define USSE_CG_END		110
++#define USSE_I_LAST		3
++
++static bool usse_slot_ok(const struct pvrsgx_usse_slot *s, u64 w)
++{
++	bool sel = (s->fmt & 0x80) && (w & BIT_ULL(s->fmt & 0x3f));
++	u32 v = 0, n, file;
++
++	if (s->when != USSE_ALWAYS && !(w & BIT_ULL(s->when)))
++		return true;
++	for (int i = 0; i < USSE_MAX_PIECES && s->p[i].width; i++)
++		v |= ((w >> s->p[i].lo) & GENMASK_ULL(s->p[i].width - 1, 0)) << s->p[i].shift;
++	n = v & 0x7f;
++	switch (s->kind) {
++	case USSE_SLOT_DST:
++		file = dst_files[(v >> 7) & 7];
++		break;
++	case USSE_SLOT_SRC:
++		file = src_files[(v >> 7) & 7];
++		break;
++	case USSE_SLOT_SRC0:
++		file = src0_files[(v >> 7) & 3];
++		break;
++	case USSE_SLOT_DST1:
++		file = (v >> 7) & 1 ? USSE_PA : USSE_R;
++		break;
++	default:
++		return false;
++	}
++	/* Bit 6 is a flag only where the format says so; elsewhere it counts. */
++	if (sel || (s->fmt == USSE_C10 && file == USSE_I))
++		n &= 0x3f;
++	switch (file) {
++	case USSE_CG:
++		/* Read only: what writing c or g does isn't known. */
++		return s->kind != USSE_SLOT_DST && n < USSE_CG_END;
++	case USSE_I:
++		return n <= USSE_I_LAST;
++	case USSE_IDX:
++		return n == 1 || n == 2;
++	default:
++		return true;
++	}
++}
++
++/* br's and phas.i's targets: l0-17, in instructions. */
++#define USSE_TARGET		GENMASK_ULL(17, 0)
++
++static s64 refuse(enum pvrsgx_usse_refusal *why, enum pvrsgx_usse_refusal r, u32 i)
++{
++	if (why)
++		*why = r;
++	return i;
++}
++
++/**
++ * pvrsgx_usse_scan() - Check USSE code before it goes into a code object
++ * @isa: The core's instruction set.
++ * @w: The instructions.
++ * @n: Number of @w.
++ * @first: Instruction index @w[0] will sit at in the object.
++ * @obj_insts: The object's size in instructions.
++ * @place: The object's start, in instructions from the start of the code base
++ *	window it is mapped in, or %PVRSGX_USSE_PLACE_NONE. An absolute target
++ *	(phas.i) needs it, and an object with one must lie in one window.
++ * @abs: Set when an instruction has an absolute target.
++ * @why: If not NULL, why the instruction returned was refused.
 + *
-+ * A render job is one scene of one TA kick, which starts the scene and the 3D
-+ * (TA flags 0x63). Scenes of several kicks need the middle-kick flags, which
-+ * are not known yet.
++ * Linear in @n, no allocation.
++ *
++ * Return: the index in @w of the first refused instruction, or -1.
++ */
++s64 pvrsgx_usse_scan(enum pvrsgx_isa isa, const u64 *w, u32 n, u32 first, u32 obj_insts,
++		     s64 place, bool *abs, enum pvrsgx_usse_refusal *why)
++{
++	const struct pvrsgx_usse_form *forms = isas[isa].forms;
++
++	if (why)
++		*why = PVRSGX_USSE_REFUSAL_NONE;
++	for (u32 i = 0; i < n; i++) {
++		const struct pvrsgx_usse_form *f = NULL;
++		s64 target;
++
++		for (u32 k = 0; k < isas[isa].n; k++) {
++			if ((w[i] & forms[k].mask) == forms[k].match) {
++				f = &forms[k];
++				break;
++			}
++		}
++		if (!f)
++			return refuse(why, PVRSGX_USSE_REFUSAL_FORM, i);
++		for (int k = 0; k < USSE_MAX_SLOTS; k++) {
++			const struct pvrsgx_usse_slot *s = &pvrsgx_usse_slots[f->slots][k];
++
++			if (s->kind != USSE_SLOT_NONE && !usse_slot_ok(s, w[i]))
++				return refuse(why, PVRSGX_USSE_REFUSAL_OPERAND, i);
++		}
++		switch (f->kind) {
++		case USSE_OK:
++			break;
++		case USSE_BR:
++			target = (s64)first + i + sign_extend64(w[i] & USSE_TARGET, 17);
++			if (target < 0 || target >= obj_insts)
++				return refuse(why, PVRSGX_USSE_REFUSAL_BRANCH, i);
++			break;
++		case USSE_PHAS:
++			/* 0: no next phase. Otherwise from the task's code base. */
++			target = w[i] & USSE_TARGET;
++			if (!target)
++				break;
++			if (place == PVRSGX_USSE_PLACE_NONE || target < place ||
++			    target >= place + obj_insts ||
++			    place + obj_insts > (s64)PVRSGX_USSE_WINDOW_INSTS)
++				return refuse(why, PVRSGX_USSE_REFUSAL_PHAS, i);
++			*abs = true;
++			break;
++		default:
++			return refuse(why, PVRSGX_USSE_REFUSAL_KIND, i);
++		}
++	}
++	return -1;
++}
++
++const char *pvrsgx_usse_refusal_name(enum pvrsgx_usse_refusal why)
++{
++	static const char *const names[] = {
++		[PVRSGX_USSE_REFUSAL_NONE] = "none",
++		[PVRSGX_USSE_REFUSAL_FORM] = "no known form",
++		[PVRSGX_USSE_REFUSAL_OPERAND] = "operand",
++		[PVRSGX_USSE_REFUSAL_KIND] = "refused instruction",
++		[PVRSGX_USSE_REFUSAL_BRANCH] = "branch target outside the object",
++		[PVRSGX_USSE_REFUSAL_PHAS] = "phase target outside the object",
++	};
++
++	return why < ARRAY_SIZE(names) ? names[why] : "?";
++}
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_usse.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_usse.h
+new file mode 100644
+index 000000000..c63b883c6
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_usse.h
+@@ -0,0 +1,45 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Copyright © 2026 Joseph Telaak */
++
++#ifndef PVRSGX_USSE_H
++#define PVRSGX_USSE_H
++
++#include <linux/bits.h>
++#include <linux/limits.h>
++#include <linux/types.h>
++
++#include "pvrsgx_core.h"
++
++/* A code object's place when it isn't mapped, or is mapped at more than one. */
++#define PVRSGX_USSE_PLACE_NONE	S64_MIN
++
++/*
++ * One code base's window, in instructions: 512 KiB. A task's absolute targets
++ * (phas.i) count from the base its PDS program names, which a compiler sets to
++ * the window of the task's first word.
++ */
++#define PVRSGX_USSE_WINDOW_INSTS	BIT(16)
++
++/* Why pvrsgx_usse_scan() refused an instruction. */
++enum pvrsgx_usse_refusal {
++	PVRSGX_USSE_REFUSAL_NONE,
++	/* Not exactly one known form. */
++	PVRSGX_USSE_REFUSAL_FORM,
++	/* An operand's register file or number. */
++	PVRSGX_USSE_REFUSAL_OPERAND,
++	/* A form that is refused outright. */
++	PVRSGX_USSE_REFUSAL_KIND,
++	/* br's target outside the object. */
++	PVRSGX_USSE_REFUSAL_BRANCH,
++	/*
++	 * phas.i's target outside the object, the object has no one place, or it
++	 * crosses a code base window.
++	 */
++	PVRSGX_USSE_REFUSAL_PHAS,
++};
++
++s64 pvrsgx_usse_scan(enum pvrsgx_isa isa, const u64 *w, u32 n, u32 first, u32 obj_insts,
++		     s64 place, bool *abs, enum pvrsgx_usse_refusal *why);
++const char *pvrsgx_usse_refusal_name(enum pvrsgx_usse_refusal why);
++
++#endif /* PVRSGX_USSE_H */
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_usse_table.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_usse_table.h
+new file mode 100644
+index 000000000..1a0b09063
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_usse_table.h
+@@ -0,0 +1,342 @@
++/* SPDX-License-Identifier: MIT */
++/* Copyright © 2026 Joseph Telaak */
++
++/*
++ * The USSE forms, their operand slots and what the validator does with
++ * each, generated by gen_usse_table.py from sgx.xml, the isaspec
++ * description of the instruction set Mesa's compiler uses; both live in
++ * the driver's source repository, https://github.com/The1TrueJoe/powervr_sgx.
++ * Each form is the bits its patterns fix; each slot the fields its operand
++ * is built from.
++ */
++
++static const struct pvrsgx_usse_slot pvrsgx_usse_slots[][USSE_MAX_SLOTS] = {
++	[0] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC0, USSE_SEL(54), USSE_ALWAYS, { { 14, 7, 0 }, { 34, 1, 7 } } },
++		{ USSE_SLOT_SRC, USSE_SEL(54), USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_SEL(54), USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[1] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_SEL(54), USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_SEL(54), USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[2] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++	},
++	[3] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS, { { 21, 7, 0 }, { 32, 2, 7 } } },
++		{ USSE_SLOT_SRC0, USSE_SEL(54), USSE_ALWAYS, { { 14, 7, 0 }, { 34, 1, 7 } } },
++		{ USSE_SLOT_SRC, USSE_SEL(54), USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_SEL(54), USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[4] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC0, USSE_NUM, USSE_ALWAYS, { { 14, 7, 0 }, { 34, 1, 7 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[5] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[6] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS, { { 21, 7, 0 }, { 32, 2, 7 } } },
++		{ USSE_SLOT_SRC0, USSE_NUM, USSE_ALWAYS,
++		  { { 14, 7, 0 }, { 34, 1, 7 }, { 38, 1, 8 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS, { { 7, 7, 0 }, { 30, 2, 7 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 39, 1, 9 } } },
++	},
++	[7] = {
++		{ USSE_SLOT_DST, USSE_SEL(50), 20, { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_SEL(50), USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_SEL(50), USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[8] = {
++		{ USSE_SLOT_DST, USSE_C10, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_C10, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_C10, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[9] = {
++		{ USSE_SLOT_DST, USSE_C10, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC0, USSE_C10, USSE_ALWAYS, { { 14, 7, 0 }, { 34, 1, 7 } } },
++		{ USSE_SLOT_SRC, USSE_C10, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_C10, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[10] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS, { { 14, 7, 0 }, { 30, 2, 7 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS, { { 7, 7, 0 }, { 30, 2, 7 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[11] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[12] = {
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 14, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[13] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 14, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[14] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++		{ USSE_SLOT_SRC0, USSE_NUM, USSE_ALWAYS,
++		  { { 14, 7, 0 }, { 34, 1, 7 }, { 47, 1, 8 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[15] = {
++		{ USSE_SLOT_DST1, USSE_NUM, USSE_ALWAYS, { { 21, 7, 0 }, { 39, 1, 7 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[16] = {
++		{ USSE_SLOT_SRC0, USSE_NUM, USSE_ALWAYS,
++		  { { 14, 7, 0 }, { 34, 1, 7 }, { 50, 1, 8 } } },
++		{ USSE_SLOT_DST1, USSE_NUM, USSE_ALWAYS, { { 21, 7, 0 }, { 39, 1, 7 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[17] = {
++		{ USSE_SLOT_DST1, USSE_NUM, USSE_ALWAYS, { { 21, 7, 0 }, { 36, 1, 7 } } },
++		{ USSE_SLOT_SRC0, USSE_NUM, USSE_ALWAYS, { { 14, 7, 0 }, { 34, 1, 7 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS, { { 7, 7, 0 }, { 30, 2, 7 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS, { { 0, 7, 0 }, { 28, 2, 7 } } },
++	},
++	[18] = {
++		{ USSE_SLOT_SRC0, USSE_NUM, USSE_ALWAYS,
++		  { { 14, 7, 0 }, { 34, 1, 7 }, { 50, 1, 8 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[19] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS, { { 21, 7, 0 }, { 32, 2, 7 } } },
++		{ USSE_SLOT_SRC0, USSE_NUM, USSE_ALWAYS,
++		  { { 14, 7, 0 }, { 34, 1, 7 }, { 51, 1, 8 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[20] = { },
++	[21] = {
++		{ USSE_SLOT_SRC0, USSE_NUM, USSE_ALWAYS,
++		  { { 14, 7, 0 }, { 34, 1, 7 }, { 51, 1, 8 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[22] = {
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++		{ USSE_SLOT_DST1, USSE_NUM, USSE_ALWAYS, { { 21, 7, 0 }, { 39, 1, 7 } } },
++	},
++	[23] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS,
++		  { { 21, 7, 0 }, { 32, 2, 7 }, { 51, 1, 9 } } },
++	},
++	[24] = {
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++	},
++	[25] = {
++		{ USSE_SLOT_DST, USSE_NUM, USSE_ALWAYS, { { 21, 7, 0 }, { 32, 2, 7 } } },
++	},
++	[26] = {
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++	},
++	[27] = {
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 0, 7, 0 }, { 28, 2, 7 }, { 48, 1, 9 } } },
++		{ USSE_SLOT_SRC, USSE_NUM, USSE_ALWAYS,
++		  { { 7, 7, 0 }, { 30, 2, 7 }, { 49, 1, 9 } } },
++	},
++};
++
++/* 109 forms, 126 entries */
++static const struct pvrsgx_usse_form pvrsgx_usse_forms[] = {
++	{ 0xf800060000000000ull, 0x0000020000000000ull, USSE_OK, 0 },	/* fadm */
++	{ 0xf800060000000000ull, 0x0000000000000000ull, USSE_OK, 0 },	/* fmad */
++	{ 0xf800060000000000ull, 0x0000040000000000ull, USSE_OK, 0 },	/* fmsa */
++	{ 0xf8000684001fc000ull, 0x0000060000000000ull, USSE_OK, 1 },	/* fsubflr */
++	{ 0xf8410600301fc07full, 0x0801040000000000ull, USSE_OK, 2 },	/* fcos */
++	{ 0xf8410600301fc07full, 0x0800060000000000ull, USSE_OK, 2 },	/* fexp2 */
++	{ 0xf8410600301fc07full, 0x0800040000000000ull, USSE_OK, 2 },	/* flog2 */
++	{ 0xf8410600301fc07full, 0x0800000000000000ull, USSE_OK, 2 },	/* frcp */
++	{ 0xf8410600301fc07full, 0x0800020000000000ull, USSE_OK, 2 },	/* frsq */
++	{ 0xf8410600301fc07full, 0x0801020000000000ull, USSE_OK, 2 },	/* fsin */
++	{ 0xf8410600301fc07full, 0x0801000000000000ull, USSE_OK, 2 },	/* fsqrt */
++	{ 0xf800060000000000ull, 0x1000020000000000ull, USSE_OK, 3 },	/* fddp */
++	{ 0xf800060000000000ull, 0x1000040000000000ull, USSE_OK, 3 },	/* fddpc */
++	{ 0xf8000684001fc000ull, 0x1000000000000000ull, USSE_OK, 1 },	/* fdp */
++	{ 0xf8000684001c4000ull, 0x1000000000004000ull, USSE_OK, 1 },	/* fdpc */
++	{ 0xf800060000000000ull, 0x1800000000000000ull, USSE_OK, 0 },	/* fmaxmin */
++	{ 0xf800060000000000ull, 0x1800020000000000ull, USSE_OK, 0 },	/* fminmax */
++	{ 0xf8000684001fc000ull, 0x2000000000000000ull, USSE_OK, 1 },	/* fdsx */
++	{ 0xf8000684001fc000ull, 0x2000020000000000ull, USSE_OK, 1 },	/* fdsy */
++	{ 0xf84107fc301fc07full, 0x2801000020000000ull, USSE_OK, 2 },	/* mov */
++	{ 0xf800077800000000ull, 0x2800050000000000ull, USSE_OK, 4 },	/* movc.c10 */
++	{ 0xf800077800000000ull, 0x2800040000000000ull, USSE_OK, 4 },	/* movc.f32 */
++	{ 0xf800077800000000ull, 0x2800020000000000ull, USSE_OK, 4 },	/* movc.i16 */
++	{ 0xf800077800000000ull, 0x2800030000000000ull, USSE_OK, 4 },	/* movc.i32 */
++	{ 0xf800077800000000ull, 0x2800010000000000ull, USSE_OK, 4 },	/* movc.u8 */
++	{ 0xf800071c001fc000ull, 0x2800060000000000ull, USSE_REFUSE, 5 },	/* op0xf3.s6 */
++	{ 0xf800071800000000ull, 0x2800070000000000ull, USSE_REFUSE, 4 },	/* op0xf3.s7 */
++	{ 0xf800000000000000ull, 0x3000000000000000ull, USSE_OK, 4 },	/* fmad16 */
++	{ 0xf800000000000000ull, 0x3800000000000000ull, USSE_OK, 6 },	/* efo */
++	{ 0xf800000000000000ull, 0x4000000000000000ull, USSE_OK, 5 },	/* pck */
++	{ 0xf800000000000000ull, 0x4800000000000000ull, USSE_OK, 7 },	/* test */
++	{ 0xf800000800000000ull, 0x5000000000000000ull, USSE_OK, 5 },	/* and */
++	{ 0xf800000800000000ull, 0x5000000800000000ull, USSE_OK, 5 },	/* or */
++	{ 0xf800000800000000ull, 0x5800000000000000ull, USSE_OK, 5 },	/* xor */
++	{ 0xf800000800000000ull, 0x6000000800000000ull, USSE_OK, 5 },	/* rol */
++	{ 0xf800000800000000ull, 0x6000000000000000ull, USSE_OK, 5 },	/* shl */
++	{ 0xf800000800000000ull, 0x6800000800000000ull, USSE_OK, 5 },	/* asr */
++	{ 0xf800000800000000ull, 0x6800000000000000ull, USSE_OK, 5 },	/* shr */
++	{ 0xf8010ff8301f007full, 0x7001000020000000ull, USSE_OK, 2 },	/* rlp */
++	{ 0xf800004c00000000ull, 0x7800000000000000ull, USSE_OK, 7 },	/* testmask */
++	{ 0xf800000000000000ull, 0x8000000000000000ull, USSE_OK, 8 },	/* sop2 */
++	{ 0xf820040000000000ull, 0x8820000000000000ull, USSE_OK, 9 },	/* lrp1 */
++	{ 0xf820040000000000ull, 0x8800000000000000ull, USSE_OK, 9 },	/* sop3 */
++	{ 0xf820040000000000ull, 0x8800040000000000ull, USSE_OK, 9 },	/* sop3l */
++	{ 0xf820040000000000ull, 0x8820040000000000ull, USSE_OK, 9 },	/* sop3x */
++	{ 0xf8000004001fc000ull, 0x9000000000000000ull, USSE_OK, 8 },	/* sopwm */
++	{ 0xf800000000000000ull, 0x9800000000000000ull, USSE_OK, 9 },	/* ima8 */
++	{ 0xf800800000000000ull, 0xa000000000000000ull, USSE_OK, 4 },	/* ima16 */
++	{ 0xf800000000000000ull, 0xa800000000000000ull, USSE_OK, 4 },	/* imae */
++	{ 0xf9308ffc001fc000ull, 0xb000000000000000ull, USSE_OK, 5 },	/* adif */
++	{ 0xf9300ff800000000ull, 0xb000004000000000ull, USSE_OK, 4 },	/* adifsum */
++	{ 0xf83000f800000000ull, 0xb020000000000000ull, USSE_OK, 4 },	/* bilin */
++	{ 0xf930400000000000ull, 0xb010000000000000ull, USSE_REFUSE, 4 },	/* op16s1 */
++	{ 0xf8320b7c00000000ull, 0xb030000000000000ull, USSE_OK, 10 },	/* ssum16 */
++	{ 0xf8320b7c00000000ull, 0xb030020000000000ull, USSE_OK, 10 },	/* ssum16.o8 */
++	{ 0xf8320b7c00000000ull, 0xb030010000000000ull, USSE_OK, 10 },	/* ssum16.s8 */
++	{ 0xf8320b7cc0003f80ull, 0xb030030000000000ull, USSE_REFUSE, 11 },	/* ssum16i */
++	{ 0xf800800400000000ull, 0xb800000400000000ull, USSE_REFUSE, 12 },	/* firh */
++	{ 0xf800000400000000ull, 0xb800000000000000ull, USSE_OK, 13 },	/* firv */
++	{ 0xf9000020001c4000ull, 0xc000000000000000ull, USSE_OK, 8 },	/* dot3 */
++	{ 0xf900002000000000ull, 0xc000002000000000ull, USSE_OK, 9 },	/* dot3s */
++	{ 0xf9000020001c4000ull, 0xc100000000000000ull, USSE_OK, 8 },	/* dot4 */
++	{ 0xf900002000000000ull, 0xc100002000000000ull, USSE_OK, 9 },	/* dot4s */
++	{ 0xf800000000000000ull, 0xc800000000000000ull, USSE_OK, 9 },	/* fpma */
++	{ 0xf930000800000000ull, 0xd000000000000000ull, USSE_OK, 14 },	/* ima32 */
++	{ 0xf9388f7e001fc000ull, 0xd010000000000000ull, USSE_REFUSE, 15 },	/* op1adrc */
++	{ 0xf800000000000000ull, 0xd800000000000000ull, USSE_REFUSE, 3 },	/* fdual */
++	{ 0xf808000200000000ull, 0xe000000000000000ull, USSE_OK, 16 },	/* smp */
++	{ 0xf840000800000000ull, 0xe840000000000000ull, USSE_OK, 17 },	/* eld.d */
++	{ 0xf840000800000000ull, 0xe840000800000000ull, USSE_OK, 17 },	/* eld.q */
++	{ 0xf840000000000000ull, 0xe800000000000000ull, USSE_OK, 16 },	/* ld */
++	{ 0xf80000800fe00000ull, 0xf000000000000000ull, USSE_OK, 18 },	/* st */
++	{ 0xff30f00000000000ull, 0xf930000000000000ull, USSE_OK, 19 },	/* atst8 */
++	{ 0xf87fe1fffffc0000ull, 0xf800000000000000ull, USSE_REFUSE, 20 },	/* ba */
++	{ 0xff7fe3fffffc0000ull, 0xf800004000000000ull, USSE_BR, 20 },	/* br */
++	{ 0xff7fe3fffffc0000ull, 0xf900004000000000ull, USSE_BR, 20 },	/* br */
++	{ 0xff7fe3fffffc0000ull, 0xfa00004000000000ull, USSE_BR, 20 },	/* br */
++	{ 0xff7fe3fffffc0000ull, 0xfb00004000000000ull, USSE_BR, 20 },	/* br */
++	{ 0xff7fe3fffffc0000ull, 0xfc00004000000000ull, USSE_BR, 20 },	/* br */
++	{ 0xff7fe3fffffc0000ull, 0xfd00004000000000ull, USSE_BR, 20 },	/* br */
++	{ 0xff7fe3fffffc0000ull, 0xfe00004000000000ull, USSE_BR, 20 },	/* br */
++	{ 0xff70f1cb0fe00000ull, 0xfb30000000000000ull, USSE_OK, 21 },	/* depthf */
++	{ 0xff30000000000000ull, 0xfb20000000000000ull, USSE_OK, 21 },	/* emit */
++	{ 0xffffb7feffffffffull, 0xf820000000000000ull, USSE_OK, 20 },	/* idf */
++	{ 0xfffb000000000000ull, 0xfc10000000000000ull, USSE_REFUSE, 20 },	/* imo */
++	{ 0xf87fe7ffffffffffull, 0xf800008000000000ull, USSE_REFUSE, 20 },	/* lapc */
++	{ 0xff7ef77ec0003f80ull, 0xfe20000000000000ull, USSE_REFUSE, 22 },	/* ldr */
++	{ 0xff30000cf0000000ull, 0xfc20000000000000ull, USSE_OK, 23 },	/* limm */
++	{ 0xfffff7ffffffff8full, 0xfd20000000000000ull, USSE_REFUSE, 20 },	/* lock */
++	{ 0xff7bf7fffffffffcull, 0xf800014000000000ull, USSE_OK, 20 },	/* nop */
++	{ 0xfffc34ff0fffc000ull, 0xf840300000000000ull, USSE_REFUSE, 24 },	/* op0x100 */
++	{ 0xff7fe7ffffffffffull, 0xf808020000000000ull, USSE_REFUSE, 20 },	/* op0x98 */
++	{ 0xfffff7ffffffffffull, 0xff20000000000000ull, USSE_OK, 20 },	/* op0xd6 */
++	{ 0xfffff7fffffffff0ull, 0xfa20000000000000ull, USSE_REFUSE, 20 },	/* op0xd7 */
++	{ 0xff7387fcf01fffffull, 0xfe10000000000000ull, USSE_REFUSE, 23 },	/* op0xfd */
++	{ 0xfffc34ff0fffc000ull, 0xf840200000000000ull, USSE_REFUSE, 24 },	/* op0xfe */
++	{ 0xfffc34ff0fffc000ull, 0xf840100000000000ull, USSE_REFUSE, 24 },	/* op0xff */
++	{ 0xff70f7c30fe00000ull, 0xf830000000000000ull, USSE_OK, 21 },	/* pcoeff */
++	{ 0xfff4f7ff0fffc000ull, 0xfa40000000000000ull, USSE_REFUSE, 24 },	/* phas */
++	{ 0xfff7df00fffc0000ull, 0xfa44000000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xfff7df00fffc0000ull, 0xfa44010000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xfff7df00fffc0000ull, 0xfa44020000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xfff7df00fffc0000ull, 0xfa44070000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xfff7df00fffc0000ull, 0xfa44080000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xfff7df00fffc0000ull, 0xfa44090000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xfff7df00fffc0000ull, 0xfa440a0000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xfff7df00fffc0000ull, 0xfa440f0000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xfff7df00fffc0000ull, 0xfa44100000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xfff7df00fffc0000ull, 0xfa44110000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xfff7df00fffc0000ull, 0xfa44120000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xfff7df00fffc0000ull, 0xfa44170000000000ull, USSE_PHAS, 20 },	/* phas.i */
++	{ 0xff7bf7ffffffffffull, 0xf830800000000000ull, USSE_OK, 20 },	/* ptoff */
++	{ 0xfffff7ffffffff8full, 0xfd20000000000001ull, USSE_REFUSE, 20 },	/* release */
++	{ 0xf87fe7fcf01fffffull, 0xf800010000000000ull, USSE_REFUSE, 25 },	/* savl */
++	{ 0xfffbffffffffffffull, 0xfd10000000000100ull, USSE_OK, 20 },	/* setfc */
++	{ 0xf87de7ff3fffc07full, 0xf80000c000000000ull, USSE_REFUSE, 26 },	/* setl */
++	{ 0xfffb000000000000ull, 0xfb10000000000000ull, USSE_REFUSE, 20 },	/* smbo */
++	{ 0xfff8ffff0fffc000ull, 0xfb18000000000000ull, USSE_REFUSE, 24 },	/* smbo.r */
++	{ 0xfffb000000000000ull, 0xfa10000000000000ull, USSE_OK, 20 },	/* smlsi */
++	{ 0xfff8ffff0fffc000ull, 0xfa18000000000000ull, USSE_REFUSE, 24 },	/* smlsi.r */
++	{ 0xfffb000000000000ull, 0xf810000000000000ull, USSE_REFUSE, 20 },	/* smoa */
++	{ 0xfff8ffff0fffc000ull, 0xf818000000000000ull, USSE_REFUSE, 24 },	/* smoa.r */
++	{ 0xfffb000000000000ull, 0xf910000000000000ull, USSE_REFUSE, 20 },	/* smr */
++	{ 0xfff8ffff0fffc000ull, 0xf918000000000000ull, USSE_REFUSE, 24 },	/* smr.r */
++	{ 0xff7cf7ff0fe00000ull, 0xfe28000000000000ull, USSE_REFUSE, 27 },	/* str */
++	{ 0xfffff7feffffffffull, 0xf920000000000000ull, USSE_OK, 20 },	/* wdf */
++};
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_validate.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_validate.c
+new file mode 100644
+index 000000000..cf9cfcf87
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_validate.c
+@@ -0,0 +1,188 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright © 2026 Joseph Telaak */
++
++/*
++ * Shader validation: what a client's USSE code may contain. The threat model
++ * is in Documentation/gpu/powervr_sgx/index.rst, "Shader validation".
++ *
++ * Client USSE code runs only from the two USSE heaps of its own VM (the code
++ * base registers cover exactly those), the USSE heaps take only code objects,
++ * and a code object's contents arrive only through UPLOAD_CODE, which checks
++ * every instruction against the form table generated from the isaspec
++ * description: its form, what the form does, and each operand's register file
++ * and number.
 + */
 +
 +#include <drm/drm_file.h>
++#include <drm/drm_gem.h>
 +#include <drm/drm_gpuvm.h>
 +#include <drm/drm_print.h>
 +
-+#include <linux/delay.h>
-+#include <linux/module.h>
-+#include <linux/sched.h>
-+#include <linux/seq_buf.h>
++#include <linux/dma-resv.h>
++#include <linux/iosys-map.h>
 +#include <linux/slab.h>
 +#include <linux/uaccess.h>
 +
 +#include <uapi/drm/powervr_sgx_drm.h>
 +
-+#include "pvrsgx_cmd.h"
-+#include "pvrsgx_cmd_checks.h"
-+#include "pvrsgx_ccb.h"
++#include "pvrsgx_core.h"
 +#include "pvrsgx_device.h"
-+#include "pvrsgx_drv.h"
 +#include "pvrsgx_fw.h"
-+#include "pvrsgx_fwif.h"
-+#include "pvrsgx_job.h"
-+#include "pvrsgx_kobj.h"
-+#include "pvrsgx_mmu.h"
-+#include "pvrsgx_pm.h"
-+#include "pvrsgx_render.h"
-+#include "pvrsgx_trace.h"
-+#include "pvrsgx_transfer.h"
-+#include "pvrsgx_vm.h"
++#include "pvrsgx_gem.h"
++#include "pvrsgx_usse.h"
++#include "pvrsgx_validate.h"
 +
-+#define PB_EXTRA_PAGES		0x22
-+#define FREELIST_BYTES		0x40000	/* one word per page of the 256 MiB range */
-+#define CCB_BYTES		0x10420
-+/* The background object's middle PDS word, a constant. */
-+#define BG_PDS_MIDDLE		0x00030001
-+/* Constant TA command words. */
-+#define TA_CTL			0x50000000
-+#define TE_AA			0x20000000
-+#define TE_AA_4X		(TE_AA | BIT(31) | BIT(30))	/* 2x in X and in Y */
-+#define VDM_CTL			0xa2
-+#define F32_1E_6		0x358637bd
-+#define RT_FLAGS		0x88
-+#define RT_FLAGS_4X		0xeaa26e26	/* the RT flags of a 4x render */
-+#define RT_MAX_DIM		2048
-+
-+static u32 f32_one(void)
++static bool bo_is_code(struct pvrsgx_bo *bo)
 +{
-+	return 0x3f800000;
++	return bo->flags & DRM_POWERVR_SGX_BO_CODE;
 +}
 +
-+/* ---------------------------------------------------------------- render context */
-+
-+/* The PB's free list and descriptor as new: at creation, and after a reset (pb_rearm). */
-+static void pb_init(struct pvrsgx_pb *pb)
++static bool heap_is_usse(unsigned int heap)
 +{
-+	u32 pages = pb->pages, first, last, zls, ta, pds, *fl;
-+	struct pvrsgx_fw_pb_desc *pd;
++	return heap == DRM_POWERVR_SGX_HEAP_USSE_PIXEL || heap == DRM_POWERVR_SGX_HEAP_USSE_VERTEX;
++}
 +
-+	/* Free list: prev<<16 | next per page, indexed from the range's base. */
-+	first = (kobj_va(pb->buf) - pvrsgx_heaps(pb->sdev)->params_3d.base) >> PAGE_SHIFT;
-+	last = first + pages - 1;
-+	fl = kobj_cpu(pb->freelist);
-+	for (u32 i = first; i <= last; i++)
-+		fl[i] = (i == first ? 0xffffu : i - 1) << 16 | (i == last ? 0xffffu : i + 1);
++/* Code objects, and only they, go into the USSE heaps, read-only. */
++int pvrsgx_validate_vm_map(struct pvrsgx_device *sdev, struct pvrsgx_vm *vm,
++			   unsigned int heap, struct pvrsgx_bo *bo, u64 offset, u64 size)
++{
++	return heap_is_usse(heap) == bo_is_code(bo) ? 0 : -EINVAL;
++}
 +
-+	kobj_cpu(pb->blocks)[0] = pages;
-+	kobj_cpu(pb->blocks)[1] = first | last << 16;
-+	kobj_cpu(pb->blocks)[2] = kobj_va(pb->desc);
++static_assert(PVRSGX_USSE_WINDOW_INSTS * 8 == 1u << PVRSGX_USSE_WINDOW_LOG2);
 +
-+	zls = pages - PB_EXTRA_PAGES;
-+	ta = pages + 0x10;
-+	pds = min(zls, ta);
-+	pd = (struct pvrsgx_fw_pb_desc *)kobj_cpu(pb->desc);
-+	memset(pd, 0, sizeof(*pd));
-+	pd->pages = pages;
-+	pd->free_head = last << 16 | first;
-+	pd->free_tail = (last - 1) << 16;
-+	pd->free_list = kobj_va(pb->freelist);
-+	pd->free_head_copy = pd->free_head;
-+	pd->free_tail_copy = pd->free_tail;
-+	pd->ta_threshold = ta;
-+	pd->zls_threshold = zls;
-+	pd->global_threshold = zls;
-+	pd->pds_threshold = pds > 0x100 ? pds - 0x100 : 0;
-+	pd->blocks = kobj_va(pb->blocks);
++/*
++ * Where a mapping at addr of the object from offset puts the object's start,
++ * in instructions from the start of its code base window: what phas.i's
++ * targets count from when the task's PDS program names the window its first
++ * word is in. One window per object makes that base the same for every entry.
++ */
++static s64 code_place(const struct pvrsgx_heap_layout *h, u64 addr, u64 offset)
++{
++	u64 base = addr >= h->usse_vertex.base ? h->usse_vertex.base : h->usse_pixel.base;
++	s64 start = (s64)(addr - base) - (s64)offset;
++
++	if (start < 0)
++		return PVRSGX_USSE_PLACE_NONE;
++	return (start / 8) & (PVRSGX_USSE_WINDOW_INSTS - 1);
 +}
 +
 +/*
-+ * The device's parameter buffer: PB, free list, PB descriptor and block list,
-+ * shared by every render context of every client. The DPM's free-list state is
-+ * one set of registers that the microkernel doesn't switch between PBs, so two
-+ * PBs would run each other's lists off their ends. The DPM numbers PB pages from
-+ * the 3D-params heap base, so the PB starts there, at the same address in every
-+ * VM (pvrsgx_pb_map). The first context sets the size; later requests for
-+ * another size are refused.
++ * Once code with absolute targets is in an object, every mapping of it puts it
++ * where those targets were checked. Called with the object's reservation held.
 + */
-+static struct pvrsgx_pb *pb_create(struct pvrsgx_device *sdev, u32 req_pages)
++int pvrsgx_validate_vm_link(struct pvrsgx_bo *bo, u64 addr, u64 offset)
 +{
-+	struct pvrsgx_pb *pb = kzalloc_obj(*pb);
-+	u32 pages = (req_pages ?: PVRSGX_PB_DEFAULT_PAGES) + PB_EXTRA_PAGES;
-+	int err;
++	if (!bo_is_code(bo) || !bo->code_abs)
++		return 0;
++	const struct pvrsgx_heap_layout *h = pvrsgx_heaps(to_pvrsgx_device(bo->base.base.dev));
 +
-+	if (!pb)
-+		return ERR_PTR(-ENOMEM);
-+	kref_init(&pb->ref);
-+	pb->sdev = sdev;
-+
-+	/* The PB, and what is addressed from its 1 MiB-aligned base, in the VM. */
-+	err = pvrsgx_kobj_new(sdev, &pb->buf, PVRSGX_KRANGE_3DPARAMS, pages << PAGE_SHIFT, 0, NULL);
-+	if (err)
-+		goto fail;
-+	pb->base = kobj_va(pb->buf) & 0xfff00000;
-+	err = pvrsgx_kobj_new(sdev, &pb->freelist, PVRSGX_KRANGE_3DPARAMS, FREELIST_BYTES, pb->base,
-+			      NULL);
-+	err = err ?: pvrsgx_kobj_new(sdev, &pb->desc, PVRSGX_KRANGE_KDATA,
-+				     sizeof(struct pvrsgx_fw_pb_desc), 0, NULL);
-+	if (pb->desc)
-+		pb->desc->until_restart = true;
-+	err = err ?: pvrsgx_kobj_new(sdev, &pb->blocks, PVRSGX_KRANGE_KDATA, 0x10, 0, NULL);
-+	if (err)
-+		goto fail;
-+
-+	pb->pages = pages;
-+	pb_init(pb);
-+	pb->fw_gen = sdev->fw_gen;
-+	return pb;
-+
-+fail:
-+	pvrsgx_pb_put(pb);
-+	return ERR_PTR(err);
++	return code_place(h, addr, offset) == bo->code_place ? 0 : -EINVAL;
 +}
 +
-+static void pb_release(struct kref *ref)
++/* The one place every mapping of obj puts it, or PVRSGX_USSE_PLACE_NONE. */
++static s64 code_place_mapped(struct drm_gem_object *obj)
 +{
-+	struct pvrsgx_pb *pb = container_of(ref, struct pvrsgx_pb, ref);
-+	struct pvrsgx_device *sdev = pb->sdev;
-+
-+	pvrsgx_kobj_drop(sdev, &pb->blocks);
-+	pvrsgx_kobj_drop(sdev, &pb->desc);
-+	pvrsgx_kobj_drop(sdev, &pb->freelist);
-+	pvrsgx_kobj_drop(sdev, &pb->buf);
-+	kfree(pb);
-+}
-+
-+void pvrsgx_pb_put(struct pvrsgx_pb *pb)
-+{
-+	if (pb)
-+		kref_put(&pb->ref, pb_release);
-+}
-+
-+/* The device's PB, created by the first render context; the device keeps one reference. */
-+static struct pvrsgx_pb *dev_pb_get(struct pvrsgx_device *sdev, u32 req_pages)
-+{
-+	struct pvrsgx_pb *pb;
-+
-+	mutex_lock(&sdev->pb_lock);
-+	if (!sdev->pb) {
-+		pb = pb_create(sdev, req_pages);
-+		if (IS_ERR(pb)) {
-+			mutex_unlock(&sdev->pb_lock);
-+			return pb;
-+		}
-+		sdev->pb = pb;
-+		drm_info(&sdev->base, "parameter buffer: %#x pages\n", pb->pages);
-+	} else if (req_pages && req_pages != sdev->pb->pages - PB_EXTRA_PAGES) {
-+		/* A size the live buffer doesn't have is refused, not ignored. */
-+		mutex_unlock(&sdev->pb_lock);
-+		return ERR_PTR(-EINVAL);
-+	}
-+	pb = sdev->pb;
-+	kref_get(&pb->ref);
-+	mutex_unlock(&sdev->pb_lock);
-+	return pb;
-+}
-+
-+static struct pvrsgx_kobj *pb_mapped(struct pvrsgx_pb *pb, int i)
-+{
-+	return i ? pb->freelist : pb->buf;
-+}
-+
-+/* The PB and its free list into the VM, at their device addresses; once per VM. */
-+static int pvrsgx_pb_map(struct pvrsgx_vm *vm, struct pvrsgx_pb *pb)
-+{
-+	struct pvrsgx_device *sdev = vm->sdev;
-+	int err = 0, i;
-+
-+	mutex_lock(&vm->lock);
-+	if (vm->pb)
-+		goto out;
-+	for (i = 0; i < ARRAY_SIZE(vm->pb_nodes); i++) {
-+		struct pvrsgx_kobj *o = pb_mapped(pb, i);
-+
-+		vm->pb_nodes[i].start = kobj_va(o);
-+		vm->pb_nodes[i].size = o->km.size;
-+		mutex_lock(&sdev->kobj_lock);
-+		err = drm_mm_reserve_node(&vm->params, &vm->pb_nodes[i]);
-+		mutex_unlock(&sdev->kobj_lock);
-+		if (err)
-+			goto unwind;
-+		err = pvrsgx_mmu_map_pages(vm->mmu, kobj_va(o), o->km.pages, o->km.npages, 0);
-+		if (err) {
-+			i++;
-+			goto unwind;
-+		}
-+	}
-+	kref_get(&pb->ref);
-+	vm->pb = pb;
-+	mutex_lock(&sdev->ccb_lock);
-+	sdev->fw.cache_control |= PVRSGX_CC_INVAL_BIF_PT | PVRSGX_CC_INVAL_BIF_PD;
-+	mutex_unlock(&sdev->ccb_lock);
-+out:
-+	mutex_unlock(&vm->lock);
-+	return err;
-+
-+unwind:
-+	while (i--) {
-+		pvrsgx_mmu_unmap(vm->mmu, vm->pb_nodes[i].start, vm->pb_nodes[i].size);
-+		mutex_lock(&sdev->kobj_lock);
-+		drm_mm_remove_node(&vm->pb_nodes[i]);
-+		mutex_unlock(&sdev->kobj_lock);
-+	}
-+	mutex_unlock(&vm->lock);
-+	return err;
-+}
-+
-+/* At the VM's release: nothing on the GPU uses it any more. */
-+void pvrsgx_pb_unmap(struct pvrsgx_vm *vm)
-+{
-+	struct pvrsgx_device *sdev = vm->sdev;
-+
-+	for (int i = 0; i < ARRAY_SIZE(vm->pb_nodes); i++) {
-+		pvrsgx_mmu_unmap(vm->mmu, vm->pb_nodes[i].start, vm->pb_nodes[i].size);
-+		mutex_lock(&sdev->kobj_lock);
-+		drm_mm_remove_node(&vm->pb_nodes[i]);
-+		mutex_unlock(&sdev->kobj_lock);
-+	}
-+	pvrsgx_pb_put(vm->pb);
-+	vm->pb = NULL;
-+}
-+
-+int pvrsgx_render_ctx_init(struct pvrsgx_device *sdev, struct pvrsgx_context *ctx, u32 req_pages)
-+{
-+	struct pvrsgx_render_ctx *r = kzalloc_obj(*r);
-+	struct pvrsgx_vm *vm = ctx->vm;
-+	struct pvrsgx_fw_hw_render_ctx *hw;
-+	int err = -ENOMEM;
-+
-+	if (!r)
-+		return -ENOMEM;
-+	ctx->render = r;
-+
-+	r->pb = dev_pb_get(sdev, req_pages);
-+	if (IS_ERR(r->pb)) {
-+		err = PTR_ERR(r->pb);
-+		r->pb = NULL;
-+		goto fail;
-+	}
-+	err = pvrsgx_pb_map(vm, r->pb);
-+	if (err)
-+		goto fail;
-+
-+	err = pvrsgx_kobj_new(sdev, &r->scratch, PVRSGX_KRANGE_3DPARAMS, 0x40, r->pb->base, vm);
-+	err = err ?: pvrsgx_kobj_new(sdev, &r->ccb, PVRSGX_KRANGE_KDATA, CCB_BYTES, 0, NULL);
-+	err = err ?: pvrsgx_kobj_new(sdev, &r->ccbctl, PVRSGX_KRANGE_KDATA, 8, 0, NULL);
-+	err = err ?: pvrsgx_kobj_new(sdev, &r->sync3d, PVRSGX_KRANGE_SYNC, SYNC_DATA_BYTES, 0,
-+				     NULL);
-+	err = err ?: pvrsgx_kobj_new(sdev, &r->hwctx, PVRSGX_KRANGE_KCODE,
-+				     sizeof(struct pvrsgx_fw_hw_render_ctx), 0, NULL);
-+	if (err)
-+		goto fail;
-+
-+	/* HW render context: the microkernel points list 0 at word 2's directory. */
-+	hw = (void *)kobj_cpu(r->hwctx);
-+	hw->flags = PVRSGX_HW_RENDER_CTX_VALID | PVRSGX_HW_RENDER_CTX_OWN_PB;
-+	hw->page_dir = pvrsgx_vm_pd_word(vm);
-+	hw->ccb = kobj_va(r->ccb);
-+	hw->ccb_ctl = kobj_va(r->ccbctl);
-+	hw->pb_desc = kobj_va(r->pb->desc);
-+	hw->scratch = kobj_va(r->scratch);
-+	hw->pid = task_tgid_nr(current);
-+	return 0;
-+
-+fail:
-+	pvrsgx_render_ctx_fini(sdev, ctx);
-+	return err;
-+}
-+
-+void pvrsgx_render_ctx_fini(struct pvrsgx_device *sdev, struct pvrsgx_context *ctx)
-+{
-+	struct pvrsgx_render_ctx *r = ctx->render;
-+
-+	if (!r)
-+		return;
-+	pvrsgx_kobj_drop(sdev, &r->hwctx);
-+	pvrsgx_kobj_drop(sdev, &r->sync3d);
-+	pvrsgx_kobj_drop(sdev, &r->ccbctl);
-+	pvrsgx_kobj_drop(sdev, &r->ccb);
-+	pvrsgx_kobj_drop(sdev, &r->scratch);
-+	pvrsgx_pb_put(r->pb);
-+	kfree(r);
-+	ctx->render = NULL;
-+}
-+
-+/* ---------------------------------------------------------------- RT datasets */
-+
-+/*
-+ * At 4x (2x2 samples) the TE tiles samples: twice the tiles in X and in Y,
-+ * and the region and tail pointer arrays follow. Its macrotile registers
-+ * stay in pixel tiles, as does the screen.
-+ */
-+static void rt_numbers(struct pvrsgx_rt_numbers *r, u32 w, u32 h, u32 samples)
-+{
-+	u32 aa = samples == 4 ? 2 : 1, xt, yt, mx, my, n, big, m;
-+
-+	r->xt = (w + 31) >> 5;
-+	r->yt = (h + 15) >> 4;
-+	xt = r->xt * aa;
-+	yt = r->yt * aa;
-+	if (w * h * samples < 0x4b000) {
-+		mx = (((xt + 1) >> 1) + 3) & ~3u;
-+		my = (((yt + 1) >> 1) + 3) & ~3u;
-+		n = 2;
-+	} else {
-+		mx = (((xt + 3) >> 2) + 3) & ~3u;
-+		my = (((yt + 3) >> 2) + 3) & ~3u;
-+		n = 4;
-+	}
-+	r->mx = mx / aa;
-+	r->my = my / aa;
-+	if (n == 2) {
-+		r->mtile1 = r->mx << 22 | r->mx << 12 | r->mx;
-+		r->mtile2 = r->my << 22 | r->my << 12 | r->my;
-+	} else {
-+		r->mtile1 = BIT(31) | r->mx << 22 | 2 * r->mx << 12 | 3 * r->mx;
-+		r->mtile2 = r->my << 22 | 2 * r->my << 12 | 3 * r->my;
-+	}
-+	r->zls_xt = xt;
-+	r->padx = mx * n;
-+	r->pady = my * n;
-+	r->te_screen = (r->yt - 1) << 12 | (r->xt - 1);
-+	r->mt_tiles = r->mx * r->my;
-+	r->rt_mt_tiles = mx * my;
-+	r->region_bytes = r->padx * r->pady * 12;
-+	m = max(r->padx, r->pady) - 1;
-+	for (big = 1; m; m >>= 1)
-+		big <<= 1;
-+	r->tailptr_bytes = big * big * 4;
-+	r->te_aa = aa == 2 ? TE_AA_4X : TE_AA;
-+	r->rt_flags = aa == 2 ? RT_FLAGS_4X : RT_FLAGS;
-+}
-+
-+static void rtds_release(struct kref *ref)
-+{
-+	struct pvrsgx_rt_dataset *s = container_of(ref, struct pvrsgx_rt_dataset, ref);
-+	struct pvrsgx_device *sdev = s->ctx->sdev;
-+
-+	pvrsgx_kobj_drop(sdev, &s->rtword);
-+	pvrsgx_kobj_drop(sdev, &s->rtdata);
-+	pvrsgx_kobj_drop(sdev, &s->done);
-+	pvrsgx_kobj_drop(sdev, &s->tailptr);
-+	pvrsgx_kobj_drop(sdev, &s->ta40);
-+	pvrsgx_kobj_drop(sdev, &s->ta50);
-+	for (int i = 0; i < 2; i++) {
-+		pvrsgx_kobj_drop(sdev, &s->bgblock[i]);
-+		pvrsgx_kobj_drop(sdev, &s->rd[i]);
-+		pvrsgx_kobj_drop(sdev, &s->rd_w8[i]);
-+		pvrsgx_kobj_drop(sdev, &s->rd_w4[i]);
-+		pvrsgx_kobj_drop(sdev, &s->hwsync[i]);
-+		pvrsgx_kobj_drop(sdev, &s->rd_sync[i]);
-+		pvrsgx_kobj_drop(sdev, &s->hwsync_access[i]);
-+		pvrsgx_kobj_drop(sdev, &s->entword[i]);
-+		pvrsgx_kobj_drop(sdev, &s->rgn[i]);
-+		pvrsgx_kobj_drop(sdev, &s->ta88[i]);
-+	}
-+	pvrsgx_context_put(s->ctx);
-+	kfree(s);
-+}
-+
-+void pvrsgx_rtds_put(struct pvrsgx_rt_dataset *rtds)
-+{
-+	if (rtds)
-+		kref_put(&rtds->ref, rtds_release);
-+}
-+
-+/* The dataset's structures as new, frame count 0. */
-+/* One RT-data entry's render details and dependency block, as new. */
-+static void rtds_init_entry(struct pvrsgx_rt_dataset *s, int i)
-+{
-+	struct pvrsgx_render_ctx *r = s->ctx->render;
-+	struct pvrsgx_fw_render_details *rd = (void *)kobj_cpu(s->rd[i]);
-+
-+	memset(rd, 0, sizeof(*rd));
-+	/* Render details; the per-render words are written at each job. */
-+	rd->req_base_3d = r->pb->base;
-+	rd->unk_08 = 0x80;
-+	rd->unk_0c = 0x000f0000;
-+	rd->rt_ctl = BIT(31) | (s->samples == 4 ? BIT(1) : 0);
-+	rd->stencil[0] = BIT(31);
-+	rd->stencil[1] = BIT(31);
-+	rd->bg_depth = f32_one();
-+	rd->unk_44 = 0x300;
-+	rd->bg_object = 0x2000000 | (kobj_va(s->bgblock[i]) - r->pb->base) >> 4;
-+	rd->rt_flags = s->n.rt_flags;
-+	rd->unk_58 = 0x30;
-+	rd->unk_64 = 1;
-+	rd->unk_68 = 1;
-+	rd->unk_cc = 0x100;
-+	rd->sync = kobj_va(s->rd_sync[i]);
-+	rd->rt_data = kobj_va(s->rtdata);
-+	rd->unk_104 = 1;
-+	rd->word8 = kobj_va(s->rd_w8[i]);
-+	rd->bg_pds_word = kobj_va(s->rd_w4[i]);
-+	rd->unk_13c = 0x07c00000;
-+	kobj_cpu(s->rd_sync[i])[0] = 1;
-+	kobj_cpu(s->hwsync[i])[0] = kobj_va(s->hwsync_access[i]);
-+	kobj_cpu(s->hwsync_access[i])[0] = 1;
-+}
-+
-+static void rtds_init(struct pvrsgx_rt_dataset *s)
-+{
-+	struct pvrsgx_render_ctx *r = s->ctx->render;
-+	struct pvrsgx_fw_rt_data *rt = (void *)kobj_cpu(s->rtdata);
-+	u32 w = s->w, h = s->h, *b;
-+
-+	memset(rt, 0, sizeof(*rt));
-+	for (int i = 0; i < 2; i++) {
-+		memset(kobj_cpu(s->bgblock[i]), 0, 0x60);
-+		kobj_cpu(s->entword[i])[0] = 0;
-+	}
-+	s->frames = 0;
-+
-+	kobj_cpu(s->rtword)[0] = 1;
-+	rt->rt_word = kobj_va(s->rtword);
-+	rt->padded_tiles_x = s->n.padx;
-+	rt->num_entries = ARRAY_SIZE(rt->entry);
-+	for (int i = 0; i < ARRAY_SIZE(rt->entry); i++) {
-+		struct pvrsgx_fw_rt_entry *e = &rt->entry[i];
-+
-+		e->hw_render_ctx = kobj_va(r->hwctx);
-+		e->mt_units = s->n.rt_mt_tiles >> 4;
-+		e->mt_bytes = s->n.rt_mt_tiles * 0xc;
-+		e->bg_block = kobj_va(s->bgblock[i]);
-+		e->ta_data[0] = kobj_va(s->ta88[i]);
-+		e->ta_data[1] = kobj_va(s->ta40);
-+		e->ta_data[2] = kobj_va(s->ta50);
-+		e->tail_pointers = kobj_va(s->tailptr);
-+		e->tail_pointers_size = s->n.tailptr_bytes;
-+		e->num_rts = 1;
-+		e->entry_word = kobj_va(s->entword[i]);
-+		e->unk_34 = 0x10;
-+	}
-+
-+	for (int i = 0; i < 2; i++) {
-+		/* Background object: screen-space vertices, fixed point offset by 0x1000. */
-+		b = kobj_cpu(s->bgblock[i]);
-+		b[5] = f32_one();
-+		b[8] = f32_one();
-+		b[10] = 0x202;
-+		b[15] = 0x100000;
-+		b[16] = 0x1000;
-+		b[17] = 0x3f80;
-+		b[18] = ((w + 0x1000) * 0x100) << 8 | 0x10;
-+		b[19] = f32_one();
-+		b[20] = (h + 0x1000) * 0x100;
-+		b[21] = 0x1000;
-+		b[22] = 0x3f80;
-+		rtds_init_entry(s, i);
-+	}
-+}
-+
-+struct pvrsgx_rt_dataset *pvrsgx_rtds_create(struct pvrsgx_context *ctx, u32 w, u32 h, u32 samples)
-+{
-+	struct pvrsgx_device *sdev = ctx->sdev;
-+	struct pvrsgx_render_ctx *r = ctx->render;
-+	struct pvrsgx_vm *vm = ctx->vm;
-+	struct pvrsgx_rt_dataset *s = kzalloc_obj(*s);
-+	int err;
-+
-+	if (!s)
-+		return ERR_PTR(-ENOMEM);
-+	kref_init(&s->ref);
-+	kref_get(&ctx->ref);
-+	s->ctx = ctx;
-+	s->w = w;
-+	s->h = h;
-+	s->samples = samples;
-+	rt_numbers(&s->n, w, h, samples);
-+
-+	err = pvrsgx_kobj_new(sdev, &s->rtword, PVRSGX_KRANGE_KDATA, 4, 0, NULL);
-+	err = err ?: pvrsgx_kobj_new(sdev, &s->rtdata, PVRSGX_KRANGE_KDATA,
-+				     sizeof(struct pvrsgx_fw_rt_data), 0, NULL);
-+	err = err ?: pvrsgx_kobj_new(sdev, &s->done, PVRSGX_KRANGE_SYNC, SYNC_DATA_BYTES, 0, NULL);
-+	/* What the TA writes and the 3D reads, under the VM's directory too. */
-+	err = err ?: pvrsgx_kobj_new(sdev, &s->tailptr, PVRSGX_KRANGE_TADATA,
-+				     s->n.tailptr_bytes, 0, vm);
-+	err = err ?: pvrsgx_kobj_new(sdev, &s->ta40, PVRSGX_KRANGE_TADATA, 0x40, 0, vm);
-+	err = err ?: pvrsgx_kobj_new(sdev, &s->ta50, PVRSGX_KRANGE_TADATA, 0x50, 0, vm);
-+	for (int i = 0; i < 2; i++) {
-+		err = err ?: pvrsgx_kobj_new(sdev, &s->bgblock[i], PVRSGX_KRANGE_3DPARAMS, 0x200,
-+					     r->pb->base, vm);
-+		err = err ?: pvrsgx_kobj_new(sdev, &s->rgn[i], PVRSGX_KRANGE_TADATA,
-+					     s->n.region_bytes, 0, vm);
-+		err = err ?: pvrsgx_kobj_new(sdev, &s->ta88[i], PVRSGX_KRANGE_TADATA, 0x88, 0, vm);
-+		err = err ?: pvrsgx_kobj_new(sdev, &s->entword[i], PVRSGX_KRANGE_KDATA, 4, 0, NULL);
-+		err = err ?: pvrsgx_kobj_new(sdev, &s->rd[i], PVRSGX_KRANGE_KDATA,
-+					     sizeof(struct pvrsgx_fw_render_details), 0, NULL);
-+		err = err ?: pvrsgx_kobj_new(sdev, &s->rd_w8[i], PVRSGX_KRANGE_KDATA, 8, 0, NULL);
-+		err = err ?: pvrsgx_kobj_new(sdev, &s->rd_w4[i], PVRSGX_KRANGE_KDATA, 4, 0, NULL);
-+		err = err ?: pvrsgx_kobj_new(sdev, &s->hwsync[i], PVRSGX_KRANGE_KDATA,
-+					     sizeof(struct pvrsgx_fw_rt_deps), 0, NULL);
-+		err = err ?: pvrsgx_kobj_new(sdev, &s->rd_sync[i], PVRSGX_KRANGE_SYNC, 8, 0, NULL);
-+		err = err ?: pvrsgx_kobj_new(sdev, &s->hwsync_access[i], PVRSGX_KRANGE_SYNC, 8, 0,
-+					     NULL);
-+	}
-+	if (err)
-+		goto fail;
-+
-+	rtds_init(s);
-+	return s;
-+
-+fail:
-+	pvrsgx_rtds_put(s);
-+	return ERR_PTR(err);
-+}
-+
-+static struct pvrsgx_rt_dataset *rtds_lookup(struct pvrsgx_file *sfile, u32 handle)
-+{
-+	struct pvrsgx_rt_dataset *s;
-+
-+	xa_lock(&sfile->rtds);
-+	s = xa_load(&sfile->rtds, handle);
-+	if (s)
-+		kref_get(&s->ref);
-+	xa_unlock(&sfile->rtds);
-+	return s;
-+}
-+
-+void pvrsgx_rtds_destroy_all(struct pvrsgx_file *sfile)
-+{
-+	struct pvrsgx_rt_dataset *s;
-+	unsigned long handle;
-+
-+	xa_for_each(&sfile->rtds, handle, s) {
-+		xa_erase(&sfile->rtds, handle);
-+		pvrsgx_rtds_put(s);
-+	}
-+}
-+
-+int pvrsgx_ioctl_create_rt_dataset(struct drm_device *drm, void *data, struct drm_file *file)
-+{
-+	struct drm_powervr_sgx_ioctl_create_rt_dataset_args *args = data;
-+	struct pvrsgx_file *sfile = to_pvrsgx_file(file);
-+	struct pvrsgx_rt_dataset *s;
-+	struct pvrsgx_context *ctx;
-+	int err;
-+
-+	if (args->flags || (args->samples > 1 && args->samples != 4) || !args->width ||
-+	    !args->height ||
-+	    args->width > RT_MAX_DIM || args->height > RT_MAX_DIM)
-+		return -EINVAL;
-+	if (args->samples > to_pvrsgx_device(drm)->family->cmds->max_samples)
-+		return -EOPNOTSUPP;
-+	ctx = pvrsgx_context_lookup(sfile, args->context_handle);
-+	if (!ctx)
-+		return -ENOENT;
-+	if (!ctx->render) {
-+		pvrsgx_context_put(ctx);
-+		return -EINVAL;
-+	}
-+	s = pvrsgx_rtds_create(ctx, args->width, args->height, args->samples ?: 1);
-+	pvrsgx_context_put(ctx);
-+	if (IS_ERR(s))
-+		return PTR_ERR(s);
-+	err = xa_alloc(&sfile->rtds, &args->handle, s, XA_LIMIT(1, PVRSGX_MAX_FILE_RTDS),
-+		       GFP_KERNEL);
-+	if (err) {
-+		pvrsgx_rtds_put(s);
-+		return err == -EBUSY ? -ENOSPC : err;
-+	}
-+	return 0;
-+}
-+
-+int pvrsgx_ioctl_destroy_rt_dataset(struct drm_device *drm, void *data, struct drm_file *file)
-+{
-+	struct drm_powervr_sgx_ioctl_destroy_rt_dataset_args *args = data;
-+	struct pvrsgx_rt_dataset *s;
-+
-+	if (args->_padding_4)
-+		return -EINVAL;
-+	s = xa_erase(&to_pvrsgx_file(file)->rtds, args->handle);
-+	if (!s)
-+		return -ENOENT;
-+	pvrsgx_rtds_put(s);
-+	return 0;
-+}
-+
-+/* ---------------------------------------------------------------- streams */
-+
-+bool pvrsgx_cmd_mapped(const void *priv, u64 addr, u64 size)
-+{
-+	struct pvrsgx_vm *vm = (struct pvrsgx_vm *)priv;
-+	u64 cur = addr, end = addr + size;
++	const struct pvrsgx_heap_layout *h = pvrsgx_heaps(to_pvrsgx_device(obj->dev));
++	struct drm_gpuvm_bo *vm_bo;
 +	struct drm_gpuva *va;
++	s64 place = PVRSGX_USSE_PLACE_NONE;
 +
-+	if (end < addr)
-+		return false;
-+	drm_gpuvm_for_each_va_range(va, &vm->gpuvm, addr, end) {
-+		if (va->va.addr > cur)
-+			return false;
-+		cur = va->va.addr + va->va.range;
-+		if (cur >= end)
-+			return true;
-+	}
-+	return cur >= end;
-+}
++	drm_gem_for_each_gpuvm_bo(vm_bo, obj) {
++		drm_gpuvm_bo_for_each_va(va, vm_bo) {
++			s64 p = code_place(h, va->va.addr, va->gem.offset);
 +
-+/* The core's command of @type: what a client's command is checked against. */
-+const struct pvrsgx_cmd_def *pvrsgx_cmd_def(struct pvrsgx_device *sdev, enum pvrsgx_cmd_type type)
-+{
-+	return sdev->family->cmds->cmds[type];
-+}
-+
-+/* A copied command, field by field, then against the VM (under its lock). */
-+int pvrsgx_cmd_take(struct pvrsgx_device *sdev, const struct pvrsgx_cmd_def *def,
-+		    const struct pvrsgx_cmd_ctx *ctx, struct pvrsgx_vm *vm, const void *all,
-+		    u64 present)
-+{
-+	const struct pvrsgx_cmd_core *core = sdev->family->cmds;
-+	int err = pvrsgx_cmd_check(core, def, ctx, all, present);
-+
-+	if (err)
-+		return err;
-+	mutex_lock(&vm->lock);
-+	err = pvrsgx_cmd_check_mapped(core, def, ctx, all, present);
-+	mutex_unlock(&vm->lock);
-+	return err;
-+}
-+
-+int pvrsgx_render_job_init(struct drm_file *file, struct pvrsgx_job *job,
-+			   const struct drm_powervr_sgx_job *in)
-+{
-+	struct pvrsgx_device *sdev = job->ctx->sdev;
-+	const struct pvrsgx_cmd_def *rdef = pvrsgx_cmd_def(sdev, PVRSGX_CMD_RENDER);
-+	const struct pvrsgx_cmd_def *kdef = pvrsgx_cmd_def(sdev, PVRSGX_CMD_TA_KICK);
-+	struct pvrsgx_render_job *rj = &job->render;
-+	struct drm_powervr_sgx_cmd_ta_kick *kicks;
-+	struct pvrsgx_vm *vm = job->ctx->vm;
-+	struct pvrsgx_cmd_ctx cctx = {};
-+	u64 present;
-+	int err;
-+
-+	if (in->flags & ~DRM_POWERVR_SGX_SUBMIT_JOB_RENDER_FLAGS_MASK)
-+		return -EINVAL;
-+	if (!job->ctx->render)
-+		return -EINVAL;
-+	rj->rtds = rtds_lookup(to_pvrsgx_file(file), in->rt_dataset_handle);
-+	if (!rj->rtds)
-+		return -ENOENT;
-+	if (rj->rtds->ctx != job->ctx)
-+		return -EINVAL;
-+	if (!in->ta_kicks.count)
-+		return -EINVAL;
-+	/* Scenes of more than two kicks need the middle-kick flags, not known yet. */
-+	if (in->ta_kicks.count > PVRSGX_MAX_TA_KICKS)
-+		return -EINVAL;
-+
-+	if (!rdef || !kdef)
-+		return -EOPNOTSUPP;
-+
-+	cctx.heaps[PVRSGX_CMD_HEAP_PDS_PIXEL].base = pvrsgx_heaps(sdev)->pds_pixel.base;
-+	cctx.heaps[PVRSGX_CMD_HEAP_PDS_PIXEL].size =
-+		pvrsgx_heaps(sdev)->pds_pixel.end - pvrsgx_heaps(sdev)->pds_pixel.base;
-+	cctx.limits[PVRSGX_CMD_LIMIT_TILES_X] = rj->rtds->n.xt - 1;
-+	cctx.limits[PVRSGX_CMD_LIMIT_TILES_Y] = rj->rtds->n.yt - 1;
-+	cctx.rt_pad_width = rj->rtds->n.xt * 32;
-+	cctx.rt_pad_height = rj->rtds->n.yt * 16;
-+	cctx.rt_samples = rj->rtds->samples;
-+	cctx.mapped = pvrsgx_cmd_mapped;
-+	cctx.priv = vm;
-+
-+	err = pvrsgx_cmd_copy(rdef, in->cmd, &rj->render, &present);
-+	err = err ?: pvrsgx_cmd_take(sdev, rdef, &cctx, vm, &rj->render, present);
-+	err = err ?: pvrsgx_check_render(sdev->family->cmds, &rj->render, rj->rtds->samples);
-+	if (err)
-+		return err;
-+
-+	kicks = pvrsgx_obj_array_get(&in->ta_kicks, sizeof(*kicks), PVRSGX_MAX_TA_KICKS);
-+	if (IS_ERR(kicks))
-+		return PTR_ERR(kicks);
-+	rj->nkicks = in->ta_kicks.count;
-+	for (u32 k = 0; k < rj->nkicks && !err; k++) {
-+		err = pvrsgx_cmd_take_elem(kdef, &kicks[k], in->ta_kicks.stride, &rj->kick[k],
-+					   &present);
-+		err = err ?: pvrsgx_cmd_take(sdev, kdef, &cctx, vm, &rj->kick[k], present);
-+	}
-+	kvfree(kicks);
-+	return err;
-+}
-+
-+void pvrsgx_render_job_fini(struct pvrsgx_job *job)
-+{
-+	pvrsgx_rtds_put(job->render.rtds);
-+	job->render.rtds = NULL;
-+}
-+
-+static u32 pds_word(u64 pds, u64 addr, u32 rows)
-+{
-+	return rows << 26 | (u32)(addr - pds) >> 4;
-+}
-+
-+/*
-+ * Write the TA command for kick k of the job's scene (and, at the first, the
-+ * render details), and say where the microkernel will report the scene done.
-+ * Runs in run_job: one job on the GPU at a time, so the context's CCB and the
-+ * dataset are ours.
-+ *
-+ * One kick both starts the scene and renders it (TA flags 0x63, the form Mesa
-+ * uses). A single-draw frame can also take two kicks: 0x71 runs the stream,
-+ * 0x62 runs the terminate words and starts the 3D.
-+ */
-+/*
-+ * A restart (a reset, or a runtime resume) starts a fresh microkernel, but a
-+ * VM's PB lives through it. After a hang the pages the TA took are still off
-+ * its free list: the next render on any of the VM's contexts hangs, and the
-+ * next restart fails. The PB's first job after a restart sets it up as new.
-+ * Nothing else needs it: the HW contexts and RT datasets
-+ * carry on as they are.
-+ */
-+static void pb_rearm(struct pvrsgx_device *sdev, struct pvrsgx_pb *pb)
-+{
-+	if (pb->fw_gen != sdev->fw_gen) {
-+		pb_init(pb);
-+		pb->fw_gen = sdev->fw_gen;
-+	}
-+}
-+
-+int pvrsgx_render_job_build(struct pvrsgx_job *job, u32 k, u32 data[6])
-+{
-+	struct pvrsgx_render_job *rj = &job->render;
-+	struct pvrsgx_render_ctx *r = job->ctx->render;
-+	struct pvrsgx_rt_dataset *s = rj->rtds;
-+	const struct drm_powervr_sgx_cmd_render *in = &rj->render.base;
-+	const struct drm_powervr_sgx_ext_sgx545_render *x545 = &rj->render.sgx545_render;
-+	bool first = k == 0, last = k == rj->nkicks - 1;
-+	struct pvrsgx_fw_ta_cmd *cmd;
-+	struct pvrsgx_fw_rt_deps *deps;
-+	struct pvrsgx_fw_render_details *rd;
-+	u32 f, odd, p, rgn_this, rgn_next, entry, *s3d, *done, *b;
-+	u32 woff = r->ccb_woff, zls_base = 0;
-+	u64 pds = pvrsgx_heaps(job->ctx->sdev)->pds_pixel.base;
-+
-+	if (first)
-+		pb_rearm(job->ctx->sdev, r->pb);
-+	f = s->frames;
-+	odd = f & 1;
-+	/* This frame's RT-data entry and everything that goes with it. */
-+	p = odd ? 0 : 1;
-+	rgn_this = kobj_va(s->rgn[p]);
-+	rgn_next = kobj_va(s->rgn[!p]);
-+	entry = kobj_va(s->rtdata) + 0x18 + 0x38 * p;
-+	rd = (struct pvrsgx_fw_render_details *)kobj_cpu(s->rd[p]);
-+	if (first) {
-+		/* Render details. */
-+		if (in->depth_addr || in->stencil_addr) {
-+			u64 lo = in->depth_addr ?: in->stencil_addr;
-+
-+			if (in->depth_addr && in->stencil_addr)
-+				lo = min(in->depth_addr, in->stencil_addr);
-+
-+			zls_base = (u32)lo & 0xfff00000;
++			if (place != PVRSGX_USSE_PLACE_NONE && p != place)
++				return PVRSGX_USSE_PLACE_NONE;
++			place = p;
 +		}
-+		rd->zls_base = zls_base;
-+		rd->depth_bias_units = in->depth_bias_units;
-+		rd->depth_bias_factor = in->depth_bias_factor_f32;
-+		rd->region_headers = rgn_this;
-+		rd->region_headers_next = rgn_next;
-+		rd->zls_ctl = x545->zls_control ? x545->zls_control | (s->n.zls_xt - 1) << 3 : 0;
-+		rd->depth[0] = in->depth_addr ? (u32)in->depth_addr - zls_base : 0;
-+		rd->depth[1] = rd->depth[0];
-+		rd->stencil[0] = BIT(31) |
-+				 (in->stencil_addr ? (u32)in->stencil_addr - zls_base : 0);
-+		rd->stencil[1] = rd->stencil[0];
-+		rd->bg_depth = in->bg_depth_f32;
-+		rd->pixel_event_pds = (u32)in->pixel_event_pds_addr;
-+		rd->pixel_event_rows = in->pixel_event_pds_rows;
-+		rd->rt_data_entry = entry;
-+		kobj_cpu(s->rd_w4[p])[0] = pds_word(pds, in->bg_pds_primary_addr,
-+						    in->bg_pds_primary_rows);
-+
-+		/*
-+		 * The background object's PDS words (secondary, middle, primary),
-+		 * written by the host so the microkernel never runs on the job's
-+		 * directory.
-+		 */
-+		b = kobj_cpu(s->bgblock[p]);
-+		b[0] = pds_word(pds, in->bg_pds_secondary_addr, in->bg_pds_secondary_rows);
-+		b[1] = BG_PDS_MIDDLE;
-+		b[2] = kobj_cpu(s->rd_w4[p])[0];
-+
-+		/* What the microkernel clears and the client sets before a scene. */
-+		kobj_cpu(s->rtword)[0] = f + 1;
-+		kobj_cpu(s->rd_sync[p])[0] = 1;
-+		kobj_cpu(s->hwsync_access[p])[0] = 1;
 +	}
++	return place;
++}
 +
-+	/* The TA command, in the context's ring. */
-+	cmd = (struct pvrsgx_fw_ta_cmd *)((u8 *)kobj_cpu(r->ccb) + woff);
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->size = sizeof(*cmd);
-+	cmd->ta_flags = PVRSGX_TA_FLAGS_BASE | (first ? PVRSGX_TA_FIRST_KICK : 0) |
-+			(last ? PVRSGX_TA_LAST_KICK : 0) |
-+			(first && !f ? PVRSGX_TA_FIRST_RENDER : 0);
-+	cmd->bg_pds[0] = pds_word(pds, in->bg_pds_secondary_addr, in->bg_pds_secondary_rows);
-+	cmd->bg_pds[1] = BG_PDS_MIDDLE;
-+	cmd->bg_pds[2] = pds_word(pds, in->bg_pds_primary_addr, in->bg_pds_primary_rows);
-+	cmd->ta_ctl[0] = TA_CTL;
-+	cmd->ta_ctl[1] = TA_CTL;
-+	if (last)
-+		cmd->flags_3d = x545->flags_3d | PVRSGX_3D_RENDER | f << PVRSGX_3D_FRAME_SHIFT;
-+	cmd->frame = f;
-+	cmd->pb_desc = kobj_va(r->pb->desc);
-+	cmd->render_details = kobj_va(s->rd[p]);
-+	cmd->rt_deps = kobj_va(s->hwsync[p]);
-+	cmd->rt_data = kobj_va(s->rtdata);
-+	cmd->rt_data_entry = entry;
++u32 pvrsgx_validate_pte_flags(struct pvrsgx_bo *bo)
++{
++	return bo_is_code(bo) ? SGX_MMU_PTE_READONLY : 0;
++}
 +
-+	/* Ready; the 3D sync on the last kick; the completion word on the first. */
-+	cmd->ready = 1;
-+	if (last) {
-+		s3d = kobj_cpu(r->sync3d);
-+		cmd->sync3d_write_pending = s3d[SYNC_WRITE_PENDING];
-+		cmd->sync3d_write_complete = kobj_va(r->sync3d) + SYNC_WRITE_COMPLETE * 4;
-+		cmd->sync3d_read_pending = s3d[SYNC_READ_PENDING]++;
-+		cmd->sync3d_read_complete = kobj_va(r->sync3d) + SYNC_READ_COMPLETE * 4;
-+	}
-+	if (first) {
-+		done = kobj_cpu(s->done);
-+		deps = (struct pvrsgx_fw_rt_deps *)kobj_cpu(s->hwsync[p]);
-+		deps->num_dst = 1;
-+		deps->read_pending = done[SYNC_READ_PENDING];
-+		deps->read_complete = kobj_va(s->done) + SYNC_READ_COMPLETE * 4;
-+		deps->write_pending = done[SYNC_WRITE_PENDING]++;
-+		deps->write_complete = kobj_va(s->done) + SYNC_WRITE_COMPLETE * 4;
-+		/* The microkernel sets write-complete to the pending value plus one. */
-+		job->done_cpu = &done[SYNC_WRITE_COMPLETE];
-+		job->done_val = deps->write_pending + 1;
-+	}
-+
-+	cmd->te_aa = s->n.te_aa;
-+	cmd->te_mtile[0] = s->n.mtile1;
-+	cmd->te_mtile[1] = s->n.mtile2;
-+	cmd->te_screen = s->n.te_screen;
-+	cmd->mt_tiles = s->n.mt_tiles;
-+	cmd->ta_flags2 = rj->kick[k].sgx545_ta_kick.ta_flags2 | (last ? PVRSGX_TA2_RENDER : 0);
-+	cmd->vdm_base = (u32)rj->kick[k].base.vdm_base;
-+	cmd->vdm_ctl = VDM_CTL;
-+	cmd->region_headers = rgn_this;
-+	cmd->tail_pointers = kobj_va(s->tailptr);
-+	cmd->eps[0] = F32_1E_6;
-+	cmd->eps[1] = F32_1E_6;
-+	cmd->screen_size = (s->h - 1) << 16 | (s->w - 1);
-+	cmd->params_base = r->pb->base;
-+	cmd->rt_flags = s->n.rt_flags;
-+
-+	r->ccb_woff = (woff + sizeof(*cmd)) & (CCB_RING - 1);
-+	/* The command is in memory before the write offset that hands it over. */
-+	wmb();
-+	kobj_cpu(r->ccbctl)[0] = r->ccb_woff;
-+	if (last) {
-+		rj->cmd_off = woff;
-+		rj->entry = p;
-+		trace_pvrsgx_render_kick(cmd, s->w, s->h, rgn_next, woff);
-+		s->frames++;
-+	}
-+
-+	memset(data, 0, 6 * sizeof(u32));
-+	data[1] = kobj_va(r->hwctx);
++int pvrsgx_validate_job(struct pvrsgx_device *sdev, struct pvrsgx_job *job)
++{
++	/* A job can only reach validated USSE code: nothing to check per job. */
 +	return 0;
 +}
 +
-+/* ---------------------------------------------------------------- transfers */
-+
-+/* The structures of a render, word by word. */
-+static void render_dump(struct seq_buf *sb, struct pvrsgx_device *sdev, struct pvrsgx_rt_dataset *s,
-+			u32 cmd_off, u32 p)
++int pvrsgx_ioctl_upload_code(struct drm_device *drm, void *data, struct drm_file *file)
 +{
-+	struct pvrsgx_render_ctx *r = s->ctx->render;
++	struct drm_powervr_sgx_ioctl_upload_code_args *args = data;
++	struct pvrsgx_device *sdev = to_pvrsgx_device(drm);
++	struct drm_gem_object *obj;
++	struct pvrsgx_bo *bo;
++	struct iosys_map map;
++	u64 end, *buf;
++	enum pvrsgx_usse_refusal why;
++	s64 bad, place;
++	bool abs = false;
++	int err;
 +
-+	seq_buf_printf(sb, "PB 0x%08x pages 0x%x base 0x%08x; free list 0x%08x; scratch 0x%08x\n",
-+		       kobj_va(r->pb->buf), r->pb->pages, r->pb->base, kobj_va(r->pb->freelist),
-+		       kobj_va(r->scratch));
-+	pvrsgx_kobj_dump(sb, "hwctx", r->hwctx, 0, sizeof(struct pvrsgx_fw_hw_render_ctx));
-+	pvrsgx_kobj_dump(sb, "ccbctl", r->ccbctl, 0, 8);
-+	pvrsgx_kobj_dump(sb, "pbdesc", r->pb->desc, 0, sizeof(struct pvrsgx_fw_pb_desc));
-+	pvrsgx_kobj_dump(sb, "pbblocks", r->pb->blocks, 0, 0x10);
-+	pvrsgx_kobj_dump(sb, "freelist[first..]", r->pb->freelist,
-+			 ((kobj_va(r->pb->buf) - pvrsgx_heaps(sdev)->params_3d.base) >>
-+			  PAGE_SHIFT) * 4, 0x20);
-+	pvrsgx_kobj_dump(sb, "scratch", r->scratch, 0, 0x40);
-+	pvrsgx_kobj_dump(sb, "sync3d", r->sync3d, 0, SYNC_DATA_BYTES);
-+	pvrsgx_kobj_dump(sb, "ta_cmd", r->ccb, cmd_off, sizeof(struct pvrsgx_fw_ta_cmd));
-+	seq_buf_printf(sb, "rt-data entry %u\n", p);
-+	pvrsgx_kobj_dump(sb, "render_details", s->rd[p], 0,
-+			 sizeof(struct pvrsgx_fw_render_details));
-+	pvrsgx_kobj_dump(sb, "rd_w4", s->rd_w4[p], 0, 4);
-+	pvrsgx_kobj_dump(sb, "rd_w8", s->rd_w8[p], 0, 8);
-+	pvrsgx_kobj_dump(sb, "rd_sync", s->rd_sync[p], 0, 4);
-+	pvrsgx_kobj_dump(sb, "rtdata", s->rtdata, 0, sizeof(struct pvrsgx_fw_rt_data));
-+	pvrsgx_kobj_dump(sb, "rtword", s->rtword, 0, 4);
-+	pvrsgx_kobj_dump(sb, "entword0", s->entword[0], 0, 4);
-+	pvrsgx_kobj_dump(sb, "entword1", s->entword[1], 0, 4);
-+	pvrsgx_kobj_dump(sb, "hwsync", s->hwsync[p], 0, sizeof(struct pvrsgx_fw_rt_deps));
-+	pvrsgx_kobj_dump(sb, "hwsync_access", s->hwsync_access[p], 0, 4);
-+	pvrsgx_kobj_dump(sb, "done", s->done, 0, SYNC_DATA_BYTES);
-+	pvrsgx_kobj_dump(sb, "bgblock", s->bgblock[p], 0, 0x60);
-+	/* what the TA wrote for the 3D */
-+	pvrsgx_kobj_dump(sb, "rgn0", s->rgn[0], 0, 0x60);
-+	pvrsgx_kobj_dump(sb, "rgn1", s->rgn[1], 0, 0x60);
-+	pvrsgx_kobj_dump(sb, "tailptr", s->tailptr, 0, 0x40);
-+	pvrsgx_kobj_dump(sb, "ta40", s->ta40, 0, 0x40);
-+	pvrsgx_kobj_dump(sb, "ta50", s->ta50, 0, 0x50);
-+	pvrsgx_kobj_dump(sb, "ta88[0]", s->ta88[0], 0, 0x88);
-+	pvrsgx_kobj_dump(sb, "ta88[1]", s->ta88[1], 0, 0x88);
-+	seq_buf_printf(sb, "rgn 0x%08x 0x%08x tailptr 0x%08x ta40 0x%08x ta50 0x%08x\n",
-+		       kobj_va(s->rgn[0]), kobj_va(s->rgn[1]), kobj_va(s->tailptr),
-+		       kobj_va(s->ta40), kobj_va(s->ta50));
-+	seq_buf_printf(sb, "ta88 0x%08x 0x%08x\n", kobj_va(s->ta88[0]), kobj_va(s->ta88[1]));
-+	pvrsgx_fw_dump(sb, sdev, PVRSGX_FW_TA3DCTL, "ta3dctl");
++	args->bad_offset = ~0ull;
++	if (args->flags || !args->size || !IS_ALIGNED(args->size, 8) ||
++	    !IS_ALIGNED(args->offset, 8) || check_add_overflow(args->offset, args->size, &end))
++		return -EINVAL;
++
++	obj = drm_gem_object_lookup(file, args->handle);
++	if (!obj)
++		return -ENOENT;
++	bo = to_pvrsgx_bo(obj);
++	if (!bo_is_code(bo) || end > obj->size) {
++		err = -EINVAL;
++		goto out_obj;
++	}
++
++	buf = kvmalloc(args->size, GFP_KERNEL);
++	if (!buf) {
++		err = -ENOMEM;
++		goto out_obj;
++	}
++	if (copy_from_user(buf, u64_to_user_ptr(args->pointer), args->size)) {
++		err = -EFAULT;
++		goto out_buf;
++	}
++	/* VM_BIND links a mapping under the same lock. */
++	err = dma_resv_lock_interruptible(obj->resv, NULL);
++	if (err)
++		goto out_buf;
++	/* An unmapped mapping counts until its jobs and the BIF invalidate are done. */
++	if ((!list_empty(&obj->gpuva.list) || atomic_read(&bo->code_unmapping)) &&
++	    args->offset < bo->code_end) {
++		err = -EBUSY;
++		goto out_unlock;
++	}
++	place = code_place_mapped(obj);
++	bad = pvrsgx_usse_scan(sdev->family->isa, buf, args->size / 8, args->offset / 8,
++			       obj->size / 8, place, &abs, &why);
++	if (bad >= 0) {
++		args->bad_offset = args->offset + bad * 8;
++		drm_dbg_driver(drm, "UPLOAD_CODE: word at 0x%llx refused: %s\n",
++			       args->bad_offset, pvrsgx_usse_refusal_name(why));
++		err = -EINVAL;
++		goto out_unlock;
++	}
++	err = drm_gem_shmem_vmap_locked(&bo->base, &map);
++	if (err)
++		goto out_unlock;
++	iosys_map_memcpy_to(&map, args->offset, buf, args->size);
++	drm_gem_shmem_vunmap_locked(&bo->base, &map);
++	bo->code_end = max(bo->code_end, end);
++	if (abs) {
++		bo->code_abs = true;
++		bo->code_place = place;
++	}
++
++out_unlock:
++	dma_resv_unlock(obj->resv);
++out_buf:
++	kvfree(buf);
++out_obj:
++	drm_gem_object_put(obj);
++	return err;
 +}
-+
-+/* A job's command and the structures it names, for a devcoredump. */
-+void pvrsgx_job_dump(struct seq_buf *sb, struct pvrsgx_job *job)
-+{
-+	struct pvrsgx_device *sdev = job->ctx->sdev;
-+
-+	if (job->type == DRM_POWERVR_SGX_JOB_TYPE_RENDER && job->render.rtds)
-+		render_dump(sb, sdev, job->render.rtds, job->render.cmd_off, job->render.entry);
-+	else if (job->type == DRM_POWERVR_SGX_JOB_TYPE_TRANSFER)
-+		pvrsgx_transfer_dump(sb, job);
-+}
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_render.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_render.h
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_validate.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_validate.h
 new file mode 100644
-index 000000000..06a816b48
+index 000000000..e4871c181
 --- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_render.h
-@@ -0,0 +1,122 @@
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_validate.h
+@@ -0,0 +1,25 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/* Copyright © 2026 Joseph Telaak */
 +
-+#ifndef PVRSGX_RENDER_H
-+#define PVRSGX_RENDER_H
++#ifndef PVRSGX_VALIDATE_H
++#define PVRSGX_VALIDATE_H
 +
-+#include <linux/kref.h>
 +#include <linux/types.h>
 +
-+#include <uapi/drm/powervr_sgx_drm.h>
-+
-+#include "pvrsgx_cmd_defs.h"
++struct pvrsgx_bo;
++struct pvrsgx_device;
++struct pvrsgx_job;
++struct pvrsgx_vm;
 +
 +struct drm_device;
 +struct drm_file;
-+struct pvrsgx_context;
-+struct pvrsgx_device;
-+struct pvrsgx_file;
-+struct pvrsgx_job;
-+struct pvrsgx_kobj;
-+struct pvrsgx_vm;
 +
-+/* The firmware half of a render context. */
-+/* A VM's parameter buffer, shared by its render contexts (pvrsgx_render.c). */
-+struct pvrsgx_pb {
-+	struct kref ref;
-+	struct pvrsgx_device *sdev;
-+	struct pvrsgx_kobj *buf, *freelist, *desc, *blocks;
-+	u32 pages;
-+	/** @base: The 3D request base, PB & 0xfff00000. */
-+	u32 base;
-+	/** @fw_gen: The microkernel run (pvrsgx_device.fw_gen) it was last set up for. */
-+	u32 fw_gen;
-+};
++/* The shader validator (Documentation/gpu/powervr_sgx/index.rst, "Shader validation"). */
++int pvrsgx_validate_vm_map(struct pvrsgx_device *sdev, struct pvrsgx_vm *vm,
++			   unsigned int heap, struct pvrsgx_bo *bo, u64 offset, u64 size);
++int pvrsgx_validate_vm_link(struct pvrsgx_bo *bo, u64 addr, u64 offset);
++u32 pvrsgx_validate_pte_flags(struct pvrsgx_bo *bo);
++int pvrsgx_validate_job(struct pvrsgx_device *sdev, struct pvrsgx_job *job);
++int pvrsgx_ioctl_upload_code(struct drm_device *drm, void *data, struct drm_file *file);
 +
-+struct pvrsgx_render_ctx {
-+	struct pvrsgx_kobj *hwctx, *ccb, *ccbctl, *scratch, *sync3d;
-+	struct pvrsgx_pb *pb;
-+	u32 ccb_woff;
-+};
-+
-+/* 16 MiB: the device's one PB holds every client's scenes (pvrsgx_render.c). */
-+#define PVRSGX_PB_DEFAULT_PAGES	0x1000
-+
-+void pvrsgx_pb_put(struct pvrsgx_pb *pb);
-+void pvrsgx_pb_unmap(struct pvrsgx_vm *vm);
-+
-+/* A render target's tiling numbers. */
-+struct pvrsgx_rt_numbers {
-+	u32 xt, yt, mx, my, padx, pady, zls_xt;
-+	u32 mtile1, mtile2, te_screen, mt_tiles, rt_mt_tiles, region_bytes, tailptr_bytes;
-+	u32 te_aa, rt_flags;
-+};
-+
-+struct pvrsgx_rt_dataset {
-+	struct kref ref;
-+	struct pvrsgx_context *ctx;
-+	u32 w, h, samples;
-+	struct pvrsgx_rt_numbers n;
-+	/*
-+	 * Per RT-data entry, which alternates by frame parity, so one frame's TA
-+	 * can be built while the other's 3D still reads its own: render details,
-+	 * their words, the dependency block and its syncs, and the background
-+	 * object, which the 3D fetches per tile.
-+	 */
-+	struct pvrsgx_kobj *rd[2], *rd_w8[2], *rd_w4[2], *hwsync[2];
-+	struct pvrsgx_kobj *rd_sync[2], *hwsync_access[2], *bgblock[2];
-+	struct pvrsgx_kobj *rtword, *rtdata, *entword[2], *done;
-+	struct pvrsgx_kobj *tailptr, *ta40, *ta50, *rgn[2], *ta88[2];
-+	/** @frames: Renders into this dataset so far. */
-+	u32 frames;
-+};
-+
-+/* Each context's command ring. */
-+#define CCB_RING		0x10000
-+
-+/* A firmware sync object: pending and complete counts for writes and reads. */
-+#define SYNC_WRITE_PENDING	0
-+#define SYNC_WRITE_COMPLETE	1
-+#define SYNC_READ_PENDING	2
-+#define SYNC_READ_COMPLETE	3
-+#define SYNC_DATA_BYTES		0x18
-+
-+#define PVRSGX_MAX_TA_KICKS	2
-+
-+/* What a render job carries from SUBMIT_JOBS to run_job. */
-+struct pvrsgx_render_job {
-+	struct pvrsgx_rt_dataset *rtds;
-+	struct pvrsgx_cmd_render_all render;
-+	struct pvrsgx_cmd_ta_kick_all kick[PVRSGX_MAX_TA_KICKS];
-+	u32 nkicks;
-+	/** @cmd_off: Where the last kick's TA command went in the context's ring. */
-+	u32 cmd_off;
-+	/** @entry: The RT-data entry (frame parity) the render used. */
-+	u32 entry;
-+};
-+
-+int pvrsgx_render_ctx_init(struct pvrsgx_device *sdev, struct pvrsgx_context *ctx, u32 pb_pages);
-+void pvrsgx_render_ctx_fini(struct pvrsgx_device *sdev, struct pvrsgx_context *ctx);
-+
-+struct pvrsgx_rt_dataset *pvrsgx_rtds_create(struct pvrsgx_context *ctx, u32 w, u32 h, u32 samples);
-+void pvrsgx_rtds_put(struct pvrsgx_rt_dataset *rtds);
-+void pvrsgx_rtds_destroy_all(struct pvrsgx_file *sfile);
-+int pvrsgx_ioctl_create_rt_dataset(struct drm_device *drm, void *data, struct drm_file *file);
-+int pvrsgx_ioctl_destroy_rt_dataset(struct drm_device *drm, void *data, struct drm_file *file);
-+
-+int pvrsgx_render_job_init(struct drm_file *file, struct pvrsgx_job *job,
-+			   const struct drm_powervr_sgx_job *in);
-+void pvrsgx_render_job_fini(struct pvrsgx_job *job);
-+
-+int pvrsgx_render_job_build(struct pvrsgx_job *job, u32 k, u32 data[6]);
-+struct seq_buf;
-+void pvrsgx_job_dump(struct seq_buf *sb, struct pvrsgx_job *job);
-+
-+/* Command checks shared with transfer jobs. */
-+bool pvrsgx_cmd_mapped(const void *priv, u64 addr, u64 size);
-+const struct pvrsgx_cmd_def *pvrsgx_cmd_def(struct pvrsgx_device *sdev, enum pvrsgx_cmd_type type);
-+int pvrsgx_cmd_take(struct pvrsgx_device *sdev, const struct pvrsgx_cmd_def *def,
-+		    const struct pvrsgx_cmd_ctx *ctx, struct pvrsgx_vm *vm, const void *all,
-+		    u64 present);
-+
-+#endif /* PVRSGX_RENDER_H */
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_transfer.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_transfer.c
-new file mode 100644
-index 000000000..7a0f1a474
---- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_transfer.c
-@@ -0,0 +1,175 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Copyright © 2026 Joseph Telaak */
-+
-+#include <drm/drm_file.h>
-+
-+#include <linux/seq_buf.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+
-+#include <uapi/drm/powervr_sgx_drm.h>
-+
-+#include "pvrsgx_cmd.h"
-+#include "pvrsgx_cmd_checks.h"
-+#include "pvrsgx_device.h"
-+#include "pvrsgx_fw.h"
-+#include "pvrsgx_fwif.h"
-+#include "pvrsgx_job.h"
-+#include "pvrsgx_kobj.h"
-+#include "pvrsgx_mmu.h"
-+#include "pvrsgx_render.h"
-+#include "pvrsgx_transfer.h"
-+#include "pvrsgx_vm.h"
-+
-+/*
-+ * A transfer is a 3D-only render: the background object covers the
-+ * destination, its pixel program samples the source and its end-of-tile
-+ * program writes the destination, all client memory. The
-+ * kernel owns the HW transfer context, its command ring and the completion
-+ * sync, and writes the command from the client's CMD_TRANSFER stream.
-+ */
-+#define XFER_CCB_BYTES		0x104c8	/* 0x10000 ring + slack for a command that wraps */
-+#define XFER_TILES_X_MAX	127	/* 4096 pixels; the real limit is not known */
-+#define XFER_TILES_Y_MAX	255
-+
-+int pvrsgx_transfer_ctx_init(struct pvrsgx_device *sdev, struct pvrsgx_context *ctx)
-+{
-+	struct pvrsgx_transfer_ctx *x = kzalloc_obj(*x);
-+	struct pvrsgx_fw_hw_transfer_ctx *hw;
-+	int err;
-+
-+	if (!x)
-+		return -ENOMEM;
-+	ctx->transfer = x;
-+
-+	err = pvrsgx_kobj_new(sdev, &x->ccb, PVRSGX_KRANGE_KDATA, XFER_CCB_BYTES, 0, NULL);
-+	err = err ?: pvrsgx_kobj_new(sdev, &x->ccbctl, PVRSGX_KRANGE_KDATA, 8, 0, NULL);
-+	err = err ?: pvrsgx_kobj_new(sdev, &x->done, PVRSGX_KRANGE_SYNC, SYNC_DATA_BYTES, 0, NULL);
-+	err = err ?: pvrsgx_kobj_new(sdev, &x->hwctx, PVRSGX_KRANGE_KCODE,
-+				     sizeof(struct pvrsgx_fw_hw_transfer_ctx), 0, NULL);
-+	if (err)
-+		goto fail;
-+
-+	/* The words a transfer context needs; the rest stays zero. */
-+	hw = (void *)kobj_cpu(x->hwctx);
-+	hw->flags = 1;
-+	hw->page_dir = pvrsgx_vm_pd_word(ctx->vm);
-+	hw->ccb = kobj_va(x->ccb);
-+	hw->ccb_ctl = kobj_va(x->ccbctl);
-+	hw->pid = task_tgid_nr(current);
-+	return 0;
-+
-+fail:
-+	pvrsgx_transfer_ctx_fini(sdev, ctx);
-+	return err;
-+}
-+
-+void pvrsgx_transfer_ctx_fini(struct pvrsgx_device *sdev, struct pvrsgx_context *ctx)
-+{
-+	struct pvrsgx_transfer_ctx *x = ctx->transfer;
-+
-+	if (!x)
-+		return;
-+	pvrsgx_kobj_drop(sdev, &x->hwctx);
-+	pvrsgx_kobj_drop(sdev, &x->done);
-+	pvrsgx_kobj_drop(sdev, &x->ccbctl);
-+	pvrsgx_kobj_drop(sdev, &x->ccb);
-+	kfree(x);
-+	ctx->transfer = NULL;
-+}
-+
-+int pvrsgx_transfer_job_init(struct drm_file *file, struct pvrsgx_job *job,
-+			     const struct drm_powervr_sgx_job *in)
-+{
-+	struct pvrsgx_device *sdev = job->ctx->sdev;
-+	const struct pvrsgx_cmd_def *def = pvrsgx_cmd_def(sdev, PVRSGX_CMD_TRANSFER);
-+	struct pvrsgx_transfer_job *tj = &job->transfer;
-+	struct pvrsgx_vm *vm = job->ctx->vm;
-+	struct pvrsgx_cmd_ctx cctx = {};
-+	u64 present;
-+	int err;
-+
-+	if (in->flags & ~DRM_POWERVR_SGX_SUBMIT_JOB_TRANSFER_FLAGS_MASK)
-+		return -EINVAL;
-+	if (!job->ctx->transfer || in->ta_kicks.count || in->rt_dataset_handle)
-+		return -EINVAL;
-+	tj->dst_twiddled = in->flags & DRM_POWERVR_SGX_SUBMIT_JOB_TRANSFER_DST_TWIDDLED;
-+
-+	if (!def)
-+		return -EOPNOTSUPP;
-+	cctx.heaps[PVRSGX_CMD_HEAP_PDS_PIXEL].base = pvrsgx_heaps(sdev)->pds_pixel.base;
-+	cctx.heaps[PVRSGX_CMD_HEAP_PDS_PIXEL].size =
-+		pvrsgx_heaps(sdev)->pds_pixel.end - pvrsgx_heaps(sdev)->pds_pixel.base;
-+	cctx.limits[PVRSGX_CMD_LIMIT_TILES_X] = XFER_TILES_X_MAX;
-+	cctx.limits[PVRSGX_CMD_LIMIT_TILES_Y] = XFER_TILES_Y_MAX;
-+	cctx.mapped = pvrsgx_cmd_mapped;
-+	cctx.priv = vm;
-+
-+	err = pvrsgx_cmd_copy(def, in->cmd, &tj->xfer, &present);
-+	err = err ?: pvrsgx_cmd_take(sdev, def, &cctx, vm, &tj->xfer, present);
-+	return err ?: pvrsgx_check_transfer(&tj->xfer);
-+}
-+
-+/* Write the 0x1c0-byte transfer command into the context's ring. */
-+void pvrsgx_transfer_job_build(struct pvrsgx_job *job, u32 data[6])
-+{
-+	struct pvrsgx_transfer_ctx *x = job->ctx->transfer;
-+	const struct drm_powervr_sgx_cmd_transfer *in = &job->transfer.xfer.base;
-+	u32 woff = x->ccb_woff, base = (u32)in->bg_block_addr & 0xfff00000;
-+	struct pvrsgx_fw_transfer_cmd *cmd = (void *)((u8 *)kobj_cpu(x->ccb) + woff);
-+	u32 *done = kobj_cpu(x->done);
-+
-+	job->transfer.cmd_off = woff;
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->bg_object = 0x2000000 | ((u32)in->bg_block_addr - base) >> 4;
-+	cmd->unk_04 = 0x200;
-+	cmd->bg_depth = in->bg_depth_f32;
-+	cmd->unk_0c = 3;
-+	cmd->unk_14 = 0x100;
-+	cmd->req_base_3d = base;
-+	cmd->rt_ctl = BIT(31);
-+	cmd->rt_flags = 0x88;
-+	cmd->pixel_event_pds = (u32)in->pixel_event_pds_addr;
-+	cmd->pixel_event_rows = in->pixel_event_pds_rows;
-+	cmd->unk_2c = 1;
-+	cmd->first_tile = in->first_tile_x << 16 | in->first_tile_y;
-+	cmd->last_tile = in->last_tile_x << 16 | in->last_tile_y;
-+	cmd->unk_38 = 0x80;
-+	/* Never the client's. */
-+	cmd->pds_exec_base = pvrsgx_heaps(job->ctx->sdev)->pds_pixel.base;
-+	cmd->size = sizeof(*cmd);
-+	cmd->flags = job->transfer.dst_twiddled ? PVRSGX_TRANSFER_DST_TWIDDLED : 0;
-+	cmd->unk_194 = 0x07c00000;
-+
-+	/* No source syncs; one destination, the kernel's completion sync. */
-+	cmd->num_dst = 1;
-+	cmd->dst_read_pending = done[SYNC_READ_PENDING];
-+	cmd->dst_read_complete = kobj_va(x->done) + SYNC_READ_COMPLETE * 4;
-+	cmd->dst_write_pending = done[SYNC_WRITE_PENDING]++;
-+	cmd->dst_write_complete = kobj_va(x->done) + SYNC_WRITE_COMPLETE * 4;
-+	/* The microkernel sets write-complete to the pending value plus one. */
-+	job->done_cpu = &done[SYNC_WRITE_COMPLETE];
-+	job->done_val = cmd->dst_write_pending + 1;
-+
-+	x->ccb_woff = (woff + sizeof(*cmd)) & (CCB_RING - 1);
-+	/* The command is in memory before the write offset that hands it over. */
-+	wmb();
-+	kobj_cpu(x->ccbctl)[0] = x->ccb_woff;
-+
-+	memset(data, 0, 6 * sizeof(u32));
-+	data[1] = kobj_va(x->hwctx);
-+}
-+
-+/* The transfer command and the structures it names, for a devcoredump. */
-+void pvrsgx_transfer_dump(struct seq_buf *sb, struct pvrsgx_job *job)
-+{
-+	struct pvrsgx_transfer_ctx *x = job->ctx->transfer;
-+
-+	if (!x)
-+		return;
-+	pvrsgx_kobj_dump(sb, "xfer_hwctx", x->hwctx, 0, sizeof(struct pvrsgx_fw_hw_transfer_ctx));
-+	pvrsgx_kobj_dump(sb, "xfer_ccbctl", x->ccbctl, 0, 8);
-+	pvrsgx_kobj_dump(sb, "xfer_cmd", x->ccb, job->transfer.cmd_off,
-+			 sizeof(struct pvrsgx_fw_transfer_cmd));
-+	pvrsgx_kobj_dump(sb, "xfer_done", x->done, 0, SYNC_DATA_BYTES);
-+}
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_transfer.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_transfer.h
-new file mode 100644
-index 000000000..4e85df3ad
---- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_transfer.h
-@@ -0,0 +1,38 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/* Copyright © 2026 Joseph Telaak */
-+
-+#ifndef PVRSGX_TRANSFER_H
-+#define PVRSGX_TRANSFER_H
-+
-+#include <linux/types.h>
-+
-+#include "pvrsgx_cmd_defs.h"
-+
-+struct drm_file;
-+struct drm_powervr_sgx_job;
-+struct pvrsgx_context;
-+struct pvrsgx_device;
-+struct pvrsgx_job;
-+struct pvrsgx_kobj;
-+struct seq_buf;
-+
-+/* A transfer context's firmware half: HW transfer context, command ring, completion sync. */
-+struct pvrsgx_transfer_ctx {
-+	struct pvrsgx_kobj *hwctx, *ccb, *ccbctl, *done;
-+	u32 ccb_woff;
-+};
-+
-+struct pvrsgx_transfer_job {
-+	struct pvrsgx_cmd_transfer_all xfer;
-+	bool dst_twiddled;
-+	u32 cmd_off;
-+};
-+
-+int pvrsgx_transfer_ctx_init(struct pvrsgx_device *sdev, struct pvrsgx_context *ctx);
-+void pvrsgx_transfer_ctx_fini(struct pvrsgx_device *sdev, struct pvrsgx_context *ctx);
-+int pvrsgx_transfer_job_init(struct drm_file *file, struct pvrsgx_job *job,
-+			     const struct drm_powervr_sgx_job *in);
-+void pvrsgx_transfer_job_build(struct pvrsgx_job *job, u32 data[6]);
-+void pvrsgx_transfer_dump(struct seq_buf *sb, struct pvrsgx_job *job);
-+
-+#endif /* PVRSGX_TRANSFER_H */
++#endif /* PVRSGX_VALIDATE_H */
 
 -- 
 2.50.1
