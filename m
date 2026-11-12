@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474280;
-	b=vJBU0naGS+Ss1h5l9KEMZ0qtLpw819DJV543PuitT4yvXJINlVbOSZ/WpY36u5npxXJ5
-	 FNxmuGwAN7TRfDp41Zbu9JWlMHLqjLWAPUQRlU/NAURP70ON/esPMwwfL3YU0PFxLrNRz
-	 xoic59Du9OFaxRjySf1BiejQTL0aTVimHOGlrVRZvT3ixQvCJdkF+ocKO2qe+vuR+QDsC
-	 ciS3RXGII2GlD32yhZsW/q+BgKhAKfzGadjQvJ71c7yRgu41SFjXVyCRtFVbwPa4KI0HW
-	 7wDtIeYXnARGI9gkR0iTNinyqLuB/5w1q49EXIZj/Y0N/6y7PnD688rpucMK+RidOdw==
+	t=1794474313;
+	b=reG+ONmERaKbKJ3EA1+OERZZCx5qXFLTkR5VGZt+OeQ+qpEf5ExSiQEozfozwBgkCFxJ
+	 vBmDwKP6V+d5t9H9/jhAJ7qj9UcQdppK7GcbjW48H2np67GeGoEYBpNgNs4i9SCpu86Ud
+	 H7xEn1fwIDBx/aveff8jQsi0b+rScoJ3X2a389dF8pGz58BSrT/NGZnsBOY+Zlfuah7qA
+	 8bHx2zEzln20dMKceFo78I3bQzgW8EcVrDT45i1B1pIylknKn9fCW/c1IzVhc/lULJ62K
+	 qvZt7ODZz+QCQKSPQyTtWzC5SnQGnn6kqI1mT3qXjOTONmMaDUgXFz8sRv4zwagPVqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474280;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=3QXd43+9YkcDdqXRXfijDPFLngipxJU07bnf2rvgj7k=;
-	b=3KFUSmultb/c1ft6+cUbe7+Hq/PzA6IPgm01fuSxjM167Z0+aLbD2dWRkGPzSYXddqcP
-	 d4VI+7iRsPrxgszKYPJF9K6KellvywdYiiK8z/FhdAnu3zahPEh8t4F9wjSn2LrUbWwml
-	 X7Vy0R28uelCN0x6l7HQaEqjIBD3BSihixdp9bV60eP1Hn20SnuUC7HhfIpRdECqa6bZo
-	 lsjanW+sdsmigfEIynclJapuDL1BYi027iJSJrao7uc+XonzfgO976Mw+s2iO6wvraUjo
-	 hLj2dKeAA7mPoqkl6V0mV5d9w0DHHN76+hwobJKSXyfSblT9Wso44WMvpApHUAvCYeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474313;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=T6KbVd0311ptwDs/ZdF97Qisn+PkZ36G5vjlrqBZgxM=;
+	b=H99ACAb9/m60hgLGsYzjk/Dh7Jj4+0AVr85w7qyNTJ+MuU711cQ7tbhBnX26/A+goI6a
+	 e18+T3P1gGMi0JcxjI/DNTUbFuPqQNmilxRAUwdmC2roJYJyCQZqKOqSlVzs0JE9y+jde
+	 7WPjp+BHgQA8Bi1q5usJTau8LSeqPn2MvFvhohRMm8Je05Ywb0XyFDmnIPqZtbRCn9V7f
+	 HUdcmtIhCkvAli2/G3Lg3fl3gqtoMWuQJnwNZcggcCQOHn1gjR7JhyxvGWkAQDaKMcC5r
+	 ul5XkNv5HrU8R8KCC5Du7nM/QDWWkd7GP6zPz1yIAKKqakQxNjbGyMQAj1GcZN7ZTxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jQBBi8sk;
-	arc=none smtp.remote-ip=95.215.58.23
-Received: from mta1.migadu.com (out-23.mta1.migadu.com [95.215.58.23])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABn4BWQF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7109E606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:04:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7109E606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25003606A332;
+	Thu, 12 Nov 2026 09:05:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jQBBi8sk
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8Qf+LHzFQU7sWVDR2P/LLaDSEFd56f41ktqAEc9o61g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794474277; v=1; x=1795079077;
- b=jQBBi8skxsUmEGg7hgwl5JSxXg48EUwvnKFRaYkIg+/x+bn6PT2Qf94ueriElqvJRdjbGXL+
- wAX1gW4SAtXCwlINFhQQPaa269TqOTKCTLqthogsTDg00QhNrVzKBeJpwWIfrwVQksUNfQGsuSt
- AHo7FxKOYP5lSWWFzv9ZK1Xw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8b0e325b35ab9706;
-	Thu, 12 Nov 2026 09:04:37 +0000
-X-Mizu-Trace-ID: 8b0e325b35ab9706
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <cc8c4c79-e7b4-46f7-b8a2-b5564b3cc85a@linux.dev>
-Date: Thu, 12 Nov 2026 17:04:28 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABn4BWQF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1063C1F00A05;
+	Thu, 12 Nov 2026 09:05:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794474312;
+	bh=T6KbVd0311ptwDs/ZdF97Qisn+PkZ36G5vjlrqBZgxM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ABn4BWQFXYKuTtJUDBk+Zly3a0AlZbsm/RtBN8VHj6svE+fQFU7vXsRe/KduTtf93
+	 rIcCiDlxV0F8t0erY3ETC3rtkhSRdZnUsEKVtwCKqdZVnxydr+a69qw4b63lC3mAQC
+	 wr96Hl2V/0AU6jiYsD77OHXmvXV5qymBmMjA11FOlhk3BLlIZAih4efqU2IGmW7zfl
+	 KuklxwuwjkFjf6O37TM9Kn4NrePDSPADEyDWw0F45lPkNShc6buOvx8E9YYm3P6rtM
+	 AeyDqjrrMT27eDBiCskVnQFPLu9glY5X9md7DsLjAYJqmU9NnLgjqFzl2qg+qNXGg8
+	 0AlNOrZvQH9ug==
+Subject: Re: [PATCH net RESEND] ieee802154: 6lowpan: validate fragment offset
+ against datagram size
+From: netdev-bot+sashiko@kernel.org
+To: rc4d5a@protonmail.com
+Cc: linux-wpan@vger.kernel.org, netdev@vger.kernel.org, alex.aring@gmail.com,
+ stefan@datenfreihafen.org, miquel.raynal@bootlin.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 12 Nov 2026 09:05:11 +0000
+Message-ID: <179447431152.2199510.14609873818368730049@kernel.org>
+In-Reply-To: <20261109090226.799973-1-rc4d5a@protonmail.com>
+References: <20261109090226.799973-1-rc4d5a@protonmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,166 +64,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] mm: gup: allow long-term pins of CMA-allocated
- HugeTLB folios
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Muchun Song <muchun.song@linux.dev>
-Cc: osalvador@suse.de, akpm@linux-foundation.org, azpijr@gmail.com,
- Lance Yang <lance.yang@linux.dev>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
- <503c9f6d869e3206c6fd591de962c3d619b73825.1794379433.git.zhengqi.arch@bytedance.com>
- <80FED512-77D2-4D49-BAE5-745CE1F711CA@linux.dev>
- <1116fd15-a927-4f6e-a0ab-084bc36a90aa@linux.dev>
- <ceb2ef49-69e8-425c-9582-ba6fb872e0cf@kernel.org>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <ceb2ef49-69e8-425c-9582-ba6fb872e0cf@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-On 11/12/26 4:49 PM, David Hildenbrand (Arm) wrote:
-> On 11/12/26 07:13, Qi Zheng wrote:
->>
->>
->> On 11/11/26 3:42 PM, Muchun Song wrote:
->>>
->>>
->>>>
->>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>>
->>>> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
->>>> unpinnable, causing unnecessary migration or pinning failures.
->>>>
->>>> These folios already own their CMA bitmap ranges, and memory blocks
->>>
->>> Commit message needs updating to bitmap as well.
->>
->> Will do.
->>
->>>
->>>> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
->>>> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
->>>>
->>>> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages
->>>> using cma")
->>>> Cc: stable@vger.kernel.org
->>>> Suggested-by: Muchun Song <muchun.song@linux.dev>
->>>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->>>> Acked-by: Muchun Song <muchun.song@linux.dev>
->>>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
->>>> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
->>>> ---
->>>> include/linux/mm.h | 29 +----------------------------
->>>> mm/gup.c           | 31 +++++++++++++++++++++++++++++++
->>>> 2 files changed, 32 insertions(+), 28 deletions(-)
->>>>
->>>> diff --git a/include/linux/mm.h b/include/linux/mm.h
->>>> index b0da9be413098..47d1d96bfc7fd 100644
->>>> --- a/include/linux/mm.h
->>>> +++ b/include/linux/mm.h
->>>> @@ -2954,35 +2954,8 @@ static inline bool is_zero_folio(const struct folio
->>>> *folio)
->>>>      return is_zero_page(&folio->page);
->>>> }
->>>>
->>>> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
->>>> #ifdef CONFIG_MIGRATION
->>>> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
->>>
->>> I think David prefer to move this function first, then fix it in a separate
->>> patch,
->>> right?
->>
->> Hi David, is this what you mean? If so, I will split it into two patches
->> for the v5.
-> 
-> Let's try something that is more future-directed: cma should deal with
-> cma details. In the future we might implement something reasonable there.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Aha, that does make more sense. Will do.
+- [Medium] The commit message overstates the security impact and
+  misstates the check it adds.
 
-Thanks,
-Qi
+--
 
-> 
-> diff --git a/include/linux/cma.h b/include/linux/cma.h
-> index 8555d38a97b1a..d829fd0355bae 100644
-> --- a/include/linux/cma.h
-> +++ b/include/linux/cma.h
-> @@ -21,6 +21,9 @@
->   #define CMA_MIN_ALIGNMENT_BYTES (PAGE_SIZE * CMA_MIN_ALIGNMENT_PAGES)
->   
->   struct cma;
-> +struct folio;
+ieee802154: 6lowpan: validate fragment offset against datagram size
+
+This commit adds a bounds check to lowpan_frag_queue() that rejects a
+6LoWPAN fragment when its offset, or its offset plus length, goes past
+the declared datagram size (d_size). The commit message says this stops
+an attacker from forging another sender's data. It also compares the
+bug to CVE-2019-8359 in Contiki-NG.
+
+> fragment claiming to start far past the end of the datagram is
+> accepted the same as a legitimate one, allowing an attacker to forge
+> data of another sender.
+
+[ ... ]
+
+> The same class of bug was assigned CVE-2019-8359 (CVSS 9.8) in
+> Contiki-NG's 6LoWPAN stack before a 2019 fix; RIOT-OS's implementation
+
+[ ... ]
+
+> Fix by rejecting any fragment whose offset, or offset plus length,
+> falls outside [0, d_size).
+
+[ ... ]
+
+> diff --git a/net/ieee802154/6lowpan/reassembly.c b/net/ieee802154/6lowpan/reassembly.c
+> index ddb6a5817d098..905ba5f868442 100644
+> --- a/net/ieee802154/6lowpan/reassembly.c
+> +++ b/net/ieee802154/6lowpan/reassembly.c
+> @@ -103,6 +103,9 @@ static int lowpan_frag_queue(struct lowpan_frag_queue *fq,
+>  	offset = lowpan_802154_cb(skb)->d_offset << 3;
+>  	end = lowpan_802154_cb(skb)->d_size;
+>  
+> +	if (offset > end || skb->len > end - offset)
+> +		goto err;
 > +
-> +bool cma_folio_is_longterm_pinnable(struct folio *folio);
->   
->   extern unsigned long totalcma_pages;
->   extern phys_addr_t cma_get_base(const struct cma *cma);
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 6af3b7008f1ad..5392e225cab9b 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -3,6 +3,7 @@
->   #define _LINUX_MM_H
->   
->   #include <linux/args.h>
-> +#include <linux/cma.h>
->   #include <linux/errno.h>
->   #include <linux/mmdebug.h>
->   #include <linux/gfp.h>
-> @@ -2975,7 +2976,10 @@ static inline bool is_zero_folio(const struct folio *folio)
->   	return is_zero_page(&folio->page);
->   }
->   
-> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
-> +/*
-> + * MIGRATE_CMA and ZONE_MOVABLE folios cannot normally be long-term pinned.
-> + * CMA may allow pinning folios explicitly allocated from its areas.
-> + */
->   #ifdef CONFIG_MIGRATION
->   static inline bool folio_is_longterm_pinnable(struct folio *folio)
->   {
-> @@ -2983,7 +2987,7 @@ static inline bool folio_is_longterm_pinnable(struct folio *folio)
->   	int mt = folio_migratetype(folio);
->   
->   	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
-> -		return false;
-> +		return cma_folio_is_longterm_pinnable(folio);
->   #endif
->   	/* The zero page can be "pinned" but gets special handling. */
->   	if (is_zero_folio(folio))
-> diff --git a/mm/cma.c b/mm/cma.c
-> index 9ec1d1fd5dff5..b3bf0014a90f5 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-> @@ -27,6 +27,7 @@
->   #include <linux/log2.h>
->   #include <linux/cma.h>
->   #include <linux/highmem.h>
-> +#include <linux/hugetlb.h>
->   #include <linux/io.h>
->   #include <linux/kmemleak.h>
->   #include <trace/events/cma.h>
-> @@ -38,6 +39,16 @@
->   struct cma cma_areas[MAX_CMA_AREAS];
->   unsigned int cma_area_count;
->   
-> +bool cma_folio_is_longterm_pinnable(struct folio *folio)
-> +{
-> +	/*
-> +	 * Explicitly allocated CMA folios own their bitmap ranges and can be
-> +	 * pinned even in ZONE_MOVABLE, as CMA memory cannot be offlined.
-> +	 * For now, only HugeTLB tracks these allocations with a folio flag.
-> +	 */
-> +	return folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio);
-> +}
-> +
->   phys_addr_t cma_get_base(const struct cma *cma)
->   {
->   	WARN_ON_ONCE(cma->nranges != 1);
 
+[Severity: Medium]
+Does the commit message match what this check rejects and what it
+protects against?
+
+The check accepts offset + skb->len == end, which it has to for the
+final fragment. It also accepts a zero-length FRAGN with offset ==
+d_size. So the fragment end has a closed upper bound, not the
+"[0, d_size)" range the message gives.
+
+ip6_frag_queue() drops zero-length fragments:
+
+	if (end == offset)
+		goto discard_fq;
+
+lowpan_frag_queue() still accepts them. They add nothing to fq->q.meat,
+so they can't append any data.
+
+About "allowing an attacker to forge data of another sender": the
+message assumes the attacker can read d_tag, d_size and the addressing
+in the clear. With that, can't the attacker still send an in-range
+fragment at the next expected offset? For example, with d_size = 200:
+
+  FRAG1 [0, 64)       legitimate, queued
+  FRAGN [64, 136)     attacker, passes the new check
+  FRAGN [64, 136)     legitimate, rejected as an overlap
+  FRAGN [136, 200)    legitimate, completes the datagram
+
+The attacker's fragment takes the append path in
+inet_frag_queue_insert():
+
+	else if (FRAG_CB(last)->ip_defrag_offset + last->len < end) {
+		/* This is the common case: skb goes to the end. */
+		/* Detect and discard overlaps. */
+		if (offset < FRAG_CB(last)->ip_defrag_offset + last->len)
+			return IPFRAG_OVERLAP;
+		if (offset == FRAG_CB(last)->ip_defrag_offset + last->len)
+			fragrun_append_to_last(q, skb);
+
+The legitimate [64, 136) fragment then gets IPFRAG_OVERLAP and is freed
+through goto err in lowpan_frag_queue(). The reassembled datagram ends
+up holding the attacker's bytes.
+
+Also, 802.15.4 has no source authentication without llsec, so an
+attacker can just spoof a whole datagram. This bug doesn't really enable
+forging another sender's data, and the patch doesn't prevent it.
+
+About "The same class of bug was assigned CVE-2019-8359 (CVSS 9.8)": the
+Contiki-NG bug was an out-of-bounds write into a fixed reassembly
+buffer. Linux never copies payload to a computed offset.
+inet_frag_reasm_finish() links the fragment skbs to the head:
+
+				head->data_len += fp->len;
+				head->len += fp->len;
+				head->truesize += fp->truesize;
+
+				*nextp = fp;
+
+So before this patch, an out-of-range offset only changed the contents
+of the reassembled payload. It never touched memory outside it. Could
+the comparison and the 9.8 score come out of the message? They may
+mislead stable and CVE triage.
+
+The change itself looks like a reasonable integrity and robustness fix:
+a reassembled datagram can no longer contain bytes past the declared
+d_size. Could the message describe it that way, and give the fragment
+end's upper bound as closed?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109090226.799973-1-rc4d5a%40protonmail.com
