@@ -1,87 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.10.52.204
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794442505;
-	b=m/6GoVvd2YN6UJMkjqh+dxT6elxeKKopuq+fKS6kcodkOGXbcArXXfyPLZsh9GqztF3s
-	 temxpiWEOlxUS1KoYXuGdBtBDoG7eFnuEZM6nWDbKkE4ATa0553/sgyo7TFurHf3Jp1Pw
-	 XyqLAwSQu+O4F1oT3cSF1Wac15uLbUTzMme4Pxf6Z3RBVIonwqG25KvmjXdtFlrxSxZRD
-	 6Ih0X/kgd7QXwIrAtpdLbczGcg6p74ueBHJeY9JMlL/OvpDqZqO88DUNIfcG/jWeTV1HR
-	 xPSe5sslaILvQzFkrBXhHPXpv0Vep51dyawx1OBmRL0h3BYYfkK+NO3RhIsolJFBWKQ==
+	t=1794442501;
+	b=O7yAbKzou/M4NF70tnoiXuK/73RgrZEXr3FWp1GaNnN6P3tCAU5B53PYNfrTAtDGhYkL
+	 RMyZ1xSvgpZPmPmCEmBF3rFwcWV+SqVg1hXg0O542ZAxLI+h2B6VMOb55r1esfA4wKKRz
+	 gFnSXXLFpCJQ24W77H/pmLTVoT26NnmLXxmPe1p8xC83L0ZnuvvSExLL19qJSSWXtaMHg
+	 IzgB+/d760q8xMi0TJ5s0QiTYGHSBnZPi/CHnrIKMuhYYrhSsC5DBxwYebrgO2E+HTg4t
+	 +g6OEI55574yd3v1Cwm4yw49fFsFX7WdSbVag2yWeHnfq/Hl+c7hh7s63I7oKA7m/Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794442505;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:X-Amp-Result:Received:Received:Received:
-	 From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-originating-ip:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=k8o4O5JUvAOqO76gAFXaE4iB5BntPFFAAsFqrrefSJA=;
-	b=fruQI48nDd//8jBtFVwM3vjWDsFZn2UQr7iDqTbQfOXWjIjbsf3M/R/AdYkdVfixrCLn
-	 JCb6ZMBMHndC6e5GPhgt7nGrJIc6TNWTzJY/Rh3QBwwtmum/OJRZ+X95i/GDVN6QV5Gtp
-	 JuVeyLZAk+Z0JbbatL+CaivtgclrMrVxgf0jdT/pZJJYL/8BuBwtEPBoNYyK2Z9LKtif5
-	 Q7bwzsHa1i1E5s48t3gRPPo51aHJ7ZgWgNUlIWvmfL/Q+rosV+Iy6cJrdZs2kmGcmUrTy
-	 yfcY+E9tsTSOx+atN2y2CBbFGgBM4iu1LF3k/7CzqXLeSTyz8KRVx7HXpLmQU/yb7cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794442501;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Q/EartPOy717CuQdv8ANaMlETa+4mCRy7I4dcWtZtrE=;
+	b=NSmW/tKrzq/0Mz3WRrNUJT3090EhI2qdijTgTTu63W5oxkqDik3gWj/fc9bgMcSZOT4U
+	 GKgoXITXB9yOh3wTquKUiJpcTuFgMU/r+4KWxHNd0VqpTmshFzsx7vCZxokHo9vjE+Bpr
+	 PpDoWLF3iaTHB3rWBgte7TvBYeMSn8PUQRybzADfh3p/c+WxGbfHWJOVQnsDYJJoUtULi
+	 Qy6ZxV+h3pzq7T05JvxV8PxhKLnBprSMcV+k3Vc5tVT9uR+jZkwgAgmZ9FaTUrjQyDkou
+	 LZB2cfzY2UicMfUFRmvsX3WLVooJY5QF9z9rv9ELCXVWnkeHEYkSBznthMe4cjCmOCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infineon.com;
-	spf=pass smtp.mailfrom=infineon.com;
-	dkim=pass header.d=infineon.com header.i=@infineon.com header.a=rsa-sha256 header.s=IFXMAIL header.b=IrQsaKDM;
-	arc=none smtp.remote-ip=217.10.52.204
-Received: from smtp9.infineon.com (smtp9.infineon.com [217.10.52.204])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rpmtyci8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3D4606A326
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:15:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF3D4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=infineon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infineon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FAEB606A324;
+	Thu, 12 Nov 2026 00:15:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=infineon.com header.i=@infineon.com header.a=rsa-sha256 header.s=IFXMAIL header.b=IrQsaKDM
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=infineon.com; i=@infineon.com; q=dns/txt; s=IFXMAIL;
-  t=1794442505; x=1825978505;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=J7xiuHu8kEvR6ZlxF6M5Zmz9k5Q+n7FylxaOjMfzFU4=;
-  b=IrQsaKDMdAYX5t6vHQ7/tBZT+AQnZ8uLNN1Hth8EGum9Pp2DkniC3dzj
-   uybH3mSI/GDJWrP1UbuXQaUCJTC3mamK+jx9c8FFjJnllwNxqep5PGwvs
-   aYCAM8TQOKP+d7yUv4tzS71ZIRZevIcnIkjPdar0r5qG6kBYn775HvMDX
-   s=;
-X-CSE-ConnectionGUID: iDLFsdWsRp+UjkfNLKCEuQ==
-X-CSE-MsgGUID: DaDuatSdS/CU0v5Vs2Oehg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="117413237"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787004000"; 
-   d="scan'208";a="117413237"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO MUCSE812.infineon.com) ([172.23.29.38])
-  by smtp9.infineon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 01:15:03 +0100
-Received: from MUCSE815.infineon.com (172.23.29.41) by MUCSE812.infineon.com
- (172.23.29.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
- 2026 01:15:02 +0100
-Received: from MUCSE815.infineon.com ([fe80::b54c:c0bd:546c:c9be]) by
- MUCSE815.infineon.com ([fe80::b54c:c0bd:546c:c9be%12]) with mapi id
- 15.02.2562.056; Thu, 12 Nov 2026 01:15:02 +0100
-From: <Takahiro.Kuwano@infineon.com>
-To: <changhuang.liang@starfivetech.com>, <pratyush@kernel.org>,
-	<mwalle@kernel.org>, <miquel.raynal@bootlin.com>, <richard@nod.at>,
-	<vigneshr@ti.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-mtd@lists.infradead.org>
-Subject: RE: [PATCH v1 1/3] mtd: spi-nor: Support mixed 1S-xD-xD DTR protocols
- in spi_nor_spimem_setup_op()
-Thread-Topic: [PATCH v1 1/3] mtd: spi-nor: Support mixed 1S-xD-xD DTR
- protocols in spi_nor_spimem_setup_op()
-Thread-Index: AQHdccU7vDdb+C7/3E+0a9kRwM+hPrcpkglA
-Date: Thu, 12 Nov 2026 00:15:02 +0000
-Message-ID: <a10258d08b07408cb35a935f42218ea9@infineon.com>
-References: <20261111101240.7378-1-changhuang.liang@starfivetech.com>
- <20261111101240.7378-2-changhuang.liang@starfivetech.com>
-In-Reply-To: <20261111101240.7378-2-changhuang.liang@starfivetech.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rpmtyci8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A60B1F00A07;
+	Thu, 12 Nov 2026 00:15:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794442501;
+	bh=Q/EartPOy717CuQdv8ANaMlETa+4mCRy7I4dcWtZtrE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Rpmtyci8aux5sP02UwuMM0SFs1Ay4fZueM4bTxiZAvf1FG/XV2+1zNXsE0Ri3aVxE
+	 Lz7/V3FoZmXtls4ENNgK9ebqPtTIRCtEU4crfR8jfASyOwESqRTsg7ya9r6PVP7S00
+	 SZ8YJs7qh8OYlbn40nmcbXWzrbNOYP09/iyhqD1tmGeYo63rlR/fxHE/Nj9F3WC5Lr
+	 OhFR4Uj6c9TYSDpb3YvcNoq7SEjOvTiIHveNLHnyOqa/0m+IJo2jL5QGackjbXUkw/
+	 GdC47yH+vK84qfngcuCWhkwqYDju3eVgJ/b5uwF7VHmevhk1sMJX5YPRdOCpaIzQf0
+	 m7DsfPn1Thx3A==
+Date: Wed, 11 Nov 2026 16:14:59 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Cunhao Lu" <1579567540@qq.com>
+Cc: "Marc Kleine-Budde" <mkl@pengutronix.de>, "kernel"
+ <kernel@pengutronix.de>, "Vincent Mailhol" <mailhol@kernel.org>, "Heiko
+ Stuebner" <heiko@sntech.de>, "Oliver Hartkopp" <socketcan@hartkopp.net>,
+ "David S. Miller" <davem@davemloft.net>, "Eric Dumazet"
+ <edumazet@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman"
+ <horms@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
+ <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>,
+ "Wolfgang Grandegger" <wg@grandegger.com>, "linux-can"
+ <linux-can@vger.kernel.org>, "linux-arm-kernel"
+ <linux-arm-kernel@lists.infradead.org>, "linux-rockchip"
+ <linux-rockchip@lists.infradead.org>, "linux-kernel"
+ <linux-kernel@vger.kernel.org>, "netdev" <netdev@vger.kernel.org>,
+ "linux-doc" <linux-doc@vger.kernel.org>, "stable" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v8 00/10] can: fix Rockchip TX stalls and bus-off
+ restart/close races
+Message-ID: <20261111161459.4879a82d@kernel.org>
+In-Reply-To: <tencent_F59D327809C523BE014488357EEF4D163408@qq.com>
+References: <20261108-rockchip-canfd-restart-close-v8-0-3e7a23fd9eae@qq.com>
+	<20261109112402.283c16a3@kernel.org>
+	<tencent_F59D327809C523BE014488357EEF4D163408@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,34 +72,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> Currently spi_nor_spimem_setup_op() sets all four phases (cmd, addr,
-> dummy, data) to DTR whenever spi_nor_protocol_is_dtr(proto) is true.
-> This is too coarse: the 1S-xD-xD DTR protocols (1_1_1_DTR, 1_2_2_DTR,
-> 1_4_4_DTR, 1_8_8_DTR) send the command phase in STR on a single line,
-> and only the address, dummy and data phases in DTR. SPIMEM supports
-> such mixed DTR modes.
+On Tue, 10 Nov 2026 11:05:37 +0800 Cunhao Lu wrote:
+> > >=C2=A0Subject:=C2=A0[PATCH=C2=A0net=C2=A0v8=C2=A000/10]=C2=A0can:=C2=
+=A0fix=C2=A0Rockchip=C2=A0TX=C2=A0stalls=C2=A0and=C2=A0bus-off=C2=A0restart=
+/close=C2=A0races =20
+> >
+> > please=C2=A0use=C2=A0get_maintainer.pl,=C2=A0do=C2=A0not=C2=A0CC=C2=A0n=
+etdev=C2=A0on=C2=A0CAN=C2=A0patches=C2=A0directly. =20
 >=20
-> Split the handling:
+> I used b4 prep --auto-to-cc, which invokes get_maintainer.pl.
+> The series modifies Documentation/networking/can.rst, which matches
+> Documentation/networking/ under NETWORKING [GENERAL] and is not
+> excluded there, so netdev@vger.kernel.org was added automatically.
 >=20
->   - For SNOR_PROTO_8_8_8_DTR, keep the existing behavior: set all
->     phases to DTR and use a 2-byte opcode (opcode + extension).
->=20
->   - For the other DTR protocols, set the command phase to STR and only
->     the address, dummy and data phases to DTR. Double op->dummy.nbytes
->     since DTR transfers 2 bytes per clock cycle, matching how the dummy
->     cycle count is specified for these protocols.
->=20
->   - Move the SWAP16 handling into the 8D-8D-8D branch as well, since
->     it only applies there.
->=20
-> No in-tree flash currently declares SNOR_HWCAPS_READ_1_x_x_DTR, so
-> this is not a bug fix but preparation for enabling these protocols.
-> A follow-up patch will enable 1S-4D-4D for the MX66L1G45G. The
-> 8D-8D-8D path is unchanged.
->=20
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
+> I will manually remove netdev@vger.kernel.org from Cc for the next
+> revision.
 
-Reviewed-by: Takahiro Kuwano <takahiro.kuwano@infineon.com>
-
+Or better still send a patch to exclude it like the rest of CAN
