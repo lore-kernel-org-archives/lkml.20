@@ -1,90 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524700;
-	b=Cuqiv3xMd41pkg9POa19lr6FoL3hyMVr1txDeVGBhZM9eZLmzibNa+b45XyCsZ1SkHXO
-	 jXsBbZgj4GqFdWxBI6BQyaxpGGTPZMgnvZUmwneWwkIzfMk6wGPI4KVbntpCyB/0k60k5
-	 72oVP+DakwrCYwT6PSTJtufDypxQr/Ls9+egS4iBiVLBo1S2Q7Ds+mKl2HCbhT1CHiQIa
-	 tMhPlfRLi+27regAyjOsmcMXO0L7Q2eEHqNRmbh6uGDALpt7vRNb4PeF/LfcmywSMQink
-	 1q+xDht3agV0U2izp6zONWl7b7uUW9nEX9sX1CCxAejAfTdj6qA0grLY7r5Pfq1AA6w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524700;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794524741;
+	b=QAHcPzhtny7n7Hz/dHYcVRqDuRMl0YucBdE9NJZlW27e+7k4G4PLEGFXwUNuuTuy6Hkc
+	 ucBqIXDb2+tTvFgejYVzNmw+pS8Aq0BHVBCmMd0/qnQUMswvkcMOzkhk5AdMRojz3BEhz
+	 XN1PeOAIuwESrU+6fK4qKcRVtv3g99TNcGg1OCjsTdn9jajpf4p0fYMG4R0bO6zRDTqpI
+	 mqneb/5TFA7xoYjuLTRrx2rvS81b4tdiu0YzNp1a/RlPEzINAVWYp4dpPrzU3IYMrrC/f
+	 gp5VNoYpow5US+ZPWaAEuDoMgZsLcgWNREDbsKg03We7eRB+Vo8mWIK26xzk8qIedBw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524741;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=p/4lk02epaMR+IsZKZ+HoxMKqUc6qVIda0VOtHn3aEc=;
-	b=VxzfQ86TPzNfs3SaGYrBuPdrQDZguv4womy3+NMKCZxx+KNVzd8s+OoOghN6MNUQPbm4
-	 U6y7Qg3d9d6q64oFt95KgI8GNmBTfP/ZRxqfzYnEx8eL46Wv358zRfUX9Um1bPjAdTDNk
-	 oRtf5tgZmJtmt8emoumgJkwSwD3K4SmdxUbFrO2i9xCUfmz9N2m0TtPCjWej12pFMzwA4
-	 66Z0CdJr27O5Nu3dFgHfAEjMnAIf8i/BHcrInLGR55ZSTqVY6EJ+WSk6PpJFDJpncJZyv
-	 8QIgPgFd6LDqXB4S3IIHMe5W2Ooy8MYi/SVGniErJIeS6Y5mZ4nYu+fwk1uwEO8xmuA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=X11oGv2h;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=m3lRYJaSOF/Piz7YAKasak+99H1rHlRMQKrkdBErHvo=;
+	b=y3/oNW1akC1CUk6raW5Onm8MgN8WAVmKOPYSrAC30JzfqgxNUSyzEllX4igR1r4212n8
+	 BsgxEArM6mq2UXE29h58Mpxj6KitsYZL3ZTMA/iNq2NExpkfHS+9Q4Ke6sGu2b7LmuhBz
+	 XQrIX5SPJvH6HsLKWRYYdaXKHA0jBxMJZmUm9SlpFK/fcnN9ALOCCD9kOHN2U4O1OXszq
+	 XuOfWOU9rLzauL+QpUhlJeupZmJnsTvAR2nAKvnmUpepV8bqX6J5JCA7uk28NwMldFMgz
+	 XHY1Mi44KlGIHeXfpawPOEbQXTct5Hc8nN4ake4UJeEFvbx0WRE91gIQKIqDVZg83gQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b="V9KihbU/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CEB606A338
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:05:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69CEB606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C12D606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:05:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C12D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=X11oGv2h
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a214af2076so2193145e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:05:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=V9KihbU/
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67bee1f693bso265779d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:05:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794524740; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fw+dzq62JEEKHApSEvMrpIPc9RmwFdMqTKRsCw365WP2Cz3fIMjXXal6WzFOyZF8H5
+         9uOUn5leKQDXZEVtWKWw0J7rfhuiwBr5FZGjoObFVGOV1/gwEYrMzEVMQZi+bXtyWU+r
+         gp4O0nDqzQC4d5P4pEQO66aCLhbVVl2lGcimNELQ9GyDEGzhhwi9ZduLkKpFoEXrrheU
+         g+4W2z6rYUHFA683dByX8qVH1K2S1T2GO6vJoqq+NHBQQY4sGwoQ6D/+S3aCVJHr4+Pp
+         AnvPE+HChF9aqv/LNpVtUYvWY97jzl7trsK4ge+vbxCv+x5Tp/r/C2kxZEA5+s/IwNnP
+         J/0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=m3lRYJaSOF/Piz7YAKasak+99H1rHlRMQKrkdBErHvo=;
+        fh=tXODFJdKZCvqq8Cvalzc8EGG/fmf5INJ+UpcBHy2laU=;
+        b=ET3U2qy/MBokmvrALBA/48tm9k2sUafel75B/RgOKtNt4P44yK4XddtqSy7M+Utxvd
+         riBUZdwa1sqkSu4dxKpXUMUcccV0pEHSIFD7+OAGbzc3aMACeFY8Qi6ysk7Sc0gu1a1G
+         N7mbL9NlLBvBhfv0j7vvvtp7UDznQPG4Owy4D6RaaqSAU7G3YAj1rCGZzEeg8BhAn2Co
+         StrUaisVNDVf/VsxFH/DPL++w+CW+OJQyRL8bMWvDeQ/JrENc8vy3gpiVY1ZuETccTmb
+         3/u5PdKNZ4zYsgRcP3p/N8ekPsnsDBuTJSzwro9y+2dI6r7TgGN0LX3O9lzBEbncKF8t
+         5XxQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794524699; x=1795129499; darn=vger.kernel.org;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+        d=googlemail.com; s=20260707; t=1794524740; x=1795129540; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=p/4lk02epaMR+IsZKZ+HoxMKqUc6qVIda0VOtHn3aEc=;
-        b=X11oGv2hz8wSzhdTWRT+wIEc6rImT8HwmORCi8BYxaDq3oCUAZIi0PiqktrMHzo5ld
-         pAW4gc5VE7QZZBQIqGoysZWYL9WLoPNaXT0As0X2lCk9X6eBBVZ3Hrul/1q1xCq1ZeOi
-         fTOz6eqnmjisELeBqbzgriirgCWPOwReMFl8c=
+        bh=m3lRYJaSOF/Piz7YAKasak+99H1rHlRMQKrkdBErHvo=;
+        b=V9KihbU/syh/zuEgYGPMEHg6J6Vu4kmxiIuYn7jbGDchBJhRC7i4e7vjObIe62q37C
+         UIC/dMNeWWvj0c+Ri19HQnuAC2N0EukgIrIVe/r0tVig4lDDtfnTvT3GNjcCpde6ZA6f
+         2fBbb2gtKgh4BaexjI2yq5YgM650evdgpb0TkveeDvetGH+afD39FAmg2i3UQG4hhp2I
+         Yu0jRBZZ0z8CgZrW6smwAhhQyQN5QLWvcxyzr17DRFkBX4LsBpmldne4gaDQTTIIENEI
+         FcD46LmU5atdzZg7QfzDPlgqbbSxlT9baEiWwsOsGqCnc+d0FUoetWZQx9oa0SScngnm
+         w0Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794524699; x=1795129499;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794524740; x=1795129540;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p/4lk02epaMR+IsZKZ+HoxMKqUc6qVIda0VOtHn3aEc=;
-        b=hJ3oaiP42GLxy4QCLpf/QYNxaFKz9nzv67IypTp2S9IKeg44zFQtmsxt6kO54iF1kG
-         7b171O5D7j3TY65oL5Wixo3//n9NMsBFbLCUmnfLDmFeHC+3NAva5aSqJk1oP7rmLIlI
-         uWJ1oX1erH4CsAOoOnp7IfyxHq/tIhtBMp/Md99sXcNqYy3tyMJVwhjxYbyqw+wllhMk
-         zRieXhJJlomQ8WlIRunlWa08ORfWEvrHQMX5NQmYv48RTg1rOoJjNZF+ifO90yNYOk4u
-         SMNTu/KzO8WEZ8vlCra5WhQVVPcUoZ9jSV9g9vdjoa/c0tUbLg7A+lanBH/2W7CwpWZM
-         JUVg==
-X-Forwarded-Encrypted: i=1; AL+hErHjyPHFBqOij89NieBOsPuEwpnHmF6uSLcGTfvjkOtGYBZvh8vxV+lQuBAOozwZl/54rd+W7aZtCDFh1bA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z833MSDdhyaVdWy0G58HBeEMnpxuLvBFZjormH1o4Boj1ZVhxWj
-	LrPmVeWS86nlFMLK0D35gUjiWrodIvkIJBOpOhIiYX5dB3kGf0QitUDYtXjHP8VAX0E=
-X-Gm-Gg: AYBFou0q2/o6JyXZQH/XRGnn7rm5dbXxpYPSbOrIgSXtI9Xx9zCrLU74NX0BElIvEuz
-	QcJDDQ11KUqo3NNG0xqWQIrjKUPkEaDv5KLMoSDU7XgaoKVv37O8NajF6HqKRvuuY+lBP0VOC+d
-	gCWp+ba3Z+w/hR8+dvE8hBQX6AurKbdJrq1O5xpY9JBMOrmWC8ZDUr8fjG076F8k22GKvgx8Ezo
-	weiuVucCIHt8a7bWtbgGf4SKBFlwEqoW71vPtj26mrSTS2NzakCgK9nmniku4YQchCqv7BciDn5
-	VD9C2wMgZ9NhhUPt7EPyLCxQkga2BdOeq+a4ihGTO9mKVu5Yo1d5qCWmL9RpIbDkvs42CE/oA40
-	MbhFoh+ydBlkzFZjtnjwjmZFjLdmcicQvxXf4Dis5sYrJ/EVMu0MdnaOUhH1pAzeiV//3Jcupdl
-	39V47lMMpmX0YSpjEXzpqz82vzNNTA3qpkXsBxdxUkjv8azP948wvRosIhtNCtLeUQSPZM7S2y7
-	82F/FYFETsj+OnwlHYNyvtaf2rLaVIq/aMCUoj6aJE8/4XdvM1PaCrAZKjmyzHhh7YdO9YySHZc
-	U5xWWV5WXEEq5PuyPlVFZ4sC5zRE7B6DAMfUCaalnEmu2JTOMye+26W1OM3jDKuUzSTjrJsYWVD
-	UqBz/vaZsTvDX3xlc2dFzIdCGhwO/0qLTguX3BHJ3Pj3bTmVVGt78eTRYYaoULLgGFqD6/BYuky
-	ldYWBLgSMfCUL6eQGzWg9HXB9g7BrEEd8aOSznth3Xi5aKKB42Uk1OgX+XFg==
-X-Received: by 2002:a05:600c:4e13:b0:4ba:38a9:85e3 with SMTP id 5b1f17b1804b1-4bb55a47fabmr14344115e9.12.1794524698997;
-        Thu, 12 Nov 2026 15:04:58 -0800 (PST)
-Received: from [172.18.0.2] ([199.201.64.8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ae501bsm15846805e9.10.2026.11.12.15.04.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 15:04:58 -0800 (PST)
-Date: Thu, 12 Nov 2026 15:04:53 -0800
-From: Chris Down <chris@chrisdown.name>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>, Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt <rostedt@goodmis.org>, Marcos Paulo de Souza <mpdesouza@suse.com>, Naveen Kumar Chaudhary <naveen.osdev@gmail.com>, printk@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 14/17] printk: Update Braille options when preferred more times
-In-Reply-To: <20261111154816.71103-15-pmladek@suse.com>
-References: <20261111154816.71103-1-pmladek@suse.com> <20261111154816.71103-15-pmladek@suse.com>
+        bh=m3lRYJaSOF/Piz7YAKasak+99H1rHlRMQKrkdBErHvo=;
+        b=I+gd/RLBwVeHjSSJ7r0TblrvSoaErfrydFI95a3BijPWGOglaKE5P5wxeIMxK5zoQH
+         OEs86jtI0ZiCbDz3aIbn3yrL1l3aOqnCMOIYhhmqjsC9xHC1nIz9YHEFzvTa8SZ8cMFd
+         aRlFCI6o2Wnp/jQqSZQqJi5J1eM90oz7ODhGpCkCYsQHpEONnVrGTUIk/s0f9i2kNYyX
+         3IxT5wm5P928D2EwgThuVys+zjYvmNikyfRUxulDmgDBeXVQ04+kaHKEidQDvIcfmjTa
+         yPZkKaKXTXVNzWOZDN2yUbQgOVAMohZA8bp9izTIU/UpFXTJE4yW/xJrm0ZMiO22mdho
+         SSQQ==
+X-Forwarded-Encrypted: i=1; AL+hErGqM77sPQQSreUE4TXekrBSnC2r2R85zn3toqefC2z5GslsshBV7dZM9hkR7f7AwIQem9aj1HuN6Gi2ick=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9D26FKZ9TEELP0mNdaI+frMrulrA95ZFOsn45HWxh5a858i9fa
+	Z1yg0ACFFpnNf8MIIUhO+vdNcRJYA7R0AbVtK2Tzs+til0L+Mwm7NJyP5wcNACLByKou0GrmIIj
+	XBOnMVzU1Q/4Mjwlm+H6cx3m7dHU3rm4=
+X-Gm-Gg: AYBFou2YD1shebiSP2TV0Y7cY1fvHNMSU3osht64gs/KM4zO9avWlReRksVMOKlN2Q5
+	kHfFM0ABc9DOdV6aMXs3IyUyUO9016lpxWopzEftLPg7kIWaVzYwMWObQtmWq5bamQWGNqyxfCH
+	pcVT04sRY2SQLIASQ2pbdV17ESh8FeImKmEw2cH8j5PwGMFCG4CEG3SkPfzNIAnwibv3XKfFNqn
+	kBSBBmWs11GFfauIKVN/DRjNVOZl0ccLuovHEczbjYRzHlHiAO25uDpIf7k/A7OQ9ObGZpAv3VK
+	WWb6MT2JIrgm7tkAa+SrEaQRvqY3ebpyv4DeOWANEhcpjr2E0FaCjv0QGeYebVg8YFtui/sC2tt
+	vkjrWbs6quImnWyCKV5mGilr1JHgi5rUEj4305sh16Zsi7cQfIW1AB4idpQAL7NhcRFR5+Q==
+X-Received: by 2002:a05:690e:4506:10b0:67c:1aa:2030 with SMTP id
+ 956f58d0204a3-67d897be561mr407000d50.67.1794524740366; Thu, 12 Nov 2026
+ 15:05:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,67 +104,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Message-ID: <20261112150453.a18f9d1d0a874e96@chrisdown.name>
-User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
+References: <20261111-aiu-fifo-fix-sleep-on-spinlock-v1-1-dc9ee401a7cf@baylibre.com>
+In-Reply-To: <20261111-aiu-fifo-fix-sleep-on-spinlock-v1-1-dc9ee401a7cf@baylibre.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Fri, 13 Nov 2026 00:05:29 +0100
+X-Gm-Features: AclHuK_8bTUR51TRXYpLvWTsaJ7E1LH3kcGSVltDcpyem9ID-KxpWLn-7OZxH4w
+Message-ID: <CAFBinCBLK3Ok7QpKUVT5XtOqDafVzGP2Tn1oBj3f=PUQ_DgnwQ@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: meson: aiu-fifo: prevent sleeping when spinlock is held
+To: Valerio Setti <vsetti@baylibre.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	Christian Hewitt <christianshewitt@gmail.com>, linux-sound@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Petr,
+On Wed, Nov 11, 2026 at 11:09=E2=80=AFAM Valerio Setti <vsetti@baylibre.com=
+> wrote:
+[...]
+> @@ -37,8 +38,11 @@ snd_pcm_uframes_t aiu_fifo_pointer(struct snd_soc_comp=
+onent *component,
+>         struct aiu_fifo *fifo =3D snd_soc_dai_dma_data_get_playback(dai);
+>         struct snd_pcm_runtime *runtime =3D substream->runtime;
+>         unsigned int addr;
+> +       int ret;
+>
+> -       addr =3D snd_soc_component_read(component, fifo->mem_offset + AIU=
+_MEM_RD);
+> +       ret =3D regmap_read(component->regmap, fifo->mem_offset + AIU_MEM=
+_RD, &addr);
+> +       if (ret < 0)
+> +               return snd_soc_ret(component->dev, ret, "Failed to read F=
+IFO pointer");
+As far as I understand:
+- snd_pcm_uframes_t is "unsigned long"
+- snd_soc_ret() returns a (signed) int
 
-Petr Mladek writes:
->Make the behavior consistent and always update pc->brl_options when
->@brl_options are passed and they were not defined yet.
+Doesn't that lead to a signed to unsigned conversion error (highest
+bit set -> large value)?
 
-This changes what users get for something like "console=ttyS0
-console=brl,ttyS0". Before, ttyS0 stayed a normal console with CON_CONSDEV
-and the Braille request was dropped. Now ttyS0 becomes the Braille console
-and, with 15/17, tty0 gets enabled as the default console instead. That
-fits with Braille always winning in 13/17, but could you say so here like
-you did there?
+axg-fifo simply discards regmap_read's return value.
+That seems odd at first, but knowing that its regmap is MMIO backed
+(same as for AIU) means there can't ever be any error.
 
-With only this patch applied, that command line also leaves the guest
-without a console until 15/17. preferred_dev_console still points at the
-ttyS0 entry after it turns into Braille, so tty0 is not enabled as the
-default console. ttyS0 itself is only enabled as the Braille console.
-That leaves only earlyser0 registered and "Warning: unable to open an
-initial console". Going by the code, the base already ends up there for
-the reverse order (console=brl,ttyS0 console=ttyS0), and both of these
-seem to be fixed in 15/17. So maybe squashing the two is the simplest way
-to keep bisect clean.
 
->+	/*
->+	 * Allow to override normal console with the Braille variant,
->+	 * for example when ttyS0 is preferred via SPCR brl,ttyS0
->+	 * via the command line.
->+	 */
->+	if (brl_options)
->+		braille_update_options(pc, brl_options);
-
-When an existing entry turns into Braille here, it keeps pc->options from
-whoever added it first, and braille_register_console() only falls back to
-"57600o8" when those are NULL. So the serial options given with the Braille
-request are dropped and the result depends on the order. The cflag of
-braille_co ends up as:
-
-     console=ttyS1,115200 console=brl,ttyS1,57600  -> B115200
-     console=brl,ttyS1,57600 console=ttyS1,115200  -> B57600
-
-Should the options from the Braille request win when the entry switches
-over here? Or would you rather leave that for the separate series about
-overriding options?
-
-Also, SPCR never adds a "ttyS" entry, it uses "uart", "pl011" and friends.
-For "uart", univ8250_console_match() succeeds when
-try_enable_braille_console() tries it, so that one ends up as a normal
-console anyway. Maybe use a second console= on the command line as the
-example. There's also an "and" missing before "brl,ttyS0".
-
-A few changelog typos while you're there: "stored only it is a new entry"
--> "only when it is", "preferred_console[]" -> "preferred_consoles[]" and
-".brl->options" -> ".brl_options".
-
-Once those are fixed, please feel free to add:
-
-Reviewed-by: Chris Down <chris@chrisdown.name>
-
-Chris
+Best regards,
+Martin
