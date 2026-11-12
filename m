@@ -1,93 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492917;
-	b=iu/jS4zi2y0sG4heyOZy4vjufug3kDAxwhVrzgv4cs+tAWgSiSntvSWyT2GR8IM2G38Z
-	 HFF9zzYE/GUoysYGHGv84gDTK2PegT3x7NZAdyN2ok//hnXJJQG7izpH6i5DeZE3nA7lH
-	 Ui+dG6coY+WMulbhix+GEm7tVZVHxz4MIwepmHpo+eXQidc/jzUJLh8c+YKU4rpZaooP5
-	 7dViDDjXplg2SycC91ZEaA6pIlKc/1V2osxZ74Sq3gF+q7YVVIu0FB/9H3XRLoTGmnRrU
-	 PGA9F5wQ4ADY04VNQ/saSkMj93Vyoo3g9IxUBKprxzk2J8QJ8eiS6sqjRu3jLu9AG3g==
+	t=1794492939;
+	b=ZTWzbbySgq5SZ4wozQ8DBb4dxCfmv8bIk+rjNUFXNpcOHPl4PBOmI8Yxp51v3/BfrQ1v
+	 +w70PDepMUa+sKmb4jTUmNE6+ZW8dU/dxPYiyQHWp/XNe2qxfw75eU4+nT1X/gQsKgCVm
+	 6bXMswvY42qhSgtMzD5tywkdzSaaYYjB/PQExG41Ds2gBgzPdGgiy+R83KHqJqk9B2HZW
+	 s8csQc6kGI0COMOYHUkm1dB86IgV0IrcGRpXepugb4FMYVsD3mQ1twrPJGdtZ6gN2M+sV
+	 d13JG+f3kyqxHEUQQhu9JI448JfQqWYL24vGrA8z7Da7TmPt5a8pHPeQ8C2BEcOT7MA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492917;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SdzKsKboJ1nKu6ffEUUVZbS50qlQdBB0ZRDwPBZAHCs=;
-	b=isT3UCjE07uEhXMmfeox1gKnsxb5DO+zcqtua0Ib+J+teAt5IdC+Z70scqKoIw5PPo48
-	 TBxfkrBCMb2j5nJuEYO2P5Y+/K9o/Q4A6J+1VLr06d8/gosyiv4IU7DLK9cwBmHSXkpyx
-	 FBunVJZlyGEgNDRVM/x0ccy1Yk1aV6vzIBjE2HFZLyJol6NZDilmwLjrWQqJaQuyVvCAH
-	 XpWfKf+rC9cff6OHlBHzcPABoYer4+jE9CbXKMzkNd98Ja76EXnBHs56qVpHGu212E9hA
-	 65BzwsW3SN6oo6GGaoqjDX7xX9dCbpwITRTVLtRdaVCR0UC+sfaQjZHYQYpCr4TA5ZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492939;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=MnNonxZfn4jhLH91hzGPSmnjnuWOwKJ9GTOdPgW/XGs=;
+	b=N1DSqZggpcGNPQwAW3wRF7xhKFP4cw9tQhL7fPyozAyt/9K0pfzj9VXyjz1PI2UtcNoi
+	 jBJUebXTaz30r35gEwiRPMQoCkObLplKx8zek8VFwmhUVYfg2lElrmtkTxLGmxfvsnoMo
+	 LXPI3Eo+wSdTgygAt3r6YvWf+SQVwHLio9mfYaQDGs4Bc0IJ2nJMfIOfoL+wUrjn9VpiZ
+	 g2OhFYfIW8JJSy77TxcFw8QrQSr4BSnDoXW26t3CPl4vlxsyeN6iR/9meNTo9UXR0zSZo
+	 LPXbwhozyg62R/XU5F55zu8N8OUTfUm4DKFQSBAMFWdy2oih1P97RN2ohmSI8SoneVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ywyxyWBO;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b="naQ/MFh9";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=vDEryID5;
+	arc=none smtp.remote-ip=202.12.124.144
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77331606A88C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:15:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77331606A88C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D084606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:15:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D084606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ywyxyWBO
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e96502e447so35990555ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:15:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794492917; x=1795097717; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SdzKsKboJ1nKu6ffEUUVZbS50qlQdBB0ZRDwPBZAHCs=;
-        b=ywyxyWBO8MjWAs0MW22KgKnEtNv/PryWIWvRMxiqMsbuZXVaveYFgLspnmfT+gJ/Fx
-         eFrxW08rt3WXAqQVC5qkdpz3III46fwBEO4dGINoX31arkCbDMBgzh8eeAqY54SDhrkg
-         3ZxCMfJXfzBdMhtyjm+F9XVN/WV0X77PFz3yfuoJ5GTN7VgWlx+BHoCXu4c/KTBcIU7L
-         Eof/QpdJFGCdNf5gREU/FQbCMuvpfBK97+w69I4gQVJFMJGQN3Geq69F5gULHTLGl8yY
-         VKeNgggEwtbsusUjg5AcHaL4uV8UBAbFH/llpzCQ5K0g5vP4y4YkeaUVsXK2/CE+LHRX
-         ikZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794492917; x=1795097717;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SdzKsKboJ1nKu6ffEUUVZbS50qlQdBB0ZRDwPBZAHCs=;
-        b=FlSYeL/qcfHG3BR2z9xOwqxNNgOqsGyCq9Ph+lZqLrJmKTwcunfesVyGrYIoWy3UFQ
-         76s6alAtV2f/Q8glYAKfPzctjP+pBnX9PVhhxR9w2L31sjlzRpvAdhMeAGaOXD1SpTJP
-         Xg3Oz0JZjcX+1Wx8SKaDYsBcx7ut1dNnE6grsq8/YG2MuB/PZjEEENmBAdxSa/ZKfsbW
-         LC83VnBhSEEu1dFIku+qjuXRfPcvMteNyUooxXBXfV49Y5Q3Og4W4VXaFnkE5KTZtlEZ
-         NByoABKxyct5fHqtEoPiC6HuaPC6YyQaLLUSu3j9iixPN3xRNSUtM8M2Niep1zKlDRzt
-         +Psw==
-X-Forwarded-Encrypted: i=1; AL+hErFk0aG1PIcLoZjHd7hwWWN65zGGj5nHaaLhcfnfgsd9C1cBipedAV9AO2S4ONtIVwnbO+Na91p/PprEolA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/4YN7FFZI5KIyLPr4Cg46Pfgv6iPMb8WmU6ateQ0a7gvR+exmZ
-	Pph/thWlsijItPzZCK06/MYPuTCDicGMXa1x6wypQgWxYXIf/eYhJVJQ
-X-Gm-Gg: AYBFou2iRrOXkf3IzplV+XOEle+fBEsZxQ0lw/OY6v9P8oo17w2FEb8aUUkxEadqNhE
-	Jc3+039EFPZYSi6x0rga6ls0ApVSUMf1UFufkqDBI3XRc0d0YZQDMVWk4Q7zP+hwooPkJoBrsoj
-	dpZwqJ2iSqW8/2oCJQT26i4Nbr2narlORVg5Ww0eBGKNVexDjrthWfmIXdEQ2CaalmodbZPnENe
-	X989tRQNhsEBtP7TPrGs5UpXfdU0Raqqy+fhxSVMgWe5sdFSzUUxFvaDL/kwZbxT7YFGCT5mcwK
-	WsmcE2FLRrM6pq3Xl4R7jR7vj44B8H+MV8wvU7zqlzWf5+py/2hA431MiwGrwUok9VuXV/H7VdV
-	54er/v4NO2m77P0RNIGz12lJPuZT5NicSloTuObQn8y1UJeIXIaczTNvV5IflwRh/vPcxeW1ZxZ
-	xKncSo3CRM8g+pMqBThe7C1vEEM5to03DJRHzFPedTFMJJ76AuBmAwA9x0/qQ7kD3rXCSSVMWBz
-	OtA0wu0uoDDrPfUqaz/xiCyAgq7m3VAWebgG1fW6kEhXcHkS+ImHrIVMoPURvb4bfYu36zF/xQg
-	2tJ/InpObzWoDgF3qXHasMxFhfYNXC9ZABXRckNDBA==
-X-Received: by 2002:a17:903:3bd0:b0:2dd:9b53:f9ba with SMTP id d9443c01a7336-2edd7454b33mr59399605ad.1.1794492916433;
-        Thu, 12 Nov 2026 06:15:16 -0800 (PST)
-Received: from DESKTOP-NM9EKIA ([180.67.33.100])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d7eafbsm34612105ad.36.2026.11.12.06.15.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 06:15:15 -0800 (PST)
-From: Joonhoe Kim <26rote@gmail.com>
-To: Thinh.Nguyen@synopsys.com,
-	gregkh@linuxfoundation.org
-Cc: aiyengar1990@gmail.com,
-	mathias.nyman@intel.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] usb: dwc3: tell xHCI that it lost its state when the core is powered off
-Date: Thu, 12 Nov 2026 23:15:11 +0900
-Message-ID: <20261112141512.1840-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=naQ/MFh9;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=vDEryID5
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 371AD1D00142
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:15:38 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 09:15:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794492931;
+	 x=1794579331; bh=MnNonxZfn4jhLH91hzGPSmnjnuWOwKJ9GTOdPgW/XGs=; b=
+	naQ/MFh95/QI6xXM+noPCk/tLZAZ7NV9U1VLZEGZRPeZwOEBqBd5hAXtO5waTOjV
+	ca/EEI+V/ZgA23+fPAtuwes3iNqUb6965oLR9u6lasH1pBkSS7FvbIyWhevncpv9
+	u1uiy7wYS2bcdYA3rB8CcZdCWMQnKvsKMKoVuR6cXkVNip6lVhoYHCM9yu7e3NCe
+	40RULwdP/mH88y6SYced9tumQlXAj4Hgdqk4Nk4yt0VQ269WjT6GhQefSFdmWzzC
+	dCSQLGr7L0tlE7ExqNVgym1dfXx/bi9R7tgr6ulQ9zm8LVj6Pkxo7rC1Ib70/9lP
+	XzGAXKTw1kqKxj6xlMzUYg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794492931; x=
+	1794579331; bh=MnNonxZfn4jhLH91hzGPSmnjnuWOwKJ9GTOdPgW/XGs=; b=v
+	DEryID5qn2tgdxw1Nud7doHl1rtAro3c018luuNa9kZ3LzMzkKMOLbo+D+M4K+mx
+	ae2k9Et8kkfbv68tJqUw+wylRmFQ2yFPt/yipIanglh7eVTWcWsqI0jRA1baAP8Z
+	/ueonB5H7ZwAIogRgXn/a4djH4ldvph6NJH7IasqJTHzutH6HPbjEJ9gDaHTZLe0
+	On7WKKlRWFu6Ns0ymWFXhFF/s6odO8WRSx/ETK7B3lBreLz7F1gddAvCE5UE3tEJ
+	pPgWnz1tLgCwkrppLShdukwZMJzrCh/hae+K3vt2DREXvYiB98vEkDEkIs5ItpeM
+	NRhVEPhhxRjiLhB0sb8Sg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794492931; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:I7gVPUwPS0Xhr2GW9g/5b8x2nbrggIrmx//zzWJKUA0x2WC
+	81d7qXNdfwzSwNjbXAvdWNqPeyg2mD2SVsZQOJJdRSnUhFCw7zNAcFPhFk3qD5kX
+	PI+E7Vwgrd6HNEde2okpHdxK3XDZSnCfDYlajsBuTXWf542IJCnUO/eJewlZIyq2
+	Y31JXT4MDwJZp+Rjn174tp+/gpdXnag33mEJoYM5vt4xPieG1MQVUsDTkES8YDV2
+	3BKtjZNMkZDzwNl7DiRZx0HXw8CffqZR1FBXV0Le1vCWu+lUI8QjSmfa7G0ECWCT
+	FFPqet0Pbw0/KEXiqz4YpQYlmg9GrEpDzhckSaw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:9r5f4OUrpU08Y1FpmQTahFTgxuW7oF3cawvOFZqcuD0=:67SbXuG4oEDukWtafy3LN+dEdLYaqwctdN0akk5ezW0=;
+X-ME-Sender: <xms:_8n1apqqcICHo_xY61Cp9q07j7VqBHq36h97HLEK3TYfBJmCypsTXw>
+    <xme:_8n1amfTxZZL2yT20Hb2WANxyfmCsDf5H-BCDO2KF0tP1NXIrPgTr1iOMesgMO6sh
+    nh7skYO0S2wTh4FaCqL9hrj6ALCghot0eQYLu3sAO5Yu_mdtsjaJLr3>
+X-ME-Proxy-Cause: dmFkZTE0t0FwBrWTDqyXlkUb4nfDISdRbGJULODMOYOjT3eMtqHrTAVPuqH1BpmjQejR8B
+    d42P3Yu2FTAggVc8aDAvmV32ZsPGt7+n6RFAOGh9KMQUO7zm5fcMg6rurf61rTborRy3yY
+    JdzOxFtrfj2tx3IOzF8B3PKRtV862GePpT4MlDWACCMOCO1EmaPEXFRR+gJGtji/hvGdZ5
+    Gq2Zd0ZYIkeK2tbjbY9PxG9crnviFDpNCQC3XEBd8qvrUV9Z1jpoKka6Stprg+YZPvfs97
+    MNnSgkWF+QV9f5SXvIWFsVw2Hbiz4cp1YReOfBaWogF74z6og/DCnuTPHbajHvBQnvKoJQ
+    hrQrjlfTOE8IhvV1vRY0wCakfb8Q+rAWvnwn6QSNJDdtSQcAjqURXqe71NXD13M2BIlShZ
+    eFrASTOtgcZbiGS1Rx3kQDZtP2kVIwTAQSJXtTwZ7PJNqJqAcIWT8PdElnQcMD6zVndYr2
+    J8d3WTWnw4Mt7S0ZaLDiz4CSDnuxIdXLqvBWYC1XE8e17Z6uwXUeN+lSyMrE7kA7JYTee9
+    dsuMwfIxKxqnCixgcb7SE/VJMhBiYOhgV5v3ieyml0NkRIMNohuveyYFxkO14kBhjcYT8r
+    gPZiWQMBrtLwx+4LidChBpyPJFmtw573//KskcIB0yyCY1Bcsxci7K37etrA
+X-ME-Proxy: <xmx:Acr1astChvvFihJOZFvsW9RzCykqtzG9WCJMkDw3n2C5B1HE1Ais7g>
+    <xmx:Acr1ap5F-4i9M1VCaKcWKBTJUY3j0qiamyXnmNhcrvQOXt_QOCJtCA>
+    <xmx:Acr1angIFKaTNi9siy8TKzKqcM5qLGfSMNOlT8rlsgBpL1HBcaokgQ>
+    <xmx:Acr1ark6Vesk41fQb421dKYTyIy96QgDlqhvNltV6JMolMqu_EK9oA>
+    <xmx:A8r1av0hk3ukQtW61bmVeKz_xrydT2MFhgxw_glgj4YLm5wQzLiJFQwO>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 394A732A0099; Thu, 12 Nov 2026 09:15:27 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,158 +115,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: Ahf2-alGehdV
+Date: Thu, 12 Nov 2026 15:15:05 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ "Masami Hiramatsu" <mhiramat@kernel.org>
+Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
+ "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
+ linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
+ linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
+Message-Id: <e57b6554-4a2a-44b0-adca-ee4ca5050e85@app.fastmail.com>
+In-Reply-To: <20261105-tonyk-syscall_table-v9-14-8d1275885d9c@igalia.com>
+References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
+ <20261105-tonyk-syscall_table-v9-14-8d1275885d9c@igalia.com>
+Subject: Re: [PATCH v9 14/15] arm: Reorganize syscall table and separated the ABIs
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-dwc3_suspend_common() powers the core off for system suspend
-(dwc3_core_exit()) in OTG mode (DWC3_GCTL_PRTCAP_OTG), and in host mode
-when the controller may not wake the system or needs a full re-init. The
-xHCI registers and the state saved with the Controller Save State
-command are gone then, but nothing tells xhci-plat: xhci_resume() takes
-the "state intact" path, writes the saved registers back and asks the
-controller to restore its state (CRS).
+On Thu, Nov 5, 2026, at 21:05, Andr=C3=A9 Almeida wrote:
+> arm has three ABIs: EABI, OABI and OABI with compat (OABIC). Those ABIs
+> shares almost every syscall, but have a few exceptions: some syscalls =
+only
+> have an entry point for OABI/C (e.g. sys_alarm), and some syscalls hav=
+e a
+> special entry point for OABIC (e.g. sys_oabi_pwrite64).
+>
+> Currently, the syscall table uses the compat column to specify when su=
+ch
+> OABI syscall needs an OABIC entry point. However, this makes tricky to=
+ move
+> arm to use the common syscall table: arm doesn't use the compat entry
+> points for time64 (e.g. compat_sys_pselect6_time64) and rely on the no=
+rmal
+> entry point (e.g. sys_pselect6). Given that the build system will gene=
+rate
+> the same __SYSCALL_WITH_COMPAT() macro for the whole table, this would
+> create inconsistency where some syscalls would point to the wrong entr=
+y.
+>
+> To avoid this problem and prepare the architecture to move to the comm=
+on
+> table, separate explicitly the ABIs in the local syscall table and dro=
+p all
+> entries for the compat column. Make sure that __SYSCALL_WITH_COMPAT()
+> always points to the native option.
+>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> ---
+> This patch was tested comparing the results of `$ strings
+> arch/arm/kernel/entry-common.o` before and after this patch.
 
-xhci-plat has a flag for exactly this, power_lost (commit 668cc6bc1178
-("usb: host: xhci-plat: allow upper layers to signal power loss"), used
-by cdns3), but dwc3 never sets it.
+Aside from the two mistakes that sashiko found, thsi looks fine.
 
-On a Lenovo Y700 Gen 5 (TB323FU, SM8850; DWC3 + eUSB2 PHY) with a USB
-2.0 hub, a USB 3 flash drive and a Billboard device attached, and USB
-wakeup disabled, s2idle then broke the host controller on resume: either
-the controller wrote to an address that was not mapped
+Two related points though:
 
-  arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402,
-    iova=0xd85e7c300, fsynr=0x3d0011, cbfrsynra=0x40, cb=13
-  xhci-hcd xhci-hcd.2.auto: WARNING: Host System Error
-  usb 1-1: hub failed to enable device, error -108
+ - hopefully we can expedite dropping OABI support now, as there was
+   a report today about how it has been broken for the past 5 years.
 
-or its command ring would not stop
+ - on top of this patch, it should be much easier to merge this file
+   with the arm64 version of the arm eabi table. On the other hand,
+   that can probably wait until OABI is actually gone.
 
-  xhci-hcd xhci-hcd.2.auto: Abort failed to stop command ring: -110
-  xhci-hcd xhci-hcd.2.auto: xHCI host controller not responding, assume dead
-  xhci-hcd xhci-hcd.2.auto: HC died; cleaning up
-  usb 1-1: PM: **** DPM device timeout ****
-  Kernel panic - not syncing: usb 1-1: unrecoverable failure
-
-With wakeup enabled (the core stays powered) the same setup survived
-every cycle.
-
-Record that the core was powered off and pass this to xhci-plat as
-power_lost from a resume_quirk, so that xhci_resume() resets the
-controller and the devices are re-enumerated. Unlike a static
-XHCI_RESET_ON_RESUME this only applies to the resumes that follow a
-power-off; resumes with the core kept powered (host mode with wakeup
-enabled) and runtime resume keep the restore path. Clear the flag once
-xhci-plat has read it, so that a later system suspend that fails before
-the dwc3 core is suspended does not reset the controller.
-
-Fixes: c4a5153e87fd ("usb: dwc3: core: Power-off core/PHYs on system_suspend in host mode")
-Fixes: f09cc79b4b33 ("usb: dwc3: add dual role support using OTG block")
-Signed-off-by: Joonhoe Kim <26rote@gmail.com>
----
-v2:
-- Also set the flag when the core is powered off in OTG mode with the
-  host role active (Sashiko [1])
-- Clear the flag once xhci-plat has read it (Sashiko [1]), instead of in
-  the host branch that keeps the core powered
-- Drop the comment above the resume quirk
-- Add a Fixes tag for the OTG branch
-- Rebased on next-20261111
-
-Testing, 30 s RTC s2idle with wakeup disabled on the setup above:
-without this change 1/1 cycles lost the controller; with this version
-3/3 cycles reset the controller and re-enumerated all devices.
-OTG mode (DWC3_GCTL_PRTCAP_OTG) is not tested; this board switches
-roles through usb-role-switch and never uses it.
-
-host.c now includes xhci.h for hcd_to_xhci_priv().
-
-v1: https://lore.kernel.org/all/20260929130252.869-1-26rote@gmail.com/
-RESEND: https://lore.kernel.org/all/20261112114053.412-1-26rote@gmail.com/
-[1] https://lore.kernel.org/all/sashiko-outbox-211064@kernel.org/
-
- drivers/usb/dwc3/core.c |  3 +++
- drivers/usb/dwc3/core.h |  3 +++
- drivers/usb/dwc3/host.c | 15 ++++++++++++---
- 3 files changed, 18 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-index 372737f47..1ddd860e1 100644
---- a/drivers/usb/dwc3/core.c
-+++ b/drivers/usb/dwc3/core.c
-@@ -2572,6 +2572,7 @@ static int dwc3_suspend_common(struct dwc3 *dwc, pm_message_t msg)
- 		if (!PMSG_IS_AUTO(msg) &&
- 		    (!device_may_wakeup(dwc->dev) || dwc->needs_full_reinit)) {
- 			dwc3_core_exit(dwc);
-+			dwc->xhci_power_lost = 1;
- 			break;
- 		}
- 
-@@ -2608,6 +2609,8 @@ static int dwc3_suspend_common(struct dwc3 *dwc, pm_message_t msg)
- 
- 		dwc3_otg_exit(dwc);
- 		dwc3_core_exit(dwc);
-+		if (dwc->current_otg_role == DWC3_OTG_ROLE_HOST)
-+			dwc->xhci_power_lost = 1;
- 		break;
- 	default:
- 		/* do nothing */
-diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index 267c922ca..4bc94bb07 100644
---- a/drivers/usb/dwc3/core.h
-+++ b/drivers/usb/dwc3/core.h
-@@ -1185,6 +1185,8 @@ struct dwc3_glue_ops {
-  * @suspended: set to track suspend event due to U3/L2.
-  * @susphy_state: state of DWC3_GUSB2PHYCFG_SUSPHY + DWC3_GUSB3PIPECTL_SUSPHY
-  *		  before PM suspend.
-+ * @xhci_power_lost: the core was powered off for system suspend; xHCI
-+ *		     must not try to restore its state on resume
-  * @imod_interval: set the interrupt moderation interval in 250ns
-  *			increments or 0 to disable.
-  * @max_cfg_eps: current max number of IN eps used across all USB configs.
-@@ -1440,6 +1442,7 @@ struct dwc3 {
- 	unsigned		wakeup_configured:1;
- 	unsigned		suspended:1;
- 	unsigned		susphy_state:1;
-+	unsigned		xhci_power_lost:1;
- 
- 	u16			imod_interval;
- 
-diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
-index c5674161b..0cb6e64d1 100644
---- a/drivers/usb/dwc3/host.c
-+++ b/drivers/usb/dwc3/host.c
-@@ -14,9 +14,7 @@
- #include <linux/usb/hcd.h>
- #include <linux/bitfield.h>
- 
--#include "../host/xhci-port.h"
--#include "../host/xhci-ext-caps.h"
--#include "../host/xhci-caps.h"
-+#include "../host/xhci.h"
- #include "../host/xhci-plat.h"
- #include "core.h"
- 
-@@ -78,7 +76,18 @@ static void dwc3_xhci_plat_start(struct usb_hcd *hcd)
- 	dwc3_enable_susphy(dwc, true);
- }
- 
-+static int dwc3_xhci_resume_quirk(struct usb_hcd *hcd)
-+{
-+	struct dwc3 *dwc = dev_get_drvdata(hcd->self.controller->parent);
-+
-+	hcd_to_xhci_priv(hcd)->power_lost = dwc->xhci_power_lost;
-+	dwc->xhci_power_lost = 0;
-+
-+	return 0;
-+}
-+
- static const struct xhci_plat_priv dwc3_xhci_plat_quirk = {
-+	.resume_quirk = dwc3_xhci_resume_quirk,
- 	.plat_start = dwc3_xhci_plat_start,
- };
- 
-
-base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
--- 
-2.53.0
-
+      Arnd
