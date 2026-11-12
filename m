@@ -1,95 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.12.53.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794460508;
-	b=arfntzT4uhmjrB/DCjF+lvcqAgE3RDNvwd6e6Kr+FrPv/KS+RRVwTJb+zvTsZmH0/v+K
-	 /QoA+lneL7YN4X1GvnyH/bv0HnoFb7ODiGckPj7DWM+HBNBDMmf8FXubUxM0CtdJ359+v
-	 I/gJ4CZfsy/afFW1AOueiYA6IorS+LWCas39x1bxDZ8oddYAsT9MRjOpA7oLt9GRpS64Q
-	 w81SWxUYFpy84gSb3owYOHX/OTt/sJEOUKh15b95y6dozKqO8Bzfh2wfhEhUfdSJBMEDB
-	 sWDrGnLnPMnbCPyjJN6cKMQnijZ15mnBf/EjzO6x0reAbUSYfAoWNdvAw4wsyNM5wMg==
+	t=1794460546;
+	b=R2D58RIhBVObVO/qUWgXUIx61S6psMRHWx1PYpcXYH5yOQuYo7WzV5fHKJ6gSDeWq5LH
+	 ZOxCjxf0tvWF8ttZ3b+pd2KGtujLc+VkdYYTia2uvSsNEKz4UN99Xkax1RQUmoGWlC7r2
+	 OQo3bc3rTuZ2zxYX9SWKQrsvjlKwXkC7Mfc95QDjSLvTIk+h828vQSjUl5Mn5+bpNm5Jm
+	 a8kcs1iNTDpcAtFWUWEPMVELceazDtBFR0ade8oQdOEXXvNEvW6Xp0gIggVbMFRoQ3gUp
+	 0sSmNmYC43C8y9+i0ISfk4JXD4Ny2ay+TJKeMY1RCyAMYfXAct3OAlDMDtJIbbhW9jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794460508;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=jhZg2aD8gryvvLCiESPcOzSWP2UR5KQYTO3P8Tzsy+I=;
-	b=khtWerJHgV37n481sTrTuMJ9plfpiFI5aIXB1/RiMex6WqmOgkLJKCGwBRiZtZbRfFuW
-	 qC3Sandksmc+xgMgiUkhEUZiKV+otKj2xLDCAq4s7AghnmnexHPZEnQRHKRak/KY3XVYL
-	 mcSazrCZBrAx+sBwE2LNcQChu1HBgrqkg8utVTvilHfGbWw2EvpQWE+hBPMihDQMd9r3H
-	 WCSyxGWig5dWapo84y5VpF7f1cMGrjKyDvwiwbClQ+hbF3Eu0pmz/SXsqCBRE+0gdQ5Xo
-	 8OpavPK+rc42tU5sg/Nhcx+lpavgWOXugaAi15xS231yv4NRm3EUPCsr4MdD7cEMsVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794460546;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=uhCrUZrfKuI9xdGiRCa6me3H0RB/NgF8erfFCV58p0g=;
+	b=J6CVpd4bn071y+qtfA8bzcl0O4eJk6Ur73UrbnZ1r9QAczMfpuObzqkcKxDteW0fyW5Y
+	 Cs5gOTPZPIRy5iCAAHYrT+DI8dvsIH89lsKKmtYJYx1DzherrJSAF3u7yelR8tDqMJ7B/
+	 QqC+b4LqWiRdNrvKDkpOx86eRZs835sRxBmgm71CtRyb6eQ7AKevTKj0th5VN7yiPhdoK
+	 PO334p3QZsM1jW0fD9b2Ku2Q4RZfHHKPApVstXRjo1HkWy9BVtCGU2Klra6tGb6Wzaw/f
+	 E4yer3a+gCYtfJAO/SB3SurVQzmp1MW12ARpSQ4A1dYY4ToqaNplC8i0KWDrKz2B09g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="h7bTPZW/";
-	arc=none smtp.remote-ip=52.12.53.23
-Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="ayjKsB/S";
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAAE606A888
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:15:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADAAE606A888
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DCB606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:15:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7DCB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=h7bTPZW/
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ayjKsB/S
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b18a173e48so3570a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:15:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794460507; x=1825996507;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=jhZg2aD8gryvvLCiESPcOzSWP2UR5KQYTO3P8Tzsy+I=;
-  b=h7bTPZW/oWZDWAaqhP4xayWzbPGRMBP5sYRKjfTzOjyGaz8mh39hMBCU
-   thigIlSkotZiI9P/z7w2AbLjoO6rYx1huJZ2e8XDdY8tcZ9nkghZk97ll
-   5n+c3Ad2gW/nBb3EUJMLlnguDdmvLhG3VWxc6Jo/pYM3GHNClvSdV2+YB
-   Vg1Jp9Vhw8KrQgxmmRQdaB2YElGaQivOQslk0R6/4YZGJHkKxRtnL51i6
-   /mv5E53RBRd4IgZz7BjdlGltl8l9Mzsvddx/ItU9yHZPAZAJ8+Ukmccvf
-   RVoRB1ckdRbxFgBBMLU2BzNUnADK/wrW5Htlq/GFa33X9PO4t3IlvMAe8
-   g==;
-X-CSE-ConnectionGUID: u/5EmYrITY+5rEHpcvSW9A==
-X-CSE-MsgGUID: el2/zWsiT1KgeBa9Juocew==
-X-IronPort-AV: E=Sophos;i="6.27,209,1787011200"; 
-   d="scan'208";a="33650587"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 05:15:07 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:23490]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.5.141:2525] with esmtp (Farcaster)
- id d1a65dbb-a46b-46bc-bd0a-a5bc78964208; Thu, 12 Nov 2026 05:15:07 +0000 (UTC)
-X-Farcaster-Flow-ID: d1a65dbb-a46b-46bc-bd0a-a5bc78964208
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 05:15:06 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Thu, 12 Nov 2026
- 05:15:02 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Zi Yan <ziy@nvidia.com>
-CC: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, "Suren
- Baghdasaryan" <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Baolin
- Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
-	"Ryan Roberts" <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry
- Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
-	<usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Thomas Gleixner
-	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin"
-	<hpa@zytor.com>, <x86@kernel.org>, William Kucharski
-	<william.kucharski@linux.dev>, Vishal Moola <vishal.moola@gmail.com>, "Alex
- Williamson" <alex@shazbot.org>, Matthew Wilcox <willy@infradead.org>, Peter
- Xu <peterx@redhat.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Eliav Farber
-	<farbere@amazon.com>
-Subject: [PATCH v2 4/4] mm/huge_memory: use the large-page PAT encoding for huge pfn mappings
-Date: Thu, 12 Nov 2026 05:14:40 +0000
-Message-ID: <20261112051440.16140-5-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112051440.16140-1-farbere@amazon.com>
-References: <20261112051440.16140-1-farbere@amazon.com>
+        d=google.com; s=20260707; t=1794460545; x=1795065345; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uhCrUZrfKuI9xdGiRCa6me3H0RB/NgF8erfFCV58p0g=;
+        b=ayjKsB/ST0f5tCKgVeMMt5bQM0zaGFl6+GjwRcvAdT2ZBsthuLmrsbNoQIsPBwViuL
+         xTDD1dKaIdGA64VUQrfsT9gUnpfPe/DZM2AShlOCRVY15SihFIr2VUIo/FmPCq2YkJva
+         RC2SykQsBBLCTLcF7fELfSkfRY869hYdLnlqwULsEIEZRB5SOZyihcnaDfsXqMut+6AJ
+         XlzVv20dUgBDWA2gfMQlRb5oLob8Q1ETJLsYihr8DJbELhITrKn+8jHrAFWqPu1O21/e
+         m9FzYq2KO3oDafCvePl5WOgXsRy4R9epRpOt6HsCoaPpht1oKFOsLrvPqrm+/l5CLJd+
+         jFAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794460545; x=1795065345;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uhCrUZrfKuI9xdGiRCa6me3H0RB/NgF8erfFCV58p0g=;
+        b=zZcljmXf0i+SIvNEoqLlgcS3fG9zTs2ppH13fDo1z20JUSfB98L7AZrdy5q7DELTwH
+         PbTU4nWxJ1z6iBxjLr/fHux8ClstGwCzTnY7n9Q7rY3iVrU0H8YDgnOlngIRhL324FEh
+         nKEuzdmY9bT6mWhoY+ihCd+7mI9rOdIVuFs1O5D3C+EkjrVdvEvIIFFwyJn/5JXJxdb3
+         1tFtnwil+CA00bUK/PGB3dG6RtEZVzvMf1/vG87adYGuX0lRYpmKI0PAJcmSc5+ndgig
+         aJkBLuoYw7bB0qjBq7XzB7Ap1K+R5cNdEOKXMXb1VeBzyHf85QCOjrb90dnOLwqU9i8L
+         H2HQ==
+X-Forwarded-Encrypted: i=1; AL+hErGLopnPf3c9nN2wGZ3uAu8A8cGBnXHjwVvnR3Kw1EinPaonMFhy2JzJzXnpjQNZovHwVlyZtA1Eic82Drs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ad+PRpdGQ6+2xK5Oc5r+MSEwABqiPGQfovYOSOJIaGAnGF2dp
+	m+X1I8M0ZqhJCt5IsuXSI+ficS/PCtJir1C8+AQaceuOCghvmRfHmRB7BVh8Fd7a8n0GBMkFC63
+	4HcLFu6Ll9GN8LQCFSl3XpQ==
+X-Received: from pjbci22.prod.google.com ([2002:a17:90a:fc96:b0:3ae:d16c:c4c1])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4f45:b0:3a4:945e:bc33 with SMTP id 98e67ed59e1d1-3b182ff36acmr4347171a91.47.1794460544841;
+ Wed, 11 Nov 2026 21:15:44 -0800 (PST)
+Date: Thu, 12 Nov 2026 13:15:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,106 +75,86 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+Message-ID: <20261112051542.1539779-1-stanleyjhu@google.com>
+Subject: [PATCH 0/9] scsi: ufs: core: Fix device management and PM recovery
+From: Stanley Jhu <stanleyjhu@google.com>
+To: linux-scsi@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Avri Altman <avri.altman@sandisk.com>, Bean Huo <beanhuo@micron.com>, 
+	Peter Wang <peter.wang@mediatek.com>, Stanley Chu <stanley.chu@mediatek.com>, 
+	Can Guo <quic_cang@quicinc.com>, "Bao D. Nguyen" <quic_nguyenb@quicinc.com>, 
+	Asutosh Das <quic_asutoshd@quicinc.com>, Hongjie Fang <hongjiefang@asrmicro.com>, 
+	Praveen Talari <praveen.talari@oss.qualcomm.com>, HOYOUNG SEO <hy50.seo@samsung.com>, 
+	Brian Kao <powenkao@google.com>, Jens Axboe <axboe@kernel.dk>, 
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-insert_pmd() and insert_pud() build the entry from the pgprot that
-vmf_insert_pfn_pmd()/_pud() took from vma->vm_page_prot and passed
-through pfnmap_setup_cachemode_pfn(). That pgprot carries the PTE-level
-cache mode encoding, but x86 keeps the high PAT bit at bit 7 for a PTE
-(_PAGE_BIT_PAT) and at bit 12 for a PMD or PUD (_PAGE_BIT_PAT_LARGE),
-where bit 7 is _PAGE_PSE.
+A UFS PM callback holds hba->dev_cmd.lock and the only reserved tag
+while it sends device management and START STOP UNIT commands. When
+one of these commands times out, ufshcd_eh_timed_out() resets the host
+inline, but the reset path needs the same lock and tag, so it
+deadlocks or fails. The error handler can also reset the host while
+the PM callback is still using it.
 
-A memtype that needs that bit, write-through or write-protect, loses it:
-the cache mode index of the huge entry drops from 4-7 to 0-3. With the
-PAT slots Linux programs, write-through (slot 7) becomes UC (slot 3),
-and write-protect (slot 5) becomes write-combining (slot 1), which loses
-the write protection. The other x86 paths that build a large entry from
-a PTE pgprot convert it first, see populate_pmd() and populate_pud().
+This series:
+- skips the MCQ completion queue poll when error handling preparation
+  left the queues unconfigured (patch 1/9).
+- hands PM command timeouts to ufshcd_err_handler() instead of
+  resetting the host inline, and fails later PM commands fast
+  (patches 2/9 to 4/9).
+- disables W-LUN runtime PM during error handling instead of calling
+  ufshcd_rpm_get_sync(), so the error handler powers up the host
+  itself (patches 5/9 and 6/9).
+- keeps the host variant power state balanced across error handling,
+  resumes the UFS device W-LUN and wakes suspended logical units after
+  a successful reset, and makes the error handler wait for a running
+  PM callback (patches 7/9 to 9/9).
 
-Convert in the two huge pfn paths. Add a generic pgprot_4k_2_large()
-that returns its argument unchanged, so that only architectures which
-encode the levels differently have to define it, and x86's existing
-definition is picked up.
+Based on mkp/scsi 7.4/scsi-fixes (e550f2b2b4aa) plus Hoyoung Seo's v10
+series [1]. On this base, its patch 4/4 needs a context fixup in
+__ufshcd_wl_resume() because of commit 6da1bc55c060 ("scsi: ufs: core:
+Keep clock-gating hold on failed W-LUN runtime resume").
 
-The folio paths keep using vma->vm_page_prot as is. They map
-struct-page-backed memory, which x86 maps write-back.
+This series folds in [2] and supersedes [3].
 
-Fixes: 5cad465d7fa6 ("mm: add vmf_insert_pfn_pmd()")
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
-v2: Corrected the second paragraph of the commit message. It said a
-    write-through range ends up write-back; with the PAT slots Linux
-    programs, write-through (slot 7) ends up UC (slot 3) and
-    write-protect (slot 5) ends up write-combining (slot 1).
-    Changed Fixes: from 6857be5fecae to 5cad465d7fa6 ("mm: add
-    vmf_insert_pfn_pmd()"), which is the commit that introduced the
-    unconverted pgprot. Both pointed out by Jose A. Perez de Azpillaga.
-    No code change.
+[1] https://lore.kernel.org/r/2052256418.81794387787276.JavaMail.epsvc@epcpadp2new
+[2] https://lore.kernel.org/r/20261104112744.1630864-1-stanleyjhu@google.com
+[3] https://lore.kernel.org/r/20261105071518.1458428-1-stanleyjhu@google.com
 
- arch/x86/include/asm/pgtable_types.h | 2 ++
- include/linux/pgtable.h              | 9 +++++++++
- mm/huge_memory.c                     | 4 ++--
- 3 files changed, 13 insertions(+), 2 deletions(-)
+Brian Kao (1):
+  scsi: ufs: core: Do not recover the link concurrently with a PM
+    callback
 
-diff --git a/arch/x86/include/asm/pgtable_types.h b/arch/x86/include/asm/pgtable_types.h
-index b1a669e775f4..b1ffd72e47ef 100644
---- a/arch/x86/include/asm/pgtable_types.h
-+++ b/arch/x86/include/asm/pgtable_types.h
-@@ -497,6 +497,8 @@ static inline pgprotval_t protval_4k_2_large(pgprotval_t val)
- 	return (val & ~(_PAGE_PAT | _PAGE_PAT_LARGE)) |
- 		((val & _PAGE_PAT) << (_PAGE_BIT_PAT_LARGE - _PAGE_BIT_PAT));
- }
-+
-+#define pgprot_4k_2_large pgprot_4k_2_large
- static inline pgprot_t pgprot_4k_2_large(pgprot_t pgprot)
- {
- 	return __pgprot(protval_4k_2_large(pgprot_val(pgprot)));
-diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-index 780fe849ff8b..112814d31f0c 100644
---- a/include/linux/pgtable.h
-+++ b/include/linux/pgtable.h
-@@ -1787,6 +1787,15 @@ void arch_sync_kernel_mappings(unsigned long start, unsigned long end);
- #define pgprot_mhp(prot)	(prot)
- #endif
- 
-+/*
-+ * Convert a pgprot built for a PTE so that it can be used in a PMD or PUD
-+ * entry. Only needed on architectures that encode attributes differently
-+ * between the levels; elsewhere the pgprot is used as is.
-+ */
-+#ifndef pgprot_4k_2_large
-+#define pgprot_4k_2_large(prot)	(prot)
-+#endif
-+
- #ifdef CONFIG_MMU
- #ifndef pgprot_modify
- #define pgprot_modify pgprot_modify
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 052c50dadc48..945d480c1512 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1675,7 +1675,7 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
- 			add_mm_counter(mm, mm_counter_file(fop.folio), HPAGE_PMD_NR);
- 		}
- 	} else {
--		entry = pmd_mkhuge(pfn_pmd(fop.pfn, prot));
-+		entry = pmd_mkhuge(pfn_pmd(fop.pfn, pgprot_4k_2_large(prot)));
- 		entry = pmd_mkspecial(entry);
- 	}
- 	if (write) {
-@@ -1804,7 +1804,7 @@ static vm_fault_t insert_pud(struct vm_area_struct *vma, unsigned long addr,
- 		folio_add_file_rmap_pud(fop.folio, &fop.folio->page, vma);
- 		add_mm_counter(mm, mm_counter_file(fop.folio), HPAGE_PUD_NR);
- 	} else {
--		entry = pud_mkhuge(pfn_pud(fop.pfn, prot));
-+		entry = pud_mkhuge(pfn_pud(fop.pfn, pgprot_4k_2_large(prot)));
- 		entry = pud_mkspecial(entry);
- 	}
- 	if (write) {
+Stanley Jhu (8):
+  scsi: ufs: core: Do not poll unconfigured MCQ queues in the error
+    handler
+  scsi: ufs: core: Defer link recovery on reserved PM command timeout
+  scsi: ufs: core: Wait for the reserved tag in
+    ufshcd_get_dev_mgmt_cmd()
+  scsi: ufs: core: Fail PM commands fast when fatal recovery is
+    scheduled
+  scsi: ufs: core: Disable W-LUN runtime PM in
+    ufshcd_err_handling_prepare()
+  block: Keep RPM_ACTIVE in blk_pre_runtime_resume() when already active
+  scsi: ufs: core: Unwind variant resume in EH when reset fails
+  scsi: ufs: core: Wake suspended consumer queues after host reset
+
+ block/blk-pm.c                 |  13 +-
+ drivers/ufs/core/ufshcd-priv.h |  19 ++-
+ drivers/ufs/core/ufshcd.c      | 244 ++++++++++++++++++++++-----------
+ include/ufs/ufshcd.h           |   3 +
+ 4 files changed, 189 insertions(+), 90 deletions(-)
+
+
+base-commit: e550f2b2b4aab4c5f12db89d04d8978ce4ed7b4e
+prerequisite-patch-id: 0c2cfc48bd97246e47ce689a3a8a364c18a56621
+prerequisite-patch-id: 9a413c053d618cedfc6a1a439469bc49a51e060a
+prerequisite-patch-id: 961b8b65ac8c9fd1b95d0901347cf504632531e4
+prerequisite-patch-id: 9f5c103bac288c258b541cff3742a69fd07892f1
 -- 
-2.47.3
+2.56.0.506.g506a7eabc5-goog
 
