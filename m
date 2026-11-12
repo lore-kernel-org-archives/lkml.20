@@ -1,105 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.23
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794454404;
-	b=K0wcntKB0Tx8ZHP6cEp/KRPGv581BJ5B9NHedPjg94GyVsTW8NF8gPcA721xwiPZjxmk
-	 44L8PwTh/v38WeYC82zJtL0HJlQmk6RBlfyv1eGx+iTr+4TSLiOBMyTlVvjiNqahebpxV
-	 E2Eupf6cJxSWbeQSytuQEmQnu/K5MuDqfc6GB7M+9PBL9OAS1AsEETmDBUMH+sF/GDbcf
-	 cDJAcCCaNpHrfHGU8u3djMkBQoxr38eOwpjHn8Wd6NSUfbEyyMNV5xzcAaykWbyTu3/Qq
-	 gTuWBavktzoRPsVP1DULCKqJNFociDchWI4VX/uu/m/WSfpr3KNrwFAzNDvIg6s0OSA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794454404;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=choWQspR+ceK3XYcj8KYmwzhiabu2Ugnz+L5e4fpsQY=;
-	b=bqpRx5OoG4PQJLdotM2JdtyfG4BNgcSDFZ/sKoe1l3iHZRpnfZHgkZuYTz0vmpStlNVc
-	 Usz0+2ujVxYIEcvKd1l6egAGMZDR47y5gDeZRFuyN5RlTgbPXzFPJCVimg0nH9xO4Luug
-	 JuKltHEIMevPvn9yloxDg1rrjtw6j4SNymzQL+xf9SUFZMEB+SNVRehJ/z1RPfkmIRDO6
-	 IxKzogHkU1LkUptjxPT9SFhivy1cSl0fjLlZaHI89pxn4lRx+LY40zZ31OAN9/IFWOWOw
-	 b1F2y//uvQnkB1g+d+imHkSZAom0Br5RwrVHgPZzN0rrSVs5MSXDP+rLk7s7Hb+lLeg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="k5G8k/3M";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.23
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011023.outbound.protection.outlook.com [40.107.130.23])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794454430;
+	b=yKiphP2HnwdsqsaQBBwEyzwHKKOyeNcR4Md8LtzDp81onTOe63E5Nl7maR1+vJyyzS82
+	 Q03UMi+awsNHoSCnO79olcxaIoPzmLeg7O0In2570/c3vv0tf/nexERTYFIEQvhMmK7EE
+	 NCwUMeGWEuM3gdToKT59s/CBUqAlyYJK7xdR0YyomwXb6bDHb9/dgyeJzWA59zB9QlG92
+	 mfgwAALxo1KkBn6rXczmoqfihe7HMFpMF8iyg4z54Maj6WObSCGdnkf7p1FOnX36sP9uA
+	 08DW+BrCDUcOrZYhYsGNWHDwnySxP9+/okVGi2+K9SEfa7ejn9oAfQNW1AYiqfiA0Zg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794454430;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=F6+7ZlIp4itBJtPDKgD6D6d0/yQu4/YAUF6Hgt2dgJo=;
+	b=BxOOpxXDyXTYLQn8e9pzrRYFzVn1aQH0TGTEjJCiMBUscZbL8e2DkC0+DbmTpe1xyxqv
+	 BrhXpy9GMOG0+rFkzVyfjzRHQR5zvTiXlTvq/Bwqzbj4kRAJJJ+xXghhY24I0xH0obf89
+	 BDEMZ5ULwRa+haNQREQ6FcBSYFa959PcqDzTf9MEf9HTT00Tevz8pvTr1k7AYrJdUCM5o
+	 gHBEMfhoLxBG+2XBc3TPGCcjek7ac17+2AQHWBR4BcPthOduJ/l1Rcod7umIlAIhRfcys
+	 ZcJsGBVPLXU/rbAj0rFBMacrlshPizZBYg72wWU6h8d7vkHaIRtYwQBDJG+3T6zA7mA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=huaweicloud.com;
+	spf=none smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.93.112
+Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDA7606A31C;
-	Thu, 12 Nov 2026 03:33:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CDA7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=k5G8k/3M
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sBnHe2Bb/kffVKXDr37dnNSQ6GvxexieZOf7U4UKfqjyN14uSZ+Kcu92mCb+nYBoQ+0w9DIhZYNULPwcpB/9I7e3SA4sRFTgzOvxdXOwgu9UHBdfh1l5B5LiJOKwj0fdNhKpOFUmVDWXY12F1OqK688pWUb5nCZ+MJM/tD928gop5e5TWck0HLIzx5HOQh44nB/XwLPoCBBrRZNV1HvGVOhXLomi9ZEBAP6fvsSyRr138muZKxQnBTlMPSVQHd+Xde51kzo72RpG0wWXYmifgr1F/8FlCR/96SmLjIo/6XZN0B51ZDrv7ThZLcunWXcVEJrIBPpRFDWzLQXH/48veg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=choWQspR+ceK3XYcj8KYmwzhiabu2Ugnz+L5e4fpsQY=;
- b=KzP+OEwkGORvFTfJ4oYiP6rvRnx2l0z6s1T+zbTlrgqvDRW0hHoywHE3YGnfPoB4mfUS9+OoR1q5QQbRKuYCJWbvwmsDQwH1IQSmN83IvqH33psczZNqpZqFDrx3yaKIXa/Hlp4y0TPWdtM/OJtb0trHxZ5PMA6fxlroymVF1dqg9tJ9MT6icTvvFYh5IiQozikcIMVKn70cV/QoHkgMzD7sesNyNZK+7xjuafvTW+AsNlHp2sBUsYWFtDzmhqBl+i/QZTvvIhKkzzGj+9D20i9oZMSfSOdg2kSSSveeq/JJ31g0HKpXl9xAbCmUhjYlEIKOcdsiCdOZxAAGPW9o8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=choWQspR+ceK3XYcj8KYmwzhiabu2Ugnz+L5e4fpsQY=;
- b=k5G8k/3M9AsYdRnqXKFljI0+3OAY3zAiI5Q2WVUNxQUWIsQNA8TlVfg9SxxhInhUzwUDSSqyP/M7+zXcbwr8M/fUd86WlLJs6auOmS8loK3HrP/vopHOqoRtN2VKOouxLcDwrQwBTbOlMrMgtLMYFZX/zr79te2YgGtnp8rWqXBiuloPxt9Q480sD9316gkxxC2fBsa+CJNWXfW5T1EuxLWWNjuzuPbFWdzMde2BhuayTPL0mWNQSf+6Xhlv9ausD3jXBHErpIfiuahpHtIcqKDwn/f3YFgj4VQdzTGOw2F8FKQBKkEeYjZ6FctgffqGVTdIdB2r01XJOKWh/QL6Cw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21) by AMVPR04MB12674.eurprd04.prod.outlook.com
- (2603:10a6:20b:775::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 03:33:19 +0000
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
- 03:33:19 +0000
-Date: Wed, 11 Nov 2026 21:33:01 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Joshua Crofts <crofts@kernel.org>
-Cc: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Chris Brandt <chris.brandt@renesas.com>,
-	Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-renesas-soc@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH 3/6] i2c: imx: remove redundant
- pm_runtime_dont_use_autosuspend() calls
-Message-ID: <avUzbZi8CdjfKhCK@SMW015318>
-References: <20261109-i2c-remove-dont-use-autosuspend-v1-0-49a08b8daf36@kernel.org>
- <20261109-i2c-remove-dont-use-autosuspend-v1-3-49a08b8daf36@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-i2c-remove-dont-use-autosuspend-v1-3-49a08b8daf36@kernel.org>
-X-ClientProxiedBy: PH8PR05CA0005.namprd05.prod.outlook.com
- (2603:10b6:510:2cc::14) To AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16062606A321;
+	Thu, 12 Nov 2026 03:33:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16062606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jQ5Z15wz5z20Nk;
+	Thu, 12 Nov 2026 11:32:57 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id B5B41409C7;
+	Thu, 12 Nov 2026 11:33:37 +0800 (CST)
+Received: from [10.174.179.19] (unknown [10.174.179.19])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgCn4O+PM_VqRVcZEA--.64899S3;
+	Thu, 12 Nov 2026 11:33:37 +0800 (CST)
+Message-ID: <fce5c384-3a18-4156-b0eb-a0d584b8b459@huaweicloud.com>
+Date: Thu, 12 Nov 2026 11:33:35 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,98 +51,241 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|AMVPR04MB12674:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2398a880-7004-40e5-02aa-08df406db1e3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|23010399003|7416014|1800799024|366016|18002099003|22082099003|4143699003|11063799006|261026121527099003|261022075727099003|261009223027099003|56012099006|261021123027099003|261009223327099003|261009220027099003|261009221727099003|261009221227099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	TsT+xMbOGrG7oqiHkKcQni6CrKMU6cYqBQZMvkbWkdKyqm4gOJbhFn70jVGbedI4jlzYFWIahDqIdeOXkhgnPkEUjqVElTAb23w+OGZUjNPOsibbxSgqhC/jkdUwvrN3gUhfsB11tMV9iWOtRmaBXZAm/iEJPN1OrZ7LDmkJY6m+XRMpvy2OcBVbeqb7HYMDsfCh3jJUeikOliA6RgCr+ZiNsHl4AnBXm0kM3qQxgDWtn1k5Sd94Y3yr8vFo9WCTcucD1TYXVM85CynTG8RvzQkssWVEtSkOmKgyg3JLxSaySKigU48jOWzpuxAxLuL4u0/UQFuy2tkAiGrl/AFnFd9HnhlGpfkcYN0yjeUmNwH+GadYUZcrjZCQOEoaeyQAFkTrd5N9ovZKN13SbCNOARLU+7o//e1gm5PXx+c7Nj4ZVSi2dh/tfGvGcfqCjhf5fm0PusNwIuU3OCFFUQNAM8VKm7l7R7gU4qTARRLKxdaaFNqZuV7opHJU4ubM8u2kqfzypu9s8dujXt8ppxPzRR4sy95nwEQU87l4Xn3bWHsHOWBouy14yZt0rY5elDT3v8NMf/HuPzepQTSC2UfVIvid7JY5cfuN0TbfjkdX8EH75C3gvQeuYVY7G3FvVGWZIjas7WvBxhobTMAd5AQC8x782RxIsSNpTEXaWKd1Hts=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(23010399003)(7416014)(1800799024)(366016)(18002099003)(22082099003)(4143699003)(11063799006)(261026121527099003)(261022075727099003)(261009223027099003)(56012099006)(261021123027099003)(261009223327099003)(261009220027099003)(261009221727099003)(261009221227099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?OHEUJOkkoqa1VJGewuLzSWDAaa1nfLoOlcHNBl19CRlQaVfiqJCI6GMpPtYb?=
- =?us-ascii?Q?zQcYFiAEW0ESaoFitJExy0ikk/3L2L9GFKuI0b4iWywX1UMNlTs/Tzm/tk4e?=
- =?us-ascii?Q?LF2kV6Yf7br3FBX8O5lafp7UjpDYRMwiSPGWUKc5RVqU1/sq46WjVkLC/Mmr?=
- =?us-ascii?Q?8GrHRnWtJpKYy5Zp9y7w9XWt6zL2T63mYejWZB6StvLV90TrlgP39qAnIsfS?=
- =?us-ascii?Q?qRz+LJucTd+5DyTn3aiMVNiOzE5W7bheU4YAzwVHoNgD6YuYIiQ3ODuEMqwV?=
- =?us-ascii?Q?EROcQFwplVwh3kYa9nyDbeaDg03OC3s3VyG/PmbZTq9B2TU3vjGACeAwlYum?=
- =?us-ascii?Q?CgnYjTHUac9wf/WT4ePD3PSbJ2MqyUg1AVsGnbYpq/L1yz47LUjgurPL0uum?=
- =?us-ascii?Q?PiHi43y6QOcmEM2pzYJS3v0rNqIjowuhgI0tuY8G+M4pd5LbjLCekRnsY7Ky?=
- =?us-ascii?Q?G21yNn2vw/vxj9AyDRQB4Z9o/CC9syd2OtPFTWZMQmiW+qQbSliC9MIf8KtD?=
- =?us-ascii?Q?JIFAoTvq4isB/y9GiJy1HEZMiwgdWb/5QTBpI7sR97XW395OrHmdwAr5P2v3?=
- =?us-ascii?Q?OWCD5XqUCtZ9Iw/C1mCEKjzHNxk8SWnC8AJzFUxvCnhz3NX9nFdprvbQJ7hr?=
- =?us-ascii?Q?r9MjWioSmnMTCgUdRzHWkmiSxBVT2M06zzpVQhSToD/Cv4w8GcymvN4R3QYz?=
- =?us-ascii?Q?MrqJ0NAMFJpYRv9dnRDo7CQKARjO8d+Uijfmq/BVf7sz1VX2NSz5sO3XNsXs?=
- =?us-ascii?Q?KNZTFQB1BV8DsaRojdsQiVzDIHjNtAtaBgmHcfX/zux8lvGQ5FCnCu8J2V0H?=
- =?us-ascii?Q?qvIcITtH/vX4mcQmZuOUW4Runq4RgF1t4qeJhl+QK06rs37LShW2IhuAY/HE?=
- =?us-ascii?Q?Di3IE89u2aEvr4W5//Qh9aU8I9EtoLjfX399eMkOaIErHhnIA1u3vlBN1CZh?=
- =?us-ascii?Q?hOcR/+ep3Ob2dMQg5SAaMKfecXHujGNFnHctpSGs8GFzo5vPgzrbUKFKhH2C?=
- =?us-ascii?Q?m0kvDiLdOm84vON++zo2Swr/W9Yb6ExSVMl8AOydT0UYdEDNmHj945yIN/od?=
- =?us-ascii?Q?TUE82PQ/Se5qkc4DKMvKVNCsYmSZOe5wKrsrENstCMH7C+Oi8IYF7fGNyy0O?=
- =?us-ascii?Q?hcPfXTWBYdhSHtz7qVXsR9A+TnLNmXm25XgubZVN53B9X/5PvxSt75r+OqMI?=
- =?us-ascii?Q?pKhsao77PzQPBcFmmhBcbAOExdJz7jaSBkW3PBnNeXxz3wrs6JBM+PeKiChb?=
- =?us-ascii?Q?U68sLmpEZbrVll31Zlhpg/N7UVg8aMjNbn9iIszdStT3bjTIefcfApGJxYuL?=
- =?us-ascii?Q?oixJaLPGu+9pyjfTCnGA9nYLycLMcegqXv6LWvrpW7SG9iEPt7tS8oBG+aQs?=
- =?us-ascii?Q?eyfIbCkIVafGUhfSDTJcN1C/M55emrjiW5RadivZ0Gp+OLiTkaXGFh0Cx6D2?=
- =?us-ascii?Q?aGfZXv3B0NE+4mrpeq4Kv9JtJ8mHnmoYp/69t3D5CHF1v0xqnCgwPskY9QNB?=
- =?us-ascii?Q?I2Vmt3uhPQ7Et8GfSkgdX1pcUYyggTPR9zUk+BbBiDA+STcQ1qcwiqlIpolF?=
- =?us-ascii?Q?zfG839JDp+9UjsD3oyw5O40iNwq7Ye6eVYO0qTyIFzMoCSkGFJfW6pzGjoK0?=
- =?us-ascii?Q?4Et7WRZ50Zq0kQ5THwz6Z0vz5vUvY9Dlb7ZaXPd98uAr7BqAoRlFg6vUxxpg?=
- =?us-ascii?Q?5JLat9QZR/GzI1x3w2kHoGRWoW9ZJX7jhMdi12Faw2IOBHFskcQDwtVmEknZ?=
- =?us-ascii?Q?f5MCM63OCGnAxZ+uM7xhtq1GqtVX3WsmL6doqDHI4vue3a2UgbKI?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2398a880-7004-40e5-02aa-08df406db1e3
-X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 03:33:19.1977
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GRlxQIoqY4zDR4m2ko/0a17rc3VvikpPT3ivhXUsXYwIx1bbhe0jGncr91NfLZYqnEpLr5dXx8YsPugM3uONJ5TY9g8Q4OSAM2WfOliIGXPNJuy7A1yShb/hF7uNAD+m
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMVPR04MB12674
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/8] ext4: fix endio zeroout corruption by tracking
+ to-be-converted unwritten IOs
+To: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Cc: Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, linux-ext4@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261102-ext4-endio-zero-bug-v1-0-266d2bb9e6dc@linux.ibm.com>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <20261102-ext4-endio-zero-bug-v1-0-266d2bb9e6dc@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgCn4O+PM_VqRVcZEA--.64899S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3JFWUZFyDtrWfGF18AFyrJFb_yoWfXr47pF
+	sIkF15Jr4kt34Ik393A3W2qr1Yvws3GFW3WrW3GFWjyFy5XryFgr47KFWj9Fyv9rs7CFya
+	vF4Yv34UCas8uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUymb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vI
+	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
+	14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07UK2NtUUUUU=
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On Mon, Nov 09, 2026 at 09:50:04PM +0100, Joshua Crofts wrote:
-> Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-> driver core is now responsible for undoing any
-> pm_runtime_use_autosuspend() calls on driver exit.
->
-> Remove the redundant function calls.
->
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
+On 11/3/2026 2:26 AM, Ojaswin Mujoo wrote:
+> There is a data corruption in the zeroout fallback
+> ext4_split_extent_zeroout() when we encounter an error like ENOSPC
+> while trying to perform endio extent splitting.
+> 
+> The issue was discovered by Fedora coreos community while using 1kb
+> blocks size on a 64kb pagesize arch like powerpc or aarch64 and the
+> discussion can be found at [1].
+> 
+> ** The Issue **
+> 
+> The issue can be encountered as follows:
+> 
+> 1. Make an FS with no reserved to root reserved blocks and fill it
+>    completely.
+> 2. Delete a file so that ext4_sb_info thinks there is free space but
+>    mballoc doesnt have any (until txn is committed).
+> 3. Now when endio kicks in it eventually reaches:
+> 
+> ext4_handle_unwritten_extents
+>   ext4_split_convert_extents
+>     ext4_split_extent
+>       ext4_split_extent_at
+>         ext4_ext_insert_extent
+>           ext4_new_meta_blocks  // extent tree split/grow needs a block
+>             ext4_mb_new_blocks
+>               ext4_claim_free_clusters  // thinks we have free space but mballoc
+>                                            has none until txn commit frees it
+>               ext4_mb_regular_allocator
+>                 // return -ENOSPC
+>     // ext4_split_extent fallsback to zeroout
+>     ext4_split_extent_zeroout
+>       // We try to zeroout surrounding unwritten ranges. This code has a bug
+>          where we zero an unwritten extent which could have valid data on disk 
+>          whose endio has not yet converted it
+> 
+> The main issue is that zeroout assumes any unwritten extent is valid to
+> zeroout but it could actually be a soon-to-be-converted extent holding
+> valid data.
+> 
+
+Hi Ojaswin,
+
+Thank you for your analysis! This makes sense to me. I apologize for not
+having considered this concurrent scenario earlier and for amplifying
+the data loss issue.
+
+> ** The fix **
+> 
+> The way this series fixes it is by per-inode tracking the no. of
+> unwritten IOs that are submitted but not yet converted
+> (ei->i_conv_pending_ios). If we end up in the zeroout fallback and see
+> there are such IOs existing in the inode, then we don't zeroout and just
+> return back the original error. More design notes can be found in
+> subsequent patches.
+> 
+
+Regarding the solution, I agree that your approach looks like it can fix
+this issue, and the idea is fairly straightforward. When zeroing out, if
+there is other concurrent I/O, just fall back and return an error.
+However, I've been thinking about it over the past few days, hoping to
+find another simpler and more elegant solution, but that seems rather
+difficult.
+
+First, due to the map range caching mechanism in the iomap writeback
+path and for performance reasons, we probably can't go back to splitting
+extents when issuing I/O as before. Moreover, the previous approach also
+couldn't completely avoid zeroing the entire unwritten extent when the
+I/O completes, so the problem already existed before. It just required
+concurrency and had a very low probability. Therefore, I agree that we
+need to address this problem head-on.
+
+
+Here's a rough idea I'd like to share:
+
+1. Add an in-core extent status flag, something like
+   EXTENT_STATUS_PENDING_WRITTEN.  Like EXTENT_STATUS_DELAYED, these
+   entries would be must-keep.  The idea is to mark ranges for which
+   we've submitted I/O over an unwritten extent but haven't done the
+   conversion yet.  It would just be an extra flag on top of
+   EXTENT_STATUS_UNWRITTEN; the zeroout paths would be the only thing
+   looking at it, and everywhere else the entry would still behave like
+   a normal unwritten extent.  We'd have to drop the flag whenever the
+   entry changes state, and also when the I/O or the conversion fails.
+
+2. When submitting I/O, once we know the actual range being submitted,
+   we'd split the existing unwritten extent status entry and add a
+   pending-written entry for that subrange.  Then, when the I/O
+   completes, or when fallocate and similar paths want to split an
+   unwritten extent, we could check the extent status tree for the range
+   we're about to zero; if there's a pending-written entry there, we'd
+   just skip the zeroout fallback and return the original error.
+
+3. We'd need to set the pending-written entry under i_data_sem.  Since
+   ext4_split_extent_zeroout() already runs under i_data_sem, that
+   should be enough to avoid the race.
+
+4. One thing to be careful about: a pending-written entry is still
+   unwritten, but it shouldn't be merged with a normal unwritten entry.
+
+Some advantages I see:
+
+1. We don't need to add anything to struct ext4_inode_info.
+
+2. We don't need a new lock, and we avoid things like
+   EXT4_GET_BLOCKS_NO_CONV_ACC for paths that don't account for
+   themselves, as well as walking ioend/iovec at I/O completion just to
+   keep a count.  I think the code would be a bit easier to follow.
+
+3. Random I/O into preallocated files seems pretty common, so tracking
+   at per-extent (or more precisely, per-range) granularity should give
+   better exclusion than a per-inode counter and hopefully reduce the
+   chance of writeback/conversion failures.
+
+A few disadvantages I'm a bit worried about:
+
+1. We'd have to audit all the ext4_es_cache_extent() callers for
+   conflicts, and all ext4_es_remove_extent()/ext4_es_insert_extent()
+   call sites, to make sure pending-written entries don't get dropped or
+   overwritten. I'm not sure yet whether this is definitely feasible.
+
+2. It changes the core semantics of the extent status tree, so it's
+   quite a bit more code and work, and probably not something for
+   stable.  I see it more as a long-term fix.
+
+What do you think?
+
+Thanks,
+Yi.
+
+> For direct IO, ext4_iomap_begin() is called once per mapping and has no
+> way to account something only once per dio. So we first fix it in a
+> simple way by relying on inode->i_dio_count which is already
+> incremented/decremented once per dio. The last patch optimizes this by
+> moving dio accounting to i_conv_pending_ios as well, by using a custom
+> ext4_iomap_next() (needed because we want to increment once per
+> dio). Since iomap_next() infra was added in 7.2+ this can't be
+> backported so kept this approach separate.
+> 
+> There are other approaches considered like completely disabling zeroout
+> (not ideal as it's a useful fallback) or tracking the conv_pending ranges
+> in extent cache (this is an intrusive change) however the current
+> approach was chosen as a middle ground to balance complexity vs
+> accuracy of accounting.
+> 
+> ** Backport Notes **
+> 
+> This issue seems to have existed ever since we had the zeroout logic
+> however this was never encountered until we moved extent splitting from
+> writeback time to endio time in commit:
+> 
+> ea96cb5c4ae3 ("ext4: don't split extent before submitting I/O") (merged
+> in 7.0)
+> 
+> which changed the dioread_nolock writeback/dio path to submit I/O
+> without pre-splitting extents, deferring the split to endio. This means
+> multiple concurrent writes can share a single unwritten extent, and a
+> failed split on one of them could zeroout data belonging to another,
+> which exposes this issue in the zeroout logic. 
+> 
+> Note that the issue in zeroout was always present but the above patch
+> just uncovered it. However, for the purpose of backports, I've used this
+> patch. Seeing how we never saw this issue before this, hopefully just
+> backporting it till 7.0 should be fine.
+> 
+> ** Testing **
+> 
+> I've tested -g quick for various configurations to catch any obvious
+> issues or counter leaks, saw no regressions. I'll continue to test for
+> auto group. I've also added some new tests to hit this regression which
+> I'll post soon.
+> 
+> [1] https://github.com/coreos/fedora-coreos-tracker/issues/2234
+> 
+> Thoughts and suggestions welcome.
+> 
+> Regards,
+> ojaswin
+> 
+> Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
 > ---
+> Ojaswin Mujoo (8):
+>       ext4: add extra_flags param to ext4_convert_unwritten_extents()
+>       ext4: fix endio zeroout corruption by tracking unwritten to-be-converted IOs
+>       ext4: add tracing for i_conv_pending_ios tracking
+>       ext4: don't zeroout if we have inflight unwritten IOs in non buffered-iomap path
+>       ext4: don't zeroout if we have inflight direct IOs
+>       ext4: make sure zero range WRITE_ZEROES uses NO_CONV_ACC flag
+>       ext4: don't zeroout if we have inflight unwritten IOs in buffered iomap path
+>       ext4: optimize inflight dio tracking for zeroout
+> 
+>  fs/ext4/ext4.h              |  29 +++++++--
+>  fs/ext4/extents-test.c      |   2 +
+>  fs/ext4/extents.c           | 117 ++++++++++++++++++++++++++++-------
+>  fs/ext4/file.c              |  14 ++++-
+>  fs/ext4/inode.c             | 146 +++++++++++++++++++++++++++++++++++++++++++-
+>  fs/ext4/page-io.c           |  27 +++++++-
+>  fs/ext4/super.c             |  12 ++++
+>  include/trace/events/ext4.h |  25 ++++++++
+>  8 files changed, 342 insertions(+), 30 deletions(-)
+> ---
+> base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
+> change-id: 20261023-ext4-endio-zero-bug-ec627ae61f39
+> 
+> Best regards,
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
->  drivers/i2c/busses/i2c-imx.c | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-> index 89f2b764bbc4..05906ddafbfa 100644
-> --- a/drivers/i2c/busses/i2c-imx.c
-> +++ b/drivers/i2c/busses/i2c-imx.c
-> @@ -1964,7 +1964,6 @@ static int i2c_imx_probe(struct platform_device *pdev)
->  	pm_runtime_put_noidle(&pdev->dev);
->  	pm_runtime_disable(&pdev->dev);
->  	pm_runtime_set_suspended(&pdev->dev);
-> -	pm_runtime_dont_use_autosuspend(&pdev->dev);
->  	return ret;
->  }
->
-> @@ -1999,7 +1998,6 @@ static void i2c_imx_remove(struct platform_device *pdev)
->
->  	pm_runtime_put_noidle(&pdev->dev);
->  	pm_runtime_disable(&pdev->dev);
-> -	pm_runtime_dont_use_autosuspend(&pdev->dev);
->  }
->
->  static int i2c_imx_runtime_suspend(struct device *dev)
->
-> --
-> 2.56.0
->
->
