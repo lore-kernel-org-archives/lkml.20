@@ -1,74 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794446130;
-	b=FYsYFTK9LFjsPeDlZI1xF6bltfmtgX0sNot509Z9+Ygp5HeeVXWg2NRZGaL2xYztsrQp
-	 I/peS10lroEqUPKFZuN7vIDZEHegRccqJI41e6Juobf7QdgpYzuplsnqhjmf/9Cvr+uqB
-	 Zzi6d+fmjfwsZ+BMn+1DWT2S9Bu+tGBboPvVYPvJwu4IurjEUZjniq7gE0kynPoL2yAFd
-	 5m3da5PbCw1vQfpyLQZNPClicFd8UzxCJsiXptGT3Ad7jtgYO7VlmLy7z9hPLkFTtVRaF
-	 nAL1a0ezjmKkU7VrlI8YMjTl8B0oEDbNpkW3kNudPaoOwoq7hB2IBH7t0RiKN2IVS0g==
+	t=1794446131;
+	b=1AXJkt9pD2pbARTVMgOTj5/bx/DD97s2asDrC71NHsrCGfbLkJOmmOkU24UuzL4J0Nkx
+	 qShSQwP20BQOEnM08ng4tgfHX0oEuztzK+xBqUbMCzYUC8wQCjP98suYUjHjWn2tbjWIi
+	 DDNrcOAJRaCe1LY9rlH/nz0tXt95eOwta5xzPm7BmqpSF7qrcVEGIdpj3v1h1uAGeXrcF
+	 rYiRqqRBi3FR57/GBE8PcWpaLYdA9Nmk4YmE26Dw0owV4X/6NcSIQ7gfGrFeEXV2nuyXX
+	 2IqzIrmb+3FcDZ8ZFVq+hRmV4JzQgg3d52ibCCGRcf1VIjKktPFBsbkNfj2qqRnb+RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794446130;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794446131;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=7PhFcaDeAtGCbRdibMYuOaU5CfzISCNubzN8pUXfkYA=;
-	b=KXw74D37KwL/j9pIQEb134GEItjC/G+5I45VpPso1fFGBmHFCSQECOomYIEzF35QvG7L
-	 Dkw51wRGMz6gkHLyKks//4kphbGo8a9T+TSFll2UXTAK7+YtPO0ll31YG3sN2zsnAlh8L
-	 SXJcSQtpdAGp+gmx+KRC9DZOrScep4T4oroH30Z6RhJIpFVeEwm0D2sqJFpFTb1EITZSz
-	 cwI5JG59hb49iTYGSFCaKMuWFmU2XEjhCMuX55O1Oyu/UBzi17fFHc/98QJEUDQeA4d3B
-	 xSxuFAQ/xnmUudMX0P7IRm1BfDSF5n8gL7KHzxxZUHHSlojPVkKV7fphMxkdhNdvSqA==
+	 Content-Type:Content-Transfer-Encoding;
+	bh=LrRknaVYbPaxzhmnJjUbIyT0B1cZr9C8gaGVGD3nWJU=;
+	b=sgJXh/ruEqe/FtKThtBue0IK3Ryf95MxSc+XeVysSy+cXIhMEh3iMMcXYanEb9cr6j01
+	 ibQ1/6YMSGNhMMSqVQbaqfXhreoTktySJDivrROECUo0jYy49pAu6YWQAn4EaDG2oaj//
+	 izNs8nf18uwTjwhf+9xe+jzD4jt5kkQiULtshAZ0d1SYk3bFNqqHWxFAkxL2SOBAWZ4HO
+	 5P36s+1NH/Pzmk57hpiX8s10tb2VBkeDmRbfl/uG/BVJkXf0fR4tDRVb3c5fSk066RRvT
+	 5jERNHUj6hcdHBXiocr0uksUa4BIMOFlft//80r/hl2V2rKIU5j93bC89zn8jCz8RVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AJYdKxod;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=itLw3BhB;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68870606A8A5
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:15:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68870606A8A5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3861A606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:15:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3861A606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AJYdKxod
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36fa5673fccso221992eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:15:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=itLw3BhB
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30bcb065bfdso6054829eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:15:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794446128; x=1795050928; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7PhFcaDeAtGCbRdibMYuOaU5CfzISCNubzN8pUXfkYA=;
-        b=AJYdKxodXjgNRumuhERCxY7zJBD/1mT9W5lqqORmmfpsy9CBIOxfZqhbABm/Qe/dXl
-         kbCgeptqeXCcQJgTSRJmd/JJQZse/2UBP3ItoaH0tb4fNUIIuBHryQyU3y4SPojjblCy
-         7J7zKSSdGs9qgWrBmIrqH7TMCukCzBfsHCOcSC0HOcGxidVySwMNApg4lQ9NnaGSQFSJ
-         h3GOodZQe5PlgXg9t7pyYRFfTyfmqYIrzCkJFq94BrYsEvAY21sAANGqwNx5WBrOSRvb
-         bJyv2RRmx7arohxcp/diNE/PrCC893Y6USPOD5RO7pIE+NTccaFvmHTobG+q3eMQc+87
-         /mjg==
+        d=google.com; s=20260707; t=1794446130; x=1795050930; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LrRknaVYbPaxzhmnJjUbIyT0B1cZr9C8gaGVGD3nWJU=;
+        b=itLw3BhB8puFABnIH/Xb84EDMxTBaKjlqAycjAe8b/w1/sjwCSiqwKJz54fKO/lrTU
+         BQu8mWRpC1ypWU+yUZzIUOTyROj+K3CfKI9vPc2IPFmXtr+//eTvkei4wx0Eh+mSEcoK
+         x3Kkr3zbkJgCxu0yLq0wShSAco/vyZws4HB94rZPeLakZiaT8rk7PYOUdd3ze2FvKfiz
+         f/VDDkbwd2b6fntvYkLBIqrwX5VkhwyDsTz2FZtb67soJD859rT53OscLTFRiE7/ifmK
+         CoSwqx45dLG8va4Z3MxcK3QuGAAPOBtoNPSpQjpDHRV+N3ikdm8grXsOOOUdvqaSYqLd
+         QJ3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794446128; x=1795050928;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7PhFcaDeAtGCbRdibMYuOaU5CfzISCNubzN8pUXfkYA=;
-        b=qCgiuleZUcwtrIi+EKDFpCxFikr5FKj+YXKLxf+AoEnYwrj8Lmz8NovGc7oj3QSysT
-         yLJ7L1Jj2BOiiOdkdcoj2aC3RkpCcybuykBe9ZRcUe63IOu5Z4z4Ey7B0zBji1Magxw6
-         g7NENuTmeXurFaBUX1hqNh30Rdr1YE1OmSsFvgCKrslOPESG+wn6+I1P+qwMgkEXpIgz
-         Yqc3NdOI2uxMGwT1OnzpbQhdqwZi4StA++bWBFdVqps1qgvJDJbIKCUzttrifToHkbdE
-         5q/JBIwhOcQ5BarQt96AlVh0lGZgNF8fZ5sRJz5VKcYqiQKnrtMt45jCKYqpwYSkMwuy
-         +eOw==
-X-Forwarded-Encrypted: i=1; AL+hErG2K6k637IegibFoR/tuixKYXHBoFdQsFFu5usMKCGduag8dBp1SQpMfSrRrqm5A2Q/3tWk0jkpXLYC+8s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/rQPd1/JD7KgrKk51/3IYjv6QJKkaVB9JDrqr7CCzH/niVOv2t
-	IzR+aYf4Va8KxiGhXRZLq99zFOlHy2TdkOHVyakSvwgGy3mhHFGFTTEzXuSme3cdJ7Bh67wuB/E
-	SLuYc/YzuWA==
-X-Received: from dyboe15.prod.google.com ([2002:a05:7301:3d0f:b0:36a:184b:374c])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:41da:20b0:36a:79e7:2fd
- with SMTP id 5a478bee46e88-3768721410bmr4610659eec.40.1794446128092; Wed, 11
- Nov 2026 17:15:28 -0800 (PST)
-Date: Wed, 11 Nov 2026 17:15:12 -0800
+        d=1e100.net; s=20260707; t=1794446130; x=1795050930;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LrRknaVYbPaxzhmnJjUbIyT0B1cZr9C8gaGVGD3nWJU=;
+        b=agw83kUqDxXq/gwi5ganlrBtndxRMIison6GY5+rc6292TyoMoIu08cHFoK7+wi3XS
+         DeqKOJKbOYpkjRN4S8F20YWJOO81QAWxBnIggcGWnfXPjyrQedCdnhTX+57H6ux6gc3V
+         wUo/9xlfLURMsgEL4C6auJQvebI2xvRcnZWn5mkxTi8WMycnZenV1E4OF5u86hBDHCQv
+         PRdJL1lRI1vQpiWNkMj1mR0lY7BpVtNkiJKhEosQ/joRIBUxXgDRByxkgXrBjpPPQ2ke
+         zzDy8bsNC2zEU7cx2S+9ZyD+S78TuKrPwZM4sTZOAPbTKB5l7NJfxFtF4nFYFCbB+bke
+         piUw==
+X-Forwarded-Encrypted: i=1; AL+hErHpFMUXex9tpqkFSTV/kBQENpE4JOoyak2PSFJ4RVNTP9JoMgF3LKJNVxk+ebvX/MK3550UwIawur6pbrs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/G7ct8TC3+kywohvocB/geUyHzPHoQdq1Np49FCDYIfipVGKtM
+	S+XOkFTCAWYc00yH3L3AqgUOfouIhqZqlkqs2IyBj+OV2gjD2QqD2xvwfMokK8PJm9ESEnvuIsM
+	jtkJ895LrjA==
+X-Received: from dyrp7.prod.google.com ([2002:a05:693c:69c7:b0:369:a832:e377])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:4208:b0:36a:5126:a8aa
+ with SMTP id 5a478bee46e88-37686180350mr4477826eec.27.1794446129939; Wed, 11
+ Nov 2026 17:15:29 -0800 (PST)
+Date: Wed, 11 Nov 2026 17:15:13 -0800
 In-Reply-To: <20261112011514.4032822-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +82,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261022204627.1813821-1-irogers@google.com> <20261112011514.4032822-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261112011514.4032822-4-irogers@google.com>
-Subject: [PATCH v4 3/5] perf build: Support building BPF skeletons with bpf-gcc
+Message-ID: <20261112011514.4032822-5-irogers@google.com>
+Subject: [PATCH v4 4/5] perf test make: Reuse Makefile.feature for libbfd and
+ llvm probes
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, andrii@kernel.org, cupertino.miranda@oracle.com, 
@@ -91,231 +93,104 @@ Cc: adrian.hunter@intel.com, andrii@kernel.org, cupertino.miranda@oracle.com,
 	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
 	yonghong.song@linux.dev
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Support building perf BPF skeletons with bpf-gcc (>= 14.0.0) in addition
-to clang (>= 12.0.1), similar to tools/testing/selftests/bpf/Makefile.
-
-When building perf with GCC (CC_NO_CLANG=1), prefer bpf-gcc and fall
-back to clang if bpf-gcc is unavailable or too old. When building with
-Clang/LLVM (CC_NO_CLANG=0), prefer clang and fall back to bpf-gcc.
-Explicit command-line overrides via BPF_GCC=... or CLANG=... are
-respected, and setting BPF_GCC= or CLANG= to empty disables that
-compiler.
-
-In bpf_skel.mak, pass the bpf-gcc flags (-mcpu=v3, -fno-ident,
--DBPF_NO_PRESERVE_ACCESS_INDEX, -Wno-attributes,
--D__TARGET_ARCH_$(SRCARCH), and target endianness) and query system
-include paths from $(CC).
+Include tools/build/Makefile.feature in tools/perf/tests/make (using a
+temporary OUTPUT directory that is removed immediately after probing)
+and replace the open-coded new_libbfd and have_libllvm compiler
+invocations with the existing libbfd-threadsafe and llvm-perf feature
+checks.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/Makefile.config     | 83 +++++++++++++++++++++++++++-------
- tools/perf/Makefile.perf       |  8 +++-
- tools/perf/bpf_skel.mak        | 32 +++++++++----
- tools/scripts/Makefile.include |  1 +
- 4 files changed, 96 insertions(+), 28 deletions(-)
+ tools/perf/tests/make | 36 ++++++++++++++++++++++++------------
+ 1 file changed, 24 insertions(+), 12 deletions(-)
 
-diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
-index b4764f69f47f..456b6a06080c 100644
---- a/tools/perf/Makefile.config
-+++ b/tools/perf/Makefile.config
-@@ -666,27 +666,78 @@ ifeq ($(BUILD_BPF_SKEL),1)
-   else ifeq ($(filter -DHAVE_LIBOPENSSL_SUPPORT, $(CFLAGS)),)
-     $(warning Warning: Disabled BPF skeletons as libopenssl is required)
-     BUILD_BPF_SKEL := 0
--  else ifeq ($(call get-executable,$(CLANG)),)
--    $(warning Warning: Disabled BPF skeletons as clang ($(CLANG)) is missing)
--    BUILD_BPF_SKEL := 0
--  else
--    CLANG_VERSION := $(shell $(CLANG) --version | head -1 | sed 's/.*clang version \([[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+\).*/\1/g')
--    ifeq ($(call version-lt3,$(CLANG_VERSION),12.0.1),1)
--      $(warning Warning: Disabled BPF skeletons as reliable BTF generation needs at least $(CLANG) version 12.0.1)
--      BUILD_BPF_SKEL := 0
--    endif
-   endif
-   ifeq ($(BUILD_BPF_SKEL),1)
--    $(call feature_check,clang-bpf-co-re)
--    ifeq ($(feature-clang-bpf-co-re), 0)
--      $(warning Warning: Disabled BPF skeletons as clang is too old)
-+    # Prefer bpf-gcc when building with gcc (CC_NO_CLANG=1) and clang when
-+    # building with clang, unless CLANG or BPF_GCC was explicitly specified on
-+    # the command line. Fall back to whichever compiler is available.
-+    prefer_bpf_gcc := $(CC_NO_CLANG)
-+    ifeq ($(origin BPF_GCC),command line)
-+      ifneq ($(BPF_GCC),)
-+        prefer_bpf_gcc := 1
-+      endif
-+    else ifeq ($(origin CLANG),command line)
-+      ifneq ($(CLANG),)
-+        prefer_bpf_gcc := 0
-+      endif
-+    endif
+diff --git a/tools/perf/tests/make b/tools/perf/tests/make
+index 7524de522802..805d1074cfa8 100644
+--- a/tools/perf/tests/make
++++ b/tools/perf/tests/make
+@@ -127,19 +127,31 @@ make_minimal        +=3D NO_LIBBPF=3D1
+ make_minimal        +=3D NO_SDT=3D1 NO_JVMTI=3D1 NO_LIBZSTD=3D1
+ make_minimal        +=3D NO_CAPSTONE=3D1
+=20
++override FEATURE_OUTPUT :=3D $(shell mktemp -d)
++ifeq ($(FEATURE_OUTPUT),)
++$(error Failed to create temporary directory for feature checks)
++endif
++saved_OUTPUT_origin :=3D $(origin OUTPUT)
++saved_OUTPUT :=3D $(OUTPUT)
++override OUTPUT :=3D $(FEATURE_OUTPUT)/
++FEATURE_DISPLAY_DEFERRED :=3D 1
++FEATURE_TESTS :=3D
++include $(srctree)/tools/build/Makefile.feature
 +
-+    have_bpf_gcc := 0
-+    have_clang_bpf := 0
+ # binutils 2_42 and newer have bfd_thread_init()
+-new_libbfd :=3D $(shell echo '#include <bfd.h>' | $(CC) -E -x c - | grep b=
+fd_thread_init)
++$(call feature_check,libbfd-threadsafe)
+=20
+ # Whether libLLVM can be built, which needs the llvm-devel/llvm-dev header=
+s and
+-# libraries of version 13 or newer, not just llvm-config. This mirrors the
+-# llvm-perf feature test in tools/build/feature/test-llvm-perf.cpp so that
+-# libLLVM is only asserted below when the default compiler can really buil=
+d it.
++# libraries of version 13 or newer, not just llvm-config.
+ ifneq ($(call has,$(LLVM_CONFIG)),)
+-have_libllvm :=3D $(shell printf '#include <llvm/Support/ManagedStatic.h>\=
+n#include <llvm/Support/raw_ostream.h>\n#if LLVM_VERSION_MAJOR < 13\n#error=
+ "llvm-devel/llvm-dev version 13 or greater is required"\n#endif\nint main(=
+){llvm::errs()<<"";llvm::llvm_shutdown();return 0;}\n' | \
+-	$(CXX) -x c++ -std=3Dgnu++17 -I$(shell $(LLVM_CONFIG) --includedir 2>/dev=
+/null) - -o /dev/null \
+-		-L$(shell $(LLVM_CONFIG) --libdir 2>/dev/null) \
+-		$(shell $(LLVM_CONFIG) --libs Core BPF 2>/dev/null) \
+-		$(shell $(LLVM_CONFIG) --system-libs 2>/dev/null) >/dev/null 2>&1 && ech=
+o y)
++  $(call feature_check,llvm-perf)
++endif
 +
-+    define check_bpf_gcc
-+      ifneq ($$(call get-executable,$$(BPF_GCC)),)
-+        BPF_GCC_VERSION := $$(shell $$(BPF_GCC) -dumpfullversion 2>/dev/null)
-+        ifneq ($$(BPF_GCC_VERSION),)
-+          ifneq ($$(call version-lt3,$$(BPF_GCC_VERSION),14.0.0),1)
-+            have_bpf_gcc := 1
-+          endif
-+        endif
-+      endif
-+    endef
-+
-+    ifeq ($(prefer_bpf_gcc),1)
-+      $(eval $(check_bpf_gcc))
-+    endif
-+
-+    ifeq ($(have_bpf_gcc),0)
-+      ifneq ($(call get-executable,$(CLANG)),)
-+        CLANG_VERSION := $(shell $(CLANG) --version | head -1 | sed 's/.*clang version \([[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+\).*/\1/g')
-+        ifneq ($(call version-lt3,$(CLANG_VERSION),12.0.1),1)
-+          $(call feature_check,clang-bpf-co-re)
-+          ifneq ($(feature-clang-bpf-co-re), 0)
-+            have_clang_bpf := 1
-+          endif
-+        endif
-+      endif
-+    endif
-+
-+    ifeq ($(prefer_bpf_gcc)$(have_clang_bpf),00)
-+      $(eval $(check_bpf_gcc))
-+    endif
-+
-+    ifeq ($(have_bpf_gcc),1)
-+      $(call detected,CONFIG_PERF_BPF_SKEL_BPF_GCC)
-+      $(call detected,CONFIG_PERF_BPF_SKEL)
-+      CFLAGS += -DHAVE_BPF_SKEL
-+    else ifeq ($(have_clang_bpf),1)
-+      $(call detected,CONFIG_PERF_BPF_SKEL)
-+      CFLAGS += -DHAVE_BPF_SKEL
-+    else
-+      ifeq ($(call get-executable,$(CLANG))$(call get-executable,$(BPF_GCC)),)
-+        $(warning Warning: Disabled BPF skeletons as clang ($(CLANG)) and bpf-gcc ($(BPF_GCC)) are missing)
-+      else ifneq ($(call get-executable,$(CLANG)),)
-+        ifeq ($(call version-lt3,$(CLANG_VERSION),12.0.1),1)
-+          $(warning Warning: Disabled BPF skeletons as reliable BTF generation needs at least $(CLANG) version 12.0.1)
-+        else
-+          $(warning Warning: Disabled BPF skeletons as clang is too old)
-+        endif
-+      else
-+        $(warning Warning: Disabled BPF skeletons as bpf-gcc ($(BPF_GCC)) needs at least version 14.0.0)
-+      endif
-       BUILD_BPF_SKEL := 0
-     endif
-   endif
--  ifeq ($(BUILD_BPF_SKEL),1)
--    $(call detected,CONFIG_PERF_BPF_SKEL)
--    CFLAGS += -DHAVE_BPF_SKEL
--  endif
- endif
- 
- ifndef GEN_VMLINUX_H
-diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index b74b534e1153..bb80ff8f8a61 100644
---- a/tools/perf/Makefile.perf
-+++ b/tools/perf/Makefile.perf
-@@ -37,6 +37,9 @@ include ../scripts/utilities.mak
- # Define EXTRA_BPF_FLAGS="--sysroot=<path>" or other custom include paths for
- # cross-compiling BPF skeletons
- #
-+# Define BPF_GCC to point to the bpf-gcc binary if the default `bpf-gcc' is not
-+# correct, or set BPF_GCC= to disable using bpf-gcc for BPF skeletons.
-+#
- # Define EXCLUDE_EXTLIBS=-lmylib to exclude libmylib from the auto-generated
- # EXTLIBS.
- #
-@@ -208,6 +211,7 @@ FIND    = find
- INSTALL = install
- FLEX    ?= flex
- BISON   ?= bison
-+BPF_GCC ?= bpf-gcc
- AWK     = awk
- 
- # include Makefile.config by default and rule out
-@@ -321,8 +325,8 @@ ifneq ($(force_fixdep),1)
-   endif
- endif
- 
--export srctree OUTPUT RM CC CXX RUSTC CLANG LD AR CFLAGS CXXFLAGS RUST_FLAGS V BISON FLEX AWK LIBBPF READELF
--export HOSTCC HOSTLD HOSTAR HOSTCFLAGS SHELLCHECK MYPY PYLINT CONFIG_PERF_BPF_SKEL
-+export srctree OUTPUT RM CC CXX RUSTC CLANG BPF_GCC LD AR CFLAGS CXXFLAGS RUST_FLAGS V BISON FLEX AWK LIBBPF READELF
-+export HOSTCC HOSTLD HOSTAR HOSTCFLAGS SHELLCHECK MYPY PYLINT CONFIG_PERF_BPF_SKEL CONFIG_PERF_BPF_SKEL_BPF_GCC
- 
- include $(srctree)/tools/build/Makefile.include
- 
-diff --git a/tools/perf/bpf_skel.mak b/tools/perf/bpf_skel.mak
-index 60d104ec573d..7b7edf506509 100644
---- a/tools/perf/bpf_skel.mak
-+++ b/tools/perf/bpf_skel.mak
-@@ -27,18 +27,30 @@ $(shell $(1) $(2) -dM -E - </dev/null | grep '__loongarch_grlen ' | awk '{printf
- $(shell $(1) $(2) -dM -E - </dev/null | grep -E 'MIPS(EL|EB)|_MIPS_SZ(PTR|LONG) |_MIPS_SIM |_ABI(O32|N32|64) ' | awk '{printf("-D%s=%s ", $$2, $$3)}')
- endef
- 
--ifneq ($(CROSS_COMPILE),)
--CLANG_TARGET_ARCH = --target=$(notdir $(CROSS_COMPILE:%-=%))
-+ifeq ($(CONFIG_PERF_BPF_SKEL_BPF_GCC),y)
-+  BPF_CC := $(BPF_GCC)
-+  QUIET_BPF_CC = $(QUIET_BPF_GCC)
-+  IS_LITTLE_ENDIAN := $(shell $(CC) -dM -E - </dev/null | \
-+			grep 'define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__')
-+  BPF_OPTIONS = -Wall -mcpu=v3 -fno-ident -DBPF_NO_PRESERVE_ACCESS_INDEX -Wno-attributes \
-+		-D__TARGET_ARCH_$(SRCARCH) $(if $(IS_LITTLE_ENDIAN),-mlittle-endian,-mbig-endian)
-+  BPF_SYS_INCLUDES = $(call get_sys_includes,$(CC),)
++$(shell rm -rf -- "$(FEATURE_OUTPUT)")
++ifeq ($(saved_OUTPUT_origin),undefined)
++override undefine OUTPUT
 +else
-+  BPF_CC := $(CLANG)
-+  QUIET_BPF_CC = $(QUIET_CLANG)
-+  ifneq ($(CROSS_COMPILE),)
-+    CLANG_TARGET_ARCH = --target=$(notdir $(CROSS_COMPILE:%-=%))
-+  endif
-+  BPF_OPTIONS = -Wall -mcpu=v3 -fno-stack-protector --target=bpf -Wno-microsoft-anon-tag
-+  BPF_SYS_INCLUDES = $(call get_sys_includes,$(CLANG),$(CLANG_TARGET_ARCH))
++override OUTPUT :=3D $(saved_OUTPUT)
  endif
- 
--CLANG_OPTIONS = -Wall -mcpu=v3
--CLANG_SYS_INCLUDES = $(call get_sys_includes,$(CLANG),$(CLANG_TARGET_ARCH))
- LIBBPF_INCLUDE := $(abspath $(or $(OUTPUT),.))/libbpf/include
--BPF_INCLUDE := -I$(SKEL_TMP_OUT)/.. -I$(SKEL_TOOL_OUT) -I$(LIBBPF_INCLUDE) $(CLANG_SYS_INCLUDES)
-+BPF_INCLUDE := -I$(SKEL_TMP_OUT)/.. -I$(SKEL_TOOL_OUT) -I$(LIBBPF_INCLUDE) $(BPF_SYS_INCLUDES)
- TOOLS_UAPI_INCLUDE := -I$(srctree)/tools/include/uapi
- 
- ifneq ($(WERROR),0)
--  CLANG_OPTIONS += -Werror
-+  BPF_OPTIONS += -Werror
+=20
+ # $(run) contains all available tests
+@@ -155,7 +167,7 @@ MAKE_F :=3D $(MAKE) -f $(MK)
  endif
- 
- $(BPFTOOL):
-@@ -85,11 +97,11 @@ endif
- # Consolidated Pattern rule for $(dir)/bpf_skel/
- $(SKEL_TMP_OUT)/%.bpf.o: $(srctree)/tools/perf/$(dir)/bpf_skel/%.bpf.c $(LIBBPF) $(VMLINUX_H) $(OUTPUT)PERF-VERSION-FILE util/bpf_skel/perf_version.h
- 	$(call rule_mkdir)
--	$(QUIET_CLANG)
--	$(Q)$(CLANG) -g -O2 -fno-stack-protector --target=bpf \
--	  $(CLANG_OPTIONS) $(EXTRA_BPF_FLAGS) $(BPF_INCLUDE) $(TOOLS_UAPI_INCLUDE) \
-+	$(QUIET_BPF_CC)
-+	$(Q)$(BPF_CC) -g -O2 \
-+	  $(BPF_OPTIONS) $(EXTRA_BPF_FLAGS) $(BPF_INCLUDE) $(TOOLS_UAPI_INCLUDE) \
- 	  -include $(OUTPUT)PERF-VERSION-FILE -include util/bpf_skel/perf_version.h \
--	  -fms-extensions -Wno-microsoft-anon-tag \
-+	  -fms-extensions \
- 	  -c $< -o $@
- 
- $(SKEL_OUT)/%.skel.h: $(SKEL_TMP_OUT)/%.bpf.o $(BPFTOOL)
-diff --git a/tools/scripts/Makefile.include b/tools/scripts/Makefile.include
-index 378387f62960..9967210b2928 100644
---- a/tools/scripts/Makefile.include
-+++ b/tools/scripts/Makefile.include
-@@ -217,6 +217,7 @@ ifneq ($(silent),1)
- 	QUIET_CC       = @echo '  CC      '$@;
- 	QUIET_CC_FPIC  = @echo '  CC FPIC '$@;
- 	QUIET_CLANG    = @echo '  CLANG   '$@;
-+	QUIET_BPF_GCC  = @echo '  BPF_GCC '$@;
- 	QUIET_AR       = @echo '  AR      '$@;
- 	QUIET_LINK     = @echo '  LINK    '$@;
- 	QUIET_MKDIR    = @echo '  MKDIR   '$@;
--- 
+ run +=3D make_python_perf_so
+ run +=3D make_debug
+-ifneq ($(new_libbfd),)
++ifeq ($(feature-libbfd-threadsafe),1)
+ run +=3D make_nondistro
+ # Demangling with libbfd is only built when the C++ ABI's __cxa_demangle
+ # isn't available, so it needs a build of its own to be compiled at all.
+@@ -165,7 +177,7 @@ endif
+ # a C compiler and a C++ compiler that don't match.
+ ifneq ($(call has,clang),)
+ run +=3D make_clang
+-ifneq ($(new_libbfd),)
++ifeq ($(feature-libbfd-threadsafe),1)
+ run +=3D make_clang_nondistro
+ endif
+ endif
+@@ -306,7 +318,7 @@ test_make_libbpf_dynamic_O :=3D ldd $$TMP_O/perf | grep=
+ -q libbpf
+ # doesn't fail the build, it just quietly turns off everything that needs =
+a
+ # C++ compiler. Check a feature that does, otherwise these tests would pas=
+s
+ # while producing a perf with less in it than the default build has.
+-ifneq ($(have_libllvm),)
++ifeq ($(feature-llvm-perf),1)
+ test_make_clang               :=3D test -x $(PERF_O)/perf && $(PERF_O)/per=
+f check -q feature libLLVM
+ test_make_clang_O             :=3D test -x $$TMP_O/perf && $$TMP_O/perf ch=
+eck -q feature libLLVM
+ test_make_clang_nondistro     :=3D $(test_make_clang)
+--=20
 2.56.0.567.gdb80ae8cd5-goog
 
