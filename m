@@ -1,80 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.187.32
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504995;
-	b=A4epLXIdszZQaufTRc+7EGUa9S9WQ6tUXzwpD/4USXkTtI16sGfjJpucyKDqdAxxw8+O
-	 RwK4iJt5anoKj7fNgHa9QFrUQNhV4MhFXmThpo28MRwK/a7T5zUVdQ6c8RMIim0zAqs2F
-	 k0GSSC3Bc1QxEncQbb3jGaxkwJYa4FANTw8bZdE49Gdes17BBlF6Ll4njdep+XlSiFzSy
-	 rMzQLSBWYHgnQnngo3pIZr6y+wmst3fUxYBHjIrpNhgUjifroW0XsSV0kxTK3yaL61Ggx
-	 2URJCIXt2okPUzh3KhDPnIXTBTPObGdVVL8sD9rx5w52g8Zu9TaWB3UdFh+wmnqI9nQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504995;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=ikw2BYebt9ZKpsO8CDmhNDhYdn67npmb8kK0wkUU9w4=;
-	b=GLygaPKvEzsU74XTkQpgWMQuTRqMYXH9Yzo96ke+P605bPL+VzllaKcDGFACKvOm4i7X
-	 z8b66JGdFbLA8ohXjl3SPtA2KSKcrGv47ZDjQNINf/mxoN6T+teSWKbSCVJWjhrU9h6xK
-	 gU8qG5642njdqqsoYH9JLcyf4ydpF/JJpjIB5yNSyl9Yv9euC3AOQ+Ax9OvFJGzG2c+ZX
-	 /+zhLO1O/ao3mp2kazIUHFlDXfU6Nve8b3/wuYqB1EnWgrFaaElXEhYMQGl1S+O0wiBnr
-	 UFj+V2qhX6b/IzwMwRPBZRZtdQY7ysd41wfwtKTgRNY7JZge5m60tcjzTyySG7bZYAw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b="uoJ74BS/";
-	arc=none smtp.remote-ip=66.163.187.32
-Received: from sonic308-9.consmr.mail.ne1.yahoo.com (sonic308-9.consmr.mail.ne1.yahoo.com [66.163.187.32])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794505022;
+	b=azoW5TzW1mtLzv1b9qdEhJc/yxHoG4L9IMEU8eVpdyn5Schs8vYYdizLZjRTLEbCRaPX
+	 /1IcF/ZcXPIw/DehD4nkVRllFdwmFDfAHxAYoYINYwheaGdeUMz8rWFXMzt4+v6Gu5yJR
+	 +Dfy0hng4tE04ztpQsxLk3DF7LLUpb3sFB1ze9flT2QkjQXwcNSsJNZ4I4zrs7JiZGlXi
+	 dj6q7VyMd2ksesNs2T1ionimnF0oOJFf25WidJW6VVLyRUXoHyjRoA9E0Ei9q+1sw+Wix
+	 FOLVv0rokWFKgFdbWdWBkLRUAoltbi3Y5OzYtEnqSTzuNbyAdPaClms967umvxA180g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794505022;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Td11aykAIkoWJbDK6XSnW52piQ1ol/wYq6OssZb+k6w=;
+	b=AOWMGgi5sUl761cx0MdtvNZomkR4PNXGsLFx+XMPLbbUaM8JxDx+iqUd5fAYILkRXCLt
+	 ckakbCd28hRR9gqIK4JMfMlj4oDUL+KZfJjBymwf9PVwk5/sBBynhSZtHhdoWunufc5bj
+	 1KmUYknZDeS3urkiY1w6zQSxfts6Btns7M+5WYLpaUVV/HckDMT7/WBjQFE4qtsfWCRAw
+	 URYs1gJwkBnXXGCRM4OH3elmjQiZLkM29oe5D3bXhXm41IPNk4TDWvbIDQl+njh+cF2N+
+	 8pV/F+u8IOlbzf8fiQw3aDfFQ3f8Jbl9MoRj+DeWsVBOidt8bKe3dE/RVYN1otKDTpg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ARy3uNF+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.48
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013048.outbound.protection.outlook.com [40.107.159.48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82FD606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:36:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C82FD606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC964606A200;
+	Thu, 12 Nov 2026 17:37:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC964606A200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=uoJ74BS/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794504994; bh=ikw2BYebt9ZKpsO8CDmhNDhYdn67npmb8kK0wkUU9w4=; h=Date:Subject:From:To:References:In-Reply-To:Content-Type:From:Subject:Reply-To:Content-Type; b=uoJ74BS/m/g2yozRo5+mRJI6GWE5PmE/ipywpVkhO6DLtctEZG39MeNR7Lc2/UHSsexLg33PufCf8+HtbZ6+mc/ax9AMcEp7BBtto4n1hC+SAPZaOU1MV8NRZanxCac95NejEIMKktAKv+d2rZb7omp2Kkxh8GhkrEWRs851Gtcd/aRIDEU5pwOl3/m5gs7i8NIXV4v3gdpteI4MBw3MKtRNSMFiTIct7xoqMSJZFT8QLRy8RzP28MHLgMVbdpXbIGS14ADLdQNHUEnFW1Zh0oaX5TZmeOcxTx/t2Nk/Yyw2eRW1/IPA87QdVjNFvEn2iVk3ekxX85baQ1JQ0CvtlA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794504994; bh=rppyylaTQ+zkPFoMVoq+yhw0vVGqL5JnvofcjpyYKxq=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=GQaNCR6QaabPJLl4Lt94bnkHjJgQ5yz/jdzJx1O+seMhrhQYRz2zysPKnVOmoZAJj4gKVAyrHVdiowR93wgEZ9Tq977Hhnlkje/Mv6q/IoQjpzVGDXxfslY5XaagRmcc7RLtOkA/FG6+AIl6codeMIfPYcRey8O7lJQpnTX8de4pwTBmBvB5drxhovq8ntD+9LlB+tzlyORiNULWC/Jp3685uwB+4tl8yestLf+8IsEf0FmyrOFeKpHEU/4ZJW94otz/5T+G2T+vAIy/4jfjuA01fqbZrZ4z5VaThTvUX8RVEfWgtdt5yuSnNuL90sJs155adjl+HgHsJ0VO+lK6Lg==
-X-YMail-OSG: 9sDkl.kVM1k26AmrQmA6K89zZNtmoXmvcHY4NhzcA.NShhFFNfmUGV3DH6VSV18
- Pu8SCmjSqTLNOxO7MOjiptcMrN1Uni0sbpuhwKcM8qcFTGNmGtrReiiwg.fcjASfk1.OK38J75oK
- q5rmm2qJeusOsGUDTGHpP2IZ5wLerW8ys5UzSrthlpnffTruepKNd6bJ1.j2pNYYKX8g7viDI7vt
- MNjwel7NJPQR44QE8NqpHCdpo2sbZ5dvN5BwBI1zOwt0QRzlWnCrMiFuBEw_IzwyjTLpDmaBGT5P
- rT52Yqo9v8sEGn7y4FoXMc_PZW6.spOj9K.tkQsf_EqnbUg6UW8qlOGjL67w6akasfH4pdjequ5N
- izdXMBih1j2pd_39a0T19Y83r7iVpMb4S1RVwbZkIZMVabwBmoecLAySg4xj_LYeBLi9njgR72lF
- goKfCsw3KStFNpOqPD6EvCCPbwhg6Jqq7RxpwfL5azH0OY1eStXjc1WdEu_lf7U0xMv.Kito7LXH
- zrI7kQU6zmUAI5DWeHzp_ve9.egNa4_m9pDD9kYK67mqaeDco2.u6ztZFgoKwrOM2oYpguO8W7l4
- STPUPa_G5YPoyFbFbicZsqWh_vdF9SpGNNTSGkRqoKvEQL8BlB8Zm3t4nYZoznsZGWjqXpZotd5b
- _FghOYySvWthu639tOTIplhnwBmiw5XQz1uuZWfPq6_onqVQhvU_GW60.xrfQjjBRphi2tVDdWzD
- OeZvccQB0p8wNIeMtISd802pLmubBrenlSX.t8fKQ7fYQk7ndYliG0vwRMB.u5j3quVXV5.hNT1F
- hlv0D_Sy4AM7.0xw_TmpPoE6K8fP52xyEVXPAmQUj7fAaWZxNfWrFkAOJiIGlmimMy8hYXfjEj2J
- ADMdaXeu2Ct3X9VX0rrdfofu3jz5ru7C0JYPq5djzinUwy85AP6jJa9xBZhn58Y6qaD2.VGCjfD_
- 1uFDlZE8NrT6rjDcaDMe87PyU1NesywwO4GoHdDUqv9lrJQ5b0CxST1PRnR86sDsSvUMYlpFSUNV
- GYQDPtmHhWEneaBi1LrI02KRmKJJY1QZC9T30L62kARtw1zL72MYsAHkfK7NAbT94xZ9TstB4kly
- aN3g9j9ufmIb0.0luR4qMCG3CtOAciOZCBATe8RT38S7eIzEwusXVQJ0jCR7Cv0OyMrTHU6QTtbK
- 8SL63yse3QHI8mvf_Dm4lIfS1q84qTCKRfrl4WIS85KBE8yIHz3F1ZIPNRHdHJ9FHE47FThMsTkR
- Jzi9L0s7NCiQ12yG__ZEsRlKBpDX6uR_GYXey9tGsMTg4cS8bxKMj2eEy0y_aC95TvWeEOqnT81X
- J7G5d7GpjCqkDn1GE70xRbPP0srSasscZOo5kWxWcVYGm_Gg5hHLyT5f0TNKUj4xNHkfHvdSxOZ6
- eWHNAAxH5ugg9_u4ttP56NaixRIGyRKq_H8e6U0UGUPJnl_.6w2lwDf02tlL3JELvfHtKuzq26p5
- fcSVBUooOVM8.q6fLeT3ImWMAKg5YJov2_wg.djPwuDQC8TYYAG_kBck8fSBAj1ehnmKFSWS7Mns
- kI8LmDyyR6LRw01CwKFia0CisAI9ZAHudGclu4LtYckj1OaYhb0Iuy4MbslchcSIqonDGEaQ3Vlu
- 1fwHVPYSD8toaBFu8bzm6OmW_F8uZ_QxX3QyF3dkw9eYEwNhi3Lzx1U4WEqvMeDUfl3Eoovywel3
- d7kDzMczOWu_3_PCd19mrV3AjnxUtN_W8JDnoL0ARrLl848whrvoWjudIpv6HgoMb2_YC_W_IQbW
- QtTSJvMhArjY3IxInYpLZBYQWx67sGmrJs.Im.ZGusnfqQPJjgI65c2lkQTSZChw.htaKH43ryKq
- F1j7kWiKoWNTuXbE5uyd2rTNeTP59XCei._PLlAqyQqjBfxP400vsI9RxgpdAqdeTnk4I4.BKuxq
- ohlqMVKxb_.js2l3PxrcTcotIp2WDlQsV0s5bEQNHBpvwILbQeTdXyxGGxP.r0.O7EdYNU9hmILO
- xTv75OOUm21VwW_1i8k9w93g4z0l6.Dix1wlwSBplkhih0SgkTIs6usWYnPjQwRR1wOvCBqz9Er7
- cLabw8ie11u283KMs4LiMgOG38a_drCPgbgyQCqMiklilSOTQJyx.5X1bPr.ZqcAxuK9Y4uPDT1c
- mQlzFhpJ88Spad5cDsEDLSaqusQ8QODX2XdkpNGThwsJzx4Jm613pvTd2cyC_cnpQ26tlGyDlMr3
- VkR8FWwC9meYV97AmicOagZsgQA0_5uLWGsjPe1pBx8oq90iaEyGGsI.MiiFefjtUEVbKnaBFXbN
- 3cbOh7wepBUCh1.dmBNZSKM9uh_QJv4uOecNL2N6zqp3t0Yw-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 50adf8b0-aeef-4f03-93c7-84d8e154c627
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic308.consmr.mail.ne1.yahoo.com with HTTP; Thu, 12 Nov 2026 17:36:34 +0000
-Received: by hermes--production-ir2-5dd9bf4598-p4sz7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID f1b62bc055b37b782de662dc280a9a32;
-          Thu, 12 Nov 2026 17:36:27 +0000 (UTC)
-Message-ID: <c76ba49c-a962-4838-b8d5-75c5b3bcdc2b@yahoo.com>
-Date: Thu, 12 Nov 2026 18:36:25 +0100
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ARy3uNF+
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w8WoHKh6mSN7XwAz6ylSV0awECWreGRCclQ+iLqMACpX/mWbMRDDLZfY8uTitbC6di931zxSwmC02dJO8zOKioWnAapEU3LJlI0LGrZYKLRvImK6DdgZU2fnDpW6IR7nq99Pd08sosQf9NSGq08CEVYcdgDd0M5ChVlBYVsxP6FhgsPvj7pbsMQt7zj5OZif5K/VXJSBmVUs3XdIpHIe0NdE29EnrqCVhDYypK6lRP5P46i9i7pKR9V4OsdXHKjjyrcqCJxz0wPUQcFlNnKNlqtFDW6gDUYTLWvr3lSgjbjTOnmvxmq8Ldi2f/U6o8qVoq6TotLh3DiQ2gW2zh8o+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Td11aykAIkoWJbDK6XSnW52piQ1ol/wYq6OssZb+k6w=;
+ b=TlOQVjyBSTCacAu+d1ucDQe1slts8do/9INrWCJfP/dXuoRCIrEWnRjh+ePgVA5J+hrfeyqLfGcRU0Kf7USCnctM4RATdfiCzXOIx9xDEnE0mbMjuQDg57bITQTeZAYu9sNwy3A7NV2L5+AFd9CF+tbX9u7J4YnE8SU8HyDEHv5slow6VLJzsI2ELtRuXGtOpPyyRIhgw7g13tqNWa0gKIdxlKJpTEru7U/vZgmU2oDf7LMeKNCKI5xbqswQ//iRECZrxGIkmglWzhZ1Hu1/X47KZWw5Bedca5HjQYADo08Qkj6TdargScYdiOKa+gio9zWiW02scMCQEm0GMHIu2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Td11aykAIkoWJbDK6XSnW52piQ1ol/wYq6OssZb+k6w=;
+ b=ARy3uNF+SWW+DRSkmWmNlmG7oNm8Zb9/d9SV3m1w3HJDpjFCF11DnL+MsiFtjwCV6IChhohpLRm6+b4MP3lXDSMLRKsnMFulNBQpZYrJNiGSXYqaY8CuoFMYfjJQ4np3npp3HsXF1bi/7MdhAo0uNIhUMkCzwcTUwKJMxLQQewTt3A/ukPGHkvrIGBp0Kbq8rQrW8k/hRZv9440pskrnikzxhgV21iWDxm65qOiPvqx+ddNXuKmxvV/o3HPAPRIrd4z+qkUI1kZ43hFYxbUuGBUCXn42/wvydQKKjKbzc5c/x0cbCVUwwy0TA+uASBmAvvLk+GxRuhaWFZ/tzBxD/w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by MIWPR04MB558776.eurprd04.prod.outlook.com (2603:10a6:290:e8::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 17:36:58 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
+ 17:36:58 +0000
+Date: Thu, 12 Nov 2026 11:36:49 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Lukasz Majewski <lukma@nabladev.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: freescale: Add device tree definition
+ for Cloos CBASE with i.MX8MM
+Message-ID: <avX5MUUBTFN2RkNz@SMW015318>
+References: <20261112163703.3358164-1-lukma@nabladev.com>
+ <20261112163703.3358164-3-lukma@nabladev.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112163703.3358164-3-lukma@nabladev.com>
+X-ClientProxiedBy: DU2PR04CA0188.eurprd04.prod.outlook.com
+ (2603:10a6:10:28d::13) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,170 +105,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v10 06/12] net: dsa: realtek: rtl8365mb: refactor
- VLAN 4k handling
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- alvin.sipraga@analog.com, gusfmora@gmail.com, kuncy7@gmail.com,
- fabianotassotti@gmail.com, gabonpivovich@gmail.com, contact@c127.dev
-References: <d9da17af-f49e-4878-a8dd-59a8919e6930@yahoo.com>
-Content-Language: pl
-In-Reply-To: <d9da17af-f49e-4878-a8dd-59a8919e6930@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MIWPR04MB558776:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7ad410e-1f4a-44f7-f559-08df40e38d71
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|19092799006|23010399003|376014|7416014|18002099003|22082099003|4143699003|10067099003|11063799006|261026121527099003|56012099006|261022113327099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	oabJ7LVLTRFaNeW1bUsEsaMhAvT2QVv/63Mq/OMS8+lM18cK7Ng2Hg6B3Ey0JFGISPUdWFkaa1S7WJJRirY0Dq7Iu3ubysNu7XObnO0nH4jvY5yIoLmyazAya6j1OAbt+BXlq+oHeKvnQJPY6yCQfC3m2z8guQtu1zCXTH5agtjlB5Tv6APLqA56kqDYZR5HQNheUyeGG9c6hOTbkOJy7JU8D/KEoYpDdZ3SSdA4aVCo8ScDSh2lbVd0xvrvqU9bHUMlP6QFnLfYWtSpcOD4N+c/X38L+fBS4Ax2uhRLHhx45JD48jc2qt2bC2c9dAqGHlHsZ958dXGZlIAa7L3j+oz4W6wVCB8Ws3PkDluItb+NzwdsmheNV7Ny9YRDcJBzB7MjGCPcnVEPCqmP+31q/8OvEDMd+Escs1JkirNnshkSPYikEIRtLQ8gcrqMd+mx7iku972xwmtm1PmioZdtAF38oNX4aM4qdjIEyEoGhzVX8oUMnDkdjIpG+xQVW6agnljrfzjSnvrdEVY8nLIKeVFwtAISu89bHkEyztHwUtw8yDE0x0tRDElOCW5g1KQlVWBtBGkLDVa19Tf1y8nqgbLnwYVyf8IxFDrzqjCvFrowAwUdZU4h2xz4uNAXT8GAvrrLY1su0E5cKmEx+fLnzzdOuf6k2Hj4SpY2bku1Bso=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(23010399003)(376014)(7416014)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006)(261026121527099003)(56012099006)(261022113327099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?f7jaP8mGoI21pTUe7J45vqwaBYLVTKVra6J3JnHzU/bYuieYJf5onINo8K5F?=
+ =?us-ascii?Q?ujrLCIjKe+Yli/EDKxbNUIwR3sE1PrhURkI4JO8BDOtz1AET+sJz5kwzIXMF?=
+ =?us-ascii?Q?1WW2QIZatvdjPxlah3u1QTUitxmNoUKEoD85t5t2Lt9FpGmK1hTV2tSfB95j?=
+ =?us-ascii?Q?HPrzgRX82FJymC1a/2sOhI/EwrqnHgwBcw2LmL+AeK+xVVwBzYNURjRZX591?=
+ =?us-ascii?Q?Mqb3URC02Tj+Q5MO5ElYa54RvYFU1BhR/9nLirI01+HHv8QWiob8NEj1U495?=
+ =?us-ascii?Q?FXDcLDyKaDyhfZqlGPLS/98+ZZtjEi4prwZQDELCFNyT4vH5V/HztqiaQYnh?=
+ =?us-ascii?Q?pSLi+ihMXoLpTr/kGp8i7NQ8/z8BN1TuLYGLDi8X209mTdJtWPNuRa4T/eIW?=
+ =?us-ascii?Q?NQX+ZllvdngZvINzBPwy4v2b8OHh4YwIuJm70UgpA3Wf5SZyiLd6VJNKS0I/?=
+ =?us-ascii?Q?8i4au8lKAKIKRlrtYOTFDTIsu6mPS5MTaZiQUOWWuRLZVOxipc78vlFGX3Jg?=
+ =?us-ascii?Q?tV/3VFpwvlMMDq0W9pXtpL66efldqnJpmNvDKxTHM5sVgZyo/sIWxbNY2iuh?=
+ =?us-ascii?Q?MxAl8unik3E2Xm0Nff35TKGTBxx4781TnAj/aNsi/gdBPNd9c/w6YZ2dlZP6?=
+ =?us-ascii?Q?cTBtzckuK4tbQb+bcVaR9zKVk4qMrb6uvcRi9+PolpHgUiXrNR94kRmcNaNC?=
+ =?us-ascii?Q?ttxTJZiqSF2p0QxaW5nO2oSo9ABLK/Xi2dzdNQ2hGSj1Ti+SlFDb34aReP3I?=
+ =?us-ascii?Q?/Rc/0nB3OVvcEL3KHdzVn0rh9Z6R5WQUn/G7qBGD4ohrhUep1DA6h9LYace7?=
+ =?us-ascii?Q?7LOau2F3hUpRpDWRKETsZoi9Polw/2l74RodspJRaPkeI+O79tm/eKaSannb?=
+ =?us-ascii?Q?Bgfg6UylLu36ukg8bLD5bkm+wp2zcmklHILnQ6aAkVx6M2e2QA0d5JLECivF?=
+ =?us-ascii?Q?pjmdStsSJFJxGfL6XO7fMd5g5GFmuZzE4ZovBg4NgNEuf2IlZatkCdDy/Wjd?=
+ =?us-ascii?Q?NEMT1+k6u9WfTG6s7HvvHctaCV4V5g/h/Lj9gn+Gmo71WdVstkwefMpxjhus?=
+ =?us-ascii?Q?tgadWqdaitIJxUBtRTF4jRiYqjFdoiOGZ35pibQJ06Nno1KS7P38fWegv4x2?=
+ =?us-ascii?Q?F+1MUKZ8sAiACH+y1EFR9fK09/B3/QycPJ1iWTozZIaYGbojDseXxv/bXbCx?=
+ =?us-ascii?Q?CT0Z8LpzgsDg6xiJOjgeJNuSG/yMCo4ew6eu0yclavEEreHEVzJiLoZPVzy7?=
+ =?us-ascii?Q?MHEImXjTToK7bWJQY4jCPZKPFpYs4DNLNea28LiClPoXlTBp+1X7QFdDuAl/?=
+ =?us-ascii?Q?gto8lS3z0RRgTUD/HoAuJaekVshvJCnTMf+Q3KZ0xwaBx+WGCwFhTWUb7PI8?=
+ =?us-ascii?Q?FyUqRnd991nRq4/SNOt/Qa1RfrjpjLleMgdaTEdqG1TJf6qWjstIOhjoL7fj?=
+ =?us-ascii?Q?9OX8t9lDbTl4ZpuMxivAPh70LPSmayBxlY1vDFkwGR6/wJ44o3d8c96lpasA?=
+ =?us-ascii?Q?rof2OwtXVHCCOmsey1DrjpuSegJJnmqQ0TY/3iU7cBqRthEum1XA5h0Px+i8?=
+ =?us-ascii?Q?KEAzO/cjBGPj0UIHYCQc+oaAfUHnHyr3kUBGzAaVefmX+UJKTO+ykmrvFXtT?=
+ =?us-ascii?Q?feaP6z8B2KLo8Wy+WWq+DAOlDAbLE0c3DLPsowwkPeeCRCG0ub7JAJfbph4l?=
+ =?us-ascii?Q?KwdkYfJzo68b7+fF2M7No+hUtbsgPHjEN8vGpiqa7GHNQm3st42WkHG7rDN6?=
+ =?us-ascii?Q?HJN212D8k3sS0c/dLHHeJIcJFZ9LeS0fNwbNvDDCMoMpSt+/LzcH?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7ad410e-1f4a-44f7-f559-08df40e38d71
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 17:36:58.6800
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AsaXWp0FB/u2O+QxmRRO8OJ4etTBXOsid9rXks9GMiNQFvJLTd5pefbE1bCcsXYQYYXr1L5WbRvf5Y4Idq5/5fac58Uv4Eu4MlnCXcdX3anjK4dLI7N4JCSlTuGvppug
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MIWPR04MB558776
 
-Move the family-specific VLAN 4k table accessors behind struct
-rtl8365mb_family_info, so that family D can provide its own versions
-without is_d() checks in the shared code. The existing code becomes the
-family C implementation and is otherwise unchanged: rename the
-functions to rtl8365mb_c_vlan_4k_read() and rtl8365mb_c_vlan_4k_write(),
-export them and call them through the family info.
+On Thu, Nov 12, 2026 at 05:37:03PM +0100, Lukasz Majewski wrote:
 
-No functional change.
+subject:
+	arm64: dts: imx8mm: Add Cloos CBASE support
+>
+> This commit adds support for CBASE board, which incorporates the TQMa8MQML
+> module.
 
-Tested-by: Gustavo Foletto Mora <gusfmora@gmail.com>
-Tested-by: Stanislaw Pal <kuncy7@gmail.com>
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
----
- drivers/net/dsa/realtek/rtl8365mb.h      |  5 +++++
- drivers/net/dsa/realtek/rtl8365mb_main.c |  2 ++
- drivers/net/dsa/realtek/rtl8365mb_vlan.c | 21 ++++++++++++---------
- drivers/net/dsa/realtek/rtl8365mb_vlan.h |  7 +++++++
- 4 files changed, 26 insertions(+), 9 deletions(-)
+Don't use word "this commit",
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb.h b/drivers/net/dsa/realtek/rtl8365mb.h
-index 3d607bd..d3d5fb3 100644
---- a/drivers/net/dsa/realtek/rtl8365mb.h
-+++ b/drivers/net/dsa/realtek/rtl8365mb.h
-@@ -10,6 +10,7 @@ enum rtl8365mb_family {
- };
- 
- struct rtl8365mb_jam_tbl_entry;
-+struct rtl8365mb_vlan4k;
- 
- struct rtl8365mb_family_info {
- 	enum rtl8365mb_family family;
-@@ -19,6 +20,10 @@ struct rtl8365mb_family_info {
- 	int (*ext_config_forcemode)(struct realtek_priv *priv, int port,
- 				    bool link, int speed, int duplex,
- 				    bool tx_pause, bool rx_pause);
-+	int (*vlan_4k_read)(struct realtek_priv *priv, u16 vid,
-+			    struct rtl8365mb_vlan4k *vlan4k);
-+	int (*vlan_4k_write)(struct realtek_priv *priv,
-+			     const struct rtl8365mb_vlan4k *vlan4k);
- };
- 
- const struct rtl8365mb_family_info *
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index bdc29d0..611e58c 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -757,6 +757,8 @@ static const struct rtl8365mb_family_info rtl8365mb_family_c = {
- 	.jam_table = rtl8365mb_init_jam_8365mb_vc,
- 	.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
- 	.ext_config_forcemode = rtl8365mb_c_ext_config_forcemode,
-+	.vlan_4k_read = rtl8365mb_c_vlan_4k_read,
-+	.vlan_4k_write = rtl8365mb_c_vlan_4k_write,
- };
- 
- /**
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-index 8d49ffa..566c6bc 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-@@ -48,12 +48,13 @@
- 
- #include "rtl8365mb_vlan.h"
- #include "rtl8365mb_table.h"
-+#include "rtl8365mb.h"
- #include <linux/if_bridge.h>
- #include <linux/lockdep.h>
- #include <linux/regmap.h>
- 
- /* CVLAN (i.e. VLAN4k) table entry layout, u16[3] */
--#define RTL8365MB_CVLAN_ENTRY_SIZE			3 /* 48-bits */
-+#define RTL8365MB_C_CVLAN_ENTRY_SIZE			3 /* 48-bits */
- #define RTL8365MB_CVLAN_ENTRY_D0_MBR_MASK		GENMASK(7, 0)
- #define   RTL8365MB_CVLAN_MBR_LO_MASK			GENMASK(7, 0)
- #define RTL8365MB_CVLAN_ENTRY_D0_UNTAG_MASK		GENMASK(15, 8)
-@@ -182,10 +183,10 @@ struct rtl8365mb_vlanmc {
- 	u8 meteridx : 6;
- };
- 
--static int rtl8365mb_vlan_4k_read(struct realtek_priv *priv, u16 vid,
--				  struct rtl8365mb_vlan4k *vlan4k)
-+int rtl8365mb_c_vlan_4k_read(struct realtek_priv *priv, u16 vid,
-+			     struct rtl8365mb_vlan4k *vlan4k)
- {
--	u16 data[RTL8365MB_CVLAN_ENTRY_SIZE];
-+	u16 data[RTL8365MB_C_CVLAN_ENTRY_SIZE];
- 	int val;
- 	int ret;
- 
-@@ -230,10 +231,10 @@ static int rtl8365mb_vlan_4k_read(struct realtek_priv *priv, u16 vid,
- 	return 0;
- }
- 
--static int rtl8365mb_vlan_4k_write(struct realtek_priv *priv,
--				   const struct rtl8365mb_vlan4k *vlan4k)
-+int rtl8365mb_c_vlan_4k_write(struct realtek_priv *priv,
-+			      const struct rtl8365mb_vlan4k *vlan4k)
- {
--	u16 data[RTL8365MB_CVLAN_ENTRY_SIZE] = { 0 };
-+	u16 data[RTL8365MB_C_CVLAN_ENTRY_SIZE] = { 0 };
- 	u16 vid;
- 	int val;
- 
-@@ -282,6 +283,7 @@ rtl8365mb_vlan_4k_port_set(struct dsa_switch *ds, int port,
- 			   struct netlink_ext_ack *extack,
- 			   bool include)
- {
-+	const struct rtl8365mb_family_info *fi;
- 	struct realtek_priv *priv = ds->priv;
- 	struct rtl8365mb_vlan4k vlan4k = {0};
- 	int ret;
-@@ -296,7 +298,8 @@ rtl8365mb_vlan_4k_port_set(struct dsa_switch *ds, int port,
- 		return -EINVAL;
- 	}
- 
--	ret = rtl8365mb_vlan_4k_read(priv, vlan->vid, &vlan4k);
-+	fi = rtl8365mb_get_family_info(priv);
-+	ret = fi->vlan_4k_read(priv, vlan->vid, &vlan4k);
- 	if (ret) {
- 		dev_err(priv->dev, "Failed to read VLAN 4k table\n");
- 		return ret;
-@@ -313,7 +316,7 @@ rtl8365mb_vlan_4k_port_set(struct dsa_switch *ds, int port,
- 		vlan4k.untag &= ~BIT(port);
- 	vlan4k.ivl_en = true; /* always use Independent VLAN Learning */
- 
--	ret = rtl8365mb_vlan_4k_write(priv, &vlan4k);
-+	ret = fi->vlan_4k_write(priv, &vlan4k);
- 	if (ret) {
- 		dev_err(priv->dev, "Failed to write VLAN 4k table\n");
- 		return ret;
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.h b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
-index 27a526b..009b127 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_vlan.h
-+++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
-@@ -18,6 +18,13 @@ enum rtl8365mb_frame_ingress {
- 	RTL8365MB_FRAME_TYPE_UNTAGGED_ONLY,
- };
- 
-+struct rtl8365mb_vlan4k;
-+
-+int rtl8365mb_c_vlan_4k_read(struct realtek_priv *priv, u16 vid,
-+			     struct rtl8365mb_vlan4k *vlan4k);
-+int rtl8365mb_c_vlan_4k_write(struct realtek_priv *priv,
-+			      const struct rtl8365mb_vlan4k *vlan4k);
-+
- int rtl8365mb_vlan_port_get_pvid(struct realtek_priv *priv, int port,
- 				 u16 *pvid);
- int
--- 
-2.53.0
+just
 
+Add support for CBASE board ...
+
+>
+> Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
+> ---
+
+...
+
+> +
+> +                               port@9 {
+> +                                       reg = <9>;
+> +                                       label = "lan-sfp1";
+> +                                       phy-mode = "sgmii";
+> +                                       sfp = <&sfp_top>;
+> +                                       managed = "in-band-status";
+> +                               };
+> +
+> +                               port@a {
+> +                                       reg = <10>;
+
+use hex value to match port@a
+
+Frank
