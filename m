@@ -1,80 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493169;
-	b=G+mr50qeI5islKtD9GjoWba53wZ2/chbRYobAcrAC8xhhNscTNDhioqe/wuhEOnFM9UR
-	 FhY/JiHldxWkK9vY4Ofsbb/r+V/XdPNCO25ZAAWuVnii/Kr24omVU09E+KclJ3yxqGj/V
-	 0WKBKD87LO+WFe7FZ9BnWbfQcPIqetEZIaFTedFeBlNelYrKh7+Ik5KVECIHBFzRZZppc
-	 QyJKwcccgfqc1Dq90qUugdRigOpkU96dNvNH+t8/HHfIEE/8MW6SHtLyP/fLQz8Zvafit
-	 /NL81zAiBkoJdX8C6cZhIx/D6MPQEn2dbZog0eCRt9t+/i3aYtDD4AMT3qR2okNmFwA==
+	t=1794493164;
+	b=DNVP6ROkqb1l4uGhIXNd99UNDJvxrX277bpCYDAqePHP6Y4adr2CBVvcUNj+CoV5WijD
+	 IAaBM3HiEOphWyLZuLlxIPorStecy4U4r2Yi4tCjbFz4KjvHn2FZ2kLI9ga/izhhVcbaZ
+	 z1EgbZTuLsQoyZ7g2xHoXoWuYpGF3oYFhwRhOojlgWhvx/y/JeY8Gat9wYaeFmA2oXM0d
+	 74pj1VsndthVw7YV+F9zRJ2Cp/yKe02EtZQoCG+HELOKuXh6ofyDm7tj0qkWVVluYZGdg
+	 kcBdnvtQ2YLlpF2nKPZkvCJQc2PQalhVZXPP2lpvOwJj2e9CMqJBEgmEIiCNnyO7tlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493169;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Qrab5ZFjFMYytZiJyGN3w/QXHi/fU6bhjvwr0O2dHGw=;
-	b=Itrip7Qln5uSo0VWZPsXhsbHSe1SK4VBUcQ03uVeMAt1rLSeSkzc09vSlS/C9xOx6PKa
-	 m4QHpMG/QU7MC+NFT2igsC+5JftPPcrtI8mVw6Uqnsj2OkOnQel3oYnN47jsejyHgrUgB
-	 8g2THaRwDLrtSrvX81tiK1NOtDMflzNwV02fnUslvWozi2R3qozNMG2LitJqBn3kUXLTy
-	 PKXMXSxR5nwQVS1MdH4SjjZuZc0hPXbmSB1JKjtBU+WIKcO06IlxXQTMQ7UZqx2udW6pE
-	 Abqj3k+Lpf5hYo9hlnhsO8/lWSD6aGuN0Couy58kJnrWRBLHU4wlThuzSpcbIiNl4zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493164;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=pnCp5Ux0GmDJfIuw584yh8GGWEqd7YbOTNLion6nYJM=;
+	b=a8scACp/OjUjJVMpl3HP+3x66VksIc2vjpxN/gB2ZKrzMudZWDxqvkT6MyVCznJE17Q1
+	 hnYOmHRK9Bq+zrC+Px3+GXxcwmD2u5L1EVb5IOckgaRQg5efTrRCZcwRxVexx60Tgsc14
+	 qcQYngbmSx20fHTlRwRIFHjWScmzHGPm7lqEiJAeFjxyJaXbGgzQCDWZg2R1Y/xVh9JIM
+	 2QPaGP6Mrq9DWL06DXSAS8pLS9GZnG3pTY9C+CL3jfGgqsU2tYEo2LmuWX2za5cM70Xxi
+	 qM2eHFUq66rtYFMkKcmvyMOPx1wj9Fup7g953L+WFyb4Z5N7HkapSvThEb/WbAil9Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vb6kv3uC;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pmawl4IX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BCCC6071143;
-	Thu, 12 Nov 2026 14:19:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BCCC6071143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57A6606AE02;
+	Thu, 12 Nov 2026 14:19:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vb6kv3uC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794493169; x=1826029169;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=By5QVjAwVUI1AeWsBe/qA6d0stQBpsl90fAMtId96As=;
-  b=Vb6kv3uC7mUzZI2rKKZLlEhjHdCLbfuvhoFfr3ZRyqr/CKMz6oN2iDZh
-   zuZ+KNh28V8HlFZI8iE5mYRNaj+/C/RXHJq7UKGmJdLaFr8fekbzfZnIS
-   xQNiTVicWePxxG6hsRfvxbbkXaNwqt7T/XEjKc9ieiTQZd5oOLF6T0MIH
-   fFNcuxc+293baWVLhIL+Cph/OTf4MNVTo2CKsICUsfSVxvKVCc5m3EAFp
-   4N+/x0sAksLZL9VVfOFxX0CAFJe5rFKLebPb1NQxN9yo8CRmKNZQIuVL4
-   5a/o6MecvfYogrKFnt+iwcK8Wq1KlOuPn9bg1RmBJ8Ugq0fXb2VRatPYt
-   w==;
-X-CSE-ConnectionGUID: CqhbW+cqRrKh28g43tpjzA==
-X-CSE-MsgGUID: r+LtvyPoSpib9mRjMsEdmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3377848"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3377848"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 06:19:29 -0800
-X-CSE-ConnectionGUID: Qe45rsQ7Q1WEaMghipPW3A==
-X-CSE-MsgGUID: vCCqcE7kS/uNbUUXfP2A5g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="8668793"
-Received: from yungchua-desk.itwn.intel.com ([10.227.8.136])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 06:19:28 -0800
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: linux-sound@vger.kernel.org,
-	vkoul@kernel.org
-Cc: vinod.koul@linaro.org,
-	linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.dev,
-	peter.ujfalusi@linux.intel.com,
-	bard.liao@intel.com
-Subject: [PATCH v3 4/5] soundwire: Include the current stream when preparing again
-Date: Thu, 12 Nov 2026 22:19:04 +0800
-Message-ID: <20261112141905.1372770-5-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112141905.1372770-1-yung-chuan.liao@linux.intel.com>
-References: <20261112141905.1372770-1-yung-chuan.liao@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pmawl4IX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B3F1F00A05;
+	Thu, 12 Nov 2026 14:19:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794493164;
+	bh=pnCp5Ux0GmDJfIuw584yh8GGWEqd7YbOTNLion6nYJM=;
+	h=Date:From:To:Cc:Subject;
+	b=Pmawl4IXvD46kT3nXUm4DQuk7jnYsH97i5h7Uj6VJpfRi8GsSik6xGrYu6Bmk9a1C
+	 ncPyvbnl7A2fVEKqH2OWDVyQ+lnVDagAj8c6q7dakbzuhlsJO5DWxukleySO7eVIQY
+	 C2l2eeskTBNucC7+PdJxQKo9127jx/zl9U9WtN1bIoDBmct146ZFkEcMye8S1+Cp1W
+	 qlyalpQO4RLWwl/5qLlYTcxM1xLYdB1O8bfJ2EUIkH/xlGE6dK1yeVt/olgA2s+dZN
+	 61R7QvnraDJ9GyFS5U4+btHBf347F4sEjD0llTqdNBYHDoiNPlQjn+JN5jetQEwgYi
+	 hcq6+q8qPt/rw==
+Date: Thu, 12 Nov 2026 14:19:19 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
+	Networking <netdev@vger.kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the bpf-next tree with the origin tree
+Message-ID: <avXK527T4yDydgya@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,144 +61,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QRzQixSA9p0gQ/D0"
+Content-Disposition: inline
 
-sdw_prepare_stream() accepts a stream in the DEPREPARED state without
-changing its state before parameter computation. However, the generic
-allocator excludes DEPREPARED streams from rate groups and port
-computation, and only includes a CONFIGURED current stream in group
-payload calculations.
 
-Consequently, preparing an existing stream again can reserve bandwidth
-without computing the corresponding transport parameters. The filters
-need to distinguish preparing that stream again from depreparing it.
+--QRzQixSA9p0gQ/D0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Pass the prepare context through the group and port helpers. Include
-the current stream during prepare even when it is still DEPREPARED,
-while preserving the filtering of all other runtimes and the behavior
-during deprepare. This supports preparing again without temporarily
-changing stream state.
+Hi all,
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- .../soundwire/generic_bandwidth_allocation.c  | 36 ++++++++++++-------
- 1 file changed, 24 insertions(+), 12 deletions(-)
+Today's linux-next merge of the bpf-next tree got a conflict in:
 
-diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
-index e8e68dbe180b..9bacde2c67a1 100644
---- a/drivers/soundwire/generic_bandwidth_allocation.c
-+++ b/drivers/soundwire/generic_bandwidth_allocation.c
-@@ -188,7 +188,8 @@ static void sdw_compute_master_ports(struct sdw_master_runtime *m_rt,
- }
- 
- static void _sdw_compute_port_params(struct sdw_bus *bus,
--				     struct sdw_group_params *params, int count)
-+				     struct sdw_group_params *params, int count,
-+				     struct sdw_stream_runtime *stream, bool prepare)
- {
- 	struct sdw_master_runtime *m_rt;
- 	int port_bo, i, l;
-@@ -209,9 +210,12 @@ static void _sdw_compute_port_params(struct sdw_bus *bus,
- 				/*
- 				 * Only runtimes with CONFIGURED, PREPARED, ENABLED, and DISABLED
- 				 * states should be included in the bandwidth calculation.
-+				 * Include the current stream during prepare even if it is
-+				 * still in the DEPREPARED state.
- 				 */
--				if (m_rt->stream->state > SDW_STREAM_DISABLED ||
--				    m_rt->stream->state < SDW_STREAM_CONFIGURED)
-+				if (!(prepare && m_rt->stream == stream) &&
-+				    (m_rt->stream->state > SDW_STREAM_DISABLED ||
-+				     m_rt->stream->state < SDW_STREAM_CONFIGURED))
- 					continue;
- 				sdw_compute_master_ports(m_rt, &params[i], &port_bo, hstop);
- 			}
-@@ -224,7 +228,7 @@ static void _sdw_compute_port_params(struct sdw_bus *bus,
- static int sdw_compute_group_params(struct sdw_bus *bus,
- 				    struct sdw_stream_runtime *stream,
- 				    struct sdw_group_params *params,
--				    struct sdw_group *group)
-+				    struct sdw_group *group, bool prepare)
- {
- 	struct sdw_master_runtime *m_rt;
- 	struct sdw_port_runtime *p_rt;
-@@ -242,7 +246,7 @@ static int sdw_compute_group_params(struct sdw_bus *bus,
- 	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
- 		if (m_rt->stream == stream) {
- 			/* Only runtime during prepare should be added */
--			if (stream->state != SDW_STREAM_CONFIGURED)
-+			if (!prepare)
- 				continue;
- 		} else {
- 			/*
-@@ -331,7 +335,8 @@ static int sdw_add_element_group_count(struct sdw_group *group,
- }
- 
- static int sdw_get_group_count(struct sdw_bus *bus,
--			       struct sdw_group *group)
-+			       struct sdw_group *group,
-+			       struct sdw_stream_runtime *stream, bool prepare)
- {
- 	struct sdw_master_runtime *m_rt;
- 	struct sdw_port_runtime *p_rt;
-@@ -352,7 +357,12 @@ static int sdw_get_group_count(struct sdw_bus *bus,
- 	}
- 
- 	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
--		if (m_rt->stream->state == SDW_STREAM_DEPREPARED)
-+		/*
-+		 * Include the current stream during prepare even if it is still
-+		 * in the DEPREPARED state.
-+		 */
-+		if (!(prepare && m_rt->stream == stream) &&
-+		    m_rt->stream->state == SDW_STREAM_DEPREPARED)
- 			continue;
- 
- 		rate = m_rt->stream->params.rate;
-@@ -383,14 +393,16 @@ static int sdw_get_group_count(struct sdw_bus *bus,
-  *
-  * @bus: SDW Bus instance
-  * @stream: Soundwire stream
-+ * @prepare: True when preparing, false when depreparing
-  */
--static int sdw_compute_port_params(struct sdw_bus *bus, struct sdw_stream_runtime *stream)
-+static int sdw_compute_port_params(struct sdw_bus *bus, struct sdw_stream_runtime *stream,
-+				   bool prepare)
- {
- 	struct sdw_group_params *params = NULL;
- 	struct sdw_group group;
- 	int ret;
- 
--	ret = sdw_get_group_count(bus, &group);
-+	ret = sdw_get_group_count(bus, &group, stream, prepare);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -404,11 +416,11 @@ static int sdw_compute_port_params(struct sdw_bus *bus, struct sdw_stream_runtim
- 	}
- 
- 	/* Compute transport parameters for grouped streams */
--	ret = sdw_compute_group_params(bus, stream, params, &group);
-+	ret = sdw_compute_group_params(bus, stream, params, &group, prepare);
- 	if (ret < 0)
- 		goto free_params;
- 
--	_sdw_compute_port_params(bus, params, group.count);
-+	_sdw_compute_port_params(bus, params, group.count, stream, prepare);
- 
- free_params:
- 	kfree(params);
-@@ -686,7 +698,7 @@ int sdw_compute_params(struct sdw_bus *bus, struct sdw_stream_runtime *stream,
- 	}
- 
- 	/* Compute transport and port params */
--	ret = sdw_compute_port_params(bus, stream);
-+	ret = sdw_compute_port_params(bus, stream, prepare);
- 	if (ret < 0) {
- 		dev_err(bus->dev, "Compute transport params failed: %d\n", ret);
- 		return ret;
--- 
-2.43.0
+  kernel/bpf/scev.c
 
+between commit:
+
+  0af298e62e5cf ("treewide: refresh kmalloc_obj() conversions")
+
+=66rom the origin tree and commits:
+
+  e2f3d29e88d08 ("bpf: Refine registers linked by scalar evolution at condi=
+tional jumps")
+  aba76dc75e35f ("bpf: Construct scalar evolution expressions without alloc=
+ations")
+  cfef7bfa2c2a1 ("bpf: Give SSA names to the values that scalar evolution d=
+oes not track")
+
+=66rom the bpf-next tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc kernel/bpf/cfg.c
+index 1b04538351a1f,bbcf42eae9d92..0000000000000
+--- a/kernel/bpf/cfg.c
++++ b/kernel/bpf/cfg.c
+diff --cc kernel/bpf/scev.c
+index db123ef1f0718,b413998d9cf93..0000000000000
+--- a/kernel/bpf/scev.c
++++ b/kernel/bpf/scev.c
+@@@ -1260,23 -2430,13 +2430,13 @@@ static int compute_scev_for_loop(struc
+  	u32 r;
+ =20
+  	if (log_level2)
+- 		bpf_log(&env->log, "Computing SCEV for loop at %d:\n", cur_header);
++ 		bpf_log(&env->log, "Computing SCEV for %s at %d:\n",
++ 			cur_loop ? "loop" : "subprog", first);
+ =20
+- 	/*
+- 	 * For irreducible loops, and for loops nesting a loop with a truncated
+- 	 * exit list, just assume that everything is clobbered for now.
+- 	 */
+- 	if (!can_compute_loop_scev(cur_loop)) {
+- 		header_env =3D get_loop_env(scev, cur_header, cur_header);
+- 		if (!header_env)
+- 			return -ENOMEM;
+- 		/* The freshly allocated environment has all expressions unknown. */
+- 		bitmap_fill(cur_loop->store_base_regs, REGS_NUM);
+- 		header_env->empty =3D false;
++ 	if (!cur_loop && !can_compute_subprog_scev(env, sub))
+  		return 0;
+- 	}
+ =20
+ -	cur_env =3D kzalloc(sizeof(*cur_env), GFP_KERNEL_ACCOUNT);
+ +	cur_env =3D kzalloc_obj(*cur_env, GFP_KERNEL_ACCOUNT);
+  	if (!cur_env)
+  		goto nomem;
+  	if (log_level2) {
+@@@ -1724,25 -3142,27 +3142,29 @@@ void bpf_free_scev(struct bpf_verifier_
+  int bpf_init_scev(struct bpf_verifier_env *env)
+  {
+  	struct scev *scev;
++ 	u32 r;
+ =20
+ -	scev =3D kzalloc(sizeof(struct scev), GFP_KERNEL_ACCOUNT);
+ +	scev =3D kzalloc_obj(struct scev, GFP_KERNEL_ACCOUNT);
+  	if (!scev)
+  		return -ENOMEM;
+  	env->scev =3D scev;
+  	bpf_mark_reg_known_scalar(&scev->zero_reg, 0);
+- 	bpf_mark_reg_unknown_imprecise(&scev->unknown_reg);
+- 	/* A power of two for hash & (exprs_ht_cnt - 1)` indexing. */
+- 	scev->exprs_ht_cnt =3D roundup_pow_of_two(max(256U, DIV_ROUND_UP(env->pr=
+og->len, 4)));
+- 	scev->exprs_ht =3D kvzalloc_objs(*scev->exprs_ht, scev->exprs_ht_cnt,
+- 				       GFP_KERNEL_ACCOUNT);
+- 	if (!scev->exprs_ht)
+- 		goto nomem;
+- 	if (expr0(scev, UNKNOWN) < 0 || expr0(scev, OPAQUE)  < 0)
++ 	bpf_mark_reg_unknown(&scev->unknown_reg);
++ 	setup_initial_loop_env(&scev->identity_env);
++ 	if (grow_exprs(scev, roundup_pow_of_two(REG_EXPR_ID(REGS_NUM))))
+  		goto nomem;
++ 	scev->exprs[UNKNOWN_EXPR_ID] =3D (struct expr){ .op =3D UNKNOWN };
++ 	scev->exprs[OPAQUE_EXPR_ID] =3D (struct expr){ .op =3D OPAQUE };
++ 	for (r =3D 0; r < REGS_NUM; r++)
++ 		scev->exprs[REG_EXPR_ID(r)] =3D (struct expr){ .op =3D REG, .is_vn =3D =
+true,
++ 							     .params =3D { r, 0 } };
++ 	for (r =3D 0; r < REG_EXPR_ID(REGS_NUM); r++)
++ 		set_expr_base(scev, &scev->exprs[r], r);
++ 	scev->exprs_cnt =3D REG_EXPR_ID(REGS_NUM);
+ -	scev->envs =3D kvcalloc(env->prog->len, sizeof(*scev->envs), GFP_KERNEL_=
+ACCOUNT);
+ -	scev->discovered =3D kvcalloc(env->prog->len, sizeof(*scev->discovered),=
+ GFP_KERNEL_ACCOUNT);
+ +	scev->envs =3D kvzalloc_objs(*scev->envs, env->prog->len,
+ +				   GFP_KERNEL_ACCOUNT);
+ +	scev->discovered =3D kvzalloc_objs(*scev->discovered, env->prog->len,
+ +					 GFP_KERNEL_ACCOUNT);
+  	if (!scev->envs || !scev->discovered)
+  		goto nomem;
+  	/*
+
+--QRzQixSA9p0gQ/D0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr1yucACgkQJNaLcl1U
+h9Cszwf/QQGXNv+K8uQHamz2z0m++d+2ZMVpeQltNLm/SwHnDwLCmFBs+ksb+Evz
+zKotMgOIYBwQKGpACEjS2jderRG68rNVeM56t3lXMwAXeh7noaIDCFHW0CdtvMa/
+lqzDgckxEGTIKUMNz3ez3QIrv2Y1QsKl0B2j1ok2HEoHk2Db7mrrTkfb3tR5LdAM
+f2qzkU+b7BKHGtxfSYQ76dwzbUUxvdxT3JJxMuVZpiaxEAX/vUDBD122urvPJ31s
+4Lq1jV57NYMRwzhuqcpzkviyjyOFprtUst+LiH5JmJczizGAPLdgYrNj4jMdujgy
+zjJW+HjA1wi3yyxoCBegw8paZrv6ig==
+=CBu9
+-----END PGP SIGNATURE-----
+
+--QRzQixSA9p0gQ/D0--
