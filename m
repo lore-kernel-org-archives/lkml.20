@@ -1,60 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489208;
-	b=GZyRMhLND4wcxcZixGKqW8Wj0Fmei8Qb4KvYi8f+nCxq59lRFokxi4foo5Ftz4HmJ7Z5
-	 OFQxYJ1JZ8ZIjfqt/ZsIdEO9WdHtzxmjKld7CwxXq7OvV8VeZ6NM24XwrdtedmRSLiTfZ
-	 lDWfjYoInXg1+ih1KdaBxmtNLPMMlri9t/IZpHOVJY9ifYV6kEfDXpHm0gMPdzBOrtC6G
-	 cCa16O0Kk4SCUHNZXozjJ70H518AO+jep3mMCk/xK8sw5r6ivGqJErCe2tB6C/rkme9ug
-	 s4DaOgiguZozUlhlcILj/0VyU68Es7lMJjG45323eUN3SifJaXVOcEzCvkOuH0K06EA==
+	t=1794489204;
+	b=YTZm1SR3JkcDTfF6gbw25IrY2jXOcJ1dm+pEY7vXFGejKiRkQysaGqXYtilMYRBuNfxl
+	 NYgnJ+bGOnSB0kVrP3C1fJwRTYFBUrmU9STQ/5nFFDo/F6PiY+ZIAh2rhg7i9rz6RlsRK
+	 jXlDtrh0iNk5cY/V23G+i/WX+J79BKobUlKEvSGZ9Hb1VGd9SArHhhNTONAWR4DpL3hco
+	 d7SqvVVwqoOTH95go049vAzqUj2a23ntq62AaUrlmBJZF616gZ8UQwBEHkuNOlFMOp55T
+	 J2a/U0HGXupEqnmv+fAN0co/TJJMhae3MvQiI3BDsiHfQ9UGo19u3+IlYJnDYui2e4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489208;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ZpApkbKU3ZsoiNAhhHCoEVKj92IniiefWTc2Opb/MLM=;
-	b=aSTTRtDXJBu88PNprKuahjGYCvHJQrQk2fKzRKBQ7mJqGSvldfR2Crih4Wedj1h6CmJd
-	 B/DxkkFZuNTcsa37+mTkLZ6J9WAIqXBHMRvLlntlJSHjbgKgZmEcXdqUdkMxZvqcBL0qt
-	 9Zk5nruBkAJ7UtKfX1StFLRGdoGfzIs+Z+O7y5ZITi9hK6YktdSngtO8TeVzhsWvW0kvp
-	 jVgJcSY+6bx7FM3NOMHi6PVZxgkyWuzef32cYQTbpQ9MeLyIh8beAKKoG9KCiYxPSzMbh
-	 fzK5VQydFXX+RWv2iV3haRyaR1uEbHrObYPM7PtUggNDbKxj93cMkU7xrg0boQ+uwyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489204;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=hFS8yRfxQ5OZUtkjC4uzd9WD96DZbQ+krAj2khYgeG8=;
+	b=lqzEnd9YrqNxa7wsZVykgKzv6YkrjrKz+ttToRjYR04W2VK0gezHknOWqMUx6kGA/2Ii
+	 swzMlN/tmyZnHg81pTMzDRT8einUKUNYHq31Oft9Zcm+W1DNmPjc6emwPNxatnYS8hulX
+	 TfhIlTXK3eNCgPs8i6de6LX0XEq5CwXOJgLIcTEt8qVTwPnutvOYF1kC2yGV7sIcBoR0T
+	 +KlCjQl5uJ4dMJd5vQ1ClHP0U0r4lshh61TOwoQPDIyZ43mf04kEWgKBjCK8VQ/MeWQ0v
+	 i9lX79odMQUpSHDNAL+6kLMUz4No7io4/eVFcwc6lvq4JXrvJ9gQ/kBHbkecv6oFbRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=F16yliEH;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B52760A3817;
-	Thu, 12 Nov 2026 13:13:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B52760A3817
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k2rEr47l;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B252360A2610;
+	Thu, 12 Nov 2026 13:13:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B252360A2610
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=F16yliEH
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8040B1477;
-	Thu, 12 Nov 2026 05:13:23 -0800 (PST)
-Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.130.226])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id AFA0D3F632;
-	Thu, 12 Nov 2026 05:13:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794489206; bh=gDhpRG9HzbH++N3Ou09SmMvoccXoz4cwWE2+zjP2HBY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=F16yliEH5xITYol5rABPSRESDTPGuk2y21iC1BGKDHgF+SFZ63xsCtpiOsd7ShvQf
-	 fjMWVWye8QCD5O3RIzV0iTIV0pUI4FAyaR2dy2S1FcAHMFrONLNE8JtN6B/hh0dlYM
-	 A+PiNEDDkcCMsWfbNsBwYEKebsQJtZkqZkLToU3Q=
-From: Christian Loehle <christian.loehle@arm.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sumit.gupta@nvidia.com,
-	zhanjie9@hisilicon.com,
-	superm1@kernel.org,
-	zhangpengjie2@huawei.com,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH] ACPI: CPPC: Scale EPP values to the register width
-Date: Thu, 12 Nov 2026 13:13:16 +0000
-Message-Id: <20261112131316.827708-1-christian.loehle@arm.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k2rEr47l
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=hFS8yRfxQ5OZUtkjC4uzd9WD96DZbQ+krAj2khYgeG8=;
+	b=k2rEr47lZ+yX0EcB1+iTV1UnbdloEkv9yMsupDOd3MOLwnL7zV5rLYzMSaY8jSogwybKzQBoY
+	XQfXg6cxmJ2SMcG7IAIG+ZJwovPKaG4Msy6y+pPhG0/AXpiSoksOPZyt3YOB9YtCKtd5CurMPIc
+	gdEs1o/NuK/suohR8r0M5Dk=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jQLQr0JQdzpT13;
+	Thu, 12 Nov 2026 21:12:36 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8E97340579;
+	Thu, 12 Nov 2026 21:13:15 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
+ 2026 21:13:14 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <corbet@lwn.net>,
+	<skhan@linuxfoundation.org>, <rdunlap@infradead.org>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <ben.horgan@arm.com>, <fenghuay@nvidia.com>,
+	<tan.shaopeng@fujitsu.com>, <quic_jiles@quicinc.com>, <x86@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [RFC PATCH v2 6/9] fs/resctrl: Reject mba_MBps when the maximum is only a soft limit
+Date: Thu, 12 Nov 2026 21:12:51 +0800
+Message-ID: <20261112131255.4043381-7-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261112131255.4043381-1-ruanjinjie@huawei.com>
+References: <20261112131255.4043381-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,154 +77,78 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-The EPP sysfs interface uses 0-255, but ACPI permits 4-8 bit fields.
-Writing 128 to a 4- or 6-bit SystemMemory field currently succeeds but
-stores zero, selecting maximum performance.
+The controller lowers the maximum bandwidth control when the measured
+bandwidth exceeds the target, and relies on the hardware enforcing
+that maximum. A hard limit does not service requests above the
+maximum; a soft limit services them when no other request is waiting,
+so a group without competing traffic keeps exceeding the target and
+the controller never converges.
 
-Scale writes to supported narrow EPP registers and normalize reads to
-0-255. Cover both EPP setters and cppc_get_perf() so saved firmware values
-round-trip correctly.
+Add resctrl_membw::max_is_soft_limit for architectures whose maximum
+control implements only the soft limit, and refuse to mount with
+mba_MBps when it is set. Architectures that leave the flag clear are
+unchanged.
 
-Fixes: 922607a2b462 ("cpufreq: CPPC: Add support for autonomous selection")
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- .../ABI/testing/sysfs-devices-system-cpu      |  5 ++
- drivers/acpi/cppc_acpi.c                      | 46 +++++++++++++++++--
- 2 files changed, 47 insertions(+), 4 deletions(-)
+ fs/resctrl/rdtgroup.c   | 5 ++++-
+ include/linux/resctrl.h | 2 ++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
-index d219fc27a0c9..c63b5cfd993c 100644
---- a/Documentation/ABI/testing/sysfs-devices-system-cpu
-+++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
-@@ -322,6 +322,11 @@ Description:	Energy performance preference
- 		performance increase/decrease and the result of the hardware's
- 		energy efficiency and performance optimization policies.
- 
-+		For supported EPP registers narrower than eight bits, values are
-+		scaled and rounded to the nearest hardware preference.
-+		Reads use the same 0-255 scale and may differ from the requested
-+		value due to the reduced precision.
-+
- 		Writing to this file only has meaning when Autonomous Selection is
- 		enabled.
- 
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 11a9f9eb6b4a..10b52163eb56 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -38,6 +38,7 @@
- #include <linux/iopoll.h>
- #include <linux/ktime.h>
- #include <linux/list.h>
-+#include <linux/math64.h>
- #include <linux/mutex.h>
- #include <linux/rbtree.h>
- #include <linux/rwsem.h>
-@@ -2841,6 +2842,25 @@ int cppc_get_highest_perf(int cpunum, u64 *highest_perf)
- }
- EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
- 
-+/* Keep the EPP interface on an 8-bit scale, including firmware readback. */
-+static u64 cppc_scale_epp(const struct cpc_register_resource *reg,
-+			  u64 epp, bool to_reg)
-+{
-+	unsigned int width = reg->cpc_entry.reg.bit_width;
-+	u32 max;
-+
-+	if (reg->type != ACPI_TYPE_BUFFER || width < 4 || width >= 8)
-+		return epp;
-+
-+	max = BIT(width) - 1;
-+	if (to_reg)
-+		return DIV_ROUND_CLOSEST_ULL(epp * max,
-+					     CPPC_EPP_ENERGY_EFFICIENCY_PREF);
-+
-+	return DIV_ROUND_CLOSEST_ULL(epp * CPPC_EPP_ENERGY_EFFICIENCY_PREF,
-+				     max);
-+}
-+
- /**
-  * cppc_get_epp_perf - Get the epp register value.
-  * @cpunum: CPU from which to get epp preference value.
-@@ -2850,7 +2870,15 @@ EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 518d89b0c67d..9f10b6ceff8a 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -2613,6 +2613,8 @@ static void mba_sc_domain_destroy(struct rdt_resource *r,
+  * The controller needs a counter for its event in every monitoring group.
+  * With assignable counters that requires a fixed assignment mode, with
+  * counters assigned automatically while the controller is in use.
++ *
++ * The maximum control must also be a hard limit, see max_is_soft_limit.
   */
- int cppc_get_epp_perf(int cpunum, u64 *epp_perf)
+ static bool supports_mba_mbps(void)
  {
--	return cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
-+	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
-+	int ret;
-+
-+	ret = cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
-+	if (!ret)
-+		*epp_perf = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
-+					   *epp_perf, false);
-+
-+	return ret;
+@@ -2622,6 +2624,7 @@ static bool supports_mba_mbps(void)
+ 	return (resctrl_is_mbm_enabled() &&
+ 		r->alloc_capable && is_mba_linear() &&
+ 		r->ctrl_scope == rmbm->mon_scope &&
++		!r->membw.max_is_soft_limit &&
+ 		(!rmbm->mon.mbm_cntr_assignable ||
+ 		 rmbm->mon.mbm_cntr_assign_fixed));
  }
- EXPORT_SYMBOL_GPL(cppc_get_epp_perf);
- 
-@@ -3150,6 +3178,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
- 	bool auto_sel_non_pcc;
- 	bool epp_pcc;
- 	bool epp_non_pcc;
-+	u64 epp;
- 	int ret;
- 
- 	if (!cpc_desc) {
-@@ -3159,6 +3188,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
- 
- 	auto_sel_reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
- 	epp_set_reg = &cpc_desc->cpc_regs[ENERGY_PERF];
-+	epp = cppc_scale_epp(epp_set_reg, perf_ctrls->energy_perf, true);
- 	if (!enable && auto_sel_reg->type == ACPI_TYPE_INTEGER &&
- 	    auto_sel_reg->cpc_entry.int_value == 1)
- 		return -EOPNOTSUPP;
-@@ -3177,7 +3207,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
- 			return ret;
- 	}
- 	if (epp_non_pcc) {
--		ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
-+		ret = cpc_write(cpu, epp_set_reg, epp);
- 		if (ret)
- 			return ret;
- 	}
-@@ -3205,7 +3235,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
- 		}
- 
- 		if (epp_pcc) {
--			ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
-+			ret = cpc_write(cpu, epp_set_reg, epp);
- 			if (ret)
- 				goto out_unlock;
- 		}
-@@ -3235,9 +3265,17 @@ EXPORT_SYMBOL_GPL(cppc_set_epp_perf);
-  */
- int cppc_set_epp(int cpu, u64 epp_val)
- {
-+	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
-+
- 	if (epp_val > CPPC_EPP_ENERGY_EFFICIENCY_PREF)
- 		return -EINVAL;
- 
-+	if (!cpc_desc)
-+		return -ENODEV;
-+
-+	epp_val = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
-+				 epp_val, true);
-+
- 	return cppc_set_reg_val(cpu, ENERGY_PERF, epp_val);
- }
- EXPORT_SYMBOL_GPL(cppc_set_epp);
-@@ -3496,7 +3534,7 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
- 		if (ret)
- 			goto out_err;
- 	}
--	perf_ctrls->energy_perf = energy_perf;
-+	perf_ctrls->energy_perf = cppc_scale_epp(energy_perf_reg, energy_perf, false);
- 
- 	if (CPC_SUPPORTED(auto_sel_reg)) {
- 		ret = cpc_read(cpu, auto_sel_reg, &auto_sel);
+@@ -3370,7 +3373,7 @@ static int rdt_parse_param(struct fs_context *fc, struct fs_parameter *param)
+ 		ctx->enable_cdpl2 = true;
+ 		return 0;
+ 	case Opt_mba_mbps:
+-		msg = "mba_MBps requires MBM and linear scale MBA at L3 scope";
++		msg = "mba_MBps requires MBM, linear scale MBA at L3 scope and an enforced maximum";
+ 		if (!supports_mba_mbps())
+ 			return invalfc(fc, msg);
+ 		ctx->enable_mba_mbps = true;
+diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+index 10dfdca7f4bf..933bab2b8289 100644
+--- a/include/linux/resctrl.h
++++ b/include/linux/resctrl.h
+@@ -250,6 +250,7 @@ enum membw_throttle_mode {
+  * @bw_gran:		Granularity at which the memory bandwidth is allocated
+  * @delay_linear:	True if memory B/W delay is in linear scale
+  * @arch_needs_linear:	True if we can't configure non-linear resources
++ * @max_is_soft_limit:	True if maximum control only marks traffic as low priority
+  * @throttle_mode:	Bandwidth throttling mode when threads request
+  *			different memory bandwidths
+  * @mba_sc:		True if MBA software controller(mba_sc) is enabled
+@@ -261,6 +262,7 @@ struct resctrl_membw {
+ 	u32				bw_gran;
+ 	u32				delay_linear;
+ 	bool				arch_needs_linear;
++	bool				max_is_soft_limit;
+ 	enum membw_throttle_mode	throttle_mode;
+ 	bool				mba_sc;
+ 	u32				*mb_map;
 -- 
 2.34.1
 
