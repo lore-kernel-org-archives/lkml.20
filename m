@@ -1,47 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472357;
-	b=yK7i7Jwl8a3S/g6IRZ/WsYzSZve5sd0u93g7Uh1UxbW6uDX/CYPvjZtp811yP//MorIn
-	 vVU/H7wyfPKlzrWmqPnJcCtW+slwQEvbpnjLyjWvuQJ627tJLAzrHbYy9ZKClG8ltg3cx
-	 VSzS51cxP0RnJtMeeSQ2vK4shs3RZYHdpWiYbREhz+sGdLcbIKah5Plm+xLlqnhDZp89e
-	 m8Aw25rCt9OaOiGrm3cUqHh8eNLcTnKYJVjKO13PcJULk1/dZK6L0LnPbpXs+sSKT8eq3
-	 ewsb2euDP4uFd1EknGxjkaek4yiSppyJba3QEzkdPAaOqgf5mFv66+4zPU64qD7+SGw==
+	t=1794472363;
+	b=uWzCcDTH/5uo8PUt13YFUIfDMjU38LaeKko0jY2c66lBJyqZXWQnJ6PiCEWG/Na2WKQf
+	 bFQrF1LZBrsgLgFser70hJO5Ig7crsH3+va3XInF2TbnToG3Gztls6syA125xuF9yCJIu
+	 TOWcrP1VaBSbpyY458T/2IjAi7pbU1jgsHiw83porQ/PfAGyNCYA10SWIUBBpBrL/1JrN
+	 XxjANACX809HfF4ZiVnMQYKXGGSDvW8PpBPx9/8W0rnVi4QDDJ1h7b0tgckigvz14TRpX
+	 8KHHuRe/B/pvga+V6Vyo77isE1ZpVEadywlgk9z+J3hMd121fdIPIr2p7roXTJU3Otg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472357;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ufWZis3EGqkdSN4VSNsZPHtwom5XkDipXVyVOPQcZLM=;
-	b=lcMeBirAYTmR15kDJZ0TZTPVjYDe7b8necInp36oZsM1vjldmpAyzj8JvyBU5H25XBKT
-	 2nkCKfEbHmyJPT8GugrxXqK5Nqw0KUrm8Z1kQmNfsIVrbutxJYgT+HZlh7S2MGCvQcTVa
-	 88hkSjUueqwh4Xdzs18og6mSSjiQAiPmECjhHzoofc6YzxY4t+eTgW2yJQBoBjcsBFuQU
-	 6ZJ5MNzJBanZb+43cm3dncQ/dJCim5hbpazEYv63C50SmlFIf7/70eq9EG/CaGLd2Nhpj
-	 HYm+6EGsiajdvmKC40Gjpq4Qm7IDkdXlEAb4z5/bttrg7tVxkDnHYXjWD3kQ16r4vYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472363;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=PaAkSJGfWdT/hF3hWrkH4vMfAFvDljyPIoDVUO8O8Zk=;
+	b=FiOT7yq7sWKUs0ibvRXwlV/2kkxb8LvmKlVmRjMD7rx/fXQAgVq4kHnJum0WSNDdd2cp
+	 PhCm5X78KIV9M4R7zE0srpexs2WrSf0yydLB1IhOYg71ojlrfU+MaG9gSqqz20P4Ay702
+	 ZMmyxB3fYaaFSTEjUzT0R1sUzOj7FOTGtQsTH8ZQHzm3hkLxyBSRZ/TTt4+OJP2cJ3VeV
+	 +E1/t246/srhFRodo/q3st0UhxEgVrJpV+aAtHIN2ezJvMYl2pdK9XW3vOfmstuXzl5iG
+	 Ou1APA3WBOv0oy+hsnPXlfNR0SCd3pYf2mgBSl7arxlo4PqMEtHTE+Y/CoENBQ155Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fr1Wwv/B";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bkFP41DP;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EakHInJP;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0F460A3809;
-	Thu, 12 Nov 2026 08:32:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D92960A262D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:32:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D92960A262D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fr1Wwv/B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 355B61F00A05;
-	Thu, 12 Nov 2026 08:32:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794472356;
-	bh=ufWZis3EGqkdSN4VSNsZPHtwom5XkDipXVyVOPQcZLM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fr1Wwv/BrXzj64byfXP+wi/q7J8Ic+yvuVCa7DL01i5CP9FiwrJP0C0kIMzIsd5kG
-	 bg0Y2dhVW/msaXhNH6nGRtql7prJ6Taz9/A8ZnGNPAe7ZPEO47cA9BLgd99Kc/Y49M
-	 iHsrQo4gQWYLkMuCMU/O5oINvGG96EWnkGxw42KFw8t4MELXgTG/yvIVPccYBKpq+4
-	 8YFJucjcj3LzLyQyUht1aI1GUsc0tWWET/PVTY72LbZHnoP/xHEragG25uo3HBBzKs
-	 1rIN36widjK1U9+MzLLwsSepSWPR4DuUP0Tj3vDDi4EoRNoT/kRt1fRWoQiRUPvCNe
-	 OOxejcXQaaXvg==
-Message-ID: <3c6fd46a-8666-408d-8866-f2bb1f293c05@kernel.org>
-Date: Thu, 12 Nov 2026 09:32:29 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bkFP41DP;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EakHInJP
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC7oV1F2818494
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:32:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PaAkSJGfWdT/hF3hWrkH4vMfAFvDljyPIoDVUO8O8Zk=; b=bkFP41DPNYORvX8l
+	I3mZfwAus+PnqnAXrsyupnmUkRgiADAd7Raw71PorxdVe9e4y7D0I2oebXnH4egL
+	mlQYDe5QW5PIxeN0fLXAm7sCgu3fWLAKOuihF1So/i2G/HYysIJX36olIkqyo7tI
+	F5eFNRytTzUORzyHpV9PeJ7bDwyr1WGQROseOmg6dOlaukB2YdPEePH8U9X37Qfz
+	lTevuYH7iqke6V0pkNAf6EwzuaOqLDut3OGAumgSIAJKACb8c/7ZUVA9xGXS/xhS
+	Dk09/ZxzKyfdfeM70JWMTb+/4sFOx9NXImrHbO61BnEhASxZDP/9YvMiWpgQ8lr3
+	j0xAIA==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw9e18579-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:32:41 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc7361c62b9so2681561a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:32:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794472361; x=1795077161; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PaAkSJGfWdT/hF3hWrkH4vMfAFvDljyPIoDVUO8O8Zk=;
+        b=EakHInJPVbBuk1L69zizPa34jZ4RytVGjrRWKKCs23h+uCtAmgwvCvOgSJbXz8f88z
+         VqZgxSiISdNzxib+0QXtbDq2wqscd6E3bOpdZTBEhh7Y5FZ1Xv+Y7ML9Uh57lrLXAaD9
+         kP6dTxozNqoEXSP9dSOceq8S6X6xQ0MURmloyYl4695yAJiT2ioCT+C1T9uubUeF86r4
+         jn2c2r+k4OWUmuMgOCORFMuwi9gSw7h8MZQis2PYQcQk6SEp0+fjU2RxUuTWGcsIrAjf
+         o4tSkcRe01tvYKpXBBcJZ+XRR0oi9OLbitRvzSWs6zTCXgEbru1Zy0zQVPn6hM00Pare
+         uTIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794472361; x=1795077161;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PaAkSJGfWdT/hF3hWrkH4vMfAFvDljyPIoDVUO8O8Zk=;
+        b=JUxBkiCAc5yFcoehttTgqp2CM4B6nClNius0Ex0iNVr5HDDdfqzLA2lzv8B3wvxWYs
+         rQwO6mBqn4lXtvwpnx+3LrWWxDlxoWpgUaVVmB6at0bBbuUUHMKTMcvA4JXtl8nfYUWG
+         BjTaXH3vtImaytBR0s8B0GQwkCkdeCcCaPDEKE+1rZv4jQVBVO17ZE6D1Kv8DM3svVSh
+         a2pappfFPbLyd5dMuv2i8nFhuC+BSArxiQAXaas5HwBu9ssR63fAYxGp4TDrWxBrljfT
+         Kl16c1wnZllqJpjpiMmq8BvJk65k3dW6Obt309i8E3gHxEtJn4PhhKvoQTpj/zUgpMUN
+         Tgmw==
+X-Forwarded-Encrypted: i=1; AL+hErHnT6Ow209gdfQRrji8cFFnGMYTnESNuEUB+IMC1zZU3JLeZHwXbPTXpJh0Dq577UVKUr+WGilZJq+gZeU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+T5hjgS7tKYDWPEXjJZZtrS0uUOXFxTMJuEfSylwPQNZ03oQ6
+	ZovhFsbO5CCTeg6MjHAE5Wo5821vSPSBUXeg+bccgDfs8ULtrsaHypr2EEedXcajRA6SnsNt/OD
+	B0ykNQzrZxYqF6W/LF0mjNfRX00WRiPH3Zkc+poCcasWgeF/9vRxs9IgQ5DsdQTjsL9A=
+X-Gm-Gg: AYBFou0RGmTtBGKRSUkcfuAar8sfKEa7xVlkWbVGNyyguy018MeHLbp94WqQJVniE+K
+	dknbj7H5UWA63Fa5gl+0wWuOL0+krPHonjh/eBVZwLIGKWR5/27Cxho86b2kvsoeFa9zFGumFlf
+	xpYKM3taR4Kd9ST8Nzkj33/wNqztF599CAt575VnGQS1EN8z//+Uw6iT1ca9VmvxV5tUwOQY0OU
+	462gNorEO4c8tTsXxCvHCW1ARzrEJ7x9NVfFKZsx+8RX0wvHWwR5yLDPBBUqYa/cKWO0paSMIAs
+	UTqv1Ich7L962PElOPEnwRqcl5BRjsyLXXpIRzZBZofnehR/OLy9sUgCXzFlrS1750UIUhK3hMK
+	c6jZ49B0jA2A8b7XdUc2qR/rcGgLqJxSqt+kSwXm8aiBZU4aVfxwXv/hP8WE4mzIOpuziJrLNfR
+	00lLwXupctTP+QOQwugpWZMQMURGJUDrG3WPVedItqEyVARI8PfR7YcBmMnSGEUiPDYTsOTKgWO
+	Q==
+X-Received: by 2002:a17:90b:4985:b0:3b0:a831:5acc with SMTP id 98e67ed59e1d1-3b182f6d752mr4136671a91.42.1794472360503;
+        Thu, 12 Nov 2026 00:32:40 -0800 (PST)
+X-Received: by 2002:a17:90b:4985:b0:3b0:a831:5acc with SMTP id 98e67ed59e1d1-3b182f6d752mr4136649a91.42.1794472359925;
+        Thu, 12 Nov 2026 00:32:39 -0800 (PST)
+Received: from hu-madhgane-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce55c1sm3518029a91.3.2026.11.12.00.32.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 00:32:38 -0800 (PST)
+From: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 14:02:17 +0530
+Subject: [PATCH ath-next 03/15] wifi: ath12k: add extended QMI WLAN cfg for
+ CE and service pipes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,275 +117,293 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/28] dt-bindings: gpu: panthor: Document AM system
- bindings
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20261110153907.3241978-1-karunika.choo@arm.com>
- <20261110153907.3241978-12-karunika.choo@arm.com>
- <20261111-grumpy-carp-of-superiority-eddeb9@quoll>
- <d74eb465-554b-43d6-bbfa-3fb671931462@arm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <d74eb465-554b-43d6-bbfa-3fb671931462@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-wifi8_qcn9575_bringup-v1-3-3f30fbc2bb69@oss.qualcomm.com>
+References: <20261112-wifi8_qcn9575_bringup-v1-0-3f30fbc2bb69@oss.qualcomm.com>
+In-Reply-To: <20261112-wifi8_qcn9575_bringup-v1-0-3f30fbc2bb69@oss.qualcomm.com>
+To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>
+Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
+        llvm@lists.linux.dev,
+        Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfXwSLFHROZsz1c
+ UzP/CckGK5lP5q3ZBEgDhO6KDXpBQVbO4TgFBFj4UVH6ZtQIObbJUh9FXz1MMoMtZ41eSpC6saJ
+ KYWtbShiTD49zwhckq+fGMF6dzvVMTIhHWGTtYW2Hao/n9EcAdubhxettOLnWSXSfw2vV9bCOlE
+ HjxCcFA35m8hqNBHvJBFRFjMo+UPHu9L5+gnZQy2g17O0Gxd5w9+FsyGGI9VIo6d3n9nA1YBpoj
+ lK8Xrm32IQtXdAl8IfPXbk8Qy0IcYQlkRAvDCAVJcnsViPuTZ8Qi3jhoKJmSPoKWw5fJ+Qf0DhS
+ 3BJjKIO7U0RvmCreiscGkyEpPFYi+XkVkSDMb439hye9rE5QBJMeGCei8sZ18wwCt3lopZf9c2A
+ D7MzxRKJ3HPKfU2B0ZbZxPYT0H/LyoQntm6pL83fKlR81yomTgVFzE8bcVg7ggBkXKfLqPOV2U1
+ qJZoMNqQINDiOkklFEw==
+X-Proofpoint-GUID: HmxURIfcqig-PxAZGXog9z1xGak54GwI
+X-Proofpoint-ORIG-GUID: HmxURIfcqig-PxAZGXog9z1xGak54GwI
+X-Authority-Analysis: v=2.4 cv=F6fC5ahN c=1 sm=1 tr=0 ts=6af579a9 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=z7nB0JqBhXvykku2dhgA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfXyV+jukxPzsPL
+ zsmotKEuxixS6n0vlcQWzmRuO7+yU+mb7UerQsOoxVeERVxDk0YmCAipZ/NNNu4eACCgYHIcNxQ
+ +x7RUmBNyCZMAq8NoHjU/U41JYCfeaU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 clxscore=1015
+ bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120033
 
-On 11/11/2026 11:43, Karunika Choo wrote:
-> On 11/11/2026 08:29, Krzysztof Kozlowski wrote:
->> On Tue, Nov 10, 2026 at 03:38:32PM +0000, Karunika Choo wrote:
->>> Mali 5th-Gen AM GPUs expose an AM_SYSTEM block for GPU-wide control and
->>> the AM_ASSIGN block for HW resource assignment outside the GPU
->>> job submission register window.
->>>
->>> Document the system node compatible, register and interrupt resources,
->>> GPU clock, and assignment properties for HW resource assignment.
->>>
->>> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
->>> ---
->>> v2:
->>> - Add an optional AM_ASSIGN register range. Require this range when the
->>>   assignments node is present.
->>> - Describe resource-group assignments for AXI buses, partitions, slices
->>>   and access windows on partition-capable GPUs.
->>> - Allow gpu-arbitration child nodes and the #address-cells, #size-cells
->>>   and ranges properties.
->>> - Remove the panthor-system node-name restriction.
->>> - Remove gpu-supply from the schema and example.
->>> - Add an example with assignments for partition-capable GPU with four
->>>   resource groups.
->>> - Move the MAINTAINERS update to the GPU schema patch.
->>>
->>>  .../bindings/gpu/arm,mali-gen5-am-system.yaml | 196 ++++++++++++++++++
->>>  1 file changed, 196 insertions(+)
->>>  create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
->>> new file mode 100644
->>> index 0000000000000..9e0477b8b723a
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
->>> @@ -0,0 +1,196 @@
->>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->>> +# Copyright 2026 ARM Limited. All rights reserved.
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am-system.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: ARM Mali 5th-Gen GPU System Device
->>> +
->>> +maintainers:
->>> +  - Liviu Dudau <liviu.dudau@arm.com>
->>> +  - Boris Brezillon <boris.brezillon@collabora.com>
->>> +
->>> +properties:
->>> +  compatible:
->>> +    items:
->>> +      - const: arm,mali-gen5-am-system
->>> +
->>> +  reg:
->>> +    minItems: 1
->>> +    maxItems: 2
->>
->> Why is this flexible? There is no description in the binding which would
->> explain oddities in choices of hardware representation.
-> 
-> I will restore the description that was previously asked to be dropped.
+QMI_WLANFW_WLAN_CFG_REQ_V01 carries up to 12 CE entries and 24
+service-to-CE mappings in its base arrays. QCN9575 requires 13 CE
+pipes, one more than the base tgt_cfg array holds. The old code set
+req->tgt_cfg_len to 13 and looped up to that count while filling
+req->tgt_cfg[], writing one entry past the 12-element array into the
+following svc_cfg_valid/svc_cfg_len fields before the request was ever
+sent. qmi_send_request() then fails outright, since the QMI encoder
+rejects a VAR_LEN_ARRAY whose length exceeds its declared elem_len
+(12), so the WLAN config request never reaches firmware at all.
 
-Hm, let me open the cover letter to find lore link to previous
-discussion and check... ah wait, no cover letter!
+Firmware accepts overflow entries through ext_tgt_cfg (TLV 0x1A) and
+ext_svc_cfg (TLV 0x1B) in the same WLAN config request. Add the
+corresponding fields to qmi_wlanfw_wlan_cfg_req_msg_v01 and extend the
+QMI element-info table to encode both TLVs, so service-to-CE mappings
+can also overflow into the extended array if a future target requires
+more than 24. When CE or service entries exceed the base array
+limits, keep the first entries in the base arrays and place the
+remainder in the extended arrays, clamped to their maximum sizes to
+avoid out-of-bounds writes.
 
-> 
->>> +
->>> +  reg-names:
->>> +    minItems: 1
->>> +    items:
->>> +      - const: system
->>> +      - const: assign
->>> +
->>> +  interrupts:
->>> +    maxItems: 1
->>> +
->>> +  clocks:
->>> +    maxItems: 1
->>> +
->>> +  dma-coherent: true
->>> +
->>> +  "#address-cells": true
->>> +
->>> +  "#size-cells": true
->>
->> Both need to be const or enum.
->>
->>> +
->>> +  ranges: true
->>> +
->>> +  assignments:
->>
->> Do not mix nodes with and without bus addressing. That's mess.
-> 
-> Hi, I was asked to use a more generic DT such that should the
+If the combined base and extended arrays still cannot hold all
+configured entries, fail ath12k_qmi_wlanfw_wlan_cfg_send() with
+-EINVAL up front, before any request is built or sent, rather than
+silently dropping the extra entries. Update
+QMI_WLANFW_WLAN_CFG_REQ_MSG_V01_MAX_LEN from 803 to 1835 to reflect
+the larger message.
 
-By whom?
+Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
+Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
 
-> hardware registers change in the future we can still retain
-> some compatibility. Is it necessarily a problem?
+Signed-off-by: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+---
+ drivers/net/wireless/ath/ath12k/qmi.c | 124 ++++++++++++++++++++++++++++++++--
+ drivers/net/wireless/ath/ath12k/qmi.h |  12 +++-
+ 2 files changed, 131 insertions(+), 5 deletions(-)
 
-Bindings are not generic, but specific.
+diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
+index 52a925fc44ee..69512b82aa3b 100644
+--- a/drivers/net/wireless/ath/ath12k/qmi.c
++++ b/drivers/net/wireless/ath/ath12k/qmi.c
+@@ -2018,6 +2018,62 @@ static const struct qmi_elem_info qmi_wlanfw_wlan_cfg_req_msg_v01_ei[] = {
+ 					   shadow_reg_v3),
+ 		.ei_array	= qmi_wlanfw_shadow_reg_v3_cfg_s_v01_ei,
+ 	},
++	{
++		.data_type	= QMI_OPT_FLAG,
++		.elem_len	= 1,
++		.elem_size	= sizeof(u8),
++		.array_type	= NO_ARRAY,
++		.tlv_type	= 0x1A,
++		.offset		= offsetof(struct qmi_wlanfw_wlan_cfg_req_msg_v01,
++					   ext_tgt_cfg_valid),
++	},
++	{
++		.data_type	= QMI_DATA_LEN,
++		.elem_len	= 1,
++		.elem_size	= sizeof(u8),
++		.array_type	= NO_ARRAY,
++		.tlv_type	= 0x1A,
++		.offset		= offsetof(struct qmi_wlanfw_wlan_cfg_req_msg_v01,
++					   ext_tgt_cfg_len),
++	},
++	{
++		.data_type	= QMI_STRUCT,
++		.elem_len	= QMI_WLANFW_MAX_EXT_NUM_CE_V01,
++		.elem_size	= sizeof(struct qmi_wlanfw_ce_tgt_pipe_cfg_s_v01),
++		.array_type	= VAR_LEN_ARRAY,
++		.tlv_type	= 0x1A,
++		.offset		= offsetof(struct qmi_wlanfw_wlan_cfg_req_msg_v01,
++					   ext_tgt_cfg),
++		.ei_array	= qmi_wlanfw_ce_tgt_pipe_cfg_s_v01_ei,
++	},
++	{
++		.data_type	= QMI_OPT_FLAG,
++		.elem_len	= 1,
++		.elem_size	= sizeof(u8),
++		.array_type	= NO_ARRAY,
++		.tlv_type	= 0x1B,
++		.offset		= offsetof(struct qmi_wlanfw_wlan_cfg_req_msg_v01,
++					   ext_svc_cfg_valid),
++	},
++	{
++		.data_type	= QMI_DATA_LEN,
++		.elem_len	= 1,
++		.elem_size	= sizeof(u8),
++		.array_type	= NO_ARRAY,
++		.tlv_type	= 0x1B,
++		.offset		= offsetof(struct qmi_wlanfw_wlan_cfg_req_msg_v01,
++					   ext_svc_cfg_len),
++	},
++	{
++		.data_type	= QMI_STRUCT,
++		.elem_len	= QMI_WLANFW_MAX_EXT_NUM_SVC_V01,
++		.elem_size	= sizeof(struct qmi_wlanfw_ce_svc_pipe_cfg_s_v01),
++		.array_type	= VAR_LEN_ARRAY,
++		.tlv_type	= 0x1B,
++		.offset		= offsetof(struct qmi_wlanfw_wlan_cfg_req_msg_v01,
++					   ext_svc_cfg),
++		.ei_array	= qmi_wlanfw_ce_svc_pipe_cfg_s_v01_ei,
++	},
+ 	{
+ 		.data_type	= QMI_EOTI,
+ 		.array_type	= NO_ARRAY,
+@@ -3537,10 +3593,28 @@ static int ath12k_qmi_wlanfw_wlan_cfg_send(struct ath12k_base *ab)
+ {
+ 	struct qmi_wlanfw_wlan_cfg_req_msg_v01 *req;
+ 	struct qmi_wlanfw_wlan_cfg_resp_msg_v01 resp = {};
++	int ret = 0, pipe_num, ext_pipe_num;
+ 	struct ce_pipe_config *ce_cfg;
+ 	struct service_to_pipe *svc_cfg;
+ 	struct qmi_txn txn;
+-	int ret = 0, pipe_num;
++
++	if (ab->qmi.ce_cfg.tgt_ce_len >
++	    QMI_WLANFW_MAX_NUM_CE_V01 + QMI_WLANFW_MAX_EXT_NUM_CE_V01) {
++		ath12k_err(ab, "CE pipe config has %u entries, exceeds QMI capacity of %u\n",
++			   ab->qmi.ce_cfg.tgt_ce_len,
++			   QMI_WLANFW_MAX_NUM_CE_V01 +
++			   QMI_WLANFW_MAX_EXT_NUM_CE_V01);
++		return -EINVAL;
++	}
++
++	if (ab->qmi.ce_cfg.svc_to_ce_map_len >
++	    QMI_WLANFW_MAX_NUM_SVC_V01 + QMI_WLANFW_MAX_EXT_NUM_SVC_V01) {
++		ath12k_err(ab, "service map config has %u entries, exceeds QMI capacity of %u\n",
++			   ab->qmi.ce_cfg.svc_to_ce_map_len,
++			   QMI_WLANFW_MAX_NUM_SVC_V01 +
++			   QMI_WLANFW_MAX_EXT_NUM_SVC_V01);
++		return -EINVAL;
++	}
+ 
+ 	ce_cfg	= (struct ce_pipe_config *)ab->qmi.ce_cfg.tgt_ce;
+ 	svc_cfg	= (struct service_to_pipe *)ab->qmi.ce_cfg.svc_to_ce_map;
+@@ -3555,8 +3629,17 @@ static int ath12k_qmi_wlanfw_wlan_cfg_send(struct ath12k_base *ab)
+ 
+ 	req->tgt_cfg_valid = 1;
+ 	/* This is number of CE configs */
+-	req->tgt_cfg_len = ab->qmi.ce_cfg.tgt_ce_len;
+-	for (pipe_num = 0; pipe_num < req->tgt_cfg_len ; pipe_num++) {
++	req->tgt_cfg_len = min_t(u32, ab->qmi.ce_cfg.tgt_ce_len,
++				 QMI_WLANFW_MAX_NUM_CE_V01);
++	if (ab->qmi.ce_cfg.tgt_ce_len > QMI_WLANFW_MAX_NUM_CE_V01) {
++		req->ext_tgt_cfg_valid = 1;
++		req->ext_tgt_cfg_len =
++			min_t(u32, ab->qmi.ce_cfg.tgt_ce_len -
++			      QMI_WLANFW_MAX_NUM_CE_V01,
++			      QMI_WLANFW_MAX_EXT_NUM_CE_V01);
++	}
++
++	for (pipe_num = 0; pipe_num < req->tgt_cfg_len; pipe_num++) {
+ 		req->tgt_cfg[pipe_num].pipe_num =
+ 			__le32_to_cpu(ce_cfg[pipe_num].pipenum);
+ 		req->tgt_cfg[pipe_num].pipe_dir =
+@@ -3569,9 +3652,32 @@ static int ath12k_qmi_wlanfw_wlan_cfg_send(struct ath12k_base *ab)
+ 			__le32_to_cpu(ce_cfg[pipe_num].flags);
+ 	}
+ 
++	for (ext_pipe_num = 0; ext_pipe_num < req->ext_tgt_cfg_len; ext_pipe_num++) {
++		pipe_num = QMI_WLANFW_MAX_NUM_CE_V01 + ext_pipe_num;
++		req->ext_tgt_cfg[ext_pipe_num].pipe_num =
++			__le32_to_cpu(ce_cfg[pipe_num].pipenum);
++		req->ext_tgt_cfg[ext_pipe_num].pipe_dir =
++			__le32_to_cpu(ce_cfg[pipe_num].pipedir);
++		req->ext_tgt_cfg[ext_pipe_num].nentries =
++			__le32_to_cpu(ce_cfg[pipe_num].nentries);
++		req->ext_tgt_cfg[ext_pipe_num].nbytes_max =
++			__le32_to_cpu(ce_cfg[pipe_num].nbytes_max);
++		req->ext_tgt_cfg[ext_pipe_num].flags =
++			__le32_to_cpu(ce_cfg[pipe_num].flags);
++	}
++
+ 	req->svc_cfg_valid = 1;
+ 	/* This is number of Service/CE configs */
+-	req->svc_cfg_len = ab->qmi.ce_cfg.svc_to_ce_map_len;
++	req->svc_cfg_len = min_t(u32, ab->qmi.ce_cfg.svc_to_ce_map_len,
++				 QMI_WLANFW_MAX_NUM_SVC_V01);
++	if (ab->qmi.ce_cfg.svc_to_ce_map_len > QMI_WLANFW_MAX_NUM_SVC_V01) {
++		req->ext_svc_cfg_valid = 1;
++		req->ext_svc_cfg_len =
++			min_t(u32, ab->qmi.ce_cfg.svc_to_ce_map_len -
++			      QMI_WLANFW_MAX_NUM_SVC_V01,
++			      QMI_WLANFW_MAX_EXT_NUM_SVC_V01);
++	}
++
+ 	for (pipe_num = 0; pipe_num < req->svc_cfg_len; pipe_num++) {
+ 		req->svc_cfg[pipe_num].service_id =
+ 			__le32_to_cpu(svc_cfg[pipe_num].service_id);
+@@ -3581,6 +3687,16 @@ static int ath12k_qmi_wlanfw_wlan_cfg_send(struct ath12k_base *ab)
+ 			__le32_to_cpu(svc_cfg[pipe_num].pipenum);
+ 	}
+ 
++	for (ext_pipe_num = 0; ext_pipe_num < req->ext_svc_cfg_len; ext_pipe_num++) {
++		pipe_num = QMI_WLANFW_MAX_NUM_SVC_V01 + ext_pipe_num;
++		req->ext_svc_cfg[ext_pipe_num].service_id =
++			__le32_to_cpu(svc_cfg[pipe_num].service_id);
++		req->ext_svc_cfg[ext_pipe_num].pipe_dir =
++			__le32_to_cpu(svc_cfg[pipe_num].pipedir);
++		req->ext_svc_cfg[ext_pipe_num].pipe_num =
++			__le32_to_cpu(svc_cfg[pipe_num].pipenum);
++	}
++
+ 	/* set shadow v3 configuration */
+ 	if (ab->hw_params->supports_shadow_regs) {
+ 		req->shadow_reg_v3_valid = 1;
+diff --git a/drivers/net/wireless/ath/ath12k/qmi.h b/drivers/net/wireless/ath/ath12k/qmi.h
+index ed024084cac2..7879f439a5ff 100644
+--- a/drivers/net/wireless/ath/ath12k/qmi.h
++++ b/drivers/net/wireless/ath/ath12k/qmi.h
+@@ -544,7 +544,7 @@ struct qmi_wlanfw_aux_uc_info_resp_msg_v01 {
+ };
+ 
+ #define QMI_WLANFW_WLAN_MODE_REQ_MSG_V01_MAX_LEN	11
+-#define QMI_WLANFW_WLAN_CFG_REQ_MSG_V01_MAX_LEN		803
++#define QMI_WLANFW_WLAN_CFG_REQ_MSG_V01_MAX_LEN		1835
+ #define QMI_WLANFW_WLAN_MODE_REQ_V01			0x0022
+ #define QMI_WLANFW_WLAN_CFG_REQ_V01			0x0023
+ #define QMI_WLANFW_MAX_STR_LEN_V01			16
+@@ -552,6 +552,8 @@ struct qmi_wlanfw_aux_uc_info_resp_msg_v01 {
+ #define QMI_WLANFW_MAX_NUM_SVC_V01			24
+ #define QMI_WLANFW_MAX_NUM_SHADOW_REG_V01		24
+ #define QMI_WLANFW_MAX_NUM_SHADOW_REG_V3_V01		60
++#define QMI_WLANFW_MAX_EXT_NUM_CE_V01			32
++#define QMI_WLANFW_MAX_EXT_NUM_SVC_V01			32
+ 
+ struct qmi_wlanfw_wlan_mode_req_msg_v01 {
+ 	u32 mode;
+@@ -582,6 +584,14 @@ struct qmi_wlanfw_wlan_cfg_req_msg_v01 {
+ 	u32 shadow_reg_v3_len;
+ 	struct qmi_wlanfw_shadow_reg_v3_cfg_s_v01
+ 		shadow_reg_v3[QMI_WLANFW_MAX_NUM_SHADOW_REG_V3_V01];
++	u8 ext_tgt_cfg_valid;
++	u32 ext_tgt_cfg_len;
++	struct qmi_wlanfw_ce_tgt_pipe_cfg_s_v01
++			ext_tgt_cfg[QMI_WLANFW_MAX_EXT_NUM_CE_V01];
++	u8 ext_svc_cfg_valid;
++	u32 ext_svc_cfg_len;
++	struct qmi_wlanfw_ce_svc_pipe_cfg_s_v01
++			ext_svc_cfg[QMI_WLANFW_MAX_EXT_NUM_SVC_V01];
+ };
+ 
+ struct qmi_wlanfw_wlan_cfg_resp_msg_v01 {
 
-...
+-- 
+2.34.1
 
->>> +patternProperties:
->>> +  '^gpu-arbitration@[a-f0-9]+$':
->>> +    $ref: arm,mali-gen5-am-arbitration.yaml#
->>
->> There is no such file. You did not really test it.
-> 
-> Sorry, this was included from a later patch that
-> introduces this file. I will move it there in v3.
-> 
->>
->>> +
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +  - reg-names
->>> +  - interrupts
->>> +  - clocks
->>> +
->>> +additionalProperties: false
->>
->> This goes after allOf: block.
->>
->>> +
->>> +allOf:
->>> +  - if:
->>> +      required:
->>> +        - assignments
->>> +    then:
->>> +      properties:
->>> +        reg:
->>> +          minItems: 2
->>> +        reg-names:
->>> +          minItems: 2
->>> +
->>> +examples:
->>> +  - |
->>> +    #include <dt-bindings/interrupt-controller/irq.h>
->>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>> +
->>> +    gpu-system@68000000 {
->>> +      compatible = "arm,mali-gen5-am-system";
->>> +      reg = <0x68000000 0x10000>;
->>> +      reg-names = "system";
->>> +      interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
->>> +      clocks = <&mali_gpu_clk>;
->>> +    };
->>> +  - |
->>> +    #include <dt-bindings/interrupt-controller/irq.h>
->>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>> +
->>> +    gpu-system@68000000 {
->>> +      compatible = "arm,mali-gen5-am-system";
->>> +      reg = <0x68000000 0x10000>, <0x68010000 0x10000>;
->>> +      reg-names = "system", "assign";
->>> +      interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
->>> +      clocks = <&mali_gpu_clk>;
->>> +
->>> +      assignments {
->>> +        #address-cells = <1>;
->>> +        #size-cells = <0>;
->>> +
->>> +        resource-group@0 {
->>> +          reg = <0>;
->>> +          arm,axi-bus = <0>;
->>> +          arm,partition-mask = <0x1>;
->>> +          arm,slice-mask = <0x3>;
->>> +          arm,access-window-mask = <0xf>;
->>> +        };
->>> +
->>> +        resource-group@1 {
->>> +          reg = <1>;
->>> +          arm,axi-bus = <0>;
->>> +          arm,partition-mask = <0x2>;
->>> +          arm,slice-mask = <0xc>;
->>> +          arm,access-window-mask = <0xf0>;
->>> +        };
->>> +
->>> +        resource-group@2 {
->>> +          reg = <2>;
->>> +          arm,axi-bus = <1>;
->>> +          arm,partition-mask = <0x4>;
->>> +          arm,slice-mask = <0x30>;
->>> +          arm,access-window-mask = <0xf00>;
->>> +        };
->>> +
->>> +        resource-group@3 {
->>> +          reg = <3>;
->>> +          arm,axi-bus = <1>;
->>> +          arm,partition-mask = <0x8>;
->>> +          arm,slice-mask = <0xc0>;
->>> +          arm,access-window-mask = <0xf000>;
->>> +        };
->>
->> Your example is incomplete.
-> 
-> Could you clarify what specifically is missing?
-
-ll the properties you added in the binding.
-
-Best regards,
-Krzysztof
