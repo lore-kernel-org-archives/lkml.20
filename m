@@ -1,55 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794479510;
-	b=hojPo0bkRE339u/0ewN3zMj9EbYZ09+ecu6yM+iWx6/oyFKt/9cduywImLFVqOPK5/4m
-	 nP+i6aKiR8Ctk65wrEunw73E+2iNMGnvrZOA/dp20F4HteX185Zk2HkJrZAkFKUeAfE0b
-	 bcUKVbZ6z+QGKiNlDDl6XMUzoevM79PgDH+MpUIU2yl81DSk6lpmJHpapfd7f+AR9syBG
-	 +10Be6q7kcb99diUUPZNC4hVpo5Cynuvk3HbXrKO/PHcM20fyU6jDcATTTo88rBkR8ar2
-	 jN2Orof5k9LMVruhXxh9m6Tg+KP76l9pLaML6xtwfsO+an8NBdtZ0j6Zj1ik7/5U6iw==
+	t=1794479525;
+	b=WbYOfzL3WMbNlgjYJp7qWtYGvStmSuj+CSqfc/K/eDdHfV6hU9yNz8O3yruz4DmVGjNj
+	 Rqjz1SByt2mEKKDo49osr8LYhhP3TgcVc4OHVRyP4zsnk3yRcwjHb1FJX2hULpX/fCRDA
+	 QvrkqrnRxMvMSqFbuaM57wn+qyRfJBSI/qyNCb6u4NrenXmjLZ2QOBDhJjVNY8P+2G2CQ
+	 2goHxUv6bY+DYbISx3LF2z8m7rieDvv4W6GPBaXHWMvzcDszi6JVIcdIbwfDPUUGnhOOq
+	 VTZQDPAey+Rl4+SLlPQi/dumHPLQEcipoQ4HrBRkiBf95rWnapUAk9jQGUCW8aFsaPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479510;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=yIfSSvtYFozNJ8uO5B+lxZMTaHwZDbj51+v24gVRaB8=;
-	b=VB/wN4KdjjVRPZrzMn5Eve+EwWLr3ioO/dxbfoLyML0W/6wbN0Hw/iRe/zkmH/4Xb2Gl
-	 6JDRz1cUbjZbRm7qxFRM5V8foPiQLxKUKlobpS2bigHjQWR0vZjTDsKxrq3fS4l3EGFOY
-	 8iXgh2hD1ZiQ63pqvpoDtG5VR0VPrymXcAlzfL1Ent2B/FgmPom7YC4SVIWRcm0brz4r9
-	 rR35Nz5FBTIJFL52pgr5/A3EgScUHbKh1b265VZKUGqpt9bpEEy+qlBEhEajRrdawgdpb
-	 Vkd4u7BStI2F4eKbZvMJps+eccZ4m0Dtrat2I1pUB3vUfmQ5GBxhdHtMH2sHO0yBv8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794479525;
+	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=DaFOdktrS9fp8GjCaaexp9MaiiYjCXQTieg0RYTagzo=;
+	b=xtf9fL+dXb8tiQaISrdxJhpcJ9SrJrehGscmU2Xl4FO7FDL+crlRjknB3dU5ZRK0hBbV
+	 TUd+lEzwS6ONOrmYxPeiffrPSsQW+GiweFE0RzY/RZZ+KEzXeZyz+gMD3bknadlTPj4+1
+	 sv9Rmgppl7n1BJ37ZdtkdudVzVrDzZMnBHN3FbCznk5fiORCK5PXPxaabBZIqFL3Ybdl8
+	 5n6bHyaWDg0lhC8VpVp0AmsgF9t0EdPsLGYIMpEI627elu1aUqqJrXu0+kiXgZE3wZLxk
+	 KPC30mv5P4+OF9JoJ+UUZ478xiaeBPnMus7ZUaFmFisn+D147Ru4N+mCr4iDbUkeZ8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZlEYfjSj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SVCKZF+a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A298606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:31:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51DA606A32A;
+	Thu, 12 Nov 2026 10:32:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZlEYfjSj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4066C1F00A05;
-	Thu, 12 Nov 2026 10:31:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SVCKZF+a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9843A1F00A05;
+	Thu, 12 Nov 2026 10:31:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794479510;
-	bh=yIfSSvtYFozNJ8uO5B+lxZMTaHwZDbj51+v24gVRaB8=;
+	s=k20260515; t=1794479525;
+	bh=DaFOdktrS9fp8GjCaaexp9MaiiYjCXQTieg0RYTagzo=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=ZlEYfjSjhtqLmvEQw7PdCLgA0sYXe58WHLqq87VxfpQhMCWyO+2cZFtP+yWP9ESGR
-	 UEV05Co6NOYCmtxPPCDVOmb7Kst3R3QOm3MFEh0mkONM9uo9XrJBoWcW2Xkz6dQxkB
-	 4NL2sGdqgYZtz9W2M+TOdqPuMrZWmzAr4e0+eY2gsp8vW6LX4p2O0hu0ZfPQm/NAk+
-	 N92VPtaSW4fIxkL6ilGXDlU36+THKX9VUr/eMdomDhLSxBz1ORsKe9EJsrqZRohm29
-	 oYOwrhmu3w5PjGsw29urephUKXdhV1jwLZPeS4aTgBmYRk13XXQrNq++fTe4unLFma
-	 Pc9CfYHOXpBBg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Zhu Jun <zhujun2@cmss.chinamobile.com>
-Cc: anna-maria@linutronix.de, frederic@kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+0b91948d3c6b28c0d4c7@syzkaller.appspotmail.com, Zhu Jun
- <zhujun2@cmss.chinamobile.com>
-Subject: Re: [PATCH] timer_list: Annotate the clock event deadline snapshot
-In-Reply-To: <20261111084108.80870-1-zhujun2@cmss.chinamobile.com>
-References: <20261111084108.80870-1-zhujun2@cmss.chinamobile.com>
-Date: Thu, 12 Nov 2026 11:31:46 +0100
-Message-ID: <875wy2tk6l.ffs@fw13>
+	b=SVCKZF+auGmqT7JSUb746d9UAYnxXK8NWFfq/0oYpoErPWvB81l2FLR7ZNtt1TzRs
+	 SOfI8u76neTSvF2w5qbIOVuKL+j0Qdh6z4NfLSuKTzJC1HYiLRrvVCW+ItdeGsyYhB
+	 0xlkYqobVHgprk7YC6bfI9EaNr8ah+XrX4cNJm0+dsmvib7BsjEv9Z3jN2rLkg2sGR
+	 MI32t1e5nR4llWY0pS55Dcb/MdeZz4OkIAu7g3AqoCR6aOMCNrkFy4bHY133gLUfKu
+	 NvKAmHPiobyEkFiawUS89SUAGf2RECSFN4yWnkCah3YSfAeSzsWc22rZpjE4HCsa5S
+	 l3Qlv9hfTFjNQ==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: "Tian, Kevin" <kevin.tian@intel.com>,
+	"iommu@lists.linux.dev" <iommu@lists.linux.dev>
+Cc: Alex Williamson <alex@shazbot.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Steven Price <steven.price@arm.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
+Subject: RE: [PATCH v8 11/15] iommufd/viommu: Select vIOMMU operations
+ before allocation
+In-Reply-To: <SA2PR11MB4844544BB238847916EA3A038C762@SA2PR11MB4844.namprd11.prod.outlook.com>
+References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
+ <20261104161632.3547423-12-aneesh.kumar@kernel.org>
+ <SA2PR11MB4844544BB238847916EA3A038C762@SA2PR11MB4844.namprd11.prod.outlook.com>
+Date: Thu, 12 Nov 2026 16:01:54 +0530
+Message-ID: <yq5ay0aypch1.fsf@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,52 +90,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain
 
-On Wed, Nov 11 2026 at 16:41, Zhu Jun wrote:
-> print_tickdevice() reads next_event while the remote CPU can update it
-> from its timer interrupt. The value is only printed to /proc/timer_list,
-> so synchronizing the clock event device is unnecessary.
+"Tian, Kevin" <kevin.tian@intel.com> writes:
+
+>> From: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+>> Sent: Thursday, November 5, 2026 12:16 AM
+>> 
+>> Physical IOMMU drivers currently provide the vIOMMU size and
+>> initialization callbacks through iommu_ops. The initialization callback
+>> then selects and installs the corresponding iommufd_viommu_ops.
+>> 
+>> Add iommu_ops::get_viommu_ops() to select the operations from the
+>> physical device and requested vIOMMU type before allocation. Move the
+>> size and initialization callbacks into iommufd_viommu_ops. The core can
+>> then validate the selected operations, allocate the driver structure,
+>> initialize it, and install the operations.
+>> 
+>> Convert AMD, Arm SMMUv3, Tegra CMDQV, and the selftest backend to the
+>> new interface.
+>> 
+>> Selecting the operations early allows subsequent changes to use
+>> implementation-specific vIOMMU properties, including when validating the
+>> parent HWPT.
 >
-> Use a single diagnostic snapshot and mark the intentional race, as is
-> already done for the tick scheduler statistics in print_cpu().
+> what does "implementation-specific" mean? Isn't every existing vIOMMU
+> type already implementation specific?
 >
-> Fixes: 289f480af87e ("[PATCH] Add debugging feature /proc/timer_list")
 
-This really fixes nothing.
+How about I update this to.
 
-> Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
-> ---
->  kernel/time/timer_list.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+The current code requires a valid parent HWPT before calling
+viommu_init(), which selects the vIOMMU operations. A later patch adds
+an operations flag indicating that a vIOMMU type does not require a parent
+HWPT. Selecting the operations earlier allows the core to check that flag
+before deciding whether to look up and validate a parent HWPT.
+
 >
-> diff --git a/kernel/time/timer_list.c b/kernel/time/timer_list.c
-> index 0406bf4488e9..5f80af00729e 100644
-> --- a/kernel/time/timer_list.c
-> +++ b/kernel/time/timer_list.c
-> @@ -177,6 +177,7 @@ static void
->  print_tickdevice(struct seq_file *m, struct tick_device *td, int cpu)
->  {
->  	struct clock_event_device *dev = td->evtdev;
-> +	ktime_t next_event;
->  
->  	touch_nmi_watchdog();
->  
-> @@ -199,7 +200,9 @@ print_tickdevice(struct seq_file *m, struct tick_device *td, int cpu)
->  	SEQ_printf(m, " mult:           %u\n", dev->mult);
->  	SEQ_printf(m, " shift:          %u\n", dev->shift);
->  	SEQ_printf(m, " mode:           %d\n", clockevent_get_state(dev));
-> -	SEQ_printf(m, " next_event:     %lld nsecs\n", (long long)dev->next_event);
-> +	/* Take a diagnostic snapshot without locking the clock event device. */
-> +	next_event = data_race(READ_ONCE(dev->next_event));
+>> 
+>>  /*
+>>   * This function is assigned to struct
+>> iommufd_viommu_ops.alloc_domain_nested()
+>> - * during the call to struct iommu_ops.viommu_init().
+>> + * when the vIOMMU operations are selected.
+>>   */
+>>  struct iommu_domain *
+>>  amd_iommu_alloc_domain_nested(struct iommufd_viommu *viommu, u32
+>> flags,
+>
+> the comment sounds changing the semantics.
+>
+> ideally it's still assigned at viommu_init(), just from iommufd_viommu_ops
+> instead of iommu_ops now.
 
-data_race(READ_ONCE()) ?
+How about
+ /*
+  * This function is assigned to struct iommufd_viommu_ops.alloc_domain_nested()
+- * during the call to struct iommu_ops.viommu_init().
++ * during the call to struct iommufd_viommu_ops.viommu_init().
+  */
 
-READ_ONCE() needs to be paired with WRITE_ONCE(), which is not there to
-write dev->next_event. And no, we don't add it as there is zero value to
-it for the regular usage outside of this debug code.
-
-data_race() is sufficient to shut KCSAN up and you neither need an extra
-variable nor a comment. data_race() in debug code is selfexplaining, no?
-
-Thanks,
-
-        tglx
+-aneesh
