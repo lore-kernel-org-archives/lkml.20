@@ -1,79 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794444014;
-	b=kZ/3/ZDVB/oSWIvRyhrcIFw68cpbRXcAt28/OsLpMwJNlMH19bY0A8r2NJ9C//loFQU3
-	 WdazFeqtxYwaFOP3x0WowqavoR1ujOJlDDYJ7QsKsufVpMgLGdjgC4Pedh1V979wrKell
-	 IYpOA6tJ9FQZUr/Z+jq+LPYW9mdIBts/8dOujcnhvtNbZdysAnsOPF+/AW72NPJIIEvkW
-	 B1GP9zadyo3Pa8a3PiZgfyAuuEUDPw900WyKxW1dhPS7MFuRAJ4JLxFHqHm+LRlv0Ay5B
-	 llDXh4pqw4MXP1jQshKfrld8/HIs+rBECEyEhSRq3AhH84PKsarfTUNN6YOMrFjOtSA==
+	t=1794444044;
+	b=KJoJJJZIYydXHU3Sz9+D6EjYgsJR8bOcqiiYJf1NavQiiZauwJ5ItqD3tBYnuTcfCt5H
+	 Rk0mam9jjReEuIh/We6NI1CigY9fE/z8UAZz9jGAuZOWkDHx1VneDuLele/EiibCNfJkW
+	 FT9rrt9kE+pptYzqupHNUpVAXdwTgtZA/az9luL9JujwmEexN2ttTQk0Nrl6rHqOC2Fgy
+	 8/51nJxXnmLrurAXllaUeXIJtfTV2LrYn+TpZF8apMx47NXCu6HuyDPYdONJGsqEXJ0+Z
+	 koNDtAcZBFVefRF7w8UL+bytzb/gaN62AUKM1CUeDeS6AY+CeClcmz1mwUZEzbs48Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794444014;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LctdR/JCjxXqXaUQaTN2ULstUn/j3yJ+h0QrraA+KO8=;
-	b=UPlfktxrhSn+TrVPh1e043LARUOn6MVU5CU/lAN43E1w31n4l9TQjKGI8EL/faJXf+QU
-	 yNsbuUQpIDYibkzu4Qk/ZqlxPBNgXQ4x8u1iSgUfcVeQRGsOkq497UX7hAm2EyvfSZGLk
-	 C9yY9DfMkkHBGh5KikNEig4xA3s0RfG1ig2Y7YCEXpBT4klo+OwBowthjjhYqmAJoW2E8
-	 hDFe5mXBe/DyO7h9UseJ0P5RFD2VEGAh+OnRpNY9cSLvGa5xUY7kFWiJ0y842SoS3tNc3
-	 3Ig2+ABlHKvIxtsg+U/0pcLaAGOShP7IkVfAxyOaUqe8TsJqRw4XV/ymuL4FUQB06dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794444044;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=6xpWvm8FwNjmg+fPN53wD4gkIM4E/p3REBlACqtLvXs=;
+	b=olIeDjS0h0xsWt2B+RHRtXmTdEjXnBdJDFpVTF02Fz3VuJ+1eIhbyUx42q1DJbC+YqoZ
+	 vR5aICk75FvamSc+YMeXVF20cTroR4IFBCMRoQ2qGzHTKRF6/OVJJCmm9nXoGuCSkKIzI
+	 nDjvWfi98aPjlkYx6oNFCASJ8F75mFQx9iYP0vPGFEX53Q1iBksrJQZH4mz+P/Wjo9asu
+	 RMc7+dgGiy8RIA7ih/RP3GIgpeFEJfgRCDgd+qnaoPsIyPscmklhLKf6TDGqhgf9xgnQB
+	 1KfmS8T6tJzQJu+4Y7O/jWtSbGsehTI8lIL3cBZqUrzV8u/3AgFDXCfGhgrZ8hKnHnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ays3K3pI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=OwAplIni;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C9D93606A335;
-	Thu, 12 Nov 2026 00:40:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74780606A32A;
+	Thu, 12 Nov 2026 00:40:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74780606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ays3K3pI
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B06BA1F00A0F;
-	Thu, 12 Nov 2026 00:40:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794444014;
-	bh=LctdR/JCjxXqXaUQaTN2ULstUn/j3yJ+h0QrraA+KO8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ays3K3pIaLgkjHtf67+YKirgb77xzOsgoaqDmEP/g+4Qe5AaNi4B39YOWoUh1lzKI
-	 Zi7/z86Ihs4YZJJ7R6sbJJTlh5U25IRSQr2M7CbZ/l7oNky3/H7pWxOAAd114X/FkD
-	 us95OeCkgMlJcVkMHJa/dfAOSB0NI5+dzyms7qN+3irdnRQ1F1OX0RH9RxzbQMO8cp
-	 6xLiuz/R5U8PMqbIT0nhOaUPAqqSFg+K4xa9+ieDK9b2fmrnW3Kzp1B2GrWtApoU8e
-	 t2UaBe6LeHGtWas9QjH/p4y+yHYGzcFiBYW/QLy86NrTZsAr71hHZWfAUUcMexFnCv
-	 5LECeq1WSVyww==
-Date: Thu, 12 Nov 2026 02:40:10 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Pavel Popov <pavel.e.popov@intel.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Peter Huewe <peterhuewe@gmx.de>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Leon Romanovsky <leon@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	"David S . Miller" <davem@davemloft.net>, x86@kernel.org,
-	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/7] tpm: Include <asm/cpu_device_id.h> unconditionally
-Message-ID: <avUK6uzoAJax0ZKn@kernel.org>
-References: <20261111234821.4814-1-pavel.e.popov@intel.com>
- <20261111234821.4814-7-pavel.e.popov@intel.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=OwAplIni
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5C75A1F8;
+	Thu, 12 Nov 2026 01:38:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794443897;
+	bh=xqfnEjqyHMQl2qHFWowUXzE/Oqfvp6pljb9uxPDED6A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OwAplIniUURguBikb+R/YMs3Bk8BOTl5EYLwv+82bdKT0dPNZJZiMnz9j+W0pHvef
+	 FtqWTyR04z/5aW7g+jR/himpZlnP3HJ9YmG522bYVRRYPgmf8uA6/vCIJj0CspD307
+	 tAoFk2kEEVq48RsFodiAydmT/svA8mDID9+hwG6E=
+Date: Thu, 12 Nov 2026 02:40:39 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	driver-core@lists.linux.dev, linux-hardening@vger.kernel.org,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	David Hildenbrand <david@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Mike Rapoport <rppt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH 2/2] devres: Provide kmalloc_obj*-style API for
+ devm_kmalloc
+Message-ID: <20261112004039.GA523044@killaraus.ideasonboard.com>
+References: <20260914223212.i.829-kees@kernel.org>
+ <20260914223219.901347-2-kees@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,18 +76,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111234821.4814-7-pavel.e.popov@intel.com>
+In-Reply-To: <20260914223219.901347-2-kees@kernel.org>
 
-On Wed, Nov 11, 2026 at 04:48:19PM -0700, Pavel Popov wrote:
-> <asm/cpu_device_id.h> now has a generic version, so the #ifdef
-> CONFIG_X86 around the include is no longer needed.
+Hi Kees,
+
+On Mon, Sep 14, 2026 at 03:32:17PM -0700, Kees Cook wrote:
+> Mirroring the type-based allocation now in use for the kmalloc family of
+> APIs, provide the same for the devm_kmalloc family of APIs. This will
+> allow for future plumbing of type information (e.g. alignment) into the
+> underlying allocations. This immediately gains type check on return
+> values (instead of the prior "void *" return type).
 > 
-> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
+> Signed-off-by: Kees Cook <kees@kernel.org>
+> ---
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> Cc: <driver-core@lists.linux.dev>
+> Cc: <linux-hardening@vger.kernel.org>
+> ---
+>  include/linux/device/devres.h | 102 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 102 insertions(+)
+> 
+> diff --git a/include/linux/device/devres.h b/include/linux/device/devres.h
+> index 14ab9159bdda..7656c9ecd4da 100644
+> --- a/include/linux/device/devres.h
+> +++ b/include/linux/device/devres.h
+> @@ -62,6 +62,108 @@ static inline void *devm_kcalloc(struct device *dev, size_t n, size_t size, gfp_
+>  {
+>  	return devm_kmalloc_array(dev, n, size, flags | __GFP_ZERO);
+>  }
+> +
+> +/**
+> + * __devm_alloc_objs - Device-managed allocation of objects of a given type
+> + * @DEVM_ALLOC: which device-managed size-based allocator to use.
+> + * @DEV: device to scope the allocation lifetime to.
+> + * @GFP: GFP flags for the allocation.
+> + * @TYPE: type to allocate space for.
+> + * @COUNT: how many @TYPE objects to allocate.
+> + *
+> + * Device-managed counterpart of __alloc_objs().
+> + * @DEVM_ALLOC takes (@DEV, size, gfp).
+> + *
+> + * Returns: Newly allocated pointer to (first) @TYPE of @COUNT-many allocated
+> + * @TYPE objects, or NULL on failure.
+> + */
+> +#define __devm_alloc_objs(DEVM_ALLOC, DEV, GFP, TYPE, COUNT)		\
+> +({									\
+> +	const size_t __obj_size = size_mul(sizeof(TYPE), COUNT);	\
+> +	(TYPE *)DEVM_ALLOC(DEV, __obj_size, GFP);			\
+> +})
+> +
+> +/**
+> + * devm_kmalloc_obj - Device-managed allocation of a single typed object
+> + * @DEV: Device to scope the allocation lifetime to.
+> + * @VAR_OR_TYPE: Variable or type to allocate.
+> + * @GFP: Optional GFP flags (defaults to %GFP_KERNEL).
+> + *
+> + * Device-managed counterpart of kmalloc_obj(): the allocation is sized from
+> + * @VAR_OR_TYPE and returned as a pointer to that type, not void *.
+> + *
+> + * Returns: newly allocated pointer to a @VAR_OR_TYPE on success, or NULL on
+> + * failure.
+> + */
+> +#define devm_kmalloc_obj(DEV, VAR_OR_TYPE, ...)				\
+> +	__devm_alloc_objs(devm_kmalloc, DEV, default_gfp(__VA_ARGS__),	\
+> +			  typeof(VAR_OR_TYPE), 1)
+> +
+> +/**
+> + * devm_kmalloc_objs - Device-managed allocation of an array of a typed object
+> + * @DEV: Device to scope the allocation lifetime to.
+> + * @VAR_OR_TYPE: Variable or type to allocate an array of.
+> + * @COUNT: How many elements in the array.
+> + * @GFP: Optional GFP flags (defaults to %GFP_KERNEL).
+> + *
+> + * Returns: newly allocated pointer to an array of @VAR_OR_TYPE on success, or
+> + * NULL on failure (including when the total size overflows).
+> + */
+> +#define devm_kmalloc_objs(DEV, VAR_OR_TYPE, COUNT, ...) \
+> +	__devm_alloc_objs(devm_kmalloc, DEV, default_gfp(__VA_ARGS__), \
+> +			  typeof(VAR_OR_TYPE), COUNT)
+> +
+> +/**
+> + * __devm_alloc_flex - Device-managed allocation of a trailing-flex-array object
+> + * @DEVM_ALLOC: which device-managed allocator to use.
+> + * @DEV: device to scope the allocation lifetime to.
+> + * @GFP: GFP flags for the allocation.
+> + * @TYPE: type of structure to allocate space for.
+> + * @FAM: name of the flexible array member of @TYPE.
+> + * @COUNT: how many @FAM elements to allocate space for.
+> + *
+> + * Device-managed counterpart of __alloc_flex().
+> + * @DEVM_ALLOC takes (@DEV, size, gfp).
+> + *
+> + * Returns: Newly allocated pointer to @TYPE with @COUNT-many trailing @FAM
+> + * elements, or NULL on failure.
+> + */
+> +#define __devm_alloc_flex(DEVM_ALLOC, DEV, GFP, TYPE, FAM, COUNT)	\
+> +({									\
+> +	const size_t __count = (COUNT);					\
+> +	const size_t __obj_size = struct_size_t(TYPE, FAM, __count);	\
+> +	TYPE *__obj_ptr = DEVM_ALLOC(DEV, __obj_size, GFP);		\
+> +	if (__obj_ptr)							\
+> +		__set_flex_counter(__obj_ptr->FAM, __count);		\
+> +	__obj_ptr;							\
+> +})
+> +
+> +/**
+> + * devm_kmalloc_flex - Device-managed allocation of a flexible-array structure
+> + * @DEV: Device to scope the allocation lifetime to.
+> + * @VAR_OR_TYPE: Variable or type to allocate (with its flexible array).
+> + * @FAM: The name of the flexible array member of the structure.
+> + * @COUNT: How many flexible array member elements to allocate.
+> + * @GFP: Optional GFP flags (defaults to %GFP_KERNEL).
+> + *
+> + * Returns: newly allocated pointer to @VAR_OR_TYPE on success, or NULL on
+> + * failure. If @FAM has been annotated with __counted_by(), its counter is set
+> + * to @COUNT.
+> + */
+> +#define devm_kmalloc_flex(DEV, VAR_OR_TYPE, FAM, COUNT, ...) \
+> +	__devm_alloc_flex(devm_kmalloc, DEV, default_gfp(__VA_ARGS__), \
+> +			  typeof(VAR_OR_TYPE), FAM, COUNT)
+> +
+> +/* All devm_kzalloc aliases for devm_kmalloc_(obj|objs|flex). */
+> +#define devm_kzalloc_obj(DEV, P, ...) \
+> +	__devm_alloc_objs(devm_kzalloc, DEV, default_gfp(__VA_ARGS__), typeof(P), 1)
+> +#define devm_kzalloc_objs(DEV, P, COUNT, ...) \
+> +	__devm_alloc_objs(devm_kzalloc, DEV, default_gfp(__VA_ARGS__), \
+> +			  typeof(P), COUNT)
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+I was recently made aware by Geert of an unfortunate side effect of the
+default GPF_KERNEL argument. I've fixed a memory leak in the imx8-isi
+driver by using devm_kzalloc_objs() as follows:
 
-Are these expected to be picked separately by subsystems?
+diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+index 0ae5f35e017c..9373a5256224 100644
+--- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
++++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+@@ -488,7 +488,8 @@ static int mxc_isi_probe(struct platform_device *pdev)
 
-Br, Jarkko
+ 	isi->pdata = of_device_get_match_data(dev);
+
+-	isi->pipes = kzalloc_objs(isi->pipes[0], isi->pdata->num_channels);
++	isi->pipes = devm_kzalloc_objs(dev, isi->pipes[0],
++				       isi->pdata->num_channels);
+ 	if (!isi->pipes)
+ 		return -ENOMEM;
+
+So far, so good. However, the following code also compiles:
+
+	isi->pipes = devm_kzalloc_obj(dev, isi->pipes[0],
+				      isi->pdata->num_channels);
+
+(note the *obj* instead of *objs*) because the third argument is
+interpreted as gfp flags. It's clearly a bug, but one that the compiler
+doesn't catch. The typo is easy to make.
+
+Sparse catches the issue:
+
+drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c:491:22: warning: incorrect type in argument 3 (different base types)
+drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c:491:22:    expected restricted gfp_t [usertype] gfp
+drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c:491:22:    got unsigned int const num_channels
+
+I'm however not sure if build bots report sparse warnings or only
+errors.
+
+Is this an issue you're aware of, and do you think it should be
+addressed ?
+
+> +#define devm_kzalloc_flex(DEV, P, FAM, COUNT, ...) \
+> +	__devm_alloc_flex(devm_kzalloc, DEV, default_gfp(__VA_ARGS__), \
+> +			  typeof(P), FAM, COUNT)
+> +
+>  static inline __realloc_size(3, 4) void * __must_check
+>  devm_krealloc_array(struct device *dev, void *p, size_t new_n, size_t new_size, gfp_t flags)
+>  {
+
+-- 
+Regards,
+
+Laurent Pinchart
