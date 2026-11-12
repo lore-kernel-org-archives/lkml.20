@@ -1,59 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452342;
-	b=pQbL0+QEdVyIFcjBlB4u/Evi916K5qv0TuAyHeBYT+8e+8j+uX186QvcQnH3TfO5KYRR
-	 KEm2R+eCDQyLTnsYNbUz8+9pSqT+WErQ0Uk57rkoVVRxysjQveCuGh2jgzoYXJS/jmZxG
-	 Q9iNrYduz3gzdudt4Mp4cBZoylhICy36EutA0e04tLO9vagTJUim4c/EDTHZB26zYwo0l
-	 MiXyS0ymiHMxUu69EDHBGH9iIJoH60rMGKpJ7n+6MsqGuSRhUb4lD6TPGZB3qUaiGXFvE
-	 v8m/fXSXjVTrAZMw9uhdB+EM4c3u66IjkQEW0aQE/17OEpuEOVzbCiq5LyQG3Qx/TQw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452342;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=OvSQxUXvoz37Xllfghfy1IjhVE1RB1eaqEabCAt8sVA=;
-	b=dlnLmJGSj6C/k7TGjWNN+NcLALE2CrIh6o/D2BILWQ+lNRFP2DZu4QhWaZuqt+LOeJ5m
-	 oAFe/2PU9vj/lSI4WObN1crmOIUyKiOiAXs11NoYhcyzkpHH28bA8vi/Epux5xTeTa37z
-	 QcGDcxpXtoNLZVDfq7RX2dbq4FoAu3lFW+jIe245iVrG5sjuxojNj5hibBnah10mdQalO
-	 OkHSOKqsVQS2oXVm/rF/EThw5k6KVqtuQuTEcqsDRATFZW7uFLDHEgWrBi3eySDOAFh3M
-	 AqcfqMgrqsf8d8EdkX/WjB/lEARm/mJFyrkUzt6HI22J0tT/xt4IDRoOW0nVk4iJCFQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Fs/8clVc";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794452456;
+	b=H9vXnlvqOY/dDJDd1roy03wajY8hXN6tezLaM5DwOnwjmVGAmt6FaW8TKrZ/JwByS5eU
+	 7pzcN/Ofuv1dOL+ZRlgaYqlPc4We+1tYN0/gIsNS7daIh3ra3bLYwJb3mkFGlTpBcz3sw
+	 O59AoYuxZVCVozcaYN3HenR/JUtANCFI/vXbWU31owBcgYfUv2ofStrZccVx+nsh3C2Uq
+	 JmeAx7hvv01OOA9rT/o+neiyLaPrdskUutkckUbHZbMycRZdVYYDFkIXVR5ZY19bGYCPv
+	 xq1am2FQ3SP7+qq24maAOhLRnd4PhfZ80JVBRz5njYF1YWAIpeeaj+KVeiJXSxqFPdw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452456;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=0ker/e6EtIU4OfORlKixSoRdHPkrYE+Fp5n7xeEspxk=;
+	b=MBCC2jAt6iFyge6fxnjA5RKAUUXyR3MOW36rp7ub1gqNFWZrUAg9kUdxX4DxvogR+d2K
+	 oHyj1kqv2UJRAyH5KJ2XCvBRzC6SP2DrakyWN2noJ6/LpVujH7nJG6MquA4/curLO7HIi
+	 qyCTzPUFn+5W+BcnPhkcnlX+ExpL9k5Vr9WIlzvtOacPDyUEBEPm20NVjHx+AgGocvZP5
+	 k75LNIwD/zCRSDye5CXypMq2H/Twler2KhH2zsIn5dSNRCwuW73mGSR07CURugINKnjOD
+	 jsK7Jrgdpxv7ZmXUvNZi4NPFLF88R5QQPVYpVygDuBKhNa65AE3TC6lOGByViLpWZpA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FTTco9lA;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L5+nTpdZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D674F606A31C;
-	Thu, 12 Nov 2026 02:59:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EEAD606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:00:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EEAD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fs/8clVc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0693E1F00A05;
-	Thu, 12 Nov 2026 02:59:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794452342;
-	bh=OvSQxUXvoz37Xllfghfy1IjhVE1RB1eaqEabCAt8sVA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Fs/8clVcZqko7ldeGcwJNDFqDWofg9kjfst0zEzNw0qXziPS9DSkBeMnMrIra48A7
-	 bK9BAO89OCoi1jCBNnKxpb16dRwn/0d05p4yKedW00icfBykV/PH1OKNPj6ok7yINY
-	 5HWfz5+Fp5gXiyfC4gdsLXugDwZnkGzmW+nsJbaKA3r/GqZr10XckE7tWV44DOGac1
-	 3cMwuyybZeSi7x1YuMDdO8f37TtCpGSaGYrHms2mnf8E1d5wJW/4+sVDFDT7F/e9jv
-	 +IivaL44c5QcQEtg4E1xXI0DStis4br1wuq2/qXDMG9jFh37C20VXlzwdLjavQbqrx
-	 LfTK9QcWxJD0Q==
-Subject: Re: [PATCH v4] libcxgb: use raw_cpu_ptr() in ppm_get_cpu_entries()
-From: netdev-bot+sashiko@kernel.org
-To: haoranwangsec@gmail.com
-Cc: david.laight.linux@gmail.com, bigeasy@linutronix.de,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, rostedt@goodmis.org
-Date: Thu, 12 Nov 2026 02:59:01 +0000
-Message-ID: <179445234141.2199510.13802580450865869960@kernel.org>
-In-Reply-To: <20261110165742.1204-1-haoranwangsec@gmail.com>
-References: <20261110165742.1204-1-haoranwangsec@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FTTco9lA;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L5+nTpdZ
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2ZOZa4092378
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:00:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0ker/e6EtIU4OfORlKixSoRdHPkrYE+Fp5n7xeEspxk=; b=FTTco9lAaClg0qy7
+	paSGkH1RUK1r3PkEpXNRMMzJeVviZF/6qNKW2F2qfKB3yacXPk72rJW4gouDYDyh
+	zo3yATC+E4zrHCfngpeztPAlrGCQaB+l+kuvO+YbpH9u+AbMohSQ9KAZq6SyPVzy
+	KaEssSZKwFtvvPaSs9nWknAZ6lL2ZGjeYNWIhQKrvCiGwoNltoZuwub3jsx3cVeQ
+	PUIsgh8ug3j7giWLMWbErIaBqCa8EPqDy7uZOgiuIRHwrbyDxy1Py2WhJQr7k/5y
+	+qKlylc0NyL6AruGDg5Xkq7aNT3Okx55QTV7JD6wuPdmdJEiVetlRvEWGD1IlVjm
+	7brqFQ==
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw0m8gwfu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:00:55 +0000 (GMT)
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-679f81d5d7bso6686056d50.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:00:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794452454; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fKmaz4/OhGRhZM60Jfu7e6i5mS5T8V0bSKNdYMCIRb+YL94imEeEWfMEtYHlL8/XaF
+         o+Jon65TMGlrzOn8RbnpD5R8AtRp7YRD85rd2TO8OA8SbCyjZBGpHLuHMPcw9fRHKqH7
+         ZLEsISD1GFgcAwPQ4SytQhmblfeBGOyYxoUy1tZ67cOxIyHdsmsq0JJAv08ucBaW7J0t
+         MOwRTq9fisulzNb6WxzATewPHXCGkp5Zovxc+RakNlORdVJVcz//OfQuT3tDgUdm6kb5
+         ca1FJRaqHaxanXbI1DmKRzxQ0gM8mV/ZFcrDTxM5nl6RNL3C2yLnW8WpMKRpsa/788DF
+         OWqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0ker/e6EtIU4OfORlKixSoRdHPkrYE+Fp5n7xeEspxk=;
+        fh=kIRO4uA59G55Rxn4hombYqO/47Oh2/kguU5Eze4vN/8=;
+        b=Nx3pwvWmcW0CciexA+ykgDdNbtkVufTxPinQnIDfzanYEqSwqjGE80Erc3IdjylutP
+         +wCz5J2q+y1TNXTJwUUD6lNJpuEa+Nool6j595HXMtF18RzP3iWVTkvfgYI94IGR2d+Z
+         T0HFePlHI9YmVkPIvkjK0Fn377ODit/8z2FywzoWxMlfTTAe143vXZ62gjw6uz7A+Eg+
+         y3NxRsc/BIwBjik+dyMSO/IbkCAmfRdxOeeFdrDiDPR8Im+0JB1420r+RRcPojfIcA80
+         dOUH6Lhy5zaOY3KsfzLr6SopOElSCNRi/iswkmjcAI0AbkKPO56iNoHZgm4LtvnBYoKI
+         K2Rg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794452454; x=1795057254; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0ker/e6EtIU4OfORlKixSoRdHPkrYE+Fp5n7xeEspxk=;
+        b=L5+nTpdZUtV13iR13f3WGMjWXpxh1XMcHTcanhn8zUlges3A2XoQ7frC0IGKh3YNGC
+         UP4ToBZ575+b4SXgmJv/W8ujg5QZMKQZCN4ODHey2/3P+Er9U8M4J2gnoKLBbjLb/zcz
+         oq0Jsw8APTD4Xt/kIdVsXKh5EOYdPhWQL/x4trlYzqKKztYLRtMDhAxMPa36iVK8oHIE
+         9+IsysVixaFR3TLBxPxQZwzKXuC+BXvbnDtI7oTjMqaXyhVCNyy67ta2ihw0BVcPm8Iu
+         g1aHVcnPIt6Ja2WQPMfHFGATfw9kaIuviCGUsM1DoXJ33vhEAgW02crjHynzMLPkseDc
+         INkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794452454; x=1795057254;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0ker/e6EtIU4OfORlKixSoRdHPkrYE+Fp5n7xeEspxk=;
+        b=gsObQoJKXT5g3xoBDnU5psH3CjX7ETYvCHQGISYSVYzWTD9FsjcokqSF7gaooUwAqo
+         RZ8xZDfI0k9zZSFnb16c6/c/1vzNEdvnMabroAL48Zc8K8xTzL2IGwpUMPCnUbm8DJ7K
+         3NDMbeV6osVDxzcqCXUdi6m6gtMkMn6F51y5GootFwQLwlsS4ouVbGhNHn9WErexzQ+w
+         GPmIfbmxL9zV4VHbf4dHgJdMPvnwPqUEvGG7DPia0HTuyR/uF+5vSHkutHY7pL5BxkYH
+         tz3P16LpS5bDFa2h5PzKnXqYgIP5m/oJaMyoiAOlp9v5Ppi7BgcJnKA3HukJ/vw8cvUr
+         u6oA==
+X-Forwarded-Encrypted: i=1; AL+hErFm/YJdi5hGp4vrjFB08/40Sm5wQVMPtAlcA3oo4fXHzLAWozu/ZxJbTA/VhbjDmiGC3jKG9tjd4F9cKfw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/QlC2BUKFjsWwRnvmaHXNVcWoY2mfOXtSdasvpIUQ+ZDAaq1Vl
+	jQUL/lKKrI+6uX9Zxi+xxGTjwVywz18V3Xd1H0h6xM51KQhEJWG8xxbcG61y5dbEjiI8dCukUlL
+	Uxq5NHdaOcNhpBtATbjZ39jU56x6IxFzZm8PzZa1PUmikNpTrM0FaDOdNPP5YpcjuZQZaj4qaod
+	swiEmKCESCZhwo56IZDbcRCShLatc5v6834JgcmhE5dA==
+X-Gm-Gg: AYBFou0on6H7CQ46pqNP1niXMnec6lE6XKtIZ5qzpYNCjv88NnyXu1M9k4cJ+z8zzyP
+	9QoJdJ/FagsjK6RU5XLnFG/AhTqeqTifbi1VADGNkC9rhEK78MEOrU7M1RwyBAxUbIXmvv/VjGU
+	MQhCVLdcJtu5V//CesBJaF01Fz60wUIpsUO/y5rztbXA33/ju9CB0g15hcew==
+X-Received: by 2002:a05:690e:47da:20b0:67b:fd6a:bc1a with SMTP id 956f58d0204a3-67c681084a5mr1880268d50.163.1794452454365;
+        Wed, 11 Nov 2026 19:00:54 -0800 (PST)
+X-Received: by 2002:a05:690e:47da:20b0:67b:fd6a:bc1a with SMTP id
+ 956f58d0204a3-67c681084a5mr1880255d50.163.1794452453847; Wed, 11 Nov 2026
+ 19:00:53 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,139 +127,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261111-aquantia-poll-global-status-register-v2-1-b602fc7e80a9@oss.qualcomm.com>
+ <20881de9-927c-41c1-ae30-829382d531be@lunn.ch>
+In-Reply-To: <20881de9-927c-41c1-ae30-829382d531be@lunn.ch>
+From: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 11:00:42 +0800
+X-Gm-Features: AclHuK80fTtqa5nlpttp9lfXoNbkIHr6rTn_KulU4jNliXlNEOaMYSAQUCN8MQg
+Message-ID: <CAPTcHHTJGdCq4zXMhv5iuGVrgeKJgN_5MdG4Joh++biR_J15Tw@mail.gmail.com>
+Subject: Re: [PATCH net-next v2] net: phy: aquantia: Poll global status
+ register for provision ID
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAxMSBTYWx0ZWRfXw2K0FhTsF3ZJ
+ EjBAuV1jzSk6ydnOJ95wBc9JyFPqDgqo/HShm2wejv+4taONRLrCcy5Wz+/Z8GUE4rZE2XHGw9y
+ bfiBa3uFH4Sepb1/vrPpElygkVj1xqI=
+X-Proofpoint-GUID: jasg-3722tWUtOpkJxVUa4VWUl_UWLbO
+X-Proofpoint-ORIG-GUID: jasg-3722tWUtOpkJxVUa4VWUl_UWLbO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAxMSBTYWx0ZWRfX9scL0qVxTV61
+ E6svay40i90QXHbRbJYVJAPpJVRnWUjq+hbJmGLqglB22V8Jev6qoxm10WGOmXczjQdyRfcLb2R
+ mFDMniYhJzVybTdihLyzu+5355sL/eZmWqJQPXpEjXi+YgIrsJAqZsujqknRZure9b40OTJUWy2
+ rYyh3XKYvqe8Px8Xra+igrCzeK0rxEJEh1/W0acQw5OvEn2URnMuGte3F0ATQ5zeHHV2V5FFnBY
+ MFytV6jWheOavIDROumWX38/Xk/cjpKT4V9cJ5i6aMHsYuYF4Z7d41/8S9o/YvwLJeklkpOqYtU
+ 5gG0q24+qPYiIDffx/+kNHc+hWLsgNjcgwWfdCLMBEhbXQWXHSEZ1gDQTYKFSxvT4B/7d5wI/u4
+ Rb3zRK10eA48+dwv0q+QlCw2nIJXRXBkcotJjAlwuhXhI0cwUWXKdHxn6W3/t8Ma6U7P5Mx+YBh
+ qJO3jJeqCUyZ8UdSQJw==
+X-Authority-Analysis: v=2.4 cv=Q9dHcI2a c=1 sm=1 tr=0 ts=6af52be7 cx=c_pps
+ a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=DX8JRrE0vvtK63t69ZYA:9 a=QEXdDO2ut3YA:10
+ a=Epx66wHExT0cjJnnR-oj:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120011
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Wed, Nov 11, 2026 at 9:40=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> > +     else if (ret)
+> > +             phydev_warn(phydev, "Firmware provisioning ID not ready; =
+"
+> > +                         "interface mode detection may be incorrect\n"=
+);
+>
+> Please don't split strings. Somebody is going to grep for "Firmware
+> provisioning ID not ready; interface mode detection may be incorrect"
+> when they see it in their logs and not be able to find it.
+>
+> This is one exception we make to the 80 character rule.
+Sure, make sense, will merge the log into one single line.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The allocation and free paths no longer agree on how a per-CPU
-  pool index is encoded.
-- [Low] The commit fixes a user-visible PREEMPT_RT bug: `spin_lock_bh()`,
-  which is a sleeping rt_mutex-based lock on RT, is taken inside a…
-
---
-
-libcxgb: use raw_cpu_ptr() in ppm_get_cpu_entries()
-
-This patch replaces the get_cpu()/per_cpu_ptr()/put_cpu() sequence in
-ppm_get_cpu_entries() with raw_cpu_ptr(). As a result, spin_lock_bh() is
-no longer taken with preemption disabled on PREEMPT_RT. It also stores a
-base index in each per-CPU pool in ppm_alloc_cpu_pool(), and builds the
-global ppod index from pool->base instead of cpu * pool_index_max.
-
-> diff --git a/drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c b/drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c
-> index 2e3973a32d9d1..708013623c2f7 100644
-> --- a/drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c
-> +++ b/drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c
-> @@ -119,16 +119,13 @@ static int ppm_get_cpu_entries(struct cxgbi_ppm *ppm, unsigned int count,
->  			       unsigned long caller_data)
->  {
->  	struct cxgbi_ppm_pool *pool;
-> -	unsigned int cpu;
->  	int i;
->  
->  	if (!ppm->pool)
->  		return -EINVAL;
->  
-> -	cpu = get_cpu();
-> -	pool = per_cpu_ptr(ppm->pool, cpu);
-> +	pool = raw_cpu_ptr(ppm->pool);
->  	spin_lock_bh(&pool->lock);
-> -	put_cpu();
-
-[Severity: Low]
-Should this patch have a Fixes: tag? The get_cpu(); per_cpu_ptr();
-spin_lock_bh(); put_cpu(); sequence appears to come from:
-
-Fixes: 47da7e62b391 ("cxgb4: add iSCSI DDP page pod manager")
-
-Commit a248384e6420 later moved it into libcxgb_ppm.c. Without the tag,
-it is harder for stable maintainers to tell which trees need this fix.
-
-[ ... ]
-
-> @@ -144,11 +141,12 @@ static int ppm_get_cpu_entries(struct cxgbi_ppm *ppm, unsigned int count,
->  
->  	spin_unlock_bh(&pool->lock);
->  
-> -	pr_debug("%s: cpu %u, idx %d + %d (%d), next %u.\n",
-> -		 __func__, cpu, i, count, i + cpu * ppm->pool_index_max,
-> -		pool->next);
-> +	pr_debug("%s: cpu %u, pool cpu %u, idx %d + %d (%d), next %u.\n",
-> +		 __func__, raw_smp_processor_id(),
-> +		 pool->base / ppm->pool_index_max, i, count, i + pool->base,
-> +		 pool->next);
->  
-> -	i += cpu * ppm->pool_index_max;
-> +	i += pool->base;
->  	ppm_mark_entries(ppm, i, count, caller_data);
->  
->  	return i;
-> @@ -375,6 +373,7 @@ ppm_alloc_cpu_pool(unsigned int *total, unsigned int *pcpu_ppmax)
->  
->  		memset(ppool, 0, alloc_sz);
->  		spin_lock_init(&ppool->lock);
-> +		ppool->base = count;
->  		count += ppmax;
->  	}
-
-[Severity: High]
-Do the alloc and free paths still agree on the index encoding when
-cpu_possible_mask has holes?
-
-for_each_possible_cpu() sets base from the pool's position in the
-possible mask (0, ppmax, 2 * ppmax, ...), not from cpu * ppmax.
-ppm_get_cpu_entries() now returns i + pool->base. ppm_unmark_entries()
-was not changed, and it still decodes the index as a cpu id:
-
-drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c:ppm_unmark_entries() {
-    ...
-		cpu = i / ppm->pool_index_max;
-		i %= ppm->pool_index_max;
-
-		pool = per_cpu_ptr(ppm->pool, cpu);
-		spin_lock_bh(&pool->lock);
-		bitmap_clear(pool->bmap, i, count);
-    ...
-}
-
-Take a possible mask of {0,2}. CPU 2's pool gets base = 1 * ppmax, and
-the release path through cxgbi_ppm_ppod_release()->ppm_unmark_entries()
-computes cpu = 1. CPU 1 is not possible. setup_per_cpu_areas() in
-mm/percpu.c only fills __per_cpu_offset[] for possible CPUs, so
-per_cpu_ptr(ppm->pool, 1) does not point into this allocation.
-
-Can spin_lock_bh(), bitmap_clear() and the pool->next store then write to
-unrelated kernel memory?
-
-Now take a possible mask of {0,2,3}. Entries from CPU 3's pool
-(position 2) would be released into CPU 2's real pool.
-
-Could that clear bits that CPU 2 has already handed out? If so, the same
-page-pod index could be given to a second DDP tag while the first is
-still in use, and CPU 3's bits would never be cleared.
-
-The commit message says:
-
-  the free path ppm_unmark_entries() derives the owning pool from the
-  index instead of from the running CPU, so any thread can service any
-  shard.
-
-That only holds while pool->base / pool_index_max equals the cpu id. The
-new "pool cpu" label in pr_debug() makes the same assumption. The 2-CPU
-stress test runs with a contiguous mask, so it would not reach this case.
-
-The old cpu * ppmax encoding was also wrong on sparse masks, because it
-could run past pool_rsvd into the general pool. Would it work to either
-update ppm_unmark_entries() to map the index back to the pool in the
-same way, or keep base = cpu * ppmax and size pool_rsvd from nr_cpu_ids?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110165742.1204-1-haoranwangsec%40gmail.com
+Regards,
+Hongmei Xu
