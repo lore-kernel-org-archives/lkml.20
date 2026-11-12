@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794515222;
-	b=tRmYNogdt0khIvgkh7U2wDhNUZ8JmT8FVwqL0DCY/BOAxCylZK7XyhBi1NOVw1nnUb9d
-	 3wmlZd3mNz5/hm6Z8mhT9QsTaL+EEi37vA3DL4vbnVjZpUE6OruJ5CEZ+gjv2+kas08Iu
-	 ZBKxLwBz7p3BqwZiv5YW08DyKtTdsFg7LBDLj+OxgFwCGl8y8S89U07K7kYwhelwSG7XQ
-	 VXARVnflhsVtOSdoIv90Sm4cqgvyG64mh8oATqkCLEvwxHNYEbKjLz8dcmoyNO/tkxh8F
-	 RW3UMs2hgo0jpMJZGUaYGwCvXSYLCHpZdLOWdddIlIOiRbsBX/B3KmH0e+Q1MSpA5+A==
+	t=1794515267;
+	b=UjHKV1i/+7CfQFIy87dvZaSN1/0oNCRxf+OXS0j63IheQfSfphjB5yyEpP6DLjdytzE1
+	 OrsB0xOZtqdLxW3ekupHHtdajmCWH7sv6XGnMWc/+4glRN/cS0TMju0a6nxW8f8wRvlwi
+	 HcSBoCcmYPKV2F913FU8uwM/OC1ZobDX7Tz2TJfzhM777sm8ha37u5X1zXruJemGPmo2k
+	 t05ilSlkVodmvLJOA3SC8oLjYOA3DOqdDkk20gePSJ4t/IqjAbydNLhcg7K8lM72Ji9Vn
+	 hXesAcml36Lq46vXukPsHAy4mlP3JXe/GBOneyomI0r64luTCf2J4UPn5fGvhb8625A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794515222;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Chb+aEEpnG9wBgADB7Efz085hxxOusSroeCKPcg1AC8=;
-	b=XnwhKZouBEy1uncEuZaMM2Yr3M5phRha+hcOG08YG03492t5WijjUW2XJ5/uOe9PI/6F
-	 NLyBJmWPmBuNWpGqROlAzmAGBdXPAC1c4g21B16HaTnfs/xQbE3wsTwOg1/NPDnp2Ebqy
-	 9Jf1goNaWKQT/6balQrThHjjNN6N5kKdNrUE1MYKlAmgSydgpP9LlwKr0n5lsMMotZvBG
-	 386QOaN9w6V31w63cQdtPp5TYbLCd5TNuz2HaVjVmjeVt6bgLhrwRvM4XSdquVdCNs/3x
-	 dy4zts/Tnzr8EEyu85Uxf50c4KDm6upGmx25yDQzunSMpgAiLtTCiWZWO770lgyoGDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515267;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Pby9+ugpd/biVYGIeo366Q1JT6Si9sJXPgtB9FpXecw=;
+	b=ubW6LXnWjxTQvdcm3wGrU+dP4UW5dfIyFmJNawUAA4TwyuDI1lgZP6VxMisTplsKShdN
+	 V1I9GNLBXJY26z/iq5vJ4vMME+9oIaP371en4igsLRHS6kS1pJD4GoQifJ1CmfCIsDyjJ
+	 KiyIN41i0zz1hZwLcuDo3j5Zyz0s/YcLhtf0fSZb1eozs0Dy0GzZYm5gWp3yMfiQtQHeS
+	 q9c/ABhVRp5wrqTJg7l6bIhDo5/cZJRHIGH60E3ZgNHJYB+YURMpJzd/4wqOnh0sz2FuA
+	 prfsF8TnuXF0kpuvYOaZjCFBGp7LWVMwJtnuuScJWz7/mN3F2Bfv+6uDbHSSr5q7YLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ATS7JxV+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=empyreal.works;
+	spf=pass smtp.mailfrom=empyreal.works;
+	dkim=pass header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=FdLrhflr;
+	arc=none smtp.remote-ip=109.224.244.22
+Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4503606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:27:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3920606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:27:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3920606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ATS7JxV+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0C521F000C9
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:27:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794515222;
-	bh=Chb+aEEpnG9wBgADB7Efz085hxxOusSroeCKPcg1AC8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ATS7JxV+6MOYwgHE/fLNQPwuG223tWr1KOngzRgaekXHsU4DJdzHclPmAbxImTcPm
-	 0snevFacJ3pbQQmQRHAOlwm68Qcp2ol6/HtHkGUkiNQYM4vKHH2FAuhohEyhPQIctu
-	 z1afVrI2bUrrq0yohQo+t0T+1o13gdkF8GyxO/Z15AEu4EVUb4j+JEWzHZdNRaGWPX
-	 eET30KhaCHdvY88RiUcaKJbFk5XUcnotxW99pOfWQUUXPYUExxefQ5FSb+yPoE+asm
-	 MYCF4D8+WJH5cwo9khl5KY496S/qJAj5McGOJFIzKaVLkIH7Ub2kBdOjOFRp0gUl89
-	 1kniHJQKMBh8g==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ace304021eso1621851fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:27:02 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFe6zvoZpG0DT0SeygVN5zFOnVsbkvBewY+p799HeMjzPxVr6kgIRr5il0ar/4KUMXJK9fjS2aJH712XdE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dqMIP49jvQKqG57uu1Waex5QKXuAfyDpkvg6ImXShxptHYNX3
-	LdHx8U07WvLSCYwQXB3UKvOZdj6qp+HII2mxSJz1zOoyDC74nWa2Eydznb51Alxz65Bjq4kryat
-	a4CpAv1hTnSxsOsCxvJajfI3aekjwxnQ=
-X-Received: by 2002:a05:651c:a1b1:b0:3a9:a2fd:5931 with SMTP id
- 38308e7fff4ca-3ae2b4a1ea8mr2084711fa.6.1794515221502; Thu, 12 Nov 2026
- 12:27:01 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=FdLrhflr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
+	s=protonmail2; t=1794515263; x=1794774463;
+	bh=Pby9+ugpd/biVYGIeo366Q1JT6Si9sJXPgtB9FpXecw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=FdLrhflrJbAQJyRy7jtVXJNRTpIgMnuuwIXYDjH3tA6u1/ovYy+2Bhd2mtZ2tjQ7H
+	 1+x2/gbv+/VEctdBR2lP3rMVykd5GVgMB7NIvHPvEV6Vw9HQuYCVs32HiyTiqTFDMp
+	 QFnfni6VOh8JlJc1SOOFURw2z8VHbinv5QH5yOL13iXVPf5mdd04Lh47eopgIFt2Gq
+	 +gA+F7lLrvwiBn7HZsJhMn0kefktIIbaXlIZYanBHHyzrp3RD4coQinXZO71CQ0YIk
+	 UOtSy44CSwWS//APvxfnUFOmQ5qT7aC4g7eK2lLgm7ce7Th/p+D2TeljIadooRX1aB
+	 Y/zEZkCRiH4XQ==
+Date: Thu, 12 Nov 2026 20:27:37 +0000
+To: Denis Benato <denis.benato@linux.dev>
+From: Andrei Rusu de Castro <arc@empyreal.works>
+Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: asus-wmi: write the thermal policy only when it changes
+Message-ID: <20261112-asus-wmi-tpolicy-reply-f7889fb1@empyreal.works>
+In-Reply-To: <ec9515fb-6698-4e7e-8a88-5b3fa2f50c51@linux.dev>
+References: <20261111-asus-wmi-tpolicy-5fbc4e09@empyreal.works> <ec9515fb-6698-4e7e-8a88-5b3fa2f50c51@linux.dev>
+Feedback-ID: 182420409:user:proton
+X-Pm-Message-ID: 21f4d5436e436e5e9d59d79f6ee35932e650a886
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,45 +64,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <d9da17af-f49e-4878-a8dd-59a8919e6930@yahoo.com> <9b7b42be-6cc5-467f-bd01-62ab74de3523@yahoo.com>
-In-Reply-To: <9b7b42be-6cc5-467f-bd01-62ab74de3523@yahoo.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 12 Nov 2026 21:26:49 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=6rq=+NOD9U1FZ+wnmzUQDzF7sbebp1qvrRTMYnET1CQ@mail.gmail.com>
-X-Gm-Features: AclHuK_hp8KGOjg2fIYGYRM-U9txeKytgoHXjAulH_X4Z4aeAayp8jUpHXZ6IgI
-Message-ID: <CAD++jL=6rq=+NOD9U1FZ+wnmzUQDzF7sbebp1qvrRTMYnET1CQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v10 10/12] net: dsa: realtek: rtl8365mb: refactor
- L2 MAC handling
-To: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Cc: andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net, 
-	edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk, 
-	luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, alvin.sipraga@analog.com, gusfmora@gmail.com, 
-	kuncy7@gmail.com, fabianotassotti@gmail.com, gabonpivovich@gmail.com, 
-	contact@c127.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 6:40=E2=80=AFPM Mieczyslaw Nalewaj <namiltd@yahoo.c=
-om> wrote:
+On Thu, 12 Nov 2026 09:32:21 +0100, Denis Benato wrote:
+> I don't agree with this: if the userspace requests a power profile
+> change the driver must honor that request.
 
-> Add L2 MAC pack/unpack helpers and use them in the family C
-> serializers instead of open-coding the byte packing, since the layout
-> of the MAC address words is the same for both families. The now unused
-> per-field MAC masks are dropped.
->
-> Rename the family C serializers to rtl8365mb_c_l2_*(), export them and
-> reach them through function pointers in struct rtl8365mb_family_info,
-> so that a following patch can add the family D layout without touching
-> the family C code again.
->
-> No functional change.
->
-> Tested-by: Gustavo Foletto Mora <gusfmora@gmail.com>
-> Tested-by: Stanislaw Pal <kuncy7@gmail.com>
-> Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Hi Denis,
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Thanks for the review and the explanation, that makes sense. On my
+machine the package power limits are set outside asus-armoury, so the
+re-apply you suggest would not cover them, and I'll keep this change as
+a local patch instead of pursuing it here.
 
-Yours,
-Linus Walleij
+Thanks,
+Andrei
+
