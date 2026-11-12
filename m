@@ -1,59 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.182.113.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501892;
-	b=LFhY3i2gcF1e0K3LfjijBzCMpftPqHe3tPzJHhtSdNdhu6UlNZO+CSr2PK5GEnDaytM5
-	 SQoAl13RleRB0ru2H//4juihUBWtZtawqyQ6dxC+lve3T+zh3AoZ09Iyb3dSvf6o3r+Ea
-	 G45q7/SERtnYaFPIW11TnOXZ5G0NNEBNE7FcHFfNNo419jbX0eqSjxfzRZkLkBK1KpBn/
-	 9yP6QLJWL05ZvRaXghdf9IN2yQQxRo0FxZJuSMXXx4AJXMYT5OfvjY7nulNXw1mc4xbsy
-	 YF3NfMw/+nyEnKAhTIdSV4YSzMQrz7cOTyYPgGGICDixFgaSUojELwI7PxKhuz6npAA==
+	t=1794501893;
+	b=C3DLVMm77a2BAP86+Syrr1biBU6kI1qlzKOQMiJpl1TE2I4eWjBWtkTe1SLVdrruIrQU
+	 L062fSo4Lly37WTlx64NYC9XtTeHzGBxzOtkMOV321bJ9p4W7dQPh1jT2iGfJqYPyJAhe
+	 q6cuDwk2viSPV4ZWiWYr/L2H7TUS+1a2OPcR9U1X5eQ8rUzi4vmuKxde2865WIbJd6+oQ
+	 9PDNQRotHaswAk3c2sNsTCuTp5DkmP8usDL/rX/wFhq8ui+yhOYMVQ5l34qEnozfn7vQh
+	 4aObFLRrXcwavzYvAspC8L6sp7VS0S6tkvD9qkTCMVU/6S6hCuAWeawjKhnoUArPd0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501892;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
-	 X-Spamd-Result:X-Rspamd-Action:X-Rspamd-Server;
-	bh=dFbMb8AE6Yw9DziHA4r7D3bkKIOzfPramIwPHQ+C3N4=;
-	b=vFKrVql0UFiZaM04g0pDdOstsnXvIpTz/oEes42mBbPKW3g0YN7/oU0ZxYOzYSf1jDU1
-	 BnivZnhZGeoc76husL5yo4bucxPisGWZHBDTA34N+8wx3d/0COWawdPatxb0qFHbbwe4v
-	 QmWuDXic8cmpRZCAA2AGOEMP0x3WZ/iue9OYcPosFXoIA9VnLO7IsHpzAQ5Txm1jn7S3m
-	 17UcA9G0IWJxhN2V/C65VcNAaHXwnr5cktRCY46wv20fLlWh4nJrCNvvAq/Nx1MEsSVwW
-	 QRVD4DC1ROrHPvI752L9Njuzv3JSfkzWBQb+gDSEQqpZR3qoY6JLRmz6Q0thPzdzfwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501893;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=N/JJjQAxr7gs5XtFIopHR9Vrbslfj/S3BZMOowPnB6o=;
+	b=2UyRdgJGYVZJbvjyW3XXPRdjksv/bMF08M+qxOianCBeGnamSThWKAdJJyhacenPcXDQ
+	 dpamxkEYvDtoaglEpD2kGAH8YmLKM87A5Gj9HgF6H+c26maLRL2Cj25gjOp3dfSoqYcJ1
+	 yC5iKtKbXdgdvvZT2saA0grN44d7RCxTX/4Jr02WRxv+z8SwcVQxqQhWcFE4EhI9T1dOH
+	 cnqxFVndBAvtVa8zGlT8c8+0JGmF/GYIBlCUucu5Bb5zIomSwxy9Z2NAJ0OwOtzcktdky
+	 nGpT0FgKxQb7KVC7TJlUKOJRw5WB9Ef8bDzmyiYVsWmTkFXnf2nQtLE8toOepwlsWrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aosc.io;
-	spf=pass smtp.mailfrom=aosc.io;
-	dkim=pass header.d=aosc.io header.i=@aosc.io header.a=rsa-sha256 header.s=default header.b=mxHObK1L;
-	arc=none smtp.remote-ip=217.182.113.132
-Received: from relay2.mymailcheap.com (relay2.mymailcheap.com [217.182.113.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KgyDMV55;
+	arc=none smtp.remote-ip=209.85.215.198
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE2E606A32E;
-	Thu, 12 Nov 2026 16:44:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AE2E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aosc.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aosc.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8942C606A897
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8942C606A897
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=aosc.io header.i=@aosc.io header.a=rsa-sha256 header.s=default header.b=mxHObK1L
-Received: from nf2.mymailcheap.com (nf2.mymailcheap.com [54.39.180.165])
-	by relay2.mymailcheap.com (Postfix) with ESMTPS id 5FE1F3E89F;
-	Thu, 12 Nov 2026 16:44:44 +0000 (UTC)
-Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.38.223.107])
-	by nf2.mymailcheap.com (Postfix) with ESMTPSA id 10762400EE;
-	Thu, 12 Nov 2026 16:44:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aosc.io; s=default;
-	t=1794501878; bh=dFbMb8AE6Yw9DziHA4r7D3bkKIOzfPramIwPHQ+C3N4=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=mxHObK1L/yKmRdMyPGn8PagqYJTC/hVNYOHGYs347oIUZWf5hlZUtx/psXbnAY4rj
-	 LI5RIVyMxGghcOJ/LqVz6kKy/x5btKOt3cGRfzi5vLgkZnMd+AfH1LRQZpv8D/Fkw/
-	 bybDniU4gN5GfVtkO3Sblm8CgQCdd7+BkXgxurow=
-Received: from [192.168.13.5] (pool-108-27-76-52.nycmny.fios.verizon.net [108.27.76.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail20.mymailcheap.com (Postfix) with ESMTPSA id 3B02FE1E52;
-	Thu, 12 Nov 2026 16:44:31 +0000 (UTC)
-Message-ID: <9a26c741-6217-4155-a3dc-e34b4015f71c@aosc.io>
-Date: Fri, 13 Nov 2026 00:44:27 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KgyDMV55
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd5fd34fee0so26938a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:44:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794501893; x=1795106693; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N/JJjQAxr7gs5XtFIopHR9Vrbslfj/S3BZMOowPnB6o=;
+        b=KgyDMV55dgAMB96NH6xPoULExcKQ6F7+p4ffGn/u7ogvRLZG+3wGkwPVFeKSaOqkhY
+         31+ZGnNQ4yJIf1ndpeldECdolpnZwx2LYh43xsuwgubZFVizoY5374paI3PJrlqbpERh
+         YmqPkPPnin0+XMmH2X45vR7l2BgtpR0cMVRTX+TP5H5kQf2ZqOIaGs7Ov1hG1RlyfmT7
+         TnaKb4/53FLAKn8iHG73Qpgre8lp5oFkVH7cU7GAyux0eEjEoTnDFdvS3FkklSMsJwWe
+         cNz7+jXpomogS+CvqfViehQpNSdFumH1prz1lE6EnnLhQGhThZ+CkmtM1IQ3GmOBkn/o
+         0RMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794501893; x=1795106693;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N/JJjQAxr7gs5XtFIopHR9Vrbslfj/S3BZMOowPnB6o=;
+        b=fHWySd5tcZI9qSTIOJB7oIv4Tug+wjofdH+p9S8iFHFNsq+NIOsx3iav4hIVDviH/t
+         /mVcoLlJg+h48FIUnha948rtF+y7BbS4ExAU4ym61ZN+5tU4nBWdo+ur/8lbXKgqaHuN
+         yNmw+Z7J0URRtgfZPdradR+Yk3BmwpPsBglPOdPGyTJArLiCX25J7PN686BKT+PVpU9w
+         717twqkP9pA/O6AZkFR1MlS/AsW00bFrR6ir6nWCJVUNG3FawF/7yEoYhy39wUblBb0h
+         r25dx1USW5/aLU3uw/sFw3cba3EhRfbnfjhB+SW4zJ0ZCCaV5cx5v6NGiwQmddL3w/II
+         Gqwg==
+X-Forwarded-Encrypted: i=1; AL+hErEj42isAzusvE88s3ZV3I+jK7lx4H8OEepQC4968o8P7UbwLCumd4W6faWZ/v5AdLtWuqdVUWdbuVOiR3o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qQIv3Noq8zlBO/nbRn+seWXqJmZ54MrBcnE0J8kSXR0JVohBF
+	w3p6MQ1feM9LM6okwRT/MtRf4diF9Rbmk0LDWxA3apqBOLsPrpnQ3CdWRwFmsVeaX40CfllWYZr
+	Cqsc1RA==
+X-Received: from plhz2.prod.google.com ([2002:a17:902:d9c2:b0:2ea:c4fd:59fb])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d481:b0:2e9:87a2:b4f8
+ with SMTP id d9443c01a7336-2edd775c023mr63208465ad.29.1794501892291; Thu, 12
+ Nov 2026 08:44:52 -0800 (PST)
+Date: Thu, 12 Nov 2026 08:44:50 -0800
+In-Reply-To: <avWnci8x0fn_4ck-@stanley.mountain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,85 +77,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neko <neko205@aosc.io>
-Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Add Redmi G 2022 (TM2135)
- quirk
-To: Yun Wang <7z0423arsenova@proton.me>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mingyou Chen <qby140326@gmail.com>, Ilya Gladyshev
- <ilya.gladyshev@linux.dev>, Armin Wolf <W_Armin@gmx.de>,
- Chris Taraszka <chris@miget.com>, kexybiscuit@aosc.io, jeffbai@aosc.io
-References: <20261106143114.95008-1-7z0423arsenova@proton.me>
-In-Reply-To: <20261106143114.95008-1-7z0423arsenova@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 10762400EE
-X-Spamd-Result: default: False [-0.30 / 10.00];
-	R_SPF_ALLOW(-0.10)[+mx];
-	MIME_GOOD(-0.10)[text/plain];
-	R_DKIM_ALLOW(-0.10)[aosc.io:s=default];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_ONE(0.00)[1];
-	ASN(0.00)[asn:16276, ipnet:51.38.0.0/16, country:FR];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DMARC_POLICY_ALLOW(0.00)[aosc.io,quarantine];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	R_DKIM_ALIGNED(0.00)[strict];
-	RCVD_TLS_ALL(0.00)[];
-	LOCAL_OUTBOUND(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,linux.dev,gmx.de,miget.com,aosc.io];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	DKIM_TRACE(0.00)[aosc.io:+]
-X-Rspamd-Action: no action
-X-Rspamd-Server: nf2.mymailcheap.com
+Mime-Version: 1.0
+References: <57324d544da1e92cf3b30ff7c40595dfbca1933d.1794465097.git.priyankamani2100@gmail.com>
+ <avWnci8x0fn_4ck-@stanley.mountain>
+Message-ID: <avXtAsi3Llq6Ua1n@google.com>
+Subject: Re: [PATCH] KVM: nSVM: Check full nested state size before writing to
+ user buffer
+From: Sean Christopherson <seanjc@google.com>
+To: Dan Carpenter <dan@pereq.eu>
+Cc: Priyanka Mani <priyankamani2100@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H . Peter Anvin" <hpa@zytor.com>
+Content-Type: text/plain; charset="us-ascii"
 
-Hi Yun,
-
-在 2026/11/6 22:33, Yun Wang 写道:
-> The Redmi G 2022 (board TM2135, BIOS RMGAD6T0P1313) implements only
-> three modes: 0x02 for quiet, 0x01 for balanced and 0x03 for performance.
-> The default profile table maps balanced to 0x00, but this firmware
-> recognizes it as the performance mode. Because the firmware does not
-> implement the AC adapter type query, setting balanced-performance or
-> performance fails with -ENODATA.
+On Thu, Nov 12, 2026, Dan Carpenter wrote:
+> On Thu, Nov 12, 2026 at 06:41:43AM +0000, Priyanka Mani wrote:
+> > svm_get_nested_state() compares the userspace-provided buffer size against
+> > kvm_state.size before adding KVM_STATE_NESTED_SVM_VMCB_SIZE for a vCPU that
+> > is in guest mode.  When L2 is active and userspace passes a size that is
+> > large enough for the header but too small for the vmcb12 payload, KVM thus
+> > skips the early exit, copies out the header, clears and fills the full 4KiB
+> > vmcb12 area past the end of the buffer described by userspace, and only
+> > then does the caller notice that the returned size is larger than the
+> > provided one and fail with -E2BIG.
+> > 
+> > As a result, KVM writes up to 4KiB beyond the buffer userspace said it
+> > has, and if that memory isn't mapped, the ioctl fails with -EFAULT instead
+> > of the documented -E2BIG without reporting the required size.
+> > 
+> > Compute the full size before the check, as vmx_get_nested_state() does, so
+> > that a too-small buffer is rejected without writing anything to it.
 > 
-> Add a DMI entry with a three-entry profile table for this model and
-> enable skip_ac_type_check. 0x04 is not used for performance: writing it
-> succeeds and the value reads back as 0x04, but in three test runs on
-> 7.2.11 the firmware did not emit WMI event 0x16, which it emits after
-> every other mode change. The Fn+K hotkey also cycles only through the
-> three modes above.
-> 
-> Tested on this machine with this patch and the series it depends on,
-> built as an out-of-tree module and loaded on a 7.2.14 kernel. Writing
-> low-power, balanced, and performance succeeds, the profile reads back
-> correctly, and the firmware emits one 0x16 event for each (values 2, 1,
-> and 3). Writing balanced-performance is rejected, and Fn+K cycles
-> through low-power, balanced, and performance.
-> 
-> Claude Code (claude-opus-5-5) analyzed the ACPI tables, wrote the test
-> scripts, specified the change and corrected this changelog. I wrote the
-> code and the changelog and ran the tests on this machine.
-> 
-> Link: https://lore.kernel.org/platform-driver-x86/OT2JfRLDi6yHShYvywRZoFBYdW-TUgdKqKtahRM5b0cZxNo6eGZHnO5dKf4oYFaEtZhEsqU-Q-2OFe0D-qToJMVUrS5_d2aa2Q5LD50ISIc=@proton.me/
-> Link: https://lore.kernel.org/all/BelDdF5woNEBX6dZ3_zJDEbVkifs1pdxEjtQ1yC-aKyZahijFJCllxm0l_SqZ5Hsj61D8wfJNa7uDSuNKmyyxo2S0tZp9QS5yaafeZUxvxE=@proton.me/
-> Suggested-by: Mingyou Chen <qby140326@gmail.com>
-> Signed-off-by: Yun Wang <7z0423arsenova@proton.me>
+> I would prefer to instead move the if (user_data_size < kvm_state.size)
+> check until right before the copy_to_user().  It's more future proof
+> that way.
 
-I have tested this patch on my Redmi G 2022 (board model TM2135) and 
-have confirmed that I can now switch between "performance", "balanced", 
-and "power-saver" power profiles via the KDE power manager tray.
++1
 
-Stress testing with s-tui also shows different power draw under 
-different profiles.
+Side topic, your mail got flagged by gmail with:
 
-Tested-by: Yu Pan <neko205@aosc.io>
+  This message isn't authenticated and the sender can't be verified.
