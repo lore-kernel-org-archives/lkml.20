@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794482814;
-	b=nLljMpUciZcivy7Rf9E5mblV39NkmXZdKr72rCK23T2xd7e+yFc29IK4mZJbX7PlAd7y
-	 Zj92LPwO1EBaJOpINAE9VbV+KSavsM5UQb7rvIFWEvQyGSMdoq8shjEun9R+e7XB6ZOG/
-	 xpK4WkOi12W7jXVnc8Ai884gnEyPnfIRVdNSrnfCrUzGrbwQx7aHioo2Jrizyjud0bb76
-	 JN1iO1YvthZW39TBh1pjHGnCFildA6gzGKJJebvI33dcJDtIWgwUCvPQVYLnZQpdS/5jY
-	 KVxZV3EGBqpCH7kVfYjeZloiKuJexF8PfYrXqwm64sCcCQxg/5KzzEUoM4h2ohk6uMA==
+	t=1794482818;
+	b=aK8nhqGCzBkyXs8Cn+rCCfKN4Rhs/G4mjoLZuQQT+7WST83H5a30urlWvAwU2p2VLxj2
+	 Rg9OBScWlQEW/rnWnwPtW2y/ldm7otomwZiHwjyEqsMnW8Kgkqkw783CfM2eTZczG2t1V
+	 cYTmjkV/jXPCX9Wyoj1yC9R/2UlRuq4X0AfdJZZM2FEy3hdUqTPnXlyBkA1xbj8i4IVTu
+	 PcC0jqd91M3N8lp8BywzeNTnnjooIUUoTV6BhZfW9wxCQvor2X9GyIUoPyhpBlb/9cz23
+	 NxidDAleAJJ2i63KurdhdiEwmAorDEByuClt0JySdod+7uphrVuGmef+Io8M9G3E/yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482814;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482818;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=pvnTky2rr1OVYIEAjOLyue2SPG2gAHzpqmoJhFf34Tw=;
-	b=awTgr0W6k0shpaQ0WqbZwr3+d9dW+odnYE/Ryvrbi4MWEYyng2Q1RbwfQy2aZ2ldHSr0
-	 kiKz0Nau6Jfw9z7Mu8Pgzi+69PFBsv+mK9nhF2COjg7+nL3RImwa/CTmfWcgaD2+xTeL+
-	 U4UFB1Xc9MNxuFzyBDoG7/3Q09LoqZp2A/2X2U2WwfSU3cXwqi/+ZBQAb5+CbnXd92gmh
-	 rqwodv/sZV/xumgaINidtmw2rXDT6oTBFQZjVlcoVy7YXbSKH+BdOLc/hXFqTJqjntgty
-	 lc/kb+wDt7hJpmHwrqM+ev/fxvmp3KoGAjI0F9HFr4XYLZdyTGL9iJSduav42qGSnrg==
+	bh=iSurMTjjXMqIbAPmYlacWsBpDjoN1amWMKgaBaCdTD0=;
+	b=m+w/UFb3XpZNyIIzd0bWBfItV39DBFbgQXS2WE8rdsWsAJIBdy58/j6D64r4SPGS+SH1
+	 MBKh61yUQbX5yiLcooj1ftciwDnRrCQy8C4w5IKdin0ZmLG43/cxzYLj+pLSP420/Veyu
+	 /MMiVNudM7Enmorfzhs1QJKBp72de/nooW/EWWPh9HmTbGNcCWbkpMCX3RTFNfSi8VIfm
+	 xayDglGjoSeiyQznZu02qVII/8op6YNtX9Zw6k+tl0/O88R5VN6anIm7FNMwnHvXMuEhk
+	 rsOqzN+oN6CvqympOJzwLYVhU5GMONMpfxrwHufwn5Jr8AfTlN+VM1SgZsd7MgKNvbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=p8sa+g7V;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Iln9jUn3;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B753B606A331;
-	Thu, 12 Nov 2026 11:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B753B606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B7D60A6F6C;
+	Thu, 12 Nov 2026 11:26:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2B7D60A6F6C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=p8sa+g7V
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Iln9jUn3
 Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:cdf:7464:6c04:36e4:ee87])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CE4D2802;
-	Thu, 12 Nov 2026 12:24:27 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 99958D77;
+	Thu, 12 Nov 2026 12:24:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794482668;
-	bh=KYZkWwB2Tv0K0JLJrfyDO8wArdfZxNOZP5A5oLs+kCE=;
+	s=mail; t=1794482672;
+	bh=0qrNB/5Q37mChnTV04xfvUY+Y5wzyUabCqTpoOedSQw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=p8sa+g7VE5EZCvOB1nrW4bEoLmBJqq/Ux56Q5KwhNJ3Fl9AmKl44MwDuhgdPX2WqR
-	 8jbbQVn8723fbFWDmMIY4yuXoQTZqZITzORA7yaocy226+4Shnwugrjibx2CT4mUeG
-	 xoF05uWgW9Op8OB48RSfxITp1vZ4EfvsIQxhBsFM=
+	b=Iln9jUn3VTX714htEfFFXn7EvR7GA6OLPilFvwFyV7KY/xotsX4gw28b+ahAFzhnD
+	 vWT8Luhp4ojcIRWFpIYC0BI5Bb5liwsTkjjWUc6NbIo1D/NplGG12PTmL6XV18nYPm
+	 D9H0WETnzQBZ2QG57Fk+KOeEMnL4VAX/ikAKO40A=
 From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Thu, 12 Nov 2026 16:56:29 +0530
-Subject: [PATCH v6 1/5] media: videobuf2-core: Move type check out of
- vb2_core_expbuf()
+Date: Thu, 12 Nov 2026 16:56:30 +0530
+Subject: [PATCH v6 2/5] media: videobuf2: Allow exporting of a struct
+ dmabuf
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-b4-vchiq-isp-v6-1-711b48378367@ideasonboard.com>
+Message-Id: <20261112-b4-vchiq-isp-v6-2-711b48378367@ideasonboard.com>
 References: <20261112-b4-vchiq-isp-v6-0-711b48378367@ideasonboard.com>
 In-Reply-To: <20261112-b4-vchiq-isp-v6-0-711b48378367@ideasonboard.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>, 
@@ -76,134 +76,164 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Jai Luthra <jai.luthra@ideasonboard.com>, 
  Hans Verkuil <hverkuil+cisco@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4563;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4856;
  i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=KYZkWwB2Tv0K0JLJrfyDO8wArdfZxNOZP5A5oLs+kCE=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBq9aJpZ6YNrWZXsE0pS+j85ca1qnnFARi9wa7iX
- c10UxY860yJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCavWiaQAKCRBD3pH5JJpx
- RaEnD/4mVwa0bRW4KALuu0FQKS2dJuHnmfuWCjngGlvmkaaaSADO7Zzcu39Axc2Cd/uY21gC85K
- aI6EsVjoVAoG8y4xO9hw1qpO/XZO47NtQBVwkYMnGm/+IUdBvWMq/f8x42lFdXDBc4aIIU0bNRI
- MZLebAhbYWZrsN8VvoiE8gnE4uVS6i4M98zA/vMJDsJD57vtY2GR9Z8rvvYTngOjkA8F2ndhO1V
- 67AgXWtCg/vTNIMYo55ToPGuP1DGkf3JbbZqOwSCdt0QvJyxAFLOhDy8bDsDAXgcK4C0QIvTiLn
- lcLvGZC5a2z++Ad0ocgFSAeRcoiWIF4OJb9U2c3Nie6jkcH/2y8lbVnSlicXNCMAhz/Amk8i4RN
- sg+CQ+4Fw9UteWcbWdz+P3buI0g0j+SCRxKcLfxNjJz2WdULxqHAkrMTTxjdtKnjHuPkkiN/XjE
- WxNbmN9FhIv8PJ6zCylCCp4r8WKWvG2hy5qssBY2nQXrAgkJKJePHPofpF1egCWrNhOXfte/u7q
- jxuOmtgkLkP0xBPrHQzpy7nCnVXIG8pcvrhsfgsrHip6d6ecviXPqXHSOol/+PIwNWX7UzjM9h1
- 1aH6NRgKyt51sgShhSA+uOoJ8ztx/1SmUdY+fZ8CnaxdYk0UxDWyeuGtv2q3Nh/utcf3hNQjIQW
- HhUDUP5xk6o8srg==
+ bh=Le5D9sRlLa64/8mx0DNW1ZignBpuaWsmfPP8cdXuoOA=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBq9aJpmKAsS7UPbulT5gQt2R17B01r0mwycRn9s
+ L7Oiv0sxxaJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCavWiaQAKCRBD3pH5JJpx
+ RQtrEACTDl8A+WXWh9hFErzEVaELEBKfeT+l5UC8csq/CCkE+jK8Aon4Pe1QV6NzkTSXMJxKkpQ
+ HKDwowaqV6JekYOMtL9f9JehzlBji0Xbv+8quIoEMuzEJJJik5VoDm8HS1whQjFCsjONa6UZYOJ
+ 7QCNwItlBmh7iAf8Lvr+DX6SoMrzhovDDMo7zLV7QN4nH3UGGrTFXKez+LWK6cK15ep3Q4mlyh/
+ rKtF70w2k6Kc8dVK19VlQ6NXBBca5F7Gd56D8ir/ysfnI/cvLtxsIpNYAvjc6A30Y17Mv6evTx7
+ zehqKX2FfmXK9RXPc1a/yD8uqkDbqmkZEquGuw8VVrIytmNQDN2rSOZ2vjvi+QLbZCiRNNE+Dd7
+ HmpzVMVRD2USGnfd/R5yYswmy8Uoa2OjImg48QOVAP5KN6ChSLFZZbCKKFp+6fbBFc5SEV9xye2
+ 3hUMIvoEPE/4oNHRGy8YOWGrAPVb2w41MWQkRCn3NLX0uFJWjAvrQkj0LC2afbJoheQdM9SL71p
+ +kPVufBOQ750vbYvVhRGut+HgvigomRcyFjUwONfq/XgJgxTaXmrFsJBJmu9YbKYjFqU5ATNJOX
+ fhT3WkXvZLre64A9TO6BohnOQtaMAk7E9qHlBSsES5LVz1MIMNqVP53nkpHeCGGycQgHjVCEwft
+ rbr30grTxZLjRDA==
 X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
  fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-vb2_core_expbuf() takes the type of the exportbuffer as an argument and
-checks if it matches the type of the vb2 queue. Move that check to the
-caller (vb2_expbuf).
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-There is only one other user of this, which is dvb-core, where the check
-was anyway redundant as it passed the vb2 queue type instead. So update
-it too.
+videobuf2 only allowed exporting a dmabuf as a file descriptor,
+but there are instances where having the struct dma_buf is
+useful within the kernel.
 
-Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Link: https://lore.kernel.org/all/20260910150454.GP1892234%40killaraus.ideasonboard.com
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Split the current implementation into two, one step which
+exports a struct dma_buf, and the second which converts that
+into an fd.
+
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
 Tested-by: Paul Elder <paul.elder@ideasonboard.com>
+Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- drivers/media/common/videobuf2/videobuf2-core.c | 9 ++-------
- drivers/media/common/videobuf2/videobuf2-v4l2.c | 8 ++++++--
- drivers/media/dvb-core/dvb_vb2.c                | 3 +--
- include/media/videobuf2-core.h                  | 5 ++---
- 4 files changed, 11 insertions(+), 14 deletions(-)
+Changes in v6:
+- None
+Changes in v5:
+- Update documentation of return type to only ERR_PTR and not NULL
+Changes in v4:
+- Return a pointer to struct dmabuf instead of passing it as a double
+  pointer argument and returning an int for errors (Laurent)
+- Document the return type (Paul)
+---
+ drivers/media/common/videobuf2/videobuf2-core.c | 45 ++++++++++++++++---------
+ include/media/videobuf2-core.h                  | 16 +++++++++
+ 2 files changed, 45 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-index b0a6084f1757..5e318165659f 100644
+index 5e318165659f..7b99d39d7cb1 100644
 --- a/drivers/media/common/videobuf2/videobuf2-core.c
 +++ b/drivers/media/common/videobuf2/videobuf2-core.c
-@@ -2419,8 +2419,8 @@ static int __find_plane_by_offset(struct vb2_queue *q, unsigned long offset,
+@@ -2419,50 +2419,63 @@ static int __find_plane_by_offset(struct vb2_queue *q, unsigned long offset,
  	return 0;
  }
  
--int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
--		    struct vb2_buffer *vb, unsigned int plane, unsigned int flags)
-+int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
-+		    unsigned int plane, unsigned int flags)
+-int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
+-		    unsigned int plane, unsigned int flags)
++struct dma_buf *vb2_core_expbuf_dmabuf(struct vb2_queue *q,
++				       struct vb2_buffer *vb,
++				       unsigned int plane, unsigned int flags)
  {
  	struct vb2_plane *vb_plane;
- 	int ret;
-@@ -2441,11 +2441,6 @@ int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
- 		return -EINVAL;
+-	int ret;
+-	struct dma_buf *dbuf;
++	struct dma_buf *dmabuf;
+ 
+ 	if (q->memory != VB2_MEMORY_MMAP) {
+ 		dprintk(q, 1, "queue is not currently set up for mmap\n");
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
  	}
  
--	if (type != q->type) {
--		dprintk(q, 1, "invalid buffer type\n");
+ 	if (!q->mem_ops->get_dmabuf) {
+ 		dprintk(q, 1, "queue does not support DMA buffer exporting\n");
 -		return -EINVAL;
--	}
--
++		return ERR_PTR(-EINVAL);
+ 	}
+ 
+ 	if (flags & ~(O_CLOEXEC | O_ACCMODE)) {
+-		dprintk(q, 1, "queue does support only O_CLOEXEC and access mode flags\n");
+-		return -EINVAL;
++		dprintk(q, 1, "queue supports only O_CLOEXEC and access mode flags\n");
++		return ERR_PTR(-EINVAL);
+ 	}
+ 
  	if (plane >= vb->num_planes) {
  		dprintk(q, 1, "buffer plane out of range\n");
- 		return -EINVAL;
-diff --git a/drivers/media/common/videobuf2/videobuf2-v4l2.c b/drivers/media/common/videobuf2/videobuf2-v4l2.c
-index 5a1ee5eb9c0f..aee1a9244a7b 100644
---- a/drivers/media/common/videobuf2/videobuf2-v4l2.c
-+++ b/drivers/media/common/videobuf2/videobuf2-v4l2.c
-@@ -877,14 +877,18 @@ int vb2_expbuf(struct vb2_queue *q, struct v4l2_exportbuffer *eb)
- {
- 	struct vb2_buffer *vb;
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 	}
  
-+	if (eb->type != q->type) {
-+		dprintk(q, 1, "invalid buffer type\n");
-+		return -EINVAL;
-+	}
+ 	if (vb2_fileio_is_active(q)) {
+ 		dprintk(q, 1, "expbuf: file io in progress\n");
+-		return -EBUSY;
++		return ERR_PTR(-EBUSY);
+ 	}
+ 
+ 	vb_plane = &vb->planes[plane];
+ 
+-	dbuf = call_ptr_memop(get_dmabuf,
+-			      vb,
+-			      vb_plane->mem_priv,
+-			      flags & O_ACCMODE);
+-	if (IS_ERR_OR_NULL(dbuf)) {
++	dmabuf = call_ptr_memop(get_dmabuf, vb, vb_plane->mem_priv,
++				flags & O_ACCMODE);
++	if (IS_ERR_OR_NULL(dmabuf)) {
+ 		dprintk(q, 1, "failed to export buffer %d, plane %d\n",
+ 			vb->index, plane);
+-		return -EINVAL;
++		if (!dmabuf)
++			dmabuf = ERR_PTR(-EINVAL);
+ 	}
+ 
++	return dmabuf;
++}
++EXPORT_SYMBOL_GPL(vb2_core_expbuf_dmabuf);
 +
- 	vb = vb2_get_buffer(q, eb->index);
- 	if (!vb) {
- 		dprintk(q, 1, "can't find the requested buffer %u\n", eb->index);
- 		return -EINVAL;
- 	}
- 
--	return vb2_core_expbuf(q, &eb->fd, eb->type, vb,
--				eb->plane, eb->flags);
-+	return vb2_core_expbuf(q, &eb->fd, vb, eb->plane, eb->flags);
- }
- EXPORT_SYMBOL_GPL(vb2_expbuf);
- 
-diff --git a/drivers/media/dvb-core/dvb_vb2.c b/drivers/media/dvb-core/dvb_vb2.c
-index 672b0efdca21..fe7a6554b30e 100644
---- a/drivers/media/dvb-core/dvb_vb2.c
-+++ b/drivers/media/dvb-core/dvb_vb2.c
-@@ -357,8 +357,7 @@ int dvb_vb2_expbuf(struct dvb_vb2_ctx *ctx, struct dmx_exportbuffer *exp)
- 		return -EINVAL;
- 	}
- 
--	ret = vb2_core_expbuf(&ctx->vb_q, &exp->fd, q->type, vb2,
--			      0, exp->flags);
-+	ret = vb2_core_expbuf(&ctx->vb_q, &exp->fd, vb2, 0, exp->flags);
- 	if (ret) {
- 		dprintk(1, "[%s] index=%d errno=%d\n", ctx->name,
- 			exp->index, ret);
++int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
++		    unsigned int plane, unsigned int flags)
++{
++	struct dma_buf *dbuf;
++	int ret;
++
++	dbuf = vb2_core_expbuf_dmabuf(q, vb, plane, flags);
++	if (IS_ERR(dbuf))
++		return PTR_ERR(dbuf);
++
+ 	ret = dma_buf_fd(dbuf, flags & ~O_ACCMODE);
+ 	if (ret < 0) {
+ 		dprintk(q, 3, "buffer %d, plane %d failed to export (%d)\n",
 diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-index 4b4f4c15c53a..feda638d0064 100644
+index feda638d0064..45bfe8a2a12a 100644
 --- a/include/media/videobuf2-core.h
 +++ b/include/media/videobuf2-core.h
-@@ -959,7 +959,6 @@ int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
-  * @q:		pointer to &struct vb2_queue with videobuf2 queue.
-  * @fd:		pointer to the file descriptor associated with DMABUF
-  *		(set by driver).
-- * @type:	buffer type.
-  * @vb:		pointer to struct &vb2_buffer.
-  * @plane:	index of the plane to be exported, 0 for single plane queues
-  * @flags:	file flags for newly created file, as defined at
-@@ -973,8 +972,8 @@ int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
-  *
-  * Return: returns zero on success; an error code otherwise.
+@@ -954,6 +954,22 @@ int vb2_core_streamon(struct vb2_queue *q, unsigned int type);
   */
--int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
--		    struct vb2_buffer *vb, unsigned int plane, unsigned int flags);
-+int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
-+		    unsigned int plane, unsigned int flags);
+ int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
  
++/**
++ * vb2_core_expbuf_dmabuf() - Export a buffer as a dma_buf structure
++ * @q:		pointer to &struct vb2_queue with videobuf2 queue
++ * @vb:		pointer to &struct vb2_buffer
++ * @plane:	index of the plane to be exported, 0 for single plane queues
++ * @flags:	file flags for newly created file, as defined at
++ *		include/uapi/asm-generic/fcntl.h.
++ *		Currently, the only used flag is %O_CLOEXEC.
++ *		is supported, refer to manual of open syscall for more details.
++ *
++ * Return: returns a pointer to &struct dma_buf on success; an ERR_PTR otherwise.
++ */
++struct dma_buf *vb2_core_expbuf_dmabuf(struct vb2_queue *q,
++				       struct vb2_buffer *vb,
++				       unsigned int plane, unsigned int flags);
++
  /**
-  * vb2_core_queue_init() - initialize a videobuf2 queue
+  * vb2_core_expbuf() - Export a buffer as a file descriptor.
+  * @q:		pointer to &struct vb2_queue with videobuf2 queue.
 
 -- 
 2.56.0
