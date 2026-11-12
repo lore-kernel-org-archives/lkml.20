@@ -1,103 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794458182;
-	b=yG2RKaWMhN4gV8vaDJQHUzkjv+6oW13ls+mybKe1JU4MIiIBq2HLf39ybgWZP5PMXdSn
-	 3In0qSTl+BSA0z0sP2msgcFjnmc4BkR13x2H6lpbpXO2wcUmijy5E1ef4Z/7+UyR9VhDf
-	 8d3x+aBEDXmUhSReciIHN4+hOTs0CmsTNGTs8l7Eq5dLuXQvovB0kfitLuuBmd4EyKD3g
-	 +8fYsXw3Z9JDO+DWMoc8A5Akii0//U2kiq8ZjiZLjVVGpUqMPlh9gXQC0UzsYHzhSl4WS
-	 KldjeJty5PCFIOQ08PdDcqefglQjSLqEfD7S0YY1iuAgdKNeLXCKxYehk8VVsC+diXQ==
+	t=1794458191;
+	b=shqCNOT0p2YfotsQRnnMhSqm/JiUVfu6w6qriUpQFCrKInRfSZDjacQWU9aZz0Agno9r
+	 Psh79uJ+8XjY0uHmQzgS+9et18PnbN9BzHuJAcilRbiPYqOS9k3KGQTiY0ZysYZqUoeU3
+	 A0V1N0k6ekCR55QBb0UN7KVRN2/rRa43WfRkyrSNSdXheQ+ck8+WCiUY5FM34XdHMTKxe
+	 alcJOzQuPo/bOkNsenL8cD9hvATuKbc+hKwGbAwlTWoeaJ6jsSHU1+44g4lwB7nXKhew3
+	 M2Dp8x0HzWrueTxmcgYiUISl/7bcqslPyxzsWJszFiDP14Ug4PBY5v3V6a9EBAa70KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794458182;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=STeEkttv3YJNNONebll50Y3FQZPr4qX7dcO5WrAPVr0=;
-	b=sHKpO1dQtMj0wke2RhR9hDrlAQL/SAVADA2J5SwjSVJL7rO4xQ928bTcZEDL++Lf3Jfw
-	 fqiX7BmCVDUkJ/h3BAJm3mX/VV39jWyPBvlFJjuK9d4ft3pqpDqmS58d5paqaT6uq47Si
-	 CovSl+lYOBBjrl455h9yQL4GrA4VztsK86jeA92jjpJHIZyLRj+8esQkIV8HmbeXMvr+G
-	 YXtDJPoa7K4WRP4EoydeDrPRxm094CAYO19cT1Z26xcro2csFRHJ3AKBj613+pkZQupob
-	 yjGWUD/NktfTXSMCIG5ubOCP1lgM+IQYHDqZfwfhZUB0MdcDPWXsab0uvajF0smwKIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794458191;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=lyC5qj4Ry53YUg++hgJJ/BhVmj+JSw6oRJbx5/GvGnQ=;
+	b=bAd6dGda7Gu+F4n9v4T5xjwxAGOHDIyuTo8VqFlE4L7Mk9LyS7TN/BQWOq94diM/MLSk
+	 MyNjE/5AK32wYVhcrpErzblUsnoA9C3vuNN1XaeKoSoHh9fgL+RkRnCbRGrF6mmaOgxlJ
+	 xjPykt3QsP7qJcZhRcUk1tBGZ9dwj1ikx/V4j/FgtKEmlICLbUM1+mPxXfuyTW5e0Rg9W
+	 D12o2+EHwqjbdLGfrCBn7cv4Yo87U16LJacSUrvhn049sfwINejVKzi20AyXkfeak9RbM
+	 r9FGpqRxrrqSbHZLroRMwCVHm5eyICS8WvoysjDqUGCxZd71aU2gJ8SZWYuNyI8ZKww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="U5LRf/9m";
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ns+d5HWL;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P74aSqQc;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0116A60A6F75
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:36:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0116A60A6F75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A458606A88C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:36:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A458606A88C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U5LRf/9m
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso1900852a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:36:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ns+d5HWL;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P74aSqQc
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2Zd5F3061536
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:36:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=lyC5qj4Ry53YUg++hgJJ/B
+	hVmj+JSw6oRJbx5/GvGnQ=; b=ns+d5HWLXtp1kuxb4QbwAYmVXKAzLeXlKBB2Cd
+	b49/K3RSx2v2/RodiYVAfrXSS5fXrncu+KnUNVpy94fsKw9UGqyWD2qrbYXWueXX
+	u/5ImCYAXWZe70Izjd+LpOSpvpjdhL9FZCBsmqF7HplxtL1jWJpVMqLjcdwch4a9
+	wX0x8MpkU9wFhkJmxM2tY2vETOWVSTlxF2jceZoM2cgN5fEGXuoYDk1s6ED5tfaI
+	aqdCKSuKPSQD7CP1xAtxOgl4nU43yMpcgIs1oo/DuV8ttoYq5RpT5P6W9YauplAB
+	st851Be2ck+T8YyCBNx16VlH05XBqcrYEux1NDONIwvPyB2Q==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvs4m393u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:36:29 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3724667bc16so327077eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:36:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794458181; x=1795062981; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=STeEkttv3YJNNONebll50Y3FQZPr4qX7dcO5WrAPVr0=;
-        b=U5LRf/9mSR68LCUNLUKtWF45SwDCAZ/4F8n++Qfj5X+EJl0qVYIpLX1WR/cteMOfeS
-         n3JYQZj53fIgXMx+TPTIMkQweKx2XBvhEXzkDWS+hsa7gihcx7R3iZ0AJ0Cpqktj5Oyv
-         y4IFzvLJLvYrMid/xZIFQTZbdieMGkZ6OK/l+LExUBsYpbG9WK6YN+T1qLaeQQbegjxp
-         0tSJicDhY+ZPDTQHNKBP7HIVXb+E0xuThTAbhBNVPVOH8VpSqOxL3ckhRTPMM8M8HPL6
-         Tj8iXeUOykIUKXXHrFbw29NzFH0Y0nFwY016rhQd5fQECVimt3z4k0n/lO/eg/hcPFQf
-         TJjw==
+        d=oss.qualcomm.com; s=google; t=1794458188; x=1795062988; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lyC5qj4Ry53YUg++hgJJ/BhVmj+JSw6oRJbx5/GvGnQ=;
+        b=P74aSqQcJcrIy/etpHrTn1Pez41gErW7sTU/PjXFz/GUIS9WIKgY/UW7ezvge32nwi
+         O4Hxz1SkSP5fjYQsnEWNyVFMQMwepDl7hfDvi0teSmeRiovSB2wtCm8AOEFJSEYvf0rH
+         uxBIRXRD/0F3ZtssWtknzwjibEGz9pbl9Zf9hCB1bACU9T9fDzlNDOgR+VKm/RUnztX4
+         vIdqLzxvOhhtPEexadRTDWo1CKEiddZ/GCsEdV/uDGiwlYVP9Xnc/k2rMNydGZJ8JuUI
+         lNYWToZFoi+mQV5vg8LO+APmKeFl0lAEe4meMds/ax2IrNMkk3wGtABsuzUQM7VeyKgc
+         kaeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794458181; x=1795062981;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=STeEkttv3YJNNONebll50Y3FQZPr4qX7dcO5WrAPVr0=;
-        b=zqrDHJLoTmj7YF1IOgPAhxJR2iKb10CK4eJ2bJGLIOQwoKa6jJ2i4aWxW994W1Cp7t
-         fsNflynEWhJuPuD0NkkXcEzqmXRPPzrZFLmfEQYlZVjrtYHMFdpT8tENXEqP0X12DGLL
-         XIiNdMVUfsBTe4yRWMjHsBCwN3jkYPtTF20So0ZsOazIb5dok+D9meaHZBPk5kp6ZKgZ
-         e97tWuUjzE+OHp7a66yNgkNHFqSBE2P0QATaPFueu88d/rVVX4iKx712F0N3d1TICfBy
-         XVRWO6rEc/T7ym1+U8tAn10e6lISw7eWkcxaL7u4cNTdE1l+9Ir6brriV4JKSmdBoXtp
-         7fFQ==
-X-Forwarded-Encrypted: i=1; AL+hErHDGbLX8/Dm23UvANpNnGKkaxsABVlXNfzlMMIdztc0ukQM0sept72858owBYetHorstaPs5ZgZByQi4Kc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8p3CkeoK4UqZ7dU/TF2ivZ1hU0kDTJKQj9rFPs9xSnRJvou2nr
-	U/8E061x6uTtDx1bPjgpB7lYkQE2vxWOf+aqvJK4Oxn1C/geibtmzsYa
-X-Gm-Gg: AYBFou347JfrlqBJKCjswaSGcnDJA+bViUDafZQVMATiZQ9lsyYK5rCUMksj46ZPG1g
-	wzI1MrO5h0bq6qj7stNMv0VS7K/0CEe09BbZ7lkC15T+1rt5c4JymI+al4rmtc0IyfNBgUsD84M
-	h/aRqFwoxUtgK2+14w8Ekoc2HPVj2WCBnFzYVZr9UZkCFbPMCFhukcAGCIcyqHJGFYzhzNLxdBS
-	thHsOOcspx9PUOTfsBPWPTdzoNIZd6YRKRPSDkytd62Gbl/y0OjM6npfsOrhFx5hxhWKQ9vP9c7
-	qfal55dDQYOd4UX0p4Yldl1EpxkmnUhM6GwNl1isDtuG5r4ny1XKh1bHlzoJdfPHAepbBTcUIcI
-	0WeEqDGQTIPk7oia02aMqUzm9bOulSHe9/az7PU/Kj4Bo+TKNp10xkfBVVf5BcbN3wvKuZu4bXX
-	X92zLaOGylPUUX+3ORtBB/rr6e4pilimwBSWZ66cPt1HYm8N/Q4RCrH6GrIGvdBN5tvJz6FXgz6
-	TE2Q9ki1k7jLQFdrE4FgHqlMN1ozNxzAZehUa+laaqj6m8Iq3xxTkDPIih+AE6mzo1yPgU/zKEF
-	O08QYbKS2TzAnvGMeRxlTPMmUBu0xozchmACWJNTELRe1syRzU7ygdSFPgL7CB4RFQ9fexkvGwB
-	1CntHDuoXjYa9VEOTQHE/SYq03NtiiXByHGaB5f4qAFZsPv8=
-X-Received: by 2002:a17:90b:2e83:b0:3b0:9941:8d42 with SMTP id 98e67ed59e1d1-3b182f26e45mr4093593a91.33.1794458181181;
-        Wed, 11 Nov 2026 20:36:21 -0800 (PST)
-Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c8b287sm2470466a91.15.2026.11.11.20.36.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 11 Nov 2026 20:36:20 -0800 (PST)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v28 17/17] ALSA: virtio: preserve playback progress across pause and buffer access
-Date: Thu, 12 Nov 2026 13:35:16 +0900
-Message-ID: <20261112043516.37010-18-mynameisjune111@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261112043516.37010-1-mynameisjune111@gmail.com>
-References: <20261112043516.37010-1-mynameisjune111@gmail.com>
+        d=1e100.net; s=20260707; t=1794458188; x=1795062988;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lyC5qj4Ry53YUg++hgJJ/BhVmj+JSw6oRJbx5/GvGnQ=;
+        b=ruugF9Tr6tY+5zauVFX0tVoYd3LZujLcFL4VT8i06bAws4RjiWw0PWSkQmx33X3TUx
+         SlERxyHG8t3n2n69J+mYiDjoDOv0SD79Fktlhte9i5OStzc0HkUV8y1S/rnlQ2DZs+fn
+         NXe2fiSNFRnrOMMSNFC7qim7shBvkLDbJkpbe1ig5kpKXIKcUfeLPsPC8Pz6zXO3dHeI
+         cgWUd/tj4C6lVJOp96P59WARXlrqWDwafY0ufdKlhGNr0Iz58QcPlaJnVo3krBf97ypj
+         owvyyBPooHfNIzksIPEFD6gODAp7S/0jbvYkBzjZdW3JlhxnzeF0zO3TX5uHuQx9mtY4
+         ctKg==
+X-Forwarded-Encrypted: i=1; AL+hErEPewdhvPGLAfqv0gyVNsnhW7CywufZLYixjjXFpZpg9BBGKS3m1e7yAWGBaJYq0+H6Cg/WtdwarefVSbE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Op7ES7iRjHkmHl1/ecX5SKOSO6bfyeH6LgmspujDiQwhwzQvu
+	vZ9cLbI9vF6MWoIiL+qfmEzG4EDBDqmA8KVV47H0cuhQveUX2sMECtho+MmburtInEU3Ddh59mD
+	752vkC++hldpHOEE4GFBwdZom4S3t3b//7+NOY/ESVOEwqc8c3Hmakvn4ANxBrebq924=
+X-Gm-Gg: AYBFou1KY/wfY3rnGDy8bIXF34MykVCnrq4Y97/jPs2KcMFp498qeENrXxr26zWE2j9
+	fC9fIsGJxYyNcQ4sosFNi91uPZUYFJdxcCOt6s+sFSc5CIs1+uSPFmXOMFLzd+Q9fSZ4pdMwm9m
+	MbZ7dUiAMeSAJN5KLsJBD4pfwR+uFDoQsQKb4dSOpEe7kRb8WNLBrjl07JTvaOWPXgvfYvrtuex
+	ReihiVgXMann0btM7ZzZmhICu02s9pOVF8m51TFL6nOkxZJkUMRSsqjye5VsbxWfEfsXboRrDmF
+	QRmF20y2OVlVoUK7LkD8JH9VEFlZ4TvCjggjzSiv4zoTFrQAANtngWAFHjI2nC4H1uuZ5O9UnQE
+	W2HYqTh7YIDHCzydNEXlbaz7tathUQDb3DlWTQmKKSwyUG5AK1BFhPkp7MlNntNVUZe5t5lgoIZ
+	vqFwYcf+zEpIG28uechPd8QQxan6mnsysZ9I3PWNp/cUnx8VPOFb7mN79GxnofiUoNM9dnxDgAK
+	CuppkE=
+X-Received: by 2002:a05:7301:dd81:b0:36c:dd3b:a3e4 with SMTP id 5a478bee46e88-377deaeab9dmr1291788eec.3.1794458187953;
+        Wed, 11 Nov 2026 20:36:27 -0800 (PST)
+X-Received: by 2002:a05:7301:dd81:b0:36c:dd3b:a3e4 with SMTP id 5a478bee46e88-377deaeab9dmr1291758eec.3.1794458187208;
+        Wed, 11 Nov 2026 20:36:27 -0800 (PST)
+Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe2ff5dsm21856793eec.5.2026.11.11.20.36.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 20:36:26 -0800 (PST)
+From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Subject: [PATCH v9 00/11] Enable mutliple peripherals in IPQ5210
+Date: Thu, 12 Nov 2026 10:06:19 +0530
+Message-Id: <20261112-08-dts-v9-0-c34de4f78fbb@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,346 +115,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAENC9WoC/42T226bQBCGX8XiuoNm9oxVVX2PKBd7IqGOoWEJj
+ R353buQBiPVSL4AdoHv25n94aNIsW9iKva7j6KPY5Oars2T6tuu8M+2fYrQhDwvGDKFGhWggTA
+ kiIajc0x7zVyRX/7dx7p5n0UPj5/zPr6+Zd/webNwNkXw3fHYDPtdG98HmJxEhBN/jCnZebX97
+ vv8AIlD4z2MDBCoUo5RFZn09LNLqXx9sy+TrMynHzcFqEiikYxMSYIRFxoIRtvbkI9fti3bfD3
+ Z1rZ3Cglz7337BCNlkzZSGrTGCVPfKyCUVIlcWak140IBg0N/PqXz0NXloTu/dH/Sobm7HEZ5g
+ +K0QQQ81NbUXHAf3Q3BFMlzk4auP81RjzRn8i9V/ZVq7gyh9tGwSMIHCv+pZtPIVjTJhZ6Scqj
+ QKRORSbVB8xXN+ELnEaAW0RGnmhu2QYs1LRY6j0DJqMhSTr7GDVpe6WrVd+4BpBFRWifRiS1aL
+ fT8MXzRatq1yovojVIimA1ar2hiC52rAK1d4EGZYOTW2uZK0/U/HHMVECoSSJWUyKsb9OVy+Qu
+ AkZhK6AMAAA==
+X-Change-ID: 20260706-08-dts-e830bb27c72b
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-ORIG-GUID: PtAvHLonkli9lEsA1k_5OLAuvnCZH2Qb
+X-Authority-Analysis: v=2.4 cv=OYANnRTY c=1 sm=1 tr=0 ts=6af5424d cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=RaWcFzTeoJQvQ5yBV20A:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-GUID: PtAvHLonkli9lEsA1k_5OLAuvnCZH2Qb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAxOCBTYWx0ZWRfX9mh3LKRz4gqO
+ j32tuGuYQC7HSPwVtNt/gbR55S+wwlppKVK5hAZaGOT/i8srEZkmdJCYcM6eOAIPO1k1bPRuY2P
+ +EtBVyFz7pDMZcz46DRvytd1OpWnBfJ0H4+yxHS4PgwprtCBC2UJNb0/lz2Zn4vUv/jqo/FvUgm
+ p+pzSzaxjNQFD4ntFG47EpE1jsxFWUqcOyuv0tul6doE606bwODnGvdOmc8ciGCL+WinvyLHAu5
+ MeUUzMwLrAz1/MprlmxxhvyHSDL7xWroK7LbN8t9YaRgIZdh4xQVFPa3K+785nmOrjckt/BnCcG
+ i619uf+Bi1ptIdF7LWI+tiGqZBZpqCrXgTjsng3oSmTxztZZaxG1Wz+n3zHqpTzEDD4W2ea6e38
+ /HjAqGHMX1R6UCjC29Ln7Ca3QIGceKnS53W91fkAJ+3dP98wR07pCzWI98nRwvXFe6So5H4kOAw
+ Xjz5fceUZ/1RE4FHYgQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAxOCBTYWx0ZWRfX425ma3L+rZy+
+ G3cUId2ZhAEKjGAy5WRat9Q8ghfQPmNL88Pp/nbXEfKUH2KarE0sE19PuuuLzO6VFvgHpQ08z4t
+ 89cGePycUrjFBNyH5XVz/EOKockI9Zc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
+ phishscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120018
 
-TX completions can arrive after PAUSE closes transfer admission.
-Preserve that progress and schedule catch-up when the stream resumes or
-a rejected pause restores RUNNING. Cache device latency in stream-owned
-state so a late completion does not need to dereference the ALSA
-runtime. Clear both the cache and runtime delay on prepare and before
-RESET observes the hardware pointer.
+This set of patches enable mutliple peripherals like USB, PCIe etc.
+Additionally, it enables CPUfreq and thermal tripping points.
 
-A playback pointer callback can also invoke ACK while the core has
-closed buffer-access admission, after the pointer helper has already
-accounted for completed hardware bytes. Track that callback context and
-refill only previously committed data using pcm_indirect.appl_ptr. Keep
-rejecting other ACKs while the gate is closed, and use the
-explicit-pointer helper from patch 16 for the refill. If
-runtime->control is absent, route the condition through the common
-playback validator and XRUN error path rather than returning before
-transfer failure handling.
+Please refer to [1] for initial review comments on the PCIe related DT
+changes.
 
-Use the existing indirect hw_queue_size to keep outstanding TX below one
-physical ring: buffer_bytes - period_bytes. Equal modulo cursors then
-mean no unobserved completion, and a non-interrupt HWSYNC cannot consume
-a hidden full-ring wrap before deferred period work. Continue using the
-ordinary ALSA pointer update for silence, drain, stop-threshold and
-wakeup policy.
+1 - https://lore.kernel.org/linux-arm-msm/20260514-pci-ipq5210-v1-0-a09436200b35@oss.qualcomm.com/
 
-Check for pending progress or a latched transfer error again in the
-period worker under the PCM stream lock. A queued notification can
-outlive a paused RESET or an earlier pointer observation. Calling the
-period helper without new progress after resume can turn equal cursors
-into a false wrap when the core has backdated its pointer timestamp.
+Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+---
+Changes in v9:
+- Rebase to next-20261110 and include merged changes from [1]
+- Add qcom,ice = <&sdhc_ice>; to mmc@7804000 node
+- Add qcom,ipq5210-inline-crypto-engine change to dependencies to avoid
+  dtb validation failure from sashiko
+- Link to v8: https://lore.kernel.org/r/20261106-08-dts-v8-0-d91401955039@oss.qualcomm.com
+  1 - https://lore.kernel.org/all/20260906-qcom_ipq5210_cmnpll-v4-0-aec5ed642f4f@oss.qualcomm.com/
 
-This reduces queued buffering by one period. With two periods, only one
-period can be queued. Worst-case scheduling tolerance needs
-qualification.
+Changes in v8:
+- Fix pcie0 & pcie1 nodes' ranges property
+- s/wps/WPS/
+- s/cpu-sleep-c3/cpu-sleep-0/
+- Moved ICE out from sdhci to a separate node
+- Keep pwm@1941010 enabled
+- Combine i2c pin defines into one node
+- Add opp tables fro spi and i2c
+- Pick R-b
+- Link to v7: https://lore.kernel.org/r/20261012-08-dts-v7-0-77bd3d68d850@oss.qualcomm.com
 
-The final candidate was tested on ARM64 QEMU with KASAN and lockdep.
-RW/MMAP boundary pause, release, HWSYNC/poll, drop and reopen passed
-with two- and eight-period rings. RW/MMAP also passed accepted RESET
-from PREPARED followed by DRAIN and reopen, and accepted RESET while
-RUNNING after the full 2,048-frame buffer became available.
+Changes in v7:
+- In 'Add nodes for multiple peripherals' patch (it has R-B Konrad)
+	* Reduce critical temperature by about five degrees per recent
+	  calibration updates
+	* Fix placement of 'efuse@a4000' node
+- Move 'spi-{rx,tx}-bus-width = 4' to rdp504-common.dtsi instead of
+  rdp504-nand.dts
+- Change 'reg' details in spi@1a80000 from 32 to 64 bit
+- Add #address-cells = <1>; and #size-cells = <0>; to spi0 & spi1 nodes
+- Fix incorrect placement of rng@4c3000 node
+- Link to v6: https://lore.kernel.org/r/20261008-08-dts-v6-0-f9c4ec8664d8@oss.qualcomm.com
 
-A separate paired RW/MMAP gate fixture reproduced the baseline failure.
-The generic ALSA indirect helper invokes ACK for each pointer callback
-but masks its internal -EBADFD. Once hw_ptr == hw_io with no completion
-outstanding, virtio period-work progress suppresses further callbacks,
-so there is no ACK to retry the refill. Baseline stopped after 3,072
-completed bytes with 1,024 bytes in sw_ready. The candidate drained
-sw_ready and completed 4,096 bytes without any further client ACK. A
-test-only hook changed appl_ptr to 2,560 while only 2,048 frames were
-committed; the candidate refilled only committed data. The hostile
-mutation used a test-only kernel hook because ARM64 control-page mmap is
-unsupported. KASAN and lockdep had no diagnostics. KCSAN and physical
-audio were not tested. The tree through patch 15 was inspected but was
-not run as a separate control. Full-series runtime is not claimed here.
+Changes in v6:
+- Didn't touch the existing patch as it has R-b
+- Add DT changes to enable more devices. Not sure if these can be squashed
+  into a single patch. Please let me know, will squash if that is
+  preferrable. Following were added
+	Random number generator
+	SPI node definitions
+	I2C definitions
+	PWM block
+	Download mode support
+	ICE support for sdhci
+	C3 CPU idle state
+	Support for WPS button
+- New compatibles used are documented in
+	https://lore.kernel.org/linux-arm-msm/20261008-rng-v1-1-785580a8b48f@oss.qualcomm.com/
+	https://lore.kernel.org/linux-arm-msm/20261008-pwm-v1-1-0b8776398632@oss.qualcomm.com/
+- Link to v5: https://lore.kernel.org/r/20260907-08-dts-v5-0-584e5ab50b40@oss.qualcomm.com
 
-Assisted-by: LLM
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+Changes in v5:
+- Pick one R-b Konrad
+- Do not remove ipq5210-rdp504.dtb from arch/arm64/boot/dts/qcom/Makefile
+  and add it in a subsequent patch. Instead, move the ipq5210-rdp504.dts
+  nodes to ipq5210-rdp504.dtb-common.dtsi and include common dtsi in rdp504
+  dts file and introduce rdp504-nand dts in the 3rd patch
+- No code changes
+- Link to v4: https://lore.kernel.org/r/20260724-08-dts-v4-0-65e61a1061f0@oss.qualcomm.com
+
+Changes in v4:
+- Fix following sashiko comments
+	- Add #include <dt-bindings/thermal/thermal.h> to dtsi file for
+	  THERMAL_NO_LIMIT definition
+	- Change tsens interrupt from edge to level
+	- Remove ipq5210-rdp504.dtb from Makefile in the second patch to
+	  avoid build break and add it back in the 3rd patch
+- Dependency related sashiko comments ignored as they are addressed in the
+  prerequisite patch information
+- Link to v3: https://lore.kernel.org/r/20260723-08-dts-v3-0-074eb131f382@oss.qualcomm.com
+
+Changes in v3:
+- Address v2 comments
+	- Introduce RDP504 common dtsi and two board specific dts files one
+	  for NAND and one for eMMC
+	- Move 'dr_mode' to board file instead of SoC file
+	- Dropped 'polling-delay-passive = 0' and 'polling-delay = 0'
+	- Use THERMAL_NO_LIMIT in 'cooling-device'
+	- '\n' before status = okay
+- Removed 'num-lanes' from pcie0 & pcie1 nodes
+- Link to v2: https://lore.kernel.org/r/20260715-08-dts-v2-0-b060b68e0256@oss.qualcomm.com
+
+Changes in v2:
+- Change usb3@8a00000 -> usb@8a00000
+- Ignore other comments as they are covered in the following prerequisite
+  prerequisite-message-id: <20260514-icc-ipq5210-v1-0-b5070dfbe460@oss.qualcomm.com>
+- Link to v1: https://lore.kernel.org/r/20260707-08-dts-v1-0-fce82e14cd1d@oss.qualcomm.com
 
 ---
-sound/virtio/virtio_pcm.c     |    3 ++
- sound/virtio/virtio_pcm.h     |   13 ++++++++
- sound/virtio/virtio_pcm_msg.c |    8 ++---
- sound/virtio/virtio_pcm_ops.c |   69 ++++++++++++++++++++++++++++++-----------
- 4 files changed, 70 insertions(+), 23 deletions(-)
+Varadarajan Narayanan (11):
+      arm64: dts: qcom: ipq5210: Add nodes for multiple peripherals
+      arm64: dts: qcom: ipq5210: Introduce RDP504 common DT file
+      arm64: dts: qcom: ipq5210: Introduce RDP504 NAND variant DT file
+      arm64: dts: qcom: ipq5210: Add support for WPS button
+      arm64: dts: qcom: ipq5210: Add C3 CPU idle state
+      arm64: dts: qcom: ipq5210: Add ICE support to SDHCI
+      arm64: dts: qcom: ipq5210: Enable download mode support
+      arm64: dts: qcom: ipq5210: Enable the PWM block
+      arm64: dts: qcom: ipq5210: Add I2C nodes
+      arm64: dts: qcom: ipq5210: Add SPI node definitions
+      arm64: dts: qcom: ipq5210: Add random number generator node
 
-diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
---- a/sound/virtio/virtio_pcm.c
-+++ b/sound/virtio/virtio_pcm.c
-@@ -338,6 +338,9 @@
- 	}
- 
- 	if (vss->direction != SNDRV_PCM_STREAM_CAPTURE) {
-+		/* Ignore stale work after RESET rebases the playback cursors. */
-+		if (!virtsnd_pcm_playback_progress_pending(vss))
-+			return;
- 		snd_pcm_period_elapsed_under_stream_lock(substream);
- 		return;
- 	}
-diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
---- a/sound/virtio/virtio_pcm.h
-+++ b/sound/virtio/virtio_pcm.h
-@@ -53,6 +53,7 @@
-  *        substream operators, including @stopped.
-  * @buffer_bytes: Current buffer size in bytes.
-  * @hw_ptr: Substream hardware pointer value in bytes [0 ... buffer_bytes).
-+ * @playback_latency_bytes: Device delay cached independently of the ALSA runtime.
-  * @capture_ready: Managed-mode bytes copied but not yet acknowledged by ALSA;
-  *                 always zero in free-running mode.
-  * @capture_boundary: ALSA boundary captured for this prepared epoch.
-@@ -84,6 +85,8 @@
-  * @capture_reset_observing: Reclaim staged samples during RESET pointer capture.
-  * @indirect_reset_observing: Suppress ordinary ACK refill during RESET pointer
-  *                            capture; protected by the PCM stream lock.
-+ * @playback_pointer_active: Internal playback ACK context; protected by the
-+ *                           PCM stream lock.
-  * @suspended: True if the substream is suspended and must be reconfigured on
-  *             the device side at resume.
-  * @pause_restart_state: Device-side state for opt-in pause compatibility.
-@@ -113,6 +116,7 @@
- 	bool resetting;
- 	size_t buffer_bytes;
- 	size_t hw_ptr;
-+	u32 playback_latency_bytes;
- 	size_t capture_ready;
- 	snd_pcm_uframes_t capture_boundary;
- 	u64 capture_copied_total;
-@@ -140,6 +144,7 @@
- 	bool control_uncertain;
- 	bool capture_reset_observing;
- 	bool indirect_reset_observing;
-+	bool playback_pointer_active;
- 	bool suspended;
- 	enum virtio_pcm_pause_restart_state pause_restart_state;
- 	struct virtio_pcm_msg **msgs;
-@@ -179,6 +184,14 @@
- 	return schedule_work(&vss->elapsed_period);
- }
- 
-+/* Caller holds the PCM stream lock so RESET cannot rebase these cursors. */
-+static inline bool
-+virtsnd_pcm_playback_progress_pending(struct virtio_pcm_substream *vss)
-+{
-+	guard(spinlock_irqsave)(&vss->lock);
-+	return vss->xfer_xrun || vss->hw_ptr != vss->pcm_indirect.hw_io;
-+}
-+
- /*
-  * ALSA may observe a subperiod tail before its period callback. Keep actual
-  * unread occupancy separate from pointer observations and notification state;
-diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
---- a/sound/virtio/virtio_pcm_msg.c
-+++ b/sound/virtio/virtio_pcm_msg.c
-@@ -1033,12 +1033,10 @@
- 	/* Keep latched errors until prepare establishes a fresh epoch. */
- 	vss->msg_count--;
- 
--	if (vss->xfer_enabled) {
--		struct snd_pcm_runtime *runtime = vss->substream->runtime;
--
--		runtime->delay = bytes_to_frames(runtime, latency_bytes);
-+	/* A queued request can outlive the ALSA runtime after hw_free. */
-+	vss->playback_latency_bytes = latency_bytes;
-+	if (vss->prepared && !vss->preparing)
- 		virtsnd_pcm_schedule_period_elapsed(vss);
--	}
- 	if (!vss->msg_count)
- 		wake_up_all(&vss->msg_empty);
- }
-diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
---- a/sound/virtio/virtio_pcm_ops.c
-+++ b/sound/virtio/virtio_pcm_ops.c
-@@ -770,6 +770,13 @@
- 		memset(&vss->pcm_indirect, 0, sizeof(vss->pcm_indirect));
- 		vss->pcm_indirect.sw_buffer_size = vss->buffer_bytes;
- 		vss->pcm_indirect.hw_buffer_size = vss->buffer_bytes;
-+		if (vss->direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+			/* Keep unobserved completions below one physical ring. */
-+			vss->pcm_indirect.hw_queue_size = vss->buffer_bytes -
-+				snd_pcm_lib_period_bytes(substream);
-+			vss->playback_latency_bytes = 0;
-+			substream->runtime->delay = 0;
-+		}
- 		if (vss->direction == SNDRV_PCM_STREAM_CAPTURE) {
- 			vss->capture_boundary = substream->runtime->boundary;
- 			rc = virtsnd_pcm_capture_refresh_mode_locked(vss,
-@@ -1200,7 +1207,8 @@
- 		}
- 
- 		if (running) {
--			if (vss->direction == SNDRV_PCM_STREAM_CAPTURE)
-+			if (vss->direction == SNDRV_PCM_STREAM_CAPTURE ||
-+			    virtsnd_pcm_playback_progress_pending(vss))
- 				virtsnd_pcm_schedule_period_elapsed(vss);
- 			return 0;
- 		}
-@@ -1222,7 +1230,8 @@
- 				return -ECANCELED;
- 			vss->device_running = true;
- 		}
--		if (!rc && (vss->direction == SNDRV_PCM_STREAM_CAPTURE))
-+		if (!rc && (vss->direction == SNDRV_PCM_STREAM_CAPTURE ||
-+			    virtsnd_pcm_playback_progress_pending(vss)))
- 			virtsnd_pcm_schedule_period_elapsed(vss);
- 		return rc;
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
-@@ -1272,7 +1281,8 @@
- 				virtsnd_pcm_trigger_failed(vss, epoch);
- 			} else if (virtsnd_pcm_start_queue(vss, epoch)) {
- 				virtsnd_pcm_trigger_failed(vss, epoch);
--			} else if (vss->direction == SNDRV_PCM_STREAM_CAPTURE) {
-+			} else if (vss->direction == SNDRV_PCM_STREAM_CAPTURE ||
-+				   virtsnd_pcm_playback_progress_pending(vss)) {
- 				virtsnd_pcm_schedule_period_elapsed(vss);
- 			}
- 		}
-@@ -1605,6 +1615,7 @@
- {
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
-+	snd_pcm_uframes_t position;
- 	size_t hw_ptr;
- 	bool paused_pointer = false;
- 	bool defer_work = false;
-@@ -1622,6 +1633,7 @@
- 		}
- 		if (!paused_pointer)
- 			hw_ptr = vss->hw_ptr;
-+		runtime->delay = bytes_to_frames(runtime, vss->playback_latency_bytes);
- 	}
- 	if (paused_pointer) {
- 		if (defer_work)
-@@ -1629,8 +1641,11 @@
- 		return virtsnd_pcm_cached_pointer(runtime);
- 	}
- 
--	return snd_pcm_indirect_playback_pointer(substream,
--		&vss->pcm_indirect, hw_ptr);
-+	vss->playback_pointer_active = true;
-+	position = snd_pcm_indirect_playback_pointer(substream,
-+						     &vss->pcm_indirect, hw_ptr);
-+	vss->playback_pointer_active = false;
-+	return position;
- }
- 
- /* Caller holds vss->lock. */
-@@ -1745,9 +1760,9 @@
- /* Caller holds @vss->lock and the PCM stream lock. */
- static int virtsnd_pcm_playback_ack_validate(struct virtio_pcm_substream *vss,
- 					     struct snd_pcm_runtime *runtime,
--					     const struct snd_pcm_indirect *rec)
--{
--	snd_pcm_uframes_t appl_ptr;
-+					     const struct snd_pcm_indirect *rec,
-+					     snd_pcm_uframes_t appl_ptr)
-+{
- 	snd_pcm_uframes_t appl_diff;
- 	snd_pcm_uframes_t signed_max;
- 	snd_pcm_uframes_t back;
-@@ -1761,7 +1776,7 @@
- 	unsigned int hw_queue_size;
- 
- 	if (!runtime->control || !runtime->boundary ||
--	    runtime->control->appl_ptr >= runtime->boundary ||
-+	    appl_ptr >= runtime->boundary ||
- 	    rec->appl_ptr >= runtime->boundary)
- 		return -EPIPE;
- 
-@@ -1776,7 +1791,6 @@
- 		return -EPIPE;
- 
- 	/* Match the indirect helper's appl_ptr boundary-wrap calculation. */
--	appl_ptr = runtime->control->appl_ptr;
- 	if (appl_ptr >= rec->appl_ptr) {
- 		appl_diff = appl_ptr - rec->appl_ptr;
- 	} else {
-@@ -1868,7 +1882,8 @@
- 	return -EPIPE;
- }
- 
--static int virtsnd_pcm_pb_ack_locked(struct snd_pcm_substream *substream)
-+static int virtsnd_pcm_pb_ack_locked(struct snd_pcm_substream *substream,
-+				     snd_pcm_uframes_t appl_ptr)
- {
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
-@@ -1892,13 +1907,13 @@
- 				return -EBADFD;
- 			transfer.indirect = vss->pcm_indirect;
- 			rc = virtsnd_pcm_playback_ack_validate(vss, runtime,
--							       &transfer.indirect);
-+							       &transfer.indirect, appl_ptr);
- 			if (rc == -EBADFD)
- 				return -EBADFD;
- 			if (!rc)
--				rc = snd_pcm_indirect_playback_transfer(substream,
--									&transfer.indirect,
--									virtsnd_pcm_trans_copy);
-+				rc = snd_pcm_indirect_playback_transfer_appl_ptr(
-+					substream, &transfer.indirect,
-+					virtsnd_pcm_trans_copy, appl_ptr);
- 		}
- 		if (!rc)
- 			rc = transfer.error;
-@@ -1937,8 +1952,6 @@
- 	case SNDRV_PCM_STATE_RUNNING:
- 	case SNDRV_PCM_STATE_PAUSED:
- 	case SNDRV_PCM_STATE_DRAINING:
--		if (atomic_read(&substream->runtime->buffer_accessing) < 0)
--			return -EBADFD;
- 		return 0;
- 	default:
- 		return -EBADFD;
-@@ -1949,6 +1962,8 @@
- static int virtsnd_pcm_pb_ack(struct snd_pcm_substream *substream)
- {
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	snd_pcm_uframes_t appl_ptr;
- 	int rc;
- 
- 	if (vss->indirect_reset_observing)
-@@ -1956,7 +1971,21 @@
- 	rc = virtsnd_pcm_ack_state(substream);
- 	if (rc)
- 		return rc;
--	return virtsnd_pcm_pb_ack_locked(substream);
-+	if (atomic_read(&runtime->buffer_accessing) < 0) {
-+		if (!vss->playback_pointer_active)
-+			return -EBADFD;
-+		/*
-+		 * Pointer accounting already consumed completed hardware bytes.
-+		 * Refill committed data without admitting a new application
-+		 * pointer while a buffer operation has closed ACK admission.
-+		 */
-+		appl_ptr = vss->pcm_indirect.appl_ptr;
-+	} else if (runtime->control) {
-+		appl_ptr = READ_ONCE(runtime->control->appl_ptr);
-+	} else {
-+		appl_ptr = 0;
-+	}
-+	return virtsnd_pcm_pb_ack_locked(substream, appl_ptr);
- }
- 
- static int virtsnd_pcm_capture_ack(struct virtio_pcm_substream *vss,
-@@ -2087,6 +2116,8 @@
- 	rc = virtsnd_pcm_ack_state(substream);
- 	if (rc)
- 		return rc;
-+	if (atomic_read(&substream->runtime->buffer_accessing) < 0)
-+		return -EBADFD;
- 	return virtsnd_pcm_cp_ack_locked(substream);
- }
- 
-@@ -2229,6 +2260,8 @@
- 		guard(spinlock)(&vss->lock);
- 		if (vss->msg_count)
- 			return -EBUSY;
-+		vss->playback_latency_bytes = 0;
-+		runtime->delay = 0;
- 	}
- 	vss->indirect_reset_observing = true;
- 	rc = snd_pcm_lib_reset(substream);
+ arch/arm64/boot/dts/qcom/Makefile                  |   2 +-
+ .../arm64/boot/dts/qcom/ipq5210-rdp504-common.dtsi | 276 ++++++++
+ arch/arm64/boot/dts/qcom/ipq5210-rdp504-nand.dts   |  17 +
+ arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts        |  77 +--
+ arch/arm64/boot/dts/qcom/ipq5210.dtsi              | 752 ++++++++++++++++++++-
+ 5 files changed, 1043 insertions(+), 81 deletions(-)
+---
+base-commit: 827b0a511f329ad072f0f689407b3595a104cdf1
+change-id: 20260706-08-dts-e830bb27c72b
+prerequisite-message-id: <20261013-icc-v2-0-196b219e25c1@oss.qualcomm.com>
+prerequisite-patch-id: 0b6145b6635b18fe79fbbff5815041b43778c5ed
+prerequisite-patch-id: 924c6ff7baf4283ac7991ee94c803a00fc5cece4
+prerequisite-patch-id: c2fe1800fe769dccd37f94c19860a07f979e3c4c
+prerequisite-message-id: <20260615085218.1421347-1-varadarajan.narayanan@oss.qualcomm.com>
+prerequisite-patch-id: 66aa95814074faffb61393faa30396c42af41126
+prerequisite-patch-id: 0a03dc1c91a2f0c03af823aa43f59a9005eb8607
+prerequisite-message-id: <20261008-rng-v1-1-785580a8b48f@oss.qualcomm.com>
+prerequisite-patch-id: 08aa18faecd4f3588cfd01f3330eadb1a76dcd13
+prerequisite-message-id: <20261105194606.772346-2-krzysztof.kozlowski@oss.qualcomm.com>
+prerequisite-patch-id: 72e661bc72d8535e1dabc144e81978bc5161c3f5
+prerequisite-message-id: <20261021-ice-v2-1-3dfa8f343ceb@oss.qualcomm.com>
+prerequisite-patch-id: e6cdcf2043620e898c6dc3a5c266678a2b08137b
+
+Best regards,
+-- 
+Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+
