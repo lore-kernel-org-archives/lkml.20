@@ -1,22 +1,22 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.6
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.61
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794493101;
-	b=My/lxapQMFvKOUy1w4q74TXBX/0N1CblvmfgoFWxQ2mokplDs1UWci1ZuvtikWl0CKqW
-	 mWHCzQSmkwyXlKkdROKuDCGim0glS+3dGca9uyeiHDteeH9OteItMU75OPehEgAGV3n75
-	 NXnw4YeFKex5x71L6Ns6m70V3/CgQsO4GUKZIGoMZhm/y3qCWUu5/+Kbp1n3k4Cb7B/nJ
-	 zfcOS6dWaMnzW2SIqXT6QvM2pAigk4bcgFfjbBzl3k9KYXVmjSgeGnjC5ZwUDen/UKi5n
-	 0AQZ4R9OpAPmZgZzxlQlKS9jJTs/Jes31cfu9b0bXY9OOiq0XN/KuoR86E8thyjkLrA==
+	t=1794493093;
+	b=lnzXy6Iq3EBScMDRRcydegXOciYw710Dh0JXfQ48AX7nETb8wWl4qfLk2lXOctQlGWSq
+	 1xgN5AETVWi0EInvvKe+hMTspaSLC/7BZetCWog74cFiz+jtjNmchPCT6eSSqKw21DVE9
+	 1G2X82gCdDpZUyWETNly64US7RvarOGE3KeRIc501/GQvWZSDbOTAePaVLRxo/kDrVYAg
+	 0XEQSmLceb5Pix0gc7w8RP164IhAI3CxtcpLqHvuOIQyt9yORUjCLrI+uJ13dzpUOxYue
+	 mDpXTeyhatYdrRRjHeIyJEAGJFdST9RaxsHn5hjPbSUMq9FgQWpSSSbPdBWWcazT5Nw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493101;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493093;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
@@ -26,72 +26,72 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Fif6b6k+pO1ib8P0v6h0tkDJkhqN4MxhiGIWFHB6Xv8=;
-	b=Y/jA5zM5N34zzOGl/Iwu5BbmqkBsVA6Zz9bkYcM70z4l2meFjaO4glXhT1KB4c8Xe4Lj
-	 2MDk3QmISM916O2c52YN+G/x/t91ZCCh42KBzE9XAlA43KTyt5QnMxaAObi3oz/HWTVJz
-	 HzilnJ/y3GDigZlmrz+w1ogGqItYM2YIyUmltl5Mp42Hu0CrMR1yTarK4OxggxXhUVYW5
-	 2zlFcsKJ2eMXspmxawJnGOsi41daLdmcDKvgNmGwF99PWUEKO5o+4QcxAh5A0erPp6avy
-	 27Q6P4MO426edHSp5KjC2QGkC/JziNTbHJnxs4RPRLcfg1b2eUTC/vCD2Uy0+/NOIpQ==
+	bh=9F5/NdUmFVNjglcxI4qc/UTCvuxMH3qJ2Ow/N6AUNuM=;
+	b=vv4q5tg12Cc7lUXd5meXEv8jhCHJYkONuDdlEmZLvPtGuiSZbJhmy8uE2pMHNxyB3M3S
+	 ofRHIvdqq1CuL8SIs59gxDtapZVe88XcyrUQTq28AfOTA2v/F0vWsPxCKfhuRzy8TecdJ
+	 3ntjpjRLalex6HARHZLQ2MVN9zNWDFlE3vgIQSI6ObNXtee01DTUjpf8+QgkgqTXhgZ1o
+	 XoOGUGOPz5Tk5jGL4V1EMc1gj+PWLT0jHQICDMxeD+8LCxzK1rVNJ/J7gA3a73MT0Rv52
+	 QPJU2WWMsi754h17kFBxcNYKfcDQ/CH4dt1oqEDQSWorToVIapb94NVWQlCFXrHXe1w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JUWNaGQp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.6
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010006.outbound.protection.outlook.com [52.101.201.6])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="uXPYkY/Y";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.61
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010061.outbound.protection.outlook.com [40.93.198.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3B8606A8B5;
-	Thu, 12 Nov 2026 14:18:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE3B8606A8B5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBD3606A8BC;
+	Thu, 12 Nov 2026 14:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DBD3606A8BC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JUWNaGQp
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=uXPYkY/Y
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XfoFANahge7w+UDPGxA1OOBDX6eqDxRPmhzNlJ73xR47mOCPNaWDE7eZfhpZ3HnPcYpt2pCPGMsV8Bey3hXEjXV5eaQb1KRpkNWTzYxvhJ4zZpNBDL4aENFOvTe//MS4kCY0of2nrgs46gh7SJv+X2KL5Srv3KHV1HkjSsg+KDzdWZqN3dUbEY8b33+rHr9VPi3eEEbeKCwWnPflCIk8ykIajWkQ2wonSJWZ8i8B9xO1Jfmof1hvFd2YPk3FpIiJz6h8OIALD0YG+j9rCeVRfqf+HMJ3dmaVCcvoUNmE4VCvrx9ZYi9/SRMI1U4EB3a4uPooDlk3aoxyLKahqCPtSA==
+ b=PYJYOiz9Lcibr/e+wfZACoGT1g5dA7go6zYBeYqpO1xCWq6R+RjjZO5gVl4F4KqdNHUKC9+c88Y7j/SY0Z6gM6Qw1ormh7sxIZluCESq/XmUpq5hHbSUqEejcfVEcYHGlWQVFPxeKTcBjrheOzIUf8Noac6jWEe3UywA8QmwhO1l0MGIQ0ryWF9jhdgjsDonDTZuP6gVDS/S8q7p40UtFy4fW0BYyjRpVREZz35jqkxERDUWH1Ghxa5S3McGbTv6ZfvI+BSPmnCZRnDEkqJ9rFZVT6x0/cnvug3+oD1igL0kHpNYHBxwAZXYmvMIUq+FjULyPRH0CKEBmPWbLBz9HQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fif6b6k+pO1ib8P0v6h0tkDJkhqN4MxhiGIWFHB6Xv8=;
- b=SB0r7kfb7pC3yx64N7gL74Btmjxp2FyXoWceOWxQRBXICdAGoEHSw356cOpmL9apHFHqH5L3+DQQi4PCMcL22f/sI792Snzvy3GCRv6fyMEk+7hh6mG8bCtaL1UW/ZcRHK4uaK4fOeuQh3ontL7DbPMR3MoTG4c7YiYZjXNIxBlySluWOjlc2f1Q2AjLGnqMFT+3NRcrVyOJcFCOLcdYYkAyFMOAeMwsXnQ3SBiOi/iE2xLTzz63ix7KrJyEdlXDh7ePJ9YgknrUScdDyZ5jFqaQlv+KMn9TG5a3SnxRXrbvtJAHy0abGdTbtJhqa0HoTxf/Q3Sh+cLAoDWqXmL6CA==
+ bh=9F5/NdUmFVNjglcxI4qc/UTCvuxMH3qJ2Ow/N6AUNuM=;
+ b=MG8YLQEQ6eCxxF+uwXr++5utHkQn0jR5OAPrd+8EShEZUVAJpNzz/Ya/IZoPvFpR+UhpyHU86E+eWZSfJf9N2AYtL8Y+twmm4eGvobm7VMs/U+oBw187Pr+22JG4HOy4p5sH5D5zG2sLtySYoJPRosU1mYuoERXhev61pY7OFON3Z9N8Yex98RVCKT4+WTZyr4l0BEE+5vLXIoL0sMpvnNIiOw1dMak1uHoQqKNtIykaubXlhhpDQy8K3GqkRTRnwnvXFu5FeiiwlZcAc9j8tZZJHEYQ0mTsA0t18pV2+ktARN/ELLT7QXEXdzAicIcggb0AFQyc/FCphddPtYJGFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fif6b6k+pO1ib8P0v6h0tkDJkhqN4MxhiGIWFHB6Xv8=;
- b=JUWNaGQpoCeppdVK0Qjxx5FoV9jkzIXWXbG4+BzFqxpqJvG9cfTEO8bw9YT5e+lmBfl6UTFfe7P9+nxKXIu55yKF3mm9FypaptLg/nnhCkkv7iq15B4Gai8nYT2i8DVIUoCGHJhO6WVHtFX0v03Iz3TmvursYLMcQXV1VwCZ9dab2tfXfPKQccXg0ty6LmM0Yoa8HjWCZGCTcWWYA+2xxfKqkCJYmSxcerdvKRoG+iYIscUvW9DLTm1quJw8nIf1QU+2VXHpaJOr2c6BG6CVWgWNhea/mO5x2AmCNnaU8936LNOJ7Zsb8BNzszq2rjyU/fxysCgRwtkJ1LZ5E/PPDQ==
-Received: from DS7PR03CA0330.namprd03.prod.outlook.com (2603:10b6:8:2b::22) by
- SN7PR12MB7856.namprd12.prod.outlook.com (2603:10b6:806:340::16) with
+ bh=9F5/NdUmFVNjglcxI4qc/UTCvuxMH3qJ2Ow/N6AUNuM=;
+ b=uXPYkY/YluJasfYYXIi9l5RzwyVzmCsqxnwhgeKqlVFx1m2hueDE0VDeTKeCb/wkrKncwM7A4VZ9VYHY3UbJxg0nbNeabjRW+Ce0LnLVepjorxiOfCpDLqsujFiVoo4vBG20OIvEQFaoPcE22irjTl2ItBNsIsCaq5HwtueOtetHa8SLfdlnjsqBy4OVvtPK4ULKzQLeQ4IErsNRQAglWlqp1EgR6IJ2Tbxijp60030znQAaKnDJCi59OzIuUsU6+OlP4e8PZWBcTE1A8DwFRlYfT3W+IbgoCA6tB9KSbCooB23s/jZGjtvrNU8knFbvZ/WM2Aw3+VelJK5DT5xluA==
+Received: from PH8P221CA0044.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:346::22)
+ by PH0PR12MB8798.namprd12.prod.outlook.com (2603:10b6:510:28d::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 12 Nov
- 2026 14:18:16 +0000
-Received: from MN1PEPF000793FC.namprd05.prod.outlook.com
- (2603:10b6:8:2b:cafe::64) by DS7PR03CA0330.outlook.office365.com
- (2603:10b6:8:2b::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Thu, 12 Nov
+ 2026 14:18:04 +0000
+Received: from MWH0EPF000A6732.namprd04.prod.outlook.com
+ (2603:10b6:510:346:cafe::3e) by PH8P221CA0044.outlook.office365.com
+ (2603:10b6:510:346::22) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 14:18:15 +0000
+ Nov 2026 14:18:04 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- MN1PEPF000793FC.mail.protection.outlook.com (10.167.249.199) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ MWH0EPF000A6732.mail.protection.outlook.com (10.167.249.24) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 14:18:15 +0000
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 14:18:04 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
- 2026 06:17:53 -0800
+ 2026 06:17:39 -0800
 Received: from NV-2Y5XW94.nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
  (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
- 2026 06:17:50 -0800
+ 2026 06:17:36 -0800
 From: Shameer Kolothum <skolothumtho@nvidia.com>
 To: <kvm@vger.kernel.org>, <linux-pci@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>
@@ -99,12 +99,10 @@ CC: <alex@shazbot.org>, <jgg@ziepe.ca>, <kevin.tian@intel.com>,
 	<kbusch@meta.com>, <michal.winiarski@intel.com>,
 	<satyanarayana.k.v.p@intel.com>, <sonangp@nvidia.com>, <ankita@nvidia.com>,
 	<nathanc@nvidia.com>, <mochs@nvidia.com>, <skolothumtho@nvidia.com>
-Subject: [RFC PATCH v3 03/20] vfio/pci: Avoid waiting for the bus lock when preparing D0
-Date: Thu, 12 Nov 2026 14:16:15 +0000
-Message-ID: <20261112141632.918954-4-skolothumtho@nvidia.com>
+Subject: [RFC PATCH v3 00/20] vfio/pci: Handle PCI error recovery and report state to userspace
+Date: Thu, 12 Nov 2026 14:16:12 +0000
+Message-ID: <20261112141632.918954-1-skolothumtho@nvidia.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112141632.918954-1-skolothumtho@nvidia.com>
-References: <20261112141632.918954-1-skolothumtho@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,179 +118,195 @@ X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF000793FC:EE_|SN7PR12MB7856:EE_
-X-MS-Office365-Filtering-Correlation-Id: b85814d6-3574-4ea0-beb3-08df40c7cafb
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6732:EE_|PH0PR12MB8798:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65c58ec8-589e-4786-dd1c-08df40c7c440
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|22082099003|18002099003|10067099003|261021121427099003|261102123227099003|11063799006|261021123027099003|261026121527099003|261022105027099003|261028144727099003|261009223027099003|261026140227099003|56012099006|261022075727099003;
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|261009223027099003|261102123227099003|261028144727099003|261021123027099003|261026140227099003|261021121427099003|261102130727099003|261026121527099003|261022075727099003|261022105027099003|56012099006|6133799003|11063799006|10067099003|13003099007|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	cV5XSMtTT50jm3U34Q2M7gENNGoggXcQxsCyzlWt0FjwntF7fNbBzOQZ+qVtxdoS0j/uLAKqegsQOXXdItS7MQvuSq8zeAEKhllDsfMmdgzi3+qRA+I83al42Q34Q04NfLom1u8UtAjf96HtrbSDsNbDtXj730+TFlCdB72522Ije8fDiQYDnbezkqnLogv+XP/2yDz/qhtp6/shD9t+LbCINkPGwZfpKBTTwqVWZ8nyaIi+ozFhbZbf9oJaZ+84fVj5zAc890t3EN280FiGZYXvuc435wDYIH6BBAAjnr/zCZaVpXr9OlCoUnpxo0eaI7cp8JKp2wTdRbmOtGVu0H83Dn9L4IetarhAq7L6qS+EqPy6EGeK25qa4Nu9Ck5cDzmb4Ff7jz1to499GDMaEfRvAleyMCkq8L6S4sv1R65o5I+CmF08Y3xP1zYHaVgG+VoE34S9MSjiBWKftxU8y69NGvpfKRItXZeczjDp7drj3LiR9MrSNxJO2PHETPddqZqpeeGXqR6rfoJWXwyo3Bz45OMMQKwZGhPr7Txt8o+bo7uxL37yBLlrD8YeBtMhDWUQhYLhS/Ewkt79Wte3LyvouBZfgXF6XHK9kUmaZJlxDXXk3Tr/xl26roT1sG9gufpUcC5pFdPYoeeeo0Wdz364EyJTGpAYY8bWn+y9ePZTzYxiTOZ/ZPFk2ONE20WZTIYJ8/lZrWzAFBkXiSmlew==
+	b89TpTtfPEU1aiZC/Rx+3TskPQ8gWbC7fCx0jvH1CzR5edy0vLc9QFQt+NauWj876mtBVtFJrLgJrS0lqypuhDtc/rNBubLyfBRW+1iLZGvCTbOuydrXB904cDpnoxlDryTFUcCELyCx9cUBziZto98J5Y1bDx5Og8viM3YWKA8FBnJc5hwJLwxEC4uYhQEhUP0Shff8PQaKgJJEj0oAl8pALuD2Eu4KlvbF6LrzdfUzA4ql6aVY63UzfutBibldY7fWJTvXZfrq1gnHFX8FZTgdLvdOodNIiHwadJDUwHx8XGnI3OrvTGrMqAvjyTOobq8R7Sm6YmS5RoL7RB8yvt49Kz9fXuEGemNOYNE1oMbevkTUwmQLnCJgO2dcjaRGSQ6z2kMY6iXfwSoq21yaCov7GweTxGyw9M8c4LeEOwLb5JDNANuLi5bc//RUelxSMNoi3Xv3x3YYX1JbhE25/YQS4mPXroPM/8ITc0yteIzrdwyIAf4RQf0TizSDO3rN2WfsG+WBWkqH/LMGFqoXEvAEsE/wcDdotpKEol5cqQHVAQezLkLvi4VpqZFnBS7AgKJvIV+p3AXwd3snlFt51IP5dxbnB9p1QUViHmi54sqsKATswi5GIND4RaliOrhBtuniE0ak82ZoHOI6fgpFphRdM7sYK4xtS9to61Qn+3fZIeiI2IMWsiNaXgeR6RhNI4zNF2/wHVnFSVGoaIpbpQ==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(22082099003)(18002099003)(10067099003)(261021121427099003)(261102123227099003)(11063799006)(261021123027099003)(261026121527099003)(261022105027099003)(261028144727099003)(261009223027099003)(261026140227099003)(56012099006)(261022075727099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(261009223027099003)(261102123227099003)(261028144727099003)(261021123027099003)(261026140227099003)(261021121427099003)(261102130727099003)(261026121527099003)(261022075727099003)(261022105027099003)(56012099006)(6133799003)(11063799006)(10067099003)(13003099007)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	v2AwmiZreU5J7xD+lahUOyTYBpYJy0iDRZ5lu4sFQNMlZ217u+Pn4sR3Ak7/CzeEpFFr5CEqbJ0E1TTdROgbnTayUX6SxWcBUtf6nBizhOiz9mZ2qQlmxzsBhVHPzVOvwJpC8BK+rSv1inwJXJWB9aGwA2a0RxDgcjufDr82vAoiIcXtuZ+iBorCSN7FTnPcKEu97+MtrS0LO+/voUX57ivxPKa4kj0CmHu3R3ONIwVP/I1e+dscXYT6Lf05bdUhWd6XXvEpVBC+cwLgdvawu+1c2jlWZtQrAKYjUPV9icDJVY8E4KUxIVe3hMgCANvFYUN9zqdGs823DXU56fOEVJGObQfEPEm4yaJhrMw/jlDY82dFT0oiMV255QR1oB7erfOQVwhmMpzGmm/+aJxhkCag/TIpCUGWCDLGiDAu6kbrNpg+tFc4GcsZEKw8w2aF
+	ynIp8OJYi7AiHlPffU07v5lpmzCQOdZrvOmUK7M3hlNUI2sqh1wtBbiIWv0YinVUZGDPP2VMVeZhVAfakANC4yckDJ3wxhIsUCuA9YzlE9fT/uhbBTfldlRLxxt/9W2Tx1ttCWbN0OBXEO45Qt9dT9722g6S+QVRvz7HkLHOOUlIMvY26ewRTLxArND1dmM+UZjgkv5qjo/cR+DkQPH0Z2zI3s2/DhO/oGxqzitPPIw287IuLzNvS9BDx0rVkRbSHP2/BQE0Pc6+9mUPcMwhrekW9Xbs3hhJPXeXeawgICgnmR9u9UhKTuJTbIr+n4GmNWEewzExfnnrqvPROSEbyRdoKjwNiFADKxitDZgwkISETAZxX6X0YSplUGlKqmJkr+I9Kt4dx7eN3FFjhZlVin5IvniMr8aDd4FSYAynNy+slmqXppG2jJtJqyhmco2B
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 14:18:15.6251
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 14:18:04.4088
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b85814d6-3574-4ea0-beb3-08df40c7cafb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65c58ec8-589e-4786-dd1c-08df40c7c440
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF000793FC.namprd05.prod.outlook.com
+	MWH0EPF000A6732.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7856
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8798
 
-A D0 transition can wait behind a pci_bus_sem writer while holding locks
-needed by PCI error recovery. Recovery holds the bus read lock, leaving
-all three tasks waiting for each other.
+Hi,
 
-Use pci_try_set_power_state() for D0 preparation during function reset,
-hot reset, runtime suspend and SR-IOV enable. Preserve VFIO's saved PM
-state handling and unwind reset and SR-IOV requests if D0 preparation
-fails.
+Currently, vfio-pci signals the error eventfd from error_detected() and
+returns PCI_ERS_RESULT_CAN_RECOVER, including for permanent failure. It
+has no slot_reset() or resume() callback, so userspace is not notified
+when host recovery completes or whether the device was reset.
 
-Runtime suspend returns -EAGAIN on bus-lock contention. Keep its existing
-handling of other D0 errors to avoid leaving runtime PM in an error state.
+This series adds opt-in host PCI error recovery for vfio-pci. It blocks
+device access during recovery, restores device state after a host reset,
+and reports recovery status to userspace. The kernel runs host recovery
+and the VMM decides how to recover the guest.
 
-Apply this even when recovery is disabled, since global IRQ cleanup can
-wait for another device's D0 transition. Low-power transitions keep the
-existing helper. Subsequent patch handles config-space power requests.
+Major Changes from v2:
+v2: https://lore.kernel.org/kvm/20260929173305.204856-1-skolothumtho@nvidia.com/
 
-Signed-off-by: Shameer Kolothum <skolothumtho@nvidia.com>
----
- drivers/vfio/pci/vfio_pci_priv.h |  2 ++
- drivers/vfio/pci/vfio_pci_core.c | 49 +++++++++++++++++++++++++++-----
- 2 files changed, 44 insertions(+), 7 deletions(-)
+ - Rework device access serialization around live and blocked access ops,
+   using SRCU to drain ongoing accesses before recovery.
+ - Address the D0 bus-lock cycle described in RFC v2. Add
+   pci_try_set_power_state() for ordinary transitions and use the locked
+   helper during recovery to avoid taking pci_bus_sem again.
+ - Fix INTx restoration ordering, recovery status reporting and PF access
+   during VF information queries.
+ - Limit enablement to supported native PCIe recovery paths. Exclude
+   functions with VPD redirected to function zero, and Intel Ethernet
+   function zero devices with VPD.
 
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index 97b69e4bc8be..2a15a8956205 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -67,6 +67,8 @@ void vfio_config_free(struct vfio_pci_core_device *vdev);
- 
- int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev,
- 			     pci_power_t state);
-+int vfio_pci_try_set_power_state(struct vfio_pci_core_device *vdev,
-+				 pci_power_t state);
- 
- void vfio_pci_zap_and_down_write_memory_lock(struct vfio_pci_core_device *vdev);
- u16 vfio_pci_memory_lock_and_enable(struct vfio_pci_core_device *vdev);
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index b7d81233b99b..6529eab7865b 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -378,7 +378,10 @@ long vfio_pci_core_access(struct vfio_pci_core_device *vdev,
-  * by PM capability emulation and separately from pci_dev internal saved state
-  * to avoid it being overwritten and consumed around other resets.
-  */
--int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev, pci_power_t state)
-+static int __vfio_pci_set_power_state(struct vfio_pci_core_device *vdev,
-+				      pci_power_t state,
-+				      int (*set_power_state)(struct pci_dev *,
-+							     pci_power_t))
- {
- 	struct pci_dev *pdev = vdev->pdev;
- 	bool needs_restore = false, needs_save = false;
-@@ -401,7 +404,7 @@ int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev, pci_power_t stat
- 			needs_restore = true;
- 	}
- 
--	ret = pci_set_power_state(pdev, state);
-+	ret = set_power_state(pdev, state);
- 
- 	if (!ret) {
- 		/* D3 might be unsupported via quirk, skip unless in D3 */
-@@ -429,6 +432,20 @@ int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev, pci_power_t stat
- 	return ret;
- }
- 
-+int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev, pci_power_t state)
-+{
-+	return __vfio_pci_set_power_state(vdev, state, pci_set_power_state);
-+}
-+
-+/* Avoid waiting for pci_bus_sem under locks needed by PCI recovery. */
-+int vfio_pci_try_set_power_state(struct vfio_pci_core_device *vdev,
-+				 pci_power_t state)
-+{
-+	return __vfio_pci_set_power_state(vdev, state,
-+					state == PCI_D0 ? pci_try_set_power_state :
-+					pci_set_power_state);
-+}
-+
- static int vfio_pci_runtime_pm_entry(struct vfio_pci_core_device *vdev,
- 				     struct eventfd_ctx *efdctx)
- {
-@@ -550,6 +567,8 @@ static int vfio_pci_core_pm_exit(struct vfio_pci_core_device *vdev, u32 flags,
- #ifdef CONFIG_PM
- int vfio_pci_core_runtime_suspend(struct vfio_pci_core_device *vdev)
- {
-+	int ret;
-+
- 	down_write(&vdev->memory_lock);
- 	/*
- 	 * The user can move the device into D3hot state before invoking
-@@ -559,8 +578,11 @@ int vfio_pci_core_runtime_suspend(struct vfio_pci_core_device *vdev)
- 	 * NoSoftRst-, it will help in restoring the original state
- 	 * (saved locally in 'vdev->pm_save').
- 	 */
--	vfio_pci_set_power_state(vdev, PCI_D0);
-+	ret = vfio_pci_try_set_power_state(vdev, PCI_D0);
- 	up_write(&vdev->memory_lock);
-+	/* Preserve the existing handling of other D0 transition errors. */
-+	if (ret == -EAGAIN)
-+		return ret;
- 
- 	/*
- 	 * If INTx is enabled, then mask INTx before going into the runtime
-@@ -1401,7 +1423,11 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
- 	 * reset without restoring the original state (saved locally in
- 	 * 'vdev->pm_save').
- 	 */
--	vfio_pci_set_power_state(vdev, PCI_D0);
-+	ret = vfio_pci_try_set_power_state(vdev, PCI_D0);
-+	if (ret) {
-+		up_write(&vdev->memory_lock);
-+		return ret;
-+	}
- 
- 	vfio_pci_dma_buf_move(vdev, true);
- 	ret = pci_try_reset_function(vdev->pdev);
-@@ -2453,7 +2479,12 @@ int vfio_pci_core_sriov_configure(struct vfio_pci_core_device *vdev,
- 			goto out_del;
- 
- 		down_write(&vdev->memory_lock);
--		vfio_pci_set_power_state(vdev, PCI_D0);
-+		ret = vfio_pci_try_set_power_state(vdev, PCI_D0);
-+		if (ret) {
-+			up_write(&vdev->memory_lock);
-+			pm_runtime_put(&pdev->dev);
-+			goto out_del;
-+		}
- 		vdev->sriov_active = true;
- 		up_write(&vdev->memory_lock);
- 		ret = pci_enable_sriov(pdev, nr_virtfn);
-@@ -2656,11 +2687,15 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
- 	 * cause the PCI config space reset without restoring the original
- 	 * state (saved locally in 'vdev->pm_save').
- 	 */
--	list_for_each_entry(vdev, &dev_set->device_list, vdev.dev_set_list)
--		vfio_pci_set_power_state(vdev, PCI_D0);
-+	list_for_each_entry(vdev, &dev_set->device_list, vdev.dev_set_list) {
-+		ret = vfio_pci_try_set_power_state(vdev, PCI_D0);
-+		if (ret)
-+			goto out_unlock_memory;
-+	}
- 
- 	ret = pci_reset_bus(pdev);
- 
-+out_unlock_memory:
- 	vdev = list_last_entry(&dev_set->device_list,
- 			       struct vfio_pci_core_device, vdev.dev_set_list);
- 
+Design
+------
+Userspace opts in through VFIO_DEVICE_FEATURE_PCI_ERROR_RECOVERY. It
+registers an eventfd and reads status flags and a sequence number. The
+existing error eventfd is still signaled.
+
+The callbacks handle the host recovery sequence:
+
+ - error_detected() blocks new accesses and drains admitted ones,
+   quiesces INTx, and revokes BAR mappings and exported DMA-BUFs. On a
+   normal channel it also clears bus mastering. It votes CAN_RECOVER
+   for a normal channel, NEED_RESET for a frozen channel, and DISCONNECT
+   for permanent failure. Failure to save PCI_COMMAND or disable bus
+   mastering leaves access blocked and returns NONE so other devices
+   can continue recovery.
+ - slot_reset() restores the configuration saved at open after a host
+   reset, then tears down interrupt configuration. Userspace must set
+   up interrupts again.
+ - resume() completes restoration, unblocks access and completes INTx
+   handling. A restoration failure keeps the device blocked.
+
+Non-fatal errors also block device access because host recovery may
+require a reset. Userspace reads the recovery status to determine
+whether the device was reset or recovery failed.
+
+Without opt-in, the existing error notification behavior is retained.
+Open also rejects attempts while a recorded host recovery is in progress,
+even when userspace has not enabled recovery.
+
+Locking and open questions
+-------------------------
+
+PCI core holds device_lock during recovery callbacks and pci_bus_sem
+for reading during the supported recovery walk.
+
+VFIO uses access_lock to serialize recovery and switch access ops.
+Recovery blocks new accesses and waits for existing SRCU readers to
+finish. Switching ops also takes irqlock to serialize with INTx
+callbacks, which do not use SRCU. Power transitions and mapping
+changes use memory_lock.
+
+The D0 bus-lock cycle described in RFC v2 is addressed by the try-lock
+helper for ordinary transitions and the locked helper in recovery. This
+uses the locking provided by the supported native PCI bus walk. It does
+not impose a new locking requirement on every PCI recovery dispatcher.
+
+Pre-existing(Sashiko reported):
+--------------
+  - Open and close were not serialized with the whole host recovery
+    transaction before this series. That remains the case. Recovery
+    can start after the open check, and close can overlap the
+    physical reset. Restoration of closed devices is also still
+    missing.
+
+LLM tools assisted with implementation. I also ran local Sashiko
+reviews.
+
+Testing
+-------
+Basic sanity tests performed on a GB200 with an NVIDIA GPU assigned.
+
+Kernel branch:
+ https://github.com/shamiali2008/linux/tree/vfio-aer-rfc-v3-ext
+
+QEMU test branch is here(This registers the recovery eventfd and uses
+pcie_aer_inject_error() to report the error to Guest)
+ https://github.com/shamiali2008/qemu-master/commits/private-master-vfio-aer-test-v2/
+
+Software AER injection was performed using a modified pcieaer_inject
+module.
+
+./aer-inject nonfatal.conf
+
+qemu-system-aarch64: info: vfio 0018:06:00.0: host PCI error recovery completed (seq 1)
+
+Guest kernel:
+
+[   59.036988] pcieport 0000:01:00.0: AER: Uncorrectable (Non-Fatal) error message received from 0000:02:00.0
+[   59.038326] nvidia 0000:02:00.0: PCIe Bus Error: severity=Uncorrectable (Non-Fatal), type=Transaction Layer, (Completer ID)
+[   59.038440] nvidia 0000:02:00.0:   device [10de:2941] error status/mask=00008000/02400000
+[   59.038533] nvidia 0000:02:00.0:    [15] CmpltAbrt              (First)
+[   59.038705] nvidia 0000:02:00.0: AER:   TLP Header: 0x00000000 0x00000000 0x00000000 0x00000000
+...
+
+./aer-inject fatal.conf
+qemu-system-aarch64: info: vfio 0018:06:00.0: host PCI error recovery started (seq 2, channel frozen)
+qemu-system-aarch64: info: vfio 0018:06:00.0: host PCI error recovery completed (seq 2, device was reset)
+
+Guest kernel:
+
+[  150.909306] pcieport 0000:01:00.0: AER: Uncorrectable (Fatal) error message received from 0000:02:00.0
+[  150.909566] nvidia 0000:02:00.0: AER: PCIe Bus Error: severity=Uncorrectable (Fatal), type=Inaccessible, (Unregistered Agent ID)
+[  150.909835] nvidia 0000:02:00.0: AER: can't recover (no error_detected callback)
+[  150.910062] pcieport 0000:01:00.0: unlocked secondary bus reset via: pciehp_reset_slot+0x54/0x98
+[  156.603467] pcieport 0000:01:00.0: AER: Root Port link has been reset (0)
+...
+
+Please take a look and let me know your feedback.
+
+Thanks,
+Shameer
+
+
+Shameer Kolothum (20):
+  vfio/pci: Add SRCU-protected access ops
+  PCI/PM: Add a power-state helper that tries the bus lock
+  vfio/pci: Avoid waiting for the bus lock when preparing D0
+  vfio/pci: Use access ops for config-space accesses
+  vfio/pci: Buffer ROM reads before copying to userspace
+  vfio/pci: Use access ops for BAR and ROM accesses
+  vfio/pci: Use access ops when mapping BAR pages
+  vfio/pci: Use access ops for hardware IRQ operations
+  vfio/pci: Use access ops for function reset
+  vfio/pci: Use access ops for runtime-PM requests
+  vfio/pci: Use access ops for hardware information queries
+  vfio/pci: Use access ops for DMA-BUF export and restoration
+  vfio/pci: Track PCI recovery state
+  vfio/pci: Add INTx recovery operations
+  vfio/pci: Use access ops for SR-IOV configuration and shared reset
+  vfio/pci: Restore device state from slot_reset()
+  vfio/pci: Complete recovery in resume()
+  vfio/pci: Block device access during host recovery
+  vfio/pci: Add VFIO_DEVICE_FEATURE_PCI_ERROR_RECOVERY
+  vfio/pci: Enable recovery for supported native PCIe endpoints
+
+ drivers/vfio/pci/vfio_pci_priv.h   |  58 ++
+ include/linux/pci.h                |   3 +
+ include/linux/vfio_pci_core.h      |  36 +-
+ include/uapi/linux/vfio.h          |  55 ++
+ drivers/pci/pci.c                  |  37 ++
+ drivers/vfio/pci/vfio_pci.c        |  88 ++-
+ drivers/vfio/pci/vfio_pci_config.c | 122 +++-
+ drivers/vfio/pci/vfio_pci_core.c   | 955 +++++++++++++++++++++++++++--
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 113 ++--
+ drivers/vfio/pci/vfio_pci_intrs.c  | 183 +++++-
+ drivers/vfio/pci/vfio_pci_rdwr.c   | 297 ++++++---
+ 11 files changed, 1705 insertions(+), 242 deletions(-)
+
 -- 
 2.43.0
 
