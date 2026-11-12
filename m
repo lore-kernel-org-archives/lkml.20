@@ -1,69 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794456786;
-	b=HvlqSF/QTB9QD/RKiRtjK4hYVsWdGSAQTFNJP2JIvHBYu2PkV7g/Fxd1oIEBWMaibCIU
-	 QOHJ5pNL6r5mNakO6rsibNuNh7XOTTYuypGBnx8HXwm4wF7xIeKcVaGDpUWWPlnHWquZh
-	 ZdnB+XMLOFP4bjcidEc8cwFYpkkinuqELNyGzI+yGgSJEwtnPoqo1AE9cHw07A7Z1OdfY
-	 okQHvZ+WhNylnvYCjusHztqLe97XQqWuvKBad7RyJREAnKSDzyEg3GPwT+elc9ayOfYcP
-	 UtJQgsV6l9JkI2pApXLBqDZPckCn9syOGPBoMJ4FJX+jueC4PgYKKOrlc9j7mNq7EOQ==
+	t=1794456822;
+	b=bPLbIjXC982JVXtwPP82g6Gi4LnSqqgZNgSQZcs1iYNw0AvZJT1/gBY5CG5o4S9zT+x4
+	 Jy50zLgI9ESrGL66e625oE78Lwy3HfS9OfLmVSx8N+kiqUWaOwumKykD4XYMo7L7NJ2LR
+	 TRTo2keUPMjmj3gEDxhRelxN1555lbIcpjE5zwH2gVwQTZp+KoImBjP493eYXcrLUQGpu
+	 d92bA+Y8kEDPgR95Xj3jq84KIt+G/wVTKC4/i1JmTvtjIGIxPc5CgSAQfA8VgKJX6o5/r
+	 pE6j2mQLoDBK6XffPWxMSi/nFtmFpey3ohLKUS9ZhdDNBpqOYuh7BuNz1e7W1RFJe2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794456786;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=IpWUmRExnEtcbdALoE0Cr5qSf7fpbyBSfGicozo/2Fk=;
-	b=5cX/mdG7mHWAVQYL5SLswmEpnfw1MIQiMEPuJChwbiHXtbrXLiZkuRFUXV7b2jPChaTv
-	 zeNDkNG/YndbuLJHUsvZ41/YxGfTD1YNIdGOQl/Sr5mHf1kQsVdgto9exOERKACFsdqmt
-	 BjhDVK8hJQyhqAxAAkkVLlG6VnlD5Ynrgvdm/jSteRG1W12nv8jWJpRyt24t+q+jfZoY8
-	 Oaq9F8C6psLCd5V2g1UNP6zlAdn8PYaosg3cEJnkSHGPQ+49zl1eVKGNrf4Kxdpx7L3AF
-	 dD6r+zBIyn821/vRPmpTi0KrDpg94zJRtuAXphVk7dkuGzfBPAmXzQDCWiHckkomQ5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794456822;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
+	b=X9KoB1fzaGxOXxZ0cndFFQ22o27kDx3z5jY/Z6rT2f6Z809pm8PnTWsTJ6SxvRu968/d
+	 YpojSoV9Al6lCaMK8xREpaT81REuFm/G5dnkdGfAIn6DANPd4O7AXyS5VsBr07/U08+2h
+	 peKPLHvlvcZDaFaj9j35PdQafGXa1936/nY95DX8B9YLs4RPR5eAK524yImvTQpy1M+5G
+	 EIf4504XLaxlgEhppaG1FivLD20f6nhj1zdpdVO/wfpGzslKOEADrpkJOYAn05u+9ungw
+	 03L/7ccrkfW59q93n/n0IsVaZ6MGAR9I+WxhEbkA3CCERq1tdJ8L5UAmXQ6lHf07vhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=JvcMI2h3;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LBSmcK8U;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB24606A31C;
-	Thu, 12 Nov 2026 04:13:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEB24606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA14606A321;
+	Thu, 12 Nov 2026 04:13:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=JvcMI2h3
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jQ6SC2vKtz57HS9;
-	Thu, 12 Nov 2026 12:12:59 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794456779;
-	bh=IpWUmRExnEtcbdALoE0Cr5qSf7fpbyBSfGicozo/2Fk=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=JvcMI2h3JoKiI/KvRzu2NO1PF5ll+pfYF35RFM7evo9gTDOGXx5HtolaC5gtvQiNI
-	 sabWN068QBkccJ5MTwNMpKdd5tdaw79L5uCkSMk1b58do7vp4czmuJS7G6mH8nP7gX
-	 Ro/8XfsQgZ5uMGgDuO/IKsnJLAhv6SO3m9yB3SeknGBh7X5Gfz0F40etGx6Tk4sH0Z
-	 wxoUFkj1bUn/ukpXrqA7XV14X/sVhuYDZsnN6hNOC+qOokpWLbVe/2uw5sd+87+gX7
-	 oXYnE0SukjRkM+g5zL0hIa7Y8aGp8vMgxbqH0zddoV1hhA35r/jophBVq7csSv/t54
-	 C0E53NtO1uqYg==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6AC4Cr1t062157;
-	Thu, 12 Nov 2026 12:12:53 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Thu, 12 Nov 2026 12:12:54 +0800 (CST)
-X-Zmail-TransId: 2afc6af53cc6d55-44861
-X-Mailer: Zmail v1.0
-Message-ID: <20261112121254674Lwi5B4G97rdqfX-kLlNRj@zte.com.cn>
-In-Reply-To: <440db014-a58c-44e4-bc96-e950e69b6763@kernel.org>
-References: 20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn,440db014-a58c-44e4-bc96-e950e69b6763@kernel.org
-Date: Thu, 12 Nov 2026 12:12:54 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LBSmcK8U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09601F00A05;
+	Thu, 12 Nov 2026 04:13:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794456821;
+	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LBSmcK8Uq825T5Yh2FSpWHL1M7tuqT2t3wXpKRLlSLa3uXS1Nv3aaquyIJ0DLZ2Pt
+	 ch5YVpbRc/xMp0mCHRhrjwr27PJVHPzrOT6G0V+upyRrRFbhdMc9Zfs1Mu7rkBa7i1
+	 GosTsaTx/xyD2TcPFv+RNsXOZRIfnZwcZfo3brlsP7LwkxySQpVFffLeoSBTtkfyxg
+	 qVbJQ5V6K5o6VyQXuInRAOl5bKrDVl/yOk3bvEt0/A4BkPhEP9Wgw2yXOaTXP5Xg8p
+	 Hgpmq7JgCguP2qA/rkVi4XI4xGxm2lDBICYTRWsYYu6TxiKyu3/8AxczmffW5K+uAC
+	 mXDxc5vbw3JYQ==
+From: netdev-bot+sinfo@kernel.org
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, Felix Fietkau <nbd@nbd.name>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Yanqing Wang <ot_yanqing.wang@mediatek.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ yana06070@163.com
+Subject: Re: [PATCH net-next v2] net: ethernet: mtk-star-emac: fix device_node
+ leak in mtk_star_probe()
+Date: Thu, 12 Nov 2026 04:13:40 +0000
+Message-ID: <179445682040.2168702.1032780874409478036@kernel.org>
+In-Reply-To: <1794455490000.585551.2561101329908158128@cmss.chinamobile.com>
+References: <1794455490000.585551.2561101329908158128@cmss.chinamobile.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,30 +69,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>
-Cc: <cassel@kernel.org>, <linux-ide@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2MiAxLzRdIGF0YTogbGliYXRhLXNjc2k6IHNraXAgTVVMVElQTEVfQ09VTlQgZm9yIDMyLWJ5dGUgcGFzc3RocnU=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AC4Cr1t062157
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Thu, 12 Nov 2026 12:12:59 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF53CCB.001/4jQ6SC2vKtz57HS9
+MIME-Version: 1.0
 
-Hi Damien,
+Hi!
 
-You're right -- those bits are reserved in ATA 32 and must be zero, so
-silently ignoring them is wrong.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-I'll reject a 32-byte CDB with any of them set (fp = 1), keep the existing
-multiple-count check for the 12/16-byte forms, and resend the series as v3.
-2/4-4/4 are unchanged and keep their tags.
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-Thanks,
-Shao
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
