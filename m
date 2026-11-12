@@ -1,59 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481711;
-	b=0p5ne3LPJ/ntd1fNTx3nu1XsJlcyEEEPMD0A54rVYKZFhmqOVuOd9ldKuNEkdDX6XD/p
-	 vo5mOUiOM8Cy7KEOKAcsDmo2o9tHIiqBkK7OMtx6IlNtt/mxWBTHn3n4w0lYebKOjv7cN
-	 W5GOlWX6a187LG3dmOXpoznDKh8vVcNajzeX+G7FH+UXXXM/Z4TVBpZPZQRQcLUJFAHIg
-	 W3/4eN+GiKu68IMv8kIjwLO1eRjILjBICCzX2THe85CowvMhlEUPjqQOxW3rloUQaeBfa
-	 4R9vHfxWrzclziB6NAzjI2FlD07iTIeRqlEvICTmhcRj798DzJ/hIxFWe+znD1ddFag==
+	t=1794481706;
+	b=VF185SZnGc+Jkomwh4U82T99kSrymmYEdOcvE+VIOSnAGWuHPTH6By6fuYZWog6vNVxL
+	 UfLWIkEtkaY15PdCIJwaoKAEVA1YoV4QcDUlW/sQFGfbMKSmzIm2BQf/oH3b4M0V5Jln1
+	 mW+HWH8y46SHILBqcHpdNlt9Gs1giv6Kth2LhOc96kdUh3Am04tm6IHqOicsmCm7BENlH
+	 0zCDWwDlEEukUboQJlJdt1J38K7L4WTRBXMUEwPNNcYdva36v8/l9T+0rKcKAMj4LA1Kc
+	 TNOn2Sz6UTZibxRXLkMRrFFPbV6ezbs1fCw7YHnYjLGrqpYqbKhNxm8zyiv1EZe9tLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481711;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TDilRXmeoxSYY8jkfX8dDP7Escz54QuAh7M2Ulo9+Cs=;
-	b=CLuekLYlQAdH95wyc6xHWbvbcA72LmCEAMG8CESeF95srEzgURvle5BtAZlmXBaJ9z3P
-	 MyxJSk2HU1y3juw2ImKQzFl6XzBsXJi1YdrN5t6c9zbZ7Bcwq6vy27gfQsTV/+oNY1rua
-	 kR301ODKrsKSG7vRijUp4P3pLAOWpFarlkEBqc4ppfrU6tAC2EYOijDXMJT8SyqM9mefk
-	 oQJjlQLGNSn9pldLhhHHb0hR8dMf4/XypZLfyHR8lpU6WEax5kuLzc/1C8nGUSYgij8p6
-	 kRxjMLmAkRfxgMmC9pomnPyaeIPjDzVXvBDBQcx1hfMZup3SqHxvKkdRBdR0yme1uRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481706;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=CwOsftxfNPZqsPWmATYl8H3Jcuwt3wJErixQ5+qMlpE=;
+	b=ykd+fLSKQS5xFbmU04Yw1oaINwbfoBy+XF2UkZvFibfQZj8Tu41JPIKDZ9U+mm5yw245
+	 X+RJmCt2sbatP0sOSq2QGDoFyY+bS0A1mUmEVV1qCxrF5v3DNEAMmVrlLCtpdGFTbI4mz
+	 9d9i4Iye+pxv+z2OIZMhMcdcHFT9KaktHcUE5xYHIp4X5qi/bp9y195DmQAYmkWJ5oJqz
+	 UtpCtDOHb+75qwdQj7LvAnw+RDj1pJgGvFMXrK0WdILAr5BYfycwXjR+9jrW7+XrNk7Fr
+	 KE/veMYr/ezh7SPkAp2rRKPsSiwo6bjb7dSaYLgwZ0M93Qc/I9U0roWH7zbFadmOzGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dr7lfaXe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DyW/n0qa";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 11F3A606A32D;
-	Thu, 12 Nov 2026 11:08:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEB5606A327;
+	Thu, 12 Nov 2026 11:08:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dr7lfaXe
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 26B1D1F00A05;
-	Thu, 12 Nov 2026 11:08:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DyW/n0qa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1711F00A05;
+	Thu, 12 Nov 2026 11:08:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481710;
-	bh=TDilRXmeoxSYY8jkfX8dDP7Escz54QuAh7M2Ulo9+Cs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Dr7lfaXeRCNPoJ94w6Skhx/lyd5atzlFhP1aiBAmmZABVuwE9Sk9p1dZ9OQGqRWqf
-	 PMUmiShRp81N9U1hz2nygO3HkGjoyK7IiattZX20nMVxSrNoeGQcaWW+XH1Y+t/dzJ
-	 KWJlnmCziTgbV63d2FGFkXHWo44m9HCPS3tlGOYwaIXkppDCoSCwpno5pmRvY+MbOr
-	 a35G0/0Y+Hq1Zm4tY7xOhIaicb0PkctrLPPpm9C5RixYgr0zX/7upQodCiMA3apNTa
-	 H8IM2b1pDp5rHBv/m2fGjjeWtmrSE0SkveOaRXrhoe5aP206Z5XztDhRqdiqRcnlqe
-	 50GhF+Ef5jPAg==
-From: Nicolas Schier <nsc@kernel.org>
-To: Russell King <linux@armlinux.org.uk>,
-	Nathan Chancellor <nathan@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH] ARM: kprobes: Rename test-kprobes.ko to test-kprobes-arm.ko
-Date: Thu, 12 Nov 2026 12:08:23 +0100
-Message-ID: <179448168647.2348885.1879119670707585702.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109-arm-test-kprobes-rename-v1-1-663cdbbb90c7@kernel.org>
-References: <20261109-arm-test-kprobes-rename-v1-1-663cdbbb90c7@kernel.org>
+	s=k20260515; t=1794481706;
+	bh=CwOsftxfNPZqsPWmATYl8H3Jcuwt3wJErixQ5+qMlpE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DyW/n0qa91KOXYIdySgHj3eIEbcxiNLeNpFJQeJIhuco7rqZhcUrZWt85zW2HvkZ9
+	 2wHcJEktysymXTF6HagokqiVhCbjwDWD8yix6rDxMSGsopa8pZHnoxnrvLe/8Hz+2u
+	 /Oeg3+Wul0MlRp1g521fXX3TFW07X/L5HX5Qvh0aSubdGVt08DH7GwnuO2LSJ2KXau
+	 RPAXXyI2D8ChNftplFJpDpNSn2iMeD5JkQihuDtFyl16gS3OoJJvQR25xqK55OoY+3
+	 gzGIr1nwOPmi+95UfGmefDWE5eByHd4cmfi1D0Ti6MIdqFXLTfEYjZ7WsHvUTpW7GR
+	 EzmSUwBmBxA8g==
+Date: Thu, 12 Nov 2026 16:38:22 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: aidenisik@member.fsf.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH 2/2] phy: exynos5-usbdrd: Add support for the Exynos5515
+ usbdrd phy
+Message-ID: <avWeJqbpbLcWgq_R@parshuram>
+References: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
+ <20261022-for-next-lucky7-usb-phy-v1-2-2e47f8484bf4@member.fsf.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,36 +69,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-for-next-lucky7-usb-phy-v1-2-2e47f8484bf4@member.fsf.org>
 
-On Mon, 09 Nov 2026 01:46:42 -0500, Nathan Chancellor wrote:
-> When scripts/modules-check.sh is fixed to normalize the module's name
-> like name-fix-token does in scripts/Makefile.lib before checking that it
-> is unique [1], there is an error due to lib/tests/test_kprobes.ko and
-> arch/arm/probes/kprobes/test-kprobes.ko having the same module name.
+On 22-10-26, 17:46, Aiden Isik via B4 Relay wrote:
+> From: Aiden Isik <aidenisik@member.fsf.org>
 > 
->   error: the following would cause module name conflict:
->     arch/arm/probes/kprobes/test-kprobes.ko
->     lib/tests/test_kprobes.ko
+> The Exynos5515 USBDRD PHY is a USB PHY which supports USB Super-Speed
+> and High-Speed. Add support for High-Speed (UTMI+) operation.
 > 
-> [...]
+> Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+> ---
+>  drivers/phy/samsung/phy-exynos5-usbdrd.c | 43 ++++++++++++++++++++++++++++++++
+>  1 file changed, 43 insertions(+)
+> 
+> diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung/phy-exynos5-usbdrd.c
+> index f10cf7b6e0aa..8718e8f01e46 100644
+> --- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
+> +++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
+> @@ -2075,6 +2075,46 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
+>  	.n_regulators		= ARRAY_SIZE(exynos5_regulator_names),
+>  };
+>  
+> +static const struct exynos5_usbdrd_phy_tuning exynos5515_tunes_utmi_postinit[] = {
+> +	PHY_TUNING_ENTRY_PHY(EXYNOS850_DRD_HSPPARACON,
+> +			     (HSPPARACON_TXVREF | HSPPARACON_TXRISE |
+> +			      HSPPARACON_TXRES |
+> +			      HSPPARACON_TXPREEMPPULSE |
+> +			      HSPPARACON_TXPREEMPAMP |
+> +			      HSPPARACON_TXHSXV | HSPPARACON_TXFSLS |
+> +			      HSPPARACON_SQRX | HSPPARACON_OTG |
+> +			      HSPPARACON_COMPDIS),
+> +			     (FIELD_PREP_CONST(HSPPARACON_TXVREF, 15) |
+> +			      FIELD_PREP_CONST(HSPPARACON_TXRISE, 3) |
+> +			      FIELD_PREP_CONST(HSPPARACON_TXRES, 3) |
+> +			      FIELD_PREP_CONST(HSPPARACON_TXPREEMPPULSE, 0) |
+> +			      FIELD_PREP_CONST(HSPPARACON_TXPREEMPAMP, 3) |
+> +			      FIELD_PREP_CONST(HSPPARACON_TXHSXV, 3) |
+> +			      FIELD_PREP_CONST(HSPPARACON_TXFSLS, 3) |
+> +			      FIELD_PREP_CONST(HSPPARACON_SQRX, 7) |
+> +			      FIELD_PREP_CONST(HSPPARACON_OTG, 2) |
+> +			      FIELD_PREP_CONST(HSPPARACON_COMPDIS, 7))),
+> +	PHY_TUNING_ENTRY_LAST
+> +};
+> +
+> +static const struct exynos5_usbdrd_phy_tuning *exynos5515_tunes[PTS_MAX] = {
+> +	[PTS_UTMI_POSTINIT] = exynos5515_tunes_utmi_postinit,
+> +};
+> +
+> +static const struct exynos5_usbdrd_phy_drvdata exynos5515_usbdrd_phy = {
+> +	.phy_cfg		= phy_cfg_exynos850,
+> +	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos850),
 
-Applied to kbuild/linux.git (kbuild-next-unstable), thanks!
+.n_phy_cfg does not exist.. Please fix this
 
-[1/1] ARM: kprobes: Rename test-kprobes.ko to test-kprobes-arm.ko
-      https://git.kernel.org/kbuild/c/73d83cea
-
-Please look out for regression or issue reports or other follow up
-comments, as they may result in the patch/series getting dropped,
-reverted or modified (e.g. trailers).
-
-Patches applied to the kbuild-next-unstable branch are accepted pending
-wider testing in linux-next and any post-commit review; they will
-generally be moved to the kbuild-next branch in about a week if no
-issues are found.
-
-Best regards,
 -- 
-Nicolas
-
+~Vinod
