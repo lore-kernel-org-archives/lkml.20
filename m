@@ -1,95 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466578;
-	b=LRXHiuFTcFpXEHS3j7oS6LA3/be7DsVbAPSnVR++tfcLK9PeYIzm93qVsH5xOmsUsZ7H
-	 DKkIHp7KD+dloBhE0D4IOsJQnS03mGWa+1wbnn29ijA97JVE5FHtIaJXlj3d09zd109bO
-	 8iLoRHAoXI5lar0lvr9Z/d2Ow1Ey7EdKgDifPVAorR6YA+UQUdLEYXHh9GhQyiHpeiicR
-	 lNsKGzhtU1oSi8WL5y0g8nknXmA8Lmm+KyI6shYxUTV1H4IVPsQ/ws0inXCosLchIwYqO
-	 OfBTXHBoz6kP8c1IwYXoHJQDOFJKIC/qEDGddmRctB29E/qLJWuar3HjTTk4p7UNSFQ==
+	t=1794466584;
+	b=bVSb9A098vVkqQKNCq0R/2w6T6AADGAc0MscBLXNG9oWfyB1DcOwYVPQpDi8EQ+hciQ2
+	 FyPkwsuu5F3IrDNYK331Svqg70Oz3pLTR+eII8aAQYmRe18VGKqHup85KS03PNsivsmVG
+	 VMIDjJGMewmWB4SN9RtXOBrvUbxpxniXRitdJre9Su9pnk5tlYCZRc2t7FZIEnYMDMLQs
+	 +Q+9EvqAf48zYhhTapXyB4eNkQY01WViw95B6Sc/2wsLvWxUs3yt8rgB6r1SWSwAlEo6/
+	 vLMEaLdtqXiCNS1ZbJs5Ncg/Y3DniEIynYRKz6PxonA8Y0MtgF4gseUYynfF5YrW6Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466578;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466584;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=R8u1ixJmi7TH1leov+iud2pI+lutflCpqRALV1qurqM=;
-	b=xA2O8KF8JeuYK6JrHbGjkFoRGa5GEoGhzk0Q4MsGt9A2VNctrYtXqolqguN76s8WGKCo
-	 mN0nvWCrXauZU1xAoQzvpL/DC/gN2R8uyDR0enSxEcTGJFLi3VhHxajJawdGOVKrjvlCJ
-	 4fKObf9kjQI6Swfky+DW90KtH7mPJYN8y3gSAeKrNQOW7UD4AHyotrINaZmDw4Vk2i+Xz
-	 X9j9JmenyDxMVe7MeUkpDEIsiywIDjqjW6R7WXsFbg6ut8L8mCDAG9vImR2eerX6l5oy/
-	 HVcG0EH0pcDmSqXeU0parTxS0hhuS8RUipDAe9tcZTZTevjsK2PYKboVHZZzlJjsJcg==
+	bh=vTav8FAXb6nFTtunUSm9Oo3pbBRDYrw795godDfr3bA=;
+	b=SdCoX7IaWwmLcnHSraQt5cdP4IVpgLw/dgRnXUmxdXD2lnEXAXs1kLAAromDu6WnnB8K
+	 cO6Ga1uyiQqkIhEn/ofVTLdr4KqIf3XjOW2GyptesdpOTVNntaeReeMh8mRjsH2qZ4tX9
+	 +U/Q8NZkXlMWacP0R803Bj4QTs1YWA6hCLB1m1qP6MX4iDe01H1HBf/ND23qBAsXq+VSO
+	 d4RtRDV+rbIHSX3NSpCmD7x5WgyX5Xoj8/erhSzbhIMmMfeYs52eMwIp9XALPv/A/9kFv
+	 AzSTCBQM+MHaTfvTSIuyXURkCkie1rLhu2+T+7EpczyrBYb+yZowD3YnevBsnOQAmsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cE219Tvo;
-	arc=none smtp.remote-ip=209.85.222.179
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UxyEoZuZ;
+	arc=none smtp.remote-ip=209.85.222.174
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A320606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:56:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A320606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7B0606A8AD
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:56:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED7B0606A8AD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cE219Tvo
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93f2049ea7aso270493585a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:56:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UxyEoZuZ
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93cb9e9405fso210900085a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:56:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794466576; x=1795071376; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794466583; x=1795071383; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R8u1ixJmi7TH1leov+iud2pI+lutflCpqRALV1qurqM=;
-        b=cE219TvoeGWM7xjel8oXWWtPj89dTmLMtC0qCaJuJjc37uvQVOl/km/Hpzd3Yuo9Vs
-         tUcXKSAAefqN7AyG2gUALa6hoEtNTg8+LiW/m7O1+u/mPPyhOKTkd5xYDgmNdzNgmjBO
-         VjG0vVQCgznEB0gWSwHQSUv/ijROn1tGO39PBupfW8QjbrviCn5vxLg7QEhrhi8xIXII
-         K+UTEGkKjJZyP3S3MZQG7HlD5or5Wc6nCoeSDb4OlKd6EMtcIETigZc/h1O6ODEeGFIY
-         DWmTRwrxAJuFcZzwQuT2y+Ij3pCOZr5+iQ5z5jKgM1W35j+xupY3VTqEwzcGtwccm4oU
-         UgQQ==
+        bh=vTav8FAXb6nFTtunUSm9Oo3pbBRDYrw795godDfr3bA=;
+        b=UxyEoZuZZPTpShq4yKIoeWQVufiwYeT6C69K4s4wsmxpWWb29QQTHCwJBZ4JcKQ3np
+         qWq9MEbtxFWwBGbxG+GJ2lJj/UDk+yRg4L2Ud4rYX6V2knajD8KaJDkv4yLyr6s9C9wT
+         IAr2K/VZiMY5a4NBQocjqklXKnCDk2L7c3RXsuAWVKvFUmU35gE6V0rrTNxuDgz+6neU
+         qbOt3i6kBYDqRCRqz7f2/OwUHLZ/tqp/4xRbr7U0SZTtCKzfAua5rqGYO6kjSx0VMkvU
+         o8CFYrkC5zqMEbNUnylldLJhDH4Msnh55xEQeIf4WS7DbZBAOPEoyG9DU0+Ye6VwzbrZ
+         UxiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794466576; x=1795071376;
+        d=1e100.net; s=20260707; t=1794466583; x=1795071383;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=R8u1ixJmi7TH1leov+iud2pI+lutflCpqRALV1qurqM=;
-        b=W6KGlFSalSrRYr4qveF+9usfoPoVRwjuEDlQr1udoFHuKWfH2ArBsQsg8OHFUivw29
-         TcWJQFJpZmhzlJCrGBsTZgcx73cGVpqk6+rJ4zQDncHAwzIDHbzS9kCOkS6KRTbMOrmw
-         ZSwBux5Oq0mcEGyLoorj+W3C2WBBt22/oqzHT5dfSg+WIbqSz4Vnds+eFoBu7vmYnt5Y
-         tiARorALCmbMGhHDyz9RHqvpX9+gLw0/1EjZc9qmNWX7CKxvYXQbEf0FdQtTlXbqzmWQ
-         Jw2Up6SQHsJpULBMuquabbCUG9GCqYyXxXm7CsDgE9kJcKnxmagHNBzB6alsBovxNJxd
-         Os3Q==
-X-Forwarded-Encrypted: i=1; AL+hErHp+hJdTTF68q2V1+NaEtHvoqWAa8s4+ejMakcE3jMCQh/1NnpY/m+j4hy/3vQxqZ5vQtYsi2pt5JoK6JM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8dmgbpJJPK7+6GIa9OeX2fdIAe8dwFEWWUQATrY0YObW+Z70l6
-	CCQBEmZE0HohL6EdjsdOkPyEG32H9N70TpIoqrDXMHaLBNo/h0lut7wRu8aw
-X-Gm-Gg: AYBFou2X9s/94j7RgVIVLl/oQmAlopd/xnOW0GLwB66Ta/dG6hs8ywRhc2Oc4eTvdJ+
-	Hs3EAlpovyIWyxnvkvF7mYA9MoHD9pT/h/y7dnC2O3K8KackIG9Z4CHkAUT4h6HTimvsqAj8HYX
-	kmnWs0i2Yy8bzmMn1AINSCDXA9pyzHJPy7voc8INBabf63+ttjI4umrVN2RqYDSsugVUGXyRJ5b
-	9NP6mxkXOf6GJJm8h98aQvVAiNyf0fU+zL1AsgLtGu1PkctWq1bzNzVwcRL3Cj846to5Iz3ccZ2
-	gwuQcOA/EPvekbPlHdQjHSrmm9Vi1sM1emdJSe/L+ArqAKx7ndgrydKUXaz+545f6rgc0MQoENv
-	KZlqVx+FHbPcWPx3dvPb7XEmjY9gjYVog5I930im+EplK4lc5zwP09uf+KkP52Jxwicm8Io7Ayl
-	CMzY/CkMzo6E/cCfadIU6ReaOkDoBr3Jx6G3F/y2PDPRe46vtU6TflJAWC3QBNZAPkv7eFEm5br
-	ctJn8pC0ANyQBcKuLGHEjFFNVfNiRmeHwdWlRHItSc2CRnL4OBg8TuPetWBkG/P87pm89G+1CjD
-	FDtqr7bf6EdAuW5UyBHJsqrgBnp0BeezmNYWvMGSb7VAlgbK91sCUNwjwCYZJXNxyiVH17jRVPP
-	J2geeLs/Hv680bh68Z3TXcn4ywGWvCsgCRNlEcLVPFokro72xl27v3TiESLuZi/xYDNe02HeXOt
-	R+/1xSicGMXXrE+gpzC1GQqV1DGvdV2Wi9
-X-Received: by 2002:a05:620a:1a26:b0:946:f22d:1efc with SMTP id af79cd13be357-947b0049770mr887965685a.67.1794466576048;
-        Wed, 11 Nov 2026 22:56:16 -0800 (PST)
+        bh=vTav8FAXb6nFTtunUSm9Oo3pbBRDYrw795godDfr3bA=;
+        b=hCrPuuZvq5UTIB/l2Hw4uFHVwiwqMrxQJEac/sT450yuq03a7nvD8A9ykcUqH1sp1Q
+         BkucYT2EhslHfd52Q4iYHqmFsaRD8dIkffpofLDU1XPqp8HGzxjdS10f8Z/RExRT2FG7
+         In5zgN2XyIVLvXdq92+WoPEt1W6NAPfvdN5gcrMQdR3OmjD7zhbj3PkWKBalwyR3BfzV
+         Xnkrh0oS7e+j94e+wznsr0E+LWuY0tVdBJSRXu2Bzb2PlK51ZJlBABGEIbA/hwYWx3l/
+         F+q/aS42rNyqQH8Wpv1a5mhfLCIcNQ19IYfRh3vwhWncdjzJMixdYe30Zxm/3RhwwSVT
+         DIpQ==
+X-Forwarded-Encrypted: i=1; AL+hErGnUAbb4TCpaEqmaHRpIzDzfsLuK8xkgamEWODuj2pdpFNS5PRipWttFMSuxt2Y3hWdBgyLB3+PMLSLy2M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8daxxNprCUI3M9Oz6GuiRKGibZN2hZp4OCKLzofon3T81zhle4
+	/OrFDBr1wmunvRPbUiMzJCKLIxUVTDxUB4/tKjSBv5Irc49wMluETho=
+X-Gm-Gg: AYBFou0UOFjpmeD8qjIKeXEaxsPp4cUUN2b2C/R79LDE1pLkyqim6xgBDL3yM/w5mq6
+	94EOsszkJ+H9pqOj4xUyVIXFE4akrEsurPdXFhjJ2BBkA2/gxakO+Lijy8iegraOGqYwii7uXKN
+	WSd8AeoR/PK6/v+B1dlhkWszVq7V91lSXte54a9vfDTsoW6QsHG9fHeuy3eZZX5tCf6tRhqSxBL
+	CHWHBU15Qkz12Uq7p6OdQPStrsel5AdoN/iWwcBlsmDgToUJEST/isZN2yziQ4xwt3R+sZo8+Su
+	5oomdBKNWEztY43XquIz/n5fbyHZR0UfTo5vBJmo7hDzsbBC9hQz8lVH+CUdccvIsBw1pXG78zA
+	Zp2bJdwPdt0+mrni6N1KL4zvdzOBK9xHg/2OHDIAFvtb7QETw5EdrWsO9WM591kn2ECA1dwAlIK
+	tkcTdI3QPY8dEvyR6T1lqy5xnbJGi5OaFE69dxQoCHzBLB1g8M9B342qpDeRUXaQXxogHAFu94J
+	V7AVi4y53UbMnCHK3kAlImtLO0X7qLAv4I++B7gWqXp9HtLmXGQTX1u1dIwyy4S2WoZKuC3ghRi
+	yIh5bHxeTi2eOwHniFdMqY8V4O/zpCHa68o4Fl43iIxe3HV3sIQiv95mZkj5PXqgu7n53gLktdP
+	463xZ9QWWA5NHr8sywb6IPBBYCI3zV7QqSPL1Fcbf2Ce8tHkfd2b9cZAJTv7VTfX5qrpgYwNQNw
+	1A/it3qAuUbC9Ic6IMsVjgdnA0jDXaSp7k
+X-Received: by 2002:a05:620a:28c9:b0:93b:eb9a:ca47 with SMTP id af79cd13be357-947affa6f31mr888523185a.31.1794466582945;
+        Wed, 11 Nov 2026 22:56:22 -0800 (PST)
 Received: from localhost.localdomain (h16.44.55.139.dynamic.ip.windstream.net. [139.55.44.16])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e76b1c3sm663813885a.16.2026.11.11.22.56.14
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e784e77sm661246985a.20.2026.11.11.22.56.21
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 11 Nov 2026 22:56:14 -0800 (PST)
+        Wed, 11 Nov 2026 22:56:22 -0800 (PST)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
+	Amelie Delaunay <amelie.delaunay@foss.st.com>,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] usb: typec: hd3ss3220: disable the interrupt before unregistering the port
-Date: Thu, 12 Nov 2026 01:56:13 -0500
-Message-ID: <20261112065613.34182-1-mhun512@gmail.com>
+Subject: [PATCH] usb: typec: stusb160x: disable the interrupt before tearing down
+Date: Thu, 12 Nov 2026 01:56:20 -0500
+Message-ID: <20261112065620.34269-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.47.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,40 +102,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The devm-managed IRQ remains active while hd3ss3220_remove() unregisters
-the Type-C port and releases the role switch. A cable event during unbind
-can make hd3ss3220_set_role() access either resource after release.
+The devm-managed IRQ remains active while stusb160x_remove() tears down
+the partner, VBUS, role switch and Type-C port. An attach or detach event
+can race with partner removal or access the port and role switch after
+they are released.
 
-Disable and synchronize the IRQ before teardown, matching the existing
-polling-work cancellation. The ID pin IRQ needs no change: its GPIO and
-regulator are acquired before it, so devres releases that IRQ first.
+Disable and synchronize the IRQ at the start of remove(), before any of
+these resources are torn down.
 
 Found by a static analysis tool under development.
 Not tested on hardware.
 
-Fixes: 1c48c759ef4b ("usb: typec: driver for TI HD3SS3220 USB Type-C DRP port controller")
+Fixes: da0cb6310094 ("usb: typec: add support for STUSB160x Type-C controller family")
 Cc: stable@vger.kernel.org
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
 
- drivers/usb/typec/hd3ss3220.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/usb/typec/stusb160x.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/usb/typec/hd3ss3220.c b/drivers/usb/typec/hd3ss3220.c
-index 60d6de9ba339..19c5dbdc97a1 100644
---- a/drivers/usb/typec/hd3ss3220.c
-+++ b/drivers/usb/typec/hd3ss3220.c
-@@ -554,6 +554,8 @@ static void hd3ss3220_remove(struct i2c_client *client)
+diff --git a/drivers/usb/typec/stusb160x.c b/drivers/usb/typec/stusb160x.c
+index a2ec0565bd85..ec2f4d7f7ed3 100644
+--- a/drivers/usb/typec/stusb160x.c
++++ b/drivers/usb/typec/stusb160x.c
+@@ -801,6 +801,9 @@ static void stusb160x_remove(struct i2c_client *client)
+ {
+ 	struct stusb160x *chip = i2c_get_clientdata(client);
  
- 	if (hd3ss3220->poll)
- 		cancel_delayed_work_sync(&hd3ss3220->output_poll_work);
-+	else
++	if (client->irq)
 +		disable_irq(client->irq);
- 
- 	typec_unregister_port(hd3ss3220->port);
- 	usb_role_switch_put(hd3ss3220->role_sw);
++
+ 	if (chip->partner) {
+ 		typec_unregister_partner(chip->partner);
+ 		chip->partner = NULL;
 
 base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
 -- 
