@@ -1,81 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484113;
-	b=DIFiSxpUg4xDnfBXxyei2c/0c5hbdNECgfovTyB0IN3SydLK1CmW3Kj58bCFw1Ou34W3
-	 T52l1xaTSQt2aY3tI++x8grEhwEnB9OZB6XVC4LnNPRcqT61X0hXf9DjaBUuaPvkIb0la
-	 3aP7k4/SoNy/p+oS6O1f/F9R9ZyReqty/RK6/95jeL0GOb9Xi+IpvTYuYMbslKv3fvPQf
-	 FACyZLyn9JTxHhxJk0ugrqEBoeW4D7t5HJHy5TSZYNYL9q6ei0QYa15SPx/sqCnujp6MB
-	 RRKHpYUpwhAmRRoMey9NbRSNAQH621svSqeUjOhcZRp/D714vIc4n1+06BdibAHURQQ==
+	t=1794484175;
+	b=R9mi5WmN3Q/NPtFX6XM4kf/sl6MeKaD1ujBF0perQDiGdHTQuAQtTYlfy4CdKhPWYZNq
+	 0yVY99oo4D6S6ol041pyTS6bI1CwwuNcpnOrlSBIBWUpS4bLjANYktsZZ7yegWRXdx7dX
+	 uMNGA7gpiNzN24jWwQ+rL+Japgtuhd3rUd7TNPN2xGuD/8HirNbNXnFPGeLsG2WBaYCoC
+	 XgkP4/6mA1OCLTOm+nuJwhYOr4EtOQWElJYxvr5datvzIe1bKRdrDDmVsD1LQJPvHKTWo
+	 mE0XQQSwvLrNNnXO46KoCvyn01xla4YB9EtHBsaVTMA6WztPyud9Euw2xGBsNxJgmpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484113;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=VZVy7urDQoMi7AYb2OHBUHBw0zowY4SSLp8uc9mcuW0=;
-	b=O69izBO5SUZoRTDm6AlPFAVVAgge+TpH+C4eoY1WnPWzY0IloJN22/G/PCMos2bmW5rj
-	 vcWAku6yUUnGpGT+3CRk60p8SLbMA3iUuUewXQqpKLLt2lf9+hSD2NAwHZKI7IL10kk40
-	 Rsc/U4tOOfrbt8CuwmMTqjP9G1frdnc/EUnhJYf/wLTD+ByIT2KJwaq7VWi7KJOsr5alY
-	 3svofaZgvewbyxso8MH4bbI/o/xotRDxf85asa8sI6s5lyaWAhGQxPKduMYk2yhME5QQO
-	 nrjWihNWDD5DXUHM0Ny5+F5No8y2dQQp1PjjOL4GRW95aAUZPG8CgBsuNeSvVBsVScQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484175;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 To:Cc:Subject:From:X-Mailer:References:In-Reply-To;
+	bh=QfzRbPUJioYckynCvFdcAHAPjcBDdUIwAIhB2YIAKeA=;
+	b=hEHsxg8CjtNdFgMkRgxo1CeHia5eMjiOfyDYSqskcS5Bpymew66UWipN8oc0ydHuGwBI
+	 Y7eAc2XTOtFdFD8sQ6NE0f4kH9bpDpj4TlWJ51fJ6IrCbOiX8pJrY+hCwv57ORrz46Pfy
+	 aaQAx24VprP5NhwmRmnFa0u0slACwqM99BSSQKgo9s5zed0zyaj+o+H9RVjpowEqVaJQY
+	 6KBgOXKlwAAxKw+Y+p1UgIksuZVmjv+AGloaZ483FiYG9UgJy4vj31KyOdrgF1wgDGtqV
+	 8BoZBykst2fzjLYnSVBdlJdPYdeeEG6fzt2soVF/6dd6MtIePzUjzUuTPvnMH/zyJHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AYNPE4VD;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UoEUpvK2;
+	arc=none smtp.remote-ip=209.85.222.170
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CAD606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:48:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2CAD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE60606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:49:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FE60606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AYNPE4VD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794484113; x=1826020113;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=vo27qnizSaWoeng/wgI+cUcoe+VkKt4vRpNAtaN69Pw=;
-  b=AYNPE4VDSA5x1RNq5ne9No37aMF0ASG3Jai7NNLlIRRNAY8cuprLLFHL
-   3+j/4Jn6Ix35qy6VglHqspkD7JW0qYz9+qKu8BPxxfUBRkasZy+0tMTLP
-   YUMr8deFsSG2piUxK22xVrQ3JjV0xqpGG1D0AsLzcuUrzy5C7uPojupw5
-   YhQqc/tUDcXFXjMT+2fB2ShSboAzOBjPHKI9qupqfyWgjARMFg0KTYOAw
-   KDa6J1YwKkq4mvXHxsUA4+oxCEcvdPSzB+Y2CM0iaiT5T95AFQ8CqtM08
-   j+ARmDLpZ0fB1EBpb5364LUd+7EZR3qOwxMu1RgV1/7REGhdD6PnO2cvK
-   A==;
-X-CSE-ConnectionGUID: GAbygwvqQ0mQJenfBcTeeg==
-X-CSE-MsgGUID: PttKuqquQpeii4sX3wIOKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3185860"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3185860"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 03:48:32 -0800
-X-CSE-ConnectionGUID: +UP8GAYDQJynOakSbn4Hew==
-X-CSE-MsgGUID: xSrzvlxZQFKkvS49/NzKTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="8526038"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.61])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 03:48:29 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Arun
- Iyengar <aiyengar1990@gmail.com>
-Subject: Re: [PATCH] drm/debugfs: Accept "reset" with a trailing newline in
- edid_override
-In-Reply-To: <20261112-drm-debugfs-edid-reset-v1-1-4cd19d83cd22@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261112-drm-debugfs-edid-reset-v1-1-4cd19d83cd22@gmail.com>
-Date: Thu, 12 Nov 2026 13:48:26 +0200
-Message-ID: <eead642a87b1916414972dd346a4be9195020541@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UoEUpvK2
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-9440304604aso86154185a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:49:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794484173; x=1795088973; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QfzRbPUJioYckynCvFdcAHAPjcBDdUIwAIhB2YIAKeA=;
+        b=UoEUpvK2wQR8EAsSwESrTtSF41cimmaJtjmRfCcRf6rSoTAbGnMl4Z2U2F1WYTRlyf
+         eSFGIg9dqNUAkBYq5cnbiaOK9p+2WfBcoujk3X+HGDY8myusAuKgMPB0Kmv0daCyFK0A
+         2RkvG/K8IY75WPyw1i+1z5zQCwzvz+m4z7NTmC7gTXs4ICFkUVRs8up01m1lgVJsQEE4
+         stvlbXf/gT4KYpNXPMmPPFsT7a4627STwieiL2zE1KOIAptykO68OSfxGHa75Zlj7KW+
+         BLnoMpBLoUZkJLIifEd+0GIdrsjQf50fugJMWw51gVpZ2loviS0tEJ0zDsFf1ShhC77A
+         P/vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794484173; x=1795088973;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QfzRbPUJioYckynCvFdcAHAPjcBDdUIwAIhB2YIAKeA=;
+        b=iiv0OsUeLWpTEQFaYL9GePqlLU0cwWZntXAmvPw0dbHFhu10XRYICwKN96OG9N+q1+
+         CUbhActTYYY053FMEJXJsZI/seDcb/uv6HwnaDqQTNDGTCk2esyWguBexD4wXU7RtPpv
+         j5GABY08dv0531QdH9CwLusFR13Dr9l8eu54V1sOVVDVt7XXmahKBG4ATWGhGbNriJaN
+         MHZr0CClI8yeFQ7yUD01v5eBtKmUdjhqEFHsPmxwiWklH9HhbETdIh/O28LLInOJ8zoM
+         yUfZ9pRB/CR2neLYveFET2WytmLOR/qRhn5kSDmFwiAjiTx7wtqOcgXwAO8g4pro/gK+
+         nfoQ==
+X-Forwarded-Encrypted: i=1; AL+hErHUjAWhIsQB23OKBy+KWZrRMjdOLewdvpopCXR36sVRdr8sKkqLsq1MhBJZAt/fXzfwpe7kLt0MWiLmSX0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XFuUtMfbPJQ1+aqzH7IhuHrJVPscpn0Eu3dMDB70twTmeGXvR
+	jzFC5i5SBGURykkJBOPY6tBR6LKwheVplK/vxU02HjA7BDZRHKvkNiSa
+X-Gm-Gg: AYBFou2zpSvTwEtBVgmX9SyfpQhbsbnkEeAzPBeZs4q3Op6ZDz7plYFVAc2vkBo+h/8
+	y0LHzFKBe7xjlbQB0suNCv3CFwSAX9sC+Tx5XfyR9ZuHQDvVl6LWwQPGMLlToUp3S7RbGqD3OwG
+	lWByEWy12funI9+ZCihNMPLZUulljLWR7hWtzMwLFya3p5YshMGL0Qc0nXEk1fnYEzuqgbTalCQ
+	UVo3UmgSlYelNyV5u/elTiAWcHWZlyv6VLb1XXZwjYJ/nvZRX5DD+u5ZHj2f8tSha9+AM56kG9H
+	jEn1fW1UA8mKbKOwDaE7A/0lyMVEAvyoi7dr4JYyljgzlfxgfA0OtNtFLveabvi08ZAtfI89Xms
+	UMuj9P92FKpg/Jd/ic6ja8LG9VbsPc9WkAC7wa7yYoNPULcuyDqyRCzU8o+9DZl4v7SXNnH4VFr
+	Q5KAnaO0M7CC5CB7ad682EOM8QnXF/P7LrhBqi163dk6mJRUk12uEeQhwlf0qeCy7Mf7RkdS/gc
+	bMJ/bzG+FIQS7AuKMegyxMrKwrvd6j7zL/LP1k/oQ/QT1U+pBFMD5bDIFIn+ue2OcUZP8Na+la3
+	F0SuDkjluFy/+3Zblb3cwxpxE1IYNQIkNw==
+X-Received: by 2002:a05:620a:4107:b0:93c:891b:90f1 with SMTP id af79cd13be357-949330d463amr363214485a.26.1794484173123;
+        Thu, 12 Nov 2026 03:49:33 -0800 (PST)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7f618csm710667885a.41.2026.11.12.03.49.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 03:49:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,82 +87,170 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 12 Nov 2026 06:49:27 -0500
+Message-Id: <DMT7JPSJL8MK.13BO3F0V0R9T@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
+ <pabeni@redhat.com>, <dimitri.daskalakis1@gmail.com>,
+ <mohsin.bashr@gmail.com>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 3/6] eth: mpnic: TCP segmentation offload
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20261110-mpnic-lso-v2-3-ccd37b051d08@gmail.com>
+ <179447813579.2199510.17629296645152623901@kernel.org>
+In-Reply-To: <179447813579.2199510.17629296645152623901@kernel.org>
 
-On Thu, 12 Nov 2026, Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org> wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
+On Thu Nov 12, 2026 at 5:08 AM EST, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
 >
-> Writing "reset" to a connector's edid_override debugfs file removes the
-> override, but only when exactly those five bytes are written. The
-> obvious
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 0
 >
->   echo reset > /sys/kernel/debug/dri/0/HDMI-A-1/edid_override
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
 >
-> writes "reset\n", which is handed to drm_edid_override_set() as an EDID
-> and rejected with -EINVAL, leaving the override in place. A test
-> harness that cleared its override this way kept running on the
-> overridden EDID until the next reboot.
+> - [Medium] At this commit, mpnic_xmit_frame_ring()
+>   (drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:306) calls=E2=80=A6
+> - [Medium] eth: mpnic: GSO validation bypass in mpnic_features_check()
 >
-> Accept a single trailing newline as well. An EDID is at least 128
-> bytes, so a six-byte "reset\n" can't be a valid override.
+> --
 >
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
-> Found and tested on an Orange Pi 5 (RK3588S), with this change on a 7.3
-> based kernel: with the HDMI connector's own EDID written to
-> edid_override, "echo reset > edid_override" succeeds and edid_override
-> reads back empty, and "printf reset" (no newline) still succeeds. On
-> drm-misc-next the patch is build-tested only (arm64 and x86_64, W=1).
+> eth: mpnic: TCP segmentation offload
 >
-> This patch was developed with Claude (Anthropic) as a coding assistant:
-> it wrote the code and the commit message, and I reviewed and tested it
-> as described above.
-> ---
->  drivers/gpu/drm/drm_debugfs.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+> This adds hardware segmentation for non-encapsulated TCPv4/TCPv6 packets
+> to the mpnic driver. It also programs the TOF mode and TCP flag clear
+> registers, and reports hw_gso_wire_packets through the netdev qstats API.
 >
-> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-> index a72f9723d3a9..3c6290457fa3 100644
-> --- a/drivers/gpu/drm/drm_debugfs.c
-> +++ b/drivers/gpu/drm/drm_debugfs.c
-> @@ -569,7 +569,12 @@ static ssize_t edid_write(struct file *file, const char __user *ubuf,
->  	if (IS_ERR(buf))
->  		return PTR_ERR(buf);
->  
-> -	if (len == 5 && !strncmp(buf, "reset", 5))
-> +	/*
-> +	 * An EDID is at least 128 bytes, so "reset" with the trailing newline
-> +	 * that "echo reset" adds can't be mistaken for one.
-> +	 */
-> +	if ((len == 5 || (len == 6 && buf[5] == '\n')) &&
-> +	    !strncmp(buf, "reset", 5))
+>> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
+ethernet/meta/mpnic/mpnic_txrx.c
+>> index a35ce8998409d..b78f8599bbe8f 100644
+>> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>
+> [ ... ]
+>
+>> @@ -312,6 +368,10 @@ netdev_features_t mpnic_features_check(struct sk_bu=
+ff *skb,
+>>  	    l2len + i3len + sizeof(struct tcphdr) + MAX_TCP_OPTION_SPACE > 256=
+)
+>>  		return features & ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
+>> =20
+>> +	if (skb_is_gso(skb) &&
+>> +	    !FIELD_FIT(MPNIC_TWD_MSS, skb_shinfo(skb)->gso_size))
+>> +		return features & ~NETIF_F_GSO_MASK;
+>> +
+>>  	return features;
+>>  }
+>
+> [Severity: Medium]
+> Does this MSS check cover every GSO skb that reaches mpnic_tx_lso()?
+> Earlier in mpnic_features_check() there is an early return when
+> skb->ip_summed !=3D CHECKSUM_PARTIAL. For those skbs, neither the header
+> geometry checks above nor the new gso_size check run, and NETIF_F_TSO
+> and NETIF_F_TSO6 stay set.
+>
+> Those skbs can still end up offloaded. __virtio_net_hdr_to_skb()
+> accepts VIRTIO_NET_HDR_GSO_TCPV4/TCPV6 without
+> VIRTIO_NET_HDR_F_NEEDS_CSUM. So a tap or virtio guest, or a
+> PACKET_VNET_HDR sender, can hand us a GSO skb with CHECKSUM_NONE and
+> SKB_GSO_DODGY.
+>
+> The path from there looks like this:
+>
+> - validate_xmit_skb() sees netif_needs_gso() and calls
+>   skb_gso_segment().
+> - tcp4_gso_segment() or tcp6_gso_segment() seeds the pseudo-header
+>   checksum and switches ip_summed to CHECKSUM_PARTIAL.
+> - tcp_gso_segment() then returns NULL, because skb_gso_ok() is still
+>   true for the advertised features.
+>
+> The original skb then goes to mpnic_xmit_frame() unsegmented, having
+> skipped every check in this function.
+>
+> In mpnic_tx_lso(), shinfo->gso_size then goes into the 14-bit
+> MPNIC_TWD_MSS field unchecked. gso_features_check() only bounds
+> gso_segs and skb->len. A gso_size of 16384 with a total length under
+> 64K therefore gets through, and FIELD_PREP() truncates it to an MSS
+> of 0.
+>
+> The header lengths that mpnic_tx_offloads() writes into
+> MPNIC_TWD_L2_HLEN and MPNIC_TWD_L3_IHLEN are also unvalidated for
+> these skbs. The same goes for the even-length and 256 byte header
+> limits. Here the transport header was set by the flow dissector, not
+> by a trusted stack.
+>
+> What does the hardware do with an MSS of 0, or with truncated header
+> lengths? At best it seems to put malformed segments on the wire.
+>
+> I see two possible fixes, and I'm not sure which you'd prefer:
+>
+> - Clear NETIF_F_GSO_MASK for GSO skbs that are not CHECKSUM_PARTIAL
+>   yet.
 
-Feels like a more robust option would be to allocate buf with
-memdup_user_nul() and do a simple sysfs_streq() that handles newlines in
-a generic fashion.
+This came up in a local sashiko run, but I declined it. The issue is
+from vnet headers that request gso without csum. A handful of drivers
+have an early return passing through the features if the skb is not
+CHECKSUM_PARTIAL. Seems like something core might want to handle.
 
-The corner case downside is that it'll also match "reset\0" followed by
-a bunch of arbitrary data, but then an EDID like that wouldn't pass
-anyway.
-
-BR,
-Jani.
-
-
->  		ret = drm_edid_override_reset(connector);
->  	else
->  		ret = drm_edid_override_set(connector, buf, len);
+> - Move the gso_size check above the early return, and validate the
+>   headers from skb_transport_header() in that case.
 >
-> ---
-> base-commit: cb0a63f0c96e8ecb90199eeb99cc2a7fcfa703d4
-> change-id: 20261110-drm-debugfs-edid-reset-0504a20c67d1
+> Either way, this patch is the one that turns TSO on, so the fix
+> probably belongs here.
 >
-> Best regards,
-> --  
-> Arun Iyengar <aiyengar1990@gmail.com>
->
+> [Severity: Medium]
+> Can a TCP GSO skb shorter than MPNIC_MIN_FRAME_LEN get to hardware LSO
+> here? The only GSO fallback in this check is for a gso_size that doesn't
+> fit MPNIC_TWD_MSS. Eth + IPv4 + TCP headers add up to 54 bytes, so a TCPv=
+4
+> GSO skb can be 56 bytes long with gso_size 1 and gso_segs 2.
 >
 
--- 
-Jani Nikula, Intel
+This is the same feedback I addressed in the udp segmentation patch.
+Shouldn't really be reachable for TSO skbs, but the check is there in
+the next patch anyway.
+
+> mpnic_xmit_frame_ring() pads every skb before the offloads are set up:
+>
+> 	if (skb_put_padto(skb, MPNIC_MIN_FRAME_LEN))
+> 		goto err_drop;
+>
+> That puts the zero pad inside the buffer lengths that mpnic_tx_map()
+> programs. Will the LSO engine then segment the pad as TCP payload? That
+> would produce more wire segments than shinfo->gso_segs, carrying zero
+> bytes at sequence numbers past the real data.
+>
+> The checksum seed also looks wrong for these skbs. mpnic_tx_lso() takes
+> the length out of the pseudo-header using the padded skb->len:
+>
+> 	payload_len =3D cpu_to_be16(skb->len - skb_checksum_start_offset(skb));
+> 	csum_replace_by_diff(&tcph->check, (__force __wsum)payload_len);
+>
+> The sender, or tcp4_gro_complete(), seeded tcph->check with the unpadded
+> L4 length. So the seed ends up off by the pad size. Won't every segment
+> the hardware generates then carry a bad TCP checksum?
+>
+> One way to reach this is a remote peer sending back-to-back non-PSH
+> 1-byte segments. A forwarding host GRO-merges them and sends them out an
+> mpnic port. tun/tap/virtio and PACKET_VNET_HDR sources can also build
+> such skbs.
+>
+> Now that NETIF_F_TSO is advertised, these skbs reach the driver
+> unsegmented. Before this patch GSO was never offloaded, so the padding
+> did no harm.
+>
+> The next patch in the series, "eth: mpnic: UDP segmentation offload",
+> adds skb->len < MPNIC_MIN_FRAME_LEN to this condition. Could that check
+> move into this patch, so this commit doesn't send bad segments on its own=
+?
+
