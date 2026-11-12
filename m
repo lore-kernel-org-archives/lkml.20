@@ -1,74 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794509895;
-	b=KyWaMHzUvtkyVpRv/NN/OgPUIjglqzviAH9MvDo116Efw71EcbEP+sU8GjjdCJwt0VyO
-	 OEQ99XLzMTJeFl6G0M9oSSvaAAarRJ2+vihsrC3EyFec2rwxEqBWiPhOEgbsvivaZIWAN
-	 +CUz+6Ak93REbiDRwbqh8hXBK8ypfwaAtXWyxLmRfTzCX3KgHA7QBlhCZuvO92xFzExS2
-	 MkXIhMzRfuM3j2Ic7WtnLl7pZjw0zAYDAWyto212Hd433NLr97wUa1x64f7loEW3ODiCu
-	 mKq1OF5ydGEJ57petbLUMB0+3dHF6MH9Z0wkOdVO4B/1WDaPsy6fJL9r/J5oS742UzQ==
+	t=1794509914;
+	b=1SHmIOBrqbscNv2J0W5Bm3LiiS7FMkKS6X03uAOP8iGKpK3eOKEpGnYRbO8CUjAEz2n/
+	 4wrsv7v09LwcU0sNXm8h/6Un5fTR1rYBnCaWa6EzYc3siox1IZWYmP2VqIM+q0wzuj5uJ
+	 WnkR3Gou/J52Dy29eA62XEQWMLF6E46nur2C4rvI5vv73I6QSjtMAbwXowDhjyqewob9o
+	 EsiBpy8A2KkCjPHUhraNManP4eCpbqltE/EyF+UIdUO5pi+8aG91MpHDXrziX9Pl5qmZp
+	 9WthXd5PfpS+YwAXko4UkRpmfAwy9r6EXeXG6O5Q0d3wdEIBbebK4l90GUiPCe/cAkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794509895;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=elwXiRCfgreMBRymobwx3IbDMUTz5KC/o5TzRKRmPAk=;
-	b=0vXwOGuo+kTO6+ULT5wxFHRZfEeH4awjOgAhIK4zApa1z7VebvUqOt4P9z+ooa/MilrW
-	 mYh5D5RRwR6wIqLCPxBUpMhNJ20uUl65lgBMcx7T8mUPwo+oRBceuRPow9QC60bqs6Uok
-	 XK2Kj2GxM14oQBTI08chrCm2nBB6eYliQir4JfF2l1z4vfBh1O0xN/XdZUdWB5+YU388C
-	 vhko0xPplzAJcwuSXdzb+2vTkBOhYWILgmMH0lI6Fv+qz8PlkNaLg96lJNi+P53pEVjZ7
-	 7dUf1iZPjM8rkBT0tqqOX05+yZBCbz3BEH4MElJvVc6neG54sqYSYB6g4C3+6LD63VA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794509914;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Wh6e5KCC0TYqtKn5VL+37AXMoQzEPx5YcWH45hh6xlg=;
+	b=ghh0TCoghmSEZDLSbT6N5OSN11yANmIqV5XRwh7WM6yZ3QJtR/zejjkV/hSXw4vo//kN
+	 arBiSohRcl3etXUjQIuP9e8g69MFR6UiIicN+ct8hQ+n1eS7U041a+kLsNIRNBq/T3gFH
+	 7wCaf0srVlIjXbzvOhzgxGJPVYmZU+bFtQf+uLni8JK5nVNynsQRg8HO4hWbc4hS1sxoH
+	 4x0jcLJUYqbzFUQvmJbsTf412yi6Awz6vfLucbr8mndiMFRLBmr+20B2Pxj4T4wC4DONY
+	 LV7jebPvCUrYTmOVNMVb3SyMLI9al1vflqFxpQG7nB/vzs/gDVuYp/Jb+MKdzkmwuYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KC+yUsDl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73102606A31C;
-	Thu, 12 Nov 2026 18:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KC+yUsDl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CEB41F000C4;
-	Thu, 12 Nov 2026 18:58:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794509895;
-	bh=elwXiRCfgreMBRymobwx3IbDMUTz5KC/o5TzRKRmPAk=;
-	h=From:To:Cc:Subject:Date;
-	b=KC+yUsDlDrOUZnIP1c9RvMynURJqoWO6B6KAUPOiDK5SQnFLN9x2aiGnfR68DTvYH
-	 F89dXdqnJyLAPkOBRAlhhQfE3om4e5dFexkJ4zLBfAphUW3lkLAVkDpkKe473wYZyg
-	 VFHHum6zxzRbdyZNgRNqq8KsOkEU+A3XQ+BL6v4pVv5eFaJhC7H0ebExtWrf3bSuAy
-	 wCpPqcjsJjU9/nh4YTLsIH6LMm9OOmbw/7NkGPdKK9lqD0KoJ9NxP2m7hr8upDhaTS
-	 36KNyQpre3MPyxT9eRAAt8d9UrY1MRwxGfqVoKypQKi+UQlR5hggg9McMpUIo16E/I
-	 cGXJbKCzDTmmQ==
-From: Daniel Gomez <da.gomez@kernel.org>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: Daniel Gomez <da.gomez@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Julia Lawall <Julia.Lawall@inria.fr>,
-	Corinn Tiffany <corinn.tiffany@inria.fr>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Philipp Stanner <pstanner@redhat.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	rust-for-linux@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B7F606A323;
+	Thu, 12 Nov 2026 18:58:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77B7F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1403:f2fc:83ce:6656:246:c906] (helo=bertha10..)
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xRa0B-002Xe4-0W;
+	Thu, 12 Nov 2026 19:58:27 +0100
+From: John Crispin <john@phrozen.org>
+To: Stefan Roese <sr@denx.de>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org,
+	lei.dong@airoha.com,
+	Linqi.zhang@airoha.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Samsung GOST <gost.dev@samsung.com>
-Subject: [GIT PULL] Rust XArray for v7.5
-Date: Thu, 12 Nov 2026 19:57:45 +0100
-Message-ID: <20261112185748.8877-1-da.gomez@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	linux-mediatek@lists.infradead.org,
+	Rajeev.kumar@airoha.com,
+	upstream@airoha.com,
+	Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: [PATCH v2 1/3] i2c: mt7621: assert and deassert the reset line
+Date: Thu, 12 Nov 2026 19:58:18 +0100
+Message-Id: <20261112185820.1315718-2-john@phrozen.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261112185820.1315718-1-john@phrozen.org>
+References: <20261112185820.1315718-1-john@phrozen.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,70 +73,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Matthew,
+The driver resets the controller with device_reset(), which needs a
+.reset operation in the reset controller. The EN7581 reset controller
+implements assert and deassert only, so there every call fails, logs
+"I2C reset failed!" and leaves the controller as it is, also after a
+transfer timeout.
 
-As mentioned in [1], this replaces the earlier v7.4 PULL, which missed
-the merge window. This PR is rebased onto v7.4-rc2 (no changes), for the
-next merge window (v7.5). It has been in linux-next since next-20261102.
+Get the optional reset line at probe and assert and deassert it. The
+MT7621 and MT7628 reset controller does the same in its .reset
+operation, with no delay in between, so nothing changes there. A board
+without a reset line no longer logs an error, and a reset controller
+that is not ready yet defers the probe.
 
-Could you let me know by v7.4-rc5 whether you can pick it up?
+Suggested-by: Philipp Zabel <p.zabel@pengutronix.de>
+Signed-off-by: John Crispin <john@phrozen.org>
+---
+Changes in v2:
+- New patch. It replaces "clk: en7523: add a reset operation" from
+  the clk series (Philipp).
+- Link to the discussion: https://lore.kernel.org/r/0c96f978571c569de6552fc11131e45b55cada1b.camel@pengutronix.de
 
-[1] https://lore.kernel.org/all/20261030101626.0-da.gomez@kernel.org/
+ drivers/i2c/busses/i2c-mt7621.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Thanks
+diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7621.c
+index 9ea5e3f9a763..7a31cc8b89ce 100644
+--- a/drivers/i2c/busses/i2c-mt7621.c
++++ b/drivers/i2c/busses/i2c-mt7621.c
+@@ -65,6 +65,7 @@ struct mtk_i2c {
+ 	u32 clk_div;
+ 	u32 flags;
+ 	struct clk *clk;
++	struct reset_control *rst;
+ };
+ 
+ static int mtk_i2c_wait_idle(struct mtk_i2c *i2c)
+@@ -85,7 +86,9 @@ static void mtk_i2c_reset(struct mtk_i2c *i2c)
+ {
+ 	int ret;
+ 
+-	ret = device_reset(i2c->adap.dev.parent);
++	ret = reset_control_assert(i2c->rst);
++	if (!ret)
++		ret = reset_control_deassert(i2c->rst);
+ 	if (ret)
+ 		dev_err(i2c->dev, "I2C reset failed!\n");
+ 
+@@ -288,6 +291,11 @@ static int mtk_i2c_probe(struct platform_device *pdev)
+ 		return PTR_ERR(i2c->clk);
+ 	}
+ 
++	i2c->rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
++	if (IS_ERR(i2c->rst))
++		return dev_err_probe(&pdev->dev, PTR_ERR(i2c->rst),
++				     "Failed to get reset\n");
++
+ 	i2c->dev = &pdev->dev;
+ 
+ 	if (of_property_read_u32(pdev->dev.of_node, "clock-frequency",
+-- 
+2.34.1
 
-The following changes since commit 7475ea8b58616b33c04afb976cf0fbaad9dd63fb:
-
-  Linux 7.4-rc2 (2026-11-08 16:22:20 -0800)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/da.gomez/linux.git tags/rxarray-v7.5
-
-for you to fetch changes up to 29f1617aa1dbd0803736403cd63c4965873fa621:
-
-  rust: rxarray: add rust xarray support (2026-11-12 10:14:36 +0100)
-
-----------------------------------------------------------------
-Rust XArray for v7.5
-
-Add a Rust implementation of the XArray (rust/kernel/rxarray.rs),
-introduced as an experimental Rust reference implementation [1] of
-lib/xarray.c, as discussed at LPC26 [2]. This lets Rust users, such as
-the null block driver and possibly Tyr (under evaluation), experiment
-with and evaluate both implementations.
-
-The goal is to evaluate whether Rust helps with the most common class of
-XArray bugs, misuse of the API by its callers, such as the long-dormant
-page cache corruption that almost blocked the LBS work [3]. The RFC v1
-cover letter has the full motivation, benchmark baseline and
-roadmap [4].
-
-This initial version supports store, load, load_mut and erase. It has
-been tested with the included KUnit tests and doctests on v7.4-rc2, and
-has been in linux-next since next-20261102.
-
-Outside of rust/kernel/rxarray.rs, this touches:
- - MAINTAINERS: new XARRAY [RUST] entry, maintained by Daniel Gomez and
-   Matthew Wilcox, with Andreas Hindborg as reviewer.
- - lib/Kconfig: new XARRAY_RUST option.
- - rust/kernel/lib.rs: register the rxarray module.
-The C XArray implementation is unchanged.
-
-Link: https://rust-for-linux.com/rust-reference-drivers/ [1]
-Link: https://lore.kernel.org/all/20261009212431.0-da.gomez@kernel.org/ [2]
-Link: https://lore.kernel.org/all/A5A976CB-DB57-4513-A700-656580488AB6@flyingcircus.io/ [3]
-Link: https://lore.kernel.org/all/20260923-rxarray-next-v1-0-92eedf185649@samsung.com/ [4]
-
-Signed-off-by: Daniel Gomez <da.gomez@samsung.com>
-
-----------------------------------------------------------------
-Daniel Gomez (1):
-      rust: rxarray: add rust xarray support
-
- MAINTAINERS            |   12 +
- lib/Kconfig            |   11 +
- rust/kernel/lib.rs     |    2 +
- rust/kernel/rxarray.rs | 1407 ++++++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 1432 insertions(+)
- create mode 100644 rust/kernel/rxarray.rs
