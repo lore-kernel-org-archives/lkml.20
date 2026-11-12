@@ -1,116 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506639;
-	b=MLfq0ugtVB27Wq+TMC97xNHCQDanHtc0erJn4e4eiYhSqSRIUPrA/9uFxXmpdfoqXmd+
-	 i1E+Ajjz1kvGBXBJEFkdkB8na9WtN0taYPLb402dQuPzPiby18vLWdRiz0YlQXFTlmiGY
-	 OgA6iBeiFGxzJpnCex3D9Ny8wcG/ykLWYKTxT6f9ec7BrID8dr54zvOUdJ+mKvK4dZPuL
-	 mdKGzFet0uI4wRNz/XEl15M/NHAjppmb4Ossf6daH2h3Bu+hgN3zpkAg56KKpdZY6hWoK
-	 6K1lqt+6ycvIhy+mtNFg9D1S8aA4jbJxqJnkk2D2ECDZJzcHA9MSXdVuwn2MA8teYUg==
+	t=1794506729;
+	b=fVOSPNXEmCyGqFWetPWMGUVZxlaS8JDXfc+T2b28U7d1vX6L65eQU8f/1vxCZzOhAi8b
+	 c49KNZIpGXahSLtL9+ihElDvWtyA76hrwldEnbVU1I6mW3ExWxSpiB2VyOIhx6iaiI3ZX
+	 byCTJ/p8bVrfKyYK3AAFkxBMaLb7RfPVCrXKExoayQnsjYo1sregVCfQnyKbf5H9Ljc4h
+	 RV4YpKzH6g0+PWv9APsYQ6KlDLUhENYEl81PEy2FD1LO/gETFRpUv+FwxkIFub1dINQpu
+	 yTT77G7XDh6j+dDdSaVKAZWngJrKrcD9vhg2XT4yZO7nggkVNPbHwjlpc0AaoYR2cZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506639;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=4vlXeE9enSxQAZM/AVNB/6k7VuHl6mXvqO/NCZEaN1w=;
-	b=4rFXWMJTw3Z0EygoYkF+pEbGpqDWtD2nSUnKR2xZY4fR22MSyxCWndc55FoTeTvLgtzI
-	 NAZYlrGGjzT9dZgufZJwB0VpsEBTRRc5kaAZIjyvZ2LMXy27M7Ui3DBHYA4pc3nfgwCSN
-	 3bBZpbyRcHuvMPYTgVOJqBScjESSAtgnGLmzLa/NVx4WdAc9w0uzIpL6mH4A7bQMFYj5Y
-	 izCteE8jUX1bPkHf88fZdmoTiCetiPZ4rZqAj2y8oQCQC4IIh89nvNdAbl+UTuGa5yiyg
-	 Hjs/Hk8U13pbwvTTCFPq2Qr5EXg2Nw/cqloQn9E7gDif+jJnZ9dekQP3Uzaixkf/Yxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506729;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=YIV8AzjRKQ457fVdvC9cmzWy207wxkKwWswzLM1Rqq0=;
+	b=SabI1feoQFQ6S8toXMKicnrvKORF35w0po3CbY8tJ7eILQfZybXXa0jWh2s97cTLyxd6
+	 pZm4Hyd7J/DAwPDcPOSoGCI4JNjz3n5oFdpVwDTpgb9iQXiE21WEYO4r+SrqywjK+h9tu
+	 FM+HbljS8mUX9/9bWdJ0+WwIINfEwSs88IzhQ7NbLgi6Flo3ZSYR7c5eyYMnMkB6PaOrB
+	 /uCWhXhEaJeqKGttz5SPLTp3R/kHOMHOSgIlXr/GXgSNz73/T2zBgwpu+599O8pZELp4D
+	 KFGn1DvVjFn6sAQlIovlk19vxwNP5EBsBgtFkZ/xWS3vlJSaYsPn/YSoUHU0HaR6+hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fQFpGwjw;
-	arc=none smtp.remote-ip=209.85.216.97
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=C1I9mPie;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2677606A880
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:03:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2677606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0A0606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:05:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D0A0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fQFpGwjw
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3b0bbdeae06so28254a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:03:58 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794506638; x=1795111438;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4vlXeE9enSxQAZM/AVNB/6k7VuHl6mXvqO/NCZEaN1w=;
-        b=KzRYMbq41DVNZjuWpw5YkWLEk/YpYc+2qmN1LR7bvGMacN8jtcxbd7FhZr64pWlgO5
-         lNTNNpyM7Aw9YGSuGwM2KbyF0VQNOh1qrfCli62+Hq+7cjcy39GvOmeuvmaZTJu1IT9Q
-         pi7bkY/ya9ZBxRlYsnSoAde3gUSuq8sKTYjNRD8K105UJ1r0n2eUSN2JVpZO+uRGKTaJ
-         2aUnxTCfXGw5cPs4UzZrkETOwdZtB7+WjOSbip1iowvObQicRqLqj/kHT+Ml93mT61QY
-         F4kBG15GtyMkQHW+AlBjszCR531R6hsuTKljaQ/mTDzdkDoBQ/456ejrLCCqKrYZp20O
-         11FQ==
-X-Forwarded-Encrypted: i=1; AL+hErFsYGXKzhJsEo8OSDFFCfVKjpjmg2Et/G0W7Pj3RXSKt83KIAU+rLRr2wUTcfYAs9eyHziwvL4JxRZqGUI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z88ST3uQk2TsRe2wg5Xx8VYL0w4vg1M/h17TuBgEVfoouvyysXs
-	pNbivsaameEQPSkLBBxxSO4+IaTxSztLVX3sz2ZKppHHe1y9LGEDwvm/2/U92OjQGg5DuVIVCh0
-	PuZ+0mFa71LDcjHsBpHnKbsV0UxiXSuupPM/lqehP6KySIol3AcWDhU69cAdffqwqRyCToBQJML
-	Zqg8+x9fQlm0hIwh8blA/WT6GbjU21uvRa0VLYDgIBWmacFUrDTA36ygVT5BMymQF8CwtF4IeRq
-	gWf+7O+ai66gukqenxNAWa4
-X-Gm-Gg: AYBFou2SbWsCK0/9acvqNEIHkgQpaj+3iUuhXUuTgdgwFXdXfdMSsSustVk2MXfLI8b
-	HrG3Ts8P6H9IymdhvESmuKeJsoZ5wP3XJHCAc4DxGeIxuDnTRlgq++2eohYLoZFrIO9JxM1Uhp2
-	WkeAotsSxpNIkwskFkURfNqn/pWXaz1YHi7vvE/2fAN5k/EBxKhpEhqRD1mbXZ3KvX2gp4+zye2
-	4v1HsZLk/DF2SDbUO8FEBy+myGeKMwbu6bxO+5BruwzDSuyREUzc1S3kmU8lXNa5EiQj74eWeOG
-	1MYURkkt+KjC7M6m0wIkj07Xt4kTWypQPh0UvFDfwqbz6fPxLfCkslMRTq38n6WNU1wIf7M88oJ
-	um9VKY6zVztJs4fjPiC9miNnUSfVvJTg+YGcmaRicPnyPEsjSgVJ1Ai69oH8ohDXJor6Lyo0781
-	oueNQFAOSKIQIiw1KaP4Jf2LLPYefXybtN5gIwZogl
-X-Received: by 2002:a17:90b:1c02:b0:3a8:13d6:f740 with SMTP id 98e67ed59e1d1-3b182eabbd9mr6151443a91.22.1794506637938;
-        Thu, 12 Nov 2026 10:03:57 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae97e783sm380102a91.6.2026.11.12.10.03.56
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 12 Nov 2026 10:03:57 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so75298a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:03:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794506635; x=1795111435; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4vlXeE9enSxQAZM/AVNB/6k7VuHl6mXvqO/NCZEaN1w=;
-        b=fQFpGwjwMbR3NB0o6to9uADuPFS7ufipGTgnVsMMohE3zzImvVR0+vV21hmppLVX3f
-         lSJ83JELBKocUBbnCRb4QaOwnsbFo0cX03gp8q2CDpuFjtk6+aQGGzur8jvFYsYaqEUR
-         yPLJCt9vE5vEUqYPSx2XaUIlJUvoAMBXbmerg=
-X-Forwarded-Encrypted: i=1; AL+hErE+xayzguBZURSR4M2EO9DgV023PLDHWwFEctjZHmg+xQVBBBDYVczWo13YpukiYfKlpkSGyputlw4IrOY=@vger.kernel.org
-X-Received: by 2002:a05:6a21:9216:b0:3e1:9071:acdd with SMTP id adf61e73a8af0-3f2ff0dc5cfmr6424023637.35.1794506634799;
-        Thu, 12 Nov 2026 10:03:54 -0800 (PST)
-X-Received: by 2002:a05:6a21:9216:b0:3e1:9071:acdd with SMTP id adf61e73a8af0-3f2ff0dc5cfmr6423986637.35.1794506634267;
-        Thu, 12 Nov 2026 10:03:54 -0800 (PST)
-Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18abc06sm95004a12.22.2026.11.12.10.03.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 10:03:53 -0800 (PST)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: netdev@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Jonas Gorski <jonas.gorski@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Vivien Didelot <vivien.didelot@gmail.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v5 5/8] net: dsa: b53: use the correct override register 2 Gbps bit
-Date: Thu, 12 Nov 2026 10:01:59 -0800
-Message-ID: <20261112180202.324504-6-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112180202.324504-1-florian.fainelli@broadcom.com>
-References: <20261112180202.324504-1-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=C1I9mPie
+Received: from eig-obgw-6005b.ext.cloudfilter.net ([10.0.30.162])
+	by cmsmtp with ESMTPS
+	id RTTIxmsLRJFmFRZAtxfBM5; Thu, 12 Nov 2026 18:05:28 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id RZApxLCgQ0288RZAqxOQkU; Thu, 12 Nov 2026 18:05:24 +0000
+X-Authority-Analysis: v=2.4 cv=a5Iw9VSF c=1 sm=1 tr=0 ts=6af5ffe7
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=mgGIjpb2KhxFcZy2RHUA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=YIV8AzjRKQ457fVdvC9cmzWy207wxkKwWswzLM1Rqq0=; b=C1I9mPieXNcv
+	oHOUYfWctNuFFHM33sSKWajvNIMDaqnmlrG58MInrr9zP0b1W/yVTXM4cb/ir5pIqZWavw190NN4n
+	AXfRxNK16t/DskcbXf5pzJ8PEx0JwreKN1A88+/Zo64kjfCdCSfbCAOc8o/YtMziLYG39uuJZ5P24
+	rTBqhIrVJCv8GnwjdksVbBRS25YITN/KSB/uNByCz6McWc4ffIja+uwPyGaz2pAh7X2JTLqyC667o
+	eOUxkN4rKVpsi1NYV9gphpfcEDlv0FgZ9URMw4apYmuxnhJqHxkNj3+Zq4UR2CY71NENv4LAuwq8I
+	KwkKsOK11L/BEL4kGwWMEQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:44674)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xRZAp-00000000Bxe-2DHq;
+	Thu, 12 Nov 2026 23:35:23 +0530
+Message-ID: <05bae14d-5530-45ab-a14c-d068f7587724@roeck-us.net>
+Date: Thu, 12 Nov 2026 10:05:22 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,62 +75,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hwmon: (sht3x) Fix alarm attribute names in documentation
+To: Wayne Ho <wayneho219@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Pascal Sachs <pascal.sachs@sensirion.com>, linux-hwmon@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261112-sht3x-doc-alarm-attr-v1-1-91676362d133@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261112-sht3x-doc-alarm-attr-v1-1-91676362d133@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xRZAp-00000000Bxe-2DHq
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:44674
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 1
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfBf0SbNrtySjqXBCtgzW7oVvyXbcKE+6sZxH4Mv5e+5wVjtVuD5lfG4hAyAXOO3OqaH8b0FWkUClVXUzvnvUfMwBeetiwGLpqGfyweadIgUbTE0d6cg9
+ RYd2FBS7eCy9Ty+Mv/PWUjaI5gxZG2kfg0rgIVahvb/TBfWIY5eAJ90FkIScwlzBgCDmiiMO6ljsAMi+v3Yxg399R1g4vVqhGGMwsFvjhS0PeNoH7QX6GUFt
 
-The IMP and per-port GMII override registers swap the override-enable and 2
-Gbps speed bits. Using the IMP speed bit on a GMII port clears its override
-enable and leaves any previous 2 Gbps selection intact. Select the speed
-bit alongside the register and enable bit so lower speeds clear the correct
-bit and 2 Gbps sets it.
+On 11/11/26 22:01, Wayne Ho wrote:
+> The description of the periodic measure mode says that "the alert
+> attribute" is set when a reading exceeds the configured limits. The
+> driver has no such attribute, and never had one. The alarm state has
+> been exposed through temp1_alarm and humidity1_alarm since the driver
+> was added, which is also what the sysfs interface table further down in
+> the same document lists.
+> 
+> Refer to the actual attribute names.
+> 
+> Fixes: 7c84f7f80d6f ("hwmon: add support for Sensirion SHT3x sensors")
+> Signed-off-by: Wayne Ho <wayneho219@gmail.com>
+> ---
+>   Documentation/hwmon/sht3x.rst | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/hwmon/sht3x.rst b/Documentation/hwmon/sht3x.rst
+> index 4f67671eb0c..3c022c058be 100644
+> --- a/Documentation/hwmon/sht3x.rst
+> +++ b/Documentation/hwmon/sht3x.rst
+> @@ -78,11 +78,11 @@ The allowed update_interval in milliseconds are as follows:
+>   
+>   In the periodic measure mode, the sensor automatically triggers a measurement
+>   with the configured update interval on the chip. When a temperature or humidity
+> -reading exceeds the configured limits, the alert attribute is set to 1 and
+> -the alert pin on the sensor is set to high.
+> +reading exceeds the configured limits, the temp1_alarm or humidity1_alarm
+> +attribute is set to 1 and the alert pin on the sensor is set to high.
 
-Fixes: b6a8a5477fe9 ("net: dsa: b53: fix resetting speed and pause on forced link")
-Reviewed-by: Jonas Gorski <jonas.gorski@gmail.com>
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
----
- drivers/net/dsa/b53/b53_common.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Just replacing "alert" with "alarm", as below, would do the trick as well.
 
-diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-index 715a0969eacb..6b4a94a97d66 100644
---- a/drivers/net/dsa/b53/b53_common.c
-+++ b/drivers/net/dsa/b53/b53_common.c
-@@ -1427,17 +1427,19 @@ static void b53_force_port_config(struct b53_device *dev, int port,
- 				  int speed, int duplex,
- 				  bool tx_pause, bool rx_pause)
- {
--	u8 reg, val, off;
-+	u8 reg, val, off, speed2000;
- 
- 	/* Override the port settings */
- 	if (port == dev->imp_port) {
- 		off = B53_PORT_OVERRIDE_CTRL;
- 		val = PORT_OVERRIDE_EN;
-+		speed2000 = PORT_OVERRIDE_SPEED_2000M;
- 	} else if (is5325(dev)) {
- 		return;
- 	} else {
- 		off = B53_GMII_PORT_OVERRIDE_CTRL(port);
- 		val = GMII_PO_EN;
-+		speed2000 = GMII_PO_SPEED_2000M;
- 	}
- 
- 	b53_read8(dev, B53_CTRL_PAGE, off, &reg);
-@@ -1449,11 +1451,12 @@ static void b53_force_port_config(struct b53_device *dev, int port,
- 
- 	reg &= ~(0x3 << GMII_PO_SPEED_S);
- 	if (is5301x(dev) || is58xx(dev))
--		reg &= ~PORT_OVERRIDE_SPEED_2000M;
-+		reg &= ~speed2000;
- 
- 	switch (speed) {
- 	case 2000:
--		reg |= PORT_OVERRIDE_SPEED_2000M;
-+		if (is5301x(dev) || is58xx(dev))
-+			reg |= speed2000;
- 		fallthrough;
- 	case SPEED_1000:
- 		reg |= PORT_OVERRIDE_SPEED_1000M;
--- 
-2.53.0
+If you resend with those changes, I'll apply it, but for the future please
+refrain from sending cosmetic patches. If you want to contribute, please
+consider fixing real bugs.
+
+Thanks,
+Guenter
+
+>   When the temperature and humidity readings move back between the hysteresis
+> -values, the alert bit is set to 0 and the alert pin on the sensor is set to
+> -low.
+> +values, the alarm attribute is set to 0 and the alert pin on the sensor is set
+> +to low.
+>   
+>   The serial number exposed to debugfs allows for unique identification of the
+>   sensors. For sts32, sts33 and sht33, the manufacturer provides calibration
+> 
+> ---
+> base-commit: 44c8ceae2dd3ae536c5f4f956cedb24c157aac23
+> change-id: 20261112-sht3x-doc-alarm-attr-118ddfebc6ae
+> 
+> Best regards,
+> --
+> Wayne Ho <wayneho219@gmail.com>
 
