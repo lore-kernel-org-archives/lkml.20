@@ -1,49 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794444008;
-	b=Yxbb86dauopU8R5toHyT7IbcdKBQanpVrKNx5yCfxOW0VXdBiIJbVcYQpYKY4GJJ+dI1
-	 cceXDJLBrJNwx3tBRSkk+oLwMiQy6UeRqbL5dXpwHIYq9H9WdzGFEq9mpS/vJMqm2W3c2
-	 dmTiij7Pju/WfCS9RnOtvs4Qf5m7G7NaYlVa/ifeFix16W4l9YAzvtPJ31RT477sLZ1HH
-	 uB/bASO+mOC/tWEkRp5vS0hUfQ3PFxFvJWjIkGnY/JmY4svxputKNgHM7OOrp+jnZBLIB
-	 TKrTu/wHAJAWFreKIoeEXilqH8lI8cL4UGwKa5R79gLsGXOZbOeu6Wlas5Pi0jY7e5g==
+	t=1794444014;
+	b=kZ/3/ZDVB/oSWIvRyhrcIFw68cpbRXcAt28/OsLpMwJNlMH19bY0A8r2NJ9C//loFQU3
+	 WdazFeqtxYwaFOP3x0WowqavoR1ujOJlDDYJ7QsKsufVpMgLGdjgC4Pedh1V979wrKell
+	 IYpOA6tJ9FQZUr/Z+jq+LPYW9mdIBts/8dOujcnhvtNbZdysAnsOPF+/AW72NPJIIEvkW
+	 B1GP9zadyo3Pa8a3PiZgfyAuuEUDPw900WyKxW1dhPS7MFuRAJ4JLxFHqHm+LRlv0Ay5B
+	 llDXh4pqw4MXP1jQshKfrld8/HIs+rBECEyEhSRq3AhH84PKsarfTUNN6YOMrFjOtSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794444008;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=Pulm5x7G4dTnPOGRPvkWjRQBu0sc7WIEs/VaZ0XqfGQ=;
-	b=sCp5geYu8dNoerIE40CdHd1a06wuEdpEbjQRczLnsRF5ukZR2KHKeQ4/gI1WYTtSS2f/
-	 uRxtAYhzfhD+ZPifqo2JMfArcmf1aEnsbIYNiEWrdJmN6eKE9BvVgbmPoBFyrCO3zqFxY
-	 0mjcluqJsUhFewt5nOMZ07QoSqoY0gvQNqgjHqptM3Utv1NQFx4Qmi164aaLY3NOTbLep
-	 4GddsXrRR8TT0ig0EJjrKfzO84CnY1QFJAMNZlAs0yCHEptjO4tP81V47BuKoIVfRMV9l
-	 mfiszhh3d4BPtzpZ8qDnUfLJ8jfCxeBQRtcvKBZXrkEGUcvOOEYU0HvJo8Kc1zB1R4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794444014;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LctdR/JCjxXqXaUQaTN2ULstUn/j3yJ+h0QrraA+KO8=;
+	b=UPlfktxrhSn+TrVPh1e043LARUOn6MVU5CU/lAN43E1w31n4l9TQjKGI8EL/faJXf+QU
+	 yNsbuUQpIDYibkzu4Qk/ZqlxPBNgXQ4x8u1iSgUfcVeQRGsOkq497UX7hAm2EyvfSZGLk
+	 C9yY9DfMkkHBGh5KikNEig4xA3s0RfG1ig2Y7YCEXpBT4klo+OwBowthjjhYqmAJoW2E8
+	 hDFe5mXBe/DyO7h9UseJ0P5RFD2VEGAh+OnRpNY9cSLvGa5xUY7kFWiJ0y842SoS3tNc3
+	 3Ig2+ABlHKvIxtsg+U/0pcLaAGOShP7IkVfAxyOaUqe8TsJqRw4XV/ymuL4FUQB06dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a5sDloga;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ays3K3pI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3681606A326;
-	Thu, 12 Nov 2026 00:40:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C9D93606A335;
+	Thu, 12 Nov 2026 00:40:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a5sDloga
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D1331F00A05;
-	Thu, 12 Nov 2026 00:40:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ays3K3pI
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B06BA1F00A0F;
+	Thu, 12 Nov 2026 00:40:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794444008;
-	bh=Pulm5x7G4dTnPOGRPvkWjRQBu0sc7WIEs/VaZ0XqfGQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=a5sDloga3by4UHoc0i01LyT1JanaR19dPLmAaL/0p+1sskYrJU7Tpc5rcNkCm0C/A
-	 2m3el+NB+fEdMypU7JBJWFSklVBA6/RkMcmZRnooGbKbuQsyZkkKYXEo1MJfHJBgPA
-	 DyB9bqAmyBdy93YbZuKKclRCjfKEMwTtcNlDuWw+RHAZfhVLTsit2u619V8af3HARN
-	 EJzApFAHin0VecpHPP16+JmerZOAKRPA57kisVt/ybHN29BeAljDZ3T0cITv2JpzbV
-	 bUsGblHe3FlDBU6vZEDU8KMVnIwGQ5aT7rKIF0591mbNTEa+1QsvpyPSq6ckRx0jAY
-	 heMgLge6PqIqw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 211BA391AFCA;
-	Thu, 12 Nov 2026 00:40:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794444014;
+	bh=LctdR/JCjxXqXaUQaTN2ULstUn/j3yJ+h0QrraA+KO8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ays3K3pIaLgkjHtf67+YKirgb77xzOsgoaqDmEP/g+4Qe5AaNi4B39YOWoUh1lzKI
+	 Zi7/z86Ihs4YZJJ7R6sbJJTlh5U25IRSQr2M7CbZ/l7oNky3/H7pWxOAAd114X/FkD
+	 us95OeCkgMlJcVkMHJa/dfAOSB0NI5+dzyms7qN+3irdnRQ1F1OX0RH9RxzbQMO8cp
+	 6xLiuz/R5U8PMqbIT0nhOaUPAqqSFg+K4xa9+ieDK9b2fmrnW3Kzp1B2GrWtApoU8e
+	 t2UaBe6LeHGtWas9QjH/p4y+yHYGzcFiBYW/QLy86NrTZsAr71hHZWfAUUcMexFnCv
+	 5LECeq1WSVyww==
+Date: Thu, 12 Nov 2026 02:40:10 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Pavel Popov <pavel.e.popov@intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Leon Romanovsky <leon@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	"David S . Miller" <davem@davemloft.net>, x86@kernel.org,
+	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6/7] tpm: Include <asm/cpu_device_id.h> unconditionally
+Message-ID: <avUK6uzoAJax0ZKn@kernel.org>
+References: <20261111234821.4814-1-pavel.e.popov@intel.com>
+ <20261111234821.4814-7-pavel.e.popov@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,53 +83,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v6 RESEND 0/4] net: stmmac: fix DMA descriptor
- ring
- cleanup issues
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179444400693.1731667.7461680068493203190.git-patchwork-notify@kernel.org>
-Date: Thu, 12 Nov 2026 00:40:06 +0000
-References: <20261106090507.1020751-1-dinghui1111@163.com>
-In-Reply-To: <20261106090507.1020751-1-dinghui1111@163.com>
-To: Ding Hui <dinghui1111@163.com>
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- dinghui@lixiang.com, xiasanbo@lixiang.com, yangchen11@lixiang.com,
- liuxuanjun@lixiang.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111234821.4814-7-pavel.e.popov@intel.com>
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Fri,  6 Nov 2026 17:05:02 +0800 you wrote:
-> From: Ding Hui <dinghui@lixiang.com>
+On Wed, Nov 11, 2026 at 04:48:19PM -0700, Pavel Popov wrote:
+> <asm/cpu_device_id.h> now has a generic version, so the #ifdef
+> CONFIG_X86 around the include is no longer needed.
 > 
-> Hello,
-> 
-> This is a resend of v6, originally posted on October 24, 2026,
-> when net-next was closed. The four patches are unchanged.
-> 
-> [...]
+> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 
-Here is the summary with links:
-  - [net-next,v6,RESEND,1/4] net: stmmac: guard against NULL pointers when freeing TX/RX buffers
-    https://git.kernel.org/netdev/net-next/c/2bfa1143e190
-  - [net-next,v6,RESEND,2/4] net: stmmac: clean up partially allocated DMA rings on error
-    https://git.kernel.org/netdev/net-next/c/4d5e7a647e3e
-  - [net-next,v6,RESEND,3/4] net: stmmac: release descriptor resources through priv->dma_conf on open failure
-    (no matching commit)
-  - [net-next,v6,RESEND,4/4] net: stmmac: hold RTNL when reading descriptor rings in descriptors_status
-    https://git.kernel.org/netdev/net-next/c/241c2a868326
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Are these expected to be picked separately by subsystems?
 
-
+Br, Jarkko
