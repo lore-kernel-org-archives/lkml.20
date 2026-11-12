@@ -1,65 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.85
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488418;
-	b=zGAGw2jDZi3aA6KXV+GnpdBdE/91/VEXKBI53rjaxJcPcoEvXqLl1t8rVw3Ry8Bpnu+V
-	 OVkLgN4p0rDyUsieDRFXHQq+wK09gu/APaA54AekLDXVNQqH8uGuH1sPKs0lSeLVvawNT
-	 Rxcy5hVNPCxxMpAI0jT3EyEz8j1EhbF+CYZQxtRAhky/Y5uLdzWptxzvsndzpbIHlDm51
-	 OiUZ1Xz6yLMcu7JC0NwnFiIqKb8rawzU5Udy+PIyGByzhY/KsbS5tQXaVejsQXBMAZXda
-	 0cXTy+GH8Iqh0dWOlrzPtzj2rB/+TdJFx8JxKsg7+WsFU5VFWUjK9E3JIhwAAanT0xQ==
+	t=1794488534;
+	b=EG2kxYmtcP+TCR0sR84H5jbYMa/WWFnbvJaSdOwaLb6v3/maXr04C7cPdIWGJefcMCgh
+	 etiWG9uJ5RXq6d2wcYsXRE8mLzNmWWoJIoBYdcb5jOYTimHroFtOniiXMMY7obHLwgFhX
+	 L1v2XYRAkC6XCvtpPdU015btVtX+9PuXxe/PJtWtaNDS90vZOV47O8FiTPJOgy56BGQhX
+	 BHcKbMVpTwjpCpkr/tbcBRAPyTWA7IYvR2SVYxBI/sDaQTqJm8Mc1dPu0v1BVu4ZD/7MS
+	 L6eW52hVmHsudRizT6sP7H4yEvBOto83Q6hvPwNYBFiXBGXKrNKxClfKDlz+NUmGECQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488418;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=tL9krYLzw1vGXbr6jlGPxdWtdTamdmpD35tBdked0g4=;
-	b=qaemDZspjeR5UGCzj+nmcgYdXl6P4b4JymmV9AxbDu1nFB3ykUevD3yR6v/YVCc9PSo9
-	 QQfyMLt5qVFzfiLOD6N/MGCoikR86OkvLUff0z7AtaRLtk2CVdgbsexJb5dvwd+cPL8eH
-	 R6vdjqQvOefpJvnRElqsE8SayfvDrn1EFD9ColVIIlSjMLG9GiZG7edh3qvs1UgQj+G8H
-	 MTSsRr4r/kAzTsDhjIefE5jsTu+hoFhiuW8Q9UsSU9yLHVfrwLmjolcaH90kznbdrvxSi
-	 ki4HAjmSeYYNl+VToU/+2ZXVqMqb1hmD8rDij5Ai2ym6FbG3eeSA8BTHExyNQOLJKPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488534;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=KYusxYP1bJCA82Agudj5Yk62dkc+vZ4npVPLPLyCVJY=;
+	b=vNAoe8wt9ge5W75ZrgWDf/1uGH8vmgSUwyjP9jrraqhzXbL0xXauW4AJMhyJdzMpGM6T
+	 CuAQ+J6SRDqIG3/eMYZVLjR3fnG00mPH+m6dG31TbI8diANtUGaZVMsX4RGoq9msLPl2n
+	 x0XWPyjPUdLnoOPKRd1ZAMKEC1oeLFoF/Yrant2CDyz8GPXfzbGiVj9Rx3YtIGdJFoB4b
+	 7Go7Iu3q6orcM2RVO28sfkkOmAS76Ez0P2D9zx43EdA4Xmi5yDQmsR7TLz62+7Z3mrsDU
+	 bLNHhVrvWzNliU15m5bY8RmyWQT2JPPWE+e6jqc5rM+2fL9zvjANZp7cCx3AUrPN0Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xY4djlso;
-	arc=none smtp.remote-ip=95.215.58.85
-Received: from mta1.migadu.com (out-85.mta1.migadu.com [95.215.58.85])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SMs4/KN/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2623606A89F
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:00:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2623606A89F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972FF606A321;
+	Thu, 12 Nov 2026 13:02:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xY4djlso
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lP0vpQ7indg5AzBAUuvMNzwAAkYOsAv9TjMwh2sSEhg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794488415; v=1; x=1795093215;
- b=xY4djlsoItfWwszSsBMyE6ugAaVqFF6HHj06pFfRhihh6OAEdaSyuyldMjvB5iisQFZAUd6r
- yzpXXV1Sfk6ttSAtGccs3hU7bVWPmS9CmAVWpoeRi/FXOSVtviaGmyFqESlUlzSpXjxQHs5jqa0
- AKslJ3lXWSCgJHKPQn2pHlY0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 855efecdfc12cc35;
-	Thu, 12 Nov 2026 13:00:15 +0000
-X-Mizu-Trace-ID: 855efecdfc12cc35
-X-Migadu-Flow: FLOW_OUT
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: xu.xin@linux.dev
-Cc: chengming.zhou@linux.dev,
-	david@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org
-Subject: [PATCH 2/2] mm/ksm: add initialization helpers for scan_get_next_rmap_item()
-Date: Thu, 12 Nov 2026 20:59:59 +0800
-Message-Id: <20261112125959.177881-1-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261112125754.176930-1-xu.xin@linux.dev>
-References: <20261112125754.176930-1-xu.xin@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SMs4/KN/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAE401F00A05;
+	Thu, 12 Nov 2026 13:02:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794488534;
+	bh=KYusxYP1bJCA82Agudj5Yk62dkc+vZ4npVPLPLyCVJY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SMs4/KN/eiCn7BHQ63CG/6s/8VCH/u+KLjduSqHZr1LtaiAeMJYqyN5m8Ui6TQN4h
+	 MnhnFbOJGaxTcpwznRharfRlE7U1tbPixQX90oUpd133QX+39cAYaZMZWrAWqgN15x
+	 /Yi8M2nFEbWVSEtYaI2EZPSe3nvlTW9x1zh1TRpfhAnxb3u9RSnCxw7T/ftmssXKui
+	 B9yRenIPrjVreQm2iy9T7LGIojP0KoN+2g+Ap86VM4v5zVLLFyS/s/3X/e/jfRUBD2
+	 y3uIl6Co9ZYPpn1zKy1NO7xnQrrtJ4jEXJ1iF+0C0IRR6AYm2gtgEj4Vop0jp83vtH
+	 16vRycYrOaLBg==
+Message-ID: <sashiko-outbox-211133@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/6] perf: add MIPS Coherence Manager 3 (CM3) PMU
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vladimir Kondratiev" <vladimir.kondratiev@mobileye.com>
+Cc: linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261112-i6500-cm3-pmu-v2-5-cd2569571819@mobileye.com>
+References: <20261112-i6500-cm3-pmu-v2-0-cd2569571819@mobileye.com>
+ <20261112-i6500-cm3-pmu-v2-5-cd2569571819@mobileye.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 13:02:13 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,117 +60,116 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Extract the new scan cycle detection (including draining per-CPU LRU
-caches) and advancing the scan cursor to the first mm_slot into
-scan_begin_new_cycle() and scan_get_first_mm().
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] perf: mips_cm3_pmu: counter overflow double-counting in
+  cm3_pmu_update()
+- [Low] perf: mips_cm3_pmu: broken !MIPS_CPS / !SMP configuration
+--
 
-This keeps the exact execution order intact while making
-scan_get_next_rmap_item() cleaner and easier to follow.
+commit 272d1a9241643c479b7f4cabbd1c40edccbe1b16
+Author: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
 
-No functional change intended.
+perf: add MIPS Coherence Manager 3 (CM3) PMU driver
 
-Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
----
- mm/ksm.c | 70 +++++++++++++++++++++++++++++++++++++-------------------
- 1 file changed, 46 insertions(+), 24 deletions(-)
+This commit adds an uncore PMU driver and documentation for the MIPS
+Coherence Manager 3 (CM3) performance and cycle counters.
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 49977bcf04f7..e79e64372e49 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -2640,6 +2640,49 @@ static void ksm_reset_unstable_trees(void)
- 		root_unstable_tree[nid] = RB_ROOT;
- }
- 
-+static bool scan_begin_new_cycle(void)
-+{
-+	/* Check if the cursor points to the head. */
-+	if (ksm_scan.mm_slot != &ksm_mm_head)
-+		return false;
-+
-+	/*
-+	 * A number of pages can hang around indefinitely in per-cpu
-+	 * LRU cache, raised page count preventing write_protect_page
-+	 * from merging them.  Though it doesn't really matter much,
-+	 * it is puzzling to see some stuck in pages_volatile until
-+	 * other activity jostles them out, and they also prevented
-+	 * LTP's KSM test from succeeding deterministically; so drain
-+	 * them here (here rather than on entry to ksm_do_scan(),
-+	 * so we don't IPI too often when pages_to_scan is set low).
-+	 */
-+	lru_add_drain_all();
-+	return true;
-+}
-+
-+static struct ksm_mm_slot *scan_get_first_mm(void)
-+{
-+	struct ksm_mm_slot *mm_slot = ksm_scan.mm_slot;
-+	struct mm_slot *slot;
-+
-+	spin_lock(&ksm_mmlist_lock);
-+
-+	slot = list_entry(mm_slot->slot.mm_node.next, struct mm_slot, mm_node);
-+	mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
-+	ksm_scan.mm_slot = mm_slot;
-+
-+	spin_unlock(&ksm_mmlist_lock);
-+
-+	/*
-+	 * Although we tested list_empty() above, a racing __ksm_exit
-+	 * of the last mm on the list may have removed it since then.
-+	 */
-+	if (mm_slot == &ksm_mm_head)
-+		return NULL;
-+
-+	return mm_slot;
-+}
-+
- static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- {
- 	struct mm_struct *mm;
-@@ -2653,36 +2696,15 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- 		return NULL;
- 
- 	mm_slot = ksm_scan.mm_slot;
--	if (mm_slot == &ksm_mm_head) {
-+	if (scan_begin_new_cycle()) {
- 		advisor_start_scan();
- 		trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
- 
--		/*
--		 * A number of pages can hang around indefinitely in per-cpu
--		 * LRU cache, raised page count preventing write_protect_page
--		 * from merging them.  Though it doesn't really matter much,
--		 * it is puzzling to see some stuck in pages_volatile until
--		 * other activity jostles them out, and they also prevented
--		 * LTP's KSM test from succeeding deterministically; so drain
--		 * them here (here rather than on entry to ksm_do_scan(),
--		 * so we don't IPI too often when pages_to_scan is set low).
--		 */
--		lru_add_drain_all();
--
- 		ksm_prune_migrate_nodes();
- 		ksm_reset_unstable_trees();
- 
--		spin_lock(&ksm_mmlist_lock);
--		slot = list_entry(mm_slot->slot.mm_node.next,
--				  struct mm_slot, mm_node);
--		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
--		ksm_scan.mm_slot = mm_slot;
--		spin_unlock(&ksm_mmlist_lock);
--		/*
--		 * Although we tested list_empty() above, a racing __ksm_exit
--		 * of the last mm on the list may have removed it since then.
--		 */
--		if (mm_slot == &ksm_mm_head)
-+		mm_slot = scan_get_first_mm();
-+		if (!mm_slot)
- 			return NULL;
- next_mm:
- 		ksm_scan.address = 0;
--- 
-2.34.1
+> diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
+> index 245e7bb763b99..2dbed2fc7b030 100644
+> --- a/drivers/perf/Kconfig
+> +++ b/drivers/perf/Kconfig
+> @@ -75,6 +75,18 @@ config ARM_XSCALE_PMU
+>  	depends on ARM_PMU && CPU_XSCALE
+>  	def_bool y
+> =20
+> +config MIPS_CM3_PMU
+> +	tristate "MIPS Coherence Manager 3 (CM3) PMU"
+> +	depends on MIPS_CM
 
+[Severity: Low]
+Should MIPS_CM3_PMU depend on MIPS_CPS rather than MIPS_CM?
+
+MIPS_GIC selects MIPS_CM even when CONFIG_MIPS_CPS=3Dn and CONFIG_SMP=3Dn.
+On a !CONFIG_SMP build, irq_set_affinity() is a stub returning -EINVAL, so
+cm3_pmu_online_cpu() unconditionally triggers WARN_ON() when an overflow
+IRQ is present; without CONFIG_MIPS_CPS, cps_smp_setup() also never
+populates the cluster ID in cpu_data[].globalnumber.
+
+> diff --git a/drivers/perf/mips_cm3_pmu.c b/drivers/perf/mips_cm3_pmu.c
+> new file mode 100644
+> index 0000000000000..6d53535473b96
+> --- /dev/null
+> +++ b/drivers/perf/mips_cm3_pmu.c
+[ ... ]
+> +static void cm3_pmu_update(struct perf_event *event)
+> +{
+> +	struct cm3_pmu *cm3_pmu =3D to_cm3_pmu(event->pmu);
+> +	struct hw_perf_event *hwc =3D &event->hw;
+> +	u32 ov_bit =3D cm3_pmu_overflow_bit(hwc->idx);
+> +	u64 delta, prev, new;
+> +	bool overflowed =3D false;
+> +
+> +	/* Counts were harvested when the cluster went down, nothing since */
+> +	if (READ_ONCE(cm3_pmu->paused))
+> +		return;
+> +
+> +	/*
+> +	 * When polling, the counter cannot wrap twice between two reads and
+> +	 * the 32-bit difference tells the whole story. With the overflow
+> +	 * interrupt the counter is only read on demand and may have made a
+> +	 * full turn since the last read, which the overflow status tells.
+> +	 * It is read and cleared before the counter so that a wrap seen
+> +	 * here is also reflected in the counter value; a wrap happening in
+> +	 * between is accounted by the next update, which the interrupt it
+> +	 * raises makes sure happens. In interrupt mode every access to the
+> +	 * event runs on cm3_pmu->on_cpu with interrupts disabled, so the
+> +	 * status and the counter are read consistently.
+> +	 */
+> +	if (cm3_pmu->irq > 0) {
+> +		overflowed =3D CM3_PMU_READ(cm3_pmu, pc_ov) & ov_bit;
+> +		if (overflowed)
+> +			CM3_PMU_WRITE(cm3_pmu, pc_ov, ov_bit);
+> +	}
+> +
+> +	do {
+> +		prev =3D local64_read(&hwc->prev_count);
+> +		new =3D cm3_pmu_read_counter(cm3_pmu, hwc->idx);
+> +	} while (local64_cmpxchg(&hwc->prev_count, prev, new) !=3D prev);
+> +
+> +	/*
+> +	 * If the counter wrapped and now shows a value not below the
+> +	 * previous one, it made a full turn on top of the 32-bit difference.
+> +	 */
+> +	delta =3D (new - prev) & CM3_PMU_COUNTER_MASK;
+> +	if (overflowed && new >=3D prev)
+> +		delta +=3D CM3_PMU_COUNTER_MASK + 1;
+> +
+> +	local64_add(delta, &event->count);
+> +}
+
+[Severity: Medium]
+Can cm3_pmu_update() double-count a counter wrap in interrupt mode and
+inflate event->count by 2^32?
+
+If hwc->prev_count holds a non-zero value prev and the counter wraps to a
+small value (new < prev) between reading pc_ov and reading the counter,
+the first cm3_pmu_update() sees overflowed =3D=3D false, updates prev_count=
+ to
+new, and already accounts for the wrap in (new - prev) &
+CM3_PMU_COUNTER_MASK while leaving ov_bit set in pc_ov.  When the pending
+overflow interrupt then runs cm3_pmu_update(), it sees overflowed =3D=3D tr=
+ue
+with the counter >=3D the new prev_count and adds CM3_PMU_COUNTER_MASK + 1 a
+second time.
+
+Similarly, because the hardware sets ov_bit when the counter reaches
+0xffffffff rather than when it wraps to 0, handling the interrupt or
+reading the event while the counter is still at 0xffffffff satisfies
+overflowed && new >=3D prev, adding 2^32 before the wrap to 0 adds 1 on the
+next update.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-i6500-cm3-=
+pmu-v2-0-cd2569571819@mobileye.com?part=3D5
