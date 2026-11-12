@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794496409;
-	b=iatLqZnprkyBcmzV37D5x/APuTTM3P9QQXc0yiw8mBtd4N+XAxa2tDv7ghbudvRjXORc
-	 qfaBxE5y0br79liyo35rNvOGBpQHUL4B8KEGfIU2yfN/3FiFI14NcnoYa3CMCdTF2zIQ1
-	 5RGirqsipRNzZQp1q9tscst+mc47xRTiSXJfrhWivjD18+PaMnE2EwSn4HXTbIWPvVaMA
-	 mdKfRBRLwru9jtZqpGNRkj9pfYARK1HCZ/38Z/GVT2IHVdgI0xzQqhjFJIoc5gYJxcCtj
-	 p/MNUuYaXrsFzTdhtmJY50H9N8mu1PBuSJjCqxjooNS/slSg9D8EanqS9V4guSUoPjQ==
+	t=1794496410;
+	b=MyMs5SMvYtH7QuZF7R8lxP5DRYS5zHQgw+hDpgbNfraCsoPlIzCWLn3EvcXaBKDO2WDy
+	 sRzexrtBaPM7nhd6CRSn87lr3hDvLtc5juWUdSY79lp8f8YTri/Pe7t8qVlVxTwKWXlvr
+	 Pe5N/iUnNCNhdXck9VcVeQ+dyZAG0F+APmqvUJIgZUFuMFVsr25XmpXgnrKkjJnGNxqzS
+	 XgO2CRhyRiYWcW3hs/j9/f9IY/mjxQ6HK/GjeCWdhLazQr0NaqYfR28b0eHwlS2glJuH3
+	 waWFfDxr+UkrzLbkEoRI9uPBGuROseXHmpjbRwiK/+/0raPaqnwHhrVcalKm49CkzxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794496410;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=jlU5/5neDI2ROEOJFaNZJZxxYu3+Y8IWX3cY6QrT4RA=;
-	b=0v5VHNLYN1w1IY6IMSUYzo1ds3gk+4Q5ujoKErhrFL0CRqL0uSvthJS70zEqhEWy5aqV
-	 tUgZDnAP3zTy9JUPWbVQDu1ZyGYPRku6HyGrzmxAq9Th0/ByYZBtL5wvXf42SmFGgz41F
-	 qamNxrs6N2xJwUacXLPpFTu/ZEKJEt+SyDnsqpMNkxm9+ezhw+uJN7V46kbIGxtllAywe
-	 MQaRcA+62yxVAeqDbsaj3F6DNWwF86s9Tz1O3cjH3uvRw3GnS7gbmIBbmBUQJpn9sRlpt
-	 EVZXkYZausIusQ1gDmJkqByH4nH8s3m9vrrUv0buKo6gebAocWZMUY/5tb0bnteXs3A==
+	bh=LSomUVkxeVujxD12mjdTM3jadQF6RoOLSVeuHilCoqA=;
+	b=g2w1lIQCu1HKm1ejCuUW82RP6kfc1ICMYTugjtpTq8RN9srtQmQIucjGE7oEVhPcawNg
+	 Y1muNbwdTwmThzRy1RYiEF2GC9xXSP1dj/uMigb+dWvlzp7i0RYOvuhvpwLGwMxdkg1k3
+	 jlTQ3aikhlLCwLv0s24j4smCQdsaN1F6eOkol4slJEBPs0288aTH3ZdgOynzKcN4nlY4K
+	 7ri0A/pGPQkJvRA8JFm19GpNzJndv0y1hPmx6+2OPHedEtAmzKVMgg8n6lNSOeTDfEd4o
+	 aSDqcoT5x5Yh3tANJoJ/Dobn9kr1oTXMO03eim+tCYEKfe+MVN4OtPCZ9Xx1QSHbPbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=dolcini.it;
 	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=CCvRtxCk;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=YTxFkgxX;
 	arc=none smtp.remote-ip=217.194.8.81
 Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDA9606A321;
-	Thu, 12 Nov 2026 15:13:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BDA9606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8E1606A33B;
+	Thu, 12 Nov 2026 15:13:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C8E1606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=CCvRtxCk
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=YTxFkgxX
 Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 86A9C23185;
-	Thu, 12 Nov 2026 16:13:26 +0100 (CET)
+	by mail11.truemail.it (Postfix) with ESMTPA id 8B1A0231B8;
+	Thu, 12 Nov 2026 16:13:27 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794496406;
-	bh=jlU5/5neDI2ROEOJFaNZJZxxYu3+Y8IWX3cY6QrT4RA=; h=From:To:Subject;
-	b=CCvRtxCkOc1xkVU7VUIor9yaHtzWfy7wLAVj6+MoX8YQecmN2jWkLnsjggK3UfHl9
-	 wscTdB4n+nnU6auHE1nNv2zqUoIlklACGUOJiPcuaiGAj5om43niH7gGCMjJJ2CCAS
-	 GOc8M3nEn35NH7LNkxqHoplvYmHOFrobaVBzkoNtDVtWDoibHSiBJFsttMFazd4DXN
-	 Ka7+rN+L47x8oksFv0vfCNrjjpSj6OaTowQKrRBTc1BFEZzOvdZYbhQYkqcrugDKrb
-	 GYso2hwEzthcHNNNroAr5x9Q1hvKvhWpg3SNLL7KJwI2Ew0mDDf5rDqCAAdlrg3fbs
-	 pIx+LwJvVjgVg==
+	s=default; t=1794496407;
+	bh=LSomUVkxeVujxD12mjdTM3jadQF6RoOLSVeuHilCoqA=; h=From:To:Subject;
+	b=YTxFkgxXLJYTzVmoaE3Y8ZdRNwhcE+0bnXUhxmE7ugGEgr9NNCZU08aMVJYKWVPTI
+	 EpcdEnyz92CyFjNORUosjzxmQ2LnHSEjdp8zPlgFHgmAiGY0or5hU8qHN/rhwNK8Q7
+	 YDQu00wRhrJN1CEZo9oeTjhkSWsMl9AGqrXgw5tm3B+o/t8umK2PSw9VadTS6WmJbN
+	 8aOCdagxv58zBVvlKYPR0bdEc9k+W3WNldWF/b6yIaPO5IFir9TRnorSbcCinXr1ey
+	 iBSryktVJl1m0flXfq+KqrWa7Jbk/RozOBjaxZSer0a7jkHVqo0VByVMTFXtFum9fs
+	 4RyNgREX6brxw==
 From: Francesco Dolcini <francesco@dolcini.it>
 To: Nishanth Menon <nm@ti.com>,
 	Vignesh Raghavendra <vigneshr@ti.com>,
@@ -56,9 +56,9 @@ Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/3] arm64: dts: ti: k3-am62-verdin: Add SPI alias
-Date: Thu, 12 Nov 2026 16:13:14 +0100
-Message-ID: <20261112151317.178959-2-francesco@dolcini.it>
+Subject: [PATCH v1 3/3] arm64: dts: ti: k3-am69-aquila: Add SPI aliases
+Date: Thu, 12 Nov 2026 16:13:16 +0100
+Message-ID: <20261112151317.178959-4-francesco@dolcini.it>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261112151317.178959-1-francesco@dolcini.it>
 References: <20261112151317.178959-1-francesco@dolcini.it>
@@ -75,32 +75,34 @@ Content-Transfer-Encoding: 8bit
 
 From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-The Verdin family pinout defines the SoM interfaces and their
-numbering, SPI_1 being the SPI bus on the SODIMM connector, implemented
-by main_spi1 on Verdin AM62.
+The Aquila family pinout defines the SoM interfaces and their
+numbering, SPI_1 and SPI_2 being the SPI buses on the connector,
+implemented by main_spi2 and main_spi0 on Aquila AM69.
 
-Without an alias the Linux SPI bus number is assigned dynamically and
-can change with the carrier board or probe order. Add a spi0 alias so
-the bus number in sysfs and the spidev name follow the Verdin interface
-numbering, zero-based with SPI_1 being spi0.
+Without aliases the Linux SPI bus numbers are assigned dynamically and
+do not match the connector names. Add spi0 and spi1 aliases so the bus
+numbers in sysfs and the spidev names follow the Aquila interface
+numbering, zero-based with SPI_1 being spi0. mcu_spi0 is internal to
+the SoM with the TPM as its only device, and gets no alias.
 
 Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
- arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/ti/k3-am69-aquila.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi b/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi
-index 77e6885555fb..3317da6c8457 100644
---- a/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi
-@@ -38,6 +38,7 @@ aliases {
- 		serial2 = &main_uart0;
+diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila.dtsi b/arch/arm64/boot/dts/ti/k3-am69-aquila.dtsi
+index b6854acee8fe..caedff90365d 100644
+--- a/arch/arm64/boot/dts/ti/k3-am69-aquila.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am69-aquila.dtsi
+@@ -39,6 +39,8 @@ aliases {
+ 		serial1 = &wkup_uart0;
+ 		serial2 = &main_uart8;
  		serial3 = &mcu_uart0;
- 		serial4 = &main_uart5;
-+		spi0 = &main_spi1;
++		spi0 = &main_spi2;
++		spi1 = &main_spi0;
  		usb0 = &usb0;
- 		usb1 = &usb1;
  	};
+ 
 -- 
 2.47.3
 
