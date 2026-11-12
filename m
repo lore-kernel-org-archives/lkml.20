@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506204;
-	b=XjVle4FRxIRga9qY4R6iuCXdcbsM2DWN6D9VUNiXP9p12ppIwMrHrKLLMMtq0BqMX9Zb
-	 Kbr8zEb5u+VPvyGPBC9P2h9DT80KMz/nBvfS6RSYhM2C1XTvWIcAeHv19JXkFlAzZusGd
-	 aPWSFa0FNJbUZVzrr518LlIc1YC4/J7GwbbKfyeUrCq4eaICQaq4lUuNuE5mU+XD4XAOC
-	 0Htw2RaTJcHTUM79lQRs7Cosoxk39Om3wFzLL/HXUMCyCH2NH4wKS32L5pNnRVdvyGBol
-	 IfnBRBCCgdaeDHHgjFyAZtGqFz0XpqHVRmk4i2DI7H7LdEiw7hlN5nO4GnHo6GbEeTg==
+	t=1794506206;
+	b=1OqOFrOCFZzxFCEG6ZM3Y3gMlgcrwC2zauswozkw30XZfeezMyyErPS0i+ZhZgPc3TtG
+	 JbL4bOtbC9KkuwmybEGN0OYk2A+4mM23jaKOgIXU3HXX9wRGpxU4H3v67OzJ+gm8ZWEoO
+	 Kra2ucqxwAwoRwvd+2TswiXonFrXrheNSAKY1uLY/aLi0QzgmpFDW3apqKJ1nUnfe+Ssm
+	 NbFEiJCoIfdm7hPKiLKGq3kUhzOew8kiaGgeSeM9P5J6Ztta/UZwmqKjN+jLBxJhhIg2M
+	 wkjySlHMTx5THo7aeVD4IHfuAJYnn8z6sNwsqjTsrfApPa4WE/UKA7QrSe3weMtuP7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506204;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506206;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UodyIOSej7Q9D1lUergWPqI8N9mlc/GZezBApzHmwIc=;
-	b=PJzoxKsZtCFFErQLbbqMZCE7BdCWGp1UwHbE6SNnEZ9j07v3IRWJuBdXn/K2aniZslXa
-	 v+mGfM2XZwg/qZXlW3S2ERJFcPe8pbYKjOLlMP0OuDKCxbkA36XYjDBL887E0GFB5MUsP
-	 mQ/vTJABh6mmUtMUFPF6l9u5BtfQ40gxcAACO1UA2vTMh0Omba6DZ9NH3MYQsCJzWjxuv
-	 vOmeY3U3GO8Qco026xUYCh/rNrQsqBSyNLLUPuIHtB1SqTWf27LUlKM31y80NZNdtTgoV
-	 MWYBBc/iV2fDb/QRDxT3i235VnTBbJuBFH2+vva96IDGPvBJgg8eqZpT95PicU3EQkg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bVukesRVZXuCwNfxWw9b9XoFHDuzUlJG4NqmqHbHpsU=;
+	b=h409C1jrB2fast6vd2YhmUQoLyVa9vVaA0pu7IogaIUO6oBjaQVsv3rdXgkmYNeAyY0N
+	 AMkyHfSsK0Ra9W/3eGJO3CPQMwtOgPZhoL8OAIhhW5OkQI+TB0KeyGcDAep9TexEmn+6q
+	 rQ+Ygk14Iclv1BfBkXaVrhVGJN/DqOXmFGr4eF7HAcm0XNcjHEnHJBlV9iypg9GivKlfJ
+	 RIUZ55YPyw41KsUhbRJCqbW/KR6gTFS5sP1X49e1y8kQodZTJAl7qmKK3AFFfjzbIq5/u
+	 YJijLqH7xRY7l197B5fa7I0KRYsqKlgJwg8bc9LYXi1C8UgIrVS00YPnzrn0n2veywg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="a14/Dc2h";
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DNhznkaJ;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04713606A334
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:56:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04713606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C07606A88E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:56:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23C07606A88E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a14/Dc2h
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so832855e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:56:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DNhznkaJ
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e46e449e8so19282f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:56:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794506202; x=1795111002; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UodyIOSej7Q9D1lUergWPqI8N9mlc/GZezBApzHmwIc=;
-        b=a14/Dc2hfC1bApYStSPz5W5SUWFLM3BnRqcON57tdgIVbFXNV8Egppq9Z/WN1xl6JG
-         JoSoDm6Op1j4WqqoVOM4z1L5BpwqGB+hBz5nibr99WJZhk2v0jJ2QwAi7KSmvw8vVT6R
-         M5K8uYvyefXk7EqSHMuiEIAa/e+HOZOp1xp+3De4XnnGStTTFFAXRjCY6sI7kK27LUJD
-         IM8c6qNnMc4hyWG/3Oxxsgqb8A4D0PbXEkCm7o3nVvpbroh1f+WMQmc8Z8NEioBUUQgj
-         DC8vGPn3BHwdG9TfQzsWg7M6M0GC+yWZ+HWOsZWaWTA052N7VRvqNiPhlAtYH66Xrt4K
-         c9Zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794506202; x=1795111002;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794506203; x=1795111003; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UodyIOSej7Q9D1lUergWPqI8N9mlc/GZezBApzHmwIc=;
-        b=n66oNO9MbNwxXGuw1Bs3hrGUimH3+DUSgl3tcke1ci88gF8h9oUhHMINXgEXZdFd+m
-         hgTa3q7DtlwsEYSXDv6DbZV9aowbKwGbw4Q2EcsweUEwLc2Uw988f0aUNstOFnshGAim
-         j/Ntgw2xKlXIYd5z9YU82RpkwvImkOEGb3so9kC0z1s1HuEfBmSI6v5dyguH13NU0j8n
-         dCGg9ZiII9YofZFxPDHajb6YdtWAJxhtWbqC3t55jJ+OkeaMppeXDAclkWxEhDhE+kDL
-         e+5r4FgXRFCvIkxO45HIJbdAliCtcUudOz+AQcODnHU9Pnj0vzBqGqDmzWX/dTkGEOKk
-         tQUQ==
-X-Forwarded-Encrypted: i=1; AL+hErFTD64eEhCTP+fCt6zgIOTpYTw7y/7jQ7+KNCrLDok8frIRsW6J0I+gLx9au8tjsSJpjKF2wXQO34eXdQc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ueY+vmQWV/HmPfoiKNAqy/jeVVrZgLThr1r111pkpdMoGtozJ
-	OktK0U9Q/aduSYs2NALOyzrMwpadZGcUvZMDNAoiSiOnYPrJIrRj3USn
-X-Gm-Gg: AYBFou1IHjfjWRYFgYRlgDnOocMYHZxYL/60ZNBOymG6aK1r6nFTLefFkIf23JhoYej
-	c4iPyg6UuXkbcQCdhnCNMgvVW5VOTcLimR74UdHNzuKlovCfRwy3c0w/oiTefRJVqv/wYVrG6MM
-	AjvwDaarffvKlZu3KCaWTdoj0ZUBsGCXdG1PYhrpz05Fb+zl3INl8M8PVplzSV7CEwRqWtrWu6Z
-	olYDjhhDKD31fcKgr3i3y30GQxcdIGoSOeanccv0GVIw4pIQfKsfNP5j7WRv5+obKAVT9EDZcgX
-	O+QJe6GaNNTpIg8Bki/IW+7/9Ix3g1fUEXFEnGJZJ8W7Q5mqISpCztlMpbZICCaq2bOT0ju1+SY
-	2oqglz3+toG+A+KrWHU3IdFAc/EB1MGz/EvECaIX9p17ExuFSWKYgS9CtCTKJTEuQ5DQy6gIHWD
-	hSKB7E2h2Mc2KgDxpf1uApPnvaiOtSWOMy4TijfKpAMbXq4iQm7HY5J2Q29WZtFGhdRKxJkHPu5
-	cSyNvJQ2cW7t6nBgir9zMsBM8PxCIzLJt78ochKPd9pzXGl4n2puOeCho92W5gwj+ureZiBBh3R
-	NFLUXmuOdU0+uHo7oRFPpGSKaQBOArC4WV0Ec5ChijrelvEwi5FEFW5fXzvdL1eBrA29++5mIwC
-	Zk7DcF79WH+951zZnj4hPM2BCpk7lRip4Z+zj4HJJuby0mMRH+4rEyNt170NzBN/Jk3jHJlHRnn
-	gOdkJqAYcgEGaYgpEv88yZmQQjFttF178U+W6wC3gDAA==
-X-Received: by 2002:a05:600c:6dca:b0:4ba:7a0:7b67 with SMTP id 5b1f17b1804b1-4bb4e2d5f20mr58501255e9.3.1794506202346;
-        Thu, 12 Nov 2026 09:56:42 -0800 (PST)
+        bh=bVukesRVZXuCwNfxWw9b9XoFHDuzUlJG4NqmqHbHpsU=;
+        b=DNhznkaJ7zNMnvcw6AjzPAyKEmfn/mVFmumdzGHftPMpKwHVvLxpVCKemf74ZwriZA
+         rE8U6eTNtP7H+eVD3LrBRY7+v78iRu+kQImaWQLDUZNnV2kdiL6FNb7J8eak2szh9BLH
+         iTsdq00Ndt1GsmGIA8K2QcTz/QUj8mrrS8koLwMpROTv1rCMCctahmy13WERe8AgV59Z
+         98xN+vGkU2sDL6YcjxRvmK/v4z7enJXgcyIREhdndSAPb5/McZdSquMKFHkD7SVwsSUu
+         Ugg8UIzoNGGaWGB2mcgrBlRV7Y3kdSPUCwhPbT1weyclnFidqgVHHMSv+81V6Zy9Vo+p
+         nKmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794506203; x=1795111003;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bVukesRVZXuCwNfxWw9b9XoFHDuzUlJG4NqmqHbHpsU=;
+        b=ReCwCjbKvQYvJdTvE/bpuKmgdGZWPJ0zRQ8CZd1QqtzGpswj9iqRMx9Zoc6Bw5wR1C
+         i9H4iJxYCHN84bOdzoRvCl9rp88ZCgk41x8GRtL4d4PMP2DARj7uFwalMCf5t46ujSw0
+         0+iwUHgjsrYsoNNbX7wbGqhaWa4+RdnBGJSS4v+AUp4I5lhD3Dv86Y86+QpPmCCFHfqT
+         smsSG9LnZw963sAEMrSc9XQIvtVNDIyCcvst1sYWt76D9x5mqx/+Dm1FrLJxfkCBNmTE
+         tgEPVHmnyFvOLSJWUjq6y/3xNh0lFyZJP1zwIDjcCy+OxCzY5sWx4krcLE7kimpTOBlM
+         id0Q==
+X-Forwarded-Encrypted: i=1; AL+hErFdjXB/YSAoRVRXIUe3omoSy35b4XWsSjeeBJw8V/kxO4g+1PbV7/kHK3mGmFWEF8smGYOnmRZDqfoDLgQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9PLpuviBVJxgC+r+Bcp95B69byPnXp4MNHVugqy2Z+kFBJ7hr9
+	hSFQj5mfFVrh6HZUTOszbjT1s5/R4ILf4Lnb8RO4CORBP3Ta0qkhSw1u
+X-Gm-Gg: AYBFou0wifJQnWNGLkqVHQSzlakCGh29WGNq58rva/19ZTrdGRGz7OrHNzN6MGtCFpE
+	MwJnopRSeMSTb7W80I1tt3QOcvfp/juZrntWsagjRv3X4fY7g+LgQ2vpZtYWzVGTU+bwUALQ1jl
+	mNQX0hZQOmU1B4C5pmJi8IcpBdmgnqZepCcYsKT3mvsMRTZpUSqr804Wea3IQGFy1v6sYxGXx3y
+	xdu2TV4d8eiL78mja4FRYqbh9fLiKZUxRE324IVdzYL0tjqkpkUvU1ce5KNB/0pN2Y2xU5MZmQS
+	0Nrzzju4db1t45MtfJK/ghrs+5VA+W1dBnxwOTO4jo8qbhzL1tWj8o/qDAiMNIKd1+5PMmDaSzG
+	WOzADfKwazrneLNzTC8ajybxWt9a7fri131fXVNpoWc1EtTx/IhL0yGwksNaupoGd9LazmMqaY3
+	ON9EnJ7xPPAaWXDhrKjSPzPpvuRaQqdXsP8ggni/JswbUkfeChA0xcwvfhN5ufdC0Ihe+r4cSKL
+	vT7vUKE3n7ivSBGolQV/UOjPc1c4RYz0HUM2JUUTNj5pEjpdbrHs3BhQde5DBq7uXhV0KFOsH9k
+	UiPwDBtxGF3d/qQYyN61ad9cX1/cRiva11qr6bbaFwb2dwggI0nJx2Q6kyojab7u1czmuoBVFzK
+	fIWFk7vHBpSMt79Z5rx+UEjBDQoy+s21FtDWuOIQqDYmGn+MZbge+XNi32eFg+NLYltU64PbDlw
+	X/fwHI2OVFLvts23kFRjgaKPD81FPSAUmvOizPPYuZG6rmdD1RIOKWWrTapQe2T8Q=
+X-Received: by 2002:a05:6000:2411:b0:48d:df08:307c with SMTP id ffacd0b85a97d-49c726da6a6mr271994f8f.44.1794506203353;
+        Thu, 12 Nov 2026 09:56:43 -0800 (PST)
 Received: from zitrone.tail45b538.ts.net ([2a02:810d:a1:6000:900:be5c:7a9c:c176])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c193fsm547430f8f.13.2026.11.12.09.56.41
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c193fsm547430f8f.13.2026.11.12.09.56.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:56:41 -0800 (PST)
+        Thu, 12 Nov 2026 09:56:42 -0800 (PST)
 From: Andreas Wendleder <gonsolo@gmail.com>
 To: linux-wireless@vger.kernel.org
 Cc: Johannes Berg <johannes@sipsolutions.net>,
@@ -90,10 +91,12 @@ Cc: Johannes Berg <johannes@sipsolutions.net>,
 	jpeisach@ubuntu.com,
 	rosenp@gmail.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC wireless-next 0/4] wifi: b43: AC microcode TX and RX formats (series 3/4)
-Date: Thu, 12 Nov 2026 18:56:36 +0100
-Message-ID: <20261112175640.40603-1-gonsolo@gmail.com>
+Subject: [PATCH RFC wireless-next 1/4] wifi: b43: 11ac chanspec for the AC microcode
+Date: Thu, 12 Nov 2026 18:56:37 +0100
+Message-ID: <20261112175640.40603-2-gonsolo@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261112175640.40603-1-gonsolo@gmail.com>
+References: <20261112175640.40603-1-gonsolo@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,38 +108,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The TX descriptor, TX status, RX header and A-MPDU handling of the AC
-microcode, gated on the microcode revision. Only revision 832 has been
-tested; the layouts of 784 and 928 are expected to match but are not
-verified. Based on series 2/4.
+The AC microcode keeps an 11ac chanspec of the current channel in SHM
+(where older microcode keeps the channel cookie) and takes one in every
+TX descriptor and puts one in every RX header: the channel, 0x1000 for
+20 MHz and 0xc000 on 5 GHz.
 
-Where the values come from: the register sequences and table contents were
-taken from Broadcom's wl driver running on this MacBook, by tracing its
-register accesses (bpftrace on wl's MMIO accessors), and reduced to what
-the hardware needs. Parts come from Alessio Ferri's AC-PHY work (the PHY
-init sequence, the 40 and 80 MHz coefficient tables, a TX gain table, the
-Farrow resampler formula, the VHT fields of the TX descriptor, register
-and table names), and some formats follow brcmsmac.
-The result was tested on the hardware as described below.
+Add b43_ac_chanspec() and use it for the channel cookie in
+b43_switch_channel(). The TX and RX header patches that follow use it too.
+Signed-off-by: Andreas Wendleder <gonsolo@gmail.com>
+---
+ drivers/net/wireless/broadcom/b43/phy_common.c | 13 +++++++++++++
+ drivers/net/wireless/broadcom/b43/phy_common.h |  7 +++++++
+ 2 files changed, 20 insertions(+)
 
-Each patch compiles on its own (kernel 7.2.10 headers). The four series
-together were run on a MacBookAir6,1 (14e4:43a0, BCM4360, core revision 42,
-microcode 832.127, 2 of 3 chains wired) on top of v7.3-rc5's b43. The AC PHY
-only comes with series 4, so the earlier series cannot be exercised on this
-hardware alone.
-
-Andreas Wendleder (4):
-  wifi: b43: 11ac chanspec for the AC microcode
-  wifi: b43: TX descriptor and TX status for the AC microcode
-  wifi: b43: RX header handling for the AC microcode
-  wifi: b43: A-MPDU for the AC microcode
-
- drivers/net/wireless/broadcom/b43/dma.c       |  61 ++++
- drivers/net/wireless/broadcom/b43/dma.h       |   1 +
- drivers/net/wireless/broadcom/b43/main.c      | 113 ++++++
- .../net/wireless/broadcom/b43/phy_common.c    |  13 +
- .../net/wireless/broadcom/b43/phy_common.h    |   7 +
- drivers/net/wireless/broadcom/b43/xmit.c      | 327 +++++++++++++++++-
- drivers/net/wireless/broadcom/b43/xmit.h      |  13 +
- 7 files changed, 528 insertions(+), 7 deletions(-)
-
+diff --git a/drivers/net/wireless/broadcom/b43/phy_common.c b/drivers/net/wireless/broadcom/b43/phy_common.c
+index 285490f..cfc14c1 100644
+--- a/drivers/net/wireless/broadcom/b43/phy_common.c
++++ b/drivers/net/wireless/broadcom/b43/phy_common.c
+@@ -413,6 +413,17 @@ void b43_phy_take_out_of_reset(struct b43_wldev *dev)
+ 	}
+ }
+ 
++/*
++ * The 11ac chanspec of a primary channel as the AC microcode takes it in
++ * SHM and in the TX and RX headers: channel, 0x1000 for 20 MHz, 0xc000 on
++ * 5 GHz.
++ */
++u16 b43_ac_chanspec(struct b43_wldev *dev, unsigned int channel)
++{
++	return channel | 0x1000 |
++	       (b43_current_band(dev->wl) == NL80211_BAND_5GHZ ? 0xc000 : 0);
++}
++
+ int b43_switch_channel(struct b43_wldev *dev, unsigned int new_channel)
+ {
+ 	struct b43_phy *phy = &(dev->phy);
+@@ -428,6 +439,8 @@ int b43_switch_channel(struct b43_wldev *dev, unsigned int new_channel)
+ 	/* FIXME: set 40Mhz flag if required */
+ 	if (0)
+ 		channelcookie |= B43_SHM_SH_CHAN_40MHZ;
++	if (b43_ucode_is_ac(dev))
++		channelcookie = b43_ac_chanspec(dev, new_channel);
+ 	savedcookie = b43_shm_read16(dev, B43_SHM_SHARED, B43_SHM_SH_CHAN);
+ 	b43_shm_write16(dev, B43_SHM_SHARED, B43_SHM_SH_CHAN, channelcookie);
+ 
+diff --git a/drivers/net/wireless/broadcom/b43/phy_common.h b/drivers/net/wireless/broadcom/b43/phy_common.h
+index 5ec5233..c20a20e 100644
+--- a/drivers/net/wireless/broadcom/b43/phy_common.h
++++ b/drivers/net/wireless/broadcom/b43/phy_common.h
+@@ -390,6 +390,13 @@ void b43_phy_take_out_of_reset(struct b43_wldev *dev);
+  */
+ int b43_switch_channel(struct b43_wldev *dev, unsigned int new_channel);
+ 
++/*
++ * 11ac chanspec of the AC microcode, and the centre channel of the 80 MHz block
++ * of a 5 GHz primary (0: none)
++ */
++u16 b43_ac_chanspec(struct b43_wldev *dev, unsigned int channel);
++unsigned int b43_ac_80mhz_centre(unsigned int channel);
++
+ /**
+  * b43_software_rfkill - Turn the radio ON or OFF in software.
+  */
