@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447628;
-	b=dfwxlkRnmReFQnBiuBLZ0Nljryq2JQzO3AntqJXZ8FDd1c6JF4XVI05vXlBBSnyfirh4
-	 nsGQAUKPG1DMZIarGIkEmT+63OR4u/OIrC0fk9fkGh1KDmhWs2KSi5t0GHEGrMmahIY7u
-	 e50J5EZgroQ7p2fNK2rag0HFUDCYr3wzWuHKfnYa6RzuRBV/loSbwR/gibDn1kpP21EQW
-	 nwhZ/EZHsiHjHqXnhg1Xvg66NIw10db0321VElzW/apPU3cU5Mvin8Mwz+lA1yefVoGBB
-	 g0s+9HJfn7zYw1UtqQSKfsISn5ED7G6bJ1WOpuYSDu2CV7vBM7ukZl6LinXVuwNtxXQ==
+	t=1794447667;
+	b=lXRX/G7112s0v5Zz47lis4ldfIuYtGQwDiKLddvdlcFnmiPLClyb7rEMZYgSzSRa2Q5x
+	 DzwuUGIrmR3fpnxPvxhh6SVUKbTwbWNKs9idQx9xrDxSiKAiQKmiv9zh23d08I03esPdS
+	 QNEzWOsEL0Ch0ROUERRqfMpwFB4EmWzSlpR8Wv6EDCUCAW+Q384MUIOgM38o9NLY6EYGg
+	 MMK62gRO2567Bm0atV/s1cjpc8zf5Wz2bM4eNyjykNCZ7kegiLGjVk9vGu23GJCCrQjIw
+	 iL6A7YxPGP/MnPqDK7njJy7SWQAworIFV6+QsQ+tc+TiHfneQtTzXsakqPFN2/f8VCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447628;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/7JN4d19OpFHvBR2Ri6GsbzacJ+6v7i/b4y+9yVieW8=;
-	b=q0cjfbAsclNBQwG6riA18K0aEDen8Q6XbAk82408xqyfmyw2FItInZFHrmKUZHlNixnY
-	 AdihsgKHmgQ3S0jg2GmsTI/lV/wx8RsesCwGnyd6/xAYnJwOIB37U6DlgPz9CP711drUm
-	 z5Yc4AY+CnbH32cKw4WS2VJ+HHH8ymMl6Eu+po2LFwNJomyXvmqrhaz94nWloUmkxWedH
-	 gS5FVLpSfPj+9xDZ0JrJCzvOiMjPi+60oR7CVi47AxZrhcA+XQNOP3rbVWHCyZOqkun4z
-	 +Plzx4vll5XPdu+hRcfskvjw6FZwb94JRNIwS1tF2uesso2/if0qPBvDWyHgBUXqHxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447667;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=78GpTlryXdmrJjByh3BUkZG9u0d3fTR+T73cEQZ+ISo=;
+	b=OE9rcyizBOC4hP/iVFb+v4zCvb6J7/phYNlnSX1SQDyA9i6venLLd7mQ8WZWwSYVMcTV
+	 VhXIKJQ+te9f4PdkPLxIClRAx+UX44yhxJ28OU5qbOsNZPQGLHBEY5OTDyFI6Phrg/rXb
+	 7ASv0klUNEg4NXY2EYDoSmmCTMp+/F0ZPYel48akrRTO8YkoUKC2vjzAyw4lVkKTzDnJJ
+	 wMoBUNxUjAlAjBTVoX/Y/+8KJ6+kkd0M6suOOa4Y5rJs3t2mY6IabYQOEMRe60uEL7gTN
+	 mEjpMvDMDyNhrf25/vbb8eT28pGoAVZpRpgmblV0jw0orKiQtHAot/6D087uZ3nyuGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PixSkOzW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RMNW/hj3";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4D6606A32E;
-	Thu, 12 Nov 2026 01:40:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9056E606A321;
+	Thu, 12 Nov 2026 01:41:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PixSkOzW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0261F00A05;
-	Thu, 12 Nov 2026 01:40:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMNW/hj3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E0121F00A06;
+	Thu, 12 Nov 2026 01:41:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794447627;
-	bh=/7JN4d19OpFHvBR2Ri6GsbzacJ+6v7i/b4y+9yVieW8=;
-	h=From:To:Cc:Subject:Date;
-	b=PixSkOzW9hIL3ixGtxZKFqJEarO1g+P0gmy8e2zTSVoOiSXTDyI1sP+Ziv02uOZBb
-	 a1RPYToiX65Uydq3XnGvMpUE20JDT1rN9ZehyULqCfWJSXhCqcONPpSNqoOCrXwVou
-	 wAzYeQudh3+W2rMaCmqfIsyQCa3ttoAQv8/FuWSjQ3sPoBhKzkvCuNWR/oZLcdVENV
-	 WqpcERePW9vNdxwNItHMxssg4CNOacFW8FNVMZPwPE3+mVV6uGZwWhoh+WNdEhfA8n
-	 6NX202EksQ3/ANXAOsbEmGx2M3ue2KZOdaoWpLkkti+9DJGJVVMf5bKm6gZwL7UBfe
-	 AESIpJNtHqAKg==
-From: Sasha Levin <sashal@kernel.org>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jori Koolstra <jkoolstra@xs4all.nl>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/filesystems: include <fcntl.h> in wrappers.h
-Date: Wed, 11 Nov 2026 20:40:25 -0500
-Message-ID: <20261112014025.1243753-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1794447667;
+	bh=78GpTlryXdmrJjByh3BUkZG9u0d3fTR+T73cEQZ+ISo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=RMNW/hj3cip2bnbqZ58DP7ZCuhYbB449WbkhHiLHdXYIbp+Yj0UstquCla7tCJSBP
+	 H1fwSCTJ6hX0PLFgCOyqKHiVnQPByXuUhL2h9rfOUxssaZl10EbHdOx5hiij2kVnFA
+	 W5TTwX7pWlpdHCX6cmfi7wxrVCLrXldYEcwAWJu1saz28hdaRD6oKo1vDvzlS0hcVb
+	 1FyPhmjxhJoS7X0DrdfDc1Cf4Wv4M1iPRxecbSPU8YGoLn2TJP2f1fpKEbt/SjyK4R
+	 EkfWaO38saxffH8JJDH5YTp4mMaE+7cI+39QeMClA18AemjYdyaGwhStSUReEm+3R/
+	 tp/ZCw8zJ8OLg==
+Date: Wed, 11 Nov 2026 17:41:06 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, Sergey Ryazanov
+ <ryazanov.s.a@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Johannes Berg <johannes@sipsolutions.net>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH net] net: wwan: mhi_wwan_mbim: disable rx_refill work on
+ removal
+Message-ID: <20261111174106.09f639ca@kernel.org>
+In-Reply-To: <20261110043006.56681-1-mhun512@gmail.com>
+References: <20261110043006.56681-1-mhun512@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,43 +63,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-openat_o_mkdir() in wrappers.h uses O_DIRECTORY, O_CREAT and O_EXCL, but
-the header doesn't include <fcntl.h>. fscontext_ns_test.c doesn't
-either, so it no longer builds:
+On Mon,  9 Nov 2026 23:30:06 -0500 Myeonghun Pak wrote:
+> mhi_mbim_remove() cancels rx_refill before wwan_unregister_ops()
+> removes the links. Bringing a link up in between calls mhi_mbim_ndo_open()
+> and queues the work again. With the MHI channels already reset, the
+> work cannot refill RX buffers and keeps re-arming itself, eventually
+> running after devres frees the context.
+> 
+> Use disable_delayed_work_sync() to drain the work and reject later
+> queueing. Probe initializes fresh work on rebind.
+> 
+> Found by a static analysis tool under development.
+> 
+> Fixes: aa730a9905b7 ("net: wwan: Add MHI MBIM network driver")
+> Cc: stable@vger.kernel.org # v6.10+
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> 
+> ---
+> 
+> diff --git a/drivers/net/wwan/mhi_wwan_mbim.c b/drivers/net/wwan/mhi_wwan_mbim.c
+> index 336f89756f10..3b6b0066f673 100644
+> --- a/drivers/net/wwan/mhi_wwan_mbim.c
+> +++ b/drivers/net/wwan/mhi_wwan_mbim.c
+> @@ -650,7 +650,7 @@ static void mhi_mbim_remove(struct mhi_device *mhi_dev)
+>  	struct mhi_controller *cntrl = mhi_dev->mhi_cntrl;
+>  
+>  	mhi_unprepare_from_transfer(mhi_dev);
+> -	cancel_delayed_work_sync(&mbim->rx_refill);
+> +	disable_delayed_work_sync(&mbim->rx_refill);
+>  	wwan_unregister_ops(&cntrl->mhi_dev->dev);
+>  	kfree_skb(mbim->skbagg_head);
+>  	dev_set_drvdata(&mhi_dev->dev, NULL);
 
-  ../wrappers.h:116:32: error: 'O_DIRECTORY' undeclared
+AI says this is not enough for make the teardown correct:
 
-Include it in the header.
-
-Fixes: b536a4aa16ea ("selftest: add tests for open*(O_CREAT|O_DIRECTORY)")
-Reported-by: kernelci.org bot <bot@kernelci.org>
-Closes: https://d.kernelci.org/test/maestro:6af49b775b429d354e37819c
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/r/202611110221.YzAZrCXO-lkp@intel.com/
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-Every selftest that includes wrappers.h builds with this, gcc and clang
-on x86_64.
-
- tools/testing/selftests/filesystems/wrappers.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/tools/testing/selftests/filesystems/wrappers.h b/tools/testing/selftests/filesystems/wrappers.h
-index bc58bdb800631..09f02f67487c6 100644
---- a/tools/testing/selftests/filesystems/wrappers.h
-+++ b/tools/testing/selftests/filesystems/wrappers.h
-@@ -5,6 +5,7 @@
- 
- #define _GNU_SOURCE
- 
-+#include <fcntl.h>
- #include <linux/types.h>
- #include <linux/mount.h>
- #include <sys/syscall.h>
-
-base-commit: 13419eff849a88a276dec97fa62a532dc7fff400
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110043006.56681-1-mhun512@gmail.com
 -- 
-2.53.0
-
+pw-bot: cr
