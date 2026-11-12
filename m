@@ -1,84 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487779;
-	b=kOxku9+kHbGkGzjfnYzeJ+WV2uUDjeXsu0qdOleXjucyc01aKRIT8zurkyJwOK4JTy/f
-	 k20t4ZzyZzNKf2hvNzx9MC5zjdhmnVTdg+AUDBoFE1Ueiu5OrVmKO7eSPZTP8RnlDvzvx
-	 E5yOFx/CVvgymxCwiKWKblNgra9xj5fsEVcQsw+uyTCVv40AWqSoiL6oJ05BlSTfctkHe
-	 P4pkv2ztIeEMpAbNe5gqzeyfKJVPWdembNe9Phmq873M6uZApCKBt7ODjSA//7hNULB1W
-	 aVNy8pG7Ejayar6G33xzVDlPL/N3nrqrzR/fLgwrVmq1Sz6AOhyCrTNgdCo2Ogu8HGA==
+	t=1794487790;
+	b=APQFWb9rkLJlFl+qyNlpT8shYDLjgblcImWgP9c46XVCd0lkXGmVXRWixxsBYueFaxJ5
+	 T6+796IJfSX0AmnYmvmyHcu0IUkxlTd0rV7cFVfGOuCr/o6dNNIJ+U1GyE41GSZj3ojq6
+	 vxSIj9A2ptN951Coit0TasZtC7lCeIld1acL8VNbn/DXMS0y2G7rO0IiAR6Axy1A7eOtm
+	 VDZF+gb6MRYuKAJnKw26iY6LDqOz+JnWfzFHfZrsSoB2QCR59xDSAy/Ku7bp0EVj6Gcya
+	 nDtfGJiWVYg2ruUPdv6gaRYM6qOACYN8AFqBvOELpmnad2ZVGYH4orupNdp8kyvGgFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487790;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=owgjM5IlEAAirr98PwLefNK0L3QScVP04Otk/jOoc+4=;
-	b=tlFta6qaAa5KG7shTPEV1C/E8XnLnugvaTWYAZ95q2QyvJGTR5MvqiMvhahTEPprTFtI
-	 cuWFFfS3JsyKmJIlwqQ1+UCLaFLL4dROkt4lN7/scqSf8TRgvJbvZAVpdGT2EBmQ/cXO6
-	 Lo0qlJS1AIxqgP+9Y6RyHw5jkEnJhEcAJ35Dr1WOMrQgKozNZUwRJOzf8YDOWEDljXAS/
-	 qyjNO88W1CdJL21VqkGMt7kQuTFK7iilY2PH9NBGEPwszcUGwVuWyCsw1AN+RPHIpty8F
-	 vDeawskCh6l1R7pxXd2yjwvQPOxWLAcKzUDGSyWZibCgg0mxqvsHDc0/Pi7DuStwhUA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=6nalTf2fnxdnA3PnfvxMRPaFwmEXqK1eA5eTJUaR4u4=;
+	b=dw3b3FBQTNj2arSzjjQ79eu9KaTvQN2i8FcZrokOjqaZwvjS2JgE3MldGls+rANrjGWC
+	 t1tToL60dFCrhi++k3buLKiriwlOKjodsZOz1RkfcxSPO816eiClVTAH99DcJTfMizt2U
+	 QpYDcZXw9E28Jpy2XfXWvu07Cnds+C6PECLftjsNVwmF1HjSHeUAQ5n5l6fzmBur0wesq
+	 dSvZO30UaWtc+Kebw22kUPeL6yvPLUMb/RgjL6pMAhYpIXTF6bpIY/jfbgpNcxTfYXOlb
+	 OlsUVuGKWPCoaclFoKi87n+lFqrVsieqsY7LO8VywoLPIEHaQVUrgroZnhClZ2Qq2cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YxJqk4hV;
-	arc=none smtp.remote-ip=209.85.167.41
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fXfZplFk;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5BC5606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:49:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5BC5606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB26D606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:49:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB26D606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YxJqk4hV
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5c14a204305so3570790e87.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:49:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fXfZplFk
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-14394530ec6so5791490c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:49:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794487777; x=1795092577; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=owgjM5IlEAAirr98PwLefNK0L3QScVP04Otk/jOoc+4=;
-        b=YxJqk4hVkLNz68hhJiev/pFunjC53VArPRMOKXpq56gi6tENKQQHvEKLPQqxBLxXtV
-         16JphAeqrOwDOKNCBTi6CDQSzL7+8zQ/quXgvxtQdsWVfzKe549o/NaCxVNyrJ1RcyMC
-         vsnBbCU+MG83iBVCYpl/oVv1faQN5nk1QkJRptZdYCN4x38iWT1ZY7YIqGHQRcLM+/Xb
-         bD+yvtaFDDfC5dlHNCJyPojtROnlgZCMaQvGNHt8pFSQ8+ITi9uU0rNPmA7TKxk0jnKG
-         OMP66yBq1ECX+vrUe6pKQAIQ5FdVOYeDbe9MbU5nROWhZLhdLhS+kw1l2aAHpdkBv3A0
-         G5gg==
+        d=gmail.com; s=20260707; t=1794487789; x=1795092589; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6nalTf2fnxdnA3PnfvxMRPaFwmEXqK1eA5eTJUaR4u4=;
+        b=fXfZplFk/O8v0PP499f+0AjZ2ZN4SyjVrfQOSW7dNKMxft1QQM9WQJa1u8u7QFXesN
+         oGZ2ypv4ZCMuT5qTITzgk+Ke7lRxwScqHcgLCkSxcBbp4zyneTU4dJGHIzVG6yRhpj9w
+         gWXuYnVTk/wwqH43TUkTWJ9mFUf8eSCHFiXlSdlanEjKY9YzCpqQsBxF2wulO7usfoGn
+         fQaIuQoiHSDywAWxocnvRrDk7yNBUpHCpHHAETdOg4jxhpdQRF/2mRpxn6KvlBh27G0i
+         +aBPvdkrG6msNMFYoatQno/sCZv2X1SATwHqXN1C472YPBh+91Qso0PcZoXGpN1iX9Ti
+         BBig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794487777; x=1795092577;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=owgjM5IlEAAirr98PwLefNK0L3QScVP04Otk/jOoc+4=;
-        b=qj181xQUFk5lY0aaRTgtqXIIN8gHL4ygD79oRu9g/ZtmMHviwW+t90mxO0NMaWVcax
-         dK4KZeFDRaf8Wjf/cUrNbbU8NJqQkOGM5yDSNbKdwyobAnbEFm+TZHXOXPFMYwctuJyF
-         inBoKqDHxoFx49KAVcq9bi11a54MBCjvruQ8FNK001Fb5Ty5xyofa8SylzI97vYSzxwE
-         ADzJ99y5X1kseZXTAwb7Ltog3IJHP8ArCmPg7hobSEwsrOVN0Ro4nDoYtGo+1+hJcVAJ
-         rraDVkdbTeJPzCpwPQePFnAYCvkRNV3byeG72vOR1dpCOwF4QyVFYp2rOiaC3fEaH9jF
-         371g==
-X-Forwarded-Encrypted: i=1; AL+hErHpcSNEKC2xDoXaE/DRjg4oM7rXFf9wLpPFZXNbTG4PStd+oyCng2ZwXXns13A9FGb3TQIuPfsoOjbaD9o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+n4esuzFW7eDEn6e6pk8iOJCDEN0EqjX+QenJH28nZ75G/TFh3
-	FVG0DoCiDD0KYoY1cKlzOtvlxgN1n2DroBtMxbnkLhLiztYfSjkRecblS3hECg==
-X-Gm-Gg: AYBFou1bp5bUUd3b6HMFm1Wdr29MrklmM4b52A6wiwl+M3N6EZE90JvA3b12+shkX3Q
-	5SiS/u2RIqCpP8whIf2X4FWy83Z1Mh9GQln2cpHitwE61ikeGZViZFrazdM2b23bxEv0vTbv7ho
-	agR7vNcnyz+LVUq9LFR62luPt4Pof/rZ8liCs5tf+kVIEVOhKwNFaNSD5IzKbCD9A6OOU+tWMpa
-	JR1yvw+KcGEMJ4JC7UcCcp1jbmSmTQFu9t+VJprWJbVWQFBYSP67LQG2uP18M1+mLp1rqWLkVyZ
-	filkHpV+8fg0EJFh90WBul+n6CEGoMmNV816+9h44QRvvrVnm7cdLon/UgV7fJrXMbRHBkoAqB8
-	RIW1TxHJZmx0W+NT+H9svaR92wH5ep0sep7xYUBhF7Vi+hkrTDNVYLLA6rb83p0hi5kNakRiSTD
-	DftMhWY4a9PDa8iSzDD3XEfXWeSeCWcHa5ArpvJbWyG9iBo2HVVuzYDSlM+28ULWBMf/OvGOwth
-	OpNVTHFqMR/TtTPLxu6PowTVstQE2StEFTfhW2FKnctj2Iwc7i2/0083yJhe9t9K4Ml4IdOvVL/
-	fiBI2jRY7sUaOZPSWEDtUUt4i7A6QlX7PQ==
-X-Received: by 2002:a05:6512:b84:b0:5c1:4dbb:9fbe with SMTP id 2adb3069b0e04-5c15d5e7741mr1857704e87.47.1794487776648;
-        Thu, 12 Nov 2026 04:49:36 -0800 (PST)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157ba5b98sm1582156e87.17.2026.11.12.04.49.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 04:49:36 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794487789; x=1795092589;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6nalTf2fnxdnA3PnfvxMRPaFwmEXqK1eA5eTJUaR4u4=;
+        b=aIcIAKWvMAr6KNpgNMSe2aeWqZh5LTkCRBJnhB6lngIrxi4k274u6XXwQytxFkAfog
+         28/fnwfFDTlQCvVFyuwnPJCpzx5YTx8YEWctJJ8azmGABC+dDQXRpnvblOOdTcM3liyj
+         uNz8W5Zpb5nh//krt/ow4c3I0bdILna/FOsDsJCqFrDxlAJfauAGwbJP/dRhcKXjdSSJ
+         gkDwpzk1SCjqFmgCCuKFegEKAJlrp7kUeg3eeXSPwR+U85yz+k66xhHLkGbw83RPXfEv
+         2/v3IWCdleLW1LFw4o6/wfxDE3zQ4mJsjYY0Km+rz3NvMFIEWwJcI8jw7+hX58BhmHID
+         ycHw==
+X-Forwarded-Encrypted: i=1; AL+hErHZIcocqgRUZSJWk/1a3hiFYJbkQUBJe0oJjNuCZR11lO+NHfo/gPknIQW0lTamawkKp0EJY2yBTP24l6M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z92GXzk0euin2jMztey91C7rCD4f7cDbv/Qu7prSd3HSn2BjJzt
+	UoW1syjmM5FGLffCifZnHKnVoT3ndM8YE6KTfczR7xYVJ+x/IUr5e7MK
+X-Gm-Gg: AYBFou2Hnorpcj6H8zgneQiJbZH7OBKPGXhh58HmNsDdhS6X8oI4oWL+IIi8IaJEaTq
+	SBIdjSkzOiULMxg39n0rv9Bhgj6v1TRjw5V/x931JyNRCj8SFBOflapp5UZu4zQKD7QpuN/dfEG
+	ngaRtR0OzEpwo4na6lFwmttnEPGbVq61GXoGO8EY20JIwT+zRiTkgFwrfGHH/qN296ljARj+vwE
+	vr5nt5N4/VXByfVYXP6Rn4500WUwB67jbn9V0LmGIrpY8iDCaUu4gJXNA03P2YVoNKlbPqbx5ox
+	hWjQ1ril1tRXubE3BaufpU1UGcmPpmJhp6AhdljTRwnrIslvRBkOYixAczVKJ6E8+5o3ZsTb3nK
+	X0X5AzNY5fqmkW7OqexZcCo65SS1xzvouFGssUiKQKqOoXSwuc1TqXNTW3apgTzEqxZGwdiPQKQ
+	e2MRs8vcQZYXWqj/kIYhgU3vW/nnOtMX/RFhkoRpFFLyDn6VL4RVHyDLZ9L7HCA3CHuc5Jh8N6m
+	JXqgnqMDcOiPqhx7fyXLBpVSGMg6dJhDnE20iSK7O0qD0/0XGCCH18Lmdmz2k0dT2OXE7HXplOm
+	4FcRm8/MaGDoL6ICu4OaQvRfaSY=
+X-Received: by 2002:a05:701b:2903:b0:185:8c9f:de82 with SMTP id a92af1059eb24-1b3c037877cmr4011227c88.33.1794487788647;
+        Thu, 12 Nov 2026 04:49:48 -0800 (PST)
+Received: from localhost ([154.21.93.22])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b4efc2sm21766617c88.15.2026.11.12.04.49.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 04:49:47 -0800 (PST)
+Date: Thu, 12 Nov 2026 20:49:45 +0800
+From: Yao Yuan <yaoyuan0329os@gmail.com>
+To: Jingle Wu =?utf-8?B?5ZCz6YeR5ZyL?= <jingle.wu@emc.com.tw>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Vishnu Sankar <vishnuocv@gmail.com>, 
+	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Phoenix Huang =?utf-8?B?6buD5LiW6bWs?= <phoenix@emc.com.tw>, Stanley Chen =?utf-8?B?6Zmz5bu657at?= <stanley.chen@emc.com.tw>
+Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device
+ variant id 7
+Message-ID: <avW1Q7Fc7k-zjkHt@sapienza>
+References: <20261102130836.11863-1-yaoyuan0329os@gmail.com>
+ <20261102130836.11863-2-yaoyuan0329os@gmail.com>
+ <avKBsi-E7IeUgsSY@google.com>
+ <TY0PR0101MB4786C8CF42ED66617BD9DA1EDC722@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
+ <avMcB0q7wF9oP5X8@sapienza>
+ <PUZPR01MB477458CD012208A31DE60068DC712@PUZPR01MB4774.apcprd01.prod.exchangelabs.com>
+ <avRttU9N0EZeq8nY@sapienza>
+ <TY0PR0101MB47865DFC765932B9E6C3E1C0DC702@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,186 +106,162 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 12 Nov 2026 07:49:32 -0500
-Message-Id: <DMT8TQ6XLC6N.1BPNTVA5WTR1N@gmail.com>
-Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
- <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
- <pabeni@redhat.com>, <dimitri.daskalakis1@gmail.com>,
- <mohsin.bashr@gmail.com>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 5/6] eth: mpnic: IPv4 and IPv6 in IPv6
- tunnel segmentation
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20261110-mpnic-lso-v2-5-ccd37b051d08@gmail.com>
- <179447813848.2199510.18299256518114707021@kernel.org>
-In-Reply-To: <179447813848.2199510.18299256518114707021@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <TY0PR0101MB47865DFC765932B9E6C3E1C0DC702@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
 
-On Thu Nov 12, 2026 at 5:08 AM EST, netdev-bot+sashiko wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
+On Thu, Nov 12, 2026 at 05:26:46AM +0000, Jingle Wu 吳金國 wrote:
+> Hi Yao:
 >
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] mpnic_ipxip6_gso_ok() only checks the outer IPv6 header chain.
->
-> --
->
-> eth: mpnic: IPv4 and IPv6 in IPv6 tunnel segmentation
->
-> This patch turns on NETIF_F_GSO_IPXIP6 for mpnic. The device can segment
-> 4-in-6 and 6-in-6 packets. The patch adds the outer L3 header length and
-> two new L3 types to the Tx descriptor, and adds
-> mpnic_features_check_encap_gso() to reject skbs the hardware cannot
-> handle.
->
->> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
-ethernet/meta/mpnic/mpnic_txrx.c
->> index 2a0560b7dd19e..839feb4716b60 100644
->> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
->> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
->
-> [ ... ]
->
->> @@ -228,9 +232,17 @@ static void mpnic_tx_fill_hdrs(struct sk_buff *skb,=
- struct mpnic_tx_hdrs *hdrs)
->>  	else
->>  		hdrs->l4_type =3D MPNIC_TWD_L4_TYPE_UDP;
->> =20
->> -	hdrs->i3len =3D skb_transport_offset(skb) - skb_network_offset(skb);
->> -	hdrs->l3_type =3D ip_hdr(skb)->version =3D=3D 4 ?
->> -			MPNIC_TWD_L3_TYPE_IPV4 : MPNIC_TWD_L3_TYPE_IPV6;
->> +	if (!skb->encapsulation) {
->> +		hdrs->i3len =3D skb_transport_offset(skb) - net_off;
->> +		hdrs->l3_type =3D ip_hdr(skb)->version =3D=3D 4 ?
->> +				MPNIC_TWD_L3_TYPE_IPV4 : MPNIC_TWD_L3_TYPE_IPV6;
->> +	} else {
->> +		inner_off =3D skb_inner_network_offset(skb);
->> +		hdrs->o3len =3D inner_off - net_off;
->> +		hdrs->i3len =3D skb_checksum_start_offset(skb) - inner_off;
->> +		hdrs->l3_type =3D inner_ip_hdr(skb)->version =3D=3D 4 ?
->> +				MPNIC_TWD_L3_TYPE_V6V4 : MPNIC_TWD_L3_TYPE_V6V6;
->> +	}
->>  }
->
-> [ ... ]
->
->> @@ -362,6 +375,35 @@ netdev_tx_t mpnic_xmit_frame(struct sk_buff *skb, s=
-truct net_device *dev)
->>  	return mpnic_xmit_frame_ring(skb, mpn->tx[skb_get_queue_mapping(skb)])=
-;
->>  }
->> =20
->> +static bool mpnic_ipxip6_gso_ok(struct sk_buff *skb)
->> +{
->> +	struct ipv6hdr *ip6h;
->> +	__be16 frag_off;
->> +	u8 nexthdr;
->> +	int start;
->> +
->> +	ip6h =3D ipv6_hdr(skb);
->> +	if (ip6h->version !=3D 6)
->> +		return false;
->> +
->> +	nexthdr =3D ip6h->nexthdr;
->> +	start =3D skb_network_offset(skb) + sizeof(*ip6h);
->> +	start =3D ipv6_skip_exthdr(skb, start, &nexthdr, &frag_off);
->> +
->> +	return !frag_off && start =3D=3D skb_inner_network_offset(skb) &&
->> +	       (nexthdr =3D=3D IPPROTO_IPV6 || nexthdr =3D=3D IPPROTO_IPIP);
->> +}
->
-> [Severity: Medium]
-> Can a nested tunnel still get past this check?
->
-> mpnic_ipxip6_gso_ok() validates only the outer IPv6 header chain up to
-> skb_inner_network_offset(). It never checks that the inner L3 header
-> leads straight to the L4 header at csum_start.
->
-> Some paths reset the inner headers on an skb that is already
-> encapsulated. One is bpf_lwt_push_ip_encap() in net/core/lwt_bpf.c:
->
->     skb_reset_inner_headers(skb);
->     skb_reset_inner_mac_header(skb);  /* mac header is not yet set */
->     skb_set_inner_protocol(skb, skb->protocol);
->     skb->encapsulation =3D 1;
->
-> For an IPv6 outer header with nexthdr IPV6, handle_gso_encap() then adds
-> SKB_GSO_IPXIP6. BPF_LWT_ENCAP_SEG6 via bpf_push_seg6_encap() looks
-> similar.
->
-> One way to reach this is an ip6_tnl device whose underlay route has an
-> LWT BPF xmit program that pushes another IPv6 header:
->
->     ip6_tnl xmit (encapsulation=3D1, SKB_GSO_IPXIP6)
->       ip6_finish_output2()->lwtunnel_xmit()->bpf_xmit()
->         bpf_lwt_push_ip_encap()   (inner headers reset)
->
-> The packet then looks like this:
->
->     outer IPv6 -> middle IPv6 -> innermost IPv4/IPv6 -> TCP
->
-> Here inner_network_header points at the middle header. So
-> mpnic_ipxip6_gso_ok() sees an outer v6 header, nexthdr IPV6, and
-> start =3D=3D inner offset, and it returns true.
->
-> The skb is DODGY, so validate_xmit_skb() runs software GSO validation. Th=
-at
-> recursion ends in tcp_gso_segment(), where skb_gso_ok() succeeds against
-> hw_enc_features and NULL is returned. The skb then reaches
-> mpnic_xmit_frame() unsegmented.
->
-> mpnic_tx_fill_hdrs() would then program o3len =3D 40, i3len =3D 80 (or 60=
- for
-> an IPv4 innermost header), and L3_TYPE taken from the middle header's
-> version.
->
-> The descriptor only carries OHLEN and IHLEN. Would the hardware then
-> skip the per-segment fixups on the innermost header, i.e. IPv6
-> payload_len, or IPv4 tot_len/ID/checksum? That would put malformed
-> segments on the wire where software GSO would have produced correct
-> ones.
->
-> The v2 changelog says nested tunnels under an IPv4 outer are now
-> rejected, but this layout still has an IPv6 outer.
->
-> Should mpnic_ipxip6_gso_ok() also check that the inner L3 header ends
-> exactly at skb_checksum_start_offset() with TCP or UDP as its protocol?
-> For IPv4 that is ihl * 4. For IPv6 that is the header plus any extension
-> headers.
->
+> Upon inquiry, it was confirmed that a black TrackPoint stick (0x07) underneath the red TrackPoint cap corresponds to a vendor that is compatible with the Windows ELAN driver.
 
-This suggestion is insane. I thought I could count on the stack to not
-reset the inner headers more than once and handle nested encap like
-iptunnel_handle_offloads() does, but I wasn't aware of these two cases
-with LWT and seg6 encap...
+I received "Delivery Status Notification (Failure)" thus I just try again, please
+ignore if it's duplicated mail there.
 
-It would be helpful if we could establish a definition about what the
-inner headers of an skb refer to, or otherwise put some other bit of
-metadata on the skb so that drivers don't need to parse the skb for
-these cases.
+Hi Wu,
 
->> +
->> +static netdev_features_t
->> +mpnic_features_check_encap_gso(struct sk_buff *skb, netdev_features_t f=
-eatures)
->> +{
->> +	if (skb_shinfo(skb)->gso_type & SKB_GSO_IPXIP6 &&
->> +	    mpnic_ipxip6_gso_ok(skb))
->> +		return features;
->> +
->> +	return features & ~NETIF_F_GSO_IPXIP6;
->> +}
+Now I see, Thanks a lot for your kind help on clarify this!
 
+>
+> THANKS
+> JINGLE
+>
+> -----Original Message-----
+> From: Yao Yuan <yaoyuan0329os@gmail.com>
+> Sent: Wednesday, November 11, 2026 10:05 PM
+> To: Jingle Wu 吳金國 <jingle.wu@emc.com.tw>
+> Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>; Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>; Vishnu Sankar <vishnuocv@gmail.com>; linux-input@vger.kernel.org; linux-kernel@vger.kernel.org; Phoenix Huang 黃世鵬 <phoenix@emc.com.tw>; Stanley Chen 陳建維 <stanley.chen@emc.com.tw>
+> Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device variant id 7
+>
+> ⚠ External Email: This email originated from outside the organization. Please use caution when opening links or attachments.
+> ⚠ 外部郵件： 此郵件來自公司外部，請謹慎開啟連結或附件。
+>
+> On Wed, Nov 11, 2026 at 05:26:36AM +0000, Jingle Wu 吳金國 wrote:
+> > Hi Yao:
+> >
+> > Could you help verify whether the color of the TrackPoint stick underneath the red cap can be used to identify the vendor?
+> >
+> > White: ELAN
+> > Other colors: Other vendors
+>
+> Hi Wu,
+>
+> The thin stick under the red cap is black.
+>
+> Also I visited the lenovo's supporting website, there's only
+> 1 ELAN dirver for this thinkpad X14 gen1 model's trackpoint:
+>
+> https://newthink.lenovo.com.cn/driveList.html?selname=ThinkPad%20X14%20Gen1
+>
+> The laptop model I'm using is 21XM, the driver works well in windows 11.
+>
+> Now I'm confused on who is the real vendor of this trackpoint device. I may ask help on Lenovo's supporting website yet. Wu, is that ok to refer this mail there ?
+>
+> >
+> > Thanks
+> > JINGLE
+> >
+> > -----Original Message-----
+> > From: Yao Yuan <yaoyuan0329os@gmail.com>
+> > Sent: Tuesday, November 10, 2026 9:48 PM
+> > To: Jingle Wu 吳金國 <jingle.wu@emc.com.tw>
+> > Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>; Ilpo Järvinen
+> > <ilpo.jarvinen@linux.intel.com>; Vishnu Sankar <vishnuocv@gmail.com>;
+> > linux-input@vger.kernel.org; linux-kernel@vger.kernel.org; Phoenix
+> > Huang 黃世鵬 <phoenix@emc.com.tw>; Stanley Chen 陳建維
+> > <stanley.chen@emc.com.tw>
+> > Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint
+> > device variant id 7
+> >
+> > ⚠ External Email: This email originated from outside the organization. Please use caution when opening links or attachments.
+> > ⚠ 外部郵件： 此郵件來自公司外部，請謹慎開啟連結或附件。
+> >
+> > On Tue, Nov 10, 2026 at 05:26:21AM +0000, Jingle Wu 吳金國 wrote:
+> >
+> > Hi Wu,
+> >
+> > > Hi Dmitry/Yuan:
+> > >
+> > > We have confirmed that FW A1 was never released by Elan. The Elan Variant ID has always been 3.
+> >
+> > Thanks for your information, Let me share more details:
+> >
+> > The trackpoint has driver from "ELAN
+> > Microelectronics Corp." in windows 11 on same device.
+> >
+> > In Linux I found the device is probed as generic mouse device but not
+> > trackpoint device, it's hard to use due to no sensitivity setting from
+> > sysfs. I found the reported id
+> > 0x7 is not in drivers/input/mouse/trackpoint.c's
+> > trackpoint_start_protocol() after debugging, the trackpoint is probed and works well after add the id 0x7 there.
+> >
+> > So I thought this should be a ELAN device w/ ID 0x7 and cooked this patch.
+> >
+> >
+> > >
+> > > THANKS
+> > > JINGLE
+> > >
+> > > -----Original Message-----
+> > > From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> > > Sent: Tuesday, November 10, 2026 10:36 AM
+> > > To: Yuan Yao <yaoyuan0329os@gmail.com>; Jingle Wu 吳金國
+> > > <jingle.wu@emc.com.tw>
+> > > Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>; Vishnu Sankar
+> > > <vishnuocv@gmail.com>; linux-input@vger.kernel.org;
+> > > linux-kernel@vger.kernel.org; Phoenix Huang 黃世鵬
+> > > <phoenix@emc.com.tw>; Stanley Chen 陳建維 <stanley.chen@emc.com.tw>
+> > > Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint
+> > > device variant id 7
+> > >
+> > > ⚠ External Email: This email originated from outside the organization. Please use caution when opening links or attachments.
+> > > ⚠ 外部郵件： 此郵件來自公司外部，請謹慎開啟連結或附件。
+> > >
+> > > Hi Yuan,
+> > >
+> > > On Mon, Nov 02, 2026 at 09:08:36PM +0800, Yuan Yao wrote:
+> > > > The new ELAN trackpoint variant id 7 is found on thinkpad
+> > > > X14 Gen1 laptop(Product Name: 21XMA006CD), it's now incorrectly
+> > > > probed as Generic or Logitech PS/2 mouse.
+> > > >
+> > > > Add ELAN variant id 7 to match the TP_READ_ID command return
+> > > > value, probe the device as trackpoint correctly.
+> > > >
+> > > > BEFORE:
+> > > > input: PS/2 Generic Mouse as
+> > > > /devices/platform/i8042/serio1/input/input63
+> > > >
+> > > > AFTER:
+> > > > psmouse serio1: trackpoint: Elan_variant7 TrackPoint firmware:
+> > > > 0xa1,
+> > > > buttons: 3/3
+> > > > input: TPPS/2 Elan_variant7 TrackPoint as
+> > > > /devices/platform/i8042/serio1/input/input65
+> > > >
+> > > > Signed-off-by: Yuan Yao <yaoyuan0329os@gmail.com>
+> > > > ---
+> > > >  drivers/input/mouse/trackpoint.c | 2 ++
+> > > > drivers/input/mouse/trackpoint.h | 1 +
+> > > >  2 files changed, 3 insertions(+)
+> > > >
+> > > > diff --git a/drivers/input/mouse/trackpoint.c
+> > > > b/drivers/input/mouse/trackpoint.c
+> > > > index 3bd8fdf56cd3..f46fc1665c96 100644
+> > > > --- a/drivers/input/mouse/trackpoint.c
+> > > > +++ b/drivers/input/mouse/trackpoint.c
+> > > > @@ -25,6 +25,7 @@ static const char * const trackpoint_variants[] = {
+> > > >       [TP_VARIANT_NXP]                = "NXP",
+> > > >       [TP_VARIANT_JYT_SYNAPTICS]      = "JYT_Synaptics",
+> > > >       [TP_VARIANT_SYNAPTICS]          = "Synaptics",
+> > > > +     [TP_VARIANT_ELAN_ID_7]          = "Elan_variant7"
+> > >
+> > > I wonder if we really need to say "Elan_variant7" or if we should simply say "Elan" here as well.
+> > >
+> > > Jingle, is this your part? What is the difference from Elan trackpoint reporting 0x03 as its variant?
+> > >
+> > > Thanks.
+> > >
+> > > --
+> > > Dmitry
