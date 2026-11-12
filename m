@@ -1,76 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492903;
-	b=Vw0R+Aq42fcuL79sYL/c6YiHbhNJVrYI5PNAsj6jjYVuTUWC5hzGs+chzkBztrkEh7xM
-	 Aw8d6Zg/m/Jn/2tiV3nNvhORwdhZ6fFTg9VPWl/yCm8pSyYEcLpglbWvpNyQU1j7Ir1EI
-	 V1vYVodQM1cBntTlP6xIHi5tHSptr7phAQyPSEvz9+uzc98adm6cuVb1eMX3ypHDRlml1
-	 dhXF9S2ue30JvNSZU9FXnRxZZgsRdFohOh2Hdo4RKA9ZX5/33ZfiUbwSSjfRCLEr+LccX
-	 7Sj/FARmE+SGYpqk7QetmtJMrbostieFesPpaHeOYx9AiRgwIAXXzvQYfGCMALv2I5Q==
+	t=1794492896;
+	b=ubfJmKRQVGZoUgvewxeEpgD3+DDOVUtvYDnCxC6VJtHz9Y4lLhaXbjxw2OPxI3VLGjIU
+	 h8ASHF2Y/Jd6jYBcFs6LH7sd/60GBY2tVMwqsZ1Q526ILq3RmdsbK8/36LanRY3Sy04UF
+	 7CyU9HsWKA6GMtiW1sDNbs2a65zimwgo5NXh74fJH+Ah9npVCH1S0cUSu9hkyP+i8wUVt
+	 3g/3HTutGs2Zbwo/zKJUxS8hofSxPTmsI1DZZhaxW2NrdlFVpWNZY9qe0RrBZKS/eMuj/
+	 9R3EAYkPXT0K0ekT468JGeWP4ICQeU4f1MQvuF0E2dcMhBfIcHThK1sHYX8rR2kXq9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492903;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=p9x4nyKp58U6HRLjvUMttJNHFZj1/ft861x7cFqIKgw=;
-	b=HD204RkRsDOSgI4EPVyGOIxi3p6eY/hU6hQ/n+0cRHiy1r21NAmRabF4vu7Z/Wkl0Nik
-	 9Tiv7fxklq6Q21snZJF5JpFbNGHP0ZVi5TnfJeDTevkeq5rTYR6CPDBqCkiwTwy1KrGNU
-	 v0WPVQ8/3sjpFmpz5w9L5i4rmPqcFNlD3Scs6LW1k435kQVCUkrCWZvCnJDsnZAJsMp2x
-	 oFSRHbSusj6fJnY92FL4bYol4xX4raFA/LVVpv9hyhPpNNUh//NaS1RneI/FgSsB6QE6n
-	 e0ZZk+ZMvWFk2DOnJHlUvvfxUIQus0GRmqaRJNsj6Q2+KY/bcNVMzu76bRJhNKjb8fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492896;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=nOnTfPlOL03qOmHIzh6thEjDQQkJdnopMg7V/l7FapQ=;
+	b=toVhf/jNcnQ3oBZtNS8kKZLqAOGJWAclnEk0MbcnsSJKesh3h9Pq2IODTnY+LD7soCco
+	 kN7Laewu+sS53uiaLeX4k9NVr+/fGBw4dGtWPMiinWSMFToBgaLW8ROtVDunQHAiKZEiY
+	 E8Fdmd7cxte/hBT4LchoRNPdg19WSV0pW0vToANj4HTFZW2VQkM6DL2anMhjGENjZe4+c
+	 4H9JEeJnkRe8vlK5WQ8YbrPSDUWu+fKujOezEDiYZMfHDeKRC/yqrRdla93oXcvgxkmQg
+	 ukgxQm2maXDFztkskpASoAGWb49Ti/GRP+wYUsDHJmyK0tZ9t681GFBGOYEl2Fabf2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.217.47
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZyzCL0KH;
+	arc=none smtp.remote-ip=209.85.221.70
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F404606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:15:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F404606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7cc013095d4so1589048137.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:15:03 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5131F606A8AC
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:14:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5131F606A8AC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZyzCL0KH
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48e29c25101so2249447f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:14:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794492894; x=1795097694; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nOnTfPlOL03qOmHIzh6thEjDQQkJdnopMg7V/l7FapQ=;
+        b=ZyzCL0KHYmPmV1rv1fa56vVy/dEPis6EwEF3uqKSca8RkkiNnLxY/Bm8eOY9ffwQm4
+         RxveEMoq/wkjeLR54UtRoKMH0gWCcAekuoOgrnxktjWaiLA+VRFG8vLUEd4HI2lDzIVS
+         W+XBNOPvaodQFvLnKmVurVBYRokWifVamJQAxqWClUCRWEwnEk4jTET10wuhaEs1kPL9
+         neDxH5kkBLNu9YJyBIQCFAe9UreEnXQER996j1HFSNaCZeN+mHAm4KwDxePgWbg9SIML
+         b+ymMn6cfQ8JhAzVvpUivJt6CTU8pb/BzyID1StdA2ofRKtbhlNoal3bn1AZOLxpPF9f
+         Gi/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794492902; x=1795097702;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=p9x4nyKp58U6HRLjvUMttJNHFZj1/ft861x7cFqIKgw=;
-        b=OmCngZ27S1030dKMDOxUBIPjoYCuQlFgm7phvhJJMc/XB2o2wkmJgvrHvL2AmA9KW1
-         eOyMSeD0F5h2tUpkekDvrFg0gV4waxE8UKy+oGqdmE/xx1KTpLXXvz+DfYKF9OF2OaOQ
-         VjKXunw6yDeh66tYAchuTs3KkaKjmmHcaR03ENBN6oo/wC2lq+aEV9wNn0HV3Z5ijy/F
-         gdlI6Zb0Htmf3MHBHVlJjABSWv/EZSt4NP3/uFUE57VRIs/BJ7No3lcsc7fh0CNrv0lX
-         6Ike6lqvc+v9eCNDlNRsdn9OPJsY0PuYBhJTdY4FfrFyWKfwrl8r9cODAaettS8Oac5H
-         e56A==
-X-Forwarded-Encrypted: i=1; AL+hErF+Yh4c/htPYtol2jqRJIttBGsjMAcRB+qslyNMmJ1JXIvVqLl6PvxsRNPIizU/LO9KVgywiG2QUbgv740=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/T16mGh5MuAuj4vFmlWPE4uOmQLkrnzqTf3TW3F5TsWrcFR6E1
-	Ee35XlI/Kql0cd8D0+PYmjIvOm2syQgHlXeNFipOU0efj9gnfJtbWkhCRObQSbdtCGU=
-X-Gm-Gg: AYBFou3Dii/GOueXAI93ttsZGH+sywniakP6BKP4wkYN2NwDOR/2K7LGxtTLKoHWsF5
-	y2hyIvVf29hnEZZCno1m1ewQ6btBWJ1n/yZW+xdU00J/7OmmDlF+zAyRuhymQA7AP2oibgqETbi
-	69LccjmqqqBKQKBqD3gpYn4dnHlyXWy6G0b6zbx7dBZb/6HT7nFThVeEPVYqDS4elHUKI5ofiTt
-	dO86fr3XyEO6ItxBqzL89aGqu9L13hK7ELkurJkmCa9drFvYj4pg4HHH9XeEp1S26BoeywHUYks
-	7JUxy40miXoiyg8PEzFOWrJoDIOqPKHkUz/yJb+k46UwYgMtqhQDLaje2fz2b8od/VMxwLPetNk
-	AwXjf9fhxANW194Shv2IT5k/cZrWB9ZWj0oGIcWlJ+zAMV3g46AVcn23LOaSp0ODCqD+Jy+D7Ns
-	qh+XBIj8pdU1biPwjigfZhMAPVUGy9CRgS7LDlmyfcYDV8t6LZFd/dcl3WWDAFbtqbuD+9d4y42
-	MuKxuPHClTkqNzy+4951R+ou7p977lno3Mo6VKHJmPredvx8Riq96O33BZJnOnbiDHB/JKfKLX2
-	l0ziEb3u29JWf3Bd/tf3lBXyq0OUOMmRHhOgwYvahcPtzyT/V1BOniW8fj0IHGJZ5qs=
-X-Received: by 2002:a05:6102:2ac4:b0:7c8:4efe:5243 with SMTP id ada2fe7eead31-7d504e72e57mr1972940137.14.1794492902432;
-        Thu, 12 Nov 2026 06:15:02 -0800 (PST)
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com. [209.85.222.53])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c1fffe12dsm5138687241.5.2026.11.12.06.15.00
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 06:15:00 -0800 (PST)
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-99a5710ec0dso703942241.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:15:00 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGJnbcPBkwNTOdoNntslchLgLxjOdKl4XIj4Fmza4YOh0Q55ibdhIlWYzRxI9IiURjV0Kyrzznr8qDlrx0=@vger.kernel.org
-X-Received: by 2002:a05:6102:5798:b0:7c3:881f:b620 with SMTP id
- ada2fe7eead31-7d5060e293emr2040092137.21.1794492899954; Thu, 12 Nov 2026
- 06:14:59 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794492894; x=1795097694;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nOnTfPlOL03qOmHIzh6thEjDQQkJdnopMg7V/l7FapQ=;
+        b=R7ng8JVEPYp1WjCVsJnk1boBm70X9G+6nGAjOS1dqGAPBlbxZmfa2IIqalE0KJQQp7
+         cc0lXuipu8PlM31yzuVsMa0nAQhJ/zikVHqqCFS1Zr2gyP1gfD+8UZSL17ncBT6z/mzA
+         4HP4y9F9oyjTv/OEQkSuElqivP8xgjAzUa0DgQhLcQhVqOJ5GAPBcHNbXUiH/6XpAIGE
+         HzHIXvteUeUBYFYw4x+RIT6rDL0UBJDGTf0/kxRV1bMYxX29v6paCN0kSwAdSbmqnS5L
+         XZ23wJBj9QtAHzC06sOSjXG8t7zPWeEf5RuRsYQIEvRaztiUj9QSOAKIWfgQgt2Zpbzw
+         7wmg==
+X-Forwarded-Encrypted: i=1; AL+hErGn8Iov1+UfOrbmU3DX6YbyS9EntC+GbFpo7dkAaNr5IXa81QZAUT5fhQCxzejWUxmLQVEhBGLUYl1i9ZU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8sNLYd+3H6h3wsmCvswujPuHgnDOTHwfMHW3m0Fz6ZaDJwN9Zn
+	3OWmRCgcQlrsGgY21aIGXpbU257D/5lZZh0BuR4D1xJZJonD1MyvV3Ny5jhkmrxAD5WqZKaSn/7
+	Gl4Y/VlOOo8mQU6VYVoHgig==
+X-Received: from wrpb11.prod.google.com ([2002:adf:f24b:0:b0:48e:1312:61f9])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:25c6:b0:491:6c24:65f5 with SMTP id ffacd0b85a97d-499c5e3c13dmr10477013f8f.17.1794492893477;
+ Thu, 12 Nov 2026 06:14:53 -0800 (PST)
+Date: Thu, 12 Nov 2026 14:14:35 +0000
+In-Reply-To: <20261112141440.3050124-1-vdonnefort@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,47 +78,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
- <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-2-1b2072e8c37e@ideasonboard.com>
-In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-2-1b2072e8c37e@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 12 Nov 2026 15:14:48 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVBBySyLE=5gG5HvQV95811asBZ7LKwsQXAVPdUPjjTTw@mail.gmail.com>
-X-Gm-Features: AclHuK_i81THT_hnDNfFBzoyAYqo67SKua85inNQRuBh9I9Xk4b1lG_6SVOc53s
-Message-ID: <CAMuHMdVBBySyLE=5gG5HvQV95811asBZ7LKwsQXAVPdUPjjTTw@mail.gmail.com>
-Subject: Re: [PATCH v4 02/13] pmdomain: renesas: r8a78000: Add SCMI maps for VIO
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-media@vger.kernel.org, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Mime-Version: 1.0
+References: <20261112141440.3050124-1-vdonnefort@google.com>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+Message-ID: <20261112141440.3050124-5-vdonnefort@google.com>
+Subject: [PATCH v1 4/9] tracing: Cache ring_buffer_max_event_size() for trace_marker
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 9 Nov 2026 at 14:34, Paul Elder
-<paul.elder+renesas@ideasonboard.com> wrote:
-> Add SCMI maps for the VIO domain to map the VSP and FCPV power domains
-> and module controls.
->
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+write_marker_to_buffer() calls ring_buffer_max_event_size() twice
+without synchronisation against ring_buffer_subbuf_order_set(). If
+subbuf_order grows between the two calls, cnt may expand past
+TRACE_MARKER_MAX_SIZE. Read the maximum event size once so cnt can only
+shrink, and drop the now-unreachable WARN_ON_ONCE().
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Fixes: 2808e31ec12e ("ring-buffer: Add interface for configuring trace sub buffer size")
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+---
+ kernel/trace/trace.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index e8c4efa8107b..f44bde7c51b7 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -5962,15 +5962,14 @@ static ssize_t write_marker_to_buffer(struct trace_array *tr, const char *buf,
+ 	event = __trace_buffer_lock_reserve(buffer, TRACE_PRINT, size,
+ 					    tracing_gen_ctx());
+ 	if (unlikely(!event)) {
++		size_t max_event_size = ring_buffer_max_event_size(buffer);
++
+ 		/*
+ 		 * If the size was greater than what was allowed, then
+ 		 * make it smaller and try again.
+ 		 */
+-		if (size > ring_buffer_max_event_size(buffer)) {
+-			cnt = ring_buffer_max_event_size(buffer) - meta_size;
+-			/* The above should only happen once */
+-			if (WARN_ON_ONCE(cnt + meta_size == size))
+-				return -EBADF;
++		if (size > max_event_size) {
++			cnt = max_event_size - meta_size;
+ 			goto again;
+ 		}
+ 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.56.0.567.gdb80ae8cd5-goog
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
