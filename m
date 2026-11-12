@@ -1,101 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.9
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794443463;
-	b=bJlBfuXADw5f/mD0hUaEJCCpQsrloZOnE3H5S77DqH+AmKvHKZn79ApYsH3KhIb8PnCX
-	 C9N5UiUpiOFCBQaVjk3SSPRDHGB0HlF4TNM6XiCUWaDZBOHR2zsm2TYkuILZlZJp8KZSI
-	 DG/1f+Hx+0fwsHLIPyoG3TiEzc29niKv+mvICnFrb5AaFSDTZZagDV7dq4cPQNoSpEER2
-	 5dNkgsc0uAPVCDFNhdAuEOqn8Hz3sKPX3NxYviKDI7fAhbEYwegvWmynSoHGm6N4Zqc1i
-	 FS4BaJiTLlGjyBbeIVxF+Iz/Z35YR21FsO1kCux37ksXf4r/7yyKs1ji6b0B6/1xHMg==
+	t=1794443785;
+	b=qqkAWFjiTOj0CTm66W7cxR7AeZVfQo126xxeS/fkASLHIPRE84Nv109gY9VepSRP9fBp
+	 jZy4ARm+H8qz/jjQ8mOgnRatI7WuabDWvK2XqCxr3bgdgViAhBFQmn2X+ojhLtb9YG0NI
+	 AEYvJP5s3QaAz0H1x/wvGPMaZttGu4ZYEO1dXlpj2zcPn8KPRhfNK/shqravtwdXgCrWj
+	 cy6o+JU5SLUFaIHLMgbVgCrHOUuQw7/v2rul58KdWDEeKdwEIAGtzBzMgpILHDSQ/4m16
+	 LErcggJqkwzx6/RBcwdC8dsftnYC1Uk2bVEzY/gqWhVenPLCA5hKTEH6HCqwPmztJ+g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794443463;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=6u9+23TRytDuYgPE46LNdROZdeRwOWR2OfnIkWa60H4=;
-	b=S/H2wYdNImha557GYLc+eIN8Iz+NYE7EurMnujo4+R8v3ZqfIVTR5VuUKorZXVrruW6x
-	 0Xi7TjZTPcZHF/05szmFs6wxZqOe0odcYb6PBtANjpkBCIenmUIjYr40f+9bqEVwARNnd
-	 ZbtBqBBIdloqr1ezW3YSD3Pk5OmcKqw7IkR3fYX+InQoTXbulafz/3XKku6477/eAUDYy
-	 hSVvljDGXt7CJ8O+kFEgyyGSWM9CDOhVARui2l5E4RHXI9hJ7gPiW1fIy1G/HsNMxjIUN
-	 3aPSQpLIM0ado0IP5ozyqSCP9mZ46m1dXmYgJSwuatT77u7PA1O73RBuPP+aX1PU9MA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794443785;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TaXxoXg0t5nBttAZgYSVgg/xNz6zmOPdNTy9TP8GuJE=;
+	b=op74u67PyfZlDk0shsOh5gJM6zI274JFovB5XBc685EqZ8xhjqPDtR+dDoRd05ibu/NB
+	 VDlSD2OBguU/XNkhymiSkRX7Oa2Z8l436unKU0f7sNs60YB80u2TiLnXweWJuw5V+hbc1
+	 aKFe+/P1wXkuuy04jtk2qKGnbokEBSNwx5PmsBHdR7LDScYZHl7JWbO5dZpcem1eEOe7v
+	 5YzVG2RTSFCq8VpIXVtx564sXMGjzIQB9pKc9mR3qnpp+ia3sWAQ1K6m6oKEv8RJwvI7e
+	 x70MH6IZyBFFWIj6kaTpP1hroqRpJvhS8BYtN7jesuAJuck1UA6Pl8r/pUg4VGyfWjg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cS4gU5v+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EYyHYXuN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.9
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013009.outbound.protection.outlook.com [52.101.83.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECA8606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:31:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EECA8606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003CC606A321;
+	Thu, 12 Nov 2026 00:36:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 003CC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cS4gU5v+
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-54492d8a988so56261cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:31:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794443462; cv=none;
-        d=google.com; s=arc-20260327;
-        b=J1ACmLXxTIZcK16kDliOlObDBdmVrhwcHyIHTH//NdLMTM8UM3OShdFvG8v3UZcGQp
-         0SAc9NgnoCwevcFxcYpW/KXnHPPuAJ46WIhNev96aN24C2MVxA2hi/bzJfs88fje4Qae
-         WcU0Qd7r+qd+gqpN7hC78Luy019QGXXy8iDMorQoK8n9fFXZf/nzZ5qeC5kWvw8vS7nk
-         0iKb6XY9UoRZUyh0gXoq+8yVqddfexyecs6UZdDtyTIdlISO97l3MHXyirvf5f65IRmH
-         u2J++hKcgTo+tmMQeHMb74uFc9jfEXKte/MhSgTtM1DwNi79MvSUY9OcdeaNOyOeTrUB
-         /+oA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6u9+23TRytDuYgPE46LNdROZdeRwOWR2OfnIkWa60H4=;
-        fh=+JW9xGB8O/gqfnwSszVh7nOUiKLDhfYfEvkMqxMnBVY=;
-        b=bliRktz8UNREvESB+7OwoVD8FLUNWS8akks8zBjBLnKVxiPHEg1kDicCWb7nHZIKSD
-         IlKoLpAMet9lA+mULD/E/QmXZlAJLCestgLdZekvk7YbePHBnP6CyQSvwEiEK94O1MUb
-         DudLZRVKeZvDh+6c6ivAWH3vAf272p6iriy2c8w01i54h7anCFC5wbt72fV+35O8mRzh
-         LqIWdF/IUrM9l1iHiFxzxiBjugKezlWfd2r9F0Lg3LXWzlcQ4pdUoeq92lQskts5g6dt
-         Ck6Bj6oQtmvhhi+uoUHHV2c7C3vh5wXx/XF9MMVpi8iH6TELaBR/PKtiGGELk6S02fo1
-         OVjQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794443462; x=1795048262; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6u9+23TRytDuYgPE46LNdROZdeRwOWR2OfnIkWa60H4=;
-        b=cS4gU5v+O0TyZ1iDsVOtlQPiiTgDg/CwQKTT1OLq6TOJA2Y+KOUSdNfb5KYZ2pe/EE
-         GQLpwzkB786Fr6MhN8cnUtGZbeeeaHYCWhfUPYHd7PtdNU3+ejbdad6ykF7c273UyzFS
-         BQ/AOLaWA4jBO2PuVvyuDQ9Gr+NZNJdXRvFehLRFeaBScogrkP7J1S/R26dfZ9VVql52
-         UNbpNLm9T4zRf0UCzAj/Wx/6QX5MOLSVNd4BTiQmjJscdvf8BiL3EEuiCy9TApXMTiNn
-         0fbdUBtXFIehB/Ypd2JEVb1KjbFqh8Y+WNV1a5f366g3UFr4eQVBG4pxSOw+TNw4RVLj
-         GBFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794443462; x=1795048262;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6u9+23TRytDuYgPE46LNdROZdeRwOWR2OfnIkWa60H4=;
-        b=mVmOts1P49/ihQDySvJSqCLOwv+AsP2jfkjXkre7R90aqTH2ZBgTI6orVz5aLbmOkq
-         zl1HVFUeI4EgPacTf1ayuH6VIfXxV5UYTJzKVitDoConWORFXfLeSQYwJ4tf9Vd8qa6D
-         Et9+p38rggadOPTWLIQhYvmup5Wfa84LX31JY5RlgccpkuiTbUpkGgA+lpX8atqOysor
-         G6W+6s40aDfBXRGSR+u54T6i//b7NwP9JWcB45K3SUAoZzy7m08pEpskY+2wDaTVBeFI
-         AkAFRvdy31Bw57TLSLVZwD1R/t7d7OxHxm/AkuXxuVXqAzilSMW0FJzQLmJLriIUvrGN
-         CQyA==
-X-Forwarded-Encrypted: i=1; AL+hErEw7rBwCPWwnVY2E2v/iGE3+YRbjr8rv0MFcfkws6t6LCM2xt0RYmSp3Zg2fRKrjEfdIsfUxsSbikbt9pk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RxJVigL/jg6oMda0VANx6GtMDkAibMBIlD24POEXbvBBtT3nu
-	5SCSBc64UOuHPG88LbY/PGeuu3KfPVaGPy49Z+yMjg6OkbTGRzhwUnziUAzp+Sy6UyxDQv29wEQ
-	NiIdvuTS0dalvUNGolkROpCxeNJUW2LyZKWSVtSVS
-X-Gm-Gg: AYBFou3Q0lB59HLxalg2nRzJRnfEi0leXs4a073VQfi/4GTj1TRfTSBvDNtnyjD67R4
-	9LuI0+lyhp2EZK+0h6yJpO289wFvwF9v+QHWLuYX4dE+iZR0H35VTP+FzacxVw0ypiv9HukQTAd
-	bHsc3ORMdQW1baomi1B16DO4NorQT+61LsiV7H/svcbYh9+6Rpri3pZZm0/Z7M9KOjfH2GlnkDj
-	K/XuJt1M1o6ac+3PyfUOqGIfUH7WL2B11ub61FUwK0vP72+OzcAXskV4aOxGw8VFFTawwMUCkfY
-	D/kTmbdjsy52OXpXNi0v50bjdiqi7HpsWshw6unN/urOOQmp4lQxRUwD4ESUAwDKb8OmGjo2Bro
-	4IS+Atcvr/T6fH04OQSF2CPQyizRWXJuMAeDrLMkog11KGiOURPe0FV16ReA6RFCmjuHp5LJap+
-	2qeSBn8badDKy/dBDxFmGU3auS
-X-Received: by 2002:a05:622a:5597:b0:536:6d88:600a with SMTP id
- d75a77b69052e-5598fa68ba7mr5286631cf.9.1794443461135; Wed, 11 Nov 2026
- 16:31:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EYyHYXuN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZFZB72+lBCGwR6OkRs1sdwoyjK02z/InqyYieoI6Ur/d3Pur51rkWrWDvqOIY0U+F/H9UVuMiTQu4uYzOqieniSK057w32keCywj0gAamtn+52WoWBziEMC+aq2GtC1KRY8dXRk7c1SdbPw7bHz4kT1vFjpI7U70BGAWxcag6CSJyMrnh6XybpFuCcfTHjjBoFsMkNuzPE9aon/U44oACjKxanqx4JKdn2NSscdrkouFux4de3of0GiqcakK6lwRHaDVh+ors551oHqWoFZJnfHrRJxFpe1XmzmaVNbT5ZBSQH/8Rnc5058nYQNgvXwTIkkXigV/FAKWA43QnpkIig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TaXxoXg0t5nBttAZgYSVgg/xNz6zmOPdNTy9TP8GuJE=;
+ b=fGOTja5mK2214/yg84pun+j8SA9qUDFE6RyEI4NHBm0bfff2ehf5YQsMDO09os/D1ENjzR3oBNZKjbOfmQGeYG0BXLdlWNgqiBdmKRcPiWgId/z0OxQWoMbuCdXeuPoy9sa/zYrVoMJBbs54cUyUZm6JbOV2+mIsO2nUpxgPdyvZO9ldKhZPapE7p30LVENroxlawrW0DMo4AJeKzUdZyZBvJBJBBzQg4xawEx9gv2WdzYFim/kfyKL/E3OfbMwKnNBEtjQfGFu8V+5mG4CGykdT3DrF1DlD6uMV+YyT5MWaGIhEEVTGtBTcU4O91zz6nMeqIyt4/2ZsfAmTpxob7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TaXxoXg0t5nBttAZgYSVgg/xNz6zmOPdNTy9TP8GuJE=;
+ b=EYyHYXuNdFYFokPbJHDCKFkxM0E336MeRIegDw/qXs6C4DQ06qYWjG27nyhQNeSVgpAE7GnhWE5enn+zQ41+uwP8beaFpR4nxYmmJzSb+MF/2ffA1LctORF0yj84+7tCQvPkVC4zyUSlsEeMS+XHeFUrjnqFKkXZefKXRQBkKt9Prd34h3oxbH63rYSpk6leCl/+WzXPDi3HkHe64OBhD6gV2/IphdcVG78sm+M4Gs3pN/sZ7NHBTaP6n0LMsJfN4ernPNOK1dayc9HQzRWaHBA7edHlnCbVhXITpjz5bR1wzAC1qPYQg8TiJCjnfM9zXVKAcgXtrLkqWB+kqreYVw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by AS8PR04MB8660.eurprd04.prod.outlook.com (2603:10a6:20b:42b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 12 Nov
+ 2026 00:36:21 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%5]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
+ 00:36:21 +0000
+Date: Thu, 12 Nov 2026 08:41:16 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v5 6/7] dmaengine: fsl-edma: support per-channel DT child
+ nodes
+Message-ID: <avULLAj1s5IRo80N@shlinux89>
+References: <20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com>
+ <20261111-edma-iommu-v3-v5-6-2537cebe6ca2@nxp.com>
+ <avSsj0Ho_n6DL36_@SMW015318>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avSsj0Ho_n6DL36_@SMW015318>
+X-ClientProxiedBy: SI2PR01CA0005.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::23) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,83 +113,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110112546.261415-1-hao.ge@linux.dev> <20261110112546.261415-7-hao.ge@linux.dev>
-In-Reply-To: <20261110112546.261415-7-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 12 Nov 2026 00:30:49 +0000
-X-Gm-Features: AclHuK8yVOU0rM_Krxb68wuVhwe9clhKmxqaCwvxpYiiXo0gID9uClDW_ZDomNY
-Message-ID: <CAJuCfpHReBDoXj_U3Dy2hksj63KyHNBm4gS+wtR_ywidyJ8mfw@mail.gmail.com>
-Subject: Re: [PATCH v4 6/9] mm/vmalloc: only flush the cache after the vmap succeeded
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Potapenko <glider@google.com>, 
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>, 
-	Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AS8PR04MB8660:EE_
+X-MS-Office365-Filtering-Correlation-Id: acc5bd0d-99ff-42bf-d92b-08df4054f904
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|19092799006|7416014|261026121527099003|261028144727099003|261022075727099003|11063799006|56012099006|261021121427099003|261009223027099003|4143699003|261022105027099003|261102123227099003|261026140227099003|22082099003|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	x+CNt6Ncop+hA8z+6Z7GOWE48c9sU+cus4+Ao2b6dZUJ+5DhXYmYfWptx+5NbKO+tj7n2jOIIwxE7dU6sxjI0dZFC0l0KAUOOwdTHNxygfpPaAPJXwEIdT9NSmDc+KUff9twd6H9zNigl9lZ4OaD4Cj9JCrJGLbBQScxToc4gIgpBS4szsdbyvOEiBzjaXxY9p6MicLJbyk0DXoF4t/o6WxOolZCl038qz9pe35BvMRZDiHmzcIeAmg28QG0G2OWY4bpQmuf1IGZ0gmPLJ7D69xGYFdtMQlkQevm0cIknfh3xWStxzz3KA9W6pBEchFFzplLtNpplpmB7MTuOO+BIEVe+nYpj/pe9k0tm+X7VZ557G9Gf+lQnKwQ0y5WtkqaooO+MDpHo5p1xe5hFHsYNhMLWRHkv3nOtQV4yGfPTJy2/PwCe09/DlyJhndvj5DiQzg2ht7yKDmwxZVOJ1rWQ4peAkFGXS3NynTRmidArucExna8lX9nYvUsFdXUzxdqwxpoFsl50IdKs/GOwyWW3EtT0uYB7RzxV3ga0VJntqucNFzrYLsZuoCQJWlPc7t1ztRqI7vjfhZqKGZaBXOHytX9PzzQEDFvUf7EY8hIu20FIyZPSjmsS5i8RJCE9umAX0BHuof0epOlwUGPufczqAhV822defHR16+KcutG8kQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(19092799006)(7416014)(261026121527099003)(261028144727099003)(261022075727099003)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(4143699003)(261022105027099003)(261102123227099003)(261026140227099003)(22082099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?8YbuMpDTyK/bpi0CLSL4ZaUNV7q8SCASQ4EJ/Xbij5wf2AJyzrh/8BF69qQZ?=
+ =?us-ascii?Q?9/V4wQjOYBFEnwjkBFVS+ePAOuQHpCPRmgNMnect+ZW5z02gGuhUp3lvDp4q?=
+ =?us-ascii?Q?vYoIG/w+lm9nXvIT0QNc1T9TwCAj5FTFbE8GsUpe5mzknUqgKeGBon0jGo5H?=
+ =?us-ascii?Q?Of9sZ40kH9oEuk6eBVq8+xGqtUEAiUyW46p6GKu+tWi7j4aVuI+ksRI5Ex6+?=
+ =?us-ascii?Q?pmbsBtoDhdesbeVBP8i10AeYzwQtRwDpY/95OEW0+jJfu95I/UjKeknlFqcX?=
+ =?us-ascii?Q?wZTF34KkWlIwqdgbwBfDa0izf+kksPHlX3LJKGrFtAvA0I5UiTEC2bemV/ex?=
+ =?us-ascii?Q?Zzh1qADjgxGSF7OaPdl7CjFolzPjNhk6sVHlaA0c4NI6bA/MCEXVsnnaXJoR?=
+ =?us-ascii?Q?eimERI1FUFL74ZEvfaU8Ka3ciJSYxSSwLGLpGxdcEgmpfhwKJOVapGiF8GWf?=
+ =?us-ascii?Q?8Ji9ZpNIQISGJa8B1+RcgYovmbUy7U5Y032Ou8h67OQ8r9gjarYhvBA6EVmB?=
+ =?us-ascii?Q?+Z/9Q3xD8OsN2yaJkEVH0pi2vAvYofVEl3Cr3YtRexcZHBYqjcg1+lO9OzWU?=
+ =?us-ascii?Q?FlrrXeYzObZpTqboPzZfWw1WeV3eP+F5OJSoRYHzlRXYHIlW+QweENcfDhi3?=
+ =?us-ascii?Q?nopbNtPqWmYwfVwtD/gkv+mRSu+DnxS3AQp4ArG12Rey/2CAM1ktaTw6dnvB?=
+ =?us-ascii?Q?GwsrGFjnCjoNxUangD6kfuwGi47WTJli07rRPeM3wTnWNa1QQD7edN/TKng7?=
+ =?us-ascii?Q?Q2mjaQBWjC2OY+cL5xT+HXypr5JgcQJVBoQ4hWLMZceP/UAwSm0X59bDlCWF?=
+ =?us-ascii?Q?EWDhbHR++8NneLD3SXKxwumuNPatHkTEWe/TTe9vUHU6P895xyX4dcKqPgYJ?=
+ =?us-ascii?Q?u5mIrYui5CF182gQfNrUcRxjMh3XjUUdwoJLqOq+6hgshDf4KAlRcomGiSFl?=
+ =?us-ascii?Q?CZIsb9kklT0nX5R7aYZCKaqs/XCJ5OHn8uFI8fzjJHJXwyTPDWn+bUkgFBUa?=
+ =?us-ascii?Q?w/q9LqhZV1o2qriLMCO8eIWmJ7KRDqhEhPxK17k+Ej7YWmIZIkm8k4dQPHGD?=
+ =?us-ascii?Q?6dx9vDa9cnv7tZTKGYBxaMpvNZtYpNRaHQMK02y9B448AJAnf9SwGEcksdVM?=
+ =?us-ascii?Q?KNHwl0vwkE0Gl+6UnC6xgv/hHETeAW0MSBCZ2qyg+VReX2h7q1WSuyDqOcAs?=
+ =?us-ascii?Q?iWc53PT36DtNR01fbtx2A3tllS1H31GvdqJXsfkEGteA5aOLbLtkcHU6e4w3?=
+ =?us-ascii?Q?cawWaWWyWE55pGwWLI0+h2gdTaNIkibywlmBo3mWRXQcXVQFtEE5bD4enOcq?=
+ =?us-ascii?Q?/VuacCebllXw2c0GW0MFqnBeQ1lQQ8/50EZrJECmiC0qKdNSum7a9fDq9S2A?=
+ =?us-ascii?Q?XtYw9HM5Q/8TVf4izeTJqNYhj4N+WSY2E0FKD3FzhHbdVdBKMEk8zdympkdf?=
+ =?us-ascii?Q?FElgX+CKypUo4pHU+xpy+wYPlKeZvpMX+Gh3gaM3TM5xk6lwfUxNDUu8fkV3?=
+ =?us-ascii?Q?TBIvHv5hoDwItwcuWN2kdzNCjQ1/oiuYLxZywQCrYoJzHN20vc7JF9B728E3?=
+ =?us-ascii?Q?pbUoZFvmbbs+k0d9YA9ENAkieXGNdReAZyn4p4FpFpN31uDeIl56kKj6DFVj?=
+ =?us-ascii?Q?xb/Kq++A4nQulbCK3jn+agT4+cb/nU2IIaSdcsmh8/i2oTeJgn62OQAKpnFK?=
+ =?us-ascii?Q?Xn6smxQokvtIoiwQF1B784sQ2drn45RuOAaaCwtZfHzGQDDodMWFYKrLV2gc?=
+ =?us-ascii?Q?eLa+5xrtz60rdZwL4kHG138+OQkrjJ46E0dhbow+tTULXIqm43sK?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: acc5bd0d-99ff-42bf-d92b-08df4054f904
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 00:36:21.4024
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dEMwNJLv5/6gg9ZoUY4LI2np12T+5Tum/VEm4ghS3ge3anvffTIhh6OUZeO+mEK7tEvfCK1RpTtCmro0nJ2BRhxGWeQ3LpExzRIBwqFm3pxFufGxhSGuy3Q+pjbwF3fQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8660
 
-On Tue, Nov 10, 2026 at 11:25=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> vmap_page_range() and __vmap_pages_range() call flush_cache_vmap()
+On Wed, Nov 11, 2026 at 11:57:35AM -0600, Frank Li wrote:
+>On Wed, Nov 11, 2026 at 09:47:34PM +0800, Peng Fan (OSS) wrote:
+>> From: Peng Fan <peng.fan@nxp.com>
+>>
+>> Add support for parsing per-channel child nodes from devicetree.
+>> Each child node can carry its own interrupts and iommus properties.
+>> Child power-domains are not handled here; power domains remain attached
+>> at the parent level.
 
-New vmap_pages_range_batched() function has the same issue, so needs fixing=
- too.
+[...]
 
-> before they even look at the error code. A failed mapping is never
-> used, so the flush is pointless at best.
+>>
+>> - fsl_edma_configure_chan_iommu(): called after
+>>   dmaenginem_async_device_register() to configure per-channel IOMMU
+>>   by calling of_dma_configure() on each dma_chan_dev and setting
+>>   chan_dma_dev so dmaengine_get_dma_device() returns the per-channel
+>>   device.  Propagate the controller dma_parms to the per-channel device
+>>   so the DMA segment size limit is preserved.
 >
-> According to the Sashiko review it is worse than pointless on UML:
-> flush_cache_vmap() there is flush_tlb_kernel_range(), which syncs the
-> PTEs into the host OS. Flushing a half-installed mapping therefore
-> leaves host mappings behind for a range that was just freed again.
+>Needn't detail for each funciton.
 >
-> Only flush when the mapping, and for vmap_page_range() also the KMSAN
-> metadata, is fully set up.
+>The implementation is split into three functions:
+>  - fsl_edma_child_to_chan_id()
+>  - fsl_edma_configure_chan_from_dt()
+>  - fsl_edma_configure_chan_iommu()
+
+Fix in v6.
+
 >
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
->  mm/vmalloc.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+>>
+>> Child nodes beyond the configured dma-channels are ignored, which allows
+>> boards to reduce dma-channels without disabling every unused child node.
+>> If child nodes are present, every unmasked channel must have a child node
+>> with a valid interrupt; otherwise probe fails with an error asking for
+>> dma-channel-mask.  In child-node mode fsl_edma3_irq_init() does not fall
+>> back to the parent's flat interrupt array.
+>>
+>> The shared error IRQ remains a parent-node interrupt.  A child-node-only
+>> DTS without that entry simply has no shared error IRQ.
+
+[...]
+
+>>  	if (fsl_chan->dma_dir != DMA_NONE)
+>> -		dma_unmap_resource(fsl_chan->vchan.chan.device->dev,
+>> -				   fsl_chan->dma_dev_addr,
+>> -				   fsl_chan->dma_dev_size,
+>> +		dma_unmap_resource(dev, fsl_chan->dma_dev_addr, fsl_chan->dma_dev_size,
+>>  				   fsl_chan->dma_dir, 0);
 >
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index 0565cbfe325c..3f98056f8c7e 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -369,10 +369,12 @@ int vmap_page_range(unsigned long addr, unsigned lo=
-ng end,
+>Use dmaengine_get_dma_device() needs sperate patches.
+
+ok. I will add a new patch in this series to handle it.
+
 >
->         err =3D vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
->                                  ioremap_max_page_shift);
-> -       flush_cache_vmap(addr, end);
->         if (!err)
->                 err =3D kmsan_ioremap_page_range(addr, end, phys_addr, pr=
-ot,
->                                                ioremap_max_page_shift);
-> +       if (!err)
-> +               flush_cache_vmap(addr, end);
-> +
->         return err;
->  }
+>>  	fsl_chan->dma_dir = DMA_NONE;
+>>  }
+>> @@ -321,7 +321,7 @@ static void fsl_edma_unprep_slave_dma(struct fsl_edma_chan *fsl_chan)
+>>  static bool fsl_edma_prep_slave_dma(struct fsl_edma_chan *fsl_chan,
+>>  				    enum dma_transfer_direction dir)
+>>  {
+
+[...]
+>> @@ -397,15 +401,24 @@ static int fsl_edma3_irq_init(struct platform_device *pdev, struct fsl_edma_engi
+>>
+>>  		struct fsl_edma_chan *fsl_chan = &fsl_edma->chans[i];
+>>
+>> -		if (fsl_edma->chan_masked & BIT(i))
+>> +		if (fsl_edma->chan_masked & BIT_ULL(i))
+>>  			continue;
 >
-> @@ -758,7 +760,9 @@ static int __vmap_pages_range(unsigned long addr, uns=
-igned long end,
->         int err;
 >
->         err =3D vmap_pages_range_noflush(addr, end, prot, pages, page_shi=
-ft, gfp_mask);
-> -       flush_cache_vmap(addr, end);
-> +       if (!err)
-> +               flush_cache_vmap(addr, end);
-> +
->         return err;
->  }
+>This one need sperate patch to fix it.
+
+Fix in v6.
+
 >
-> --
-> 2.25.1
+>>
+>> -		/* request channel irq */
+>> -		fsl_chan->txirq = platform_get_irq(pdev, i);
+>> -		if (fsl_chan->txirq < 0)
+>> -			return  -EINVAL;
+>> +		if (fsl_chan->txirq <= 0) {
+>> +		return ret;
+[...]
+>> +
+>> +	for_each_available_child_of_node(np, child) {
 >
+>for_each_available_child_of_node_scoped()
+
+Fix in v6.
+
+>
+>> +		struct fsl_edma_chan *fsl_chan;
+>> +		int ch_id, irq;
+>> +
+>> +		has_children = true;
+>> +
+>> +
+[...]
+>> +		list_for_each_entry(chan, &fsl_edma->dma_dev.channels,
+>> +				    device_node) {
+>> +			struct device *chdev;
+>> +
+>> +			if (to_fsl_edma_chan(chan) != fsl_chan)
+>> +				continue;
+>
+>Can we avoid scan channel twice?
+
+yeah. Fix in v6.
+
+Thanks
+Peng
