@@ -1,72 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508699;
-	b=011GtL60c8+MEc7ZxvF5jnG8t3XzSwYeQ6JNsNmvQ1dr/4JrBW3Xs2Is+gjX2i21yg6U
-	 A8u7SUTHGsSzvTsa18+XPEY8c9CC45bVNhRWDKM4J5SIrFD8S1/Vq+gPk02Wa/qN8DQcU
-	 is4TSRSx5N6QF4VajgvfhUkD66CTPuZTv+3Qt3PhBsBY5OEvyHwtNuNEP3T3xhUHMa7vK
-	 RElPQ/nHOl8NWAHkUEqD2SlxKs0mXrRzbODyKvb+ft+xKM36ScZhbSPlbkSPwfSYHsTy3
-	 M3kVUIWlmnmhnErEpt4foeJSqPSgbKpsxsOcjQucNoT1+rnZXBJj9UtlU6PLKWFTN0w==
+	t=1794508701;
+	b=bzST7dLZA7fZNbDoHy/nC4b27Vp6nmvtlnkygcgnYsuWD6Xnqc4wyHVio/Q6dy87NUs2
+	 J6QrxUky2LQTHAr8jRfdFQuvcwZ0+vWxyyKiigb1O8c+/n1pLUdI223RVYQ6pvmIDyw5A
+	 Mtzo7PDMobCvlr0HNxefeZHifWAIpD/B4t+g/bBZ9Ez9CJQfnHUz8pAhEyvuFhyFwcjpk
+	 X4m9/p0nxTngVCDt3ZIpBPdrsQ9YHelZK5Ln2i+e3SyraTUcXc2fO2BOjEgl8xLCCQQLj
+	 9fS+OOjS7UahRYHZzfbHEvbwFahchTGSUpsc8wbvVXnB+AoDEFkRgnqX6GpEprQgbZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508699;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=QY5is9RtLyMLeUC3YRVX8Vk8F2XbXaQV9wHoojb4eko=;
-	b=3EI0K1iWJegpfSmvfKH31jPpyxoc7ESBDuBT7kL4QS0Sy/ZKYo3kbvjTOnxZz3AwJY04
-	 e9PqE7mTUAMzmNco42dM2VFdfdiHkImle8q1g69nYnOOMOvGDn9YBAUsGBjHaPehvxQFx
-	 PAxUJm5sXxr4cRFPCHZppdG8gwA+fqVBg/fhY7P2DZylsPw+Zq40muSiRyj3fbo7LB8A0
-	 9NbQ/cDrnNdKoHpRbHV4/s/JSCZuWim/U+vYSYL2jCRpsVnQy9ab26Mr7uAQShYAlhQ9L
-	 F+izNBlHU+/YIsLBThzoMCVD9jkAAtC+TavuUbhMyTIicp9MmRkJoXnPURafirjbuyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508701;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=jG//rwm8BG3eLa8N18ZMGuWXVwaEsdy3p2tva64gqAI=;
+	b=ozsVbuZO5Cx9TbrY2nsLbyGuHffT8eHVL5U8Td/D8ss7hX8e+RzxGzIqvdqkHj38sRus
+	 wVI5fc8jm81VHGkLgfrfU/SLI3EhG90Cuq4QUJOAjtp+UkmTn1gAi7DB8DFLEL3bqNU1W
+	 PWzN1XX8pUbfpUELRxmS06EaPKERCGOL2LAsweP651KzqTymKyEafBr80lHtbd2QzmAqD
+	 NO4FtoaF0g0mV/EsWSQ5KrHkgCMRKzNDufYIaHV+6rnoORxJY5pDK37VKFreTr6TSZZpr
+	 4Hl9TUdrG0+Ea9wqGBPKkEOc3m/mlXhaFOARj15KOKSPnQGQCjGV4GZMxvpScFrC0sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nfMdGc36;
-	arc=none smtp.remote-ip=95.215.58.124
-Received: from mta1.migadu.com (out-124.mta1.migadu.com [95.215.58.124])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Mo4MerTY;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA17606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:38:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EA17606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCEF606A339;
+	Thu, 12 Nov 2026 18:38:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCCEF606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nfMdGc36
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sK8MCNxvFgMKq/D0bjVj2QtnGQtRotR84ghf/Rgf2uo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794508696; v=1; x=1795113496;
- b=nfMdGc36XTWFxNt4irRREV+Gfyxp1YjUASb8exVEPZGrUGTdID5QNeFWniUQW4nyn42FLtmv
- gVdjD7ft63oBkeGQFaXRD1Q7nUMnPKUdFF54RYhm+3TKWiDWRabsicunAfysmS9/DIidqEDsoj+
- CajguF6POsDnQg25aXm5IuVI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bd651488b6e2ad80;
-	Thu, 12 Nov 2026 18:38:15 +0000
-X-Mizu-Trace-ID: bd651488b6e2ad80
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next] bpf, cgroup: Don't lose errors in effective BPF_LSM_CGROUP queries
-Date: Thu, 12 Nov 2026 10:38:03 -0800
-Message-ID: <20261112183804.1171535-1-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Mo4MerTY
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A667340E0234;
+	Thu, 12 Nov 2026 18:38:18 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id Or4TjDU85gde; Thu, 12 Nov 2026 18:38:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794508695; bh=jG//rwm8BG3eLa8N18ZMGuWXVwaEsdy3p2tva64gqAI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Mo4MerTYL5zvhK7FI25GpXleAh4ozLKh1Zu+0fQ8E0x71yYSlh537Fv5NGCfqjXS8
+	 hYWT1DaXzV6ZyOc9eylwwUDe5Rc/UP7SQ088RpeesJHZtN+Bok5cp7E1jR/NBVo+c+
+	 wLmWIox6h4Z52Hp+/qM85sTf/0x2LWNMg70ffnCaIPxehoYIHcL/d/YFqP/8neeBKg
+	 34p2CzdnDLEfGU4npMXSEXhT8u4r24g0MN7cSX/oZkARkEF66ej+a6ZnpLcdsl/Ezr
+	 QCLm3Iwb/JKDgAL/jrUB5eJefUaeFLd7dmoYthjsQe24pcx99LFCwmqDyv4VZLJqyb
+	 Oe1vGXX9iy7GaWR9Gg25EgkjJ23asBNAeA5CBWU4kLGvukUdK/hN+OlMyBEXDigea2
+	 CVa85rHZTm74BPy3YH66pYfIWGp+j5n8e+AdgdJo3xBdQOuIJx1qcsnZztJ43kNA8k
+	 Gktd9FSHA9Qlc2WLUTRgeNvGVqx0cf2laztG1BWbFAdAr74naPh7FnzrEftQuj6zo7
+	 0F05zU8pvhvb/yrkXSPwKYdSwOF49pce0WMFdM3LJpy0JlnNCksB0FiByLyfYoH8em
+	 EbwAQmf/EqrKnSJ3qXV+rVK4BK7PL4NVKJO9XnS5Anez6OhtYuXEVLtJIw02VGaJqe
+	 2iQppytewMA2SdliIi6ARnrQ=
+Received: from stx.tnic (unknown [209.52.143.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2484B40E0222;
+	Thu, 12 Nov 2026 18:38:11 +0000 (UTC)
+Date: Thu, 12 Nov 2026 10:38:09 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 3/7] RAS/AMD/ATL: Add unified UMC address translation
+ interface
+Message-ID: <20261112183809.GFavYHkdBpCEpwPWR5@fat_crate.local>
+References: <20260922202318.4079080-1-yazen.ghannam@amd.com>
+ <20260922202318.4079080-4-yazen.ghannam@amd.com>
+ <20261106175635.GAau4U08ECoVyMTEy1@fat_crate.local>
+ <20261110152106.GA1579751@yaz-khff2.amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,67 +82,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261110152106.GA1579751@yaz-khff2.amd.com>
 
-An effective BPF_LSM_CGROUP query walks one attach type per LSM hook.
-__cgroup_bpf_query() sets ret to -ENOSPC before the loop when prog_cnt
-is too small, but the effective branch then overwrites ret with each
-type's copy result:
+On Tue, Nov 10, 2026 at 10:21:06AM -0500, Yazen Ghannam wrote:
+> > Please remove text explaining the code.
+> > 
+> 
+> Okay.
+> 
+> > > Assisted-by: LLM
 
-- If the buffer runs out exactly at the end of a type, the last copy
-  returns 0 and the query returns 0 instead of -ENOSPC.
-- If one type's copy faults and a later one succeeds, the query returns
-  0 instead of -EFAULT.
+I'm sure that assistant will help. :)
 
-Return -EFAULT right away when a copy faults, as the non-effective
-branch does, and leave ret alone otherwise.  The copy helper then no
-longer needs to return -ENOSPC.  That also removes a false -ENOSPC it
-gave when a dummy entry followed the last copied program.
+> I had considered that. But I went with the flag idea so that we could do
+> multiple operations with a single call.
 
-Reproduced in a VM with two BPF_LSM_CGROUP programs on different hooks.
-An effective query with prog_cnt=1 returned 0, and so did one whose
-first id slot was not writable.  With this patch they fail with -ENOSPC
-and -EFAULT.  Queries of other attach types already did.
+Fair enough. Less overhead is good.
 
-Fixes: b79c9fc9551b ("bpf: implement BPF_PROG_QUERY for BPF_LSM_CGROUP")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/bpf/sashiko-outbox-211618@kernel.org/
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
----
-This is independent of the "bpf, cgroup: Don't wait for cgroup_mutex to
-read or free cgroup bpf state" series [1], which changes nearby lines.
-The two apply cleanly in either order.
-
-[1] https://lore.kernel.org/bpf/20261112172721.440275-1-shakeel.butt@linux.dev/
-
- kernel/bpf/cgroup.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
-index 57a785241d42..2bffa9f659cd 100644
---- a/kernel/bpf/cgroup.c
-+++ b/kernel/bpf/cgroup.c
-@@ -424,7 +424,7 @@ static int bpf_cgroup_array_copy_to_user(struct bpf_prog_array *array,
- 			return -EFAULT;
- 		i++;
- 	}
--	return item->prog ? -ENOSPC : 0;
-+	return 0;
- }
- 
- static int bpf_cgroup_array_delete_safe_at(struct bpf_prog_array *array,
-@@ -1505,7 +1505,8 @@ static int __cgroup_bpf_query(struct cgroup *cgrp, const union bpf_attr *attr,
- 			effective = rcu_dereference_protected(cgrp->bpf.effective[atype],
- 							      lockdep_is_held(&cgroup_mutex));
- 			cnt = min_t(int, bpf_cgroup_array_length(effective, atype), total_cnt);
--			ret = bpf_cgroup_array_copy_to_user(effective, prog_ids, cnt, atype);
-+			if (bpf_cgroup_array_copy_to_user(effective, prog_ids, cnt, atype))
-+				return -EFAULT;
- 		} else {
- 			struct hlist_head *progs;
- 			struct bpf_prog_list *pl;
-
-base-commit: 2e14a351662dc5a3b7421d210049c59edd0425d2
 -- 
-2.53.0-Meta
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
