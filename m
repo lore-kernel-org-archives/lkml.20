@@ -1,79 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794471624;
-	b=RV4Yy+IKgUoQ18z1qCAzPywZMGOXQyS2cyw/sronNOfnTlynubqAScSA0eGHAGICGOaZ
-	 uQfqc0EJPeI4EhhIXyNdSYTB0dLZxq2VwWoMNlQstZMfgokrnP41uG8NiXTEyrfLZQtlb
-	 XbXjHGWWpqf5VGbyOI6YgnlUyDPfgV3JZYFxxJfVGffX8eLUiGgkKYQQFToneW4rbhSvV
-	 B4VBmXmfyjANLNysERP5BEnTArYJ/fxWw+ZkZzsKMqo/kyEEoHLQofi3/0r3LwUP5ZlkA
-	 9wy0umQ4Dn6ZZ2q6jOVKazbz1RJ5tTm7lMcogb8maCK0bPsSxFhUa80p/WHMUHR+4DA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471624;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FPtSYDIVMTzneVOc/lShGERpGf9ZXly06LM0wT9bXXM=;
-	b=iE9iWFC+TF+emtHNSqdLXhd85/htddDXKsQAmnrvF2L2KxLO2j1WULlvFC+8UgcYCJLP
-	 F5xN12nwLya8gEzwcWrUBEqRc1zGAcPezh9/pSk0jaIWVqgPY0tISu4Q64VKL6c674OTU
-	 JAD2gPXf3zsxa09BayErqa718xAhSuPkHo0C4UtKgC/DwiqbT7Dt5lUcW109KHzNLat27
-	 ykc93VQaWJOWRZdoHmvDE3yix7yx0ee9Y/1Uskgx3ReUV9oTx9SO4mOdxhauZlJVPzoOf
-	 6YEkwguBzMRs9VTv6B/0uWB0DABA3k69dQOSNWA47oHc0lx6fexvOqi7+6iTdGyH1ag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UfjcjxHw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FA1606A884;
-	Thu, 12 Nov 2026 08:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UfjcjxHw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794471624;
-	b=Zyk/j0r0OtByJPlriSyvKDjwV7HicLWBA013JIigAFeTm4wynNV/bG/nDNmPg6C+6R6I
-	 CZMSY7k+rjzCSRvWRui19KrX5ES5WSEZN7VBsnl/LiHz15XmxR+bWxPUcl3SY1wVVskFn
-	 vvVGLYr/OLzs/7bsXsF4gs+tk403hskYq5qU1WQgX/5pSkEc1SLZX0ezswSPaDcofSq3t
-	 iNCHERzRgGb7FZDYJl7gZlriLjKvy6+WinbzvPUOh2VLichRzayA3dg0Ql9Hzqu9YsPPU
-	 ghhkrWzXRzq1AwJ8IDihfu7X78xKaidalPlxfvtNIKzAAIJRoeysDJNu1anBI7bUqBg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794471624;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FPtSYDIVMTzneVOc/lShGERpGf9ZXly06LM0wT9bXXM=;
-	b=sD/8p1wasVcS+hdl/eajw4CUl7tyU9R3+qVxZbsKDpTtEG4WZaLsO5GUlMtSM+mYc0fa
-	 mcwbN92lBqxfMZAWC4dWbGSMUjMc/dEfI2jQc/wpBnsN+wc6kzLRbKnoV+RrGRPHKh+j6
-	 0FbcoIyn50wi/vuagr23oGCW5sQ6fCCUBJ5y4Pt0lHbQaRIf0fg8RrqqQHrIwqq01Puym
-	 2JmSEDH0/4Q6M8hCs8hURrBPluHHFevymGkIMGLJFok074/ZXlZhTu1n2gbYW0uIOc+NI
-	 Q4n26pqMAcTINJQqCLtL5es0Nhl4YAUNE5h7GebFAW2w1qLFAEqJq6pFvd0Q7xsTVIg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794471641;
+	b=SvAtu4Tq4+ETQtsYdma0EfKnYz/X/vx1CjpSS1DPZJvmjNYriX9GWL2UDNydQ6m/8YfG
+	 nZKs958rOPXUfLXdg/GwFKtUuKyU1ZtfPBLpQgEA3VDy2XEO75uBBu5b9ZHKAToswvLx6
+	 JYMlpw+mqVpniNMnN3zNFqiZ/7P6R6QGTkMWxaJHGv7ww65RsL78M1HNjfNfT4bc+U/m3
+	 uoV2YNaOVCbwKMeY6VOMzsMf61mwKgN11pRRNKRPi2MXNViY+6lWiGtgTqd5F6Llq9nBY
+	 OrToYJyPNetDeprOQbckxoAGBEU32jaCJMuO28F0+hjONPlMVneYLlgRaGuyZ4LBokw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471641;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=zmhn5X3CWYTsEkK58Y2ANNa/NCUnPop7kpMt3Yw06O4=;
+	b=PqvsLYNx+DxQm2o0qUNiSUU1IzBD15SJS2Q4764RDL9xMGSIQwT+8ZPcwX6bCASi3Jm5
+	 bH3FxQUiiBLYbXSzhJOPraIEzkCbmH0EIKT23T/F6fJSnxO0WlMqKjISRgeaZRY/h7fxN
+	 qo8WEZeVGA/TGFyPzl77PYiToi4b6BBiwjNbAwH+zTpt8Hyjs7eEi57ViOX1KpdbBRVPF
+	 8dT3MuEtjZrgVbZ/I1iA/YvNBu65ayd1/QGNbmdjb+2lwE+FR8PBcp0QM42pwMLNIDJg/
+	 vfwNj425yquH52HfWZgv+jZnx/jCWYSH7sJ46Jz6lsXD/T+817I8E+IU521KLaColWQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=PPphDpcu;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0FB661F00A11;
-	Thu, 12 Nov 2026 08:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794471624;
-	bh=FPtSYDIVMTzneVOc/lShGERpGf9ZXly06LM0wT9bXXM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=UfjcjxHw7wYMmapUoxMpum0tedlIVJTrRjFUj2/K4KS6uIMu4zDl7dPlPGB/OIKFo
-	 1Zmg2QY77NS9Aja2pmRWDao6u5ZjC+P1AX0NFg5ZdnAByCx8XDPioaDMyH4njmINAB
-	 3TGCd9YoiYGj48Z4EYNWitdhqQEHzpR+ktuhEKCYbu18spstegKcbEdBuSzOh4A46i
-	 +YcAH2xEdeOd1AssVHaH808hFMe6kHTQhX9KQm+cyKS+/5UO+c2D+ErL+Vd609FoFn
-	 d4YlH2EdaQEj5Bh3lCl8zO8zWYmdNQ0gKe0FZL+F4cAZYvewLUTHFlE39lrsja9HhZ
-	 BDgo818T7g8yQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8E92F49351;
-	Thu, 12 Nov 2026 08:20:22 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:20:25 +0000
-Subject: [PATCH v2 4/4] arm64: dts: rockchip: Add the reset of the RK3588
- PCIe SMMU
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875B6606A32E;
+	Thu, 12 Nov 2026 08:20:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 875B6606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=PPphDpcu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1794471631;
+	bh=AP5wjuHCPtVGPOsgE6fooYfAbISUTGES4rmrzmf3upk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=PPphDpcuG/Wc4LBIPzfaFmd4dGKGlovLd63NQ6wE52lUDkVTberAXUx63/5svPHAj
+	 BBEPZKSR+U+yr44XulXDUpBpjvStSOsE20wwjmaXWmPf/1da0mpqhYUf12I6A9lLjv
+	 3mYUnAugMzLV9Z9+JchIMK69NsgdQfPC7DOd78sTS6mqo+5ym+MpS7b9uLdbae2rii
+	 Mw0/E6Scln1k1T9Sk/WiJs1RRphTXUZFh4XDjVN63zD8+IzHSan9gLT7MUK9+Zz28y
+	 pZxkHnqAkgVwtiA6ypKnzkyEAfBmsiJevyv5QflLQbpuYJqvZvCCxdViz4oiKMNapd
+	 TZb64q+13X5Lw==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 6436624AAD;
+	Thu, 12 Nov 2026 11:20:31 +0300 (MSK)
+Received: from mail.astralinux.ru (unknown [10.205.207.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Thu, 12 Nov 2026 11:20:29 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.52.220])
+	by mail.astralinux.ru (Postfix) with ESMTPA id 4jQCxn3VPszPL7;
+	Thu, 12 Nov 2026 11:20:29 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Subject: [PATCH 5.10/5.15] wifi: ath11k: fix stride mismatch in mac_phy_caps_parse()
+Date: Thu, 12 Nov 2026 11:19:08 +0300
+Message-ID: <20261112081910.560-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,62 +85,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-smmu-v3-pcie-pd-v2-4-3a77bbb6b2c4@gmail.com>
-References: <20261112-smmu-v3-pcie-pd-v2-0-3a77bbb6b2c4@gmail.com>
-In-Reply-To: <20261112-smmu-v3-pcie-pd-v2-0-3a77bbb6b2c4@gmail.com>
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Niklas Cassel <cassel@kernel.org>
-Cc: Pranjal Shrivastava <praan@google.com>, 
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Shawn Lin <shawn.lin@rock-chips.com>, Simon Xue <xxm@rock-chips.com>, 
- Finley Xiao <finley.xiao@rock-chips.com>, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471621; l=901;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=yMU3CRWnB+XjuBD0UcTK2F5C3aJnFDvPe+6GBdY2fjI=;
- b=y93n/EpF6PWfLsnsaGUaIrO2x+dm5s9ksej3O2HvYP5uoOYvsWIgrwvy3c1b9Y//j0fLwRh9p
- FrDhoOPM321Ah3I01Gz/9hNlI/hAe8q5/i9zBRk7U0Rw2yNf8aNV4Gk
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/12 08:07:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 134 0.3.134 ce9cca31102af372fedb0df49d70b90f771aea0b, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207423 [Nov 12 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/12 06:40:00 #28854651
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/11/12 08:07:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 
-The MMU-600 for the PCIe controllers (mmu600_pcie) has a reset line in
-the CRU, SRST_A_MMU_PCIE, which its node does not describe. Add it, so
-that the node describes both the clock and the reset of the MMU-600.
+commit 7a246c72132eb943b5844ba79dad597b47429dba upstream.
 
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Currently, in ath11k_wmi_tlv_mac_phy_caps_parse(), kcalloc() sizes the
+mac_phy_caps buffer as tot_phy_id * len, where len is clamped to
+min(firmware_len, sizeof(struct wmi_mac_phy_capabilities)). The subsequent
+memcpy() destination advances by sizeof(full struct) per slot via C
+pointer arithmetic, not by the clamped len. When firmware sends short
+TLVs, the second and later slots are written past the end of the
+allocation.
+
+The reader in ath11k_pull_mac_phy_cap_svc_ready_ext() also indexes the
+buffer with full-struct pointer arithmetic, so the allocation must match
+that stride.
+
+Fix by using kzalloc_objs(), which derives the element size from the
+pointer type, making allocation size and pointer stride provably
+consistent regardless of what len the firmware provides.
+
+Compile tested only.
+
+Fixes: 5b90fc760db5 ("ath11k: fix wmi service ready ext tlv parsing")
+Assisted-by: Claude:claude-sonnet-4-6
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260728-mac_phy_caps_parse-stride-mismatch-v1-2-27a9c1a3fbd0@oss.qualcomm.com
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+[mdmitrichenko: Replace the existing kzalloc() call with kcalloc()
+ using sizeof(*svc_rdy_ext->mac_phy_caps). kzalloc_objs() is not
+ available in 5.10 or 5.15.]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+Backport fix for CVE-2026-90398.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index dfed34a8aa57..45c1bb335447 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -560,6 +560,7 @@ mmu600_pcie: iommu@fc900000 {
- 			     <GIC_SPI 367 IRQ_TYPE_EDGE_RISING 0>;
- 		interrupt-names = "eventq", "gerror", "priq", "cmdq-sync";
- 		clocks = <&cru ACLK_MMU_PCIE>;
-+		resets = <&cru SRST_A_MMU_PCIE>;
- 		#iommu-cells = <1>;
- 	};
+ drivers/net/wireless/ath/ath11k/wmi.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
+index 6434d3ff0ac6..64178ffdc1af 100644
+--- a/drivers/net/wireless/ath/ath11k/wmi.c
++++ b/drivers/net/wireless/ath/ath11k/wmi.c
+@@ -3645,14 +3645,16 @@ static int ath11k_wmi_tlv_mac_phy_caps_parse(struct ath11k_base *soc,
+ 	if (svc_rdy_ext->n_mac_phy_caps >= svc_rdy_ext->tot_phy_id)
+ 		return -ENOBUFS;
  
-
+-	len = min_t(u16, len, sizeof(struct wmi_mac_phy_capabilities));
+ 	if (!svc_rdy_ext->n_mac_phy_caps) {
+-		svc_rdy_ext->mac_phy_caps = kzalloc((svc_rdy_ext->tot_phy_id) * len,
+-						    GFP_ATOMIC);
++		svc_rdy_ext->mac_phy_caps =
++			kcalloc(svc_rdy_ext->tot_phy_id,
++				sizeof(*svc_rdy_ext->mac_phy_caps),
++				GFP_ATOMIC);
+ 		if (!svc_rdy_ext->mac_phy_caps)
+ 			return -ENOMEM;
+ 	}
+ 
++	len = min_t(u16, len, sizeof(struct wmi_mac_phy_capabilities));
+ 	memcpy(svc_rdy_ext->mac_phy_caps + svc_rdy_ext->n_mac_phy_caps, ptr, len);
+ 	svc_rdy_ext->n_mac_phy_caps++;
+ 	return 0;
 -- 
-2.55.0
-
+2.43.0
 
