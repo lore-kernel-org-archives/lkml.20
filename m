@@ -1,99 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794482968;
-	b=u2jprrAALlqKu9GZOX0t72iDPCs+ZeUGBHbpiRzjsonyjcnOrzdswm82YhvCcn/MT3uY
-	 fGQRuaJuy4aS9JLL9t5nbNXlm8T7BY+ZotavzDxuYcU5UeGJJz6kNtKcksuVJElpe0GGe
-	 MQY/XRGKy+eElqzA4fEyZfGGCoLCBN2UBD6Qw6em/GCDkRv8Nq3opz1Cu8uQHO9pz22Uq
-	 4Gw6m8rpCXDrDAzq+mU7vymQoWncnjVnHfoo6scQsbcyQ8YrIt1hJd9LO2s5j4D6H/fNP
-	 eoTPgEF6U1oqpw/E/jYf7vuIyNB0Yq3Y7hGbhttKPqjgjUvmog10KSKnioa3NA1H0LQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482968;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=IhR5gAqeEKQ9dwc7R6qIHFTbcxe4WVe/vtyqIhgfFqc=;
-	b=sdNYRId1vRRKrnSlwioAAFfdiw6vHoH3AomrRZolJyu/8UAriWAQUnNxbLgWR0122KZK
-	 XAMIav7e0G/SAEgx+XT26TVRKsiO+wOps4EYbM2bZ2/jh1glF+dc6udjsw0BcimdEUa3W
-	 PvzfLSynoAxR+j4Vx4+N/Ea3IaZH6BeWa4rAAGNeOTfzxR0siZgtKs9r2H85OnBdVwGEO
-	 R4b06xCQG9BQKqKzQKaTfmBbr+O8wRg7mDNb5HBiTjJFH4RnEHq25nyXje/ODqs+x9q2m
-	 rR8VGO+LgEXU7FUX3WzHErxr+Oc1K2iXUZjKZonlFRYp9Ivjg4E+mt8idFHV6D1UX7g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=WBJlqcez;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794482991;
+	b=HPT8/O4A12N/5y9fjvfUakma/qqqKceyMa9HdPUNihFHewOw6qcwu7rFoqSe/Aq9Pw9o
+	 9D1zTYjKNZXcihNMdAXBKwtCroI5g/Vtba70euGZhR3/VqjBjDnLisgSD9l/6ijquBzdv
+	 oa4DEuus2VeQ9LYMJV7f79KiNFymqCuunlqxAWSmfLKUFbE7LmmGblVQdnBfizsNF0Pzh
+	 8vMoSvTjfMfBQ0wLYGOUZJAPGIUpL/ZaR9jP29JCMXkLqBkTLSe6XPxJH+/nLuEnbxm/h
+	 Osw210AaqYEJV2+KBXTL6FLKvBdJz1YxV+yvdqCuJlFkHK1JK6QnzaaRj2LF/TuscyQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482991;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=pYLOaavEbW4iApPv81a0Y6PhFd+cCkE0qo7yuiEZUSk=;
+	b=hP85OUDbFGTapu9M7RdXuP3xTiltnhmnKp5DYoKS2khHw7QlmhOndtTYS9crjvCPNrq2
+	 AemcGE3aXKk9y0W32WUDZjYAdkq84Om6Zem5PAZwm1FLDRCNquFYGdP/shD4+dxoIzO+L
+	 Eze1jbaKFY0lX/RAqOkPJPx+2PyNhKGl//T76BDwoJ3HrEoiFOdx4DGex1XYs0fRB3eS8
+	 k+PtEnf4/AjX4MOlJwD6tBDis/DEm1K0bum8BQtm8wEWLZq9JDLMs5sb1i+hzMtSRd+YU
+	 oNqK7IMq9cgtWwCS26ci7laW+iBnZ9HL8lt2L+p2PhZCdfAVh2zqgS0Cl5ie1GRIaAw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=to54GCkb;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PitML+Rd;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RBEjlCSn;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H28d6Wmt;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66590606A88C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:29:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66590606A88C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881AB606A881;
+	Thu, 12 Nov 2026 11:29:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 881AB606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=WBJlqcez
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b596afb4c5so4757209a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:29:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794482967; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N/IB7FNmKb+CLw+yMd2cYZNqc9zmLkW5EQPp3fy+C99eUc/zSmO/KxjTcvYgNrh6rt
-         8ZCSROdrNxHg/piMfl57CodG6EchmVyNcigzBebvKMOmuuxbJqlCzR+Q4b3COP5gcLKY
-         kxg7t0q5MLYTVsL1W5IzgE1kwl49PgFHiXqMhiNJRMJitpEf5kzwYkDLTKOwBfKSZf6m
-         6+XDV57Qg/yYjZoP0ufikr1Y0eRM9rXUnfpXKzlFzdJiih/3VSuGScqkMw0F5mRbWLqd
-         JI4Fo/BmwIRoQ+6XBSlijiOU5lxTvD5iXi8SbulsdA29JWEQiKw/8KD2NSl3ssF8nwOi
-         UEjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=IhR5gAqeEKQ9dwc7R6qIHFTbcxe4WVe/vtyqIhgfFqc=;
-        fh=cgr2LVqWJdZqtTP+zddUpUZIO7UU3oeyH4vkJKkD6wg=;
-        b=cqM4j0ZLatXynff3pGBuOdp5nQtbu8vCOv0kCBDPv7um437ttmRRe/+/axxseFi7h1
-         1aBRrjXg1Vta5u16nTkvyTWAIG7XZ7AOByFSnS6Jm8r0vuTJvRyYl+jF4DG8MwuJa7mX
-         Rm+j/UItoWOZHs6VlWX1X+k6Xoihcy7eG7u1t5+kUeB9PttGQItlIAWwKXO2N1X4eCah
-         IXeffmn0woDHkfjw70bXvD1hU+niXKiB9Xec3aYq9ElIkN3PITaiBVJ7tRhl+xlar6Ce
-         BiJz2BruquRQEHbBaF7p0jYTGQw5cl6UE6Vp3YBiUgUcPQKIQ1UQxCVPhkkvxzCrndbt
-         y6vw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794482967; x=1795087767; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IhR5gAqeEKQ9dwc7R6qIHFTbcxe4WVe/vtyqIhgfFqc=;
-        b=WBJlqcezkcWmxn7fvS11nhNKAXjApPC2+byoUyVx3RlagWMOV1Cyxhu+NSHqqTZg+S
-         GQbGpn5HC/WaAlQALYu+kiqDcgHIbPuFSyjGlg+UnxEHyqXTDWgKwoA0Ht2r9XA34vKd
-         2/ZSKRb3gxzGN98tdR5/kJQMY1didACcvYbKgE0P/0QJmFCu+A4rN16UyP9fbNxJOvHt
-         9uaVBUGCwpmEJDxTCbHYSPQKMC4eyNTdB6JQUA21wGUfOEvrFLVTlgVVHESdutLx1rnS
-         lc3Jo+QKt+I0H3XrhbfKF8OqFxPWOg1fqJCjH6DRF3bn0JqAWFrdaagmL7GYN5YKWFKU
-         4cRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794482967; x=1795087767;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IhR5gAqeEKQ9dwc7R6qIHFTbcxe4WVe/vtyqIhgfFqc=;
-        b=lJnzKKWmQXwXRZ2Ub+J+b0NPNsGo8CiB6IMAwbzubkiVvZ6BvzIvr5XQqqcMloP4Ow
-         2AYn0UvqfmBuMtEAnhnSd+Kpudjvqr6rQTtiiD9xTutVVn6FzhHO6jh3POQidXh5bmAL
-         9WaG9QAKBmEDSyqScUDwXYQ6XG/jcWoX1mLn+swDhuy0QTTXkDqmgfca4H0I4DZVaMms
-         KlHIzPtUyPqBu0tbJbIBnGv237VQo6Bwz4Y22NJ1Qyp4ow9WctyKfXM3bVG14E7lyjyP
-         iiHEAFvBLGK/Rm//BkLQqc4swrNo2FGhvBvHgTdiKZrER7mAb+TfACw/sC+CSZjaCraZ
-         6P3w==
-X-Forwarded-Encrypted: i=1; AL+hErEP1XmBZj0uj+1LrMH6vUuLmAWvU7Y4CgHXaCJO3dayPcFyuedNXcT6j1+tUpSh6VC+5Jy92+1k7f6mKMA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FSeJYUPUddi71AP3bpf1hKYFyV58KjYsvIes5xgEcw3HmehAj
-	e53pwZRjWIX5dn58LtMhCmcTlglpnBZL951JpY3kIqYsaWZCTTlMNZ/Akwzzx3nWXM4NpQZzfyJ
-	BuqUL3PkaH6jzP20qy39F9LrBqbhDq7rK42/KEWky2gIMh/1AzPHx
-X-Gm-Gg: AYBFou1ddHK2FuELrfSjX9K3H5V2I5MTWfkbyc/mClJJ35W2TO0xweHZq5YSzQxFe0n
-	93ZASp1vtmT4ZJYAnL6XMgiLZKk0uNSSpmVOalxkryrrn6b3fM8u6f1z1O1UJ+Yc8EcrbWMgdJI
-	kY05VTw83v/QOCt7tNjjecjhzWlTYIYE1qToB11XFQ0SBt/vKQp+8GO/uVENGjWHxpRUnXUgQG+
-	ktqZoem308U4uvcmR/rGXdppK1YL7/tr771CS6TMjzT3j9YGLoiAcVGqZNEU00ZmzqeGY8oFpV4
-	BJyHZcFC8PNlfM1VaER5eupe4L0DVRwL1j4LUv2p0W6zmGyq7C0YuOKS57oOhBlakklXknu8rPb
-	rruwZOTof+1Eh6udv+3Wcdw/vcNHg/qUakwV38ITR/WS719urk+etFil0e3AspXl/cGAihA==
-X-Received: by 2002:a05:6402:1d51:b0:6b4:16be:4fa with SMTP id
- 4fb4d7f45d1cf-6b7773edeeamr4079109a12.15.1794482966709; Thu, 12 Nov 2026
- 03:29:26 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=to54GCkb;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PitML+Rd;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RBEjlCSn;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H28d6Wmt
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 611621F797;
+	Thu, 12 Nov 2026 11:29:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794482988; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pYLOaavEbW4iApPv81a0Y6PhFd+cCkE0qo7yuiEZUSk=;
+	b=to54GCkbVCxZ/diMW7G1IQMQmvUBWfc5Wqj4nB8bVynPIC35nDFaOUT2N1/+x14fNa4GN+
+	ZtdrOhOCyzgQVjrP7/CPLe+SxOgAmak8BCpALmBIL+TfgTzL+sv5iMeO+rKbcRBgiBii89
+	DVgQEmudKgjG8yNJWaTG3Kq7tH53vBs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794482988;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pYLOaavEbW4iApPv81a0Y6PhFd+cCkE0qo7yuiEZUSk=;
+	b=PitML+Rd6/FbAjxbvTklfUFViCbOjw8a1WGmn4hm/6lqgYw7cY1kVdbgx5j1LshRZ1X4gr
+	nXwmwm63Q6pJ0eDQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794482987; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pYLOaavEbW4iApPv81a0Y6PhFd+cCkE0qo7yuiEZUSk=;
+	b=RBEjlCSnA8LAIUw6maTMYmC9YmKjx8cNXuuzzU/05zLDHMSLZKvqSSKaqdvqXmE4wez30Z
+	F9xbJL3MacPWJy6t5qzGxCYw7eMxkU0qPJ8m00waC6DOXtHzaiIwuke3lzea3mMW8sxZFY
+	e9y0jqy8PlI3CBJVqM6G0boPmyhZg/I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794482987;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pYLOaavEbW4iApPv81a0Y6PhFd+cCkE0qo7yuiEZUSk=;
+	b=H28d6WmtFpXtb7/PfdZN+l4eTWOzSM8zFwUNiUoO+uHIkm0bS4pvFCih97Uu1qR13Z1mSp
+	0RMwitGiLi88qCDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D3ACE134A0;
+	Thu, 12 Nov 2026 11:29:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id FKaQKCij9WrVBgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 11:29:44 +0000
+Date: Thu, 12 Nov 2026 11:29:43 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Jann Horn <jannh@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>
+Subject: Re: [PATCH 03/13] mm: cachestat: restart the walk after each entry
+Message-ID: <avWjDYe8QqLtEBX_@pedro-suse.tail5790ac.ts.net>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-3-3d2454362e8d@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,91 +125,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
- <20261106151947.3991524-9-vincent.guittot@linaro.org> <20261109155418.GL1779021@noisy.programming.kicks-ass.net>
- <CAKfTPtA-nrgGQGcBPqNoPk4atOHakyZK9Fk-4AsrHBrnvPXTLQ@mail.gmail.com>
- <20261111090155.GF2668564@noisy.programming.kicks-ass.net>
- <CAKfTPtBfQd5nD9jNdayGbEW_P2bDMvOm=GZ3Q-gu+O6KkQmKbA@mail.gmail.com> <20261112094910.GK2668804@noisy.programming.kicks-ass.net>
-In-Reply-To: <20261112094910.GK2668804@noisy.programming.kicks-ass.net>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Thu, 12 Nov 2026 12:29:14 +0100
-X-Gm-Features: AclHuK8GqM8XGi-ga2efC_FAPlazK7Ox3_1G0kC0seKYatyPLvqoUsk26qpWqiE
-Message-ID: <CAKfTPtBNx9Dpe4zBAzJU1iabp6riGAN8v-GP9bc5fh8NZq57hQ@mail.gmail.com>
-Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, lukasz.luba@arm.com, 
-	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org, 
-	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, 
-	sched-ext@lists.linux.dev, qyousef@layalina.io, christian.loehle@arm.com, 
-	pierre.gondois@arm.com, sshegde@linux.ibm.com, kayracizmeci@gmail.com, 
-	tim.c.chen@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-3-3d2454362e8d@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[42];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RL3mhzhn45zpqpmgqn4z7synfm)];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,linux.dev,linux-foundation.org,suse.cz,gmail.com,cmpxchg.org,nvidia.com,intel.com,sk.com,gourry.net,linux.alibaba.com,tencent.com,redhat.com,linux.intel.com,gentwo.org,nxp.com,fb.com,kvack.org,vger.kernel.org,alien8.de];
+	TAGGED_RCPT(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -11.80
 
-On Thu, 12 Nov 2026 at 10:49, Peter Zijlstra <peterz@infradead.org> wrote:
->
-> On Thu, Nov 12, 2026 at 08:01:17AM +0100, Vincent Guittot wrote:
->
-> > I don't want to take any random task from the rq but only one that is
-> > meaningful. Why do you think having a dedicated pushable list like rt
-> > and deadline isn't worthwhile?
->
-> Well, effectively cfs_tasks *is* the pushable list. The below patch
-> makes no effective difference, and can be argued to be an optimization.
-> Currently every consumer of cfs_tasks goes through can_migrate_task()
-> and every task that has nr_cpus_allowed == 1, will fail that function.
->
-> The thing seems to be that you want additional constraints on your list;
-> like dropping tasks after one push attempt. The other classes don't do
-> that, they do the same thing cfs_tasks does and keep all runnable tasks
-> that can migrate on the list.
->
-> I'm not against adding another list per-se, I'm just struggling to
-> understand your extra semantics, because its not _just_ another pushable
-> list, it has some extra flavour.
+On Wed, Nov 11, 2026 at 06:13:17PM +0000, Lorenzo Stoakes (ARM) wrote:
+> From: Chris Mason <mason@kernel.org>
+> 
+> cachestat() can leave cached pages out of its counts. This happens if
+> the entry that the call has just counted is replaced by a larger folio
+> that starts in the same XArray slot.
+> 
+> The issue is that filemap_cachestat() walks the page cache under the RCU
+> read lock, so racing concurrent collapse/split is possible.
+> 
+> Thus, an entry can be replaced immediately after the walk has returned
+> it. When that happens, the next xas_find() skips the sibling entries that
+> point to the slot of that entry, since ordinarily they belong to that
+> entry.
+> 
+> However a concurrent collapse_file() or __filemap_add_folio() (when
+> replacing a shadow entry) can store a larger folio in the slot, in which
+> case the sibling entries belong to the new folio and the walk still skips
+> them.
+> 
+> Consider:
+> 
+>     cachestat                         collapse
+>     =========                         ========
+>     count a 64-page folio in slot 8
+>                                       store a 512-page folio in slot 8,
+>                                       with sibling entries in slots 9-15
+>     xas_find() starts at slot 8
+>     and skips slots 9-15
+>       /* 448 pages are never counted */
+> 
+> Also consider:
+> 
+>     filemap_cachestat()                  __filemap_add_folio()
+>     ===================                  =====================
+>     counts the shadow entry in slot 0
+>                                          slot 0: a folio of 32 pages
+>                                          slots 1-31: siblings of slot 0
+>     xas_find() skips slots 1-31
+>       /* 31 pages are never counted */
+> 
+> Essentially the fact that large folios might be present means we cannot
+> safely continue the XArray walk, and must reset the iterator each time.
+> 
+> Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ ljs: squashed 2 commits, fixed up comment in code, and commit message ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-The main case is to periodically look for another CPU when a task is
-put back in the runnable list. I also have other cases like patch 20
-where several short tasks end up selecting the same CPU or when the
-short task finally can run 1st and should look for another CPU.
-Because anything can happen between wakeup preempt and pick_task_fair
-I don't know if the 1st item is the one that might to be pushed or how
-much requested it
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
->
-> ---
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 0552eaf64e95..8c81d236b24d 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -4693,7 +4693,8 @@ account_entity_enqueue(struct cfs_rq *cfs_rq, struct sched_entity *se)
->
->                 account_numa_enqueue(rq, p);
->                 account_llc_enqueue(rq, p);
-> -               list_add(&se->group_node, &rq->cfs_tasks);
-> +               if (p->nr_cpus_allowed > 1)
-> +                       list_add(&se->group_node, &rq->cfs_tasks);
->         }
->         cfs_rq->nr_queued++;
->  }
-> @@ -4709,7 +4710,8 @@ account_entity_dequeue(struct cfs_rq *cfs_rq, struct sched_entity *se)
->
->                 account_numa_dequeue(rq, p);
->                 account_llc_dequeue(rq, p);
-> -               list_del_init(&se->group_node);
-> +               if (p->nr_cpus_allowed > 1)
-> +                       list_del_init(&se->group_node);
->         }
->         cfs_rq->nr_queued--;
->  }
-> @@ -15620,7 +15622,7 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e
->                         set_protect_slice(cfs_rq, se);
->         }
->
-> -       if (task_on_rq_queued(p)) {
-> +       if (task_on_rq_queued(p) && p->nr_cpus_allowed > 1) {
->                 /*
->                  * Move the next running task to the front of the list, so our
->                  * cfs_tasks list becomes MRU one.
->
+-- 
+Pedro
