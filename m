@@ -1,65 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447527;
-	b=qX/W6urWVfvGLW3FMyX9YjefQ5Mnq5zmigwlTUanhm790XCgGUhMMpIjOXy20zzThhji
-	 6odoURzB9NugDgCT1oNcD1MIwFC23xUB4hAn1iPBP1VcfLsNap9UD6DRqvUPmJXT72UGh
-	 mMOck9q7fDdcJwAzQZ4UcLzvsVPQMzYXdP5pehPOe+2uGGEHroXPwxCCUXX/Uz0cFX+QH
-	 8h76+NFMCa2ZBCXX6qHUam3eiWMYCbVzijZAqYIMDK4Lmmc1TVCw/q338oD9a+z3N/gO7
-	 auRxISKw8wZF66Eyq6TYFLTqmlnfAAeJWP5zMymg5gL47dJNyUcnItYIy3fQpu2Gl4g==
+	t=1794447606;
+	b=ttU3BjwvMNJpafM2K7K6TnjY3HjKvQwA6fyvfCG3YqdCKuvjK8ooxs+CkgTECKHl7d4C
+	 6MuJN4BhNZ/9qU4h8XZ8zpVCGIbmV1SJrLQAQDHrubbdrc5B8lqZi4ZYVPRgUzLQ+0mCh
+	 loLLlbM9iCvs4Esuu0F8puoaW7GkUzumWDjK3pJpOmu2K6LLUHQHksSBrlSy/e+AmiHyi
+	 5usX5Q78kegPYpOPC8o6OFj0FIm6+X7VmhUvglLkoc8eEH7RmZfz7xwCap61vFP/8nyNZ
+	 aSl6gfaBJJaI+anhoK5Rj/rXYjz2IzqiLB62BJML5pTXZaY3Ndma0L4KbBvedxTaXHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447527;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qVlNRgWlT2XIZDtZtIIyBWnxEyXMHWjyglbIu51k728=;
-	b=Giuugk6gslYmSByPcmiXbmPjV1TaQj3llwCieD7qMUrGf2Kudq5geiHGw/2iAxw1v1+e
-	 2QoDFLdp1eRhL5OBU5xHPF5JF5gQqdzs33CtibZ39AJOEZx4H9xB4188pn3+B2t+ANVqn
-	 tTDtgu2Yj8hQsPdnH6slRAsABik39rBsaxZKAvINjthXvQZdcH9VWAVq2rXTjgfp+97Vd
-	 sbs73iCuwg0ee/sEiGBIFN4DaetN7HX/ewCCh01IrOSxBTlDWgpCy732pUfnAXfDKQOPE
-	 PDkk1cRxxTW4oOYLFCOqXG2ALFvo3K9ZVT5jDGldDH7bhIciDsjlXzPTBu/RyJFucow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447606;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=LOnj0qQyAmBFZA7CPZLjLdhnZUabULtOXuzIaolklQQ=;
+	b=US0xirKh6IlYWGosIcHRwNwGhvkCAF0XvrKDjs/r9eP+Gbs/+zOOkFLdWOMTXty2WT+D
+	 sLF5MFmzfzJLQdGEdPOjfCczZn18hq/N7kRzGpvWkjOBjS0helsyKDmGUls4vylupzPxD
+	 /tAYV73fZ695rR7MdHlk94brFdY0IWWjgRYJEVibZwF7XsjesHIbsIB1QbFt383ByBh7P
+	 Y/IGFLFMn7lYeHP4MfjYRRcjIMB253MWXI0DHHoRcKXCMEElYcbsVGo6HXBfRNflIBKcs
+	 KyUY+PCflx5IpfB3tLWecyFC8CI/8a/JtLQyAdhzlzHg7KQqNCpbQ7mAfFvoA24t7PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=M3lkLus9;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B8C4606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:38:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B8C4606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFisZ+7+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A3E606A324;
+	Thu, 12 Nov 2026 01:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=M3lkLus9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=M3lkLus9smjsiQhWFEKg1vck4wPDNihJYeQrmawtfqGRqTRk8zHIFe8DQEETCv6iZbmmXdEtsYCzX
-	 IW+Nz1SwbLi4+ymD+qROHX4ThMxMKgW0aDMkkJ+78BbLG63Lqs65aKmxzKKYmZOumt9msJBmwe05vM
-	 LU3u5/ZbUyoAowl0=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af518a4999-a86ae;
-	Thu, 12 Nov 2026 09:38:44 +0800 (CST)
-X-RM-TRANSID:2ee66af518a4999-a86ae
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [25.255.2.225] (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af518a3369-ed9c2;
-	Thu, 12 Nov 2026 09:38:44 +0800 (CST)
-X-RM-TRANSID:2ee56af518a3369-ed9c2
-From: Jiahao Xu <xujiahao@cmss.chinamobile.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
-	syzbot+369ee6a6e9d0bbf14b37@syzkaller.appspotmail.com, Jiahao Xu <xujiahao@cmss.chinamobile.com>
-Subject: Re: [PATCH v2] drm/fbdev-shmem: don't warn on a transient dirty callback failure
-Date: Thu, 12 Nov 2026 09:38:31 +0800
-Message-ID: <20261112093831.384543-1-xujiahao@cmss.chinamobile.com>
-In-Reply-To: <e16d5fb8-58bb-48dd-8f98-6777bd2fd2e3@suse.de>
-References: <20261111124156.317053-1-xujiahao@cmss.chinamobile.com> <e16d5fb8-58bb-48dd-8f98-6777bd2fd2e3@suse.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFisZ+7+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C5CE1F00A05;
+	Thu, 12 Nov 2026 01:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794447606;
+	bh=LOnj0qQyAmBFZA7CPZLjLdhnZUabULtOXuzIaolklQQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=WFisZ+7+LNJWNasboFKnGCx5bXq25rCmj9XWLngl2/+ztX6/UgM5kZpk56q4HMh9+
+	 M4ivNU3CAWDMzFNdBsSdot/FRX6qEWAaGIGmRVvvme9K4QHb4w6qIc0LbWFtQ26T9K
+	 FGoXE8m2v4Goly63/pqHLzjzIVQl+E7qFpXuBfod/C1ncFYATDR0as3z7f5iYQBGO5
+	 nRpKaVNYfcaBBhYFNBxou//0mhx28HlV0YM6VllmY4WEOnpstAjpbc1vBkGbBL9lHf
+	 W6ejcxJGrBx9F65ThS28y94WCmtYR0HXoIQUJsqHYJAjiBJlJvDZN+BpOSy962Fc+c
+	 MgZLb3VuTgqYg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 210BB391AFCF;
+	Thu, 12 Nov 2026 01:40:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,49 +54,44 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v3] net/mlx5e: SHAMPO,
+ Disable end padding when relaxed ordering is supported
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179444760468.1758664.5040902108212727861.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 01:40:04 +0000
+References: <20261110035723.26587-1-dengjiabin2023@gmail.com>
+In-Reply-To: <20261110035723.26587-1-dengjiabin2023@gmail.com>
+To: Jiabin Deng <dengjiabin2023@gmail.com>
+Cc: netdev@vger.kernel.org, dtatulea@nvidia.com, saeedm@nvidia.com,
+ tariqt@nvidia.com, mbloch@nvidia.com, leon@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hi Thomas,
+Hello:
 
-thanks for the quick look.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-> Cosmetic? Failing to allocate memory seems like a significant problem to me.
+On Tue, 10 Nov 2026 11:57:23 +0800 you wrote:
+> When SHAMPO and relaxed ordering writes are enabled, aligned RQ end
+> padding can corrupt received TCP data. Due to reordering, alignment
+> padding written at the end of one packet can overwrite data from the
+> next packet.
+> 
+> The current RQ end padding selection avoids alignment padding for LRO,
+> but not for SHAMPO. Extend the condition to SHAMPO to prevent this
+> corruption.
+> 
+> [...]
 
-You are right, and "cosmetic" was a poor choice of words on my side.  The
-allocation failure is significant -- what I meant is that the patch does not
-downgrade it: the error is still returned to the caller unchanged.
+Here is the summary with links:
+  - [net,v3] net/mlx5e: SHAMPO, Disable end padding when relaxed ordering is supported
+    https://git.kernel.org/netdev/net/c/68c183619f24
 
-What I am after is the drm_WARN_ONCE() call.  It fires for a failure that
-userspace can trigger by writing to the fbdev fd under memory pressure, and
-it produces a splat that panics with panic_on_warn and that syzbot turns into
-a kernel bug report (extid=369ee6a6e9d0bbf14b37).  The same failure is
-already reported to userspace through the return value, so the WARN does not
-add any information that would identify a driver problem.
-
-For the record, v1 got this wrong in a way that is worth keeping in mind:
-with
-
-	if (drm_WARN_ONCE(dev, ret, "Dirty helper failed: ret=%d\n", ret))
-		return ret;
-
-the propagation is gated on the value of the WARN macro, which yields 0 when
-the warning is disabled, i.e. -ENOMEM was silently dropped.  v2 keeps the
-propagation unconditional and only skips the splat for -ENOMEM:
-
-	drm_WARN_ONCE(dev, ret && ret != -ENOMEM,
-		      "Dirty helper failed: ret=%d\n", ret);
-	if (ret)
-		return ret;
-
-If you would rather keep some diagnostics here, I am glad to resend with
-either of these instead:
-
-  a) as-is: keep the warning for failures other than -ENOMEM, propagate all;
-  b) replace the WARN with drm_dbg_ratelimited()/drm_err_ratelimited();
-  c) or drop the patch, if you consider the WARN appropriate in this path.
-
-Which one would you prefer?
-
-Thanks,
-Jiahao
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
