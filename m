@@ -1,56 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794448649;
-	b=RSrwTAQgN5ZgN9ySk5E3235XpMebjy+BCZAON6U9EWVmrd1eeJaICNy3RvMctb35V5KI
-	 8X+j9A2boFNTaBszIS8EsqtrtMpgfIkBZmKM3Lb1PClV/fN1mlHc5Qcrv6hnrJqPC5fXP
-	 qpDo+nfcBzM3mL5DpHib2OhpPq+vt7cmqHn6xOhbYevBtdzCnxlZsU8iu7rUFbpbxqb+4
-	 Nq/tkNUlQotEESnt8qXrX/iVO7lxNC8ilpdRkqq5QM5Iv98t7WTu6JyX0sHvzmPIl3kIu
-	 rK7Z2aOkRhCEaphJaeFzeMg5qP6W0ybqyU3xlZLvH8Kou5Dgm6P1NQ0nHFFSMs2qxXg==
+	t=1794448662;
+	b=tsz0kMCCm2TJvtGaLKi0+nS0h47xSO9JbmX76ZpoyE3QLTyGh1JNXlMjCjg9qs5iQ2KT
+	 WlIa1Pt38PRvYqdaAQaw6debxs+OjjFSBm20gASYHJqx3hHMfcfU1F9TXNfOGRYfAFFcE
+	 F2q34PKqlSAp4iSB9b8tDNRzuum3GErcF3VLxP5Rw0HJjziVf7rJm8i3iqgrON8Ni16Z3
+	 EfHbgn7bOvqvxaUN3ohD5Myf2VsgMrIbJeVu5EmjAH+P8tr8xIukPnTWTthv85CVAWY8+
+	 xCntx99KmHp48/kzzFptB8kphY5a9w5c1hpCtJNSswkDx5nOpxFBaOK5csOiWuO2cAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794448649;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DvHekcPAuyK9riJrTTvp6Jq4YnII5Pm7qYzhV4GA2QA=;
-	b=J+JqobvpLHFfxixFOxSXhjD3GRH2hDptS3imjAd3vsXn9tP+s9ESk2v6pDm+LdDsGqhJ
-	 i3BIMp6+iGWBat+IiSROjECznhRAaE8AuLeBa180PceuaWASzorfPTi3XxMfMyX9ELRW8
-	 tXx04He8F75C2CGOz7Mj5ueFjdKaVjeKjKEMBz+IO+KVPTGkNuNFgnewXfUx2hthJG1c3
-	 Sbmc1PygMjwBvvYMX3Oy1J8vX6bcBjB4CdMZ5L7yi7EQskRcJqUfqUBu+2kgIuTZKo/BV
-	 bZ7d6AXyVGJo4VzE0YWAyBqEHoT2lVkDv75Fe+pQ1ZzN4Pnpu0KxNIBizYZYcTEsdcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794448662;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RlMi5qRbVg28z/a6dBARCAv0cTB7nwEjI1lh0Bith44=;
+	b=NxJSzYKwh59/f2jKawN9bbmPn8SlS1xTns/0u1Y5adIxeRySfq3Jo8O9exRYsPIendYa
+	 7GaiFuKISggL464UbFq2uUC1UBxT2/dDD5Rt3AP1fFzWRLobGZmqqbT2BAtfmbF9rlCoZ
+	 KF+v8S/Nz3vhDRpNCoVoS2d7cKH1AoyIEMfDQ69EAZZtFlDGznJ/zjjhAhkgKbth+sF4K
+	 DRkUAadXlH7XO15ll6pat79kjMrB2HbwEC46EDQKjwddBcc81WFMNh37DggOX2NM5t0vb
+	 9eIEcbMHyGtSrORW8WD6Azs5+ZqoY5iCqMvOhPnp6gkaoTvGSKnypK3k5mDh85gSSLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQC+Fw+W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 97710606A8AD;
-	Thu, 12 Nov 2026 01:57:29 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=b1eopLMU;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B6296606A321;
+	Thu, 12 Nov 2026 01:57:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6296606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQC+Fw+W
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 983CE1F00A0C;
-	Thu, 12 Nov 2026 01:57:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794448649;
-	bh=DvHekcPAuyK9riJrTTvp6Jq4YnII5Pm7qYzhV4GA2QA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AQC+Fw+WdBagmIKqA7KwNIImUFooelRxjp0dG+L5qn9utfkGi61FHJ4DWCTi6p18+
-	 YCC3oCGDeeSJaBgd9G9bIZO2noek+2uuAMrpOqJ465CtS39MmuXQE8LcZ7/2NTAGXb
-	 UTyJ0TgR9nq+FPxH6WrzDTaPS/nDkqbGspayna1WLETJRuSmI7W9mYP8UfiwTJ4Mlq
-	 GUk4WIxZ3/4WTv31LstUweO2VMH8eu7oeAbSXSW+m8wqd95uwO8UePngaSTRQU20H6
-	 wWuoFldk6h5IXuCMhTJQdgph0dcduEHbhPkw1RU0eBp6gLGefMGY+8btFEG16TlaHC
-	 whBGRmNae8Bfg==
-Date: Thu, 12 Nov 2026 03:57:25 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	surenkj@amazon.com, noodles@meta.com, kernel-team@meta.com
-Subject: Re: [PATCH 0/2] tpm: Stop retrying TPMs that have stopped working
-Message-ID: <avUdBbvxxFgXkUJI@kernel.org>
-References: <20261111-tpm_unresponsive-v1-0-42ac1b965eb9@debian.org>
- <avTsh6pCI-sRGAJp@kernel.org>
- <avTvq4VaYbxMnZl9@kernel.org>
- <avTwXhEGwVj71VmH@kernel.org>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=b1eopLMU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=b1eopLMU7z+leSaQUWheyW2TWYbWGInAMthmPwR4O6Gd3Xxf358Mz78UNtpMIOnNSnzq6Oc8zRPBX
+	 0PeV+itGC3QGFcNPIuPkflZvc4g7cngJx5umIQ1XnTfcb+fmAMCNLtV3lJbql3YqETIPg8oUrw3fej
+	 DSiNTWP6jbyVeNbM=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af51d101e7-e15de;
+	Thu, 12 Nov 2026 09:57:40 +0800 (CST)
+X-RM-TRANSID:2ee96af51d101e7-e15de
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af51d12a9f-eddaf;
+	Thu, 12 Nov 2026 09:57:40 +0800 (CST)
+X-RM-TRANSID:2ee86af51d12a9f-eddaf
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andriy.shevchenko@intel.com,
+	crofts@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH v3] iio: temperature: mcp9600: Bound thresholds before scaling
+Date: Thu, 12 Nov 2026 09:57:38 +0800
+Message-ID: <20261112015738.115833-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,89 +72,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="Hx+xmU6F5MTkrZNe"
-Content-Disposition: inline
-In-Reply-To: <avTwXhEGwVj71VmH@kernel.org>
+Content-Transfer-Encoding: 8bit
 
+mcp9600_write_thresh() multiplies the integer part by 1000000 before
+clamping to the supported temperature range. The multiplication can
+overflow int, so a request such as 3000 degrees can select the lower
+threshold instead of the upper threshold.
 
---Hx+xmU6F5MTkrZNe
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Clamp the integer part to the hot-junction range before scaling. Keep
+the existing final clamp for fractional values and the narrower cold-
+junction range.
 
-On Thu, Nov 12, 2026 at 12:46:57AM +0200, Jarkko Sakkinen wrote:
-> On Thu, Nov 12, 2026 at 12:43:59AM +0200, Jarkko Sakkinen wrote:
-> > $ tpm2sh return-code 256
-> > TPM_RC_INITIALIZE
-> > 
-> > I.e. TPM has not been properly initialized by TPM2_Startup().
-> > 
-> > I.e. TPM is also saying that it is *disabled*.
-> > 
-> > So acting on this proven fact  makes most sense to me.
-> 
-> 
-> Actually, should we even disable TPM if it returns this error code
-> already at the level of tpm_transmit(). It is a guaranteed dead-end
-> to any possible TPM operation.
-> 
-> I.e. while this fixes hwrng issue I think it might be addressing the
-> issue at a wrong level.
-
-I leave room for figuring out 1/2 but for the second issue I would just
-do what the attached patch does and call it a day.
-
-Br, Jarkko
-
---Hx+xmU6F5MTkrZNe
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-tpm-Disable-TPM-on-TPM_RC_INITIALIZE.patch"
-
-From 093124e51a26de8191e21ce41988532ea7e0bc8a Mon Sep 17 00:00:00 2001
-From: Jarkko Sakkinen <jarkko@kernel.org>
-Date: Thu, 12 Nov 2026 03:55:00 +0200
-Subject: [PATCH] tpm: Disable TPM on TPM_RC_INITIALIZE
-
-If the TPM has been spuriously disabled, the game is over. Let's reflect
-this truth with TPM_CHIP_FLAG_DISABLE.
-
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+Fixes: dea750f8015b ("iio: temperature: mcp9600: add threshold events support")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
 ---
- drivers/char/tpm/tpm-interface.c | 5 +++++
- drivers/char/tpm/tpm2-cmd.c      | 2 ++
- 2 files changed, 7 insertions(+)
+Changes in v3:
+- Use clamp() instead of clamp_val(); all operands are int (Andy Shevchenko).
 
-diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
-index 470b2da3234e..1f1e22341155 100644
---- a/drivers/char/tpm/tpm-interface.c
-+++ b/drivers/char/tpm/tpm-interface.c
-@@ -256,6 +256,11 @@ ssize_t tpm_transmit(struct tpm_chip *chip, u8 *buf, size_t bufsiz)
- 		if (rc == TPM2_RC_TESTING && cc == TPM2_CC_SELF_TEST)
- 			break;
+Changes in v2:
+- Use MICRO from <linux/units.h>, cast to int to preserve
+  signed division for the negative temperature limit (Andy Shevchenko).
+
+ drivers/iio/temperature/mcp9600.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/iio/temperature/mcp9600.c b/drivers/iio/temperature/mcp9600.c
+index b0ff0c7b4891..00f1acb348a5 100644
+--- a/drivers/iio/temperature/mcp9600.c
++++ b/drivers/iio/temperature/mcp9600.c
+@@ -17,6 +17,7 @@
+ #include <linux/math.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
++#include <linux/units.h>
  
-+		if (rc == TPM_RC_INITIALIZE) {
-+			chip->flag |= TPM_CHIP_FLAG_DISABLE;
-+			break;
-+		}
-+
- 		if (delay_msec > TPM2_DURATION_LONG) {
- 			if (rc == TPM2_RC_RETRY)
- 				dev_err(&chip->dev, "in retry loop\n");
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index 7fe00b4f8e7d..8d76e78cd92e 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -1021,6 +1021,8 @@ int tpm2_auto_startup(struct tpm_chip *chip)
- 		goto out;
- 
- 	if (rc == TPM2_RC_INITIALIZE) {
-+		chip->flags &= ~TPM_CHIP_FLAG_DISABLE;
-+
- 		rc = tpm2_startup(chip);
- 		if (rc)
- 			goto out;
+ #include <linux/iio/events.h>
+ #include <linux/iio/iio.h>
+@@ -326,6 +327,8 @@ static int mcp9600_write_thresh(struct iio_dev *indio_dev,
+ 	i = mcp9600_get_alert_index(chan->channel2, dir);
+ 	switch (info) {
+ 	case IIO_EV_INFO_VALUE:
++		val = clamp(val, MCP9600_MIN_TEMP_HOT_JUNCTION_MICRO / (int)MICRO,
++			    MCP9600_MAX_TEMP_HOT_JUNCTION_MICRO / (int)MICRO);
+ 		/* Scale value to include decimal part into calculations */
+ 		s_val = (val < 0) ? ((val * 1000000) - val2) :
+ 				    ((val * 1000000) + val2);
 -- 
-2.47.3
+2.51.0
 
 
---Hx+xmU6F5MTkrZNe--
+
