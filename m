@@ -1,72 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487146;
-	b=c/0j4iIKUjeE5gW+B1GAGYa6N5T0Ki6TWfVw+TQYila8QWc4Edt8O3e0zrWK9Mr2/fKF
-	 vGRkH04CMnsfG008B67kI1mVuoNeqIPxoyHYQFEnYmmtOVj3ERXOadi2UBglRIaRfNM/j
-	 BJpo83xFGqTrYEefutqs8A3/RyFzgXEzwaYd2aPVkaVpkJP6lQ8YczLWsp7Vng3GlyAQ9
-	 4x46Wtqj9SJN747kLEXqbSbXSHSwJd9R135XY4QAyr5DwGvI70KGPu8Um75cld+6c5vpo
-	 6ZHP+u1V13RcoWZfAp9ypW53ZFthFhfS/U7u9fwe5yIYfqfgcLemA7nt2SetvaYmGjg==
+	t=1794487148;
+	b=tTC38kI5fJbwwAMlc9jH9TEPZSxExa09dJavSuoLoTWlll9HEJ+RWRHcVujLBrweZgqI
+	 wMpN28L4xxLF+GKLi5P+2vFCfXgUnFETQ8XhGDt6f9hQkBC/y18p/B5kOWCfTulfXauHp
+	 lJcCnV2BVhne8g98RVzR0EEIhYQA49+kjvDYJxQ1trEhTuakemqltruCxMAt/G6/vkvw9
+	 a/gGy/QdGM09aYpyeHqxcTQ8aSTSWVzro+W5dFD+xYFiubzrQMiBDpiCb2c2vBTcKMEST
+	 +5ya3ubWup+VHwcCdCZwdeGMHdq+IW1xo0fokUE+5ejiehZItgcOKeBTPNsgYtWC4wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487146;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=4zLWZGgkuL5QGLEn/c6m5YMqj6fz95cJUh8MEYG4flg=;
-	b=SEl8DRpAfQsbA2NpOF+7LGYj1N+xgpEqtShtdjzIsC4Dbc4ClHasQ6xf+coqWAacoV41
-	 GIO9jgY7BqT2ejtXGXJdmCVxrk/ebrKzzxCV5bm3hlik9UgLY7Fk4LU0pgXn6bw6Dvn4b
-	 GzJ7lDa2nOuJZ9PR1JOGSla8DL0ONZgD+VNKKh74HqbN/SwW+QqW2vNrOpweFXx7FCtwI
-	 heX0irSruw4BDKCR7mbm0oKcVAIYCjWtCq9GUOGx4vMnSFjiqWHKKtLyg136zRs0qEB/V
-	 6/Ypc1dMFOdJU/GRGBZxbW9XypL7cCcfyPr/7l8ZszFKF3O5EhU540j4B+8QdsvI/kQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487148;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=vh0wEAdasYoPETQarwZ1upH2wgAJIcq1wNovfVXcsvM=;
+	b=pT3Yf6o0693pecQ+Wxg+U8Fn0FlJtoiNQKRKnDh8+CTJNp9MOZ4G9NJSwFXMHkMppTuU
+	 LtUB8x8L/Gyau+gAusyWHmSRC5njKRyw2RN4iQkx+GlRHAwxE8QblW2AloK1apPRPC4y+
+	 N1ROLqPrm8bNUlJq60wYfbNXmBuZ1Am7RlkTZdXIEs5QrCoN+LdcyTOKXJoPyVQ+AlR65
+	 u/wUCSXG+FGsqRzprTJ7aBRxgSWGx+JF+nIJv1F0PEedtfKVSUgNMGP1vn0HYi+HPMz9w
+	 x9oEU41vZls95MQIff8s/m+CpU+Es2Ej0IDYsj9+fYt/EjZN14Tdx5/voC1bD1EkSsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=iblguaoc;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IZ801P0m;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDF5606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:39:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DDF5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811F7606A339;
+	Thu, 12 Nov 2026 12:39:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=iblguaoc
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=4zLWZGgkuL5QGLEn/c6m5YMqj6fz95cJUh8MEYG4flg=; b=iblguaoce3+HnY9wIYcJerw9oD
-	9ESXB6nOa1eb780W8wKHoHlr7CK8LVT3khPuPDELh5dx1Jd5kPFZWY4H5odhYz0ErzJwCX9GThRC1
-	Q+dNt1ZU5bvgNDgte2iWfSA8GhiDnpC0DgeNHfnRDODrY4kMABIioUVrWGA+Sd1jHMDn7rnVqLnwU
-	p5Xomt5ihkbymBX2y3bRq+8hSQ4o9MZ933T1x7FeKB6ProuLvIAMpof7u6mddL4AYL8IwWx5r6rld
-	BVg5sihi6fn5eCmKX5GbUwjYUmXvRIHlj4GCze1VbuFJ8+OYhDEVhLh+f0TwkTdhY2sAWwIzl31YW
-	m5zvI8bw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRU4r-00000007HbG-0g5n;
-	Thu, 12 Nov 2026 12:38:53 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id B647430066A; Thu, 12 Nov 2026 13:38:52 +0100 (CET)
-Date: Thu, 12 Nov 2026 13:38:52 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Josh Don <joshdon@google.com>
-Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, mingo@kernel.org,
-	linux-kernel@vger.kernel.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com, tj@kernel.org,
-	jakub@okonski.org
-Subject: Re: [RFC][PATCH 3/3] sched/eevdf: Fix sched idle task group
- preemption
-Message-ID: <20261112123852.GE1922751@noisy.programming.kicks-ass.net>
-References: <20261105165525.011876858@infradead.org>
- <20261105170157.765325702@infradead.org>
- <CABk29Nujsg7FNY4yJ3Yd0maT0GEtvxacUWvTDiT5HD=-YVqTvg@mail.gmail.com>
- <avMeP-80bZz-zdtO@scheduler.schedules>
- <CABk29NsBzdEYOdLqj9HsrCqO6RzW_G574RzY+=vJp+564R2u=w@mail.gmail.com>
- <20261112123119.GX1813469@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IZ801P0m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4A9A1F00A05;
+	Thu, 12 Nov 2026 12:39:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794487148;
+	bh=vh0wEAdasYoPETQarwZ1upH2wgAJIcq1wNovfVXcsvM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=IZ801P0mO831HJkHpzTQChJSe9EGTEVSnliF4yzppHntTAOIz4vW3s+5i6liGSaoB
+	 ISZ8oACkEGCzXkzokMHHdDR2PIxprZ7qSxJo07e0xadmkQ14gOFkJSr9khYdGRQpM2
+	 srTEyrLKJzwI3kHxZNOO1iEBsoyOB+0VWIjonkTNS0/eK7WEvg3C7HiL4/Twh9k+i0
+	 U7Tnjd1cz4cI9Kzu8EEa66SLwJ28f1zPr4dG5aPxXZozDDrRpspkCiNTxNLnq/MGwP
+	 Lm9BOIEdqeUOc+n3cyt9XDmbqxsydTmCCgN7N95rVKgAIAv3CeqrfsKh3MbkzxxKy8
+	 UcNf7QKLJzExg==
+Subject:
+ Re: [PATCH net v4 2/2] xfrm: fix selector matching for IPv6 atomic fragments
+From: netdev-bot+sashiko@kernel.org
+To: Jeremy.Jean@oss.cyber.gouv.fr
+Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, dsahern@kernel.org, idosch@nvidia.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ kuba@kernel.org
+Date: Thu, 12 Nov 2026 12:39:07 +0000
+Message-ID: <179448714728.2199510.9531579994326693774@kernel.org>
+In-Reply-To: <20261109213803.1785516-6-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261109213803.1785516-6-Jeremy.Jean@oss.cyber.gouv.fr>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,64 +64,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261112123119.GX1813469@noisy.programming.kicks-ass.net>
 
-On Thu, Nov 12, 2026 at 01:31:19PM +0100, Peter Zijlstra wrote:
-> On Tue, Nov 10, 2026 at 09:51:21AM -0800, Josh Don wrote:
-> > On Tue, Nov 10, 2026 at 6:20 AM Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
-> > >
-> > > Hi Josh!
-> > >
-> > > On Mon, Nov 09, 2026 at 04:10:30PM -0800, Josh Don wrote:
-> > >
-> > > > >  /*
-> > > > > - * Preempt the current task with a newly woken task if needed:
-> > > > > + * Preempt an idle entity in favor of a non-idle entity (and don't preempt
-> > > > > + * in the inverse case).
-> > > > > + */
-> > > > > +static inline enum preempt_wakeup_action
-> > > > > +wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_entity *pse)
-> > > > > +{
-> > > > > +       int cse_is_idle, pse_is_idle;
-> > > > > +
-> > > > > +       cse_is_idle = se_is_idle(cse);
-> > > > > +       pse_is_idle = se_is_idle(pse);
-> > > > > +
-> > > > > +       if (cse_is_idle || pse_is_idle) {
-> > > > > +               find_matching_se(&cse, &pse);
-> > > > > +               WARN_ON_ONCE(!pse);
-> > > > > +
-> > > > > +               cse_is_idle = se_is_idle(cse);
-> > > > > +               pse_is_idle = se_is_idle(pse);
-> > > >
-> > > > now that se_is_idle() is checking for any ancestors with idle, this
-> > > > doesn't appear to be correct. Some motivaing examples:
-> > >
-> > > So we want to keep the idle difference between groups with idle
-> > > ancestors? FWIW, I asked about this but then thought it was knowingly
-> > > and that was what we wanted. I'm still not sure what we want...
-> > 
-> > cgroup properties are cgroup hierarchy position relative, this just
-> > maintins that behavior for cpu.idle as well. There was a more
-> > extensive discussion on this in the previous RFC, which is how we
-> > landed back on the find_matching_se() restoration.
-> 
-> Well, I'm still not convinced we need this.
-> 
-> Realistically idle means: "don't care, run whenever you have a minute".
-> To then preempt such a task for another such a task just because its
-> somewhere else in the hierarchy makes no sense, you don't care about
-> either of them, we shouldn't be preempting.
-> 
-> Anyway, I've pushed out the first two patches to queue/sched/urgent
-> since they address the worst of it. We can chew on all this a bit more I
-> suppose. But I cannot convince myself that there is any situation in
-> which we (should) actually care about the timeliness of anything in a
-> cgroup::idle container.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Perhaps even to the point that we should have idle (either the task or
-the cgroup property) imply an extra long slice length, much like how it
-implies a very low weight.
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The fix still leaves SCTP over IPv6 atomic fragments with zero
+  ports in the XFRM flow, so the policy bypass the commit claims to…
+- [Low] The new AF_INET6 branch in __xfrm_decode_session() takes
+  FLOW_DIS_IS_FRAGMENT as proof that the dissector parsed an IPv6…
+
+--
+
+xfrm: fix selector matching for IPv6 atomic fragments
+
+This patch restores IPv6 selector fields (ports, ICMPv6 type/code, GRE
+key) in __xfrm_decode_session() when every Fragment header in the chain is
+atomic. ipv6_find_hdr() gains an IP6_FH_F_NON_ATOMIC flag and now reads the
+initial IPv6 header through skb_header_pointer(). The ports are taken
+from the transport offset found by the flow dissector.
+
+> diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+> index 4f6a5b81e3b5a..9ea816a8c5f63 100644
+> --- a/net/xfrm/xfrm_policy.c
+> +++ b/net/xfrm/xfrm_policy.c
+> @@ -3530,9 +3530,23 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
+>  		decode_session4(&flkeys, fl, reverse);
+>  		break;
+>  #if IS_ENABLED(CONFIG_IPV6)
+> -	case AF_INET6:
+> +	case AF_INET6: {
+> +		unsigned int offset = 0;
+> +		int fh_flags = 0;
+> +
+> +		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
+> +		    ipv6_find_hdr(skb, &offset, -1, NULL, &fh_flags) >= 0 &&
+
+[Severity: Low]
+
+Can FLOW_DIS_IS_FRAGMENT be set here for a packet that isn't IPv6? The
+IPv4 branch of __skb_flow_dissect() sets the same flag:
+
+    key_control->flags |= FLOW_DIS_IS_FRAGMENT;
+
+With *offset == 0, the new ipv6_find_hdr() code also skips the version
+check:
+
+    if (!ip6 || (*offset && ip6->version != 6))
+        return -EBADMSG;
+
+vti6_rcv_cb(), vti_rcv_cb() and xfrmi_rcv_cb() pass
+family = x->inner_mode.family. xfrm_inner_mode_encap_remove() picks the
+decap routine from the inner nexthdr instead. An IPIP inner packet goes
+through xfrm4_remove_tunnel_encap(), which sets
+skb->protocol = ETH_P_IP, and the packet is then checked with AF_INET6.
+
+In that case ipv6_find_hdr() parses the IPv4 header as IPv6. Byte 6 is
+the IPv4 flags/fragment offset byte, and 0x2C there reads as
+NEXTHDR_FRAGMENT. The parser then walks the IPv4 fragment payload as
+extension headers.
+
+If those payload bytes look like an atomic Fragment header, this branch
+clears FLOW_DIS_IS_FRAGMENT and loads ports from the fragment payload.
+Before this patch those ports were always zero.
+
+The addresses are already mis-decoded in this case, and the reassembled
+packet gets checked again with AF_INET, so the impact looks small. Should
+this branch also check flkeys.basic.n_proto == htons(ETH_P_IPV6) before
+it calls ipv6_find_hdr()?
+
+> +		    (fh_flags & IP6_FH_F_FRAG) &&
+> +		    !(fh_flags & IP6_FH_F_NON_ATOMIC)) {
+> +			flkeys.control.flags &= ~FLOW_DIS_IS_FRAGMENT;
+> +			flkeys.ports.ports = skb_flow_get_ports(skb,
+> +								flkeys.control.thoff,
+> +								flkeys.basic.ip_proto,
+> +								NULL, 0);
+
+[Severity: High]
+
+For SCTP over IPv6 atomic fragments, do the ports still end up as zero?
+
+sctp_rcv() pulls skb->data past the SCTP common header before it calls
+the policy check:
+
+net/sctp/input.c:sctp_rcv() {
+    ...
+    __skb_pull(skb, sizeof(struct sctphdr));
+    ...
+    if (!xfrm_policy_check(sk, XFRM_POLICY_IN, skb, family))
+    ...
+}
+
+When __xfrm_decode_session() runs, the transport header therefore sits
+before skb->data. The dissector finishes with nhoff = -12. On the
+fragment path __skb_flow_dissect() clamps that value:
+
+    thoff = min_t(u32, nhoff, skb ? skb->len : hlen);
+
+Converted to u32, the negative nhoff becomes a very large number, so
+thoff becomes skb->len. skb_flow_get_ports() at that offset fails and
+returns 0. FLOW_DIS_IS_FRAGMENT has already been cleared at that point,
+so decode_session6() copies sport = dport = 0 into the flowi6. The
+non-fragment port path uses the signed nhoff and does not have this
+problem.
+
+sctpv6_protocol is INET6_PROTO_NOPOLICY, so this is the only IN policy
+check SCTP/IPv6 gets. Could a plaintext IPv6 + atomic Fragment + SCTP
+packet still miss a policy such as "proto sctp dport X" that requires
+ESP?
+
+The ipv6_find_hdr() call above already handles a start before
+skb->data. It leaves the correct transport offset in offset and returns
+IPPROTO_SCTP. Could those values be used here instead of
+flkeys.control.thoff and flkeys.basic.ip_proto?
+
+> +		}
+>  		decode_session6(&flkeys, fl, reverse);
+>  		break;
+> +	}
+>  #endif
+>  	default:
+>  		return -EAFNOSUPPORT;
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109213803.1785516-2-Jeremy.Jean%40oss.cyber.gouv.fr
