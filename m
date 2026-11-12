@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794446839;
-	b=Jq7MWbOKZh/UgBgO57oxS0JdzzBIHyRIMzx7SNY3Wglj6Xu/hRjuYNG/bEH5tNAmYEaE
-	 wvz9bqbWaKsgN0+QjYt0hy24P9CDWGG777Tv6EAL9kCavRqtRWURikGOT6BYL1oTyJT6o
-	 dPyVCUS14JUcfRwddauN76LvZ2Ye8KWlvYm4qonDBgcWkyQgGapHxRIRRKt0rCzHuAZKy
-	 T/BHRNrMiNAdgj7ZdSb+bRTJw002Rw4GcVIm5VcxwF2poTYnociuM8r3TydRgetFu76jl
-	 O4jJBvmCGcsA/rFU1I3dTs7DXQXWqN0ad+yu78aAEsBrGbJ0FQuCR1EtXT4yknLHydw==
+	b=aFYFEh+3VPfIlA2ppzc3lfLdu5ZUovCSi1i3IoUdKr5uROs96IYb57nSZTZgJD8wIGjx
+	 +5asv8GdNZZ/U9LUH6iqphv7SxVU+ZPLS1tMtYyA4omLu3cFdoyTJoWiK86DeDS7VfBmf
+	 Nw3ctow+9lsszTsl5IdKJFZ/oB+Z2B0vHDHvEMlZznLyopRmdL9n4FkF+67N3qk8gXXbv
+	 EYFUB5D8AbYx0pa4qxGLNNLmSY1Qg5k93mSM59zAb9Z6BEmO2iO4hQuVOnXmtJaOXs87z
+	 iZNJUwcK4YGUx0GclIXzbfJrcqtCPPdcJOUm0lw3bcOl7uHTva8yCk+K/IN3mv+TzGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794446839;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=eLPKV+XG/NDVIPVGtVsCkLYRyrN/OgHbO9MTpDsW/Zo=;
-	b=p2V2gmQ2/YAwpBHKAu9fWfyXhQMC82SDElAu5GBgzE0+dUCVbaG60XGIEzdK8mdUdril
-	 7f1NsaQ1lx1IJKJKk1ZoFWHpsj48Y13kpglENhYasTZBWLVTXOgHn17F6BOJSqiBfXQEm
-	 1nfGbrbLb0mHcOTe5+ZY47p/pNqkz0DOjexURzvwaC2Mk+TaS8F9wO5nmr+uHfA3rUTQE
-	 J6Ds4fgI5Ra9r96yE0bGYtR+ioMG24jQjL/YCqNDSMM0J9yTzMtb6tngpaGcgAhhXIn1/
-	 szxWtsJLlDYV0rJvx16S968yOsvSEImnsPTL8IRFowJ58YszPB1+bWrsfhL1x6SXrAw==
+	bh=q/lveT1bVR64vDjyJJw1kviu+yZQdYmoJOsd/WaZ6p8=;
+	b=4OuVXtTXq6s+rlpaKoATEXXc+2EJ6bfx6CDEHt2YfrV3jdM0RzEJTKQqijUaVvg8A4xt
+	 qFZoaLBuWuEo4auiJRSZslmH1PbUFjaYTRTZZZilZg0hQPIA/svhe0HM6Be30hcCymKxo
+	 8qkh62symBEzt46FChxUekpR3O250MSGpsJQUSczf00vuwrPzuJ7+WsJ/AqtIIBtzrvcm
+	 7t5oBh5qe7gUFBBMNmEJFljidiZRuPoSFpyYrmkyrCSkOyrSPlEhff331vDMWVSb4AdUW
+	 tHDfyVfD7YhrMB0IB+QbM4pt41cbJ4sBP5TOM40fiRfYqujnTVXLhiiUyWYJuUdkf8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X1ObL4vM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0Xse3nj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AA6606A321;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A64606A31C;
 	Thu, 12 Nov 2026 01:27:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X1ObL4vM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104CF1F00A05;
-	Thu, 12 Nov 2026 01:27:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0Xse3nj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049761F00A06;
+	Thu, 12 Nov 2026 01:27:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794446839;
-	bh=eLPKV+XG/NDVIPVGtVsCkLYRyrN/OgHbO9MTpDsW/Zo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X1ObL4vMedeEeMQHtzNiIiZR8ZE417joAJkDIKoV5+9V0WUJE5p4vkBeavzZEABiW
-	 8LCs0SFyBrlPFQ+mrBEzHJd2bbkZXi+qQ/SzhrQXlXFtD2/VFX+W9DFq4JRted0vRy
-	 KNMEfadnDd0r9cgO/sQoEya3/+O4n1/Yt3Kjy5ArTWoPstQ4PHEI6UATj6qlwE+aAy
-	 QV0vacGHmZZbQqICUX98r9HGh/9LjHuhovjRCL7UQnD5y5azZ8XPGWTUHgeqngYmvx
-	 Kb1AMKGvf3UAxsly8jzM/Hi3nXrHUzrrlfuyDjPfsMhfVpN9cEGuqrAPhmKDPMhFQt
-	 rGjNPM/MJCoFA==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH v2 04/13] tracing/probes: Fix missing BTF kind checks in char pointer/array helpers
-Date: Thu, 12 Nov 2026 10:27:15 +0900
-Message-ID: <179444683590.345731.13726797901135918302.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179444679892.345731.5271591537517106679.stgit@devnote2>
-References: <179444679892.345731.5271591537517106679.stgit@devnote2>
-User-Agent: StGit/0.19
+	bh=q/lveT1bVR64vDjyJJw1kviu+yZQdYmoJOsd/WaZ6p8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=O0Xse3nj+TS+Yj85esN1+koCSwhjpteuHkg6I6K+JLFc5/NSltJSsE52iDqkk9BOo
+	 S9pwUKkYTWjLWAcLdNB4N0RSsGYgceuDGY2J1tTw/jZLRILLR+MOw2sEV6HUwD47Q8
+	 xYY8wIJwEIu8Vh0f7SAwTYnADSXXD+BHQkCvDY0WvrVa0u7jwZ6IFk/F5qF3Kcc/PK
+	 DTJN5HT9oY+6U0lKs/YIoNouNI0EF0RVwvQbQCm1Aap9HetYbiP9Nv0XI9B3k9C4Ug
+	 SS6XsYR+1TrRcww4XrORI+9zj30p7xb4nC31uvo4Yf2PE9Pv3en79300Ha212kyUYj
+	 hST/dL2X3LYIw==
+Date: Wed, 11 Nov 2026 17:27:18 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: hyunjungg <hj351016@gmail.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, Sergey Ryazanov
+ <ryazanov.s.a@gmail.com>, M Chetan Kumar <m.chetan.kumar@linux.intel.com>,
+ Johannes Berg <johannes@sipsolutions.net>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net] net: wwan: iosm: cancel adb_timer on cleanup to
+ avoid use-after-free
+Message-ID: <20261111172718.1e41f48b@kernel.org>
+In-Reply-To: <20261109124933.1603575-1-hj351016@gmail.com>
+References: <20261109124933.1603575-1-hj351016@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,54 +64,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Mon,  9 Nov 2026 21:49:33 +0900 hyunjungg wrote:
+> Found by static analysis; not tested on real hardware (needs an Intel
+> M.2 7360 WWAN modem).
 
-In struct btf_type, the type ID and byte size share a union, and only
-BTF_KIND_INT types are followed by a 32-bit integer encoding word.
-Because btf_type_is_char_ptr() and btf_type_is_char_array() do not
-verify that the outer type is BTF_KIND_PTR or that the resolved element
-type is a non-NULL BTF_KIND_INT before inspecting it, non-pointer BTF
-types can have their byte size misinterpreted as a BTF type ID, and
-arrays of non-integer types read out-of-bounds or misinterpret trailing
-BTF metadata as BTF_INT_* encoding bits.
-
-Validate the BTF type kinds and NULL pointers before reading inner type
-metadata in both helpers.
-
-Fixes: 27973e5c64b9 ("tracing/probes: Add string type check with BTF")
-Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- kernel/trace/trace_probe.c |    8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index 3a57fe6b67cc..232d1deecb20 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -411,6 +411,9 @@ static bool btf_type_is_char_ptr(struct btf *btf, const struct btf_type *type)
- 	const struct btf_type *real_type;
- 	u32 intdata;
- 
-+	if (BTF_INFO_KIND(type->info) != BTF_KIND_PTR)
-+		return false;
-+
- 	real_type = btf_type_skip_modifiers(btf, type->type, NULL);
- 	if (!real_type)
- 		return false;
-@@ -435,6 +438,11 @@ static bool btf_type_is_char_array(struct btf *btf, const struct btf_type *type)
- 	array = (const struct btf_array *)(type + 1);
- 
- 	real_type = btf_type_skip_modifiers(btf, array->type, NULL);
-+	if (!real_type)
-+		return false;
-+
-+	if (BTF_INFO_KIND(real_type->info) != BTF_KIND_INT)
-+		return false;
- 
- 	intdata = btf_type_int(real_type);
- 	return !(BTF_INT_ENCODING(intdata) & BTF_INT_SIGNED)
-
+Please don't send these low effort untested driver fixes for networking.
