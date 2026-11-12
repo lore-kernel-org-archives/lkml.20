@@ -1,49 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.82
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476913;
-	b=F/Ja3CCWezNXjuIjsE0szv2eR4pGRcgU16dLgnNFKXWJVgZpWEyc1EPctsyfW0qVul7j
-	 UVYhaqzH3TAcubUwFPCtDl+sm86u2KJB3y3xNkPoRUwLDyQr52M/1fofAUVcsaNFzdGzm
-	 3b6xfWjsGttWV5iUPkcRwJ8CEjNl2h/lLme8Tk5r8gbzz0MOkMAnBd81CGffkbZvhd4D7
-	 Yaz0qB6VNBSG5ksrKrxGVNzmpPmwGMx9dqjQriikC3IMbVdtV0W6QPu62+D+OD+bV0ZcH
-	 iDkd92cJ3PTj9MQtjnjU+cQwXifEyE3ZuOy6bCXtztsGmzxsnYp2zbLaqB9P+Q3Q6WA==
+	t=1794476916;
+	b=i23cT9abNMvroh/+gPMVaqBsAI7LNBzI3u9BJ7tzoQXf3X9Fb3no8yL92uBKb3BqGPTh
+	 swny0iLS5B+JItifbpny/Gx04bhgvvkDoa6X2DZq0h4ytJSKQgXvLR2gLdaHJy5cphqjy
+	 VKp5Dr8bi5/Lsc6YvmcTl/FEGk3KBkk/09SDzI+FzyRrBsVaA0GnwBGJmXrz2addxZdME
+	 mcG51XeEaF64pC5nv3jRJlUho6XvH8H5x+DZMYlM22y9E15R+GNVRAI0+y1xlJuIQhmCz
+	 atH5GyENXBU7aFgjEN5L1+4rqoArXz20YFSg2e8ixMlJVuLnX2wFMu/YKsDA4GfYhmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476913;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=gwA8u9VJ9m6gnHnzfW8zxz5hofEESJUkeHdy358lFOg=;
-	b=HW+71fEpjMl54i9/PjuzOmsRVQcTaUxIudP/G+0NuNvfbnE6CCNsmMHJijbQbn1uculs
-	 pE07yiQlGh0ATsRSADDbQ/1WvPupyOD5c0HmEzIgFeHbUvxvNqXfGEGPBnFAsjt/8eJ3c
-	 kqJSqxHxkZQ0fGC13Jkuu2LtRyTuy9RzCm1oofq9Kf9lF/YkL0EGOeaZ7waWe0hlmwwsS
-	 UgPh3qsRM+kwgfH6DcRzlcsDoPJLdCStcIlmaiUSkSYG7kyA720lY6hz3UhulRBEPt2Hb
-	 ez4iEHFc1BLN54Pwk9wm4GONAWA3Ayxcke+rNJ3QgKDAljn0IKAiBeX98yW7AoMDw0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476916;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=S1I6Hq1LNxJ2AM3XAIf6COuRQm5+kbnmORhmffuAx1E=;
+	b=IYYdvIqwxi/cSH4rx2nisHQhSf/Lx2NnhwHNU01tQhyiQCjUHtDi/x40ONjq0K6OHPSn
+	 yMXGAhMBF2NW4p9yLlS/tD1Rn1nTcVEcok7i3Fu0Fpr0xM+fgouTjgHem/qOOivfsWjxW
+	 J5VjrPoTSpb2PPTzEHZMHq/garaPzIo8qE0/SBMd3efb+Ll6I93lbjFyzugEMDoHsW+9L
+	 pABhQYgLNLHxq1mVw7GpMwdYvJIhUyXzzPOQZHanpx8AujsK0aKzTmHE3XQN9AoVnf2b0
+	 O1QE4ZDUqALKPQc5DDsc7d70g2du+ZAGEbARtvtng9/BUw32Vatm4kNsfYjbOue5dqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="O+LJ/p6u";
-	arc=none smtp.remote-ip=115.124.30.130
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jqc36Bwe;
+	arc=none smtp.remote-ip=91.218.175.82
+Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C08606A31C;
-	Thu, 12 Nov 2026 09:48:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73C08606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3789C606A33E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:48:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3789C606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=O+LJ/p6u
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794476903; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=gwA8u9VJ9m6gnHnzfW8zxz5hofEESJUkeHdy358lFOg=;
-	b=O+LJ/p6unoiczwOurYE1h69jPza1sB1K4uQ16LK8SdTnL9KntQwk3w0mfDLYvjaues8f4RCxYph4GbWHFJrUOHatFnwkheeU1ebrWk/TBYTY9fDMLo9NGe3U7k/SG+0ENbMqj2VJd1WRiIom3Wk7M1I+ztfnTvl9NgDJdRM1xDI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R721e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XEbbDux_1794476902;
-Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEbbDux_1794476902 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 12 Nov 2026 17:48:22 +0800
-Message-ID: <bd25f767-1f74-4721-9264-92f3031d9109@linux.alibaba.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jqc36Bwe
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UzHD0xBypvN0pN6/OIEvkmDF15pe0Kzfmzwbbwx3SyI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794476913; v=1; x=1795081713;
+ b=jqc36BweYDZmBlcdZqY8WdSEIykwJhcihOwVZJ3SkVL6iD+HGInr4Dr8GNd27wsy2kvtnsJe
+ qJHZObmF0ZRyiMIqBLHvQHT0ITV9xjDwxQXawwWgrzT8H+v1UckOdTQPwrq8xbmxthHvNQRE7DQ
+ LV4fq5vAEmo7w7tvzO+PEzr4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 07b5a578b5343b43;
+	Thu, 12 Nov 2026 09:48:33 +0000
+X-Mizu-Trace-ID: 07b5a578b5343b43
+X-Migadu-Flow: FLOW_OUT
 Date: Thu, 12 Nov 2026 17:48:21 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	MD Danish Anwar <danishanwar@ti.com>,
+	Murali Karicheri <m-karicheri2@ti.com>,
+	Wojciech Drewek <wojciech.drewek@intel.com>,
+	Ravi Gunasekaran <r-gunasekaran@ti.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, 1342116488@qq.com,
+	Hangbin Liu <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH net v2] net: hsr: clean up synced addresses and allmulti
+ in hsr_del_port()
+Message-ID: <avWLZTnYPQJ2-z7_@fedora>
+References: <20261112064716.85381-1-sunwenbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,56 +73,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm/shmem: remove truncated folios from the page cache
- in batches
-To: Qiliang Yuan <qiliang.yuan@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20261112-bug-mm-shmem-undo-batch-v3-1-212db8c24058@linux.dev>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261112-bug-mm-shmem-undo-batch-v3-1-212db8c24058@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112064716.85381-1-sunwenbo@cmss.chinamobile.com>
 
-
-
-On 11/12/26 5:05 PM, Qiliang Yuan wrote:
-> truncate_inode_pages_range() takes the folios it finds out of the page
-> cache with delete_from_page_cache_batch(), which takes the inode's
-> i_lock and the i_pages lock once for each batch of up to
-> FOLIO_BATCH_SIZE folios.
+On Thu, Nov 12, 2026 at 02:47:16PM +0800, Wenbo Sun wrote:
+> hsr_set_rx_mode() syncs unicast and multicast addresses to slave A and
+> slave B devices via dev_uc_sync_multiple() and dev_mc_sync_multiple(),
+> and hsr_change_rx_flags() propagates IFF_ALLMULTI via
+> dev_set_allmulti().
 > 
-> shmem_undo_range() calls truncate_inode_folio() on each folio instead,
-> so filemap_remove_folio() takes and drops both locks once per folio.
-> Truncating, punching or freeing a tmpfs file or memfd made of small
-> folios, such as a large /dev/shm segment, pays for that on every page.
+> When an UP HSR device is deleted via hsr_dellink(), hsr_del_ports()
+> removes all ports from hsr->ports before unregister_netdevice_queue()
+> leads to hsr_dev_close(). Consequently, hsr_dev_close() iterates over an
+> already-empty port list and cannot execute dev_uc_unsync() or
+> dev_mc_unsync() on the detached slaves. Likewise, when a slave device is
+> unregistered while the HSR master is UP, hsr_netdev_notify() calls
+> hsr_del_port() directly without running hsr_dev_close(). In addition,
+> hsr_dev_close() does not release IFF_ALLMULTI on slave devices either.
+> As a result, detached slave devices can retain synced unicast/multicast
+> addresses and an elevated allmulti reference count.
 > 
-> Clean each folio up as truncate_inode_folio() does and, once the swap
-> entries are gone, pass the batch to delete_from_page_cache_batch(),
-> which needs truncate_cleanup_folio() outside mm/truncate.c. Undoing a
-> failed fallocate() only removes the folios that are not uptodate, so
-> keep removing those one at a time.
+> Clean up these states in hsr_del_port() when detaching slave A or slave B
+> by calling dev_uc_unsync(), dev_mc_unsync(), and, when IFF_ALLMULTI is
+> set on the master device, dev_set_allmulti(port->dev, -1).
 > 
-> Dropping an 8 GiB file of 4K folios in a 32 vCPU VM takes (median of
-> five runs, averaged over two boots of each kernel):
+> This issue was identified with the assistance of an LLM-based code
+> review tool, confirmed by reproducing the retained allmulti reference
+> count and synced multicast address in a User-Mode Linux (UML)
+> environment upon deleting an active HSR interface, and verified in UML
+> that both states are properly cleared after HSR port deletion.
 > 
->    operation           before (ms)  after (ms)  change
->    ftruncate() to 0           1144         901    -21%
->    hole punch                 1148         906    -21%
->    close() of a memfd         1139         912    -20%
->    unlink()                   1142         914    -20%
-> 
-> Files of PMD-sized folios take 18-31 ms with or without this change.
-> 
-> Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
+> Fixes: 36b20fcdd966 ("net: hsr: Add support for MC filtering at the slave device")
+> Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
 > ---
+> Changes in v2:
+> - Clarify the commit message to explain explicitly why hsr_dev_close()
+>   iterates over an already-empty hsr->ports list on hsr_dellink() and
+>   does not release IFF_ALLMULTI, answering Hangbin Liu's question.
+> - Add Reviewed-by from Hangbin Liu.
+> - Link to v1: https://lore.kernel.org/r/20261111060143.183670-1-sunwenbo@cmss.chinamobile.com
+> 
+>  net/hsr/hsr_slave.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
+> index a546f70f9cc8..bab0c27dd06a 100644
+> --- a/net/hsr/hsr_slave.c
+> +++ b/net/hsr/hsr_slave.c
+> @@ -245,8 +245,14 @@ void hsr_del_port(struct hsr_port *port)
+>  		netdev_rx_handler_unregister(port->dev);
+>  		if (!port->hsr->fwd_offloaded || port->type == HSR_PT_INTERLINK)
+>  			dev_set_promiscuity(port->dev, -1);
+> -		if (port->type == HSR_PT_SLAVE_A || port->type == HSR_PT_SLAVE_B)
+> +		if (port->type == HSR_PT_SLAVE_A ||
+> +		    port->type == HSR_PT_SLAVE_B) {
+>  			vlan_vids_del_by_dev(port->dev, master->dev);
+> +			dev_uc_unsync(port->dev, master->dev);
+> +			dev_mc_unsync(port->dev, master->dev);
+> +			if (master->dev->flags & IFF_ALLMULTI)
+> +				dev_set_allmulti(port->dev, -1);
+> +		}
+>  		netdev_upper_dev_unlink(port->dev, master->dev);
+>  		if (hsr->prot_version == PRP_V1 &&
+>  		    port->type == HSR_PT_SLAVE_B) {
+> -- 
+> 2.33.0
+> 
+> 
+> 
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Sorry, you post v2 version to fast. Please check if
+dev_uc_unsync()/dev_mc_unsync() could be called from hsr_dev_close(). If not,
+should we remove them from hsr_dev_close()?
+
+Thanks
+Hangbin
