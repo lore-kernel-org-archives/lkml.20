@@ -1,65 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794479579;
-	b=nd8BYtgYFhedaZ86r6JDcU6SMmlmjQhrRxfDsY7kYgbhPn7exNilaF9LWdN5BaLUJU9R
-	 oEFQUhY6C2O6G8tZxIvoponZLhEc9ecY+Oaul4ZYUmyf4DuM6EGvfGCd29s6qR9i3eLX9
-	 efqk/cFDH8LUbkYxbyoberJ6IA5S4gvIVGB0Tf3X3Sh1uNpwfVSHezd8kXEhyMQKMZXq9
-	 CVWXeEZnFdTmWxqz4R33tmu8PhGawGgjnTZVDevENNg539fBXdcZb0A6QgaaJd2DedxQ6
-	 S6r+t5jNXjjyteuObNDNgQxGs9iy/FZLTDV7QRECO4yjfuMNgAGwfpCAlTz8usyPKdA==
+	t=1794479605;
+	b=VQLzBoEvP4Oo4MKCFBSO0qXA0Z3wsMpCk6Zirg0aN7mzdIa5UnRkJ+OEdkh6H107S1IP
+	 0GkMYwgH2KXG4LbAKctrzB/8VeGX+L/QtXDMlYgA9fcg2KWzxaNIAolM3K+7SUuk1IC4E
+	 hka0G38P9eylf5YZhZEDKDNLfh/NQWH5xhrPSHxHRlKN/LOvXWF9nkYcSUlAPH9a3cbYm
+	 ksqbrJa6VcMwQat5iJBBtjsDmhJ4O0F4W7KUVmgTXGrIrsv6sN4B3JH5p2b64vEnCqBOk
+	 0In4VtvJdBaO2tz8Ily7bly1xWHZye7SE8q4kmUDD0G6U30wd9tJHIirCerNhTWBmzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479579;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=7asrFaHTzZllDDUNciX3JSRX5gXUC5F4fBVc9Jkwf0E=;
-	b=0UJdqs4GhwfSDAoko7yE4+1jniLZacCE97EDZPG6OXzvnlFDRHItjcKT7s7GcCJkPLvf
-	 dFlCK+gmuB+gAIcq/rLIEK9uCW/xWPsftRWSnKg7oU/TnmL2nY+L3DYdCx7V5TMiZ+rDK
-	 p+PvP4dp5MRZ5bVVr8rBy7yj2XMS7MuO0q0yazR8hI767tKNeLGrKLsOdTfjuata0xqm9
-	 yI3XNLVhb2M4o4ydlMxRW25s8Bd8U0WSwk/O3RYl0k4pG/fDDFsAvHS77i7rmFaHC7DBU
-	 rEDfZ+eQmMvWS1MxCyNZGB45XOUbs75/p/xdD9K/DARy0t1BTiJCN7lJbKtrn0SF9ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794479605;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=bUP3NtMygj44XOC9NIS0tz33TI6f+ov6Dat/ckuHzGw=;
+	b=sL9MW4bOo6muWe5VIQW4sQ8+UnINEN8h1/QRcAZDCuTqAd718zdTOFN3C+0t+rMRKzEA
+	 JJC3eoEXHogRTM9yZ4lg33MkIsrDRR0R023cG+8dxfywFuY5yooSUIVBhK3JyqjSVWkeT
+	 63lwqxySq3YVQt6f+nrQd2qpWYBF5dwQyJN5KsBVbww0UZgPEMuYWKAdLf2tjYtG67WEy
+	 RoRu87rgHWBtYp/sdn8uaf7h5PmJCNNaQRZE4J9FjL0UioKE+ag79XT/zOh21Ar6VWPJC
+	 GWblAeSkcrUV+3mwD8YWEFbBwyRhR9fLcYpxcYkEbNZZL0+PSMz9+zhPGuSe+jKkNEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGb2yDtZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF86606A31C;
-	Thu, 12 Nov 2026 10:32:59 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lybmBeWp;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 83415606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:33:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83415606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGb2yDtZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1E9D1F00A05;
-	Thu, 12 Nov 2026 10:32:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794479579;
-	bh=7asrFaHTzZllDDUNciX3JSRX5gXUC5F4fBVc9Jkwf0E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SGb2yDtZZqWFVT0guABW2rgY6yde91AMAt54K9zUMc6UNmu7S/V4fgWu69fKsfyPV
-	 7Es8RO7tpcRecCeER9guaREA7sPOuG3WBLnorqOoYS6/o/S+jqXwzN2exs1B8sA3N/
-	 ZF4JGs3m2/skadvs75aHgR/H6ByuPWU7sQ1BdFy1mJYih50uf3Zp+ccuiPVeVwtDCA
-	 bR7Q5WXN7kDBxMaW3Jvayc6JUP0xbthJyaw/KGsHM7Svirv2yXY2jesLK5/Jg9PZyO
-	 7OsRdD1RmzyyESGfks3oK20chkDsepDNhUJxWgPddg2c6NE2aQVDzmY1ONk0PsuEG1
-	 X2DZOwBkjArtw==
-Date: Thu, 12 Nov 2026 16:02:46 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Val Packett <val@packett.cool>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Wei Deng <wei.deng@oss.qualcomm.com>
-Subject: Re: [PATCH v7 5/8] Bluetooth: hci_qca: Support QCA2066 on M.2
- connector via pwrseq
-Message-ID: <avWVnjF86FLFvfOC@debian>
-References: <20261005-monza-wireless-v7-0-5a6de7662dcb@oss.qualcomm.com>
- <20261005-monza-wireless-v7-5-5a6de7662dcb@oss.qualcomm.com>
- <bc7730e4-8b47-4c2b-84ef-277749f2aab8@packett.cool>
- <CAFEp6-3Mt-CCJEz=RAJUh6pxH-Ssgkqfx3QQfyzvS9HwzFp9QQ@mail.gmail.com>
- <906ebec9-de19-4a1e-9472-dcf8529fa232@packett.cool>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lybmBeWp
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7D4FB153B;
+	Thu, 12 Nov 2026 02:33:20 -0800 (PST)
+Received: from [10.211.55.3] (unknown [10.57.14.230])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B9E6D3F673;
+	Thu, 12 Nov 2026 02:33:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794479603; bh=rHpte5JUHErycSmpZgoWPKziiNyMTSiJNyaOEd0FNZE=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=lybmBeWpD5Cs4KIWrf2IXqDog8y7zyiMqMcD7tCwYrrXCUeI7YiELTfzyZdOs6j+P
+	 1wo0yJPYQHKueylGSsFlVAI+Jcn56O/017JSIsd3BS0PXfrWzZCB101VuHRIi6SbBx
+	 q45FBU2JQZrjcW/dDaWq4UwFmF3busLwl2JDUlLA=
+Message-ID: <e96561c9-2c25-4bd6-b57d-2355cb850906@arm.com>
+Date: Thu, 12 Nov 2026 10:33:20 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,95 +53,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH] fs/resctrl: Report why a schemata write failed
+To: Reinette Chatre <reinette.chatre@intel.com>,
+ Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
+ Dave.Martin@arm.com, james.morse@arm.com, babu.moger@amd.com,
+ tglx@kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
+References: <20261104102304.703535-1-ruanjinjie@huawei.com>
+ <0bece210-cd99-4f4c-83cc-c58b59b7ebec@intel.com>
+ <5e6fc827-d5ca-4e72-ab8b-3ad63d530c19@huawei.com>
+ <0a2b0685-ed32-4e7a-b724-1b5be075ca19@intel.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <0a2b0685-ed32-4e7a-b724-1b5be075ca19@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <906ebec9-de19-4a1e-9472-dcf8529fa232@packett.cool>
 
-On Mon, Oct 12, 2026 at 04:10:26PM -0300, Val Packett wrote:
+Hi Jinjie, Reinette,
+
+On 05/11/2026 15:58, Reinette Chatre wrote:
+> Hi Jinjie,
 > 
-> On 10/9/26 1:40 PM, Loic Poulain wrote:
-> > Hi Val,
-> > 
-> > On Thu, Oct 8, 2026 at 12:58 AM Val Packett <val@packett.cool> wrote:
-> > > 
-> > > On 10/5/26 9:21 AM, Loic Poulain wrote:
-> > > > For QCA2066 (and other QCA chips) on M.2 connectors, the UART enable is
-> > > > controlled by the W_DISABLE2# signal managed by the pcie-m2 power sequencer
-> > > > rather than a dedicated BT enable GPIO.
-> > > > 
-> > > > When the serdev controller has an OF graph (indicating it is connected to
-> > > > an M.2 connector), acquire the 'uart' pwrseq target from the connector's
-> > > > power sequencer and use it to control BT power instead of the bt-enable
-> > > > GPIO. This is factored out into qca_serdev_get_m2_pwrseq().
-> > > > 
-> > > > Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-> > > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > > > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> > > > ---
-> > > >    drivers/bluetooth/hci_qca.c | 47 +++++++++++++++++++++++++++++++++++----------
-> > > >    1 file changed, 37 insertions(+), 10 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
-> > > > index 1d27ff98034ba99d0783e48db5c605f3b31117ea..b6ec1a57248e2cf4bd138898ffc5cad45b1b4a8b 100644
-> > > > --- a/drivers/bluetooth/hci_qca.c
-> > > > +++ b/drivers/bluetooth/hci_qca.c
-> > > > @@ -1875,6 +1875,9 @@ static int qca_power_on(struct hci_dev *hdev)
-> > > >                        /* Controller needs time to bootup. */
-> > > >                        msleep(150);
-> > > >                }
-> > > > +
-> > > > +             if (qcadev->bt_power.pwrseq)
-> > > > +                     pwrseq_power_on(qcadev->bt_power.pwrseq);
-> > > >        }
-> > > > 
-> > > >        clear_bit(QCA_BT_OFF, &qca->flags);
-> > > > @@ -2396,6 +2399,34 @@ static int qca_init_regulators(struct qca_power *qca,
-> > > >        return 0;
-> > > >    }
-> > > > 
-> > > > +static void qca_serdev_put_pwrseq(void *data)
-> > > > +{
-> > > > +     pwrseq_put(data);
-> > > > +}
-> > > > +
-> > > > +static int qca_serdev_get_m2_pwrseq(struct qca_serdev *qcadev)
-> > > > +{
-> > > > +     struct serdev_device *serdev = qcadev->serdev_hu.serdev;
-> > > > +     struct pwrseq_desc *pwrseq;
-> > > > +
-> > > > +     if (!of_graph_is_present(dev_of_node(&serdev->ctrl->dev)))
-> > > > +             return 0;
-> > > Seems like of_graph_is_present does *not* return false for the existing
-> > > (non-connector) setup which is currently used in all the laptop device
-> > > trees..
-> > If I understand the issue correctly, this can only occur when a UART
-> > 'port' is left unconnected, in which case the failure is legitimate.
-> > The laptop device trees should be fixed accordingly, either by
-> > connecting the port to the corresponding M.2 device or by using the
-> > usual Bluetooth UART child-node approach. I don't see this issue in
-> > mainline.
+> On 11/5/26 12:32 AM, Jinjie Ruan wrote:
+>> 在 2026/11/5 3:18, Reinette Chatre 写道:
+>>> On 11/4/26 2:23 AM, Jinjie Ruan wrote:
+> ...
 > 
-> So it looks like this is because commit 014501d141ed ("arm64: dts: qcom:
-> hamoa: Add graph port/endpoint anchors to pcie4_port0 and uart14")
-> unconditionally added the uart14 endpoint to hamoa.dtsi itself in
-> preparation for the future transition to proper M.2 descriptions.
+>>>> diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
+>>>> index cafebdff70dc..cfb59cbc4135 100644
+>>>> --- a/fs/resctrl/ctrlmondata.c
+>>>> +++ b/fs/resctrl/ctrlmondata.c
+>>>> @@ -367,8 +367,11 @@ ssize_t rdtgroup_schemata_write(struct kernfs_open_file *of,
+>>>>  			continue;
+>>>>  
+>>>>  		ret = resctrl_arch_update_domains(r, rdtgrp->closid);
+>>>> -		if (ret)
+>>>> +		if (ret) {
+>>>> +			rdt_last_cmd_printf("%s: failed to update the domains: %pe\n",
+>>>> +					    r->name, ERR_PTR(ret));
+>>>
+>>> Please instead display the schema name (s->name) to user space as that is the name
+>>> that the user use to interact with the schemata file. 
+>>> Is it necessary to print error code again? This is the same error returned to
+>>> user space, no?
+>>>
+>>> I do not know what resctrl fs can claim here about hardware state - could such
+>>> a write then partially succeed on MPAM side? If so, best fs can display may be
+>>> something like "failed to update all domains". If so, could user space follow this
+>>> with a read of schemata file to see which domains failed? User may want to retry
+>>> in such scenario ... but back to earlier question, this sounds like a permanent
+>>> failure (until CPUs are back online) when attempting to make domain configuration
+>>> changes that does not sound right here.
+>>
+>> There are some cases not permanent:
+>>
+>> - PCC/MPAM-Fb MSC returns -EIO in case of protocol errors or timeouts
+>> （mpam_fb_send_request() or smp_call_on_cpu()）;
+>>
+>> - -EINVAL when the calculated PARTID is out of bounds
+>> (resctrl_arch_update_one()).
+>>
+>> Both will roll back and retry after the cause is resolved will succeed.
 > 
-> The laptop dts'es themselves still have the older child-node description for
-> bluetooth, with a dummy port { uart14_ep: endpoint {}; }; that's not used
-> yet.
+> Could you please provide more detail about the above "roll back and retry"? 
 > 
-> Could the check be extended to actually verify that there's actually
-> something the graph endpoint is connected to? Or should that commit be
-> reverted?
+> I am trying to view this from user space side. The "PARTID is out of bounds"
+> sounds like a bug in the "should never happen" category. I am not familiar
+> with everything that can fall into the "protocol errors or timeouts"  bucket.
+> Would it be worthwhile for user to try again when these are encountered?
+> Could "-EBUSY" be more appropriate to help user know when it is worthwhile
+> to retry? If it is not possible to retry, does that mean a permanent failure
+> for which the domain should rather be removed to prevent user from encountering
+> the same issue over and over?
+
+Any MPAM-Fb error is considered unrecoverable and triggers a disable of
+MPAM. (The same response as to an MPAM error interrupt.) This in turn
+disables resctrl on that system. Errors are still reported to resctrl so
+that the user doesn't see success for an action even if any subsequent
+action will fail. This policy may be revisited, in the future, if we
+encounter systems where there are recoverable MPAM-Fb errors that are
+actually seen to happen. The first line of defense would be a retry
+within the MPAM driver and then if that is insufficent reporting a
+timeout to the user.
+
+As it stands I don't think the user will have time after a MPAM-Fb
+failure to read the last_cmd_status before the resctrl filesystem is
+torn down.
+
+Thanks,
+
+Ben
+
+> 
+>>
+>> I verified these error cases using fault inject for mpam_touch_msc().
+>>
+> Thank you very much for all this testing.
+> 
+> Reinette
+> 
 > 
 
-Taken care now: https://lore.kernel.org/linux-arm-msm/20261112-hamoa-dt-fix-v1-1-55efbac840f4@oss.qualcomm.com/
-
-I shouldn't have given my r-b tag for the offending patch :/
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
