@@ -1,71 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486656;
-	b=MCPZlPhezKReLVVnNNamqjhJjWoVEXNqUm1Ib8a0Ca9UxSB0sER3t4FbHVbeN06QWx63
-	 T/HWUE4z2GGGu2tPj2u/MsuaKs+V8A1MqCHRRI7bZDl6/gUdMsmz9/HDLKtw3CPWWPneB
-	 bCVEQ/5oZo3WGlFLnKtE++WQY0e38w34ZXtM3pG1d039Efah/wm60jh7Ha8GNFXp+nAQY
-	 tDF+QN0V7bOWMFeZkjnxOt9YgiHbdUmjTmHHjM+iYX8C9bEvEnnC55amXy60spN1yQg6/
-	 fYTtjWTL1oWRJyEeQoMUDDxTXSq6xBJ2fPbRDAf9vy2j8JnhdazkmczU/wZx3V6sO4A==
+	t=1794486691;
+	b=aslSiQQU8OrXdtUogN8qYJwYbRj3dPbUJHoz1YR8cOtD2hZ1GjCjyCVQ/d8ve04hkuY2
+	 9vCkv0ql5paz7cPmMMXWDy3kUcAp3Z2rbn/8lJ/EanFVD2DxOh3o3n0thKaDnOCPm4eEC
+	 hVV0PerC9THbKZ1C8dePbWgVXkJsOsQdAPI9b1+4N/eurTVl3XIlHaDDlJm/Dtgooimmk
+	 ozD2GAzCbDu4Mx0R0b7HmoGxLtiHHRaNFqsJYP5T5xw57dRDzqwFq4qvufuiGWpll77IM
+	 E2EKdSZCU06s2xyk8jdIz04KnA+wBlJEawJLnFKRmBNXIkU/pQl/eC9hYBsfkA6CRaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486656;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HuB4RVeq47mAjcl8ywAJJuIZDoqz1GrNEVj9QlG7uxw=;
-	b=Js1AnpXrmcXaKNSs8YB79V0m/ceX6zkxJHOVQm4hocxdCuCZwM6lK9KC/gHd5e+drGPl
-	 PBMOGcqcS1E1aRxql7Wbh4qcvyn4w1mH+qzYFRSOuAXFo/5P6Jwx7AiBaizOVwK1uez0W
-	 dQOfTUTrlAypTd/kdsdvnqasU8eAkpZUmUnkqpSaaljv/MMvYxACsSJJK3WlbNE67xLTx
-	 y7tjET6q31jNijBtdndWbNhdcx7UbmkX8NnHorZYcfZCpSd60I1M67mEBaRhFL2Np4GRU
-	 dHhFA2JiPS4alFgnbG6JXaIA8Vy2QybCKUaQvRVOV1QhTkJeLX8PWTruJtDtrybw1HA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486691;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=uv2QGGBYFE0BFXDuKqebXWqf30uCJJwXFy8MnQTYETo=;
+	b=K+WPz7NrStDl4ylp0hu2BhaG+I2eW7IhcygSnEncNC2pX3MAwZwLbex99ozY9+QLMwsT
+	 0pAoX1gYthdbQUYoCCv00xXbt7EJ1evNsxdJ/lPS2RBZvAwD9MUs05RB97R1Ja0mcs76e
+	 KL6zyY2wAb6Ow+gIx3wdlKg7o6x5JwcYLc0p9ku+ZxMn1u+mbi3jX+QRe7Dw+Xj246RCy
+	 WN544SPJ2jzMx+fXLHHKBTcgtoGS/1H4kOp7lAUpR4ZpGWe1B7B3E3bh/j7HdczNT6pIm
+	 G/DEpWxghVBIHpyDACaOrjYaBRw5XVHwkRYLWkUIBddTMC1vC6aCXe+DKuwSgQj3jow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZoZIiH6H;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=emipKxbN;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CDE606A31C;
-	Thu, 12 Nov 2026 12:30:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB37606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:31:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CB37606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZoZIiH6H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554231F00A05;
-	Thu, 12 Nov 2026 12:30:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794486656;
-	bh=HuB4RVeq47mAjcl8ywAJJuIZDoqz1GrNEVj9QlG7uxw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZoZIiH6HBScetwa2i+/gfRsMRzPNjlnFzRYqX614RkGLYaIh7eisZ0UhSXVmOzNkq
-	 iiX272073T1ij5rPy8CibUmRnV1euz0tpzgcXVIx3eDcITIHhL8T66yZ1MsaEHAhaK
-	 a6D6I9NwEaJtBwtFhozHjPzWWHNkBYwBOyqqHH2TWyhLsNN85OQdDlNcrEplKV/JIi
-	 QmRjxma+0DfCvJ+JIiYdEw8hVEyHxRtOCm3IIz+MLH5ddk/lEvVakgRBdVH/KEoXWL
-	 iDBeL+N7Ky7AyH4Ra0Lx20gvqYfQ/7PjHolDfUdoDHRcRVE0t8wq3FuDEDN0EFeo8G
-	 8DktUMMfP136w==
-Date: Thu, 12 Nov 2026 20:10:33 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Yunhui Cui <cuiyunhui@bytedance.com>
-Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, dennis@kernel.org, tj@kernel.org, cl@gentwo.org,
-	oleg@redhat.com, ast@kernel.org, daniel@iogearbox.net,
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
-	martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
-	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
-	bjorn@kernel.org, pulehui@huawei.com, puranjay@kernel.org,
-	broonie@kernel.org, dave@stgolabs.net, david.laight.linux@gmail.com,
-	tglx@kernel.org, conor.dooley@microchip.com, thuth@redhat.com,
-	ajones@ventanamicro.com, ben.dooks@codethink.co.uk,
-	rkrcmar@ventanamicro.com, samuel.holland@sifive.com,
-	zong.li@sifive.com, debug@rivosinc.com, seanwascoding@gmail.com,
-	andybnac@gmail.com, menglong8.dong@gmail.com,
-	cyrilbur@tenstorrent.com, wangruikang@iscas.ac.cn,
-	atishp@rivosinc.com, apatel@ventanamicro.com, arnd@arndb.de,
-	nathan@kernel.org, nick.desaulniers+lkml@gmail.com,
-	morbo@google.com, justinstitt@google.com,
-	qingfang.deng@siflower.com.cn, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	bpf@vger.kernel.org, linux-arch@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v10 0/9] riscv: optimize percpu access
-Message-ID: <avWsuYF7R5Qiowp_@xhacker>
-References: <20261112104149.38589-1-cuiyunhui@bytedance.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=emipKxbN
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=uv2QGGBYFE0BFXDuKqebXWqf30uCJJwXFy8MnQTYETo=; b=emipKxbNlf4MYq/4XkuGTacxsG
+	efuKoq3FJrtsqy9QrgXT8doGLm4bN0zrXvT4onPBh5GUju/TMNLp007NY2APyDjDfEnOd13QB/svc
+	sdbkwr7SuAS+oK0gha9HihJ+cUWP5uFBdE1xIl2Goj3oZQhqpxP0UdAphcegqRuCFzGsZ6uu/2elo
+	TgWLiCC3tkDDQreXQZrOJXToG99XvAhHFmgf71Z27K0JhLj/YfPLLqVIQuCQI79O5HhfQq+M/rxJw
+	LKC1/OjJq5T0rduqssOLQO2gQlHFsJA+o+rIiNg7rsCaej/eM5hOe18EVcf3JOsoTt7BLskpHHI/2
+	aDtZOPjA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRTxY-00000007ElD-3dE6;
+	Thu, 12 Nov 2026 12:31:20 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id AB34E300969; Thu, 12 Nov 2026 13:31:19 +0100 (CET)
+Date: Thu, 12 Nov 2026 13:31:19 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Josh Don <joshdon@google.com>
+Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, mingo@kernel.org,
+	linux-kernel@vger.kernel.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com, tj@kernel.org,
+	jakub@okonski.org
+Subject: Re: [RFC][PATCH 3/3] sched/eevdf: Fix sched idle task group
+ preemption
+Message-ID: <20261112123119.GX1813469@noisy.programming.kicks-ass.net>
+References: <20261105165525.011876858@infradead.org>
+ <20261105170157.765325702@infradead.org>
+ <CABk29Nujsg7FNY4yJ3Yd0maT0GEtvxacUWvTDiT5HD=-YVqTvg@mail.gmail.com>
+ <avMeP-80bZz-zdtO@scheduler.schedules>
+ <CABk29NsBzdEYOdLqj9HsrCqO6RzW_G574RzY+=vJp+564R2u=w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,135 +77,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261112104149.38589-1-cuiyunhui@bytedance.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABk29NsBzdEYOdLqj9HsrCqO6RzW_G574RzY+=vJp+564R2u=w@mail.gmail.com>
 
-On Thu, Nov 12, 2026 at 06:41:40PM +0800, Yunhui Cui wrote:
-> RISC-V has no asm/percpu.h, so this_cpu_*() read-modify-write
-> operations use generic fallbacks that disable local interrupts. Per-CPU
-> addressing also derives the current offset from the CPU number and
-> __per_cpu_offset[].
+On Tue, Nov 10, 2026 at 09:51:21AM -0800, Josh Don wrote:
+> On Tue, Nov 10, 2026 at 6:20 AM Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+> >
+> > Hi Josh!
+> >
+> > On Mon, Nov 09, 2026 at 04:10:30PM -0800, Josh Don wrote:
+> >
+> > > >  /*
+> > > > - * Preempt the current task with a newly woken task if needed:
+> > > > + * Preempt an idle entity in favor of a non-idle entity (and don't preempt
+> > > > + * in the inverse case).
+> > > > + */
+> > > > +static inline enum preempt_wakeup_action
+> > > > +wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_entity *pse)
+> > > > +{
+> > > > +       int cse_is_idle, pse_is_idle;
+> > > > +
+> > > > +       cse_is_idle = se_is_idle(cse);
+> > > > +       pse_is_idle = se_is_idle(pse);
+> > > > +
+> > > > +       if (cse_is_idle || pse_is_idle) {
+> > > > +               find_matching_se(&cse, &pse);
+> > > > +               WARN_ON_ONCE(!pse);
+> > > > +
+> > > > +               cse_is_idle = se_is_idle(cse);
+> > > > +               pse_is_idle = se_is_idle(pse);
+> > >
+> > > now that se_is_idle() is checking for any ancestors with idle, this
+> > > doesn't appear to be correct. Some motivaing examples:
+> >
+> > So we want to keep the idle difference between groups with idle
+> > ancestors? FWIW, I asked about this but then thought it was knowingly
+> > and that was what we wanted. I'm still not sure what we want...
 > 
-> Cache the per-CPU offset in thread_info and implement preemptible this_cpu
-> operations using recoverable GPR critical sections. Each operation records
-> the registers used to form its per-CPU address so exception return can
-> repair them if the task resumes on a different CPU. Use AMOs for
-> native-width operations. Use Zabha for 8-bit and 16-bit operations when
-> available, or a 32-bit LR/SC fallback otherwise. Finally, select
-> HAVE_CMPXCHG_LOCAL so common per-CPU counter users can use
-> this_cpu_try_cmpxchg().
-> 
-> The recoverable-GPR scheme follows the arm64 design. Only the protocol is
-> common, however: RISC-V uses a cached offset in thread_info, its own GPR
-> encoding and exception entry code, and AMO/LR/SC operation sequences.
-> Factoring these pieces into generic code would share little beyond the
-> field layout while coupling architecture entry paths, so keep the
-> implementation under arch/riscv.
-> 
-> As with arm64's SDEI path, independent NMI-like entry paths must
-> participate in the entry-state protocol directly. Keep the save, clear and
-> restore operations in common RISC-V assembly macros so SBI Supervisor
-> Software Events (SSE) can preserve an interrupted per-CPU operation. SBI
-> SSE support is developed separately and is not a dependency of this
-> series.
-> 
-> With CONFIG_PREEMPT_LAZY=y, GCC 15, the same linux-next base and
-> configuration, an in-kernel microbenchmark pinned to one CPU ran each
-> operation 2,000,000 times for 15 rounds. The table reports the median
-> empty-loop-adjusted time; lower is better.
-> 
->   operation                 v9 (ns/op)   v10 (ns/op)   change
->   this_cpu_read(u64)            5.668         0.333     -94.1%
->   this_cpu_write(u64)           5.668         0.395     -93.0%
->   this_cpu_add(u64)             8.002         8.004      +0.0%
->   this_cpu_add_return(u64)      8.335         8.004      -4.0%
->   this_cpu_xchg(u64)            8.278         8.004      -3.3%
->   this_cpu_cmpxchg(u64)        18.713        16.133     -13.8%
+> cgroup properties are cgroup hierarchy position relative, this just
+> maintins that behavior for cpu.idle as well. There was a more
+> extensive discussion on this in the previous RFC, which is how we
+> landed back on the find_matching_se() restoration.
 
-Hi Yunhui,
+Well, I'm still not convinced we need this.
 
-Thanks for this series. Could you plz run some benchmark to compare the
-performance between v9 and v10? We can use some benchmarks used in arm64
-version:
-https://lore.kernel.org/linux-arm-kernel/28978498-348e-4cfd-af72-1146a106e96b@arm.com/
+Realistically idle means: "don't care, run whenever you have a minute".
+To then preempt such a task for another such a task just because its
+somewhere else in the hierarchy makes no sense, you don't care about
+either of them, we shouldn't be preempting.
 
-Something in my mind: hackbench, kernbench, sysbench-cpu, sysbench-mutex,
-sysbench-thread, perf/futex , perf/sched and perf/syscall.
+Anyway, I've pushed out the first two patches to queue/sched/urgent
+since they address the worst of it. We can chew on all this a bit more I
+suppose. But I cannot convince myself that there is any situation in
+which we (should) actually care about the timeliness of anything in a
+cgroup::idle container.
 
-I will read the code during this weekend.
 
-Thanks
-
-> 
-> With the same configuration, vmlinux .text decreased from 14,369,618 to
-> 14,212,882 bytes (-156,736 bytes, -1.09%). percpu_counter_add_batch()
-> decreased from 330 to 228 bytes.
-> 
-> Changes since v9:
-> 
-> - Rework the this_cpu operations to remain preemptible using recoverable
->   GPR critical sections, as suggested by David Laight and Jisheng Zhang.
-> - Put the cached per-CPU offset first, then split the exception/fixup
->   infrastructure and operation classes into independently reviewable
->   patches.
-> - Keep GPR-state save and restore in reusable assembly macros for NMI-like
->   entry paths such as SBI SSE.
-> - Keep masked LR/SC cmpxchg operands XLEN-wide so RV64 high-byte and
->   high-halfword comparisons are not affected by LR.W sign extension.
-> - Force both halves of the AMOCAS.Q new value into fixed registers so the
->   implicit register pair remains valid when either half is zero.
-> - Use TYPEOF_UNQUAL() in wrappers and fully parenthesize this_cpu_write()
->   values.
-> 
-> Changes since v8:
-> 
-> - Drop the PIO helper patch, which has already been merged.
-> - Rename the first patch and update its changelog as suggested by
->   Davidlohr Bueso.
-> - Use value-returning AMOs instead of rd=x0 for CPU-local operations.
-> - Remove unnecessary memory clobbers from the new relaxed AMO and LR/SC
->   code.
-> - Use .option arch,+zabha for the Zabha inline asm, matching the
->   existing RISC-V cmpxchg implementation.
-> - Isolate arch_cmpxchg_relaxed() behind typed always-inline helpers to
->   avoid macro variable capture while preserving atomic instrumentation.
-> - Make the cmpxchg128 fallback use the already resolved per-CPU pointer,
->   avoiding the same macro variable capture.
-> - Copy the cached per-CPU offset from prev to next during context switch,
->   as suggested by Thomas Gleixner.
-> - Initialize secondary idle tasks in the common startup path, covering
->   parallel bringup and CPU hotplug, and remove the duplicate initialization
->   from smp_callin(), as reported by Sashiko.
-> - Select HAVE_CMPXCHG_LOCAL in a separate patch.
-> 
-> Yunhui Cui (9):
->   riscv: store percpu offset into thread_info
->   riscv: add infrastructure for preemptible this_cpu operations
->   riscv: implement preemptible this_cpu read and write operations
->   riscv: implement preemptible this_cpu void RMW operations
->   riscv: implement preemptible this_cpu add_return operations
->   riscv: implement preemptible this_cpu xchg operations
->   riscv: implement preemptible this_cpu cmpxchg operations
->   riscv: implement preemptible this_cpu cmpxchg128
->   riscv: select HAVE_CMPXCHG_LOCAL
-> 
->  arch/riscv/Kconfig                   |   1 +
->  arch/riscv/include/asm/asm.h         |  25 +-
->  arch/riscv/include/asm/percpu.h      | 701 +++++++++++++++++++++++++++
->  arch/riscv/include/asm/ptrace.h      |  15 +
->  arch/riscv/include/asm/switch_to.h   |   9 +
->  arch/riscv/include/asm/thread_info.h |   4 +-
->  arch/riscv/kernel/Makefile           |   1 +
->  arch/riscv/kernel/asm-offsets.c      |   4 +-
->  arch/riscv/kernel/entry-common.c     |  32 ++
->  arch/riscv/kernel/entry.S            |  10 +
->  arch/riscv/kernel/smpboot.c          |  10 +-
->  arch/riscv/net/bpf_jit_comp64.c      |   9 +-
->  12 files changed, 805 insertions(+), 16 deletions(-)
->  create mode 100644 arch/riscv/include/asm/percpu.h
->  create mode 100644 arch/riscv/kernel/entry-common.c
-> 
-> 
-> base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-> -- 
-> 2.39.5
-> 
