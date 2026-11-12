@@ -1,64 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453604;
-	b=i+VYipfiBOsiVX25tU8JK4WYCW3uleLBkvQIpMyzUblczPZEw5CEvwjqOfJplneCaCuG
-	 2HtQg0A9zlm+gOjRobOcWG0nz9tfh9bg7JWLACqxaqHSwxhdK5m0jLwmOEzZLadW/1FeA
-	 CS2UgfrWuNLvLih9VP/dTK4W7BN9e9RhGZfRORUz53rcRALiA0KKF1AbxwOWNe4TkbRU8
-	 6v+8KTGjfSVjgTeAAwteG+MsAaJ8xb5WHoTrChq794UJT8zeADgf7waxK5QJb/JIVwh/r
-	 UDFczdK9M+fw1l4qF8kbfK4ONc5MoZqNWCdh5vhtsb0+LZKw6+XnRs2yDJZMMr00tYg==
+	t=1794453664;
+	b=NK6VCcvusDBPD2ZxHEaGemFd7pzXLeyXIha838d8R50TYkYL1Z/px+zB8obv2mA/Bq1g
+	 joPQZ+44U+ZnOQzdsrfQvX0Gsjw900KQADEbGNurigScS70Id0gG1jAbnlK9Q34w7FhkK
+	 9RHGLjpWf3/5L3h6IgspFexRRx+FhUtMD2kFIs1yzfOwmaiJ09q3ovUtBLxTsQWsurqww
+	 vwjnkZItD0wcTXKw6f6O1DURVwEPcA/1cyCXQy0bAs+yzryCPmllsGwTtRbYLeYGiOpi8
+	 I0N0tO9jRalV/bsyPNjOqnMMrTdJQ/nYgMIiLbWSAGmcZa5khIDTWaEdRfTSV2OsP/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453604;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=hmpzgPslhxYA71ELCoCW5J7VR4kuagJg7YlC5PEGMN8=;
-	b=nsOIx1AMDW6vKIiH/RgG4a3WPCf0vOAAgfLKNv5rwHZmaXbBAzwUw2NovDVmcdae08c+
-	 17eWt7FUfGyQE/myz2YNdVd9U0eGjW4q9HPVq016lcdy6jpX75FUnI+VohiedaLUZ4R3n
-	 YxF/cKW2WqNKlcwCNp3HkO5Ki6w7cguksXP4HHsxkWcNF/NXZ0t0db3zEJ4n59B7wQTVu
-	 3+wZfJdx01bT723vwh3gjxfBb7ZsvKGtftktl1Xvb7FPMpV44L1Xq8DmlodhuJ4D15Cxy
-	 UvdWcer/OxOucxsHJnMOn0hhb5EiuQN6KMOm67pAZLwCERD7dj2IfK5S6v8MzQ8DFZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794453664;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vjqzfI3kBk9VsnXsXYhQULegPd/JbZIMjkpOTq8gnXk=;
+	b=kqTT+ivo4/LaDJiJq2Vh6onv3ZrDeet8AZGvkD6VhTvDGDbuJ8AHDn/zzreRC9hWYPDX
+	 Du1Zk4vmypSGsuxbtjQ5EQH0MybrpTkY2JDdhpxmsFMa0rpGfqXjGqK+dTMOLYUmNzIdc
+	 EjOCVUU3gS5RjT+LPJyTESl4aad1S4r3uP58yuaFkLTaBNkCIY2uG1PjzCjf4ndM3WBQy
+	 fh/Ll5VCtQuJHPSD7xt37KRDfgV9hIT88VfeKTT1BGTUMBvXf6OpRBFnSOHVnUA8EZ4Qc
+	 GK8CiILCVB2yvNQFN2cnB5J5gmHOiy7Km33KmdoVy8qwY2l2cW8/2TfQWfDXF6hPBwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=g4pe8Niu;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZS83T9z3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F10606A321;
-	Thu, 12 Nov 2026 03:20:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6F10606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E5E606A31C;
+	Thu, 12 Nov 2026 03:21:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=g4pe8Niu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=hm
-	pzgPslhxYA71ELCoCW5J7VR4kuagJg7YlC5PEGMN8=; b=g4pe8NiukN4etvMb8W
-	f6lwOQWICimXSmmjmtzLlWyES1PIJI0uYfYidxX2DYgDG+AgwHBzPXX20SvPQOap
-	BqKpvxM0qi1KdQJ6RxlthF8BQrD7urLglXcqyMyfkwHCOemlO6pxQGH314FKVFQL
-	WZuv3/GCObCdXDxpnUoNZYMt8=
-Received: from Precision-7960.. (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDXD8o6MPVqh72fHQ--.23678S3;
-	Thu, 12 Nov 2026 11:19:25 +0800 (CST)
-From: Hans Zhang <18255117159@163.com>
-To: mahesh@linux.ibm.com,
-	bhelgaas@google.com
-Cc: oohall@gmail.com,
-	mani@kernel.org,
-	lukas@wunner.de,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-pci@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZS83T9z3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39D01F00A05;
+	Thu, 12 Nov 2026 03:21:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794453664;
+	bh=vjqzfI3kBk9VsnXsXYhQULegPd/JbZIMjkpOTq8gnXk=;
+	h=From:To:Cc:Subject:Date;
+	b=ZS83T9z3FJ62AcoRdct4nMhDDLrwv97PkyjVDfMb6DnrHYyQ7yq38IB/0Gzde09nD
+	 Z/1sMrcNlXxIWi6NNUtGsdLvv448GBTf0X8XWe010a7fAjvHLYiT/7iu9GGpScsZ0g
+	 EzKqXjUDjoGPhd7YWi0em4VLI9OqdSAlD1ga1wN9ZceKpSgC8H6GdYhA6Uws/ustZn
+	 jnRO7i0Ct8qPQe7ORE4t9CM9VxF8dfVl3LXrvWasty6S9EDmzQbRS/O8AXi7uTwXuJ
+	 pJcZD782aHmMcogDVSeYVD3JWSQobt15QhsIIESLWL2jRKn7zvtH4x55Ea7EOlWJn8
+	 x6JdwmtXylSfg==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+	Xi Pardee <xi.pardee@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Hans Zhang <18255117159@163.com>
-Subject: [PATCH v5 1/2] PCI: Introduce pci_clear/set_config_dword()
-Date: Thu, 12 Nov 2026 11:19:20 +0800
-Message-ID: <20261112031921.1255661-2-18255117159@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112031921.1255661-1-18255117159@163.com>
-References: <20261112031921.1255661-1-18255117159@163.com>
+	tzungbi@kernel.org,
+	tfiga@chromium.org
+Subject: [PATCH v3] platform/x86/intel/pmc: Disable ACPI PM timer during suspend on Panther Lake
+Date: Thu, 12 Nov 2026 03:20:40 +0000
+Message-ID: <20261112032040.930597-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,45 +62,135 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXD8o6MPVqh72fHQ--.23678S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWrKw4rWrWxKrWxAFykCry7Awb_yoW8Jr15pF
-	Z8CFyfGFWxGFnI9a4DXay8Cw4UWrWkWFW0grW3K3s0qa12ya4vvF909r17Jw13GrWvvr45
-	A393KFZY9F4qya7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pR0tC7UUUUU=
-X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC6x0z1mr1MD0jJAAA3G
 
-Add helper functions to clear or set bits in PCI config space.
-These helpers reduce code duplication and improve readability for config
-space modifications by encapsulating common read-modify-write patterns.
+The ACPI PM timer is used to drive the ACPI Watchdog Action Table
+(wdat_wdt) hardware watchdog.  When the ACPI PM timer is enabled by
+firmware on Panther Lake, leaving it running during s2idle prevents the
+SoC from entering its deepest S0i2.2 substate (staying in S0i2.1).
 
-Signed-off-by: Hans Zhang <18255117159@163.com>
+Since the watchdog is stopped during system suspend, the ACPI PM timer
+does not need to remain active while suspended.  Disable the timer via
+ACPI_TMR_CTL (PWRMBASE + 0x18fc) in ptl_suspend() and re-enable it in
+ptl_resume() only if it was active prior to suspend.
+
+Unlike commit e86c8186d03a ("platform/x86:intel/pmc: Enable the ACPI PM
+Timer to be turned off when suspended"), which was reverted in commit
+5fa607880168 because it acquired pmcdev->lock from the acpi_pm
+clocksource suspend callback inside tick_freeze() atomic context, toggle
+the register in ptl_suspend() and ptl_resume() without taking
+pmcdev->lock.
+
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 ---
- include/linux/pci.h | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+v3:
+- Rebase to next-20261111.
 
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index aa3765a20a96..be277d745d5d 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -1420,6 +1420,18 @@ static inline int pcie_capability_clear_dword(struct pci_dev *dev, int pos,
- 	return pcie_capability_clear_and_set_dword(dev, pos, clear, 0);
+v2: https://lore.kernel.org/all/20261016075416.3139759-1-tzungbi@kernel.org
+ - Include <linux/bits.h> for BIT().
+ - Rename ptl_set_acpi_pm_timer_on_suspend() -> ptl_set_acpi_pm_timer().
+ - Update register values on separate lines.
+
+v1: https://lore.kernel.org/all/20261015035712.3604634-1-tzungbi@kernel.org
+---
+ drivers/platform/x86/intel/pmc/core.h |  2 ++
+ drivers/platform/x86/intel/pmc/ptl.c  | 40 ++++++++++++++++++++++++++-
+ 2 files changed, 41 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/intel/pmc/core.h b/drivers/platform/x86/intel/pmc/core.h
+index e55164e5807f..8aae69775ab3 100644
+--- a/drivers/platform/x86/intel/pmc/core.h
++++ b/drivers/platform/x86/intel/pmc/core.h
+@@ -487,6 +487,7 @@ struct pmc {
+  * @s0ix_counter:	S0ix residency (step adjusted)
+  * @suspend:		Function to perform platform specific suspend
+  * @resume:		Function to perform platform specific resume
++ * @pm_timer_enabled:	Whether the ACPI PM timer was enabled before suspend
+  *
+  * @pkgc_ltr_blocker_counters: Array of PKGC LTR blocker counters
+  * @pkgc_ltr_blocker_offset: Offset to PKGC LTR blockers in telemetry region
+@@ -506,6 +507,7 @@ struct pmc_dev {
+ 	u64 s0ix_counter;
+ 	void (*suspend)(struct pmc_dev *pmcdev);
+ 	int (*resume)(struct pmc_dev *pmcdev);
++	bool pm_timer_enabled;
+ 
+ 	u64 *pkgc_res_cnt;
+ 	u8 num_of_pkgc;
+diff --git a/drivers/platform/x86/intel/pmc/ptl.c b/drivers/platform/x86/intel/pmc/ptl.c
+index a7d5d4f77934..3cb063944007 100644
+--- a/drivers/platform/x86/intel/pmc/ptl.c
++++ b/drivers/platform/x86/intel/pmc/ptl.c
+@@ -6,6 +6,8 @@
+  * Copyright (c) 2025, Intel Corporation.
+  */
+ 
++#include <linux/bits.h>
++#include <linux/io.h>
+ #include <linux/pci.h>
+ 
+ #include "core.h"
+@@ -548,6 +550,9 @@ static const u8 ptl_pmc_list[] = {PMC_IDX_MAIN};
+ #define PTL_NPU_PCI_DEV                0xb03e
+ #define PTL_IPU_PCI_DEV                0xb05d
+ 
++#define ACPI_TMR_CTL_OFFSET            0x18fc
++#define ACPI_TIM_DIS                   BIT(1)
++
+ /*
+  * Set power state of select devices that do not have drivers to D3
+  * so that they do not block Package C entry.
+@@ -558,9 +563,42 @@ static void ptl_d3_fixup(void)
+ 	pmc_core_set_device_d3(PTL_NPU_PCI_DEV);
  }
  
-+static inline void pci_clear_config_dword(const struct pci_dev *dev, int pos,
-+					  u32 clear)
++static void ptl_set_acpi_pm_timer(struct pmc_dev *pmcdev, bool suspend)
 +{
-+	pci_clear_and_set_config_dword(dev, pos, clear, 0);
++	struct pmc *pmc = pmcdev->pmcs[PMC_IDX_MAIN];
++	u8 val, old_val;
++
++	if (!pmc || !pmc->regbase)
++		return;
++
++	if (!suspend && !pmcdev->pm_timer_enabled)
++		return;
++
++	val = readb(pmc->regbase + ACPI_TMR_CTL_OFFSET);
++	old_val = val;
++
++	if (suspend) {
++		pmcdev->pm_timer_enabled = !(old_val & ACPI_TIM_DIS);
++		if (pmcdev->pm_timer_enabled)
++			val |= ACPI_TIM_DIS;
++	} else {
++		val &= ~ACPI_TIM_DIS;
++	}
++
++	if (val != old_val)
++		writeb(val, pmc->regbase + ACPI_TMR_CTL_OFFSET);
 +}
 +
-+static inline void pci_set_config_dword(const struct pci_dev *dev, int pos,
-+					u32 set)
++static void ptl_suspend(struct pmc_dev *pmcdev)
 +{
-+	pci_clear_and_set_config_dword(dev, pos, 0, set);
++	ptl_set_acpi_pm_timer(pmcdev, true);
++	cnl_suspend(pmcdev);
 +}
 +
- /* User-space driven config access */
- int pci_user_read_config_byte(struct pci_dev *dev, int where, u8 *val);
- int pci_user_read_config_word(struct pci_dev *dev, int where, u16 *val);
+ static int ptl_resume(struct pmc_dev *pmcdev)
+ {
+ 	ptl_d3_fixup();
++	ptl_set_acpi_pm_timer(pmcdev, false);
+ 	return cnl_resume(pmcdev);
+ }
+ 
+@@ -576,7 +614,7 @@ struct pmc_dev_info ptl_pmc_dev = {
+ 	.regmap_list = ptl_pmc_info_list,
+ 	.map = &ptl_pcdp_reg_map,
+ 	.sub_req_show = &pmc_core_substate_blk_req_fops,
+-	.suspend = cnl_suspend,
++	.suspend = ptl_suspend,
+ 	.resume = ptl_resume,
+ 	.init = ptl_core_init,
+ 	.sub_req = pmc_core_pmt_get_blk_sub_req,
 -- 
-2.43.0
+2.56.0.567.gdb80ae8cd5-goog
 
