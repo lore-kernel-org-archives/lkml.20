@@ -1,80 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794463609;
-	b=lqFV9QknsxKVXZi+kE0mjLnaTw00WU5Hca7Bz3xAMLVwAw331CBKbs4/dknFwu5PINua
-	 UPwxVwPLouuIWLWXVo1fOG+WIAtgexbSk85U7Tx7NZz7wI9M21FK244ngvbsS3KqIVJOj
-	 nU7C2rDIfQgY0/CZEuqCn/jJRNKZE5yFX84o0mIKyPw5qPq1yC5n6PZtqtVWq4EHRQyM3
-	 gJRFHI48Z7qKG9moqslJTrALHFsX8NqqUgUw22YHwRayg2tJ3iH32qNm6o84LAkGZBYOJ
-	 MSmu5y1q79OndU+TKgvak1wVtFW63dS07XVahGsjqNOMXaq5tka3/arCoJrHuDwILFg==
+	t=1794463734;
+	b=EcthJXRSwi6mQD3oLKMe5NSk1BbSNmNaUUl7TnOLXIuYyvrBf+eT55Iu7eCyJGBc2zJo
+	 DaAWxvNNkPHV95y1rZKaOavV2bpKDtGyKv6frwxh+lLiTxOklhE2b9y9NlnTGTUzWKDyk
+	 qHeN0woYWKY/aOY7/WcLs0DGtOgUCbn580oNbVzGBQbNdrCfPxvlb5rp2HRKeH6Q4ICVV
+	 OAKt9aPvE2LBhcpolFNw2/3KcDR/2d1xNPj/2ZHD64Log0Y21d2rvui6xXHmkwzVvoGf0
+	 uFVSN4rCNMsxUicgGyM5ZBvCfH9mXiy2cZriRT9F1KlWhCK544vY/TTllMlwF7HVOHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794463609;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Content-Language:To:From:Cc:Subject:Content-Type:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ISTKPlrhU90UkBMn1+nIifs9OVjpnasWZN/BkeSsoco=;
-	b=ChG4zoKoazoWVPrLFklunIDq83gWjOPWSiUBCdJxM2Hf7SE4eWCYX1XuUdJlQdQpvkpO
-	 DTp4OFn/1KOOZRjVfe4LE91jjtU+nhCMX8fwDUd9XgrufkaSjya8PMJKUNqWCfMjYceby
-	 6dw4za04V7UY+z/bON6xQn13/WbsTr8Esecmr7kzaDPtOJyKhPexobcE1oZSoZ96hTwEs
-	 kAhUZmllSxAlF4JwfjvOafSj8z0Ic7HmuQEqj0mSPWfk9V8O2Mi1bjE38vamys9YDDZet
-	 U1OE0DG+FCpOsLctYvHpSzEwmRDa7d90B8vKrmEYosmLqMJ9crffuqpCxtU0oUvLbEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794463734;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=d34XSrfuMx+vANo8jvzVnrlWSb6uHMB5+ZtwtuhDdLs=;
+	b=MXSd6EmPHFcnsElAlCb0GS+GcXLlFYJtMIVpNapB5JNlo26vGLNkP9LUi/v0xzN1rAPU
+	 1F2onykjvdt4pULsgF5gTKt/0inouicWuZmtqkMjfwqVzUbgAUvgKQq28QvEbIz/vbHkc
+	 MBbxe10tkn0X8rDEMDJNNKa+H/aDy/C0Rzqg6V5R8WCQ/91f8xw9NnROW2GiCjgnziJiY
+	 SJpYxU3GqJr//SYrt/2uEaHyVf2sBlOPOwjwewnxqHI9Kcx0Qkb7uxybxi5ldkyZIwaoJ
+	 V45ny3e6VPAg+diA3FhbjgIvknfj7+NOhdDWplMAY5k/P3YZqPKwu2tbwNLUglrDqog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="n/GkPa/t";
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1123C606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:06:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1123C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tAewpM9D;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2F66F606A31C;
+	Thu, 12 Nov 2026 06:08:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F66F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=n/GkPa/t
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2iYUo3054106;
-	Thu, 12 Nov 2026 06:06:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pp1; bh=ISTKPlrhU90UkBMn1+nIifs9OVjp
-	nasWZN/BkeSsoco=; b=n/GkPa/trXpk/R+ADlSs+inV46MWuj/rs0M77nGq3M+s
-	tobFMRNpLAoLe4y8NO+CcTRl0ahkAhpAv3uuxHMpv7S3ktxqjsLu1jvPNILkfS2p
-	LXv9uVarE2SCWwpxjjNxE1QWNW0ahxvX/tKKOiw1WGgnmPBBr6Vkwva+QCrM2Crx
-	w8P00FdvJ1+ivDDxlD1mSCCf0wiZEUAnKZOtk26ak75MBKif5mhCQUg1JTm0cFth
-	4i7JsRj8GDO8SgoAAPMzjVukoa5URN8WylM+bHyihMzmkVwWXM7rm5EqFILpAKwj
-	riH1tN+Zt8kyXBNysccJjXIqKoG62+OoC8oeohTlcQ==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsug6e1nc-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 06:06:42 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2Zp7C3145807;
-	Thu, 12 Nov 2026 06:06:41 GMT
-Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hvd51w85s-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 06:06:41 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AC66erD20120146
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 12 Nov 2026 06:06:40 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 41F275808C;
-	Thu, 12 Nov 2026 06:06:40 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 097E05808A;
-	Thu, 12 Nov 2026 06:06:38 +0000 (GMT)
-Received: from [9.61.240.49] (unknown [9.61.240.49])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 12 Nov 2026 06:06:37 +0000 (GMT)
-Message-ID: <9113e399-ddd0-405e-9abb-69a9785c726c@linux.ibm.com>
-Date: Thu, 12 Nov 2026 11:36:36 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tAewpM9D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=tAewpM9D7SOhLkTmMhP3nlB3KiDT/XyHa5JzzTpKDcGXR0mtmjfSIrqSZ/OBk/n4s54JMkyPrbNBk
+	 RC4VRjrP5tLP0wGwnn7qpSFeze9AFubAqnS1X3PkISVE7Ucs9LqnPeH0vDtWuYTCRQYtwbHWmu9YLa
+	 iVZtkq8vKaj6Aa18=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af557eecba-aa656;
+	Thu, 12 Nov 2026 14:08:48 +0800 (CST)
+X-RM-TRANSID:2ee36af557eecba-aa656
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af557ed187-f46a4;
+	Thu, 12 Nov 2026 14:08:48 +0800 (CST)
+X-RM-TRANSID:2eea6af557ed187-f46a4
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: linux-sound@vger.kernel.org
+Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] soundwire: mipi_disco: Put fwnode on property array read errors
+Date: Thu, 12 Nov 2026 14:08:44 +0800
+Message-ID: <20261112060846.1898-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <sashiko-outbox-210194@kernel.org>
+References: <sashiko-outbox-210194@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,203 +72,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Ritesh Harjani <riteshh@linux.ibm.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>, nandinih@linux.ibm.com
-From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
-Subject: [BUG] selftests/powerpc/eeh: eeh-basic breaks the device hosting
- rootfs, ext4 goes read-only and the test harness crashes
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: A3_HtWYE6Ku8fQ2fUvbT0UfzBkbNWASC
-X-Authority-Analysis: v=2.4 cv=PeVqFShd c=1 sm=1 tr=0 ts=6af55772 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=x-2Afh13tHfaC_x_YBQA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: A3_HtWYE6Ku8fQ2fUvbT0UfzBkbNWASC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAyMiBTYWx0ZWRfX0mHLmusLHpj0
- 0BsCtNMo8528XSSx6XhvnbCkP/qJ3O5UBWeLHZZsgdkJYGqUpmTzBXYk5LRFLnJsn1MttXh/8RD
- 26NA+Qm1Pk8UN9mJSKu/OLtbPJCYqJgo6c0EL9XUSivYCowtnd7Q2H3NFU7tR6WbYpsa+1li3I+
- DeIJRHyJ68SoX7L1xkXr7hTw5J5zlNMWioaOHbYI2ZfmPNqfRZUNJ+khbA2XO9t9H2EE/bHRSw0
- qS/GEVpLJMEOXMIKXS7iIOwJTN7TTSrIVuyjUMZu8t9+oi4pqeQceY5pOpEBrhKgzyin0T1aLR9
- zF3RfbjICwvc5VuCcyIU1VsKvgDVWvvwuONzkF8uH3TOAnKUh7h3LzsDSGQGfWodJnRuHJy/Zx5
- +lUYQoHFW6277PkbeZcwRlFSaPP4S3AEQmlKfErc89SVgZ3LrHJXidkrE03EBrpYSAxeLWxp6Te
- AIH8kNFmhbtpLb8RE8w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAyMiBTYWx0ZWRfX6ybRK3EAU94v
- 8pGPAJ4laTjYxs0lNSsz7E7c3A0oia2OGoCj25wpuVE/t4HMJCA+lMLb8qvMG5iuFTzXE8GTb1+
- K6QS7dGLcJFKQ6Wop1SNrnTvW/HJoF8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1011 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120022
 
-Hello!!!
+Hi,
 
-IBM CI has hit a failure that takes down the test harness, While running 
-the powerpc EEH selftest on a bare-metal POWER system.
+thanks for the review.
 
-The selftest injects an error into the PCI device that hosts the root 
-filesystem. The filesystem goes read-only and the run dies.
+Both Fixes tag corrections are right: the subject uses "mipi-disco",
+and the lane-list error paths (including the -ENOMEM one, which was
+missing the put unlike its siblings) were introduced by 71b405b18444.
+v2 carries both Fixes tags and mentions the -ENOMEM fix explicitly.
 
-[ 1112.079091] EEH: Frozen PHB#3-PE#1fd detected
-[ 1112.079905] aacraid 0003:01:00.0: aacraid: PCI error detected 2
-[ 1112.140830] I/O error, dev sdb, sector 3906906472 op 0x1:(WRITE) ...
-[ 1112.140957] Aborting journal on device sdb2-8.
-[ 1112.140977] EXT4-fs error (device sdb2) in ext4_dirty_inode:7656: IO 
-failure
-[ 1112.176664] EXT4-fs error (device sdb2): ext4_journal_check_start:98: 
-... Detected aborted journal
-[ 1187.736385] aacraid 0003:01:00.0: aacraid: PCI error - slot reset
-[ 1217.244306] EXT4-fs (sdb2): Remounting filesystem read-only
-[ 1220.583495] aacraid 0003:01:00.0: aacraid: PCI error - resume
+The clock sysfs buffer overflow is also real: prop->num_clk_freq and
+prop->num_clk_gears are taken from firmware-supplied properties
+without an upper bound, and the show callbacks use unbounded
+sprintf().  It is already being addressed by an in-flight patch from
+Weigang He, so I did not duplicate it:
 
-We need to make appropriate changes to selftest, so that it skips the 
-adapter, if rootfs is hosted on it.
+  https://lore.kernel.org/all/20260926042935.2284011-1-geoffreyhe2@gmail.com/
 
+v2 follows shortly.
 
-SetUp:
+Best regards,
+Xiangwu Lai
 
-System: IBM 9006-22C (POWER9), PowerNV, bare metal
-Firmware: skiboot-v6.8-45-g8246de863
-Kernel: 7.4.0-rc2+, upstream master at 067c5c24cef2 ("Merge tag 
-'page_alloc-for-7.4-rc2'", 2026-11-10)
-
-
-Issue1: Selftest should skip the adapter that host the rootfs
-
-eeh_can_break() already skips ahci, for similar reason, but has no check 
-for a device that backs /. A friendly LLM has suggested
-
-below change, which I tested and it works.
-
-0003:01:00.0, Skipped: hosts the root filesystem
-
-Other adapters are tested as before and the run completes
-
-diff --git a/tools/testing/selftests/powerpc/eeh/eeh-functions.sh 
-b/tools/testing/selftests/powerpc/eeh/eeh-functions.sh
-index 70daa3925dcb..f9db1f9be05a 100644
---- a/tools/testing/selftests/powerpc/eeh/eeh-functions.sh
-+++ b/tools/testing/selftests/powerpc/eeh/eeh-functions.sh
-@@ -62,6 +62,42 @@ eeh_test_prep() {
-      echo 5000 > /sys/kernel/debug/powerpc/eeh_max_freezes
-  }
-
-+# Print the resolved sysfs path of a block device followed by the paths of
-+# every device stacked underneath it (dm, md, etc).
-+eeh_blk_sysfs_paths() {
-+    local sys="$1"
-+    local s
-+
-+    realpath "$sys"
-+    for s in "$sys"/slaves/* ; do
-+        if [ -e "$s" ] ; then
-+            eeh_blk_sysfs_paths "$s"
-+        fi
-+    done
-+}
-+
-+# Succeeds if the root filesystem lives on a disk behind any function 
-of the
-+# slot containing the given PCI device.
-+eeh_hosts_rootfs() {
-+    local slot="${1%.*}"
-+    local majmin src sys
-+
-+    # Use the last "/" entry so an initramfs rootfs entry is ignored.
-+    majmin="$(awk '$5 == "/" { mm = $3 } END { print mm }' 
-/proc/self/mountinfo)"
-+    src="$(awk '$5 == "/" { for (i = 6; i < NF; i++) if ($i == "-") s = 
-$(i + 2) } END { print s }' /proc/self/mountinfo)"
-+
-+    if [ -e "/sys/dev/block/$majmin" ] ; then
-+        sys="/sys/dev/block/$majmin"
-+    elif [ -b "$src" ] ; then
-+        # e.g. btrfs reports an anonymous major:minor
-+        sys="/sys/class/block/$(basename "$(realpath "$src")")"
-+    else
-+        return 1
-+    fi
-+
-+    eeh_blk_sysfs_paths "$sys" 2>/dev/null | grep -q "/${slot}\.[0-7]/"
-+}
-+
-  eeh_can_break() {
-      # skip bridges since we can't recover them (yet...)
-      if [ -e "/sys/bus/pci/devices/$dev/pci_bus" ] ; then
-@@ -78,6 +114,14 @@ eeh_can_break() {
-          return 1;
-      fi
-
-+    # Breaking the device that hosts the root filesystem makes I/O fail
-+    # during recovery, which can abort the journal and leave / read-only
-+    # (and kill the test harness). Leave it alone.
-+    if eeh_hosts_rootfs "$1" ; then
-+        log "$1, Skipped: hosts the root filesystem"
-+        return 1;
-+    fi
-+
-      # Don't inject errosr into an already-frozen PE. This happens with
-      # PEs that contain multiple PCI devices (e.g. multi-function cards)
-      # and injecting new errors during the recovery process will probably
-
-
-
-Issue2: Some adapters take longer time to recover.
-
-
-Once the rootfs device was skipped, the run completed, but with the 
-default 60 s wait three adapters were reported as Failed to recover!,
-and the summary was 3 devices failed to recover (6 tested). Checking the 
-PE state afterwards showed them healthy .
-I re-ran with EEH_MAX_WAIT=240, and all of them recovered:
-
-Result with the 240 s limit: 0 devices failed to recover (6 tested).
-
-BRCM/Mellonox/Intel Adapters took 78s/77s/75s respectively to recover. 
-So I think its better to increase default timeout to 120s.
-
-diff --git a/tools/testing/selftests/powerpc/eeh/eeh-functions.sh 
-b/tools/testing/selftests/powerpc/eeh/eeh-functions.sh
-index 70daa3925dcb..1f1d1c8d73bc 100644
---- a/tools/testing/selftests/powerpc/eeh/eeh-functions.sh
-+++ b/tools/testing/selftests/powerpc/eeh/eeh-functions.sh
-@@ -110,13 +110,13 @@ eeh_one_dev() {
-      # is a no-op.
-      echo $dev >/sys/kernel/debug/powerpc/eeh_dev_check
-
--    # Default to a 60s timeout when waiting for a device to recover. This
-+    # Default to a 120s timeout when waiting for a device to recover. This
-      # is an arbitrary default which can be overridden by setting the
-      # EEH_MAX_WAIT environmental variable when required.
-
-      # The current record holder for longest recovery time is:
--    #  "Adaptec Series 8 12G SAS/PCIe 3" at 39 seconds
--    max_wait=${EEH_MAX_WAIT:=60}
-+    #  "Broadcom / LSI SAS3008" at 78 seconds
-+    max_wait=${EEH_MAX_WAIT:=120}
-
-      for i in `seq 0 ${max_wait}` ; do
-          if pe_ok $dev ; then
-
-
-Please let me know, if the fix for the two issues are good enough, I can 
-send a formal patch.
-
-
-
-Regards,
-
-Venkat.
 
