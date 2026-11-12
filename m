@@ -1,77 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453493;
-	b=ZgqBcEnBU0Ep3B7xOg2JoHhXJIFGubGQ/kzVLeg/fzrChw534ZoApp6fQ/Qif/ofa43M
-	 DyfEUtVN4D5MoH/1O+rYyKO5Pg13mlsRdO6e/BrMFjRLRQyRcgwb7Doysc3RUUNfjO+wA
-	 rgARpt9yU1I+m4dX7nhQkk+fo/cQUj8JVW/nUOyjIzk+yi/mqrs/yxOxC+EQ+R3of2nvY
-	 fkYxSh0+cvj5m7MiNwbx25an3q3VdMFGwovvuGuj2r4cbi9lujMI4qOndaKEVx2cnpdVc
-	 P364MYOBuENKzieEqWptY837gPE4dNfOMjfDnTvAcHK5nEJFxk2hdNjjtmLMonMyaKQ==
+	t=1794453507;
+	b=3f76hLs/FqZ8hLxUk35bfUWA1nNj3CvE9yUWorkZRrr7+RYCiwe0Svhs4wygJ/QdbWeG
+	 JEp3eZrd0wr6Bp+Jy0ODoVLLi/6a5VmzvzrRkpcGWWnvsyfby+lZdi4iz9n9B8H9jjK82
+	 vUDMaR+Q6ClrLJbQBRGkLwz42Yl1BUt5tI9XUojvdn1Pqv9SVz4fwir3gQVcUiNFs6GBR
+	 3eoSeujB68RTQrdjw/sBh+iefUbZfmrQv9pIzuxaL4nove318ACPGJmvV4mG4ZXjeWbqj
+	 CHN+hLwotY7j90A0xad09A4kOivP8Z3H7HXG393ogvDqFn446wWarF/K2E0elleWFLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453493;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:In-Reply-To:References:
-	 Message-ID:Date:MIME-Version:Content-Type;
-	bh=lbIs4tprYVpNM+bPoaJ4jGZRUpTsv4P/N73o1CTqSLg=;
-	b=wp8FuUKCy2F+b2cgYN/3xtfhIJU2rSPRi30V4Rx/BixgiRXWhpb9UNeE2EIfBeVUwVDo
-	 BsQDSn714jxI1AXFYydeubzgBo616M/KwKSuS86VLspLnZe0CxuZNzMb75U2LY9I9r54d
-	 wkQWXWbnG97c9k3EQGswVJtmxJPjcpZHsVWTvA7EszEoVhkXq2ZY0jNlwBhbeFU8GSC/f
-	 k5EgTuKtHseqBpS+GrJh80Kc9XawuGTxJklLeq7EJ7uSqptKsR7RVmMqD4/H16nMSNlb9
-	 Vk8ZUe8ElQkJSQJioyMNfKZ1tnwgdb6tZIS0CpOFsihX9kqch6WkUuLZ+fNA4YFz66w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794453507;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rkgCe3kcXBiUoWZroWE7dS9OWAduUX8NcGUg0zi5U+0=;
+	b=hIVX7S6G1iBFeEKmmsQtvZTERrdqjN8h9T1yxQqmHV45EOJUpcA44nBGmWMt6rIoqdXF
+	 TyZzDgXuuGhGhiFUTfX04PiP27PI5qZ6bgZZImpHr3zXk5aupwLrql6cCZNYaiUSycEJo
+	 yOR75GtElVnwsJ+rY30mgh2h7c2jjhppFiXjNKpXury5QpBZdYgqQ0PeqgWHTb0ST0rdZ
+	 XTKznHDti3z6K8MiK5zDhMy+yCurIGKXfEcUoDnV5xui2vKhRGnvQyiQGn5zwE3Vt7t7k
+	 86Dboa3y6TSvGPVEf3+66hBnpSuntM+w0YkUoHHiRw0sSsTmL3wfa/+FHgXwN/KXsOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="DKyk/Hjz";
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9C8606A31C;
-	Thu, 12 Nov 2026 03:18:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C9C8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=z8pYuoT3;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 79EF4606A327;
+	Thu, 12 Nov 2026 03:18:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79EF4606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=DKyk/Hjz
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AC3HYAV03373523, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794453454; bh=lbIs4tprYVpNM+bPoaJ4jGZRUpTsv4P/N73o1CTqSLg=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=DKyk/HjzL1Uh12CMRgXu4gIeGk6UTrTX7RnYTM7Wz1YKcjARb929Dc8J/wxqvecfQ
-	 TMr9m4xA+bA7UjcrG91Ieg19dW1GT6mmCkMrAHOqGth/2gvCLugIdID0/KIRprekj4
-	 8nygY8kuZJr1dxnSzXaNJwj8lPQshp7ogK4/hFar/Xqokr/m8ZoamYDB732S/Zj+kP
-	 pgyVVo/ieIlLa/p/jhdADEgfAySS5Upnet7UZuQzqgDmdI3b88tlAxHgRyJ5bmkzpS
-	 jS0e4awNktTotpIOMop1j6l9P8r4Sq+iRrm0OHroZBzbnGpeVLy9GqoUBxyLr/SjMf
-	 5JKXSWsOVMZ2A==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AC3HYAV03373523
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 12 Nov 2026 11:17:34 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 12 Nov 2026 11:17:34 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 12 Nov 2026 11:17:33 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS05.realtek.com.tw
- (10.21.1.55) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Thu, 12 Nov 2026 11:17:33 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Zhao Li <enderaoelyther@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
-CC: Luka Gejak <luka.gejak@linux.dev>, neo_jou <neo_jou@realtek.com>, "Sascha
- Hauer" <s.hauer@pengutronix.de>, Kalle Valo <kvalo@kernel.org>, "Hans Ulli
- Kroll" <linux@ulli-kroll.de>, Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	<linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH v2] wifi: rtw88: usb: stop RX work before unregistering hardware
-In-Reply-To: <20261101134314.39340-2-enderaoelyther@gmail.com>
-References: <20261101134314.39340-2-enderaoelyther@gmail.com>
-Message-ID: <92d3d8d3-656e-4669-8782-f64bd2ecc1ed@RTKEXHMBS05.realtek.com.tw>
-Date: Thu, 12 Nov 2026 11:17:33 +0800
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=z8pYuoT3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=z8pYuoT3+oelYGU7QjFGGAOE9sC2+usMTKNc4QjGNvjprQs8nHSpU8fS5t253CTLarbpzHFY3VBCd
+	 JP64daZWBqq5LBuVxMgslsS0cve0McPx8038kSmFNe+EB0W6Ln5Y1MY0voWwTsSzRkuJHQgHX3eHUl
+	 VXvWyBVAKHmfPS38=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af5300098c-a9322;
+	Thu, 12 Nov 2026 11:18:25 +0800 (CST)
+X-RM-TRANSID:2ee36af5300098c-a9322
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHB-W5100250 (unknown[36.137.216.21])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af52ff4f37-f0400;
+	Thu, 12 Nov 2026 11:18:25 +0800 (CST)
+X-RM-TRANSID:2eea6af52ff4f37-f0400
+From: Gu Bin <gubin@cmss.chinamobile.com>
+To: acme@kernel.org,
+	namhyung@kernel.org
+Cc: peterz@infradead.org,
+	mingo@redhat.com,
+	mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@redhat.com,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] perf trace: guard free(new_filter) to avoid double-free on OOM
+Date: Thu, 12 Nov 2026 11:18:09 +0800
+Message-ID: <20261112031810.1899-1-gubin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,34 +75,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Zhao Li <enderaoelyther@gmail.com> wrote:
+On the asprintf() failure path in trace__expand_filter(), free(new_filter)
+is called unconditionally. On the first iteration new_filter aliases
+evsel->filter, so this frees the evsel's own filter string; when the
+error propagates and the evsel is later deleted, evsel->filter is freed
+a second time.
 
-> Disconnecting an rtw88 USB device while RX traffic is active can leave
-> the RX worker running after mac80211 hardware is unregistered. A firmware
-> event can then queue C2H work onto a destroyed workqueue.
-> 
-> rtw_usb_disconnect() kills the RX URBs but does not cancel rx_work,
-> which their completions may already have queued. rxwq is destroyed only
-> after rtw_unregister_hw().
-> 
-> Cancel rx_work synchronously after killing the RX URBs. Only a
-> successful RX completion queues rx_work, and no RX URB can be
-> resubmitted at this point: rtw88 does not set soft_unbind, so the USB
-> core disables the endpoints before it calls rtw_usb_disconnect().
-> 
-> LLM assistance was used to find the bug and review.
-> 
-> Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+The success path, right below, guards the free with
+"if (new_filter != evsel->filter)". Do the same on the error path.
 
-1 patch(es) applied to rtw-next branch of rtw.git, thanks.
-
-85ef46b9f514 wifi: rtw88: usb: stop RX work before unregistering hardware
-
+Fixes: 90df0249c2ea ("perf trace: Expand strings in filters to integers")
+Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
 ---
-https://github.com/pkshih/rtw.git
+ tools/perf/builtin-trace.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+index 4094141461f91..f4a67491f5be1 100644
+--- a/tools/perf/builtin-trace.c
++++ b/tools/perf/builtin-trace.c
+@@ -4679,7 +4679,8 @@ static int trace__expand_filter(struct trace *trace, struct evsel *evsel)
+ 
+ 					if (asprintf(&n, "%.*s%s%s", expansion_offset, new_filter, expansion, right_end) < 0) {
+ 						pr_debug(" out of memory!\n");
+-						free(new_filter);
++						if (new_filter != evsel->filter)
++							free(new_filter);
+ 						return -1;
+ 					}
+ 					if (new_filter != evsel->filter)
+-- 
+2.50.1.windows.1
+
+
 
