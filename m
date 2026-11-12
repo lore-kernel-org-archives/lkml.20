@@ -1,56 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.85
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794470085;
-	b=TVGDAMeh1K0rbRmGtQH5AzgETEtA3zvF4nfXMGNDscbxlZu+Grl0pcJ5+I9mfEM8R1Uu
-	 lygSbHD0chE6Fpjbck5/9UrfwSMkEAmJ1ku8wc2T+GoOJA508I9yOSebzIz38mUsKB16K
-	 FehsKJ2qq/UtkaG6V3hNCNvyfK1l4hivHSarG2m2zPXadEd/GgDIv53/2RNiLtLWi4tlL
-	 JDQDXFDL/ykPL1JeeQsQu46cnLqV1XC0Ehny8IfLd9YNZiR0OesoUBaMFrxya79Jsk9tH
-	 AjgMbhLuUVDKN60ISNdo81Qy6esZPxvCmAVbYcpjtmZxiczC+to4EPUynHaXft4Xi/g==
+	t=1794470087;
+	b=cDCN6hrVNM2xljYGwERO+aOU30+4mxJ/DtdgnwCgLBaWbXmI20jWla2BPGqj2s/x/tpw
+	 93JTVMreZmotiJ8YpNDjMaMilue1rDBqxli96WmYoxfGyIBgq0qyJTYVjecEXNxW6go0y
+	 XyuH9i9I6M30usWyNSnZX6MXldQWcmHmvkrNtGAG77gkWf/YQsqFLjWYcH9W/DY1m9wA4
+	 qtOkg0GqjavfWeub3kNHoojh8l+4D6cX6j/1Ysz4ilSl5jlrXCceugU8hotHn08er3gb7
+	 D2NoAjkSf7M5AENW1NFR45EfrqKpIbnNooxKGf6r7qurtogWxhoudUJtsZWRgqAdTOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794470085;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794470087;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=djctqSnhrcBejenkoaZxRRPbd4r/+GRrKcP4QIKjFSw=;
-	b=W980I/V/TXS+qHT/hVOgHE/EOgem7ePd3CA2/bN95PiQPBfV0Gta+Hv18oHXqC8YBzrC
-	 3r7nTkg/mpSecDt+XnB9DK2zGXndUnLkWZ2XPO8M0432+ZOE89WGKPt1ovnG6pMwp2Bo3
-	 ZvXbzAWw9ReQHHDwpvWTdxTFi2POrDDOiJ/JRmzzno8Q00JHDaNPpiOX2bqbnDMiqM7Bb
-	 IpEdNo//TFUIs99bK6Mmr93oqBRUsGhVcbXilx2em+e/nYUmtNtCJ+qh/HpHP3ytpWPxK
-	 K+QQwGqqswGRUMP0+a6YeQTO7AqzJG9Q5O4ty4vzTE5jGUco8MONU8D8WLqedqh8KAw==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AOyscFKrcf3HoEJx6DsofUhA5XV1u8geAqpYw/YcyDI=;
+	b=3vd9H/be4+Va2EdPh1IM0GgbCKAdiMHeMt3oCyYi/8nmDaUef2nTdoLQIEieTtxxmin7
+	 huKeVjYdFWJtXd3gSelg0NbGKiipvI4gY3uA67sv3iV/fT6KB2mMnUQrT3OoyvnPhpseb
+	 GfVKJ109KK1rwpKMkKTdZkbhB68fUgH00RaxuHY3MP37R6kCTPsG7eiG2XLPTo0B4xAtA
+	 hMr+dzCO47nNE0V9LrlMqcV/dmrL1a2RFe6nIHgUIFIeJwvs4AyyKEcgxFqWjxewB5Q29
+	 FD+VaZGKRnLs3/VJOAoDUMfgywXpPh/EMfzHNMCxuqN97HUXGCTzkDIykTGpJ5TYelQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GLjLahCD;
-	arc=none smtp.remote-ip=95.215.58.81
-Received: from mta1.migadu.com (out-81.mta1.migadu.com [95.215.58.81])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=trl+XZ4x;
+	arc=none smtp.remote-ip=95.215.58.85
+Received: from mta1.migadu.com (out-85.mta1.migadu.com [95.215.58.85])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0E4606A335
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C0E4606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646E8606A882
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:54:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 646E8606A882
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GLjLahCD
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=trl+XZ4x
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jCIzZyd444ha6pslVm1boveaGld0krXHIpLGnhI5FvQ=;
+DKIM-Signature: a=rsa-sha256; bh=F1KV9kfLOuuKpASrj84EFbYg1WhgMuoDLqyIrj1tqDg=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794470083; v=1; x=1795074883;
- b=GLjLahCDBTChpUkJhgsQMhRmqaPDKVCWTZTJjtj7UThn8K+2SHfiH7hUxFclnWUTzdN/1t3l
- FNTuYmXdTx1a4PR+7DKBSxNQwNVtRiCjHvbuywz8QSgN86Gs1O0h4/+wTvJkfnFt80aL9EOc+IA
- eFPEre/EiXDgbrhNsMj0odvA=
+ t=1794470084; v=1; x=1795074884;
+ b=trl+XZ4xOQJCHNmSKbDaI/7F9e2Y0ilzx2oFKYKdUfKkHZ1DhCkki/6gxky811EDDsFADVXB
+ hXYSwyBOG9GDUOElAW2Fj+BzvDXp78y96zi4zzgg3zYPIsePgNk7I5AyYT5Chq8NbOGNVbCT6wk
+ j9tpRuvZM4hjsj5zOK8XPoNQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 6cba420a238a3506;
-	Thu, 12 Nov 2026 07:54:43 +0000
-X-Mizu-Trace-ID: 6cba420a238a3506
+Received: by smtp.migadu.com with ESMTPS id 30a148ff905e7f1e;
+	Thu, 12 Nov 2026 07:54:44 +0000
+X-Mizu-Trace-ID: 30a148ff905e7f1e
 X-Migadu-Flow: FLOW_OUT
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Thu, 12 Nov 2026 07:54:32 +0000
-Subject: [PATCH v2 1/2] irqchip/riscv-imsic: Synchronize remote state with
- IRQ work
+Date: Thu, 12 Nov 2026 15:54:34 +0800
+From: Hao Li <hao.li@linux.dev>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: harry@kernel.org, akpm@linux-foundation.org, cl@gentwo.org, 
+	rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>
+Subject: Re: [PATCH] mm/slab: don't set SLAB_MAY_ACCOUNT for
+ KMALLOC_PARTITION_CACHES
+Message-ID: <avVnuWCQW56qznll@fedora>
+References: <20261111125628.375624-1-hao.li@linux.dev>
+ <e2d1dc9f-59ff-4dfb-8ca4-35c584d14b35@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,136 +66,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-imsic-remote-sync-irqwork-v2-1-680f65b24ff6@linux.dev>
-References: <20261112-imsic-remote-sync-irqwork-v2-0-680f65b24ff6@linux.dev>
-In-Reply-To: <20261112-imsic-remote-sync-irqwork-v2-0-680f65b24ff6@linux.dev>
-To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@rivosinc.com>
-Cc: Anup Patel <apatel@ventanamicro.com>, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-rt-devel@lists.linux.dev, 
- Troy Mitchell <troy.mitchell@linux.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3849;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=jCIzZyd444ha6pslVm1boveaGld0krXHIpLGnhI5FvQ=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlfC3aKyj4/JyrC1W9WF3ju0dx9fxIV1vz4fjlbWrpl5
- ewppqsnd5SyMIhxMciKKbJ0P+DZVuATZVsgUOgLM4eVCWQIAxenAExE/BvDP9vq3w+NPpbsuCd0
- +UvGrFlqXNwHj08952U7v+u3lObSBglGhoON+ysDBdxfaX1yY2IqNljaJC3533vZnS81W25I7uC
- x5QAA
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e2d1dc9f-59ff-4dfb-8ca4-35c584d14b35@kernel.org>
 
-Remote IMSIC state updates are deferred to a timer on the target CPU.
-If that CPU has stopped its local clockevent and is waiting for a
-broadcast interrupt, enabling the broadcast IRQ can depend on delivery
-of that same interrupt. This can stall timer delivery when the broadcast
-IRQ is unmasked or moved to another CPU, including during CPU hotplug.
+On Wed, Nov 11, 2026 at 02:08:40PM +0100, Vlastimil Babka (SUSE) wrote:
+> On 11/11/26 13:49, Hao Li wrote:
+> > An allocation with __GFP_ACCOUNT set (without __GFP_DMA or
+> > __GFP_RECLAIMABLE) is redirected to KMALLOC_CGROUP and will never hit
+> > KMALLOC_NORMAL or KMALLOC_PARTITION_CACHES. Consequently, neither of
+> > these caches requires objcg slots in obj_exts.
+> > 
+> > While KMALLOC_NORMAL already skips setting SLAB_MAY_ACCOUNT,
+> > KMALLOC_PARTITION_CACHES still carries it unnecessarily.
+> > 
+> > Extend the check to skip KMALLOC_PARTITION_CACHES as well, saving
+> > unnecessary objcg slots in obj_exts.
+> > 
+> > Signed-off-by: Hao Li <hao.li@linux.dev>
+> 
+> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Queue hard IRQ work to synchronize remote state independently of timer
-delivery. Keep synchronous updates on the local CPU and the timer retry
-for an unfinished vector move. Hard IRQ work also avoids depending on a
-schedulable worker when PREEMPT_RT is enabled.
+Thanks!
 
-Fixes: 21a8f8a0eb35 ("irqchip: Add RISC-V incoming MSI controller early driver")
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
----
- drivers/irqchip/Kconfig                 |  1 +
- drivers/irqchip/irq-riscv-imsic-state.c | 19 +++++++++++++------
- drivers/irqchip/irq-riscv-imsic-state.h |  4 ++++
- 3 files changed, 18 insertions(+), 6 deletions(-)
+> 
+> > ---
+> > This doesn't seem like a real bug to me, just a small waste of memory, so I
+> > didn't add a Fixes tag.
+> 
+> Hmm I'd add
+> Fixes: 7def2e8549e5 ("mm/slab: add cache_ and slab_needs_objcg() helpers")
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 136bab41f801..5cdc3f52198c 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -651,6 +651,7 @@ config RISCV_IMSIC
- 	bool
- 	depends on RISCV
- 	select IRQ_DOMAIN_HIERARCHY
-+	select IRQ_WORK if SMP
- 	select GENERIC_IRQ_MATRIX_ALLOCATOR
- 	select GENERIC_MSI_IRQ
- 	select IRQ_MSI_LIB
-diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/irq-riscv-imsic-state.c
-index 01620373b43a..f6373e4019a2 100644
---- a/drivers/irqchip/irq-riscv-imsic-state.c
-+++ b/drivers/irqchip/irq-riscv-imsic-state.c
-@@ -252,6 +252,11 @@ void imsic_local_delivery(bool enable)
- }
- 
- #ifdef CONFIG_SMP
-+static void imsic_local_sync_work(struct irq_work *work)
-+{
-+	imsic_local_sync_all(false);
-+}
-+
- static void imsic_local_timer_callback(struct timer_list *timer)
- {
- 	imsic_local_sync_all(false);
-@@ -268,18 +273,19 @@ static void __imsic_remote_sync(struct imsic_local_priv *lpriv, unsigned int cpu
- 	 */
- 
- 	/*
--	 * We schedule a timer on the target CPU if the target CPU is not
--	 * same as the current CPU. An offline CPU will unconditionally
--	 * synchronize IDs through imsic_starting_cpu() when the
--	 * CPU is brought up.
-+	 * A remote CPU may have stopped its local timer and be waiting for
-+	 * the broadcast interrupt whose IMSIC state needs updating. Use an
-+	 * IPI-backed work item so enabling that interrupt does not depend on
-+	 * its delivery. An offline CPU synchronizes IDs in imsic_starting_cpu().
- 	 */
- 	if (cpu_online(cpu)) {
- 		if (cpu == smp_processor_id()) {
- 			if (__imsic_local_sync(lpriv))
- 				return;
-+			__imsic_local_timer_start(lpriv, cpu);
-+		} else {
-+			irq_work_queue_on(&lpriv->sync_work, cpu);
- 		}
--
--		__imsic_local_timer_start(lpriv, cpu);
- 	}
- }
- #else
-@@ -510,6 +516,7 @@ static int __init imsic_local_init(void)
- #ifdef CONFIG_SMP
- 		/* Setup lazy timer for synchronization */
- 		timer_setup(&lpriv->timer, imsic_local_timer_callback, TIMER_PINNED);
-+		lpriv->sync_work = IRQ_WORK_INIT_HARD(imsic_local_sync_work);
- #endif
- 
- 		/* Allocate vector array */
-diff --git a/drivers/irqchip/irq-riscv-imsic-state.h b/drivers/irqchip/irq-riscv-imsic-state.h
-index 189829b8673a..a36b9f0ef840 100644
---- a/drivers/irqchip/irq-riscv-imsic-state.h
-+++ b/drivers/irqchip/irq-riscv-imsic-state.h
-@@ -9,6 +9,7 @@
- 
- #include <linux/irqchip/riscv-imsic.h>
- #include <linux/irqdomain.h>
-+#include <linux/irq_work.h>
- #include <linux/fwnode.h>
- #include <linux/timer.h>
- 
-@@ -34,6 +35,9 @@ struct imsic_local_priv {
- 	unsigned long				*dirty_bitmap;
- 
- #ifdef CONFIG_SMP
-+	/* Remote synchronization must not depend on a timer interrupt. */
-+	struct irq_work				sync_work;
-+
- 	/* Local timer for synchronization */
- 	struct timer_list			timer;
- #endif
+Ah right, I mixed up Fixes with cc stable. Thanks for pointing it out!
 
--- 
-2.56.0
+> 
+> The question is whether cc stable as well. 7.3 LTS will be used for Android
+> and IIRC they have memory allocation profiling enabled. Not sure about
+> kmalloc partitions. Cc'ing Suren.
 
+Makes sense. If Android uses partitioned caches, then it looks like we should
+cc stable.
+
+> 
+> > ---
+> >  mm/slab_common.c | 10 ++++++----
+> >  1 file changed, 6 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/mm/slab_common.c b/mm/slab_common.c
+> > index 2befd24b4d09..f0ea1fa178e7 100644
+> > --- a/mm/slab_common.c
+> > +++ b/mm/slab_common.c
+> > @@ -1000,16 +1000,18 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
+> >  #endif
+> >  
+> >  	/*
+> > -	 * If memcg_kmem is enabled and this is a KMALLOC_NORMAL cache and not
+> > -	 * aliased with any other type, make sure it's never merged with any other
+> > -	 * cache.
+> > +	 * If memcg_kmem is enabled and this is a KMALLOC_NORMAL or
+> > +	 * KMALLOC_PARTITION_CACHES cache and not aliased with any other type,
+> > +	 * make sure it's never merged with any other cache.
+> >  	 *
+> >  	 * In other cases the kmalloc cache may end up being used for a
+> >  	 * __GFP_ACCOUNT allocation so mark it as such. The exception is a
+> >  	 * KMALLOC_NO_OBJ_EXT cache.
+> >  	 */
+> >  	if (!mem_cgroup_kmem_disabled()) {
+> > -		if (type == KMALLOC_NORMAL && KMALLOC_RECLAIM != KMALLOC_NORMAL)
+> > +		if (type >= KMALLOC_PARTITION_START &&
+> > +		    type <= KMALLOC_PARTITION_END &&
+> > +		    KMALLOC_RECLAIM != KMALLOC_NORMAL)
+> >  			flags |= SLAB_NO_MERGE;
+> >  		else if (!(flags & SLAB_NO_OBJ_EXT))
+> >  			flags |= SLAB_MAY_ACCOUNT;
+> 
