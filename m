@@ -1,103 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508410;
-	b=aZhh4Dla/MH4KL/rXTMxFyXp7xFDmWrDx9x4qkKbZkgrp5kUXaqxroCRcYHFRPR5K/VE
-	 789XfWKpCMBaKFsC0fKz8UKqN2MIwAj8xF8v1DZCP9HTDvENOZ6tsu8CmiH0UKUZ2KC6y
-	 LJvhC+0CcNlTAhfr6TNr/aXGOZJFt4GRDCDVJ6baUH3H9N+ezbQOaNQEMnuRf/o8y2IFw
-	 1jJlkADwfbzSkWW+5cr5BLlXCS8EviiGm1KUpN9nqZ87wn171D7MWXo/0NMhH/1ADYDbo
-	 27DjDvK5NxIEP+h/z9zPYc5rluRuLJjl474GXMLOjldKqaBykTVGTF+7nrM/yb80XUQ==
+	t=1794508418;
+	b=nNUrvNFN7QDOYR/dsc48IMG2jLWnd9uI49aeAqQIGRjFX+f5GVnNgME9PhIQ5YdpweDX
+	 5lvGGPyysbVNhquGDFghS2XT27NlGalbO9kZZVRwusdWT6kIaK9eylQGuQt/Uj+5/FYWG
+	 8TDfYPAlCPW4eM6zjmKp8I9KW7c9RNJorYfOR2r3yJ3iWUWr7MFt9gtRnjhjILStWXFaj
+	 Dpvd0PE2f4pGhIQVzWBjDzYZ6N8HFwLveu0TLqVjsg7WzYV5oz2ExPu38qEWaut2d654N
+	 GOLi2yg6PUUX9lhpaZJ5xuYSvBNrNlmGSzqd6yMvULVP/WDvoBuzzN4Gkknou4K/SVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508418;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=FmhP9MeZo5Es0js2kSt8GfipastboIXrtB3uKJCSmzY=;
-	b=kMj8SkEn0dhoVMQKOfp0Bor7asKz5P+0PNye58ZG1isfI2uPHTINKJWBvFpk+hQGngeC
-	 gm3jF5e9133DC9POVyEiTk9zoLPbEcLKCVStWXjmpyhusJ5l7bcJp5Z/yVYrPS25i72ao
-	 sTTsATRrL6F/8inMhBGxXtbmDSTRaa3oWSpqHE6jDfwvRJIdeyTcsXmEjvzd4wd0yd3/S
-	 9H07DWFxZlKF6GLwdMRspCXECXglOGCnJR1OQ4f3kEIMfkRQLFteaFJPvaKjw3v0gK65l
-	 oYCXZPVM2qARoBxKN6noNNftWvHENCuJvQ8yGgn1hF+EWi949TZ4VujxM+S/Dd3lxrw==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=E0X/oBNSd837oq8qemdGMRW3gOZl3XdynAbQm9FPXsA=;
+	b=yDvedYcAZiYjuXyjHFC2VgYwh0bWqGQbbGl1TNGp6ZuMJZn6yre4zeYtElQLFt+updBC
+	 SJG8IQhftwzKCj3mHXdQ6jcDeBEIZjsV2jbEa2zR0DQPC91DgdbFNQxIw477QGKgSSFiQ
+	 J3s09rfnf50+6pYtredJDxVl5rRgp9J01xm0f76XN4XDXxMnLR20R+8b2may4o3YRKcjv
+	 TIcKCum7o3d0Z5d8wC+J0pbA+ZGLt4Yic5C1eZ01U0INrsMwAnOoHs7xCoJMHx6vUwzwQ
+	 IiHkZhVcfGNf0tGEq2Vi36rBFNrorWbnupgfDqdU0XPYNJdCEc4jTaOpU3qg1OwTP1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WMeS2P1h;
-	arc=none smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=vOr2VvyR;
+	arc=none smtp.remote-ip=209.85.222.171
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2009606A89F
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:33:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2009606A89F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB628606A882
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB628606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WMeS2P1h
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso29107a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:33:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=vOr2VvyR
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93f30660e69so4749585a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:33:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794508408; x=1795113208; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FmhP9MeZo5Es0js2kSt8GfipastboIXrtB3uKJCSmzY=;
-        b=WMeS2P1hZnTnffr1aH08d83wzDWTn8SllmQoVjBf3rwrHkLVXzy1iOzvRfrU1VsPTB
-         jU1VKFpGzM5Lm/RctBUlZ6hO7tOIK49ulN95pPVl6Nyzo0QyTEKyd2TOr4cf778mVlJc
-         Ta1Bk6/+hlIl5XHqMXSAFLWvJLMXNmWbuf8p9S4oNSbmqU6o82kKZVysyADSS9vW8xyz
-         qR7Q//akUvVsLlOBQTQc1WmjXhAIkYdnimPAn9nmGXpL5lZEQfyERPZlzAaZ051xmAuM
-         2n1qfLW8Zp5ShIvL8P6Uu4/aOzmeJhvjW2kLcKn/C1ys2wKnCHf9j9p9ed+InWCDbEkq
-         Kdsw==
+        d=gourry.net; s=google; t=1794508417; x=1795113217; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=E0X/oBNSd837oq8qemdGMRW3gOZl3XdynAbQm9FPXsA=;
+        b=vOr2VvyRtP+KBt6PNgpsroLYuZ2WDXRyTOc5i95zgwooIsYRcxqQzqiTLUmi/IXsxY
+         hHwNRJhCrscdVv/HsHUP4QAcTt1cJdndeVKPMDxbJ861WXUxNdUDlH6/AnX5mNWc7Ok7
+         gz1LKAJ7k9EX0GE3xjhFTEeo+pTWtrYXtUOm92dteko0p+d/6NHk9jVtPuT8NDgnPWvg
+         XtxTBeTZ4wwWnSR7wfGblG7vb8M3uTKovXED6EyA5tN4BZTkv+jChVYvxAiFXwAYGK8k
+         e0QYgsMMPmx9nO2Garn9QvjiEbljM9VzEiJMpYxfNqtFGezq9HjbZijLAU2AbIeA4Mjf
+         wCtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794508408; x=1795113208;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794508417; x=1795113217;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FmhP9MeZo5Es0js2kSt8GfipastboIXrtB3uKJCSmzY=;
-        b=pHeSykIrRmUmkhx/IOXV+Yyyw0ZIhLEDEYn0wbsTd8X5sSYn0TBk3T/Ebp0iEOkpvd
-         MGcPOUkIHRzxoBqm0slBp1HxPILY6yFmLU/L208HzG0K/bTEngUeMMBiVnqWl5Yyn/7L
-         uU/HEeQ1yHlyt3+UrqEZpj1xbcdvWRpJGuiT2CEbUS44ZxU2WbvQIE8DoLfqeAgcKekZ
-         XBg9GYjpwuvOtvw1VtL55ytP4u0DfYdBDv0tweCKluPxTn4emVFdgVIBNBDYWqH90YFL
-         d7jRVkzctfNY2d/ygXDoSO9WectuBth4zHe5ihC5mgM+R28zbFBt08dgnykBBUglw3ho
-         Cjtw==
-X-Forwarded-Encrypted: i=1; AL+hErGCHJjqYghNyiWAgINaYQlsLrZMXNGPqHXFM4Ooox7TN036o4qKch1ll1N83w59xUOws3XKtVpYKRzwySk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96xQsy9c4aljouOiUYCiuMPUn5TNM1bTsENMBW/qmkP0AJ/MXH
-	SkKugv/CuRB4mQ06ShZ/Ww81hG2CFhbn2XqunZr5oyudYnmXfYwxM8Bl
-X-Gm-Gg: AYBFou0p63sODSSMKdirMSoVJXcw3deX/jk2C5qQD+CB9VVsE9RJVxhahZJW36uhVcG
-	4c8ROGIBkwJPzUa/XRF6TNl3uu+j/I5YuV3B4IGP0PO0JiICayZ01XDQEv1/5oUlelrdFTTeOPK
-	e7wwT2ffqhpZ4QiQv5mG5hpm6epmV+vbhOCkw0CElY5Yn8GgGLH9etQkGs7B+VrDtGJjGFWh/2/
-	Ltep6Fooosmm0L+lrWdouKasgjkIMysu8qv59PK8YwC1Z8lS5rIbPLH+IvaYjhGGRzDkk1UQlvi
-	cG8JWuazyXwWC1uGLfsnV3j+hniLrYjArQex41Vncm/H9jvwjlwqf2/fmvyDZCMRksvPZGHkowh
-	jErVY+mNNdOy+Re53i3Qgv45iYEuBPdlAEzFiEid+BuW/BKcX6AOCY2sMqkXGtJ8kZ2H2q9E6Zc
-	qVTxZsg/tFNYOLNHnOAGlRdsoniskFyCrdc1EQypfuTJfcynLd91NX5i5BQTi+asMKL7Ro7/Jy0
-	hMDCjrBWHuLuNVE6WjeuqCi+KYJB7Pa6kJI/PwckwDHbkcKa60WCxkRdrKUdBr4kf/JPXdI8Tfj
-	Qf85gWjVj38SxVIv
-X-Received: by 2002:a17:907:6093:b0:c2e:4a61:d436 with SMTP id a640c23a62f3a-c50963856fdmr10734066b.36.1794508407688;
-        Thu, 12 Nov 2026 10:33:27 -0800 (PST)
-Received: from krava ([173.38.220.46])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5a78csm7085066b.4.2026.11.12.10.33.26
+        bh=E0X/oBNSd837oq8qemdGMRW3gOZl3XdynAbQm9FPXsA=;
+        b=UbtC3ErtKnOlaWKMnO4pzIpcDyV7HySZF5B9nczbhk2ON0jvdd0hMAe8LpcK/GEesU
+         pXApry3G8B2Gmz1WXtGfqZ4tKIDeXV63TS0pPn5AJE2ZyJknfkKcE2CXa9MwRhQLMUPt
+         C+EIBC2T/e4ur937VNfXZeWFZlM2LKgLB1XAUGfgJc69Ynr/MGSIr5uQGEt4cBTKGhj9
+         ffYNvTtMBfqiwL4jr5zK82Vjl9HbqwWtn9kcmU16k5GvKkuzMnSZj5wxE/RdeQFCSaYE
+         /sUCbBzUxwpUW05mBwD/t9YAB4eYhRVwxe/Q/6MOeJqWUCxY84/NA74xWN1zEf1Y5dV2
+         Nc3A==
+X-Forwarded-Encrypted: i=1; AL+hErFRsBUC8u+5sMLDHDFfdu7Kv/XJw1HDP+r+4809TfnLxwnYtAHsMAAHV7KbNlTt2jW3lN3SPc8Rvnyg/O4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CLV74USBURp/XMxR3Hn4Z1xLymgj8nD5t2ivmfybIoR/m6LPw
+	tZ8rVHZTGVfcQzrjkq9bH2Y53QssBW38zBXR0DbGpXBjeCaVWmrZpGi1uvzItKKws+g=
+X-Gm-Gg: AYBFou0Bew/JOyNF5/vNuDDp7ej66CC6qVOb9ZIalRU+i/dKnYCqKnpenLGdSxYScmP
+	2lqLCbHdN5vhpHemvM2wlIFCA9pTsBhLilneKD/VBSEVFMhrKbxKGzxtQ76Bet+yzuKvEgsKyuz
+	epBLVySWXa6uHeHJMAZ7B7RnMyNmh+M4UkHUS5/B/LQU0qmU5qtMKWjJPDEB4m1k0RElLjAC9Mo
+	mfzGFP3ELKT8GJQkFFh+c3ZN0b2CDyVwnbiPgQCd/WCvVq+iJKv1d6DlzrptkyBRszDGX89IX7U
+	cgd3v0Yrw+DRLdcdESV4IiRepWYldXYGGGU2u+ZYyecglZpV24bTwn4aTZLFymPkOsk5n1T69yH
+	DPp1x49ecQKmmz6YiHI2GiFH0yyVZvciMw7BIZmhciL0VoAYDuV7jfX1bmUEfS3xM/CXD2OzL7r
+	gRSXCvVXCxlE24E5Kil9StfiTS9at7Cu48y/TNXORSGCYEW3ILhe5jMJgx70145BDwQU2iQ/Z+E
+	u0PufBJopFhqW0/oyHH0z3Q3tH8r0y3cJF3uCXE/Qh52WR4zd1zy4F704CUmi0cLySKPD3NHzkz
+	N9Pd0M/UpUDdwyx103aljiAr2sDVoivZVaXeI4GGePw+WjyeI8parG+ZT4XfoyzalU7GJkUxrd3
+	uX4/Wzzg=
+X-Received: by 2002:a05:620a:27d0:b0:945:ad43:1d59 with SMTP id af79cd13be357-9494bbef3b9mr40481685a.75.1794508416926;
+        Thu, 12 Nov 2026 10:33:36 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d456b2sm2035036d6.12.2026.11.12.10.33.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 10:33:27 -0800 (PST)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Thu, 12 Nov 2026 19:33:24 +0100
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Naveen N Rao <naveen@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Jason Baron <jbaron@akamai.com>, Alice Ryhl <aliceryhl@google.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ard Biesheuvel <ardb@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Alan Maguire <almagui@kernel.org>,
-	x86@kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH 01/13] static_call: Index code text reservation lookups
-Message-ID: <avYGdFtNMjSrdc5l@krava>
-References: <20261109194916.1089703-1-jolsa@kernel.org>
- <20261109194916.1089703-2-jolsa@kernel.org>
- <20261112082709.GC2668804@noisy.programming.kicks-ass.net>
+        Thu, 12 Nov 2026 10:33:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,23 +89,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112082709.GC2668804@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 12/13] percpu: search the whole reserved chunk
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+ Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-12-3d2454362e8d@kernel.org>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-12-3d2454362e8d@kernel.org>
+Date: Thu, 12 Nov 2026 13:33:35 -0500
+Message-Id: <179450841509.482102.2272758511939089806.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Thu, Nov 12, 2026 at 09:27:09AM +0100, Peter Zijlstra wrote:
-> On Mon, Nov 09, 2026 at 08:49:04PM +0100, Jiri Olsa wrote:
-> > Text reservation checks scan every static call site. Build an address-sorted
-> > index for core text sites and use binary search to find the starting point
-> > near the requested range.
-> > 
-> > Module indexing is intentionally unsupported. Module reservation checks
-> > continue to use a linear scan, avoiding per-module index allocation and
-> > teardown complexity.
+On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
+> Loading a module with static percpu data can fail with -ENOMEM even
+> though the reserved chunk has a free area that fits the data.
 > 
-> So this changelog leaves me wondering why, and at what cost. Why do I
-> want to have this extra array in my kernel and such.
+> pcpu_find_block_fit() does not scan the allocation bitmap, rather it
+> tests the request against hints, starting with the contig_hint of the
+> chunk, which describes its largest free area. If that area is too small
+> once aligned, the search gives up even if a smaller free area fits.
+> 
+> Consider:
+> 
+>     request:      256 bytes, aligned to 256 bytes
+>     contig_hint:  260 bytes, starts 4 bytes after a 256-byte boundary,
+>                   so 8 bytes remain after alignment
+>     also free:    256 bytes, starts on a 256-byte boundary
+> 
+> Ordinarily this is fine as the allocator moves on to the next chunk or
+> creates a new one, but the static percpu data of modules can only come
+> from the reserved chunk.
+> 
+> Fix this by searching the allocation bitmap of the reserved chunk
+> directly rather than using hints.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: 13f966373f92 ("percpu: skip chunks if the alloc does not fit in the contig hint")
+> Fixes: b4c2116cfae6 ("percpu: update pcpu_find_block_fit to use an iterator")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-right, I'll include benchmark numbers for each change
+Reproduced the exact issue.
 
-jirka
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+
+-- 
+~Gregory
+
