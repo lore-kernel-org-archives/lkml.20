@@ -1,93 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794583387;
-	b=q5P5tWCgiUda5qCtWGsUaf8TzOaRVgKTGVhxb8g4460FdHqNgIfohsqOxIi4LSKMNcPn
-	 rY69x131o7eqH3q8najbxaXDJI5R6DiEoVjxCZJ3NOlw1yv6fne3OWTVME4sUosk8OFaJ
-	 /UBj3x6XmKBlLmMNJrlzscWfUlOOopju0eR6Yl9/nPtnkA2995vxzdFAQDuA7MoK7wRrw
-	 8+K9W7uZwzIEuQE4o+ZiGQQfre1NwBJP/8P7yp8e2hiFt2Xp8L0KmvA7x+cluFAhQ4aWw
-	 xy09W9J0l12ydrLf4IDhD3cICSxgtbhJPF5uwSF/guIolqr9hAer4vqFOCjDt4ckoMQ==
+	t=1794583385;
+	b=wvSMMR8QOmgPASi/MxhZ+GgC0by2ndTOsZ2ygda78usR3Hp13/J32p151QKj0WrtaGwa
+	 K1BDhdDt85dWCEF62Gqtcn4TmS18/9YuGsM447rtvgpM2m1BmR855MJIDxrXUBhf/I35Q
+	 Zus77WM1v0A7FvJ+erdj+k8FCsv/rCS5MMB9bus4fuWWGlW3aAxtwDbTi8r4Xv3ktyuBC
+	 83hcHGlu0+S9mWkSfIiQz4IaOo+/EEi2jgpC3vqyVQmzM+2QKEYm32Mtm4FIJKI+/q1Yc
+	 +2qfHNNRwYxWGFLbcRQ7cCMiB//yBbJG/6T8iWC1Rt/3TRSXjLQgPW94hW7MZwqDRbQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794583387;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=96d7rXyRoBWG/8fCv9Y/Bl4rLafDhcPE/agEQqITANg=;
-	b=jLe43SKZbid965kDSxEBsimrLO19q5ZCISRPM+EPHHYGjJYsk1E5TP+IYFc7uafCWXh6
-	 +JbJlINTw5UPfMLcOddMVEbp+b3T2xrnLuTLSM5Ur9jnJbtIDACN0SsG3PI9EhUdydrbO
-	 AiYXw2+OCiHsIh/Mv/cDluuCzRcK3fkmK1mbDC/TFwhfeAMkHLTugAO43AhR7p3+OF7uM
-	 vY+NXyWrDR3rPAwUX5iFykCMqi6ZdtO4GSK7H9J5Y+cHVRWiEeK5x4ws9TYwl04OGhxpr
-	 HuGaNJjbqGMlh0LZP/N/F/wKYdEifslBIcodJLHSH1eBvg97mHUDs4HMLq1GBxOojyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794583385;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tBoG3yPbHOknMukm/yHUFzmOQKrS5xctV7/1Wnkk7Ak=;
+	b=t9XfIyv6/rbDtl6w9HGLuRRmvJmSLdF5Inu1BV66CdxP+geK5uiotT6656WCH5mMHdIp
+	 8TDQvu7kMvM9s8G2h6Vkm7DGh9TStgMAcxVLfyVYTLwB7QVf18nqs0ARB1e5c55oPRl7S
+	 oVjbBvYSbhvINRSjlpmK9ffV7l1vuD/1nvuJaX6gUqZMdPbmZiJQUsLN+IeRk/UsB3XiA
+	 R032kxJB8eYRnFjCBI2P8zdlAusi0ZQvvVRVSJGA52tdRRvq1/AmKA9MRSSM0wb4WDILg
+	 SMPhmsbhH4gQLfrNlpiTRkM3KwU8ODixj6rsFZG73+olfUWSc19JIruTL6pAHrb3tHQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XjKpJXXj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DxiHxWxG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.51
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010051.outbound.protection.outlook.com [52.101.56.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9945F606A895;
-	Fri, 13 Nov 2026 15:23:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9945F606A895
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62122606A331;
+	Fri, 13 Nov 2026 15:23:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62122606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XjKpJXXj
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8934520215A;
-	Fri, 13 Nov 2026 16:22:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794583374;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=96d7rXyRoBWG/8fCv9Y/Bl4rLafDhcPE/agEQqITANg=;
-	b=XjKpJXXjyICTClmTDekFig7pk7sXE8Ln8nC5rPnkE/jXN/q8or26hgleNdx+7KmNHXBcoq
-	ZtaPj+v9sGI1n6fSA8p0WqsNCoAjAZeguuN+5WmCKjMktODRKi4oGQGD4aeiMR9puQTWqM
-	JYBrXNQHxU3am3lmP38F+vcP7Q6evson1xSbdm2gWZfj4R0Jp59Z58J278w5QCP2706kwx
-	tpCrIPo7N+gQ9KIvZuP8+ijGqW13Q6xtbyCrubt9vdh7NpaTjLRbqQSEpGGnoCbM9x9raU
-	wumR6oEp2GZ0DE1UE3gwhctm1uj5E+9iT1kT5hT0OIhSlG1SzR13g7dzkK/3Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794583374;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=96d7rXyRoBWG/8fCv9Y/Bl4rLafDhcPE/agEQqITANg=;
-	b=JDWV+fP3hzmzv/V0oew3qal05UUmfLCXfHvPSTapnHfmokx/Uxg3RfFhFbCt6skyC2Td2m
-	YHFXHST/RM0hRc0zazl2NvZuIcGeVmw3sRY0NNggqMwiVf+Vuq7YnTmBUVtZhOEZPqHxrG
-	W68lUzGZbf9QzhX0/4sy5jGlLVjealMaVs6W3sfgg7pdIgGBGOnsMfIyIzLzDD/u5f+vdX
-	2ei9YvTK37c+q/h1q2pcefzmWba8K74OqJhOH7ySbn5+6FGb1o2Ew89gDMV3AqiFQ7P6bb
-	3Egsu2hiHmtW89u8mjQatDo/DFlC+4ixBNa+hiiexLbQMw6peQrNzXZaxLESpg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794583374; a=rsa-sha256;
-	cv=none;
-	b=Y93HUGG9IIGXbhDVKXGZLgfbhIoON9AbJNL7AS7vMgwaVjpN36B9te8I6kxWebjqG0zoUn
-	KwhNIILKG33jur6V8RXREN4K6MmRZeXvVnIBobPeWNvz4BSo/Cu6nCcKSphLozpAUYRKHL
-	mnXCLYtDg+VpOvU0+4pHuCB3Aob3dFYMG3cs5hNb938TzXUpCBqxmj+Y52b36RrLy7ShtP
-	D6PSWrQC/Yqh/vOtk3OCFIkORpa+bRYTm3RzxmGvK4c6FRTS1KCE/M0q+D40+V4P+u5zjM
-	fzo8qK4U+5eAXLdbRMbXGbWYx7XAY+HK3oSaBEDwSPl4hw1p6CaHecRWDZDGfg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <7baedb8836f538707d008b03e259780bc4fc8bd9.camel@pengutronix.de>
-Subject: Re: [PATCH] reset: Remove ARCH_HAS_RESET_CONTROLLER Kconfig symbol
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Andrew Davis <afd@ti.com>, Russell King <linux@armlinux.org.uk>, Catalin
- Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark
- Rutland	 <mark.rutland@arm.com>, Thomas Bogendoerfer
- <tsbogend@alpha.franken.de>,  Paul Walmsley	 <pjw@kernel.org>, Palmer
- Dabbelt <palmer@dabbelt.com>, Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre
- Ghiti <alex@ghiti.fr>, Arnd Bergmann	 <arnd@arndb.de>
-Cc: linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 13 Nov 2026 16:22:54 +0100
-In-Reply-To: <20261112214223.765100-1-afd@ti.com>
-References: <20261112214223.765100-1-afd@ti.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DxiHxWxG
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=voqM27EbFBigqAEb4u6tQQGl4jkLYXMWRmd88SVwMhTXCPtgtMK/2UORxFmvNvJEqYre6/kZV9Pa7qfKgEadsZf3RE290IgypmdaBTp1JssmpB7cd3ZbaM4aL5x36FRIfsyhwjtWkCYmwbj/iGLGVSozN3mm/DaeHNXZHJtk+jAzne52mEwpIlEAfp3vQB7zA/t0MmXlyJni332aMUiniJ0nBZPm7L8tQrdv3iyDenTZJsRJb4/6JADy0btzjH0BPJ4uDI6dbpRedaTOocGKpF7gDm2hHxMQ4qQP5//hjDnixMaxppVoHoW+hVXH+o2LJpHc+7fY+POdpSuYv3zVow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tBoG3yPbHOknMukm/yHUFzmOQKrS5xctV7/1Wnkk7Ak=;
+ b=hzaphtT8Ubu2i6+nHhJ8Sn2FCyNcMuDaR2bB1CSifZ6Bir7pnwoAbZsi1lFrj6VFZCSEOJHOQbxFVOqc5gbRW1rrEHv4bTSCWisrrsw6Mz0L29Uc+fuslY8RbAa4zPJd81VCuLVxqqPKV9J5d64Cl2ZP3Y5pslg/I4HkMbxtrZuoO04VcWLwXxweqrza7/6USlA2RIvrHmiUKlFTKwR67vuX/LZk//O7Ib9LSAEUU3O0ZQn0yEgRmVmN5UjlgBHt64FnlC3xh6Ok3UgSUZ44paKvX3jEJZXR0/gCilfWT/Ag51HEzmDyGpVbsJoCOFSCfkxjGsqDj/wTEe1rC7JJKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tBoG3yPbHOknMukm/yHUFzmOQKrS5xctV7/1Wnkk7Ak=;
+ b=DxiHxWxG3yyCBDdEzROFveyAS5ltote5s5aAHO+7DOD9b5ltO4dJgrHXH4pYNjTKsihZq7mD8EKKS/KfY4txK8AErI6VeV/QOnLCz9jFwxytVwNuxD29sQAA+lHR7BCQtVvlvbHA72Jk27IC6CUNxwcQduZ7yS9lUGPbZ8c961DjLcMX/4Rzj7qHTj1kwIacs696J5KayALcDY3D+DABApgyAAsWqARz2mSVDLvhBTUVTH8om26hcdxweIROMKakN/V5pbhHeiLJJlv4JqwuGdSjLnhC2b9QSvxZcW6pe8Ax7o68YHjxpGsGKezdiBMrjuaVSjFJig/6MBre7ebXnA==
+Received: from SJ0PR13CA0225.namprd13.prod.outlook.com (2603:10b6:a03:2c1::20)
+ by PH7PR12MB6564.namprd12.prod.outlook.com (2603:10b6:510:210::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
+ 2026 15:22:53 +0000
+Received: from SJ1PEPF00002323.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::3e) by SJ0PR13CA0225.outlook.office365.com
+ (2603:10b6:a03:2c1::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Fri, 13
+ Nov 2026 15:22:52 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SJ1PEPF00002323.mail.protection.outlook.com (10.167.242.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 15:22:52 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
+ 2026 10:29:53 -0800
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
+ 2026 10:29:53 -0800
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7)
+ with Microsoft SMTP Server id 15.2.2562.56 via Frontend Transport; Thu, 12
+ Nov 2026 10:29:49 -0800
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Akiva Goldberger <agoldberger@nvidia.com>, Gal Pressman <gal@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+	<linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>, Saeed Mahameed
+	<saeedm@nvidia.com>, Shay Drory <shayd@nvidia.com>, Simon Horman
+	<horms@kernel.org>, Tariq Toukan <tariqt@nvidia.com>
+Subject: [PATCH net] net/mlx5: IFC, enlarge active_port field to support 8 port LAG
+Date: Thu, 12 Nov 2026 20:29:40 +0200
+Message-ID: <20261112182940.3655773-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,81 +117,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002323:EE_|PH7PR12MB6564:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27d50da7-d457-43a7-a4cc-08df4199fc0b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|7416014|376014|23010399003|82310400026|56012099006|11063799006|18002099003|10067099003|261009223027099003|261026140227099003|261021123027099003|261021121427099003|261022105027099003|261102123227099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	1SUIt56uMIafVceIsvw2U3chDkbLPyC9azBgui1THwrf5M09qu5GxW+FExR7OXAlOPMLzpsApT8NdrAyZQ0odZP6wNA0e3waSRVTeliOL/bf9oOjGQHdyCUHPVxPjRXdOf0Qjf2NzaxsAUrmwPb2gAGXNqZYuNtjBy48qIWkWOP4jB3gKa6xMWhc8d0ha311/rqMpBdLgnSyB2fvZV3CIlLxobSYF5VrHellwZFD4a85dJ1g/Dcv1Jpgfz6AVDcNlOSwhH91D8diF7s0fJtqvLnDPkQ/cX5WFV+OrmLTPd9vCYVnkKI7q3gD5g+M44tyBPOVLu1WvXTd3nAxbxcpNsHu6agmRQvSA9BsdtJG9R7pVV2T/r60Wm2wy10JpnYbddoF6rsgD+5Pjy6jUvhx5nBBPjm2HeGaRwDoqFZ9kc4qBNQQE4itKdLRMx2TSl804Oph/5vwfDT/PxMpzdYNuvqsJtvHnZgBsaA3s21vlEtuUjb4+oRt5vaHLKy/XNVvco28oIIBk0Jj0PJfRj2y7LvFgEtrakrfsEW2MeJLn2mXCKBo99PUebW1eg1T4z7CPMUpWMZq013iBdMIOfCh+ALi4hVXUsvWYo5Xtzi0SpTmJO4slCDn7dpl4tt0P18hzVM0B9oscvUHekeCO++QOY39QANtxn0yJBFjMrzvlcyNsCG57leWGsR0Exslooo76Vwb7mxmO+uA5ddpV7Uv4Q==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(7416014)(376014)(23010399003)(82310400026)(56012099006)(11063799006)(18002099003)(10067099003)(261009223027099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022105027099003)(261102123227099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	30muaqj91j86JpfEpDM0BcvOZlsCgrUD6dEPXgBj51Qn/HaIXQDVtchZTaPfvzyc7TZ7RhYOiXjMlkBSykEA3+/3g0PtPoIohHJ+QP3vqcgwxv6Hv5qx/1k9wZ3rPzCtJsGbfLU1JFTcWlMMYk3SUTUYOU3Ak7Ozk4er0mKGURlaUw5Vf4lWKBQfkZtLLtb47lrkaQF2yiNJVxhR5rp7y1Zc6EFw33ac09JtvMqRSRMrXiX5MYagXc/BhhsZOb3U2aQQVr/Zl7GzfgPXB1uCgmnAjyRi1fLwqiBBw2YwYAaAJ2jVJnYIIiNf4t0ZAsuYDOGm3Ntfq7HGJqNLOe3/BGFdT9amiyzhHPxFp+8eygkyxchyRZv+XVmi/MhaLMNfIUxUW5uI3xiFJQK0GIzqiGiAt+aT553jXTwgZeoRmy69M/gDZUYLD+vEjNy4y+rJ
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 15:22:52.3972
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27d50da7-d457-43a7-a4cc-08df4199fc0b
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002323.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6564
 
-On Do, 2026-11-12 at 15:42 -0600, Andrew Davis wrote:
-> Many ARCH_HAS_* symbols change some behavior based on what an ARCH
-> supports, but ARCH_HAS_RESET_CONTROLLER is used only to set a default
-> for RESET_CONTROLLER. Those ARCH symbols that select this can skip the
-> middleman and directly select RESET_CONTROLLER, and many already do.
->=20
-> Replace all selection of this symbol with a direct selection of
-> RESET_CONTROLLER when it is not already in the selection list. In the
-> latter case when RESET_CONTROLLER is also already selected we can simply
+From: Shay Drory <shayd@nvidia.com>
 
-"In the latter case" and "when RESET_CONTROLLER is also already
-selected" are saying the same thing. I'd choose one and drop the other.
+active_port is a bitmask with a bit per LAG port. The cited commit
+enabled 8 port LAG, but active_port remained 4 bits wide.
 
-> remove the ARCH_HAS_RESET_CONTROLLER without changing existing behavior.
->=20
-> Some ARCHs "select" this symbol when they actually "depend on" the
-> RESET_CONTROLLER framework to build, in those cases the indirect select
-> could lead to broken randconfig builds. In cases when it is not needed
-> for building the ARCH code, these selections can be switched to the weake=
-r
-> "imply" to allow it deselected for minimal builds without reset support.
+Enlarge active_port to 8 bits, as defined in the PRM.
 
-Can't it just be dropped completely for those? See for example mach-
-gemini below.
+Fixes: e0e6adfe8c20 ("net/mlx5: Enable 8 ports LAG")
+Signed-off-by: Shay Drory <shayd@nvidia.com>
+Reviewed-by: Mark Bloch <mbloch@nvidia.com>
+Reviewed-by: Akiva Goldberger <agoldberger@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+---
+ include/linux/mlx5/mlx5_ifc.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> Additional checking will be needed to find such cases.
->=20
-> Signed-off-by: Andrew Davis <afd@ti.com>
-> ---
->  arch/arm/Kconfig               | 2 +-
->  arch/arm/Kconfig.platforms     | 1 -
->  arch/arm/mach-bcm/Kconfig      | 4 ++--
->  arch/arm/mach-berlin/Kconfig   | 2 +-
->  arch/arm/mach-ep93xx/Kconfig   | 2 +-
->  arch/arm/mach-gemini/Kconfig   | 2 +-
->  arch/arm/mach-imx/Kconfig      | 2 +-
->  arch/arm/mach-keystone/Kconfig | 2 +-
->  arch/arm/mach-mmp/Kconfig      | 6 +++---
->  arch/arm/mach-omap2/Kconfig    | 1 -
->  arch/arm/mach-rockchip/Kconfig | 2 +-
->  arch/arm/mach-socfpga/Kconfig  | 1 -
->  arch/arm/mach-sti/Kconfig      | 1 -
->  arch/arm/mach-stm32/Kconfig    | 1 -
->  arch/arm/mach-sunxi/Kconfig    | 1 -
->  arch/arm/mach-tegra/Kconfig    | 1 -
->  arch/arm/mach-zynq/Kconfig     | 2 +-
->  arch/arm64/Kconfig.platforms   | 9 +++------
->  arch/mips/Kconfig              | 6 ++----
->  arch/riscv/Kconfig.socs        | 2 +-
->  drivers/reset/Kconfig          | 4 ----
->  21 files changed, 19 insertions(+), 35 deletions(-)
->=20
-[...]
-> diff --git a/arch/arm/mach-gemini/Kconfig b/arch/arm/mach-gemini/Kconfig
-> index f436a2009eca3..11e0e966c3bb6 100644
-> --- a/arch/arm/mach-gemini/Kconfig
-> +++ b/arch/arm/mach-gemini/Kconfig
-> @@ -3,7 +3,7 @@ menuconfig ARCH_GEMINI
->  	bool "Cortina Systems Gemini"
->  	depends on ARCH_MULTI_V4
->  	depends on CPU_LITTLE_ENDIAN
-> -	select ARCH_HAS_RESET_CONTROLLER
-> +	select RESET_CONTROLLER
+diff --git a/include/linux/mlx5/mlx5_ifc.h b/include/linux/mlx5/mlx5_ifc.h
+index 697fc9387b73..37b6e47c9091 100644
+--- a/include/linux/mlx5/mlx5_ifc.h
++++ b/include/linux/mlx5/mlx5_ifc.h
+@@ -12453,8 +12453,8 @@ struct mlx5_ifc_lagc_bits {
+ 	u8         reserved_at_18[0x5];
+ 	u8         lag_state[0x3];
+ 
+-	u8         reserved_at_20[0xc];
+-	u8         active_port[0x4];
++	u8         reserved_at_20[0x8];
++	u8         active_port[0x8];
+ 	u8         reserved_at_30[0x4];
+ 	u8         tx_remap_affinity_2[0x4];
+ 	u8         reserved_at_38[0x4];
 
-I don't think this is required. There is no reset controller
-implementation in arch/arm/mach-gemini ...
+base-commit: b71c101bbb9814d163c00234d43c41f0a17907d4
+-- 
+2.44.0
 
->  	select ARM_AMBA
->  	select ARM_APPENDED_DTB # Old Redboot bootloaders deployed
->  	select COMMON_CLK_GEMINI
-
-... and COMMON_CLK_GEMINI already selects RESET_CONTROLLER in
-drivers/clk/Kconfig.
-
-
-regards
-Philipp
