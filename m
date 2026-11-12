@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794465979;
-	b=R7I3J+WinmX9kbkZJrMUO0pR+aZxTTq+vXdpk7heI2DjqwPGQSIRNMVqYvpafPOzIKyL
-	 y/uPbaxb/4Qf2aI1bxGrqnKFIDq31GJKvsVpR5sZbC8vsriw4ODIs593r0NjCuGD40Jkg
-	 3Dw1jdhGyCdfbRZqrobbfr69ntSOr4+WxfoV48RWBC57IBOGQ0LJFhnNjaOXMjr3CG1X2
-	 jEt7Rk2evP7r3enwNrP6YPPKgTeSgfoGeKR/rgn2H+Fxpy3nJw9LSmcM3ghfxOU4rPWMq
-	 9jveZshjhL1xEvn5MUuqKRJTCQoUotuLfqIXZg3eohNmiUGTWOWl0azaJQhEMX3CDbw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794465979;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=0RHYum4XXi3iigEiDvEIslV/xiPgeLN7rqvxK5MbDUY=;
-	b=WwZR32DMwHRIKXUv5D/pNtPyeLqkTxuxrj8HPnz1WXxI2Hsf1c9dyEisZOPmOytk82D4
-	 wrXeGqaSNU50r0slSSQYh/anQgqV/PEhuTJmso+t2Qc0L9JSPcd7ZVTK+PSJw4PLIJ+ou
-	 PktCYaFuTWdQ8Zs16+UdNB9uuuqFodOBYotdve2I1pmptdgEOH7qHa4oRgUIamYh9osfq
-	 vf7TmGXpqtf0wdF3AmbVZf5GS9eohmR2wE+IbHNK4O9nu0Ji8opPi8HPH2G+xVVECA1Nc
-	 j3JlGP1dde13KtODl332gDBrvH4iM/mRemYSeJ7UsHNSsjGrXgvN4pBOk5DLlyzMoYg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SWPPh8XZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.25
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011025.outbound.protection.outlook.com [40.93.194.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794465992;
+	b=kSdv8kRlx7aLhZrh8v0TWvK/SO/xBjwH9eUR0+cBm7dZvTba2FbUTQXIGwuMtrchwFc5
+	 hPdiRBQ9cb5htpaBNLCasE3nCzZvFoVDbKH8bmr6uOK3Pf9j6Ukfpbn2mv2gsluxYikyW
+	 jJ+wxudFbcekBj7whDsF19NHmlwSDMi4FGKHrpp6YVGQ7548GXnLmNoEUCRxq+xr9S7gR
+	 xBCZAwDurpLkepc7NDPYpsvqHzZNkO5DQu4iYOsHCvC3eaTatufGs3afQ6R7lhj+PO5DG
+	 iQy0OiwMCV3Dc2HRXW2VHRkcaoG2KMwX+ijDw4eb4mW34oZloAG01G11ncx6yAjBdIQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794465992;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ntDd/S6L1RCmt2oOT/IfmwbQKnfoI4o0MqE17OZVDwQ=;
+	b=2MZ40fqQjPucL1NCr0nTxCu0NMgkc/T6CrVRJHagF9GZK+c0pT9KNL9ij6rV4CFSxmZA
+	 9wDm3hY5rsLV1gMH+RbCcevMJ3MyeWLClxn71ayOUSEzqmADT+05CojGhU3sEIXFiG5Od
+	 GBdqP2Gv3UQZZKPe/KHvPdmiZM9D/Gsp0kWcKJzb8TJOK5eErSvkZYTduTLAIkvzlN9XC
+	 4uN5rXe4xntT/YbY9TPcko55ssbifD90r8vIohzStCWpprIjoT5jUCQoO4WTcXGt+V3eu
+	 KdI41kr6cAggRTlescLZC4cL4OB0DMjjqF5Ab5QxFm2U+ykK+ho5dCrtrTgDSvH4HLA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yNBm4s88;
+	arc=none smtp.remote-ip=74.125.224.45
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8666D606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:46:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8666D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F244606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:46:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F244606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SWPPh8XZ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F0RgTkdIxPrAvYkR+SAHrpkJruEGPBwfps51+59SwwzAu9ccckm20ypoUaEzKCdJBVkv0y50xoFwRcW1CXY0D/Y0fsRlWTP1fbrMqF9fEhSfHRfp6MMfrDOKP2WpOyAwDy0pwNque0LFPlftRt+LLziJ2JWanaARDn2q/IsyN12Vx9ZY9p4vV7FnroQ7G4jvFTj5ZP5lCt1Uismn2A8+Et+Hgqm8GvITC4XZjdAkQIZa5dre7sSiA7wpumfK14NYW4QoVaT0FdblRtJA2UlYzbrQNkE7Khk5HBtKGYCR7DeOEFha4JOqBpgH1K8Qy9vzFeWQELHtd/28h4UX6KTMHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0RHYum4XXi3iigEiDvEIslV/xiPgeLN7rqvxK5MbDUY=;
- b=sSU6RXw/gp/BW7PAqafuW3zRc7wPthCA/j4/WbpUod4NvO8etZJwWRlWHCgjdpnvo1FuUQIxlHYIleqy4FqNmeTS1/RewolePiDK+27ag5uoNC1nBrRLvkw4fnAbtfaN52o/zLYKc1QigwcNhTw2fIj9A4y6hbIY0sBiJXivCo5u6tZxBGT54mPIINO9KJReycS3rOSMViTO2KE+OK8LGd6sae5yKxeI/rmurBkz2/L1V50UknV/HV9GDqHcofggip+koVAARfC2BoErydcu5nqSWKKDJj+mAsn6pCM0w+1WO8a45Erp9p8dMxX9OqgJ754vcdskZejXGnxnfkpQcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0RHYum4XXi3iigEiDvEIslV/xiPgeLN7rqvxK5MbDUY=;
- b=SWPPh8XZhCge2UwlthcArpTIcTH3/Dnw6KQuPc9YWo5wTR1lJIdAJOFPO0UDkgOk7x5V7Qr7a7IskHzabHqqfVaWFRf8hMdFnBnG+jkLoiSMfUHiR/cHGugcXbOPJj44W1tvC2mR4CjI4mR4Q/xnZn82qT+2EgxZkgQ//zS1/84=
-Received: from DS7P222CA0009.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::11) by
- CH1PR12MB9717.namprd12.prod.outlook.com (2603:10b6:610:2b2::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.12; Thu, 12 Nov 2026 06:46:13 +0000
-Received: from CY5PEPF00000E77.namprd02.prod.outlook.com
- (2603:10b6:8:2e:cafe::2d) by DS7P222CA0009.outlook.office365.com
- (2603:10b6:8:2e::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Thu, 12
- Nov 2026 06:46:12 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY5PEPF00000E77.mail.protection.outlook.com (10.167.247.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 06:46:12 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 00:46:11 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 00:46:11 -0600
-Received: from [10.136.34.22] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 12 Nov 2026 00:46:07 -0600
-Message-ID: <56e1d372-c938-468a-950b-4f984ad6bde1@amd.com>
-Date: Thu, 12 Nov 2026 12:16:06 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yNBm4s88
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-677bc4704cbso4606162d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:46:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794465991; x=1795070791; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ntDd/S6L1RCmt2oOT/IfmwbQKnfoI4o0MqE17OZVDwQ=;
+        b=yNBm4s88C2IB7zlunIssuy+UbsDs1TkX1LT/9Hh5TZhuYv60Zj3fmnJq1AoJJ24JgZ
+         AfxQTGrYe9+A8dvjyw7mTXTA23j6RrML62LVYxOKiYAZdLhhxlyOmXmqqRYYM0NIbCVP
+         qteyyNE3qmAfeCqZOQDx4O1mKifh8jYEFeH2XX+ck7VmBYmuIPLV85J/SVuA7CbEgnzk
+         PJPaedCgd0w1yeXIAOqcbyCbiLyvPB9L/R5xV3TBzcgMNeWKY1j0jfvVzae0nOjFmH/s
+         Eg4cSvAWCdoi8qXrog36Y8JaCMNfIVrEUu6b8dD16C7h8gA5tH2f+kGxOAA0nt0X8nDt
+         JW8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794465991; x=1795070791;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ntDd/S6L1RCmt2oOT/IfmwbQKnfoI4o0MqE17OZVDwQ=;
+        b=i9lUodZR9KJ3xW3OU3i+B2GY2xYoJuJ1dpu0SdzaYYUx9Qi+gjOJYxCwuReyGKdKM6
+         9Y18nB0odv/J4dyQZPfVWaNXd0YSNuPwCNPWgGJNovQznmUpHXzOfESbNvZnqW+je700
+         HewRS5qjD0aUqGKvSfdk4ohSIZg7LqigirEPVvTGYgv7iQH078Uy2LX2qKosqtip1g93
+         u6YyQG7I+MO3adSOrsNYm0OSk9P4+DN0WflIf3PmNhedP8yCIoCvOiOyQPWkF7pH5Stc
+         qOyJ9XJyPQ3Ktq6vTVnO7gLkgdy1iP7Ngcbsczwp5s/31l0t9fNyCgzV/O4ei0jj6XJM
+         pTbQ==
+X-Forwarded-Encrypted: i=1; AL+hErH99yx1vtR6CprIk6QzMpfpbpcvx/ApRyFU5ttn2xOT0IUQhZ81bctygHsU8dlnw/V2tGy6Qr5A00aydyE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9yNna50KTnyX99U4iL7Ezw8D9H65PFeZ4qmBm6l63nA+/dSuhD
+	TyAVVms0AfxpvbTtZVnjO+4jfCszRpWpTdPZwvaKwmZQg895XfsVu2P7
+X-Gm-Gg: AYBFou1oAd0xW9EfnIbGEpGVsu8xRK0xeoPMCZAY2i4tOaqTLWF/8l8CMHhs+yDxejN
+	vAiOs9/VNCxS/nuxZdZ19dSvP/20AvJCpR5irrtMti16zTq/NKSIIJ9y5NnXQWpN9lbbSjiL1v9
+	AkJ3+3UXKnMmVei+FK9lubSSiPasbSFEC/wT8zVsdebqxI4mt5YFFz81peLM4S5wrz//8TwntOt
+	xddlsCJXD20xcd6FXbsq3Ibg6i6VXgrwk8afpE3YhE+hgd2Rh0/wd9Z97EMAkh6sTlJdRSF4qYO
+	WyjFPo1E+Js8pcpZtL7J/Bu59QdhhhnMP5P/o+bzANvjYMDBEjUwWJVNb/imI+owDDCciuU9i/T
+	GrtHjfCeyO3uInp4+40x1RgEHb2FE19YHpese3rCDwvskPGxh4Erf249lCHxbWid9z7XF/bU/eM
+	6xhVzBmQtLPO5nU7mt+zKwvL6hxvhfE3IEl4aSlBt5F0lDDzRjUo714BDof/8e405jtZ+phg0pG
+	Krv2qlkzzKDQQ5AomQtYOf1isJzMtpMD2HstmG+9sMlBuYNRV3cxKW689KmbV8GPlIt8De7DFDD
+	w8qz8EVYfsjDuIwzd5I/8dgfPyI5xxGtLtKAJrr+zz5D+A72Egf27g==
+X-Received: by 2002:a05:690e:140d:b0:67c:2350:5b8c with SMTP id 956f58d0204a3-67c67fd76acmr2791998d50.26.1794465989718;
+        Wed, 11 Nov 2026 22:46:29 -0800 (PST)
+Received: from VPN-156-197.vpn.usf.edu ([2607:fe50:0:f802::4046])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c589a3450sm6629012d50.4.2026.11.11.22.46.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 11 Nov 2026 22:46:28 -0800 (PST)
+From: Juan Agustin Niccolini <juanagusnicco@gmail.com>
+To: Eric Dumazet <edumazet@kernel.org>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] tcp_metrics: hash the destination address with SipHash
+Date: Thu, 12 Nov 2026 01:46:24 -0500
+Message-ID: <20261112064624.15245-1-juanagusnicco@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,105 +100,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/12] sched: Remove sched_class::balance()
-To: Peter Zijlstra <peterz@infradead.org>, <mingo@kernel.org>
-CC: <juri.lelli@redhat.com>, <vincent.guittot@linaro.org>,
-	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
-	<mgorman@suse.de>, <vschneid@redhat.com>, <linux-kernel@vger.kernel.org>,
-	<tj@kernel.org>, <ziqianlu@bytedance.com>
-References: <20261107115913.261163891@infradead.org>
- <20261107120208.153536827@infradead.org>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20261107120208.153536827@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PEPF00000E77:EE_|CH1PR12MB9717:EE_
-X-MS-Office365-Filtering-Correlation-Id: 511339c0-10be-4b21-9f24-08df4088a43f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|36860700016|1800799024|7416014|6133799003|18002099003|10067099003|22082099003|261102123227099003|261026121527099003|261022105027099003|56012099006|261028144727099003|11063799006|4143699003|261021123027099003|261022075727099003|261021121427099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	y9d4IzqZxCuY45SqKPWlukMtWsaytqOmrAh135j4ZNBc4MeKJfhsomRzD0v5dOJgcd3WULWsxPlWwCXhyRMRL01x4cWScUV4WJ7e6PiQs/+hj0CAVFHQhmMqygj70AwKfKpZiW8i45C3rJyvHm19prPDuCy0z/Ws+uXRkZLh1xyZf5ItbW1A7s1bTGGIb0OJfdPuEC4kOgs5Fi4bHtJjIBNDHXfsVbvl0zMweFvE4juxbQY5RQIv/wA2+hbjaOXQSnip7Tw8jTAkslQV088DICbjSR/zO9C3vhN31izAc73ehHRxvcgPizgtmYnUXqgwvxfeM3Ir1tBwyamj990smGNZnHRkoFwqobxb47UPC5hLLiG1qfLhox23gbcbk1d7SoCDsRRWIEW2L46/3zubP9XixjRpNM0BPWy1YCMeeR6KUtQAOsiBuaB5Z52FCuJcUtkgJOP/R7FuprDHUpF6UMoZDTJpTQkwhyh8xWMz0T1de7dvayZvZkqyXtao+ZAtfXpj/nqVzvcbphgVU0UECf64NJQJwDOCryqMgscHJuc/iQAxvsGmi2BVx2z1UK9WkwYG71Zw4jp4XJFdE2O8WuCPIsl8IGDO2+gLFNHHzAFHuJbknOZHoyGMvCcm+nih+QNGWLDu9Yk+tw4VbvcJhKDJLmvPURpRC/MUVouS3GPyJKoCeKRTXoxFfW7fKiN1QyNDJPsLNpXPyeIzrBclWw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(36860700016)(1800799024)(7416014)(6133799003)(18002099003)(10067099003)(22082099003)(261102123227099003)(261026121527099003)(261022105027099003)(56012099006)(261028144727099003)(11063799006)(4143699003)(261021123027099003)(261022075727099003)(261021121427099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	QoYgnR3p+L7VG38zVoViYYoWIQ0Y21fuaw+1SZ4tZ8PWHgDeR6ahRtfNrHNLLIRYd/n4av2LDUk9m4XSbzUnGG19o6/gm8hyBFVYt3AQCW2o/x8dHROQlAB1Y8VsAktqO83HYt32BGxCBexZ8lxOdYOz2uj8ga6Qy1ZqFf+0W5G7c1b5jJwzZ9IZiKf7bs0c4a6Q5gGEQUVf2Bd+P4ptNOBJBPr0aUTuCOqOJFlGabVAmt4SzW4WosDW0ITKzur2D5fzzEok0bObQ4sHSgkLOMSMKxrb9+vY5CFa9SpAo6fVZnYMBayL47Rseo6Ag2SE41LhR073DGFzc8o49KcbT0IClkHuA5NEbpQ2ADkcCMARnZ3Iw33Dh/Q19l8fbx6QtnKpoNVP2cin9hoQfxCUHhgO7Rk9Tx/hYrtgV8ilm1oBKvvevCYO65lx612FsooD
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 06:46:12.4359
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 511339c0-10be-4b21-9f24-08df4088a43f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY5PEPF00000E77.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9717
+Content-Transfer-Encoding: 8bit
 
-Hello Peter,
+The tcp_metrics bucket is derived from a fold of the peer address.
+For IPv4 the fold is ipv4_addr_hash(), which returns the address
+unchanged. For IPv6 it is ipv6_addr_hash(), which XORs the four
+32-bit words of the address. net_hash_mix() is only XORed in after
+that fold, so two addresses of either family with the same fold share
+a bucket in every netns.
 
-On 11/7/2026 5:29 PM, Peter Zijlstra wrote:
-> Ever since commit 50653216e4ff ("sched: Add support to pick functions to take
-> rf"), we have the unfortunate situation that both sched_class::balance() and
-> sched_class::pick_task() have overlapping functionality in that they drop
-> rq->lock and balance tasks.
-> 
-> Additionally, prev_balance() is only called for a single RQ in the core-sched
-> case, resulting in 'missed' balance opportunities in this case.
+A host owning an IPv6 /64 can thus compute, without knowing
+net_hash_mix(), addresses that collide with a chosen IPv4 or IPv6 peer:
 
-So I have a fundamental question - looking at the deadline and rt balance
-callbacks, the balance is only done if rq->donor was taken off of rq
-(blocked / throttled) and we need to pull a waiting task that might be of
-higher priority.
+  w3 = w2 ^ p0 ^ p1 ^ target    /* p0, p1: prefix, w2: free */
 
-Now, if the balance (say for RT) failed, and later, a different class' (fair's)
-balance callback dropped the lock during which a RT task was woken up on the
-CPU, I believe the wakeup path would have already done the balance while
-considering this CPU for wakeup right?
+A bucket holds six entries and the seventh insert replaces the oldest.
+An off-path host can fill a peer's bucket with its own entries and
+later tell whether one was evicted, because tcp_init_metrics() seeds
+the initial RTO from the cached RTT. This reveals whether that peer,
+or another address in the same bucket, connected in the meantime.
+XOR and multiply is not a PRF, so net_hash_mix() can be recovered the
+same way, after which evictions leak about 14 bits of any client's
+address, depending on the number of buckets.
 
-In that case, why should RETRY_TASK want to try balance again for the old
-"rq->donor" for which we have already ran balanced for? Shouldn't it simply
-pick the task then? Am I missing something?
+Hash the address with SipHash and a random key instead, as commit
+2ee66e948717 ("inetpeer: randomize RB-tree node comparison using SipHash")
+did for inet_peer. net_hash_mix() and hash_32() are kept, to separate
+namespaces and to reduce the result to the table size.
 
-> Just like pick_task(), prev_balance() would iterate the classes and stop when
-> there is a runnable task found. The only difference is that pick_task() starts
-> from the top class, while prev_balance() would start from prev->class.
-> 
-> This means that if prev was an RT task, we'd get an extra visit to balance_dl()
-> -- and similary, if prev is fair, we'd visit balance_{dl,rt}() both. However,
-> this is not a problem, because both need_pull_{dl,rt}_task() will DTRT.
+Fixes: 51c5d0c4b169 ("tcp: Maintain dynamic metrics in local cache.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Juan Agustin Niccolini <juanagusnicco@gmail.com>
+---
+This can be exploited remotely to recover a client's IPv4 address.
+A single host narrows the address to about 262 thousand candidates,
+and because each netns keys the hash differently, intersecting buckets
+extracted from multiple hosts converges quickly into one candidate;
+3-5 are enough. The net_hash_mix() value only needs to be extracted
+once per boot per host.
 
-Balance still sees old donor and it can still try a pull if the newly
-woken task is on a lower priority than the rq->donor. Is that desirable?
+Many common cases facilitate this. For instance, a browser loading
+one page connects to several hosts within the same second. That
+supplies the buckets needed to converge, and the shared timing shows
+they belong to the same client.
 
-> Therefore, move balance_{rt,dl}() into pick_task_{rt,dl}() and remove
-> sched_class::balance().
+I reproduced the bug on a QEMU guest running mainline (2a500a04d6f9) and
+against Ubuntu 24.04 over the internet. With the patch applied, the
+reproducer no longer finds addresses that share a bucket. The
+reproducer is available on request.
 
-Until commit 50653216e4f ("sched: Add support to pick functions to take rf")
-that was how pick worked and we should perhaps stick to that. commit 67692435c41
-("sched: Rework pick_next_task() slow-path"), made it such that none of the picks
-could actually return RETRY_TASK and we are actually moving back to the same
-state as 67692435c41~1 with these changes.
+For stable: 5.10 and 5.15 lack siphash_aligned_key_t;
+"static siphash_key_t tcpm_hash_key __read_mostly __aligned(16);" can
+be used there.
 
-IMO, we should re-introduce balance_fair() for newidle_balance, and drain all
-the delayed task if !h_nr_runnable && h_nr_queued to avoid pick hitting the idle
-label altogether.
+This bug was discovered during an LLM-based code review.
 
-Doing newidle balance for every idle rq's core pick seems too aggressive. I
-think we should let idle balance / balance callback handle those movements after
-rq->core_cookie is stable.
+ net/ipv4/tcp_metrics.c | 32 +++++++++++++++++++++++++-------
+ 1 file changed, 25 insertions(+), 7 deletions(-)
 
-This also allows for us to now do rq->next_class->pick_task() and that should
-always return a runnable task and we don't have to ever juggle rq_lock between
-picks which has already led to a bunch of issues.
-
--- 
-Thanks and Regards,
-Prateek
-
+--- a/net/ipv4/tcp_metrics.c
++++ b/net/ipv4/tcp_metrics.c
+@@ -8,6 +8,7 @@
+ #include <linux/init.h>
+ #include <linux/tcp.h>
+ #include <linux/hash.h>
++#include <linux/siphash.h>
+ #include <linux/tcp_metrics.h>
+ #include <linux/vmalloc.h>
+ 
+@@ -94,6 +95,23 @@
+ 
+ static DEFINE_SPINLOCK(tcp_metrics_lock);
+ static DEFINE_SEQLOCK(fastopen_seqlock);
++
++static siphash_aligned_key_t tcpm_hash_key __read_mostly;
++
++static u32 tcpm_addr_hash(const struct inetpeer_addr *a)
++{
++	net_get_random_once(&tcpm_hash_key, sizeof(tcpm_hash_key));
++
++	if (a->family == AF_INET)
++		return siphash_2u32((__force u32)a->a4.addr, a->a4.vif,
++				    &tcpm_hash_key);
++
++	return siphash_4u32((__force u32)a->a6.s6_addr32[0],
++			    (__force u32)a->a6.s6_addr32[1],
++			    (__force u32)a->a6.s6_addr32[2],
++			    (__force u32)a->a6.s6_addr32[3],
++			    &tcpm_hash_key);
++}
+ 
+ static void tcpm_suck_dst(struct tcp_metrics_block *tm,
+ 			  const struct dst_entry *dst,
+@@ -270,13 +288,13 @@
+ 	case AF_INET:
+ 		inetpeer_set_addr_v4(&saddr, inet_rsk(req)->ir_loc_addr);
+ 		inetpeer_set_addr_v4(&daddr, inet_rsk(req)->ir_rmt_addr);
+-		hash = ipv4_addr_hash(inet_rsk(req)->ir_rmt_addr);
++		hash = tcpm_addr_hash(&daddr);
+ 		break;
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	case AF_INET6:
+ 		inetpeer_set_addr_v6(&saddr, &inet_rsk(req)->ir_v6_loc_addr);
+ 		inetpeer_set_addr_v6(&daddr, &inet_rsk(req)->ir_v6_rmt_addr);
+-		hash = ipv6_addr_hash(&inet_rsk(req)->ir_v6_rmt_addr);
++		hash = tcpm_addr_hash(&daddr);
+ 		break;
+ #endif
+ 	default:
+@@ -310,18 +328,18 @@
+ 	if (sk->sk_family == AF_INET) {
+ 		inetpeer_set_addr_v4(&saddr, inet_sk(sk)->inet_saddr);
+ 		inetpeer_set_addr_v4(&daddr, inet_sk(sk)->inet_daddr);
+-		hash = ipv4_addr_hash(inet_sk(sk)->inet_daddr);
++		hash = tcpm_addr_hash(&daddr);
+ 	}
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	else if (sk->sk_family == AF_INET6) {
+ 		if (ipv6_addr_v4mapped(&sk->sk_v6_daddr)) {
+ 			inetpeer_set_addr_v4(&saddr, inet_sk(sk)->inet_saddr);
+ 			inetpeer_set_addr_v4(&daddr, inet_sk(sk)->inet_daddr);
+-			hash = ipv4_addr_hash(inet_sk(sk)->inet_daddr);
++			hash = tcpm_addr_hash(&daddr);
+ 		} else {
+ 			inetpeer_set_addr_v6(&saddr, &sk->sk_v6_rcv_saddr);
+ 			inetpeer_set_addr_v6(&daddr, &sk->sk_v6_daddr);
+-			hash = ipv6_addr_hash(&sk->sk_v6_daddr);
++			hash = tcpm_addr_hash(&daddr);
+ 		}
+ 	}
+ #endif
+@@ -818,7 +836,7 @@
+ 	if (a) {
+ 		inetpeer_set_addr_v4(addr, nla_get_in_addr(a));
+ 		if (hash)
+-			*hash = ipv4_addr_hash(inetpeer_get_addr_v4(addr));
++			*hash = tcpm_addr_hash(addr);
+ 		return 0;
+ 	}
+ 	a = info->attrs[v6];
+@@ -828,7 +846,7 @@
+ 		in6 = nla_get_in6_addr(a);
+ 		inetpeer_set_addr_v6(addr, &in6);
+ 		if (hash)
+-			*hash = ipv6_addr_hash(inetpeer_get_addr_v6(addr));
++			*hash = tcpm_addr_hash(addr);
+ 		return 0;
+ 	}
+ 	return optional ? 1 : -EAFNOSUPPORT;
