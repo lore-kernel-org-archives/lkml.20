@@ -1,59 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484276;
-	b=ccQMBf3YAQr4jEki0G1KiaIJYxneAxrMwMKwwbFtAoVzB9HRS+qCv3Y1GcuwYAzpe2fK
-	 rzwo/3vIYh2Nu9IHNuI3SQo4Er46TOvyb+opOQnZCoC+bG3dVJCdMUnpywc7RrbRdI6jh
-	 jooqXo7d52XcdOH+WVbfohFLjowBLXs4ffd0QtDp3K+ctbWFJOEKaPXJA0jlldgqzeE9H
-	 9bqPemKS9YRdLqAA9DC9mNQpss/E0XaYU6ZyGDC6D5VVFjYOPltbCaNcC1ig7YkISIqZ6
-	 9a3azZE0M8RACa/g5NgW6EZooyTd4oDXxE8wsDOmGRwbeWcwKi9Vxp4PBwwLSwxAONQ==
+	t=1794484296;
+	b=vRJj+wz5x3OsBCMcLoc5X5c7MBPx8w/BAGu90Z2IkevZVu6Qz7+zZdiKx3aWT0uBkxOI
+	 Qib92bHv7WVOUdntV1Dy2/lXzRnE4YZbSq2b+d3DJeiurH+C4TEIf5SH7nvgUaA8x/DE7
+	 QWsxZsDDEttM6w/Gb7f90Rt3mBwq04/qqdpFjtIAWpi09X9c+zGtuL7m3sOPj72eFxABe
+	 l7zgN94sUSMaSeiBiPOn9z3HqFyzHx0udfBWhGOCrZAt0qOnkscfdiX9zYrZjA9wKGfge
+	 t6r/vrpvfEP3cGJFNMJDGaY6zKWtVxcfahJQ2ejDHsZ3IVGU3zj4MCbWDKY5G5OuLlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484276;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=g7FWRyAWx3iB3hlRZqVCNdy5X/7Do0taWr0Tn8+qOx8=;
-	b=a4oTz3pgcXmo7+cgHpe2ArNCohTthx20MPTR9hwjXupXKYhhes9a2K3nq62/++tJ+Q1i
-	 ZAyMDesOSlonTucnN3WrxacYsVYNY+FM1CI5npj3//stgugz//+iTyIV6uYQZaniY93PS
-	 BAnASkEClTglBKail8UC1N6bDgiLshTb4k2NpKtDMxksUXUIUJRYE/NMB+cOtGAPjr5my
-	 lNXvc3Nb+qi7Ihr3GdubE7QzyPIwqF1mqY8hUCyw55AX6CVuY1r7OH5ZnSWCrdIKW4RZD
-	 VJkHJsJ+MTsMEm2IO7ZMiN+k8GTD7a3njDh5uAyO69636E35gyBqTfUjCnKWUcLQxDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484296;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=L+9OvAGkA5co8PTaVpf/WHREVpFJgAvJ9utwws7KxK0=;
+	b=XTMe/XXnXpt1ptz/7QmimFHrdwQgewwXxmDOCGCDrCMF8qBw1wTzvIt+p6T7aAkHpDYH
+	 v++lvHVT857ImcW872lO4bK/1hr2FOCUv/cnQiw2CsjNO7WEPE9nsfwLF6GNxih1c0B/a
+	 w1bG/Jzz0kcy9epsV53EnxiXh7FAmHnuqi5hCyfmWojUrKDeNRiJFMYFotgpfN2twKTU9
+	 t5olUbikabWzdJWNdJ0JZ/HIL7u4LtzOqMWWdkZej0ZfMdoeEbOTWDdLKnVSZkKgM4PCr
+	 hScjA1UnDTxZBlNMsvw5qlEowGA7CpA3XspPWq5740kgtuZf2406517lDEsvAxpR5bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=nGqxesdb;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=D7pI2T9a;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4F2606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:51:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C4F2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCBB606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:51:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CCBB606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=nGqxesdb
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=g7FWRyAWx3iB3hlRZqVCNdy5X/7Do0taWr0Tn8+qOx8=; b=nGqxesdbR6d9Ua9L5bkKBBOjTh
-	QgctO79YpZ67I/sIEPJREr9odbEn46+T5jArFC2qvjaSlHzKVoJFT68z5nEpJ2m3KSD8cX6e4q+0E
-	4LVcnUroWVuHJwVAi+imRMbSvxMcbw1DtgNOxDad6JaHMTLv8vTq3qvi/JpJJr1XokqiU6NTKVlNk
-	BuxgTME0IfkiV5dHsySQOwRX7AsDfbolv/zREnYR71PAsDy3EZEfwbiu/1hWBfRHLngjklD6cjZPe
-	Rnm7TogyRoZwEA5xHu3Z65nis7i7sKT/asvrrP/oEpqs676c4vzajclvUX9pWeRKs6Zvh6t/AQc8j
-	uenTHG0w==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xRTKg-00DwvO-2J;
-	Thu, 12 Nov 2026 11:51:10 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 12 Nov 2026 03:48:01 -0800
-Subject: [PATCH] mm: kmemleak: drop kmemleak_lock in scan_block() when it
- is contended
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=D7pI2T9a
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so8909235e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:51:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794484295; x=1795089095; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L+9OvAGkA5co8PTaVpf/WHREVpFJgAvJ9utwws7KxK0=;
+        b=D7pI2T9aUlHUPB3rv6sO+Ov1nRrCVtdz1sKmcQ207kMrfnwO5xoLhaLFuNbGbc5clW
+         clwEAKnGyjMJ2LLwb2wh1aM4aMxl+rixQrXW3MY1icYmfNkt/ZzMeI9ao7dxVIxRO4He
+         8jZnfMnsZIvSeGrZPU9MRqkyZB+W65uY7ohwyGDLOVxP6CDhoUpMjEs3F082Pgy/GG9j
+         FHtKk3iaMvmV18s+orFsSOOfahlQcJ1lss+O8QKnEJ3P+4mJsi0GrbznkXGj7jy1KX4c
+         uDCuazl+Hz/TkjbQH4xBiEveaqiAKiFvr3OELpZjTq1APfpIx9l2vrbyPXv4LFYobk1b
+         do0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794484295; x=1795089095;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L+9OvAGkA5co8PTaVpf/WHREVpFJgAvJ9utwws7KxK0=;
+        b=Oa//N73avMgB6amMmdgUebsUfMO90mq6+Mulr4VNINsjmsbbNaJUilCclKJvBetlTm
+         9z0G51YiKsNdq5gNXYXH+1Y9L5IXcPTOyCeqDbtBZ7gN0/qwZFb1+be/utdElST3ky/d
+         XRb8XDpii43H+k51PeQ3bwwYgAwSsPMc3s3XARnLZwvEwiuXHUJ40OjVo2WdKvSGEzPz
+         NStZt7VKi5HKhawH1hriiBLahUfD4J7BCDm2OzHVDC/AiRpC9QnY8mQW0SVCvB8ZXlMw
+         +Bh1A/OWr0MMFmnPZqupBw7bP9vm7+U+nnF3ghuZp18ATTAYqWNC3rC8ZNbbPgTnITw0
+         IXWA==
+X-Forwarded-Encrypted: i=1; AL+hErEbFhPLiLeqEqmfkCCHJbp6ewujGKGZBbSfErY2HxZmDf07u4fZ5gd3wUb+FbPA9s8CTyk6G+HM1efhCOM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z91E/iGQmeVjrd9pMMRVqKD85EBVDETORH388llZBi5l95iB/lb
+	QfUu25pG1e2K0DtvsOZ7uiaxEbuTSLZNM/WpQAXbDfXsrVj1mMMXUfSxK9F0kmYBpA==
+X-Gm-Gg: AYBFou2Yg6O482hPGpUHgvycPiptZSpRQPJeatqI60jlgx8mMBgGe7ytuyBhCGP7m+X
+	1WjnHt1g2USGoKaA/A3ixGW486F7DBawGpUjOWQ7nuWJzX42P26ffMCkR4PDvSXaI08FtIfwRMP
+	pY3Rub8HIbUnQ/JsJSAGKggr1vT3w6xHyzSwGJJmW1tZQ127PRNoqt6g1v1EKmPrZoB55xuPXYH
+	Ga80uNZm06ANYHHKhdQEXgoo68wJ1ZKhYUKyAfMnelTuNyLkqzBl3WW4Q71jTxWzhMApkAGaWwN
+	+Szn0OSJ+rjtuZW4GcWWTCrmtNpQhwAqQWG6EVNaFxmJwBMS6hIiUCZCDpOZSW834udF9E2EvRK
+	5MEIlSA4mz+okrOeZi2OOCPdA09OlyyINsBxgbeT1v0TyCiCRxvgH/1VlmZDqeKL49w62F31eoU
+	/dJwt4vkUv0zfs+ngSk2OPd6PPP1d519gXVn1o9D4KtbqIsNZU4VJSmj8o5o0F8eG0+GaDNnKiH
+	f//g84whGgIVDBr7X+oPdFq4dBBm5bOAdxVfz5sZpFUU8ow5DCeUQCeUz05EDX6EdgyfqKDwk1N
+	AbPZ/qH2/AI95b6Grp1ATVUx7B/4PjNzQZLG2yJl9vGF4qEPsNZFOGpGKuVYr6/8/g==
+X-Received: by 2002:a05:600c:a31c:b0:4bb:53e4:a7c5 with SMTP id 5b1f17b1804b1-4bb53e4a861mr3753135e9.14.1794484294459;
+        Thu, 12 Nov 2026 03:51:34 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e251c26sm63991125e9.1.2026.11.12.03.51.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 03:51:31 -0800 (PST)
+Date: Thu, 12 Nov 2026 11:51:28 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Breno Leitao <leitao@debian.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	Steven Rostedt <srostedt@redhat.com>, kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] ring-buffer: Handle a reader taking the new head in
+ rb_handle_head_page()
+Message-ID: <avWoQGaDrrY9z9Cr@google.com>
+References: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
+ <20261105155729.0f9c7e4d@gandalf.local.home>
+ <avGQnBjyUMwunknT@google.com>
+ <20261110025202.78c8c03a@fedora>
+ <avRuXVxVrp-Kjiqj@google.com>
+ <20261112061423.59e02261@fedora>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,132 +106,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-kmemleak-scan-lock-break-v1-1-95808108d03c@debian.org>
-X-B4-Tracking: v=1; b=H4sIAHGn9WoC/x3MywqAIBCF4VeJWTeQRtdXiRZmYw2WhUIE0rtnn
- d23OH+EQJ4pQJ9F8HRx4MMliDwDvSq3EPKcDLKQtUhDu9O+kbIYtHK4Hdri5D83U9eKlkypZQX
- pfnoyfP/pYXyeF+laqspqAAAA
-X-Change-ID: 20261111-kmemleak-scan-lock-break-7b9818ef3c25
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, vlad.wing@gmail.com, 
- harry@kernel.org, kernel-team@meta.com, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3656; i=leitao@debian.org;
- h=from:subject:message-id; bh=5T6aw43QawtVXoj03pz2K45DQEaN5hI2WF6eNsaihxk=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9agrMcaniPNKq+f+xzNvrI/ZBfuc29YpGKNtc
- sAnAZOJ/nSJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavWoKwAKCRA1o5Of/Hh3
- bRw9EACJvTJW9K5mhUfirEyEVQ7Lx169JsyzK8Pr3C3zk4+GuqS1zUsehkhFsfBw4NPj50QHuZY
- rOoLy6jTBW53IJp+y49qmaIcq4PflE8OFKmcN+HXWjotnfNMgkba+Es9AM5iAAQjXo4CqpSvsGw
- JFa92bugEDjpOtSE2ypXIZ/yo1ikNPHZJpZEiZL2Td5N9pZhm63fUDHq25lR5KWPzQiCHfBzRG1
- G1Co7fSMivFc4a+QPe+GRdkvoyo/V6yDLstg0XLnhejUI/Sk0bvdWltBziLhNgVqq4IxT4XhGwJ
- OuNkZUalLv/eMHTyQ12KmpPd59Dsx+NooOpCv9COmBzFiTAQRPCkzeihgx75dM2kiOixvAu3pxy
- uhjODEH59TxiYxICL/kC4Qrj+OcsToEJVpsdu7GThI+9NrMKHlcfVAm/H6DQt4tImOxCr19UK4c
- uuDtrBNMbAncBqme2egCrCrxABykQb7BWBmNdwMe/w1u3HTojKQpA5oL1RbkJ+UxuI3g6Vz7AVN
- u07eok+uVTMf2I0fexXIYzaU4FsbIYfhJHoGZx65zkUo4B1OO/r5a3FvrbzZzS525RIbOKJNu0Y
- XDJqHj3boK7l81n7AnCDbtAceVcgiol7/zq91i441F+RkOarNH94tKOKrHSqqSDbBWTj7mGkxam
- cmE63B5CpL/q1aQ==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112061423.59e02261@fedora>
 
-kernel_lock is a damn hot lock, used on allocations, free, NET_RX, etc.
-It is also used on the scan, so, while scanning, most of the system is
-mostly waiting for the lock.
+On Thu, Nov 12, 2026 at 06:14:23AM -0500, Steven Rostedt wrote:
+> On Wed, 11 Nov 2026 13:32:13 +0000
+> Vincent Donnefort <vdonnefort@google.com> wrote:
+> 
+> > Yes, now I spent more time on it, I believe it makes sense. I looked at what we
+> > could do and I'm trying to use a temporary RB_PAGE_HEAD | RB_PAGE_UPDATE. This
+> > link flag is then only converted to RB_PAGE_HEAD by the outer writer. I believe
+> > this would fix the race entirely... However that means the reader spins as long
+> > as the buffer writing is interrupted, which I admit is far from ideal.
+> 
+> But it is only interrupted by interrupts ;-) which should be fast.
+> 
+> No different than waiting for a spin lock whose owner got interrupted
+> by an interrupt.
+> 
+> -- Steve
 
-On meta fleet, this is, by far, the most contented lock. This is not
-a big deal, because very few hosts run with kmemleak enabled, but,
-I think we can do better here.
+Yes hopefully it shouldn't be too terrible. But, as we disable interrupts on the
+CPU doing the read, it's sort of propagating the latency from one CPU to the
+other, which I believe wasn't the case so far, since an interrupt could
+"release" the reader by setting HEAD.
 
-scan_block() takes kmemleak_lock once per block and keeps it, with
-interrupts disabled, for up to MAX_SCAN_SIZE bytes: 512 words, each
-needing up to two object tree lookups. Every allocation and free in the
-system needs the same lock to insert or remove its object, so each of
-them can wait for a whole block.
+Perhaps I could propagate a -EAGAIN back to ring_buffer_consume to temporarily
+release rb_reader_lock() and try again there? But that would be a bit intrusive
+as most of the functions are returning a ring_buffer_event * and not an int.
 
-Keep taking the lock once per block, but in auto scan mode, check every
-64 words whether anybody is waiting for it and, if so, breathe (aka
-release it and take it again so that the waiters go first)
+The attempt is here [1]. Sashiko had something to say but I haven't processed
+yet how bad it is.
 
-Releasing the lock is seems safe because it only keeps the object trees
-stable during each lookup, and scan_block() does not use an object found
-under it past the word being processed.
+[1] https://lore.kernel.org/all/20261111160624.1294946-1-vdonnefort@google.com/
 
-Tested in an arm64 KVM guest with 48 vCPUs, KASAN and lockdep, running
-stress-ng sock, fork and dentry workers on 8 CPUs during five scans.
-The kmemleak_lock wait times of the other CPUs, from the lock_contended
-and lock_acquired tracepoints:
-
-                   average     p99     p99.9
-  no scan            3.7us    <16us    <32us
-  scan, before      15.8us   <256us   <512us
-  scan, after       11.7us    <64us   <256us
-
-The cost is a slower scan, as the scanner now queues behind the
-waiters: the five scans took 179s instead of 118s.
-
-This patch does not change interactive users (echo scan > kmemleak in
-debugfs), given current != scan_thread, and scan_breathe() will not be
-called.
-
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- mm/kmemleak.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-index 1bca27787df625..da6d1dcdd6f6ad 100644
---- a/mm/kmemleak.c
-+++ b/mm/kmemleak.c
-@@ -112,6 +112,7 @@
- #define SECS_FIRST_SCAN		60	/* delay before the first scan */
- #define SECS_SCAN_WAIT		600	/* subsequent auto scanning delay */
- #define MAX_SCAN_SIZE		4096	/* maximum size of a scanned block */
-+#define SCAN_LOCK_BATCH		64	/* words between lock waiter checks */
- 
- #define BYTES_PER_POINTER	sizeof(void *)
- 
-@@ -1539,6 +1540,18 @@ static int scan_should_stop(void)
- 	return signal_pending(current);
- }
- 
-+/*
-+ * Release kmemleak_lock and take it again if anybody is waiting for it, so
-+ * that allocations and frees do not have to wait for a whole block.
-+ */
-+static void scan_breathe(unsigned long *flags)
-+{
-+	if (raw_spin_is_contended(&kmemleak_lock)) {
-+		raw_spin_unlock_irqrestore(&kmemleak_lock, *flags);
-+		raw_spin_lock_irqsave(&kmemleak_lock, *flags);
-+	}
-+}
-+
- /*
-  * Scan a memory block (exclusive range) for valid pointers and add those
-  * found to the gray list. Return non-zero if the scan was interrupted.
-@@ -1561,6 +1574,14 @@ static int scan_block(void *_start, void *_end,
- 			break;
- 		}
- 
-+		/*
-+		 * Only the background scan thread breathes, scans requested
-+		 * through debugfs keep the lock and finish sooner.
-+		 */
-+		if (current == scan_thread && ptr != start &&
-+		    !((ptr - start) % SCAN_LOCK_BATCH))
-+			scan_breathe(&flags);
-+
- 		kasan_disable_current();
- 		pointer = *(unsigned long *)kasan_reset_tag((void *)ptr);
- 		kasan_enable_current();
-
----
-base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
-change-id: 20261111-kmemleak-scan-lock-break-7b9818ef3c25
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
-
+-- 
+Vincent
