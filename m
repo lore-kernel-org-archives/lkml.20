@@ -1,47 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596300;
-	b=5JsH9XOGCgUD2RR9CbsqccaIBWeXL+Ii6jy1hACpsdvKycFDUt3ejkZ/uiXxqjCBTOcL
-	 PNqmpuClVRTTkKAy3npQhOFT1imfblkGczqfViPahhZryZ/i3adkN+hJ8Mq8u8RdqFf83
-	 mfJmUK/T+Qczrhz4x5Sj/6mLB1MyyzZa4C/siu1iKTSJJGMa5csCQwaFe0UBT1XgJoV0L
-	 S3Wkwo3FkbeIQYoyVy018Vx6S6zWL8ha9Ho2a0zB6aaXVAydRFqeZbjq4qeCHfxrNiS7o
-	 UBMRhcyLiTRBqPoDseQj9V6qB4Y4hBfDAFRBngBW94DovCm4yab5DQqCKxDE9gsqa5Q==
+	t=1794596307;
+	b=W84tTn2GzDw842WBCb+8h+7EZA5uYZeBBafkNmWzJka+ohPkFJTpFfIYdFhf/9WgIbaS
+	 jxRpzY8qY7ueJ58KtKRXtl7gLq04N4LZDC7bsSrSQ5Irbd3nhG/DygYWrEZ7fYKbmRb+K
+	 jPgVyI0GaqaQmZoyYjGI+W/adZtjBrrgscBBCbe2sR3xBz34Z9FGpztXGJ+HAkwdBrbKR
+	 ggfeSEjTsxa4WExUg6KEeHQ9JrPPNKbAf/+SV7/G+TLTvWF9MmAuq1705QEgO3gOT67YV
+	 3O+P56sURtpeJvJGGPiewqnNRpiDF4GFYK/bfgWw58qEU0xI0HlmyHd+0+Gd+2/ndkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596300;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=plduXl+R6cqY32R5PgJwlwqrejdYEcZNDX1tD+foFH4=;
-	b=RWJCxGEM3KxcEgvQLS3jGqRQrB0S+RuFS9nZO1SutmKWIUb/PgBmRkClX1NWZ56bVA6T
-	 Y9z9+ehMITMNXiSjSHyl8Kyu8OBJBbJATTfu4WUN6eoY7/9YBySlY3WfrVS+xyhWB/8VR
-	 fXKHfgN3oDIpFfCtGm2RaO3aKcMDwNtlcLA55D8QY0uG6IAO8VQh/ST4NI2W9XqNKvfGY
-	 l4L7D4GWEelzBHVzy7YkyMXm5sGyu3lnrFlrCSfcFTi1clXbAQJatyTGravWkJqiMRwYO
-	 FGEt5bJOE7LGM0m2DVc30w3IFYVBF2PO+tGjxgbEsS8L/Gy73cj0O9F2codOBJlVCgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596307;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:DKIM-Signature:Subject:From:
+	 To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=lEeskuJPkdiI8gE2TYZrxOjdiP0LZZey/2Bh096XvUk=;
+	b=Ic/u5TAUfed0xmSi3K3Bzsi3IhsZ3Mc6JmzbexayKRXhI3AtLLGZ0dyFZW/6xzXLO0TN
+	 ZQnoM51mdBkNR6KRL41Kw9bRVTCmwtIXSs4zF4sb5NP4camMAEheqsbZR9vH3mLJoPus9
+	 Tfo0PntJmUp4OaN8BD3M8qU6mV/+L6/PyHNfDpRVuBbosY+HxIDkgdfJ8lYmpmPtWEEl9
+	 R0jZ4M1JqIRCzZX1/vLjZDaguFWRTvi1FiY/02rBjBk9yaDrymLF1sHZut2/Cqoo/csKU
+	 Mmb3BlVJHxkrXqmIlzMosWtuoiDKX/gTHC3daaBjQpfEJV/7tj17PQsxCqRxDoSt+9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFHMfohK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Nsa5LHdz;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="+/Q+661T";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C92606A323;
-	Fri, 13 Nov 2026 18:58:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379D16071069;
+	Fri, 13 Nov 2026 18:58:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 379D16071069
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFHMfohK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A6C1F000C4;
-	Fri, 13 Nov 2026 18:58:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794596299;
-	bh=plduXl+R6cqY32R5PgJwlwqrejdYEcZNDX1tD+foFH4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cFHMfohKIP9bZkMX3RyFr/Ll4R+czW78WJbfwmAUJfkYxKrc3F5eycBDUkXneLE5J
-	 zLmy7f4T3SKuWAbJfOjW4wASWun1i2hpcPsSRgg6sNBUSxm7CxmKMEGeUPM1hXAMIH
-	 3GKF4t/5yePvyYKMcZlLAbEjrBlxqOByEOlVcR5r7Uvpv4RTQO4oZnVFlQUkxtsBTt
-	 Qanw4sSGu2xtFHluqWwh/ghF1SF7encSXNNqYrl7JksRhjnMYE4wNSfAafURUA57/X
-	 GrydL0T9XVbUhYn6/7nrHwJRG8DZESnJdoN6m6Bg1l6eWdIuolgbk3ZPEpxgXtYvEL
-	 husZdF7uzgD7Q==
-Message-ID: <136002e1-646d-4607-be3f-b6a6a869bbec@kernel.org>
-Date: Fri, 13 Nov 2026 19:58:08 +0100
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Nsa5LHdz;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=+/Q+661T
+Message-ID: <5a6183e3480a0d910e275acf591e2db8700da827.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794596304;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lEeskuJPkdiI8gE2TYZrxOjdiP0LZZey/2Bh096XvUk=;
+	b=Nsa5LHdz+ZYikhtmHbjxEddO/69fFul88+8iEoKxSL3lTvhRV1XLziHTU3MeQJ3m85tJeb
+	2Kd2ZM3rvEnfGugLwHF3OZt+vfXsl3gaBBE7aGESxEYk2fh/Xs6aWabHfnXb6qozVC3Ijc
+	btF/VsGDwPDS7lJzT0J1HHBG6C4hnnDf2PUHntndrG6ju0R13uLb6VnDbkxPpQoCOpILUq
+	uFekou8wbBekyhInQWdA9plgpMznKFC8iTfKdW8K1FaXLC6BZ0lKADdgf/QHcvjbhXAF/S
+	s89ezdujqXDPsv8Za0myV9KOVA+64E+v3yvyI2gKyWq6ddU7nkBrP3KWiT17UQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794596304;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lEeskuJPkdiI8gE2TYZrxOjdiP0LZZey/2Bh096XvUk=;
+	b=+/Q+661TL+IzyNJ7cFVuJ+g+Wd94X6upSp9cBnHdlJnTfdeNxCSPFyYNSd6A5eAhlhLKSm
+	HqZhgCH0i26RAqBw==
+Subject: Re: [PATCH net-next v4 4/8] dt-bindings: mfd: Add SoC-e SWIP parent
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn
+ <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
+ Kallweit <hkallweit1@gmail.com>, Eric Dumazet <edumazet@kernel.org>, Lee
+ Jones <lee@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,  netdev@vger.kernel.org, mfd@lists.linux.dev,
+ Martin Kaistra <martin.kaistra@linutronix.de>, Benedikt Spranger
+ <b.spranger@linutronix.de>
+Date: Fri, 13 Nov 2026 19:58:21 +0100
+In-Reply-To: <20261110192118.GA1412882-robh@kernel.org>
+References: 
+	<20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
+	 <20261105-devel-vstrassheim-soce-dsa-ml-v4-4-02f3cde2afa1@linutronix.de>
+	 <20261106-judicious-penguin-of-enhancement-b28c8b@quoll>
+	 <f5c7c9901aca84f0b814e5b6c153db84af826dd7.camel@linutronix.de>
+	 <cc35b2127b04772f05948ac51c8faa5ef07da0b0.camel@linutronix.de>
+	 <20261110192118.GA1412882-robh@kernel.org>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,94 +92,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/9] mm/huge_memory: honor MM_CP_TRY_CHANGE_WRITABLE in
- change_huge_pud()
-To: =?UTF-8?Q?Carlos_L=C3=B3pez?= <clopez@suse.de>, kvm@vger.kernel.org,
- linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-riscv@lists.infradead.org, seanjc@google.com, pbonzini@redhat.com,
- akpm@linux-foundation.org, peterx@redhat.com, ljs@kernel.org,
- imbrenda@linux.ibm.com, borntraeger@linux.ibm.com, frankja@linux.ibm.com,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>
-References: <20261112142039.907090-2-clopez@suse.de>
- <20261112142039.907090-5-clopez@suse.de>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261112142039.907090-5-clopez@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 11/12/26 15:20, Carlos López wrote:
-> change_protection() applies vma->vm_page_prot, which lacks the write bit
-> for CoW and write-notified mappings. MM_CP_TRY_CHANGE_WRITABLE makes
-> entries writable again if a write fault would only set the write bit.
-> 
-> However, change_huge_pud() ignores the flag. For example, device DAX
-> mappings are write-notified once soft-dirty tracking is armed through
-> /proc/pid/clear_refs, and a protection change then leaves dirty PUDs
-> read-only, so the next write to each of them faults.
-> 
-> Fix this by adding can_change_pud_writable(), based on
-> can_change_pmd_writable(). It omits the NUMA and uffd-wp checks, as
-> change_huge_pud() bails out on those changes.
+On Tue, 2026-11-10 at 13:21 -0600, Rob Herring wrote:
+> On Tue, Nov 10, 2026 at 05:10:15PM +0100, Vasilij Strassheim wrote:
+> > On Fri, 2026-11-06 at 22:51 +0100, Vasilij Strassheim wrote:
+> > > On Fri, 2026-11-06 at 12:13 +0100, Krzysztof Kozlowski wrote:
+> > > > On Thu, Nov 05, 2026 at 03:16:48PM +0100, Vasilij Strassheim wrote:
+> > > > > Add a binding for the SoC-e SWIP multifunction FPGA IP core.
+> > > > >=20
+> > > > > Describe the shared MMIO address space and address translation fo=
+r
+> > > > > the required Ethernet switch child and the optional integrated MD=
+IO
+> > > > > controller and MMIO-controlled MDIO multiplexer.
+> > > > >=20
+> > > > > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> > > > > ---
+> > > > >  .../devicetree/bindings/mfd/soce,swip.yaml         | 137 +++++++=
+++++++++++++++
+> > > > >  1 file changed, 137 insertions(+)
+> > > > >=20
+> > > > > diff --git a/Documentation/devicetree/bindings/mfd/soce,swip.yaml=
+ b/Documentation/devicetree/bindings/mfd/soce,swip.yaml
+> > > > > new file mode 100644
+> > > > > index 000000000000..625be299e262
+> > > > > --- /dev/null
+> > > > > +++ b/Documentation/devicetree/bindings/mfd/soce,swip.yaml
+> > > > > @@ -0,0 +1,137 @@
+> > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > +%YAML 1.2
+> > > > > +---
+> > > > > +$id: http://devicetree.org/schemas/mfd/soce,swip.yaml#
+> > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > +
+> > > > > +title: SoC-e SWIP multifunction Ethernet switch FPGA IP core
+> > > > > +
+> > > > > +maintainers:
+> > > > > +  - Vasilij Strassheim <v.strassheim@linutronix.de>
+> > > > > +
+> > > > > +description:
+> > > > > +  SoC-e Switch IP (SWIP) cores integrate Ethernet switching logi=
+c, an
+> > > > > +  MDIO controller, and an MDIO bus multiplexer in one memory-map=
+ped device.
+> > > > > +  The MDIO bus multiplexer is wired to the integrated MDIO contr=
+oller.
+> > > > > +
+> > > > > +properties:
+> > > > > +  compatible:
+> > > > > +    const: soce,swip
+> > > > > +
+> > > > > +  reg:
+> > > > > +    maxItems: 1
+> > > > > +
+> > > > > +  '#address-cells':
+> > > > > +    const: 1
+> > > > > +
+> > > > > +  '#size-cells':
+> > > > > +    const: 1
+> > > > > +
+> > > > > +  ranges: true
+> > > > > +
+> > > > > +  mdio@204:
+> > > > > +    $ref: /schemas/net/soce,swip-mdio.yaml#
+> > > > > +    unevaluatedProperties: false
+> > > > > +
+> > > > > +  mdio-mux@202:
+> > > > > +    $ref: /schemas/net/mdio-mux-mmioreg.yaml#
+> > > > > +    unevaluatedProperties: false
+>=20
+> Given the MDIO bus and mux registers are adjacent, I don't know that=20
+> putting the mux into its own node and driver really buys you anything.=
+=20
+> Can't your MDIO driver handle the muxing directly? mdio-mux-mmioreg was=
+=20
+> created for when you have mux registers in some completely unrelated=20
+> block.
+>=20
 
-Again, please keep MM changes to a bare minimum for your work.
+What it buys me is less custom code to maintain for bus selection and
+selector-value validation.
 
-If this is not required for your work, please drop it.
+The MDIO controller and mux were combined in a previous version.
+Following Andrew's suggestion [1], I moved the controller into its own
+driver and stacked mdio-mux-mmioreg on top of it.
+Sure, the selector is part of the same MDIO control register. But the
+generic driver already provides the masked register update and
+selector-value checks. My preference is to keep the current approach
+to reuse existing code, even if it requires some integration and
+documentation efforts.
 
--- 
-Cheers,
+I don't mind changing to a combined MDIO controller and mux, as done
+in mdio-mux-bcm6368.c, while still using the generic MDIO mux core.
 
-David
+Could we agree on the preferred approach so that the binding and
+driver changes stay aligned?
+
+> > > > > +
+> > > > > +  ethernet-switch:
+> > > >=20
+> > > > Why are you mixing children with and without bus addresses? This is
+> > > > discouraged and shows that device is not correctly represented, e.g=
+. if
+> > > > the ethernet-switch does not have resources, then THIS device is th=
+e
+> > > > ethernet switch.
+> > > >=20
+> > >=20
+> > > There is no hardware reason for leaving the switch child unaddressed.
+> > > Just an error that occurred while converting the binding to the MFD
+> > > model.
+> > > I will describe the switch function as an ethernet-switch@0 child nod=
+e
+> > > with a reg property for it's register resources, like the ocelot MFD
+> > > binding.
+> >=20
+> > It looks like I need a different name for the MFD parent to avoid a
+> > naming collision with the ethernet-switch@0 child. I checked other
+> > bindings but could not find a suitable example.
+> >=20
+> > I would appreciate any suggestions for a suitable name for the parent
+> > node representing the FPGA IP core. It mainly acts as a container for
+> > its child devices. I am considering "bus", "ip-core" or "shell".
+>=20
+> Krzysztof's point was combine the child and parent nodes into the=20
+> parent. This is not really an MFD. Almost every ethernet MAC has an MDIO=
+=20
+> controller in it and none of those bindings are MFDs.
+
+The suggestion to consider an MFD also came from Andrew in an earlier
+discussion [2]. Since this FPGA design contains several functional
+blocks, I liked the approach of grouping them under a common parent.
+
+The IP core can also include an I2C master for accessing external
+devices as a synthesis option. It also supports synchronization with
+external PPS and 10 MHz reference signals. I had future Linux support
+for these functions in mind. Ocelot is another switch described as an
+MFD, with additional functions such as GPIO and pin control.
+
+I am open to either approach. Could we agree on the preferred hardware
+model before I update the binding and driver?
+
+I can also provide more information if any hardware details are still
+unclear.
+
+>=20
+> Rob
+
+Thanks,
+Vasilij
+
