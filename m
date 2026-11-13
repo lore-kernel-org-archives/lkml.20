@@ -1,47 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567138;
-	b=b+psvOsEPBhJPXaIrrXAhVe0+VFwICiJDHC32wagZtI2lLFRSnRVHxkPxnvgf6ZGseGU
-	 Je5Qdv4x/Fub3tL0/LidhY8S6un6w7cW+CuY+0Hy7Jins2N4P7UkGsP7Qkd0NHEm7vcb5
-	 kwQTJko4oH9RxNSNGGjivv2umXU+c/QRQyhO/FbpCBC/9uePthAOVDWjvS1ErovN+ktHv
-	 At2dBDDT4knX3AVPtZwfBETxB3Es4GXEpm1IslksL0afNKalhJS/lX2AvrrtgREG94H6Q
-	 cLdFCG35goCDJymIyDnk1/uD+RGUzvfLub7SD+2DRXIL07/9Kq09kBLhlOQDfvKuiAw==
+	t=1794567188;
+	b=j78jQg5kPyfER3sqW2gJ1D6YATPonYd0fZmGLBgigm78UMz1YvHXkJ5oi6x6C4s7X76Y
+	 6McNsLcKseaAvlBMpeWuMtwSlw2iZosaMLI5mbnHItub/6w9hmhEeamBG4PjWXIxmRuVD
+	 PkeNCiyN1MjeKu24jxWlc1PX+0kVPm7Kd8oAWY9Vu4chHSOt5COPSXOaZkGdn0xiCklLt
+	 qOygvY7T1uPfRq2TT1bZGSv1ept7KNr3xJnNbAhSrDRqQRErEnvrfLhxU+rnu5aDvlSUQ
+	 olxK7U6s7qm2dHy6TV8MaUKEcqSc9nbEmUo/dCJOsFV3xFD3mhq2ggcbkrTQiJCyTbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567138;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:References:From:Cc:Autocrypt:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=S6FBjO5gc3xn7ht6Zu9lU/nDDIjHwR2pe7on+zxgXbo=;
-	b=MPXFeKQLaJJSLKA8FLdKOJavtHEf1YSemawe9+1qVhqZO19fpPQg+mPsEUiQE4xakkvr
-	 yxpQ1T2rubOq3uih7dhaQXN/DqL2uQK+pItI9XmVfPxZG3dPejNU8EgX8hz12s1UUib28
-	 Xaxh6gp1YYAQYSjuDEC/W1nS0DBeKiyu23W1cr/Ei1Fc0pSk4jHwMLPkkqMAf1z8vtWO3
-	 dQMPXFCDjSYQtHmE9v2EVkgAar3waiIBRod0eR2kqrei+kPblo7/roz3Janexj3VeDrAi
-	 6DYSb8V/ErSNuE2ZLmExtVlsrj0uWkCsY/9rDL1UxJ78XUzt6qBdyRZr3rqWbGYXJUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567188;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
+	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
+	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=xZPonB6Lbb0k2OXAWHkAdkEguf5JX+UcZL6exprUdC8=;
+	b=xUfBMDgf4FTjf3uIlBZZnmoux6LJ0qwEZ0x9QyE1dNacmjlKR4gfvSGMozTom4GZCpb7
+	 XFZZn+6NRhwX1xrgc33AAxtGjlhzn1unQ7g9niRbUvxkYlzaRf5FgkolPAqReW9p5APek
+	 6x+7vuBu0IjHiBZRnhCC2k7VCJ8/9WxBoMdAqpMRKQVWs44GySyM6yL3ZmKF/dW+cYaHy
+	 SQSVnZfApSlHfCPIRdHjmobmFDdf5xTyVm9//AUxFadip3hIYfOyGkHhDivTecGbghTpK
+	 QpcSXV4r3eJ3dskKP2zBbKvfH7JR39bVusRJ549jxxdOVplx6rxW5jHmTIaI5HugsLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LsDfByW/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KkkrUPls;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4F1606A33D;
-	Fri, 13 Nov 2026 10:52:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EF8606A33D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:53:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1EF8606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsDfByW/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010C71F000C4;
-	Fri, 13 Nov 2026 10:52:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794567137;
-	bh=S6FBjO5gc3xn7ht6Zu9lU/nDDIjHwR2pe7on+zxgXbo=;
-	h=Date:Subject:To:References:From:Cc:In-Reply-To;
-	b=LsDfByW/6XkSMBcdvn7j1+BxQm/Eo8jJQkVcGqcCe3ms2ZVXI7EOrgn3gUPbqsNpc
-	 if2WCcMgw0tINi1wLlyaYQFkAkWBi/pOA0wp137yAQ1S+bNPkJWLJZFGF2Vj3GYLxi
-	 gurs/cZC70OATQBpxsu7oasdDe47Z9ZwPEgQxqkTlN71r0YvHgcuOJwW7Xek9UdmHw
-	 ssVt1630MgMRDdjQ9u1+kLRLjUJ59MY+f1hiNDDRAMOlH4/EziZrjsaWmXVKjtvXlA
-	 rcURG4c+cfr7/sl9SzvzIO2celWZ3kdT7eB7s1yURl1OS5F6iHWU6Bhs7NkIhNrdqa
-	 eQSZQa5stsH/g==
-Message-ID: <737e3c57-9aad-4081-ac75-f79cb2084349@kernel.org>
-Date: Fri, 13 Nov 2026 11:52:05 +0100
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KkkrUPls
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261113105259epoutp04739b22bb88c95ba2282ee7bbe0c2cd0a~nlVd11iEV0592805928epoutp04R
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:52:59 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261113105259epoutp04739b22bb88c95ba2282ee7bbe0c2cd0a~nlVd11iEV0592805928epoutp04R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794567179;
+	bh=xZPonB6Lbb0k2OXAWHkAdkEguf5JX+UcZL6exprUdC8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=KkkrUPlsBtC0ji0UbJU4fmGmbYQ+7cNpAIj+Q414Jg2D3TgaoM3E9pFJdhSebZ+uG
+	 XZ+iPm+0pMKw8mc+YKFyBHOYxBAjjD9SBPn8xUBHW3brNlQOvldsJWYHPv4fZNXEQM
+	 wp2h7PJR/W3XzL4DzQMvajIjxBIJIyJHVwexZEIE=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261113105257epcas5p16bd10862e221c5e0052930bf487d41c0~nlVcdI3-d0130901309epcas5p10;
+	Fri, 13 Nov 2026 10:52:57 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.88]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4jQvHD6X0Qz6B9m9; Fri, 13 Nov
+	2026 10:52:56 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261113104832epcas5p4e1e9a3dedeb0c9c60cb80c23eb5d930d~nlRlBPkNl0561205612epcas5p4u;
+	Fri, 13 Nov 2026 10:48:32 +0000 (GMT)
+Received: from bose.samsungds.net (unknown [107.108.83.9]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261113104829epsmtip288867f1635f2f9c4a284fec461722d48~nlRipOvDs2501325013epsmtip2F;
+	Fri, 13 Nov 2026 10:48:29 +0000 (GMT)
+From: Raghav Sharma <raghav.s@samsung.com>
+To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
+	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
+	conor+dt@kernel.org, raghav.s@samsung.com
+Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
+	pokala.reddy@samsung.com
+Subject: [PATCH v3 01/14 RESEND] dt-bindings: soc: samsung: Exynos8855
+ SYSREG compatibles
+Date: Fri, 13 Nov 2026 16:35:59 +0530
+Message-Id: <20261113110612.3265841-2-raghav.s@samsung.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261113110612.3265841-1-raghav.s@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,102 +84,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net-next v19 10/15] net: Document PCS subsystem
-Content-Language: fr
-To: Christian Marangi <ansuelsmth@gmail.com>
-References: <20261113003217.197757-1-ansuelsmth@gmail.com>
- <20261113003217.197757-11-ansuelsmth@gmail.com>
-From: Matthieu Baerts <matttbe@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- llvm@lists.linux.dev
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20261113003217.197757-11-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261113104832epcas5p4e1e9a3dedeb0c9c60cb80c23eb5d930d
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261113104832epcas5p4e1e9a3dedeb0c9c60cb80c23eb5d930d
+References: <20261113110612.3265841-1-raghav.s@samsung.com>
+	<CGME20261113104832epcas5p4e1e9a3dedeb0c9c60cb80c23eb5d930d@epcas5p4.samsung.com>
 
-Hi Christian,
+From: Alim Akhtar <alim.akhtar@samsung.com>
 
-Thank you for the patch.
+Add exynos8855 sysreg compatibles in bindings
 
-On 13/11/2026 01:32, Christian Marangi wrote:
-> Add extensive documentation of the new PCS subsystem and the fwnode
-> implementation with producer/consumer API.
-> 
-> Also update the sfp-phylink migration guide.
+Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
+---
+ .../bindings/soc/samsung/samsung,exynos-sysreg.yaml       | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-FYI, the Netdev CI seems to have issues with this patch when building
-the documentation, because a new warning is visible:
+diff --git a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+index fcdb9ffd2644..845e0caba15a 100644
+--- a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
++++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+@@ -31,6 +31,10 @@ properties:
+               - samsung,exynos5-sysreg
+               - samsung,exynos7870-cam0-sysreg
+               - samsung,exynos7870-disp-sysreg
++              - samsung,exynos8855-hsi-sysreg
++              - samsung,exynos8855-peric-sysreg
++              - samsung,exynos8855-peris-sysreg
++              - samsung,exynos8855-usb-sysreg
+               - samsung,exynos8895-fsys0-sysreg
+               - samsung,exynos8895-fsys1-sysreg
+               - samsung,exynos8895-peric0-sysreg
+@@ -103,6 +107,10 @@ allOf:
+               - samsung,exynos850-cmgp-sysreg
+               - samsung,exynos850-peri-sysreg
+               - samsung,exynos850-sysreg
++              - samsung,exynos8855-hsi-sysreg
++              - samsung,exynos8855-peric-sysreg
++              - samsung,exynos8855-peris-sysreg
++              - samsung,exynos8855-usb-sysreg
+               - samsung,exynos8895-fsys0-sysreg
+               - samsung,exynos8895-fsys1-sysreg
+               - samsung,exynos8895-peric0-sysreg
+-- 
+2.34.1
 
-
-/srv/nipa-builds-contest/testing/wt-doc-build/Documentation/networking/pcs.rst:3:
-WARNING: Duplicate C declaration, also defined at networking/kapi:486.
-
-When executing:
-
-  https://github.com/linux-netdev/nipa/blob/main/contest/tests/build-doc.sh
-
-Logs:
-
-  https://netdev-ctrl.bots.linux.dev/build/doc-build/results/909345/
-
-Cheers,
-Matt
