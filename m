@@ -1,47 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794529218;
-	b=EctPZRS76BushtNhrLdcuKoeMEVLRG68h3AR5Ty3NDmChNJSZ1CmWASmY/qub0IXGPhk
-	 RNgusmtoZ5oh65P+Kd3x/8ewzzEI4+MHRvsGwh6/WjNjH9MglItS6Y7xXoZh6ij2tOWFN
-	 FKEiZ1bx0NMjtuWJA+rd8O5iiJlJ6rTkvAcfHFABTNf3h6ez3fFsEBpgpvNiCDQwJN1L6
-	 T+6LAPFPud9JHbTwcThROt38FMsogKtlPuHTowhGVHFcnlrc3zY9rbcfvAJafSMSwd7Mx
-	 nyypxLTn35M3S1nTLoprtkGlHB/h24aUBDpEFZLW9KKTxNJiekEfUOWidvYDfriFlGg==
+	t=1794529432;
+	b=4lhCpJWiHOS6A0gzkp9WUVr9dMt4Lpc3NxHgr9/tfFUEW46n+zHdvPqPHQrf7pTkXke5
+	 aL81gVufsDdcRgkO1bGUEvZuwsKUak2/jcjPq9ajHPJMIBaVaHTQbuY6KAlqyz5nxUT/a
+	 45nmmrJdbR/3UAjz/Su4UPV6YQ7qS+68GNmNA6JfTE+M42vx5Fpt8MqnrYj2Uei6Kf1dv
+	 z+QJMjY+u/+GADaQg8+G2DBIXz9hLA1Jcwxw0dBu4mz9i1I2uuiVac9XbB6mIlQUhckBn
+	 /T5McPveuJ/ow8/CiiBdF5AjWT86OXJE28+vYdHLffL7nxbPCMpGzm876EXpbLgNkzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794529218;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=irpFSAngvQPvQ/Z7PnpTpBU+snu8huRE0DfEz3rgdbw=;
-	b=aeJGIHuoaBWn0LqopJzWrdXfun+zBpCDNnxUvAEmlk6+TMKuZSYAA4ah6Wc7JOYP7knC
-	 WpnSIJUgSlS78OkIifMImW0lswcMXCLdM4IV3g282VmyB80mJK3M0IkdS4bu2JShSZhOv
-	 dZFBYnghQObjBV6GuPzhsBvrDVxDtdyOiXJDVBHL7XhaFoIpR1wj13GS5le7tigtf0CqS
-	 Zz3lF9KoD3oj+Wu8lxdeBfw9aYJLJVyQFAhSOiLFaBSS1D5GMecnO7pVxsvEkXxAy6n1D
-	 GwA7T5Lr+3zdr0T1I4/BfmlzM/pYSlKu2+tzQg3ftzWy5TB5efRGk0Ysgtb8NtXmTYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794529432;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=uySeS/3n+f/dnCpiQL/nNK6+E4iD/pjRor5eQt8LbnY=;
+	b=w4QWwHInXcK/vqk9logc0LXDs99eJk4orkVN7WJH3x5XNeY0Upy6lZbh+isF9DLkFLax
+	 w6IRHFsH5ZyymnOxzq8keCxhYaSIo/v/Agw5OlCV2DBz6QM70utSaG0qifH693hVYC5Ni
+	 zMNey3jFybpUZ27Iigx1VvpzjJi44SMDkOJvO7QJuZIUr/wli21CMgmMIbd76i1lJjMLk
+	 n2qppAiqzECqrN/kimmX8I+JPxmvJ6bZjJsmqGL+7MYuRV/33D81VSGi384XU6eYaWcuy
+	 wLorUEzopCLlzlkw8a6laMTa3zMlRNTszLuj+1R3L0brBKGe79jZw8kad09jx8LFi3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WkHgt//E";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=OjYVUbaq;
+	arc=none smtp.remote-ip=212.27.42.3
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29AD4606A321;
-	Fri, 13 Nov 2026 00:20:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D379606A31C;
+	Fri, 13 Nov 2026 00:23:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D379606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkHgt//E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19A081F000C4;
-	Fri, 13 Nov 2026 00:20:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794529217;
-	bh=irpFSAngvQPvQ/Z7PnpTpBU+snu8huRE0DfEz3rgdbw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WkHgt//EGCBfxs6kZIcK82f1xFpgitlyh6zLAxMYyZ2RSeiONeZFOWh29Z/gRy7dQ
-	 ACRxIyyZPzGD0zKxI810GUHRSQmlGY4u5L826OLvH+qDmSu3+Qt1nPojLaYZUgsyhW
-	 8bq+6+ke3OHug1DA5A0wsUJmLJL2n1FqCv5EppnaflTsz6MawSQHGmBWcBXVb+3WDo
-	 t4MAek9n9A/Skz6hSceqU0ydznDgmdjCm98s5UQA+pmS+dllVNvKguTa7PzDN0F6bS
-	 twCptfeX8v2Bl9dxSO66hArcM+HD0r9EDZDtu9AQicIeut6zZAyzWKq/1XHltcewOI
-	 JG5weBcb8E3Mw==
-Message-ID: <589669fc-4cb2-429c-9960-1c89efb597f9@kernel.org>
-Date: Fri, 13 Nov 2026 09:20:15 +0900
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=OjYVUbaq
+Received: from L30177.local (unknown [82.65.104.223])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp3-g21.free.fr (Postfix) with ESMTPSA id AAF0613F88D;
+	Fri, 13 Nov 2026 01:23:35 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1794529423;
+	bh=pVXU+tvezYWROo5H00YtuV+H1jOsfuEbNPNc7yBOEno=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OjYVUbaqwpsVIWs84XPFSxLn19HuKXqyvjazjzvXsaQ3inXsjimEerMORNEgzZUdU
+	 ttkbRUroQsjqnZCzn0mxSGaR6Goa/Wimue7DZaHhrAEOjUQtOQyz3PG0UO1sJIUjgW
+	 WlcYkFutGR9wL5MALQnNt7EKTX1PGuTbOBwRuL+NWWd+lUoZgq6Q0QHR0z7o/oUXkZ
+	 nFa8/3J3+iC1oWvNGlo73IVPerKTQlHUvVA6Vru/8hvqYEX8kio3xxwoc7tfZDbTnS
+	 dyPNg/inK7HX8qYK8COqw/LDW++6apGpAMrI+iBABATjPzL5nZNSN+elHGqgzCPAIw
+	 Wgra/likqwKNA==
+Date: Fri, 13 Nov 2026 01:23:34 +0100
+From: Vincent Jardin <vjardin@free.fr>
+To: Sahil Malhotra <sahil.malhotra@oss.nxp.com>
+Cc: horia.geanta@nxp.com, pankaj.gupta@nxp.com, herbert@gondor.apana.org.au,
+	davem@davemloft.net, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] crypto: caam - never share the gcm and skcipher
+ descriptors serially
+Message-ID: <avZYhjJsa6Ih7nBG@L30177.local>
+References: <20261109-for-upstream-caam-shdsc-share-never-v1-v1-1-65a1dd146db2@free.fr>
+ <20261112101440.673231-1-sahil.malhotra@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,53 +67,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] ata: libata-scsi: reject reserved bits in 32-byte
- passthru
-To: shao.mingyin@zte.com.cn, cassel@kernel.org, linux-ide@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261112220120113cXLhRk6iDVvhfgGPoZ5vJ@zte.com.cn>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <20261112220120113cXLhRk6iDVvhfgGPoZ5vJ@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261112101440.673231-1-sahil.malhotra@oss.nxp.com>
 
-On 11/12/26 23:01, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> ATA PASS-THROUGH(32) has no MULTIPLE_COUNT field. Byte 1 is CONTROL,
-> and bits 7:5 are reserved or obsolete. Interpreting these bits as a
-> multiple count can issue spurious count mismatch warnings for multiple
-> commands instead of rejecting the invalid CDB.
-> 
-> Reject nonzero byte 1 bits 7:5 with field pointer 1. Skip the CDB count
-> comparison for the 32-byte form while retaining the device multiple-mode
-> check. Also point to byte 10 for invalid PROTOCOL. The 12- and 16-byte
-> MULTIPLE_COUNT checks remain unchanged.
-> 
-> Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
-> Suggested-by: Niklas Cassel <cassel@kernel.org>
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Hi Sahil,
 
-One nit below. With that fixed,
+> So this needs to be tested on other platforms before it can go in.
+> If you have numbers on other SoCs with fewer DECOs, that would be
+> helpful. We can also run it on i.MX boards on our side, if you don't
+> have access to other boards.
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+No, I do not have other CPUs than the LX2160 : your feedbacks with i.MX
+is welcomed.
 
-> +			/* Compare with the cached multiple count of libata. */
-> +			if (multi_count != dev->multi_count)
-> +				ata_dev_warn(dev, "invalid multi_count %u ignored\n",
+> If the regression shows up, one option is to pick the share mode at
+> probe time from CHA_NUM_MS[DECO_NUM]: NEVER only when there is more than
+> one DECO, SERIAL otherwise.
+ ...
+> Do you have similar numbers for authenc and xts, since they use the
+> same kind of descriptors?
 
-Long line. Please split it after "dev,".
+Since SERIAL vs NEVER impacts the performance depending on the CPU and
+on the selected crypto algorithm as you suggest, the code should be more
+dynamic, instead of a single option that slows down all the other cases.
 
-> +					     multi_count);
-> +		}
->  	}
->  
->  	/*
+How could we keep "selecting" the best one for each case ?
 
-
--- 
-Damien Le Moal
-Western Digital Research
+Best regards,
+  Vincent
