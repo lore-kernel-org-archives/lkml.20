@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.69.30.187
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794608434;
-	b=m32qiSKa9J+WRouQ0kFhbKctjJuIFLQXNvqlRebA0/tT6rC7H5x3aYVch9waS9/yFUlm
-	 RIxxUSZec1iFKHW5nDNpm7HcvV2GCobQtT96J2LQ212a+owwROAj1jU4j9A0JHBawRF8K
-	 TaOsfQOfvu7bMKj9OuG83EOe/98X6BbAShQss5RXd1wzOc4PjyX1pvtsERRTllxC/2cEE
-	 Px51ZECQDyjILCmuHOjOTinXM3YiGArdfvtL7PNBVs7876vjdCmc7RRfcB5rqE33Okiy0
-	 WrwMc5rSj08kJZadO2yVEJ/PhI8Dbo3I/wliW2hKwi0RR9NGrEh7SG0Ao9Uxmof91LA==
+	t=1794608446;
+	b=dzpRvr6Ig03lnlWteCL9GxXqvO+GRia1XpSemOC2rQ/KAWuN9Une3Ab3RtUDUh7a8yXn
+	 ZeV1oOItoFE7PYQD0Er0jM8PmrweCur+44lnNEyAeZqf1gsril1LkbQ9fKeZ7Xeg4U3oi
+	 Y5ysr3yk/szpCQ3ZOov7yzFYxBZpQM0fq7KuXgFlzL1WYJSP8xXZGjpKfSqSMXquPhrOe
+	 KKC0xJnTVp9uvRkv3G0P5R0kmCEP+la1ZdpI8VPYP7Ui/PthTXY+954HaumRqQaUgm7Lf
+	 4OprKnn9zNWKCqmNrLrhK4CbGvARM8YWvXTb2V3w9WBd4XWCdzJ/L7FaGElIxioZEOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608434;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=PHBShBfXhNBaJWujZSQWjunFT7rAYje//FUsVRKdOAI=;
-	b=uLQLWfaHasGYqlOwd29iLj2VfOvp12yH5OYVa0/Z++EsJkMxj3dAK/L1pUyq9JoOfPdz
-	 uqTLtWENAyctrcfw0oJ8mkzsxDkrJsRwk+lLtjpmpnefR/e0Wns9VzHJmnqg62I/2nnhX
-	 TPSypqKpKVKBHSrLudjo/K5+4W+FWwtFFTktNMDdcjXwDeXewdSzDUqb8w34xu2gIeF+s
-	 IkGtxVi+H1YgvzT7a2Yhg2/8/zCXDPl0c59iEGBR9GaMF7dgZk6a2lO5Aa6rx5X2UO/2R
-	 dzHLDhARlATbk51EayQ1u9eSok51e9jg/vAZIoTE0CPQWAm7svPY07NbHgLVYOlaWMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608446;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=awTWuz2Pbv3qMcNvqNUDXdB+FnmJ4OgUX7z3jOtQego=;
+	b=nxURDvssNO4hgl5sXnWBya5vhttk+FO7TQV1nz7Vp5SFgTMX16xPRY652rH7aw02UaEF
+	 idcCAkGrWuLtyXjdZ9QUEG/mGtHHEViTfpzpc+xkPVTgmpqwYzFjbbFzQNO2j0BUWuaW3
+	 tfhIiDRKy5Enwhnx6/UeQcLo0cXV6wd8UqW2rCUVPi16EPSscX53VHGSipslJxU0jBSnp
+	 LWlAAL4W9rGcQGUn4yW7EO+mpSFBh6vs9e8GHxZA94OWCOuY9yK+vKkjGPsG1T654DFsd
+	 ObxC647O0wW6/wJ+rD2chXI8b16X7JHvSOPiOP7rbmCtufFSHlLJHxyTCmnUtVqSLMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freenixos.com;
-	spf=pass smtp.mailfrom=freenixos.com;
-	dkim=pass header.d=freenixos.com header.i=@freenixos.com header.a=rsa-sha256 header.s=mail header.b=DkSluW8A;
-	arc=none smtp.remote-ip=54.69.30.187
-Received: from mail.freenixos.com (mail.freenixos.com [54.69.30.187])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="EHo/TLyj";
+	arc=none smtp.remote-ip=209.85.167.49
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D509606A329;
-	Fri, 13 Nov 2026 22:20:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D509606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=freenixos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freenixos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B16606A332
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:20:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B16606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=freenixos.com header.i=@freenixos.com header.a=rsa-sha256 header.s=mail header.b=DkSluW8A
-From: Hex Lindqvist <hex@freenixos.com>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freenixos.com;
-	s=mail; t=1794608427;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=PHBShBfXhNBaJWujZSQWjunFT7rAYje//FUsVRKdOAI=;
-	b=DkSluW8Aq6Db6sY9UUKvBlx+8DRyl5SF/bKMBw31X83q+0H9Q/6zWQmtwvztJWSyRZ8sT0
-	sO7G7jZYERM5Hy19wIoZ7NhXC5kJ5B8VBpOu70Rerk0OLXTZuvN+JA4ZgUjLiaJgRvDfeS
-	ci+Ir374oUFj03DnAyEzkk5lQaO+b5WmghJXXf58ckrqW31R7Fo3KeypT6CKuE/87KkOqB
-	xwPdycSvuC7fdLB/pbNr1dNUH/O92g/bNbUjrqoJuAyEtvEGGwsAaq9PCWQ5Mt2V2lyPHi
-	+mS92KdouGtZkdASFpjDIt3zKE2zpmUAH+Ghu72btekxK5D5oN+o1JMQTu+6LA==
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] Bluetooth: btintel: Don't log unsupported debug features as an error
-Date: Fri, 13 Nov 2026 14:20:24 -0800
-Message-ID: <20261113222024.1123279-1-hex@freenixos.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EHo/TLyj
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5c17a177262so516056e87.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:20:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794608444; x=1795213244; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=awTWuz2Pbv3qMcNvqNUDXdB+FnmJ4OgUX7z3jOtQego=;
+        b=EHo/TLyjv+b+6c1JzMljB/XnMVizYTIKonHxM9wW6wHzUHS0ntvI4pKVbL0gbeb5Qy
+         dCWCYGQZK/W6yBc2Fi1HqO8bwT/BUgiJ4L+zMSsFvsPeS29JRqLA9ztkhEKgvWdPdzP4
+         C0CI5DzCtqpQM9ilS1UfuSg1W1zFcXea7xiUWY2SRd5uzeP2ZV9cr5OkyR1G3R9oDrfr
+         MZa9glg4Bj1nupn4zl4GeUyrLqkgwCMswd1kUQgAauWzavtGojEA1JHaIeKsKR2S1uka
+         XZcuDHzbmDozJga7eCNxw5fu+NdGK9yy6K0/TF4LBU2HyiS+MSWqncmimT2H/v8jKIA/
+         J43w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794608444; x=1795213244;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=awTWuz2Pbv3qMcNvqNUDXdB+FnmJ4OgUX7z3jOtQego=;
+        b=k14sU8ar4QwzilxB0taS3bqGnMjfvtAKbitxUHCI/N6njE6s+1QDFm1Fjsti5woBHB
+         K24NKtLs0rvtZe8wKHtV8J7u8UEuIhm0zfiezzMGPqd1DpyO6XZZDlKe6wIYpRresQL3
+         dbFjotSbRXwp0HEURHzku88xFQXp5J+OQ34WqxwuUolcpctbIfdPKI11rgdSBIwLs+Wk
+         aH9bhn7S18uixBkdR3pqmevjJifaFroJ9OedNp6kcQJbdwm9NANwLCJlLiK+PeSXJ2jT
+         PtgXj17Lkzfr4fmTmZ3bYT3Wat6hy3wCHx6bK2J+QEHSQ19WIUGKQvaXfYW4Pkx+7Ngp
+         +tBA==
+X-Forwarded-Encrypted: i=1; AL+hErFXAgBTJ20Qc9imvk0rIf2RTZPAsjm/XgIKYwZU2Pq/4JMoC6eY5MsH4H/O5e1tePVcqb7uVkWJvFsg+VI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+AFpnZE3jYh4Qt9WhVxB9K6zEHNmlue7CRCamHsttYkmuAYrTF
+	Jxmu4aV+Iiw9JuZCVYrsuHTNCjIYXQ28cZEcr4ZbOkznnZsTq1KEgohP
+X-Gm-Gg: AYBFou0yA3BPEmUc1NbQNzzaK1FwIBHh72q0WTUdeZfr+A8Ad5U7VcSXd2FiF3Ut85a
+	z+P0/F5z9CG9GQ/2hEl1+0GxhI5t96XR1zQJxW4PrfVTyaivBUUYuj5a4TySCvY8NDmP+oA0ewn
+	X7UjZmeGwXHAjAErcVM5gRbz4hEZ74VwSEZIqlkehRBokJnqX+/QCqHkRlWo7ihAJ/W6n64Yz4n
+	CfjNco9verN6kB+5AzO4DFZJ5XkY1ZHYTxbD29HW81GEvOkXMHcpYZhBx+m3nAbKurhSEYBUo+v
+	eBM8cvy7pZFUJiKmn87OuyXb/2uaNtLZKPsxasluML1++3Gskj4325XU/o3W4798o2m5ousxF9h
+	sDhzI7SvLKuN0J3C9yy/tSh3Fk8+1c88qbWW3moKCXrdMqCFOG5qF4RZhw3J4C9Vl0SgQLuVtnK
+	XLcXKGJ5xpN1ACNflGjp3IdSV+gr9Pr7ZIf1oPcIImXr5WSZ5E0YZDvv/kwA7AejC7lvc1Al09D
+	1hjfoVW3bg5YE3zDQxHRh7Zmq0W4rZ15raY+2pwZp4aJWwC38KMGh+u0850fHjqRehIIVE++XGj
+	7jE3WGbDlEuux0gnpyXy19Q0euYHztwl+XF0OjGRx8HucJPgteiSsS4mKA2yISZxUpL0KoZnIMJ
+	bzIk/DwLKmyHFeqNB/4dkYvip7RHshY8J
+X-Received: by 2002:a05:6512:138d:b0:5bf:ce20:57e8 with SMTP id 2adb3069b0e04-5c1709c19c4mr1534065e87.40.1794608444157;
+        Fri, 13 Nov 2026 14:20:44 -0800 (PST)
+Received: from localhost.localdomain (85-76-110-212-nat.elisa-mobile.fi. [85.76.110.212])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171333630sm1137443e87.19.2026.11.13.14.20.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 14:20:43 -0800 (PST)
+From: Elias Pukari <elias.pukari@gmail.com>
+To: andrew@lunn.ch,
+	hkallweit1@gmail.com
+Cc: linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Elias Pukari <elias.pukari@gmail.com>
+Subject: [PATCH net-next] net: phy: et1011c: don't write an error code to the config register
+Date: Sat, 14 Nov 2026 00:19:17 +0200
+Message-ID: <20261113221917.3542509-1-elias.pukari@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,72 +104,110 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit af395330abed ("Bluetooth: btintel: Add Intel devcoredump
-support"), setup sends Read Supported Features (0xfca6) to decide
-whether to register devcoredump. Older controllers such as the 8260
-and 8265 reject it with Command Disallowed, so every probe logs:
+et1011c_read_status() stores the return value of phy_read() in a u32
+and does not check it for an error.
 
-  Bluetooth: hci0: Reading supported features failed (-16)
-  Bluetooth: hci0: Error reading debug features
+If the read of the configuration register fails, the negative error
+code goes through the read-modify-write and its low 16 bits are written
+back to the PHY, for example 0xdffb after -EIO. That sets 14 of the 16
+bits of the register. The interface field (ET1011C_INTERFACE_MASK), for
+one, ends up as 3 instead of ET1011C_GMII_INTERFACE. The function still
+returns the result of genphy_read_status(), normally 0, so nothing
+reports the failure.
 
-This is harmless: it happens after the firmware is loaded and only
-means devcoredump is not registered.
+If the read of the status register fails, the error code is compared
+with the speed bits. For the usual error codes this does not look like
+1000 Mbit/s, and the update of the configuration register is silently
+skipped.
 
-Log the failure at debug level there, and keep the error in
-btintel_set_quality_report(), where the user asked for the feature.
+Make val an int and return the error of either read, like other PHY
+drivers do. phylib then handles it like any other failed read_status():
+it triggers a WARN and puts the PHY into the error state, with the link
+down until the interface is brought down and up again.
 
-Tested on an 8265 (8087:0a2b): the messages are gone and Bluetooth
-works as before.
+Discovered by an AI agent (LLM) inspecting the code. The issue was not
+seen on a real system. It was confirmed with a KUnit test, which is not
+part of this patch and uses error injection: it binds the driver to a
+PHY on a fake MDIO bus, brings the link up at 1000 Mbit/s and makes one
+phy_read() fail. After -EIO it sees the value above written to the fake
+bus (UML on x86-64).
 
-AI was used to help write and test this patch.
+With this patch the same test sees no write and gets the error back.
+Not tested on hardware (no ET1011C available). Kernel selftests were
+not run (none mentions this driver).
 
-Fixes: af395330abed ("Bluetooth: btintel: Add Intel devcoredump support")
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=219387
-Signed-off-by: Hex Lindqvist <hex@freenixos.com>
+Fixes: dbb7a95d810a ("phy: Add LSI ET1011C PHY driver")
+Signed-off-by: Elias Pukari <elias.pukari@gmail.com>
 ---
- drivers/bluetooth/btintel.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/bluetooth/btintel.c b/drivers/bluetooth/btintel.c
-index a0aa110f4cdd..31dec65d3327 100644
---- a/drivers/bluetooth/btintel.c
-+++ b/drivers/bluetooth/btintel.c
-@@ -1532,11 +1532,8 @@ static int btintel_read_debug_features(struct hci_dev *hdev,
- 	 */
- 	skb = __hci_cmd_sync(hdev, 0xfca6, sizeof(page_no), &page_no,
- 			     HCI_INIT_TIMEOUT);
--	if (IS_ERR(skb)) {
--		bt_dev_err(hdev, "Reading supported features failed (%ld)",
--			   PTR_ERR(skb));
-+	if (IS_ERR(skb))
- 		return PTR_ERR(skb);
--	}
- 
- 	if (skb->len != (sizeof(features->page1) + 3)) {
- 		bt_dev_err(hdev, "Supported features event size mismatch");
-@@ -1653,8 +1650,10 @@ int btintel_set_quality_report(struct hci_dev *hdev, bool enable)
- 	 * supported, need to load the additional DDC config to enable.
- 	 */
- 	err = btintel_read_debug_features(hdev, &features);
--	if (err)
-+	if (err) {
-+		bt_dev_err(hdev, "Reading supported features failed (%d)", err);
- 		return err;
-+	}
- 
- 	/* Set or reset the debug features. */
- 	if (enable)
-@@ -1705,7 +1704,7 @@ static int btintel_register_devcoredump_support(struct hci_dev *hdev)
- 
- 	err = btintel_read_debug_features(hdev, &features);
- 	if (err) {
--		bt_dev_info(hdev, "Error reading debug features");
-+		bt_dev_dbg(hdev, "Reading supported features failed (%d)", err);
- 		return err;
- 	}
- 
+Notes:
+    How this was found and tested, since no hardware was involved:
+    
+    The problem was found by an LLM (Claude) reading the driver. The patch
+    and the test were drafted with Claude as well. I have read both and run
+    the test myself.
+    
+    The test is a KUnit test with a fake MDIO bus. It binds the real
+    driver, brings the link up at 1000 Mbit/s and makes one phy_read()
+    fail. On net-next d1f4b7c6b997 and on v7.3 (UML on x86-64, with and
+    without KASAN):
+    
+      before  config read fails with -EIO        0xdffb written, returns 0
+              config read fails with -ETIMEDOUT  0xdf92 written, returns 0
+              status read fails with -EIO        nothing written, returns 0
+      after   nothing is written and the error is returned, in all cases
+    
+    The second value depends on the architecture: -ETIMEDOUT is -110 here,
+    but not on mips or parisc, for example.
+    
+    The test is not part of this patch. I can post it if it is useful.
+    
+    Also built with W=1 for x86-64 (gcc and clang) and for 32-bit x86,
+    allmodconfig.
+    
+    I do not have an ET1011C, so this is not tested on hardware. For that
+    reason it is sent for net-next and without Cc: stable. I can resend it
+    for net if you prefer.
+    
+    Not changed here, to keep the fix small:
+     - "speed" is a static variable, shared by all ET1011C PHYs in the
+       system, and it is updated before the registers are read;
+     - the return value of phy_write() is ignored, here and in
+       et1011c_config_aneg().
 
-base-commit: da3cc02587c629420603df4395179ec82955c941
+ drivers/net/phy/et1011c.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/phy/et1011c.c b/drivers/net/phy/et1011c.c
+index 6cd8d7758..603fe5a1e 100644
+--- a/drivers/net/phy/et1011c.c
++++ b/drivers/net/phy/et1011c.c
+@@ -62,16 +62,22 @@ static int et1011c_read_status(struct phy_device *phydev)
+ {
+ 	static int speed;
+ 	int ret;
+-	u32 val;
++	int val;
+ 
+ 	ret = genphy_read_status(phydev);
+ 
+ 	if (speed != phydev->speed) {
+ 		speed = phydev->speed;
+ 		val = phy_read(phydev, ET1011C_STATUS_REG);
++		if (val < 0)
++			return val;
++
+ 		if ((val & ET1011C_SPEED_MASK) ==
+ 					ET1011C_GIGABIT_SPEED) {
+ 			val = phy_read(phydev, ET1011C_CONFIG_REG);
++			if (val < 0)
++				return val;
++
+ 			val &= ~ET1011C_TX_FIFO_MASK;
+ 			phy_write(phydev, ET1011C_CONFIG_REG, val |
+ 					  ET1011C_GMII_INTERFACE |
+
+base-commit: d1f4b7c6b997c29de67ad7178ababac2328cb1b4
 -- 
-2.56.0
+2.56.1
 
