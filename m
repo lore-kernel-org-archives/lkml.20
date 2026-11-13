@@ -1,85 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794531724;
-	b=a5cEmaC7lfXWCMvxmBpGjUzVXGFrXovHpE316v7QRsHuVs9Xp6MS8diI1qG2kvlor8T4
-	 CFY9Pn11HtNLDOvEgJqyGzW/SFI7zOvMn+sQ4/o9TlvGej5zk2g8y+l4rQClhylOruZRQ
-	 oKZ6+3jhE2jxFG3rlu4A+Zf5TuoHF7t77UOawx4loT8ZI1I67jm5qVVxf3HQU3Y/Ba6/v
-	 pucxhhaKIHSEz3h1gBTVBvlknPCbO6/S4EcZry974ZSgMgaQqdRqegtR2PbBlRGbBUQMp
-	 2ZpT5iWAoA2S8F3Sf8cM9NeSH0LrNJeiyr/a4S0hawIhEAeaN0uHQtG6JbI6onQuLCw==
+	t=1794531746;
+	b=ahWuaXCYyN3TSqArOH9ANJuBV5NHjOzrrZpPkuHE33pmBvEu5ZAXdOtViO/JopPgTZsg
+	 ERBuwZli5Bzh04zktgUOfOtqLHleeRKVE1A73400nU3NvZZUM3Ik+H3SLu6LA5GL9A4ek
+	 DvOohdzLRLe24YaAkOdvH9RtoT6UoqVg3D9/5VXtvjSEz/W0N4PiUMma01yilQNZmUiri
+	 47CE3giw+cAliN3qtbfIz43QD1eNrVJmDB4CZyZ9G2QaHgkM05enMhlG3mDxquGZaH428
+	 kb8XdOId2L7jTkdry+FX+tVKgedj+iUTetyHTcj5tzCpoTZ4nxuMw7BGOZx1sv4ClCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794531724;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=QuB4gRralS9yFslodv3QC7A77JieK5X8DdVq10Sbwss=;
-	b=qAgEDuUsDYB1ZMsBkcW3M44yosZbf61NnrHynDihkLlw2bPt1oGfIJ3Gpc0Z/BBGMzhr
-	 J8WaSC0qiJvmeX2Gi/6fQhAioUYPlAPxEJZ+qASLCuesOqqBzXGXJejVvMFQLEc3qXJLJ
-	 s1xx6MNhKtModjuqu87CUiCuONmtyK/qNo3HGpdbHxANNvVMLsyx74WQ0qfOcozNipAc3
-	 ORgV7wlrbB2cTJnpuAQN7dq+STw7uooqUS0Vf/LTeVHf+tP0S+PgUH7Ajtzdw6sCw/TLs
-	 dKAX+WAusVDOcCfcHqHyEdEpHlRoT9yxhzNaVeKfP30agC5vDFDrt0qb0Z8jBxI+/zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794531746;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Wr2360MUv187zwJdy1TqlPIL4TyuTyVm7wXb9LIgYWk=;
+	b=oqx2Tl3MGf/r7qZY4/fcjoF52pA1FiYf04/WMxJmlWA8KcrszC16jhW6eGGan9z6iGln
+	 +a53VpHR+iNCap3+sEekiPqj4YoNcA++qhZbR5hd/SuQd6GyQrQtHCbkuc1vr2kQMMRtJ
+	 RNZUfJMV3MMOqmc+LHEo4h6WzWQlbQBxTLSXep32EJaELBvd19XMyQw6qZYHs9Tms+YwH
+	 3HND2051S1kA+Sh6Nf3rSK2vF7AHF3/eeOf/0Y+JjwX/jdvRY+Q2vACbgfCPa4vSu91y8
+	 Oh2Bx6cbQSqeZGwrUjgIKnO5mocnju1snbYQL0mz2uBxUchCjzZkoxj7u7QTLSYJ47Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rujr5uv4;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=aruCWX4y;
+	arc=none smtp.remote-ip=115.124.30.112
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17398606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:02:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17398606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A48D606A327;
+	Fri, 13 Nov 2026 01:02:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A48D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rujr5uv4
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36e90071735so72773eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:02:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794531723; x=1795136523; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QuB4gRralS9yFslodv3QC7A77JieK5X8DdVq10Sbwss=;
-        b=rujr5uv4KHlwWU2yiG5TIjDlYxdpRT7n72g+1OQ3nBEPBHqnw9DubRlOabZkuOrKMh
-         RwfFkjuDDnX7TWjdUqMie9mWpjujh4a1Al5OR4HTAi7FRlpGGpH/Ny70IthtWL0BTMmQ
-         C8ZKswI8HOW0CBBj01MtiKKGiu2h27KGiS5u9NmZ0VftDPmEmCtk1pfybuWaKwfGGDQH
-         3on5gn2jm4O1IKNZ6D+xgFEOygeTUpXV/eeU/cWP5KZuvNsunYs3KLrD1k1XJGl7T4pu
-         0QyGlue/SdNYX6yT4haGJRiefjE6BE8b3PV+6JUF96BFNu3V7swh6kdDZygjonIOBur6
-         JtmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794531723; x=1795136523;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QuB4gRralS9yFslodv3QC7A77JieK5X8DdVq10Sbwss=;
-        b=BG0Tq3gLKBA69ZVF4iPGGHMd4cSvRjtlHLVTCarRQD56mPEP2px2dgCI5gx7dFowSM
-         2exW/3iPDiX3E0PcL+hAr5p0Y7QhWIhXKeKsfy0M60qADFPEXQziVC1gsWOMhjCXUgyM
-         RYoG7S1DT5zRSz9qaCFz6biKPCddxaEq/skv65JpFRymmbzjqw0+LhFij3vIkYXJVPin
-         tBS3YbGtBlWkAihVa8AKIu5Tga5JQVtBXtUr7Fjypt0ATKguoC8evRqNujvK4j4Gip9V
-         UBoBypSbSMn6AybgF2+N9lgZxIzmoPrzmch1kfg1cbRAqJWPiAJRa2H/L9au2Ek4uBtn
-         ZBPA==
-X-Forwarded-Encrypted: i=1; AL+hErE6owJoraFedYzHdxhUHRKxqeVugRwwLF5envnmMLppuHiHUVsEwDWcjbwPQ9B/pZez+CAt1svvg2LTDjM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8mdCzO7yITg/D0aqblswW5Q+1bgLEzREl5ARbIvtk6kvHExf/H
-	C96unkmGjRmXranbiOBoTMjsoFXtZ1beYcLhdhNpIpBpzofQxCUUyS1M
-X-Gm-Gg: AYBFou2kCw9c1+5WaXNeKiW52pP8D2PrY1vMSGvfDEYqDLXrJW55RyqY2mVex8WbaF+
-	b5SGlS2nMDRPiYY06O910u9C94b5fPWpXKjNq9YgXD2HR3hYfTcCN8j2hbI0rCq9SylEz2PGlSU
-	tp/qXeb3tjhAmcKXS/gQa9Utcu6deOK/Wjn+5CNclPrmX+CuO2H9idVRtaJ4GxTsev2cTvPmVrU
-	KLj/ncUw0awKZJIH1KBCNrjqlbLy7QdfhiscmvrdrAT/CPVbWz23ixsgU9i3JAo8iCh3u5j1MS0
-	Ey036uzCpguLnA3CZyNyUxhcXjKv0F7q/OObY71Scje3V+u6qmlyxrdNfKy1qJKyV+cDSaCL+6d
-	Nonbjeok02RxhyrZDn1lRa9gzJg0dl2E5rPJrD7aIu225M4dJbfhZzsViizaeM7iTxz4S/ldvtx
-	wdYXowqKQo/jx17v9/PVObMDygRTeI0fAFiKY4cnCMCMjgPoPQSQbR/NNaI7vK0Oa/hTTIJpO6V
-	j+9kymBiX2KqdhOFs/p/6XEV4jTvmDy2oKbpJdWqy1qW2nkswQ2hMpzlw4u9PV8CVb5r3ajruLh
-	gw44xPJ8b1f95DGUv5xX4Ek9b0HxJzAov924YoVEwF7kobV17tcHpDU67/dVf9hFtNF6endxlY1
-	cnY0PxVyhZKlP
-X-Received: by 2002:a05:7300:c00e:20b0:35e:d21c:f33e with SMTP id 5a478bee46e88-379651ecb3emr1356356eec.1.1794531722833;
-        Thu, 12 Nov 2026 17:02:02 -0800 (PST)
-Received: from o6.lan ([2602:fce1:44f:115e::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm4453590eec.8.2026.11.12.17.01.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 17:02:02 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=aruCWX4y
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794531742; h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type;
+	bh=Wr2360MUv187zwJdy1TqlPIL4TyuTyVm7wXb9LIgYWk=;
+	b=aruCWX4ykRNa/BHUv1EZe77sixNAkMkUZGO+HdCoY8fQjN7DgMWlzLMeaDwuKORQbhinOir+hdT1aQRCf7MJMxCLphbTn2oSyPDC0lQlvy4hckMqnmw7cn2nfWg8dj2e8xNoTIRkRQL5zqzaV0sTU93JCMAS/TX178gRv39nOgw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0XEd9DxQ_1794531741;
+Received: from 30.221.145.53(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEd9DxQ_1794531741 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 13 Nov 2026 09:02:21 +0800
+Message-ID: <4f83b93d-3173-4e04-9b79-df2413c3be18@linux.alibaba.com>
+Date: Fri, 13 Nov 2026 09:02:20 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,99 +53,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: Re: [PATCH v2] NFS: don't raise i_size for DEALLOCATE in
+ _nfs42_proc_fallocate()
+To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103061654.2036827-1-joseph.qi@linux.alibaba.com>
+ <20261109113244.4136089-1-joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261109113244.4136089-1-joseph.qi@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, 
- Minchan Kim <minchan@kernel.org>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Alex Shi <alexs@kernel.org>, 
- Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, 
- Helen Koike <helen.fornazier@gmail.com>, 
- Vignesh Raman <vignesh.raman@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-s390@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Nhat Pham <nphamcs@gmail.com>
-In-Reply-To: <d812b71d-b7ec-496f-9404-add2282105a6-agordeev@linux.ibm.com>
-References: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
- <d812b71d-b7ec-496f-9404-add2282105a6-agordeev@linux.ibm.com>
-Date: Fri, 13 Nov 2026 09:01:51 +0800
-Message-Id: <179453171134.2553194.3867422839676762696.b4-reply@b4>
-X-Mailer: b4 0.16.0
 
-On 2026-11-12 13:29 +0100, Alexander Gordeev wrote:
-> On Wed, Nov 11, 2026 at 08:41:26PM +0800, Xueyuan Chen wrote:
-> > CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
-> > counters are updated regardless of this option.
-> > 
-> > Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
-> > stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
-> > debugfs is unavailable.
-> > 
-> > Remove the Kconfig entry and replace the existing CONFIG_ZSMALLOC_STAT
-> > settings with CONFIG_DEBUG_FS=y. Update the English and Chinese
-> > documentation to match, and clarify the pool name in the debugfs path.
-> > 
-> > Suggested-by: Nhat Pham <nphamcs@gmail.com>
-> > Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-> > Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> ...
-> >  arch/s390/configs/debug_defconfig                |  2 +-
-> >  arch/s390/configs/defconfig                      |  2 +-
-> ...
-> > diff --git a/arch/s390/configs/debug_defconfig b/arch/s390/configs/debug_defconfig
-> > index d44674b63715..83193ef8efb9 100644
-> > --- a/arch/s390/configs/debug_defconfig
-> > +++ b/arch/s390/configs/debug_defconfig
-> > @@ -100,7 +100,7 @@ CONFIG_UNIXWARE_DISKLABEL=y
-> >  CONFIG_IOSCHED_BFQ=y
-> >  CONFIG_BINFMT_MISC=m
-> >  CONFIG_ZSWAP=y
-> > -CONFIG_ZSMALLOC_STAT=y
-> > +CONFIG_DEBUG_FS=y
-> >  CONFIG_SLAB_BUCKETS=y
-> >  CONFIG_SLUB_STATS=y
-> >  # CONFIG_COMPAT_BRK is not set
-> > diff --git a/arch/s390/configs/defconfig b/arch/s390/configs/defconfig
-> > index e00e252d4694..694a309377d5 100644
-> > --- a/arch/s390/configs/defconfig
-> > +++ b/arch/s390/configs/defconfig
-> > @@ -94,7 +94,7 @@ CONFIG_UNIXWARE_DISKLABEL=y
-> >  CONFIG_IOSCHED_BFQ=y
-> >  CONFIG_BINFMT_MISC=m
-> >  CONFIG_ZSWAP=y
-> > -CONFIG_ZSMALLOC_STAT=y
-> > +CONFIG_DEBUG_FS=y
-> >  CONFIG_SLAB_BUCKETS=y
-> >  # CONFIG_COMPAT_BRK is not set
-> >  CONFIG_MEMORY_HOTPLUG=y
-> 
-> So DEBUG_FS is selected unconditionally? Please, drop this for s390.
-CONFIG_ZSMALLOC_STAT used to select DEBUG_FS, so I added
-CONFIG_DEBUG_FS=y to keep the stats available.
+Ping...
 
-OK, I'll drop those lines from the s390 defconfigs in v4.
+On 11/9/26 7:32 PM, Joseph Qi wrote:
+> _nfs42_proc_fallocate() raises i_size to offset + len on success, so
+> that the cached size is not left stale when a delegation blocks the
+> post-op attribute refresh.  The helper is shared by all three
+> fallocate modes, but DEALLOCATE always carries FALLOC_FL_KEEP_SIZE
+> and never extends the file on the server, so punching a hole that
+> reaches past EOF now wrongly enlarges the cached i_size.
 > 
-> > --  
-> > Best regards,
-> > Xueyuan
+> The post-op update would normally restore the size from the returned
+> attributes, but nfs_update_inode() applies a differing size only when
+> no delegation is held, and then only when no write is in flight or the
+> new size is larger:
 > 
-> Thanks!
+> 	if (new_isize != cur_isize && !have_delegation) {
+> 		if (!nfs_have_writebacks(inode) || new_isize > cur_isize)
+> 			i_size_write(inode, new_isize);
+> 	}
 > 
+> With a concurrent mmap writer (nrequests != 0) or any outstanding
+> delegation, the shrinking server size is therefore ignored and the
+> client keeps reporting a file larger than the server has, in violation
+> of KEEP_SIZE, until some later revalidation without writebacks happens
+> to fix it up.
 > 
-
+> Skip the i_size bump for the DEALLOCATE procedure.  ALLOCATE (mode 0)
+> and ZERO_RANGE (which nfs42_fallocate() accepts only without
+> FALLOC_FL_KEEP_SIZE) do extend the file when the range reaches past
+> EOF, so they keep the update.
+> 
+> Fixes: 35168eb947f2 ("NFS: fix eof updates after NFSv4.2 fallocate/zero-range")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> ---
+>  fs/nfs/nfs42proc.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/nfs/nfs42proc.c b/fs/nfs/nfs42proc.c
+> index ab86246fc364f..d76bface87f74 100644
+> --- a/fs/nfs/nfs42proc.c
+> +++ b/fs/nfs/nfs42proc.c
+> @@ -84,7 +84,9 @@ static int _nfs42_proc_fallocate(struct rpc_message *msg, struct file *filep,
+>  		loff_t newsize = offset + len;
+>  
+>  		spin_lock(&inode->i_lock);
+> -		if (newsize > i_size_read(inode))
+> +		/* DEALLOCATE implies KEEP_SIZE, so don't extend i_size */
+> +		if (msg->rpc_proc != &nfs4_procedures[NFSPROC4_CLNT_DEALLOCATE] &&
+> +		    newsize > i_size_read(inode))
+>  			i_size_write(inode, newsize);
+>  		nfs_set_cache_invalid(inode, NFS_INO_INVALID_BLOCKS);
+>  		if (nfs_should_remove_suid(inode))
 
