@@ -1,111 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564960;
-	b=GE8D9jnFgITEjGYHgSI+q70TNOWMRc0sFj+QreSM+Rz1R0KfYrarS7BqjIYkrnmU4a0c
-	 dq5NC0kuwvABGaX4y2ej+5Cvz7Um8wmJq/u/i8Pftp377DIYM8mJFX0Iw/+RTb5b3COW6
-	 Rary8Fb6ULg3qY4LHa6AX3frq2Fsrk2+mIsjMFlC+2bFd9lno7cKqWhcBnpGA9St26all
-	 JdaYLomGmj8vmLIakdU+GeJOeduLwcfPFERqGgws1kAdX5RE7k89vCBXfYoEUHgH3cwz1
-	 2+q+9QqiGy6Nby9lkFKNW+Ch9kY5ThL9ZQg8K6V/m4Zqc2nJJOgWm6FJsgCnm3JQgww==
+	t=1794564966;
+	b=4nIh4zneUcDavRQZjAcJoY06O83Bd2AY1xUiFnLmAp181CEInQeQLz2p9E46iKnW9QP+
+	 T3DbV60nBjBBSo3jd62/INEsJ9RaNBJxHsftFa6Nv8MB14bd2MI1eDb7wk34yxQ3UST8u
+	 5a1eP5R/OJ6O8xkUKqjRIGAqj8ULpBbJkyCG6UbOYKofVRZGdeqFjvgZaRPhKcAwtdgBe
+	 B7XNpu7rI1IB5TZPYBiIhVr3EzdfnCdMZEFPG8edKVKIBIXecMFs0bxtFv2C/yImaGS5D
+	 CMD55XV+9oOr9rfHiPKj+7tcshILffrGD0TPRxXDdtL65xsQ38rQfGKBbAMWLwNrxuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564960;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564966;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=PfCz/38ILdxPmJBY1NDzDaIsiECcLTMyKpoKPJStEV0=;
-	b=je0hNoTBR9/LGpRhLvWUy77WmmpgplN0dy9hUJ5Tk6XC0zFVxTMMQh+5U9+es/zJSkoB
-	 cU1GTV7ptYyA7NHgt5liyJgRDe9TawFaapF30cpwpJAcOftciR18YK2EtXtEldsNHyeXZ
-	 zwm7cBGPvRKWsu3e0KGPtdN9aYwEeilBd603tAMWua/P1OgHukp5jTQjzHf/o4WNyMlE9
-	 klhgPGd4I6Zbawj1CmXVkNDTF/fCY8SsvQi67YI56ey67fQAntD6DoJvI7HA2YMSuLtGo
-	 DxaNGAJTtAGJKhxIfWg3EqUPhps+gTBQFoTshP5poAHoyrfSRNtyye5KgROcgoi2DVA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=D38HS46K1Anpqtgv366uGkYPf3VtgpYY67fcn9gWXQk=;
+	b=Hiy1HOQ0xA/AL/DniwR+B+wPO7U2829aSG/uHtn6CVeABPMbtF0YglFv8t33JTtB/twu
+	 yfcrar8D0YHYLSa5StE936/YvTUkmzc6o4ZzbZ7mrJ9QT3EU4dultS7YW6yCK+O5cWslC
+	 8sH172vceMT+cZOC8aKp8PqIwDYnGIZRDmJ8pE4ohU+kQ7hAq4WsW1DlEyA89061fQtLV
+	 LnW0hKBkvdsfhZdCaWvzBIqKS/TrOkE0ypx7stq+GAG77C8kJ9ZCz+JUAPyN/0GKapOee
+	 joCmK6BvwnWQHSsnKd+7wlz0Kr4b4o+UkwfELSSzk9TAQVoiFOabu4yWY36k7CPKzwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=amutable.com;
-	spf=pass smtp.mailfrom=amutable.com;
-	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=lkMNxDps;
-	arc=none smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ekPj1euz;
+	arc=none smtp.remote-ip=209.85.221.173
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42A8606A8B9
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:15:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B42A8606A8B9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204BE606A339
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:16:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 204BE606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=lkMNxDps
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c506094fd93so151136466b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:15:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ekPj1euz
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5ecda93627eso217694e0c.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:16:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794564958; x=1795169758; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=PfCz/38ILdxPmJBY1NDzDaIsiECcLTMyKpoKPJStEV0=;
-        b=lkMNxDpsxePjk96S0ywzwnWUXxYio8wx2cNNe0nC6j26qPYCKZTFlNU+9IrTfafYUJ
-         vVJYUkmMgC1UbEefAlU1yHOjVK+ZyaavdAq5vDpOrqfNUQTfZSYOp+z5MtAN0fGM0C/g
-         WKoVDnfAgRrvHWrOgLujvGV7IRsdQm2D1xIiTvFC1PPHHAhefB4+1EzNQGHJZGVEqqG3
-         mRj5HPfDo3Do87jK8wkSwQeESRRW3NHA44wwS7GSfUWi+U+GxhbfTaI9vHs9ExXVB/2E
-         aEkBTT5WDqLpZOCj3LhS4i2xxQF422KmjG442iJAtFRLE9RsLg4/ErcRXtOWPDB+ahLm
-         /22g==
+        d=gmail.com; s=20260707; t=1794564965; x=1795169765; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D38HS46K1Anpqtgv366uGkYPf3VtgpYY67fcn9gWXQk=;
+        b=ekPj1euzwFNINM3LY/2Yy5oFUXQUaNX7uXk6VMWpoO3ye8qatgbeR4eTIWD1Ji0lqD
+         p+5eT93E88koyid/4LR4IE2uGr+A59MCm8X/g2PMF4pZgul1WBEW/K6idvIkHiQkSB1q
+         sW4SOR0FbTs1g+wUtKLEEVU//C9A/NpP5WIsCvqf7XB58+aGio+0P62UVsgiGku8RgFm
+         2iWpG0QoW4eT61Zrlbam/LQ9eUj8T87xhwY83xNBy17p3P4seFCqpcf+mGP34xR3i+XZ
+         gewDZpG1ZDFO5V//aLMGH0yy/TccY4c9dfpp15K0BokO2t6F7phH6uILO0s1ag9iOrmP
+         ZJrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794564958; x=1795169758;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PfCz/38ILdxPmJBY1NDzDaIsiECcLTMyKpoKPJStEV0=;
-        b=KIv5a0NojYDQhD+Nflk6llPFi9BRltoXmB3Pczn3ibxGE98CgKST3VB7aC5AopaMdS
-         bg+mhe6PEbJk2cR8U06o96jRB2Yknb5B5gYc1aG6qhYWRmn7cfdfrkKTLZqrGRuSNNxy
-         CfMHMTJ25fvXt7ZU6UEQwRndH8N4l139dL0Hy/OSwPWYxNGA4eVO7qZ00eCBpXDVK8uc
-         cqdgzHJGYVXcn03eSCLoJosJ/g1iZlrOwhtYw1jCWOuJ+G7WbA5VEYLBKOLesJux+nQu
-         RPjs3mmUIopYcLp/00Wm2524inke6NzrGYQGfnIIiCA8jCQatBR4CNEAx6Idtx9kc4V1
-         j2KQ==
-X-Forwarded-Encrypted: i=1; AL+hErHKwi3Wyy54sy5jYLhLVpscVJdOn8tFJIYcgE92Jq1Afs87MzV/vJlt3k6yU+2Ihn96oKKewCDfCyZ+EdM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xnAY6UMJ061592JiYkxoxgY5gtX8Cbe1BIY/AoxyrZGGwRDZ+
-	Cbt/9t+JIpZnVvUPXgZbFJQl2wEz9HVsFPW29KiFdFDEuGUMQPO8S02CcjEbvJOMs2ek
-X-Gm-Gg: AYBFou3vM9+1FkYIxq9uX9vn0G9Q7ZlJKj0It8jKENH/bjfxkg4BJWDlP5K/CkbgSZU
-	u5dfbJCiOI3E2aHIfmci8bD5qHAOzuqtaSA34WyRT7qeqJp0UlS/xYN7xn9S6enLfvKdVTk747T
-	zIx8VSgWWC6kPUeKWS46ZP3LwhblUkOd8BG/34nq246R9ozei9H0IOavVTtDuM5sp3IH8UFVfhH
-	JnBdvKb+4uLmqBlXEwWZ0YW1wVPLrBoJsG8qoWUY1pCqytof8sGdc0c1iULAtFXfFs8ZeNPAi9X
-	YGeZ9oKUe1Wv7hqH3PpMOipLfYxGpoZrPu4WUKn8c+E6XVosACLNGIrFjiQ798n2j3YEnLjp784
-	xWDTgMvWmWIw2QWkYTA3SqM0F6n5X8IRjnVrbeqY34i441wCfJJ4e4eNy6BVCedA4sdK95Ckgrw
-	1qWVkx93DTX7dlYg5h9DabRx5dRo4ULByXwwMPPQoi4pftpuEcvsPstbp+OEoFCvXop6rRmasrV
-	7AX1tezgc6LRAjeaqca2x0FT9DZHyY+u1NZIFAQGXXxHu/Ek2965AYrgnfEz9e5zbBNCwFk6eD9
-	t6bvD3zVu3D/ZzItDYlE9qoBBQD1XoIMYt4XT+76dmP87KpDXW8y1PRtl0OiL+E=
-X-Received: by 2002:a17:906:f59c:b0:c42:102f:15f0 with SMTP id a640c23a62f3a-c509614d4c1mr171873666b.3.1794564958075;
-        Fri, 13 Nov 2026 02:15:58 -0800 (PST)
-Received: from [10.0.0.233] (tmo-086-54.customers.d1-online.com. [80.187.86.54])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b7d1b7sm75606066b.74.2026.11.13.02.15.56
+        d=1e100.net; s=20260707; t=1794564965; x=1795169765;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D38HS46K1Anpqtgv366uGkYPf3VtgpYY67fcn9gWXQk=;
+        b=kT/NwiH/9X4i6eF1VWBmFa8pSb7bia2ZHAuoKrCGUmwzPjNlTLRt2H3ePM+UpgW6Jd
+         /9kPT5/B7R1aqCfu3+OsKvOJfNlVpU2VydXSSmdPH2ZuvYI37he8n9VDEz0kswSG28Ku
+         KLv4SYhkP1VjQiqdQbqjuv75P7KbCkU0RV72cpEWLohGh0ybs1cHn/9cEnT0bh8Xl2+2
+         syEROcHe0oEjEBRs7zVN+dCaXPg4w9QS8/40DqdEclbgL3AQ0LwrslgNj5rzZWmS0rL6
+         ULIZf+zmomH0Zs1AOtkgY2dBC6RDJFXtP5rnl26uSn7m+i8HZwVZyifCl3LvtyVCn+G8
+         R95g==
+X-Forwarded-Encrypted: i=1; AL+hErHNYkPrOxWJ8rmfvp59ycYkzlPiNugGFLB2G+DvOD4HYGXPHTKXoe7pr0ODirdGsCeluOfg2N+HsImE1Dk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9etNVgT5/1iIXlEGXcIVTY2SpIyZqbPz307dWNOELNmfZ2XGHC
+	OytDihsNso9iq8UGFiqnl8nxIHZ3n5qnf9lFnOxQA8tA2xu+jcy0/+qQ3ARZq+/Q
+X-Gm-Gg: AYBFou3k5OBg+eZ4rcR2JEmYE2MMehF2LZj5MJlNywL4cv11waCTKjZlBFQUHAknqTI
+	QbOe0GqOYkhRUoS/LLC46SaL3+Np0x69+1v+3I5THk6dhUtfPj5KNsz74WEHnCXYhOWjzim/HVI
+	U23pHdSBv+3qh4gy4w41wvbg9AKnEZkWyFF4GplEnpIIAchzTB85qDZ0bN6xdc/1ZPZDfOaz4mb
+	q6Q4oeZr+MvhTIsf+VZGb5Sl4zq7QUkCbFS6K83Lk0y2flJkf4lcLRWblD6nEtzmO6g/SvAT0H+
+	lQn4RMMjaClZemSQOC25tp3W40ecbNOeAASa0iWJMaLNByJUPIl7AadTVydhpMoyWWpcOsxQ611
+	ZsPLueXBW8YOzQ3BY8XeAw4eZbWoGnGAHHWTMC5dDvDR1IxeUlpyl1l55xKFWOGlyEjpNVxnfoN
+	VtnYm444NFqaSEuINvsc0Ky2KxPMLPrFQxxHPOsP/5HpB+d2+4W1975nsUnC3QXcDA82dWZfedt
+	nlIAKT+pL01MQAk97GdyIzGeRyr1H4nnHUNEF02WRp8kLcw3RgxOuO0guMkghu8PkrXNgPIOOXp
+	YUAkjUG3rw==
+X-Received: by 2002:a05:6123:49:b0:5e5:29f7:489 with SMTP id 71dfb90a1353d-5ee34afcfa8mr472567e0c.22.1794564965007;
+        Fri, 13 Nov 2026 02:16:05 -0800 (PST)
+Received: from fedora ([2a09:bac5:565c:aa::11:1e5])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee34e67eeesm940971e0c.10.2026.11.13.02.16.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 02:15:57 -0800 (PST)
-Message-ID: <c5a694991af7e9182fd475a20bf4cfd73a13e395.camel@amutable.com>
-Subject: Re: [PATCH RFC 34/41] loop: refuse files on pseudo filesystems as
- backing files
-From: Alexander Mikhalitsyn <alex@amutable.com>
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, Josef
- Bacik	 <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
- target-devel@vger.kernel.org, 	driver-core@lists.linux.dev,
- linux-mm@kvack.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
-	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
- netdev@vger.kernel.org, 	fuse-devel@lists.linux.dev,
- linux-efi@vger.kernel.org, 	xen-devel@lists.xenproject.org,
- ocfs2-devel@lists.linux.dev, 	linux-s390@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, 	linux-usb@vger.kernel.org, Amir Goldstein
- <amir73il@gmail.com>, 	linux-erofs@lists.ozlabs.org,
- linux-kselftest@vger.kernel.org
-Date: Fri, 13 Nov 2026 11:15:56 +0100
-In-Reply-To: <20261110-work-loop-pseudo-v1-34-4c998976c6c7@kernel.org>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
-	 <20261110-work-loop-pseudo-v1-34-4c998976c6c7@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+        Fri, 13 Nov 2026 02:16:03 -0800 (PST)
+From: =?UTF-8?q?Oscar=20Alejandro=20S=C3=A1nchez=20Lucero?= <aleszlucero@gmail.com>
+To: Priyanshu Singh <singhpriyanshu9838@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: octeon: fix asymmetric output buffer pool accounting
+Date: Fri, 13 Nov 2026 04:15:54 -0600
+Message-ID: <20261113101554.68060-1-aleszlucero@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113091847.117705-1-singhpriyanshu9838@gmail.com>
+References: <20261113091847.117705-1-singhpriyanshu9838@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,78 +98,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-11-10 at 10:14 +0100, Christian Brauner wrote:
-> Currently loop accepts any regular file that implements ->read_iter()
-> as
-> a backing file and any that also implements ->write_iter() as a
-> writable
-> one. That includes files on procfs, sysfs and other pseudo
-> filesystems.
-> For example, /proc/kcore attaches read-only as a loop device the size
-> of
-> the kernel's virtual address space, 64 PiB with 5-level paging. sysfs
-> attributes attach read-write as 4096 byte loop devices. Writing a
-> block
-> to the loop device of /sys/kernel/mm/transparent_hugepage/enabled
-> changes the THP setting.
->=20
-> That's not just nonsensical, it can be abused. Loop calls -
-> >read_iter()
-> and ->write_iter() of the backing file directly from its worker which
-> runs with kernel credentials. But pseudo files enforce part of their
-> access rules at read and write time against current. Dozens of sysfs
-> ->show() and ->store() methods call capable(). Behind a loop device
-> all
-> of these checks are done against the loop worker instead of the task
-> that opened the file. And setting up a loop device requires no
-> capabilities, only access to the device nodes. So on v7.4-rc1:
->=20
-> - uid 0 without any capabilities can't write to
-> /sys/kernel/reboot/mode
-> =C2=A0 as mode_store() requires CAP_SYS_BOOT. Writing "warm" through a
-> loop
-> =C2=A0 device works.
->=20
-> - uid 0 without any capabilities can't read the files in
-> =C2=A0 /sys/firmware/dmi/entries/*/ as dmi_sysfs_attr_show() requires
-> =C2=A0 CAP_SYS_ADMIN. Reading them through a loop device works.
->=20
-> - An unprivileged container that was handed a loop device can't
-> change
-> =C2=A0 gro_flush_timeout of its own network devices as
-> =C2=A0 gro_flush_timeout_store() requires CAP_NET_ADMIN in the initial
-> user
-> =C2=A0 namespace. Writing it through a loop device works.
->=20
-> The same goes for hard_offline_page, the md and sd attributes, rfkill
-> and others.
->=20
-> Refuse files on pseudo filesystems as loop backing files. Note that
-> file_is_pseudo() looks through overlayfs so stacking overlayfs on top
-> of
-> sysfs doesn't get around this.
->=20
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Fri, Nov 13, 2026 at 09:18:47AM +0000, Priyanshu Singh wrote:
+> In cvm_oct_configure_common_hw(), when CVMX_FPA_OUTPUT_BUFFER_POOL differs
+> from CVMX_FPA_PACKET_POOL, 1024 output buffers are allocated and added to
+> the hardware Free Pool Allocator (FPA) pool. However, in cvm_oct_probe()
+> (err_tx:) and in cvm_oct_remove(),cvm_oct_mem_empty_fpa() is called with
+> 128 instead of 1024 as the expected buffer count.
 
-Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
+Hi Priyanshu,
 
-> ---
-> =C2=A0drivers/block/loop.c | 3 +++
-> =C2=A01 file changed, 3 insertions(+)
->=20
-> diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-> index c96e35c3ef42..1482580a1979 100644
-> --- a/drivers/block/loop.c
-> +++ b/drivers/block/loop.c
-> @@ -537,6 +537,9 @@ static int loop_check_backing_file(struct file
-> *file)
-> =C2=A0	if ((file->f_mode & FMODE_WRITE) && !file->f_op->write_iter)
-> =C2=A0		return -EINVAL;
-> =C2=A0
-> +	if (file_is_pseudo(file))
-> +		return -EINVAL;
-> +
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
+A couple of quick comments:
+
+Was this found via static analysis or code inspection? Since this changes
+runtime buffer accounting rather than just coding style, it would be helpful
+to mention how it was verified (e.g., compile-tested only) in the commit
+message. Also, there is a missing space after the comma in
+cvm_oct_remove(),cvm_oct_mem_empty_fpa().
+
+Best regards,
+Alejandro Lucero
