@@ -1,53 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794555402;
-	b=ubdmsFxQX9evrbRt66eo/ywQ+tzMz1/nGzh1OvTR0xlJ+XV7nOQtYdMUeQun5QeAa8m9
-	 kNkU9yQBcQAF4pWMGGzq70NCK56EsRSq9rF+mxSp0nzUhdu20KMCpPq6iMmEn6AHZ6D0S
-	 7neLZayfftda5OrE9SBBoZfu7HR0KbZB4eMGMfzT5zVp1E5qW/243Gz2pEtyh5yKxdwEt
-	 uuHhdC53NqH4db5S8wLdOlTyihXvU1pAERI80YvSiRH8uCr9PPp/Rmy6J0oEYm9ZygJai
-	 Yafp5kvMYORsplxHzWW5NA6OrgGnpEDQf6/N3tEwGIdyGkl9eiAH9P/QlA9mWDs2wxQ==
+	t=1794555414;
+	b=GAelPu7gJZ5Tas9ZIKyjIv8dKgZ/AdDsw10iicJK3KAqDUJeaCmj2S88BBF4dtUp7uKy
+	 nYYvmc5uwLDgyNUDVUOsik7x7gGqEAVRu7pS0pZ+s9nzx7Pg6DW/iYdmconliDVQl478P
+	 I1+o3UjoL0ZNV4ZRKTGkc0bpAzZ16UoFvc4DWVNK86QcbtO5uLnVeylP6J3quznRfPyiJ
+	 o4s7EpYkeQEiuf7EI5aUF/NCQOtBQIQ6x047taJUe7TUKoHWrfRYN4DUxd7dDvHxDGOrH
+	 PAacDwGR72Ar9OLx0a4yfYZC/V9CCsumck3ksOBagnGNTXkT3xuqdrsrpEKc67clNUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794555402;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794555414;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=BHtfXCiI/3J7we5i2m8+PEigqbS+6waVrqmdGce1Xfk=;
-	b=iBYzY0MYPgcFK+l/BntoKgcx455bdQlubRLIxhXz+SLo66jowXTTPqfGqHPteMZMGdCn
-	 hKwslKZScva2TuiKzol8KYULAlMGhgz6xkAH0LHUhzRdeLqDjDm287ueIWL81qhicR1F9
-	 5maF0wlKiNkN3F2mh+S1Wk5f8cNQvhlUMZ5WFuDVSgEpLdCG9n64ga7ydt/inLO0R+LMG
-	 xTW3xOn43yEX9wPDo2vj0y3ezRJt5yuhllsEfjBzOVc8jdBL4sZMIBSWrVGpjf0LOiSyj
-	 5VlkLUtxLA/QRRwiCf2xAoWsjptW7LSVawKFI3/0oOy/feoJsdAJJ2vbSHxuXT9kijQ==
+	bh=mX97vKGfKG79Gv/YC4HRVZ42o6kQjjPD71aRf1vrpj4=;
+	b=jDthnNngMPgpnm3XAY+2cb8hFz3MeizZ9NWOOaYNdkEJSk/wRvVaTD05Wj4FBf+Z7ctQ
+	 S6G4o+4Xl1hvSC7qU6yHCBfHCwSYkFbl0tMwq+epr7xyr0/lGzWEraSlYe/kXwZ4TSyEU
+	 MZ10CkD73+pRF8Pw3NEF5IPIIooDou3DXYCOqOoeGB6PYAPhtlDUUq4f6K4zyamz/QvTQ
+	 0r4ZwXPthgGvzFgNGG12y2IivB7syx3n0LaPuC2L1PFQO2rD+4HyU8dplfUMh2F5jtEFs
+	 ggMTot7ynU6QCxQeqwpXiMuShhbz2JisCNXTcTKjFRq1nUe2iZU1i7zkJMeZygoW4yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ia0ArtiP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E65606A31C;
-	Fri, 13 Nov 2026 07:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ia0ArtiP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 604041F000C4;
-	Fri, 13 Nov 2026 07:36:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794555402;
-	bh=BHtfXCiI/3J7we5i2m8+PEigqbS+6waVrqmdGce1Xfk=;
-	h=From:To:Cc:Subject:Date;
-	b=ia0ArtiPxqaEIvSgZboGIhlwNKIhwzWC0+xMMspLjd49GGN502TVIVsNjTpO9G0ca
-	 9woq5ZToytkFIiyQFTgKZ34MdW6LjE+t94HDUwN5pvodPzBxgEm+12N898+hkmeZVU
-	 I8fsokab6Sw9l+rTyLPVI8nJUa/6LWonuYsENwzVcm47i+da6ERn0Hm/LZoE4Syu0m
-	 /+74nyOowygEMzB+t5uszKEXQtCgcRO9qRXcS4NeY4ks70lJ1uD5MWHiAOIyiFSYzi
-	 WnsACliUYetmGFtjbu6GQ4Z8BUln5THtNMlp4P/eI2/aa0Kh9b6kQsEm+D/z/LIxnR
-	 sxqCtrNiqIA4A==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: soc@lists.linux.dev
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] memory: fixes: driver fixes for v7.4
-Date: Fri, 13 Nov 2026 08:36:32 +0100
-Message-ID: <20261113073632.34241-2-krzk@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C34606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:36:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23C34606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cd69954c755so860146a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:36:54 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794555413; x=1795160213;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mX97vKGfKG79Gv/YC4HRVZ42o6kQjjPD71aRf1vrpj4=;
+        b=Vuxtk7D8tnBgjiyO70r8szeXT3FPoA3gHmMAAOZ3fwIqIk22t0j3B+gx0AjwPH/uSW
+         8fBN6PxHrnpBYv63FSWCObWN6vSU1eOrN9QrqRNvNip0Jd6TLmq9UG8PnevyPaHHJK7f
+         G2YImh6adRHg6aZOyXWhxAz/TKBJw/USh9DBuTiSu0ESiwPDjDN+Kviqv9qnt9I4kl5e
+         hNeaipXftWMUJLA5ctIKF7ierobxhkB/uJJn42HL9Mw44y9lT/OXvUesf4Ey8lU07zoK
+         WyflQ+N2rpI3LerjgoGm9XzUTiu0ayW6DgBqakwEo1aT/m1co7BB8EoAbrLxxu01P972
+         QLsQ==
+X-Gm-Message-State: APuU4Z9CTWg4EMIYIJbXI6/yu7oikQG+BY8ZdL+OOjVv7NernNM10YNy
+	Et/hgmm4GPk5yyFiKYvH4PST8O1rA6/52HAPy9P21JfXbGlQaker2ee+
+X-Gm-Gg: AYBFou148ITQM5n8h1qQsooV8BvRii7L1wNHaqFGIfwny6XfjwjhUPt4N0vlX81Go3V
+	UobK75VziKfeXkA6JvNd3IvmJamn63QU/3905uBhvshmjA/JvLfni1hyNkf4FsDp88fua6OnhUj
+	yQr+Ihe9CeOJvjQiSCDImdixbwKeqoHjYbCKd4VQsierZvQwToYSCyeDpK6av1IZ8HOW7XBi51y
+	xwKwL2q1g7UYh1+N9hrDU6wPK49a3IbxaJY37PIPQ/Jh/Zhyn1eIEMdIHHdt2+h0beacT1Dr13f
+	dv75VgubcYirbqs3gtvJv7zFR2w6M02qmiB5ZSELEt4Q4+L0Qj2cbJqHPRppusxPk1hMrtKAue7
+	Z5aDQ3wG8RgJqRSuHvYdK9DEJV8K/9gJdM8kS1F00v0tFjgg8/RA3TE1DOXGSYdmxkkOA0NV+H2
+	GTnEajLHkYZ4BRLgoc6BkLNgPtGBSRFFai/veKaa+5wXkaONOTdOXNa4K/jJQi8IuqcrnQRG+4T
+	PkS9iOqrCee2rO8IXi2ny2KKhcCUCJa5ZA3JmKZTJLzvP9mOtsacQxqEIQhNbFzMnNu5J4BEwEi
+	i8eS2MQQW4H+fCAQrRGFw3FG2NOZhcfOEAuo6eWzQGEB7A==
+X-Received: by 2002:a17:90b:57c3:b0:3ab:9c73:130 with SMTP id 98e67ed59e1d1-3b1b0a108e5mr1426110a91.33.1794555413550;
+        Thu, 12 Nov 2026 23:36:53 -0800 (PST)
+Received: from localhost.localdomain ([116.128.244.169])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb179fasm3205009a91.4.2026.11.12.23.36.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 23:36:53 -0800 (PST)
+From: Hongyu Xie <xiehongyu1@kylinos.cn>
+To: Alan Stern <stern@rowland.harvard.edu>,
+	linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	usb-storage@lists.one-eyed-alien.net,
+	syzbot+30552b4cbe99d6d91306@syzkaller.appspotmail.com,
+	Liu Qi <liuqi@longcheer.com>,
+	stable@vger.kernel.org,
+	Hongyu Xie <xiehongyu1@kylinos.cn>
+Subject: [PATCH v5 1/2] usb-storage: add usb_stor_bulk_transfer_buf_timeout()
+Date: Fri, 13 Nov 2026 15:36:37 +0800
+Message-Id: <20261113073638.1225998-2-xiehongyu1@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261113073638.1225998-1-xiehongyu1@kylinos.cn>
+References: <b07b5f5b-4722-4f1c-84b9-205ba9b8943f@rowland.harvard.edu>
+ <20261113073638.1225998-1-xiehongyu1@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,71 +88,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2567; i=krzk@kernel.org; h=from:subject; bh=ZpzDHm6gT+qgra/rLO5sIUzhjSnwWAiDGTaAmcLwHNA=; b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq9r4A4/2bxvDejOPDCBOuPOpbeJHpGcP5Ow6wS euUYLYqh3+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCava+AAAKCRDBN2bmhouD 1wYmD/90FubDxCCbR6nMKIeNFC6ofdn15f5h/LPhNACc6SsjPXMGRfdu5eJEreKIp+tQYiCUsd8 Vl7M4mjD84egJrQhSYY2nPZCqLzEnIfv+I3Lej6KlrlpvqewL4pswbnVlf38+LSpxFD/vfhScsz zUiCpJdVBVhD8fjzNNEVQHaE6bpXd9AKD1oEw6aL5QYk1e598WXael+RRAVb5byQ8fnTmz1ULqs GQv/Y32wYOa/FQNvStRdyCDUZxNupCnGQSoeSYp2yjdd8Ilv8KoFWyOfmwQhSnrJHuHwInYvzt9 y7KIbFUUGnMObEW3C4FlZhBihXRRzd2vX5fOcsHvibM3WoP8He9bMq5cJk0B6j7Az5432G5dY0d NLYQ8LC4UK9LhZWPam0jf10dTen6WiNN0nSehS9qmGmSCuKC9KQ+sIGpvEdoRZ8+ICgLftfQg7p GdaWnpCsB7PKnOj8Vcp838OxLWCJEEvYWT7D3x8jqGWwwIoGVN79leEFznOZ6RXxRjL6ulEPI+a m76f4Z5dlqBGgMb82mzuxTQcsRIOACdb1kGphoZEZCO0CnJI8i9rEyVQMWSuP6ny4hzQD2NVgNO iZy4F2BqcnsOFLiSnizLS7m2AJLoG5E8UZ+iVcXYRIKY74W6CH6pHvjDHZw+3IV8cD0ACiU5HAK BXoHk9/rU2wJO5A==
-X-Developer-Key: i=krzk@kernel.org; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
 
-Hi Arnd and SoC folks,
+usb_stor_bulk_transfer_buf() waits for URB completion without a timeout.
+That is correct for transfers belonging to a SCSI command, whose timeout
+and abort handling terminate the wait, but not for transfers issued
+outside a SCSI command.
 
-A few less and more important fixes.  Sashiko as usually exaggerates and calls
-some of these "Critical" but exploitation likely requires already root
-privileges, e.g. through device unbind.  Cannot rule out chaining
-vulnerabilities these days, thus sending these as fixes.
+Add a variant which takes a timeout, in jiffies; zero means no limit.
+usb_stor_bulk_transfer_buf() becomes a wrapper with a zero timeout, so
+existing callers are unchanged.
 
-Best regards,
-Krzysztof
+Signed-off-by: Hongyu Xie <xiehongyu1@kylinos.cn>
+---
+ drivers/usb/storage/transport.c | 31 ++++++++++++++++++++++++-------
+ drivers/usb/storage/transport.h |  5 +++++
+ 2 files changed, 29 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/usb/storage/transport.c b/drivers/usb/storage/transport.c
+index 8de3015bce050..424293658918a 100644
+--- a/drivers/usb/storage/transport.c
++++ b/drivers/usb/storage/transport.c
+@@ -378,12 +378,17 @@ static int usb_stor_intr_transfer(struct us_data *us, void *buf,
+ }
+ 
+ /*
+- * Transfer one buffer via bulk pipe, without timeouts, but allowing early
+- * termination.  Return codes are USB_STOR_XFER_xxx.  If the bulk pipe
+- * stalls during the transfer, the halt is automatically cleared.
++ * Transfer one buffer via bulk pipe, allowing early termination.  Return
++ * codes are USB_STOR_XFER_xxx.  If the bulk pipe stalls during the
++ * transfer, the halt is automatically cleared.
++ *
++ * A nonzero @timeout bounds the wait for URB completion, in jiffies.  It
++ * must only be used for transfers which are not part of a SCSI command:
++ * those rely on the command's timeout and abort handling.
+  */
+-int usb_stor_bulk_transfer_buf(struct us_data *us, unsigned int pipe,
+-	void *buf, unsigned int length, unsigned int *act_len)
++int usb_stor_bulk_transfer_buf_timeout(struct us_data *us, unsigned int pipe,
++				       void *buf, unsigned int length,
++				       unsigned int *act_len, int timeout)
+ {
+ 	int result;
+ 
+@@ -392,14 +397,26 @@ int usb_stor_bulk_transfer_buf(struct us_data *us, unsigned int pipe,
+ 	/* fill and submit the URB */
+ 	usb_fill_bulk_urb(us->current_urb, us->pusb_dev, pipe, buf, length,
+ 		      usb_stor_blocking_completion, NULL);
+-	result = usb_stor_msg_common(us, 0);
++	result = usb_stor_msg_common(us, timeout);
+ 
+ 	/* store the actual length of the data transferred */
+ 	if (act_len)
+ 		*act_len = us->current_urb->actual_length;
+-	return interpret_urb_result(us, pipe, length, result, 
++	return interpret_urb_result(us, pipe, length, result,
+ 			us->current_urb->actual_length);
+ }
++EXPORT_SYMBOL_GPL(usb_stor_bulk_transfer_buf_timeout);
++
++/*
++ * Same as usb_stor_bulk_transfer_buf_timeout() with an unbounded wait.
++ */
++int usb_stor_bulk_transfer_buf(struct us_data *us, unsigned int pipe,
++			       void *buf, unsigned int length,
++			       unsigned int *act_len)
++{
++	return usb_stor_bulk_transfer_buf_timeout(us, pipe, buf, length,
++			act_len, 0);
++}
+ EXPORT_SYMBOL_GPL(usb_stor_bulk_transfer_buf);
+ 
+ /*
+diff --git a/drivers/usb/storage/transport.h b/drivers/usb/storage/transport.h
+index 74ffd0d7e7b6c..361dbd77f15e3 100644
+--- a/drivers/usb/storage/transport.h
++++ b/drivers/usb/storage/transport.h
+@@ -77,6 +77,11 @@ extern int usb_stor_clear_halt(struct us_data *us, unsigned int pipe);
+ extern int usb_stor_ctrl_transfer(struct us_data *us, unsigned int pipe,
+ 		u8 request, u8 requesttype, u16 value, u16 index,
+ 		void *data, u16 size);
++extern int usb_stor_bulk_transfer_buf_timeout(struct us_data *us,
++					      unsigned int pipe, void *buf,
++					      unsigned int length,
++					      unsigned int *act_len,
++					      int timeout);
+ extern int usb_stor_bulk_transfer_buf(struct us_data *us, unsigned int pipe,
+ 		void *buf, unsigned int length, unsigned int *act_len);
+ extern int usb_stor_bulk_transfer_sg(struct us_data *us, unsigned int pipe,
+-- 
+2.25.1
 
-The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
-
-  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux-mem-ctrl.git tags/memory-controller-drv-fixes-7.4
-
-for you to fetch changes up to 1a509eca07176bc3363031c030d038ca9be9dfc0:
-
-  memory: fsl_ifc: Do not dereference the unset global pointer in probe (2026-11-11 16:22:36 +0100)
-
-----------------------------------------------------------------
-Memory controller drivers - fixes for v7.4
-
-A set of fixes for more serious looking issues reported by Sashiko,
-although in practice these target only a very specific condition, like
-probe/removal racing:
-
-1. Tegra210: During probe error paths or device removal, disable timers
-   before teardown to avoid theoreticall possible use-after-free.
-2. Tegra186: Fix OF node reference leak.
-3. Freescale IFC:
-   - Fix possible probe error path use-after-free on unrequested NAND
-     interrupt,
-   - Fix possible use-after-free of a globally exported device control
-     structure after device unbind, if used by out of tree drivers
-     (in-tree drivers do not use that export).
-4. Atmel EBI: Fix leaked SMC clock reference with missing enable/disable
-   balance on probe failure (e.g. deferred probe).
-
-----------------------------------------------------------------
-Krzysztof Kozlowski (2):
-      memory: atmel-ebi: Disable SMC clock on probe failure
-      memory: fsl_ifc: Clear fsl_ifc_ctrl_dev on probe failure and removal
-
-Myeonghun Pak (1):
-      memory: tegra: Shut down Tegra210 EMC timers before teardown
-
-Runyu Xiao (1):
-      memory: fsl_ifc: guard optional NAND IRQ cleanup
-
-Sasha Levin (1):
-      memory: fsl_ifc: Do not dereference the unset global pointer in probe
-
-Selby Mashiki (1):
-      memory: tegra: fix device_node leak in tegra186_mc_probe_device()
-
- drivers/memory/atmel-ebi.c               |  27 ++++++--
- drivers/memory/fsl_ifc.c                 | 107 +++++++++++++++++++------------
- drivers/memory/tegra/tegra186.c          |   1 +
- drivers/memory/tegra/tegra210-emc-core.c |  16 +++--
- 4 files changed, 97 insertions(+), 54 deletions(-)
