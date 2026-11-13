@@ -1,94 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567900;
-	b=w5yu1e0loepDSDi5QvHM7zsOKyHoSdCV/S0pCky0GHSl1g6MF2jt05cw/zW3KWShUfXz
-	 DOv/EJO+BRig5+xDT+g3v3Mh2cd1Czb/ME23YDRwJkRv0jrI9gxjxrb/PeB0HKuoXOdhs
-	 QKs0AGoAFMlO3YK6O15Et3X+DVjE7eb3HvgZ3QtgziRWpDmz77hlaodmhJ6gpqncgS2Ti
-	 p98Kmi03/QGdNr08dOqrJkjyG7BtE2Hs1PkDXynWtOvmsTBtOce4y9tFkW1ANW3z/HLCx
-	 nXv6zYLVqg0FVkxgL6U9wAiK8T+CPXMC3VqXOBYOs/f6XbqZYM+sEMPheFCevl3SUtw==
+	t=1794567905;
+	b=K+KwPYHhuNO9iQBF3b0i4OPfnC3+wmO1PbR+/jkt6gGb+83C+GylL/61mLGU8KH8RBE1
+	 y7hoVjRUoUtr79NFHD+GqaEJNG1Gm0VInkPvHv4LARZQH6Sp4mrRMQ0mv7/xfE5aLGLnZ
+	 V3yR3iKpw47hClqSlXb49H7BmMJ2VRGzNxdniyU7byJmmx0uMXIJjdSTxjtEHaDIiqfIo
+	 zzkajiatRtAi1xTmSkKkGXDW4oYcIm1jrs42FZf4poJLO5aZzxgmNYaZ6ir9blF62pm0j
+	 pxdaN8VW1bXyLf9oJvVvPYoyIRfsMb9r3HdTfrQMxQD4jM/NDUVYQKoTf6M18LIijAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567900;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567905;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=kAtCiR0ZuKR2R9RouzclbymoG8didRg2rOJs+0NjmQg=;
-	b=2T8sgonfEZ0NLMehXzB1P8hz25HpwdAEDznqsP4F952+qYglR66nAY/VcB8fmioPsyKH
-	 jwRC+88DtkLlGsDS9tstzmFqnAg0Lztc7T+3FGeczR7Xp5/syo8djuf2hcH852NpLcmd5
-	 kJ825dvWSkpIR1W6ncAlUeZUvgKjcZbjJzlU1TVjAtdG3e3BnoyFP6tUN+HQKcRJWkeu0
-	 0zuT8cj7QNUV70SG97Y4w2BqBhLqfe54gBuuX5BB12jbd8PECp+inFJUb4CV8KBvYOapE
-	 YIveJQK/6vlGxwzCVoMc4sr0APxn7r/O7NTbgOYLvW23CpdK9apmHef+KxM4xI60g2w==
+	bh=k5kTzIC/xwbiOBwUmgidJlrRFiWrIZutr9d7t0kBwUc=;
+	b=O8b0jcANePo6HMHdCtI/O+cgStcV+BxaI+rHnawRttL5UtqpM5vyd4NtRts3c3zpNrQT
+	 z3OesPhjAAgcCGqbqqMQKtkZyHF/QkRUmW3wkqMYz9PDHQZwcZlI0wKRZvWr7QSJuwbhB
+	 GryeP1jTs6UeXfGtUhRHqd+I8vs/weUDVCKkZBePcYLZnAcdamT89wtRzteNcn0czIxk/
+	 fudms0JkSfTodDyTMaZBM7QwFrsydW4c6ON+hyXYagX9hf+LiErJbBxVgCpE5jroAkQ6F
+	 UhpGPoxWdqwkLWKGvWTSmmV7n+ZXrzqPincARptv/jdKlvnaq24NENTSqKhESWNUNaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qxAi4yMD;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yoJksLH7;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9BD606A332
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:04:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F9BD606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291B7606A332
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:05:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 291B7606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qxAi4yMD
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ed1414df17so5923645ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:04:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yoJksLH7
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so11403445e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:05:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794567898; x=1795172698; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kAtCiR0ZuKR2R9RouzclbymoG8didRg2rOJs+0NjmQg=;
-        b=qxAi4yMDoGkIQPY1NoRL/5crFrECSYUzazs3YEJBhVFjwdzd2zTJE6qXin5jCIWUxd
-         kGjY71s18FcTsDnmtdKUCdgmf+qc9xUPOfXNReHdx5wytcfYoi36SzOdfvLMC0La7obJ
-         ad2S315tQe2zNpmdi6v5He14nqGmG3tokxly68EpNvezE7aCzjXMUzJhRbuga1UEDQx3
-         wYkuwpEJyi7QTEwjlH4hrTXn4E5xXok8iY0clBFZFdrzCuYhRWe1aH30gk+G9NlA7CDu
-         dkUQIWSRCVzgF5EfS4KoqkSdvgKcXRXWS6cPqW8wTn9R0C3ZtxxucqbRDbtaieRRibqE
-         2eow==
+        d=gmail.com; s=20260707; t=1794567903; x=1795172703; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k5kTzIC/xwbiOBwUmgidJlrRFiWrIZutr9d7t0kBwUc=;
+        b=yoJksLH72T5ruQc9lM2z7lpJklpea7vOdB6SjdBgssV4CRuR5mmYwzAnslnXJxggVE
+         eO1zLkISX5gyNaCAFFr+xs4iAgnbAo4Pf0s1HM1Ol1bFozWQKxTgQ15MxQ9CyzMTUAsH
+         +j5PWuK4FXbEtLmwreFPOLKewDQrretJrs8fRfDHatnKrfp8s7SGPPYfvOT53W5ABogB
+         RF83NQ5NNuGOljgCY61gxaQn9hfzMJJd8qIChgBBU3SFsSidocbM87ELh6BabMF5E9xC
+         E00DhZWPGHEDt2kf/1euUlWCA3Zs7+iiGvt7iARNdjpGUZv20de1dJFYpzTgtXfT4Zw5
+         BBRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794567898; x=1795172698;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kAtCiR0ZuKR2R9RouzclbymoG8didRg2rOJs+0NjmQg=;
-        b=oRIOhg1G4VBqiv/Hf+Mkgj3DRwqbp6WYUoH9YcFJvxLZmQYe+mAFA84ZUw0sq/LWZv
-         s8jZ+HZUre0DvV1sT9QEv0zRRq5rk6v3AJiOWI67VVIxw+n6RTPp9KolafsKwTSsVPBz
-         LgXTrIMHeTVapYRPci1PRKNd3cDmwikZ90hVowyY4geA1E5Zu3sZ8+WTSUfWVc5e2vx1
-         trsrSZ4MBge/GrmHVFwohkEl8GcZ2vYmj4VgEKSdtXwQBu85XtvIgyZ7n/qaakvzurJa
-         aO0pP2XG9iGtcUHOtoU/xjf+igbNp8jOL+K7FQxycMBVtLkvm/8WhYzAKt8aQXpYCnbs
-         0ATA==
-X-Gm-Message-State: APuU4Z8sygC0mnjI/IQ5UHRLzDQzUdQDkTBFWGxoMx9rb2U+YJ/tzB99
-	klTXMK83x3JIW0pd/emRyCLfwjhl46/MiMO5UUx2QK6L5jl7xOhNPeXf
-X-Gm-Gg: AYBFou0AbhFVTG9LJtuSKBWFtmsM3A7xFoe4ICnAoOMiJD4BHBg22I/4bxEEAgwVaXj
-	BHFmHbLJ1CjtnqcrKzwkz7QGWOJt4AhIbfJ9Q3XTA7C6CUFJy2KEuq1QwHN1jCPpbkLcSgmtreY
-	Tdgcva/STOL8iaYzhVYLp1O7IUetZziJU5YwI42KNrgR5Pi0M37zu3KGaXvOZxBpHtDlMo+Vgri
-	TD+/nbW1z8hE6vdhtvrcVD2E1jIlIZkg5hdvXJZyibavO04cW+ZdLyM0N8KJGRx8k999Z+wH6+y
-	r9kPWDg4N4vmGyanzqQucuYRIvZb51QIpyAU94qnIC+B13RIwxrwt4++VcDmvQsJ5Wd793Z19zM
-	oTtEMi6htdTQtwHwvDweskpadUQuKLtgbUC6JeHy2mIbwYWVcGMCn/53SCkf6ciWbF1DwZshmZU
-	B85m1DpXmc6vd/IPN/HG7YZxF0fYJQxTc/0cXyZR4X5VWolINJbzOz96vLDM09QIwblgc1hbKmw
-	+SNI9u5s7Y1GmIT+X48Rn3xZC6ajdbDgDUQJPCf5Njky/LjxHtuNceZyE7elDQYz44SjRbVs2v8
-	9gqeSk+q3AT0OFh6lj4mhTbljdP2os0tz6MnwHCakb3BbotaWpym
-X-Received: by 2002:a05:701b:2402:b0:143:868a:20c1 with SMTP id a92af1059eb24-1b503193011mr2018955c88.46.1794567898410;
-        Fri, 13 Nov 2026 03:04:58 -0800 (PST)
-Received: from localhost.localdomain ([103.149.158.176])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379508762a5sm6856653eec.0.2026.11.13.03.04.56
+        d=1e100.net; s=20260707; t=1794567903; x=1795172703;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k5kTzIC/xwbiOBwUmgidJlrRFiWrIZutr9d7t0kBwUc=;
+        b=dgg1Cze38Vjkf34JjU8qT/qL4QyUgO2/g/JphQOba+vfY2EUZ5NUQRtft8gn4MM/nb
+         mtkRrqa48ZTkH/zzOlL+S5fLz6LHnsMd/1atdaGyBdSyTLp5EJWc+9iLIShm1NvDfHRl
+         09FbZD3xR1sUYYmnCp1zeSqArO0YqgaNXqXA+FRUJ66xfc0RDBw1fnA36RKmH8jSD0tQ
+         ww64R4IfCGZ+AANL0LIt3DV14tu2y7IfJk9ulfRBuZyE5ljTy707pM69nYP+UkSGhAiW
+         /A0ZQLaM5CfumNw506sdvIXPZO6Vf9uTGz6Gi04NnO1qIXQcCJ6noDEMV8pPMkq5WcPP
+         05tA==
+X-Forwarded-Encrypted: i=1; AL+hErGWUqJQ9KDe6Z2KxhFHvjbDuyRdWwRbNm6cS2Az1t+4vrAFGJQsLZ7XIqFy/n4RBX7V00KgJNWhcsNQCgo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Yh4GcemM8tiG7sTFZ91TU3LIg3S5vukgDM6fyHt1MbFjN+5y2
+	Djd6JRHo0jKiApz0XKqsfXPOIvFoWIPdBCwCqnbe48FABqKo/5/RE4JA
+X-Gm-Gg: AYBFou2YUjJ5KNs47qDNZhN5gukVwkyJYVNjE59bHBFPfrXv4oJEYtEGrN3KhO2gnk6
+	/+xrQ17I+sM6yBQx1jJmXZhMDv9dDVw1r19hAsy/kO9nI4Hjb2CgMxwjfsT31JEEPu5voXMtQEx
+	7ShWonEVUf6txOt/HnFl491v5DCs+uZXpMty+Hj626ufNnXYJSeRl/MmYmmnc3gfUgZ2qHF3ROt
+	rqOsRKdA93IlWsr2kbkMG9a5VoZ64EsSI2/36fl2gRbdyJZ/d3Cn8vm2CtspbRMLezBssKD/avd
+	vJB0eoR7TGO4w1VNel2shwaZ8NxXcmrU9YKPPWfUdUUwWkdPwbGkMVtPsI9VqftQQyyXgzVL/mA
+	JN8isxBUX30CCE+twQR5HLlAnKWH/X5VO4lx2PnjW5zKNNfpbLxYfT5z60iJ6w8unJWNddCtfAt
+	KZ5odgjgciwTXHw30BrWkevNAQc4e8SKXVPMbhcEE6CfYBX5J9LYJ9qt4AhfJhRXPbEGxwn3m7A
+	Rul61/Xk8FA/kZLnWDAV9b4Aw1kAoPCpHB7jR+lzRSdOuXS+iR2NhuPeXTJ+3Za/OMwGQNbKPTh
+	E/Vquvl3tbVl+o89mu1dOr9XQFAv22RDzJU=
+X-Received: by 2002:a05:600c:c4a3:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4bb55a02932mr43197405e9.1.1794567903271;
+        Fri, 13 Nov 2026 03:05:03 -0800 (PST)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55afb6absm57515955e9.15.2026.11.13.03.05.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 03:04:58 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: sreekuttan2156239@gmail.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.de
-Subject: [PATCH v2] ALSA: compress: Fix task resource leak on copy_to_user() failure
-Date: Fri, 13 Nov 2026 11:04:27 +0000
-Message-ID: <20261113110427.4256-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261113104518.3951-1-sreekuttan2156239@gmail.com>
-References: <20261113104518.3951-1-sreekuttan2156239@gmail.com>
+        Fri, 13 Nov 2026 03:05:02 -0800 (PST)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+	linux-i2c@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] i2c: imx: test the block read flag of the message that is read
+Date: Fri, 13 Nov 2026 12:05:01 +0100
+Message-ID: <20261113110501.1142036-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,106 +105,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The task creation path allocates resources and installs file descriptors
-before copying the task information back to userspace.
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-If copy_to_user() fails, the function returns -EFAULT without releasing
-the allocated task, DMA-BUF references, or file descriptors. This
-leaves the task registered and leaks resources.
+i2c_imx_xfer_common() decides between the DMA and the interrupt driven
+read with I2C_M_RECV_LEN of the first message of the transfer instead of
+the message at hand. A block read of DMA_THRESHOLD bytes or more that
+follows another message is therefore done with DMA, which reads the
+initial length and does not look at the count byte.
 
-Delay fd_install() until copy_to_user() succeeds. If the copy fails,
-release the reserved file descriptors and their DMA-BUF references,
-then free the task using snd_compr_task_free_one().
-
-This ensures that task resources are properly released when copying
-task information to userspace fails.
-
-Fixes: 04177158cf98 ("ALSA: compress_offload: introduce accel operation mode")
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Fixes: b460b15b3cc2 ("i2c: imx: separate atomic, dma and non-dma use case")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
 ---
-v2:
- - Add Fixes trailer.
+Reported by the Sashiko review of another i2c-imx patch:
+https://sashiko.dev/#/bug/linux-f62df5ed-ad96-43f2-872a-ae2c0100b73f
 
- sound/core/compress_offload.c | 34 ++++++++++++++++++++++++++--------
- 1 file changed, 26 insertions(+), 8 deletions(-)
+Tested on a Colibri VF50 (i2c0 with DMA) with a v6.12.117 kernel that
+carries the i2c-imx changes of v6.13 and later as backports; on this
+base compile tested only. An I2C_RDWR transfer of a one byte write
+followed by a read with I2C_M_RECV_LEN and an initial length of 16:
+without the patch 16 bytes are read and the count byte is taken as data,
+with it the count byte is evaluated (here -EPROTO, the device answers
+with 0x25).
 
-diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index 5e5e0f78f26d..432717d5d433 100644
---- a/sound/core/compress_offload.c
-+++ b/sound/core/compress_offload.c
-@@ -1124,6 +1124,9 @@ static void snd_compr_task_free(struct snd_compr_task_runtime *task)
- 	kfree(task);
- }
+The line is from v6.13, the patch applies to 6.18.y and 7.3.y.
+
+ drivers/i2c/busses/i2c-imx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
+index ccf08cd63151..9abe0a26c877 100644
+--- a/drivers/i2c/busses/i2c-imx.c
++++ b/drivers/i2c/busses/i2c-imx.c
+@@ -1713,7 +1713,7 @@ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
+ 			msgs[i].flags & I2C_M_DMA_SAFE &&
+ 			!(msgs[i].flags & I2C_M_NOSTART);
+ 		if (msgs[i].flags & I2C_M_RD) {
+-			int block_data = msgs->flags & I2C_M_RECV_LEN;
++			int block_data = msgs[i].flags & I2C_M_RECV_LEN;
  
-+static void snd_compr_task_free_one(struct snd_compr_stream *stream,
-+				    struct snd_compr_task_runtime *task);
-+
- static u64 snd_compr_seqno_next(struct snd_compr_stream *stream)
- {
- 	u64 seqno = ++stream->runtime->task_seqno;
-@@ -1132,7 +1135,9 @@ static u64 snd_compr_seqno_next(struct snd_compr_stream *stream)
- 	return seqno;
- }
- 
--static int snd_compr_task_new(struct snd_compr_stream *stream, struct snd_compr_task *utask)
-+static int snd_compr_task_new(struct snd_compr_stream *stream,
-+			      struct snd_compr_task *utask,
-+			      struct snd_compr_task_runtime **runtime_task)
- {
- 	struct snd_compr_task_runtime *task;
- 	int retval, fd_i, fd_o;
-@@ -1169,12 +1174,11 @@ static int snd_compr_task_new(struct snd_compr_stream *stream, struct snd_compr_
- 	/* keep dmabuf reference until freed with task free ioctl */
- 	get_dma_buf(task->input);
- 	get_dma_buf(task->output);
--	fd_install(fd_i, task->input->file);
--	fd_install(fd_o, task->output->file);
- 	utask->input_fd = fd_i;
- 	utask->output_fd = fd_o;
- 	list_add_tail(&task->list, &stream->runtime->tasks);
- 	stream->runtime->total_tasks++;
-+	*runtime_task = task;
- 	return 0;
- free_driver_task:
- 	stream->ops->task_free(stream, task);
-@@ -1185,6 +1189,7 @@ static int snd_compr_task_new(struct snd_compr_stream *stream, struct snd_compr_
- 
- static int snd_compr_task_create(struct snd_compr_stream *stream, unsigned long arg)
- {
-+	struct snd_compr_task_runtime *runtime_task;
- 	int retval;
- 
- 	if (stream->runtime->state != SNDRV_PCM_STATE_SETUP)
-@@ -1194,11 +1199,24 @@ static int snd_compr_task_create(struct snd_compr_stream *stream, unsigned long
- 		memdup_user((void __user *)arg, sizeof(*task));
- 	if (IS_ERR(task))
- 		return PTR_ERR(task);
--	retval = snd_compr_task_new(stream, task);
--	if (retval >= 0)
--		if (copy_to_user((void __user *)arg, task, sizeof(*task)))
--			retval = -EFAULT;
--	return retval;
-+	retval = snd_compr_task_new(stream, task, &runtime_task);
-+	if (retval < 0)
-+		return retval;
-+
-+	if (copy_to_user((void __user *)arg, task, sizeof(*task))) {
-+		put_unused_fd(task->input_fd);
-+		put_unused_fd(task->output_fd);
-+
-+		dma_buf_put(runtime_task->input);
-+		dma_buf_put(runtime_task->output);
-+		snd_compr_task_free_one(stream, runtime_task);
-+		return -EFAULT;
-+	}
-+
-+	fd_install(task->input_fd, runtime_task->input->file);
-+	fd_install(task->output_fd, runtime_task->output->file);
-+
-+	return 0;
- }
- 
- static int snd_compr_task_start_prepare(struct snd_compr_task_runtime *task,
+ 			if (atomic)
+ 				result = i2c_imx_atomic_read(i2c_imx, &msgs[i], is_lastmsg);
+
+base-commit: 25e7ab89f4774b0f842cee0e8a20c11f755924d5
 -- 
-2.55.0
+2.56.0
 
