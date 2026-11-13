@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794601438;
-	b=253+ZYQf1ND1Ufwi8EN86OgNMzSUaV1P3qqL6vB5wdqaLkU4isXC8RXWrHGvOK3Whi32
-	 EEhofGBy5+vYEZOksHNOrm4ORrJdk5yDDU+pepmhTZ4KvCOgGiM9NLs4gaonstrPfIHp0
-	 KGrTmh6+sm3UnO1gCHuq9XPYz6p0X19Xqyh/lC0HgqpfrALTQaudDAoJs2ceVR50KxXKc
-	 WgkHVmptMSyA8WbUy2PtpCZhM8p7TfFB8N2z71ZyxeCzDwuN2qiqprhok6kXrMtP8CugX
-	 cSG+FqcywCSxO+vMOMmqGHTjS2X+2Fl2LQ08nCQN3nXNB6zyHbWKkhz3Sz5dERbiYRA==
+	t=1794601441;
+	b=gW72/CZvtMhIkoggx7l3AdMD1Joipnrl9hNbNBwzy8swhFWCYfLSGVkXC0NutFYbkG4c
+	 alNeOohP0qdavuSd9sDWJ3e8bQae+VO20bU77qmLgzO3RN07dz5lHiLW3GXgJQxclUUsj
+	 2shUwzTdHqFSIKySBpWqNycGQXeg+gkUUIbtd0F+7R3rzCL5iqVe4NRg3aoWHmDBMejPo
+	 6ACJhw50HLW/rcmD6jTEMkodvTGg3LmzWdjTy6xsJWeLhRUr51xZJF2oJ+ndOSq8EiaJ7
+	 z6o7y4qeNq+4o70QjKn6StKXxJpwPa/4ohYFKsj4OurL/mUh/SkRSMNR9dxtPkchA8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601438;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601441;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=xbWBgXkenSa9yRsymUcI7Wl4ur3mhX+FS+9uM+YkKCo=;
-	b=09DLV/qNVQOPxgAisUGZx5ZAqvqXQ3bBYq1d5MwqfVif9SCHZo6nwQQ36i813H1CMWik
-	 5MhA+V41qZ/QggHHlRL8PCsSfjyU/wIkeOI+OhibzXpCQmFd878PcbpIlbuaK96r1otN7
-	 twx/SjS+gK1JemrmLiduJNJ7wZtd0Ca8RvanOvswV0JSK+OiIMiiIGuyTJlLH/yr02uUM
-	 OJ9cM1es8LQM360ndsxV2ACO4vcArtjkJWmjpwUI0sBGDZQD8L7O6oKjjhmWVc58Pf1TV
-	 Ghr9zthqcA35HUhVTFqkiV4WSkjtegIC5+ou7FxSZFhcdoxAkHeATcdIJURBFfhlAZw==
+	bh=u7Jx9B4XiDyCzWqvWYy2iq25I09vd8jKOKtiPXq+9CY=;
+	b=NuqaPdBeYHwdgeb2Pe2ayvgI/KqTxtmUerkL4SkLYq9mYEHhYX94r4HNDYMHJ+BSwKqP
+	 hU1YknpgMGyjkKao+jMH3GzXqr8v5R2ksJlDzn/lLCA8sThve+cN/qbnfAbw7SltMbxik
+	 GqhmwM9x86higrjzzysLN1GkSGFW4N72IIXy/RwsIkbVDeuj1PsHL6K/6srJ2uXT3FaKA
+	 OoA2ftSttpkx/LNY2lgZg7wkIobdzqPZG5wRA5mjgOEfcOV/yF+GMAQKCNHqkGpZOymPt
+	 0822Y+i5+NwCx7QRheSV/RGvzeb4G8KvwmAxssVUTkUmcy2EpwjQA6CAUk4CzO35uSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZbXb6Toi;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YpsjCMtm;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A4F606A883
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:23:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25A4F606A883
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82A8606A89F
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:24:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B82A8606A89F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZbXb6Toi
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so14495995e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:23:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YpsjCMtm
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so11109885e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:24:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794601435; x=1795206235; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794601439; x=1795206239; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xbWBgXkenSa9yRsymUcI7Wl4ur3mhX+FS+9uM+YkKCo=;
-        b=ZbXb6ToiEor+Fks4PY5+zaOANffpyCUalvAA3FTNQCzl3dIT67JiJK/lFT+LibVv1R
-         +gcfdwZ0t//pP1PP3y3RGJhyRZvOW0btRS7B7Ama9LRWK+Dj7UOoi+mOAyHnQfo459SQ
-         RKDQe0OsTaJ+THPvQppDwb5gv8aYVMq85S1f5b4S4aO91vVMDOJd5AADEH8eE4bN9CXP
-         vWTeg3GtQGcWyxouqrVH2W7SlfZp/05TwfTyHyG4zXw5VW4RD/UFMak6Spk0oOmTFywY
-         JaW4xxvQBR6Eo6iZ7smq63zHqsHc1jFxGGk3ajq2CbTtiNX0d7NzGzzraRjbQBjTMMbo
-         unoA==
+        bh=u7Jx9B4XiDyCzWqvWYy2iq25I09vd8jKOKtiPXq+9CY=;
+        b=YpsjCMtmCYEgPWqV+30pK7N1ZmgaoyTqGauBzlwfhSeCNLAGr2JTsjyWcQwjkuerTf
+         oOqJ7kKIeDc9RxClm6MskoSOOKlqrF+a6tAbWaxr2DQH+czdaqrPCJrqgS/uLRYPUNW9
+         gDHVaqqcR/PGNSQ9ksVsLEl2AsFk4Aluv6F/s7lsfpncTSnPHdKriiLafjotRrTFqSoM
+         /NAoNribSHaasKcrbhYO40bnHctgDriSDtrWTAaOnrzH99oYgWVz2nfRk4s/ZeveY2md
+         UYRM+1ujFTkHSmf3BxiL5udVKNgpihild2wK5OeTyCdBnjxDd9YTvkiY/8HF+UVyywhL
+         OsOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794601435; x=1795206235;
+        d=1e100.net; s=20260707; t=1794601439; x=1795206239;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xbWBgXkenSa9yRsymUcI7Wl4ur3mhX+FS+9uM+YkKCo=;
-        b=N84MkIEWJ4Bw4YlxOZmi0o29us5fJZh6WpgbWBaPnLfNu27GFXzPEGmdv8rve6aUbh
-         XNDgWvs/uikjf0Sv/XpwUKa/SuZwXng0kYHU2Z7r/L3yYdhWnnZqm2Vyq9Wr8QEmKfCf
-         //JfTuicUMYscO/MQ1KRypYBhB0kXF0GiwFLn+SE8bEDI7inF/NVgmfmjR2l/zlO+SyA
-         3lEL4g8detb9omcADaQ7Ost9phdcfGJfnlMN94T5/IM4FUcSB5H2a5EC6W1q+giKScSE
-         1NhYeIrbdKxzlLdTkb1Gkf/hnCfZuoycGFvtGhX0S6s9gf142/QHbHvrCBQNZwjaAB0V
-         WpEw==
-X-Forwarded-Encrypted: i=1; AL+hErEoyrrFFr7KJ48Id/zpvak2jbc9PJmQUPj59BecZrva685E/BUl8sMqe1C0s7g4RVhnrjioPx4mqy43jxI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pqo3c4z+8OLkAk2kf4ru4YGc3taKXZYY+G5H2gDKVNwG7/3dq
-	+iKEHQgPrT7/aFE52PCK7YwUxBctGMwoRu3l4m3Oi6YK2pXfEF8c1VCD
-X-Gm-Gg: AYBFou2RaC3ZITp1yTkhOenRl6UIhn0XV62fNkRrWxD2n+y8B+0iPLgbU3jXoyoyMHt
-	bXwnV/sGjIn7Ig7YqN3e2Y+BQay4N+wUKiTeeKLmegPf7BmXV5IPEA17FRCFxmAHuGFpS03XMji
-	0avqZVFGgcY7dAgsTtX7oGREX8mLJe9x/iGDO3XPtAU0WvFpV7u58TzMGtAbUM1Qrb21qscZbOt
-	EtcsBD1gr58iAm7fjQdLtzS5xBkykwTRVIuloUjf6uMP1FvVb41aj2sVVsLazs6evtGBaNHk4pI
-	AnM51dP/RdcIpXmreRhBc1h1HAGFkZ4oVYdEFuPkeuF7B9qoKuaqYmkTHJwbPs5td4Nfv7jI/r2
-	t58RS4lVwMI8/xJrBA8G7wmqA2aGPlzZj8o4OfWnJ4/Xa9cZNE3L4ALcALzK6LvWBinzCEexfO7
-	JeMI9Tz7td98AAy4FulzXHvRGwG2mTeqNV9O5AODoOvOdX4wkmLySKg6VhuwbE69H89GRVf/iCF
-	RaB1u+oeSmBGVvoyaHHV/viVoVhG2RlkK3+MEJT608UpoNV5yu6/YSNu2OdCTR4ShU3RN6DrjkE
-	FkA99XwXeBGpCtZSlNZGHqdw2yQS//PxE+3Kfx1ClL8zVIlgQ2h6Qw==
-X-Received: by 2002:a05:600c:4504:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-4bb559f044amr74646205e9.2.1794601435369;
-        Fri, 13 Nov 2026 12:23:55 -0800 (PST)
+        bh=u7Jx9B4XiDyCzWqvWYy2iq25I09vd8jKOKtiPXq+9CY=;
+        b=DzXD8NIg8cgnnyXZ6T9fClkqDFGkg30CCry53NmMerKfv5bsiqPH2IMVF/sTMdGGXq
+         jgF1GbBa8tB/Vxrc66gNlop8xP5v/my8k4fiF0iGoTTFY1DvtHbV4zwXtV0YB72vFw6D
+         PvQTN0xOEnkhpJkT4lr4qydWAqxTp1/Xp42MByz7WYqbvdo1A1mkZtCrLKO1W2+3gCO6
+         fzU0Omk7A1dVl/lPu+wmHZrY8ADSo1SH49jlWoFeTCOA4yFswhfg4hlTnIPtn2jTDdIq
+         S4rLQzG+LsnpgYBVMyH3uUReHSb2G7y7/3/Gj/eA390pBjaj/eEZEOTprQR+d5tHIw+C
+         iCmg==
+X-Forwarded-Encrypted: i=1; AL+hErFAQL0nci/OxB8jpPlfDbIZF7OI7h8yjOh6dedaTYcwuLczvua397IY+HCsqa6+SdBANTRyctVMQdWKfD0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jXwC1DtTOlyS7X/6U0xPngxUry/a2+UbkNqNwsljQMtBs1t1d
+	iITgkcdzj8dQxy2noVJ7ebAKYhxrbpZgUhJiUqK/ajOlZKyMRq9v7cLq
+X-Gm-Gg: AYBFou0616tg9ZyS/WEfdre6vlwsD/seHUTzaGZbaHq3G+uQzK//kPkztloA+TnmQEl
+	8GkbMUy46ZgCUguEUs0lLeKAaS04SRt//mx4jIPm02M5gOa90dVFnLPNEKAU6n39SRuPa4AKN2Q
+	O2G5ijxnOj1e6Vv9eSiZV/c2vZpCEv3ICPnT9wwasBJVuB9NqwQBQ3np3pzwrJaI5uF/KzDxcKd
+	KVvFx+MtmnM91irLRKR6mZohlLUB1HMGR0D3Plm111R6cIz7zrw92mgwmUTN7x9q8nDOAOxNi6S
+	6CkcVPL8tc5kb9vW6Jm/PeCk8FsNoTRG+okwAZoPJOLBSw6OlU5x7SjmyQ8CpH4jEQzd9bgzlqL
+	9fnzPQtuXjZKs2LOijvEvuQTRB4cB/Y+orlnHfaH2XJdlR4AUM4/NwAqOGKhD/0QiBPIh4WraPC
+	igSfjgXvGpwX2bbeHo2sLScdCrHM6rzCT1fXS3TiX6uO7nAUvveuPI+4+BLBXfG6eGvzdo6kuZX
+	e6kKCBcOZC9WLZmv9ghkr36ZmK908/kQilR30fvEOxF05Y7mUvMb5fhZ6zcvO1Px381GdZexcPc
+	AuYqrXM2hKrM7b4oFyJol6DedQ7h3sX0ySas3myTCmMU0AoeGDAZvA==
+X-Received: by 2002:a7b:ce9a:0:b0:4a2:392:9de2 with SMTP id 5b1f17b1804b1-4bb55a911aemr55129645e9.28.1794601438992;
+        Fri, 13 Nov 2026 12:23:58 -0800 (PST)
 Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571f976esm40414575e9.3.2026.11.13.12.23.55
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb566a4a2csm46505365e9.0.2026.11.13.12.23.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:23:55 -0800 (PST)
+        Fri, 13 Nov 2026 12:23:58 -0800 (PST)
 From: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
-Date: Fri, 13 Nov 2026 21:23:23 +0100
-Subject: [PATCH v3 1/5] landlock: Fix layer composition of
- LANDLOCK_ACCESS_FS_REFER
+Date: Fri, 13 Nov 2026 21:23:25 +0100
+Subject: [PATCH v3 3/5] selftests/landlock: Test that layering does not
+ break refer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261113-b4-landlock-refer-nonfs-layer-v3-1-02d7e42bcdfd@gmail.com>
+Message-Id: <20261113-b4-landlock-refer-nonfs-layer-v3-3-02d7e42bcdfd@gmail.com>
 References: <20261113-b4-landlock-refer-nonfs-layer-v3-0-02d7e42bcdfd@gmail.com>
 In-Reply-To: <20261113-b4-landlock-refer-nonfs-layer-v3-0-02d7e42bcdfd@gmail.com>
 To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
@@ -107,87 +107,87 @@ Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
  =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
 X-Mailer: b4 0.15.2
 
-In landlock_get_fs_access_mask(), only add the
-LANDLOCK_ACCESS_FS_REFER right if any filesystem access rights are
-handled at all.  This prevents us from accidentally treating
-non-filesystem layers as if they handled LANDLOCK_ACCESS_FS_REFER.
+Regression test to exercise that layered Landlock domains do not
+accidentally deny the LANDLOCK_ACCESS_FS_REFER access right.  This
+used to be the case when layering a non-filesystem ruleset with a
+filesystem-enforcing ruleset.  In that case, REFER operations that
+would have been allowed for the individual rulesets would get denied
+when layering the same rulesets.
 
-landlock_get_fs_access_mask() is used when initializing the layer
-masks for doing access right checks, so this bug meant that we
-unintentionally denied "refer" (e.g., link, rename) operations in
-layered cases, where the same operation would have been accepted if
-only either one of the two layers had been enforced.  If the rulesets
-individually allow an operation, the composition of these rulesets
-should also allow it.
-
-The bug only manifests as soon as one other layer handles filesystem
-access rights.  Otherwise, Landlock filesystem path walk is guarded by
-an early exit for the case that no filesystem-enforcing layer exists.
-
-Reported-by: Dwi Siswanto <me@dw1.io>
 Link: https://github.com/landlock-lsm/linux/issues/67
 Link: https://github.com/landlock-lsm/go-landlock/issues/66
 Fixes: fff69fb03dde ("landlock: Support network rules with TCP bind and connect")
 Cc: stable@vger.kernel.org
 Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
- security/landlock/domain.h       | 13 ++++++++++---
- security/landlock/errata/abi-4.h | 21 +++++++++++++++++++++
- 2 files changed, 31 insertions(+), 3 deletions(-)
+ tools/testing/selftests/landlock/fs_test.c | 54 ++++++++++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
-diff --git a/security/landlock/domain.h b/security/landlock/domain.h
-index 935e18b12b3c..d9ebf4857fce 100644
---- a/security/landlock/domain.h
-+++ b/security/landlock/domain.h
-@@ -262,9 +262,16 @@ static inline access_mask_t
- landlock_get_fs_access_mask(const struct landlock_domain *const domain,
- 			    const u16 layer_level)
- {
--	/* Handles all initially denied by default access rights. */
--	return domain->layers[layer_level].handled.fs |
--	       _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
-+	access_mask_t handled = domain->layers[layer_level].handled.fs;
-+
-+	/*
-+	 * Handles all initially denied by default access rights, but only for
-+	 * layers handling filesystem accesses.
-+	 */
-+	if (handled)
-+		handled |= _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
-+
-+	return handled;
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index f725882fa4a7..6d9baab0fae8 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -2612,6 +2612,60 @@ TEST_F_FORK(layout1, refer_denied_by_default4)
+ 				layer_dir_s1d1_refer);
  }
  
- static inline access_mask_t
-diff --git a/security/landlock/errata/abi-4.h b/security/landlock/errata/abi-4.h
-index fe11ec7d7ddf..9784ca645073 100644
---- a/security/landlock/errata/abi-4.h
-+++ b/security/landlock/errata/abi-4.h
-@@ -20,3 +20,24 @@
-  * that rely on these protocols while using Landlock network restrictions.
-  */
- LANDLOCK_ERRATUM(1)
-+
-+/**
-+ * DOC: erratum_5
-+ *
-+ * Erratum 5: Denial of ``LANDLOCK_ACCESS_FS_REFER`` in layered domains
-+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+ *
-+ * This fix addresses an issue where ``LANDLOCK_ACCESS_FS_REFER`` was implicitly
-+ * handled in domain layers that handle no filesystem access rights.
-+ *
-+ * With this fix, a reparenting operation is allowed in a layered Landlock
-+ * domain if and only if each layer, enforced on its own, would allow it.
-+ *
-+ * Impact:
-+ *
-+ * In kernels without this fix, if a domain combined a layer that handles
-+ * filesystem access rights with a layer that doesn't, the resulting layered
-+ * domain would deny all ``LANDLOCK_ACCESS_FS_REFER`` operations, even when the
-+ * filesystem layer granted these operations with a rule.
++/*
++ * Regression test for layered domains: The two enforced Landlock layers both do
++ * not restrict the tested "refer" operations on their own, so they should also
++ * not restrict them when they are layered, regardless of the layer order.
 + */
-+LANDLOCK_ERRATUM(5)
++static void test_layering_does_not_break_refer(
++	struct __test_metadata *const _metadata,
++	const struct landlock_ruleset_attr *const non_fs_attr,
++	const bool non_fs_first)
++{
++	ASSERT_EQ(0, unlink(file1_s1d2));
++
++	if (non_fs_first)
++		drop_access_rights(_metadata, non_fs_attr);
++
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_REFER, layer_dir_s1d1_refer);
++
++	if (!non_fs_first)
++		drop_access_rights(_metadata, non_fs_attr);
++
++	EXPECT_EQ(0, test_rename(file1_s1d1, file1_s1d2));
++	EXPECT_EQ(0, test_rename(file1_s1d2, file1_s1d1));
++	EXPECT_EQ(0, test_exchange(file2_s1d1, file2_s1d2));
++	EXPECT_EQ(0, test_exchange(file2_s1d2, file2_s1d1));
++}
++
++static const struct landlock_ruleset_attr net_attr = {
++	.handled_access_net = LANDLOCK_ACCESS_NET_BIND_TCP,
++};
++
++static const struct landlock_ruleset_attr scoped_attr = {
++	.scoped = LANDLOCK_SCOPE_SIGNAL,
++};
++
++TEST_F_FORK(layout1, layering_fs_then_net_does_not_break_refer)
++{
++	test_layering_does_not_break_refer(_metadata, &net_attr, false);
++}
++
++TEST_F_FORK(layout1, layering_net_then_fs_does_not_break_refer)
++{
++	test_layering_does_not_break_refer(_metadata, &net_attr, true);
++}
++
++TEST_F_FORK(layout1, layering_fs_then_scoped_does_not_break_refer)
++{
++	test_layering_does_not_break_refer(_metadata, &scoped_attr, false);
++}
++
++TEST_F_FORK(layout1, layering_scoped_then_fs_does_not_break_refer)
++{
++	test_layering_does_not_break_refer(_metadata, &scoped_attr, true);
++}
++
+ /*
+  * Tests walking through a denied root mount.
+  */
 
 -- 
 2.56.1
