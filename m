@@ -1,89 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.121.32.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582963;
-	b=H6a+TQQEQ491dcGvaCx+A4v2Hm96xuCkEWE1QwgR0MBpczoeHivsgbj2l5CQBCKdU2ry
-	 GftCezOIRWNzIaxW4jJFXbBX+MMHQZPFlJLr7IAKQhfRHPnyVrHBcNR3M6DWrFmjmZ0GT
-	 FJao3Ax0vntuJlyr52eBlT5OT91iXbzpQr3rzlkuQI3Ifn2o1W+Umj+Jnn9un42W+WKnz
-	 Gw3qdEnPWaYfAnigarseQO3jtBiA/Gepp4W4BmNo1IjlwGLekAr7yxn1DkOgL4GY8w2kV
-	 pP81aQpdd3HOTjEo49ckSpNMI+o0mOilg+INKa7yVBmaGSsD3bHImp7GzhCETg5HhgQ==
+	t=1794582962;
+	b=lv2aA34yibACaWbQb1cKNXww3vF0zV0lpxn12wZobYaDzQgKHYHo1pgw+O0ZhXdMZoRY
+	 IT+45J/BzSrK1gE+3vDLRw2undEXUHf7XYqbEqWdxK1hKa0LsYG22Jb47Gsqdwwx0m+1J
+	 kaqBIDYHohHB12tEL1mQ+cjoC/Xj09Fm+eIwZp66vWQLJCku5lCscsqizYwJhRZ0L3sSR
+	 0zkj/12fQhDsCjPVQIy/R1khLpcDMcoDUMJYOnCSkQftTxEjVdmxFA65Dw2X/S/9Sw9LL
+	 kIRLc1XJ++BHcv8zIfhRfHzx3lEmW7s4fdmecCINIfcdLJroVTJj2tnwuk8KeHHU7NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582963;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=Q7kkxG+BEYFfTL9KrEFgnZUXIhcurSfYGIqRRj0dQ5c=;
-	b=DJlWeYMY5WjrQXQCocdNDs+LQtwKZspq4yuz4S8xD1fxdFEhPlPxw+KzJ9F57eIFbW2C
-	 1ZWckJFQQlV0UTzHYs1/rHqtCj21t9rrxRFIiht1ieoyAkgH3ntAiuGHfnl+z00p8ttlP
-	 ZPQXmQsGYHevoxvKRS1tIrYkDHtfsdjJ/jHvIBrD+rzlayfqn7nWFZgHowa6lIDG8YQtY
-	 1I2DzqlR3VHxLAqyS8gCsWpUK8Zs0un1PIBocO9Dv8nfbe+glAoa/L1jFWt8Ha1zIQeDo
-	 Ol2tqnh3XbhO7uQlKyihLAIPOSgU3OoP8cVIUijrqWYUbsNBeawqxLaiMfprdvKlKAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582962;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
+	 DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=DIMfVwohh24rM2fAwdG4bttjLykQKRusOAyT5DYCW9E=;
+	b=h5HQZ8iBG2CtUwOm46ccaVWFblcxiTM8Gg8jKm19xx/cC/xqisysGR/yyHGgCBq614bW
+	 O6UUf6aQ6C3yh/4kaUYT/LlL+p2sci+O81RYoSnB2Mc6NOOZxp9laqfD1Caz7v95XFTxJ
+	 knshn7nxb09UYTKvITk4Y6fVLnvPoHXZSqwTva7XcuvivrMLpBas2D9nzw+WUocNc1sMj
+	 LVPUNXxYqwzmmu1D+XSSGG+yV53O1J9dSw6vLDKjqDJ5Z/CW8nuOo1Xz3c1CBGVONcqf3
+	 aauJvHvN/GVyNXuSJuH75c/BwSj977noMLkFeGG2MhFWBKH2moxnw5ICrLqlQa2ATmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="D2+Zf/oQ";
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=nselector2 header.b=Izb7cOhh;
+	arc=none smtp.remote-ip=92.121.32.54
+Received: from inva129.nxp.com (inva129.nxp.com [92.121.32.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0E2606A89F;
-	Fri, 13 Nov 2026 15:16:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD0E2606A89F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA74A606A89E;
+	Fri, 13 Nov 2026 15:16:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA74A606A89E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=D2+Zf/oQ
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3DE741A164C;
-	Fri, 13 Nov 2026 15:16:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0B2BA60015;
-	Fri, 13 Nov 2026 15:16:01 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E188E11BC0C42;
-	Fri, 13 Nov 2026 16:15:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794582959; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Q7kkxG+BEYFfTL9KrEFgnZUXIhcurSfYGIqRRj0dQ5c=;
-	b=D2+Zf/oQQBcrGgSz5YTf6qjskX0N6/dsLkEVOmhqD6vzTGeQAxX+uS68vGiL6VpHibUhnL
-	OWhJIRdGKYEMVn147SNpsL3WasjRbs6NCtjoLe136UNYIcuhpa+W8zfJySSpOInDa7GjyF
-	RclLKRCH4Qt+8cBzIZecxvFDOMhA+VQSDmzUJIz14jp+mfqEV3WUdHwBkwdV3YqXczs/20
-	Dtmd/JdAvmu0eGDZmlI10HDK1aLmpXN+T6c8GBT6xG3CQT0qxiB72R27JvFslfz7qnlkg6
-	1/tzS1Jj+PoRYKu6/tC9/LtipA/b0MnyC5DOS4JpTTrNS4u0SiWKY9wxTA8N6Q==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Rodolfo Giometti <giometti@enneenne.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Angelo Dureghello <adureghello@baylibre.com>,
-	Tobias Sperling <tobias.sperling@softing.com>,
-	Eason Yang <j2anfernee@gmail.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	duje@dujemihanovic.xyz,
-	Joshua Crofts <crofts@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Victor Chernyakin <chernyakin.victor.j@outlook.com>,
-	herve.codina@bootlin.com,
-	thomas.petazzoni@bootlin.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v4 1/2] dt-bindings: iio: adc: add Texas Instruments TLA2528
-Date: Fri, 13 Nov 2026 16:15:41 +0100
-Message-ID: <20261113151543.2241604-2-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261113151543.2241604-1-maxime.chevallier@bootlin.com>
-References: <20261113151543.2241604-1-maxime.chevallier@bootlin.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=nselector2 header.b=Izb7cOhh
+Received: from localhost (localhost [127.0.0.1])
+	by inva129.nxp.com (Postfix) with ESMTP id 935B0607F43B;
+	Fri, 13 Nov 2026 16:10:14 +0100 (CET)
+X-Virus-Scanned: amavis at nxp.com
+Received: from inva129.nxp.com ([127.0.0.1])
+ by localhost (inva129.nxp.com [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id 3W7AC0M58ch2; Fri, 13 Nov 2026 16:10:11 +0100 (CET)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
+	by inva129.nxp.com (Postfix) with ESMTP id CE5026012A23;
+	Fri, 13 Nov 2026 16:02:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 inva129.nxp.com CE5026012A23
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com;
+	s=nselector2; t=1794582161;
+	bh=DIMfVwohh24rM2fAwdG4bttjLykQKRusOAyT5DYCW9E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Izb7cOhh1mUxxrVou9Ey8iX9ANaP8cuKqpTBOmqK0O594vH9oSavo0UOPaqJA50K+
+	 XAamxIBvEOlJaXjO4OxxJdMXyOeNcY5cqL4qdq8XlZdNrsELd6Dux2821BOjj9kLRb
+	 Ey17AiAbduKtuVteZ++ftdZFN7rf0jpIbAyeaC+Mvuz0Va11Ec80Az3b+5z957Q4ET
+	 TDG9d2DcNJRXmy8VQSJrXSAS5KQw+QLUKn7UL5IigdfwJVouJ2MEW2noQhleuwRzZg
+	 kjQBsqIELvmFTXyCOjTestId1cNsLDVHGfvo9Qcyer3LsjUThyEV5r0d+UVxvl/euN
+	 iBVEsaoqfb1vw==
+Received: from lsv15141.swis.ro-buh01.nxp.com (lsv15141.swis.ro-buh01.nxp.com [10.162.246.138])
+	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id A574C202B6;
+	Fri, 13 Nov 2026 16:02:40 +0100 (CET)
+From: Claudiu Manoil <claudiu.manoil@nxp.com>
+To: netdev@vger.kernel.org
+Cc: s32@nxp.com,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Wei Fang <wei.fang@nxp.com>,
+	Clark Wang <xiaoning.wang@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v4 2/6] net: enetc: Allocate int_vector array dynamically
+Date: Fri, 13 Nov 2026 17:02:33 +0200
+Message-Id: <8026b245b4ef8e5a4af7bb8f38e4329a9ee9caad.1794581338.git.claudiu.manoil@nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1794581338.git.claudiu.manoil@nxp.com>
+References: <cover.1794581338.git.claudiu.manoil@nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,133 +86,86 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-The TI TLA2528 is a simple 8-channel, 12-bit ADC and GPIO chip
-accessible over i2c. The ADC part has an AVDD supply that doubles as a
-reference.
+The number of Rx/Tx ring interrupt vectors, priv->bdr_int_num, is set
+in enetc_init_si_rings_params() to the lesser of the number of online
+CPUs and the number of Rx rings of the station interface. The
+int_vector[] array in struct enetc_ndev_priv, however, has a fixed
+size of ENETC_MAX_BDR_INT (6), a limit that dates back to the maximum
+CPU count of the SoCs integrating ENETC at the time.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+That assumption does not hold for S32N79, which has 8 CPUs and gives
+the ENETC PF up to 8 Rx rings. There, bdr_int_num can reach 8, and
+enetc_alloc_msix() writes priv->int_vector[i] past the end of the
+array, corrupting the adjacent fields of the netdev private area.
+No SoC currently supported upstream exceeds 6 vectors, so this is not
+reachable today; it must be fixed before S32N79 devices can be enabled
+by a following patch.
+
+Allocate int_vector[] with devm_kcalloc() in enetc_alloc_msix(), once
+bdr_int_num is known. The memory is released together with the PCI
+device, so no explicit free is needed on the error or teardown paths.
+This is common code, so the PF and VF drivers benefit alike. Drop the
+ENETC_MAX_BDR_INT define, which only existed to size this array.
+
+Signed-off-by: Claudiu Manoil <claudiu.manoil@nxp.com>
 ---
- .../bindings/iio/adc/ti,tla2528.yaml          | 91 +++++++++++++++++++
- MAINTAINERS                                   |  5 +
- 2 files changed, 96 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
+v4:
+ - New patch. Prevents an out-of-bounds access to priv->int_vector[]
+   when bdr_int_num exceeds 6, as is the case on S32N79, as requested
+   in review.
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml b/Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
-new file mode 100644
-index 000000000000..7a50a5026c1e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
-@@ -0,0 +1,91 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/ti,tla2528.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments TLA2528 8-channel 12-bit I2C ADC
-+
-+maintainers:
-+  - Maxime Chevallier <maxime.chevallier@bootlin.com>
-+
-+description:
-+  Each of the 8 input pins can be configured as an analog input, a digital
-+  input or a digital output.
-+
-+properties:
-+  compatible:
-+    const: ti,tla2528
-+
-+  reg:
-+    maxItems: 1
-+
-+  avdd-supply:
-+    description: Analog supply, also used as the ADC reference voltage.
-+
-+  dvdd-supply: true
-+
-+  gpio-controller: true
-+
-+  "#gpio-cells":
-+    const: 2
-+
-+  "#io-channel-cells":
-+    const: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+patternProperties:
-+  "^channel@[0-7]$":
-+    type: object
-+    $ref: adc.yaml
-+    description: Represents an analog input.
-+
-+    properties:
-+      reg:
-+        description: AIN pin number
-+        minimum: 0
-+        maximum: 7
-+
-+    required:
-+      - reg
-+
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - avdd-supply
-+  - dvdd-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        adc@17 {
-+            compatible = "ti,tla2528";
-+            reg = <0x17>;
-+            avdd-supply = <&reg_adc_supply>;
-+            dvdd-supply = <&reg_adc_supply>;
-+            #io-channel-cells = <1>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            channel@0 {
-+                reg = <0>;
-+            };
-+
-+            channel@3 {
-+                reg = <3>;
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..2cf3fc9bb74d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27758,6 +27758,11 @@ F:	include/dt-bindings/soc/ti,sci_pm_domain.h
- F:	include/linux/soc/ti/ti_sci_inta_msi.h
- F:	include/linux/soc/ti/ti_sci_protocol.h
+ drivers/net/ethernet/freescale/enetc/enetc.c | 8 ++++++++
+ drivers/net/ethernet/freescale/enetc/enetc.h | 3 +--
+ 2 files changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/freescale/enetc/enetc.c b/drivers/net/ethernet/freescale/enetc/enetc.c
+index c6571b5cc842..855b2d3b8718 100644
+--- a/drivers/net/ethernet/freescale/enetc/enetc.c
++++ b/drivers/net/ethernet/freescale/enetc/enetc.c
+@@ -3641,6 +3641,13 @@ int enetc_alloc_msix(struct enetc_ndev_priv *priv)
+ 	if (n != nvec)
+ 		return -EPERM;
  
-+TEXAS INSTRUMENTS' TLA2528 ADC DRIVER
-+M:	Maxime Chevallier <maxime.chevallier@bootlin.com>
-+S:	Supported
-+F:	Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
++	priv->int_vector = devm_kcalloc(&pdev->dev, priv->bdr_int_num,
++					sizeof(*priv->int_vector), GFP_KERNEL);
++	if (!priv->int_vector) {
++		err = -ENOMEM;
++		goto fail_int_vector;
++	}
 +
- TEXAS INSTRUMENTS' TMP117 TEMPERATURE SENSOR DRIVER
- M:	Puranjay Mohan <puranjay@kernel.org>
- L:	linux-iio@vger.kernel.org
+ 	/* # of tx rings per int vector */
+ 	v_tx_rings = priv->num_tx_rings / priv->bdr_int_num;
+ 	v_remainder = priv->num_tx_rings % priv->bdr_int_num;
+@@ -3676,6 +3683,7 @@ int enetc_alloc_msix(struct enetc_ndev_priv *priv)
+ 	while (i--)
+ 		enetc_int_vector_destroy(priv, i);
+ 
++fail_int_vector:
+ 	pci_free_irq_vectors(pdev);
+ 
+ 	return err;
+diff --git a/drivers/net/ethernet/freescale/enetc/enetc.h b/drivers/net/ethernet/freescale/enetc/enetc.h
+index d9e91832a9c1..689ad82b2949 100644
+--- a/drivers/net/ethernet/freescale/enetc/enetc.h
++++ b/drivers/net/ethernet/freescale/enetc/enetc.h
+@@ -407,7 +407,6 @@ struct enetc_cls_rule {
+ 	int used;
+ };
+ 
+-#define ENETC_MAX_BDR_INT	6 /* fixed to max # of available cpus */
+ struct psfp_cap {
+ 	u32 max_streamid;
+ 	u32 max_psfp_filter;
+@@ -456,7 +455,7 @@ struct enetc_ndev_priv {
+ 	struct enetc_si *si;
+ 
+ 	int bdr_int_num; /* number of Rx/Tx ring interrupts */
+-	struct enetc_int_vector *int_vector[ENETC_MAX_BDR_INT];
++	struct enetc_int_vector **int_vector;
+ 	u16 num_rx_rings, num_tx_rings;
+ 	u16 rx_bd_count, tx_bd_count;
+ 
 -- 
-2.56.0
+2.34.1
 
