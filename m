@@ -1,119 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582352;
-	b=QlJqN2ozkNEQgMP+d6ynkYwrUuJiYYL3X8hiufFcBIZE4FH267W3mAe/9SWc6XQqocxw
-	 jmyjrShpka0a1e2sQIJQDDqeBStegMw8UXAhF7ddhPXiVCKFGG4+UdI2mwi2dbIjqMnWN
-	 Bh4F6ZLxy4vUpca/4Y2bwFr1fnm/2VZVslS5IwaatMcBjlMn3VAN0s+sFtpXxwIm/dny3
-	 lDpgkpDMO99T7mrC8O2B+0CjFIHvdTwMbfaJK9opdMqa6lgMcKCP1iPa398BBYgwTjUkb
-	 KIOtatYZ2TLAL14j+rUHMDivFg+IYpJPNtEw/t7Y7xNQBofyePllDG9UkowQYCep5BQ==
+	t=1794582363;
+	b=3nCqkp0geaSpySWsqnhMC5He082IINbOnAxLPAmGswUwaP/63pcx4Ons5/sfY5sPcegg
+	 kW+IyyaX8SdfYX8LjMTdQcxOzkNwcd1/DUagz5OG/5gUMR/Q9RtPBdhPnFw/lg7YENYYg
+	 bXS52lZV0c2O8vuW20aweA/H4IDpatW8raf7dEAlO0IvC3BNBcTkQgNq5U+PbRUNTFfS9
+	 2Sh60ckQdH+BvQR8tH/HZ9YTIB/HSmL92laXiqhWUxpzkry9vdSXxXc+Btnf6janZ1VS0
+	 Bb/TiL0dsUCyoFyh/K00g+wT98AKR+s27QY95Xew6+HOMFQlgp2046frd7MvV5RpdBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582352;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=x+Xd1db6zPqMxOaxpQfVku2qqOYSO4cm/68ivCtsVLQ=;
-	b=TfTgfKMGyeSfpMe7pmPvWdSyREMMwUowNjdBqUQs1SSKnxrI5nzZuhbEhHS1IYMu5Y8o
-	 gHqIMZYMUyI0zqlStIzldlSM7A0bv7Wu9FFgtXMmZNLCcSo3qhB/Y9jc9Gg5qx/t9mOpD
-	 skhFp9/GmaaH6iYBdou85v+7ZZK5cbvxolc4NR/6He4KWsckLq/+VOuHwo/+nqcU+CQzY
-	 PCexg97iVQ215z2v6mT7kCx9tacmkOFk90VOBDJGR2Chh/YIdY+Yz1Fq63dE80hiwQI/H
-	 4dCbDdpta9bNQIesR0UAU0jRivxLs7nwUpkAC9eAX2AdjxqycAV6c7H2V1NuqeLFrHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582363;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=k7PKQaxI91YAqqrMtfdpgHceCDdV/OGsK25WhBvf6ro=;
+	b=czi87fAqVzL4hLHQ8ACaY6BA4+CZYxeF+poFa9o2DlRXgDZk0xNHRUl/hvb3aaZ2VK0D
+	 n4+petJ7DnLxHhzSKxjy2CfFGSt5khNyYnIOk2kog5VX6hTOj95ZFD6FJFW25DfVWAb4E
+	 aFFQTY1iIV/WzD0Ayzo6W4CSNn0nMsaJgZBeCTfKl+kpBFkWiRPa0RoOABRHU1iSGHHcQ
+	 Yst8F5tq01HMWPt2nctl4/e08PxdcmaAlkvMueo61vcKdyqtmclfK+FUzOq6O+Grb5PTm
+	 FVCJdq4z0da8I9yZaDBCCeqywT5A37BlQA3xwmC3XIJzJ7vZz+i/HeSS55/ED9mPnwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gBj1J2bn;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zq7le28u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39763606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:05:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39763606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E76E606A32E;
+	Fri, 13 Nov 2026 15:06:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gBj1J2bn
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a210470b49so8886455e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:05:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794582349; x=1795187149; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x+Xd1db6zPqMxOaxpQfVku2qqOYSO4cm/68ivCtsVLQ=;
-        b=gBj1J2bn0z9VTnTLTBdspNJvCaOXOTdxEjmggLUvm2x930Uau0W2VFzWZPJv3gzmcX
-         4kOgyyenoKfuv+g+ra7q2nJLCdgshWiFfaXHJjL7NYk35ofR033uhc5K4gdY0oULhH2i
-         bDST57DdjHnZZ4CkrcFGUxc5I2phkZgwmH1ZKZYke3VxITNG6IbC+lgFxtNSnYA2dBMN
-         kxTnX9uO7xzQFDFHVgG5YtF6ps3NG6AerEMFoWu09BHQXx0bEKj4bwltZohWtEYGX/v4
-         hnnoUFrrdnBaGp0L2qHrElbJM/bJxxpERIQouOrQcgAWz+Q8+jDICxLTXiW/lin+/uuv
-         Bdhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794582349; x=1795187149;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x+Xd1db6zPqMxOaxpQfVku2qqOYSO4cm/68ivCtsVLQ=;
-        b=qHmmrPpQSJ2XhuUN6pxp+sDtz5VNpAeAZcR2GZaLAlnKuc5N2nvtmz6R80udo5Ddou
-         83ibdHJsTWERAfuy0/AQ7edsvLSrEaor8hEvz5Zk+EHAuXJc95seHQvkWa5IzRTapdEG
-         fDs3tIGKMdULq3+GMsyx+UPGDeok3FBf51UmIQVpkJU244GaeWQZoqBo9VrNGq10H5Ay
-         yvUEK0e+C/UpvV+Z1FzW1ogZ3pr8QqxMXheWKoz/PgcQ/HuhZAwq3sacJ/0+qet+RZra
-         SKSYF9jzFxsKeyq9MRKg32TBSJitXIsCBGNSgIqNhua4tfGpq+ESEfeCb8Wd0G7px637
-         qkLQ==
-X-Forwarded-Encrypted: i=1; AL+hErFf8I6djBnOrWqUAFdd0vc4XnRrdqzeXztk3YTrKf4XaAqppKgKBF03Kx9bpeRjcjA1kDeAyGdGajDdaj8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/wpqFo+wPHJzfG1IGFzThyCl1ZICNQz9Jmz/QeuhFE7nwCn4Um
-	pUFq5kR9ej7Fs43lDgoy1QxJTbFrc0Gawb2+b/Gx8vVFyFuLhwIaexlQeqPA0xLaaYw=
-X-Gm-Gg: AYBFou3Vo9QtvYDMhj/Wv84OTsqiWIwcK4qXKcb18z6hY/bPnUmdg8SaEndgTKe5u67
-	xzkSr3RQpMXdLPZXx2EVO28JkXj7nLX94ALeRwhOe9f8+BkoRWtziz3BGT5Rijl+3CR3DGCxN2c
-	Wd9ADiYA5xwoWCoZclXcUYs82lWLAXeFPzdTH44ZlzG6ul2P3GE08r5whfdBonE31XXKaUn4IQd
-	2o5j15/7eLlhSQkv6Aj1D12kFV0ehI9jmCteC6Vdpmor8R210vFaruIeLjSWmCDDbxytViUzXAO
-	GNV8tT9kukVt8OCwlrHPJ5wRn2n+63/fV4hB5TQ0+liNIIEO/GVq9Xh+Gm71iRMlVFC3cij1S2W
-	BkK2CrjKrDvRaougtC1zwge4JDG/eHMyl9NmhlrYumFyX+ZsPdH1BCPYte8LcFlLtuZq9RMcisY
-	lCU7KX25FIMZTFUohx7ZkYG7ZUgBwkxBIVfRMjJ3mri8lGPkcDBvFbFvKCTflWrTltT46qW4TyL
-	IEFW4Yego8eWDjgfjhfs8dJ10MS4W7S6m7W5wfs0ccM/UTNd03Ux6wYQqcpxIhV81XrL+/6YwF7
-	FkBDBFklIltxTDe0PqRtOlmPQDqZ/Do=
-X-Received: by 2002:a05:600c:46d5:b0:4a5:87b3:ddc1 with SMTP id 5b1f17b1804b1-4bb55a8329amr58179765e9.13.1794582349341;
-        Fri, 13 Nov 2026 07:05:49 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2538b9sm270777285e9.1.2026.11.13.07.05.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:05:48 -0800 (PST)
-Date: Fri, 13 Nov 2026 16:05:46 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Breno Leitao <leitao@debian.org>, printk@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jason Wessel <jason.wessel@windriver.com>,
-	Daniel Thompson <danielt@kernel.org>,
-	Douglas Anderson <dianders@chromium.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
-	Feng Tang <feng.tang@linux.alibaba.com>,
-	Rio <rioo.tsukatsukii@gmail.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Pnina Feder <pnina.feder@mobileye.com>,
-	Gal Pressman <gal@nvidia.com>, Petr Pavlu <petr.pavlu@suse.com>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	"Cen Zhang (Microsoft)" <blbllhy@gmail.com>,
-	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
-	kgdb-bugreport@lists.sourceforge.net
-Subject: Re: [PATCH printk v2 1/6] printk: Introduce and specify flush reasons
-Message-ID: <avcnSjj2P9UfsBn7@pathway.suse.cz>
-References: <20261111181942.593695-1-john.ogness@linutronix.de>
- <20261111181942.593695-2-john.ogness@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zq7le28u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 760A91F000C6;
+	Fri, 13 Nov 2026 15:05:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794582362;
+	bh=k7PKQaxI91YAqqrMtfdpgHceCDdV/OGsK25WhBvf6ro=;
+	h=From:To:Cc:Subject:Date;
+	b=Zq7le28uQhTKHNJbPo7nt2Q8EOWeAACM9QjTcaggrVXcNgWJw6OVEYLyR2mm4JrN2
+	 PPV7DGp+4U2USiNlM6nTxjluZTvqfJCxC18KUYieg/27lD0aaKi7mrraiNGYP4iuNH
+	 ELxyh2052M0ypMYsVrD6IE8CICx6H7LE1nXe91Kd1LbCXWRk9J8h2IIwZXcqwKQ0nM
+	 1egBDx6vEKu+uY6AamyRYp8afuRPESnKPGyuhgKn3rwPzxYPVm+E50CVkFMF2AGLEy
+	 iFSKa7dJGWkFl9a5EsA1QOBaNFSOQpHZAlTR+V8+FvC5lVHty7iWAdOtyYl4j5pUDq
+	 J7WIzjWJWScKw==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Leo Yan <leo.yan@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	Robert Walker <robert.walker@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v1 0/12] perf coverage: A harness for perf, and the fixes it found
+Date: Fri, 13 Nov 2026 12:05:41 -0300
+Message-ID: <20261113150555.1163049-1-acme@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,84 +70,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111181942.593695-2-john.ogness@linutronix.de>
+Content-Transfer-Encoding: 8bit
 
-On Wed 2026-11-11 19:25:17, John Ogness wrote:
-> Prepare for per-console atomic flushing policies by introducing
-> enum pr_flush_reason to classify various reasons for performing a
-> printk backlog flush. The reasons are specified for
-> printk_trigger_flush() and console_flush_on_panic().
-> 
-> For atomic printing from printk_trigger_flush(), propagate the
-> reason down to __nbcon_atomic_flush_pending_con(), where the actual
-> atomic flushing is executed.
-> 
-> For legacy printing, use a new global variable @legacy_flush_reason
-> to track the reason in case nbcon consoles are using legacy
-> printing.
-> 
-> Update all printk_trigger_flush() and console_flush_on_panic()
-> call sites as well as any explicit lower-level atomic flush calls
-> to specify the reason.
-> 
-> Note that PR_FLUSH_RUNTIME is used for cases where the reason for
-> the flush is not clearly defined.
+From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-> --- a/include/linux/printk.h
-> +++ b/include/linux/printk.h
-> @@ -145,6 +145,24 @@ void early_printk(const char *s, ...) { }
->  
->  struct dev_printk_info;
->  
-> +/**
-> + * enum pr_flush_reason - Reason for a flush
-> + * @PR_FLUSH_RUNTIME:	A flush while the kernel is running
-> + * @PR_FLUSH_RESTART:	The kernel is ending, but another instance should
-> + *			follow (reboot, kexec)
-> + * @PR_FLUSH_HANG:	The kernel is ending and will enter an infinite loop
-> + * @PR_FLUSH_KDB:	Printing while KDB is active
-> + *
-> + * Flush reasons are used to determine if unsafe atomic flushing should be
-> + * performed, based on individual console policies.
-> + */
-> +enum pr_flush_reason {
-> +	PR_FLUSH_RUNTIME = 0,
-> +	PR_FLUSH_RESTART,
-> +	PR_FLUSH_HANG,
-> +	PR_FLUSH_KDB,
-> +};
+Hi,
 
-This entire patchset adds a lot of complexity just to enable all
-4 new policy flags for netconsole in the last patch.
+	Please consider merging,
 
-There already have few dimensions which affect console flushing:
+Nothing measured how much of perf the test suite reaches.  Patch 1 adds
+tools/perf/scripts/coverage.sh: it builds perf with clang source based
+coverage, runs the complete perf test suite and reports line and function
+coverage, optionally against a baseline, with --table and --html like
+pahole's coverage_table.py.  Also as 'make -C tools/perf coverage',
+'coverage-prep' and 'coverage-table'.
 
-   + console_loglevel
-   + nbcon_prio
+The rest is what the first runs found, in the code, the build and the
+tests:
 
-This patchset adds 8 new terms in pr_flush_reason and
-nbcon_unsafe_flush_flags just to explicitly set all
-flush_flags in netconsole.
+  - clang DWARF 5 describes globals with DW_OP_addrx, which was not
+    resolved (patch 2).
+  - The flexible array member had no test; one showed the struct row at
+    0.00% while the member said 100.00% (patches 3-4).
+  - A struct pointer that -O2 keeps in a register was not resolved from
+    its DWARF location (patch 5).
+  - --insn-stat was printed before the loop that accounts the samples,
+    so --code-with-type showed zeros (patch 6).
+  - The libbfd probe printed a missing bfd.h error five times per
+    build-test run (patch 7).
+  - FEATURE-DUMP didn't record llvm-perf and rust, disabling both in the
+    build-test builds (patch 8).
+  - GCC 16 caught an uninitialized T32 instruction buffer read in cs-etm
+    (patch 9).
+  - The Intel PT virtual LBR check lost every aux sample with a single
+    data page (patch 10).
+  - The dlfilter test kept samples whose IP the kernel now zeroes on a
+    userspace-to-kernel skid (patch 11).
+  - The LBR inline unwinding check failed instead of skipping when the
+    AMD PMU rejects branch sampling (patch 12).
 
-Let's start with pr_flush_reason. I am not sure if it is worth it:
+In a root run on this box the suite covered 49.16% of perf's 201,180
+lines; three tests failed in code this series does not change (the
+POLL_HUP tracepoint regression, the AMD BRS branch sampling rejection
+and the lock contention count).
 
-  + PR_FLUSH_RUNTIME is the default
+The harness and the tests were developed with an AI coding assistant
+(OpenCode), which drafted the script and the tests and helped debug the
+failures; I reviewed every change and reproduced each failure before
+fixing it.
 
-  + PR_FLUSH_RESTART can be detected by system_state > SYSTEM_RUNNING
+Best regards,
 
-  + PR_FLUSH_HANG has only one caller currently distinguished by
-	the global panic_nbcon_allow_unsafe_takeover
+- Arnaldo
 
-  +  PR_FLUSH_KDB can be detected by kdb_trap_printk and
-     kdb_printf_cpu, see vprintk() implementation.
+Arnaldo Carvalho de Melo (12):
+  perf scripts: Add a coverage harness for perf
+  perf annotate-data: Resolve DW_OP_addrx global variables
+  perf tests: Exercise the flexible array member path
+  perf annotate-data: Count flexible array accesses for the whole struct
+  perf tests: Exercise data type resolution from a register
+  perf annotate: Print the stats after the annotations
+  perf tests: Silence the libbfd probe in build-test
+  perf build: Record the display-only features in FEATURE-DUMP
+  perf cs-etm: Fall back to the recorded instruction size on a failed read
+  perf tests: Fix the Intel PT virtual LBR check
+  perf test: Drop samples without an IP in the dlfilter test
+  perf test: Skip the LBR inline unwinding check when unsupported
+
+ tools/perf/.gitignore                         |   1 +
+ tools/perf/Makefile                           |  11 +-
+ tools/perf/Makefile.config                    |   4 +
+ tools/perf/Makefile.perf                      |   4 +
+ tools/perf/builtin-annotate.c                 |  10 +-
+ tools/perf/scripts/coverage.sh                | 703 ++++++++++++++++++
+ tools/perf/tests/make                         |   2 +-
+ tools/perf/tests/shell/addr2line_inlines.sh   |   9 +-
+ tools/perf/tests/shell/annotate_stats.sh      |  58 ++
+ .../perf/tests/shell/data_type_flex_array.sh  | 142 ++++
+ .../tests/shell/data_type_profiling_clang.sh  | 108 +++
+ tools/perf/tests/shell/data_type_register.sh  | 120 +++
+ tools/perf/tests/shell/script_dlfilter.sh     |   2 +-
+ tools/perf/tests/shell/test_intel_pt.sh       |   9 +-
+ tools/perf/util/annotate-data.c               |  24 +-
+ tools/perf/util/cs-etm.c                      |   7 +-
+ tools/perf/util/dwarf-aux.c                   |  42 +-
+ 17 files changed, 1234 insertions(+), 22 deletions(-)
+ create mode 100755 tools/perf/scripts/coverage.sh
+ create mode 100755 tools/perf/tests/shell/annotate_stats.sh
+ create mode 100755 tools/perf/tests/shell/data_type_flex_array.sh
+ create mode 100755 tools/perf/tests/shell/data_type_profiling_clang.sh
+ create mode 100755 tools/perf/tests/shell/data_type_register.sh
 
 
-IMHO, it makes things worse because nbcon_atomic_flush_pending() has
-to use PR_FLUSH_RUNTIME in vprintk_emit(). But I think that we
-would like to flush it the same way as an explicit flush called
-in the given context.
+base-commit: cc905a18a647a8e3ad42cd1596baa0e08fba26eb
+-- 
+2.56.0
 
-Best Regards,
-Petr
