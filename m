@@ -1,76 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.156
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794580294;
-	b=5AajtBIXGt+3nImxl2hPFjbAKhh5vDO4sdZ7ztBs3sjRaMXgXlLH1H2v0yTC+h9pEXYG
-	 SNb9K/tpxF6CesMYeeNQ61XDU0ORR9qjIFxzL68yha5EhOHMCTYuEkh2SgcwmetVjWfkt
-	 b6QlV32ErMJoCywU/poLRccu0R0dttW3gw3seIGVOxR93pJKgZo2ffT3xuM/NV5hhzg2Y
-	 bLcMR7YiFl9XtWIMNJOF3Tml4jEeOhK/3M6/flY532u88rSmHCNLdEEMuIXhISPPwc0fo
-	 5PZX7FL4s5mx4M1zL58nbFMIOCE0eFL7TXWOZz9NgGlOz2aoVULKvyZxQK15aUIKu0w==
+	t=1794580335;
+	b=HnY7VEw2kUNfpm4im3tvpUwB1F5OvJKkF0L7YaAzZ6qnkitBYIxhapTHgDBJcKryK/8f
+	 rXnout/ZvnW25tEg9JUl8bFk7TajUJcY6oidRCLi0gNtK4MBL+3wL4hP3eUVULeQydHpe
+	 kMT9IV0gPK7sZz62Diw16R/379TEKqCArfhJm1hBmZjzzwz1/nIvSRclS78P6PaACqZvy
+	 EygAl7fRFsdOd/scFRvXfL8B7B3rZdv6YXEjwCHjBH+8q5zsCS4wAnbkfJtiWf6LALBt5
+	 2KdYtBUeAxS80dnu5esSC8ar/3jM4xu8DgOUUlHAZWw6kqHzsDJUlt6dwoNpq+6UoIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794580294;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/GNt6F0WGkGjAhT/kwG+PoYS3GyLXEQu1iCJQcPdwUM=;
-	b=jF+jKAWr1XP9rDzD/wHTjOaEDmEwVNZmZJPqxQgkeBzP8b4MXr50sp/BVRqwc91I/ErJ
-	 +NA2M/CKov7PPiBNnrXUruImbgPNArTaVtssHxmvN1Yw/O/sE39MlsWW20ynAKe1NvmHE
-	 G5tHLZv2dglbYvwj9t5tAd0vmQn6dnvdop9dmN9nq9279El5sPE2vlL9boqL4Uw99TRJn
-	 9GXBI6eNjHvtfxkHsAgvzwYRzFyYs4JnwdxAO0FMGl17ktXAvqncojNVV6wHhtkWphllW
-	 gOkbu5sw+LkGVqI3T/wTj7rd5kMA5mnBTfq5wuIa+8L1T+7NPjnwOuappOdz270yyDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794580335;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=FawFiCHhFqUP9UVTI9o6jUdPle4gc8XgnzAN35Imzwc=;
+	b=MP7ZueCYe5vRHz5OvxEZUo6gO1zs8TDq6q2QpG6NAo8ahIKtBrn9SVQgeGR14DahpqRd
+	 XEZ74cYd+nwzD6ymdcUE2yNPuNTwgh4qs41ChN6V2sPywQoFQ9X+JHvh79ExyWxRTthPV
+	 TTlhGzd6IY+a/SI5IdAuBX1ob2RVDHFNqPnELaUzTutnp+8HuC05lruAD3wZ6iiVRhYdg
+	 PnD6SYlDk1vrvtkQ1B+lAOgi17glBcJ2O0xbTlmb/RPDxnJPDrYuuvAvR7zc9hIeCTJMn
+	 4EaoLBxNxIYuX6JANchvbyHcoAdaSufQm73h7ams1uI2eMRP77jGVlwoHrz2PhE/poA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aTGDfczo;
-	arc=none smtp.remote-ip=95.215.58.156
-Received: from mta1.migadu.com (out-156.mta1.migadu.com [95.215.58.156])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=PQrISobI;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Ecffbj2f;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8BC606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:31:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D8BC606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5038A606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5038A606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aTGDfczo
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=101SHGfBgJHChJCV/ThZnHKUkDRzymRKW30t3wvPYGI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794580291; v=1; x=1795185091;
- b=aTGDfczooS74a4M1/KQurgmxwSOHdGpogOkUnZ05rUOG11kvo37GQ49llPva8zTC+bDejBlI
- zaIkBiToN203+iNl0+8+MNu+DyD1Gg3Nwc8VteIItmc0AmJoOVZUW/UZXAzp+03FAinOSdJMkbD
- l4plvGKUTqsvDAJlO4kToSo4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id c5395c9bf243e6ea;
-	Fri, 13 Nov 2026 14:31:31 +0000
-X-Mizu-Trace-ID: c5395c9bf243e6ea
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Borislav Petkov <bp@alien8.de>,
-	dave.hansen@linux.intel.com,
-	dsterba@suse.com,
-	hpa@zytor.com,
-	linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	terrelln@fb.com,
-	tglx@kernel.org,
-	x86@kernel.org,
-	torvalds@linux-foundation.org,
-	kas@kernel.org,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com
-Subject: Re: [PATCH v3 2/2] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs without FSRM
-Date: Fri, 13 Nov 2026 06:31:23 -0800
-Message-ID: <20261113143124.1454967-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.1
-In-Reply-To: <20261112093729.065afd6c@pumpkin>
-References: 
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=PQrISobI;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Ecffbj2f
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794580329;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FawFiCHhFqUP9UVTI9o6jUdPle4gc8XgnzAN35Imzwc=;
+	b=PQrISobIqobQMqgflVE/f85lal3u8dJCwS/CL3KqviSq5ihVlt9Y742RnUL9yJrPaRolMr
+	wPJQUBVfacmtwb6NmWxhyKJESKgUpmF8fOcMdTfNsvD5prurfrybdePC4hTula20Cryg4p
+	3TIyVCr35oT2j8T4yP9HrZKWyct9Nbg4J+iTuOlwDJ6zBv3H1Ome+m1AY9DaPCCVpsgxNa
+	ATn4MoR0oodiM2Zr+vbct0Ywa/+6U7+/41ogCQdrDdZxFiJjrXNT0H+ad426uauUCPhTwG
+	Nr9cERLU77onu5zKMYDgIKtDdeSeZnPFcQCWEoxQwekI95v/K+Eb0SR1kdT8YA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794580329;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FawFiCHhFqUP9UVTI9o6jUdPle4gc8XgnzAN35Imzwc=;
+	b=Ecffbj2fAeatwWRbgH3t9FI/sbWOSUEY7y6g0uL2vvz4PwJF/a5r6EVgc/r9fNxCpEB6+e
+	ni10FdKZD4Gu4LBg==
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Peter Zijlstra
+ <peterz@infradead.org>, Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
+ <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben
+ Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin
+ Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/mmcid: Bound the CID allocation busy wait
+In-Reply-To: <bd4c03e6-7ea6-4a21-9a3e-74ea9d36fe17@efficios.com>
+References: <20260918013454.1850369-1-xujiakai24@mails.ucas.ac.cn>
+ <20260918104349.GL776954@noisy.programming.kicks-ass.net>
+ <877bjiem45.ffs@fw13> <87mrs8bhp4.ffs@fw13>
+ <bd4c03e6-7ea6-4a21-9a3e-74ea9d36fe17@efficios.com>
+Date: Fri, 13 Nov 2026 15:32:09 +0100
+Message-ID: <87eccossye.ffs@fw13>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,124 +79,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Thu, 12 Nov 2026 09:37:29 +0000 David Laight <david.laight.linux@gmail.com> wrote:
+On Wed, Nov 11 2026 at 20:48, Mathieu Desnoyers wrote:
+> On Tue, Oct 20 2026 at 15:54, Thomas Gleixner wrote:
+> I have a reproducer for a lockup that starts from the stale state you
+> describe. It needs two more things: the execve() fails, and the task is
+> moved to another CPU during that execve().
 
-> On Wed, 11 Nov 2026 15:46:08 -0800
-> Borislav Petkov <bp@alien8.de> wrote:
-> 
-> > On Wed, Nov 11, 2026 at 05:20:53AM -0800, Usama Arif wrote:
-> > > diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
-> > > index 7bb146c811029..5320862e0274e 100644
-> > > --- a/arch/x86/lib/memcpy_64.S
-> > > +++ b/arch/x86/lib/memcpy_64.S
-> > > @@ -27,15 +27,13 @@
-> > >   *
-> > >   * The 'rep movsb' itself is small enough to replace the call, but the
-> > >   * two register moves blow up the code. And one of them is "needed"
-> > > - * only for the return value that is the same as the source input,
-> > > + * only for the return value that is the same as the destination input,
-> > >   * which the compiler could/should do much better anyway.
-> > >   */
-> > >  SYM_TYPED_FUNC_START(__memcpy)
-> > > -	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
-> > > -
-> > >  	movq %rdi, %rax
-> > >  	movq %rdx, %rcx
-> > > -	rep movsb
-> > > +	ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
-> > >  	RET
-> > >  SYM_FUNC_END(__memcpy)
-> > >  EXPORT_SYMBOL(__memcpy)
-> > > @@ -45,12 +43,16 @@ SYM_PIC_ALIAS(memcpy)
-> > >  EXPORT_SYMBOL(memcpy)
-> > >  
-> > >  SYM_FUNC_START_LOCAL(memcpy_orig)
-> > > -	movq %rdi, %rax
-> > > -	movq %rdx, %rcx
-> > > -
-> > >  	cmpq $0x20, %rcx
-> > >  	jb .Lhandle_tail
-> > >  
-> > > +	/*
-> > > +	 * RCX holds the count for REP MOVSB and scalar copying; RDX is scratch.
-> > > +	 * Shift RDX to check length >= 2048 without destroying the REP count.
-> > > +	 * The 10-byte alternative fits a NOP without ERMS.
-> > > +	 */
-> > > +	ALTERNATIVE "", __stringify(shrq $11, %rdx; jnz .Lerms), X86_FEATURE_ERMS  
-> > 
-> > Sorry, this is adding more JMPs in "conditional" alternatives code and thus
-> > turns this into a bigger and unmaintainable mess than it already is.
-> > 
-> > The 2K limit looks like something conjured out of a thin air as it seems it
-> > work for your particular case. I'm sure we will have to whack it in the future
-> > because someone else will complain of the opposite.
-> > 
-> > This needs to be done with alternative_call*, even at the price of some
-> > duplicated code but without turning what already is a mess, into a bigger one.
-> 
-> Multiple functions seems like a good idea.
->
+That has been reported already privately to me and a few others and the
+reporter provided a similar patch as you.
 
-Hopefully the version in [1] is acceptable!
- 
-> In some cases you can patch the constant in the instruction.
-> That is safe here even if a multi-byte constant crosses a cache line
-> because it is only an optimisation.
-> 
+While both variants seem simpler, I prefer the explicit
+re-initialization for the failed exec() case.
 
-I think it might be a good idea to start with just a constant and if
-someone can comeup with a usecase that needs it patched, we can then
-look at this? Basically prefer to keep it usecase driven.
+It's a NOOP for newly initialized MMs and avoids the pointless fixup
+dance for the last user in the common case.
 
-> Patching the call sites would certainly be cleaner.
-> More interesting would be having a function with a non-standard calling
-> convention (%rdi, %rsi, %rcx, everything else preserved, void result)
-> so that the 5 byte call can be patched with "rep movsb; nop3".
-> I can't see anywhere that uses the result.
-> Maybe start with "rep movsb; nop3" and patch with the call?
-> You'd still need a normal memcpy() for the calls gcc makes and if the
-> address is taken.
-> 
+Thanks,
 
-Replacing the caller's CALL with REP MOVSB could remove actual call
-overhead. The C wrapper I tried patches a CALL inside __memcpy() and
-adds a helper call and return. The attached tail dispatcher handles the
-existing public ABI and leaves caller-side patching for a follow-up.
-
-The scalar helper currently uses RDX and R8-R11 as scratch. Your private
-void interface would need an implementation that preserves those
-registers, or register saves. RCX already holds the count, and the
-scalar helper preserves RAX and the callee-saved registers.
-
-There are return-value users: memdup_buf() in
-lib/crypto/tests/test-utils.h returns memcpy()'s pointer. The normal
-entry must still return the original destination in RAX and support
-compiler-generated and address-taken calls, as you point out. The
-current revision preserves that ABI and its aliases.
-
-
-> A special function to do the patching would also make sense.
-> All Intel non-atom cpu since sandy bridge run 'rep movsb' as fast
-> as 'rep movsq' - so you only need to worry about short copies.
-> Whereas some of the older Zen cpu run misaligned copies slowly.
-> So you could pick/patch the most appropriate code using more complex
-> logic than just whether one of the X86_FEATURE_xxx bits is set.
->
-
-I agree that CPU model and alignment can inform a better policy.
-
-I think to do this, we need access to many different CPUs to test.
-I am confident that the 2K cmp will not regress other CPUs and is a good
-start. Would it make sense to go ahead with the apprach in the current
-patch and develop later on it if someone comes up with a usecase?
- 
-> The same calling convention might make sense for memmove().
-> Although it probably wants a scratch register for the (dst - src < len)
-> check (it might want dst in the scratch register!).
-> 
-> David
-> 
-
-[1] https://lore.kernel.org/all/20261113141137.1113517-1-usama.arif@linux.dev/ 
+        tglx
