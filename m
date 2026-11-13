@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794580075;
-	b=ioPGVIaXw93vAZOXzbsMPGiHTJTyrpCkyXlR8icvx2oR0nXu7rM/isEnX01m6GPKrOiy
-	 Xif+EVE3AykY4TQGUE+Blr17jCRrzyZneCWpvQGDuU/hDeHc2u5yA5+sc7aQh6KNUPQU1
-	 kqGUDguIAg+YuS6oG910DbhZhxV5qetqAEywdI+wz6wuxIaXSycMDkr64uHuNULNQFbkF
-	 G07Ivou/l1VVShcTMjx3lCvquJSKRshu+C0wzeLnS2k336Ij9VjKS9nlU7arkfItmvX7I
-	 IAACsLQl8qYjUp8e3MFGYgfGXekSpQrGfwkuhXme4WdFK5a3lhrOYgNohbAmXiMooXA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794580075;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jzMjuQl8C8L+Em4Znh14MLOEnvwiWcUFEgHaJGwy67Y=;
-	b=Oei5LJx2fTEGyjnCUbLHLsYyE0/Tp6c5xy3HPZTcETzBBw8u3diogN2i7o0HEzo4165q
-	 DmrCGutvHN+Prs7J6GF2QKGU0ZDzbCYytjVilOgqkZvIDgC0F+5H2NAOn1rLJccidqe8P
-	 Rq2Mvvuxx/SzFppgnbgRCP6LlVf09KG2zhCer+Ga9e5d5ykFinxrEIykwQ6mx6tTUa2zt
-	 julFYi155iTNpuTSOAcouRXynXSr2IQFQ2mVhDlf0KORBVDDJTEmf5jUXZh2OwkocyNVD
-	 IPZ8PzIQgQAdbLBzt2i4ZDN+Jn+/iGs7cleOUGOx+TrpwfEdixgVQnvY4exMgqgVwRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ki5GTd9k;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A315606A33E;
-	Fri, 13 Nov 2026 14:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ki5GTd9k
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794580074;
-	b=N0alwnz6QfVwG6Mtrn5ARQiLlo0YgbVJCqu+lRqB7kXDXtXYdGU3UrWVye8U7Bvxjak1
-	 1X+GrWIyPN6e9XPHCoEwValj4ooUKUp7mMrya+UUaQdxGkqp2cYwoUpH39qzTtxStmBz/
-	 ZJA3i+SimKpNRmKAQnJvPwdLUPQkQsQhRnmj4+1vq3Qlrap9r4KpskkSzDhcq1z+xpME7
-	 byqCF6VB/9zAOgfbEQrNr5UfkJJKgXX3ZqQ5ZPsKWI2UxFDN+ujWbV2+y5vO62gpsxc65
-	 wND4+g54f0UsJnOtqZ1sVeem/5bfvkzQGEBX97eIGbITDbAXSM6e/EZws/oGOds7qUQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794580074;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jzMjuQl8C8L+Em4Znh14MLOEnvwiWcUFEgHaJGwy67Y=;
-	b=Q2waibrU/69Xc0RBeM7enCfhx6odNsxGm8iElZOy5MjEF1JryGgX65XLfxrD7KhxMq5V
-	 71S51ZH+LPDE+CaHkCA2Ku0/wZq/qpi8VL5DfcXLMfpHuYozO2Hl8AVz8xOcPu+L77q+L
-	 wdO98Du+QH630JM17U/ThWZ6q/OQAuIWzihF4MOpHj1d94n6XZYkdtVAauANopDHXmU8p
-	 x/AhMEfpys/uopxstTsv2DmEmihDYg0DmR1sH4HaqozYH+JypNiNCxpk2EeozfUvgARTb
-	 viBYHInaETpxyXBw28yjEL2VdVJGEHF+fEHyV8aq6mf/1LtPvX913cGOjNjhO+MIiGA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794580127;
+	b=LIBiThgFaaPqtqjpETQiGgLWT+yPI07qOz1o8m4pWtVAvIhpvyFEN9+ymIVTiHJJ2iX6
+	 Iol88QVSTnbhDXJtaokeQXv71FPiovqLc6Uvvm3dXZA+S4rIbE74BN9UuUSS65hg4yD3D
+	 0zXFRD+V9n5TGuxVW6XP8FpsPJe1vo+SKtvSqbXN7EWXS/CI+5rqlereQIc176gR3PfeZ
+	 l7ii6IUlXh4qwnQipQMYLwAISEfGN8Za6PM9llyDaECiBkiSsHhQG4CAAt5lbDHqJHxOO
+	 J+LT520I3lqCo/KWg9blPtT6kIC+tJXUkRbd+mURQYBsJW2chJfHHgPeLTj4M/38opA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794580127;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:To:Cc:
+	 X-Developer-Signature:X-Developer-Key:Autocrypt:OpenPGP;
+	bh=4KZfnZZWUgpacNaNvWb37H6nYeezWlIgqRQQEVtr3Zc=;
+	b=a6Oog3F907visXyrt0KNQg73MF27IaujQoAXPzvjXJ2HWrniBLNjcYuLEvBnQ/BqLgtQ
+	 GPOgyBKbDSQovrM2wuYO+UoJyyBDZDcZI8Syc4oL1Pwmvb7marrbd8UDw8BKVQqWzHApb
+	 w9aN9YqQnZ1l+Dlh9Jr9kHRmCE5+SdohOTPbCAt68XHWOJNo1sNo2ObdHZjg/bheileUy
+	 o9eFesNdwlDvOx1HI3XhU8qBkbsUN+ARwXvSjAlulply1XNfsy8oXUHs7txFWx4h+YQBW
+	 OMI1X/dAyErJlR9BaOyT+pEZMPDr2c2m28bQY1S4KUJ1LbDXhut9tT2SBVQTLVrGpEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=posteo.de;
+	spf=pass smtp.mailfrom=posteo.de;
+	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=LaUrFXD7;
+	arc=none smtp.remote-ip=185.67.36.66
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0A5DF1F000C5;
-	Fri, 13 Nov 2026 14:27:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794580074;
-	bh=jzMjuQl8C8L+Em4Znh14MLOEnvwiWcUFEgHaJGwy67Y=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Ki5GTd9kZO1v1YpRYCn9q37lTcSQoq1XQuVQ3TPce5Jm2d89KWb9tuiVln4Rf+GHQ
-	 pvnA78CO1sTOmuN8GNCBuU7iBaVAFaXdjgmUUEsbpLyZV8gwT4cpHhIYKP/hx6LsJt
-	 SifaHqnY6gtP8c0OnTl9tnTmUnVpQ8J/7l5SxWoV4uuJUvDtIPXdtJ/9dzr+l5JWh9
-	 2gbz/bcCZ9ar2VnwoYt4BiLk1uNsw5RHgYGOfC3LF1OhHGLTfzRkHc6Z1WHJBBdziE
-	 pgb/YWZDxC741EPw5WZpuc3Zf2ZdtIECmrObrnSoHIIrM7B8lp9d2tKV3Uu2MM+yjN
-	 PY/VDDOj+L+9Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5DFF6477FA;
-	Fri, 13 Nov 2026 14:27:53 +0000 (UTC)
-From: Marcin Knap via B4 Relay <devnull+marcin.knap.vecima.com@kernel.org>
-Date: Fri, 13 Nov 2026 15:27:52 +0100
-Subject: [PATCH net v5] xsk: Do not free ZC Rx buffer when the Rx ring is
- full
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE0A606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:28:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DE0A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=LaUrFXD7
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 7B9D2240106
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:28:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1794580123;
+	bh=4KZfnZZWUgpacNaNvWb37H6nYeezWlIgqRQQEVtr3Zc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
+	b=LaUrFXD7OKSEfAR3UOLjQBV9+BejCQ5bX5siOX3odu4Cz8HR5XE0xNLQ8Uen/34fN
+	 6Fqb/xkVEsUrbq1/9oHTQkXlgH32iJIcDS1OyDL5sQ1KKIBHVaCHZ6ynPEcRV1NK8i
+	 8ShR6qaC7rqfXqm625/39epgZxO/MqJyA4TmbEGQq+FCRIKedS2NqDV45QtGwfDhK5
+	 qIfc5qS+OXNpe9a0hlWxopEB03fyAOiy92zxR+ID5wryqjQpMSzEl/svT/re8cCZAE
+	 Jn+zxSuxVjxZzTn7iCkpmrHDZiSs0kOJQWkgrJ9eREvtRCcSk2YGQRD/MBvVsovzcs
+	 bcDzwDcsDeAiQ==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4jR04B2YBcz9rxD;
+	Fri, 13 Nov 2026 15:28:42 +0100 (CET)
+From: Markus Probst <markus.probst@posteo.de>
+Date: Fri, 13 Nov 2026 14:28:43 +0000
+Subject: [PATCH RESEND v4] ACPI: SPCR: Support UART clock frequency field
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,275 +63,223 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-xsk-zc-rx-double-free-v5-1-6ead3af4d131@vecima.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XPwU7DMAwG4FeZcsZTnGQt2Yn3QBxS12EB1qKki
- wpT331pd9jQVHH8Lfv75bNIHAMnsd+cReQcUui7EnZPG0EH170zhLZkoaSqUKKFMX3CL0Ecoe1
- PzReDj8yATjdyZ6k16EW5/Y7sw7i4r6LjQbxdh+nUfDANszivHUIa+viztGdclv8pyggIyjm0v
- qrUs29eMlM4ui31x6UkqztGyzVGFYa8xNY467WvHxh9Y1CaNUYXBtFJqtmjrfUDY+6Z1afM/JR
- hKR0pVbg/zDRNF1JEBNOnAQAA
-X-Change-ID: 20261019-xsk-zc-rx-double-free-1a3b059cd41f
-To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Magnus Karlsson <magnus.karlsson@intel.com>, 
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, jtollet@cisco.com
-Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
- Jason Xing <kerneljasonxing@gmail.com>, 
- Nitin Shetty J <nshettyj@marvell.com>, Marcin Knap <marcin.knap@vecima.com>, 
- Joshua Washington <joshwash@google.com>, 
- Harshitha Ramamurthy <hramamurthy@google.com>, 
- Sunil Goutham <sgoutham@marvell.com>, Geetha sowjanya <gakula@marvell.com>, 
- Ratheesh Kannoth <rkannoth@marvell.com>, 
- Subbaraya Sundeep <sbhatta@marvell.com>, 
- Bharat Bhushan <bbhushan2@marvell.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794580072; l=9330;
- i=marcin.knap@vecima.com; s=20261019; h=from:subject:message-id;
- bh=AIRvjG754M3Sj+HEOteZxm3m/GpLx/VY0+cKvGXe26g=;
- b=zB3gPzf/0sJ5eXrmEbQ74x47vNq7n1pTvVq58hqDTGLdkK79RCz5FTQhxR/MaGY5aXsI2bj6l
- a+TqHBR2f4BC/sP6QtOeIsNvzsc+YE4wl2W03VomnEx21QsLasFyq7h
-X-Developer-Key: i=marcin.knap@vecima.com; a=ed25519;
- pk=rCvVOuopf4s4BHtLE+FRnv0x83PoFHgBPo9mtNlvzLk=
-X-Endpoint-Received: by B4 Relay for marcin.knap@vecima.com/20261019 with
- auth_id=1237
-X-Original-From: Marcin Knap <marcin.knap@vecima.com>
-Reply-To: marcin.knap@vecima.com
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-acpi_spcr-v4-1-443c88f964d7@posteo.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Len Brown <lenb@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6200;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=GF3qJ28po4tzQKhOOmc1ZjYhXtmA/fVN39S6nEBHPRI=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBq9x6ZKmoSMfo4cnDAS9SrXc9WY3HgrzFOQAvKn
+ 2or1awB+3aJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCavcemRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9LTORAAlRUI9trL5r+/BqWIi7fS5df2v8t9wqG
+ 7X3Yklco4rZrEQYn5icuVPgN/eYb65f8OixkjqbupW7MnS3HApAq2RWYg2zi5bI5pPs1gExB/V7
+ Yuu7mVeCE3lg8zmszAvTQUOsvr84hLgFwaFoFqjxYQrtgAME1joOVmCdKKDqKoCrTNzZhKiMt4t
+ qPgY1i/pC7Pu6WiPhV11cYhjlxbwc1z975PpkyYeKfVxADl7/cOda0ek6xDbQvSgZ4rrSg/PTwL
+ dzunG5F7B+weJsh8leKJKzSgLHR4urSzmrWDIMLwKY95jT5z3WJHs0oKxFZrGVCXPMHbToHyMUT
+ JVnUTUds6ITX6v/0yWcpCWRqtHXMXCKHeVdLz1N43sX9wxAmPpiAclvS0Avx5ImPMuBWiUoVr0r
+ 8hhQkzyBW91aZPzDzwvS6BQiTpGdncYNOV0kPOVjv7qhJZiVtp10lWRO5hQvirrNWDyK+wfrWIO
+ 3fvk7XxAQgtIJvCAoUXmWuifUue41YG/5SAqxD9zkASmRyoE0pTxBf9W30GlbiMse8JJJ01MDhk
+ VoGN+yzlMgVZjGpMEHVxnqaVhunkln9056lEl4ShUWblt7SA2qliVY8CZ/wZAkOknbaZcEz+f1Y
+ hBGBZRHCbNFHZGsRq54hP5XCbVAru5TZguBtSq//Dggurkn1PvjE=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+  keydata=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
+  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-From: Marcin Knap <marcin.knap@vecima.com>
+Prior to this patch, we assume the uart clock frequency is 1843200 Hz in
+the early console. This behaviour results in garbage console output if the
+actual uart clock frequency differs.
 
-When an XDP program redirects a zero-copy buffer to an XSK and the
-socket's Rx ring is full, xsk_rcv_zc() frees the buffer and returns
--ENOBUFS to xdp_do_redirect().
+The UART Clock Frequency field was added in the Microsoft Serial Port
+Console Redirection (SPCR) specification revision 1.08. If present, use it
+to configure the serial port with the correct uart clock frequency.
+Fallback to old behaviour if missing.
 
-A failed xdp_do_redirect() leaves the buffer owned by the caller, so
-the driver releases it as well. That is harmless when the driver frees
-it right away, as i40e, ice, igc, stmmac, idpf and most others do:
-xp_free() ignores a buffer that is already on the pool free list. It
-breaks when the driver releases or uses the buffer later, after it may
-have been reallocated:
+Add function `setup_earlycon_with_uartclk` to set uart clock frequency
+while still allowing to reuse the same console string with
+`add_preferred_console`.
 
-- mlx5e treats the failure as XDP_DROP and releases the buffer when
-  the Rx WQE is refilled. By then the buffer can be in use for another
-  Rx descriptor, so an in-use buffer goes back on the free list and the
-  same UMEM frame is later handed to user space twice. With striding
-  RQ this also ended in a NULL pointer dereference in
-  mlx5e_post_rx_wqes().
-- ixgbe keeps the buffer in the ring on its need_wakeup -ENOBUFS
-  (XDP_EXIT) path and runs XDP on it again on the next poll.
-- dpaa2 hands the buffer back to its hardware pool while it is also on
-  the pool free list.
-- octeontx2 returns false on a failed redirect, so the caller goes on
-  to build an skb from the freed buffer.
-
-Leave the buffer with the caller on both the single-buffer and the
-multi-buffer -ENOBUFS paths, as xsk_rcv() and xsk_rcv_check() already
-do. Make the drivers that relied on the core freeing the buffer free
-it themselves:
-
-- i40e and ice consume the descriptor on XDP_EXIT without freeing it.
-- gve DQO counts the redirect error without freeing the buffer.
-- octeontx2 now frees the buffer and reports it as consumed.
-
-This covers redirects to an XSKMAP. A zero-copy buffer redirected to a
-devmap, a cpumap or an ifindex is copied by
-xdp_convert_zc_to_xdp_frame(), which frees it before
-__xdp_do_redirect_frame() can still fail. The driver then releases it
-a second time, and the copied page leaks. That path is not changed
-here. It can be fixed separately in xdp_do_redirect(): copy the buffer
-without freeing it, free it only once the frame has been queued, and
-free the copy on failure. xdp_convert_zc_to_xdp_frame() itself has to
-keep freeing the buffer, because its XDP_TX users rely on that.
-
-Seen on Mellanox ConnectX-6 DX MT2892 (FW 22.47.1026) with AF_XDP
-zero-copy on 7.3.0-rc6 when the user-space consumer could not keep up
-with the Rx ring. With this change no duplicate frames were seen with
-striding RQ on or off.
-
-Fixes: 269009893146 ("xsk: recycle buffer in case Rx queue was full")
-Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Reviewed-by: Björn Töpel <bjorn@kernel.org>
-Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
-Reviewed-by: Nitin Shetty J <nshettyj@marvell.com>
-Tested-by: Jerome Tollet <jtollet@cisco.com>
-Signed-off-by: Marcin Knap <marcin.knap@vecima.com>
+Link: https://learn.microsoft.com/en-us/windows-hardware/drivers/serports/serial-port-console-redirection-table
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
 ---
-Tested on mlx5 (ConnectX-6 DX) in zero-copy single-buffer mode.
-The i40e and ice changes and the multi-buffer path are build-tested
-only, as I don't have that hardware available.
----
-Changes in v5:
-- Commit message only: describe the devmap/cpumap/ifindex redirect path
-  and how it can be fixed separately.
-- Link to v4: https://patch.msgid.link/20261109-xsk-zc-rx-double-free-v4-1-24e00ac221a0@vecima.com
-
 Changes in v4:
-- Commit message only, no code changes (AI review):
-  - Drop igb from the drivers that rerun XDP after XDP_EXIT;
-    igb_run_xdp_zc() turns IGB_XDP_EXIT into IGB_XDP_CONSUMED.
-  - State that the fix covers XSKMAP redirects.
-- Link to v3: https://patch.msgid.link/20261104-xsk-zc-rx-double-free-v3-1-11a0c7ef1973@vecima.com
+- merge patches together
+- rewrite commit message
+- Link to v3: https://patch.msgid.link/20260615-acpi_spcr-v3-0-9a59ebad74ea@posteo.de
 
 Changes in v3:
-- Target net instead of bpf (Maciej).
-- Reword the changelog only: drivers that free the buffer right away
-  are not affected; name the ones with a deferred release or reuse
-  after free (AI review). No code changes.
-- Collect Reviewed-by tags.
-- Link to v2: https://patch.msgid.link/20261030-xsk-zc-rx-double-free-v2-1-cf01d4a9f3f7@vecima.com
+- add separate function for earlycon with uartclk
+- Link to v2: https://patch.msgid.link/20260525-acpi_spcr-v2-0-c042089d73ca@posteo.de
 
 Changes in v2:
-- Also free the buffer on zero-copy redirect failure in gve DQO and
-  octeontx2, which relied on the core freeing it (AI review).
-- Audited the remaining zero-copy drivers against Björn's table.
-  ixgbe and igb no longer run XDP on a freed buffer after
-  XDP_EXIT; making them drop and consume the descriptor (R2) is
-  left for a follow-up unless you prefer it in this patch.
-- Rebased on current bpf.
-- Link to v1: https://patch.msgid.link/20261019-xsk-zc-rx-double-free-v1-1-2aa19f6628fb@vecima.com
-
-To: Joshua Washington <joshwash@google.com>
-To: Harshitha Ramamurthy <hramamurthy@google.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>
-To: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-To: Sunil Goutham <sgoutham@marvell.com>
-To: Geetha sowjanya <gakula@marvell.com>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-To: Subbaraya Sundeep <sbhatta@marvell.com>
-To: Bharat Bhushan <bbhushan2@marvell.com>
-To: Magnus Karlsson <magnus.karlsson@intel.com>
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-To: Stanislav Fomichev <sdf@fomichev.me>
-To: Simon Horman <horms@kernel.org>
-To: Alexei Starovoitov <ast@kernel.org>
-To: Daniel Borkmann <daniel@iogearbox.net>
-To: Jesper Dangaard Brouer <hawk@kernel.org>
-To: John Fastabend <john.fastabend@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: intel-wired-lan@lists.osuosl.org
-Cc: bpf@vger.kernel.org
+- fix uart_clk_freq possibly being interpreted as parity/bits/flow
+- Link to v1: https://patch.msgid.link/20260505-acpi_spcr-v1-1-fd4bc6f4eb53@posteo.de
 ---
- drivers/net/ethernet/google/gve/gve_rx_dqo.c           |  4 +++-
- drivers/net/ethernet/intel/i40e/i40e_xsk.c             |  1 +
- drivers/net/ethernet/intel/ice/ice_xsk.c               |  1 +
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c |  3 ++-
- net/xdp/xsk.c                                          | 15 +++------------
- 5 files changed, 10 insertions(+), 14 deletions(-)
+ drivers/acpi/spcr.c           |  3 ++-
+ drivers/tty/serial/earlycon.c | 17 ++++++++++++-----
+ include/linux/serial_core.h   | 11 +++++++++--
+ 3 files changed, 23 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-index 82ed5e48b00a..cc544420df11 100644
---- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-+++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-@@ -686,8 +686,10 @@ static void gve_xsk_done_dqo(struct gve_priv *priv, struct gve_rx_ring *rx,
- 			goto err;
- 		break;
- 	case XDP_REDIRECT:
--		if (unlikely(xdp_do_redirect(priv->dev, xdp, xprog)))
-+		if (unlikely(xdp_do_redirect(priv->dev, xdp, xprog))) {
-+			xsk_buff_free(xdp);
- 			goto err;
-+		}
- 		break;
- 	}
+diff --git a/drivers/acpi/spcr.c b/drivers/acpi/spcr.c
+index 73cb933fdc89..c79c809f49d4 100644
+--- a/drivers/acpi/spcr.c
++++ b/drivers/acpi/spcr.c
+@@ -228,7 +228,8 @@ int __init acpi_parse_spcr(bool enable_earlycon, bool enable_console)
+ 	pr_info("console: %s\n", opts);
  
-diff --git a/drivers/net/ethernet/intel/i40e/i40e_xsk.c b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-index 51a05ce4c7ce..a11ee1f3fa38 100644
---- a/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-+++ b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-@@ -360,6 +360,7 @@ static void i40e_handle_xdp_result_zc(struct i40e_ring *rx_ring,
- 		return;
+ 	if (enable_earlycon)
+-		setup_earlycon(opts);
++		setup_earlycon_with_uartclk(opts,
++					    table->header.revision >= 3 ? table->uart_clk_freq : 0);
  
- 	if (xdp_res == I40E_XDP_EXIT) {
-+		xsk_buff_free(xdp_buff);
- 		*failure = true;
- 		return;
- 	}
-diff --git a/drivers/net/ethernet/intel/ice/ice_xsk.c b/drivers/net/ethernet/intel/ice/ice_xsk.c
-index 0643017541c3..7c1dd4c87a71 100644
---- a/drivers/net/ethernet/intel/ice/ice_xsk.c
-+++ b/drivers/net/ethernet/intel/ice/ice_xsk.c
-@@ -636,6 +636,7 @@ int ice_clean_rx_irq_zc(struct ice_rx_ring *rx_ring,
- 		if (likely(xdp_res & (ICE_XDP_TX | ICE_XDP_REDIR))) {
- 			xdp_xmit |= xdp_res;
- 		} else if (xdp_res == ICE_XDP_EXIT) {
-+			xsk_buff_free(first);
- 			failure = true;
- 			first = NULL;
- 			break;
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
-index 90af9b9044aa..6d10c132f61c 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
-@@ -1555,7 +1555,8 @@ static bool otx2_xdp_rcv_pkt_handler(struct otx2_nic *pfvf,
- 				*need_xdp_flush = true;
- 				return true;
- 			}
--			return false;
-+			xsk_buff_free(xsk_buff);
-+			return true;
- 		}
- 
- 		err = xdp_do_redirect(pfvf->netdev, &xdp, prog);
-diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-index 781ba46eb152..89bac2feeff2 100644
---- a/net/xdp/xsk.c
-+++ b/net/xdp/xsk.c
-@@ -224,21 +224,15 @@ static int xsk_rcv_zc(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
- 	struct list_head *xskb_list;
- 	u32 contd = 0;
- 	u32 num_desc;
--	int err;
- 
--	if (likely(!frags)) {
--		err = __xsk_rcv_zc(xs, xskb, len, contd);
--		if (err)
--			goto err;
--		return 0;
--	}
-+	if (likely(!frags))
-+		return __xsk_rcv_zc(xs, xskb, len, contd);
- 
- 	contd = XDP_PKT_CONTD;
- 	num_desc = xdp_get_shared_info_from_buff(xdp)->nr_frags + 1;
- 	if (xskq_prod_nb_free(xs->rx, num_desc) < num_desc) {
- 		xs->rx_queue_full++;
--		err = -ENOBUFS;
--		goto err;
-+		return -ENOBUFS;
- 	}
- 
- 	__xsk_rcv_zc_safe(xs, xskb, len, contd);
-@@ -252,9 +246,6 @@ static int xsk_rcv_zc(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
- 	}
- 
+ 	if (enable_console)
+ 		err = add_preferred_console(uart, 0, opts + strlen(uart) + 1);
+diff --git a/drivers/tty/serial/earlycon.c b/drivers/tty/serial/earlycon.c
+index ab9af37f6cda..5a20fe9e3fb6 100644
+--- a/drivers/tty/serial/earlycon.c
++++ b/drivers/tty/serial/earlycon.c
+@@ -135,11 +135,14 @@ static int __init parse_options(struct earlycon_device *device, char *options)
  	return 0;
--err:
--	xsk_buff_free(xdp);
--	return err;
  }
  
- static void *xsk_copy_xdp_start(struct xdp_buff *from)
+-static int __init register_earlycon(char *buf, const struct earlycon_id *match)
++static int __init register_earlycon(char *buf, unsigned int uart_clk_freq,
++				    const struct earlycon_id *match)
+ {
+ 	int err;
+ 	struct uart_port *port = &early_console_dev.port;
+ 
++	port->uartclk = uart_clk_freq;
++
+ 	/* On parsing error, pass the options buf to the setup function */
+ 	if (buf && !parse_options(&early_console_dev, buf))
+ 		buf = NULL;
+@@ -163,8 +166,9 @@ static int __init register_earlycon(char *buf, const struct earlycon_id *match)
+ }
+ 
+ /**
+- *	setup_earlycon - match and register earlycon console
+- *	@buf:	earlycon param string
++ *	setup_earlycon_with_uartclk - match and register earlycon console
++ *	@buf:			      earlycon param string
++ *	@uart_clk_freq:		      uart clock frequency in Hz or 0 for BASE_BAUD*16
+  *
+  *	Registers the earlycon console matching the earlycon specified
+  *	in the param string @buf. Acceptable param strings are of the form
+@@ -177,10 +181,13 @@ static int __init register_earlycon(char *buf, const struct earlycon_id *match)
+  *	<options> string in the 'options' parameter; all other forms set
+  *	the parameter to NULL.
+  *
++ *	If the uart clock frequency is specified in the 'options' parameter,
++ *	the value of the param @uart_clk_freq will be ignored.
++ *
+  *	Returns 0 if an attempt to register the earlycon was made,
+  *	otherwise negative error code
+  */
+-int __init setup_earlycon(char *buf)
++int __init setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq)
+ {
+ 	const struct earlycon_id *match;
+ 	bool empty_compatible = true;
+@@ -209,7 +216,7 @@ int __init setup_earlycon(char *buf)
+ 		} else
+ 			buf = NULL;
+ 
+-		return register_earlycon(buf, match);
++		return register_earlycon(buf, uart_clk_freq, match);
+ 	}
+ 
+ 	if (empty_compatible) {
+diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
+index bdc214386e4a..9b2bcd4295a9 100644
+--- a/include/linux/serial_core.h
++++ b/include/linux/serial_core.h
+@@ -1099,11 +1099,18 @@ int of_setup_earlycon(const struct earlycon_id *match, unsigned long node,
+ 
+ #ifdef CONFIG_SERIAL_EARLYCON
+ extern bool earlycon_acpi_spcr_enable __initdata;
+-int setup_earlycon(char *buf);
++int setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq);
+ #else
+ static const bool earlycon_acpi_spcr_enable EARLYCON_USED_OR_UNUSED;
+-static inline int setup_earlycon(char *buf) { return 0; }
++static inline int setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq)
++{
++	return 0;
++}
+ #endif
++static inline int setup_earlycon(char *buf)
++{
++	return setup_earlycon_with_uartclk(buf, 0);
++}
+ 
+ /* Variant of uart_console_registered() when the console_list_lock is held. */
+ static inline bool uart_console_registered_locked(struct uart_port *port)
 
 ---
-base-commit: fb7bd3a2aad70a76232a7168a505386d0a1396af
-change-id: 20261019-xsk-zc-rx-double-free-1a3b059cd41f
+base-commit: 237a1c39e8dfd3e1c6f1f023eea37a48ec04cc63
+change-id: 20260430-acpi_spcr-61902fd923f2
+-----BEGIN PGP SIGNATURE-----
 
-Best regards,
---  
-Marcin Knap <marcin.knap@vecima.com>
-
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqOIQQbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSt08QALWMim65nIIS428BheYg
+aq6BqxDGGqORhlf7aCFGTtNaeNDsu1Tny7sNTe+TEXpKl+AwoFTJ+4+bxl50AYyp
+8Niod0JGjEoxkQKsU/aScvCvEvMuPXOABfUGFtzieNpfswU2n6LHjywy+RP1mTEn
+aPP1arQGGGhe5b5lvolREN0VbGvymtiLr6P+qOhs76ib/dkOegq2/njBX7UlQ7Fy
+dIQo1A/NayUn5F7VWQKUz6ZHLX9bVZYSe2gstKpl5C8Ybwfaj/HgeT1TAdMoQ2K/
+KG0HgcWwIyoIaIms+yED6WSQKJwexx4zn/t2w/Qi2eSVF6WSqNdY3rrHf3sY3luj
+g5wYs2AvNnGjQU6iNGs7DLwwasHgqwZcOwRIdTvY8z3UP5Wpj5y01a+dJJG378zR
+cZhEQUmDn21jBlJvpqSKUoNRZc1L/8uNfQLbnOMVBNOUBXIQ9Z29j2IkqGsYeTG8
+uUndjyA/2SlEU29w2G6/MnJykNiW4oMxryXabXvh8dXc+SPQkUIM71ivo4y2/HgM
+3XGz9l+cgJk61F0oAHtzie7MorsEGVLMA2n4TpibkUCLRIjK3e5QvEBDHZILWHPA
+k2b8dkF2cdu8Q4nbI3PzXUFzuq/rsBpncSvYd/zDQrEMxzhNUVmuX7B9Ws7I0P36
+VKkGQqUFJNNx7LLynD7XaJ7l
+=nupY
+-----END PGP SIGNATURE-----
+-- 
+Markus Probst <markus.probst@posteo.de>
 
