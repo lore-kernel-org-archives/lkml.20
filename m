@@ -1,61 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794608080;
-	b=o8TxYaRJykbTYSa67/MkVx2ycapwmkZpOuocv/0bihBjwAS/RsqtZKRAfXVLuQx6Hw0D
-	 wtBAgMf6eCfKeaIvbbWZZETvmMuQWrikc8kvpBzfO7HKdJ0mM2YxZ4hzcsSefF/RpCBIO
-	 m2sjhanG6ap5oXGkEA9HZodA7TI2u2qHUA4LTjHGuUEv/DP9n/FlaoD1pt5b1xcDCEtSl
-	 d/8XLUk/I24tTd9x2Bqzk/uVFhHLE8ET4SS4wFE0JmDQdSynUjqAGQInift4ElILBLl9h
-	 yj07IurUB2ejIhQiBCUgaKAtfwIhhbbPY1pi5jnpjPFg0pvENzuYaXn4YHXH2RoCEkQ==
+	t=1794608088;
+	b=SABq/9gRSIIP99UQeRytDiih/M4ha0oGSyXQf8Kthsrk3PBN49h18vt6xRVhFmIEKtk+
+	 iCvlavkiump+xTc7170fIyErUlSQvg2uM3kmexeqAu1wn38xnmqPnz65y7piCUr3ClMbw
+	 ur28h1pM0n3bXbFKS5pCApRE0pQM8RmYReF/7YubqmMWV6eRdY8pWuBxjB1KeGFiRfR5w
+	 9FnAjvb+udP2IHNsvOL1RHlDfGV7ovNFhvATZ/hKQxYbqqER2bdrf2ibxtYNIH/JlHHuG
+	 TUg8V3T/xvjff/8ToxsK9UVMPwJI3ooaZEuQGjsFkT7/ADJnhdblhJ6XsB51Pamz4kA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608080;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=IBHCcd05o+1mEei4Bw9D2N+VVd5u58/HSmDfdKcBqPc=;
-	b=WWnExIoicfr2fnBuQF2+RgGpVGfrPGjtDggPns6KOhEQS2hvpzy9u28qqRlkcThlll5D
-	 e3z8Dl3+WZlPoROD2Ajdr3ZWwVUPFykJFrDDMu1B/2YlWoQEOQ1sI1krc1t6ktnEC9Pzn
-	 eOtgV4aXWae/4XRFwNXGN1fdkllYXwzKuKeDdZsv7m5yYo6OqeDdQB1BiwmJ6JXpalt26
-	 zYMHtdqSo2t3OzF5+LR/sO+cBwDNQaf0SkGLB8Zo1sriLT4lyqEp7bbzyPOA96Jj0arss
-	 w4wkiJ5g5D2ha00I5qCnGZJZvcpmCy2vrFDZDWlcMxYErb03yDg8qqW15dRDYJxYo4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608088;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=ggQ4FFC8Bi0XuOsjCC8PKsr9I1n0o4RHBwZ93v/svPs=;
+	b=vnzxNpjSiXBtb6JorafpzUZQOJH/PvdPlq8L6bnlKjD0FT30nIbC2X5TSGVOyR6LCz4g
+	 ESt8uZHqxcxJAaFORNcvSSDvXIoWc0KIRYaZJtwrvr8asJsMSaKmr0Xz5rh34wJIeX62M
+	 hCOlIWHBFqHA8Era2tqtfGyUaFBPuRLZn8sCggbSqL86oZz+pZyyIUam3STfEGmz4dukp
+	 c+fP0trwuVmvn53Mf9drTdtZ11AQCcDCiA398gXqm1wmW1fipHMEB7aM9K1VK+HQjWbxQ
+	 nA+tDvDOrVo5q3zc7x9yWETXxstjnjaMqmw0zZOhMiJPml2rgiXQ+HscAWNMAuOdUYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqHzVdqA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="F0h/yyOj";
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F5660A3827;
-	Fri, 13 Nov 2026 22:14:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3656160A5BD4
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:14:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3656160A5BD4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqHzVdqA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49F8D1F000C7;
-	Fri, 13 Nov 2026 22:14:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794608080;
-	bh=IBHCcd05o+1mEei4Bw9D2N+VVd5u58/HSmDfdKcBqPc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UqHzVdqA2kKS7BKcwRJlVgq/03CVgPbhjtYBTYDb5yietosthehPWwLnSydmBIJoj
-	 16s/fS3B84RzT6pQ3IVO7Yjb+R64gIihLFkXMRYK147QPVWsB6N51wUlU3oDpycjSn
-	 4APL9MNMz2e2aIm64ADlfYWDHrd9uEGyZOsNsOxMPrrZpKYg2DL0TkJMv1fUzF9fzR
-	 oYLevxT0Lpnm47jD0W6+O08wrq89UiPBrpYLZmn5CTy8wGStxpXUo02hoCv9PTc0PU
-	 nc3GMVgpy+qA8qARzR52ZN32iyxZKvBLH3RNmcIBuVNMRqOWpBEI1C5y1y667r9tze
-	 hIiAxBjtf7CeA==
-Subject: Re: [PATCH net-next] netlink: specs: rt-route: move fixed-header to
- operations list
-From: netdev-bot+sashiko@kernel.org
-To: hangbin.liu@linux.dev
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- donald.hunter@gmail.com, wessel@jacobi.pw, rdunlap@infradead.org,
- linux-doc@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, liuhangbin@kylinos.cn
-Date: Fri, 13 Nov 2026 22:14:38 +0000
-Message-ID: <179460807877.2199510.9635428422960175112@kernel.org>
-In-Reply-To: <20261112-ynl_fixed_header-v1-1-8475ea19e409@kylinos.cn>
-References: <20261112-ynl_fixed_header-v1-1-8475ea19e409@kylinos.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=F0h/yyOj
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1b25d977b91so1235581c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:14:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794608087; x=1795212887; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ggQ4FFC8Bi0XuOsjCC8PKsr9I1n0o4RHBwZ93v/svPs=;
+        b=F0h/yyOjK9Z89u9J7XgnC5+HYvJukeUSvtRdGdXRYSd6FxItb0m1DCbjnB/F8XGPiH
+         u0Mx0HpIawZ/cpcc/qnj3KgRo6EAPV6vOXXLFYrKpg11VGzUbKeGpr+4CsbKgKd2Ax9v
+         +1zrwsDOILL2dwtp+1vvlgb337Ta7aiDugkCNuzIGsYnXD5XDmv5t4wuwiCajtILk88n
+         LNrHiI4lH+GNFBraZ8z0cwAcBVqjXaoqhujdEUYZisLVg2gj7H76h8O6jAixSP+D0tvv
+         W+59YnqWcvMgH6qBfwQxFVFP3Epi+pArc1N0NAkUQSfQ64jH56UgbBzEPYYpE6uwDJii
+         ASLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794608087; x=1795212887;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ggQ4FFC8Bi0XuOsjCC8PKsr9I1n0o4RHBwZ93v/svPs=;
+        b=vKdQdWQ73FqNWaf5A7JNqn+ZWazkXphgUbQvh36p+DFS9MAcDn7aKYwBZAj4MGbWRr
+         uR3F2nu8XbD9CKO++a+Wj90L6EMdavVjJ+BCmWIg3av+W9OwBtzw33qVOIodjCJVJ4uk
+         OEovu+53hWXUkJ0S+LBbOYa7/UV90XeHRqJEzfjZOfi+KU6g4AYnW+KljjGRkvCdXJ13
+         8yBfuGyWLpkWNX4n6QKVaXIyuFDSNq7Wfmh/99n/nyJHN+kC9ZsMLtzBYL5YR3649+n6
+         9axE54d5PfictYV4oqJKwHOM8WxI9P7Ex8s6ZlSCYb+fwKrl1knXFbXevyp+y2O87rxG
+         cSTA==
+X-Forwarded-Encrypted: i=1; AL+hErHwH5Lk9qzNNKCCIB9c2WE0HG8B743I4ul0Te0YelRjHr9Y4skBrg68hnXbytjML4PWZ7cY6gqYLKY0J5I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0RLXO8FyxF5u6l3X7k9mqT8u2ti1aEOXfrzArcFMjmbrMamcp
+	iYdDKfeRG63Hd01/2LTnr69ZohKKVBS+66e2oUEOM27fBC5eIrJ4gBKbyDXMGln9Q3nFS8hMdKb
+	RWI+LPRjII8FSAA==
+X-Received: from dlbph19.prod.google.com ([2002:a05:7022:3713:b0:195:8b4e:20b7])
+ (user=wusamuel job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:b905:b0:1a9:d04f:1b55 with SMTP id a92af1059eb24-1b50311e3efmr3121638c88.26.1794608087024;
+ Fri, 13 Nov 2026 14:14:47 -0800 (PST)
+Date: Fri, 13 Nov 2026 14:12:54 -0800
+In-Reply-To: <20261113221248.3535369-11-wusamuel@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,119 +78,106 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20261113221248.3535369-11-wusamuel@google.com>
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+Message-ID: <20261113221248.3535369-20-wusamuel@google.com>
+Subject: [PATCH bpf-next v3 9/9] selftests/bpf: Test typeless module ksym resolution
+From: Samuel Wu <wusamuel@google.com>
+To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
+	David Laight <david.laight.linux@gmail.com>, Samuel Wu <wusamuel@google.com>, 
+	kernel-team@android.com, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-modules@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+The module ksym tests use typed ksyms, which libbpf resolves through
+BTF. Add a weak typeless module ksym to the ksyms test, to cover the
+module path of KALLSYMS_QUERY_BY_NAME.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Signed-off-by: Samuel Wu <wusamuel@google.com>
+---
+ tools/testing/selftests/bpf/prog_tests/ksyms.c | 9 +++++++++
+ tools/testing/selftests/bpf/progs/test_ksyms.c | 4 ++++
+ 2 files changed, 13 insertions(+)
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The commit message names the root cause: the doc generator only
-  renders keys on each `operations.list` entry and ignores operations-…
-
---
-
-netlink: specs: rt-route: move fixed-header to operations list
-
-This commit moves the operations-level "fixed-header: rtmsg" key in
-rt-route.yaml onto each entry in the operations list. This makes the
-fixed header show up in the generated HTML documentation.
-
-Closes: https://patch.msgid.link/8610ee11-e1dc-481a-9654-11188a06786a@jacobi.pw
-
-> diff --git a/Documentation/netlink/specs/rt-route.yaml b/Documentation/netlink/specs/rt-route.yaml
-> index 48d1659f20f34..b5786b465eeff 100644
-> --- a/Documentation/netlink/specs/rt-route.yaml
-> +++ b/Documentation/netlink/specs/rt-route.yaml
-> @@ -708,13 +708,13 @@ attribute-sets:
->  
->  operations:
->    enum-model: directional
-> -  fixed-header: rtmsg
->    name-prefix: rtm-
->    list:
->      -
->        name: getroute
->        doc: Dump route information.
->        attribute-set: route-attrs
-> +      fixed-header: rtmsg
-
-[Severity: High]
-Should this be fixed in the doc generator rather than in the spec?
-
-The commit message says:
-
-  "The doc generator only renders fields on each entry in the operations
-  list, not operations-level keys."
-
-That limitation is still in place after this patch. In
-YnlDocGenerator.parse_yaml() in tools/net/ynl/pyynl/lib/doc_generator.py,
-only the list is passed down:
-
-    if "operations" in obj:
-        lines.append(self.fmt.rst_subtitle("Operations"))
-        lines.append(self.parse_operations(obj["operations"]["list"],
-                                           family))
-
-parse_operations() then renders only the keys of each list entry:
-
-    for key in operation.keys():
-        ...
-        value = operation[key]
-        if key in linkable:
-            value = self.fmt.rst_ref(namespace, key, value)
-        lines.append(self.fmt.rst_fields(key, value, 0))
-
-The schema allows an operations-level fixed-header as a family-wide
-default (operations.fixed-header in netlink-raw.yaml). The rest of the YNL
-tooling uses it as the per-op fallback:
-
-tools/net/ynl/pyynl/lib/nlspec.py:SpecOperation.__init__() {
-    ...
-    self.fixed_header = self.yaml.get('fixed-header', family.fixed_header)
-    ...
-}
-
-These specs still set fixed-header at the operations level, so their
-generated HTML still leaves out the fixed header:
-
-  rt-addr.yaml       ifaddrmsg (only getmulticast repeats it per op, so
-                     newaddr, deladdr and getaddr are still missing it)
-  rt-rule.yaml       fib-rule-hdr
-  rt-nexthop.yaml    nhmsg
-  ovs_datapath.yaml, ovs_flow.yaml, ovs_packet.yaml, ovs_vport.yaml
-                     ovs-header
-
-The ovs_* specs are genetlink-legacy, so they can't use the approach in
-this patch. If the family-level key is dropped, op.fixed_header no longer
-matches family.fixed_header, and ynl_gen_c.py rejects that for
-non-classic families:
-
-tools/net/ynl/pyynl/ynl_gen_c.py:RenderInfo.__init__() {
-    ...
-        if op and op.fixed_header:
-            if op.fixed_header != family.fixed_header:
-                if family.is_classic():
-                    self.fixed_hdr_len = f"sizeof(struct {c_lower(fixed_hdr)})"
-                else:
-                    raise Exception("Per-op fixed header not supported, yet")
-    ...
-}
-
-_multi_parse() has the same check.
-
-Could parse_yaml() or parse_operations() render the operations-level
-fixed-header as a family default, or apply it to each op that has no
-fixed-header of its own? That would cover all of the specs above and
-make this rt-route.yaml change unnecessary.
-
-[ ... ]
-
+diff --git a/tools/testing/selftests/bpf/prog_tests/ksyms.c b/tools/testing/selftests/bpf/prog_tests/ksyms.c
+index dc7aab532fb1..801d38560473 100644
+--- a/tools/testing/selftests/bpf/prog_tests/ksyms.c
++++ b/tools/testing/selftests/bpf/prog_tests/ksyms.c
+@@ -11,6 +11,7 @@ void test_ksyms(void)
+ 	struct test_ksyms *skel;
+ 	struct test_ksyms__data *data;
+ 	__u64 link_fops_addr, per_cpu_start_addr;
++	__u64 testmod_ksym_addr = 0;
+ 	struct stat st;
+ 	__u64 btf_size;
+ 	int err;
+@@ -27,6 +28,12 @@ void test_ksyms(void)
+ 	if (!ASSERT_NEQ(err, -ENOENT, "__per_cpu_start: ksym_find"))
+ 		return;
+ 
++	if (env.has_testmod &&
++	    !ASSERT_OK(kallsyms_find("bpf_testmod_ksym_percpu",
++				     &testmod_ksym_addr),
++		       "bpf_testmod_ksym_percpu: kallsyms_find"))
++		return;
++
+ 	if (!ASSERT_OK(stat(btf_path, &st), "stat_btf"))
+ 		return;
+ 	btf_size = st.st_size;
+@@ -47,6 +54,8 @@ void test_ksyms(void)
+ 	ASSERT_EQ(data->out__bpf_link_fops1, 0, "bpf_link_fops1");
+ 	ASSERT_EQ(data->out__btf_size, btf_size, "btf_size");
+ 	ASSERT_EQ(data->out__per_cpu_start, per_cpu_start_addr, "__per_cpu_start");
++	ASSERT_EQ(data->out__bpf_testmod_ksym_percpu, testmod_ksym_addr,
++		  "bpf_testmod_ksym_percpu");
+ 
+ cleanup:
+ 	test_ksyms__destroy(skel);
+diff --git a/tools/testing/selftests/bpf/progs/test_ksyms.c b/tools/testing/selftests/bpf/progs/test_ksyms.c
+index 6c9cbb5a3bdf..0506bb574c4a 100644
+--- a/tools/testing/selftests/bpf/progs/test_ksyms.c
++++ b/tools/testing/selftests/bpf/progs/test_ksyms.c
+@@ -9,6 +9,7 @@ __u64 out__bpf_link_fops = -1;
+ __u64 out__bpf_link_fops1 = -1;
+ __u64 out__btf_size = -1;
+ __u64 out__per_cpu_start = -1;
++__u64 out__bpf_testmod_ksym_percpu = -1;
+ 
+ extern const void bpf_link_fops __ksym;
+ extern const void __start_BTF __ksym;
+@@ -16,6 +17,8 @@ extern const void __stop_BTF __ksym;
+ extern const void __per_cpu_start __ksym;
+ /* non-existing symbol, weak, default to zero */
+ extern const void bpf_link_fops1 __ksym __weak;
++/* module symbol, weak, zero if bpf_testmod is not loaded */
++extern const void bpf_testmod_ksym_percpu __ksym __weak;
+ 
+ SEC("raw_tp/sys_enter")
+ int handler(const void *ctx)
+@@ -25,6 +28,7 @@ int handler(const void *ctx)
+ 	out__per_cpu_start = (__u64)&__per_cpu_start;
+ 
+ 	out__bpf_link_fops1 = (__u64)&bpf_link_fops1;
++	out__bpf_testmod_ksym_percpu = (__u64)&bpf_testmod_ksym_percpu;
+ 
+ 	return 0;
+ }
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-ynl_fixed_header-v1-1-8475ea19e409%40kylinos.cn
+2.56.0.679.gc527c65306-goog
+
