@@ -1,102 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794587973;
-	b=2FOUTGDyovO2Efs3nayJEbzKVXwrfvj3GeeqwhSapszhfsJFinZrVYINHr5OHxZwj7xY
-	 IDfMAhSikK3LvG6IH4hfxxFReGvaYmENpZMESkYo328druJ328Oa5rbPdj50ncTeaHZ8A
-	 tZ2S7fRR/bAx9lbG4fD/GHqnQWeTgwKuqLMP5yYjWwBpD9MI6hXZStY4XOVQ1G+U4w1Yx
-	 FCcIlF0R87yq4zxLLAXcWGsxWlAgojlFIApNT5TkL2WLmE7TMhQIfBHaIJ8kHJh26ffpC
-	 wBOm2yUFOX1jnkafzkBrWTR7AQKKsnFA5nLM3OHXuce//EftvzcVmcOsLKXxzaueS0A==
+	t=1794587961;
+	b=U8ZNAU8hCKOe+hgA4Vgf0sBeXeGOKBTehhD1uXFcLtDFJEAvRHFuCrN3wIMRR6vB1R1p
+	 nqbyTjlMdw2OtXJmWXLkJ1jaAqW89OjX3yCa3QJoCSr1Xm30YiFB/BK3MRL0q1p3fQZm/
+	 pYd5rl1ME25NdmjRPjgCfWhIywIMZXFRqPAOmehovGnJOqEPtVDlOlxioSvRyU4Fhv+vw
+	 PYhc4Z8e72XX8SBL7V7bdQ+z2vZ6QzocMwT11WPEAKCauEAknwpJZ58UG9qWnw5gDId+r
+	 8DDb8kClxUAqcMJtcKc/TlV/J1F/M5+NrXnMo5KLD83ykNbgYbQeQU+bwuPvmIW87wA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587973;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rw2+Wu07AzcSg0TC6g7lPJt693i+bJC0ptoRBW6zeXA=;
-	b=LwsoXhu0WeRr18JpsaAc9UcbFd2Aj60dTbZIs6hkcruzPd001gRO8mVooNvIvS3H+zwL
-	 pQvFSqAzoljNfCafZpa2IpTLkt3q9P8fa/dg0152oluk2uBOnr/vIl/fBoHiJIQjO3Ymg
-	 kiQpkfTAo6fElQl8d/5uunm3cgbDN2QGozgnCsaR2Kv4x89UUdP/r1/cnRybIviVrCOeN
-	 a6K3c0KuRpqCkCWGW0d/jVI+gd9JHzs2Pv4T2rV32p+O6tJuhTp+M66vjN6QthOwjnBP5
-	 JrGlGmHMjYFcOcAAmJ1anJtSmY/sPWBDvd2Zv3UIU9VuWXzPnqroqaxfo/lERatUkUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587961;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=caHdCdnbVcnoOel/8I7UgJt2cA+i1z3iFohsViZm+c8=;
+	b=xQe2uLlnHYlfWs7kVpS4eJ3SyZhgTiUUso+c+wdJ83VuxyHtnnc2A16plUj/SgUPg1Kr
+	 ZsJ4DxjkO5tXTcxn+FLmV4WZb2hghlzGwz74Dx/oGTL8C3a9Ls90Ce7Bu+FJDPt0Eh49M
+	 K2zYhT4glk98C2AaOyzijdTr9Trooy96L5qXhQwtT1TgBQxMTA5cZOjLSsr09Ik8WjGwq
+	 YcRh5ocLdaZxbwgdILZ3bzg5A5dyQhpS5GHrCY2vIp11NqppMrPozbCZ9WnK2mdGdMRhz
+	 NDKjXa4JKFO1/7YizxhIWWVbWYes968/GzdTjSzlBBSnf8YO2K6Br5uBgCaE6XhBs0A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PJxwPzei;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BF3P0op7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03688606AFC0
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BF3P0op7
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794587960;
+	b=KCBwWLIKmGRhnbZ4JIHExnweLunSqpxQitEir4TgC18qMhOGlBDQf4caBV7P9Z8kajSK
+	 cMfxNgnoWOiSsSM7U1d04OjhKQgmGjXvbketaDHVNbPbOOf/xc4WgxyGp/Kcto5p+amw8
+	 umcbSqUYfLcMbpfhZSbQRhzqj778pF1GtFJc2sG9g0koDfzvg+6WOo570kvWBmziU+SXw
+	 fZ5N0xAhZRU+V6ddSp+pqooZ0jcz0jxF9+8y0h1l2zhb+baKrUT7rjhdUfDOKEpmntuoY
+	 su4WLeeyINMmEk/lpq6LgdLLP/YbieDVIPBx8Gtj05p+mkVZfos1P/NU+droyrYOQNQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794587960;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=caHdCdnbVcnoOel/8I7UgJt2cA+i1z3iFohsViZm+c8=;
+	b=QFBwRPmXQz8/ORnGwKzacdzeWOhyfdDgL6nzxi01iKv3hSGi2ikq6gcstaeKKMZC39kr
+	 4vLGn+54d6N7pMWP8+PPcp7SYH233camf0ymW71ZHy8HEPlUWkID2m2X7+yuJePGhd3Ii
+	 YHTFaMiKt0Slx5wAbNd5grvlHC1NHQumEh3AZusy6ZgpGJouvuaETlr1czrp+BLnrarY7
+	 nmxpPxL4cZ+lw6kBeX1G8RIbO82sy++L8BmfyV5FwpigtGr2iPeIlWK/kHdPFowHjJat7
+	 DrQkMGhjI7BiJM639BbO9VEsKB0ZyC+qOUNqgEUyK4vde4NjSzQoC7UbSYuucvjlkpg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689EE606BCAA
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:39:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 689EE606BCAA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PJxwPzei
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b581b6b0e9so1760678a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:39:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794587972; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f8QiPcmck/nSjo7gtLUzlVXcQhSYejomHDzw0YacCCpj4kQu3xx4pBHwfOWkcBfdly
-         rE0vrdMMk9RJj7lF/Qg7yHcqjSp91ihG665glm+IVvRnjBWwuYYcUhfc1k7mR+ZuB62C
-         JiraEDjqiS1MuUngv3cb3JuR5kFJYz2jhIbsaeApuKJrxjawrVsCITB1sxF4bbF/WmHM
-         GtOO+0FnEHRvTXtjEyQdFROFL96dx7BP5MUZxRv1JSOu38LNC4z+csrQOXslHs7ksJG5
-         QX8Xao6kPOWZOibUUXb9r14MVNFSNu/NQgLJsHtY/GujGm2S/xXfW9KSZFVw6a9oD2SS
-         Tsuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rw2+Wu07AzcSg0TC6g7lPJt693i+bJC0ptoRBW6zeXA=;
-        fh=IuJkK6kGmW/Fm5uQcz6UREqTx24gqRx21jgAg7K6Oz0=;
-        b=f2TQsZC42McLGYLGehyPZ2fJwrrP/HUp6UxFfYekTMLvCTRDGS7xLzxFT/nlAlKqvZ
-         HcxN7UnRXvWpTXVGZ0bsJj6Cj+AGzc6/gyKen/L/xxFt+9kokZ5nOF6RMN1CFhYzaOwt
-         n8fJKPIUb6hjd3nnK0dPiFfraZKgELSzc6BCH2D2ZmZsocYkCK0Pk37LXAWxjxoxPF+i
-         WIPLJZ+Pb7SvdNbcCa3ELY5/HjXnuZB5UXPMvZmMx9nT2qYNN0UgkF9ifsbljgRpsnrl
-         KMYnXUKc3qca3MJtZI8ZlQhut09hJRzSi+uKfh1Y/fO1k5naoZTdg6xxNGAd2cv5aIDA
-         5nmg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794587972; x=1795192772; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rw2+Wu07AzcSg0TC6g7lPJt693i+bJC0ptoRBW6zeXA=;
-        b=PJxwPzeiqzZUHmNi4ZpZ3CE/irx8leO5P+PLZjT9cYIqt1Ihc6LYUfmTeLM9OHRujM
-         kiWqrg2HHxQbBnNW/0ZYloJ6IDoXIZ5b9R5QGqxqnzf2e3q8PoqIRymnhNLOpJphwcPY
-         ZYLi1TAawjgIbAZUINRghR/Z80Q7GkS4PrlIQOGUjx1UaZMFDVmzhTOpvEisrBM7yNt6
-         l4BqKOWLY7FoDYpD+O0m3K1cMG6r27O3NEhNdrPS6gBIYjxao0+YHpCbRdIDxxyllrgY
-         AazhY6bBo6qoiveyrTxbK1OnA/duerPVRxa5O83ugyxoBT1IhEUpiHRvebJRe+uTUqPZ
-         hXaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794587972; x=1795192772;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rw2+Wu07AzcSg0TC6g7lPJt693i+bJC0ptoRBW6zeXA=;
-        b=Fc7UtUCT5+l9HgTjg5L0z4Ns7pECjw15Pjc05FL/LDDr6PokTgNoMMv6sQmD8JSb5J
-         haot4dROLqGaLujb9Av4T9haYD948u5NdJdO8Mdh1kpcQuZJs7DxseOAHa9vUs/R4PZy
-         r4YXKuK7bbZfSDqYuPcBF0CGXS13dwNzkqeqyakXKNNFfL6lthf8npH4UYalIwxiORTg
-         wbn7mpeYuuKm7ZTxgmmmGzcvNRJ2zDQgCBSnDoUAdaC6lSDm6weWvqzpm2YH+axO2wdk
-         Px0uTIcap9r33hSEM2uDCC/+930GnjhTT12FT/BqmLqqVaS39O9FJMUtuhzU3t4o43sU
-         hFxA==
-X-Forwarded-Encrypted: i=1; AL+hErGUCiVM6A3w/R12oSbIhCzcBpUyPU5J+v9I42/k/EmqvIBGh1VVhwVpJda2VamOUPZsIasawBxDc/vd0PM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/17uJtRvzbMOXSCOg+MplobRFcOUDuFIAEui/XOG99UlgtWOlQ
-	ODK4NS32M1Ayeku3ynaIw5kXnMdRw0+1TNNds5W6yaoIPn2n12mr2vzl8wOhnuK1rGiQnm2Uw8x
-	8Qg5akmxISjjrkx52M18zJXTMUk36B6g=
-X-Gm-Gg: AYBFou0+W/3D2xUtPSY9r66N5ofE+KrxIwpZXHz7+yKm7e6yfF6yX/btB0YMsXdJYNz
-	CxmnMcCIQEQNduGJh3bIdWjcAjMObVQtklRAvM9CxaOgytNwQ4Cew7ec3ar8urwMmy6BbQGYXp3
-	bc9WljcEmjcUOlV2UfvDYh9Wq0QsWS+v1Kp3jANpR7NnaBhw2Ehahbjm3TJBQ+R7mtQ8d6IO+H3
-	2x+traAq8r1azXwDxROI8uTSBd7JSOo2bEiAQmhOzWjYxpx4J2RY01z4IQS0BV2kaRhMN4KwdBb
-	2dCzUEuJ8zmCFPwAZbSZ7TdsGY7yx2TBPOZiGTWongW17EPUlIYd3x67gUNYjgJtQ+JyEVXcUiB
-	lzqosgGWnNcS2wd//bbak/xatCQVctKSnYjtylr679HXC+NNwxisQXGIbfthpx6tNYJ0eWUrYcB
-	RjI5rjLl3QDGbbyesvltjuMw1Gbc/xVOrZHZbwuyz2YAR3HqhbQvQn6UNKmweRDGLscAdNKmeQT
-	qp+RK4XttjpgDXglMyXnLTvLaXwUqg=
-X-Received: by 2002:a05:6402:90a:b0:6b7:b872:27c0 with SMTP id
- 4fb4d7f45d1cf-6b7c0c86ac7mr2641866a12.44.1794587971407; Fri, 13 Nov 2026
- 08:39:31 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0487F1F000CA;
+	Fri, 13 Nov 2026 16:39:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794587960;
+	bh=caHdCdnbVcnoOel/8I7UgJt2cA+i1z3iFohsViZm+c8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=BF3P0op7c2BWvEgg0RtMnms7ouOFhgltbvdPt9NTMVsXxxw/Q/NA43L5Qdejrbj+4
+	 WC4sUZRs6KTu1fT6lrqgJQy95avT3GqwzTZDULgyIoZmQfIIJdT919Wn+iejEIUMPJ
+	 cVmK3KGzRjUqTRxvKLvtIugGKnFicdH857BjH7PtbqaU9Nx74h5zl3Jvn6YyRa/zMm
+	 W7K+IM+ptt12rz4rkNOgOUrHrMtR/kc0MaY5CTEdPOC6C/eKG94hQOSHp2sOhAtaA+
+	 n94Ms0FSBYCBTdDsb8f/8Im7NHK0UKmQ1pYA9MD0hSfc2tbstuELUrSRNbzZ4clG/h
+	 gGTTvkWzfdHhQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id F15BF499C5;
+	Fri, 13 Nov 2026 16:39:18 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Fri, 13 Nov 2026 16:39:23 +0000
+Subject: [PATCH v3 6/8] drm/rockchip: vop2: Find the first mixer of a video
+ port with Esmart3 too
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,48 +83,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113-submit-phy-mii-reset-v1-v1-0-02a55f352a91@gmail.com> <11acd5b1-3099-4e3f-9fdf-a3c5c6f098c4@lunn.ch>
-In-Reply-To: <11acd5b1-3099-4e3f-9fdf-a3c5c6f098c4@lunn.ch>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 13 Nov 2026 09:39:17 -0700
-X-Gm-Features: AclHuK-0ytg4Lbmg2sk7INYSUK5YlLS26Oz4Ge_M8WOZ7bj0w_qDEbjGo4B5KuQ
-Message-ID: <CADvTj4oPugtaeAXPvjJ10nhfKGDWTKbtALfuyF1+wUsHu2e90A@mail.gmail.com>
-Subject: Re: [PATCH net 0/4] net: phy: restore driver state after userspace
- MII resets
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Michael Chan <michael.chan@broadcom.com>, Hauke Mehrtens <hauke@hauke-m.de>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261113-vop2-fixes-v3-6-08ae37e83b5c@gmail.com>
+References: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
+In-Reply-To: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Piotr Zalewski <pZ010001011111@proton.me>, 
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587957; l=1927;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=LaWGFuV8U702iZKb4Y58/lyq2u07OMYD+M2uTNx0CjI=;
+ b=J6XMCpRpakdX/82Mh/t68AfoQvfvi3DwZT5Oa8EoTLFXDHbPHxyhrtYJYgsWQTPAJgUeuLN1n
+ kDIMsIddEZCAmZRyeY3ZJfGoQpkNc+CPWbBGtw/9NaZLP88Sz9WYzma
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 6:33=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Fri, Nov 13, 2026 at 01:48:39AM -0700, James Hilliard wrote:
-> > An MII ioctl reset needs to restore the PHY driver's configuration and
-> > software state before the PHY worker can access the device again.
->
-> The MII ioctl is a footgun. If you use it for writing registers, don't
-> be surprised if bad things happen. Even reading registers can cause
-> bad side effects, like missed interrupts.
->
-> The whole design is broken, there is no fixing it, so we don't try to
-> fix it.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Would it make sense to submit patches 1 and 2 as standalone fixes,
-separate from the reset recovery changes?
+vop2_find_start_mixer_id_for_vp() passes ROCKCHIP_VOP2_ESMART3, the
+highest window id, as the bit count to for_each_set_bit(), so Esmart3
+is never found and a video port whose bottom layer is Esmart3 programs
+the mixers of other video ports.
 
-The b44 patch removes a spinlock held across sleeping phylib/MDIO
-operations, including ordinary register reads. The write-error patch
-propagates MDIO failures and avoids updating cached settings or running
-follow-up operations after a failed write.
+Add ROCKCHIP_VOP2_MAX_LAYER_ID after the last window id and search up to
+it.
 
-These fixes are independent of each other and neither adds reset
-recovery or attempts to make arbitrary register access safe.
+Fixes: d3fe9aa49585 ("drm/rockchip: vop2: Use OVL_LAYER_SEL configuration instead of use win_mask calculate used layers")
+Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 1 +
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
->
-> Sorry, but NACK.
->
->        Andrew
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+index 1c2d7d97a6c2..87982fba7d45 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+@@ -805,6 +805,7 @@ enum vop2_layer_phy_id {
+ 	ROCKCHIP_VOP2_CLUSTER3,
+ 	ROCKCHIP_VOP2_ESMART2,
+ 	ROCKCHIP_VOP2_ESMART3,
++	ROCKCHIP_VOP2_MAX_LAYER_ID,
+ 	ROCKCHIP_VOP2_PHY_ID_INVALID = -1,
+ };
+ 
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index 6d08988d7007..55e5dc8b02d8 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -1882,7 +1882,7 @@ static int vop2_find_start_mixer_id_for_vp(struct vop2_video_port *vp)
+ 
+ 	for (i = 0; i < 31; i += 4) {
+ 		match = false;
+-		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_ESMART3) {
++		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_MAX_LAYER_ID) {
+ 			win = vop2_find_win_by_phys_id(vop2, phys_id);
+ 			if (win->data->layer_sel_id[vp->id] == ((layer_sel >> i) & 0xf)) {
+ 				match = true;
+
+-- 
+2.55.0
+
+
