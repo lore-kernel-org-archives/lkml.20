@@ -1,46 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794610986;
-	b=lwGdiWi/oJtiZ0FcZ4b73V9ZpyYuhTZM89Y/KTSr0jhyXlIi1LXwYEpGhCATFMZVz+EY
-	 odYphaSsmuhEOvtIuVBF2fOd/XoZFskHOlD9SkG4gij4oBjgNXOYh6Q6aF7wIqqhqNNeA
-	 MCw9Akbyh+uQypWJtK8aO9UXL3OdKRJ6N4SS6U9YpUY1arNTwn6kQQ8XuS8JigqxZPYJU
-	 NijoeI2abCWUyTQSR9CsO2ZoTFGeJHbsjYgT9JGo+uCNxn4LdQ09xoVxsibY5c7MbMrPE
-	 MsIW2PWhDVFqMTODWOLIpCb/NWsGsU+rTonXUY59beFq96Ugv5cWSwsdRl1iMSot5PA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794610986;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=BYjggfmjKlGIW84B14hnVbDiPTvVGE5h9oEWsyq3OhA=;
-	b=cmaRkE2P0+LBZIQ2VXjTbG35En7YBNhj4ueXGnDoRIVlWDXFpvE2JdK9Ar/VpJlNrdFI
-	 buauGYWWKA5LTipUy/lvva7ZVmSw0+7awfgLJ/H+Rb+zOA3U45AKX8NWl4OMXrvSLGky8
-	 hHaMN6zQQFtAppXQRxSI7Px+PEOGCXNMR3qDG87SjDUTZlmaQT3FhFp3eY5uOJziwEmvq
-	 AcxHZCd22/AKJ4iCRBeNE4Fg5RMB8p8RMsEus63Ww/oxmCvGw+043FK3PzuOoZ0kt+VMl
-	 XQr8wXdLRi0hIa84qP+PQkOQarm7+yMODapObY/f7pxWvNPyNZCW20GhfROXGjlEvtQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jAldKYUa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794610988;
+	b=IyVnswNzKdZd0iNKSnCSAm92iQaqjPLD7GKek68mnvGSw+u93GphFUcAA9X/fN2DUwm9
+	 nm9+mO4UqWdghqjD5wpFYPRfp8mOqy7vWOxQJnW0JcFXDcf3VGpe9JQRES+DO3BiDuDIG
+	 g9iGy5YEqVrPoMDjEP26LhNHZ5W5A9uq1pbARguPuPCcjWsQEeN3pZTbY7lBHII6ZLM/e
+	 oRdeBFv8R2t5nKQO/YfIPvdRL4EkQ54y2ZnyOOh9ZAZqKYSK55LPCzJi29uaKPDDS1vX9
+	 tVQgCrYPtehm6bVTN2KmiXaspgoPyCv7muPGUS+kPo8532f+HIMo1ntj8j0Wg7clP/g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794610988;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=PS21OXnonJXkBNygVdBmLKpdRtC9qm6E/wqVssXr2Ko=;
+	b=XTjgVzeh66C9xY1aX6/bLwwKKNllSXef3yiUxFGgZRZ2bXHGTd+aUdB7dRKGkMfkL4k8
+	 RhgDqV4iZbUU/7FkYNGTv3yCGFSAmvsG9k0xipjo5oAOQ+6rqkY9+8EEjTPwgMt+4o2i1
+	 fK5iFsCVQvlmuvJMWyLLrKelnZnagmOiSsqU6r8lbcDdAsn5oqFa8dAW7oaj2A6c6bGJv
+	 XwGVfeBNJRQw79sftmhlFbvLfm1W5syEnd/wW3xiGwxxUBn0Dn9yMvTdKIPSgB6tsNWp4
+	 TsorrdgPxdPo+/YWRqLPMRtsGa0yggP4pzNAKS8G08e0FAMVItmMee6uNFpAFW5iIkQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=sKFNvCfn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.48
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013048.outbound.protection.outlook.com [40.93.196.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49875606A8B4;
-	Fri, 13 Nov 2026 23:03:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3085160A2602;
+	Fri, 13 Nov 2026 23:03:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3085160A2602
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jAldKYUa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70E031F000CA;
-	Fri, 13 Nov 2026 23:03:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794610985;
-	bh=BYjggfmjKlGIW84B14hnVbDiPTvVGE5h9oEWsyq3OhA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=jAldKYUaS7GHU4f6IFTkZrIB0BQsJnm6E++ac3lkxEo5S92zCZyR8lZG1LE/+Zkfj
-	 4LuCT+1azYCJd/kMKPpHKxMrUIP+v00ZL+7b0fmtmew7kc6NG/wc1pNhlqdzmc8Eq7
-	 qAN4GsPgl99IxbijrUfoeGH1dUnCalb1knSgIkjw=
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Date: Fri, 13 Nov 2026 18:02:46 -0500
-Subject: [PATCH v3 2/2] docs: submitting-patches: make LKML a list of last
- resort again
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=sKFNvCfn
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p+D7fcxf6prD8g5Bfa24ILiSXk+GNThQMpNFDwiLBy/u4qAzXtLRsL2gw2OTwIQCXBdS6YwLttyUzqp04xPNw02nav2H0utUMn56Uh1ZDkpx1570P8Fkwn5vHPDnCwS94x40p+Sd8yGE0Tz7em02HVZoaHZa3AW8B1wKqLZo1rq9qRvMbDHnZmzsKRuBfO25uRlYk/vy98rjSaY7q7b3dClzOinr753sWsqZc/zkL0M7u6xaTLW2TOs5sQDNuQ1mhhRvvDou6lqAssK/1f/JPzAou1k6SBX35u9CNNGqDrIOqqTGumTcY4NsESwu5smCMhuvTfO2+/9F5dk6EIMFDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PS21OXnonJXkBNygVdBmLKpdRtC9qm6E/wqVssXr2Ko=;
+ b=NgegDhSF/fwULUDcRkYUNFa6oFBXneIlwL9sfl0WHnJwMDCTQuE1lvPErzlY8CunBYealOTHnelAGZOhPSnXlq864uaRAUzZ0lf4ybbma0lo5idhX8iaHioDBmksFTfSrA7F15N9P+KS9nrGAgvk5/AtuWDN5Jn+hGTYtRLgkxH5Az8F1PcYLUovEoKd0HCX3z2xG+s1Ds0OQQ32JlW2l4IgYqpXpTDKxYCTIgdhnDq4jZJ0vO0oSGDVilOd3xx8WszSSP+8T/JOAgES7gCvGSqG21sPBa/lGeHPczhmzMOzh8YEH2DngLbkWl5mkVyqaQwquQoiXlGAqq7BSPYk+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PS21OXnonJXkBNygVdBmLKpdRtC9qm6E/wqVssXr2Ko=;
+ b=sKFNvCfnIPGTPARy/h+kaUZ/RVlLiB7lQJnbZ1XYQuvI1FUZZ+qe4hn6e58N2Ow841k4qb5OSxGn4L6CGnk+Fg0nfVjvhY5gC2K0Fo2fz7eqqUk7qB+JtYMstrLoPV+qqUN4mZGz2g4ZpOp+T9EfHPuvdhJIUSSS3pXiZOsx21o3bLVOtf/pVY7Ha9CMh/rAdQzOmuBMpN0cFl0JfDLmSed265q1YPXPoUQHBOx416ze+n+gegM7tBqeVDcyMsKp3bNCl+iXzgnDB4uiTyNFZHuOdcnG8aX8s9pKnVXJoXnpCv2s79G5fhDppgMq6EKqiCidUw7l7ZbetD0w6JLMGg==
+Received: from DS1PR04CA0023.namprd04.prod.outlook.com (2603:10b6:8:243::17)
+ by CH3PR12MB8725.namprd12.prod.outlook.com (2603:10b6:610:170::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 13 Nov
+ 2026 23:03:02 +0000
+Received: from DS2PEPF00006E24.namprd05.prod.outlook.com
+ (2603:10b6:8:243:cafe::4c) by DS1PR04CA0023.outlook.office365.com
+ (2603:10b6:8:243::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
+ Nov 2026 23:03:02 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ DS2PEPF00006E24.mail.protection.outlook.com (10.167.23.217) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 23:03:02 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 13 Nov
+ 2026 15:02:49 -0800
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 15:02:48 -0800
+Received: from dgx-1v-42.nvidia.com (10.127.8.11) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Fri, 13 Nov 2026 15:02:48 -0800
+From: Jamie Nguyen <jamien@nvidia.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+CC: Len Brown <lenb@kernel.org>, <linux-acpi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH] ACPI: sysfs: Serialize access to the table attribute list
+Date: Fri, 13 Nov 2026 15:02:48 -0800
+Message-ID: <20261113230248.3569097-1-jamien@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,70 +113,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-get-maintainer-the-rest-fallback-v3-2-36ee5a3e8d13@linuxfoundation.org>
-References: <20261113-get-maintainer-the-rest-fallback-v3-0-36ee5a3e8d13@linuxfoundation.org>
-In-Reply-To: <20261113-get-maintainer-the-rest-fallback-v3-0-36ee5a3e8d13@linuxfoundation.org>
-To: Joe Perches <joe@perches.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, users@kernel.org, 
- Federico Vaga <federico.vaga@vaga.pv.it>, Akira Yokosawa <akiyks@gmail.com>, 
- Carlos Bilbao <carlos.bilbao@kernel.org>, 
- Avadhut Naik <avadhut.naik@amd.com>, Alex Shi <alexs@kernel.org>, 
- Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, 
- Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>, 
- workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
- Petr Pavlu <petr.pavlu@suse.com>, 
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1962;
- i=konstantin@linuxfoundation.org; h=from:subject:message-id;
- bh=nkdiQvp5Jj0ckO1qdttyQR3N/yfvZHdyh/6ZF5sauk4=;
- b=owGbwMvMwCW27YjM47CUmTmMp9WSGLK+T1cpmR2cUczyKl1McuL+S+za01cGMS38WqMwaZX0r
- JPelzk+dJSyMIhxMciKKbKU7YvdFFT40EMuvccUZg4rE8gQBi5OAZiIxw5GhlmHVrSzLr9RuOCK
- W81UA02FjTHn4q9NKmraJ9FZ056h18PI8FwmKa6y+GjRCtYLItz7eYw2v9cUVlw+3Stxj+GH+7e
- 2cQIA
-X-Developer-Key: i=konstantin@linuxfoundation.org; a=openpgp;
- fpr=DE0E66E32F1FDD0902666B96E63EDCA9329DD07E
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00006E24:EE_|CH3PR12MB8725:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76e1e424-a2f6-4e96-4534-08df41da44e9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|36860700016|1800799024|82310400026|23010399003|376014|10067099003|18002099003|11063799006|5023799004|261022075727099003|261026121527099003|261009223027099003|56012099006|261021123027099003|261028144727099003|261022105027099003|261102123227099003|261021121427099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+ ODvb5UdY7/OeOK21Y+Xy6mId1/P1wYRlCj8tWPJa4YAs3ziR7GLYEci7NQ6p+TCoHWwsnKUrn0r/3pIF9YUhemGfvzsP+ObOpgyEC8aDVBW99MxEESDe6/xFiXF+FpIB9PLCnL2BplzDUujLUccC3jVpEswlakok0Jv7ECaNu827GNBAWYvN9XCcg15kzKOc9eltD7VDD7YjGf8E5ZiMNnbTU7xKi9qU1xqyFYPSf2YrFfKCLXU7Yp/yorqtADQ9s2TOzAeUSpgQ3tB3g1ObAEicMWGLX0PRYW1pZB83HQEOMlA0oiIAGRzU1LbdszAUbGCWQxZJs+G1i1srp0VjLYncRTYUunACfIIBTV3yRO/c67m3HEYijuKjjk7qo06ILXmnDvfxIpFsCcdEYYY3yfOiID7m0rx2UtqLV0ivgcVxArwj93KjZ7luLiZUFyOavPRNBUAlMkFxQz9ByT1OyDfIhx5QJKOoTL6wLLy1hpfXalni2eIhoWT8kR8CUkw8DK9KqG1RlS0vqSfAos4d8JcgbtdlBTLfx/ZjhXdeMeKTf9xZfzC1OL8dJ0NFUZWc9L9XKoeJOBk7oPAd5XFj4GluNipes45+v+hY1+bnS/UMoWRSDBEUYmc9zyQnXMs36iiuJFYJGWmtrCwDL2wDnG1bgT1+NN2MDO+e1OJCd5WJKmAge1lUGsS7luuxrGQN
+X-Forefront-Antispam-Report:
+ CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(376014)(10067099003)(18002099003)(11063799006)(5023799004)(261022075727099003)(261026121527099003)(261009223027099003)(56012099006)(261021123027099003)(261028144727099003)(261022105027099003)(261102123227099003)(261021121427099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ 2BtWV/X8gmjYmvIdeMatKIu8HyANdLwsr78AR8MkB54NC3I8HfLLR8A7o+G0Aye13GabsfUdUQMV6lbVKL0pNsnEk2xJ8l1+Qm8gTDtpQHE787/uF9JV9wVn8Zv223hNfCYhkYrtGJueVAKUpLyuL9Y/n6v8qcxtkwFnYQHaX4+LywtStm5iVOWpanKE0LgVfJcmaLV5PBTHYfhkBjHQ/WbXTsCUPQemDrRzULY8gMn6iTtN/2PljJjrHzTfyfMkFR53gDjuVm9afbtLMueVDxL7dHUVgOumQfqDNTUBCJxErb0bHRkU5V5PrmbL6+4fkfLkkZkJxYxhPCn4lGZWiaeaVv/i5tmsKdxMYogCBk/tVulHJy/Syit+nQLfm2B2SGlFAa8kaLfc4vWSaMUjAnFavvATYrd8rIricmsOn5KJ4t+8nc0ViPEP478SFrmz
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 23:03:02.3466
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76e1e424-a2f6-4e96-4534-08df41da44e9
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+ DS2PEPF00006E24.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8725
+X-OriginatorOrg: Nvidia.com
 
-Commit 77167b966b7e ("docs: submitting-patches: clarify the role of
-LKML") changed the documentation to say that all patches should be sent
-to LKML by default, because get_maintainer.pl always suggested it.
+acpi_table_attr_init() walks acpi_table_attr_list to pick the instance
+number for a table's sysfs file, and its callers then add the new entry
+to the list, but nothing serializes this. ACPICA drops its table lock
+before calling the table install handler, so tables installed at the
+same time can pick the same instance number:
 
-Now that get_maintainer.pl only falls back to THE REST when no other
-matching section provides a mailing list, update the documentation to
-match: send patches to the subsystem-specific list, and use LKML only
-when there isn't one.
+  sysfs: cannot create duplicate filename '/firmware/acpi/tables/dynamic/SSDT1'
 
-Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
-Signed-off-by: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+When this happens, the table is installed, but has no file under
+dynamic/. Concurrent list_add_tail() calls can also corrupt the list.
+
+Add a mutex around the instance lookup, the file creation and the list
+addition, and move the list addition into acpi_table_attr_init() so it
+is done under the mutex.
+
+Fixes: 7a37052adb5e ("ACPICA: Tables: Fix hidden logic related to acpi_tb_install_standard_table()")
+Signed-off-by: Jamie Nguyen <jamien@nvidia.com>
 ---
- Documentation/process/submitting-patches.rst | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Sashiko flagged this, as a pre-existing issue, in its review of my
+previous patch:
+https://sashiko.dev/#/patchset/20261110225452.2349540-1-jamien%40nvidia.com
 
-diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
-index f271d7413f72..85ba046d66fb 100644
---- a/Documentation/process/submitting-patches.rst
-+++ b/Documentation/process/submitting-patches.rst
-@@ -239,9 +239,12 @@ patches as arguments to scripts/get_maintainer.pl).  If you cannot find a
- maintainer for the subsystem you are working on, Andrew Morton
- (akpm@linux-foundation.org) serves as a maintainer of last resort.
- 
--linux-kernel@vger.kernel.org should be used by default for all patches, but the
--volume on that list has caused a number of developers to tune it out.  Please
--do not spam unrelated lists and unrelated people, though.
-+You should also normally choose at least one mailing list to receive a copy of
-+your patch set.  Look in the MAINTAINERS file for a subsystem-specific list;
-+your patch will probably get more attention there.
-+linux-kernel@vger.kernel.org functions as a list of last resort for patches
-+that do not have a subsystem-specific list.  Please do not spam unrelated lists
-+and unrelated people, though.
- 
- Many kernel-related lists are hosted at kernel.org; you can find a list
- of them at https://subspace.kernel.org.  There are kernel-related lists
+Tested on an arm64 server (288 CPUs) and in QEMU (x86_64, 8 CPUs) by
+loading SSDTs through ACPI configfs from 8 to 64 processes at once:
+- Without this patch, 3 to 7 tables per run got a duplicate file name
+  and had no file under dynamic/.
+- With it, every table got its own file, with no lockdep or list
+  debugging warnings.
+- The boot table files are unchanged.
 
+ drivers/acpi/sysfs.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/acpi/sysfs.c b/drivers/acpi/sysfs.c
+index d1b57d1246aafb1..47b816c588feedd 100644
+--- a/drivers/acpi/sysfs.c
++++ b/drivers/acpi/sysfs.c
+@@ -11,6 +11,7 @@
+ #include <linux/kernel.h>
+ #include <linux/kstrtox.h>
+ #include <linux/moduleparam.h>
++#include <linux/mutex.h>
+ #include <linux/string.h>
+ 
+ #include "internal.h"
+@@ -298,6 +299,7 @@ module_param_call(acpica_version, NULL, param_get_acpica_version, NULL, 0444);
+  */
+ 
+ static LIST_HEAD(acpi_table_attr_list);
++static DEFINE_MUTEX(acpi_table_attr_lock);
+ static struct kobject *tables_kobj;
+ static struct kobject *tables_data_kobj;
+ static struct kobject *dynamic_tables_kobj;
+@@ -348,6 +350,9 @@ static int acpi_table_attr_init(struct kobject *tables_obj,
+ 	struct acpi_table_header *header = NULL;
+ 	struct acpi_table_attr *attr = NULL;
+ 	char instance_str[ACPI_INST_SIZE];
++	int ret;
++
++	guard(mutex)(&acpi_table_attr_lock);
+ 
+ 	sysfs_attr_init(&table_attr->attr.attr);
+ 	ACPI_COPY_NAMESEG(table_attr->name, table_header->signature);
+@@ -379,7 +384,12 @@ static int acpi_table_attr_init(struct kobject *tables_obj,
+ 	table_attr->attr.attr.name = table_attr->filename;
+ 	table_attr->attr.attr.mode = 0400;
+ 
+-	return sysfs_create_bin_file(tables_obj, &table_attr->attr);
++	ret = sysfs_create_bin_file(tables_obj, &table_attr->attr);
++	if (ret)
++		return ret;
++
++	list_add_tail(&table_attr->node, &acpi_table_attr_list);
++	return 0;
+ }
+ 
+ acpi_status acpi_sysfs_table_handler(u32 event, void *table, void *context)
+@@ -397,7 +407,6 @@ acpi_status acpi_sysfs_table_handler(u32 event, void *table, void *context)
+ 			kfree(table_attr);
+ 			return AE_ERROR;
+ 		}
+-		list_add_tail(&table_attr->node, &acpi_table_attr_list);
+ 		break;
+ 	case ACPI_TABLE_EVENT_LOAD:
+ 	case ACPI_TABLE_EVENT_UNLOAD:
+@@ -604,7 +613,6 @@ static int acpi_tables_sysfs_init(void)
+ 			acpi_put_table(table_header);
+ 			break;
+ 		}
+-		list_add_tail(&table_attr->node, &acpi_table_attr_list);
+ 		acpi_table_data_init(table_header, table_attr);
+ 		acpi_put_table(table_header);
+ 	}
+
+base-commit: 03176329b3f11ca2298f310a47486a5bd2f13d1d
 -- 
-2.56.1
+2.43.0
 
