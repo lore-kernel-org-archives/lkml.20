@@ -1,56 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.225
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794566950;
-	b=uHpaOIMw1EN3Se8CRQ1zVKscZ9RgTvyG7FT0SHBNmwWBKbHPOQBwwiYAS/5BKev6AJc+
-	 ZqtWQSWOVXB/s2zuXZpvYL/haNxpKgAoSVVLi2tsu8C1ZcMBUkftFJyNMerQSV4tTdUqS
-	 mIrungDzTERzdHarTnLUOs2YxU1H3dV3J+Fv8yUPEEY2ZxA0pf/6W1sC7S1sVhu7otgLy
-	 rgVd1ccBy4QECpms7EDh8q8uw/i+4cNvwP3wfukznSprxKmkO5zl63fVAEmbvF1idfUoT
-	 GHYy7a30eZs7Bm2Q4K0uVvHuRc8KHDvYCQ3ukulKOMs8lwO0KETC6/6XGcJF4ODkULw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794566950;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=L9d6tPMOZAxjfoonjzvY06kxXI/XywJdcquCBInJ17c=;
-	b=fAyVPf2CZ0AwUwOBC3RV1E5QY9gjg8Equg9P+lKsEJPBa2SWQb7mgwLdaTno83SO352J
-	 e81DDFzW0oJnBUqBUoWvvKTmDgTwsWuGnjTVcN40ozl83xsBSoVE1quGNHsOaouuNhOm7
-	 oQFbYbx/yfoTN1f8Khxa5CINYDD6VA87IzeKuFYVnTqyeWnpfwnQ5Ao3aMPohKZlho10R
-	 3WfYEbBY5vL70nUZ4BRPG+rgKJwHx07dlt8m2u/Cdfhu3uWSrwLm0ymKXhlTPE7Y5p8p5
-	 vCNzYoWTnRUFH5EtrkHHQINhvE66wTPihGj267FvgX7tWoU0AfUIcy0FWQkZ8ZiuBcQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=N+MqUjTo;
-	arc=none smtp.remote-ip=95.215.58.225
-Received: from mta1.migadu.com (unknown [95.215.58.225])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794566957;
+	b=gbwdc/c1sNNo6wwYGrbpa3koSQ2eykMlKq+u2aRarHCbQ7MCzDAZyIdGPe23CrOotNfG
+	 Oa33MH46I9kb+1SiJE6hkx440pVjJ4MGC7Lk+uO793Gn0aD4kZkl3fLWXnN5qJtRi+B+5
+	 kq0al1vTIGb2VP+UGo4O0aAPBcbGDzWH6yNbVbQb5ojuDAlCwpcb17Ci0Y9zBzAS5HDns
+	 vxcwIXsuILpOnnK2njX/kHiUowNqO5m2I0Vq7Eg9q2ICvwCKziBASqBnj6lgvwwIhUOTd
+	 76IdbRZgIh7wHqrcDVWGoW0r3Vfqa6gyzJ+UfjUndXb2cp1eCmjG/QklPhvB4tyFl3A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794566957;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=JTfJbS10SAhLayZBK7QayKezkLtHPNyapi94XEiP8bo=;
+	b=COAi2RW1PncP53v7r0tyB4XhKRfdTVq2LNPjEwKLW2ORPaOICeMNSSpAPJohJAYzBPOk
+	 eULdfmtIS8r8pwiuVL3pfYmM2pmz+sbq6LckgY0qN2iiF1CrRlcDhlPKyUAu9+4irQy7j
+	 yCQJuWiRzAMalVXRS2NdhU/2ubZUWSXpSPIuwAQd1u6q+IMM9O05hSnzkyTcqsxpn8iWk
+	 fe+nRocyXDhacK9PYmCXZJ0kapuVLaH1PCP96VKWmBANXQW49X4oiMKegTPLHzhv7eieH
+	 id1CBgx2GejhjYRAIgUqzgf38WSFQIpUdVVMqpPFjVrikTzbhwAgUzaGrFmL8chG47g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=sUiJzb5j;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6826A606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:49:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6826A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60983606A335
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:49:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60983606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=N+MqUjTo
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JTVI8dsnYYKY9XmmTsofIbVRVxeIG9KyE+kWPKidMJw=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794566945; v=1; x=1795171745;
- b=N+MqUjToFyi255sl31+u90pvQ3RiTlVM/dwQ/63jjJhQRZj/LNPb8qitKVPuDlqPEbLemB0r
- vbCPFyr0flQwrHffI/GWK0i9rJ2O8LL8cB3gVXn3vOUwzIcrV7xaCbEVaDZOaUMJ0hFYqB7Eh/G
- wEv4A2OfzEPdjleofByLzHC14NNBCQeByTSPOoMZyVoetspMbiNKseACDhTvKrFMTYYe5KydZLW
- hV5Lar5GOYmxrxxMo32AmYf3iw6ZixdfHljM3dxOtWVoD85ESIJZiNryZIaQFSdTmo9LIJlwB4Y
- qZIv2rPyOlziNen2TvwhXRyvol31jV1jj4fOKRkAfi9fg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 49f6fcf4643467b8;
-	Fri, 13 Nov 2026 10:49:05 +0000
-X-Mizu-Trace-ID: 49f6fcf4643467b8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1ac861f9-e6d4-4d16-912b-711fffab3063@packett.cool>
-Date: Fri, 13 Nov 2026 07:48:57 -0300
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=sUiJzb5j
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b56bbf8330so1284485a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:49:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794566956; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RW858StCIGu0ZO4THSwL+5t1+0uytkHlfbDuRqyG41fluJliGKK2v3XEEnbpVpYlM3
+         C5p4lZeWNgZRVfwHnG6FW1EX3Q6Qcyy8hZNbOlHW+7DBuK0cASVjZjij2gRVEPQWIzKK
+         n5O7pU7X74JcPS7pKOqTw7/I/96A5dLa1z2YxDBXykluOsBV0nTohS7gHtFvRpGSbeTf
+         ZUt4MWu0qqNG4E1vkHYhkE2d80Uyz5BBj6hMkaxC7xc0byXLO0cyCw1Bc+AFN9cDEEl3
+         eSNYAG5OQg8IlOkJ6bVLne1u1jB1fXxTOnskq9M4TlKegOPnhojgTMajdnTwiwilxlre
+         bDdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=JTfJbS10SAhLayZBK7QayKezkLtHPNyapi94XEiP8bo=;
+        fh=5mWnxMd1w+2H9/2dgjya7queuRTxPR4U5FRiot2tOPM=;
+        b=Cpd4MLcQCX8Ri8kSr+lDfrCCns3R+cMQeTESIV2+3Pm29TqcFLVXSCC6Iuc7mWS/Bw
+         5+x/cm4QQZLB8WxsHzSDnzg+CTXar3RNyXPOm41TMpAdpu0eDP9Tkrq/7dIO3YuI+cVn
+         IIBTm579VbuW/ajDKfGu4ECoe7wv28rCvWl1EarSPC1EyZi+bQW+SvXvoweJhJWY6Sik
+         j+3emrIs+/R1GRax4rPDHHd3EpajsAIL3/BMiaNXG545TAwib5Fd7n7wENINPh6p5ZRl
+         fzBSbE2fe5I+EKOQYNNszG54ahjCpqG0yR/8hgYg+9aRrIiEXcOCIitl7009d2ak/JaF
+         BHKA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794566956; x=1795171756; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JTfJbS10SAhLayZBK7QayKezkLtHPNyapi94XEiP8bo=;
+        b=sUiJzb5j8kzjG5rFAwt2lYPsOrZC8lwZwqlP31LJtDvdcJ01+c/zeWa/v7zmdHqJ2s
+         R7GaIh2zsKQEPhTm79GWV+vFc/ZJkat5LJNZ8TMmqiIVI4XNbcVLuk3p25uKHmEvjLE7
+         RDFDL5XFE192cw+TZ9w2LvsiFN/Ubm2ZU+lsyvBWRgZXP1UnaWxZ7JZ5yPkS0T2N/ZEK
+         O5VKKIYqtoXLuSZEz9DB/EmmIGGHjTIq128D9+TdUfKxoDUxjUx1BwhNfo18JxpBYnGr
+         tFCFcmSiPI+KDAsR0c9B4tNffO01rwil5zH17ca3R4nh/0oKZBXBjKCDYG/EVoMnRkMJ
+         oi2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794566956; x=1795171756;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JTfJbS10SAhLayZBK7QayKezkLtHPNyapi94XEiP8bo=;
+        b=qgVqDWCO0YpwWntdcJ3O8YB+8I4yP8eiqMiV0Je5eh3WQDCEMRFWpEoTx23VIdqRMU
+         qlginGPkj62/tgrTTR/19+aHlfq9ess1VtwfJYmWO+FeZQs1WH38fP4+p60rzx3ddu3Q
+         OIPpCttRWzdYFF+BxRrwJKsVwzhO40qb2nEbRaFj2h36e4tl6+FgluDKdMyr8VMCiGb1
+         6mBUkoBiANwUs2/7FXR0vxAOjtmyB1jngUllZ/oEvVbxDGAsmQiYpzNqZ55vhF3MIenC
+         WSyaW374H1yXCxUIERt2UJ2phk8Saak6lkqukZSh2KXhVZItuUUl7LERA8SSQt7i3Pon
+         WFfA==
+X-Forwarded-Encrypted: i=1; AL+hErHr8uu27gH4Vu0MDQXs8YpW2JNwpFtCSfgNYpSX6CYa9LlScasb8YJf8FkyAN2vROKKh715/gEEJq8HGQA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YOgne/GOeT3xL8Q4qjtMLs5ENQcl02gsWx8wEI/XadWyxgZsz
+	/KUhUceNb1KtBvcAJ3R6jhqa/p/Hf3myZ0+JyUvMZRcPnqLK29up+raJZIxdld9uqG0mrxgUqe4
+	Mgo5FatA0uEtPfrVrTT85F7n+AjK4Q1Ll6Ju2VDUrNw==
+X-Gm-Gg: AYBFou0oeJSkS1k3sDLoX/rRiW9KRSd/yWmDd4Y3y/jVRu/LjXGNVmmD0t5uEx3bmh2
+	40nnLLN2QvletEz9JGKy3e4A3/ezjeOCPF5Gzyi0Ujm85P9Nutebp4fnQoocYRkCoFYUhOoEJdv
+	F7T4ezrbDaT7fTdBnBwIOHeQSWsBOamNwzUo6kB0rj0xkuKqiiVRVVzNjjtelJD7scbfwS12Wjo
+	BMaxjNB1FFFMKw/9gUE6Ia9ud4T+f9HPZh7e67F+qajIdfpNfwNCwvPcoknNEgr2+e7DOc1TICx
+	QXgeacqFgrVs6nomGPo6ZxzLoFaIKsGsaeiqqF+taXrdVh8jXK92eW2wuZpGOJI1YZjjTzeHCRM
+	QVvEUv/cQQcNff7tcM+sM7rwthqoR3p0H6CR12LvnyvBrSjZr38rJa2Sw9GtcP4lRYsHsMQ==
+X-Received: by 2002:a05:6402:e05:b0:6b4:2fb2:44f8 with SMTP id
+ 4fb4d7f45d1cf-6b7c0d1cabcmr1977930a12.42.1794566955396; Fri, 13 Nov 2026
+ 02:49:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,93 +103,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] iio: adc: qcom-spmi-adc5: Add ADC5_BAT_THERM_100K_PU
-To: Luca Weiss <luca.weiss@fairphone.com>, Jonathan Cameron
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>
-Cc: Marc Lainez <marc.lainez@gmail.com>,
- =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
- Danila Tikhonov <danila@jiaxyga.com>, Sebastian Reichel <sre@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261112170841.2189322-1-val@packett.cool>
- <20261112170841.2189322-4-val@packett.cool>
- <DMU0219YWEL8.35KQSMY192RH4@fairphone.com>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <DMU0219YWEL8.35KQSMY192RH4@fairphone.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-14-vincent.guittot@linaro.org> <fceb72e4-0042-249b-8223-f912f2a50d80@open-hieco.net>
+In-Reply-To: <fceb72e4-0042-249b-8223-f912f2a50d80@open-hieco.net>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Fri, 13 Nov 2026 11:49:01 +0100
+X-Gm-Features: AclHuK93LzBqjNugOvp7vsT1Zi6WPLqjO3BWR9AFgUHwCjO2r9c6gTAQV4RnDhw
+Message-ID: <CAKfTPtBE3pU=71EyEfVRSbOBG+Y9itNEhfwd7svT9+JZhek-vQ@mail.gmail.com>
+Subject: Re: [PATCH 13/20] sched/eevdf: Try to push short slice task on a
+ better CPU
+To: Li kunyu <likunyu@open-hieco.net>
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
+	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
+	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev, 
+	qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
+	sshegde@linux.ibm.com, kayracizmeci@gmail.com, tim.c.chen@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-
-On 11/13/26 7:09 AM, Luca Weiss wrote:
-> Hi Val,
+On Fri, 13 Nov 2026 at 10:25, Li kunyu <likunyu@open-hieco.net> wrote:
 >
-> On Thu Nov 12, 2026 at 6:07 PM CET, Val Packett wrote:
->> Even though it existed in bindings for the longest time,
->> ADC5_BAT_THERM_100K_PU was never assigned in the driver. Do so.
->>
->> Signed-off-by: Val Packett <val@packett.cool>
->> ---
->>   drivers/iio/adc/qcom-spmi-adc5.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/drivers/iio/adc/qcom-spmi-adc5.c b/drivers/iio/adc/qcom-spmi-adc5.c
->> index d57ba8526e0c..c27ff89429f5 100644
->> --- a/drivers/iio/adc/qcom-spmi-adc5.c
->> +++ b/drivers/iio/adc/qcom-spmi-adc5.c
->> @@ -542,6 +542,8 @@ static const struct adc5_channels adc5_chans_pmic[ADC5_MAX_CHANNEL] = {
->>   					SCALE_HW_CALIB_DEFAULT)
->>   	[ADC5_XO_THERM_100K_PU]	= ADC5_CHAN_TEMP("xo_therm", 0,
->>   					SCALE_HW_CALIB_XOTHERM)
->> +	[ADC5_BAT_THERM_100K_PU]	= ADC5_CHAN_TEMP("bat_therm", 0,
->> +					SCALE_HW_CALIB_THERM_100K_PULLUP)
-> While this will work fine for some devices, unfortunately this won't
-> work for quite some other devices that don't use a 30K, 100K or 400K
-> NTC in the battery - or when the NTC beta (B) is differing to the
-> hardcoded lookup table.
 >
-> For example on Fairphone 4 (pm7250b fwiw), the battery has a 10kΩ NTC,
-> so using the ADC5_BAT_THERM_30K_PU with the hard-coded lookup tables
-> would result in very wrong temperature values. Even ignoring the whole
-> NTC beta topic.
 >
-> You can see my proposed patch series at
-> https://lore.kernel.org/linux-arm-msm/20260220-bat-temp-adc-v2-0-fe34ed4ea851@fairphone.com/
+> On 2026/11/6 23:19, Vincent Guittot wrote:
+> >  static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struct task_struct *next)
+> >  {
+> >       if (!__check_pushable_fair_task(rq, p))
+> > @@ -10120,6 +10137,12 @@ static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struc
+> >       if (next == p)
+> >               return false;
+> >
+> > +     if (next && next->sched_class != p->sched_class)
+> > +             return true;
 >
-> Unfortunately it's from February and I haven't spent more time on this
-> topic since then, mostly because fuel gauge anyways was downstream, so
-> pushing just this upstream wouldn't make much difference.
+> Would it be more appropriate to use sched_class_above(next->sched_class,
+> &fair_sched_class) here? I think placing prev on rq->cfs.pushable_tasks is
+> justified only when next belongs to a scheduling class strictly higher than fair.
+
+class strictly higher is the most common case but we can have cases
+where sched ext dl server preempt fair task
+
 >
-> Now it does, so I should get back to it... Let me know your thoughts!
+> I also wonder whether doing this in the normal CFS hot paths -
+> put_prev_task_fair(), set_next_task_fair() is really desirable. PATCH 09/20
+> already replaces the unconditional raw_spin_rq_unlock() + task_rq_lock()
+> sequence with a raw_spin_trylock(&next_task->pi_lock) that skips the push when
+> the task is already locked, which I agree is an improvement.
+> But could the push decision itself be moved into the load balancing path
+> instead? That would keep the hot paths free of migration-related locking and
 
-Looks like your series has had very positive feedback so far, from a 
-quick look I haven't even noticed any pending changes really..
+LB is not the right place for several reasons:
+- the period between LB can be quite long compared to scheduling constraint
+- EAS disables load balance
+- periodic load balance looks at balancing the CPUs in a scheduling
+domain without taking care of indiviual tasks requirements. It looks
+at CPUs and then tries to find a task on this CPU that matches the
+constraints whereas the push mecansim is done per task so we can take
+into account task specific insights like slice, min capacity,
+preferred_llc when looking at a CPU.
+- We want to use push in a selected number of cases where we want to
+act immediately
 
-It's orthogonal to the qgauge driver itself as the driver just consumes 
-an IIO channel which can be whatever's appropriate for the device, but 
-that's informative in that I probably should not set a default channel 
-and rather leave an explanation in the example in the bindings that it's 
-very battery-specific.
-
-> (Fairphone 3 with SDM632/PMI632 would actually be fine-ish as-is because
-> the battery has a 100kΩ NTC and the beta probably is close enough to
-> what's in adcmap_100k_104ef_104fb_1875_vref)
+> select_task_rq_fair() calls. Or is the next-aware context (knowing which task is
+> preempting) something the load balancer cannot reconstruct, making the current
+> placement necessary?
 >
-> Regards
-> Luca
+> Is my understanding correct?
 >
->>   	[ADC5_BAT_ID_100K_PU]	= ADC5_CHAN_TEMP("bat_id", 0,
->>   					SCALE_HW_CALIB_DEFAULT)
->>   	[ADC5_AMUX_THM1_100K_PU] = ADC5_CHAN_TEMP("amux_thm1_100k_pu", 0,
+> https://lore.kernel.org/all/20261020083746.37068-2-likunyu@open-hieco.net/
+>
+> The SMT push work in this patch is intentionally quite simple; I think
+> it could be generalized with only modest changes to perform push at
+> larger scheduling-domain scopes, such as the LLC (last-level cache)
+> domain.
+>
+> I realize the push direction is somewhat at odds with the current
+> cache-aware scheduling work, which instead tries to make cross-LLC
+> migration less attractive. Still, I'd be interested to hear whether you
+> see any value in a push-based approach at the LLC level, or if there
+> are related plans I should be aware of.
 
+I think that Chen is looking at using the push mechanism proposed here
+for cache-aware scheduling
+https://lore.kernel.org/all/as2-2b417B8ZaFdO@chenyu-dev/
 
-Thanks,
-~val
+Thanks
 
+>
+> --
+> thanks,
+> kunyu
