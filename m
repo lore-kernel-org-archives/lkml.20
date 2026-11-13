@@ -1,123 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794592148;
-	b=Vz5nF7mCOBkflJbaZ1cDm4JOeDSU95+qV/dsIi+ffY+s1MhYaa/Rp8TuugCD0rwSLd/7
-	 KkDFiq6vsDYCzuJ8+WTg+NfE0/3xDgqXeusKrmGH7wimlHLfYMtWyd96eI327zaSsiGMZ
-	 9E3fUzfdLundoD5CHkj9NuVK7XUvCUODCbAt+QOJVE+IKySdOFc0xapCH2FUhbKdaCdha
-	 caoaSoMiokZkqu26S8tLiJ3u7YLr5TFGF/nuBZWmTrohCdX+eruLETjBdZknsOpI8G9Cq
-	 HthHin71h5VZsTU9IwFOk+HZywskLohKni7U8OqYv8GY6QKA3D9HRXXyGJCgh+hxVIQ==
+	t=1794592167;
+	b=ub+9QoQk9nk4kIOgMfa9hW8ukYwCAM0n5QUAIniCuQ2xUlGizRB7wglIu5ez3lArJzEB
+	 Y7TJzNDHvZVnYqZT1cd1uiRvqdVfKqxu3zddQGirHfRQpTegn9+cH1PgA1xAzDPkM1XLc
+	 toFy9WGHBipNlFUH0ip1vLkaid7nS2IktY+in1XSk/jGPh5uNLOesUXtvENY5Y3hh2Fcn
+	 nNA919exL4g5T2c4zejM/tNdOZqrpB7GiW+Kz0pU4kyHIur7aWfFiuqvO0KlFTZ6WB0xH
+	 gYIvKKUKqu6gklYmiWnpclDwebBbqmSSOkH+b9S1wepbSXTZBGqq2T1mmUjkRQUlQkA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794592148;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=h7ZMjOHZnub7I02GGs2+ZNq38w9ZfRd8s4DzV2qSzx4=;
-	b=Kgn3l8oWMe4qPpbXlW+w0vasWQvj+C+Aj1w2T6ulQ5CeRfYatrcWipWfd5uwSB1w/otn
-	 0rGmuR/oAIfqf6zVq1CogdgGD22ijTZnc1uBa7DX3xhIWYPdeQr8j6vKqU1jRgihG9Bzk
-	 4XX8fSVee0vTZO3N/CWTdEMDIf2Gii3c3YKEMfao0mWdUMyWTpwjOK8Ae4wvQ5+3q3nD0
-	 UwffWMpxjH3tmkA0DeVRCnT2NA+x00gLM5IrKB31JuOWBnMp70uP89COv4SJHarPHpFOt
-	 WDznuRj8X/tuubaXfSVW52hyqNvkE/YGVQidGjGtFZKlNlTLLQuTI2MlckCPgJMR0xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794592167;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1qoAEFZuoRKNKj+7J8hCXBIt3RIFn5aoPyFdLTSqWQ4=;
+	b=4Zz5DYSpRkmjBgnYv+PkCQNfUPwzIDT8CvkiES6luYwWTMdR0nyOAfGv87+8EkZthbWQ
+	 D5ABdDDY1JX5b+AkE2dvVboxXVOiqSjlFi2/GENPQmIu1ioZWoqR8efFj3AZAYxfP4HpJ
+	 cVf9osmFrZHuYvEJ+DUS1w9dwIEFjxq0EIC601FE2s/DbruVDi+cP4bzpnFasDDAQusBv
+	 sMWKeuX9wXSswNiTFqkTb/NdNShgmzaW/tTHJGo1UFURcDbiKPJPEUsQEy4TOQcWphENr
+	 PNaRjMTJqrD40Oa5QdYo+4g6E+sR+jNKWBWVLbfAvncA4wD34GdKvAlub5e33BagoNw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Dd2YORBp;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eZKgA8Ux;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SU3em2n5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5EA6079D5B
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:49:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B5EA6079D5B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18D8607A5DC
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:49:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F18D8607A5DC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Dd2YORBp;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eZKgA8Ux
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFR1oR1011383
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:49:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	h7ZMjOHZnub7I02GGs2+ZNq38w9ZfRd8s4DzV2qSzx4=; b=Dd2YORBp7MJYX8GR
-	WMxdTmllHObR7E31WjlBbKI/1aHD9DXvwhN4/JFeb9FOinbvyqhZzG9w2U2krmuf
-	U5L9GnSKOmR3KbR67NLZpwtNC1yl/9DQVus402t3tDOVbInxwsfvsujM/rKo6oR6
-	nzzDC3r/Jyy5vw5VS7ol+iz3dXp+mX5XRvgzMPL0ywUzDgf81zCbt5Qj8vr+DZLH
-	hggBhc9r+rTrBQITwdOnzIeqXfzkrqNZ43BtLiosV5iheoX0+JvsHSHkt6nxJNKY
-	nYm2koN3rnjwYAgXvcC0vk4p2S2W1/tsdkCDfTVZh8mTgj37DFuj7ZwY0T1tMXNM
-	vWWkiQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwkfdm9w5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:49:06 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b09a466295so937479a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:49:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794592146; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SU3em2n5
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c506a231b88so221476566b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:49:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794592165; cv=none;
         d=google.com; s=arc-20260327;
-        b=eN37tRb/gq03qN+esxG9sCyjRBU4X4huRUXrMv3um8yS4nnZoWVUzvo7//epZm4O4g
-         td8CuaYS5amsHHrudOeskWkKmnE56LFBMxr2C9pfLc785JNRguczcAlIWaGf0tJzREKG
-         IJ+SqbK+/Cj1ZH9PvPpRrIYctumfVfU7QVkprR2njoV66mHqChhgKWTH4LhtJHx0FeNy
-         b3XtQrNePygUMkoyRS0n+uM5Mxvr3nFXr5YzkFFN8WnCrR7s7YJXqbN1COiSo3T2KHsw
-         ivdCl9Fe19xnE+WqyPtEu+TkJ9P9WYfYMz3y6C6f/QXlhZPGTKgEm1qVP9G/FPsPJZqG
-         2nEQ==
+        b=hI6teITGRVDvZ8ow5LUxQxdmD2iM8WcozGTGm3SXaqoCV7ENXknCGjc6Msdo9CiyDs
+         S7p1OHDDW7jW+mwnfrO4sWSiHzSVZSSqUEdzoyb+MqF0rK6EcNiC0PMWuMr7lvug8Iqx
+         GEyP35yLoROeKSRmb3iSd/aLLZlfWiSZGt7JLACwhlpKD/owIzBucijZtyuAQOo3skSO
+         npxZvlevH0mXmCxLjexay5vZxoUiRaOLWCdbklXSVmTXd+uC0Tj6TkcfqPszgf7A4HlI
+         ynwUc86QN1UN1CPmjXVL3mK1/YQfLNfNaGahv2MHmBhFz7PK3qFC9gKD/0FaWETwIP7x
+         nwgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=h7ZMjOHZnub7I02GGs2+ZNq38w9ZfRd8s4DzV2qSzx4=;
-        fh=36rtdYK6d2yTDS/lz399Z42VbSOqr289SN7q0Ystz1k=;
-        b=f6t0Nd133tR5TFsKRYpD80QTQwocNf1AnmAHwO1hvdxrwls0nnGngt3dWGsp4yR6Mt
-         gxwR7aRGLsYOytyiYAoQr8LWbv6kJ7a3qjoP6SYE9028iE33NV0i0B6VZFR0SLGic55d
-         06hTFYtCpjV1PdmkyTpEKggHnNOFRpgwSc0eWedWN8ia/mkhoTwqEDW+RCkcVCxyfhfQ
-         NTiILhAsRCepnNOdmoGVGd3bNT+njA91pM09ZU+zAPjzKC1QFWJKEe+zuYv7UUo28lWo
-         qz17GolEvSy2aAUBsI8FciviXzlfmvbDBO4cjM1iQR1IjoyX/D6DmeKFVqBhByUqxzAk
-         crzg==;
+        bh=1qoAEFZuoRKNKj+7J8hCXBIt3RIFn5aoPyFdLTSqWQ4=;
+        fh=AbQQ0en61y/mKdSxxUA60/pwGtsv0xSV+Zkadlxxmjo=;
+        b=ld/sJHN04+hBZmLKHeYenDLWL+G1TtGBfk7QNyCkA1T9pzCRFZBeBMV/J35XGjnSHk
+         JKFcgVYEv92YrqCJSaYvt4pVq0lGn8FAwn39yYYV5tK7ch+CxHG0sZOogSnXyL0VGmoU
+         urtqknOCyz39cI7/EVbnsPeTI5dP33UUqnR5QbGmEJ8YBjYwzDOcyntAiS5F3vjM9wE6
+         qpxObwtWbhXoju+ZLlm3Bs7hnyoR8SuIMupbzU+/ysSRL3/q92//RsQQIiSbNRCGNuDJ
+         zyrkqAoIA2knHuAZwX/UAKA1WdCZQjTGJSjTqrggqVxDwiu/Di8IpAytxQFQhrl+s+c6
+         ZWLA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794592146; x=1795196946; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794592165; x=1795196965; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=h7ZMjOHZnub7I02GGs2+ZNq38w9ZfRd8s4DzV2qSzx4=;
-        b=eZKgA8Uxe9vc+C7/19XrPKEOsprszcU6Jy4jahhbXaNGqOrIY9g5eDfoNnjW2fmy9s
-         s1EcDnnY+PF41b/HdsOaqCcaqywMkx7vOue9pqAyP9WB+6iKHbkuPKYjgX8H+J6XvV+a
-         LIwssgclUOseCBPJpIXIGuCM0ngYesxKL5Wj6r6EpeuC4BUwgvlvJ2mJtSLdje3EmUTQ
-         rIBofXh/dRyeC+Al43zcPQ61RevdKt0/wTNIfGpCLkAeCwSZMz9RMWqGRhJ34+8dtIqJ
-         6xX6p2bhTp16B41TkqJTMbDxDOauJBfPZC/Ow9Jb3RhQm07pbk1rPN5KIpDTUjGaNcFR
-         BKOQ==
+        bh=1qoAEFZuoRKNKj+7J8hCXBIt3RIFn5aoPyFdLTSqWQ4=;
+        b=SU3em2n5FzvbGtn5JN6OOJQc2zPRYQVpL1O2W57X89BWZPiFeqvVjlQGk4oyMCp2XJ
+         MmIuIGWNCpaYdmVt9Z/v3AuZWvq8wBAa0tJ4uX1hqo5XoJhsZiGZnenGb9uSjnFLAp4l
+         /Nj/pNHKV8BsOv8M9ldbCSBGtrlEe0lcyeTKPoFnEErwkCg2UeaSOTkWuxPZJqb6wexA
+         NVR7cA3phbStjZOgbbRHF3KQ/HjTSuW9+wU/Kbmqs/LeSr4mbfqJib+SRzQoUxPTPMgw
+         4gnY5JQFe8oKkd0gqAT3TaD+z5qdrFGhD1zm+N9pX0WzR8ScK8PHOERn9OrO39UUuRMa
+         CoyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794592146; x=1795196946;
+        d=1e100.net; s=20260707; t=1794592165; x=1795196965;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=h7ZMjOHZnub7I02GGs2+ZNq38w9ZfRd8s4DzV2qSzx4=;
-        b=Xoaywog818tplzhWV6sSu92QQ3vPtDrWQSJbRwPeCHDzz7E8jmqh53VgGmhVtJS5SZ
-         QgSdqskmCVAFu+N296rUcGWoU0Ea7dNMEgISB9fPX31cXtwfAdJdM0ppZFrIBDSRfEPV
-         Wv5LBL8O416Qg4fCEKIHikKXsZFqOJAw+z+Vd/1L6ijUtMaWY3QhwzEcArZSYJMG5h5L
-         9zfV5XTwHqPhXlmwmPBBtUpLrGq5gXPEhxRAAqJDRjrbMEvXIzKBWIty9iDUJ72W9naA
-         0bHZgNpMTkpuMWLpcHeZynrxI6Ebkg66gT0xtLkM7Xsq6Qbw8zeMqYJQfeZgyNVEk55u
-         BjZw==
-X-Forwarded-Encrypted: i=1; AL+hErEpNtthYA649K8MRrpk8qkEdzkJLxjiQaAUoWXD+bRGVQunCRvfik3CnvB6P6YekyHJ2+VQuhm9LHn8SzU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8itJ2defYznhOu64vv+ws/PWa6S7Wav+5N37QM/TmchopfrE1x
-	b0yI4lcYItvZph2PqtTKiLaOM62J+IinvQyM1+i/3etD5IAy9p5i8aslKhvz9nmrtojF0oNDw8q
-	vLm3heZYT2h9J1vczLTt6+3YtQ5imbyo8hNo607rdI+CMKyzh6d2S8wZZGGbgFrHMVYLoh06Qm5
-	A6y6uS2WZgChS0uetVJNJAjfYw3qkqFNjZMmLBULdmfw==
-X-Gm-Gg: AYBFou38iq+ThbZaxpvF3HR5lAdQbB6FuMtfhCuEgllTE3uLz8BxkW7iFaagX4Vofmv
-	pMg5fb8jjDcsquTSSqDLRRAP1QYoafOyyGPJlaQtv0c/3DJMm5rpjpJxqxg/2hiTiwPeQXsNZ8J
-	1Ll/xbXKgKmGwFvhVSKA9d0YnXcvmi20tIZCxsl82Qz38HmyVSMqQ90vSuOw==
-X-Received: by 2002:a17:90b:3eca:b0:3b0:b64e:1e34 with SMTP id 98e67ed59e1d1-3b1b0ba6480mr3020201a91.51.1794592145880;
-        Fri, 13 Nov 2026 09:49:05 -0800 (PST)
-X-Received: by 2002:a17:90b:3eca:b0:3b0:b64e:1e34 with SMTP id
- 98e67ed59e1d1-3b1b0ba6480mr3020179a91.51.1794592145385; Fri, 13 Nov 2026
- 09:49:05 -0800 (PST)
+        bh=1qoAEFZuoRKNKj+7J8hCXBIt3RIFn5aoPyFdLTSqWQ4=;
+        b=E4sLzo8fMvyfcnMbvs3x9/ypCrPVvKkjYcnNtHnYKGgtYx6MF+Bz2NdxSvUq/nsQ9+
+         xTedAOCe5Jnj3TSvuNRMxb//y0jdhRdnRdsZg5jm7/A01z+d+IjLIXDy1URYLJIoMLCt
+         nKgOJ4ByHy4kZ9CZz72pF2NbdttzSTMX0sBzcDwyljhRed0eWeClS06tOxlkbndtoBSU
+         pKyfQssDYouu2suI2AKlTPWGUiCG0QaVkrVN1pUlmyF9sIOAKOX6qlV+wh+MrFlU5L3H
+         Rr1aIGo/xYrBUZJzFx7o/eYE/eivUucy5k0ey+30UXYcCPUDom9fMqoPY9Zypx3udMPV
+         xQvw==
+X-Forwarded-Encrypted: i=1; AL+hErHDn9kV0CwTI2t/b6b9Sipm0HMuGRh/1OcHbkWqGQXBtnB1Y0prcfjNkD9i0I/OJCzyfUZMBt/aS4uwxAc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8MushWbL4baevYQ1vbnqMDAUMW08lhug6KBTQOlniXuGtNEv9J
+	J/jhBQUv9jmDw6Q0N+mJXWnTwbnJBswgDzrkR3+9Cck8XQvPdIAMoI3UO63Z9LdJ4UxX5TvuXYR
+	q7AbvE7LcjDJVbu496JfJi3sv+YJjRrU=
+X-Gm-Gg: AYBFou1FAGviQVCI2UoOPBrCx1OACBM5Z5P2HN17n2v2PE+KLBRtsJhX2eqmhy8a7qY
+	52Nicmd78FQtokBeTR8l0z4xsLykwtoArgm3bGADbIDbImPORXHMFV0wsgbSJdD+CIB28KGPX+A
+	wJbu6Ax2iNNrMEgk7UrYBxpuzZcVouywH5O2tVDuEQF4Cdj1HixSuF6VvKPbxDR4Mj2Pb9Ky9Kd
+	BmWdumkqWU6KnjN0N0X0IUjjpxoimziSa7E/OnfxQmwrCcxvPKRfoqZEwyKxY/0J+d3+CIlK4rR
+	G+o00NPj6+raxlpDEVQCRIjj8+TUKAT0Z7NLIEII64CqyZ3TQ4bzpa8QGaxNYsPIkUdrlVHgYAB
+	EN4769x6xrI2EfyIKdIhXM4pqSaSm/qkoCzyva37XbKl090rDH3MR2lhk18l1K/YFPytRVC5UEg
+	CabRYkeSozbGyG7wouISFf9w==
+X-Received: by 2002:a17:907:ea8e:b0:c50:9439:bffe with SMTP id
+ a640c23a62f3a-c509684d717mr313677166b.47.1794592165236; Fri, 13 Nov 2026
+ 09:49:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,272 +105,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101-rbrue-suez-upstreaming-mtk-pmdomain-defer-v1-1-b4c41cf3935f@gmail.com>
-In-Reply-To: <20261101-rbrue-suez-upstreaming-mtk-pmdomain-defer-v1-1-b4c41cf3935f@gmail.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 18:48:53 +0100
-X-Gm-Features: AclHuK_o-18EjhupOpQOHXsSHQhEk8A1OgSO8CQWrvzqq3tyYIcyEkcdDS0ZD6Q
-Message-ID: <CAPx+jO94U8b_PNJbbuzzFtF2HFeM7sYaT+oZoLJUfvThXkFYjA@mail.gmail.com>
-Subject: Re: [PATCH] pmdomain: mediatek: Don't power cycle domains on probe deferral
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Enric Balletbo i Serra <eballetbo@kernel.org>,
-        Matthias Brugger <mbrugger@suse.com>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-mediatek@lists.infradead.org
+References: <20261113132435.434615-1-alitariq45892@gmail.com> <20261113132435.434615-3-alitariq45892@gmail.com>
+In-Reply-To: <20261113132435.434615-3-alitariq45892@gmail.com>
+From: Muhammad Bilal <meatuni001@gmail.com>
+Date: Fri, 13 Nov 2026 22:49:13 +0500
+X-Gm-Features: AclHuK9vLFuFj8StJfQb0gQfm2zMdlEC8vjTlUvEUXwD7gdAHCOcMYM38gGZrFA
+Message-ID: <CADqcGBmdLC9jaK4HSECeSO=DtyZ3t-aoaBRUYV2cEQRBPOwuow@mail.gmail.com>
+Subject: Re: [PATCH net v2 2/2] net: spacemit: Hold RTNL lock in emac_resume()
+ and emac_suspend()
+To: Ali Tariq <alitariq45892@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Yixun Lan <dlan@kernel.org>, 
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>, Vivian Wang <wangruikang@iscas.ac.cn>, 
+	Chukun Pan <amadeus@jmu.edu.cn>, Tomas Hlavacek <tmshlvck@gmail.com>, 
+	Siddharth Vadapalli <s-vadapalli@ti.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, leitao@debian.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3MCBTYWx0ZWRfXxrIx53aFoj9x
- 1Ai7FB6bJf3wheOPUg8BZGz07juwzfxKuRSrdhj/S3lILaW8hMkhuk5hT/mwzQ7axUbWP7B3YWV
- OkDF0laOEy3ME2Azr2OsmezTuG4C0Us=
-X-Proofpoint-ORIG-GUID: VZpWTMNCH1zsBWawSCKrqwTfrN8KiMFi
-X-Authority-Analysis: v=2.4 cv=DoTDa2/+ c=1 sm=1 tr=0 ts=6af74d92 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=pGLkceISAAAA:8 a=qXiDfWie0P3iMaLS2MUA:9
- a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3MCBTYWx0ZWRfXwatZ58KA00jw
- /hiFGcuJzrzkpAuXy8yfH7oWSrwnexmRoLycdOpVNDzULObe5VUMeZ+nI6pLVxXxPtNzelWdHTw
- 1YSgdXyDuIpjimLzWyM8qEu38OWDkwoilvdMdyPjH209CLDzTZjecETipvRAU0zQHioJsGUFJ5X
- Hygl2SrA7dt6qZhQLux13Kfn9yLPDxr5zXrCuQNZ0tPDIXhDASsvZgqJwvEtN+54Ee9pWG53KbA
- osmF2KTjFyenYsraBylcxAqmAY0YJ64zswT+ubQo6lDE7magEVHOVUZjbm7/7poY7cWk7Ebmz8s
- WPMvKhH995VuGSbrSWAsrGtHVWE4wn0Jx2cuk4fKZArJ7N2/1qKM4oCSBG5PjuDtHzDg4cpRsL7
- n8XoyxWcEZ/4S4wAwUlGtx3/AmFUBP+msXEKsjH7PD4rQtmNtDT/q6j/RKtHMzaes3h+i6WnJFT
- zPscuFl0oo0jQOfWBmA==
-X-Proofpoint-GUID: VZpWTMNCH1zsBWawSCKrqwTfrN8KiMFi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- spamscore=0 impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130070
 
-On Mon, Nov 2, 2026 at 6:44=E2=80=AFAM Ryan Brue <ryanbrue.dev@gmail.com> w=
-rote:
+Taking RTNL before the netif_running() checks is the important part
+of v2, otherwise the check would race with a concurrent close.
+Depends on patch 1, as noted.
+
+Reviewed-by: Muhammad Bilal <meatuni001@gmail.com>
+
+On Fri, Nov 13, 2026 at 6:28=E2=80=AFPM Ali Tariq <alitariq45892@gmail.com>=
+ wrote:
 >
-> scpsys_add_one_domain() powers each domain on as soon as it is added,
-> before the probe has looked up the supplies and clocks of the domains
-> after it. When one of those is not available yet the probe defers, and
-> the cleanup powers off every domain added so far, whatever state it was
-> found in. The retry then powers them all on again.
+> The emac_resume() calls the emac_open() and emac_suspend() calls
+> emac_stop() functions directly without holding the lock through
+> rtnl_lock(). These functions rely on phy_disconnect() which reads pointer
+> with rtnl_dereference(). But since no lock is being held,
+> rtnl_dereference throws a suspicious RCU usage on
+> Orange Pi RV2 (SpacemiT K1) warning when lockdep is enabled.
 >
-> A bootloader that leaves the display scanning out does not survive
-> that. On the Amazon Fire HD 10 (MT8173), mfg_async's domain-supply comes
-> from the MT6397 PMIC, which registers after the power controller first
-> probes, and power cycling the MM domain under the running display hangs
-> the SoC on almost every boot.
+> WARNING: suspicious RCU usage
+> drivers/net/phy/phy_device.c:1831 suspicious rcu_dereference_protected() =
+usage!
+> Call Trace:
+> phy_detach_internal+0x490/0x5f2
+> phy_disconnect+0x90/0xc0
+> emac_stop+0x114/0x626
+> emac_suspend+0xac/0x126
+> platform_pm_suspend+0x72/0xe4
 >
-> Power the domains on only once all of them have been added, so that a
-> deferral leaves the hardware as it was found, and on cleanup power off
-> only the domains this probe has turned on.
+> Take RTNL in emac_suspend() and emac_resume() before the netif_running()
+> checks, so the interface can't be opened or closed between the check and
+> emac_stop() or emac_open().
 >
-> Fixes: 59b644b01cf4 ("soc: mediatek: Add MediaTek SCPSYS power domains")
+> Found by CI suspend tests on Orange Pi RV2 (SpacemiT K1). Tested on the
+> same board with lockdep enabled: 12 suspend/resume cycles without the
+> warning, and kselftest with no new failures.
 >
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
-
-This looks good to me. However, the patch no longer applies to my
-fixes branch, due to other related patches being queued.
-
-Please rebase and resubmit a new version.
-
-Kind regards
-Uffe
-
-
-
+> Fixes: bfec6d7f2001 ("net: spacemit: Add K1 Ethernet MAC")
+> Signed-off-by: Ali Tariq <alitariq45892@gmail.com>
 > ---
-> Found on an Amazon Fire HD 10 (2017), an MT8173 tablet whose board DTS
-> is not upstream yet. Its bootloader (LK) leaves DISP_OVL0 scanning out
-> when it starts the kernel, and the MT6397 regulators register about 50 ms
-> after the power controller first probes, so the probe often defers.
->
-> The deferral was forced for the A/B with a local test knob that returns
-> -EPROBE_DEFER at the first domain with a domain-supply. Each boot attempt
-> was counted from the host's USB log, since a hung board is reset by the
-> watchdog into the same kernel. The hang does not happen when the
-> display is stopped before the power controller probes, which is what
-> our downstream kernel does today.
->
-> elm, hana and the MT8173 EVB also give mfg_async a domain-supply, from a
-> DA9211 on I2C, so they probably take the same deferral path. Whether
-> their firmware leaves anything running across it, I don't know.
->
-> Only MT8173 (direct control) was tested. The HW-voter cleanup changes
-> the same way, powering off only what this probe powered on, but there is
-> no such hardware here.
->
-> This patch was developed with the help of an LLM.
+> Changes in v2:
+> - Moved the rtnl_lock() before the 'running' flag check
+> Warning Log: https://kernelci.cloud-v.co/scheduler/job/549#L2168
+> Fixed Log: https://kernelci.cloud-v.co/scheduler/job/589
 > ---
-> With the deferral forced at mfg_async on every boot and the bootloader's
-> display left running, 61 of 63 boot attempts hung before userspace
-> without this patch, and none of 5 with it. With the patch, the cleanup
-> left MM on as the bootloader had left it on every boot; without it, it
-> powered off all seven domains the probe had turned on, MM included.
-> ---
->  drivers/pmdomain/mediatek/mtk-pm-domains.c | 60 ++++++++++++++++++------=
-------
->  1 file changed, 37 insertions(+), 23 deletions(-)
+>  drivers/net/ethernet/spacemit/k1_emac.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/pmdomain/mediatek/mtk-pm-domains.c b/drivers/pmdomai=
-n/mediatek/mtk-pm-domains.c
-> index f0fa79e01f9c..6a81aadc18f3 100644
-> --- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> +++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> @@ -982,12 +982,6 @@ generic_pm_domain *scpsys_add_one_domain(struct scps=
-ys *scpsys, struct device_no
->                 pd->genpd.flags |=3D GENPD_FLAG_IRQ_SAFE;
->         }
->
-> -       /*
-> -        * Initially turn on all domains to make the domains usable
-> -        * with !CONFIG_PM and to get the hardware in sync with the
-> -        * software.  The unused domains will be switched off during
-> -        * late_init time.
-> -        */
->         if (MTK_SCPD_CAPS(pd, MTK_SCPD_KEEP_DEFAULT_OFF)) {
->                 bool domain_is_on;
->
-> @@ -999,15 +993,8 @@ generic_pm_domain *scpsys_add_one_domain(struct scps=
-ys *scpsys, struct device_no
->                 if (domain_is_on)
->                         dev_warn(scpsys->dev,
->                                  "%pOF: A default off power domain has be=
-en ON\n", node);
-> -       } else {
-> -               ret =3D pd->genpd.power_on(&pd->genpd);
-> -               if (ret < 0) {
-> -                       dev_err(scpsys->dev, "%pOF: failed to power on do=
-main: %d\n", node, ret);
-> -                       goto err_put_subsys_clocks;
-> -               }
-> -
-> -               if (MTK_SCPD_CAPS(pd, MTK_SCPD_ALWAYS_ON))
-> -                       pd->genpd.flags |=3D GENPD_FLAG_ALWAYS_ON;
-> +       } else if (MTK_SCPD_CAPS(pd, MTK_SCPD_ALWAYS_ON)) {
-> +               pd->genpd.flags |=3D GENPD_FLAG_ALWAYS_ON;
->         }
->
->         if (MTK_SCPD_CAPS(pd, MTK_SCPD_ACTIVE_WAKEUP))
-> @@ -1085,7 +1072,7 @@ static int scpsys_add_subdomain(struct scpsys *scps=
-ys, struct device_node *paren
->         return ret;
->  }
->
-> -static void scpsys_remove_one_domain(struct scpsys_domain *pd)
-> +static void scpsys_remove_one_domain(struct scpsys_domain *pd, bool powe=
-red_on)
->  {
->         struct scpsys *scpsys =3D pd->scpsys;
->         int ret;
-> @@ -1100,11 +1087,10 @@ static void scpsys_remove_one_domain(struct scpsy=
-s_domain *pd)
->                         "failed to remove domain '%s' : %d - state may be=
- inconsistent\n",
->                         pd->genpd.name, ret);
->
-> -       if (scpsys->soc_data->type =3D=3D SCPSYS_MTCMOS_TYPE_HW_VOTER) {
-> -               if (scpsys_hwv_domain_is_enable_done(pd))
-> +       if (powered_on) {
-> +               if (scpsys->soc_data->type =3D=3D SCPSYS_MTCMOS_TYPE_HW_V=
-OTER)
->                         scpsys_hwv_power_off_internal(pd);
-> -       } else {
-> -               if (scpsys_domain_is_on(pd) || MTK_SCPD_CAPS(pd, MTK_SCPD=
-_SIMPLE_PWRSEQ))
-> +               else
->                         scpsys_power_off_internal(pd);
->         }
->
-> @@ -1112,7 +1098,8 @@ static void scpsys_remove_one_domain(struct scpsys_=
-domain *pd)
->         clk_bulk_put(pd->num_subsys_clks, pd->subsys_clks);
->  }
->
-> -static void scpsys_domain_cleanup(struct scpsys *scpsys, u8 *domains_idx=
-, u8 num_probed)
-> +static void scpsys_domain_cleanup(struct scpsys *scpsys, u8 *domains_idx=
-,
-> +                                 u8 num_probed, u8 num_powered)
->  {
->         struct generic_pm_domain *genpd;
->         struct scpsys_domain *pd;
-> @@ -1124,7 +1111,8 @@ static void scpsys_domain_cleanup(struct scpsys *sc=
-psys, u8 *domains_idx, u8 num
->                 genpd =3D scpsys->pd_data.domains[pd_idx];
->                 if (genpd) {
->                         pd =3D to_scpsys_domain(genpd);
-> -                       scpsys_remove_one_domain(pd);
-> +                       scpsys_remove_one_domain(pd, i < num_powered &&
-> +                                                !MTK_SCPD_CAPS(pd, MTK_S=
-CPD_KEEP_DEFAULT_OFF));
->                 }
->         }
->  }
-> @@ -1361,6 +1349,7 @@ static int scpsys_probe(struct platform_device *pde=
-v)
->         struct scpsys *scpsys;
->         int num_domains, ret;
->         u8 num_added_pds =3D 0;
-> +       u8 num_powered_pds =3D 0;
->         u8 *added_pds_idx;
->
->         soc =3D of_device_get_match_data(&pdev->dev);
-> @@ -1436,6 +1425,31 @@ static int scpsys_probe(struct platform_device *pd=
-ev)
+> diff --git a/drivers/net/ethernet/spacemit/k1_emac.c b/drivers/net/ethern=
+et/spacemit/k1_emac.c
+> index 51edc95f54c8..d07d8a1aa5ee 100644
+> --- a/drivers/net/ethernet/spacemit/k1_emac.c
+> +++ b/drivers/net/ethernet/spacemit/k1_emac.c
+> @@ -2031,11 +2031,16 @@ static int emac_resume(struct device *dev)
+>                 dev_err(dev, "Failed to enable bus clock: %d\n", ret);
 >                 return ret;
 >         }
+> +       rtnl_lock();
 >
-> +       /*
-> +        * Initially turn on all domains to make the domains usable
-> +        * with !CONFIG_PM and to get the hardware in sync with the
-> +        * software.  The unused domains will be switched off during
-> +        * late_init time.
-> +        *
-> +        * Do this only once every domain has got its supply and clocks,
-> +        * so that a probe deferral leaves the hardware as it was found:
-> +        * the bootloader may still be using a domain that is already on.
-> +        */
-> +       for (; num_powered_pds < num_added_pds; num_powered_pds++) {
-> +               struct scpsys_domain *pd;
-> +
-> +               pd =3D to_scpsys_domain(scpsys->domains[added_pds_idx[num=
-_powered_pds]]);
-> +               if (MTK_SCPD_CAPS(pd, MTK_SCPD_KEEP_DEFAULT_OFF))
-> +                       continue;
-> +
-> +               ret =3D pd->genpd.power_on(&pd->genpd);
-> +               if (ret < 0) {
-> +                       dev_err(dev, "%s: failed to power on domain: %d\n=
-",
-> +                               pd->genpd.name, ret);
-> +                       goto err_cleanup_domains;
-> +               }
+> -       if (!netif_running(ndev))
+> +       if (!netif_running(ndev)) {
+> +               rtnl_unlock();
+>                 return 0;
 > +       }
+>
+>         ret =3D emac_open(ndev);
+> +       rtnl_unlock();
 > +
->         ret =3D of_genpd_add_provider_onecell(np, &scpsys->pd_data);
 >         if (ret) {
->                 dev_err(dev, "failed to add provider: %d\n", ret);
-> @@ -1446,7 +1460,7 @@ static int scpsys_probe(struct platform_device *pde=
-v)
->         return 0;
+>                 clk_disable_unprepare(priv->bus_clk);
+>                 return ret;
+> @@ -2055,12 +2060,16 @@ static int emac_suspend(struct device *dev)
 >
->  err_cleanup_domains:
-> -       scpsys_domain_cleanup(scpsys, added_pds_idx, num_added_pds);
-> +       scpsys_domain_cleanup(scpsys, added_pds_idx, num_added_pds, num_p=
-owered_pds);
->         return ret;
->  }
+>         disable_work_sync(&priv->tx_timeout_task);
 >
+> +       rtnl_lock();
+> +
+>         if (!ndev || !netif_running(ndev)) {
+> +               rtnl_unlock();
+>                 clk_disable_unprepare(priv->bus_clk);
+>                 return 0;
+>         }
 >
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261009-rbrue-suez-upstreaming-mtk-pmdomain-defer-0cc87eb8240=
-0
+>         emac_stop(ndev);
+> +       rtnl_unlock();
 >
-> Best regards,
+>         clk_disable_unprepare(priv->bus_clk);
+>         netif_device_detach(ndev);
 > --
-> Ryan Brue <ryanbrue.dev@gmail.com>
+> 2.34.1
 >
