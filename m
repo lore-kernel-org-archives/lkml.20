@@ -1,48 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564109;
-	b=zilh5uDbUJLTVnMcei0H8YHtXXzd/34sCzj70GYhK7o67lREvdTrurrmkN0mrVlyaAjN
-	 OlS0Ap340qgxdLi40QYhSguKz68Bo7gwCflFVUbYq9BOGnSkN7k1mkxXUdZW987XQMjC8
-	 jT9OCihUjlwuFvjkNhhF3BavDuGKuEKTiPCQ2LT9TKNSiStYq5YxBzZ0JYPsWXDnQgdM3
-	 TsoAbiZliI1Ets//ST0KD2UGE7qhibpZgFtYRFfV/xqjjGsrcCBtYoVVihQBacTsETZK+
-	 GPXmpOsXn7y91M2NP8nnqOedas3rBeOy3F764B5XsRBOPUQHRCQhvJ+kvYy+c56M5Vw==
+	t=1794564140;
+	b=ZBcOPHlwyyvjCCNwBaQCrTO25E0FJ0JwX9dzRIbiZfxZZCs5vMI54CAfVyDWk1rGI7nz
+	 SjrbhpvRRux+hPk9P4Bi5JDqYZ/VPT9vCDoUQwGaghyHqUFVGikRUKo0pkl4WjKT9dwM4
+	 Gzvp9/FTLMpevLDEX0HNP/OrgCK3SD91XH0iioD1gcQHzBvZ30fsB0k7K1oEURNEEqlY1
+	 3Djh00zL8upuGakmMP/QTz/SFnb6vqR0va9SfmG24lNojqSofEk7ioDCnSQdBKlmztBIS
+	 VoCyt/hzUFhHEql2eY34t6tgGzAbSOUEwXDQj/vCH4ZPewBEHCXWQITKBw3Lc5VJ7VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564109;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=ciHtI+5r+7x2SF+EXZv18M3c3IsV/RFqcUbpTe+Eh4M=;
-	b=JBFFWsTRjLTJdAD0w7mNoErGumyC39iRXiBn3jNSPYhCZaiYXMl8wmI2IK80D8yjGlV5
-	 7KTSyR86U1hN/IsoG7K7m+5Af3o50oFCRzUGOjz0pg+Hxglx9M/psndxVDhz/xuQOrZl2
-	 Lig+OWgfaI/UvO0iF4vl0x9Gu3exevDAmzGw3YQxUkGg6oL+kgMG1a45PZZSWts9H943O
-	 5Lq7BxFJ+uJJNkGBqy6T4FgTo3IvygjIomfqKVFD3xKroHtN4PDAeBNpH0smFSZp/yVMR
-	 Nzv3JgXZk0IVNqZ2etGsoq6zh0YhGQ45UXceTfJcTOljluLs8GLrxbXuSzxlRi0+SoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564140;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=Ee4ggwaa7pvqsvjnONVsvhhjx7Blw4b1QTFG8P7u7TE=;
+	b=Q2NsTOPOAOR08BpaXnR71pdd6l8rgjU/2TenfIWORZDsKcgXays/w2NW1nTxK7pxRsG9
+	 It0LnTgaJwtK1unKrQwc02Deq3LSGYfLq3hPSQhMAB9YOMRfomkOrXo3/uBK8qeUkG7mJ
+	 ua1HUnXv7op/k3uI8bf2TtOBjqXdXb/iYJ3uVJUpgHEJrDNHPWTpm2OmUqEXzxSwApjdJ
+	 rZTcu5Uqo/+2R+suwjvUJvDYSeAGdzI0BKMTas5HoGpv1nXKbPpsfJ4/FzMtrD7gVi4FY
+	 g57xAX5XSCmh0ij2rEYw86fOA6QtTyxLgOd9HO2V1pQi+McKpYSi2/+S8dMbuQVK+PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNXrDDby;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=amutable.com;
+	spf=pass smtp.mailfrom=amutable.com;
+	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=mxnEK0OE;
+	arc=none smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D84606A323;
-	Fri, 13 Nov 2026 10:01:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E05DB606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:02:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E05DB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNXrDDby
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47D061F000C4;
-	Fri, 13 Nov 2026 10:01:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794564109;
-	bh=ciHtI+5r+7x2SF+EXZv18M3c3IsV/RFqcUbpTe+Eh4M=;
-	h=From:Date:Subject:To:Cc;
-	b=oNXrDDbycUwETg6fripz3Zax21stfDwqYisSNPtkMSI4Y9D/gIRPY9t1JIb8f6TlE
-	 HJp++5lYZWrTdD64BFbU2dg325tw2Fxdl8TQlh+LlmZbjapBmMxu9xo72dR4bLXR+K
-	 b5oNY1oQKENHVbvBa2cb/AhZcskKpPhTg52hu3Jd8YkDSiPvINtolvwaZg2alTxaTg
-	 I79a1JAQEGZlHVUMt5gjP48Ojn6nrxM/2MQaJIkBL4TYVtFaf4K6ndtAeYLQmRjVSZ
-	 eylnJpWde95K5UcfUDncQff9uvdaZfV4shP7RprcmKBGUPYF8cZBtqdUvYobped9fO
-	 w7g/HsD8eufPQ==
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 13 Nov 2026 11:01:44 +0100
-Subject: [PATCH] dt-bindings: usb: ux500: Convert to DT schema
+	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=mxnEK0OE
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b70880c0a4so1097609a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:02:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794564138; x=1795168938; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Ee4ggwaa7pvqsvjnONVsvhhjx7Blw4b1QTFG8P7u7TE=;
+        b=mxnEK0OEI7AZoc/CfUYBfL7b57vnPAty4yH1m7TS29a3jfzgxF6O21C+4eoAVH56Q9
+         piX6TGhock7wjcI74HawyxxvBGzm9YxMDwhPO59HW6wNIzGY38ltasaZh4hFELwGRqEv
+         EACaW/+rYd6+QPU5/79gIyHIHlnigPDAQAFlfCT0ngxFbKNdFkIgPJ4AQQVbJxYRU4kd
+         sGda4OaUFoBKprw0qaI3K+cYJzK6vhQ24s+osuqJwxviEyFLXhcz7lQ/DUhHhDlN7iYr
+         P/EQDWGz9doNbLrGEB0hB+YKjuFHlmGHIGpXLhiZ/HiYA8bpaS50WmEcn/ZjJ0UCEMyu
+         vVpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794564138; x=1795168938;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ee4ggwaa7pvqsvjnONVsvhhjx7Blw4b1QTFG8P7u7TE=;
+        b=gj4u2bWJs+sf3TIVWMTQycB7EsRdTrKxFMyQhfKPuqPtiCjeP7WISFVqecrx8d+hQb
+         3nBZcBrd3pk/ie3orhcKWoRTVBTytXDoYzY4Q2OY07jTLFOcxyWTaIcUeDcO/OkTgYfz
+         5PQKSb7m7QVt3rRlL8mtJ49IRT2dnVA+AE7CUJi3JH/1gxYMik1SXm0gTcYgjg6ztPPa
+         Iu+lqOzOi6kSQgtt1mS5kfIZz6zqBHr/Df+HJa88B61wnezmNLUhwAeEg//rUAcbep/W
+         eBjMzKcAg9D2DiNQgyRmy4C+KgDGE5l35EOkzF2Km7dmbnlA4fUSO5guSd9KsXH13OHy
+         /m2g==
+X-Forwarded-Encrypted: i=1; AL+hErHmO7Ohp/wWTy0Rj2hUAbnhTEpcksu6+4gIO5RWiYjdPkgPnyPuJaxHTVa2uQ2DWSKuTkmzCq+V8uMcsQk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+THb4DMyDusBQfaknobvoCCUfIvF+cDZV16OQRCO3MeETyy/tW
+	0/8WZymr7Ym7lXF8it83nlRkkzsmLF0xPcDnyVlJhbmi2+AEv4J0R2ZbYfPUHI1sRx7L
+X-Gm-Gg: AYBFou0LnCTvYaLaoFe6c3VSIR/1UsXi5R9KTnP9dg9cokE2AEllor8PO9f3xyGtiKw
+	J9vVoOiL1KT+vOVsGpbzA3qAzuAx+jOrahQb8esn7BNSSzWa8wbc2U9RGLASNgof6kSjspDJGm1
+	+nzTGpeqGr177kUcblEAiUtesvPk+jPaZm9UWu7qIb/Qjx7SSZiF4Wc2wLN8KX5uPgv1TtDXZzw
+	Bg+prGzRa80/G0eEnUGM0MvFa3ODUoUSTS5oNfIK+h0oa8bo8Ym31NYYtzsjYFGL3uea0sSFcEX
+	aj8ubi/WN+7aG7jUbHHBDkJdeMgHbEKXMf/HdCg4k7aKc9jVddHfQoYivfnXi1iwVw02NqP3cK3
+	cMAySeXoPs/dMkH7/xBNdw3olhPOkx1FoXz/UjlDoKlog6V2uDNmlZb8IhdYkoQ2okcgqPX77OM
+	w4ODdY91N46sTPgJ4klla2TsoxfH9ix+OOIAblzBwxX9GyTiRVnyJjfqRGu2UdN++p4EUdQeP7P
+	bspxAkAFsTHMd7Cxe+ZQUbis42BHuMKZl3wnmz+ZdazxTfriDWityFCBw9DGtVnr3Mr0c3oEySR
+	vvCslgVqafjUyVLdhrk5/OfjtVcuIO6hBIR1TBUqhbIiWCSPeW4PHCq3doDICHA=
+X-Received: by 2002:a05:6402:c4e1:10b0:6b6:eefc:ae7a with SMTP id 4fb4d7f45d1cf-6b7c088f8ecmr1236733a12.4.1794564138223;
+        Fri, 13 Nov 2026 02:02:18 -0800 (PST)
+Received: from [10.0.0.233] (tmo-086-54.customers.d1-online.com. [80.187.86.54])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23c672asm734155a12.15.2026.11.13.02.02.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 02:02:17 -0800 (PST)
+Message-ID: <f4ce8239f22046e90cf4807853282a570c73707a.camel@amutable.com>
+Subject: Re: [PATCH RFC 04/41] fs: add SB_I_PSEUDO
+From: Alexander Mikhalitsyn <alex@amutable.com>
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, Josef
+ Bacik	 <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, 	driver-core@lists.linux.dev,
+ linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, 	fuse-devel@lists.linux.dev,
+ linux-efi@vger.kernel.org, 	xen-devel@lists.xenproject.org,
+ ocfs2-devel@lists.linux.dev, 	linux-s390@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, 	linux-usb@vger.kernel.org, Amir Goldstein
+ <amir73il@gmail.com>, 	linux-erofs@lists.ozlabs.org,
+ linux-kselftest@vger.kernel.org
+Date: Fri, 13 Nov 2026 11:02:15 +0100
+In-Reply-To: <20261110-work-loop-pseudo-v1-4-4c998976c6c7@kernel.org>
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+	 <20261110-work-loop-pseudo-v1-4-4c998976c6c7@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,184 +114,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-ux500-musb-bindings-v1-1-553aa97c5c95@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQqDMBAF0KsMf+1AJtYWchVxocnUzqJpyaAI4
- t0LfQd4J1ybqSPRiaa7uX0qEklHyK+5rspWkAgxxLuIRN6OIQR+b77wYrVYXZ2zlKC3R+51iOg
- I36ZPO/7rOF3XDxbYC9plAAAA
-X-Change-ID: 20261112-ux500-musb-bindings-c1d0e47c3e52
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Bin Liu <b-liu@ti.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
 
-Convert the Ux500 MUSB text binding to DT schema. Describe the APB
-clock and the existing ordered DMA endpoint channels, and reference
-the common dual-role USB properties.
+On Tue, 2026-11-10 at 10:14 +0100, Christian Brauner wrote:
+> Currently, there's no way to tell whether the files of a filesystem
+> store data or whether they are kernel interfaces. Files on pseudo
+> filesystems such as procfs or sysfs generate their contents when
+> they're
+> read and writes to them are commands to the kernel.
+>=20
+> But a few places in the kernel take an arbitrary file and use it as
+> storage: loop, zloop, the nvme target's file backend, the scsi
+> target's
+> fileio backend, fuse passthrough, the usb mass storage gadget and
+> erofs
+> file-backed mounts. At most they check the file type and whether the
+> file implements ->read_iter() and ->write_iter(). That's not enough.
+> kernfs provides both for every sysfs attribute for example.
+>=20
+> Add SB_I_PSEUDO so a filesystem can state that its regular files are
+> kernel interfaces and must not be used as storage.
+>=20
+> Pseudo filesystems also never hold executables or device nodes. But
+> currently each of them decides on its own whether to raise
+> SB_I_NOEXEC
+> and SB_I_NODEV. Some do, most don't. Add fc_init_pseudo() as the
+> common
+> initialization point for all pseudo filesystems that raises all three
+> flags and switch init_pseudo() over to it. The following patches
+> convert the mountable pseudo filesystems.
+>=20
+> Nothing checks SB_I_PSEUDO yet so no functional changes.
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
-Convert the Ux500 MUSB text binding to DT schema, describing the APB
-clock, ordered DMA endpoint channels and common dual-role USB properties.
+Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
 
-This patch is split from the Ux500 DeviceTree validation cleanup series.
-
-Prepared with Codex.
----
- .../bindings/usb/stericsson,db8500-musb.yaml       | 79 ++++++++++++++++++++++
- .../devicetree/bindings/usb/ux500-usb.txt          | 50 --------------
- 2 files changed, 79 insertions(+), 50 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/usb/stericsson,db8500-musb.yaml b/Documentation/devicetree/bindings/usb/stericsson,db8500-musb.yaml
-new file mode 100644
-index 000000000000..9edf77aa43b6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/stericsson,db8500-musb.yaml
-@@ -0,0 +1,79 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/stericsson,db8500-musb.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ST-Ericsson DB8500 MUSB controller
-+
-+maintainers:
-+  - Linus Walleij <linusw@kernel.org>
-+
-+allOf:
-+  - $ref: usb-drd.yaml#
-+
-+properties:
-+  compatible:
-+    const: stericsson,db8500-musb
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-names:
-+    items:
-+      - const: mc
-+
-+  clocks:
-+    maxItems: 1
-+
-+  phys:
-+    maxItems: 1
-+
-+  phy-names:
-+    items:
-+      - const: usb
-+
-+  dmas:
-+    minItems: 16
-+    maxItems: 16
-+
-+  dma-names:
-+    items:
-+      - const: iep_1_9
-+      - const: oep_1_9
-+      - const: iep_2_10
-+      - const: oep_2_10
-+      - const: iep_3_11
-+      - const: oep_3_11
-+      - const: iep_4_12
-+      - const: oep_4_12
-+      - const: iep_5_13
-+      - const: oep_5_13
-+      - const: iep_6_14
-+      - const: oep_6_14
-+      - const: iep_7_15
-+      - const: oep_7_15
-+      - const: iep_8
-+      - const: oep_8
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - dr_mode
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    usb@a03e0000 {
-+        compatible = "stericsson,db8500-musb";
-+        reg = <0xa03e0000 0x10000>;
-+        interrupts = <0 23 4>;
-+        interrupt-names = "mc";
-+        clocks = <&prcc_pclk 5 0>;
-+        dr_mode = "otg";
-+    };
-diff --git a/Documentation/devicetree/bindings/usb/ux500-usb.txt b/Documentation/devicetree/bindings/usb/ux500-usb.txt
-deleted file mode 100644
-index 439a41c79afa..000000000000
---- a/Documentation/devicetree/bindings/usb/ux500-usb.txt
-+++ /dev/null
-@@ -1,50 +0,0 @@
--Ux500 MUSB
+> ---
+> =C2=A0fs/libfs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +=
 -
--Required properties:
-- - compatible : Should be "stericsson,db8500-musb"
-- - reg        : Offset and length of registers
-- - interrupts : Interrupt; mode, number and trigger
-- - dr_mode    : Dual-role; either host mode "host", peripheral mode "peripheral"
--                or both "otg"
--
--Optional properties:
-- - dmas       : A list of dma channels;
--                dma-controller, event-line, fixed-channel, flags
-- - dma-names  : An ordered list of channel names affiliated to the above
--
--Example:
--
--usb_per5@a03e0000 {
--	compatible = "stericsson,db8500-musb";
--	reg = <0xa03e0000 0x10000>;
--	interrupts = <0 23 0x4>;
--	interrupt-names = "mc";
--
--	dr_mode = "otg";
--
--	dmas = <&dma 38 0 0x2>, /* Logical - DevToMem */
--	       <&dma 38 0 0x0>, /* Logical - MemToDev */
--	       <&dma 37 0 0x2>, /* Logical - DevToMem */
--	       <&dma 37 0 0x0>, /* Logical - MemToDev */
--	       <&dma 36 0 0x2>, /* Logical - DevToMem */
--	       <&dma 36 0 0x0>, /* Logical - MemToDev */
--	       <&dma 19 0 0x2>, /* Logical - DevToMem */
--	       <&dma 19 0 0x0>, /* Logical - MemToDev */
--	       <&dma 18 0 0x2>, /* Logical - DevToMem */
--	       <&dma 18 0 0x0>, /* Logical - MemToDev */
--	       <&dma 17 0 0x2>, /* Logical - DevToMem */
--	       <&dma 17 0 0x0>, /* Logical - MemToDev */
--	       <&dma 16 0 0x2>, /* Logical - DevToMem */
--	       <&dma 16 0 0x0>, /* Logical - MemToDev */
--	       <&dma 39 0 0x2>, /* Logical - DevToMem */
--	       <&dma 39 0 0x0>; /* Logical - MemToDev */
--
--	dma-names = "iep_1_9",  "oep_1_9",
--		    "iep_2_10", "oep_2_10",
--		    "iep_3_11", "oep_3_11",
--		    "iep_4_12", "oep_4_12",
--		    "iep_5_13", "oep_5_13",
--		    "iep_6_14", "oep_6_14",
--		    "iep_7_15", "oep_7_15",
--		    "iep_8",    "oep_8";
--};
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261112-ux500-musb-bindings-c1d0e47c3e52
-
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
-
+> =C2=A0include/linux/fs/super_types.h |=C2=A0 1 +
+> =C2=A0include/linux/pseudo_fs.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 11 ++++++=
++++++
+> =C2=A03 files changed, 13 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/fs/libfs.c b/fs/libfs.c
+> index 96a6e9b1535f..8c8789489fdf 100644
+> --- a/fs/libfs.c
+> +++ b/fs/libfs.c
+> @@ -735,7 +735,7 @@ struct pseudo_fs_context *init_pseudo(struct
+> fs_context *fc,
+> =C2=A0		fc->fs_private =3D ctx;
+> =C2=A0		fc->ops =3D &pseudo_fs_context_ops;
+> =C2=A0		fc->sb_flags |=3D SB_NOUSER;
+> -		fc->s_iflags |=3D SB_I_NOEXEC | SB_I_NODEV;
+> +		fc_init_pseudo(fc);
+> =C2=A0		fc->global =3D true;
+> =C2=A0	}
+> =C2=A0	return ctx;
+> diff --git a/include/linux/fs/super_types.h
+> b/include/linux/fs/super_types.h
+> index 72f4288e16c5..472200bdf081 100644
+> --- a/include/linux/fs/super_types.h
+> +++ b/include/linux/fs/super_types.h
+> @@ -359,5 +359,6 @@ struct super_block {
+> =C2=A0#define SB_I_NOIDMAP	0x00002000	/* No idmapped mounts on
+> this superblock */
+> =C2=A0#define SB_I_ALLOW_HSM	0x00004000	/* Allow HSM events on this
+> superblock */
+> =C2=A0#define SB_I_NO_DATA_INTEGRITY	0x00008000 /* fs cannot guarantee
+> data persistence on sync */
+> +#define SB_I_PSEUDO	0x00010000	/* regular files are kernel
+> interfaces, not storage */
+> =C2=A0
+> =C2=A0#endif /* _LINUX_FS_SUPER_TYPES_H */
+> diff --git a/include/linux/pseudo_fs.h b/include/linux/pseudo_fs.h
+> index a651e60d9410..0ca408aa60af 100644
+> --- a/include/linux/pseudo_fs.h
+> +++ b/include/linux/pseudo_fs.h
+> @@ -2,6 +2,7 @@
+> =C2=A0#define __LINUX_PSEUDO_FS__
+> =C2=A0
+> =C2=A0#include <linux/fs_context.h>
+> +#include <linux/fs/super_types.h>
+> =C2=A0
+> =C2=A0struct pseudo_fs_context {
+> =C2=A0	const struct super_operations *ops;
+> @@ -15,4 +16,14 @@ struct pseudo_fs_context {
+> =C2=A0struct pseudo_fs_context *init_pseudo(struct fs_context *fc,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long magic);
+> =C2=A0
+> +/*
+> + * Common initialization for all pseudo filesystems, mountable or
+> not. Their
+> + * regular files are kernel interfaces. They don't store data and
+> pseudo
+> + * filesystems never hold executables or device nodes.
+> + */
+> +static inline void fc_init_pseudo(struct fs_context *fc)
+> +{
+> +	fc->s_iflags |=3D SB_I_PSEUDO | SB_I_NOEXEC | SB_I_NODEV;
+> +}
+> +
+> =C2=A0#endif
