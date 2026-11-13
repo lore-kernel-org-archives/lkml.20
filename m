@@ -1,55 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564569;
-	b=AP4Byifbk8WEeMtzaNdt5o1qKGeHgGBsm9Q03c3caGg1+qSWjdQWpghloiJgjOyfC2qx
-	 CisnXkCIyU57twT0VuOYwASHhp4OI4hZgXuUzlAsLMsRuEQLeHScLLIAPwn5V+aGwT6UN
-	 zzjOEaim/1PSh72D8pjSxk8Wp+TVKQS3LB7Fh5NV9z/GU71Pc54m8TStFPAzWtu+cCe+J
-	 pEunmhzxg3HwYUmGIfx60z0PNb4WpS29POnLde21D3LBN8vAQV2RFK0sGuSZTogox5Bcp
-	 uJiXqXQwbJ9jNSvEdBDC2rQoYxM25/oQeR/iFXTLqxssfMKH/1j4FtdywgUL4PiV6aw==
+	t=1794564576;
+	b=xDwQr780Ho3FNtZDoyb/bBqiO7iQ+CiRsnUBlmxQ4ApnssKD+t8VbmbJTuG3eZDwafJc
+	 9PX+4/KIBvcJcFBsbQPL8sUT68TnvjXE1X1PeZcV8vy5Ov5G0vhi5J9H+gTcV3ZCqCsbO
+	 Ux5Kpayr30umAGZ9EKLTf5v/OM/AGVRf+4l6TcFh2lZPTM850XstnBsbzH9h/IcuM+hzR
+	 VAJpMvxhkcs5TftIsQ2M+hKDUkxzFEFht9+HBsPBbUuNdrQc4G1pGdlQ07EJoY+JKpUrG
+	 51ekcaMTF0INe9mO37GZZJ62QrfaSRfvlzWL7gxvCWcX3q2e0mCjtQYypg39aicTkEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564569;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lHtGW/alZjcgKTPZf6fIR74OQ4JRsfsRwol3QZcsyok=;
-	b=g5yAg9NEzNgXxQUwDqBPuw88vgkUmFNxYzsdJsq9sg8LyIFlVZy+vjoPikty4RrkwkVj
-	 65N8tyexMx2nOWbwSDVJhX0CW0XDmrouMw0IZMXV7Nfxzdj0I1LxQTOf3boPk0vMxcvuk
-	 0L91dm7991A4RG9MLzsRhtTbiZ3QEFakFKB0JB8zS7ObOcmsTNrFa6WvKgiSc6Mig4m42
-	 ZSZjofc/yAl9HHKxdiZdixQ2082LhlYSheAOxugzWYHzj0rDAszjclPnw3pmwTMEwYnE1
-	 S1yNXzCf4kRUQjM7JTDdYdaobUolqoglMUTSoi8UCgp2qkekfFBXtuaTCVtNO5yamqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564576;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-ID:From:To:
+	 Subject:CC:X-Mailer:References:In-Reply-To;
+	bh=j62tYvTCL3OY1v0AvDAlDk7Ai4ZdN74KnfRG5/OoDtU=;
+	b=HsoX+lreOu1fmKbQVOb9oXO/Xaui5c1xIjMJCR0HbTtD/BQs5GT8RH38CHm1bgRoIPd9
+	 UWcs68Fs+jpuwWUbN8VQLzmWMOyG/6kx665E/P0gQfEmexVbuhgJCXcFAf/9i1/MB9AZ2
+	 UKpOrCE6tqTe1JwcCIO6SkwfnWFE1GRLOGo6wlMd/G4QOPUcgMU93Rq/prTpEZC2uP7YZ
+	 raoZBXwt2TH1kIgEE65QlYU3CS8NOYbnELPY62Ikj8FkRPZLbcwF/ySg0xTtfZp4/WeO+
+	 9XOBEBwJrCVPL4U+VQLtgoUYYv74cG+FBLbKw8r+NaZ3jHyO6zX+kUF16ib61235/rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW7UDdEw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=aQLGaDeM;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3507606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:09:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D820606A32E;
+	Fri, 13 Nov 2026 10:09:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D820606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW7UDdEw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78BBD1F000CD
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:09:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794564568;
-	bh=lHtGW/alZjcgKTPZf6fIR74OQ4JRsfsRwol3QZcsyok=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gW7UDdEw6q+5j8PL5LPh1L1vrI7/MIoKJeAjSu2NDHrd1buG3qVpd1qYhNaa9PhEZ
-	 0uUEqdklHY9Gbm+Ha9sUVGqC2s/1YeeDkfa483PuNbOwjkxP+CuS1Cq7pixdDBXc0R
-	 v8QNxCJfMDXzIkIbjr1I/9MdJDOrw5/S0pgMg9lGdK7+71Aqu3QtTLGZtdE5rfj8sP
-	 qBFGJ7jZOhrUemFPQdY3GuTbnZ9Tcy0O948NOaWNp92zja8/3HvsEPDwQXwO5lakfG
-	 Lp8avRshrUm2G/L0CF6u+KsL4b/b4JItR3lH9LpYwzqjlbuhIzWXdmkjW/xWIb50Fo
-	 jehn/M9xrMB9w==
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-716d052dc23so254177eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:09:28 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFGioPgO7u+VDmOMhvQkg4dAi4DaLbwdKet6iltLfy2YNCFOi2DPVfmKK7Gt8SrNbY/+4IzATE5NNQk7ek=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Qio2vuvzrO0m4j4G94PhDP+Ts+JMIgmvao6CEoIGvEv9cP2WW
-	zjqOtYf7RzQxi5QkRiNEPKm+wDmoiimM15ZDBDo+iGhUctc+UDb7UsiYiisciiG9hyc576J8YrF
-	MY3HiDxZzaBFBxRg3Clmpric6VTSmg4E=
-X-Received: by 2002:a05:6820:a294:20b0:6e0:8fc2:84a3 with SMTP id
- 006d021491bc7-71ab510c545mr836854eaf.39.1794564567683; Fri, 13 Nov 2026
- 02:09:27 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=aQLGaDeM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794564583; x=1826100583;
+  h=mime-version:content-transfer-encoding:date:message-id:
+   from:to:subject:cc:references:in-reply-to;
+  bh=aGiLs5yg7FQ0TEEB1cEWlhJ5ZGG2wgnap42vcQfu90M=;
+  b=aQLGaDeMktSs0tIPyIMkRL8GoR5ANreACWsgawPZSWRfxZBuZvEWwPJH
+   VSFeztG1VcGIg3bNCV1vwM4gQ+p8AYIpayk+r8qgGDoYFyh06B8N5E0y3
+   APq01tIAPTLreTLISzHZiGap1W4NuPJvDuu8zoIxAngdIu+KDLFpBhIrO
+   Wg9H2IDoI1i78c0ZetByIhNiSVUIjdPd4tw+rS5UK/Pqb3w1qC1Olk+Hx
+   3Vnly3OAyIl6BIFeNZyg9GeZ4AiYUcBpMM9HakBuaF1dN3k0eM7wD3DFk
+   qCEwqqImneEAH4g28qj3+wniM+mD/0/felj+chCJk3P/XjiqKUulG48XF
+   w==;
+X-CSE-ConnectionGUID: G4RDakIhRGiom2dj40ZyqA==
+X-CSE-MsgGUID: KzZ/FC9rTfuDMaz5LyYbrg==
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="66700852"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 03:09:42 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Fri, 13 Nov 2026 03:09:34 -0700
+Received: from localhost (10.10.85.11) by chn-vm-ex04.mchp-main.com
+ (10.10.85.152) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Fri, 13 Nov 2026 03:09:34 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,38 +71,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
- <20261030-clegoffic-pinctrl-scmi-gpio-v1-3-52d92843ad97@baylibre.com>
-In-Reply-To: <20261030-clegoffic-pinctrl-scmi-gpio-v1-3-52d92843ad97@baylibre.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 13 Nov 2026 11:09:12 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkcbCEvBYY3cdfM89kj3r6Nz-KSd25yypqom7TpbM1HHA@mail.gmail.com>
-X-Gm-Features: AclHuK8B628wWVXl0NuYQCslLhyar4b72cZPwoixzCfMqUSGPYc6JmsCw2evP6o
-Message-ID: <CAD++jLkcbCEvBYY3cdfM89kj3r6Nz-KSd25yypqom7TpbM1HHA@mail.gmail.com>
-Subject: Re: [PATCH 03/11] pinctrl: scmi: send the settings without argument
- as enabled
-To: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
-	Peng Fan <peng.fan@nxp.com>, Oleksii Moisieiev <oleksii_moisieiev@epam.com>, 
-	Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Fri, 13 Nov 2026 11:09:32 +0100
+Message-ID: <DMU01RHMAO2W.R0WIEEHWHKZ5@microchip.com>
+From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+To: Mark Brown <broonie@kernel.org>,
+	=?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+Subject: Re: [PATCH] spi: atmel: poll short PIO transfers
+CC: Ryan Wanner <ryan.wanner@microchip.com>, Nicolas Ferre
+	<nicolas.ferre@microchip.com>, Alexandre Belloni
+	<alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	<linux-spi@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20261112-spi-atmel-poll-short-pio-transfers-v1-1-240ccc868cc3@microchip.com> <179451432977.339049.8591158302502636785.b4-review@b4>
+In-Reply-To: <179451432977.339049.8591158302502636785.b4-review@b4>
 
-On Fri, Oct 30, 2026 at 4:58=E2=80=AFPM Cl=C3=A9ment Le Goffic
-<clegoffic@baylibre.com> wrote:
-
-> bias-bus-hold, bias-disable, bias-high-impedance, drive-open-drain,
-> drive-open-source and drive-push-pull take no argument in Linux, so
-> they were sent with the value 0, which the protocol reads as disabled.
-> Send 1.
+On Thu Nov 12, 2026 at 9:12 PM CET, Mark Brown wrote:
+>> Every PIO transfer enables the controller interrupt and sleeps in
+>> wait_for_completion_timeout() until the interrupt handler has drained th=
+e
+>> receive data. For a transfer of a few bytes, the interrupt, the
+>> completion and the two context switches take several times longer than
+>> the transfer on the wire. Devices that do their register IO over SPI,
+>> such as SPI attached Ethernet switches, issue one message of a few short
+>> transfers per register access, so this overhead dominates their register
+>> access time.
 >
-> Fixes: eb524cb651b7 ("pinctrl: Implementation of the generic scmi-pinctrl=
- driver")
-> Signed-off-by: Cl=C3=A9ment Le Goffic <clegoffic@baylibre.com>
+>> Busy-wait on the status register instead of enabling the interrupt when
+>> the transfer is estimated to take less than polling_limit_us, 30 us by
+>> default, as spi-imx does. The estimate uses the effective clock rate and
+>
+> How big is the FIFO?
+>
 
-Patch applied for fixes.
+It depends on the SoC. The SPI in lan966x, lan969x and sama7 has a 32
+data FIFO, sam9x60 and sam9x7 have 16, and sama5d2 has 16 or 32 depending
+on the instance. The older parts (sam9x5, sama5d3, sama5d4 and earlier)
+have none and take one interrupt per word.
 
-Yours,
-Linus Walleij
+>> the word delay. Setting the module parameter to 0 disables polling.
+>
+> If this is dubious enough to require the module parameter we shouldn't
+> be doing this.  Most likely it's perfectly sensible and we should just
+> do it as standard, other drivers don't make this optional.  If we do
+> have a parameter it needs to be documented.
+>
+
+I will drop the parameter in the next version and poll below a fixed 30
+us.
+
+>> @@ -725,6 +736,9 @@ static void atmel_spi_next_xfer_fifo(struct spi_cont=
+roller *host,
+>> =20
+>>  	dev_vdbg(host->dev.parent, "atmel_spi_next_xfer_fifo\n");
+>> =20
+>> +	if (as->poll)
+>> +		spi_writel(as, IDR, SPI_BIT(RXFTHF) | SPI_BIT(OVRES));
+>
+> We should ensure there's no interrupt handler running or that could run
+> in future, especially with PREEMPT_RT which puts everything into a
+> thread.  If we timed out a transfer then an interrupt could be
+> delivered while we're polling and try to also process things.  A lock
+> while updating the flag and checking the flag before doing anything in
+> the interrupt would probably do the trick.
+
+Done as you suggest in v2. The poll flag is set and the interrupts are
+masked in the same locked section before the transfer starts. The PIO
+interrupt handler takes the lock before it reads the status register and
+returns IRQ_NONE without touching the controller while the flag is set.
+
+Thanks,
+Emil
