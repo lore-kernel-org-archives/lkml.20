@@ -1,74 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794580424;
-	b=XoQDDoMOBcOJgxmGL9MUDNWgvw1c0LSdUyWt5W29vUb/PQWAFlAun3NuzoDw+nvfike1
-	 YeOgvYWpykrbVAHEH17G03CNaUqZfd/pZ9Tzec6ZI96pRyuWXxCf9KIh2DzC/cXM7FjNv
-	 pYDX8lZBUCVSt2i1m1KncLU7CjtCLk5+CXsrSxsm907pUVB5X+m5nawrl9OMaEBg3g2sN
-	 jUf/62hsTpKM8SeacNX58yy+nu3hjwb5zm4L2pceoGffkxDWH5oFH+ISmwQOTCQ5sCMdQ
-	 jLzgmAtc/tUPuoqM/r3W4C6v3+NRNEE/UuBXwG/tJAOTJC9cCSDtzBE65JxP2/tfiZg==
+	b=yjy7CB7MfzzeZWoStdXg1OfeltLfOci/aJB9p+tzU5K+fC+CrGX8eCaqSrfX6AWnoOFz
+	 GyJeLlVXm8iPRljQV5BBY3k1Jre1XA3g1CFfMdcuPioHUKm2JjUCu56czBPs30htCgE9X
+	 Fa7cHKAYx55ff1m3yuL0aDJbizxAC2vh1N/iDN3RTCCt5xsMQWsg4t241K83KgxMrPjtK
+	 bdHz0hcA6V4KnvEANcvxOhoZn5wTzTiWE6bMpv8V1WtQDIPSyzMm9o4kyzPiO1RuTGQgf
+	 U7mD60+WSEWFX+cmOgvibVF4V5lQGfI1dLjtHw5J2qcxMJGn6jwCoslEqfAAbQkBBqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794580424;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=7TptnXb3VOjyEVdi9cZE8aHqdu8vG3VNwNLQ5wFl8No=;
-	b=f8xC3CtyBV2On1Y3eWn37WK0GUgQZa8Z48kqAfNXoXXEhBUKMN6RAgynSdM1zHrwjoXE
-	 jsGTk8vp6iWpU7lLS9qAjY6+nhRYPKyTnQt/LnOlEYrz7aZ69LHMcHTiwGxdEkO1tKZ4R
-	 lM4biD2HgtemsdObRYSOk3BzpricSoMFEDA56+2mfjT1z0ZXN4ztiGI54oyfqIlHRywLj
-	 SlYATZpDd1AVrZxhHEeH1t8kgqQAuzUYcZAXeMop3ZiwTWUYH1mU/6Uedc05Mpb6RZXRq
-	 C60knv0F4kAPtENSL72VLoBJdgheuSwPFknP9P5OuquxB9GPt4ihvKDpndjYA9kgLbA==
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=oF05r2gLDpP1hVCaMdikfunskSzqkU4N8lTkjjhVRpw=;
+	b=TaXVPGDHIPdB7f7LJ4MFIwe3achRRwyTxtF55o7TbmYyYDUnr/jUyDfFvoR1sdoklVXh
+	 3/FoD00oeoFYqkqoJeVFQIJkIRduQEY26MDYL7hTdlhi4FRzjo43wXOiWIhFg0/gYlOmZ
+	 cpSu4sR8qvZ/42IwmzCW+Q/Mx+Zyjg827f7d26XzpWX1oPckW7d5h7DoDzX4IBoATCyyV
+	 7v6EdgwWUeSlZ+1jGjFr6gD4Ip6a2J2ZojgCJqY8rNuYdG01lYB9Gfww1QHxydNWwq9Hj
+	 V2sxi+qw+huHyzxgtzEHwabfIoxikW2oa6gesenEMTQJC9ctVVLMcpleqP0gNVMPagw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=onurozkan.dev;
-	spf=pass smtp.mailfrom=onurozkan.dev;
-	dkim=pass header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=BfeUcttd;
-	arc=none smtp.remote-ip=109.224.244.108
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P15X2YJC;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AF2606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:33:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56AF2606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB4860A261D;
+	Fri, 13 Nov 2026 14:33:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EB4860A261D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=BfeUcttd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail2; t=1794580420; x=1794839620;
-	bh=7TptnXb3VOjyEVdi9cZE8aHqdu8vG3VNwNLQ5wFl8No=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=BfeUcttd9RjUeNaW7i/FHxX9NIEEJ0HEussX8cxp4x04IDN3e2OiYVb48S+rxD1mV
-	 c+xo5BArrTWobUBRh1Ui3K5cQRekIaNeyUQ4zX6kvOY21HIFBH+Csbbs3xMrLuMmb1
-	 ix+Ge/ZDFnTvR6MxsGOROpB2eRu2n/06/JwdXGV01+TLgj6vI3+QLBzYE8Jnceguld
-	 ms7SVRpkPNGgGUkoz5pqOJNVEMdMMGLCJDegrzvhkWAZgMvisnJd1B/qRboXiGA0UI
-	 UWdrSTeLrfGWASxh81UOO4MdjxVvxA3+1ap0o8DScNQD8AAvLgbnPcZ4OssJNzXT3j
-	 02GF7lMMA49NA==
-X-Pm-Submission-Id: 4jR09s3sFXz1DDXP
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Cc: dakr@kernel.org,
-	aliceryhl@google.com,
-	daniel.almeida@collabora.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	tmgross@umich.edu,
-	work@onurozkan.dev,
-	boris.brezillon@collabora.com
-Subject: [PATCH v8 2/3] drm/tyr: add GPU reset infrastructure
-Date: Fri, 13 Nov 2026 17:32:27 +0300
-Message-ID: <20261113-tyr-reset-impl-v8-2-2ee298ac9808@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20261113-tyr-reset-impl-v8-0-2ee298ac9808@onurozkan.dev>
-References: <20261113-tyr-reset-impl-v8-0-2ee298ac9808@onurozkan.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P15X2YJC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794580424; x=1826116424;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=3q908pnAG5D1NxhTnjaCLWJTSR5VAD4uS9kgBibyPTI=;
+  b=P15X2YJCMTPnO4gtI8GThaHRUJ751XmN/SSiL+t/sYTkJxkdML9gC+ci
+   VGAbnE+Gy6TTzOQlRZ/eMZj7GawYZPau4sEr1AVP7hU/g0ozK+KtCNi+M
+   GXfiwfVKlORvz4vUOV32Lp7nc1D1ycjpHjg7a1T0zU/EMqy6QJambCfTX
+   z9U6iML/9vATRTdwLa0rIK7awumzYy+usoElClHuFT+oLAyek1k41fv05
+   uy2oeIaJ7adQza57WmAO1T4CR/ZNCVVWnft5uXQxvzDiTIo/HCjoDCTO8
+   jpJg7kunUk4mZCAdD08mjUKedCvdDnHQaMPKfk1XlpiCQS2Q2u6em6wSD
+   A==;
+X-CSE-ConnectionGUID: ixnkyp0sS8S7Q+RmGF48Dg==
+X-CSE-MsgGUID: RIKlkIygT2GZqddzlo4Lxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3481798"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3481798"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:33:38 -0800
+X-CSE-ConnectionGUID: ugQoK6AzSEivYqC/ncfyrw==
+X-CSE-MsgGUID: BPVpGyXAQzqkEgyt1NMoSw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="10716636"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:33:31 -0800
+Date: Fri, 13 Nov 2026 16:33:28 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Andreas Schwab <schwab@linux-m68k.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Len Brown <lenb@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 1/7] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <avcfuBAbNkBrk6uy@ashevche-desk.local>
+References: <cover.1794574496.git.alx@kernel.org>
+ <f25bf43d7f18c99019a52b9ba9a1e46fa68174c7.1794574496.git.alx@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,496 +105,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f25bf43d7f18c99019a52b9ba9a1e46fa68174c7.1794574496.git.alx@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Add support for scheduling GPU resets on a dedicated workqueue. Track
-the reset state to avoid queueing another reset while one is already
-pending or in progress.
+On Fri, Nov 13, 2026 at 02:10:29PM +0100, Alejandro Colomar wrote:
+> As Bartosz reported, str_has_prefix() has a bug: it can't differentiate
+> between an empty prefix matching an empty string from a non-matching
+> prefix.  This is a fundamental design flaw in this API, and not
+> something that can be fixed.
+> 
+> As always, this is a consequence of choosing sizes instead of pointers.
+> Sizes are often the wrong choice.  In this specific case, pointers are
+> more capable of differentiating these cases, as NULL is a special
+> sentinel value that doesn't need to overload a valid value.
+> 
+> Let's implement strprefix(), a function that returns a pointer
+> right after the prefix if found, and a null pointer if not found.
+> 
+> We'll slowly migrate existing code from str_has_prefix() to strprefix().
+> 
+> Move the description from str_has_prefix(), and describe
+> str_has_prefix() by comparing it to strprefix().
+> 
+> Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
 
-Use an SRCU based gate with mutex-protected reader admission to block
-hardware accesses while reset work runs and wait for current users
-before resetting.
+It's unreferred Link tag, spurious? Please, refer to it in the commit message
+to understand why it's here. Use Link: $URL [1] and use [1] in the text.
 
-Stop new reset requests during teardown and drain any queued or running
-reset work before releasing the device resources.
+> Cc: Andy Shevchenko <andy@kernel.org>
 
-This is the initial reset infrastructure only. It is not wired to a reset
-source yet as those will follow in separate work.
-
-Link: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/28
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
-Signed-off-by: Onur Özkan <work@onurozkan.dev>
----
- drivers/gpu/drm/tyr/driver.rs        |  43 ++----
- drivers/gpu/drm/tyr/reset.rs         | 251 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/reset/hw_gate.rs |  80 +++++++++++
- drivers/gpu/drm/tyr/tyr.rs           |   1 +
- 4 files changed, 346 insertions(+), 29 deletions(-)
-
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 5b57bc9a1d3e..863c8008a132 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -8,7 +8,6 @@
-     device::{
-         Bound,
-         Core,
--        Device,
-         DeviceContext, //
-     },
-     dma::{
-@@ -17,13 +16,9 @@
-     },
-     drm,
-     drm::ioctl,
--    io::{
--        poll,
--        Io, //
--    },
-     new_mutex,
-     of,
--    platform,
-+    platform, //
-     prelude::*,
-     regulator,
-     regulator::Regulator,
-@@ -32,17 +27,16 @@
-         Arc,
-         Mutex, //
-     },
--    time, //
- };
- 
- use crate::{
-     file::TyrDrmFileData,
-     fw::Firmware,
-     gem::Bo,
--    gpu,
-     gpu::GpuInfo,
-     mmu::Mmu,
--    regs::gpu_control::*, //
-+    regs::gpu_control::*,
-+    reset, //
- };
- 
- pub(crate) type IoMem<'a> = kernel::io::mem::IoMem<'a, SZ_2M>;
-@@ -70,6 +64,12 @@ pub(crate) struct TyrDrmRegistrationData<'drm> {
-     /// Parent platform device.
-     pub(crate) pdev: &'drm platform::Device<Bound>,
- 
-+    // `ResetHandle::drop()` drains queued/running works and this must happen
-+    // before clocks/regulators are dropped. So keep this field before them to
-+    // ensure the correct drop order.
-+    #[pin]
-+    pub(crate) reset: reset::ResetHandle<'drm>,
-+
-     /// Firmware sections.
-     pub(crate) fw: Firmware<'drm>,
- 
-@@ -86,23 +86,6 @@ pub(crate) struct TyrDrmRegistrationData<'drm> {
-     pub(crate) gpu_info: GpuInfo,
- }
- 
--fn issue_soft_reset(dev: &Device, iomem: &IoMem<'_>) -> Result {
--    // Clear any stale reset IRQ state before issuing a new soft reset.
--    iomem.write_reg(GPU_IRQ_CLEAR::zeroed().with_reset_completed(true));
--
--    iomem.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
--
--    poll::read_poll_timeout(
--        || Ok(iomem.read(GPU_IRQ_RAWSTAT)),
--        |status| status.reset_completed(),
--        time::Delta::from_millis(1),
--        time::Delta::from_millis(100),
--    )
--    .inspect_err(|_| dev_err!(dev, "GPU reset failed."))?;
--
--    Ok(())
--}
--
- kernel::of_device_table!(
-     OF_TABLE,
-     <TyrPlatformDriver as platform::Driver>::IdInfo,
-@@ -137,8 +120,7 @@ fn probe<'bound>(
- 
-             let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?, GFP_KERNEL)?;
- 
--            issue_soft_reset(pdev.as_ref(), &iomem)?;
--            gpu::l2_power_on(pdev.as_ref(), &iomem)?;
-+            reset::run_reset(pdev.as_ref(), &iomem)?;
- 
-             let gpu_info = GpuInfo::new(&iomem);
-             gpu_info.log(pdev.as_ref());
-@@ -171,8 +153,11 @@ fn probe<'bound>(
-                 _reg <- unsafe { drm::Registration::new(
-                     pdev.as_ref(),
-                     unreg_dev,
--                    pin_init!(TyrDrmRegistrationData {
-+                    try_pin_init!(TyrDrmRegistrationData {
-                         pdev,
-+                        // SAFETY: The registration is owned by platform driver data,
-+                        // so reset work is drained before borrowed data expires.
-+                        reset <- reset::ResetHandle::new(pdev, iomem.as_arc_borrow())?,
-                         fw: firmware,
-                         clks <- new_mutex!(Clocks {
-                             core: core_clk,
-diff --git a/drivers/gpu/drm/tyr/reset.rs b/drivers/gpu/drm/tyr/reset.rs
-new file mode 100644
-index 000000000000..640371b3104d
---- /dev/null
-+++ b/drivers/gpu/drm/tyr/reset.rs
-@@ -0,0 +1,251 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+
-+//! Provides asynchronous reset handling for the Tyr DRM driver via [`ResetHandle`].
-+//!
-+//! [`ResetHandle::schedule`] runs reset work on a dedicated ordered
-+//! workqueue and avoids duplicate pending reset requests.
-+//!
-+//! # High-level Execution Flow
-+//!
-+//! ```text
-+//! +------+  schedule()  +---------+  reset_work()  +------------+
-+//! | Idle |------------->| Pending |--------------->| InProgress |
-+//! +------+              +---------+                +------------+
-+//!    ^                                             |
-+//!    |               work complete                 |
-+//!    +---------------------------------------------+
-+//!
-+//! Teardown transitions any state to ShuttingDown, then drains pending and
-+//! running work.
-+//! ```
-+
-+mod hw_gate;
-+
-+use hw_gate::HwGate;
-+
-+use kernel::{
-+    device::{
-+        Bound,
-+        Device, //
-+    },
-+    io::{
-+        poll,
-+        Io, //
-+    },
-+    platform,
-+    prelude::*,
-+    sync::{
-+        atomic::{
-+            Atomic,
-+            AtomicType,
-+            Full,
-+            Release, //
-+        },
-+        Arc,
-+        ArcBorrow, //
-+    },
-+    time,
-+    workqueue::{
-+        OwnedQueue,
-+        Queue,
-+        ScopedWork,
-+        ScopedWorkItem, //
-+    },
-+};
-+
-+use crate::{
-+    driver::IoMem,
-+    gpu,
-+    regs::gpu_control::*, //
-+};
-+
-+/// Lifecycle state of the reset worker.
-+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-+#[repr(i32)]
-+enum ResetState {
-+    /// Hardware is available and no reset request exists.
-+    Idle = 0,
-+    /// Reset work item is queued and waiting to be claimed by the worker.
-+    Pending = 1,
-+    /// Worker has claimed the request and is resetting hardware.
-+    InProgress = 2,
-+    /// Teardown has started and no new reset request may start.
-+    ShuttingDown = 3,
-+}
-+
-+// SAFETY: `ResetState` and `i32` have the same size and alignment, and are
-+// round-trip transmutable.
-+unsafe impl AtomicType for ResetState {
-+    type Repr = i32;
-+}
-+
-+/// Internal reset orchestrator that owns the state, [`HwGate`], and work item.
-+#[pin_data]
-+struct Controller<'ctrl> {
-+    /// Parent platform device.
-+    pdev: &'ctrl platform::Device<Bound>,
-+    /// Mapped register space needed for reset operations.
-+    iomem: Arc<IoMem<'ctrl>>,
-+    /// State shared by reset schedulers and the worker.
-+    state: Atomic<ResetState>,
-+    /// Drains reset-sensitive hardware accesses before a reset.
-+    #[pin]
-+    hw: HwGate,
-+}
-+
-+impl<'ctrl> ScopedWorkItem for Controller<'ctrl> {
-+    fn run(work: &ScopedWork<Self>) {
-+        work.reset_work();
-+    }
-+}
-+
-+impl<'ctrl> Controller<'ctrl> {
-+    /// Creates a reset controller.
-+    fn new(
-+        pdev: &'ctrl platform::Device<Bound>,
-+        iomem: Arc<IoMem<'ctrl>>,
-+    ) -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self {
-+            pdev,
-+            iomem,
-+            state: Atomic::new(ResetState::Idle),
-+            hw <- HwGate::new(),
-+        })
-+    }
-+
-+    /// Attempts to transition the reset state from `from` to `to`.
-+    #[inline]
-+    fn try_transition(&self, from: ResetState, to: ResetState) -> bool {
-+        self.state.cmpxchg(from, to, Full).is_ok()
-+    }
-+
-+    /// Processes one scheduled reset request.
-+    ///
-+    /// If the pending reset cannot be claimed, the worker returns immediately.
-+    ///
-+    /// It first claims [`ResetState::Pending`], then waits for earlier hardware
-+    /// accesses to complete before issuing the reset and returning the worker
-+    /// state to [`ResetState::Idle`].
-+    ///
-+    /// Panthor reference:
-+    /// - drivers/gpu/drm/panthor/panthor_device.c::panthor_device_reset_work()
-+    fn reset_work(&self) {
-+        if !self.try_transition(ResetState::Pending, ResetState::InProgress) {
-+            return;
-+        }
-+
-+        dev_dbg!(self.pdev, "Starting GPU reset.\n");
-+
-+        // Wait for current hardware accesses to finish before resetting.
-+        let reset_guard = self.hw.close();
-+        let reset_result = run_reset(self.pdev.as_ref(), &self.iomem);
-+        drop(reset_guard);
-+
-+        if let Err(e) = reset_result {
-+            dev_err!(self.pdev, "GPU reset failed: {:?}\n", e);
-+
-+            // TODO: Unplug the GPU.
-+            // There is no API for unplugging the GPU and this is unreachable
-+            // for now since there are no hardware users for reset API.
-+        } else {
-+            dev_dbg!(self.pdev, "GPU reset completed.\n");
-+        }
-+
-+        let _ = self.try_transition(ResetState::InProgress, ResetState::Idle);
-+    }
-+}
-+
-+/// User-facing handle for scheduling resets.
-+///
-+/// Dropping the handle drains any queued or in-flight reset work before the
-+/// workqueue and the clock and regulator resources are released.
-+#[pin_data(PinnedDrop)]
-+pub(crate) struct ResetHandle<'reset> {
-+    #[pin]
-+    controller: ScopedWork<Controller<'reset>>,
-+    wq: OwnedQueue,
-+}
-+
-+impl<'reset> ResetHandle<'reset> {
-+    /// Creates [`ResetHandle`].
-+    ///
-+    /// # Safety
-+    ///
-+    /// The returned handle must not be leaked or otherwise prevented from
-+    /// running [`Drop`], since it owns work that may borrow from `'reset`.
-+    pub(crate) unsafe fn new(
-+        pdev: &'reset platform::Device<Bound>,
-+        iomem: ArcBorrow<'_, IoMem<'reset>>,
-+    ) -> Result<impl PinInit<Self, Error>> {
-+        let iomem = iomem.into();
-+
-+        Ok(try_pin_init!(Self {
-+            // SAFETY: The caller guarantees the handle is dropped.
-+            controller <- unsafe {
-+                kernel::new_scoped_work!("tyr::reset", Controller::new(pdev, iomem))
-+            },
-+            wq: Queue::new_ordered().build(c"tyr-reset-wq")?,
-+        }))
-+    }
-+
-+    /// Schedules a GPU reset on the dedicated workqueue.
-+    ///
-+    /// If a reset is already pending or in progress the call is a no-op.
-+    #[expect(dead_code)]
-+    pub(crate) fn schedule(&'reset self) {
-+        // TODO: Similar to `panthor_device_schedule_reset()` in Panthor, add a
-+        // power management check once Tyr supports it.
-+
-+        if self
-+            .controller
-+            .try_transition(ResetState::Idle, ResetState::Pending)
-+        {
-+            let _ = self.wq.enqueue_scoped(&self.controller);
-+        }
-+    }
-+}
-+
-+#[pinned_drop]
-+impl<'reset> PinnedDrop for ResetHandle<'reset> {
-+    fn drop(self: Pin<&mut Self>) {
-+        // Stop new reset requests before draining queued/running work.
-+        self.controller
-+            .state
-+            .store(ResetState::ShuttingDown, Release);
-+    }
-+}
-+
-+/// Issues a soft reset command and waits for reset-complete IRQ status.
-+fn issue_soft_reset(dev: &Device<Bound>, io: &IoMem<'_>) -> Result {
-+    // Clear any stale reset-complete IRQ state before issuing a new soft reset.
-+    io.write_reg(GPU_IRQ_CLEAR::zeroed().with_reset_completed(true));
-+
-+    io.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
-+
-+    poll::read_poll_timeout(
-+        || Ok(io.read(GPU_IRQ_RAWSTAT)),
-+        |status| status.reset_completed(),
-+        time::Delta::from_millis(1),
-+        time::Delta::from_millis(100),
-+    )
-+    .inspect_err(|_| dev_err!(dev, "GPU reset timed out."))?;
-+
-+    Ok(())
-+}
-+
-+/// Runs one synchronous GPU reset pass.
-+///
-+/// Its visibility is `pub(super)` only so the probe path can run an
-+/// initial reset; it is not part of this module's public API.
-+///
-+/// On success, the GPU is left in a state suitable for reinitialization.
-+///
-+/// The sequence is as follows:
-+///   - Trigger a GPU soft reset.
-+///   - Wait for the reset-complete IRQ status.
-+///   - Power L2 back on.
-+pub(super) fn run_reset(dev: &Device<Bound>, iomem: &IoMem<'_>) -> Result {
-+    issue_soft_reset(dev, iomem)?;
-+    gpu::l2_power_on(dev, iomem)?;
-+    Ok(())
-+}
-diff --git a/drivers/gpu/drm/tyr/reset/hw_gate.rs b/drivers/gpu/drm/tyr/reset/hw_gate.rs
-new file mode 100644
-index 000000000000..54754f9fc05f
---- /dev/null
-+++ b/drivers/gpu/drm/tyr/reset/hw_gate.rs
-@@ -0,0 +1,80 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+
-+//! Hardware-access gate for the GPU reset cycle.
-+//!
-+//! [`HwGate`] uses a mutex and [`Srcu`] to coordinate reset-sensitive hardware
-+//! access with reset. Readers hold the mutex while entering SRCU, then release
-+//! it before accessing hardware. The reset worker holds the mutex while waiting
-+//! for admitted readers and resetting hardware.
-+
-+use kernel::{
-+    prelude::*,
-+    sync::{
-+        new_mutex,
-+        srcu,
-+        Mutex,
-+        MutexGuard,
-+        Srcu, //
-+    },
-+};
-+
-+/// Synchronizes GPU hardware access with reset.
-+#[pin_data]
-+pub(super) struct HwGate {
-+    /// Admits readers and is held exclusively while the reset worker owns the
-+    /// hardware.
-+    #[pin]
-+    gate_lock: Mutex<()>,
-+    /// Drains readers that entered before the reset worker acquired `gate_lock`.
-+    #[pin]
-+    srcu: Srcu,
-+}
-+
-+impl HwGate {
-+    /// Creates an open hardware-access gate.
-+    pub(super) fn new() -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self {
-+            gate_lock <- new_mutex!(()),
-+            srcu <- kernel::new_srcu!(),
-+        })
-+    }
-+
-+    /// Enters a reset-sensitive hardware-access section.
-+    #[expect(dead_code)]
-+    fn access(&self) -> HwAccessGuard<'_> {
-+        let gate_lock = self.gate_lock.lock();
-+        let srcu = self.srcu.read_lock();
-+        drop(gate_lock);
-+
-+        HwAccessGuard { _srcu: srcu }
-+    }
-+
-+    /// Stops new readers and drains admitted readers for the reset worker.
-+    ///
-+    /// Callers must serialize write-side access. The reset controller's state
-+    /// machine provides that serialization.
-+    pub(super) fn close(&self) -> HwClosedGuard<'_> {
-+        let gate_lock = self.gate_lock.lock();
-+
-+        // Holding `gate_lock` prevents new readers from entering SRCU. Readers
-+        // admitted before us are enrolled, so wait for their read-side work.
-+        self.srcu.synchronize();
-+
-+        HwClosedGuard {
-+            _gate_lock: gate_lock,
-+        }
-+    }
-+}
-+
-+/// Shared hardware access that blocks reset until dropped.
-+#[must_use = "the gate is released when the guard is dropped"]
-+struct HwAccessGuard<'a> {
-+    _srcu: srcu::Guard<'a>,
-+}
-+
-+/// Exclusive hardware access for the reset worker that blocks new hardware
-+/// accesses until dropped.
-+#[must_use = "the gate stays closed until the guard is dropped"]
-+pub(super) struct HwClosedGuard<'a> {
-+    _gate_lock: MutexGuard<'a, ()>,
-+}
-diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-index e7ec450bdc9c..9d995650be81 100644
---- a/drivers/gpu/drm/tyr/tyr.rs
-+++ b/drivers/gpu/drm/tyr/tyr.rs
-@@ -14,6 +14,7 @@
- mod gpu;
- mod mmu;
- mod regs;
-+mod reset;
- mod slot;
- mod vm;
- 
+No need to put my name explicitly in Cc list, I'm a designated reviewer for
+string library, you should get it via `b4` or `get_maintainer.pl`. And in
+general is better to just move the Cc after the '---' line.
 
 -- 
-2.51.2
+With Best Regards,
+Andy Shevchenko
+
+
