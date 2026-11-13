@@ -1,123 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794538494;
-	b=O4247Am3rxO3QdBfcfzj0aDo/ex8NsU6f7hC+MUr9SlL6StR9eVfx1HlAhOIiKxQkD6s
-	 nvSnK53BFKPukR12fGVJ9lIJONxKBFJVjfLZalxnDxGRATU4FEAI801lo6ZG0qLiiC9IO
-	 BwKLWxrJK8HjXU7p3jKo9wzcLbiXp4HP3kIMTptMAojSHDuTOK4nXeNyM3yfBZQyavIo9
-	 hnb7IMZjpgL5y6Bl8oz4H6HLIArALUmkMb2r3Z88crlrxMLqNz2XZODESBso7julMhG8G
-	 gkZPh0GMkZHnyT2jkpHwZWLuZu9yElbzgiSCL7OjzueH50Z9s3AQNHV9POCxXr+08Kw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794538494;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=3IFlEUS0jw9JEezJjoa+Ahcnwnp+ipK5GvAoLO2eIuc=;
-	b=Vt5XJBZp+V1h2oaERb0tr0q+GUgZDY7Mm6RheQWsb+buJX/3skye33/p8bFj1tSh/K0H
-	 zJ4uDtgnFEisuhrx/omCByRz0eQu03M6pIEaSe0quW2npMUbgf7D3uKVNBBgsdmufeaJ5
-	 JrO1bYjt/hr/PHp+FFQ3qn4cWFzQRHFm0Sjny+83PZ014qnfbelOq906TY2tGWyYQOrMF
-	 0nZRCCqX30p1al0B4IPlkFVb0LJmiP2zHXS3XpulO/+BebDVS7uja/T2FYsCgcrNZ9WVd
-	 6VBOolt4V7qKbut1bks3FFmgHXvnlejGQ5T/gcxwdxpE1oejb2UtUNEqC9cAus5vcjA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mAeMaPNT;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=guDtYZxZ;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794538509;
+	b=Moy2DE50cIqzjcUpb3bIqJ0gJ+sqoixFpJfh0OSlSKslDgLFpKIclzra3YQoTfTjHKXP
+	 nCumKfeauy2muMwM7/lHyF7Y+xQ2lyz2ehlwiVSNMpiloae401hMyXxTVDAosOGcttLGn
+	 rp8nVn8ZGFfFIVuACtPjopjM0ZRIUi3N1Pbev6c3Xo25DfB2hUgF6EEdJddEVU2Ijb6KT
+	 oMkrQy82k6bqkBg1Gg3qhRddTcoQ4nM/dzzB9Yn8TGJj2KutAHOtbE4kBIbcMgyDfEwd7
+	 WZ3IHm3Yc1FVz257gf7JHLkhlKja9X0aJUdg2sjgE22SESvG6pISc2lO+0rvApCyZuw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794538509;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ww5MKM6poDK+IczcuuMJkcSdFtjq/phga8CrflKC7U4=;
+	b=ebDMz7fWZMPeV3Syr/+rDG57bo8YctPBu6xP9ou+5hgOGh3IJV8I4TdnA3LwAYSULhDj
+	 iYnmPK8v+GaRO6fIOD8EeKvCMGXZwm8OAggMyxEq5+B/vuB7HuhKtT+1JygegYTeXMuB/
+	 ie3NRRRXP8M+3XrZDtPoYkiB6rbWuRXnOEq4avplLuU5hTuvIuzU+ZUlmMe5bR9EuAEWL
+	 OeM9jHkxoSNAOj6UUJEciWEfGlIvpPEVp/IsEFaxuUI26b5oYau5cZkbgjvfqVA2/XGU0
+	 0t6B8tKzq2UD75mVo8t0chSRTud2AQPDqThF4vb/oCw5+Wb5NWKkdh+aVmSAgVY8fXQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=cfMDacLG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.52
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793E1606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:54:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 793E1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE8A606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:55:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EE8A606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mAeMaPNT;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=guDtYZxZ
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD2KKbB1187293
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:54:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=3IFlEUS0jw9JEezJjoa+Ahcn
-	wnp+ipK5GvAoLO2eIuc=; b=mAeMaPNTVcH/RfulSEEcf4Mi0l/zKk1TLAWJAtut
-	+wC78LhpJPRTAQlt58ob7fzUWFONgyOCpXNUrTn56jZOeh3Gjrop6WZyyV7/G/R9
-	mLEkkduNNJE+IeiZ/afjYjkQbM4X+BmS8fyBY21rQ/+UlFW1Pz6PhUIgU9sBXOOU
-	X/A/pHJKgyDyzySC5gfzIRAJ15Uys/qUtmWxpYBc0XGQkukWFTHdKozsi4WvyQg4
-	aRGnso0JKeArYZA8K+cd2h5kd4j+hOti4g94W6curiWoahmahS75i7hgKVPLRl4A
-	+kuxpU3VuVTTxDbcclph6ghL5FH+SgYLxX2I1zFEvZucHQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw9e1brdf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:54:52 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-375bac6bd21so352961eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:54:52 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=cfMDacLG
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67921b515a7so454272d50.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:55:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794538508; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SNviY3VD7LIEvIPuPCjQDhjgUea8JDg9C524uuvJe0mtu/gAHlNqk3aeb+hxUbMaNK
+         g6Of+a2CebbzT207raE0oMHJ31OI+DmV9RtRFqrKK8CGiM0K/MCdTVm5byNNAkvbHBNK
+         H970ZDnSLod6DgRUuQ+ubN8jtj0D/n+GRQQq6eDCnK4yvwD7Qt3GE6j0/sSiA37We8lD
+         h85/BjFz2QXIctx4yUT4uftq29IO1FdCiwrY21T079sdiV0tS1afDlDGLox0fhwlVA3Z
+         qXzStakKhZXEgFsM/O4EIimaGKny9ctBMliXYo9v1kjSpEnvsZyaMduD2xCxDBsgPCH8
+         xtDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ww5MKM6poDK+IczcuuMJkcSdFtjq/phga8CrflKC7U4=;
+        fh=Sy9c4EoYdaBg+OxtHZmbk89NbgL0n7nwrhPFlU1IgXQ=;
+        b=BNdQ0an07/NCY+jYk1gKr/f/Hgi8iG/VejFq4TfPY+83N0oNRNEri8CEMkAYJKspbS
+         bjTiFUGIgSrcVY5hZjLYWRckZCSiSjquNf4E0aEWogwCl1TarZTl5vLBYW3MG+TwoJwY
+         pTafOXbCgY0uShrD3EmiWMuK8rnHa2r5hvO1H+Zf2fP3Q3ygPzxlwQSTHT4sv/EMqqmL
+         6karF63YAlYmVvWQtZh0gM/UbSc6/2AQQHYhEmUXZCP8t5d9M8t8wZaH+Ksx6tDkOMq8
+         gE9OnstqKh7Frbo3jzBTV18qDX2jOz+dWdQltVk1BY3cNNcbLhz0T0zelhl8sHMcCoMt
+         vtmA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794538491; x=1795143291; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=chromium.org; s=google; t=1794538508; x=1795143308; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3IFlEUS0jw9JEezJjoa+Ahcnwnp+ipK5GvAoLO2eIuc=;
-        b=guDtYZxZ64ptWGyTeSX0Z2mpOWhSvzMJ3uJMNmDuodMfYOkarOtXwZTYAQjKbLO+k1
-         BXQJToSfmNJ1djhw2MwzqQkBKgcOjyLp2noskNzk/WeIvogTQHs8Wz4vFWcy2HiA956K
-         +abZcaNwp6qckPxxDqx4XqrZLYjJHMLW3vlFtGHVoy8Kld3kfcjTzuud4/mBwBUc5y9R
-         a89RmFDsMY4OUi3QE7NyA3UOUhp2VI0XSgKJuiKh1mux69MwIC26P7pDadG5W+ULDF9Y
-         x4c+zqorS1sCeMcfx5C53RRWj7t9BxBPm/zkHG+mcRmp5vlnpA1MYjHAGM39wB6niNWm
-         u/4g==
+        bh=ww5MKM6poDK+IczcuuMJkcSdFtjq/phga8CrflKC7U4=;
+        b=cfMDacLG8z5L1KijJ6WpfqoVtMnSg7D8XZ5tsiDdz2CqKktuXLlbD7h94kpjdl1/7b
+         C9aE2Mt+Vmjn0zOJ228wsa6m/1EYkj4AUAvK4/n1l2fZDAxmemJ4JmrlN72c7nlHGDua
+         tkc/zZ81gRVblWv/lVLluemgBz6hCHNVaSc1c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794538491; x=1795143291;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794538508; x=1795143308;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3IFlEUS0jw9JEezJjoa+Ahcnwnp+ipK5GvAoLO2eIuc=;
-        b=s9I8e6etVyx4xnoLN3H2glwV1Qq6JhaOe8bGzocg/cVRTG2HyPGa1jh4Ya3wevf0PA
-         VcmJjl4psRbTk052qWW6eoHkjYKRYdP8Pj23g1GRjYFCPoUpJXanVvU6pKL49MCZ7omC
-         fasfa6Ln7G66b3Vpgx0l1VBD/akWTCOldoKWKy+iRIsOw6/C690JGrX05MxDo+EECeFI
-         IBFiiq+zTil4UdjEYUrCD3an+GDitpo3udF5E7Mzw/bZTYWo/Y8YRYaHCK/Imyb8uuWS
-         1bFhnpk3bJ6PmmF0T8F0xY46IQz9/PjqPHYT0DEePuGq7Pb56z8lEfW8mh1KDG/z6AT1
-         mxUQ==
-X-Forwarded-Encrypted: i=1; AL+hErHGKZlR/wGMcDLNgT9SM4vnhOVQC0F0yG7+dk6D+GbPmK/cpVDnOluceRO/6eQnknBYbWFsstIJbGT3WwE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+YxKyqSBaEL3dAsXbcQe3nIwql2HfOsXyC9aVyfRZSD766r7/J
-	Yof3C4e9Dj8eEf4m0u54dsKnfHDLzgQX/e80K54QeRWcToKWklehMJhyxIpapClfvXS3HvwQxdx
-	lMqSNWV16V6mXSLI6tgLmg/raTtmy5bOD2PQZszfryBN0zNwejZia+YgovgJl5WsTGLg=
-X-Gm-Gg: AYBFou2pOgS+2f54JWJVm0nXOvIlXOgSIZbart8gbHUz9/Cwd/jHMH7lEvxzL0P5Huv
-	24NLATS11+s3Frct590G28UdSvvyl9UnYcd320lgFmYeI7U56M10ZWAUXaqN+7XbiH/VFlnzRV8
-	L3ulScsx4+qpqgHv0sX7xxGXnRzqHdmMfXBWQABR+7hIVfSVpYtpxjHGo0Kp2w3mdnD134EvxtY
-	LQ3CuTP4SjLmB2+g8mWcaUQYfewbdCu1Ske+KLn3s8k+iM2/cM9i3IYUSvvK7OIF5oyyq7s3xVY
-	bz/HVJrAAkthm9J1zFJ5dsUVADdU12gnObChjmTBYOVnDNcl/QZjzVrYQgZ/WzZ68g7b+T/GCmp
-	hvKjAJUmXVrv348+e/9+1hczzLHoi2x6L1/ElcRCVmCNW8m8nxxoHsCrZZ81+VPX+L2qN3gxCQW
-	5rFGg5DYDDHlimQvYBrYF+rg==
-X-Received: by 2002:a05:693c:87d4:10b0:371:197b:5ade with SMTP id 5a478bee46e88-377e1016802mr3939806eec.11.1794538491171;
-        Thu, 12 Nov 2026 18:54:51 -0800 (PST)
-X-Received: by 2002:a05:693c:87d4:10b0:371:197b:5ade with SMTP id 5a478bee46e88-377e1016802mr3939768eec.11.1794538490435;
-        Thu, 12 Nov 2026 18:54:50 -0800 (PST)
-Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379569b8389sm3910027eec.25.2026.11.12.18.54.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 18:54:50 -0800 (PST)
-Date: Thu, 12 Nov 2026 18:54:48 -0800
-From: Peter Chen <peter.chen@oss.qualcomm.com>
-To: Joonhoe Kim <26rote@gmail.com>
-Cc: gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
-        konradybcio@kernel.org, abel.vesa@oss.qualcomm.com,
-        wesley.cheng@oss.qualcomm.com, krishna.kurapati@oss.qualcomm.com,
-        konrad.dybcio@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
-        neil.armstrong@linaro.org, val@packett.cool,
-        balaji.kalkonda@oss.qualcomm.com, tvlad744@gmail.com,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] usb: dwc3: qcom: Keep USB 2.0 working in
- DisplayPort-only modes
-Message-ID: <avZ7-Ax-_VwcJhYG@hu-petche-lv.qualcomm.com>
-References: <20261103135057.1682-1-26rote@gmail.com>
+        bh=ww5MKM6poDK+IczcuuMJkcSdFtjq/phga8CrflKC7U4=;
+        b=U0jh+4gaGhbVVgHm3StYCjPW/sHreNywQ7sL985VG+8WIFj2yqT8spLvsGCXxWZ4dn
+         Yc/W7xu6t2y7lCqZVhn2uJzm2rOKtOwRX76XL6OWv3UUWLijWAdEMyN7DV74HB/SAUKi
+         fM2BykzG+DQE3Be+rkE7ohRMDiPxOf92YLsDtZ+iIM/xxvQ1DwZQ0zacEzyXr21rHmvt
+         FXRINXtw/CZD8dX2yurPc2p6ZC4ViTyG/J6q1omAEdwkiahdG/gfLkN4OIdWX8RzcSGQ
+         KXe4/neKAPLhrSFCgPOFKpUqM9JU6R3euvI0yKrR7o0vh2XKZGSEj91i/Myy8DotFrHw
+         3rrg==
+X-Forwarded-Encrypted: i=1; AL+hErFG3LNb3N85hm1cNID4GIkUm1UzD7pQ5aNRYlJkFZDuFhb0SczkKEE259yCSgnx/RMefjvI7f3aPjvGLQ0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z830yFyNNjOGdEjzM/lBosZsWlQQFDHx9P/DzH0DSlf5KRpsZdv
+	i8I7AQT4poZ4Dl7+YMHYauzuN0946JpJlV/ibFal9aCG14idMQoiFRKv7GLTwMSYQyKqH/o/Cdp
+	oxfYqGXApLz6nN/cUsbdbICa+xIRQZ+d8M1ms7of8
+X-Gm-Gg: AYBFou1ZeEUamPd08s1kLmG2HV1+vncpgekeqKzyZGxgY7UhZm40pIhGncGOM0LQSE2
+	sipJywefl/qFiRLwILGNa+derhABdm5tiDwwMxsjdcsVPc2iWMuraiPc+b4c8QhS8K2hOUhvPWS
+	TU7OYWpn4L4WezketJRowAsfKthTcmSoceNv1c/9R0FGAVu+3tMueU1vIt0uow8Zbei6p7TDwKa
+	xlMKYjjpZEGpeUPVMxMD0kshnoQBt7Zqrv0klDB6SI8ICXLZOC5/9/TekrhrhEFVoLoRnH1+In/
+	8ixNR/d8dKcw/LVKqKGhHnzbfbsZbqQzjVz4AIXU5WTvf9esyorwO6/l8Bkp6RBvvEwKasfLtjd
+	DVHwnkuoR0IZ4psUmkqjQGqEfkjS6cVdFI2tdZw==
+X-Received: by 2002:a53:d5c2:0:b0:67c:7317:de93 with SMTP id
+ 956f58d0204a3-67d8976bb2cmr676238d50.91.1794538508154; Thu, 12 Nov 2026
+ 18:55:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,144 +101,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103135057.1682-1-26rote@gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAxMCBTYWx0ZWRfX9uoIQ25SqsPN
- Z/TIaQZTegEDAWJeKGcItSlYky2ksuqwph6ziuakUtW8MtW1uYG8GeLbTYaFkEoXq8cnuHcTCbR
- LRfJ0SktN7m+/EMl6gfXowoC8+5sxLhtfxIIAAOZR/E2Mj9F0hg+Pl2tCEm1MA+SG4fUuN+oFMm
- B0eEQmUrfxCNdOWB/+rIRgtSkJOQ0TKRz4qK9F9hRhw/0DOMibn0SEsWDZh8BSLHwTahruMYPtS
- 7Ac38pxAtWEmIKdc5dMplTONZuU/iCClk2UXOp45bAImdnieiLHPx6db/RLntL6pzjGwLiQk9Ej
- LbOghnMJdAdXsZdcK2Ale+mAfPvNmpCGgyrXJlKOZ7edA7lr8Tx3a6keqthyD8MO2ZzMnIHQAho
- QpOD3amtJc6wc14Ds5gydvNlzWUGS21AcqIr/vjWFe+o8KnEVcoPVl30DUwkOBpoPcc8vfkk3cW
- pI426MBD0E3zUnfBwvQ==
-X-Proofpoint-GUID: 6LskdmnxCamMRxJD4iqOas8hIkYatkkl
-X-Proofpoint-ORIG-GUID: 6LskdmnxCamMRxJD4iqOas8hIkYatkkl
-X-Authority-Analysis: v=2.4 cv=F6fC5ahN c=1 sm=1 tr=0 ts=6af67bfc cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=QX4gbG5DAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=76iuuaO-dfIhFSRFSN0A:9 a=CjuIK1q_8ugA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
- a=AbAUZ8qAyYyZVLSsDulk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAxMCBTYWx0ZWRfX97s1+gpSGhsP
- L81LgT61VlqJ9w4jcssguZzWTy1+pT2db6cBATHIyWmObxFdUGtTC38yPLfxU2PluA5F4q8Rg1P
- OLLHvUgkUatuwAPhtjnGX2j4lr1/mEo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 clxscore=1015
- bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130010
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.2.Ib692ddd35c1dbea1757d9b1db6c1c7e938fc4ea6@changeid>
+ <20261028-rapid-daffodil-rat-0adc6a@quoll> <aulIoq2oVjJ3DVzL@google.com>
+ <d4a430de-715a-4936-8adb-35ff57a52b5f@kernel.org> <avZkfg6WMlMzOxpn@google.com>
+In-Reply-To: <avZkfg6WMlMzOxpn@google.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Fri, 13 Nov 2026 11:54:56 +0900
+X-Gm-Features: AclHuK-84j9IBFkhrVUuvk8buFltZEjB8ro1aPwuBHaC_xvB0gZrSc9m2OIxmfE
+Message-ID: <CAGXv+5G5z75HGP8nv_i_nwEeSd3qkvyL_h_MYzV_XPT9BpR4jg@mail.gmail.com>
+Subject: Re: [PATCH 2/9] dt-bindings: soc: google: Add Google Tensor CPM binding
+To: Brian Norris <briannorris@chromium.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Peter Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>, 
+	linux-arm-kernel@lists.infradead.org, 
+	Mariano Marciello <mmarciello@google.com>, Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org, 
+	=?UTF-8?Q?Jakub_G=C5=82owacki?= <jglow@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-11-03 22:50:54, Joonhoe Kim wrote:
-> With a USB-C monitor in DisplayPort pin assignment C or E, the QMP
-> USB3-DP combo PHY gives all four lanes to DisplayPort and keeps its USB
-> PCS powered down. The USB 2.0 pair still works. Such monitors often
-> have a USB 2.0 hub. But the dwc3 controller still depends on the USB3
-> PIPE clock. On Kaanapali the next xHCI reset in this state times out
-> ("Host halt failed, -110"). USB stays lost until the cable is replugged.
-> Commit f546912bcac6 ("phy: qcom: qmp-combo: Move pipe_clk on/off to
-> common") keeps the pipe clock branch enabled. That is not enough here.
-> 
-> This series lets the controller be a Type-C mode switch next to the PHY
-> and moves it to the UTMI clock, the way "qcom,select-utmi-as-pipe-clk"
-> does statically, before the PHY switches to DP-only mode.
+On Fri, Nov 13, 2026 at 11:48=E2=80=AFAM Brian Norris <briannorris@chromium=
+.org> wrote:
 
-Joonhoe, thanks for adding this generic features for Qcom platforms, it
-is not only for Kaanapali, but also for platforms which have USB/DP combo
-PHY.
+[...]
 
-We did an internal discussion for this use case, we may prefer the solution
-that let the PHY notify the controller this PHY lane is going to change from
-USB to DP (4lane) event, it could keep driver independent with dts for this
-feature.
+> If I do keep these as literal firmware IDs: does that mean you'd prefer
+> these not be in dt-bindings/? Many of them (especially the IRQ IDs
+> you're pointing at) are not needed at all in the kernel side; they serve
+> more as naming documentation than anything else. I can just inline them
+> into the DTS. But I'd prefer having macro names for LPCM IDs and
+> similar, as it vastly helps DTS readability.
 
-We more prefer an general solution like [1], but it seems PHY maintainer Vinod
-prefers private interface between controller and PHY [2].
+I think Krzysztof said as much when we added macros for MediaTek pinctrl
+numbers. They are just symbolic names for easier reference. OTOH a binding
+is a contract between the device tree and the software implementation.
+And if it's not a binding, then it doesn't belong in the bindings directory=
+.
 
-[1]: https://lore.kernel.org/all/20260924-b4-rockchip-dwc3-rockchip-glue-v16-1-126a2e9133c3@collabora.com/
-[2]: https://lore.kernel.org/all/avZvYlYyL3Doc8qt@hu-petche-lv.qualcomm.com/
+What MediaTek did was put the header files together with the .dts files.
 
-Peter
+Hope that helps.
 
-> 
-> On Kaanapali the PHY becomes a mode switch with Balaji Kalkonda's
-> DisplayPort series [1]; patch 3 is the controller side for the same
-> SoC. Other SoCs whose PHY is already a mode switch (e.g. SM8650,
-> SM8750) may need the same property on their controller node (not
-> tested).
-> 
-> Related fixes sent separately: "phy: qcom: qmp-combo: Leave the USB PCS
-> alone in DP-only mode" (suspend in DP-only mode) [2] and "usb: typec:
-> mux: fsa4480: Keep the USB 2.0 switch on in DP-only modes" (boards with
-> an FSA4480 on the USB 2.0 pair) [3].
-> 
-> Patch 2 conflicts with Vladyslav Tymoshchuk's "usb: dwc3: qcom: Defer
-> VBUS override update during system suspend" [4] in
-> dwc3_qcom_pm_suspend() and dwc3_qcom_pm_resume(). Both add a lock
-> there. Like [4], the mux callback defers the QSCRATCH write while the
-> glue is suspended for system sleep. On top of [4] the two locks can
-> become one.
-> 
-> Patches 1-2 are for the USB tree. Patch 3 must not be applied before
-> patch 2: with "mode-switch" on the controller and no mux registered by
-> dwc3-qcom, pmic_glink_altmode defers its probe indefinitely.
-> 
-> Tested on a Lenovo Y700 Gen 5 (TB323FU, Kaanapali) with the series
-> backported to v7.3, plus [2] and [3]. A USB-C monitor ran over 4-lane
-> HBR3. Its USB 2.0 hub worked after 10 replugs and after a plug-in during
-> s2idle. In the s2idle case the mux state came after resume, so the
-> deferred clock switch was not exercised. With the monitor
-> unplugged, a USB 3 stick enumerated at SuperSpeed. Quick replugs (under
-> a second) worked 9 times out of 10. The other time no PD contract was
-> made, so no alternate mode was entered.
-> 
-> Changes in v2:
-> - Patch 1: use the common usb-switch schema
-> - Patch 2: switch back to the PIPE clock in the mux callback, when a
->   USB state follows the safe state. v1 waited for the next role change,
->   which can come before the mux state (Sashiko)
-> - Patch 2: keep the UTMI clock on a change of pin assignment while
->   DisplayPort is active, as the PHY keeps its mode then
-> - Patch 2: while the glue is suspended for system sleep, only record
->   the mux state and select the clock on resume
-> - Patch 2: depend on TYPEC || TYPEC=n. Skip the mux without
->   CONFIG_TYPEC. The arm64 defconfig has USB_DWC3_QCOM=y and TYPEC=m,
->   which failed to link (Sashiko). It now builds the glue as a module
-> - Patch 2: no change to the role notifier
-> - Patch 3: note the dependency on [1] for the PHY's "mode-switch"
-> - Patch 3: add Reviewed-by from Abel
-> - Link to v1: https://lore.kernel.org/all/20261102215121.738-1-26rote@gmail.com/
-> 
-> [1] https://lore.kernel.org/all/20261022-kaanapali_dp-v3-0-b5ae8e6083c3@oss.qualcomm.com/
-> [2] https://lore.kernel.org/all/20261023123512.1912-1-26rote@gmail.com/
-> [3] https://lore.kernel.org/all/20261022165143.1327-1-26rote@gmail.com/
-> [4] https://lore.kernel.org/all/20261018143126.3978-1-tvlad744@gmail.com/
-> 
-> Joonhoe Kim (3):
->   dt-bindings: usb: qcom,snps-dwc3: Add mode-switch
->   usb: dwc3: qcom: Use the UTMI clock as PIPE clock in DisplayPort-only
->     modes
->   arm64: dts: qcom: kaanapali: Mark the USB controller as a Type-C mode
->     switch
-> 
->  .../bindings/usb/qcom,snps-dwc3.yaml          |   3 +
->  arch/arm64/boot/dts/qcom/kaanapali.dtsi       |   1 +
->  drivers/usb/dwc3/Kconfig                      |   1 +
->  drivers/usb/dwc3/dwc3-qcom.c                  | 103 +++++++++++++++---
->  4 files changed, 95 insertions(+), 13 deletions(-)
-> 
-> 
-> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-> -- 
-> 2.43.0
-> 
-> 
 
--- 
-
-Thanks,
-Peter Chen
+ChenYu
