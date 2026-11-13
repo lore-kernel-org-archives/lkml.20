@@ -1,89 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584706;
-	b=F7kUltaiXEQxQUetfwDa0+aGxdJaQcsoDeAt7LgLhjc0Z7OLg1CCgMxDuVAMAbrOCgb7
-	 UYs/bLU7GkWc4qGSVbgzsr+mVFakg2/lUdLbUPlboJ6FQRZqk13ffMaNaRgA6I1u03kRG
-	 6tLRwhEtzB4Ezr311XGELo/rZ8BW6NNPps2AiKAu0/FiN5l/Qy08PKmqxmZ+Q2Dm6IDnk
-	 t6W48kZ/85Vgga6PZHnVNqGDC0lbqKRS1xws00IYjyEFNr3DLlFuc2ieUBW/U9zrFT0cl
-	 qd7topUZM8OHupS3UZNMCAibjRIk5yQxC8acZNceMqkYENkXlYNHogVafXzP7VGs49Q==
+	t=1794584711;
+	b=tr+w/mMdqx0ssmevZrXr6g6Bl2NUjB4shSJYxz8DtGG19USBEwrzI1LOGYJBxAik3Phw
+	 nza8+t6icOXEH0ECB3jBjw1N9unDSaD67uWigx1QIHgT7ZeIE3/QA+06eegY3WqjFq+Si
+	 GNb03ELCx8PkLRUp+fgR6j2gvxfQGyfJb16oKP3a7yMf33zYesXz8F93DoAOI90Q3JBPx
+	 uHPuJVEoOHQsLvU/nWEQskeN4wDYIXjJQAd8wTvJbcBf98PBkT7RGQHgJ2trpwh4/V5P7
+	 5Tf9wy0H6TddSjx1xLW+gWGDDVGG9KcPm0Hx+uyNHqBT9bQ1g4veIKvxAJQdag3RTjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584706;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=SL7U9XOTOx+APgRR8YLQnTh8OeScFnHHAxVLwwDeNFU=;
-	b=HcfBeu34CYuwmj/tClmMq0CMHPmH38EGwou4V/KtBZFo4sd9HcuZHgS+kpjy6y4TvfZw
-	 FRMtZlyup93oPIRAIg2KTPvfLYZ7QpwTgwC+oLt4LXc96m5cXVYlHfu8d7jiNH5hvk7o7
-	 jT6bmFDV3DHgbq2XgxzlCz9tEIP1CqDXEoihogi3bP4qPYIAtA/6F+AnHDPfuCfUttIeJ
-	 9jz9TzbgdMm/5IkHWbpcSBkiGhvMBH9+pQGB8SPzbgQq+ot2PrbIAcX1yIxlPOrDCBfC4
-	 uC8RgsXHMTsdHCaw54gZOgS5AjmLCqFb5lIivzV6XRFjHI/HDapRiitO/WAykZpNYGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584711;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=n/wuHTb6nfiDadh4l5rcFTk7hc/gsK1EGHfxTyZXNAw=;
+	b=GQaF0X7bxn6lz19LaQLnQw2P1eljuOpQnVVnaVyhlupdrz37OmHNos11PBEZaG3oqQ0C
+	 /0M3UNL1ICkBRueoT6x26prdd91YMFx5kjFlmuNIlgF8Ye8rDZ43Skk/RlYQ+O4WNIXdK
+	 f2M0nBnQVzrce2x5GprWwXnirshQV2Kmd/vbZuG9UTbmTY2wKgbGEUpGKutq20frNcKkO
+	 GMb2aR+zEQLKNwLDA7g72ek/GSwaMdwV04+iyIPHvLPG5Rl22+7sWxxIkCv0dYFWcxmBm
+	 REMvN7ctTn6V+OjS7SqqQGGfPV+0X/n0YDJ4NXQVQ6fxRpxRzTiYHEXYYftNOUDOxhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HXMWARFE;
-	arc=none smtp.remote-ip=209.85.128.182
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQCk+eon;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE45606A8A5
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:45:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DE45606A8A5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FB960A261D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:45:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HXMWARFE
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b2d14968c9so13665037b3.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:45:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794584704; x=1795189504; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SL7U9XOTOx+APgRR8YLQnTh8OeScFnHHAxVLwwDeNFU=;
-        b=HXMWARFEgb+oAe0mg7pMHhDOeDxO4GH5Vrq9jwy0K1gmAqkkTZ+SPTah+oh7xsMiC4
-         oFOBvp2+0WGoYo15Ezwiryg3ow/sq2H+mHqxo3xaiJ/CRXQ5mV2PMHkIXNDQurg9QkVf
-         rp1JqGGgz6SgLzuTtuTZLdQTTYeZzG/6YTOgfCjVAXAxeRbQD7YI8lfv5D3FIfy7BwXK
-         eFSfpr4wCmjXYzT/gzYzf7fTi/q7IxleV7NP0sher9IptJrDv5vA0dw5EsUHncwNR9Le
-         BJteuEslHDqSugIgJzMxQUq7Jic27AgL3is3evBL2CcR1eIgtoWymeO0r+e/KDJ3npjZ
-         u66g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794584704; x=1795189504;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SL7U9XOTOx+APgRR8YLQnTh8OeScFnHHAxVLwwDeNFU=;
-        b=0IJkq11TO/dkVZfFKvNoyDXnznrhVC2j9YuLJJf0MVTXbob3p8av9dO7REd615GYX6
-         vx4UmKaFs73BT8XmS3HIfv41nJ7upbynufGmmQouRDNkUQjJkig8tDgtr+hAJynZuCT+
-         SHnOGIGnbJ033y2twV6V+s7lCP7gkomqG0XjgpAYY0Z5m2vsI9XAI5R5PNJ2YZrDs+wX
-         Z6w/z6Oi9MMcEknLg86bq2KgoCiCxOxcm4pp2zVasSLMpEAmBCmHugCSxEfIcnZwjnNt
-         YH1KDLW7UuXGuN6Y8WdCAoQhehdI2NQ91Qvg3U/7YivzB2Hk/EvLoKzewSPm5unCt6Ki
-         cuFQ==
-X-Forwarded-Encrypted: i=1; AL+hErFcvSx+Mo02iJjrQWOdg/Gj4X3C7Ocx/sldWa8ZgCsVl1JkCLdZ/3rEcRHGv4k4KUMnWhu8+6YeAqbV2a4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9c/Ejsu6p5bAou5jVV0ukthgoTpW88P7KKz8A66E+NIBUfMott
-	jvIaOEPcTdg8RIDCczDiyDGciN7KjNX9pBh1AwDfiZpJOZW/KIkzSNOj
-X-Gm-Gg: AYBFou0Ax63l6NT+TPlt+Ab4qykO0+0L+Q+15ZkNQlQgknRWNS0ZdK4ita6s1NVWJUn
-	eIkrSSJ2uAwJl3UFVPVTfIh53fHkcvG4HxfbI/pu8EvMKOUpneNLUJomOUjr3FyaMdY47nQ3wOf
-	WdklFuGwgsWxAORZMNxNlgHTq1lfcocH45O/7ROIYE/wO1jWHN+l+kuovoMsjj56Gsh5/jvuL2B
-	0mTRe8526DZTDNhnIyddSp4AuIkUDR/czlQCNUYSGG1tLrISJT1MDKLWXtpVtgOZplqd2pwp+pR
-	r4ii9HL+aAZfrQPYQ/AIw6f8cDrRuHu/JJn1oUF41fjZOGCGuNFyDiVgNmEfWXtXhZfpJaG9jRR
-	4EB+xd30nM6FtuCBMmlJG4KzHByhO9+LreP5cVQ+vjAfGKhxBLyPc+yFuRd9ey6Kqg/f2n8igme
-	DGVtI2/eIZKztvOdqvuf/FOVShevqXIaTtvdEy2nzf6YBZ9mdYhSO5WrLBU1iwCRH+eaKgD4Ppu
-	n0X3/7n1Q+wTwIqugHtTY0OXsyQcL6CsTDxWpDh3d2dCwLvtuVM1mcnnJsxJnJIfhSOqJSn/jwR
-	YpelKCHnKG6c0o+O6epe43TIsEv+6qns
-X-Received: by 2002:a05:690c:19:b0:8b2:9c73:95aa with SMTP id 00721157ae682-8b4aa3c17dfmr16559497b3.68.1794584704381;
-        Fri, 13 Nov 2026 07:45:04 -0800 (PST)
-Received: from [127.0.1.1] ([179.160.39.42])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa98caffsm22687767b3.27.2026.11.13.07.45.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:45:04 -0800 (PST)
-From: Leonardo Costa <leoreis.costa@gmail.com>
-Date: Fri, 13 Nov 2026 12:44:10 -0300
-Subject: [PATCH v2 4/6] arm64: dts: freescale: imx8mp-verdin: Add Toradex
- Capacitive Touch Display 10.1" LVDS V2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQCk+eon
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 686E91F000C6
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:45:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794584711;
+	bh=n/wuHTb6nfiDadh4l5rcFTk7hc/gsK1EGHfxTyZXNAw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OQCk+eoneq1ObkyPSD3pj/DjRJYbHvarbPA77fFjKNmXJIkbEEcRKg87D513n46ex
+	 jvm7V+qHxe0zOAfGnxDxYj8fBauUgT4vYVJKCDL83fswF4CGq+HyE6/MJ5OEKdNVdr
+	 pFQ/InBU2q7s0mfJYu8S1kSGIiFSR71mXi9cl3UN8GQw/Spt3JmKarrUk6w9Y40INN
+	 x7/aSBWx0EfQQYIo3THahbaow4c4KHIaPFKZiOS/E/a9XIjqDFXPdi4M2vIBEG6OrI
+	 FAFY9+3OYSjKoaTntbzVTNelSBLcdAZASIw8410nrI7EB8OTyxNWtCAi2iPnIuQeG8
+	 Hyfu6TvVIMuOg==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5c17a177262so266673e87.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:45:11 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHNyKiO7SxZWQtNPNSYsOkxn0pGQfQg2atmFuVMYn0BE1sLMKr8BzWLyhuecdnPNNz7XkBmPmF2/SRJ8Wg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qZzABuFZUOrsIancbWQy+pCj9xxHJ9j3NY03D1naQRu5ptMJh
+	NMJ4g5mXsq8ZttOp9TTTzEp13ADs+gHgpLgoDxfEduDOw9m/f1BNGBzny7EuxH/r8F7DHe/C4td
+	La0Uv8xA8jCSVsc77qONBISmjNf8nQis=
+X-Received: by 2002:a05:6512:2520:b0:5ba:41f0:5a45 with SMTP id
+ 2adb3069b0e04-5c17079a222mr1240864e87.21.1794584709797; Fri, 13 Nov 2026
+ 07:45:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,198 +59,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-v2-4-59c45f0a0d8e@toradex.com>
-References: <20261113-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-v2-0-59c45f0a0d8e@toradex.com>
-In-Reply-To: <20261113-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-v2-0-59c45f0a0d8e@toradex.com>
-To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Leonardo Costa <leonardo.costa@toradex.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794584681; l=5946;
- i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
- bh=aCRXq5ggGAK0uezl8OeiOliynvx2lSh59aVdl5UwyoE=;
- b=ZLl09oRDrgj0qFrvx1+g1k3SBVWb33UfmuULHRjl3TW6/lpRWdHewv41x4OqGTbG3O+o+jb/v
- B3QeEJxo6qLAi6Nk/emeF3zSufNsZ6v+lqy4RQdF9LF9FCOePBlrI0x
-X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
- pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
+References: <20261001084115.2549761-1-trieu2.huynh@lge.com>
+In-Reply-To: <20261001084115.2549761-1-trieu2.huynh@lge.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 13 Nov 2026 16:44:57 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0gjqOHzF2-hZeRwhb9AWK2iWxex3iK_R2+tSEnXEitBnA@mail.gmail.com>
+X-Gm-Features: AclHuK9hM78u-Ram9NQ3Jtz8EWsianym-xUcGoXELzxl848Mm5g6QgrpIsDJaso
+Message-ID: <CAJZ5v0gjqOHzF2-hZeRwhb9AWK2iWxex3iK_R2+tSEnXEitBnA@mail.gmail.com>
+Subject: Re: [PATCH v2] PM: hibernate: exclude unusable free pages from image preallocation
+To: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
+Cc: rafael@kernel.org, pavel@kernel.org, lenb@kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Leonardo Costa <leonardo.costa@toradex.com>
+On Thu, Oct 1, 2026 at 10:41=E2=80=AFAM Nhat-Trieu Huynh-Pham
+<trieu2.huynh@lge.com> wrote:
+>
+> hibernate_preallocate_memory() derives the number of page frames to
+> preallocate for the image from the per-zone NR_FREE_PAGES counters.  Thos=
+e
+> counters count every free pageblock regardless of its migratetype,
+> including MIGRATE_HIGHATOMIC and MIGRATE_CMA pageblocks. Such pages are
+> free from the buddy allocator's point of view, but they cannot be used by
+> the order-0, non-movable, non-reserve GFP_KERNEL allocations with which t=
+he
+> image is preallocated (GFP_IMAGE =3D GFP_KERNEL|__GFP_NOWARN).
+>
+> (*) Reported free vs usable free:
+>
+> The mm subsystem already accounts for this in
+> __zone_watermark_unusable_free() [1]. For order-0 GFP_KERNEL neither
+> ALLOC_RESERVES nor ALLOC_CMA is set, so the allocator subtracts the free
+> high-order atomic [2], and the free CMA pages from the free count before
+> checking the watermarks. The hibernation preallocation, however, computes
+> its target from the unadjusted NR_FREE_PAGES value, so it asks for about
+> half of the unusable pages more than the allocator can deliver.  On arm64
+> (no CONFIG_HIGHMEM) the highmem fallback in the failure path is a no-op,
+> hence even a small shortfall aborts hibernation, see [4] for example.
+>
+> (*) Why those pages are not usable by GFP_KERNEL:
+>
+> (**) CMA is reserved for movable allocations, so GFP_KERNEL has no
+> ALLOC_CMA, and MIGRATE_CMA is not in the unmovable fallback list. Free CM=
+A
+> pages are therefore never handed to these allocations.
+>
+> (**) The high-order atomic reserve is only handed out to atomic, order > =
+0,
+> __GFP_HIGH allocations (ALLOC_HIGHATOMIC), which GFP_KERNEL order-0 is no=
+t.
+> These pages can be unreserved under memory pressure [3], but only all but
+> one pageblock per zone and only after an allocation has already failed, s=
+o
+> counting them as available still overestimates what the preallocation can
+> obtain without failing first. Excluding them is conservative.
+>
+> (*) Consequence of not excluding the unusable pages:
+>
+> With M =3D managed, S =3D saveable, F =3D free, U =3D highatomic + CMA an=
+d
+> R =3D reclaimable, count =3D S + F - totalreserve and alloc is about coun=
+t / 2,
+> while the allocator can actually provide about (F - U) + R pages. The
+> shortfall is therefore inflated by exactly U compared with the usable
+> memory.
+>
+> From [4], with U =3D 11430 unusable free pages (5120 highatomic + 6310 CM=
+A),
+> the preallocation target is inflated by about U / 2 =3D 5715 pages, while=
+ the
+> allocator ends up 1247 pages short and hibernation is aborted even though
+> the system is able to create the image.
+>
+> (*) What changes after excluding the unusable pages:
+>
+> Subtract U from the per-zone free accounting used to compute count and
+> avail_normal. Then count' =3D count - U and, since max_size is roughly
+> count / 2, max_size' =3D max_size - U / 2 and alloc' =3D alloc - U / 2.
+> max_size' remains well above minimum_image_size() in practice, so the
+> resulting image is effectively unchanged while hibernation no longer abor=
+ts
+> unnecessarily.
+>
+> Testing
+> =3D=3D=3D=3D=3D=3D=3D
+> (*) SA6155P running on AAOS with S2D feature
+> (*) backport locally on GKI 6.1
+>
+> References
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> [1] commit f27ce0e14088 ("page_alloc: consider highatomic reserve in wate=
+rmark fast")
+> [2] commit c928807f6f6b ("mm/page_alloc: keep track of free highatomic")
+> [3] commit ac3f3b0a5551 ("mm: page_alloc: unreserve highatomic page block=
+s before oom")
+> [4] Example of an abort:
+>     Mem-Info:
+>      free:344621 free_pcp:931 free_cma:6310
+>     DMA32 free:973864kB reserved_highatomic:8192KB free_cma:25240kB
+>     Normal free:404620kB reserved_highatomic:12288KB free_cma:0kB
+>     PM: hibernation: Image allocation is 1247 pages short
+>
+> Signed-off-by: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
+> ---
+> Changes since v1:
+> (*) Add a reference to commit c928807f6f6b, and correct the words and
+> quotes in the description as well.
+> (*) Switched from zone->nr_reserved_highatomic to
+> READ_ONCE(zone->nr_free_highatomic) to accurately fetch the active free
+> highatomic counter, reflecting c928807f6f6b (Reported by: Sashiko).
+>
+> Link to v1:
+> (*) https://lore.kernel.org/lkml/20260921101446.1193565-1-trieu2.huynh@lg=
+e.com/
+>
+>  kernel/power/snapshot.c | 25 +++++++++++++++++++++++--
+>  1 file changed, 23 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/power/snapshot.c b/kernel/power/snapshot.c
+> index b209712cb2c3..195db45ce80f 100644
+> --- a/kernel/power/snapshot.c
+> +++ b/kernel/power/snapshot.c
+> @@ -1867,11 +1867,32 @@ int hibernate_preallocate_memory(void)
+>         highmem =3D save_highmem;
+>         size =3D 0;
+>         for_each_populated_zone(zone) {
+> +               unsigned long free, unusable;
+> +
+>                 size +=3D snapshot_additional_pages(zone);
+> +
+> +               /*
+> +                * Pages reserved for high-order atomic allocations
+> +                * (MIGRATE_HIGHATOMIC) and free CMA pages cannot be used=
+ by
+> +                * the order-0 non-movable GFP_KERNEL allocations that
+> +                * preallocate the image, so do not count them as availab=
+le.
+> +                * This mirrors __zone_watermark_unusable_free().
+> +                */
+> +               free =3D zone_page_state(zone, NR_FREE_PAGES);
+> +               unusable =3D READ_ONCE(zone->nr_free_highatomic);
+> +#ifdef CONFIG_CMA
+> +               unusable +=3D zone_page_state(zone, NR_FREE_CMA_PAGES);
+> +#endif
+> +               /*
+> +                * nr_reserved_highatomic counts whole reserved pageblock=
+s,
+> +                * so it can exceed the actual free pages.
+> +                */
+> +               unusable =3D min(unusable, free);
+> +
 
-Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
-LVDS V2 connected via Verdin iMX8M Plus LCDIF on carrier boards exposing
-LVDS interface (e.g., Mallow). The panel is an Opto Logic
-SCX1001511GGC49 10.1" WXGA TFT LCD and the touch input is provided by an
-ILITEK ILI251x capacitive touch controller.
+Please address Sashiko's feedback regarding this change:
 
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
----
- arch/arm64/boot/dts/freescale/Makefile             |   5 +
- ...-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtso | 118 +++++++++++++++++++++
- 2 files changed, 123 insertions(+)
+https://sashiko.dev/#/patchset/20261001084115.2549761-1-trieu2.huynh%40lge.=
+com
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 915507fe936de..51c74fbb8e0ce 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -741,6 +741,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-mallow.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v1.dtb
-@@ -748,6 +749,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-nau8822-btl.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-mallow-tdx-panel-cap-touch-10inch-lvds-v1.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-mallow-tdx-panel-cap-touch-10inch-lvds-v2.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-mallow.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-zinnia.dtb
-@@ -763,6 +765,9 @@ imx8mp-verdin-wifi-dev-nau8822-btl-dtbs := imx8mp-verdin-wifi-dev.dtb imx-tdx-na
- imx8mp-verdin-wifi-mallow-tdx-panel-cap-touch-10inch-lvds-v1-dtbs := \
- 	imx8mp-verdin-wifi-mallow.dtb \
- 	imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtbo
-+imx8mp-verdin-wifi-mallow-tdx-panel-cap-touch-10inch-lvds-v2-dtbs := \
-+	imx8mp-verdin-wifi-mallow.dtb \
-+	imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtbo
- 
- imx8mp-evk-lvds0-imx-dlvds-hdmi-channel0-dtbs += imx8mp-evk.dtb imx8mp-evk-lvds0-imx-dlvds-hdmi-channel0.dtbo
- imx8mp-evk-lvds0-imx-lvds-hdmi-dtbs += imx8mp-evk.dtb imx8mp-evk-lvds0-imx-lvds-hdmi.dtbo
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtso
-new file mode 100644
-index 0000000000000..6b0c1a10ae2a9
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtso
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex Capacitive Touch Display 10.1" V2 connected via Verdin iMX8M Plus
-+ * LCDIF on carrier boards with a Toradex standard LVDS display connector
-+ * (e.g., Mallow).
-+ *
-+ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-+ * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/clock/imx8mp-clock.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+#include "imx8mp-pinfunc.h"
-+
-+&{/} {
-+	panel-lvds-native {
-+		compatible = "optologic,scx1001511ggc49", "panel-lvds";
-+		backlight = <&backlight>;
-+		data-mapping = "vesa-24";
-+		power-supply = <&reg_3p3v>;
-+		height-mm = <136>;
-+		width-mm = <217>;
-+
-+		panel-timing {
-+			clock-frequency = <64500000>;
-+			hactive = <1280>;
-+			hback-porch = <20>;
-+			hfront-porch = <20>;
-+			hsync-len = <2>;
-+			vactive = <800>;
-+			vback-porch = <5>;
-+			vfront-porch = <5>;
-+			vsync-len = <3>;
-+			de-active = <1>;
-+			hsync-active = <0>;
-+			vsync-active = <0>;
-+			pixelclk-active = <0>;
-+		};
-+
-+		port {
-+			panel_lvds_native_in: endpoint {
-+				remote-endpoint = <&ldb_lvds_ch0>;
-+			};
-+		};
-+	};
-+};
-+
-+&backlight {
-+	/* Verdin PWM_2 (SODIMM 16) */
-+	pwms = <&pwm2 0 6666667 0>;
-+
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	touchscreen@41 {
-+		compatible = "ilitek,ili251x";
-+		reg = <0x41>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_i2s_2_d_in_gpio>,
-+			    <&pinctrl_i2s_2_sync_gpio>;
-+		/* Verdin I2S_2_SYNC as GPIO (SODIMM 44) */
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <31 IRQ_TYPE_EDGE_RISING>;
-+		/* Verdin I2S_2_D_IN as GPIO (SODIMM 48) */
-+		reset-gpios = <&gpio4 30 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&iomuxc {
-+	pinctrl_i2s_2_d_in_gpio: gpio4io30grp {
-+		fsl,pins = <MX8MP_IOMUXC_SAI3_RXD__GPIO4_IO30 0x1c4>;	/* SODIMM 48 */
-+	};
-+
-+	pinctrl_i2s_2_sync_gpio: gpio4io31grp {
-+		fsl,pins = <MX8MP_IOMUXC_SAI3_TXFS__GPIO4_IO31 0x184>;	/* SODIMM 44 */
-+	};
-+};
-+
-+&lcdif2 {
-+	status = "okay";
-+};
-+
-+&lvds_bridge {
-+	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
-+			  <&clk IMX8MP_VIDEO_PLL1>;
-+	/*
-+	 * This display uses 64.5 MHz pixel clock, so IMX8MP_VIDEO_PLL1 needs
-+	 * to be 7 times 64.5MHz, or 451.5 MHz as the internal divider will
-+	 * always divide the output LVDS clock by 7.
-+	 */
-+	assigned-clock-rates = <0>, <451500000>;
-+
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			ldb_lvds_ch0: endpoint {
-+				remote-endpoint = <&panel_lvds_native_in>;
-+			};
-+		};
-+	};
-+};
-
--- 
-2.43.0
-
+>                 if (is_highmem(zone))
+> -                       highmem +=3D zone_page_state(zone, NR_FREE_PAGES)=
+;
+> +                       highmem +=3D free - unusable;
+>                 else
+> -                       count +=3D zone_page_state(zone, NR_FREE_PAGES);
+> +                       count +=3D free - unusable;
+>         }
+>         avail_normal =3D count;
+>         count +=3D highmem;
+> --
+> 2.43.0
+>
