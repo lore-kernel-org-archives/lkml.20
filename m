@@ -1,102 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794551114;
-	b=LKR78cMvgSw5k9ApwbqSAK8x6Lyc6V3htZ+U4Gop4k6NGs0KcwZ6iX0h/yCWqYEGeBvr
-	 cU5rduuYW5B2bDN6N1a/Ah9Y5tPQnMUxuXvc9XEP47b+1SL9G5n3imaFEKc/9Lg+ZlkvN
-	 8D0U1qXccpwNTRBy7WHMXv24smUZ/UKBXYNw92/gScIb2fOkMWROzWrrE/+G2z7FujTFv
-	 SyKS0AbtjCo1ox+x7eHJiLoybYurx4Qk9cM56B0lx82WFX58rp9fAN9YWK1UahQjFB+bk
-	 IjY6NW3TBcd2wLb03wkT12Jbwyrv1KASzISAFtv3+4per7aSeCFaBMkjUviiBsXYdmA==
+	t=1794551116;
+	b=Q12FnS9rVrwU4VIhOs7IVhyrdkzxk5nGMis14Y/FLXkuvN7J38Pp9ZzRGDTxTSH8EL6a
+	 7j5CdJlyIPnRWX8Nqgoc0vFXDJlEmfAj+OXLphuKaSXDB6z2624H3E9DJ0XrLumbxc+Gu
+	 w/IBPMGvpO6Jvi8t0TOOV2K1ldilhUBwvcxke8Pg2JY6KzWTDmTu58nNzWZ8e+f4ePx0A
+	 tg03IsTI9sU2XF7prJz9Ru84gVrxVgdZ11WsVNDBVa2ve+pDQU8JkZ92yz6Q6ofzrjT/L
+	 V3EfVAl0+YO/dP8AP8iWAW/GvG2FzJ5zyitGsRmE5+VvdLptaKB0wbdQ4Tcw5a6zfqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551114;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3tlK4/UTFCYCg7fMWH6nOmeYXoGJRxWoGIF/cCb+vIs=;
-	b=Jv9Rt+ypvFSyVpjaPUvtSulycPaH0jozfSQRXhHD0cvlQSERlgFgq45ufOJ6mIGGmdY6
-	 g5ZzCqJ3yrP/q0eaTKS9DUuBlvc1LDzv/HZ32k2kwjEKC54zqVKVLE/efD7UUJD4G6vFl
-	 sFYXw9XBl7XSMMlPS9GgVCaAH2ZYr+igilfvWRz0H1ZZl1ksEcL1WbmYqWoB3XGbm0FJa
-	 0qPQFyKVuEuwGID0bgiM8+GCTEj7u2FOFuGBBbWnRkCX//U4E1aLgVFWVjzukpOTOrk0+
-	 dFYwbTiGyFthb/edC26PrK2uSrJbZYU2Ge+UYAtYDAH81CZx1ZPbLp2HlIW+YZG6BsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551116;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=10XdwItay2xjSSdxRndz5fIEXf9huWW90M/UIJxcOJ4=;
+	b=ufZP6A77URh0NIE54ezyGMki0jYZoHGxwiBIlyon2SFTKMGXYy2ift3XN78gg4VZwt8D
+	 o7bkzmkF8Zs1eggOIW1LRKTcLImBTmYN6gY5bvQOWmSrWaTj+L1mbwElL1zp98a/ixr3l
+	 zirCytCdx80m58SiIWDHYKv2dVhiBBeRLOk2YBtYEQjT/QXiI/YwIHPLn3uLrlQ8Mttp5
+	 AE4H4WA10eLMPJGvSZlG7T0+hAsf//Nh8YEk0DsU698m0I7o4kI+vObDeY04Ecl3ukORi
+	 PB/AnqI+Ewpx2tEFfBC5thZEBY+4OftXy5XXrmSeDXhYp2c9viStoyMMUZxR5FwLeQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xRYD88H8;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=dcQ929YE;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0774606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:25:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0774606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE133606A31C;
+	Fri, 13 Nov 2026 06:25:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE133606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xRYD88H8
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36dbde64409so1010965eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:25:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794551113; x=1795155913; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3tlK4/UTFCYCg7fMWH6nOmeYXoGJRxWoGIF/cCb+vIs=;
-        b=xRYD88H8XzFlGeLpT5BYFxdyuFcpl3eKTy3hjqp7XNkaNZDdgqCOpoiyBh9tuHTD1q
-         DzxiCyMbKAnrEVO4vKlvGgHmjI2rWsOPx2+EKG83b/MGOzZGuqK5bjNBWMBy+NXecmdC
-         lmmFXS+VBHRAxsZo4sOA53rf1090wrLleee+knPMcd57rcwkBtxqQk+/aSD/MReq1Peu
-         ViTjXyDK3NuwCfU/2AxAjGfB9+GpKCzLcA+ztjfC1n4SeS3MvURf95kTksCaLiV6/bJ7
-         ImqDIqRFKtpTVX8C+jCbfn3hijO7N4zxPwNnsoHueQUEYmhom3zQcUkzRz8a1n086w5+
-         m5zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794551113; x=1795155913;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3tlK4/UTFCYCg7fMWH6nOmeYXoGJRxWoGIF/cCb+vIs=;
-        b=Uu27YTzwmm363GlSc/ueNNlRPEeQcvGH39OjZYYGoBUCV8Y6hoAPs1RbrEZLv1469P
-         jE2rl/GeA6o0wVmGlAsaDDO3O8udGDK1pkqIwOgCr4sQoDR7oeug8RzDjtjZPC/P0Flf
-         btNNMk97J/aBKjkqw1nyoUNthCoG1D/IthMCw6vGoIkrKwHlpruOR4V6MAqLcUllDoWx
-         nS077bx4seMMYS82WOfFIiMx/A2uoT8A5dDei0koRCZMRWfZGwSHRoC6SbfcsnaEEXK+
-         675iDa0+g38mJ1tgMbVSBShHSDH9RaZ+RC7KeXNvxUKyMkja5v48tEw6RPz6ZP6MaFQh
-         9+ag==
-X-Forwarded-Encrypted: i=1; AL+hErGcPNzyUn917+HDxmq9JP68Y1sOZmiC+PNoEmcfx2BakAifAS1MP0sDmpqWZxrYf4ln/wwktCwshVMQHNo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QyiAwKFdLt4YOG14iXUOF9HS914G7CJyavsDwq8XVvHg22MvL
-	RqRle9Uq/iJ61kSkTzrKuS2492IgCrIQ7B5THNExv1V9OHbwxRvKBMRV
-X-Gm-Gg: AYBFou1TudTysX7lI9f2osRYeNPZwFEaGYG7sBoN+s7UxlNR/NeSilSacC5oNKSjfn5
-	/N/ZH3Fl31pn7iG9KZPOpj5dk09L0zRVawRRkBV7G1NAKHNdbZkIpYJD94EJiFLJrTPCO+2wgVO
-	vu3wLCNYVhnppGGZBGMhhCd7Pp0j10iZuIjYFsVP/3WRmpFVD0d/2M+sBvfjE0Ta9LOfwsWWP+r
-	J+9//OZhuXEV5UuhnAF+12pUNhUG3SRN8PtPZdUgGj5ebsYDouwfxnQ4Xge8y9SiqNMBZ0rEMXq
-	BwhlkqWKLYt/OLw4gkIgNDqp3Oh1zJETXvFh45RO5pPeD1QZDIPQl/zy6nLmgc+CKbu3Ni1psVN
-	VsX0R1tMsI6pD8GWSVAIH/CtRNJ2rnp6Ip2jXM0ruuj8rRqx0Eplmlfd6ph99sceFPfKqgAt8jy
-	cPkmoRXQwQFh2Y7Avce93ZsjfEXmi/ptfkTopDapm1tMElPsiEr7CjbbgCnXJaBtuS94t3rWZ2D
-	VnfPOJh3YDDA6aTlYD+sb79RT086hMzxjM0+LEp7wWk6YezATlerrpOFR9meap7Co8MouORtzG3
-	eBtOfwsDwcuazuVoPRHR99W/BbrGa8XGEGNbxI0surTba3N09oF1oEJQQNZ4lnsfY10=
-X-Received: by 2002:a05:693c:894f:20b0:36d:5102:9974 with SMTP id 5a478bee46e88-379636607famr1340509eec.2.1794551112863;
-        Thu, 12 Nov 2026 22:25:12 -0800 (PST)
-Received: from LAPTOP-KD1TH5BD.tail375eb4.ts.net ([47.11.114.36])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795533170csm4309715eec.7.2026.11.12.22.25.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 22:25:12 -0800 (PST)
-From: Gopal Malaviya <gopalmalaviya53@gmail.com>
-To: alireza.haddadi@it.uu.se
-Cc: jack@suse.cz,
-	willy@infradead.org,
-	akpm@linux-foundation.org,
-	vishal.moola@gmail.com,
-	fujunjie1@qq.com,
-	roman.gushchin@linux.dev,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=dcQ929YE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794551066;
+	bh=10XdwItay2xjSSdxRndz5fIEXf9huWW90M/UIJxcOJ4=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=dcQ929YEsOGkGPNan7QjS1u7KGx5Z415Yy4PFQDXgyTK1+cYa8s5ovCuw50W2Q3/i
+	 uPso9ewvqsjMI6YQ19qMVbaO8ktjKzZonwAxRcvsOlRsxKFqxjp9DASXa3Y5kKVSuf
+	 GIahXXQkDObLN/BbjfzmZCOgRC1vUYa3s91n5tV8=
+X-QQ-mid: zesmtpgz1t1794551049t4828b390
+X-QQ-Originating-IP: u8uzL0sJRFmJJC5obPseqYa3qPxqgT8Y1IOOnXc81TY=
+Received: from PEC004119 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 13 Nov 2026 14:24:07 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 14666418982326683581
+EX-QQ-RecipientCnt: 11
+From: Haowen Tu <tuhaowen@uniontech.com>
+To: broonie@kernel.org
+Cc: shenghao-ding@ti.com,
+	kevin-lu@ti.com,
+	baojun.xu@ti.com,
+	sen@ti.com,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	tracekotae@gmail.com
-Subject: Re: [PATCH] mm/filemap: let sequential faults restart mmap readahead
-Date: Fri, 13 Nov 2026 06:24:46 +0000
-Message-ID: <20261113062446.193820-1-gopalmalaviya53@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <26E03EC6-F37C-4350-B2A9-1F354217F469@it.uu.se>
-References: <20261109-mmap-miss-v1-1-8b44b33f3358@it.uu.se> <20261111042310.191979-1-gopalmalaviya53@gmail.com> <26E03EC6-F37C-4350-B2A9-1F354217F469@it.uu.se>
+	Haowen Tu <tuhaowen@uniontech.com>
+Subject: [PATCH] ASoC: pcm3168a: Leave cache-only mode before resetting on resume
+Date: Fri, 13 Nov 2026 14:24:06 +0800
+Message-ID: <3BB19624DEE17CA9+20261113062406.1504452-1-tuhaowen@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,139 +76,72 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: Nu7meyJZV74IaBvgr8CaXJuC240ykQW8XKjZb3zvUfBOngsI5EwXcBvI
+	OlKGWgdPExmeyEWTUpENYMcJGMX17MO4kCbKhFrVC18XsoPGwQ/pY51jpei4QBnfBRqOie4
+	2IFsLuQURVV8Uxojbm+9ygh2CIlQPy9W4f7Ju+/2MjzX4BMm7AAXsOUZS6aHF9oT8D0nixV
+	v6O4peu5/y8GbBTqKeLxKK12ZS68X99Il1Kx2LVFjUGfu1/AZZyBxz2nH1c00nj7YyfJzBj
+	TuYwi2aXEJFN7yyyJ40HxjiWxMjSkqIkp8qwusbRlXSUQ3O5MGMsRxCVQpEUEnVHef7B4AP
+	lsfEJA19C2sfLRFVvwkmFsTWcWapgpaSjiLyips8c6GjEClnbDzld3+sCss5Ql5gOjl8yB9
+	id46HGyWWvkvvafh7mAUcxJn6ltmDtV45W1nFlrjHDhj9MQluLBOW7EL8KTO56SUasxHjuE
+	zzlIBwoiEVzI7capCLGM3W6A87voRj0tPgXSNdbFk3PFj/lOozRTTXKoQg71cPDUiUQnxiH
+	aBnSoaqEQ8LWj/zSPAp7QAxwdUPw4UutAVf/KXVcnH2bt1h6rqDAif7Ubjl+sai0zmRL4p7
+	ZE2JaMymt6W7aCRSJhrqOx91yOPQ1ntsWZytuY3+TDW/+syu7YZ/8IskW2ZynJ+sADyXTxD
+	hUurJbqLki4Otj3lGA98w30MZJ8TIaQXqx04DSaP5FIXPUpouFssmLHli/uwOAR4XtTZ+C2
+	IUqSD77jIerZVNwMRjMuGMXTG5x38y1lOBWKwQIvr2gKClcSabnywMMRCiV+SC22lgG6VG2
+	6zykJb4v40v1DvOBRbyO7+wcmodJ96Bh04/3BuIlJ9DZXle4VrhS5xDoie76zOoN90QmA10
+	gC93Hh9BIu4XEmgLcfD0SmDfDu9eVd5oHS5L5y7rIEV74MGWb0XExcabZHcZuCi6Z5qmhrd
+	RXx2O9mRRzKvnV0MquWqqOrq2sBkrQuuEfFmHfcTWdm+4YifxZ0JVFsmT3FFYL77EksO55y
+	bdAXUptMhE1k4cZkjvHvz4ud4nKzeRRobpYPyigQ==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-On Wed, Nov 11, 2026 at 07:43:54AM +0000, Alireza Haddadi wrote:
-> That would be great, thank you. Could you share the short-run test,
-> So I can run the same here while working on it?
+pcm3168a_rt_suspend() puts the regmap in cache-only mode, but the resume
+callback calls pcm3168a_reset() before leaving that mode. Both writes to
+PCM3168A_RST_SMODE therefore return success without reaching the device.
+The register is volatile, so the writes are not cached and the subsequent
+regcache_sync() cannot replay the reset sequence either.
 
-Sure, it is below. It writes the file (or reuses it with "keep"),
-drops it from the page cache with POSIX_FADV_DONTNEED, touches 1% of
-its pages through a MAP_PRIVATE mapping and prints the MiB read
-(pgpgin in /proc/vmstat) and the major faults for each pattern:
+Leave cache-only mode after enabling the clock and supplies, before
+issuing the reset writes. Restore cache-only mode before powering down
+if either the reset or the cache sync fails.
 
-  ./mmap-rand FILE               2600 MiB file, removed at the end
-  ./mmap-rand FILE 20480 keep    20 GiB file, kept for the next run
+Fixes: a9b17a638af5 ("ASoC: pcm3168a: Add driver for pcm3168a codec")
+Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
+---
+ sound/soc/codecs/pcm3168a.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-The tables came from the second form in a 3 GiB guest, with
-"echo 128 > /sys/block/vda/queue/read_ahead_kb" (or 8192) before each
-run. "random 4-page recs" is the short-run case. Like the earlier
-tests, the program was written with the help of an AI assistant.
+diff --git a/sound/soc/codecs/pcm3168a.c b/sound/soc/codecs/pcm3168a.c
+index 11fd948ecd27..bb539b9dd0b8 100644
+--- a/sound/soc/codecs/pcm3168a.c
++++ b/sound/soc/codecs/pcm3168a.c
+@@ -855,14 +855,14 @@ static int pcm3168a_rt_resume(struct device *dev)
+ 		goto err_clk;
+ 	}
+ 
++	regcache_cache_only(pcm3168a->regmap, false);
++
+ 	ret = pcm3168a_reset(pcm3168a);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to reset device: %d\n", ret);
+ 		goto err_regulator;
+ 	}
+ 
+-	regcache_cache_only(pcm3168a->regmap, false);
+-
+ 	regcache_mark_dirty(pcm3168a->regmap);
+ 
+ 	ret = regcache_sync(pcm3168a->regmap);
+@@ -874,6 +874,7 @@ static int pcm3168a_rt_resume(struct device *dev)
+ 	return 0;
+ 
+ err_regulator:
++	regcache_cache_only(pcm3168a->regmap, true);
+ 	regulator_bulk_disable(ARRAY_SIZE(pcm3168a->supplies),
+ 			       pcm3168a->supplies);
+ err_clk:
+-- 
+2.50.1
 
-Thanks,
-Gopal
-
----8<--- mmap-rand.c
-/*
- * mmap-rand.c: how much does the kernel read from disk for sparse
- * mmap access (random, and fixed stride) on a cold file?
- * Reports disk input (pgpgin from /proc/vmstat) and major faults.
- *
- *   ./mmap-rand FILE        (FILE must not exist; removed at the end)
- *   ./mmap-rand FILE SIZE_MIB keep   (reuse FILE if it exists, keep it)
- */
-#define _GNU_SOURCE
-#include <err.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/mman.h>
-#include <sys/resource.h>
-#include <unistd.h>
-
-#define MIB	(1UL << 20)
-static unsigned long SIZE = 2600 * MIB;
-
-static long pgpgin_kib(void)
-{
-	char name[64];
-	long val;
-	FILE *f = fopen("/proc/vmstat", "r");
-
-	if (!f)
-		err(1, "/proc/vmstat");
-	while (fscanf(f, "%63s %ld", name, &val) == 2)
-		if (!strcmp(name, "pgpgin")) {
-			fclose(f);
-			return val;
-		}
-	errx(1, "no pgpgin");
-}
-
-static long majflt(void)
-{
-	struct rusage ru;
-
-	getrusage(RUSAGE_SELF, &ru);
-	return ru.ru_majflt;
-}
-
-static void run(const char *path, const char *name, unsigned long stride,
-		unsigned long rec)
-{
-	unsigned long page = sysconf(_SC_PAGESIZE), npages = SIZE / page;
-	unsigned long n = npages / 100, i, idx;	/* touch 1% of the pages */
-	long in0, mf0;
-	volatile char sink;
-	char *m;
-	int fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		err(1, "open");
-	if (posix_fadvise(fd, 0, 0, POSIX_FADV_DONTNEED))
-		errx(1, "posix_fadvise");
-	m = mmap(NULL, SIZE, PROT_READ, MAP_PRIVATE, fd, 0);
-	if (m == MAP_FAILED)
-		err(1, "mmap");
-
-	srandom(1);
-	in0 = pgpgin_kib();
-	mf0 = majflt();
-	for (i = 0; i < n; i += rec) {
-		unsigned long j;
-
-		idx = stride ? (i * stride) % npages : random() % (npages - rec);
-		for (j = 0; j < rec; j++)	/* a record of rec adjacent pages */
-			sink = m[(idx + j) * page];
-	}
-	printf("%-20s %6lu touches %8ld MiB read %6ld major faults\n", name, n,
-	       (pgpgin_kib() - in0) / 1024, majflt() - mf0);
-
-	(void)sink;
-	munmap(m, SIZE);
-	close(fd);
-}
-
-int main(int argc, char **argv)
-{
-	static char buf[MIB];
-	unsigned long i;
-	int fd;
-
-	if (argc != 2 && argc != 4)
-		errx(2, "usage: %s FILE [SIZE_MIB keep]", argv[0]);
-	if (argc == 4)
-		SIZE = strtoul(argv[2], NULL, 0) * MIB;
-	fd = open(argv[1], O_WRONLY | O_CREAT | O_EXCL, 0600);
-	if (fd >= 0) {
-		memset(buf, 0x5a, sizeof(buf));
-		for (i = 0; i < SIZE / MIB; i++)
-			if (write(fd, buf, MIB) != (ssize_t)MIB)
-				err(1, "write");
-		if (fsync(fd))
-			err(1, "fsync");
-		close(fd);
-	} else if (argc != 4) {
-		err(1, "create");
-	}
-
-	setvbuf(stdout, NULL, _IOLBF, 0);
-	run(argv[1], "random", 0, 1);
-	run(argv[1], "stride 2053 pages", 2053, 1);
-	run(argv[1], "random 2-page recs", 0, 2);
-	run(argv[1], "random 4-page recs", 0, 4);
-	if (argc != 4)
-		unlink(argv[1]);
-	return 0;
-}
