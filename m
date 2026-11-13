@@ -1,67 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794547435;
-	b=i6FpU5un1lKmUX5ib195xVV9oIFS+6NkK4/jM0H2WU9L3qgXLmbN56AF4KWkxRpqcnrb
-	 yo0+J0YDni86UsdOon0Jkl/TNIw3qzwNTt7cafhH4l3Wd7Iiw2zTGfzW8kfisRdhg5O8y
-	 JmUQhgk4DEZi6xN6g+JrNe9JSiNlfdUw1RLOcJeB4RfO+gvOer4OLd5SmYbk1X918oqAC
-	 GbDQPEPe/SWz6sfdsMAUhFcoG5Rl48S7l+Sb3u3h4wjZnj4zikQldpNzffNQXFTXkg1ju
-	 F1FIvJr/nW+tT+ycPSg4SBwQr3bKATnF1noVJyQA3fdPwIrEklhpvJxZIwuBe5jMlVw==
+	t=1794547451;
+	b=ol8J3JwYeOCpPv5DQdyVRqKphcF83Sopokfs+7bsMjW/oxr4AQ1PtxYdTex6nO38ZfFS
+	 +ejnKGDjJU+4DXJQiyqsmtS8gTjVd70fXfiUWJ+2V6ATBwDKko/UHN9sG8WJb5T7SntFU
+	 /9BNt/C6AmLL8tl82LbfKeGorBR3sRrEWeZvVABbc0suYxicq5KYcK9nilVY7dAch+o0Y
+	 cGZF41SpPHfJG3RQ0GFEGRh+YpkOGCf4kTCXrWxyILY21obzxglBX2mtlLF7xhkwHVqcU
+	 EAs1XgymzA0cS/yIWaVqW2qFsUROt/4cz1IKrTGqeaOBGh/VFWWqKrNAXUDlpBT+oBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794547435;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=yNTGZ6HgL81sFOWpVaEuJsNuoy6BFVlh8YpAP+qxSFg=;
-	b=kN3su8CpDPqjlsr5Lv3Ty1uz/88CV4MB91qKI9n9cYOfYFLUYRR4Q2CqpL1N5vHvFzW5
-	 2drPzP3RWmDwBilErWuCFntGTNHju2vUdwS5L1id6xbPpCLGP2Qd5EIBv7AGzbFljt9Dn
-	 932pjUiwepVZA4X5IkmGFl/Q2nF1B7VguqbMWBFI+SHqmp/8v5YEjXRmZK4rC7+EsCQDN
-	 Xvy58APTxFMcGEbUXLiOx2jGdzB2Wzm7WtB2wjEaB5x0dQ/+keHBTiNxSft2FMPS8gRG3
-	 XXpNoI6+RsAQvvaOnlJgJ37z/DSvx43R/ho9bAxSN31UZAhfgmLtPRALyeh5A2C8wiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794547451;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=JmKJsnJY8MqWcs4Bpm4VF6uZO2VAnwIaLQAzmFCdCwU=;
+	b=R5gTXdFr7iEg1P95OUjcWZu1toWy6TvSmMBzpELepi79hc10yTrVLuESXMX2dRriAebg
+	 DzvBr7YPfShFjs4BwSFDtLOmFta8tJECb0uQhJUbpVjG29WAGdVd3lOKSiNVlDsOIQDiu
+	 1+9NIhLT1wS5tUxqdHnpVgiuGEbQXL/ub8f8jAV2FeV7wlgKQbp9mXdF7MsyEtafh6R+4
+	 iFccolalALUHh5bKtEd7Ci5duVW4nGoim/ly9DUMzDeY1fnBblGX2LQElmU36zR1q7Hi7
+	 aM//tievgMOA9a6HgifQiemKkmWoguIBRwIntIMQ0jOi6QteNxVUxxQrN1kOTShTf0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WSU2j+Xi;
-	arc=none smtp.remote-ip=95.215.58.64
-Received: from mta1.migadu.com (out-64.mta1.migadu.com [95.215.58.64])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=hJXZ6HW0;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1B7606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:23:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A1B7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044BF606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:24:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 044BF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WSU2j+Xi
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nETvmS/sv7eeoqiH4Fl5bLT2YjeMLjjRzngwbfcsPpQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794547432; v=1; x=1795152232;
- b=WSU2j+XiebmLYrNp9W9Shr5UPkdngXfFdyHjKmniofOAAt9fjXRSY/iLichbVRWTGtxXt4sX
- JjF8L2FBD87afjzdgjU2hpsIt5msQMEFDF3XYfxRr3xsBch1EXFD4KrFVOt28WP9y+gU1GWuzpL
- hmqlSe7b3YL16n2sSPstAkf4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 4c369a421a5cba68;
-	Fri, 13 Nov 2026 05:23:51 +0000
-X-Mizu-Trace-ID: 4c369a421a5cba68
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 13 Nov 2026 13:23:40 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Pin-yen Lin <treapking@google.com>
-Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Bjoern Doebel <doebel@amazon.de>, Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org, Matthieu Baerts <matttbe@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Jonathan Toppins <jon.toppins+linux@gmail.com>,
-	linux-kselftest@vger.kernel.org, Hangbin Liu <liuhangbin@gmail.com>
-Subject: Re: [PATCH net] selftests: bonding: fix failover race in
- bond_options.sh prio test
-Message-ID: <avaewOJD7tX1UYfE@fedora>
-References: <20261112014942.2946303-1-treapking@google.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=hJXZ6HW0
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso104499266b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:24:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794547449; x=1795152249; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JmKJsnJY8MqWcs4Bpm4VF6uZO2VAnwIaLQAzmFCdCwU=;
+        b=hJXZ6HW0Qm5kNZqRnnvGDZyf3eJmGj6QEU81Pibs6VimbDHzmLy/IVKnOO8Vkc2O4l
+         5KbbkAyhAHM/kVajjB9aUC2mIOkdzmbcPUHkHnKLqlvWGtrQ7I4PAiTiv7TYv4lC/voV
+         jDdggvL+J3ZHk5wSEXtJA3d/q4Hr2YfB4wPXE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794547449; x=1795152249;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JmKJsnJY8MqWcs4Bpm4VF6uZO2VAnwIaLQAzmFCdCwU=;
+        b=06JTylDzg16b1SHdFKvN7tFw5SR/+Eiio1codMZCc8aKIkab21I6zMw68BmAWsFqNu
+         qvQGmgZUML5uyI19zNMo0kSKeh02jAjREOEJfC7jQRVxW1eDKt87TnVP5hbYGhLpaXCd
+         6frQZoA89UmASPi1UD1nIHtMG8joX8RkZQx9GoMq0iwCnLITQenVK02s/YcA23e2MfY/
+         om60WtdQwjL6mIao0GF1GLNtv2UwDfN7HjgY/VulrGljxUUzpCNuLNqtpO/VfIvkz8Z5
+         xcqB4yr5kJ070JqMuvitK1/CfPOUimotDQUBI7npgbKrw1I/D68/ITclXJIoaZEe973e
+         daQA==
+X-Forwarded-Encrypted: i=1; AL+hErHaSpf7PDqkhtM35+fwpJZoUH35vvOdkzBeFd9Pek4niQ06AsqkNTkb3TBCVrjbPT8zvvpi3MoF3Os1/h8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+o3Xq7oyjGKkKcJazcQt+0qf9/kGDT9m4ZgCxqdYiCS50Yvhj3
+	9DUdQWEB0g73Q98psbsZGXTTOAtB/IenYGxcYZOLewXYoAWHL1zhjYXUYuPbXR7dsDus5Q4mBz1
+	9YW2E1kPn
+X-Gm-Gg: AYBFou1WUzD/HnpAgXEXPpr9fqhG3eRiEY3jdFsMbi9wFkZbrD/u6vvisDEALgM2vIm
+	Bw8IUvTAUtz7d5M5ruhpfYtBViSty8KbU9o78nhKeWrohiutBWlmbF3C4NjojIBggLioFDV3qyT
+	NOKszPKjClyo+U4ZFzHBgMhFQShhtR6yPvHMgMaXG3ZBD1NQbYBt8L3t9ImzQG698RZoTJWV/JX
+	RCQwU8OT0eT6TQOt8FFw2+B/ZZn3lDHsxmOdos76UpKVtd+mK2FVadJ9gTfJldJP8z63qYo2qII
+	jz3TlWLLnSNVT/lZElJVcCZbKns+m1wfu56ey0hG71o/LJzaRgth9KX1OInupobth5E4Y186OGB
+	/D4e1mdtV9kS9HK7vQ/m5yW4CS22gsv7TC/eTdzO8pZe8BAbCzZtVnKpEl9JB+w3DYwh6NqH/Pe
+	GidmRQyM3I0hskQYR8W9eXVCwT7HUmF+C7oD101Ro0A/Kj8qlrfGEHmwo6VaJp0ZNW/zg0M7q5J
+	Fv3AUXLeUs2ldIP2Rj4c+qYiIFlON9FDgFeuVxkHp2qX1knFuTZkNnPy32IkXCCaWH2NzQPO2Gi
+	JPDEJur4i7XC4JT7xU12GsADFHUhrL0wLJemHdiXxyNJ78/7DtTv7LlxIeJsq5XD/X4pmmm6EKC
+	4YWspINeh1xd5Xg==
+X-Received: by 2002:a17:907:9415:b0:c33:dbe8:291c with SMTP id a640c23a62f3a-c509634058fmr119729266b.20.1794547449432;
+        Thu, 12 Nov 2026 21:24:09 -0800 (PST)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com. [209.85.128.53])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b5a276sm50953466b.54.2026.11.12.21.24.07
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 21:24:08 -0800 (PST)
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so3216825e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:24:07 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGqmOQP/Aq3fMkSNRLEXTSAG2q6MVAJFt7zQe/6H5i4IoMM6fnBXYGlzfSelkPu9tbujANzupoVEPW/C8Q=@vger.kernel.org
+X-Received: by 2002:a05:600c:4e05:b0:4a1:6517:ccf1 with SMTP id
+ 5b1f17b1804b1-4bb55a44ff0mr28193205e9.9.1794547446523; Thu, 12 Nov 2026
+ 21:24:06 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,138 +94,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112014942.2946303-1-treapking@google.com>
+References: <20261101220224.1436242-1-dianders@chromium.org>
+ <20261101220224.1436242-16-dianders@chromium.org> <avUlA_KSHKmmSz5p@gractus.seuss>
+In-Reply-To: <avUlA_KSHKmmSz5p@gractus.seuss>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 12 Nov 2026 21:23:54 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=WGTD8FtjPFE5mFSJP343Z9-2HNXHH3g4usqpWPVuwPUg@mail.gmail.com>
+X-Gm-Features: AclHuK_4zB7NHPQo84upfuBk9JkbLknfTYjE74uvl8_8rHyRokZIvN2zJ3Vj3W8
+Message-ID: <CAD=FV=WGTD8FtjPFE5mFSJP343Z9-2HNXHH3g4usqpWPVuwPUg@mail.gmail.com>
+Subject: Re: [PATCH v3 15/15] fdtfactor: Add compiled FIT factoring support
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org, 
+	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, 
+	Julius Werner <jwerner@chromium.org>, Brian Norris <briannorris@chromium.org>, 
+	linux-kernel@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Pin-yen,
-On Wed, Nov 11, 2026 at 05:46:18PM -0800, Pin-yen Lin wrote:
-> The prio test intermittently fails in the arp_ip_target and
-> ns_ip6_target variants:
-> 
->   TEST: prio (active-backup ns_ip6_target primary_reselect 1)   [FAIL]
->   	Current active slave is eth0 but not eth2
-> 
-> The ARP/NS monitor marks a slave down when it has received nothing for
-> too long. With arp_interval 100 and the default arp_missed_max, that is
-> about 250ms for the active slave (eth1) and 350ms for a backup slave
-> (eth0, eth2). Every 100ms, eth1 sends a probe: eth1 receives the reply,
-> and eth0/eth2 receive a copy forwarded by the gateway bridge. Once eth1
-> is down, its probes reach no one and no slave receives anything, so
-> eth1 normally times out first and the new active slave is picked by
-> prio:
-> 
->   t=0    probe: eth1 gets the reply, eth0/eth2 get a copy
->   t=10   test sets eth1 down
->   t=300  monitor: eth1 idle 300ms -> down
->                   eth0/eth2 idle 300ms -> up, eth2 picked by prio
-> 
-> But the test takes eth1 down right after bond_check_connection(), whose
-> ping replies only arrive on eth1:
-> 
->   t=0    probe: eth1 gets the reply, eth0/eth2 get a copy
->   t=70   ping reply on eth1 only
->   t=85   test sets eth1 down
->   t=300  monitor: eth1 idle 230ms -> still up
->   t=400  monitor: eth1 idle 330ms -> down
->                   eth2 idle 400ms -> down too
-> 
-> eth2 can then no longer be picked. eth0 becomes the active slave if it
-> happened to receive some other packet (e.g. an MLD report), otherwise
-> whichever slave comes back first does. With primary_reselect 1 or 2,
-> the bond keeps eth0 even after eth2 comes back.
-> 
-> Before taking the active slave down, wait two monitor intervals
-> (200ms), so that at least one more probe is sent after the last ping
-> reply and all slaves last received that probe. The miimon variants do
-> not need the wait, but the extra delay is negligible.
+Hi David,
 
-I'm afraid the waiting time is too strict, especially with a debug kernel
-since delays can happen.
+On Wed, Nov 11, 2026 at 6:31 PM David Gibson
+<david@gibson.dropbear.id.au> wrote:
+>
+> On Sun, Nov 01, 2026 at 02:01:22PM -0800, Douglas Anderson wrote:
+> >  * `-o`, `--outdir`: Output directory for generated `.dtbo` files and
+> >    `--output-base-dtb` (default: alongside each input `.dtb` for `.dtbo` files,
+> >    current directory for `--output-base-dtb`).
+>
+> Even though one's a directory and one's a file, using different output
+> options for the FIT/non-FIT cases seems kind of awkward to me.
 
-Bjoern is also fixing[1] this issue by pinging a non-existent neighbor to
-keep traffic flowing. Would you like to test whether that works for you?
+Makes sense. In my draft v4 I've unified both into `-o` / `--output`
+(output directory in standalone `.dtb` mode; output FIT file path in
+`-F` / `--fit` mode, defaulting to updating `--fit` in place) and
+dropped `--outfile`.
 
-[1] https://lore.kernel.org/netdev/20261104142018.552135-1-doebel@amazon.de/
 
-Thanks
-Hangbin
+> > +* `-F`, `--fit`: Factor `/images/fdt-*` blobs inside a compiled FIT
+> ...
+> > +* `--outfile`: Output FIT path when `--fit` is used (default:
+> > +  overwrite `--fit` in place).
+>
+> That's a lot of fiddly detail to fit in the description of a single
+> option.  Maybe move it out into its own doc section.
 
-> 
-> Hit in our CI on GCE VMs (4 of 51 runs); the test only uses veth. On
-> the same VMs, 7 of 30 loops of the prio tests failed without this
-> change, and 20 of 20 loops passed with it.
-> 
-> Fixes: 481b56e0391e ("selftests: bonding: re-format bond option tests")
-> Signed-off-by: Pin-yen Lin <treapking@google.com>
-> ---
-> 
->  .../drivers/net/bonding/bond_options.sh       | 26 ++++++++++++++++---
->  1 file changed, 22 insertions(+), 4 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/drivers/net/bonding/bond_options.sh b/tools/testing/selftests/drivers/net/bonding/bond_options.sh
-> index 187b478d0ddf..16c1c2d97005 100755
-> --- a/tools/testing/selftests/drivers/net/bonding/bond_options.sh
-> +++ b/tools/testing/selftests/drivers/net/bonding/bond_options.sh
-> @@ -13,6 +13,24 @@ ALL_TESTS="
->  
->  lib_dir=$(dirname "$0")
->  source ${lib_dir}/bond_topo_3d1c.sh
-> +
-> +# The ARP/NS monitor marks a slave down when it has received nothing for too
-> +# long: ~250ms for the active slave and ~350ms for a backup slave with
-> +# arp_interval 100. The backups only receive the copies of the active slave's
-> +# probes that the gateway bridge forwards, but the active slave also gets the
-> +# replies to the pings in bond_check_connection(). If the active slave goes
-> +# down right after such a reply, it times out in the same monitor run as the
-> +# backups, and the new active slave is then not picked by prio. Wait two
-> +# monitor intervals, so that at least one more probe is sent and all slaves
-> +# last received that probe.
-> +bond_link_down()
-> +{
-> +	local slave=$1
-> +
-> +	sleep 0.2
-> +	ip -n ${s_ns} link set "$slave" down
-> +}
-> +
->  c_maddr="33:33:ff:00:00:10"
->  g_maddr="33:33:ff:00:02:54"
->  
-> @@ -97,12 +115,12 @@ prio_test()
->  	check_active_slave eth1
->  
->  	# active slave should be the higher prio slave
-> -	ip -n ${s_ns} link set $active_slave down
-> +	bond_link_down $active_slave
->  	check_active_slave eth2
->  	bond_check_connection "fail over"
->  
->  	# when only 1 slave is up
-> -	ip -n ${s_ns} link set $active_slave down
-> +	bond_link_down $active_slave
->  	check_active_slave eth0
->  	bond_check_connection "only 1 slave up"
->  
-> @@ -134,7 +152,7 @@ prio_test()
->  			;;
->  		"2")
->  			check_active_slave "$pre_active_slave"
-> -			ip -n ${s_ns} link set $active_slave down
-> +			bond_link_down $active_slave
->  			bond_check_connection "pre_active slave down"
->  			check_active_slave "eth1"
->  			;;
-> @@ -153,7 +171,7 @@ prio_test()
->  		check_err $? "eth3 prio is not -50"
->  		check_active_slave "eth1"
->  
-> -		ip -n ${s_ns} link set $active_slave down
-> +		bond_link_down $active_slave
->  		check_active_slave "eth0"
->  		bond_check_connection "change slave prio"
->  	fi
-> -- 
-> 2.56.1.703.gf848ed807c-goog
-> 
-> base-commit: 665b4149e91b781a71bce8637c3a4d7d64dba05f
+Done in my draft v4 -- split the `README.md` options (and `--help`
+groups) into common options, a `### Standalone DTB Factoring`
+subsection, and a `### FIT Factoring` subsection.
+
+
+> >          if _is_dtbo_overlay(fdt):
+> > -            raise ValueError(
+> > +            raise OverlayBlobError(
+>
+> This change seems unrelated to the rest.
+
+In a FIT `/images` node, both full `.dtb`s and pre-existing `.dtbo`
+overlays use `type = "flat_dt"`, so `_extract_fit_fdt_entries()` had
+added `OverlayBlobError` to catch and skip `.dtbo` nodes while letting
+other `ValueError`s propagate. Using an exception for that control flow
+was clunky, though -- in my draft v4 I've dropped `OverlayBlobError` and
+check `_is_dtbo_overlay()` directly in `_extract_fit_fdt_entries()`
+before constructing `ParsedDtb`.
+
+
+> > +        algo = sub_node.get_str('algo')
+> > +        sub_node.props['value'] = libfdt.Property(
+> > +            'value', _compute_fit_hash(algo, data_bytes)
+>
+> This assumes the FIT naming of hash algorithms is identical to the
+> hashlib one, which seems a bit risky.
+
+Agreed. In my draft v4 I've replaced `hashlib.new(algo_name)` with an
+explicit `FIT_HASH_ALGOS` dispatch table mapping the standard FIT `algo`
+names (`crc32`, `md5`, `sha1`, `sha256`, `sha384`, `sha512`) to their
+`zlib` / `hashlib` implementations and raising `ValueError` on unknown
+names.
+
+
+> > +def group_fit_dtbs(fdt_entries):
+> > +    """Partition FIT `flat_dt` entries into compatible factor groups.
+> > +
+> > +    DTBs are grouped by `(compression, arch, load, entry, boot_cpuid_phys,
+>
+> Why should compression play a role in the grouping?  The internal dtb
+> data doesn't depend on that.
+>
+> I'm not sure what the 'load' and 'entry' fields do, so it's not
+> obvious to me whether they make sense here either.
+
+* `compression`: Agreed -- in my draft v4 I've removed `compression`
+  from grouping (and from `--single-base-dtb`'s compatibility check),
+  recompressing each overlay `/images/fdt-*` node according to its own
+  `compression` property and `fdt-base-N` according to the group's first
+  entry's `compression` property.
+* `entry` and `load`: In the FIT spec, `entry` is the CPU entry-point
+  address for executable images (`kernel`, `standalone`, `firmware`) and
+  isn't meaningful on `flat_dt` nodes, so I've dropped `entry`
+  completely. `load` is an optional physical RAM address telling the
+  bootloader (e.g. U-Boot's `boot_get_fdt_fit()`) where to load the base
+  FDT before applying overlays: two `flat_dt` nodes with different
+  `load` addresses can't share a single `fdt-base-N` node (since
+  `fdt-base-N` can only carry one `load` address), and `load` is
+  stripped from the `.dtbo` overlay nodes so a bootloader doesn't copy
+  an overlay directly on top of the base FDT at `load`. I've added a
+  comment explaining `load`.
+
+
+> > +    mem_rsv)` and node-path overlap (>= 50%) against the group's common node
+>
+> Overlap >= 50% seems a very arbitrary condition here.
+>
+> > +            common_nodes = grp['common_nodes']
+> > +            union_len = len(entry_nodes | common_nodes)
+> > +            overlap = (
+> > +                len(entry_nodes & common_nodes) / union_len
+> > +                if union_len
+> > +                else 1.0
+> > +            )
+> > +            if overlap >= 0.5:
+> > +                grp['common_nodes'] &= entry_nodes
+> > +                grp['entries'].append(entry)
+> > +                placed = True
+> > +                break
+>
+> Reimplementing the common path analysis, rather than somehow utilizing
+> the calculations you already implemented in the factoring itself seems
+> unfortunate.
+
+The usage model for `group_fit_dtbs()` is a multi-SoC kernel FIT (for
+example, building `arch/arm64`'s `image.fit` across all enabled Qualcomm
+or ARM64 boards, which bundles hundreds of DTBs spanning many distinct
+SoC families).
+
+Looking at your two points here, I initially tried dropping the overlap
+percentage altogether by running `create_base_dtb_and_overlays()` on
+each candidate group and merging whenever factoring reduced total size.
+Testing that on a FIT containing all 438 upstream arm64 Qualcomm DTBs
+was much too slow, though: rebuilding `base.dtb` and every member's
+`.dtbo` on each candidate check (`O(N^2)` `.dtbo` builds) took nearly
+90 minutes.
+
+To address both of your points while only building `.dtbo`s once per
+final group, in my draft v4 I've:
+1. Replaced the unweighted node-path overlap check with byte-weighted
+   overlap over `ParsedDtb`'s already phandle-normalized `(path, name,
+   prop, fixups)` properties, reusing `select_best_candidate()`'s
+   `_prop_byte_cost()` calculation directly and picking whichever
+   compatible group has the highest overlap.
+2. Added `--min-overlap PERCENT` (default `50`) so the overlap threshold
+   is configurable rather than a hardcoded constant.
+
+Testing `fdtfactor -S -F` on the 438-DTB Qualcomm `image.fit` finishes
+in ~12 seconds, grouping 426 of the gzipped DTBs into 41 `fdt-base-*`
+groups (leaving 12 single-board SoCs unfactored). Compared to a
+standard `image.fit` built without `-@ -L`, that shrinks the embedded
+DTBs by 61% (9.27 MB -> 3.59 MB gzipped; overall FIT 22.48 MB ->
+16.81 MB including the 13.09 MB kernel).
+
+-Doug
