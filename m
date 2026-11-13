@@ -1,183 +1,143 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.84.45
-ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794587085;
-	b=KIkqmditRnYpUj7WX4FeW+hHDern2fjDHWq0AA5VlSg7nP1T5oplypLFdYWBFjqYPUXz
-	 z79UlBhqJQZEWnpCN4vhLtnRQz+ocZhb3z7BSO2RaK3YqmwecIoRugknNH1bI9HEQ8eNg
-	 6993p/qKnXBl2QyOMZaCj6k+2qd/wHQVBh/H//l/5Zy35gM4LO/H7Sq2166qFGxa1Ecys
-	 XLhI+Q7VnZPE8611v/zO+5m/RqMdf/fOJDP3NhrOz9RbhodnzcxRY/3ypNG2hImRan64J
-	 391/glvCKI2BtChm4jnOZaeaUTzoSKoL7bJs6ANSHpYwPCyG0SMVwfUZ9JLH+5kFfDg==
-ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587085;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
-	 DKIM-Signature:Authentication-Results-Original:Received:Received:From:
-	 Date:Subject:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794587098;
+	b=RzCW+q3JynxdX8zqSmkwdjSdlzNjBa52UnFwu9Z31NYraFhi6IophrsiQP6l8G8sEmiQ
+	 ovhuZtYuKgdfL8yGnv8w4pacXm/GtsmATaQLe0eBB8VFAwnv0Q6bb8nxSqbWR42uI+HR/
+	 BDuL+H3ieBQl+OR2HGR/4Rgu+JDSCYFpJKlB2Qy46douu0TYUME2kvSMafWmlV6W4Ilno
+	 olVYrSTFyenoQrXm1TBNlMpwcrEo894ETjjEmqZuGTuHCbyX10ax8Uaj//arIPOSRYrEj
+	 9KvaBaUtWhK3zDUTqiAcPZv8Zcz75L8UEopktQ3Fay00/pSrxw6gV61ZLR84feWYndw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587098;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:DKIM-Signature:Received:Received:Date:From:To:CC:Subject:
+	 Message-ID:References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 x-checkrecipientrouted:NoDisclaimer:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam-Untrusted:
-	 X-Microsoft-Antispam-Message-Info-Original:
-	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-EOPAttributedMessage:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
-	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=PAgyl1z3BX/174oXHaAPVKJIvoVNY26JiPctkSWgA6Q=;
-	b=VPCqxA4YJiYN/A+fPsUDSDp+YtsDLT8qzhT39VgHcqx/D0vDPZmVLZJdBn3qwiONLJ93
-	 UCixFdEDxeICA4EHmMV7mLm42zn1hw08Szb9JOOCZH3rJXUDtOFMlgU8PGjg5qdWvcnhn
-	 PDQrfrkbcZ656EPJX65Kk0t0WMgb1UajSbTjYsznBS4Bxhow/17qngRk98dtZnBeLUaB8
-	 BCm83cPw88wsLV+cSlB/WZV2H7ihY2Aym/9kY75OYlErsI7qoqe+fIbYooZ1u1+OsoQZh
-	 TpWtOo2a9tHMGUtvebnm+skSpFIUPLSbueEUzG8qdZdSYEpHQkeZYnKh8E4arRIpTxg==
-ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=Je8wC5p9;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=Je8wC5p9;
-	arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.84.45
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010045.outbound.protection.outlook.com [52.101.84.45])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=ASr9HiS9I9Se5TCgwbKtmWPayEVNvCfiDKSyWQtoH6M=;
+	b=ImmA9cinFgl0rUehl+/kWshw+mQmTYJqTp1l60kp/0qN1SnnTTwxfMj7XiV/KtNOBqj3
+	 +0YFedjT3iVRBLN2yCzHpacavCIPKCHWB9p1r6C6MoHDzxxXUCzUim7I93iir19m+CttI
+	 2JQ/udANOWdDlbZ6RHwqFcha0MhJhUX0lGyvHiJBx4UUFqqES4RvrUi15YzGDZE5hJkz+
+	 Rnldth693Cm3t9ETVCzjqLSzfzDdBThmrTu8c8TrbYQDF92ilwEPyX4SW+iDQVMIbgjnz
+	 JNFDUiNLxRsMQjCWH+FqgX2njA++FCQMwR03HFH5LrFbmu6SSzJTPpvQxB26sSX7YhA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gR7MhRqH;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=jy5LxV5G;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DB2606BAB9;
-	Fri, 13 Nov 2026 16:24:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14DB2606BAB9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880CB606A893
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:24:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 880CB606A893
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=Je8wC5p9;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=Je8wC5p9
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=YrzFZl8RznoW5ICNWwYaNHrss9SfpemWBefa3AG2VZ3tzkQObhRC5Wt7JtigLnvZOX+WvtjOAfsGxchw2idb2rSAZU58C8SRAvOXlrvgMQfDfEDooCYFUaT96QulbDYYc3S+yc3fWPDC0fjuXyedS8wmDd3l1UVh/SQgDG9LJ0XbumYBRr/HIOExs5rTnbWnQniA2MudhIIw0NolpBS8imphgdDNdeFR7f3qiKW6JJQf3785xvvUhFkh4O+09EYPr24Ty+eXuS3VzvXTACuWiYBRGakHc5QW30Y30nnEeSTRPbIwsjCQd0l9SvoQP6oROUeprgNs7Toj1EfIFNj6uA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PAgyl1z3BX/174oXHaAPVKJIvoVNY26JiPctkSWgA6Q=;
- b=sqo+jHlCjD033qEKkBEpQ/0Wee64O0Dcrgg4AdJ1hz3eIRawzffUrQdW1xZEkWNUT0OjlaeSVZBqu0YpqIJLfC8Xvq/7sXnpJWQX53Wi0CAAoc7V56VpVtMYzBBS3xm4dr4e9Trc5Ua1My3VJdOs/I2eLzyd4DMAM0cZCpVrLy3JrB4ggLU9wZ9hDEtO26Qgz31pYDIAFDY4MrFtANRZDGLBaxuo/KXnZe6zw99zkBOtFMqqBclLSLxqe27v/AQ68COa4D/PjW/8dD0QShpU09e5jOJ2stJMeYef35DTSYfwI2NacFnOTE5bRAtBhYVPywmMVoOyzOezGBVfxSx9ng==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=gmail.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PAgyl1z3BX/174oXHaAPVKJIvoVNY26JiPctkSWgA6Q=;
- b=Je8wC5p9GdMlMQ8FmLfOpUtLlEWf/HxIVE6HsKPA741cfVrZ9pFD6KhEung4eELYLkuXQerGvKHeP09fhHtAYJrFuDhvFqbWwrx1Sy1Im4PhkRx5LSrOHcQPgviP/WeI6vg1Y9qWim930f6h2Stn76nZ9kI/gTsJDEM0KxI3IK8=
-Received: from WA0P291CA0003.POLP291.PROD.OUTLOOK.COM (2603:10a6:1d0:1::6) by
- MI7PR08MB846158.eurprd08.prod.outlook.com (2603:10a6:290:101::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 16:24:40 +0000
-Received: from WA1PEPF000099CD.eurprd04.prod.outlook.com
- (2603:10a6:1d0:1:cafe::4) by WA0P291CA0003.outlook.office365.com
- (2603:10a6:1d0:1::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Fri,
- 13 Nov 2026 16:24:40 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- WA1PEPF000099CD.mail.protection.outlook.com (10.167.242.21) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Fri, 13 Nov 2026 16:24:37 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gR7MhRqH;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=jy5LxV5G
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794587097; x=1826123097;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=tkXl+h6BxY5h52cPzoZL9gFXDB/H149f4qy1E60FvmM=;
+  b=gR7MhRqHqjwZSXT/hPqee81eCCgnl7J65gHrK4N7FsjuSQZ5tsm7Sm8K
+   QpAr/LWzNzpjWzFcOXncjrl1d6pKtrfiZo58XTbh72tdajeZiI7aef8v1
+   MPpxKxtTUju8kcPyxxKIZiJ4wMhaz5TwP99buPc6FaxdBlHeSQgOd0pNG
+   auT1XJC0blL3Uu1d0Z02HS2EmxV+kFHWgYhpLJyC+5sZHcsTuLhsqv1dh
+   iCwL6W114YAMLka/dxEDdY/9GNE6veuPYYqUzLJaruFFfpLq5pyu3FQOR
+   pxQUndAyeofy+V6+VgjoFv/X84bs0YZMwumaE9iAVUmZJFHqUrg8Y3jWR
+   w==;
+X-CSE-ConnectionGUID: ScSeUOuPQ9OcZqRzYbs9uQ==
+X-CSE-MsgGUID: i20Ug1o6Qr2LoNWIgsk/Qg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3299084"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3299084"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:24:54 -0800
+X-CSE-ConnectionGUID: yMJXqCa0RzeTYQXcqWiGyA==
+X-CSE-MsgGUID: nM1VWB1WTkqSbPtBmfIOgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="8803446"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:24:55 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 08:24:53 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 08:24:53 -0800
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.26) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 08:24:53 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m68VmRcC12DQumeeVN7ZidLfuiF5OQcuTKTQIWBeAQmLm7A2isxKhzo3XCke9hjNrDEO7Tt7l9GtZHT23fBDgCgzcqCKWPVVdHsojfpIvsEQhtlbLRhYaL+q+dnQF/z3cblFoqac5VGw5eTED/RTO9GyuYz+FJskEvxa7se09NVcPzZHHGh44NggD7dyYRb7/4LnIWzEskNVRZzrg4uYUXQAa8JifsxFByZxOeFmYcEUGhkIk5mgXPJ5pTRoLrJ7QnRC43l1Nsi3mHam7yxrWGrXnHTdEdQ+ArDj7pGXKpwo3ikczyNvaktdz8467xhTs4E5YKJTMGQ0onQvdnBA/g==
+ b=abQQr3A219VdVSljzOxXo1K30QKTeg+8wTXNjWxLwC2GeAdnMSk7XYO812eMBE/+BAwBV7MO9rAjL4gtH012OX7ywlVGJtH2+O85ftCqVtbFtZ7RYFM50e7x4oOaDvnpi8enieztLatiQZRtmAao7cZ0qu62lWsw0N54zwpLXVr84qHeWIkW1bj5Z0Rws/8O+4gFYBlY7IIXA3eVYAJ6Yd+UBEzKtx0YMDuv4d/L5g/F6BZRiTaJv+0CWWM/QeuCBOQxMez47yUcp3dosoiusHY3aGx+Qm6EMHzTbKLPSr+rKeSNQwFY1vLa7tIJ2vr8NW+BVUTZQnXdX8bmw/YLYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PAgyl1z3BX/174oXHaAPVKJIvoVNY26JiPctkSWgA6Q=;
- b=YFpA+48Pyy+74vIw3X1r2BKviTXunn5Reef1Xfpj6ciB7At7NHT3JJUig63u2mgRP/zlXwnwJhofgpCbXeZRi54Uj9g8+ZORrRnCJfIFVkzSa2BsF3LgjEL0Ntgm0Tqn4G5Rp8a5LuhDWAgm7keIxDusN6rBV9tuWhi3GndS8mRYAe2VotRchu3Zd41hD67b1yZcoTHuROptZ2cB8C+w4EVnXbuwCRKmz2glXmF4nRklE0SI87FRQCv6z2jgHf9L00pVJLsp3+sgJ/BmcG8rT9FddsvlFsK/rxWcYeu1BAe7JPhVVjUOxezfUoyaY/s998t99LcEGlkGK4Op19uIfg==
+ bh=ASr9HiS9I9Se5TCgwbKtmWPayEVNvCfiDKSyWQtoH6M=;
+ b=kDE5N6Rj8IJN/OfWRIkYflwg2RuH5DCn77FPWTaZgs68byu/YDNtlRMDKbN38rJA1jBUa7DLgEYv74zPDgm1uT7lEL47B2T/H/WFQLku2kg51U7wBWSEn6Ll9FuoOhfDLtxFre6BVA/HcC6fYNiTJUpdJAIl5Y3r5M99eDoZQmg/0pEVLtUVHMplTyxEjt/LC2ZaMQN6Fxt1y55QLVu/qAO9IkCfAvn9YHqvz4pc+pPL/J+dRmZRr8V7Je6rlSBnT2cxW4ChZtdKHAj9W9jzzE6HE1WyTpHSeua/4A5viFMOXE++vsQVKmhUtlySz+4whrBR2Af9yor1eMcdBEofFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PAgyl1z3BX/174oXHaAPVKJIvoVNY26JiPctkSWgA6Q=;
- b=Je8wC5p9GdMlMQ8FmLfOpUtLlEWf/HxIVE6HsKPA741cfVrZ9pFD6KhEung4eELYLkuXQerGvKHeP09fhHtAYJrFuDhvFqbWwrx1Sy1Im4PhkRx5LSrOHcQPgviP/WeI6vg1Y9qWim930f6h2Stn76nZ9kI/gTsJDEM0KxI3IK8=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from AS8PR08MB10291.eurprd08.prod.outlook.com
- (2603:10a6:20b:629::15) by AMDPR08MB11367.eurprd08.prod.outlook.com
- (2603:10a6:20b:717::12) with Microsoft SMTP Server (version=TLS1_2,
+ bh=ASr9HiS9I9Se5TCgwbKtmWPayEVNvCfiDKSyWQtoH6M=;
+ b=jy5LxV5GXod8p6Qtu/WQ5VaK/KoMIpwF9AQVQWMfVm2KbKy7/1epZICUx26KCv5FzwJlz+F6in1PNsymYWpDuX+qRzF5c5nPBHPNrdjixtgA4+tl3GJbgu+zvGnXepkY0OiD0I1pEigUHtCK0p2tvU0q5w4WtcxWfunxCQNWYng=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB8182.namprd11.prod.outlook.com (2603:10b6:8:163::17)
+ by DM4PR11MB5311.namprd11.prod.outlook.com (2603:10b6:5:392::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 16:08:03 +0000
-Received: from AS8PR08MB10291.eurprd08.prod.outlook.com
- ([fe80::9f01:508:17aa:279c]) by AS8PR08MB10291.eurprd08.prod.outlook.com
- ([fe80::9f01:508:17aa:279c%6]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
- 16:08:03 +0000
-From: Bence Csokas <bence.csokas@arm.com>
-Date: Fri, 13 Nov 2026 17:07:32 +0100
-Subject: [PATCH v3 2/2] treewide: Use struct_offset()
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-offsetof-v3-2-714df7053893@arm.com>
-References: <20261113-offsetof-v3-0-714df7053893@arm.com>
-In-Reply-To: <20261113-offsetof-v3-0-714df7053893@arm.com>
-To: Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Philipp Stanner <phasta@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
- Cristian Marussi <cristian.marussi@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@kernel.org>, Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Selvin Xavier <selvin.xavier@broadcom.com>, 
- Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Chengchang Tang <tangchengchang@huawei.com>, 
- Junxian Huang <huangjunxian6@hisilicon.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
- Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
- Guenter Roeck <groeck@chromium.org>, Nilesh Javali <njavali@marvell.com>, 
- GR-QLogic-Storage-Upstream@marvell.com, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Julia Lawall <Julia.Lawall@inria.fr>, 
- Nicolas Palix <nicolas.palix@imag.fr>
-Cc: Bence Csokas <bence.csokas@arm.com>, linux-hardening@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, arm-scmi@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, intel-gfx@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
- linux-hyperv@vger.kernel.org, netdev@vger.kernel.org, 
- linux-wireless@vger.kernel.org, chrome-platform@lists.linux.dev, 
- linux-scsi@vger.kernel.org, cocci@inria.fr
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: PR3P193CA0037.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:102:51::12) To AS8PR08MB10291.eurprd08.prod.outlook.com
- (2603:10a6:20b:629::15)
+ 2026 16:22:16 +0000
+Received: from DS0PR11MB8182.namprd11.prod.outlook.com
+ ([fe80::7b65:81e6:c6c4:449e]) by DS0PR11MB8182.namprd11.prod.outlook.com
+ ([fe80::7b65:81e6:c6c4:449e%6]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 16:22:16 +0000
+Date: Fri, 13 Nov 2026 08:22:12 -0800
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+CC: Arnd Bergmann <arnd@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	"David Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lucas De
+ Marchi <demarchi@kernel.org>, Riana Tauro <riana.tauro@intel.com>, Arnd
+ Bergmann <arnd@arndb.de>, Matthew Auld <matthew.auld@intel.com>, Shuicheng
+ Lin <shuicheng.lin@intel.com>, Armin Wolf <W_Armin@gmx.de>, Zhanjun Dong
+	<zhanjun.dong@intel.com>, Michal Wajdeczko <michal.wajdeczko@intel.com>,
+	Piotr =?iso-8859-1?Q?Pi=F3rkowski?= <piotr.piorkowski@intel.com>, "Tejas
+ Upadhyay" <tejas.upadhyay@intel.com>, <intel-xe@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm: xe: select configfs
+Message-ID: <20261113162212.GB7214@mdroper-desk1>
+References: <20261026102603.2045493-1-arnd@kernel.org>
+ <avS7mZMrS7nQv_RK@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avS7mZMrS7nQv_RK@intel.com>
+X-ClientProxiedBy: SJ0PR03CA0189.namprd03.prod.outlook.com
+ (2603:10b6:a03:2ef::14) To DS0PR11MB8182.namprd11.prod.outlook.com
+ (2603:10b6:8:163::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -187,689 +147,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	AS8PR08MB10291:EE_|AMDPR08MB11367:EE_|WA1PEPF000099CD:EE_|MI7PR08MB846158:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48844446-cabf-44d0-e292-08df41a29cbe
-x-checkrecipientrouted: true
-NoDisclaimer: true
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB8182:EE_|DM4PR11MB5311:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0fce5ea7-5386-48a6-45eb-08df41a24816
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|921020|10067099003|11063799006|56012099006|261022075727099003|261022115727099003|261026140227099003|261022113327099003|261026135527099003|261026121527099003|261022105027099003|261026130827099003|261021130227099003|261028144727099003|261021121427099003|261021123027099003|261021133027099003|261021135927099003|261102130727099003|261102123227099003|261009221727099003|261009223327099003|261009221227099003|261009223027099003|261009220027099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info-Original:
- NQs8BvfDhuIBAZjELemlLX5YpVW0j0jc54lzcmfFvgzSmTlzy+3UUa3xBmShmo3EPEZTbWaCXLkttCqgXjzN6ufzz4pYcc3iweuNjpdOEVirMSNzd47RAiDzm745QpExM/QyZOCDBKzjiRsjnbcIRPQny3xziWroskDfCwokQscrfKEgxIszCYuQ2g1TcpqSQmbj0ebtbRYeC/TBykJad+8sZ4gtTfJn0pj/iFnTs5H7AU2pep9dLy9XDmpY9x5LHfftZuZ9nKLkjwZ3VqAM7uLo90tKGZd5rXDHP+N4DTgjy/12IgdlalpcfwxpTbyR6eegoYFue9gyI3l9uqO8XAG1/cMVeDA0AYp6ByEeBjpWLnFyA+gxIga7xDtVyGHLrOKUWVO/Yub8uRAl1VxNeyGsLf+Vt2G8DqaJNzOZRIKU9BgqK2pV/vDQcDYqeGvfhWC3cLgiXyZtag4v+WPfqQHo//QGh2HbIUUSHoLmdSfjOBifvn+/C0kHWEPHyw9e1VIDTkro8BVHWRlaSnSvcdEkOwKVQJBQ7mBgAgvfXhiOX9XKS4O48dEz6MelTBz+DCJ24W2Pf0JlXVNAbM14HalNv9QPFFcUMk0MFdGDl4uzntUJxZ2hPyL3fAA6lcCIrSa27AViX5jdkFPpLef1bG6l3DHGO3OWIfUq8ciORch0u5xvFIUSWj0VVXnJznvvW2PtJzQhDN0rGuWF7Hb6eg==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB10291.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(261022075727099003)(261022115727099003)(261026140227099003)(261022113327099003)(261026135527099003)(261026121527099003)(261022105027099003)(261026130827099003)(261021130227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261021133027099003)(261021135927099003)(261102130727099003)(261102123227099003)(261009221727099003)(261009223327099003)(261009221227099003)(261009223027099003)(261009220027099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- mhi8i2+9h+QHSZOrAqdXMu9CVorcup/x3un9Vwj7/vONFZdxoD4J8ocJZA6XL93u6kHiaBkLW1aIYQTDOFx553QgEWxNEsrmGPQRSqR8rV+XSH/e5HiplgR+5fYciKgnJ7zeFh1U81dXmQBinJJJMaDDShfQyC7aJiHhqGFA0KbOLn0MweUPUTzDUgSPJZD3Odfppu7ara4Ut+gAhw7cr8rffBykbWPNr0nRBkPWSsT0qf/z/U8YFwLdrFLd7TBxydLu6YaQzlOtMIqGeppO161SHpT4mjH63iyujWwPoiTZOxi0pBvP+u76kb0+mBq8fSiXF5CeknlKSaFlweSGqA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR08MB11367
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- WA1PEPF000099CD.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	2b246e76-b7f5-4798-ce1c-08df41a04b82
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|35042699022|36860700016|14060799003|1800799024|82310400026|921020|10067099003|11063799006|261026130827099003|261026135527099003|261021121427099003|261022075727099003|261021130227099003|261021123027099003|261021135927099003|261009221727099003|261009221227099003|261009223327099003|261009223027099003|261021133027099003|261009220027099003|261022115727099003|261102130727099003|261022113327099003|261022105027099003|261102123227099003|261026121527099003|261026140227099003|56012099006|261028144727099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	Uz/gG/o+a0nV+lDrsXtgSyMcpWg7HEgxK97y3SBU66AAyDFZxQCqALxssHoWzdohKWyK1HV3UaTx3zFg1uM2nXU7isZjZ2yuXABjCLzU9IgsposyrpfRqstoQVdfKwoDsrf8a0KNa2X6uQJRj1gUwM4u2RziPna6cacduK/vRPjEhKC/WxOwQjIMDmfgtpol05XJJWvvZAfMmN6LQePvHl0v+jj1CTWt5TiTNEHhMAY0lCAMK9cmWSCCw4zUgsHe9Ei7EsP2Bj4VBwC0RhPTSAflfYWd2OneYtNUxtj9F8vE28frkMUo3o7DnD/QxItWiFbw0ro7JPx82hmlOOXcJCe3s4gJQozuFN4XNWcL5m6SSdps+ly2P9nOp5O8A9/vLU4mLuykgFMBwQF2FHycaodU4Ulhr/aIvi2FmeDyrdkbL5BrbLvXBx7U/BnpY47a1nrWfaSRHGa4BHrWXYshUaz5kkji3KhtQwwA8KeQTubd6zhJc6abacw1q7zxHV46DgLw5fDRXyq+N04hwDNkhoHi8sO6haSnCLIxVwK7eUBSSgKtf0afjPd/tV7XDM7nPSoVeQAX5ksEsJ1l4Yrwd4ubNHkiNPZ+6vKxCMEtxELTDyi8YdnAbakHwuAIBtiQIdoPntXogJzgf6xAGj8p+XAW0AaxJIy4T0+0SovR6u2AK9ufGHZ5G1C55/cGaCB1xuqL+n2ihgh/UTOvBtKU0lqICBOf+k0Rt3mKzfkh/S7rLe7vx/SL6Cg268ngmnlY
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(35042699022)(36860700016)(14060799003)(1800799024)(82310400026)(921020)(10067099003)(11063799006)(261026130827099003)(261026135527099003)(261021121427099003)(261022075727099003)(261021130227099003)(261021123027099003)(261021135927099003)(261009221727099003)(261009221227099003)(261009223327099003)(261009223027099003)(261021133027099003)(261009220027099003)(261022115727099003)(261102130727099003)(261022113327099003)(261022105027099003)(261102123227099003)(261026121527099003)(261026140227099003)(56012099006)(261028144727099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|10067099003|4143699003|5023799004|11063799006|56012099006|261022105027099003|261022075727099003|261026140227099003|261026121527099003|261021121427099003|261022113327099003|261028144727099003|261102123227099003|261021123027099003|261009223027099003|261009220027099003|261009221727099003|261009223327099003|261009221227099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: X+AaUzXdWgCw7BzFUQQCVGm9Erm0aEcsLnrzCp+swIF3UzuI/o9C1aUDH98bQdVd5PHqmKPDfkk2/4BJTBNGoThhtesJU3b83fHst7BsFnibdxhcseoFWMVv3AMkrhUX/XMnTG30dlwupuc9QmGGt9WkIojjNphW/1CIuWkop/zqsNx/kgKPelohJk/xfU9+I60Wzfja0y5v28CtEA32Vs6bjY0s2iQE7Z3ltt/2uKSfMF8lEodVnhQ1dyddOWBD488rp31uvccGMsS1qG4y8MYAGw2FPEj4nLxlWdczUJ3UshKklOgtLYlC5Kzpq0DLpN8OP+ZgN+yDeJp/pmwW+zhMeUO9ueuuwiFiItGhbdvux4Ik9gTIykEu5NMN6KC5zXH0WppuRcRo4WM1gQBcvXGYmCiuMTSDP9pg6kIpBZCzJhPY2WqAtwZeOra+osXVJ5KjfuWOLmyP6KunUo41Fis//8DM2gsqDH3Tp6V5T+Tk8pSnhXrVb+pWq0aQpKJvdOunbzAn1hEfsdO7xJn2uc8tzeF6mUBVYFEN/9D3CBqVN4QC6dzX7B3bHxI8DkacWNgnsHI+iOVXQL0Vl8vKjxKKlH5GVD63cehX8CTORMPOinWYzqn2ZzRdtnF1s3V8d/Wk4jQS6b61YjTIg7M83ClYjNinQlgGoAtO1z1rbnM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8182.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(10067099003)(4143699003)(5023799004)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022113327099003)(261028144727099003)(261102123227099003)(261021123027099003)(261009223027099003)(261009220027099003)(261009221727099003)(261009223327099003)(261009221227099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	BlRKapJbHRe5SzM9PmDCt4KSpu5z4kyAJ+WY4/dW2a5kIveQq0CTaGU5oHYE32BNbtKIyoCcgt1Qoo9jrxbchP/9AsKcubbPkWYpoUXe9v7ffy9mPpcnS1VKu90DnRmNm1/xfXuWohVmvzH8abzcjUtFqt4/x+FiT0xdRkyaDqpbMmH+8LQq41/p//RNBlU1WJXBP7Zihv/fgbzurdOXXpvRR8u8D8kP46vXacw0Lw++wU5pwUOBauTJJzqNUSJs8/Adt/Bxxix/J/Rud3PP8v5B/LAPPoQBWi5Wy4EASiU5cWVc9FiWAAE9bP/qmpTVlRXiqci/H/xs3NdySw1f/peGKG+MIUwsOL34urZ5iYS5r+1p3QL1nCbP0Nh/kTs69wY34H4IAAOEyFQU5uTxsqAVXbO6Jfi9JiWl48a6ALG7KLsopkni7oVO5pH+4RZ5
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 16:24:37.6062
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ff4d+oFOoJY3bx3MW/uRNoStZGGv7qvnRatLrPlDgqP+8vBg+XTVU6qQl4mx?=
+ =?us-ascii?Q?3nJtgxHwGpMwT2ISdmHsqDT59L6ApUCIcJoaPhN26wcVeae3yzGSdz6D73nt?=
+ =?us-ascii?Q?322ju+03HElrzkM1JAYnr2Odd02Hlq7anwbeizd3lUXyUSKN/D2EG08GMKDP?=
+ =?us-ascii?Q?DiRtqYRovjNIRlkGlrS3t40LVtaAHYroi+8Va59suUGZF/swB2jTnAeL/O6N?=
+ =?us-ascii?Q?+d8wwCHmH8WY1cKnOMMpHQLjm3IFixCV+uox4BGhN2M52pn6P9fJZcGkRxIq?=
+ =?us-ascii?Q?IwgaUxWPNzNAwAZcuEAbzc+S9rWpYYRCuLGolt72H3P4UhjIGQgilmFRPewy?=
+ =?us-ascii?Q?gH6mB7sDhxZeAcAlHTP4ZjCeSBNs69t2ad0IaMSAXyRtpN0EaM4o5BkChDPC?=
+ =?us-ascii?Q?QIxQX/TXuP1yPdtXEKyDHsdSj4eyum8ABw5BvpfVpEznzohNhsT4o8bq4mg/?=
+ =?us-ascii?Q?9fZ4l2QAZvtsRWFsQmAiGXke9B4GL5FBDTdOJJcKQa7Cfmgt8rP9bmuAy4gS?=
+ =?us-ascii?Q?C2qkt6ZuPJQxmqGxgefKLFK8AfWxGFR+Q9TB93hFNSLKwDvRo5WqEWIHSJM1?=
+ =?us-ascii?Q?FSMrgpGSlxje6+Nfz0cfe+t71WOXtkf1EyMkqEkvoBX9ZIp7KoWzHd8R9T0z?=
+ =?us-ascii?Q?LlIrU38PA0SE9UewSFv6nsxDxmXEOIv4F48dzKkDID+7k1LHokhsy5pIiriH?=
+ =?us-ascii?Q?9nxi4X2/kiKQgbs7SN4r7YcrlwS1c6gCbn8BhzBp2I/MuFfJ1NYnfMnk7YEx?=
+ =?us-ascii?Q?yRq3rWFzeqVJEbZtO5eBYrMNlXRUKhkomeWVOlkax4+/VFMog4jM+2dRdP8F?=
+ =?us-ascii?Q?kIp/bLrzh9GDvD2YE32a2sBwKcj/xirJlyAJqc2gE2GWPWv38zSqf0b4Q7fO?=
+ =?us-ascii?Q?BiRX5oheo9tYK4+sjgx8rYUbegeWnzP6bwX6XgqLBokQNB3TK6Xyk96QwZSm?=
+ =?us-ascii?Q?KdL8smM1cwtQpCpRc9VLwM0hjo0KZBEKtBgbkCdFXK4odDUf/EYeDoWClRKW?=
+ =?us-ascii?Q?ppWxiP11cNCD6v0SlOxEPZDyMW11x73KgXH6U2mLcu61hmDvI6BEMudUaDP3?=
+ =?us-ascii?Q?LX/tmneuc2abP7VgmXjIz4p7E4vgYg44CDwawnDNxrAC/tHnIaXFXnwyHbMy?=
+ =?us-ascii?Q?xMubo0FU0F3bRA9B8JT4JFL/PdaZr+IqJxcShCFYCDGiF9X4mxTAbUflUZaB?=
+ =?us-ascii?Q?4gNH6eaCKEsaK0dsuqyJE1Vtf+kJCOIj9EybNTcx2w7xgEDUkmZfc3a4wiDm?=
+ =?us-ascii?Q?CwhpPgxxfALxc6XLdq0I/lODpBp/8Qs/JZkArajhJRBB3Oqifj3a5zW09WP2?=
+ =?us-ascii?Q?ds/l53X40I+oXQwxymGl+lDW8zMeo6seHcC356vIDbcOi5WKDniz9Vyun0QU?=
+ =?us-ascii?Q?3bh/JayoMVoit1O45YVPUdsVq/IeI84aTySdBX8qdB1SiphFShK+9uCc0qgn?=
+ =?us-ascii?Q?Rg1IlNbMIGeifNa9sEpPmzZscTVuf1na26lbvwb3eRAMQ58WIFIvOzC8lNe2?=
+ =?us-ascii?Q?OFdOeBRK+X7IYA8/ejLsOFAYf0lINYgeIJqGrLCh5p8SappX8UNdvZkNck3G?=
+ =?us-ascii?Q?PLwJE2jP0PeW1bb5d7l9ShQqOYsD8fE+tWh95LHEKquoCBQPhTIDaNI+KLFO?=
+ =?us-ascii?Q?0VMtQbzai13fUph/ofVijLXeuC0fDcUCoOk66Hc9TWHSisuUkpYCVohp9bmQ?=
+ =?us-ascii?Q?jgwaaymqZx5Q6qvp6o2Y2HloUJcjjXtW6gX/IwQdXz50ooy4KYLFwK5gkW5e?=
+ =?us-ascii?Q?5PO1Iwp3dVh8Zcp91+V/dv+xL4R3QzI=3D?=
+X-Exchange-RoutingPolicyChecked: dry8mow0sLiY0l/8QUArI89BorUl8GR25vZIIpxHVsjcbTsMe/j8UEzb3adBlF2J/D4HAsmav+9Og5M8yzEVlKgQfInp5iNSx3ZIe+1upfS6LpjOo84jxXq4gFEmdcktU8bNRCdZAs44rHgJTIvHOfdK57eCfeF0kdT8O1QuOswGjNaIat7uZLfDV57/m2lgpDE2w+dcvKzELXk1YB9Z1EazHHUqr39/fetRo3QX5J959xTyeoePK7SS40VpiaLQOnkTbRTM/k8Pna9RYI6Y3CXtp8ZtC0y77+MtEafiW2m7TLQHoIIc3hIuIfXWS0JcaDuxDQsPVkjHMqK+4t2R8Q==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fce5ea7-5386-48a6-45eb-08df41a24816
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8182.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 16:22:16.4705
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48844446-cabf-44d0-e292-08df41a29cbe
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	WA1PEPF000099CD.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI7PR08MB846158
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ebVWG/zwlwjB4K3Td+qPuC67B6Ut00VtPIvS7wqITu4dmBOpsZoJ4xGBO9ja5vqBt0A/Aje6Tg7pBrslbmQkbpJM5tqrpw3QCUCM/KHe4Hs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5311
+X-OriginatorOrg: intel.com
 
-Generated with a simple Coccinelle patch found in
-scripts/coccinelle/api/struct_offsetof.cocci
+On Wed, Nov 11, 2026 at 02:01:45PM -0500, Rodrigo Vivi wrote:
+> On Mon, Oct 26, 2026 at 11:25:50AM +0100, Arnd Bergmann wrote:
+> > From: Arnd Bergmann <arnd@arndb.de>
+> > 
+> > The original addition of configfs to xe missed a compile-time dependency,
+> > which leads to a link failure when configfs is enabled as a loadable module:
+> > 
+> > ld.lld-21: error: undefined symbol: xe_configfs_get_survivability_mode
+> > >>> referenced by xe_survivability_mode.c:224
+> > >>>               drivers/gpu/drm/xe/xe_survivability_mode.o:(xe_survivability_mode_is_requested) in archive vmlinux.a
+> > 
+> > A recent workaround added a 'IS_REACHABLE()' check around the calls into
+> > configfs, which makes it link in this configuration, but this is generally
+> > a bad idea because it makes the actual behavior inconsistent and confusing
+> > to users that expect configfs to work if both xe and configfs are enabled.
+> > 
+> > Use 'select CONFIGFS_FS' instead, like every other configfs user does,
+> > and remove the unnecessary stub functions. There is little practical
+> > difference here as anyone using XE graphics is likely to have a complex
+> > configuration that already selects configfs anyway, and the link error
+> > or the IS_REACHABLE() would only manifest during randconfig testing.
+> > 
+> > Fixes: 30499cbd7961 ("drm/xe: Fix build with DRM_XE=y and CONFIGFS_FS=m")
+> > Fixes: 16280ded45fb ("drm/xe: Add configfs to enable survivability mode")
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > ---
+> >  drivers/gpu/drm/xe/Kconfig       |  1 +
+> >  drivers/gpu/drm/xe/xe_configfs.h | 30 ------------------------------
+> >  2 files changed, 1 insertion(+), 30 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
+> > index 4fc8abdc5cb6..b52a8dc28f97 100644
+> > --- a/drivers/gpu/drm/xe/Kconfig
+> > +++ b/drivers/gpu/drm/xe/Kconfig
+> > @@ -11,6 +11,7 @@ config DRM_XE
+> >  	# the shmem_readpage() which depends upon tmpfs
+> >  	select SHMEM
+> >  	select TMPFS
+> > +	select CONFIGFS_FS
+> 
+> Perhaps another option would be what Jani had suggested:
+> 
+> config DRM_XE_CONFIGFS
+> 	def_bool y
+> 	depends on DRM_XE && CONFIGFS_FS
+> 	depends on CONFIGFS_FS=y || DRM_XE=m
+> 
+> But anyway, we are depending more and more on the configfs for
+> production choices. So, let's go with you select and close this
+> for good.
 
-Signed-off-by: Bence Csokas <bence.csokas@arm.com>
----
- drivers/bluetooth/btmrvl_main.c                    | 12 +++++-----
- drivers/dma-buf/dma-resv.c                         |  2 +-
- drivers/firmware/arm_scmi/base.c                   |  2 +-
- drivers/gpu/drm/drm_edid.c                         | 26 +++++++++++-----------
- drivers/gpu/drm/i915/gem/i915_gem_object.c         |  4 ++--
- drivers/gpu/drm/i915/i915_active.c                 |  2 +-
- drivers/gpu/drm/i915/i915_sw_fence_work.c          |  2 +-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c            | 12 +++++-----
- drivers/infiniband/hw/bnxt_re/qplib_fp.c           |  2 +-
- drivers/infiniband/hw/hns/hns_roce_cq.c            |  4 ++--
- drivers/infiniband/hw/hns/hns_roce_qp.c            |  6 ++---
- drivers/media/usb/uvc/uvc_v4l2.c                   |  4 ++--
- drivers/net/hyperv/rndis_filter.c                  |  2 +-
- drivers/net/wireless/intel/iwlwifi/iwl-drv.c       |  2 +-
- drivers/net/wireless/intel/iwlwifi/mvm/rs-fw.c     |  2 +-
- drivers/net/wireless/intel/iwlwifi/mvm/rs.c        |  2 +-
- .../net/wireless/intel/iwlwifi/pcie/ctxt-info-v2.c |  5 ++---
- drivers/net/wireless/realtek/rtl8xxxu/core.c       |  2 +-
- drivers/net/wireless/realtek/rtw88/fw.c            |  2 +-
- drivers/net/wireless/realtek/rtw89/core.c          |  2 +-
- drivers/net/wireless/realtek/rtw89/fw.c            |  8 +++----
- drivers/net/wireless/virtual/mac80211_hwsim_main.c |  4 ++--
- drivers/platform/chrome/cros_ec_lightbar.c         |  4 ++--
- drivers/scsi/qla2xxx/qla_gs.c                      |  2 +-
- drivers/scsi/qla2xxx/qla_mbx.c                     |  2 +-
- drivers/scsi/qla2xxx/qla_os.c                      |  2 +-
- drivers/scsi/qla2xxx/qla_tmpl.c                    |  4 ++--
- drivers/scsi/scsi_transport_fc.c                   |  2 +-
- 29 files changed, 63 insertions(+), 64 deletions(-)
+I really don't think this patch was the way we wanted to go.
+IS_REACHABLE was giving us exactly the behavior that we wanted, but now
+we're getting behavior that we did not want.  Xe absolutely does not
+depend on configfs in any way.  _If_ configfs is there we'll enable some
+config options in it, but none of those are mandatory for our driver as
+a whole.  We're perfectly happy to build and run without configfs if
+it's not selected in the config.  We're also happy to build and run
+without configfs functionality if the user wanted Xe built directly into
+the kernel, but configfs was built as an unreachable module solely for
+other non-Xe purposes.
 
-diff --git a/drivers/bluetooth/btmrvl_main.c b/drivers/bluetooth/btmrvl_main.c
-index d449fbdde464..cd98beaf6cb6 100644
---- a/drivers/bluetooth/btmrvl_main.c
-+++ b/drivers/bluetooth/btmrvl_main.c
-@@ -81,7 +81,7 @@ int btmrvl_process_event(struct btmrvl_private *priv, struct sk_buff *skb)
- 	struct btmrvl_event *event;
- 	int ret = 0;
- 
--	if (skb->len <= offsetof(typeof(*event), data[0]))
-+	if (skb->len <= struct_offset(event, data[0]))
- 		return -EINVAL;
- 
- 	event = (struct btmrvl_event *) skb->data;
-@@ -92,7 +92,7 @@ int btmrvl_process_event(struct btmrvl_private *priv, struct sk_buff *skb)
- 
- 	switch (event->data[0]) {
- 	case BT_EVENT_AUTO_SLEEP_MODE:
--		if (skb->len <= offsetof(typeof(*event), data[2]))
-+		if (skb->len <= struct_offset(event, data[2]))
- 			return -EINVAL;
- 		if (!event->data[2]) {
- 			if (event->data[1] == BT_PS_ENABLE)
-@@ -107,7 +107,7 @@ int btmrvl_process_event(struct btmrvl_private *priv, struct sk_buff *skb)
- 		break;
- 
- 	case BT_EVENT_HOST_SLEEP_CONFIG:
--		if (skb->len <= offsetof(typeof(*event), data[3]))
-+		if (skb->len <= struct_offset(event, data[3]))
- 			return -EINVAL;
- 		if (!event->data[3])
- 			BT_DBG("gpio=%x, gap=%x", event->data[1],
-@@ -117,7 +117,7 @@ int btmrvl_process_event(struct btmrvl_private *priv, struct sk_buff *skb)
- 		break;
- 
- 	case BT_EVENT_HOST_SLEEP_ENABLE:
--		if (skb->len <= offsetof(typeof(*event), data[1]))
-+		if (skb->len <= struct_offset(event, data[1]))
- 			return -EINVAL;
- 		if (!event->data[1]) {
- 			adapter->hs_state = HS_ACTIVATED;
-@@ -131,7 +131,7 @@ int btmrvl_process_event(struct btmrvl_private *priv, struct sk_buff *skb)
- 		break;
- 
- 	case BT_EVENT_MODULE_CFG_REQ:
--		if (skb->len <= offsetof(typeof(*event), data[2]))
-+		if (skb->len <= struct_offset(event, data[2]))
- 			return -EINVAL;
- 		if (priv->btmrvl_dev.sendcmdflag &&
- 				event->data[1] == MODULE_BRINGUP_REQ) {
-@@ -150,7 +150,7 @@ int btmrvl_process_event(struct btmrvl_private *priv, struct sk_buff *skb)
- 		break;
- 
- 	case BT_EVENT_POWER_STATE:
--		if (skb->len <= offsetof(typeof(*event), data[1]))
-+		if (skb->len <= struct_offset(event, data[1]))
- 			return -EINVAL;
- 		if (event->data[1] == BT_PS_SLEEP)
- 			adapter->ps_state = PS_SLEEP;
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index 2365a6d8ca15..a751a972aea1 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -108,7 +108,7 @@ static struct dma_resv_list *dma_resv_list_alloc(unsigned int max_fences)
- 		return NULL;
- 
- 	/* Given the resulting bucket size, recalculated max_fences. */
--	list->max_fences = (size - offsetof(typeof(*list), table)) /
-+	list->max_fences = (size - struct_offset(list, table)) /
- 		sizeof(*list->table);
- 
- 	return list;
-diff --git a/drivers/firmware/arm_scmi/base.c b/drivers/firmware/arm_scmi/base.c
-index a9cea09355ff..12b8cceb3d20 100644
---- a/drivers/firmware/arm_scmi/base.c
-+++ b/drivers/firmware/arm_scmi/base.c
-@@ -340,7 +340,7 @@ static void *scmi_base_fill_custom_report(const struct scmi_protocol_handle *ph,
- 	if (evt_id != SCMI_EVENT_BASE_ERROR_EVENT || sizeof(*p) < payld_sz)
- 		return NULL;
- 
--	expected_sz = offsetof(typeof(*p), msg_reports);
-+	expected_sz = struct_offset(p, msg_reports);
- 	if (payld_sz < expected_sz)
- 		return NULL;
- 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index b8f882a17c8f..b48c06134276 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -3124,9 +3124,9 @@ EXPORT_SYMBOL(drm_mode_find_dmt);
- 
- static bool is_display_descriptor(const struct detailed_timing *descriptor, u8 type)
- {
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), pixel_clock) != 0);
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.pad1) != 2);
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.type) != 3);
-+	BUILD_BUG_ON(struct_offset(descriptor, pixel_clock) != 0);
-+	BUILD_BUG_ON(struct_offset(descriptor, data.other_data.pad1) != 2);
-+	BUILD_BUG_ON(struct_offset(descriptor, data.other_data.type) != 3);
- 
- 	return descriptor->pixel_clock == 0 &&
- 		descriptor->data.other_data.pad1 == 0 &&
-@@ -3135,7 +3135,7 @@ static bool is_display_descriptor(const struct detailed_timing *descriptor, u8 t
- 
- static bool is_detailed_timing_descriptor(const struct detailed_timing *descriptor)
- {
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), pixel_clock) != 0);
-+	BUILD_BUG_ON(struct_offset(descriptor, pixel_clock) != 0);
- 
- 	return descriptor->pixel_clock != 0;
- }
-@@ -3207,8 +3207,8 @@ is_rb(const struct detailed_timing *descriptor, void *data)
- 	if (!is_display_descriptor(descriptor, EDID_DETAIL_MONITOR_RANGE))
- 		return;
- 
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.flags) != 10);
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.cvt.flags) != 15);
-+	BUILD_BUG_ON(struct_offset(descriptor, data.other_data.data.range.flags) != 10);
-+	BUILD_BUG_ON(struct_offset(descriptor, data.other_data.data.range.formula.cvt.flags) != 15);
- 
- 	if (descriptor->data.other_data.data.range.flags == DRM_EDID_CVT_SUPPORT_FLAG &&
- 	    descriptor->data.other_data.data.range.formula.cvt.flags & DRM_EDID_CVT_FLAGS_REDUCED_BLANKING)
-@@ -3237,7 +3237,7 @@ find_gtf2(const struct detailed_timing *descriptor, void *data)
- 	if (!is_display_descriptor(descriptor, EDID_DETAIL_MONITOR_RANGE))
- 		return;
- 
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.flags) != 10);
-+	BUILD_BUG_ON(struct_offset(descriptor, data.other_data.data.range.flags) != 10);
- 
- 	if (descriptor->data.other_data.data.range.flags == DRM_EDID_SECONDARY_GTF_SUPPORT_FLAG)
- 		*res = descriptor;
-@@ -3251,7 +3251,7 @@ drm_gtf2_hbreak(const struct drm_edid *drm_edid)
- 
- 	drm_for_each_detailed_block(drm_edid, find_gtf2, &descriptor);
- 
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.gtf2.hfreq_start_khz) != 12);
-+	BUILD_BUG_ON(struct_offset(descriptor, data.other_data.data.range.formula.gtf2.hfreq_start_khz) != 12);
- 
- 	return descriptor ? descriptor->data.other_data.data.range.formula.gtf2.hfreq_start_khz * 2 : 0;
- }
-@@ -3263,7 +3263,7 @@ drm_gtf2_2c(const struct drm_edid *drm_edid)
- 
- 	drm_for_each_detailed_block(drm_edid, find_gtf2, &descriptor);
- 
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.gtf2.c) != 13);
-+	BUILD_BUG_ON(struct_offset(descriptor, data.other_data.data.range.formula.gtf2.c) != 13);
- 
- 	return descriptor ? descriptor->data.other_data.data.range.formula.gtf2.c : 0;
- }
-@@ -3275,7 +3275,7 @@ drm_gtf2_m(const struct drm_edid *drm_edid)
- 
- 	drm_for_each_detailed_block(drm_edid, find_gtf2, &descriptor);
- 
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.gtf2.m) != 14);
-+	BUILD_BUG_ON(struct_offset(descriptor, data.other_data.data.range.formula.gtf2.m) != 14);
- 
- 	return descriptor ? le16_to_cpu(descriptor->data.other_data.data.range.formula.gtf2.m) : 0;
- }
-@@ -3287,7 +3287,7 @@ drm_gtf2_k(const struct drm_edid *drm_edid)
- 
- 	drm_for_each_detailed_block(drm_edid, find_gtf2, &descriptor);
- 
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.gtf2.k) != 16);
-+	BUILD_BUG_ON(struct_offset(descriptor, data.other_data.data.range.formula.gtf2.k) != 16);
- 
- 	return descriptor ? descriptor->data.other_data.data.range.formula.gtf2.k : 0;
- }
-@@ -3299,7 +3299,7 @@ drm_gtf2_2j(const struct drm_edid *drm_edid)
- 
- 	drm_for_each_detailed_block(drm_edid, find_gtf2, &descriptor);
- 
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.gtf2.j) != 17);
-+	BUILD_BUG_ON(struct_offset(descriptor, data.other_data.data.range.formula.gtf2.j) != 17);
- 
- 	return descriptor ? descriptor->data.other_data.data.range.formula.gtf2.j : 0;
- }
-@@ -3312,7 +3312,7 @@ get_timing_level(const struct detailed_timing *descriptor, void *data)
- 	if (!is_display_descriptor(descriptor, EDID_DETAIL_MONITOR_RANGE))
- 		return;
- 
--	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.flags) != 10);
-+	BUILD_BUG_ON(struct_offset(descriptor, data.other_data.data.range.flags) != 10);
- 
- 	switch (descriptor->data.other_data.data.range.flags) {
- 	case DRM_EDID_DEFAULT_GTF_SUPPORT_FLAG:
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index 9e01f8b2079a..598c1271cae1 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -101,8 +101,8 @@ void i915_gem_object_init(struct drm_i915_gem_object *obj,
- 	 * A gem object is embedded both in a struct ttm_buffer_object :/ and
- 	 * in a drm_i915_gem_object. Make sure they are aliased.
- 	 */
--	BUILD_BUG_ON(offsetof(typeof(*obj), base) !=
--		     offsetof(typeof(*obj), __do_not_access.base));
-+	BUILD_BUG_ON(struct_offset(obj, base) !=
-+		     struct_offset(obj, __do_not_access.base));
- 
- 	spin_lock_init(&obj->vma.lock);
- 	INIT_LIST_HEAD(&obj->vma.list);
-diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-index b2442f05825e..48a773b3cde9 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -263,7 +263,7 @@ static struct active_node *__active_lookup(struct i915_active *ref, u64 idx)
- 			return it;
- 	}
- 
--	BUILD_BUG_ON(offsetof(typeof(*it), node));
-+	BUILD_BUG_ON(struct_offset(it, node));
- 
- 	/* While active, the tree can only be built; not destroyed */
- 	GEM_BUG_ON(i915_active_is_idle(ref));
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence_work.c b/drivers/gpu/drm/i915/i915_sw_fence_work.c
-index 366418108f78..c059bb1e9492 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence_work.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence_work.c
-@@ -70,7 +70,7 @@ static void fence_release(struct dma_fence *fence)
- 
- 	i915_sw_fence_fini(&f->chain);
- 
--	BUILD_BUG_ON(offsetof(typeof(*f), dma));
-+	BUILD_BUG_ON(struct_offset(f, dma));
- 	dma_fence_free(&f->dma);
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-index 63aa30f94747..67dab90119bd 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-@@ -1169,7 +1169,7 @@ r535_gsp_shared_init(struct nvkm_gsp *gsp)
- 	cmdq->tx.msgCount = (cmdq->tx.size - cmdq->tx.entryOff) / cmdq->tx.msgSize;
- 	cmdq->tx.writePtr = 0;
- 	cmdq->tx.flags = 1;
--	cmdq->tx.rxHdrOff = offsetof(typeof(*cmdq), rx.readPtr);
-+	cmdq->tx.rxHdrOff = struct_offset(cmdq, rx.readPtr);
- 
- 	msgq = gsp->shm.msgq.ptr;
- 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-index a9136a6523cb..247f6d9b4494 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-@@ -2609,12 +2609,12 @@ static int vmw_cmd_dx_check_subresource(struct vmw_private *dev_priv,
- 		};
- 	} *cmd;
- 
--	BUILD_BUG_ON(offsetof(typeof(*cmd), r_body.sid) !=
--		     offsetof(typeof(*cmd), sid));
--	BUILD_BUG_ON(offsetof(typeof(*cmd), i_body.sid) !=
--		     offsetof(typeof(*cmd), sid));
--	BUILD_BUG_ON(offsetof(typeof(*cmd), u_body.sid) !=
--		     offsetof(typeof(*cmd), sid));
-+	BUILD_BUG_ON(struct_offset(cmd, r_body.sid) !=
-+		     struct_offset(cmd, sid));
-+	BUILD_BUG_ON(struct_offset(cmd, i_body.sid) !=
-+		     struct_offset(cmd, sid));
-+	BUILD_BUG_ON(struct_offset(cmd, u_body.sid) !=
-+		     struct_offset(cmd, sid));
- 
- 	cmd = container_of(header, typeof(*cmd), header);
- 	return vmw_cmd_res_check(dev_priv, sw_context, vmw_res_surface,
-diff --git a/drivers/infiniband/hw/bnxt_re/qplib_fp.c b/drivers/infiniband/hw/bnxt_re/qplib_fp.c
-index 5301e4f21ade..1662aeebf134 100644
---- a/drivers/infiniband/hw/bnxt_re/qplib_fp.c
-+++ b/drivers/infiniband/hw/bnxt_re/qplib_fp.c
-@@ -780,7 +780,7 @@ int bnxt_qplib_post_srq_recv(struct bnxt_qplib_srq *srq,
- 	srqe->wqe_type = wqe->type;
- 	srqe->flags = wqe->flags;
- 	srqe->wqe_size = wqe->num_sge +
--			((offsetof(typeof(*srqe), data) + 15) >> 4);
-+			((struct_offset(srqe, data) + 15) >> 4);
- 	srqe->wr_id[0] = cpu_to_le32((u32)next);
- 	srq->swq[next].wr_id = wqe->wr_id;
- 
-diff --git a/drivers/infiniband/hw/hns/hns_roce_cq.c b/drivers/infiniband/hw/hns/hns_roce_cq.c
-index 7dfaa01cda67..df4d57c4e85e 100644
---- a/drivers/infiniband/hw/hns/hns_roce_cq.c
-+++ b/drivers/infiniband/hw/hns/hns_roce_cq.c
-@@ -287,7 +287,7 @@ static int alloc_cq_db(struct hns_roce_dev *hr_dev, struct hns_roce_cq *hr_cq,
- 
- 	if (udata) {
- 		if (has_db &&
--		    udata->outlen >= offsetofend(typeof(*resp), cap_flags)) {
-+		    udata->outlen >= struct_offsetofend(resp, cap_flags)) {
- 			uctx = rdma_udata_to_drv_context(udata,
- 					struct hns_roce_ucontext, ibucontext);
- 			err = hns_roce_db_map_user(uctx, addr, &hr_cq->db);
-@@ -378,7 +378,7 @@ static int set_cqe_size(struct hns_roce_cq *hr_cq, struct ib_udata *udata,
- 		return 0;
- 	}
- 
--	if (udata->inlen >= offsetofend(typeof(*ucmd), cqe_size)) {
-+	if (udata->inlen >= struct_offsetofend(ucmd, cqe_size)) {
- 		if (ucmd->cqe_size != HNS_ROCE_V2_CQE_SIZE &&
- 		    ucmd->cqe_size != HNS_ROCE_V3_CQE_SIZE) {
- 			ibdev_err(&hr_dev->ib_dev,
-diff --git a/drivers/infiniband/hw/hns/hns_roce_qp.c b/drivers/infiniband/hw/hns/hns_roce_qp.c
-index c6c0dfdbdbc3..e46c6cc1e3ee 100644
---- a/drivers/infiniband/hw/hns/hns_roce_qp.c
-+++ b/drivers/infiniband/hw/hns/hns_roce_qp.c
-@@ -836,9 +836,9 @@ static inline bool user_qp_has_sdb(struct hns_roce_dev *hr_dev,
- 				   struct hns_roce_ib_create_qp *ucmd)
- {
- 	return ((hr_dev->caps.flags & HNS_ROCE_CAP_FLAG_QP_RECORD_DB) &&
--		udata->outlen >= offsetofend(typeof(*resp), cap_flags) &&
-+		udata->outlen >= struct_offsetofend(resp, cap_flags) &&
- 		hns_roce_qp_has_sq(init_attr) &&
--		udata->inlen >= offsetofend(typeof(*ucmd), sdb_addr));
-+		udata->inlen >= struct_offsetofend(ucmd, sdb_addr));
- }
- 
- static inline bool user_qp_has_rdb(struct hns_roce_dev *hr_dev,
-@@ -847,7 +847,7 @@ static inline bool user_qp_has_rdb(struct hns_roce_dev *hr_dev,
- 				   struct hns_roce_ib_create_qp_resp *resp)
- {
- 	return ((hr_dev->caps.flags & HNS_ROCE_CAP_FLAG_QP_RECORD_DB) &&
--		udata->outlen >= offsetofend(typeof(*resp), cap_flags) &&
-+		udata->outlen >= struct_offsetofend(resp, cap_flags) &&
- 		hns_roce_qp_has_rq(init_attr));
- }
- 
-diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/uvc_v4l2.c
-index 644c2f1cd8e6..4cf876f4b7ea 100644
---- a/drivers/media/usb/uvc/uvc_v4l2.c
-+++ b/drivers/media/usb/uvc/uvc_v4l2.c
-@@ -1108,7 +1108,7 @@ static int uvc_v4l2_get_xu_mapping(struct uvc_xu_control_mapping *kp,
- static int uvc_v4l2_put_xu_mapping(const struct uvc_xu_control_mapping *kp,
- 			struct uvc_xu_control_mapping32 __user *up)
- {
--	if (copy_to_user(up, kp, offsetof(typeof(*up), menu_info)) ||
-+	if (copy_to_user(up, kp, struct_offset(up, menu_info)) ||
- 	    put_user(kp->menu_count, &up->menu_count))
- 		return -EFAULT;
- 
-@@ -1147,7 +1147,7 @@ static int uvc_v4l2_get_xu_query(struct uvc_xu_control_query *kp,
- static int uvc_v4l2_put_xu_query(const struct uvc_xu_control_query *kp,
- 			struct uvc_xu_control_query32 __user *up)
- {
--	if (copy_to_user(up, kp, offsetof(typeof(*up), data)))
-+	if (copy_to_user(up, kp, struct_offset(up, data)))
- 		return -EFAULT;
- 	return 0;
- }
-diff --git a/drivers/net/hyperv/rndis_filter.c b/drivers/net/hyperv/rndis_filter.c
-index 962251327506..efebabd1ae04 100644
---- a/drivers/net/hyperv/rndis_filter.c
-+++ b/drivers/net/hyperv/rndis_filter.c
-@@ -1041,7 +1041,7 @@ static int rndis_filter_set_packet_filter(struct rndis_device *dev,
- 	set = &request->request_msg.msg.set_req;
- 	set->oid = RNDIS_OID_GEN_CURRENT_PACKET_FILTER;
- 	set->info_buflen = sizeof(u32);
--	set->info_buf_offset = offsetof(typeof(*set), info_buf);
-+	set->info_buf_offset = struct_offset(set, info_buf);
- 	memcpy(set->info_buf, &new_filter, sizeof(u32));
- 
- 	ret = rndis_filter_send_request(dev, request);
-diff --git a/drivers/net/wireless/intel/iwlwifi/iwl-drv.c b/drivers/net/wireless/intel/iwlwifi/iwl-drv.c
-index 0982e60842b1..01bdc0e9635d 100644
---- a/drivers/net/wireless/intel/iwlwifi/iwl-drv.c
-+++ b/drivers/net/wireless/intel/iwlwifi/iwl-drv.c
-@@ -736,7 +736,7 @@ static void iwl_parse_dbg_tlv_assert_tables(struct iwl_drv *drv,
- 	u32 length = le32_to_cpu(tlv->length);
- 	u32 addr;
- 
--	if (length < offsetof(typeof(*region), special_mem) +
-+	if (length < struct_offset(region, special_mem) +
- 		     sizeof(region->special_mem))
- 		return;
- 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/rs-fw.c b/drivers/net/wireless/intel/iwlwifi/mvm/rs-fw.c
-index e2382be8edd7..5faa97a420d8 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/rs-fw.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/rs-fw.c
-@@ -625,7 +625,7 @@ void iwl_mvm_rs_fw_rate_init(struct iwl_mvm *mvm,
- 	cfg_cmd.sta_id = mvm_link_sta->sta_id;
- 
- 	lq_sta = &mvm_link_sta->lq_sta.rs_fw;
--	memset(lq_sta, 0, offsetof(typeof(*lq_sta), pers));
-+	memset(lq_sta, 0, struct_offset(lq_sta, pers));
- 
- 	rcu_read_unlock();
- 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/rs.c b/drivers/net/wireless/intel/iwlwifi/mvm/rs.c
-index d1619a229d8f..da0669155a3b 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/rs.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/rs.c
-@@ -2939,7 +2939,7 @@ static void rs_drv_rate_init(struct iwl_mvm *mvm, struct ieee80211_sta *sta,
- 	lockdep_assert_held(&mvmsta->deflink.lq_sta.rs_drv.pers.lock);
- 
- 	/* clear all non-persistent lq data */
--	memset(lq_sta, 0, offsetof(typeof(*lq_sta), pers));
-+	memset(lq_sta, 0, struct_offset(lq_sta, pers));
- 
- 	sband = hw->wiphy->bands[band];
- 
-diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/ctxt-info-v2.c b/drivers/net/wireless/intel/iwlwifi/pcie/ctxt-info-v2.c
-index 0009a05511af..a5a065275f18 100644
---- a/drivers/net/wireless/intel/iwlwifi/pcie/ctxt-info-v2.c
-+++ b/drivers/net/wireless/intel/iwlwifi/pcie/ctxt-info-v2.c
-@@ -241,7 +241,7 @@ int iwl_pcie_ctxt_info_v2_alloc(struct iwl_trans *trans,
- 	 * optional; old devices _should_ be fine with a bigger size,
- 	 * but in simulation we check the size more precisely.
- 	 */
--	BUILD_BUG_ON(offsetofend(typeof(*prph_scratch), dram.common) +
-+	BUILD_BUG_ON(struct_offsetofend(prph_scratch, dram.common) +
- 		     sizeof(prph_scratch->dram.fseq_img) !=
- 		     sizeof(*prph_scratch));
- 	if (control_flags_ext & IWL_PRPH_SCRATCH_EXT_EXT_FSEQ)
-@@ -249,8 +249,7 @@ int iwl_pcie_ctxt_info_v2_alloc(struct iwl_trans *trans,
- 			cpu_to_le32(sizeof(*prph_scratch));
- 	else
- 		ctxt_info_v2->prph_scratch_size =
--			cpu_to_le32(offsetofend(typeof(*prph_scratch),
--						dram.common));
-+			cpu_to_le32(struct_offsetofend(prph_scratch, dram.common));
- 
- 	ctxt_info_v2->cr_head_idx_arr_base_addr =
- 		cpu_to_le64(trans_pcie->rxq->rb_stts_dma);
-diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-index 3d0c22db30a8..79b4bb78b17a 100644
---- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
-+++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-@@ -6167,7 +6167,7 @@ static void rtl8xxxu_c2hcmd_callback(struct work_struct *work)
- 		case C2H_8723B_RA_REPORT:
- 			bw = rarpt->txrate.bw;
- 
--			if (skb->len >= offsetofend(typeof(*c2h), ra_report.bw)) {
-+			if (skb->len >= struct_offsetofend(c2h, ra_report.bw)) {
- 				if (c2h->ra_report.bw == RTL8XXXU_CHANNEL_WIDTH_40)
- 					bw = RATE_INFO_BW_40;
- 				else
-diff --git a/drivers/net/wireless/realtek/rtw88/fw.c b/drivers/net/wireless/realtek/rtw88/fw.c
-index 945fedcd375b..d1a1a492d146 100644
---- a/drivers/net/wireless/realtek/rtw88/fw.c
-+++ b/drivers/net/wireless/realtek/rtw88/fw.c
-@@ -159,7 +159,7 @@ static void rtw_fw_ra_report_iter(void *data, struct ieee80211_sta *sta)
- 
- 	rate = u8_get_bits(ra_rpt->rate_sgi, RTW_C2H_RA_RPT_RATE);
- 	sgi = u8_get_bits(ra_rpt->rate_sgi, RTW_C2H_RA_RPT_SGI);
--	if (ra_data->length >= offsetofend(typeof(*ra_rpt), bw))
-+	if (ra_data->length >= struct_offsetofend(ra_rpt, bw))
- 		bw = ra_rpt->bw;
- 	else
- 		bw = si->bw_mode;
-diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
-index 5220f74d15d2..85b04a610920 100644
---- a/drivers/net/wireless/realtek/rtw89/core.c
-+++ b/drivers/net/wireless/realtek/rtw89/core.c
-@@ -2605,7 +2605,7 @@ static void rtw89_vif_sync_bcn_tsf(struct rtw89_vif_link *rtwvif_link,
- {
- 	struct ieee80211_mgmt *mgmt = (typeof(mgmt))hdr;
- 
--	if (len < offsetof(typeof(*mgmt), u.beacon.variable))
-+	if (len < struct_offset(mgmt, u.beacon.variable))
- 		return;
- 
- 	WRITE_ONCE(rtwvif_link->sync_bcn_tsf, le64_to_cpu(mgmt->u.beacon.timestamp));
-diff --git a/drivers/net/wireless/realtek/rtw89/fw.c b/drivers/net/wireless/realtek/rtw89/fw.c
-index 21b548c63c78..a4b6514a0ce5 100644
---- a/drivers/net/wireless/realtek/rtw89/fw.c
-+++ b/drivers/net/wireless/realtek/rtw89/fw.c
-@@ -8067,11 +8067,11 @@ int rtw89_fw_h2c_scan_list_offload_be(struct rtw89_dev *rtwdev, int ch_num,
- 
- 	if (RTW89_CHK_FW_FEATURE(CH_INFO_BE_V0, &rtwdev->fw)) {
- 		ver = 0;
--		elem_size = offsetofend(typeof(*elem), w7);
-+		elem_size = struct_offsetofend(elem, w7);
- 		used_len = sizeof(*h2c) + elem_size * ch_num;
- 	} else if (RTW89_CHK_FW_FEATURE(CH_INFO_BE_V1, &rtwdev->fw)) {
- 		ver = 1;
--		elem_size = offsetofend(typeof(*elem), w7);
-+		elem_size = struct_offsetofend(elem, w7);
- 		used_len = sizeof(*h2c) + elem_size * ch_num;
- 	}
- 
-@@ -8350,10 +8350,10 @@ int rtw89_fw_h2c_scan_offload_be(struct rtw89_dev *rtwdev,
- 	rtw89_scan_get_6g_disabled_chan(rtwdev, option);
- 
- 	if (RTW89_CHK_FW_FEATURE(SCAN_OFFLOAD_BE_V0, &rtwdev->fw)) {
--		cfg_len = offsetofend(typeof(*h2c), w8);
-+		cfg_len = struct_offsetofend(h2c, w8);
- 		scan_offload_ver = 0;
- 	} else if (RTW89_CHK_FW_FEATURE(SCAN_OFFLOAD_BE_V1, &rtwdev->fw)) {
--		cfg_len = offsetofend(typeof(*h2c), w9);
-+		cfg_len = struct_offsetofend(h2c, w9);
- 		scan_offload_ver = 1;
- 	} else if (RTW89_CHK_FW_FEATURE(SCAN_OFFLOAD_BE_V2, &rtwdev->fw)) {
- 		scan_offload_ver = 2;
-diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-index 49ec2948c68a..f1c3938b429a 100644
---- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-+++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-@@ -1622,12 +1622,12 @@ static void mac80211_hwsim_write_tsf(struct mac80211_hwsim_data *data,
- 	if (txrate)
- 		bitrate = txrate->bitrate;
- 
--	if (skb->len >= offsetofend(typeof(*mgmt), u.probe_resp.timestamp) &&
-+	if (skb->len >= struct_offsetofend(mgmt, u.probe_resp.timestamp) &&
- 	    ieee80211_is_probe_resp(hdr->frame_control)) {
- 		mgmt->u.probe_resp.timestamp =
- 			cpu_to_le64(sim_time + data->tsf_offset +
- 				    24 * 8 * 10 / bitrate);
--	} else if (skb->len >= offsetofend(typeof(*mgmt), u.beacon.timestamp) &&
-+	} else if (skb->len >= struct_offsetofend(mgmt, u.beacon.timestamp) &&
- 		   ieee80211_is_beacon(mgmt->frame_control)) {
- 		mgmt->u.beacon.timestamp = cpu_to_le64(sim_time +
- 						       data->tsf_offset +
-diff --git a/drivers/platform/chrome/cros_ec_lightbar.c b/drivers/platform/chrome/cros_ec_lightbar.c
-index 96dde19b15fa..df2a0dfe7cc3 100644
---- a/drivers/platform/chrome/cros_ec_lightbar.c
-+++ b/drivers/platform/chrome/cros_ec_lightbar.c
-@@ -460,7 +460,7 @@ static ssize_t sequence_store(struct device *dev, struct device_attribute *attr,
- 	param = (struct ec_params_lightbar *)msg->data;
- 	param->cmd = LIGHTBAR_CMD_SEQ;
- 	param->seq.num = num;
--	msg->outsize = offsetof(typeof(*param), seq) + sizeof(param->seq);
-+	msg->outsize = struct_offset(param, seq) + sizeof(param->seq);
- 	msg->insize = 0;
- 	ret = lb_throttle();
- 	if (ret)
-@@ -508,7 +508,7 @@ static ssize_t program_store(struct device *dev, struct device_attribute *attr,
- 		 * Bound the payload strictly by the maximum value the structural
- 		 * size field can natively support.
- 		 */
--		extra_bytes = offsetof(typeof(*param), set_program_ex) +
-+		extra_bytes = struct_offset(param, set_program_ex) +
- 			sizeof(param->set_program_ex);
- 		max_size = min_t(size_t, ec->ec_dev->max_request - extra_bytes,
- 				 type_max(typeof(param->set_program_ex.size)));
-diff --git a/drivers/scsi/qla2xxx/qla_gs.c b/drivers/scsi/qla2xxx/qla_gs.c
-index 20b1aef455c4..159daefd249e 100644
---- a/drivers/scsi/qla2xxx/qla_gs.c
-+++ b/drivers/scsi/qla2xxx/qla_gs.c
-@@ -185,7 +185,7 @@ qla2x00_chk_ms_status(scsi_qla_host_t *vha, ms_iocb_entry_t *ms_pkt,
- 				    comp_status, ct_rsp->header.response);
- 				ql_dump_buffer(ql_dbg_disc + ql_dbg_buffer, vha,
- 				    0x2078, ct_rsp,
--				    offsetof(typeof(*ct_rsp), rsp));
-+				    struct_offset(ct_rsp, rsp));
- 				rval = QLA_INVALID_COMMAND;
- 			} else
- 				rval = QLA_SUCCESS;
-diff --git a/drivers/scsi/qla2xxx/qla_mbx.c b/drivers/scsi/qla2xxx/qla_mbx.c
-index 59ec5605930b..665c3d628d45 100644
---- a/drivers/scsi/qla2xxx/qla_mbx.c
-+++ b/drivers/scsi/qla2xxx/qla_mbx.c
-@@ -3225,7 +3225,7 @@ qla2x00_get_link_status(scsi_qla_host_t *vha, uint16_t loop_id,
- 	mbx_cmd_t mc;
- 	mbx_cmd_t *mcp = &mc;
- 	uint32_t *iter = (uint32_t *)stats;
--	ushort dwords = offsetof(typeof(*stats), link_up_cnt)/sizeof(*iter);
-+	ushort dwords = struct_offset(stats, link_up_cnt)/sizeof(*iter);
- 	struct qla_hw_data *ha = vha->hw;
- 
- 	ql_dbg(ql_dbg_mbx + ql_dbg_verbose, vha, 0x1084,
-diff --git a/drivers/scsi/qla2xxx/qla_os.c b/drivers/scsi/qla2xxx/qla_os.c
-index 3c412c7fb6fe..8e6a953dc3f7 100644
---- a/drivers/scsi/qla2xxx/qla_os.c
-+++ b/drivers/scsi/qla2xxx/qla_os.c
-@@ -6263,7 +6263,7 @@ void qla24xx_process_purex_rdp(struct scsi_qla_host *vha,
- 
- 	if (qla25xx_rdp_rsp_reduce_size(vha, purex)) {
- 		rsp_payload_length =
--		    offsetof(typeof(*rsp_payload), optical_elmt_desc);
-+		    struct_offset(rsp_payload, optical_elmt_desc);
- 		ql_dbg(ql_dbg_init, vha, 0x0181,
- 		    "Reducing RSP payload length to %u bytes...\n",
- 		    rsp_payload_length);
-diff --git a/drivers/scsi/qla2xxx/qla_tmpl.c b/drivers/scsi/qla2xxx/qla_tmpl.c
-index f96b9eb15126..288239644ac9 100644
---- a/drivers/scsi/qla2xxx/qla_tmpl.c
-+++ b/drivers/scsi/qla2xxx/qla_tmpl.c
-@@ -7,7 +7,7 @@
- #include "qla_tmpl.h"
- 
- #define ISPREG(vha)	(&(vha)->hw->iobase->isp24)
--#define IOBAR(reg)	offsetof(typeof(*(reg)), iobase_addr)
-+#define IOBAR(reg)	struct_offset((reg), iobase_addr)
- #define IOBASE(vha)	IOBAR(ISPREG(vha))
- #define INVALID_ENTRY ((struct qla27xx_fwdt_entry *)0xffffffffffffffffUL)
- 
-@@ -722,7 +722,7 @@ static struct qla27xx_fwdt_entry *
- qla27xx_fwdt_entry_t275(struct scsi_qla_host *vha,
- 	struct qla27xx_fwdt_entry *ent, void *buf, ulong *len)
- {
--	ulong offset = offsetof(typeof(*ent), t275.buffer);
-+	ulong offset = struct_offset(ent, t275.buffer);
- 	ulong length = le32_to_cpu(ent->t275.length);
- 	ulong size = le32_to_cpu(ent->hdr.size);
- 	void *buffer = ent->t275.buffer;
-diff --git a/drivers/scsi/scsi_transport_fc.c b/drivers/scsi/scsi_transport_fc.c
-index bec6ca38375b..09ee87ebd5d1 100644
---- a/drivers/scsi/scsi_transport_fc.c
-+++ b/drivers/scsi/scsi_transport_fc.c
-@@ -570,7 +570,7 @@ fc_host_post_fc_event(struct Scsi_Host *shost, u32 event_number,
- 	event->event_code = event_code;
- 	if (data_len)
- 		memcpy(event->event_data_flex, data_buf, data_len);
--	padding = len - offsetof(typeof(*event), event_data_flex) - data_len;
-+	padding = len - struct_offset(event, event_data_flex) - data_len;
- 	memset(event->event_data_flex + data_len, 0, padding);
- 
- 	nlmsg_multicast(scsi_nl_sock, skb, 0, SCSI_NL_GRP_FC_EVENTS,
+While this change won't matter to 99% of the cases where someone is
+running with a typical distro kernel, this is the kind of thing that
+makes embedded users unhappy since they're very carefully managing their
+configurations and we've taken away their ability to avoid configfs now.
+
+Also, as mentioned earlier in the threads, using 'select' on a
+user-visible config option rather than a hidden option often causes
+cascading problems down the road because it ignores any dependencies of
+the option being selected (configfs in this case).  At the moment I
+don't think configfs has any dependencies of its own, but if it gets
+some down the road, this can cause problems.
+
+
+Matt
+
+> 
+> I'm pushing this to drm-xe-next.
+> 
+> Thanks for the patch.
+> 
+> 
+> >  	select DRM_BUDDY
+> >  	select DRM_CLIENT_SELECTION
+> >  	select DRM_KMS_HELPER
+> > diff --git a/drivers/gpu/drm/xe/xe_configfs.h b/drivers/gpu/drm/xe/xe_configfs.h
+> > index 327b648944ff..d726800de26a 100644
+> > --- a/drivers/gpu/drm/xe/xe_configfs.h
+> > +++ b/drivers/gpu/drm/xe/xe_configfs.h
+> > @@ -14,7 +14,6 @@
+> >  
+> >  struct pci_dev;
+> >  
+> > -#if IS_REACHABLE(CONFIG_CONFIGFS_FS)
+> >  int xe_configfs_init(void);
+> >  void xe_configfs_exit(void);
+> >  void xe_configfs_check_device(struct pci_dev *pdev);
+> > @@ -36,34 +35,5 @@ u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
+> >  unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev);
+> >  bool xe_configfs_admin_only_pf(struct pci_dev *pdev);
+> >  #endif
+> > -#else
+> > -static inline int xe_configfs_init(void) { return 0; }
+> > -static inline void xe_configfs_exit(void) { }
+> > -static inline void xe_configfs_check_device(struct pci_dev *pdev) { }
+> > -static inline bool xe_configfs_get_survivability_mode(struct pci_dev *pdev) { return false; }
+> > -static inline bool xe_configfs_primary_gt_allowed(struct pci_dev *pdev) { return true; }
+> > -static inline bool xe_configfs_media_gt_allowed(struct pci_dev *pdev) { return true; }
+> > -static inline u64 xe_configfs_get_engines_allowed(struct pci_dev *pdev) { return U64_MAX; }
+> > -static inline bool xe_configfs_get_psmi_enabled(struct pci_dev *pdev) { return false; }
+> > -static inline bool xe_configfs_get_enable_multi_queue(struct pci_dev *pdev) { return true; }
+> > -static inline u32 xe_configfs_get_migrate_ulls_period_ms(struct pci_dev *pdev) { return 5; }
+> > -static inline bool xe_configfs_get_disable_vram_page_offline(struct pci_dev *pdev) { return false; }
+> > -static inline u32 xe_configfs_get_ctx_restore_mid_bb(struct pci_dev *pdev,
+> > -						     enum xe_engine_class class,
+> > -						     const u32 **cs) { return 0; }
+> > -static inline u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
+> > -						      enum xe_engine_class class,
+> > -						      const u32 **cs) { return 0; }
+> > -#ifdef CONFIG_PCI_IOV
+> > -static inline unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev)
+> > -{
+> > -	return xe_modparam.max_vfs;
+> > -}
+> > -static inline bool xe_configfs_admin_only_pf(struct pci_dev *pdev)
+> > -{
+> > -	return XE_DEFAULT_ADMIN_ONLY_PF;
+> > -}
+> > -#endif
+> > -#endif
+> >  
+> >  #endif
+> > -- 
+> > 2.53.0
+> > 
 
 -- 
-2.56.1
-
+Matt Roper
+Graphics Software Engineer
+Linux GPU Platform Enablement
+Intel Corporation
