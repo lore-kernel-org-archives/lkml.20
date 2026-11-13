@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794533108;
-	b=MsFBdYlxJIZHR6HTAXUylpMsYJTRW+ihDY/BXn7HBE14Plsdru77aI+GfUg0S2nYY7Bu
-	 C2H6lnZj35oPQPQod+c4Jba7M/StHGeZtqGZrPOMenDYQSdUj7WYJlUCawWsebgYIBuDK
-	 +8GYm6Xs6UQxdF+omF9cW2uCz0nrksB9QCfSSN6+nk07EfJVS9I1ULmSvtmu7fRFuyUTQ
-	 S9WAtkxmGVA9oDBZ1vmcTnCJq6qDGVwCAuNKd3PxwR5aQb8ViOUOuEpb+VTMeKfarQ35l
-	 rPAh+Tqes3DVrVktcxp5SS+FzaBG7Z6bd3fmgR4qX6skxkO4YC89iJag55gnYi5N2aA==
+	b=gYivCMHqSyUXrH9f+5Q/sS5ajRxqWymQxDORZ6LA8hNB7GGRXPHTxGWEO7RSI7Umrnzd
+	 tLwEqxMv3qoqmrR0voJ06CD7nQai0cE6fIIZvo3PKx81Ay+B6T1wknYZv2YHO7AJvAKQV
+	 V6zuMhDzVkeM2XMmTIGQKj3fFEXnhQE2acR1UJFyfe3eJMCYBMauYrKuBbVa3bKbZJd5i
+	 8IXyPjUn0BtJs9KNGqE9WZOQC4nBdlJEKYsksoeoHvCBl4u4AHo9CKChXLzaDEYTCIB1h
+	 KXO4KrUh/B+FikMdqOV5BvWrtQLXT1U6nGw6fZ8tuUUm0EWYTZpWcs85nlLn2z4b9Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794533108;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=u4p5bylx/tgUz5l7NLz60THe1CpAntXjpezc0SG+fuo=;
-	b=XSyqb+3djBS5k5kn7UAohEvTCa+T7nG494lFBxI2DK4wzxPnlXEiA0tsiTrncs8qMwMW
-	 39cpkaARB43k0IIeF+zDgIfHnCdptQTWWeh7gXKTPBVnPNvyX4wyZzowbS+JfalHGorLK
-	 KMA0rYiJgOS4a8i4VPZttLw+NxaB6a9zGBiDkmyw81sBmyu160qOrw9K2/TGA0HXKIwxb
-	 3LdZ8/gqhhq9fqLxqLTzMKY/CZQgx/y2Wi2yiRwutVPj2m1ZfJyVTsLdBoh98UjhmFoDe
-	 BhznK4hhgVcdIGe19pWAX1Fp+0wn8JybEKGO29PjqCbsDwC2fTq7ZbEB9YNeEAunjNA==
+	bh=WrHgY6PwjEKI93+oJYDaAlragI5QYPqtHiUztGf8TtU=;
+	b=vqOhopIwEeHFcRftvBYdeFhmQCPwtce8q/swWukI+wKB25ErG+JSgfZ+U2gHdFC7pN3W
+	 fJXk2peSqRG++LePPScSjKE5hVeKuSGSC+Eje0zDpLBWHuVf2yPnKB1IKj8kqa8TTnrmg
+	 PtbmuM8y2sLhdwUGpbc24ktCCGehallVjd6U1AtZezedMLCzB+uAaySH7yb6ylfp33UMA
+	 iZCota+U1rzTJVjnM92JBcjvQuNJFa9hem8q3dawy9opsmtCV/P5NjpF4WqmW5waegDR/
+	 XWNM6rKp1fUxkhrmFmUsvkNcSnYQxGTETtHgrYJX5EZj9mck4ouGkrgdMyHIXHHemTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=erebion.eu;
 	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=xfb7VfCh;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=b856NOS0;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=7TSP6Duc;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=xcqcGC2V;
 	arc=none smtp.remote-ip=142.132.183.134
 Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CBE606A8B3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C457460A2600;
 	Fri, 13 Nov 2026 01:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99CBE606A8B3
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C457460A2600
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=xfb7VfCh;
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=b856NOS0
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=7TSP6Duc;
+	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=xcqcGC2V
 DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1794533095; bh=u4p5bylx/tgUz5l7NLz60TH
-	e1CpAntXjpezc0SG+fuo=; b=xfb7VfCheXgQIiXGwDsPEpLN1sgejBCDyrsD3HEUqIh8TD1xOh
-	VHxwZorv/aVV5qWxoGBSkDjrfkLbLqLVp6AA==;
+	h=To:Message-Id:Subject:Date:From; t=1794533099; bh=WrHgY6PwjEKI93+oJYDaAlr
+	agI5QYPqtHiUztGf8TtU=; b=7TSP6Ducg+d5QiEznHhKIzX9q0cwqojSgyxJnOnCkAT1dV3doQ
+	MOE+ZBD2WT5mdhKcm56fFSPXLxDwCTkRvRBg==;
 DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1794533095; bh=u4p5bylx/tgUz5l7NLz60TH
-	e1CpAntXjpezc0SG+fuo=; b=b856NOS0clylANjqUfXdUBeDRzAKYo3WOnlMluJv+XhZSLxLat
-	BfjTZIYlItZEgix8nVuYzoyZoKAAoqu7ksYNJ5ZXhueQQ5PgPTin2qWwcAEXu1lWN24V5GXOAzn
-	O3Wig7yv9y9hDGuqfJadpqqBe6Wi62C5Bq8qQWGE/X+ppJxq0VCDeV1GFw0ZJFyjPbusGvwSIp5
-	C1LkXfSqEppEbpmH3wqhwD8Km0N3ueFrttr0h4nKTaO275K7gT853y6l9UVDsf189Nne6Eiak5+
-	ml4ownTN5jS7dnXCqTzFbO9OyfcpAEEeoJLfWhZwkr2v7VUMBdqYQ1wlgb83dLQvJgQ==;
+	h=To:Message-Id:Subject:Date:From; t=1794533099; bh=WrHgY6PwjEKI93+oJYDaAlr
+	agI5QYPqtHiUztGf8TtU=; b=xcqcGC2V8IEUWz8UtpVH0954KnlDq0Hbp7Fe5Nbt73sGXUiU5O
+	JIn1XspHaJ43Leu2dhwYfHFcRkH58OaYYLg+UUOyVJObg60r4PvrXhOboeGjHMN/t6LYGSwOT5p
+	RNlGSTZ3pcQD53OHzYbutDBqEGiPJtTSHO/7PmZq69UjISySeqHTSE6ylBSx46EDyo7LNryn8bD
+	DP9vjM+CyJGylGt2OiTnnx12TFCGBft8zTvesevAY7A7AzaRKMtNi+zi1pd9QPX4DEIyh6g2A7I
+	atlB9HhXfVgWxnwbyekQZHftCW4fNkLmCJLAFBCqyfKf+YXD2ukp0e+mFrgWCrZykGQ==;
 From: erebion <erebion@erebion.eu>
-Date: Fri, 13 Nov 2026 02:24:48 +0100
-Subject: [PATCH v4 04/12] arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP,
- IPA & MPSS
+Date: Fri, 13 Nov 2026 02:24:55 +0100
+Subject: [PATCH v4 11/12] arm64: dts: qcom: sm6350-lena: Add PM6150L
+ thermals
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,7 +62,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-pdx213-upstream-3-v4-4-4b01c50a821c@erebion.eu>
+Message-Id: <20261113-pdx213-upstream-3-v4-11-4b01c50a821c@erebion.eu>
 References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
 In-Reply-To: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -78,70 +78,221 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  erebion <erebion@erebion.eu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794533093; l=1280;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794533093; l=4675;
  i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=p7IGpE4GSfbTPqOkJvsD/WcIlRbHfevxeKq472wglug=;
- b=2nog4EF91YRxMCs4cp3SMBPgnEmm0xA8qos/X5KbynLLY+wxr3RgDslj/vxX6N8yAcgmULUid
- /cYUftSqFyJAnyACNxskI04VhJY4NwY+YKeV2UGc2vVhZVh77s8rg24
+ bh=aREpIIHqg2tDJ5FYbe+GEeITQimCDAQWeYqJpHofPBE=;
+ b=hx01MaM5mR7wviCw7nbZyvcdn1rV88GEF+o1nmc3pmXmgXs8fBLJVSINO/sScKj+w/tWdAXmB
+ vFFQqbtidJ6CjyL9rYZeauPXoTkIXOp1a+/2ZRLU1IjUhTNe89Pvcv1
 X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
  pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-Enable the ADSP, CDSP, IPA and MPSS (Modem) nodes for the Xperia 10 III.
+Configure the thermals for the PA_THERM1, MSM_THERM, PA_THERM0,
+RFC_CAM_THERM, CAM_FLASH_THERM and QUIET_THERM thermistors connected to
+PM6150L.
+
+Due to hardware constraints we can only register 4 zones with
+pm6150l_adc_tm, the other 2 we can register via generic-adc-thermal.
+
+The trip points can really only be considered as placeholders, more
+configuration with cooling etc. can be added later.
 
 Signed-off-by: erebion <erebion@erebion.eu>
 ---
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 24 ++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 160 +++++++++++++++++++++
+ 1 file changed, 160 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index a393b7533ccbf..4066de20ea23a 100644
+index 79097ae409bab..d7a5df04a296c 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -68,6 +68,12 @@ memory@fe901000 {
+@@ -61,6 +61,13 @@ key-volume-down {
+ 		};
  	};
- };
  
-+&adsp {
-+	firmware-name = "qcom/sm6350/Sony/pdx213/adsp.mbn";
++	msm_therm_sensor: thermal-sensor-msm {
++		compatible = "generic-adc-thermal";
++		#thermal-sensor-cells = <0>;
++		io-channels = <&pm6150l_adc ADC5_AMUX_THM2_100K_PU>;
++		io-channel-names = "sensor-channel";
++	};
 +
-+	status = "okay";
-+};
-+
- &apps_rsc {
- 	regulators-0 {
- 		compatible = "qcom,pm6350-rpmh-regulators";
-@@ -291,6 +297,12 @@ pm6150l_bob: bob {
- 	};
- };
+ 	touch_en_vreg: regulator-touch-en {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "touch_en_vreg";
+@@ -106,6 +113,74 @@ active-config0 {
+ 			};
+ 		};
  
-+&cdsp {
-+	firmware-name = "qcom/sm6350/Sony/pdx213/cdsp.mbn";
++		pa0-thermal {
++			thermal-sensors = <&pm6150l_adc_tm 1>;
 +
-+	status = "okay";
-+};
++			trips {
++				active-config0 {
++					temperature = <125000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++			};
++		};
 +
- &gpi_dma0 {
++		pa1-thermal {
++			thermal-sensors = <&pm6150l_adc_tm 0>;
++
++			trips {
++				active-config0 {
++					temperature = <125000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++			};
++		};
++
++		quiet-thermal {
++			thermal-sensors = <&pm6150l_adc_tm 3>;
++
++			trips {
++				active-config0 {
++					temperature = <125000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++			};
++		};
++
++		rfc-flash-thermal {
++			thermal-sensors = <&pm6150l_adc_tm 2>;
++
++			trips {
++				active-config0 {
++					temperature = <125000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++			};
++		};
++
++		sdm-skin-thermal {
++			polling-delay-passive = <1000>;
++			polling-delay = <5000>;
++			thermal-sensors = <&msm_therm_sensor>;
++
++			trips {
++				trip0 {
++					temperature = <45000>;
++					hysteresis = <0>;
++					type = "passive";
++				};
++
++				trip1 {
++					temperature = <55000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
+ 		xo-thermal {
+ 			thermal-sensors = <&pmk8350_adc_tm 0>;
+ 
+@@ -392,6 +467,83 @@ &mpss {
  	status = "okay";
  };
-@@ -316,6 +328,18 @@ touchscreen@48 {
- 	};
- };
  
-+&ipa {
-+	firmware-name = "qcom/sm6350/Sony/pdx213/ipa_fws.mbn";
++&pm6150l_adc {
++	pinctrl-0 = <&pm6150l_adc_default>;
++	pinctrl-names = "default";
 +
-+	status = "okay";
++	channel@4d {
++		reg = <ADC5_AMUX_THM1_100K_PU>;
++		label = "pa_therm1";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++
++	channel@4e {
++		reg = <ADC5_AMUX_THM2_100K_PU>;
++		label = "msm_therm";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++
++	channel@4f {
++		reg = <ADC5_AMUX_THM3_100K_PU>;
++		label = "pa_therm0";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++
++	channel@54 {
++		reg = <ADC5_GPIO3_100K_PU>;
++		label = "rear_cam_flash_therm";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++
++	channel@55 {
++		reg = <ADC5_GPIO4_100K_PU>;
++		label = "quiet_therm";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
 +};
 +
-+&mpss {
-+	firmware-name = "qcom/sm6350/Sony/pdx213/modem.mbn";
-+
++&pm6150l_adc_tm {
 +	status = "okay";
++
++	pa-therm1@0 {
++		reg = <0>;
++		io-channels = <&pm6150l_adc ADC5_AMUX_THM1_100K_PU>;
++		qcom,hw-settle-time-us = <200>;
++		qcom,ratiometric;
++	};
++
++	pa-therm0@1 {
++		reg = <1>;
++		io-channels = <&pm6150l_adc ADC5_AMUX_THM3_100K_PU>;
++		qcom,hw-settle-time-us = <200>;
++		qcom,ratiometric;
++	};
++
++	rear-cam-flash-therm@2 {
++		reg = <2>;
++		io-channels = <&pm6150l_adc ADC5_GPIO3_100K_PU>;
++		qcom,hw-settle-time-us = <200>;
++		qcom,ratiometric;
++	};
++
++	quiet-therm@3 {
++		reg = <3>;
++		io-channels = <&pm6150l_adc ADC5_GPIO4_100K_PU>;
++		qcom,hw-settle-time-us = <200>;
++		qcom,ratiometric;
++	};
 +};
 +
  &pm6150l_flash {
  	status = "okay";
  
+@@ -405,6 +557,14 @@ led-0 {
+ 	};
+ };
+ 
++&pm6150l_gpios {
++	pm6150l_adc_default: adc-default-state {
++		pins = "gpio6", "gpio7", "gpio10";
++		function = PMIC_GPIO_FUNC_NORMAL;
++		bias-high-impedance;
++	};
++};
++
+ &pm6350_gpios {
+ 	vol_down_n: vol-down-n-state {
+ 		pins = "gpio2";
 
 -- 
 2.53.0
