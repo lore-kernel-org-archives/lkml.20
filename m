@@ -1,99 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794591657;
-	b=EBvXiI86p36ZaVZeJKlyRbE+b6uAHSKBZrK/6DKBoP0DI9QAmFgK0wDLr8Mns1CPRsiO
-	 tp7+qOlbjgJOQ6ZbABNrNTCdUioUAB4JNLTaEVB3ui8N3q/mFxo1bappDwtnpcO2yBCWk
-	 InE24W6aEYxVtkIFQX4p6lbONzmXBxhE6M5ZEBXXtUK3Bnah2ACRsA775ZDBc1rWIuerT
-	 FcrAyqffrso4h6Vhl2TnS4ETjzDSu31WTugQZ/Hu1Mb5Rt1rZVJdLJwoZBE/eEur/1ojH
-	 o6J3KK7oJtvtYGeHwd7SABEm0qq4h7ysGARZ9/K09Z/Dbfje8cv1YfHe9ddI5mYwVOA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794591657;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794591681;
+	b=wYN2fTbQyHvSedAfD8HsS3HlCeMQg2/747cExO+7neFWdiuRyOVVJ0HQBOmoCgHdTNFV
+	 dbDKKwJUrkblXWJlLsh1o8WJlcrBag5eacr0CBi5Q43bWrjklVHRj8/cHevAY2P8X0yRh
+	 SqK31/5BiLCgd/RfMZqPQKn+qQG9aqB6WaoX3yX3q9VSmzxBt6T2lNd7isRzabuLVppnN
+	 NKEvZCSXSXIR69eDHkmndDIcRmnWczViGmECtTdHjHOe81W0COpkG3TSlL5rAbeE98W8F
+	 5i4X6rqAK1PtPZj/Bh6mbLVpi4Zd/VILuMc7b0fXAONRL9NxVe2yzf3zC8zzga69lNQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794591681;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=aTsfJL3Fjl6wj8r3f4NqIO8QlG5kearlzOuXsxbj/LM=;
-	b=D07Qzb7XIwXUZZr6fO1AaAGM7W8/oZ6yHjjbabE89wa2jUuVi5ko7sr3yM8IHwSYAsB/
-	 WVJorkiVLlS3JPtTDG82c9QZuo+R9pvVugEqy6b8q1ivjbHyGdWcFIwSaCV9ZZ3sXOhMJ
-	 7VOtsZERsA/gfEgOIzvpMiA3DMQoD61nJ7WlhQuonCZxt9WFUBFe5Fh63TKd1q/dEOu5q
-	 gAmTMhrdnKEKpI2EFb3B4Y7jsXzw2IN/Ue30Laml3zP0rMqS6bZT5mzYW00SqZrErc/5Y
-	 Ssw/AMgxyEE39Z2kwMrhnFUAurFuz4RDS7eK3IGwROBuTLy/yjVAi9mOeLYIFnswiHw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B4Rzv+Og;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	bh=tc/REKiPvKgSLIQ3AGM6k8C66RPZcVposVw3GvV28wQ=;
+	b=XEf1V3zI+73+Y71lafrJ6YDMFS3OPZUCxo9onuPO6grLXKX7LWVGJQx0tECiBIOGY+lO
+	 mgvSOcmQisJtBk0h1h3mjHWXhJE8eat9D8jTajHOxdvrkFM963QRkvPXfj4MJhkQ5pIUD
+	 SLoY05uTkki8J4t6aKjZQ6sodeBwBuEx2Ex5KR4b14Vs3ByBBP9Nn66Ps83IjfLVAL7jT
+	 BrfyrY111RhREfWt9jN33IbSrXCEnj475sZysOlLr0+iL3uVh06WoqajBpL2WliJtrcLA
+	 oQOKbWAIotRwyzXPN2rdHd5gQFJ3tygSjB6AbZo3Px9IriQHAv7Fnm89JcNrlJ+eISQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=hbqVD0W1;
+	arc=none smtp.remote-ip=209.85.167.49
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85F3606A33B
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:40:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A85F3606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD2260703E8
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:41:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BD2260703E8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B4Rzv+Og
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c445c95d553so233796466b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:40:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794591655; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fRwyXuJ92MSdgLcuskHzzUaZGX8fML4gOsefnr9kaP4mPUSpDaqNQePk2KO+N4MJ2+
-         oq/ZzA5xChhbzIw1dN0sl7XGVYJVSx5AYi/y+smYbSRpgXWsyWOijFRO6P4NrcYno9EJ
-         WccIfvfHJ3FZH0/n18g52IEOnEERzBcLeGJ3gpuzy1NjgrVRFFTMHPOaS6Km0hsA7wgn
-         Nt7Cgh5PbuohAIlKv6P+8MPc+EYRTmKYitC3qWJ8mrCuCtG+pKQEUajBgknNjf5vJoVF
-         cLhVDbejhyj9GcIBpq7v/QJixjw4h0q969lo3SGR7DSdUMXwF0PQPiVXtH9UisnUGp2Q
-         Q9+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=aTsfJL3Fjl6wj8r3f4NqIO8QlG5kearlzOuXsxbj/LM=;
-        fh=jdA3RseObJKWVcKZ77WV8QFCNjDJVrb+Z3+aQ157gQQ=;
-        b=sjcsNV4gyq3aukVvO8aahI+gPKOMTJx61qTX7usACJ/kFPlCysYuF9R7OMvBWIGIMn
-         4gDPvLG+vytZg8vawQ8UPSkni3BcrMfgKXEfHrVa+CBSnGgmKP09j7TnNSOYUtVLP0oL
-         5Kug4zDg5UB+MdwJnsyBZrdyztmergyWnt/mtlrFlsb1iK0FkRVwhZsOHRl1QqGmWm4v
-         g3uLvyM/bChAbSVLuqRshkCahlEqfdN2T/BKa7+PMutWPMRId3pBpqmf5jDUx3Z9TucC
-         OokHzZmek+2BC5//EQjHXClgnGRWK6+aEE0vWLuWPlPx/MsvexjH4owNvin7bYPlLaPy
-         26vA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=hbqVD0W1
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bfa7c09c9eso1469619e87.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:41:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794591655; x=1795196455; darn=vger.kernel.org;
+        d=linux-foundation.org; s=google; t=1794591679; x=1795196479; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aTsfJL3Fjl6wj8r3f4NqIO8QlG5kearlzOuXsxbj/LM=;
-        b=B4Rzv+OgmVdQHu4oJh52XnWUQXyObDL2qSwELgYm6bSBy27hzqLEH+Olx7/6Swgyig
-         spbFBD8IesAJU5bpws5ADa4pY8viZbT7IhfaXlA56KJ6TDb8qcyBoJWlbIcuqIGwSq6h
-         DQufYlYdxRh90I8ijl7Ipx6X5rH4stremZF8sLwqs5S2zYuTzRE5Vl9D/YWCDCJRMhVP
-         yyoxANPOnT2SDDdyKphWzSNDgWWvyhKwc2xoqOOK3xThcAO6dltUnQcbQCShFKGFBbja
-         SVks3rZWsSqu1BdtKI+z6LJUMCLsJcFuaZjmeAPNXnrbyQxz/F0RckGFGCU/GJ5kDRHR
-         cXwg==
+        bh=tc/REKiPvKgSLIQ3AGM6k8C66RPZcVposVw3GvV28wQ=;
+        b=hbqVD0W11jZHvNKkJlTz3rw56J0kw71XrEjNtx+Z6W/qmRUqRlknerjtClAtdILDJK
+         y5uBxHb9i+jMxj++7jayivLZ/HyHQ8Y1ao6ThppLPhdiyCnOXoMtqbJLlzbNPSkpjFCK
+         GBWiiR4Tfmzawa6MISDQjM8QAXuphkLINzOX4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794591655; x=1795196455;
+        d=1e100.net; s=20260707; t=1794591679; x=1795196479;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=aTsfJL3Fjl6wj8r3f4NqIO8QlG5kearlzOuXsxbj/LM=;
-        b=Qf2oPkKVED+Qlc24WU+9rkUiEJDiiqAHtOS2kk8BxNTwMyo0w09zAuw5nV+z+qCpsg
-         KTvvbHJeAHzrylKleMiennoQgkAT6a7Ypi7V7T4w8g/DUVh45WiUYP8iA8c3abDK1Xp8
-         WIF7cK6mG/4N6eCL8A3VsN0sAiz9s61AmHSeYFsACnaWiCe/xTiBZqTY9B6YBlMoMXnH
-         ZS/6kVEN80OVtHTU7xawNjelIW1acKgY2ZRHMiI26WUUJtrFhIPAHRalPzJm1dYRYtpT
-         71aFYw2nz9XIAY9Hffty+EJb8wrUl0Ciurpo1EHgzAYPU6wXaWOgsi0VSnt1dTzJxkR4
-         rZtg==
-X-Forwarded-Encrypted: i=1; AL+hErEKZ0G2HWycSP8YTM1aOWY9C9KLj0FAKMBuDvoXS+bASjDZyuZkorZgTbNeuzdsX6fOlmjY2kIMj7LRE7M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mdu5DVgsdpeeqpyOQvF6jgxKESO6mDTawDDhz9TylSRF1M5QR
-	l4VM/EqkOBRoHelvVzsEr2n91bg8bTfoDRLP5C6jp9RvHU9i3vCy7x1EqV6cCICoQTPJixrdg6h
-	acc3p6s2RY7U7WAoPPY4zPrnnPOFAn7g=
-X-Gm-Gg: AYBFou2tzgiUjrikSEvg2/XEh4f6YxwZ9M1yikXIUtjHgG9kpjdDxMdYUDraz6twJxn
-	w6+bphs4UprIf65tw3vgwhtcGlZZLAgghpTHb0eJB6XwwVyWu4Y6uN+XbckGAE0BGSzmqQ1Kim2
-	3Yjmn9iq2OEXZrZDSt3DGc9+45z1CiEeFs6Goq6INn2FrsNhJqKr5c1Bra8upWeCORFBclmngUL
-	pYBtKG3dSD00tfmQuLUEG5MF9E10fjFhhDvHAQsDLtIGwtMC+hH6vl9xQaJMhvkXsVZIn286Bz2
-	N8i67J6hg+QA8gre8BjqZXawGTOU9NTVddmBoHX93ENPvFR7HxLN/NBcBDal1XNU6etxH8yMjxF
-	l6CDpiIdPxlyRidnOJQ2KSot4f4CooA0YhJOwCw==
-X-Received: by 2002:a17:907:3cd6:b0:c41:cf68:bbcf with SMTP id
- a640c23a62f3a-c5096399d37mr295805066b.32.1794591654892; Fri, 13 Nov 2026
- 09:40:54 -0800 (PST)
+        bh=tc/REKiPvKgSLIQ3AGM6k8C66RPZcVposVw3GvV28wQ=;
+        b=W3xD5glKr6bq1LKWmPi5r8WtcgRN1R1xCX7bGuC2qBCpLsY6CxEn2suPFaXZzQWB3p
+         kPJIfZoUQu3Bn/p4j/zT3oJ1939HozX9HWIXsjuiQo4BuxKzH0HeWn6WUBRE16dYkQ23
+         i4V10PneSFjvm6XCNtr4gVxmm9VClQxdgahGjPGhVYy16Up0VNz6ySJpJJr8FD9lGuyO
+         /v42GTD0wvx54atUI8AknmxEJ8B5gkw8OK/IGB2yNxD+s42WD0G4sQdnBbtkSu3w+guU
+         5KhNOP3qsOb7ClcY942fiFwuQgwJkSOQpmeatJf48y7eriVPc7VcC8mPCvjq6xS+3CvE
+         yX2w==
+X-Forwarded-Encrypted: i=1; AL+hErFwB6F/+IT60KSeNG7QNY4CrmqO5bN+CFNg2l0dxQms0YQJQmqtjuCGMHHu8ALr1zqDi0b6xACZkYmMd10=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xciKnJAt4XKFllIvuX2kMM2Qznd/lPC2wocBIXqTQ+mSBpWqn
+	FThCYK/WXgJWoQ+obBiepAyzvvofWaRy7jZee9gPsRxXtJPxC0iWy/pQChBqDnzGB2sr3TewGhx
+	G4T2LcYGVyA==
+X-Gm-Gg: AYBFou1sgFvbrPh1e7b5IKETYMF9IcXC/RZD1OC+jkcU1ETiwbFo5TYMedAR0QVdm/K
+	q2C73PPyrUoyPXqyis7UAaQKJvlIIYrsaAH30DwBe14bdh9wyaAujCpq9eLlbSbmwE106CoXI0O
+	VWtY6wQIjvhZigbwid5ohq3k/F6V8zPKzEer9qlUNmLl7K/vhmsZ4LbQWROFzStq3v2S1putpoC
+	3Cb1NrFEhnKBnKXtDi8iWYhxvzIr9EIyXe7Qdhwnmk7RMwBbrC7kwHdC+atYm760DSpSamhoeWM
+	+PUp8QlsV91mBkud5jzxrx/FcSzRlHXVCs27dD38PyX9Km1mgwTNOqHEHLj3o3DliFEWyOA5yrk
+	ePFnQI7earYeNIvSt0YZvlwZkQ+lwIzSxLh6O4arZEcGqd9J1pSyNP8+tfwzgMasT9EyJkr9m3O
+	bLLJvOm5AH8eud+pYP7kWW7h9pxEebbBFKTG9T8QlfDqFLqWkfNm78D8fn8/Iy9NsagBBkw1JEU
+	kRn8sSXK8uA209Q/tFjIGd5w1eWj0WciLI2BLKjIV7iR54ZGHesHmhJk/8Mzn0wswRn4qbkyzM+
+	rj8X528/KQTciYvG2HaA+naybVwV2zGDVCvX46qGQ2cd3AtRNtRZ0DMJH67D+RlcT1MJhn3UZH1
+	i9Ie/fdU2qec4SqCtbT+pvT6/
+X-Received: by 2002:a05:6512:104d:b0:5c1:4e90:27d0 with SMTP id 2adb3069b0e04-5c170a26614mr1322107e87.66.1794591678510;
+        Fri, 13 Nov 2026 09:41:18 -0800 (PST)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com. [209.85.167.43])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171356420sm967358e87.68.2026.11.13.09.41.17
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 09:41:18 -0800 (PST)
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5c14f7768acso1349278e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:41:17 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG8uYFi7fOz98txJ8xy2hIE9Mx5d79vDQy7aUcqzEh8W5YwId7XGQuesxzjhSVoAhs7bSPIv16mM/5NYPQ=@vger.kernel.org
+X-Received: by 2002:a17:906:d542:b0:c29:d31f:7d6a with SMTP id
+ a640c23a62f3a-c509642ad87mr262487566b.35.1794591283338; Fri, 13 Nov 2026
+ 09:34:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,44 +94,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113-i386_bpf_jit_wrong_code_20261028-v2-0-1dd0b03072a3@gmail.com>
- <avdKWKhsV6dcZ02W@google.com>
-In-Reply-To: <avdKWKhsV6dcZ02W@google.com>
-From: Nicholas Dudar <main.kalliope@gmail.com>
-Date: Fri, 13 Nov 2026 12:40:43 -0500
-X-Gm-Features: AclHuK9DHBXdCNLb2CbpUETFiX9UBlNHVVtYQ5vnqxH4CRZp4OwPMstms9PtKpw
-Message-ID: <CAJZwKkiBQJZofwpps43SUGT05Hb4oOHZtv1+J6n_30wqOO-LCA@mail.gmail.com>
-Subject: Re: [PATCH bpf v2 0/2] bpf, x86: Fix i386 JIT signed ALU32 DIV/MOD
- and MOVSX
-To: Kuan-Wei Chiu <visitorckw@gmail.com>
-Cc: Wang YanQing <udknight@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Yonghong Song <yonghong.song@linux.dev>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Song Liu <song@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	"H. Peter Anvin" <hpa@zytor.com>, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261111234608.GAavT-QFRo6EtvoL0y@fat_crate.local>
+ <20261113141137.1113517-1-usama.arif@linux.dev> <20261113160300.3f0d0a37@pumpkin>
+In-Reply-To: <20261113160300.3f0d0a37@pumpkin>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 13 Nov 2026 09:34:26 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjmnpCmhyOta1EBR6D8_JFgLNz7Jb2s_PgbPq6cBiQ0wg@mail.gmail.com>
+X-Gm-Features: AclHuK9Tx-u1cLBBoFseqePi2c_o4rjSGK73bAbWs8FQgU2bxJ4phHHbgmChHCo
+Message-ID: <CAHk-=wjmnpCmhyOta1EBR6D8_JFgLNz7Jb2s_PgbPq6cBiQ0wg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] x86/lib: Use REP MOVSB for large memcpy() on ERMS
+ CPUs without FSRM
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Usama Arif <usama.arif@linux.dev>, Borislav Petkov <bp@alien8.de>, dave.hansen@linux.intel.com, 
+	dsterba@suse.com, hpa@zytor.com, linux-kernel@vger.kernel.org, 
+	mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org, 
+	kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, 
+	kernel-team@meta.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Nov 14, 2026 at 01:35:20AM +0800, Kuan-Wei Chiu wrote:
-> IIRC Alexei mentioned previously that he didn't think anyone still
-> cared about i386 JIT, so the i386 JIT patches were not merged?
-> Now we are seeing more i386 JIT patches. If we really think no one
-> cares about this platform anymore, maybe we should remove it to avoid
-> receiving more patches that we don't plan to merge?
+On Fri, 13 Nov 2026 at 08:03, David Laight <david.laight.linux@gmail.com> wrote:
+>
+> I was thinking more of something like:
+> (written in the email so untested)
+>
+> static always_inline void *memcpy(void *dst, const void *src, size_t len)
 
-Agreed that the i386 JIT should not get more work than it needs, and
-that is what v2 is cut down to. v1 added support for new instructions,
-which Alexei turned down, and all of that is dropped. What is left are
-two instructions the JIT already accepts and compiles wrong, so a
-verifier-accepted program can run with values outside the range the
-verifier proved.
+The problem with this approach two-fold:
 
-Whether to keep the JIT at all is the maintainers' call. As long as it
-is in the tree, these two patches are the minimum to close that gap,
-and I don't plan to send more for it.
+ - many memcpy() calls aren't actually memcpy() calls on a C level
 
-Thanks,
-Nicholas Dudar
+ - many memcpy() that *are* calls on a C level should never be calls
+in the generated code
+
+That first case is for things like structure copies etc. And it's
+common, and it's important, although for the kernel it's usually a
+non-issue because it's *typicay* a small constant-sized copy, which
+brings us to the second case...
+
+The second case is hugely important. The compiler needs to turn small
+memcpy() calls into just loads and stores. Calling "memcpy()" for a
+known 64-byte copy is hugely inefficient.
+
+We used to - long ago - do that "constant small sizes" thing by hand.
+It was a huge pain. We now rely on the compiler to do it.
+
+End result: we must *not* hide 'memcpy()' from the compiler for
+performance reasons, and we cannot catch all cases anyway because the
+compiler generates implicit memcpy calls.
+
+This is why I really wish we had the compiler just generate a
+different sequence for 'call memcpy'. One that used a different
+callign convention - preferably just the 'rep movs' one so that we
+could just rewrite the call with 'rep movsb' in place.
+
+Without compiler support, we're kind of screwed.
+
+              Linus
+
+              Linus
