@@ -1,60 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794540537;
-	b=oM0hmyjw9VNeId136m2Dla83gLd8oM336GulQ1Ny/9SZ6pMW4q23u/0bL+EjwF8VAbil
-	 QtwTua9q6EyvY5KKlWhryWDtIm2cUHY5VI4c5L/9ecxb17gqXLTHiGLWGs7x9j9wNyJ8s
-	 cM1t3w+RoQF05J7A9LyYHa8nDUNu4BntZSBrerGD/dwoAl1GRbkelSYPbIauDAIXHqrAA
-	 LU66ZooOeoml59zqu6UCOeK6QTDGho3ZNwJhCfiXgoBLpglcN0MCga8LSHsi+0yPS+Iy0
-	 iwcUPE+1nAcuBf4DOXz3veleEL4QFuDvvMSZ3JqOd/3oxTBXt+DQvmyv4NDmZFA0wAw==
+	t=1794540539;
+	b=DiHABVsgCvrSjDTh9Y0GPQWWXRug8WCP9RDKDdmrZDsw7JDUlABm//ahlswxGEuwCiha
+	 ywJK2j2K+s3yvuhCiaDwEBRina/iuYHp7JeFOQDH+Z+9lckohb3/6hCmfeskOlHxqsJvb
+	 H8HiYNSfW8TpwVYmz3Fh1JjuN4h7A0SQNagZpLw16KmPeiL8ZucTiZMX72kzjW2yEbrYW
+	 JN0ezPNmyjGMrxHu/CLJoc1dWBZ3MeYFfJTrvD2kjPP/T9+Opi18hpF5IyJW0eryGj2aH
+	 Gm1wHlRW7mbhsWcZJqkJLksze37eRQeUgNN70D09iACY0G6evqTiOosYBwqep6IoWVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794540537;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=bOwK+5oLftQk320DH0GEbzZnadmplgpiQL2jCJ+yV24=;
-	b=Zmgci03pMKS53OzUph9pbA++VQZgjvFgKrtitIOIXRPtkwphss79nPXYnL9E2cwJI1IM
-	 Y7qIINnFZjBNZn3LrPrFyoyu/zvU3FiOFcgtcDk8ApLzXyTI1EMvFo8/rpWxX7ZBLZAad
-	 ZBbJwqvPsj0TRa7TkxWfsoy9W1tjaZWZnP3F6Zf2zPUAD1r96grewfFePKcwHtNAQ8mWv
-	 IEICQkuu/i6cVpg+15IBGvTSKfYep45+0XXQ5Z2ubpeD1JFs3DpOyK1MLXr8XhGFru9Pp
-	 PC7WPe2R5VLB3gEboF7Keqq2ywW/JkMO10b5C99I4SuegiK7t/Nu2ViMN74mWuMY82w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794540539;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=ZGUaiQStui/oBajhsUVUJ5o+FnF3+m5kPb6e9oWH/N4=;
+	b=XUuaDfbhyNA3vh6jsxdSTpGH4ptXKVudF1W6SGvUxQ8VDj745Rz6s3f4MdeEku4H9plI
+	 +WA8hyri6nEAwpDZhYiVpBya5yzIwoN+zctF81Rss1+hhHpneQ4lWZM7RWd+aFVNdYONU
+	 bkS5D6BpXOWWB+9tTFFbrmPWA5+tfmyJprOjpJugwlmnBz0JvkiMA+5sMtLAbDLHWpOJc
+	 RKJf/DAqFLPFh//GvM37z7/YokKQeTfJb9A7kwQ6/biRRMjdMafj22PegbgE88FW36ahX
+	 aHKBYlI6hZiUQnKXe/+Ga1gTvCBk3dSgxgoW2aGC0hoRUGj974hp7JQv4p/YO3n9Qdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cQzJAi9q;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B79B9606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:28:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B79B9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cQzJAi9q
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C6D24175A;
-	Thu, 12 Nov 2026 19:28:51 -0800 (PST)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 106C63F632;
-	Thu, 12 Nov 2026 19:28:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794540534; bh=kLEU3+bkOweqD+kWRCMnCgNUSxxZISweiL/OZrrvsQg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cQzJAi9qDEf+g9Wu+39XmiWj8YhBA0INOILUGffcjMUE8/Tf9z7R4Xduj/J3XnJva
-	 NIkTXHmTBtDOBXymBVjpVAXOyuDh6Q8LHelosDBddoa2rtGosn/7Xf/ohNpiQnHq7C
-	 yISkFw1TmXdLfYUuB5eNB4w4khmLNN95v7wKKgUE=
-Date: Fri, 13 Nov 2026 08:58:51 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org, catalin.marinas@arm.com, 
-	will@kernel.org
-Cc: Ryan Roberts <ryan.roberts@arm.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH V4 0/4] arm64/mm: Convert pgtable READ_ONCE() as
- pxdp_get()
-Message-ID: <vtaekdnpxd5avhpv3hlmeswwq5raf57ila2qyilxvddu3w5nnq@lkenzauzv7hy>
-References: <20261105043403.3326445-1-anshuman.khandual@arm.com>
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.94.104
+Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35124606A327;
+	Fri, 13 Nov 2026 03:28:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35124606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jQjPy1VQbz1rqgT;
+	Fri, 13 Nov 2026 11:28:06 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id D822940595;
+	Fri, 13 Nov 2026 11:28:48 +0800 (CST)
+Received: from [10.174.179.19] (unknown [10.174.179.19])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgBXkO_vg_Zqje6aEA--.20867S3;
+	Fri, 13 Nov 2026 11:28:48 +0800 (CST)
+Message-ID: <167a29b6-32cc-4d98-b664-4b1db1320609@huaweicloud.com>
+Date: Fri, 13 Nov 2026 11:28:46 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,108 +51,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105043403.3326445-1-anshuman.khandual@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/8] ext4: fix endio zeroout corruption by tracking
+ to-be-converted unwritten IOs
+To: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Cc: Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, linux-ext4@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261102-ext4-endio-zero-bug-v1-0-266d2bb9e6dc@linux.ibm.com>
+ <fce5c384-3a18-4156-b0eb-a0d584b8b459@huaweicloud.com>
+ <avVm8XuQbU4sSIF1@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <avVm8XuQbU4sSIF1@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgBXkO_vg_Zqje6aEA--.20867S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3JFWUWFW5Aw4kKFWfGF1kAFb_yoWxGFWfpF
+	Wa9F15Kr4Dt392krZ2yan0vw4Yvws3XrW3Wry5Ga1vyFn0gryIgF4xKayj9FyDKr4kGr1Y
+	vr4jqryDCas8Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUymb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vI
+	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
+	14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07UK2NtUUUUU=
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On Thu, Nov 05, 2026 at 10:03:59AM +0530, Anshuman Khandual wrote:
-> Route READ_ONCE() accesses on pgtable entries via level specific generic MM
-> pxdp_get() helpers which platforms could then override when required. These
-> accessors on arm64, will help in ensuring page table accesses are performed
-> in an atomic manner while reading 128 bit page table entries later. But for
-> now they just default to READ_ONCE(), thus preserving existing behaviour on
-> current D64 translation a well.
+On 11/12/2026 3:12 PM, Ojaswin Mujoo wrote:
+> On Thu, Nov 12, 2026 at 11:33:35AM +0800, Zhang Yi wrote:
+>> On 11/3/2026 2:26 AM, Ojaswin Mujoo wrote:
+>>> There is a data corruption in the zeroout fallback
+>>> ext4_split_extent_zeroout() when we encounter an error like ENOSPC
+>>> while trying to perform endio extent splitting.
+>>>
+>>> The issue was discovered by Fedora coreos community while using 1kb
+>>> blocks size on a 64kb pagesize arch like powerpc or aarch64 and the
+>>> discussion can be found at [1].
+>>>
+>>> ** The Issue **
+>>>
+>>> The issue can be encountered as follows:
+>>>
+>>> 1. Make an FS with no reserved to root reserved blocks and fill it
+>>>    completely.
+>>> 2. Delete a file so that ext4_sb_info thinks there is free space but
+>>>    mballoc doesnt have any (until txn is committed).
+>>> 3. Now when endio kicks in it eventually reaches:
+>>>
+>>> ext4_handle_unwritten_extents
+>>>   ext4_split_convert_extents
+>>>     ext4_split_extent
+>>>       ext4_split_extent_at
+>>>         ext4_ext_insert_extent
+>>>           ext4_new_meta_blocks  // extent tree split/grow needs a block
+>>>             ext4_mb_new_blocks
+>>>               ext4_claim_free_clusters  // thinks we have free space but mballoc
+>>>                                            has none until txn commit frees it
+>>>               ext4_mb_regular_allocator
+>>>                 // return -ENOSPC
+>>>     // ext4_split_extent fallsback to zeroout
+>>>     ext4_split_extent_zeroout
+>>>       // We try to zeroout surrounding unwritten ranges. This code has a bug
+>>>          where we zero an unwritten extent which could have valid data on disk 
+>>>          whose endio has not yet converted it
+>>>
+>>> The main issue is that zeroout assumes any unwritten extent is valid to
+>>> zeroout but it could actually be a soon-to-be-converted extent holding
+>>> valid data.
+>>>
+>>
+>> Hi Ojaswin,
+>>
+>> Thank you for your analysis! This makes sense to me. I apologize for not
+>> having considered this concurrent scenario earlier and for amplifying
+>> the data loss issue.
+>>
+>>> ** The fix **
+>>>
+>>> The way this series fixes it is by per-inode tracking the no. of
+>>> unwritten IOs that are submitted but not yet converted
+>>> (ei->i_conv_pending_ios). If we end up in the zeroout fallback and see
+>>> there are such IOs existing in the inode, then we don't zeroout and just
+>>> return back the original error. More design notes can be found in
+>>> subsequent patches.
+>>>
+>>
+>> Regarding the solution, I agree that your approach looks like it can fix
+>> this issue, and the idea is fairly straightforward. When zeroing out, if
+>> there is other concurrent I/O, just fall back and return an error.
+>> However, I've been thinking about it over the past few days, hoping to
+>> find another simpler and more elegant solution, but that seems rather
+>> difficult.
+>>
+>> First, due to the map range caching mechanism in the iomap writeback
+>> path and for performance reasons, we probably can't go back to splitting
+>> extents when issuing I/O as before. Moreover, the previous approach also
+>> couldn't completely avoid zeroing the entire unwritten extent when the
+>> I/O completes, so the problem already existed before. It just required
+>> concurrency and had a very low probability. Therefore, I agree that we
+>> need to address this problem head-on.
 > 
-> This is similar to generic MM where all atomic accesses have already been
-> converted from READ_ONCE() into pgtable level specific accessors.
+> Hi Zhang, thank you so much for looking into this.
 > 
-> These are preparatory patches for D128 enablement, although standing their
-> own for D64 translation as well. These patches are split from earlier D128
-> V1 series. There are no functional changes here, and besides mm kselftests
-> do not show any regression.
+> So I agree that it is a tricky issue to solve since we don't want to
+> add too much complexity in the fast path. Actually the first prototype I
+> did for this (back in sep before we started seeing this in distros) was
+> becuase I was working on moving zeroout to the fast path rather than
+> just a fallback and had hit this fairly easily there.
 > 
-> https://lore.kernel.org/linux-mm/20260729122452.3797443-1-anshuman.khandual@arm.com/
+> In the first prototype, I took the exact approach you discussed here. A
+> new CONV_PENDING type for extent cache with all the plumbing to ensure
+> we don't lose the status untill the conversion happens. What I reliased
+> was that although this was a much more accurate fix, it needed lots of
+> core changes to es layer, and I ran into several bugs where data got
+> corrupted cause the status was getting lost or not in sync. I did manage
+> to fix most of them but it somehow makes me a bit uncomfortable from the
+> POV of a backport.
 > 
-> This series applies on v7.4-rc1 and have been hosted below for reference.
-> 
-> git@git.gitlab.arm.com:linux-arm/linux-anshuman.git (arm64_pxdp_get_v4)
-> 
-> Changes in V4:
-> 
-> - Dropped all pxdp_get() platform overrides per Catalin
-> - Moved pmdp_test_and_clear_young() and [pud|p4d]_offset[_phys]()
->   helpers inside arch/arm64/mm/mmu.c to avoid build problems
-> - Updated all commit messages as required
+> The patch for the inital version (v v rough and not cleaned up since
+> Sep) can be found here [1]. 
 
-This series has run into some KASAN fault issues during boot with 5 level
-pgtables but also unlike Sashio suggestions these would require more code
-churn to fix. Please find the details below.
-
-https://lore.kernel.org/all/ohyhflzuoxdemccemutoosmj5hsfwylrlt6tvnyehulerk7gf3@ada6wu4zrzkp/
-
-NOTE: somehow Sashiko had dropped LAKML from the thread although it shows
-up in MM list.
-
-Given the above scenario, I would suggest falling back on the V3 series,
-that defined and override pxdp_get() helpers for arm64 platform. Although
-similar to generic MM default fallback, they prevented code movement into
-arch/arm64/mm/mmu.c file causing these KASAN issues in the first place.
-
-https://lore.kernel.org/all/20260924062214.1635078-1-anshuman.khandual@arm.com/
-
-V3 series apples cleanly, builds, boots and also clears MM selftests on
-v7.4-rc2 as well.
+Ha, it looks like we're thinking along the same lines, the
+implementation of this POC is largely similar to what I had in mind.
+Thank you for working on this. Feel free to reach out anytime to
+discuss.  :)
 
 > 
-> Changes in V3:
+> I'll address your below ideas on how/if i implemented them in [1]
 > 
-> https://lore.kernel.org/all/20260924062214.1635078-1-anshuman.khandual@arm.com/
+>>
+>>
+>> Here's a rough idea I'd like to share:
+>>
+>> 1. Add an in-core extent status flag, something like
+>>    EXTENT_STATUS_PENDING_WRITTEN.  Like EXTENT_STATUS_DELAYED, these
+>>    entries would be must-keep.  The idea is to mark ranges for which
+>>    we've submitted I/O over an unwritten extent but haven't done the
+>>    conversion yet.  It would just be an extra flag on top of
+>>    EXTENT_STATUS_UNWRITTEN; the zeroout paths would be the only thing
 > 
-> - Added overrides for pxdp_get() and replaced remaining READ_ONCE()
-> - Updated all commit messages as required
-> - Dropped previous tags
+> I added a CONV_PENDING es type rather than flag. I did start with the
+> flag over UNWRITTEN approach but most places like merging logic care
+> that the type rather than flag and which was causing us to merge
+> UNWRITTEN and CONV_PENDING which we can't allow. So instead of modiying
+> code around merging and other areas I just made CONV_PENDING a separate
+> type.
 > 
-> Changes in V2:
+
+Yeah, it's also fine with me to make it a separate type, whichever is
+clearer.
+
+[...]
+
+> I agree that in the long term es cache approach is definitely the way to
+> move forward. I'm just wondering if it would be feasible to backport
+> something like that. Then again if we want to backport only till 7.0,
+> maybe it wont be that big of a deal. 
 > 
-> https://lore.kernel.org/all/20260922061638.3967467-1-anshuman.khandual@arm.com/
+> There are 2 approaches that I can see here:
+> 1. USe this patch set's counter apprach as a stop gap, easy to backport
+> solution which works but is a bit clumsy. With the immediate fix in
+> place, we can take time to test and design the extent status approach
+> correctly and land it as a feature rather than something that needs
+> backport.
 > 
-> - Rebased on v7.3-rc4 along with all latest dependencies
-> - Updated commit messages per Ryan
-> - Added tags from Ryan
+> 2. Ditch the counter approach and just fix it in one shot with extent
+> status approach like in [1].
 > 
-> Changes in V1:
+> I'm happy to work on either of the two, what do you think shall be the
+> right way forward?
 > 
-> https://lore.kernel.org/all/20260903060657.2717457-1-anshuman.khandual@arm.com/
-> 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Linu Cherian <linu.cherian@arm.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-mm@kvack.org
-> 
-> Anshuman Khandual (4):
->   arm64/mm: Use pmdp_get() for PMD accesses
->   arm64/mm: Use pudp_get() for PUD accesses
->   arm64/mm: Use p4dp_get() for P4D accesses
->   arm64/mm: Use pgdp_get() for PGD accesses
-> 
->  arch/arm64/include/asm/pgtable.h | 38 +++----------
->  arch/arm64/mm/fault.c            |  8 +--
->  arch/arm64/mm/fixmap.c           |  6 +-
->  arch/arm64/mm/hugetlbpage.c      | 10 ++--
->  arch/arm64/mm/kasan_init.c       | 18 +++---
->  arch/arm64/mm/mmu.c              | 97 ++++++++++++++++++++++----------
->  arch/arm64/mm/pageattr.c         |  8 +--
->  arch/arm64/mm/trans_pgd.c        | 14 ++---
->  8 files changed, 108 insertions(+), 91 deletions(-)
-> 
-> -- 
-> 2.43.0
-> 
+
+Personally, although I still think this counting approach is a bit
+hacky, I'm not opposed to using it to fix the problem first.
+
+Best Regards,
+Yi.
+
