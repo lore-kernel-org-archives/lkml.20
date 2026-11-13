@@ -1,118 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794603199;
-	b=sWhmtqWcq3xgF17QXj6hnaRZmwLRw/kuqSgXPrjdOdLQh4Lw1irc9jjjmpMZKkZkJvP4
-	 rRKasT4kRxN1V6weLxr9o0b5+qhMbecWwPTvUs9Hy3i7XEgwZ8tshxJKYj/OOUM28HsZW
-	 vNoX8RDEBRGQrMTNbIfXWCFUnchrlmjUthyaXW35hSIIDC1ZSHbkEjSXSIlhZS67g+DXl
-	 6JSboPQGoCetr9Gqq39fOAJZjKtWqkcmtqkrt/Ec1JVf644/HyIhI/Iol+1tUby11cqhh
-	 qxYOpZcj6Y6gxJza4+le4QUqC00lckBCat7iONVy9al3BgedIY2HiL5Qkw2dBSB1Iaw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794603199;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=vbJs1WBJaUcoreIKbex9CfghBlcbgLiuK2ZYSeX6pvs=;
-	b=TNhVBb01tBOt1tVhQfdNZ/EB6/bo5tQf9XfNrq/J75gIhUqkRdfRRgc5LMzN/2onPYn2
-	 rBMVYmYgyAalKoDQs0izwILcP+aX2xQcYd3o6jzw5NKv0KZYJ4EL+0YlORzkRzDVSz3b6
-	 cWL8d3J7PkXWD9a0szcx3z1uNBpS+NQbxCTzxLkzXql4GlM6IsgYrwK5tQgjxi3BTSdhs
-	 yvuHrrvXiwqxu7z640KJht4uc3dOihFgogsvZAe1XRJqwRU6NMQprMeW5gVOl6HPrtIHP
-	 mDgiW6RaGxCoqOEyVBuPuMajZXYfCg4RsParOup2goQ295UsT9eon5kfZXjvRt/dTSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nokia-bell-labs.com;
-	spf=fail smtp.mailfrom=nokia-bell-labs.com;
-	dkim=pass header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.a=rsa-sha256 header.s=selector1 header.b=dl8wDFTt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.37
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012037.outbound.protection.outlook.com [52.101.66.37])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794603240;
+	b=S0+CWsTSg8QZ4Otltc9F6QBdG6FQ4gkRmnKUIOZq2LuksG3JFy2rB6HE7C0KwyGnM/Ga
+	 PlEcceVMfvyahD48AF9Pmi6Zc9sIJFi02d5T8FMapYq0iSNDJ4+mKoVLoXwBU+oODe1YH
+	 UUhcHuTid/kXk1F1wWoPjJRXUhC8qEuGIoPhopGG/F+ao0qwsAUwP2kvwL7pcyU4hYyEW
+	 TQg2+VrpFi2dcpPVeWkB5NnwaTOkA8Y3ooTrrGlsdngX5YQigLjlvP5CoPhToipUHJ31g
+	 OezMWVlKqKTw7AsPr74b2Ipeb46nKTxYZRqzSuziGVxhY3vJcYtyqlaC5lLVq6qCh2g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603240;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Content-Language:To:Cc:From:
+	 Subject:Content-Type:Content-Transfer-Encoding;
+	bh=4O2iL3RsyxnZ9m4gGTzmFGBt6GQKNa857BfAv3d9rDM=;
+	b=Css20jHr4t/5xvHM4suBqmdADGMvqRRPRpXsvlwrpXSZsGnz8PE7h0VyGtEhJnqT4wHE
+	 1deYI93971oIta4FRN9IzPp1LdDmFc/kJldx+KumEvY4yiQstiRKsqqWDQVdou336giY6
+	 wiXVDHdZkVI//xQwyzvVub+phraO6Yc2SwGIUeJlmGYmdyIazth9vmeVavwIxaZ73zNAs
+	 c4TZoFAaeC6/WmeF5skGosy695ayINoqR/cdgNLwfe5ep0pNSXmBQZCZgwWFr6tfUvZqW
+	 aSckN2cTnKnOVCxsyAiPGrD1TiT/PfMQqLyzARHuIrMIXsvkSTRPqduczEEdBX1yDWQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vxKUcFah;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3F4606A323;
-	Fri, 13 Nov 2026 20:53:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C3F4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia-bell-labs.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A903B606A336
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:53:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A903B606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.a=rsa-sha256 header.s=selector1 header.b=dl8wDFTt
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kL22p8BZF/Emfj8IJkbvDzCaUJdCVWlN8Le2jw0n/OLcE9U9DIIcqIx8tSTlhAjHxzYBx5Tj7nC2KFqwuL6jS60jVuk6QxNtqK9kfoIE3pAH9k6ik+kJBsyMl3cct5cC7cjQNoCoxrqVdezm3hf2HmFvh3p9ec0PE9VTN8k1UCCFuMruVTrpLp3QBkAauSbZ+3e1dNDXrqMelcZx3jhtLogAzTsfHtgKJtTUOkWICf5gs3Gl+40o/TXPjsp0BxRF6V9dDZwMCHk7m7Zq9sTTDJt5CTyfIyRfssNvzoJCl71hNXGESLSziqACOyq8UJi9ZA0i/RxIfblKrWD6A8qEJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vbJs1WBJaUcoreIKbex9CfghBlcbgLiuK2ZYSeX6pvs=;
- b=NfmO6Tgsr7k0+ZBmT5OKZBjbtqfpFCBPaRuQgLoaRUc8QmSqwOl8mWKInYY3b9bmG3lbhf9K/HUc0JB7kRMNvMPywbskIr581sr+Al1GdfDt1xkKcUethRppb+9YcqZEaxKj2vUkyj2gS2MfjXZEA9GBAhKdJbLIp8ZgzoOpOKc2p1Rr1nGmiR0gowJr0TkaW0Qd0+Y+LHW8A9jciuhd9vQaGOFmtcrxwGfCF4RIvF1NIVuV5UyLYgixXVBBzvCxctRbpGp6wvNnC9iIg+Znj2FthUBsv/eqAQ38a06YOGVrWdIwEvUWfQI38gLeWzxchhOlTHZN2MTp8k6HYil6ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 131.228.2.29) smtp.rcpttodomain=davemloft.net
- smtp.mailfrom=nokia-bell-labs.com; dmarc=pass (p=reject sp=reject pct=100)
- action=none header.from=nokia-bell-labs.com; dkim=none (message not signed);
- arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia-bell-labs.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vbJs1WBJaUcoreIKbex9CfghBlcbgLiuK2ZYSeX6pvs=;
- b=dl8wDFTtq6tsCVZ2/hNvzbKllW+o7L6zunmn7fGrmcsijJazhuQtBivZsF9gC+X11LcRpAXiiN1TuyETQBtXhz9TnOCsr8DRYhPfNq2wbOh9qLo2aEUw4aBSciBqNsEjTj+VjUL/q9iShQTXDkL4yF0ndaAW6t8/2BgMfhrpTv/HBJ9wykReoZYWMc7r9MDwPZM7kC/VJD4R3VwDLKMZKJWvzjueRDjP8TzuYXL6LaIsUS9r5iN9NTB5kNFbb4xU4raZfA50tYh2N0zhNCgXQA/sZIhaXwIEh+h+plFmcfa+ocrEjXwG8t1Hbcc6vOf+IcH4r4I9mvzB+7Q0jtYOhQ==
-Received: from PAZP264CA0074.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1fa::9)
- by AS8PR07MB9397.eurprd07.prod.outlook.com (2603:10a6:20b:637::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
- 2026 20:53:14 +0000
-Received: from ZR1PEPF0000E6B0.eurprd05.prod.outlook.com
- (2603:10a6:102:1fa:cafe::93) by PAZP264CA0074.outlook.office365.com
- (2603:10a6:102:1fa::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Fri,
- 13 Nov 2026 20:53:12 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 131.228.2.29) smtp.mailfrom=nokia-bell-labs.com; dkim=none (message not
- signed) header.d=none;dmarc=pass action=none header.from=nokia-bell-labs.com;
-Received-SPF: Pass (protection.outlook.com: domain of nokia-bell-labs.com
- designates 131.228.2.29 as permitted sender) receiver=protection.outlook.com;
- client-ip=131.228.2.29; helo=fihe3nok0735.emea.nsn-net.net; pr=C
-Received: from fihe3nok0735.emea.nsn-net.net (131.228.2.29) by
- ZR1PEPF0000E6B0.mail.protection.outlook.com (10.167.241.87) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Fri, 13 Nov 2026 20:53:11 +0000
-Received: from sarah.nbl.nsn-rdnet.net (sarah.nbl.nsn-rdnet.net [10.0.73.150])
-	by fihe3nok0735.emea.nsn-net.net (Postfix) with ESMTP id AC22255B67;
-	Fri, 13 Nov 2026 14:57:01 +0200 (EET)
-From: chia-yu.chang@nokia-bell-labs.com
-To: linux-kernel@vger.kernel.org,
-	kuba@kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuniyu@google.com,
-	ij@kernel.org,
-	ncardwell@google.com,
-	koen0607@gmail.com,
-	g.white@cablelabs.com,
-	ingemar.s.johansson@ericsson.com,
-	mirja.kuehlewind@ericsson.com,
-	cheshire@apple.com,
-	rs.ietf@gmx.at,
-	Jason_Livingood@comcast.com,
-	vidhi_goel@apple.com,
-	Mike_Rudolph@comcast.com,
-	Jeff_Howe@comcast.com,
-	srichard@netapp.com
-Cc: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
-Subject: [PATCH net-next v3 0/4] TCP Prague preparation series
-Date: Fri, 13 Nov 2026 13:56:24 +0100
-Message-Id: <20261113125628.2893742-1-chia-yu.chang@nokia-bell-labs.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vxKUcFah
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4918c2d727fso716769f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:53:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794603238; x=1795208038; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4O2iL3RsyxnZ9m4gGTzmFGBt6GQKNa857BfAv3d9rDM=;
+        b=vxKUcFah2dEJQJlVcolTIMkDEPayM416prYnDTnrH7qZ08MO5YuChzoPwsEuSiacH1
+         fs5EIDUx35jOzPHdrZp6fYyozP3/YONkhrMV49J3e3xArKGBkfGwNNgGQX8SStI3ZGsc
+         1fJLZgPHugoMNB/jIZV8gvlfcXgVUa5xz6xkT0HFSQIY2bIpBQvGEyXg/v41FUW/haIO
+         12PITto3/lIkbeBoCBM+CBPOmsP6PbFleVv8H51mEfSxrdwPD6qPAsxdr+QKxS9RJ8qE
+         p4l5rwKXnM9pfS1mpWMmdKyIziB2dVSW/CIX88ndyk/jvPczWks4Mfrg0+IVHdwURS+5
+         BXeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794603238; x=1795208038;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4O2iL3RsyxnZ9m4gGTzmFGBt6GQKNa857BfAv3d9rDM=;
+        b=jjAJ/e4iDTaJV2lLVvCHRznOGjoPe1sMD5nZsTwYzNyXC4tdTpjPBkVtYiJ0ihch1z
+         6lREjJ23vUaBCIwg0zveFWR9VqMwkXHAUEOoF3vSk7awKpXQWtX+/vQdXxu/M2lHHkN7
+         oh0nldPp0PBWsbPi5xQGJmYO4p7bYjbYN8DQr3EE4FlGXToiwv+ZwEflb7pe8M2lqkFd
+         NBzrIzmh7aedxbQ977jYrSWtb88IS5Jg7v2BfNkyZ0SGfsFX90KEy9MOiSPW29U5I3pa
+         dDgUMxp4jSuieM2iRZDwNobUq05hRdbeQtqBOhjbrgfNC/3Bg2r0J6Fblbk0DR9Kwcrf
+         pajA==
+X-Forwarded-Encrypted: i=1; AL+hErGgmREnJPKd5EdrOX3brIiAbUza08L/IHBerIbIXbfVmszbMYx3vPwixe0ewhuW2gyqCNRHcFVMaBvYHwA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+eZH5nJE176wtw0dGjAuQtCZz49ch/XLqWvmopKY9Ffw0xqrBs
+	ogZD89agYT6vQF/1/SaYvHF6KqikgUX/+/ytAFjXiWpDgmSpwCWhafWmwLIvZOSQ
+X-Gm-Gg: AYBFou2Y+5bLHiOwqHOiDl3B+fbdeJvNuOwwQvNUe7QL4uWbbQfJogoKuxwpbw62P9A
+	uL078r9HLoZfQ6hf+dKc9Z4dHnWh5XGJ+Qprnzc0rXKg1Tm0wjpslWhCje5HPifuj9K1Nr19DP3
+	yyWUtjWdRhm+WDOEzS8BwTxuKCR8WUD/lVn1K5LGaqRjyRIE3YN1wqcW7dG2iQcbCL5PIjtbzmH
+	2MG7UBxNi9KgC5CVLt3T1vCNIoCKgQbiXit6bNMW1oKcoyq5aAQ6pxv/iR+5tl6o92hnFr0V7K/
+	t4bpP91cVF8y4hyTcxMqKt4/VHLTfO24a+mgA7BCxhH7TdZiBOYHKGO5zYxgtqAkjfx9s3jwxIW
+	gM7ktuDKeG6MZ6BsSvwmfwCg3OdRJIeGcs8f0Zu7ep5SEaVnEDw4EJlxzaxiHtg5DpceLVSv6xP
+	51GLpu00UvPdSXg5G+koxlnuQNNkFfDZN9T5x+s2VVl2SVeczduP7oL7hf8s7JtrUhwtM/CIIJ9
+	2X39dpSMbxm5d3jNYlCyLW59Bd65+5lPCp2b4z6VffVp3ivpNrxJzt1VIMsMi02YaLfR5ROgWZ0
+	olH2T2oPkKesbdr2KTxTa4Q3cD04FIoRuqXFCWW+xlXuG18zLMlvWXSS2GLmVdtodYAV8QAI5mQ
+	BtOJnmuzXDmDGAQ==
+X-Received: by 2002:a05:6000:46c4:b0:494:bf39:21a5 with SMTP id ffacd0b85a97d-49c70ed910dmr5311677f8f.10.1794603237761;
+        Fri, 13 Nov 2026 12:53:57 -0800 (PST)
+Received: from ?IPV6:2001:1aeb:1005:d000:cce4:c8f7:ce4e:e9a0? ([2001:1aeb:1005:d000:cce4:c8f7:ce4e:e9a0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c607d12c4sm6789427f8f.41.2026.11.13.12.53.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 12:53:57 -0800 (PST)
+Message-ID: <139f1f39-2e0b-4ca1-86bc-db9732f9d351@gmail.com>
+Date: Fri, 13 Nov 2026 21:53:58 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,66 +91,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Content-Language: cs
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>
+Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Miroslav Ondra <ondra@faster.cz>,
+ hyblmatous@gmail.com
+From: =?UTF-8?B?S3J5xaF0b2YgxIxlcm7DvQ==?= <cleverline1mc@gmail.com>
+Subject: eeprom: at25: no module autoload for chip-specific compatibles
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZR1PEPF0000E6B0:EE_|AS8PR07MB9397:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6224384f-f06f-40cd-17ac-08df41c82170
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|7416014|376014|36860700016|1800799024|18002099003|3023799007|921020|11063799006|10067099003|56012099006|261009223027099003|261102123227099003|261102130727099003|261026121527099003|261021121427099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	8a+WSusvS5xeQemooL6J7XFBRs/wxG1rGASY210j3isLJinHfzJ8yzqMw/o6KRg1nmXV9bEeeQkaQ8nyQvEG9zyqNw2IJDtrLsma1dlLQjG1UUnoXHMkhtD+XPFwhjVb5uqQUl4dnMDyEQYr2i6RA4jhcHCmsDOH0JUoqbTA19/ATINFCNgBk1cw0LfGFiG9BBFWd17cN8H4bybjRyVY+Sz2w9/wOnAPRONnRpl+3lv8Axcmm5cow1QyvR0W9E1hyb97rUPRL3iEzrfW9F2C8rfU977uuupQzs/wBaubUMyxwBt8ZM5QP5zlw6zdoUA/c5TGxuAsIdQA1+uQhHi4PH1mwocPqS7gMX3MBlgA9CXfIrVeQdPIcY5Y/ZxOrvAQ0QZfPX72PDbtlG177S3N14I2aATgdIw4rX37g5gGwwK9HoVgRdvl38tWPZshVW7ss/ecn8dUMWfdyMbf6+3HwuoYqFh9d6b8KcWvLV/Dq68B9RQ8elO3CAJS5ypIOA+YOQAYjUHjwM53zGB64zlChdHpC6JWCc/uxg1/4YYbA3+CN2x0EQ4KIc7IwQIH7MEvNn4Nqy2Xy8O7j0gXxYna/mKZmi9EHua+4SSwjlgJdgixyDA878Spkw6DBi4dZWwXmv6eE4oNxI54K5P0JFrsDZDVuGZu20QB6XMedJAwrTe7XQnYU6ee6Q5ZwrajJLKF/T+Z/lxnKDWJnv3IJf0ULS4dOYZcd5x1EwBcDSl5qqopq1IkunCoQhOwi77tUVG7
-X-Forefront-Antispam-Report:
-	CIP:131.228.2.29;CTRY:FI;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:fihe3nok0735.emea.nsn-net.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(7416014)(376014)(36860700016)(1800799024)(18002099003)(3023799007)(921020)(11063799006)(10067099003)(56012099006)(261009223027099003)(261102123227099003)(261102130727099003)(261026121527099003)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	DBIvnOOaaKfRFujQ9LnrKsthLipPGUbOWZ3he649kpc4GxbtaUUPQZhdFyC1QTuoDe98yC9Er1fR2w2rU7hn7tS9Fpt7o1MbPzRsAvYX8GIXY5jImHL1Tcl/hu2xw+4mGzGooKclhpcWlxRbiVxiJkeC56PRKUEf0SZOy5ldh2n/diBPMwxW9mfeeFRfy+SVMkq3E0Adp9LbLe51z0/mQdJrsI1AjAXtC4y3vyXgaezcxuyNqdJHUUFprW4m9+LHZvMwT6Zdy4lF/Tdqcnugqboh6sj5DqZT/VScG51RJ1qSjH9dKgS5aFlvj+DQrnpo1o18e1HTX26YASfWvCr/xOu3e5u7JxGop4TRA8Dm4m/xNrmkDMHDizlOzbrQn7VkgLWWFkzSCdS9XM2KAIbp59WUa1A3FN0HzOLNKR4RQcfgRIbsKMlTIl3w3B4l/kp8
-X-OriginatorOrg: nokia-bell-labs.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 20:53:11.8843
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6224384f-f06f-40cd-17ac-08df41c82170
-X-MS-Exchange-CrossTenant-Id: 5d471751-9675-428d-917b-70f44f9630b0
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=5d471751-9675-428d-917b-70f44f9630b0;Ip=[131.228.2.29];Helo=[fihe3nok0735.emea.nsn-net.net]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-ZR1PEPF0000E6B0.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR07MB9397
-
-From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
 
 Hello,
 
-Please find the v3 TCP Prague preparation series, and TCP Prague will
-be submitted after this series.
+I am facing an "issue" with the at25 driver. We have the driver
+compiled as a module and load a device tree overlay with
 
-This patch includes the following additions:
-(1) Add ece_delta to rate_sample;
-(2) Rename existing rename ECN transmit helper function;
-(3) Add TCP_ECN_SEND_ECT_1 to use ECT_1 after negotiation;
-(4) Add MSS ceiling callback for congestion control to limit MSS.
+     compatible = "fujitsu,mb85rs1mt", "atmel,at25";
 
-Best regards,
-Chia-Yu
+as required by the at25.yaml binding. However, the module is not
+auto-loaded. We have to either modprobe it manually or add a modprobe
+alias.
 
----
-Chia-Yu Chang (3):
-  tcp: rename ECN transmit helper function
-  tcp: add TCP_ECN_SEND_ECT_1 flag for congestion control
-  tcp: add MSS ceiling callback for congestion control
+As far as I understand, the SPI core only emits
+MODALIAS=spi:<first compatible without vendor prefix>, so the uevent
+carries spi:mb85rs1mt. The at25 module only provides spi:at25 and
+spi:fm25, added in commit 9e2cd444909b ("eeprom: at25: Add SPI ID
+table"), so nothing matches. Once the module is loaded, the device
+binds fine through the "atmel,at25" compatible.
 
-Ilpo Järvinen (1):
-  tcp: export CE count in rate_sample
+Is there a better solution? I thought of adding SPI IDs for the chips
+listed in the binding (mb85rs1mt, mb85rs256, ...) to
+at25_spi_ids, rather than only at25 and fm25, but I do not know if
+that would be acceptable upstream.
 
- include/net/tcp.h     |  6 ++++++
- include/net/tcp_ecn.h | 12 +++++++++---
- net/ipv4/tcp_cong.c   |  8 +++++---
- net/ipv4/tcp_input.c  | 40 +++++++++++++++++++---------------------
- net/ipv4/tcp_output.c | 18 +++++++++++++++++-
- 5 files changed, 56 insertions(+), 28 deletions(-)
-
--- 
-2.34.1
+Thank you,
+Kryštof Černý
 
