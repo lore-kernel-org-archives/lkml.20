@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794608496;
-	b=odJ1gJzKmxfpnCKYIO5PY33AZZG5rdJ++HLM8DuUuCIRod66NV3PTlC9LHF5+cwP/I9M
-	 E/D8B3r2VmPtNqd6xIUvl5l6b9VPrk0StMdg7lEuoR88T4G0PLe9YKUf446blherWcM4B
-	 7aYSS1O9SK/IUKYzh2TQUlo5WeczDQ2J8hheIb6WnOuoZLQihgsQLXtNkxdlxAB454uop
-	 biMRL5tkQE7artYMj+1fEpGK5wRZIdTkObBwpw4TbMrszBnN66Lw4L77ApQu81jrnyqY4
-	 Be3x7oKcP8GiBXSEBOAGZ7Hdf1lHpa44yGaTNbXhNjnf2HuXZ6ZGYsOq34Gw2GoaedQ==
+	t=1794608495;
+	b=HgJRzIQBhd5S6ULYN/ccO4a/LKOCG7/1QwKLDYTkLRvj7bJbt3viDs23ZKktVyRUqpIR
+	 t2Hmdbv5+ADO0zNvrGzQW1FeboCzhkIbKJNKFg3lRI5tRxZIQTYjJO0CDWaaCzCiUHIFu
+	 OeO/QU7S2O84Rh6EMOVjzCkyQ0J36haQAEWD6JpD3U1xTIjgg4vUAmgMoruaZ1KYR24OE
+	 zgQd3ZfrueIPzXw/PTFYOxk7HNaCWl+bXLIyxA2VXbBViDAqnSS1sjukwtEkc6+j5y7x9
+	 uqgneHKU/4QHrr7xA8sYmXFClMV+YgoUbKs44biz21XyjN0jM7mpUv5RocMLNneP6Sg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608496;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NM+WHKCC3xvJM0QYhS9cDObbL+6VtF3LXo9nejQ5V1k=;
-	b=QkEhn5POaNli/XMRMsYUyrt5708lk+AeSuMOOp8arcfk0FHv/hKPpf5WGDnVtQIeC2wx
-	 ucuRFCvy656EZMUoNrjXqbXb9zSV5dMYRhXgdjfkdl4FmvL4NR2nmU9l+YiW6DfCx1XVm
-	 b/8qDC+u5tubx0hbvktHKmVcpxI0lhTW3lmjiF6Y3YCIjbQHYeGWPftsveaq0QYDET04o
-	 mXcgaHNrmyX1N7GCRgAt53jug7G/iUJMbeaHV4G4/tnpqFQSJ316C+1b+h2tnPey89Wge
-	 Cxsz1CS9cDP6wLXi0EIZwh+29syXninrt7FWfWUjKUAP/Q/vcnmePv9vpJ4bHdXMycw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608495;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=hKpqk6HLacU1LAteKJMU4Ufg/Oj/R3Wdsba8hrvmBjY=;
+	b=KocUS6jqg2MIyjvIOmxKLkXagdUlY0oSYh463SISN5+G7ROAArmuzlswvnfRkvAnuWH+
+	 pmoMoDrqXyUVTrXXaoxPVJ4XlkKvtyP1ulQq3kA4ew7sf/9Q8zBu213/VHL51ABojKnzF
+	 bCKx96NMI8YI0R8pshfO7el2DW4haDU7gguis2m9P3iZcqV1j9RYYPIRZlJH959GFbutw
+	 /HAj9xeFP7m/DxkjrC1lPn8TLp6KuzOTnXccA6Y7ZM+hRobfju+sOvauXNWtddrl6f8fz
+	 6iXbS3uiiBrDh32d1MWYU/f72T+C8xcokJ01CZnfPxip4dxzvgIjtpZgIJCGoc2NGpA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A4rV2/pT";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KEXo0D4L;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8CD606A8AB;
-	Fri, 13 Nov 2026 22:21:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF498606A89A;
+	Fri, 13 Nov 2026 22:21:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4rV2/pT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KEXo0D4L
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794608496;
-	b=ewN0ntKT5lh0ACT6bDPfXguDsi65MwLDsFP/6fWkF/DIHwIOnix4b+PrjPJTnRIFf9dq
-	 wmUCtzsOUmmetGVg6zf/dQtnf7jrM7lI7lQy/bwyZZRxLWJfhjecH2w8UJBUu171m9frl
-	 GLk2wHFMFMZSAJWMyr9KRJ6SWQxuTUsrnlAAKNO8IT9jS+y4mNTg5NwAlx1IFTrgP3ytj
-	 AD4Anwl8XYvnqvKy6r2FDUTH9d95qr1v2xF+AL/EPMeDUhKR/8EkmjBZynHb+FFJNSyka
-	 6o8B7hPFbekdRLcbjih4AdrtcyAdYxpaOwzkvkaz4iOp4SZf8X90ZaIYL0RTsKj/siQ==
+	t=1794608495;
+	b=vZeZfmrQWEgCVfEuEPhX9fgsAZU36ok18CsLVGNTP0EkAZ8GHoZoWxgUgixklSavg/SM
+	 PWGkM/vFG5JssW5sJKuJwYZAPjJmbx8vqjAcsZOBD3SdUgxVySs/CzEQI3J0SP2nArEdb
+	 RjD7/yQwDNk9ejpFN4hvub81U9J3XsjdhrlktPXZIbFC6sDg0wKb0g/DZ1FpFGWWY9idT
+	 dIGnhpTCsy9q4l/8ge1k2aemGkcIzXZC0I+/pjrfHKh3pFyINvIEJjcBHwVfo3USwxzl0
+	 No4MXvt26Ki2yRyj/wDGng+aimg7Alcu9UgRFQsOrtHNJujU9BvDIP0cCeQjM3ZJttQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794608496;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NM+WHKCC3xvJM0QYhS9cDObbL+6VtF3LXo9nejQ5V1k=;
-	b=PeA9HeKT3rt76RzRT28OneCUeNM0o0NryeOphAhSk6gf6JdF9nI2X1e9/CZRZ+zMBAQ6
-	 5mnR9K1X1x1T3UfM+Cy90ebh6wOBzFA9MotUgR52+2Iv5/77kZjOMDVXXc9ppF1exEJfk
-	 pNpdEcp78jYKjwhEsnC9eeDQG1YFqHahI80cX36F4JEPDuyflMHxqtoaEfs9BfZFVl0Li
-	 GmA+hV4PZs7To5U3Unk5/HwczFXVbdYoVzXc/9G600Etct470BwirYDPvbIK7BcHL4t76
-	 HDr8kXnNFATS506XTzfxvKWNnClIqomEj3tYXCm5upV/v8FaDxNWQ+UCZF38RrZ4Omw==
+	c=relaxed/relaxed; t=1794608495;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=hKpqk6HLacU1LAteKJMU4Ufg/Oj/R3Wdsba8hrvmBjY=;
+	b=Il3SsAopXrNC7NwDNxeXeQfpujg3cuyjOwp2aCoTCA9byOfTeDWRdLz0UZXJPYZch31u
+	 0wj1vQwo5j+LzuU0pHCONQPJyM0uYIEMrbmvO/bBH/4Lm3OLTKbn5WgUMid9DrLpt93qi
+	 EgZ3rFnVNIKd3stbMxwrvEkT3IbV4SXBYi34GK6eYPuPy8sqmO9sut5mU1tgiEt82KFSP
+	 ad/v5kgLjfa/LX6ZGCTh0Vha0ybAEALkg6ZLJ6U3KFjm4Gr+5IyPeLQdCaaf84k25Irl7
+	 UrARNYp2Q23YzS+Yrj1AcTiQITYsKgapLkka1CbEvOjnOdvNRP7xvc6sGcR3qjhYEeA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E719B1F000C4;
+	by smtp.kernel.org (Postfix) with ESMTPS id E73731F000C6;
 	Fri, 13 Nov 2026 22:21:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794608496;
-	bh=NM+WHKCC3xvJM0QYhS9cDObbL+6VtF3LXo9nejQ5V1k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=A4rV2/pTR/o5tj8tgDPX2mFhjhe2p0JhsYavPoqUhvTCuQG0DYl9DBZ/kaKFdhXM8
-	 vsLJKgPWZerJVniKaynFPfRQlwZr2uoefBiBTRAfK8igRKUdtofDLo6wWA7FDAcBv9
-	 EM1fhX/B2gHPv0l6DvzPOojxuUcojMZgqhbH56SbOcidcCN1zUrqJxpHgnM7gxZvS0
-	 Y3bYH0PLtq9xvrhLpMtIU7sdtYrIgmn1pCVGC5kx1aSRgBYyhhJYuhCWgFvUGNOFvH
-	 lFWbZ4eJZ3jTM7UgfBHuujzLv8EYtA7pKErHbOjAowiRTp+PASs3OZGtyVQWP/Zplp
-	 K3K3lR9k2ZBow==
+	s=k20260515; t=1794608495;
+	bh=hKpqk6HLacU1LAteKJMU4Ufg/Oj/R3Wdsba8hrvmBjY=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=KEXo0D4LZ7R5Fzg2pik/tMcjkomMmNGWMqj/8sfh2rsHACM5aSq3FdqxYCM5rsUMO
+	 UDpTZWhkWgQ8NIg8HPKIAnCJxTUDCtKv6TvIuzXPy5o6oMT4zUuv61w87ncTlyXFcp
+	 v50tP0eGjtW1B5q1hJqboLZJgkLn7xblh7MscohYbMzFQjMyxIaY0mrXaZZXi0xfR3
+	 wkIcJOm1atokrkdfUeN5Vsay3sNlQ81GNEpkYKcSaLOLUvfRopO4R/en4frwJVqa/G
+	 rFj+lECffHGGIjmq0eJ1HOH5iT6C4he97o6ZzkcCPm/4TQwb8pdb3QYba7QiRUY8hl
+	 Vz0HQ2xc524Zw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 56DBD49B4C;
+	by lkml.kernel.org (Postfix) with ESMTP id 293E249B48;
 	Fri, 13 Nov 2026 22:21:33 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 22:21:33 +0000
-Subject: [PATCH RFC 2/3] media: verisilicon: Pick the hardware core for
- each job
+Subject: [PATCH RFC 0/3] media: verisilicon: Multi-core support for the
+ RK3588 VEPU121 JPEG encoders
+Date: Fri, 13 Nov 2026 22:21:31 +0000
+Message-Id: <20261113-hantro-multicore-v1-0-43811eea14c4@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,9 +85,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-hantro-multicore-v1-2-43811eea14c4@gmail.com>
-References: <20261113-hantro-multicore-v1-0-43811eea14c4@gmail.com>
-In-Reply-To: <20261113-hantro-multicore-v1-0-43811eea14c4@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2NS04DMRBErzLyGkv+tT+zReIAbFEWdrtNjJhM8
+ HgQUpS744SIZZXqvbqwjVqljc3ThTX6rltdTyPIp4nhMZ7eidc8MlNCWSml4KPsbeXL/tkrro1
+ 4ygokau8SBTawc6NSf+7KN/b68swOf+W2pw/CfpM9Zo2+9nHYH9tz7Hgcd/NkYw4AogQbibI3K
+ jjtvBBkYkFLGhIp1JTvnn/KKAUqRVA5oAWKQspig5M6ADkREE0qxXpzo1LciOO6LLXPU8wWTIj
+ GOuOzEF5643UCDQSYVXTCWA8YPDtcr79WMxcjMQEAAA==
+X-Change-ID: 20261110-hantro-multicore-bd251c387be9
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
  Philipp Zabel <p.zabel@pengutronix.de>, 
@@ -100,280 +105,116 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Sergei Khomenkov <shomenkow@gmail.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794608492; l=9150;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794608492; l=5572;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=9jWn2Gigd2wOwask/FFepVbUYfj7D/TpLOUOJvXCMTw=;
- b=r5PrlOXvvc8lwpCY2Qqeq30CFBTVyIZ+JOpHn8bsD5t0SNYqAEvdz505CHX/2u8wcphsXES8m
- A1IfiGTY7wZBowJpTao3uOYhSzPU1ByHClzcbvqqrgGrsaPsFW8/iHq
+ bh=Cv/EUDQj2tIl7BGTLv3WK2CnVloA8B8AeCHDaWxtbMc=;
+ b=Cjv498CCL6jnQ0cAYOFvAR8oJ892okual6pS2C9nmBZcHZpoy38t0gdyspPIbK+WmdaTIIc/i
+ UYTyd0qdXcZDDSwodE1G06NIKxixEK0kCu0vG0WZTDkjMEhOzAQHshQ
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+The RK3588 has four identical VEPU121 JPEG encoder cores, each with its
+own IOMMU and power domain. The driver currently probes the first one
+and ignores the others, so parallel encodes are serialised on a single
+core.
 
-The driver assumes that the hardware instance running a job is the one
-that owns the mem2mem device, and finds the context of the running job
-with v4l2_m2m_get_curr_priv(). Neither holds once jobs can run on
-several identical cores in parallel.
+This series drives all four cores as a single video device. Patch 1
+splits probe into the per-instance hardware setup and the registration
+of the devices exposed to userspace, with no functional change. Patch 2
+makes the driver pick the core a job runs on, and look up the running
+job from the core instead of v4l2_m2m_get_curr_priv(), still with a
+single core. Patch 3 binds the other cores to the first one with the
+component framework, attaches them to the IOMMU domain of the main core
+so that they share its mappings, and lets the mem2mem framework run one
+job per core.
 
-Give each hantro_dev a list of cores its jobs can run on, and pick an
-idle one in device_run(). The chosen core is stored in the context for
-the duration of the job, and the context in the core, so that the
-interrupt handler and the watchdog of a core find the job they belong
-to. The JPEG encoder of the VEPU2 now accesses the registers of the core
-running the job.
+It is an RFC because it depends on Sven Püschel's "media: v4l2-mem2mem:
+drop curr_ctx member from v4l2_m2m_dev struct" and "media: v4l2-mem2mem:
+support running multiple jobs in parallel", patches 6 and 7 of his RGA
+multi-core v2 [1], which are not merged yet. The series is based on the
+media tree's next branch with those two patches applied
+(base-commit and prerequisite-patch-ids below). The core selection
+follows the same model as Detlev's rkvdec multi-core series [2], so
+comments on sharing more of it are welcome.
 
-For now the core list only contains the device itself, so no functional
-change intended.
+A single stream still runs one job at a time, so this raises the
+throughput of parallel streams, not of a single one. Variants without
+the new multi_core flag keep using only the first core.
+
+Two postings touch the probe/remove code that patch 1 splits, and I
+will rebase on them if they land first: Benjamin's "media: verisilicon:
+remove unused variant and code clean up" v6 [3] (textual conflicts) and
+Sergei Khomenkov's "media: verisilicon: suspend the device before
+unregistering it on remove" [4]. Patch 1 keeps the current teardown
+order in hantro_hw_cleanup(), so it carries the runtime-suspend-after-
+unregister problem [4] fixes. My recovery series "media: verisilicon:
+Recover the Rockchip VPUs from faults and timeouts" v3 [5] touches the
+same probe, remove and device_run() code (textual conflicts), and I will
+rebase on it if it lands first. Once both are in, its IOMMU restore has
+to detach a secondary core from the main core's domain first, which I
+will add in whichever goes second.
+
+Known limits: the video device and the m2m device are allocated inside
+the component bind, so unbinding one secondary core frees them while
+the main core stays bound. If one available secondary
+core fails to probe, no video device appears at all, where the first
+core alone would work today; the RGA and rkvdec multi-core series use
+the same model. Comments on both are welcome.
+
+Tested on an Orange Pi 5 (RK3588S) with 1080p NV12 JPEG encodes through
+GStreamer v4l2jpegenc, 600 frames per stream: 1, 2, 4 and 8 parallel
+streams reach 62, 120, 216 and 223 fps against 62-68 fps with a single
+core, with the interrupts spread over the four cores, and the encoded
+output is identical to the single-core driver for NV12, I420 and YUY2
+at 1080p and NV12 at 4K, also when 4 or 8 encodes run in parallel. The
+VDPU121 VP8 and VPU981 AV1 decoders of the same SoC are unaffected. With
+patch 4 of [5] the module can be unloaded and reloaded with all cores
+rebinding; without it the reload hits the SError that patch fixes, which
+is not new but easier to hit with the longer teardown.
+A later run together with my three rkvdec RFC series: JPEG encoding at 63.1
+frames/s with one stream and 215.0 with four, all four VEPU121 cores
+taking interrupts; the four parallel encodes give the same bitstream as
+one. Fluster on the same kernel: Hantro H.264 JVT-AVC_V1 129/135 and
+JVT-FR-EXT 44/69, VP8 61/61, AV1 203/242.
+These hardware tests ran on v7.3-based kernels, where the clocks are
+still enabled in device_run(); this rebase onto the media tree, which
+moved the clock handling into runtime PM in the meantime, is
+compile-tested only.
+
+Developed with Claude (Anthropic), which wrote the code and the commit
+messages. I reviewed every change.
+
+[1] https://lore.kernel.org/linux-media/20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de/
+[2] https://lore.kernel.org/linux-media/20260810-rkvdec-multicore-v2-0-986f89d22cdc@collabora.com/
+[3] https://lore.kernel.org/linux-media/20260930151241.58233-1-benjamin.gaignard@collabora.com/
+[4] https://lore.kernel.org/linux-media/20261106-hantro-remove-v1-1-d0a4678886d7@gmail.com/
+[5] https://lore.kernel.org/linux-media/20261113-hantro-robust-v3-0-82383c722ad2@gmail.com/
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/platform/verisilicon/hantro.h        | 18 ++++++
- drivers/media/platform/verisilicon/hantro_drv.c    | 73 +++++++++++++++++++---
- .../verisilicon/rockchip_vpu2_hw_jpeg_enc.c        |  4 +-
- .../media/platform/verisilicon/rockchip_vpu_hw.c   |  2 +-
- 4 files changed, 86 insertions(+), 11 deletions(-)
+Arun Iyengar (3):
+      media: verisilicon: Split probe into hardware init and device registration
+      media: verisilicon: Pick the hardware core for each job
+      media: verisilicon: Add multi-core support
 
-diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
-index 0353de154a1e..eceaa74a634b 100644
---- a/drivers/media/platform/verisilicon/hantro.h
-+++ b/drivers/media/platform/verisilicon/hantro.h
-@@ -193,6 +193,14 @@ hantro_vdev_to_func(struct video_device *vdev)
-  *			shared with interrupt handlers.
-  * @variant:		Hardware variant-specific parameters.
-  * @watchdog_work:	Delayed work for hardware timeout handling.
-+ * @curr_ctx:		Context whose job is running on this instance, or NULL
-+ *			if the instance is idle. Protected by @cores_lock of
-+ *			the device the job was scheduled on.
-+ * @cores:		Hardware instances the jobs of this device can be
-+ *			scheduled on. The first entry is the device itself.
-+ * @num_cores:		Number of entries in @cores.
-+ * @cores_lock:		Spinlock protecting @cores, @num_cores and @curr_ctx
-+ *			of each core.
-  */
- struct hantro_dev {
- 	struct v4l2_device v4l2_dev;
-@@ -213,12 +221,21 @@ struct hantro_dev {
- 	spinlock_t irqlock;
- 	const struct hantro_variant *variant;
- 	struct delayed_work watchdog_work;
-+
-+	struct hantro_ctx *curr_ctx;
-+	struct hantro_dev **cores;
-+	unsigned int num_cores;
-+	spinlock_t cores_lock; /* protects the core list and curr_ctx */
- };
- 
- /**
-  * struct hantro_ctx - Context (instance) private data.
-  *
-  * @dev:		VPU driver data to which the context belongs.
-+ * @core:		VPU instance running the current job of this context,
-+ *			only valid while a job is running. Codec operations
-+ *			must access the hardware through it. It is the same
-+ *			as @dev unless the variant has multiple cores.
-  * @fh:			V4L2 file handler.
-  * @is_encoder:		Decoder or encoder context?
-  *
-@@ -248,6 +265,7 @@ struct hantro_dev {
-  */
- struct hantro_ctx {
- 	struct hantro_dev *dev;
-+	struct hantro_dev *core;
- 	struct v4l2_fh fh;
- 	bool is_encoder;
- 
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index d02988fc19ae..ab76251627fb 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -59,11 +59,51 @@ static const struct v4l2_event hantro_eos_event = {
- 	.type = V4L2_EVENT_EOS
- };
- 
-+/*
-+ * Pick an idle core for the job of @ctx. The mem2mem framework never runs
-+ * more jobs in parallel than there are cores, so this only fails if the
-+ * core accounting is broken.
-+ */
-+static struct hantro_dev *hantro_acquire_core(struct hantro_ctx *ctx)
-+{
-+	struct hantro_dev *vpu = ctx->dev;
-+	unsigned int i;
-+
-+	guard(spinlock_irqsave)(&vpu->cores_lock);
-+
-+	for (i = 0; i < vpu->num_cores; i++) {
-+		struct hantro_dev *core = vpu->cores[i];
-+
-+		if (!core->curr_ctx) {
-+			core->curr_ctx = ctx;
-+			ctx->core = core;
-+			return core;
-+		}
-+	}
-+
-+	return NULL;
-+}
-+
-+static void hantro_release_core(struct hantro_ctx *ctx)
-+{
-+	struct hantro_dev *vpu = ctx->dev;
-+
-+	guard(spinlock_irqsave)(&vpu->cores_lock);
-+
-+	if (ctx->core) {
-+		ctx->core->curr_ctx = NULL;
-+		ctx->core = NULL;
-+	}
-+}
-+
- static void hantro_job_finish_no_pm(struct hantro_ctx *ctx,
- 				    enum vb2_buffer_state result)
- {
- 	struct vb2_v4l2_buffer *src, *dst;
- 
-+	/* Make the core available to the next job before scheduling it. */
-+	hantro_release_core(ctx);
-+
- 	src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
- 	dst = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
- 
-@@ -88,17 +128,20 @@ static void hantro_job_finish_no_pm(struct hantro_ctx *ctx,
- static void hantro_job_finish(struct hantro_ctx *ctx,
- 			      enum vb2_buffer_state result)
- {
--	struct hantro_dev *vpu = ctx->dev;
-+	struct hantro_dev *core = ctx->core;
- 
--	pm_runtime_put_autosuspend(vpu->dev);
-+	pm_runtime_put_autosuspend(core->dev);
- 	hantro_job_finish_no_pm(ctx, result);
- }
- 
-+/*
-+ * Called from the interrupt handler of the VPU instance @vpu, which is the
-+ * core the job was running on.
-+ */
- void hantro_irq_done(struct hantro_dev *vpu,
- 		     enum vb2_buffer_state result)
- {
--	struct hantro_ctx *ctx =
--		v4l2_m2m_get_curr_priv(vpu->m2m_dev);
-+	struct hantro_ctx *ctx;
- 
- 	/*
- 	 * If cancel_delayed_work returns false
-@@ -106,6 +149,7 @@ void hantro_irq_done(struct hantro_dev *vpu,
- 	 * and will take care of finishing the job.
- 	 */
- 	if (cancel_delayed_work(&vpu->watchdog_work)) {
-+		ctx = vpu->curr_ctx;
- 		if (result == VB2_BUF_STATE_DONE && ctx->codec_ops->done)
- 			ctx->codec_ops->done(ctx);
- 		hantro_job_finish(ctx, result);
-@@ -119,7 +163,7 @@ void hantro_watchdog(struct work_struct *work)
- 
- 	vpu = container_of(to_delayed_work(work),
- 			   struct hantro_dev, watchdog_work);
--	ctx = v4l2_m2m_get_curr_priv(vpu->m2m_dev);
-+	ctx = vpu->curr_ctx;
- 	if (ctx) {
- 		vpu_err("frame processing timed out!\n");
- 		if (ctx->codec_ops->reset)
-@@ -160,21 +204,27 @@ void hantro_end_prepare_run(struct hantro_ctx *ctx)
- 				   &ctx->ctrl_handler);
- 
- 	/* Kick the watchdog. */
--	schedule_delayed_work(&ctx->dev->watchdog_work,
-+	schedule_delayed_work(&ctx->core->watchdog_work,
- 			      msecs_to_jiffies(2000));
- }
- 
- static void device_run(void *priv)
- {
- 	struct hantro_ctx *ctx = priv;
--	struct hantro_dev *vpu = ctx->dev;
- 	struct vb2_v4l2_buffer *src, *dst;
-+	struct hantro_dev *core;
- 	int ret;
- 
- 	src = hantro_get_src_buf(ctx);
- 	dst = hantro_get_dst_buf(ctx);
- 
--	ret = pm_runtime_resume_and_get(vpu->dev);
-+	core = hantro_acquire_core(ctx);
-+	if (WARN_ON_ONCE(!core)) {
-+		hantro_job_finish_no_pm(ctx, VB2_BUF_STATE_ERROR);
-+		return;
-+	}
-+
-+	ret = pm_runtime_resume_and_get(core->dev);
- 	if (ret < 0) {
- 		hantro_job_finish_no_pm(ctx, VB2_BUF_STATE_ERROR);
- 		return;
-@@ -1285,6 +1335,7 @@ static int hantro_probe(struct platform_device *pdev)
- 	vpu->pdev = pdev;
- 	mutex_init(&vpu->vpu_mutex);
- 	spin_lock_init(&vpu->irqlock);
-+	spin_lock_init(&vpu->cores_lock);
- 
- 	match = of_match_node(of_hantro_match, pdev->dev.of_node);
- 	vpu->variant = match->data;
-@@ -1302,6 +1353,12 @@ static int hantro_probe(struct platform_device *pdev)
- 		dev_warn(&pdev->dev, "%s compatible is deprecated\n",
- 			 match->compatible);
- 
-+	vpu->cores = devm_kcalloc(&pdev->dev, 1, sizeof(*vpu->cores),
-+				  GFP_KERNEL);
-+	if (!vpu->cores)
-+		return -ENOMEM;
-+	vpu->cores[vpu->num_cores++] = vpu;
-+
- 	ret = hantro_hw_init(vpu);
- 	if (ret)
- 		return ret;
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu2_hw_jpeg_enc.c b/drivers/media/platform/verisilicon/rockchip_vpu2_hw_jpeg_enc.c
-index 61621b1be8a2..f7550470b43d 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu2_hw_jpeg_enc.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu2_hw_jpeg_enc.c
-@@ -131,7 +131,7 @@ rockchip_vpu2_jpeg_enc_set_qtable(struct hantro_dev *vpu,
- 
- int rockchip_vpu2_jpeg_enc_run(struct hantro_ctx *ctx)
- {
--	struct hantro_dev *vpu = ctx->dev;
-+	struct hantro_dev *vpu = ctx->core;
- 	struct vb2_v4l2_buffer *src_buf, *dst_buf;
- 	struct hantro_jpeg_ctx jpeg_ctx;
- 	u32 reg;
-@@ -188,7 +188,7 @@ int rockchip_vpu2_jpeg_enc_run(struct hantro_ctx *ctx)
- 
- void rockchip_vpu2_jpeg_enc_done(struct hantro_ctx *ctx)
- {
--	struct hantro_dev *vpu = ctx->dev;
-+	struct hantro_dev *vpu = ctx->core;
- 	u32 bytesused = vepu_read(vpu, VEPU_REG_STR_BUF_LIMIT) / 8;
- 	struct vb2_v4l2_buffer *dst_buf = hantro_get_dst_buf(ctx);
- 
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-index 02673be9878e..f1f7f95b2652 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-@@ -488,7 +488,7 @@ static void rockchip_vpu2_dec_reset(struct hantro_ctx *ctx)
- 
- static void rockchip_vpu2_enc_reset(struct hantro_ctx *ctx)
- {
--	struct hantro_dev *vpu = ctx->dev;
-+	struct hantro_dev *vpu = ctx->core;
- 
- 	vepu_write(vpu, VEPU_REG_INTERRUPT_DIS_BIT, VEPU_REG_INTERRUPT);
- 	vepu_write(vpu, 0, VEPU_REG_ENCODE_START);
+ drivers/media/platform/verisilicon/hantro.h        |  41 ++
+ drivers/media/platform/verisilicon/hantro_drv.c    | 451 +++++++++++++++++----
+ drivers/media/platform/verisilicon/hantro_hw.h     |   1 +
+ .../verisilicon/rockchip_vpu2_hw_jpeg_enc.c        |   4 +-
+ .../media/platform/verisilicon/rockchip_vpu_hw.c   |  20 +-
+ 5 files changed, 424 insertions(+), 93 deletions(-)
+---
+base-commit: ad6549a46748d00818483b535e5cd2a704685c98
+change-id: 20261110-hantro-multicore-bd251c387be9
+prerequisite-patch-id: 6ad9550f96aeed8429737800e4afc6e35be2c3ed
+prerequisite-patch-id: 42252ba52d9c65ea011f6971395e709cc4bff684
 
--- 
-2.55.0
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
