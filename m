@@ -1,61 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597012;
-	b=mqFeZocIzaaaZfq/x+in28pVduz+TmbUy+YVYuu2d6PVLgdIbQ/UNFz4emw75ogGdtZ9
-	 UgvroiZtNYPa/xgN7jwq3lWJLHWq4CBYAQhGGtn/Ae8AttdgawV4BIdCe0tXFJJAZoHNw
-	 vAW0+sDvTNCLuqvtOb0FV1havXY2iMYy/cEgVjgxmhVQDzljBYugZSTy92aa/+47vuE2y
-	 +c3qL51XxmMSq0R8vr7OafB/dlpIKyzZnao//CEFcu2hdY4+NUVT67QknIOYeAHQLESn9
-	 NPoi3hKpOljC4ZK3axSSDEk2Ft9ySQAacXxrooM6JIpNg6xR7wassdMvg0+1Gi1n+Bg==
+	t=1794597013;
+	b=t52/autWLynzljS0W1P9Vdla6wYwsTVF6OXzgF1nwJnx8VzhVaXGGEjLPYnzjrI1eVIM
+	 dDdJtwXn8RrzCvHJfJS9PmialkS5Jokd6Rr3PYw62qonYggRLlNxJstDdjpzNoMV5TX2R
+	 iZralQTHuu4Q9je22Yt8njCldbna40LyKWVOP3lOj9yrNKyjiowYft1njWSV5zdCpuKxP
+	 V2+ahyBzxSY7yeVDKyokG7zWZrWeAO3trFdrSS83GRSClG/2u/kgD+fVeB3ppQRSsT5S6
+	 s2lXrCL6D7cVm9TnRSuKwIXWOz35EKRpIIz5tHkA5+j0NW6tdttS5FqSuOTHYpqH4RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597012;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iU1BPbr/khgFBD+mePW4FSh0xmwiXSk0eLgexYMeNuw=;
-	b=yuda4hlFt+mED3OCr+b7V4RMFW5Eg98nbYPbwAKAWtsaHq2LaGaZBZ58/T8H/Akr3v3G
-	 hm9fjFt/UwuwwQvMkKLvu86c8F1zHvHBevc4jhONQOJQYjffSYmZyHUJf7h82jGwN2DuY
-	 mH/IDsCQUK8QgPIkvFwhM9nKAq3hGT8abnuW2xsSX6nu8qT/oqH0Gs8OyHBD9miWT3uG1
-	 70PLGzgcWrxmSHhKHKdDC4ho8FSgnxPAhtsEd6YSCRze43odkBqnPz/v00ycPlxShnMi1
-	 qRpVPhHRQSc0RAALc7dXQJSVfZoEBFSGPbhrPkX71yxuxGMQlYrG1sEvYbXXbcpltbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597013;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=lDonEJwEkOKFs6QGhbZZt9eZVrZuIkbPCbngSkG5pl0=;
+	b=urCACeBs0MqUhF4FaxAbu4oiIcYaSOP5ZnswHg9/vg/kNXwT/6s3/0JSRcmHM2IyMtZS
+	 aQsVzTSZY3HmMLNMt60nDg11PCCANUd8j2EVu1KWe6WfV8/cLK/vCIAyfBCAPxuE8MHki
+	 fzEV4il4NxGixhiHrhpVQ7swMJLaisnySXuVAFm2gIE5PCtMHfz82EdjCdw8ZHCyr2ClF
+	 ZotZ9VWDvs+0CvAPXAkEwHT9BqCmV+sZhbE/51UmgnH6yDreX7RawnfsV3vW5tGzvsvDN
+	 I7BAjsVZt4b9K9EvVlG9+HQrKbzaSd5CU4/hCdOkNPTk54s6bdeuKBQqBicO+mXwgFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRB2sOBu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xmodXLO2;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA534606F313;
-	Fri, 13 Nov 2026 19:10:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRB2sOBu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6322F1F000C9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8762606F304;
 	Fri, 13 Nov 2026 19:10:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597012;
-	bh=iU1BPbr/khgFBD+mePW4FSh0xmwiXSk0eLgexYMeNuw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XRB2sOBuVfNcU1pdRj7FoTWG/gDk0+UXRl+LYWij3StSJGeuXclE1OZ9+qd1rSVYb
-	 BbJFNRqZQ+0o8t0Cigr0pHeQm14B8Nwo3LnngdQOV6iefQREIdk5GKDKxB2mXA0QCM
-	 mDAvy8VziHiS6fPGEfe62dB2hMzyTfDkRQnsXezyVvI/c472Wzg6gsjjxUCzCSAP35
-	 RcavUVitoHoVE3Qd9eE5z7Ht8aHWsfawppQBm900iqe4EImAkrgheFWvj91HT0kxry
-	 uxDYxLHTJXYGksRiW+5O8zU1ffTps6HCKFcVc+O0iVTy1+9K39L5HRNoigQsWzLAWO
-	 ADwGA2XFAHh0A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	akpm@linux-foundation.org,
-	shuah@kernel.org,
-	liwang@redhat.com,
-	jackmanb@google.com,
-	linux-kernel@vger.kernel.org,
-	Vernon Yang <yanglincheng@kylinos.cn>,
-	Vernon Yang <vernon2gm@gmail.com>
-Subject: Re: [PATCH 6.12.y] selftests/mm: include kselftest.h in vm_util.h
-Date: Fri, 13 Nov 2026 14:09:56 -0500
-Message-ID: <draft-0006-revernonkselftest612@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113091000.382250-1-vernon2gm@gmail.com>
-References: <20261113091000.382250-1-vernon2gm@gmail.com>
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8762606F304
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xmodXLO2
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 45C201A1651;
+	Fri, 13 Nov 2026 19:10:10 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E9718601F0;
+	Fri, 13 Nov 2026 19:10:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9743F11BC1337;
+	Fri, 13 Nov 2026 20:09:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794597006; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=lDonEJwEkOKFs6QGhbZZt9eZVrZuIkbPCbngSkG5pl0=;
+	b=xmodXLO2E58u1qr7RtCp7N55lifIjz083Q4ZqmD4bvN0+1FcYz30INKc9CBCQaf1S7VQ4s
+	2A5kMuGZyrkNgS6FsT6hkOawcP2myuJ87tdxo3tAgFoxHdbwH44B/SMWt/U/hQFmynn7be
+	aKv7Fi/VYerRGYAi58OJb26ZP8FrzywVBo0FvAHDd0vu3/5QKOihXY4NgWsYsJ7hsFWBy7
+	9lclfV0FVvnodTcnN/0Fr3FMMQvsrzrLQRhMmiYETpnrT07mxl8C8hUxF1a8B/r3YPIx3r
+	ttPPtYYc9JwZEjkaplukiacncIVtEd3DfYfroPVa1dCLT6ZTKlaoUJr/gHGg7Q==
+Message-ID: <1b038a37-1e97-4540-ba31-5b9288595788@bootlin.com>
+Date: Fri, 13 Nov 2026 20:09:39 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,13 +62,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/27] mfd: Assorted resource lifetime, teardown, and
+ error-handling fixes
+To: Lee Jones <lee@kernel.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andi Shyti <andi.shyti@kernel.org>, Andreas Kemnade <andreas@kemnade.info>,
+ Andy Shevchenko <andy@kernel.org>, AnilKumar Ch <anilkumar@ti.com>,
+ Arnd Bergmann <arnd@arndb.de>, Binbin Zhou <zhoubinbin@loongson.cn>,
+ Brent Casavant <bcasavan@sgi.com>, Chong Qiao <qiaochong@loongson.cn>,
+ Corey Minyard <corey@minyard.net>, David Lechner <dlechner@baylibre.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Felipe Balbi <balbi@ti.com>,
+ Gyungoh Yoo <jack.yoo@maxim-ic.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Hsin-Hsiung Wang <hsin-hsiung.wang@mediatek.com>,
+ Huacai Chen <chenhuacai@kernel.org>,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ Jonathan Cameron <jic23@kernel.org>, Joshua Kinard <linux@kumba.dev>,
+ Kai Svahn <kai.svahn@nokia.com>, Kevin Hilman <khilman@baylibre.com>,
+ Kumar Sanghvi <kumar.sanghvi@stericsson.com>,
+ Linus Walleij <linusw@kernel.org>, linux-crypto@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-omap@vger.kernel.org,
+ Mattias Nilsson <mattias.i.nilsson@stericsson.com>,
+ Mattias Wallin <mattias.wallin@stericsson.com>,
+ Matti Vaittinen <mazziesaccount@gmail.com>, mfd@lists.linux.dev,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Milo Kim <woogyom.kim@gmail.com>, Ming Yu <tmyu0@nuvoton.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Pantelis Antoniou <panto@antoniou-consulting.com>, Pat Gefre <pfg@sgi.com>,
+ Paul Burton <paulburton@kernel.org>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Qunqin Zhao <zhaoqunqin@loongson.cn>,
+ Rabin Vincent <rabin.vincent@stericsson.com>, Rachna Patil <rachna@ti.com>,
+ Roger Quadros <rogerq@kernel.org>, Samuel Ortiz <sameo@linux.intel.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Shi Hao <i.shihao.999@gmail.com>,
+ Srinidhi Kasagar <srinidhi.kasagar@stericsson.com>,
+ Stanislaw Skowronek <skylark@unaligned.org>,
+ Stephen Warren <swarren@nvidia.com>, Sundar Iyer
+ <sundar.iyer@stericsson.com>, syed khasim <x0khasim@ti.com>,
+ Thomas Bogendoerfer <tbogendoerfer@suse.de>, Tony Lindgren
+ <tony@atomide.com>, Yinggang Gu <guyinggang@loongson.cn>
+References: <20261027093306.2812695-1-lee@kernel.org>
+ <179458365250.76424.12505088783548230611.b4-ty@b4>
+ <5a68f043-7c9a-44ef-b297-2821886bdcfe@bootlin.com>
+ <20261113185908.GI6323@joneslee-macbookpro.roam.internal>
+Content-Language: en-US
+From: Thomas Richard <thomas.richard@bootlin.com>
+In-Reply-To: <20261113185908.GI6323@joneslee-macbookpro.roam.internal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Nov 13, 2026, Vernon Yang wrote:
-> Subject: [PATCH 6.12.y] selftests/mm: include kselftest.h in vm_util.h
+On 11/13/26 7:59 PM, Lee Jones wrote:
+> On Fri, 13 Nov 2026, Thomas Richard wrote:
+> 
+>> Hi Lee,
+>>
+>> On 11/13/26 4:27 PM, Lee Jones wrote:
+>>> [26/27] i2c: cgbc: Propagate hardware errors when polling read status
+>>>         (no commit info)
+>>
+>> I noticed you did not applied this patch. It conflicts with my ongoing
+>> series "Congatec Board Controller: Add storage devices support". For the
+>> V5 I rebased it on top of Krzysztof's series that you applied and this
+>> series.
+>>
+>> I don't know what is your plan for this patch. Will you apply it? Should
+>> I pick it into my series, or should we have to deal with I2C tree?
+>> Please let me know.
+> 
+> I didn't merge it because it's not mine to take.
+> 
+> I can either take it with an Ack or happy for anyone else to take it.
 
-Queued for 6.12, thanks.
+I will add it into my series, it already has a mix of MFD and I2C
+patches. So I'll handle the conflict.
 
--- 
-Thanks,
-Sasha
+Best Regards,
+Thomas
