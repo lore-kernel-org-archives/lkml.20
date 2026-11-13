@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794539641;
-	b=pnqkrFMgms1sPpnTgfXH8PrY+93hrQ+cL602VYTbmhOd9GcVzorwJCYcaV8/RwQAl42I
-	 XSJuC1mHGuWi4pNrRaMfn4bzJceRR+uY2jNHUNi+ikVQAvLsUzag7oseNZUMtZ66tg1av
-	 7zWlYsawZe8Hw4xfA4K8qGviwClSqL8LsjAWIdVw3jAJz9MFGXNGfOuHUzl8ehmJYBUBR
-	 2c8jvhsF04GAPxRAY1ZhELlspcYPpvJWwagXruuKGzqVaq2tDaCloVGQhC+NGdR/7nAco
-	 9BtaGLSRKaiGDM+tF+UKQqnY4v5ILGyCe+94oq3aTBWwmoPUs6aml7n+pVHHdoLpCqg==
+	b=VQr0b3xWH1QEBYYejgTFjB959izO64FWXp0bgqQwi4WjWioqTkaT61G75X+wfB+5oGJZ
+	 9QMGo00K2lgSkreU7gRNJguduDcIhJMhkeHyGdWWIiUJHJi5EqVfe2VZPN2E4he56elk4
+	 5zodNZQ2jcC9T8UUjQSxTakfCyCe1xNrxokEsTxqyNq0LwtNiL8a3/7CULIhAPbv7VtZ3
+	 lD0ZegyfXx6TTz8sNiqr1CvebLqJhV+pxOD9LL70bBB5FQ8ibnkLGVY2sMIBwzRHPgZI1
+	 fCgMSQXD0PzzKVvGe09PTbT30nmLHM9yHWGFktU+MUNRKmyYV8sDDUs9LJD87nkmJuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794539641;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=dh/v5Vpdh5SVVpBCIpC5pVA+V35gFFXAr2nxFIOy5Hs=;
-	b=rdUl+/X2O++QAyYdIpZiuelLCyPG3wzM1LBx65T9KemJycC3Unve35gl+g+NbLBaqrd3
-	 NMo7qUuLajolvEkhuLCXq35WOx8MNG3L3Q621GtuANvXUBD2TgC3P5z7JBgbfIKejq7Hc
-	 T8tOLcAFtCBysh9I5BPySw3+HkeiqMx0+puzgF4uAiec9N7UoXSLizU7I4l9N8DUkX4VI
-	 55ZzjSTqppCJfFfj/Of5teLK4sN+0LJyNEcgCgIEjCydX/XjmG6BbFxMWRJmTBow5bYNC
-	 IyrOtc6gqutGj3r80HuzdlGfpwaGO6da8PCMY5cefs3go/ZVF+59lFkMUqqAf5mpbUA==
+	bh=cpc7tXIKbGVmxNlJrYjzNXSr8uC1GXrWgjwnpqzpGRY=;
+	b=DMzblV305kdgSx9Q9sdZq/sI1UaSwi0IBiNb6WJK4wdX4jCdYPYAzJbUyrPx8sIzs5/c
+	 4GCa8kkk/MXlJ5eXwvn8WODmgE2jVnvq9W7gQxePUIyVdqUUVA3SOhlfyfyRx9xHqe0KS
+	 5Yu5q2xXKZZWDMWwBN6Qwwz4V/YkGdXnbsviGleycEbz25xQbWim7Uoan8LZU9RHagDCP
+	 ivjWWJ/iGKhiF+FJeEcrm3bsbneEOfrlYxTMGol0kl3M0eNaVGghTfVwXo75ZXi2Ne3+Q
+	 um/XSOStOLbh3eeAO2LRjO5+Gfe4zutE0k2AcmaKO6aVYAB20gyK2rQXuy8YVbOl/bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GgU63VJt;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mOed42bn;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A317D606A33B;
-	Fri, 13 Nov 2026 03:13:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A317D606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DEF60A2604;
+	Fri, 13 Nov 2026 03:13:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3DEF60A2604
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GgU63VJt
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mOed42bn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
 	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=dh/v5Vpdh5SVVpBCIpC5pVA+V35gFFXAr2nxFIOy5Hs=;
-	b=GgU63VJttngo7SGYSSQh9OgR0B9xhFNXRFJ9PA4TEaAHvUpBMvsIeJ0Z0+NYzh
-	nj+UyVqzzDGeU+7JtkuOx8zR/4qZYEKnLCXpkXA7QROptquW7zvGlatsHufFTRt6
-	LfneBrNLobQBIm41jZkX1b9wp2JfZ78knzFtc9eKx0A+Y=
+	Content-Type; bh=cpc7tXIKbGVmxNlJrYjzNXSr8uC1GXrWgjwnpqzpGRY=;
+	b=mOed42bnXdmjZ7krRY5j4XdmW1h/9ZY3V+Y29tXQTjzCjsRtxjS2uWmBPxlK1Q
+	XMHCWir6Cd5/OCvVefK3ZJPVBdcSUVfiTA0ytvmPHZsqdKCbVM1KluFO1AihOqCK
+	NU3ktjSLxVQ7HAIGRqg9xH+jMdcY/lfEke0x5H0ckEFmg=
 From: Chaosheng Qu <quchaosheng000406@163.com>
 To: netdev-bot+sashiko@kernel.org
 Cc: Robin van der Gracht <robin@protonic.nl>, Oleksij Rempel <o.rempel@pengutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>, Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH net v7 3/4] can: j1939: drop the message when the reassembled skb is gone
+Subject: Re: [PATCH net v7 4/4] can: j1939: reject a CTS that names more packets than the message has
 Date: Fri, 13 Nov 2026 11:11:13 +0800
-Message-ID: <179453947398.30993.12910253526180673543@163.com>
-In-Reply-To: <179452018024.488853.2874336452045412196@kernel.org>
-References: <179410166346.60581.12668181404057434786@163.com> <179452018024.488853.2874336452045412196@kernel.org>
+Message-ID: <179453947398.30993.18414105107780142143@163.com>
+In-Reply-To: <179452018249.488853.178284371976315484@kernel.org>
+References: <179410166346.60581.17199842424718803160@163.com> <179452018249.488853.178284371976315484@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,28 +59,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXn1BcgPZqjG20Hg--.7020S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Jr4rGr15AF15JF48Gw1fXrb_yoWxZFX_tr
-	ykAws7Jw1vqFyIkFW7urn8Xrs7AFW7Gr4UAFsYqrWak34xAFWDur1vqryYv3s7WF1YgFnx
-	u3sIqFyjkwsYgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUUDUUUUUUUU==
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-xyPBWr2gFyjqwAA3h
+X-CM-TRANSID:_____wCHdDZfgPZq96BOHQ--.26022S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Wry3Zw4xWr43Wr4rAF43ZFb_yoW8JFy5pF
+	ZxKr9rtrWDGwsa9r1xArW0qF95Ar1rAa1rX3WUGr9rCw45ua1xtw17t3yY9rnrJr1I9a4Y
+	gFWYgas0gFZ8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UeHqcUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-x+PBWr2gF+kHgAA3T
 
 Hi,
 
-Both accepted.
+The Medium is right and the changelog was wrong about the existing code.
 
-Dropping the message silently is the weak part. session->err stays 0, so
-j1939_session_destroy() queues nothing, and the only trace is a netdev_dbg()
-that is off by default. For an RTS/CTS receive session this runs when the
-receiver's own EOMA comes back, after the originator has already been told
-the message was delivered, so the two sides end up disagreeing with nothing
-in the log. The next version uses WARN_ON_ONCE(!se_skb) and sets
-session->err = -EBADMSG before dropping.
+An oversized ETP.CM_CTS already ends in J1939_XTP_ABORT_ECTS_TOO_BIG before
+this patch: j1939_xtp_rx_cts_one() stores pkt - 1 in pkt.tx_acked,
+j1939_session_tx_dpo() copies it into the DPO, and the local echo reaches
+the transmitter branch of j1939_xtp_rx_dpo_one() with
+session->transmission set. What changes is that the out-of-range DPO is no
+longer sent on the bus.
 
-The comment in j1939_xtp_rx_dpo_one() does go stale here, but it is 2/4's
-comment and gets rewritten there, in the same respin that changes the abort
-code.
+The TP half I missed. There pkt = dat[2] and there is no DPO, so an
+oversized CTS made pkt.tx at least pkt.total, j1939_session_tx_dat() found
+nothing at pkt.tx * 7 and returned -ENOBUFS, and the session ran until the
+1250ms rxtimer aborted with J1939_XTP_ABORT_TIMEOUT or the retry limit ended
+it with -ENETUNREACH. Now it aborts immediately with code 15. That is the
+visible change for the peer and the socket user, so it leads the changelog
+instead of the ETP case.
+
+The Low is the same correction: with this check in, pkt.tx_acked is at most
+pkt.total - 1, so a DPO this host built cannot be out of range. Only a frame
+carrying our SA that we did not send reaches the transmitter branch, and
+BAD_EDPO_OFFSET is the right reason for it. The role split and the comment
+around it go away in the next version.
 
 Thanks,
 Chaosheng
