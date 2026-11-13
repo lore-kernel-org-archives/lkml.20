@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794605199;
-	b=Y+VrRFw4/lvgLO8KX2NsVSfRReFvGgkaOyHSHaxRAt8lGDnl04uxWHZElMUpHGC8e4nc
-	 6aNmWh6781KI5jWuxCOW2PmgKlI49STSZKrrmSu/kNNrCC6t6SKgNfzTkDckpg+3CMcy7
-	 f4p92iL85Hyo2uvamJwt73qep79MfK/flbCM+qMMn73SXrovvFP8ueH9Fzto4wAwmV4mH
-	 lJAOAfvbZ/11ufPUs7n0dL4scTMOdjrkxRLQJakN6JDmToPyG1U8k5OmNxnpy78HfmKcR
-	 JpgxW15r+VTpDzOEY+we3XMXsR0eBbHCw/pZtmm8GR7MlOQm6e5pHeKLr0kMStX/KWg==
+	t=1794605198;
+	b=2ZgHI/REc6n9aAL8o+haV6IYXRFqry4+PLD9MJSXbaKL1ASS4kfWxNb7kJlcsJDpI3Dw
+	 VCO3fNKVkKuYE8abVipd8asSITGZfkH19Mo90RocExh8nsA+eJ7DqQoO/vDKOp/VkTaH0
+	 qDRVXgkTnWzULOfuBXdL2qbHmJXIt9YS/I5khHKqFPqq3mrf8NFh1aa4BB4xvD1ccQGzR
+	 SeHis3UIPxOQzcBqfDIa4XcJw4btrWc73n5jazxawLOq3F6xvRgGuEbSZjU9v7yABVwAq
+	 6g725MvGTCtJOsqemM3B6oDvGJNoci5RuV6WshUOuLC6Blf8Y7K3d0G+vNJxzYnSCwQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794605199;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=6XYL3m7pR3XD5gcmbX6twLNHi5++AAkwL0wMnUcMCNQ=;
-	b=3/g7fwH4bZEpKL/vjyJuokAy0cTxUKOz9JGMQPwFMNulQxSm3oERPZIjvHIN/H84P5/V
-	 uTasYWPoAG7HMidPvOLJbT/PEtwAc2MT+wc4LbhZ1AHf0xh4Uhwm8zbP6krzx3TWyrg4Y
-	 Pw5FaIDPiKVKrFfybpj11vbnEoywWNhDM1qMg1QoFtUnfDMcuVe2NOMPgRk8hEzj49mEJ
-	 w7qX1GR+1f4yvlNmDLyC/OEw7ZB3EqzIsJILVh6XiBzt0ZIr/R5Lj1O4pPUQ8oiulUNOA
-	 zVKec5K6i8Y78CoYFjsXSIRFHiYAhHQ8Rdc8vk2EFi0Xlj9hPftEWVKkFNyLGkDm3kA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794605198;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9DiCXAhwU5zMrLZsoH9A3i98+K1TnqCojamIQPcq9Kg=;
+	b=ML3ycl8CbqUctj9ibbmj0rKVGe8bBEKypSqk8quczPTncLRMQqjWxITy3i1lvQ6jS0s6
+	 J0JCKjfDf7bAFH7aVuIFGnVA3KpnROQotEX9F1EKQjnPrOSUxYib+97wnZnd9kR9KxnJ4
+	 cGxgRCHSmP279wGuAyyhiLYsQma75aTIpME2RPTj0KstwLclOA40OUIKqmSWQHA9mAVev
+	 WsAv5T5T9xfSG5hHhhl5UEMUHAt25BWyhXBYLg5+08epTPM/b3kJgcEhYCGRAuyBcD1Bf
+	 g9xnjcwry3JPruQ8x0uiJr6i4LVQWpEg6YIV4ljGOmcRYsvhnEXTQT/2PabqZg6x/oA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lQZMDQ4M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FO2diBwj;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C971606A8B4;
-	Fri, 13 Nov 2026 21:26:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A84606A895;
+	Fri, 13 Nov 2026 21:26:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lQZMDQ4M
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FO2diBwj
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794605199;
-	b=zwVYN0MwUAH0RUFiuR4FaGH706a2K0w3E6C5TV24J7debfJgLpzfnJpGWOD9DHevCZq1
-	 TO/lWr96llMbb4DNONPjT6zHjzAaHAD5PuzNPN1C2vb9OInq1IpAn0DgIGtkFxQJbuA/U
-	 9gTbgpQBVP0XPT0/t8JYcB0hvASqR9WKBixYaqYZy3MVz0BKQGU3zOYgezVJYgqea9eQQ
-	 sxECD2kvLsyskQr8HaOeXXtGyvvhbvDUFe+8lqxYymONeGweran61baKg7UKxJFeS+ISe
-	 DxzaAWFSmdtsS/eAbpd0eT1hxBd6AZbIUy/NdHOCcMh1xW/VUAG9Nfc6hD1lpvTuU6Q==
+	t=1794605198;
+	b=JHRAqnajon92xEtJlNkhs1K/+f8vO4BGd7tJ9bS+OY/4fD1VeuOfy963xgDSWtK0Uvss
+	 y7lHplSpDdYZVAf6wFMLjnKSAnxVIErTd2J32XgRnLS6rojSGavmAZiE5WOP4KBFrSAEg
+	 XBIg5rB6yXm863Naab3TIe+3O7f5TkX/PfXYqVjUwtMM3ltCFfYeM8qA40B6Ys920WwCu
+	 ceMHmRj6GurH0UnpwCjRbSpp+FCrw2GQz+ZQsgdeVRUZG25OpD2f6mYnJEzSYJR77PaKP
+	 0DhCz8TFqcL80He5OsQ2wmL+yI8tmdzdEsYOuM2FBq/VuOv7MtkmgcZCQXPSTt518rQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794605199;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=6XYL3m7pR3XD5gcmbX6twLNHi5++AAkwL0wMnUcMCNQ=;
-	b=aW32Z7rjGn5BlKbLe5edI+84i/LHwQY3e0O4evm5OGuCxV6SgoZ2z9WDN0W3DvWPN42H
-	 3jET9XXtjuQCJlGi1fJOos4Xg/ug24o1t8cSpZjcXhuxvZZ44ayB9D2DG0M5wZFIJP/50
-	 sIY601oXoq/pVpanBolTXgtD9UiwbA3QlPQ9YYeYpiMIjlOyuINAVOjcLblCBMHsYKxAr
-	 E/ksmG4T6svmr+s9nccknhJXH682fzVDTBwyQKHYgpRpKlhw6waVBsjgxdWX/dKy6UgGB
-	 eRaApUMoi/ggo/W9bUH4qD0VDTv9NpWzexDRLPZLxXlN+wqW5kS5FSL1RLJ1gaXGAfQ==
+	c=relaxed/relaxed; t=1794605198;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9DiCXAhwU5zMrLZsoH9A3i98+K1TnqCojamIQPcq9Kg=;
+	b=Cb78srZ0QcKtL3+c0+/CxkKnIs57tZNnbEZuGMPRioI2njfo+Hf5cLyR6BpWksftTLnw
+	 m/MewjzONKy2pclLTEccMWPjMOI1coEXTGnJljvLIL9cc+BnsBkpYZ9+mwp5mM1SBppFt
+	 RVtmkDrR0tPm8063lqc+kg8HIKwXHptE6dNQBhUYB3sBgetdrOT9NCoZnkEypcnYQ6BOi
+	 t5X98dZsgl2hKUYgptRgzTyFkXEsbVjOd278C2tUrNiLr9V5XDLy6Rlu0kqLjg2pjP/e+
+	 jV02IEMdkh4DLg/To/QyPx4gQzruiWQWJgg5kzlybTPMWlv2ItURi6CxuI9CJJNQnRw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 73F451F000C5;
-	Fri, 13 Nov 2026 21:26:36 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0A7F61F00926;
+	Fri, 13 Nov 2026 21:26:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794605199;
-	bh=6XYL3m7pR3XD5gcmbX6twLNHi5++AAkwL0wMnUcMCNQ=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=lQZMDQ4MTntkn55cSd4mrJU1tc44GgQmig8hNnszUECieY07GJNb8EgAhtS4PpZN3
-	 LQZTdWR1YAywc7ZOKsRDwjS/DEYU00xmM5RhuYLi8hsp9Rs/ZWEaOyMy44hRy5KnAU
-	 OcF+jyttVaAAmtwXVBmd5Ku26GEm7WOvfebgy2Af4csez949LgPcxWvMnEEh49SQ7U
-	 CnrHTRBLJySnHhdeXOIVo6NOxPZ+HYzLIR2ZaIGg7cPvkh+EDqCxKvMutrs9K/pf7N
-	 BqxU7wD0xE2RX5GfYtubs16Pyk8lMFZNdCdFBgjPBhqABEeO8TCIAfWawaH5IlGn0F
-	 4sptIQ3bLthsw==
+	s=k20260515; t=1794605198;
+	bh=9DiCXAhwU5zMrLZsoH9A3i98+K1TnqCojamIQPcq9Kg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=FO2diBwjSFziwF7xHlpHVCMOhf0t1B9cbBpp8kQAtNnxCC86/ZDOczGhbWdnuOTHl
+	 lW52jsVBcWDs+bIJ1WOZZfeyNuIuLBqbpa+taPyNQvPzU6rTmTlksxA6puoaAabTFl
+	 J+fqXECyBom+Gcpei9i1wZQ4x/K1gzCbWld7Y7L1I+7le4Edyp8ZuCz8vKgIHM8hpN
+	 4n77GtE6UpSulY8viPMrPv5SyFdRUzFO5hpXMD9CadhsbThg9c63fMKy9mpjGYmoO8
+	 ZMHrNsNjdS3WncAN1oXe7++kGXEYh9eLm6/Ef4M9l7ozZ8IU0Xh0yWwYN15ltDeOM6
+	 TMT5WpvRhxurA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C658249B12;
-	Fri, 13 Nov 2026 21:26:35 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 8D42B49B2E;
+	Fri, 13 Nov 2026 21:26:36 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Subject: [PATCH RFC 0/8] mm/huge_memory: clean up and speed up large folio
- splitting
-Date: Sat, 14 Nov 2026 05:26:16 +0800
-Message-Id: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
+Date: Sat, 14 Nov 2026 05:26:24 +0800
+Subject: [PATCH RFC 8/8] mm/huge_memory: walk the folios reversely for the
+ release loop
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,11 +84,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS0NT3eLyxALdkowC3eKCnMwSXYM0C7MkU1OTJBOjVCWgpoKi1LTMCrC
- B0UpBbs5KsRDB4tKkrNTkEpBRUGVFqYWlQOtKIGpja2sBcGOPo4wAAAA=
-X-Change-ID: 20260915-swap-thp-split-0f86b554b42e
+Message-Id: <20261114-swap-thp-split-v1-8-dfa8d4fa448d@tencent.com>
+References: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
+In-Reply-To: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
 To: linux-mm@kvack.org
 Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
@@ -108,96 +105,67 @@ Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
  linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
  Kairui Song <kasong@tencent.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794605194; l=3345;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794605194; l=1841;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=/AbmnhDe2IJOrI78TkMUD1kXfK1J0O/e9ZtX3/CBXHc=;
- b=ZvIY7X4nvjD93wMA1BdYlQtatOQkZhI09urInLIAqNDsnRzPPbovJU2IFJM/8GMfgHOgpdduy
- bFeZZpGL/5QDNi+NWOuQeujVOGwfqIr1SpMs/ffdtk2+JnI4XBof3iu
+ bh=dZXSI3LM1sOQiwV6KeB6SU17Z87R/eSYehou1jdR5o4=;
+ b=IzWZ890bKlfCzLTPrilcnJxROgDWfSBsVhqWNDPvxfGm52kTpVgfbT0g1oAWYBw9TmLkGlYET
+ sEISPvezQAnDtnWjHKzRTfNJFLFL1pk8WFV+NU3RVhV8SiCnyBW6syP
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
  with auth_id=562
 X-Original-From: Kairui Song <kasong@tencent.com>
 Reply-To: kasong@tencent.com
+Content-Transfer-Encoding: 7bit
 
-Hi all,
+From: Kairui Song <kasong@tencent.com>
 
-This series slghtly cleans up the large folio split path and reduces
-its overhead: uniformly splitting PMD sized file folios to order 0
-is over 20% faster.
+The release loop unlocks and puts every after-split folio except the one
+holding @lock_at.  Walk it backwards with folio_prev() instead of
+forwards with folio_next().
 
-I realize this might not be the best time for pushing more optimizations,
-but I am posting this as an early RFC as it adds two helpers, folio_prev()
-and xas_prev_canonical(), and uses them to walk the after-split folios
-in reverse, saving a few local variables, avoiding a for-loop pitfall [1],
-and publishing the folios with a single Xarray walk.
+This also helps avoid a for loop pitfall mentioned by Zi Yan [1]:
+folio_next() needs the folio it is given to stay alive until the
+increment, folio_prev() does not.  So the cached next pointer can go, and
+the folio that was just put is never read again.
 
-Walking backwards also changes the order the pieces are put on the LRU or
-the reclaim list: they are now in ascending order instead of descending,
-which is the actually intended order. The effect was not very
-measurable though.
+Same folios visited, same work on each, only the direction changes.
 
-New code is mostly the two helpers and an Xarray selftest. The change to
-mm/huge_memory.c is LOC-neutral.
-
-Worth noting (not part of the series): I found these useful while
-preparation for supporting all kinds of folio splitting folios in the
-swap cache. I also tried to get rid of lruvec lock for the splitting,
-or at least decouple the lock and reduce lock scope of it. It turns out,
-not cleanly doable at this moment, and the main blocker is: MGLRU.
-MGLRU will read a folio's size without holding a ref, solely depending
-on the LRU lock to stabilize. To improve this, another rework of MGLRU's
-reclaim progress is needed (which will also cover the problem fount by
-the MGLRU-FG series that MGLRU sometime have a higher contention than
-CLRU on reclaim isolation).
-
-Testing
-=======
-
-Split overhead on a 32 vCPU x86-64 KVM guest, 31 GiB RAM, 4K base
-pages, 2M THP.  Split a 1 GiB shmem file (512 PMD-sized folios)
-uniformly to order 0 through /sys/kernel/debug/split_huge_pages and
-time that single write with bash's `time`.  Medians over 12
-interleaved rounds per kernel
-
-Test script:
-   mount -t tmpfs -o size=2G,huge=always tmpfs /mnt
-   fallocate -l 1G /mnt/big
-   time echo /mnt/big,0x0,0x40000,0 > /sys/kernel/debug/split_huge_pages
-   rm -f /mnt/big
-   umount /mnt
-
-Result:
-                        Before        After
-real                    17 ms        13 ms   (-24%)
-sys                     17 ms        13 ms   (-24%)
-
-End to end test showed no regression.
-
+Link: https://lore.kernel.org/r/DKJSFCLP967N.YBR4DNK1NM2N@nvidia.com [1]
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
-Kairui Song (8):
-      mm: add folio_prev()
-      xarray: add xas_prev_canonical()
-      mm/huge_memory: avoid an unnecessary folio size reading
-      mm/huge_memory: walk the after-split file folios in reverse order
-      mm/huge_memory: publish split folios by walking backwards
-      mm/huge_memory: rearrange split routine handling for better optimization
-      mm/huge_memory: walk the after-split anon folios in reverse order
-      mm/huge_memory: walk the folios reversely for the release loop
+ mm/huge_memory.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
- include/linux/mm.h     |  23 +++++++++++
- include/linux/xarray.h |  49 +++++++++++++++++++++++
- lib/test_xarray.c      |  97 +++++++++++++++++++++++++++++++++++++++++++++
- lib/xarray.c           |   8 ----
- mm/huge_memory.c       | 105 +++++++++++++++++++++++++------------------------
- 5 files changed, 222 insertions(+), 60 deletions(-)
----
-base-commit: fae273e48c398c56b819151a607a6c8792dadef0
-change-id: 20260915-swap-thp-split-0f86b554b42e
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 2ff201a5e5f3..bb09465a3948 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4366,7 +4366,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 	const bool is_anon = folio_test_anon(folio);
+ 	const bool is_swapcache = folio_test_swapcache(folio);
+ 	int old_order = folio_order(folio);
+-	struct folio *new_folio, *next;
++	struct folio *new_folio, *lock_folio;
+ 	int ret;
+ 
+ 	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
+@@ -4399,9 +4399,10 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 	 * Unlock all after-split folios except the one containing
+ 	 * @lock_at page. If @folio is not split, it will be kept locked.
+ 	 */
+-	for (new_folio = folio; new_folio != end_folio; new_folio = next) {
+-		next = folio_next(new_folio);
+-		if (new_folio == page_folio(lock_at))
++	lock_folio = page_folio(lock_at);
++	for (new_folio = folio_prev(end_folio); new_folio != folio;
++	     new_folio = folio_prev(new_folio)) {
++		if (new_folio == lock_folio)
+ 			continue;
+ 
+ 		/*
 
-Best regards,
---  
-Kairui Song <kasong@tencent.com>
+-- 
+2.56.1
 
 
