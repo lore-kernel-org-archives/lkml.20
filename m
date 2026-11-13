@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567648;
-	b=zVnK4kIVYPTGwHTTyTACPueriDz6uxqtEs+DMcLvlLtr0O4H/lubGO7gsKpk82YSFbZx
-	 Q3I2RefD9EDc5/WY2jffr3jwHxGH1f687oLzbwoNUXbdEyIbUWJjp/DHKAh8Ulx9McXiy
-	 spokEtjw760xKEnNLr5tjeNEYYXT1MNh/6JU4MUcWt73vhrwIVNHdesKKogtsEybnzFEo
-	 IUR4lB4F7+aGjaWMfYDlaW8yYcwS2tcr6UPgt/OhDfDgcQrxjKTmxBtFOMjkS/TEauTff
-	 gIcocoabzd+is5iw+kVEfJrq2bMb+iTxJybavZak8LgrVMv+NU0tE+euPY05DHBEydg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567648;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794567685;
+	b=MNVkZwjtn4tYzLSOOYaCjYb+1UlXipksmoF6waM0GlB+IetsPG63tgohpsqrR/eyouGv
+	 9tVysN7CcMKPSpyivOpiWSj5xJUJlVXaP52PJT+L0RiH6fEB3D4qcf03EEWbDujL5o7/T
+	 xld/K5oNw55EhkP/uQS/nYm0+lBXV9Qr/Fdwn+FYtPAEYHlG/lHPXJsslZelWqo8/pnVG
+	 Ii6p5t2lOfkvXlatEP9EJBmJHSagvrhYW5BqIYHo4t+yTJfhtITHCZ7Rg1Ef7aFaCwUOi
+	 U9LS7yEzdSM1RHefB3ESDxaCW1x+se3RwGKtXDF1ICyEWbvS2pg2BVRQ5963uwQ57nQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567685;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=E0Spw+Wz+o3GYXN/Tq9YXE4Yt9eck1f5/t1doKsqquU=;
-	b=EzWrm/XylagjGGydkrizYHRMGtUqPnUJMS8CadR9htXiEnwmLdV80LPH5caI8AtTNiFw
-	 dcaT2NJVoBbsl47Dz9A7tllTgBruhcm9tT26gD3+/RMR7aqUBfSxtg5CXExyhmxTepeF2
-	 uJT0R3VfJWBu741Sdap47MWqS9fpaB9NcdvODA5B/3p3St0zGkeUIPBNLDXT5DARFRzF5
-	 40a0b6Zz625VOyI35cPHHPVCwGoahL3Z58Ql646eVuFiXm04nKYQG2K32El3ph1IUUB5G
-	 CGwRu50BgW3JuI52jr6EbgLt767cTXSn4QrA2O6AnZWjCI9aQhAOSz7HAp60cDeVC5Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=IOhWIIOB;
-	arc=none smtp.remote-ip=209.85.210.175
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=EhSLziMRwdiehgWLSf2hbf4dn4hmC+KU+DWMadGd+hk=;
+	b=aRgbOLsjonRzdV2mqTxFOV3EreU1sSnfEftEfGPIEeKY6IC4ew5kl0Th93ez2n/YFD0Y
+	 RD1yddX87Ei67n0q96NT1DyJJ9456EblhNdnP19t91BLbqG+jURN6e2W7V73Qy63RclBg
+	 HEi03rvBmfZYHtYJ+D+Jh0XrVBVN+xe9qJh15Z/jlsZVZFH4aWxBoSBalurB3ih6ayPGj
+	 c3knyBuJrHO+1FkK3Xjl5zNdqGIFdA1LNFdnywcRLu35RKf/i+6RMbmcv6VtQm2ckKr0q
+	 00drPN0xST5dGG7w1kZPlUawo87gdjYxRxsfq/N9uTXkSs9QFlkUL8UBbWKt/g1+S/g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gM7anwqP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D52606BDAF
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:00:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9D52606BDAF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298BA606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:01:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 298BA606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=IOhWIIOB
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8b29b83fdf1so329910b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:00:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gM7anwqP
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b581b6b0e9so1169346a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:01:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794567683; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m2eXDvJTKDkP9OVqsxV440xNCKFXmA70uKVHMCuWZ+gpFxqLMvDErQVFJNunWWD3np
+         h0VLPTWmQ0+z2k2Yikx1AG+IM61Qp1r8LHbe2EOB0AGUYo/dcrtudiKT4Ia0D0zDC0FV
+         oa7gyoMcUpKftDhjoS078SvJItcAaXgPWepUygiSwhdbs2JiZZyZ526xTvMozifgI6JQ
+         UJqhx8qkIfXa093793hODyjCt5C22HhCmP/8wSe9+v/ZRY5/NU9jchWRr7sgENymfgH/
+         q6bwCd0tRb7asda6+GF8bpuVhheToA9pkkZ8JUb2WD1Kl3js9FFkuvBeJz70/b1Zci+f
+         TQmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=EhSLziMRwdiehgWLSf2hbf4dn4hmC+KU+DWMadGd+hk=;
+        fh=45FAFP4C0rMNRtTl/qS6hofmGC/BTVke/1NfpCGanP0=;
+        b=fHeYE/LerPLKvV1GAf/5IkLO8WD5jhhh8ybGa1855h+/RPbu1m3WG6yhNXOAS47dEt
+         PWpiNyxZdj+wV+lEEAce9mtdCNq0xSHnqU6PxYbw4IBdypVIStAaQqYk5yCvMoCRvDz9
+         bZzv3ge0OoGQ5nmVg91aofByj/lSEXgfks3cr/POO7GO5DOKnD43EfOjtptCEJmWpilo
+         K7pbT6HrML2byf+NR+Gy+yyxaOqXsCndFGUqYU+n069FyZpw7Geys9xPGxJGsSd/PCWU
+         8NeqxpCZFMO2v3/coTjBONZ2FeaNy0Gpo4EQ6KG2uBq8uH1tS4kTVLpQBHZFX7H2sO4W
+         jKEA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794567646; x=1795172446; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E0Spw+Wz+o3GYXN/Tq9YXE4Yt9eck1f5/t1doKsqquU=;
-        b=IOhWIIOBXi9j/kk02rDsO6zNJ3cl7siqpWtb/Sj3TCpjHuCCw3yNel0d2DJ6FxfkT9
-         TqyUISsm20FuA+0YFJuOApZYIEtui30MUBE/mGKK4spCG6HpYMaFOZ7h67CI8YJm5tCL
-         5X2kd7djjo5wbnCsH+wJOC7nWwV1Rb8f5jH6Lnco8yieYaBV4vPrabyljUHnfQXZKt4s
-         W+rpU6CCwNfMTpeBDZkgf1T92ZQXb8KxDb4q3rTd50F+c1cjfN6AL7b8vesSu7CFvPuW
-         T9Z4N1TSB8vDQX5OtZ5NpWOSDHNFOM11I9IGp8yftqOOXaL6gTb0415Jx61Aa6+LxxjN
-         O4bQ==
+        d=linaro.org; s=google; t=1794567683; x=1795172483; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EhSLziMRwdiehgWLSf2hbf4dn4hmC+KU+DWMadGd+hk=;
+        b=gM7anwqPc6kf1KPuU0sHreJsXNGPWMw6uQsDOjTYUJ/sGIqVH7Q9/GUmBv1oV/sbv+
+         bg2CTphEFLwiLGxYNT6nCTZ37BM/cg70n/mSunhzpQsBNLWUHrgND9OiU3Ib6KpbSvza
+         i4lwEH8DreGew2XU6/qX2H9RfgB9UChtZoQNavK1lr7jON9PbqT/+PL8YRxGJjFq738s
+         DG93cXHbiqQUUfyOTTPu+pOzoCOOILF37M6GoB1GLHrtsJEljQJRpqCsoViKeFqfrQK5
+         I0FHY/y+ijCl52hijhZ9hbKa5+0bj5fKmVnkiuzrZCp8Ku5WIk5kQskS43H5O2pG7KU1
+         JN0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794567646; x=1795172446;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E0Spw+Wz+o3GYXN/Tq9YXE4Yt9eck1f5/t1doKsqquU=;
-        b=EBLpoz5IGxzCVJ2N0JJRABrwFGY4mI+/wZqMO8m1dG5zBAOlr+awGxWMcSNcPT8bY0
-         V1J43M1jccwrGmGm0loUWRqivtQszuMU6DIAjC3vuVgddTk8HjyWQwen9myFQNchnQQJ
-         vZinB3cIjgwx40SqoI689wEhb9dbiLASoYilJwwjVZEY38k1f+e9LA8fuWtLCV0d9XKs
-         2jfZZ2jkwyzian70/ic11mDtrpLvRh1SHo6wGIKSQFdEM4sJZ1AAM8Baqvoou0OcoP3N
-         SmOREdsAgAiOVJaGdi4vcPCrlTrHJPLUDcGiYhik6FQGOaLdoLtErxPzBoThKDY/yqSd
-         CjHA==
-X-Forwarded-Encrypted: i=1; AL+hErHsqwnFCpugI+x41qKeyhuAoSILYgWFHPhQmSCO9tfPfSj8cDVPJeEwvcRvFEbKOg0drn4hi9m5pkUwJ+w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+XfpZb8GoGCfuHDASEHH6RSWB7gheRrFy+lPg+VLelhHmZwKpx
-	sOM1f8t6VtEFTbI6Y5J7FBdC9QigJuU0I/TcBjRI2Ohsrk6+ZagxS67K0O5grDoohUI=
-X-Gm-Gg: AYBFou2kn0J+fnPQSwoCK+5gItSd+zh0KR4RHooNvPAUSX/7DBWOzbLpvBPRQ/JZ5Iu
-	JMA1ylDh/h4TWMo4DWB9iUt2b72/8fcHQKaW7c7ZWobRL8bs7NP0r/hJUonojtQcHaduQPvsn+t
-	aNpFcGddHpbtP0bJECc53c0k3wihoUCnLOHAHPmsb+FI8ds9RhzjOz1DpNrT4mUL7K8DCechmMH
-	2/TaBBejoi+1ZWhwWEgU7DKaDR1bd/x5ErpGxI1wFzBIW/cEL3lrfJ2Du+t2g6jtbzfuyMAJBo1
-	CtS0nT4UCAddbOEI+gYjgA2kLcs8+AsFPmZqvRqwyCeo3F+0GTxk+0ZSnh2i1zAom7vi5ztzVjk
-	/mTUgjpgxJ+alAc1z5ijfS5NOEaQTEOe7DCtxqOO2iQeH22sp8EzXP5SS2vlnXnJIxumQKDaLL4
-	NFGfZRomNDdlE0rouCOGQArkFT5+9TExx2DSVGxyCcxOCDTM4MULjYiy7fbj5flZ+e9mzA/fEis
-	Vt3/cR+UnbTENeSg8Tk/yJznlAdDOD9AhiiLJaXiSTm7VkGcu4RBp2xPJ3aHjS6RttEh7AT7iI+
-	TaFEGYWfHiFvL/dCzigO4LlcoxBBdazZflVLBsr+0uYaHhJ5rkvpDe2pBgd8LftxrrP4UOXP7h3
-	dbmYi4ujthoyyP8fhddF6AQW7FkcQSpTX5WrLqw==
-X-Received: by 2002:a05:6a00:2d0c:b0:8b1:d612:e945 with SMTP id d2e1a72fcca58-8beb753a01fmr2253520b3a.52.1794567645735;
-        Fri, 13 Nov 2026 03:00:45 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:7e8c:590a:782b:a57b])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bececce013sm945262b3a.6.2026.11.13.03.00.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 03:00:45 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: jgross@suse.com
-Cc: sstabellini@kernel.org,
-	oleksandr_tyshchenko@epam.com,
-	xen-devel@lists.xenproject.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	martin.petersen@oracle.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] xen/scsiback: disable the IRQ before draining in-flight requests
-Date: Fri, 13 Nov 2026 20:00:36 +0900
-Message-ID: <20261113110036.146860-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1794567683; x=1795172483;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EhSLziMRwdiehgWLSf2hbf4dn4hmC+KU+DWMadGd+hk=;
+        b=Ady6sPtcNUV3IjuRUlFsuO+bTkHWwoRYb0B2WNHK5w4xEj5jNM42PeNMMectdN9Tq3
+         EQg/FQG9FoeCV9ydYgkDuu7g7mpigw+b+DX/2Qj9/VAa4GRevLfk4qHhghsPSVk13xGT
+         GSdcnGgxxinh6vMk+h0O0G2wCc9wMFeRdo/+gDo3Fn2jK4ZsV8xYFvL6Hqy1hmef8vXa
+         7+L26tjk9ayEWue+sDm2kKUX5NStrryS5LMlLcwMIFMcy+0Zc3b4hFV0mGp+pm/AwCVQ
+         gkrcKiLpx+Ng7RTliv190hbazQ8kx1UjhIMS+Y7SOJ+n0xUOoTA09G6gJ6qsMW1T3rfF
+         2m4g==
+X-Forwarded-Encrypted: i=1; AL+hErETWY/nSgtnhh5B9wUtF0ra83mFxpNAD5SR2qVUI114zoMkdWneDln30lybyE+S1HUlUiCtZCDBsm+OhLs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xhukxmO1ge4qLsRS81lqL7Kyv5PIzZD5wXu6WCwP1/UmjmXjm
+	yVM8WrirsShEdpSAEjlDWxNlqE5pN+wpkl8FaYqlr5dAycMXTwmkhXCyezlcqd23CZpbHYGPPNf
+	/iybyzz4w/+XaXtkDZ3Z4qXcxKE/zfj0LXZCrDPIj9Q==
+X-Gm-Gg: AYBFou21Bw+Ea6jtF2G/g/1ZZgvqiTtPta7opyJDCxihRYXd8LwJXSaR1OgqIfcaIx9
+	aUJ9Jkp7V39/Y/aJvztMcoNTjeWpzRI62jDr5AHEfgYCXvoiyrSAY2ONPjJ7306RId7SF8gHtHd
+	tywhVDDi1FFuEaoZNLqmJVePevHuw6S4gZxmxLGn61YvspaFqyuDS5uQtdgDzBP5TMivPlregeq
+	kqasQ88iiwwfUr36QQVKfWe6lq5quRT7zP4vCA0Voit+9Jiq2KSZWbcNq6b612AKTcTQDM11/BI
+	p3RWHXQU6kGXg0kra8hA6yS1BRh/qjd1/mhyFcqLTTIaN6/leo94+ExYqPrUOkCwuIGMy0x224W
+	cR+UQcstN9J+qEXLfQ7Dq/rd168dDh2bmBG44Dvb+8Y9CNGbGsWjG+4eERLI2w3EuPqWAIUsEJU
+	5/SnkUY3ZUX+y2OZo=
+X-Received: by 2002:aa7:d1d0:0:b0:6b6:face:56ff with SMTP id
+ 4fb4d7f45d1cf-6b7c0c1cecdmr1517334a12.33.1794567683121; Fri, 13 Nov 2026
+ 03:01:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,171 +104,394 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CGME20261113104835epcas5p4771d9933265138321769ebe010ee7334@epcas5p4.samsung.com>
+ <20261113110612.3265841-1-raghav.s@samsung.com> <973576304.21794567482719.JavaMail.epsvc@epcpadp2new>
+In-Reply-To: <973576304.21794567482719.JavaMail.epsvc@epcpadp2new>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Fri, 13 Nov 2026 11:01:11 +0000
+X-Gm-Features: AclHuK_4eW2y5x1TJUXLIaUHvbg5Y5qQ1j28UjXn0i-1LLBtpN9OCJGbji06uaU
+Message-ID: <CADrjBPpwrT=njcZZjprSt9UHdGTO6Zyf1Bg3j8PWW2uqcJXeYQ@mail.gmail.com>
+Subject: Re: [PATCH v3 02/14 RESEND] dt-bindings: clock: exynos8855: add top &
+ peric clock definitions
+To: Raghav Sharma <raghav.s@samsung.com>
+Cc: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com, 
+	alim.akhtar@samsung.com, sboyd@kernel.org, bmasney+clk@redhat.com, 
+	jbrunet+clk@baylibre.com, robh@kernel.org, conor+dt@kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com, 
+	pokala.reddy@samsung.com, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-scsiback_disconnect() drains the in-flight count before stopping the only
-thing that can raise it.  scsiback_cmd_exec() (xen-scsiback.c:426) runs in
-the backend's threaded IRQ handler, so a request can be admitted just after
-wait_event() has seen zero, and its response is written later from target
-core context by scsiback_send_response() (:347) - after the ring has been
-unmapped, and on the scsiback_remove() path (:1268-1280) after kfree(info).
+On Fri, 13 Nov 2026 at 10:58, Raghav Sharma <raghav.s@samsung.com> wrote:
+>
+> Add device tree clock binding definitions for CMU_TOP & CMU_PERIC
+>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
+> ---
 
-xen-blkback and xen-netback stop their request processing first:
-kthread_stop() before reading ring->inflight
-(xen-blkback/xenbus.c:290-304), and the kthreads and napi before
-unbinding and unmapping (xen-netback/interface.c:673-700).
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
-Call disable_irq() before the drain: it waits for a running handler, so
-nothing is admitted afterwards, while info->irq and its event channel stay
-valid for the responses written during the drain.  Unbind only once the
-drain is done, with the ring still mapped until then.
-
-Reproduced in a nested-Xen lab with KASAN.  Reaching the window needed two
-test-only usleep_range() delays, one after wait_event() returns and one at
-the top of scsiback_do_resp_with_sense() once the teardown has started.
-With both off nothing was produced (4 rounds unpatched, 2 patched); with
-both on the unpatched driver crashed in 6 of 6 valid cells, the patched in
-0 of 5:
-
-[  168.546709] BUG: KASAN: vmalloc-out-of-bounds in scsiback_send_response+0x516/0x5d0
-[  168.551012] Write of size 4 at addr ffffc900000230a4 by task kworker/0:1/11
-[  168.554757]
-[  168.555908] CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted 7.3.0-kCTLblk2-15482-g21a7f44fd076-dirty #10 PREEMPT(full)
-[  168.555914] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  168.555918] Workqueue: target_completion target_complete_ok_work
-[  168.555939] Call Trace:
-[  168.555946]  <TASK>
-[  168.555949]  dump_stack_lvl+0x64/0x80
-[  168.555958]  print_report+0xd0/0x630
-[  168.555966]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  168.555978]  ? scsiback_send_response+0x516/0x5d0
-[  168.555983]  kasan_report+0xce/0x100
-[  168.555988]  ? scsiback_send_response+0x516/0x5d0
-[  168.555992]  scsiback_send_response+0x516/0x5d0
-[  168.555997]  ? __pfx_scsiback_send_response+0x10/0x10
-[  168.556001]  scsiback_do_resp_with_sense+0x87/0x230
-[  168.556007]  scsiback_cmd_done+0xc0/0x290
-[  168.556011]  ? update_cfs_rq_load_avg+0x5a/0x560
-[  168.556023]  scsiback_queue_status+0xd3/0x100
-[  168.556028]  target_complete_ok_work+0x467/0xc30
-[  168.556032]  ? __pfx_target_complete_ok_work+0x10/0x10
-[  168.556036]  ? put_prev_task_fair+0x44d/0xa30
-[  168.556039]  ? finish_task_switch.isra.0+0x1d9/0xa70
-[  168.556047]  process_one_work+0x697/0x1060
-[  168.556052]  ? __pfx___schedule+0x10/0x10
-[  168.556058]  ? __pfx_process_one_work+0x10/0x10
-[  168.556061]  ? _raw_spin_lock_irq+0x86/0xe0
-[  168.556065]  ? __pfx_target_complete_ok_work+0x10/0x10
-[  168.556069]  ? assign_work+0x11d/0x370
-[  168.556074]  worker_thread+0x45b/0xd10
-[  168.556078]  ? __pfx_worker_thread+0x10/0x10
-[  168.556081]  ? __pfx_worker_thread+0x10/0x10
-[  168.556083]  kthread+0x2c8/0x3b0
-[  168.556090]  ? recalc_sigpending+0x15c/0x1e0
-[  168.556094]  ? __pfx_kthread+0x10/0x10
-[  168.556098]  ret_from_fork+0x373/0x5b0
-[  168.556104]  ? __pfx_ret_from_fork+0x10/0x10
-[  168.556107]  ? __switch_to+0x3c4/0xb40
-[  168.556115]  ? __pfx_kthread+0x10/0x10
-[  168.556120]  ret_from_fork_asm+0x1a/0x30
-[  168.556127]  </TASK>
-[  168.556129]
-[  168.639704] The buggy address belongs to a vmalloc virtual mapping
-[  168.642324] Memory state around the buggy address:
-[  168.644439]  ffffc90000022f80: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
-[  168.647698]  ffffc90000023000: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
-[  168.650951] >ffffc90000023080: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
-[  168.669199]                                ^
-[  168.671056]  ffffc90000023100: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
-[  168.674050]  ffffc90000023180: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
-[  168.676974] ==================================================================
-
-[  168.682117] BUG: unable to handle page fault for address: ffffc900000230a4
-[  168.684784] #PF: supervisor write access in kernel mode
-[  168.686797] #PF: error_code(0x0002) - not-present page
-[  168.688797] PGD 100000067 P4D 100000067 PUD 10019c067 PMD 1001a1067 PTE 0
-[  168.691319] Oops: Oops: 0002 [#1] SMP KASAN NOPTI
-[  168.693246] CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Tainted: G    B                7.3.0-kCTLblk2-15482-g21a7f44fd076-dirty #10 PREEMPT(full)
-[  168.699142] Tainted: [B]=BAD_PAGE
-[  168.700896] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  168.705056] Workqueue: target_completion target_complete_ok_work
-[  168.707701] RIP: 0010:scsiback_send_response+0x1b6/0x5d0
-[  168.710147] Code: 48 89 f8 83 e0 07 83 c0 03 40 38 f0 7c 09 40 84 f6 0f 85 60 03 00 00 48 89 d8 48 c1 e0 06 48 29 d8 48 c1 e0 02 48 8d 7c 01 40 <89> 94 01 a4 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1
-[  168.718883] RSP: 0018:ffffc900000bfaa0 EFLAGS: 00010046
-[  168.721447] RAX: 0000000000000000 RBX: 0000000000000000 RCX: ffffc90000023000
-[  168.724785] RDX: 0000000000000000 RSI: 0000000000000008 RDI: ffffc90000023040
-[  168.727913] RBP: ffff88810a4a7238 R08: 0000000000000246 R09: fffffbfff0de2638
-[  168.730938] R10: ffffffff86f131c7 R11: ffff888100077320 R12: 1ffff92000017f59
-[  168.733902] R13: 0000000000000000 R14: 0000000000000000 R15: ffff88810a6de200
-[  168.736874] FS:  0000000000000000(0000) GS:ffff8881b034d000(0000) knlGS:0000000000000000
-[  168.740171] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  168.742490] CR2: ffffc900000230a4 CR3: 0000000103271005 CR4: 0000000000770ef0
-[  168.745350] PKRU: 55555554
-[  168.746577] Call Trace:
-[  168.747772]  <TASK>
-[  168.748872]  ? __pfx_scsiback_send_response+0x10/0x10
-[  168.751022]  scsiback_do_resp_with_sense+0x87/0x230
-[  168.753109]  scsiback_cmd_done+0xc0/0x290
-[  168.754847]  ? update_cfs_rq_load_avg+0x5a/0x560
-[  168.756782]  scsiback_queue_status+0xd3/0x100
-[  168.758630]  target_complete_ok_work+0x467/0xc30
-[  168.760556]  ? __pfx_target_complete_ok_work+0x10/0x10
-[  168.762644]  ? put_prev_task_fair+0x44d/0xa30
-[  168.764512]  ? finish_task_switch.isra.0+0x1d9/0xa70
-[  168.766584]  process_one_work+0x697/0x1060
-[  168.768282]  ? __pfx___schedule+0x10/0x10
-[  168.769973]  ? __pfx_process_one_work+0x10/0x10
-[  168.771880]  ? _raw_spin_lock_irq+0x86/0xe0
-[  168.773599]  ? __pfx_target_complete_ok_work+0x10/0x10
-[  168.775721]  ? assign_work+0x11d/0x370
-[  168.777324]  worker_thread+0x45b/0xd10
-[  168.778899]  ? __pfx_worker_thread+0x10/0x10
-[  168.780648]  ? __pfx_worker_thread+0x10/0x10
-[  168.782415]  kthread+0x2c8/0x3b0
-[  168.783877]  ? recalc_sigpending+0x15c/0x1e0
-[  168.785697]  ? __pfx_kthread+0x10/0x10
-[  168.787218]  ret_from_fork+0x373/0x5b0
-[  168.788752]  ? __pfx_ret_from_fork+0x10/0x10
-[  168.790500]  ? __switch_to+0x3c4/0xb40
-[  168.792029]  ? __pfx_kthread+0x10/0x10
-[  168.793555]  ret_from_fork_asm+0x1a/0x30
-[  168.795180]  </TASK>
-[  168.796205] Modules linked in:
-[  168.797596] CR2: ffffc900000230a4
-[  168.799084] ---[ end trace 0000000000000000 ]---
-
-Fixes: d9d660f6e562 ("xen-scsiback: Add Xen PV SCSI backend driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-v2:
-- disable the IRQ before the drain and unbind it after the drain, instead
-  of unbinding first, so info->irq stays valid for responses sent during
-  the drain (Sashiko)
-- dropped Juergen's Reviewed-by since the code changed
-  v1: https://lore.kernel.org/all/20261109122654.30859-1-yhlee@isslab.korea.ac.kr/
-
-Reported to the Xen security team first; xen-scsiback is not security supported, so posting here as suggested.
-
- drivers/xen/xen-scsiback.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/xen/xen-scsiback.c b/drivers/xen/xen-scsiback.c
-index c7036e0e41bda1..4204b555c908c7 100644
---- a/drivers/xen/xen-scsiback.c
-+++ b/drivers/xen/xen-scsiback.c
-@@ -603,6 +603,9 @@ static int scsiback_gnttab_data_map(struct vscsiif_request *ring_req,
- 
- static void scsiback_disconnect(struct vscsibk_info *info)
- {
-+	/* Stop admitting requests before draining the in-flight ones. */
-+	disable_irq(info->irq);
-+
- 	wait_event(info->waiting_to_free,
- 		atomic_read(&info->nr_unreplied_reqs) == 0);
- 
-
-base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
--- 
-2.43.0
-
+>  .../clock/samsung,exynos8855-clock.yaml       | 133 +++++++++++
+>  .../dt-bindings/clock/samsung,exynos8855.h    | 206 ++++++++++++++++++
+>  2 files changed, 339 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
+>  create mode 100644 include/dt-bindings/clock/samsung,exynos8855.h
+>
+> diff --git a/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml b/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
+> new file mode 100644
+> index 000000000000..486b7347ad44
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
+> @@ -0,0 +1,133 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/samsung,exynos8855-clock.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Samsung Exynos 8855 SoC clock controller
+> +
+> +maintainers:
+> +  - Raghav Sharma <raghav.s@samsung.com>
+> +
+> +description: |
+> +  Exynos 8855 clock controller is comprised of several CMU units, generating
+> +  clocks for different domains. Those CMU units are modeled as separate device
+> +  tree nodes, and might depend on each other. Root clocks in that clock tree are
+> +  two external clocks:: OSCCLK/XTCXO (76.8 MHz) and RTCCLK/XrtcXTI (32768 Hz).
+> +  The external OSCCLK must be defined as fixed-rate clock in dts.
+> +
+> +  CMU_TOP is a top-level CMU, where all base clocks are prepared using PLLs and
+> +  dividers; all other clocks of function blocks (other CMUs) are usually
+> +  derived from CMU_TOP.
+> +
+> +  Each clock is assigned an identifier and client nodes can use this identifier
+> +  to specify the clock which they consume. All clocks available for usage
+> +  in clock consumer nodes are defined as preprocessor macros in
+> +  'include/dt-bindings/clock/samsung,exynos8855.h' header.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - samsung,exynos8855-cmu-peric
+> +      - samsung,exynos8855-cmu-top
+> +
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 4
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    maxItems: 4
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  samsung,sysreg:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to system registers interface.
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: samsung,exynos8855-cmu-peric
+> +
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: External reference clock (76.8 MHz)
+> +            - description: CMU_PERIC NOC clock (from CMU_TOP)
+> +            - description: CMU_PERIC MMC_CARD clock (from CMU_TOP)
+> +            - description: CMU_PERIC IP clock (from CMU_TOP)
+> +
+> +        clock-names:
+> +          items:
+> +            - const: oscclk
+> +            - const: bus
+> +            - const: mmc_card
+> +            - const: ip
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: samsung,exynos8855-cmu-top
+> +
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: External reference clock (76.8 MHz)
+> +
+> +        clock-names:
+> +          items:
+> +            - const: oscclk
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: samsung,exynos8855-cmu-top
+> +    then:
+> +      properties:
+> +        samsung,sysreg: false
+> +    else:
+> +      required:
+> +        - samsung,sysreg
+> +
+> +required:
+> +  - compatible
+> +  - "#clock-cells"
+> +  - clocks
+> +  - clock-names
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/samsung,exynos8855.h>
+> +
+> +    cmu_peric0: clock-controller@15400000 {
+> +        compatible = "samsung,exynos8855-cmu-peric";
+> +        reg = <0x15400000 0x8000>;
+> +        #clock-cells = <1>;
+> +
+> +        clocks = <&xtcxo>,
+> +                 <&cmu_top CLKCMU_DOUT_PERIC_NOC>,
+> +                 <&cmu_top CLKCMU_DOUT_PERIC_MMC_CARD>,
+> +                 <&cmu_top CLKCMU_DOUT_PERIC_IP>;
+> +        clock-names = "oscclk",
+> +                      "bus",
+> +                      "mmc_card",
+> +                      "ip";
+> +        samsung,sysreg = <&sysreg_peric>;
+> +    };
+> +
+> +...
+> diff --git a/include/dt-bindings/clock/samsung,exynos8855.h b/include/dt-bindings/clock/samsung,exynos8855.h
+> new file mode 100644
+> index 000000000000..cd445bb45070
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/samsung,exynos8855.h
+> @@ -0,0 +1,206 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (c) 2026 Samsung Electronics Co., Ltd.
+> + * Author: Raghav Sharma <raghav.s@samsung.com>
+> + *
+> + * Device Tree binding constants for Exynos 8855 clock controller.
+> + */
+> +
+> +#ifndef _DT_BINDINGS_CLOCK_EXYNOS8855_H
+> +#define _DT_BINDINGS_CLOCK_EXYNOS8855_H
+> +
+> +/* CMU_TOP  */
+> +#define FOUT_SHARED0_PLL                  1
+> +#define FOUT_SHARED1_PLL                  2
+> +#define FOUT_SHARED2_PLL                  3
+> +#define FOUT_SHARED3_PLL                  4
+> +#define FOUT_SHARED4_PLL                  5
+> +#define FOUT_MMC_PLL                      6
+> +#define MOUT_SHARED0_PLL                  7
+> +#define MOUT_SHARED1_PLL                  8
+> +#define MOUT_SHARED2_PLL                  9
+> +#define MOUT_SHARED3_PLL                  10
+> +#define MOUT_SHARED4_PLL                  11
+> +#define MOUT_MMC_PLL                      12
+> +#define CLKCMU_MOUT_PERIC_NOC              13
+> +#define CLKCMU_MOUT_PERIC_MMC_CARD         14
+> +#define CLKCMU_MOUT_PERIC_IP               15
+> +#define CLKCMU_DOUT_PERIC_NOC              16
+> +#define CLKCMU_DOUT_PERIC_MMC_CARD         17
+> +#define CLKCMU_DOUT_PERIC_IP               18
+> +#define DOUT_SHARED0_DIV1                 19
+> +#define DOUT_SHARED0_DIV2                 20
+> +#define DOUT_SHARED0_DIV3                 21
+> +#define DOUT_SHARED0_DIV4                 22
+> +#define DOUT_SHARED1_DIV1                 23
+> +#define DOUT_SHARED1_DIV2                 24
+> +#define DOUT_SHARED1_DIV3                 25
+> +#define DOUT_SHARED1_DIV4                 26
+> +#define DOUT_SHARED2_DIV1                 27
+> +#define DOUT_SHARED2_DIV2                 28
+> +#define DOUT_SHARED2_DIV3                 29
+> +#define DOUT_SHARED2_DIV4                 30
+> +#define DOUT_SHARED3_DIV1                 31
+> +#define DOUT_SHARED3_DIV2                 32
+> +#define DOUT_SHARED3_DIV3                 33
+> +#define DOUT_SHARED3_DIV4                 34
+> +#define DOUT_SHARED4_DIV1                 35
+> +#define DOUT_SHARED4_DIV2                 36
+> +#define DOUT_SHARED4_DIV3                 37
+> +#define DOUT_SHARED4_DIV4                 38
+> +#define FOUT_MMC_PLL_DIV1                  39
+> +#define FOUT_MMC_PLL_DIV2                  40
+> +#define CLKCMU_MOUT_PERIS_GIC              41
+> +#define CLKCMU_MOUT_PERIS_NOC              42
+> +#define CLKCMU_DOUT_PERIS_GIC              43
+> +#define CLKCMU_DOUT_PERIS_NOC              44
+> +#define FOUT_MMC_PLL_CLKOUT_DIV2           45
+> +#define CLKCMU_MOUT_HSI_NOC                46
+> +#define CLKCMU_MOUT_HSI_UFS_EMBD           47
+> +#define CLKCMU_DOUT_HSI_NOC                48
+> +#define CLKCMU_DOUT_HSI_UFS_EMBD           49
+> +#define CLKCMU_MOUT_USB_NOC                50
+> +#define CLKCMU_MOUT_USB_USB20DRD           51
+> +#define CLKCMU_DOUT_USB_NOC                52
+> +#define CLKCMU_DOUT_USB_USB20DRD           53
+> +#define FOUT_MIF_SWITCH_PLL               54
+> +#define MOUT_MIF_SWITCH_PLL               55
+> +#define FOUT_MMC_PLL_DIV3                  56
+> +#define FOUT_MMC_PLL_DIV4                  57
+> +#define FOUT_MIF_SWITCH_PLL_DIV1           58
+> +#define FOUT_MIF_SWITCH_PLL_DIV2           59
+> +#define FOUT_MIF_SWITCH_PLL_DIV3           60
+> +#define FOUT_MIF_SWITCH_PLL_DIV4           61
+> +#define CLKCMU_MOUT_AUD_CPU                62
+> +#define CLKCMU_MOUT_AUD_NOC                63
+> +#define CLKCMU_MOUT_CPUCL0_SWITCH          64
+> +#define CLKCMU_MOUT_CPUCL0_NOCP            65
+> +#define CLKCMU_MOUT_DSU_SWITCH             66
+> +#define CLKCMU_MOUT_CPUCL1_SWITCH          67
+> +#define CLKCMU_MOUT_CIS_CLK0               68
+> +#define CLKCMU_MOUT_CIS_CLK1               69
+> +#define CLKCMU_MOUT_CIS_CLK2               70
+> +#define CLKCMU_MOUT_CIS_CLK3               71
+> +#define CLKCMU_MOUT_CIS_CLK4               72
+> +#define CLKCMU_MOUT_CMU_BOOST_TOP          73
+> +#define CLKCMU_MOUT_CMU_BOOST              74
+> +#define CLKCMU_MOUT_CMU_BOOST_CPU          75
+> +#define CLKCMU_MOUT_CMU_BOOST_MIF0         76
+> +#define CLKCMU_MOUT_CSIS_NOC               77
+> +#define CLKCMU_MOUT_CSTAT_NOC              78
+> +#define CLKCMU_MOUT_CSTAT_BYRP             79
+> +#define CLKCMU_MOUT_DPU_NOC                80
+> +#define CLKCMU_MOUT_G3DCORE_SWITCH         81
+> +#define CLKCMU_MOUT_M2M_NOC                82
+> +#define CLKCMU_MOUT_M2M_JPEG               83
+> +#define CLKCMU_MOUT_M2M_GDC                84
+> +#define CLKCMU_MOUT_MIF1_NOCP              85
+> +#define CLKCMU_MOUT_MFC_NOC                86
+> +#define CLKCMU_MOUT_MIF0_NOCP              87
+> +#define CLKCMU_MOUT_NOCL0_NOC              88
+> +#define CLKCMU_MOUT_NOCL1A_NOC             89
+> +#define CLKCMU_MOUT_RGBP_NOC               90
+> +#define CLKCMU_MOUT_YUVP_NOC               91
+> +#define CLKCMU_MOUT_ALIVE_NOC              92
+> +#define CLKCMU_MOUT_CSIS_DCPHY             93
+> +#define CLKCMU_MOUT_CSIS_OIS               94
+> +#define CLKCMU_MOUT_ICPU_NOCD_0            95
+> +#define CLKCMU_MOUT_ICPU_NOCD_1            96
+> +#define CLKCMU_MOUT_GNPU0_NOC              97
+> +#define CLKCMU_MOUT_GNPU0_XMAA             98
+> +#define CLKCMU_MOUT_SDMA_NOC               99
+> +#define CLKCMU_MOUT_DNC_HTU               100
+> +#define CLKCMU_MOUT_DNC_NOC               101
+> +#define CLKCMU_MOUT_PSP_NOC               102
+> +#define CLKCMU_MOUT_G3D_NOCP              103
+> +#define CLKCMU_MOUT_USI_NOC               104
+> +#define CLKCMU_MOUT_USI_IP                105
+> +#define CLKCMU_MOUT_CPUCL0_DBG_NOC        106
+> +#define CLKCMU_MOUT_BOOST_RCO             107
+> +#define CLKCMU_MOUT_MIF0_SWITCH           108
+> +#define CLKCMU_MOUT_MIF1_SWITCH           109
+> +#define CLKCMU_MOUT_NOCL1B_NOC            110
+> +#define CLKCMU_MOUT_CPUCL2_SWITCH         111
+> +#define CLKCMU_MOUT_CMU_BOOST_MIF1        112
+> +#define CLKCMU_MOUT_CSTAT_MCSC            113
+> +#define CLKCMU_MOUT_G3D_HTU               114
+> +#define CLKCMU_DOUT_AUD_CPU               115
+> +#define CLKCMU_DOUT_AUD_NOC               116
+> +#define CLKCMU_DOUT_CPUCL0_SWITCH         117
+> +#define CLKCMU_DOUT_CPUCL0_NOCP           118
+> +#define CLKCMU_DOUT_DSU_SWITCH            119
+> +#define CLKCMU_DOUT_CPUCL1_SWITCH         120
+> +#define CLKCMU_DOUT_CIS_CLK0              121
+> +#define CLKCMU_DOUT_CIS_CLK1              122
+> +#define CLKCMU_DOUT_CIS_CLK2              123
+> +#define CLKCMU_DOUT_CIS_CLK3              124
+> +#define CLKCMU_DOUT_CIS_CLK4              125
+> +#define CLKCMU_DOUT_CMU_BOOST_TOP         126
+> +#define CLKCMU_DOUT_CMU_BOOST             127
+> +#define CLKCMU_DOUT_CMU_BOOST_CPU         128
+> +#define CLKCMU_DOUT_CMU_BOOST_MIF0        129
+> +#define CLKCMU_DOUT_CSIS_NOC              130
+> +#define CLKCMU_DOUT_CSTAT_NOC             131
+> +#define CLKCMU_DOUT_CSTAT_BYRP            132
+> +#define CLKCMU_DOUT_DPU_NOC               133
+> +#define CLKCMU_DOUT_G3DCORE_SWITCH        134
+> +#define CLKCMU_DOUT_M2M_NOC               135
+> +#define CLKCMU_DOUT_M2M_JPEG              136
+> +#define CLKCMU_DOUT_M2M_GDC               137
+> +#define CLKCMU_DOUT_MIF1_NOCP             138
+> +#define CLKCMU_DOUT_MFC_NOC               139
+> +#define CLKCMU_DOUT_MIF0_NOCP             140
+> +#define CLKCMU_DOUT_NOCL0_NOC             141
+> +#define CLKCMU_DOUT_NOCL1A_NOC            142
+> +#define CLKCMU_DOUT_RGBP_NOC              143
+> +#define CLKCMU_DOUT_YUVP_NOC              144
+> +#define CLKCMU_DOUT_ALIVE_NOC             145
+> +#define CLKCMU_DOUT_CSIS_DCPHY            146
+> +#define CLKCMU_DOUT_CSIS_OIS              147
+> +#define CLKCMU_DOUT_ICPU_NOCD_0           148
+> +#define CLKCMU_DOUT_ICPU_NOCD_1           149
+> +#define CLKCMU_DOUT_GNPU0_NOC             150
+> +#define CLKCMU_DOUT_GNPU0_XMAA            151
+> +#define CLKCMU_DOUT_SDMA_NOC              152
+> +#define CLKCMU_DOUT_DNC_HTU               153
+> +#define CLKCMU_DOUT_DNC_NOC               154
+> +#define CLKCMU_DOUT_PSP_NOC               155
+> +#define CLKCMU_DOUT_G3D_NOCP              156
+> +#define CLKCMU_DOUT_USI_NOC               157
+> +#define CLKCMU_DOUT_USI_IP                158
+> +#define CLKCMU_DOUT_CPUCL0_DBG_NOC        159
+> +#define CLKCMU_DOUT_NOCL1B_NOC            160
+> +#define CLKCMU_DOUT_CPUCL2_SWITCH         161
+> +#define CLKCMU_DOUT_CMU_BOOST_MIF1        162
+> +#define CLKCMU_DOUT_CSTAT_MCSC            163
+> +#define CLKCMU_DOUT_G3D_HTU               164
+> +
+> +/* CMU_PERIC */
+> +#define CLK_MOUT_PERIC_IP_USER             1
+> +#define CLK_MOUT_PERIC_MMC_CARD_USER       2
+> +#define CLK_MOUT_PERIC_NOC_USER            3
+> +#define CLK_MOUT_PERIC_I2C                 4
+> +#define CLK_MOUT_PERIC_UART_DBG            5
+> +#define CLK_MOUT_PERIC_USI00               6
+> +#define CLK_MOUT_PERIC_USI01               7
+> +#define CLK_MOUT_PERIC_USI02               8
+> +#define CLK_MOUT_PERIC_USI03               9
+> +#define CLK_MOUT_PERIC_USI04               10
+> +#define CLK_MOUT_PERIC_USI09_USI_OIS       11
+> +#define CLK_MOUT_PERIC_USI10_USI_OIS       12
+> +#define CLK_DOUT_PERIC_NOCP                13
+> +#define CLK_DOUT_PERIC_UART_DBG            14
+> +#define CLK_DOUT_PERIC_USI00_USI           15
+> +#define CLK_DOUT_PERIC_USI01_USI           16
+> +#define CLK_DOUT_PERIC_USI02_USI           17
+> +#define CLK_DOUT_PERIC_USI03_USI           18
+> +#define CLK_DOUT_PERIC_USI04_USI           19
+> +#define CLK_DOUT_PERIC_USI09_USI_OIS       20
+> +#define CLK_DOUT_PERIC_USI10_USI_OIS       21
+> +#define CLK_DOUT_PERIC_USI_I2C             22
+> +#define CLK_GOUT_CMU_PERIC                 23
+> +#define CLK_GOUT_SYSREG_PERIC              24
+> +#define CLK_GOUT_UART_DBG_PERIC            25
+> +#define CLK_GOUT_USI_PERIC                 26
+> +
+> +#endif /* _DT_BINDINGS_CLOCK_EXYNOS8855_H */
+> --
+> 2.34.1
+>
+>
