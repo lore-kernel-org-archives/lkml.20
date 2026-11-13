@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530991;
-	b=UflQr62y0Xgje6LdP6dd1RYyx3OHzFRxEIVaWvGWNTG2SaOmLUDR+LRuoCco47P3gM7E
-	 hBWU//dGL3u6UZB2l6nVBtw/i+XvPeX5s/y3y7Q7yLU5TitmBu/bxBKxDM2WsohBhhIRR
-	 vXUOlhhCIKKX8X3Ta0zS3GbsOz8wv6qMB5gbJgy4/PKuZdbChXsb7b+IzOZtfmYNKIiGo
-	 E5FKL4BD1nuhFNrVi0EDPMbVuh+c1JmFa1Rbl7R2h0yf/YhUGXSsVarFAa6h+znarui4U
-	 rvpxg4rKbusILn/uvGYllicQRCPoFRbq97CJ2n9UqgjLZ+2IlXCkw/sIsHqMQP1SsJw==
+	t=1794530997;
+	b=xianziwRT6ZTkWleokCzEzSe/LXJVyqkrKIVjonmC4+yOzReuYOWtvT0WgTmDCDw348O
+	 UOBgRLb1FUKFXSU3y/+ma7NfWoTx33WurLk3mv4iK0UPg6zPdG7oWTP3yMPwdygQfyBgn
+	 eHlPYLkll1XwdTvAPBhJ+PMSbBwsMcYonLwnmd1JG6uZgtPoIZVovWYiPZFxTxgtA9kuZ
+	 0F/XWg3r5L0b1yZE51UArYd9nf52Fqs2UwgpbUASeawdxj+R8o54Tl4P6P6beWUecJpjL
+	 6wjcJiGHwondU3vClRv676jxFRSRlLbH432+zl+WOxOoOQ/ME6y2auSBvfKrfJcEHuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530991;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530997;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lerioq4d56SPhYkjt+RCN3wpafD+rha2cfoz6Qv82Dw=;
-	b=qhtzr1jeXbPY1JnfycMWGlJRgCJwXqhdcv6RmmnPgeYqXSimgnUGzl3H/Q92cik7b/tE
-	 3QF0JOdTPh9cuLPyGULOv+jwp2Iwo3ddThy5EnUsdTZVjA2Ex/bwcaWX+nh1560+nusSB
-	 5C8J9hC44hWhz4k6ZUYWM/fJcB+Q4OkQ2Pm77JxTs8M/VCboEojpVvgjNem3EXVMpGBqb
-	 TMHAwI1b4sPPKV2TUPBnv+0I8FUqXVvVr4ho3C7KkOXVaFn8TJwM5Fd0t6/G7UVhsLvmN
-	 wPgpE8pUoLET13RSY1PT7kqMs+LQytA6tE/URaZ7M9C/Lj+IEWtHEEPu7uhzhgxFmiQ==
+	bh=by4pnn7UUwtR1dcWkA5l3Hqdi+jnIaBieMR4UKUf5fA=;
+	b=1TsmuZB9mRz+joqnYkgFsPcyFm6NIoy223TbGu7yEiFjyJsDq7+skCdEDqtiMWC9oxtu
+	 giZQxPLNcYA8lPSasOEFG6Vl4GsBXdHqgWh3FMoXGhApNFZz7uErk8fR7C29vt+KM4DIM
+	 tmCPTfv0nRdD4LJKSW0S5EOcxDZ4J51jmxNkDs4iaYZOqmU4W7EakVXV86PngOrqjLnnB
+	 X9AW6FnI9ZVpJKRqQy5OGECAZlzfSJCYN42BFdL1cQOtLbQlyb1klDZHWvrHL3WheWyyy
+	 A2nmWA65Yw/dqiZr4DGeVocXH5Pp8zbAVQyvFcq3KtjZQqwo9tDVQiJ2imBX/2mXwuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1Xqe5NW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gk9kIc9Y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A29F0606A32D;
-	Fri, 13 Nov 2026 00:49:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7A660606A89E;
+	Fri, 13 Nov 2026 00:49:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1Xqe5NW
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 011E91F000C4;
-	Fri, 13 Nov 2026 00:49:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gk9kIc9Y
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C7FB61F000C5;
+	Fri, 13 Nov 2026 00:49:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794530991;
-	bh=lerioq4d56SPhYkjt+RCN3wpafD+rha2cfoz6Qv82Dw=;
+	s=k20260515; t=1794530997;
+	bh=by4pnn7UUwtR1dcWkA5l3Hqdi+jnIaBieMR4UKUf5fA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P1Xqe5NWbSN3fIZBjJ4VgjIAr/miILeoBjAdI24rAPXf8HVuPXTge+5lE6YvRLAhz
-	 WptsUqO1L9RYLD6FXE52445PGGJ4f/GM8A2T77BBFTkPJcLyKmeoZDdVj0JY0BekM6
-	 3DCrW6Imij4bb3p8Lr+BvBe6rhxqAMHdn3F+OeBXvmhDZqPzf7rnjS67HIkKafPuUn
-	 ES3X8YHcbZcjiS1RGDo0icvzW0wC3yZUFgogfvL0hskTXdIw//MQ6Z6gQ/UqkUv7Zi
-	 Je4bKFSL1YpZr+Um0IGZ3axHa8AhU/97ERqN6lBfoXlxrgBAlEAzcXRdP5M/+DiD5W
-	 KGsCQXZP1FP7A==
+	b=Gk9kIc9YfKPN1a+chXmm1fauIHMrlVr/P2bj4SxeKbeQkpToe7imgUW0S8uMk1a7w
+	 bV/yDZ8EXQW6RaIzZX/MxuCui/o9E6sCkoXw6s3z/UX58q8Uyu8f5PhKV8SuZnp6cR
+	 I2pSjyfpSzxP1n15wynJ0V/3p2+fj3DEwb9OZCg88lI3dngYBNk8Ddf/8s7AUX8kFC
+	 Flg4wSK0UreVnLr8/62GQbhtXO6CM8/thpq3FUPMQerebR9PS1kuYARBsyAt1fyRyJ
+	 wIeGD9w9CzmxMadKh6UjJhckeKjVTXFYfDVAvyyRJyq3LVhGEa9CTONB3GU1gWztmI
+	 K9Q9VUPOq64mA==
 From: Joel Fernandes <jfern@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	"Paul E . McKenney" <paulmck@kernel.org>,
@@ -52,15 +52,15 @@ To: linux-kernel@vger.kernel.org,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Lai Jiangshan <jiangshanlai@gmail.com>,
 	Zqiang <qiang.zhang@linux.dev>,
-	Guo Ren <guoren@kernel.org>
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
 Cc: rcu@vger.kernel.org,
-	Guenter Roeck <linux@roeck-us.net>,
-	stable@vger.kernel.org,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	linux-csky@vger.kernel.org
-Subject: [PATCH for-v7.5 1/5] srcu: Select IRQ_WORK for Tiny SRCU
-Date: Thu, 12 Nov 2026 19:49:40 -0500
-Message-ID: <20261113004946.2758197-2-jfern@kernel.org>
+	Song Liu <song@kernel.org>,
+	linux-doc@vger.kernel.org
+Subject: [PATCH for-v7.5 4/5] rcu-tasks: Use pr_debug() for callback contend/collapse messages
+Date: Thu, 12 Nov 2026 19:49:43 -0500
+Message-ID: <20261113004946.2758197-5-jfern@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261113004946.2758197-1-jfern@kernel.org>
 References: <20261113004946.2758197-1-jfern@kernel.org>
@@ -75,40 +75,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Tiny SRCU uses irq_work_queue() to start grace periods and
-irq_work_sync() to wait for pending work. However, TINY_SRCU does not
-select IRQ_WORK, so configurations that do not otherwise enable it
-fail to link with undefined references to these functions.
+From: Song Liu <song@kernel.org>
 
-Guenter reported this failure with csky tinyconfig on the 6.12 and
-6.6 stable trees. Current kernels enable IRQ_WORK indirectly through
-SLUB, but Tiny SRCU should declare its own dependency.
+Commit 5de907d24919 ("rcu-tasks: Disable callback contend/collapse
+messages by default") added the rcupdate.rcu_task_collapse_debug module
+parameter to gate the three pr_info() messages that report RCU Tasks
+switching between CPU-0 and per-CPU callback queuing.
 
-Select IRQ_WORK from TINY_SRCU to ensure that its irq_work calls are
-supported independently of other configuration options.
+The kernel already has a mechanism for debug-only messages that are off
+by default: pr_debug().  Use pr_debug() for these messages, and remove
+the rcu_task_collapse_debug module parameter, its documentation, and
+its boot-time announcement.
 
-Fixes: a6fc88b22bc8 ("srcu: Use irq_work to start GP in tiny SRCU")
-Reported-by: Guenter Roeck <linux@roeck-us.net>
-Closes: https://lore.kernel.org/r/49da816c-8082-46f1-bb12-f0d6187bb06a@roeck-us.net/
-Suggested-by: Guenter Roeck <linux@roeck-us.net>
-Cc: stable@vger.kernel.org
+The messages stay off by default.  On CONFIG_DYNAMIC_DEBUG=y kernels,
+they can be enabled at boot with:
+
+  dyndbg="file kernel/rcu/tasks.h +p"
+
+or at runtime with:
+
+  echo 'file kernel/rcu/tasks.h +p' > /proc/dynamic_debug/control
+
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Song Liu <song@kernel.org>
 Signed-off-by: Joel Fernandes <jfern@kernel.org>
 ---
- kernel/rcu/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/admin-guide/kernel-parameters.txt |  7 -------
+ kernel/rcu/tasks.h                              | 15 +++------------
+ 2 files changed, 3 insertions(+), 19 deletions(-)
 
-diff --git a/kernel/rcu/Kconfig b/kernel/rcu/Kconfig
-index bc9483c0b5d8..b6d3597758fc 100644
---- a/kernel/rcu/Kconfig
-+++ b/kernel/rcu/Kconfig
-@@ -56,6 +56,7 @@ config RCU_EXPERT
- config TINY_SRCU
- 	bool
- 	default y if TINY_RCU
-+	select IRQ_WORK
- 	help
- 	  This option selects the single-CPU non-preemptible version of SRCU.
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 0b3c140babd9..176648941aec 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -6369,13 +6369,6 @@ Kernel parameters
+ 			period to instead use normal non-expedited
+ 			grace-period processing.
  
+-	rcupdate.rcu_task_collapse_debug= [KNL]
+-			Enable debugging prints that record when RCU Tasks
+-			and RCU Tasks Trace expand to per-CPU callback
+-			queuing and collapse back to CPU-0 queuing.
+-			This is default-disabled due to the fact that
+-			some workloads can make it quite noisy.
+-
+ 	rcupdate.rcu_task_collapse_lim= [KNL]
+ 			Set the maximum number of callbacks present
+ 			at the beginning of a grace period that allows
+diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+index a59aa8b6ab05..0eec90464d64 100644
+--- a/kernel/rcu/tasks.h
++++ b/kernel/rcu/tasks.h
+@@ -178,8 +178,6 @@ static int rcu_task_contend_lim __read_mostly = 100;
+ module_param(rcu_task_contend_lim, int, 0444);
+ static int rcu_task_collapse_lim __read_mostly = 10;
+ module_param(rcu_task_collapse_lim, int, 0444);
+-static bool rcu_task_collapse_debug __read_mostly;
+-module_param(rcu_task_collapse_debug, bool, 0644);
+ static int rcu_task_lazy_lim __read_mostly = 32;
+ module_param(rcu_task_lazy_lim, int, 0444);
+ 
+@@ -392,8 +390,7 @@ static void call_rcu_tasks_generic(struct rcu_head *rhp, rcu_callback_t func,
+ 			WRITE_ONCE(rtp->percpu_enqueue_shift, 0);
+ 			WRITE_ONCE(rtp->percpu_dequeue_lim, rcu_task_cpu_ids);
+ 			smp_store_release(&rtp->percpu_enqueue_lim, rcu_task_cpu_ids);
+-			if (data_race(rcu_task_collapse_debug))
+-				pr_info("Switching %s to per-CPU callback queuing.\n", rtp->name);
++			pr_debug("Switching %s to per-CPU callback queuing.\n", rtp->name);
+ 		}
+ 		raw_spin_unlock_irqrestore(&rtp->cbs_gbl_lock, flags);
+ 	}
+@@ -514,9 +511,7 @@ static int rcu_tasks_need_gpcb(struct rcu_tasks *rtp)
+ 			smp_store_release(&rtp->percpu_enqueue_lim, 1);
+ 			rtp->percpu_dequeue_gpseq = get_state_synchronize_rcu();
+ 			gpdone = false;
+-			if (data_race(rcu_task_collapse_debug))
+-				pr_info("Starting switch %s to CPU-0 callback queuing.\n",
+-					rtp->name);
++			pr_debug("Starting switch %s to CPU-0 callback queuing.\n", rtp->name);
+ 		}
+ 		raw_spin_unlock_irqrestore(&rtp->cbs_gbl_lock, flags);
+ 	}
+@@ -524,9 +519,7 @@ static int rcu_tasks_need_gpcb(struct rcu_tasks *rtp)
+ 		raw_spin_lock_irqsave(&rtp->cbs_gbl_lock, flags);
+ 		if (rtp->percpu_enqueue_lim < rtp->percpu_dequeue_lim) {
+ 			WRITE_ONCE(rtp->percpu_dequeue_lim, 1);
+-			if (data_race(rcu_task_collapse_debug))
+-				pr_info("Completing switch %s to CPU-0 callback queuing.\n",
+-					rtp->name);
++			pr_debug("Completing switch %s to CPU-0 callback queuing.\n", rtp->name);
+ 		}
+ 		if (rtp->percpu_dequeue_lim == 1) {
+ 			for (cpu = rtp->percpu_dequeue_lim; cpu < rcu_task_cpu_ids; cpu++) {
+@@ -711,8 +704,6 @@ static void __init rcu_tasks_bootup_oddness(void)
+ 		pr_info("\tTasks-RCU CPU stall info multiplier clamped to %d (rcu_task_stall_info_mult).\n", rtsimc);
+ 		rcu_task_stall_info_mult = rtsimc;
+ 	}
+-	if (rcu_task_collapse_debug)
+-		pr_info("\tTasks-RCU callback contend/collapse debug enabled.\n");
+ #endif /* #ifdef CONFIG_TASKS_RCU */
+ #ifdef CONFIG_TASKS_RCU
+ 	pr_info("\tTrampoline variant of Tasks RCU enabled.\n");
 -- 
 2.54.0
 
