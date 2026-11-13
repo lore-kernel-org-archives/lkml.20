@@ -1,62 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558938;
-	b=d8/2E/jpAWgv/0nYVNdybdkR7jhAaeuWgQ3wCGRNVkln1HxU7TGJxHUl6OQfyW+Uvjiq
-	 7dAzX29L7bzGTJvX1eishAAZbPO70/CfDgihkS8yeq9b9NYwxmmnXpztpnkyFEmakWx+U
-	 7zYi8Rm4f9pJjg1nkboTG/PHbaml5M7SFROQT1PosHufCOjyBVN/ukDMkqC3cJh0e/1dT
-	 +KkAPWcxc1t1R3zzugTf9M82lBiDoWrLwYkfBHEPA06qNxxni/DDJ417R4HzqTzido1XK
-	 nIm6i3W6TFJT7FF1ZeL6Fgs2NzKPaQRlG2JsqtssFMFOcBVUQ2T87XCmhKWrRg6c3tg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558938;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=h1CW13lpZYVm0wmdDSJrVvfHw1mdjy5FAwj4xQLmKNs=;
-	b=DpsxGI3OkdX5Ma6ql5tNAlhFRLBAZRv/59T5n4z9i+xX0XsLE8iEncv/aXrGSUppLpfj
-	 w5X2obvdDgviBuDCFFuhjrDYn45mcXQo+L7F4JIj5gbQYvXr8XJi/nkwF4DhbyxESKJZT
-	 jBmONHHXYp+Nsb1jtVfEgXyZJ9pSlsE9GPD4R8S36B26d0bEZPzRR4YbfH2KQMGxW/5e/
-	 eMVTPbwkaOVrI9qe7/jGM0IsFHwWFLg9mfImXTjmi/yjDQpOuS6pUgH3vQWq3Z8I+kHfI
-	 aDzWPF2EeqJIhP7TXE3ggFQ7mUTBuYTkaZRRBCLCGb5LSc7Vdq/n7d/jKpM5CEpZQ9w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=aH3LPVz6;
-	arc=none smtp.remote-ip=212.27.42.4
-Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794558957;
+	b=UR6dglQVJnaXtzxI8Y8KWnD5ta+Ae0h3ihPAEIgwdmrswVO4Guc8q7tcIP6Q9wJIL6Cl
+	 HyeyQ1jgaQH9ofFgcXuTR7KjRZ/O7VI1XyRyhQttFPJhSCDHem4jwW2GnHHQcSR1Y+6h6
+	 ATBd46o6W93jJYqbtDOPz9xd0Xf9XSsCTYwPL+ORsodgdgpUfnypWOfzlnSIwSpqIIWWP
+	 Ub/2L/m5eu8ey4RQ/UHAG5lzSIFZOyfMpfow+kPRcIyKsCcN8TQoGjjgMlRwpC6gdU2ig
+	 p0JroJFgA8AjDGapCv4j2SV25NlTp5azPOABtwTH2ByjyVrETeDt8LMs4IhApIJsJkg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558957;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=3//W1SccWhFdTlPexPwjCv5xsCxoGns1OWm/hxtGYRo=;
+	b=wKAm47Xx9StXlWtDmedWk2rxwIxLJ7lgCIvYW7b6T0C5hAt3zd1fQICw6vKnUxvs+7gX
+	 d2JX2PnxhwcWSzS/S7O0M5d9oT29H3UcS8Mr+tqPKI2AChGBpv9ySdVjfwtDQBQJOf3Os
+	 mbYaB4N02RSiQcnqSlmkyj3f/qTzYi9eu5BHCw3E6HRZR+zC/1D7cs4bp6coImAOUUEm/
+	 3GyCPAYCdf3wIahrnAdKzoBqKsbgy7QyF6WszQDoV+ikbvGC1Qa3s2TusbxOhy9UgUyOn
+	 X+YwNMyq1xk/bVisrpmuAf9/cNZCzNnh2jEl0OjiSz9DREjZuEq52lKXUCmtiEbmMmQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wCih3SqC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D598606A8B6;
-	Fri, 13 Nov 2026 08:35:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D598606A8B6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF45606A339
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:35:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDF45606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=aH3LPVz6
-Received: from reply-fuse-freeze-v3.eml (unknown [195.154.25.110])
-	(Authenticated sender: test75@free.fr)
-	by smtp4-g21.free.fr (Postfix) with ESMTPSA id 7636519F744;
-	Fri, 13 Nov 2026 09:35:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1794558930;
-	bh=xSHknQ9ZUP7jZdL/cJzlcRIMwVR4CszQSFP2C1kwJ74=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=aH3LPVz6thNZPJqM2Cr1TyDKxdY5idurjG9T1p+j/xi1F3mi8zasW8F/66Ykv0toH
-	 nfkZqSGVfv8OYqGwwTMh7Y63ZwffqbxqLwABBRnHUbnwQb7lJJyR7eSsIu1bTDNeEK
-	 +o41Wo1mjX6q+85SAMppAzs4Dhzpd+4qxvjQFINLZjGN/CbkqwZ00rbUDCgTTrEkpB
-	 BEFiG3M+2GVHLLSu4rfQ814FikOpXxC9FhK+YjS4EnMizv76MKN+ExeMQwytpAIh0E
-	 D2YdhJ8v4yfw98du5KkilGGx8LtcLOrxezgGqtL9W+Ax0pj4Pe1fToizTrxJHSpfBT
-	 Y6V8CcmpceHaw==
-From: test75@free.fr
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Peter Zijlstra <peterz@infradead.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, "Rafael J. Wysocki" <rafael@kernel.org>, fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH v2] fuse: permit freezing while waiting for request answer
-In-Reply-To: <CAJfpegtv6=40SEsbeVU3RpmjwZSY-FLvCg7mcxf6k7djFZrPHA@mail.gmail.com>
-References: <20260819023542.561653-1-senozhatsky@chromium.org> <20260820084933.GA4036497@noisy.programming.kicks-ass.net> <aobDGgivy43cz7xQ@google.com> <20260820091018.GA4120091@noisy.programming.kicks-ass.net> <aobGRjc7SE1rwIHu@google.com> <20260820093402.GB1837346@noisy.programming.kicks-ass.net> <aobKfyGHkdMcleoc@google.com> <20260820104111.GC1837346@noisy.programming.kicks-ass.net> <CAJfpegsSzOqs1zkhB9GZxsT5HT1zXDbHsZNEbA7P7mxe0w2dng@mail.gmail.com> <20260821083000.GF687043@noisy.programming.kicks-ass.net> <CAJfpegvRw0Emd=2hsEeg3AvYaLgRBUbMdo-=eUMa3FRFfnetgA@mail.gmail.com> <20260821145752.GG687043@noisy.programming.kicks-ass.net> <CAJfpegtv6=40SEsbeVU3RpmjwZSY-FLvCg7mcxf6k7djFZrPHA@mail.gmail.com>
-Date: Fri, 13 Nov 2026 09:33:50 +0100
-Message-ID: <179455883014.1731541.16877509095558539853@free.fr>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wCih3SqC
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b3b57a31f7so6097897b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:35:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794558956; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Hd1btE2+B7U00G75Vz4fHuDNmuRE5ZLhGmJduEPWEj14o1VyZ8RYNZHiZM7Y7bCq+9
+         Up+IPvHMm6aZ7zxAlQXNKO9bkHgUdOFHtrxzRY0dtZfrWwL6fC/gx+dtn2VR/E+xxupR
+         xHUM4kbPZ/lQwTP8fSXj8VOVm5792FYJnOuiqWM0A3R0YMdVcgRrqOlh6h9xe0K/50e0
+         t6aQdlh0+YzOOM0CYHsWNrJJGUN1bp7aacPOll4Qg2AO5cqoBL6a+JBOh21VDnNtCysg
+         cLNPXtTwWwCScBWfnLNNjsGvTLtgcFG+BZWBqdv7GqM8C9vJ6KR3pe3r5t2gFveKy8t0
+         ugBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3//W1SccWhFdTlPexPwjCv5xsCxoGns1OWm/hxtGYRo=;
+        fh=5b0uHJm35BWr4kSslPr5WohIJwOVjE6V51YXz0V70dc=;
+        b=giGcZnopNWSejd5D/t61XPIPNNH64tYvevWqvRHnZUEuXOaA9BcWTRdnWrctZOKWoT
+         2vUWZXSAE6rPrxpsbSuxDQ8osjqAl2i3cL9fdNz0MfYwvIMYO2v79Y4fPqGrV4AFGQ+S
+         p9xjGE0g8idNBG9vmnqPtk0bbNFasGBr3ndlHQ8aR+NaUGd4HFvBcFAqmfmFPowvlNfO
+         1M265ia7g1eUG4F+6i1/l/f0q4rIrCMqpohlNM94FfmOHoUb/LcnK2LzC7cVgxqImahq
+         H3Tfsf3UbZukGGtKr0vNEU09AtJsqG+CTwKtMwamikGeiEsjTSr+0dnQJyCSn/b2uRYx
+         Kaeg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794558956; x=1795163756; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3//W1SccWhFdTlPexPwjCv5xsCxoGns1OWm/hxtGYRo=;
+        b=wCih3SqCFjiokFFuCiGE8bgxgKqOqFWbaixdaZCHhdELPiz3V/EVTF7tHVVKlTH5GE
+         nPh36v2HzXxI79kH2E72Do/BrMCcc6xgoZsIMHClx+fG1ccw8hq837vkZpgeENmJfrXM
+         L25fd6wmGjjVYtSjCAqqXAWA9YQNqZkdcHXV0Kh66flYUPCrXovFdsD3q+b8wzm+a3kg
+         e66OnKeGshNK7441tjnml8487zhBEQBMIfDIg5XXOw7IPri4vNDUAVUxbkHzMhal1v1s
+         B3nydFcyZTfdVhgVvUwwU7P6CZbPJHthJuntCDUKmwyNUZNse7IcitkQ3ZRKhntOyqgA
+         tK6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794558956; x=1795163756;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3//W1SccWhFdTlPexPwjCv5xsCxoGns1OWm/hxtGYRo=;
+        b=rJez8+aldRxx0nf2eqfG7ipvVMqkIdTbex4LjIf0MqK2z/umieKnnpEwVwBNOzgLWh
+         RjJniK4UxgmeDSWediQ2zuDIEqJ6IZzVjF+ymBA2mx4GhxNY8G74ba7talZkF1/eC7dm
+         nkYt+b/5YGRphg95U4rMd0rxs3CHlvwAM77SpWzX5Q1qCNjC0fs+OBauzXu+FdK3614c
+         UvueXB0jUZGHj6vryVfKmnPpdgxryPqmD/117tiFG2A9vy/T6JGTj6DOLiWHcxMaww8p
+         fReLR8jFcCyTRaTceI7nBsRwsOrFH0HKlFw7XZFGUZpg4ABOeyQOUIEaxnU9cYpTR/8D
+         bHZA==
+X-Forwarded-Encrypted: i=1; AL+hErFL/ExlVSKEoQX0wBIdYgJXS7AsQtXYyO0x/Am6I/hHZIYJnKOyTBZgXKI0LS5oT0N2x27U0E3yu+Ub9iE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8mjl7IIb/c24CVxcZ+Gq6fnnafMuJCYprCDeYAkb+PWRHItTY7
+	95RIF6gVbIMLXybCju1mhYqdY7tuKw7ZOW2vudicU06pluqn6BMdVbBTWanGk9xGH5zu0B2eE6i
+	dmblwQxcbDeIDKYV/0wnI3cy3gY710rYIgPZ4jJo=
+X-Gm-Gg: AYBFou1Bp9NCZwLF5jEuY89ttn1AlS0FoEWuq86cQldkDAW4P5LrSc4HTc+aPAzvJTP
+	Ekt5cApn46hBOLsPIFi3+B+fi9axkNulr/bG9mxu9qjn6UT81e+N7YLUuw9jvPwhQQ+VW3qUErq
+	6IWnsZ5Yq5oJV94MXX4A23f7FQbkZWDhBz67L2aayZIkMD+YEhI5t1OH23pi5yQEhTKdLzdgW59
+	dqpcL7+61dFfiPRIYG9zrcscEr4iBcgtHj166SJKn2aeXR7IeNZOQA8xSvpXYi8QcSecPy9whbc
+	iGGekSoRRdDz+SRF/LniHuFrwZ2h8MjaBN4t7T8bBTYQRSZyeWtmXczYq+ZYl4sYAsoWm/SQ8qo
+	2LbJeV1/6nYyhqnMcVw5C23vWbR7bj47wumsOLgRurryGpZnhfI6JDpca+WgKouO9Pg0YYN0nni
+	EITzyMoiSkB4KbTrcpDYSj/x29cS0RyX4vRfzIBMquOtLBDTWl8t9gL2/4wbgV9Kt9y5NSogPPG
+	PVT17LbIB9Ouj6tLXj2ceZ2ynwysQYm7gh5L+7vH1IdUDHiRzZkwO0I43c0j9sOLTMOyb+ylsze
+	Mmy79mI=
+X-Received: by 2002:a05:690c:e0d0:10b0:8b0:ac9e:14f7 with SMTP id
+ 00721157ae682-8b4aa2390d0mr7838307b3.28.1794558955813; Fri, 13 Nov 2026
+ 00:35:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,62 +107,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <SN1PR12MB2528812E26B65457239E9EEDA57F2@SN1PR12MB2528.namprd12.prod.outlook.com>
+In-Reply-To: <SN1PR12MB2528812E26B65457239E9EEDA57F2@SN1PR12MB2528.namprd12.prod.outlook.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Fri, 13 Nov 2026 10:35:18 +0200
+X-Gm-Features: AclHuK8hCsr1kiCDrmCd8AvqeYChDR_fWiDi7TR1WcWTBYMvGP0zAoX2zTtEXHA
+Message-ID: <CAHp75VcR0EjuEoq3PWwVgt38fcOB_gNh7v7_s1CUqnLFwNbcNw@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 0/2] regmap: add APIs to bypass regmap_field and
+ work with reg_field directly
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org, 
+	Andy Shevchenko <andy@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Miklos,
+On Fri, Nov 13, 2026 at 9:01=E2=80=AFAM Victor Chernyakin
+<chernyakin.victor.j@outlook.com> wrote:
+>
+> Working with the existing regmap_field_* APIs requires you to define
+> a reg_field, then use one of the regmap_field_*_alloc functions to turn
+> it into a dynamically allocated regmap_field. But reg_field and
+> regmap_field are practically the same struct; all the *_alloc functions d=
+o
+> is shuffle the data around. So this RFC proposes adding functions that
+> cut out the middleman and take reg_field directly. Patch 1 adds two
+> of them: regmap_reg_field_read and regmap_reg_field_write.
+>
+> Patch 2 ports a driver to use these new functions. The result is
+> shorter and simpler, since all the code to perform the allocations
+> and manage the resulting regmap_fields goes away. In theory,
+> there should also be a performance benefit (we're doing fewer allocations
+> and have less duplicated state), but I haven't benchmarked it, so take th=
+at
+> with a grain of salt.
+>
+> If we like this approach, I can post a v3 that adds regmap_reg_field_*
+> analogs for all the regmap_field_* functions, not just the two you see
+> here.
+>
+>
+> This is not actually a new idea! Both it and the current *_alloc approach
+> were suggested as alternatives right when the regmap_field_* APIs were
+> being added [1]. The *_alloc approach was chosen without much
+> discussion, but I think (and Patch 2 demonstrates, I hope) that
+> this approach is the cleaner one.
 
-(Resending in-thread; my first attempt on Oct 23 lost its threading
-headers and missed fuse-devel. Sorry for the noise.)
+It may be good to Cc your attempts to the authors (and active
+reviewers) of the mentioned change.
 
-A field report on the contended case you raised, with one
-data point for the "optionally freezable VFS locks" idea.
+> [1] https://lore.kernel.org/20130604210137.GV31367@sirena.org.uk
 
-Setup: Ubuntu 26.04, 7.0.0-38-generic, Framework 13 (AMD, s2idle),
-systemd 259, rclone 1.60 FUSE mounts (Google Drive, SMB, SFTP).
-
-On lid close, a gvfs backend thread was in statx() on an rclone mount.
-The rclone server was not frozen. It was waiting on the network, and
-NetworkManager takes the Wi-Fi down as part of the sleep sequence, so
-the request never completed (the same hidden dependency as the
-sshfs/ssh example upthread). With the lid closed, logind retried every
-~100 s for 6 hours, about 210 failed cycles:
-
-  Freezing user space processes failed after 20.003 seconds (3 tasks refusing to freeze, wq_busy=0):
-  task:pool-906  state:D  pid:153003 tgid:6222 ppid:4922
-   request_wait_answer+0xd8/0x280
-   __fuse_simple_request+0x11f/0x370
-   fuse_lookup_name+0xd6/0x260
-   fuse_lookup+0x9d/0x1e0
-   __lookup_slow+0x86/0x150
-   lookup_slow+0x3c/0x60
-   link_path_walk+0x348/0x410
-   path_lookupat / filename_lookup / vfs_statx / do_statx
-  task:pool-907  state:D  pid:171158 tgid:6222 ppid:4922
-   request_wait_answer+0xd8/0x280
-   __fuse_simple_request+0x11f/0x370
-   fuse_dentry_revalidate+0x146/0x410
-   lookup_fast+0x15c/0x170
-   link_path_walk / ... / do_statx
-  task:pool-908  state:D  pid:197388 tgid:6222 ppid:4922
-   d_alloc_parallel+0x37b/0x460
-   __lookup_slow+0x5d/0x150
-   lookup_slow+0x3c/0x60
-   link_path_walk / ... / do_statx
-
-pool-906 and pool-907 would be covered by v2. pool-906 holds the
-parent's i_rwsem shared at freeze time, which is your contended case.
-
-pool-908 is the one I wanted to point out. It does not wait on
-i_rwsem: it waits in d_alloc_parallel() for the in-lookup dentry
-owned by pool-906, and as far as I can tell d_wait_lookup() sleeps
-TASK_UNINTERRUPTIBLE. So making i_rwsem and s_vfs_rename_mutex
-freezable for fuse would still leave this suspend failing; the
-in-lookup wait would need the same treatment.
-
-This pattern looks common on desktops: indexers and trash/thumbnail
-daemons stat the same directory from several threads. The same
-signature appears 1,000+ times in this machine's journal since April
-(gvfsd-trash, localsearch-extractor as clients). Full logs available
-on request, and I am happy to test patches on this machine.
-
-Thanks,
-Phil
+--=20
+With Best Regards,
+Andy Shevchenko
