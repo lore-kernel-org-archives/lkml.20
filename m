@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794611074;
-	b=iktwR9x+TX4DxOiox7e86rAooa9AHlHyQ6DYpPQ/HxQG2+K4AiFgci1IdT2QUkxnt6st
-	 a1tFLTWUopfkYPVOnh2U0IUraTc7on76kazxdQeMPaQlAqxhrtFPBxe9pFRe7bEBJRnnB
-	 CASthtdVMA+tD2Cq6vrCoNHsDQqgjoRYSAy/f6Uzkh3RWZEZAYuJ1GT336jHZx8pdPmiG
-	 DLxtsYr2+dTVPaadbWCjvIIRq8POkBaGTSg1F08adUuWHDzZI7LnrcBuhR8hl8+SlmH41
-	 KBa3ImPz/eHAw4BdZxcwe7+ANvY8yvGLKuO/Gj1vBqQZLEiXBtECC2DrqMrwo7kg0oQ==
+	t=1794611075;
+	b=LKdUuM9rnDdn+PcVSBkC6rTN8CqDcSxsOcCXyj/LBapMayCeuN1eKshIBibyuSx85IJG
+	 +g9oNjast9fpc/2b8JgQ4rtVGH8tZER58eTpEdsVMLpheTAriTXrm+hPky9G2sm2ps3kC
+	 W5tJERF0gUFjuL+qBPhBO5j0/k3kZf0q81nNfwhATo6+BlpxzCIqSmetaW1DhS9d32L/B
+	 SZyngl9z/PQeJWU+kWmBx+yGu7UPJ7y8z3LTFz/mwFnZGuiN6chaRoaZ01v6CLdtAT3Mi
+	 wQbLtCAZraFJqFlW/jqUbKLbqcDXCKkTDByBaXNmhAo9IukHRJaUmSHMA9MnmQ33Z9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794611074;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794611075;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
 	 Cc:Subject:Message-ID:User-Agent;
-	bh=asgqZVh9rwjwEvPezE/rnZOVnYkmzYJTQTEKFkLkpW8=;
-	b=S3rwdP3ZaYLDa0ct9ICAdj0upbTeUZiNU+0e1cTsro8N8YqvHjLrvbQHPZqhpq+YzyLT
-	 UOFJ5Dhouo9oaDJdxdPXu4+9eS3Pbojo0VwgNBTsBCHpgVkdGO4jGggpg31jO935Nt/Av
-	 Bvr+w0qmFN2gn2VL5V0QqYVBZPlW/9+8or1VDeS2Ba9YkpRP1CNQxu45Sai3Cdl4NeQhu
-	 diV+IG0pPRuY4aSMq9gIMNBuKlV68L5jgCUT5ECTD2m84F6/EnDV4FEBocUU55pNQb8UK
-	 UbQFxU65/F8kVO0a9YGorsLSTpe/eOnCLA25EMXuzpj56KGQBRUBjAnDVEym0IBqSKQ==
+	bh=nnm9RA9gCtN93VhaxC9XkqfLXuWEwWgL0DVJCYfnVHQ=;
+	b=dd5lKlUrckFiZVlLvBwrFMgIXk37aXqkqyOmQwmbzHTx/2J75wBGlyhSiZXAeoY3el2F
+	 YcchJpVrsYVqywBMa1wA9pcPV/cmcVrkUGL7lG4Sq66EsHdLauRiuigHGy/p4GsfsiAPB
+	 g/e/pK6efzze6ChEqenNq/JS4Cb6+wS9nxAUiGgQrW6yN7f8dmlF3GdNbk7CQS1hQCIY7
+	 Q7NgRP/gwRNnGTs1PNqyzNvz0kV7A4Sfx9BLSEAGfuZ38NspkDWXMPzJgAVylCfTK+U6t
+	 Lbc+NhyIABAl+NqHbjudOzNy/C8BWyuqOYzT2ur4Y1pCzSZU2LjFYTegoeXxKe/H9eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ThZT1XYx;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="BbF/RU+j";
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF05606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEACB606A335
 	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:04:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DF05606A330
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEACB606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ThZT1XYx
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BbF/RU+j
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794611073; x=1826147073;
+  t=1794611074; x=1826147074;
   h=date:from:to:cc:subject:message-id;
-  bh=WQUx3A5BBfaVXzzZTk9mFoKVLHv8af0hWBnTo/0Ylho=;
-  b=ThZT1XYxWb5C0L0eWzso0TPGflYXUT+lkM7crsu9b+vf7cotH9A0CUvp
-   U7DZpl03UJmlrD7eWM+hIUX2PsW6hY4M13dcXFqTBraQCabGiigyCqEhh
-   6IsRFrNq/4NrKuqjmcKvOYSg0y/cN6SkTwoMdRxuU4fkr1OlcGeRlG4u6
-   lzL9FJsdkjd996kg/nkafr13CqdZVw2+l5dyPQbOBRQHT3mLtKuEv+9YZ
-   yGAqfTuDDQVWMFkqeFohof1oWHeznXn0BFQHWPwTqrXaLNnwS4O//LyUS
-   VViG4I/4YsHSsJTCBoNkVJSM862SwzSC7hjgiismRfz9Yd2zS1qvOZcwS
-   Q==;
-X-CSE-ConnectionGUID: RIH5NyuiTauLcHeaaCcHng==
-X-CSE-MsgGUID: 7ccViQInTRKlz8xQID001Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3459920"
+  bh=KCtT211tZODnkA2F0TK8ABBWJ4ZgdYR3esEvLEF4GiY=;
+  b=BbF/RU+jnNqMYO4/sdN1LBTVTEBLOcFgMU8Vzj+wxDGEBTFhpWD+r8Ko
+   ZrGpVNWqaBWdiD/R73vCe8qqm3H+3hBBJCo/sSWavH4b2I4gIJNSF6Ucx
+   J7dtLImBSkwIgKQZHQjWAS7tIHlIfskRjLGQwqBXreOB8m1uHrhKgZm81
+   ihmkNoerY8dyoa4l7l2X2dvsL9FVxJOovFsxub/RHrHfavX3Lg92dw5sw
+   g4xDhEuE0KLns6ku6VJ5HbGkg05fty0UN7Q8rwv+luqpZ2Ya+/prILCuZ
+   gZetHBbtpcrmWx2taXr1+tFE2/t0lSTdOJ0yME+l0OGm3VLpeuhWGUCjl
+   g==;
+X-CSE-ConnectionGUID: RFS6hCSNSMSLjNxfHmXdcg==
+X-CSE-MsgGUID: sN4pgP8JSjOBwvm6T9Cnuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3442482"
 X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="3459920"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 15:04:33 -0800
-X-CSE-ConnectionGUID: +qfj65mmSHStu4IpMhp/qQ==
-X-CSE-MsgGUID: j1TZpn5nTV6LazlwWFqAwg==
+   d="scan'208";a="3442482"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 15:04:33 -0800
+X-CSE-ConnectionGUID: kE9vQrG2TdiorsOiWV932A==
+X-CSE-MsgGUID: S8njr3tqRKSLB+EV5leSXw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="9129201"
+   d="scan'208";a="8883105"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 13 Nov 2026 15:04:32 -0800
+  by orviesa005.jf.intel.com with ESMTP; 13 Nov 2026 15:04:32 -0800
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xS0Jp-000000014Kn-1oP9;
+	id 1xS0Jp-000000014Kp-1tMQ;
 	Fri, 13 Nov 2026 23:04:29 +0000
-Date: Sat, 14 Nov 2026 07:03:35 +0800
+Date: Sat, 14 Nov 2026 07:03:45 +0800
 From: kernel test robot <lkp@intel.com>
 To: "x86-ml" <x86@kernel.org>
 Cc: linux-kernel@vger.kernel.org
-Subject: [tip:timers:vdso] BUILD SUCCESS
- a877a3089b96ac0f7f8aa65a05ae5a441dbae1a5
-Message-ID: <20261114070335.tWUcx2nk-lkp@intel.com>
+Subject: [tip:x86:cleanups] BUILD SUCCESS
+ 57964216f9f6a61e4ce43f6826bb975c12cc3c87
+Message-ID: <20261114070345.UfIU09ms-lkp@intel.com>
 User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,13 +80,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git timers/vdso
-branch HEAD: a877a3089b96ac0f7f8aa65a05ae5a441dbae1a5  vdso/datapage: Correct the vdso_timestamp kernel-doc
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/cleanups
+branch HEAD: 57964216f9f6a61e4ce43f6826bb975c12cc3c87  x86/setup: Remove the BIOS memory corruption check feature
 
 elapsed time: 973m
 
-configs tested: 266
-configs skipped: 6
+configs tested: 260
+configs skipped: 100
 
 The following configs have been built successfully.
 More configs may be tested in the coming days.
@@ -224,9 +224,7 @@ parisc                            allmodconfig    gcc-16.2.0
 parisc                             allnoconfig    clang-24
 parisc                            allyesconfig    clang-17
 parisc                               defconfig    gcc-16.2.0
-parisc                randconfig-1000-20261113    gcc-13.5.0
 parisc                randconfig-1000-20261114    gcc-8.5.0
-parisc                randconfig-1001-20261113    gcc-13.5.0
 parisc                randconfig-1001-20261114    gcc-8.5.0
 parisc64                             defconfig    clang-24
 powerpc                           allmodconfig    gcc-16.2.0
@@ -240,17 +238,13 @@ powerpc                  mpc8313_rdb_defconfig    gcc-16.2.0
 powerpc                     mvme5100_defconfig    clang-24
 powerpc                       pcm030_defconfig    gcc-16.2.0
 powerpc                       ppc6xx_defconfig    clang-24
-powerpc               randconfig-1000-20261113    gcc-13.5.0
 powerpc               randconfig-1000-20261114    gcc-8.5.0
-powerpc               randconfig-1001-20261113    gcc-13.5.0
 powerpc               randconfig-1001-20261114    gcc-8.5.0
 powerpc                   storcenter_defconfig    gcc-16.2.0
 powerpc                      stx_gp3_defconfig    gcc-16.2.0
 powerpc                       tqm8xx_defconfig    gcc-16.2.0
 powerpc                  xes_mpc85xx_defconfig    gcc-16.2.0
-powerpc64             randconfig-1000-20261113    gcc-13.5.0
 powerpc64             randconfig-1000-20261114    gcc-8.5.0
-powerpc64             randconfig-1001-20261113    gcc-13.5.0
 powerpc64             randconfig-1001-20261114    gcc-8.5.0
 riscv                             allmodconfig    clang-24
 riscv                              allnoconfig    clang-24
