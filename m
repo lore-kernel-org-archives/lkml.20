@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794549083;
-	b=ob7fOAr5vkDUCK3rZipVVbYgz8iLiXNxTsr2i9D4XQxJbK5tL7YemkHqYubYpovm3jw4
-	 jnvgJyu4er5Ta85UfO7Tg5r8A/kkb3Px2tdZ5N80VPycc1sAdD+THCzYerrVa+azFG3BZ
-	 Gj2yDiSe6rikAJhJ4nuGu7qV3082N5VRxNFqGGMgTtUGUoHjRllEWnDNyunQ5Svicc4Go
-	 Og7Lk8jt+mKG8Ra/BjW3bHUfdhDA6n0SrEK622RRTFt5Lx01OcQLOu55UzF9d9jTOgLJH
-	 SvmsHGMhY5QGZMSFOOfk6/2eajxRvzrxgyDh2CUoHPDNcfO70beM0QZAPy5sEG8wPng==
+	t=1794549086;
+	b=JEfkyZhIUPL5iI3geoSntsSs+QLcfjqZK5Nkri9cCsuMh4bnxDT7a8nSqwIkwf/zcY85
+	 GhpE4k5FkTGV9PvJIeMgPG3MQJEwnd/l1fMao8yK0tk9BP5mxrX4E4/K9d1PXrsbbnx/u
+	 nkOWQuU1iZoSf7VoA5vLKM+8sRYpnjfPPtvn2o1x6KtQz4rze+FnksX2Ini0RM8VcwFXq
+	 cjoaD/jb67vjH0M25IafwVs+OmfaqQGzL8MHSYxjNiGD/PROCRQ34U0dHG/5EPM4/K9/3
+	 e7WO3yBr+M4vFCDYO+KdtS3iACXkJYVYz2nVp4nvSzxqBpQ1okU+zk2VEZiBLDVs/hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794549083;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794549086;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=R07tQz7kn6oV2V7MKV8H83hgqF5e3GIkYvn5QQvp8os=;
-	b=3MYzzey8FK0egB/EPh/qtKSmFL6htM9diciNWbecF/dv3GTd/QryzFeRaZxnmFwiFQWC
-	 QhsB72hcXESXPgbFxy2A+Pk35+TJx1JAVpgmCaeBuceVHzHMf6lYyZ5JJY0ASIuPi8hL8
-	 dGpbi4kfzf0yn8uJbgD3Tnucx1/mwvCr3q8qMWKxuflBcLd+WjiSTn9Hkj/ymNZOad4gr
-	 pUre7osOQ1aJipQniEi8i4wRqUGT8nAB6y8JYtj2Y4gRKMiB/evczqMnSFS3A0Z4BakDG
-	 XHHwKQ1JM4QScr6yXkU9WU3B9u00HRcAoUb0O1/uD9nhq/X2Wf2DV+qf3Fsnt7/baBw==
+	bh=GjFNdrxT3EZFR3J6YnNd1f/Z2k934t/npf1oL+Xxd74=;
+	b=zrEyjcnnCUaTMcA5j90BWFDZIICpypKKjdDlWsdHjFev8fruTPfsqnS1oz6IiLDxnI+E
+	 cQP0SX0KZpEAEKvvaafkWsMUWHbZWO88PU0Snb7oyXPQtOSN/TLDm2pdM5hLk8WwnuOeH
+	 puY4ZNl2qg0+QZCYJYlqZ4NqwGlLAHkbX83LGZHcaw9dCa4407x8PSDpduf3bkWziUCyT
+	 LQvWunbxJokmDZMIsiYqRbZVy+q8lWN8Cgf4k8injhHXgJzeVu+7wp1r5+coa8Oyu8IaV
+	 I/22q3YdiV1prWcYyi874aCrxJ5/JVWGUcZWQSLcG9FsnShPV3hdYe2/5ZJwfDJW7EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW7R9epk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lkNi0WJe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656C9606A889;
-	Fri, 13 Nov 2026 05:51:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92EF1606A8A6;
+	Fri, 13 Nov 2026 05:51:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW7R9epk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58AB11F000C6;
-	Fri, 13 Nov 2026 05:51:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lkNi0WJe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117941F000C8;
+	Fri, 13 Nov 2026 05:51:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794549083;
-	bh=R07tQz7kn6oV2V7MKV8H83hgqF5e3GIkYvn5QQvp8os=;
+	s=k20260515; t=1794549086;
+	bh=GjFNdrxT3EZFR3J6YnNd1f/Z2k934t/npf1oL+Xxd74=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gW7R9epkuJTQU64jlMgBZTrWqZjhMRaCwCjvfGxts8NZF7ApSLSRqOlBxfi/xiGXT
-	 Wg+TDzbYg01Ho9vSXoGu5Kf73zRvyQBTsaxQmLNgfEhWttgYaLyq8iV5B5jWFZjL66
-	 unQUyCIpRAVE+Xopqd7ZU7Mwnmmht3Rbk3RaEBS52TZxMSHl8SOT1m1ur8guE5EVS6
-	 OrSBnw/NH0WJjmRNQLloF0B2F2Hbi5FKzE3/KLNu2gKwwpEC1S6fBCfqLUsSQVBLi6
-	 MXkEd8TKxZCA5gSRgH6PsAvYRCQbCBfdfFU+Mpa8kSgVtYBIXbSzLuUBkegQInkZTo
-	 A1aE0FengMSEg==
-Subject: Re: [PATCH net-next v3 3/3] net: phy: dp83tg720: report inclusive RX
- packet totals
+	b=lkNi0WJeOwuHsOONt4kswun2pDApIBs0KFMSAwcGgXveBRLLWwsWzxZiBA+wmzVRm
+	 aDXJz5A/WG+ht+rX6gAiKuUcIys5pvIHz/8YRLkgVnR+d3vXeNdO9ly1lcAzmvoUgL
+	 750MWv3GfoMcL1A8aFvgbMO35MyG+jKdssBcJW0K2XqbPyWTYPVtro3PedEkB7txfa
+	 S+csPzK/tfaFktsR9fkycsF0Zo3imP1STx+9L4YL1z22Jib8n8p1qrSdWZ3MRr2KBU
+	 qjsVvgzJnMahByMt1sTaQD+OGz89baO2mADlxNS28Fg8/Mx5bQzrvn+ATWEROOYk/V
+	 QT4rDzwwq0AbQ==
+Subject: Re: [PATCH net v5 1/4] net: phy: move irq_suspended and irq_rerun out
+ of the bitfield
 From: netdev-bot+sashiko@kernel.org
-To: james.hilliard1@gmail.com
+To: iav@iav.lv
 Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
  davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, o.rempel@pengutronix.de, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Date: Fri, 13 Nov 2026 05:51:21 +0000
-Message-ID: <179454908193.2199510.11384974363448482430@kernel.org>
-In-Reply-To: <20261109-submit-acx00-phy-stats-v1-v3-3-fbc6327c5be4@gmail.com>
-References: <20261109-submit-acx00-phy-stats-v1-v3-3-fbc6327c5be4@gmail.com>
+ maxime.chevallier@bootlin.com, lukas@wunner.de, rafael.j.wysocki@intel.com,
+ wei.fang@nxp.com, niklas.soderlund@ragnatech.se, paul@pbarker.dev,
+ florian.fainelli@broadcom.com, opendmb@gmail.com, Thangaraj.S@microchip.com,
+ shenwei.wang@nxp.com, Haoning.CHENG@cn.bosch.com, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 13 Nov 2026 05:51:24 +0000
+Message-ID: <179454908461.2199510.508928890759611464@kernel.org>
+In-Reply-To: <20261111-b4-phylib-mac-pm-irq-v3-v5-1-bbfdb5afb7d3@iav.lv>
+References: <20261111-b4-phylib-mac-pm-irq-v3-v5-1-bbfdb5afb7d3@iav.lv>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -72,87 +75,86 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The patch carries `Fixes: 677d895af1cc ("net: phy: dp83tg720: add
-  statistics support")`, which tells AUTOSEL/stable to backport it to…
-
-Pre-existing issues:
-- [Medium] After this patch, two TI PHY drivers with the same counter
-  layout map it to different uAPI attributes.
+- [Low] The patch adds the comment "/* Written without phydev->lock, so
+  not bitfields */" above irq_suspended and irq_rerun in struct…
 
 --
 
-net: phy: dp83tg720: report inclusive RX packet totals
+net: phy: move irq_suspended and irq_rerun out of the bitfield
 
-This commit moves the accumulated PKT_STAT_4/PKT_STAT_5 RX packet count in
-dp83tg720_get_phy_stats() from rx_packets to rx_packets_total. The datasheet
-says the hardware counter includes errored packets. Userspace now sees it as
-RxFramesTotal instead of RxFrames in the ethtool phydev statistics group.
+This commit turns irq_suspended and irq_rerun in struct phy_device from
+1-bit bitfields into bools. phy_interrupt() sets irq_rerun without
+phydev->lock, and that write could lose an update to link and
+autoneg_complete, which share the same word. After this change the two
+flags are separate memory locations.
 
-Link: https://www.ti.com/lit/ds/symlink/dp83tg720s-q1.pdf
-
-> diff --git a/drivers/net/phy/dp83tg720.c b/drivers/net/phy/dp83tg720.c
-> index 391c1d8688083..5824eff92937c 100644
-> --- a/drivers/net/phy/dp83tg720.c
-> +++ b/drivers/net/phy/dp83tg720.c
-> @@ -309,7 +309,7 @@ static void dp83tg720_get_phy_stats(struct phy_device *phydev,
+> diff --git a/include/linux/phy.h b/include/linux/phy.h
+> index 21afc2082b174..bbe28ff97e51c 100644
+> --- a/include/linux/phy.h
+> +++ b/include/linux/phy.h
+> @@ -726,8 +726,9 @@ struct phy_device {
 >  
->  	stats->tx_packets = priv->stats.tx_pkt_cnt;
->  	stats->tx_errors = priv->stats.tx_err_pkt_cnt;
-> -	stats->rx_packets = priv->stats.rx_pkt_cnt;
-> +	stats->rx_packets_total = priv->stats.rx_pkt_cnt;
+>  	/* Interrupts are enabled */
+>  	unsigned interrupts:1;
+> -	unsigned irq_suspended:1;
+> -	unsigned irq_rerun:1;
+> +	/* Written without phydev->lock, so not bitfields */
 
 [Severity: Low]
-Can this be backported on its own, given the Fixes: tag?
+This isn't a bug, but the new comment states a rule that the
+neighbouring fields don't follow. Several of them are written without
+phydev->lock. They are still 1-bit bitfields in the same run as link
+and autoneg_complete, and the state machine writes those two under the
+lock.
 
-    Fixes: 677d895af1cc ("net: phy: dp83tg720: add statistics support")
+interrupts, the field just above, is written in phy_config_interrupt():
 
-The rx_packets_total member of struct ethtool_phy_stats doesn't exist at
-the baseline. It comes from the earlier patch in this series, "ethtool: add
-PHY receive frame and byte totals". That patch also adds the kerneldoc, the
-ETHTOOL_A_STATS_PHY_RX_PKTS_TOTAL uAPI attribute and the "RxFramesTotal"
-string.
-
-Stable tooling will pick this up for kernels that contain 677d895af1cc.
-There it would either fail to build in dp83tg720_get_phy_stats() or bring
-a new uAPI attribute into stable. It would also change which phydev stats
-userspace sees for this PHY.
-
-Should the Fixes: tag be dropped? Alternatively, could the commit message
-state the dependency on the ethtool patch and say it isn't meant for
-stable alone?
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but it creates a difference
-between this driver and dp83td510.c, which still does this in
-dp83td510_get_phy_stats():
-
-drivers/net/phy/dp83td510.c:dp83td510_get_phy_stats() {
+drivers/net/phy/phy.c:phy_config_interrupt() {
     ...
-	stats->rx_packets = priv->stats.rx_pkt_cnt;
-	stats->rx_errors = priv->stats.rx_err_pkt_cnt;
+	phydev->interrupts = interrupts ? 1 : 0;
     ...
 }
 
-Both drivers describe the registers the same way:
+This is reached from phy_request_interrupt()/phy_free_interrupt(). Some
+PHY drivers also set it in their suspend/resume paths (dp83867, micrel,
+marvell-88q2xxx).
 
- * - DP83TD510E_PKT_STAT_4: Contains RX packet count bits [15:0].
- * - DP83TD510E_PKT_STAT_5: Contains RX packet count bits [31:16].
- * - DP83TD510E_PKT_STAT_6: Contains RX error packet count.
+phy_suspend() writes wol_enabled and suspended:
 
-The update_stats code and the rx_pkt_cnt/rx_err_pkt_cnt fields are also
-the same. include/linux/ethtool.h documents rx_packets as "Total
-successfully received frames".
+drivers/net/phy/phy_device.c:phy_suspend() {
+    ...
+	phydev->wol_enabled = phy_may_wakeup(phydev) ||
+    ...
+		phydev->suspended = true;
+    ...
+}
 
-Does the DP83TD510E datasheet also define PKT_STAT_4/5 as a total that
-includes errored packets? If so, dp83td510 would report RxFrames with the
-same overcount this patch fixes for dp83tg720. Userspace would then see
-different meanings for RxFrames depending on which TI PHY is attached.
+mdio_bus_phy_suspend() and mdio_bus_phy_resume() write
+suspended_by_mdio_bus:
 
-Should dp83td510_get_phy_stats() get the same change?
+	phydev->suspended_by_mdio_bus = 1;
 
->  	stats->rx_errors = priv->stats.rx_err_pkt_cnt;
->  }
+The commit message itself names these unlocked writers of the same word.
+
+Later in the series, "net: phy: postpone PHY interrupts during sleep
+with MAC-managed PM" adds another bitfield to this word, wol_phy:1.
+phy_suspend() writes it without phydev->lock, and phy_irq_wake_source()
+reads it.
+
+Could the comment say that these two fields are split out because
+phy_interrupt() writes them from the IRQ thread? As written, a reader
+could assume the remaining bitfields are all lock-protected.
+
+If any of those unlocked writers can run at the same time as each
+other, or as the locked link/autoneg_complete writers, the lost-update
+problem this commit describes would still apply to them. I haven't
+shown that concurrency here.
+
+> +	bool irq_suspended;
+> +	bool irq_rerun;
+>  
+>  	unsigned default_timestamp:1;
 >
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109-submit-acx00-phy-stats-v1-v3-0-fbc6327c5be4%40gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-b4-phylib-mac-pm-irq-v3-v5-0-bbfdb5afb7d3%40iav.lv
