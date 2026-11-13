@@ -1,57 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567101;
-	b=tvKQvmzGiL5NpU3Pgm/68tkUXb3yVSgcoZ24mrhijkDz+qCRfX/X/oBk3nHFNxXzfzDI
-	 gPelcJIrCC3XwFx1ZZNHOET+mDFTlaNPRbdoz4SVwxctkvW7Y4+2z/gzzcfn0QrmvywO6
-	 NQ3YPKsR20kplz1t7Z0VntXNHYqC91KSyfbE6/RqGbNZgOVdHdzGRV6hdscKIHpta89xL
-	 bat5Rv+UiVttIQ66NTj9FjKfGIPkHh0NGGNltXLR5oXgaPsKznwG+nSPgNrjqplbg//DF
-	 0I4xt0Jk8V8DXTeGVxrVlFNY1qMJ1hvCuu70tHWaEVlkmXY3c7JQcjlPhn1adH9rC/g==
+	t=1794567102;
+	b=H0yIBfeNeZVbBhGylZ3wZNPdpEz+8yFvUKEmogFyAdQhLjUVVFjAzB47IOwZn0wbdb4L
+	 pF8QfTmEFhYYbCvLPske0hPj/e6UgDSMo8tGCBklAxITHaSSj+7FmGOZeQJ25ueqKvYAs
+	 csjeXZG2huoa82XiPwWNF9rCray6zLtz3PhLPFl5o2xa9Eibf4W4yz2/3TXxTTNCbViX0
+	 1Wbjz1cXTo8VFx1xNn7BUAhM78RmYnnRmcP2eKjgXQA9gFguK7s1yJghpMuoJ9Yo7Sx9c
+	 P/y/sr07UK8FPlH0Cr1kDDqODk/uoxzaYRplpn8nLoKrNNvTPAQeCTqCguLtl8YWlkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567101;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=2EE1wdDV3l4vc6SGBux4/xDk3zRZe8hWDSeaRMrJ8Q8=;
-	b=fxaGo7rUN46+8s7yutd5MuFzleZQO6jGBl6rPSpG5ZZHiMDsN/QO5G/EHdNzuOGu+iuj
-	 HVYGLIyOL+XQaLRZG5QcC+BoCysymPUd0+PAUfugIGj6pjeZOUUmVdtZJXmfsuAgWnL9H
-	 bnvzR/bDDDgxbwDPqyiskIzcnplt6Fx2wrZQdVg1PIVwBDX6yMm6sCe+RcGIRVtysotVZ
-	 KfXMWqfLUzqCvb+3lAdt+0lvby1ctZofUdx/eIbO5u6T/OA+WGfUXdrMJdNJm2ieorDoy
-	 TWCupvDw7inoMV/wJIoDZod5+jG45JsH28Wb6+i52+WUWyz+SRj58/dCRLvJOKWQB6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567102;
+	h=DMARC-Filter:DKIM-Signature:To:Cc:From:Subject:Date:
+	 Content-Transfer-Encoding:In-Reply-To:Message-Id:Mime-Version:
+	 X-Mailer:X-Lms-Return-Path:References:Content-Type:X-Original-From:
+	 Received;
+	bh=PvWgb9sB0gJNLtO8374oDyk5f8yiTyQ7HhcAVQ4G2sk=;
+	b=3p3SsAOQ2Wiu1X3W7ft6qbjlKOumOyNj3tZ04PaGRw34PsgW11t1QaZY0/+JKxi3KsHq
+	 qe/f11/0pYinSFT4es0MXVJbLT5TZLJtlbmsOz+xkQf34B7XH6VnrCNlwrK6aR0bUgEaQ
+	 FHHTyzixt7Fwlds4TXke424mbne2OssjBAWx+Zulzb94GaKEyXugTjjxZVCjigq1CejYV
+	 N9Uc8RZ8qpyuuSmymTFT+VwoG/m/DrxDWF8pf7BdbgcYAIGB2wVKce+679lWqCyNkI+3w
+	 MLroGhb2kiRkiw0TNfRw8iI48F7xIwzHHj1oka7sTCsRljaoy0ktqA+EIuiu6wDyVlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dCcG2i5f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=oss.cipunited.com;
+	spf=pass smtp.mailfrom=oss.cipunited.com;
+	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=Re34KgrV;
+	arc=none smtp.remote-ip=209.127.231.48
+Received: from va-2-48.ptr.blmpb.com (va-2-48.ptr.blmpb.com [209.127.231.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6885606B26C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDECA606B25D
 	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:51:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDECA606B25D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dCcG2i5f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE3C1F000CD;
-	Fri, 13 Nov 2026 10:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794567101;
-	bh=2EE1wdDV3l4vc6SGBux4/xDk3zRZe8hWDSeaRMrJ8Q8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=dCcG2i5fW9HPy6zti+G7Mo18ybFErglRsGv/muyQHPvQTwch0Q6GfO+V0p2B1JccS
-	 FW1pWmIoNeDlpnRBwAO8RrkPYOwirzHyDxZzbe0K4Jf5or2cLaLVIk724wccyd2rVy
-	 TyknkPAWnVUZ7xQQlB5DIlbc9ckd+39TfM1DxaZgB+c6+OV4/tGyvfY5UkZObxxHrX
-	 rxwVzSEG4vpfb52W9oYc5UqOCCRqYQtXfX838LYXVIp6m49/bvKAnc94j59kzB+GQb
-	 9gWezpYE/tVwJHjQawhn4Zu+8wZVZkuexQzEBec3Zar8oK8iOIEld6DiNHgEfkwjMp
-	 EcGB4jeTKFiOw==
-From: David Hildenbrand <david@kernel.org>
-To: david@kernel.org, kas@kernel.org, hughd@google.com, 
- akpm@linux-foundation.org, Wandun Chen <chenwandun1@gmail.com>
-Cc: ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
- byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com, 
- apopple@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261113083927.2727599-1-chenwandun1@gmail.com>
-References: <20261113083927.2727599-1-chenwandun1@gmail.com>
-Subject: Re: [PATCH v3] mm/migrate: improve mlock tracking for PTE-mapped
- large folios
-Message-Id: <179456709796.6844.3779042426492180260.b4-ty@b4>
-Date: Fri, 13 Nov 2026 11:51:37 +0100
+	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=Re34KgrV
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2303200042; d=oss.cipunited.com; t=1794567100;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=PvWgb9sB0gJNLtO8374oDyk5f8yiTyQ7HhcAVQ4G2sk=;
+ b=Re34KgrVf1edZ8RdP7wG3V/iHinLsMfPkF9AMJE2bMfTLcazy6zk7lHv/xfSYkXESgyAnj
+ L5dt1TKOuozj5RQh75h0PET5CqMfuAmVvjMX9oI680TCvqYU1eppkrrN6ClDwOXdd+AXXo
+ 0rSDp2zCaHBLrpyLIDLiGy2H9zQilV1fjr6jHaKVJ3c0uvcDDy14kDGZz3BVNW5YM7dM0/
+ 3MNj7gdNfuQHmgJgbkOHhA7EB7Y/CPWsrSO0mkRz+ElhQBUNcUQXuStLdAHHDvctxrhvQN
+ JhtqM21QVkkqe+pxwBrXTrcwWQbzNlt2cHDHDSFNnsCbT9/OiY9sPkBCqJHA+g==
+To: "Keguang Zhang" <keguang.zhang@gmail.com>, 
+	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
+	"Guenter Roeck" <linux@roeck-us.net>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Conor Dooley" <conor+dt@kernel.org>, 
+	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
+Cc: "Rong Zhang" <i@rong.moe>, "Yao Zi" <me@ziyao.cc>, 
+	"Icenowy Zheng" <uwu@icenowy.me>, 
+	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
+	<linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Rong Zhang" <rongrong@oss.cipunited.com>
+From: "Rong Zhang" <rongrong@oss.cipunited.com>
+Subject: [PATCH v2 5/8] MIPS: Loongson64: dts: ls7a-pch: Add miscellaneous clock node
+Date: Fri, 13 Nov 2026 18:51:12 +0800
+Content-Transfer-Encoding: 7bit
+In-Reply-To: <20261113-mips-ls7a-wdt-v2-0-e8abd6b2f77c@oss.cipunited.com>
+Message-Id: <20261113-mips-ls7a-wdt-v2-5-e8abd6b2f77c@oss.cipunited.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,46 +70,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Mime-Version: 1.0
+X-Mailer: b4 0.17-dev-ce4c1
+X-Lms-Return-Path: <lba+26af6ebb0+58033b+vger.kernel.org+rongrong@oss.cipunited.com>
+References: <20261113-mips-ls7a-wdt-v2-0-e8abd6b2f77c@oss.cipunited.com>
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
+Received: from [127.0.1.1] ([171.15.157.139]) by smtp.feishu.cn with ESMTPS; Fri, 13 Nov 2026 18:51:28 +0800
 
-On Fri, 13 Nov 2026 16:39:27 +0800, Wandun Chen wrote:
-> Commit ab521b4142aa ("mm/rmap: improve mlock tracking for large folios")
-> mlocks a large folio when all its pages are added in one rmap operation.
-> However, when a PTE-mapped large folio is migrated, remove_migration_pte()
-> restores PTEs individually, passing nr_pages = 1 to the rmap helpers. As a
-> result, PG_mlocked is not set on the destination folio.
-> 
-> Reclaim can restore mlock in try_to_unmap(), but Mlocked in /proc/meminfo
-> remains undercounted until that scan occurs.
-> 
-> [...]
+The Loongson-7A has an internal clock source for miscellaneous
+peripherals. The clock source is nonconfigurable and has a fixed 50MHz
+clock frequency.
 
-Applied, thanks!
+Add a 50MHz fixed-clock node with label "pch_misc_clk" to represent it.
 
-tree: mm/core.git
-branch: migrate-7.5.misc
+Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
+---
+ arch/mips/boot/dts/loongson/ls7a-pch.dtsi | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Applied patches will appear soon in mm-next, followed by linux-next.
-
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
-
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/1] mm/migrate: improve mlock tracking for PTE-mapped large folios
-      https://git.kernel.org/mm/core/c/9fa01fbb
+diff --git a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi b/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
+index 9f0a183bd348..2ef1ad10a8ec 100644
+--- a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
++++ b/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
+@@ -1,6 +1,12 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
+ / {
++	pch_misc_clk: clock-50000000 {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <50000000>;
++	};
++
+ 	pch: bus@10000000 {
+ 		compatible = "simple-bus";
+ 		#address-cells = <2>;
 
 -- 
-Cheers,
-
-David
-
+2.55.0
