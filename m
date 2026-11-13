@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794591220;
-	b=w46x5jcvcrimW8CIypeWA5nOpCizgy8tycDaSGp29IAWizkD1HekdJ37dkIUVAGWrasx
-	 REJiH3aGajFxa7Czol4R/CkhlcsSrr4blTK5xwQyV6w/DsYCQgFghchXWnlOGgRN+ZBX0
-	 /npPp9CsasNgPk1wDEt1LWWA0qc+qUoIT8+SSMEhGUXWYEGI2R8dtlMOQmKKMy6cB/qzB
-	 6Y0lwNZwkwV+J4rn3tcr6xFF/hesk4ETJM8G+rGb76LWUZ+CX4Y9gwq0610hFoEI9uncF
-	 saY38SpDA6IG0lpRSa37g5WCTXXtrSHOgq0sGr1l66+5gnHq9au6vR7eEbjj+G/k8uA==
+	t=1794591292;
+	b=Qt4R10C08VDdBQ8UlyGXckk1RhV/AUI8M4hyoN9A9RbAFURP+uzdUfYxDk0m2K+Yo44y
+	 ZBLoyl0AmOhlYNWLPwyrJIGb8cldreGhofRP9QD4MhffsYLe7tC6IrIBPCNA/3cizYxe4
+	 85JtuRLCJNHnMrmi9AbO2xS8zxr7uIv0ycj7OMYceetqjbegO3cdco0ozlLAVe2vyLPWg
+	 CXhZ8x8qCIvRfVb3n7hVb8geEIkRmPVMEjKn0B248nWKR3TDV7GWkQWrF+YsJ+YF2QnLP
+	 0RFN2d7QVyIfvajnIfF15y162KlqX1TWE5bGFBb99UIBzFFQRonGenBsnrj+vzCaT0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794591220;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=b8xUdlTrVJr8iWSKlRDFOvStv40KWS4yRp1fHWJ2LrY=;
-	b=V1ejKyUocHWqD1oPz+zbugnhG7oe60hx7xKT3iiM+nHBpCexHIJpWznVjznyCWlp9wqB
-	 GVhwDVp7BngMTtuMpn/RAyfQel7Wbf+a29p4tRss4fmEikF6i9If/GW+ItWinGIY6gFS3
-	 qQVBdEza2+hLyBA+je5c1KxRNAxCZIwhv1BM2rFd6+rjbP9BBG8ySwoMbKILFJ/5K0qOl
-	 jYFO0gYX50m6Qkm2K78uL+AuXkBa3RRDgRHISv7g4CKWs0avq25Xd0ufKR3aJ+alzsNRA
-	 y+mWHon6b+MGarKvT0JGruFgy07Mua/MSFpXBAW46nzMl4lRRNlZr94jwochJOSUHUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794591292;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
+	 Subject:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=iOxf54GS4Vgo/I7lsrZFBuQGT9n/1E4b8Wp+yPwlGhQ=;
+	b=jVZva2UEpr3pg680/yZp4NOWLUe6wSRvI5Lzwq2dJQO3Cd7pa1Zm1/TTWqCcTPmIiBwX
+	 yGVtZs1rS7nG187wc/GSc5AJgngKXV45VaqRqFtDQeI6+nSKLarNarvZVsIIMHmyxSekH
+	 Heira7xL4P5EANpc0zamfcPovrYHGlrNiIQZQQ60WrNqrLuKpquV1JOFiLhw/5Fg4TU7+
+	 WwHKeMX3eIT1s/JJprs5eL9Qpci64Jvr6kLNvNI5+yrIz5x871chTkNtZ0vVfZJcVXGTi
+	 HNBN5rNbaBxQqVyiw4GxDITGh7TVmlg2++aJvqBMjcc2bjwN4Ukke3C7GNEVOl8DyMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CFVKWxIk;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=D9oqk1GW;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722126075E0A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:33:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 722126075E0A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BEB60A382A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:34:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6BEB60A382A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CFVKWxIk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794591219;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b8xUdlTrVJr8iWSKlRDFOvStv40KWS4yRp1fHWJ2LrY=;
-	b=CFVKWxIk/AcQqCcM2rQZaoAqInwIVOmvFp7KtNF7zWKCu+M08eQv9yXA2vpke69gOouqhD
-	d26FW9Vv5gRDG+lLl+oGAiJfKzxrKmFawJ3XXATd9uUgyPqQuPAifq/kFGF+82Hre9K4mu
-	fT8JF2nLki+hEEzOkU9LxJSwd76WC3o=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-414-rMtnh44bMoyNRQ_zKEvztQ-1; Fri,
- 13 Nov 2026 12:33:32 -0500
-X-MC-Unique: rMtnh44bMoyNRQ_zKEvztQ-1
-X-Mimecast-MFC-AGG-ID: rMtnh44bMoyNRQ_zKEvztQ_1794591209
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1FCCD1800349;
-	Fri, 13 Nov 2026 17:33:28 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DCCCE1800559;
-	Fri, 13 Nov 2026 17:33:22 +0000 (UTC)
-Message-ID: <638e3138-1dfe-42a0-97bf-2acb32970fa3@redhat.com>
-Date: Fri, 13 Nov 2026 12:33:21 -0500
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=D9oqk1GW
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id CBBC5C4F755;
+	Fri, 13 Nov 2026 17:34:52 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 12DD560015;
+	Fri, 13 Nov 2026 17:34:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3159611BC0467;
+	Fri, 13 Nov 2026 18:34:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794591288; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=iOxf54GS4Vgo/I7lsrZFBuQGT9n/1E4b8Wp+yPwlGhQ=;
+	b=D9oqk1GWjeb2i1rqOg51V0Ai57k7+QJvCPshFYAx6MOM8N9FKC3TJkRlqJfVfj7DDibC1m
+	Bsh1TsFs8HKdabbDLMNtFmq+3mLBMzyGWJh/kWwXZ+cjRm3Fzdi/3ioOl2d+yK9u2oQEth
+	6MgCE3bO06RdRJEg131MVJJ4uxdHukDtAWKMROyoBVW6bly4GVHLmOaAfc6N9tMrnCdoX/
+	EQG4Btk4A08Ron5ReTFSCYiTkU1Ku/qY3q7gefM+Q94hcgEUUCPGjnE1kbD4ywyrEy4N8W
+	ku4FHWbbtuuB5hZcVMkQ/EsR1b82ct2d0aeq2A/mQnu68uET5XdMJ9XA9/lSOA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,113 +58,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 18/29] sched/deadline: Move a task's bandwidth only
- where room was made
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: juri.lelli@redhat.com, peterz@infradead.org, mingo@redhat.com,
- vincent.guittot@linaro.org, linux-kernel@vger.kernel.org, tglx@kernel.org,
- will@kernel.org, boqun@kernel.org, dietmar.eggemann@arm.com,
- rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
- vschneid@redhat.com, kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
- mathieu.poirier@linaro.org, ridong.chen@linux.dev, tj@kernel.org,
- hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
- bigeasy@linutronix.de, clrkwllms@kernel.org, parri.andrea@gmail.com,
- m.szyprowski@samsung.com, kayracizmeci@gmail.com, weihengqiuu@gmail.com,
- cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-rt-devel@lists.linux.dev
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-19-mathieu.desnoyers@efficios.com>
- <bcb60245-abfb-4e3a-aa4e-f134ed310381@redhat.com>
- <20261113135110.160083-1-mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20261113135110.160083-1-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 13 Nov 2026 18:34:45 +0100
+Message-Id: <DMU9INFX5Q65.33IQ7N5UY93YK@bootlin.com>
+Cc: "Conor Dooley" <conor.dooley@microchip.com>, "Andrew Lunn"
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Paolo Valerio" <pvalerio@redhat.com>,
+ "Vladimir Kondratiev" <vladimir.kondratiev@mobileye.com>, "Gregory CLEMENT"
+ <gregory.clement@bootlin.com>, =?utf-8?q?Beno=C3=AEt_Monin?=
+ <benoit.monin@bootlin.com>, "Tawfik Bayouk" <tawfik.bayouk@mobileye.com>,
+ "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>
+To: "Nicolai Buchwitz" <nb@tipi-net.de>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: Re: [PATCH net-next v5 1/3] net: macb: add QUEUE_DISABLE capability
+ to 3 compatibles
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261016-macb-set-channels-v5-0-90ce0c0b8e75@bootlin.com>
+ <20261016-macb-set-channels-v5-1-90ce0c0b8e75@bootlin.com>
+ <d4c8dd5afbb3fa6c74a14fc8a877e49e@tipi-net.de>
+In-Reply-To: <d4c8dd5afbb3fa6c74a14fc8a877e49e@tipi-net.de>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/13/26 8:51 AM, Mathieu Desnoyers wrote:
-> Hi Waiman,
->
-> On 2026-11-12 23:37, Waiman Long wrote:
->> For cpuset v2, it is not possible for a cpuset to span two root domains.
->> I believe it is not possible for v1 too, though I am not 100% sure.
->> Please let me know if you are aware of a way to do that.
-> It happens with isolcpus="domain". The CPUs it isolates stay in the
-> effective CPUs of the top cpuset, and of any cpuset that is not a
-> partition root. They are in the default root domain. The other CPUs
-> are in another root domain.
->
-> The message should have named isolcpus. The planned next version does.
-Right, top_cpuset is the exception here. Boot isolated CPUs are not 
-allowed in a root partition. They are only allowed in isolated 
-partitions. So root partition other than the top one cannot span more 
-than one root domain.
->
-> This is on tip sched/urgent (v7.4-rc1 based), in a 5-CPU guest booted
-> with isolcpus=domain,1,2. A is a plain cgroup v2 cpuset:
->
->    # cat /sys/devices/system/cpu/isolated
->    1-2
->    # echo 0-4 > A/cpuset.cpus
->    # cat A/cpuset.cpus.effective
->    0-4
->    # cat A/cpuset.cpus.partition
->    member
->
-> Two tasks in A call sched_setattr(SCHED_DEADLINE). Task 95 is pinned to
-> CPUs 0,3,4 and asks for 10%. Task 98 is pinned to CPUs 1,2 and asks for
-> 20%. Both are admitted. /sys/kernel/debug/sched/debug gives total_bw of
-> the root domain of each CPU. "Before" is the fair servers alone:
->
->    CPU     before    with the two tasks
->    0,3,4   157284    262141   (+10%)
->    1,2     104856    314571   (+20%)
->
-> So the two tasks are in the same cpuset and are counted in two root
-> domains. Then task 95 is given CPU 1 alone:
->
->    # taskset -p 2 95
->    taskset: can't set pid 95's affinity: Device or resource busy
->    # echo -1 > /proc/sys/kernel/sched_rt_runtime_us
->    # taskset -p 2 95
->    pid 95's new affinity mask: 2
->
-> After that, total_bw is 157284 for CPUs 0,3,4 and still 314571 for
-> CPUs 1,2. The 10% of task 95 is counted nowhere. That is the case the
-> patch fixes.
->
-> I did not test cgroup v1.
->
-> The planned next version has a new cpuset patch for the same
-> configuration. A deadline task in such a cpuset can also change root
-> domain when its cpuset loses CPUs. The patch refuses that:
-> - a write to cpuset.cpus fails with EBUSY if it leaves a deadline task
->    no CPU in the root domain that counts it;
-> - cpuset makes a partition root invalid if it would do the same.
+Hello Nicolai,
 
-We already have pending cpuset patch that will disallow taking the last 
-housekeeping CPU from the top_cpuset partition.  The partition will be 
-disabled in that patch if users attempt to do so. So it is effectively 
-changing the root domain to that of the parent cpuset.
+On Mon Oct 19, 2026 at 1:32 PM CEST, Nicolai Buchwitz wrote:
+> On 16.10.2026 18:58, Th=C3=A9o Lebrun wrote:
+>> From datasheets, we know those 3 IP versions support Tx and Rx queue
+>> disabling, ie bit 0 in RBQP and TBQP registers.
+>
+> nit: Just learned that git am will turn this into >From. Maybe reword=20
+> the first sentence.
 
-As said above, a partition below the top_cpuset cannot span more than 
-one root domain. Are you referring to the case that shrinking the cpuset 
-CPU count to reduce the total DL bandwidth will fail with EBUSY when it 
-is less than what the existing DL tasks require?
+Fixed! Plain text is nice but sometimes causes trouble.
+By the way, this patch is in a separate series now.
 
-Thanks,
-Longman
+https://lore.kernel.org/netdev/20261113-macb-caps-v1-0-42e0984b2f09@bootlin=
+.com/
+
+>> All revisions I've seen either support it on both Tx & Rx or don't
+>> support it at all.
+>>=20
+>> Sources:
+>>=20
+>>    Compatible            | Match data         | Datasheet
+>>   =20
+>> ----------------------|--------------------|-------------------------
+>>    atmel,sama5d29-gem    | sama5d29_config    | DS60001764 [0]
+>>    microchip,mpfs-macb   | mpfs_config        | header files [1]
+>>    microchip,sama7g5-gem | sama7g5_gem_config | DS60001765 [2]
+>>=20
+>> To contrast, check out the SAM9X60 DS60001579C datasheet [3] that does
+>> not document bit 0 as anything special on page 1041 and page 1042.
+>>=20
+>> [0]:
+>> https://ww1.microchip.com/downloads/aemDocuments/documents/MPU32/Product=
+Documents/DataSheets/SAMA5D29-Data-Sheet-ds60001764.pdf
+>>=20
+>> [1]:
+>> https://github.com/polarfire-soc/polarfire-soc-bare-metal-library/blob/6=
+14a67ab/src/platform/drivers/mss/mss_ethernet_mac/mss_ethernet_mac_regs.h#L=
+200-L207
+>>=20
+>> [2]:
+>> https://ww1.microchip.com/downloads/aemDocuments/documents/MPU32/Product=
+Documents/DataSheets/SAMA7G5-Series-Data-Sheet-DS60001765.pdf
+>>=20
+>> [3]:
+>> https://ww1.microchip.com/downloads/en/DeviceDoc/SAM9X60-Data-Sheet-DS60=
+001579C.pdf
+>>=20
+>> Signed-off-by: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
+>> ---
+>>  drivers/net/ethernet/cadence/macb_main.c | 7 ++++---
+>>  1 file changed, 4 insertions(+), 3 deletions(-)
+>>=20
+>> diff --git a/drivers/net/ethernet/cadence/macb_main.c=20
+>> b/drivers/net/ethernet/cadence/macb_main.c
+>> index 020a47353d01..625171fd3f9b 100644
+>> --- a/drivers/net/ethernet/cadence/macb_main.c
+>> +++ b/drivers/net/ethernet/cadence/macb_main.c
+>> @@ -5743,7 +5743,7 @@ static const struct macb_config sama5d2_config =3D=
+=20
+>> {
+>>=20
+>>  static const struct macb_config sama5d29_config =3D {
+>>  	.caps =3D MACB_CAPS_USRIO_DEFAULT_IS_MII_GMII | MACB_CAPS_GEM_HAS_PTP =
+|
+>> -		MACB_CAPS_USRIO_HAS_MII,
+>> +		MACB_CAPS_USRIO_HAS_MII | MACB_CAPS_QUEUE_DISABLE,
 >
-> My reply to Juri on patch 20 describes it with two related patches:
-> https://lore.kernel.org/all/e21aaf40-b929-444c-b707-3200e21d7301@efficios.com/
->
-> I would like your opinion on these two refusals before I post the
-> patch.
->
-> Thanks,
->
-> Mathieu
+> AFAIU this also switches WoL suspend on these SoCs from the tieoff ring=
+=20
+> to
+> QUEUE_DISABLE. Was WoL tested on any of them? Worth a line in the commit
+> message too.
+
+Not tested, I don't have them. I've added a paragraph to the commit
+message to explicit this behavior change.
+
+Thanks for the review,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
