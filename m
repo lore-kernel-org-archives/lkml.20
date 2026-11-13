@@ -1,79 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794576426;
-	b=jhUVkftz+h3b9BYoe6FOiu4uiuJ/SHWoDXznYCJVGKTR84AUO/ZBKzXgUvd67L5w20H2
-	 knF7P17EPrkAkCiO7Keaqgys0gbhDCxxxHbp2lBsNUtnIDI1s5S3C5oFuOHCQ8uqfHRsY
-	 RdfxlAyUaw/uR5HJpJoTmeRnaG+xZF+0VJdbuBXYujh3XbMQcEiX6nHl+akPrAa+7Oiw1
-	 drSpeljKYcGlnWb0O5aJOlzOLIUAye3gFOzwQsM7RWE23pWx1l6q7BlacZVikY68UvcnI
-	 2WbVmgkCNQxcoePrAKOeki1kGRjLGk5uFcvgj+Pl/ucLw20jMI9bOT2tzPOy3aveCuA==
+	t=1794576429;
+	b=w35jpcShUEZWb8vdEMZIZFYTa1u1F3zSMFRePk+8vluLuGqvOl00ChFE5oSE4xWTM1/Y
+	 KXWgpcmds3j2ZQD7/PzH51dCBjw02eUsIyo3x+/Lge2V/Muvr+szoS3fiqyuVYwpj7L2b
+	 ufzNkvLCMHNjJlcLiiG5cc6q9sUFJktedqU6H91XHzzY/m+xzu3Pv4PqnaLDc6v6s0t94
+	 3Z0n7SxJzhlqRXidb3etNdMX+D3gdIKdBJDw88mrMERUTj9+mr1dE7h/0CQprjzFs27wq
+	 rHsdzFXcUg5J4GaWYfD3MAo8l4UBaOqCevhoZReJ0aZ5tK6+/8OA1ICjU+4mpGgD3Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794576426;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=43pGp9axAlQuZS9lLRlDeoeo4DzZJaL1zS+zyaWjVvc=;
-	b=y7dTmOCUvw0fjBuCa79qMzU5A7FPynRNkw11IT9nkrb3DKLvrpKSkDqYXZviEcxNd4s4
-	 mKTYIZ8XE76SzjA/XZ/1fAKz860gL4iq8261xKXg5E/7YpfHn1U97FW+CXhT4rSOReuw5
-	 Z0P5MhiA84flIvdOOsntJRjtUkdijazLyhv5nU0ojbtoQ05QU1p8azljPh4w4zjF3B0Qx
-	 2jlSdzbEnkSw/H5V63uUfXYCSbGOQ1fn6eYRWzkTde3aXEhFjV1aqa/H2Ou2Yg3Bc2H8Z
-	 GNKs5G+KNhcLUPvWM7cc4crQWPiBzi9ePqdcXleDNaHIqlIW0uX6mI69RNZacc+FTtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576429;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 From:To:Cc:Subject:X-Mailer:References:In-Reply-To;
+	bh=Atj6jnrbUqpZucEFnxb09HLiMALd8o8ADyX9dmDAwn8=;
+	b=xmbq+FjZA1t2h+7mCtLJygBWsGcp6+bFtzmxWNtRwwmC/S5QTtrFazi3Ao62joI7yVr3
+	 5n8ZJs56Qs+XVhPhALvmrgZRgNvabWc0cv+LW90Ywq2wTaqGYBatbue3tN/D6AHCnZuAA
+	 yW/Y/BQ6xSruNtOs1JozZIAtzY7tgyyRqOqstlPx+rTzfrV4TpdG1C6CHwYz2fktlTfLB
+	 sK5jtc1InEkCMGTCOgPoS+S5xFq0cDqvzJPZXMlEYmhbylhazP0E1wk26S5yRSTPuqgp3
+	 2jwwnFPS8T4qijmgdN/PlQpIDnTPI27KQcfVRSz/7sI8vPxeGOctgV00kpeGo9qm/HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gywvj0Yo;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 05DF5606A336;
-	Fri, 13 Nov 2026 13:27:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05DF5606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=F1yZ87jM;
+	arc=none smtp.remote-ip=74.125.228.70
+Received: from mail-ed2-f6.google.com (mail-ed2-f6.google.com [74.125.228.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE08E606ABA1
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:27:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE08E606ABA1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gywvj0Yo
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4DDAB153B;
-	Fri, 13 Nov 2026 05:27:02 -0800 (PST)
-Received: from e135073.arm.com (unknown [10.57.14.137])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id DB4C63F85F;
-	Fri, 13 Nov 2026 05:26:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794576425; bh=v9oHqHBPDYFoQAX8i62P0hF9Sv4ORzOKE4sgoztAFLE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=gywvj0You/wlIojdQbTh+fiV15HiCqpS2JIAp1qdieBObX2XuTuQQ5OmmzKbnl4jm
-	 AmjhtgeA4G8OSZnvOqF2/OriYSVemraGYMSOzrTwdr7ssEL/ZYeqrnEAXWKH1rs/TA
-	 W3oSpkLdhwrg94OI6c2C28ybisnWkvs4UZlO+EvI=
-From: Pierre Gondois <pierre.gondois@arm.com>
-To: linux-kernel@vger.kernel.org
-Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
-	James Morse <james.morse@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-	Breno Leitao <leitao@debian.org>,
-	Terry Bowman <terry.bowman@amd.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Morduan Zang <zhangdandan@uniontech.com>,
-	linux-acpi@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	acpica-devel@lists.linux.dev
-Subject: [PATCH v4 05/12] EDAC/ghes: Extract error report initialization
-Date: Fri, 13 Nov 2026 14:24:47 +0100
-Message-ID: <20261113132600.3355836-6-pierre.gondois@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113132600.3355836-1-pierre.gondois@arm.com>
-References: <20261113132600.3355836-1-pierre.gondois@arm.com>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=F1yZ87jM
+Received: by mail-ed2-f6.google.com with SMTP id 4fb4d7f45d1cf-6a5d790cce1so593579a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:27:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1794576427; x=1795181227; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Atj6jnrbUqpZucEFnxb09HLiMALd8o8ADyX9dmDAwn8=;
+        b=F1yZ87jMnXnJnLHZNPOxMjDFrraMurLQnwrX1PMENdMZOVISppTaVGBEAtXvSg6sOz
+         i9eAuh6Cgy71jZrixdwAxgT137uU60LKBjJZoecYrDmBY17aqhX0CQK53z3/DFHzp3OS
+         HO8pY1ChVVmzaURKpqR/0uDaIqzBpuWsL7pNlWQv+WWGPTGnGiWVhc+sH9t3ocCdIsk/
+         1gaPJkUFZkhMnE29cSX/5rSBAPg25LLQMAhR455VagPty+KLpeKraqzH7YhZa0gufVVd
+         L0RdUdI/LMnKL55WBR+7ihZnx6jRxbWPHl6iZ6QPdbO9T4NB5waWuYKHll7qFbYZnn1L
+         5Tfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794576427; x=1795181227;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Atj6jnrbUqpZucEFnxb09HLiMALd8o8ADyX9dmDAwn8=;
+        b=d3nKKklLtEuGIKoy85LHCT24R7AScpvVMRZtBq5/GIacQWfXqYvB9i5jS4o4FYuKm5
+         tf1wMrpNwnDmOO8tBiNY1lEiPAUoU2g/NywrdFPdnosgIDEONIxXFqA2ezSvAB0JU27n
+         jnyFbWM+K5bVCg5SB+YW7EgXf5ejhLwr1vQJFbkkbdUcxzaubDmzloiCHUb1zk385MOe
+         8q483OyTx7F5JNoGv//hlUkyVJl90TCIirI4ZjzbA/zQjhc6khCVqlJy8UdGqCMLvTdg
+         4C0aHCB510RQIe7eytmby7PpTNpGifdvV1IK/FqImKRYhg8nsL9sOpSdZb1HdYuw7I7+
+         5nzQ==
+X-Forwarded-Encrypted: i=1; AL+hErGAUEexD/X5vlETcFoC7UvHw3AOYePnCkOdYYOJwSC0EjQ1vLfCA7daZUSctx46OJMkp361DjNa6se1LSs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2yMPTV455Q0SkyTuO0xoZEie+v6x6ocGoedPk3yeS49g0/1r0
+	87akSxc5cISR82yYqIIBUFTXGB+gINbX3Hz35x46D+8+RG5tudJZh2NKBNrImpKytQs=
+X-Gm-Gg: AYBFou1LZHoGWKw+iLj8U79k8YbzdCmmuzwpujXRFWmLPiQq6YfaF7QlaiNJq2EGk4r
+	/5T9hPjamID0YjDAWrDCw/axKlFmu086hOenj93165nDjHpqiTHl0+ceou2KiAB5HzMGmJADg/a
+	2a803g7kF7nGND1Sm6V0Qf2AjFCBKWKi8U1vNwRLqBUBDRnKgto1nliccxTk0TF7L7csWXUJjrt
+	uvs7Ke4Q90nfZcFcr7I45AvcSs0tWjDAIIuqh8wBr5vn9S8oQAxC0HRrRtsnkcaITvknoVAm10z
+	nVUo4LX6zXIiMjiqqnsPv1/W74BX/hZLOX/4KMlFJcWwBU0dJJC9v3ajl8I8xKuLbSc5WAgkL2m
+	wELFl0ZW4YEvnf12CAq+d8aQd5/Cvndom3oiE1pRbSq+TeWQWpHQ9hYj6HfjDeSOgbE4lgH63Gj
+	3E9pBGekQxtBf5jHtwDtO+zthxE2y4XXgznZYM+IPCQ2TrUxvuE/LOjDPL5OLq9QeJ4m7SrsfNk
+	vdNrdwgKwm5gqkyts5GDBW3BIzjlCMiQpuPzgjmScFytEwu2NThty4jNBdPxTqxcYrDT8C8x3K6
+	hBdKhwJWfjYkDtZV5SlSfw6sowNY7LW2VV9unfl0MkFHGzMkJIcqzzdsSxi5dTjtBlzHlNshpQ=
+	=
+X-Received: by 2002:a05:6402:280e:b0:6b6:f22a:8def with SMTP id 4fb4d7f45d1cf-6b7c0ccec63mr2358666a12.34.1794576426950;
+        Fri, 13 Nov 2026 05:27:06 -0800 (PST)
+Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c1e49be0sm968246a12.0.2026.11.13.05.27.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 05:27:03 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,129 +88,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 13 Nov 2026 14:27:01 +0100
+Message-Id: <DMU48Z0SWPHQ.1HRZYE04S91HX@fairphone.com>
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Val Packett" <val@packett.cool>, "Luca Weiss"
+ <luca.weiss@fairphone.com>, "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Abel Vesa"
+ <abelvesa@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>
+Subject: Re: [PATCH 4/4] arm64: dts: qcom: sm7225-fairphone-fp4: Wire up
+ PM6150L LCDB
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20261113-lcdb-enablement-v1-0-1dc40b49ed82@fairphone.com>
+ <20261113-lcdb-enablement-v1-4-1dc40b49ed82@fairphone.com>
+ <DMU3O9G3L6PD.2CE9WCHR9LV0J@fairphone.com>
+ <e2f89f72-be30-495d-99c8-828cd170ce50@packett.cool>
+In-Reply-To: <e2f89f72-be30-495d-99c8-828cd170ce50@packett.cool>
 
-Extract a ghes_edac_init_error_desc() function to prepare for
-Memory Error Section 2 support (and re-usage).
+On Fri Nov 13, 2026 at 2:09 PM CET, Val Packett wrote:
+>
+> On 11/13/26 9:59 AM, Luca Weiss wrote:
+>> On Fri Nov 13, 2026 at 9:16 AM CET, Luca Weiss wrote:
+>>> Since Linux has gained LCDB support now, wire up the LCDB regulators so
+>>> we can turn them off and on as desired.
+>> Actually after some more testing with extra patches, it seems that on
+>> FP4 the touchscreen stays dead after toggling the lcdb regulator, while
+>> on FP3 it works perfectly fine.
+>>
+>> So please ignore this specific patch for now, I will figure out what the
+>> problem is and re-submit. All the other patches in the series are still
+>> good to go in!
+>
+> Your touchscreen needs to be a drm panel follower and/or reference the=20
+> same supplies as well :) Most modern touch controllers are part of the=20
+> same physical DDIC as the actual display side
 
-Also use a guard in the caller ghes_edac_report_mem_error()
-function for code simplification.
+Yep, I assumed the same. Probably need to resend the init sequence [0]
+after power cycle, when the panel is back on again, to get everything
+running again.
 
-Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
----
- drivers/edac/ghes_edac.c | 70 +++++++++++++++++++++-------------------
- 1 file changed, 36 insertions(+), 34 deletions(-)
+[0] https://lore.kernel.org/linux-arm-msm/20260821-fp4-hx83112a-v1-2-474941=
+bd8860@fairphone.com/ hx83112a_init()
 
-diff --git a/drivers/edac/ghes_edac.c b/drivers/edac/ghes_edac.c
-index d80c88818691..f1cf4d640d68 100644
---- a/drivers/edac/ghes_edac.c
-+++ b/drivers/edac/ghes_edac.c
-@@ -267,6 +267,39 @@ static int print_mem_error_other_detail(const struct cper_sec_mem_err *mem, char
- 	return n;
- }
- 
-+static void ghes_edac_init_error_desc(struct edac_raw_error_desc *e,
-+				      unsigned long sev, char *msg, char *other_detail)
-+{
-+	lockdep_assert_held(&ghes_lock);
-+
-+	/* Cleans the error report buffer */
-+	memset(e, 0, sizeof(*e));
-+	e->error_count = 1;
-+	e->grain = 1;
-+	e->msg = msg;
-+	e->other_detail = other_detail;
-+	e->top_layer = -1;
-+	e->mid_layer = -1;
-+	e->low_layer = -1;
-+	*msg = '\0';
-+	*other_detail = '\0';
-+
-+	switch (sev) {
-+	case GHES_SEV_CORRECTED:
-+		e->type = HW_EVENT_ERR_CORRECTED;
-+		break;
-+	case GHES_SEV_RECOVERABLE:
-+		e->type = HW_EVENT_ERR_UNCORRECTED;
-+		break;
-+	case GHES_SEV_PANIC:
-+		e->type = HW_EVENT_ERR_FATAL;
-+		break;
-+	default:
-+	case GHES_SEV_NO:
-+		e->type = HW_EVENT_ERR_INFO;
-+	}
-+}
-+
- static int ghes_edac_report_mem_error(struct notifier_block *nb,
- 				      unsigned long val, void *data)
- {
-@@ -274,9 +307,7 @@ static int ghes_edac_report_mem_error(struct notifier_block *nb,
- 	struct cper_mem_err_compact cmem;
- 	struct edac_raw_error_desc *e;
- 	struct mem_ctl_info *mci;
--	unsigned long sev = val;
- 	struct ghes_pvt *pvt;
--	unsigned long flags;
- 	char *p;
- 
- 	/*
-@@ -287,41 +318,15 @@ static int ghes_edac_report_mem_error(struct notifier_block *nb,
- 	if (WARN_ON_ONCE(in_nmi()))
- 		return NOTIFY_OK;
- 
--	spin_lock_irqsave(&ghes_lock, flags);
-+	guard(spinlock_irqsave)(&ghes_lock);
- 
- 	pvt = ghes_pvt;
- 	if (!pvt)
--		goto unlock;
-+		return NOTIFY_OK;
- 
- 	mci = pvt->mci;
- 	e = &mci->error_desc;
--
--	/* Cleans the error report buffer */
--	memset(e, 0, sizeof (*e));
--	e->error_count = 1;
--	e->grain = 1;
--	e->msg = pvt->msg;
--	e->other_detail = pvt->other_detail;
--	e->top_layer = -1;
--	e->mid_layer = -1;
--	e->low_layer = -1;
--	*pvt->other_detail = '\0';
--	*pvt->msg = '\0';
--
--	switch (sev) {
--	case GHES_SEV_CORRECTED:
--		e->type = HW_EVENT_ERR_CORRECTED;
--		break;
--	case GHES_SEV_RECOVERABLE:
--		e->type = HW_EVENT_ERR_UNCORRECTED;
--		break;
--	case GHES_SEV_PANIC:
--		e->type = HW_EVENT_ERR_FATAL;
--		break;
--	default:
--	case GHES_SEV_NO:
--		e->type = HW_EVENT_ERR_INFO;
--	}
-+	ghes_edac_init_error_desc(e, val, pvt->msg, pvt->other_detail);
- 
- 	edac_dbg(1, "error validation_bits: 0x%08llx\n",
- 		 (long long)mem_err->validation_bits);
-@@ -375,9 +380,6 @@ static int ghes_edac_report_mem_error(struct notifier_block *nb,
- 
- 	edac_raw_mc_handle_error(e);
- 
--unlock:
--	spin_unlock_irqrestore(&ghes_lock, flags);
--
- 	return NOTIFY_OK;
- }
- 
--- 
-2.43.0
+Fairphone 3 should be a similar setup (FP3: hx83112b, FP4: hx83112a) but
+apparently the hx83112b doesn't need any sort of init to start sending
+touch inputs compared to hx83112a.
 
+Regards
+Luca
