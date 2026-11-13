@@ -1,107 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794569176;
-	b=zTY9rInRRxzbcU4sYKenKVvn5IMrdnweHTm+JnvQHAkekolivP8PVtF4UZTJx+9vxdMM
-	 TooEpZvpUg0yxpNbXRqk7H1sfPIwzngx1ohSsfi8mmvqh/PXp5KbuxMsLFNTHjwePBtJn
-	 mgWUNSnYY3wJM6+GIciico8kD0fsmm6LdRJdR5OBaAZozLIgPqOuECV6y4YTmrODEVHtL
-	 ax4AM185dMYupUnl/cKR1PMzk2XoIZd0iISwXuzyAfTZ3K1cwbUQtQmfkjIewYmn490CV
-	 PgGva7NS0Uv9dVE2bsX19ICb2LIOlCMJfgwL9g2h9jk5n12kUdf64LNCfchWQNW+LDA==
+	t=1794569207;
+	b=rSHUqfdmtA/wZfju7A7/3LALXVfAKSbMxB8NFlItO8FcJNm9uDiULoKIvaxd2f0ArVQ9
+	 8IrS5WeZlCjp8oUjtm3q7C/1PH/MFrXYoTfVlD9vosjo1Y1D02ezUDM7bA8BWGcjBP9oS
+	 O8OYrOD0WVHi4cyqotHqUJ31Gl5RO9vaPI5X9AATgGnWW0AtxZNZyeHuS2OYAR1J/IDQH
+	 /2XPWcWLm5peifqQxrjqyBGD4l3F1NfsRXz2n/zkgbrBIo9soJv8N69jb4hVwBryQFkbe
+	 HUq7SyDvoJ1/n2Ee8yZNZDWRVZA29QJM6eKddxYETECA8TkGjPRgYqHxG744Mjw7aXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794569176;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=4x8nFWCpdcxb4NpnUFWgKTMy110gq5tD1D2+ep/FdgM=;
-	b=GjJfTEKIuHzMyHGdxW122DmGMjD8iTugC3yOUTZAPhBuPbSMROTCPHczcDqF0ibljVte
-	 0QlGFrbgP2PscqDhkRbX10OVG5mKwS0uiHkb0aVUumPgvCADBIXsxgnTuaaYSHuNcKQf+
-	 77JchoUinHAeh+WDGyp1HAUtBtqTGnEsBSf6b6SYKTQA74miGarNgu6PDyThYVNVnwmDy
-	 6GGpZ4VsKPZO2nbauuHTfyZIHSDC9E/mSbcTF86Un2i6craKAlIuBTljvAPj5ZOfKHt8/
-	 KBjCs1rkYI811XCLwgz4bXISdiRRy4a91N3h+PHY+y8XuSzYlTPJUHff1sCXC3sjTiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794569207;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-AI-Review-Draft;
+	bh=geUCnLJl+TadYIbQKteS2dwwXhLkQiG5VM8jWF7kMsU=;
+	b=e19lCnbNBqO/YJeIB3M4QiLch7YqoDUaJTzC2BADDYAKU+Trw+/pQUb+QoyTSXoXUafc
+	 ZijaWhaTNEgd6BY9SCTb4Wt1f5uqb+UPZoGR8LrQO/9kopPRr49AN5jaBQtLhFMC5mf0Q
+	 BZ39tyKueXAK53SKjgKevRtfIMxUwTBOv2oZuNnLR7v84wGpbuW47xTBr/Welqm9JpN8m
+	 /6oefvr6SbiC1SgXBqYfcEQZ5HleG5ubp1hFtLEXdzYSXrIv2534xnRG1mqa01mE6JRlT
+	 Ao/fi96rMxtAmunz4i922wlmSzFAdc1zp/Suuk67fEIItkHJwzv9DN7IJLsGyQwKqIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="iDajg/Er";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CBoZeyLQ;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="iDajg/Er";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CBoZeyLQ;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kal99QzI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5712C606A321;
-	Fri, 13 Nov 2026 11:26:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5712C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165CE606A31C;
+	Fri, 13 Nov 2026 11:26:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iDajg/Er;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CBoZeyLQ;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iDajg/Er;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CBoZeyLQ
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 714071F76B;
-	Fri, 13 Nov 2026 11:26:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794569174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4x8nFWCpdcxb4NpnUFWgKTMy110gq5tD1D2+ep/FdgM=;
-	b=iDajg/Ermjj/jmrnAiLhe05hC+gvgRafrJTvokoMfsoiabU0wr3lRLf5i9oEtU/Vk/fMk5
-	BLrck70s9oishGkIlDzWJmNUZdh8a6ZwblF3Y6+ij6bzMkhDQho/uUxdBJvQDeseNREfBC
-	cXzlOFfrE8Mnftxr/VNMkjdRs570He8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794569174;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4x8nFWCpdcxb4NpnUFWgKTMy110gq5tD1D2+ep/FdgM=;
-	b=CBoZeyLQqbD8/JtPqJ6i1lqu0QaDC5GCc9Vcdoj/CMihrXuTV9s/gURR4YVY4yz2FHZmlp
-	oDL14eW6LMWcqhBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794569174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4x8nFWCpdcxb4NpnUFWgKTMy110gq5tD1D2+ep/FdgM=;
-	b=iDajg/Ermjj/jmrnAiLhe05hC+gvgRafrJTvokoMfsoiabU0wr3lRLf5i9oEtU/Vk/fMk5
-	BLrck70s9oishGkIlDzWJmNUZdh8a6ZwblF3Y6+ij6bzMkhDQho/uUxdBJvQDeseNREfBC
-	cXzlOFfrE8Mnftxr/VNMkjdRs570He8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794569174;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4x8nFWCpdcxb4NpnUFWgKTMy110gq5tD1D2+ep/FdgM=;
-	b=CBoZeyLQqbD8/JtPqJ6i1lqu0QaDC5GCc9Vcdoj/CMihrXuTV9s/gURR4YVY4yz2FHZmlp
-	oDL14eW6LMWcqhBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 416461344A;
-	Fri, 13 Nov 2026 11:26:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0GgxB9bz9mpqPQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 13 Nov 2026 11:26:14 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id BD11C22CA0; Fri, 13 Nov 2026 12:26:13 +0100 (CET)
-Date: Fri, 13 Nov 2026 12:26:13 +0100
-From: Jan Kara <jack@suse.cz>
-To: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-Cc: Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	Xiang Mei <xmei5@asu.edu>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	lvc-project@linuxtesting.org
-Subject: Re: [PATCH] isofs: limit empty zisofs blocks to their uncompressed
- size
-Message-ID: <it7eawzslh3dw6podnkacs47lwghp5iidovj3kbwjago6wnsra@vgr56wuuifw4>
-References: <20261112143541.269-1-mdmitrichenko@astralinux.ru>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kal99QzI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7D831F000C4;
+	Fri, 13 Nov 2026 11:26:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794569206;
+	bh=geUCnLJl+TadYIbQKteS2dwwXhLkQiG5VM8jWF7kMsU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Kal99QzIaLsgg6/FPoCvabsaE8/f0o9MhxN9OMrizQB0qN37Xku30Pp2cITWhHIAr
+	 9gtObiGhlQVYkJeBoH985VgutLloiGUax5dz8fC92SiZ6+4uet3Xavwczd1It7ixOw
+	 OJLPAB2F3WvDIdHzQ/l3Q7iwEeG6mqzPZ+gVpCadx41WLzoav5LYquj3rSnsDDmS+t
+	 jeHJoTNl0oM2QU+LcoK7hz+pxE/IQ4MIhe/MQefai1rx1dPjM/KGO15c9sDKFw60xX
+	 tTMF3KVRZ34zr+sJerE+j2S8DESk810C+ABtXQwABTXpwEfttPKmb5gJCZow+8TaAy
+	 SuC1WYDbNXRjw==
+Date: Fri, 13 Nov 2026 11:26:41 +0000
+From: Lee Jones <lee@kernel.org>
+To: Flavio Amieiro <flavio@amieiro.net>
+Cc: Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] leds: is31f132xx: Add support for is31fl3206
+Message-ID: <179370064610.793788.8239015594326628135@kernel.org>
+References: <20261028-add-is31fl3206-support-v4-0-e331cee9fcb3@amieiro.net>
+ <20261028-add-is31fl3206-support-v4-2-e331cee9fcb3@amieiro.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,100 +64,126 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112143541.269-1-mdmitrichenko@astralinux.ru>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	URIBL_BLOCKED(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,sashiko.dev:url,astralinux.ru:email];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,sashiko.dev:url]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+In-Reply-To: <20261028-add-is31fl3206-support-v4-2-e331cee9fcb3@amieiro.net>
+X-AI-Review-Draft: <20261028-add-is31fl3206-support-v4-2-e331cee9fcb3@amieiro.net>
 
-On Thu 12-11-26 17:35:40, Mikhail Dmitrichenko wrote:
-> When a zisofs block is smaller than a page, the empty-block path in
-> zisofs_uncompress_block() zeroes the rest of the page and returns that
-> length. zisofs_fill_pages() then advances past the page without reading
-> the remaining blocks, returning zeros instead of their contents.
-> 
-> For example, with 64 KiB pages and 32 KiB zisofs blocks, an empty first
-> block should zero only the first half of the page. Instead, it zeroes
-> the entire page and returns 64 KiB, so the second block is never read.
-> 
-> Commit 68d4d3e78150 ("isofs: fix out-of-bounds page array access on empty
-> zisofs block") accounted for poffset but left this older problem in
-> place. It was pointed out by Sashiko while reviewing a 5.10 backport.
-> 
-> Limit the zeroed range and returned length to one uncompressed block
-> and the available output space. Only mark a folio uptodate when the
-> range reaches its end. zisofs_fill_pages() already zeroes the tail and
-> marks the partially filled folio uptodate at EOF.
-> 
-> Fixes: 59bc055211b8 ("zisofs: Implement reading of compressed files when PAGE_CACHE_SIZE > compress block size")
-> Cc: stable@vger.kernel.org
-> Link: https://sashiko.dev/#/patchset/20261105083209.922-1-mdmitrichenko%40astralinux.ru
-> Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+--- checkpatch.pl (1 issue) ---
+Line 83: WARNING: DT compatible string "issi,is31fl3206" appears un-documented -- check ./Documentation/devicetree/bindings/
+----------------------------------
 
-Thanks. I've added this to my tree.
+On Wed, 28 Oct 2026, Flavio Amieiro wrote:
 
-								Honza
-
+> This chip has a different layout for the LED Control Register when
+> compared to the other variants. This register contains the enable bit
+> (in the highest nibble) but also the current control (in the lowest
+> nibble).
+>
+> According to the datasheet, a value of 010000 (0x10) in the register
+> enables an LED with the output current set to maximum.
+>
+> This commit adds support for this IC allowing the chipdef to define an
+> offset for the enable bits inside the LED Control Register.
+>
+> The limitation that already existed for other variants is still in
+> this one: all LEDs are enabled and set with maximum current, letting
+> brightness be controlled by the PWM registers.
+>
+> Signed-off-by: Flavio Amieiro <flavio@amieiro.net>
 > ---
->  fs/isofs/compress.c | 16 ++++++++++++----
->  1 file changed, 12 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/isofs/compress.c b/fs/isofs/compress.c
-> index 2d23abaeb874..c471007a76ed 100644
-> --- a/fs/isofs/compress.c
-> +++ b/fs/isofs/compress.c
-> @@ -64,16 +64,24 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
->  	}
->  	/* Empty block? */
->  	if (block_size == 0) {
-> -		for ( i = 0 ; i < pcount ; i++ ) {
-> +		unsigned int bytes = min_t(loff_t, 1U << zisofs_block_shift,
-> +					  (((loff_t)pcount) << PAGE_SHIFT) - poffset);
-> +		unsigned int remaining = bytes;
+>  drivers/leds/leds-is31fl32xx.c | 25 +++++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
+>
+> diff --git a/drivers/leds/leds-is31fl32xx.c b/drivers/leds/leds-is31fl32xx.c
+> index 285085d27453..586713ff7d98 100644
+> --- a/drivers/leds/leds-is31fl32xx.c
+> +++ b/drivers/leds/leds-is31fl32xx.c
+> @@ -77,6 +77,7 @@ struct is31fl32xx_priv {
+>   * @pwm_registers_reversed: : true if PWM registers count down instead of up
+>   * @led_control_register_base : address of first LED control register (optional)
+>   * @enable_bits_per_led_control_register: number of LEDs enable bits in each
+> + * @enable_bits_offset_in_led_control_reg: offset of the enable bit in the LED Control Register
+>   * @brightness_steps    : number of brightness steps supported by the chip
+>   * @reset_func          : pointer to reset function
+>   * @sw_shutdown_func    : pointer to software shutdown function
+> @@ -88,6 +89,12 @@ struct is31fl32xx_priv {
+>   * necessary registers to a known initialization state. This is needed
+>   * for chips that do not have a @reset_reg.
+>   *
+> + * @enable_bit_offset_in_led_control_reg determines the offset of the
+> + * enable bits from the least significant bit of the LED control
+
+Make sure you run W=1, particularly when changing Kerneldoc.
+
+> + * register. This is needed for chips that have a LED Control Register
+> + * that control more than simply the enable/disable state of the
+> + * channel such as the IS31FL3206.
+> + *
+>   * @enable_bits_per_led_control_register must be >=1 if
+>   * @led_control_register_base != %IS31FL32XX_REG_NONE.
+>   */
+> @@ -103,6 +110,7 @@ struct is31fl32xx_chipdef {
+>  	bool	pwm_registers_reversed;
+>  	u8	led_control_register_base;
+>  	u8	enable_bits_per_led_control_register;
+> +	u8	enable_bits_offset_in_led_control_reg;
+>  	u16	brightness_steps;
+>  	int (*reset_func)(struct is31fl32xx_priv *priv);
+>  	int (*sw_shutdown_func)(struct is31fl32xx_priv *priv, bool enable);
+> @@ -351,6 +359,7 @@ static int is31fl32xx_init_regs(struct is31fl32xx_priv *priv)
+>  	if (cdef->led_control_register_base != IS31FL32XX_REG_NONE) {
+>  		u8 value =
+>  		    GENMASK(cdef->enable_bits_per_led_control_register-1, 0);
+
+Feel free to unwrap this - you can use up to 100-chars to avoid this.
+
+> +		value = value << cdef->enable_bits_offset_in_led_control_reg;
+
+Could we avoid mixing declarations and statements here?
+
+Also, instead of shifting afterwards, could we just pass the offset
+directly to 'GENMASK()', or use '<<='?
+
+>  		u8 num_regs = cdef->channels /
+>  				cdef->enable_bits_per_led_control_register;
+>  		int i;
+> @@ -552,7 +561,22 @@ static const struct is31fl32xx_chipdef is31fl3293_cdef = {
+>  	.sw_shutdown_func			= is31fl3293_software_shutdown,
+>  };
+>
+> +static const struct is31fl32xx_chipdef is31fl3206_cdef = {
+> +	.channels				= 12,
+> +	.shutdown_reg				= 0x00,
+> +	.pwm_update_reg			= 0x13,
+> +	.global_control_reg			= 0x26,
+> +	.reset_reg				= 0x2f,
+> +	.output_frequency_setting_reg		= 0x27,
+> +	.pwm_register_base			= 0x04,
+> +	.led_control_register_base		= 0x17,
+> +	.enable_bits_per_led_control_register	= 1,
+> +	.enable_bits_offset_in_led_control_reg	= 4,
+> +	.brightness_steps			= 256,
+> +};
 > +
-> +		for (i = 0; i < pcount; i++) {
->  			unsigned int off = i ? 0 : poffset;
-> +			unsigned int len = min_t(unsigned int, remaining,
-> +						 PAGE_SIZE - off);
->  			struct folio *folio = folios[i];
->  
-> +			remaining -= len;
->  			if (!folio)
->  				continue;
-> -			folio_zero_range(folio, off, folio_size(folio) - off);
-> -			folio_mark_uptodate(folio);
-> +			folio_zero_range(folio, off, len);
-> +			if (off + len == folio_size(folio))
-> +				folio_mark_uptodate(folio);
->  		}
-> -		return (((loff_t)pcount) << PAGE_SHIFT) - poffset;
-> +		return bytes;
->  	}
->  
->  	/* Because zlib is not thread-safe, do all the I/O at the top. */
+>  static const struct of_device_id of_is31fl32xx_match[] = {
+> +	{ .compatible = "issi,is31fl3206",  .data = &is31fl3206_cdef, },
+>  	{ .compatible = "issi,is31fl3293",  .data = &is31fl3293_cdef, },
+>  	{ .compatible = "issi,is31fl3236",  .data = &is31fl3236_cdef, },
+>  	{ .compatible = "issi,is31fl3236a", .data = &is31fl3236a_cdef, },
+> @@ -616,6 +640,7 @@ static void is31fl32xx_remove(struct i2c_client *client)
+>   * even though it is not used for DeviceTree based instantiation.
+>   */
+>  static const struct i2c_device_id is31fl32xx_id[] = {
+> +	{ .name = "is31fl3206" },
+
+Looks like this is going to need rebasing on -next to apply.
+
+>  	{ .name = "is31fl3293" },
+>  	{ .name = "is31fl3236" },
+>  	{ .name = "is31fl3236a" },
+>
 > -- 
-> 2.43.0
-> 
+> 2.53.0
+>
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Lee Jones
