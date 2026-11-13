@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794531029;
-	b=MqAaDPXWyctNJAhdypnL9zmE7a2E5E557kY8eYXjg3pe9oJIpSu3vtpdPu7Bn4pl0pcZ
-	 J2vykffk42umQlWjmKKDUJ7LnW2+GhqzAijPRy/Lt7zLYWMyEKsSWXwSvC8A5zTLA6Olc
-	 99vOXVtT6J9nJjbOMU+JqucWVwbyeNoQ3aHAZFNBf7TGqfMrp3q42ke78NAbiNhgU3EyF
-	 j+jMd7Ep/+7wXc5fmzeO8N640ZSbINtwFtP7gLFzeaduxEUKUlud+knZiJIKQb8t6mD/O
-	 tu8sRSGNrkqAWl1LAHsKOwqLXvV3MkSW+48Lqs/6pytP0T2F2yfz0jk35uRKan5ihJg==
+	t=1794531063;
+	b=hHR8SNavhOxJLfw3n4Qb93EriZvkaYDfiHqzOB9heBlCoDrLjvXzXhM4j3fLBt0n7WDk
+	 z22qRNJPf+m3+nxAluVi0k71b6dIW4s7TBzrZeX6rzt1NyA9GzVqiFE+5ZdHwNF5HA391
+	 rPHTdA3WeRenfTwbXYbBaoFo5UifT2iz5l0ZBZU8shc6kCYbtK1rXyqM+wsHcFIRsTkDD
+	 z8+CIs3YnwPo1/T00mlrA8GSFRKMO6YiK8nSLIO/mTMqtju2nu30tPL/4Ww7FOlmH6AS3
+	 K5h4vuiJ2vv7lq0NMxayudylf/m2X7MPzYNMjREoFzN2lXmVG0zXxhpA5uTyLNTfp0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794531029;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794531063;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jVfyoLnDGmmilsJ+3jf3unO3KLgq7TUTUHr9b1lHMBQ=;
-	b=J2uTbVThh5731SRCuPeWcOE+xfBxsX2tVozlBoKThEvGHO4QzhwR75dK4cV9bu/UCyvZ
-	 nVGP9rfJxwRDdU3/2qxiNoEh8gfTvp4d/Cv7OkMpa9NVEpOCbOE5Mi5ICz0K0xTntxoPw
-	 ZboUqSN3j0JSVI6JJCYKzWY132PlNiC74C7OQugjclGMsYVnYMJlFLFIbENYZTneLjrHi
-	 5W+4JwKyTikgnH9WdrKHZuo03wOlr2UnPe89yQUuPkaEt+znbo9hx1Mre72ioQId21wBL
-	 2yDwQ7Ij2GAHCvjVYv5uASXBtYLFCoiaw7CQ4wgr/hlZXOVRbGTIbj6ZdmQFMUO4VFA==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=03EXbnRkMo+YA7pX6ZIL45pVSzt6P3Ln3Yqjh2bhzWg=;
+	b=y3BD1NTX3jKmiZxULkXPHQ2nj4wFXmpdSsTuKzjvQK+LJB5mk3xoFrsW0pkVZPJEu+v6
+	 t0lOfHMd2JK9e21G3OYLCZ4d5BoU4Sxn/t/SXAnwMSDZc2d6w+fcpORrciQo5ZUotgEIa
+	 PGOvTwLsmOgabRDAFJLYP4nlwAat+edIg4bSHdkS4azBdJZYQTsxROQDhiScaN2uDZraq
+	 67THVo7H75f3tYeqxoZQd83myi45f6djJ/JVyglaIk7pLqBjQdLa3aGfeAk09ZGPUMZSQ
+	 g6WATeui3TTMY/6LR7XKYuR7o0na5nzu1yEor/BU9sMrrcUXIj6aWM6nPVyrSM/7wCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=itNgnD5m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BujtTeGe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 1D53F60A380A;
-	Fri, 13 Nov 2026 00:50:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 5BB02606A323;
+	Fri, 13 Nov 2026 00:51:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=itNgnD5m
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9385F1F000C4;
-	Fri, 13 Nov 2026 00:50:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BujtTeGe
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DAF621F000C4;
+	Fri, 13 Nov 2026 00:51:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794531028;
-	bh=jVfyoLnDGmmilsJ+3jf3unO3KLgq7TUTUHr9b1lHMBQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=itNgnD5mAfcKhA7/eQf+6jnWrA95phtIHIUM3hzGFtlE3HGg7BKbZp+6DO8Q+8Nws
-	 slOhhC7rISGBx5/VmCTHD7M51XQ+K3ztvvImJKCrKXdzKjNd847v4Glbh2vW59kRel
-	 +duFTiF3n8Q4R3LfNWFfhdy65wvUpEH6UOncDPjx9KZQ3V+QH1jrzbOzn+XRR+gjAO
-	 Zsm6nUTXeT1vEZtlbnuxpjXQRfu3p/bMO7aVVNrVW1yGXbBwp4oKrf8YUfs20b8hXv
-	 iBPIZtlSgU9ogeTOSY3u2Y0aNgkY1H7+vco3nbUY2sWQJue0eC4KRy9MpUrNmB7t0u
-	 vf5S9E4jXiHNA==
+	s=k20260515; t=1794531063;
+	bh=03EXbnRkMo+YA7pX6ZIL45pVSzt6P3Ln3Yqjh2bhzWg=;
+	h=From:To:Cc:Subject:Date;
+	b=BujtTeGe6OkRVIz+iIfRWu0AKRxf8u3bzVL1Br3Pg8VI+4LpPTQFOWc2blGdcKnzt
+	 Ls13AmKajrTbm52gB7/SUYHWQXEUDagCMJCcw6z0kAy6ild1snpSPikEEZyi6dgNWh
+	 M/8VGE5effvYV9PCnh1Ts9OWZHRpyyf89fipxAUvhZ55HgWdUCM+NSf38580d/ba13
+	 nLTcD5wLBWqCXZyCrIMl+nXpubIJoNpddoIUXL/eI89oazkjnCzYFRO/+pDugvXOwv
+	 t13oAiWb8IrokUd4BGTLFxnbWum2323Ouig8dGglvZUMnMpu/ei7V5z8aBdz1Z7UKg
+	 RTj9OxmEj9V6Q==
 From: Joel Fernandes <jfern@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	"Paul E . McKenney" <paulmck@kernel.org>,
@@ -51,17 +51,12 @@ To: linux-kernel@vger.kernel.org,
 	Steven Rostedt <rostedt@goodmis.org>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Cc: rcu@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Kunwu Chan <chentao@kylinos.cn>
-Subject: [PATCH for-v7.5 05/11] srcu: Validate callback arguments
-Date: Thu, 12 Nov 2026 19:50:07 -0500
-Message-ID: <20261113005017.2772440-6-jfern@kernel.org>
+	Zqiang <qiang.zhang@linux.dev>
+Cc: rcu@vger.kernel.org
+Subject: [PATCH for-v7.5 0/5] RCU docs patches for v7.5
+Date: Thu, 12 Nov 2026 19:50:49 -0500
+Message-ID: <20261113005056.2793983-1-jfern@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261113005017.2772440-1-jfern@kernel.org>
-References: <20261113005017.2772440-1-jfern@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,56 +68,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kunwu Chan <kunwu.chan@gmail.com>
+This series has the RCU docs patches for the v7.5 merge window.
 
-Check callback-head alignment and reject NULL callback
-functions in the SRCU callback registration paths.
+Joel Fernandes (1):
+  doc: Document atomic SRCU in Design/Requirements/Requirements.rst
 
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
-Reviewed-by: Joel Fernandes <jfern@kernel.org>
-Signed-off-by: Joel Fernandes <jfern@kernel.org>
----
- kernel/rcu/srcutiny.c | 7 +++++++
- kernel/rcu/srcutree.c | 7 +++++++
- 2 files changed, 14 insertions(+)
+Paul E. McKenney (1):
+  doc: Document additional RCU task-stall dump information
 
-diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
-index 3ee28885b96f..98864977bed2 100644
---- a/kernel/rcu/srcutiny.c
-+++ b/kernel/rcu/srcutiny.c
-@@ -291,6 +291,13 @@ EXPORT_SYMBOL_GPL(srcu_defer_drain);
- void call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
- 	       rcu_callback_t func)
- {
-+	/* Misaligned rcu_head! */
-+	WARN_ON_ONCE((unsigned long)rhp & (sizeof(void *) - 1));
-+
-+	/* Avoid NULL dereference if callback is NULL. */
-+	if (WARN_ON_ONCE(!func))
-+		return;
-+
- 	/* Record the caller: the irq_work's stack says nothing about it. */
- 	kasan_record_aux_stack(rhp);
- 
-diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-index 46fe2f0cef85..76f074f67299 100644
---- a/kernel/rcu/srcutree.c
-+++ b/kernel/rcu/srcutree.c
-@@ -1532,6 +1532,13 @@ static void __call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
- 	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
- 		return; // Leak the callback rather than corrupt SRCU state.
- 
-+	/* Misaligned rcu_head! */
-+	WARN_ON_ONCE((unsigned long)rhp & (sizeof(void *) - 1));
-+
-+	/* Avoid NULL dereference if callback is NULL. */
-+	if (WARN_ON_ONCE(!func))
-+		return;
-+
- 	/* Record the caller: the irq_work's stack says nothing about it. */
- 	kasan_record_aux_stack(rhp);
- 
+Yonghao Zhang (1):
+  doc: Fix stale RCU_GP_WAIT_FQS value in stallwarn.rst
+
+Zqiang (2):
+  doc: Update recent SRCU API additions to whatisRCU.rst
+  tools/rcu: Add new APIs to rcu-updaters.sh
+
+ .../RCU/Design/Requirements/Requirements.rst  | 28 +++++--
+ Documentation/RCU/stallwarn.rst               | 73 ++++++++++++++++++-
+ Documentation/RCU/whatisRCU.rst               |  7 +-
+ tools/rcu/rcu-updaters.sh                     |  3 +
+ 4 files changed, 101 insertions(+), 10 deletions(-)
+
 -- 
 2.54.0
 
