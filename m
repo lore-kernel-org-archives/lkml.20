@@ -1,79 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794587975;
-	b=T7zr41S3Mb6ip4HC6o3K1iQZeJlSuPtUkWfIXleuBYpOjzLX2ooBvTU+ogmf6ocX8Nxz
-	 3ocmBbN1GKKA0eV3sJtxjcTyJb1rcI48zdCC90dM7ll+Q/MsDP4QRXUnclB4p1rZyUcjI
-	 xnl9xErli7m+gwqCVhqQ2n6aEMfJg4XYpSm5U6/uoYUUB5MI6g8LQ6MMgEQLbaBMjCkVS
-	 hgVIpjMq6KBBK9qmCK/chPuu1jp4GvQUmOr0rd+AON+R7JzEeum6IL2DXYelJ/0Z8qin1
-	 lrNHMBc3GF+CE2D5z5c/Fac6a1hKBI/MRVAjST18oSYuTgyiuhdYtaEF1S6q7G4X4jg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587975;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=s1NHLNQNydsvLjTtZF51fIM007eHlrPX5ERM/88GkBg=;
-	b=f3uGhbg9RuydyfTt2igX4KS39pd0IRg195EriOu/29hlkbzGiz4vOwzBUavv0892sqw4
-	 t5ubnA0LCGBLj+GZ9rSInuW/z98OSPDejuQcRfR9eY+n/mv7vB/eAOmoyJ7tQkG1d8JSS
-	 LXMYaXS11fGZj2mbUREiq8jx4j9N7LFitHg3uSQQoXOAzP0eOBPWlvzLUVgDNztRVzGfG
-	 PyzHPxgnuJFe8EzBjbyhWHMpqTcV/qgm2Zw3kYOi8QclCt0sDUsQcVUXc1XxwTVpZAtlh
-	 zM4hdKobr5Aiag+ANPmq8bCrIB4nlJXV16dRBaqoG/CkX7t8q50LK+/RXU2+fDMbHGw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNMNwozg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8860860A2639;
-	Fri, 13 Nov 2026 16:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNMNwozg
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794587975;
-	b=KgMUN34E7+Rl3RdUBq/7WJ+VS5zFJzqdOCnsgDxopHomyMwqShJ9lvQ5mdFTU8zJMWVE
-	 OkOZQplrT8iRpd5bCgaJoubFV2pD2mOdr89UkyIGVH92H+MDEDTch7BLK6iO6sU7TC1F6
-	 qkzqkKtU0LA0EhZc+NTxuM2hnDAaf7RYfwG6S91nZWgUQZFoT1778GRzq8YF4fqdZTTnA
-	 K9fYVxmp952QyfqGXq11riB3Ag2dqqBOqE4KwynWrEL/1RjNiuUpK9xBjrJre6lZkoQjq
-	 VltEPaKw2VgXhka/AIAJ5JF4IyC0xCqyyUpcULUBywCiGcv65gxkuvlLhEsNF43nJAA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794587975;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=s1NHLNQNydsvLjTtZF51fIM007eHlrPX5ERM/88GkBg=;
-	b=1LWBHZ0Ib/Q7qzR3isUU6lozCMkdIcfHtMKs+FhUqvOSS+s+2J8F/R0hNYHnPgxjyiEO
-	 lkcEc+ZQECHq57m6fsu9yUxHOQjATid88NNU2QcN9oV1Loxw7nfMsNPgVxLwvP5z7IHFo
-	 aI2niuv4Fv3q9AleWIvly2bCW6eTfyk5vAwsj/zxmivvDDADVN8NCwoUqy2FuOekpgsYK
-	 frOlh50PAy9E49lYeXO9YeuUyTwQBzHUvVEMtIJ+Bq33NSBZLCBXBF99EmFT5PBeCgOab
-	 qTHLtUnEQQx6QtAq+LsxGEcDAh0dpXx1qimhjj9c8XebH4zBBqV/FUPMOz3njk7rJ7g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794588004;
+	b=ZoSnb3Y8vHZEk5IB3RkH8dnPhaiDRcfOaRc1cW4xr7Ez73pQfHUSAEY81WVuqhJWhHtN
+	 /Jv5yhC1izE6PbZ1k943KuUmFngZAGs2+iNmxQzL1WPAUaemrk9iU/1JW1fv1qmeGEIRr
+	 z1Ko7HHtJiCyvS70e900NJV4WGoTdciB7qizEmbRc2lx+usZa11VAwzCYfa8UjCTOqkmy
+	 GOQiVZApHH5pOB8miSdGKqGfujXKbxbrXFkKqjK3BHXT5+YNrk22GlxqyYsRlLft+Lnhh
+	 97fN+Fe7i3In59I4ZOn2dYNl0iuXlBSUcaWDNSVnHx1RbXA6bYmMO8ovG0q2yGtSEQw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588004;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=TuZxlvr1d/lwL17oni3PHFgqYaIIh/QyBPbeAfUOfRQ=;
+	b=HzGBdNmwHayfn3k1W/Z5QaHya7IjtpXab7XbpgOpUeWMTmQfCG7ov/EifwnVo/ubFwUd
+	 yP1YOXApTIJOG/a/N97p5KuhI5Mfeh9vud2nKbIPQI24slQF7shY5eztRHwlBKTIGw0oa
+	 ZQriGSyxo2VWsWMUQdx7zaXu2nGBfBOS4D8nW0VBsRgCdusxdWSFVLMy6Rxm2enlinTFu
+	 nH3tP6frjJsjNc2IOboZ1KaH1/l53hAvjNwYVr6aO+k5eLM8xyUFhfL7tUwazeievquTP
+	 dSR1/uoAnifMdKc2ItJz1YKlLAiK7LRkgHgmMMDYubaQWukr9pXselOA/JtGFmlpdVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CWoFi8DY;
+	arc=none smtp.remote-ip=209.85.214.197
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6725A1F000C7;
-	Fri, 13 Nov 2026 16:39:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794587975;
-	bh=s1NHLNQNydsvLjTtZF51fIM007eHlrPX5ERM/88GkBg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hNMNwozgiGZjcPAHtGJpxgPREzcp+apJu6L0pQUoc69DLiJH+sUPxxN/K1uHhPznK
-	 pTicndHG2VlD82H3WcNU/nnpOstfDn1WAa0ki7PkJ7JEBVCEnWAJ35DH/TY1U/O+IL
-	 ZiGx8icWBD9AWUXex4Wt67SpOMC/W0ESOtBf4RyF+/L1zRszDDWTLsEcx+5Q1MqN3v
-	 nnTdD0OnW5rVKB7QyQqKopqn7+74sgCOhRAZqBEDAstdDDgJ2cIHY56sGC6XbjZA2L
-	 9xoThsvWztWZBpdXvVby5oI/2LiaCGCvJszunThPt1S5wVFJaxQc0TpDqpYt5UvuAb
-	 A6woCgxfXS3PQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EC7ED499BD;
-	Fri, 13 Nov 2026 16:39:33 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 16:39:35 +0000
-Subject: [PATCH v3 2/2] usb: hub: Retry SuperSpeed for a device stuck on
- its USB 2.0 peer
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16E1606A338
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:40:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D16E1606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CWoFi8DY
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ed34e33913so7633845ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:40:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794588003; x=1795192803; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TuZxlvr1d/lwL17oni3PHFgqYaIIh/QyBPbeAfUOfRQ=;
+        b=CWoFi8DY2WdbKaklbxd2Apgym/0rgCC36RqT3hFpKSdsGy4iCcm0vOC0gYUb29BMTq
+         yImS8SSNMdZh80bN6bRDVFkk+S0jXN7lJFnRJ1q3hhbL9m5WzNZ352zjq5N6pgjIPGd5
+         xBLjAsRwAM0M+b+Jazd0MTVykR7a5hmeJ5n8TSZj+1QatRhPxGi97rqpl7xYTU7PqiEv
+         F7uF5v1ix/T81yb2wBan3vs+ld8iOgX+qKMOS5aKMJLQOzfYvRciTz40TvgQEuX3CZnO
+         CT79FF/DrTDJxTTFdx5iYG11bDi84P52tfTvunpQpQdALd0jFOzspm7LLwLXMC/ol7dM
+         3IEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794588003; x=1795192803;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TuZxlvr1d/lwL17oni3PHFgqYaIIh/QyBPbeAfUOfRQ=;
+        b=MjadcUymTZd1mhwHTK2cocXMafW08PPsueDUZzgXmMLYkwKroyVuVTxucvIL8fUHds
+         BM+1iEF+vT9yxVcMs6XPIbePwwwnGs2PawjaHhE44W4zY0G0bauEhHAi+3LQoVnxLdm9
+         8vhI3jnsYXehSceFDnnJ2O/lvLtMqFPADTF8BYd++9rZuHriCfJ2TpLuVuMopm2bJBPL
+         fvvwnQlUAOx/TAMgTcr+7ORaNTKqB6HeNhyPEyGt0ivhY9+l/MLlIb4oTniXFmn6F9Wm
+         I8Pq0ltMmcAjXgZfS7TrHj17Bx5izjkBzy/Twi3M+tPBUb1tRHDR3Ewu5dyCZDlkqaYg
+         C7Fw==
+X-Forwarded-Encrypted: i=1; AL+hErHmYaegyr05kapel3raB5vaa78zOn+cS2hKsWAOGa8OmYAG1yrduweX55IkxlmOj/P3QqQ9NOmf8NBdRqI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/37pkPkCi5NelgqPfTrRNIY8mhI4SPZzOdhbAaf1PAi2QPnjEk
+	yr4Z2pcWREeOFKI83XNYxONNUCt4TP1wKWman3YHmM/wXz+NJIINx6e5pHsjkuA+qgXV1OE9kb6
+	x+/SKAw==
+X-Received: from plri11.prod.google.com ([2002:a17:903:32cb:b0:2e9:4bf0:5f17])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:230b:b0:2df:90d4:7847
+ with SMTP id d9443c01a7336-2ee0dee40a0mr27467255ad.35.1794588002900; Fri, 13
+ Nov 2026 08:40:02 -0800 (PST)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Fri, 13 Nov 2026 08:40:00 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,209 +76,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-usb-port-pairing-v3-2-d6c6edb4341c@gmail.com>
-References: <20261113-usb-port-pairing-v3-0-d6c6edb4341c@gmail.com>
-In-Reply-To: <20261113-usb-port-pairing-v3-0-d6c6edb4341c@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Alan Stern <stern@rowland.harvard.edu>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mathias Nyman <mathias.nyman@intel.com>, Chen-Yu Tsai <wenst@chromium.org>, 
- Chen-Yu Tsai <wens@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587973; l=6207;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=KZkpXeJ+A+10K+SJK6nZ9OKWG0+DhiLSkdGEp7dOl5Q=;
- b=yw9V659rAr6/ZIYNNftVxkesa9H4cYunzIo/YouNAGbb7e+IVglEYnnsl4BQphSttUDkDAYbT
- LbQnVEAopmWB6xFvG5ON82n3jAzISNbXEshVGquw37jhum9qhUe13cr
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261113164000.467175-1-seanjc@google.com>
+Subject: [PATCH v3] KVM: Skip gfn-based MMU notifier invalidations for
+ guest_memfd-only memslots
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Lorenzo Stoakes <ljs@kernel.org>, Naveen N Rao <naveen@kernel.org>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+From: Alexandru Elisei <alexandru.elisei@arm.com>
 
-A SuperSpeed device that finds no SuperSpeed link at power-up connects at
-high speed, and tries SuperSpeed again only after a VBUS cycle or a USB
-2.0 bus reset. When a connector's two halves are on different host
-controllers and VBUS is always on, as on the Orange Pi 5 USB 3 Type-A
-port, a device present at boot connects to the EHCI before the
-SuperSpeed-only xHCI is up and stays at 480 Mb/s.
+Don't invalidate gmem-only memslots when responding to MMU notifier
+invalidations, as the entire point of gmem-only memslots is so that KVM
+doesn't need a VMA to install mappings into KVM's MMU.  Specifically,
+page faults are resolved by going straight to guest_memfd, using the gfn
+and the associated memslot's gmem.file.  I.e. whether or not userspace
+happens to have valid mappings to the same gmem instance is irrelevant,
+as are any invalidations for those mappings.
 
-When such a SuperSpeed root hub starts, reset once a SuperSpeed-capable
-device that sits at high speed on a USB 2.0 peer port. Hubs are skipped:
-the USB 2.0 half of a USB 3 hub stays at high speed. Resume and reset of
-the root hub don't do this; a device suspended with the system can't be
-reset.
+Note!  The exception is KVM's gfn_to_pfn_cache implementation which isn't
+yet wired up to pull pfns directly from guest_memfd, i.e. still relies on
+userspace mappings/VMAs and thus need to be invalidated, e.g. to ensure KVM
+doesn't retain a kernel mapping+pointer to PRIVATE memory.  However, as of
+commit da260bcb56fe ("KVM: pfncache: use a dedicated invalidation sequence
+for cache refresh"), GPC invalidation no longer relies on memslot lookups,
+because GPCs also support HVA-based mappings.  I.e. KVM *must* be able to
+detect and handle relevant MMU notifier invalidations even if there is *no*
+memslot whatsoever.
 
-The device leaves the USB 2.0 port, so whatever uses it by then (a
-mounted disk) sees a disconnect.
+In addition to the obvious performance benefits, avoiding unnecessary and
+spurious SPTE zaps and TLB flushes will allow KVM to support features like
+ARM's Statistical Profiling Extension (SPE)[1] and x86's Secure AVIC[2],
+both of which rely on the pages *never* being unmapped from the stage-2
+page tables.
 
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Link: https://lore.kernel.org/all/20260903160623.315525-1-alexandru.elisei@arm.com [1]
+Link: https://lore.kernel.org/all/cover.1783490022.git.naveen@kernel.org [2]
+Cc: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Naveen N Rao (AMD) <naveen@kernel.org>
+Signed-off-by: Alexandru Elisei <alexandru.elisei@arm.com>
+[sean: rewrite changelog to capture the new gpc behavior]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- drivers/usb/core/hub.c | 109 +++++++++++++++++++++++++++++++++++++++++++++++++
- drivers/usb/core/hub.h |   1 +
- 2 files changed, 110 insertions(+)
 
-diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-index 199d3f535a89..6bbe5fe2c0b5 100644
---- a/drivers/usb/core/hub.c
-+++ b/drivers/usb/core/hub.c
-@@ -1076,6 +1076,105 @@ int usb_remove_device(struct usb_device *udev)
- 	return 0;
- }
- 
-+/*
-+ * A device present at boot may have connected at high speed to the USB 2.0
-+ * peer before this SuperSpeed root hub was up; a USB 2.0 reset makes it retry.
-+ */
-+static void hub_reset_peer_child(struct usb_device *peer_hdev, int peer_port1)
-+{
-+	struct usb_hub *peer_hub;
-+	struct usb_device *udev;
-+
-+	/* Wait for an enumeration in progress on the peer port to finish */
-+	usb_lock_device(peer_hdev);
-+	peer_hub = usb_hub_to_struct_hub(peer_hdev);
-+	if (!peer_hub || peer_port1 > peer_hdev->maxchild)
-+		goto out;
-+
-+	udev = peer_hub->ports[peer_port1 - 1]->child;
-+	if (!udev || udev->speed != USB_SPEED_HIGH)
-+		goto out;
-+
-+	/*
-+	 * The USB 2.0 half of a USB 3 hub stays at high speed next to its
-+	 * SuperSpeed half, and resetting it would disconnect its children.
-+	 */
-+	if (udev->descriptor.bDeviceClass == USB_CLASS_HUB)
-+		goto out;
-+
-+	usb_lock_device(udev);
-+	if (udev->state != USB_STATE_NOTATTACHED &&
-+	    udev->bos && udev->bos->ss_cap) {
-+		dev_info(&udev->dev,
-+			 "SuperSpeed peer port available, resetting\n");
-+		usb_reset_device(udev);
-+	}
-+	usb_unlock_device(udev);
-+out:
-+	usb_unlock_device(peer_hdev);
-+}
-+
-+static void hub_peer_reset_work(struct work_struct *ws)
-+{
-+	struct usb_hub *hub = container_of(ws, struct usb_hub, peer_reset_work);
-+	struct usb_device *hdev = hub->hdev;
-+	int port1;
-+
-+	for (port1 = 1; ; port1++) {
-+		struct usb_device *peer_hdev = NULL;
-+		struct usb_port *port_dev;
-+		int peer_port1 = 0;
-+
-+		mutex_lock(&usb_port_peer_mutex);
-+		if (port1 > hdev->maxchild) {
-+			mutex_unlock(&usb_port_peer_mutex);
-+			break;
-+		}
-+		port_dev = hub->ports[port1 - 1];
-+		if (port_dev->connector_peer && port_dev->peer) {
-+			peer_hdev = to_usb_device(port_dev->peer->dev.parent->parent);
-+			peer_port1 = port_dev->peer->portnum;
-+			/* Only root hub ports of another host controller */
-+			if (peer_hdev->parent ||
-+			    peer_hdev->bus->controller == hdev->bus->controller)
-+				peer_hdev = NULL;
-+			else
-+				usb_get_dev(peer_hdev);
-+		}
-+		mutex_unlock(&usb_port_peer_mutex);
-+
-+		if (peer_hdev) {
-+			hub_reset_peer_child(peer_hdev, peer_port1);
-+			usb_put_dev(peer_hdev);
-+		}
-+	}
-+
-+	usb_autopm_put_interface_async(to_usb_interface(hub->intfdev));
-+	hub_put(hub);
-+}
-+
-+/* Called when a SuperSpeed root hub has started */
-+static void hub_queue_peer_reset(struct usb_hub *hub)
-+{
-+	struct usb_interface *intf = to_usb_interface(hub->intfdev);
-+	int port1;
-+
-+	for (port1 = 1; port1 <= hub->hdev->maxchild; port1++) {
-+		if (hub->ports[port1 - 1]->connector_peer)
-+			break;
-+	}
-+	if (port1 > hub->hdev->maxchild)
-+		return;
-+
-+	/* Keep the hub active until the work is done; hub_quiesce() cancels it */
-+	usb_autopm_get_interface_no_resume(intf);
-+	hub_get(hub);
-+	if (!queue_work(hub_wq, &hub->peer_reset_work)) {
-+		usb_autopm_put_interface_async(intf);
-+		hub_put(hub);
-+	}
-+}
-+
- enum hub_activation_type {
- 	HUB_INIT, HUB_INIT2, HUB_INIT3,		/* INITs must come first */
- 	HUB_POST_RESET, HUB_RESUME, HUB_RESET_RESUME,
-@@ -1346,6 +1445,11 @@ static void hub_activate(struct usb_hub *hub, enum hub_activation_type type)
- 
- 	/* Scan all ports that need attention */
- 	kick_hub_wq(hub);
-+
-+	/* Let devices stuck at high speed on a connector peer move over */
-+	if (!hdev->parent && hub_is_superspeed(hdev) &&
-+	    (type == HUB_INIT2 || type == HUB_INIT3))
-+		hub_queue_peer_reset(hub);
-  abort:
- 	if (type == HUB_INIT2 || type == HUB_INIT3) {
- 		/* Allow autosuspend if it was suppressed */
-@@ -1419,6 +1523,10 @@ static void hub_quiesce(struct usb_hub *hub, enum hub_quiescing_type type)
- 	/* Stop hub_wq and related activity */
- 	timer_delete_sync(&hub->irq_urb_retry);
- 	flush_delayed_work(&hub->post_resume_work);
-+	if (cancel_work_sync(&hub->peer_reset_work)) {
-+		usb_autopm_put_interface_no_suspend(to_usb_interface(hub->intfdev));
-+		hub_put(hub);
-+	}
- 	usb_kill_urb(hub->urb);
- 	if (hub->has_indicators)
- 		cancel_delayed_work_sync(&hub->leds);
-@@ -1978,6 +2086,7 @@ static int hub_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 	INIT_DELAYED_WORK(&hub->leds, led_work);
- 	INIT_DELAYED_WORK(&hub->init_work, NULL);
- 	INIT_DELAYED_WORK(&hub->post_resume_work, hub_post_resume);
-+	INIT_WORK(&hub->peer_reset_work, hub_peer_reset_work);
- 	INIT_WORK(&hub->events, hub_event);
- 	INIT_LIST_HEAD(&hub->onboard_devs);
- 	spin_lock_init(&hub->irq_urb_lock);
-diff --git a/drivers/usb/core/hub.h b/drivers/usb/core/hub.h
-index 6b55216c7da0..1dccfd5ea4ae 100644
---- a/drivers/usb/core/hub.h
-+++ b/drivers/usb/core/hub.h
-@@ -71,6 +71,7 @@ struct usb_hub {
- 	struct delayed_work	leds;
- 	struct delayed_work	init_work;
- 	struct delayed_work	post_resume_work;
-+	struct work_struct	peer_reset_work;
- 	struct work_struct      events;
- 	spinlock_t		irq_urb_lock;
- 	struct timer_list	irq_urb_retry;
+v3: v1, but with a different changelog.
 
+v2: https://lore.kernel.org/all/20260714160411.302386-1-alexandru.elisei@arm.com
+
+v1: https://lore.kernel.org/all/20260615155244.183044-1-alexandru.elisei@arm.com
+
+ virt/kvm/kvm_main.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index cf4cb586f140..599dea22afb8 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -601,6 +601,10 @@ static __always_inline kvm_mn_ret_t kvm_handle_hva_range(struct kvm *kvm,
+ 			unsigned long hva_start, hva_end;
+ 
+ 			slot = container_of(node, struct kvm_memory_slot, hva_node[slots->node_idx]);
++
++			if (kvm_slot_has_gmem(slot) && kvm_memslot_is_gmem_only(slot))
++				continue;
++
+ 			hva_start = max_t(unsigned long, range->start, slot->userspace_addr);
+ 			hva_end = min_t(unsigned long, range->end,
+ 					slot->userspace_addr + (slot->npages << PAGE_SHIFT));
+
+base-commit: d21eef2084a9af87ac2a783bc7c2b175ba114e4e
 -- 
-2.55.0
-
+2.56.1.703.gf848ed807c-goog
 
