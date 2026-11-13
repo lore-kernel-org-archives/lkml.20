@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606107;
-	b=YueQFIhLXe4BYgk07vHcOTYjxi2JPKMPaZFUg8HPVNj+K4rK8FUGA7zZ6zTNbrP37/jm
-	 pH0aql3qiL2SmpGEGu8pAiMjks0XD6WcIhLWPKVUXVv6ptTyogHvQStTt6AJuzRIeMvg8
-	 fzNwLdzz5nxY8sSr23WlSIYhJvlSY9znd0S7VFN+5Y20sQhwPFvk7pho0irLOh1H5QM7h
-	 n7DawKjULPvioehWeZHahk6cFFzPzFAK5ZRGfSlQn3H4D0BmCkQwfs5OJUHo5qPPZXS6W
-	 NqqV4GNQnL1EoFgzcB3/nqhNidKViyV29OIA5StIFNZecLgADefV+ZlAkfufid8rvjQ==
+	t=1794606153;
+	b=WS7TAwA1VXP/CtYvc9gIHCy/g5qIfpP/VDUANJxLcNAY/iu6M/tPuaFAB+fBZ2DEysPJ
+	 dPa5SkXRbgWJRQ3GNWe1/6eM/O6akVYgLa22fcJKdPin6H7pwUagBldHTdBp4FOjm8Xy1
+	 du33FZtFABer4HZF5Z1BVjPuGeBkZjft8VI5TbTTSCvTkC4k9NXA3K/X4/pZIEC/4E1KY
+	 0UCNUbBSdQ3a4qrui6vLxRmqgiNUdDLSXeIPr4TO0NGrk9IbNdZlb1kMzNxwSEZcOrKtq
+	 V3WUiAdraNrhiGPDwQlpcuZUTJKhfPYW3KNWTq4pE9GOQliszZ92AwePOoPSQsFj9lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606107;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606153;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xhQIHZA6VTVgBZmCBhoLcYFIgrIijG6i5CWFzX2HxMY=;
-	b=BQoRYBX7ZwAUxPKNTqyYedKV43v2N0tqiKIoqxl/GAKPisOrhEjTZesrYA3XwrdJWzWf
-	 +VeTWNNjyRLNdVXLXRyN4CTBuy7WCQQtWwTIgVXtqeMKapCJ/JvHMjCCKJ7kYUowQHK6O
-	 4YzKzmuJGNRreX2nORDKjzmC24Y1pZn7ou8UimyTFpYLYGixlLqpVel4cSHOdDPMchakZ
-	 hatxvEYQIk4u5iTJbGVEv1Q3JOp03xkwd45JVQn++9OtZe1rjz1UMB5hdPOPBuBzpCtrB
-	 56DViGJBVwtuqBNMJ0gvHLmt2aC2Kjm8+M5Cf+Jlb7uko/O2kdiY8dc43vYpazaY9Bw==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=RwPRyHP2zyVmejGR1uh4JtlvqhjIfEODs3w+QBRfcJQ=;
+	b=2wgTKgT6H2frR4jqPwA5PTL1NwWgoLvgaUqyuH0id/81gyVHnv9EIhhGfWZOT0noBFi/
+	 t5GMbNtDhH4WgAq2NVJ1OPRR8MujKGMMAI87dfAqLofeGUCA0x6drxxqEQw1qaK8m7biI
+	 i1P/5uphii4QSJehnbKJvN2aV4amiA/43SrwqNlXNpVKmnheLPCkipW5qexkaqczjvd1x
+	 4/Dx8mN0vVciL4y2QsSTLr7+eChBF4PcFfo1qdR5Ia4+016CJSIWqzGKSyef0tg9mtZGI
+	 DMdUzJyDCIbmiwPAx1WcfJqA75cOPAms/9osik9CFHz/PmgQZjconHivK6QV1W6jsIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=FOUZSFM5;
-	arc=none smtp.remote-ip=209.85.167.172
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EKNhbxkk;
+	arc=none smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1C7606A33F
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:41:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB1C7606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A85606A334
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20A85606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=FOUZSFM5
-Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4a451915d8aso2019199b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:41:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EKNhbxkk
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5365d725440so21963381cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:42:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1794606105; x=1795210905; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xhQIHZA6VTVgBZmCBhoLcYFIgrIijG6i5CWFzX2HxMY=;
-        b=FOUZSFM5S5d1miA7Lxx0Lf6OhSwlwNfuHZ5Jqx01yrOE9LvH+Q8m8252JavLipl0XJ
-         uTYk6TJLoTtCBo/+0JEVJWlsti+MY7MO5wFKSWClF2sxYLyaHMZ7P0K40cQ0l1G6QM1R
-         SgcPi/Z+Sty77r1hVG6EXHzJoQll7d47WKbik=
+        d=gourry.net; s=google; t=1794606152; x=1795210952; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RwPRyHP2zyVmejGR1uh4JtlvqhjIfEODs3w+QBRfcJQ=;
+        b=EKNhbxkkQMORETffHCHxv+E20muavs46wHH6TSQgkwOKnkMBWgo3BRqE9adDNYWjJy
+         zQvDt0u803Js/yQ/xoqMXeSOKFrPFOOfSJoo4mM3wToNSHCQYLMW01UMv2NrALxHTu5h
+         1BKsWm9UIk97Oq6GlYqwEE9cIn2GNrup/GEMawiM0oNLiEcTbAAlcoNRt+Y3u+jnhl7q
+         Ff+CjlTIZlIH6YG34N3i7rGeKp+IjYW/FeYl20DzdxfeXsbexBmN7BiSt5uKr6EoNKuM
+         /dW15GIGFRQ4M8aVHf6ioFgdIR2GphR1luRLbU/sLdpNwfOidADbdAlqrJzVjjLlQ4ap
+         SzmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606105; x=1795210905;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xhQIHZA6VTVgBZmCBhoLcYFIgrIijG6i5CWFzX2HxMY=;
-        b=RXPDSKkIQ4jViHyHdD8l8nxbyIqCXUB2lENBgpZ+Iz1BcoPdGB1ojFYTRhwdAKXGQz
-         V/1NC5f8tW8O/3NJpuMm7ORhEuRp9dUZr+LLYuEH+sd7p4BwBl8JFPjV0bwVzcR483Qq
-         pIJ8SUoTMpQ+vwKds6oTJMgCE6kL8NKbLCiyTwJifkWhYMuplcGKrU7R1nMbHORQJuAs
-         VG1wep2W4O5AKgk1TbbKy6hAAE/9NepCgLpwGa/0FGF8zLlCPmLTt9UCx4DJcRIaDXd2
-         7XSRRGRS9yhelAKstNzTUs+iQ9XeoE5P2YEj2/lgJEaqGzWIdGVNZh0MyHz3WtsLmNF2
-         j8Zw==
-X-Forwarded-Encrypted: i=1; AL+hErHzfX6dD7pduN0u0qNz5rThHwAitV6mkW8kpEPp5sIAgpu3jun8o1Va23VXzlg8mdETcaMLKXk5SZk1fjo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/iTIqfWrzDZ5o6IfS50SAnuIzCj6c41eMEBDtCA8SYwlC+EtHU
-	w/VkfNBeICCydh6jvptKT2Pk9Yyec75UTh+PcWGUv0s7rOMpnVvnQt7DPMa6x5MKJg8=
-X-Gm-Gg: AYBFou0ytrFbh6ahtEtgcgEvku/DVtIT950CBQfL63XMMIeHCD2cMrxQL5HJo9iZpMd
-	B9y9L0lU3SvJDJu+Iq6U4Yo3LAPdgqUT7W1eyOY4l6g7hAXIZlw1oWWmJEa9a58vsftQRldqusr
-	UnboPWwtF96yxLSO7q4wBQ0ypj6X0J//oY4mBTVBKdLtMQKguPJgZqseMcp48QPp/Evoh5iteaw
-	NvR6i1UXUg2YJ/QJnGX1xkhPFgo9bGWrfK+3Q4IqxhtCg3Qt7mbD6kVhvt95HBRyrj/uSqpa0fL
-	CAsG4Vu0eEmutnBsqnrQjWmfrVU690Is99vcR+E4AMjFvrdCUG6dxd4MDFpy4Vzk3mMqgSPTNyh
-	8o2tyS0jdEAiiHV/cX0Za9Mqz6vfWXyuieOtjk125ilj4XPmwiKXF4hQ2vkRs6dlYxJ4R3161HK
-	UYeDbKGGm8G+b1iTRHP0sXd+i8fZoav1RaJvhO3tv+napA94dlwcJKY0JOM9fGwb0tk38PD/tNb
-	JKdXMeYe5Obe+uVTxl81iPgRqvWVZyFeWTNUKrRYYiyb9piW5gQvrgIWGvYl6SZdMRGStj6lKQn
-	pY7bCO6TB/tFJODXWIoCZhnHUCqhmxJijVF683s=
-X-Received: by 2002:a05:6808:3010:b0:568:1e54:3d74 with SMTP id 5614622812f47-56e64df14ffmr3388527b6e.39.1794606105620;
-        Fri, 13 Nov 2026 13:41:45 -0800 (PST)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e7094aafcsm3131199b6e.12.2026.11.13.13.41.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 13:41:44 -0800 (PST)
-Message-ID: <573f682d-47ee-4e39-80ed-0ddf0da96cdb@linuxfoundation.org>
-Date: Fri, 13 Nov 2026 14:41:43 -0700
+        d=1e100.net; s=20260707; t=1794606152; x=1795210952;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RwPRyHP2zyVmejGR1uh4JtlvqhjIfEODs3w+QBRfcJQ=;
+        b=VjQJuJTFj06rUIyl0LW/vc8Fw8Hswn0KvXcUK7DGKA5f/fC3Am0n6ASkFtVnW2Poww
+         93j7ZOj+j309tWmniZmeHh7dcSHU/Glq+KBiCPkt+0EYqVmZRpJ10BQBWkTuRiz0A+bg
+         ZASRrykV1vnN4esuicA/lQmFDSeW9phzyJf6P9WseMyGy4NNy6q+N5Ww7uKL4wTMqwWO
+         c3cIciiKuHgsPu+N4TjsGqikoxHNFl1NtljfzOrg4gXXP9ZlQ1cMOYQ4IjLWmEDzt/Lw
+         0gedmnffbSCO9c/BGXFHXCkgKYA4kZHs9i/xOwziBXOkfpSZIfJ4NGARsTDS3ON0Cejn
+         P/rg==
+X-Forwarded-Encrypted: i=1; AL+hErEzFTH98I1uLbEt4+SLX6+Gr1rzIfpgbwlTk+GnN6OH+a2+R3s3E1cyPAz0bIaVeGUubBMAsASEGinmC+0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CjvKlFVT4jtZwpXwDRSTo8xXM1zs9nC4fgVT1wDIfe3STef9j
+	aQInR+xlwruJfs8nlx7UhKQW6y4Q8JCpZa2ra7OrvUql/CxFkaH+zr0LVgA/0CA7r3I=
+X-Gm-Gg: AYBFou0UdaOAFFN7zjo1aEIXtWDMG0YcgLbtw/xmDT3C/OOm2S9ipcl+59pjNh+9J8t
+	eekdg/6ihTWckWvFD6h4liohnoNX4TbDwtBOyzAOrM3eCnAzssAxl/7V4NkuWCHsbwELmZb1Amh
+	tOdr5iGqaxwBcrc68doPODLDI0KjM4556TJtNPINMrkP+uFHFCyAFswrVOLLJYLGlFeElx/saLI
+	ZKyZuu30gWLJYTZX4Gq/fKo0kpJeI8sLRiAUej9fLQ+GvJW83XLVwZ7KD/5rcwG/FeoIJqiEvzP
+	Azdvcf3eImPpoE/JQU2AzLS7BVA9EtDYHtc3VmD+0eASd1kwSs4+IIgkrkO28OkJzNBRhz8Htsz
+	BrB7RU/FtHKs3MV9eVvPf63rI3ytq4gQwuRNc3FmXjgPJwUlmKH8OrKTAP2bnxOqODfczpnYoB7
+	ReAWfT2tGFxC9Z3+yPgD8hrRic7Nt1W265StZPyS5vBffyD7Qszc71fi3ejTRAOnHMZKFwkwgnl
+	Nlb+46VINBXSwn78YsWPoBbOWjy2hyB0oXcKy08oafdwCEhpC/6nxeDwYb2X3kKhd4ObjvSK9Wu
+	872cJzSRBDq3RAXhAj9NoJx+48+rUlAonV8LrEgGxxoLosAPogrZIxbUB9Puq71s9zIhk6k7g71
+	9DZYdkBE=
+X-Received: by 2002:a05:622a:598e:b0:536:566e:6b52 with SMTP id d75a77b69052e-55ac7564a85mr62222541cf.27.1794606152109;
+        Fri, 13 Nov 2026 13:42:32 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad0349423sm27363181cf.7.2026.11.13.13.42.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 13:42:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,66 +89,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usbip: Close all listening sockets in request workers
-To: raoxu <raoxu@uniontech.com>
-Cc: brgl@kernel.org, gregkh@linuxfoundation.org, i@zenithal.me,
- ihadzic@research.bell-labs.com, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, luiz.von.dentz@intel.com, pengpeng@iscas.ac.cn,
- pmenzel@molgen.mpg.de, shuah@kernel.org, stable@vger.kernel.org,
- valentina.manea.m@gmail.com, Shuah Khan <skhan@linuxfoundation.org>
-References: <67b2c06e-0caa-4ba1-89ee-17cb814d173c@linuxfoundation.org>
- <351AC939AD9B6359+20261113023710.1746483-1-raoxu@uniontech.com>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <351AC939AD9B6359+20261113023710.1746483-1-raoxu@uniontech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 01/15] hugetlbfs: fix integer overflow in fallocate()
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, 
+ Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>, 
+ Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, 
+ luojiajun <luojiajun3@huawei.com>, Josef Bacik <josef@toxicpanda.com>, 
+ stable@kernel.org
+In-Reply-To: <20261028-fixes_hugetlb-v1-1-a0a033db180f@kernel.org>
+References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
+ <20261028-fixes_hugetlb-v1-1-a0a033db180f@kernel.org>
+Date: Fri, 13 Nov 2026 16:42:30 -0500
+Message-Id: <179460615000.482102.14809359037930927808.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On 11/12/26 19:37, raoxu wrote:
-> Hi Shuah,
+On 2026-10-28 21:13 +0100, David Hildenbrand (Arm) wrote:
+> hugetlbfs_fallocate() rounds the range end up by adding hpage_size - 1
+> to offset + len. vfs_fallocate()'s existing overflow check only makes
+> sure that offset + len does not overflow.
 > 
-> Thanks for the review.
+> Once we overflow for valid endpoints near LLONG_MAX, we can get a
+> negative temporary result that is then converted to a very large
+> huge page index.
 > 
-> I found this while reviewing the listening socket handling across fork() in
-> usbipd.c, and then reproduced the issue with the unmodified usbipd binary on
-> two UOS test machines.
+> A one-byte allocation ending at LLONG_MAX can therefore consume all
+> available huge pages. Pages added beyond LLONG_MAX are skipped during
+> inode eviction, leaking them and triggering the BUG_ON() in clear_inode().
 > 
-> Both machines have usbip 2.0+6.5.10-2 installed, with usbipd located at
-> /usr/sbin/usbipd. This package contains the original listener handling.
+> To fix it, calculate the end index in a simpler way that cannot
+> overflow. This also fixes the signed overflow reported by luojiajun in
+> 2019.
 > 
-> I used separate test ports to avoid interfering with the default USB/IP
-> service.
+> Backporting notes: without commit a08c7193e4f18 ("mm/filemap: remove
+> hugetlb special casing in filemap.c"), remove_inode_hugepages() must
+> include the final huge page during truncate and eviction.
 > 
-> On 10.20.12.188, the reproduction steps were:
-> 
-> 1. Start usbipd as root with both IPv4 and IPv6 listeners:
-> 
->         sudo /usr/sbin/usbipd -d -4 -6 -t 43241
-> 
-> 2. From a client machine, establish an IPv4 TCP connection and keep it open
->     without sending a USB/IP request:
-> 
->         python3 -c 'import socket,time; s=socket.create_connection(("10.20.12.188",43241)); time.sleep(300)'
-> 
-> 3. Terminate only the main usbipd process with SIGTERM, leaving the worker
->     running.
+> Reported-by: luojiajun <luojiajun3@huawei.com>
+> Closes: https://lore.kernel.org/all/1554775226-67213-1-git-send-email-luojiajun3@huawei.com/
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Fixes: 70c3547e36f5 ("hugetlbfs: add hugetlbfs_fallocate()")
+> Cc: stable@kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-You removed all the context from the thread :(
+Reproduced the BUG_ON() and validated the fix.  LGTM
 
-In the following path in process_request(), child exits after
-handling the pdu - all open fds get closed.
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
-        childpid = fork();
-         if (childpid == 0) {
-                 close(listenfd);
-                 recv_pdu(connfd);
-                 exit(0);
-         }
+-- 
+~Gregory
 
-How does the problem you are describing happen in the normal
-use-case when a child exits after handling the request. If
-it doesn't there is no need for this change you are proposing.
-
-thanks,
--- Shuah
