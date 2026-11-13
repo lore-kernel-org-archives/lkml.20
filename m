@@ -1,100 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794551105;
-	b=TjY1ArVo/RTQGxC5V2Im9vkC7wCyJjsUnFJG14ISGIqklOMOtzxDXJWf+zIkX815Ymev
-	 SyPHD2ao43vhzPfh7fHWHu4tgRUnqvTp/whu0dnc/Zz8rcVokXtEPK3mnbK75gc9ur/gI
-	 oBBlgtEmszaOLlh3H1T4Gx/8sAYQjKSmqNsyR3ozoAus/9QY0zH8uCWhrg1jete9TMvvU
-	 6ZUwL55FZ68T3Ls4u8giMXV4s8JOK5tGlP1YXYTh1oD9nJQD95NJly984etemXAXIqpn3
-	 UV/pfv833P7d7BJEYqY8mk6mMoUljOi1IhVjxM7NlzdSdlPomZQqNoxSRlj8XVaGQ0w==
+	t=1794551114;
+	b=LKR78cMvgSw5k9ApwbqSAK8x6Lyc6V3htZ+U4Gop4k6NGs0KcwZ6iX0h/yCWqYEGeBvr
+	 cU5rduuYW5B2bDN6N1a/Ah9Y5tPQnMUxuXvc9XEP47b+1SL9G5n3imaFEKc/9Lg+ZlkvN
+	 8D0U1qXccpwNTRBy7WHMXv24smUZ/UKBXYNw92/gScIb2fOkMWROzWrrE/+G2z7FujTFv
+	 SyKS0AbtjCo1ox+x7eHJiLoybYurx4Qk9cM56B0lx82WFX58rp9fAN9YWK1UahQjFB+bk
+	 IjY6NW3TBcd2wLb03wkT12Jbwyrv1KASzISAFtv3+4per7aSeCFaBMkjUviiBsXYdmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551114;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/Y/iVRnV4ObqWfBTvVOJIAncw0xRUL0KHEf+fXRemdw=;
-	b=tSis6Nn/aw8NH4FDOTLsMzLCPMFp0b0o0hb5tpUMC+mOfs+pfuJuRFXEigVgoLvtL9Wv
-	 3jrceCm8QMHYmIra0MheAtTAG7VpQ/DIefat49k2dPtzvOmh5mZOHo35oeg2GnAL3+0LF
-	 9zFXZpvz2r7Cg5WuFvSU6b0Ay0x9QsyJVHyBiCtwxMdVi/4SC2dUny8QyXiek0j9f7i5y
-	 fCwrUodmYRaeu6hAlRpnGQ5YdCjjFQ5arkAspoqTLrBF67KjTVXanbZVOhFucZrdeFOQa
-	 mBC8ndRwljX+3OJx1yzFR1/t2KBbWjXVjLyki2qsx9oY+S3zVK1M++aTWHYYGlhF9zQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3tlK4/UTFCYCg7fMWH6nOmeYXoGJRxWoGIF/cCb+vIs=;
+	b=Jv9Rt+ypvFSyVpjaPUvtSulycPaH0jozfSQRXhHD0cvlQSERlgFgq45ufOJ6mIGGmdY6
+	 g5ZzCqJ3yrP/q0eaTKS9DUuBlvc1LDzv/HZ32k2kwjEKC54zqVKVLE/efD7UUJD4G6vFl
+	 sFYXw9XBl7XSMMlPS9GgVCaAH2ZYr+igilfvWRz0H1ZZl1ksEcL1WbmYqWoB3XGbm0FJa
+	 0qPQFyKVuEuwGID0bgiM8+GCTEj7u2FOFuGBBbWnRkCX//U4E1aLgVFWVjzukpOTOrk0+
+	 dFYwbTiGyFthb/edC26PrK2uSrJbZYU2Ge+UYAtYDAH81CZx1ZPbLp2HlIW+YZG6BsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gj29W04e;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xRYD88H8;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2980C606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:25:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2980C606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0774606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:25:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0774606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gj29W04e
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so5333185e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:25:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xRYD88H8
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36dbde64409so1010965eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:25:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794551103; x=1795155903; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/Y/iVRnV4ObqWfBTvVOJIAncw0xRUL0KHEf+fXRemdw=;
-        b=gj29W04eXkb5qIjLAIWJz8pxmukjfb6Kc8tpvLRp2RsZwRrX9TwNBoUGzZfXcbhDM0
-         DjIV9Yq7n908GPX1ozQgjByI+/k+qXmFXYKSRJQ8ZyY8yoxXLDnJ/N6LqsbLDqyyRhle
-         GEWaq4UHwYY1W7ZbxILKzy+mIUE7SsTqW83XGVFLj9vbHEl1WeDyT7eG6MAgu9KFowV9
-         Hghd+RNvxyQjxFXsCxIRW/hoGjE+sM7D1jJuI2+cBGRHGyPn7og6LLZe7B0DMIJNzf7m
-         Xydoiw8ZCuOhyb9Q/ZgiZXkZRu44scunyhEVctQm7gyHbu/x7Biuclr66oFGsSFN+j0W
-         nZRQ==
+        d=gmail.com; s=20260707; t=1794551113; x=1795155913; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3tlK4/UTFCYCg7fMWH6nOmeYXoGJRxWoGIF/cCb+vIs=;
+        b=xRYD88H8XzFlGeLpT5BYFxdyuFcpl3eKTy3hjqp7XNkaNZDdgqCOpoiyBh9tuHTD1q
+         DzxiCyMbKAnrEVO4vKlvGgHmjI2rWsOPx2+EKG83b/MGOzZGuqK5bjNBWMBy+NXecmdC
+         lmmFXS+VBHRAxsZo4sOA53rf1090wrLleee+knPMcd57rcwkBtxqQk+/aSD/MReq1Peu
+         ViTjXyDK3NuwCfU/2AxAjGfB9+GpKCzLcA+ztjfC1n4SeS3MvURf95kTksCaLiV6/bJ7
+         ImqDIqRFKtpTVX8C+jCbfn3hijO7N4zxPwNnsoHueQUEYmhom3zQcUkzRz8a1n086w5+
+         m5zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794551103; x=1795155903;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/Y/iVRnV4ObqWfBTvVOJIAncw0xRUL0KHEf+fXRemdw=;
-        b=1Px6/+1pB5nZgDqYjO6VbJvxwCmnTDa1uklsf8207Jxy/ySaL81/tf0+jlqDObL8n5
-         bp8yCDq29Uxr7fkvyEFIMFexMJxCu7bEKYHgihA0ZJnUw6lFd6QsJr4i76sKuQpF26t1
-         UgUmA4wyS4GbJRqIe8aUPOUq4F9JcA10CWoGAKA7imakfepxpT34TSFhFj621N/pXC0x
-         R8fxA5zV9zEdqcUuLCKovro+Rjzd4RgM5/jpivSQz9oiI4Qyr0dMwSbbG79QeBqWAmRB
-         NuiQZwxjs3y8ryrGlA/GTJEHSwxU4RIO6P3P6fI4b9WlZP7XncrWMcneTC869Te6c2Q5
-         FU1w==
-X-Forwarded-Encrypted: i=1; AL+hErGrDWkBYvaOi19pqvI/Oi+fpwF94o6FLK07UPx0RKUTBtVzAsFhQVM2mlzLWj53hDcl/Rll5qJsQo8XXGQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9czwNKZFsQeoaqRoH27DRqzM0bhATZnJXC5a6r1IUcj4v31XTw
-	o5EJv4l751Qx1Uk7sGQWxeETZKsmqld6+iX4SehB58rD16/Ior8VFNWzuzw01HqgPRs=
-X-Gm-Gg: AYBFou3lNuyMahBhS8hqNDf9vPp3nMnCyLFQv4GvxQCVKVM76LpUTjlJAU3ZGszGsPM
-	4qZEGPs0YGoWBoyMf4wt/h4So88xDJlO/cwnn2MQxBudTN2jErHXCUAXD9CXmhsf92YuHfg74G8
-	YI2+u5gN2hlF/FYNqCqohHwecw6o5UNeFrgeZO6eQ3ur/Q3mhWQcx0OwkBErgGoISSBsgJwx44h
-	6qW6K69VCVgxTn1nddgszP3C9SVGxejnpb3tvMVDhK9lvrPQ8ktdLTcTJIDg8lrAuk8Fxvts6wb
-	pn1+JhxShTrbk8sBhFG0B9hWp+QxBO2hriKyBPArHEySU9/MpZU61Rr5eEtCR9xQcUHbd9L/DPt
-	O2nK6RISVQSuB3ceJbrjs9yLblXeMY09nWrXYAPzMNW9rsI1QiAA61D3eBPXO/Vf9Rdy2lJMzr0
-	aBK0ZXmWKF1oO1xL+xgczvFJc+fCAe8pxNiuY49qzgm8v1tmYM/ISCg/ew3ErEAWGmqr3HXtMtX
-	jmvp/namhEu1NvhcuH6A+Sic8ph5CnOLYHqDO7LtuJkgwrvO0RdKqs5qHcBsNTCEBnVDIAwgTRj
-	wqtN6HbfS3xY1s+KEA+k3VtmOgj+Cdu4f4hVxZr3qwz+3KTvDl/EdFA/pKWbpfiSa4t4bCI+uA=
-	=
-X-Received: by 2002:a05:600c:4e44:b0:4a2:180a:3417 with SMTP id 5b1f17b1804b1-4bb55c5f5admr25342125e9.1.1794551103537;
-        Thu, 12 Nov 2026 22:25:03 -0800 (PST)
-Received: from localhost (ip-091-089-005-024.um28.pools.vodafone-ip.de. [91.89.5.24])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb571cfa2esm25586955e9.2.2026.11.12.22.25.02
+        d=1e100.net; s=20260707; t=1794551113; x=1795155913;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3tlK4/UTFCYCg7fMWH6nOmeYXoGJRxWoGIF/cCb+vIs=;
+        b=Uu27YTzwmm363GlSc/ueNNlRPEeQcvGH39OjZYYGoBUCV8Y6hoAPs1RbrEZLv1469P
+         jE2rl/GeA6o0wVmGlAsaDDO3O8udGDK1pkqIwOgCr4sQoDR7oeug8RzDjtjZPC/P0Flf
+         btNNMk97J/aBKjkqw1nyoUNthCoG1D/IthMCw6vGoIkrKwHlpruOR4V6MAqLcUllDoWx
+         nS077bx4seMMYS82WOfFIiMx/A2uoT8A5dDei0koRCZMRWfZGwSHRoC6SbfcsnaEEXK+
+         675iDa0+g38mJ1tgMbVSBShHSDH9RaZ+RC7KeXNvxUKyMkja5v48tEw6RPz6ZP6MaFQh
+         9+ag==
+X-Forwarded-Encrypted: i=1; AL+hErGcPNzyUn917+HDxmq9JP68Y1sOZmiC+PNoEmcfx2BakAifAS1MP0sDmpqWZxrYf4ln/wwktCwshVMQHNo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9QyiAwKFdLt4YOG14iXUOF9HS914G7CJyavsDwq8XVvHg22MvL
+	RqRle9Uq/iJ61kSkTzrKuS2492IgCrIQ7B5THNExv1V9OHbwxRvKBMRV
+X-Gm-Gg: AYBFou1TudTysX7lI9f2osRYeNPZwFEaGYG7sBoN+s7UxlNR/NeSilSacC5oNKSjfn5
+	/N/ZH3Fl31pn7iG9KZPOpj5dk09L0zRVawRRkBV7G1NAKHNdbZkIpYJD94EJiFLJrTPCO+2wgVO
+	vu3wLCNYVhnppGGZBGMhhCd7Pp0j10iZuIjYFsVP/3WRmpFVD0d/2M+sBvfjE0Ta9LOfwsWWP+r
+	J+9//OZhuXEV5UuhnAF+12pUNhUG3SRN8PtPZdUgGj5ebsYDouwfxnQ4Xge8y9SiqNMBZ0rEMXq
+	BwhlkqWKLYt/OLw4gkIgNDqp3Oh1zJETXvFh45RO5pPeD1QZDIPQl/zy6nLmgc+CKbu3Ni1psVN
+	VsX0R1tMsI6pD8GWSVAIH/CtRNJ2rnp6Ip2jXM0ruuj8rRqx0Eplmlfd6ph99sceFPfKqgAt8jy
+	cPkmoRXQwQFh2Y7Avce93ZsjfEXmi/ptfkTopDapm1tMElPsiEr7CjbbgCnXJaBtuS94t3rWZ2D
+	VnfPOJh3YDDA6aTlYD+sb79RT086hMzxjM0+LEp7wWk6YezATlerrpOFR9meap7Co8MouORtzG3
+	eBtOfwsDwcuazuVoPRHR99W/BbrGa8XGEGNbxI0surTba3N09oF1oEJQQNZ4lnsfY10=
+X-Received: by 2002:a05:693c:894f:20b0:36d:5102:9974 with SMTP id 5a478bee46e88-379636607famr1340509eec.2.1794551112863;
+        Thu, 12 Nov 2026 22:25:12 -0800 (PST)
+Received: from LAPTOP-KD1TH5BD.tail375eb4.ts.net ([47.11.114.36])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795533170csm4309715eec.7.2026.11.12.22.25.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 22:25:02 -0800 (PST)
-Date: Fri, 13 Nov 2026 07:25:01 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Christophe Roullier <christophe.roullier@foss.st.com>, Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] clk: stm32: Add STM32MP25 SYSCFG clock driver
-Message-ID: <avas_9BOcoyn4j0y@monoceros>
-References: <20261110-ups_mp25_clk_syscfg-v1-0-667829cd290a@foss.st.com>
- <20261110-ups_mp25_clk_syscfg-v1-3-667829cd290a@foss.st.com>
+        Thu, 12 Nov 2026 22:25:12 -0800 (PST)
+From: Gopal Malaviya <gopalmalaviya53@gmail.com>
+To: alireza.haddadi@it.uu.se
+Cc: jack@suse.cz,
+	willy@infradead.org,
+	akpm@linux-foundation.org,
+	vishal.moola@gmail.com,
+	fujunjie1@qq.com,
+	roman.gushchin@linux.dev,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	tracekotae@gmail.com
+Subject: Re: [PATCH] mm/filemap: let sequential faults restart mmap readahead
+Date: Fri, 13 Nov 2026 06:24:46 +0000
+Message-ID: <20261113062446.193820-1-gopalmalaviya53@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <26E03EC6-F37C-4350-B2A9-1F354217F469@it.uu.se>
+References: <20261109-mmap-miss-v1-1-8b44b33f3358@it.uu.se> <20261111042310.191979-1-gopalmalaviya53@gmail.com> <26E03EC6-F37C-4350-B2A9-1F354217F469@it.uu.se>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,42 +106,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ekj7jpy4oarwkme4"
-Content-Disposition: inline
-In-Reply-To: <20261110-ups_mp25_clk_syscfg-v1-3-667829cd290a@foss.st.com>
+Content-Transfer-Encoding: 8bit
 
+On Wed, Nov 11, 2026 at 07:43:54AM +0000, Alireza Haddadi wrote:
+> That would be great, thank you. Could you share the short-run test,
+> So I can run the same here while working on it?
 
---ekj7jpy4oarwkme4
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 3/5] clk: stm32: Add STM32MP25 SYSCFG clock driver
-MIME-Version: 1.0
+Sure, it is below. It writes the file (or reuses it with "keep"),
+drops it from the page cache with POSIX_FADV_DONTNEED, touches 1% of
+its pages through a MAP_PRIVATE mapping and prints the MiB read
+(pgpgin in /proc/vmstat) and the major faults for each pattern:
 
-On Tue, Nov 10, 2026 at 11:42:18AM +0100, Gabriel Fernandez wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
+  ./mmap-rand FILE               2600 MiB file, removed at the end
+  ./mmap-rand FILE 20480 keep    20 GiB file, kept for the next run
 
-Please don't add <linux/mod_devicetable.h>. of_device_id is already
-provided (with less dependencies) by <linux/platform_device.h>.
+The tables came from the second form in a 3 GiB guest, with
+"echo 128 > /sys/block/vda/queue/read_ahead_kb" (or 8192) before each
+run. "random 4-page recs" is the short-run case. Like the earlier
+tests, the program was written with the help of an AI assistant.
 
-Best regards
-Uwe
+Thanks,
+Gopal
 
---ekj7jpy4oarwkme4
-Content-Type: application/pgp-signature; name="signature.asc"
+---8<--- mmap-rand.c
+/*
+ * mmap-rand.c: how much does the kernel read from disk for sparse
+ * mmap access (random, and fixed stride) on a cold file?
+ * Reports disk input (pgpgin from /proc/vmstat) and major faults.
+ *
+ *   ./mmap-rand FILE        (FILE must not exist; removed at the end)
+ *   ./mmap-rand FILE SIZE_MIB keep   (reuse FILE if it exists, keep it)
+ */
+#define _GNU_SOURCE
+#include <err.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <sys/resource.h>
+#include <unistd.h>
 
------BEGIN PGP SIGNATURE-----
+#define MIB	(1UL << 20)
+static unsigned long SIZE = 2600 * MIB;
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr2rToACgkQj4D7WH0S
-/k7rcwgAuyIO02PIHScObbQSwpTN1bOxntCQuOefipHur6Tv164hiCD+Ows3bueO
-hHN81SuXrTS4hzRGcT5jFlW7zlkz9L2tSHYZ0us3Hep0wntBkIeA0JeCZqBCoASn
-RuXE5+uHnhkMUlqy+/xZlblQtRTUnoCZmce9NixemtTaCIMPlL9gIeoouNGk9r2B
-2Ov8mhk3tjy1A9K9YCE3vdde8NAm9G0myqV85K2q+/6a8k9IqoogrLX5x/9uNZgI
-wH/iThyVCnk4MnvbQGHVc7Q3QXDOZAVGeZPck+t/XfvkrsVkuawozxF0NWZO8LMe
-ldXWek5P8iobsActxH4I13gTcjgwBA==
-=QOFE
------END PGP SIGNATURE-----
+static long pgpgin_kib(void)
+{
+	char name[64];
+	long val;
+	FILE *f = fopen("/proc/vmstat", "r");
 
---ekj7jpy4oarwkme4--
+	if (!f)
+		err(1, "/proc/vmstat");
+	while (fscanf(f, "%63s %ld", name, &val) == 2)
+		if (!strcmp(name, "pgpgin")) {
+			fclose(f);
+			return val;
+		}
+	errx(1, "no pgpgin");
+}
+
+static long majflt(void)
+{
+	struct rusage ru;
+
+	getrusage(RUSAGE_SELF, &ru);
+	return ru.ru_majflt;
+}
+
+static void run(const char *path, const char *name, unsigned long stride,
+		unsigned long rec)
+{
+	unsigned long page = sysconf(_SC_PAGESIZE), npages = SIZE / page;
+	unsigned long n = npages / 100, i, idx;	/* touch 1% of the pages */
+	long in0, mf0;
+	volatile char sink;
+	char *m;
+	int fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		err(1, "open");
+	if (posix_fadvise(fd, 0, 0, POSIX_FADV_DONTNEED))
+		errx(1, "posix_fadvise");
+	m = mmap(NULL, SIZE, PROT_READ, MAP_PRIVATE, fd, 0);
+	if (m == MAP_FAILED)
+		err(1, "mmap");
+
+	srandom(1);
+	in0 = pgpgin_kib();
+	mf0 = majflt();
+	for (i = 0; i < n; i += rec) {
+		unsigned long j;
+
+		idx = stride ? (i * stride) % npages : random() % (npages - rec);
+		for (j = 0; j < rec; j++)	/* a record of rec adjacent pages */
+			sink = m[(idx + j) * page];
+	}
+	printf("%-20s %6lu touches %8ld MiB read %6ld major faults\n", name, n,
+	       (pgpgin_kib() - in0) / 1024, majflt() - mf0);
+
+	(void)sink;
+	munmap(m, SIZE);
+	close(fd);
+}
+
+int main(int argc, char **argv)
+{
+	static char buf[MIB];
+	unsigned long i;
+	int fd;
+
+	if (argc != 2 && argc != 4)
+		errx(2, "usage: %s FILE [SIZE_MIB keep]", argv[0]);
+	if (argc == 4)
+		SIZE = strtoul(argv[2], NULL, 0) * MIB;
+	fd = open(argv[1], O_WRONLY | O_CREAT | O_EXCL, 0600);
+	if (fd >= 0) {
+		memset(buf, 0x5a, sizeof(buf));
+		for (i = 0; i < SIZE / MIB; i++)
+			if (write(fd, buf, MIB) != (ssize_t)MIB)
+				err(1, "write");
+		if (fsync(fd))
+			err(1, "fsync");
+		close(fd);
+	} else if (argc != 4) {
+		err(1, "create");
+	}
+
+	setvbuf(stdout, NULL, _IOLBF, 0);
+	run(argv[1], "random", 0, 1);
+	run(argv[1], "stride 2053 pages", 2053, 1);
+	run(argv[1], "random 2-page recs", 0, 2);
+	run(argv[1], "random 4-page recs", 0, 4);
+	if (argc != 4)
+		unlink(argv[1]);
+	return 0;
+}
