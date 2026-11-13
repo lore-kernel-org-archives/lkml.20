@@ -1,54 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794538012;
-	b=xr4d4h3R3q5Wzdm2uh9oCwMhlA8Ihc8kvq40bpPb4jty6qhnyS0volUxw2fsr3jn2xsR
-	 Hm5GpCfXBqFgYqbxTJAwiDfXb73Bn7k/QQMu3JBY8pk4UupHKdvA/u9fcE8ZQ8arz6OUD
-	 6WwR4tw7oAGXKudR9h+4ujbgMaUXwgn8jlxvUYZqCcrQ6ctmEyLtoQkl3HORQCbqzOZPt
-	 4OelDF6psMRU4YENOAfl3ELYRKpxrG5UC0oVIovapqg/RD4RuTiPFQ2p3LXCYo+QhtppF
-	 zct8Q2hpfBLSSVsA1XH7H4eg2rfODMlbzksTH/5lcHK+j66EfmscfxIyNmR9qQVnIXQ==
+	t=1794538013;
+	b=fnuZ/jCBYwIf9FRaVxsoTDsnF/y9WD4wJkt5kCGRRg5NJumivMncoOohh4736DBmXJCF
+	 9qcHB+EO+0Fh6VuZ354GMpONqTitkZmrbV681fDAAo7w/hx8VhaSdzUPdt3QcuxiYZSig
+	 qjUHf7RuH6Qe5bn9msOfyMQycvgIu44Rf6e08v40oKaF35TS/Ncyx+WHfynwNGNB3iF/w
+	 vrMmDaerA159c/AYmRZdWVvay8pxFBGXhdqPKT5CPINXIawu8of9D547z92bYol6isOwL
+	 Zjn6ksJx6rXQA+4iDE0i8jMqWA1dGa1Rzruxq661+1SMKBFZR2P54FtcwwKrgJkeJSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794538012;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Qkn6ainKMDnoSBWycnnKh5CPzD35jpEbWcYyD/YKj6Y=;
-	b=fl2ekIKzm1GMMOrA/EMVpFc4RauHBjo8P8Cx43AJ5/ar9XrDKTI0ZU6qrSYz2Fnor+tr
-	 PvqgyxtfuIaouIBeLP+ANs0nvUhaeg1SpzXexLPtLWgjGGCmN0EBv2kTunZwGnMMTk0Wr
-	 rXVx+2uAXf56H/FiD3fMrWHBwHctB1IZ0gcvYhTvUMubzMBwtZFrwiXXXREq8jVR1TjgR
-	 u53yH/7h23KjTLXoB87k60sd9XJXq2yV/+qlDcPiFJ2RZomVu7ndaL/dXr+Wh8z3zmjSB
-	 rhyME/i3LKDtN2twk4LuUzFrD1vbGPzf8oh/+B4c8Olv12Hesvzr7R6Ayij3G2SXPZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794538013;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=ZoUgNOzuky+BKyHj57K5wBljJWDfzkgnCUy7oUq6Re8=;
+	b=YCUOHCGU7FXX+LvSRuIniTfVNA7juhttqsHjuZVva9T48JtYKoxEtF52fhW8nNayik70
+	 LfwSXehEf8UfNXhJm+3FltqUmVQ3u69pPuj0uNJjjYgZGlFgthIO//e6tp9e/0uKUpn5x
+	 fMXR8SJkgb8T3rY0ClYI4wRI5687u78gHz8CurZL5Emj4II771M8OcAd6ZwhLttmWIp14
+	 cYoaIS3yCgp79O4Norn0IkJwr/QN/9ZVRaEwitBC6zsqXAj26R2Ayl2LOTHh9DJmI9dRO
+	 mgwy2K9+w940lULO/RI0BlEa/R4601LdbqUgLrN9Qld50FmLbt8mHRY4JkJonS/3T8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gzv6HUVW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=smail.nju.edu.cn;
+	spf=pass smtp.mailfrom=smail.nju.edu.cn;
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b="hf/a4nYQ";
+	arc=none smtp.remote-ip=54.243.244.52
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3CA606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D24F606A321;
 	Fri, 13 Nov 2026 02:46:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D24F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gzv6HUVW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 839E11F000C4;
-	Fri, 13 Nov 2026 02:46:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794538011;
-	bh=Qkn6ainKMDnoSBWycnnKh5CPzD35jpEbWcYyD/YKj6Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gzv6HUVWFV8xIC2LVHTu2FgoA7HARmpaij3ADeDyH7aM6TlLrpVewILN7804JyfYz
-	 oNVQBhzJQRr3dqTfRdMT3s4ah1+z+NICJ5SkKiPxEPCHodwqXFKDga9SFVMSmNCv2r
-	 diqQUVq5YeVBwCm3bfXhwtGvnJv+2zNEsG4SEW+iFJPerCJ4LCF9/Nyw/hFVWPBswG
-	 +m7ggpkYaAqBiEBz1u/F3YEiZq9z2HxK1blmm/Yf2HqKzPg2TbUSaAZDjOeHRvf4MO
-	 yTXoIZYlNAyERZHhCQy1ggoNdVtg9b7DAnXWcUgKuhr979/wLOceo85toUYi0rh2/5
-	 95MNP1AgXsZTQ==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>, akpm@linux-foundation.org, rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] bootconfig: Preserve values and key paths during parsing and output
-Date: Fri, 13 Nov 2026 11:46:48 +0900
-Message-ID: <undine-1794538008977732670-2265a2aec6e4af99@undined.local>
-X-Mailer: UndineD 0.1
-In-Reply-To: <undine-1794536932799279555-f9c303a1aba9ec59@undined.local>
-References: <cover.1794333957.git.edumucelli@gmail.com> <cover.1794337724.git.edumucelli@gmail.com> <undine-1794536932799279555-f9c303a1aba9ec59@undined.local>
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=hf/a4nYQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1794537914;
+	bh=ZoUgNOzuky+BKyHj57K5wBljJWDfzkgnCUy7oUq6Re8=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=hf/a4nYQlwoTW4l9zA6WEuTRXbWEpDseO6k7hx1o8ArQ8tjk9xkdbe3snUv36n5Dn
+	 2ueNDyrvqZyu/oY2nqAe097qLyysonaek9BE5ZZkRPL9h7XddhrlsyFPMi+idcchG2
+	 koISafbyXINVolEMZfJ7MgqXBC5mtaMwyK3QAlhk=
+X-QQ-mid: zesmtpip3t1794537908t89f91e2b
+X-QQ-Originating-IP: I7dyP3jMDpcYscZrnWzmbQ/K2dCgLhDcVhP+g+Ji61w=
+Received: from workstation-Precision-7920-Towe ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 13 Nov 2026 10:45:07 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12657397245065214614
+From: Kang Chen <k.chen@smail.nju.edu.cn>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org
+Subject: [PATCH sched_ext v2 2/2] selftests/sched_ext: check that a drained DSQ iterator stays NULL
+Date: Fri, 13 Nov 2026 10:45:05 +0800
+Message-Id: <20261113024505.922854-2-k.chen@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261113024505.922854-1-k.chen@smail.nju.edu.cn>
+References: <20261110125113.2935742-1-k.chen@smail.nju.edu.cn>
+ <20261113024505.922854-1-k.chen@smail.nju.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,45 +73,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
+X-QQ-XMAILINFO: Ml8T/6JCI2CtUq8dcZUq/vlruxBat4W0Mr494KquwvexP9ySz2vtqA0E
+	ZSgt/0yWw46fbcQltUuZejcv3m4HnYZUQ5mkFVGLr42VMF/hVgV9FVVDrPX53WEB4jg+20c
+	IA5PE2fadkXZrF4RJWxzbiM0hPLJQI9cYgVfS9BYzzeAIATrZYUuyu7UMW50Z65WrFSzUGE
+	i0CrTQx+vR0fj8lX7ziatLMNxmYPfF21HAAt6hwhSF6hp6ysRnNgAwDAgQpg0qQsyWhxWyn
+	i4G9aaGRSe2VkbVBtZAhg5e0eQgPOw3bwwF+6jAFBiQzU156oiOfmTV1+Avf9O8NBOSYRAs
+	lut1Cg79dfRO6+COybmGyEzdTZu9d7ZCTrP+ZA/KzLHyV2ND3DFTmYq2jQKhOQgr31NcJAG
+	fCkiq/iMX37kWlWqQkQP8jcS/Gl3FvBEYBgqBLGoJbEr5BlCvY7nJqPXEfX0JkmopDEdIsM
+	3Oj6oig9JrUx3lyExiLNTWDOFncdx8p44Q8GtsWeYHT2WvqvtdN8p2aORe30NeXweiXx8Lt
+	YyUzraSy2ChaqPJKYK8wms2TbMxaM9Yw2Ltk9c+SizPhkH4Zdmh8g5kfCKtAxbBFWY4wVov
+	e7wxI2OxOP1EPcfYmmNCkCSphHQnBnqcwyI2sRL/0x4goNw1PlikYruUB+Ybn2RpjYXqQ4Y
+	U4HWIRVYWgNQWlWPvtaMo7bQ/lypEbAKyS0ayPRtMEVSmEvbVerknwAdZX/oq6epMknFvOJ
+	6DvaYSiMFmAyeJ7NcvQ9jxmFhIxI170t4C6/i/dLyaTzyIy+3pVeetQwkIX+mMfp6dZl2dj
+	MYTHVGsp8pyYcjxZKxJNjJzHD5EN493PhKvdnGan8J8x4eb/foprQo2cFICaxz29u3NrcZP
+	/8C0F3LBy/UbgAaPjnP8JouofqXUIBjx8Nx8ODg+DM+7lK3nisl4yXsh+EsHoZXCVsy2lGk
+	+8uAwVXaJl2leJpW0kEWIVNT//TTp8SqRcJyezl4jz9s3qBZuwHfVkB3RhYaskQ24ttcezf
+	m2U2pkj3UpwSnXfu3PYDOYBzS4tCMmCR/AAJcPqaldLoxNgYPmrt0yITMNEja2mwGD7UEYS
+	Q==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-On Fri, 13 Nov 2026 11:28:52 +0900, Masami Hiramatsu (Google) <mhiramat@kernel.org> wrote:
-> On Tue, 10 Nov 2026 20:08:44 +0100, Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com> wrote:
-> > Hi Masami,
-> > 
-> > Thanks again for reviewing the earlier fixes. This v2 addresses the
-> > issue Sashiko reported in the first patch.
-> > 
-> > The parent array in v1 assumed that the parser always enforced
-> > XBC_DEPTH_MAX. I reproduced the reported overflow with AddressSanitizer
-> > using a 20-component chain where each parent also has a value. The
-> > existing verifier skips the subkeys in that case, so the parser accepts
-> > a deeper tree than the formatter's array can hold.
-> > 
-> > Patch 1 now checks the key children to determine whether a node opened
-> > braces, using the same conditions as the forward walk. It no longer
-> > keeps a depth-indexed array. The existing verifier gap is a separate
-> > issue; this revision removes the formatter's dependency on that check.
-> > 
-> > Changes in v2:
-> > - Patch 1: derive brace ownership from the key children.
-> > - Patches 2 and 3: unchanged.
-> > 
-> > I tested this on my Ubuntu machine. All 137 focused checks pass for the
-> > combined series, and the full bootconfig suite passes after each patch
-> > (86 passed, zero failed for the complete series). I also checked the
-> > revised first patch and the combined series with AddressSanitizer and
-> > UBSan using value-bearing chains up to 95 components.
-> > 
-> > Review: https://lore.kernel.org/all/sashiko-outbox-207566@kernel.org/
-> > V1: https://lore.kernel.org/all/cover.1794333957.git.edumucelli@gmail.com/
-> 
-> These looks good to me too.
+Extend the dequeue_iter selftest: after the DSQ iterator drains, call
+bpf_iter_scx_dsq_next() once more and store the raw result.  The
+user-space test checks that at least one task was iterated and that the
+extra next() returned NULL.
 
-Wait, let me re-review it.
+The test fails on a kernel without the drained cursor state: the cursor
+was unlinked and the extra next() starts again from the DSQ head.
 
-Thanks,
+Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+---
+v2:
+- New selftest in v2.
 
+ tools/testing/selftests/sched_ext/dequeue_iter.bpf.c | 7 ++++++-
+ tools/testing/selftests/sched_ext/dequeue_iter.c     | 4 ++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/sched_ext/dequeue_iter.bpf.c b/tools/testing/selftests/sched_ext/dequeue_iter.bpf.c
+index 76c2c71a90b6..38eb2df54a6b 100644
+--- a/tools/testing/selftests/sched_ext/dequeue_iter.bpf.c
++++ b/tools/testing/selftests/sched_ext/dequeue_iter.bpf.c
+@@ -18,6 +18,8 @@ UEI_DEFINE(uei);
+ #define TEST_DSQ_ID 1000
+ 
+ u64 dq_count;
++u64 iter_count;
++u64 next_after_drain = -1;
+ 
+ s32 BPF_STRUCT_OPS_SLEEPABLE(dequeue_iter_init)
+ {
+@@ -47,7 +49,10 @@ void BPF_STRUCT_OPS(dequeue_iter_dequeue, struct task_struct *p, u64 deq_flags)
+ 
+ 	if (!bpf_iter_scx_dsq_new(&it, TEST_DSQ_ID, 0)) {
+ 		while ((t = bpf_iter_scx_dsq_next(&it)))
+-			;
++			iter_count++;
++
++		/* NULL must stay final after the iterator is drained. */
++		next_after_drain = (__u64)bpf_iter_scx_dsq_next(&it);
+ 	}
+ 	bpf_iter_scx_dsq_destroy(&it);
+ 
+diff --git a/tools/testing/selftests/sched_ext/dequeue_iter.c b/tools/testing/selftests/sched_ext/dequeue_iter.c
+index f60711bf3b39..48e8c94b7bf1 100644
+--- a/tools/testing/selftests/sched_ext/dequeue_iter.c
++++ b/tools/testing/selftests/sched_ext/dequeue_iter.c
+@@ -59,6 +59,10 @@ static enum scx_test_status run(void *ctx)
+ 		return SCX_TEST_FAIL;
+ 	}
+ 
++	SCX_FAIL_IF(!skel->bss->iter_count,
++		    "DSQ iterator drained no tasks");
++	SCX_EQ(skel->data->next_after_drain, 0);
++
+ 	return SCX_TEST_PASS;
+ }
+ 
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.34.1
+
