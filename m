@@ -1,95 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794571508;
-	b=XtBGNwoHoaEnpZQqhT4NRNyK80LVsggDewPJXYeMEuZaw25oz8BTxmogA0ntuhaQ3c7c
-	 vVRIwkOzz8/opt/zmksuqmcBT3BUf5+33JOqQfHZly/kja/y4XGmi5jQOg5D9lpYKm1J2
-	 cYvxxC+VRdmrLxgB4azAZo1IoiPy5nRWcVe5SETyAr9OuQQEz5RFfWQccw6cBUL9KxMaD
-	 rhr5j9OwY5h+8cEZypy9eH1kwnaP5xhCO8r4ozaoewnb9/JD4qw8+B3SFIF6A+j5j03a4
-	 1f+EfBDdaCATIS8BqNj2/i2nb0aG6Znwol8wYgKAUcAAYUK8ltbkP+3uQ3bvyuU5/JQ==
+	t=1794571530;
+	b=ptNhdyZUbscTzYjAhJ66y10slF80wxx/0WLXAlrUEwCOPyodKjQHLkIuEFlJOX71dst6
+	 A42Txoqr4IHWnNdUlJlNuhaqlWWW6evR7RLAt9ooXEEsB3doE0K+bVSYD3BmH9xjnMV9Q
+	 Qv5ixjg6rYftsc/SMW7NIwg+qi2H/K6Awi7Ck1V4/x7VTTQmTYC9ujPA6hqE76dPsIlTl
+	 4uBIkW7vocnN2H4+u0nuVgVa3/9ifOMM/6fC6oClJ5sb8JPi9GTSXZVC1wKR3Bb5Eyir2
+	 LrV950eiomTBrNeZzFgBlE1YgmCwnmaw4boJerf8rFs15s+arYaJeZcK+pXUl0s6SMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794571508;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SVSumMJf41m2t1kfH4cBo93/dZv3LW/Up6VpBs7ax7k=;
-	b=g/vHSF8u0da+uysMNQ/G5rRUVPAk/F2FIeI6Glfa2np9T4R/g0Q3tozajFafD9JlJdyv
-	 X5eoXe6sKcwBz9q8PbdQ6IXvz1aq9VmrFBK6+KYWWz7gI75WOUmccyrWOYIRorhQmdWjm
-	 vRNxvQbZRzpzb5gEkDhVnrFUEcfjpvyg/dXGlIEmpb2CccXztoeWhRqciWos8bnpRx3cL
-	 R82FnliPT7GUQczPJfFxPro9L/foqggqofGRMSlsjO9Xec82UWE3hsq2Eevs49NEzQHw7
-	 wrCAsx0hwD3X6iWwwCeI/9khZjZ4a+KJHFMZ8eQxYLJhdB8i7ShW1Zz0L1mhVfSrWxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794571530;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=JCyADuE7MAyHJhJI3+8pvWzlvXz5TnZK+HIgXhrnClU=;
+	b=R7tACoZ1rqjs58cfPidpf38S9t9QhiP9obSVQoUIj1NMHKFL3mS72LXblBnViv1FNISz
+	 xupYeVbQ3/yzoxmOOclxidBECuG/fs+c2qllJaHslpHtBWBhSOCwvzsDTB0MXFapAkPrA
+	 TqzC1MPWBQf9vRbSLaGF9145FZFYFZrTa/rn7u9Z6UJqH058orzAoX0K/QqVYKyrkfA1v
+	 ou4uTFB3JOlOG+3iu0CZz2Ongd+Id+h9I4b+X1thR/KDW/iKK4y5E+Sdly8qB81cd2FDG
+	 2TnWHJ233Hsl/5lI57+akXfpu/3sPd0tujMNP5MQtXpIeUSXHpSfTwcvxCr5q1Fhc3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LKM4Kj6k;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PQ+E46Xc;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6003C606A33A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:05:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6003C606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75FE1606A8F9;
+	Fri, 13 Nov 2026 12:05:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75FE1606A8F9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LKM4Kj6k
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1438d9363fbso461249c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:05:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794571507; x=1795176307; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SVSumMJf41m2t1kfH4cBo93/dZv3LW/Up6VpBs7ax7k=;
-        b=LKM4Kj6k+92jKdvI5GTxqjdQpsk7TFvgGgJoS/rmOaYB06loopKAmN9v+BgMBL33H7
-         EsWKdONaY86Al7F/Xh0qUIh0CjPM5BbM2prskdcvJOuKuY/VzfCrF0shfVgUbEGRaA9e
-         EciXOOcm4DZTvlp02zYZlJIDbsgO0d68TREEy30dZKeiKFoPlr4L4ULfAOJk1fcibY9h
-         oM+jEM62FuHmW0WcGwRopgw4yHB2HdZo2dxTPCoKqeJagFplIok2ojp2J9zaRAkl+WV6
-         MJXEBAxb4XwIz6gdFxIPpbYhhNfLLkZnMKyjV4krx4Ohod1indS4xHnerHjHfbLDE06a
-         6s9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794571507; x=1795176307;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SVSumMJf41m2t1kfH4cBo93/dZv3LW/Up6VpBs7ax7k=;
-        b=ID6xp6l52z2EmQTCQzlrjrqj6SLUThDJDiEwjFEMOIfnvnHAjuBKti3Tjr97Cu1Pbm
-         c0uZUj9lHRf/RlUFeS4EVsDPZpsJ4xmGIso2Qs2+4dwTEo+hwlYWBNk+l7EhzpQVvdTX
-         CxhmKrxzTZgQ542f0pZCgc0gTObqsSTA+1HmwRtYHv61eF3x4tl5lySry26qTHozwRx/
-         HvF2Ite3mQ19NKDHQWt7hTPacjkVTC68tPqf6W3cXROCucl63HZg6LWD8/UVWSAaCGvX
-         bKVUYBREUU0PtQB+0wzzXWH2vY+eY1l9uy/qUcFzYO4CDS9mp3APTYaJlQ6r/GoZeEb0
-         MtaA==
-X-Forwarded-Encrypted: i=1; AL+hErGgbJnJvr/PxpnUTYX0FH/pzrhw6N/uvwazLny7wI0/FLZsYqFgpHsvqms01lAxIo5GJUGzYJjCmChuEas=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sqzX0eUId0GQiHlbCuhrLCSG991ZQkS/Pqr+ZD0tm9gk0G40l
-	6E49jBO4XF+/HmJsHSTt2r2WblCIS0fkA87DdMtCcam2CU/eHE6D0vs=
-X-Gm-Gg: AYBFou3NRDpTDhEXZNXxmpVQw4yA742TPdFrvgSzee9xxXrUxBYn74QiKncSt+j+Wpr
-	GXfzTVfDy48bf7EMhFOABqR3ZIP/hqzslrfI0Vw3IWYodn58M+OUq054x0haU1abxsXCPBg0w06
-	teyFnVo+6Nvat214hqAzwHcjpW+5ONzjub0GYYlevc6NZ/RlWKiAXdwDA4c1TA7kKoS8nSLkjJL
-	TvRVCU/epWJjoe/kVfNJR17XClW/GIA5IdJroiOnPRgRAia4n0/lUwbVrVg/81HIcJkPfIPlKm3
-	Vek8Kft7x0RLSIXbMB/Si1Q3aBLRlLAafgebT3sheS8R0ns9Kqryf8oQ996+6ueIy74m1hQ8qpA
-	gMBvAY9hVrqwNeM9YAQgBwn7Jov9OePlOVgWk+uPSgQghcsdkDjxZJG0xlgEvDZP5VIJKe9sYXr
-	RpL//2n7zzpfJOGMyYvv1XM1leWgI9clTKD/yn+ZhgFsq1tcmURli5xsms2MtViLdH9foYZsSKE
-	7VLZtYnKYygClVT1twxw5vakRXio66poKGlaNzFOUyctXIvwo6ShFs9d5wbj4onUZWWHHaBjXvQ
-	57UdzV6E27OZc/rWTkZA5tR8+JECJvBLmsGPW+Q6D95s5/nLx4yjirND5f8tVAQaXg==
-X-Received: by 2002:a05:7022:285:20b0:1b2:3e1d:17ee with SMTP id a92af1059eb24-1b4f5f1f212mr4239072c88.9.1794571505635;
-        Fri, 13 Nov 2026 04:05:05 -0800 (PST)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.205.242.248])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50316e195sm8146246c88.8.2026.11.13.04.05.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 04:05:04 -0800 (PST)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: rafael@kernel.org
-Cc: atharvatiwarilinuxdev@gmail.com,
-	lenb@kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND] ACPI: processor: Use Apple-specific methods for P/C-states
-Date: Fri, 13 Nov 2026 07:04:58 -0500
-Message-ID: <20261113120458.1170-1-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CAJZ5v0hHOKFYS4D+CLRiCF0hiRK6SOY=VKJ619rTNauipnHsrA@mail.gmail.com>
-References: <CAJZ5v0hHOKFYS4D+CLRiCF0hiRK6SOY=VKJ619rTNauipnHsrA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PQ+E46Xc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794571531; x=1826107531;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=stDOacIHpZsQKcozLdna80o9rydyKM8XxSmzyeGn9PU=;
+  b=PQ+E46XcMan/e8voQGQPKry7UpWKlBzhIc/JV5+ziGqmEUluYVAma8Dc
+   vBz3GS0LzzNBx8KIbEokcS2YmSfNWcQCqqxIl8odKvBB20xVOtTtXsXmW
+   hZOf0Jvj+/xp01xSm12To0e8UYWuiCIald7z4Usevhxeytx+WUjvnsQr3
+   uTTctwlVuzTeYD6E8qn7vHQsiVHDYUhTngLQaZwindwomgV2I5Z3SePFD
+   d5+W9Bz5469Z0WdYm47vIZlqHtbvm1tFX3oaQ56Q2gwn3WIwSOlywdxhH
+   AY0yMxGpMSo/anV1yQDKVHkJ6XgcNs+mHpjSgED+3cU4DH4/elZrnaYUI
+   g==;
+X-CSE-ConnectionGUID: GHaD37YyQbmo7906bwqjFg==
+X-CSE-MsgGUID: AP8KsE/SRR+tbtlGIY4QLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3264210"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3264210"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:05:30 -0800
+X-CSE-ConnectionGUID: dGo70yMbQiOj77x0eMxSJA==
+X-CSE-MsgGUID: 8cEgRXuDQIm1sQfBQO+jgA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="9067875"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa003.fm.intel.com with ESMTP; 13 Nov 2026 04:05:28 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 1A93299; Fri, 13 Nov 2026 13:05:27 +0100 (CET)
+Date: Fri, 13 Nov 2026 13:05:27 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: bryan.odonoghue@linaro.org, linux-arm-msm@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: tcpm: qcom: Release connector fwnode after
+ regulator lookup
+Message-ID: <avb9Bwr_VSkB56rP@black.igk.intel.com>
+References: <20261112021836.1851-1-laixiangwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,8 +81,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112021836.1851-1-laixiangwu@cmss.chinamobile.com>
 
-> Which one is used in older Macs, ACST?
+On Thu, Nov 12, 2026 at 10:18:36AM +0800, Xiangwu Lai wrote:
+> pmic_typec_port_probe() looks up the "connector" child node with
+> device_get_named_child_node(), which takes a reference on the
+> returned fwnode.  The node is only used for the VBUS regulator lookup
+> from the connector node and the reference is never dropped, so every
+> probe leaks one fwnode reference.
+> 
+> Release the reference right after the regulator lookup, mirroring
+> the parent driver which already manages its own reference on the
+> same node.
+> 
+> Fixes: 506927b6bf29 ("usb: typec: tcpm: qcom: prefer VBUS supply from the connector node")
+> Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
 
-Both, APSS and ACST, i think they were discontinued from T1 macs onwards (so 2016+).
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+
+> ---
+>  drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+> index d3523435f..084e8e9a8 100644
+> --- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+> +++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+> @@ -733,6 +733,8 @@ int qcom_pmic_typec_port_probe(struct platform_device *pdev,
+>  	pmic_typec_port->vdd_vbus = devm_of_regulator_get_optional(dev,
+>  								   to_of_node(connector),
+>  								   "vbus");
+> +	fwnode_handle_put(connector);
+> +
+>  	if (pmic_typec_port->vdd_vbus == ERR_PTR(-ENODEV))
+>  		pmic_typec_port->vdd_vbus = devm_regulator_get(dev, "vdd-vbus");
+>  	if (IS_ERR(pmic_typec_port->vdd_vbus))
+> -- 
+> 2.50.1.windows.1
+> 
+> 
+
+-- 
+heikki
