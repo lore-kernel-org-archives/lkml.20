@@ -1,95 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794533461;
-	b=j0chPatqwMcZbhCL801toIVaXS43ZrPTDmPBP0ehpCfncQjWd4TPshlDMlz6ag2/gM9x
-	 z0OtnD3rk58hOynf/RAnbf1ETh+sBtNsIPFG6Zq0yaF/u/BERy9Ixxe9NlrF4wz1WAbok
-	 wz0vSMzuHoNUBHjMK9DPO/J+EA3AQ+Kj5pa6PyPgZAXK4SA45rTA+iRAUs7iZRlKXhAYG
-	 xN71eOGqyMvqxC5SmJVoEbIeE/Dsgf5udWFIHZeumO29XGY6pjd6gPpLxQuLhZKADc5Hy
-	 3KWAA4UF9xetW2wXFNa9Ez6L8AA8ZKpGQCrZdAjK04NXcBinXtrVePnSR5qlf1sx0oA==
+	t=1794533468;
+	b=Z8ZQumlcQK0KbFuGati2nTVrV7Rb6cEjnTPRdiSgPwBL7G6lRpGVMDT1mEFAEw0tXApb
+	 GQgHjKZc+Buupj1Sd2LRMteoUvJr0OXvU894UIewQ6A2xMGpXm09fZkhxN//av4GpqVER
+	 dNY4gEWmiT5zaiajnnIRIdO9VU9+lPBfTLGHhHmYNljP1cgNc6iCpI+FfllMCRKLnveLK
+	 sEnToTU1wvWR2h6dLmCGbPcRqaYuQD1qLG+rL9TlRhHp6tnIzBPhu+x3CMwjNWx8NUxfv
+	 6XDo589Suw59J5pLNEtUwOo1VZV+pcoAEVOify5KZ/ErCphz8ukQPwWxI40hWWnzBqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794533461;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/7uHJFgSP2wdQKFM07aMj/DeGGfpQo0FBIAi1jAGJLo=;
-	b=TZk3bDX9ADTOay7SeSiesVLT3/1DIHIjVZdqPQ6zthX+WWypwcfOk06FXvDXmWtQ2vaR
-	 CPEhiIa7Bst0UivzicS/Z/oKUmigwNGCxszHQnqKDBxPVcwLFD+SEj6fDTKSmprTE3Wss
-	 mquUiW0+mIiLt4t3kABYR+mwFHzEoprSLedGj7RFOHBrBV/SAdfF3x0iu822B4Fdmguti
-	 6GK4SXwpbvGxOlAiojJzDftWuIqJ9VRDWxPv3ypde3mSXp+c5QW9yt+uDrIZbh1UXWsxx
-	 V/NxzJtbeeZyUvyqMZTUW1iR+orY7IuLzv7GAA8ERGJbiQTXm1lZGT8dvteVoSmxKMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794533468;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=+jyT50e30BCzbDPlXbs0zLStHSPuFBJFusAtjz5vVgo=;
+	b=1lYQDNlWbNF7pPkDSgjo4paVIrBuWZUrKzUfuURpGF/YWo/EFL9hcwQdTyV/ZLZWxtmd
+	 0o9Z2T5iBQGnGii5gQgytFbWXipuHNNzT3XxoFOdqZMIh8iVprU+w/SZpPNEcyDuOG0jg
+	 1Q8BZlT+BQCru0RYq+Tx9uHqDFQwePpC5pDtGwzyWxRKOQMiVq6pONz0kUN9lK7fF1u2d
+	 eLMLcuATocQ9bBdVZpWBrRUfycJCfak0o9zVDhpegt31DNShhttNGViDRZzozDIV1gwRP
+	 w4DWQ0m7phbvXC6qy2sAw/NvagF0Awy12phEjSvfBZFEeg3EjKhxj4ZL5lIrSFCY+EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0mllq87Q;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=G+FEhYgL;
+	arc=none smtp.remote-ip=160.236.53.18
+Received: from mail-m1602365318.xmail.ntesmail.com (mail-m1602365318.xmail.ntesmail.com [160.236.53.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9986A606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:31:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9986A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779B0606A330
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:31:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 779B0606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0mllq87Q
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso603949eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:31:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794533460; x=1795138260; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/7uHJFgSP2wdQKFM07aMj/DeGGfpQo0FBIAi1jAGJLo=;
-        b=0mllq87Q4vcSKU/7bYi3BXWQEiGb4EYY1qiaiiL2oBy1LFuLkqH+Wkv/ClFrNU0CSa
-         CG3W88tPRpIe1OxH4YIipMzoQGhzdx5mbZ36zkLoVEHkoYRIZAT7P20dQwoG6oXcWI2f
-         CPTpNYDcog81Arvm0uJ2VqpmWVx6IQQ6TICylR9dBQafWDnQPtJgEp6ckNKAJsicH/b/
-         CTcCI+S18NroZm9E0qZnQ1XPZaHvW5gtXNs+Z7Fys6VTCRdWbbJs4FcX4U6UxQkL1e2q
-         HrfNBNlOdhGUBTdGOKspgTVk2Gz6SD3ZRk7dMuWF1E/UwSTYeGxY+yMtqJM4ejXR8H7b
-         6EHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794533460; x=1795138260;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/7uHJFgSP2wdQKFM07aMj/DeGGfpQo0FBIAi1jAGJLo=;
-        b=WIbe8w3rIQOjf+5pyuLTCOBjEHYWWlS5tUUosuq9aya8wjqsHOgfHcT41ms2riCzUo
-         OimivoApmy82Q4a1ehZuxZ2rxoluUwB4yB1SBC3g4Q9Ca13ojzdhyUAL99fy5VeKDpBE
-         1AUb5E/V8nKrIv04YPYQBg2YwHp3S5zXxq7I/ZIwkCLPki0CwR1I79zWq/yVqPKX2BLQ
-         IlSGI/wftKEbchvTqWeQHRYWvgPCMR6dU79xEDru8hwTaO+Xeh9mDlB0i21QxL3eKTDC
-         Lwnt140IkOHFGiB8fdP9DEgeA2ffYmh2t0PIIjf5lRBUmiPpl6A3QEsHTPtdvfrMSesx
-         w8PA==
-X-Forwarded-Encrypted: i=1; AL+hErFF1n1DiBZruXquaH255KRRhIZZY85L0wvGiN4LWr18DryvYpF0fHzc6crsKhGO6x9U16U4UQZ7fiAMXPc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cpfoCSKctgPILjyV3OcW3S3FV9J6NEYaxLOpdKbkNSxNJZgoB
-	X4FSMXZ4EVOHkWijMEUsuxstersW7FvkGWcMYT81mxV36LJlBqE27mfP
-X-Gm-Gg: AYBFou0ArjrZQre+GwipDuR4iEZIWlzDmUvfZYamSRdT5H6/Gwy6V54josliD36A4P6
-	G5/Ch98mALhoP9876SR1U8PujHAGciGWX5WLRUFMTYZHgSrmN2yVQfrKs6puQLK8WQZw3QMgNuR
-	NPd7hHC6Uz+sbaox/LtQRFns/BmkYWRUf5gsT2uNthiuWe8tpYPUUJ7yl86jT9p96KjIl+2grhm
-	NIhNeQX9pplo6KHvcqsGUztQ5S8R48P7GGKgyG/752l+0VIDJIbvcAUM80tP6uqzaIzPAFmKMEw
-	P2mqTK//PzbOGluFbPkx8lqkAbxpWABzMvAvJOiqudU1PFkrOOPoMyF3lcq3fbZrwTteMcKQ2dJ
-	iw65rfGY3j+d8J9lJJLHUesiCUwovzyYu41faXTfa1UqG+ULDEQyoAdGeYIkVIg95eOzX+hQ1EE
-	WfMBaTb3KVn+fKIq7icVqzZRBBU3jLoIpfjIt0PfvYckGDtnekcgYmju42h5As0F4vcaG8fMz/h
-	UbCaRc0bdrUGiwCbOBu4E6ZjbQCp/PrpJaed7zhHHuhwE8ODG9CvGS1k1LpteO5QqKYcNodz6zc
-	jBsDoRICACJF8NozixdbHsAFwlr/ZmGrSw8SZBIKd1JQTjnUZ3I5qpJCgiFaDU5fusNDzC8=
-X-Received: by 2002:a05:7300:6d03:b0:36c:3b8a:8090 with SMTP id 5a478bee46e88-37963a4ef35mr1313899eec.2.1794533459424;
-        Thu, 12 Nov 2026 17:30:59 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:48f1:7a0b:9bfb:4205])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0c40sm2333563eec.28.2026.11.12.17.30.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 17:30:58 -0800 (PST)
-Date: Thu, 12 Nov 2026 17:30:55 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-input@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] Input: goodix - sync the irq controller while starting
- firmware
-Message-ID: <avZiZoGO4jXjIP7D@google.com>
-References: <20261020122712.526797-1-l.scorcia@gmail.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=G+FEhYgL
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5483bfae5;
+	Fri, 13 Nov 2026 09:30:55 +0800 (GMT+08:00)
+Message-ID: <408c3dde-772b-4ebf-8b3f-4e51eeb43713@rock-chips.com>
+Date: Fri, 13 Nov 2026 09:30:53 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,65 +48,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020122712.526797-1-l.scorcia@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/9] drm/rockchip: vop2: Find the first mixer of a
+ video port with Esmart3 too
+To: aiyengar1990@gmail.com
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Piotr Zalewski <pZ010001011111@proton.me>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
+ <20261112-vop2-fixes-v2-7-8218c1cf8ac8@gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261112-vop2-fixes-v2-7-8218c1cf8ac8@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1d287779c03a7kunm15aa9e14a218a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGkweVklJHxkeGh5OSEpJSFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=G+FEhYgLL0kLZeE1GZkJG/uiFrVftUgs+ypjx24aZRkDhMZQsmsQu1eVffBxH3NphuRT/3580Z7wm2UV4Ptf4qqiithPcG9iLqyAyH6ZUZMK/QTYnB8XDAaWav28mLILAYEWaVpoCXQHWhTg4O4IXyX+6MjmDMN2+rHzLAZ1DSY=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=+jyT50e30BCzbDPlXbs0zLStHSPuFBJFusAtjz5vVgo=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Luca,
+On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> vop2_find_start_mixer_id_for_vp() looks for the first layer that holds a
+> window of the video port, but for_each_set_bit() takes the number of bits
+> to search, and ROCKCHIP_VOP2_ESMART3 is the highest window id, so Esmart3
+> is never found. A video port whose bottom layer shows Esmart3 then starts
+> its alpha setup at the mixer of a higher layer, or, if Esmart3 is its
+> only window, past all layers, and programs mixers of other video ports.
+> 
+> Add ROCKCHIP_VOP2_MAX_LAYER_ID after the last window id and search up to
+> it.
+> 
+> Fixes: d3fe9aa49585 ("drm/rockchip: vop2: Use OVL_LAYER_SEL configuration instead of use win_mask calculate used layers")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 
-On Tue, Oct 20, 2026 at 02:26:48PM +0200, Luca Leonardo Scorcia wrote:
-> On the Lenovo Tab E7 TB-7104F which has a Goodix GT-912F touch screen,
-> the touch screen fails to come online after loading firmware, producing
-> the error "Error reading 1 bytes from 0x8041: -6".
-> 
-> Comparing the upstream code with the Android stock sources a call to
-> goodix_int_sync is required between the upload of the firmware and the
-> watchdog restart. With this change the touchscreen is correctly detected
-> and working.
-> 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+
 > ---
-> Relevant bit of the stock source driver at [1].
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 1 +
+>  drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
+>  2 files changed, 2 insertions(+), 1 deletion(-)
 > 
-> Credits for noticing the issue and finding its cause go to matemiller992
-> on the postmarketOS forums, I cannot provide tags as he wants to stay
-> anonymous.
-> 
-> [1] https://github.com/lscorcia/linux-lenovo-tb7104f/blob/2dad69c9f28611ac6d3db2f1ee11b480a60d83ee/kernel-4.4/drivers/input/touchscreen/mediatek/gt912_p98996/gt9xx_driver.c#L1529
-> 
->  drivers/input/touchscreen/goodix_fwupload.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/input/touchscreen/goodix_fwupload.c b/drivers/input/touchscreen/goodix_fwupload.c
-> index 5ae9a109ba0d..01e7705ef515 100644
-> --- a/drivers/input/touchscreen/goodix_fwupload.c
-> +++ b/drivers/input/touchscreen/goodix_fwupload.c
-> @@ -155,6 +155,7 @@ static int goodix_enter_upload_mode(struct i2c_client *client)
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> index ccbfbdb8d246..290990632388 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> @@ -857,6 +857,7 @@ enum vop2_layer_phy_id {
+>  	ROCKCHIP_VOP2_CLUSTER3,
+>  	ROCKCHIP_VOP2_ESMART2,
+>  	ROCKCHIP_VOP2_ESMART3,
+> +	ROCKCHIP_VOP2_MAX_LAYER_ID,
+>  	ROCKCHIP_VOP2_PHY_ID_INVALID = -1,
+>  };
 >  
->  static int goodix_start_firmware(struct i2c_client *client)
->  {
-> +	struct goodix_ts_data *ts = i2c_get_clientdata(client);
->  	int error;
->  	u8 val;
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> index 83203d18865b..088c1f3a972f 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> @@ -1889,7 +1889,7 @@ static int vop2_find_start_mixer_id_for_vp(struct vop2_video_port *vp)
 >  
-> @@ -168,6 +169,10 @@ static int goodix_start_firmware(struct i2c_client *client)
->  	if (error)
->  		return error;
->  
-> +	error = goodix_int_sync(ts);
-> +	if (error)
-> +		return error;
-> +
-
-There is call to goodix_int_sync() right after call to
-goodix_start_firmware(). Is it still needed if we call it here? I think
-the vendor drivers does not do it.
-
->  	error = goodix_i2c_read(client, GOODIX_REG_SW_WDT, &val, 1);
->  	if (error)
->  		return error;
-
-Thanks.
+>  	for (i = 0; i < 31; i += 4) {
+>  		match = false;
+> -		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_ESMART3) {
+> +		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_MAX_LAYER_ID) {
+>  			win = vop2_find_win_by_phys_id(vop2, phys_id);
+>  			if (win->data->layer_sel_id[vp->id] == ((layer_sel >> i) & 0xf)) {
+>  				match = true;
+> 
 
 -- 
-Dmitry
+Best, 
+Chaoyi
+
