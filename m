@@ -1,50 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794557714;
-	b=hgatnrIVbOnJ/PNo0Kh49jPzlXyup6TR5ZdZvW6pXoIpPLHgCwBx48OhXJ+TBgxIfFx7
-	 BABQzmpBtiUFa0O/gQe780dl+VkGgzipIZkb6yZ7M5hIcDlhvd8FrxQJ/APgTVRxCzlVr
-	 A0bgZ48jr3GcFyxO8Uhv9FEVinvuBR2c77IJeqiPwBsbt36+63S1hkAKiVBo3B7rPApiU
-	 aTIEausSNgydtCQigzhPlXXlT01YMak1oefjR2lj8wZvS6nBV1kBfuxl0eYc4u/BkLPOv
-	 l0+IINmXYJQU2rXh3y+fLjllr0XIwvShJ+2UyQNXRq0j3wLlD39sNJFRhnV+wiyIcxA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794557714;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=pJ2zRB2nOtupazWtDNzTwEvlTT+D3QQlaUT9Cj9fttQ=;
-	b=SMo4A59I8SuTRjcR9Fp676i1lBwYJTCW6l8KrjwSwKiJPWHG7P4vJ7cdZ1vQVsSZSFWI
-	 IPgYEDii2xxpNZZsDUFI61lFFNex8hG0PRXno+0zFxqLyOf0kAi3LctNHMk0pd3XfZjeV
-	 5LIyFpJ6ein9uIz3iML1OypidvP/rmv5h/apJMsXPyoOORDlOFdPjhh+x+JhQwFq8MOR/
-	 jUR5uNpU36+kLiQfVh1wX+SpJalj3678h0dGJmAizzNbqXgX1SdtLXuHk7msuNbxGJHVn
-	 rf3UL17ANdYvNZKF1VHCFkSppJtv7zhjPOCV1ab2R1CPlnnseSetvI+bp4pLbwBXc9Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ez4k+jeP;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794557715;
+	b=sGT57vZ66c3tyB1EN74TPW5RibLogGuMMQojnC0WZuvvTdU3fwdBdDnn5wMhw07rbpXF
+	 Vij7ztLrBjWtr2xntDbu3S4z3TDutSxHW2YqewIdQnqp8A5J38tvF73s5k2MtbY+YIZMV
+	 1MJ0DI6hoYZqJ7qIX82Qr2SCttJ1JrcqR8U1J98PHH+88YOH093x8UdDMlt57MJlH1w41
+	 qEYMdMvt1qvWJjuFwn/VDk0jsdr6bOSIw/RfvVicQ49yziUBVwUzoIRUMY4fWUW66Uy3k
+	 vJBK+ls63AQnKGW1fs/OjsEcNLDq3FIgQZQSPP1+wQ1nirhf727+eqtULU23Nx6+/FQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794557715;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	bh=dcGO1COWdGbsuo7eL42p4Dq3J9N4nXYuQs0MMv6Dok0=;
+	b=wHEgbGy5TuNh2xxUcHlheugbb7it04SZrCz+sF5FfI59ZdlgpAg+SCQtR+YBM0xRdGZD
+	 4VW26Y19BoT0od7pZOB3ibJqtwYgC3Dp/lP11x3wlFhdRybbG5mIcMEWvi4KlfHFe1tUU
+	 hNXtRJLB2VOvM5y7dB7SDinh1+Sr/AgoQfXZvZOo64KSTn2+j4eCna19Bua0AIt5OjQbp
+	 Zb6VOC20yE0sJ9AuNlKR3FBK8FO5X3OcI9HVooBSc2EzfN0LyecSWhqAKUSmN/3jSgI1O
+	 1UkGAmVbgAdzpT/4DnvfQVDyOklZaM0XC0DtduOEGINYOXq5Nu4chC6tRH2CVQGzfKQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=SU7qXr0C;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=o+GPgMoc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.166])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFDF3606A883;
-	Fri, 13 Nov 2026 08:15:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFDF3606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D49606A895;
+	Fri, 13 Nov 2026 08:15:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91D49606A895
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ez4k+jeP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=pJ2zRB2nOtupazWtDNzTwEvlTT+D3QQlaUT9Cj9fttQ=;
-	b=Ez4k+jePeLZedPNuIjdwRLGk41oaHHiydI+MuFfRT33uDA9kaq7+7S2etCl4C8
-	ExrSDW02BK6Bh5n3gec7b9E7ib2AVR9nZgugxp7SbQXmUidoRbtCoXnWYQIIGDkI
-	dCj1t5gs1CCm/VF2lyTzePVk2OZF78y4RD7BhO/t7iVEc=
-Received: from [IPV6:2409:8900:1ef3:1936:e899:996a:6176:8c69] (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgD3f434xvZq1upLFA--.65211S2;
-	Fri, 13 Nov 2026 16:14:50 +0800 (CST)
-Message-ID: <73cf5c4c-d650-40f9-9e2c-4d8b993f0b5a@163.com>
-Date: Fri, 13 Nov 2026 16:14:48 +0800
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=SU7qXr0C;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=o+GPgMoc
+ARC-Seal: i=1; a=rsa-sha256; t=1794557699; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=blglv86vUIR332EWOPOwvK8fGMKyGGWWbCDMGH/L0OEChRRIDHxcuudE53/WSMXoL5
+    1tZ+y8N1z5EyXyuEfs9SfEomSX67ziQyEoZuWujg8gdicwh+kvIVRjiN7raw9kWP8/qY
+    6gdHistyOZVAtNBA43AGJFhfARz00cQ6v0sjqCLM8Dt93J/yPXiabMa33oJ3ZUJUNz4i
+    uiP9IIYgExn1Nw14QTUyewL5QTT5/T61nd+WNyN1obYckeQfnC7FkyKjuvHnVpqhQ/hk
+    LN0oPqmK47BQDXWoIAaXb+0oe40NuzI5KEBPSp6eZwvinWn72SjyzwNLtPOS0VcFxQEe
+    7L1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794557699;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=dcGO1COWdGbsuo7eL42p4Dq3J9N4nXYuQs0MMv6Dok0=;
+    b=jXLsZ2awlAQ0uaqVYZdrRXFSutzTaA4x/7k7EajAbrOeok+hjN3Opk9zeIp4akcf5I
+    mUPPbHsGpFpIuh2pi9v6+n1mzgIP7rOgwOTdH5boMAPrb5dKUobeTYBETVrY9cpkux7A
+    G5WjRtXh5NwcXhnHgfn4IJgQ95taEl7U+r5yi9RUJl668Q3a6kJRdLiijahya32fxRCO
+    lxGoZkPriz4TlMdJset6xQNeChhS/f3EPqQBDsW6/ogmpjGuT2kxJyvSwAA/rZ+Gv4Vw
+    TB6EdX+6VKfKd3ErSvwn+7eG4CkzKVxmCSBSrzLUeRpY7Y4T/+hr2HWqtvBsiWfZdFkL
+    fFkQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794557699;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=dcGO1COWdGbsuo7eL42p4Dq3J9N4nXYuQs0MMv6Dok0=;
+    b=SU7qXr0Cw97JOCMnwmO1iTy2fdTxEsHvBQaxCKV5PY3uvskwDIet9mAEjSqyww1Wij
+    9SJ3riJ1XcaGvVFNl9xAbK30GdXP3x6U7povykT826P671xayLE8yyMPTBa1fNW1mgYy
+    Fl89WVHDQO+M82jPKaAvdD7f0dOee2SyQEKys5yJ5YbRJrdjmjNUIvZXsSszQsjCbrD3
+    G33/lthKWVJzRcMd/HpT62jb4dNub/I/8SdzSuKE2V1nbvENsCGTRdMXxZKXqJqK0aPu
+    zmvnhYjtXk6GJZGr7inIEL0Q6HoTlHOpvD5Yu04bdgiTvvzyeYDUc6sS1tSOV0dgSuWg
+    NkQA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794557699;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=dcGO1COWdGbsuo7eL42p4Dq3J9N4nXYuQs0MMv6Dok0=;
+    b=o+GPgMoccTxaYYUOGQS2Dk62Tcpng1hzqDm1UZt4vGOokDNgOUmBo8c1Mw63sx59j3
+    p/dtBXnWg6g0ZoyU6HCA==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2ZoHmMiNHYIZPrro6QPZGBqKLoYar6phQmxG"
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22AD8ExFGA
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 13 Nov 2026 09:14:59 +0100 (CET)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	letux-kernel@openphoenux.org,
+	"H. Nikolaus Schaller" <hns@goldelico.com>
+Subject: [PATCH 0/3] pinctrl: ingenic: Add X2600 support
+Date: Fri, 13 Nov 2026 09:14:55 +0100
+Message-ID: <cover.1794557697.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,252 +106,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] ntfs: trim the sizes after a short write
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, zhanxusheng@xiaomi.com
-References: <20261113050148.1466682-1-zhanxusheng1024@gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20261113050148.1466682-1-zhanxusheng1024@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgD3f434xvZq1upLFA--.65211S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuw45Wry3GFW7JrWxXFy3CFg_yoWfKF1xpr
-	Wa9r45KrWkGw4xGrnIqa1UX3WYqrWrCF45C345GFy7Awn5CrnFqFyUtFW0ga9Fyrs7t3WF
-	yFWkZrWkurn8Zw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UTCJQUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RpIE2r2xvqErwAA3j
+Content-Type: text/plain; charset="us-ascii"
 
+PATCH V1 2026-11-13 09:13:47:
 
+This series adds pinctrl and GPIO support for the Lumissil X2600
+SoC.
 
-在 2026/11/13 13:01, Zhan Xusheng 写道:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> 
-> ntfs_file_write_iter() moves the data size and, for a non-resident
-> uncompressed file, the initialized size to pos + count before the copy.
-> __ntfs_extend_initialized_size() only zeroes [old initialized size, pos),
-> so the range [pos, pos + count) is initialized only by the copy itself.
-> When iomap_file_buffered_write() copies less than count, it returns a
-> positive short count and the error rollback at out: does not run.  The
-> file keeps the size pos + count, and [pos + ret, pos + count) reads back
-> whatever the freed clusters held before, also after a remount.  A local
-> user can read the old contents of freed clusters this way.
-> 
-> Run the existing rollback for a short write as well, and roll the data
-> size back to the end of what was written.  For a buffered write, keep
-> the initialized size and zero what the copy did not reach, up to the
-> end of the block holding pos + count, because a page fault through a
-> shared mapping may already rely on that initialized size.  A direct
-> write rolls the initialized size back as before.
-> 
-> Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> ---
-> v4: for a buffered write, zero the unwritten range instead of
-> truncating the page cache and taking the initialized size back, which
-> dropped data stored through a shared mapping during the copy (Baolin).
-> v3: clear the cache up to EOF, not up to the extended initialized
-> size, which left the rest of the block holding pos + count (Baolin).
-> v2: also clear the cached tail of the last block, which v1 left in
-> place when the write stayed inside the old data size (Baolin).
-> 
-> v3: https://lore.kernel.org/all/20261112093233.1118469-1-zhanxusheng1024@gmail.com/
-> v2: https://lore.kernel.org/all/20261112030815.982026-1-zhanxusheng1024@gmail.com/
-> v1: https://lore.kernel.org/all/20261111093459.660484-1-zhanxusheng1024@gmail.com/
-> 
-> Tested in a VM on ntfs-next b025f526c5d0, with all free space filled
-> with a known pattern first.  Short buffered writes of 4M, old data
-> readable after drop_caches and after remount, 3 runs each:
-> 
->                                      unfixed    v3     v4
->    fallocated, ends block-aligned    3137536    0      0
->    fallocated, ends inside a block   3141332    0      0
->    fallocated, unaligned start       3137536    0      0
->    same, pos + count in that page    -          0      0
->    append                            3137536    0      0
-> 
-> With the sequence from the v3 review (marker stored through a shared
-> mapping at 64K while pwritev() at 0 is stalled, short count 8192), the
-> marker is kept on unfixed and v4 and lost on v3, 3 runs each.  A store
-> into [pos + ret, pos + count) itself during the copy is zeroed with v4,
-> as that range belongs to the write.  fsx (buffered, no-mmap, O_DIRECT
-> and mixed), compressed files, fallocate, insert/collapse range and
-> punch hole give the same results with v4 as with v3.
-> ---
->   fs/ntfs/file.c | 57 +++++++++++++++++++++++++++++++++++++++++++-------
->   1 file changed, 50 insertions(+), 7 deletions(-)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 3213a0c9f96b..5ac11d60be37 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -928,10 +928,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   		ret = iomap_file_buffered_write(iocb, from, &ntfs_write_iomap_ops,
->   				&ntfs_iomap_folio_ops, NULL);
->   out:
-> -	if (ret < 0 && ret != -EIOCBQUEUED) {
-> +	/*
-> +	 * Both sizes were moved to end before the copy, so a short write,
-> +	 * like a failed one, must take back what it did not write.
-> +	 */
-> +	if (ret < count && ret != -EIOCBQUEUED) {
-> +		loff_t new_init_size = old_init_size;
-> +		loff_t new_data_size = old_data_size;
->   		int init_err = 0;
->   		int data_err = 0;
->   
-> +		if (ret > 0) {
-> +			new_init_size = max(old_init_size, pos + ret);
-> +			new_data_size = max(old_data_size, pos + ret);
-> +		}
-> +
->   		/*
->   		 * Like ntfs_setattr_size(): __ntfs_attr_truncate_vfs()
->   		 * expects the invalidate lock held across the size
-> @@ -939,14 +950,46 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   		 */
->   		filemap_invalidate_lock(vi->i_mapping);
->   
-> +		/*
-> +		 * A page fault through a shared mapping may have used the
-> +		 * extended initialized size while a buffered write was copying,
-> +		 * so taking it back could drop that data.  Zero what the write
-> +		 * did not reach instead, including the rest of the block at end
-> +		 * that the copy may have read from disk, unless such a fault
-> +		 * already moved the initialized size past end and zeroed it.
-> +		 */
-> +		if (!(iocb->ki_flags & IOCB_DIRECT) && NInoNonResident(ni) &&
-> +		    !NInoCompressed(ni) && ni->initialized_size > new_init_size) {
-> +			loff_t zend = ni->initialized_size > end ? end :
-> +				      round_up(end, i_blocksize(vi));
-> +
-> +			zend = min(zend, new_data_size);
-> +			if (zend > new_init_size)
-> +				init_err = iomap_zero_range(vi, new_init_size,
-> +						zend - new_init_size, NULL,
-> +						&ntfs_seek_iomap_ops,
-> +						&ntfs_iomap_folio_ops, NULL);
+It introduces the devicetree bindings, adapts the register access
+and GPIO interrupt handling to the X2600 hardware, and adds the
+pin groups and mux functions.
 
-Hi Xusheng,
+The changes also correct hardware both-edge GPIO interrupt
+configuration on X1600 and X2000.
 
-    Thanks for v4. I reran the buffered mmap test from my v3 review and 
-confirmed that the marker is now preserved.
+The updated driver has been tested on X1600, X2000, and X2600
+including GPIO both-edge interrupt handling.
 
-    However, there is still a problem with the zeroing range here.
-    If the write fails without copying any bytes, new_init_size remains 
-old_init_size, which can be below pos. A concurrent mmap write may have 
-already stored valid data in that gap.
-    For example, start with a 1 MiB file with initialized_size == 0. 
-Pause a 4 KiB buffered write at 128 KiB on its first source page, then 
-store a marker through a shared mapping at 64 KiB. If source access 
-subsequently fails with EFAULT, this code starts zeroing at offset zero 
-and overwrites the marker, although it is outside the requested write range.
+The code has been tested by ChatGPT which also helped to formulate
+the messages.
 
-   I reproduced this both with and without fallocate(). The marker is 
-also lost after remount.
+H. Nikolaus Schaller (3):
+  dt-bindings: pinctrl: ingenic: Add X2600 support
+  pinctrl: ingenic: Add X2600 register and GPIO IRQ support
+  pinctrl: ingenic: Add X2600 pin groups and functions
 
-   Could we use a separate zeroing start, bounded by max(pos, 
-new_init_size), while keeping new_init_size for the metadata update?
+ .../bindings/pinctrl/ingenic,pinctrl.yaml     |  10 +-
+ drivers/pinctrl/pinctrl-ingenic.c             | 573 +++++++++++++++++-
+ 2 files changed, 566 insertions(+), 17 deletions(-)
 
-Thanks,
-Baolin.
-
-> +			new_init_size = min(ni->initialized_size, new_data_size);
-> +		}
-> +
->   		/* ntfs_attr_set_initialized_size() rejects a resident one. */
-> -		if (ni->initialized_size != old_init_size &&
-> +		if (!init_err && ni->initialized_size != new_init_size &&
->   		    NInoNonResident(ni)) {
->   			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
->   
-> +			/*
-> +			 * A direct write did not use the page cache; drop what
-> +			 * a concurrent reader may have cached past the new
-> +			 * initialized size, as __ntfs_extend_initialized_size()
-> +			 * does.
-> +			 */
-> +			if (iocb->ki_flags & IOCB_DIRECT)
-> +				truncate_pagecache_range(vi, new_init_size,
-> +						max_t(loff_t, i_size_read(vi),
-> +						      ni->initialized_size) - 1);
->   			mutex_lock(&mrec_ni->mrec_lock);
->   			init_err = ntfs_attr_set_initialized_size(ni,
-> -					old_init_size);
-> +					new_init_size);
-
-Hi XuSheng,
-    The mmap race can also happen on this DIO path. A direct write can 
-block while faulting in its source pages, and another thread can 
-complete a shared mmap write during that time. The inode lock held by 
-the write does not serialize that mmap activity.
-
-    I tested a 12 KiB O_DIRECT pwritev() at offset zero, paused on a 
-source-page fault, with a concurrent mmap store at 64 KiB. When 
-pwritev() subsequently returned EFAULT, the marker was lost,including 
-after remount.
-
-    The initialized-size rollback already had this race before the 
-patch. This cache truncation also discards the concurrent writer's data, 
-so we cannot assume that the pages being dropped only contain data 
-cached by a reader.
-
-    We need to preserve the initialization established by mmap on this 
-path too. Removing the cache truncation alone would not be enough,since 
-rolling initialized_size back would still hide that data.
-
-Thanks,
-Baolin.
-
->   			mutex_unlock(&mrec_ni->mrec_lock);
->   		}
->   		/*
-> @@ -955,13 +998,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   		 * the uninitialized tail, so skip it unless the rollback
->   		 * above restored that size.
->   		 */
-> -		if (ni->data_size != old_data_size && !init_err) {
-> +		if (ni->data_size != new_data_size && !init_err) {
-
-Hi XuSheng,
-    What happens if the new iomap_zero_range() call fails?
-    Both the initialized-size update above and this data-size rollback 
-are skipped, leaving the extended sizes in place. Setting NVolErrors and 
-logging the failure does not prevent subsequent reads.
-
-   I made folio acquisition return -ENOMEM during zeroing after a short 
-write, to simulate an allocation failure. With an old file size of 16 
-KiB, a 32 KiB request returned 8192 but left the file size at 32 KiB. 
-fsync() succeeded, and the size was still 32 KiB after remount. Without 
-the injected failure, it was restored to 16 KiB.
-
-   This test only checked the sizes, not the contents of the unwritten 
-range. But if zeroing fails, we cannot assume that the range covered by 
-the published initialized_size has been initialized.
-
-   Could we handle this failure without leaving that range exposed?
-Simply returning an error would not repair the initialized size that has 
-already been published.
-
-Thanks,
-Baolin.
-
->   			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
->   
-> -			truncate_setsize(vi, old_data_size);
-> +			truncate_setsize(vi, new_data_size);
->   			mutex_lock(&mrec_ni->mrec_lock);
-> -			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
-> -					old_data_size);
-> +			data_err = __ntfs_attr_truncate_vfs(ni, new_data_size,
-> +					new_data_size);
->   			mutex_unlock(&mrec_ni->mrec_lock);
->   			/* Like ntfs_setattr_size(): stay on the durable size. */
->   			if (data_err)
-> 
-> base-commit: b025f526c5d04929212c9d5fb7ffc96608f3eacc
+-- 
+2.56.0
 
