@@ -1,104 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567040;
-	b=p6x9XoDsfWlY/2dKiVBqJTppBvIbN2myUny6rcme1qDtpb/kW+M5uBh+okktlvL4uvS3
-	 u/r3ApWDhuYMtovdMaE6vOOlctK8WskNy9gktLXmsKYJhLyW3yYRVhrPNo1vIBbpv6ORP
-	 PaoNV8nlVsVbR2DrFwx+1Ur23mMEqrQJoHksgtWDPwisqJRYDyLKGwlaycn+7rdPtNMCG
-	 UsswRJTI5M63fLzgwH0h6qWEWF1QSJ9LOKt2OPUzbkgVJVvcwFPBN2F/c0ce9NUqB5k4o
-	 Q1YdYMIRimJDYHUbZT/a1T/mQoVoEl7Mm5h/8x3Lwizy9a63ixQg8WjjwCnekppAxfg==
+	t=1794567066;
+	b=Mk4rvpxsQLcqNM+3fNNCkqHJ2lLUiTCD34UzpDtLqn52+Sd1bObAZ9fBFsXEDKB7h0CX
+	 mMd69yJN6noGyLXm3yH2wav0kDnLYdjxrI3Dtm4CvMxqOrYrMHO8FwQlaC/vqqstt+o/Z
+	 GHU1hotluAkdIFfzdKBXZrFTtzjp5BZWirLUBWp2XZEfOyvz5sBFmviik+yDNiJFXyLsO
+	 gd/LS5WdWGaJQrdYhLOWJZmtw33vlyY6NiCD//WZ9cwy0y+MBI+D8mVfXgWOkpSYqOXU+
+	 pZ1d7Z7zYdgRLl3AzmhCryUSvrgMmRyhf3YPCnva77VTBZ8JRVbNOs98PBSvH5JPuPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567040;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DclmTec3i4xGbMWErspUiVzJ3bfBW5vSmaRYIYwza24=;
-	b=bozDx3thIk76xm6Z3kxcIiFeJ/EePmH88SE89s1XUyrFcerM4fKpS61XOjvKo3OzT2Dd
-	 9J5iDrV8xeBs1E3B1LsJ2Rmm29ND+CnmDFS0JXDJmKXnZmSKd9I6U8Oko6GzNL5ty/AgD
-	 5yVXdfPkRsjMxxG1Ne8FaFirIH/F+6Dn1MV14nrXzhGh56QEtjchDzYWl8ttQCI0eZQfK
-	 Uhb/E/S3f6GCyhGhBmrQA8+ylcTgM9NU3m/Kdu+tDeGD6EONU9BT98JIyGXdDPvPD+X39
-	 Y3svPIRavIsvqEEKhHJfO7UuIIjrr3QivtFjHVyx6ZZgoECtLUfgKITTdadrGlKpYmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567066;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=PM96lafS/rwv826v2LZCH6guF3z+x32g3ULBEqHU5jk=;
+	b=QeOqcan38ePct8PD6zz2rECRZ0KdnNJ2kTKnXfW4/5I9OXvnr7cZaG1x36bULuz3qSc/
+	 03OQf4mKJEOLGIsYdKAdq0u+4WmhZmJWwoIDjU0cU47hiYb+S64m0dE1lXOJIFtlrZ4hC
+	 j9nXJ+E369bWWA6tvQvlFiiAly+ustcDcbh+4EFuCMTPDPnad0kP3KYp4mJ+67tmzGpdF
+	 +jDxx8iNGu9+1aTgaqgVtglzkeqcW7FhTYisx7wwyXUyknYZaygmqcuihE9NkESYRnlrY
+	 g9ke1+fQ3IkI6o6GpvfTc1n4C71AipwdUM3cBMDIMc5uqRc9n7r+mRBrLTd4gvGPZ3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="o/nUUCyR";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="/nFUufqW";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=YO3uMZ1L;
+	arc=none smtp.remote-ip=203.254.224.24
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B5C60A2604;
-	Fri, 13 Nov 2026 10:50:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57B5C60A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA4A606A895
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:51:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BA4A606A895
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=o/nUUCyR;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=/nFUufqW
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794567038;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DclmTec3i4xGbMWErspUiVzJ3bfBW5vSmaRYIYwza24=;
-	b=o/nUUCyRCTxHTd4nOYg+U7+0dBcAMWOlMv4LVUxk/uaPxMcRIsV+cQ8C6mWX9NjR3pCw8Y
-	x0aBrH+rjzUbipWrlx4MNEtNUF2vTo8OPjOmpwfswncakRQf8LYl3rcxEZMsOpwzAVMIwL
-	YFhjsyU9S77VXwDnwPXZUsi4DEyWRfrR4mFLOJyogyB9r+/b/fVOBSmxcBYKOUx23Ni7Or
-	q6oCxhLUIjdORnG5J85hCWJ4BaaXRhc1kmRqWFzY/KkDDjsywoeOtWyYUaRPJ+MCdCrsLh
-	RoIK9AvY27dkezf6n0/kMiW1EMWCOpGVT6CpqE8Jdwt4/pCHYKWxCoGqdU2mpg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794567038;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DclmTec3i4xGbMWErspUiVzJ3bfBW5vSmaRYIYwza24=;
-	b=/nFUufqWBSXsINPyC6nRzBYFoVyMoTiuHbBBzgqT9ufxwMibtGyaTBVHEqYb2WGaChwDJL
-	47SsHIbh7XaUxqDg==
-To: linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	luca abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yurand2000@gmail.com>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
-	Qais Yousef <qyousef@layalina.io>,
-	John Ogness <john.ogness@linutronix.de>
-Subject: [PATCH v3 6/8] sched: Limit sysctl sched_rt_{period|runtime}_us to RT_GROUP_SCHED
-Date: Fri, 13 Nov 2026 11:50:27 +0100
-Message-ID: <20261113-sched_dl-v3-6-a76ffa1cdeee@linutronix.de>
-In-Reply-To: <20261113-sched_dl-v3-0-a76ffa1cdeee@linutronix.de>
-References: <20261113-sched_dl-v3-0-a76ffa1cdeee@linutronix.de>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=YO3uMZ1L
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261113105102epoutp01863aa6d6f827ec761ee9a0f3b8a39cff~nlTwi4-v10722007220epoutp01G
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:51:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261113105102epoutp01863aa6d6f827ec761ee9a0f3b8a39cff~nlTwi4-v10722007220epoutp01G
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794567062;
+	bh=PM96lafS/rwv826v2LZCH6guF3z+x32g3ULBEqHU5jk=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=YO3uMZ1LKk3HCzxl7OnAt/8z/BO8/f2rg9Jt8hOFV2XVXnVmp4r2s6E/PAd0mu9+h
+	 r7KBVHYg2SMPx6FI+E/rDrXjPrmhOXbePwEynWxlhz9hvD90avkZZxPnHUGy5z2ipR
+	 6I6f29rfTQ+0xnCg7mwoLvYESfqCoAUHialrK6NQ=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261113105101epcas5p100e5c266cd26e579976a9f322a776c23~nlTv160Ni1299812998epcas5p1G;
+	Fri, 13 Nov 2026 10:51:01 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.92]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jQvF04Fmrz3hhT4; Fri, 13 Nov
+	2026 10:51:00 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261113104829epcas5p13695795bc337b89816b05eec610a0dba~nlRiak2-X0455004550epcas5p1i;
+	Fri, 13 Nov 2026 10:48:29 +0000 (GMT)
+Received: from bose.samsungds.net (unknown [107.108.83.9]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261113104826epsmtip2c360208ef38f5550884792f7a48e171a~nlRgCU2-52451424514epsmtip2-;
+	Fri, 13 Nov 2026 10:48:26 +0000 (GMT)
+From: Raghav Sharma <raghav.s@samsung.com>
+To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
+	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
+	conor+dt@kernel.org, raghav.s@samsung.com
+Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
+	pokala.reddy@samsung.com
+Subject: [PATCH v3 00/14 RESEND] Add clock support for Exynos8855 SoC
+Date: Fri, 13 Nov 2026 16:35:58 +0530
+Message-Id: <20261113110612.3265841-1-raghav.s@samsung.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,156 +82,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261113104829epcas5p13695795bc337b89816b05eec610a0dba
+X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261113104829epcas5p13695795bc337b89816b05eec610a0dba
+References: <CGME20261113104829epcas5p13695795bc337b89816b05eec610a0dba@epcas5p1.samsung.com>
 
-The admission control for SCHED_DL has been moved to sysfs and RT
-throttling has been moved (long ago) to the fair_server and its debugfs
-interface.
-
-This file remains to have an impact only on RT_GROUP_SCHED. Keeping it
-for ABI/ compatibility reasons makes no sense because its original
-purpose (RT throttling) is no longer served. Anyone changing this file
-and hoping to change the throttling behaviour will be surprised.
-
-Limit sysctl sched_rt_{period|runtime}_us to RT_GROUP_SCHED so everyone
-using this outdated file is aware.
-
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+This patch series adds clock support for below blocks
+found in Exynos8855 SoC
+TOP & PERIC
+PERIS
+HSI
+USB
+There are many other blocks, for which the support will be
+added in a forthcoming patch series.
+Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
 ---
- kernel/sched/rt.c    | 34 ++++++++++++++++++++++------------
- kernel/sched/sched.h |  5 +++--
- 2 files changed, 25 insertions(+), 14 deletions(-)
+Chanegs in v3:
+ - Addressed Sashiko review comments
+ - Collected Reviewed-by tags
+ - In patch#2, added samsung,sysreg property to the binding,
+   somehow this was not cought by dt_binding_check
+   Have kept reviewed-by of Krzysztof on this patch  
+Changes in v2:
+- Removed name duplicates login, as pointed by Krzysztof Kozlowski
+-Corrected the sequence of binding, driver and DT entries
+- Removed <linux/mod_devicetable.h>, as pointed by Uwe
+- Added all the TOP clocks in single patch
+- Organised the patches in the order: dt-bindings → clk-driver → dtsi
+- Added Automatic Clock Gating, as suggested by Peter Griffin
+-Since we are adding ACG, we need to add SYSREG, hence, added that
+- Followed the name mangling strategy as mentioned in clk-gs101
 
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 1a6450f91d567..abe8e05942249 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -8,6 +8,8 @@
- #include "pelt.h"
-=20
- int sched_rr_timeslice =3D RR_TIMESLICE;
-+
-+#ifdef CONFIG_RT_GROUP_SCHED
- /* More than 4 hours if BW_SHIFT equals 20. */
- static const u64 max_rt_runtime =3D MAX_BW;
-=20
-@@ -22,14 +24,26 @@ int sysctl_sched_rt_period =3D 1000000;
-  * default: 1s
-  */
- int sysctl_sched_rt_runtime =3D 1000000;
-+#endif
-=20
- #ifdef CONFIG_SYSCTL
- static int sysctl_sched_rr_timeslice =3D (MSEC_PER_SEC * RR_TIMESLICE) / H=
-Z;
--static int sched_rt_handler(const struct ctl_table *table, int write, void=
- *buffer,
--		size_t *lenp, loff_t *ppos);
- static int sched_rr_handler(const struct ctl_table *table, int write, void=
- *buffer,
- 		size_t *lenp, loff_t *ppos);
- static const struct ctl_table sched_rt_sysctls[] =3D {
-+	{
-+		.procname       =3D "sched_rr_timeslice_ms",
-+		.data           =3D &sysctl_sched_rr_timeslice,
-+		.maxlen         =3D sizeof(int),
-+		.mode           =3D 0644,
-+		.proc_handler   =3D sched_rr_handler,
-+	},
-+};
-+
-+#ifdef CONFIG_RT_GROUP_SCHED
-+static int sched_rt_handler(const struct ctl_table *table, int write, void=
- *buffer,
-+		size_t *lenp, loff_t *ppos);
-+static const struct ctl_table sched_rt_group_sysctls[] =3D {
- 	{
- 		.procname       =3D "sched_rt_period_us",
- 		.data           =3D &sysctl_sched_rt_period,
-@@ -48,18 +62,15 @@ static const struct ctl_table sched_rt_sysctls[] =3D {
- 		.extra1         =3D SYSCTL_NEG_ONE,
- 		.extra2         =3D (void *)&sysctl_sched_rt_period,
- 	},
--	{
--		.procname       =3D "sched_rr_timeslice_ms",
--		.data           =3D &sysctl_sched_rr_timeslice,
--		.maxlen         =3D sizeof(int),
--		.mode           =3D 0644,
--		.proc_handler   =3D sched_rr_handler,
--	},
- };
-+#endif
-=20
- static int __init sched_rt_sysctl_init(void)
- {
- 	register_sysctl_init("kernel", sched_rt_sysctls);
-+#ifdef CONFIG_RT_GROUP_SCHED
-+	register_sysctl_init("kernel", sched_rt_group_sysctls);
-+#endif
- 	return 0;
- }
- late_initcall(sched_rt_sysctl_init);
-@@ -2845,6 +2856,7 @@ int sched_rt_can_attach(struct task_group *tg, struct=
- task_struct *tsk)
- #endif /* !CONFIG_RT_GROUP_SCHED */
-=20
- #ifdef CONFIG_SYSCTL
-+#ifdef CONFIG_RT_GROUP_SCHED
- static int sched_rt_global_validate(void)
- {
- 	if ((sysctl_sched_rt_runtime !=3D RUNTIME_INF) &&
-@@ -2853,14 +2865,11 @@ static int sched_rt_global_validate(void)
- 			NSEC_PER_USEC > max_rt_runtime)))
- 		return -EINVAL;
-=20
--#ifdef CONFIG_RT_GROUP_SCHED
- 	if (!rt_group_sched_enabled())
- 		return 0;
-=20
- 	scoped_guard(mutex, &rt_constraints_mutex)
- 		return __rt_schedulable(NULL, 0, 0);
--#endif
--	return 0;
- }
-=20
- static int sched_rt_handler(const struct ctl_table *table, int write, void=
- *buffer,
-@@ -2887,6 +2896,7 @@ static int sched_rt_handler(const struct ctl_table *t=
-able, int write, void *buff
-=20
- 	return ret;
- }
-+#endif /* !CONFIG_RT_GROUP_SCHED */
-=20
- static int sched_rr_handler(const struct ctl_table *table, int write, void=
- *buffer,
- 		size_t *lenp, loff_t *ppos)
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 00a3802d0ce04..966fe46fb38e7 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -110,8 +110,6 @@ extern long calc_load_fold_active(struct rq *this_rq, l=
-ong adjust);
- extern void call_trace_sched_update_nr_running(struct rq *rq, int count);
-=20
- extern u64 sysfs_dl_runtime;
--extern int sysctl_sched_rt_period;
--extern int sysctl_sched_rt_runtime;
- extern int sched_rr_timeslice;
-=20
- /*
-@@ -583,6 +581,9 @@ extern void unthrottle_cfs_rq(struct cfs_rq *cfs_rq);
- extern bool cfs_task_bw_constrained(struct task_struct *p);
-=20
- #ifdef CONFIG_RT_GROUP_SCHED
-+extern int sysctl_sched_rt_period;
-+extern int sysctl_sched_rt_runtime;
-+
- extern void init_tg_rt_entry(struct task_group *tg, struct rt_rq *rt_rq,
- 		struct sched_rt_entity *rt_se, int cpu,
- 		struct sched_rt_entity *parent);
+Link to v2: https://lore.kernel.org/all/20261009120137.2801911-1-raghav.s@samsung.com/
+Link to v1: https://lore.kernel.org/all/20260728121111.2077860-1-raghav.s@samsung.com/
 
---=20
-2.55.0
+Alim Akhtar (2):
+  dt-bindings: soc: samsung: Exynos8855 SYSREG compatibles
+  clk: samsung: clk-pll: Add support for pll_4313
+
+Raghav Sharma (12):
+  dt-bindings: clock: exynos8855: add top & peric clock definitions
+  dt-bindings: clock: exynos8855: add peris clock definitions
+  dt-bindings: clock: exynos8855: add hsi clock definitions
+  dt-bindings: clock: exynos8855: add usb clock definitions
+  clk: samsung: exynos8855: add block top and peric clock support
+  clk: samsung: exynos8855: add block peris clock support
+  clk: samsung: exynos8855: add block hsi clock support
+  clk: samsung: exynos8855: add block usb clock support
+  arm64: dts: exynos8855: add cmu_top & cmu_peric clock DT nodes
+  arm64: dts: exynos8855: add cmu_peris clock DT nodes
+  arm64: dts: exynos8855: add cmu_hsi clock DT nodes
+  arm64: dts: exynos8855: add cmu_usb clock DT nodes
+
+ .../clock/samsung,exynos8855-clock.yaml       |  196 +++
+ .../soc/samsung/samsung,exynos-sysreg.yaml    |    8 +
+ arch/arm64/boot/dts/exynos/exynos8855.dtsi    |   95 ++
+ drivers/clk/samsung/Makefile                  |    1 +
+ drivers/clk/samsung/clk-exynos8855.c          | 1378 +++++++++++++++++
+ drivers/clk/samsung/clk-pll.c                 |   11 +-
+ drivers/clk/samsung/clk-pll.h                 |    1 +
+ .../dt-bindings/clock/samsung,exynos8855.h    |  233 +++
+ 8 files changed, 1922 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
+ create mode 100644 drivers/clk/samsung/clk-exynos8855.c
+ create mode 100644 include/dt-bindings/clock/samsung,exynos8855.h
+
+
+base-commit: b810335a0699d1810683796b0e3ffe8827ddfe6c
+-- 
+2.34.1
 
