@@ -1,79 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794587961;
-	b=U8ZNAU8hCKOe+hgA4Vgf0sBeXeGOKBTehhD1uXFcLtDFJEAvRHFuCrN3wIMRR6vB1R1p
-	 nqbyTjlMdw2OtXJmWXLkJ1jaAqW89OjX3yCa3QJoCSr1Xm30YiFB/BK3MRL0q1p3fQZm/
-	 pYd5rl1ME25NdmjRPjgCfWhIywIMZXFRqPAOmehovGnJOqEPtVDlOlxioSvRyU4Fhv+vw
-	 PYhc4Z8e72XX8SBL7V7bdQ+z2vZ6QzocMwT11WPEAKCauEAknwpJZ58UG9qWnw5gDId+r
-	 8DDb8kClxUAqcMJtcKc/TlV/J1F/M5+NrXnMo5KLD83ykNbgYbQeQU+bwuPvmIW87wA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587961;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=caHdCdnbVcnoOel/8I7UgJt2cA+i1z3iFohsViZm+c8=;
-	b=xQe2uLlnHYlfWs7kVpS4eJ3SyZhgTiUUso+c+wdJ83VuxyHtnnc2A16plUj/SgUPg1Kr
-	 ZsJ4DxjkO5tXTcxn+FLmV4WZb2hghlzGwz74Dx/oGTL8C3a9Ls90Ce7Bu+FJDPt0Eh49M
-	 K2zYhT4glk98C2AaOyzijdTr9Trooy96L5qXhQwtT1TgBQxMTA5cZOjLSsr09Ik8WjGwq
-	 YcRh5ocLdaZxbwgdILZ3bzg5A5dyQhpS5GHrCY2vIp11NqppMrPozbCZ9WnK2mdGdMRhz
-	 NDKjXa4JKFO1/7YizxhIWWVbWYes968/GzdTjSzlBBSnf8YO2K6Br5uBgCaE6XhBs0A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BF3P0op7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03688606AFC0
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BF3P0op7
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794587960;
-	b=KCBwWLIKmGRhnbZ4JIHExnweLunSqpxQitEir4TgC18qMhOGlBDQf4caBV7P9Z8kajSK
-	 cMfxNgnoWOiSsSM7U1d04OjhKQgmGjXvbketaDHVNbPbOOf/xc4WgxyGp/Kcto5p+amw8
-	 umcbSqUYfLcMbpfhZSbQRhzqj778pF1GtFJc2sG9g0koDfzvg+6WOo570kvWBmziU+SXw
-	 fZ5N0xAhZRU+V6ddSp+pqooZ0jcz0jxF9+8y0h1l2zhb+baKrUT7rjhdUfDOKEpmntuoY
-	 su4WLeeyINMmEk/lpq6LgdLLP/YbieDVIPBx8Gtj05p+mkVZfos1P/NU+droyrYOQNQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794587960;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=caHdCdnbVcnoOel/8I7UgJt2cA+i1z3iFohsViZm+c8=;
-	b=QFBwRPmXQz8/ORnGwKzacdzeWOhyfdDgL6nzxi01iKv3hSGi2ikq6gcstaeKKMZC39kr
-	 4vLGn+54d6N7pMWP8+PPcp7SYH233camf0ymW71ZHy8HEPlUWkID2m2X7+yuJePGhd3Ii
-	 YHTFaMiKt0Slx5wAbNd5grvlHC1NHQumEh3AZusy6ZgpGJouvuaETlr1czrp+BLnrarY7
-	 nmxpPxL4cZ+lw6kBeX1G8RIbO82sy++L8BmfyV5FwpigtGr2iPeIlWK/kHdPFowHjJat7
-	 DrQkMGhjI7BiJM639BbO9VEsKB0ZyC+qOUNqgEUyK4vde4NjSzQoC7UbSYuucvjlkpg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794587973;
+	b=UJA5H3oZJZt557ihdcFQHS+iciDtSMWIqGNnasC9UAiPh8Wniv9WF3hbQq/ngswirQmU
+	 IpGBtyVTYwurJdOGT0l2FWnOtogrEL7pBvobtlakmsvNnaq8cOLEk4wDUWMcIfIuQCLds
+	 mD3oHNyctNLQZXAG1ygK1A3DzhaFkIyZUC14CykYreDEDmcMDFdj+321XKmxgnSCuCnmY
+	 fJSY+0tfpwum+2ElJ42n9EIkZKHZk0aoYUKbOXFYVXAiiUi+CedtPDWx7kh34jGU1Y1PS
+	 Xdvn/PJAKOGw6vC03CqtnsUhMfMkus2f/Xl1FgzE85i1GAplGHkrF7p41tVqp0jNWog==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587973;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=ZIaozk2aBHaH1oFJEjjG6pq54xGfHGZXMiLG49FuxWM=;
+	b=OCNriIX5sDAPrs96esMs2t5ekKzx22mVJGdLUJA+ys6fJhAnVe2Wg06gpHwP4ahDiNOg
+	 H1r4Q1xFQmxjNTFV2C4ffpHjYWXX4Buua3Sc2u0yK/wS8fBphog5LWzx6lLEMNAZJ1fHm
+	 UEqPrzXDatsmdvNYx3k75N0c58FbRhumjwXhLUY+lJWVbCqIEmBL79bulYkBwbTlwnqkG
+	 rreNL3uU8x7tjH+8SRbcHM1QK76QO7qMAyX997Mgd2VQ/7ARsSlkoXsZHKT+HKwtx231C
+	 tVG5PJJYE5Ldo+9C6bX2ynM2hV4HlmztURZETzwW6Xwdl7X1AHsZ1oHAmVx0LeWYFrQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=Y27pSlBF;
+	arc=none smtp.remote-ip=212.27.42.3
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0487F1F000CA;
-	Fri, 13 Nov 2026 16:39:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794587960;
-	bh=caHdCdnbVcnoOel/8I7UgJt2cA+i1z3iFohsViZm+c8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BF3P0op7c2BWvEgg0RtMnms7ouOFhgltbvdPt9NTMVsXxxw/Q/NA43L5Qdejrbj+4
-	 WC4sUZRs6KTu1fT6lrqgJQy95avT3GqwzTZDULgyIoZmQfIIJdT919Wn+iejEIUMPJ
-	 cVmK3KGzRjUqTRxvKLvtIugGKnFicdH857BjH7PtbqaU9Nx74h5zl3Jvn6YyRa/zMm
-	 W7K+IM+ptt12rz4rkNOgOUrHrMtR/kc0MaY5CTEdPOC6C/eKG94hQOSHp2sOhAtaA+
-	 n94Ms0FSBYCBTdDsb8f/8Im7NHK0UKmQ1pYA9MD0hSfc2tbstuELUrSRNbzZ4clG/h
-	 gGTTvkWzfdHhQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F15BF499C5;
-	Fri, 13 Nov 2026 16:39:18 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 16:39:23 +0000
-Subject: [PATCH v3 6/8] drm/rockchip: vop2: Find the first mixer of a video
- port with Esmart3 too
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0CD606AFE3;
+	Fri, 13 Nov 2026 16:39:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A0CD606AFE3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=Y27pSlBF
+Received: from L30177.local (unknown [158.255.110.170])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp3-g21.free.fr (Postfix) with ESMTPSA id ECC3913F8AE;
+	Fri, 13 Nov 2026 17:39:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1794587970;
+	bh=Nq5VMxuAxZkNVKKpbGt5VbkTDNOsTH++OiONsbi9n9A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Y27pSlBF6JC60hVZAj8IPVqa48C/9DgkKqOkQDESe2muCIMq1QiH0t2hpY74zGNor
+	 OtZzOAz4r2ULrN4s+CBzg/XtDOlc9O89iXA+G0s6SUgY7mlQnzDErXQV+ELA5RNaVW
+	 PK2PDB4K43IBDzZj9SO+65cyDlC491QsHI1NYeRwF/XtNGdaiyb8ChPIcKkIUVC2In
+	 dvO1b1pdQocvaDngZ6qUQv0TZJtqExY4YIAmBF+5gHhlvome38PHRk5sKV9ag8cLbe
+	 xkXCmw2A00qeLS/JkZrIUoxtz0CyY8rdsqNrklwxDAO/6T8FiPaISATPfhBBiQvTEd
+	 tKScOcofIrrdA==
+Date: Fri, 13 Nov 2026 17:39:05 +0100
+From: Vincent Jardin <vjardin@free.fr>
+To: Christophe Leroy <chleroy@kernel.org>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev
+Subject: Re: [PATCH v3 3/5] soc: fsl: guts: add the RCW override of any RCWSR
+Message-ID: <avc9KbxQ4dxlibGQ@L30177.local>
+References: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-0-5a0063f1da9e@free.fr>
+ <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,82 +77,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-vop2-fixes-v3-6-08ae37e83b5c@gmail.com>
-References: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
-In-Reply-To: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Piotr Zalewski <pZ010001011111@proton.me>, 
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
- Damon Ding <damon.ding@rock-chips.com>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587957; l=1927;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=LaWGFuV8U702iZKb4Y58/lyq2u07OMYD+M2uTNx0CjI=;
- b=J6XMCpRpakdX/82Mh/t68AfoQvfvi3DwZT5Oa8EoTLFXDHbPHxyhrtYJYgsWQTPAJgUeuLN1n
- kDIMsIddEZCAmZRyeY3ZJfGoQpkNc+CPWbBGtw/9NaZLP88Sz9WYzma
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Hi Christophe, or Vladimir,
 
-vop2_find_start_mixer_id_for_vp() passes ROCKCHIP_VOP2_ESMART3, the
-highest window id, as the bit count to for_each_set_bit(), so Esmart3
-is never found and a video port whose bottom layer is Esmart3 programs
-the mixers of other video ports.
+Le 08/11/26 11:06, Vincent Jardin via B4 Relay a écrit :
+> From: Vincent Jardin <vjardin@free.fr>
+> 
+> fsl_guts_rcw_rmw() only serves the SerDes lane modes. Export it for
+> other fields of the RCW:
+>  - fsl_guts_rcw_read() reads a status register
+>  - fsl_guts_rcw_override() changes fields of one under rcwcr_lock and
+>    waits for the status register to follow
+>  - fsl_guts_rcw_override_supported() tells whether the DCSR view of DCFG,
+>    which holds the override registers, is mapped
 
-Add ROCKCHIP_VOP2_MAX_LAYER_ID after the last window id and search up to
-it.
+May I ask for your advise on this topic ?
 
-Fixes: d3fe9aa49585 ("drm/rockchip: vop2: Use OVL_LAYER_SEL configuration instead of use win_mask calculate used layers")
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 1 +
- drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
+I am looking for the review of this serie, then I'll adapt it
+for u-boot along with the integration of Linux.
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-index 1c2d7d97a6c2..87982fba7d45 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-@@ -805,6 +805,7 @@ enum vop2_layer_phy_id {
- 	ROCKCHIP_VOP2_CLUSTER3,
- 	ROCKCHIP_VOP2_ESMART2,
- 	ROCKCHIP_VOP2_ESMART3,
-+	ROCKCHIP_VOP2_MAX_LAYER_ID,
- 	ROCKCHIP_VOP2_PHY_ID_INVALID = -1,
- };
- 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-index 6d08988d7007..55e5dc8b02d8 100644
---- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-@@ -1882,7 +1882,7 @@ static int vop2_find_start_mixer_id_for_vp(struct vop2_video_port *vp)
- 
- 	for (i = 0; i < 31; i += 4) {
- 		match = false;
--		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_ESMART3) {
-+		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_MAX_LAYER_ID) {
- 			win = vop2_find_win_by_phys_id(vop2, phys_id);
- 			if (win->data->layer_sel_id[vp->id] == ((layer_sel >> i) & 0xf)) {
- 				match = true;
-
--- 
-2.55.0
-
-
+thank you,
+  Vincent
