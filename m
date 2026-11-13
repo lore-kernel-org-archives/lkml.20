@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.193
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602113;
-	b=zz78ELpNnxK6XSf0KdUkGUbB5oSatsb3Ib/BFGiHaqeUXw/rtwievHAky6clDXft2+Eg
-	 U+W0ran6y1ZdASQxs1tjEylI0qnPkiYvUSp0vIXiAZi8+BKMLJWnK1xMYlZ4AsyYclnj9
-	 2oVtupD+05ie6Q+AvNOVnlXyuRbwi1LxQtCbokeB1tNSoxNWJhmcA7C0aF1CNobUCkj+n
-	 Cl+thpiJECZRo2AuRdNP5o2sq9G9VgedEt0v8xF+Xny7sU3NvKr/cHYgTwoS0mixE9lv3
-	 tTs1TnvdaQQ8LIUANjj6lCYoR0aEVyaHkL3R77xsSjYLmOL5UMEpr0NRv4Wz9Uyrluw==
+	t=1794602116;
+	b=wxR0CXhxrCqvlEm4/aWC/6orQFKpPxfac83GSPfPtzwZ8hHR5CRujDhY5InXZJGvsSij
+	 q+PFYaCZCqsuGXGxmLBo8cnc8nYI/aUFyLuwf+b/mfHfcDBp7uEvQxqbMhqz0Av8tIR87
+	 AA3txBc3dvcaP5b/kgRURQX9u+hH35KpnbOy8H4v2DPeAZt6/txW4UsD1BvqmBzP+VgMo
+	 AADlrkuPxc34km1Dd0HrAJiIdExHv0Vl4AlLMAeEXH/f5dCgb1OOgNgs6KAnWYGfEMUi0
+	 soBR+4OyQ+9L0ybdr3G7XL/ip9X0QQR3k4Of42zz0Y+6olKkrZpayEV26X0DziySnNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602113;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602116;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=KG0frz1qgVuhICCz66saxxD6xAtI8Ts+CPzc9aA7q0w=;
-	b=xYnQzSMw4l0AHS3i4/KV4pujPPo0L+ZhmNk9HScUr13WQFnxGDgbDci9irPTkEu/ljCL
-	 GMY13PDgn0R3oOZ9Ca9c3bTPmtppipcxcs7tGWHdFXS3YX/wjEOVkMWP23EWbQCETZuRn
-	 bL6CkCm4VC9TeeTLxDEq1YY7U5NGFlNSIZTCOz0L5rSj5F8gwb7CCL2UsJRcXdRDHYsyr
-	 n/ae7G1F9XIVv+ULUVXo3VcEswIYzITqdFsOkYGfiWaAShgQKEHvBo732RVAUCabwK8Hr
-	 VAx4D5dk1ZKAB3/h5okdkFiPqKWnHu3iRWVDvZuFfPiABERaaxW7uUcvIjY/zA1Qnqw==
+	bh=6cKcdP6ZFsbUpqGoJa0cKoc76Hw0duCjesAc2W0YCc0=;
+	b=agQC4JXOQ/0z9mK31yBMVMJ2tXl4JstmGVnOaYDVnIouUXx+0BKQl3qGiJG2QsFjqtTn
+	 cLDRzsayNqPWJ32L3trsTLUWrnSse5jP5Iyl9JyfU29PrNKI8HnDEM41BZ1oYs0LMy/IG
+	 6PRXMPlGscrJvVVfcGsDfzfuJItUencHJEX2sZ13kN2RLANA/5GE1uavE856rQYEuQqRa
+	 H+Crt2m9CZoZIgHUAuk1by+P06SXJwLLp+xwGj6rcUMhJ9TilqpkPviKbnwV9oPvVg/m4
+	 Kp5BiPLB0vck13F/qYz+O1f1Dcnc+iIHpZ/fIPB4v8yd1DzImFevDErn9dxMTRNGOnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xbmNaLuz;
-	arc=none smtp.remote-ip=74.125.231.193
-Received: from mail-oi2-f1.google.com (mail-oi2-f1.google.com [74.125.231.193])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JyARAhSR;
+	arc=none smtp.remote-ip=74.125.231.200
+Received: from mail-oi2-f8.google.com (mail-oi2-f8.google.com [74.125.231.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83844606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:35:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83844606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AB8606A335
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:35:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75AB8606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xbmNaLuz
-Received: by mail-oi2-f1.google.com with SMTP id 5614622812f47-539d2baa897so505663b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:35:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JyARAhSR
+Received: by mail-oi2-f8.google.com with SMTP id 5614622812f47-5187c752f46so586251b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:35:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794602111; x=1795206911; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KG0frz1qgVuhICCz66saxxD6xAtI8Ts+CPzc9aA7q0w=;
-        b=xbmNaLuzNf2nX/v3tDmWiuNZfGEZ0mk35mIXBjjfNlwvl71QBSYwR0atqwWI4oEnYq
-         wQs+C45gyXiOjinKtUZn/lwgW5HDm9lCvv51AIRGaqDFMqeO6pmEBbfbuyApC4oUlcaP
-         e1ygAnsUZfFL4a95sS08bFdwW/9wpMu0FM2vu1EWWJk/Sl9Y70vTe6yY9yk9DX/7Sy63
-         PNOIMkj9eNOk+ICn+vloV5QTxCNumcFCsExu+ecQ5/iBVp3LDPfyG8Hrsvve+1Es0hGX
-         xikhXSLKgMafuQUf3K5sulsumv+5DZJl4gRzFhWk+Sq2w6oZEUhWzLv4nWoC2aHzNWEU
-         Ik0g==
+        d=gmail.com; s=20260707; t=1794602113; x=1795206913; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6cKcdP6ZFsbUpqGoJa0cKoc76Hw0duCjesAc2W0YCc0=;
+        b=JyARAhSRNNQZm/PQ8PycF6gvp+ozKGUNMr+qEuggpUblBZNKsUaYmg6O62DVZ+dOwj
+         PbDGEeYJCNqtwQlhhGVES9upVFcZjYtaqnUYMg/EkjMNHK58ZKgln4EKWTcndpMxeesk
+         uhSs92sVD9ub5eLQiAt2XK+VXJcuxTUXdX8aPOoVq5Ob2VrQ5frB3OKL9HU/aVBrJAR+
+         VAeJo3YDhGyFj+Vh8R5uYis16dJMJC9Z6HOAVBCtI/CpibWHjASiDUhmu/N50CHdp34S
+         NjW9C37iCVouYwntzFqj7UHsjtJVj41dfAKoN3zuL+oPButyoLj+fUaakJF+YfKUNagB
+         Zz/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794602111; x=1795206911;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KG0frz1qgVuhICCz66saxxD6xAtI8Ts+CPzc9aA7q0w=;
-        b=qFmV1OUmpaURswArKKat7Uo/dD/M5yyGEepDkViDXKOPc2tXgsXsJll7ReFrmCld8J
-         /D/FDKmndIfuNL3z3duABMRGJ5ydZkT8lkRILF83QUtcpqeEImuasaJvwRb7v3gY1msp
-         bxKojOttAnAdrUnTkBDqbs54t4pBO7Hv0Mw48nd/L6irXD/g8UrvqAfp9ixiezD2/f4z
-         tkhg0Xv9661vSfffFG4mcQQHQh0yYNuT/6BPPndpKeyQLQurmxLvEgVC0K4DeXm8jEDm
-         j2cj4LFxWuVZCOJet3OlCg6DKuZJoeJeKJPK8KZilgPXNhTZw0mNsUP9rD8/MVI/QVN2
-         J5mQ==
-X-Forwarded-Encrypted: i=1; AL+hErGyE5WWGYBzMF3kBdLkp4NEI5gJHgzLvYvlNEWKQZoRj8XNar6yA7dLnapWox5naMTw8r8iRwAiw7cUfUY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8B84cYomaS+euUOmtKscDxaKkXhA8qiayvbhrDH/lHA/N8RZjr
-	IVUFr8BhVto/s47Z4/Y0XjNm5JLXTw9gvxOR5ChDg9Whcwt5mHRvJOQa
-X-Gm-Gg: AYBFou0ckY/tNZuX7jaVj1O1zGNtoFOnNFORRzGG+alE95qWJNEzQS1qOBUmXo+gotu
-	+qaciNV+UHHgOgDgsRSZRhLQVBjpyK1rOYSF+HgdC2mIhPuxlxe4oLT/LT4vW6LmpPfbbHRp0pV
-	g+q9maip8MtzB39RiP2HKSCpkU26Y4846uyw1B1Puz3LwThOFiKYPcOqck1L/MAH7oxmOJtb/7D
-	rHl0bB5LWrk7OWSI6cYza9aPfr4zlEZs4OXRfdEX43NNFZPyILus0BY38neWsF7UjzbloiutzL0
-	n57LRaPHoTdCSM2CC3pLHxD4MvvdKDcH4ONTJm/WLY58FFvGTviugAlvGiFVgKzzljVCcH3M6C+
-	7DKlsy0/bfHnmzcJzGnUqysrv7gtvsmDW86Ioc0raRp8IQCUbsAvx2JxPRSsJWZD5oTDtpZxth4
-	giYFPUYbJw30KsDe+jyty9pAZq8vketheHAnthE/golM0Qifs/JDmQaHYsXCCIKqVQ+mwomR0a/
-	pZyp5ZEiLzfOG89/luJibmsHyjhFz31k6bZFddmNVvsCY8zCI/M9kOIG7CZnexPRKwLN8ck/kD0
-	0EZDwi+/vucak4TqiLgyE1o1eehXrzDnRBYCYM0e6pyLdaiaHIbLJjfIekaq569HlR1XsWV8SgW
-	x7Bxgd5EAjfTnjp6MlZc=
-X-Received: by 2002:a05:6808:1527:b0:4a3:3108:866a with SMTP id 5614622812f47-56e637950e9mr3481169b6e.17.1794602111487;
-        Fri, 13 Nov 2026 12:35:11 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794602113; x=1795206913;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6cKcdP6ZFsbUpqGoJa0cKoc76Hw0duCjesAc2W0YCc0=;
+        b=Tu8xrUXoNZayBn3VIzqsDefh8OZGb8fj46w8dSnxcqm2gShlAUTs1XmSEoCrZBsUqV
+         DeY4koaQ+F4SBaTBptkT6H8TimmpMbVCYFLHzQnClHi2hyFfc0SXn5PMb7JQaoyfzRK4
+         iwOCMTEFHkM+xlF9ZBTRMi43GtkXn/Jaqb0zk11BlCuMZgUN39BXHl1wvIP0Y1OTb08y
+         4+H4MMfWFsy2TE3t7oP7hSeyFRGoV+VQrfZkvUfi8o9lzwlSJh0vLTO467Z0sFaMKZ5j
+         bQpW9Ia3rjbV6bIKy08DT4HpLoR9eXz7BQx+MONZJYPj9PeNNyTFpe0pGYOD2Zt2oi2F
+         29dg==
+X-Forwarded-Encrypted: i=1; AL+hErFOrEhFeaAqGD5Fck2nUJEa3KLXfvfG156tDY1RN2RF3qmJt03UgRkSfcYFRSjAJyN563vPiX2ahvaWzNE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hTfymiuCZNjUchhFDh3IsW45dpDAkPUtoKwS1teKK3KRSICkE
+	aeCb/HElQ+LTgSkxRRFotazCM/XEwQWMqjv/pkq4UnpizB/v30X6Si+8
+X-Gm-Gg: AYBFou1SDAv+7ot8SKsXbjQTMy4dcHIlty/1573vm0ApPStbNzYbZ0YyfwrtjhVQTDD
+	AmcrWnLvmABNtkeRpLRz/3j7Azm6Ih8DS/fy3lpg9SiH/gb4GfuDDWjnSmpagMaaPx7kTBmx/nr
+	XOIlmAs3EjM3Ji4qphvDKctHdSGmnHLrM92lrzRShJWIovfkBwQeXhDULbBBfE+rNO9iZ6i95ua
+	NqD96f3d1ItWG67Lj36aaMdt8yWHLw8MS6OskbvL8rjhMsTC3NNhbv0mZMQJaWm4leEy5OCPjzF
+	nQjW5Zg8q2rSSWivrRAibeGA/1bAOAfQU1amhFjc9H/2kzLrUKXfxbNkTnWRgC7XwgKgtyD/iP8
+	mxcxQusodO9PVsjDL3yxiEQUO5hc4JhZM3GV5h30lsg7l08biQ83yIC550yN0iBv8v4l9wUuNSq
+	Ipb9kAsExt0/FVMGL/GB03ztnMid6yJCP57/rcrXA1PLwWnZhFjNeuNAkutcj9vne1cmSCF1lrS
+	B99nCj8lhvQlmEr5g4ZAf8TBSJkrM5ZSbTTCsoZHGksyK3poBrAyzCxz5R0uuEZ/TpD5VQAn2ql
+	WmmS5RGhpu52TXWbnGGFQDvkQ4mz+fbQZQeaxZJfihzRzatTUPzQEzK6ma55fY8hiGZ5WcFn9Vi
+	IhuysWzd6bseNN4X85A0=
+X-Received: by 2002:a05:6808:10cd:b0:4ed:7045:d3bc with SMTP id 5614622812f47-56e641d6c13mr3204181b6e.32.1794602113421;
+        Fri, 13 Nov 2026 12:35:13 -0800 (PST)
 Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e70c58f9bsm2712225b6e.13.2026.11.13.12.35.09
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e70c58f9bsm2712225b6e.13.2026.11.13.12.35.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:35:11 -0800 (PST)
+        Fri, 13 Nov 2026 12:35:13 -0800 (PST)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Subject: [PATCH RESEND 0/2] clk: mediatek: Fix FHCTL DDS mask widths for
- mt8173, mt6795
-Date: Fri, 13 Nov 2026 14:34:54 -0600
-Message-Id: <20261113-mt8173-fix-dds-mask-width-v1-0-c8d1e3288df9@gmail.com>
+Date: Fri, 13 Nov 2026 14:34:55 -0600
+Subject: [PATCH RESEND 1/2] clk: mediatek: mt8173: fix the FHCTL DDS mask
+ width
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,11 +96,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/42OsQ6CMBRFf6V5M8+0RQGZHGR10NEwQFvgqQXTI
- mII/27AH3C9OTnnTuCNI+MhZRM4M5CnroWUiYCBaoq2NkgaUgaSy4jvhUTbJyIOsaIRtfZoC3/
- HN+m+wUiVsVBRZbZaQMDg6UxF4+q+wjm7ZKcj5L/dv8qbUf0iXsiGfN+5z3piECv/R28QyDHUX
- HG5lyrZqUNtC3psVGchn+f5Cwnp5IDcAAAA
-X-Change-ID: 20260912-mt8173-fix-dds-mask-width-6cb71c6fe4d1
+Message-Id: <20261113-mt8173-fix-dds-mask-width-v1-1-c8d1e3288df9@gmail.com>
+References: <20261113-mt8173-fix-dds-mask-width-v1-0-c8d1e3288df9@gmail.com>
+In-Reply-To: <20261113-mt8173-fix-dds-mask-width-v1-0-c8d1e3288df9@gmail.com>
 To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
  Jerome Brunet <jbrunet+clk@baylibre.com>, 
  Matthias Brugger <matthias.bgg@gmail.com>, 
@@ -110,57 +108,51 @@ Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Ryan Brue <ryanbrue.dev@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794602109; l=1971;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794602109; l=1762;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=SOLu4jzxQrQXcZ93wAkCZjEM/VLMoV7Mr0LjnwhotLc=;
- b=fFa1XmGpk3uBIN1Zz6dT/QjiYTDVTbfEew2GPALp8trqTIHfGKnKk9edIoN7tUBqvwxjac2jk
- emNoj2NFPYmDGP15GLsBdV+AHx657qde8qsIrnkzqjM7JUqLtbxn51N
+ bh=+CADWjqc22AUSeVeKeNbBWk6vnVbnoxXOpZ/q/waG+w=;
+ b=iLQXE6+fT67k/1+QXFmsj0CBbRIh+BBShAboAlWwKdNv6JETp70VldtQbm1fwLYVRqDFJsRNd
+ EbaohlTqIw/A4R5rO4Jb0oapwZN+1s1+IeGmBrmEnDmvq7F1aGrFtC+
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-Discovered this while working on bringup for the Amazon Fire HD 10 (2017).
+MT8173's hoppable PLLs have pcwbits = 21, so the FHCTL DDS field is bits
+20:0, but FH() declares .dds_mask = GENMASK(21, 0). Bit 21 of FHCTL_MON is
+a status bit that comes up once a hop has settled, and new_dds from
+mtk_pll_calc_values() is always 21-bit, so the poll in hopping_hw_flow()
+never matches and every hop runs to the 1000 us timeout. The PLL does reach
+the requested rate and clk_change_rate() discards the error, so the cost is
+1 ms of atomic polling plus a warning and a register dump on each rate
+change.
 
-In f222a1baec5f ("clk: mediatek: mt6795: Add support for frequency hopping
-through FHCTL"), and 45a5cbe05d1f ("clk: mediatek: mt8173: Add support
-for frequency hopping through FHCTL"), the DDS masks were set to the same
-GENMASK(21, 0) as mt8186, mt8192, and mt8195, despite not having the same
-pcwbits (21 as opposed to 22). These two patches correct that.
+Six MMPLL rate changes on an Amazon Fire HD 10 (2017) all time out with
+GENMASK(21, 0), MON reading the requested DDS with bit 21 set, and all pass
+with GENMASK(20, 0).
 
-Tested on an Amazon Fire HD 10 (2017), an mt8173 tablet, across 6 MMPLL
-rate changes. All of them timed out prior to this patchset, and all of
-them succeed with the patchset. mt8173 currently doesn't use FHCTL, but
-this will correct it for the future in case it does get used.
+mt8186, mt8192 and mt8195 share the constant but are correct, as their
+hoppable PLLs really are 22-bit. mt6795 is fixed in the next patch.
 
-I do not have an mt6795 to test with, but mt6795-sony-xperia-m5.dts is an
-actual consumer of the FHCTL node, and switches it on for mainpll, mpll
-and msdcpll. If someone has that device to test the second patch, that
-would be appreciated. I do believe this is the correct fix though
-regardless.
-
+Fixes: 45a5cbe05d1f ("clk: mediatek: mt8173: Add support for frequency hopping through FHCTL")
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
-RESEND: no changes since v1 [1], rebased onto v7.4-rc2, with Angelo's
-Reviewed-by collected. Jerome noted these go through Angelo's MediaTek clk
-pull request for 7.5. The Assisted-by: LLM trailer is dropped for the new
-contributing guidelines.
-
-The patches were still developed with the help of an LLM.
-
-[1] https://lore.kernel.org/all/20260912-mt8173-fix-dds-mask-width-v1-0-3d0c0292c85c@gmail.com/
-
----
-Ryan Brue (2):
-      clk: mediatek: mt8173: fix the FHCTL DDS mask width
-      clk: mediatek: mt6795: fix the FHCTL DDS mask width
-
- drivers/clk/mediatek/clk-mt6795-apmixedsys.c | 2 +-
  drivers/clk/mediatek/clk-mt8173-apmixedsys.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20260912-mt8173-fix-dds-mask-width-6cb71c6fe4d1
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
+diff --git a/drivers/clk/mediatek/clk-mt8173-apmixedsys.c b/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
+index d7d416172ab3..327240cd34fb 100644
+--- a/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
++++ b/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
+@@ -100,7 +100,7 @@ enum fh_pll_id {
+ 			.fh_id = _fhid,					\
+ 			.fh_ver = FHCTL_PLLFH_V1,			\
+ 			.fhx_offset = _offset,				\
+-			.dds_mask = GENMASK(21, 0),			\
++			.dds_mask = GENMASK(20, 0),			\
+ 			.slope0_value = 0x6003c97,			\
+ 			.slope1_value = 0x6003c97,			\
+ 			.sfstrx_en = BIT(2),				\
+
 -- 
-Ryan Brue <ryanbrue.dev@gmail.com>
+2.56.0
 
