@@ -1,105 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794569056;
-	b=ml93OE0NSuR0IDywNW9xntAt0/rMqCeAiRVNIOtdV7K/nwfKPE+r8js0PjDPwlhqSIw8
-	 qz4ClndadLUIjOC5DSQH7PATZ3vdZ/Mv35uh1RlsnBLjul56uAda8B+PpPEpOnI/R/qa3
-	 Z3noJoc9C05gw09jQaTPxq16gGOQ7izsnW/GVievTNmcRGd0gts6br5bIPlY2uwKjRVnt
-	 +kLw+Wd21U9Q2uQnYifkgkLRmdX+RumFa5kURQdeVFdX1sHqtvO6BnJb5lH7fJLqpM54x
-	 cM+/tefFinloStXz4zJnL7CkH5SRXx8yrgf+m8/uvKixU/s+GPZLhnkwol6s5bypI9g==
+	t=1794569137;
+	b=lLJknUJWygCoMj16N8bl7wWgN6keedYGHmJoU0VTus/+4V91tAEgcy3tl8mVARZc++/6
+	 BLGIVjAjnrEP3Yvn3UFXRdMc9Rdb6EUmDm8ZXD0EhZrcgDp6I+zc05VrB78lOoa6ZHz2/
+	 6OAo5OY2U7047mlQySMEotX99wevbTOAokHMI47d4iYrpKH+UiVfLUUSBC4zECfapt+Dg
+	 eCoBTi93OUfllQGsTPKtvXlgJD1dLF1514EMlfD/KnsagfHd2sm+m2qtpG4x77OoNoNnC
+	 YWOpB/Tp1xooEShduDBQ6thBwkxyxmslRqIxNshQfdfmh9CEFhkB4WXS1+ybe2Zcd5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794569056;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=A2z7Tw5DHCFD+mcx9gw6v8Y1X48/h954fhMI36CiU8A=;
-	b=fjbeMa09VM9YY8LOWpTG+b1I7/Vvk6yU9XjwzhwDoNbQHbWSvPrDiMGAPm/jVPS+zRrM
-	 BNYE1pIg01gA+MfoxMtWUHMPPjQcrlEzNRtFYijyZKm1ed9srb3o+McaEBXz/R8B4nSoS
-	 Y9btl+YxcZtAQK3N5IbrSEayL+e04UxyDFBR0IaCbwTxzTC2MtyZBQTjFJO1O26KTbXnw
-	 RHBK41v2XgDbir8f9LrEhMkqCK7/6CVg3/1urP8JbvqUPjKiA3Yx9sjCowLSFIyGSKAaI
-	 tEFu5qifW1E+qiv9tsPZzbeHblLaekPDdonAHL2DCJaI4IHlarOpWrPV3CqP8WDXR+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794569137;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=j6N78RKpAXF+cz+vbvK8x2MeOj/i26p0QjCWKU872eM=;
+	b=OS5NLuG1ST6N7u9siEQkkz2BJAShVV5XnZWZDiDXDgyKYgFzAtVUrHcln1YEbjyXe8wL
+	 cAfLBfrAo4zT8L3qPvSBkf+Q74q2Wozky0pf+bUkG5SvfIuwd3ffvXuthMwqs3qSdWIJd
+	 Wh6s1guizWKmfSqDlFKnwtGQDjlXCTI3YLWL0/BI7fOE7eNFUX2Ad2y3Rs8QfyfP6WwpA
+	 kZPYUW6HuYazY7UZ1jNUWGGjIBAl5fbjmUBoOVjazWMf34Rb8F+yNXhjTytgJGemM07hU
+	 5nsp8Xq6PsFwns2m3yyu813RorIsJKyV0GO51UHGP0t+qX5bQgpBdadrlGHeMmnx75w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0XKB7toi;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqyPAsUP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13CC4606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:24:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13CC4606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6FD606A321;
+	Fri, 13 Nov 2026 11:25:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0XKB7toi
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdab938dc83so485955a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:24:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794569055; x=1795173855; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A2z7Tw5DHCFD+mcx9gw6v8Y1X48/h954fhMI36CiU8A=;
-        b=0XKB7toibmTif2MEATU8EZggVXApNKF5tJbXh7MpZRZKyI4pE7FaNOUowZOCzwzkVy
-         S1NwmO7Y+wY60fXBsK5t/EkC1UBC6B0TnOgyqZDTBdhgJNn74YVQEC4qvH54McRUvSfR
-         YGd99C+Wv57zzyMJnGyEJgUjGiRNCqR0/ic8VGHJD4R/ojC4IhQ+lhm7DqaCQ1MjJIEb
-         AFrHb1RqjZ+0ikSTu5WI5sdS+7At98IO0TNPUr1dUBxQxdeQDmGM9fH/H+iKtkxdSdc/
-         f/9tJKHqkV+Vruy7ktloYUz6MVlJH4aiHHGPUgQKf4IWWhIkNEg0qTuw3r5AqZQVW4Mm
-         /Mvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794569055; x=1795173855;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A2z7Tw5DHCFD+mcx9gw6v8Y1X48/h954fhMI36CiU8A=;
-        b=khFF2dHI2FSiMhb21kggj/v+tnE6XE2AhJOnUeLX217tn98pADPhiEX96Uw3EQmrhh
-         OO8S9ITU8wfSMYdNe5lNBMVqh8sxGGbtD5KH3U51OBToNHv0+d5nQNEKV0LlKYBYR1hi
-         c5jX1uTc36LIZiPvcKiaYebXgtz9uxx0I/J0mA/qupep31Lmk94E/Tu+cMY3eeD9TiVA
-         f0wHN3zhehqd9QE9Vfc2z9o/POTAN2BnCOHtdqtfH3fZXV5znPXy1kwpCwWGWPKPW3nn
-         gt5AxZH5a1EUhajkAXEQcnaIOiMVMiQpY++1/EsnCG66epgieHVmvAH5p3sADm6PrB6C
-         4INg==
-X-Forwarded-Encrypted: i=1; AL+hErHnfRCaeGawXtHOT2NxGFWtlU4aBnfDVD0s8rH/u04CosZmSO3DdmHWLaTKYmWglG8naSHwb4oh/7SOKik=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+agbYDn53NK3Nse/KnY080x84RPSCrmHst43ZQMvicwKCD9Val
-	IcjHZyrHYInV+xVX/htL6pR/6H6KkKXJKhXHQErCGB0J0V9wEVf0pNSV
-X-Gm-Gg: AYBFou1DZeQkZiAp91BVY0zRUw9YbkPlMhRfeGCPLm0fGPm9BkRTJismfEGODGNZJ8Y
-	DzobqN6GM7OzPrUois5xB0O5cLXEuRHsU0EC7yPX1BcgeJJcEneIQXgKOOLoZ/pKftoJZcqTUtP
-	kzVER68WhVRtDtHfDKrvw+g2xKr9+NtWeH5zXBSd0XLnPoRfMglyBQvWb4VWxaoV0uaa7yk+0yH
-	bXAtWiGelLXJHRtXQLp83AiyNmygFWX5mSYvvWUeR1hXlhdIlaX+4cOwnml9wEAM/7sdv/9CyyL
-	upVcPMADbGvjyTOF3Vz9QsTXU9V40ePq3Cis+Gjp3cjZpJbdLdA+M7W+Jxw+yGwOHHCylaVfvR9
-	v0Dk9jRfwDipR5QqA4W72a8RK4ZysUEfcdzV92cwlfIOfe1x5eJnq/lBghoXa9jWwONlopumkSv
-	5QTOvmJoVpsb+0c6IXGXP0Im4YadScTRxklh//0w14fUzElWghCe9J4uvjcZFZOYzsVVZBnDtvg
-	ud9BOPdtu4ldtJKv0N/87Lp4+DzAA7sy6lnP2mH8OIHlnOuQWSl51EoT9OrwPMtCQHG27bW53Iz
-	yxDbxONg/zCHCCXxYXPXQrPI0kBaP+GMHt4cA3B7C7mTJg==
-X-Received: by 2002:a05:7301:2024:b0:36a:18e2:64c with SMTP id 5a478bee46e88-379655d3d12mr2185384eec.11.1794569055067;
-        Fri, 13 Nov 2026 03:24:15 -0800 (PST)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3797f98b9b2sm6771786eec.6.2026.11.13.03.24.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 03:24:12 -0800 (PST)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: mhocko@suse.com
-Cc: tj@kernel.org,
-	akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev,
-	muchun.song@linux.dev,
-	penguin-kernel@i-love.sakura.ne.jp,
-	mkoutny@suse.com,
-	chris@chrisdown.name,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: Re: [PATCH] mm: memcontrol: don't miss processes whose leader has exited in OOM scans
-Date: Fri, 13 Nov 2026 19:24:05 +0800
-Message-ID: <20261113112405.1583476-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <avbIL86R61Lu2YVF@tiehlicka>
-References: <avbIL86R61Lu2YVF@tiehlicka>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqyPAsUP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 358F21F000C8;
+	Fri, 13 Nov 2026 11:25:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794569137;
+	bh=j6N78RKpAXF+cz+vbvK8x2MeOj/i26p0QjCWKU872eM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lqyPAsUPWLJM9qQI9khXZpMOGAyQbf7KcXZFt/4kk0JF/F848/YU/iUoZO0Jo3my9
+	 OGGwg/gMrSJr0zX7BMwznd6SY1+c2ZyPmBZUmgAP2WiTHnIE5fxwIMFsilB2H+nQh3
+	 P0nSqj1Fn8aOG449SXeTtKCq/Ux6PME1Q85g4SeyU+LxtTmi6sHPwE/WzFRyf2GRxD
+	 PuZV3VgvjZWdx1ac4LotFZSiG42jt63dYkEcO1lVGLYYDhS65F+uXwY0bfLNtaQkEa
+	 FxW/jIWYLZZphtZK1+cMyrG/RFSPO4C85FjcORjnfhfMvzDILQB0LcQ1qVUk8arvtc
+	 YAEAGaB83eVsQ==
+Date: Fri, 13 Nov 2026 12:25:33 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Val Packett <val@packett.cool>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Marc Lainez <marc.lainez@gmail.com>, Luca Weiss <luca.weiss@fairphone.com>, 
+	=?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>, Danila Tikhonov <danila@jiaxyga.com>, 
+	Sebastian Reichel <sre@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, phone-devel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/5] arm64: dts: qcom: pmi632: Add battery fuel gauge node
+Message-ID: <20261113-bright-funny-duck-c9b9fe@quoll>
+References: <20261112170841.2189322-1-val@packett.cool>
+ <20261112170841.2189322-6-val@packett.cool>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,25 +65,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261112170841.2189322-6-val@packett.cool>
 
-Hi Michal,
+On Thu, Nov 12, 2026 at 02:07:31PM -0300, Val Packett wrote:
+> Add a node for the "qgauge" battery fuel gauge at 0x4800, and for the
+> SDAM region at 0xb100 which contains the full charge capacity.
+> 
+> Signed-off-by: Val Packett <val@packett.cool>
+> ---
+>  arch/arm64/boot/dts/qcom/pmi632.dtsi | 33 ++++++++++++++++++++++++++++
+>  1 file changed, 33 insertions(+)
+>
 
-On Fri, Nov 13, 2026 at 09:19:59AM +0100, Michal Hocko wrote:
-> Do we have any conclusion on this?
+It does not look like you tested the DTS against bindings. Please run
+'make dtbs_check W=1' (see
+Documentation/devicetree/bindings/writing-schema.rst or
+https://www.linaro.org/blog/tips-and-tricks-for-validating-devicetree-sources-with-the-devicetree-schema/
+for instructions).
+Maybe you need to update your dtschema and yamllint. Don't rely on
+distro packages for dtschema and be sure you are using the latest
+released dtschema.
 
-No, Tejun has not commented.
+Best regards,
+Krzysztof
 
-The same case has come up for cgroup.kill since then.  da13e0e72a73
-("cgroup: fix cgroup.kill for exited thread group leader") in the
-cgroup tree handles it by walking all threads instead of the leaders,
-and leaves migration as it is.  v2 does the same for the memcg scan,
-so I would continue with it.  Chris's "mm: memcontrol: Don't lose track
-of exiting OOM victims" changes the same css_task_iter_start() call,
-so v3 will be on top of it.
-
-Tejun, if the exited leader should rather be moved along with its
-threads, this patch is not needed.
-
-Thanks,
-Zhan Xusheng
