@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794569515;
-	b=VMF36HYbaJyk6mP9grJ9hWgIWoV18L4rP60Ik2J1hc1tw1PiCh6sTAixC6XII5/5PWI4
-	 4wenJciJZW8XaEOmeL1d+dShOB1FxGwX6JnGBmcuYypkY0WAuDte89pZR4XQE7O+lKLH6
-	 nVAslKJIzw46xlQaKUHXG8Lez9OSl9NZk+T7xPNbZ47vbb+iZ4IJONcmqrUvqBPgBzZp0
-	 tJ0BazGb7a4YaTCsyMRSQ08p12Zylyx5hV6bCMkJQbNPvb0sRu4nORkkfu0DTWwcuNxoh
-	 jknSk/tyTAVcNoFX+YNlEOCXJWBa3FIuz2ntoLL3ScI1EqWwNT650+nfOel50j8P0qw==
+	t=1794569538;
+	b=kbFzk5cg/15ws+DXhNJffgX15a0/boGVf0XHGt6NHpOYrVdkVP7XRZWvZ0Coxhc3Fbxn
+	 +Fmh9LFjSIvzmatmW7AuILnuqVQbuELE0H1Zo6uTOJRMFhM99bEeFPiIPPGWoTmE5fEz5
+	 DD+aPdFqzjZsK5OC11AJlTbo57NmBegwvzDGYT9ogoZnd83su11ilz28b31KyTiIYgiwP
+	 0UzkejTnEk3zXBv1p19hF1FULwhxOwjfcICVk/7DA5jvnNQrJ7xQPQ9CCNewJQnBDG3z7
+	 tstsWC1PnowTDBcHAHjVRCtanXCVghUFVYPee0Po/SMKzZw6K8S9OYCM3fat6+e2MRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794569515;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794569538;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=6DhFH8hwsCYnBgFxXq/I9O6+y9tsetgI7G8uWPPAQcg=;
-	b=X6dvx8OlK9CIW6xcDd11bKVtaqapfVSrxQLaBJNwLcw0nHaaHlu1lJeuY2uQEsM+sW1v
-	 iwcyr5BTc2G50TNIscffhNyoa7ixdsbI4T/D/QnMdmzsEdC6vdq07EwaylUj8c2Kicgg+
-	 mgVOVsyUCW9OsTjB5i/K+TkhD3xVYIOdjF95OTbIg30c7znAKNPMkFay0z95S4EhA60Di
-	 wXfzYdgLrbaIPsvHJsVseNrqv4CztkEgKeKKERl6thHokA8JtUZDk4aD5VvE9MTfaK2PC
-	 TSrTUCD5iR3+1lz8r0rvqY2Vm0OwwbKgsFZEfU7QaQGik2CTSY+L3yU9mkqa4PfjiEQ==
+	bh=Y9mujQ4uVPf2xnYoOMpJi9F7duEaE6HydYALywSp2s4=;
+	b=O1mBzDV0KGog9yVIV7OtRggLoG0xE0spnYd5+KUKiqy6BXpIVPj6RuvdyF4t7a8a6hMc
+	 pVhxj39RAciflA5KpJk4AfPlqTRqkACYrHP2DBf8z95go12DGp0UC5Dvnn3CWvmNdK7r9
+	 f5VzjRmowfdY10hKmdSZNS32LVwF3Shws9sW2CDFKKVPFgA4fPZ/NvB8SOYZR0Iq2kIfa
+	 EoqQboneqUp/iJ4QexTcGg/EkAsOLhGUUlgCLNL4Pd3Z6CIS7Alqzd1fOFzaLThuYb8J6
+	 4MxPOSKgmANAZS3M5/wPjoQtRcX0pSZMDK3p587uiTKow8UsFnII7QeCwZV9bK3wi9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NMOENO2o;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bYaa+8TU;
 	arc=none smtp.remote-ip=198.175.65.13
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D394E606A321;
-	Fri, 13 Nov 2026 11:31:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D394E606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB44606A321;
+	Fri, 13 Nov 2026 11:32:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EB44606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NMOENO2o
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bYaa+8TU
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794569515; x=1826105515;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=/fc+RBsrxEuri+mYI7f8O/LEmpyN3U7R5LhWumAYaG8=;
-  b=NMOENO2oFyC545i8LvKmGiBydXUatS6RWIsUu4oD9FscImiIQmzkHMGx
-   M4eFIAxfFQvNDY0DdK2h48sGDIc6jveEJV8m0UZzM2Dk56imxoGfklao8
-   jvSltIVTfbYiaWbVjLmTZ7fgbVmWgVk71Yx3KvUKUFGUilOBN0X3pO27a
-   5uukZpvfd5zxpCYLJeMxC1Fy+zhJ7TicSmMI6n4P0/6838GWO2YhVDN5L
-   E+KyIQgSLNB0WooKY1W5EN4ZFyk1A6avlm3QvzAGlrmP6GIpo0KnsWsC/
-   Xszat/yFH94zuCxr7BshhZkrafqBvBOgAu72QvU5AmNtRaln7xXnM29yX
-   Q==;
-X-CSE-ConnectionGUID: WSTusNxzRbyO069Tkn4FbQ==
-X-CSE-MsgGUID: msAXuLxsQm+PMTp+uvIeYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3246889"
+  t=1794569539; x=1826105539;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=EU7t5dhbbmJdPonhlPJ7QsNISS+2dJdXSzHIyq2fs6U=;
+  b=bYaa+8TUvXsLdHzGmYCIpIhBwLBRzL38gTdnP/RReClVgPK0fusC48GS
+   CTHEII1eIVSLKLF949HcbpTjDZMn9dFCTrdnY6X3M1frnkHXat4Y6uod0
+   pESPk3J/OLMLv2BA3spA5VkdBUhqbCbNs49b6BHczr9zr/r35pveFA/Qs
+   esO0qAkApcRfipW3LsKVLZjLKORw58rrE/39k2zF8iU3R05qaan+AEIMq
+   tAM8PgNS38k8wgVJf7e6nx03L2dnmoNkVj/nlAUvQbEl8d02R97sS7SBN
+   /ky0EPU9hS0uxMJ3iTWcfdRvcB2hvN1gGVlTYuNK1Q173RnYYmcyI3Rao
+   A==;
+X-CSE-ConnectionGUID: ohchtoWeQIu4BhKoUgNxHA==
+X-CSE-MsgGUID: b5IV5C2SQuCZRJn4vbH5aA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3246905"
 X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3246889"
+   d="scan'208";a="3246905"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 03:31:23 -0800
-X-CSE-ConnectionGUID: ahPVgVjLRHiw4/Mnqkceqg==
-X-CSE-MsgGUID: PNHNXKb1TMWnG7czBJE8yw==
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 03:31:27 -0800
+X-CSE-ConnectionGUID: 5sClp3AgSgKAGc++r/e1hg==
+X-CSE-MsgGUID: fHXgQd82Sy+wx2AJMwxF6g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="9235564"
+   d="scan'208";a="9235577"
 Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
-  by fmviesa009.fm.intel.com with ESMTP; 13 Nov 2026 03:31:20 -0800
+  by fmviesa009.fm.intel.com with ESMTP; 13 Nov 2026 03:31:24 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org,
 	linux-sound@vger.kernel.org
@@ -69,10 +69,12 @@ Cc: tiwai@suse.com,
 	amade@asmblr.net,
 	linux-kernel@vger.kernel.org,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 00/11] ASoC: Intel: avs: Renames and debug prints
-Date: Fri, 13 Nov 2026 12:38:29 +0100
-Message-Id: <20261113113840.3067489-1-cezary.rojewski@intel.com>
+Subject: [PATCH 02/11] ASoC: Intel: avs: Do not skip errors from avs_path_pause()
+Date: Fri, 13 Nov 2026 12:38:31 +0100
+Message-Id: <20261113113840.3067489-3-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261113113840.3067489-1-cezary.rojewski@intel.com>
+References: <20261113113840.3067489-1-cezary.rojewski@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,66 +84,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The patches consists almost solely of renames and addition/enrichment
-of debug prints. Plus few removals to redunce duplication among these
-debug prints.
+During downward trigger() operation avs_path_pause() occurs before
+avs_path_reset(). Only the result of the latter is taken into
+consideration whilst the result of pause operation is ignored. Fix that
+and make the first error take priority when returning the final result.
 
-The 2/11 patch is the exception - as its follow up updates the messages
-around, the mentioned patch is here to fix the problem of skipped
-results coming from avs_path_pause() in trigger() operations. With that
-done, the dev-prints are touched.
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+---
+ sound/soc/intel/avs/pcm.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
-Apart from 2/11, from functional perspective everything is left at
-status quo.
-Sidenote for 6/11: touches on catpt- and avs- boards both. Decided to
-merge these two changes rather than generate a separate patch just for
-adding 2 missing commas. Feel free to comment if you believe my decision
-is incorrect.
-
-
-Note: this is a orthogonal subject to my soundwire-related series [1].
-Paused while I'm testing soundwire-aggregation scenarios. Neither is
-blocked by the other.
-
-[1]: https://lore.kernel.org/linux-sound/20261106121557.2338556-1-cezary.rojewski@intel.com/
-
-Cezary Rojewski (11):
-  ASoC: Intel: avs: Do not skip error reporting when an IPC timeouts
-  ASoC: Intel: avs: Do not skip errors from avs_path_pause()
-  ASoC: Intel: avs: Have one location for dumping path-errors
-  ASoC: Intel: avs: Small registers cleanup
-  ASoC: Intel: avs: Enrich missing-format and token-parsing messages
-  ASoC: Intel: avs: Unify code style for platform_device_id arrays
-  ASoC: Intel: avs: Streamline topology parser names
-  ASoC: Intel: avs: Streamline wording used for board configs
-  ASoC: Intel: avs: Streamline naming of hw_params variables
-  ASoC: Intel: avs: Streamline spacing used in the avs_ids table
-  ASoC: Intel: avs: Remove soc-acpi-intel-match include
-
- sound/soc/intel/avs/boards/Kconfig   |   6 +-
- sound/soc/intel/avs/boards/probe.c   |   4 +-
- sound/soc/intel/avs/boards/rt274.c   |   4 +-
- sound/soc/intel/avs/boards/rt286.c   |   4 +-
- sound/soc/intel/avs/boards/rt298.c   |   4 +-
- sound/soc/intel/avs/boards/rt5514.c  |   4 +-
- sound/soc/intel/avs/boards/rt5640.c  |   4 +-
- sound/soc/intel/avs/boards/rt5663.c  |   4 +-
- sound/soc/intel/avs/boards/rt5682.c  |   4 +-
- sound/soc/intel/avs/boards/ssm4567.c |   4 +-
- sound/soc/intel/avs/core.c           |  16 ++--
- sound/soc/intel/avs/ipc.c            |   8 +-
- sound/soc/intel/avs/messages.h       |   4 +-
- sound/soc/intel/avs/path.c           |  35 +++++----
- sound/soc/intel/avs/pcm.c            | 109 ++++++++++-----------------
- sound/soc/intel/avs/registers.h      |   2 +-
- sound/soc/intel/avs/topology.c       |  27 ++++---
- sound/soc/intel/boards/bdw-rt5677.c  |   2 +-
- sound/soc/intel/boards/bdw_rt286.c   |   2 +-
- 19 files changed, 105 insertions(+), 142 deletions(-)
-
+diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
+index fd4ab14bfe04..b0796d18c1c4 100644
+--- a/sound/soc/intel/avs/pcm.c
++++ b/sound/soc/intel/avs/pcm.c
+@@ -271,7 +271,7 @@ static int avs_dai_nonhda_be_trigger(struct snd_pcm_substream *substream, int cm
+ {
+ 	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+ 	struct avs_dma_data *data;
+-	int ret = 0;
++	int ret2, ret = 0;
+ 
+ 	data = snd_soc_dai_get_dma_data(dai, substream);
+ 
+@@ -303,9 +303,11 @@ static int avs_dai_nonhda_be_trigger(struct snd_pcm_substream *substream, int cm
+ 		if (ret < 0)
+ 			dev_err(dai->dev, "pause BE path failed: %d\n", ret);
+ 
+-		ret = avs_path_reset(data->path);
+-		if (ret < 0)
+-			dev_err(dai->dev, "reset BE path failed: %d\n", ret);
++		ret2 = avs_path_reset(data->path);
++		if (ret2)
++			dev_err(dai->dev, "reset BE path failed: %d\n", ret2);
++		if (ret2 && !ret)
++			ret = ret2;
+ 		break;
+ 
+ 	default:
+@@ -492,7 +494,7 @@ static int avs_dai_hda_be_trigger(struct snd_pcm_substream *substream, int cmd,
+ {
+ 	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+ 	struct avs_dma_data *data;
+-	int ret = 0;
++	int ret2, ret = 0;
+ 
+ 	dev_dbg(dai->dev, "entry %s cmd=%d\n", __func__, cmd);
+ 
+@@ -530,9 +532,11 @@ static int avs_dai_hda_be_trigger(struct snd_pcm_substream *substream, int cmd,
+ 
+ 		snd_hdac_ext_stream_clear(data->link_stream);
+ 
+-		ret = avs_path_reset(data->path);
+-		if (ret < 0)
+-			dev_err(dai->dev, "reset BE path failed: %d\n", ret);
++		ret2 = avs_path_reset(data->path);
++		if (ret2)
++			dev_err(dai->dev, "reset BE path failed: %d\n", ret2);
++		if (ret2 && !ret)
++			ret = ret2;
+ 		break;
+ 
+ 	default:
+@@ -868,7 +872,7 @@ static int avs_dai_fe_trigger(struct snd_pcm_substream *substream, int cmd, stru
+ 	struct hdac_ext_stream *host_stream;
+ 	struct hdac_bus *bus;
+ 	unsigned long flags;
+-	int ret = 0;
++	int ret2, ret = 0;
+ 
+ 	data = snd_soc_dai_get_dma_data(dai, substream);
+ 	host_stream = data->host_stream;
+@@ -915,9 +919,11 @@ static int avs_dai_fe_trigger(struct snd_pcm_substream *substream, int cmd, stru
+ 		avs_hda_stream_stop(bus, host_stream);
+ 		spin_unlock_irqrestore(&bus->reg_lock, flags);
+ 
+-		ret = avs_path_reset(data->path);
+-		if (ret < 0)
+-			dev_err(dai->dev, "reset FE path failed: %d\n", ret);
++		ret2 = avs_path_reset(data->path);
++		if (ret2)
++			dev_err(dai->dev, "reset FE path failed: %d\n", ret2);
++		if (ret2 && !ret)
++			ret = ret2;
+ 		break;
+ 
+ 	default:
 -- 
 2.34.1
 
