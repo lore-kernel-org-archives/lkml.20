@@ -1,59 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794602277;
-	b=l/7ulMsHxw3hE93CRrl3oXet0lP2e9LX/DR7TgtZHb45YCavDnSztI84jFl/Qq4XvqWL
-	 dqoZjaTQnFZYLf/b2SO3mCfJpGij+lmGpvVgIhYPI0KZIV3O8pacyGf8fYUmJKYFdP5eH
-	 M/hAX3MsOXMVQ87wlPgs0O0IMBwFnN690+KCCZD3nuoIst/0/7c7du9tu8KtJ+n48brI9
-	 0Z65/18zlytNuXkDFh5hypVjOwYILzpxBPT/IZVXtFCoLQqEt2D1XAVekCCH5e1JJOwNR
-	 DWuJ0pYip0LIKczqu8hEs//yq8ZJvRVGAYTFX+i3Mw0yW2XIxFjd7IAZ0mA0T2QgDkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=sEhHJ+ezUdksdmB/aPMUWufaW2N+PcU+MN90Y7OJLVR20GbnBY+/o5ahhgtozpSzQPYR
+	 mhM8n+o/hL4GUghQL6bdKvBaQIfnjr4q51RoatQ7EeNcHw28F25NcdoLdQRirYl6LCuoK
+	 9E80BHFI3wxw0ZhidEP8QGkGwbcMwvMb/s5x1Llbyz9gtdV2rqPB/6cm5PzAmQl1jNtN2
+	 9ItY30QmgaOXhS746X0B5T19tHwcXgNlJ49WxtpFAgCVzcQ9GF7x3X3prI2AC1iNW8P6L
+	 qUTHrnbCl6Ot2wR6w3BQbLCChZNZwLgxakqilIMFnwRio6N8nJufcBVi1oOPtEcaKrA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794602277;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=AvlalDGclbf9jbvk6fxMo0zLcUfRP1nU9XgrjQZVQsU=;
-	b=qzyiVc8zw5Fyt3UIcyifT7FBaS/q/nMdCdx/GXItSFYXfwtGdAe0Zoy0N5C/ISvD3wLC
-	 Uch9EA+XR7haxweva+gaiePgeowqRhNJQmWpHKV15Pv+N7NGw4he1TBLqKTFOBoiPFxVf
-	 JBPEqVnP9i5lswKtGRvxvxP6o7TyoSULvzpBnw8JdT+yuiKJ7opeUrroHRlcOwsis+hv7
-	 sjRk7bgzZKMILTDhvFEcYHMHlJuZwhDaPszHBkhiLRsbBzMTSYiIZ9TWrozo8K/twZFru
-	 mnjGvYVlHhesB29huT7DoPh2Gw+qcNAtV67gVryM1+l3wE1os5NSpKkwlZxSaDp1VNg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSMFgLfD;
-	arc=none smtp.remote-ip=100.103.45.18
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zcbGexqUs6AyY6rvNjsjQJWCSAAYmXVOXmh3IdhOCBM=;
+	b=oLdXhI0C2vUk3wwmBfxKldVdQG7yUsHAmXORVdYJfF2BzIXX3ALOZpxNZcp55awVALUf
+	 XsDzk1Lfr8J8IUt+h65uOpGqfX7xXiVD6vqynJcToBFEMHAjZsdUTmtV7cM+eEFXJLske
+	 U1Sl2KMdreGXJDLTxc5FuMKL3XKJCX1gYVxeJxYTh/YRtz3oiBJX+zRvsY9LTgTfkC9oW
+	 nJUkzLWbll9nhv7IFo4jd+KDhRTrTjikuiy7VLBPiSbkzbtv3ETsz96FgahtuDML9SaH5
+	 dOWFpnR/IEdM2B7M/L5gF1NZd2J5yGiiX80gjBdhQvrcFC/Rzt+qK6A1aehZnjAlNoQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DGBrgu2V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23EFF606A339;
-	Fri, 13 Nov 2026 20:37:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8DF606A882;
+	Fri, 13 Nov 2026 20:37:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSMFgLfD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E49121F000C4;
-	Fri, 13 Nov 2026 20:37:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DGBrgu2V
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794602277;
+	b=v5BYhPzNZkRqAgpV0tgR3NYA9zY712vFNSIjr1vcgGzs/FfA+/wTJ9XoJMlm9wZuNMIJ
+	 Woop4HL3uE+jTYrhTOMtZfBebkZTw7HOKafeCpCQG+fjognYg2iGVulrCBx2Bk5NeJx0N
+	 cNjSChLc6s4NUR2LWz35VEhqdbtfe4rY7RcMirR15bPw/8pfkPLv0lAf6eu47FkKHcSKH
+	 3hKzq3qgTOlSK9FOx00i7HQEFwDsGwYFIRzeoZkrIRoj6/0buFc0lJVw0PNcqn4jLXODI
+	 p7zLOw12uQ9M1/MF3IdRswb6sYX4NwDgM795ymSeUN4fI3KxMiQ9ACtqt53UGYGy9VA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794602277;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zcbGexqUs6AyY6rvNjsjQJWCSAAYmXVOXmh3IdhOCBM=;
+	b=1KBXuMvz+W9nyPwHc91KN1255Heq09pcKu0z2uiU0tqAQtFenc4aF4MUi4KZ5vvOqGI3
+	 WgF+qXYViPzsCQ107/noPqByuVG44oaWp3jAvoaWsvERCVtHBstFvzunOfZKGlcKqR0u3
+	 Q62EpMnp8114GJXA6M2DmXexRUQjOW9EeOMl1rjL/susk8kEhtdP1pN8Uy/00/nuehu+V
+	 9I+9I3XZ/YIUdMtmFgo6AL03LW9lOPqFOKIFrI1rcjGhtP8otgTcGKlX32oZhK2bgqIRR
+	 h+lydXXxUPNMYfPhmAN9Y1PWKInnesG/10/1I9z7nbzFsv2JByemuhdYaw8D4/qmmdA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 2629B1F000C5;
+	Fri, 13 Nov 2026 20:37:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794602276;
-	bh=AvlalDGclbf9jbvk6fxMo0zLcUfRP1nU9XgrjQZVQsU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fSMFgLfDA/Ou58ytoSDg+1mflt1C7sWfR/W+ACkbe1dn9am4k5kJZgDhqDYpp0Nt0
-	 EaI5rLObsWfuzFn5sTkAdXrZTPZEOpgzZMmRyDRvvWgX5LUQ7U5rqM0s/9Lhy2n2iO
-	 YWKyKRkJOYrhOtqCRb2/2i02fzf4vW8jb0PlxlNLpBkgx09vD8+B+Wt97/Ys9H+6+l
-	 fX145SXiGWNPCodaqf//AhojDtXtDD6IR3aLabRjw+Ztxi0EdDViMwKG/qjkIKS5XJ
-	 PU9Sx0DZki7JpzFZRqIWWzYvt8C9VphFjKVogQHq88kV0ThjxG70bvz0ukpSgbufbj
-	 ChhdqKcPkXVrQ==
-Date: Fri, 13 Nov 2026 20:37:49 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Carlos =?utf-8?B?TMOzcGV6?= <clopez@suse.de>
-Cc: kvm@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-s390@vger.kernel.org, linux-riscv@lists.infradead.org, seanjc@google.com, 
-	pbonzini@redhat.com, akpm@linux-foundation.org, david@kernel.org, peterx@redhat.com, 
-	imbrenda@linux.ibm.com, borntraeger@linux.ibm.com, frankja@linux.ibm.com, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
-Subject: Re: [PATCH v3 5/9] mm/mprotect: add MM_CP_PERM_UPGRADE
-Message-ID: <avdw0O4rWi4WrTvy@gremlin>
-References: <20261112142039.907090-2-clopez@suse.de>
- <20261112142039.907090-7-clopez@suse.de>
+	s=k20260515; t=1794602277;
+	bh=zcbGexqUs6AyY6rvNjsjQJWCSAAYmXVOXmh3IdhOCBM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=DGBrgu2V0TLeGXO57K3WHeHX2F5btUEhAsCWTruq06By8FEhHvvbN+D3bcP/cLffV
+	 aIJTWEltyJMpkPIdGeP42pQ+FXwMbLbViG5/0Esvzotav9h9qanrGu9Zufz/texXqt
+	 sCD+qRv9tyHgbVb/ycM2LjSAmBma81RXnZcPdmaziL8B4iNeNEVCFPHJKQBXNj2ZrF
+	 qGp6XPOTKhneJCNPuKbKZeTWU03h28cjnsR1Ccj+2IYIn3OuOh5HCLPrx9wmNqGd5f
+	 Vtn7g66g9wNEH/yk0ua671FVkY/Dzw5RBqLDREOn7x9IUmKlv2eVC0/GVM+MAPdR+V
+	 e9vipkOnNOeaQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7B09D49ABD;
+	Fri, 13 Nov 2026 20:37:56 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Fri, 13 Nov 2026 20:37:56 +0000
+Subject: [PATCH] arm64: dts: rockchip: Fix the order of the RK3588 AV1
+ decoder resets
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,105 +83,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261112142039.907090-7-clopez@suse.de>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261113-rk3588-av1-reset-order-v1-1-d73f60222ff9@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW6gcTW0VwkvdvVUU6AxYxKI7
+ +5Wlx+H86/kMIXTuVjJsKjrNGbIoaD+HscbWIdsKo/lSUQC2zPUTcNxETY4Zp5sgHGq8h7bOqY
+ 2UD6/DFf9/MKX7m9/pwf6+VujbdsBhO9S/noAAAA=
+X-Change-ID: 20261113-rk3588-av1-reset-order-b4261a95ab93
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794602276; l=1508;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=YP+Ju9QjQfuU0YGwfWBljQdLr0V0QHLGHZyAd+cCC3w=;
+ b=h2Y6s+lUrSYGVaonyq4DMPUpiqk68iJw40e55HnQ6t7RM1x9PLBQhBMoWYd4m+8wB0YLKqp18
+ ZScq/59KbGvCoQqS2b+yERSYY7jGHr4Gf+2ESpKOOVfHH4VqwHLBUul
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 03:20:34PM +0100, Carlos López wrote:
-> Add a change_protection() flag for changes that only add permissions,
-> so that MMU notifier users can keep their mappings and fault in the new
-> permissions later. mprotect() sets it when the new VMA flags only add
-> read, write or execute permissions, or VM_ACCOUNT, which does not affect
-> the page tables. Any other change, such as a different protection key,
-> is not an upgrade.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-I'm struggling to comprehend what this means.
+The binding lists the AV1 resets as AXI, AXI BIU, APB, APB BIU. Use that
+order. The driver gets them as an array, so only the order in which they
+are toggled changes.
 
-'Add a flag for changes that only add 'permissions' (not defined) so that 'MMU
-notifier users' can keep mappings and 'fault' in 'the new permissions' later.
+Fixes: dd6dc0c4c126 ("arm64: dts: rockchip: Add AV1 decoder node to rk3588s")
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+Found while describing the same resets on the AV1 IOMMU (hantro-robust
+v3). AV1 fluster on RK3588S (Orange Pi 5) is unchanged (203/242).
 
-The rest of the message just states what the code does but speaks about it as if
-it was already what happened.
+Developed with Claude (Anthropic), which wrote the code and the commit
+message. I reviewed it.
+---
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-This needs to be completely rewritten...!
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index d0f364547ae5..3d1e4369578b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1471,7 +1471,8 @@ av1d: video-codec@fdc70000 {
+ 		clocks = <&cru ACLK_AV1>, <&cru PCLK_AV1>;
+ 		clock-names = "aclk", "hclk";
+ 		power-domains = <&power RK3588_PD_AV1>;
+-		resets = <&cru SRST_A_AV1>, <&cru SRST_P_AV1>, <&cru SRST_A_AV1_BIU>, <&cru SRST_P_AV1_BIU>;
++		resets = <&cru SRST_A_AV1>, <&cru SRST_A_AV1_BIU>,
++			 <&cru SRST_P_AV1>, <&cru SRST_P_AV1_BIU>;
+ 		iommus = <&av1d_mmu>;
+ 	};
+ 
 
->
-> Signed-off-by: Carlos López <clopez@suse.de>
-> ---
->  include/linux/mm.h |  2 ++
->  mm/mprotect.c      | 13 +++++++++++++
->  2 files changed, 15 insertions(+)
->
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 6af3b7008f1a..001829a61405 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -3585,6 +3585,8 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen);
->  #define  MM_CP_UFFD_RWP_RESOLVE            (1UL << 5) /* resolve rwp */
->  #define  MM_CP_UFFD_RWP_ALL                (MM_CP_UFFD_RWP | \
->  					    MM_CP_UFFD_RWP_RESOLVE)
-> +/* Whether this change only upgrades/adds permissions */
-> +#define  MM_CP_PERM_UPGRADE                (1UL << 6)
+---
+base-commit: c3baae5f1a15645cddadcb2b9abddef5df291f59
+change-id: 20261113-rk3588-av1-reset-order-b4261a95ab93
 
-What are 'permissions' exactly?
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
->
->  bool can_change_pte_writable(struct vm_area_struct *vma, unsigned long addr,
->  			     pte_t pte);
-> diff --git a/mm/mprotect.c b/mm/mprotect.c
-> index 84bcfe0281d3..8c0fcd10f5a3 100644
-> --- a/mm/mprotect.c
-> +++ b/mm/mprotect.c
-> @@ -767,6 +767,17 @@ static const struct mm_walk_ops prot_none_walk_ops = {
->  	.walk_lock		= PGWALK_WRLOCK,
->  };
->
-> +static bool vma_flags_is_perm_upgrade(vma_flags_t old_vma_flags,
-> +				      vma_flags_t new_vma_flags)
 
-No comment, random abbreviation (but just one word). Not ideal.
-
-> +{
-> +	vm_flags_t old = vma_flags_to_legacy(old_vma_flags);
-> +	vm_flags_t new = vma_flags_to_legacy(new_vma_flags);
-
-This is beyond appalling and a complete abuse of the VMA flags API.
-
-You seem to have decided that you won't try to learn how the API works, so
-instead you'll just write deprecated code that I have to find time to come and
-fix up later I guess?
-
-And we're at v3...!
-
-> +	/* VM_ACCOUNT does not affect page tables */
-
-What does this mean? And why are you referring to a deprecated constant?
-
-> +	vm_flags_t mask = VM_READ | VM_WRITE | VM_EXEC | VM_ACCOUNT;
-> +
-> +	return new == (old | (new & mask));
-
-Ordinarily I'd try to help you use the new API, but the very fact you'd send
-it like this dissuades me :/
-
-> +}
-> +
->  int
->  mprotect_fixup(struct vma_iterator *vmi, struct mmu_gather *tlb,
->  	       struct vm_area_struct *vma, struct vm_area_struct **pprev,
-> @@ -847,6 +858,8 @@ mprotect_fixup(struct vma_iterator *vmi, struct mmu_gather *tlb,
->  	vma_overwrite_flags(vma, new_vma_flags);
->  	if (vma_wants_manual_pte_write_upgrade(vma))
->  		mm_cp_flags |= MM_CP_TRY_CHANGE_WRITABLE;
-> +	if (vma_flags_is_perm_upgrade(old_vma_flags, new_vma_flags))
-> +		mm_cp_flags |= MM_CP_PERM_UPGRADE;
->  	vma_set_page_prot(vma);
->
->  	change_protection(tlb, vma, start, end, mm_cp_flags);
-> --
-> 2.51.0
->
-
---
-Cheers, Lorenzo
