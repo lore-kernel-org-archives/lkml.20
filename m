@@ -1,90 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794588193;
-	b=kktcpaYI6/V3DPtzeBD8K38EYesyp6AkYZgRwGzC+Pj7u359TTT7oQX9+fYuVOLB4dcB
-	 LndqWRcdZBcKu3FxyXM25RtWKvZR3HwE52YF7cSQNN1kgPS5aY2I6kBIMrvWxAh12nHGJ
-	 yASjtrQv2IvjF/GKcLspSFXVzqgCDYTpSVhR+TQO77NENsE/dzDB8SsiUNO+VhoEexiKp
-	 4tXH6Bno0FJYDehpjlLXrVU8MzxGzMUJveOwwgPWlNp/l9SvAQUjEMzlZvZyRWi0RoO/f
-	 qNlSw96aZrWabUNc2wvj10YFbJfsu2gk0z9ERnaBoMDlEREPtIO9gm+2QsQH5Ig2OCg==
+	t=1794588189;
+	b=AW4ok/tPSgzzTrh8tCl4wmwUwdgm0yOLWvnWwr3SZ1FzU6f9HqKBjoeQQJk1f9O4L4rz
+	 kiwSOW00wxVJAEhRPtdie8B6zEFX4YsEiYgDMRARNXT1nx3Ra2yvKjG7ssEw4vCJ9ySRr
+	 oY4aQVmtpIM+EMMrEzRnM/dG1ndnTr2Wcn4M1g2aee7m3+f3b4x33ZoZx+8b++GgoyX2R
+	 j0kkfw9zZ8eAM9YElHUim+WH5xZ5S2U+Mi3N3BnTYFtGDc17gPlGQdiUZoDQjbyWX144y
+	 F97fkt4DQBhUNihExI4Pu7KVVHooZKXnqrac9AlZXgLxomOJOrfNAEfYCVtrKQRFOHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588193;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=3p1f8Yec85jLXGY1wQELmw04hKpnMA5OmY/Vm2aQaMI=;
-	b=D+XrJFy6vmaRin1jJQm+ErKaPeJ5PTb+YHzNPaEx02w0PELxNIqXlul3x1kGNOlgRjFg
-	 0IJoOiKKQ7ku+A6MNtkywWrYEXT795/M56y72jGVm8tAsWE1qei+fC4Gdk2R4d5pYzNH/
-	 mr0xA7AlkT4llSKu/jR1AEJCH/gv4xTlssBtJhDA5vjeNjawZUy3gj2ni0gOvqyXDkam5
-	 OXc3bz7DOyTmNe/kzMW6RXd6hmjQ15dHkteLldFn5IQRjxo0hseinmoLmYy8k5prcxfXk
-	 /lalCjJ1M2B5pw6rJjOR/hFzyPzzY5VBKiyfxOYU1UbgM193AjATKrLeN4aysj4vCeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588189;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=SnFzLVm1GvghoW/dBPDDgRA2UDkluNzbcq8quImtAl4=;
+	b=0RF+7KNIhSldm0Dd5kvo99TKNZrGpqwFmuz9zpd0u6MmqB3bEKqlNy893f8cX+waQluM
+	 E0f3Ymo7BALxnc9dU/L/hoNlJVaQFd5l4jhiQe3nsYIZ/e0klDAR8K9V+LsWhnfoZSb+4
+	 RXWLURHWNIaHkcBVOHGjkzDfAnlrGkIIfDj1YAwZos1JphO3WjDN47KGt64cLKENryrsK
+	 36BypMzNw6qrBb2+ilzQLL+G/G7I7QWLuPmzV98jjnfV1UW4Iui1bfXSvPBCrrY/LKypR
+	 RjAVCA1CRRDHYnLh0bkPTm/5/6iQGS8bcu+GJmZ6yP3YtBmu/JqVxCTF5EJSFLBmlIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gl5mRAc+;
-	arc=none smtp.remote-ip=209.85.210.66
-Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com [209.85.210.66])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=dQP6umtI;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1936606D5E0
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:43:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1936606D5E0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9B9606BCAA;
+	Fri, 13 Nov 2026 16:43:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C9B9606BCAA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gl5mRAc+
-Received: by mail-ot1-f66.google.com with SMTP id 46e09a7af769-86288992de5so1486773a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:43:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794588192; x=1795192992; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3p1f8Yec85jLXGY1wQELmw04hKpnMA5OmY/Vm2aQaMI=;
-        b=gl5mRAc+Q87yIw3FA7INlu9F67qDStwak1WRRCFyGImlP1tanQWXnyQlcGJLv2T0V0
-         YY692v+CGbD7myx/t6zAZocLSAJz94JuctGdQ6xWyr1G3CJZvm6WCs7omRUCusgJud1m
-         4wMf8WEa8u5w4xFPZ47nZYr75vDoO1pS9Vl5dDuqqR0JOOPUm+CjiniRiTH7/EYqFbXi
-         xT9/k0C0EKHnVXD/cqBQ7KwJkAHwtyj4o899oz0M/1pmGyNvlqDSuBmwAJGjpTRnlA6z
-         rN7RA8tkRrM/E1FBYQS6xXFELcysgByZ5xb6FUNDnMDO4jkeQ+2u91L3ti8q0qZ1i8Iq
-         VV6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794588192; x=1795192992;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3p1f8Yec85jLXGY1wQELmw04hKpnMA5OmY/Vm2aQaMI=;
-        b=h4aIHGdLVBuCxNNE3dXkV7bsZwZIi9rdBmDJLDWFzCu2Em/DRqav4KG1nPHsIMOEOU
-         Vf32Jea2r8azaQVVC9WpyaVIq9iE4evyI93GXFmekDqYWe4aBRlz3aBN6jpue6qquZXz
-         zN7UwIYlR4rQCo8A358vIfrOPwYiUqtcU95CYJmrF4woHNVnIMjtCjNitUerPOHuiQxM
-         kBi8VZtwsZjuO+9vtkwRPJi0zgJHixaUgIv+aRwcA4ZHcn+vwILphPBFHe6CfZRcl2YQ
-         KMQbrd5FNyktNCNSMmDT3YumNhRjLCStw0OxOLaWvpL6y0yWZReqTO0MIcTkQj2GrZ8Q
-         0aeg==
-X-Forwarded-Encrypted: i=1; AL+hErGOMMhOAyTO3W4MJI0VutvjRvjxGiPmxsQjgjRDeKECdabxDw2UivV4r4WK3AtRaVotBANONTdNgBlCT8o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9s1tCE0pzF9O+4JM7xmwBPrbjXF0NzNh1pqd36SYdtPqbCndkA
-	mReV01RNsZloqpxTg9hRKcEnFEJBFiqILwdwVblO7pGOtS9ClmATYKAk
-X-Gm-Gg: AYBFou3UA812cSgl89MM6wMOKdswmUVVEiQHRhIbkhfYFSKiZBtVhbicqkyTLQk3F3h
-	NNHAa0wLAtX993miwjBoUNFP3/QI8gxGEVyHWqd4CPDQf6kYUkoFoYTKh/s7UxK9X/RTOEkUovI
-	wmflxnK6+GfaOD9ga3eckgDro2ICr57fzcREp2Cvw4P89RHT8XCj/KXAMC9mG8XJf0iV8D1A1yZ
-	zNbe3eJzzJMp6RcxUll+lOWMJLUd6vs23u9wrjnxF5CwiZcc0miDn5b1iAe0HHtnRgi2xNIwo6W
-	mrZgsCUekj3kHIBANZ/TwenHnr1AqjuOWgnzzjqcYDRhLbWi4hCTIZWyh/0N7R+HYuzcoEmlYEy
-	SQxXZpZ3Vq5dPdTs3kShhM/5bBDSpu6cL/okCAwIxATYEjhcXQY7qu5Br81TKm44IkCXkoDSqus
-	04hH/t5tjrVJHa0NIx37CR+9yx3xhzDyuUj09m9g3lhKnfK1RwkG7vMvB2KZ+V8IJcDFPQ6KVmF
-	KDOubYbQy5hPTy3Elf0EvGM8U0Bowb48VLG6pGgqdzaeutesKr0r2j8jPeaO1oPKZF8QYE9s9qX
-	ThQtBgLVSHy886WqVd4NBlghAQxc60Hru523I7zFFVPSkjGS5+o1tFncGb3UuAohE2hek+508EE
-	66etx0FNm7Mgb2dPJeV0=
-X-Received: by 2002:a05:6830:8545:10b0:861:befc:9b95 with SMTP id 46e09a7af769-861befc9e27mr1819572a34.26.1794588191654;
-        Fri, 13 Nov 2026 08:43:11 -0800 (PST)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880e5148sm2712816a34.10.2026.11.13.08.43.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 08:43:11 -0800 (PST)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Fri, 13 Nov 2026 10:42:45 -0600
-Subject: [PATCH v2 2/3] arm64: dts: mediatek: mt8173: Add the keypad
- controller
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=dQP6umtI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794588180;
+	bh=5StR20USj7POU5fRSI8x3oN7S+uN8BMA4IyoZGgatk4=;
+	h=From:Subject:Date:To:Cc:From;
+	b=dQP6umtIIwAmbZzP6eHDGMVKO5xri0zzOOHo9iExt4pg2AeVgOM+a78FhKVlFqmJg
+	 30D2AIUYALe67zXY6XS3Dk+DNB0HWXd19dxruhi0YI5ptFV7wqPpWOo+ZiVK5zTI6V
+	 7IBn742ADgcE/3MVCXOOWSRXB2ivWB0cO8ge3rPAD+LtmpJA5f6jJwM6DsT4mcGFip
+	 CIH8kvNJA4Vexy/ALGrVtOMVSK6bRUvAQ4SbyXS8Fpb2DajXPCqCYVJeo2mmZVkxOw
+	 qXa5+CT+n5w4FsTv1KDXJR4bYbRwZ0r11cZOVUlls5WNaWPLTzG5ZcCivd/dmdukLz
+	 7nYlmjXpheVlw==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A58EF17E0840;
+	Fri, 13 Nov 2026 17:43:00 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 5EBE148002C; Fri, 13 Nov 2026 17:43:00 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: [PATCH 0/8] usb: typec: fusb302: cleanup device driver probe
+Date: Fri, 13 Nov 2026 17:42:36 +0100
+Message-Id: <20261113-fusb302-probe-cleanup-v1-0-e5c65a8c58c8@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,58 +68,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-2-d3b8865fa50f@gmail.com>
-References: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-0-d3b8865fa50f@gmail.com>
-In-Reply-To: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-0-d3b8865fa50f@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sean Wang <sean.wang@mediatek.com>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588187; l=1040;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=XWTgqrmP7rORvhppkX5O4ecuuFFQiKCRGXT4o7Blnls=;
- b=p1V9+WfESnlytGo+yWLkayiutHu52hR6G9rdCc885GFv0kK/66QQx3BmStt3S4rQZBGGzCuSb
- N1MV6nuLbwiCY6FjGl8S0MX7B0dx1kTM+hKuPoR9KcdWLmYpg/fcM72
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZORtYOhjTVxEPTZdqRLrS2CGMv
+ budHr/D/29gUlQMLt0GRVY1XVIDnToID5/ugjo3g+vdSEQDxmo89A5zWVgwvMSnmvHM5GcfJp4
+ oQmtzkaif3/d6+9sqPyW8jxns+xdccVH6eQAAAA==
+X-Change-ID: 20261113-fusb302-probe-cleanup-9b1adac8b81f
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Badhri Jagan Sridharan <badhri@google.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2099;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=5StR20USj7POU5fRSI8x3oN7S+uN8BMA4IyoZGgatk4=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr3PhMWricC4svnKvTS2tg0vkCc5PP7Cehjh
+ lVmxF8YRZjBKIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9z4TAAoJENju1/PI
+ O/qa/UQP/ikzBY69hDL1/IvnP0TAqILCxFn7k9y2QKA72u8dwBSq+q33/dqrbaNXI3CEAX8a5hh
+ 1CBp9LuHHh4o6r8qDebfS+YvEN+n8fFa/b6hSyFy7GeBv/0SpuK6S1N/i2HNouHQobibeWga8eH
+ aU71ByrU3ZaS0nyyNR+7a2xkoXObAtliWPMgQQMcz6ymzqMtCmPpfRH9wPVzwhvtMZXu7QkPed/
+ gOg2JNaB+8zIksdH//sTnnBnajyonFYh7umnvQs74YwMiT7aelZRy4zXNBoTUvKYxF0Je/IysdB
+ 8/yPJkruV1eomF12O+oBVzwoo0y2Vfxku0cxttNeVE+L9GLLwuZrKspsaLOb2AQRHASbfDz/g/3
+ 1ettxk1VxaV4URgUeprwa8UKHU0zVVs6ClUjtyAUp9CsvIuSw3lwDgg46g0AYpy5oEoy6VuDJxi
+ Td5TEJhUrFvhtoHaCvxwciWn1mBoVRHOAyk8Qr4MlnzZnX1fX+zFmbFBmAqXXDKiUY2ytfpIqMP
+ QJS3OBN1ks1hdm2m0rLc7h4HSJ+0QCMzwqaEgASScn/fqRpjn+oRn30ZfwH896VQKu08bIFQpLa
+ DYn2Rf6s9I83/+tj8XVxJu7/kO6f7B8tB6Apo2EWZWzEgcjO/LsmXLg+yM2cUkARnckScL02nNe
+ ipPXp1qQH6yduysTypSY4/g==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-The MT8173's keypad controller is register-compatible with the MT6779's.
-Describe it, disabled, for boards to enable with their key map.
+Move fusb302 to be fully converted to device managed resources
+instead of having a mix risking leaks and clean up the interrupt
+setup.
 
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+These have been tested for over half a year locally with different
+Rockchip boards. I waited for [0] to land, so that the DRM HPD auxillary
+device registration can also be dropped. As that series drags forever,
+let's get these cleanups processed independently.
+
+Note, that this first cleanups the GPIO interrupt handling and then drops
+it completley. The rationale is, that the last patch has a (low) chance of
+regressing somebody's system and having to be reverted. In that case the
+custom interrupt GPIO API should be properly documented (as deprecated)
+and we want at least the cleanups.
+
+The series is based on 7.4-rc2 instead of Greg's usb-next branch (based
+on 7.4-rc1 and still empty), which is relevant for the first patch as
+older versions had devm_kzalloc() instead of devm_kzalloc_obj().
+
+[0] https://lore.kernel.org/linux-rockchip/20261020072816.180-3-kernel@airkyi.com/
+
+Greetings,
+
+-- Sebastian
+
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- arch/arm64/boot/dts/mediatek/mt8173.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Sebastian Reichel (8):
+      usb: typec: tcpm: allocate pd_list entries non device managed
+      usb: typec: tcpm: add device managed port registration
+      usb: typec: fusb302: Switch to device managed resources
+      usb: typec: fusb302: switch to devm_pm_set_wake_irq
+      usb: typec: fusb302: rename init_gpio into fusb302_init_irq
+      usb: typec: fusb302: move gpio_int_n into function local scope
+      usb: typec: fusb302: rework gpio_int_n_irq handling
+      usb: typec: fusb302: drop custom gpio interrupt logic
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-index 2ecdea33672e..61261fe643ab 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-@@ -555,6 +555,16 @@ pwrap: pwrap@1000d000 {
- 			clock-names = "spi", "wrap";
- 		};
- 
-+		keyboard: keyboard@10010000 {
-+			compatible = "mediatek,mt8173-keypad",
-+				     "mediatek,mt6779-keypad";
-+			reg = <0 0x10010000 0 0x1000>;
-+			interrupts = <GIC_SPI 154 IRQ_TYPE_EDGE_FALLING>;
-+			clocks = <&infracfg CLK_INFRA_KP>;
-+			clock-names = "kpd";
-+			status = "disabled";
-+		};
-+
- 		cec: cec@10013000 {
- 			compatible = "mediatek,mt8173-cec";
- 			reg = <0 0x10013000 0 0xbc>;
+ drivers/usb/typec/tcpm/fusb302.c | 160 +++++++++++++++++----------------------
+ drivers/usb/typec/tcpm/tcpm.c    |  29 ++++++-
+ include/linux/usb/tcpm.h         |   3 +
+ 3 files changed, 101 insertions(+), 91 deletions(-)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261113-fusb302-probe-cleanup-9b1adac8b81f
 
--- 
-2.56.0
+Best regards,
+--  
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
