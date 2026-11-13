@@ -1,75 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597191;
-	b=mPaSFTzIl+RJNtoDkQv18POJlyQyjR4pnCg8BhO0//ujz3feMRHwMS3KDoLktR+3qJ2T
-	 m1w2XIUG3hYyTvRqzR7QnEs7s2vFXBgju7ogHu/MFfh6wnyW27VAbALiZqrAy29b9F+Xf
-	 Cs5jy646nBvYiYXIM27WNFqeEI8tJcIMFQKcFkMJM6v96ZzZqkvnITl7+N1wVhEDOjJ3/
-	 v1kXwZcCqPcdcojxmeF86c4JXPcJlrdVHiMulWWrXSngeHjIx+l8xNpyoQSDwHIgBv94i
-	 hHrrEPi4T4m0I6+idvdugJR9Y3h2Un0eEPIwgr+MElHnccsExzHDX70PK4EasvmKu1g==
+	t=1794597196;
+	b=Rah+iozJ5IeephFF6dnO4YX1X7O+cbMnypYF53zx7wREoQ8oLnENrRPsvrhgi6wVFhxk
+	 PsBoRr38cZDl3yqgkNMC0Ulv152Uc3zM9Ra/389jEL2wolLD+SK5FpFPSYFL1kZ84uDWq
+	 nsfWkWqABPzTIEcmXK7sWm+kx7/quDYacMvZ9lRHFr6JWxAvFrc4cwNA/+EJvtff1HMgV
+	 2huhzrFV4FDxmCVTRR0jxPfZcWcCJ8am2I86hbfNhmmRZoE+flLJviMeHI1ByxKEr2hoG
+	 d4apmSQfxByrqDg4pZC7Y6VfMvk49BDCWqQVcINQI4lf7NOo0jWOQeTM9i1HM1Wm8ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597191;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=WfUO+QAnUhk3kJEbZLZWOhsMR7Pb1ynIqJCBQIT9iaw=;
-	b=3KZ8uwcZs6H/xqx7LUE5rX/K05oOOpOyZE17GFYaaaa9i4POveMnN7Fw0mHhO5f6EQg9
-	 pEdiaTYGmHkgPznlA2+ewgLxA+CAFEupmOayN+KptSyPyK7P25XfRufFEXUrAGBr1ZGfq
-	 x8d9YsaERE65+6YuPgdsQTGpZWeJuKtlwy+0tUM21onnFc5Z8P/o66pDFr5GoA8zARGCU
-	 CqxtTXL+4xd0+533FF3THkw7EnG4I/V7nCy6Yp7wQLWkMjv97k81mN5CQuEJpR7F3atEW
-	 QAwdkRsg1nkIhIr1Antzg4invuMzpRr7cZjh1NS2GjEIMP/8QEb6VwCfSp8VvwTBrkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597196;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=19uX3cVjKh3oQCJxRBIfRcpKq58CZsyDKOYCWbtw5ps=;
+	b=fujbLyHmkcGggTqH4b/eouMebvexWIRGj73vTfP+5RXivVB6jECZMKr6izrcNDGgdBGj
+	 2Vb648C4xrKAGPQCAAqRZ7cwdb1AzSsOvFlQ9zc+SMuH/AdxqF2yvvF+g5OATSTCWY5Bn
+	 agva2ztbRvSI+m9+SUinVjK/swyx+IQBNf3G2rcMK+QZ7fQXbpzxxiib+x19rf2WdlAoV
+	 mihXenwff8fY6KxSI7LRd4YCthFMQHq4WH3rh8O1ZWx11tcI1Lr/TcPBF1kGmg1pLZMdF
+	 sDCLIqY0f4GJdsHNyY2IonUTRNDsGehg3H/MuHjktOg71Bc82oRzvriddQ4gl+wUEhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YoKcexpO;
-	arc=none smtp.remote-ip=74.125.82.69
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gobMN0Go;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=k3yJ2X1I;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="T/wFHoCc";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XwA+jkCg;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885D2606A8A4
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:13:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 885D2606A8A4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17644606A32D;
+	Fri, 13 Nov 2026 19:13:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17644606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YoKcexpO
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b3a348a6dbso2291898c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:13:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794597190; x=1795201990; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WfUO+QAnUhk3kJEbZLZWOhsMR7Pb1ynIqJCBQIT9iaw=;
-        b=YoKcexpOR5w2vNql6/F/0el5+VymS9wMYTnu6cqeDrlOaRAbTYm1EXMCHrN/vyeZ1L
-         EuUYbL1T+VGNkVVWB4aguu+zO8dFkah60hSZqVfEc7YFbXChigX997CSpNVc2t81Svmo
-         iOmqZCtiPOL4TnmbBgNpNyTooieWQ8pUlnovh42UdL6UNcc+a+FdSAT07fsmCRj7kAi/
-         HzoEaT+u3VHWKAJd6XgxgqJmGBWkfmbpDSCatDyhQ9z/50GLckKqcOhPRMBkgYxL5tyK
-         dIudPcfBho55HTV1kapO+2j2wAwGD8L9kNopBTJrA/isxL38yyOxeXhnjXM/8fgxX4mS
-         /L4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794597190; x=1795201990;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WfUO+QAnUhk3kJEbZLZWOhsMR7Pb1ynIqJCBQIT9iaw=;
-        b=yiIJBSlBKeZyaH8ckUWIvHNl0+Hww36mdh5Fz5VDuI7f3dz2+Ct0ibcgkYvoGvF6cw
-         xoZVcBRcDjJ6JWySCA91F5UmON5SlPXBwwVTWTaimhdK9iHDZa8ki3wEJwwPLt0YZxRo
-         dHEXO0LXofZGR6QArERtTGuwYJVirQ+/Kncv6nuxK9FwcbtNm/pyIK4sQrOgOmzkWHkL
-         HctqlBgB2kqR33ykS+6Zsdky0m2V6EUtVy6y/mPbaLZr+AVqxgQPmofhzFW+K9ZDCeTm
-         Vcz5xjr1uaREwxA+0U+FgivzP125fGAK82TRZT+wakQR82h/jj4L6j5SjPb6Nn8aTHwm
-         hVfQ==
-X-Forwarded-Encrypted: i=1; AL+hErEBeBpCvvgFJj5ImDUE8CielX4DFf5QaXUJpOeGJ9/nK0XShOWI5e4CUSXzQFQ8M0EO61tF+BzDWxhUXDk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8uDe1n3a1trfuHZuwViVAnUMKf6TSCsJg9D80iyaMe2L0Ej4/u
-	cGjz+eRiABC4I2b5DWMOHRkRLuPhu/FVsxMVdElZqv2ueH/jOkX4pxYdsPLqLQQ2pE7UOczzEEx
-	jN62uMmDuuA==
-X-Received: from dlbuj4.prod.google.com ([2002:a05:7022:3d84:b0:15f:5ef4:b896])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:2513:b0:1ab:faad:cc9
- with SMTP id a92af1059eb24-1b503115806mr4410106c88.11.1794597189054; Fri, 13
- Nov 2026 11:13:09 -0800 (PST)
-Date: Fri, 13 Nov 2026 11:12:34 -0800
-In-Reply-To: <20261113191234.2509964-1-irogers@google.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gobMN0Go;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=k3yJ2X1I;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=T/wFHoCc;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XwA+jkCg
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id F01941F7D5;
+	Fri, 13 Nov 2026 19:13:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794597194; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=19uX3cVjKh3oQCJxRBIfRcpKq58CZsyDKOYCWbtw5ps=;
+	b=gobMN0Go7dtgesD60abepmHGjJqiT7XR8JBrmRTZeIjGmsD9WF5vhroV2KpmFqnqFiRhz0
+	4Xxmax1aPsE4onLeo85S5qJmTnlpp2wcPx627Fn7LL9utblNw73BIqyR9fHZuz1inuaUOW
+	qqAQbUChbIer5y0r7/jwg23IKvJY6g4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794597194;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=19uX3cVjKh3oQCJxRBIfRcpKq58CZsyDKOYCWbtw5ps=;
+	b=k3yJ2X1I5Au6tqt4bU0rNcvnsJDJ2hvTev+loJ0jYdWf+66F8YQ2E4qnBrPL5E8OoHzWdM
+	VVUDEYPg0aud3DDQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794597193; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=19uX3cVjKh3oQCJxRBIfRcpKq58CZsyDKOYCWbtw5ps=;
+	b=T/wFHoCcYRQLNMnwBHW35jb6KJ0V7qyiWglsW7xN6wn8BWhHCdN46eovtrskuM0kGfoNw8
+	kl/ooMcM9AgFS1XJgIG04qGwVMFYL+5eyOVT1rYw0J6CvZP72XHwFcVD49n4suJb6UEU8I
+	d3CddHx6e1pA2jAAXzYfA6ANet9Xn2I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794597193;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=19uX3cVjKh3oQCJxRBIfRcpKq58CZsyDKOYCWbtw5ps=;
+	b=XwA+jkCgr723dqgXsfRZbBHmScQ9TpV/WWV7Ql2L5ASjlOMMdc33+YzLt2gYs4LHcNme44
+	+FobGJlXO23Lb3BQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9E30913485;
+	Fri, 13 Nov 2026 19:13:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id TaZ4GkVh92poGgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Fri, 13 Nov 2026 19:13:09 +0000
+Date: Fri, 13 Nov 2026 19:13:07 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Salvatore Dipietro <dipiets@amazon.com>
+Cc: jack@suse.cz, abuehaze@amazon.com, agruenba@redhat.com, 
+	akpm@linux-foundation.org, alisaidi@amazon.com, almaz.alexandrovich@paragon-software.com, 
+	apopple@nvidia.com, blakgeof@amazon.com, brauner@kernel.org, byungchul@sk.com, 
+	cem@kernel.org, david@kernel.org, dipietro.salvatore@gmail.com, 
+	dipiets@amazon.it, djwong@kernel.org, dlemoal@kernel.org, exfat@lists.linux.dev, 
+	fuse-devel@lists.linux.dev, gfs2@lists.linux.dev, gourry@gourry.net, hyc.lee@gmail.com, 
+	joshua.hahnjy@gmail.com, jth@kernel.org, liam@infradead.org, linkinjeon@kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-xfs@vger.kernel.org, ljs@kernel.org, matthew.brost@intel.com, mhocko@suse.com, 
+	miklos@szeredi.hu, naohiro.aota@wdc.com, ntfs3@lists.linux.dev, 
+	ntfs@lists.linux.dev, rakie.kim@sk.com, ritesh.list@gmail.com, rppt@kernel.org, 
+	rvvandan@amazon.com, ryan.roberts@arm.com, sj1557.seo@samsung.com, surenb@google.com, 
+	vbabka@kernel.org, viro@zeniv.linux.org.uk, willy@infradead.org, 
+	ying.huang@linux.alibaba.com, yuezhang.mo@sony.com, ziy@nvidia.com, kirill@shutemov.name, 
+	dgc@kernel.org
+Subject: Re: [PATCH 0/2] mm, iomap: account dirty at page granularity for
+ per-block dirty folios
+Message-ID: <avdg_Q08T-ilyNmK@pedro-suse.tail5790ac.ts.net>
+References: <mcskrz2zbav5r3xtlwqytyotgjcmmi3wapeibkqornuhb3qp5y@qk22j77kvkqx>
+ <20261113155015.516481-1-dipiets@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,418 +121,185 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261113191234.2509964-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113191234.2509964-4-irogers@google.com>
-Subject: [PATCH v3 3/3] perf tests: Add NVMe PMU event parsing test
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>
-Cc: Christoph Hellwig <hch@infradead.org>, Daniel Wagner <dwagner@suse.de>, Yuzhuo Jing <yuzhuo@google.com>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Tomas Glozar <tglozar@redhat.com>, Michael Jeanson <mjeanson@efficios.com>, 
-	Dmitrii Dolgov <9erthalion6@gmail.com>, Alexandre Chartre <alexandre.chartre@oracle.com>, 
-	Leo Yan <leo.yan@arm.com>, German Gomez <german.gomez@arm.com>, 
-	Anubhav Shelat <ashelat@redhat.com>, linux-perf-users@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113155015.516481-1-dipiets@amazon.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,amazon.com,redhat.com,linux-foundation.org,paragon-software.com,nvidia.com,kernel.org,sk.com,gmail.com,amazon.it,lists.linux.dev,gourry.net,infradead.org,vger.kernel.org,kvack.org,intel.com,suse.com,szeredi.hu,wdc.com,arm.com,samsung.com,google.com,zeniv.linux.org.uk,linux.alibaba.com,sony.com,shutemov.name];
+	R_RATELIMIT(0.00)[to_ip_from(RLe18ogjrzj7gw3iux4c8rw8c6)];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[52];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.80
 
-Introduce a unit test suite for the NVMe tool PMU event parser. The test
-registers a mock test NVMe PMU ('nvme_a_test_nvme_pmu' with alias
-'nvme1234') and verifies:
-- Event parsing without a PMU prefix and with both PMU name and alias.
-- Event config encoding, unit, and scale across SMART, Endurance, FDP,
-  Error, and ZNS log events (including Kelvin temperature scaling).
-- Support for 'event=<name>', raw 'config=0x...', and 'name=' qualifiers.
-- Clean rejection of unknown event names, invalid raw configs, duplicate
-  event terms, and unsupported string terms where term->config is NULL.
+On Fri, Nov 13, 2026 at 03:50:15PM +0000, Salvatore Dipietro wrote:
+> Hi all,
+> 
+> Thanks Jan, Pedro, Dave, David and Kiryl for the feedback.
+> 
+> Following Dave's question about how PostgreSQL gets large folios on
+> files it writes 8 KiB at a time, we looked deeper and found a
+> reproducer that needs only fio and a single disk.
+> 
+> What happens:
+> 
+>   1. A buffered sequential read (VACUUM, a backup, a scan) builds large
+>      folios through readahead.  They stay large in the page cache until
+>      they are evicted.
+>   2. The first small write into one of these clean folios charges the
+>      whole folio as dirty: a 4 KiB write into a 256 KiB folio charges
+>      256 KiB, while writeback only writes the dirty 4 KiB.
+>   3. With random writes, most writes land in a different clean folio,
+>      so the dirty count reaches the limits with little real data.
+>      balance_dirty_pages() then throttles the writers, and they end up
+>      paced by how many folios writeback can clean per second rather
+>      than by the bytes to write.
+> 
+> Reproducer: XFS on one EBS gp3 volume (3000 IOPS), m8g.8xlarge
+> (32 CPUs, 128 GiB), default read_ahead_kb=128. fio's 1 MiB reads grow
+> the readahead window up to the device's max_sectors_kb (256 KiB), so
+> the read builds 256 KiB folios.
+> 
+>   ; create.fio: 16 x 3 GiB files, direct I/O so nothing is cached
+>   [global]
+>   directory=/mnt/xfs/fio
+>   filename_format=f.$jobnum
+>   size=3072m
+>   numjobs=16
+>   group_reporting=1
+>   [create]
+>   rw=write
+>   bs=1m
+>   direct=1
+>   ioengine=libaio
+>   iodepth=16
+> 
+>   ; load.fio: buffered sequential read; builds the large folios
+>   [global]
+>   directory=/mnt/xfs/fio
+>   filename_format=f.$jobnum
+>   size=3072m
+>   numjobs=16
+>   group_reporting=1
+>   [load]
+>   rw=read
+>   bs=1m
+>   direct=0
+>   ioengine=psync
+> 
+>   ; randwrite.fio: random 4 KiB buffered writes, 32 x 312 = ~10k IOPS
+>   ; invalidate=0 keeps the cached folios when fio opens the files
+>   [randwrite]
+>   directory=/mnt/xfs/fio
+>   filename=f.0:f.1:f.2:f.3:f.4:f.5:f.6:f.7:f.8:f.9:f.10:f.11:f.12:f.13:f.14:f.15
+>   rw=randwrite
+>   bs=4k
+>   direct=0
+>   ioengine=psync
+>   invalidate=0
+>   numjobs=32
+>   rate_iops=312
+>   time_based=1
+>   runtime=120
+>   group_reporting=1
+> 
+> To reproduce it, run (as root):
+> 
+>   fio create.fio
+>   sync; echo 3 > /proc/sys/vm/drop_caches
+>   fio load.fio          # skip this step for the control run
+>   fio randwrite.fio
+> 
+> fio asks for ~10k write IOPS, more than the volume's 3000, so dirty
+> data builds up in both runs.  In the control run (no load step) each
+> 4 KiB write creates a 4 KiB folio: after 120 s only 3.3G is dirty,
+> below the 12.2G background threshold, and nothing is throttled.  After
+> the load step the same writes land in 256 KiB folios, and each write
+> into a clean folio is charged 256 KiB: the dirty count passes the
+> background threshold after 6 s and writers are throttled from 13 s.
+> 
+> Results on v7.4-rc2, one run per kernel, each on a fresh instance.
+> Writer sleep is the total balance_dirty_pages() pause time over the
+> 32 writers during the 120 s write phase:
+> 
+>                          write   p99 / max   writer   max    folio
+>                           IOPS     lat ms    sleep s  dirty  size
+>   baseline, control      9,984  0.01 / 0.30      0    3.3G    -
+>   baseline               4,061    60 / 160     179   23.5G   256K
+>   v1 (this series)       9,984  0.01 / 0.67      0    3.6G   256K
+>   max order cap 64K      7,071    50 / 280      73   22.3G    64K
+>   max order cap 16K      9,984  0.02 / 0.05      0   11.9G    16K
+>   split on write         9,984  0.02 / 0.17      0    3.6G   256K
+>   evict on write         9,984  0.03 / 0.19      0    3.3G   256K
+>   POSIX_FADV_RANDOM      9,984  0.02 / 0.05      0    3.3G     4K
+> 
+> The control run gave 9,984 IOPS and max latency up to 0.30 ms on every
+> kernel.
+> 
+>   - max order cap: the global cap in mapping_max_folio_order() that Jan
+>     suggested trying.  At 64 KiB a 4 KiB write still charges 16x and is
+>     throttled.  At 16 KiB this run is not throttled, but dirty reached
+>     11.9G, just below the 12.2G background threshold.  The cap that
+>     avoids throttling depends on the write size, and it removes large
+>     folios for every file, including ones that never see small writes.
+>   - split on write: when a buffered write (iomap opts in, not for
+>     zeroing or unshare) finds a clean, uptodate, unmapped folio at least
+>     4x the write size, folio_split() it down to the write's order before
+>     dirtying it.  The rest of the folio stays cached in large folios.
+>     On the concerns Jan raised about splitting [1]: split on write only
+>     splits clean, uptodate, unmapped folios, so it needs no new
+>     filesystem state beyond an opt-in flag in iomap, and if
+>     folio_split() fails the write simply proceeds as today; evict on
+>     write avoids splitting altogether.
+>   - evict on write: same trigger, but mapping_evict_folio() the folio
+>     instead of splitting it (~40 lines).  This discards the folio's
+>     other cached data; nothing reads it back in this test, so the read
+>     cost does not show here.
+>   - POSIX_FADV_RANDOM (Dave's question): fio's fadvise_hint=random on
+>     the load job.  It avoids the problem without a kernel change, but
+>     only where the application opts in: the hint is per open file, so
+>     every process that reads a file must issue it, and a reader that
+>     doesn't (a backup or copy tool, for example) still builds large
+>     folios.  Every application that reads files sequentially and then
+>     rewrites them in place would have to adopt it, and keeps the
+>     regression until it does.  It also turns readahead off for those
+>     files, so their sequential reads lose readahead.
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/tests/Build          |   1 +
- tools/perf/tests/builtin-test.c |   1 +
- tools/perf/tests/nvme_pmu.c     | 303 ++++++++++++++++++++++++++++++++
- tools/perf/tests/tests.h        |   1 +
- tools/perf/util/pmus.c          |   5 +
- tools/perf/util/pmus.h          |   1 +
- 6 files changed, 312 insertions(+)
- create mode 100644 tools/perf/tests/nvme_pmu.c
+Holy heck, did an LLM write this?
 
-diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
-index 5eebb2ec5dde..336bad77c8f4 100644
---- a/tools/perf/tests/Build
-+++ b/tools/perf/tests/Build
-@@ -71,6 +71,7 @@ perf-test-y += hybrid-merge.o
- perf-test-y += symbols.o
- perf-test-y += util.o
- perf-test-y += hwmon_pmu.o
-+perf-test-y += nvme_pmu.o
- perf-test-y += tool_pmu.o
- perf-test-y += subcmd-help.o
- perf-test-y += kallsyms-split.o
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index 327483f96401..0b88018c7036 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -124,6 +124,7 @@ static struct test_suite *generic_tests[] = {
- 	&suite__pmu,
- 	&suite__pmu_events,
- 	&suite__hwmon_pmu,
-+	&suite__nvme_pmu,
- 	&suite__tool_pmu,
- 	&suite__dso_data,
- 	&suite__perf_evsel__roundtrip_name_test,
-diff --git a/tools/perf/tests/nvme_pmu.c b/tools/perf/tests/nvme_pmu.c
-new file mode 100644
-index 000000000000..c3c17ccc9ea0
---- /dev/null
-+++ b/tools/perf/tests/nvme_pmu.c
-@@ -0,0 +1,303 @@
-+// SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
-+#include "nvme_pmu.h"
-+
-+#include <errno.h>
-+#include <inttypes.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <linux/compiler.h>
-+#include <linux/kernel.h>
-+#include <linux/list.h>
-+#include <linux/string.h>
-+
-+#include "debug.h"
-+#include "evlist.h"
-+#include "evsel.h"
-+#include "parse-events.h"
-+#include "pmus.h"
-+#include "tests.h"
-+
-+#ifdef HAVE_LIBNVME_SUPPORT
-+
-+enum test_encoding_mode {
-+	TEST_ENCODING_NAME,
-+	TEST_ENCODING_ALIAS_PMU,
-+	TEST_ENCODING_EVENT_TERM,
-+	TEST_ENCODING_RAW_CONFIG,
-+	TEST_ENCODING_WITH_NAME_QUALIFIER,
-+};
-+
-+static const struct test_event {
-+	const char *name;
-+	const char *unit;
-+	double scale;
-+	uint64_t config;
-+} test_events[] = {
-+	{
-+		"smart_temperature",
-+		"K",
-+		1.0,
-+		NVME_SMART(2, temperature),
-+	},
-+	{
-+		"smart_data_units_read",
-+		"B",
-+		512000.0,
-+		NVME_SMART(16, data_units_read),
-+	},
-+	{
-+		"endurance_percent_used",
-+		"",
-+		1.0,
-+		NVME_ENDURANCE(1, percent_used),
-+	},
-+	{
-+		"endurance_data_units_read",
-+		"B",
-+		1000000000.0,
-+		NVME_ENDURANCE(16, data_units_read),
-+	},
-+	{
-+		"fdp_hbmw",
-+		"B",
-+		1.0,
-+		NVME_FDP(16, hbmw),
-+	},
-+	{
-+		"error_count",
-+		"",
-+		1.0,
-+		NVME_ERROR(8, error_count),
-+	},
-+	{
-+		"zns_nrzid",
-+		"",
-+		1.0,
-+		NVME_ZNS(2, nrzid),
-+	},
-+};
-+
-+static int do_test(size_t i, bool with_pmu, enum test_encoding_mode mode)
-+{
-+	struct evlist *evlist = evlist__new();
-+	struct evsel *evsel;
-+	struct parse_events_error err;
-+	int ret;
-+	char str[128];
-+	bool found = false;
-+
-+	if (!evlist) {
-+		pr_err("evlist allocation failed\n");
-+		return TEST_FAIL;
-+	}
-+
-+	if (!with_pmu) {
-+		strlcpy(str, test_events[i].name, sizeof(str));
-+	} else {
-+		switch (mode) {
-+		case TEST_ENCODING_NAME:
-+			snprintf(str, sizeof(str), "nvme_a_test_nvme_pmu/%s/",
-+				 test_events[i].name);
-+			break;
-+		case TEST_ENCODING_ALIAS_PMU:
-+			snprintf(str, sizeof(str), "nvme1234/%s/", test_events[i].name);
-+			break;
-+		case TEST_ENCODING_EVENT_TERM:
-+			snprintf(str, sizeof(str), "nvme_a_test_nvme_pmu/event=%s/",
-+				 test_events[i].name);
-+			break;
-+		case TEST_ENCODING_RAW_CONFIG:
-+			snprintf(str, sizeof(str), "nvme_a_test_nvme_pmu/config=0x%" PRIx64 "/",
-+				 test_events[i].config);
-+			break;
-+		case TEST_ENCODING_WITH_NAME_QUALIFIER:
-+			snprintf(str, sizeof(str),
-+				 "nvme_a_test_nvme_pmu/%s,name=custom_nvme_event/",
-+				 test_events[i].name);
-+			break;
-+		default:
-+			ret = TEST_FAIL;
-+			goto out_put;
-+		}
-+	}
-+
-+	pr_debug("Testing '%s'\n", str);
-+	parse_events_error__init(&err);
-+	ret = parse_events(evlist, str, &err);
-+	if (ret) {
-+		pr_debug("FAILED %s:%d failed to parse event '%s', err %d\n",
-+			 __FILE__, __LINE__, str, ret);
-+		parse_events_error__print(&err, str);
-+		ret = TEST_FAIL;
-+		goto out;
-+	}
-+
-+	ret = TEST_OK;
-+	if (with_pmu ? (evlist__nr_entries(evlist) != 1)
-+		     : (evlist__nr_entries(evlist) < 1)) {
-+		pr_debug("FAILED %s:%d Unexpected number of events for '%s' of %d\n",
-+			 __FILE__, __LINE__, str, evlist__nr_entries(evlist));
-+		ret = TEST_FAIL;
-+		goto out;
-+	}
-+
-+	evlist__for_each_entry(evlist, evsel) {
-+		if (!evsel->pmu || !evsel->pmu->name ||
-+		    strcmp(evsel->pmu->name, "nvme_a_test_nvme_pmu"))
-+			continue;
-+
-+		if (evsel->core.attr.config != test_events[i].config) {
-+			pr_debug("FAILED %s:%d Unexpected config for '%s', %"
-+				 PRIu64 " != %" PRIu64 "\n",
-+				 __FILE__, __LINE__, str,
-+				 (uint64_t)evsel->core.attr.config,
-+				 test_events[i].config);
-+			ret = TEST_FAIL;
-+			goto out;
-+		}
-+		if (!evsel->unit || strcmp(evsel->unit, test_events[i].unit) != 0 ||
-+		    evsel->scale != test_events[i].scale) {
-+			pr_debug("FAILED %s:%d Unexpected unit/scale for '%s', '%s'/%g != '%s'/%g\n",
-+				 __FILE__, __LINE__, str,
-+				 evsel->unit ?: "(null)", evsel->scale,
-+				 test_events[i].unit, test_events[i].scale);
-+			ret = TEST_FAIL;
-+			goto out;
-+		}
-+		if (mode == TEST_ENCODING_WITH_NAME_QUALIFIER &&
-+		    strcmp(evsel__name(evsel), "custom_nvme_event") != 0) {
-+			pr_debug("FAILED %s:%d Unexpected custom name '%s'\n",
-+				 __FILE__, __LINE__, evsel__name(evsel));
-+			ret = TEST_FAIL;
-+			goto out;
-+		}
-+		found = true;
-+	}
-+
-+	if (!found) {
-+		pr_debug("FAILED %s:%d Didn't find nvme event '%s' in parsed evsels\n",
-+			 __FILE__, __LINE__, str);
-+		ret = TEST_FAIL;
-+	}
-+
-+out:
-+	parse_events_error__exit(&err);
-+out_put:
-+	evlist__put(evlist);
-+	return ret;
-+}
-+
-+static int test__nvme_pmu(bool with_pmu)
-+{
-+	struct perf_pmu *pmu = perf_pmus__add_test_nvme_pmu("nvme1234", "a_test_nvme_pmu");
-+	int ret = TEST_OK;
-+
-+	if (!pmu)
-+		return TEST_FAIL;
-+
-+	for (size_t i = 0; i < ARRAY_SIZE(test_events); i++) {
-+		ret = do_test(i, with_pmu, TEST_ENCODING_NAME);
-+		if (ret != TEST_OK)
-+			break;
-+
-+		if (with_pmu) {
-+			ret = do_test(i, with_pmu, TEST_ENCODING_ALIAS_PMU);
-+			if (ret != TEST_OK)
-+				break;
-+
-+			ret = do_test(i, with_pmu, TEST_ENCODING_EVENT_TERM);
-+			if (ret != TEST_OK)
-+				break;
-+
-+			ret = do_test(i, with_pmu, TEST_ENCODING_RAW_CONFIG);
-+			if (ret != TEST_OK)
-+				break;
-+
-+			ret = do_test(i, with_pmu, TEST_ENCODING_WITH_NAME_QUALIFIER);
-+			if (ret != TEST_OK)
-+				break;
-+		}
-+	}
-+
-+	list_del(&pmu->list);
-+	perf_pmu__delete(pmu);
-+	return ret;
-+}
-+
-+static int test__nvme_pmu_invalid_terms(struct test_suite *test __maybe_unused,
-+					int subtest __maybe_unused)
-+{
-+	static const char * const invalid_events[] = {
-+		"nvme_a_test_nvme_pmu/nonexistent_event/",
-+		"nvme_a_test_nvme_pmu/call-graph=fp/",
-+		"nvme_a_test_nvme_pmu/config=0xffffffff/",
-+		"nvme_a_test_nvme_pmu/name=only_name/",
-+		"nvme_a_test_nvme_pmu/smart_temperature,error_count/",
-+		"nvme_a_test_nvme_pmu/smart_temperature=2/",
-+	};
-+	struct perf_pmu *pmu = perf_pmus__add_test_nvme_pmu("nvme1234", "a_test_nvme_pmu");
-+	int ret = TEST_OK;
-+
-+	if (!pmu)
-+		return TEST_FAIL;
-+
-+	for (size_t i = 0; i < ARRAY_SIZE(invalid_events); i++) {
-+		struct evlist *evlist = evlist__new();
-+		struct parse_events_error err;
-+		int parse_ret;
-+
-+		if (!evlist) {
-+			ret = TEST_FAIL;
-+			break;
-+		}
-+		parse_events_error__init(&err);
-+		parse_ret = parse_events(evlist, invalid_events[i], &err);
-+		if (parse_ret == 0 || list_empty(&err.list)) {
-+			pr_debug("FAILED %s:%d Unexpected parse result %d for invalid event '%s'\n",
-+				 __FILE__, __LINE__, parse_ret, invalid_events[i]);
-+			parse_events_error__exit(&err);
-+			evlist__put(evlist);
-+			ret = TEST_FAIL;
-+			break;
-+		}
-+		parse_events_error__exit(&err);
-+		evlist__put(evlist);
-+	}
-+
-+	list_del(&pmu->list);
-+	perf_pmu__delete(pmu);
-+	return ret;
-+}
-+
-+static int test__nvme_pmu_without_pmu(struct test_suite *test __maybe_unused,
-+				      int subtest __maybe_unused)
-+{
-+	return test__nvme_pmu(/*with_pmu=*/false);
-+}
-+
-+static int test__nvme_pmu_with_pmu(struct test_suite *test __maybe_unused,
-+				   int subtest __maybe_unused)
-+{
-+	return test__nvme_pmu(/*with_pmu=*/true);
-+}
-+
-+static struct test_case tests__nvme_pmu[] = {
-+	TEST_CASE("Parsing without PMU name", nvme_pmu_without_pmu),
-+	TEST_CASE("Parsing with PMU name", nvme_pmu_with_pmu),
-+	TEST_CASE("Rejecting invalid event terms", nvme_pmu_invalid_terms),
-+	{	.name = NULL, }
-+};
-+
-+struct test_suite suite__nvme_pmu = {
-+	.desc = "NVMe PMU",
-+	.test_cases = tests__nvme_pmu,
-+};
-+
-+#else
-+
-+struct test_suite suite__nvme_pmu = {
-+	.desc = "NVMe PMU",
-+	.test_cases = NULL,
-+};
-+
-+#endif
-diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-index af822885890d..5a77bc5ecf7a 100644
---- a/tools/perf/tests/tests.h
-+++ b/tools/perf/tests/tests.h
-@@ -133,6 +133,7 @@ DECLARE_SUITE(syscall_openat_tp_fields);
- DECLARE_SUITE(pmu);
- DECLARE_SUITE(pmu_events);
- DECLARE_SUITE(hwmon_pmu);
-+DECLARE_SUITE(nvme_pmu);
- DECLARE_SUITE(tool_pmu);
- DECLARE_SUITE(attr);
- DECLARE_SUITE(dso_data);
-diff --git a/tools/perf/util/pmus.c b/tools/perf/util/pmus.c
-index 980035b640dc..66626ce3494b 100644
---- a/tools/perf/util/pmus.c
-+++ b/tools/perf/util/pmus.c
-@@ -925,6 +925,11 @@ struct perf_pmu *perf_pmus__add_test_hwmon_pmu(const char *hwmon_dir,
- 	return hwmon_pmu__new(&other_pmus, hwmon_dir, sysfs_name, name);
- }
- 
-+struct perf_pmu *perf_pmus__add_test_nvme_pmu(const char *sysfs_name, const char *name)
-+{
-+	return nvme_pmu__new(&other_pmus, sysfs_name, name);
-+}
-+
- struct perf_pmu *perf_pmus__fake_pmu(void)
- {
- 	static struct perf_pmu fake = {
-diff --git a/tools/perf/util/pmus.h b/tools/perf/util/pmus.h
-index 0d55edb3f2fc..2045d4cf44d1 100644
---- a/tools/perf/util/pmus.h
-+++ b/tools/perf/util/pmus.h
-@@ -37,6 +37,7 @@ struct perf_pmu *perf_pmus__add_test_pmu(int test_sysfs_dirfd, const char *name)
- struct perf_pmu *perf_pmus__add_test_hwmon_pmu(const char *hwmon_dir,
- 					       const char *sysfs_name,
- 					       const char *name);
-+struct perf_pmu *perf_pmus__add_test_nvme_pmu(const char *sysfs_name, const char *name);
- struct perf_pmu *perf_pmus__fake_pmu(void);
- struct perf_pmu *perf_pmus__find_core_pmu(void);
- 
+> 
+> Split and evict on write keep whole-folio accounting and act at write
+> time, so they also cover large folios already in the page cache,
+> whoever built them, without each application having to opt in.  Both
+> only touch clean, uptodate, unmapped folios at least 4x the write
+> size, and only on iomap buffered writes.  Split keeps the rest of the
+> folio cached at the cost of the split; evict is simpler but drops it.
+> I'd appreciate your opinion on these options, or any other direction
+> you think is more appropriate.
+
+I think you'll face strong resistance to any of these options.
+
 -- 
-2.56.1.703.gf848ed807c-goog
-
+Pedro
