@@ -1,99 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794569900;
-	b=h2LAOkV/EtHa0I643pUpdMypPgNHqzQgAD48IfrPCDkEmFen6uY0RnSNmyoW7U2qC9mA
-	 FxOl5BWMKXqdijPoj1uYA5SEMZbk+rrewH3AIS6jLiYPcKYIksFOlW66YQjgZWdkvahRx
-	 HkpsV9p7yS/0chjwWHH9l8uNA3xV4HMNhvSTUczzXP4tGaOv7dWToZFa921cMJOyjpz65
-	 +gYhnvOKPJ+GBYD700Hvc9pzet3bnNmZJzEHCAenb9sLLVBE6LvoX0Nxzwf5+qItE6b/z
-	 iFPnCQjqc+6F1JXSkxeR9H5g15habhnP09KP3hpFRKfrxFiUehr2WMFD8EIdGQ9UGLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794569900;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vTCHyCAR6eAtqeA5pf25pJ8sdZ1P2+h3QAjk+dSuWXg=;
-	b=rIa9HmYMBN/BgC5Ly+BVqaQV1Dvnaw99B9fCEMm+dCVOC5uWpxVr0FHltRD1t2R0UMsB
-	 zui1ae0mx8yY7W1FzRcXLIQujNeHESzTgAjB3P5u7XLpKdfgkMsMuutd64jPGg1BHoVVD
-	 QAMAidV5HjxcH9RtcZBHPpAnz1rVaa+f9mi09P5kdSfsuZGXOCs/mymFyRs0kpK0YywqQ
-	 pNt+YfsGGh2NqAv0zuDulpIMa23YgkVIx6mdkR5fqxCJh5bd+J7TUzau9b70bjfkMmic8
-	 R3pPauxDjag5KfV+oCvnBj3cKevKeHuErlapbcovOx6K5E5iecom7/s+eX8EzibAQNg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=rbwYETMA;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794569996;
+	b=XHYKq/CbiwO85uSsCyvYu2zUZcyuMDo2XZRJOYpNqM4MIcH/P37OOtaiVk3YqO3a7QYU
+	 FwfwpBp25U66bBe1hne1kotZCTn+ZW1xO8dw8tGn8klRvUE7LAQoGQgKzq6u8lcivRWbP
+	 pr9mQSZCM1T+qVM8cOpGbQjE6AphB0w/oMApmYFnfrWOib8VqgvTVGuFoNDaWVeTtscXT
+	 SSMOCDPWeynHb0cXYuoVIQKYvIZhpn9KZ16W5iycdjXJ39CaXBYmXgpKJArK7fjWQhwwj
+	 xqyAI/ZOtmh4R5lWOC5jH7cXtD5ncpikot+suWDMk8idwEs3o+eDSXKQ1mmnFjm6mAA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794569996;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Reason;
+	bh=S/yxzZH0DtobECrTVNp3KUgeVtZf3iCUy+GM0Rlh5eY=;
+	b=ji5VbIegxyMso67j5t+tO1sfdcouHLRZrdGmB1FLffgcikAnzQii5OJBP/VcciNRMB96
+	 0d2iIz10NuVsCWMTz60x6DSkQwcigDrkInhX29QLrBOeM/EbuH6ERTCSJL6jslAcs0p+H
+	 5AdWU0jk1itP3aqApsO61LfXc5ZrkbxMid2q8QdeoWAPxEMGQln0D70m4thSBRLAKkypi
+	 hG9pVU1dNf1KKDJ5jjRUl1aUW3tYfTuupAVx+o0fPUORh0Gh36M5jy/DafslDvuYwkNa9
+	 SqPn2GypveHzmvB/ro4B0QM6jMjJAlvAI4gFcQB5YMRamHqzwxoNHUdN4TtBJhI/tnQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=opensource.cirrus.com;
+	spf=pass smtp.mailfrom=opensource.cirrus.com;
+	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=RFikF7yQ;
+	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=PK1X8BmM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CAEB606A89F
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:38:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CAEB606A89F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26054606A321;
+	Fri, 13 Nov 2026 11:39:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26054606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=rbwYETMA
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so6191035e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:38:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=RFikF7yQ;
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=PK1X8BmM
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADAgPvb055774;
+	Fri, 13 Nov 2026 05:39:53 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=S/yxzZH0DtobECrTVNp3KUgeVtZf3iCUy+GM0Rlh5eY=; b=
+	RFikF7yQgzrRvLmaKVI/3nY1oVw+EYg+oUbzJQhX5/DSpGIXEWjkgB91ec9xV74A
+	M8SURkcQW2JdlA6RYqxOFIpbJgNu/9ZW24KWKJDkgqKrNhY4ZPz1lDoCsAfbAJx/
+	zNM9E2ihAzIyA8lHxvEPufXwEaL3vYxIvcy/YpQLlHf8ae21Iko7ev4TZzb3Ps4p
+	QmA5UzkBmhTrYWE4cPpidIgicUxVXsNvxswv90p0Tn54R0F/ItW/diLWB6BlFyBT
+	IbjWIJhqM/iSjxNTMZvQEMTgNpLPcbqpwnyDrs4l/gplNGeoJ/A04FkLIuwUqFKS
+	8eRI3rSMya+mbXBQz9Pdxw==
+Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11022123.outbound.protection.outlook.com [52.101.43.123])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hwcfphnpk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 13 Nov 2026 05:39:53 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bhZceCmys4DOZkeTgxgyn5C4/MQjt21F5kOwdkf/lypaT3SWj8QWn7DzF12HJ8UZqyYrOJCNrfNWYBx29E5NVGAXghic4YqSEH9fVs8ctshKMREkGPz4pqQf6s1lSf9fxA9N/TTkL9EbmDy0Djfiqn7f1UW2HETtjzkoltwjrQuIsu5UzpulhuZc7ySlOJBXtD7WO+9pPsGkweR0A4HYPZylPNx0OCUqYm7bewwyb7HPihwAwrom7sMm7Qrmn5SbAwOdueKuf6n7+GZzL4Nu7eXmT4JwI+htwu+mvyxs1T9S1MdL8jP91AJPBOaYxyz+SruTNRKHRHK6wI6pvlElvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S/yxzZH0DtobECrTVNp3KUgeVtZf3iCUy+GM0Rlh5eY=;
+ b=wSJFRpG0bZe5pO5EEuECQrQsYuqE7+Bl8O13Hag2lss+5+CATJ3/yXqfnWmui1A8/gE8SkfJMK1pQokunMNdQqw1XCdaQAXuqP+vmsyB8OI10UN/xJmcquPndvL/7Pv9gBKGO8Map0mB3z3cqopt7k/Gu74CSJHhnxEG3F/sgxrkN4KFCzIz5y4NZqeSiSNdNtPbjcDiXzHAMhHYTpOlB9l+qs38qzgXhrfIjLVIfgC0csZzkKFZKXFVjNQKrI2Do3ZEeC3td2nA7LAM3lk+8BoViYg7fsA6T2tDWckHQYeqtkBghjq69pAP1cyox+0jS2WzSzX+gzju1wxzvTeThA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1794569898; x=1795174698; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vTCHyCAR6eAtqeA5pf25pJ8sdZ1P2+h3QAjk+dSuWXg=;
-        b=rbwYETMA4FU/YD49puTuRkkMHgMCy06nrgHsnZl8lh/n9BGsY2stk56zqhqypP8KLT
-         cEZhfj5a9uUxpXiQmcOd2c2ZeuBobR9rmwCQvHzfUhM4c1xJ6bbVyEcv08YLF2bDNDFy
-         +ue0CWrtqXuvycG34tUBl0qEetVp37D+qS5gc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794569898; x=1795174698;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vTCHyCAR6eAtqeA5pf25pJ8sdZ1P2+h3QAjk+dSuWXg=;
-        b=fp/g2akJEg/6CGm7pilp3bwcscYtVhVa7GiRR51pvi40Bio0bqD5K4SISaOrUc/lPc
-         IAmM/3OivPyu5YSz2yKGpzzv7UU0xIuQHuDeYi7m70ZpVCM11UkBWuXF/y8rDFtsCEKS
-         si80F//7vAwMSFwpjdv4ttIH2zcay12vVzrNBNzgoRqVwP7gCVAu3Wg87vNArEDDLHYa
-         58RewlgW+w4HQLeF7aXrO7YK7mjAUc0Y0U4zFLpNWwq8AGxvRz99Ao5+IOYEP1bFTpB8
-         AxuC7IHzxKyQ+WOdhTr6HSioIkkFur/Z3WPCN5XNnXE1OY/J6vJONe72s6jbie75ScTt
-         WVqg==
-X-Forwarded-Encrypted: i=1; AL+hErH6tFuZku0gRYq+YY1wcs1IBtxFqWLEzwbi6o2hpd4NEchG399JBKqNVQJP6DoxredTRtlloeSCl/8LfNs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/M1J6dXh8thg50rU+cSy+V/fBbXHauQXBN5PMsFiTTRn/xEY7
-	nEhr0ERgrHtVFPb5GxSvfckdi7dk8UvLP4px3k1b1GQk8SUG6aMfREJ3mpQa2Egu8mE=
-X-Gm-Gg: AYBFou2FwebJRWE1+74141w0khHLzC1kMRP3JG/in/9URb2Hg90sRkvxSD1/Ajc5kP8
-	LegqfaIYPIaRZNZDX5+WvV2qiW/ff2qx5zYWFdMXG86lzwiTF57djIoXX5m3WSVjUeYPCU0FHzy
-	o0o8H0Ax+A6znS6i6uSbY7baNGDEqYo+zJm0dIJyBKr95AwvzKT/xLTdpk9LhHkBiuUZFRaM3uD
-	RcPn5q+K6xlvO7n9zeh99zhiSPHO25ypwJT9PadOMYQDpmNZDgOPFJbMZINZe2kBY4GIs9xQneM
-	YFBTIKh74lkPqafBCpw74dTduXEzZ1SVTEk3kD7hqfr07cNkhjPNvbc0Lht1H3A4ZvCdIPAG9ca
-	h2p7cBtQy7QrGBwCPnnBMBRwwMjEU3KccZWW2xbb+NXzN6Z2Ay2qXAKNMRbSF9JSwos/kN59FXN
-	6MzwRIN20WJgBlwTaruzuwdx8WO78d/FyYIHTPN6+bHfu2wa0Jy9bifmzjt6kumXfQ3MoaoZ/b1
-	QvM7ZJED2ZfSKAwcgFA0nQ84wVr544S8nmrWpu9V2p5/pGDGf9N97+9dDrkURPegLYplD8/w4wE
-	Iie4MaZbLeAcc0iL/YiJNvpRVU063OhdtPGJkMHWHHGWkUjRLWueNSzP0/cNtgL1GL6YR1lceF4
-	O
-X-Received: by 2002:a05:600c:a302:b0:4a1:de8a:603a with SMTP id 5b1f17b1804b1-4bb55a57c5bmr35482175e9.6.1794569897619;
-        Fri, 13 Nov 2026 03:38:17 -0800 (PST)
-Received: from thinkpat.amarulasolutions.com ([2a07:7e81:b71d:0:3e39:d071:1d81:5914])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm5448492f8f.1.2026.11.13.03.38.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 03:38:17 -0800 (PST)
-From: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
-To: devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-amarula@amarulasolutions.com,
-	michael@amarulasolutions.com,
-	dario.binacchi@amarulasolutions.com,
-	Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
-Subject: [PATCH v3 3/3] arm64: dts: rockchip: Add Axelera Embedded 111c
-Date: Fri, 13 Nov 2026 12:38:08 +0100
-Message-ID: <20261113113808.1779860-4-patrick.barsanti@amarulasolutions.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113113808.1779860-1-patrick.barsanti@amarulasolutions.com>
-References: <20261113113808.1779860-1-patrick.barsanti@amarulasolutions.com>
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S/yxzZH0DtobECrTVNp3KUgeVtZf3iCUy+GM0Rlh5eY=;
+ b=PK1X8BmM/ruMC13eRYjB9sAB5wexoSKOcDkjm0/H3ESSFJgBp2Hn2tiFkHx2hQ75OmEY4nKiuk+6AtAe+V0lsLKVL748GIO/avBW1IzHY62e5ZaideX413xtZw11CUJ1DKW5TJ2oWd+yWYu7PAvY7aD9Y683crKKt+Pz2TAd0HE=
+Received: from DUZPR01CA0162.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4bd::10) by MW4PR19MB7078.namprd19.prod.outlook.com
+ (2603:10b6:303:22f::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 11:39:45 +0000
+Received: from SJ1PEPF0000231D.namprd03.prod.outlook.com
+ (2603:10a6:10:4bd:cafe::48) by DUZPR01CA0162.outlook.office365.com
+ (2603:10a6:10:4bd::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Fri,
+ 13 Nov 2026 11:39:42 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ SJ1PEPF0000231D.mail.protection.outlook.com (10.167.242.234) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Fri, 13 Nov 2026 11:39:35 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 1224D4084BE;
+	Fri, 13 Nov 2026 11:29:36 +0000 (UTC)
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com [198.90.208.11])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id E906F822540;
+	Fri, 13 Nov 2026 11:29:35 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: broonie@kernel.org
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+        patches@opensource.cirrus.com
+Subject: [PATCH 1/2] ASoC: cs35l56: Only write ASP1TXn registers when widget is powered-up
+Date: Fri, 13 Nov 2026 11:29:34 +0000
+Message-ID: <20261113112935.2926431-2-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261113112935.2926431-1-rf@opensource.cirrus.com>
+References: <20261113112935.2926431-1-rf@opensource.cirrus.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,904 +133,288 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231D:EE_|MW4PR19MB7078:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: a9da6d82-3818-477e-9897-08df417acad0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|61400799027|82310400026|36860700016|23010399003|376014|18002099003|16102099003|22082099003|261009223027099003|3023799007|11063799006|56012099006|261021121427099003|261021123027099003|261028144727099003|261102123227099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	3KIx/9HCC2KucCMUT9APcaT6fJZlY2avzEKGqcCANfoCVP3KjYN2SKssIzfBZ7LtE+74lg3aFXKZva1MBmYDEF+ccrAZS0S42c32gcG8/MC/wrhzDOgGses58KAi+6Je79CqHHVb0SeIbiV1+fOVL7LUjAnQH02ThawzGs7dFtFmBUtqS5ZtL/j0X9Jpeh1mcM8Xd3KENFczR1BsUBGo146X07rUUdcO3jbloBZnRKJksEKffBOKZUUW7KFDMmkyk45l6M3786GgxzP8KykPjV7gLHAbm6WpndlHcx94OFVihmPHswjqLuNY4OyWHPEYe2nTMhhCkEnoM+Fk5KGAz1bFuy6Tp64CF/QgpG2M+mXt70roy7fnE2DksOdNNyvWr4UCHkxLLUU2fqWo8O1eps9bjbh/Ep9t/M28xB7CnOJF2itJU3yxqBnAt+u35xykwkbmtZOIUj8wUtuWMd2G8XYr1zGgPhBl5tSKn45cyUkrHCrQ48SoNEK286nkjvYkJLfV28MpWhfkXKNywLwQk2YUV5f79x8bdl1evMXk5p/r1aRFmo8WOMkD1j83ZKfPmzZJO9hWyGT3/Jd4BjppECPrgKfKaRjqwA760E3+k2ru/hyFvKvl+LZ7DbhE3JmCQJqHIsOafhVxnav4VvVNseGgl8hUoL/AKw8kIKaEf3aD6xs+XyMMwUvWkS31eumpn2Qk3+GYu5N9xkScHEOb9g==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(61400799027)(82310400026)(36860700016)(23010399003)(376014)(18002099003)(16102099003)(22082099003)(261009223027099003)(3023799007)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	QD02BTGt9wa+SRXB8FSJ7Ew3TfqtOqX8tN5ggMsdQkdQAXS+5/lnmCS+FdG7E/ILsEYORkitJzToU8RhgIw5PNQZnzDupmRgwJZki4E3GpoSnEPWS0tbS+kV/OTJR35ONRKuhzx2cDJy+2KvBdyKtHHJ0Ey5NimR3zsdUn6yanp1wTViT8mZjt8Fp9sejw23ZeNWQixIWnGhJ5zt4r2kXSf2H9ZFRypxb3ozgJ+Jq+QOqhrxHjWObpIEAho/zVdXrvyyoWsZt164tB5yawBnhTnuShh8iF/vtB7lCFo/wjnMVJT1kaU8oICi6Vm5hjGf1CCTz1yVC3IMurgMoNfg7vZDxaR+sf1BQjvRtrpv9oRqa7po9yAOcuw3zB+UcBGCZtJFOn5xYc7xn8WOvlVz+1g+9KhFyCPQsCHUpScnV86hiGWAvr6Es1wFP36SnXSw
+X-Exchange-RoutingPolicyChecked:
+	4C5jPQLweizwlg2rvtTYEtrXHxsVgHROOlR74dXJxQp7Ab0bgS5e9H7iL5oUON7jTB4YCbBb778BszuteC+rcCOXvoIYKsJRDgxr4a2aygARfPR84fX94gHorIIw08n/LUWTZU99ijVcsChi0WoOcYkMHT7QMla9AH97G8T/8AOWZa7M+4hrlq8lk7m+DldnMSLoETPneccJ4Bc2U32WE9cshXrn1IowlyYQdMuUCr2BgHAYCs9CSUA9VEhFj546Bgy+4KYED1YWrZVSPa2w6vTbjxfMGQgUsjtEBeZ1KXFJZ4wdgGdIyBXa79wWAL/UFUm5Mlwez3CBaK5lZWXuXg==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 11:39:35.1214
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9da6d82-3818-477e-9897-08df417acad0
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF0000231D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR19MB7078
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA0NiBTYWx0ZWRfX/CRD8IpfCqdi
+ pRmrKtDTGRdDWvvZUbM3QB7+wB1O0SSrq+7lmTyMJNY+kxJdKVky926p0EQqJoTioYmyRuVvJSk
+ sGIIp7kbRf5E5zI+zAIS2Q+y6luEmzf3YOou3QbB7kvG1L1OkxvyVCl1uHCO19H5js79BdyP9ij
+ gh3B7nSB14426HS4h0NksVOwCYkM+DQmZXGxgXDOOqZrQBfW9/TCf7STpByNUGs3Zxqv1EEoL1P
+ aSDxAPbt0DMVCRRnR+KHwh6mHKjMFXieHOsmGxQbjX06sEREp5IyNZnzWSeBo8MS4QEmuYVhzX8
+ mSXTeggxXReEt18mUWH2MOLY+s2qfdeU9RarC+R3Cq6B5vPcCS2nQJECG5Nt5uZZbDiiaUh3hat
+ OxcEDQmGNUgG5tX6B3MohIlBKxv+yljuQMqomiHRP7VxiIsO9+qNkO6YntW1YYEqSBL8njcppLN
+ BNKYxZ2OAv1B2AQ/q9Q==
+X-Proofpoint-GUID: gipE5lr3XiJQGWAhtaa_MvCKIKMdEOEy
+X-Proofpoint-ORIG-GUID: gipE5lr3XiJQGWAhtaa_MvCKIKMdEOEy
+X-Authority-Analysis: v=2.4 cv=Woi+otfv c=1 sm=1 tr=0 ts=6af6f709 cx=c_pps
+ a=0vj9JdGoO5ZFtW877mlItg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=zJRp6_cAMcgA:10 a=RWc_ulEos4gA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22 a=w1d2syhTAAAA:8
+ a=DJewdLnBEc7raOykfXcA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA0NiBTYWx0ZWRfX16IkoFKNLY4z
+ QU8A6S6j8FvNT6Vmezv3hYJ4QhwqpnGZy/lndf+6hLJPREDnYEnZt1+dOrnKZFqF8V4GmP0InZH
+ ze/8sm0+h5r6sohdU68Xz9lDH5FBGSY=
+X-Proofpoint-Spam-Reason: safe
 
-Add minimal device tree for the Axelera Embedded 111c
-(rk3588-axelera-embedded-111c).
+Cache the value written to the "ASP1 TXn Source" controls and write them
+to registers only when the widget is powered-up. Remove them from the
+regmap defaults table so regmap won't write them during a regcache_sync().
 
-It offers efficient AI compute for multi-stream computer vision and
-GenAI applications in a compact design. It features a quad-core
-Axelera AI Metis AIPU and an RK3588 SoC processor.
+The ASP registers have multiple ownership, depending on the hardware
+design. They can be owned by the firmware, or by a MCU on a secondary
+control interface, or by the driver. If the driver doesn't own control
+of the ASP it must not overwrite the registers.
 
-This basic version of the dts supports:
-- Console
-- eMMC
-- HDMI
-- 4x USB-A
-- 2x Gigabit Ethernet
-- RTC
-- Enumeration of on-board Axelera Metis AIPU
+ALSA control read/write now goes to cached values in struct
+cs35l56_private. The values are written out if the widget powers up,
+which can only happen if the machine driver has connected the ASP DAI in
+a DAIlink. If the control value is changed while the widget is powered
+the change will be deferred until the next widget power-up. Changing
+the hardware mux on-the-fly while active is not supported.
 
-Link: https://axelera.ai/axelera-products/embedded/111c
-Co-developed-by: Michael Trimarchi <michael@amarulasolutions.com>
-Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
-Co-developed-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Signed-off-by: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+Fixes: 9351cf3fd92dc ("ASoC: cs35l56: Only patch ASP registers if the DAI is part of a DAIlink")
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
-Changes in v3:
-- Rename from rk3588-embedded-111c.dts to
-  rk3588-axelera-embedded-111c.dts
-- Drop deprecated "regulator-suspend-microvolt" property
-- Add Co-developed-by to the sign-off chain from Michael and Dario.
-  (The process was: the first version of the downstream dts for the
-  Rockchip kernel we've been using since 2024 was authored by Michael
-  with some of my help. The first version of this upstream dts was
-  co-developed by Dario and Michael together and in-person at a
-  workshop. Later on this was picked up by me and largely
-  re-written, but without their contribution and their prior work this
-  series would not exist. I hope having all three of us as
-  Co-developers on this patch, given the particular circumstances,
-  is alright :))
-- Add Copyright from Amarula Solutions
+ sound/soc/codecs/cs35l56-shared.c |  12 ----
+ sound/soc/codecs/cs35l56.c        | 104 ++++++++++++++++++++++++------
+ sound/soc/codecs/cs35l56.h        |   1 +
+ 3 files changed, 86 insertions(+), 31 deletions(-)
 
-Changes in v2:
-- Prepend "regulator-" to regulator nodes
-- Drop non-existent "mem-supply" binding
-- Drop unneeded comment from rgmii-rxid; replace it with the one from
-  rk3588-youyeetoo-yy3588 to stop checkpatch from complaining
-- Remove phy reset from the gmac node; note that these are still not
-  described in the phy node because GPIO3_B7 defaults to pull-down,
-  which causes the rgmii_phy1 node to never come up.
-  Describing the reset in the parent mdio node instead does not cause
-  the same issue
-- Use the existing hdmim1_tx0_hpd pinctrl group instead of
-  redefining it
-- Drop "full-pwr-cycle-in-suspend" from the eMMC node
-- Add "vmmc-supply" and "vqmmc-supply" to the eMMC node
-- Add pinctrl for the pmic interrupt pin
-- Replace the "vcc3v3_hubreset" regulator hack with two GL3523 hubs
-  linked with "peer-hub".
-- Drop the regulators that were defined but never referenced, and their
-  corresponding pinctrls
-- Mux PCIEX4_PERST_N as GPIO, since it is being used as reset-gpios
-- Drop unused input.h include
-- Drop unused rtc label
-- Drop the local pciex1 pinctrl groups, as they were duplicates of the
-  pcie30x1m1_1_* groups in the base pinctrl for the rk3588
-
- arch/arm64/boot/dts/rockchip/Makefile         |   1 +
- .../rockchip/rk3588-axelera-embedded-111c.dts | 810 ++++++++++++++++++
- 2 files changed, 811 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-axelera-embedded-111c.dts
-
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index 442d322a20cf..51ddc17e98d3 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -191,6 +191,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3582-radxa-e52c.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3582-radxa-e54c.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-armsom-sige7.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-armsom-w3.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-axelera-embedded-111c.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-coolpi-cm5-evb.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-coolpi-cm5-genbook.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-edgeble-neu6a-io.dtb
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-axelera-embedded-111c.dts b/arch/arm64/boot/dts/rockchip/rk3588-axelera-embedded-111c.dts
-new file mode 100644
-index 000000000000..0d760ee0f4e6
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-axelera-embedded-111c.dts
-@@ -0,0 +1,810 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (c) 2026 Amarula Solutions
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pinctrl/rockchip.h>
-+#include <dt-bindings/soc/rockchip,vop2.h>
-+#include "rk3588.dtsi"
-+
-+/ {
-+	model = "Axelera Embedded 111c";
-+	compatible = "axelera,embedded-111c", "rockchip,rk3588";
-+
-+	aliases {
-+		ethernet0 = &gmac0;
-+		ethernet1 = &gmac1;
-+		mmc0 = &sdhci;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial2:1500000n8";
-+	};
-+
-+	hdmi0-con {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi0_con_in: endpoint {
-+				remote-endpoint = <&hdmi0_out_con>;
-+			};
-+		};
-+	};
-+
-+	pcie20_avdd0v85: regulator-pcie20-avdd0v85 {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <850000>;
-+		regulator-max-microvolt = <850000>;
-+		regulator-name = "pcie20_avdd0v85";
-+		vin-supply = <&vdda_0v85_s0>;
-+	};
-+
-+	pcie20_avdd1v8: regulator-pcie20-avdd1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-name = "pcie20_avdd1v8";
-+		vin-supply = <&vcca_1v8_s0>;
-+	};
-+
-+	pcie30_avdd0v75: regulator-pcie30-avdd0v75 {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <750000>;
-+		regulator-max-microvolt = <750000>;
-+		regulator-name = "pcie30_avdd0v75";
-+		vin-supply = <&hdmi_vdda0v85_s0>;
-+	};
-+
-+	pcie30_avdd1v8: regulator-pcie30-avdd1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-name = "pcie30_avdd1v8";
-+		vin-supply = <&vcca_1v8_s0>;
-+	};
-+
-+	vcc_1v1_nldo_s3: regulator-vcc-1v1-nldo-s3 {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		regulator-name = "vcc_1v1_nldo_s3";
-+		vin-supply = <&vcc4v0_sys>;
-+	};
-+
-+	vcc_1v8_pcie: regulator-vcc-1v8-pcie {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpio = <&gpio3 RK_PD5 GPIO_ACTIVE_HIGH>; /* PCIE30_PWREN_H */
-+		pinctrl-0 = <&pcie30_pwren_h>;
-+		pinctrl-names = "default";
-+		regulator-always-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-name = "vcc_1v8_pcie";
-+		startup-delay-us = <50000>;
-+		vin-supply = <&vcc_1v8_s3>;
-+	};
-+
-+	vcc12v_dcin: regulator-vcc12v-dcin {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <12000000>;
-+		regulator-max-microvolt = <12000000>;
-+		regulator-name = "12vsus";
-+	};
-+
-+	vcc3v3_m2: regulator-vcc3v3-m2 {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpio = <&gpio0 RK_PC4 GPIO_ACTIVE_HIGH>; /* PCIE_PWREN_H */
-+		pinctrl-0 = <&pcie_pwren_h>;
-+		pinctrl-names = "default";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-name = "3v_m2";
-+		vin-supply = <&vcc3v3_sus>;
-+	};
-+
-+	vcc3v3_sus: regulator-vcc3v3-sus {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-name = "3vsus";
-+		vin-supply = <&vcc12v_dcin>;
-+	};
-+
-+	vcc4v0_sys: regulator-vcc4v0-sys {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <4000000>;
-+		regulator-max-microvolt = <4000000>;
-+		regulator-name = "vcc4v0_sys";
-+		vin-supply = <&vcc12v_dcin>;
-+	};
-+
-+	vcc5v0_host: regulator-vcc5v0-host {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpio = <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>; /* USB_HOST_PWREN */
-+		pinctrl-0 = <&usb_host_pwren>;
-+		pinctrl-names = "default";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-name = "vcc5v0_host";
-+		vin-supply = <&vcc5v0_sus>;
-+	};
-+
-+	vcc5v0_sus: regulator-vcc5v0-sus {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-name = "5vsus";
-+		vin-supply = <&vcc12v_dcin>;
-+	};
-+};
-+
-+&cpu_b0 {
-+	cpu-supply = <&vdd_cpu_big0_s0>;
-+};
-+
-+&cpu_b1 {
-+	cpu-supply = <&vdd_cpu_big0_s0>;
-+};
-+
-+&cpu_b2 {
-+	cpu-supply = <&vdd_cpu_big1_s0>;
-+};
-+
-+&cpu_b3 {
-+	cpu-supply = <&vdd_cpu_big1_s0>;
-+};
-+
-+&cpu_l0 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+};
-+
-+&cpu_l1 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+};
-+
-+&cpu_l2 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+};
-+
-+&cpu_l3 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+};
-+
-+&gmac0 {
-+	clock_in_out = "output";
-+	phy-handle = <&rgmii_phy0>;
-+	/* RX delay is added by the PHY, TX delay by the GMAC */
-+	phy-mode = "rgmii-rxid";
-+	pinctrl-0 = <&gmac0_miim
-+		     &gmac0_tx_bus2
-+		     &gmac0_rx_bus2
-+		     &gmac0_rgmii_clk
-+		     &gmac0_rgmii_bus
-+		     &gmac0_rst_n>;
-+	pinctrl-names = "default";
-+	tx_delay = <0x44>;
-+	status = "okay";
-+};
-+
-+&gmac1 {
-+	clock_in_out = "output";
-+	phy-handle = <&rgmii_phy1>;
-+	/* RX delay is added by the PHY, TX delay by the GMAC */
-+	phy-mode = "rgmii-rxid";
-+	pinctrl-0 = <&gmac1_miim
-+		     &gmac1_tx_bus2
-+		     &gmac1_rx_bus2
-+		     &gmac1_rgmii_clk
-+		     &gmac1_rgmii_bus
-+		     &gmac1_rst_n>;
-+	pinctrl-names = "default";
-+	tx_delay = <0x43>;
-+	status = "okay";
-+};
-+
-+&gpu {
-+	mali-supply = <&vdd_gpu_s0>;
-+	status = "okay";
-+};
-+
-+&hdmi0 {
-+	pinctrl-0 = <&hdmim0_tx0_cec
-+		     &hdmim1_tx0_hpd
-+		     &hdmim0_tx0_scl
-+		     &hdmim0_tx0_sda>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&hdmi0_in {
-+	hdmi0_in_vp0: endpoint {
-+		remote-endpoint = <&vp0_out_hdmi0>;
-+	};
-+};
-+
-+&hdmi0_out {
-+	hdmi0_out_con: endpoint {
-+		remote-endpoint = <&hdmi0_con_in>;
-+	};
-+};
-+
-+&hdmi0_sound {
-+	status = "okay";
-+};
-+
-+&hdptxphy0 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	pinctrl-0 = <&i2c0m2_xfer>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+
-+	vdd_cpu_big0_s0: regulator@42 {
-+		compatible = "rockchip,rk8602";
-+		reg = <0x42>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <1050000>;
-+		regulator-name = "vdd_cpu_big0_s0";
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc4v0_sys>;
-+		fcs,suspend-voltage-selector = <1>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
-+
-+	vdd_cpu_big1_s0: regulator@43 {
-+		compatible = "rockchip,rk8603", "rockchip,rk8602";
-+		reg = <0x43>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <1050000>;
-+		regulator-name = "vdd_cpu_big1_s0";
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc4v0_sys>;
-+		fcs,suspend-voltage-selector = <1>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
-+};
-+
-+&i2c1 {
-+	pinctrl-0 = <&i2c1m2_xfer>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+
-+	vdd_npu_s0: vdd_npu_mem_s0: regulator@42 {
-+		compatible = "rockchip,rk8602";
-+		reg = <0x42>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <950000>;
-+		regulator-name = "vdd_npu_s0";
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc4v0_sys>;
-+		fcs,suspend-voltage-selector = <1>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+
-+	rtc@68 {
-+		compatible = "ti,bq32000";
-+		reg = <0x68>;
-+	};
-+};
-+
-+&i2s5_8ch {
-+	status = "okay";
-+};
-+
-+&mdio0 {
-+	reset-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>; /* GMAC0_RST_N */
-+	reset-delay-us = <20000>;
-+	reset-post-delay-us = <100000>;
-+
-+	rgmii_phy0: phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x1>;
-+	};
-+};
-+
-+&mdio1 {
-+	reset-gpios = <&gpio3 RK_PB7 GPIO_ACTIVE_LOW>; /* GMAC1_RST_N */
-+	reset-delay-us = <20000>;
-+	reset-post-delay-us = <100000>;
-+
-+	rgmii_phy1: phy@3 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x3>;
-+	};
-+};
-+
-+&pcie30phy {
-+	status = "okay";
-+};
-+
-+&pcie3x4 {
-+	pinctrl-0 = <&pciex4_perst_n>;
-+	pinctrl-names = "default";
-+	reset-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>; /* PCIEX4_PERST_N */
-+	/*
-+	 * Add specific mapping required by the onboard
-+	 * Axelera Metis AIPU to function.
-+	 */
-+	ranges = <0x81000000 0x0 0xf0100000 0x0 0xf0100000 0x0 0x100000
-+		  0x82000000 0x0 0x40000000 0x9 0x00000000 0x0 0x20000000
-+		  0xc3000000 0x0 0x60000000 0x9 0x20000000 0x0 0x20000000>;
-+	/*
-+	 * Set to 1v8 because the electronics on the pcie3x4 slot
-+	 * do not receive 3v3 supply at all, but vpcie3v3-supply
-+	 * must be specified.
-+	 */
-+	vpcie3v3-supply = <&vcc_1v8_pcie>;
-+	status = "okay";
-+};
-+
-+&pinctrl {
-+	gmac0 {
-+		gmac0_rst_n: gmac0-rst-n {
-+			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	gmac1 {
-+		gmac1_rst_n: gmac1-rst-n {
-+			rockchip,pins = <3 RK_PB7 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	pci {
-+		pcie_pwren_h: pcie-pwren-h {
-+			rockchip,pins = <0 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		pcie30_pwren_h: pcie30-pwren-h {
-+			rockchip,pins = <3 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		pciex4_perst_n: pciex4-perst-n { /* pcie3x4 reset */
-+			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	usb {
-+		usb_host_pwren: usb-host-pwren {
-+			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		usb_hub_rst_n: usb-hub-rst-n {
-+			rockchip,pins = <3 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&saradc {
-+	vref-supply = <&vcca_1v8_s0>;
-+	status = "okay";
-+};
-+
-+/* eMMC */
-+&sdhci {
-+	bus-width = <8>;
-+	max-frequency = <200000000>;
-+	mmc-hs400-1_8v;
-+	mmc-hs400-enhanced-strobe;
-+	no-sd;
-+	no-sdio;
-+	non-removable;
-+	vmmc-supply = <&vcc_3v3_s3>;
-+	vqmmc-supply = <&vcc_1v8_s3>;
-+	status = "okay";
-+};
-+
-+&spi2 {
-+	assigned-clock-rates = <200000000>;
-+	assigned-clocks = <&cru CLK_SPI2>;
-+	num-cs = <1>;
-+	pinctrl-0 = <&spi2m2_cs0 &spi2m2_pins>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+
-+	pmic@0 {
-+		compatible = "rockchip,rk806";
-+		reg = <0x0>;
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <RK_PA7 IRQ_TYPE_LEVEL_LOW>; /* PMIC_INT_L */
-+		pinctrl-0 = <&pmic_pins>;
-+		pinctrl-names = "default";
-+		spi-max-frequency = <1000000>;
-+		system-power-controller;
-+		vcc1-supply = <&vcc4v0_sys>;
-+		vcc2-supply = <&vcc4v0_sys>;
-+		vcc3-supply = <&vcc4v0_sys>;
-+		vcc4-supply = <&vcc4v0_sys>;
-+		vcc5-supply = <&vcc4v0_sys>;
-+		vcc6-supply = <&vcc4v0_sys>;
-+		vcc7-supply = <&vcc4v0_sys>;
-+		vcc8-supply = <&vcc4v0_sys>;
-+		vcc9-supply = <&vcc4v0_sys>;
-+		vcc10-supply = <&vcc4v0_sys>;
-+		vcc11-supply = <&vcc_2v0_pldo_s3>;
-+		vcc12-supply = <&vcc4v0_sys>;
-+		vcc13-supply = <&vcc_1v1_nldo_s3>;
-+		vcc14-supply = <&vcc_1v1_nldo_s3>;
-+		vcca-supply = <&vcc4v0_sys>;
-+
-+		regulators {
-+			vdd_gpu_s0: vdd_gpu_mem_s0: dcdc-reg1 {
-+				regulator-boot-on;
-+				regulator-enable-ramp-delay = <400>;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-name = "vdd_gpu_s0";
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_cpu_lit_s0: vdd_cpu_lit_mem_s0: dcdc-reg2 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-name = "vdd_cpu_lit_s0";
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_log_s0: dcdc-reg3 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <675000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-name = "vdd_log_s0";
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-name = "vdd_vdenc_s0";
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_ddr_s0: dcdc-reg5 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <675000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-name = "vdd_ddr_s0";
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd2_ddr_s3: dcdc-reg6 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-name = "vdd2_ddr_s3";
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vcc_2v0_pldo_s3: dcdc-reg7 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <2000000>;
-+				regulator-max-microvolt = <2000000>;
-+				regulator-name = "vdd_2v0_pldo_s3";
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vcc_3v3_s3: dcdc-reg8 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-name = "vcc_3v3_s3";
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vddq_ddr_s0: dcdc-reg9 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-name = "vddq_ddr_s0";
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_1v8_s3: dcdc-reg10 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-name = "vcc_1v8_s3";
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vcca_1v8_s0: pldo-reg1 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-name = "vcca_1v8_s0";
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_1v8_s0: pldo-reg2 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-name = "vcc_1v8_s0";
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdda_1v2_s0: pldo-reg3 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+				regulator-name = "vdda_1v2_s0";
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcca_3v3_s0: pldo-reg4 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-name = "vcca_3v3_s0";
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vccio_sd_s0: pldo-reg5 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-name = "vccio_sd_s0";
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcca1v8_pldo6_s3: pldo-reg6 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-name = "vcca1v8_pldo6_s3";
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vdd_0v75_s3: nldo-reg1 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <750000>;
-+				regulator-max-microvolt = <750000>;
-+				regulator-name = "vdd_0v75_s3";
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vdda_ddr_pll_s0: nldo-reg2 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <850000>;
-+				regulator-max-microvolt = <850000>;
-+				regulator-name = "vdda_ddr_pll_s0";
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			hdmi_vdda0v85_s0: nldo-reg3 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <837500>;
-+				regulator-max-microvolt = <837500>;
-+				regulator-name = "hdmi_vdda0v85_s0";
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdda_0v85_s0: nldo-reg4 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <850000>;
-+				regulator-max-microvolt = <850000>;
-+				regulator-name = "vdda_0v85_s0";
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_0v75_s0: nldo-reg5 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <750000>;
-+				regulator-max-microvolt = <750000>;
-+				regulator-name = "vdd_0v75_s0";
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&u2phy1 {
-+	status = "okay";
-+};
-+
-+&u2phy1_otg {
-+	phy-supply = <&vcc5v0_host>;
-+	status = "okay";
-+};
-+
-+&uart2 {
-+	pinctrl-0 = <&uart2m0_xfer>;
-+	status = "okay";
-+};
-+
-+&usb_host1_xhci {
-+	dr_mode = "host";
-+	pinctrl-0 = <&usb_hub_rst_n>;
-+	pinctrl-names = "default";
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	usb20_hub1: hub@1 {
-+		compatible = "usb5e3,610";
-+		reg = <1>;
-+		peer-hub = <&usb30_hub1>;
-+		reset-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_LOW>; /* USB_HUB_RST_N */
-+		vdd-supply = <&vcc_3v3_s3>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		usb20_hub2: hub@4 {
-+			compatible = "usb5e3,610";
-+			reg = <4>;
-+			peer-hub = <&usb30_hub2>;
-+			vdd-supply = <&vcc_3v3_s3>;
-+		};
-+	};
-+
-+	usb30_hub1: hub@2 {
-+		compatible = "usb5e3,620";
-+		reg = <2>;
-+		peer-hub = <&usb20_hub1>;
-+		vdd-supply = <&vcc_3v3_s3>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		usb30_hub2: hub@4 {
-+			compatible = "usb5e3,620";
-+			reg = <4>;
-+			peer-hub = <&usb20_hub2>;
-+			vdd-supply = <&vcc_3v3_s3>;
-+		};
-+	};
-+};
-+
-+&usbdp_phy1 {
-+	status = "okay";
-+};
-+
-+&vop {
-+	status = "okay";
-+};
-+
-+&vop_mmu {
-+	status = "okay";
-+};
-+
-+&vp0 {
-+	vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
-+		reg = <ROCKCHIP_VOP2_EP_HDMI0>;
-+		remote-endpoint = <&hdmi0_in_vp0>;
-+	};
-+};
+diff --git a/sound/soc/codecs/cs35l56-shared.c b/sound/soc/codecs/cs35l56-shared.c
+index b37f65cd4d33..c44bf8bc4e0c 100644
+--- a/sound/soc/codecs/cs35l56-shared.c
++++ b/sound/soc/codecs/cs35l56-shared.c
+@@ -39,10 +39,6 @@ static const struct reg_sequence cs35l56_asp_patch[] = {
+ 	{ CS35L56_ASP1_FRAME_CONTROL5,		0x00020100 },
+ 	{ CS35L56_ASP1_DATA_CONTROL1,		0x00000018 },
+ 	{ CS35L56_ASP1_DATA_CONTROL5,		0x00000018 },
+-	{ CS35L56_ASP1TX1_INPUT,		0x00000000 },
+-	{ CS35L56_ASP1TX2_INPUT,		0x00000000 },
+-	{ CS35L56_ASP1TX3_INPUT,		0x00000000 },
+-	{ CS35L56_ASP1TX4_INPUT,		0x00000000 },
+ };
+ 
+ int cs35l56_set_asp_patch(struct cs35l56_base *cs35l56_base)
+@@ -117,10 +113,6 @@ static const struct reg_default cs35l56_reg_defaults[] = {
+ 	{ CS35L56_ASP1_FRAME_CONTROL5,		0x00020100 },
+ 	{ CS35L56_ASP1_DATA_CONTROL1,		0x00000018 },
+ 	{ CS35L56_ASP1_DATA_CONTROL5,		0x00000018 },
+-	{ CS35L56_ASP1TX1_INPUT,		0x00000000 },
+-	{ CS35L56_ASP1TX2_INPUT,		0x00000000 },
+-	{ CS35L56_ASP1TX3_INPUT,		0x00000000 },
+-	{ CS35L56_ASP1TX4_INPUT,		0x00000000 },
+ 	{ CS35L56_SWIRE_DP3_CH1_INPUT,		0x00000018 },
+ 	{ CS35L56_SWIRE_DP3_CH2_INPUT,		0x00000019 },
+ 	{ CS35L56_SWIRE_DP3_CH3_INPUT,		0x00000029 },
+@@ -145,10 +137,6 @@ static const struct reg_default cs35l63_reg_defaults[] = {
+ 	{ CS35L56_ASP1_FRAME_CONTROL5,		0x00020100 },
+ 	{ CS35L56_ASP1_DATA_CONTROL1,		0x00000018 },
+ 	{ CS35L56_ASP1_DATA_CONTROL5,		0x00000018 },
+-	{ CS35L56_ASP1TX1_INPUT,		0x00000000 },
+-	{ CS35L56_ASP1TX2_INPUT,		0x00000000 },
+-	{ CS35L56_ASP1TX3_INPUT,		0x00000000 },
+-	{ CS35L56_ASP1TX4_INPUT,		0x00000000 },
+ 	{ CS35L56_SWIRE_DP3_CH1_INPUT,		0x00000018 },
+ 	{ CS35L56_SWIRE_DP3_CH2_INPUT,		0x00000019 },
+ 	{ CS35L56_SWIRE_DP3_CH3_INPUT,		0x00000029 },
+diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
+index a4d25c287941..852491f8340b 100644
+--- a/sound/soc/codecs/cs35l56.c
++++ b/sound/soc/codecs/cs35l56.c
+@@ -178,41 +178,91 @@ static const struct snd_kcontrol_new cs35l63_controls[] = {
+ 			 SNDRV_CTL_ELEM_ACCESS_READ | SNDRV_CTL_ELEM_ACCESS_VOLATILE),
+ };
+ 
++static int cs35l56_asp_tx_get(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_to_dapm(kcontrol);
++	struct snd_soc_component *component = snd_soc_dapm_to_component(dapm);
++	struct cs35l56_private *cs35l56 = snd_soc_component_get_drvdata(component);
++	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
++
++	snd_soc_dapm_mutex_lock(dapm);
++	ucontrol->value.enumerated.item[0] =
++		snd_soc_enum_val_to_item(e, cs35l56->asp_tx_input[e->shift_l]);
++	snd_soc_dapm_mutex_unlock(dapm);
++
++	return 0;
++}
++
++static int cs35l56_asp_tx_put(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_to_dapm(kcontrol);
++	struct snd_soc_component *component = snd_soc_dapm_to_component(dapm);
++	struct cs35l56_private *cs35l56 = snd_soc_component_get_drvdata(component);
++	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
++	unsigned int item = ucontrol->value.enumerated.item[0];
++	unsigned int val;
++	bool change = false;
++
++	if (item >= e->items)
++		return -EINVAL;
++
++	val = snd_soc_enum_item_to_val(e, item);
++
++	snd_soc_dapm_mutex_lock(dapm);
++	if (cs35l56->asp_tx_input[e->shift_l] != val)
++		change = true;
++
++	cs35l56->asp_tx_input[e->shift_l] = val;
++	snd_soc_dapm_mutex_unlock(dapm);
++
++	if (change)
++		snd_soc_dapm_mux_update_power(dapm, kcontrol, item, e, NULL);
++
++	return change;
++}
++
++/* The shift field of each virtual enum holds the ASP TX channel index. */
+ static SOC_VALUE_ENUM_SINGLE_DECL(cs35l56_asp1tx1_enum,
+-				  CS35L56_ASP1TX1_INPUT,
++				  SND_SOC_NOPM,
+ 				  0, CS35L56_ASP_TXn_SRC_MASK,
+ 				  cs35l56_tx_input_texts,
+ 				  cs35l56_tx_input_values);
+ 
+ static const struct snd_kcontrol_new asp1_tx1_mux =
+-	SOC_DAPM_ENUM("ASP1TX1 SRC", cs35l56_asp1tx1_enum);
++	SOC_DAPM_ENUM_EXT("ASP1TX1 SRC", cs35l56_asp1tx1_enum,
++			  cs35l56_asp_tx_get, cs35l56_asp_tx_put);
+ 
+ static SOC_VALUE_ENUM_SINGLE_DECL(cs35l56_asp1tx2_enum,
+-				  CS35L56_ASP1TX2_INPUT,
+-				  0, CS35L56_ASP_TXn_SRC_MASK,
++				  SND_SOC_NOPM,
++				  1, CS35L56_ASP_TXn_SRC_MASK,
+ 				  cs35l56_tx_input_texts,
+ 				  cs35l56_tx_input_values);
+ 
+ static const struct snd_kcontrol_new asp1_tx2_mux =
+-	SOC_DAPM_ENUM("ASP1TX2 SRC", cs35l56_asp1tx2_enum);
++	SOC_DAPM_ENUM_EXT("ASP1TX2 SRC", cs35l56_asp1tx2_enum,
++			  cs35l56_asp_tx_get, cs35l56_asp_tx_put);
+ 
+ static SOC_VALUE_ENUM_SINGLE_DECL(cs35l56_asp1tx3_enum,
+-				  CS35L56_ASP1TX3_INPUT,
+-				  0, CS35L56_ASP_TXn_SRC_MASK,
++				  SND_SOC_NOPM,
++				  2, CS35L56_ASP_TXn_SRC_MASK,
+ 				  cs35l56_tx_input_texts,
+ 				  cs35l56_tx_input_values);
+ 
+ static const struct snd_kcontrol_new asp1_tx3_mux =
+-	SOC_DAPM_ENUM("ASP1TX3 SRC", cs35l56_asp1tx3_enum);
++	SOC_DAPM_ENUM_EXT("ASP1TX3 SRC", cs35l56_asp1tx3_enum,
++			  cs35l56_asp_tx_get, cs35l56_asp_tx_put);
+ 
+ static SOC_VALUE_ENUM_SINGLE_DECL(cs35l56_asp1tx4_enum,
+-				  CS35L56_ASP1TX4_INPUT,
+-				  0, CS35L56_ASP_TXn_SRC_MASK,
++				  SND_SOC_NOPM,
++				  3, CS35L56_ASP_TXn_SRC_MASK,
+ 				  cs35l56_tx_input_texts,
+ 				  cs35l56_tx_input_values);
+ 
+ static const struct snd_kcontrol_new asp1_tx4_mux =
+-	SOC_DAPM_ENUM("ASP1TX4 SRC", cs35l56_asp1tx4_enum);
++	SOC_DAPM_ENUM_EXT("ASP1TX4 SRC", cs35l56_asp1tx4_enum,
++			  cs35l56_asp_tx_get, cs35l56_asp_tx_put);
+ 
+ static SOC_VALUE_ENUM_SINGLE_DECL(cs35l56_sdw1tx1_enum,
+ 				CS35L56_SWIRE_DP3_CH1_INPUT,
+@@ -282,6 +332,16 @@ static int cs35l56_play_event(struct snd_soc_dapm_widget *w,
+ 	}
+ }
+ 
++static int cs35l56_asp_tx_event(struct snd_soc_dapm_widget *w,
++				struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct cs35l56_private *cs35l56 = snd_soc_component_get_drvdata(component);
++
++	return regmap_write(cs35l56->base.regmap, CS35L56_ASP1TX1_INPUT + (4 * w->shift),
++			    cs35l56->asp_tx_input[w->shift]);
++}
++
+ static const struct snd_soc_dapm_widget cs35l56_dapm_widgets[] = {
+ 	SND_SOC_DAPM_REGULATOR_SUPPLY("VDD_B", 0, 0),
+ 	SND_SOC_DAPM_REGULATOR_SUPPLY("VDD_AMP", 0, 0),
+@@ -299,14 +359,18 @@ static const struct snd_soc_dapm_widget cs35l56_dapm_widgets[] = {
+ 			    CS35L56_ASP_RX1_EN_SHIFT, 0),
+ 	SND_SOC_DAPM_AIF_IN("ASP1RX2", NULL, 1, CS35L56_ASP1_ENABLES1,
+ 			    CS35L56_ASP_RX2_EN_SHIFT, 0),
+-	SND_SOC_DAPM_AIF_OUT("ASP1TX1", NULL, 0, CS35L56_ASP1_ENABLES1,
+-			     CS35L56_ASP_TX1_EN_SHIFT, 0),
+-	SND_SOC_DAPM_AIF_OUT("ASP1TX2", NULL, 1, CS35L56_ASP1_ENABLES1,
+-			     CS35L56_ASP_TX2_EN_SHIFT, 0),
+-	SND_SOC_DAPM_AIF_OUT("ASP1TX3", NULL, 2, CS35L56_ASP1_ENABLES1,
+-			     CS35L56_ASP_TX3_EN_SHIFT, 0),
+-	SND_SOC_DAPM_AIF_OUT("ASP1TX4", NULL, 3, CS35L56_ASP1_ENABLES1,
+-			     CS35L56_ASP_TX4_EN_SHIFT, 0),
++	SND_SOC_DAPM_AIF_OUT_E("ASP1TX1", NULL, 0, CS35L56_ASP1_ENABLES1,
++			       CS35L56_ASP_TX1_EN_SHIFT, 0,
++			       cs35l56_asp_tx_event, SND_SOC_DAPM_PRE_PMU),
++	SND_SOC_DAPM_AIF_OUT_E("ASP1TX2", NULL, 1, CS35L56_ASP1_ENABLES1,
++			       CS35L56_ASP_TX2_EN_SHIFT, 0,
++			       cs35l56_asp_tx_event, SND_SOC_DAPM_PRE_PMU),
++	SND_SOC_DAPM_AIF_OUT_E("ASP1TX3", NULL, 2, CS35L56_ASP1_ENABLES1,
++			       CS35L56_ASP_TX3_EN_SHIFT, 0,
++			       cs35l56_asp_tx_event, SND_SOC_DAPM_PRE_PMU),
++	SND_SOC_DAPM_AIF_OUT_E("ASP1TX4", NULL, 3, CS35L56_ASP1_ENABLES1,
++			       CS35L56_ASP_TX4_EN_SHIFT, 0,
++			       cs35l56_asp_tx_event, SND_SOC_DAPM_PRE_PMU),
+ 
+ 	SND_SOC_DAPM_MUX("ASP1 TX1 Source", SND_SOC_NOPM, 0, 0, &asp1_tx1_mux),
+ 	SND_SOC_DAPM_MUX("ASP1 TX2 Source", SND_SOC_NOPM, 0, 0, &asp1_tx2_mux),
+@@ -1438,6 +1502,8 @@ static int _cs35l56_component_probe(struct snd_soc_component *component)
+ 
+ 	BUILD_BUG_ON(ARRAY_SIZE(cs35l56_tx_input_texts) != ARRAY_SIZE(cs35l56_tx_input_values));
+ 
++	memset(&cs35l56->asp_tx_input, 0, sizeof(cs35l56->asp_tx_input));
++
+ 	cs35l56->dsp.part = kasprintf(GFP_KERNEL, "cs35l%02x", cs35l56->base.type);
+ 	if (!cs35l56->dsp.part)
+ 		return -ENOMEM;
+diff --git a/sound/soc/codecs/cs35l56.h b/sound/soc/codecs/cs35l56.h
+index b46f410f0e09..020bee21c806 100644
+--- a/sound/soc/codecs/cs35l56.h
++++ b/sound/soc/codecs/cs35l56.h
+@@ -49,6 +49,7 @@ struct cs35l56_private {
+ 	int speaker_id;
+ 	u32 rx_mask;
+ 	u32 tx_mask;
++	u8 asp_tx_input[4];
+ 	u8 asp_slot_width;
+ 	u8 asp_slot_count;
+ 	bool tdm_mode;
 -- 
-2.53.0
+2.47.3
 
