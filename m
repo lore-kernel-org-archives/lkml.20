@@ -1,49 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575453;
-	b=2757CVIlHYI0e0CIZJBR2Z93ArfUOGsyp+XQKsdMKtuRvlxyWmzNxXJLbfCFx/+sI5Jm
-	 xosig2K6+MhxpYehi2gGUbeIRkMDnDqund0fy3m4lqBh5W053KIus54ws7tpwuPxppu5o
-	 gGkkqxhDOyYhT51HtKFkg/kDSSuqOGxAiTnrjOv/FmS5Fsm6qws2jM6OWzGsQRlBJKIla
-	 wI9GdXNk5YLKuO/XGqJjI6B2UdxRuNh2GML8+vbeFnx4dQgFpTzJCE77gPo4uL1gf+zzZ
-	 Y0mcWzTtyLhYXakCfBciE4IBNo+1foSXFw8ukf9/mEBh/pdslAkYgCrmxbKKynSaM9A==
+	t=1794575461;
+	b=5L6XqtTanT+LrXgfSdw4DMKWj0htI0el/I1KLh2LLVg4VRFMDxicvabOBINMC/gt9G7L
+	 rxOlcodCRsdRC/Y+9mQ+biEwmnmd3Bys31ChAGs1GpxSQJnbuFP/r4yx93aHA/gwdcqrb
+	 AMldLDfPde/Xdps0TJraJLD3E6DSuOcWiVXtswOWEoFWjUbEkGys5fE/ZKMOGO7QK5G9S
+	 VCh7wi7SBDAuiRqk2Zs/HeoLs+9lngjQZ3fDsLeN2OL7vy9lydk4yLDEAP3tEKIwV0rL4
+	 2zKckskvnu8WZeV/5OEz1pQ1ACQvgYOlT1PCZ6/+XG9Le6n8eSNxiVePrPOcNWKtAnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575453;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=nyqomyE9IaTnWcHXD7xgVXcroRKHI5LRLGx0VC0Seac=;
-	b=4PEfremZSQb+mmm0LNL9ICchaSAbQ5IoO3DaHDV1LfKjV7ibkHRDUsd6d+mUcjZrt3sI
-	 Dt0eXUVyTAD05BPn40NwjZX+U88qsumo+KEbXmK4vC2krhTDa1MicYjI69kGwm1xss+hR
-	 8m8wxiszFC1aYXG+PkKM3OoGbYN8mxY0r9SZOBuURBWAFomHMwyuNsZqONIneWe3i0ugT
-	 4JDrAa5eGRxg1nSwRwtbRRziMO15RVqvw2c66XvnvXunU321K3YRu/0HGtaMwqynEeFt1
-	 f0zykKVyU/SjS7Sx1r3LBeYl75MEsgIm/2+d+NVL+Q8jUZI5Ai10JuhsbJNk/dlUgLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575461;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:X-Mailer:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=b6S+139ov3SwFZGs8qTOFNvNY0kAh757w+fcimenVL4=;
+	b=zEWXqXctGU0LtH3L1n5Bq0kRqE5KS6UzFyB4jYv7v8hYXCIROF4+xkIs9YzOlNMUWM0L
+	 e9zK1sBH5+t9ZkPHaVULDaSVBWVNdxtj6IZQ8RVEa80RXblt6JkQGidLHzDrf94uR/sUV
+	 QnxpbTo64nrI4XxZiQu+QSfV4ykBMtEHiDRtIjU5PtioC0TsDvzOezeRqib9o0153XNar
+	 m/2BF8iGLh6yV8TExqgpDu9RjcLwkBjz6N+blLvSGdmJZTmazCRibaMGTQCeFZII+fS1q
+	 IEvzW0q6EOiaNLf1ybsR9D0JbnHnOlHl6h9j1Nl7idgcnRMX8wGqf1mTdOU3PiQ/skQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sbTcmsFJ;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 16BC2606A323;
-	Fri, 13 Nov 2026 13:10:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16BC2606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+UI95Xz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390CD606A332;
+	Fri, 13 Nov 2026 13:11:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sbTcmsFJ
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6EB7D1476;
-	Fri, 13 Nov 2026 05:10:49 -0800 (PST)
-Received: from [10.43.20.13] (e126510-lin.lund.arm.com [10.43.20.13])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C06723F85F;
-	Fri, 13 Nov 2026 05:10:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794575452; bh=PxMSWbKumi+5IEd8i1L5GZ4IzKZsJLzAs3xOsqzbfmM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=sbTcmsFJMpts29O6tAJPa43dXPd92HoEFcjocaBeUJ7YTVioWzMEw9FWJYoO2/le/
-	 XeRfOCHXUtAFFCs0vpWmnW2HDsyrZZMquQDqLss3XpkWsEdmmdhu2eJuROpxV5w95m
-	 wBK8xaFMso48fY0jUAcZHqRQcysd6XgoHdyDZ6G8=
-Message-ID: <53e509bd-e6ec-4b09-97b7-eaf9aa6b5797@arm.com>
-Date: Fri, 13 Nov 2026 14:10:46 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+UI95Xz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2939C1F000C4;
+	Fri, 13 Nov 2026 13:10:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794575461;
+	bh=b6S+139ov3SwFZGs8qTOFNvNY0kAh757w+fcimenVL4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k+UI95XzNsCUyQDXxOa6HZKsdtejOjvVWWK0M6Ft4gKQMZsvUWHta6I+TaHdFvecr
+	 Leg66p61rxdH0WYPG8l/8wIQILml3f35QsVsSjmZJMTceQ+PsVDKOJwe3y/oFK/0FO
+	 FN0of7OqBdrSwpHtR5WvKmW4TtV+rFG+dwY5gxafu8CuccddWEHWBmHcf8mke7M6jV
+	 PEiTUAlvfuY7L5nWyed4y09vC1laAYE88cGN2J0rfCIu8cpIGuNOuIq/HEai6txdzy
+	 b53wsEVWdCaO1QNKc0i2LS3beUxCNlQfXWEZ5fs558PskZ6WNTOYGEFa+RwJ+gpot0
+	 RBLZlE1zhiY3Q==
+Date: Fri, 13 Nov 2026 14:10:53 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH v5 4/7] stddef: Add const_cast()
+Message-ID: <b615b5afb05e7098f18b9918ed48c28fda64d0a1.1794574496.git.alx@kernel.org>
+X-Mailer: git-send-email 2.55.0
+References: <cover.1794574496.git.alx@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,67 +70,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/proc: proc-empty-vm: handle CPUs without
- protection keys
-To: Kurt Lin <lylin1023@gmail.com>, Andrew Morton
- <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>
-Cc: Alexey Dobriyan <adobriyan@gmail.com>,
- Swarup Laxman Kotiaklapudi <swarupkotikalapudi@gmail.com>,
- linux-kselftest@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261109151912.156518-1-lylin1023@gmail.com>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261109151912.156518-1-lylin1023@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yjwimyclgwre2nbp"
+Content-Disposition: inline
+In-Reply-To: <cover.1794574496.git.alx@kernel.org>
 
-On 09/11/2026 16:19, Kurt Lin wrote:
-> On x86 CPUs without protection keys, pkey_alloc() fails with ENOSPC,
-> as documented in pkey_alloc(2). protection_key_support() only expects
-> ENOSYS or EINVAL, so the test fails on such machines, e.g. an Intel
-> Core i5-7200U:
 
-It would be good to mention that the x86 implementation had a bug where
-the first call to pkey_alloc() would return -EINVAL instead of -ENOSPC.
-This was recently fixed by commit dee87e09b0dd ("x86/pkeys: Fix
-pkey_alloc() return value when pkeys are not supported"); that's
-probably why the issue appeared only now.
+--yjwimyclgwre2nbp
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH v5 4/7] stddef: Add const_cast()
+Message-ID: <b615b5afb05e7098f18b9918ed48c28fda64d0a1.1794574496.git.alx@kernel.org>
+References: <cover.1794574496.git.alx@kernel.org>
+MIME-Version: 1.0
+In-Reply-To: <cover.1794574496.git.alx@kernel.org>
 
--EINVAL is technically not an expected error in this situation, but for
-backwards-compatibility with older kernels it probably makes sense to
-allow it for a little while.
+This macro serves to cast const away without risking unwanted
+conversions due to mistakes in the cast.
 
-With the commit message expanded:
+It's similar to C++'s const_cast(), but it is more restrictive: it can
+only cast away 'const', and not arbitrary qualifiers.
 
-Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: David Laight <david.laight.linux@gmail.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+ include/linux/stddef.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
->   protection_key_support: error: rv -1, errno 28
->
-> Treat ENOSPC as "no protection key support" as well.
->
-> An AI coding assistant (Claude) was used to analyze the failure and to
-> draft the fix and this changelog. Tested on v7.4-rc1 on the machine
-> above; the test now passes.
->
-> Fixes: bf5add391eeb ("proc: test ProtectionKey in proc-empty-vm test")
-> Signed-off-by: Kurt Lin <lylin1023@gmail.com>
-> ---
->  tools/testing/selftests/proc/proc-empty-vm.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/tools/testing/selftests/proc/proc-empty-vm.c b/tools/testing/selftests/proc/proc-empty-vm.c
-> index b3f898aab4ab..a9d3c973a663 100644
-> --- a/tools/testing/selftests/proc/proc-empty-vm.c
-> +++ b/tools/testing/selftests/proc/proc-empty-vm.c
-> @@ -77,6 +77,9 @@ static int protection_key_support(void)
->  	} else if (rv == -1 && errno == EINVAL) {
->  		// ospke=n
->  		return 0;
-> +	} else if (rv == -1 && errno == ENOSPC) {
-> +		// CPU without protection keys
-> +		return 0;
->  	} else {
->  		fprintf(stderr, "%s: error: rv %ld, errno %d\n", __func__, rv, errno);
->  		exit(EXIT_FAILURE);
+diff --git a/include/linux/stddef.h b/include/linux/stddef.h
+index e1851c50c89b..26c657465e60 100644
+--- a/include/linux/stddef.h
++++ b/include/linux/stddef.h
+@@ -194,4 +194,15 @@ enum {
+ #define TRAILING_OVERLAP(TYPE, NAME, FAM, MEMBERS)				\
+ 	__TRAILING_OVERLAP(TYPE, NAME, FAM, /* no attrs */, MEMBERS)
+=20
++/**
++ * const_cast() - At most, drop const in the left-most derivation of a poi=
+nter
++ *
++ * @T: Type for the cast.
++ * @p: Pointer to be casted.
++ *
++ * Cast @p to type @T.  The macro verifies that @p is of type const @T.
++ * This avoids mistakes that change anything other than 'const' in a cast.
++ */
++#define const_cast(T, p)  _Generic(p, const T: (T) (p))
++
+ #endif
+--=20
+2.55.0
+
+
+--yjwimyclgwre2nbp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr3DF0ACgkQ64mZXMKQ
+wqnvnhAArwpNP3ciwtR4hxR0EEOq7AWwI/8qkWRT9naO9dsngesUrVQoEtZyYVZD
+xQah32z8+v8HBlrjmm34+SgVhD4XzkHH3oKPir7Zv567bIQNNidmdqwYFsWf6x5Y
+WtITEzRLJBbh4z5dqx6zEiwOsU9P4rvkNx0bqtg/I3TbhX+dMBETJ5BZvKiGGvS1
+19n9zd++IWH9OZHn91JbHbVKAO1HMAkfDOAWM0c69ZQlNdFERvby71Vz0Fmfy7e7
+4hZ0xVDT8dyXbL1FtBf1nenA0AWUX4zsn/S3jAbgG/B8OKEzYF2vek5UQPbwteyw
+zCNAfAScb4G8hobIp2MAgSE81ePBbRc2Oicab9mUQ9l3XSn5FN1SGz5Mg5VZ8yW4
+qWVNaB7YoK18Vf8YTzOBw1UoZLJwdr33ghHzwglGkxIb57EsRAq5T0+K2xmZauuz
+5en5FDQ/FRseHZ1vCsJC7Ne+dI5V9lAzzb8CoMJukw14v0PPuJL94FneRaZ7J88i
+ImEKJrzGJFmtMQXHxaz5PqepSW4VVD+ozy5RfnHKzK4HoSosYY2zCP7rTsLSZonY
+utwxRpavPowOiXAtAanHCGqhdlC1jhPxiFZUaMMqRIFBWnFR/sm0hLohnRcCLb38
+fUjINOP7hBUqvZJPqQNzJ5BvHogv3rSHQX46+4CfZYVWW8AzfF8=
+=JDbu
+-----END PGP SIGNATURE-----
+
+--yjwimyclgwre2nbp--
