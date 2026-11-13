@@ -1,145 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.8
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794595105;
-	b=rEASWFVBrRBPuXKMGar1rz3uJzgmx0lQ7rbJkcpPyywb+wYitmVsLQj9Z0SvmYmgbTU6
-	 Ah1mEB633JD+/SVPnZpg5KClzNjg9XAlJJJ9p91O+PrwOzKaGOZX4dB8rZfBE1CzsQznK
-	 Cb7hZrmJhGBVz56tpzcUT/NHQ5oPZ0ewnTjWl6NKOiwhq2mch8C6ERm7xc8D7kyP2oOX1
-	 OsOzLqnzbff05oL844X0aaWrMRvi5mUQS6JobC368R8V7JWfsmiI5CP4fPC1aW6k8kTnY
-	 pauD3sVEzWyEwilNhT10xiZgth0kcggIu4IPUQYJxC+lhVaA0e5fi/4c5q6ltUZpjBQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595105;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:DKIM-Signature:Received:Received:Date:From:To:CC:Subject:
-	 Message-ID:References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=ZrJtrTgSaN5RVP+vLSuhAinCQ4fBeTIqzrO89SOkw/U=;
-	b=PZd8WfNouPjbYr2tkwmozLD4XzGstkzug2EcHim/vlXcwscaaubQLfZnzQ4u9XomqDjR
-	 XewDhcclzqW8FFI6+jTq3zXPmtWv+4lsDb0LlirZZUSVCn2YJTRcpwV+lwHZQilxO+ND1
-	 gXwHY5vnYUFCCqD+u3NrZjpOemx5m22LYMdP1sovParvn1jpT3NxXe1PnqbrWRPE7HaRJ
-	 H9KFA1DzasMyZiglwGUbwusanM/Wa1ebgas6we2qvUNHY/i//Gde9nP8nt/zxPnI/ftRK
-	 diz5d/m1oOvp/Fm0VP0rJ/M6Nc4cleTnT2EW8klz2TLCE62L3pRq3RJsHduvC+Tk4/g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="kjp/hHwh";
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b="PS/yY/TK";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794595117;
+	b=KJXlxdNHWGt73YtiosxVWReNeCMT1jAVGGCq2wPVsRW1+J1KyaLad/55k1cU6drKnLS9
+	 D/W4iJQDjHP76zmtrGS6kBzQWHC7JNLUItn+Dxt3E60FDjqe129VUwSSGfyko8ygskIPW
+	 Yqaq1F/8fYolVjLkg49NyZqxzqhWA+DGdqSoQvwtnUN4yj9DagtUx4vBkCoiVlX2Z4mx5
+	 f33zrnhTYfEJShSxsPnSIhULkBJPeYg7Avi1Tz0Pvk4mw/CAjXkWo9wenyz+EyfaHxu6Q
+	 J1pKBNEdCBFWxxUj6M2pyeGjiTH+2GXuN0bbb19C2DcuwaGTEWuYJZnDhHNaNPn5TDw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595117;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=w2uTsZDSakSIiYfZCZm4T/XmbPQKfvOaN5W1vDGvmkk=;
+	b=5GrHIbZ58PfSVT9Dm9A0fmXQxcO8DFkLkQo9EQZrtlICJ1QW9fQnHMygCpEu+bTQDSVU
+	 W76jparYGT7zcQb11lCW3csf6s56FRfZS+Lh5qup5ytO3cEBfZCv1MtrQdIPSy2MldXKL
+	 5PXUzFd2StkM2Mfqiq+QbiROYwtE5Z62tnDeLCO6C8v8WCvvSckk75rd4+HYIz0z5FQLu
+	 csZb7kS/S4DZl8hKushF9XT3htaKuUHuT/i3V3tjaIKTEUi/Ov71grRRf3PojURhGY/VK
+	 /2Y8De5Or8X+G7yUlF2GF1dig0Rt/YXP8CrdHsKDRMj4J0SKyRK9ma7zHlE6Z+M7+Cg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BxjxiFJr;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36C8606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:38:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C36C8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E85606A659
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:38:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13E85606A659
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kjp/hHwh;
-	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=PS/yY/TK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794595105; x=1826131105;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=vdrWdZ35uRZ2lTvn5Rt0Uk2sGIHVRzB8UcD+vNEVP5E=;
-  b=kjp/hHwh6Miwa9YwOkS8E1mIylFZt89dFYzF/7sa6HApnYQ14pDRJCmI
-   XGUp419CJtLQn1gaT/TDIkA2ABbntSVGt0aE/cMXRmkEdFx3d5RJESjLW
-   n8CIeVCbyvaESGO1Z/Cv7SaM/u1OQMbIjaVIhuXTjp5iDsyiatVYxO8XH
-   bH+pfaNZ5G+fWSL4Vw38BfIxW/o9siZsFHEoRAx7lMmFZTT9lvMy76brJ
-   mbRcX1A9XDeHM613F8R+iDrCoF8PJaVlbDRrs/+W/h6+vHXhoKZRx4Hno
-   aB1IY0Ty+z6Pa4NDfLVPJEUy4z/OvO3Dr6tX5CQ8RrNnFUKv7BdzcowF6
-   Q==;
-X-CSE-ConnectionGUID: oF15/tS6Tg29d39NOyHOhA==
-X-CSE-MsgGUID: vD8HGjCKSFSOoK+ZxCe2Dw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3293753"
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="3293753"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 10:38:24 -0800
-X-CSE-ConnectionGUID: 9gJiFU00RH6cXbKbhK222w==
-X-CSE-MsgGUID: BPUgqQsKREW6fkMqbNQIZw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="8798155"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 10:38:24 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 13 Nov 2026 10:38:23 -0800
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 10:38:23 -0800
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.22) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 13 Nov 2026 10:38:22 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HFCKuEOBWmhp34mHa4cKqPN/mFmZ/jwAKz3cUYHUwqJmbfLaBLWdr76d2j3KPOH5BpFUEIbxmAz0pkytI1cqKRESN7sJYZu9njxAD9CHzAdqcfcpyL9lpqTzSxU1tXH3TEoyILztig3top3x2MfyjAOcSI23u6Y3L4llzGgUtUvBFZ/zwiUm8pdjeZQiixqcPIipjkZZgMU3FpxaOuft2XZyAx4Kca4/JsfIxVm+JSCojkep36/I6Ho+SPpJVXtVv7Wj7V4rDDPJE7N2RqIiUTyODiz2hbKkueVyY63d0DsHKN0Si40SdVRAhYLYDM6LNx2ABiHtRoRoxAnYvpfyng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZrJtrTgSaN5RVP+vLSuhAinCQ4fBeTIqzrO89SOkw/U=;
- b=h5UbH0kosmpWL/dOyV+qcybTjMU8xLWH2V6tqFvsrhP4zE94O/9ugvjfkLbKpkvq18e8GrFTYmAlemqoOa14uRlbTULB6T7edcicDgfRT09vJWPcQM2H+AiWnmEJsozJ+cJSBlqiVQnw7ID7CsGRmI6oyQ/twagykw72Y97cMLIBzMCGWtNEM3yUIzqFo6adcOZ1bkHPryUMWfOlJ6GlOYICUYAFfqj/UuiP+fgu4C3lcLMO82AHJJZpoUYVgbNalFg0WOWOHhkQpoPMk6cvZiAFBvAGQ4Xpm03eKG5lkUv/sg1t0Na2731LKORgI2F/u8eVEZXiUrdhYJdM4CGRUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZrJtrTgSaN5RVP+vLSuhAinCQ4fBeTIqzrO89SOkw/U=;
- b=PS/yY/TKFwemhlxAg5XsQxW/qpwFLsvftI+HvVYKjMKI7l6jpZnLHw4dOavWOgE+89RpMWY8U6Du1nnb3MeTTkabicpYj3GL2jW/NEg94wMmO0K4jbwRM6wsZrKjX9W3D6A5fFH1S2/9Iehd0bMUo/nzsJ5/5ab/LCE5H9oxCOQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8182.namprd11.prod.outlook.com (2603:10b6:8:163::17)
- by CHBPR11MB782282.namprd11.prod.outlook.com (2603:10b6:610:401::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 18:37:06 +0000
-Received: from DS0PR11MB8182.namprd11.prod.outlook.com
- ([fe80::7b65:81e6:c6c4:449e]) by DS0PR11MB8182.namprd11.prod.outlook.com
- ([fe80::7b65:81e6:c6c4:449e%6]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
- 18:37:05 +0000
-Date: Fri, 13 Nov 2026 10:37:03 -0800
-From: Matt Roper <matthew.d.roper@intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-CC: Arnd Bergmann <arnd@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	"David Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lucas De
- Marchi <demarchi@kernel.org>, Riana Tauro <riana.tauro@intel.com>, Arnd
- Bergmann <arnd@arndb.de>, Matthew Auld <matthew.auld@intel.com>, Shuicheng
- Lin <shuicheng.lin@intel.com>, Armin Wolf <W_Armin@gmx.de>, Zhanjun Dong
-	<zhanjun.dong@intel.com>, Michal Wajdeczko <michal.wajdeczko@intel.com>,
-	Piotr =?iso-8859-1?Q?Pi=F3rkowski?= <piotr.piorkowski@intel.com>, "Tejas
- Upadhyay" <tejas.upadhyay@intel.com>, <intel-xe@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm: xe: select configfs
-Message-ID: <20261113183703.GC7214@mdroper-desk1>
-References: <20261026102603.2045493-1-arnd@kernel.org>
- <avS7mZMrS7nQv_RK@intel.com>
- <20261113162212.GB7214@mdroper-desk1>
- <avdPvYEu-TBCbKTJ@intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avdPvYEu-TBCbKTJ@intel.com>
-X-ClientProxiedBy: BY5PR03CA0019.namprd03.prod.outlook.com
- (2603:10b6:a03:1e0::29) To DS0PR11MB8182.namprd11.prod.outlook.com
- (2603:10b6:8:163::17)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BxjxiFJr
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-491aaed7565so589793f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:38:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794595115; x=1795199915; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=w2uTsZDSakSIiYfZCZm4T/XmbPQKfvOaN5W1vDGvmkk=;
+        b=BxjxiFJrM+M5Fan2rzxhw8amdOeFldpsV6DZ/IqNYozeMs26pNhTUj/YiYfbcQg8Ib
+         MRpWEWwoEYOE1pCY/0smk6YXReJWHtI2r0lBvX1Dk+JHpW/Jrk6353E+gC4j07ku6k30
+         F0HqHzeO9rqzBvRFq1eUR4gDM7M/U8lGaaOeI5+FXTbPBanMMxpZ2H60gmxJV2nNkD+o
+         SC+jA1h5YnEBEReCxRHCYXUGDxWMx+1YteqgHtpWPCkFpwpcCKIfvaRAuqJtTqJlQsD5
+         G0RQUPWGpigtC2esCR5zGE95T2V2/CnozL42iBKdsys/Yy+ccpzZKet/cYfoyC8pggDV
+         BKMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794595115; x=1795199915;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w2uTsZDSakSIiYfZCZm4T/XmbPQKfvOaN5W1vDGvmkk=;
+        b=GSuoUmmF6qvcDKaVNGWIlQGcrAJRlJUdqVj3AQpd6J2CVPGFgGSfMVlcHRez27p4IG
+         ac6Ym5FMSnt1vonOLsWbzDGhqAvvlKDoe1uqy+z7SQ2yWmM9zqfbG+dZmxOXe2/dS+Oo
+         hgJl2I9ovMlyLRWfdt3TS9UORpHcahUMtDqUktzxIpc7z1t1Jfa46Wq1Pj9Xyz20QU2i
+         PFf2YDSZlow3IsazJCmNzrODAMG/znag7XBv/NqlxgafIuJV+hUWA6OXwwCShUmp9umv
+         Y+vGiZFrjCLSaqChcqbFizS0nP+9iN8RjppzGJhpBKM8tFTVCV3TSbgKdGxLGjW+pUzX
+         JeTA==
+X-Forwarded-Encrypted: i=1; AL+hErEwqtdEH4Plt7FLmL2jPVAD8v1oFLwlIyua2bas3n3T2A4cbYdv9SG/jJyqu+/sOJ0Ry4h/70MmmfiSdU0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/2g8tLYeAiqYrNQaHqbu8JCoTUe6Jk5+UgjeWnVrX1gbCPZnX
+	pCWjiR3I0mZnfzsvFH0lP3Gfhv9p/1C3HWxNE0I+U28InXOmKGYqazSDaTHo3XWQBOU=
+X-Gm-Gg: AYBFou0PjzZe39ZR/AdiMRsu+GYFZThxZHdEMiINjbqiioPu8S0xzaytEcLMZUC9huC
+	shJ2Nw1bfZSX3IdSz6UcsqBQrlsIOo/gxZMoIu6GeMOcJsoZtjmp7HbWm73ko5Zx0XsGIWHSrZg
+	TNkLoVxv6g8qO/MxqkDZGVo7dg2g8nq1EGGAuy7PZESRzMSin0Tw8WFHLISIeoBfANy2xJOiwvG
+	boR7BVEuOBCR16wMm74aB0yG/agyXa4X3/glaY1MzAnk4Xc/KqvF1rqGPiDk2yySfjCz++/2gKA
+	5BNhBahc8CVByfz9v2YZQyYXWPkbZ6HavXJljrianC7PALbNX0zHAG+SCY0xYbgTaD4eHyYn3hf
+	5Lt1r8fSdi6XADqTtk6QrnJDNO35fuT3yXlrAyJuaMe8qyQ6H7Ozbg63GPwKZUTUpNLTVE02Qx8
+	kiNmVciTzwXQQfSYkZW9CkeV+j8G/j/XoGQ5HBYWnCWZ7hFq92pB0rEqcvBG9Dc/AfxM6vE3X05
+	kiT3sDTalQHChB5qBzhY0bCpCNPrXJIt/gYCn6hCAE/Xi2L1ScwE6KjqwnSpk2pJl+jXzfotkx1
+	VTINqjNUSV5SV7L2+IZrqjeDG/ym7tcPRs0uLTigNuNW/Ca+JkpvUBl7IY/ziM6Q
+X-Received: by 2002:adf:e008:0:20b0:48e:6f76:de98 with SMTP id ffacd0b85a97d-49c71e3e1c0mr5943328f8f.9.1794595115227;
+        Fri, 13 Nov 2026 10:38:35 -0800 (PST)
+Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 10:38:34 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH RFC 00/23] arm64: qcom: enable SM8650 audio without ADSP
+ firmware
+Date: Fri, 13 Nov 2026 19:38:14 +0100
+Message-Id: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -149,278 +93,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8182:EE_|CHBPR11MB782282:EE_
-X-MS-Office365-Filtering-Correlation-Id: cee05ba1-5991-4b23-66d5-08df41b51de8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|366016|10067099003|4143699003|11063799006|56012099006|5023799004|261022105027099003|261028144727099003|261026121527099003|261026140227099003|261022113327099003|261022075727099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|261009223327099003|261009221227099003|261009221727099003|261009220027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: GroNoYUcog1Z8TjpcPn+gdtOVjPviAWmelzSYGDgkHhG4oQvqAHFbHWBaSOsyGl4D/9fycokLsIGnaHfubxguewGU1cD75oDta2tMshImN+GUky8KFJO9sWD5zOW2xKuLjs/99pfVPrJwpAFcBnM4TsS2ZLkvXLgnQUAClIxgb3wIfBN5uwgNx7n+y1UGTyMgkSeoLGV7GVRNQj0j3ywlaGacAQkuP9xkG5qlIgbC3hh9Qh/L63Cq7j+oOs/UFL+tMVdpMjeQupfj/G4h3dFD1vmv27J7hsCGMEZMdI37dP6U0ePzNdMcjqGFkYelNRwm/WwbRiQgwP/0b3KdfplEiByI28stxxKR+F3+myZoilnCFm7hc2y1fhWsFGFx2EgaEKF97N6xi+DfCkQrda0MyiAWykDJd1UcJOrX+PWe79ODIahVHTYyjVFj9Aibufd/CgQ9h7Wz2c/dwVv2JCj5fGbW2S5gxDrxJK8kNdzNYu3nKsJBXCDGcnQg8Z/EN1tL7tH4te492/fftIy0gUhXTlpWHWnSvi/CeuGldu1rgBlxHJx0nNTDHGyNrZX0HPG2Yubtki/WbrZOFUNxDVwkOrNQpJLmo1rnq4ag32CLqC53OprW8mCF9OK6fr3k13xtxXFruZRKA4OKhCg9sfWOGhvlxPsKm/PBUOXPL2FAgk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8182.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(5023799004)(261022105027099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022113327099003)(261022075727099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(261009223327099003)(261009221227099003)(261009221727099003)(261009220027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?n2DR1m0uXNQIxxRdPcT+acrmDHpQJyxDLL6PCnu2QMu/5qi5WfFYNeRDBf/f?=
- =?us-ascii?Q?SF6F2GGf1ylFljPVoR5dSx3D3UmBPoZtdA4oQb9xOHxFAxP/Wqzm8KMNHhJH?=
- =?us-ascii?Q?seLidPgTvG/5Df5jj0wgcgpLDW+vY375sPi6QOwmEj2NAEsXM65TtPS5u6Zw?=
- =?us-ascii?Q?2r83ByYN+FH9Wffo1IzdPsBDaollW6lvsdtG2NAw85Elvtzu72FjDuREDJUy?=
- =?us-ascii?Q?FmmEK+vdmNwIpf8mDYOMnpHXywZ9AFqf73K9kbsDoesIqScQpTTexBsCa6wZ?=
- =?us-ascii?Q?ypCCBe6MySApNvGWPbe/ygZRE3jAB8/fqsFtcCge6f1A87LI5qnMml4t/bcD?=
- =?us-ascii?Q?+SmBOjf0S9fLRIkC2b7y7JehVf4Y/pR75MoxA9mJkuAxFY9P8K+gI+3UIgI9?=
- =?us-ascii?Q?TCAdGDUCyMDWjiHVVib1CNqezSDOBSNT5SnmDU6owuRSGtwRol5BeHXFl+h7?=
- =?us-ascii?Q?Up4Wc+NPK5sRRzoRa+tfAH/J1W36g2xQZ3qAalW7bFm0arQLKfyoAY4mXJtT?=
- =?us-ascii?Q?f0BXQBBFzxv64iCMZCpwWlppOyhNOo7VgoYvUeVwZam4G4FWmEh4RAQgGQmK?=
- =?us-ascii?Q?RQe/5Hh3RUxGjrpD4xixSLBvOCrUEM3dmC1smi3ORo57mZikRqFTZSPNQsay?=
- =?us-ascii?Q?G9TcLwz457lDxWYsddSB+q1cXdaaC5jQ5Yz8hRMLneXyDI22X9izVUMiDJhA?=
- =?us-ascii?Q?iUfJH4AebdvKMm/528P03151Up64+x/Yx1opsKCJmoSv9VXpPfIPF7NvQ4Lj?=
- =?us-ascii?Q?w7HP7U5FscxWMwNDwiS6f/NGHzELYQpFD8A58d9fzL1thCO05eZY8yea5JjU?=
- =?us-ascii?Q?WYQRs56CqcRvWgqbAsd0xFUrs1FffTOoVqQK37hZ3nwxgENIweVdIw3EDQDt?=
- =?us-ascii?Q?S1XbkgiafdSsYQCkASlTZtYCRDL9LdTRRqAQ/3ePk178hCXaYai29gZGMpv1?=
- =?us-ascii?Q?V8AkB+9c8DAkPSyYlWY7ujPoOGdswuI5MPFbhZ1DvxJfeDxCnd7Y/WhwmwDw?=
- =?us-ascii?Q?fchBICi1nmlZz95PIb/mG+Iy8WhsX3ZntV7zF1+ejd7quPhhLDjZjhLV3L3W?=
- =?us-ascii?Q?8ERNZBwCX0SdBEmh/kVUnUBL39og8Rd0fC6/dlH5afWCOsvt3Ilvx4fRv46g?=
- =?us-ascii?Q?63wFEwFAXFPXp+KVJ5UYyE+vtA8nCw7zNryK3NOx/pP+84gTaJwapRr64GkT?=
- =?us-ascii?Q?+Hq8/xTyB4yq9E8JIFSQ0l2vMVcYdN8XNsJPxFLgnXGkKOHckn0D2vOIosto?=
- =?us-ascii?Q?taAlJoRMfyCafa96a5IRkn6ELbkkJ7N69i0yWCFxIWn/GXeBYQTCAtBsDvD2?=
- =?us-ascii?Q?L4iwVZujweMSRZJQzJj/iJ7AX7udrv2XhwSgMxUXLZe7WkfHeVe2XXstMIgx?=
- =?us-ascii?Q?tPastHUWTYgusXpPcFzPVhrI2UXKOb2rkRO2eqeBSfxNu+xZoIB8Mzm/UIKT?=
- =?us-ascii?Q?hZsylvuQuFg/Kk7VuajvjU9nvrOUTqHahTToJoco5+75/CH0rSlENaZ3n8PH?=
- =?us-ascii?Q?PY8TMAdvi5mlTblIWl60tZKp3AMIqdO8U9nQJF1tFUZFbBKXS3Xrw/WupbSA?=
- =?us-ascii?Q?v3zBN/j8fuDxOiRU9z1Pwo0GHPY58XXzAFiShl0eK4wvEJipW6OQCJf7XpIm?=
- =?us-ascii?Q?thGwOm9sqR09PEAqrU8TzZgVzsc7B876q4iZxkU72RxDxzujzzZRW0I1V3pm?=
- =?us-ascii?Q?eCA4eTmugOBEuhBCQ4VuuMwr36WGzi/oFcFjWb46HfjZ/HNVtrPEE7r5ZrJ9?=
- =?us-ascii?Q?vWh/+Tefx0ckSAInCrtPcd+ASGe11Uk=3D?=
-X-Exchange-RoutingPolicyChecked: mgO9cbp915h4b40/8OtU4Td/WuOWebccOdyYxPttt9x4wdwCDFkx2n0bAwcjPlFjbx5BATfdeVuLFiu0AVSjWtJ1UiUIVqkeRFXyadKanzAOhMxeEk0QHpKpUnbPqsbEKpQZn72odkMQjQIYXPH4zklMWa+wa3LeV7TKmy4TRbSNdJ8aeJZWJgndqk0xLdx303KGlvL6Su8Um/Ewhpyibr8zBLBi7ST/ClHAYvLeg+qvFFRp6hMG4OVPj2A42axfwlSmMEgmkmREeCMajIV8fN1UdHFW0UC9hho+SE6mU+kRd/R24ZA1sJWN6/+5ge8QIbNvwXMr810giZ3wy7+Bpg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: cee05ba1-5991-4b23-66d5-08df41b51de8
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8182.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 18:37:05.8541
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aa3bD6a0TqXJFz/flwWZ/YPX3qicj8t+3CTwTVSobtOlsu/CdKU4JRPAEtp8s8hOmcDb/8wbad3/DmyGWgCF07n5u3cbBlN8HcIpxsWk51A=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHBPR11MB782282
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABZZ92oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0Nj3ZL8gsxk3eJcCzNTA93UHCPdZLPkxDQTI2Pz5ERzJaC2gqLUtMw
+ KsJHRSkFuzkqxEMHi0qSs1OQSkGFKtbUAxccrKHkAAAA=
+X-Change-ID: 20261113-topic-sm8650-el2-c6caf4237ca7
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Rohit kumar <quic_rohkumar@quicinc.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ linux-gpio@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5790;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=nNsA+r5juXKjiRcSwoHtRAKZZ9Tqefl8bh/M49w5Yxs=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91kct6ILQiiCLBdkeOYZBX88DapotPq1jQSJmYtF
+ TxO++kKJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZHAAKCRB33NvayMhJ0Qt3D/
+ 4ypug2YvyBD2m7gomADVISy/gSHyEitoz0M8hnoOG086qtlX7QAs3zWxhG9WDSNbqImwU0LbZFHgo7
+ Uiyk5KZ7aUvHg7L8sW0OUiFWbTDDmx8ihF6GJiJm4cPsrO3PaBMQcjca4eaR29JjQafpKE9u8rSPbR
+ UaxgAiGGeAEqEXcK8muyQuUGBJOdCL6o9o2yNo7ckfQDg9K5HI3mDkcdD0er4ax+pJ7aRN1ZpB993R
+ nZx15WZ01xd8vtp0jCd91qCzL/B832FQnwygf6Lp2zwbYElCarQ5d7wxTWFMuJOLJ1vHhFavnXJxb1
+ FFZW3luqvZAREglP+Q1o05SO1N/H3Y3aRFyf/ob9+KPVt83xNSk77jrcSyx0stAJhRndbnMNZOFyPs
+ zbr6V5N0zL4BMFw/ye18a8UpedA93NeohI80VDEfnYwjTHNC5H9GDc0UKBNHK7lJxoMyc3zvDgDNmd
+ OYvbRhzSbVZFWbcNpWVVo3SXFEPolkQBQd8+1ZRnZ/j/XyoN/8F7HyPTYw2K7vAdh9NclY2fbo34Ma
+ /N9qBQqqVvf93PL9mXQgWMNwuGPM1y8Ki/YKzcaYHBhB+wLBuT+nyeajeJj7X5CGI8KVIzCI9CsV6V
+ QiS7q0nqc4VDLj8TiY/mLqSNNFgCPGexp5j6CQi58uspXjJgw38SaaYve4Ww==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On Fri, Nov 13, 2026 at 12:58:21PM -0500, Rodrigo Vivi wrote:
-> On Fri, Nov 13, 2026 at 08:22:12AM -0800, Matt Roper wrote:
-> > On Wed, Nov 11, 2026 at 02:01:45PM -0500, Rodrigo Vivi wrote:
-> > > On Mon, Oct 26, 2026 at 11:25:50AM +0100, Arnd Bergmann wrote:
-> > > > From: Arnd Bergmann <arnd@arndb.de>
-> > > > 
-> > > > The original addition of configfs to xe missed a compile-time dependency,
-> > > > which leads to a link failure when configfs is enabled as a loadable module:
-> > > > 
-> > > > ld.lld-21: error: undefined symbol: xe_configfs_get_survivability_mode
-> > > > >>> referenced by xe_survivability_mode.c:224
-> > > > >>>               drivers/gpu/drm/xe/xe_survivability_mode.o:(xe_survivability_mode_is_requested) in archive vmlinux.a
-> > > > 
-> > > > A recent workaround added a 'IS_REACHABLE()' check around the calls into
-> > > > configfs, which makes it link in this configuration, but this is generally
-> > > > a bad idea because it makes the actual behavior inconsistent and confusing
-> > > > to users that expect configfs to work if both xe and configfs are enabled.
-> > > > 
-> > > > Use 'select CONFIGFS_FS' instead, like every other configfs user does,
-> > > > and remove the unnecessary stub functions. There is little practical
-> > > > difference here as anyone using XE graphics is likely to have a complex
-> > > > configuration that already selects configfs anyway, and the link error
-> > > > or the IS_REACHABLE() would only manifest during randconfig testing.
-> > > > 
-> > > > Fixes: 30499cbd7961 ("drm/xe: Fix build with DRM_XE=y and CONFIGFS_FS=m")
-> > > > Fixes: 16280ded45fb ("drm/xe: Add configfs to enable survivability mode")
-> > > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> > > > ---
-> > > >  drivers/gpu/drm/xe/Kconfig       |  1 +
-> > > >  drivers/gpu/drm/xe/xe_configfs.h | 30 ------------------------------
-> > > >  2 files changed, 1 insertion(+), 30 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
-> > > > index 4fc8abdc5cb6..b52a8dc28f97 100644
-> > > > --- a/drivers/gpu/drm/xe/Kconfig
-> > > > +++ b/drivers/gpu/drm/xe/Kconfig
-> > > > @@ -11,6 +11,7 @@ config DRM_XE
-> > > >  	# the shmem_readpage() which depends upon tmpfs
-> > > >  	select SHMEM
-> > > >  	select TMPFS
-> > > > +	select CONFIGFS_FS
-> > > 
-> > > Perhaps another option would be what Jani had suggested:
-> > > 
-> > > config DRM_XE_CONFIGFS
-> > > 	def_bool y
-> > > 	depends on DRM_XE && CONFIGFS_FS
-> > > 	depends on CONFIGFS_FS=y || DRM_XE=m
-> > > 
-> > > But anyway, we are depending more and more on the configfs for
-> > > production choices. So, let's go with you select and close this
-> > > for good.
-> > 
-> > I really don't think this patch was the way we wanted to go.
-> > IS_REACHABLE was giving us exactly the behavior that we wanted,
-> 
-> But it caused other issues like reported in the commit msg of this patch.
-> With the risk of other complications like Jani had pointed out earlier.
+This patchset adds the necessary plumbing to drive the SM8650 audio
+interfaces directly from Linux. This is required for boards like the
+Valve Deckard that boot Linux at EL2 without the ADSP audio firmware,
+meaning the audio interfaces must be driven directly by the application
+processor through lpass-cpu.
 
-No, the existing code had already fixed the issue reported in the commit
-message; this commit isn't fixing any further issues.  The justification
-for this patch was "users who don't understand the reachability
-implications of 'M' vs 'Y' might not get the behavior they expect if
-they make mistakes while hand-modifying their config."  But that's just
-user error; those exact configuration settings (Xe="Y" and configfs="M")
-might have been precisely what some other user wanted.
+Without the ADSP firmware, the LPASS clocks (MI2S bit clocks,
+codec macro MCLKs, LPM memory clocks) and memory zones must be
+controlled by Linux.
 
-> 
-> > but now
-> > we're getting behavior that we did not want.  Xe absolutely does not
-> > depend on configfs in any way.  _If_ configfs is there we'll enable some
-> > config options in it, but none of those are mandatory for our driver as
-> > a whole.  We're perfectly happy to build and run without configfs if
-> > it's not selected in the config.  We're also happy to build and run
-> > without configfs functionality if the user wanted Xe built directly into
-> > the kernel, but configfs was built as an unreachable module solely for
-> > other non-Xe purposes.
-> > 
-> > While this change won't matter to 99% of the cases where someone is
-> > running with a typical distro kernel, this is the kind of thing that
-> > makes embedded users unhappy since they're very carefully managing their
-> > configurations and we've taken away their ability to avoid configfs now.
-> 
-> I believe some other user could be angry as well for ending in a case
-> where they need manual survivability mode to flash the firmware, but
-> they don't have this option available because in his config this
-> option was not reachable.
+To support this, the series introduces the following changes:
+- Bindings: Adds dt-bindings for the SM8650 LPASS core & audio clock
+  controllers, LPASS CPU, WSA RX/TX channel ids, and Senary/Septenary MI2S ids.
+- Clocks: Adds drivers for the SM8650 LPASS HM, core, audio, and
+  AON clock controllers.
+- ASoC LPASS core: Prepares the lpass and lpass-cdc-dma drivers to
+  handle multiple LPAIFs for I2S ports, allocates and maps LPM buffer
+  memory for DAIs, and adds support for the optional WSA interface
+  and Senary/Septenary MI2S ports.
+- ASoC SM8650: Introduces the SM8650 lpass-cpu variant and allows the
+  sc8280xp machine driver to be used with lpass-cpu to keep sound card
+  bindings working.
+- Device Tree: Refactors the SM8650 dts to move EL1-specific Gunyah nodes
+  to a dedicated sm8650-el1.dtsi. Introduces sm8650-lpass-cpu.dtsi for
+  boards booting at EL2, and wires up the speakers (Senary MI2S) and
+  DMICs (VA macro) on the sm8650-valve-deckard board.
+- Defconfig: Enables the SM8650 LPASS CPU driver as a module in arm64 defconfig
 
-Kconfig lets users select the options they want.  If they accidentally
-create a config that doesn't include the options they need (either
-because they left them at 'N' or because they set them at 'M' to prevent
-them from being accessible as part of the built-in drivers), then that's
-their own mistake and they can correct it themselves.
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Neil Armstrong (23):
+      dt-bindings: clock: qcom: add SM8650 LPASS core & audio clock controllers
+      clk: qcom: add SM8650 LPASS core & audio clock controllers
+      dt-bindings: pinctrl: qcom,sm8650-lpass-lpi-pinctrl: document clocks and power domaines when ADSP is not used
+      ASoC: dt-bindings: qcom,lpass: add Senary & Septenary MI2S ids
+      ASoC: dt-bindings: qcom,lpass: add WSA RX and TX channels ids
+      ASoC: dt-bindings: qcom,lpass-*-macro: document less clock when ADSP is not used
+      ASoC: dt-bindings: qcom,lpass-cpu: document the SM8650 LPASS
+      ASoC: qcom: lpass-cpu: get the optional codec_mem3 clock
+      ASoC: qcom: lpass: add support for optional WSA interface
+      ASoC: qcom: lpass-cdc-dma: add support for WSA codec DMA
+      ASoC: qcom: lpass: prepare to handle multiple lpaifs for i2s
+      ASoC: qcom: lpass: add support for MI2S_SENARY & MI2S_SEPTENARY
+      ASoC: qcom: lpass: support mapping I2S ports to multiple LPAIFs
+      ASoC: qcom: lpass: support LPM memory type for I2S LPAIFs
+      ASoC: qcom: lpass: allocate LPM buffer memory to DAIs
+      ASoC: qcom: lpass: enable the right codec_mem clock when usin LPM memory
+      ASoC: qcom: add SM8650 LPASS CPU driver
+      ASoC: qcom: swd: allow LPASS_CDC_DMA_WSA_RX0 as soundwire dai
+      ASoC: qcom: sc8280xp: allow using the sc8280xp card with lpass-cpu
+      arm64: dts: qcom: sm8650: move EL1 Gunyah nodes to sm8650-el1.dtsi
+      arm64: dts: qcom: add SM8650 LPASS CPU dtsi
+      arm64: dts: qcom: sm8650-valve-deckard: enable audio
+      arm64: defconfig: enable the SM8650 LPASS CPU driver
 
-In some embedded environments, there are very strict certification steps
-that have to be applied to code built directly into the kernel, and
-sometimes a bit more lee-way for the .ko's that may or may not get
-loaded later.  If an embedded device knows they have no use for Xe's
-configfs settings, they may not want configfs built into the kernel due
-to the extra burdens that places on them.  There may be other drivers or
-facilities that are not part of their critical path that are built as
-modules, and having configfs also built as a .ko for those other areas
-may be useful.  So Xe='Y' + configs='M' is a deliberate choice to match
-a specialized environment.  But we've just broken that flexibility with
-this change.
+ .../bindings/clock/qcom,sm8650-lpasscorecc.yaml    | 179 +++++
+ .../pinctrl/qcom,sm8650-lpass-lpi-pinctrl.yaml     |  20 +-
+ .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  |  74 +-
+ .../bindings/sound/qcom,lpass-rx-macro.yaml        |  17 +-
+ .../bindings/sound/qcom,lpass-tx-macro.yaml        |  20 +-
+ .../bindings/sound/qcom,lpass-va-macro.yaml        |  13 +-
+ .../bindings/sound/qcom,lpass-wsa-macro.yaml       |  21 +-
+ .../boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts      |   1 +
+ arch/arm64/boot/dts/qcom/sm8650-el1.dtsi           | 775 ++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8650-hdk.dts            |   1 +
+ arch/arm64/boot/dts/qcom/sm8650-lpass-cpu.dtsi     | 222 ++++++
+ arch/arm64/boot/dts/qcom/sm8650-mtp.dts            |   1 +
+ arch/arm64/boot/dts/qcom/sm8650-qrd.dts            |   1 +
+ arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts  |  85 ++-
+ arch/arm64/boot/dts/qcom/sm8650.dtsi               | 799 ++-------------------
+ arch/arm64/configs/defconfig                       |   1 +
+ drivers/clk/qcom/Kconfig                           |  12 +
+ drivers/clk/qcom/Makefile                          |   1 +
+ drivers/clk/qcom/lpassaudiocc-sm8650.c             | 777 ++++++++++++++++++++
+ drivers/clk/qcom/lpasscorecc-sm8650.c              | 509 +++++++++++++
+ .../dt-bindings/clock/qcom,lpassaudiocc-sm8650.h   |  47 ++
+ .../dt-bindings/clock/qcom,lpasscorecc-sm8650.h    |  30 +
+ include/dt-bindings/sound/qcom,lpass.h             |  24 +
+ sound/soc/qcom/Kconfig                             |  12 +
+ sound/soc/qcom/Makefile                            |   2 +
+ sound/soc/qcom/lpass-apq8016.c                     |   9 +-
+ sound/soc/qcom/lpass-cdc-dma.c                     |  47 +-
+ sound/soc/qcom/lpass-cpu.c                         | 344 ++++++---
+ sound/soc/qcom/lpass-lpaif-reg.h                   |  51 +-
+ sound/soc/qcom/lpass-platform.c                    | 482 +++++++++++--
+ sound/soc/qcom/lpass-sc7180.c                      |  10 +-
+ sound/soc/qcom/lpass-sc7280.c                      |  10 +-
+ sound/soc/qcom/lpass-sm8650.c                      | 651 +++++++++++++++++
+ sound/soc/qcom/lpass.h                             | 198 ++++-
+ sound/soc/qcom/sc8280xp.c                          |  16 +-
+ sound/soc/qcom/sdw.c                               |   1 +
+ 36 files changed, 4471 insertions(+), 992 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261113-topic-sm8650-el2-c6caf4237ca7
 
-> 
-> Soon SRIOV will be another production case that will depend on the configfs.
-> I know, one might argue that we should then select only if SRIOV is enabled.
-> 
-> But I don't like the complication this is taking on a very simple thing.
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
-I'd argue that this *isn't* a simple thing, even if throwing a 'select'
-in the code and removing the stubs is easy for us as developers.  The
-reality is that crafting a fine-tuned kernel config for some specific
-purpose is always going to be a complex task.  Generic configs like
-those provided by distros sidestep the complexity by including anything
-that someone potentially might want, but if you're fine-tuning a config
-then you really have to pay attention to all the dependencies and
-consider exactly what you do or don't want included as builtin or
-module.  It's easy to make mistakes, but that's always been the case if
-you're hand-crafting a minimal kernel configuration.
-
-> 
-> > 
-> > Also, as mentioned earlier in the threads, using 'select' on a
-> > user-visible config option rather than a hidden option often causes
-> > cascading problems down the road because it ignores any dependencies of
-> > the option being selected (configfs in this case).  At the moment I
-> > don't think configfs has any dependencies of its own, but if it gets
-> > some down the road, this can cause problems.
-> 
-> I'm not strongly in favor of any approach, as long that it doesn't cause
-> other issues and regressions. So, if someone want to try to bring this
-> again, proving it is a good config combination solution that won't
-> cause further issue I will be glad to accept.
-
-There weren't any issues before this patch (except for hypothetical user
-error), but now we've removed flexibility that was important to a
-[small] subset of users.
-
-
-Matt
-
-> 
-> Thanks,
-> Rodrigo.
-> 
-> > 
-> > 
-> > Matt
-> > 
-> > > 
-> > > I'm pushing this to drm-xe-next.
-> > > 
-> > > Thanks for the patch.
-> > > 
-> > > 
-> > > >  	select DRM_BUDDY
-> > > >  	select DRM_CLIENT_SELECTION
-> > > >  	select DRM_KMS_HELPER
-> > > > diff --git a/drivers/gpu/drm/xe/xe_configfs.h b/drivers/gpu/drm/xe/xe_configfs.h
-> > > > index 327b648944ff..d726800de26a 100644
-> > > > --- a/drivers/gpu/drm/xe/xe_configfs.h
-> > > > +++ b/drivers/gpu/drm/xe/xe_configfs.h
-> > > > @@ -14,7 +14,6 @@
-> > > >  
-> > > >  struct pci_dev;
-> > > >  
-> > > > -#if IS_REACHABLE(CONFIG_CONFIGFS_FS)
-> > > >  int xe_configfs_init(void);
-> > > >  void xe_configfs_exit(void);
-> > > >  void xe_configfs_check_device(struct pci_dev *pdev);
-> > > > @@ -36,34 +35,5 @@ u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
-> > > >  unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev);
-> > > >  bool xe_configfs_admin_only_pf(struct pci_dev *pdev);
-> > > >  #endif
-> > > > -#else
-> > > > -static inline int xe_configfs_init(void) { return 0; }
-> > > > -static inline void xe_configfs_exit(void) { }
-> > > > -static inline void xe_configfs_check_device(struct pci_dev *pdev) { }
-> > > > -static inline bool xe_configfs_get_survivability_mode(struct pci_dev *pdev) { return false; }
-> > > > -static inline bool xe_configfs_primary_gt_allowed(struct pci_dev *pdev) { return true; }
-> > > > -static inline bool xe_configfs_media_gt_allowed(struct pci_dev *pdev) { return true; }
-> > > > -static inline u64 xe_configfs_get_engines_allowed(struct pci_dev *pdev) { return U64_MAX; }
-> > > > -static inline bool xe_configfs_get_psmi_enabled(struct pci_dev *pdev) { return false; }
-> > > > -static inline bool xe_configfs_get_enable_multi_queue(struct pci_dev *pdev) { return true; }
-> > > > -static inline u32 xe_configfs_get_migrate_ulls_period_ms(struct pci_dev *pdev) { return 5; }
-> > > > -static inline bool xe_configfs_get_disable_vram_page_offline(struct pci_dev *pdev) { return false; }
-> > > > -static inline u32 xe_configfs_get_ctx_restore_mid_bb(struct pci_dev *pdev,
-> > > > -						     enum xe_engine_class class,
-> > > > -						     const u32 **cs) { return 0; }
-> > > > -static inline u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
-> > > > -						      enum xe_engine_class class,
-> > > > -						      const u32 **cs) { return 0; }
-> > > > -#ifdef CONFIG_PCI_IOV
-> > > > -static inline unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev)
-> > > > -{
-> > > > -	return xe_modparam.max_vfs;
-> > > > -}
-> > > > -static inline bool xe_configfs_admin_only_pf(struct pci_dev *pdev)
-> > > > -{
-> > > > -	return XE_DEFAULT_ADMIN_ONLY_PF;
-> > > > -}
-> > > > -#endif
-> > > > -#endif
-> > > >  
-> > > >  #endif
-> > > > -- 
-> > > > 2.53.0
-> > > > 
-> > 
-> > -- 
-> > Matt Roper
-> > Graphics Software Engineer
-> > Linux GPU Platform Enablement
-> > Intel Corporation
-
--- 
-Matt Roper
-Graphics Software Engineer
-Linux GPU Platform Enablement
-Intel Corporation
