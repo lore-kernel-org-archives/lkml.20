@@ -1,62 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577877;
-	b=3o4YJdzKcKxKZOF0RMRO8oNCCyi3Y+e8yv2hosKyDhR8WGkL9/VNWSrQpYGJiQAoqSOs
-	 0GkH84sRVjuiCgoBU7+3g0D8M5caOPRDLpP6whqdH35RBEgzQLlvPw1C/WiNVVPk7TiAp
-	 w9TiuNfcVftqc2+ClykWpZsxoQL+A2kxS4HeccE6dgAByn6xXgCjq5cTq7Ueml7rGGEMX
-	 dinR0YUG+5c47ekupJperY4vTjfrjYN1eyhg9W2Xlzjw9lJ1/nG+yKr8RWsTEZ2nGGEpi
-	 gRlGxVGBhXX5Z+3LxGsEyQMCTerEZWNSuabFyhYhPqwHiJfD02y0UO+ea6jNoTfTomg==
+	t=1794577879;
+	b=IDLSAzl02DUuUxjIcenMOxFXghzXG8s/ReiZn8bD/pkA3jSuyYfqR9pLxScxTcaSu3mx
+	 ta5Mk3fdTuwoz3pHLU5hPJX5Up9VZle9UQMyNE2qenJo5Bj8hTq+Lgr1s/atVvWNbmS6j
+	 uFdiXG/h7jdcHHCPFKlk6RLATy/ugqwuP25szU7gNi1kcaUaO0aViVHwUvGQJZZP3+jKp
+	 WbjDWzc5jJarJz1RRQBxeSarYfELBZTG2GOhINqiHG5Q/7+NklLyESYC1i4YyjJ2quokf
+	 Sy6UpQJQkGNkvH3gkMZBsqcNak9GMVenyIEJqPpSPRbfXaH7y5wbcDryg+oX07XT7oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577877;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=3tiE8wCVjWqKiSQHj9hDK/7ujfubXxT9LOiydm/3ZXE=;
-	b=Cz6J6B6iFoyyiWhyBjFoolZvaWe6vy1h+GNCtLLsKOGx04PS0nAwa6rDhL0Cb6vxTyY3
-	 2ht1RxThvSua5FSCRxbz4tLBA2xae2/kOjD+RvOAFJCagz490YGNrcM0AshfxUAeOsCPC
-	 4nZ+Sk/hYRhvb63zsRR8KTKVs4PXPGrc9kZzIHtsdps25/Mwou9U4FT/N5xR8scbUhr7w
-	 R7m8JlLH1spAr2wImhPf7dRW0XFNgeI2w+9Twm4PaNdjCJo52M/AbM5BfP6wKkvhM2ZFV
-	 Qq0oAUmqkHG2wtCXnhqJK0DSqLQ/5gyLT7e/s1N/L3rjpFB6cgRSRZ+LaOQsulMeRcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577879;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=uJFEo3da6mApyecz0gSXP2yjHK1yQMS2ugcFfpj5CrA=;
+	b=vAjBuOQ0i/O5QK9N3D17gURAH6BJZiu5uo+l1oLEd2P7VwoQcB/v5Rsb1kVIm2jmnmTy
+	 zni5DurK+wYG2b0CzXlUpbdly6WLT/QJzcyFEYDK7hJQQjoUBUlj00rt7OwHPm110YzIS
+	 zIk5+RWQ4gXWncSEhLYeXm+zuRCZw9LYfdZxMeFcGpwk4sqd6ZvQme/9L7pN205445hCT
+	 65wcXQx1XTcidgTA0MIEixKRYuoY4YSXo+qk5SlQHH07NV8vpi4L8I0uK6qAor/OHAzAE
+	 q1uSxQVuAvAbnQK6WufdzkayMByGusexwo/OW0flOaoVBG7sMp2Sy2lqS+5dHHFsDgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=KaGmI2fz;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gCKOMTLC;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB94606B1A1;
-	Fri, 13 Nov 2026 13:51:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EB94606B1A1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B95E606B1BD
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:51:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B95E606B1BD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=KaGmI2fz
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=3tiE8wCVjWqKiSQHj9hDK/7ujfubXxT9LOiydm/3ZXE=; b=KaGmI2fzPhwM+U913Lq9k8ysvi
-	jljRrFge2AhRak87PzNhgHSnDOuVyVHrjIgbTRLu52GGseFhLFZ/Mr6sG3NfeKXdsMWuJDaV2wSDF
-	MS9UFsTqyZ2mV74HZVf4U4OwhSsMdy52Ko8yDV6R1oXz34gSh8l+fQC0ZEK6wLLGUPfY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xRrgA-00GHmY-AD; Fri, 13 Nov 2026 14:50:58 +0100
-Date: Fri, 13 Nov 2026 14:50:58 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Linkui Xiao <xiaolinkui@126.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, rosenp@gmail.com,
-	jacob.e.keller@intel.com, daniel.machon@microchip.com,
-	chunkeey@gmail.com, kees+treewide@kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: Re: [PATCH net] net: ibm: emac: attach the fixed-link PHY with
- of_phy_connect()
-Message-ID: <ef2eb733-4b94-4c2e-9165-0b324733a482@lunn.ch>
-References: <20261112075321.3903875-1-xiaolinkui@126.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gCKOMTLC
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae7faf4ff7so1450635a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:51:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794577879; x=1795182679; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uJFEo3da6mApyecz0gSXP2yjHK1yQMS2ugcFfpj5CrA=;
+        b=gCKOMTLCXj4ap5oN4yRlzwMH0lws3z33L/C3natTDYSKrhyBn3fxp0Ul23o49sA99f
+         Hmzdh6srBAdDg2LuESNRAsJgEtHnHFiA9ify1hZhBRIj+sJn2pa90OahDfjCpIXPS9TI
+         rSF9yAfsMRdpgFjFlixs7kYAG+WP1IThXmSqE4/4j/f9diWCaxzE9LriMDK9FWG0MY0t
+         /eDgPmfKmSdZvEdXoy3YXEk/Itc90W8UMBDgsxLs9cmh/nqf05RplOagrt6T47V1DDtA
+         sPLY+qtrX2mlYBxGn0KD4EkEqr4k63q6n1AMoV38NI8JPOop6Kqx+QDxMR3WW4FPKrEz
+         tYWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794577879; x=1795182679;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uJFEo3da6mApyecz0gSXP2yjHK1yQMS2ugcFfpj5CrA=;
+        b=G3n3iz0edd4X3QCDxGwd3E/vVKQmwgAQR9csVMCm022sEM0TCXKMlsVm/pRBaFfqWy
+         /7HdWIx9i6gsYReU2TpzSHLCRGBb8kvD2+QAdAUpNhaR/kJ1jy1Ud+n+MKTr/6VeKNWZ
+         l0xsY5E/8GnEl6EV4zjuDTaIp7Gqk47e+Ix46hrG62KPpY5GlKzGT5lzCfunuggAdd2/
+         Lex16fPbAvHsmGqTWo+nBhNK56FFGdbVv60bg1ooG0RYG4PUUU8/qtBuiiSInRab9Tl8
+         XL1/W4CECDkY5ZMBLiqE8/xhn8hIhafHhyilSkhkub5ub81wwxCDEyVOIVGtvxJTUO4J
+         N7IA==
+X-Forwarded-Encrypted: i=1; AL+hErEq5glOFlQSNxfv6QYNylt41Vh3wMxmF0aGbGYh2VTx8iWTFfAODdAybNYaLF9yMszR+SX9ySus0IGN8Sc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8L0pmnLZQnxqVq8ir2qBFfBqrhX6+wQna23T/IXGfjjiRjr/in
+	ZL+Yo76Gzg6NiMrnP5OG7C0h6lfqNUjm2RwgQkj122FWvsB/mnzfQmHWp19LrU0m+Zwxf943Gxn
+	GnYdTYw==
+X-Received: from pjbgz3.prod.google.com ([2002:a17:90b:ec3:b0:3a5:f1d:43a6])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2548:b0:3ac:a521:959
+ with SMTP id 98e67ed59e1d1-3b1b0ba3583mr2074587a91.29.1794577878313; Fri, 13
+ Nov 2026 05:51:18 -0800 (PST)
+Date: Fri, 13 Nov 2026 05:47:10 -0800
+In-Reply-To: <20261110182451.44207-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,111 +78,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112075321.3903875-1-xiaolinkui@126.com>
+Mime-Version: 1.0
+References: <20261110182451.44207-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <179441799422.78529.8123717597715087423.b4-ty@b4>
+Subject: Re: [PATCH v2] KVM: selftests: Undef musl's PAGE_SIZE on x86 to avoid
+ type differences
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Aqib Faruqui <aqibaf@amazon.com>, Hisam Mehboob <hisamshar@gmail.com>
+Content-Type: text/plain; charset="utf-8"
 
-On Thu, Nov 12, 2026 at 03:53:21PM +0800, Linkui Xiao wrote:
-> From: Linkui Xiao <xiaolinkui@kylinos.cn>
-> 
-> emac_init_phy() handles a "fixed-link" property by registering a fixed
-> PHY for the MAC's own OF node and then assigning net_device->phydev to
-> it by hand:
-> 
-> 	res = of_phy_register_fixed_link(np);
-> 	ndev->phydev = of_phy_find_device(np);
-> 	if (res || !ndev->phydev)
-> 		return res ? res : -EINVAL;
-> 	emac_adjust_link(dev->ndev);
-> 	put_device(&ndev->phydev->mdio.dev);
-> 
-> net_device->phydev is meant to be set by phy_attach_direct(), which is
-> what the of_phy_connect() helper reaches. Assigning it by hand skips
-> everything attach does: phydev->attached_dev stays NULL, no link change
-> handler is wired up, the PHY never enters the netdev's phy_link_topology,
-> and the put_device() drops the reference the driver just took, so the
-> phy_device is kept alive afterwards only by the fixed MDIO bus it is
-> registered on.
-> 
-> The missing topology entry is what prompted this. ethnl_req_get_phydev()
-> returns dev->phydev as-is when an ethtool netlink request carries no
-> phy-index, so ETHTOOL_MSG_PHY_GET on an EMAC port with a fixed-link finds
-> a phydev and then looks it up in a link_topo that was never allocated:
-> 
-> 	struct phy_link_topology *topo = reply_data->dev->link_topo;
-> 	pdn = xa_load(&topo->phys, phydev->phyindex);
-> 
-> which dereferences NULL in phy_prepare_data().
-> 
-> Every other phylib driver with fixed-link support registers the fixed PHY
-> and then passes the MAC's own OF node to of_phy_connect(): gianfar, fec,
-> davinci_emac and nixge all do it, and so does emac_dt_phy_connect() for
-> the phy-handle case. Do the same here. of_phy_connect() takes the attach
-> reference and drops the of_phy_find_device() one, so the explicit
-> put_device() goes away. emac_adjust_link() is still called once by hand
-> afterwards and the PHY state machine is still not started, because a
-> fixed link does not change. The rest of the driver already treats
-> dev->phy.address < 0 as "no PHY to poll" and never reaches
-> dev->phy.def->ops, so nothing else changes.
-> 
-> The hand assignment itself dates back to commit 08e39982ef64 ("net: emac:
-> fix fixed-link setup for the RTL8363SB switch"), but it only started
-> affecting the net_device when commit baab9de385a8 ("net: ibm: emac: use
-> netdev's phydev directly") moved the pointer from the driver private
-> dev->phy_dev into ndev->phydev, so that is the commit fixed here.
-> 
-> No in-tree DTS pairs "ibm,emac" with a "fixed-link" property, so this is
-> latent in mainline; it is out-of-tree users such as the Netgear WNDAP620
-> that hit it. There is no such hardware here, so the change is verified by
-> cross compilation and inspection only.
-> 
-> emac_remove() still does not call phy_disconnect(), which the phy-handle
-> path gets wrong today as well. That is left to a separate change.
+On Tue, 10 Nov 2026 10:24:51 -0800, Sean Christopherson wrote:
+> Before defining PAGE_SIZE in x86's processor.h, explicitly include the
+> system's limits.h and #undef PAGE_SIZE to workaround a conflict when using
+> musl where musl defines PAGE_SIZE as a signed 32-bit value, but KVM expects
+> it to be (and effectively requires it to be) an unsigned 64-bit value.
 
-This commit message is overly verbose and contains a lot of irrelevant
-information. That is typical of LMM generated commit messages.
+Applied to kvm-x86 selftests, thanks!
 
-Please try writing the commit message by hand. Its O.K. to write it in
-your first language and use a LLM to translate it to English.
+[1/1] KVM: selftests: Undef musl's PAGE_SIZE on x86 to avoid type differences
+      https://github.com/kvm-x86/linux/commit/3efa3f8b6eb6
 
-The commit message is about "Why?". And it is there to answer
-questions the reviewer might have. This last sentence about
-phy_disconnect() was one of the things i thought about while looking
-at the change, but because the commit messages was so long, i had
-given up reading it....
-
-> Fixes: baab9de385a8 ("net: ibm: emac: use netdev's phydev directly")
-> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
-> ---
->  drivers/net/ethernet/ibm/emac/core.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/ibm/emac/core.c b/drivers/net/ethernet/ibm/emac/core.c
-> index 640618c..6e8b711 100644
-> --- a/drivers/net/ethernet/ibm/emac/core.c
-> +++ b/drivers/net/ethernet/ibm/emac/core.c
-> @@ -2674,11 +2674,14 @@ static int emac_init_phy(struct emac_instance *dev)
->  				return res;
->  
->  			res = of_phy_register_fixed_link(np);
-> -			ndev->phydev = of_phy_find_device(np);
-> -			if (res || !ndev->phydev)
-> -				return res ? res : -EINVAL;
-> -			emac_adjust_link(dev->ndev);
-> -			put_device(&ndev->phydev->mdio.dev);
-> +			if (res)
-> +				return res;
-> +
-> +			if (!of_phy_connect(ndev, np, &emac_adjust_link, 0,
-> +					    dev->phy_mode))
-> +				return -EINVAL;
-> +
-> +			emac_adjust_link(ndev);
-
-Why is emacs_adjust_link() still called?
-
-    Andrew
-
----
-pw-bot: cr
+--
+https://github.com/kvm-x86/linux/tree/next
