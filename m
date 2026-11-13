@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794593729;
-	b=hc3yKHc4gkhAQL508FWXN4H4Yf6OTe9cGPTnL2rmr9eUffvXfdqVt8CHdEi9eSPZOVGb
-	 iyysTV+DbWw41Aw1jLkVdNi0uRUANcvcXU2tQ8vl51TmhdXct/3BUSbb9hGBf15fhjY2i
-	 etkfSYmejm2k+oiJ/Q5RN7pWhKUlmC2nuLpEVN9UqFWYhBJVWJ0zqHYYSxGUd3QMheXjt
-	 R3hhxkFxgy1e+8zbDE1hpJSTUQSdz9wIihzik8f/gXp5sPWyP1A0bUvtnaZUkmJGx8r1q
-	 35JpzrwjxMupD+lC2B9LE918HVSemiXXoEa0ZGCW6M3ZKBWQsqZa3RhwHvb4ZeVxaOw==
+	t=1794593735;
+	b=GU8Bk5O0K4unmAtcnlRuE9w/iWJIa1i0X6wMpfAeZlwWvpb2a3tkohv22fVV8g4r0dzz
+	 k4NQ6xn1p7w7baaOeJcFPOUACoRS6P78zIRG/ne5Q7uR4KujwdkZ+2leQb5xysij5XjiK
+	 xyMS+5C0IrHy8BYMwgfCPLeT0LZKCLag4LOfn3ihD43OQG6se3e1oBJ7By2dttgN6XBxR
+	 tjmwPfHE/iFFNTYModV4kpLBLcys0+7/GHpOM1MNXIc+AEVNthg71NZQu0d43YYtocHAY
+	 jhSenG0PWGzh6cXWbnb5hKEIqK9v4X4XX9tSeDhfcPmjyYN6sp7wvCmCuecfTkEqaJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794593729;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794593735;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=RHvS6tob0EK4+l9biWcyRWjZDKOHPkoH6ye4ScNj4a0=;
-	b=SPN+98CA5nTShia0HOOqTUuCZQmxtFphxmWWfGT1rzme7zKM+n9YH5FBU+cjIVO7uUjV
-	 C2vR6I+3EIHjamm8gQigaYd506+LSBr1vBf1VnM/ThVvlwOG3Hi8NwdBbHtHKj6xZ6Tfk
-	 lsjHF67MIeZbajU76/XqMgOdVotAHyG35rF5W2PL6c43xlMtgpSSI/6Oepp+KXL86AafU
-	 wIUryYv8qL0/4BG6S97X9jfX8cW67RyRUB25lQQJpKVDxCeVJBjd1w7WJ6c4AT05tQmZR
-	 +CGrG0T0eqhSeXtbaO+6nN7lKIrhlxiIBlJdhXtsX6su8Smbp9/XHHMeOp4ePW3QVkw==
+	bh=SkGAF3rvqZpMpEv+A0EsfbrHuzz+MIXvk9S9duAZxjo=;
+	b=reKeXKaN0vF3sT1h8aCaj0mxnKFLTc+Ok42sgXR3FcEsUh2o0b7QfbhsPvLb9DLNtVez
+	 Z4hODs8gXSdbbvroPcWR1IK7R/+Et6sB31BXyauKkygks66d1yfZ74x8SP3OYQTs9XMcn
+	 0vlkIq8ZfHKnnphAhvCS9t7BzwJBAubZry2kDY4QEnDLXr9t/7Is0AeZ7+yt3iwZGUgBw
+	 Me0k/ls7jlcrJ1bm5wDtg33qo+OxpRuTRGoVcYQzVw9gLUEncquoDTR/A3p813V67TJ2P
+	 eFBduDkler2YEA/ELlimtME7dJzqyACjK5astZmmZs8b2wYcK5Lbr7SvBLagPK2HpVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Z/qWOR/C";
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vL8JNU8c;
+	arc=none smtp.remote-ip=209.85.161.45
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FB860A261B
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:15:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70FB860A261B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C6E60A5BCD
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:15:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2C6E60A5BCD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z/qWOR/C
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-70bf1671c21so1705400eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:15:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vL8JNU8c
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6de2f213b7aso493645eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:15:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794593728; x=1795198528; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794593734; x=1795198534; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RHvS6tob0EK4+l9biWcyRWjZDKOHPkoH6ye4ScNj4a0=;
-        b=Z/qWOR/CEk4rEMt5O0Mesxt6cnL62udagZYPzg0oYEVF2/VoPPJsELFjZaKcPFK8lS
-         6NwS7hujpbeYIM/FpKsKBSY05DSjl4v6larT0B9AItEYtDiMXPEFlontxJNXm/rHdK82
-         mtooh5uIZs0Utf59Dd9oQM3h2MY29rYRl4xxREkb0yOQpFIiNC2HhvuaaaFQ+TsKyReb
-         36fZgiJuhQdzjzNcUtL1sIHmLhjWWTPAXEM8EWbvlu9omH2wE54b6vm43laITW0cxEUy
-         CZfC1+rrYISyDA5e+R6+5P8OZa7nvZ65e0aRC+6/zdShy/Mk5lvvbS15W+Zly5YgwAA2
-         16NQ==
+        bh=SkGAF3rvqZpMpEv+A0EsfbrHuzz+MIXvk9S9duAZxjo=;
+        b=vL8JNU8capIlGUkmK/0rBjqquGRvUq5D0FCaQC1AV3AS3bgjkpC3Q4F7FGncJlSqOj
+         N3FqIRoNlGllXvWmVhpICLCRAW9fkwdrDbexFEjbPzACz/vCfx5DcAf7/Q3pcZz9aPwc
+         aFXSyY0lshBASiy1HVR1hbAmENGfny9GFhhrBEx53y6L0DDjWTZhAqKzcVG7rlsY90FI
+         I8oPYrx995Ral9qjcnVtBOddJEhJGD0Kt4uEckShiPkYoFJ1I/jsbKbrBbvLsEMAEMZv
+         FX13JWaC3ScHfS51f6p/YVHraGkANOpaKzp5VesYnuwjdfLx7PBgt0buyEpztmztEZCv
+         l1ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794593728; x=1795198528;
+        d=1e100.net; s=20260707; t=1794593734; x=1795198534;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RHvS6tob0EK4+l9biWcyRWjZDKOHPkoH6ye4ScNj4a0=;
-        b=x6bEssYxg1K7SwYmowlNwOWnHYhIeC6M8O6nyOHyX7ul9Xis/IzoGHmaY0C8TOdYhY
-         EBEHh4aaVYF7gc0UJmt7kC6ttgP3qx1VNjbKTQxcy5FPyt5DbO2DUnkpmm4tGpefZWRA
-         9Tqd8rRqZSH5evn8rkS5PxpV6YhraKgNrsmn+xoKU0jPQZOhHQiQ9ZpgspjHEiyyL1Pw
-         l7I5Z0OD4Y9LUafTsKBRBYF4x0kC3SYEeZt9Z1N3dYpf/HXAW4ZGsNCkuI/hFCoCJy7F
-         ZAO2QDgfFb8qjW3Xh//umPHhJ2zD1gZ1CdSMbTWfsDNOL+AFkXidoOaVTq4mt0Lmslvw
-         xhvA==
-X-Forwarded-Encrypted: i=1; AL+hErG3Zv+YUOjggmF1FrWJwCInEVKLfM4LNQifOVo/gRDxqbJoSb3mBcxKFRLUnQKPyCARVQqWu2k8kMja+0s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sYldibQqfgKz7nJCuQr9pTIMAgkBSkq67RNT9K/GS5J/TRccs
-	hZaMAmsAds5FZE1AV3f1jWDU5ZV1wH2W3pinsXS9qtc3qCA1I1XcPA06
-X-Gm-Gg: AYBFou2jJVMX9mNGEdd5s85rT9tIlPLQmZ8ZtBo2+iZMvkHN+/SiX64otpNED0xhh5t
-	l/RlSlZSyHwCF/4/rwxKsAXSr5S1JIzLglrGgBxPMxEbra+AMTE5z5nrIwvr60NhKyfeN1VTyzs
-	0Md5OodKbg+eeVCttBnGmRCpOLxKWmvRx8zk1I95Q2ZLe8KkbLsIWmUQKpBi7A4viJJ6gN/brkJ
-	Hvh0QpU4G/vpdG/QEUvAqEtm8yZUox3aWcKsvBpa2qQRnix+seI1RaKrQM0q9hetP+wEeD5ceGf
-	Q+KuUWtmVECplVGkQkj65SpzQDtD4+3EUNVo2zBmxx9lMJ/vKa1vutG2C/Srgi5+6i67ZSNDALa
-	aTVYnmbhFgdqXQ3ynvePgRfSWwq6YC7uIx/pk6700MW479osFnNAkqLIjVyzaQGhThPPP4bAAN7
-	ZVbeEoimrQaJpiHqqoXZLGugtQtBo/8he5rrYpCN7EwYayHls9IQmqJ7NAO+EcjOwv+55SOEscP
-	7RNWiTdtSFp7f5UB1x5IIJEqcHDnJ+FqCWjG7WtQIPDF+7ycxja/tNp8XsV/ad0vPoT8muk3Rl/
-	8/+edr4/k8KsIM8PB89VxhuWIkjDXrFiuFc0UVZcqNKYK5l0i316L2ePn8X1bKB65HaNbXkC7IO
-	KDxil+pncCGOViLxHN4/fg+WZ+p5hGyRbO3esKI82ZoTYT52QIpdgR50a3K/6AWEsLHMt8+YwP8
-	BhhZunP9SSA4youV9BXjRYahjXWFDtxmnnWKmhCymLKEKRDO0eWfI=
-X-Received: by 2002:a05:6820:1381:b0:6d7:7f22:f59e with SMTP id 006d021491bc7-71ab5069789mr2248583eaf.38.1794593728266;
-        Fri, 13 Nov 2026 10:15:28 -0800 (PST)
+        bh=SkGAF3rvqZpMpEv+A0EsfbrHuzz+MIXvk9S9duAZxjo=;
+        b=dhtcBoaB9sCHQ6Z1IiucDLddZBqdhmjeAdY6ITrG11L6ivnK6ndQNvF8AULOLV8HSP
+         Q7Jz3HwG7qD65rQEKIlzbp92uq8zGb8lK96bISbOZ4JyoXCAxxXZc/A+/wdMmsbzeKj3
+         DN0a/T2qYzM6x1uPppKxy8ZxGqeahF2FJwhBFRVl4WghlUPbRM6uZ2QiW1kaQlJyk1k2
+         /CbrYj5S/iWseFqJFPweElyYzB6Y/Y6Yj7Q1wBvxCi7up8Vf9hGN9LYo55+McMpbcKUA
+         FgnGuz60WD2nz5ld1gEFOjfayk+3Bj0c/j8HC63U49URo1Lu9eek3z22S5CeXa8e7QkW
+         LJYA==
+X-Forwarded-Encrypted: i=1; AL+hErH9TfetrDIlvtxXDLEWoCgmqRenOPYn5QEeXpMC9wCS8fqtKsgkh4gTxrauDngTB3SFd5wTJEg7evi0ZAc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z94IgImtO42Z0zir07XT7KNm0lGyfgB6KqzhVpujsbwP4Hq7Ts/
+	Mf0I51WwSS+LhvWLQXkRQGkEKkwUNkXoMffYmV//6RbjRn++D+ImRZl9R2cbssF3
+X-Gm-Gg: AYBFou07S2Yq8Hpk88LbKZz2eRzQCaCJUgP62UuEUqz72UY/zjCani1H8S6VS2BghJ1
+	JsLlSBz6X6WYhiwmwmZriE5mRrg9qWYfiHhHQkWFrFINwmQEBU+G9rkV5qok8V/H51Ofj+eKFWK
+	uQmrCDDNx/OzzP0jDsjIkq1DVvBVnnkaFSjWEpxHn6ktVXB2vFdBtiwu4+vksEHweNzMGAg4pim
+	pILspStIiCvdf8flK7R32bFme+vAKlkbU3nsNwoDsV697L8XyPx8PvfhB5+h3pnDoHvdx7gzgkW
+	ifm7VABPqEY7w3xgbMzXUXEaJKCEwrnnOqYj8oXDi1oeAs4kQRWAJYcvtyRP2hzgXZvTZwSiD21
+	hJlFwIgwAQdp2lsq8hmho9xKtAAht1xkwALL0id657tpO0fMzWzFFFidgZ6/N4z3hYxWBkefknA
+	aEqy/5SdvBHd6n/3mHdt2Vr1b9EnzLJ2r9a0ifQEMA9T/T/21Cac94OvulcF9nBHquHGMYdmNBi
+	6Atee8QiBeIECSi15LOdgIqCEJEjwhj7UsIdmESbJU5PrQjeC4C1kSR/x818ctUdIj1cu2e8WUv
+	LRUurfoE0IMP1SK144oiyumqvSa+hCJTY2e0kYAcjuiSswAoavINGlUqHKuTXczlour11wdGM68
+	00V4rUmtHJFmqkvBkJvfmMrsYDEtLf4FEq9fvOLsF7xQZX1NymXMYBjdrkmQrFAIdfKanCId97G
+	uHiBprdUJmEO9fn5cGYMJvkLCVVLt4uxKRxdEh7QxZpsqBWiKl990=
+X-Received: by 2002:a05:6820:f012:b0:71a:cee1:caa6 with SMTP id 006d021491bc7-71acee1ce75mr26036eaf.59.1794593734058;
+        Fri, 13 Nov 2026 10:15:34 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628817d979sm3253414a34.22.2026.11.13.10.15.27
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628817d979sm3253414a34.22.2026.11.13.10.15.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:15:27 -0800 (PST)
+        Fri, 13 Nov 2026 10:15:33 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 13 Nov 2026 11:14:27 -0700
-Subject: [PATCH v4 11/58] mtd: rawnand: denali: retain chips across
- controller removal
+Date: Fri, 13 Nov 2026 11:14:31 -0700
+Subject: [PATCH v4 15/58] mtd: rawnand: tegra: retain open-handle state on
+ removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-11-556b1d7c6221@gmail.com>
+Message-Id: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-15-556b1d7c6221@gmail.com>
 References: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
 In-Reply-To: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -104,217 +104,128 @@ To: Miquel Raynal <miquel.raynal@bootlin.com>,
 Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  James Hilliard <james.hilliard1@gmail.com>, 
- David Woodhouse <David.Woodhouse@intel.com>, 
- Jason Roberts <jason.e.roberts@intel.com>
+ Boris Brezillon <bbrezillon@kernel.org>, Lucas Stach <dev@lynxeye.de>, 
+ Dmitry Osipenko <digetx@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+ linux-tegra@vger.kernel.org, Stefan Agner <stefan@agner.ch>, 
+ Thierry Reding <thierry.reding@kernel.org>
 X-Mailer: b4 0.15.2
 
-Both Denali frontends allocate chip and controller objects with
-device-managed storage that disappears on unbind even when MTD
-references remain. Give each chip a retained lifetime and a reference to
-the controller, and keep the initial controller reference until IRQ and
-mapped hardware resources have been released.
+Retain the chip and controller allocations until their final MTD
+references are released. Disconnect the chip before suspending the
+controller so retained handles cannot reach powered-down hardware. Leave
+allocation release to the final core-owned put, including
+registration-failure unwinding.
 
-Unregister and disconnect each chip before disabling the controller.
-Remove its list entry before dropping ownership, and use the same
-release path for partially published probe failures. Denali chip
-initialization now consumes its chip allocation on both success and
-failure.
+Release the probe-time child-node reference on every exit. Lifetime
+ownership takes its own reference before publication.
 
-Run NAND cleanup during disconnection; the final core-owned put only
-releases retained allocation and layout data.
-
-Fixes: ce082596ae43 ("mtd/nand: Add Intel Moorestown/Denali NAND support")
-Cc: David Woodhouse <David.Woodhouse@intel.com>
-Cc: Jason Roberts <jason.e.roberts@intel.com>
+Fixes: d7d9f8ec77fe ("mtd: rawnand: add NVIDIA Tegra NAND Flash controller driver")
+Cc: Boris Brezillon <bbrezillon@kernel.org>
+Cc: Lucas Stach <dev@lynxeye.de>
+Cc: Dmitry Osipenko <digetx@gmail.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-tegra@vger.kernel.org
+Cc: Stefan Agner <stefan@agner.ch>
+Cc: Thierry Reding <thierry.reding@kernel.org>
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/denali.c     | 26 ++++++++++++++++++--------
- drivers/mtd/nand/raw/denali_dt.c  | 13 ++++++++-----
- drivers/mtd/nand/raw/denali_pci.c |  9 ++++++---
- 3 files changed, 32 insertions(+), 16 deletions(-)
+ drivers/mtd/nand/raw/tegra_nand.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/denali.c b/drivers/mtd/nand/raw/denali.c
-index 9c07e4e25a27..098b00724bee 100644
---- a/drivers/mtd/nand/raw/denali.c
-+++ b/drivers/mtd/nand/raw/denali.c
-@@ -1176,6 +1176,7 @@ static const struct nand_controller_ops denali_controller_ops = {
- 	.setup_interface = denali_setup_interface,
- };
- 
-+/* Takes ownership of dchip, including on failure. */
- int denali_chip_init(struct denali_controller *denali,
- 		     struct denali_chip *dchip)
+diff --git a/drivers/mtd/nand/raw/tegra_nand.c b/drivers/mtd/nand/raw/tegra_nand.c
+index ef765fa21e72..4b9416ecbe43 100644
+--- a/drivers/mtd/nand/raw/tegra_nand.c
++++ b/drivers/mtd/nand/raw/tegra_nand.c
+@@ -1068,9 +1068,7 @@ static int tegra_nand_chips_init(struct device *dev,
+ 				 struct tegra_nand_controller *ctrl)
  {
-@@ -1192,7 +1193,8 @@ int denali_chip_init(struct denali_controller *denali,
+ 	struct device_node *np = dev->of_node;
+-	struct device_node *np_nand;
+ 	int nsels, nchips = of_get_child_count(np);
+-	struct tegra_nand_chip *nand;
+ 	struct mtd_info *mtd;
+ 	struct nand_chip *chip;
+ 	int ret;
+@@ -1081,7 +1079,7 @@ static int tegra_nand_chips_init(struct device *dev,
+ 		return -EINVAL;
+ 	}
  
- 		if (bank >= denali->nbanks) {
- 			dev_err(denali->dev, "unsupported bank %d\n", bank);
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto free_chip;
- 		}
+-	np_nand = of_get_next_child(np, NULL);
++	struct device_node *np_nand __free(device_node) = of_get_next_child(np, NULL);
  
- 		for (j = 0; j < i; j++) {
-@@ -1200,7 +1202,8 @@ int denali_chip_init(struct denali_controller *denali,
- 				dev_err(denali->dev,
- 					"bank %d is assigned twice in the same chip\n",
- 					bank);
--				return -EINVAL;
-+				ret = -EINVAL;
-+				goto free_chip;
- 			}
- 		}
+ 	nsels = of_property_count_elems_of_size(np_nand, "reg", sizeof(u32));
+ 	if (nsels != 1) {
+@@ -1096,7 +1094,7 @@ static int tegra_nand_chips_init(struct device *dev,
+ 		return ret;
+ 	}
  
-@@ -1210,7 +1213,8 @@ int denali_chip_init(struct denali_controller *denali,
- 					dev_err(denali->dev,
- 						"bank %d is already used\n",
- 						bank);
--					return -EINVAL;
-+					ret = -EINVAL;
-+					goto free_chip;
- 				}
- 			}
- 		}
-@@ -1250,12 +1254,17 @@ int denali_chip_init(struct denali_controller *denali,
+-	nand = devm_kzalloc(dev, sizeof(*nand), GFP_KERNEL);
++	struct tegra_nand_chip *nand __free(kfree) = kzalloc_obj(*nand);
+ 	if (!nand)
+ 		return -ENOMEM;
  
- 	ret = nand_scan(chip, dchip->nsels);
- 	if (ret)
--		return ret;
-+		goto free_chip;
-+	ret = nand_set_lifetime(chip, dchip);
-+	if (ret)
-+		goto cleanup_nand;
+@@ -1116,7 +1114,6 @@ static int tegra_nand_chips_init(struct device *dev,
+ 	mtd = nand_to_mtd(chip);
+ 
+ 	mtd->parent_dev = dev;
+-	mtd->owner = THIS_MODULE;
+ 
+ 	nand_set_flash_node(chip, np_nand);
+ 
+@@ -1130,11 +1127,18 @@ static int tegra_nand_chips_init(struct device *dev,
+ 		return ret;
+ 
+ 	mtd_ooblayout_ecc(mtd, 0, &nand->ecc);
++	ret = nand_set_lifetime(chip, container_of(chip, struct tegra_nand_chip, chip));
++	if (ret) {
++		nand_cleanup(chip);
++		return ret;
++	}
++	retain_and_null_ptr(nand);
  
  	ret = mtd_device_register(mtd, NULL, 0);
  	if (ret) {
- 		dev_err(denali->dev, "Failed to register MTD: %d\n", ret);
--		goto cleanup_nand;
-+		nand_disconnect(chip);
-+		mtd_put_master(mtd);
-+		return ret;
- 	}
- 
- 	list_add_tail(&dchip->node, &denali->chips);
-@@ -1264,7 +1273,8 @@ int denali_chip_init(struct denali_controller *denali,
- 
- cleanup_nand:
- 	nand_cleanup(chip);
--
-+free_chip:
-+	kfree(dchip);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(denali_chip_init);
-@@ -1274,7 +1284,6 @@ int denali_init(struct denali_controller *denali)
- 	u32 features = ioread32(denali->reg + FEATURES);
- 	int ret;
- 
--	nand_controller_init(&denali->controller);
- 	denali->controller.ops = &denali_controller_ops;
- 	init_completion(&denali->complete);
- 	spin_lock_init(&denali->irq_lock);
-@@ -1368,8 +1377,9 @@ void denali_remove(struct denali_controller *denali)
- 		chip = &dchip->chip;
- 		ret = mtd_device_unregister(nand_to_mtd(chip));
- 		WARN_ON(ret);
+ 		dev_err(dev, "Failed to register mtd device: %d\n", ret);
 -		nand_cleanup(chip);
 +		nand_disconnect(chip);
- 		list_del(&dchip->node);
-+		mtd_put_master(nand_to_mtd(chip));
++		mtd_put_master(mtd);
+ 		return ret;
  	}
  
- 	denali_disable_irq(denali);
-diff --git a/drivers/mtd/nand/raw/denali_dt.c b/drivers/mtd/nand/raw/denali_dt.c
-index 8c822eae72e7..9abe607fc7e7 100644
---- a/drivers/mtd/nand/raw/denali_dt.c
-+++ b/drivers/mtd/nand/raw/denali_dt.c
-@@ -15,6 +15,7 @@
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
-+#include <linux/slab.h>
+@@ -1149,13 +1153,15 @@ static int tegra_nand_probe(struct platform_device *pdev)
+ 	struct tegra_nand_controller *ctrl;
+ 	int err = 0;
  
- #include "denali.h"
- 
-@@ -81,7 +82,6 @@ MODULE_DEVICE_TABLE(of, denali_nand_dt_ids);
- static int denali_dt_chip_init(struct denali_controller *denali,
- 			       struct device_node *chip_np)
- {
--	struct denali_chip *dchip;
- 	u32 bank;
- 	int nsels, i, ret;
- 
-@@ -89,8 +89,8 @@ static int denali_dt_chip_init(struct denali_controller *denali,
- 	if (nsels < 0)
- 		return nsels;
- 
--	dchip = devm_kzalloc(denali->dev, struct_size(dchip, sels, nsels),
--			     GFP_KERNEL);
-+	struct denali_chip *dchip __free(kfree) =
-+		kzalloc(struct_size(dchip, sels, nsels), GFP_KERNEL);
- 	if (!dchip)
+-	ctrl = devm_kzalloc(&pdev->dev, sizeof(*ctrl), GFP_KERNEL);
++	ctrl = kzalloc_obj(*ctrl);
+ 	if (!ctrl)
  		return -ENOMEM;
++	err = devm_nand_controller_init(&pdev->dev, &ctrl->controller, ctrl);
++	if (err)
++		return err;
  
-@@ -106,7 +106,7 @@ static int denali_dt_chip_init(struct denali_controller *denali,
- 		nand_set_flash_node(&dchip->chip, chip_np);
- 	}
+ 	ctrl->dev = &pdev->dev;
+ 	platform_set_drvdata(pdev, ctrl);
+-	nand_controller_init(&ctrl->controller);
+ 	ctrl->controller.ops = &tegra_nand_controller_ops;
  
--	return denali_chip_init(denali, dchip);
-+	return denali_chip_init(denali, no_free_ptr(dchip));
+ 	ctrl->regs = devm_platform_ioremap_resource(pdev, 0);
+@@ -1235,13 +1241,14 @@ static void tegra_nand_remove(struct platform_device *pdev)
+ 
+ 	WARN_ON(mtd_device_unregister(mtd));
+ 
+-	nand_cleanup(chip);
++	nand_disconnect(chip);
+ 
+ 	writel_relaxed(0, ctrl->regs + IER);
+ 	devm_free_irq(ctrl->dev, ctrl->irq, ctrl);
+ 
+ 	pm_runtime_put_sync_suspend(ctrl->dev);
+ 	pm_runtime_force_suspend(ctrl->dev);
++	mtd_put_master(mtd);
  }
  
- static int denali_dt_probe(struct platform_device *pdev)
-@@ -117,10 +117,13 @@ static int denali_dt_probe(struct platform_device *pdev)
- 	struct denali_controller *denali;
- 	int ret;
- 
--	dt = devm_kzalloc(dev, sizeof(*dt), GFP_KERNEL);
-+	dt = kzalloc_obj(*dt);
- 	if (!dt)
- 		return -ENOMEM;
- 	denali = &dt->controller;
-+	ret = devm_nand_controller_init(dev, &denali->controller, dt);
-+	if (ret)
-+		return ret;
- 
- 	data = of_device_get_match_data(dev);
- 	if (WARN_ON(!data))
-diff --git a/drivers/mtd/nand/raw/denali_pci.c b/drivers/mtd/nand/raw/denali_pci.c
-index f53df1b32dda..37ef153ad8d8 100644
---- a/drivers/mtd/nand/raw/denali_pci.c
-+++ b/drivers/mtd/nand/raw/denali_pci.c
-@@ -9,6 +9,7 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-+#include <linux/slab.h>
- 
- #include "denali.h"
- 
-@@ -35,9 +36,12 @@ static int denali_pci_probe(struct pci_dev *dev, const struct pci_device_id *id)
- 	struct denali_chip *dchip;
- 	int nsels, ret, i;
- 
--	denali = devm_kzalloc(&dev->dev, sizeof(*denali), GFP_KERNEL);
-+	denali = kzalloc_obj(*denali);
- 	if (!denali)
- 		return -ENOMEM;
-+	ret = devm_nand_controller_init(&dev->dev, &denali->controller, denali);
-+	if (ret)
-+		return ret;
- 
- 	ret = pcim_enable_device(dev);
- 	if (ret) {
-@@ -92,8 +96,7 @@ static int denali_pci_probe(struct pci_dev *dev, const struct pci_device_id *id)
- 
- 	nsels = denali->nbanks;
- 
--	dchip = devm_kzalloc(denali->dev, struct_size(dchip, sels, nsels),
--			     GFP_KERNEL);
-+	dchip = kzalloc(struct_size(dchip, sels, nsels), GFP_KERNEL);
- 	if (!dchip) {
- 		ret = -ENOMEM;
- 		goto out_remove_denali;
+ static int __maybe_unused tegra_nand_runtime_resume(struct device *dev)
 
 -- 
 2.53.0
