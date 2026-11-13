@@ -1,85 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794583380;
-	b=FJj2rqU4e7e7x69vXLzojpUe3is+6gRIgXsjOiTWqutW34/aDSuWR0KLP2aXxv/kYt4j
-	 TQKsstFmI6laAFdl/+HlGVOkc7xJVOPvTlxquyC0JAeUu3rzNh52739bdnGt+NTrm6Fd1
-	 G9J5UzajvulQ8lLdRhH5XOXzn7QwKjPqKE7L3ThrEzmOQ7CQHayikKdygG5U2igSCYVks
-	 XnY7g0L5yY4lEkW6obsuM1lLcyuqOpspG3MM96qVziJpD211zQDwDHw4UFhz0R1EWrFOX
-	 p2CTLGQo9R8CrBdzqxqYFSnajqyiLN5DwKnWrtgJK0sdo85+EnmpDn1wDIXoHsnkTlw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794583380;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=bIqcVrxwFlf/MOw6E2I1r/DVGSQU9l7E6EGdUXXdXtE=;
-	b=R1h3EKh15JeDVe0+uQNHsOy3NeoOXUTHf3aQkPi86RYESRO25We/TKjGZ/zyOG5mgop1
-	 yoOqHT18kKhdmopabevBZ670xcTdv1Wh7PjkKewjuvoaaMV6zTc3EJwiG8cNfqPCLlXjq
-	 0QLGmTD9joScQP/LCdxQ08z82p7qnDovc7GmX3i7vh+l/lNkuSaUqiE7iojOhUi3u1B15
-	 eD4Na26q7asA8fr41H/CrYy1m5c5srQMCyaFe/RR2DmRNArsw1iUaxnIdMEzBBgvZ/r4T
-	 zi3vO/RsPDuZs7kdQq6Wr4Si7GhdI+HgkzFcOMZeqvekH186ChKkDvtBySLRvAr4kuw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="Z4j/Mghi";
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794583387;
+	b=q5P5tWCgiUda5qCtWGsUaf8TzOaRVgKTGVhxb8g4460FdHqNgIfohsqOxIi4LSKMNcPn
+	 rY69x131o7eqH3q8najbxaXDJI5R6DiEoVjxCZJ3NOlw1yv6fne3OWTVME4sUosk8OFaJ
+	 /UBj3x6XmKBlLmMNJrlzscWfUlOOopju0eR6Yl9/nPtnkA2995vxzdFAQDuA7MoK7wRrw
+	 8+K9W7uZwzIEuQE4o+ZiGQQfre1NwBJP/8P7yp8e2hiFt2Xp8L0KmvA7x+cluFAhQ4aWw
+	 xy09W9J0l12ydrLf4IDhD3cICSxgtbhJPF5uwSF/guIolqr9hAer4vqFOCjDt4ckoMQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794583387;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=96d7rXyRoBWG/8fCv9Y/Bl4rLafDhcPE/agEQqITANg=;
+	b=jLe43SKZbid965kDSxEBsimrLO19q5ZCISRPM+EPHHYGjJYsk1E5TP+IYFc7uafCWXh6
+	 +JbJlINTw5UPfMLcOddMVEbp+b3T2xrnLuTLSM5Ur9jnJbtIDACN0SsG3PI9EhUdydrbO
+	 AiYXw2+OCiHsIh/Mv/cDluuCzRcK3fkmK1mbDC/TFwhfeAMkHLTugAO43AhR7p3+OF7uM
+	 vY+NXyWrDR3rPAwUX5iFykCMqi6ZdtO4GSK7H9J5Y+cHVRWiEeK5x4ws9TYwl04OGhxpr
+	 HuGaNJjbqGMlh0LZP/N/F/wKYdEifslBIcodJLHSH1eBvg97mHUDs4HMLq1GBxOojyg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XjKpJXXj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC336606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:22:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC336606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9945F606A895;
+	Fri, 13 Nov 2026 15:23:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9945F606A895
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Z4j/Mghi
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so16850585e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:22:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794583378; x=1795188178; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bIqcVrxwFlf/MOw6E2I1r/DVGSQU9l7E6EGdUXXdXtE=;
-        b=Z4j/MghiCfLl4geHxV/1zp0iqZFNnntdJLs/GhAqDGduqb9DsAilkkq7STQnBeZ0um
-         RhRvKy/5eCZ7/YOf4I6ESuLz+SNm9tkajr2e8phIKwLpPUNrxEs8ow/NIQakyHXKpUNB
-         wPRM4oSCycrLGiF2jbCbowm/BJ1BtJIjJDTObxah1B0fXda8R77uAxdV6HE+5EK+QdF0
-         ZQ/ACHOwMrY+sj8numw/aMHMwEY/vMqvifjApBhJUHkH1EPJavyUdNHLq4MyAxwPC7SK
-         kmDg9bJ14RbAv6hk4/IhmI1flTTg7vsqzz+2ixhoxgveX2xQhoYUeoYm2BbSsiArcb0j
-         7a9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794583378; x=1795188178;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bIqcVrxwFlf/MOw6E2I1r/DVGSQU9l7E6EGdUXXdXtE=;
-        b=efxdaCJEUZ1iOgFakmd/WLYYevzosbxFzSb/nWTym1yhu/AbBo9FrxLJf0e3zsv4QE
-         iGvfJT9k+3uJ9o7bjxqZ0UvrDpoHir47b6kRrFGz71u/bvadty5+J1z0L6tgaNe+cLU8
-         vReFoTubcpxQvqwWCUnwCEtHLKZiKS2wVgUtP+af1gkFynqWyzVtB1XhHeHf+zduY/4q
-         GGD6cEt6aqtrl8v5ONsTbQ57EQNoVIiXFcCg6MxRod6ikURx8W8Acsl6ueuwiQGWCpKk
-         0PZxlqR8dOnL/X7y6B4x3eEH4DFKI2tRvNkDFo+bkM4IzIYGK9K6COy+MCV68gUpUsBR
-         Xnkw==
-X-Forwarded-Encrypted: i=1; AL+hErF7wpmGTZV8CgpFzHjA6JzwHHzY9IW6gDr2cy2XDn3ff8E/tZtOIBu7oD4aVcFzaZc7KucLyfIHOA2q3E0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8uk6U9rx9HI8R5f8GPaWGbJBspwhLK+VC5Z/edXmKhP2hsHhtr
-	bCqZmZX9uiormojw21IdVPqu7pGJG17GoVUjJBOvK+QYyaENXv6PMkL3zypT3nDqF5Y=
-X-Gm-Gg: AYBFou3jubkYydXE5VRqp+kEPckxBhPzNSCvREBEV7HvyNotby+LJvUO416bUOCh+cI
-	bvUS3FQufip+D9WoezfjZ4PU3ADybz3ni30r6yu8c+9X+HCowjl2IBHC4mayVepkSXpNgUmk6sR
-	mAsmRD2YF5fciYdC8UFet4TYYkOUnn/1N6zA+vEMtGLmLLXsERc8xVNJXIHZ7HAtWMf0nS0g7S+
-	ZbojnXugS4BNjC7vrdzurkKpgWAAJwGtnVr8gvCzJxK3npM/mP9dYlttoxMdNQC5jYPeVwzpAJ1
-	JgMG9j5uhvIQQrxouJNAvtgdE6v1SHrsY6s3vomNrckG6IOtJaNOTl3/I4p+Puj/RIq4mhGHlJz
-	j/hFIwnD9/hdJ3MK2+5gyhg1UteIa0WP7qocI8eJdKQTbVL9sbeCkMP+5z/FeR3iaRw7gr0N4kO
-	IddVKPtQ38TQf3UgYHNCEWwCi7yfKSN211AKnx94io4GMs6bQmBtAOviPT/Iuu0VTaXwB/yKh/B
-	pfr3S1PTQmugbdnl3CIDYIkejHXQkpT9RqAgNCHQMJXeXpdsGziptxGcia4mQeREJXGiaXbGDXp
-	FIaGEjvte3toEfyhPPFk8xyBQ3pw2M2hfvyLha1jLChRScMA
-X-Received: by 2002:a05:600c:470a:b0:4a1:f7f4:7cf1 with SMTP id 5b1f17b1804b1-4bb55a44996mr54909955e9.11.1794583378164;
-        Fri, 13 Nov 2026 07:22:58 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e252f7fsm169848395e9.2.2026.11.13.07.22.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:22:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XjKpJXXj
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8934520215A;
+	Fri, 13 Nov 2026 16:22:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794583374;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=96d7rXyRoBWG/8fCv9Y/Bl4rLafDhcPE/agEQqITANg=;
+	b=XjKpJXXjyICTClmTDekFig7pk7sXE8Ln8nC5rPnkE/jXN/q8or26hgleNdx+7KmNHXBcoq
+	ZtaPj+v9sGI1n6fSA8p0WqsNCoAjAZeguuN+5WmCKjMktODRKi4oGQGD4aeiMR9puQTWqM
+	JYBrXNQHxU3am3lmP38F+vcP7Q6evson1xSbdm2gWZfj4R0Jp59Z58J278w5QCP2706kwx
+	tpCrIPo7N+gQ9KIvZuP8+ijGqW13Q6xtbyCrubt9vdh7NpaTjLRbqQSEpGGnoCbM9x9raU
+	wumR6oEp2GZ0DE1UE3gwhctm1uj5E+9iT1kT5hT0OIhSlG1SzR13g7dzkK/3Qw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794583374;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=96d7rXyRoBWG/8fCv9Y/Bl4rLafDhcPE/agEQqITANg=;
+	b=JDWV+fP3hzmzv/V0oew3qal05UUmfLCXfHvPSTapnHfmokx/Uxg3RfFhFbCt6skyC2Td2m
+	YHFXHST/RM0hRc0zazl2NvZuIcGeVmw3sRY0NNggqMwiVf+Vuq7YnTmBUVtZhOEZPqHxrG
+	W68lUzGZbf9QzhX0/4sy5jGlLVjealMaVs6W3sfgg7pdIgGBGOnsMfIyIzLzDD/u5f+vdX
+	2ei9YvTK37c+q/h1q2pcefzmWba8K74OqJhOH7ySbn5+6FGb1o2Ew89gDMV3AqiFQ7P6bb
+	3Egsu2hiHmtW89u8mjQatDo/DFlC+4ixBNa+hiiexLbQMw6peQrNzXZaxLESpg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794583374; a=rsa-sha256;
+	cv=none;
+	b=Y93HUGG9IIGXbhDVKXGZLgfbhIoON9AbJNL7AS7vMgwaVjpN36B9te8I6kxWebjqG0zoUn
+	KwhNIILKG33jur6V8RXREN4K6MmRZeXvVnIBobPeWNvz4BSo/Cu6nCcKSphLozpAUYRKHL
+	mnXCLYtDg+VpOvU0+4pHuCB3Aob3dFYMG3cs5hNb938TzXUpCBqxmj+Y52b36RrLy7ShtP
+	D6PSWrQC/Yqh/vOtk3OCFIkORpa+bRYTm3RzxmGvK4c6FRTS1KCE/M0q+D40+V4P+u5zjM
+	fzo8qK4U+5eAXLdbRMbXGbWYx7XAY+HK3oSaBEDwSPl4hw1p6CaHecRWDZDGfg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <7baedb8836f538707d008b03e259780bc4fc8bd9.camel@pengutronix.de>
+Subject: Re: [PATCH] reset: Remove ARCH_HAS_RESET_CONTROLLER Kconfig symbol
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Andrew Davis <afd@ti.com>, Russell King <linux@armlinux.org.uk>, Catalin
+ Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark
+ Rutland	 <mark.rutland@arm.com>, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>,  Paul Walmsley	 <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, Arnd Bergmann	 <arnd@arndb.de>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 13 Nov 2026 16:22:54 +0100
+In-Reply-To: <20261112214223.765100-1-afd@ti.com>
+References: <20261112214223.765100-1-afd@ti.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,110 +97,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH RFC 02/16] clk: Acquire resources for clock transitions
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Viresh Kumar <vireshk@kernel.org>, 
- Nishanth Menon <nm@ti.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
- Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Mike Tipton <mike.tipton@oss.qualcomm.com>, 
- Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org
-In-Reply-To: <825fbfbe-a9a0-43e2-bb54-f9e38ce779f4@oss.qualcomm.com>
-References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
- <20261014-topic-qc_clk_dvfs-v1-2-3041b788e9f7@oss.qualcomm.com>
- <179275170360.4070168.11650113664838519061.b4-review@b4>
- <f0ca2bd4-851e-473d-bf21-678cf964f854@oss.qualcomm.com>
- <825fbfbe-a9a0-43e2-bb54-f9e38ce779f4@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 16:22:56 +0100
-Message-Id: <179458337623.3308909.8679910347462508471.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3271; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=n9gjeLxQD41dq62t9Q1UDoH8EzTxjE0oy5fasIAenSY=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFnftQNYFjZnu9ws4l/TOn1RRddMPbttkjGdaTOj796rf
- TLVYhFvRykLgxgXg6yYIksNd7X4O0mtL7Om69yGmcPKBDKEgYtTACZiVMDI0GWS98twnrmegNbD
- XZYWZY3fVXqXcW6esoxPSy1QcfHdMEaGC//MfS5kr/0fcIBJuSN16412sdN5/5b/Mpj7ZUnLzj5
- 3PgA=
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On 2026-11-09 15:06 +0100, Konrad Dybcio wrote:
-> On 10/26/26 2:11 PM, Konrad Dybcio wrote:
-> > On 10/23/26 12:35 PM, Jerome Brunet wrote:
-> >>> Preparing a clock protects its current requirements, not the resources
-> >>> needed while changing its rate or parent. A transition can temporarily
-> >>> use both parents or access an unprepared clock, and a parent rate change
-> >>> can cause other clocks to be programmed too. Raising resources one clock
-> >>> at a time leaves those operations exposed to insufficient power.
-> >>>
-> >>> Failures make this worse: hardware may already have changed when the
-> >>> operation returns an error. A matching cached rate is then not proof
-> >>> that resource reconciliation finished. Retaining a temporary enable
-> >>> reference without a corresponding prepare reference also breaks a
-> >>> consumer's normal disable/unprepare sequence after a failed reparent.
-> >>>
-> >>> Make CCF acquire the affected tree's and parent paths' resources before
-> >>> notifiers or programming, and reconcile them only when the walk stops.
-> >>> Keep fault recovery independent of rate shortcuts and subsequent
-> >>> consumer reference-count changes. Require explicit recovery of an
-> >>> ancestor's uncertain parent selection rather than reporting success
-> >>> from a descendant request.
-> >>
-> >> I don't think all this is necessary to address the problem described
-> >> here and in the cover letter.
-> >>
-> >> IMO a new provider API is the wrong layer. The framework already has
-> >> the hook a provider needs: the rate change notifiers. What the core
-> >> should do instead is fix those notifiers, which do have a few issues.
-> >> You are fixing one in patch 1. Another fix, about setting the parent,
-> >> was sent recently:
-> >>
-> >> https://patchwork.kernel.org/project/linux-clk/patch/20261021-submit-clk-parent-abort-v1-v1-1-2936181822fc@gmail.com/
-> >>
-> >> You want to act on some changes before anything is programmed. PRE
-> >> notifiers are the right tool for this. The user of this change in
-> >> patch 7 could use them AFAICT: PRE sets a temporary vote, POST settles
-> >> it, ABORT drops it.
-> >>
-> >> Also, what is acquired here follows the requested clock. When an
-> >> ancestor switches parent, the chain of its new parent is not acquired,
-> >> although it feeds the whole subtree after the switch.
-> >>
-> >> With notifiers, the parent fault state is not needed either. As it is,
-> >> it blocks every request on or below the clock until the same switch is
-> >> retried.
-> >>
-> >> Could you tell me what you need from this approach that cannot be done
-> >> with (fixed) notifiers?
-> > 
-> > I'm a little worried about the ordering there, since some device
-> > drivers may also be registering listeners in parallel, so we don't
-> > get a clean split of what PRE means ("has power for sure " or "may
-> > not have power")
-> 
-> Do you have any thoughts on this? I'd like to proceed with this
-> series in one way or another.
+On Do, 2026-11-12 at 15:42 -0600, Andrew Davis wrote:
+> Many ARCH_HAS_* symbols change some behavior based on what an ARCH
+> supports, but ARCH_HAS_RESET_CONTROLLER is used only to set a default
+> for RESET_CONTROLLER. Those ARCH symbols that select this can skip the
+> middleman and directly select RESET_CONTROLLER, and many already do.
+>=20
+> Replace all selection of this symbol with a direct selection of
+> RESET_CONTROLLER when it is not already in the selection list. In the
+> latter case when RESET_CONTROLLER is also already selected we can simply
 
-As I have replied before, if there are things to fix in notifiers, we surely
-can discuss it but, at the moment, I don't think the complexity of what you
-are proposing here is justified.
+"In the latter case" and "when RESET_CONTROLLER is also already
+selected" are saying the same thing. I'd choose one and drop the other.
 
-Please allow some time for Brian to have a look.
+> remove the ARCH_HAS_RESET_CONTROLLER without changing existing behavior.
+>=20
+> Some ARCHs "select" this symbol when they actually "depend on" the
+> RESET_CONTROLLER framework to build, in those cases the indirect select
+> could lead to broken randconfig builds. In cases when it is not needed
+> for building the ARCH code, these selections can be switched to the weake=
+r
+> "imply" to allow it deselected for minimal builds without reset support.
 
--- 
-Jerome
+Can't it just be dropped completely for those? See for example mach-
+gemini below.
 
+> Additional checking will be needed to find such cases.
+>=20
+> Signed-off-by: Andrew Davis <afd@ti.com>
+> ---
+>  arch/arm/Kconfig               | 2 +-
+>  arch/arm/Kconfig.platforms     | 1 -
+>  arch/arm/mach-bcm/Kconfig      | 4 ++--
+>  arch/arm/mach-berlin/Kconfig   | 2 +-
+>  arch/arm/mach-ep93xx/Kconfig   | 2 +-
+>  arch/arm/mach-gemini/Kconfig   | 2 +-
+>  arch/arm/mach-imx/Kconfig      | 2 +-
+>  arch/arm/mach-keystone/Kconfig | 2 +-
+>  arch/arm/mach-mmp/Kconfig      | 6 +++---
+>  arch/arm/mach-omap2/Kconfig    | 1 -
+>  arch/arm/mach-rockchip/Kconfig | 2 +-
+>  arch/arm/mach-socfpga/Kconfig  | 1 -
+>  arch/arm/mach-sti/Kconfig      | 1 -
+>  arch/arm/mach-stm32/Kconfig    | 1 -
+>  arch/arm/mach-sunxi/Kconfig    | 1 -
+>  arch/arm/mach-tegra/Kconfig    | 1 -
+>  arch/arm/mach-zynq/Kconfig     | 2 +-
+>  arch/arm64/Kconfig.platforms   | 9 +++------
+>  arch/mips/Kconfig              | 6 ++----
+>  arch/riscv/Kconfig.socs        | 2 +-
+>  drivers/reset/Kconfig          | 4 ----
+>  21 files changed, 19 insertions(+), 35 deletions(-)
+>=20
+[...]
+> diff --git a/arch/arm/mach-gemini/Kconfig b/arch/arm/mach-gemini/Kconfig
+> index f436a2009eca3..11e0e966c3bb6 100644
+> --- a/arch/arm/mach-gemini/Kconfig
+> +++ b/arch/arm/mach-gemini/Kconfig
+> @@ -3,7 +3,7 @@ menuconfig ARCH_GEMINI
+>  	bool "Cortina Systems Gemini"
+>  	depends on ARCH_MULTI_V4
+>  	depends on CPU_LITTLE_ENDIAN
+> -	select ARCH_HAS_RESET_CONTROLLER
+> +	select RESET_CONTROLLER
+
+I don't think this is required. There is no reset controller
+implementation in arch/arm/mach-gemini ...
+
+>  	select ARM_AMBA
+>  	select ARM_APPENDED_DTB # Old Redboot bootloaders deployed
+>  	select COMMON_CLK_GEMINI
+
+... and COMMON_CLK_GEMINI already selects RESET_CONTROLLER in
+drivers/clk/Kconfig.
+
+
+regards
+Philipp
