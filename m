@@ -1,90 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794594374;
-	b=UguKrwp1H06gMawkyzEj+SizGgQUke2Qi7EoIqncF6bRSPuDingc4srkU4J7/6sAwe/5
-	 pb8Kq/+4JdnRXAkB14J/EyJ6cErnm4CwMyyiHlED0pItTncq/vyKwpSN8NZDwV3DPsP+X
-	 syJuP+9z6ypAQGw2bMFiRFxKQOBeXJJLiu7xESuunJkYc0I7v+a2tdYGedV6dbOjFGv+O
-	 1T1yIGM6XsAP/nJ3fVH4nhfT8LBmhMu9dCFNDMA70sdJsgCGv4gMLjrcsojSN4zhfa9av
-	 DQ6svKYIVF+FgYqVuZ6/5xHfqynm4z+hR39TytOQPjnzPvEqiHzOFqxqEgr17FzyKjQ==
+	t=1794594373;
+	b=47DYkY5W8RM5XlJE9TSMMyhkQkq9mcpwruMReuPJEkpnl4CFCrwib+CpzHWkBRGg1eKE
+	 Vi8Gr3vS65H3zr0FNJWfpXw73zH+ydxA+7YsRXg3Y2uMPel85N5+cFD9tyMEs9ewu5Ev2
+	 zfbHCZjFeh8KbSnLUIUUot218eKMkV37yTea5VJ7b3BT/vAs4MP52aSnGGWjDFBXG1AER
+	 qbsRJrPKf4G4TzIBjXGW7CGE5ecexmAHO7LBHVYiDye704UGL/bUnOLHv6dv+xbYzUNE/
+	 85/t6ZN/xgwqEbuqZLVdWSNJoo/aFdofyrNW02pOLt6UfhYv+KAVP/yP4cfDY0ueYxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794594374;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=jRb7R7UHhmIYomhPb3QhYlKJ5o5OZJVwCHgeMsn6oQs=;
-	b=2Hj1UknoeY+hlGoe3QYcKq08rSaRkrifageEHj5Qja9iXsre8G4E/J5+1nHrTQWIGdDz
-	 trH7Gj5TF3xejYSvWZwG0oN63K0jqrdqfkajBmBaT73OdKioaa4svYlf7VGTP3lMbebr1
-	 QwYW9XB+OWManiWe4DjLbe52JkvuLs1qv5ssK89Hp7wmO2fuPhUcwuooro5bzmcjdYLf1
-	 iOCOCGvYYcToJoTqoYrPDMpBm43iwja7Afgj1aFOEwZcnmPeDKqIQTDZeqnF3V5W2k6UV
-	 dhN4tio0cMwDEVz91nVaom9aRxl1EirHHIfcie+zsZFnRBVIGBUP5l0CRAL4+olOISg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794594373;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yCt22GINH7VVMqpK3DG4ULuMRP/y9K0Os3XzSbMXiWU=;
+	b=4VafIQ1bvS83Yj/K12e86RNff6MySVKlxBve9aH/Z680Y0/Z7z/NJyOhvFyBJ+zLcA7h
+	 Wddhtg1IjjpOl42BSwtjpYoPIzAmoePNQ6e34hogXVo3ubHP/xdSwRFZYqKrgvaLrE8L6
+	 gUrAFEf8CLzmv/aZi9FkEUBJummxVyhAQU0HhwZ/bYfq7sUhCQ6t6QOe/CzSE5gagowPm
+	 XcsRUdYfT+XSKpPIyGN2DP7ifcnhjTY37jDXSk27oFXShlGbWvLaFWmha+qOh+6+CwbC/
+	 Vpi/bmWQ5iDRfnCM1tDtIhEuXAyi5Zwz4xsyYsMGCJHqNxxgrYGkhWDkgYsWioBgodQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EDDkTnlu;
-	arc=none smtp.remote-ip=209.85.160.47
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xhU9zOdq;
+	arc=none smtp.remote-ip=95.215.58.198
+Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF81E60A262E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:26:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF81E60A262E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F703606A33A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:26:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F703606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EDDkTnlu
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-451a49abd8aso1901445fac.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:26:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794594372; x=1795199172; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jRb7R7UHhmIYomhPb3QhYlKJ5o5OZJVwCHgeMsn6oQs=;
-        b=EDDkTnluKHl9xLGOLY+htHoRZ+L/Miv993by/bCOjFyPWlMNDuKavPAD8MClNb779F
-         NXxzHPseG58EgHUn7BkZMEu4JDqF5X7zZ/Wv3bIerIDoZIrkWeShrrMt8MVEI8nHfIys
-         eZ843eH4DHfDWg0vp/kSiQn4KlHcGCTa5AuqkhGKcgXcpo2IV8Os/zOLc4P/otHUHT3X
-         zWUem6YzHn66jZVbCxeiZVnjGRAKnX+HHWer9VqeFNFZafc1AGo+cka2w7GPJpUml7Tl
-         5ahkMgZzYnKGKncFhfxp7RXS6pQeEa5QCFglHlt3TUJHzEjI38izPsWAwSmV956r10UE
-         vJ2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794594372; x=1795199172;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jRb7R7UHhmIYomhPb3QhYlKJ5o5OZJVwCHgeMsn6oQs=;
-        b=JtfzLJxDaUqexRbrErOMYasnGTDwoBQm6As7tqeERaCJDaTyhMH6xbiHqq+ca645AG
-         4W4sUpNtN5gGcYSyySOVtxb2CYnb9QQAJDHuPgyZgYEM7w00SIe+moBU7wfxiRiyo3Km
-         nGfFS9jpOC7t22NurZS6jmC7AT2d///SL7IJAxsZMQ7TrAjdu4omnoBSRXHdeKex2UoM
-         1erGPrJt4VWdrKpEXHwcYpf3RDPWsG9IoJYpCpad7VIrm5RDApkVlHejynkWcjj/R02H
-         nlkzoLiBCdDmlbY6LiJquxFP2uPpXQE5R5b+75rDUtr5VCkL+k5pg+RmiJxw2QHZYqPN
-         jXPw==
-X-Forwarded-Encrypted: i=1; AL+hErHzborTLLsBW4+ivMGAd9vNjAsyg5u3w5Czh6LilC+le2Bhna4on49nJRMG0zZXruQ3aab/UNE/WwmkZQE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hEqdP2tbusFjRpIdonKnKipBhR0ajTXgf1hRrBmRpHsd4BYDd
-	+hiPtv4ziHrnHQAbO/blc6kkRLuwdJ1Mt92RaqrNNRNIjwuO9drZNPTT
-X-Gm-Gg: AYBFou0+ZbLsVsN76pw+putmGCO6x+OO+BVzYZSukOSiqrXzPrbmJKKEpfx7fuX1P4c
-	vSwR/ANAFz3MH/0qKovfFZhDdSbsCm3NZgdaBGspL/hk7+kWIWDo82uRIDHow8PgB4n7FyuKqY+
-	AsDiho2HpLAztKb10bwU4eUO+qhi7VCsO+i80eUs0r++U+y8eEkMmMyNys8GSHhrnM6cd0s4f48
-	9Qo4u8uRgYALRojWRbJH7PBW77c5wIsM2lKwYo651a1ehcqtQAzmT6Jw3fj5DTLm29ggsldM/Ls
-	kaKxzqrn67cw0tTur9YSng38T82FfddjecMVZ3O4Gf4FIpCKnt2Yk6YCmdVbmPoyMtE9Jn3EzAk
-	i9cPKceeWq0sCtlVMwH3lL5x17FcBLvnfI013KP6Gp+kvaz6s+R44/OUYunhHUPgeN9CZxuB2dM
-	6RprTDLjYyH1kMlND+b75tvKLeh5M/htub8cI9eGWO3SS50nlq7uTRlHQPhsGmwrt9Dv/S5QHKv
-	rRgnuzaue4dya9CCEvBxeV1mccf0nLOhLdq55rPjYaMEXy5duj6zcz3B+CrnzrxUcjVVdZ0H3ko
-	0HftE5bCBjocDx/wODHMSTHfVHffdcDIlcWPpuCLDU4GDkX1H9s+0K2Sn59hdgL11B15L67M4VO
-	YaBaGJFDrF/ggdvWj4SaujdoQUGvau0LMUv9ZwRwlSKDr6eYFP5XNjYbUhaR/L7rJVIUp80XzOG
-	aS+6GtkwMGf1Kpoli2Y3XJLVhix50/rUepWdIM0z1SwtttXdJayLE=
-X-Received: by 2002:a05:6871:a1e5:b0:4a9:58d3:b60c with SMTP id 586e51a60fabf-4afdf6f359bmr3316826fac.32.1794594372472;
-        Fri, 13 Nov 2026 10:26:12 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4afe2011c25sm1887061fac.2.2026.11.13.10.26.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:26:11 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 13 Nov 2026 11:15:04 -0700
-Subject: [PATCH v4 48/58] mtd: rawnand: ndfc: retain chip state across
- removal
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xhU9zOdq
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=W3N0HjBs5elGdBPTt/W9l12M7ByILze1TCap73imTEw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794594369; v=1; x=1795199169;
+ b=xhU9zOdqaquKS9aWGoSfuEgiSX73erobQXALPB49juNilyIxJ8SBi29UhPfOULItnmHQ89PP
+ 6t1HEIE+VaIMJ1P4/calTNhQHHNJEcLh2vC2LCEa/6xejQHRI0OiPfigwUf+WavUVxUTSFbsuNg
+ jsA+r+9wjeWJi29f242x0IVA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id e3afecfd60183309;
+	Fri, 13 Nov 2026 18:26:08 +0000
+X-Mizu-Trace-ID: e3afecfd60183309
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org,
+	kprateek.nayak@amd.com,
+	juri.lelli@redhat.com,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	samuelcrossley@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	kas@kernel.org,
+	riel@surriel.com,
+	Arnav Aghav <aghav@meta.com>
+Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to select_idle_capacity()"
+Date: Fri, 13 Nov 2026 10:26:00 -0800
+Message-ID: <20261113182601.569981-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.1
+In-Reply-To: <avdIycF_mZV8CHKb@gpd4>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,107 +81,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-48-556b1d7c6221@gmail.com>
-References: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
-In-Reply-To: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Allocate controller state per binding instead of reusing the static
-chip-select slots. A retained MTD handle must keep its original chip
-state when the platform device is rebound. Disconnect the old chip
-before device resources disappear and release its state at the final MTD
-put.
+On Fri, 13 Nov 2026 18:28:41 +0100 Andrea Righi <arighi@nvidia.com> wrote:
 
-Run NAND cleanup during disconnection; the final core-owned put only
-releases retained allocation and layout data.
+> Hi Usama,
+>
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/nand/raw/ndfc.c | 32 ++++++++++++++++++++++----------
- 1 file changed, 22 insertions(+), 10 deletions(-)
+Hello Andrea!
+ 
+> On Fri, Nov 13, 2026 at 07:31:57AM -0800, Usama Arif wrote:
+> > This reverts commit 61ea17a63719 ("sched/fair: Add SIS_UTIL support to
+> > select_idle_capacity()").
+> > 
+> > That commit applied the SIS_UTIL scan budget to select_idle_capacity().
+> > The early checks in select_idle_sibling() consider a few specific
+> > candidates: the target, previous and recently used CPUs. If none is
+> > selected, the asymmetric path calls select_idle_capacity() to search
+> > the allowed domain. With SIS_UTIL enabled, a zero scan budget makes it
+> > return -1 before that search. The caller then returns the selected
+> > target, even if an unexamined CPU in the domain is idle and fits the
+> > task.
+> 
+> Isn't this consistent with select_idle_cpu(), which also skips the scan
+> when the SIS_UTIL budget is zero? Missing an idle CPU is an intentional
+> tradeoff of that heuristic. Could you clarify why we should remove the
+> budget specifically from the asymmetric path?
+>
 
-diff --git a/drivers/mtd/nand/raw/ndfc.c b/drivers/mtd/nand/raw/ndfc.c
-index ce10fc6a41aa..27ab5c034e70 100644
---- a/drivers/mtd/nand/raw/ndfc.c
-+++ b/drivers/mtd/nand/raw/ndfc.c
-@@ -37,8 +37,6 @@ struct ndfc_controller {
- 	struct nand_controller ndfc_control;
- };
- 
--static struct ndfc_controller ndfc_ctrl[NDFC_MAX_CS];
--
- static void ndfc_select_chip(struct nand_chip *nchip, int chip)
- {
- 	uint32_t ccr;
-@@ -173,7 +171,16 @@ static int ndfc_chip_init(struct ndfc_controller *ndfc,
- 	if (ret)
- 		goto err;
- 
-+	ret = nand_set_lifetime(chip, NULL);
-+	if (ret) {
-+		nand_cleanup(chip);
-+		goto err;
-+	}
- 	ret = mtd_device_register(mtd, NULL, 0);
-+	if (ret) {
-+		nand_disconnect(chip);
-+		mtd_put_master(mtd);
-+	}
- 
- err:
- 	of_node_put(flash_np);
-@@ -187,11 +194,7 @@ static int ndfc_probe(struct platform_device *ofdev)
- 	const __be32 *reg;
- 	u32 ccr;
- 	u32 cs;
--	int len = 0;
--
--	ndfcbase = devm_platform_ioremap_resource(ofdev, 0);
--	if (IS_ERR(ndfcbase))
--		return PTR_ERR(ndfcbase);
-+	int len = 0, ret;
- 
- 	/* Read the reg property to get the chip select */
- 	reg = of_get_property(ofdev->dev.of_node, "reg", &len);
-@@ -206,10 +209,18 @@ static int ndfc_probe(struct platform_device *ofdev)
- 		return -EINVAL;
- 	}
- 
--	ndfc = &ndfc_ctrl[cs];
-+	ndfc = kzalloc_obj(*ndfc);
-+	if (!ndfc)
-+		return -ENOMEM;
-+	ret = devm_nand_controller_init(&ofdev->dev, &ndfc->ndfc_control, ndfc);
-+	if (ret)
-+		return ret;
-+
-+	ndfcbase = devm_platform_ioremap_resource(ofdev, 0);
-+	if (IS_ERR(ndfcbase))
-+		return PTR_ERR(ndfcbase);
- 	ndfc->chip_select = cs;
- 
--	nand_controller_init(&ndfc->ndfc_control);
- 	ndfc->ofdev = ofdev;
- 	dev_set_drvdata(&ofdev->dev, ndfc);
- 
-@@ -243,7 +254,8 @@ static void ndfc_remove(struct platform_device *ofdev)
- 
- 	ret = mtd_device_unregister(mtd);
- 	WARN_ON(ret);
--	nand_cleanup(chip);
-+	nand_disconnect(chip);
-+	mtd_put_master(mtd);
- }
- 
- static const struct of_device_id ndfc_match[] = {
+It is consistent.
 
--- 
-2.53.0
+Symmetric path also has this (I didnt check this before sending the patch).
+The service is running on Grace servers which report capacity differences
+and updating the kernel from 6.16 resulted in the problem I outlined below.
 
+Maybe the symmetric path needs to be audited as well?
+
+Or maybe this service should not have ever run with SIS_UTIL at all..
+(The only thing is that kernel upgrade caused a serious regression)
+
+(Should have made this patch RFC :))
+
+> > 
+> > The budget is derived from aggregate CFS utilization. High aggregate
+> > utilization can coexist with idle CPUs when a task wakes.
+> > 
+> > On a 72-CPU NVIDIA grace arm64 server, small reported capacity differences
+> > (1013-1024) within the single LLC activate asymmetric selection. Both
+> > the reference and affected kernels were observed with a zero scan
+> > hint. The reference kernel ignored it and still searched the domain.
+> > A latency-sensitive, wakeup-heavy production workload saw its reported
+> > minute p50 latencies average 129 ms on the reference kernel and 223 ms
+> > on the affected kernel.
+> 
+> Have you tried forcing the symmetric idle-selection path through
+> select_idle_cpu(), with SIS_UTIL both enabled and disabled?
+> 
+
+This cant be done from a running kernel, right? My understanding is
+that the cpu capacities come from firmware, so cant be changed at
+runtime to be constant across all CPUs in kernel?
+
+Changing kernel on a production service can be a bit of a process.
+
+> It'd be useful to see whether disabling SIS_UTIL produces the same
+> improvement there and whether symmetric idle selection performs better
+> overall on this system.
+> 
+> > 
+> > Disabling SIS_UTIL reduced the aggregate involuntary context switch
+> > rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
+> > raised the rate to 73.7k/s. A five-minute disabled run also reduced
+> > kernel CPU time per request by 10.9%. The available minute p50 samples
+> > averaged 149 ms, compared with 241 ms before the trial.
+> > 
+> > These measurements come from disabling SIS_UTIL on the installed
+> > kernel. The feature toggle also disables the symmetric scan limit and
+> > shared scan-hint updates.
+> > 
+> > Restore the search of the allowed domain, retaining the capacity,
+> > uclamp and SMT selection rules and their early returns. Domains with
+> > no suitable idle CPU can again require a full scan, potentially increasing
+> > scan CPU cost.
+> 
+> Yeah, this is my main concern, full scans can become quite expensive on
+> large systems with lots of CPUs in the same LLC.
+> 
+
+Yeah I imagine this was the reason for the initial patch.
+
+The same workload on 6.16 kernel placed 69% of wakeups on an idle CPU,
+the affected kernel with the patch that this is reverting only placed 7%.
+
+Do you know how much CPU usage can be attributed to the scan on these
+large systems if you do full scans?
+
+> Thanks,
+> -Andrea
+> 
+> > 
+> > Reported-by: Arnav Aghav <aghav@meta.com>
+> > Fixes: 61ea17a63719 ("sched/fair: Add SIS_UTIL support to select_idle_capacity()")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> > ---
+> >  kernel/sched/fair.c | 19 -------------------
+> >  1 file changed, 19 deletions(-)
+> > 
+> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > index d4cc0caee6265..def5cda2e6bad 100644
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -9091,7 +9091,6 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
+> >  	int fits, best_fits = ASYM_IDLE_THREAD_MISFIT;
+> >  	int cpu, best_cpu = -1;
+> >  	struct cpumask *cpus;
+> > -	int nr = INT_MAX;
+> >  
+> >  	cpus = this_cpu_cpumask_var_ptr(select_rq_mask);
+> >  	cpumask_and(cpus, sched_domain_span(sd), p->cpus_ptr);
+> > @@ -9100,28 +9099,10 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
+> >  	util_min = uclamp_eff_value(p, UCLAMP_MIN);
+> >  	util_max = uclamp_eff_value(p, UCLAMP_MAX);
+> >  
+> > -	if (sched_feat(SIS_UTIL) && sd->shared) {
+> > -		/*
+> > -		 * Same nr_idle_scan hint as select_idle_cpu(), nr only limits
+> > -		 * the scan when not preferring an idle core.
+> > -		 */
+> > -		nr = READ_ONCE(sd->shared->nr_idle_scan) + 1;
+> > -		/* overloaded domain is unlikely to have idle cpu/core */
+> > -		if (nr == 1)
+> > -			return -1;
+> > -	}
+> > -
+> >  	for_each_cpu_wrap(cpu, cpus, target) {
+> >  		bool preferred_core = !has_idle_core || is_core_idle(cpu);
+> >  		unsigned long cpu_cap = capacity_of(cpu);
+> >  
+> > -		/*
+> > -		 * Stop when the nr_idle_scan is exhausted (mirrors
+> > -		 * select_idle_cpu() logic).
+> > -		 */
+> > -		if (!has_idle_core && --nr <= 0)
+> > -			return best_cpu;
+> > -
+> >  		if (!choose_idle_cpu(cpu, p))
+> >  			continue;
+> >  
+> > -- 
+> > 2.53.1-Meta
+> > 
+> > 
+> 
