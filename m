@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794554761;
-	b=hKGAmORfxwqueq5LzjtIaCnDC2/Z6sfWytPk70JwLekWy6mdtRv1/UOXSEhmx4Wq4Bxd
-	 ztI6ik8F41eUjQqGXXc5LQCeVObbDgsZyUpCEvJ/6e9hwS/dV23xgPA/Yu1Ci7R3+e+EL
-	 Oy7kJTGbYLLfcx0sIcAeByQ4f0gd3u1GHtlxymITlMJVWb9Mt9geoBlMeiWtlNrVNRNvl
-	 aWbK/kJ48SIAqZVDzAodjdg7VNqnzaS0uAV9I7IogqVs0JVdRUCtPFrIcRoWQUx7rlZUD
-	 pfQx0p7W0KShVLXtPkprZJseMSjYgAHHp76qUYj/bizoa0iBxhtJw/NcTVRiHN9a6sg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794554761;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
-	 X-Accept-Content-Type;
-	bh=VLwpA9pUMgllWzK8YBIzeEAJDxdkrBAErUBA+2fd920=;
-	b=CddHQQPMXzp62vfdGMJ7pNFRWV2PQiA0lA0Gg3b5vuUSoBAVOrAdPDejQSK0csOz8CBF
-	 vMI7Fzvq4mIPXoXrH3t4oJgzmYN50xPGPK1rApdNWqDiEVjkJvd+f7XuoUo7nJTihfE7Z
-	 d9VzsSwOAQ488n5ldB/YZtsJ316eDzn3SeuCdNg32CQuxo25i8nwpCs1gv4+sVHyh/rRk
-	 3TwMD7XoOD7Lcv0RETUsXG4lqFV6CKmRHJbPW5vpQXKO6zEqSBshcVEyKbWJfM5beHjuD
-	 ejZhexDoMdaVL/cWFirLLR+PQExShBGmBjmUac6d9gBzNFLHEJOmFRXLM2zV8D9Lmmg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AbnVnUwj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794554782;
+	b=QFTR3A6xcTi4MQTfO00TXxms+ZiK18kNxQM36ytsDHu3QSpslOPo0D88VUCOIkgIFks2
+	 XYs+QXFVJeE5hOru4iVfyw4/NU+aTnb/IpOUP+KWhcHDaje1+q+1A1DpTX5cK4Ze72r/a
+	 eY1aTyPRre3UEYqeMdNJ2PmuB/Oa+m9m54bdDluJrY16ZA/go1k8z8ukudDOvgYZ9Q8WR
+	 xxYIVgp2DsPafeaAyi2OsAPY//mQ3/Aisz2Y/kkxGEloBOQg50tyiu7WUBhoWEMBA+eFX
+	 9nBjGEjf1j83hRiOWkUQ1iylzMYcOkhxAfMnYmgApAudIGn/eo6+YhWOX7vfQvyZwjA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794554782;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=mjetfSPbiI8lpCBkAc9d8XX/FbfRsCkUf9M0ZvVFMfo=;
+	b=ac2a6++esm63hbslYKUcbn0MV8CQTjgEWiPm8T5Lkdbrxz1+NRCYf9wnbNkKv7vlD5jK
+	 HGn0PuFjh0cYQvRDSIXGnLxn/CdfXWV+7NRrfONY5VwDfnXGELs465xJZWAmW/SLeqZ8C
+	 tuj+JZnrCfDP8POctG4EB5pRcFXV8PubVusKD+GlCAWNN+UteSjx7Bxp98OCW7fl5RJCo
+	 XZesjB2B6UnHULz8AgGJD7o3lfbswYVFEZcxpETfaIa6cEgRTePRxXn8AYktcNm4EEoyn
+	 gRjGTHpsk2bYs227dxYp262eUdUufaW+xuZgvFeiimTy6mUxAh3OAsfPXjOVXmu6ZbA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pBI7ON1M;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49149606A31C;
-	Fri, 13 Nov 2026 07:25:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49149606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F96606A321;
+	Fri, 13 Nov 2026 07:26:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AbnVnUwj
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E172E2020ED;
-	Fri, 13 Nov 2026 08:25:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794554757;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VLwpA9pUMgllWzK8YBIzeEAJDxdkrBAErUBA+2fd920=;
-	b=AbnVnUwjuWzNVrnUsmmvmcnt88Fd3OP/2jvL5KN/5DD8dJHsXuCTow9YzHFEwS5XwLQbwf
-	AtFBuSHHKCnQIMtfi5lRbC419QOBkv1xbG50MyC7fPOp020dzsUcwvgyjKl9jniT9pDLHq
-	PIhHUdSTobZp1foUwiCTI5hXtgSEuR+LVs56ycjUFR7wHGrAjVD+35Dz63U1Kn+PQRU31v
-	3nE2iA/+PRB/EUWia+3MEQBds860Bu0efJUEGpoEWOQgePCxbDbGJFMuVbvr3BvE/3OaMg
-	ES+U0jZquqq31NifcPunqSLwigLtASRb1DNL4xYvLUuoY52+KDWzX6qraZw5ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794554757;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VLwpA9pUMgllWzK8YBIzeEAJDxdkrBAErUBA+2fd920=;
-	b=glzQKUsUxCIaP9B42+Rr9uftQz8d7WqkrZ/i8Bq4CtEccQrnLNDwEVTSJ3vyYYaPc2OxAE
-	MyhRPYapu1D/4ZoVI0QClmV0Z1hPwD2MgpPHkeFaKkN/VvC/WET+FdWPTGZuRQ0YavLFxK
-	FVcWXt1K+vGP2N25Soa49+xjS6ooFY9VIEU9G3qRk7uicbWfL+O8RIjfU8K0Ddpq0Rf76b
-	8L4clxuknAqryjNVX7LKBmO6Izi5SJpVvm1DBPRY6wW/M5ykRnZkSXDA0Wp/jwAD65n6qc
-	bQsqvruu+innG/Sd74u2DBn0zYV5vFiWXib/kwMzeSBZkt5gqdDUrqpBid099g==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794554757; a=rsa-sha256;
-	cv=none;
-	b=AYY8Q2sMjhXxU8IZ4HIXyWnKVgK7+x9cvh5xGB/ZM/CmOyGIsdPhMGndrzp+Jg3Z36S1t2
-	lz9r3CKojWNhjCikYwn8iNoTEFjB5OLr9OSC5CYhJyW4dC9mKIvEUpcJquu1rZCWwogJSJ
-	qJOvXXB5kRb8r9pczh82gaXZCUOKxSp1BwOlV2vvphfJ61JgXimsFwHQRCTjUXhT1LpUvq
-	UfTDsRAN2DXOYp31e8KWj+kf5PEapLngTJoso3/VLaysj/vEQD7Uomsv6WGAXw67z2ZaVm
-	QYK5XhXLYM8F/LMk1rZVzSOYe5JLzAEGLPOzR9aA3mwlIJhqKj4YVCaH0m9tuA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xRlfZ-003xJ5-2j;
-	Fri, 13 Nov 2026 08:25:57 +0100
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xRlfZ-0000000FpS4-36Tn;
-	Fri, 13 Nov 2026 08:25:57 +0100
-Date: Fri, 13 Nov 2026 08:25:57 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Chaosheng Qu <quchaosheng000406@163.com>
-Cc: netdev-bot+sashiko@kernel.org, Robin van der Gracht <robin@protonic.nl>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de,
-	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH net v7 3/4] can: j1939: drop the message when the
- reassembled skb is gone
-Message-ID: <ava7hRQ7lxXckkPL@pengutronix.de>
-References: <179410166346.60581.12668181404057434786@163.com>
- <179452018024.488853.2874336452045412196@kernel.org>
- <179453947398.30993.12910253526180673543@163.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pBI7ON1M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 551521F000C4;
+	Fri, 13 Nov 2026 07:26:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794554782;
+	bh=mjetfSPbiI8lpCBkAc9d8XX/FbfRsCkUf9M0ZvVFMfo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=pBI7ON1MSiLCMpsXkclVp2s4htuA6KX7gsbrUSt5jIBYqpWSgEPrJtVMQWPhS4Tew
+	 akJdCZaHtme9YY8L2SZbeoQBt/DfoTBZqoXBQ5lUfUmCM7R2/VAF3zq0taItxmB4SB
+	 BUIcADXrNinI7DB5jqXHfQSKMFWh6s1SVKhHY5ho=
+Date: Thu, 12 Nov 2026 23:26:21 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Jens Axboe <axboe@kernel.dk>, raoxu <raoxu@uniontech.com>,
+ minchan@kernel.org, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, David Hildenbrand <david@kernel.org>
+Subject: Re: [PATCH] zram: Avoid duplicate slots in batched writeback
+Message-Id: <20261112232621.6e8916a6e92bbb1afeb1e2a3@linux-foundation.org>
+In-Reply-To: <avK6Y1VmIYIBrorl@google.com>
+References: <F24EF6333964B482+20261110061830.272091-1-raoxu@uniontech.com>
+	<avK6Y1VmIYIBrorl@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,35 +57,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <179453947398.30993.12910253526180673543@163.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 11:11:13AM +0800, Chaosheng Qu wrote:
-> Hi,
+On Tue, 10 Nov 2026 15:40:13 +0900 Sergey Senozhatsky <senozhatsky@chromium.org> wrote:
+
+> On (26/11/10 14:18), raoxu wrote:
+> > The writeback interface accepts multiple page_index and page_indexes
+> > parameters in one operation. Their ranges can overlap, but
+> > scan_slots_for_writeback() only excludes slots that are already being
+> > written back or marked as same-filled.
+> > 
+> > A slot selected by an earlier range is placed on the post-processing list
+> > and marked with ZRAM_PP_SLOT. Without checking that flag, an overlapping
+> > range can enqueue the same slot again and submit it for writeback more
+> > than once.
+> > 
+> > Skip slots already marked ZRAM_PP_SLOT while holding the slot lock. This
+> > keeps each slot in a writeback scan session represented by at most one
+> > post-processing entry and leaves the existing release and reuse paths
+> > unchanged.
+> > 
+> > Signed-off-by: Xu Rao <raoxu@uniontech.com>
 > 
-> Both accepted.
+> LGTM.
+> Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 > 
-> Dropping the message silently is the weak part. session->err stays 0, so
-> j1939_session_destroy() queues nothing, and the only trace is a netdev_dbg()
-> that is off by default. For an RTS/CTS receive session this runs when the
-> receiver's own EOMA comes back, after the originator has already been told
-> the message was delivered, so the two sides end up disagreeing with nothing
-> in the log. The next version uses WARN_ON_ONCE(!se_skb) and sets
-> session->err = -EBADMSG before dropping.
+> Jens, do you want to pick it up and route via block tree or should
+> we route via "more traditional" tree (Andrew's tree)?
 
-Hm... will a stack trace provide an additional value in this case? If
-not, please use netdev_err_once()
+I grabbed it.
 
- 
+I did recently attempt to pull zram out of the mm project, by moving it
+from mm.git's mm-unstable branch and into mm.git's mm-nonmm-unstable
+branch.  Because "why does the mm project contain a block device
+driver".
 
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+I undid that change after about a week - it didn't work out because
+zram is joined at the hip with mm/zsmalloc.c.  zsmalloc is also used by
+mm/zswap.c.
+
+Oh well.  afaik the zram story has been going smoothly for a long
+time(?).
+
