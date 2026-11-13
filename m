@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530995;
-	b=jHQ5ndGoeycF3020nFmckqjJQmv0dtqUF6eIGneCVbFA/dteurayw76E6SzNPffzWls2
-	 70WZXMXKFGUl8HfMyaMzCb6SxVT3T/Z3pRKPqggtZ3hYqZ17Qslv3Z8QApgL5jjyBJSvT
-	 DB6/6YTOUvn+hN2c4RrnteRkmpE8Jm/AL7G+98V3vU77/6+oOYsjxDTf5gCecYezU6NGo
-	 BCu5wvXk0jUaIcOWT5EJEx//IRg/540AMIqkL0HE8fEzxXnxI4LsSbCMEs+zuF9PmNIt2
-	 zyyFgS+xBfZXoIbsL/+qargjZXUOa8TVqh2dHcYCXyJAM0lu0yuPuAwgjlBGYEFYsHA==
+	t=1794530991;
+	b=UflQr62y0Xgje6LdP6dd1RYyx3OHzFRxEIVaWvGWNTG2SaOmLUDR+LRuoCco47P3gM7E
+	 hBWU//dGL3u6UZB2l6nVBtw/i+XvPeX5s/y3y7Q7yLU5TitmBu/bxBKxDM2WsohBhhIRR
+	 vXUOlhhCIKKX8X3Ta0zS3GbsOz8wv6qMB5gbJgy4/PKuZdbChXsb7b+IzOZtfmYNKIiGo
+	 E5FKL4BD1nuhFNrVi0EDPMbVuh+c1JmFa1Rbl7R2h0yf/YhUGXSsVarFAa6h+znarui4U
+	 rvpxg4rKbusILn/uvGYllicQRCPoFRbq97CJ2n9UqgjLZ+2IlXCkw/sIsHqMQP1SsJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530995;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530991;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oCjlz6BygxvB+1x+d/mpEdbtUoFPvED0xyYHks2iJfw=;
-	b=x1cm6MvE1suXE/WRDgVJYg1itP6GlN3Cqu2ixg36CIJ7/RIzRYmKtO6XtlK3eTh4U/K2
-	 ezUVuFlZ/uehjxp6FRZ2j8Ixzep/tk3rx8I7Yk96vsL0DR1PqebCWL7DFbv2Qm5e88SRO
-	 m0YOwuCQKVrhQfPPozMTxyjCE0dAG3IZAeCGQMW/8+fYPjio9bJXJEJyt5bdx5phbVPUx
-	 ztvMKwQp/mmUvYUti/P8F9sM5vQ5XhRB1CthySocCkuxaj5gQPT4p2/pcfbWviJgG4uDy
-	 2f2ynfMV8H6XZEweoXOf5J3FofH/sOQDNMyx1SXdD7kytyYN0vtLnajq4uaeqjc1i+Q==
+	bh=lerioq4d56SPhYkjt+RCN3wpafD+rha2cfoz6Qv82Dw=;
+	b=qhtzr1jeXbPY1JnfycMWGlJRgCJwXqhdcv6RmmnPgeYqXSimgnUGzl3H/Q92cik7b/tE
+	 3QF0JOdTPh9cuLPyGULOv+jwp2Iwo3ddThy5EnUsdTZVjA2Ex/bwcaWX+nh1560+nusSB
+	 5C8J9hC44hWhz4k6ZUYWM/fJcB+Q4OkQ2Pm77JxTs8M/VCboEojpVvgjNem3EXVMpGBqb
+	 TMHAwI1b4sPPKV2TUPBnv+0I8FUqXVvVr4ho3C7KkOXVaFn8TJwM5Fd0t6/G7UVhsLvmN
+	 wPgpE8pUoLET13RSY1PT7kqMs+LQytA6tE/URaZ7M9C/Lj+IEWtHEEPu7uhzhgxFmiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKN1NXPU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1Xqe5NW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 87D3D606A89C;
-	Fri, 13 Nov 2026 00:49:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A29F0606A32D;
+	Fri, 13 Nov 2026 00:49:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKN1NXPU
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D78531F000C4;
-	Fri, 13 Nov 2026 00:49:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1Xqe5NW
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 011E91F000C4;
+	Fri, 13 Nov 2026 00:49:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794530995;
-	bh=oCjlz6BygxvB+1x+d/mpEdbtUoFPvED0xyYHks2iJfw=;
+	s=k20260515; t=1794530991;
+	bh=lerioq4d56SPhYkjt+RCN3wpafD+rha2cfoz6Qv82Dw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eKN1NXPUbr2EOzDJBq+C9eQU6X11GMya/jMDSzhxW1sKDQi7seCs+gdTkNVtHys2M
-	 1iXNSBTrSLZndNDtku/2q1+E1SD/IdH4oy8dk3+rBTFTntPUywLErfUTGlpAVRrmve
-	 xR+DyAtZ5nVWJV232x6qoHW93wpnJQwqXEn6IzXOcOJp87Af16qrmLfWCJ9YG5UchI
-	 TIQe/f2Tz5QY9IotLH73yRJ8EUzBsHhN3APzDSk8FQO2hlyHWN2N/78J20QuvNvq4t
-	 OK37EXiAj0R4XLy1XONwnpxCCeHrFuFtHm9NWCMx2GTKr1Iv1Uq3eHH5yhOCEmyQIN
-	 CEpnfkRt6LoYw==
+	b=P1Xqe5NWbSN3fIZBjJ4VgjIAr/miILeoBjAdI24rAPXf8HVuPXTge+5lE6YvRLAhz
+	 WptsUqO1L9RYLD6FXE52445PGGJ4f/GM8A2T77BBFTkPJcLyKmeoZDdVj0JY0BekM6
+	 3DCrW6Imij4bb3p8Lr+BvBe6rhxqAMHdn3F+OeBXvmhDZqPzf7rnjS67HIkKafPuUn
+	 ES3X8YHcbZcjiS1RGDo0icvzW0wC3yZUFgogfvL0hskTXdIw//MQ6Z6gQ/UqkUv7Zi
+	 Je4bKFSL1YpZr+Um0IGZ3axHa8AhU/97ERqN6lBfoXlxrgBAlEAzcXRdP5M/+DiD5W
+	 KGsCQXZP1FP7A==
 From: Joel Fernandes <jfern@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	"Paul E . McKenney" <paulmck@kernel.org>,
@@ -52,12 +52,15 @@ To: linux-kernel@vger.kernel.org,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Lai Jiangshan <jiangshanlai@gmail.com>,
 	Zqiang <qiang.zhang@linux.dev>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+	Guo Ren <guoren@kernel.org>
 Cc: rcu@vger.kernel.org,
-	Yury Norov <ynorov@nvidia.com>
-Subject: [PATCH for-v7.5 3/5] rcu: assert static storage for RCU sync and SRCU definitions
-Date: Thu, 12 Nov 2026 19:49:42 -0500
-Message-ID: <20261113004946.2758197-4-jfern@kernel.org>
+	Guenter Roeck <linux@roeck-us.net>,
+	stable@vger.kernel.org,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	linux-csky@vger.kernel.org
+Subject: [PATCH for-v7.5 1/5] srcu: Select IRQ_WORK for Tiny SRCU
+Date: Thu, 12 Nov 2026 19:49:40 -0500
+Message-ID: <20261113004946.2758197-2-jfern@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261113004946.2758197-1-jfern@kernel.org>
 References: <20261113004946.2758197-1-jfern@kernel.org>
@@ -72,101 +75,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yury Norov <ynorov@nvidia.com>
+Tiny SRCU uses irq_work_queue() to start grace periods and
+irq_work_sync() to wait for pending work. However, TINY_SRCU does not
+select IRQ_WORK, so configurations that do not otherwise enable it
+fail to link with undefined references to these functions.
 
-DEFINE_RCU_SYNC() contains a statically initialized wait queue. SRCU
-static definitions similarly rely on persistent lockdep keys and, in
-Tiny SRCU, a statically initialized work item.
+Guenter reported this failure with csky tinyconfig on the 6.12 and
+6.6 stable trees. Current kernels enable IRQ_WORK indirectly through
+SLUB, but Tiny SRCU should declare its own dependency.
 
-Add ASSERT_STATIC_STORAGE() to DEFINE_RCU_SYNC(), both Tree SRCU
-__DEFINE_SRCU() variants and Tiny SRCU's common DEFINE_SRCU() declaration.
-This covers the non-static FAST and FAST_UPDOWN wrappers too. Tiny SRCU's
-explicitly static declarations already enforce the required duration.
-The existing per-CPU restrictions on Tree SRCU declarations still apply.
+Select IRQ_WORK from TINY_SRCU to ensure that its irq_work calls are
+supported independently of other configuration options.
 
-Assisted-by: OpenAI Codex
-Signed-off-by: Yury Norov <ynorov@nvidia.com>
-Reviewed-by: Joel Fernandes <jfern@kernel.org>
+Fixes: a6fc88b22bc8 ("srcu: Use irq_work to start GP in tiny SRCU")
+Reported-by: Guenter Roeck <linux@roeck-us.net>
+Closes: https://lore.kernel.org/r/49da816c-8082-46f1-bb12-f0d6187bb06a@roeck-us.net/
+Suggested-by: Guenter Roeck <linux@roeck-us.net>
+Cc: stable@vger.kernel.org
 Signed-off-by: Joel Fernandes <jfern@kernel.org>
 ---
- include/linux/rcu_sync.h | 4 +++-
- include/linux/srcutiny.h | 4 +++-
- include/linux/srcutree.h | 7 +++++--
- 3 files changed, 11 insertions(+), 4 deletions(-)
+ kernel/rcu/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/rcu_sync.h b/include/linux/rcu_sync.h
-index 3860dbb9107a..c10b6d30561a 100644
---- a/include/linux/rcu_sync.h
-+++ b/include/linux/rcu_sync.h
-@@ -10,6 +10,7 @@
- #ifndef _LINUX_RCU_SYNC_H_
- #define _LINUX_RCU_SYNC_H_
+diff --git a/kernel/rcu/Kconfig b/kernel/rcu/Kconfig
+index bc9483c0b5d8..b6d3597758fc 100644
+--- a/kernel/rcu/Kconfig
++++ b/kernel/rcu/Kconfig
+@@ -56,6 +56,7 @@ config RCU_EXPERT
+ config TINY_SRCU
+ 	bool
+ 	default y if TINY_RCU
++	select IRQ_WORK
+ 	help
+ 	  This option selects the single-CPU non-preemptible version of SRCU.
  
-+#include <linux/compiler.h>
- #include <linux/wait.h>
- #include <linux/rcupdate.h>
- 
-@@ -48,6 +49,7 @@ extern void rcu_sync_dtor(struct rcu_sync *);
- 	}
- 
- #define	DEFINE_RCU_SYNC(name)	\
--	struct rcu_sync name = __RCU_SYNC_INITIALIZER(name)
-+	struct rcu_sync name = __RCU_SYNC_INITIALIZER(name);	\
-+	ASSERT_STATIC_STORAGE(name)
- 
- #endif /* _LINUX_RCU_SYNC_H_ */
-diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
-index 47a368f945e3..82901b45c9e1 100644
---- a/include/linux/srcutiny.h
-+++ b/include/linux/srcutiny.h
-@@ -11,6 +11,7 @@
- #ifndef _LINUX_SRCU_TINY_H
- #define _LINUX_SRCU_TINY_H
- 
-+#include <linux/compiler.h>
- #include <linux/irq_work_types.h>
- #include <linux/llist.h>
- #include <linux/swait.h>
-@@ -56,7 +57,8 @@ void srcu_defer_drain(struct irq_work *irq_work);
-  * Tree SRCU, which needs some per-CPU data.
-  */
- #define DEFINE_SRCU(name) \
--	struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
-+	struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name);	\
-+	ASSERT_STATIC_STORAGE(name)
- #define DEFINE_STATIC_SRCU(name) \
- 	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
- #define DEFINE_SRCU_FAST(name) DEFINE_SRCU(name)
-diff --git a/include/linux/srcutree.h b/include/linux/srcutree.h
-index 93b76e543894..332d228da270 100644
---- a/include/linux/srcutree.h
-+++ b/include/linux/srcutree.h
-@@ -11,6 +11,7 @@
- #ifndef _LINUX_SRCU_TREE_H
- #define _LINUX_SRCU_TREE_H
- 
-+#include <linux/compiler.h>
- #include <linux/rcu_node_tree.h>
- #include <linux/completion.h>
- #include <linux/irq_work_types.h>
-@@ -228,13 +229,15 @@ struct srcu_struct {
- 								      fast);			\
- 	extern struct srcu_struct * const __srcu_struct_##name;					\
- 	struct srcu_struct * const __srcu_struct_##name						\
--		__section("___srcu_struct_ptrs") = &name
-+		__section("___srcu_struct_ptrs") = &name;					\
-+	ASSERT_STATIC_STORAGE(name)
- #else
- # define __DEFINE_SRCU(name, fast, is_static)							\
- 	static DEFINE_PER_CPU(struct srcu_data, name##_srcu_data);				\
- 	static struct srcu_usage name##_srcu_usage = __SRCU_USAGE_INIT(name##_srcu_usage);	\
- 	is_static struct srcu_struct name =							\
--		__SRCU_STRUCT_INIT(name, name##_srcu_usage, name##_srcu_data, fast)
-+		__SRCU_STRUCT_INIT(name, name##_srcu_usage, name##_srcu_data, fast);		\
-+	ASSERT_STATIC_STORAGE(name)
- #endif
- #define DEFINE_SRCU(name)		__DEFINE_SRCU(name, 0, /* !static */)
- #define DEFINE_STATIC_SRCU(name)	__DEFINE_SRCU(name, 0, static)
 -- 
 2.54.0
 
