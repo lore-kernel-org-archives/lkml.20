@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604180;
-	b=ifOkuSd2Vx50RBq2RngM7QgJtiovcfvMW1n4TqyjvPyy3vi8uXFcT0NqIheqtuRtc0/9
-	 u4EbDnGJHYQAEhkM0mMmV/fveYzlX+nFSMT1dyXcJCzLovXsNhLYHjO4l1z3MCWPDo7xH
-	 FhoSWfgT/TdFsqqb5QnnHmb8iqqoxwWl/C5aB8DnGDk/8AvWCMzap7M/OFuE4fRqtxr4t
-	 umOE1bbhcnB5TXlSM0/0e8exd8Ltt+vEF+InJZmNbuxGCp08klmYPMPgfxIhob8m6ux3w
-	 WSjyQRkLl33xUBh0dCJhj/Vcf7Q+yxL6d/TESquP6boz/jEvBcxybQ5OpJMgyfppYhw==
+	t=1794604185;
+	b=qqiX6OtXUZFRkQ/aHukpB+MJEeCaD0dc9fzedtG0ENYQoCf549UkT8b4DceOXDa2TG9i
+	 evZj7DrpEIr04fTM2SX7abHC9M0HSiUhWXRrJgUVnOYMvMBZEEeJmo3A6Uvc25Pm/5nx2
+	 V8IcKO8eIkHOD9Bfo/7SAerU78ZrP2Zm80Y4Roe1MEUfCpie58BwGoGLQfYw8KUb8q7Z7
+	 v2UPpngWTPcemg/hLh2fqBXRoOyrUj96Lgto+v6kx9O/VelxwyuBK7j4kjYf8rvNTVvPB
+	 m0HP1bmAJm0sv82c9o3l3s0hCCnb7ahYNGzvjs1vnPBfokQjvIGUuHw2u4u7H4VX3Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604180;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604185;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=na/fJsUdW+mes1yfquIAN33haTssK3Libt6DITWW/a4=;
-	b=E3s+EQIHeuHwry2E0N0tXS2tzmnWNYPlMyp4WaYuVcdGq18b1ckDEOXXY7E/MniKjSbQ
-	 yN7QiZ6OjuL40pp3g7XPwnWe1KLhCB2FtJ5g6b37ToqhsxQa26QT5AXWmgVhmvcedBrID
-	 XONeU1BVI3FSm7VZas8FErQZRZHM3c55aJgb0Xd2IQbkBXhF3UfKej3AEm7w08kgBXdGI
-	 qFxHLMiJeq8ZtrbuELsivZ7DQ68KZciRG3iY9AI4E3sO+IrZlYpOQjWuFdDlMtgPGqy9S
-	 g6Vvu/uHNCcHwSaBqttQPVBR2uOUuUSjpjnz232wvcaKfMMfmoyyggLPQwuSa/1U8HA==
+	bh=QBdgOJlsLt8Qt2YLb95EyOEaypO8pVHtrEH3jnavKt0=;
+	b=scodVOC7W/nd7GwDu8BYPMRDx71l+4r5PVHiMte6Smc5sykKwDLN3E4Aq3qaLuV9TdVy
+	 Lg9ed9O3VSajrN2HkmKKNC9rzR+KY0priLZjTjtlm/w9sLvNweomCBC0XX4EjtJl8R9S6
+	 Z7jMVjRLIbSgsvgcq7EpEyBvM170Vj7CeOFJRD1P2HDhahmw58FGhWIDXjRgN98syy4ai
+	 EklRlinaeT2c5GvDnfBrzk51MYhiZoHp7CcthVclfSfuzOf+65ej8uPaCbV/7y3II7Mdf
+	 osX/JYd9onFa2uBg/n9b2yHq/cnewbxMyCF8WXv1Yrf0ISUbCzJdIAcPFesEGaBCfEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M6rJy8aT;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=f5G+K8mu;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A81760A381D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:09:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A81760A381D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB8260A6F52
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:09:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CB8260A6F52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M6rJy8aT
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso1717536c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:09:39 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=f5G+K8mu
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1b3ada81853so1368453c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:09:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794604178; x=1795208978; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794604184; x=1795208984; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=na/fJsUdW+mes1yfquIAN33haTssK3Libt6DITWW/a4=;
-        b=M6rJy8aTnb0136QVcRJMq2NZC9EtA9pIfx1kaH/gyLpesPtwcNeh6eANAzQJ6k05DS
-         yiue/YfbIgSWxLDT989qg3QQ43xXL55q0hCUFQpeYYSmC/LpCWrknE4XnAMDIaauNLXm
-         Nb1XGgG5YwPUvvg5hxG/yrUE7Ve/kZU7HQ0Yw=
+        bh=QBdgOJlsLt8Qt2YLb95EyOEaypO8pVHtrEH3jnavKt0=;
+        b=f5G+K8muPvFutbfJr6R332HD1ROW1xYUUgwMqGlJG5sdS8n521EAX9bb7/fEpuROB8
+         eNUbtmskhwKN9TVqqp2dJSUilyYGIHhpsJxhJDNg8bjAH888Nnj8sTfSQWKWG+KtwyCH
+         5yt/NdJ8FyoTKKXpWUSAhC/Q3ZjHTzz8lquGI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794604178; x=1795208978;
+        d=1e100.net; s=20260707; t=1794604184; x=1795208984;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=na/fJsUdW+mes1yfquIAN33haTssK3Libt6DITWW/a4=;
-        b=fE77i0BITN0slL2Z06cf5IVNJxH7WHXGoJCh8vS4b+1C/SXoA74gYjIBvJrC57FVY1
-         1Q1GLzYz3LgFUVurMziZewfvpPD3zxwhfDtLyM3wbkmRf+Xcf+V2oELIDzNO4uteT/T8
-         iUnTntCdfHlCw1z4/7apFweV+HYlj9mw5aldhfqtrWayYZecoMK6LqXIiVxoLM4Ra1xf
-         jTfAFhNqX2Rum7lNO8sY9dWFQUKdA/tJghfhsE60YmIKAx6LfRJuymUUPsV9PTaf4xeK
-         YtdJrHG8DgofUdZDY7n2LVwKcHMTo1R2y5xLt+lM1LpGsdHSSe68DQki6vrjTag/hGMT
-         pxJA==
-X-Forwarded-Encrypted: i=1; AL+hErE9HElu6lvsuo6lPZh2tcvctM89Y73g6E8xAWzS6J+6cdkrU7EuDrWFk9Y373jZ8oLCL0TunH8QIcBkMss=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JmRVkfxbMfkut+rGB8QNnKmv67Z5JNkNBCAfRK6Lo+2gGGrR4
-	yWx7zRVJ3tZ2My1cAXbysT7SPXQDob0wZjN/W7KU4t8m9JHNhZ4jgvJNrexYA6/fWg==
-X-Gm-Gg: AYBFou0Zb4kHUU9URrEjkBbylMRfVpFA1YN1GU3wA4DviG7GWsso16is3uW3doRZ56U
-	yrOCeiKIC8SYVH2cMwoViCP9o6JJFZAeui4MmZNbh1qvAJUDLvFqyyfa+EMMpB2E/NoRiND4nsM
-	ZLv2qHxo8CmjyxTjusz3m41BrKXlOfPJBFFCJGOWWau0LbvCkSZ6c+ZQQPxW7mLd2LgRpRokWX+
-	HCGc2mwIFbqJgj/ck5K6VkoU9vAzpfLN1Goh4cZjgialcozF3lgQLlHXKpZ24H6DRlchxuTPjzK
-	LcU2oaGQd2Qx6I/OU0t0LBlMNIxR8t1SqD5yoFyqyy5ekKiSFGgHSuRYgAIjXtZQ5EKXvWKxj/I
-	La9QbSqLrogfmlvMjOkQTu7U9goIlEp4D6FUJNNnmOE2uG9u/NTYjCASmK08Z3p6so2FN6Dmnxo
-	VKcIWfjn2iDokgs86/maI9IJT+BnwwTg18R7agqFQ2mlfBaRWqPEo3tmGCB89zkUwlgEuPlFOlR
-	nsIuWgPQcNydIL3HG06mnqY9bpty5VtzTv9CIEvGUstPSd4yiI+j+QzJqMpPKU5uDdkvQ/CosJa
-	1JYh5mYU424OdH3DdfGwhW+BzpSYSLYITjrF9ujwD6F5oG/49MV19uyknEoOehirK6YULhV5OKJ
-	siR02KlPPt/NC
-X-Received: by 2002:a05:7022:1701:b0:1b3:a05f:892d with SMTP id a92af1059eb24-1b5030ee9b7mr3024887c88.40.1794604178303;
-        Fri, 13 Nov 2026 13:09:38 -0800 (PST)
+        bh=QBdgOJlsLt8Qt2YLb95EyOEaypO8pVHtrEH3jnavKt0=;
+        b=WsXwYPDFRGCKZbnh7NgU06dicLdrpHFfVVab3i6ftrpY9njveN7tKr5bO5QoPs+qwC
+         SclQPfGU70eoeudqhU7HcahHTHAf9fxcMs1rB2Mm7Ri0mFu7lPSzYXscqx/zUYluLHzS
+         HWFS1XBhNMmvgAczMVs54LoaMw7zyUSNc2TCWiXJqihHb0k9rLfEugBU0YCk5wdpsfKE
+         ieFg8C7FGfOM/12Rp8KIn3AZfdYbOB5E/47mT6G0aoKQjLjRuytFPznfOJhkAmdp8hxE
+         rdWwjLA5hFwqsg67+yK2xxwS0HiZPrQfERJjr+I4kuxm8joMKODDD4pFt77Z6IebFQoz
+         VzxQ==
+X-Forwarded-Encrypted: i=1; AL+hErGR3l1eV4AjLfxzGUfn80jFJB9NFNLfyMkB7HsCiRcCRjqXAvB0yrpETj5oDNd/1QC9EZUaUg/Pyao2WAI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/m8WFGfBdoHx9OB6rpFsfbSBb4ppyEyO8SkjYQeT2f0bWCOOkK
+	NNaIn4ur0rl7oJ2ezqWQJkLeZV0Opnt2AArvVqj2l8UNFVUseR6wSEyE9WXrJjZLSw==
+X-Gm-Gg: AYBFou23Ye6Fv4jHOHn7tL4ag+bBInFI9as+67tQrEGx6HKT9K3TZIUqqg8/lYOrPh3
+	PyUgoW8KpT2RjK1hnHUIyiSyaidNsUkAggpK87kRHtS1btJ3MqIWwSscjCVgCcYBC1aDGcTWURM
+	eIXLhoBmUtkb3hfffUiMRDHJNTKoN6j+YN6TgcGB7ERVot7qC9xmNYOr4FkpPPzi/XeELqd0NDH
+	GCgW2KxXsBwpikyhzTJCCwvfMjUUfNRR6t5b0ZO4NhF3EUE/kw4AXVoWTUU9koR2SnfqQUJxiwZ
+	wV1Tm2pN3SjpkcGioO0hWUYvhMuXs9T+Xe6e6DVHgDpyBFgn5LvGrIn5ftT2UCkkknEAMH0R5a6
+	olk9FrTE0/BxvlTe3iS9Gj7FDyr62cRrDmnAjPO0nPGWuy/cUUAVMh0RntNHh9Btl5Zt1nHlb+b
+	/hqM7PG5kGXhSrifF0OpIPjps6qHFFFkKjIhjCKT3lKhGpJDT+3KW+Tqfk5X3MJBoLscNul5rb9
+	NXzqV5malTl4Qj5+K/K8/dh+Md42uKvhTXbIpHB9g/OXyw21LImvY03gHjx82055xftOFWGTtb9
+	x8wli8ggZ4mtreRJReWV0WNYZ3oHTqLd2zDXYue8qqgKMrbF5RAi7mM03J9U6CWVT+vJgFu2DDr
+	W/gvOE7l3x54Lv6KL4ITIiT/QAk/uMF6/7A==
+X-Received: by 2002:a05:7022:408d:b0:1b2:42db:8a54 with SMTP id a92af1059eb24-1b50310591dmr3354209c88.23.1794604184477;
+        Fri, 13 Nov 2026 13:09:44 -0800 (PST)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:38c:b779:3be9:e682])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm8463040c88.0.2026.11.13.13.09.34
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm8463040c88.0.2026.11.13.13.09.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 13:09:36 -0800 (PST)
+        Fri, 13 Nov 2026 13:09:42 -0800 (PST)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -101,24 +101,13 @@ Cc: linux-arm-msm@vger.kernel.org,
 	Saravana Kannan <saravanak@kernel.org>,
 	Brian Norris <briannorris@chromium.org>,
 	Douglas Anderson <dianders@chromium.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Manuel Ebner <manuelebnerli@mailbox.org>,
-	Marco Elver <elver@google.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Rong Xu <xur@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	workflows@vger.kernel.org
-Subject: [RFC PATCH v2 3/5] kbuild: fit: Add opt-in FIT_FACTOR_DTBS support using fdtfactor
-Date: Fri, 13 Nov 2026 13:09:12 -0800
-Message-ID: <20261113130858.RFC.v2.3.I4a691041bb6d31e5ab2fde8cd4139ca72ee72c5b@changeid>
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	cros-qcom-dts-watchers@chromium.org,
+	devicetree@vger.kernel.org
+Subject: [RFC PATCH v2 5/5] arm64: dts: qcom: sc7180: Add sc7180-trogdor.fitconfig FIT config file
+Date: Fri, 13 Nov 2026 13:09:14 -0800
+Message-ID: <20261113130858.RFC.v2.5.I1683fb18dd1cb29680af5efb2c2d3c3f539af0f4@changeid>
 X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
 In-Reply-To: <20261113210918.356261-1-dianders@chromium.org>
 References: <20261113210918.356261-1-dianders@chromium.org>
@@ -133,169 +122,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When packaging many board DTBs from the same SoC family into a FIT
-image, full per-board `.dtb` blobs duplicate the vast majority of the
-SoC and board-family device tree across every FDT node in `/images`.
-Because each FDT blob in a FIT image is compressed independently,
-standard per-node compression cannot deduplicate those repeated common
-nodes across boards. Factoring the common nodes into a shared base DTB
-and small per-board `.dtbo` overlays yields substantial space savings
-(for example, reducing the 47 LZ4-compressed `sc7180-trogdor` DTBs from
-1.71 MB to 213 KB, an 87.5% reduction). In addition, some bootloaders
-(such as the Pixel 10 bootloader) specifically require a shared base DTB
-plus per-board `.dtbo` overlays rather than monolithic per-board DTBs.
+Add a FIT configuration file (`sc7180-trogdor.fitconfig`) listing the
+SC7180 Trogdor family board DTBs, allowing the LZ4-compressed Trogdor
+FIT image to be built with:
 
-Add opt-in support for factoring the DTBs inside a compiled FIT image
-into shared base DTBs and per-board overlays using `fdtfactor` (from the
-upstream `dtc` project [1]) when `FIT_FACTOR_DTBS=1` is passed to make:
+  make \
+    FIT_CONFIG=qcom/sc7180-trogdor.fitconfig \
+    FIT_COMPRESSION=lz4 \
+    FIT_FACTOR_DTBS=1 \
+    image.fit
 
-- When `FIT_FACTOR_DTBS` is set, pass `-@ -L` to `dtc` for the DTBs
-  included in the FIT image so they retain `/__symbols__` and
-  `/__local_fixups__` metadata needed for factoring.
-- Run `$(FDTFACTOR) $(FDTFACTOR_ARGS) -F $@` (with `FDTFACTOR_ARGS`
-  defaulting to `--strip-local-fixups`) at the end of `cmd_fit` when
-  `FIT_FACTOR_DTBS` is set. `fdtfactor` transparently handles both
-  uncompressed and compressed (e.g. `gzip`, `lz4`, `xz`) FDT image nodes
-  inside the FIT.
-
-Because `fdtfactor` is a Python tool that depends on `pylibfdt` (similar
-to `scripts/make_fit.py` itself) and Kbuild does not build `pylibfdt`
-from `scripts/dtc/`, `fdtfactor` (along with a matching `pylibfdt`) is
-an optional external host dependency documented in
-`Documentation/process/changes.rst` and
-`Documentation/kbuild/kbuild.rst`.
-
-[1] https://lore.kernel.org/r/20261101220224.1436242-1-dianders@chromium.org
+Having an in-tree `.fitconfig` configuration file for Trogdor produces a
+FIT image matching what downstream ChromeOS build scripts
+programmatically generate, makes it easy to use `fdtfactor` on the
+Trogdor kernel image, serves as a template for future Chromebooks (which
+could encode board/SKU matching metadata in configuration match subnodes
+rather than combinatorial `compatible` strings), and helps community
+users building upstream kernels for `sc7180-trogdor` devices.
 
 Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
-This patch obviously could only land if some form of the `fdtfactor`
-series [1] lands in upstream `dtc`. While `fdtfactor` itself will remain
-an external host dependency (since it relies on `pylibfdt`), we will
-still want to sync the `libfdt` overlay `/__local_fixups__` changes from
-that series into `scripts/dtc/libfdt/` before landing this patch so
-composite DTBs built by Kbuild with `fdtoverlay` retain full
-`/__local_fixups__` metadata.
-
-If people hate this patch, we could certainly just run `fdtfactor`
-after the kernel build finishes.
+As mentioned in the cover letter, there is no desperate need to land
+this. If it's controversial or people hate it then it's fine not to
+land it.
 
 Changes in v2:
-- Update fdtfactor invocation for v2+ flags (-v -> -s, -f -> -F)
-- Expand commit message and notes to explain why FIT_FACTOR_DTBS is
-  needed, that fdtfactor is an external host dependency, and that
-  compressed DTBs in the FIT are supported (Simon Glass)
-- Document the optional fdtfactor dependency and FIT_FACTOR_DTBS /
-  FDTFACTOR / FDTFACTOR_ARGS in Documentation/process/changes.rst,
-  Documentation/kbuild/kbuild.rst, and arm64 'make help' (Simon Glass)
+- Replace 728-line sc7180-trogdor.its with a 49-line
+  sc7180-trogdor.fitconfig sidecar file consumed by scripts/make_fit.py
+  (Simon Glass)
+- Move motivation for sc7180-trogdor from commit notes into the commit
+  message body (Simon Glass)
 
- Documentation/kbuild/kbuild.rst   | 14 ++++++++++++++
- Documentation/process/changes.rst | 10 ++++++++++
- arch/arm64/Makefile               |  2 +-
- scripts/Makefile.dtbs             |  8 ++++++++
- scripts/Makefile.lib              |  7 ++++++-
- 5 files changed, 39 insertions(+), 2 deletions(-)
+ .../boot/dts/qcom/sc7180-trogdor.fitconfig    | 49 +++++++++++++++++++
+ 1 file changed, 49 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sc7180-trogdor.fitconfig
 
-diff --git a/Documentation/kbuild/kbuild.rst b/Documentation/kbuild/kbuild.rst
-index 80cac4c432e4..4271883bc10e 100644
---- a/Documentation/kbuild/kbuild.rst
-+++ b/Documentation/kbuild/kbuild.rst
-@@ -383,3 +383,17 @@ Path to a ``.fitconfig`` configuration file (relative to ``$(srctree)`` or
- ``arch/$(SRCARCH)/boot/dts/``) selecting which DTBs to build and include in
- ``image.fit`` and optionally setting properties or subnodes on each
- ``/configurations/conf-N`` node.
+diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.fitconfig b/arch/arm64/boot/dts/qcom/sc7180-trogdor.fitconfig
+new file mode 100644
+index 000000000000..5a7be0035001
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.fitconfig
+@@ -0,0 +1,49 @@
++# SPDX-License-Identifier: (GPL-2.0-or-later OR MIT)
 +
-+FIT_FACTOR_DTBS
-+---------------
-+If set to a non-empty value when building ``image.fit``, compile the included
-+DTBs with ``-@ -L`` and run ``fdtfactor`` to factor common device tree nodes
-+into shared base DTBs and per-board ``.dtbo`` overlays inside the FIT.
-+Requires the external ``fdtfactor`` tool (and ``pylibfdt``) from the upstream
-+``dtc`` project.
-+
-+FDTFACTOR, FDTFACTOR_ARGS
-+-------------------------
-+The ``fdtfactor`` program and extra arguments used when ``FIT_FACTOR_DTBS`` is
-+set. ``FDTFACTOR`` defaults to ``fdtfactor`` and ``FDTFACTOR_ARGS`` defaults
-+to ``--strip-local-fixups``.
-diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
-index 28f2ca63318e..f9b2a35ddc45 100644
---- a/Documentation/process/changes.rst
-+++ b/Documentation/process/changes.rst
-@@ -201,6 +201,16 @@ platforms. The tool is available via the ``u-boot-tools`` package or can be
- built from the U-Boot source code. See the instructions at
- https://docs.u-boot.org/en/latest/build/tools.html#building-tools-for-linux
- 
-+fdtfactor (optional)
-+--------------------
-+
-+This tool (along with ``pylibfdt`` from the same ``dtc`` release) is used when
-+building a Flat Image Tree (FIT) with ``FIT_FACTOR_DTBS=1`` to factor common
-+device tree nodes across boards into shared base DTBs and per-board overlays;
-+see ``FIT_FACTOR_DTBS`` in Documentation/kbuild/kbuild.rst. It is part of the
-+upstream ``dtc`` project at
-+https://git.kernel.org/pub/scm/utils/dtc/dtc.git
-+
- GNU AWK
- -------
- 
-diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-index b4982e94f80a..f12f4f7c6a02 100644
---- a/arch/arm64/Makefile
-+++ b/arch/arm64/Makefile
-@@ -224,7 +224,7 @@ define archhelp
-   echo  '  Image         - Uncompressed kernel image (arch/$(ARCH)/boot/Image)'
-   echo  '  image.fit     - Flat Image Tree (arch/$(ARCH)/boot/image.fit)'
-   echo  '                  Configured by FIT_COMPRESSION, FIT_DECOMPOSE_DTBS,'
--  echo  '                  and FIT_CONFIG'
-+  echo  '                  FIT_CONFIG, FIT_FACTOR_DTBS, and FDTFACTOR_ARGS'
-   echo  '  install       - Install kernel (compressed if COMPRESSED_INSTALL set)'
-   echo  '  zinstall      - Install compressed kernel'
-   echo  '                  Install using (your) ~/bin/installkernel or'
-diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
-index cc14fc905ea3..bc0c62617a7c 100644
---- a/scripts/Makefile.dtbs
-+++ b/scripts/Makefile.dtbs
-@@ -126,6 +126,14 @@ DTC_FLAGS += -Wnode_name_chars_strict \
-              -Wunique_unit_address
- endif
- 
-+# When FIT_FACTOR_DTBS is set, pass -@ -L to dtc so the built DTBs retain the
-+# /__symbols__ and /__local_fixups__ nodes required by fdtfactor.
-+ifneq ($(FIT_FACTOR_DTBS),)
-+ifneq ($(filter arch/$(SRCARCH)/boot/dts%, $(obj)),)
-+DTC_FLAGS += -@ -L
-+endif
-+endif
-+
- DTC_FLAGS += $(DTC_FLAGS_$(target-stem))
- 
- # Set -@ if the target is a base DTB that overlay is applied onto
-diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
-index e08e35d4ed74..af2d3e508424 100644
---- a/scripts/Makefile.lib
-+++ b/scripts/Makefile.lib
-@@ -418,6 +418,9 @@ quiet_cmd_uimage = UIMAGE  $@
- # ---------------------------------------------------------------------------
- 
- MAKE_FIT := $(srctree)/scripts/make_fit.py
-+# External fdtfactor tool from upstream dtc (requires matching pylibfdt)
-+FDTFACTOR ?= fdtfactor
-+FDTFACTOR_ARGS ?= --strip-local-fixups
- 
- # Use this to override the compression algorithm
- FIT_COMPRESSION ?= gzip
-@@ -428,7 +431,9 @@ quiet_cmd_fit = FIT     $@
- 		$(if $(findstring 1,$(KBUILD_VERBOSE)),-v) \
- 		$(if $(FIT_DECOMPOSE_DTBS),--decompose-dtbs) \
- 		$(if $(FIT_CONFIG_FILE),--config $(FIT_CONFIG_FILE)) \
--		--compress $(FIT_COMPRESSION) -k $< @$(word 2,$^)
-+		--compress $(FIT_COMPRESSION) -k $< @$(word 2,$^) \
-+		$(if $(FIT_FACTOR_DTBS),&& $(FDTFACTOR) $(FDTFACTOR_ARGS) \
-+			$(if $(findstring 1,$(KBUILD_VERBOSE)),-s) -F $@)
- 
- # If FIT_CONFIG is specified on the command line (either relative to $(srctree)
- # or relative to arch/$(SRCARCH)/boot/dts/), locate that file and extract the
++[sc7180-trogdor-coachz-r1-lte.dtb]
++[sc7180-trogdor-coachz-r1.dtb]
++[sc7180-trogdor-coachz-r3-lte.dtb]
++[sc7180-trogdor-coachz-r3.dtb]
++[sc7180-trogdor-homestar-r2.dtb]
++[sc7180-trogdor-homestar-r3.dtb]
++[sc7180-trogdor-homestar-r4.dtb]
++[sc7180-trogdor-kingoftown.dtb]
++[sc7180-trogdor-lazor-limozeen-nots-r10.dtb]
++[sc7180-trogdor-lazor-limozeen-nots-r4.dtb]
++[sc7180-trogdor-lazor-limozeen-nots-r5.dtb]
++[sc7180-trogdor-lazor-limozeen-nots-r9.dtb]
++[sc7180-trogdor-lazor-limozeen-r10.dtb]
++[sc7180-trogdor-lazor-limozeen-r4.dtb]
++[sc7180-trogdor-lazor-limozeen-r9.dtb]
++[sc7180-trogdor-lazor-r1-kb.dtb]
++[sc7180-trogdor-lazor-r1-lte.dtb]
++[sc7180-trogdor-lazor-r1.dtb]
++[sc7180-trogdor-lazor-r10-kb.dtb]
++[sc7180-trogdor-lazor-r10-lte.dtb]
++[sc7180-trogdor-lazor-r10.dtb]
++[sc7180-trogdor-lazor-r3-kb.dtb]
++[sc7180-trogdor-lazor-r3-lte.dtb]
++[sc7180-trogdor-lazor-r3.dtb]
++[sc7180-trogdor-lazor-r9-kb.dtb]
++[sc7180-trogdor-lazor-r9-lte.dtb]
++[sc7180-trogdor-lazor-r9.dtb]
++[sc7180-trogdor-pazquel-lte-parade.dtb]
++[sc7180-trogdor-pazquel-lte-ti.dtb]
++[sc7180-trogdor-pazquel-parade.dtb]
++[sc7180-trogdor-pazquel-ti.dtb]
++[sc7180-trogdor-pazquel360-lte.dtb]
++[sc7180-trogdor-pazquel360-wifi.dtb]
++[sc7180-trogdor-pompom-r1-lte.dtb]
++[sc7180-trogdor-pompom-r1.dtb]
++[sc7180-trogdor-pompom-r2-lte.dtb]
++[sc7180-trogdor-pompom-r2.dtb]
++[sc7180-trogdor-pompom-r3-lte.dtb]
++[sc7180-trogdor-pompom-r3.dtb]
++[sc7180-trogdor-quackingstick-r0-lte.dtb]
++[sc7180-trogdor-quackingstick-r0.dtb]
++[sc7180-trogdor-r1-lte.dtb]
++[sc7180-trogdor-r1.dtb]
++[sc7180-trogdor-wormdingler-rev1-boe-rt5682s.dtb]
++[sc7180-trogdor-wormdingler-rev1-boe.dtb]
++[sc7180-trogdor-wormdingler-rev1-inx-rt5682s.dtb]
++[sc7180-trogdor-wormdingler-rev1-inx.dtb]
 -- 
 2.56.0.611.g1030f0b940-goog
 
