@@ -1,51 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794572998;
-	b=rWpLdPVXDmf7mt2PdYt3FpVAw5qMnUgnvg90vQRffjhuHJqO+3XesOdCAjoi/9v6Eb6r
-	 HIBtei5a7ghDCOT7+86IJ6hDtLwzcYl8FIgCPmxBg8BmJKokvGrurQznTi+SBw85aAeRk
-	 f8hTA3znSSg/hY5fLSiNoMn4G8Dssci5YIGuRIfJ39+fQZe6WYyVmwb0ReTLXvcQSZqB/
-	 vSd3eoT4r4s8uf5Of5VfP4myHl3BYZXXW32UfJwcXThT38Wwmx4LY+8exKAp2HMmEK8za
-	 U3gWFLNXN1R2BCGP/XWi2RkboHcQeHZjtmX/aoYaECjThBxIp8ccCpxtHVcs5SPZcsw==
+	t=1794573023;
+	b=Wz7nc2sXX8CI1mmAvPE10q0eTJDrgRyIEyAGbooJmhzs7AdU6MXLG5PO+laXk80iRdjM
+	 h0mkIIDREEqAnjfsIjtrSOIieteWyNAWpGOhd236UgTmlhXywH/j2+iVd6SHcsA5kD/BC
+	 Bw1oyI6AaQKEKQWqWS+7s9DhAbHczitzV1astY40F/YrKaeLODcXL3Zp9XlF1fJSi1Skv
+	 +q4aPLZLbW8D656ZJCT2CQX9BPjjUaYFMCnb1ngUK9/uXZmzrF1hwjtgwoYQ/BUa7VZQ+
+	 JR+x9jEGqyPh4oZUXgDrqNzPQC4/Z+SA7vtNetw/KDnHt3P7tKAmQL9sgEXK5612KvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794572998;
-	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
-	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
-	 X-CM-CTRLMSGS:Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:
-	 X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=duNIM9HGfvspvuiWba9Yeb5kmhBiKGBPCRhvoS0YCQA=;
-	b=nJI5lqleCfx5nYtSrXzWNsNbFINa/XdIv5o2x9vVJKaItUaPdwzvGZ2itZ1htHDja6k3
-	 sTAHTrPxTRCNf14gysE6+bVj/HHOY2lRF8scFkfQPB8ifSTTtaUAFrvHPRLf/xmy9kTy3
-	 ti43HFxl4zua5S36KoFj3PMZkgMMZ/OESoltA0wYb/g55HkDqBBzKmL/hnIgMM1imfXNe
-	 JhJczOzbdpRaF37z2M4KZD+62lfHs+SEz8Lbt+V8UAwoClwzemdlV0uyWhpwfp5GIrUDJ
-	 ngOKho3Mkv/TKHKz4gmPAMFIoGCeEo5cK9s6z3KQUC3ySrnlR53QN+ENqHTU6QlT5Zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794573023;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=RkX3VfR05BxrzQbq1XaXLMfZfvaHoz6IntLK4tOCxkU=;
+	b=BRsvgsLZlsKi7qqCOPPuGcAN0mwdskZAibPQ6qwiwFa42v/hr1fX0Fufs3bnkyGuN/jT
+	 VVgkUUx6CYXrKw+h5+na72q5Kd1IRI/7uuM3ap0OVwZf8Kzg0kCf3QrLH3Ae5jxqkZHqU
+	 atVpHJ2KAvqPFPusaHDxmQ3MhX8uA3wrTHasf63dbCf1xALC61fNKBOQou0uc6856wt+K
+	 BkPYLrwuWf3VyFE86oHnYiIK6tS+NjREhklE2tRTT3VSo+rltLsdKObH3LvxDmhwFA2kX
+	 /9Xg5QsAdMtx6Zi0byU2v1762/uoMYxn521bTELq7+YqL18arr2EyCUq/MvIKO2D9yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=13.75.44.102
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 56A5B606A31C;
-	Fri, 13 Nov 2026 12:29:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56A5B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app1
- (Coremail) ; Fri, 13 Nov 2026 20:29:53 +0800 (GMT+08:00)
-Date: Fri, 13 Nov 2026 20:29:53 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-To: perex@perex.cz, tiwai@suse.com
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: ALSA: usb-audio: us144mkii: queued stop_pcm_work calls
-  snd_pcm_stop() after PCM close and dereferences NULL runtime
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
- 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
-In-Reply-To: <2026102727-data-sequel-ce41@gregkh>
-References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
- <2026102727-data-sequel-ce41@gregkh>
-X-CM-CTRLMSGS: =?B?0RI5RjiH6nJ5xwDR7hwMki1N8jM=
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_522742_1033163319.1794572993764"
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=l3S3DmwO;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1C93A606A323;
+	Fri, 13 Nov 2026 12:30:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C93A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=l3S3DmwO
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6679C1476;
+	Fri, 13 Nov 2026 04:30:18 -0800 (PST)
+Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 985783F673;
+	Fri, 13 Nov 2026 04:30:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794573021; bh=6gCbIXB4WvWRw2fuDrRJQketiWkBvHhiXOVM5v1tBJw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=l3S3DmwO6bZ9s6zSIIMLpWQxThcmmZlS/N0WB2S+AiJIu1eJ8QZ4dRaW2NZKzU7qB
+	 7tWeKkAX/8FeOt9GhtIIbw7o1S4T5zlhBXxBUV/ey4U26ZwpiJhX4Ul78geupt6QnW
+	 Nvv3rMXP8WDPsUsi2ymxpo5QGnH52SCbdsdB3ra4=
+Message-ID: <e274493b-0774-423e-a7e0-bd2c59333d93@arm.com>
+Date: Fri, 13 Nov 2026 12:30:13 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,369 +53,1012 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <6891aa7d.26365.1a1d4e2c4e4.Coremail.xuhx@hust.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:IAEQrMAm72rBAvdqTRdHAA--.13417W
-X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAQQKB2r15u2BsQACsu
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
-
-------=_Part_522742_1033163319.1794572993764
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH AUTOSEL 6.12 486/486] kernfs: Use RCU to access
+ kernfs_node::parent.
+To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Tejun Heo <tj@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, reinette.chatre@intel.com,
+ tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, rafael@kernel.org,
+ dakr@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, ast@kernel.org,
+ daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+ shuah@kernel.org, jolsa@kernel.org, alan.maguire@oracle.com,
+ cgroups@vger.kernel.org, bpf@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20250505223922.2682012-1-sashal@kernel.org>
+ <20250505223922.2682012-486-sashal@kernel.org>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20250505223922.2682012-486-sashal@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
 
-dGFzY2FtX3N0b3BfcGNtX3dvcmtfaGFuZGxlcigpIGlzIHF1ZXVlZCBieSBmZWVkYmFja191cmJf
-Y29tcGxldGUoKQphZnRlciBhIGZlZWRiYWNrIHN5bmMgbG9zcywgdGhlbiByZWFkcyB0YXNjYW0t
-PnBsYXliYWNrX3N1YnN0cmVhbSBhbmQKdGFzY2FtLT5jYXB0dXJlX3N1YnN0cmVhbSB3aXRob3V0
-IGFueSBsb2NrIGFuZCBjYWxscyBzbmRfcGNtX3N0b3AoKSBvbgp0aGVtLiAgUENNIGNsb3NlIGRv
-ZXMgbm90IGNhbmNlbCB0aGlzIHdvcmsuICBJZiBjbG9zZSBjb21wbGV0ZXMgZmlyc3QsCnNuZF9w
-Y21fZGV0YWNoX3N1YnN0cmVhbSgpIHNldHMgc3Vic3RyZWFtLT5ydW50aW1lIHRvIE5VTEwgYW5k
-IGZyZWVzIHRoZQpzbmRfcGNtX3J1bnRpbWU7IHdoZW4gdGhlIGhhbmRsZXIgcmVhY2hlcyBzbmRf
-cGNtX3N0b3AoKSwKc25kX3BjbV9wcmVfc3RvcCgpIHJlLXJlYWRzIHN1YnN0cmVhbS0+cnVudGlt
-ZSBhbmQgZGVyZWZlcmVuY2VzIHRoZSBOVUxMCnBvaW50ZXIuICBUaGlzIGlzIGEgY29uZGl0aW9u
-YWwgTlVMTC1wb2ludGVyIGRlcmVmZXJlbmNlIC8gb29wcyBvbiBhbgpvcmRpbmFyeSBQQ00gY2xv
-c2U7IGEgbmFycm93ZXIgcnVudGltZS1VQUYgd2luZG93IGlzIHRoZW9yZXRpY2FsbHkKcG9zc2li
-bGUgYnV0IHdhcyBub3QgcmVwcm9kdWNlZCwgc28gdGhpcyByZXBvcnQgZG9lcyBub3QgY2xhaW0g
-VUFGLgpUaGUgaGFuZGxlciBhbHNvIHZpb2xhdGVzIHRoZSBBTFNBIGNvbnZlbnRpb24gdGhhdCBz
-bmRfcGNtX2FjdGlvbigpCm11c3QgYmUgY2FsbGVkIHdpdGggdGhlIFBDTSBzdHJlYW0gbG9jayBo
-ZWxkLgoKVGhlIGRldGFpbGVkIGRlc2NyaXB0aW9uOgoKKiBUZXN0IGVudmlyb25tZW50IC8gYWZm
-ZWN0ZWQgdmVyc2lvbgoKICBMaW51eCA3LjMuMCBzb3VyY2UgdHJlZSAoVkVSU0lPTj03LCBQQVRD
-SExFVkVMPTMsIFNVQkxFVkVMPTApLAogIHNvdW5kL3VzYi91c3gyeS91czE0NG1raWlfcGxheWJh
-Y2suYywgdXMxNDRta2lpX3BjbS5jIGFuZAogIHVzMTQ0bWtpaS5oLiAgVGhlIGRyaXZlciBiaW5k
-cyB0aGUgVEFTQ0FNIFVTLTE0NE1LSUkgKDA2NDQ6ODAyMCkgYW5kCiAgVVMtMTQ0ICgwNjQ0Ojgw
-MGYpLiAgVGhlIHJlbGV2YW50IGNvbmZpZ3VyYXRpb24gaXMKICBDT05GSUdfU05EX1VTQl9VUzE0
-NE1LSUk9bS4KCiAgVGhpcyByZXBvcnQgaXMgYmFzZWQgb24gc291cmNlIGluc3BlY3Rpb24sIHBs
-dXMgYSBzeW50aGV0aWMgQUxTQSBQQ00KICBtb2RlbCB1c2VkIHRvIHZhbGlkYXRlIHRoZSBjbG9z
-ZS9kZXRhY2ggb3JkZXJpbmcuICBJIGhhdmUgbm90IHJ1biB0aGUKICByZWFsIGRyaXZlciBvbiBU
-QVNDQU0gaGFyZHdhcmU7IG5vIHJlYWwtaGFyZHdhcmUgcmVzdWx0IGlzIGNsYWltZWQuCiAgVGhl
-IGF0dGFjaGVkIFBPQyBpcyB0aGF0IHN5bnRoZXRpYy1vcmRlcmluZyBtb2RlbCwgbm90IGEgVEFT
-Q0FNCiAgaGFyZHdhcmUgcmVwcm9kdWNlci4KCiogTWVjaGFuaXNtCgogIDEuIFRoZSB3b3JrIGlz
-IHF1ZXVlZCBvbiBmZWVkYmFjayBzeW5jIGxvc3M6CgogICAgICAgICAgICAgaWYgKHRhc2NhbS0+
-ZmVlZGJhY2tfc3luY2VkKSB7CiAgICAgICAgICAgICAgICAgICAgIHRhc2NhbS0+ZmVlZGJhY2tf
-Y29uc2VjdXRpdmVfZXJyb3JzKys7CiAgICAgICAgICAgICAgICAgICAgIGlmICh0YXNjYW0tPmZl
-ZWRiYWNrX2NvbnNlY3V0aXZlX2Vycm9ycyA+CiAgICAgICAgICAgICAgICAgICAgICAgICBGRUVE
-QkFDS19TWU5DX0xPU1NfVEhSRVNIT0xEKSB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ZGV2X2Vycih0YXNjYW0tPmNhcmQtPmRldiwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICJGYXRhbDogRmVlZGJhY2sgc3luYyBsb3N0LiBTdG9wcGluZyBzdHJlYW0uXG4iKTsK
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzY2hlZHVsZV93b3JrKCZ0YXNjYW0tPnN0b3Bf
-cGNtX3dvcmspOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRhc2NhbS0+ZmVlZGJhY2tf
-c3luY2VkID0gZmFsc2U7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7CiAgICAg
-ICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgIH0KCiAgICAgKHVzMTQ0bWtpaV9wbGF5YmFj
-ay5jOjM0Ny0zNTYpLiAgRkVFREJBQ0tfU1lOQ19MT1NTX1RIUkVTSE9MRCBpcwogICAgIDQxICh1
-czE0NG1raWkuaDo4OCksIHNvIHRoZSBjb25kaXRpb24gaXMgcmVhY2hlZCBhZnRlciA0MgogICAg
-IGNvbnNlY3V0aXZlIGZlZWRiYWNrIGVycm9ycy4KCiAgMi4gVGhlIGhhbmRsZXIgcmVhZHMgdGhl
-IHBvaW50ZXJzIHdpdGhvdXQgYSBsb2NrOgoKICAgICAgICAgICAgIHZvaWQgdGFzY2FtX3N0b3Bf
-cGNtX3dvcmtfaGFuZGxlcihzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCiAgICAgICAgICAgICB7
-CiAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCB0YXNjYW1fY2FyZCAqdGFzY2FtID0KICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBjb250YWluZXJfb2Yod29yaywgc3RydWN0IHRhc2NhbV9j
-YXJkLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdG9wX3BjbV93
-b3JrKTsKCiAgICAgICAgICAgICAgICAgICAgIGlmICh0YXNjYW0tPnBsYXliYWNrX3N1YnN0cmVh
-bSkKICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfcGNtX3N0b3AodGFzY2FtLT5wbGF5
-YmFja19zdWJzdHJlYW0sCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IFNORFJWX1BDTV9TVEFURV9YUlVOKTsKICAgICAgICAgICAgICAgICAgICAgaWYgKHRhc2NhbS0+
-Y2FwdHVyZV9zdWJzdHJlYW0pCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3BjbV9z
-dG9wKHRhc2NhbS0+Y2FwdHVyZV9zdWJzdHJlYW0sCiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIFNORFJWX1BDTV9TVEFURV9YUlVOKTsKICAgICAgICAgICAgIH0KCiAg
-ICAgKHVzMTQ0bWtpaV9wbGF5YmFjay5jOjQ0Ny00NTYpLgoKICAzLiBQQ00gY2xvc2Ugb25seSBO
-VUxMcyB0aGUgcG9pbnRlcnMgYW5kIGRvZXMgbm90IGNhbmNlbCB0aGUgd29yazoKCiAgICAgICAg
-ICAgICB0YXNjYW0tPnBsYXliYWNrX3N1YnN0cmVhbSA9IE5VTEw7ICAgLyogb3IgY2FwdHVyZSAq
-LwogICAgICAgICAgICAgcmV0dXJuIDA7CgogICAgICh1czE0NG1raWlfcGxheWJhY2suYzozNS00
-MiwgdXMxNDRta2lpX2NhcHR1cmUuYzozNS00MikuICBUaGVyZQogICAgIGlzIG5vIGNhbmNlbF93
-b3JrX3N5bmMoJnRhc2NhbS0+c3RvcF9wY21fd29yaykgaW4gZWl0aGVyIGNsb3NlCiAgICAgY2Fs
-bGJhY2suCgogIDQuIEFMU0EgdGhlbiBkZXRhY2hlcyBhbmQgZnJlZXMgdGhlIHJ1bnRpbWU6Cgog
-ICAgICAgICAgICAgc25kX3BjbV9kcm9wKHN1YnN0cmVhbSk7CiAgICAgICAgICAgICAuLi4KICAg
-ICAgICAgICAgIHN1YnN0cmVhbS0+b3BzLT5jbG9zZShzdWJzdHJlYW0pOwogICAgICAgICAgICAg
-Li4uCiAgICAgICAgICAgICBzbmRfcGNtX2RldGFjaF9zdWJzdHJlYW0oc3Vic3RyZWFtKTsKCiAg
-ICAgKHNvdW5kL2NvcmUvcGNtX25hdGl2ZS5jOjI3ODUtMjgwNTsgc291bmQvY29yZS9wY20uYzo5
-NzgtMTAwNToKICAgICBzdWJzdHJlYW0tPnJ1bnRpbWUgPSBOVUxMIGF0IDk5Nywga2ZyZWUocnVu
-dGltZSkgYXQgMTAwMSkuCgogIDUuIHNuZF9wY21fc3RvcCgpIGlzIG5vdCBzYWZlIHdpdGhvdXQg
-dGhlIHN0cmVhbSBsb2NrLgogICAgIHNuZF9wY21fYWN0aW9uKCkgaXMgZG9jdW1lbnRlZCAiTm90
-ZTogY2FsbCB3aXRoIHN0cmVhbSBsb2NrIgogICAgIChzb3VuZC9jb3JlL3BjbV9uYXRpdmUuYzox
-NDExLTE0MTIpOyBzbmRfcGNtX3ByZV9zdG9wKCkgZG9lczoKCiAgICAgICAgICAgICBzdHJ1Y3Qg
-c25kX3BjbV9ydW50aW1lICpydW50aW1lID0gc3Vic3RyZWFtLT5ydW50aW1lOwogICAgICAgICAg
-ICAgaWYgKHJ1bnRpbWUtPnN0YXRlID09IFNORFJWX1BDTV9TVEFURV9PUEVOKQogICAgICAgICAg
-ICAgICAgICAgICByZXR1cm4gLUVCQURGRDsKICAgICAgICAgICAgIHJ1bnRpbWUtPnRyaWdnZXJf
-bWFzdGVyID0gc3Vic3RyZWFtOwoKICAgICAoc291bmQvY29yZS9wY21fbmF0aXZlLmM6MTU0OS0x
-NTU4KS4gIEFmdGVyIGRldGFjaCBydW50aW1lIGlzCiAgICAgTlVMTCwgc28gdGhlIGZpcnN0IGRl
-cmVmZXJlbmNlIGlzIGEgTlVMTC1wb2ludGVyIG9vcHMuCiAgICAgc25kX3BjbV9kb19zdG9wKCkv
-c25kX3BjbV9wb3N0X3N0b3AoKSB3b3VsZCBhbHNvIHRvdWNoCiAgICAgcnVudGltZS0+dHJpZ2dl
-cl9tYXN0ZXIgYW5kIHJ1bnRpbWUtPnNsZWVwL3RzbGVlcCAoMTU3MC0xNTc3KS4KCiAgNi4gSW50
-ZXJsZWF2aW5nOiB0aGUgaGFuZGxlciBsb2FkcyB0YXNjYW0tPnBsYXliYWNrX3N1YnN0cmVhbSAo
-b3IKICAgICBjYXB0dXJlX3N1YnN0cmVhbSkgYmVmb3JlIGNsb3NlIGNsZWFycyBpdCwgaXMgcHJl
-ZW1wdGVkLCBjbG9zZSB0aGVuCiAgICAgZGV0YWNoZXMgYW5kIGZyZWVzIHRoZSBydW50aW1lLCBh
-bmQgdGhlIGhhbmRsZXIgcHJvY2VlZHMgaW50bwogICAgIHNuZF9wY21fc3RvcCgpIGFuZCB0b3Vj
-aGVzIHRoZSBOVUxML2ZyZWVkIHJ1bnRpbWUuICBUaGUgd29ya3F1ZXVlCiAgICAgaXRlbSBkb2Vz
-IG5vdCBuZWVkIHRvIG92ZXJsYXAgd2l0aCBhbiBVUkIgY29tcGxldGlvbiBhdCBjbG9zZSB0aW1l
-OwogICAgIGl0IG9ubHkgbmVlZHMgdG8gYmUgcXVldWVkIGJlZm9yZSBjbG9zZSBhbmQgZXhlY3V0
-ZWQgYWZ0ZXIgZGV0YWNoLgogICAgIElmIHRoZSBoYW5kbGVyIGFscmVhZHkgcGFzc2VkIGEgcnVu
-dGltZSBub24tTlVMTCBjaGVjayBiZWZvcmUKICAgICBkZXRhY2gsIGEgbmFycm93ZXIgVUFGIGlz
-IHBvc3NpYmxlLCBidXQgdGhhdCBmb3JtIHdhcyBub3QKICAgICByZXByb2R1Y2VkIGFuZCBpcyBu
-b3QgdGhlIHByaW1hcnkgY2xhaW0uCgoqIFRyaWdnZXIgbW9kZWwKCiAgRmVlZGJhY2sgc3luYyBs
-b3NzIGlzIG5lZWRlZDogNDIgY29uc2VjdXRpdmUgZmVlZGJhY2sgZXJyb3JzIHdoaWxlCiAgcGxh
-eWJhY2sgb3IgY2FwdHVyZSBpcyBydW5uaW5nLiAgVGhpcyBjYW4gYmUgcHJvZHVjZWQgd2l0aCBh
-IFVTQgogIHRyYWZmaWMgZmF1bHQgaW5qZWN0b3IsIGEgc2hvcnQtcGFja2V0L2xvc3MgaW5qZWN0
-aW9uIG9uIHRoZSBmZWVkYmFjawogIGVuZHBvaW50LCBvciBhIHByb2dyYW1tYWJsZSBVU0IgZ2Fk
-Z2V0IGVtdWxhdGluZyB0aGUgZGV2aWNlLiAgQWZ0ZXIKICB0aGUgZHJpdmVyIGxvZ3MgdGhlIGZl
-ZWRiYWNrIHN5bmMgbG9zcyBhbmQgcXVldWVzIHRoZSB3b3JrLCBjbG9zZSB0aGUKICBQQ00gc3Ry
-ZWFtIGJlZm9yZSB0aGUgd29yayBydW5zLiAgTm8gc3BlY2lhbCBwcml2aWxlZ2UgYmV5b25kIGFj
-Y2VzcwogIHRvIHRoZSBQQ00gZGV2aWNlIGlzIHJlcXVpcmVkOyBUQVNDQU0gVVMtMTQ0TUtJSS9V
-Uy0xNDQgaGFyZHdhcmUgKG9yCiAgYW4gZW11bGF0ZWQgZXF1aXZhbGVudCkgaXMgcmVxdWlyZWQu
-CgogIENvbnNlcXVlbmNlOiBOVUxMLXBvaW50ZXIgZGVyZWZlcmVuY2UgLyBvb3BzIGluCiAgdGFz
-Y2FtX3N0b3BfcGNtX3dvcmtfaGFuZGxlcigpIC0+IHNuZF9wY21fc3RvcCgpIC0+CiAgc25kX3Bj
-bV9wcmVfc3RvcCgpOyBiZWNhdXNlIHRoZSB3b3JrIGlzIGFscmVhZHkgcXVldWVkLCB0aGlzIGlz
-CiAgaW5kZXBlbmRlbnQgb2YgdGhlIFVSQiBjb21wbGV0aW9uIHRpbWluZyBpbiBDYXNlIDEuCgoq
-IFJlcHJvZHVjZXIgKGF0dGFjaGVkIFBPQykKCiAgQXR0YWNoZWQgZmlsZXM6CiAgICB0YXNjYW1f
-cG9jLmMgIC0gc3ludGhldGljIEFMU0EgUENNIGtlcm5lbCBtb2R1bGUgKEMyIG1vZGUgcGNtMikK
-ICAgIHBjbXRlc3QuYyAgICAgLSB1c2VybGFuZCBleGVyY2lzZXIKICAgIE1ha2VmaWxlICAgICAg
-LSBidWlsZHMgdGFzY2FtX3BvYy5rbyBhZ2FpbnN0IHRoZSBydW5uaW5nIGtlcm5lbAoKICBUaGlz
-IFBPQyBkb2VzIG5vdCBkcml2ZSB0aGUgVEFTQ0FNIGRldmljZSBvciBpbmplY3QgZmVlZGJhY2sg
-ZXJyb3JzLgogIEl0IGNyZWF0ZXMgYSBzeW50aGV0aWMgQUxTQSBQQ00gY2FyZCB3aG9zZSAuY2xv
-c2UoKSBvbmx5IGRyb3BzIHRoZQogIHN1YnN0cmVhbSBwb2ludGVyLCBxdWV1ZXMgd29yayB0aGF0
-IGNhY2hlcyB0aGUgc3Vic3RyZWFtLCBzdGFydHMgdGhlCiAgc3RyZWFtLCBhbmQgbGV0cyBBTFNB
-IGRldGFjaCB0aGUgcnVudGltZSBiZWZvcmUgdGhlIHdvcmsgY2FsbHMKICBzbmRfcGNtX3N0b3Ao
-KS4gIEl0IHRoZXJlZm9yZSByZXByb2R1Y2VzIHRoZSBjbG9zZS9kZXRhY2ggb3JkZXJpbmcgaW4K
-ICBwb2ludCA0IGFib3ZlLCBub3QgdGhlIHJlYWwgZmVlZGJhY2stZXJyb3IgcGF0aC4KCiAgQnVp
-bGQgYW5kIHJ1bjoKICAgIG1ha2UKICAgIGdjYyAtc3RhdGljIC1PMiAtbyBwY210ZXN0IHBjbXRl
-c3QuYwogICAgc3VkbyBtb2Rwcm9iZSBzbmQtcGNtCiAgICBzdWRvIGluc21vZCAuL3Rhc2NhbV9w
-b2Mua28gbW9kZT1wY20yCiAgICBzdWRvIC4vcGNtdGVzdCAxCiAgICBkbWVzZyB8IHRhaWwgLTUw
-CiAgICBzdWRvIHJtbW9kIHRhc2NhbV9wb2MKCiAgRXhwZWN0ZWQgcmVzdWx0OgogICAgc25kdXNi
-X3JhY2U6IGMyIGNhbGwgc25kX3BjbV9zdG9wIHNzPS4uLiBydW50aW1lPTAwMDAwMDAwMDAwMDAw
-MDAKICAgIEJVRzogS0FTQU46IG51bGwtcHRyLWRlcmVmIGluIHNuZF9wY21fcHJlX3N0b3ArMHgy
-NC8weDUwCiAgICBCVUc6IGtlcm5lbCBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UsIGFkZHJlc3M6
-IDAwMDAwMDAwMDAwMDAwMDAKICAgIE9vcHM6IDAwMDAgWyMxXSBTTVAgS0FTQU4gTk9QVEkKICAg
-IFJJUDogc25kX3BjbV9wcmVfc3RvcCsweDI0LzB4NTAKCiAgTmVnYXRpdmUgY29udHJvbCAoY2xv
-c2UgY2FuY2VscyB0aGUgd29yayk6CiAgICBzdWRvIGluc21vZCAuL3Rhc2NhbV9wb2Mua28gbW9k
-ZT1wY20yIHNhZmU9MQogICAgc3VkbyAuL3BjbXRlc3QgMQogIEV4cGVjdGVkOiBubyBvb3BzL0tB
-U0FOIHJlcG9ydC4KCiAgVGhlIG1vZHVsZSBjcmVhdGVzIGEgY2FwdHVyZSBQQ00gYXQgY2FyZCBp
-bmRleCAwOyBpZiB0aGF0IGluZGV4IGlzCiAgb2NjdXBpZWQsIGNoZWNrIC9wcm9jL2Fzb3VuZC9j
-YXJkcyBhbmQgYWRqdXN0IERFViBpbiBwY210ZXN0LmMuCgogIEEgbWluaW1hbCByZWFsLWhhcmR3
-YXJlIEtBU0FOIHRlc3Qgd291bGQ6CiAgICAtIHN0YXJ0IHBsYXliYWNrIGFuZC9vciBjYXB0dXJl
-OwogICAgLSBpbmplY3QgNDIgY29uc2VjdXRpdmUgZmVlZGJhY2sgZXJyb3JzIChvciB1c2UgYSBn
-YWRnZXQgdGhhdAogICAgICByZXR1cm5zIHNob3J0L2Vycm9yIHBhY2tldHMgb24gdGhlIGZlZWRi
-YWNrIGVuZHBvaW50KSB1bnRpbCB0aGUKICAgICAgZHJpdmVyIGxvZ3MgIkZhdGFsOiBGZWVkYmFj
-ayBzeW5jIGxvc3QuIFN0b3BwaW5nIHN0cmVhbS4iOwogICAgLSBpbW1lZGlhdGVseSBjbG9zZSB0
-aGUgUENNIHN0cmVhbSBpbiBhIGxvb3A7CiAgICAtIHdhdGNoIGRtZXNnIGZvciBhIEtBU0FOIHJl
-cG9ydCB3aXRoCiAgICAgIHRhc2NhbV9zdG9wX3BjbV93b3JrX2hhbmRsZXIgaW4gdGhlIHN0YWNr
-LgoKCiogU3VnZ2VzdGVkIGRpcmVjdGlvbgoKICBNYWtlIC5jbG9zZSgpIGNhbmNlbCB0aGUgd29y
-ayBiZWZvcmUgcmV0dXJuaW5nIHRvIEFMU0E6IGNsZWFyIHRoZQogIGFjdGl2ZSBmbGFnIGFuZCBw
-b2ludGVyIHVuZGVyIHRhc2NhbS0+bG9jaywga2lsbCB0aGUgcmVsZXZhbnQgVVJCcwogIHBlci1V
-UkIsIHRoZW4gY2FuY2VsX3dvcmtfc3luYygmdGFzY2FtLT5zdG9wX3BjbV93b3JrKSAoYW5kCiAg
-c3RvcF93b3JrL2NhcHR1cmVfd29yayBhcyBhcHByb3ByaWF0ZSkuICBjYW5jZWxfd29ya19zeW5j
-KCkgaXMgdGhlCiAgbGlmZWN5Y2xlIGd1YXJhbnRlZTsgaXQgd2FpdHMgZm9yIGEgcnVubmluZyBo
-YW5kbGVyLgoKICBJbiB0aGUgaGFuZGxlciwgdXNlIHNuZF9wY21fc3RvcF94cnVuKCkKICAoc291
-bmQvY29yZS9wY21fbmF0aXZlLmM6MTYyOC0xNjM1KSwgd2hpY2ggdGFrZXMgdGhlIFBDTSBzdHJl
-YW0gbG9jawogIGFuZCByZWNoZWNrcyBzdWJzdHJlYW0tPnJ1bnRpbWUuICBUaGF0IGZpeGVzIHRo
-ZSBBUEktY29udmVudGlvbgogIHZpb2xhdGlvbiwgYnV0IGl0IGlzIG5vdCBhIHN1YnN0aXR1dGUg
-Zm9yIGNhbmNlbGxpbmcgdGhlIHdvcmsgaW4KICBjbG9zZTogc25kX3BjbV9kZXRhY2hfc3Vic3Ry
-ZWFtKCkgZG9lcyBub3QgdGFrZSB0aGUgc3RyZWFtIGxvY2ssIHNvCiAgYSBoYW5kbGVyIHRoYXQg
-YWxyZWFkeSBwYXNzZWQgdGhlIHJ1bnRpbWUgY2hlY2sgY2FuIHN0aWxsIHJhY2Ugd2l0aAogIGRl
-dGFjaC4KCiAgSSBhbSBoYXBweSB0byB0ZXN0IGEgcHJvcG9zZWQgZml4LgoKUGxlYXNlIGtlZXAg
-bWUgaW4gQ2M7IEkgYW0gbm90IHN1YnNjcmliZWQgdG8gdGhlIGxpc3RzLgoKClJlZ2FyZHMsCkhh
-bnhpYW5nIFh1Cnh1aHhAaHVzdC5lZHUuY24K
-------=_Part_522742_1033163319.1794572993764
-Content-Type: text/plain; name=tascam_poc.c
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="tascam_poc.c"
+On 5/5/25 23:39, Sasha Levin wrote:
+> From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> 
+> [ Upstream commit 633488947ef66b194377411322dc9e12aab79b65 ]
+> 
+> kernfs_rename_lock is used to obtain stable kernfs_node::{name|parent}
+> pointer. This is a preparation to access kernfs_node::parent under RCU
+> and ensure that the pointer remains stable under the RCU lifetime
+> guarantees.
+> 
+> For a complete path, as it is done in kernfs_path_from_node(), the
+> kernfs_rename_lock is still required in order to obtain a stable parent
+> relationship while computing the relevant node depth. This must not
+> change while the nodes are inspected in order to build the path.
+> If the kernfs user never moves the nodes (changes the parent) then the
+> kernfs_rename_lock is not required and the RCU guarantees are
+> sufficient. This "restriction" can be set with
+> KERNFS_ROOT_INVARIANT_PARENT. Otherwise the lock is required.
+> 
+> Rename kernfs_node::parent to kernfs_node::__parent to denote the RCU
+> access and use RCU accessor while accessing the node.
+> Make cgroup use KERNFS_ROOT_INVARIANT_PARENT since the parent here can
+> not change.
+> 
+> Acked-by: Tejun Heo <tj@kernel.org>
+> Cc: Yonghong Song <yonghong.song@linux.dev>
+> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Link: https://lore.kernel.org/r/20250213145023.2820193-6-bigeasy@linutronix.de
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  arch/x86/kernel/cpu/resctrl/rdtgroup.c        | 65 +++++++++----
+>  fs/kernfs/dir.c                               | 96 ++++++++++++-------
+>  fs/kernfs/kernfs-internal.h                   | 32 ++++++-
+>  fs/kernfs/mount.c                             | 10 +-
+>  fs/kernfs/symlink.c                           | 23 ++---
+>  fs/sysfs/file.c                               | 24 +++--
+>  include/linux/kernfs.h                        | 10 +-
+>  kernel/cgroup/cgroup-v1.c                     |  2 +-
+>  kernel/cgroup/cgroup.c                        | 24 ++++-
+>  .../selftests/bpf/progs/profiler.inc.h        |  2 +-
+>  10 files changed, 195 insertions(+), 93 deletions(-)
+> 
+> diff --git a/arch/x86/kernel/cpu/resctrl/rdtgroup.c b/arch/x86/kernel/cpu/resctrl/rdtgroup.c
+> index 2d48db66fca85..d4d7ccf1253b8 100644
+> --- a/arch/x86/kernel/cpu/resctrl/rdtgroup.c
+> +++ b/arch/x86/kernel/cpu/resctrl/rdtgroup.c
+> @@ -948,10 +948,20 @@ static int rdt_last_cmd_status_show(struct kernfs_open_file *of,
+>  	return 0;
+>  }
+>  
+> +static void *rdt_kn_parent_priv(struct kernfs_node *kn)
+> +{
+> +	/*
+> +	 * The parent pointer is only valid within RCU section since it can be
+> +	 * replaced.
+> +	 */
+> +	guard(rcu)();
+> +	return rcu_dereference(kn->__parent)->priv;
+> +}
+> +
+>  static int rdt_num_closids_show(struct kernfs_open_file *of,
+>  				struct seq_file *seq, void *v)
+>  {
+> -	struct resctrl_schema *s = of->kn->parent->priv;
+> +	struct resctrl_schema *s = rdt_kn_parent_priv(of->kn);
+>  
+>  	seq_printf(seq, "%u\n", s->num_closid);
+>  	return 0;
+> @@ -960,7 +970,7 @@ static int rdt_num_closids_show(struct kernfs_open_file *of,
+>  static int rdt_default_ctrl_show(struct kernfs_open_file *of,
+>  			     struct seq_file *seq, void *v)
+>  {
+> -	struct resctrl_schema *s = of->kn->parent->priv;
+> +	struct resctrl_schema *s = rdt_kn_parent_priv(of->kn);
+>  	struct rdt_resource *r = s->res;
+>  
+>  	seq_printf(seq, "%x\n", r->default_ctrl);
+> @@ -970,7 +980,7 @@ static int rdt_default_ctrl_show(struct kernfs_open_file *of,
+>  static int rdt_min_cbm_bits_show(struct kernfs_open_file *of,
+>  			     struct seq_file *seq, void *v)
+>  {
+> -	struct resctrl_schema *s = of->kn->parent->priv;
+> +	struct resctrl_schema *s = rdt_kn_parent_priv(of->kn);
+>  	struct rdt_resource *r = s->res;
+>  
+>  	seq_printf(seq, "%u\n", r->cache.min_cbm_bits);
+> @@ -980,7 +990,7 @@ static int rdt_min_cbm_bits_show(struct kernfs_open_file *of,
+>  static int rdt_shareable_bits_show(struct kernfs_open_file *of,
+>  				   struct seq_file *seq, void *v)
+>  {
+> -	struct resctrl_schema *s = of->kn->parent->priv;
+> +	struct resctrl_schema *s = rdt_kn_parent_priv(of->kn);
+>  	struct rdt_resource *r = s->res;
+>  
+>  	seq_printf(seq, "%x\n", r->cache.shareable_bits);
+> @@ -1004,7 +1014,7 @@ static int rdt_shareable_bits_show(struct kernfs_open_file *of,
+>  static int rdt_bit_usage_show(struct kernfs_open_file *of,
+>  			      struct seq_file *seq, void *v)
+>  {
+> -	struct resctrl_schema *s = of->kn->parent->priv;
+> +	struct resctrl_schema *s = rdt_kn_parent_priv(of->kn);
+>  	/*
+>  	 * Use unsigned long even though only 32 bits are used to ensure
+>  	 * test_bit() is used safely.
+> @@ -1086,7 +1096,7 @@ static int rdt_bit_usage_show(struct kernfs_open_file *of,
+>  static int rdt_min_bw_show(struct kernfs_open_file *of,
+>  			     struct seq_file *seq, void *v)
+>  {
+> -	struct resctrl_schema *s = of->kn->parent->priv;
+> +	struct resctrl_schema *s = rdt_kn_parent_priv(of->kn);
+>  	struct rdt_resource *r = s->res;
+>  
+>  	seq_printf(seq, "%u\n", r->membw.min_bw);
+> @@ -1096,7 +1106,7 @@ static int rdt_min_bw_show(struct kernfs_open_file *of,
+>  static int rdt_num_rmids_show(struct kernfs_open_file *of,
+>  			      struct seq_file *seq, void *v)
+>  {
+> -	struct rdt_resource *r = of->kn->parent->priv;
+> +	struct rdt_resource *r = rdt_kn_parent_priv(of->kn);
+>  
+>  	seq_printf(seq, "%d\n", r->num_rmid);
+>  
+> @@ -1106,7 +1116,7 @@ static int rdt_num_rmids_show(struct kernfs_open_file *of,
+>  static int rdt_mon_features_show(struct kernfs_open_file *of,
+>  				 struct seq_file *seq, void *v)
+>  {
+> -	struct rdt_resource *r = of->kn->parent->priv;
+> +	struct rdt_resource *r = rdt_kn_parent_priv(of->kn);
+>  	struct mon_evt *mevt;
+>  
+>  	list_for_each_entry(mevt, &r->evt_list, list) {
+> @@ -1121,7 +1131,7 @@ static int rdt_mon_features_show(struct kernfs_open_file *of,
+>  static int rdt_bw_gran_show(struct kernfs_open_file *of,
+>  			     struct seq_file *seq, void *v)
+>  {
+> -	struct resctrl_schema *s = of->kn->parent->priv;
+> +	struct resctrl_schema *s = rdt_kn_parent_priv(of->kn);
+>  	struct rdt_resource *r = s->res;
+>  
+>  	seq_printf(seq, "%u\n", r->membw.bw_gran);
+> @@ -1131,7 +1141,7 @@ static int rdt_bw_gran_show(struct kernfs_open_file *of,
+>  static int rdt_delay_linear_show(struct kernfs_open_file *of,
+>  			     struct seq_file *seq, void *v)
+>  {
+> -	struct resctrl_schema *s = of->kn->parent->priv;
+> +	struct resctrl_schema *s = rdt_kn_parent_priv(of->kn);
+>  	struct rdt_resource *r = s->res;
+>  
+>  	seq_printf(seq, "%u\n", r->membw.delay_linear);
+> @@ -1149,7 +1159,7 @@ static int max_threshold_occ_show(struct kernfs_open_file *of,
+>  static int rdt_thread_throttle_mode_show(struct kernfs_open_file *of,
+>  					 struct seq_file *seq, void *v)
+>  {
+> -	struct resctrl_schema *s = of->kn->parent->priv;
+> +	struct resctrl_schema *s = rdt_kn_parent_priv(of->kn);
+>  	struct rdt_resource *r = s->res;
+>  
+>  	if (r->membw.throttle_mode == THREAD_THROTTLE_PER_THREAD)
+> @@ -1214,7 +1224,7 @@ static enum resctrl_conf_type resctrl_peer_type(enum resctrl_conf_type my_type)
+>  static int rdt_has_sparse_bitmasks_show(struct kernfs_open_file *of,
+>  					struct seq_file *seq, void *v)
+>  {
+> -	struct resctrl_schema *s = of->kn->parent->priv;
+> +	struct resctrl_schema *s = rdt_kn_parent_priv(of->kn);
+>  	struct rdt_resource *r = s->res;
+>  
+>  	seq_printf(seq, "%u\n", r->cache.arch_has_sparse_bitmasks);
+> @@ -1626,7 +1636,7 @@ static int mbm_config_show(struct seq_file *s, struct rdt_resource *r, u32 evtid
+>  static int mbm_total_bytes_config_show(struct kernfs_open_file *of,
+>  				       struct seq_file *seq, void *v)
+>  {
+> -	struct rdt_resource *r = of->kn->parent->priv;
+> +	struct rdt_resource *r = rdt_kn_parent_priv(of->kn);
+>  
+>  	mbm_config_show(seq, r, QOS_L3_MBM_TOTAL_EVENT_ID);
+>  
+> @@ -1636,7 +1646,7 @@ static int mbm_total_bytes_config_show(struct kernfs_open_file *of,
+>  static int mbm_local_bytes_config_show(struct kernfs_open_file *of,
+>  				       struct seq_file *seq, void *v)
+>  {
+> -	struct rdt_resource *r = of->kn->parent->priv;
+> +	struct rdt_resource *r = rdt_kn_parent_priv(of->kn);
+>  
+>  	mbm_config_show(seq, r, QOS_L3_MBM_LOCAL_EVENT_ID);
+>  
+> @@ -1742,7 +1752,7 @@ static ssize_t mbm_total_bytes_config_write(struct kernfs_open_file *of,
+>  					    char *buf, size_t nbytes,
+>  					    loff_t off)
+>  {
+> -	struct rdt_resource *r = of->kn->parent->priv;
+> +	struct rdt_resource *r = rdt_kn_parent_priv(of->kn);
+>  	int ret;
+>  
+>  	/* Valid input requires a trailing newline */
+> @@ -1768,7 +1778,7 @@ static ssize_t mbm_local_bytes_config_write(struct kernfs_open_file *of,
+>  					    char *buf, size_t nbytes,
+>  					    loff_t off)
+>  {
+> -	struct rdt_resource *r = of->kn->parent->priv;
+> +	struct rdt_resource *r = rdt_kn_parent_priv(of->kn);
+>  	int ret;
+>  
+>  	/* Valid input requires a trailing newline */
+> @@ -2430,12 +2440,13 @@ static struct rdtgroup *kernfs_to_rdtgroup(struct kernfs_node *kn)
+>  		 * resource. "info" and its subdirectories don't
+>  		 * have rdtgroup structures, so return NULL here.
+>  		 */
+> -		if (kn == kn_info || kn->parent == kn_info)
+> +		if (kn == kn_info ||
+> +		    rcu_access_pointer(kn->__parent) == kn_info)
+>  			return NULL;
+>  		else
+>  			return kn->priv;
+>  	} else {
+> -		return kn->parent->priv;
+> +		return rdt_kn_parent_priv(kn);
+>  	}
+>  }
+>  
+> @@ -3759,9 +3770,18 @@ static int rdtgroup_rmdir_ctrl(struct rdtgroup *rdtgrp, cpumask_var_t tmpmask)
+>  	return 0;
+>  }
+>  
+> +static struct kernfs_node *rdt_kn_parent(struct kernfs_node *kn)
+> +{
+> +	/*
+> +	 * Valid within the RCU section it was obtained or while rdtgroup_mutex
+> +	 * is held.
+> +	 */
+> +	return rcu_dereference_check(kn->__parent, lockdep_is_held(&rdtgroup_mutex));
+> +}
+> +
+>  static int rdtgroup_rmdir(struct kernfs_node *kn)
+>  {
+> -	struct kernfs_node *parent_kn = kn->parent;
+> +	struct kernfs_node *parent_kn;
+>  	struct rdtgroup *rdtgrp;
+>  	cpumask_var_t tmpmask;
+>  	int ret = 0;
+> @@ -3774,6 +3794,7 @@ static int rdtgroup_rmdir(struct kernfs_node *kn)
+>  		ret = -EPERM;
+>  		goto out;
+>  	}
+> +	parent_kn = rdt_kn_parent(kn);
+>  
+>  	/*
+>  	 * If the rdtgroup is a ctrl_mon group and parent directory
+> @@ -3842,6 +3863,7 @@ static void mongrp_reparent(struct rdtgroup *rdtgrp,
+>  static int rdtgroup_rename(struct kernfs_node *kn,
+>  			   struct kernfs_node *new_parent, const char *new_name)
+>  {
+> +	struct kernfs_node *kn_parent;
+>  	struct rdtgroup *new_prdtgrp;
+>  	struct rdtgroup *rdtgrp;
+>  	cpumask_var_t tmpmask;
+> @@ -3876,8 +3898,9 @@ static int rdtgroup_rename(struct kernfs_node *kn,
+>  		goto out;
+>  	}
+>  
+> -	if (rdtgrp->type != RDTMON_GROUP || !kn->parent ||
+> -	    !is_mon_groups(kn->parent, kn->name)) {
+> +	kn_parent = rdt_kn_parent(kn);
+> +	if (rdtgrp->type != RDTMON_GROUP || !kn_parent ||
+> +	    !is_mon_groups(kn_parent, kn->name)) {
+>  		rdt_last_cmd_puts("Source must be a MON group\n");
+>  		ret = -EPERM;
+>  		goto out;
+> diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
+> index 5a1fea414996e..d2306641b569c 100644
+> --- a/fs/kernfs/dir.c
+> +++ b/fs/kernfs/dir.c
+> @@ -17,7 +17,7 @@
+>  
+>  #include "kernfs-internal.h"
+>  
+> -static DEFINE_RWLOCK(kernfs_rename_lock);	/* kn->parent and ->name */
+> +DEFINE_RWLOCK(kernfs_rename_lock);	/* kn->parent and ->name */
+>  /*
+>   * Don't use rename_lock to piggy back on pr_cont_buf. We don't want to
+>   * call pr_cont() while holding rename_lock. Because sometimes pr_cont()
+> @@ -56,7 +56,7 @@ static int kernfs_name_locked(struct kernfs_node *kn, char *buf, size_t buflen)
+>  	if (!kn)
+>  		return strscpy(buf, "(null)", buflen);
+>  
+> -	return strscpy(buf, kn->parent ? kn->name : "/", buflen);
+> +	return strscpy(buf, rcu_access_pointer(kn->__parent) ? kn->name : "/", buflen);
+>  }
+>  
+>  /* kernfs_node_depth - compute depth from @from to @to */
+> @@ -64,9 +64,9 @@ static size_t kernfs_depth(struct kernfs_node *from, struct kernfs_node *to)
+>  {
+>  	size_t depth = 0;
+>  
+> -	while (to->parent && to != from) {
+> +	while (rcu_dereference(to->__parent) && to != from) {
+>  		depth++;
+> -		to = to->parent;
+> +		to = rcu_dereference(to->__parent);
+>  	}
+>  	return depth;
+>  }
+> @@ -84,18 +84,18 @@ static struct kernfs_node *kernfs_common_ancestor(struct kernfs_node *a,
+>  	db = kernfs_depth(rb->kn, b);
+>  
+>  	while (da > db) {
+> -		a = a->parent;
+> +		a = rcu_dereference(a->__parent);
+>  		da--;
+>  	}
+>  	while (db > da) {
+> -		b = b->parent;
+> +		b = rcu_dereference(b->__parent);
+>  		db--;
+>  	}
+>  
+>  	/* worst case b and a will be the same at root */
+>  	while (b != a) {
+> -		b = b->parent;
+> -		a = a->parent;
+> +		b = rcu_dereference(b->__parent);
+> +		a = rcu_dereference(a->__parent);
+>  	}
+>  
+>  	return a;
+> @@ -168,8 +168,9 @@ static int kernfs_path_from_node_locked(struct kernfs_node *kn_to,
+>  
+>  	/* Calculate how many bytes we need for the rest */
+>  	for (i = depth_to - 1; i >= 0; i--) {
+> +
+>  		for (kn = kn_to, j = 0; j < i; j++)
+> -			kn = kn->parent;
+> +			kn = rcu_dereference(kn->__parent);
+>  
+>  		len += scnprintf(buf + len, buflen - len, "/%s", kn->name);
+>  	}
+> @@ -226,6 +227,7 @@ int kernfs_path_from_node(struct kernfs_node *to, struct kernfs_node *from,
+>  	unsigned long flags;
+>  	int ret;
+>  
+> +	guard(rcu)();
+>  	read_lock_irqsave(&kernfs_rename_lock, flags);
+>  	ret = kernfs_path_from_node_locked(to, from, buf, buflen);
+>  	read_unlock_irqrestore(&kernfs_rename_lock, flags);
+> @@ -295,7 +297,7 @@ struct kernfs_node *kernfs_get_parent(struct kernfs_node *kn)
+>  	unsigned long flags;
+>  
+>  	read_lock_irqsave(&kernfs_rename_lock, flags);
+> -	parent = kn->parent;
+> +	parent = kernfs_parent(kn);
+>  	kernfs_get(parent);
+>  	read_unlock_irqrestore(&kernfs_rename_lock, flags);
+>  
+> @@ -360,8 +362,12 @@ static int kernfs_sd_compare(const struct kernfs_node *left,
+>   */
+>  static int kernfs_link_sibling(struct kernfs_node *kn)
+>  {
+> -	struct rb_node **node = &kn->parent->dir.children.rb_node;
+>  	struct rb_node *parent = NULL;
+> +	struct kernfs_node *kn_parent;
+> +	struct rb_node **node;
+> +
+> +	kn_parent = kernfs_parent(kn);
+> +	node = &kn_parent->dir.children.rb_node;
+>  
+>  	while (*node) {
+>  		struct kernfs_node *pos;
+> @@ -380,13 +386,13 @@ static int kernfs_link_sibling(struct kernfs_node *kn)
+>  
+>  	/* add new node and rebalance the tree */
+>  	rb_link_node(&kn->rb, parent, node);
+> -	rb_insert_color(&kn->rb, &kn->parent->dir.children);
+> +	rb_insert_color(&kn->rb, &kn_parent->dir.children);
+>  
+>  	/* successfully added, account subdir number */
+>  	down_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+>  	if (kernfs_type(kn) == KERNFS_DIR)
+> -		kn->parent->dir.subdirs++;
+> -	kernfs_inc_rev(kn->parent);
+> +		kn_parent->dir.subdirs++;
+> +	kernfs_inc_rev(kn_parent);
+>  	up_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+>  
+>  	return 0;
+> @@ -407,16 +413,19 @@ static int kernfs_link_sibling(struct kernfs_node *kn)
+>   */
+>  static bool kernfs_unlink_sibling(struct kernfs_node *kn)
+>  {
+> +	struct kernfs_node *kn_parent;
+> +
+>  	if (RB_EMPTY_NODE(&kn->rb))
+>  		return false;
+>  
+> +	kn_parent = kernfs_parent(kn);
+>  	down_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+>  	if (kernfs_type(kn) == KERNFS_DIR)
+> -		kn->parent->dir.subdirs--;
+> -	kernfs_inc_rev(kn->parent);
+> +		kn_parent->dir.subdirs--;
+> +	kernfs_inc_rev(kn_parent);
+>  	up_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+>  
+> -	rb_erase(&kn->rb, &kn->parent->dir.children);
+> +	rb_erase(&kn->rb, &kn_parent->dir.children);
+>  	RB_CLEAR_NODE(&kn->rb);
+>  	return true;
+>  }
+> @@ -562,7 +571,7 @@ void kernfs_put(struct kernfs_node *kn)
+>  	 * Moving/renaming is always done while holding reference.
+>  	 * kn->parent won't change beneath us.
+>  	 */
+> -	parent = kn->parent;
+> +	parent = kernfs_parent(kn);
+>  
+>  	WARN_ONCE(atomic_read(&kn->active) != KN_DEACTIVATED_BIAS,
+>  		  "kernfs_put: %s/%s: released with incorrect active_ref %d\n",
+> @@ -701,7 +710,7 @@ struct kernfs_node *kernfs_new_node(struct kernfs_node *parent,
+>  			       name, mode, uid, gid, flags);
+>  	if (kn) {
+>  		kernfs_get(parent);
+> -		kn->parent = parent;
+> +		rcu_assign_pointer(kn->__parent, parent);
+>  	}
+>  	return kn;
+>  }
+> @@ -769,13 +778,14 @@ struct kernfs_node *kernfs_find_and_get_node_by_id(struct kernfs_root *root,
+>   */
+>  int kernfs_add_one(struct kernfs_node *kn)
+>  {
+> -	struct kernfs_node *parent = kn->parent;
+> -	struct kernfs_root *root = kernfs_root(parent);
+> +	struct kernfs_root *root = kernfs_root(kn);
+>  	struct kernfs_iattrs *ps_iattr;
+> +	struct kernfs_node *parent;
+>  	bool has_ns;
+>  	int ret;
+>  
+>  	down_write(&root->kernfs_rwsem);
+> +	parent = kernfs_parent(kn);
+>  
+>  	ret = -EINVAL;
+>  	has_ns = kernfs_ns_enabled(parent);
+> @@ -949,6 +959,11 @@ struct kernfs_node *kernfs_walk_and_get_ns(struct kernfs_node *parent,
+>  	return kn;
+>  }
+>  
+> +unsigned int kernfs_root_flags(struct kernfs_node *kn)
+> +{
+> +	return kernfs_root(kn)->flags;
+> +}
+> +
+>  /**
+>   * kernfs_create_root - create a new kernfs hierarchy
+>   * @scops: optional syscall operations for the hierarchy
+> @@ -1111,7 +1126,7 @@ struct kernfs_node *kernfs_create_empty_dir(struct kernfs_node *parent,
+>  
+>  static int kernfs_dop_revalidate(struct dentry *dentry, unsigned int flags)
+>  {
+> -	struct kernfs_node *kn;
+> +	struct kernfs_node *kn, *parent;
+>  	struct kernfs_root *root;
+>  
+>  	if (flags & LOOKUP_RCU)
+> @@ -1162,8 +1177,9 @@ static int kernfs_dop_revalidate(struct dentry *dentry, unsigned int flags)
+>  	if (!kernfs_active(kn))
+>  		goto out_bad;
+>  
+> +	parent = kernfs_parent(kn);
+>  	/* The kernfs node has been moved? */
+> -	if (kernfs_dentry_node(dentry->d_parent) != kn->parent)
+> +	if (kernfs_dentry_node(dentry->d_parent) != parent)
+>  		goto out_bad;
+>  
+>  	/* The kernfs node has been renamed */
+> @@ -1171,7 +1187,7 @@ static int kernfs_dop_revalidate(struct dentry *dentry, unsigned int flags)
+>  		goto out_bad;
+>  
+>  	/* The kernfs node has been moved to a different namespace */
+> -	if (kn->parent && kernfs_ns_enabled(kn->parent) &&
+> +	if (parent && kernfs_ns_enabled(parent) &&
+>  	    kernfs_info(dentry->d_sb)->ns != kn->ns)
+>  		goto out_bad;
+>  
+> @@ -1364,7 +1380,7 @@ static struct kernfs_node *kernfs_next_descendant_post(struct kernfs_node *pos,
+>  		return kernfs_leftmost_descendant(rb_to_kn(rbn));
+>  
+>  	/* no sibling left, visit parent */
+> -	return pos->parent;
+> +	return kernfs_parent(pos);
+>  }
+>  
+>  static void kernfs_activate_one(struct kernfs_node *kn)
+> @@ -1376,7 +1392,7 @@ static void kernfs_activate_one(struct kernfs_node *kn)
+>  	if (kernfs_active(kn) || (kn->flags & (KERNFS_HIDDEN | KERNFS_REMOVING)))
+>  		return;
+>  
+> -	WARN_ON_ONCE(kn->parent && RB_EMPTY_NODE(&kn->rb));
+> +	WARN_ON_ONCE(rcu_access_pointer(kn->__parent) && RB_EMPTY_NODE(&kn->rb));
+>  	WARN_ON_ONCE(atomic_read(&kn->active) != KN_DEACTIVATED_BIAS);
+>  
+>  	atomic_sub(KN_DEACTIVATED_BIAS, &kn->active);
+> @@ -1446,7 +1462,7 @@ void kernfs_show(struct kernfs_node *kn, bool show)
+>  
+>  static void __kernfs_remove(struct kernfs_node *kn)
+>  {
+> -	struct kernfs_node *pos;
+> +	struct kernfs_node *pos, *parent;
+>  
+>  	/* Short-circuit if non-root @kn has already finished removal. */
+>  	if (!kn)
+> @@ -1458,7 +1474,7 @@ static void __kernfs_remove(struct kernfs_node *kn)
+>  	 * This is for kernfs_remove_self() which plays with active ref
+>  	 * after removal.
+>  	 */
+> -	if (kn->parent && RB_EMPTY_NODE(&kn->rb))
+> +	if (kernfs_parent(kn) && RB_EMPTY_NODE(&kn->rb))
+>  		return;
+>  
+>  	pr_debug("kernfs %s: removing\n", kn->name);
+> @@ -1484,14 +1500,14 @@ static void __kernfs_remove(struct kernfs_node *kn)
+>  		kernfs_get(pos);
+>  
+>  		kernfs_drain(pos);
+> -
+> +		parent = kernfs_parent(pos);
+>  		/*
+>  		 * kernfs_unlink_sibling() succeeds once per node.  Use it
+>  		 * to decide who's responsible for cleanups.
+>  		 */
+> -		if (!pos->parent || kernfs_unlink_sibling(pos)) {
+> +		if (!parent || kernfs_unlink_sibling(pos)) {
+>  			struct kernfs_iattrs *ps_iattr =
+> -				pos->parent ? pos->parent->iattr : NULL;
+> +				parent ? parent->iattr : NULL;
+>  
+>  			/* update timestamps on the parent */
+>  			down_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+> @@ -1721,7 +1737,7 @@ int kernfs_rename_ns(struct kernfs_node *kn, struct kernfs_node *new_parent,
+>  	int error;
+>  
+>  	/* can't move or rename root */
+> -	if (!kn->parent)
+> +	if (!rcu_access_pointer(kn->__parent))
+>  		return -EINVAL;
+>  
+>  	root = kernfs_root(kn);
+> @@ -1732,8 +1748,15 @@ int kernfs_rename_ns(struct kernfs_node *kn, struct kernfs_node *new_parent,
+>  	    (new_parent->flags & KERNFS_EMPTY_DIR))
+>  		goto out;
+>  
+> +	old_parent = kernfs_parent(kn);
+> +	if (root->flags & KERNFS_ROOT_INVARIANT_PARENT) {
+> +		error = -EINVAL;
+> +		if (WARN_ON_ONCE(old_parent != new_parent))
+> +			goto out;
+> +	}
+> +
+>  	error = 0;
+> -	if ((kn->parent == new_parent) && (kn->ns == new_ns) &&
+> +	if ((old_parent == new_parent) && (kn->ns == new_ns) &&
+>  	    (strcmp(kn->name, new_name) == 0))
+>  		goto out;	/* nothing to rename */
+>  
+> @@ -1760,8 +1783,8 @@ int kernfs_rename_ns(struct kernfs_node *kn, struct kernfs_node *new_parent,
+>  	/* rename_lock protects ->parent and ->name accessors */
+>  	write_lock_irq(&kernfs_rename_lock);
+>  
+> -	old_parent = kn->parent;
+> -	kn->parent = new_parent;
+> +	old_parent = kernfs_parent(kn);
+> +	rcu_assign_pointer(kn->__parent, new_parent);
+>  
+>  	kn->ns = new_ns;
+>  	if (new_name) {
+> @@ -1794,7 +1817,8 @@ static struct kernfs_node *kernfs_dir_pos(const void *ns,
+>  {
+>  	if (pos) {
+>  		int valid = kernfs_active(pos) &&
+> -			pos->parent == parent && hash == pos->hash;
+> +			rcu_access_pointer(pos->__parent) == parent &&
+> +			hash == pos->hash;
+>  		kernfs_put(pos);
+>  		if (!valid)
+>  			pos = NULL;
+> diff --git a/fs/kernfs/kernfs-internal.h b/fs/kernfs/kernfs-internal.h
+> index b42ee6547cdc1..c43bee18b79f7 100644
+> --- a/fs/kernfs/kernfs-internal.h
+> +++ b/fs/kernfs/kernfs-internal.h
+> @@ -19,6 +19,8 @@
+>  #include <linux/kernfs.h>
+>  #include <linux/fs_context.h>
+>  
+> +extern rwlock_t kernfs_rename_lock;
+> +
+>  struct kernfs_iattrs {
+>  	kuid_t			ia_uid;
+>  	kgid_t			ia_gid;
+> @@ -64,11 +66,14 @@ struct kernfs_root {
+>   *
+>   * Return: the kernfs_root @kn belongs to.
+>   */
+> -static inline struct kernfs_root *kernfs_root(struct kernfs_node *kn)
+> +static inline struct kernfs_root *kernfs_root(const struct kernfs_node *kn)
+>  {
+> +	const struct kernfs_node *knp;
+>  	/* if parent exists, it's always a dir; otherwise, @sd is a dir */
+> -	if (kn->parent)
+> -		kn = kn->parent;
+> +	guard(rcu)();
+> +	knp = rcu_dereference(kn->__parent);
+> +	if (knp)
+> +		kn = knp;
+>  	return kn->dir.root;
+>  }
+>  
+> @@ -97,6 +102,27 @@ struct kernfs_super_info {
+>  };
+>  #define kernfs_info(SB) ((struct kernfs_super_info *)(SB->s_fs_info))
+>  
+> +static inline bool kernfs_root_is_locked(const struct kernfs_node *kn)
+> +{
+> +	return lockdep_is_held(&kernfs_root(kn)->kernfs_rwsem);
+> +}
+> +
+> +static inline struct kernfs_node *kernfs_parent(const struct kernfs_node *kn)
+> +{
+> +	/*
+> +	 * The kernfs_node::__parent remains valid within a RCU section. The kn
+> +	 * can be reparented (and renamed) which changes the entry. This can be
+> +	 * avoided by locking kernfs_root::kernfs_rwsem or kernfs_rename_lock.
+> +	 * Both locks can be used to obtain a reference on __parent. Once the
+> +	 * reference count reaches 0 then the node is about to be freed
+> +	 * and can not be renamed (or become a different parent) anymore.
+> +	 */
+> +	return rcu_dereference_check(kn->__parent,
+> +				     kernfs_root_is_locked(kn) ||
+> +				     lockdep_is_held(&kernfs_rename_lock) ||
+> +				     !atomic_read(&kn->count));
+> +}
+> +
+>  static inline struct kernfs_node *kernfs_dentry_node(struct dentry *dentry)
+>  {
+>  	if (d_really_is_negative(dentry))
+> diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
+> index 4a0ff08d589ca..2252b16e6ef0b 100644
+> --- a/fs/kernfs/mount.c
+> +++ b/fs/kernfs/mount.c
+> @@ -148,7 +148,7 @@ static struct dentry *kernfs_get_parent_dentry(struct dentry *child)
+>  	struct kernfs_root *root = kernfs_root(kn);
+>  
+>  	guard(rwsem_read)(&root->kernfs_rwsem);
+> -	return d_obtain_alias(kernfs_get_inode(child->d_sb, kn->parent));
+> +	return d_obtain_alias(kernfs_get_inode(child->d_sb, kernfs_parent(kn)));
+>  }
+>  
+>  static const struct export_operations kernfs_export_ops = {
+> @@ -188,10 +188,10 @@ static struct kernfs_node *find_next_ancestor(struct kernfs_node *child,
+>  		return NULL;
+>  	}
+>  
+> -	while (child->parent != parent) {
+> -		if (!child->parent)
+> +	while (kernfs_parent(child) != parent) {
+> +		child = kernfs_parent(child);
+> +		if (!child)
+>  			return NULL;
+> -		child = child->parent;
+>  	}
+>  
+>  	return child;
+> @@ -216,7 +216,7 @@ struct dentry *kernfs_node_dentry(struct kernfs_node *kn,
+>  	dentry = dget(sb->s_root);
+>  
+>  	/* Check if this is the root kernfs_node */
+> -	if (!kn->parent)
+> +	if (!rcu_access_pointer(kn->__parent))
+>  		return dentry;
+>  
+>  	root = kernfs_root(kn);
+> diff --git a/fs/kernfs/symlink.c b/fs/kernfs/symlink.c
+> index 45371a70caa71..05c62ca93c53d 100644
+> --- a/fs/kernfs/symlink.c
+> +++ b/fs/kernfs/symlink.c
+> @@ -62,10 +62,10 @@ static int kernfs_get_target_path(struct kernfs_node *parent,
+>  
+>  	/* go up to the root, stop at the base */
+>  	base = parent;
+> -	while (base->parent) {
+> -		kn = target->parent;
+> -		while (kn->parent && base != kn)
+> -			kn = kn->parent;
+> +	while (kernfs_parent(base)) {
+> +		kn = kernfs_parent(target);
+> +		while (kernfs_parent(kn) && base != kn)
+> +			kn = kernfs_parent(kn);
+>  
+>  		if (base == kn)
+>  			break;
+> @@ -75,14 +75,14 @@ static int kernfs_get_target_path(struct kernfs_node *parent,
+>  
+>  		strcpy(s, "../");
+>  		s += 3;
+> -		base = base->parent;
+> +		base = kernfs_parent(base);
+>  	}
+>  
+>  	/* determine end of target string for reverse fillup */
+>  	kn = target;
+> -	while (kn->parent && kn != base) {
+> +	while (kernfs_parent(kn) && kn != base) {
+>  		len += strlen(kn->name) + 1;
+> -		kn = kn->parent;
+> +		kn = kernfs_parent(kn);
+>  	}
+>  
+>  	/* check limits */
+> @@ -94,7 +94,7 @@ static int kernfs_get_target_path(struct kernfs_node *parent,
+>  
+>  	/* reverse fillup of target string from target to base */
+>  	kn = target;
+> -	while (kn->parent && kn != base) {
+> +	while (kernfs_parent(kn) && kn != base) {
+>  		int slen = strlen(kn->name);
+>  
+>  		len -= slen;
+> @@ -102,7 +102,7 @@ static int kernfs_get_target_path(struct kernfs_node *parent,
+>  		if (len)
+>  			s[--len] = '/';
+>  
+> -		kn = kn->parent;
+> +		kn = kernfs_parent(kn);
+>  	}
+>  
+>  	return 0;
+> @@ -111,12 +111,13 @@ static int kernfs_get_target_path(struct kernfs_node *parent,
+>  static int kernfs_getlink(struct inode *inode, char *path)
+>  {
+>  	struct kernfs_node *kn = inode->i_private;
+> -	struct kernfs_node *parent = kn->parent;
+> +	struct kernfs_node *parent;
+>  	struct kernfs_node *target = kn->symlink.target_kn;
+> -	struct kernfs_root *root = kernfs_root(parent);
+> +	struct kernfs_root *root = kernfs_root(kn);
+>  	int error;
+>  
+>  	down_read(&root->kernfs_rwsem);
+> +	parent = kernfs_parent(kn);
+>  	error = kernfs_get_target_path(parent, target, path);
+>  	up_read(&root->kernfs_rwsem);
+>  
+> diff --git a/fs/sysfs/file.c b/fs/sysfs/file.c
+> index d1995e2d6c943..3671a3fd60198 100644
+> --- a/fs/sysfs/file.c
+> +++ b/fs/sysfs/file.c
+> @@ -19,13 +19,19 @@
+>  
+>  #include "sysfs.h"
+>  
+> +static struct kobject *sysfs_file_kobj(struct kernfs_node *kn)
+> +{
+> +	guard(rcu)();
+> +	return rcu_dereference(kn->__parent)->priv;
+> +}
+> +
+>  /*
+>   * Determine ktype->sysfs_ops for the given kernfs_node.  This function
+>   * must be called while holding an active reference.
+>   */
+>  static const struct sysfs_ops *sysfs_file_ops(struct kernfs_node *kn)
+>  {
+> -	struct kobject *kobj = kn->parent->priv;
+> +	struct kobject *kobj = sysfs_file_kobj(kn);
+>  
+>  	if (kn->flags & KERNFS_LOCKDEP)
+>  		lockdep_assert_held(kn);
+> @@ -40,7 +46,7 @@ static const struct sysfs_ops *sysfs_file_ops(struct kernfs_node *kn)
+>  static int sysfs_kf_seq_show(struct seq_file *sf, void *v)
+>  {
+>  	struct kernfs_open_file *of = sf->private;
+> -	struct kobject *kobj = of->kn->parent->priv;
+> +	struct kobject *kobj = sysfs_file_kobj(of->kn);
+>  	const struct sysfs_ops *ops = sysfs_file_ops(of->kn);
+>  	ssize_t count;
+>  	char *buf;
+> @@ -78,7 +84,7 @@ static ssize_t sysfs_kf_bin_read(struct kernfs_open_file *of, char *buf,
+>  				 size_t count, loff_t pos)
+>  {
+>  	struct bin_attribute *battr = of->kn->priv;
+> -	struct kobject *kobj = of->kn->parent->priv;
+> +	struct kobject *kobj = sysfs_file_kobj(of->kn);
+>  	loff_t size = file_inode(of->file)->i_size;
+>  
+>  	if (!count)
+> @@ -102,7 +108,7 @@ static ssize_t sysfs_kf_read(struct kernfs_open_file *of, char *buf,
+>  			     size_t count, loff_t pos)
+>  {
+>  	const struct sysfs_ops *ops = sysfs_file_ops(of->kn);
+> -	struct kobject *kobj = of->kn->parent->priv;
+> +	struct kobject *kobj = sysfs_file_kobj(of->kn);
+>  	ssize_t len;
+>  
+>  	/*
+> @@ -128,7 +134,7 @@ static ssize_t sysfs_kf_write(struct kernfs_open_file *of, char *buf,
+>  			      size_t count, loff_t pos)
+>  {
+>  	const struct sysfs_ops *ops = sysfs_file_ops(of->kn);
+> -	struct kobject *kobj = of->kn->parent->priv;
+> +	struct kobject *kobj = sysfs_file_kobj(of->kn);
+>  
+>  	if (!count)
+>  		return 0;
+> @@ -141,7 +147,7 @@ static ssize_t sysfs_kf_bin_write(struct kernfs_open_file *of, char *buf,
+>  				  size_t count, loff_t pos)
+>  {
+>  	struct bin_attribute *battr = of->kn->priv;
+> -	struct kobject *kobj = of->kn->parent->priv;
+> +	struct kobject *kobj = sysfs_file_kobj(of->kn);
+>  	loff_t size = file_inode(of->file)->i_size;
+>  
+>  	if (size) {
+> @@ -162,7 +168,7 @@ static int sysfs_kf_bin_mmap(struct kernfs_open_file *of,
+>  			     struct vm_area_struct *vma)
+>  {
+>  	struct bin_attribute *battr = of->kn->priv;
+> -	struct kobject *kobj = of->kn->parent->priv;
+> +	struct kobject *kobj = sysfs_file_kobj(of->kn);
+>  
+>  	return battr->mmap(of->file, kobj, battr, vma);
+>  }
+> @@ -171,7 +177,7 @@ static loff_t sysfs_kf_bin_llseek(struct kernfs_open_file *of, loff_t offset,
+>  				  int whence)
+>  {
+>  	struct bin_attribute *battr = of->kn->priv;
+> -	struct kobject *kobj = of->kn->parent->priv;
+> +	struct kobject *kobj = sysfs_file_kobj(of->kn);
+>  
+>  	if (battr->llseek)
+>  		return battr->llseek(of->file, kobj, battr, offset, whence);
+> @@ -482,7 +488,7 @@ EXPORT_SYMBOL_GPL(sysfs_break_active_protection);
+>   */
+>  void sysfs_unbreak_active_protection(struct kernfs_node *kn)
+>  {
+> -	struct kobject *kobj = kn->parent->priv;
+> +	struct kobject *kobj = sysfs_file_kobj(kn);
+>  
+>  	kernfs_unbreak_active_protection(kn);
+>  	kernfs_put(kn);
+> diff --git a/include/linux/kernfs.h b/include/linux/kernfs.h
+> index 87c79d076d6d7..5dda9a268e44c 100644
+> --- a/include/linux/kernfs.h
+> +++ b/include/linux/kernfs.h
+> @@ -147,6 +147,11 @@ enum kernfs_root_flag {
+>  	 * Support user xattrs to be written to nodes rooted at this root.
+>  	 */
+>  	KERNFS_ROOT_SUPPORT_USER_XATTR		= 0x0008,
+> +
+> +	/*
+> +	 * Renames must not change the parent node.
+> +	 */
+> +	KERNFS_ROOT_INVARIANT_PARENT		= 0x0010,
+>  };
+>  
+>  /* type-specific structures for kernfs_node union members */
+> @@ -199,8 +204,8 @@ struct kernfs_node {
+>  	 * never moved to a different parent, it is safe to access the
+>  	 * parent directly.
+>  	 */
+> -	struct kernfs_node	*parent;
+>  	const char		*name;
+> +	struct kernfs_node	__rcu *__parent;
+>  
+>  	struct rb_node		rb;
+>  
+> @@ -416,6 +421,7 @@ struct dentry *kernfs_node_dentry(struct kernfs_node *kn,
+>  struct kernfs_root *kernfs_create_root(struct kernfs_syscall_ops *scops,
+>  				       unsigned int flags, void *priv);
+>  void kernfs_destroy_root(struct kernfs_root *root);
+> +unsigned int kernfs_root_flags(struct kernfs_node *kn);
+>  
+>  struct kernfs_node *kernfs_create_dir_ns(struct kernfs_node *parent,
+>  					 const char *name, umode_t mode,
+> @@ -514,6 +520,8 @@ kernfs_create_root(struct kernfs_syscall_ops *scops, unsigned int flags,
+>  { return ERR_PTR(-ENOSYS); }
+>  
+>  static inline void kernfs_destroy_root(struct kernfs_root *root) { }
+> +static inline unsigned int kernfs_root_flags(struct kernfs_node *kn)
+> +{ return 0; }
+>  
+>  static inline struct kernfs_node *
+>  kernfs_create_dir_ns(struct kernfs_node *parent, const char *name,
+> diff --git a/kernel/cgroup/cgroup-v1.c b/kernel/cgroup/cgroup-v1.c
+> index e28d5f0d20ed0..c9752eb607ec9 100644
+> --- a/kernel/cgroup/cgroup-v1.c
+> +++ b/kernel/cgroup/cgroup-v1.c
+> @@ -844,7 +844,7 @@ static int cgroup1_rename(struct kernfs_node *kn, struct kernfs_node *new_parent
+>  
+>  	if (kernfs_type(kn) != KERNFS_DIR)
+>  		return -ENOTDIR;
+> -	if (kn->parent != new_parent)
+> +	if (rcu_access_pointer(kn->__parent) != new_parent)
+>  		return -EIO;
+>  
+>  	/*
+> diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+> index e63d6f3b00470..fc152691a6b42 100644
+> --- a/kernel/cgroup/cgroup.c
+> +++ b/kernel/cgroup/cgroup.c
+> @@ -633,9 +633,22 @@ int cgroup_task_count(const struct cgroup *cgrp)
+>  	return count;
+>  }
+>  
+> +static struct cgroup *kn_priv(struct kernfs_node *kn)
+> +{
+> +	struct kernfs_node *parent;
+> +	/*
+> +	 * The parent can not be replaced due to KERNFS_ROOT_INVARIANT_PARENT.
+> +	 * Therefore it is always safe to dereference this pointer outside of a
+> +	 * RCU section.
+> +	 */
+> +	parent = rcu_dereference_check(kn->__parent,
+> +				       kernfs_root_flags(kn) & KERNFS_ROOT_INVARIANT_PARENT);
+> +	return parent->priv;
+> +}
+> +
+>  struct cgroup_subsys_state *of_css(struct kernfs_open_file *of)
+>  {
+> -	struct cgroup *cgrp = of->kn->parent->priv;
+> +	struct cgroup *cgrp = kn_priv(of->kn);
+>  	struct cftype *cft = of_cft(of);
+>  
+>  	/*
+> @@ -1612,7 +1625,7 @@ void cgroup_kn_unlock(struct kernfs_node *kn)
+>  	if (kernfs_type(kn) == KERNFS_DIR)
+>  		cgrp = kn->priv;
+>  	else
+> -		cgrp = kn->parent->priv;
+> +		cgrp = kn_priv(kn);
+>  
+>  	cgroup_unlock();
+>  
+> @@ -1644,7 +1657,7 @@ struct cgroup *cgroup_kn_lock_live(struct kernfs_node *kn, bool drain_offline)
+>  	if (kernfs_type(kn) == KERNFS_DIR)
+>  		cgrp = kn->priv;
+>  	else
+> -		cgrp = kn->parent->priv;
+> +		cgrp = kn_priv(kn);
+>  
+>  	/*
+>  	 * We're gonna grab cgroup_mutex which nests outside kernfs
+> @@ -2118,7 +2131,8 @@ int cgroup_setup_root(struct cgroup_root *root, u16 ss_mask)
+>  	root->kf_root = kernfs_create_root(kf_sops,
+>  					   KERNFS_ROOT_CREATE_DEACTIVATED |
+>  					   KERNFS_ROOT_SUPPORT_EXPORTOP |
+> -					   KERNFS_ROOT_SUPPORT_USER_XATTR,
+> +					   KERNFS_ROOT_SUPPORT_USER_XATTR |
+> +					   KERNFS_ROOT_INVARIANT_PARENT,
+>  					   root_cgrp);
+>  	if (IS_ERR(root->kf_root)) {
+>  		ret = PTR_ERR(root->kf_root);
+> @@ -4144,7 +4158,7 @@ static ssize_t cgroup_file_write(struct kernfs_open_file *of, char *buf,
+>  				 size_t nbytes, loff_t off)
+>  {
+>  	struct cgroup_file_ctx *ctx = of->priv;
+> -	struct cgroup *cgrp = of->kn->parent->priv;
+> +	struct cgroup *cgrp = kn_priv(of->kn);
+>  	struct cftype *cft = of_cft(of);
+>  	struct cgroup_subsys_state *css;
+>  	int ret;
+> diff --git a/tools/testing/selftests/bpf/progs/profiler.inc.h b/tools/testing/selftests/bpf/progs/profiler.inc.h
+> index 8bd1ebd7d6afd..813143b4985dc 100644
+> --- a/tools/testing/selftests/bpf/progs/profiler.inc.h
+> +++ b/tools/testing/selftests/bpf/progs/profiler.inc.h
+> @@ -223,7 +223,7 @@ static INLINE void* read_full_cgroup_path(struct kernfs_node* cgroup_node,
+>  		if (bpf_cmp_likely(filepart_length, <=, MAX_PATH)) {
+>  			payload += filepart_length;
+>  		}
+> -		cgroup_node = BPF_CORE_READ(cgroup_node, parent);
+> +		cgroup_node = BPF_CORE_READ(cgroup_node, __parent);
+>  	}
+>  	return payload;
+>  }
 
-Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKLyoKICogdGFzY2FtX3BvYy5jIC0g
-c3ludGhldGljIEFMU0EgUENNIGxpZmV0aW1lIHJlcHJvZHVjZXIgZm9yIHRoZSBUQVNDQU0KICog
-VVMtMTQ0TUtJSSBtYW51YWwtcmV2aWV3IGNhc2VzIEMxIGFuZCBDMi4KICoKICogVGhpcyBtb2R1
-bGUgZGVsaWJlcmF0ZWx5IHJlcHJvZHVjZXMgdGhlICpsaWZldGltZSBwYXR0ZXJucyogb2YgdGhl
-IGRyaXZlciwKICogbm90IHRoZSBVU0IgZGV2aWNlIGl0c2VsZjoKICogICBwY20xIDogQUxTQSBQ
-Q00gLmNsb3NlKCkgZHJvcHMgdGhlIHJ1bnRpbWUgd2hpbGUgYW4gYXN5bmNocm9ub3VzCiAqICAg
-ICAgICAgICJjb21wbGV0aW9uIiBzdGlsbCBob2xkcyBhIHJ1bnRpbWUgcG9pbnRlciAoQzEpLgog
-KiAgIHBjbTIgOiBhIHF1ZXVlZCB3b3JrIGl0ZW0gY2FsbHMgc25kX3BjbV9zdG9wKCkgYWZ0ZXIg
-LmNsb3NlKCkvZGV0YWNoCiAqICAgICAgICAgIChDMikuCiAqCiAqIFRoZSBBTFNBIGNhcmQgaXMg
-YSBzeW50aGV0aWMgcGxhdGZvcm0gZGV2aWNlOyBubyBUQVNDQU0gaGFyZHdhcmUgb3IgVVNCCiAq
-IHRyYWZmaWMgaXMgaW52b2x2ZWQuICBCdWlsZCBhbmQgcnVuIGluc3RydWN0aW9ucyBhcmUgaW4g
-UkVBRE1FLnR4dC4KICovCiNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KI2luY2x1ZGUgPGxpbnV4
-L2tlcm5lbC5oPgojaW5jbHVkZSA8bGludXgvaW5pdC5oPgojaW5jbHVkZSA8bGludXgvc2xhYi5o
-PgojaW5jbHVkZSA8bGludXgvZGVsYXkuaD4KI2luY2x1ZGUgPGxpbnV4L2t0aHJlYWQuaD4KI2lu
-Y2x1ZGUgPGxpbnV4L3dhaXQuaD4KI2luY2x1ZGUgPGxpbnV4L2NvbXBsZXRpb24uaD4KI2luY2x1
-ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgojaW5jbHVkZSA8c291bmQvY29yZS5oPgojaW5j
-bHVkZSA8c291bmQvcGNtLmg+CiNpbmNsdWRlIDxzb3VuZC9wY21fcGFyYW1zLmg+CgojZGVmaW5l
-IERSViAic25kdXNiX3JhY2UiCiNkZWZpbmUgQ09PS0lFIDB4NWE1YTEyMzRkZWFkYmVlZlVMTAoK
-c3RhdGljIGNoYXIgKm1vZGUgPSAicGNtMSI7Cm1vZHVsZV9wYXJhbShtb2RlLCBjaGFycCwgMDQ0
-NCk7CnN0YXRpYyBib29sIHNhZmU7Cm1vZHVsZV9wYXJhbShzYWZlLCBib29sLCAwNDQ0KTsKTU9E
-VUxFX1BBUk1fREVTQyhtb2RlLCAicGNtMSBvciBwY20yIik7Ck1PRFVMRV9QQVJNX0RFU0Moc2Fm
-ZSwgInRha2UgdGhlIHNhZmUgY2xlYW51cCBwYXRoIChuZWdhdGl2ZSBjb250cm9sKSIpOwoKLyog
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tICovCi8qIFYxL1YyIHN5bnRoZXRpYyBBTFNBIFBDTSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgKi8KLyogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICovCnN0cnVjdCByYWNl
-X3BjbSB7CglzdHJ1Y3Qgc25kX3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVhbTsKCXN0cnVjdCBzbmRf
-cGNtX3J1bnRpbWUgKnJ1bnRpbWU7CglzdHJ1Y3Qgd29ya19zdHJ1Y3Qgd29yazsKCWF0b21pY190
-IGFjdGl2ZTsKCWJvb2wgYzI7Cgl1NjQgY29va2llOwp9OwoKc3RhdGljIHN0cnVjdCBzbmRfY2Fy
-ZCAqcmFjZV9jYXJkOwpzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcmFjZV9wZGV2Owpz
-dGF0aWMgc3RydWN0IHNuZF9wY20gKnJhY2VfcGNtX2RldjsKCnN0YXRpYyB2b2lkIHJhY2VfcGNt
-X3dvcmsoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQp7CglzdHJ1Y3QgcmFjZV9wY20gKm0gPSBj
-b250YWluZXJfb2Yod29yaywgc3RydWN0IHJhY2VfcGNtLCB3b3JrKTsKCXN0cnVjdCBzbmRfcGNt
-X3J1bnRpbWUgKnJ0ID0gbS0+cnVudGltZTsKCXN0cnVjdCBzbmRfcGNtX3N1YnN0cmVhbSAqc3Mg
-PSBtLT5zdWJzdHJlYW07CgoJcHJfaW5mbyhEUlYgIjogd29yayBzdGFydCBtb2RlPSVzIHJ0PSVw
-eCBzcz0lcHggY29va2llPSUjbGx4XG4iLAoJCW0tPmMyID8gImMyIiA6ICJjMSIsIHJ0LCBzcywg
-bS0+Y29va2llKTsKCWlmICghbS0+YzIgJiYgIXJ0KQoJCXJldHVybjsKCWlmIChtLT5jMiAmJiAh
-c3MpCgkJcmV0dXJuOwoKCS8qIEdpdmUgdGhlIGNsb3NpbmcgdGhyZWFkIHRpbWUgdG8gcnVuIC5j
-bG9zZSgpIGFuZCBkZXRhY2gvZnJlZS4gKi8KCW1zbGVlcCgxMjApOwoKCWlmICghbS0+YzIpIHsK
-CQkvKgoJCSAqIEMxOiB0aGUgY29tcGxldGlvbiBjYWNoZWQgcnVudGltZSBiZWZvcmUgY2xvc2U7
-IGFmdGVyCgkJICogc25kX3BjbV9kZXRhY2hfc3Vic3RyZWFtKCkgdGhpcyBpcyBmcmVlZCBtZW1v
-cnkuCgkJICovCgkJcHJfaW5mbyhEUlYgIjogYzEgdXNlIHJ0PSVweCBkbWFfYXJlYT0lcHhcbiIs
-IHJ0LAoJCQlSRUFEX09OQ0UocnQtPmRtYV9hcmVhKSk7CgkJYmFycmllcigpOwoJCSh2b2lkKVJF
-QURfT05DRShydC0+ZG1hX2FyZWEpOwoJfSBlbHNlIHsKCQkvKgoJCSAqIEMyOiB0aGUgd29yayBj
-YWNoZWQgdGhlIHN1YnN0cmVhbSwgYnV0IGRldGFjaCBtYWRlCgkJICogc3MtPnJ1bnRpbWUgTlVM
-TDsgc25kX3BjbV9zdG9wKCkgZGVyZWZlcmVuY2VzIGl0LgoJCSAqLwoJCXByX2luZm8oRFJWICI6
-IGMyIGNhbGwgc25kX3BjbV9zdG9wIHNzPSVweCBydW50aW1lPSVweFxuIiwKCQkJc3MsIFJFQURf
-T05DRShzcy0+cnVudGltZSkpOwoJCXNuZF9wY21fc3RvcChzcywgU05EUlZfUENNX1NUQVRFX1hS
-VU4pOwoJfQoJcHJfaW5mbyhEUlYgIjogd29yayBlbmRcbiIpOwp9CgpzdGF0aWMgaW50IHJhY2Vf
-cGNtX29wZW4oc3RydWN0IHNuZF9wY21fc3Vic3RyZWFtICpzdWJzdHJlYW0pCnsKCXN0cnVjdCBz
-bmRfcGNtX3J1bnRpbWUgKnJ1bnRpbWUgPSBzdWJzdHJlYW0tPnJ1bnRpbWU7CglzdHJ1Y3QgcmFj
-ZV9wY20gKm07CgoJbSA9IGt6YWxsb2Moc2l6ZW9mKCptKSwgR0ZQX0tFUk5FTCk7CglpZiAoIW0p
-CgkJcmV0dXJuIC1FTk9NRU07CgltLT5zdWJzdHJlYW0gPSBzdWJzdHJlYW07CgltLT5ydW50aW1l
-ID0gcnVudGltZTsKCW0tPmNvb2tpZSA9IENPT0tJRTsKCW0tPmMyID0gIXN0cmNtcChtb2RlLCAi
-cGNtMiIpOwoJSU5JVF9XT1JLKCZtLT53b3JrLCByYWNlX3BjbV93b3JrKTsKCWF0b21pY19zZXQo
-Jm0tPmFjdGl2ZSwgMCk7CglydW50aW1lLT5wcml2YXRlX2RhdGEgPSBtOwoJcnVudGltZS0+aHcu
-aW5mbyA9IFNORFJWX1BDTV9JTkZPX01NQVAgfAoJCQkgICBTTkRSVl9QQ01fSU5GT19JTlRFUkxF
-QVZFRCB8CgkJCSAgIFNORFJWX1BDTV9JTkZPX01NQVBfVkFMSUQ7CglydW50aW1lLT5ody5mb3Jt
-YXRzID0gU05EUlZfUENNX0ZNVEJJVF9TMTZfTEU7CglydW50aW1lLT5ody5yYXRlcyA9IFNORFJW
-X1BDTV9SQVRFXzQ0MTAwOwoJcnVudGltZS0+aHcucmF0ZV9taW4gPSA0NDEwMDsKCXJ1bnRpbWUt
-Pmh3LnJhdGVfbWF4ID0gNDQxMDA7CglydW50aW1lLT5ody5jaGFubmVsc19taW4gPSAyOwoJcnVu
-dGltZS0+aHcuY2hhbm5lbHNfbWF4ID0gMjsKCXJ1bnRpbWUtPmh3LmJ1ZmZlcl9ieXRlc19tYXgg
-PSA2NCAqIDEwMjQ7CglydW50aW1lLT5ody5wZXJpb2RfYnl0ZXNfbWluID0gMTAyNDsKCXJ1bnRp
-bWUtPmh3LnBlcmlvZF9ieXRlc19tYXggPSA0MDk2OwoJcnVudGltZS0+aHcucGVyaW9kc19taW4g
-PSAyOwoJcnVudGltZS0+aHcucGVyaW9kc19tYXggPSA4OwoJcHJfaW5mbyhEUlYgIjogb3BlbiBz
-dWI9JXB4IHJ0PSVweCBtb2RlPSVzXG4iLCBzdWJzdHJlYW0sIHJ1bnRpbWUsIG1vZGUpOwoJcmV0
-dXJuIDA7Cn0KCnN0YXRpYyBpbnQgcmFjZV9wY21fY2xvc2Uoc3RydWN0IHNuZF9wY21fc3Vic3Ry
-ZWFtICpzdWJzdHJlYW0pCnsKCXN0cnVjdCBzbmRfcGNtX3J1bnRpbWUgKnJ1bnRpbWUgPSBzdWJz
-dHJlYW0tPnJ1bnRpbWU7CglzdHJ1Y3QgcmFjZV9wY20gKm0gPSBydW50aW1lID8gcnVudGltZS0+
-cHJpdmF0ZV9kYXRhIDogTlVMTDsKCglwcl9pbmZvKERSViAiOiBjbG9zZSBzdWI9JXB4IHJ0PSVw
-eCBtPSVweCBzYWZlPSVkXG4iLAoJCXN1YnN0cmVhbSwgcnVudGltZSwgbSwgc2FmZSk7CglpZiAo
-bSAmJiBzYWZlKQoJCWNhbmNlbF93b3JrX3N5bmMoJm0tPndvcmspOwoJaWYgKG0pIHsKCQltLT5z
-dWJzdHJlYW0gPSBOVUxMOwoJCW0tPnJ1bnRpbWUgPSBOVUxMOwoJfQoJcmV0dXJuIDA7Cn0KCnN0
-YXRpYyBpbnQgcmFjZV9wY21faHdfcGFyYW1zKHN0cnVjdCBzbmRfcGNtX3N1YnN0cmVhbSAqc3Vi
-c3RyZWFtLAoJCQkgICAgICBzdHJ1Y3Qgc25kX3BjbV9od19wYXJhbXMgKnBhcmFtcykKewoJcmV0
-dXJuIDA7Cn0KCnN0YXRpYyBpbnQgcmFjZV9wY21fcHJlcGFyZShzdHJ1Y3Qgc25kX3BjbV9zdWJz
-dHJlYW0gKnN1YnN0cmVhbSkKewoJcmV0dXJuIDA7Cn0KCnN0YXRpYyBpbnQgcmFjZV9wY21fdHJp
-Z2dlcihzdHJ1Y3Qgc25kX3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVhbSwgaW50IGNtZCkKewoJc3Ry
-dWN0IHNuZF9wY21fcnVudGltZSAqcnVudGltZSA9IHN1YnN0cmVhbS0+cnVudGltZTsKCXN0cnVj
-dCByYWNlX3BjbSAqbSA9IHJ1bnRpbWUgPyBydW50aW1lLT5wcml2YXRlX2RhdGEgOiBOVUxMOwoK
-CWlmICghbSkKCQlyZXR1cm4gMDsKCXN3aXRjaCAoY21kKSB7CgljYXNlIFNORFJWX1BDTV9UUklH
-R0VSX1NUQVJUOgoJY2FzZSBTTkRSVl9QQ01fVFJJR0dFUl9SRVNVTUU6CgkJYXRvbWljX3NldCgm
-bS0+YWN0aXZlLCAxKTsKCQlwcl9pbmZvKERSViAiOiB0cmlnZ2VyIHN0YXJ0LCBxdWV1ZSB3b3Jr
-XG4iKTsKCQlzY2hlZHVsZV93b3JrKCZtLT53b3JrKTsKCQlicmVhazsKCWNhc2UgU05EUlZfUENN
-X1RSSUdHRVJfU1RPUDoKCWNhc2UgU05EUlZfUENNX1RSSUdHRVJfU1VTUEVORDoKCQlhdG9taWNf
-c2V0KCZtLT5hY3RpdmUsIDApOwoJCWJyZWFrOwoJfQoJcmV0dXJuIDA7Cn0KCnN0YXRpYyBzbmRf
-cGNtX3VmcmFtZXNfdCByYWNlX3BjbV9wb2ludGVyKHN0cnVjdCBzbmRfcGNtX3N1YnN0cmVhbSAq
-c3Vic3RyZWFtKQp7CglyZXR1cm4gMDsKfQoKc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfcGNtX29w
-cyByYWNlX3BjbV9vcHMgPSB7Cgkub3BlbiA9IHJhY2VfcGNtX29wZW4sCgkuY2xvc2UgPSByYWNl
-X3BjbV9jbG9zZSwKCS5od19wYXJhbXMgPSByYWNlX3BjbV9od19wYXJhbXMsCgkucHJlcGFyZSA9
-IHJhY2VfcGNtX3ByZXBhcmUsCgkudHJpZ2dlciA9IHJhY2VfcGNtX3RyaWdnZXIsCgkucG9pbnRl
-ciA9IHJhY2VfcGNtX3BvaW50ZXIsCn07CgpzdGF0aWMgaW50IHNuZHVzYl9wY21faW5pdCh2b2lk
-KQp7CglpbnQgcmV0OwoKCXJhY2VfcGRldiA9IHBsYXRmb3JtX2RldmljZV9yZWdpc3Rlcl9zaW1w
-bGUoInNuZHVzYl9yYWNlIiwgLTEsIE5VTEwsIDApOwoJaWYgKElTX0VSUihyYWNlX3BkZXYpKQoJ
-CXJldHVybiBQVFJfRVJSKHJhY2VfcGRldik7CglyZXQgPSBzbmRfY2FyZF9uZXcoJnJhY2VfcGRl
-di0+ZGV2LCAwLCAiU25kVXNiUmFjZSIsIFRISVNfTU9EVUxFLCAwLAoJCQkgICAmcmFjZV9jYXJk
-KTsKCWlmIChyZXQgPCAwKSB7CgkJcHJfZXJyKERSViAiOiBzbmRfY2FyZF9uZXcgZmFpbGVkOiAl
-ZFxuIiwgcmV0KTsKCQlyZXR1cm4gcmV0OwoJfQoJcmV0ID0gc25kX3BjbV9uZXcocmFjZV9jYXJk
-LCAiU25kVXNiUmFjZSIsIDAsIDAsIDEsICZyYWNlX3BjbV9kZXYpOwoJaWYgKHJldCA8IDApIHsK
-CQlwcl9lcnIoRFJWICI6IHNuZF9wY21fbmV3IGZhaWxlZDogJWRcbiIsIHJldCk7CgkJc25kX2Nh
-cmRfZnJlZShyYWNlX2NhcmQpOwoJCXJldHVybiByZXQ7Cgl9CglzbmRfcGNtX3NldF9vcHMocmFj
-ZV9wY21fZGV2LCBTTkRSVl9QQ01fU1RSRUFNX0NBUFRVUkUsICZyYWNlX3BjbV9vcHMpOwoJc25k
-X3BjbV9saWJfcHJlYWxsb2NhdGVfcGFnZXNfZm9yX2FsbChyYWNlX3BjbV9kZXYsCgkJCQkJICAg
-ICAgU05EUlZfRE1BX1RZUEVfQ09OVElOVU9VUywgTlVMTCwKCQkJCQkgICAgICA2NCAqIDEwMjQs
-IDY0ICogMTAyNCk7CglyZXQgPSBzbmRfY2FyZF9yZWdpc3RlcihyYWNlX2NhcmQpOwoJaWYgKHJl
-dCA8IDApIHsKCQlwcl9lcnIoRFJWICI6IHNuZF9jYXJkX3JlZ2lzdGVyIGZhaWxlZDogJWRcbiIs
-IHJldCk7CgkJc25kX2NhcmRfZnJlZShyYWNlX2NhcmQpOwoJCXJldHVybiByZXQ7Cgl9Cglwcl9p
-bmZvKERSViAiOiBjYXJkIHJlZ2lzdGVyZWQgbW9kZT0lcyBzYWZlPSVkXG4iLCBtb2RlLCBzYWZl
-KTsKCXJldHVybiAwOwp9CgpzdGF0aWMgaW50IF9faW5pdCBzbmR1c2JfaW5pdCh2b2lkKQp7Cglw
-cl9pbmZvKERSViAiOiBpbml0IG1vZGU9JXMgc2FmZT0lZFxuIiwgbW9kZSwgc2FmZSk7CglyZXR1
-cm4gc25kdXNiX3BjbV9pbml0KCk7Cn0KCnN0YXRpYyB2b2lkIF9fZXhpdCBzbmR1c2JfZXhpdCh2
-b2lkKQp7Cglwcl9pbmZvKERSViAiOiBleGl0XG4iKTsKCWlmIChyYWNlX2NhcmQpCgkJc25kX2Nh
-cmRfZnJlZShyYWNlX2NhcmQpOwoJaWYgKHJhY2VfcGRldikKCQlwbGF0Zm9ybV9kZXZpY2VfdW5y
-ZWdpc3RlcihyYWNlX3BkZXYpOwp9Cgptb2R1bGVfaW5pdChzbmR1c2JfaW5pdCk7Cm1vZHVsZV9l
-eGl0KHNuZHVzYl9leGl0KTsKTU9EVUxFX0xJQ0VOU0UoIkdQTCIpOwpNT0RVTEVfREVTQ1JJUFRJ
-T04oIlRBU0NBTSBVUy0xNDRNS0lJIEMxL0MyIHN5bnRoZXRpYyBsaWZldGltZSByZXByb2R1Y2Vy
-Iik7Cg==
-------=_Part_522742_1033163319.1794572993764
-Content-Type: text/plain; name=pcmtest.c
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="pcmtest.c"
 
-I2RlZmluZSBfR05VX1NPVVJDRQovLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMAov
-KgogKiBwY210ZXN0LmMgLSBndWVzdC1zaWRlIGV4ZXJjaXNlciBmb3Igc25kcGNpX3JhY2Uua28u
-CiAqCiAqIFVzYWdlOgogKiAgIHBjbXRlc3QgY2xvc2UgW2l0ZXJzXSAgLSBvcGVuL3N0YXJ0L2Ns
-b3NlIG9uZSBwbGF5YmFjayBzdWJzdHJlYW0gKFY0KQogKiAgIHBjbXRlc3QgbGluayAgW2l0ZXJz
-XSAgLSBsaW5rIHR3byBwbGF5YmFjayBzdWJzdHJlYW1zLCBjbG9zZSBCIHdoaWxlCiAqICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHRoZSBBIHRpbWVyIGNhbGxiYWNrIHdhbGtzIHRoZSBncm91
-cCAoVjUpCiAqLwojaW5jbHVkZSA8c3RkaW8uaD4KI2luY2x1ZGUgPHN0ZGxpYi5oPgojaW5jbHVk
-ZSA8c3RyaW5nLmg+CiNpbmNsdWRlIDxlcnJuby5oPgojaW5jbHVkZSA8ZmNudGwuaD4KI2luY2x1
-ZGUgPHVuaXN0ZC5oPgojaW5jbHVkZSA8c3lzL2lvY3RsLmg+CiNpbmNsdWRlIDxsaW1pdHMuaD4K
-I2luY2x1ZGUgPHNjaGVkLmg+CiNpbmNsdWRlIDxzb3VuZC9hc291bmQuaD4KCiNkZWZpbmUgREVW
-ICIvZGV2L3NuZC9wY21DMEQwYyIKCnN0YXRpYyBpbnQgc2V0X2h3X3BhcmFtcyhpbnQgZmQpCnsK
-CXN0cnVjdCBzbmRfcGNtX2h3X3BhcmFtcyBwOwoJaW50IGksIHJldDsKCgltZW1zZXQoJnAsIDAs
-IHNpemVvZihwKSk7Cglmb3IgKGkgPSAwOyBpIDw9IFNORFJWX1BDTV9IV19QQVJBTV9MQVNUX01B
-U0sgLQoJCQlTTkRSVl9QQ01fSFdfUEFSQU1fRklSU1RfTUFTSzsgaSsrKQoJCW1lbXNldCgmcC5t
-YXNrc1tpXSwgMHhmZiwgc2l6ZW9mKHAubWFza3NbaV0pKTsKCWZvciAoaSA9IDA7IGkgPD0gU05E
-UlZfUENNX0hXX1BBUkFNX0xBU1RfSU5URVJWQUwgLQoJCQlTTkRSVl9QQ01fSFdfUEFSQU1fRklS
-U1RfSU5URVJWQUw7IGkrKykgewoJCXAuaW50ZXJ2YWxzW2ldLm1pbiA9IDA7CgkJcC5pbnRlcnZh
-bHNbaV0ubWF4ID0gVUlOVF9NQVg7CgkJcC5pbnRlcnZhbHNbaV0uaW50ZWdlciA9IDA7Cgl9Cglw
-LnJtYXNrID0gfjBVOwoJcmV0ID0gaW9jdGwoZmQsIFNORFJWX1BDTV9JT0NUTF9IV19SRUZJTkUs
-ICZwKTsKCXByaW50ZigiSFdfUkVGSU5FIHJldD0lZCBlcnJubz0lZFxuIiwgcmV0LCBlcnJubyk7
-CglpZiAocmV0IDwgMCkKCQlyZXR1cm4gLTE7CglwcmludGYoInJlZmluZWQ6IHJhdGU9JXUgY2g9
-JXUgZm10PSV1IHBzPSV1IHBlcmlvZHM9JXUgYnM9JXVcbiIsCgkgICAgICAgcC5pbnRlcnZhbHNb
-U05EUlZfUENNX0hXX1BBUkFNX1JBVEUgLSBTTkRSVl9QQ01fSFdfUEFSQU1fRklSU1RfSU5URVJW
-QUxdLm1pbiwKCSAgICAgICBwLmludGVydmFsc1tTTkRSVl9QQ01fSFdfUEFSQU1fQ0hBTk5FTFMg
-LSBTTkRSVl9QQ01fSFdfUEFSQU1fRklSU1RfSU5URVJWQUxdLm1pbiwKCSAgICAgICBfX2J1aWx0
-aW5fY3R6KHAubWFza3NbU05EUlZfUENNX0hXX1BBUkFNX0ZPUk1BVF0uYml0c1swXSksCgkgICAg
-ICAgcC5pbnRlcnZhbHNbU05EUlZfUENNX0hXX1BBUkFNX1BFUklPRF9TSVpFIC0gU05EUlZfUENN
-X0hXX1BBUkFNX0ZJUlNUX0lOVEVSVkFMXS5taW4sCgkgICAgICAgcC5pbnRlcnZhbHNbU05EUlZf
-UENNX0hXX1BBUkFNX1BFUklPRFMgLSBTTkRSVl9QQ01fSFdfUEFSQU1fRklSU1RfSU5URVJWQUxd
-Lm1pbiwKCSAgICAgICBwLmludGVydmFsc1tTTkRSVl9QQ01fSFdfUEFSQU1fQlVGRkVSX1NJWkUg
-LSBTTkRSVl9QQ01fSFdfUEFSQU1fRklSU1RfSU5URVJWQUxdLm1pbik7CglyZXQgPSBpb2N0bChm
-ZCwgU05EUlZfUENNX0lPQ1RMX0hXX1BBUkFNUywgJnApOwoJaWYgKHJldCA8IDApIHsKCQlmcHJp
-bnRmKHN0ZGVyciwgIkhXX1BBUkFNUzogJXNcbiIsIHN0cmVycm9yKGVycm5vKSk7CgkJcmV0dXJu
-IC0xOwoJfQoJcmV0dXJuIDA7Cn0KCnN0YXRpYyBpbnQgb3Blbl9zdHJlYW0odm9pZCkKewoJaW50
-IGZkID0gb3BlbihERVYsIE9fUkRXUiB8IE9fTk9OQkxPQ0spOwoKCWlmIChmZCA8IDApCgkJZnBy
-aW50ZihzdGRlcnIsICJvcGVuICVzOiAlc1xuIiwgREVWLCBzdHJlcnJvcihlcnJubykpOwoJcmV0
-dXJuIGZkOwp9CgpzdGF0aWMgaW50IHByZXBhcmVfc3RyZWFtKGludCBmZCkKewoJaWYgKHNldF9o
-d19wYXJhbXMoZmQpIDwgMCkKCQlyZXR1cm4gLTE7CglpZiAoaW9jdGwoZmQsIFNORFJWX1BDTV9J
-T0NUTF9QUkVQQVJFLCAwKSA8IDApIHsKCQlmcHJpbnRmKHN0ZGVyciwgIlBSRVBBUkU6ICVzXG4i
-LCBzdHJlcnJvcihlcnJubykpOwoJCXJldHVybiAtMTsKCX0KCXJldHVybiAwOwp9CgpzdGF0aWMg
-aW50IHN0YXJ0X3N0cmVhbShpbnQgZmQpCnsKCWlmIChpb2N0bChmZCwgU05EUlZfUENNX0lPQ1RM
-X1NUQVJULCAwKSA8IDApIHsKCQlmcHJpbnRmKHN0ZGVyciwgIlNUQVJUOiAlc1xuIiwgc3RyZXJy
-b3IoZXJybm8pKTsKCQlyZXR1cm4gLTE7Cgl9CglyZXR1cm4gMDsKfQoKc3RhdGljIGludCBvbmVf
-Y2xvc2Uodm9pZCkKewoJaW50IGZkID0gb3Blbl9zdHJlYW0oKTsKCglpZiAoZmQgPCAwKQoJCXJl
-dHVybiAtMTsKCWlmIChwcmVwYXJlX3N0cmVhbShmZCkgPCAwIHx8IHN0YXJ0X3N0cmVhbShmZCkg
-PCAwKSB7CgkJY2xvc2UoZmQpOwoJCXJldHVybiAtMTsKCX0KCXVzbGVlcCgxMDAwMCk7CgljbG9z
-ZShmZCk7CglyZXR1cm4gMDsKfQoKc3RhdGljIGludCBvbmVfbGluayh2b2lkKQp7CglpbnQgYSA9
-IG9wZW5fc3RyZWFtKCk7CglpbnQgYiA9IG9wZW5fc3RyZWFtKCk7CgoJaWYgKGEgPCAwIHx8IGIg
-PCAwKQoJCXJldHVybiAtMTsKCWlmIChwcmVwYXJlX3N0cmVhbShhKSA8IDAgfHwgcHJlcGFyZV9z
-dHJlYW0oYikgPCAwKQoJCWdvdG8gb3V0OwoJaWYgKGlvY3RsKGEsIFNORFJWX1BDTV9JT0NUTF9M
-SU5LLCBiKSA8IDApIHsKCQlmcHJpbnRmKHN0ZGVyciwgIkxJTks6ICVzXG4iLCBzdHJlcnJvcihl
-cnJubykpOwoJCWdvdG8gb3V0OwoJfQoJaWYgKHN0YXJ0X3N0cmVhbShhKSA8IDApCgkJZ290byBv
-dXQ7CgkvKiBMZXQgdGhlIEEgdGltZXIgY2FsbGJhY2sgc3RhcnQgd2Fsa2luZyB0aGUgbGlua2Vk
-IGdyb3VwLiAqLwoJdXNsZWVwKDE1MDApOwoJLyogQ2xvc2UgQiB3aGlsZSBBJ3MgY2FsbGJhY2sg
-bWF5IGJlIGluIHRoZSBncm91cCBsb29wLiAqLwoJY2xvc2UoYik7CgliID0gLTE7Cgl1c2xlZXAo
-MTUwMCk7Cm91dDoKCWlmIChiID49IDApCgkJY2xvc2UoYik7CglpZiAoYSA+PSAwKQoJCWNsb3Nl
-KGEpOwoJcmV0dXJuIDA7Cn0KCmludCBtYWluKGludCBhcmdjLCBjaGFyICoqYXJndikKewoJY3B1
-X3NldF90IHNldDsKCglDUFVfWkVSTygmc2V0KTsKCUNQVV9TRVQoMSwgJnNldCk7CglzY2hlZF9z
-ZXRhZmZpbml0eSgwLCBzaXplb2Yoc2V0KSwgJnNldCk7CglpbnQgaSwgbiA9IDIwMDsKCglpZiAo
-YXJnYyA8IDIpIHsKCQlmcHJpbnRmKHN0ZGVyciwgInVzYWdlOiAlcyBjbG9zZXxsaW5rIFtpdGVy
-c11cbiIsIGFyZ3ZbMF0pOwoJCXJldHVybiAyOwoJfQoJaWYgKGFyZ2MgPiAyKQoJCW4gPSBhdG9p
-KGFyZ3ZbMl0pOwoJcHJpbnRmKCJwY210ZXN0OiBtb2RlPSVzIGl0ZXJzPSVkXG4iLCBhcmd2WzFd
-LCBuKTsKCWZvciAoaSA9IDA7IGkgPCBuOyBpKyspIHsKCQlpZiAoIXN0cmNtcChhcmd2WzFdLCAi
-bGluayIpKSB7CgkJCWlmIChvbmVfbGluaygpIDwgMCkKCQkJCWJyZWFrOwoJCX0gZWxzZSB7CgkJ
-CWlmIChvbmVfY2xvc2UoKSA8IDApCgkJCQlicmVhazsKCQl9Cgl9CglwcmludGYoInBjbXRlc3Q6
-IGRvbmUgaT0lZFxuIiwgaSk7CglyZXR1cm4gMDsKfQo=
-------=_Part_522742_1033163319.1794572993764
-Content-Type: application/octet-stream; name=Makefile
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="Makefile"
-
-IyBCdWlsZCBhZ2FpbnN0IHRoZSBydW5uaW5nIGtlcm5lbCdzIGhlYWRlcnMuCiMgRm9yIGEgS0FT
-QU4gdGVzdCBrZXJuZWwsIHNldCBLRElSIHRvIHRoYXQgYnVpbGQgdHJlZSwgZS5nLjoKIyAgIG1h
-a2UgS0RJUj0vcGF0aC90by9saW51eCBLQVNBTj0xCktESVIgPz0gL2xpYi9tb2R1bGVzLyQoc2hl
-bGwgdW5hbWUgLXIpL2J1aWxkClBXRCAgOj0gJChzaGVsbCBwd2QpCgphbGw6CgkkKE1BS0UpIC1D
-ICQoS0RJUikgTT0kKFBXRCkgbW9kdWxlcwoKY2xlYW46CgkkKE1BS0UpIC1DICQoS0RJUikgTT0k
-KFBXRCkgY2xlYW4KCm9iai1tIDo9IHRhc2NhbV9wb2Mubwo=
-------=_Part_522742_1033163319.1794572993764--
-
+Hi Sasha,
+I just stumbled over this issue on a 6.12 stable kernel,
+any reason this patch wasn't applied back then?
+Can we apply the backport now?
