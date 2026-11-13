@@ -1,112 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794551192;
-	b=Jr9d/cQK3UcsnhP1T3/KQhXwsbCwD8i4Nq4sD80TsLuOlkuCMBTUEpaXnLWn1vXgM13R
-	 d/Q9wPmh9K1A6eqaTTger6cLRtsKEEOkrbl9bXl6zg6qo+goL3NEY5hLabuT9e6pDlN2F
-	 gm1fBz2eZqZ7+Bk0bgoQVRpq3UOVuv10+Zpp98DrOljr9ofmpQpvuCB/Xt+0W37wvi7fA
-	 D7HpD6DcdqsoRZBWe4c+FdMWP3rTFl2sPbcyaE32RLZ1G0JmM73r/F7W2UQVpmxIlPdUh
-	 m4bf2HRW68yUN4PP5bSkQecP8MBhkdWmKyBYiNQGqXHORgxvSjQ1fafSS4Zs4aRdrmw==
+	t=1794551231;
+	b=Cl/LWijEGsGG1CFFJsLZZrZaOysucrWzGmx3yaEvyex1T7BqfZA6n+nuF1Vq2aOPZF7n
+	 Dz8IXleHUY0LxhLrdj2do04yn6G+fasnO/h79rd5AtwsVRkVz3sOhvrzcQFIY7QlMTeQG
+	 Vb0QU/lhxpZ+vJ2XTAQSoSEe/ncsXhcO+Ep8m1tTM24oQ2AOEqklD6eskhVvOhilfGMyx
+	 6Djt3IY6b6MI6/xJu47gCz1HzAwrTvhNF+rFrwb3+21EupPMGR+xkHzIhs9JRpSP7PK7A
+	 ioYCfR6kR6Q3DbJTPAqNr2ws/Da6HgtaUfN1nq79xRzIvfE5tBU8kGxqhDdYZEuLPwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551192;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551231;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
 	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=itr4hIklB4kc7LTeKoS1h6ZFX1PCmH/V8dMF2IRMWzE=;
-	b=oivnv5RKZgAc3KJswAK2/qdt4SvyFwpEMias3pS+u84+gp9OICHXcO6gKLrmBsP/AN2d
-	 zjI0MVI1wDF4mHI2cuurcsjX5Bwmpw3uAaGam6eipYHrLiHsdmB6meDPaovi+mwE0qfEX
-	 at7Jy+I/WYAlM1DFL8W+feLsbbv0umv1NccV+aAJaXWf4O6ami8fAmYz4GYLRkAAsU0yN
-	 M7d+OZO9dY+oB0ZwWo9VVgIOAb1TNyV16zDn6P2SDP6SWszUGsGkPwkI1gxrKwF10YubN
-	 A5iapBAJTPjaBVYyN2vupym5ufFcA+DovJ0DihdZUocN8oFc2C5xlNtjb+hWrgi5xtA==
+	bh=AlgFrUiA3pOQ3uGH57qpKKGg8XjQji+BQGfvlCSkshY=;
+	b=dy1s5UsXqAQfZPEPFVjtHfZX5xeGH3sQQi1loBJwaBQxmLUQ6f/Of1D2M5VLq4wHqwrm
+	 Cx5ZMrZagkCJ6PGaO6xeoSzLJPGz++o0gMWguVMiePR3UXt2PbxoznNvi2EebTM0wmxk6
+	 Nsg45J3zhAV5M+uPHXIA4IIdrss1rs+hpqCeyCbyD4S8CX7TTHBOKUa3o0dAvoMHfBcH5
+	 i+zepivugo5LRLt3QXt22txTVndmed07RnLYz22g+loBjAriS4Cygd7fQszmJhX5ns1x9
+	 rIbRYCF+zYEvBYaNIoesmmRujlpOoA2scbF1ca1ekFZSdiFWpAmi1onnc3B8FpF0RtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=S+mc+OJR;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jAUyyfEF;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lmzINXMx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S31CyudU;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68955606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:26:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68955606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE31606A33D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:27:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DE31606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=S+mc+OJR;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jAUyyfEF
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD578XO3119874
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:26:31 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lmzINXMx;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S31CyudU
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD57A7s367364
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:27:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	itr4hIklB4kc7LTeKoS1h6ZFX1PCmH/V8dMF2IRMWzE=; b=S+mc+OJR8Tza8cqE
-	ttsLlcZhQsGIaUb+Vb53f0GPoESZhh6D1X2ihb9qGoxj7mZdJSejtEfiCYGx04Yy
-	03U3LRrJPi4wZ/D5HqaDWVYn4p89m7WQ/Ax0vzjhyxNuny2wBDnW+GQh1smHyrgE
-	j+lSOVX6VinapGZ7cvgyV90LePfTGE8/eqffQ9wThHuCHuhrVNW5kccRFDAnrS4M
-	hXucLCr4gGxP/eBpc0lqiEGumbhU4lOO0EnAUXXLDiHd/LPwMj5uPBG7TiIk+UIa
-	gMq7j1Nw9gzcunbqq8QlAoiuM8E/Il7cLCsrgevEO7ffxgqIbgW6Ckt9p68HvtoS
-	t0vIaQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwkgw9t97-1
+	AlgFrUiA3pOQ3uGH57qpKKGg8XjQji+BQGfvlCSkshY=; b=lmzINXMx0AmdeTqv
+	TQv9Bx+8GBJzu9iAlM0skxs+1qq7+LEWCvOlL9ykD9RmL9sEo88/DP/5joFs9ezE
+	wXbs87mfKQ5JpbFSKE4ELeIeof2IcuaehYkckVnbC3nF4sPEVNIVd0bEwWCVoIBI
+	7/0fLqsKf3vpSBqtStS3IRHdZXutEvfRE7fAjIym6CGbP4Je47MEWwMaTZdj+YTq
+	KCNdoVR57RcLaiPxN0reGKPCYfyTiONNM3wqMDlc04eqMLjPutJ4r6YQtG3lA0Do
+	PJwG5mDB9N2x2EJbNsvKyF8M+IFhr5OAf1KnQLGF41US7z2XcaaNz1PhUDjfz80i
+	YSO13A==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwbx33u17-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:26:31 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b19aa066afso569043a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:26:31 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:27:10 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd652c0385bso417928a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:27:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794551190; x=1795155990; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794551230; x=1795156030; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=itr4hIklB4kc7LTeKoS1h6ZFX1PCmH/V8dMF2IRMWzE=;
-        b=jAUyyfEFe/Hu6xdj5D9L6vAvDzpPZYJfZsba1u4EYZ1ZNa0iVGlICFzJJDGNeGz216
-         VDS2TrQDdnib+8crRK7TsPuyPqZ6gM9O5JewtVipBYerRvQY6apj+9VvHmrYmDGw7Njh
-         +pF3ccrAz22naOd2KElVxF2hSz+W15oy8/N8eCJ9XZsniMuLvlSQM/G9Xd2vjk8DuqCy
-         DkXxASwrg8XA28X+CJJnwKQjHdRXd/dGjoJjIGdOJ/MZx4X5ak2LZqqt4brwQJwVDpML
-         ZX579KQqR8oLCgMuwnuXftDlcN/3Er2Q7hAelJbMc69z+yODHOGBtf0/0cBLiMzH+Qh4
-         hEDA==
+        bh=AlgFrUiA3pOQ3uGH57qpKKGg8XjQji+BQGfvlCSkshY=;
+        b=S31CyudU2BtYAHssNXbWU6WfJ4C5edX1FTBwws9xvxNe3ULba2pgGnmKF95DzzsHtw
+         sFCC9r3wO51xRww2KYcYGE1cwlU0wQ48qS4Gd1cWwqUmCbq6mW63UGLXWmG1Y2MyyMUr
+         5kFOyRtSG0d3jUIET0w/qSTvYzonTB8Sj/IC2oDFSGf8xu1PwI5KpgIs5a1irkBgz/2V
+         kyxLQ4TTOFm06/7Idjue7/cUbd3eyVYyoRFiHX2BIK89PvTp3bcjLbyXzI3Kt/HStjm/
+         nD4FktwT0NxlnbX+h53YKS+BqSCQAMqJUpgb5T8U9Uqafg3wYpE1pmHg5ufOnwzH1c4F
+         Wyyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794551190; x=1795155990;
+        d=1e100.net; s=20260707; t=1794551230; x=1795156030;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=itr4hIklB4kc7LTeKoS1h6ZFX1PCmH/V8dMF2IRMWzE=;
-        b=mVFXcVB6Obc1wiKOGt2T71PvGUCoLYkrr5sDDovdDZkfLXirtp/G5NV3sR2hcK7MGF
-         ooiuBF3NBA7C/HPElH2THfv+EAJ0TZbsyXq9JEE8uxZZi7XkNuwFSJwF1ucigV5GX6CX
-         F6B9nog8O+cvd5+Wo8DP+aXAUdqHDtJl0BUfDAtgyAgMo0bbpbrRqkv1fHaBQJiQmENb
-         DjdKQVmJXzVZseauQkAlO6bZwsvpsgWg6k42Fq+N9/SkIifsispDfocV9QeCIDsFK5FN
-         SPjnMk7+xphoUuxecGk5sQwVvfu6eW4fu+aTDDZNQi3LHhfGyobR++zf1ERpgxlLjr6+
-         MA0Q==
-X-Forwarded-Encrypted: i=1; AL+hErEd6BrY5+Xqp6f6Yu++CFrckIos0TD8GduUIhY69f4ueqhejIz1DdCbQ05KzacHEvt5ENe5BO+JXNPDBjI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Gd2pt1z2xiMx1E5VEwddPp4DehHlJm2Mwynbufd6fFWqNUGSQ
-	hNlWskHHF6pSPL6Wymfm53GVzznmGwJxl05x5w60zGmwfNGZ/P6FGupkr6QOBSvw/Nr3sARXfoM
-	0/ga7hNgrtuoHaTp8wG05VNfRJu2/TF7B4cbY46kFD44ghhYR3CsC15q33MpWNMUtq3o=
-X-Gm-Gg: AYBFou2/HF9w0TqW4kZQG4dJ9i5KWW6SuAM3K5BmGAxiZnUMU4vz3z5qg77qRVcWEBT
-	3E1l7ZmJMBp91k96p7gHQ2J2nUSUPABRcqCDVyM95fzauWSgUl9IT3GnBYl+zTaJO9X1P01M/ZK
-	TZvfAMBTfYlSOrerWb8vW3LHi2U+qUyMZ+UeT+cbiiYXTvJrQ6yUmpM3W/k1RdUKJwgD1NFyuxj
-	QRUi2TgV+fthJZ/hQ7kRtQeEmz8dHWgbai7NJD1TaADvTsREmBaP0EUFPKiC6235w27lb91F3oS
-	um3IKm/Z8cufMOwfrcfwTLUsR5CAgKop78do34b9iYM03H7YT2qwHQuNskGvKNQtVK37A5NMIov
-	h0ZIbD0Jiog5vWI2hcA3c6kbTMYbC6vub0umxpZ717k7KRSGeyHsayQ645UgRyooyZR6sX1spgV
-	rx+sCojbkbAeuqDolb5IKQD4/Szq1X9wXpP21BR+Hu32TQew==
-X-Received: by 2002:a17:90b:54c5:b0:3a0:d7f2:5a58 with SMTP id 98e67ed59e1d1-3b1b087b75emr858157a91.3.1794551190096;
-        Thu, 12 Nov 2026 22:26:30 -0800 (PST)
-X-Received: by 2002:a17:90b:54c5:b0:3a0:d7f2:5a58 with SMTP id 98e67ed59e1d1-3b1b087b75emr858146a91.3.1794551189608;
-        Thu, 12 Nov 2026 22:26:29 -0800 (PST)
+        bh=AlgFrUiA3pOQ3uGH57qpKKGg8XjQji+BQGfvlCSkshY=;
+        b=cWxlRr2z3SfozwBJMACUOP06KnKQOwjWAsr1XwEkTxGL8va8kCoGaD+ZsisA95EbXk
+         FVpt1U4sJ0dV/xQm7LL7ISSRUld0nILRoOQtkNkBBMS1cF+DGpNd7tUWBtmqwxdpV4PE
+         siObDJb4wE0nKY8h8tABAuHh3NBM+yQPLYL6owuPV4T4AKUQiV93UGS2qH8+RhRKn9bt
+         U1uL6C1J4JqjlD90Fv6jmQiC7A4RJBoI7hvKD6SG2ELJfjN0hm5paNeH1F1yJQhIabvn
+         WTr1p/zY0K2Fh3X398z8NFDXpyrfWuzaDtU7QTjx6FsCRE/ge5NmLQk+mt/8tYqkWrsl
+         13fQ==
+X-Forwarded-Encrypted: i=1; AL+hErGc8a9jtvUcMRnACcTerc3Dk8uGKMSGXSo8fDgQK9E7W86WiDIo5khB3hkObJGfGkQexrumxE0O5gN7Ak8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Su0/KtmxzcvF0sh1QiwKUpBsj7LuXmKWPgEuIuKOFIAN1QdeK
+	5xf9evO8mScLdm7VL2/G/2awye+GgVmvfkunP/zK67b0AjXZri+YqtJ4Ys+eTa5VTmYIi4KOnc5
+	/jBtH3HSdGTXsc1l7ePQA6ZeqmJMWyMHp4n+91re/bH/hP4upd1SO/XFmEldHEIR7MKrC6ryTNr
+	M=
+X-Gm-Gg: AYBFou0yL+XfohPEh68X6h3+qqQLj0xNjOU/ZB0grhi/ciOmom6MXeBa+FdNzE/nfgK
+	+uQ55vIezwQEGJCxsHMW41ydLw3Zh78sNAakQ0pI4uBStL0qFhmOtZRSzx8YOHPHVrN9AI/fPgz
+	vD9GT6R289gut5hIBy63akCAaQDq0giILe0x+1heOePM79dOtGwmCUsBwhctDUGJ6tFonBDE+TO
+	Zj38SRcXKzci0Av2mbxvvZPcImdrUCLYw6hWyCUvpHVRv55J+np7WfQ4rY9c/B0MjCqNjbDDmGA
+	wXm5DbTHObggaRS2QHEeZ2jLHamRH1Fu3uLcCBekGO57bwUg4SbvY9WuVIQfTlQXLJ+3X5zqNfq
+	cqu5vv4RQ5V7itahgl5yZ5pLO8iBJDJG2J9RcNOfSnbBg/qGX3Og6x/JT/1urM1ptW8tcSJMNq+
+	3mGp9BVMxBKIudTOI24bm1BTd+vOQIA6AWeC9ccKimHNY+
+X-Received: by 2002:a17:90b:5647:b0:3ac:b2e6:3181 with SMTP id 98e67ed59e1d1-3b1b0a0eafbmr1304914a91.37.1794551229556;
+        Thu, 12 Nov 2026 22:27:09 -0800 (PST)
+X-Received: by 2002:a17:90b:5647:b0:3ac:b2e6:3181 with SMTP id 98e67ed59e1d1-3b1b0a0eafbmr1304887a91.37.1794551229084;
+        Thu, 12 Nov 2026 22:27:09 -0800 (PST)
 Received: from [10.133.33.220] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1ae981c55sm2933013a91.1.2026.11.12.22.26.24
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b24938bdsm1066615a91.1.2026.11.12.22.27.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 22:26:27 -0800 (PST)
-Message-ID: <904f7ac1-d488-4700-8839-ae981b04a71b@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 14:26:22 +0800
+        Thu, 12 Nov 2026 22:27:07 -0800 (PST)
+Message-ID: <b3125fa1-6a7a-4f87-a7fa-64c42f6b98e2@oss.qualcomm.com>
+Date: Fri, 13 Nov 2026 14:27:02 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,7 +118,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/9] cpufreq: tegra194: add Tegra264 support
+Subject: Re: [PATCH 1/9] cpufreq: tegra194: move MPIDR read to CPU hotplug
+ callback
 To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
         viresh.kumar@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
         conor+dt@kernel.org, treding@nvidia.com, jonathanh@nvidia.com,
@@ -125,112 +127,170 @@ To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
         linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 Cc: bbasu@nvidia.com, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 References: <20261104181521.3003578-1-sumitg@nvidia.com>
+ <20261104181521.3003578-2-sumitg@nvidia.com>
 Content-Language: en-US
 From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20261104181521.3003578-1-sumitg@nvidia.com>
+In-Reply-To: <20261104181521.3003578-2-sumitg@nvidia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=DNgacCNb c=1 sm=1 tr=0 ts=6af6ad97 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Authority-Analysis: v=2.4 cv=S+5MU4sP c=1 sm=1 tr=0 ts=6af6adbe cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=c92rfblmAAAA:8 a=Ikd4Dj_1AAAA:8 a=VwQbUJbxAAAA:8 a=I7BNmAFbTgjmseqQuzQA:9
- a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: 5Am-3vlRkb36c2N3Jdjhv6Nv0AicVUGh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAyNSBTYWx0ZWRfX5r6KE51SkHCG
- ygXIILvJj0LfFvxx71Gl0e877G50ElTfd5QAbJ6D8h/lCJjqX/49IP698kMmPfYMyx5MruN6TxH
- 8CX4YRvuXitI0D6ahKIX9QE6d0wKUmbJqp4AkEXG/b9JRbVOY1erM3+sFbLeCoGIGcNXj8NUKdT
- NF5m56RIG3pdI+SFOmwmlGguRBz5jwBB1g4OLG4sL0+iEIiVZ+AfYNDmvf2UqAIx6hDW5v6En0q
- CxB0xTseW57tXd4ANTxHMdEvUUFopjLuGbxU8bBUw/zSkm2wuTiSCf2qkpN3WhSVHgYHHoeoOna
- jNiO9aee/bFioQxjDLxAp0vlxH+Df4MxqjV7GBu5Ke0Z6D5Q+NFD2Cc2APaudsr0gzfnG1ILLfb
- i3h+lfNMDcYQKza4YE6U+iZLJogKpzQxVDUNpiXORNBKQ0ktM/FTAtIjo1+DcVLjxuMehqLH6PX
- jVO+LbfQa08T6T31/sw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAyNSBTYWx0ZWRfX/spN19zcpB1D
- ZBE1h7lZ11FwN16GPl+geOtbkHJokLCvffoHagiS5lW3+ZdQWBRfgr+SBHmfJX5QChV10hnk4mi
- lM4tSrzEUtHOE+E8HZbScN4RdfwGzCg=
-X-Proofpoint-GUID: 5Am-3vlRkb36c2N3Jdjhv6Nv0AicVUGh
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=Ikd4Dj_1AAAA:8 a=YW4SVfrvFGduW5-3T3kA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAyNSBTYWx0ZWRfXx2BKjHn3hMKc
+ ayq48vsvUSxfvaIskfz1AHsfF4+KPqM9gGrVVII96d3teFx4nh6DdEP/VfMPas3cZ+B5fez8b75
+ UHdYZcVMNqgP/6HpWQ/57XvHnAVaO9aDr3OufmimT4Osm4rFXevahO9AJwcvoKW2GtO+WWZIfFM
+ 4WTQJtRy3wF7SJvQt0X6sc/O6nyCNX85DmHYanYPWeTohtDNcAmhn5fa9DlYqIvI7kzEtpAkPvV
+ 7gH1JzNzBffHDFFINWKtkyVy0DvrTLt9rA+DpRkPeFKD6BoPlYIX0ypOvaoehPdIxC7VO0ZwjHN
+ +ZmKIsKslNJfQyf8e7J/AS/QqOY3/fhfmT3ITfsfM6B8uzBj4JPkl1gEJgTrZMC9xKK5/KoGUoO
+ jS6y5w0f220G3e71MUvv227SiLo4AzExnAVtKhzi/pmIFC49iFKbNuRHcjSVSU42HbOdMASrzpP
+ RJRGd6wTZLxPH1EciGQ==
+X-Proofpoint-ORIG-GUID: pUFBO-9CLxwkn09DUUaii5uJIXf_SIb7
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAyNSBTYWx0ZWRfX3CbEem94u7ab
+ 7PnqwUp+R6dP2pzxQJwo2vIywQ97GW5dI40uMzcJl+lpm00O+NaTthJZCTfPzZj/Bu/+PakTSI+
+ hkhzG1azesX5fAkJIYdgoiM2/+NSibE=
+X-Proofpoint-GUID: pUFBO-9CLxwkn09DUUaii5uJIXf_SIb7
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-13_02,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- impostorscore=0 priorityscore=1501 clxscore=1015 adultscore=0 bulkscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 malwarescore=0
+ adultscore=0 spamscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130025
 
-Hi Sumit,
-
 On 11/5/2026 2:15 AM, Sumit Gupta wrote:
-> This series adds cpufreq support for Tegra264, which joins the SoCs
-> already supported by the tegra194-cpufreq driver.
+> At probe the driver reads the MPIDR of every possible CPU with
+> smp_call_function_single(). For a CPU that is offline at boot, the call
+> fails and the error is ignored, so the CPU's core and cluster IDs come
+> from an uninitialised variable.
 > 
-> Tegra264 keeps the existing model, where BPMP provides the NDIV limits.
-> The driver derives the current frequency from the core clock and
-> reference counters.
+> Read MPIDR from a CPU-hotplug online callback instead, which runs on the
+> target CPU and caches its core and cluster IDs and MMIO scratch address.
+> This covers CPUs online at probe and CPUs onlined later.
 > 
-> The main differences are:
->   - Frequency read: through system registers, as on Tegra194, but from
->     the 64-bit architected AMU counters. The reference counter ticks at
->     the system counter rate (CNTFRQ).
+> The check that the SoC data covers all CPUs moves to probe, against
+> nr_cpu_ids. A CPU whose MPIDR does not fit the SoC data gets no scratch
+> address, and its NDIV access is skipped.
 > 
->   - Frequency request: through MMIO, as on Tegra234. The driver writes
->     NDIV to a core_freq_req register in the CCPLEX register space. Each
->     register controls a cluster-clock unit shared by two single-CPU
->     clusters, so both CPUs form one cpufreq policy.
+> Fixes: 6b121b4cf7e1 ("cpufreq: tegra194: save CPU data to avoid repeated SMP calls")
+> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
+> ---
+>   drivers/cpufreq/tegra194-cpufreq.c | 114 ++++++++++++++++++++---------
+>   1 file changed, 79 insertions(+), 35 deletions(-)
 > 
-> The patches fall into four groups:
->   - Fix (patch 1): read each CPU's MPIDR from a CPU-hotplug callback
->     instead of at probe. A CPU that is offline at probe then also gets
->     valid cluster and core IDs.
-> 
->   - Preparation (patches 2 to 5): cleanups, mostly of the counter code,
->     to make room for a 64-bit counter and for an MMIO mapping without
->     ACTMON counters.
-> 
->   - Improvement (patches 6 and 7): group CPUs by the generic
->     "performance-domains" property, which cluster-based grouping cannot
->     express on Tegra264. Device trees without it keep the existing
->     grouping.
-> 
->   - Tegra264 support (patches 8 and 9): the driver support, followed by
->     the device tree changes it relies on.
-> 
-> Patch 9 depends on "arm64: tegra: Fix address translation on Tegra264"
-> from Thierry's series [1]. Without it, the ccplex@30000000 node does not
-> translate to the CCPLEX registers.
-> 
+> diff --git a/drivers/cpufreq/tegra194-cpufreq.c b/drivers/cpufreq/tegra194-cpufreq.c
+> index 1eb96e9f3310..be81ffd23edd 100644
+> --- a/drivers/cpufreq/tegra194-cpufreq.c
+> +++ b/drivers/cpufreq/tegra194-cpufreq.c
+> @@ -5,6 +5,7 @@
+>   
+>   #include <linux/cpu.h>
+>   #include <linux/cpufreq.h>
+> +#include <linux/cpuhotplug.h>
+>   #include <linux/dma-mapping.h>
+>   #include <linux/module.h>
+>   #include <linux/of.h>
+> @@ -13,7 +14,7 @@
+>   #include <linux/slab.h>
+>   #include <linux/units.h>
+>   
+> -#include <asm/smp_plat.h>
+> +#include <asm/cputype.h>
+>   
+>   #include <soc/tegra/bpmp.h>
+>   #include <soc/tegra/bpmp-abi.h>
+> @@ -77,6 +78,8 @@ struct tegra194_cpufreq_data {
+>   	const struct tegra_cpufreq_soc *soc;
+>   	bool icc_dram_bw_scaling;
+>   	struct tegra_cpu_data *cpu_data;
+> +	enum cpuhp_state cpuhp_state;
+> +	struct hlist_node cpuhp_node;
+>   };
+>   
+>   static struct workqueue_struct *read_counters_wq;
+> @@ -113,7 +116,7 @@ static void tegra234_get_cpu_cluster_id(u32 cpu, u32 *cpuid, u32 *clusterid)
+>   {
+>   	u64 mpidr;
+>   
+> -	smp_call_function_single(cpu, tegra_get_cpu_mpidr, &mpidr, true);
+> +	tegra_get_cpu_mpidr(&mpidr);
+>   
+>   	if (cpuid)
+>   		*cpuid = MPIDR_AFFINITY_LEVEL(mpidr, 1);
+> @@ -121,11 +124,44 @@ static void tegra234_get_cpu_cluster_id(u32 cpu, u32 *cpuid, u32 *clusterid)
+>   		*clusterid = MPIDR_AFFINITY_LEVEL(mpidr, 2);
+>   }
+>   
+> +static int tegra_cpufreq_cpu_online(unsigned int cpu, struct hlist_node *node)
+> +{
+> +	struct tegra194_cpufreq_data *data;
+> +	u32 cpuid, clusterid;
+> +
+> +	data = hlist_entry(node, struct tegra194_cpufreq_data, cpuhp_node);
+> +
+> +	data->soc->ops->get_cpu_cluster_id(cpu, &cpuid, &clusterid);
+> +
+> +	data->cpu_data[cpu].cpuid = cpuid;
+> +	data->cpu_data[cpu].clusterid = clusterid;
+> +
+> +	/* Derive per-core register address only when ccplex MMIO is mapped. */
+> +	if (data->regs) {
+> +		if (clusterid >= data->soc->num_clusters ||
+> +		    cpuid >= data->soc->maxcpus_per_cluster) {
+> +			pr_warn_once("cpufreq: cpu%u: bad MPIDR (cluster %u, core %u)\n",
+> +				     cpu, clusterid, cpuid);
+> +		} else {
+> +			u32 index = clusterid * data->soc->maxcpus_per_cluster + cpuid;
+> +
+> +			data->cpu_data[cpu].freq_core_reg =
+> +				SCRATCH_FREQ_CORE_REG(data, index);
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static int tegra234_get_cpu_ndiv(u32 cpu, u32 cpuid, u32 clusterid, u64 *ndiv)
+>   {
+>   	struct tegra194_cpufreq_data *data = cpufreq_get_driver_data();
+> +	void __iomem *reg = data->cpu_data[cpu].freq_core_reg;
+> +
+> +	if (!reg)
+> +		return -EINVAL;
+>   
+> -	*ndiv = readl(data->cpu_data[cpu].freq_core_reg) & NDIV_MASK;
+> +	*ndiv = readl(reg) & NDIV_MASK;
+>   
+>   	return 0;
+>   }
+> @@ -135,8 +171,12 @@ static void tegra234_set_cpu_ndiv(struct cpufreq_policy *policy, u64 ndiv)
+>   	struct tegra194_cpufreq_data *data = cpufreq_get_driver_data();
+>   	u32 cpu;
+>   
+> -	for_each_cpu(cpu, policy->cpus)
+> -		writel(ndiv, data->cpu_data[cpu].freq_core_reg);
+> +	for_each_cpu(cpu, policy->cpus) {
+> +		void __iomem *reg = data->cpu_data[cpu].freq_core_reg;
+> +
+> +		if (reg)
+> +			writel(ndiv, reg);
+> +	}
+>   }
+>   
+>   /*
+> @@ -208,7 +248,7 @@ static void tegra194_get_cpu_cluster_id(u32 cpu, u32 *cpuid, u32 *clusterid)
+>   {
+>   	u64 mpidr;
+>   
+> -	smp_call_function_single(cpu, tegra_get_cpu_mpidr, &mpidr, true);
+> +	tegra_get_cpu_mpidr(&mpidr);
 
-I have some inline comments. Please take a look.
+.get_cpu_cluster_id() now reads the local MPIDR, so the cpu argument is
+ignored. Could it be dropped?
 
-Sashiko also has some feedback that may be worth checking:
-
-https://sashiko.dev/#/patchset/20261104181521.3003578-1-sumitg%40nvidia.com
-
-
-P1 and P8 don't apply on v7.4-rc2 / linux-next due to 4dd10fbbeb9c
-(devm_kmalloc_obj conversion). Could you rebase?
-
-
-> 
-> Sumit Gupta (9):
->    cpufreq: tegra194: move MPIDR read to CPU hotplug callback
->    cpufreq: tegra194: remove duplicate counter sampling loops
->    cpufreq: tegra194: add tegra_counter_delta helper
->    cpufreq: tegra194: add per-SoC counter mask
->    cpufreq: tegra194: split MMIO mapping from ACTMON offset
->    dt-bindings: arm: nvidia: Document the Tegra264 CCPLEX cluster
->    cpufreq: tegra194: derive frequency domain from device tree
->    cpufreq: tegra194: Add support for Tegra264
->    arm64: tegra: Add CCPLEX cluster node for Tegra264
-> 
->   .../tegra/nvidia,tegra-ccplex-cluster.yaml    |  27 +-
->   arch/arm64/boot/dts/nvidia/tegra264.dtsi      |  21 +
->   drivers/cpufreq/Kconfig.arm                   |   4 +-
->   drivers/cpufreq/tegra194-cpufreq.c            | 422 +++++++++++++-----
->   4 files changed, 357 insertions(+), 117 deletions(-)
-> 
-> [1] https://lore.kernel.org/linux-tegra/20261030141101.845044-1-thierry.reding@kernel.org/
-> 
 
 
 -- 
