@@ -1,54 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794608982;
-	b=kO9UfwakDlEk8r1S3bfgogdUaXgekBq8FIK5UHgcphN5I/+8TM2LnA0zf/y5CNaqmJLx
-	 HWR5vK0fanTwppUYJiL3MGGYwrUQS5wNgDlDZKIc3pwEbN53KgZnNglzAzs3PKuv2WNj2
-	 oNkzIQWE38oLBk3Dk1z/rMnBBxbnBsbe8WSHqf9pHHPNZkM6eyrycs6MI9P43W/CCCCQ0
-	 hPUTaLsbDtLIxlG6T4lHe5pewEerGQ6Zv0P6a8a9zrnmtYliIGTuWthrQ/QCYY6gowl12
-	 G/iBgELsxDKhdCy5nSCQhpqb7TlbPdorcdzvr4f0fTXnh/ErwhzDrHUo/TF2XYFUVEA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608982;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8l4U3zQpJVwCIUSroFNMy3UbW7wsKixV4Iy1YuhTSWU=;
-	b=f4J2X3eQA71NNK+IIMKjJFScak40ONk7Epr4agBDgXly50lbIyFiJvo/d+FlvmFcjsjh
-	 gJ78nZVHSpE51UoY2HTfgZxfHg5y+0f4vI12skkHib5sFtk5R1/n2wajqkMFrHDkegAFa
-	 4H5X/fqr6HUoTYLYAqgHLH12npkNWaHaV4iVf1dg7moHnyD082AviY5BU/hAN5da4+Oyd
-	 qiCYYCSpUR5/re74YeGFnnsw8m7ar04JifiYa2XITugP8sJCyriPf6A6nRY4TItjLRlXY
-	 pLMuMk5CP8RQ9e7cP81Tv+daTBPeKUS+mplOOA3HR8lW10Hpx1pfuZI8Q4EoiG75ZkQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o4KUS8tM;
-	arc=none smtp.remote-ip=95.215.58.51
-Received: from mta1.migadu.com (out-51.mta1.migadu.com [95.215.58.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.14
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794608976;
+	b=KqRs4oD6tkv2hqDI/DOWZFYy/msW67UrtXetzXTzQ6RTR5E7HcOP5YkNYtvfaIaOq//s
+	 kP+9OYHEgVMWk25pPubaxXfsDPs/EJ/gZTVxFSbpp6LD4Vr+XaVSXWTE3KBeV3MM2+5cf
+	 cHPdu8NxPbhXfyyBZbnWKC1eXzCJKTwMzxgN8uq1yCyI/cpCfueWt/ATNJTy+mwa5Hyr4
+	 owOTRCVCrxtoOfEa8gRNn9L99yf14W2ck7HVUdowTfgBDL8jnSAkJrzWf9VS9cyra+mhM
+	 +hkcNfWJ//g53LvpP6ioAA8D0SSrAAUER7F4ujRqirZC1wsg9Ys5yxgPVMjpDU7qUjQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608976;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=jvORmgtlar4uwzXngtnvL5lj/B9H+uZzAb+3mwCvdfE=;
+	b=IEGxyzRIQ3zSjSolIJ4UTgxhVGwyn2Tw4XJebIjiY8uOyIhQZhbG+anrTALPbI1p9t3+
+	 r2jPJpMQZMMUjMu+iCEKu8fBUpwh89dD0Vl4oeBMIgcHRldF1U0FmcxjVMi9BDeiqOTdK
+	 96MYdSo2kYgWsr7dyDdOWQTpaBkCWw34wR27Ek4IxPhSQiiwdjfR9rUHOF+f8Kf7s6XTU
+	 GLBzAVtT70gumPKHqlgy/itNhc3TphYw1Q/jUtMznA9VE9nORYEAXXfUO5cTGzoTF+5WF
+	 47pchs7qMKLmndg3Kc1aGTXqaV6yf+FdQ8gCipId4HwwOByYI/0HsAEAtwzRcrdtPMA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="Vr/oJpzg";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.14
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012014.outbound.protection.outlook.com [40.107.209.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D62606A8A6
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:29:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72D62606A8A6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81BD606A893;
+	Fri, 13 Nov 2026 22:29:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E81BD606A893
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o4KUS8tM
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=n8IEDs7xrnCjPmghkJPxe401M0h/LXYpjYH/vz+UzOY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794608978; v=1; x=1795213778;
- b=o4KUS8tMtk9ZwwtfYhEktsl05SPIWtBpT2be1y9/8DcWjy52uuJ5jZje86BcSGAwpqk7+zH7
- 8BWDHmZ4sdjrXbEExFaK6Q6ILjU/NZkuxeVhRBqivfWSfr12M1/RGr7vBYLiHWqhpsjyerJB5lp
- sVxRZTc2tFtdcY8vfhsDrgHk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1e59735e2ce6f26e;
-	Fri, 13 Nov 2026 22:29:38 +0000
-X-Mizu-Trace-ID: 1e59735e2ce6f26e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b749b4c2-cd42-4a3d-b74d-af38648b9b1f@linux.dev>
-Date: Fri, 13 Nov 2026 14:29:33 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Vr/oJpzg
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NsHd5cBUOL+CpAQqGbF9ImjcqXmezOblJTjVdiAODmhXDi/aF0NUDfmnO0dSRh/jqueHHxC4rxUrh9/MVFmZ2qdKDBgPs4sMYT4r2O6Pv4c2+5G1HZgm+Hhu7t2928XrlMfWnTnXKwMphjWLfpuza2WxMvo62cskSupCvMPzD5ENFOr/6xecGGw/JTc4HWiKiiyLq70r3lfOz3hFbUdlZgqraq2vQNjVd29UqkuDmzkEmS78VyP8WlYBTc+94sgH3OfMxMAD6wLn+v/iSzuorS8feYUAcw+croSEMJhCd2e6nIl8VJgEKYEihIp5UdyWCWibxfocKRbAnz+qiaJGBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jvORmgtlar4uwzXngtnvL5lj/B9H+uZzAb+3mwCvdfE=;
+ b=IGWdrYwk0nwroJKxG2ZjgTka7viuw9Hrqv6CbBUGLM7JaRE0+XJ6LnlrYNtClnv7hrG3L4fJVSA2CXY+0tHBNSvKaKoezqM19r41Pi5g46pnIc4QtyIP0hbnaoH2t7Oxgd/lnxltxkDBG+TvPOL/B41sFRKEX6PPdoZ+V4EMuU6TAUvg71bDqny2z4wAS7tA58mX/bzsAVK/j4LKpmOaRL81JhlvkhjxCK7fAyH//ntI/48tKEBTLHYJD+NDnMLH0GeZzg0rU1ypCr8uytkS8NK3b8uvwKu8gURVsMDyKFFU5yJR+VjAhKwrRYZW/ORcjj7TxNxYMVZa8QsjPlolyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jvORmgtlar4uwzXngtnvL5lj/B9H+uZzAb+3mwCvdfE=;
+ b=Vr/oJpzgzenuvlvTSme04HWmzVBs2fXlODb2EyUQU0w76D4v3B7MEstg5mGVt/iUqElpfp1rDr6FGxES3cI2YcNlVcdZttIBlHG9a8a1P9fZ/M7QTKzpDT4gIdpk68SnmB56F+GwDR1g93OzwKyIAODJfZ4FFdCZca8YEQGVIpfskKOUVMDTbV2YSGPmAVzZqkrtJa+VlrllcVMR6do6PUAN3pV7WDRXn+zYbifHvJt/0NwgRMfvp/M60kR94k/oflo6vYGqdUCc16IBKccqE0xFB9SclgW9VuO3/OtIPI2XYfiyEUW8oVxScI2s2yW4uCvtrBl0q/ZX3g206T0aVA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com (2603:10b6:610:253::9)
+ by PH0PR12MB7095.namprd12.prod.outlook.com (2603:10b6:510:21d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Fri, 13 Nov
+ 2026 22:20:12 +0000
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128]) by CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 22:20:12 +0000
+Date: Sat, 14 Nov 2026 09:20:07 +1100
+From: Balbir Singh <balbirs@nvidia.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
+	Mark Brown <broonie@kernel.org>, "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 07/13] mm/migrate_device: look up fault folio after a
+ split
+Message-ID: <aveLSEIfoHAQH5l5@parvat>
+References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+ <20261113-mason-migrate-et-al-fixes-v2-7-50a2ed382b61@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-7-50a2ed382b61@kernel.org>
+X-ClientProxiedBy: MEWPR01CA0031.ausprd01.prod.outlook.com
+ (2603:10c6:220:1e5::18) To CH3PR12MB9730.namprd12.prod.outlook.com
+ (2603:10b6:610:253::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,230 +114,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [EXT.MSG] Re: [PATCH RFC bpf-next 0/2] bpf: Do not let preemption
- cause false recursion drops in trampoline progs
-To: Peter Zijlstra <peterz@infradead.org>,
- Martin Kelly <martin.kelly@crowdstrike.com>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Mike Bazov <mikeba@sentinelone.com>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau
- <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
- Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
- Thomas Gleixner <tglx@kernel.org>
-References: <20261025-b4-bpf-trampoline-preempt-v1-0-198dcdc0c6ac@sentinelone.com>
- <DMIIV9CE0PN4.309YUGIXQUZNF@gmail.com>
- <CAPnbwjrB_je6jXt3BGD-1q1yFs_wFd-Yh9KzixKzLK_X3Stuag@mail.gmail.com>
- <DML75890DWIX.EYB690LPBM1O@gmail.com>
- <CAPnbwjpv3bkGAKVjc7Eywgo-H4X6uDLYPJWFuSakGs_sBdgr3w@mail.gmail.com>
- <DMM2FJ2SNYYO.24TEJ05OOR08E@gmail.com>
- <CAH=2mMABxvf+GNr7vUKNkGvyU-gmaXKMGNJHg4URUCW_eyuxGg@mail.gmail.com>
- <20261105122604.GB1779021@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: "JP Kobryn (CrowdStrike)" <jp.kobryn@linux.dev>
-In-Reply-To: <20261105122604.GB1779021@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB9730:EE_|PH0PR12MB7095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5514ea44-3c3e-4b8e-13c4-08df41d44922
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|10067099003|261021123027099003|4143699003|11063799006|56012099006|261102123227099003|261022075727099003|261026140227099003|261021135927099003|261022105027099003|261021121427099003|261026121527099003|261028144727099003|261009223027099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ XKNiy9BmX3mIKkWmAdME40hJWHCgYxvp3dUaGgrQMHf/aDDmf6L4hDiREgMCQCDuVRf//U3Ii/ZUyYhhqEHLBrO5jSuToWArxpgirCSeafZ5B+u7Jv+vyvQzwmOfG7hN9Y6nz+scyR5BJxyo9UcNX2TK4e7U16jPWx1vmrH1lVh9MmqS2DdkgD0E4Cb1IQqmfN1MTl7tKnDDGJuaflLu+J1L5ZWdYVDKzuVZlBtprbK3vzm95/rzFmiFDnooHSLl8IpDwQOyEsa+sQjcZOKiszO4qeuzbvB3L9p49YqFpipHXqUGO0ljE8IIuCq9BcW1/+fnRfRrV7pLJyTpkoKdkDAqEEUxfzB9HfBK0yC4FG/kWZhdLgKU0PpVkJ+kAHUx9z58Bi8anxlaEgxajUAyAtgJcAPcUxiF1rUIBkG3MPAn88Crt0aQF68vtCH/cMF2JM5B8ipdbjot+xHbJTb8kkLkjcMsj2gDOV0j6abwZlJvtiByFiterad1ignow+i0xgqzRE6kr0J3RlKh//Z1hhcYCw2UtpcBBJI530YiGuxOWJpX9rNNsSfaoVNhubOitEQrjBP5bvbAXUDZZa2B1sDDh51BfjLyoW+P/ndmmlRILPQOnI/5YQaQvHL+idvMf6CMXKzq/zIw1xJKoq8QCA1vcpsa0v8Hr5IJXvY9HA8=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB9730.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(10067099003)(261021123027099003)(4143699003)(11063799006)(56012099006)(261102123227099003)(261022075727099003)(261026140227099003)(261021135927099003)(261022105027099003)(261021121427099003)(261026121527099003)(261028144727099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?Df81hu6TOC4VORwyFVEAzr7rFo/fFNE3jawdysVAYClsR2r4usI+L2nrmL8X?=
+ =?us-ascii?Q?eG3FxS4g6y8P9BbNPMhCrjcjQ/+SyflvwX7Tzd2ftH08Osgcr/58cmjtJRRz?=
+ =?us-ascii?Q?tRZDiIhpqJbpE+KvRabiMq98tc9/prwEGKKBIJwiQGMyKDbzbBhsdhRJVJaR?=
+ =?us-ascii?Q?ZjCqNdPG6GNUfP+0MQlMhlPDMTTK1GenRtaWVe85y50v/OnBI+xYSNjtobyf?=
+ =?us-ascii?Q?47aEYbk6zBTYJD34z7JIoFHKl7T5Fvla2SnMugFZ4F8so5jOuHoV+NJVzLgB?=
+ =?us-ascii?Q?gYk0RHbV2zcjqztdV/anB4deHe/NuKGzMqAO7vJaRGhE66W48bOSXiXsvlOY?=
+ =?us-ascii?Q?W4wxcpOYkkr7mc1CbXKkIOkniPu4HlqTv9YHIlUp26VLBuIVdsirKnFMTkvo?=
+ =?us-ascii?Q?sJBZkp100j7Jfs8NSpnqxbvnZaDaqXYQ6w71SXOUzrL2aKCkEcJ5ZbZQnsXQ?=
+ =?us-ascii?Q?l+M+h94G1NATsSDfuIhlJIDLooDmCgFEx1jiP/HlQOTqx6aac2lLfLppHD4Y?=
+ =?us-ascii?Q?2lfzevXAUULPE3orMagdHJq0GpmU+IIjkumbWN6zy3oaY/h7sKnP4x3l8+FH?=
+ =?us-ascii?Q?IW3sw2oUAdjnHKuVEJYPb2c5ovNREE6MpxJOg7HePsWsskjERkChM1tGBuyS?=
+ =?us-ascii?Q?xlanubEoYQMqhubD7tdiBrXxFjLbi0mmQk1vMIbXmQa5dIMhChwZUdJXdg1o?=
+ =?us-ascii?Q?rV3B0zGn2CbJiK0JqXewFtgJXsz7SknQO/wNkT/zMPisRNVmOfSUxGaZWvea?=
+ =?us-ascii?Q?FIgh6RZw5eHVL7APtkAxWGdQSyclQpAHVOTzBgpam3ffiYIQz7XIHhNnnFPJ?=
+ =?us-ascii?Q?Hzj5BhL7vpXEQgx3v5G+1p3G2RQe7CijeGtG3ZaZZAgu8APqZspHE3P6VuA0?=
+ =?us-ascii?Q?g0+c5Y+6lI66D6Z+Ag75LU2tMHPUZIGVI9KCaZT5tKFwiI/4mZm1yZ+6P5iB?=
+ =?us-ascii?Q?AziPRxUjKJMcuz2LkxjAXddUylk2KLzBjNDHl2XeHunMsQhY+VV3AQMJgut6?=
+ =?us-ascii?Q?sCQ/gXkLIscJEcssgC9IpFdRcoT6db0O8jEQE7gVRe021MEMMDelVDWtEd3U?=
+ =?us-ascii?Q?N6NQ//ej708lXvg9QLq3wVFAYxt614TDK6bS7ADLipVVy+bCD88GBdq+hkl7?=
+ =?us-ascii?Q?wJ99Ql56awozLhT8n7PeWgkhmDq1viCj/ruL84AQdxPOGGHpLO/2aAv7mM7o?=
+ =?us-ascii?Q?uQ2jgjAKlp8xj/4eLpLoX49lt1MRgxhbfFRRX6BsMRsyTZWVhREEHq8YwgOP?=
+ =?us-ascii?Q?/fOajPKtxQiuGfIa0WTZkczI0R3eCrb/zsHdYFznoyABs9CYCY9un8G5pf1f?=
+ =?us-ascii?Q?PKvaTMlR+vbRlg1SLe1hn9zXulR6hIQLmiJuE3ThIZVFZ+omgq4dwR0ptoPh?=
+ =?us-ascii?Q?ZW+rnpOggXHHQWOzH6ZbVis32Xb8K6YxRUxvBqN3VnDOFGlhywo2ECTLFXSy?=
+ =?us-ascii?Q?NUsftCLxTcRzF0l2CpTaMP2ac67DetH22mB+9ByYbWp8G3somlGAjcLBxG4D?=
+ =?us-ascii?Q?MF95JXS/O1QD5u3J3orL+m1G1QTWu9BytmPjZ+5MIYlfV12GKez5qy4lJP2I?=
+ =?us-ascii?Q?/tlRj44ZCq1wMUg9HqG9jLT8ug2DU9GA84HkbBdvNeOJo+PnOVoEVH/xo5I/?=
+ =?us-ascii?Q?tQsid+YFQU96aaQzstXLBi8grTfvg2YoSqWT+IILDb6PQBis7r28L7yLet1i?=
+ =?us-ascii?Q?xBh/nihmzrNbD/0o6a4Hfbq7i7MUVrY0+onvECJajqybC1uAJXD2DZ9CkBMH?=
+ =?us-ascii?Q?IHDOyiV04Q=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5514ea44-3c3e-4b8e-13c4-08df41d44922
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9730.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 22:20:12.7174
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pwuFPrcLtHkQOrwVr6lxIvd8nBhgnAq++F9osSTVEMrAeB3iZN17RbbtMt3+XovgY/ZX3qjUzxlpUxa+NbMU5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7095
+X-OriginatorOrg: Nvidia.com
 
-On 11/5/26 4:26 AM, Peter Zijlstra wrote:
-> On Wed, Nov 04, 2026 at 05:12:15PM -0800, Martin Kelly wrote:
->> We have noticed this issue independently in testing of our own security
->> agent and have hit the same false recursion skips on 7.0 and 7.1
->> kernels. More details and measurements below.
->>
->> On Tue, Nov 3, 2026 at 6:24 PM Alexei Starovoitov
->> <alexei.starovoitov@gmail.com> wrote:
->>> Today a fentry prog never runs twice at the same time on one cpu.
->>> Existing progs rely on that for their per-cpu maps.
->>>
->>>   task A, cpu 0                     task B, cpu 0
->>>   buf = lookup(&percpu_scratch)
->>>   fill buf
->>>   <preempted>
->>>                                     buf = lookup(&percpu_scratch)
->>>                                     fill buf
->>>                                     output(buf)
->>>   output(buf)   <- data of B
->>>
->>> A plain (*cnt)++ in a per-cpu map loses updates the same way.
->>> Today B is skipped and recursion_misses counts it.
->>> With the per-task check A sends a corrupted event and nothing counts it.
->>
->> Our programs avoid writing to per-CPU arrays because of corruption on
->> PREEMPT_RT kernels, where trampolines have always been preemptible and
->> thus can corrupt these structures. So for us, an opt-in flag that allows
->> preemption (instead of skipping) would work well and not regress current
->> programs that don't opt in. A verifier scan for per-CPU arrays could
->> also work, but it would need to distinguish read-only vs write access to
->> those maps.
+On Fri, Nov 13, 2026 at 09:45:25PM +0000, Lorenzo Stoakes (ARM) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
 > 
-> This seems weird; your task-B bpf prog would never run due to the
-> prog_active thing.
+> migrate_vma_collect_pmd() looks up the folio of migrate->fault_page once,
+> when it is entered, at which point the folio is locked.
 > 
->> In a process-heavy workload on a 2-vCPU VM (~1M fork+exec of
->> short-lived processes, ~606/second) we recorded the following number of
->> recursion_misses on a 7.0.9 and a 7.1.5 kernel. Both kernels use lazy
->> preemption with PREEMPT_RCU enabled. The miss rate has increased
->> significantly, which we suspect is due to the HRTICK change.
->>
->>                                   7.0.9 (HRTICK off) 7.1.5 (HRTICK on)
->>                                   ================== =================
->> security_file_permission fentry   1 in 61,580        1 in 1,568
->> security_inode_getattr fentry     1 in 59,242        1 in 1,707
->> do_file_open fexit                1 in 813,983       1 in 2,503
->> sched_process_exec raw_tracepoint 1 in 1,000,816     1 in 500,408
->>
->> The sched_process_exec raw_tp had few misses (1-2) but is included just
->> to show that raw_tp can have misses as well since tracepoints became
->> preemptible.
+> The fault folio is assumed not to change after this, however if
+> migrate_vma_split_folio() splits a PTE-mapped large folio which contains
+> the fault page, the fault page ends up in a different folio.
 > 
-> So HRTICK will still only set RESCHED_LAZY, which should not tickle
-> preempt_enable() into a reschedule. RESCHED_LAZY is acted upon in only 2
-> distinct spots:
+> Resolve the issue by looking up fault_folio again after each restart of the
+> walk.
 > 
->  - return to userspace; it will reschedule.
->  - the periodic tick; it will upgrade RESCHED_LAZY to RESCHED.
-> 
-> This would suggest you're seeing a lot of tick driven promotion. One
-> reason could be due to HRTICK setting LAZY and the normal tick happening
-> very shortly after it. 
-> 
-> You've not mentioned your CONFIG_HZ setting? Anyway, something daft like
-> the below would make promotion less aggressive (also, clearly I couldn't
-> come up with a decent name for the intermediate step :-).
-> 
-> 
->> Possible approaches
->> ===
->> We don't have a preferred mechanism and are generally open to any
->> approach that would help reduce these recursion_misses. Whatever the
->> mechanism, it would be ideal to cover raw_tp programs too, since
->> a46023d5616e made those preemptible.
->>
->> We'd be happy to help test or develop patches if needed.
-> 
-> I would strongly prefer all BPF programs that attach to known
-> preemptible sites to use a per-task recursion counter or something of
-> that sort.
-> 
-> This per-cpu active count stuff is quite mad; and I think I've told
-> Alexei that plenty of times.
-> 
-> 
+> Fixes: 022a12deda53 ("mm/migrate_device: handle partially mapped folios during collection")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ ljs: pared down commit message ]
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > ---
-> diff --git a/include/asm-generic/thread_info_tif.h b/include/asm-generic/thread_info_tif.h
-> index 528e6fc7efe9..feed08b51a62 100644
-> --- a/include/asm-generic/thread_info_tif.h
-> +++ b/include/asm-generic/thread_info_tif.h
-> @@ -22,33 +22,35 @@
->  #define _TIF_NEED_RESCHED	BIT(TIF_NEED_RESCHED)
+>  mm/migrate_device.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> index ae795fdf36f4..45e571dbfb4c 100644
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -233,11 +233,14 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
+>  	struct mm_struct *mm = vma->vm_mm;
+>  	unsigned long addr = start, unmapped = 0;
+>  	spinlock_t *ptl;
+> -	struct folio *fault_folio = migrate->fault_page ?
+> -		page_folio(migrate->fault_page) : NULL;
+> +	struct folio *fault_folio;
+>  	pte_t *ptep;
 >  
->  #ifdef HAVE_TIF_NEED_RESCHED_LAZY
-> -# define TIF_NEED_RESCHED_LAZY	5	// Lazy rescheduling needed
-> +# define TIF_NEED_RESCHED_MEH	5
-> +# define _TIF_NEED_RESCHED_MEH	BIT(TIF_NEED_RESCHED_MEH)
-> +# define TIF_NEED_RESCHED_LAZY	6	// Lazy rescheduling needed
->  # define _TIF_NEED_RESCHED_LAZY	BIT(TIF_NEED_RESCHED_LAZY)
->  #endif
->  
->  #ifdef HAVE_TIF_POLLING_NRFLAG
-> -# define TIF_POLLING_NRFLAG	6	// idle is polling for TIF_NEED_RESCHED
-> +# define TIF_POLLING_NRFLAG	7	// idle is polling for TIF_NEED_RESCHED
->  # define _TIF_POLLING_NRFLAG	BIT(TIF_POLLING_NRFLAG)
->  #endif
->  
-> -#define TIF_USER_RETURN_NOTIFY	7	// notify kernel of userspace return
-> +#define TIF_USER_RETURN_NOTIFY	8	// notify kernel of userspace return
->  #define _TIF_USER_RETURN_NOTIFY	BIT(TIF_USER_RETURN_NOTIFY)
->  
-> -#define TIF_UPROBE		8	// breakpointed or singlestepping
-> +#define TIF_UPROBE		9	// breakpointed or singlestepping
->  #define _TIF_UPROBE		BIT(TIF_UPROBE)
->  
-> -#define TIF_PATCH_PENDING	9	// pending live patching update
-> +#define TIF_PATCH_PENDING	10	// pending live patching update
->  #define _TIF_PATCH_PENDING	BIT(TIF_PATCH_PENDING)
->  
->  #ifdef HAVE_TIF_RESTORE_SIGMASK
-> -# define TIF_RESTORE_SIGMASK	10	// Restore signal mask in do_signal()
-> +# define TIF_RESTORE_SIGMASK	11	// Restore signal mask in do_signal()
->  # define _TIF_RESTORE_SIGMASK	BIT(TIF_RESTORE_SIGMASK)
->  #endif
->  
-> -#define TIF_RSEQ		11	// Run RSEQ fast path
-> +#define TIF_RSEQ		12	// Run RSEQ fast path
->  #define _TIF_RSEQ		BIT(TIF_RSEQ)
->  
-> -#define TIF_HRTIMER_REARM	12       // re-arm the timer
-> +#define TIF_HRTIMER_REARM	13       // re-arm the timer
->  #define _TIF_HRTIMER_REARM	BIT(TIF_HRTIMER_REARM)
->  
->  #endif /* _ASM_GENERIC_THREAD_INFO_TIF_H_ */
-> diff --git a/include/linux/sched.h b/include/linux/sched.h
-> index 1c93da75226e..d5f9176e1a75 100644
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -2117,7 +2117,9 @@ static inline void set_tsk_need_resched(struct task_struct *tsk)
->  
->  static inline void clear_tsk_need_resched(struct task_struct *tsk)
->  {
-> -	atomic_long_andnot(_TIF_NEED_RESCHED | _TIF_NEED_RESCHED_LAZY,
-> +	atomic_long_andnot(_TIF_NEED_RESCHED |
-> +			   _TIF_NEED_RESCHED_MEH |
-> +			   _TIF_NEED_RESCHED_LAZY,
->  			   (atomic_long_t *)&task_thread_info(tsk)->flags);
->  }
->  
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 04b62c16fa8c..f8e225dc2504 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -5854,8 +5854,17 @@ void sched_tick(void)
->  	hw_pressure = arch_scale_hw_pressure(cpu_of(rq));
->  	update_hw_load_avg(rq_clock_task(rq), rq, hw_pressure);
->  
-> -	if (dynamic_preempt_lazy() && tif_test_bit(TIF_NEED_RESCHED_LAZY))
-> -		resched_curr(rq);
-> +	/*
-> +	 * Two-stage promotion of LAZY to RESCHED, ensuring there is at least
-> +	 * one full tick of respite.
-> +	 */
-> +	if (dynamic_preempt_lazy()) {
-> +		if (tif_test_bit(TIF_NEED_RESCHED_MEH))
-> +			resched_curr(rq);
+>  again:
+> +	/* The fault page is in another folio once its folio has been split */
+> +	fault_folio = migrate->fault_page ?
+> +		page_folio(migrate->fault_page) : NULL;
 > +
-> +		else if (tif_test_bit(TIF_NEED_RESCHED_LAZY))
-> +			 set_thread_flag(TIF_NEED_RESCHED_MEH);
-> +	}
->  
->  	donor->sched_class->task_tick(rq, donor, 0);
->  	if (sched_feat(LATENCY_WARN))
+>  	/* [start, addr) is collected if we get here after splitting a folio */
+>  	if (pmd_trans_huge(*pmdp) || !pmd_present(*pmdp)) {
+>  		int ret = migrate_vma_collect_huge_pmd(pmdp, addr, end, walk, fault_folio);
+>
 
-Hi Peter,
-We tested this patch on d48723711bae with CONFIG_HZ=1000, SCHED_HRTICK=y,
-PREEMPT_{DYNAMIC,RCU}=y, and lazy preemption enabled, and saw roughly 60% fewer
-recursion misses.
+migrate_vma_split_folio(), already computes the new_fault_folio and gets
+the right references and lock, but does not communicate it back
 
-The test runs two tasks using the default sched policy pinned to the same CPU
-for 30s. One calls getpgid() continuously. The other does the same but sleeps 1ms
-between calls. Meanwhile a bpftrace fentry program on __x64_sys_getpgid does
-some bounded work to widen the preemption window each invocation:
+Reviewed-by: Balbir Singh <balbirs@nvidia.com>
 
-kfunc:vmlinux:__x64_sys_getpgid
-{
-    @entered = count();
-    @entered_tid[tid] = count();
 
-    $i = 0;
-    $last = nsecs;
-    while ($i < 10000) {
-        $last = nsecs;
-        $i++;
-    }
-    @last_ts[tid] = $last;
-}
