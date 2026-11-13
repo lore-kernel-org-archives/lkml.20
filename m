@@ -1,47 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564382;
-	b=vLq4hhQMFF7gQ11mN38NRFo2tFmaWb2vrwTozztOrbBUlQrRW872HGZvYtgpSg2HVSYU
-	 ZdG5L7EbrQJ/2P+fF/gX6adE9FM2rFVVjm/Kq6z4W6+B52U12qkbH1K4Kym6zUsD08DF+
-	 fEWEPxc/VP+Lc1ltM32QpIZa4Huyj96lW5zir1K2o+AFoxGJySAJ+Ty6RvDHDiLcaah2i
-	 QxDI0LZTbcGYz08EpB0/XSotCPoRWQ+5tTeHGIq9pe7kV08hxFkBeVd8GSYRbhgNL8yjL
-	 9acJdkMRPBFgCRBLQzix5brCoOqaZ0PbyeySmuWPVMlYgPkjtVhnLvHFVTBGDdUeieg==
+	t=1794564462;
+	b=y/hmXvSnJsIJLvDFWj9ixg84nCCFYg6Af2nJu1u16LiJoM4IkVM0c42VA91m+mTTcOwo
+	 dazd5pM8HaG4etfqYujNIfEpalYqX1R+/Up3QvIopAFdkKg+jXWzEVJDUDSeVA+lwoOJN
+	 3gHB2yLH58V1aZZ3q/k0VIEs+CTRpkPAcMY7wI5pBOFhyvy8O5yxPqJIVdOAjAlPMOpPH
+	 ysUCWf2PuM3ufYKw8j8/G9wonCBtIWaJvYMMuGSoZf/oCCkGupt75tT9PAYVFG+S2SZcZ
+	 ZMuEARHnaZ7Zm9qRg3GzrAQCGCJlnGdISqc8fM/TtXXhl5XOONaTlDuusOkj/KVPf2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564382;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=px/1buHh7TMXhFEIrqiyErLcAOiPn6wL2fWet4+iHOY=;
-	b=0c8wPa6NQSxhMKRtFG18bSSOiVgPntwxG223uWzL/VmztHMt+j61/YOSPNzGiUlrEKYe
-	 ViY8EtuEICCRwWGjeq+AQoFAB3ItUDadjKBVBuKHOK4UXFN04yUSNvu3/YDjC+e5cqR2a
-	 EQ8CvvFRTwxkz1UWzju5WMZfrvJjLfXBlDwJnFXVCwh4AHMh1A0DwqzllhDdUmJa3eg0B
-	 uBm7V8+/c0WFBKGMW0D0dardTBCyGAHlvx+KNzPcynOyoBfCNkbZqw/k002W8vkBDo3W/
-	 ChhCt3RhMTMAAlN62m4RvWlgfdvB05VEKZL5hMlWKTCuzJ82Jch7GVb9nPKw1uAc77Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564462;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=M+He5GZ0KmkxtjNbEWExh1PZmwL5eABb9JK/dacBH4M=;
+	b=DG+jKbWWXBBZ3hZ16+pKgZ20wIt4tgYMPbyVLE/PaFrT7/fjPNn+xva75hWTnOoLcpTO
+	 qXrGu1vaffAZdcMwMGIwMOzjFPW7kx9fnQ9aQUHAKEtDYcYpPrJFK9R4QPYycXIukE7uB
+	 umTdR6QzcqmXQ3QRecEMqe57j/Wes4srE2SxUZ/xkDmkVTTW1LFAIaUqdiTcG8qLgFxI3
+	 BhlHkrAs9DjfXm14qGrT3AmBLtHcKwL5Ba0D6ES8g2+jjKG+0wHPua4fLkW3pktPYx+yN
+	 HoK2nuVyz7UO9zB6XIh80dzbhdLxU82drW4+WTjoSt1tArsQB9C4jIriZO6jp2qsiuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=LJGw1WEN;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9Yt+iaJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D54606A893;
-	Fri, 13 Nov 2026 10:06:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9D54606A893
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C73E606A32D;
+	Fri, 13 Nov 2026 10:07:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=LJGw1WEN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=px/1buHh7TMXhFEIrqiyErLcAOiPn6wL2fWet4+iHOY=;
-	b=LJGw1WEN4suwGDDsgi+I6m9gDhFjjOCA+VvXQK9GFlniRKdcCxoUVXKvL16o0h
-	Lhw9IJuGzD/iPLjMhhVqSRj254imJM9OiUmoCbO6kMQU2Ayjc78mZKhHvoJqsPFC
-	rYzubECKLJFILU4MBXz3du7+E0h7kO3R01hoa8PItCgJk=
-Message-ID: <25aefd4f-8d1f-48b6-8915-86079cd19ed7@163.com>
-Date: Fri, 13 Nov 2026 18:05:41 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9Yt+iaJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32D671F000C4;
+	Fri, 13 Nov 2026 10:07:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794564462;
+	bh=M+He5GZ0KmkxtjNbEWExh1PZmwL5eABb9JK/dacBH4M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I9Yt+iaJbuNFlNOCkkutSaWBe/lzHAoF1Keu3hWDVpP1eWmxaA+tYDjESE06inLOh
+	 YQkoX159KwVyYKuFthiScAuIWxSCKTOA1SIDlLn0ImN+PkprICp9eTGFCnqGTbpJCy
+	 5n6+yXSnAmQ0YBLbbOFXzBtxQ1qvOgbddw+eO8U43CSu84bJRxfLrpYj3s/wWu5yRU
+	 BNblnl0INpSDZxG4yEXhU68kF72z6e+8WOZTpBrKE8fqERyrKSBUiAJ5tk1G29bOU5
+	 v8u0ikf4vTSr95pPWoeQjSKk22x/o4Zk0Y6gcgAWV0gGfkyYzzdfL3ptYzJydcbLrf
+	 /51w0hsmt9hjw==
+Date: Fri, 13 Nov 2026 11:07:38 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Shawn Guo <shengchao.guo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: phy: qcom,sc8280xp-qmp-usb43dp-phy:
+ Add the cfg_ahb clock for Nord
+Message-ID: <20261113-influential-lumpy-goose-68ec0f@quoll>
+References: <20261112-qcom-nord-ahb2phy-clk-v2-0-30ad3d947217@oss.qualcomm.com>
+ <20261112-qcom-nord-ahb2phy-clk-v2-1-30ad3d947217@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,105 +62,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] exfat: don't map EXFAT_EOF_CLUSTER as a physical
- cluster
-To: Youling Tang <youling.tang@linux.dev>, Namjae Jeon
- <linkinjeon@kernel.org>, Sungjong Seo <sj1557.seo@samsung.com>
-Cc: Yuezhang Mo <yuezhang.mo@sony.com>, exfat@lists.linux.dev,
- linux-kernel@vger.kernel.org, Youling Tang <tangyouling@kylinos.cn>,
- stable@vger.kernel.org
-References: <20261113080658.2440516-1-youling.tang@linux.dev>
- <20261113080658.2440516-3-youling.tang@linux.dev>
-From: Chi Zhiling <chizhiling@163.com>
-In-Reply-To: <20261113080658.2440516-3-youling.tang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD3Hzz14PZqyY2jHQ--.32088S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWFW5JF18Kr1xZw1rtryfXrb_yoW5CF4fpw
-	4DK3W5tFsxJa9rWr43XF1DX34Fkw1fKF48Jwn7Gr15GF90vr40kryqk3Wa9wn8Gw48CF1q
-	qr1Fgw17u3sxCFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UVMKtUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+BfNa2r24PfV-wAA3o
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261112-qcom-nord-ahb2phy-clk-v2-1-30ad3d947217@oss.qualcomm.com>
 
-On 11/13/26 4:06 PM, Youling Tang wrote:
-> From: Youling Tang <tangyouling@kylinos.cn>
+On Thu, Nov 12, 2026 at 04:36:38PM +0100, Bartosz Golaszewski wrote:
+>  .../devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml         | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> exfat_map_cluster() reports a hole by returning success with
-> *clu == EXFAT_EOF_CLUSTER for !create.  __exfat_iomap_begin() does not
-> check that sentinel and converts it into a physical address far beyond
-> the device.  A writeback that races with the i_size/i_blocks window in
-> exfat_cont_expand() can hit this: it submits a bio past the end of the
-> device, and fsync() or msync() returns -EIO.  If the resulting iomap
-> length is zero, iomap_add_to_ioend() can loop on a zero-length bio and
-> hang a concurrent truncate.
-> 
-> When a range starts before the end of the cluster chain but extends past
-> it, exfat_map_cluster() returns the sentinel for the whole range.  Map
-> the valid prefix first and only report the part beyond the chain as a
-> hole.  Otherwise a writeback that straddles the end of the chain would
-> skip valid dirty data.
-> 
-> Report the remaining range as a hole instead of turning the sentinel
-> into an address, matching the old exfat_get_block() behavior.
-> 
-> Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Youling Tang <tangyouling@kylinos.cn>
-> ---
->   fs/exfat/iomap.c | 29 +++++++++++++++++++++++++++++
->   1 file changed, 29 insertions(+)
-> 
-> diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
-> index 11823591b3a8..d6b420f615d4 100644
-> --- a/fs/exfat/iomap.c
-> +++ b/fs/exfat/iomap.c
-> @@ -74,6 +74,22 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
->   	iomap->bdev = inode->i_sb->s_bdev;
->   	iomap->offset = offset;
->   
-> +	if (!may_alloc) {
-> +		unsigned int ondisk_clusters =
-> +			exfat_bytes_to_cluster(sbi, exfat_ondisk_size(inode));
-> +		unsigned int clu_offset =
-> +			exfat_bytes_to_cluster(sbi, offset);
-> +
-> +		/*
-> +		 * exfat_map_cluster() returns the EOF sentinel for the whole
-> +		 * range if it extends past the cluster chain.  Map the valid
-> +		 * prefix first so the hole only covers the part beyond it.
-> +		 */
-> +		if (clu_offset < ondisk_clusters &&
-> +		    num_clusters > ondisk_clusters - clu_offset)
-> +			num_clusters = ondisk_clusters - clu_offset;
-> +	}
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
+> index 13e64fe510b8f..8d09e6937fef0 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
+> @@ -209,11 +209,13 @@ allOf:
+>          compatible:
+>            contains:
+>              enum:
+> +              - qcom,nord-qmp-usb3-dp-phy
+>                - qcom,sc7180-qmp-usb3-dp-phy
+>                - qcom,sdm845-qmp-usb3-dp-phy
+>      then:
+>        properties:
+>          clocks:
+> +          minItems: 5
+>            maxItems: 5
+>          clock-names:
+>            items:
+> @@ -229,6 +231,7 @@ allOf:
+>            compatible:
+>              contains:
+>                enum:
+> +                - qcom,nord-qmp-usb3-dp-phy
 
-It would be better to put this handling in exfat_map_cluster().
+I don't understand why it is added to two blocks constraining clocks.
+Does it even pass checks?
 
-Thanks.
-
-> +
->   	err = exfat_map_cluster(inode, exfat_bytes_to_cluster(sbi, offset),
->   			&cluster, &num_clusters, may_alloc, &balloc);
->   	if (err == -ENOSPC && !(flags & IOMAP_DIRECT)) {
-> @@ -90,6 +106,19 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
->   	if (err)
->   		goto out;
->   
-> +	/*
-> +	 * exfat_map_cluster() reports a hole by returning success with
-> +	 * EXFAT_EOF_CLUSTER.  Return it as a hole instead of turning the
-> +	 * sentinel into a physical address.
-> +	 */
-> +	if (!may_alloc && cluster == EXFAT_EOF_CLUSTER) {
-> +		iomap->type = IOMAP_HOLE;
-> +		iomap->addr = IOMAP_NULL_ADDR;
-> +		iomap->offset = offset;
-> +		iomap->length = length;
-> +		goto out;
-> +	}
-> +
->   	cluster_offset = exfat_cluster_offset(sbi, offset);
->   	cluster_length = exfat_cluster_to_bytes(sbi, num_clusters);
->   
+Best regards,
+Krzysztof
 
