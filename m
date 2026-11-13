@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595137;
-	b=jSVj85Yik94GHek1TQ4KlnI8XArkoERdEcMbzGgaJv1j3l2AsSuNppwz8x15s7eglvmk
-	 YRcesIyvWGhl8rWLYDklZN3Ra0oh1UJSCkKPM18lWzZoZzMHNgCGbjknKkVFv2SfSY2R9
-	 K4n9pxESeA8RXy0Qu3eA8g8kTxqpMjdoYVhTcZqXgmnVOA2QtNqHmHBmp+g9MzCv3uF/O
-	 Spc92orSWByNuR8ZpZOY7JDSN9yMs05KDLoc56z3+LUSoh/jYYyo8XXsaPgq8oHnkxT6q
-	 3G5mcS2lEOJHrHDJS1O5Gnt/v/MMc7gFuebvZDMCuk1OvbrJ9/BmLElupNyg0I35a1g==
+	t=1794595132;
+	b=g4k0HI6ZRY3BTUYRFPdv5UBEdEO6xAPnok0CZq2NpU6K63WhxpwLToNjMKL8U0SErAKk
+	 x30+zK2+cDYggTbncnf+FCfpVZlAg1/9RavrGx5ZH+EriyrH8s04bQ3066bwzOBqpe8C8
+	 2D1otfSahrm8TxQGmG93s5bf7K07UIMzxTdJTNXlNRcppxWRJ5Z7eHDsG8Afa2qu4PR4v
+	 7+Ww+MJHtUp6k7BQc63X7Fx5u9iA6KUmCBRmUrlOpfdtA+fYiWCfU3K/yi9Tf4dddPNnO
+	 CbuT7PhxnC4NAwmuVJpGy4/wgPXWvcoWdWKsPTuKLbsmplkxNwEXFHARqLt8eEEytow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595137;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595132;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=Sb8DFUlQmjU4/qyO564x84mS41rxyPwR0Mfj0gP/tZw=;
-	b=oHvJ5czNpdKP+Q3Qi/51FLHiZJRqfn17surdHPt3QVphOSxB2r3nm1RWjJzqcaiFD+yB
-	 S1iozU/whDDrfUnVMUDM8TRht7/aN5/LfKemDF4mLn6+D1dqakmKocwDcuIG43eB5Uequ
-	 gYeTj8fuwlrraHajZxW/t8eRBFWWjozvY7GcLpEWE61k+HEx7iqpWvPqw2gLW7cdekZ36
-	 r6RBKAFIJNFMff12nwnwm64lTJXhwhaRPz2Wqr0h8mXqLZuqA87bPiMgwx1nLeJWJk9Ia
-	 9VxQOgty4Q/v8VBCR2ykaNo/HXAZGd52FXdTc3HL9naJn2gfOJOv0LwIKgjILHnVDZw==
+	bh=iE8ryx9B/VXPyYQ4SsyKoF9p10fPkoniyXsHmdMGfr4=;
+	b=iYltYYdCLER77v48WBr2CeZTsd73b/pkkwIOITxgz1VzTQOnK8yqUQI1yMDCDY23ICVj
+	 ghv3pJQ7x4wDk2NESm7eCp87/zcmI/0M6b8tELFOqL2t1X/T4ysuTmRrMhc0sR9FlOvjP
+	 8n2iAd/zbukagSaRDcMfFHzclKHQL1I/q1q9Aop6CQlmfoD6G5WxXIGDcGXnO8kJI3pDk
+	 tHQiepxgak8K40FtFN75o5ycRtoqFoNfxzAKIJDj9jsvsOL7emmPZ5Auupf1IyFDOpmey
+	 tte1YBoKVenIZthg3T6oXwH0Dreus784WMUGhKtn/DkxuF7rmqw4HGwkIKWQvt3xs6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eiUsTeut;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=oT8oagLj;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A553460A6F7B
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:38:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A553460A6F7B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC92160A380D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:38:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC92160A380D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eiUsTeut
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so22553135e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:38:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=oT8oagLj
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so8484745e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:38:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794595135; x=1795199935; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794595129; x=1795199929; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Sb8DFUlQmjU4/qyO564x84mS41rxyPwR0Mfj0gP/tZw=;
-        b=eiUsTeutoRfpVR1lc/Pw48S2P71aatiA0ngKcd+0b5MN47x6T3HvUqzvXy2jtB6aXO
-         t6gVgna/wmI9V5micVVXfdeJIFElzu/8pQOhpa9C1O1Q9sazBbIUMLV0NbgFCssQRg2f
-         +BdYSUNGJm1MWi7wJFg6sBPod3Pc7haav6183CjCgIugFfcDI6EeBZIS7do2cQ1iLUzJ
-         9nJ/K2jXrfrRS7g+iODf+Ub+SetcRsDckrPaDWQK8A6h6FBlx6vxbxWtYvpfn4FMcuxS
-         HAQ8H6WT6slVm9aOsq8jFz8Y8FFWBNwbVB0SVkzoAo0AkPsT2ew3UG3C6RYyRQJQhbn6
-         2H7g==
+        bh=iE8ryx9B/VXPyYQ4SsyKoF9p10fPkoniyXsHmdMGfr4=;
+        b=oT8oagLjVxECsXjdoyaXhpHpvEkABk2nAiL9EJNS9iO0zYYl8jn6l303HlWePR47NX
+         fQJN4AEWfWJ1Z9BXp35BmbFKjgkqS0wNye3xk3WNzahNokzGmCYgnk75KLUZ0W7WXoVY
+         tC1DU9uyILIeUbIPFBwMNlKyRekOi+apKM0f9i1QJoEt3s33lCEpgAeiP5KBQcY92HWn
+         em7kT3flToABIkvQu9yq+ONATbC5mM35DyXUVLx1QYWP1XAUsPnl8Zu3ZdOQ2pMkXwaO
+         a+/OoRYzbsuBdovIDxh6zTJO+CrBdEsW71evQBZ3Eb5DgZB6KGCLPKQ+03sAsjeK86Bb
+         o//g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595135; x=1795199935;
+        d=1e100.net; s=20260707; t=1794595129; x=1795199929;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Sb8DFUlQmjU4/qyO564x84mS41rxyPwR0Mfj0gP/tZw=;
-        b=z7PMEc3Imn84SfZxZaiXWDIS/Cw6DX0+u9vYj2a8d21xLAfF/HRMrHFQVpyolcNicx
-         QLrBbjBOKbPXamKkfZuQpzC6o3RVADzrQHKgMaxlErKm1nHZPeXFTWGLq8JP6gaShCmu
-         TrCUlx27N2dzqS3JwRwU8efOl8WdvVdngKi2p9aT7Tr9VRn72IrxOyb5pr7TgcEeeCJm
-         tdfvM048+JWzZdH1fXCg+NhBt70wUw7P4TSB3MJnyCcUT78AOcqkMJehYphqfwykDipz
-         ULr9Uf3XzQQSk4w00dptcy+f1/dyzUjUuDdEAGKFnsa6qMrdsRLg5fdkbDFytoGDmh+t
-         x3/Q==
-X-Forwarded-Encrypted: i=1; AL+hErFif+/mGDd2lck0sS4nqG+E6ZoXzWM5KLZOs6za3wf64HoPI9EuYNRcHOB4vHC1G7ONY6p8575Gx40nQ0I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9OexF8tNLO6wIN57yQT8oGeLjEl/SACMzKuvTGTP4OQA5D5MwE
-	q8NpWNVuog4qRMKOWaTe6z/3jzM0ZeGMIxBj+GX51TH/5OaF7xAyZyHdrCe9o5ZFRdI=
-X-Gm-Gg: AYBFou2bTNlavVvjyV+lXn0sU/RnHNco7C/G5NssKv39PRZOWnX5IaxgiegV8inQjW9
-	owEIgNOVK9Ml6/0uf8qLFm+4mWE3CTKBEWk5spu3wU29lm5zwynkpv+frJsfu2mUtI4u9FEDxWY
-	UGphZNPH7hH020rSWpvINNzf0OYbx40cDA+8x4EeSZQ7hyxFPYczkHbaEjgUlLfgPhBZHJ/DKQs
-	SV+uPFhRGQwbWmtv84hY530T273082H0r5dKCxIQ5m+iPfjReSC7UELfB5uIgeXagvF/NjbFxiy
-	YSr76CQeQHTylM/+bcnjQEv6NjQDEUInHRiaxC9DebuBow8ELHdU1iz67/iy/jTEkBYgvJgYNfI
-	7oOQ3ZpP+W2Qmca82oVkWPJ8AtfVa4Osi/UkBYDFOu86k0NP1JsCoZovubBJ+h4QuHSOEOxyp9B
-	2t7S1FhKhduIhOTYgV1lfVSMGJV35e4Wie6xEAY6c/1Jrl+UmRYT7skCPQJn3r91Qm0+Kh5tw+u
-	4GArEcutRqP6pKjkX2/JAMxovpkIJTMjEEGDRFD1m+p79di3hwx2dfvLGs3/JXt85HPkHXh4qDb
-	OakqmEDm/qKmIGOtvPBc8u38ZQvCcVb84LxNS1ilWLs=
-X-Received: by 2002:a05:600c:1d03:b0:4b1:4017:c4f4 with SMTP id 5b1f17b1804b1-4bb55a58e1amr81333845e9.20.1794595134798;
-        Fri, 13 Nov 2026 10:38:54 -0800 (PST)
+        bh=iE8ryx9B/VXPyYQ4SsyKoF9p10fPkoniyXsHmdMGfr4=;
+        b=PtzpVGwlxVZRbQYnTHirThVTHeCcPK9b2afDVHaWCTIaaq0okCcz+RcAjfoey+KTgz
+         c7DqpXMIDgfLlkrMZWoq9J/HtqG2JZmTLGfAqLjSnkjbmz1jlUuTBVkuLZPrQDfvtSFj
+         8mxfrK+SUqMvDezxVDbjd++ON+V390glMUFhoDg+3aX1JRuFxFhixC6x0/SsTj4FVC0h
+         HzWGiWSVNCeFi/URO8es+zjEpgubsVe8khzaeMwEUIgVH0pmCxT1ff3f0CNPWh5A1PcW
+         CMsV5l26Hh5qx0sx4j/fDx5tq2Bm8ou76D+7vN0WcqC2HBgpX2ubYvhUfH1YUM6LjpHf
+         wGaw==
+X-Forwarded-Encrypted: i=1; AL+hErHj6/0XEboMNOaVb6kXQwWlpFdGk6ezwEsqtU327O8Qo1h4mIX8wcptsjXNCqaR4Z5u0lFxduTH/ml9Sds=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8p5+8yuupZ4DdDtzjalcqydMhTGN67M2DvHogrYly/Dvs4gggA
+	Yi36bpK2YjX3umcFe9XwkNG93lu0+9mHlCr5Cc4nsFzkOP+KgRjbpE6f0N4f5vLx6SA=
+X-Gm-Gg: AYBFou3omQbmAE06Gzz0XieO/fAzyhiZ/WwNf9neiKDOKHH3vJMgamiW4lvYP5SL9cT
+	7BGkU9qm0dLtElh0eTa+5xg36Kx/xC3xpPXwgh7ySB89VBLdZwUm9IhGQbCSsxvtR/DH8eFfFa8
+	PUhy1isb2eA9rk0GzU892yG0kJ6/ruJIZgvDpThdaCQCxmoUp8fbgc6z9Zavj/ZXkotIds3bDlB
+	fPDhOPK08uivMEBAsF6IM/N7Ia+u4okBQm7t2ssy1WkfpOMH6pAXEIoJoE0AvFblYZVuV3Sh2Cz
+	24iiNhu/OVVCb7Nv54jfnREA149C5XfYQo77epFsYfwRCXwgUD/3wQx6xbJn+RHPpHgvPnoG7pj
+	OEnRaNm048K8emjFhlkKKxiIJ3MuL90rIHFETwE+F5fnrFCV2ji/W/OAgQKzjSd3n6y/Lnn5TLV
+	4LXXnww+EurLobuY8oL16PwdwhoJXRqj96C/eMZuiox3hhyD9cAcUBYhKTx9BVIMH2ofFeSLwPS
+	Z7DovNl20jUP5wvw1iXRwwSLdOblmHjw/MUMsTy32l4bTZ0r11SCgcIWXfsf5EIh5pglC1iidYG
+	YTD/Hv4XOod6WafxmZbpjOZNEqRY4F9g2JxX2K/lKx8=
+X-Received: by 2002:a05:600c:5491:b0:4a5:cfc:1e95 with SMTP id 5b1f17b1804b1-4bb55ac6ca0mr76395855e9.33.1794595129062;
+        Fri, 13 Nov 2026 10:38:49 -0800 (PST)
 Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.53
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:38:54 -0800 (PST)
+        Fri, 13 Nov 2026 10:38:48 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 13 Nov 2026 19:38:30 +0100
-Subject: [PATCH RFC 16/23] ASoC: qcom: lpass: enable the right codec_mem
- clock when usin LPM memory
+Date: Fri, 13 Nov 2026 19:38:25 +0100
+Subject: [PATCH RFC 11/23] ASoC: qcom: lpass: prepare to handle multiple
+ lpaifs for i2s
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-topic-sm8650-el2-v1-16-5183f6aab9fc@linaro.org>
+Message-Id: <20261113-topic-sm8650-el2-v1-11-5183f6aab9fc@linaro.org>
 References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 In-Reply-To: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -113,178 +113,1083 @@ Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
  linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
  linux-gpio@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6102;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=38510;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=1PHrl1bnC9gePFMj/aP2+K6qk5z6zGw3NPDjiSd89LQ=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91kl4HiUZEUqVZs17X1D9Ch8npT+ibOhQ5bYsD3p
- eWJXtDeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZJQAKCRB33NvayMhJ0cxuD/
- wJGCu68fEr4YqXdOSSu6ZoUm9h5JAml/m0e+4lFR5ssuqrerSPWr5sJSK1Ruqi1pGunyz2h0JIeNKC
- Vg2VNcx59QRTzGIn4+wdstUNwk2vlejLolqmNC0eXDxR3qPcMso1zuJxYxKgbUM0UxH2FdsZSQXc44
- XTDKf9v3WBs+clRK/Fhb2wgA0is87XBzdw1DlX9fOXWYgCb0vwyNHAK/m6QfVkeXezJjv0TNDGVprc
- fHQVw8rzNNXbkupSL45b4WyYeQy1TIJOTqUGTVVJTm5SMpuUq0yBelZ7fxcVZPqy/fw8Nv5BSGjZ2U
- gmyY54OU+3dhLZ6l0sh9EI4cv+dDKVCzh8mWHBfIvtXbByDdbKhMwR6ZOn6L7sTlJa74mmeuZD/2Si
- ikxQCBEbjmjUrqsXbD/8UuYu7uPZn3bXI2JW+R6CMlrBmgK8x5PhS+y++BeFR6bUQDwFf6XVYBVX4O
- mJ39DEGBPrc7+ALCCaPPZb+Qdtgrs282zS06GYIgvI9PSI+y0dxTo0HaKSuuqXfpaa3uLykFGRYHQB
- gGtytNxh9P4aEayb2v8i9YZNU1Pr9vuoKenyapqxX6nbDsTVfDwqoZkVO3T+FtU0w85ZqUqobniGgz
- oD0JpkJMJE39T2ZofYRgqMrOzdcsLiJ1sKgKEPH81dTOwZhGBMiL/hL69QiA==
+ bh=1FiKT7EV9OXDFFCguiHsP1c3er9Tu6iz3/IKJTVupSQ=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91kiKaH+Jc2nG0fyV54bTDuguqAaNV9BHlRdzQoB
+ juXo+hmJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZIgAKCRB33NvayMhJ0SMWEA
+ CiobYw6Hq2FM3GaQZITWv/y/p+aOT5U39hf7LUAz3CRdRFDKynmeNQCkXCrxRw5KFRgqjaZnAhIG+6
+ CYrPbmcIgmDDvmW7rfsO8gIMGz8vL9CC1q65xCZLrM2woC95iA3FuMc2LdpiGxdrVYHSa3Ze8WUrRn
+ QycMzUNxGYQItCpuwAIU3zyp6apm2w1EWw/MtUDMh9wzOBPQmsS+2cAGcIwRVzArWjp6LVbCsKJqhe
+ HM+L1+3AoLfkrSEjvsQ8pEt9AVvI91AuHYkVBdJI2IJPkU0E8vWYJNjS7lTANRfH1Q37zyxfAqsPE0
+ LNKKmha5Oyaro1adlG+1iwy2M8blTHNVWsj11m6PQjfikdXOs1oBjGasQBilhV05FpySpSdJuEcQT+
+ xl+IKTWdiW8ggfCzyOhoTrYrI0JRAySGmUs+TYoJvlL8fleb6gVec8f+qSZAUF+S2y6EGZZoulfdXH
+ B5YymCznuEY8m14+7AVEGzilm9vTaSJ9npIk3lL8CmKF7Rb0um+H/iiJtc0BNWfqh0xFvg1vAZOIbk
+ 4FC2sD1X7KFvHk8QUWCR/VUNRDm2KPoCWR1jPd2sX8L7TKhw2YaxVbJDlH8WQrcV7daNLAUS/jS+74
+ SdNUOYl+sjcD9nXklN+ciN8kryzvPm99dFIkcEekyP3/n//F/iFwamvzyFwA==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-The LPM memory zone needs different codec_mem clock to be
-enabled depending on the DMA buffer offset, add an helper
-returning the right clock and add support for the MI2S
-ports using a non-core LPAIF.
+The MI2S ports are spread amonst the different LPAIFs, but today
+we consider all 8 possible MI2S ports are available on the core
+LPAIF.
+
+In order to support more complex mappings, start by moving the
+lpaif struct into a table so we can probe more LPAIFs for
+MI2S ports later on.
+
+And since the MI2S_SENARY & MI2S_SEPTENARY indexes are not
+following the Quinary index, we need to add an helper to
+map the DAI id to the actual MI2S port index.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- sound/soc/qcom/lpass-cdc-dma.c | 27 ++++++++++++---------------
- sound/soc/qcom/lpass-cpu.c     | 21 +++++++++++++++++++++
- sound/soc/qcom/lpass.h         | 20 ++++++++++++++++++++
- 3 files changed, 53 insertions(+), 15 deletions(-)
+ sound/soc/qcom/lpass-apq8016.c  |   9 +-
+ sound/soc/qcom/lpass-cpu.c      | 217 +++++++++++++++++++++++-----------------
+ sound/soc/qcom/lpass-platform.c | 123 ++++++++++++++---------
+ sound/soc/qcom/lpass-sc7180.c   |  10 +-
+ sound/soc/qcom/lpass-sc7280.c   |  10 +-
+ sound/soc/qcom/lpass.h          |  59 +++++++++--
+ 6 files changed, 271 insertions(+), 157 deletions(-)
 
-diff --git a/sound/soc/qcom/lpass-cdc-dma.c b/sound/soc/qcom/lpass-cdc-dma.c
-index 903055e3188d..c20e0976563b 100644
---- a/sound/soc/qcom/lpass-cdc-dma.c
-+++ b/sound/soc/qcom/lpass-cdc-dma.c
-@@ -199,12 +199,14 @@ static int lpass_cdc_dma_daiops_startup(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
+index b8f23414eb77..e29db42e0ebb 100644
+--- a/sound/soc/qcom/lpass-apq8016.c
++++ b/sound/soc/qcom/lpass-apq8016.c
+@@ -124,16 +124,17 @@ static int apq8016_lpass_alloc_dma_channel(struct lpass_data *drvdata,
+ 					   int direction, unsigned int dai_id)
  {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
- 	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
-+	struct clk *mem_clk;
+ 	const struct lpass_variant *v = drvdata->variant;
++	unsigned long *ch_map = &drvdata->lpaif[0].dma_ch_bit_map;
+ 	int chan = 0;
  
- 	switch (dai->id) {
- 	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
- 	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
--		clk_set_rate(drvdata->codec_mem0, CODEC_MEM_HZ_NORMAL);
--		clk_prepare_enable(drvdata->codec_mem0);
-+		mem_clk = lpass_cdc_dma_mem_clk(drvdata, drvdata->rxtx_lpm_offset);
-+		clk_set_rate(mem_clk, CODEC_MEM_HZ_NORMAL);
-+		clk_prepare_enable(mem_clk);
- 		break;
- 	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX0:
- 		clk_set_rate(drvdata->va_mem0, CODEC_MEM_HZ_NORMAL);
-@@ -212,14 +214,9 @@ static int lpass_cdc_dma_daiops_startup(struct snd_pcm_substream *substream,
- 		break;
- 	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
- 	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
--		clk_set_rate(drvdata->codec_mem0, CODEC_MEM_HZ_NORMAL);	//??
--		clk_set_rate(drvdata->codec_mem1, CODEC_MEM_HZ_NORMAL);	//??
--		clk_set_rate(drvdata->codec_mem2, CODEC_MEM_HZ_NORMAL);	//??
--		clk_set_rate(drvdata->codec_mem3, CODEC_MEM_HZ_NORMAL);	//??
--		clk_prepare_enable(drvdata->codec_mem0);		//??
--		clk_prepare_enable(drvdata->codec_mem1);		//??
--		clk_prepare_enable(drvdata->codec_mem2);		//??
--		clk_prepare_enable(drvdata->codec_mem3);		//??
-+		mem_clk = lpass_cdc_dma_mem_clk(drvdata, drvdata->wsa_lpm_offset);
-+		clk_set_rate(mem_clk, CODEC_MEM_HZ_NORMAL);
-+		clk_prepare_enable(mem_clk);
- 		break;
- 	default:
- 		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai->id);
-@@ -233,21 +230,21 @@ static void lpass_cdc_dma_daiops_shutdown(struct snd_pcm_substream *substream,
- {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
- 	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
-+	struct clk *mem_clk;
+ 	if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
+-		chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
++		chan = find_first_zero_bit(ch_map,
+ 					v->rdma_channels);
  
- 	switch (dai->id) {
- 	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
- 	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
--		clk_disable_unprepare(drvdata->codec_mem0);
-+		mem_clk = lpass_cdc_dma_mem_clk(drvdata, drvdata->rxtx_lpm_offset);
-+		clk_disable_unprepare(mem_clk);
- 		break;
- 	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX0:
- 		clk_disable_unprepare(drvdata->va_mem0);
- 		break;
- 	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
- 	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
--		clk_disable_unprepare(drvdata->codec_mem3);
--		clk_disable_unprepare(drvdata->codec_mem2);
--		clk_disable_unprepare(drvdata->codec_mem1);
--		clk_disable_unprepare(drvdata->codec_mem0);
-+		mem_clk = lpass_cdc_dma_mem_clk(drvdata, drvdata->wsa_lpm_offset);
-+		clk_disable_unprepare(mem_clk);
- 		break;
- 	default:
- 		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai->id);
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index 4bbcd59ebd60..302c31b23090 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -89,6 +89,17 @@ static int lpass_cpu_daiops_startup(struct snd_pcm_substream *substream,
- 	unsigned int port_id = mi2s_port_id(dai->driver->id);
- 	int ret;
- 
-+	if (is_lpm_mi2s_port(drvdata, dai->driver->id)) {
-+		struct clk *mem_clk = drvdata->va_mem0;
-+
-+		if (drvdata->mi2s_lpm[port_id] == LPASS_RXTX_CDC_LPM)
-+			mem_clk = lpass_cdc_dma_mem_clk(drvdata,
-+							drvdata->mi2s_lpm_offset[port_id]);
-+
-+		clk_set_rate(mem_clk, LPASS_CODEC_MEM_HZ_NORMAL);
-+		clk_prepare_enable(mem_clk);
-+	}
-+
- 	ret = clk_prepare_enable(drvdata->mi2s_osr_clk[port_id]);
- 	if (ret) {
- 		dev_err(dai->dev, "error in enabling mi2s osr clk: %d\n", ret);
-@@ -133,6 +144,16 @@ static void lpass_cpu_daiops_shutdown(struct snd_pcm_substream *substream,
+ 		if (chan >= v->rdma_channels)
+ 			return -EBUSY;
+ 	} else {
+-		chan = find_next_zero_bit(&drvdata->dma_ch_bit_map,
++		chan = find_next_zero_bit(ch_map,
+ 					v->wrdma_channel_start +
+ 					v->wrdma_channels,
+ 					v->wrdma_channel_start);
+@@ -142,14 +143,14 @@ static int apq8016_lpass_alloc_dma_channel(struct lpass_data *drvdata,
+ 			return -EBUSY;
  	}
  
- 	clk_unprepare(drvdata->mi2s_bit_clk[port_id]);
+-	set_bit(chan, &drvdata->dma_ch_bit_map);
++	set_bit(chan, ch_map);
+ 
+ 	return chan;
+ }
+ 
+ static int apq8016_lpass_free_dma_channel(struct lpass_data *drvdata, int chan, unsigned int dai_id)
+ {
+-	clear_bit(chan, &drvdata->dma_ch_bit_map);
++	clear_bit(chan, &drvdata->lpaif[0].dma_ch_bit_map);
+ 
+ 	return 0;
+ }
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index d46b72c926b2..f8b9b2ec9055 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -70,9 +70,11 @@ static int lpass_cpu_daiops_set_sysclk(struct snd_soc_dai *dai, int clk_id,
+ 		unsigned int freq, int dir)
+ {
+ 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	unsigned int port_id = mi2s_port_id(dai->driver->id);
 +
-+	if (is_lpm_mi2s_port(drvdata, dai->driver->id)) {
-+		struct clk *mem_clk = drvdata->va_mem0;
-+
-+		if (drvdata->mi2s_lpm[port_id] == LPASS_RXTX_CDC_LPM)
-+			mem_clk = lpass_cdc_dma_mem_clk(drvdata,
-+							drvdata->mi2s_lpm_offset[port_id]);
-+
-+		clk_disable_unprepare(mem_clk);
-+	}
+ 	int ret;
+ 
+-	ret = clk_set_rate(drvdata->mi2s_osr_clk[dai->driver->id], freq);
++	ret = clk_set_rate(drvdata->mi2s_osr_clk[port_id], freq);
+ 	if (ret)
+ 		dev_err(dai->dev, "error setting mi2s osrclk to %u: %d\n",
+ 			freq, ret);
+@@ -84,17 +86,18 @@ static int lpass_cpu_daiops_startup(struct snd_pcm_substream *substream,
+ 		struct snd_soc_dai *dai)
+ {
+ 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	unsigned int port_id = mi2s_port_id(dai->driver->id);
+ 	int ret;
+ 
+-	ret = clk_prepare_enable(drvdata->mi2s_osr_clk[dai->driver->id]);
++	ret = clk_prepare_enable(drvdata->mi2s_osr_clk[port_id]);
+ 	if (ret) {
+ 		dev_err(dai->dev, "error in enabling mi2s osr clk: %d\n", ret);
+ 		return ret;
+ 	}
+-	ret = clk_prepare(drvdata->mi2s_bit_clk[dai->driver->id]);
++	ret = clk_prepare(drvdata->mi2s_bit_clk[port_id]);
+ 	if (ret) {
+ 		dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
+-		clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
++		clk_disable_unprepare(drvdata->mi2s_osr_clk[port_id]);
+ 		return ret;
+ 	}
+ 	return 0;
+@@ -104,39 +107,41 @@ static void lpass_cpu_daiops_shutdown(struct snd_pcm_substream *substream,
+ 		struct snd_soc_dai *dai)
+ {
+ 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+-	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
+-	unsigned int id = dai->driver->id;
++	unsigned int port_id = mi2s_port_id(dai->driver->id);
++	struct lpass_lpaif *lpaif = drvdata->mi2s_lpaif[port_id];
++	unsigned int intf = drvdata->mi2s_intf[port_id];
+ 
+-	clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
++	clk_disable_unprepare(drvdata->mi2s_osr_clk[port_id]);
+ 	/*
+ 	 * Ensure LRCLK is disabled even in device node validation.
+ 	 * Will not impact if disabled in lpass_cpu_daiops_trigger()
+ 	 * suspend.
+ 	 */
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-		regmap_fields_write(i2sctl->spken, id, LPAIF_I2SCTL_SPKEN_DISABLE);
++		regmap_fields_write(lpaif->i2sctl->spken, intf, LPAIF_I2SCTL_SPKEN_DISABLE);
+ 	else
+-		regmap_fields_write(i2sctl->micen, id, LPAIF_I2SCTL_MICEN_DISABLE);
++		regmap_fields_write(lpaif->i2sctl->micen, intf, LPAIF_I2SCTL_MICEN_DISABLE);
+ 
+ 	/*
+ 	 * BCLK may not be enabled if lpass_cpu_daiops_prepare is called before
+ 	 * lpass_cpu_daiops_shutdown. It's paired with the clk_enable in
+ 	 * lpass_cpu_daiops_prepare.
+ 	 */
+-	if (drvdata->mi2s_was_prepared[dai->driver->id]) {
+-		drvdata->mi2s_was_prepared[dai->driver->id] = false;
+-		clk_disable(drvdata->mi2s_bit_clk[dai->driver->id]);
++	if (drvdata->mi2s_was_prepared[port_id]) {
++		drvdata->mi2s_was_prepared[port_id] = false;
++		clk_disable(drvdata->mi2s_bit_clk[port_id]);
+ 	}
+ 
+-	clk_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
++	clk_unprepare(drvdata->mi2s_bit_clk[port_id]);
  }
  
  static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
-diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
-index 8f361f2808ca..699b9a07eb5a 100644
---- a/sound/soc/qcom/lpass.h
-+++ b/sound/soc/qcom/lpass.h
-@@ -30,6 +30,8 @@
- #define LPASS_CDC_DMA_INTF_FOUR_CHANNEL		(0x0F)
- #define LPASS_CDC_DMA_INTF_SIX_CHANNEL		(0x3F)
- #define LPASS_CDC_DMA_INTF_EIGHT_CHANNEL	(0xFF)
-+#define LPASS_CDC_DMA_LPM_MEM_BLK_SIZE (2 * 8 * 1024)
-+#define LPASS_CODEC_MEM_HZ_NORMAL		153600000
+ 		struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
+ {
+ 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+-	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
+-	unsigned int id = dai->driver->id;
++	unsigned int port_id = mi2s_port_id(dai->driver->id);
++	struct lpass_lpaif *lpaif = drvdata->mi2s_lpaif[port_id];
++	unsigned int intf = drvdata->mi2s_intf[port_id];
+ 	snd_pcm_format_t format = params_format(params);
+ 	unsigned int channels = params_channels(params);
+ 	unsigned int rate = params_rate(params);
+@@ -150,14 +155,14 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+ 		return bitwidth;
+ 	}
  
- #define LPASS_ACTIVE_PDS			(4)
- #define LPASS_PROXY_PDS			(8)
-@@ -291,6 +293,24 @@ static inline bool is_lpm_mi2s_port(struct lpass_data *drvdata, unsigned int dai
+-	ret = regmap_fields_write(i2sctl->loopback, id,
++	ret = regmap_fields_write(lpaif->i2sctl->loopback, intf,
+ 				 LPAIF_I2SCTL_LOOPBACK_DISABLE);
+ 	if (ret) {
+ 		dev_err(dai->dev, "error updating loopback field: %d\n", ret);
+ 		return ret;
+ 	}
+ 
+-	ret = regmap_fields_write(i2sctl->wssrc, id,
++	ret = regmap_fields_write(lpaif->i2sctl->wssrc, intf,
+ 				 LPAIF_I2SCTL_WSSRC_INTERNAL);
+ 	if (ret) {
+ 		dev_err(dai->dev, "error updating wssrc field: %d\n", ret);
+@@ -179,16 +184,16 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+ 		return -EINVAL;
+ 	}
+ 
+-	ret = regmap_fields_write(i2sctl->bitwidth, id, regval);
++	ret = regmap_fields_write(lpaif->i2sctl->bitwidth, intf, regval);
+ 	if (ret) {
+ 		dev_err(dai->dev, "error updating bitwidth field: %d\n", ret);
+ 		return ret;
+ 	}
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-		mode = drvdata->mi2s_playback_sd_mode[id];
++		mode = drvdata->mi2s_playback_sd_mode[port_id];
+ 	else
+-		mode = drvdata->mi2s_capture_sd_mode[id];
++		mode = drvdata->mi2s_capture_sd_mode[port_id];
+ 
+ 	if (!mode) {
+ 		dev_err(dai->dev, "no line is assigned\n");
+@@ -250,7 +255,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+ 	}
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		ret = regmap_fields_write(i2sctl->spkmode, id,
++		ret = regmap_fields_write(lpaif->i2sctl->spkmode, intf,
+ 					 LPAIF_I2SCTL_SPKMODE(mode));
+ 		if (ret) {
+ 			dev_err(dai->dev, "error writing to i2sctl spkr mode: %d\n",
+@@ -258,13 +263,13 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+ 			return ret;
+ 		}
+ 		if (channels >= 2)
+-			ret = regmap_fields_write(i2sctl->spkmono, id,
++			ret = regmap_fields_write(lpaif->i2sctl->spkmono, intf,
+ 						 LPAIF_I2SCTL_SPKMONO_STEREO);
+ 		else
+-			ret = regmap_fields_write(i2sctl->spkmono, id,
++			ret = regmap_fields_write(lpaif->i2sctl->spkmono, intf,
+ 						 LPAIF_I2SCTL_SPKMONO_MONO);
+ 	} else {
+-		ret = regmap_fields_write(i2sctl->micmode, id,
++		ret = regmap_fields_write(lpaif->i2sctl->micmode, intf,
+ 					 LPAIF_I2SCTL_MICMODE(mode));
+ 		if (ret) {
+ 			dev_err(dai->dev, "error writing to i2sctl mic mode: %d\n",
+@@ -272,10 +277,10 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+ 			return ret;
+ 		}
+ 		if (channels >= 2)
+-			ret = regmap_fields_write(i2sctl->micmono, id,
++			ret = regmap_fields_write(lpaif->i2sctl->micmono, intf,
+ 						 LPAIF_I2SCTL_MICMONO_STEREO);
+ 		else
+-			ret = regmap_fields_write(i2sctl->micmono, id,
++			ret = regmap_fields_write(lpaif->i2sctl->micmono, intf,
+ 						 LPAIF_I2SCTL_MICMONO_MONO);
+ 	}
+ 
+@@ -285,7 +290,7 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+ 		return ret;
+ 	}
+ 
+-	ret = clk_set_rate(drvdata->mi2s_bit_clk[id],
++	ret = clk_set_rate(drvdata->mi2s_bit_clk[port_id],
+ 			   rate * bitwidth * 2);
+ 	if (ret) {
+ 		dev_err(dai->dev, "error setting mi2s bitclk to %u: %d\n",
+@@ -300,8 +305,9 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+ 		int cmd, struct snd_soc_dai *dai)
+ {
+ 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+-	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
+-	unsigned int id = dai->driver->id;
++	unsigned int port_id = mi2s_port_id(dai->driver->id);
++	struct lpass_lpaif *lpaif = drvdata->mi2s_lpaif[port_id];
++	unsigned int intf = drvdata->mi2s_intf[port_id];
+ 	int ret = -EINVAL;
+ 
+ 	switch (cmd) {
+@@ -321,20 +327,20 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+ 		 *     it.
+ 		 */
+ 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-			ret = regmap_fields_write(i2sctl->spken, id,
++			ret = regmap_fields_write(lpaif->i2sctl->spken, intf,
+ 						 LPAIF_I2SCTL_SPKEN_ENABLE);
+ 		} else  {
+-			ret = regmap_fields_write(i2sctl->micen, id,
++			ret = regmap_fields_write(lpaif->i2sctl->micen, intf,
+ 						 LPAIF_I2SCTL_MICEN_ENABLE);
+ 		}
+ 		if (ret)
+ 			dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
+ 				ret);
+ 
+-		ret = clk_enable(drvdata->mi2s_bit_clk[id]);
++		ret = clk_enable(drvdata->mi2s_bit_clk[port_id]);
+ 		if (ret) {
+ 			dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
+-			clk_disable(drvdata->mi2s_osr_clk[id]);
++			clk_disable(drvdata->mi2s_osr_clk[port_id]);
+ 			return ret;
+ 		}
+ 		break;
+@@ -346,17 +352,17 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+ 		 * device suspend.
+ 		 */
+ 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-			ret = regmap_fields_write(i2sctl->spken, id,
++			ret = regmap_fields_write(lpaif->i2sctl->spken, intf,
+ 						 LPAIF_I2SCTL_SPKEN_DISABLE);
+ 		} else  {
+-			ret = regmap_fields_write(i2sctl->micen, id,
++			ret = regmap_fields_write(lpaif->i2sctl->micen, intf,
+ 						 LPAIF_I2SCTL_MICEN_DISABLE);
+ 		}
+ 		if (ret)
+ 			dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
+ 				ret);
+ 
+-		clk_disable(drvdata->mi2s_bit_clk[dai->driver->id]);
++		clk_disable(drvdata->mi2s_bit_clk[port_id]);
+ 
+ 		break;
+ 	}
+@@ -368,8 +374,9 @@ static int lpass_cpu_daiops_prepare(struct snd_pcm_substream *substream,
+ 		struct snd_soc_dai *dai)
+ {
+ 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+-	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
+-	unsigned int id = dai->driver->id;
++	unsigned int port_id = mi2s_port_id(dai->driver->id);
++	struct lpass_lpaif *lpaif = drvdata->mi2s_lpaif[port_id];
++	unsigned int intf = drvdata->mi2s_intf[port_id];
+ 	int ret;
+ 
+ 	/*
+@@ -379,9 +386,9 @@ static int lpass_cpu_daiops_prepare(struct snd_pcm_substream *substream,
+ 	 * (ex: to drop start up pop noise before capture starts).
+ 	 */
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-		ret = regmap_fields_write(i2sctl->spken, id, LPAIF_I2SCTL_SPKEN_ENABLE);
++		ret = regmap_fields_write(lpaif->i2sctl->spken, intf, LPAIF_I2SCTL_SPKEN_ENABLE);
+ 	else
+-		ret = regmap_fields_write(i2sctl->micen, id, LPAIF_I2SCTL_MICEN_ENABLE);
++		ret = regmap_fields_write(lpaif->i2sctl->micen, intf, LPAIF_I2SCTL_MICEN_ENABLE);
+ 
+ 	if (ret) {
+ 		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
+@@ -393,13 +400,13 @@ static int lpass_cpu_daiops_prepare(struct snd_pcm_substream *substream,
+ 	 * be called multiple times. It's paired with the clk_disable in
+ 	 * lpass_cpu_daiops_shutdown.
+ 	 */
+-	if (!drvdata->mi2s_was_prepared[dai->driver->id]) {
+-		ret = clk_enable(drvdata->mi2s_bit_clk[id]);
++	if (!drvdata->mi2s_was_prepared[port_id]) {
++		ret = clk_enable(drvdata->mi2s_bit_clk[port_id]);
+ 		if (ret) {
+ 			dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
+ 			return ret;
+ 		}
+-		drvdata->mi2s_was_prepared[dai->driver->id] = true;
++		drvdata->mi2s_was_prepared[port_id] = true;
+ 	}
+ 	return 0;
+ }
+@@ -409,8 +416,9 @@ static int lpass_cpu_daiops_pcm_new(struct snd_soc_pcm_runtime *rtd, struct snd_
+ 	int ret;
+ 	struct snd_soc_dai_driver *drv = dai->driver;
+ 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	unsigned int port_id = mi2s_port_id(dai->id);
+ 
+-	if (drvdata->mi2s_playback_sd_mode[dai->id] == LPAIF_I2SCTL_MODE_QUAD01) {
++	if (drvdata->mi2s_playback_sd_mode[port_id] == LPAIF_I2SCTL_MODE_QUAD01) {
+ 		ret =  snd_pcm_add_chmap_ctls(rtd->pcm, SNDRV_PCM_STREAM_PLAYBACK,
+ 				lpass_quad_chmaps, drv->playback.channels_max, 0,
+ 				NULL);
+@@ -424,11 +432,13 @@ static int lpass_cpu_daiops_pcm_new(struct snd_soc_pcm_runtime *rtd, struct snd_
+ static int lpass_cpu_daiops_probe(struct snd_soc_dai *dai)
+ {
+ 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	unsigned int port_id = mi2s_port_id(dai->driver->id);
++	struct lpass_lpaif *lpaif = drvdata->mi2s_lpaif[port_id];
+ 	int ret;
+ 
+ 	/* ensure audio hardware is disabled */
+-	ret = regmap_write(drvdata->lpaif_map,
+-			LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id), 0);
++	ret = regmap_write(lpaif->map,
++			LPAIF_I2SCTL_REG(drvdata->variant, drvdata->mi2s_intf[port_id]), 0);
+ 	if (ret)
+ 		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
+ 
+@@ -578,7 +588,7 @@ static bool lpass_cpu_regmap_volatile(struct device *dev, unsigned int reg)
  	return false;
  }
  
-+static inline struct clk *lpass_cdc_dma_mem_clk(struct lpass_data *drvdata, u32 offset)
-+{
-+	unsigned int id = offset / LPASS_CDC_DMA_LPM_MEM_BLK_SIZE;
+-static struct regmap_config lpass_cpu_regmap_config = {
++static const struct regmap_config lpass_cpu_regmap_config = {
+ 	.name = "lpass_cpu",
+ 	.reg_bits = 32,
+ 	.reg_stride = 4,
+@@ -1040,9 +1050,12 @@ static void of_lpass_cpu_parse_dai_data(struct device *dev,
+ 
+ 	/* Allow all channels by default for backwards compatibility */
+ 	for (i = 0; i < data->variant->num_dai; i++) {
+-		id = data->variant->dai_driver[i].id;
+-		data->mi2s_playback_sd_mode[id] = LPAIF_I2SCTL_MODE_8CH;
+-		data->mi2s_capture_sd_mode[id] = LPAIF_I2SCTL_MODE_8CH;
++		if (is_mi2s_port_id(data->variant->dai_driver[i].id)) {
++			unsigned int port_id = mi2s_port_id(data->variant->dai_driver[i].id);
 +
-+	switch (id) {
-+	case 0:
-+		return drvdata->codec_mem0;
-+	case 1:
-+		return drvdata->codec_mem1;
-+	case 2:
-+		return drvdata->codec_mem2;
-+	case 3:
-+		return drvdata->codec_mem3;
++			data->mi2s_playback_sd_mode[port_id] = LPAIF_I2SCTL_MODE_8CH;
++			data->mi2s_capture_sd_mode[port_id] = LPAIF_I2SCTL_MODE_8CH;
++		}
+ 	}
+ 
+ 	for_each_child_of_node(dev->of_node, node) {
+@@ -1057,13 +1070,18 @@ static void of_lpass_cpu_parse_dai_data(struct device *dev,
+ 			data->codec_dma_enable = 1;
+ 			if (is_wsa_cdc_dma_port(id))
+ 				data->wsa_enable = 1;
+-		} else {
+-			data->mi2s_playback_sd_mode[id] =
++		} else if (is_mi2s_port_id(id)) {
++			unsigned int port_id = mi2s_port_id(id);
++
++			data->mi2s_playback_sd_mode[port_id] =
+ 				of_lpass_cpu_parse_sd_lines(dev, node,
+ 							    "qcom,playback-sd-lines");
+-			data->mi2s_capture_sd_mode[id] =
++			data->mi2s_capture_sd_mode[port_id] =
+ 				of_lpass_cpu_parse_sd_lines(dev, node,
+ 						    "qcom,capture-sd-lines");
++		} else {
++			dev_err(dev, "invalid dai id: %d\n", id);
++			continue;
+ 		}
+ 	}
+ }
+@@ -1094,6 +1112,45 @@ static int of_lpass_cdc_dma_clks_parse(struct device *dev,
+ 	return 0;
+ }
+ 
++static int lpass_cpu_init_lpaif(struct platform_device *pdev, int idx,
++				const char *reg_name)
++{
++	struct lpass_data *drvdata = platform_get_drvdata(pdev);
++	const struct lpass_variant *v = drvdata->variant;
++	struct lpass_lpaif *lpaif = &drvdata->lpaif[idx];
++	struct regmap_config cfg = lpass_cpu_regmap_config;
++	struct device *dev = &pdev->dev;
++	void __iomem *base;
++	int ret;
++
++	base = devm_platform_ioremap_resource_byname(pdev, reg_name);
++	if (IS_ERR(base))
++		return PTR_ERR(base);
++
++	cfg.max_register = LPAIF_WRDMAPER_REG(v, v->wrdma_channels +
++					      v->wrdma_channel_start);
++
++	lpaif->drvdata = drvdata;
++	lpaif->map = devm_regmap_init_mmio(dev, base, &cfg);
++	if (IS_ERR(lpaif->map)) {
++		dev_err(dev, "error initializing %s regmap: %ld\n",
++			reg_name, PTR_ERR(lpaif->map));
++		return PTR_ERR(lpaif->map);
++	}
++
++	/* Allocation for i2sctl regmap fields */
++	lpaif->i2sctl = devm_kzalloc(dev, sizeof(*lpaif->i2sctl), GFP_KERNEL);
++	if (!lpaif->i2sctl)
++		return -ENOMEM;
++
++	/* Initialize bitfields for dai I2SCTL register */
++	ret = lpass_cpu_init_i2sctl_bitfields(dev, lpaif->i2sctl, lpaif->map);
++	if (ret)
++		dev_err(dev, "error init %s i2sctl field: %d\n", reg_name, ret);
++
++	return ret;
++}
++
+ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+ {
+ 	struct lpass_data *drvdata;
+@@ -1101,7 +1158,7 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+ 	struct resource *res;
+ 	const struct lpass_variant *variant;
+ 	struct device *dev = &pdev->dev;
+-	int ret, i, dai_id;
++	int ret, i, port_id;
+ 
+ 	dsp_of_node = of_parse_phandle(pdev->dev.of_node, "qcom,adsp", 0);
+ 	if (dsp_of_node) {
+@@ -1190,21 +1247,11 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+ 		drvdata->va_cdc_dma_lpm_buf = res->start;
+ 	}
+ 
+-	drvdata->lpaif = devm_platform_ioremap_resource_byname(pdev, "lpass-lpaif");
+-	if (IS_ERR(drvdata->lpaif))
+-		return PTR_ERR(drvdata->lpaif);
+-
+-	lpass_cpu_regmap_config.max_register = LPAIF_WRDMAPER_REG(variant,
+-						variant->wrdma_channels +
+-						variant->wrdma_channel_start);
++	drvdata->num_lpaif = 1;
+ 
+-	drvdata->lpaif_map = devm_regmap_init_mmio(dev, drvdata->lpaif,
+-			&lpass_cpu_regmap_config);
+-	if (IS_ERR(drvdata->lpaif_map)) {
+-		dev_err(dev, "error initializing regmap: %ld\n",
+-			PTR_ERR(drvdata->lpaif_map));
+-		return PTR_ERR(drvdata->lpaif_map);
+-	}
++	ret = lpass_cpu_init_lpaif(pdev, 0, "lpass-lpaif");
++	if (ret)
++		return ret;
+ 
+ 	if (drvdata->hdmi_port_enable) {
+ 		drvdata->hdmiif = devm_platform_ioremap_resource_byname(pdev, "lpass-hdmiif");
+@@ -1231,42 +1278,32 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	for (i = 0; i < variant->num_dai; i++) {
+-		dai_id = variant->dai_driver[i].id;
+-		if (dai_id == LPASS_DP_RX || is_cdc_dma_port(dai_id))
++		if (!is_mi2s_port_id(variant->dai_driver[i].id))
+ 			continue;
+ 
+-		drvdata->mi2s_osr_clk[dai_id] = devm_clk_get_optional(dev,
++		port_id = mi2s_port_id(variant->dai_driver[i].id);
++
++		drvdata->mi2s_lpaif[port_id] = &drvdata->lpaif[0];
++		drvdata->mi2s_intf[port_id] = port_id;
++
++		drvdata->mi2s_osr_clk[port_id] = devm_clk_get_optional(dev,
+ 					     variant->dai_osr_clk_names[i]);
+-		drvdata->mi2s_bit_clk[dai_id] = devm_clk_get(dev,
++		drvdata->mi2s_bit_clk[port_id] = devm_clk_get(dev,
+ 						variant->dai_bit_clk_names[i]);
+-		if (IS_ERR(drvdata->mi2s_bit_clk[dai_id])) {
++		if (IS_ERR(drvdata->mi2s_bit_clk[port_id])) {
+ 			dev_err(dev,
+ 				"error getting %s: %ld\n",
+ 				variant->dai_bit_clk_names[i],
+-				PTR_ERR(drvdata->mi2s_bit_clk[dai_id]));
+-			return PTR_ERR(drvdata->mi2s_bit_clk[dai_id]);
++				PTR_ERR(drvdata->mi2s_bit_clk[port_id]));
++			return PTR_ERR(drvdata->mi2s_bit_clk[port_id]);
+ 		}
+-		if (drvdata->mi2s_playback_sd_mode[dai_id] ==
++		if (drvdata->mi2s_playback_sd_mode[port_id] ==
+ 			LPAIF_I2SCTL_MODE_QUAD01) {
+ 			variant->dai_driver[i].playback.channels_min = 4;
+ 			variant->dai_driver[i].playback.channels_max = 4;
+ 		}
+ 	}
+ 
+-	/* Allocation for i2sctl regmap fields */
+-	drvdata->i2sctl = devm_kzalloc(&pdev->dev, sizeof(struct lpaif_i2sctl),
+-					GFP_KERNEL);
+-	if (!drvdata->i2sctl)
+-		return -ENOMEM;
+-
+-	/* Initialize bitfields for dai I2SCTL register */
+-	ret = lpass_cpu_init_i2sctl_bitfields(dev, drvdata->i2sctl,
+-						drvdata->lpaif_map);
+-	if (ret) {
+-		dev_err(dev, "error init i2sctl field: %d\n", ret);
+-		return ret;
+-	}
+-
+ 	if (drvdata->hdmi_port_enable) {
+ 		ret = lpass_hdmi_init_bitfields(dev, drvdata->hdmiif_map);
+ 		if (ret) {
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index 9c879a8090bb..574b46e2176d 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -194,25 +194,26 @@ static int lpass_platform_alloc_wsa_dmactl_fields(struct device *dev,
+ }
+ 
+ static int lpass_platform_alloc_dmactl_fields(struct device *dev,
+-					 struct regmap *map)
++					      struct lpass_lpaif *lpaif)
+ {
+ 	struct lpass_data *drvdata = dev_get_drvdata(dev);
+ 	const struct lpass_variant *v = drvdata->variant;
++	struct regmap *map = lpaif->map;
+ 	struct lpaif_dmactl *rd_dmactl, *wr_dmactl;
+ 	int rval;
+ 
+-	drvdata->rd_dmactl = devm_kzalloc(dev, sizeof(struct lpaif_dmactl),
+-					  GFP_KERNEL);
+-	if (drvdata->rd_dmactl == NULL)
++	lpaif->rd_dmactl = devm_kzalloc(dev, sizeof(struct lpaif_dmactl),
++					GFP_KERNEL);
++	if (!lpaif->rd_dmactl)
+ 		return -ENOMEM;
+ 
+-	drvdata->wr_dmactl = devm_kzalloc(dev, sizeof(struct lpaif_dmactl),
+-					  GFP_KERNEL);
+-	if (drvdata->wr_dmactl == NULL)
++	lpaif->wr_dmactl = devm_kzalloc(dev, sizeof(struct lpaif_dmactl),
++					GFP_KERNEL);
++	if (!lpaif->wr_dmactl)
+ 		return -ENOMEM;
+ 
+-	rd_dmactl = drvdata->rd_dmactl;
+-	wr_dmactl = drvdata->wr_dmactl;
++	rd_dmactl = lpaif->rd_dmactl;
++	wr_dmactl = lpaif->wr_dmactl;
+ 
+ 	rval = devm_regmap_field_bulk_alloc(dev, map, &rd_dmactl->intf,
+ 					    &v->rdma_intf, 6);
+@@ -252,6 +253,7 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
+ 	struct lpass_pcm_data *data;
+ 	struct regmap *map;
+ 	unsigned int dai_id = cpu_dai->driver->id;
++	unsigned int port_id;
+ 
+ 	data = kzalloc_obj(*data);
+ 	if (!data)
+@@ -272,8 +274,9 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
+ 
+ 	switch (dai_id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
+-		map = drvdata->lpaif_map;
+-		drvdata->substream[dma_ch] = substream;
++		port_id = mi2s_port_id(dai_id);
++		map = drvdata->mi2s_lpaif[port_id]->map;
++		drvdata->mi2s_lpaif[port_id]->substream[dma_ch] = substream;
+ 		break;
+ 	case LPASS_DP_RX:
+ 		map = drvdata->hdmiif_map;
+@@ -352,12 +355,14 @@ static int lpass_platform_pcmops_close(struct snd_soc_component *component,
+ 	const struct lpass_variant *v = drvdata->variant;
+ 	struct lpass_pcm_data *data;
+ 	unsigned int dai_id = cpu_dai->driver->id;
++	unsigned int port_id;
+ 
+ 	data = runtime->private_data;
+ 
+ 	switch (dai_id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
+-		drvdata->substream[data->dma_ch] = NULL;
++		port_id = mi2s_port_id(dai_id);
++		drvdata->mi2s_lpaif[port_id]->substream[data->dma_ch] = NULL;
+ 		break;
+ 	case LPASS_DP_RX:
+ 		drvdata->hdmi_substream[data->dma_ch] = NULL;
+@@ -391,13 +396,15 @@ static struct lpaif_dmactl *__lpass_get_dmactl_handle(const struct snd_pcm_subst
+ 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
+ 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
+ 	struct lpaif_dmactl *dmactl = NULL;
++	unsigned int port_id;
+ 
+ 	switch (cpu_dai->driver->id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
++		port_id = mi2s_port_id(cpu_dai->driver->id);
+ 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-			dmactl = drvdata->rd_dmactl;
++			dmactl = drvdata->mi2s_lpaif[port_id]->rd_dmactl;
+ 		else
+-			dmactl = drvdata->wr_dmactl;
++			dmactl = drvdata->mi2s_lpaif[port_id]->wr_dmactl;
+ 		break;
+ 	case LPASS_DP_RX:
+ 		dmactl = drvdata->hdmi_rd_dmactl;
+@@ -470,10 +477,12 @@ static struct regmap *__lpass_get_regmap_handle(const struct snd_pcm_substream *
+ 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
+ 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
+ 	struct regmap *map = NULL;
++	unsigned int port_id;
+ 
+ 	switch (cpu_dai->driver->id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
+-		map = drvdata->lpaif_map;
++		port_id = mi2s_port_id(cpu_dai->driver->id);
++		map = drvdata->mi2s_lpaif[port_id]->map;
+ 		break;
+ 	case LPASS_DP_RX:
+ 		map = drvdata->hdmiif_map;
+@@ -501,8 +510,6 @@ static int lpass_platform_pcmops_hw_params(struct snd_soc_component *component,
+ 	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
+ 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
+-	struct snd_pcm_runtime *rt = substream->runtime;
+-	struct lpass_pcm_data *pcm_data = rt->private_data;
+ 	const struct lpass_variant *v = drvdata->variant;
+ 	snd_pcm_format_t format = params_format(params);
+ 	unsigned int channels = params_channels(params);
+@@ -510,8 +517,8 @@ static int lpass_platform_pcmops_hw_params(struct snd_soc_component *component,
+ 	struct lpaif_dmactl *dmactl;
+ 	int id;
+ 	int bitwidth;
+-	int ret, dma_port = pcm_data->i2s_port + v->dmactl_audif_start;
+ 	unsigned int dai_id = cpu_dai->driver->id;
++	int ret, dma_port;
+ 
+ 	dmactl = __lpass_get_dmactl_handle(substream, component);
+ 	id = __lpass_get_id(substream, component);
+@@ -561,6 +568,7 @@ static int lpass_platform_pcmops_hw_params(struct snd_soc_component *component,
+ 	case MI2S_TERTIARY:
+ 	case MI2S_QUATERNARY:
+ 	case MI2S_QUINARY:
++		dma_port = drvdata->mi2s_intf[dai_id] + v->dmactl_audif_start;
+ 		ret = regmap_fields_write(dmactl->intf, id,
+ 						LPAIF_DMACTL_AUDINTF(dma_port));
+ 		if (ret) {
+@@ -1049,6 +1057,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
+ 	unsigned int reg, val, mask;
+ 	struct regmap *map;
+ 	unsigned int dai_id = cpu_dai->driver->id;
++	unsigned int port_id;
+ 
+ 	mask = LPAIF_IRQ_ALL(chan);
+ 	switch (dai_id) {
+@@ -1064,7 +1073,8 @@ static irqreturn_t lpass_dma_interrupt_handler(
+ 	case MI2S_TERTIARY:
+ 	case MI2S_QUATERNARY:
+ 	case MI2S_QUINARY:
+-		map = drvdata->lpaif_map;
++		port_id = mi2s_port_id(dai_id);
++		map = drvdata->mi2s_lpaif[port_id]->map;
+ 		reg = LPAIF_IRQCLEAR_REG(v, LPAIF_IRQ_PORT_HOST);
+ 		val = 0;
+ 	break;
+@@ -1140,12 +1150,13 @@ static irqreturn_t lpass_dma_interrupt_handler(
+ 
+ static irqreturn_t lpass_platform_lpaif_irq(int irq, void *data)
+ {
+-	struct lpass_data *drvdata = data;
++	struct lpass_lpaif *lpaif = data;
++	struct lpass_data *drvdata = lpaif->drvdata;
+ 	const struct lpass_variant *v = drvdata->variant;
+ 	unsigned int irqs;
+ 	int rv, chan;
+ 
+-	rv = regmap_read(drvdata->lpaif_map,
++	rv = regmap_read(lpaif->map,
+ 			LPAIF_IRQSTAT_REG(v, LPAIF_IRQ_PORT_HOST), &irqs);
+ 	if (rv) {
+ 		pr_err("error reading from irqstat reg: %d\n", rv);
+@@ -1154,9 +1165,9 @@ static irqreturn_t lpass_platform_lpaif_irq(int irq, void *data)
+ 
+ 	/* Handle per channel interrupts */
+ 	for (chan = 0; chan < LPASS_MAX_DMA_CHANNELS; chan++) {
+-		if (irqs & LPAIF_IRQ_ALL(chan) && drvdata->substream[chan]) {
++		if (irqs & LPAIF_IRQ_ALL(chan) && lpaif->substream[chan]) {
+ 			rv = lpass_dma_interrupt_handler(
+-						drvdata->substream[chan],
++						lpaif->substream[chan],
+ 						drvdata, chan, irqs);
+ 			if (rv != IRQ_HANDLED)
+ 				return rv;
+@@ -1343,6 +1354,7 @@ static int lpass_platform_pcmops_suspend(struct snd_soc_component *component)
+ {
+ 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
+ 	struct regmap *map;
++	int i;
+ 
+ 	if (drvdata->hdmi_port_enable) {
+ 		map = drvdata->hdmiif_map;
+@@ -1350,9 +1362,11 @@ static int lpass_platform_pcmops_suspend(struct snd_soc_component *component)
+ 		regcache_mark_dirty(map);
+ 	}
+ 
+-	map = drvdata->lpaif_map;
+-	regcache_cache_only(map, true);
+-	regcache_mark_dirty(map);
++	for (i = 0; i < drvdata->num_lpaif; i++) {
++		map = drvdata->lpaif[i].map;
++		regcache_cache_only(map, true);
++		regcache_mark_dirty(map);
++	}
+ 
+ 	return 0;
+ }
+@@ -1361,7 +1375,7 @@ static int lpass_platform_pcmops_resume(struct snd_soc_component *component)
+ {
+ 	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
+ 	struct regmap *map;
+-	int ret;
++	int i, ret;
+ 
+ 	if (drvdata->hdmi_port_enable) {
+ 		map = drvdata->hdmiif_map;
+@@ -1371,10 +1385,15 @@ static int lpass_platform_pcmops_resume(struct snd_soc_component *component)
+ 			return ret;
+ 	}
+ 
+-	map = drvdata->lpaif_map;
+-	regcache_cache_only(map, false);
++	for (i = 0; i < drvdata->num_lpaif; i++) {
++		map = drvdata->lpaif[i].map;
++		regcache_cache_only(map, false);
++		ret = regcache_sync(map);
++		if (ret)
++			return ret;
++	}
+ 
+-	return regcache_sync(map);
++	return 0;
+ }
+ 
+ static int lpass_platform_copy(struct snd_soc_component *component,
+@@ -1429,39 +1448,51 @@ static const struct snd_soc_component_driver lpass_component_driver = {
+ 
+ };
+ 
+-int asoc_qcom_lpass_platform_register(struct platform_device *pdev)
++static int lpass_platform_init_lpaif(struct platform_device *pdev, int idx,
++				     const char *irq_name, unsigned long irqflags)
+ {
+ 	struct lpass_data *drvdata = platform_get_drvdata(pdev);
++	struct lpass_lpaif *lpaif = &drvdata->lpaif[idx];
+ 	const struct lpass_variant *v = drvdata->variant;
+ 	int ret;
+ 
+-	drvdata->lpaif_irq = platform_get_irq_byname(pdev, "lpass-irq-lpaif");
+-	if (drvdata->lpaif_irq < 0)
++	lpaif->irq = platform_get_irq_byname(pdev, irq_name);
++	if (lpaif->irq < 0)
+ 		return -ENODEV;
+ 
+ 	/* ensure audio hardware is disabled */
+-	ret = regmap_write(drvdata->lpaif_map,
+-			LPAIF_IRQEN_REG(v, LPAIF_IRQ_PORT_HOST), 0);
++	ret = regmap_write(lpaif->map, LPAIF_IRQEN_REG(v, LPAIF_IRQ_PORT_HOST), 0);
+ 	if (ret) {
+-		dev_err(&pdev->dev, "error writing to irqen reg: %d\n", ret);
++		dev_err(&pdev->dev, "error writing to %s irqen reg: %d\n",
++			irq_name, ret);
+ 		return ret;
+ 	}
+ 
+-	ret = devm_request_irq(&pdev->dev, drvdata->lpaif_irq,
+-			lpass_platform_lpaif_irq, IRQF_TRIGGER_RISING,
+-			"lpass-irq-lpaif", drvdata);
++	ret = devm_request_irq(&pdev->dev, lpaif->irq, lpass_platform_lpaif_irq,
++			       irqflags, irq_name, lpaif);
+ 	if (ret) {
+-		dev_err(&pdev->dev, "irq request failed: %d\n", ret);
++		dev_err(&pdev->dev, "%s irq request failed: %d\n", irq_name, ret);
+ 		return ret;
+ 	}
+ 
+-	ret = lpass_platform_alloc_dmactl_fields(&pdev->dev,
+-						 drvdata->lpaif_map);
+-	if (ret) {
+-		dev_err(&pdev->dev,
+-			"error initializing dmactl fields: %d\n", ret);
++	ret = lpass_platform_alloc_dmactl_fields(&pdev->dev, lpaif);
++	if (ret)
++		dev_err(&pdev->dev, "error initializing %s dmactl fields: %d\n",
++			irq_name, ret);
++
++	return ret;
++}
++
++int asoc_qcom_lpass_platform_register(struct platform_device *pdev)
++{
++	struct lpass_data *drvdata = platform_get_drvdata(pdev);
++	const struct lpass_variant *v = drvdata->variant;
++	int ret;
++
++	ret = lpass_platform_init_lpaif(pdev, 0, "lpass-irq-lpaif",
++			IRQF_TRIGGER_RISING);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	if (drvdata->codec_dma_enable) {
+ 		ret = regmap_write(drvdata->rxtx_lpaif_map,
+diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
+index 7c6a9b0fda89..d3ff080e1aa0 100644
+--- a/sound/soc/qcom/lpass-sc7180.c
++++ b/sound/soc/qcom/lpass-sc7180.c
+@@ -89,14 +89,16 @@ static int sc7180_lpass_alloc_dma_channel(struct lpass_data *drvdata,
+ 		}
+ 		set_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
+ 	} else {
++		unsigned long *ch_map = &drvdata->lpaif[0].dma_ch_bit_map;
++
+ 		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
+-			chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
++			chan = find_first_zero_bit(ch_map,
+ 						v->rdma_channels);
+ 
+ 			if (chan >= v->rdma_channels)
+ 				return -EBUSY;
+ 		} else {
+-			chan = find_next_zero_bit(&drvdata->dma_ch_bit_map,
++			chan = find_next_zero_bit(ch_map,
+ 					v->wrdma_channel_start +
+ 					v->wrdma_channels,
+ 					v->wrdma_channel_start);
+@@ -105,7 +107,7 @@ static int sc7180_lpass_alloc_dma_channel(struct lpass_data *drvdata,
+ 				return -EBUSY;
+ 		}
+ 
+-		set_bit(chan, &drvdata->dma_ch_bit_map);
++		set_bit(chan, ch_map);
+ 	}
+ 	return chan;
+ }
+@@ -115,7 +117,7 @@ static int sc7180_lpass_free_dma_channel(struct lpass_data *drvdata, int chan, u
+ 	if (dai_id == LPASS_DP_RX)
+ 		clear_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
+ 	else
+-		clear_bit(chan, &drvdata->dma_ch_bit_map);
++		clear_bit(chan, &drvdata->lpaif[0].dma_ch_bit_map);
+ 
+ 	return 0;
+ }
+diff --git a/sound/soc/qcom/lpass-sc7280.c b/sound/soc/qcom/lpass-sc7280.c
+index 817c824f9179..afa9f9e9ba3c 100644
+--- a/sound/soc/qcom/lpass-sc7280.c
++++ b/sound/soc/qcom/lpass-sc7280.c
+@@ -111,18 +111,20 @@ static int sc7280_lpass_alloc_dma_channel(struct lpass_data *drvdata,
+ 					  int direction, unsigned int dai_id)
+ {
+ 	const struct lpass_variant *v = drvdata->variant;
++	unsigned long *ch_map;
+ 	int chan = 0;
+ 
+ 	switch (dai_id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
++		ch_map = &drvdata->lpaif[0].dma_ch_bit_map;
+ 		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
+-			chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
++			chan = find_first_zero_bit(ch_map,
+ 						   v->rdma_channels);
+ 
+ 			if (chan >= v->rdma_channels)
+ 				return -EBUSY;
+ 		} else {
+-			chan = find_next_zero_bit(&drvdata->dma_ch_bit_map,
++			chan = find_next_zero_bit(ch_map,
+ 						  v->wrdma_channel_start +
+ 						  v->wrdma_channels,
+ 						  v->wrdma_channel_start);
+@@ -130,7 +132,7 @@ static int sc7280_lpass_alloc_dma_channel(struct lpass_data *drvdata,
+ 			if (chan >= v->wrdma_channel_start + v->wrdma_channels)
+ 				return -EBUSY;
+ 		}
+-		set_bit(chan, &drvdata->dma_ch_bit_map);
++		set_bit(chan, ch_map);
+ 		break;
+ 	case LPASS_DP_RX:
+ 		chan = find_first_zero_bit(&drvdata->hdmi_dma_ch_bit_map,
+@@ -174,7 +176,7 @@ static int sc7280_lpass_free_dma_channel(struct lpass_data *drvdata, int chan, u
+ {
+ 	switch (dai_id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
+-		clear_bit(chan, &drvdata->dma_ch_bit_map);
++		clear_bit(chan, &drvdata->lpaif[0].dma_ch_bit_map);
+ 		break;
+ 	case LPASS_DP_RX:
+ 		clear_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
+diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
+index 46ae02e67403..78125048b064 100644
+--- a/sound/soc/qcom/lpass.h
++++ b/sound/soc/qcom/lpass.h
+@@ -20,6 +20,7 @@
+ #define LPASS_AHBIX_CLOCK_FREQUENCY		131072000
+ #define LPASS_MAX_PORTS			(LPASS_MAX_PORT)
+ #define LPASS_MAX_MI2S_PORTS			(8)
++#define LPASS_MAX_LPAIF				(1)
+ #define LPASS_MAX_DMA_CHANNELS			(8)
+ #define LPASS_MAX_HDMI_DMA_CHANNELS		(4)
+ #define LPASS_MAX_CDC_DMA_CHANNELS		(8)
+@@ -40,6 +41,26 @@
+ 			return -EINVAL;         \
+ 	} while (0)
+ 
++static inline bool is_mi2s_port_id(int dai_id)
++{
++	switch (dai_id) {
++	case MI2S_PRIMARY ... MI2S_QUINARY:
++		return true;
 +	default:
-+		return NULL;
++		return false;
 +	}
 +}
 +
- /* Vairant data per each SOC */
- struct lpass_variant {
- 	u32	irq_reg_base;
++static inline int mi2s_port_id(int dai_id)
++{
++	switch (dai_id) {
++	case MI2S_PRIMARY ... MI2S_QUINARY:
++		return dai_id;
++	default:
++		return 0;
++	}
++}
++
+ static inline bool is_cdc_dma_port(int dai_id)
+ {
+ 	switch (dai_id) {
+@@ -104,6 +125,26 @@ struct lpaif_dmactl {
+ 	struct regmap_field *codec_fs_delay;
+ };
+ 
++struct lpass_data;
++
++/* LPAIF instance hosting MI2S interfaces with their own DMAs and interrupt */
++struct lpass_lpaif {
++	struct lpass_data *drvdata;
++	struct regmap *map;
++	int irq;
++
++	/* Regmap fields of I2SCTL & DMACTL registers bitfields */
++	struct lpaif_i2sctl *i2sctl;
++	struct lpaif_dmactl *rd_dmactl;
++	struct lpaif_dmactl *wr_dmactl;
++
++	/* bit map to keep track of static channel allocations */
++	unsigned long dma_ch_bit_map;
++
++	/* used it for handling interrupt per dma channel */
++	struct snd_pcm_substream *substream[LPASS_MAX_DMA_CHANNELS];
++};
++
+ /* Both the CPU DAI and platform drivers will access this data */
+ struct lpass_data {
+ 
+@@ -133,8 +174,15 @@ struct lpass_data {
+ 	int codec_dma_enable;
+ 	int wsa_enable;
+ 
++	/* LPAIF instances, 0 is the core "lpass-lpaif" one */
++	struct lpass_lpaif lpaif[LPASS_MAX_LPAIF];
++	int num_lpaif;
++
++	/* LPAIF instance and interface index of each MI2S port */
++	struct lpass_lpaif *mi2s_lpaif[LPASS_MAX_MI2S_PORTS];
++	unsigned int mi2s_intf[LPASS_MAX_MI2S_PORTS];
++
+ 	/* low-power audio interface (LPAIF) registers */
+-	void __iomem *lpaif;
+ 	void __iomem *hdmiif;
+ 	void __iomem *rxtx_lpaif;
+ 	void __iomem *va_lpaif;
+@@ -144,14 +192,12 @@ struct lpass_data {
+ 	u32 va_cdc_dma_lpm_buf;
+ 
+ 	/* regmap backed by the low-power audio interface (LPAIF) registers */
+-	struct regmap *lpaif_map;
+ 	struct regmap *hdmiif_map;
+ 	struct regmap *rxtx_lpaif_map;
+ 	struct regmap *va_lpaif_map;
+ 	struct regmap *wsa_lpaif_map;
+ 
+ 	/* interrupts from the low-power audio interface (LPAIF) */
+-	int lpaif_irq;
+ 	int hdmiif_irq;
+ 	int rxtxif_irq;
+ 	int vaif_irq;
+@@ -161,14 +207,12 @@ struct lpass_data {
+ 	const struct lpass_variant *variant;
+ 
+ 	/* bit map to keep track of static channel allocations */
+-	unsigned long dma_ch_bit_map;
+ 	unsigned long hdmi_dma_ch_bit_map;
+ 	unsigned long rxtx_dma_ch_bit_map;
+ 	unsigned long va_dma_ch_bit_map;
+ 	unsigned long wsa_dma_ch_bit_map;
+ 
+ 	/* used it for handling interrupt per dma channel */
+-	struct snd_pcm_substream *substream[LPASS_MAX_DMA_CHANNELS];
+ 	struct snd_pcm_substream *hdmi_substream[LPASS_MAX_HDMI_DMA_CHANNELS];
+ 	struct snd_pcm_substream *rxtx_substream[LPASS_MAX_CDC_DMA_CHANNELS];
+ 	struct snd_pcm_substream *va_substream[LPASS_MAX_CDC_DMA_CHANNELS];
+@@ -178,10 +222,7 @@ struct lpass_data {
+ 	struct clk_bulk_data *clks;
+ 	int num_clks;
+ 
+-	/* Regmap fields of I2SCTL & DMACTL registers bitfields */
+-	struct lpaif_i2sctl *i2sctl;
+-	struct lpaif_dmactl *rd_dmactl;
+-	struct lpaif_dmactl *wr_dmactl;
++	/* Regmap fields of HDMI DMACTL registers bitfields */
+ 	struct lpaif_dmactl *hdmi_rd_dmactl;
+ 
+ 	/* Regmap fields of CODEC DMA CTRL registers */
 
 -- 
 2.34.1
