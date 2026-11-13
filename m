@@ -1,67 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794555419;
-	b=L0Z9t7ynJ37H2TtCxCsEJ9wuSzwkvHdg2tPo9GSWg9qa5sLsTVYLVNdGlMfpQZCh7VGB
-	 iIlAS0pUD56Peck6C6cYfORR2iQRThp7yBbgks7CX3NPRyqm07LPD3kT73NESgXec/kKx
-	 DKuAfVEhd/qwH5Mwk0J8SoWNDUlrCe3NLQsIsMoUhqjG2AGET1RYJIitIfFymJyouu21m
-	 HIN6K0dQkkYx6Ep4DXIBh9o7q4NM/R2LHW0BrCW4DwdwGy434mKUX+TbfA0SJxTpjEkGd
-	 hEECghDIsBKEyd+Gtqc0MOwTvJ5w8gwzB13trIB+dXjJwF7qtb2tBvpJp/mON7GBMZA==
+	t=1794555410;
+	b=e/xProyY3MGrEbwMJq3qFIcUxbmQvs0ARSSNMU11fiuDRzWvTdNAavnRQmUIbzO1ug4t
+	 +DgVekOM607QwyljcsPHrDCVHuA655sXzytoffh/5cl7ymMVxSYDoPKv2CMRNfBjmjTrx
+	 2kAwJ+h11/b120dxCQPJHekIB8+4TCo+Dh8zd6REl3anq4yRCVNIIgYjLWpjG9NR7uCnN
+	 piyWarrJi1uB99sd2jJfScZdI+0kwHwrxtixWh9R8Ee1VZ0znbCi0r2q8fzs13V8yIstd
+	 /tn8M9dL+e62bEERBLuYYEYxUcrcmD3EUojjYgO2698WT7WYPiGCsa9CRZMhYUVm76Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794555419;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794555410;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
 	 X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=NQZFryO10Nwl24stNk7sjkQ3d9LySI0OptJ1tpt1TVE=;
-	b=jfVwrLs6C0UBAtJSv0vNzzKffAfrAJ7Xc8QNAj9EN8mm+gEjaiCZ3/05aXzIrLc+E6rQ
-	 ksc5KwE9U05ESRAZvd3COBNrge+QXzr3BYVFHteUvwuqELOa/Y89OV6OkbtpUkfqm+bbF
-	 uFbaOB95+W+Q0e3MNFLd1k/9bbrb3te731ClR9FKGoQzizQOFJ1NpAnwOhBGRJPbr9OaK
-	 yAGzcP18fya4hzq9IybXKTnZ/2D/ZxooG4EBn8xsZoko717RhRbeojWYWaL7x4vi1lnDt
-	 TDrXGgkHHJBOqIvvamnok+3mqeqqOO4f52FEpzxfap/LyGhXCplbwuJ8EXWlCqUn0eA==
+	bh=kvL7LISW/1hXrYXeyGM8qT4qenPvB8Dmix98oXakbm4=;
+	b=KKwGNvWGRDdlqXIao27BpmcvBwB3KkSwC1YZp35mpOqX7dDUg7W4uPs9p85vcxecDz97
+	 +MjVxLcRxV19UyGt4HAtNaDiCnTH9V50KI1kPKMKoul2mzvDQ3IaToJnRWltaqcqdyqI7
+	 jEx9dxMONY0GqiRDD0FK7ximlzAwmu7Kfnuh5sHfLpSvYQqro2+KxD8Msbihvx0x98xdl
+	 pHBLXBzPI7hP77prEdp9xczqZeEMy0B06JFm7n/s4CdN4Hfwul9Lv5jlUQQ3RS1phW56f
+	 dqoPybPuaNrWXyuR0+sKgM1Ja9zNbfzy1x2vZ1mOmDDudv85fiWMMMk9tznP9I2QxAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kylinos.cn;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 724D9606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:36:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 724D9606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6E3606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:36:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE6E3606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so918049a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:36:59 -0800 (PST)
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b10ca4e3f9so293304a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:36:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794555419; x=1795160219;
+        d=1e100.net; s=20260707; t=1794555409; x=1795160209;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NQZFryO10Nwl24stNk7sjkQ3d9LySI0OptJ1tpt1TVE=;
-        b=oGTAR+0TBXofICrqHjik6BAGFWUDmo7T8IlCfdAY/uorTCOW177Q0St7vl8DeBK7CN
-         9Bnd0Ho2UlbTzI0dgsYrL7XaZf35bXHoI0Oam8JS16hrbv1VmWmQFDMkB+YJ+gaChS8h
-         UNfPi8FwbUzaBt54xd3oZb2x6fHB9w0J4VG/7VoIYnfdcr6A/ar+4OchG2IQ8vCDIJss
-         pet7Ri2KzVl9DYqANEsA9vWFve2+RtkebI4QnzYZH/AYJR7Lr1Uu22HkSOn6CX0v3RXY
-         zJdi7ngc79Bhe8DM7eM8okdx5Dz0wRdWoJOFeRhfwaai1i11V5JhDs2qPnyhIiurfdDH
-         AhjA==
-X-Gm-Message-State: APuU4Z/FfLmMbcjypouHOVlNU6aT9r70qMcsSd0DB96Xy6qbtrBOovq5
-	0xY5q/zLBwGeBin/b7rHvyLILzN41OM8ag8HAWtI57LzSqd0Gc7mcAXb
-X-Gm-Gg: AYBFou1qOi2VmkhFkRK/xXo44PiRzP0itjpkR1rvGaaC4cEJbHYyohxwIg/VbUOHFCH
-	uJZImbzqNvnm4ZKLenqVFvEj5xroravm+HIp7txiQVm0N91D3Y8sVJBix9FVyroY95uEpAtj68W
-	VdloeayfnG4V+M0lVmWof+bfw7ewD5FUL5TZQkdwlhxKM6hBeCi4fv8/Zk1ihWOC/GATyve5pj/
-	AduPgKopoGGaMoiHfI6wFJDbqiogsw/aNh/yA4EE8yRMrFkiQnfE1uonWU5gaCQDYVy+SkTOTGm
-	FneaDZht7My7eI5td66nnzIpCKzcvKQsQtYJqaaWC88DpIJGmp0f42alE6pRPnnfS1MV9KwyBE5
-	TzBdsTSs5lYToGxSbw0TH6LZGsTqeEA2wLW4at7hQnJWL2HnSrlEc6twhRBY0uCKPfRFBB6mgEx
-	mfPIe9+0GSViBE8NQ7TGVgaVBkfVZvma7ttWIvi4dPrnq+LT09P2SSUnnoc3kbVUcVum/WhsVq9
-	Y510tf7mng3qyXIgx5dTSUiZ5lflTevxSzf3HS+m6zYCOUPccYpqvtS1TMu+p1zNJJGSx75hLSs
-	DdKKKGbEHKqef2JDRodCIhQa/Ya42QVc+NUQlFylXt1m6w==
-X-Received: by 2002:a17:90b:5347:b0:39e:6a80:b799 with SMTP id 98e67ed59e1d1-3b1b0a3ba60mr1625886a91.41.1794555418776;
-        Thu, 12 Nov 2026 23:36:58 -0800 (PST)
+        bh=kvL7LISW/1hXrYXeyGM8qT4qenPvB8Dmix98oXakbm4=;
+        b=ZhV1ol/LgyuuMYN2pskgkdPg0TVaxbeJJCX3nvyGxPUoTxgsTB3t0US4v3atKFgpCk
+         0WgYAGSdeo7BkwCFjNT3C/zI73dJwp0jwScfju708gXVk838HWytGLDBXAC6LcZNBln9
+         Dgf1i9qFCcLdfQ9hODOCqZZ4TOqKDX6kmH4fhLsUJyaQqRPD7uU/gBhhRLS5ssZ9Zqmq
+         9prHX0nEqqDRvp4zpxRp+KxFuv4u2Dt+WUoApRw/sLl7UCzMc95hrpsyldnPKU9UlhGC
+         B/aU3Y+YUbnN+pOtylE0xcQEE1PhgbbdU/IrbUmxgWA/yHmipSNaDy/nbGvDpdK/fQ9T
+         wqew==
+X-Gm-Message-State: APuU4Z8Vq4I4G8N3A0uMPfryCt5iOCc0JQdf4z3lnCUWK5tDUYNrtp/6
+	DP3TEtBbTvI/f9kLGh66OtfTeixntVaFGAFEuh0DvrHtgn7OE6QjV7lS
+X-Gm-Gg: AYBFou2yvCHWLNA21egCB5mDmXu6Vb+sK88pHmIwguRm1qy3ObA9WH0cxnSjvJ5u5RZ
+	aF7GvjhQL5QfouB7nVPjDcyKWO1xUAJp3mjieSPbPqUZsvmcfyYmBMJ902NeX6UYEI4Ngs1E18K
+	1cFv+PeKs5Xhfbuepx1sbfjftnVCLT7hifbowoafH2jo4jI3xPXTlAughAHaF+RI99QrckSMQYr
+	3w2lvhc1TkBwR7Dd43O0DPx52ziROoKsE5pHGwNOz1Wqd0PhHXsxxnmluVUmowoMNfgNBgJktbA
+	pHFylxxRKyGDu98/3YV/mAIUaDzhce4YaCbVIL8SQQ/SXZpnzS8TzeayDjnwGVBh+KnAJAQKIYA
+	uFYoV9iGOk6Zl9rrZATvrOgWB2vp46NsuYUPBtOyzmtxHJ2WDTVxyKbC6+16ScTdZzF7XTs5iJO
+	Y9yUBH3SvVEFFyzk0l+4fqm99NK+ADi7RaUS4pzXloSt+eHq6u99XqXgXrBGV429rrp2TOy6ZrG
+	DYjbyj2LBJ/98oUajORtgdtkbNwXByBila3CCJwTHhjDTwCPbKa5ih9CogOJOvYxLUnwUJ8xgbE
+	4n4LpiOdFuYHtfzwgGyzNrkZCAYg7tfGSt6OF/pEUmKZ6g==
+X-Received: by 2002:a17:90b:3f46:b0:3b1:8301:95c0 with SMTP id 98e67ed59e1d1-3b1b0b95db4mr1239712a91.61.1794555408847;
+        Thu, 12 Nov 2026 23:36:48 -0800 (PST)
 Received: from localhost.localdomain ([116.128.244.169])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb179fasm3205009a91.4.2026.11.12.23.36.53
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb179fasm3205009a91.4.2026.11.12.23.36.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 23:36:58 -0800 (PST)
+        Thu, 12 Nov 2026 23:36:48 -0800 (PST)
 From: Hongyu Xie <xiehongyu1@kylinos.cn>
 To: Alan Stern <stern@rowland.harvard.edu>,
 	linux-usb@vger.kernel.org
@@ -72,13 +72,12 @@ Cc: linux-kernel@vger.kernel.org,
 	Liu Qi <liuqi@longcheer.com>,
 	stable@vger.kernel.org,
 	Hongyu Xie <xiehongyu1@kylinos.cn>
-Subject: [PATCH v5 2/2] usb-storage: ene_ub6250: don't let the card-type probe hang forever
-Date: Fri, 13 Nov 2026 15:36:38 +0800
-Message-Id: <20261113073638.1225998-3-xiehongyu1@kylinos.cn>
+Subject: [PATCH v5 0/2] usb-storage: bound the ene_ub6250 probe-time card-type query
+Date: Fri, 13 Nov 2026 15:36:36 +0800
+Message-Id: <20261113073638.1225998-1-xiehongyu1@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261113073638.1225998-1-xiehongyu1@kylinos.cn>
+In-Reply-To: <b07b5f5b-4722-4f1c-84b9-205ba9b8943f@rowland.harvard.edu>
 References: <b07b5f5b-4722-4f1c-84b9-205ba9b8943f@rowland.harvard.edu>
- <20261113073638.1225998-1-xiehongyu1@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,321 +89,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ene_ub6250_probe() reads the card type with ene_get_card_type() right
-after usb_stor_probe2() has added the SCSI host.  The query is a
-bulk-only transaction (CBW, one-byte data-in, CSW) sent through
-ene_send_scsi_cmd(), which uses usb_stor_bulk_transfer_buf() and
-therefore waits for URB completion without any timeout.  That is safe
-only for transfers belonging to a SCSI command, where the command's
-timeout and abort handling terminate the wait.  A card-type query has
-no SCSI command behind it, so a device which enumerates but never
-services bulk transfers blocks the probe forever.
+This is v5 of the fix for the ene_ub6250 card-type probe hang.  Changes
+since v4, following Alan's review:
 
-commit 445fc368c6bc ("usb-storage: ene_ub6250: fix race between scan
-work and probe") added us->dev_mutex around the query to keep it from
-racing with the scan work for us->current_urb.  usb_stor_probe2()
-queues that work with a one-second delay, so it now waits for a
-transfer which may never finish.  The query itself has been unbounded
-since commit 41e568d14ec0 ("Staging: Merge ENE UB6250 SD card codes
-from keucr to drivers/usb/storage"), but only the latter turns the
-hang into the lockup reported here, hence the Fixes tag.
-syzbot reports:
-
- INFO: task kworker/0:2:53 blocked for more than 143 seconds.
- Workqueue: events_freezable usb_stor_scan_dwork
- Call Trace:
-  __mutex_lock+0x7c4/0x15a0
-  usb_stor_scan_dwork+0xec/0x2c0
- ...
- INFO: task syz-executor339:5675 blocked for more than 143 seconds.
- Call Trace:
-  __mutex_lock+0x7c4/0x15a0
-  device_lock
-  usbdev_open+0x151/0x760
-
-with the hub worker holding both locks stalled in
-ene_ub6250_probe() -> ene_get_card_type() -> usb_stor_msg_common().
-
-Run the query from ->initFunction instead.  usb_stor_acquire_resources()
-calls it before the control thread is started and before the scan work
-is queued, so nothing else can be using us->current_urb and the
-dev_mutex from that commit can go away.  A failed query now unwinds
-through usb_stor_probe2() before the SCSI host is registered, instead
-of going through usb_stor_disconnect() and cancel_delayed_work_sync()
-on a scan work which is itself stuck on the dead device.
-
-Also give each transfer of the query a 10-second timeout.  A timeout
-at any stage fails the query immediately, so the probe cannot block
-forever.  The retry chain can run five transfers at most (CBW, data,
-CSW and the two CSW retries), which bounds the query to about 50
-seconds without keeping a shared budget.
-
-Reported-by: syzbot+30552b4cbe99d6d91306@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=30552b4cbe99d6d91306
-Fixes: 445fc368c6bc ("usb-storage: ene_ub6250: fix race between scan work and probe")
-Cc: Liu Qi <liuqi@longcheer.com>
-Cc: stable@vger.kernel.org # 7.3.x: e350e5b223e1: add usb_stor_bulk_transfer_buf_timeout()
-Signed-off-by: Hongyu Xie <xiehongyu1@kylinos.cn>
-
----
-
-v5:
- - Split into a two-patch series: the transport helper first, the driver
-   change second.
- - Replace the shared 10-second budget with a per-transfer timeout.  A
-   timeout in any stage fails the query immediately and the total time
-   stays bounded, so the remaining-time bookkeeping is not needed.
- - State the worst-case bound of that choice (about 50 seconds, at most
-   five transfers) in the message; record the transport helper as a
-   stable prerequisite so the dependency is available there as well.
+ - Split the series: the transport helper comes first, the driver change
+   second.
+ - Drop the shared 10-second budget.  Each transfer now gets the full
+   timeout; a timeout at any stage fails the query immediately and the
+   query is bounded to about 50 seconds at most (five transfers),
+   without the remaining-time bookkeeping.
  - Shorten the comment above ENE_PROBE_TIMEOUT, as the reasoning is in
    ene_ub6250_init().
  - Drop the unused initializer of the bulk pipe variable.
- - Keep the forward declaration of ene_ub6250_init(): the unusual-device
-   table is built by including unusual_ene_ub6250.h before the function
-   definition and takes its address, so removing the declaration fails to
-   build; realtek_cr.c has the same declaration for init_realtek_cr().
 
-v4: https://lore.kernel.org/all/20261109085449.83117-1-xiehongyu1@kylinos.cn/
-v3: https://lore.kernel.org/r/20261001123135.38831-1-xy521521@gmail.com/
-v2: https://lore.kernel.org/r/20261001091523.16934-1-xy521521@gmail.com/
-v1: https://lore.kernel.org/r/20260929144640.2028-1-xy521521@gmail.com/
----
+The transport helper is recorded as a stable prerequisite, so the
+dependency is available when the fix is backported.
+
+The forward declaration of ene_ub6250_init() is still needed: the
+unusual-device table is generated by including unusual_ene_ub6250.h
+before the function definition and takes its address, so removing the
+declaration breaks the build ("'ene_ub6250_init' undeclared here").
+realtek_cr.c uses the same declaration for init_realtek_cr().
+
+Testing: with the syzbot C reproducer, the unpatched kernel blocks in
+the probe for more than 143 seconds and the shutdown hangs; with the fix
+the probe fails after about 10 seconds with -EIO, before the SCSI host
+and the scan work exist, and the system shuts down cleanly.
+
+Hongyu Xie (2):
+  usb-storage: add usb_stor_bulk_transfer_buf_timeout()
+  usb-storage: ene_ub6250: don't let the card-type probe hang forever
+
  drivers/usb/storage/ene_ub6250.c         | 110 +++++++++++++++--------
+ drivers/usb/storage/transport.c          |  31 +++++--
+ drivers/usb/storage/transport.h          |   5 ++
  drivers/usb/storage/unusual_ene_ub6250.h |   2 +-
- 2 files changed, 73 insertions(+), 39 deletions(-)
+ 4 files changed, 102 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/usb/storage/ene_ub6250.c b/drivers/usb/storage/ene_ub6250.c
-index fea2614e767c7..bf661d8e2c540 100644
---- a/drivers/usb/storage/ene_ub6250.c
-+++ b/drivers/usb/storage/ene_ub6250.c
-@@ -24,6 +24,9 @@
- 
- #define DRV_NAME "ums_eneub6250"
- 
-+/* Timeout for each transfer of the probe-time card-type query, in jiffies. */
-+#define ENE_PROBE_TIMEOUT (10 * HZ)
-+
- MODULE_DESCRIPTION("Driver for ENE UB6250 reader");
- MODULE_LICENSE("GPL");
- MODULE_IMPORT_NS("USB_STORAGE");
-@@ -34,6 +37,8 @@ MODULE_FIRMWARE(MS_INIT_FIRMWARE);
- MODULE_FIRMWARE(MSP_RW_FIRMWARE);
- MODULE_FIRMWARE(MS_RW_FIRMWARE);
- 
-+static int ene_ub6250_init(struct us_data *us);
-+
- /*
-  * The table of devices
-  */
-@@ -487,7 +492,12 @@ static void ene_ub6250_info_destructor(void *extra)
- 	kfree(info->bbuf);
- }
- 
--static int ene_send_scsi_cmd(struct us_data *us, u8 fDir, void *buf, int use_sg)
-+/*
-+ * Send an ENE SCSI command.  @timeout bounds the wait for each transfer of
-+ * the transaction, in jiffies; zero means no limit.
-+ */
-+static int ene_send_scsi_cmd_timeout(struct us_data *us, u8 fdir, void *buf,
-+				     int use_sg, unsigned int timeout)
- {
- 	struct bulk_cb_wrap *bcb = (struct bulk_cb_wrap *) us->iobuf;
- 	struct bulk_cs_wrap *bcs = (struct bulk_cs_wrap *) us->iobuf;
-@@ -499,27 +509,33 @@ static int ene_send_scsi_cmd(struct us_data *us, u8 fDir, void *buf, int use_sg)
- 
- 	/* usb_stor_dbg(us, "transport --- ene_send_scsi_cmd\n"); */
- 	/* send cmd to out endpoint */
--	result = usb_stor_bulk_transfer_buf(us, us->send_bulk_pipe,
--					    bcb, US_BULK_CB_WRAP_LEN, NULL);
-+	result = usb_stor_bulk_transfer_buf_timeout(us, us->send_bulk_pipe,
-+						    bcb, US_BULK_CB_WRAP_LEN,
-+						    NULL, timeout);
- 	if (result != USB_STOR_XFER_GOOD) {
- 		usb_stor_dbg(us, "send cmd to out endpoint fail ---\n");
- 		return USB_STOR_TRANSPORT_ERROR;
- 	}
- 
- 	if (buf) {
--		unsigned int pipe = fDir;
-+		unsigned int pipe;
- 
--		if (fDir  == FDIR_READ)
-+		if (fdir == FDIR_READ)
- 			pipe = us->recv_bulk_pipe;
- 		else
- 			pipe = us->send_bulk_pipe;
- 
- 		/* Bulk */
- 		if (use_sg) {
-+			/*
-+			 * Scatter-gather transfers belong to SCSI commands,
-+			 * whose timeout and abort machinery bound the wait.
-+			 */
- 			result = usb_stor_bulk_srb(us, pipe, us->srb);
- 		} else {
--			result = usb_stor_bulk_transfer_sg(us, pipe, buf,
--						transfer_length, 0, &partial);
-+			result = usb_stor_bulk_transfer_buf_timeout(us, pipe,
-+								    buf, transfer_length,
-+								    &partial, timeout);
- 		}
- 		if (result != USB_STOR_XFER_GOOD) {
- 			usb_stor_dbg(us, "data transfer fail ---\n");
-@@ -528,20 +544,25 @@ static int ene_send_scsi_cmd(struct us_data *us, u8 fDir, void *buf, int use_sg)
- 	}
- 
- 	/* Get CSW for device status */
--	result = usb_stor_bulk_transfer_buf(us, us->recv_bulk_pipe, bcs,
--					    US_BULK_CS_WRAP_LEN, &cswlen);
-+	result = usb_stor_bulk_transfer_buf_timeout(us, us->recv_bulk_pipe,
-+						    bcs, US_BULK_CS_WRAP_LEN,
-+						    &cswlen, timeout);
- 
- 	if (result == USB_STOR_XFER_SHORT && cswlen == 0) {
- 		usb_stor_dbg(us, "Received 0-length CSW; retrying...\n");
--		result = usb_stor_bulk_transfer_buf(us, us->recv_bulk_pipe,
--					    bcs, US_BULK_CS_WRAP_LEN, &cswlen);
-+		result = usb_stor_bulk_transfer_buf_timeout(us,
-+							    us->recv_bulk_pipe, bcs,
-+							    US_BULK_CS_WRAP_LEN,
-+							    &cswlen, timeout);
- 	}
- 
- 	if (result == USB_STOR_XFER_STALLED) {
- 		/* get the status again */
- 		usb_stor_dbg(us, "Attempting to get CSW (2nd try)...\n");
--		result = usb_stor_bulk_transfer_buf(us, us->recv_bulk_pipe,
--						bcs, US_BULK_CS_WRAP_LEN, NULL);
-+		result = usb_stor_bulk_transfer_buf_timeout(us,
-+							    us->recv_bulk_pipe, bcs,
-+							    US_BULK_CS_WRAP_LEN, NULL,
-+							    timeout);
- 	}
- 
- 	if (result != USB_STOR_XFER_GOOD)
-@@ -567,6 +588,15 @@ static int ene_send_scsi_cmd(struct us_data *us, u8 fDir, void *buf, int use_sg)
- 	return USB_STOR_TRANSPORT_GOOD;
- }
- 
-+/*
-+ * Unbounded variant for the command path: a SCSI command's timeout and
-+ * abort machinery terminate the transfer if the device stops responding.
-+ */
-+static int ene_send_scsi_cmd(struct us_data *us, u8 fdir, void *buf, int use_sg)
-+{
-+	return ene_send_scsi_cmd_timeout(us, fdir, buf, use_sg, 0);
-+}
-+
- static int do_scsi_request_sense(struct us_data *us, struct scsi_cmnd *srb)
- {
- 	struct ene_ub6250_info *info = (struct ene_ub6250_info *) us->extra;
-@@ -1824,7 +1854,8 @@ static int ms_scsi_write(struct us_data *us, struct scsi_cmnd *srb)
-  * ENE MS Card
-  */
- 
--static int ene_get_card_type(struct us_data *us, u16 index, void *buf)
-+static int ene_get_card_type(struct us_data *us, u16 index, void *buf,
-+			     unsigned int timeout)
- {
- 	struct bulk_cb_wrap *bcb = (struct bulk_cb_wrap *) us->iobuf;
- 	int result;
-@@ -1837,7 +1868,7 @@ static int ene_get_card_type(struct us_data *us, u16 index, void *buf)
- 	bcb->CDB[2]			= (unsigned char)(index>>8);
- 	bcb->CDB[3]			= (unsigned char)index;
- 
--	result = ene_send_scsi_cmd(us, FDIR_READ, buf, 0);
-+	result = ene_send_scsi_cmd_timeout(us, FDIR_READ, buf, 0, timeout);
- 	return result;
- }
- 
-@@ -2191,7 +2222,7 @@ static int ene_init(struct us_data *us)
- 	struct ene_ub6250_info *info = (struct ene_ub6250_info *)(us->extra);
- 	u8 *bbuf = info->bbuf;
- 
--	result = ene_get_card_type(us, REG_CARD_STATUS, bbuf);
-+	result = ene_get_card_type(us, REG_CARD_STATUS, bbuf, 0);
- 	if (result != USB_STOR_XFER_GOOD)
- 		return USB_STOR_TRANSPORT_ERROR;
- 
-@@ -2319,13 +2350,35 @@ static int ene_transport(struct scsi_cmnd *srb, struct us_data *us)
- 
- static struct scsi_host_template ene_ub6250_host_template;
- 
-+/*
-+ * Probe-time card-type query.  It runs from usb_stor_acquire_resources(),
-+ * before the usb-storage control thread and the SCSI scan work exist, so
-+ * nothing else can be using us->current_urb.  Give every transfer a
-+ * timeout: there is no SCSI command whose timeout or abort handling could
-+ * end the wait, and a timeout at any stage fails the whole query.
-+ */
-+static int ene_ub6250_init(struct us_data *us)
-+{
-+	struct ene_ub6250_info *info = (struct ene_ub6250_info *)us->extra;
-+	int result;
-+
-+	result = ene_get_card_type(us, REG_CARD_STATUS, info->bbuf,
-+				   ENE_PROBE_TIMEOUT);
-+	if (result != USB_STOR_XFER_GOOD)
-+		return -EIO;
-+
-+	if (!(info->bbuf[0] & 0x01))
-+		pr_info("ums_eneub6250: SM cards are not supported\n");
-+
-+	return 0;
-+}
-+
- static int ene_ub6250_probe(struct usb_interface *intf,
- 			 const struct usb_device_id *id)
- {
--	int result;
--	u8  misc_reg03;
- 	struct us_data *us;
- 	struct ene_ub6250_info *info;
-+	int result;
- 
- 	result = usb_stor_probe1(&us, intf, id,
- 		   (id - ene_ub6250_usb_ids) + ene_ub6250_unusual_dev_list,
-@@ -2352,26 +2405,7 @@ static int ene_ub6250_probe(struct usb_interface *intf,
- 	us->transport_reset = usb_stor_Bulk_reset;
- 	us->max_lun = 0;
- 
--	result = usb_stor_probe2(us);
--	if (result)
--		return result;
--
--	/* probe card type */
--	mutex_lock(&us->dev_mutex);
--	result = ene_get_card_type(us, REG_CARD_STATUS, info->bbuf);
--	mutex_unlock(&us->dev_mutex);
--	if (result != USB_STOR_XFER_GOOD) {
--		usb_stor_disconnect(intf);
--		return USB_STOR_TRANSPORT_ERROR;
--	}
--
--	misc_reg03 = info->bbuf[0];
--	if (!(misc_reg03 & 0x01)) {
--		pr_info("ums_eneub6250: This driver only supports SD/MS cards. "
--			"It does not support SM cards.\n");
--	}
--
--	return result;
-+	return usb_stor_probe2(us);
- }
- 
- 
-diff --git a/drivers/usb/storage/unusual_ene_ub6250.h b/drivers/usb/storage/unusual_ene_ub6250.h
-index a3b32abc2b2ff..bc9d7ea4e398b 100644
---- a/drivers/usb/storage/unusual_ene_ub6250.h
-+++ b/drivers/usb/storage/unusual_ene_ub6250.h
-@@ -5,6 +5,6 @@
- UNUSUAL_DEV(0x0cf2, 0x6250, 0x0000, 0x9999,
- 		"ENE",
- 		"ENE UB6250 reader",
--		USB_SC_DEVICE, USB_PR_DEVICE, NULL, 0),
-+		USB_SC_DEVICE, USB_PR_DEVICE, ene_ub6250_init, 0),
- 
- #endif /* defined(CONFIG_USB_STORAGE_ENE_UB6250) || ... */
 -- 
 2.25.1
 
