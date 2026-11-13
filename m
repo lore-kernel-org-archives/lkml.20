@@ -1,101 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794569490;
-	b=xdXIKC6n5p1ZNjO1QxLOxwpl/I06VyM6Q7YgTqGXkhmt5Q6k3ub35buLqGUvSIzaGEi+
-	 o0QOFP+JLUV/7xklkCDRdNA0SlDdsEkU7EMbGucKi8MYOWixVgaeQph4xwK8dQhqW1Nn5
-	 WNoEXserMSIBgeZ3nPOsAhBoZXvmWUc/q3VmNnOsJ452ObeyyBhqXIimAKAFUnOZXMopE
-	 RinowoATa4n8LEVHRemWYjwTBAUeV0EeEyfH0OAo1Pm8Aw48GC3+Y788VaiSW117TLf2H
-	 Q69fMqe6lm+eKQOEBxnW2i40t3pQeGq5qp5BtK5QPrtpPDXMVey00Pq7EbRN/wEPKgw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794569490;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MW//+eO8ifeDOMCGO0P1S62YlRWi+XpqU3MxHUVvu60=;
-	b=ivHnH2/SGJLv1+0LrMKlwSCmXmJyV5ttNV1ZpdquzdCa4RqFXFupGz2Rm8cMA2Ntj17V
-	 KeyAemWHcl0ilLaqjcnTpBZRh8am4/o7LaiRNRYOQ4neyGiz+K8mrS9E89UDqs2uoEG3c
-	 4LaFp+f704+8nm/Fg71yMRWJG4/WRRJ3zjGVvhGiID4VVTn5AJEzdiN4ZFIdw+bhEFGqy
-	 eKKvK00lyWIRowhKumF6AfAI1JAhFpZyYKkmPAdpPn1BrE4PDUkDil8gwVbGz1Y/ljMy/
-	 XE9u326zx9sI1I0UrKW9aUK+++HUp47pr3pbvKI6+ZPyAjMONLviiX5pXph+9aVEwiA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=brainfault.org;
-	spf=none smtp.mailfrom=brainfault.org;
-	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=eZzmiXS1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794569515;
+	b=VMF36HYbaJyk6mP9grJ9hWgIWoV18L4rP60Ik2J1hc1tw1PiCh6sTAixC6XII5/5PWI4
+	 4wenJciJZW8XaEOmeL1d+dShOB1FxGwX6JnGBmcuYypkY0WAuDte89pZR4XQE7O+lKLH6
+	 nVAslKJIzw46xlQaKUHXG8Lez9OSl9NZk+T7xPNbZ47vbb+iZ4IJONcmqrUvqBPgBzZp0
+	 tJ0BazGb7a4YaTCsyMRSQ08p12Zylyx5hV6bCMkJQbNPvb0sRu4nORkkfu0DTWwcuNxoh
+	 jknSk/tyTAVcNoFX+YNlEOCXJWBa3FIuz2ntoLL3ScI1EqWwNT650+nfOel50j8P0qw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794569515;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6DhFH8hwsCYnBgFxXq/I9O6+y9tsetgI7G8uWPPAQcg=;
+	b=X6dvx8OlK9CIW6xcDd11bKVtaqapfVSrxQLaBJNwLcw0nHaaHlu1lJeuY2uQEsM+sW1v
+	 iwcyr5BTc2G50TNIscffhNyoa7ixdsbI4T/D/QnMdmzsEdC6vdq07EwaylUj8c2Kicgg+
+	 mgVOVsyUCW9OsTjB5i/K+TkhD3xVYIOdjF95OTbIg30c7znAKNPMkFay0z95S4EhA60Di
+	 wXfzYdgLrbaIPsvHJsVseNrqv4CztkEgKeKKERl6thHokA8JtUZDk4aD5VvE9MTfaK2PC
+	 TSrTUCD5iR3+1lz8r0rvqY2Vm0OwwbKgsFZEfU7QaQGik2CTSY+L3yU9mkqa4PfjiEQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NMOENO2o;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C33606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:31:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10C33606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D394E606A321;
+	Fri, 13 Nov 2026 11:31:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D394E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=eZzmiXS1
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so11873115e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:31:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794569487; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aDwPNdGQW2bIpmIBx0XiDjdOfZHlNKaH2KnzLu5CbfJTbOHsqzd9lLDj5JaiEPzRGR
-         xKIT06uoNTg0XI+PECWc5UpoNFoteUig9vZAjy9OByCRAa/JmwXR5pUZgzyNZi8qoGm1
-         YU3Laqkg8ukG4QZ4ZD+3AiZOBaaQqAqEopTpiG3QT4bPWRop9Mn6TdhPlKeG9A3wP0Qd
-         kTvgPvO/Cvj2L/WG1lBKV8QYZccGmeFRaOUoli1i8j/UlaWFBrNuQ3tE78NTv1ANtJmy
-         zQmrjSei29rkQb/Rrx3DdnKooLYlsRhGosSZyLbFwLOwQQ5+V9b8XamFHZQntlowtxBN
-         3ecw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MW//+eO8ifeDOMCGO0P1S62YlRWi+XpqU3MxHUVvu60=;
-        fh=jSTYiFRSBxUWSJG1E+RUv0/afC/ZqmyKWgrLIk80FSA=;
-        b=fP0CFCewRcxty7zQMyh92+bBGGVh2wQlUmpzZ8vHL9nmLVw3MXXq2lzOaCcXdfhT/d
-         NcCONnNP06dNBDs4CwFh5BHmcJofbH34yIixGMRM7MqHNbGI1CAVs09/+52/HcgG2M4A
-         /NjSbkNM4q2L2AvB0PWjKoK6//fT1YOxdmwkUHowUSD47nt73W9ujJsRBVed1wRaQYF+
-         DLiI5EDG1KPoUIT5+of7lpxpEROtLi9iiv3FpuUZi5M9haQ3pCJmljD3mMffVwLxVqP4
-         fW6URwoDvhetCTbcv1RM4lKwKo1WbQxH6+q39B4eRB9OhMrrzi/1vRf0jgSehiyeaigI
-         vZ2g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1794569487; x=1795174287; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MW//+eO8ifeDOMCGO0P1S62YlRWi+XpqU3MxHUVvu60=;
-        b=eZzmiXS1W7ertC3npfms2hQkBYqVgQr/LcUUlflv3tneq8J0mJ5P444hFb6/978208
-         TbXAYPI9LkJPCQDpp/vCAYyIP1zaiHEDCIuJm+8Sb92+VIJCIdvVYA3iNoyTK7+6GE5u
-         NqCfPMFxDINLqS8QqzmHmvHQMJ5+04z/ZTfYxx92fZrE7nMy6V2KRcS6ZXcA1PZColJT
-         oz8+gg7kexH3CBh/bs7SW1hx1tH6G17iOXVD0i0jK8W1lEjEosxo4nV7A5mJ1DCHINzE
-         lzBcz4OyivQBIVK2zmKovz5UEAA18tAObIxRKdgWDfBmJKIIsl8+TGObguqwlyCZyYaK
-         9yog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794569487; x=1795174287;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MW//+eO8ifeDOMCGO0P1S62YlRWi+XpqU3MxHUVvu60=;
-        b=i+NrLap6gP9ekmYQ8Q0amM5g7ue/FRHJh8NElD+ciGl9qCJ3JV4B1Gaq2fuL6vLP+H
-         mQ9YyFKanNsyHDDgTq26kKw7BON5GU0IUcv9+YMd3H7O3wLnFVxqFxo8NfrMfUAqtkoj
-         wjYM1yFmIZJpvVYOQo1Rdx5+UwnAIoa9CwRAZgLZLdTzni8hxwLLHSn7ynjKGeoSWoJJ
-         EpJ7OfKcPkrikEp+JCpHDn2C3D9z+C+gPxAqI5kZwNUw9xLP4CJ2knZa0YAX4TM1f2Ff
-         3WMkTeRGbptt0VQigUfBlNmF72YHRexGMDNfmvtXLIcV6VA1jskfY0OrOFY7xlhjawM5
-         hCBw==
-X-Forwarded-Encrypted: i=1; AL+hErFKk5YSRdQdefOJsBvVvhyedLNvhk2kTzTXZ37pnqPexYtCGSOKFXR3JwQ0EKiTue1/SMNqOtYSbi+a1hI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mcAtORCaEPWnxtc9Y+zhTE2HKwUppak1dZPGc9z9ATbYLCCpZ
-	buLcRnBfXG8LGHEZN+2hqM1bfB+hODJeWbxJePdwn0otgPcJ7Gxx6Fsg5bzB6AkVw37fEF/4mvA
-	MQmWO4mN4gSdUTV03zlXrvP+qqdJLkfydR6e8Nlq3jA==
-X-Gm-Gg: AYBFou1vx5uLfzkCw52ZAUs0CXXatP0Q0nck7UBNE4br5X/wtPgbBAl6/Qh66i0Bmlk
-	vrhvgpMzuOhlYT5pUbuwFo/OSoNDzn+ZZpEi5NwxrN/2HpCjK6js6yEVGnHJxBtnah3PVChqpR9
-	h5E48lk+I7+Nah8kBRcMnZmUtL8qj1fdsVUdJtEXwXFM1BjjjJg4wfN9vQEI/Eph3vYtU4YQFQ/
-	AuuIBsGKpx/BhexYhwsffojg6W5rUlOQ2CLB/r6uYn7SELbyE0Cr21W+azytgv2s4aOi1VzZuDS
-	4wLbl6r1af8oGyfeK1bJroIJ0quLnCXT1qaP9skBRGlezgan2Iq0jUjM2YJPPGMk6tqOhEccFe5
-	UCCajsJDDkAyJuyN2Mz5a5f0CEv6blC+5DSzu5svmMOoFA9YiGRmCPCEw+420vvhY+qWXrQwNpE
-	8IwYHH9t5bkZ04MiFDjjztRxwjVhbS2HJEblHMz/EE+1kaqNZuUP4GuOw=
-X-Received: by 2002:a05:600c:8b55:b0:4a2:a3b:7aa8 with SMTP id
- 5b1f17b1804b1-4bb55a02927mr44985235e9.3.1794569486922; Fri, 13 Nov 2026
- 03:31:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NMOENO2o
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794569515; x=1826105515;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=/fc+RBsrxEuri+mYI7f8O/LEmpyN3U7R5LhWumAYaG8=;
+  b=NMOENO2oFyC545i8LvKmGiBydXUatS6RWIsUu4oD9FscImiIQmzkHMGx
+   M4eFIAxfFQvNDY0DdK2h48sGDIc6jveEJV8m0UZzM2Dk56imxoGfklao8
+   jvSltIVTfbYiaWbVjLmTZ7fgbVmWgVk71Yx3KvUKUFGUilOBN0X3pO27a
+   5uukZpvfd5zxpCYLJeMxC1Fy+zhJ7TicSmMI6n4P0/6838GWO2YhVDN5L
+   E+KyIQgSLNB0WooKY1W5EN4ZFyk1A6avlm3QvzAGlrmP6GIpo0KnsWsC/
+   Xszat/yFH94zuCxr7BshhZkrafqBvBOgAu72QvU5AmNtRaln7xXnM29yX
+   Q==;
+X-CSE-ConnectionGUID: WSTusNxzRbyO069Tkn4FbQ==
+X-CSE-MsgGUID: msAXuLxsQm+PMTp+uvIeYg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3246889"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3246889"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 03:31:23 -0800
+X-CSE-ConnectionGUID: ahPVgVjLRHiw4/Mnqkceqg==
+X-CSE-MsgGUID: PNHNXKb1TMWnG7czBJE8yw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="9235564"
+Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
+  by fmviesa009.fm.intel.com with ESMTP; 13 Nov 2026 03:31:20 -0800
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: broonie@kernel.org,
+	linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	amade@asmblr.net,
+	linux-kernel@vger.kernel.org,
+	Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: [PATCH 00/11] ASoC: Intel: avs: Renames and debug prints
+Date: Fri, 13 Nov 2026 12:38:29 +0100
+Message-Id: <20261113113840.3067489-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,104 +82,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016101458.221648-1-suunj1331@gmail.com>
-In-Reply-To: <20261016101458.221648-1-suunj1331@gmail.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Fri, 13 Nov 2026 17:01:15 +0530
-X-Gm-Features: AclHuK90R6Cy2P8s5V5asYEwdHQCx6nGX6JWvDYYKndKeaNm5EjrRpe8coA3QcE
-Message-ID: <CAAhSdy2KUD5xXFeKY0OD=iUzQzRHW87KjCamPQxcdxK-riq9FA@mail.gmail.com>
-Subject: Re: [PATCH] KVM: riscv: Set Accessed bit in dirty-log write fault
- fast path
-To: SeungJu Cheon <suunj1331@gmail.com>
-Cc: atish.patra@linux.dev, tjytimi@163.com, inochiama@gmail.com, 
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	andrew.jones@linux.dev, pbonzini@redhat.com, seanjc@google.com, 
-	kvm-riscv@lists.infradead.org, kvm@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 3:45=E2=80=AFPM SeungJu Cheon <suunj1331@gmail.com>=
- wrote:
->
-> kvm_riscv_mmu_dirty_log_write_fault_fast() considers a leaf with W
-> and D set already handled, even if aging has cleared its A bit.
-> On hardware that faults when A is clear, the fast path returns
-> true without setting A and skips the slow path that would set it.
-> The guest retries the same store, but A is still clear, so it
-> faults again. This repeats indefinitely, preventing the guest
-> from making progress.
->
-> Host reclaim or page_idle can trigger this while dirty logging is
-> enabled, potentially hanging vCPUs during live migration.
->
-> Require _PAGE_ACCESSED in addition to W and D before treating the
-> fault as handled, and set A along with W and D. The existing
-> cmpxchg loop retries if aging changes the PTE before the update.
->
-> Fixes: 7705be59eb2d ("KVM: riscv: Fast-path dirty logging write faults")
-> Cc: stable@vger.kernel.org # 7.2+
-> Signed-off-by: SeungJu Cheon <suunj1331@gmail.com>
+The patches consists almost solely of renames and addition/enrichment
+of debug prints. Plus few removals to redunce duplication among these
+debug prints.
 
-LGTM.
+The 2/11 patch is the exception - as its follow up updates the messages
+around, the mentioned patch is here to fix the problem of skipped
+results coming from avs_path_pause() in trigger() operations. With that
+done, the dev-prints are touched.
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
+Apart from 2/11, from functional perspective everything is left at
+status quo.
+Sidenote for 6/11: touches on catpt- and avs- boards both. Decided to
+merge these two changes rather than generate a separate patch just for
+adding 2 missing commas. Feel free to comment if you believe my decision
+is incorrect.
 
-Queued this patch as a fix for Linux-7.4-rcX
 
-Thanks,
-Anup
+Note: this is a orthogonal subject to my soundwire-related series [1].
+Paused while I'm testing soundwire-aggregation scenarios. Neither is
+blocked by the other.
 
-> ---
-> Testing:
->
-> On a HiFive Premier P550 (EIC7700X, which traps on clear A/D bits),
-> run:
->
-> dirty_log_perf_test -v 3 -b 256M -i 3
->
-> While the test runs, repeatedly mark all system RAM idle through
-> /sys/kernel/mm/page_idle/bitmap.
->
-> Before the fix, the test did not complete its first iteration in
-> over 11 minutes, with lock_stat showing about 16k read-side
-> mmu_lock acquisitions per second from the fast path.
->
-> After the fix, all three iterations complete, each taking about
-> 29 seconds under the same aging workload.
->
->  arch/riscv/kvm/mmu.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
->
-> diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-> index 78a1826c466d..042d1e3b3547 100644
-> --- a/arch/riscv/kvm/mmu.c
-> +++ b/arch/riscv/kvm/mmu.c
-> @@ -591,14 +591,15 @@ static bool kvm_riscv_mmu_dirty_log_write_fault_fas=
-t(struct kvm *kvm,
->                         dirty_marked =3D true;
->                 }
->
-> -               if ((pte_val(old_pte) & (_PAGE_WRITE | _PAGE_DIRTY)) =3D=
-=3D
-> -                   (_PAGE_WRITE | _PAGE_DIRTY)) {
-> +               if ((pte_val(old_pte) &
-> +                    (_PAGE_WRITE | _PAGE_DIRTY | _PAGE_ACCESSED)) =3D=3D
-> +                   (_PAGE_WRITE | _PAGE_DIRTY | _PAGE_ACCESSED)) {
->                         new_pte =3D old_pte;
->                         ret =3D true;
->                         break;
->                 }
->
-> -               new_pte =3D pte_mkdirty(pte_mkwrite_novma(old_pte));
-> +               new_pte =3D pte_mkyoung(pte_mkdirty(pte_mkwrite_novma(old=
-_pte)));
->
->                 if (kvm_riscv_gstage_try_update_pte(&gstage, ptep_level, =
-gpa,
->                                                     ptep, old_pte, new_pt=
-e)) {
-> --
-> 2.52.0
->
+[1]: https://lore.kernel.org/linux-sound/20261106121557.2338556-1-cezary.rojewski@intel.com/
+
+Cezary Rojewski (11):
+  ASoC: Intel: avs: Do not skip error reporting when an IPC timeouts
+  ASoC: Intel: avs: Do not skip errors from avs_path_pause()
+  ASoC: Intel: avs: Have one location for dumping path-errors
+  ASoC: Intel: avs: Small registers cleanup
+  ASoC: Intel: avs: Enrich missing-format and token-parsing messages
+  ASoC: Intel: avs: Unify code style for platform_device_id arrays
+  ASoC: Intel: avs: Streamline topology parser names
+  ASoC: Intel: avs: Streamline wording used for board configs
+  ASoC: Intel: avs: Streamline naming of hw_params variables
+  ASoC: Intel: avs: Streamline spacing used in the avs_ids table
+  ASoC: Intel: avs: Remove soc-acpi-intel-match include
+
+ sound/soc/intel/avs/boards/Kconfig   |   6 +-
+ sound/soc/intel/avs/boards/probe.c   |   4 +-
+ sound/soc/intel/avs/boards/rt274.c   |   4 +-
+ sound/soc/intel/avs/boards/rt286.c   |   4 +-
+ sound/soc/intel/avs/boards/rt298.c   |   4 +-
+ sound/soc/intel/avs/boards/rt5514.c  |   4 +-
+ sound/soc/intel/avs/boards/rt5640.c  |   4 +-
+ sound/soc/intel/avs/boards/rt5663.c  |   4 +-
+ sound/soc/intel/avs/boards/rt5682.c  |   4 +-
+ sound/soc/intel/avs/boards/ssm4567.c |   4 +-
+ sound/soc/intel/avs/core.c           |  16 ++--
+ sound/soc/intel/avs/ipc.c            |   8 +-
+ sound/soc/intel/avs/messages.h       |   4 +-
+ sound/soc/intel/avs/path.c           |  35 +++++----
+ sound/soc/intel/avs/pcm.c            | 109 ++++++++++-----------------
+ sound/soc/intel/avs/registers.h      |   2 +-
+ sound/soc/intel/avs/topology.c       |  27 ++++---
+ sound/soc/intel/boards/bdw-rt5677.c  |   2 +-
+ sound/soc/intel/boards/bdw_rt286.c   |   2 +-
+ 19 files changed, 105 insertions(+), 142 deletions(-)
+
+-- 
+2.34.1
+
