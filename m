@@ -1,98 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794600997;
-	b=qvVYmDBD4BVjfWwpts+eAzlt1JlJc4BWooSziJ5ig4JFgEgyBap+wlGNiimSH9eVlJ/W
-	 5PjUMLNgLUOyoIL4qR7PXwuf1Q6QZT7Bhy/k0cEDwduW4IZyw2+S7qn2XSrxA8zP2DTY/
-	 QdgFfMCvrIX6IpxFW5Kq/cPojMHjlepAzzlascpsXbYzkZybRw0KNKn/twi7loirShoYz
-	 XeZ9xoZMXFy52UwIlD07HIPiVwRZrdbZVStzkOxhgla97DtMDNCDtffa0I4N9p4M501Ja
-	 sne0tVU8O82of1MCshpBtbbLnSJSBvUULJcHc6BOKoFn4WHZGJqIsflmROql72E/HCg==
+	t=1794601000;
+	b=WiA8zPZi3YgAETNsBTgZ2YpXgGQH03/fEjdvpxWRHVm1JB6MoDq2yzf0/emuc+QdSCtF
+	 w2zse1ejO42Vjn4U22tStndda4DHzpzkTANYGfMzjJtcCPozTta8ERIq8l2EIxpnYQsSA
+	 8uBXuNTvj4tFRYqA9/w6mITx8WDpu07eqQjmMIefcKQ38gYSyGPSy2tZU4ebh5zE74asy
+	 HjPlalqiynALtSEGo8QGv4t6IMLmef4FFegxCa1y+ruyua5WuiPnz1q2xaks7S6RCqO+A
+	 uU65sc40lwKxo/JJyyZ6kM+aLGmaChpnhc1IcjsuQQSB/pPTG3FqOOrkatUigbHuxuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794600997;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=yvdKJNv8V04CuNvtL9/ky27CXMTr7ydOzimWcL7zjCc=;
-	b=G/SEMJ5cp4vvQPumwJefMmgPVC+WRXy9Zu/AVB4iZ1hG9ULwzEC6TsHBA0kDDGKK7/AF
-	 TrN3RIaWJko6ReKclm3NJiibDuy3SvsE59HcMCZCowBdz6dxkI2XUZm6XEeHjYVy7BaJH
-	 NHYVF6OYNuOtn0l0DuMPMGC02YokDiXur7NTSOsczpYCYDjniwIW2Vmhyt3Msnsj2mYOg
-	 kP1ryWS979KYGVMR2xEVGMniMnuXB1lOQ19bdjUsMJ7AjjF0naH4111u0L6u5ID7cjs+q
-	 cRZcHxtsE3ahgSry2eoKPnBnUooU1qHca2g4XmU4v/wxHOMY5mNHVmShcFazE29GcEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601000;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=XKkv9aRrifNAGJc7MyvqqHZiCveTQdE+78aZDKlRtY0=;
+	b=cAr0qyTZq3KDzf0WVSE6HO4d4qTZIDxKHikhSYc4emkkPtFW0Ynu5PJMjL0AT6gJMf5B
+	 +8xgybuj4HgR8L55cIZdjwZB8chDi+sjENBnHpPqM8Q4yV81igC+L9FDlYc5waj2GW+oe
+	 gi/wp4XyPV93x12m19OEOh0u2/wQDzaqOkV87FL+ZYxbRMijdDApaRgD3sixM6fTSQHMk
+	 RqLcSg9LaKwfVnxtCGbPAyotABs5fMxJtUMrO+FkFziL74YLaLxnXKt20mhLtjGkMbpyi
+	 CSvugSS4lD8CysVCM0vSw7cXcFrlPVtS3qz+HUIENxyoqSSvyuQO9ueK1Fv2R1rpuNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ggbFz86P;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlJaG+26;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D6A606A881
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:16:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45D6A606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87DBD606A8A3
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:16:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ggbFz86P
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb61185057so840485e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:16:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794600996; x=1795205796; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yvdKJNv8V04CuNvtL9/ky27CXMTr7ydOzimWcL7zjCc=;
-        b=ggbFz86PZ19pd6a8yEtWjlR23GMGBo70CPaecmEpktaYZ7ejxop4ikBV5MVOgkRHMB
-         VVB0Bin4edGKZ5WBgJloEF18Eft0y2T1hL9bil0mEcjQCetqmBvXjwneWo0rpK7/ly/w
-         EO9QR/VTRQp9ZvlvfZUL/oxz4QPXafAQsvJnj7ahdmhRN9dwG7iX9rfW3dF6DwLP/wF2
-         u7UNZkhV77CvP7IPQZ3EKgqzJTpwhWrXNjODTjkVY4sw8kDX5rFVYaemcHt082sC7zE5
-         QNangEb7P+jmxxIwub/uQIm/2urZf+bEeeQbAwecFBVvsrOi1Sl5P5/+BZSPBzVnzh06
-         r9cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794600996; x=1795205796;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yvdKJNv8V04CuNvtL9/ky27CXMTr7ydOzimWcL7zjCc=;
-        b=hJsARRncnBUOcCuLZEahmn467iSi28SQhPlEgewFhPJEvwHpdymUYnP1+0zbTw44ul
-         9VTYZfTc8xGPR/ZvNrS/J49od9A+mXqqDxlzSRvsgbhyCjaBAGJiz7KUW9vap9SVNNSO
-         6tSw+0GeXxoGXN+3wN4E727X23/SttU5XfVz1PUoh8uj98zfWK5YnOdcA6YWfwdfARiI
-         SEcjgqAjr6IhOO+YkA1VMFneoZq02MMDu5rpi6x5EokjfCL+AI24/HL65gKkpMwAEjhx
-         kqA/rZtyBrPnvPhYD1jlstRV5NzfVCy9K+8A85WQs+RhpRsN82S9//PPrRQgD+twMl+X
-         IrRw==
-X-Forwarded-Encrypted: i=1; AL+hErEkM9kHlLno3a+pcdtldjlhzo6Dxs3yEecDLPpWYFozNaIdnSYMIGPv04PKp/5fYD1NWGk/9C1IBVk5iL4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MoBjLXHQb/is9WqiLavHE/FAq7+IC037XEEVTRDmijnFlUf/y
-	EAkpszjBsO88oK9WIupDVvXq8XZblSpRbbSAwbNWSlqptyzIq7kgujeS
-X-Gm-Gg: AYBFou08X4yMkhDL6DIXfG7JrWs6/D/x8UTjcHt9VMW+fp8ouddMJMWBcYQBqSK/cDe
-	XEDFYCAgzFOlaUuotYHvb8ayAYpeasGQ1BYZ34cW5Kn14ZRM1LfP2wAp+c3P+FAsDXqK4Ri239P
-	BebCr0XnuSFxDssluvjXHXYByuTWm+LSzOPf/K26c7IUrvFxMubb15p7zrmUiC3Nhw2b6r7C8vH
-	XvrFSAIsuE3X+RMiPoSt1GKhM92j2D6WSrgFwiK/r/2gIQ7tJksetBRAyV11Y9KseXVM8+nDYRM
-	GW1mWGU2WuMZx6mK9eBOl1bPln0bK+KBaZ2brpeEa+N+TtURNvgz0g3OYvKx0LSF4EepVl9zUKj
-	SY/WSCc0UiP8AePc6K8BsKv4Bo9g/LPz6Mof7S5J7eO3doVkbHp2DjfFz77pgYhkUe8pyY6bBrS
-	b5C7qc21iDcBcZC4Jw7lTNiEr+N+TFviucHp1i3qfQ8Q9CQcu3IrAwVyv5jjyhfrC4A/OeVSBce
-	niKAxBwLrnrX+Rs7hPppnOwHSqFRuD5Xb6/FDWBlmo/r4fGkMjOfGR8eq4cEqWYVds7VYe93AMt
-	YzB3hGI6IB4+2IT/y3JYpNqIkZth1L2IgBbH06PocRXJViaHSMdteg==
-X-Received: by 2002:a05:600c:1f96:b0:4a1:777b:8a12 with SMTP id 5b1f17b1804b1-4bb55a4ea81mr74860855e9.14.1794600995421;
-        Fri, 13 Nov 2026 12:16:35 -0800 (PST)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e293540sm178215465e9.8.2026.11.13.12.16.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:16:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlJaG+26
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9021F000C6;
+	Fri, 13 Nov 2026 20:16:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794601000;
+	bh=XKkv9aRrifNAGJc7MyvqqHZiCveTQdE+78aZDKlRtY0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MlJaG+26pUn/pdo1RaZ9nEujevXFvGBMFdUcVls6aQJjSIjiWHUQuEp5CD3UR/yr2
+	 Skup1V3gUNFG3v6+1obY1FN1BkZfbo0+tzLJ6Y/exf2o+80pB+GDyGvRTT7iPLuMMh
+	 eTjQGaZe588wJGyiWu/I56o1vYlSBLJD0ZrhINkL7KbdrVuCs0smZfYVzeO+bN6KKK
+	 TiBEsjzZGAsx2D1wULksACe+AbAJjWNYgpVzB25nzbRGCFQKhlNqem9AibWGfzTQ5Z
+	 Ic6KqIRnYbD4DgZTlSGYLFXX8C6V2RCHAbWXBT1f8zfXd5cRJrUQsJks/Qb3Oy6fO+
+	 emQKqpNvt3Tyw==
+Message-ID: <3744f956-8179-45f3-9d87-c99c82b2f8db@kernel.org>
 Date: Fri, 13 Nov 2026 21:16:33 +0100
-From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
-Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>,
-	Shuah Khan <shuah@kernel.org>, Dwi Siswanto <me@dw1.io>,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] landlock: Fix REFER in layered domains
-Message-ID: <20261113.3fa14baa784d@gnoack.org>
-References: <20261108-b4-landlock-refer-nonfs-layer-v2-0-2b405fc1b3aa@gmail.com>
- <20261113.eiChee8pohch@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,20 +51,175 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261113.eiChee8pohch@digikod.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/2] mm/huge_memory: find partially mapped shared
+ folios with NO_PAGE_MAPCOUNT
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Rik van Riel <riel@surriel.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Joanne Koong <joannelkoong@gmail.com>
+References: <20261111113535.330078-1-azpijr@gmail.com>
+ <4411389c-2246-4af6-9b34-10d3f259aeb4@kernel.org>
+ <e9033159-ffd5-4c84-b355-964687b75226@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <e9033159-ffd5-4c84-b355-964687b75226@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 12:24:52AM +0100, Mickaël Salaün wrote:
-> On Sun, Nov 08, 2026 at 09:23:47PM +0100, Günther Noack wrote:
-> > This patchset
-> > =============
-> > 
-> > This patchset fixes the issue in three commits:
+On 11/12/26 14:03, Jose A. Perez de Azpillaga wrote:
+> On 11/12/26 1:46 PM, David Hildenbrand (Arm) wrote:
+>> On 11/11/26 12:31, Jose A. Perez de Azpillaga wrote:
+>>> With CONFIG_NO_PAGE_MAPCOUNT, an anon large folio mapped by several MMs
+>>> isn't seen as partially mapped while its mapcount stays at or above the
+>>> number of pages. If parent and child zap the same half of a THP after
+>>> fork(), that half is mapped by nobody, the folio is never queued for
+>>> deferred split, and the memory stays allocated until every mapper is
+>>> gone.
+>>
+>> If you follow the history on this, in e.g., some raised in my talk
+>>
+>> https://share.daveh.de/s/bQsDpD7xigJ6wD8/download?path=&files=LSF_MM%2726_+Deferred_folio_splitting.pdf
+>>
+>> There are a lot of questions around this.
+>>
+>> In particular
+>>
+>> (a) Is it really relevant in practice. The only way you can trigger this if a
+>> folio becomes partially mapped *after* fork (by parent and child unmapping the
+>> same pages), and the child stays alive. Once the child is gone, the folio is
+>> only mapped by one process (e.g., child quit), the folio is properly detected as
+>> partially mapped.
 > 
-> Four patches now.
+> I don't have any relevant evidence in practice. found it by just reading
+> and testing in qemu. that is why I sent it as RFC.
 
-Five patches now; updated :)
+Ok. Because I would really be interested in real-life scenarios where it is a
+problem.
 
-–Günther
+It's only relevant for long-running parent+child combinations. For short-lived
+children (e.g., fork+exec) it's irrelevant.
+
+> 
+>>
+>> So you need a long-running parent+child, and have them both do questionable things.
+>>
+>> (b) What is the overhead from having way too many folios in the deferred split list.
+>>
+> 
+> I don't know yet. I only measured the walk in a TCG guest, nothing on
+> how long the list gets
+
+That would be really interesting. I assume there are some cases where a simple
+fork+exec would already add pages to the deferred split list even thought they
+are briefly after fully mapped by the parent.
+
+> 
+>>>
+>>> Patch 1 moves the split_underused_thp check out of
+>>> deferred_split_folio(). Patch 2 queues such folios as candidates and has
+>>> the shrinker walk the rmap to see which pages are still mapped.
+>>>
+>>> 512 MB of THPs with the same half zapped by every mapper, memory freed
+>>> by the shrinker:
+>>>
+>>>                                 before    after
+>>>   2M,  2 processes                0 MB   252 MB
+>>>   2M,  3 processes                0 MB   237 MB
+>>>   2M,  2 children + parent PMD    0 MB   244 MB
+>>>   64K, 2 processes                0 MB   252 MB
+>>>   64K, 3 processes                0 MB   252 MB
+>>>
+>>
+>> Again, we can create nice scenarios that are likely not relevant in practice
+>> (such as 512 MB THPs, lol), but so far I doubted that this is relevant in practice.
+> 
+> that's 512 MB in total, not the folio size. maybe I should have
+> clarified it.
+
+Ah, 512MiB of THPs, not 512MB THP, Yes, that makes sense.
+
+[...]
+
+>>
+>> Maybe one could track it a bit broader? "any page in this set of 16 pages is
+>> present". Reclaiming a single 4k page from a 2M folios is barely worth it.
+>>
+> 
+> yes, that works. maybe with the group size scaled to the folio, so the
+> map is one long on the stack and 64K folio still gets one bit per page?
+> 
+
+As an alternative, could we also just look for the next page incrementally?
+
+Like, start with offset 0. When we see that, move to offset 1, when we see that,
+move to offset 2 ... and once we saw all pages that way, stop the walk.
+
+I'd assume that, as long as VMAs don't get remapped, that should likely work in
+most cases, right?
+
+> however, maybe if I don't have real evidence, better drop it?
+
+I'd be very interested in an efficient way to test if a folio is partially
+mapped, and where the holes are.
+
+Knowing about the holes could guide a targeted buddy-like folio split.
+
+There was also the idea of letting folio_referenced() for that purpose, when we
+area already doing an rmap walk.
+
+-- 
+Cheers,
+
+David
