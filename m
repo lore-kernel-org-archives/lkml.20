@@ -1,79 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585654;
-	b=lcwdbm7NQ6HIntQbG10pJFOAHstN67n3vgispDgM/jzXDE8QS7yRCPQ8crTuK4KukJVx
-	 tmsGfmKBGW3g9lSGUalUrROy4yNWYp/C5zmt6WeH652xQ+KuDgcjPZbK5ch2xswbRFaiz
-	 bXC7eaGd93GOVvR2gIC6TyTGAGBXsktJGqYxZhMJjs/N0gEsf7qT3fj17qyjWG94sW+wq
-	 5RgRgRFyVExbN6BG2hhAy5vwCdt7dxnesC7pmOY89+UWbx0nADp92j/3og/kBdnwvcSeY
-	 qrj2tbovSWdftvbcjsQ3GVgbbiexS5kGfbxSeRUqum3HEK2UC+3Sp15drJtGjeY4aTw==
+	t=1794585689;
+	b=tXG/D10L5phNGqq9uezbB1eXHk+BhYE87djx3oGamZ9lKdrzypvDJOF5YwtcL5foq+LJ
+	 8q1PtI3AgAaiylvvNuXnWOzhgqs8iIvgtcDHgsJ1pLG6nrtYR4WjOew6rShTDH0jzuGwf
+	 Kjo01M2ZhOuclLKja6qrIUMSBwRCtwp3IWsMO7KMMzJj/l4+bdDG8ySQbVpU5n5ikbFkp
+	 RXhhwb+ImfnFAWu8JCzKfRcGajT7e6x2Pp7GRaztTBN7Tuti2nYDPrFxXO3OiLERSRFr3
+	 encc8AeV+BNSxkntEaANhx5AzPbr4Vd35pV2/9Gw8kg0hW+r1nBl+pNs6mX7vRdaUaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585654;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Z5AMrLdhYu3o8bnJFe21h2a0/PArI+9FQIHEaU4uGWU=;
-	b=CRBy6wJpQoQIvJPfRZfQrGyvar7nDDT2lpAH5fWF/6jsUTQXQeyPIYKf7qju2+rm3zlM
-	 EBjMbnihL7dm8wgRxXpuc+gO3Zq3YozPSy8KdNykY5koLvJxURKYtuv7aL3iII8RP3j0j
-	 F4RBW3Qy4KVrdUs0OHIviB3VYOy7YbntRuqIFP9eH2yt1o1zqurxnCjTD4Qy/oidWwM4d
-	 hW29jPdqfqs6xGsc8jus5CWSRQzZ76nm6mi/TDu73xZdqOH3acvHHTrQJjZMSV2bohmtW
-	 Jdqg5SN521rtCmKA9wAhS5NdmECVb9UHZrcZk4cln/CTyoIr7MTkktonXp523G/6V1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585689;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=HleTIWYdp5rg8KbqbWhYqUCQQeH4sgjGSrJAPDXXpvU=;
+	b=coT9iofO70z5hjMltr8RC/njzqoLkEwQYBYSLmJURcX9ztrDxraacJuNGbYq3881pxlB
+	 BKxRNFkHm90S57AqFegFz0oRaGc5jysDMRpQruuuslrz86ilyUGSet52fJBpMGruxm9rI
+	 HWhOtTo6me3DXxXhPbbIjXPr6m9nTLd192FYXdnpk+/VucSz/QWvN1wTQwJaNTct+Rn9n
+	 RUoqAa1kuUaXQmH690N0siu9zQc+mCQigen8KVhi1d59Ukfwbi71btQpyZK6et3CPYk0D
+	 sbkwW6tgHxkYtb/CYAMjjMN+O5AecYyNMu85mQ9tWtPOGodDGE5sJcnGvga3tiaUbbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=fhiuQWbC;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=JNCt0olN;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="Ao/VB78d";
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EC0606B2DB;
-	Fri, 13 Nov 2026 16:00:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41EC0606B2DB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDEC60744EC
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:01:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BDEC60744EC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=fhiuQWbC;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=JNCt0olN
-Date: Fri, 13 Nov 2026 17:00:50 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794585652;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z5AMrLdhYu3o8bnJFe21h2a0/PArI+9FQIHEaU4uGWU=;
-	b=fhiuQWbCw4/pClsneYKaGXY3aCwZeytN6pdPfON1YTSjiy0OykSfat3X3DyNgfJHwUiBFE
-	nDifJhtj89l6852IyTwgawjRa/3U4onEzT+2H0tkkx8ymElDvYbunnOc+/Sdq64qQjQkMF
-	UVGKbltAClEUqWJ2AIAR8tuy+E8NtBMYH4JrwP8sA7QX4X+pwhMRLV0qI8dbMyHbSpBzYI
-	Cs4ww+o8oKdsGBSkJ3LJ27mgKYRDUy6FTpyjhcBK6nZcoffJ8dEgyZNd6hWAXiDk50ZROm
-	pyzakZmqYAKrNJtHpJruC6MMWSOdKkSWP8zcQfGlyxU/WhvVvyTVyvxWLzn2hg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794585652;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z5AMrLdhYu3o8bnJFe21h2a0/PArI+9FQIHEaU4uGWU=;
-	b=JNCt0olNNpqWWQ+xRy7AQ0dFqkYUEK/wrmMePeA6oxeeZIB5KgT1LHFd0UuY/IfaLUyNu/
-	ghPKDYudMmPfTqAQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: paulmck@kernel.org, rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH RFC 3/7] rcutorture: Remove unused check_boost_failed hook
-Message-ID: <20261113160050.qzln3dcd@linutronix.de>
-References: <20261111213826.2035045-1-joelagnelf@nvidia.com>
- <20261111213826.2035045-4-joelagnelf@nvidia.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ao/VB78d
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 338824E415A7;
+	Fri, 13 Nov 2026 16:01:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E70B760015;
+	Fri, 13 Nov 2026 16:01:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 794B611BC0C42;
+	Fri, 13 Nov 2026 17:01:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794585685; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=HleTIWYdp5rg8KbqbWhYqUCQQeH4sgjGSrJAPDXXpvU=;
+	b=Ao/VB78dBVLCwpkI6+DUrdgJRzDK2ewWHrXZ7pvppzjud1Tz93mbjLdwfqvTRCQGCJ9+35
+	UOHIOwOLDfgXYkHWOeJeG2kQK2ifZulBMhjPpvr3JN+b59k/u4de4phJPTvA9l1LoJtWRK
+	KbsiPYHfShC7n9XBSR5AlLtyBK7b6pr+9L2XkoFOoKzRW7RdjBRKs2JngS1DqzyNJApCkF
+	mMRD/WCOnlzY9XC4+y5M8aLCzodLDjYJtpdsDVHY/RdtbiEXInhVZRrsUJXSKpP1vsLfhm
+	OdL0NEVrXIlB0lovzoGyqdiV5Mr3pjxzvsMWaRVu2ebQr5tF87GM2VPNyHm+Ow==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Thomas Gleixner <tglx@kernel.org>, Vladimir Kondratiev
+ <vladimir.kondratiev@mobileye.com>, =?utf-8?Q?Beno=C3=AEt?= Monin
+ <benoit.monin@bootlin.com>, =?utf-8?Q?Th=C3=A9o?= Lebrun
+ <theo.lebrun@bootlin.com>, Radu
+ Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Thomas
+ Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI
+ controller driver
+In-Reply-To: <87v766uy6i.ffs@fw13>
+References: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
+ <20261102-eyeq5_msi-v2-2-4aa3d3608064@bootlin.com> <87v766uy6i.ffs@fw13>
+Date: Fri, 13 Nov 2026 17:01:21 +0100
+Message-ID: <87y0awpvou.fsf@BLaptop.bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,41 +78,176 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111213826.2035045-4-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 2026-11-11 16:38:21 [-0500], Joel Fernandes wrote:
-> --- a/kernel/rcu/rcutorture.c
-> +++ b/kernel/rcu/rcutorture.c
-> @@ -43,6 +43,7 @@
->  #include <linux/torture.h>
->  #include <linux/vmalloc.h>
->  #include <linux/sched/debug.h>
-> +#include <linux/sched/sysctl.h>
->  #include <linux/oom.h>
->  #include <linux/tick.h>
->  #include <linux/rcupdate_trace.h>
+Hello Thomas,
 
-This looks like folding and rebase went wrong.
+> On Mon, Nov 02 2026 at 17:50, Gregory CLEMENT wrote:
+>> +static void __eyeq_msi_mask_irq(struct eyeq_msi *msi, unsigned int bit)
+>> +{
+>> +	u16 value;
+>> +
+>> +	lockdep_assert_held(&msi->lock);
+>> +
+>> +	value =3D readw(msi->gcsr_base + GCSR_IRQMASK);
+>> +	value &=3D ~FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
+>> +	writew(value, msi->gcsr_base + GCSR_IRQMASK);
+>> +}
+>> +
+>> +static void __eyeq_msi_unmask_irq(struct eyeq_msi *msi, unsigned int bi=
+t)
+>> +{
+>> +	u16 value;
+>> +
+>> +	lockdep_assert_held(&msi->lock);
+>> +
+>> +	value =3D readw(msi->gcsr_base + GCSR_IRQMASK);
+>> +	value |=3D FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
+>> +	writew(value, msi->gcsr_base + GCSR_IRQMASK);
+>> +}
+>> +
+>> +static void eyeq_msi_mask_irq(struct irq_data *data)
+>> +{
+>> +	struct eyeq_msi *msi =3D irq_data_get_irq_chip_data(data);
+>> +
+>> +	guard(raw_spinlock_irqsave)(&msi->lock);
+>
+> What's the reason for ...irqsave() here? The mask/unmask callbacks are
+> invoked with the interrupt descriptor lock held and interrupts disabled,
+> so a plain raw_spinlock() is sufficient, no?
 
-> @@ -425,7 +426,6 @@ struct rcu_torture_ops {
->  	void (*fqs)(void);
->  	void (*stats)(void);
->  	void (*gp_kthread_dbg)(void);
-> -	bool (*check_boost_failed)(unsigned long gp_state, int *cpup);
->  	int (*stall_dur)(void);
->  	void (*get_gp_data)(int *flags, unsigned long *gp_seq);
->  	void (*gp_slow_register)(atomic_t *rgssp);
-> @@ -637,7 +637,6 @@ static struct rcu_torture_ops rcu_ops = {
->  	.cb_barrier		= rcu_barrier,
->  	.fqs			= rcu_force_quiescent_state,
->  	.gp_kthread_dbg		= show_rcu_gp_kthreads,
-> -	.check_boost_failed	= rcu_check_boost_fail,
->  	.stall_dur		= rcu_jiffies_till_stall_check,
->  	.get_gp_data		= rcutorture_get_gp_data,
->  	.gp_slow_register	= rcu_gp_slow_register,
 
-if I grep for rcu_check_boost_fail at this point I see the function, its
-declaration but no users. That means it could be removed, too.
+Indeed we can just use a raw_spinlock() .
 
-Sebastian
+>
+>> +static void eyeq_msi_isr(struct irq_desc *desc)
+>> +{
+>> +	struct irq_chip *parent_chip =3D irq_desc_get_chip(desc);
+>> +	struct eyeq_msi *msi =3D irq_desc_get_handler_data(desc);
+>> +	void __iomem *status_reg;
+>> +	unsigned long pending;
+>> +	unsigned int bit;
+>> +
+>> +	chained_irq_enter(parent_chip, desc);
+>
+> https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?h=3Di=
+rq/drivers&id=3D6cf0d999a18e799965cf2cf4a0157e257c805946
+
+It is not yet in v7.4-rc1,but I can rebase on tip/irq-drivers branch to
+use it.
+
+>
+>> +static int eyeq_msi_domain_alloc(struct irq_domain *domain, unsigned in=
+t virq,
+>> +				 unsigned int nr_irqs, void *args)
+>> +{
+>> +	DECLARE_BITMAP(reserved, EYEQ_MSI_MAX_VECTORS);
+>> +	struct eyeq_msi *msi =3D domain->host_data;
+>> +	unsigned long bit =3D 0;
+>> +	unsigned int i;
+>> +
+>> +	bitmap_zero(reserved, EYEQ_MSI_MAX_VECTORS);
+>> +
+>> +	scoped_guard(raw_spinlock_irqsave, &msi->lock) {
+>> +		for (i =3D 0; i < nr_irqs; i++) {
+>
+> This does not support MULTI_MSI, so nr_irqs is always 1. That allows to
+> simplify both alloc() and free() by a lot, no?
+
+Indeed you are right again. I will simplify it based on this.
+
+>
+>> +#define EYEQ_MSI_FLAGS_REQUIRED			\
+>> +	(MSI_FLAG_USE_DEF_DOM_OPS |		\
+>> +	 MSI_FLAG_USE_DEF_CHIP_OPS |		\
+>> +	 MSI_FLAG_PCI_MSI_MASK_PARENT)
+>
+> Just a cosmetic nit:
+>
+> #define EYEQ_MSI_FLAGS_REQUIRED		(MSI_FLAG_USE_DEF_DOM_OPS |	\
+> 					 MSI_FLAG_USE_DEF_CHIP_OPS |	\
+> 					 MSI_FLAG_PCI_MSI_MASK_PARENT)
+>
+> is easier to read. But no strong opinion.
+
+OK for me.
+>
+>> +#define EYEQ_MSI_FLAGS_SUPPORTED		\
+>> +	(MSI_FLAG_PCI_MSIX |			\
+>> +	 MSI_GENERIC_FLAGS_MASK)
+>> +
+>> +static const struct msi_parent_ops eyeq_msi_parent_ops =3D {
+>> +	.required_flags		=3D EYEQ_MSI_FLAGS_REQUIRED,
+>> +	.supported_flags	=3D EYEQ_MSI_FLAGS_SUPPORTED,
+>> +	.bus_select_token	=3D DOMAIN_BUS_NEXUS,
+>> +	.bus_select_mask	=3D MATCH_PCI_MSI,
+>> +	.prefix			=3D "EYEQ-",
+>> +	.init_dev_msi_info	=3D msi_lib_init_dev_msi_info,
+>> +};
+>> +
+>> +/*
+>> + * In endpoint mode the snooper is a platform MSI controller: the host =
+writes
+>> + * the doorbell and the snooper raises a local interrupt. Expose it as a
+>> + * platform MSI parent so endpoint functions can allocate doorbells.
+>> + */
+>> +static const struct msi_parent_ops eyeq_msi_platform_parent_ops =3D {
+>> +	.required_flags		=3D EYEQ_MSI_FLAGS_REQUIRED,
+>> +	.supported_flags	=3D EYEQ_MSI_FLAGS_SUPPORTED,
+>> +	.bus_select_token	=3D DOMAIN_BUS_NEXUS,
+>> +	.bus_select_mask	=3D MATCH_PLATFORM_MSI,
+>> +	.prefix			=3D "EYEQ-",
+>
+> It might be sensible to use a distinct prefix here, e.g. 'EYEQ-P-' or
+> so.
+
+OK
+
+>
+>> +static int eyeq_msi_create_domain(struct eyeq_msi *msi, struct device_n=
+ode *node, bool is_rc)
+>
+> __init ?
+>
+>> +static int eyeq_msi_parse_vector_region(struct eyeq_msi *msi, struct de=
+vice_node *node)
+>
+> __init ?
+>
+>> +static int eyeq_msi_parse_dt(struct eyeq_msi *msi, struct device_node *=
+node)
+>
+> __init ?
+>
+>> +static void eyeq_msi_program_hardware(struct eyeq_msi *msi, bool is_rc)
+>
+> __init ?
+
+The __init annotations no longer apply because v3 converted the driver
+to a platform driver, so those helpers can run after init memory is
+freed.
+
+
+>
+>> +
+>> +static int __init eyeq_msi_of_init(struct device_node *node, struct dev=
+ice_node *parent)
+>> +{
+>
+> Also please check the sashiko response vs. handle_simple_irq() and the
+> affinity mechanism.
+
+As you pointed on my v3 it was already taken into account.
+
+I will send a v4 based on your review and asked to Vladimir if he can
+also review it.
+
+Thanks!
+
+Gregory
+
+--=20
+Gr=C3=A9gory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
