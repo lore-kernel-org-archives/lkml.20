@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794568700;
-	b=OM1e5ly+FEZUqRQ7r8veOcMVH0Bg4ixER79Y6PWLWfW6GKMvT+OZ6YY5L0RAYv3fzy+x
-	 g3pfW15d0HWUSLHguQ0t0lWnD1oImajh1hy9UG9E8g25wsT5YskVeC+ilk8+4mBj6b23x
-	 nSk7in4fX8cVpFfbXEn8TJ3fsLbuPlDwxbnijCOO80MIqqqfD79cboOccofJ6Bpeyd7+h
-	 lgvhtGmUK5PFylN9p9EPznOvLViyyQEVXjkynb4WtDAo7iQNzhdkHTb6D3o+F70VRMc1I
-	 I1m8zYa3+JVDV5mxQ1m/VAnOvNsNj93hoiROuJzFT2YtQeS6hrTG04lf9E49EAxnI6A==
+	t=1794568741;
+	b=OVfDIcQ5fRfejZJdmAEZJHDIuJMUSQ3eogoW9oOwRtCxJ8oRG2wjPWW37kbI9uDKBVjU
+	 5LtYf4q7kx6lxSTu1c0afR+HNywOhlopwTcKcnmcfLKBqgoqu+7mpfuLML2tl0nyTCZ30
+	 BcpIsgQcZ9fmQvpOnAbat9iSgHAEpNSRlRTH7oQwzjOHfWLMRHqRJRKljjUJZPBX1Osao
+	 rq/vf8blDeT3qiv66y1QNdXJOFx57mTt67W11lO/6mf5+ewRijfiCj8/dp1iQSpaF0URV
+	 ZMv4vAZ/Q5obSyBBWmeK3p+UFbr+lNboU4FXb961eBxPDtMGdFeqnzF2OuDT7bpe5zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794568700;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568741;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=SoZopygXc/qflPlFqntHA6+xMbJ5Q6P9clFSoRDkiD8=;
-	b=z/0M7C2kFfRUrEnzxxsV91EG93BUewFNfK8BGAmfQrytSoaCuM7AM0+ieJma3EBpEs2Y
-	 LgZk6A4/hYJfiv4dpFl5euNoPLs9mgU91i3DPCCcVXHd71KfWfJ6S1mFJjxGQcima7mhc
-	 xs/jjX9rvYXaVIP49k5oj47tkJgWr+3skavc/3p26lCGrR3D0sZYb9Y+iR2j6d026a3qn
-	 +WpMPiWQMWYQS4Ve7d5Ep7DUmN4pjO0VNEOFG6ZNbvPDs/iTbxuIUNKphxXAYwIPCSleM
-	 a0kM/PUnonj3AJoq/ynB1czZJtSbpYopStQqtf6kmaj0SCMf07MMzw2kRRmVYVrJkbQ==
+	bh=BhUc+loYeQeFAucZRhpK+U371nZnwy4R6sM3xX+qyWo=;
+	b=w4oquhyzTvlz5l6s77bh4OGyRITCP8vNhsRpIGGxsAuA+JxzoddUejWIBqijeEdkj3e6
+	 ZQKD50U6WYxrTSXxZA7CKnoDnqoSEpg73FvasngQiZNRBeliuQrOKsxUJaCM7Tw3rzr8Z
+	 LRE6jgAFokm8QppzMEZi1NUDP49KHaNWPeiwD7fDt1dpdNV4rEBXYNHOKzBKsOvQfOzLX
+	 IN9VqoCP33qFYwYxamR4CQExZ1RjDAu1XpPcWUVk5V3lFPyr0ezNcy4R9jzf7K2ZqfAtI
+	 L+b5h/fA2udebtC2C/Snv/42chTmB5kkzeLL+rQIBV1tw+Dz4w8ZvE2dFBKJJVHHmrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbLSDedl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ns32XsVF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19086606A31C;
-	Fri, 13 Nov 2026 11:18:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B190E606A327;
+	Fri, 13 Nov 2026 11:19:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbLSDedl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6DE1F000C4;
-	Fri, 13 Nov 2026 11:18:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ns32XsVF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 529FE1F000C4;
+	Fri, 13 Nov 2026 11:19:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794568699;
-	bh=SoZopygXc/qflPlFqntHA6+xMbJ5Q6P9clFSoRDkiD8=;
+	s=k20260515; t=1794568741;
+	bh=BhUc+loYeQeFAucZRhpK+U371nZnwy4R6sM3xX+qyWo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZbLSDedlgS2mED0qQxO7H0ptmDd6qWUnbHVl8QVr0g5CkfTRkXWNYvkgJzIXJotjM
-	 j1HI1xWgtfy1j2PLKdd4OvcB6Pm4bPCZvgYx6WTMRndbedxQ0OjHrOklOBuj4dqhpc
-	 o1y0eF2z8x5XBIWcSCy4AninawWTuXdHE0OHLIm++telIlnx0qMkw1PinlzLE7fZZT
-	 vmsuybr1NVOX7bVwSgBs7BYJ/A3nlCBGurPX2Owo1XQVLkrv+Y4PnRfmpnblhfvNh8
-	 yXZJ/fYeXq7JWx+dWlUfzDLV62VG25lwEUdQX4aKIasNpyl+5M3GlLPyBbzo+bXDqT
-	 4PXBeglGv5Ojw==
-Date: Fri, 13 Nov 2026 12:18:16 +0100
+	b=Ns32XsVFdTP4pqhFzMv60fkFABb2IBWhKARd9fB0cMTO8dsEZdJZFgV1tWNB/NZdl
+	 Vy/M42B5HSuuuZkMuAGWCAlSHIr5WHZ7/pYCjhdrYx7/S4A7t/BqyGEtCVDbA5WhQS
+	 jpawoN7Idu7GJn477/uuWl0alf9XyaxNtEXFuU5KOgU6pHgSlxA9GN2ZJPVuXzUdd5
+	 iEbBVwokokDUo144Jns2TMmkVHCYgx1NzaZiU61ak+nWfrRLK5Ewy6r9UBo8RNLBkQ
+	 FHLahLWoRADi5IPvngUmyXr1dkQI9X/hgU/fLBm4A07857MUW0xJqSFu/VYWjwb4Hb
+	 8V115NwoObfTQ==
+Date: Fri, 13 Nov 2026 12:18:57 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Erikas Bitovtas <xerikasxx@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: dma: qcom-gpi: add SC7180 GPI DMA
-Message-ID: <20261113-knowing-oxpecker-of-anger-ad3e38@quoll>
-References: <20261112-sc7180-gpi-dma-v1-0-2a8eceb49563@gmail.com>
- <20261112-sc7180-gpi-dma-v1-1-2a8eceb49563@gmail.com>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH 1/3] dt-bindings: arm: fsl: Add Aquila iMX95 with Lotus
+ board
+Message-ID: <20261113-elastic-sarcastic-trogon-dc2eb5@quoll>
+References: <20261112-b4-v1-aquila-lotus-dtbs-v1-0-ca150bb4b0f9@toradex.com>
+ <20261112-b4-v1-aquila-lotus-dtbs-v1-1-ca150bb4b0f9@toradex.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,14 +65,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261112-sc7180-gpi-dma-v1-1-2a8eceb49563@gmail.com>
+In-Reply-To: <20261112-b4-v1-aquila-lotus-dtbs-v1-1-ca150bb4b0f9@toradex.com>
 
-On Thu, Nov 12, 2026 at 02:23:22PM +0200, Erikas Bitovtas wrote:
-> Document the device tree compatible for the SC7180 GPI DMA controller.
+On Thu, Nov 12, 2026 at 11:37:33AM -0300, Leonardo Costa wrote:
+> From: Leonardo Costa <leonardo.costa@toradex.com>
 > 
-> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+> Add the Lotus Carrier Board mated with the Toradex Aquila iMX95.
+> 
+> Link: https://www.toradex.com/products/carrier-board/lotus
+> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 > ---
->  Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 1 +
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
 >  1 file changed, 1 insertion(+)
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
