@@ -1,62 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794538149;
-	b=g5wA6HSlZifkh4ndrA6HcS1zHHREsM51z6anzGRMWP3+i3mmKiixrK9JLarkXaEDtQ16
-	 llvJDnJWOXiiyYoJ9TolnmWbjDzFFP8dEGdS2GVvgQA1YN3XQ/KfNYuQG9FoQDuTTEZbG
-	 7Ra0OFqK5sYyArGshXMBo63QwPpEwY5PMqb0AqjYsHBtS+8zK1OEo1r0XZKYIAkK3IhBx
-	 1k7+bSDVirTRhtJ3wOehp99oL3nj0G3IHq6Glhfp9DnUgrXGJHP96GuvrKvf293BlGscF
-	 pBzn2OR5TCjpjYESDfPZIhBQ8Y8GSawwp9KjIB/G+4mrit4u82v0QLqq0VAnrwyZnXA==
+	t=1794538167;
+	b=T/VUqFNL9rWQHKU2BFPOsZCtYz5gxD3ej60iH2FNTtvVugCLjmosOedrjpmuyGFN5RUi
+	 yEhQfPG4ChaPDO9WsvIWRKr0FX9Zgw8ZsXIbLeZ/c1chjIpJTq/SRrMbXzgsA2iSR6RYg
+	 vEhhgXEQO6lM7ZnyVT0jeoDQ5+zWtYQFjvKHonJi1E5mzhnUHS/f1ycil/2Hkf/ACm3UO
+	 BHhgVttGVM1uNvX7r9MghTzIBG7WcUTOnR0SWqKJ60pv5fccJOnELAAt0BmVIUjuqxcCA
+	 K1NsUHLDj4Dix4cI7d+cDz1JFNLWBLYLJVCXlYc35yC7KG0DM7T9pz0Yi9fwl0Ocjeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794538149;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:Sender:X-CM-SenderInfo;
-	bh=IpFP7FK0TxXG+9D2GX4+uqXkz9xTOzg3xtyPrJM7tPk=;
-	b=4K0zV4b/br7fZD+Zlpdewb4cPvbdQONtT9d/SvAtCovgPQK3T/gWWVlVVqWSlQXfuRK7
-	 w3lQ+aT01ubFHBcx/Eafrc1cXU7UAZ3o03haKXmoS/x0jXJ5Yj0D381/BywIrP4QWusMb
-	 zBgdauaP6l28WRGceqLCz0lT+tvLTuaHA50v0XmwGypti6yLG8V7XGfYtm5wAYPhb0xKV
-	 hY8+b+XuYRP0bZV4tlH/8kz/PmQ7pl1oX5MbS+o6lMKatvVVkEedKXkuYwAbE1maPXKDd
-	 yHKbgFZcwGouMsEVOKONAabaVpCHP58wjxjkGYjG3pYbCMY8Ta8i2A2dffcfmLr6faw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794538167;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Ea7AxrGlB7THjQmdukSzo51aXDomAu6+9ySrKXHX0Qw=;
+	b=jJJUwDEivK9WU9Y5/qACQaDprE4HxtAj8OGc8BGbTYVGse0zm/ccG6qnaXSfcY5CQ4Ga
+	 EsPfQYE2eFcTxeidL9G3o6+qLo/wlFGufmDnP7i/V4E6c7V0ewEby22PQuiyd8PiCkKu9
+	 cFVF9yYDd+q3XKGwDmzNMwp/vuVeqnfSxS9XPJymJTPiiuhE44uQrWqTImqsITttc1FBt
+	 5RODWywN57DVa+Cbmzm096jxOfQ/WIUelY94uH7M50+ZzTPWuS4wSchB5ZunNYckGJZ/S
+	 fbQY9m1J1n9P75VWLXeXlDfRWN4if3HxCWPDGYTYuBhiiWngHMyvdgZKBxZjYGXqBBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Q3phdKHM;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jXuN50+C;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FCD606A321;
-	Fri, 13 Nov 2026 02:49:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85FCD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2423606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:49:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2423606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Q3phdKHM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ip
-	FP7FK0TxXG+9D2GX4+uqXkz9xTOzg3xtyPrJM7tPk=; b=Q3phdKHMGYJCycRqw7
-	WMNzyZM2lnm2wJTYUzhdtmnrB55pcclTiMdL1AXodvkRQGaY/IRI3pqqhv8d3p9M
-	8RCMy4wHunz94dUWFzp+7t31H9PP2W9+d31hNOtED+xfVyeI5NKthIciMhFGngAs
-	LmqYbQGXJaYIo+v+HiYOas360=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3VxpzevZqetpIHQ--.11346S2;
-	Fri, 13 Nov 2026 10:48:20 +0800 (CST)
-From: Wei Tao <taowei@kylinos.cn>
-To: jhs@mojatatu.com,
-	jiri@resnulli.us,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wei Tao <taowei@kylinos.cn>
-Subject: [PATCH net-next v3] net/sched: cls_flow: avoid integer overflow in perturb_period
-Date: Fri, 13 Nov 2026 10:48:02 +0800
-Message-Id: <20261113024802.71680-1-taowei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jXuN50+C
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36d1353fdcdso2266500eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:49:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794538166; x=1795142966; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ea7AxrGlB7THjQmdukSzo51aXDomAu6+9ySrKXHX0Qw=;
+        b=jXuN50+C855ba25WGA7GSVrXfMxVhkFtQLaazvbUEGmLcdy4Bt0H/mu2g3XehK99l5
+         6N88eC+yDLGx076KS8oedkB9G3gNDNtibWw/9GVMvpJ1sxcperHn67rLky4govSaqSmY
+         QKLvmrigziC4+QAc1chb4ZMq0D6KP968s2xd86isE95KAYioHC1djE9SVDyOF65aXFf6
+         XTCpx9ToMpy6moZa0jv/61YyIRfsJ5LSD2SGlCSow5eWX8iHdFnjjQOHbNVRWRs8yowc
+         hHXjn7N3poiIZojQIGVh8MSEFo8aj8P3CCLNkGXWzt0wHLTkCK6KgGDuuBJ0JDM6buX3
+         JUxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794538166; x=1795142966;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ea7AxrGlB7THjQmdukSzo51aXDomAu6+9ySrKXHX0Qw=;
+        b=ePkk9cRE3txRx9AGrgSdz3hkH56KE6w82SOu81g5IKMZkOwKwASWxErxjvAoBjSFj6
+         5ZQdebxIB4eGPaybccR430SMlGccIqPlEcyJjbZMMkf6Yl2cZQH1MKJFK2RWac2PZSt7
+         wtFD8zltuhstVhpJvqAge3/7QvSzNeyipBaV7ZN1pmnA22GP2/f18Eu9NO0OuOzt6NmB
+         nOvP6x8VrChS/rTyr1cvB4CzfMunbVbQtaVshcqtFBu7q+168JDukKDJMEOHA+vnsD66
+         Whod4AK8Z6rFB4sWHTNs9KncYAgxYwbg5pZcnFTDDBaesrKP5nIhrUwXJ1J68Fr7Rjo1
+         9qVw==
+X-Forwarded-Encrypted: i=1; AL+hErHtvkMhIkVuc2ukeW1cBokB1fR3s22YQreGcYmwTrtO0lCOm+9+62SNiIxozFE7AzF+loX+YTBKVPCOKpU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/eqoTZiqbjQcruRgH2kDhrosXDzC2taJVzFpD5aO4/X1Br3ZjA
+	qd8WGJYXy0s1upj/0DTovxG1jwZ+LhKwkriC5kR2GnejvXGFkk+MnowSllN+LSPfKud1svjZcOS
+	TS0KgcTbv17yYsc9BCswEqGYW5mLlVcIRLY4FlQ==
+X-Received: from dybme13.prod.google.com ([2002:a05:7301:188d:b0:36b:c499:531f])
+ (user=sarthakkukreti job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7300:c7c3:b0:376:972f:afa9 with SMTP id 5a478bee46e88-37966387a09mr993929eec.9.1794538165337;
+ Thu, 12 Nov 2026 18:49:25 -0800 (PST)
+Date: Thu, 12 Nov 2026 18:49:18 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,117 +75,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3VxpzevZqetpIHQ--.11346S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWr17JF4rJFykXrW8AF17Awb_yoWrAw15pF
-	Z8Aayqkw4DXF1xGw4kCF1kWa43Ww1rJFWfCF47C3y3AasrGr1kKa12grySkrn7CrW8J3yI
-	qF1YgwsxJF4qyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j8jjgUUUUU=
-Sender: cs_taowei@163.com
-X-CM-SenderInfo: xfvb3tprzhxqqrwthudrp/xtbC4hUUVWr2enVCyQAA3u
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261113024922.27977-1-sarthakkukreti@google.com>
+Subject: [PATCH v2 0/3] usb: uas / scsi: fail inflight and queued commands on
+ dead links
+From: Sarthak Kukreti <sarthakkukreti@google.com>
+To: Oliver Neukum <oneukum@suse.com>, Alan Stern <stern@rowland.harvard.edu>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	"Martin K . Petersen" <mkp@kernel.org>
+Cc: linux-usb@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sarthak Kukreti <sarthakkukreti@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-flow_change() calculates perturb_period by directly multiplying
-nla_get_u32(tb[TCA_FLOW_PERTURB]) by HZ, without any overflow
-protection. Since perturb_period is a u32, the multiplication
-overflows when the value from netlink exceeds UINT_MAX / HZ.
-The result can be an unexpectedly short period or even zero.
+Unplugging a UAS device during system suspend after hub_wq is frozen
+defers usb_disconnect() until hub_wq thaws. When sd_suspend_system()
+issues SYNCHRONIZE_CACHE to the disconnected target:
 
-  # tc qdisc add dev lo clsact
-  # tc filter add dev lo ingress protocol ip pref 1 handle 1 flow \
-        hash keys src perturb 42949673 baseclass 1:10
+1. If the HCD accepts the URBs, the status URB fails in uas_stat_cmplt()
+   without completing the command, stranding SYNCHRONIZE_CACHE for the
+   60s SCSI timeout and triggering the 25s DPM watchdog. Patch 1 tracks
+   the active sense_urb per command and completes the owning command in
+   uas_stat_cmplt() on status URB failure while unlinking any inflight
+   data URBs.
+2. If usb_submit_urb() fails with -ESHUTDOWN, -ENOENT, or -EHOSTUNREACH,
+   uas_queuecommand_lck() requeues the command instead of failing it,
+   and leaks unsubmitted URBs or orphans already-submitted URBs on
+   partial submission failure. Patch 2 fails the command with
+   DID_NO_CONNECT, frees unsubmitted URBs, and unlinks any submitted
+   status or data URBs.
+3. When the command completes with DID_NO_CONNECT,
+   scsi_check_passthrough() matches SCMD_FAILURE_RESULT_ANY and retries
+   it against the disconnected target. Patch 3 skips retries on
+   DID_NO_CONNECT, DID_BAD_TARGET, and DID_TRANSPORT_FAILFAST.
 
-With HZ=100, 42949673*100=4294967300, but UINT_MAX is 4294967295,
-so the product wraps to 4 jiffies.
+Tested using a USB/IP (vhci_hcd) UAS target emulator that freezes
+hub_wq, injects -EPROTO on the status URB during inflight
+SYNCHRONIZE_CACHE and READ(10) commands, and verifies immediate
+completion without DPM watchdog timeouts, along with the scsi_lib KUnit
+test suite.
 
-Both the filter-modify and filter-create paths in flow_change()
-are affected.
+Changes in v2:
+- Track sense_urb in uas_cmd_info and complete only the command owning
+  the failed status URB in uas_stat_cmplt() instead of looping across
+  all devinfo->cmnd[] slots and orphaning other commands' sense URBs.
+- Set DID_NO_CONNECT only on -ENODEV and -ESHUTDOWN in uas_stat_cmplt()
+  and uas_data_cmplt(), and DID_ERROR on other status/data URB errors.
+- Clear pending submit and work flags and free unsubmitted URBs when
+  completing commands on status URB or partial submission failure.
+- Unlink already-submitted status and data URBs in
+  uas_queuecommand_lck() when a later URB submission fails, and remove
+  the unused out label.
+- Add Fixes tags to all three patches.
 
-Since perturb_period is ultimately fed to mod_timer(), and
-calc_wheel_index() internally casts delta to signed long for
-comparison, values greater than INT_MAX / HZ must be rejected. This
-keeps the relative timeout within the signed-long range on 32-bit
-systems in addition to preventing the u32 multiplication from
-wrapping.
+v1:
+  https://lore.kernel.org/r/20261113003536.3622755-1-sarthakkukreti@google.com
 
-Declare the limit in flow_policy with NLA_POLICY_FULL_RANGE(), so the
-netlink parser validates the attribute instead of open-coding the
-check in both paths, and pass extack to nla_parse_nested_deprecated()
-so userspace is told which attribute is out of range.
+Sarthak Kukreti (3):
+  usb: uas: complete command on status URB error
+  usb: uas: fail command submission on fatal USB errors
+  scsi: core: do not retry passthrough requests on disconnected targets
 
-The missing check was noticed while reviewing commit 7ca52541c05c
-("net_sched: sch_sfq: reject invalid perturb period"). An
-LLM-assisted analysis of the same pattern then showed that cls_flow
-performs the same unchecked seconds-to-jiffies conversion in both
-its create and change paths, and needs the same range check.
+ drivers/scsi/scsi_lib.c      |   5 ++
+ drivers/scsi/scsi_lib_test.c |   9 ++-
+ drivers/usb/storage/uas.c    | 128 +++++++++++++++++++++++++++++------
+ 3 files changed, 122 insertions(+), 20 deletions(-)
 
-Tested on 7.4.0-rc1+ (aarch64, CONFIG_HZ=100):
-
-  # tc qdisc add dev lo clsact
-  # tc filter add dev lo ingress protocol ip pref 1 handle 1 flow \
-        hash keys src perturb 42949673 baseclass 1:10
-  RTNETLINK answers: Numerical result out of range
-
-  # tc filter add dev lo ingress protocol ip pref 1 handle 1 flow \
-        hash keys src perturb 100 baseclass 1:10
-  # tc filter show dev lo ingress | cut -d' ' -f9-
-  handle 0x1 hash keys src baseclass 1:10 perturb 100sec
-
-  # tc filter change dev lo ingress protocol ip pref 1 handle 1 flow \
-        hash keys src perturb 42949673 baseclass 1:10
-  RTNETLINK answers: Numerical result out of range
-  # tc filter show dev lo ingress | cut -d' ' -f9-
-  handle 0x1 hash keys src baseclass 1:10 perturb 100sec
-
-Signed-off-by: Wei Tao <taowei@kylinos.cn>
----
-v3:
-  - declare the limit in flow_policy with NLA_POLICY_FULL_RANGE() and pass
-    extack to nla_parse_nested_deprecated(), as suggested in review
-  - update the tested transcript for the policy-based rejection
-v2: https://lore.kernel.org/netdev/20261106063823.99731-1-taowei@kylinos.cn/
-  - drop the Fixes and Cc: stable tags: this is hardening
-  - describe how the issue was found and add the tested commands
-v1: https://lore.kernel.org/netdev/20261016040330.59041-1-taowei@kylinos.cn/
- net/sched/cls_flow.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/net/sched/cls_flow.c b/net/sched/cls_flow.c
-index 2ef449706638..2e1825f09ea1 100644
---- a/net/sched/cls_flow.c
-+++ b/net/sched/cls_flow.c
-@@ -357,6 +357,10 @@ static void flow_perturbation(struct timer_list *t)
- 		mod_timer(&f->perturb_timer, jiffies + f->perturb_period);
- }
- 
-+static const struct netlink_range_validation flow_perturb_range = {
-+	.max = INT_MAX / HZ,
-+};
-+
- static const struct nla_policy flow_policy[TCA_FLOW_MAX + 1] = {
- 	[TCA_FLOW_KEYS]		= { .type = NLA_U32 },
- 	[TCA_FLOW_MODE]		= { .type = NLA_U32 },
-@@ -370,7 +374,8 @@ static const struct nla_policy flow_policy[TCA_FLOW_MAX + 1] = {
- 	[TCA_FLOW_ACT]		= { .type = NLA_NESTED },
- 	[TCA_FLOW_POLICE]	= { .type = NLA_NESTED },
- 	[TCA_FLOW_EMATCHES]	= { .type = NLA_NESTED },
--	[TCA_FLOW_PERTURB]	= { .type = NLA_U32 },
-+	[TCA_FLOW_PERTURB]	= NLA_POLICY_FULL_RANGE(NLA_U32,
-+							&flow_perturb_range),
- };
- 
- static void __flow_destroy_filter(struct flow_filter *f)
-@@ -413,7 +418,7 @@ static int flow_change(struct net *net, struct sk_buff *in_skb,
- 		return -EINVAL;
- 
- 	err = nla_parse_nested_deprecated(tb, TCA_FLOW_MAX, opt, flow_policy,
--					  NULL);
-+					  extack);
- 	if (err < 0)
- 		return err;
- 
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.25.1
+2.56.0.611.g1030f0b940-goog
 
