@@ -1,82 +1,146 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794594897;
-	b=V7oTI3wH6Fgu0Szvak7MkjlQ4ZFgDIm9KTXwvVysLzfr5opQRjwpY7haWw6mVdmiFWHk
-	 HX8kfMDf9y57nqtPhlA27NkFtPHoJNaStg18UjdPTEoVVelKbRS7hQsf+Sn7ZgzrTCXob
-	 xu5fm+PSXrnZAs9s04+8QO4TFe2hnVydZhKuzrgl75RdVhPwmavcHPrErWDGUS2bidLpF
-	 TXyK3Ugbd1oHu8sK+s+TGt/dqYlPECtUNhpM4WaonfyUldC6kmTdWeOLs8yDDy9BZy5hO
-	 wOc1GzoxfH0FAfsLnMCMaFjT3OzxOeN3lRpZvpI/6nyCyJi7TWSquRI6zakFSgCumsQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794594897;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=EQE8G03VCtSeDfWZTAqFkZaKC9YvDiDU3mhyqd7ATUQ=;
-	b=MKN8kZaOs802BqQMcLLR5pHROetrzxAM5INjbi+ti7XLsFJUTDWqH6C9I8LdB2QBh/6u
-	 PRE3Gkwcz1gvqgRGSRaHoa/9qJxQDut/5kQX2xuV7ZhSMLdAKvorXJANKO08R1JkEJdKc
-	 pXeO0Fp3ftOsLSY5kofxc0PizmkUaDTgB9y73aXqpKnJLtacZo1cUm7h2P9bseNPocDPf
-	 g+fhra4j8FganeYEZ2s25F/Qnu3Giyk0XwgoLrMg6kWnfvvP0xq03TDIiHuFYRpR5MCr0
-	 b9uHU9KQDEv3SNY3b8bTuIJp8erHHLcy5APHpXsqZyIEQU17m39yRAGdY/NrQjjiakg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=desiato.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=LjMxsHop;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794594916;
+	b=wM8s5rFSTmRlT1d5vLjL6iYefuLjy573yZUk8AgfhUIKzDvGKJGTaoYCVJSatPaOP5Kj
+	 fOXRn727A2EgxvIF2LKCp5jX1wjrGJ7G06GUhQH62oK3VstOLmla/TfHiDwVDxsH3mcHC
+	 uQw2IOviKC30c7uhKsrrcAo9lspfI/7LBnwITzG2umD7m9fkV/6r74JlCr4/+vKBT4Kju
+	 aV2kTQugZN4Cyeq+Zv3PRc+cSZienqR9AI+zLOmk3mbsSV3Vh9fv8wC624oaZ2uNiKjKm
+	 C8ZzF9txtI4fdTlBzyQkIbb3xqomtalrsumt8ju141NQoN05u0IgkLTBboHFwdgjJcA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794594916;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:
+	 Subject:To:CC:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=FKtX6p9IDwKKULOXOvEjoiHlqRjmObP3HxAY1uO8o0Y=;
+	b=FgtOCDX7DWzCfSXyuS+dIo7gxEqP7kU2CGr2HXzonShIwPk/XPoWjChqRZ5SFoxDxQbG
+	 jVue3Gdmw6NJIuyXZEZQ9fHKTh2J1E9kxEjYs4Bc1zWZIpoYAerhJ4go0SYLuqKPW4KBV
+	 6BDbWzJvF3uWI4UtXIvfgQoAav8LUsl1t9Fub7ddTBBgRwPgIxgPJ4xx+1gNhx7H8ZAez
+	 nXFnTD5IZrETt85wq/Qd5JtJZKZdRxzTURiXXUZ6LV5lwmriX0kn0rmehxGGyezuydkh6
+	 b6HQ+7I0QKr6q6PC4Bg8yqiN4dusanAXZRMQsz+3dU9HsyfGPrHGJeRZ3XRPU5d9jCg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WpnrQwrz;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=VPxIeJeq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32EF60A5BC5;
-	Fri, 13 Nov 2026 18:34:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B32EF60A5BC5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46675606AEA9;
+	Fri, 13 Nov 2026 18:35:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46675606AEA9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=LjMxsHop
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=EQE8G03VCtSeDfWZTAqFkZaKC9YvDiDU3mhyqd7ATUQ=; b=LjMxsHop2/HZmRr80xtGQ3hobR
-	iElLNO0RCQlblov3YY2ho+Xq83TRxFCqeXvq5dPUMjC8yexx1Zhv7eLt1Cgzag9PggDn7RH7gwLqe
-	HbUohlHgnrslUZJ/B3b/r3ucpn2PS+9EoIOlUJ0p7SsfVp8q0OLmGcw7eMhPADSK1Zsa/7H8g00VJ
-	Fll43B4wO9HLxM8h9a9ydnwwBWCMrauX30YDDqYMuOfsPTtafT/z7w2L8e435u65atugtIei/JD/e
-	hO8Hfrsh9OcTKfTwcd7G7fdChmXgLdT6TuPU07t6DHKc+TrKIVfEP8KY4KVdXC/zoVMmvDTtNmWQ/
-	wEbutDRQ==;
-Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRw6v-0000000Bf07-0UZA;
-	Fri, 13 Nov 2026 18:34:53 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xRw6s-00000000LuI-1jkS;
-	Fri, 13 Nov 2026 18:34:50 +0000
-From: David Woodhouse <dwmw2@infradead.org>
-To: kvm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Marcelo Tosatti <mtosatti@redhat.com>,
-	=?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>,
-	joerg.roedel@amd.com,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Thara Gopinath <tgopinath@linux.microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Nicolas Saenz Julienne <nsaenz@amazon.com>,
-	Nikolas Wipper <nik.wipper@gmx.de>,
-	Mushahid Hussain <hmushi@amazon.co.uk>,
-	Sriram Nambakam <snambakam@linux.microsoft.com>,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [RFC PATCH v2 26/31] KVM: selftests: Check that a VTL switch keeps bit 63 of RAX
-Date: Fri, 13 Nov 2026 18:34:42 +0000
-Message-ID: <20261113183448.84094-27-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261113183448.84094-1-dwmw2@infradead.org>
-References: <20261113183448.84094-1-dwmw2@infradead.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WpnrQwrz;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=VPxIeJeq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794594916; x=1826130916;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=iE3t2CxtAQBaQMiNHdWxD5b73Zc+wQ/kxmYHdD5JxaI=;
+  b=WpnrQwrzXhTWgQWmlmxO6QY2qXgL5hTNuJ++ZMl4XtkpLE+SQQMPC6WY
+   I8rxKUFFuFM3GxYCS4JCrq8qAPnjfxJyDOAJuh0kvJOgbQEioo4W6YzT7
+   HMe9+P52UHAxetjQd3wpqYISdYowkewQQgRm+KpJmyOIgw8YRc84qVZ6l
+   3+0IZjptfigA0L9hvi2dUOn2oZuO4qhQEUHG0IufRl0y97TLSLunc9jRx
+   x8ib3nv6Ioeqnwcra8OUDkN1BVPfIp7eR45YsEqx1VWtmAYN51H3/zt5C
+   dh5p6XydzV4Em/j1u47ZEQFe2LPAoZ1jMaS2jezMZuhBJwW1pWSzykTYU
+   Q==;
+X-CSE-ConnectionGUID: WR7seHYfRC+Qk+iEvODrCA==
+X-CSE-MsgGUID: jKx4IHQsQuWEajeS/rX/3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3419359"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3419359"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 10:35:15 -0800
+X-CSE-ConnectionGUID: 0HnF5ovmSCeAtl1pvIXUNQ==
+X-CSE-MsgGUID: aNLAHQ/ATle39MSp1P9SOQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="9003030"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 10:33:20 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 10:33:18 -0800
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 10:33:18 -0800
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.29) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 10:33:18 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dbJoICBWVtRkUJyLCnjdFyq1DDtD7Dd+1I8eeywuVftP9vD4vQ8XaiVmhH/G3yHSrx+PAJ72T+mpk1oEbSF7JV14p57hZ9lzc84CiRKmMZZNm9QEW3IN07DCA7klLWOLMFs0RbrCSlv+x0ZKzgSqPSTTkmM4MNy3KaekQRbZCQ+exM4Y0gJnP+F0krX09+iS3aUpq2lOw+GvJrgrrT7k9ldpnkfxO9iZPOwPw9VESjZqSApjkTeaOM8TfOzLfHOdIrqWanx3U4X9lTH4rtrK0fcaxiQ3NDA2Ova9U0jiFmZo76mCUpamJGGKFNPjzZ1iIvGf4DXgVSyMEtulyN0uHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FKtX6p9IDwKKULOXOvEjoiHlqRjmObP3HxAY1uO8o0Y=;
+ b=NnE6NYi5KKgQQu7VH+oZf7a3+MmQcej0oje1OnOZfnwVR4d13AB9R2T2THv4zxJ+4Pzu/GLykznPAZaCom+P59Alsl3Nv97aVxFHv5MMOPpHUIWgfGFgHcm43YhIS3YhSuhG3954Al10mVQH/Z/xtc3ymzqQF5lanEHGCJyAbA6AxZZM9qI2A0W+Nv17aNn1Uin/622CNAVLPL6uSZzMqbcbS+l3nosJvKjj5iQEmaS3WDHLnVmFyu9zir1SxGfN8PPcObGtHdZvndUzbQtt8goImnQHTnM6KLvrLuOn44H/vZKYqjNleBcvZ5OterkyvxIuL5LN7Njh5LCdamJwcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FKtX6p9IDwKKULOXOvEjoiHlqRjmObP3HxAY1uO8o0Y=;
+ b=VPxIeJeqLXLRho1OBQwodZ1fqStRLHEM5cBXZj4FWMVOlkRZlyKyBHE+2mWdRlgS7pDBhnTnZ+hKscfC4b8gpLaz5eczf9oe/GZzlg0CVjjTSx0Y7/CDi637oBe4dlvFK16Gu+a1nYfvsJvLr7RxhJ4BmgwSguHEEcVe4Zs2LXA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB6469.namprd11.prod.outlook.com (2603:10b6:8:c3::19) by
+ PH7PR11MB8478.namprd11.prod.outlook.com (2603:10b6:510:308::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Fri, 13 Nov
+ 2026 18:29:04 +0000
+Received: from DS0PR11MB6469.namprd11.prod.outlook.com
+ ([fe80::ee3c:8422:6754:29b0]) by DS0PR11MB6469.namprd11.prod.outlook.com
+ ([fe80::ee3c:8422:6754:29b0%3]) with mapi id 15.21.0592.010; Fri, 13 Nov 2026
+ 18:29:04 +0000
+Message-ID: <6bcd0c58-7110-480d-9fc1-0abe0dd5a354@intel.com>
+Date: Fri, 13 Nov 2026 10:29:00 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] idpf: reset mb_wait_count once the mailbox is up
+To: Simon Horman <horms@kernel.org>, Breno Leitao <leitao@debian.org>
+CC: Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Madhu Chittim <madhu.chittim@intel.com>, Emil Tantilov
+	<emil.s.tantilov@intel.com>, Joshua Hay <joshua.a.hay@intel.com>, Alan Brady
+	<alan.brady@intel.com>, Sridhar Samudrala <sridhar.samudrala@intel.com>,
+	Willem de Bruijn <willemb@google.com>, Shailendra Bhatnagar
+	<shailendra.bhatnagar@intel.com>, Pavan Kumar Linga
+	<pavan.kumar.linga@intel.com>, Phani Burra <phani.r.burra@intel.com>,
+	<intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <kernel-team@meta.com>
+References: <20261109-idpf-mb-wait-count-v1-1-c6584754df78@debian.org>
+ <20261113174251.GA18859@horms.kernel.org>
+Content-Language: en-US
+From: Tony Nguyen <anthony.l.nguyen@intel.com>
+In-Reply-To: <20261113174251.GA18859@horms.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR02CA0021.namprd02.prod.outlook.com
+ (2603:10b6:303:16d::31) To DS0PR11MB6469.namprd11.prod.outlook.com
+ (2603:10b6:8:c3::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,253 +150,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB6469:EE_|PH7PR11MB8478:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6c2ffaf4-07b3-4e32-043c-08df41b3fe95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|23010399003|376014|18002099003|6133799003|22082099003|10067099003|11063799006|261028144727099003|56012099006|261021135927099003|261026121527099003|261021121427099003|261022105027099003|261026140227099003|5023799004|4143699003|261102123227099003;
+X-Microsoft-Antispam-Message-Info: sIWLQlgzC3q56sZcEdoilMxvnv3Fmlm1cemUP8IACM0qQLA+uvnILKVUWcN8ZNQakkEZio+PhPdT7GstvKR6CralzwKwhQ4NSCAjBPt1oDdkMg1wNrxBDdf3Pb3wk8AupMO5QqEEk/OQdDiTQx5VJvJe4jtybNK7D9XLGbnb62L/8LRC9rvm0+YDMiFcdTDmJ8saeJmj68QplvINKRZszFdom+lnr7OiDIVxbM80HFPmQ8yjsWFRHmmHFzLdRzcbFzDZQXj1Fao4bi5FCT28yy2tbhEJ9PKDfUlgaZ9H5jxoBMaV+8eG5m49Y/0YKrf7XGJWk6/DSMsJpVH0yL4TXC1hbKFnVBDA9Bj2fYMr6SdQy20slOx+0hoM8+1KSqxuZZ/U/9YV3mJ5LmPFUdKSdtYbUjVxCzZeEVe4sQ4P3+irx0Z9V54wW1Ae1snlk+k4ULp3a9wscwFyCQ0lg7RrgiSf+uqga/7niO8uIPeRV9+1wyVk9Yk5wmd1cLCeic529BdKvZ899zgBAZWlLm/yEerLi0CpddysPaxcn2jGK7LatLnjX5Kr7jNmrEKbeF+vqoFX9YsMhFhQdDu2MIU2cXJsgk+3541inq1KKHfZbMRgwc76Wu9cGyNu+14zX0SIFhwT5fR7MslUHiyFAmnj5gDU4TZ98iSo7U/6a7riCKc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB6469.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(18002099003)(6133799003)(22082099003)(10067099003)(11063799006)(261028144727099003)(56012099006)(261021135927099003)(261026121527099003)(261021121427099003)(261022105027099003)(261026140227099003)(5023799004)(4143699003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L1Z6c1hLM2tHNTYxdlhqcURFMDJBNXYrc3YrWC91SUdaaEFWS3JaZ0JnVk1L?=
+ =?utf-8?B?WWwrSUJjcmQ4MHEvOUYvRk9RKzBrNi9YdStTRjNpWUxDbnZSakRCQlB0QSti?=
+ =?utf-8?B?c29jb0tjRDkyaEcxUGpWVUxUSHppTGhLUzNEWUxDYVBhOVJyRUNjNkYwOHJZ?=
+ =?utf-8?B?VVgyeUJhSmlsMC9kSHBmblNnbWtudmVEMytacTRKZlVpejZjZVRtdVVNQWxr?=
+ =?utf-8?B?azJjRGFmYk9SN1d4amRwc0tyVnBNUmxNbngrUXZrazFFdUE0OWN5UHpJVkJG?=
+ =?utf-8?B?VjF1U2JEN1YreWdHOVNkLy9FUmo2ZFNEOWk0VjU0eE04aTFKdXdiQXdXbkIw?=
+ =?utf-8?B?enFvMUpoWnNxNEFPdWVhaHNzbWswWlBoT01NVERYQlZXaTBFR0ptOTJYeHJX?=
+ =?utf-8?B?aEFISHVPUDk1OXFyRXhTRG1IbHZYaUVwbzFJVjliYUF1YUtpdDJaSlFBTmxF?=
+ =?utf-8?B?d0dlUXRCVS9aOTNoTmpyYW1YTklUcGhVejRpejlvOTlKS2ZTc2JGTE5xZEpM?=
+ =?utf-8?B?TUFHZ0VVaG1LNzFuRWdiVis4Vmw3Vmw0NHREVEV2QTU4djMrcG44M2dJdWxa?=
+ =?utf-8?B?N2dmMTN0a0hYaFJxa2RQRzN1QnRJS0t4NmF6SGNvTGZiV2ZJR1JFQ1Q5OThV?=
+ =?utf-8?B?TFBqWEdDK3BXeC9sd0dHbTF4dEQydGJxcWZUQ3Q0ZnJIcmp2ZzU2K2dESStx?=
+ =?utf-8?B?dlFIK3FUcWp2TlBaQWs5UDZJQmhXUWJJeWJlL0hlcGNZQ3hQSUtWa3BjWUtt?=
+ =?utf-8?B?RW9PemFiMXZkRHI2N2Q0Z3IzcGFQeXN2ZWdTQnZNSlVxWEZBeUVhSktXaDR3?=
+ =?utf-8?B?TDJUM0ZQN3RmQzg0SWduV2ZmNVZwL2IzWFRVc2xvTFhreW1ONFEzYU90c1pC?=
+ =?utf-8?B?bXhteU82c28wU2lvOEFCT01ZRjFNYmViREhqUSsrc05sSGpzc3MxcURIVWg1?=
+ =?utf-8?B?OHgxbjZlM3JQVG0vSE1YNkw2NVAzQjNORzg4eU9VaENYcHM4WFZPOUpnZnNj?=
+ =?utf-8?B?RDRSV0k4ZXAwYW41Rkt3ZmhTaldXUWEvbk1pT01KV1NpSDI1emhWVHdkV3py?=
+ =?utf-8?B?UXZIUzcwT2VQTEJRV2lwd3Y5ai9tU3krNURYU1RjS2N5czlmdDR2QnhLRFFS?=
+ =?utf-8?B?czcwSzErdWMxRXdZNzlHeE8vdkZ0by9qdnIxeFpudEpPSFVrTm5Jcm5EWjRp?=
+ =?utf-8?B?cnkyVktLUlhtZ1pkUzZNdFRoMEpsbkdrYTdjVHY4WElRVzVza01Qa0Vqaldo?=
+ =?utf-8?B?RUs0bGJGNCtPSFhBdVpFYzNxeG05NytwVUtJd1IyNGFSWncyUXJFMVZpeTY2?=
+ =?utf-8?B?bG9JdnJBNFFhR1k3dHRYeHVzZHd2S3dDSzFSYUdHMmtUZldZU3o2NFNBaTMw?=
+ =?utf-8?B?WVpzMFA4MEppVHFGRksvUU1xSUp1UFY1M2lhQWNWVkwvNXYrd25LdEFxeGFa?=
+ =?utf-8?B?YXN6c3Y3UnVwZnlYYVVBSUdXcWQ5RytJTkhQZi9xMlRpelY0YmJTR0J1QXBZ?=
+ =?utf-8?B?MWk3MHZwcHdlcTVIWHlDT0FiNEdlTm1yaUNESXdiVzlzZTFDdUNwOG5ienho?=
+ =?utf-8?B?M2ZRWUJwSEtzQm9YWGIva3ZubThLbFRWS1V0aWtkUWdaZUVlMG5qNVFXVkVt?=
+ =?utf-8?B?Z3dMWS9aU1BxSlplN2Vsa3U0SHF1TVU3YXRLTWQ0TmRlOHlaTkh0bUtRdVhq?=
+ =?utf-8?B?UE1hcWhRZVlPdTlFMXQ5aTRUako4Y2RkTGd1cEYzVjBDclNDaFp1WUVJc3lo?=
+ =?utf-8?B?RWtta3kxTlVVSlhHTlJZUnZOSUYva2RsOVRzVkJvOVoweC9WSWdmMThLMEpX?=
+ =?utf-8?B?UGcxbStmYXFTdXRhNlM0UWI1bVVoV0JJb3ZhNkphWjh2N0llYjR0VDMyanN0?=
+ =?utf-8?B?cXRTS2JlSzNWUmFYV2hKd0NMVHBuWTFpcHNnMVU3RHJZT1ZHNW1tU1A3Zy9z?=
+ =?utf-8?B?ZkpRWFVac2tsZG9GdVVrdGtyT21vZytzVDU2cEJkUURJWTlLNkZnUngrYU5a?=
+ =?utf-8?B?Sm5iZ0x6K1BoMGVKV2hHakRjenRUQ2hteXNFenZMUW5OWWxDdEx5d3NRRjZq?=
+ =?utf-8?B?Zzg4bG5jNXlxQWJTMWl0b2VURWNYVENZVG1TL0QrUkxOVG9sMnlpRVo1Mm1C?=
+ =?utf-8?B?eUY4NGxMRU5rYmlrYUtpWFhNWVB3cVdkSUViZWU5T1VtY0FvYVcyUWxKVncz?=
+ =?utf-8?B?OGJZcnhIT3EzU2Z5QjRhRWVWaTV0N2tjS1pFRVZVckRTOWtRckVUSEFuQ092?=
+ =?utf-8?B?ZVdEa05icmpLVC85bHJ6YlJpR3dPbkxmcmQ5VU5LeHRaQnZuSGw4R3ZNVjhX?=
+ =?utf-8?B?R3YrTlpVUnpRNUpZaFhEWk9aU2Q3M1ZQc3NqemdvMWRCellXOEZOSzRIajZl?=
+ =?utf-8?Q?iGCPfZ3KOVCjXcDk=3D?=
+X-Exchange-RoutingPolicyChecked: Up2BxQJ/WFbQ3YGw1UuYe66r564NexZRb2Q8fJKgq2OrmWXSWm5qvzZ9T8vwGtzezpnkNtd7gyPO+txAb4TPWRvENUWbI2Pj2+76xQ1aDKMsMTncqIB2gxHfbZKz4nJ+IYvvmDF8i7dUpLfj0+nIjG/bC1KvMj4aBQtv2HtdVyGO1q/FCQMoiqYeSqjTckoUxIpQURBqifIh/pqShDrw7bbLjThEC4s31cLEToWLQMOkr0W3B//LmxHp/yZQsRdEILomeR2wbnLTWWlnU63PNaXrnWY/KAVyT+NvkD/xo0mawrS0N8luXaoeD7SnElpW98O6XXueAyNV9AUvG53ebQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c2ffaf4-07b3-4e32-043c-08df41b3fe95
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6469.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 18:29:03.9741
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Av204z9TOnXD1ha7USJ58GOLxS/Oe7b+TZO/cBISlijZFin/LRdi2RMGzRoc23BCcGlDzdsmT/KgIPoIWI1hGTCFm//RldnuyJCsFluEBe0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB8478
+X-OriginatorOrg: intel.com
 
-From: David Woodhouse <dwmw@amazon.co.uk>
 
-An in-kernel VTL call or VTL return hands the entered plane a full
-64-bit RAX: the caller's RAX on a call, and on a non-fast return the
-lower VTL's RAX from the returning plane's control area. Bit 63 of
-that value is the guest's, and must arrive intact whatever the VMM has
-enabled.
 
-Make plane 1 set up its VP assist page and return to plane 0, then
-have plane 0 make a VTL call with bit 63 of RAX set, and plane 1
-answer with a non-fast return whose control area carries a RAX and an
-RCX with bit 63 set. Check that each plane sees exactly the value it
-was given, with and without KVM_HYPERV_HCALL_RAISE_UD.
+On 11/13/2026 9:42 AM, Simon Horman wrote:
+> On Mon, Nov 09, 2026 at 06:43:27AM -0800, Breno Leitao wrote:
+>> idpf_vc_core_init() retries a failed virtchnl version and capabilities
+>> handshake up to IDPF_MB_MAX_ERR times before it gives up on the device.
+>> Each failure increments adapter->mb_wait_count, but nothing ever clears
+>> it, so the limit is shared by every initialization in the lifetime of
+>> the adapter, including the one done by each reset.
+>>
+>> A device that fails the first handshake after a reset, and then
+>> recovers on the retry, leaves one count behind per reset. Once 20 have
+>> accumulated, the next failure is final, and the device stays down until
+>> the driver is reloaded. This is seen in Meta's fleet on hosts with
+>> recurring Tx timeouts:
+>>
+>>    [ 2176.496801] idpf 0016:01:00.0 eth1: Detected Tx timeout: Count 21, Queue 11
+>>    [ 2176.508763] idpf 0016:01:00.0: Device HW Reset initiated
+>>    [ 2237.412541] idpf 0016:01:00.0: Transaction timed-out (op:1 cookie:9800 vc_op:1 salt:98 timeout:60000ms)
+>>    [ 2237.412578] idpf 0016:01:00.0: Failed to establish mailbox communications with hardware
+>>
+>> Clear mb_wait_count once the handshake succeeds, so the limit applies
+>> to consecutive failures only.
+>>
+>> Fixes: 4930fbf419a7 ("idpf: add core init and interrupt request")
+>> Signed-off-by: Breno Leitao <leitao@debian.org>
+> 
+> Reviewed-by: Simon Horman <horms@kernel.org>
+> 
+> Tony, maybe this should be routed via the iwl tree?
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
----
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../kvm/x86/planes_vtl_return_test.c          | 204 ++++++++++++++++++
- 2 files changed, 205 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/x86/planes_vtl_return_test.c
+Hi Simon,
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 42b0bf7e8128..2b8a238c32e8 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -118,6 +118,7 @@ TEST_GEN_PROGS_x86 += x86/planes_vtl_entry_test
- TEST_GEN_PROGS_x86 += x86/planes_vtl_timer_mask_test
- TEST_GEN_PROGS_x86 += x86/planes_vtl_restore_test
- TEST_GEN_PROGS_x86 += x86/planes_vtl_nmi_halt_test
-+TEST_GEN_PROGS_x86 += x86/planes_vtl_return_test
- TEST_GEN_PROGS_x86 += x86/pmu_counters_test
- TEST_GEN_PROGS_x86 += x86/pmu_event_filter_test
- TEST_GEN_PROGS_x86 += x86/private_mem_conversions_test
-diff --git a/tools/testing/selftests/kvm/x86/planes_vtl_return_test.c b/tools/testing/selftests/kvm/x86/planes_vtl_return_test.c
-new file mode 100644
-index 000000000000..ed3e1cd0a085
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/planes_vtl_return_test.c
-@@ -0,0 +1,204 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Test that an in-kernel VTL call and VTL return hand the entered plane
-+ * its full 64-bit RAX.
-+ *
-+ * Plane 1 enables its VP assist page and returns to plane 0, as a secure
-+ * kernel does once it has booted.  Plane 0 then makes a VTL call with bit
-+ * 63 of RAX set, and plane 1 answers with a non-fast VTL return whose
-+ * control area restores a RAX and RCX that also have bit 63 set.  Both
-+ * resume values are guest registers and must arrive intact, whether or
-+ * not KVM_HYPERV_HCALL_RAISE_UD is enabled.
-+ */
-+#include <errno.h>
-+#include <string.h>
-+#include <sys/ioctl.h>
-+#include <unistd.h>
-+
-+#include "test_util.h"
-+#include "kvm_util.h"
-+#include "processor.h"
-+#include "hyperv.h"
-+
-+#define HVCALL_VTL_CALL		0x0011
-+#define HVCALL_VTL_RETURN	0x0012
-+
-+/* struct hv_vp_vtl_control sits at offset 8 of the VP assist page. */
-+#define VTL_CONTROL_OFFSET	8
-+#define VTL_ENTRY_REASON_CALL	1
-+
-+#define CALL_RAX		0x8000000000005a5aULL
-+#define RETURN_RAX		0xffff8000deadbeefULL
-+#define RETURN_RCX		0x8000000012345678ULL
-+
-+#define TWIN_STACK_PAGES	4
-+
-+struct vtl_control {
-+	u32 vtl_entry_reason;
-+	u8 vina_asserted;
-+	u8 reserved[3];
-+	u64 vtl_ret_x64rax;
-+	u64 vtl_ret_x64rcx;
-+} __packed;
-+
-+/* What plane 1 saw when plane 0's VTL call entered it. */
-+static u64 twin_entry_rax;
-+static u32 twin_entry_reason;
-+
-+/*
-+ * Every GPR but RSP is shared with the other plane across the switch.
-+ * RSP is private, so keep the callee-saved registers on this plane's
-+ * stack (below the red zone) and declare the rest clobbered.
-+ */
-+static inline void vtl_hypercall(u64 code, u64 *rax, u64 *rcx)
-+{
-+	u64 a = *rax, c = code;
-+
-+	asm volatile("sub $128, %%rsp\n\t"
-+		     "push %%rbx\n\t"
-+		     "push %%rbp\n\t"
-+		     "push %%r12\n\t"
-+		     "push %%r13\n\t"
-+		     "push %%r14\n\t"
-+		     "push %%r15\n\t"
-+		     "vmcall\n\t"
-+		     "pop %%r15\n\t"
-+		     "pop %%r14\n\t"
-+		     "pop %%r13\n\t"
-+		     "pop %%r12\n\t"
-+		     "pop %%rbp\n\t"
-+		     "pop %%rbx\n\t"
-+		     "add $128, %%rsp\n\t"
-+		     : "+a"(a), "+c"(c)
-+		     :
-+		     : "rdx", "rsi", "rdi", "r8", "r9", "r10", "r11",
-+		       "cc", "memory");
-+	*rax = a;
-+	*rcx = c;
-+}
-+
-+static void twin_guest_code(gva_t assist_gva, gpa_t assist_gpa)
-+{
-+	struct vtl_control *ctl =
-+		(void *)(assist_gva + VTL_CONTROL_OFFSET);
-+	u64 rax = 0, rcx;
-+
-+	wrmsr(HV_X64_MSR_GUEST_OS_ID, HYPERV_LINUX_OS_ID);
-+	wrmsr(HV_X64_MSR_VP_ASSIST_PAGE,
-+	      assist_gpa | HV_X64_MSR_VP_ASSIST_PAGE_ENABLE);
-+
-+	/* Set up: hand control to plane 0, which has not run yet. */
-+	vtl_hypercall(HVCALL_VTL_RETURN, &rax, &rcx);
-+
-+	/* Entered by plane 0's VTL call. */
-+	twin_entry_rax = rax;
-+	twin_entry_reason = ctl->vtl_entry_reason;
-+
-+	ctl->vtl_ret_x64rax = RETURN_RAX;
-+	ctl->vtl_ret_x64rcx = RETURN_RCX;
-+	rax = 0;
-+	vtl_hypercall(HVCALL_VTL_RETURN, &rax, &rcx);
-+
-+	for (;;)
-+		asm volatile("hlt");
-+}
-+
-+static void plane0_guest_code(void)
-+{
-+	u64 rax = CALL_RAX, rcx;
-+
-+	wrmsr(HV_X64_MSR_GUEST_OS_ID, HYPERV_LINUX_OS_ID);
-+	vtl_hypercall(HVCALL_VTL_CALL, &rax, &rcx);
-+
-+	GUEST_ASSERT_EQ(rax, RETURN_RAX);
-+	GUEST_ASSERT_EQ(rcx, RETURN_RCX);
-+	GUEST_DONE();
-+}
-+
-+static void run_test(u64 features)
-+{
-+	struct kvm_vcpu *vcpu0;
-+	struct kvm_sregs sregs;
-+	struct kvm_regs regs;
-+	struct kvm_vm *vm;
-+	gva_t assist;
-+	int plane_fd, twin_fd, r;
-+	struct ucall uc;
-+	u64 state;
-+
-+	kvm_force_split_irqchip = true;
-+	vm = __vm_create(VM_SHAPE_DEFAULT, 1, 0);
-+	kvm_force_split_irqchip = false;
-+
-+	TEST_REQUIRE(__vm_enable_cap(vm, KVM_CAP_PLANES, 2) == 0);
-+	vm_enable_cap(vm, KVM_CAP_HYPERV_FORWARD_HCALL, features);
-+
-+	vcpu0 = vm_vcpu_add(vm, 0, plane0_guest_code);
-+	vcpu_set_hv_cpuid(vcpu0);
-+
-+	plane_fd = __vm_ioctl(vm, KVM_CREATE_PLANE, (void *)1UL);
-+	TEST_ASSERT(plane_fd >= 0, "KVM_CREATE_PLANE failed: errno %d", errno);
-+	twin_fd = __kvm_ioctl(plane_fd, KVM_CREATE_VCPU, NULL);
-+	TEST_ASSERT(twin_fd >= 0, "KVM_CREATE_VCPU on plane 1 failed: errno %d",
-+		    errno);
-+
-+	assist = vm_alloc_page(vm);
-+	memset(addr_gva2hva(vm, assist), 0, getpagesize());
-+
-+	/* Same mode and page tables as plane 0, own code and stack. */
-+	vcpu_sregs_get(vcpu0, &sregs);
-+	r = ioctl(twin_fd, KVM_SET_SREGS, &sregs);
-+	TEST_ASSERT(!r, "KVM_SET_SREGS on twin failed: errno %d", errno);
-+	r = ioctl(twin_fd, KVM_GET_REGS, &regs);
-+	TEST_ASSERT(!r, "KVM_GET_REGS on twin failed: errno %d", errno);
-+	regs.rip = (unsigned long)twin_guest_code;
-+	regs.rsp = vm_alloc_stack(vm, TWIN_STACK_PAGES);
-+	regs.rdi = assist;
-+	regs.rsi = addr_gva2gpa(vm, assist);
-+	regs.rflags = 0x2;
-+	r = ioctl(twin_fd, KVM_SET_REGS, &regs);
-+	TEST_ASSERT(!r, "KVM_SET_REGS on twin failed: errno %d", errno);
-+
-+	/* Plane 1 runs first; plane 0 is left stopped without a VMM hold. */
-+	state = 0;
-+	r = ioctl(twin_fd, KVM_SET_PLANE_RUN_STATE, &state);
-+	TEST_ASSERT(!r, "KVM_SET_PLANE_RUN_STATE on twin failed: errno %d",
-+		    errno);
-+
-+	vcpu_run(vcpu0);
-+	TEST_ASSERT_KVM_EXIT_REASON(vcpu0, KVM_EXIT_IO);
-+	switch (get_ucall(vcpu0, &uc)) {
-+	case UCALL_DONE:
-+		break;
-+	case UCALL_ABORT:
-+		REPORT_GUEST_ASSERT(uc);
-+	default:
-+		TEST_FAIL("Unexpected ucall %lu", uc.cmd);
-+	}
-+
-+	sync_global_from_guest(vm, twin_entry_rax);
-+	sync_global_from_guest(vm, twin_entry_reason);
-+	TEST_ASSERT_EQ(twin_entry_reason, VTL_ENTRY_REASON_CALL);
-+	TEST_ASSERT_EQ(twin_entry_rax, CALL_RAX);
-+
-+	close(twin_fd);
-+	close(plane_fd);
-+	kvm_vm_free(vm);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	u64 supported, vtl = KVM_HYPERV_HCALL_VTL_CALLS |
-+			     KVM_HYPERV_HCALL_VTL_SWITCH;
-+
-+	TEST_REQUIRE(kvm_has_cap(KVM_CAP_PLANES));
-+	TEST_REQUIRE(kvm_has_cap(KVM_CAP_HYPERV_FORWARD_HCALL));
-+	supported = kvm_check_cap(KVM_CAP_HYPERV_FORWARD_HCALL);
-+	TEST_REQUIRE((supported & vtl) == vtl);
-+
-+	run_test(vtl);
-+	if (supported & KVM_HYPERV_HCALL_RAISE_UD)
-+		run_test(vtl | KVM_HYPERV_HCALL_RAISE_UD);
-+
-+	return 0;
-+}
--- 
-2.50.1
+Yea, I'll take this through IWL.
+
+Thanks,
+Tony
 
