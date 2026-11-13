@@ -1,112 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597737;
-	b=CQ/3I5m0DD3mbrC8Vh0OYOAEBUbmyf9rmtV0pnfcoLu6VYkS/cvI4QpwelGTElaZFrOt
-	 h+OrURJ7f17660Opc/tva5EuAPIxKKBKq0c+u2ozxSOsMDwviqFlFPMCpXO/h0UqAxS6T
-	 5mXtaH1bp5Rqbq63q+Ddoyh2pWnYYnVKBPkgkg5HJ4C4dkXrtIY3ZcQ2BCg0PTsG407QS
-	 4EdChfSNQ1HJywXAK5od3Y1p8gtw2xGKsUm1sxgLzWfstSYAmdRyRrKqPYGl5S+chR8YV
-	 YU8jPBzfUKv6ZO9iHz3vwnXucXZWb8jLNhjm7FZdJ6QL1xEGzzqB6xThp3bs52Zu8Cw==
+	t=1794597772;
+	b=jPlhTrKM3YTivLimXJ4OEYroeeZBe7j0Yp+VymSUeQuOs4Ko/ik9nkX0cxWKK08BEBU1
+	 OpzmYBbcaEkhkL03HQfyberYM2yasgw+ceeEX3/9kwUJO21hO1JJ0xGasOA7NgS3JkOdw
+	 lPEl4P0jGA5ksvW1m6L7krG6OR+VwC7GjGKweT3BZt9qrvuPsqIwvDJfU85U4rA7Y1qNN
+	 jJv4iGpSpGINtAQkt4vV3JOd8SY/MedqbLpxR/R/rHe9d0S/hFQ+rZ81SYBZ6pO348uXL
+	 +L/ywvyklDPFv0acKYTOjF1snGQX+Xpbn3VVK9FGjFtGLbUouwc4yxVxcVdzyDmAoyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597737;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597772;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=cHP5yxAAutvSocRfgN3P8TCXjra+3JI35BXBxMbDDFs=;
-	b=rUR3GRjP0Pbu7A8VciasvkPuT6tLoa2ONUjNdvfcujo+dH3JKGkc8TQWYvN/7wOHJta/
-	 R1ZlbXSv4G4ZtSJu7DzM8vZVIjixjY9pbYy6/w6O1k7FwRHigWzyLVaN7sCZZKmSk2+Jg
-	 sO8aX85Ibop5KBYd+7ieoybLtkk8a/ZpjHb3dJUPWaIJ0pUtC5LPuxdvwuhmYtaVZcdX0
-	 TumalVnFDb97V35dOXxrqXWaLgh7ToNhYhPelGt3bvNnAPx962npeiWQOB4WBcG/0Q6Ex
-	 sxnlOmJ0dMBaQ5iZLO24B0D5wyxnH3cPGdfR8QwH7n2aj6//REVfiwHcaFg8rfezt8g==
+	 Content-Transfer-Encoding;
+	bh=hG1EB293hxr3Jgg2QdT4ZHxs80rfcC0WBpvazP602rI=;
+	b=rLb87eyxdu1b+7AfYT7Mq0GBKZzJZCvrogBdpEf7EIOPNDAb6ndgnU+TGxHlsCaBkPhg
+	 2GoTeep8+Ray2i826DJcR+TK8qdTxVQ/YT1qsuwivBzEl4J5XonPS1KwUsuu/soIb1vhx
+	 G5atnW5eLaKHYbbOLed43lptAwsUdDHUhMHXVFgr3THwT7D/7Fr5kOxEkqOJjLrjibENb
+	 A59KJw4LbR6iPAji9DdScQO9PrdNqg8KkWg3kX4NqmEts59a4BN1uknj8FJvoOp86ASOM
+	 cYdgUNLmHsynnakTAbW1qyvOxEqiXJgfwl3iALO6QBk0YugsAjuUl7td4pfFDew4bUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FBjRe5SY;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fKwRLjSc;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YHabU7Om;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643EC606A8AD
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:22:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 643EC606A8AD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E6E606A335
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:22:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42E6E606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FBjRe5SY;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fKwRLjSc
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADJ08I81745368
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:22:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cHP5yxAAutvSocRfgN3P8TCXjra+3JI35BXBxMbDDFs=; b=FBjRe5SYyxOD4N/U
-	P7eUDhFICQeWwjaPmB1pvkrxUWnFTSRatKYBSGLtgvYSm7vPdlX3ceLtX/SrQH4K
-	uC5pd3j8LZrHFEUF8OkU3+oWcDW0HO97WSV0c0A5wv2t6TH59st3vWKr6lIz7ctt
-	HDfrluAr8IFHp1ukF+/vuXQDbDQ0Z5vtdWLOdzZ7uFfRKQfuICxuwnsFHQtbrDCo
-	zV7wNZgQ8vWYgL85NJ+lJ2/6wnZAdprwMbaOupuo8yIcRNbxs8pxSFh/QYxzS7y0
-	P5ZgUuwv5CFnOhmlNKI8Y1fmKHegDDnF8RkSpm/iRqwIHP07gFXOdeVtFEucK9rU
-	kz1j1g==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwqufkur1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:22:16 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36f479b9819so1551320eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:22:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YHabU7Om
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so764201b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:22:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794597736; x=1795202536; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794597771; x=1795202571; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cHP5yxAAutvSocRfgN3P8TCXjra+3JI35BXBxMbDDFs=;
-        b=fKwRLjSc+iE0qqUnqvcfRTY+W9v7ZT2Kkyqx22djsqPt/2eXyRbgvf1xYx31xCmMQ9
-         6O43BuqtOQLsL00wrbX92Yd/+t6vwT59cX0IJsR/SYnJaKbetQYFW6gjwiq81CGY0ta9
-         XLnnMEyPZx/JtN51v4jaOnGP19LtPQ+EYrwzQA/oTVF+fR4hmHquYbPrln6VJClUpm+6
-         RYsY5ncjpZPemCfPcjCDRCwdWampc4lrSCHOGB9dj6iOOrBqWmJeyNlpX4fQF/9+Qy/r
-         u/XKH231KxEeQ6jx3Nhs9FVBGNx5nHaZSlga5z9j6xQS5fCZkgvHuWAoyOWyg/hviXUf
-         ZUXQ==
+        bh=hG1EB293hxr3Jgg2QdT4ZHxs80rfcC0WBpvazP602rI=;
+        b=YHabU7Omftu3FhVQ7LIw5wOHLJ2zWV9rZoxp4VsZ6gZ1NUrAtNBjyNE55BVLGWVpCl
+         x0NObRNP3TA8Kez5zn5gD2QojUceNcb+yasw4i6Hux+5mMmxV81X7prFEGJng9ZSbme/
+         fJflg1FDC6Ex7z8M1V/6BEX2pY9vgpa5jO3sudYMd1rnsZRN/AE2GRzY7LaX4+sev5Yc
+         j3lKVREvcd6zeoi8qSwmY+JIWIZPGahFN9iRmKq9qROXXjfaYtxJ7xxo4SWDFPY9Gmob
+         rK6GHieNhieFYHsTjxum9PCjtPe5Zb/j06sXj+Fi8Oo8r9KhEaEPcvsPp0SxkDZMLSAy
+         GKmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794597736; x=1795202536;
+        d=1e100.net; s=20260707; t=1794597771; x=1795202571;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cHP5yxAAutvSocRfgN3P8TCXjra+3JI35BXBxMbDDFs=;
-        b=wvoNx/7R5Nya5m9YyyxFbDa8FZADr84LdKFRjZ6Ep0ledwuYLGVIZSkhDLrmrToEpe
-         DZH1ulzFSb7g3ec3fXX3HrEuLUl33AIfy/vXWDCenBXFwZ+8kOe6FM2AZNmhhx3ByOng
-         vXZKg5WgD2nEU/fs9wFSkL8VsPmhG0bxs2CInFgBB3jz8CCMIi5Qfwjobn+w5W9beF7l
-         E5f8jPm9g29krkynLDfHkS6urz3ZFDBZqZZAGbH86dShvQBUymdP4u9unGTE50nGSJjD
-         MBNKerFso1dICJ59upaVPjM+tcBHwTwv5lPJMNmArQ0HZ/SUADxMVIcd4gMgO0qDx0/2
-         xujg==
-X-Forwarded-Encrypted: i=1; AL+hErEHcr2pZ50+3EBNfF4Xsa46VOrDJTLrH8OGjrCMouD8FUtEcHR0G13kZE39l7m+SewK5hb5PcqNQSl+ixs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9OoiByjZRTvGFALV97ozyX3MvehgwzrZHe2qoccBdZjlAd5kSN
-	B3ymDPX2fHF0YPiPa8na1K8zMvVToSeXTxbGTxwiVhPBIJE7f+58U8gRCd/ZDNTMazF+ErbPo+i
-	9D4W8yYPdYprzJnF8GgeEyUt6A3gb1K2eJqtx22ZpzC6JPmzbAB+4QjG66xLeD0Dv9g==
-X-Gm-Gg: AYBFou38vAw4tW1FnQXAalakyUxXPZ9LjV5rxTIqKE8cIyKJgkMsojhuOLzZWdo+pyV
-	gQh+r4ZV9WM/fOYPMnZ3aEyIb3uQMaHO7wBMPQR5X3FpG8lUAe4yPuj6TFmzXN6yc1nxDNPs9oE
-	im5EtMT4U/bY2O4urdoihBL0e/797hCtGJgaguEuc5PVTBhZVxr+Thsi0RDcovc54F4VbiDSzU1
-	0Ueu9OmxmlkS0rNLo6x8shtETkJlRt595+LuU6WvEQNeMLCAkgERmjA/8HPVxN21cpPSwYgffLG
-	fweoA0KOAy+z67WdH18bXQEDLsx6KbdSfUpKEaBoaUT7DVhAKAd/eqmffGPOTfiiRJ4JoU7alXs
-	cvulJFT9ZKx2kdE81EAoM0IjuOvpgvWDdhJpPck55YeZOv4J1SumusToNWVgd0JDt5Y4M4h/INS
-	/XXXjOB38LiknJUF8AdgkCfOeloZvGXNsRkkaWMVEmIGQlJDkBP449MtJUaFRv6V0Ghg==
-X-Received: by 2002:a05:7300:4348:b0:36c:9d4c:6465 with SMTP id 5a478bee46e88-379675fea05mr4094543eec.24.1794597735808;
-        Fri, 13 Nov 2026 11:22:15 -0800 (PST)
-X-Received: by 2002:a05:7300:4348:b0:36c:9d4c:6465 with SMTP id 5a478bee46e88-379675fea05mr4094516eec.24.1794597735084;
-        Fri, 13 Nov 2026 11:22:15 -0800 (PST)
-Received: from [10.50.62.158] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795591f4f8sm9722897eec.13.2026.11.13.11.22.13
+        bh=hG1EB293hxr3Jgg2QdT4ZHxs80rfcC0WBpvazP602rI=;
+        b=TonwiW85ns80LAJt8Zf8M05qXW7mpopamJWdQ8BmQc/lOzTddkt+nh6+qjR5fyCgnp
+         fBDyai8hsi2bHyY9d3WXKCeLSpJdVAqMP796/UDCpTCsz7wDx564ra1W7LQbSFD+QNd9
+         vbsBw07dh/SfeyQe4qb/u4mqNiKp8crF6wvhpei+hHCE8T2EvC70sNFxvoVoAJiBCPaL
+         miAV4HZoaHfRfao+FABpCm35d+bG5pJ5El+fXv6F+uzSab0nWBeddjygGEFebojd0tsw
+         t3m6gJl5bzTnnUxxp6eMOWGuzrW00u44E4fw2eS+aliFW15pFAs8bLvEJaM5i7ItJsDe
+         0WhQ==
+X-Forwarded-Encrypted: i=1; AL+hErHR0QwgmEyPiVAHxKEq5IUPo7fjy86iIoRx3J22xWlkh/SNmLf/FkSbcIw5CTk9fmj5D3dQp3C3P8ixECo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7bwmHX/vvDToSJQL+aykgc4U5Tkhjoh9TXb7KHMzrY4Wu9uvU
+	latYQkfYStZzROuh8ZuN68/bi2SmTtwnAE4mclgkyFdW4JwtfF/6w8bZ
+X-Gm-Gg: AYBFou3Aw/oA6jcvxFDT/jM5oBO6oHLAhpdkRMKvq9Go3JD2jfUEtmOXpeSAPIgw/VK
+	iEqspcqEcdin+IIa1yJt6kOPUHuSvSlPbXbh8EdnGVNqQr5VC7lXt9bZWzSjl4MezUVUruAoy6S
+	iD82fvQmznWp4ESk68+OZs0AIqj9K50wW45wZM5RDrgQzmqSS73a2XDtFiYJWwH6ut7a51vaI9P
+	wYJEruCSwrqlAnSOtXkVjvAah0JneU0cBGUcuD+dVSDL9mfBPOciBgmlGsRo0i0EuMzQxFIyKAf
+	NNo6mbboveJPIOrkjB9gZNtDoQvfh5lwIDfGu73EUuMm/ssKghPMXbdNEpv5jW/MGn4kUlxGtF/
+	DjOOlsFtJs2LPylpV/2Zd69GXK+oS5sfGdfPxKEjJund2ekoAVY/xVwgir47wcrtnLLJSKz/lAv
+	3BM2kg+q/gM7iTm3uH16tWpLrXOqQpYXY2vsGeNxZbE+lfhkNFAeR25mOkAdgdQi5KlLUWCLpfw
+	Edkk65qOfrGLbQDrzSomRR228yio9jPm+dy+1KxdtwMfH11nV3j9FyFZaem+pcGwaFR2MiZkxsz
+	NycOrKVcIuTD9aLx+5lt05u9COYzo+JP/E8a/m5u9t8hEkDW8dOKZKSGxTZXXPIBtkmvwR4o1zX
+	MLQ==
+X-Received: by 2002:a05:6a00:b49:b0:8b5:ffa4:d618 with SMTP id d2e1a72fcca58-8beb6b771d3mr3233331b3a.43.1794597771515;
+        Fri, 13 Nov 2026 11:22:51 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1d6207fsm1601457b3a.32.2026.11.13.11.22.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 11:22:14 -0800 (PST)
-Message-ID: <7fb6c4da-e49b-47a0-9287-9f8823795343@oss.qualcomm.com>
-Date: Sat, 14 Nov 2026 00:52:11 +0530
+        Fri, 13 Nov 2026 11:22:50 -0800 (PST)
+Message-ID: <36d38251-994a-471b-94b7-d1356326355c@gmail.com>
+Date: Fri, 13 Nov 2026 11:22:48 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,60 +94,44 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH wireless-next v4 20/21] wifi: mac80211: add mac80211
- support to handle NL80211_CMD_GET_SMD_CTX
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
- <20261106-smd-v4-20-62e39487f51a@oss.qualcomm.com>
- <9ee5e8e45152b4f50b3cc6f583bf3a2c6a49a10e.camel@sipsolutions.net>
-Content-Language: en-US
-From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-In-Reply-To: <9ee5e8e45152b4f50b3cc6f583bf3a2c6a49a10e.camel@sipsolutions.net>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 6.12 000/670] 6.12.118-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261113153811.177190860@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261113153811.177190860@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: pwKBL4iKKqpcwtWmXBckKM-zaJHeoWBr
-X-Proofpoint-ORIG-GUID: pwKBL4iKKqpcwtWmXBckKM-zaJHeoWBr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3NyBTYWx0ZWRfX2TX0qM9lF5n3
- Lou0naP34Zgaud+l/Ba/0vnLFFj/waFwjsEEjhUWRtBjNF9mQIeOWuOg+QRIBGK1faaaHCsliIh
- xRlMuGND1BjVU5Wh70OltW0pUpZCMgZU2TV7E4763J3P8d1+d//UYXVnLQQoVLUTV5nXrxEZN7r
- x2AlCg6c3QLtx+5ExKGbyv6I+JKSPVCj/iiojwLjQoOfLJzVDFhc+5ibFFjHOM73Vm+A9/WDssb
- 4tlxsrm3YzgDBnykclYMnPOssdYg9I19QONaWTDStnsTejJtJdyzvqhG7GnfVviBgV80KN07Ch7
- O28a4++VVt7JyzdVEUey8Zl83gwP9cfG13cd9B3TahHpFsU5F0ZDaA5Mgwcx9LTzariEP1OETXk
- 6gkMWHQaw2gduIX8b5Dd/j8nJUA/apI1qH8Hqbo8tYLFmPlBks9s/OnejNvrZKaZJUvx0kF2UqW
- pAejzujstFwjW31I4mQ==
-X-Authority-Analysis: v=2.4 cv=XZocX455 c=1 sm=1 tr=0 ts=6af76368 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=kVEt3fy9zV6AwbBmwgkA:9 a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3NyBTYWx0ZWRfX4tQ+8RJTZiK8
- FUabXHg2s0inMBrpmvZW8SHAhTssfsgqzA9fUGx/QkPTFw2oBDuItyeTXKM3kHPqKLWM7H2nCHh
- ZqXoqXbELqrFR9PprecP7DKaMlvlrH0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_06,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 malwarescore=0 priorityscore=1501 spamscore=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130077
 
-
-
-On 11/11/2026 02:17 am, Johannes Berg wrote:
+On 11/13/26 07:42, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.118 release.
+> There are 670 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
->> +void ieee80211_get_smd_ctx_done(struct ieee80211_vif *vif,
->> +				const u8 *sta_addr,
->> +				struct cfg80211_smd_transition_info *st_info);
+> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
+> Anything received after that time might be too late.
 > 
-> Given that we have ieee80211_vif_to_wdev(), this doesn't really need to
-> be an exported function, maybe it doesn't need to exist at all, but I
-> guess an inline could be justified.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.118-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 > 
+> thanks,
+> 
+> greg k-h
 
-I will clean up the ieee80211 layer wrapper as it does not do much other than
-vif -> wdev.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-> johannes
-
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
