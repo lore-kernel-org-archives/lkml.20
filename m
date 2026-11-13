@@ -1,69 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794591712;
-	b=b1qJ6ZG1bWED+ZBMctRvtSI4qdzGdRetnzayXOBKLjb9lDwg+WAk3qHb1JTHiHWVBWN2
-	 q2kBEdLdSsvKemJecsVI5evnvRerFxLL/umkvzaxQ/yrvXKYLlfwsgd5Vw3aEDGR3d0if
-	 g1Px1KWHbpVxradXs6uTDIk7+HhcJpb+EAgWBj+XQMgPGaDnP1QVgdR7Q5cYVT/kSurqv
-	 EoAwqR9Kq5hCRdEtYzeqna6WRhMeSgUpMsIN0dzLgqA368gFxQ7bYiEGueN5XbuNUO5Xy
-	 JZZOr1Qwb053Itau786ac/of2b7fi65jPjzOIO7L6rbgNN1zsf/c88AZHyqMK3uju0w==
+	t=1794591715;
+	b=QaKPk08l7hL/s/yOgCCb11f/xplnQgV0811ZTWq1+pu+mO95nPoorn2VVThg4f6TvE3W
+	 6gqNgbrQmfDGqkI6zxcpV41LATJbbaped9DN/HT6BTSUlaCMJuFC14OoVc3TiawR33s9r
+	 TyQf1IMvqUjCCziwa4FwgEI+G8hryDQuY0ipJV2aS5radYLPsGy1/nRrtGk/Mh7SPDfjc
+	 2U0hBpXfCO2OpPC9zHVhhacmPykIKUXs1GgJEJc11blA8a7ThgPR1v7RLfFCJg8JdOYvU
+	 KnX/XfvdAoaC/zLWzPHo5NeIlPilYkwR9lWAcIDsooVARak+GVpMp49dXwTjzmNI+vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794591712;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=ihP7KjL+PAzK9/d/xv/d51pllI+qCv2Z/tVjLBC9h3s=;
-	b=AtUFteNj3cmgYWn1kR9nf917COK4jtpT2P16clOxBBTUiQtBkKin6bDDSm8mxw1iZk7T
-	 HVOAwk8+W3utFpgoJsETqqJxUgY9Qg3bobV6btbY0CG6zXoAz1/dP91eMbiqAKqpzH6n5
-	 5HFlM0VqQwNbdhZ3aE235RSp66ITTOrXTS2ydnGQmMK02RmxYn7hdk/1ZOnqsDedzF0ck
-	 2NGXeF/7InJoMlxyvKeVGIiGQCdYU06WUrD1CF0DuDp11geA/ORKyUAEzn7JTsVl/pqu3
-	 k/oLfbwRL1uB8uZTaQBlg8NxtzYCctqZUL/ncQK4+SAFjbQ0f3YOivsZdBC/+QbpPog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794591715;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=IfmSocrZvEleSEw8e1476dtq8P/mTSo2YReK7ZjdB2Q=;
+	b=UCeBhdZVCcJ4cs7DXo7d+flJE6Mj4m2zb5zZzlSFjRo2dD+XB+ayE6yWpKZ9Ab4zQwi0
+	 T1DiSS/jTBROgv5PwPfq48XkURGXhQlqfcuNWniYVM/vFTjlg3ZxwAz4IgDpMzx5FK8wT
+	 rzoWbx//EQofCYoyLZOUYm5zkq4KEEmt4Yeltigrfmad2ND9ABErDKyM3dzVYLJ3HYWTX
+	 7d+oZ2v+dqX8cbAWYM2u80ityoyjuKkVud1ZEF7XpLTtA+xS6L9urK9wWF/gF8DwFM+Sf
+	 NWjBgEnN5uXMPH9G81WTcqlsbXMoMUXK8kdG6fYBPgn5SZTuzZbF9b76ae04rOHJ64A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=AWPJ+YLQ;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eEJHnZ01;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18CB260703FD;
-	Fri, 13 Nov 2026 17:41:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18CB260703FD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F8D6070F16
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:41:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8F8D6070F16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=AWPJ+YLQ
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jR4Lt6vGWz5B12g;
-	Sat, 14 Nov 2026 01:41:42 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794591703;
-	bh=ihP7KjL+PAzK9/d/xv/d51pllI+qCv2Z/tVjLBC9h3s=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=AWPJ+YLQonrXH6PkmDkVxuhbEr7kyqpXPzRqYLUpeBkXlem0ePoMhceFYEwn97/wr
-	 RYpZ9MNF9Myp8M7vQqD6a6bed336RzCwQqGDbIDpiDdm8VJEN75gt0YTlN/JE1Mhe3
-	 f/TfJuxFUN8l0s1PQntJUmuWlOcZk+Jpj4fMiteL0oqsGrmp/b0MAtfucXnF6/R2bQ
-	 oUW0/uMnxC32lefCE9R+HvqF1guGhX12zglr/77861bg83OBM9rep/nj/iK0aZ2J1V
-	 2CxnVQtUDN3c/WatKbMaDCfRGuYfb94fe3XHSvs1ut3c7mHlLthNtOEuLAJSSqwZ7V
-	 vkl0H9jjqy3/Q==
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6ADHfURr084425;
-	Sat, 14 Nov 2026 01:41:30 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sat, 14 Nov 2026 01:41:34 +0800 (CST)
-X-Zmail-TransId: 2afc6af74bce9d9-0892c
-X-Mailer: Zmail v1.0
-Message-ID: <20261114014134444guLgF-vk0Xhi17ZUNemXQ@zte.com.cn>
-In-Reply-To: <avcujpOaXJPfjgxQ@ryzen>
-References: 20261112220113627e1oAXj5lbAzyI0Xe6Joud@zte.com.cn,20261112220120113cXLhRk6iDVvhfgGPoZ5vJ@zte.com.cn,avcujpOaXJPfjgxQ@ryzen
-Date: Sat, 14 Nov 2026 01:41:34 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eEJHnZ01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794591715; x=1826127715;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=yhhgobd8eM/gIokmkqi2ACthXUuyo2eBk292YnghZ/k=;
+  b=eEJHnZ01FlWR/E3j5BaDAlFxyZsiY46LFAOzJpxfPjqEsZqeISXKrN2G
+   3oMu16wGKi8j27S+rj/5vw42UdJfUXVTQMR9ah5xFl71D/NfKQp2KwTgv
+   quQef0xJPndSKOak3Zet4qXdeaQ7ytm21jnDQ+OG3x5lI+ig5z3rDH4zS
+   KUCFFI8IdOvqB8rKkl3JkZIHMAmuGgfIlxCBKW3soypjsQkif38aY+SJa
+   t65lRSa74uZZK4jfEOR7GcTNi3ffcDSOu+bm27NNmMrguc60LJgSGQipl
+   F9XU/keA5YyZOt+C1DmCijoU0c+eNXXrEK7xsQeyI+HF4S9YqGAQWK7XB
+   Q==;
+X-CSE-ConnectionGUID: U79lyk2lRGmjBda8B0yXig==
+X-CSE-MsgGUID: nnn6Al9vQxC+z+AKEAJvFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3415604"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3415604"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 09:41:55 -0800
+X-CSE-ConnectionGUID: f8HBsq0fSe68/GlFMYl16A==
+X-CSE-MsgGUID: piIFZ4jCR8mp/xSrHgi4eQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="9290941"
+Received: from gabaabhi-mobl2.amr.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.222.53])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 09:41:54 -0800
+From: Tony Luck <tony.luck@intel.com>
+To: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	patches@lists.linux.dev,
+	Tony Luck <tony.luck@intel.com>
+Subject: [PATCH] x86/cpu: Add Intel Coral Rapids and Razor Lake CPU models
+Date: Fri, 13 Nov 2026 09:41:45 -0800
+Message-ID: <20261113174145.13513-1-tony.luck@intel.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,50 +78,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <cassel@kernel.org>
-Cc: <dlemoal@kernel.org>, <linux-ide@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2MyAxLzRdIGF0YTogbGliYXRhLXNjc2k6IHJlamVjdCByZXNlcnZlZCBiaXRzIGluIDMyLWJ5dGUgcGFzc3RocnU=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6ADHfURr084425
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Sat, 14 Nov 2026 01:41:43 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF74BD6.001/4jR4Lt6vGWz5B12g
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 04:36:46PM +0100, Niklas Cassel wrote:
-> READ/WRITE MULTIPLE commands are still accepted with the 32-byte CDB, it is
-> only the count comparison that will be skipped.
+November 2026 "Intel Architecture Instruction Set Extensions and
+Future Features" published the model numbers for the upcoming
+Coral Rapids server and four Razor Lake (two desktops, two mobile).
 
-Agreed, the v3 comment was misleading. The v4 comment only describes the
-pio multi command check. READ/WRITE MULTIPLE is still accepted with the
-32-byte CDB; only the short-CDB count comparison is skipped. The
-dev->multi_count check, including ABORTED COMMAND for a zero count, is
-kept for all CDB lengths.
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+---
+ arch/x86/include/asm/intel-family.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> The reserved bits in place of MULTIPLE_COUNT are bits 7:5 of byte 10.
+diff --git a/arch/x86/include/asm/intel-family.h b/arch/x86/include/asm/intel-family.h
+index 66d964afe18a..2a5761d475b8 100644
+--- a/arch/x86/include/asm/intel-family.h
++++ b/arch/x86/include/asm/intel-family.h
+@@ -129,6 +129,8 @@
+ 
+ #define INTEL_DIAMONDRAPIDS_X		IFM(19, 0x01) /* Panther Cove */
+ 
++#define INTEL_CORALRAPIDS_X		IFM(19, 0x08)
++
+ #define INTEL_BARTLETTLAKE		IFM(6, 0xD7) /* Raptor Cove */
+ 
+ /* "Hybrid" Processors (P-Core/E-Core) */
+@@ -159,6 +161,11 @@
+ #define INTEL_NOVALAKE			IFM(18, 0x01) /* Coyote Cove / Arctic Wolf */
+ #define INTEL_NOVALAKE_L		IFM(18, 0x03) /* Coyote Cove / Arctic Wolf */
+ 
++#define INTEL_RAZORLAKE			IFM(18, 0x06)
++#define INTEL_RAZORLAKE_L		IFM(18, 0x07)
++#define INTEL_RAZORLAKE_U		IFM(18, 0x09)
++#define INTEL_RAZORLAKE_S		IFM(18, 0x0A)
++
+ /* "Small Core" Processors (Atom/E-Core) */
+ 
+ #define INTEL_ATOM_BONNELL		IFM(6, 0x1C) /* Diamondville, Pineview */
+-- 
+2.56.0
 
-You are right, v3 checked the wrong byte. v4 rejects nonzero byte 10
-bits 7:5 with fp=10, and does not look at byte 1 for ATA-32 at all, so
-CONTROL values with the vendor-specific bits 7:6 set are accepted. The
-commit message no longer calls them reserved or obsolete.
-
-The function harness crosses all 256 CONTROL values and all eight
-byte-10 high-bit patterns for a non-multiple command and all five
-READ/WRITE MULTIPLE opcodes. It confirms rejection with fp=10, that
-CONTROL no longer affects count validation, and that the 12-/16-byte
-checks are unchanged. These are userspace tests with device and sense
-stubs, not SG_IO or hardware tests. The libata-scsi object builds with
-W=1.
-
-I am sending the four-patch v4 separately. Patch 1 no longer carries the
-v3 Reviewed-by tag because its behavior changed; patches 2-4 keep
-Damien's.
-
-Thanks,
-Mingyin
