@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604175;
-	b=dncNSaMd6UeSK9c+phSpiwSrlBYI4G8ylicFT9r/HULM2JXgykyLoyzxzdQBy3yhJ440
-	 GhnkWUwtthuGrn7tC/1bVkBMxHJSyJt7sBefbVQemMTPatzVWKckph/4jqBXOhPU3ERcf
-	 n0LpDPLwb9F4xvzvfj2u+FJ67T32S6WTQRCuf37opXSyoo9WYTUhnmAH/rr+9tSjxOEFF
-	 G3Hq+ZLsNvWdBOjP+aR+FY4lm5t/JQ9ZuHo4dhjdhLwkRJmZj0hOekVGaq7AVh7xmR4Du
-	 Y9yxYCtV2s/J5PC6ZQlWOgi/QKg4+Z4WSNxaGky5FDJZpKZzmKEahXyFTumu5FmxWjg==
+	t=1794604180;
+	b=ifOkuSd2Vx50RBq2RngM7QgJtiovcfvMW1n4TqyjvPyy3vi8uXFcT0NqIheqtuRtc0/9
+	 u4EbDnGJHYQAEhkM0mMmV/fveYzlX+nFSMT1dyXcJCzLovXsNhLYHjO4l1z3MCWPDo7xH
+	 FhoSWfgT/TdFsqqb5QnnHmb8iqqoxwWl/C5aB8DnGDk/8AvWCMzap7M/OFuE4fRqtxr4t
+	 umOE1bbhcnB5TXlSM0/0e8exd8Ltt+vEF+InJZmNbuxGCp08klmYPMPgfxIhob8m6ux3w
+	 WSjyQRkLl33xUBh0dCJhj/Vcf7Q+yxL6d/TESquP6boz/jEvBcxybQ5OpJMgyfppYhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604175;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604180;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Cqq5NJAb+arvmaQbk3zWtpJH7+lBUUppmIfhzqVt9Js=;
-	b=1wsC6sgEYtjrECTb4pxUbK0YDU64Yp/Fl2q4Ii8Zqqeu3vaLAwf1RrG51gI2ZgVIh2pH
-	 8CHBk2PSgEZfg7su5/k2FCac9IWRgDwPqJ31vPx+qU2RPD0slv2HBbcdpFWF5fp2Pf1Qj
-	 q2/Tkem6ZnR4xquuMI2krn+AXyqZi1hil9gSb/zjv/2iLQ3MsCxt5C9Caqu6fitMwqQ9g
-	 tcCSSD9Wfolr0y36SfvS/6lMSnCaIQy6AJPdaNbbT1JwH6YS35ZJEgVcyytsqK+5jwqgT
-	 BfRA6GAwQ5R8j3yozUNMBds8JUmvqoQoCiQOaNYzzXna4adSVfM7IokY3pImrJAjGqQ==
+	bh=na/fJsUdW+mes1yfquIAN33haTssK3Libt6DITWW/a4=;
+	b=E3s+EQIHeuHwry2E0N0tXS2tzmnWNYPlMyp4WaYuVcdGq18b1ckDEOXXY7E/MniKjSbQ
+	 yN7QiZ6OjuL40pp3g7XPwnWe1KLhCB2FtJ5g6b37ToqhsxQa26QT5AXWmgVhmvcedBrID
+	 XONeU1BVI3FSm7VZas8FErQZRZHM3c55aJgb0Xd2IQbkBXhF3UfKej3AEm7w08kgBXdGI
+	 qFxHLMiJeq8ZtrbuELsivZ7DQ68KZciRG3iY9AI4E3sO+IrZlYpOQjWuFdDlMtgPGqy9S
+	 g6Vvu/uHNCcHwSaBqttQPVBR2uOUuUSjpjnz232wvcaKfMMfmoyyggLPQwuSa/1U8HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=TXCm7U1P;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M6rJy8aT;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC1760A2621
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:09:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FC1760A2621
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A81760A381D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:09:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A81760A381D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=TXCm7U1P
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b24f4b15c4so809669c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:09:34 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M6rJy8aT
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso1717536c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:09:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794604174; x=1795208974; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794604178; x=1795208978; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Cqq5NJAb+arvmaQbk3zWtpJH7+lBUUppmIfhzqVt9Js=;
-        b=TXCm7U1P29vfD7TyytvpDfPET+4rVImhV7n9TjABJrXxHFhjbS2S6+5YOBY/vHQEn3
-         sqyzy62pE1RwHL+F3zPb7w8G9Utysh0ieuoOSfwfrMNxZBWEK6M0FZV6K5pN7Pl0Hu/D
-         FTxRVGx/LpVYluG/XKdlVrlVuNoRvNIXL1lG4=
+        bh=na/fJsUdW+mes1yfquIAN33haTssK3Libt6DITWW/a4=;
+        b=M6rJy8aTnb0136QVcRJMq2NZC9EtA9pIfx1kaH/gyLpesPtwcNeh6eANAzQJ6k05DS
+         yiue/YfbIgSWxLDT989qg3QQ43xXL55q0hCUFQpeYYSmC/LpCWrknE4XnAMDIaauNLXm
+         Nb1XGgG5YwPUvvg5hxG/yrUE7Ve/kZU7HQ0Yw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794604174; x=1795208974;
+        d=1e100.net; s=20260707; t=1794604178; x=1795208978;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Cqq5NJAb+arvmaQbk3zWtpJH7+lBUUppmIfhzqVt9Js=;
-        b=H7SuWy3PEvrfVUjedn/6++Gc+sJWTc1fDBbEHweIfyMqFf1x+Rmy/V8iKFwwNJYX+q
-         d5CFPsLiHGV4ChBhE2vztrYI3SaUk4GgVrFSgUkF5HKjVsHx4dnu7agKguPGisPpiwW4
-         kAnKywfJTee17jCVBfe/vP0DDyrcaosTQoOitv0O5qdc8GFFg1V2nX1Ygx0KM5L1cF4y
-         x17+Zgo1Itb8An9L7vuk7qq5IE7tcqZ+jNkPLlVeZFFSkQ5PA3tG9FxcqL4WooNhWJQG
-         IbZx/M6FK/JzefPkdlVFRGBf6W4VSiMOUNR6hDC/O0lS5KLwgeIU2s0BrnTORlwEuD4y
-         Z2hA==
-X-Forwarded-Encrypted: i=1; AL+hErHBYNtxSPoiwXJmugUQSzm0fT4MD4WrR/lniDjCQkcprdoqacdcpWHRlXrSrSrSWZSL7gL57DT3V91PIIo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3xMJD7qsmFcC/7Ej6hbUlcJKX9AO6qs3L+OMw6gQql1C/6eiG
-	cNCxuSgnsf7S9QtTDWqoOy6+QUVZTvYcsmaE4xFVxPG1N72LGXAos7USWSaKB0gb7Q==
-X-Gm-Gg: AYBFou327YYLiYtpdD3tbK2g18gPmbZS59Rgz00631YlVt/FArt8azbhxasZDeZcEGK
-	KmJJf5aLpgdIelnLBA6b88JdS/pVxiGsECgiPENuOUjLwpbyZi3ZVi5wdQJtTA823eHlOiBy+XK
-	kL1UzLa/g2L/Dog40crgC0xw46sJbjy7gzAxVnN/klPUS67BKRxXyjZS+oFHW7JbBtFBw6MLB0j
-	mCq1d/WGT/IzIRYniNqvu81uQZxD+IQ77EETBk7vUui5vLcFbeeWiO6FRZb/174CyhYi8FZxE7e
-	/515DgW4rFa3MpobQ27sI8dYgYtliZxsql4scO3lo0t73HOdGUBWkbuIK2mXA3K21/3Ohj4pr/g
-	zLXQ3YyEcc9Bce7o+ebv9UsZaNzDxciHs3tlnoTKzREOXtd+pGgXAJpVzZtTE9YSk0bLCI+zCfa
-	Ze27m73a/CMeR+SwDLCE1NrhQYxpq6Z26MKgTIRM70m67qfbI2rPLq1L6fzUYI9AgyJb1Gz5T56
-	oxaI2mVpGEvIv7M3dJebntFattTOV8BOsOEpUuTQ4GsR5uEb8XyTVJkFU0yRZoRg3yQw3h+2d+S
-	gJgIT0W1IolwTYEzixglAXNplVGr+huh9K24/I3CXyCm3RYEfpxX2OKz156EDLQKvb/CH/N21zR
-	f0DbkR+P3Xu9i
-X-Received: by 2002:a05:701b:2050:10b0:1b3:b322:a42c with SMTP id a92af1059eb24-1b503099b0dmr3363384c88.13.1794604173943;
-        Fri, 13 Nov 2026 13:09:33 -0800 (PST)
+        bh=na/fJsUdW+mes1yfquIAN33haTssK3Libt6DITWW/a4=;
+        b=fE77i0BITN0slL2Z06cf5IVNJxH7WHXGoJCh8vS4b+1C/SXoA74gYjIBvJrC57FVY1
+         1Q1GLzYz3LgFUVurMziZewfvpPD3zxwhfDtLyM3wbkmRf+Xcf+V2oELIDzNO4uteT/T8
+         iUnTntCdfHlCw1z4/7apFweV+HYlj9mw5aldhfqtrWayYZecoMK6LqXIiVxoLM4Ra1xf
+         jTfAFhNqX2Rum7lNO8sY9dWFQUKdA/tJghfhsE60YmIKAx6LfRJuymUUPsV9PTaf4xeK
+         YtdJrHG8DgofUdZDY7n2LVwKcHMTo1R2y5xLt+lM1LpGsdHSSe68DQki6vrjTag/hGMT
+         pxJA==
+X-Forwarded-Encrypted: i=1; AL+hErE9HElu6lvsuo6lPZh2tcvctM89Y73g6E8xAWzS6J+6cdkrU7EuDrWFk9Y373jZ8oLCL0TunH8QIcBkMss=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+JmRVkfxbMfkut+rGB8QNnKmv67Z5JNkNBCAfRK6Lo+2gGGrR4
+	yWx7zRVJ3tZ2My1cAXbysT7SPXQDob0wZjN/W7KU4t8m9JHNhZ4jgvJNrexYA6/fWg==
+X-Gm-Gg: AYBFou0Zb4kHUU9URrEjkBbylMRfVpFA1YN1GU3wA4DviG7GWsso16is3uW3doRZ56U
+	yrOCeiKIC8SYVH2cMwoViCP9o6JJFZAeui4MmZNbh1qvAJUDLvFqyyfa+EMMpB2E/NoRiND4nsM
+	ZLv2qHxo8CmjyxTjusz3m41BrKXlOfPJBFFCJGOWWau0LbvCkSZ6c+ZQQPxW7mLd2LgRpRokWX+
+	HCGc2mwIFbqJgj/ck5K6VkoU9vAzpfLN1Goh4cZjgialcozF3lgQLlHXKpZ24H6DRlchxuTPjzK
+	LcU2oaGQd2Qx6I/OU0t0LBlMNIxR8t1SqD5yoFyqyy5ekKiSFGgHSuRYgAIjXtZQ5EKXvWKxj/I
+	La9QbSqLrogfmlvMjOkQTu7U9goIlEp4D6FUJNNnmOE2uG9u/NTYjCASmK08Z3p6so2FN6Dmnxo
+	VKcIWfjn2iDokgs86/maI9IJT+BnwwTg18R7agqFQ2mlfBaRWqPEo3tmGCB89zkUwlgEuPlFOlR
+	nsIuWgPQcNydIL3HG06mnqY9bpty5VtzTv9CIEvGUstPSd4yiI+j+QzJqMpPKU5uDdkvQ/CosJa
+	1JYh5mYU424OdH3DdfGwhW+BzpSYSLYITjrF9ujwD6F5oG/49MV19uyknEoOehirK6YULhV5OKJ
+	siR02KlPPt/NC
+X-Received: by 2002:a05:7022:1701:b0:1b3:a05f:892d with SMTP id a92af1059eb24-1b5030ee9b7mr3024887c88.40.1794604178303;
+        Fri, 13 Nov 2026 13:09:38 -0800 (PST)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:38c:b779:3be9:e682])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm8463040c88.0.2026.11.13.13.09.30
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm8463040c88.0.2026.11.13.13.09.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 13:09:32 -0800 (PST)
+        Fri, 13 Nov 2026 13:09:36 -0800 (PST)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -114,10 +114,11 @@ Cc: linux-arm-msm@vger.kernel.org,
 	Rong Xu <xur@google.com>,
 	Shuah Khan <skhan@linuxfoundation.org>,
 	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [RFC PATCH v2 2/5] kbuild: fit: Support selecting DTBs and config properties from a file
-Date: Fri, 13 Nov 2026 13:09:11 -0800
-Message-ID: <20261113130858.RFC.v2.2.I5cd8aab4380bc4cfd302c4e4708af58c43370715@changeid>
+	linux-doc@vger.kernel.org,
+	workflows@vger.kernel.org
+Subject: [RFC PATCH v2 3/5] kbuild: fit: Add opt-in FIT_FACTOR_DTBS support using fdtfactor
+Date: Fri, 13 Nov 2026 13:09:12 -0800
+Message-ID: <20261113130858.RFC.v2.3.I4a691041bb6d31e5ab2fde8cd4139ca72ee72c5b@changeid>
 X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
 In-Reply-To: <20261113210918.356261-1-dianders@chromium.org>
 References: <20261113210918.356261-1-dianders@chromium.org>
@@ -132,367 +133,169 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Allow passing `FIT_CONFIG=<path>` on the make command line (relative to
-either `$(srctree)` or `arch/$(SRCARCH)/boot/dts/`) when building
-`image.fit` to select which DTBs are built and included in the FIT image
-and to optionally set properties or subnodes on each
-`/configurations/conf-N` node.
+When packaging many board DTBs from the same SoC family into a FIT
+image, full per-board `.dtb` blobs duplicate the vast majority of the
+SoC and board-family device tree across every FDT node in `/images`.
+Because each FDT blob in a FIT image is compressed independently,
+standard per-node compression cannot deduplicate those repeated common
+nodes across boards. Factoring the common nodes into a shared base DTB
+and small per-board `.dtbo` overlays yields substantial space savings
+(for example, reducing the 47 LZ4-compressed `sc7180-trogdor` DTBs from
+1.71 MB to 213 KB, an 87.5% reduction). In addition, some bootloaders
+(such as the Pixel 10 bootloader) specifically require a shared base DTB
+plus per-board `.dtbo` overlays rather than monolithic per-board DTBs.
 
-The `.fitconfig` file uses standard INI syntax parsed by Python's
-`configparser` module:
-- `#` starts a comment.
-- Each `[<dtb-name>.dtb]` section header specifies a `.dtb` filename
-  (relative to the directory containing the `.fitconfig` file), starting
-  a new FIT configuration entry.
-- Optional `<prop> = <value>` lines inside a section set or override
-  properties on that `/configurations/conf-N` node, or on a child
-  subnode when `<subnode>/<prop> = <value>` is used (for example, adding
-  a `match-1` subnode with board/SoC matching properties per [1]).
-  Unquoted integer literals (such as `0x070406` or `123`) are written as
-  32-bit integer cells; all other values (including values enclosed in
-  double quotes) are written as strings. Any configuration that does not
-  override `description` or `compatible` continues to inherit `/model`
-  and `/compatible` from the DTB.
+Add opt-in support for factoring the DTBs inside a compiled FIT image
+into shared base DTBs and per-board overlays using `fdtfactor` (from the
+upstream `dtc` project [1]) when `FIT_FACTOR_DTBS=1` is passed to make:
 
-When `FIT_CONFIG` is specified, `scripts/Makefile.lib` invokes
-`scripts/make_fit.py --list-dtbs` to obtain the list of DTBs to build,
-`scripts/Makefile.dtbs` restricts `$(dtb-y)` (including `make dtbs` and
-`make dtbs_install`) to those DTBs, and `cmd_fit` passes `--config
-$(FIT_CONFIG_FILE)` to `scripts/make_fit.py`.
+- When `FIT_FACTOR_DTBS` is set, pass `-@ -L` to `dtc` for the DTBs
+  included in the FIT image so they retain `/__symbols__` and
+  `/__local_fixups__` metadata needed for factoring.
+- Run `$(FDTFACTOR) $(FDTFACTOR_ARGS) -F $@` (with `FDTFACTOR_ARGS`
+  defaulting to `--strip-local-fixups`) at the end of `cmd_fit` when
+  `FIT_FACTOR_DTBS` is set. `fdtfactor` transparently handles both
+  uncompressed and compressed (e.g. `gzip`, `lz4`, `xz`) FDT image nodes
+  inside the FIT.
 
-The main motivation for this is to allow associating per-board matching
-metadata with each configuration [1] and restricting the FIT image to a
-specific family of boards without needing a hand-written `.its` file or
-`mkimage`.
+Because `fdtfactor` is a Python tool that depends on `pylibfdt` (similar
+to `scripts/make_fit.py` itself) and Kbuild does not build `pylibfdt`
+from `scripts/dtc/`, `fdtfactor` (along with a matching `pylibfdt`) is
+an optional external host dependency documented in
+`Documentation/process/changes.rst` and
+`Documentation/kbuild/kbuild.rst`.
 
-[1] https://github.com/open-source-firmware/flat-image-tree/pull/66
+[1] https://lore.kernel.org/r/20261101220224.1436242-1-dianders@chromium.org
 
 Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
+This patch obviously could only land if some form of the `fdtfactor`
+series [1] lands in upstream `dtc`. While `fdtfactor` itself will remain
+an external host dependency (since it relies on `pylibfdt`), we will
+still want to sync the `libfdt` overlay `/__local_fixups__` changes from
+that series into `scripts/dtc/libfdt/` before landing this patch so
+composite DTBs built by Kbuild with `fdtoverlay` retain full
+`/__local_fixups__` metadata.
+
+If people hate this patch, we could certainly just run `fdtfactor`
+after the kernel build finishes.
 
 Changes in v2:
-- Replace FIT_ITS + mkimage + fdtget/fdtput approach with FIT_CONFIG
-  .fitconfig sidecar files handled directly by scripts/make_fit.py
-  (Simon Glass)
-- Support subnode properties (e.g. match-1/...) and u32 integer values
-  for the proposed FIT configuration match subnode spec (Simon Glass)
-- Document FIT_CONFIG in Documentation/kbuild/kbuild.rst and under
-  image.fit in arm64 'make help' (Simon Glass)
+- Update fdtfactor invocation for v2+ flags (-v -> -s, -f -> -F)
+- Expand commit message and notes to explain why FIT_FACTOR_DTBS is
+  needed, that fdtfactor is an external host dependency, and that
+  compressed DTBs in the FIT are supported (Simon Glass)
+- Document the optional fdtfactor dependency and FIT_FACTOR_DTBS /
+  FDTFACTOR / FDTFACTOR_ARGS in Documentation/process/changes.rst,
+  Documentation/kbuild/kbuild.rst, and arm64 'make help' (Simon Glass)
 
- Documentation/kbuild/kbuild.rst |   7 ++
- arch/arm64/Makefile             |   3 +-
- scripts/Makefile.dtbs           |   9 +++
- scripts/Makefile.lib            |  25 +++++++
- scripts/make_fit.py             | 117 ++++++++++++++++++++++++++++----
- 5 files changed, 146 insertions(+), 15 deletions(-)
+ Documentation/kbuild/kbuild.rst   | 14 ++++++++++++++
+ Documentation/process/changes.rst | 10 ++++++++++
+ arch/arm64/Makefile               |  2 +-
+ scripts/Makefile.dtbs             |  8 ++++++++
+ scripts/Makefile.lib              |  7 ++++++-
+ 5 files changed, 39 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/kbuild/kbuild.rst b/Documentation/kbuild/kbuild.rst
-index 744a32ccbd1c..80cac4c432e4 100644
+index 80cac4c432e4..4271883bc10e 100644
 --- a/Documentation/kbuild/kbuild.rst
 +++ b/Documentation/kbuild/kbuild.rst
-@@ -376,3 +376,10 @@ FIT_DECOMPOSE_DTBS
- If set to a non-empty value when building ``image.fit``, decompose composite
- DTBs (built from a base ``.dtb`` plus ``.dtbo`` overlays) into their component
- blobs and deduplicate them in the FIT.
+@@ -383,3 +383,17 @@ Path to a ``.fitconfig`` configuration file (relative to ``$(srctree)`` or
+ ``arch/$(SRCARCH)/boot/dts/``) selecting which DTBs to build and include in
+ ``image.fit`` and optionally setting properties or subnodes on each
+ ``/configurations/conf-N`` node.
 +
-+FIT_CONFIG
-+----------
-+Path to a ``.fitconfig`` configuration file (relative to ``$(srctree)`` or
-+``arch/$(SRCARCH)/boot/dts/``) selecting which DTBs to build and include in
-+``image.fit`` and optionally setting properties or subnodes on each
-+``/configurations/conf-N`` node.
++FIT_FACTOR_DTBS
++---------------
++If set to a non-empty value when building ``image.fit``, compile the included
++DTBs with ``-@ -L`` and run ``fdtfactor`` to factor common device tree nodes
++into shared base DTBs and per-board ``.dtbo`` overlays inside the FIT.
++Requires the external ``fdtfactor`` tool (and ``pylibfdt``) from the upstream
++``dtc`` project.
++
++FDTFACTOR, FDTFACTOR_ARGS
++-------------------------
++The ``fdtfactor`` program and extra arguments used when ``FIT_FACTOR_DTBS`` is
++set. ``FDTFACTOR`` defaults to ``fdtfactor`` and ``FDTFACTOR_ARGS`` defaults
++to ``--strip-local-fixups``.
+diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
+index 28f2ca63318e..f9b2a35ddc45 100644
+--- a/Documentation/process/changes.rst
++++ b/Documentation/process/changes.rst
+@@ -201,6 +201,16 @@ platforms. The tool is available via the ``u-boot-tools`` package or can be
+ built from the U-Boot source code. See the instructions at
+ https://docs.u-boot.org/en/latest/build/tools.html#building-tools-for-linux
+ 
++fdtfactor (optional)
++--------------------
++
++This tool (along with ``pylibfdt`` from the same ``dtc`` release) is used when
++building a Flat Image Tree (FIT) with ``FIT_FACTOR_DTBS=1`` to factor common
++device tree nodes across boards into shared base DTBs and per-board overlays;
++see ``FIT_FACTOR_DTBS`` in Documentation/kbuild/kbuild.rst. It is part of the
++upstream ``dtc`` project at
++https://git.kernel.org/pub/scm/utils/dtc/dtc.git
++
+ GNU AWK
+ -------
+ 
 diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-index 8818d6a2015b..b4982e94f80a 100644
+index b4982e94f80a..f12f4f7c6a02 100644
 --- a/arch/arm64/Makefile
 +++ b/arch/arm64/Makefile
-@@ -223,7 +223,8 @@ define archhelp
-   echo  '* Image.gz      - Compressed kernel image (arch/$(ARCH)/boot/Image.gz)'
+@@ -224,7 +224,7 @@ define archhelp
    echo  '  Image         - Uncompressed kernel image (arch/$(ARCH)/boot/Image)'
    echo  '  image.fit     - Flat Image Tree (arch/$(ARCH)/boot/image.fit)'
--  echo  '                  Configured by FIT_COMPRESSION and FIT_DECOMPOSE_DTBS'
-+  echo  '                  Configured by FIT_COMPRESSION, FIT_DECOMPOSE_DTBS,'
-+  echo  '                  and FIT_CONFIG'
+   echo  '                  Configured by FIT_COMPRESSION, FIT_DECOMPOSE_DTBS,'
+-  echo  '                  and FIT_CONFIG'
++  echo  '                  FIT_CONFIG, FIT_FACTOR_DTBS, and FDTFACTOR_ARGS'
    echo  '  install       - Install kernel (compressed if COMPRESSED_INSTALL set)'
    echo  '  zinstall      - Install compressed kernel'
    echo  '                  Install using (your) ~/bin/installkernel or'
 diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
-index c4e466390284..cc14fc905ea3 100644
+index cc14fc905ea3..bc0c62617a7c 100644
 --- a/scripts/Makefile.dtbs
 +++ b/scripts/Makefile.dtbs
-@@ -5,6 +5,15 @@ all-dtb := $(dtb-y) $(dtb-)
- # If CONFIG_OF_ALL_DTBS is enabled, all DT blobs are built
- dtb-$(CONFIG_OF_ALL_DTBS) += $(dtb-)
+@@ -126,6 +126,14 @@ DTC_FLAGS += -Wnode_name_chars_strict \
+              -Wunique_unit_address
+ endif
  
-+# If FIT_CONFIG is specified, restrict $(dtb-y) to only the DTBs listed in
-+# $(FIT_CONFIG_FILE).
-+ifdef FIT_CONFIG_FILE
++# When FIT_FACTOR_DTBS is set, pass -@ -L to dtc so the built DTBs retain the
++# /__symbols__ and /__local_fixups__ nodes required by fdtfactor.
++ifneq ($(FIT_FACTOR_DTBS),)
 +ifneq ($(filter arch/$(SRCARCH)/boot/dts%, $(obj)),)
-+dtb-y := $(filter $(all-dtb), \
-+	$(patsubst $(obj)/%, %, $(filter $(obj)/%, $(FIT_CONFIG_DTBS))))
++DTC_FLAGS += -@ -L
 +endif
 +endif
 +
- # Composite DTB (i.e. DTB constructed by overlay)
- multi-dtb-y := $(call multi-search, $(dtb-y), .dtb, -dtbs)
- # Primitive DTB compiled from *.dts
+ DTC_FLAGS += $(DTC_FLAGS_$(target-stem))
+ 
+ # Set -@ if the target is a base DTB that overlay is applied onto
 diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
-index 19e96b30a122..e08e35d4ed74 100644
+index e08e35d4ed74..af2d3e508424 100644
 --- a/scripts/Makefile.lib
 +++ b/scripts/Makefile.lib
-@@ -427,8 +427,33 @@ quiet_cmd_fit = FIT     $@
- 		--name '$(UIMAGE_NAME)' $(FIT_EXTRA_ARGS) \
+@@ -418,6 +418,9 @@ quiet_cmd_uimage = UIMAGE  $@
+ # ---------------------------------------------------------------------------
+ 
+ MAKE_FIT := $(srctree)/scripts/make_fit.py
++# External fdtfactor tool from upstream dtc (requires matching pylibfdt)
++FDTFACTOR ?= fdtfactor
++FDTFACTOR_ARGS ?= --strip-local-fixups
+ 
+ # Use this to override the compression algorithm
+ FIT_COMPRESSION ?= gzip
+@@ -428,7 +431,9 @@ quiet_cmd_fit = FIT     $@
  		$(if $(findstring 1,$(KBUILD_VERBOSE)),-v) \
  		$(if $(FIT_DECOMPOSE_DTBS),--decompose-dtbs) \
-+		$(if $(FIT_CONFIG_FILE),--config $(FIT_CONFIG_FILE)) \
- 		--compress $(FIT_COMPRESSION) -k $< @$(word 2,$^)
+ 		$(if $(FIT_CONFIG_FILE),--config $(FIT_CONFIG_FILE)) \
+-		--compress $(FIT_COMPRESSION) -k $< @$(word 2,$^)
++		--compress $(FIT_COMPRESSION) -k $< @$(word 2,$^) \
++		$(if $(FIT_FACTOR_DTBS),&& $(FDTFACTOR) $(FDTFACTOR_ARGS) \
++			$(if $(findstring 1,$(KBUILD_VERBOSE)),-s) -F $@)
  
-+# If FIT_CONFIG is specified on the command line (either relative to $(srctree)
-+# or relative to arch/$(SRCARCH)/boot/dts/), locate that file and extract the
-+# list of .dtb files to build.
-+ifdef FIT_CONFIG
-+FIT_CONFIG_REL := $(firstword $(patsubst $(abs_srctree)/%,%,\
-+	$(patsubst $(srctree)/%,%,$(patsubst ./%,%,$(wildcard \
-+	$(FIT_CONFIG) \
-+	$(srctree)/$(FIT_CONFIG) \
-+	$(srctree)/arch/$(SRCARCH)/boot/dts/$(FIT_CONFIG))))))
-+ifeq ($(FIT_CONFIG_REL),)
-+$(error FIT_CONFIG '$(FIT_CONFIG)' not found)
-+endif
-+FIT_CONFIG_FILE := $(srctree)/$(FIT_CONFIG_REL)
-+ifndef FIT_CONFIG_DTBS
-+export FIT_CONFIG_DTBS := $(addprefix $(dir $(FIT_CONFIG_REL)), \
-+	$(shell $(MAKE_FIT) -C $(FIT_CONFIG_FILE) --list-dtbs))
-+$(if $(FIT_CONFIG_DTBS),,$(error Failed to parse DTB list from $(FIT_CONFIG_FILE)))
-+endif
-+
-+ifneq ($(filter image.fit,$(targets)),)
-+$(obj)/image.fit: $(FIT_CONFIG_FILE)
-+endif
-+endif
-+
- # XZ
- # ---------------------------------------------------------------------------
- # Use xzkern or xzkern_with_size to compress the kernel image and xzmisc to
-diff --git a/scripts/make_fit.py b/scripts/make_fit.py
-index 9bd35aa72119..0c0af8042641 100755
---- a/scripts/make_fit.py
-+++ b/scripts/make_fit.py
-@@ -26,6 +26,10 @@ the entire FIT.
- Use -c to compress the data, using bzip2, gzip, lz4, lzma, lzo and
- zstd algorithms.
- 
-+Use -C to specify a FIT configuration file (.fitconfig) that selects
-+which DTBs to include and optionally sets properties or subnodes (such
-+as 'match-1') on the generated /configurations/conf-N nodes.
-+
- Use -D to decompose "composite" DTBs into their base components and
- deduplicate the resulting base DTBs and DTB overlays. This requires the
- DTBs to be sourced from the kernel build directory, as the implementation
-@@ -37,6 +41,7 @@ as U-Boot, Linuxboot, Tianocore, etc.
- 
- import argparse
- import collections
-+import configparser
- import multiprocessing
- import os
- import subprocess
-@@ -69,21 +74,25 @@ def parse_args():
-     """
-     epilog = 'Build a FIT from a directory tree containing .dtb files'
-     parser = argparse.ArgumentParser(epilog=epilog, fromfile_prefix_chars='@')
--    parser.add_argument('-A', '--arch', type=str, required=True,
-+    parser.add_argument('-A', '--arch', type=str,
-           help='Specifies the architecture')
-     parser.add_argument('-c', '--compress', type=str, default='none',
-           help='Specifies the compression')
-+    parser.add_argument('-C', '--config', type=str,
-+          help='Specifies a FIT configuration file (.fitconfig)')
-     parser.add_argument('-D', '--decompose-dtbs', action='store_true',
-           help='Decompose composite DTBs into base DTB and overlays')
-     parser.add_argument('-E', '--external', action='store_true',
-           help='Convert the FIT to use external data')
--    parser.add_argument('-n', '--name', type=str, required=True,
-+    parser.add_argument('-l', '--list-dtbs', action='store_true',
-+          help='List the DTB filenames from the configuration file and exit')
-+    parser.add_argument('-n', '--name', type=str,
-           help='Specifies the name')
--    parser.add_argument('-o', '--output', type=str, required=True,
-+    parser.add_argument('-o', '--output', type=str,
-           help='Specifies the output file (.fit)')
--    parser.add_argument('-O', '--os', type=str, required=True,
-+    parser.add_argument('-O', '--os', type=str,
-           help='Specifies the operating system')
--    parser.add_argument('-k', '--kernel', type=str, required=True,
-+    parser.add_argument('-k', '--kernel', type=str,
-           help='Specifies the (uncompressed) kernel input file (.itk)')
-     parser.add_argument('-r', '--ramdisk', type=str,
-           help='Specifies the ramdisk/initrd input file')
-@@ -92,7 +101,15 @@ def parse_args():
-     parser.add_argument('dtbs', type=str, nargs='*',
-           help='Specifies the devicetree files to process')
- 
--    return parser.parse_args()
-+    args = parser.parse_args()
-+    if args.list_dtbs:
-+        if not args.config:
-+            parser.error('--list-dtbs requires -C/--config')
-+    else:
-+        for opt in ('arch', 'name', 'output', 'os', 'kernel'):
-+            if not getattr(args, opt):
-+                parser.error(f'--{opt} is required')
-+    return args
- 
- 
- def setup_fit(fsw, name):
-@@ -160,6 +177,49 @@ def write_ramdisk(fsw, data, args):
-         fsw.property('data', data)
- 
- 
-+def parse_config(fname):
-+    """Parse a FIT configuration (.fitconfig) file
-+
-+    Each [section] header names a .dtb file (relative to the directory
-+    containing the configuration file) and starts a FIT configuration entry.
-+    Optional 'key = value' lines in the section set or override properties
-+    on that /configurations/conf-N node (or on a subnode when 'key' has the
-+    form 'subnode/prop', such as 'match-1/board-id = 0x070406').
-+
-+    Args:
-+        fname (str): Path to the .fitconfig file
-+
-+    Returns:
-+        dict: Mapping of DTB filename (str) to property overrides (dict)
-+    """
-+    cfg = configparser.ConfigParser(interpolation=None)
-+    cfg.optionxform = str
-+    with open(fname, 'r', encoding='utf-8') as inf:
-+        cfg.read_file(inf, source=fname)
-+    return {sec: dict(cfg.items(sec)) for sec in cfg.sections()}
-+
-+
-+def write_prop(fsw, name, val):
-+    """Write a configuration property as a u32 or string
-+
-+    Unquoted integer literals (such as '0x070406' or '123') are written
-+    as 32-bit integer cells; all other values (including values enclosed
-+    in double quotes) are written as strings.
-+
-+    Args:
-+        fsw (libfdt.FdtSw): Object to use for writing
-+        name (str): Property name
-+        val (str): Raw property value string from the configuration file
-+    """
-+    if len(val) >= 2 and val.startswith('"') and val.endswith('"'):
-+        fsw.property_string(name, val[1:-1])
-+        return
-+    try:
-+        fsw.property_u32(name, int(val, 0))
-+    except ValueError:
-+        fsw.property_string(name, val)
-+
-+
- def finish_fit(fsw, entries, has_ramdisk=False):
-     """Finish the FIT ready for use
- 
-@@ -170,20 +230,35 @@ def finish_fit(fsw, entries, has_ramdisk=False):
-         entries (list of tuple): List of configurations:
-             str: Description of model
-             str: Compatible stringlist
-+            list of int: Sequence numbers of FDTs (fdt-<n>) for this config
-+            dict: Optional configuration property/subnode overrides
-         has_ramdisk (bool): True if a ramdisk is included in the FIT
-     """
-     fsw.end_node()
-     seq = 0
-     with fsw.add_node('configurations'):
--        for model, compat, files in entries:
-+        for model, compat, files, props in entries:
-             seq += 1
-             with fsw.add_node(f'conf-{seq}'):
--                fsw.property('compatible', bytes(compat))
--                fsw.property_string('description', model)
-+                if 'compatible' not in props:
-+                    fsw.property('compatible', bytes(compat))
-+                if 'description' not in props:
-+                    fsw.property_string('description', model)
-+                subnodes = collections.defaultdict(dict)
-+                for pname, pval in props.items():
-+                    if '/' in pname:
-+                        subnode, subprop = pname.split('/', 1)
-+                        subnodes[subnode][subprop] = pval
-+                    else:
-+                        write_prop(fsw, pname, pval)
-                 fsw.property('fdt', bytes(''.join(f'fdt-{x}\x00' for x in files), "ascii"))
-                 fsw.property_string('kernel', 'kernel')
-                 if has_ramdisk:
-                     fsw.property_string('ramdisk', 'ramdisk')
-+                for subnode, subprops in subnodes.items():
-+                    with fsw.add_node(subnode):
-+                        for subprop, pval in subprops.items():
-+                            write_prop(fsw, subprop, pval)
-     fsw.end_node()
- 
- 
-@@ -322,9 +397,20 @@ def _process_dtbs(args, fsw, entries, fdts):
- 
-     # First figure out the unique DTB files that need compression
-     todo = []
--    file_info = []  # List of (fname, model, compat, files) tuples
-+    file_info = []  # List of (fname, model, compat, files, props) tuples
-+
-+    if args.config:
-+        config = parse_config(args.config)
-+        by_name = {os.path.basename(fn): fn for fn in args.dtbs}
-+        config_dir = os.path.dirname(args.config)
-+        dtb_configs = [
-+            (by_name.get(dtb, os.path.join(config_dir, dtb)), props)
-+            for dtb, props in config.items()
-+        ]
-+    else:
-+        dtb_configs = [(fname, {}) for fname in args.dtbs]
- 
--    for fname in args.dtbs:
-+    for fname, props in dtb_configs:
-         # Ignore non-DTB (*.dtb) files
-         if os.path.splitext(fname)[1] != '.dtb':
-             continue
-@@ -335,7 +421,7 @@ def _process_dtbs(args, fsw, entries, fdts):
-             sys.stderr.write(f'Error processing {fname}:\n')
-             raise e
- 
--        file_info.append((fname, model, compat, files))
-+        file_info.append((fname, model, compat, files, props))
-         for fn in files:
-             if fn not in fdts and fn not in todo:
-                 todo.append(fn)
-@@ -354,7 +440,7 @@ def _process_dtbs(args, fsw, entries, fdts):
-         cache = dict(results)
- 
-     # Now write all DTBs to the FIT using pre-compressed data
--    for fname, model, compat, files in file_info:
-+    for fname, model, compat, files, props in file_info:
-         for fn in files:
-             if fn not in fdts:
-                 seq += 1
-@@ -364,7 +450,7 @@ def _process_dtbs(args, fsw, entries, fdts):
-                 fdts[fn] = seq
- 
-         files_seq = [fdts[fn] for fn in files]
--        entries.append([model, compat, files_seq])
-+        entries.append([model, compat, files_seq, props])
- 
-     return seq, size
- 
-@@ -415,6 +501,9 @@ def build_fit(args):
- def run_make_fit():
-     """Run the tool's main logic"""
-     args = parse_args()
-+    if args.list_dtbs:
-+        print(' '.join(parse_config(args.config)))
-+        return
- 
-     out_data, count, size = build_fit(args)
-     with open(args.output, 'wb') as outf:
+ # If FIT_CONFIG is specified on the command line (either relative to $(srctree)
+ # or relative to arch/$(SRCARCH)/boot/dts/), locate that file and extract the
 -- 
 2.56.0.611.g1030f0b940-goog
 
