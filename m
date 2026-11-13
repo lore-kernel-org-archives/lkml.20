@@ -1,87 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794603240;
-	b=S0+CWsTSg8QZ4Otltc9F6QBdG6FQ4gkRmnKUIOZq2LuksG3JFy2rB6HE7C0KwyGnM/Ga
-	 PlEcceVMfvyahD48AF9Pmi6Zc9sIJFi02d5T8FMapYq0iSNDJ4+mKoVLoXwBU+oODe1YH
-	 UUhcHuTid/kXk1F1wWoPjJRXUhC8qEuGIoPhopGG/F+ao0qwsAUwP2kvwL7pcyU4hYyEW
-	 TQg2+VrpFi2dcpPVeWkB5NnwaTOkA8Y3ooTrrGlsdngX5YQigLjlvP5CoPhToipUHJ31g
-	 OezMWVlKqKTw7AsPr74b2Ipeb46nKTxYZRqzSuziGVxhY3vJcYtyqlaC5lLVq6qCh2g==
+	t=1794603329;
+	b=tmuPngmZIiaaLkyHOl3CrvYCMTjVD6Gc0k3qrydEZ8dngWGv6gCmWzQPWeUonWfZM1lm
+	 KZv8QahmWiPEa6QsZpJiAIO1zt3bjhYLndkGGFu5fsbQ/gaNzolfaDFg7bNfoWc3LyDAr
+	 iO3BT5SUmrsuG6GB/7sPgStXNzjdc8ChAzvJqXdNCcB75CxvrGeq8PNb4z0weYoogimQ9
+	 Y5gZQHSC0X0vH5/oh53pM8IFwx3mw18w4NVjyBLR6ZHYN2/lk7q/nLFqSdQV5U2IIdnzJ
+	 ERVjy7L/t5Jp6u5d2gUTvHRDJP0cqXLEoRm/P+lwTnhgLnJwUXSQ0a6owKlx5u57x7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794603240;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Content-Language:To:Cc:From:
-	 Subject:Content-Type:Content-Transfer-Encoding;
-	bh=4O2iL3RsyxnZ9m4gGTzmFGBt6GQKNa857BfAv3d9rDM=;
-	b=Css20jHr4t/5xvHM4suBqmdADGMvqRRPRpXsvlwrpXSZsGnz8PE7h0VyGtEhJnqT4wHE
-	 1deYI93971oIta4FRN9IzPp1LdDmFc/kJldx+KumEvY4yiQstiRKsqqWDQVdou336giY6
-	 wiXVDHdZkVI//xQwyzvVub+phraO6Yc2SwGIUeJlmGYmdyIazth9vmeVavwIxaZ73zNAs
-	 c4TZoFAaeC6/WmeF5skGosy695ayINoqR/cdgNLwfe5ep0pNSXmBQZCZgwWFr6tfUvZqW
-	 aSckN2cTnKnOVCxsyAiPGrD1TiT/PfMQqLyzARHuIrMIXsvkSTRPqduczEEdBX1yDWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603329;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=z8+Ts67/O281nCBcV7IfvsBb3ZpvM9se/ske5htY3Lw=;
+	b=kO8peqzYlCbqo4o8/Kvf4AqySuAgp66BI6gHrp5RW50qkiIZQco4HFj+4DS4dXOAfRPP
+	 VSz9aP6MVHpzcouwET13oW+gqpnRZ6hga+gYsSB4KiS3p9iGE8R5+SK0LxbalTcAYVdli
+	 OMRWUFLAUd5pPZSMcjYnqFS9CJeSkQygF17orICVCJrla/A9q5gSUn/n6v6qLQZb1GSZd
+	 w63nkPaMId2WLi5qDTuZ5oWU55zrZCihQ6rSNhJjVBNyjB5Tpi0NkO1I+lL2XNCxIhDSb
+	 fjpxMfPxXVTD5Ahkk0XfSDHoUEx/L87v/dipJEtJqHBT4m3fo4o5jhgM8rcS1Hq20Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vxKUcFah;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=OG7SCUsF;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A903B606A336
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:53:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A903B606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1AC606A333;
+	Fri, 13 Nov 2026 20:55:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C1AC606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vxKUcFah
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4918c2d727fso716769f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:53:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794603238; x=1795208038; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4O2iL3RsyxnZ9m4gGTzmFGBt6GQKNa857BfAv3d9rDM=;
-        b=vxKUcFah2dEJQJlVcolTIMkDEPayM416prYnDTnrH7qZ08MO5YuChzoPwsEuSiacH1
-         fs5EIDUx35jOzPHdrZp6fYyozP3/YONkhrMV49J3e3xArKGBkfGwNNgGQX8SStI3ZGsc
-         1fJLZgPHugoMNB/jIZV8gvlfcXgVUa5xz6xkT0HFSQIY2bIpBQvGEyXg/v41FUW/haIO
-         12PITto3/lIkbeBoCBM+CBPOmsP6PbFleVv8H51mEfSxrdwPD6qPAsxdr+QKxS9RJ8qE
-         p4l5rwKXnM9pfS1mpWMmdKyIziB2dVSW/CIX88ndyk/jvPczWks4Mfrg0+IVHdwURS+5
-         BXeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794603238; x=1795208038;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4O2iL3RsyxnZ9m4gGTzmFGBt6GQKNa857BfAv3d9rDM=;
-        b=jjAJ/e4iDTaJV2lLVvCHRznOGjoPe1sMD5nZsTwYzNyXC4tdTpjPBkVtYiJ0ihch1z
-         6lREjJ23vUaBCIwg0zveFWR9VqMwkXHAUEOoF3vSk7awKpXQWtX+/vQdXxu/M2lHHkN7
-         oh0nldPp0PBWsbPi5xQGJmYO4p7bYjbYN8DQr3EE4FlGXToiwv+ZwEflb7pe8M2lqkFd
-         NBzrIzmh7aedxbQ977jYrSWtb88IS5Jg7v2BfNkyZ0SGfsFX90KEy9MOiSPW29U5I3pa
-         dDgUMxp4jSuieM2iRZDwNobUq05hRdbeQtqBOhjbrgfNC/3Bg2r0J6Fblbk0DR9Kwcrf
-         pajA==
-X-Forwarded-Encrypted: i=1; AL+hErGgmREnJPKd5EdrOX3brIiAbUza08L/IHBerIbIXbfVmszbMYx3vPwixe0ewhuW2gyqCNRHcFVMaBvYHwA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+eZH5nJE176wtw0dGjAuQtCZz49ch/XLqWvmopKY9Ffw0xqrBs
-	ogZD89agYT6vQF/1/SaYvHF6KqikgUX/+/ytAFjXiWpDgmSpwCWhafWmwLIvZOSQ
-X-Gm-Gg: AYBFou2Y+5bLHiOwqHOiDl3B+fbdeJvNuOwwQvNUe7QL4uWbbQfJogoKuxwpbw62P9A
-	uL078r9HLoZfQ6hf+dKc9Z4dHnWh5XGJ+Qprnzc0rXKg1Tm0wjpslWhCje5HPifuj9K1Nr19DP3
-	yyWUtjWdRhm+WDOEzS8BwTxuKCR8WUD/lVn1K5LGaqRjyRIE3YN1wqcW7dG2iQcbCL5PIjtbzmH
-	2MG7UBxNi9KgC5CVLt3T1vCNIoCKgQbiXit6bNMW1oKcoyq5aAQ6pxv/iR+5tl6o92hnFr0V7K/
-	t4bpP91cVF8y4hyTcxMqKt4/VHLTfO24a+mgA7BCxhH7TdZiBOYHKGO5zYxgtqAkjfx9s3jwxIW
-	gM7ktuDKeG6MZ6BsSvwmfwCg3OdRJIeGcs8f0Zu7ep5SEaVnEDw4EJlxzaxiHtg5DpceLVSv6xP
-	51GLpu00UvPdSXg5G+koxlnuQNNkFfDZN9T5x+s2VVl2SVeczduP7oL7hf8s7JtrUhwtM/CIIJ9
-	2X39dpSMbxm5d3jNYlCyLW59Bd65+5lPCp2b4z6VffVp3ivpNrxJzt1VIMsMi02YaLfR5ROgWZ0
-	olH2T2oPkKesbdr2KTxTa4Q3cD04FIoRuqXFCWW+xlXuG18zLMlvWXSS2GLmVdtodYAV8QAI5mQ
-	BtOJnmuzXDmDGAQ==
-X-Received: by 2002:a05:6000:46c4:b0:494:bf39:21a5 with SMTP id ffacd0b85a97d-49c70ed910dmr5311677f8f.10.1794603237761;
-        Fri, 13 Nov 2026 12:53:57 -0800 (PST)
-Received: from ?IPV6:2001:1aeb:1005:d000:cce4:c8f7:ce4e:e9a0? ([2001:1aeb:1005:d000:cce4:c8f7:ce4e:e9a0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c607d12c4sm6789427f8f.41.2026.11.13.12.53.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 12:53:57 -0800 (PST)
-Message-ID: <139f1f39-2e0b-4ca1-86bc-db9732f9d351@gmail.com>
-Date: Fri, 13 Nov 2026 21:53:58 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=OG7SCUsF
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=z8+Ts67/O281nCBcV7IfvsBb3ZpvM9se/ske5htY3Lw=; b=OG7SCUsFRQ9UlsA0Km34RySyFV
+	5KNQqGF6UqJlEb07jcYP4+uRPRt2IJeoJeCuZk0SV3JCvnYraNdRVPDe+L/ab4AcmH+EQBWznYFLR
+	gNqrSZ4+aFNZZi3XJU+XriBljy6JpeqOQEKAjPrcTuu5ohSGBC34/6PVwWoJwTOXbxTA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xRyIj-00GMY9-4S; Fri, 13 Nov 2026 21:55:13 +0100
+Date: Fri, 13 Nov 2026 21:55:13 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH net-next v4 1/3] ethtool: add PHY receive frame and byte
+ totals
+Message-ID: <6dd40eca-5c17-47f5-893d-0d106f28ea06@lunn.ch>
+References: <20261113-submit-acx00-phy-stats-v1-v4-0-986b8a4a1871@gmail.com>
+ <20261113-submit-acx00-phy-stats-v1-v4-1-986b8a4a1871@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,41 +71,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: cs
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnd Bergmann <arnd@arndb.de>
-Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
- linux-kernel@vger.kernel.org, Miroslav Ondra <ondra@faster.cz>,
- hyblmatous@gmail.com
-From: =?UTF-8?B?S3J5xaF0b2YgxIxlcm7DvQ==?= <cleverline1mc@gmail.com>
-Subject: eeprom: at25: no module autoload for chip-specific compatibles
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-submit-acx00-phy-stats-v1-v4-1-986b8a4a1871@gmail.com>
 
-Hello,
+> Correct the documented group name to
+> phydev, matching the existing name exported by the kernel.
 
-I am facing an "issue" with the at25 driver. We have the driver
-compiled as a module and load a device tree overlay with
+> +++ b/Documentation/networking/ethtool-netlink.rst
+> @@ -1665,7 +1665,7 @@ the ``ETHTOOL_A_STATS_GROUPS`` bitset. Currently defined values are:
+>   ETHTOOL_STATS_ETH_PHY  eth-phy  Basic IEEE 802.3 PHY statistics (30.3.2.1.*)
+>   ETHTOOL_STATS_ETH_CTRL eth-ctrl Basic IEEE 802.3 MAC Ctrl statistics (30.3.3.*)
+>   ETHTOOL_STATS_RMON     rmon     RMON (RFC 2819) statistics
+> - ETHTOOL_STATS_PHY      phy      Additional PHY statistics, not defined by IEEE
+> + ETHTOOL_STATS_PHY      phydev   Additional PHY statistics, not defined by IEEE
+>   ====================== ======== ===============================================
+>  
+>  Each group should have a corresponding ``ETHTOOL_A_STATS_GRP`` in the reply.
 
-     compatible = "fujitsu,mb85rs1mt", "atmel,at25";
+This should be a patch of its own. That would of forced you to write a
+useful commit message, and i would not of needed to ask why it
+changed.
 
-as required by the at25.yaml binding. However, the module is not
-auto-loaded. We have to either modprobe it manually or add a modprobe
-alias.
+You want lots of small patches, with good commit messages, which are
+obviously correct.
 
-As far as I understand, the SPI core only emits
-MODALIAS=spi:<first compatible without vendor prefix>, so the uevent
-carries spi:mb85rs1mt. The at25 module only provides spi:at25 and
-spi:fm25, added in commit 9e2cd444909b ("eeprom: at25: Add SPI ID
-table"), so nothing matches. Once the module is loaded, the device
-binds fine through the "atmel,at25" compatible.
+I suggest you spend some time reviewing other developers patches. See
+it from the other side.
 
-Is there a better solution? I thought of adding SPI IDs for the chips
-listed in the binding (mb85rs1mt, mb85rs256, ...) to
-at25_spi_ids, rather than only at25 and fm25, but I do not know if
-that would be acceptable upstream.
+    Andrew
 
-Thank you,
-Kryštof Černý
-
+---
+pw-bot: cr
