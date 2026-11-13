@@ -1,93 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596194;
-	b=IRN04ByGaeIb/eQbfmoqTaD+IV/Cn5i/ATsVHKUyM2Ikk91K60PkejDah+GPZEVlkMZB
-	 7fcZCWZL0kyhAXFpdSzUgr6dMimG0AfraUxyCkU9yiJtcbncFy0kOHEVTdjb5iRBZv3oK
-	 K+b2Cwttnc3lOdLOM7zMWefvBD6LZW77DxEKhdXNrSrYmksreNUXNkSe2++jL9NMyLVEh
-	 jYO7L9hB8ZVib3e1pB7cLK7Zgk4kxfgPd64o65/K6/UsJVsN9KSLSqmjToTBpW93n7cGz
-	 6aY1QNs4Oa4WM8QnF26/NJFzPCPeXDsncoY8zCSO80HP4+IjslN/ExChpEQoYs5j7Kg==
+	t=1794596195;
+	b=4vs/ZkwKPJyOOroiT6YVzHpXvA6gbOaCyozNouJQgio/LPAkvzcxKj+z0Dx3614ByUGi
+	 7cxqFaor/XZyyPTpCsXt2gM8iuLOkTD0oSWiRubVDoMPjPvb3GomYPnBTYDra2P1bQ4Au
+	 CYTKEvhc9uLbPS40Oiwt1pQW0ZsPpt5BGfRjHpKbVC3aYq184KfR7MLvxRqCrj7SwRStc
+	 FSqj3Df8uf/kmp14fPtpxWXkU3D2z0tlyL1oZdBNUwusN7uvZ3mU5Xwquiu9WeuRO8V+d
+	 AOpVFwDRaryV+b1MX3lNCl0KR308gc3642E7BDs5/+E8ypKhhE0lRz3YzjC+miuj5Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596194;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version;
-	bh=CL4DK10DW5k/WPXah4xIbdozQuFXRdBBG8thXN24xkw=;
-	b=sXXIs5xn8Si625FRrbvOQLaHRjv4NZi73dpkjhqZ5U/Qq8+opBS/do/C63st9Yjd41mI
-	 pOvS77CYs8GNyDHjwuld1nQn40OyKXFDea1p5m0Z6GwDjyv5mDzpHnoLYJzgb39XKafzU
-	 fyZuRa/i4BK0L/odsy3ol0X2rpGyPXEjtCT8JJ9txtppgv8InP0o8sR8O3x/S2PxRnHCl
-	 K1PeJfwkV4s2Lp33GM20n2j+b5g6kh/LGvE0BdsQp6N3UG8vNsINY5kDi3d5aETR9a0qO
-	 ALXL2z1MmfUSuz3rUnuiCP7mo+Kn9KhTEMii4xUVmP16FXYvqVEZgWwjTVc2e0aJ2rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596195;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ajYCha50EQl9+H9M7bL6r/fZ9jHUuzU39/jgu1TzRj8=;
+	b=EuQI+WCvRulONDe3maD7ndp0BzpyYEa4HrsR4tSjOMa0VwZy8h9NCL1Chpgl152eqGG6
+	 LNrPwXUvZVygvjiGruDgnSHL+9C3lk1a2zWu+qQ7HD9hxX7DlOKuo3VBY4DkUmdirTshf
+	 ro9wFV2rBzjDIeoSAAQ9ESM/0KyFU1cUaTCG/IH2xDw19ZkfRmWlsFcf6nVvWCt9cG8Zj
+	 hWZDFkk/TCalRKXEQTzuLpMZ5QErSd5vHbL47hkkZfMqxK7+I2Lwj/00JT5Gatk82zPNG
+	 1i56Or9urIo41MdyrmM9gphOeSR20naHx9CpP3F6eyEv2+jL9EAzLhPmfsNxxNuoGlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=dVeSBFiR;
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dkhTZgJI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAFD60A6F50;
-	Fri, 13 Nov 2026 18:56:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DAFD60A6F50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B90760A6F62
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:56:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=dVeSBFiR
-Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFSmhM2007105;
-	Fri, 13 Nov 2026 10:56:03 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=CL4DK10DW5k/WPXah4xIbdozQuFXRdBBG8thX
-	N24xkw=; b=dVeSBFiRg4xGT3aDoy3aA/YbXFtlHhC0Hd+dIinsJ2UuHe3Da+3E1
-	R7D/Kqt3+cEUyrbkFCpG6J6WGmYnNCnMPGBWRLnP8Ot1aQ1J4Uv7Yzi51nNxUARp
-	SpAfYMvHSfrgRJ4MSDVXVSZbsFbK/utbb56BiRFa55mVkxRvWkFkp52IQ0o1sw1e
-	wdw5isR5oF9Lu19/7PB08LzGMQ2u1+d0c7oimOAWhxhh/MUKapFaS27i8CeBzm+9
-	jy8MKAyLxWtEwr8lmdhBJ5AfDXzFx/XzLaNmfPpuY/tj38ewDF9xEz7jQDvnGqtr
-	o+8N6+Nfo6QpD6Q0C9zWMdDcxJ6Sh0Okg==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hwj8cg3gv-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Fri, 13 Nov 2026 10:56:03 -0800 (PST)
-Received: from localhost (2620:10d:c0a8:1b::30) by mail.thefacebook.com
- (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Fri, 13 Nov
- 2026 18:56:01 +0000
-From: Todd Freed <toddfreed@meta.com>
-To: <netdev@vger.kernel.org>, <toddfreed@meta.com>
-CC: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet
-	<edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni
-	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Daniel Zahka
-	<daniel.zahka@gmail.com>,
-        Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-        Wei Wang <weiwan@google.com>, Jamal Hadi Salim <jhs@mojatatu.com>,
-        Jiri Pirko
-	<jiri@resnulli.us>, Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann
-	<daniel@iogearbox.net>,
-        Andrii Nakryiko <andrii@kernel.org>,
-        Martin KaFai Lau
-	<martin.lau@linux.dev>,
-        John Fastabend <john.fastabend@gmail.com>,
-        "Stanislav
- Fomichev" <sdf@fomichev.me>,
-        Sabrina Dubroca <sd@queasysnail.net>,
-        "Boris
- Pismenny" <borisp@nvidia.com>, <bpf@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH net 3/3] psp: only give time-wait sockets of PSP connections a validator
-Date: Fri, 13 Nov 2026 10:55:53 -0800
-Message-ID: <20261113185553.171059-4-toddfreed@meta.com>
-X-Mailer: git-send-email 2.53.1
-In-Reply-To: <20261113185553.171059-1-toddfreed@meta.com>
-References: <20261113185553.171059-1-toddfreed@meta.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dkhTZgJI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E92F51F000C8;
+	Fri, 13 Nov 2026 18:56:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794596194;
+	bh=ajYCha50EQl9+H9M7bL6r/fZ9jHUuzU39/jgu1TzRj8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dkhTZgJIIEUYH1c/lcXkoBppbQxdmPhTzdGaU2x30T6mSbIRIL5f4s4hx5y7EXsZm
+	 zp47oGjg6t3aU/+ZkhKa6UmOb09x6s010eQorIL85vCila2VHtWUMcvjUmirJBY5KH
+	 KAn6EadC1n9w/KSGZHKpwIucHo09xPfB4N3enqRadnEqz8Idj6z4M6O4LkdLosvDc+
+	 LvhiL4lFvLhfRg3vxu9XfC1nhG5xS6oO/JQFfm8plwg1w7C30a1HQAJsNs6fYljDsy
+	 6T1TzSMG2tM9wrBRw8I+3z7QyXhT+lerdMHjME5OPFibqMV7IFh0aeyzEpfQK6LpFl
+	 GCMXWfPG4CVZQ==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Cc: axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	hui.zhu@linux.dev,
+	kasong@tencent.com,
+	kunwu.chan@gmail.com,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	liuxiang.277@bytedance.com,
+	lyugaofei@xiaomi.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	ridong.chen@linux.dev,
+	rppt@kernel.org,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhangbo56@xiaomi.com,
+	zhuhui@kylinos.cn,
+	sidchintamaneni@gmail.com,
+	"Barry Song (Xiaomi)" <baohua@kernel.org>
+Subject: [PATCH v8 09/16] mm/mglru: Avoid placing rejected folios below populated gen
+Date: Sat, 14 Nov 2026 02:55:34 +0800
+Message-Id: <20261113185541.70203-10-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261113185541.70203-1-baohua@kernel.org>
+References: <20261113185541.70203-1-baohua@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,67 +85,201 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfXxQPV4vVc9aFo
- +CRljNkzSWm48HXdKh/1zAlc/6gTRbhotscX3XNBo7PYhUkfIVi4iHRP7L489hZTamdW/rcl+GE
- bv5QTWgcLETpqM3Q2z1IskDtUQefRisl8/zumrl/BcAsy0EkndZavVBtmxiDgFQlfea9As2AO/i
- 7jn8ULLefChWIHcibxoFJhBQmpaDc7AD/Vv8GmuvFPoTqoy7rWsAzUaS/nKcwXrnPrPSmj6Mqx2
- xG2WnW6kF5e/qZ6l3uYC1QKi/ufEFrjnTq31m/SlZJDtXE0Z4UrFACLAzj+IlLXixqlaCY9FzCD
- pSSyFM9UBjlbDPcYrQXvq6CHBvelV0XNUREGwStZHs72uIi2FejMhDU4UQb+/IKpk1gHDB7SGCm
- oRCATXckcOxHlT3NDDJugQk4UoeQg2wm7aWb9qTAFReZxKSbmiWqaBHldySAjWY+SzzGv4bOQv4
- RGBTvEwKR0kAH/j0M9g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfX21oULmicUOUe
- /Cwu8dzJqX+AnFnvtRzGYdEwHbZ9oxJ7pDO2vP9YRuMqRSv7HhPWMYero4D3kzw2drWX9tgic5a
- ZIR+QSPCJ+djUpHIauanZD+RDl/l68M=
-X-Authority-Analysis: v=2.4 cv=DuvDa2/+ c=1 sm=1 tr=0 ts=6af75d43 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=JnKecZnUtZousrUlYMGU:22 a=VabnemYjAAAA:8 a=lPjtF5NPWS3-9_hsH0QA:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: 3iuuzk2g_e_DY33Y6Cs2z8z5hi3ErO-P
-X-Proofpoint-ORIG-GUID: 3iuuzk2g_e_DY33Y6Cs2z8z5hi3ErO-P
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
 
-psp_twsk_init() sets tw_validate_xmit_skb on TCP time-wait sockets.
-Today, that becomes set whether or not the socket has PSP offload, which
-is not needed but is harmless. psp_validate_xmit() passes such packets.
+We used to scan only the oldest generation in scan_folios(). In
+evict_folios(), we checked whether
+lru_gen_folio_seq(lruvec, folio, false) == min_seq[type]. If so, the
+folio was marked active and moved to younger generations.
 
-But a validator makes a socket look like it has an encryption offload of
-its own. The tc psp action in the net-next series "psp: introduce
-socket-less associations" relies on the presence of the validator to
-determine whether the socket has an encryption offload.
+This was itself buggy, as folios in generation min_seq[type] - 1
+would not be marked active by folio_set_active(), potentially causing
+a cold/hot inversion.
 
-Set the validator only when the socket has a PSP association with a Tx
-key, as psp_sock_set_tx_key() does for full sockets.
+Besides this issue, the old approach also differs from the current
+behavior, where we can scan fewer than two generations.
+Now that we can scan younger generations, including the youngest
+generation, this no longer prevents rejected folios from being placed
+in a generation below or at the populated generation. Such rejected
+folios would then be scanned again and again, resulting in extremely
+low `pg_steal/pg_scan` ratios. For example:
+  pgsteal_file: 2312605
+  pgscan_file:  36465693
+  reclamation efficiency: 6.34%
 
-Fixes: 6b46ca260e22 ("net: psp: add socket security association code")
-Signed-off-by: Todd Freed <toddfreed@meta.com>
+We pass `scanned_seq` to `move_folios_to_lru()` and make sure we either
+promote the folio or place it in the youngest generation when the
+populated generation is already the youngest one.
+Also, folio_set_active() is no longer needed.
+
+With this change, the results become:
+  pgsteal_file: 2683815
+  pgscan_file:  4224244
+  reclamation efficiency: 63.53%
+
+The sys time for building the kernel also decreased from 4m30.532s to
+3m50.188s while swappiness==1.
+
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- net/psp/psp_sock.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ include/linux/mm_inline.h | 22 +++++++++++++++++++++-
+ mm/vmscan.c               | 24 ++++++++++++------------
+ 2 files changed, 33 insertions(+), 13 deletions(-)
 
-diff --git a/net/psp/psp_sock.c b/net/psp/psp_sock.c
-index a6b1c42dd626..1df65505f1c6 100644
---- a/net/psp/psp_sock.c
-+++ b/net/psp/psp_sock.c
-@@ -314,10 +314,13 @@ void psp_twsk_init(struct inet_timewait_sock *tw, const struct sock *sk)
- {
- 	struct psp_assoc *pas = psp_sk_assoc(sk);
- 
--	if (pas)
-+	if (pas) {
- 		refcount_inc(&pas->refcnt);
-+		/* like the full socket case in psp_sock_set_tx_key() */
-+		if (pas->tx.spi)
-+			tw->tw_validate_xmit_skb = psp_validate_xmit;
-+	}
- 	rcu_assign_pointer(tw->psp_assoc, pas);
--	tw->tw_validate_xmit_skb = psp_validate_xmit;
+diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+index ab69b9930893..f6f4bc9a704f 100644
+--- a/include/linux/mm_inline.h
++++ b/include/linux/mm_inline.h
+@@ -332,7 +332,8 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
+ 	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
  }
  
- void psp_twsk_assoc_free(struct inet_timewait_sock *tw)
+-static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio, bool reclaiming)
++static inline bool __lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio,
++		unsigned long scanned_seq, bool reclaiming)
+ {
+ 	unsigned long seq;
+ 	unsigned long flags;
+@@ -347,6 +348,8 @@ static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio,
+ 		return false;
+ 
+ 	seq = lru_gen_folio_seq(lruvec, folio, reclaiming);
++	if (scanned_seq != -1UL)
++		seq = max(seq, min(scanned_seq + 1, lrugen->max_seq));
+ 	gen = lru_gen_from_seq(seq);
+ 	flags = (gen + 1UL) << LRU_GEN_PGOFF;
+ 	/* see the comment on MIN_NR_GENS about PG_active */
+@@ -362,6 +365,17 @@ static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio,
+ 	return true;
+ }
+ 
++static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio, bool reclaiming)
++{
++	return __lru_gen_add_folio(lruvec, folio, -1UL, reclaiming);
++}
++
++static inline bool lru_gen_add_rejected_folio(struct lruvec *lruvec, struct folio *folio,
++		unsigned long scanned_seq)
++{
++	return __lru_gen_add_folio(lruvec, folio, scanned_seq, false);
++}
++
+ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio, bool reclaiming)
+ {
+ 	unsigned long flags;
+@@ -420,6 +434,12 @@ static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio,
+ 	return false;
+ }
+ 
++static inline bool lru_gen_add_rejected_folio(struct lruvec *lruvec, struct folio *folio,
++		unsigned long scanned_seq)
++{
++	return false;
++}
++
+ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio, bool reclaiming)
+ {
+ 	return false;
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 8e0972db35da..8bdc88748959 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -1865,7 +1865,8 @@ static bool too_many_isolated(struct pglist_data *pgdat, int file,
+  *
+  * Note: The caller must not hold any lruvec lock.
+  */
+-static unsigned int move_folios_to_lru(struct list_head *list, bool do_rotate)
++static unsigned int move_folios_to_lru(struct list_head *list, unsigned long seq,
++		bool do_rotate)
+ {
+ 	int nr_pages, nr_moved = 0;
+ 	struct lruvec *lruvec = NULL;
+@@ -1922,7 +1923,7 @@ static unsigned int move_folios_to_lru(struct list_head *list, bool do_rotate)
+ 		    !folio_test_referenced(folio) &&
+ 		    folio_ref_count(folio) == folio_expected_ref_count(folio))
+ 			lruvec_add_folio_tail(lruvec, folio);
+-		else
++		else if (seq == -1UL || !lru_gen_add_rejected_folio(lruvec, folio, seq))
+ 			lruvec_add_folio(lruvec, folio);
+ 
+ 		nr_pages = folio_nr_pages(folio);
+@@ -2041,7 +2042,7 @@ static unsigned long shrink_inactive_list(unsigned long nr_to_scan,
+ 	nr_reclaimed = shrink_folio_list(&folio_list, pgdat, sc, &stat, false,
+ 					 lruvec_memcg(lruvec));
+ 
+-	move_folios_to_lru(&folio_list, true);
++	move_folios_to_lru(&folio_list, -1UL, true);
+ 
+ 	mod_lruvec_state(lruvec, PGDEMOTE_KSWAPD + reclaimer_offset(sc),
+ 					stat.nr_demoted);
+@@ -2152,8 +2153,8 @@ static void shrink_active_list(unsigned long nr_to_scan,
+ 	/*
+ 	 * Move folios back to the lru list.
+ 	 */
+-	nr_activate = move_folios_to_lru(&l_active, false);
+-	nr_deactivate = move_folios_to_lru(&l_inactive, false);
++	nr_activate = move_folios_to_lru(&l_active, -1UL, false);
++	nr_deactivate = move_folios_to_lru(&l_inactive, -1UL, false);
+ 
+ 	count_vm_events(PGDEACTIVATE, nr_deactivate);
+ 	count_memcg_events(lruvec_memcg(lruvec), PGDEACTIVATE, nr_deactivate);
+@@ -4753,7 +4754,8 @@ static bool isolate_folio(struct lruvec *lruvec, struct folio *folio, struct sca
+ 
+ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 		       struct scan_control *sc, int type, int tier,
+-		       struct list_head *list, int *isolatedp)
++		       struct list_head *list, int *isolatedp,
++		       unsigned long *scanned_seq)
+ {
+ 	enum node_stat_item item;
+ 	int zone_idx;
+@@ -4784,6 +4786,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 		seq = lrugen->max_seq;
+ 
+ 	seq = lruvec_populated_min_seq(lruvec, type, sc->reclaim_idx + 1, seq);
++	*scanned_seq = seq;
+ 	gen = lru_gen_from_seq(seq);
+ 	max_gen = lru_gen_from_seq(max_seq);
+ 
+@@ -4980,6 +4983,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 	int tier, scanned, reclaimed;
+ 	int isolated = 0, nr_isolated = 0;
+ 	unsigned long total_reclaimed = 0;
++	unsigned long scanned_seq;
+ 	bool skip_retry = false;
+ 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+ 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+@@ -4991,7 +4995,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 
+ 	tier = get_tier_idx(lruvec, type);
+ 	scanned = scan_folios(nr_to_scan, lruvec, sc,
+-			      type, tier, &list, &isolated);
++			      type, tier, &list, &isolated, &scanned_seq);
+ 	nr_isolated = isolated;
+ 	if (nr_isolated)
+ 		__mod_node_page_state(pgdat, NR_ISOLATED_ANON + type,
+@@ -5017,8 +5021,6 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 			type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
+ 
+ 	list_for_each_entry_safe_reverse(folio, next, &list, lru) {
+-		DEFINE_MIN_SEQ(lruvec);
+-
+ 		/* move_folios_to_lru() culls unevictable folios via folio_putback_lru() */
+ 		if (!folio_evictable(folio))
+ 			continue;
+@@ -5037,11 +5039,9 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 		 * so this effectively promotes them by at least one generation.
+ 		 */
+ 		folio_set_lru_refs(folio, 0);
+-		if (lru_gen_folio_seq(lruvec, folio, false) == min_seq[type])
+-			folio_set_active(folio);
+ 	}
+ 
+-	move_folios_to_lru(&list, false);
++	move_folios_to_lru(&list, scanned_seq, false);
+ 
+ 	walk = current->reclaim_state->mm_walk;
+ 	if (walk && walk->batched) {
 -- 
-2.53.1-Meta
+2.39.3 (Apple Git-146)
 
