@@ -1,153 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794613760;
-	b=rEUC/+MIfg7gGUQP4RIHUqDbO/FxOna4DcLxXrwFA7gmzmOdkxq/NJWHwZhQOl9uMrmg
-	 z8b+mpt14ROAZAnFEmDAQuKH5nOHU4uTBqQZzPW8qUBEJuOR/lzXcg16H9Rv0K4xvYvaA
-	 5XpUJ1SuBVc+2y53b8GaJLgsUB8M0qWl5kYfjpqAcO/naiywaFpp6HX4Al4ngc/vJ6O6R
-	 fgNq30u7MtIJtV3CL5b+cf/1nKt3hTQEGrVblPPKuZbIimw/2K+GzmsjNomeMUftX/Jzd
-	 dTIvhd1W/yKA19gjVwD87YRFWWFZLKOC4bM2FFHVidFiNSqfUkrEgLq60ZCyRGlvzcg==
+	t=1794613825;
+	b=pD6gxPGtW649ep9quxfl2gS6x678ES9nEqrsueVtfN2pZC8Ib7eQ+emx4M/HtRuuJGVc
+	 daVxWWfgmqdj2hkGe+OwocPwc+5LMtpliTpBSTbHspbsZkvb/axr2t5rVxatFRGBUQM2f
+	 A5nUN3q4WAom/gBHpxOwRv939qrYSAikwnp8bDgROIgpyqAfXA/pvQPDtikcIX5jQlsi5
+	 t711lf1usjy77SMV6LI2kx0JlQFN8Vt+1qhI/QSTjaZdMDKrVPmCiBJPY0K6iFYIya6RO
+	 +bz1cDYF6/i6vTbmXujWtrVs2NBNwjcGsZn2ynrqQkpCstHiwYSadxuGsXmcnUaIoRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794613760;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=/o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=;
-	b=Duc19VZl62YCkhk3Gb3haPdXP3Z3XmLsX/mAqXPTykH1rHaMRTj7dQMdRTC1UlkvDauD
-	 +NNo5C7ymW2vJuVvPDPp5RlF8a446z5CFmmGkM7RGmFrsqa+RI4jQIXgoHosXZnYKadHo
-	 cCb+daabN09XMqQ2m2lurqo4zvH0UuffDFdbcRkDHWdXUxR2FAK60a8/SVtmgdBQOvFIZ
-	 MSDsL8pB9zgPKYY5mGyUbiEYHYZZeZToB9FDmrlTyIkWx6FjEu4hr7jTx0yA+yaHkTlfs
-	 HWwg94goH0xDVi2bhubPsLuNuXwvWrqO5kiWhWEqcwjVlv09CuScF//DYGonqSdeikA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794613825;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4HL/6fjzrUsWBibeS1duDHduZd1C6ZMH5RyDDt56/lU=;
+	b=VkIlqiZhzjds79GI78PpNFvCGO/UrbDLw5qVjtCh1Nltb52Cu33sRBiPHVnjGtFxLaYv
+	 vATLMdwoFf3JBLqPvhEDCYNdI27xgqXa/j4pzNICNu5+6m0n2VJzBIkKyQDfXLdxeOg1D
+	 QWkZPAYB6dPr9dN4ErY0m5yUtMIeNB3eiQYckM+env/YKnIPQeO16ItKhxnTRpzDxFTKW
+	 0cSQd59uCrxfW/qaWDPZfRwsZK6c6H+veYoi/I9lWM0nMLyCZF2ozHShKCaHzIf+OMPqH
+	 oUxHvbNpjeriGvYYSJwFn/V1Vmh4EzX2ge4wkrN7Cz6A1XrH64XJkwRyRFmZaHQNq/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gahingwoo.com;
-	spf=pass smtp.mailfrom=gahingwoo.com;
-	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b="UlYMm/Fs";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Kbv6hEsY;
-	arc=none smtp.remote-ip=202.12.124.136
-Received: from flow-b1-smtp.messagingengine.com (flow-b1-smtp.messagingengine.com [202.12.124.136])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=openai.com;
+	spf=pass smtp.mailfrom=openai.com;
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=bHQU3Plx;
+	arc=none smtp.remote-ip=209.85.210.49
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720FE606A33D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:49:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 720FE606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7803C606A334
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:50:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7803C606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=UlYMm/Fs;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Kbv6hEsY
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailflow.stl.internal (Postfix) with ESMTP id EBD871302B4D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:49:19 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Fri, 13 Nov 2026 18:49:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1794613754; x=
-	1794620954; bh=/o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=; b=U
-	lYMm/Fsoj+r8geFJv0LOqWv1MpvzDQTc1MqmCUAl2LOGZIHC+Fga3cCXVyeFtSdi
-	bYjE3RRDqE7efhzw+hiZSEilb81PpG7/2T9R3Zk37AGE4Hrls18xn/8YeiPNWu4U
-	9xPCHeGgFAo2VzfFgRTP9ceWNVQ2Oird/Uxb6lhpS1D3heWSqh2n8q2rRQW5Nxvf
-	xycvQaRXjpLgfTuDcpzOlJohY2tnltTfuACTl2+DYLbTLLZhlfNWwYKEky0LwqoU
-	meWzhpnk/bJtdWa5UahJFchqCoqMkVerMfrqjQkXXULGBwwIHEi9cT2ureGZT7nI
-	tNWu4xIgjs3qO7CKUGW2A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794613754; x=1794620954; bh=/
-	o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=; b=Kbv6hEsYJB/5FYcc7
-	o+36gAzaudVzx1OVRXQcOZFWXZBDdr+FPlNt6B0CDEA9xnCwFir29Kl1Ux08ZsSR
-	OJyOUuSwPuRI/9+aHkK5MSMww3iWR1ZbiucID2mbzK8Krs0bujCxmr0jTUFHTMyU
-	O8pb35YSxRMbHERZ9H6tlwl3uE77gYJ2uaTRT6Pelqmj9bHXhuu32FXG8pKlr6KD
-	hmXUquJRZ0ON4uHFQSEMHVM/Xxr/XR9Shvh2Adj1TkVg1zJ+RhEwBW5vs6tnRClP
-	TqwEXmBCC16/t+Te8cAx49AP7Kykb7kjG57CtFSbvbVUCHCT9pyqDi0WEg9Kpa9O
-	xldsQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794613754; d=gahingwoo.com;
-	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:TXH9i2tPXVchS5XotijtznO64P8JVam9vcUq8oT9BOpjRPX
-	MXFcAxlCSWoFYfhmDbRVY22RwdZLeyH3ccmjE1c/md19HuENg0kyZ7Jlre5Fj3ke
-	rgsDdA21bF4NCMgNsAg1LoCmzXUUqGrB59YSUFXvECX8SUD9fdoS+tsqls/yg3BO
-	/wdNsEhuD5D4l8hlSr9/5eHwZfhxn0u4xgV+ohbEod50tIa3yyZzhZTZfmcZap7r
-	fqq8uWIZubUqss8L4T316/2fan8JKkRTDf+Y7jOa0c58Fk+4GtEwkhR0N/Baabbq
-	KvAKRJhWhkWuzzzP7yHBINPtCnchQ0B1jcQ5nlg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:rp3Is3ckG8hz2zrJbdiFe7omtKF0PxAQ8ym9SeM2Qzk=:/o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=;
-X-ME-Sender: <xms:-KH3aueYucPAN-8SqiNgFZCNiCj6jx5DIKLhFukwwra09vGDSsTtkA>
-    <xme:-KH3aujswu_X8kk2LnjSP1Rq4X9Bgm0wL3l-5Wb4hdXJQ_VYYgQBt5AgmSzOa26rZ
-    -gJccF6ImqI16DTFxBjYnyd1Y38UvBpjWdPmoqxocMekqfNYlUDwso>
-X-ME-Received: <xmr:-KH3aljEQ776igM0Rpj4R0m8h3YUEEhmdoGNKafcAUp2sXlDAVMT4iGZ7QoFCQPtkDrYFpxX>
-X-ME-Proxy-Cause: dmFkZTFS60ybEwlxxb4K3SeK8mTCMIe/J7SGIQZYhTY37qjBx5CZtBVvuXRCD//zEzv8CQ
-    +kZsvg7kGYLuSkWXyPscs4Ic9CYpH9tvjtBM/I3P0n0odWrIB0N3f9wNlXf7iY84Vr0wuN
-    /OkvJ5GwImBrRKfcXCNhp41KWqX6wlztjkqyXvwGNiLchaun23so7vCnQJb45q4NPV2bar
-    JSd3SPHKZp5+r50cI5C2Cnupo9v8z4qiDDMnjpwrZNthjLhcTTntOPyEaEv5uflorcthJq
-    hHEEH5C78LNxi1tFpExUwGX5Qn5V6TTB4Q0mhCZEyd9xxCMFb62EO4KC/k2ENcFelMvrN2
-    batNi9or+TWUf/rgJ2hnMVW64QlO8XsLqhEiN8OnVQWrZgRCQvaBXHppTLxuixNARxd8fH
-    QtsTWKUrgWPWy2/x8+UTito3XyVIfiE+4zESbSse8qb3T8LtWM9SvrQ7lG9l3N9ZNL0sSl
-    TgQ+AuWkeUyWGG/L40JLFb5Ptb0qcmvRfo75jmDFd3/l5Hh7gtSCRyY5v+5+Pcw0fAiQiG
-    l6dVQsY6ZST7H6Piukjbld0gDmFHnzTldJ2I2s9WAt8RLfj+fI4o4Cz2BG7GTW/LZ4DNrV
-    mGb6D7byXBAWuQggjbgK5xuPQq98govt++BwmseJ7y/H/df5/jYs4MsJ0xHA
-X-ME-Proxy: <xmx:-KH3apRKXpXdx17IJ6LDSkjaUAobNZ0-oiERE7FhaBarxZs6vSVRwA>
-    <xmx:-KH3ahRO96YCYAifWNHsqwZxtzY84BbMH0F9X3v1M4WVbJsL6cQVLA>
-    <xmx:-KH3alBv0zVEUAKvADA03bTmhMmVEXZGTond7zy3ueTflcI2-ytWcg>
-    <xmx:-KH3alzxDNwuPQJYtUbeM31NmEU7iFJzQ5-WRY6qlRJUfZfivAN2Mg>
-    <xmx:-qH3as7O6p0S5CopMVSKIooPCpr92uJ29WmqYO-U8LVMRBp7Jfejl2_i>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 13 Nov 2026 18:49:02 -0500 (EST)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: vlwwwwww@gmail.com,
-	ulf.hansson@oss.qualcomm.com,
-	heiko@sntech.de,
-	finley.xiao@rock-chips.com,
-	tomeu@tomeuvizoso.net,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com
-Cc: shawn.lin@rock-chips.com,
-	royalnet026@gmail.com,
-	abel.vesa@oss.qualcomm.com,
-	sebastian.reichel@collabora.com,
-	sidong.yang@furiosa.ai,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	leonard@lausen.nl,
-	jeff.hugo@oss.qualcomm.com,
-	rfoss@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=bHQU3Plx
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-843a4ca671eso500797a34.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:50:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1794613824; x=1795218624; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4HL/6fjzrUsWBibeS1duDHduZd1C6ZMH5RyDDt56/lU=;
+        b=bHQU3Plx6fdlleLg+CaZMIjjgEv5lRh9lWi9ZMj8aC21xF5P+1KPcEilrAPKD+MLcY
+         DXEbN005ILLqpc7oTLMgbyCT4i/3L/Mzm6dy76ATMv12sQE3kqSwbMc32wDfYgNkoKDg
+         7feIYX6DyB0poHjiWrASzm8BnyZeMH36U15cw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794613824; x=1795218624;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4HL/6fjzrUsWBibeS1duDHduZd1C6ZMH5RyDDt56/lU=;
+        b=o9bvN6WedD2AC7QWhzhAcH6ctzGs0tsmDZ8w2uafV4SGQkv37vnQfpX8y1sly1L1/X
+         17Qtee32+1HX7/aQjRIFkZHvllyA3VEuGQtxwYnRY144TtiRhTKqZIZSSe42EcqhJDzD
+         Q3XFhW9ssMMLRVuUkkFNoIQMnAQVgnj0N7fS5ijMwvVzainXsDELEaYCs7s+BI3+8kya
+         WESt7815YMI+198tiLDcKfSsmj9s4JsaSboIQvURG1umuGyr3JnWlOHyCl+eTFmilX93
+         9HrNJTOzNJHAewMrYeSYBu40N6gYTEuLhxlSBpYR7rGCcf1u/c1bPJ/4xk6VnBnnAJlM
+         RKew==
+X-Forwarded-Encrypted: i=1; AL+hErFSzhAYWDn3vHpMIaBXxLMAdwOak+GoIsAH3aMorcNW172S/GI1LLpOyh518VtPswjMpMIRDCkaBaYP6is=@vger.kernel.org
+X-Gm-Message-State: APuU4Z97Xrl9KvQl56Z4C3STg1MjFzvKaxf/QsvLS5axtgDNxtVhfcC6
+	MBaOrOFF47097yeCqpZ8OeRSkx7kBf1qmxpqTdMJbz2Cn1RI4C78rUs3mg820+5PxkH9NX+jj4j
+	kdVtYORM=
+X-Gm-Gg: AYBFou3jSd2/AJvDnSJWPLIzgzhREKZEkNTI+MwDwV/sxYjW93BjfVoW2bS3Q90wLgq
+	kASiBFPQH6771reRbsLBXtGzFnsBvPmkY8YkuNM7ptgvzz0jEHuYD89g1AOR0kw0FUP526gr9ry
+	RoIzS0/YpEc3rGwjtBrSBQRjVVV/LakcpcVUIhUr0osdi4L/qwxkbtUU2+kk8dyF+zPBE7Z5Gdz
+	msIuRjTYyBf35Uvoom4r/eflS3RlwK1+hIJf8bhoPJCZXUQLD75MS2yuS2o9SynWSTAZPJ3b3Tl
+	/NqvSKORR6FyQOZpdGVJ6uWnQXoArC7v1ISJ5a8c6TDhFWsRY7NyMX5LZxmaGTlKCNpjVOzGpcZ
+	wu4tL1LAONSaequ6IwM6sDyL3UGQU14uSPknNvzkxJ6MV4lbLPmmRrXOcJPVA8j0d/+E4ZcoDtJ
+	jCuxeHQZIWl8y7CI1qD+bL6mVMuT496iQL2kWu6zMQH9tk6pO85G/RMka89M+DXgjVIoJtXaetg
+	E+XR4wrDcvEIpY6Z4RaotoP5gb4VGj01wPLZ4WnTOvS47rYl5qqoQ1mjRQZqvi90Cp5Tblws5R3
+	Njddhnp8phULfnzn0RKmOc2r33XKcuxaLuMzOaPJ+9NmzvaUWSs+qPphG8ZMQTdIuovXwyfYCwN
+	fPYCqSS1Mhsa68qrXMJX76wVlpag9yH0YjX8fHXoPIeVyw+tq+Ro=
+X-Received: by 2002:a05:6830:2b10:b0:861:5c3d:4a97 with SMTP id 46e09a7af769-8628989da76mr3407103a34.19.1794613824291;
+        Fri, 13 Nov 2026 15:50:24 -0800 (PST)
+Received: from com-75606.corp.openai.org ([199.47.143.1])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628818de94sm3562068a34.23.2026.11.13.15.50.22
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 13 Nov 2026 15:50:23 -0800 (PST)
+From: Kyle Zeng <kylebot@openai.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	edumazet@kernel.org,
+	pabeni@redhat.com,
 	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: Re: [PATCH v16 09/16] pmdomain: rockchip: add optional per-domain power-on settle delay
-Date: Sat, 14 Nov 2026 12:48:59 +1300
-Message-ID: <20261113234859.658218-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113132323.159015-1-vlwwwwww@gmail.com>
-References: <20261108065917.135194-1-gahing@gahingwoo.com> <20261108065917.135194-10-gahing@gahingwoo.com> <20261113132323.159015-1-vlwwwwww@gmail.com>
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] net: preserve skb header offsets during headroom changes
+Date: Fri, 13 Nov 2026 15:50:19 -0800
+Message-ID: <20261113235019.74384-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -159,40 +100,143 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Vladimir,
+An MPLS LWT route over a netkit device configured with large headroom
+can make aligned skb expansion wrap the 16-bit network_header.
+Neighbour output interprets the resulting negative skb_network_offset()
+as a large unsigned pull length, causing eth_header() to write outside
+the skb allocation.
 
-Thanks for pointing this out. Your analysis is right, and I have
-reproduced it on a ROCK 4D.
+Reject growth that cannot preserve the network, set MAC and transport,
+recorded inner-network, or partial-checksum offsets. Do not relocate a
+set MAC or transport header onto its unset value. Check the actual
+post-pop positions in skb_mpls_pop(), bound the native MPLS label pop,
+and reject excessive LWT headroom before reading the IP header.
 
-The problem is that a power domain marked need_regulator is switched off
-as soon as add_one_domain() adds it, and its subdomains are added only
-after that.
+The issue was found by an LLM.
 
-NPUTOP, NPU0 and NPU1, which U-Boot left on, are neither idled nor really
-powered off, but genpd treats them as off. So when the regulator core
-disables vdd_npu_s0 because it has no users, the system hangs.
+Fixes: 1a37e412a022 ("net: Use 16bits for *_headers fields of struct skbuff")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+Changes in v3:
+- Check the actual post-pop MAC/network positions and reject the MAC
+  unset value in skb_mpls_pop().
+- Check a set outer MAC header and a recorded inner network header
+  during positive relocation.
+- Move the MPLS LWT entry check before reading the IP header.
 
-I reproduced it on the ROCK 4D with a DT that has the NPU disabled. All
-14 boots showed the same wrong state (0x214 = 0x23e, 0x110 = 0x13e1),
-and 1 of them hung. The ROCK 4D hangs less often than your R76S, but the
-underlying state is the same.
+v2: https://lore.kernel.org/netdev/20261110051258.64350-1-kylebot@openai.com/
+v1: https://lore.kernel.org/netdev/20261030042246.74144-1-kylebot@openai.com/
 
-The fix: when the power domains are added, a domain that needs a
-regulator and all of its subdomains are marked as off from the start.
-Once the whole subtree has been added, the domains are switched off in
-order, from the leaves up to the root.
+I have a reproducer for this issue and can share via DM.
 
-With the fix, all 10 boots showed the correct state (0x214 = 0x3fe) and
-none hung. I also tested it on the board with the NPU enabled, and all
-30 power-ups were fine.
+ net/core/skbuff.c        | 35 +++++++++++++++++++++++++++++++++++
+ net/mpls/af_mpls.c       |  3 +++
+ net/mpls/mpls_iptunnel.c |  3 +++
+ 3 files changed, 41 insertions(+)
 
-If you have time, could you test the patch on the R76S as well? 10 boots
-are enough, without any workaround. That would show whether the fix
-works on your board.
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 1ac1e327ac4c..bc836adafecd 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -2130,6 +2130,28 @@ struct sk_buff *skb_clone(struct sk_buff *skb, gfp_t gfp_mask)
+ }
+ EXPORT_SYMBOL(skb_clone);
+ 
++static bool skb_header_offsets_fit(const struct sk_buff *skb,
++				   unsigned int nhead)
++{
++	if (!nhead)
++		return true;
++	if (nhead > U16_MAX - skb->network_header)
++		return false;
++	if (skb_transport_header_was_set(skb) &&
++	    nhead >= U16_MAX - skb->transport_header)
++		return false;
++	if (skb_mac_header_was_set(skb) &&
++	    nhead >= U16_MAX - skb->mac_header)
++		return false;
++	if (skb->ip_summed == CHECKSUM_PARTIAL &&
++	    nhead > U16_MAX - skb->csum_start)
++		return false;
++	if (skb_inner_network_header_was_set(skb) &&
++	    nhead > U16_MAX - skb->inner_network_header)
++		return false;
++	return true;
++}
++
+ void skb_headers_offset_update(struct sk_buff *skb, int off)
+ {
+ 	/* Only adjust this if it actually is csum_start rather than csum */
+@@ -2317,6 +2339,9 @@ int pskb_expand_head(struct sk_buff *skb, int nhead, int ntail,
+ 		return -EINVAL;
+ 	}
+ 
++	if (unlikely(!skb_header_offsets_fit(skb, nhead)))
++		return -EINVAL;
++
+ 	if (unlikely(skb_shared(skb))) {
+ 		DEBUG_NET_WARN_ON_ONCE(1);
+ 		return -EINVAL;
+@@ -2535,6 +2560,11 @@ struct sk_buff *skb_copy_expand(const struct sk_buff *skb,
+ 		return NULL;
+ 
+ 	oldheadroom = skb_headroom(skb);
++	if (unlikely(newheadroom > oldheadroom &&
++		     !skb_header_offsets_fit(skb, (unsigned int)newheadroom -
++						  oldheadroom)))
++		return NULL;
++
+ 	n = __alloc_skb(newheadroom + skb->len + newtailroom,
+ 			gfp_mask, skb_alloc_rx_flag(skb),
+ 			NUMA_NO_NODE);
+@@ -6804,11 +6834,16 @@ EXPORT_SYMBOL_GPL(skb_mpls_push);
+ int skb_mpls_pop(struct sk_buff *skb, __be16 next_proto, int mac_len,
+ 		 bool ethernet)
+ {
++	unsigned int headroom = skb_headroom(skb);
+ 	int err;
+ 
+ 	if (unlikely(!eth_p_mpls(skb->protocol)))
+ 		return 0;
+ 
++	if (unlikely(headroom >= U16_MAX - MPLS_HLEN ||
++		     (unsigned int)mac_len > U16_MAX - MPLS_HLEN - headroom))
++		return -EINVAL;
++
+ 	err = skb_ensure_writable(skb, mac_len + MPLS_HLEN);
+ 	if (unlikely(err))
+ 		return err;
+diff --git a/net/mpls/af_mpls.c b/net/mpls/af_mpls.c
+index ad4ad6f2001a..18c9654a6b36 100644
+--- a/net/mpls/af_mpls.c
++++ b/net/mpls/af_mpls.c
+@@ -419,6 +419,9 @@ static int mpls_forward(struct sk_buff *skb, struct net_device *dev,
+ 	if (!nh)
+ 		goto err;
+ 
++	if (unlikely(skb_headroom(skb) > U16_MAX - sizeof(*hdr)))
++		goto err;
++
+ 	/* Pop the label */
+ 	skb_pull(skb, sizeof(*hdr));
+ 	skb_reset_network_header(skb);
+diff --git a/net/mpls/mpls_iptunnel.c b/net/mpls/mpls_iptunnel.c
+index 1a1a0eb5b787..5123394234cc 100644
+--- a/net/mpls/mpls_iptunnel.c
++++ b/net/mpls/mpls_iptunnel.c
+@@ -59,6 +59,9 @@ static int mpls_xmit(struct sk_buff *skb)
+ 	    !dst->lwtstate || skb_warn_if_lro(skb))
+ 		goto drop;
+ 
++	if (unlikely(skb_headroom(skb) > U16_MAX))
++		goto drop;
++
+ 	skb_forward_csum(skb);
+ 
+ 	tun_encap_info = mpls_lwtunnel_encap(dst->lwtstate);
 
-Patch:
-https://github.com/gahingwoo/build/blob/rk3576-pmdomain-probe-off/patch/kernel/archive/rockchip64-7.3/rk3576-pmdomain-power-off-npu-subtree-at-probe.patch
+base-commit: 2800868f63227c8237d70c41e70d441c919620d6
+-- 
+2.55.0.openai.911.g06873a30d2f3
 
-Thanks again, this really helped find the root cause.
-
-Jiaxing
