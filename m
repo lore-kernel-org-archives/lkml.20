@@ -1,116 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794601399;
-	b=ZBwrPx3Mssxb+eYZREWa2wrqOwUhfx1YoB10XHhOG99rX8ac0GNu8lJmyltRWeIGT3Ly
-	 GDBTbhZZFrIM6vFV0ZfHWZgGhKV2vUDkQC49kHzLgxokFKZ6RoOqs8gsadRVSusFVj630
-	 9I51qAR6CuVY/JPz/aJMMQyz3AEZJ1/O1PXeoikIYNEFSd4knSKwXGqvvcNPHP23kYptI
-	 aoRDa64w2xMPDKSkLpbdttxGvBSolmC4y4VeYobqjHa0TP7TNz4MibnUJGQKo2V2rCUuT
-	 p/CuRLAsJQIX3Vki07/oBNx4AWgN4I6xtkkAmnbciRbQYApxzLkK4iapfedBUj6vlxw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601399;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=i+27OMhkekJ4x3HweJlHBK+ybJFd/US9qI8SkM8nXRw=;
-	b=rNJFQ1h8m9H+YCL7anJ6/Zm4qPlLvCS3c3TSoYZ46DyIMTXmMV46DnKHbuPmEpaJ3TsS
-	 JaZwU2UPeqGjAzeDH5HZniittDcqOuuivPoc0EpnMdgJoZ++hwS1XwL4J1CADtFodABQr
-	 SH7QSN+iC6VkyunbUXqxoqhq++feTaeDvPhyO1JMXhK1xBGghYjVdtNEOmz2cpNVzLUVv
-	 QYL7XMvhMcA0RZicnMnnwbO5KuyHAD9zoREK7M5cFFS72uJb1NYm4mTLbazbwzDxVF7N3
-	 eIsJ3Q+jnwsl5988VfiGKIY2L4LvxNzPkuojEJWN5ZUJB14BwmamWeYAmlA9lXOy95A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=d+cdfXfS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.49
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011049.outbound.protection.outlook.com [52.101.57.49])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794601435;
+	b=HP9tCUcMG8EiqbfXoH2DoyQwEsK36jhAvnyQkyBETiBRBCdtrN+WWTzJhvZbdDNvSmVd
+	 D/mkoBi3in7IkYTDcFpOx+ju5mui98ymh6J8nItdX11wZZz+LTSwCUFv5S+fzKX15MGEr
+	 GXdd4uZkW3wsHEJ+uMq8aAYiHG/6jusgDglcBOiF3yPzEeUmaZDkj2jMLjCV2XfpiOCzp
+	 e4fyqQsANeR5M2NqgZzf73dituqE91XSY3tdcEawvcldr5wgbs4OpLTeC7Nv7PztAdG7y
+	 JTmFRd/Qx2YmCQ1DWTB2AKx8iwOKN7SCQdeAcuSmkZU5+dMdF65BEHlvwm5DMSALwjA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601435;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=WuFDW0jud57WyRGGTHzMPW/pELUpVMizwN/dVZUKa3Q=;
+	b=yX7160TAUri3HK4fGC/qfmmEveVnLMxFAwibwAefwfGKO/I4ACgcp2pYpDBYne78wN1h
+	 svPje92J38d5Jzjx+Qz4SxBG+e4mn96O61J8O9jrAHHd9WST2iOhf4aXuXKU4GRVw9hur
+	 gDkDYDhwb1c7oOrD7FUNLTeYYVbJIyzSN+pt2UDYp5NMHeauXRQy9Kk0ekDtiHJ7WHUdH
+	 5kG4nbYymeUGW6Z+BFc5pDuuzhhcNGzzHRK7O/HQiTQG1lDS1m5PEHum+Ofq2j0acaxw3
+	 duzSz4538L3Uqr6t2Gnfz9Ql0RduNOz9Tr9YDnERiLv/wKhEX4jsAp/QnkIOJ3WYSyA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QeWUU7M7;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F9B606A323;
-	Fri, 13 Nov 2026 20:23:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3F9B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802E5606A332
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:23:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 802E5606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=d+cdfXfS
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=umsZHgIGiv3VMgnBFtSpipxf31KJL9kPKGnr9NipV41cvFuiUJZa1o36Xz+yHurr/uZZdzbawAaexNafmIZoIGRjpEMTUOkjrHe+HPWvG7kIKQzF/S0Y91d4ayfDuNw4ZhhlmNtvAzXy1fri6koTCN7dqa+B27yTMYtO8lGTnOWB69q0lvANx3Goa28hlq4MX9jMEKjoeu4vyNqLlC2cVqYtDeRQdJRNIoWlpbhjldLo7s4rZKUMQGGRMw453/tcxiVuVrKBR1BaVnZQR4iTOyoJ/ZcZQ1AfLLRrrwt/gWvjXuJIdpQmTHxYaoMzLoEhadtPQjqnCK0noRtsY2D8ZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i+27OMhkekJ4x3HweJlHBK+ybJFd/US9qI8SkM8nXRw=;
- b=CpOqb8417VIB4X6dvs1zG+s1bt62ofBLIRr6LDDDvDkzWlNqxvjqHfI9KXfdq6T7UXSqkIOwurAtPjl5mgTrnlQUrHge+g/aMEJag/CehmQLe8mVtrfNMHa7X6j8zQBms4ZLxkD0FyvqIbVzUTO225TQoKLeVGZj78FVvCUmuv9JX/uN4uqFXkIlA6nyy9QmPnA86M/X85JMJFRwNXm69HdVqukj9EO0o19NnAcjVHSf1sWYvaLRWrcYkUUK/JmdFsx3mrf4xAPDPiV4piM7mB1vzhAxfQcXAX/sjOjT0V22q4Jo8awVo812dbyTRAvysOlFrZNmJFfFtbHqaRDEjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i+27OMhkekJ4x3HweJlHBK+ybJFd/US9qI8SkM8nXRw=;
- b=d+cdfXfSCy0RqipaZLnuH/GwuOpEvhK+v2eu73KP9tmSoMsnWFW0mMfl9RSEOHrMxGsp+XzBjsR1mkr3xuDuzThNt0rknHhvl5kfi28vwS0k4QUcIt7ggetAo2NBUzV3JP9vob6EunERpPRQr7Wf1DeFekQue7v5XPEvE3TVV3rh3CX+UEK0p7f2zwMswur/FifrbeQSeQagiKdM03KT5b7NdSwcauHCeNUV7vB4IfKKVBmJzzPFTnFD5068o/X78RvLZG4bwoDvH3bclHlWjRIq3BvtwHD8vWS2/zIPEJxTStsSSVExeHUWyGh1ghd/AEg+L/LKzaEBGdyBhnDPJw==
-Received: from DS3P221CA0009.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:45e::14) by
- CYYPR12MB8989.namprd12.prod.outlook.com (2603:10b6:930:c2::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.8; Fri, 13 Nov 2026 20:22:56 +0000
-Received: from DS4PEPF000001C2.namprd21.prod.outlook.com
- (2603:10b6:8:45e:cafe::42) by DS3P221CA0009.outlook.office365.com
- (2603:10b6:8:45e::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Fri,
- 13 Nov 2026 20:22:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- DS4PEPF000001C2.mail.protection.outlook.com (10.167.23.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.0 via Frontend Transport; Fri, 13 Nov 2026 20:22:55 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 13 Nov
- 2026 11:01:08 -0800
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 13 Nov 2026 11:01:07 -0800
-Received: from nvidia.com (10.127.8.14) by mail.nvidia.com (10.126.190.182)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Fri, 13 Nov 2026 11:01:06 -0800
-Date: Fri, 13 Nov 2026 11:01:04 -0800
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Robin Murphy
-	<robin.murphy@arm.com>
-CC: Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Thierry Reding <thierry.reding@kernel.org>, Krishna Reddy
-	<vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
-	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>, Peng Fan
-	<peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v8 4/9] iommu/arm-smmu-v3: Use a per-domain CD table
- for non-PASID streams
-Message-ID: <avdecPsIeaABLGkN@nvidia.com>
-References: <20261113-b4-smmu-shared-sid-ver8-v8-0-587307a77f3a@nxp.com>
- <20261113-b4-smmu-shared-sid-ver8-v8-4-587307a77f3a@nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QeWUU7M7
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so6243795e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:23:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794601434; x=1795206234; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WuFDW0jud57WyRGGTHzMPW/pELUpVMizwN/dVZUKa3Q=;
+        b=QeWUU7M71JvO9Vv0lgiL+sU9jHCWhDolHx2g91UpgVev+mt8J4dmuN++myRVgvbENK
+         +B2+HC8+dRgWdqJtOhNmF6VAYSjNbu6SyVe6+GsXUglCPVfC1A4W+ChILaFOuBAfNLjb
+         hbLA7ntgOYy8F1lfIjEqBYPY7SIdDuWRJOL2E99tnvK/7iDdPlcmdldQ3vJNDiCb797f
+         IJnCIJ/SAW2NxYD/jBFaMJt6i5JpdOfSWEbA86Poes6vptmZr0s3D9s7tAMyqaNvkbqR
+         4OtAkk5IcY1rqrgZMdeKtVmJNBxXrngqL+nR746nNxEnYERbco9Qqm16NBNTjfik+XZD
+         CtNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794601434; x=1795206234;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WuFDW0jud57WyRGGTHzMPW/pELUpVMizwN/dVZUKa3Q=;
+        b=XKnH7L8PaJpLv+SEiGR3sYBHI4ASsCgD0SSFbC/7Eboul4eMj2VTErOXMxoaWdmh1k
+         opc0FM/fYHoEIv6ymT84cAysEbwJuQhGMYA2aAzooNTjlcivDNK2HPxA+JPV1h8ZO25R
+         E/kMaZCy/Tj2LwX/897QFY24Z7StPCemfKmdAKfmtmP8wrPoa2ZZ9q0yyX55flYkUDiF
+         iIhteYVoxJA0N5bM9s9YEpgcj8i3zAPZNkYJlp/cHEW4QHYcaZINU2V9fbuCCnJ7BDyt
+         +YfVbUL5lKMCCP+gKkrfKLRt7tbvKTn1V/ingMOgPsAFSmJW5G4npc3tJeMFUoEckDbk
+         pHVw==
+X-Forwarded-Encrypted: i=1; AL+hErF4CGYQxE8TGM8EFUIBbafCLsO21mJkOMk2bZllGz7Mdpgyeq9eHGqW08Ak5azmgeNJ1tRDZDSgefQSXfY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+o+IRAsKQe/1FKm02o8Gu0sEIDlMVECHle4w3Mcy7a3ASUdsoe
+	c8IHsWqSROtRDj/dl2+e7ES1VfGUC+jRGWrgSD7tam1g0tZHJELwgtZw
+X-Gm-Gg: AYBFou0FxCAeFbLjraRJomQHnfiDHrp5J2Q5ayMHFr+Hm1thJhHQSMCK+1GF05Rzm+a
+	A7XiPjahrJR77dmJ7lmzxvyMyqMBunL0nV71MXVqO6mksnwlDoU5RSZTyQ3UsmBzJrmzbBqbgeG
+	pNuAoFrKPIk+Ch4Fm0OVpicq74+ZjijsTrlCI9S5DqDMTxCvCUSOtX7hPcZXMNvqrWJmnANjnEp
+	dtSb+8j2sW2vvS5b0Pj598kU3jW/sJyg58QHD99NDZEISWjFKGzVz4MxBd9oQ1sZViwmjDttshP
+	jhfj0B1L/Jii3eBha0VBI2aHv/S7NJzz7UGSW6ddcoOD9JcfCM6U7Z+Gikyr6mj8WGia+IlQTpq
+	x1xaBaX8anHw7HhlrnoP6yi9GdYNblq6SqdC4Wa/GeClxkblqiTIWgYRKchJpDhEarUD7qVdBSI
+	m1g+mu53KdoJyobaHvRX8q4tEbaUTsd27KF3oKxbPfsJ7GS8SyrPrRQOmchPiQKeL+L4Hbj5ACj
+	x7sDGSltFeiQjI7TR7BB/Ip0o9HdCgcEBPrm+GhFzKVp2PdQteKCqlyE4ljxF33pfc4uBMBBnQs
+	dtJP7qmu7MnNJST/YPwxgsjeaa7dQbmuI8TLYoueoGuZQf3nfogdYw==
+X-Received: by 2002:a05:600c:1d08:b0:4a6:b49f:9ae5 with SMTP id 5b1f17b1804b1-4bb55a898abmr71653285e9.34.1794601433578;
+        Fri, 13 Nov 2026 12:23:53 -0800 (PST)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb566220edsm118582515e9.0.2026.11.13.12.23.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 12:23:53 -0800 (PST)
+From: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
+Subject: [PATCH v3 0/5] landlock: Fix REFER in layered domains
+Date: Fri, 13 Nov 2026 21:23:22 +0100
+Message-Id: <20261113-b4-landlock-refer-nonfs-layer-v3-0-02d7e42bcdfd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,200 +91,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261113-b4-smmu-shared-sid-ver8-v8-4-587307a77f3a@nxp.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PEPF000001C2:EE_|CYYPR12MB8989:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e8e376b-ed0f-47f8-c729-08df41c3e68b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|82310400026|36860700016|10067099003|4143699003|11063799006|56012099006|261026121527099003|261022105027099003|261026140227099003|261028144727099003|261021135927099003|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	0JB86hD2sBA/BFhOB2jGaGlFl7/z/8W+rw0hDBtS2x5sObDtqrK9B0EXVuyVdAqMjmL5o1t9YUsRcthsHFnUynxCDgs7awJ6mj2FzkIlIRD7ezD50rXj+dj11nb1ricVYJ7IkmOsJ7l8A3VxXHa9lBwjjV2diG2zjCLcyzjVRiJL1p6bktDEMCchciGdBfO3r90CVB4mEHg1PB/Kn5qIbtJpCl4kzONA1ihW9AZ+F5m9eSvRaxmDe+no0MkBWSN0C7rTolurBLmbeIBgHABhVeNq58dXnK2H3S3fzKS+asQjHVhjTA+y/FyylVRpYMPIrJp8+WQEmDelEpv8ZIqI6Aro0IonRzczePXbh1mupk8ufX/SXYFpyPoCeJ8eFE/S+LCw3Ym9jSNPLYIcckAJQxxh8c1uBqa7p95DjH0agSDgDXq1vbg8Njbgk5W+aFO0k4nkmyPHQ4ZKh71TH0S8bNzgbdUzQkvy2YtzEauyapwR/zdIa3EXiZXvMQJkIc2DWDZKnAHnwTMXw2eE4mo8Z1JmAZw9NJ4IrwhgirA/0uNI805htoWkmGo+LpHCHnYUPX6EAC0NTwIPu+h+xsWD4X5zI37jDHG5IgI5PH2mjhFxI6aaLycA5Zu0wBi7X3sj6qIw1vyjstZQgi/aZDr1L9e4mL72eXLj8rKHqU+F8DY/qBoAL8gTm7/CQZyuOqF/xs/2mY/JOMhId1LJo66RIA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(10067099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003)(261021135927099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	fYBD6h5y8Ilp8qaOB/RFKma+mGYXn7deM0nC4WQBlqeeaPswSbIneKPj8hV1NK/X8nPCI9lQRhxPQPVspUhXE/ry9Udianh34uCyQ0B6y0cBMt5xSniWsJicZDJBQ+ftYJkfwJPc8YDfkw4jeviF13bMl2yLsRuUBedBFbugcna7U4x82qnq21tRLUl0hzsSjzyouNrQbJXuUodJMZH1i1UOR7WJhAhOYM/D/KeYjG7hcgT4a1uXW12OTQBeh3JT0letDEwsg324zi9u6g0/P5fsYUmGY3ZHSJpsYuuRywIqk+oXLHIt5Nmpb9EkI5AE5cErlA6DAz0rFPwz9IFYxjMjRv2J3Gd29W6abh0W9C1Qzf6Q7ny4B4rFcbiy+s63sX8fAoiTaKxKL8zIWAnyTz1+FffxPwuPD55Usz5JZgfMl1d+rmiloaXF91+AhGUa
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 20:22:55.1070
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e8e376b-ed0f-47f8-c729-08df41c3e68b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS4PEPF000001C2.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8989
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WOQQ7CIBBFr9KwdswMRVNdeQ/jAihtsRUM1MbG9
+ O6CXejO3fzJmzf/xaIJ1kR2LF4smMlG610K5aZgupOuNWDrlBlHvifCCpSAQbp68LqHYBoTwHn
+ XxLSc09zUslJaGVRCsOS4J8Q+P/7zZc3xoa5Gj1maic7G0Yf5U2CizK2/sERCLoi2xA/VDgha5
+ 6XuS0Q8tTdph632N5alE/+e/a84cUDgSuCu0aRKKX9ty7K8AdIWSz0TAQAA
+X-Change-ID: 20261108-b4-landlock-refer-nonfs-layer-fda8bcbe0b44
+To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, 
+ Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, 
+ Shuah Khan <shuah@kernel.org>, Dwi Siswanto <me@dw1.io>, 
+ linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, stable@vger.kernel.org, 
+ =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Fri, Nov 13, 2026 at 09:27:16PM +0800, Peng Fan (OSS) wrote:
-> +static int arm_smmu_alloc_cd_ptr_l2(struct arm_smmu_master *master, u32 ssid)
-> +{
-> +	struct arm_smmu_ctx_desc_cfg *cd_table = &master->cd_table;
-> +	unsigned int idx = arm_smmu_cdtab_l1_idx(ssid);
-> +	struct arm_smmu_cdtab_l2 **l2ptr = &cd_table->l2.l2ptrs[idx];
-> +	dma_addr_t l2ptr_dma;
-> +
-> +	if (*l2ptr)
-> +		return 0;
-> +
-> +	*l2ptr = dma_alloc_coherent(master->smmu->dev, sizeof(**l2ptr),
-> +				    &l2ptr_dma, GFP_KERNEL);
-> +	if (!*l2ptr)
-> +		return -ENOMEM;
-> +
-> +	arm_smmu_write_cd_l1_desc(&cd_table->l2.l1tab[idx], l2ptr_dma);
-> +	/* An invalid L1CD can be cached */
-> +	arm_smmu_sync_cd(master, ssid, false);
-> +	return 0;
-> +}
+This patchset fixes a bug in Landlock layering,
+reported by Dwi Siswanto in [1] and [2].  (Thanks!)
 
-This patch is a bit too big. Move this into a prep patch please.
+The bug
+=======
 
-> @@ -1793,9 +1801,22 @@ static int arm_smmu_alloc_cd_tables(struct arm_smmu_device *smmu,
->  
->  static int arm_smmu_master_alloc_cd_tables(struct arm_smmu_master *master)
->  {
-> -	return arm_smmu_alloc_cd_tables(master->smmu, &master->cd_table,
-> -					master->ssid_bits,
-> -					master->ats_always_on);
-> +	int ret;
-> +
-> +	ret = arm_smmu_alloc_cd_tables(master->smmu, &master->cd_table,
-> +				       master->ssid_bits,
-> +				       master->ats_always_on);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (master->cd_table.s1fmt == STRTAB_STE_0_S1FMT_64K_L2) {
-> +		ret = arm_smmu_alloc_cd_ptr_l2(master, IOMMU_NO_PASID);
-> +		if (ret) {
-> +			arm_smmu_free_cd_tables(master->smmu, &master->cd_table);
-> +			memset(&master->cd_table, 0, sizeof(master->cd_table));
-> +		}
+When Landlock initializes layer masks for path walk based checks, it
+unconditionally adds the LANDLOCK_ACCESS_FS_REFER access right to the
+handled access rights.
 
-It'd be helpful to have a line of inline comments stating why this
-is needed here.
+This leads to a wrong layer composition, in cases where the following
+layers are stacked:
 
-> @@ -1830,6 +1851,12 @@ static void arm_smmu_free_cd_tables(struct arm_smmu_device *smmu,
->  	}
->  }
->  
-> +static int arm_smmu_domain_alloc_cd_tables(struct arm_smmu_domain *smmu_domain)
-> +{
-> +	return arm_smmu_alloc_cd_tables(smmu_domain->smmu,
+1. A FS layer restricting REFER, but also allowing REFER in a rule
+   (e.g., handle REFER, but allow REFER on /)
+2. A non-FS layer (e.g., networking-only layer)
 
-Hmm, that's not good. We are trying to decouple smmu_domain from an
-SMMU instance so that one smmu_domain can be shared across multiple
-SMMU instances.
+When these rulesets are enforced **individually**, there are REFER
+operations that are allowed in both rulesets -- the ones that 1
+allows.
 
-Tying one instance to a domain is apparently going against it..
+When these rulesets are enforced **on top of each other**, the non-FS
+layer starts enforcing REFER implicitly as well, and all REFER
+operations are denied.
 
-Instead, we would need an {smmu, cd_table, refcount} list. And it'd
-make thing more complicated than letting master own CD table as-is.
+This patchset
+=============
 
-Not sure if it's still worth doing so. Robin?
+This patchset fixes the issue in five commits:
 
-> @@ -3971,15 +4058,23 @@ int arm_smmu_set_pasid(struct arm_smmu_master *master,
->  	if (smmu_domain->smmu != master->smmu)
->  		return -EINVAL;
->  
-> -	if (!master->cd_table.in_ste &&
-> +	if (!((sid_domain->type & __IOMMU_DOMAIN_PAGING) &&
-> +	      to_smmu_domain(sid_domain)->stage == ARM_SMMU_DOMAIN_S1) &&
->  	    sid_domain->type != IOMMU_DOMAIN_IDENTITY &&
->  	    sid_domain->type != IOMMU_DOMAIN_BLOCKED)
->  		return -EINVAL;
->  
-> +	first = !arm_smmu_ssids_in_use(&master->cd_table);
->  	cdptr = arm_smmu_alloc_cd_ptr(master, pasid);
->  	if (!cdptr)
->  		return -ENOMEM;
->  
-> +	if (first) {
-> +		cd0ptr = arm_smmu_master_get_cd_ptr(master, IOMMU_NO_PASID);
-> +		if (WARN_ON(!cd0ptr))
-> +			return -ENXIO;
+1) The fix, which should be backportable to older kernels
+   and which is CC'd to stable@.
+2) KUnit test.
+3) Regression selftests.
+4) A more elegant fix for newer kernels,
+   which is intentionally *not* CC'd to stable@,
+   because it would break on older kernels.
 
-You don't need "first" at all, given ...
+   In newer kernels, we already add the "REFER" access right to the
+   handled access rights when we merge the ruleset into the new
+   domain, so there is no additional calculation to do for it.
+5) A documentation update to clarify the situations where the *_REFER
+   right is implicit.
 
->  	mutex_lock(&arm_smmu_asid_lock);
->  	ret = arm_smmu_attach_prepare(&state, &smmu_domain->domain);
->  	if (ret) {
-> @@ -3995,7 +4090,30 @@ int arm_smmu_set_pasid(struct arm_smmu_master *master,
->  	cd->data[0] |= cpu_to_le64(
->  		FIELD_PREP(CTXDESC_CD_0_ASID, smmu_domain->cd.asid));
->  
-> +	/*
-> +	 * The private CD table is taking over the STE now. Make sure its
-> +	 * default substream matches the RID domain before the STE points at
-> +	 * it, since non-PASID traffic follows CD[0].
-> +	 */
-> +	if (first) {
-> +		if ((sid_domain->type & __IOMMU_DOMAIN_PAGING) &&
-> +		    to_smmu_domain(sid_domain)->stage == ARM_SMMU_DOMAIN_S1) {
-> +			struct arm_smmu_cd cd0;
-> +
-> +			arm_smmu_make_s1_cd(&cd0, master,
-> +					    to_smmu_domain(sid_domain));
-> +			arm_smmu_write_cd_entry(master, IOMMU_NO_PASID,
-> +						cd0ptr, &cd0);
+Both the selftest and the KUnit test are built to fail before commit
+1, work after commit 1 and continue working after commit 4.
 
-... there is only one place using the cd0ptr.
+Please let me know what you think!
 
-> @@ -4015,35 +4133,61 @@ static int arm_smmu_blocking_set_dev_pasid(struct iommu_domain *new_domain,
-[...] 
->  	/*
-> -	 * When the last user of the CD table goes away downgrade the STE back
-> -	 * to a non-cd_table one, by re-attaching its sid_domain.
-> +	 * When the last user of the CD table goes away, switch the STE back to
-> +	 * the RID domain's CD table (S1) or to the native bypass/abort STE
-> +	 * (identity/blocked). Do not call attach_dev() for an S1 paging domain:
-> +	 * this is a teardown path where allocation failures cannot be
-> +	 * propagated. The private CD table is kept allocated for reuse and
-> +	 * freed when the device goes away.
->  	 */
->  	if (!arm_smmu_ssids_in_use(&master->cd_table)) {
->  		struct iommu_domain *sid_domain =
->  			iommu_driver_get_domain_for_dev(master->dev);
-> -		bool ats_always_on = master->ats_always_on &&
-> -				     sid_domain->type != IOMMU_DOMAIN_BLOCKED;
-> -		bool downgrade = sid_domain->type == IOMMU_DOMAIN_IDENTITY ||
-> -				 sid_domain->type == IOMMU_DOMAIN_BLOCKED;
->  
-> -		if (!ats_always_on && downgrade)
-> -			sid_domain->ops->attach_dev(sid_domain, dev,
-> -						    sid_domain);
-> +		if (!master->ats_always_on ||
-> +		    sid_domain->type == IOMMU_DOMAIN_BLOCKED) {
-> +			if ((sid_domain->type & __IOMMU_DOMAIN_PAGING) &&
-> +			    to_smmu_domain(sid_domain)->stage ==
-> +				    ARM_SMMU_DOMAIN_S1) {
-> +				struct arm_smmu_ste ste;
-> +				struct arm_smmu_domain *sid_smmu_domain =
-> +					to_smmu_domain(sid_domain);
-> +
-> +				mutex_lock(&arm_smmu_asid_lock);
-> +				arm_smmu_make_cdtable_ste(
-> +					&ste, master, &sid_smmu_domain->cd_table,
-> +					master->ats_enabled,
-> +					STRTAB_STE_1_S1DSS_SSID0);
-> +				arm_smmu_install_ste_for_dev(master, &ste);
-> +				mutex_unlock(&arm_smmu_asid_lock);
-> +			} else if (sid_domain->type == IOMMU_DOMAIN_IDENTITY ||
-> +				   sid_domain->type == IOMMU_DOMAIN_BLOCKED) {
-> +				ret = sid_domain->ops->attach_dev(sid_domain, dev,
-> +								  sid_domain);
+–Günther
 
-I commented in v7 that attach_dev shouldn't propagate the ret..
+[1] https://github.com/landlock-lsm/go-landlock/issues/66
+[2] https://github.com/landlock-lsm/linux/issues/67
 
-Although your patch-9 clean it back to the right form, I think
-there should be a way to prepare things cleanly so that you can
-make a change here in one shot.
+---
+Changes in v3:
+- Add erratum 5 describing the issue
+- Add KUnit test
+- Selftests: Test the scenarios where layers are enforced in the other order
+- access.h, fs_test.c: Update some remaining misdocumentation of the REFER right
+- Link to v2: https://patch.msgid.link/20261108-b4-landlock-refer-nonfs-layer-v2-0-2b405fc1b3aa@gmail.com
 
-Nicolin
+Changes in v2:
+- Rebase on master and resolve conflicts
+- Fixed documentation as pointed out by Dwi Siswanto in
+  https://lore.kernel.org/all/20261101125114.19009-1-me@dw1.io/
+- Link to v1: https://patch.msgid.link/20261030102411.12985-1-gnoack3000@gmail.com
+
+---
+Günther Noack (5):
+      landlock: Fix layer composition of LANDLOCK_ACCESS_FS_REFER
+      landlock: Add KUnit test for landlock_get_fs_access_mask()
+      selftests/landlock: Test that layering does not break refer
+      landlock: Simplify landlock_get_fs_access_mask()
+      landlock: Clarify implicit handling of LANDLOCK_ACCESS_FS_REFER
+
+ include/uapi/linux/landlock.h              | 17 +++++----
+ security/landlock/access.h                 | 13 ++++---
+ security/landlock/domain.c                 | 44 +++++++++++++++++++++
+ security/landlock/domain.h                 |  9 +++--
+ security/landlock/errata/abi-4.h           | 21 ++++++++++
+ tools/testing/selftests/landlock/fs_test.c | 61 ++++++++++++++++++++++++++++--
+ 6 files changed, 145 insertions(+), 20 deletions(-)
+---
+base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+change-id: 20261108-b4-landlock-refer-nonfs-layer-fda8bcbe0b44
+
+Best regards,
+--  
+Günther Noack <gnoack3000@gmail.com>
+
