@@ -1,54 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794572709;
-	b=X35qq7bfRoBqYsky/TyT5HWku0e5z2QW2OUnPP5fM6EVAjMX/CERmqgxYaneYztkE/kb
-	 kNjF7O2KscXMN/EF14PPCbK5CpQAuP7oiNCRf5zWeqFgBzLGqOIIKeLwm+I7urpJS3NIL
-	 7srel2G6CRy1o9P/qYB2Y25Nh8pYjnnSgP5Z+NwB08unHohvro1K1PDpsk7x3cYyJpWdm
-	 p7GRUe+43IZGpWX1pVgCpc4IJ2nK3GZwi5ACr+748oWWh19IdLnnBeapmzemgRs7M85T0
-	 xstVUqZMZF808kAN86EFuEABwVtR5e5TsUabAJGBZW7Uf3BZWPFAhVSstWO1GlcECIA==
+	t=1794572835;
+	b=eTKHJ+iBCLVUxEIygQ6zMCcWWCPaPoVC4HCbx3v6zgApUxme4csHXJJhfhrv8juQuVU3
+	 jlhmxEG1gk4N6f8wgyaFj8NylwjHum/fmTeGw+DtZpgCExNahLUGuBdtC3wleTSxB5br+
+	 KNlN87GE3F2APTQHsl6gQl+TNElnFLfOfTd/NmN75gIeAJvnq9HaeydlJ+dPNTdO3MXzn
+	 BQYHPEMog6v49soDKO240tSOMvxCQjt+vOa0kWHk2cA4KFwFJJjjFT6qP89Yez0kkgmHc
+	 gIEGDdVtVgm2qBm0aAXZAzalvIAyn6jIhuZpNxVa8082pimizBBrnTcD8v6HS6t0EsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794572709;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=EqCw5uzE8XALeVKaBC2jrOyc6WeslC8ZsxpNxhukdvo=;
-	b=Nd6DSZ5XvjDpd/oP+rS2AdnjNFdNgkXQ7Jhf/P+ZVjjMW137pPfK/yJEHyms9EcWYVRW
-	 Kfg6FrVDndVX/ZuEhE4mN+nNk7JhbDVKazRDT/y7WTCC6q6AU8GYABiDRglS/hX1F5I9k
-	 aSTuFZDU/QcWdu2hVpGXbU4fpeAJOhM+OVIdzutgiR/yQxW2fD06N4xkRjqoyS+ZBF2fb
-	 EVDY828nki1hJ8j2EEzJDWMPNAvdGiUCmn1Z4bPcNfOdckMHjHrWqXayCTP7EPC+4igWz
-	 oRSca98jcN9p7O/x4Aet4Wd24oQIq+KLUm0g4SoyPI5fF5lFML3jgUkhzgJCpLLzXBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794572835;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=+gssuiItGuzjstQSCnR+QwXunoGmNsNH8w+n929Ric4=;
+	b=Z5CHJfNaz5wN7lxNz3Y444bu1HBd0EoWv+X465TZNk9DzFhxdYPil/IYV2ZAX4AjaVdc
+	 4vWLCObkTWR7SzstA7j2JOp31XGXLqB3yu+1RW1bd56pRYyrg3Dy26fySAkJ9bzQljQ45
+	 wUBNjqwLssjMgeYJ0r83rF7j/8RdONW27FjHzFIDa/VjNVVLN8itJ/tvngk7pv/F0j5rE
+	 QfNrWxXLfmUsEO6d9vaeHGZfWvbesFoxMvZ2RYpGridEzdgqjaI0uv2Nftfd3k2ySbes8
+	 lI0bOk7LGe4cnY4qY5S0rhgYmndH4DaG0eB+q2eLtw3XoOCXxf5Z7vP6CenvJMxf4qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VUt2Xd5q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="GecEL7/E";
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CC2606A88B;
-	Fri, 13 Nov 2026 12:25:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A659606A32A;
+	Fri, 13 Nov 2026 12:27:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A659606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VUt2Xd5q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B435A1F000C5;
-	Fri, 13 Nov 2026 12:25:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794572709;
-	bh=EqCw5uzE8XALeVKaBC2jrOyc6WeslC8ZsxpNxhukdvo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VUt2Xd5qhFNMwF/hKucrVtY6uk/isDD24fFE/qGb5iUPllT7uwkhuBuR+bWsEbgRC
-	 IlVS3a1+bpURbo/HxPxsomob4gh1JipApkFKhQj/zT2BP2+BnSp/7jh9/SJcrP3yXv
-	 e8AhQAAEIYtTNK2XnlJn5nGg8A2Hz28Qzm0cHW0TUx3we95PwukjnJowZzLwRXCO1a
-	 HAK4BziWDKOuLNyEACboITHwr8MPChLofb1uZc+E2f+UUgQkuaZAhOnJAvRMrI11ne
-	 fuARqwqdvbYzET1VT0uUa5L6OrfSDH2Kx6AkhXzWdruki1RIctj/PBV5oXPRRj4yE9
-	 Hg7YXK5+64LGQ==
-Date: Fri, 13 Nov 2026 12:25:05 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Shuai Liu <847807867@qq.com>
-Cc: linux-spi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	ojeda@kernel.org, dakr@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 0/3] rust: spi: add SPI driver abstractions
-Message-ID: <f8d00405-e8cf-4c77-a75c-9792ea81a546@sirena.org.uk>
-References: <179451185979.339049.12323339081307899766.b4-review@b4>
- <tencent_097BA6F40A0B8FBC4C130C6EBF58F8048006@qq.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GecEL7/E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794572835; x=1826108835;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GONH34euy6I7ShZZRm0xnOysRcup10XSU9Kp2VTdGj4=;
+  b=GecEL7/E4dNLaqf6Xr4YLgqyMR7/UxmLgnhbpcyU8Y2+rTI240K8m1nq
+   3NeGKCwOSdKxx7opLulrtrix1dxFj0mPU7a7yOkTvLAEwiOiOCMxoeWt2
+   uyvgF6oem6WCbQdguBv+GnlTSvwwzOFK8lfne7eumvUwb+GuorTyBqFse
+   BBVJIKlJ93o/1wknmZnqQC78+hmBqTDHpjYf8FH4DfmxiFkhluqtgL9N7
+   Zen0fTLj84Zu17OTNUs+H09PU67Y8bTzYgINYn24idKKXU725zcZo4CSd
+   zCT9sFxSRmb5Vm38GZ/6yv1Bcvn6fz8m2ww49AfA6R9Vi8EGPN2y/KIX8
+   g==;
+X-CSE-ConnectionGUID: ZvxZ1Vr5QIuI7mpP8YklHA==
+X-CSE-MsgGUID: ajvYS+gjRJC3ofrWGMIDsw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3382941"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3382941"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:27:12 -0800
+X-CSE-ConnectionGUID: nSdeYu7uRzi8MAv3gVutgQ==
+X-CSE-MsgGUID: h+udWmwPSjC0+1RLFsK54g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="8799457"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:27:09 -0800
+Date: Fri, 13 Nov 2026 14:27:07 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Parthiban Nallathambi <pn@denx.de>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: light: vcnl4035: Fix swapped raw channel readings
+Message-ID: <avcCGwCYK-AiQ1mE@ashevche-desk.local>
+References: <20261113110123.96084-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,43 +82,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ggMePJOQVkw5nMmK"
-Content-Disposition: inline
-In-Reply-To: <tencent_097BA6F40A0B8FBC4C130C6EBF58F8048006@qq.com>
-X-Cookie: Flee at once, all is discovered.
-
-
---ggMePJOQVkw5nMmK
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261113110123.96084-1-dennylin0707@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Nov 13, 2026 at 10:05:28AM +0800, Shuai Liu wrote:
-> Rework the device I/O to map onto the lower-level C APIs, as suggested
-> by Mark Brown [1]: instead of leveraging the C convenience wrappers
-> (spi_write(), spi_read() and spi_write_then_read()), all device I/O is
-> now built on a single `SpiDevice::transfer()` primitive that maps onto
-> spi_sync(). The convenience methods `write()`, `read()` and
-> `write_then_read()` remain as thin wrappers on top of `transfer()`.
+On Fri, Nov 13, 2026 at 11:01:23AM +0000, Hungyu Lin wrote:
+> The IIO_LIGHT channel has channel number 0 and the IIO_INTENSITY
+> channel has channel number 1. vcnl4035_read_info_raw() selects the ALS
+> register for a nonzero channel number, so in_illuminance_raw returns
+> the white-channel sample and in_intensity_both_raw returns the ALS
+> sample. This also causes the illuminance scale to be applied to a
+> white-channel sample.
+> 
+> Select the ALS data register for IIO_LIGHT and the white data register
+> for the intensity channel.
+> 
+> Fixes: 55707294c4eb ("iio: light: Add support for vishay vcnl4035")
+> Link: https://www.vishay.com/docs/84251/vcnl4035x01.pdf
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
+Make a Link tag with a reference: Link: $URL [1], and refer to that in the
+commit message. Or make it a Datasheet tag. Otherwise intention of this
+Link is odd.
 
---ggMePJOQVkw5nMmK
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+With Best Regards,
+Andy Shevchenko
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr3AaAACgkQJNaLcl1U
-h9B8ZAgAgY6BVG6bG72JQRdVKvYmwEGGsir0CiGx82+qJ6rqrYYNL3cyBAIugk/i
-mHe8gV3P0SBW/dUC/iVvLVadtUQoTPemFeecZPX5wm88L+JWTIs5Mm0C3CoMZ4qt
-0fwPVawILQIRkJc6aSG+okQKY/VxRQOVT7k1Jbsg/Ojo3Tvph33SQvVwLmP54xft
-vSOP+LKoYdPk/uvFPz1bwdD9WvBSpUxPYket26MygkZVSI40jo8t9NnKT6TIkUzq
-5D65nbovb4cwX6NRCMcZOm+T7mPYdNwVkALf9/lgFiianbc7xD5tc/SPBItSjO7w
-VeVGwKMzvOI70QmQpasaRmXERDQmEQ==
-=r8pB
------END PGP SIGNATURE-----
-
---ggMePJOQVkw5nMmK--
