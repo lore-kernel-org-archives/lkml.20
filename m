@@ -1,103 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794559690;
-	b=ANm0Q+fjxHPTIgSKM8dK5Z7VQ3TC+vKu5S1S0blPK1j3QzQHr+zBRR4loTlXi5SZvFsw
-	 Y3MBG2YwKrc/6f3FIJIt4OeThlwokYVhMX8dkSWCynXN7g6tcPJAXvuxqy75p3UAe8hSj
-	 YaeqAnUA9m4bzIkeMTtlYd5blsj1EyrVGRK3LGqAGI+nI9igPuh5/z2s8sGCBmiBdY7m4
-	 bcWFMEnb1hocc8aVQvYukFatblekGM5UDG+XCgJd2DUlvZ/AS9EpDK2wK/CUlHQsXXQ0Z
-	 3+e85uD/2jWsGvbDlqGHzeUPufXZGriyz73Wv/RqSVC5mzB6PIPsK+7wsxaEiaFYzBg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559690;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794559743;
+	b=lhAoKdSR/6a7vbdw4wu4OeoqzqDDmx3x5s/joq13HFmfgD5Ec0lU1pnzYG1rqxoBo1vZ
+	 bv8pQqN45Mvxdntb/OVFuvYy7+zEcnPzpCkJRhrx8HoJGNoqPQq4IDuvWkJhNHo/utbDE
+	 ITVHY0mkmN5nfLqw0Jt/V8bTi/zfqi+3MhNmD6ix9WaY/l8iBG86eXNiR8Q1lSIfdrp55
+	 SjzgBnmSUImU/euy7QO+lHVhuxu+yugGo9tIzHYt6fPPfiauZIoCIdF231YChp0RsC00k
+	 6WtRAAI8ZAOS+Sa1488+BO5/reMLUCiGufBqh3d+8qLnBv5GtPwMIx7he+XijLgBXUA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559743;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Sb4C2w/d5w6+ocGzHVnaU8bpcCXtQ0zPQIONnx/cfo8=;
-	b=oRcuk2cswSH1iIpbytmpOWIX5OcFu5JVJncCfYHX8A7xmCishkWr4Ud8tzL9nzNqauHp
-	 p+WvDIjSzi1jdSbS41bLNInjDP7UQDnVK3XOVl0CEZGQGlLC6vbJ2vS8yMxl8afqY9HPx
-	 Cf2ILfW769rxL9iAOUGp5cjqdbhl2ORzO6z9WsQNVjuOovThMkt8EKuMyFAQtWZTto+vY
-	 di+F8d4w7OIIex7u53DlM2ik5RYblCy0B/dQXbJl9dNpd82gXoFQ7U/QKi67NlnlHBArT
-	 u9L1Sy3au/ih3hELOVLCGyhlYgUGWEZI7yCXR0fgmhrZE7iWs9uE8NoOD7ZUtWU7r8Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qx6anf3hBdJB8SU0X3cTGKNeyaZPKU1W0S8sS4JiQgM=;
+	b=cO1pAinXXt/8Rx7PrAgU9gIJdOum0UOhckKlTHdZ0ChmX95CYaBKROIdA179i0+VCiVC
+	 ozSDz429e+V215CTF76qrdQ/QZxoo2IJYdUr+GEBkmqpktFp19Pz8Xyhtl9QGCHR1VIL8
+	 ev4PmmTPqZ1AadRgJGSwYGEyS5jabonLSD+QdVrEj2U/eClnj9SPD1lHX79gnyQG3K9yn
+	 cz0FP2K9H99jXX7s4iH1XVLBtUoesgI6pf51FIXaOjSUiDos8g8GfrCo0aZhDNxYGFvrz
+	 YepCiH6OCZWaZLWjh3FJNbI3mRoPXTDwfh8AJxPp2dmHyozrDgxeMJdiEq3BJ/ZvofA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QSZlkHq+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uXbDGLQb;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE80606B37F
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:48:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFE80606B37F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A382606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:49:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A382606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QSZlkHq+
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-675617e81f9so635903d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:48:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794559689; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GLWo7X3mNiZQTbA6EfePNz4jGyKvsoTaeVcOOIxgK9QNYLTTmVVn+1XeLYqbN9zt4a
-         nnMS7aAWRB+lTiq/e8fcXDZMwng13HzQc/S8Zv0d1SQlpIhusNCdRSc7GQI5tdeETtpy
-         +9KcgHD7iWyJuRrFx5XBRP0eZlfC/Qo2mqkkevZsgPhoHqm4U2N04n4payf40ITrMnYz
-         xS+n9+botBTxiiYcR5XNmmy11+TCr3Ct2b32fzQJ0YybyIWbFGQvs0EKE9KLjEL7JNhj
-         Harqysmf7GYYzuY4aPNv0BsJ7NjRyWajBFvFcL+lwfbhReDpLosrtc1WtUDzU9o129rB
-         3dFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Sb4C2w/d5w6+ocGzHVnaU8bpcCXtQ0zPQIONnx/cfo8=;
-        fh=ARwoMLnzD30WLO8YCDXS8Jx7N+t3UBxzAv7hLjcdn1U=;
-        b=PMjwF73ueU1jqrGbhAAJVKeFEiA4v4ySUJ+b3K/6v6YSZoInySU6ebN4lP5t/kpPRJ
-         ig3WZEV+hW6KcUvXr/ICdJcXmy+ZYEBJdROt+SAYYynBca3RbmYjVPQOrmV9g3kd5B99
-         6fapI4OZq78gnrP/C0e0qmnTG1q0CQjOIKLOniIdLdFBkq4j20dghb4QU901fbyxOPPf
-         a9e1qd1UjyZM4Gy9T1E+UchQvFAr2RvFHCLfp3WalmHKk+Q1PbntZ7t/flTUradAjOfd
-         fQIrccTwPgb8ygwVfXqEGy9Ewrw1BIAJfQQOJoR7G3MjclZSA0SoMj0TGQ6SGUqUsX50
-         7FoQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uXbDGLQb
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ed1b9e8f43so4701925ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:49:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794559689; x=1795164489; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Sb4C2w/d5w6+ocGzHVnaU8bpcCXtQ0zPQIONnx/cfo8=;
-        b=QSZlkHq+cmszNgUi7FcavufnIwocDZOFiFULftEhiI2WI5o8l0XNNv2JA9f7ikENig
-         M4VUV4Pn8ONiz52MKMdn//q0tre9wN5Olo5ZPdpCqt3tNXa+W5oSpH5dyue0D5wUVffv
-         hVqAxRW0RrWGJcgrTWsV+gyzqcPapFKQTa7Jibcih4pcg3mItoSOGxVce1wmIfmCVNko
-         szZOKA4dVpwlC7M7ckSnTzFwB+nKkBtyVXDjHIhY2+rySyJfsIO4PBb/v8cqPmU4LwJQ
-         /YyHy5JP5bZceFKfXrcCyaBx4iDcQUQTSAprwE6PMJZSdYhzPGNb1wzJRCh+BVTzTSHJ
-         w4jw==
+        d=gmail.com; s=20260707; t=1794559742; x=1795164542; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qx6anf3hBdJB8SU0X3cTGKNeyaZPKU1W0S8sS4JiQgM=;
+        b=uXbDGLQbF0w26QAw6MJrM+Gn/WE9SHb8OtRQkAj9lO266801X+jv0LVPreBz6oz94a
+         B92xhj2j1To789uEuSuRZKr3zzsuxMeBmH0dbBnMJnT54gk68b70J1d5rKe7c45aS80R
+         Hg7JVCq2OYsF4ORvO93oQGyjExlaRb9HVQBZGLLvF94c9QBrEFXVB16EPcRyrXIxKm31
+         vh50ZnIGEI+CSKCCOrTQezfbF6rb160F8KYZoNI3fcxRDUz8kQ0PqGfhBB5JkUnV3buX
+         j/5Gy7hNjzBDPzunZypx2PLkuIroU/j8E+codgCOSinm05fSiidcjrrlDIOKtWVWFv2U
+         gq6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559689; x=1795164489;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Sb4C2w/d5w6+ocGzHVnaU8bpcCXtQ0zPQIONnx/cfo8=;
-        b=IYsUDn9TEkusrAk4lJsXvuidzQe7tYbA0SXl31fNm8/qcgq45cbhGHpAvOFvp5/J/r
-         Ke60EylNgRJ8sQsIauPJmACSW/rND54Zodo+brMwpC5xlOyzZHyuhK0RdzFK7rEtfyZf
-         qJnYwQnuZVN5UEKuKeJdcD//mN9yQumaNYSD3xEPh1BiedP835ZpFE0D+31RcWF6IeL2
-         znVsX15YDxnmrpT7Yv7wcNKb63bVExuOqDKVMGU9NZC/ncbhKlGSQTmsnn482ru2n6/Q
-         pl625rE+ma/Stm75VtqGWzm4p/2uIXgXVxLIGADuo0lqyJiFNYqlaH1E9GOE/dFArthz
-         rOWA==
-X-Forwarded-Encrypted: i=1; AL+hErGlXhOeD/gHC0AD0nPNTuuZe5qUqotVM9kKo92bx6L3Taq0yhBGunnV3r21XMN97yUX9JpzV+zW3LQvhxk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+crYE0lKLlLtVRYWwF8Wg0mQgXrWGdX7vL2rH9vataHAF8BfsM
-	5hrwhW0SxoqoRXqzkXU3oK+Aqo/QRUtCT9GVLK+OFoCDE06yJjnioDslT7wfzMgR/I7Q/hCpjd6
-	mzhX/EYvUT02zR9NfWzs/xZ+6+IkbNFY=
-X-Gm-Gg: AYBFou3+KZsdNXwuxoQ7fc9IMNxfzBm/uphzm8DBJ6lPB2X6nrKprFQMuK23BXJw0ki
-	JLFroYarKquBkEM+8rs5skQmncMFfXZAVul4uXcq65x/fOijqqnp3uBkvXWrNz4Mj2cp7ockaU9
-	hdM4JGyObsLsJ6RdZFF1ibbdO8WvSWmOUMRpFAYlp4iYxRvfmwVe9cvU7N05Ds5XoaWR6z77Ogn
-	SgtsYeukedm+3n1wVmjbsYioJjv0YTI5GIjSN5W7tYSf8Vz0+7cemEZPs0mda+QvWlBaYgEsE/M
-	fYEQtFme5wu+BqFZ/URLV+MGf6Y5Yd0H+FgNIXZl0OdvXYj/d33b9vfFX30BHsy4b8veEO218PK
-	o3qaoivOYkCEbS0rRWhfMc+Qp6RQCV+znHdV7i+0lThqViuSqQ2Rg1vukcHlyC2iUEpksmgWYF+
-	jl7Z/rVv5pHOZ5OoOQ51xVD1QIs3T2ZwrEOiLv1yg8q+pEwT7HIJonrXXc+WloWAmvXMG1fOmkS
-	I2w80mA+29Kb9Ci/Gj/7gIt8tyQme8QoPyOs6GDhxXjP7l5tG8acULVXPXzLpHTVpYzex8Vg/Vv
-	101XVLY=
-X-Received: by 2002:a53:d682:0:b0:67c:1d73:fd3d with SMTP id
- 956f58d0204a3-67d897d5059mr810181d50.108.1794559689013; Fri, 13 Nov 2026
- 00:48:09 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794559742; x=1795164542;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qx6anf3hBdJB8SU0X3cTGKNeyaZPKU1W0S8sS4JiQgM=;
+        b=KkSgNalBf71mqTjAEbudhC0SkIux64GshN3eWBQpkWDR/RCdsipvsVFTSKy+MIew+w
+         jcLlRbdxx1HrzaCuIdXp/MwpTl9WaSEaK4od/dV/o/ZtwWP5DmH1KO/tUXrO2s++OZDV
+         NiaB8nM9bknS/n+9/1OOR5M5ThCuLRi3S6+UQu6sBXNl6V2+8vQzT2uE6OzTIaQwoAPO
+         T+ZXqkfjXnP1/lyW56qO5VPwyMVEtemPm/VmWF4L8Y0Lna1m+8WgF2L6njEddwc4ozUN
+         RKK9Pf2OzqBRV8klsE641d7Wy8lEBgYuaoKxEdWlX8fui+hAM/ASLctuqPKvUfVUL9sv
+         eXQg==
+X-Forwarded-Encrypted: i=1; AL+hErH+2GBWYk/vEyJMfla2nks87fw/W1ymIE8Yq6J3bz6l9nsA22ORQw2PDMHE6XJScdapHaM8no5/8RlmNoA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9psHRYiQ6NDgWlL9ZFQolJ88D41TRVxItOPdpWmHr21Fpb99Is
+	Yq9wB4ffgBnBbvGd9iKcF1lKOrPDslCXYaKFwBJPwxCxd8C6KB1ywTWN
+X-Gm-Gg: AYBFou00MwjEGa7BpGO4Zje8Z4qKAGNWsPSEYHUauPWuPGyB8Epqd1dhSueXvXA3ihc
+	jd5KGvF+tqYSrde1JoNr+146zPWKt7qI2XGcMqnOp320zROVi17gidD7fLASB9/qLR2ZM/8PLCy
+	/9BfnEz9811JXNJXiwbU4fF80J+nuLYgWF+fLAWHGVmzs3V4GtEYz8jqOloe/13hhG6btqKS2FV
+	bgo4GH8q4xST61AAOO078cLt3/+WRiTQ0pOLxab0Sa5Ne0MjXAbPXX+eS/Y94DtPw3y6gbwl5DB
+	+PGwcZEYg7+iQ2dP+5XI+0RahqC8OgSEXHknPhd+H+9X/iPkY7qD30aIP4dABlBM3JwUeHCETRG
+	xxfjNzrpW4ejy8ZtM3ID1a4VRCcj2+7GW6g0NjQ+6ZikP7YXYLm1b99ZtSBa5yfCxPKsOrVV20E
+	QR3n/eDgsDDSdWyovjg0T6E5yWItWCG07yOhxTw1KRowRS57kRA9rW9HO4vdRcfrzPag+7wB3Oz
+	pp6UXnw+7XAYExbInQZJYxhoycrCQZFtOMYWC1/vVOAviGBwcjYg3yCsNImqjGjB3eetuC9tVDg
+	0uYOSSjk4LRKYa9UUbOKXqtyu4Cz1dwNgSSPgmHsTxaHX8qt2gCs+/5rjjL/R3cwPnAXVQhXbq4
+	yW2Ek
+X-Received: by 2002:a05:6a20:a11c:b0:3e0:eae8:7525 with SMTP id adf61e73a8af0-3f7a8bd20camr1630922637.64.1794559742523;
+        Fri, 13 Nov 2026 00:49:02 -0800 (PST)
+Received: from fyhsueh.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bececcce76sm742540b3a.5.2026.11.13.00.48.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 00:49:02 -0800 (PST)
+From: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
+To: dmitry.torokhov@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] Add Nuvoton MA35D1 keypad controller support
+Date: Fri, 13 Nov 2026 16:48:50 +0800
+Message-ID: <20261113084852.32727-1-fyhsueh4linux@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,92 +102,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113082546.176582-1-zhujun2@cmss.chinamobile.com> <CAHp75VeOjqWoEM36OMgtiiwu3XWiu5wfJf59vYFuGSApbWpPaA@mail.gmail.com>
-In-Reply-To: <CAHp75VeOjqWoEM36OMgtiiwu3XWiu5wfJf59vYFuGSApbWpPaA@mail.gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 13 Nov 2026 10:47:32 +0200
-X-Gm-Features: AclHuK9rjEqJxLRL5SgQJUJktkIm-qEWvtfM6EjpPfAvf3U0-d31BCeAdrVtQ3o
-Message-ID: <CAHp75Vfy97JHMaURigbF92z7Eypfuny8PUk94=-43S6p6PhknQ@mail.gmail.com>
-Subject: Re: [PATCH v3] iio: potentiostat: lmp91000: Handle configuration
- write errors
-To: Zhu Jun <zhujun2@cmss.chinamobile.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
-	andy@kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 10:41=E2=80=AFAM Andy Shevchenko
-<andy.shevchenko@gmail.com> wrote:
-> On Fri, Nov 13, 2026 at 10:25=E2=80=AFAM Zhu Jun <zhujun2@cmss.chinamobil=
-e.com> wrote:
+The Nuvoton MA35D1 SoC provides a hardware matrix keypad
+controller supporting up to eight rows and eight columns.
 
-...
+This series adds the Device Tree binding and input driver
+for key press/release events, clock management, and system
+suspend/resume support.
 
-> > Check the configuration writes and return the first error. After a
-> > successful unlock, attempt to restore write protection even if a
-> > configuration write fails. Return a relock error when both configuratio=
-n
-> > writes succeeded.
-> >
-> > lmp91000_probe() returns either error before registering the IIO device=
-,
-> > so the caller does not need to distinguish their source. Preserve the
-> > configuration error if restoring write protection also fails.
+Tested on a Nuvoton MA35D1 board with a 4x1 keypad
+configuration and a 1 MHz KPI clock using evtest.
 
-Btw, this is still unclear. See below.
+Feng-Yi Hsueh (2):
+  dt-bindings: input: Add Nuvoton MA35D1 keypad controller
+  Input: keyboard: Add Nuvoton MA35D1 keypad driver
 
-...
+---
+Changes since v1:
+  - dt-bindings: add optional resets and reference input.yaml.
+  - dt-bindings: fix interrupt, clock, and keymap formatting.
+  - input: use guard(mutex) in suspend/resume callbacks.
+  - input: rename error variables from ret to error and
+    explicitly return 0 on successful resume.
+  - input: remove the unnecessary linux/mod_devicetable.h include.
 
-> > -       regmap_write(data->regmap, LMP91000_REG_LOCK, 0);
-> > -       regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
-> > -       regmap_write(data->regmap, LMP91000_REG_REFCN,
-> > -                    LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_REFCN_50=
-_ZERO);
-> > +       ret =3D regmap_write(data->regmap, LMP91000_REG_LOCK, 0);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       ret =3D regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
-> > +       if (ret)
-> > +               goto relock;
-> > +
-> > +       ret =3D regmap_write(data->regmap, LMP91000_REG_REFCN,
-> > +                          LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_RE=
-FCN_50_ZERO);
-> > +       if (ret)
-> > +               goto relock;
-> > +
-> > +       return regmap_write(data->regmap, LMP91000_REG_LOCK, 1);
-> > +
-> > +relock:
-> >         regmap_write(data->regmap, LMP91000_REG_LOCK, 1);
->
-> What's the point of duplicating this?
-> Before label you can easily do
->
->   ret =3D 0;
->
-> relock:
->   ...
+ .../bindings/input/nuvoton,ma35d1-keypad.yaml |  75 ++++
+ drivers/input/keyboard/Kconfig                |  11 +
+ drivers/input/keyboard/Makefile               |   1 +
+ drivers/input/keyboard/ma35d1_keypad.c        | 407 ++++++++++++++++++
+ 4 files changed, 494 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml
+ create mode 100644 drivers/input/keyboard/ma35d1_keypad.c
 
-Ah, okay, I see that the relock error is returned only on success of
-the configuration update. Why is this inconsistency? Really, you need
-to elaborate first on what the caller is suppose to do when
-1) unlock failed;
-2) unlock was successful, but configuration was failed;
-3) unlock and configuration was successful, but relock failed.
+-- 
+2.43.0
 
-In all of these cases the user gets an error, but it doesn't know
-which stage was failed. What is the caller supposed to do?
-
-No need to send a new patch, let's keep discussion here to understand
-the code flow better.
-
-> > -       return 0;
-> > +       return ret;
-> >  }
-
-
---=20
-With Best Regards,
-Andy Shevchenko
