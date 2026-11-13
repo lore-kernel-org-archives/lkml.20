@@ -1,67 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.66.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794603340;
-	b=L7LIPPH7ZLyP80kBrKJ4AOS2m239z0CLUHUE4WRpXyRwBxO3Auo1xZhchfV/6IHJghS3
-	 ni/j1AerMg5caP+fLwxc91IIF1ScxpzZlJQSQnI3JxGP58KNdOCZ8TmG/nkCrokDPdC7E
-	 3piXeW0WoDZopR9qg3WMjWCbGzNuvS9vbpOkJeT1wiBGmuc/13GkDqZ77BEP/owwZxHO9
-	 DW0LNc+Crfc7YX180OupVsnVXDLODRZb+dpKmcTjqVQD7ymEdTsH8P2hUy3UWfaK3TCLY
-	 h+EjO2rjTKv+d2wiI99+d/G3Xh2ARql82rM862TO6kVF7kDKi7FYcqYnNKvUXvXzdkA==
+	t=1794603352;
+	b=SiVe6RY7I2jK1zVr7JlzxU3EQQmZF5sbxZfHMIRziFT1J2aZBPuKLh+JYlUhC9NSQt8p
+	 zWMBA80fkC5f0/HFq+CocDzewmH+BlIvW/6B184oMk0Wcwwy4FolBU8DWRdO+zZ7kPOl7
+	 A0smcaH3UK99oohXO2zmpt6q5cxj1JFREXIVnRJqv1ZNdmPVbDZhAAi0Eej2llgnaDP2+
+	 NQJ6cvgOh/6riI/CtIQUaapesKmYEj+z+x7v9NZT2iWtjKr9HaRm/HPZVqB8yVmWnYGOs
+	 z5lhkeDsD6IzRnd/1UZfVyEGicDzxEFZe6Z1su6h7qQJza39ZfmWc6MMfHsi9eVA4Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794603340;
-	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
-	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Info-Out:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603352;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:
 	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-JNJ;
-	bh=THyP5ccffzfLdPOgFJzY9lfrX5K9m1v3n9FUvlvgq2k=;
-	b=Jh50H40i6k2H5VZPSYAd5U3RhRB0Rp8tyOYlUq8BmUzFQNzGj6ZgZhNv2kmUZhF1wUAh
-	 wLEMLc0NgRPNgleEboq5KXRPwjObRDwoYl4RNrBaUZQPT6F6pkM8WeWGdGvrLPTO6ubJd
-	 SZ63hBbSy1UJGYm20f5hErO6ev+u8Jaga0NhKJSG8RC/ULh7GAWCyNKWln1fYlkLDyomT
-	 GjTXVIZ9io31QTdjJ5N5ADxPbrNRzYPCnUfnAdFrZFy+VVi9dPaVMT6OS6TIRkn1D+ylH
-	 5mtWAVfOBjBrNqQWwPAtAItA7lP89q5CdK2cWNU/zlQ85pRhkVfLvCbQT3z1KRaGJ9w==
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ftJY51c2OAWb/isSz9clJ9j210Y5VcK5eGTyPspyp80=;
+	b=v6+ZLQ/Lqac5/6zG68lRewBS/HL72RR4g+du9xtSvhNKl7MJuwDdMtGklLJfpsFcQmRS
+	 lP8mh6s2fb0xby/vNRdVhyjpIlVdPw5BqsBRVDbI5d7+z9eZwQm9rwugMV8uuZMXj6zLU
+	 967g/jrx8K3se0E8lOqwnuMxc47Zfiu6OhzXM5XT/3lysoa9zhM+Hfosi/tDKWjesnhqV
+	 pY0MAIsF3kN+3GYHOyH/gAFMK7AVZCtxC8TovY3EHGgkifqRnB9Dae/5iqvFsmt5uLpxc
+	 UWq2pMkxJpNReec2reC76zeIohrakeF71sZ864dAgPeaCwo3ciFy9LqpVAYC58Y/UZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tawheed.cc;
-	spf=pass smtp.mailfrom=tawheed.cc;
-	dkim=pass header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b=tMt4SuzH;
-	arc=none smtp.remote-ip=57.103.66.227
-Received: from outbound.pv.icloud.com (pv-2005l-snip4-6.eps.apple.com [57.103.66.227])
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=PCxJGX+C;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b="3MC92Y/7";
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069C4606A332
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:55:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 069C4606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tawheed.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tawheed.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E885606A336
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:55:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E885606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b=tMt4SuzH
-Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-1a-60-percent-10 (Postfix) with ESMTPS id 3063B18000AA;
-	Fri, 13 Nov 2026 20:55:39 +0000 (UTC)
-X-ICL-RepId: 01a1d6b1-cdaa-7b71-810d-b8805f28ca42
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tawheed.cc; s=sig1; t=1794603339; x=1826139339; bh=THyP5ccffzfLdPOgFJzY9lfrX5K9m1v3n9FUvlvgq2k=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=tMt4SuzHqMi5jtry/NB/hulQIcFTwU+j1c3CIDG3lIQknTtUp0p+gQlUpWLIvhTHoagAN4gXF3h3KUPRLSBbIdAPPXyhf5m0hSqQRKuRsHF0zjFUc0fgpoC+DOCDLoUoBwElRUhjhAsiX0IUnuptxM39AVCQuEwyRthFrtA5MRc2aNZYqrZ8rAOYHfHQPMgiVDMYT7BjpRO8kGRx2m7P9c6T9arjK5CaS9ZNBz9HBm5P2l6cFd5OUeDSqAoPbtS5x2qYLE113iQNqMX8Sma/YvOAKsm7xcQzdt9ALAhAFkePwdPLs1I14Z9P6qj0YCCbnF5TNmaKXu6V/GOVOPdUZQ==
-mail-alias-created-date: 1711150425226
-Received: from DESKTOP-HUABEFD.localdomain (unknown [17.156.192.29])
-	by p00-icloudmta-asmtp-us-west-1a-60-percent-10 (Postfix) with ESMTPSA id 03F46180011F;
-	Fri, 13 Nov 2026 20:55:37 +0000 (UTC)
-From: Tawheed Makhdoomi <_@tawheed.cc>
-To: Shunsuke Nagashima <shunsuke@nagashi.ma>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Conn O'Griofa <connogriofa@gmail.com>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	David Heidelberg <david@ixit.cz>,
-	Fabricio Akio <fabricioakio@gmail.com>,
-	Aleksei Kharlamov <aleksei.kharlamov@gmx.de>,
-	linux-wireless@vger.kernel.org,
-	ath10k@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH ath-next 1/3] wifi: ath10k: set the PMF peer flag on WCN3990
-Date: Fri, 13 Nov 2026 15:55:33 -0500
-Message-ID: <20261113205533.3021-1-_@tawheed.cc>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CACB3TCKw=BCtRpJQ6N=moO+qpVu-Zd+J8LfV6S8pX1JiKS5+7w@mail.gmail.com>
-References: <20261016-ath10k-series-v1-send-v1-0-c847697b3558@nagashi.ma> <20261016-ath10k-series-v1-send-v1-1-c847697b3558@nagashi.ma> <CAFEp6-2xY_gM=FRUp3R30TZ-NgT=-eYnyz_BPE0vxEenv+202w@mail.gmail.com> <CACB3TCKq--tdL6j+uGR_dxGdy-gHxQhY8p0h6xxqi_4Fd3VEOQ@mail.gmail.com> <c45bdcae-63da-4552-9e35-59ec6a71621a@gmail.com> <CAFEp6-36Fc15uDWSR=v+xCMhERbkhggZOBoEFTF7pAcRLz_vFw@mail.gmail.com> <CACB3TC+NVYPbNKeOu9aAnRaCUTTon4PAO+kp_QbLqL6qd37aeA@mail.gmail.com> <CAFEp6-0AJ3uGn0pR7y7+PLhjf6AMYb2aBvPpq9J3QFRk9XJv1Q@mail.gmail.com> <CACB3TCKw=BCtRpJQ6N=moO+qpVu-Zd+J8LfV6S8pX1JiKS5+7w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=PCxJGX+C;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=3MC92Y/7
+Received: from pps.filterd (m0167069.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADJYM83975952
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:55:45 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=ftJY
+	51c2OAWb/isSz9clJ9j210Y5VcK5eGTyPspyp80=; b=PCxJGX+C5raartbiAyfs
+	8bSbfri+K1DbGJEX3oYUj3jL1B/84Hw8Gu2AKaMVBOIskR+4kHTpcXXOYVbIWZxQ
+	idQEIeOI+i2gq6Zu+bUdgea/qZOteEdOubltcpYZlAE3qKnTpMtMKfvgf7HPFq+G
+	1mZYKBOpM+lzI9hPJGWrEkZzZKIDnYEzvd8SMt7NzNFpZaBTRY0Nc6/QH/qnaNqS
+	4Sifws52/dbbi3agkCfK+E+KpTsYcxi/maAAAyW9+1yA3wHfysh49x+qbmcrz0c3
+	FGrfChqrSK3UgCktrVeFDvLlpb207Nt5u4Z/QnBmEzw7qnKD1KJzYSIbSbOdsimh
+	ig==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hx56yjupv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:55:45 -0500 (EST)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91eb3a63064so31812216d6.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:55:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1794603344; x=1795208144; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ftJY51c2OAWb/isSz9clJ9j210Y5VcK5eGTyPspyp80=;
+        b=3MC92Y/7ZNMx1+2uZ2/cymOQpE+1eZM4QRiZ5O6V8UQ85h6bn2e3nUvGL5faAdXwii
+         eW7vSn0pK1nyGTnoXd4ZNQ5AsSDONyI2goMSKT6pORDE+wifOK6IJ/o1NynOv1uTrs5D
+         icdViDHgJrZa/vWH26OgVN+LGd0WfdDwbnFZey+o4DPjDbTu9m4/TsW3a+SiD6CZqA/8
+         oFokAG21DBtc2OPNCtevCB5ibg5pQHFJVJk833yzox461e0Y2xUGvVGy1lO7rkdSmRFK
+         p8m2a2qqTOpcrQM7T3semt+sgoWj/KHvXLLuGeFZvQzbWRXX8RzaTyX67Abg7pKZjNwO
+         +dVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794603344; x=1795208144;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ftJY51c2OAWb/isSz9clJ9j210Y5VcK5eGTyPspyp80=;
+        b=lRopY6kZyv05UaXK3ufQjx0yIo+YETd1tsMRpy16p74EDDXB/nhuG8c26pD6Py8Baj
+         ojqg/uwc8ucJ9dCb1cZcGww4Rwefau6+dN0eYcNmPoBLiCAGJFzigi8ovxJpTzdcyhQ4
+         5Qzb812en2uXrGCv14FvuxD57I/pTxeS/mh61mLq9lZvCu5G5lmCBOzg2Xxhri2wswRg
+         ksP1WpbEz4sbjETB8bFMNIIsC33k5/kkUIv7UmPjCQP/XoF/pDmWdUSdKOb/ZOQiIXmi
+         f5Vv9kLc1eMsHsEWGAfYv9nB3HdAzrf/pTWOd3XJtkZ2mbWBBv4RZwo53DEOUJsHQuZr
+         HMRw==
+X-Forwarded-Encrypted: i=1; AL+hErFrarCvOf+gfwBPy5F7UYsY7V1AjiPhuCu344IWsOJ2qjZoavVCmUxnKkmPrKd2wJStdQHKYQOq8TfB808=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9veN31CWCR1PeuH6Kxg6lY7RQ2kvxBv/aScIeyOED+V/VqK+S7
+	DUZvrcrBXXEbAIyFPGRnEj1WmMPp5ubvmCOf2GBpDo9iDtj843UvpTlJ5OXZBy2CdNdRpCc27Tb
+	IUIW5nmtVeyXjtaYIhTt0dc3px2y7Dxsk0oY9S8qbSObOPWHJH1/m9slj4DjBWAHuk1wzZQ==
+X-Gm-Gg: AYBFou0zVHN6qduBc5HPKzUS04zWRnezDoo4JJQ36fHA95j7CQR9XQNNapWH0/xcOrH
+	JLJMLHag+1VZ0+PnKIogcJOTCLJgdbJhA31Y3JHik8dudYYG7fm9hOU5WVIR7hj+HagVNFzUU9O
+	Z0NIHonyBOTospHnWyfi6/Hk8rkVZzAyvIm+aJQxyft4VZnZMilo2Ju787eBvQVx7w+yOZ78ayD
+	msbHQ00bK9UCfCuAYRf4dVE2jqpUd1VRjSZFO6nxetKvMJnaWsBn66pR7HXgGZ/AlBM9Y27VVQ5
+	bXb80hTUVPdwlABi/7MwnhFZUlfFXvaMfZgh37f1CBKgk66ZHx5/f2bv1Becu7CzjhPOtV0unCa
+	5zjKN0qJQk8A8meVPvFlFBjILAZGobmE7fbaxhVG67GqVvTZU0w7XhXRhlOOkmQrvQDLZnuCCYy
+	HNguakDsuN62PeFYzOb4RVyOkax0w=
+X-Received: by 2002:a05:6214:48b:b0:91f:2e33:771b with SMTP id 6a1803df08f44-91f2e337754mr31662606d6.10.1794603344118;
+        Fri, 13 Nov 2026 12:55:44 -0800 (PST)
+X-Received: by 2002:a05:6214:48b:b0:91f:2e33:771b with SMTP id 6a1803df08f44-91f2e337754mr31662226d6.10.1794603343465;
+        Fri, 13 Nov 2026 12:55:43 -0800 (PST)
+Received: from [10.207.116.169] (nat-128-59-178-153.net.columbia.edu. [128.59.178.153])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d70489sm28401346d6.21.2026.11.13.12.55.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 12:55:42 -0800 (PST)
+Message-ID: <f53458fd-c268-4dfe-aa99-b050f63af728@columbia.edu>
+Date: Fri, 13 Nov 2026 15:55:41 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,95 +116,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=dLmrWeZb c=1 sm=1 tr=0 ts=6af7794b
- cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
- a=aW9mcIavGNWWFvFFKOxBSA==:17 a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=JUyVuPN3Gk7WIszG6mYA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA4MyBTYWx0ZWRfXxUg8lTjRMXXR
- OPlmM4KUHmDY7c0BXnaXAmg72fHmCPBESqIpauUrTD3hGGboPCbLoznoLwUzQZhVwGxJ+kJYrjx
- tM9bU/GXOZ8pMFanOkoAve/CEx+arHJBgivnZsCc/hKhHsuSExg9B66blVUju16vePvkmeNvw8/
- x9735S4tcQ+bOHII2GyE7m6dzvRM/2EHBylD+RikxIYSPdMr5fjd24OKLU5LF3BbfqlttIZa778
- 4HzeJ+MQYzOMbOn2hg0HQmDGIaV36jWOlxJgrubFHhfOSx+C2NFAe+XW60e3zrQv5180ku8nMjV
- OwyRnIEMt8urLw9umBVW0C4aTrbsbhFS7Km95vXVB7RlUJt00wkS7h7zJbBZzo=
-X-Proofpoint-ORIG-GUID: D0a78clfvBwuTXHcIQkRvdx8MxzYXoVf
-X-Proofpoint-GUID: D0a78clfvBwuTXHcIQkRvdx8MxzYXoVf
-X-JNJ: AAAAAAABO+x53SqNxPbtLvynpfGO7ehFer3EmRKvA8qD6cR76TJf8+YcGAk0h3SWATAInN
- aWpyXyBusqyjbG4U5UWzaLEBi3OVOuYUFh18vMVxtz9lfGk4NT/WAhQ4Jmapbpio+Du8P6
- kZklTo48AAGiI67kT+416MH1BfrqSIq3xwYL4jkW/9+grxcXdfEWGSnpNR+iZnzDKqSfQn
- p0jFy+N3DHi/182RmW9JiSqjzTA8cFaUYAvufncJm24pcVI65M7LS335Wx8TSuWXcc41oe
- cNui0xa9NlwhLYq16e3hHEIJ+jUjqbaK/Yk32GnoWTUXxG7GEPxrCCUxgkcM/KDJkQqvdS
- QAn7FPH01NxYSeConwCeuBaL+AmdPCE7aO8B36KPeG85UUhW1bYc0dcoanUfKnB1rH3DoV
- qKcjMuC3usc1xprbxQmFEigEPk3iQzLBBKDvywDuTTdKJlOD+z9MF4sb+QcSxTLGxkW7za
- ZDbfqX/eRh/K2PB21nX/1hHI9B5lZd77F41WM0OX7pgCnJKj/yp2Krcj9OO0hG4lQToVRv
- 2ACdwyKiJQ/ITxb3fD0OuZ1EKy27OqdbKRjlazdgfxPNLR4vl/zf3d6HK18N3rMT/P4DAV
- wNTxSVvSCpgzMJUx2bjCurPs2rsZWyq6D3ZwEb/GBjGrNkmzX8/jl+w3cS3DhPyXZTIfQG
- o8/LyC5VaDZIY8eIH1gZ60y2P2Rcjae5HPo7VVzog2uBd7z1TIElwZgYL677fKgWx6K5g7
- PFFev05jU9ZQnZKZ7Fl0JoD4AfnoXBeZCXYr99if5tSnuyHLGmlNFAnG44yp5kXBW8fiim
- 5zZl9BMMsknCnKWQAGCPsHTu2XY+ItiOIS/Cj9ZwvqompBxQDVw+BEPe+90OrmVa3GOA+B
- vi/PYG5fajr8q2YhOLRO0olTo16kkX72J3PdfCJoao6UZ6mNznjR7UqtX9W/IUbUbHmj5a
- kATjMmX/rJeLPty/X3XXlIRNzSU+km3xMrnrtG9PJ/X5V+mESDtDPZVwauB7ipd69R9O/j
- /Orq9OdhzTFvlV8t0Gvubu+pm+JMvPIPOBtJJ2khAi6yOPPVaFQu0qhPzf7UqZlY+zmiIv
- q3T8LA4n4tgNl9luazVK6MhWY4OZkCEUhM/4vS7bGHrK9SDYKUtyc7B9kEjk0ufV2Sjv1S
- 2XXYhf7vMrR1/vDuz+A6ZBT3eZi1IgQQG6R4c5+aC+otm1L3fWBduEjPPlawbe3/ScHj6q
- sSiNLburAv7eK9Tn6VJZ9cgyc3DUga7Cb1LDdyEUfLIDQBVTwwHfSZ6zpaZ/VLAvpVs15u
- bj3lPCg7f+hYuQwghHel9ij8cno71Th1oOUmqkyXFEnk+88Cmw77Tq0VDKIOyQdmsoAKcb
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/madvise: disallow guard region installation in
+ uffd-armed VMAs
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+        "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+        Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Shuah Khan <shuah@kernel.org>, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
+ <0e3e876e-c3df-4660-ad89-a5f0fd7dedc8@kernel.org> <avcNcL6svEOTg_3r@gremlin>
+ <0d6e29f8-54fc-427a-a979-1a8c6f4e3f06@kernel.org> <avdjMNNkOXm2khTW@gremlin>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <avdjMNNkOXm2khTW@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Jo5kP84C c=1 sm=1 tr=0 ts=6af77951 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=Y+j3KQtDOE8TDC6EXH/Ajw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=JR4YdQiviy7OQf72WyZ1:22
+ a=VwQbUJbxAAAA:8 a=H0umD5oqAAAA:8 a=OB121UNARqVzA2KAKi4A:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22 a=du2hvLAJtKcNxoDMbUSS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA4MyBTYWx0ZWRfXxhS+5SS3SVNu
+ cv5lRaBokItXaBi/9dd8WY//WWMKX3YfKcOA1GnUI7gi3XeljCduIRAVISrB7zKx2kVaBbx3X2r
+ UqtQtxAQOZFdxlt+HsxScsFsJ4HSI5XEi0qfsJYcsxSYK6FRPzHNiUnbI4dqpsuV6QjHVAi73ix
+ ftlxMKvJ5B0HXIsccrml/TZkY1ekIZy9xRFbTM4KpshPizaHQVW9gAd50YFnD6XThFDpdXqA5BW
+ OlYNk4XzPrk5JKNQmTd2t/QsKMt3fAt0oL+4mYUtW/ooXwi+WJiijM8HsFqBP3ZJVIdGJWXyOus
+ bxcXDgw1BO8oLRkKfA95Xkmiz3PbcQetH6i/rq6+I4JOVoAZpqGbQ67YSz75kGPw5rILPCwiOhk
+ 80byYZ9RAYeccN/nu1KYQ+GJI7WM3IfnHXouCTUUg4bfmQvfstYsW2zzPcda38sdpGrQj3e+cBe
+ m2Y7vz+TatcUAh+kQSw==
+X-Proofpoint-ORIG-GUID: yNpxkFOJOkAg4mdmcrxyvNtHtSyjUvU0
+X-Proofpoint-GUID: yNpxkFOJOkAg4mdmcrxyvNtHtSyjUvU0
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA4MyBTYWx0ZWRfX1NlhRedkqVLD
+ Uwbcul3hH4ODZIyHFUXrpR9gLN/V98evrFKv8zboiZxSQdXAsxGdaCENZBbRT+4h0A7ruqROMdT
+ flKZ9h9k1nXrGCEuCn6KWGKnKBw/lyV+u2Ai+4vKc88iooHIIKfh
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11965
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=10 impostorscore=10 spamscore=0 priorityscore=1501
+ suspectscore=0 lowpriorityscore=10 phishscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130083
 
-Hi,
+On 11/13/26 2:22 PM, Lorenzo Stoakes (ARM) wrote:
+> On Fri, Nov 13, 2026 at 08:15:34PM +0100, David Hildenbrand (Arm) wrote:
+>> On 11/13/26 14:59, Lorenzo Stoakes (ARM) wrote:
+>> > On Fri, Nov 13, 2026 at 12:59:00AM +0100, David Hildenbrand (Arm) wrote:
+>> >> On 11/12/26 18:38, Lorenzo Stoakes (ARM) wrote:
+>> >>> In order to establish guard regions, guard markers are installed in the
+>> >>> page tables of a mapped VMA.
+>> >>>
+>> >>> However, problems arise when one tries to combine this with registering a
+>> >>> VMA for userfaultfd, as such operations may themselves need to install page
+>> >>> table markers such as uffd-wp.
+>> >>
+>> >> How does this interact with UFFDIO_POISON markers that can outlive even
+>> >> userfaultfd registration?
+>> >
+>> > The zap clears poison markers, as is standard. It's really horrible this logic.
+>> >
+>> > So the code path for zap used by the guard install (via zap_vma_range()) is:
+>> >
+>> > zap_vma_range()
+>> >   -> zap_vma_range_batched() with NULL zap_details
+>> >     -> __zap_vma_range()
+>> >       -> zap_p4d_range()
+>> >         ...
+>> >         -> zap_pte_range()
+>> >           -> do_zap_pte_range()
+>> >             -> zap_nonpresent_ptes()
+>> >
+>> > And zap_details is NULL.
+>> > > In zap_non_present_ptes():
+>> >
+>> > 	...
+>> > 	} else if (softleaf_is_uffd_wp_marker(entry)) {
+>> > 		if (... !zap_drop_markers(details))
+>> > 			return 1;
+>> > 	} else if (softleaf_is_guard_marker(entry)) {
+>> > 		...
+>> > 		if (!zap_drop_markers(details))
+>> > 			return 1;
+>> > 	} else if (softleaf_is_hwpoison(entry) ||
+>> > 		   softleaf_is_poison_marker(entry)) {
+>> > 		if (!should_zap_cows(details))
+>> > 			return 1;
+>> > 	} ...
+>> >
+>> > And zap_drop_markers() checks zap_details && zap_details->flags &
+>> > ZAP_FLAG_DROP_MARKER.
+>>
+>> Right, my intuition tells me to just nuke that thing by setting
+>> ZAP_FLAG_DROP_MARKER.
+>>
+>> MADV_GUARD, is just like munmap() another form of "zap it all and protect it".
+>> >>> This is especially problematic because guard region installation causes the
+>> >>> regions to be zapped first, meaning that the removal of userfaultfd-tracked
+>> >>> ranges will not be logged in this case.
+>> >>
+>> >> Again, similar to trying to uffd-wp-protect'ing a hwpoison marker (which will be
+>> >> ignored), and then zapping that.
+>> >>
+>> >> Isn't guard marker installation/removal just another form of zapping?
+>> >
+>> > I mean users being weird could decide to use it for that rather than
+>> > MADV_DONTNEED, but zapping is a side effect really.
+>> >
+>> > Really the idea is that you might have users who, for whatever reason,
+>> > faulted in some range, and now want to make that a guard range, so for
+>> > convenience we zap it for them :)
+>>
+>> I think not just convenience. There was this problem with faultaround / THP
+>> placement IIRC ...
+>>
+>> I'd just zap everything that's there. That's literally what the user asked for.
+>>
+>> >
+>> >>
+>> >> So to me this all sounds like "if user space does something stupid, it's user
+>> >> space's fault".
+>> >
+>> > Unfortunately, as per Tal's series, there's more to it than that (linked in
+>> > Closes: tags).
+>> >
+>> > You can get an infinite syscall restart (ugh) if you do this on a shmem
+>> > range (Tal's 9/12) so it's a kernel bug that _has_ to be fixed.
+>> >
+>> > The other bits are just about a user losing track of uffd stuff if they
+>> > guard/unguard, as you say.
+>> >
+>> > But every other zap code path does the uffd remove event stuff, so this is
+>> > still an exception.
+>> >
+>> > If you support uffd, you have to add a whole bunch of horrifying, awful,
+>> > terrible open-coded uffd crap, e.g. the userfaultfd_remove() etc. And you
+>> > have to drop the bloody lock and reacquire it too and make sure all that
+>> > works correctly (...!)
+>> >
+>> > Anyway there's basically 3 options here:
+>> >
+>> > 1. do something like what Tal's series does - add a TON of complexity for a
+>> >    use case that nobody uses to get behaviour on something nobody sane
+>> >    should care about (i.e. uffd/guard/unguard/expect uffd correctness).
+>> >
+>> > 2. Zap with ZAP_FLAG_DROP_MARKER, and silently lose uffd-wp state but
+>> >   'support' uffd. It does fix the 9/12 bug but then subtly breaks uffd.
+>>
+>> Right, that's what I would do.
+>>
+>> MADV_GUARD_INSTALL zaps everything.
+>>
+>> It already zaps swap entries, migration entries, hwpoison entries ... so just
+>> zap everything.
+>>
+>> [...]
+>>
+>> >
+>> > If you're really concerned though, we could go with option 2, which will
+>> > just make UFFD behave differently for guard regions.
+>> >
+>>
+>> Not really concerned, it's just the most consistent one for me. Zap everything.
+>> The user asks for it, like he would ask with munmap().
+>>
+>> > (I regret, obviously, ever allowing this for uffd ranges. And we _all_
+>> >  regret that uffd was _ever_ allowed to be merged in this state...)
+>> Yeah ...
+> 
+> Ack will send a v2 doing that then :)
+> 
+This sounds better to me. My concern in [1] with completely disabling this
+was that it could break a uffd manager that doesn't control the task it
+manages (e.g. CRIU lazy restore registering the memory of a task whose libc
+uses guard regions), but this should avoid that.
 
-A data point for the shared hw1.0 file. It is not the db845c/axolotl
-test you asked for: this machine uses that firmware-5.bin with a newer
-WLAN.HL.3.2.0 build, not 01387.
+This still leaves guard installation as the one zap path that doesn't send
+a UFFD_EVENT_REMOVE notification, but for CRIU I think that's fine, since
+guards would mostly go on memory that didn't have contents beforehand, so
+there's no stale contents to restore.
 
-Hardware: Microsoft Surface Pro X (SC8180X, WCN3990 via ath10k_snoc),
-firmware WLAN.HL.3.2.0.c8-00428 (wlanmdsp from the machine's Windows
-install), kernel 7.4.0-rc2-next-20261109. The firmware-5.bin is the stock
-ath10k/WCN3990/hw1.0/firmware-5.bin from linux-firmware (60 bytes, feature
-IE 40 00 0c), so the driver logged
+I could imagine this mattering for something like a userspace far-memory
+library [2] that registers a heap with uffd MISSING mode. If the allocator
+guards a page that the library has paged out, the library is never told
+to drop its copy, and fills the page with the old contents once the guard
+is removed.
 
-  features wowlan,mgmt-tx-by-reference,non-bmi
+I don't think anything does this today, so it's not worth adding the event,
+but I think this limitation should definitely be documented (i.e., that
+MADV_GUARD_INSTALL discards the range and uffd state without notifying uffd)
+for the sake of the poor souls that work with uffd and to prevent any
+spurious LLM reports in the future...
 
-Access point: 5 GHz, 80 MHz, HE, WPA3-SAE with PMF required. A second
-node of the same network without PMF served as the control.
-
-Before, stock file:
-
-  PMF AP      1.3-2.1 MB/s down, 1.7 MB/s up; ping to the gateway: about
-              55% at 2-20 ms, the rest at ~105 and ~205 ms
-  non-PMF AP  8.8 MB/s down (limited by that node's wireless backhaul);
-              ping 2-27 ms, no 100 ms steps
-  Windows on an identical machine, PMF AP: 30-33 MB/s, ping 1-2 ms
-
-(MB/s is megabytes per second, HTTP download of a 20-50 MB file.)
-
-With HTT debug the delay showed on both legs in ~102 ms quanta: tx
-completion came either ~1 ms or ~100 ms after the tx, with ACK status and
-no TCP retransmits. I had not found the reason; the unprotected ADDBA
-described in this thread fits what I saw.
-
-Things that made no difference on the PMF AP: power save on/off (the
-driver does send the psmode disable), the ath10k thermal throttle state,
-all nine board files from the Windows package, Bluetooth off, removing
-the P2P device, IOMMU strict/lazy, CPU idle states.
-
-After setting only the mfp bit in that file (feature IE 40 00 0c ->
-40 10 0c), nothing else changed:
-
-  features wowlan,mfp,mgmt-tx-by-reference,non-bmi
-  station dump: MFP: yes
-
-  PMF AP      10-29 MB/s down over ten runs after a reboot (Windows on
-              the identical machine in the same minutes: 13-25 MB/s),
-              4.6 MB/s up; 60 of 60 pings under 20 ms
-
-No regression seen on the non-PMF node, and no firmware crash in a few
-hours of use. I have not tested AP mode, WPA2 with optional PMF, or
-2.4 GHz, and I have not yet run the iperf3 and reconnect steps of your
-test procedure.
-
-So on WLAN.HL.3.2.0.c8 the shared hw1.0 file works with mfp-support added.
-I have two of these machines and can test a proposed update of that file,
-and give a Tested-by for it, if that helps it along.
-
-Thanks,
-Tawheed
+[1] https://lore.kernel.org/linux-mm/f76cb2b0-0090-4554-9169-5cfff6a6ca53@columbia.edu/
+[2] https://www.usenix.org/system/files/nsdi25-yelam.pdf
