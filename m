@@ -1,58 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794535437;
-	b=mXdfYQ3dNBH251ifIOhN+KWHlI0MagzLWrN7UesC+vTKSj5YhHkwEYzd5cP+Vs13yPSj
-	 VppTNg5eBLkCuSrU2AXuZo27Y2kagGpUaFt3pVonYXT+IEEkttpKPDs7iFLpywE2/ej+O
-	 7K2Cts8kiMVOMy5zhZsec5vRtASoaCyOoOrQ6K5WtjTWINHBD7sBW3ImLH3uJHNOPlSjz
-	 kdVOIUAdB8nMEvN03IxA8M5VJloMbGc3PqITm2wiRJEjCqqlChrh7S5GqsbaZ4cknAs8r
-	 8h+Nl11yCa/0jS7NGCg5LSfR1MxTgQpsyA5dp2f8k56vRC8ta2hs9FWXoYUghqH7GrQ==
+	t=1794535481;
+	b=eUgmBBLwCR4LRAbiBOTbBWjwr6Mc70S5SKuG8LI6ZGGwATWl4lcS0MPM54QHi3gXhwkW
+	 Eqq78O9Zg591EkgLpIdsGUOmI4mRuTHL2LFv1wD5oEMWFdni+ogRen6iiBx4IdR3q2xfl
+	 w5e98V12l8jsCHOmQ/9pKa0iFuLSNoPd6m6qiBNSny+pY6ExIISjFVfFdd0x7MyTSySPG
+	 vaTk2q2px8tA+u9OOznkT8asPe5tEWzhueGeNNDAq9goB3VYjoYDUh6viygkiBb/BhSM/
+	 vDvZICYD7QqSuu+Sia93Mn2bJEx9gmnyOUbrW3om4DQiUQNlp1cQHCr78hIpb6jbbUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794535437;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794535481;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=52ypZZbH0W5iPBW6QvuskKZ2OD4EQJiTD+ro0Z2NwZc=;
-	b=g7NbwCmpcfUBesrzPzElrlrGOMqOCpjzGwT8QYGS95eVKpk3R4yAqXQ/xNwblj4hkOfV
-	 u07jk4f1B8Wuav6UdcqZZL/IFgqrbeHXbuVxkK/RgAqZ4MSSoq9y4BOJKL4xC2xJ/xOqz
-	 6eCxY00pVb8uLx9fpYiiPPMbEbTKAvB2vqZuuG18NEguAM70jI3HqsF/wplAJqIkAdSOY
-	 3j4m3SpdoIvi3zhf5khETlSuTgG7jCHm0B1lq+pT3Snv8dbzF5Erdd0mAqY7QJjTvJzQY
-	 StislIWExvmVdLokOSRybx2zJ/1DNZQJ9yu7J10ntsg156DZ642dmIhssCYqwfNBZwQ==
+	bh=AceqxThdekS4gnc9iIZOmTnn6HYCKyFrUKiFIIjfT3g=;
+	b=uNKdYeICYqn0BC1LJfJ8BLq1LPqE+RPY0vV55NkgpQUVEJnJFyyNiTasNkdghJgCMv+W
+	 ylbEwiHk+D12QIKHqAaRQLcBb1yl9e000nw1lh2RkIE2tsm58x28MGDNLG2SUmJLqlIL8
+	 Jfgm6MYuC2S4q/j5x/Xlo6JZZa0mPrFYvktX5JMSTEIQSwDfuJwi8YrFzAeyHWCmxJnH0
+	 oer71YPZv37K/zGcA2loNeGCzROEQztrg63wHl2jMZAe0TN2wF/OG+97Lj4vt+00674DT
+	 kfKmnKfDZstlEqYiDfTrtbFr782EtwhJVJleNzDo8kxDFp3uQ1mYEpqafqrNaaFga3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1O3kJia;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OEuWhh4q;
+	arc=none smtp.remote-ip=203.205.221.240
+Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EBCB606A31C;
-	Fri, 13 Nov 2026 02:03:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ECC2606A31C;
+	Fri, 13 Nov 2026 02:04:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ECC2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1O3kJia
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A201F000C4;
-	Fri, 13 Nov 2026 02:03:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794535436;
-	bh=52ypZZbH0W5iPBW6QvuskKZ2OD4EQJiTD+ro0Z2NwZc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=E1O3kJiaCdQbu6ToQsMC6pBJVhVyZiXJgkiz/fyhhMKKT1CQA8kQOtjv2a/oQZLyH
-	 KJ9pywLNBb1TaQk0mOPiIRthynunZatHN62BIcUfplhdH4W//SUfTzRNo/bmLiRO2e
-	 YtzQ08uzikWZlKd7ekJHGzyk0O4kdJ9a04dtdt8/mRHgULmCpLAQ7XDKIAqSbX/1+I
-	 6J0B7zzB3nlqQXj71hE23uG6ydIUu8A0/GTJkOI4ahzhONO6uZaNgvWVFm84quu6df
-	 2+ORblExCh4+BLfQyQpdNfH5XZAv0rMuF+6al7mItV9ZpI87livQHuiWhjM+SolSOk
-	 uttcqvGXYdWSg==
-Date: Fri, 13 Nov 2026 02:03:53 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jean-Baptiste Maneyrol via B4 Relay
- <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
-Cc: jean-baptiste.maneyrol@tdk.com, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: imu: inv_icm42600: update gyro start and stop
- delay
-Message-ID: <20261113020353.6d57fd46@jic23-hlaptop>
-In-Reply-To: <20261110-iio-imu-inv-icm42600-update-gyro-start-stop-delay-v2-1-c6f5d35290d4@tdk.com>
-References: <20261110-iio-imu-inv-icm42600-update-gyro-start-stop-delay-v2-1-c6f5d35290d4@tdk.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OEuWhh4q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794535476; bh=AceqxThdekS4gnc9iIZOmTnn6HYCKyFrUKiFIIjfT3g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OEuWhh4q6XLLI5ayYgLkKy1i7qBC4udfZsRDugKnhmfgdrq9GrVCayyz/vFOsvrj+
+	 6vy/QPvdC5WJ+q1LdXgTBfwSxg/Qo+ByeF8xSNXdU+r5iCkH2IG6e/DDgQ+h8p3xdI
+	 vLlT/4pHgMmF0p7v4Of8RNK6WuQJiaF3g+U42o2I=
+Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 122134D7; Fri, 13 Nov 2026 10:04:34 +0800
+X-QQ-mid: xmsmtpt1794535474tun2viu67
+Message-ID: <tencent_12375A4C6A22DC3D4C5A9EC5491EB5690605@qq.com>
+X-QQ-XMAILINFO: Ms5xyImz3IR/4EJrlIONb9aJO8inobFSvBKcsEUDFODLkUPJ9jHSC1j+R2AnKM
+	 7JNXhazDYdEaHvMZATyO8cg4lSORLAA78ZFctlIBXkNaAXl1trkq+BJ2aCfnXXNHzSDtIFaysEJO
+	 gnOZF2PseXi1YbxhrNykHDWo9Wf/X8LpsZcKWyUe+iqQjZHNfjIbkqVwOErMZbj2BAbaqpRKlb7m
+	 dhCoJTTaYt1LCn2HlM8/lKyvffVtrHrIDMxcQQCwax+ltx+Uc2xJawr++o+LKfM6lzvNV77x/Xmp
+	 ayJtq6IaNgwevbDWhK0Ud7YpZiUGoyvCXQL5cIF8E3Tbby4KpLLzcE7bK4nI+9lXBUnSE+EkAi7Z
+	 VrgjDoPo4+rR0WdSWtE3Z2/IcrvqhoSLk1OKQZWz1VgJnjff1e6bPLvTYpgH0t0bHMvclEQBMx/S
+	 3XyQBsfSrSMjZdhQ/4uXKF/6+CJDT0mvA0dgxBIKqf2agIhuhQk9x1M/LTK3vD8yosri+bQMrxlp
+	 y6r4ela56uMXTnsd7cJmSRK+CeKSzpyVzoeHeWtMAy3v8sWbCvqhpL4WhYyKhh2BIdeOfamnBVOZ
+	 dxhm2jpAlrGR43z0HqI9Audy7SHNfM2Qit67xRqTZqQSkRqnocyixHFfvlNk5Z+DVrwFE6xuGb9N
+	 h7Gef9yNSSmNnPMcuMkmgE/WiVK39teppziU7xdWwZ/UcqGPDGjeZ3VjeTz6HzBDYrtcVNViyM5e
+	 TsQu0TLpeAfroX0bIEJnaLnVqEEJ29UyjeUp5BUnVIoBHk/Hg999nCmvRHPxUjHnEf8SD832W/2Y
+	 9qpRVTdq9MfLQZSHmljFY6oa0dz8hh6ADfvAUaN6tBhHtK8LR7ugVZ9PC+EERfvdRoGdA3u85wix
+	 PD4O+CACcykqxwUsaUfbTg0ofrZiqoPph+A5SlrMA2xMlZSoWqniu6EEDOIu05xJZhCvcVf6AC+K
+	 EvFJE0dyVczMbuWjqCQk1+EYne7gcPqiErUSD/BWbb7HNlcaJ31YKtM5XwlstaG44YZuhRtkPNSs
+	 0WtTo+ZNVVIlvDvlmTVFIJlr3v/5h1iEwF3Lt1mMwD5pk0cb0Ax/rEaw8RUgmMThE3ddRTVdUszT
+	 hVDO0crV9VTt9SF82b5b0+yBPfvg==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Shuai Liu <847807867@qq.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	ojeda@kernel.org,
+	dakr@kernel.org,
+	linux-kernel@vger.kernel.org,
+	847807867@qq.com
+Subject: Re: [PATCH v6 2/3] rust: spi: add SPI driver abstractions
+Date: Fri, 13 Nov 2026 10:04:33 +0800
+X-OQ-MSGID: <20261113021000.1000-2-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179451185979.339049.12323339081307899766.b4-review@b4>
+References: <tencent_C5AC68A2C63D42DA8E8547FEA38904F74D05@qq.com> <179451185979.339049.12323339081307899766.b4-review@b4>
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,70 +85,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, 10 Nov 2026 16:57:17 +0100
-Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com=
-@kernel.org> wrote:
+Hi Mark,
 
-> From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
->=20
-> From internal specifications maximum start time for gyroscope is 45ms.
-> Stop time is required for letting gyroscope mechanical structure settle
-> down before enabling it back. 50ms is a sufficient value for that.
->=20
-> Update values to these numbers.
->=20
-> Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Applied to the testing branch of iio.git.
+Thanks for the review.
 
-Thanks,
+Agreed -- mapping onto the lower-level APIs is the better design for the
+Rust layer, so v7 (coming shortly) reworks the device I/O around a single
+`SpiDevice::transfer()` primitive that maps onto spi_sync(): a sequence of
+`Transfer`s (write, read, or full duplex) is submitted as one spi_message,
+executed in order with the chip select asserted for the whole message.
 
-Jonathan
+Since spi_sync() requires DMA-safe transfer buffers and Rust slices may be
+located anywhere (e.g. on the stack), the Rust layer owns the
+bounce-buffering: every transfer buffer is copied into a kmalloc'd buffer
+before submission, and received data is copied back afterwards. This
+removes the dependency on the C convenience wrappers (and their helpers)
+entirely, and adds full-duplex support, which the wrappers do not offer.
 
-> ---
-> Changes in v2:
-> - Do not refer to datasheet since these values are not available.
-> - Link to v1: https://patch.msgid.link/20261020-iio-imu-inv-icm42600-upda=
-te-gyro-start-stop-delay-v1-1-ed52290a4ca4@tdk.com
->=20
-> To: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-> To: Jonathan Cameron <jic23@kernel.org>
-> To: David Lechner <dlechner@baylibre.com>
-> To: Nuno S=C3=A1 <nuno.sa@analog.com>
-> To: Andy Shevchenko <andy@kernel.org>
-> Cc: linux-iio@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  drivers/iio/imu/inv_icm42600/inv_icm42600.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600.h b/drivers/iio/im=
-u/inv_icm42600/inv_icm42600.h
-> index 3737e79dbcc1..c4a928fd3b8a 100644
-> --- a/drivers/iio/imu/inv_icm42600/inv_icm42600.h
-> +++ b/drivers/iio/imu/inv_icm42600/inv_icm42600.h
-> @@ -439,8 +439,8 @@ struct inv_icm42600_sensor_state {
->  #define INV_ICM42600_POWER_UP_TIME_MS		100
->  #define INV_ICM42600_RESET_TIME_MS		1
->  #define INV_ICM42600_ACCEL_STARTUP_TIME_MS	20
-> -#define INV_ICM42600_GYRO_STARTUP_TIME_MS	60
-> -#define INV_ICM42600_GYRO_STOP_TIME_MS		150
-> +#define INV_ICM42600_GYRO_STARTUP_TIME_MS	45
-> +#define INV_ICM42600_GYRO_STOP_TIME_MS		50
->  #define INV_ICM42600_TEMP_STARTUP_TIME_MS	14
->  #define INV_ICM42600_SUSPEND_DELAY_MS		2000
-> =20
->=20
-> ---
-> base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
-> change-id: 20261019-iio-imu-inv-icm42600-update-gyro-start-stop-delay-68d=
-afe160210
->=20
-> Best regards,
-> -- =20
-> Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
->=20
->=20
+`write()`, `read()` and `write_then_read()` remain as thin convenience
+methods built on top of `transfer()`: register-style access is what most
+SPI drivers need, and keeping the familiar names makes porting C drivers
+straightforward.
+
+Best regards,
+Shuai Liu
 
