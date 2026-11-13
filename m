@@ -1,49 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794586493;
-	b=CL9kgk54rK+ektNGKUvtbxnI0sNarAzydyXKeQDqwnwRV99yxMKFSrgASuCNm2QGje/P
-	 Zofz3JbKdHs0zWfyDnHqWD5xY4Q+iJn0zOrMBJ+nEjaHFf+eii1msIoqHSfzIqJj/HllV
-	 uLgjDRMuMb06Vjj0pCBwjuqRxtHE5LHEXEZmn0ectKJ+7MLzw+wEYOWsFu1TRT/iVJ8Fc
-	 iqCH9rNqEPqgA1ZJaqzUlKaFkDFrI0b6HqGG7zGGe7H8MQ6lSCl0LwUJcgqXIriy4VRvl
-	 oJVDWuxxAPfPtLKv+iQssQVG60JYINVIbR9b17trLQ2ERWfYTgBJHzj5g0fjfBUuXtw==
+	t=1794586495;
+	b=vtDaTCsalOI+Az6Bc8hFJd7WCK/7KtzRfx4+EQuvnc72L3GRF2W89ESlmUM6KLBSCylB
+	 ZXJQWszbcSIuoQCxjPZsiLHwCdP/WHiFndKVZN1WVDJoPkSj4JVU2/dLC2I1Vwxacdm5r
+	 PiaKppwESVsJHHo42ivG2X6giT0k/AOvIlo7o9ruy5GEq2ZI6CXY80No4LX0srFDuRsGG
+	 cVq6mDdbcsxuvrsxppNw1EC3HVozdHNr7f8bgdL7voz5z4rD9DhawATTnB0ijsTpmH4Ij
+	 Du5iPtRr6pI5DgbbXqPuaR5ocHvYFVSx7JXZxn4zQy/YtxKQ167CI207wlanYPbO+9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794586493;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=wtyVpuXy15dO4I4euvTy72oPkpvM3hhV0zuEi7/nVcc=;
-	b=SC7h3xzcWIkqbgVsNj5GfkB84/mmchuy3nqPmIHDtlu3w4Roc9U8imBbXCjqfTy3FMlb
-	 tC/vGjy0FEnVYtuEWXBBOP+FwrL86oNCMQ0wu/jpdUmyWF/S6l5AntdsJcIXB/N75BGgt
-	 nWGhmJ0qhAHtboZtWHzYNrHShc+0xmmu3yhVUBfVmIFo2MMHZsEeDxaLBg4a+ruQcX1ud
-	 ZaxBfv/aRtLEWt3z2poKveeTYcYmZBZ/2RMc3UTSC/ZXOGdRIOAhEUKxCHgp4GXmGMBZr
-	 9c8F7TiKTIMX/9Sm0MX0RE3Uy5ZrVAkDr8Th6qJmrZZNPesgYXVDfzooAImNDrg97GQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794586495;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=sf+6edYMzY6NnrlxJWJeYP4C5uZDtVBlONkpHHMFEZo=;
+	b=KKdTqycrtcnEqvTN1+GJgofUuXlk3yQEeBa71E2Kg2Fcffp6rWejAObIFbyrgXxfxS5Q
+	 PKl68qyobZHSY4abp5s/dy0qPdtQiu5+07QXUf7wqQrivF1ehk9m0K37pcD7YiXKLB076
+	 SjRvEgWWs6j6kmTjsoFsntfy7QbKXK80sxPzQ7/rPFAGWtNBMtt5qooskBfRmmb4turqV
+	 i4forwOc6hsTLPeKR26gasWH5EuXyYLLEguUUuq1nVpc+coIKa87GMaI80aCrKbYGRpP+
+	 cVCVzpCbqenJBdRK1pqKJDyEC/7cmzgpMPpp5wxsoxE27WTkLheVY32KE+HoZe0ylqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Kca1aMbS;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1254C606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:14:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1254C606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iNSeqRDW;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68502606B2C9;
+	Fri, 13 Nov 2026 16:14:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68502606B2C9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Kca1aMbS
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 59500143D;
-	Fri, 13 Nov 2026 08:14:49 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3B8933F673;
-	Fri, 13 Nov 2026 08:14:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794586492; bh=i6MBxrF0w4JXCguJJvppWTYUK6SI7lS9eOj24tuyIBU=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=Kca1aMbSiP4ptaRyeru+VLQb0nS8xXxVVzqAZYvYOR0cT26gU1mSxylH7eMRaLIes
-	 sziSIN6XJ8JM52qwZoMPhgSSjMU/h14pAkGQEI80KvcCowz7SLkM/yMvY0xIpI5lV5
-	 IdKpweGRgrX1yXXn+FmW48X0P0I5Vr2qvLQlmgY8=
-Message-ID: <10f43d19-2994-4ad2-8a49-2891582e32e7@arm.com>
-Date: Fri, 13 Nov 2026 16:14:48 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iNSeqRDW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794586496; x=1826122496;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+zDWrisG46NzjviE4PtgI5vDp4QnTOm36Mo4GT1CJrU=;
+  b=iNSeqRDWBxKWlicY8EekgRqulaV459H1NX8Oh9hKae79Ezht7bM9mRUt
+   9wKEjDkLWsOJomzna4zXTrwsX2YV8sAqUIbprqn0z0Ky08I9XE7iSmhuT
+   REKM2Tc6ArT1s16kI5Hf3ynb5FHKVMexmtundAfEcIuokj17MtOEcwPKW
+   R8TRdRGzXwjc5nJd/LN1iu94rPpP9sMPreuIokiVkBoBwt/OE5AjlyTmn
+   7Ykdja9fXw89saZVToIGsdVBF7qOA2yuGSXfadcZysYRouMeaAbBUw6O4
+   +UB1SO2myBKvg23HQA8EcmzBd4B6olHn67DMubFNlM/IdjQBdOEPp/sKl
+   w==;
+X-CSE-ConnectionGUID: wyKXKgFrT1WEFGqd4Vgxrg==
+X-CSE-MsgGUID: 84ViUfQbS8++cWcGphcTKA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3470485"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3470485"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:14:55 -0800
+X-CSE-ConnectionGUID: KbbtHvXoSiei8QzDIkkMxQ==
+X-CSE-MsgGUID: n2uxiT2dQlq/0961XDln/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="8870703"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:14:49 -0800
+Date: Fri, 13 Nov 2026 18:14:47 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v2 09/10] gpio: shared: removed unused field from struct
+ gpio_shared_entry
+Message-ID: <avc3d7a1rEfV_xtP@ashevche-desk.local>
+References: <20261113-fwnode-for-each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com>
+ <20261113-fwnode-for-each-prop-v2-9-4edc23d5cf50@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,86 +96,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] fs/resctrl: Give a monitor domain the counters the
- groups already use
-To: tizi4590 <ruanjinjie@huawei.com>, james.morse@arm.com,
- reinette.chatre@intel.com, fenghuay@nvidia.com, tony.luck@intel.com,
- Dave.Martin@arm.com, babu.moger@amd.com, will@kernel.org, jic23@kernel.org,
- gshan@redhat.com, bp@alien8.de, x86@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261113083506.4129060-1-ruanjinjie@huawei.com>
- <20261113083506.4129060-3-ruanjinjie@huawei.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261113083506.4129060-3-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-fwnode-for-each-prop-v2-9-4edc23d5cf50@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Jinjie,
+On Fri, Nov 13, 2026 at 04:47:09PM +0100, Bartosz Golaszewski wrote:
+> The index field in struct gpio_shared_entry is an unused leftover.
+> Remove it.
 
-On 13/11/2026 08:35, tizi4590 wrote:
-> From: Jinjie Ruan <ruanjinjie@huawei.com>
-> 
-> With assignable MBM counters, resctrl can be mounted while all CPUs of
-> a monitor domain go offline and one of them comes back, either through
-> CPU hotplug or because hibernation takes the non-boot CPUs offline. The
-> domain is destroyed and re-created, and the new domain starts with no
-> counters assigned. Counters are otherwise only assigned when a group is
-> created, when rdtgroup_assign_cntrs() takes a free counter in each
-> monitor domain for each MBM event, so no code revisits the groups that
-> already exist.
-> 
-> Those groups read "Unassigned" on the new domain, on any system with
-> assignable MBM counters. A counter assigned to them later through
-> mbm_L3_assignments is the lowest free one in that domain, so the same
-> group can end up with a different counter ID on different domains. For
-> example, with the counter ID each group uses for mbm_total_bytes and
-> "_" for none:
-> 
->                                domain 0         domain 1
->   mount, mkdir g1              default=0 g1=1   default=0 g1=1
->   all CPUs of domain 1 offline default=0 g1=1   (destroyed)
->   one CPU of domain 1 online   default=0 g1=1   default=_ g1=_
->   assign g1 on domain 1        default=0 g1=1   default=_ g1=0
-> 
-> Each domain has its own counters, so g1 can use counter 0 on domain 1
-> and counter 1 on domain 0 without affecting the other domain, but until
-> it is assigned on domain 1 it reads Unassigned there.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-I brought this up before and it was assessed that no change was required:
-https://lore.kernel.org/lkml/171f92a3-fa2e-44fb-b0d1-1250c72e31d1@amd.com/
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Do you have any particular reason for wanting this behaviour?
 
-Thanks,
-
-Ben
-
-> 
-> Assign the counters when the domain comes online, after its state is
-> set up. Give each enabled MBM event of every group, including the
-> monitor groups under mon_groups/, the counter ID the group uses in
-> another domain, and leave the event unassigned when that ID is already
-> taken on the new domain. Skip groups in pseudo-lock mode, as their RMID
-> has been freed and they are not monitored.
-> 
-> A group that has no counter for an event in any domain stays unassigned
-> on the new domain, as it was before. mbm_assign_on_mkdir only applies
-> when a group is created, and counters that the user removed through
-> mbm_L3_assignments stay removed.
-> 
-> Fixes: ef712fe97ec5 ("fs/resctrl: Auto assign counters on mkdir and clean up on group removal")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Cc: <stable@vger.kernel.org>
-> Cc: Tony Luck <tony.luck@intel.com>
-> Cc: Reinette Chatre <reinette.chatre@intel.com>
-> Cc: Babu Moger <babu.moger@amd.com>
-> Cc: James Morse <james.morse@arm.com>
-> Cc: Ben Horgan <ben.horgan@arm.com>
-> Cc: Dave Martin <Dave.Martin@arm.com>
-> ---
-> Changes in v2:
-> - Drop the MPAM part of the changelog, the MPAM driver is fixed by
->   "arm_mpam: resctrl: Use the domain's counter ID".
-> - Link to v1: https://lore.kernel.org/all/20261106094537.2337188-1-ruanjinjie@huawei.com/
