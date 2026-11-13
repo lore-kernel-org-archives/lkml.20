@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794551607;
-	b=DX+lbLqw23C9huM57nfOtuuJLnBkvCp6oY5ETClLFhjT/Va9mSGJhDFdNGmzu1MVO3Ao
-	 eChweNQRu+SiLFjCuYTyuT2mNReA23lrhJ3vSXtU0UBHeB5Rw7bMUnQw8Q+Cq5i2HJhFH
-	 dpJCIjkBGcsGpk8ftLSxnlmTLGVDB3TlkFYH4GKG9ZFQEyJQl9gsWIqomMy+YMcTqC0uv
-	 3iluQm25//FrTt5sSlNZJwj/DAl9mlFJni8o1TtvqOyckG8pFOh5sIgSKBqd2mdF38Jhm
-	 0FdePGLkmxx9cV5sxYDhfKIA+DCY/gHEPKqYzBeH8sQ0l4efgkrt50/PGgxaWAbCV3g==
+	t=1794551673;
+	b=wdEK+yMjgWCzSGhfAduzn6MjTGuWCyZB3LUq2p/ZRiX88fKNrjVz6NKz35UXwtkyMLxZ
+	 oU6Iwem/ftXliY9Rc1YQP8U55ljNxBBVCvPPinhrwE0m1gehtH3tqhz0CiJQ4INKTcrWC
+	 DHMZGVXlgiiONzZNzfpTuTya3fgo9f5Onf8YdXvm5nI7e7JkZ7TsOAm56vMLQDwKBZq/L
+	 46qR4F+i8dhlB3Isfr1l/6sSChcsYc3gJJX0zhldHLq8x+zMNhHF7w8DeZ4H+JTt4UOaf
+	 IKNRlOx/j9uoiVl0tXjHB9nndoM/NlekQhgQ42t6yBW3YRTTpj+JSYjsAgdr41vgk3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551607;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
-	 Content-Type;
-	bh=P5S2JB3qli3hjtrbSAST2eTeRbxdRMd7BKll/H0GlZg=;
-	b=qLO274sNByQ8H0pTn16q//gDh8XQJtTt8d0eetqhcctfjTnyHg+aH+JDGH/MAZRJieHf
-	 w1hAD05SBLE1+dckLUEGcA3zRzuSB6usd55uosHRhET5ORBu/6n7RWJH0VKPBB/gM7LVY
-	 s/R2NTgWzPUHgqj1A80dxH78Qh5W1UyfnhFCqqwpxJelaUPAXMbfAEdCkIHG3xMb3koiW
-	 UWQabAvIciNtbKOwgJQgPFxICfE6xjum8nKMZU8pkNeIiHtHYwtrY0OhQa9OK4feWaJ6r
-	 MjRweKYxGSJf97rFyVR0tnMh3+glx3NFRDZaqwA3AlbHMwqjkwSUPrRf+Jy8GN/IjVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551673;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=mdanL4lnjhf1tDXUSVl0wHa7iY+CsmDBpWWdd3/y5b0=;
+	b=Xr9nvBFZ5nMcYCsazc/PFL/dk3a8j82eQnc3MDoby0NaeOwx/tDQ+XDJbooZVKbREPwE
+	 wQ3ypNgxl0m53nTV1rY9bWIMYGi3Y2XAQvu82JGuGM0Sf/AHH2h5C4HY4mYhzs1VE9/pg
+	 OnvihwYIyYs/XhLfB8RKeDzqBpoyVXgDsaLTeMNdqGsTBrYXenAsTds+s/L5IiCiYkKzf
+	 Rl2xfNban+Q5Oxw0S89ewZ1y6bsg73YmwBLjzZy+pVUtj2BxwUZwZBKZY5iQv8xy4MSPv
+	 SSsvABXPgsFC3UqibdB0ieYrHkL2d4AsCYSLSce9lqz0y6NN3gNjYR5bDiMGibx4UpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=MoDxLmyz;
-	arc=none smtp.remote-ip=209.85.216.102
-Received: from mail-pj1-f102.google.com (mail-pj1-f102.google.com [209.85.216.102])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=I6aemvBJ;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575C1606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:33:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 575C1606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255CB606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:34:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 255CB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=MoDxLmyz
-Received: by mail-pj1-f102.google.com with SMTP id 98e67ed59e1d1-3b16896b8ceso257831a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:33:27 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794551606; x=1795156406;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P5S2JB3qli3hjtrbSAST2eTeRbxdRMd7BKll/H0GlZg=;
-        b=a9C75xo+gUVfDYtAOV0FlVetL16rWN52wk5wZ8NuE2AcbtvNruSShNCJDReK/Pk/ij
-         3y7hOGqyXOQqMXK9+30dd9TyYFIfp+I4VGHE1yNRehKN3IFB5NaHC7O9vmwyVwCBndpI
-         T3jpxFVYbRD67QhPiEjBuKt1RvL03FMTohTdTbZ2VxLjegY5ZaSGKVhx492Sgdfjlwha
-         k3e0u+A1QL2iqOVgJ0l8bECPfWdJbLNdjMjcw77U52FLxG+SRQ4OZYNMSAzL0o5z/uat
-         y5K0du468Vm/xBJlWNGslzahcS64V1/dWkTk9ELsCSVtxNsguI3EV68INrpLd6zr/eP7
-         F92Q==
-X-Forwarded-Encrypted: i=1; AL+hErGRPM0YXOxLOu1zrASFR/55uGhQ6cFqFNw+yEmPcQHlztXvdXUfD8x7V/DCxaJAhiuyH8fyzApybWbz924=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/s571jqUUI3zXPztUQ+0SpvFpYtcElS77CFN7hYJTyswTC1tmj
-	VaXOEQU3V8oEmRAHX8KGR8GYIXViGFMcLs+f4TjmZQdZUGQfI3tKtfgVtcDUwQINsJzqE7EahbP
-	kX0lXETvWBeLU/YI2lP2sJDfG32OAHeKlLvxeDQdoNx9wPh01q1Pe2xysSzYh6JfhenxDqvHN9A
-	eV4BBaL4joKBHvcQZjoNORaHsjMWyBAJqk/IWHviZyqam3VOQzXhQthidKMhbkb4Ll5AczYSMA1
-	R7FDU6/lNrsG5QeoRU=
-X-Gm-Gg: AYBFou2QpDKQPoFiRXc4B5jwCnb3H+sz+xW1H/tHjhqHaosQ3Rtl5HwXfuovi7KWEBa
-	ldySFcmARE02M13GLvMclXLhwpj6IUs0Mw8ovCS0zmFWR2d+tXHxTYKtvPGPAuUVptOngefcNFb
-	E1O/a8vtPBVFADY/rD9yyDY1kbemxqm5f2BOhE9g0T8m7h2tX4+rhIREsshaZEOmKRdV4v4CWaD
-	EH27Z1u/l3PN5aJMscg2qrCXhkR4GHQD0O0u5nm/hegtXkjBLfgMBKntctjIfsC9hei/UP5CD68
-	uOdIEZL48f1kbUuMFPf3WHSXUWsM0BXAFA8AbLyPK2b+8s8EXC0cjrLu2XcVduAdwT62upot1t+
-	3S7FtIbPMKpnedgwiFVllxOYXwbtUpCs5C8wk59fFRSwVF/uKLWJr5jfL/Wwiz73LCtpdymedp9
-	gUY/xIDVEWz3g6LWOmK1oJUVzb6i29rYdSnHk=
-X-Received: by 2002:a17:90b:2e83:b0:3b0:a4d1:6d7a with SMTP id 98e67ed59e1d1-3b1b0a1f08cmr1231339a91.31.1794551606373;
-        Thu, 12 Nov 2026 22:33:26 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-119.dlp.protect.broadcom.com. [144.49.247.119])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1b3c0a5a8sm882377a91.2.2026.11.12.22.33.25
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 12 Nov 2026 22:33:26 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lj1-f199.google.com with SMTP id 38308e7fff4ca-3adef3e4659so3165161fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:33:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=I6aemvBJ
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so8783295e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:34:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794551604; x=1795156404; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1794551670; x=1795156470; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mdanL4lnjhf1tDXUSVl0wHa7iY+CsmDBpWWdd3/y5b0=;
+        b=I6aemvBJHmam6cbe/j4xacPPokmaOo/01fnqrJkf6jHqoIkkA6Oiru/Yu0qvs58vHV
+         R/crfoNsxXMT/QzFJPThJV/Yx6I77XkeKVYmi2lcyO6YplQfI0/ZjjWSZfzKqTHWNDPb
+         NZR5EvGyQkTPah9S8IbxLyAASDDhZwpgbnHIR3IWkgSSJlv4dbMb3Dg7WzxLkAiNTibI
+         C8JMRIBMwid+wNtDLRINIOg8Tr1MHNqmabdR1Dw4O35ztbgC67SgZW1F+H3PBnJb5V3f
+         wO6xTFbWvgnhQvigre2rFM4ZpPx+b34UwH8N2Qlw4yp6jY9dkgMO775CT25rjV0W7lGJ
+         RlBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794551670; x=1795156470;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P5S2JB3qli3hjtrbSAST2eTeRbxdRMd7BKll/H0GlZg=;
-        b=MoDxLmyzn5cctg6t3bR3/+D5Hniqu6jOQr7DCG6+LT0mse7wLN1AKxe/BJ4+MszjpG
-         iG1DutWLBFUN8wHhs5RFrc6h6Mp4aGap0bXaqpjNBmqtGdYVQ0BT3V2VqPuVv5ePDLJ1
-         ekW2nF40m35jIC75LqoQdOJBdFvtLf0AACog8=
-X-Forwarded-Encrypted: i=1; AL+hErEIXdpf4H/x/sdCGyv2I8Q7DR01hRWvqz9CqVggivjtNkJzf2HqhXyN3tgSDTBMhBqdlmGpQVTU1xNVFTk=@vger.kernel.org
-X-Received: by 2002:a05:651c:1544:b0:3a8:380c:9fb6 with SMTP id 38308e7fff4ca-3ae2b6aaccemr5737251fa.28.1794551603963;
-        Thu, 12 Nov 2026 22:33:23 -0800 (PST)
-X-Received: by 2002:a05:651c:1544:b0:3a8:380c:9fb6 with SMTP id
- 38308e7fff4ca-3ae2b6aaccemr5737051fa.28.1794551603524; Thu, 12 Nov 2026
- 22:33:23 -0800 (PST)
+        bh=mdanL4lnjhf1tDXUSVl0wHa7iY+CsmDBpWWdd3/y5b0=;
+        b=fUyc5v/EdBGoA1mqqt7xzVHUCYu252YMefdQdaZbaRLAn32wkZYnuRgWlTVmuiHqFx
+         ILsuVE2Ny/71kR/x1JcUddj/NIEMgYkJ6/6zhhqWw+XEW8UmZaaHmHsfboE2X8HbEWcI
+         WB9eyTZxpnp5/QXh25/zG+fWcKugqqUbRnj6Qcb4eFYvrVTbU807PxQLHFqC+uYLkYGb
+         X6KzSe3rQyYwoRg1JjOzLwfehdnDtS0B0FNLDeP2HDxT/6zYPPapXRVEk0CGwSuSAunf
+         T3VVktU+o4fru52cwSqBSjYoIQzwBkWIWNRFUQXpgpKr6ARNGmT0Ttl7+Tquprq0ry/P
+         GeRg==
+X-Forwarded-Encrypted: i=1; AL+hErHTcX5JqcRi9tXtsUslKHX2pA6+8GXMIjy9aZ0+vYWiJ+NVBr6GzvyZo5S77DppCg+sFkQnnfZDf9uMlR4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/s7nQySOlm0KQ9Pyty1SLDVxafZ4JOZZfQzK9eVhzV5EsZwAXz
+	rwjgogviZGdJb19vxGmD3hjCf3RCnnaMy17IOh7U/N/CVho0nUQe7JI9LAo4lX73pfU=
+X-Gm-Gg: AYBFou1adwYRhKhPX3W7y1I6gXql3ccWy/2bePXwrCymBuFCPTDqG8A/KSw1G79Tfw9
+	jyTCAGs/FAGY7894THyEhpuGJ6HUs2C7IiGeP7JB4BGgzgeQcfIUx9vt6Hnhy7jyo+ZiS2kmiRO
+	COBtaCCOmUMx44XSdNxWxoL0DxbRATkgBy2JcyXpn2ceS3ZLgi3P1MRzrUG2K25N6xOWghDX2Yl
+	HvlTtoyo0ALWQt1C1tbV+DoNzUkJEk9+dNiwe+qNzk9u1kGmKHMBM4TBQoXnu96qTA0AyFCFLSn
+	TqqnDFNfPCwIaPOOZ+J3H4CSgEbNlAfjkM0YYUP9EqnG4hyPIiMAkUdkhPiYQ/As1R5xpZUx0JM
+	K+czy0JVe71Cc1EmlN+8CDrNL44sOkKm4Fha2e4vQANednS+sX3u0W2EoQYepEh5J172qNC8Ru+
+	zQUMCqQS1xdps7Foiy8y9Q+S9hRgzZlFFjEm/y+UQDq18E4ZiW/Z/qEMFykKoO10YzWE6sGsXih
+	dwJyPYUoNyCA5uN5wreeoVEkAAmXoZctb6+5SJ467OjlN/DcVgsXuSYFams69yuV6sovF2mcQsb
+	fo1XGKZtz5zS7QFHq/pqjBVjGu7skIg1ww==
+X-Received: by 2002:a05:600c:3f08:b0:4ad:5e09:ae43 with SMTP id 5b1f17b1804b1-4bb55a8d2d6mr27281365e9.29.1794551670522;
+        Thu, 12 Nov 2026 22:34:30 -0800 (PST)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-49c5d22394esm3528090f8f.3.2026.11.12.22.34.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 22:34:29 -0800 (PST)
+Date: Fri, 13 Nov 2026 07:34:28 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Gregor Herburger <gregor.herburger@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+	Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v9 05/12] nvmem: Add the Raspberry Pi OTP driver
+Message-ID: <avauNsYkHqIAshCe@monoceros>
+References: <20261111-rpi-otp-driver-v9-0-0a7292a7a5b4@linutronix.de>
+ <20261111-rpi-otp-driver-v9-5-0a7292a7a5b4@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,202 +104,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1794374897.git.zack.rusin@broadcom.com> <90467782be23b83fd3e9a6afe2f1d2149eaf9db9.1794374897.git.zack.rusin@broadcom.com>
- <876c4f4fc442116c9bff8abd8c34f99fcfa65531.camel@infradead.org>
- <CABQX2QNd7DehBsH-pGL=EJK4b5vC60PymL_YP27xDxGT6_6=uQ@mail.gmail.com> <1bae109338ab6ff1ff14eac811f7e86ced785b22.camel@infradead.org>
-In-Reply-To: <1bae109338ab6ff1ff14eac811f7e86ced785b22.camel@infradead.org>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Fri, 13 Nov 2026 01:33:11 -0500
-X-Gm-Features: AclHuK_X2h_Z65J7PRPJKNTU3WeHZRshjbv0gFpjJkCKiKkj9Z3jKMBYT-rFpjY
-Message-ID: <CABQX2QNhRZP1Td_HQ6QpMzw-_TjqhbooipWYg3VTgTOq2_U9+w@mail.gmail.com>
-Subject: Re: [PATCH v3 06/12] KVM: x86: Forward VMware hypercalls to userspace
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	Doug Covelli <doug.covelli@broadcom.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	Shuah Khan <shuah@kernel.org>, Vitaly Kuznetsov <vkuznets@redhat.com>, Paul Durrant <paul@xen.org>, 
-	Xin Li <xin@zytor.com>, Francesco Lavra <flavra@baylibre.com>, 
-	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000e983a40660229a77"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dzmqcqzq6stkx3nh"
+Content-Disposition: inline
+In-Reply-To: <20261111-rpi-otp-driver-v9-5-0a7292a7a5b4@linutronix.de>
 
---000000000000e983a40660229a77
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 11:56=E2=80=AFPM David Woodhouse <dwmw2@infradead.o=
-rg> wrote:
->
-> On Thu, 2026-11-12 at 20:05 -0500, Zack Rusin wrote:
-> >
-> > > And I wonder if the cleaner answer in both cases is just to give
-> > > userspace a way to cancel the pending hypercall completion and use
-> > > KVM_SET_VCPU_EVENTS instead of piling all this stuff into the hcall
-> > > structs? It could even just be a KVM_VCPUEVENT_ flag to make it cance=
-l
-> > > the hypercall completion?
-> >
-> > I agree that this would be cleaner, and if KVM grows such a flag,
-> > VMware userspace could use it too.  But it's new API in
-> > KVM_SET_VCPU_EVENTS, and we'd need to agree which completions it may
-> > cancel: simply clearing the callback leaves pending I/O state behind
-> > for PIO and MMIO, and KVM_EXIT_HYPERCALL also covers TDX completions
-> > with different semantics.  So I'd rather not make this series depend
-> > on it because it significantly increases its scope.
->
-> I won't necessarily defend my suggestion above to the hilt on its
-> technical merit, but I'll observe that as a counter-argument, yours
-> *really* isn't a good one. We don't design a userspace ABI based on the
-> fact that we're impatient.
+--dzmqcqzq6stkx3nh
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v9 05/12] nvmem: Add the Raspberry Pi OTP driver
+MIME-Version: 1.0
 
-I think that's a misreading of my concern: it wasn't impatience but
-coupling the VMware series to a new cross-cutting semantic in
-KVM_SET_VCPU_EVENTS.  The current approach is self-contained.  The
-exception fields were already in v2; Sean's only comment on that
-struct was to move it into the x86 UAPI header.
+Hello
 
-> To your concern, I actually think we could get away with aborting *any*
-> pending complete_userspace_io callback.
+[dropped Ray Jui and Scott Branden from Cc: as their addresses don't
+seem to exist any more]
 
-I'm not sure about that. I think simply dropping a PIO or MMIO
-completion can leave pio.count or mmio_needed set, triggering WARNs in
-KVM_RUN. Retrying an MMIO read can replay device side effects, while
-dropping a split-write completion can abandon remaining fragments.
-Also afaict for SEV-ES/SNP and TDX, KVM can't simply replay the
-guest's VMGEXIT/TDCALL: RIP has already advanced.  Dropping the
-completion can lose returned data or leave a multi-step request such
-as SNP PSC unfinished.
+On Wed, Nov 11, 2026 at 08:23:27AM +0100, Gregor Herburger wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/platform_device.h>
 
-> Userspace *already* needed to
-> know about those=C2=B9 because it can't migrate while those are pending;
-> it has to do at least one more run, even if it's with the immediate_exit
-> flag set.
+Don't include <linux/mod_devicetable.h> as that introduces a lot of
+unneeded build dependencies. <linux/platform_device.h> is sufficient to
+get of_device_id, so you can just drop <linux/mod_devicetable.h>.
 
-True, but, again afaict, that rule exists because those completions
-have to run, so I don't think it tells us they can be dropped.
+> [...]
+> +static struct platform_driver raspberrypi_otp_driver = {
+> +	.probe	= rpi_otp_probe,
+> +	.driver = {
+> +		.name	= "raspberrypi-otp",
+> +	},
+> +	.id_table = raspberrypi_otp_id,
+> +};
 
-> If it's deemed clearer, I'd also be OK with an explicit
-> KVM_VCPUEVENT_CANCEL_HCALL which cancels *only* hypercalls. But I don't
-> really see the point; userspace shouldn't be getting confused when it
-> was actually some other kind of completion that was active anyway.
->
-> =C2=B9 https://lore.kernel.org/all/20250111012450.1262638-1-seanjc@google=
-.com/
->
-> Looks something like this in my Hyper-V hcall series (except I already
-> shouted at the agent for stupid struct layout and made it go run pahole
-> on everything it's working on).
+Inconsistent use of spacing before =. If you ask me everything other than
+a single space gets inconsistent over time, so I recommend sticking to
+that.
 
-FWIW, restricting cancellation to explicitly marked completions looks
-good to me.  If Sean/Paolo prefer that, I'm happy to mark our
-completion cancellable and drop our exception fields.
+Best regards
+Uwe
 
-z
+--dzmqcqzq6stkx3nh
+Content-Type: application/pgp-signature; name="signature.asc"
 
---000000000000e983a40660229a77
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+-----BEGIN PGP SIGNATURE-----
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIBEC
-oXB88x7XrixvBaWIzPFN63djxwdOsOY8XvH1hjYVMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTExMzA2MzMyNFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAHEs5BK4HrrdvRAQOYyE5cfRtFeMxDW/mylZOlz5
-IdqO37FbwfO9qFxvkBwcNHMdqwk6ivjGh+A+qjbtZtFGAPsxcwJ6kaVqcteZcgOtv60r0u4v5hUD
-vgGsn6Qbc0MrfmQBYHGYjL9nRTk4w9c5E0g40iZq02ZBP2VBYmbKiyfTLwSQp3i6xQvYGL0D4zbn
-yiau3nAzKOnkwKVSdJ9cysWRIyLDkn8cRrXDz7Ubykx+aXCPR1KybpjOyisnQjVwlfNzO2Rkjo14
-MlN3hcqUSc/5AuI8EbLrMZUSQVG/mObgLqHgIZeVnAGrrM4MyumnOORj/3C9Srm6LUhTgpf8rYo=
---000000000000e983a40660229a77--
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr2r3EACgkQj4D7WH0S
+/k6+Ygf/S3+kTetCLEiK3rGw/ROThFP+vKHVE0yIu2nZcj3dbawf3ySgY4wtvMJa
+0PbVsBeV9OgRc4ZEsTQF1kcAR823yZXDtiTzGnr2rvlyz6rrl1wvHyPiphHI+w75
+XxDCFxj38njwrnwhcUJTxHeH5bpa43eYpLZHCGQeNs/1CalWV1lxeonWMC5+kbzr
+TUgmCnXFg059Zu9KpxeAPpAd5uQ3rihwl+7n11njUahK4aBuIhKibFiC/Mur9HJ6
+y6s4h4Rk4A4KiA/z4puB/W/FSQLIej2b75CbvUkvGqBX5jOIbgbqza34HyRALj9L
+XBcLUzxAKLY5ZvkPb2DgHx5xPh9+sw==
+=ExxM
+-----END PGP SIGNATURE-----
+
+--dzmqcqzq6stkx3nh--
