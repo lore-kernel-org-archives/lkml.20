@@ -1,62 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.91
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794560883;
-	b=JeZA4o/oVjmb8NWzDx6D5IeVFODuJuoFpd1L5guBGLu1urrL1duCaWL+nIS9pxFuuDd3
-	 BmVxjU5SFEQ15gcQMbySoy7P5hAjfqi9EpXtjPgtgOCEJXbUJPGLIJVIyc4JnabHJ0Efo
-	 F0+cU3ocxzrLMxujiagVGRtZoax/ZXKtfPsZ9KdK0GLmmK9GDat9GtdXJWGnE2m6UQokD
-	 qinPKdMawYjaBAwhydBf9rueR2AQCThJT7kZ1dzLKV2xHabxFOW9UjMfUnpaECQm3feJ/
-	 YiXF4N5dlDufAF7lGiWbxX6lTfnIfaPJoXexzpnqnl3JaIBO8M9jJlc9v1ks9dH09zw==
+	t=1794560889;
+	b=ab6TdJkq6bH8NFKh4NfiN4dn3ip7V006uNBjQ+YrcgJX/8k4RnY7GxHjO19Bg0tFuneF
+	 hreorkYEZbsCpw2l1vufrFF3w9Zt2DaDLWygVngDgCgH5qXGp48sMxxD2Xwa2+eelHQHH
+	 9gUkqy1KZXKuoG9/tfrKynDVRfW90BjmTCw+/dS6wNW4IsDbo6DmMrV1q9MnayIAeGcAZ
+	 il0GT2x8wZH+sJC61U6x8XvJAXEiBKMaQR7zAd5xdaAcWBZ6vXCz67CeMBxpzeMAEgcUe
+	 3mrePnvg7e7eHJ3ztoMm4gAF/hzKx7UHEupEc5VKej3R27qYw6d1elwrFOhbiNahZ4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794560883;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=3LM4e3r03BUBo1MxtYrG6dqzSL5ZJ5e0GwlJ0aroQ3c=;
-	b=IOm2Xc/1lDLF76b8WDijyGHXgi9i1QSlM4NT1+flflA1Mfwj+xotI3wFmwtRTBJRrw79
-	 ClHjrmxYEoSwuHS2Z0WjP/5AjqcgKpHpbhKDE0Y32orkLzlUaQFtCzFgsSUdqpvfC/3zE
-	 chNWnMSNPM7zf5aNp5ptznoXEhiQxVQmiyryPzw92Q3zbpb4c8bVh5+rYm6QQDC+GdAyt
-	 CCahiIeDbTED3Ls2T98nYk7KGc69+Q4VpAxH7qVUWkDUbleWI44ZqAjkjG0jP//29wLH5
-	 PeTH3l+Y/tqg2olgZyQrDohWmWxI8E0QdOcAgYteLOEiMcJdAgppDE08VpvJbVVNi8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560889;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0GecHqzD9XMLLqQpFV2TvML1OoK0QcP7ZCMM+WBJVSE=;
+	b=RIyKELadiv6kbBO8BljEWzEHQGyhIKZGVSwUJR25aQk3Ha1C1rNRZAURPQ0WI9pEKchU
+	 4ngmPYTuRxbe1TeJwY8PvHJLoiP90QsTkZnWjMwK4RjQkdrPeMlX2A57whILhhBZHzn/k
+	 Gx5ZDBZe4xNfdzF8IJuAVRjtn8j5iCqNN4o2hbnhmoLlrpTiy1eK213R7ZmEQYuZNCuk/
+	 edHMpl6J0Snaau6LZ6+f5IpC2gy538GsW/Q+IoQkyNfuDPzBqdW4IIe6qR5E01Ns+sYoE
+	 Bj8AdxrdimWHD4BeXayuE/tf41BYMu9YUtAkMtlNZx88Y0L4k9105QNPzmkiUjgg+Ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oaywe7bI;
-	arc=none smtp.remote-ip=95.215.58.91
-Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27CD2606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:08:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27CD2606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rYutiHMm;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA6B5606A323;
+	Fri, 13 Nov 2026 09:08:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA6B5606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oaywe7bI
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IMg4DqZmrvZgGsmh8/Ch06ENTF4HGscvQfIkl0lWz/Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794560880; v=1; x=1795165680;
- b=oaywe7bIYvO/hLk76vqM9O5Iur17HNwzLp6H7YLkRcYzuB0Mn59hFOzcdVGB76LUpyKBBoRC
- NGHS5XcuprI2BufbxqJXu4dGFQLZwhaNGnWIEhVzht7IW1dXyqRFMj4ePf6IHJqsYobZcf97juM
- byzR43PCw9Rq9fd+6eoRR9+U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 98ee992137e27110;
-	Fri, 13 Nov 2026 09:07:59 +0000
-X-Mizu-Trace-ID: 98ee992137e27110
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 13 Nov 2026 10:07:58 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Jie Feng <hjf3108@gmail.com>
-CC: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v3_2/5=5D_wifi=3A_rtw88=3A_88?=
- =?US-ASCII?Q?xxa=3A_receive_VHT_SU_beamformed_transmissions?=
-In-Reply-To: <CABOQOSVz0M4G2mzwtb000Ss86PjoTUwKvfoRQziLwY9DAqdNbg@mail.gmail.com>
-References: <20261112173246.3201729-1-hjf3108@gmail.com> <20261112173246.3201729-3-hjf3108@gmail.com> <19FBDC54-7E87-4A8C-BDD3-E16351EE3CEC@linux.dev> <CABOQOSVz0M4G2mzwtb000Ss86PjoTUwKvfoRQziLwY9DAqdNbg@mail.gmail.com>
-Message-ID: <C01D8CEC-AA71-48DC-8E61-E6B964865468@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rYutiHMm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=rYutiHMmz3OiWRdhEavqRFXhCWPSYtvvbngDPUI+NNBBL07yVKsGOfXywF3r7QdO5a5uTAMeujb1t
+	 RB46NfSoLgbvqMRSLZU8KxRBzRCUhxUdf/mbcxfnof5SF9b+vkRMDIltim8wrAldfWU1Rb+HsM9TaK
+	 atQFXrhfTzn5VTwA=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af6d37414c-c6741;
+	Fri, 13 Nov 2026 17:08:05 +0800 (CST)
+X-RM-TRANSID:2ee16af6d37414c-c6741
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af6d3724c8-1fd65;
+	Fri, 13 Nov 2026 17:08:04 +0800 (CST)
+X-RM-TRANSID:2ee16af6d3724c8-1fd65
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: geert@linux-m68k.org
+Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
+	linus.walleij@linaro.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Jacopo Mondi <jacopo+renesas@jmondi.org>
+Subject: Re: [PATCH] pinctrl: renesas: rza1: Put fwnode after parsing gpio-ranges
+Date: Fri, 13 Nov 2026 17:08:01 +0800
+Message-ID: <20261113090802.2036-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <CAMuHMdX4YdVWBLKozBVKsk-cqnBjHY-4H=2hZP7g1H_3p2O8cA@mail.gmail.com>
+References: <CAMuHMdX4YdVWBLKozBVKsk-cqnBjHY-4H=2hZP7g1H_3p2O8cA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,53 +74,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Hi Jie Feng,
+Hi Geert,
 
-On November 13, 2026 9:20:57 AM GMT+01:00, Jie Feng <hjf3108@gmail.com>
-wrote:
-> I can dig the vendor code for some confirmation that the csi param format
-> is the same for the later chips as 88xxa.
+Thanks for the review and for fixing up the Fixes tag. I understand the
+correct origin is 5a49b644b3075f88 ("pinctrl: Renesas RZ/A1 pin and gpio
+controller"), since the missing fwnode_handle_put() predates the
+conversion to fwnode.
 
-I had a look, and I think all of these values can be named from Realtek's
-own code, so nothing has to be guessed.
+Sorry for missing Andy and Jacopo in Cc. I'll make sure to Cc them on
+future submissions related to this driver and the original bug.
 
-For csi_param, bf.c already documents the fields above
-rtw_bf_enable_bfee_mu():
-
-        /* nc index: 1 2T2R 0 1T1R
-         * nr index: 1 use Nsts 0 use reg setting
-         * codebookinfo: 1 802.11ac 3 802.11n
-         */
-
-and the 88xxa vendor values follow it. Per slot, hal_txbf_jaguar_enter()
-uses 0x0109 and 0x0108 for VHT and 0x0309 and 0x0308 for HT, so only
-codebookinfo and nc index change. csi_param could be built like in
-rtw_bf_enable_bfee_su() and then copied into the high half for BFMER1.
-
-For 0x9b4, rtw8812a_table.c already loads 0x00000000 and
-rtw8821a_table.c loads 0x01081008, which fits the "nc =2" and "nc =1"
-comments in the vendor code. If I read it right, the write only changes
-something on an 8812au whose efuse says 1T1R. Two defines for the values
-would make that clear.
-
-For 0x0202, the halmac headers in Realtek's newer vendor drivers name the
-bits of REG_SND_PTCL_CTRL. In halmac_bit_8822b.h:
-
-        #define BIT_SHIFT_CSI_RPT_OFFSET_HT_V1_8822B 16
-        #define BIT_SHIFT_R_CSI_RPT_OFFSET_VHT_V1_8822B 8
-
-so 0x0202 looks like a CSI report offset of 2 for both HT and VHT. On
-8821c and 8822c, bits 15:8 hold the VHT category instead, so maybe
-Ping-Ke can confirm how it is on 8814a.
-
-The low byte has the same layout on all of these chips, so the sounding
-values could use names as well. 0xCB is USE_NSTS,
-DISABLE_CHECK_VHTSIGB_CRC,
-CSISEQ_SEL, HT_NDPA_EN and VHT_NDPA_EN, and 0xDB adds BFPARAM_SEL.
+Thanks for queueing it in renesas-pinctrl for v7.5.
 
 Best regards,
-Luka Gejak
+Xiangwu Lai
+
+
