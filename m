@@ -1,47 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794563284;
-	b=WAfl9qBL3tfpGSBOyE5G0t4Voy8CmWTi2XqUV0wNY4zK1gpn0iKilzAXXYikxj3lzd81
-	 DYEF+LL+2IUJcJLbShfjxdaLUwTFkMWpYMQN/H7N6Gr/rrNFO1rcvJKW97A+xUc8z7L86
-	 03T9VRT+5Jiv+qFXAA2p3SzMJ6K8wCzQoo0i9EXLYdozyQMrB0dwAoGt7G8+PdV9yzzjO
-	 KVf+oPjfanV3oPrKkenVi6XI8dbgQ4EOuyU0m3M0qEfwQmi5KoVXlrgUPSFt6k1J2mdDr
-	 7CqwyXGO2SMdh6jvYY9Orl6YWybrCvnzTzOM1Q+zraWOqPDZ+Lz3dWTE+q5wKIwS3zg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794563284;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=D7RAxlmN4NPUQ6ePkQH8O+Zj4hlsDkR017+2aD4tTdE=;
-	b=Owy+syFT42Z3CYVWuwe27DkDFN09KmSfbHQVxNVOMmg0VKcc1Oo24Bsd/hMwusI4Ek8o
-	 vkPHtF4ia9O3fNZ2n+ZcO48ojTqUZBwiaanMW9KWu8R1pbR7KvBcEUcy2pHFKjM5o5fUG
-	 L1r5kGgIpLrQWQ2bXtrYHTIMgLK1aHUWgSLk+dC5BbGKiesGFZGyUkN/E7dps8uaEpaiM
-	 P4lrQSbg2m1XNEL3YDBleJk6UTottGKTqevqYvA2WDvOSxrtYc/kHdMcI0xAKdy5FnPl3
-	 Aq56YKtgxHiUuvCBHnUFe7i+U5Qb8cL5Kmisw1aCgXoZ7fXGg0zzg0pqlh0IvC95suw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYier4+p;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794563293;
+	b=jRIFo3U0LBQ3c9nNMSpHeL7q/FUKrhuNWRKJ0um06u9GGPYdKWurNBwzm9VjCl/5+yWv
+	 BCTSCtB3J1WC+txkqJkU4nGJn/TTwpNPiMyqngJISEvKhSsEOWT69c3hEiVWPPfCEsobm
+	 124RvXsXaBSdDCLy/K+Qki9cRuJrir57Xrznn6BVnHq4LdyT/ygkHC1RDFF7T7i0EkvPK
+	 eSMFF+w+Rgrha/KypUNLYBQSzBaLuXyArapPHLAraSpMGNim47WMh6KaiEy2HRfPvbpNu
+	 B4g6LEEdZPcGcV4Tyy6R0r8fIbMLdCWMIyP9uxtpp4CJRSUZKJfoV33J3knurk/X/aw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794563293;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=6H6K3uHq6NldMYMP3YlBlDnoWedZJbrPijCyuvU5TUk=;
+	b=wG3dHvBX6XXCB1e5pZpU38/z7uKFU2yTyv/v2C5pAKpBGATZi1NUbTT8CuEDs+CxqfGB
+	 4QDpXB/SBywLpnf0oRv0rCqnRU4I649Sa9OEEodqnxxGCC3FOBHUMunb5LBtOy1PLaYbL
+	 3ScMt7VcgOtz73u2Wv5lTusLDkobdWAqHcPmMlNGb2uASBB9/wzKEkyXqd/orLSsLn/2h
+	 roZckHxAgSbr0AmON8Oexgs436GOsfRv0UvYkZvJI4xIj62GmoOGM9UmQE3gkD17OOqDa
+	 btUawOs6FmM3pxE06TyH4UgD/rqqTYMzGWLzwQw2KccdRMzdMgwyW0E9kJX/cohAwnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=FqvcFHOA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C5F606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:48:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B643606A31C;
+	Fri, 13 Nov 2026 09:48:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B643606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYier4+p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC7F51F000C4;
-	Fri, 13 Nov 2026 09:48:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794563283;
-	bh=D7RAxlmN4NPUQ6ePkQH8O+Zj4hlsDkR017+2aD4tTdE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YYier4+pPXrb2JBJEkE+LT8L0EgDz8h1b9darC7vE5gNYl512p8DLKSacTVmskAWg
-	 L7UVlDag0SomaevCOGXoWh+gbV9qY88u50R55ueRARSzt3EF7bhrrG90awO3huXR3E
-	 FOXGTrVwlZbpRgB6nhIs+ol1cKVfhFSE/dc8cMOobLAaXei6TsCnGtt7PHsxLe66ft
-	 h4Go1MyPKA9jrYvDG2g3hqVNAJ1S5GDEQio8yGwnx6VgPmNx5QH6zvXhjnZFU8Au0H
-	 HhwCAKJvC3PZ+BewVeZXYi9N/w6Slom6QBBHdUhiC6jttYdNLyIPE/10A81wtt2Xf1
-	 rR+Gd1JFBWDYw==
-Message-ID: <aa4fecc0-60f3-4888-8a78-64e3efb7e096@kernel.org>
-Date: Fri, 13 Nov 2026 10:48:00 +0100
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=FqvcFHOA
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 980D3202266;
+	Fri, 13 Nov 2026 10:48:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794563289;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6H6K3uHq6NldMYMP3YlBlDnoWedZJbrPijCyuvU5TUk=;
+	b=FqvcFHOAeaCHKc//EX4Sn8K3WgWUE9ly8lTAA/ubhgL1zyUhcTU49NYaJcy03/u2t82L2W
+	UX6G9VcHfqnXq0mqWRNwteHo5xJBoP6Tx5BSLYqxtyEKWVOyKTrpB7xn/rSkr58/b1ho0M
+	JWeoMnt1LU/QDcnnf7HcGVahrSiJf5eJWCif3ai//637c9+QsqtaIjPJh7owV9WMyK5ZQv
+	Zsrk/Pm6XkdQf2tzoEi+C+QJWgvhy0nb/X5hq1t10P3gzd43rYDbd05at58VOHz4FYSE2m
+	8hO6tH3vsmEcF087cew6LcawDaV5ueVfjeJm2N97h2mBzD2mWh4UttExg9DaIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794563289;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6H6K3uHq6NldMYMP3YlBlDnoWedZJbrPijCyuvU5TUk=;
+	b=F07za/cfOIcBUy3W+xv3VFmG0ykRp8tVU87RsKSyxqY1Z5RAwqaSKdOzAwj1nUT5I4Auaz
+	1FiIIWP7NXflJyjVgGZlm6TsW+021zI7asuteUQUvTYP0SCvyeQCrVQT6rWK7+E3ODml5z
+	L6FtPBs1/ytxW9zd+KS8kKZZ2TZaCbFHzmb6WzEwP6Ryp1L4uzTS5vZhmo+Y1Wks1A+WKL
+	IQMN9NEhy4uFTCu6oOqcE8Tfx0NQlJnfCPiFqwqIkzYz9EV1V5c1r59r/mqTE3EI9FRrEz
+	w5EXvwLFlS8IjRBQHzCJBQEEOC66XBFattdrbfPOWjN2Mm9uS4N463WBsTc56g==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794563289; a=rsa-sha256;
+	cv=none;
+	b=DATszqC5RkaNaiZF3N020sjUU8Dt3zypTQz316EJeMEzE20YJJfUYsbGms8dgsEOH+0FTR
+	0cuFWWXTi9H4nm9W66UQxLfGxRADGU+tgQZ/51DV+Dfpx8e4Sn74JcF32JCuDXslkLjKF5
+	v+pnIT4/mhmfb0TEpcwwXIGIQwrwCJLDWGEoMEHDulMxaqszKhLbHGc7XEKlnVv5yGL9+S
+	iBPXCJszLfz7yjoISZd0P6vmS2s2WaNYP4ay++qtT+8WTKLvsMQpCIc1MXQOUBNt1CfiHo
+	GfKNzWN0sxP8v6b3JGt8u51d/JlSwOQKbio8i08p6Uk0XPjH10ZKbuU1pkoSyQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <b3fa092ec9390cf5bfe2f4338af68327be70e6e1.camel@pengutronix.de>
+Subject: Re: [PATCH v2 2/6] media: verisilicon: Don't hold the VPU in reset
+ after remove
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Arun Iyengar <aiyengar1990@gmail.com>, Benjamin Gaignard
+	 <benjamin.gaignard@collabora.com>
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner	
+ <heiko@sntech.de>, Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>, Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>, Hans Verkuil	 <hverkuil@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 	linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, 	devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org, Sergei
+ Khomenkov <shomenkow@gmail.com>, Tharit Tangkijwanichakul
+ <tharitt97@gmail.com>, stable@vger.kernel.org
+Date: Fri, 13 Nov 2026 10:48:09 +0100
+In-Reply-To: <CAEy9hNU2ox76TFKtdisqUHDxZ=3gPVBDBcjz_W8RtCpCpK5d7g@mail.gmail.com>
+References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
+	 <20261112-hantro-robust-v2-2-18561fd48838@gmail.com>
+	 <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
+	 <f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com>
+	 <CAEy9hNU2ox76TFKtdisqUHDxZ=3gPVBDBcjz_W8RtCpCpK5d7g@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,69 +107,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] virt: vbox: Do not report user namespace root as root to
- the host
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: arnd@arndb.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org
-References: <20261113090758.87172-1-dennylin0707@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261113090758.87172-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi,
+On Do, 2026-11-12 at 23:54 -0800, Arun Iyengar wrote:
+> > Le 12/11/2026 =C3=A0 11:19, Philipp Zabel a =C3=A9crit :
+> > > If vsi-iommu accesses require these bus interface resets to be
+> > > deasserted at certain points, why doesn't it request its own reset
+> > > controls?
+> > >=20
+> > > Depending on implicit assumptions like another driver not asserting i=
+ts
+> > > exclusively controlled resets seems fragile.
+>=20
+> The AV1 node lists these resets for hantro only.
+> vsi-iommu would need them in its own node and binding,
 
-On 13-Nov-26 10:07, Hungyu Lin wrote:
-> vbg_misc_device_requestor() decides whether the opener of the vboxguest
-> or vboxuser device is reported to the host as root:
-> 
-> 	if (from_kuid(current_user_ns(), current_uid()) == 0)
-> 		requestor |= VMMDEV_REQUESTOR_USR_ROOT;
-> 
-> from_kuid() translates the uid into the user namespace of the caller.
-> An unprivileged user who creates a user namespace and maps their uid to
-> 0 in it is therefore reported as VMMDEV_REQUESTOR_USR_ROOT for every
-> request of that session, although the uid has no privileges outside of
-> that namespace. The host uses the user class to account the HGCM
-> requests of a session, so such a user is charged to the budget of root
-> instead of the one for ordinary users.
-> 
-> Compare the uid against GLOBAL_ROOT_UID so that only root in the initial
-> user namespace is reported as root.
-> 
-> Fixes: 0532a1b0d045 ("virt: vbox: Implement passing requestor info to the host for VirtualBox 6.0.x")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Would that more correctly describe the hardware though?
 
-Thanks, patch looks good to me:
+> and both drivers would have to move to shared reset controls.
 
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Worse, shared reset controls don't work if one party temporarily needs
+full control, for example to issue a reset pulse after timeout.
+So this likely would require exclusive reset controls with
+acquire/release.
 
-Regards,
-
-Hans
-
-
-
-> ---
->  drivers/virt/vboxguest/vboxguest_linux.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/virt/vboxguest/vboxguest_linux.c b/drivers/virt/vboxguest/vboxguest_linux.c
-> index 7474bae2cd9a..ff66c00c27da 100644
-> --- a/drivers/virt/vboxguest/vboxguest_linux.c
-> +++ b/drivers/virt/vboxguest/vboxguest_linux.c
-> @@ -35,7 +35,7 @@ static u32 vbg_misc_device_requestor(struct inode *inode)
->  			VMMDEV_REQUESTOR_CON_DONT_KNOW |
->  			VMMDEV_REQUESTOR_TRUST_NOT_GIVEN;
-> 
-> -	if (from_kuid(current_user_ns(), current_uid()) == 0)
-> +	if (uid_eq(current_uid(), GLOBAL_ROOT_UID))
->  		requestor |= VMMDEV_REQUESTOR_USR_ROOT;
->  	else
->  		requestor |= VMMDEV_REQUESTOR_USR_USER;
-> --
-> 2.43.0
-
+regards
+Philipp
