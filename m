@@ -1,54 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.205
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794546717;
-	b=LpCxWNBQOBbweqRvSsgMbMV/LqdOyP+iPvR2UkfZ5UkQE/hJIzuIhysaJXLOH3o/bg1T
-	 KvAmCueYFMrtWFf15rPAm8ZE5+Ne26fsKWd6m63nS+3Y3JzepcWH0bBKbpBA50uRvF7gt
-	 p4DmEgNCnZLcPcIjA2B0HQ9EOyJCoo6OWUV7vGMXV7a80aeyaBUwlk2gcuAvKlTwnLKCg
-	 hoXAOlkN3yyd2uxts0TRlfqCwBbqCWfBWu00d9Wa6vABWIgSGcf6hMV1iQtZquXhvk8yS
-	 E3FrJK4FPsEdwSYZSs+o+fpDRoUomQnU2pChBulI4SVkHM6RAV+YweFAMOgxVc/s1DA==
+	t=1794546931;
+	b=xolySGEhSTc+LOvmBP82kuBVAaheXydI0eUehqMKyS9KXSujSJHyCeyg4aJRzC4zMY+N
+	 etaAkGV3w6UFX7Gvqe2d8fRqpMRpGZ5CV+9VGDd+SAS8L4uruNhsdM8/QwwuIDLpuSyUF
+	 FOQo2Xq05/2fxHU45Jt9K8ILFsIYYqVWKuTd23pV2NXrbv6v0spQSdeANwbL5uDyiUSTw
+	 svF3zP7yiBoVkJTtsI8xnpkVRS/rbyd6kNRzkBGx6Mx1uFi+pkVOnZUEFjFxMQa8N1IX0
+	 ebk1ckOZrj3QIfYdcn6X0jzqsVx3AhboKtIo6JLkyA9x+xA9TOQR9URSfn1jShv14DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794546717;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eJCeJm0SzOPFgAQtVHYOI/wNOE8f6A/g91ADM21Bu8Q=;
-	b=OaneuGTeZio0XNqjzL/JaM2zLWEtlg7LI6iGc/yrQmTl6cU4od+8u8a3Oui9Z2GR3OXZ
-	 +NkqTqHQ6sXuNHs4eDNf2FFbse5RzrG8BdXzymkmhqbqIPvkKKf20OghJChLZJZ1XGX6q
-	 MOY3qm4HtWkdSSRAH0h7e1dUsjpRLLfwWiZaEhe+RBQpySX6JlyQ341HTfPNMXGdn1mfV
-	 EN2++sh4zon+SoMstA0l6TAZB92depELLyE4RYQFeqK5vmAuPoueqHhqxEn2UCGWAlF9t
-	 QsqgVuHTl4zLKNG8GiKzsbyVFvR1jxhWUA+mdpklWLtJ55Ru9tYVdChodDdYgTBFafQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794546931;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=S3xHepTTAVm9e0c+I4Yy1yIlpEnalfmaWL87RSx29sU=;
+	b=sH10naMwyJScDpOnP+JyYmJs+7Ncj3NlcFNbrH8MREmbl154/S5/HRbrrr3jvyMDKmJc
+	 Md3uXKCyglDEaf/W3nDH5Kl0ymU1xw3NJquWdAoRSf6mnt6zcHAZMGnhoxBk5xcmHF6i2
+	 8+Gc+sUIzQ82ynB2YUBVwCyEqUINeMVBbFUxzYL2PtDAVA9fWp1Sp/ZTKDwqGuUVo2xpv
+	 USKCUz+SdSskKy3uSzfMCmeQRoa/dF8nPcYdCWBAHCHzGJypmoZCaz88jHlX00eWl+KQ5
+	 bXMbGu/qOhpfJ9kmFr5Lsc7/IOryqe7/MyeJ9snY+kZYPJ0ob+064DH2pIdiXDi2YOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+q2wKae;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=cw2pXXDf;
+	arc=none smtp.remote-ip=203.205.221.205
+Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED2C606A31C;
-	Fri, 13 Nov 2026 05:11:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF186606A321;
+	Fri, 13 Nov 2026 05:15:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF186606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+q2wKae
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1911E1F000C4;
-	Fri, 13 Nov 2026 05:11:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794546717;
-	bh=eJCeJm0SzOPFgAQtVHYOI/wNOE8f6A/g91ADM21Bu8Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T+q2wKaeJWVDZoNuzPL+dHZmn4h/20cPbzFesJV9p7V6puAp+JWcyJOzJeUS8NObP
-	 HMNJtGI+BRr8d6R8D71A8cwSZ4xyDkFLWWxcf/CpBXCb1jIa/cUCDdsZN4MkNqmHUs
-	 dPjnd+HzePrSM9p/5Kt5OFjE1ZaLKLCwbWgqSkaX65f/USdHAJTgEnPqFrvR3zsNfK
-	 cow/1B8XJ29NrK8P06oNKTylXfMcjk8N11t9MkSpJ00STJUK7Q8GSp2fvphjy3B2DV
-	 a2v0PsMOrjrg5NHNALAClFDp9QmGZPziGS9Pdfdo87wMRQR8wCtl+Ww3chPm6SmNLk
-	 ePpMMTn44ig/w==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
-Cc: akpm@linux-foundation.org, rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] bootconfig: Trim unquoted values at end of file
-Date: Fri, 13 Nov 2026 14:11:54 +0900
-Message-ID: <undine-1794546714483023333-db7a7be5c2ee185d@undined.local>
-X-Mailer: UndineD 0.1
-In-Reply-To: <31f248f330e716b925add3a0ba76f62826527312.1794337724.git.edumucelli@gmail.com>
-References: <cover.1794333957.git.edumucelli@gmail.com> <cover.1794337724.git.edumucelli@gmail.com> <31f248f330e716b925add3a0ba76f62826527312.1794337724.git.edumucelli@gmail.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=cw2pXXDf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794546927; bh=S3xHepTTAVm9e0c+I4Yy1yIlpEnalfmaWL87RSx29sU=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=cw2pXXDfPczqzqVVe33/PTlkp7nwEh2+sdrjXfoN7g0xXGYK5emLGT6XiwYwDLCFM
+	 MSoW+UvB0yvYeGIfS7kqJPpJ6weINYDr6mEZC+TuxGpA040y4Gl14Mma3GwphW3N57
+	 COp+QGP22fihX+SruyKFyhl2e2isrChHnwNoYAr0=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-XMAILINFO: OQac6g2KrvnW2iSWwmf6ohc8qhiL9C3TsNqbroi2fdR0HWZzFA1ovpBO7LEtZX
+	 rsB/1LC5019MdcWDKoCznAOiL4XGKRih3rL1/iE5Q58GB4A9v2Jg4fgbWBnCMQwqDYvfdzPMrTKcC
+	 5DAMkCWrIx/aDkJLX4sBT+r0FWckcT88xnMpoR4C/69Zr6e7p/mf3zWxGbSYQHOpD+TM7e31L/uYv
+	 PksXX6RJYJOsuMOqZ06ykjngEsWzGk3oDxghGjtE8X2jVdRubINKXs5ONZSK64XQk5NfFpyypgPU5
+	 kouGL2bGdXWArC2BhVo+z0C4y5JMtVeavBZhJ8gKNXQgArSGWA/+oXHNWy/n71jDT6mX7JuRtWMun
+	 r9S3WrobTIE7NPGG08zB9LBkyAAJ7NkHtnSL404vmXarFa1LgVmxL/tdC12Y+xfL9hL3g0Z4xZcYU
+	 c9cBqNpSQkm0TyypeieJ8zYlTA7OsZfuHWLyUlWiargVvqvzXxwsRc7x8i0PTbkRCOZQWmmpXpLH8
+	 8nMl9W/v6uftxZCf0gMpQSYmJgClt/eEhWyou2ePCvjPYBK6Blw+i6seyQVvKfcyKoAKoyWclyDma
+	 M3Ar2Ql55jPSBGg+9HvN/aLcgmX6pbilMnAosZIGo7zmBdwFYJwBEW30XdBly4sbXmIZCWMSN9Jjm
+	 vu/+icjnDSKoz6p56zYeio10SmJHOzMrERw+sBg5AhWgoJm324II8qNaQ2DnncwLi5EfAFN89EIS9
+	 DsC5O3HW9E2FpfcZjmYCgcTg1C9URXl92MFoM39HKnKLeWZymSG25CUl5F/RifMc10yyEZl5LPdPD
+	 HXo7/lZEM6P1kVfmU7skxUEy/6Znq/cSmEai4DYL0+60b/Kxqa1HHDC1795g9XgZBhL1M6huXHlsg
+	 CjTay+JkuCfB4J5ClevHRmWJILvZaoCa+75uW+NTRK+WKwBEKNUmWu2KcJC++vmM/cQWAIvRciwLL
+	 DtlwqNZSa6gzlS+CMjj7CTAgr7z6aO/hJidESPpAHzhlR23Elods0f/LcOKtl2PegD4NSIzUR+lJf
+	 5lwX+/NDXTLZtod7DlmzFMRu8sjxrCpFBHhNI
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?bmV0ZGV2LWJvdCtzYXNoaWtv?=" <netdev-bot+sashiko@kernel.org>
+Cc: "=?utf-8?B?bWts?=" <mkl@pengutronix.de>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>, "=?utf-8?B?c29ja2V0Y2Fu?=" <socketcan@hartkopp.net>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?Y29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?c2toYW4=?=" <skhan@linuxfoundation.org>, "=?utf-8?B?cmR1bmxhcA==?=" <rdunlap@infradead.org>, "=?utf-8?B?d2c=?=" <wg@grandegger.com>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, 
+	"=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v9 08/10] can: rockchip_canfd: serialize TX with bus-off and restart
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,97 +68,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Fri, 13 Nov 2026 13:15:24 +0800
+X-Priority: 3
+Message-ID: <tencent_AD03F810B3FDBC9A3A69DA65641264469409@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261111-rockchip-canfd-restart-close-v9-8-6643f3825ba3@qq.com>
+	<179452273462.488853.12444870521885218967@kernel.org>
+In-Reply-To: <179452273462.488853.12444870521885218967@kernel.org>
+X-QQ-mid: xmsezb41-0t1794546924twb3yiq29
 
-On Tue, 10 Nov 2026 20:08:46 +0100, Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com> wrote:
-> __xbc_parse_value() trims an unquoted value when it encounters a
-> delimiter, but leaves trailing whitespace intact when it reaches the end
-> of the input. Thus "key = value   " has a different value depending on
-> whether the file ends with a newline. The extra whitespace also reaches
-> the rendered kernel command line.
->
-> Trim unquoted values after the scan finishes, including at end of input.
-> Skip trimming after a closing quote so intentional whitespace in quoted
-> values remains unchanged. Add checks for scalars, arrays and quoted
-> values without a final newline.
->
-> Fixes: 76db5a27a827 ("bootconfig: Add Extra Boot Config support")
-> Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+SGksCgo+IFtTZXZlcml0eTogTWVkaXVtXQo+IElzIGlycV9zdXNwZW5kZWQgd29ya2luZyBh
+cyBhIGxvY2sgaGVyZT8KClRoZSBmbGFnIGlzIGFuIElSUSBlbnRyeSBnYXRlIHVzZWQgd2l0
+aCBkZXZpY2UgaW50ZXJydXB0IG1hc2tpbmcgYW5kCnN5bmNocm9uaXplX2lycSgpLiBEdXJp
+bmcgcmVzdGFydCwgdGhlIGRyaXZlciBtYXNrcyBhbmQgZmx1c2hlcyBkZXZpY2UKaW50ZXJy
+dXB0cywgc2V0cyB0aGUgZmxhZywgdGhlbiBkcmFpbnMgaGFuZGxlcnMgYmVmb3JlIHJlaW5p
+dGlhbGl6YXRpb24uCkluIHRoaXMgdHJlZSwgdGhlIElSUSBkZXNjcmlwdG9yIGxvY2sgdXNl
+ZCBieSBzeW5jaHJvbml6YXRpb24gYW5kCmRpc3BhdGNoIG9yZGVycyB0aGUgZmxhZyBzdG9y
+ZSBhZ2FpbnN0IGxhdGVyIGhhbmRsZXIgZW50cnkuIFRoZQpyZWxlYXNlLWNsZWFyIHB1Ymxp
+c2hlcyB0aGUgaW5pdGlhbGl6ZWQgc3RhdGUgdG8gdGhlIGhhbmRsZXIncwphY3F1aXJlLWxv
+YWQuCgpPcGVuIHNldHMgdGhlIGdhdGUgYmVmb3JlIHJlcXVlc3RfaXJxKCksIHdoZW4gbm8g
+cHJldmlvdXMgaGFuZGxlciBpcwpyZWdpc3RlcmVkLCBzbyB0aGVyZSBpcyBubyBvbGQgaGFu
+ZGxlciB0byBkcmFpbiB0aGVyZS4gVFggYW5kIHRpbWVjb3VudGVyCnN0YXRlIGhhdmUgdGhl
+aXIgb3duIGxvY2tzLiBUaGUgQkVDIGdldHRlciBpcyBvdXRzaWRlIHRoaXMgSVJRIHByb3Rv
+Y29sOwppdHMgY2FjaGUgc3luY2hyb25pemF0aW9uIGlzc3VlIHByZWRhdGVzIHRoZSBwYXRj
+aC4gSSBoYXZlIG5vdCBmb3VuZCBhCmNvbmNyZXRlIG5ldyByYWNlIGluIHRoaXMgc2VxdWVu
+Y2UgdGhhdCB3YXJyYW50cyByZXBsYWNpbmcgdGhlIGdhdGUgd2l0aAphbm90aGVyIGxvY2su
+Cgo+IFtTZXZlcml0eTogTG93XQo+IElzIHRoZSBDQU4gY29yZSBrbm93biB0byBiZSBvdXQg
+b2YgcmVzZXQgd2hlbiB0aGlzIElOVF9NQVNLIHdyaXRlCj4gYXJyaXZlcz8KPiAuLi4KPiBT
+aG91bGQgdGhlcmUgYmUgYSBzaG9ydCBzZXR0bGUgZGVsYXkgYWZ0ZXIgZGVhc3NlcnRpb24s
+IG9yIGEgY2hlY2sgb2YgdGhlCj4gcmVhZC1iYWNrIHZhbHVlPwoKT24gUkszNTg4IHJldjIu
+MiwgSSB0ZXN0ZWQgMzAwIHJlc2V0IHNhbXBsZXMgcGVyIGNvbnRyb2xsZXIsIDYwMCBpbiB0
+b3RhbCwKY292ZXJpbmcgb3BlbiwgY2xvc2UgYW5kIGRpcmVjdCByZXN0YXJ0IGNhbGxiYWNr
+cyB3aGlsZSBpZGxlLiBUaGUgdGVzdHMKcHJlc2VydmVkIHRoZSBwcm9kdWN0aW9uIG9yZGVy
+OiBkZWFzc2VydCwgd3JpdGUgMHg3ZmZmLCB0aGVuIGZpcnN0CnJlYWRiYWNrLCB3aXRoIG5v
+IGV4dHJhIE1NSU8sIGxvZ2dpbmcgb3IgZGVsYXkgYmVmb3JlIHRoYXQgd3JpdGUuIEV2ZXJ5
+CmZpcnN0IHJlYWRiYWNrIHdhcyAweDNmZmY7IGJpdCAxNCBjb25zaXN0ZW50bHkgcmVhZCBh
+cyB6ZXJvIGFuZCB3YXMgbm90Cm1pc3Rha2VuIGZvciBhIGxvc3Qgd3JpdGUuCgpUaGVzZSB0
+ZXN0cyBmb3VuZCBubyBsb3N0IGZpcnN0IG1hc2sgd3JpdGUgb3IgZXZpZGVuY2UgdGhhdCB0
+aGlzIGNoYW5nZQppbnRyb2R1Y2VzIG9yIHdvcnNlbnMgdGhlIHN1c3BlY3RlZCBwcm9ibGVt
+LgoKQmVzdCByZWdhcmRzLApDdW5oYW8gTHUK
 
-Looks good to me.
-
-Thanks,
-
-> ---
-> I tested inputs ending in unquoted spaces, tabs and carriage returns,
-> including arrays and appended or overridden values. The checks compare
-> the parser's actual values and the tool's rendered kernel command line.
-> Quoted whitespace and inputs ending in delimiters are controls.
->
-> The original parser fails nine of the 18 focused checks. With the fix,
-> all 18 pass, independently and in the combined series. The full
-> bootconfig test suite also passes with the regression checks added.
->
->  lib/bootconfig.c                    |  5 +++--
->  tools/bootconfig/test-bootconfig.sh | 18 ++++++++++++++++++
->  2 files changed, 21 insertions(+), 2 deletions(-)
->
-> diff --git a/lib/bootconfig.c b/lib/bootconfig.c
-> index 819685d6c68d..bd071c394c36 100644
-> --- a/lib/bootconfig.c
-> +++ b/lib/bootconfig.c
-> @@ -793,16 +793,17 @@ static int __init __xbc_parse_value(char **__v, char **__n)
->  				return xbc_parse_error("No value delimiter", p);
->  			if (*p)
->  				p++;
-> -			break;
-> +			goto skip_trim;
->  		}
->  		if (strchr(",;\n#}", c)) {
->  			*p++ = '\0';
-> -			v = strim(v);
->  			break;
->  		}
->  	}
->  	if (quotes)
->  		return xbc_parse_error("No closing quotes", p);
-> +	v = strim(v);
-> +skip_trim:
->  	if (c == '#') {
->  		p = skip_comment(p);
->  		c = '\n';	/* A comment must be treated as a newline */
-> diff --git a/tools/bootconfig/test-bootconfig.sh b/tools/bootconfig/test-bootconfig.sh
-> index 530ce7e28d63..a2e8311d4d19 100755
-> --- a/tools/bootconfig/test-bootconfig.sh
-> +++ b/tools/bootconfig/test-bootconfig.sh
-> @@ -171,6 +171,24 @@ $BOOTCONF $INITRD > $OUTFILE
->  xfail grep -q 'val[[:space:]]' $OUTFILE
->  xpass grep -q 'val2[[:space:]]' $OUTFILE
->  
-> +echo "Remove unquoted trailing whitespace at end of file"
-> +printf 'foo = val \t' > $TEMPCONF
-> +$BOOTCONF -l $TEMPCONF > $OUTFILE
-> +printf 'foo = "val"\n' > $TEMPCONF
-> +xpass cmp $TEMPCONF $OUTFILE
-> +
-> +echo "Remove trailing whitespace from the last array value at end of file"
-> +printf 'foo = first, last \t' > $TEMPCONF
-> +$BOOTCONF -l $TEMPCONF > $OUTFILE
-> +printf 'foo = "first", "last"\n' > $TEMPCONF
-> +xpass cmp $TEMPCONF $OUTFILE
-> +
-> +echo "Keep quoted trailing whitespace at end of file"
-> +printf 'foo = "val "' > $TEMPCONF
-> +$BOOTCONF -l $TEMPCONF > $OUTFILE
-> +printf 'foo = "val "\n' > $TEMPCONF
-> +xpass cmp $TEMPCONF $OUTFILE
-> +
->  echo "Showing correct line:column of no closing brace"
->  cat > $TEMPCONF << EOF
->  foo {
->
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
