@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794578963;
-	b=z4E57HL2OX/D/vbE0WVYY9c06Cu43UuqQTYoHcT77JDY8XvRLIHI4gaHymvLgoSpRjJn
-	 9Xrh9YjJvu63tta9DZf4m3iEcj++GfR8YqNb6blSAhIrVdgnCYdeoH94P+fJKLrCyd2s8
-	 fpVj6RXWW/8Q31u84jIU2XrjX6w7BzETptQp/71r8vcrUk4zDL3D+zxj6cqd2VoJghf9y
-	 +91ArmYhSjFTKaQOAksozbzhlWwx6y7dJ6eqR9Og/qJMXrS+HjZEcIypMIAJAi9XK3Q03
-	 aCKu6zg17QZSQJbxOkMNGwbp9l2ZciTPvksJAg92tRq4xMpPkxqim0TdD8pKs9LnEhA==
+	t=1794578984;
+	b=Aa+6dlD3m41tvzfcVzLnBcgFu3EF7suOWqEsV6T6rjlJ74rSM6xJVHVLyvFeAqai09Y7
+	 gMx+Nxe/iOpULOGGiYUweXgTMtbMj208N/KTMbUlpTZwzG9mSOZw4ra/I+ASzrlVooVMD
+	 6vwRLf1HVhvOS9RncHEhkr+UMeN+1MjifNz09tdAOc5fJ1a0tIEy+vBeTmbzxO+g+5dSv
+	 Oo1SJUAm4tRk9koVhQZj7DYK4DBEDoRAIuotU+XmaTfJHzJYzh1BuKMu4Wtv1UA+KhBeo
+	 kZVeHqT/U60A2xpnEheQOYOJ0S+jRwxeqogctMoM2v91AcPCa41DVGluFRwTqTrYLFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578963;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=F5RaYaqTlEkq9wWix1JsfPr5fojmN++2yJa5YPxa4A8=;
-	b=EPkxjSDb4QKRyn8OHPQn09toiRue26NQt0HjhYKoxuMI3r/MkcRlB6x4qN1OW2TtXkPV
-	 3J2UfDMfiwB7zbNicMTGP69v/I6uRpGVBFb9nOGV6QleS4Z+gGoSi0sgljot4ZUFk8/Oa
-	 BgLu0uwm18MV86BqZy2eIKCDrT7U7c5tDyZXDbdYPyzVNwVBfsYaRkv41pErl8Rlz5v6a
-	 CBIVXWA1uj9qBC5X87o9XIWVxLVjivO0QLggApFkuC+8oMg//P/O4yriH7XIMqUjNG4DU
-	 ITFTQg92gbdCgtFuKXC9o6nPfVhHvFBmPKrzgvL7EF3wpkPOslhex7HOhYiF2PEsVFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578984;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=K/7V8VCjsHb9RdeR+9MCXXwOeyIzjc5Oa04EgPHLl9k=;
+	b=hkJs4Z+TR5IsAhsWzgNJstvEJhqubV9jvVOsXGyxAsA52DhfQLgwKM+vk7kqYJZiUCKj
+	 R8TkmgubNIX3HBanZT4FfvL5ke8Eno+tt7jXD3Oy6onj9lAAdjfOzmcISj5repWeXOFwI
+	 HPI3NhG7O2wKvUcz/WuL2CSHyMc5vh2d3P01ymyxiYUzQ0550SA9zdM/lL3b+O0tqWP5k
+	 DlXiXjUWjG4LEDOZ+Fn0zH3fMauOBsytcR5qSzlNBUwjmHnvEA83rU/U1YDGk17h8Unvn
+	 KA0FwsLyGb0VAgIQd7OBycavksEd99Yn5Ia7j8G+bj72iDt/c9VL8RgANX0uBu7jTUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OqzYynOZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbSqIud0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32792606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:09:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCA2606A330
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:09:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OqzYynOZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0611F000C4;
-	Fri, 13 Nov 2026 14:09:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbSqIud0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AAC21F000C9
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:09:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794578962;
-	bh=F5RaYaqTlEkq9wWix1JsfPr5fojmN++2yJa5YPxa4A8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OqzYynOZXG2odj2F1DNoZv1gtpuyl6JnGus5F6/MZ5s5tBFfgZETBm+4pk7aElvqL
-	 Dw1XXOtW45uMZHuk3Oey65/lhdIS03HohsIjNtyrII4Q5WNVJugP4YlCM7VvJsKwBU
-	 DNnvgsXX3b3d27pD6tWEzzQf7PI8NItIm13gNtK6TgeQFePMVuvg3qLvvxFRisq/Wx
-	 CMgH9oR3pfZamxCLJT9xVmUXnnas92V9pQBahfy7o1fDOFZFvHiJ5yO7EePDwZB1Kf
-	 PAhxeHWJbAcrbcFfQMJhI5m1nZmxYrQndPqaveeLNY++Sz98nWlen6e9h689Vo8JSC
-	 B2WbZGyb/C2Fg==
-Date: Fri, 13 Nov 2026 14:09:18 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Xu Xin (vivo)" <xu.xin@linux.dev>
-Cc: chengming.zhou@linux.dev, david@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 2/2] mm/ksm: add initialization helpers for
- scan_get_next_rmap_item()
-Message-ID: <avcZQNlZ7cisQAeG@gremlin>
-References: <20261112125754.176930-1-xu.xin@linux.dev>
- <20261112125959.177881-1-xu.xin@linux.dev>
+	s=k20260515; t=1794578984;
+	bh=K/7V8VCjsHb9RdeR+9MCXXwOeyIzjc5Oa04EgPHLl9k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DbSqIud0cwb4WztQQK3YepIowWJWgqbi98doAuDpEu+DnH8lcYR7i7tKTNr5leKmG
+	 51+8dj5k3JbUQpPII/KtR3yTsBZQrTV5TAQ2iTADMzqj18y+h6XacndeTTbz8xmcEm
+	 qdMEniuLMtk3GVqhkbYlNfD2au9prhNh2ZfDUW6eaXYCdu/FRymLg+VzsFSlXt5pm+
+	 CtH8UVIq6vLFaSVgaBPrwT/bKygrMB+V8L6en+KG8dsVt1ZYWdgj77JMcJmOeS6spD
+	 KGfbIZDcbD1SdYY+vMEJ0W/CfGbGuLH6X8H4l6jjx1VfwxYVkCUU5erC/QRCXfE++U
+	 bHNVIXGRCYFeA==
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c468bd799ecso196162766b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:09:44 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHmcUrDTDuPxP5EcjQTvnnMTJlXFHIcrfxZyqxHKEt4hA3aUM3FE4hHLPT8Kuvp/ullQWAjQSKAkLnf48s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TqvIByCW+q3eJ+pbUPHF2qjYXGMTYKERWMFaRRcVdJr7djYZL
+	zy2kcXL7c4YZEFREypPiFl7V+i2ohllTcPpZmhHflhMjL9qw44RbhbqMgGuDPnNgqXM9ybo++WZ
+	8JCDmH2mny6YjuNRGUfiI6nUfWScJSoc=
+X-Received: by 2002:a17:907:3f23:b0:c50:93b6:52fa with SMTP id
+ a640c23a62f3a-c509614e782mr225471866b.2.1794578983245; Fri, 13 Nov 2026
+ 06:09:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,140 +59,206 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112125959.177881-1-xu.xin@linux.dev>
+References: <b47282f1514a9012ac51d0915afb83782c3c0050.1794417398.git.len.brown@intel.com>
+ <CAFEp6-0yj-+7uYnj5PCvaP39ruQ=xduBbQgJc7MyakuPLJhmvw@mail.gmail.com>
+ <CAJvTdKnnqZJrZ6bgaxsyy6QttGwgh5RL=De9ggV3KhMPDau_BQ@mail.gmail.com> <CAFEp6-2sLZkNQqDg7seE0ipZbuve_TZMjgNHV4ubW0Qs80Pyhg@mail.gmail.com>
+In-Reply-To: <CAFEp6-2sLZkNQqDg7seE0ipZbuve_TZMjgNHV4ubW0Qs80Pyhg@mail.gmail.com>
+From: Len Brown <lenb@kernel.org>
+Date: Fri, 13 Nov 2026 11:09:30 -0300
+X-Gmail-Original-Message-ID: <CAJvTdKmGp6t44CP-smrjbm3aoXeTWvyUUM1Uv1w8UxEo3OSPJw@mail.gmail.com>
+X-Gm-Features: AclHuK-RaTixMtTtZ7q46GYj4ej54XklcWHntBt63Yarwvzt-TopRwMi-CY67Bk
+Message-ID: <CAJvTdKmGp6t44CP-smrjbm3aoXeTWvyUUM1Uv1w8UxEo3OSPJw@mail.gmail.com>
+Subject: Re: [PATCH] bus: mhi: pci_generic: Fix erroneous system suspend abort
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: rafael@kernel.org, Manivannan Sadhasivam <mani@kernel.org>, linux-pm@vger.kernel.org, 
+	mhi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000d19a49066028fad1"
 
-On Thu, Nov 12, 2026 at 08:59:59PM +0800, Xu Xin (vivo) wrote:
-> Extract the new scan cycle detection (including draining per-CPU LRU
-> caches) and advancing the scan cursor to the first mm_slot into
-> scan_begin_new_cycle() and scan_get_first_mm().
+--000000000000d19a49066028fad1
+Content-Type: text/plain; charset="UTF-8"
+
+> > This 1-line fix should be applied NOW, without waiting for internal
+> > mhi internal or development.
 >
-> This keeps the exact execution order intact while making
-> scan_get_next_rmap_item() cleaner and easier to follow.
->
-> No functional change intended.
->
-> Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
+> Fair enough, but would only ignoring error on -EBUSY would work for
+> you? as this is clearly something which is not relevant for system
+> wide suspend cases.
 
-Again, thanks for doing this! LGTM and:
+Although I've seen only -EBUSY, I would turn that around...
+Are there ANY mhi suspend cases that merit aborting system wide suspend?
+If there are, then check for those and explicitly abort system suspension.
+(experience shows that these scenarios are quite rare, and it would
+be remarkable if there were such a condition here)
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Also would it be possible to add a small inline comment saying we
+> purposely ignore this because of buggy mhi suspend handling.
 
-> ---
->  mm/ksm.c | 70 +++++++++++++++++++++++++++++++++++++-------------------
->  1 file changed, 46 insertions(+), 24 deletions(-)
->
-> diff --git a/mm/ksm.c b/mm/ksm.c
-> index 49977bcf04f7..e79e64372e49 100644
-> --- a/mm/ksm.c
-> +++ b/mm/ksm.c
-> @@ -2640,6 +2640,49 @@ static void ksm_reset_unstable_trees(void)
->  		root_unstable_tree[nid] = RB_ROOT;
->  }
->
-> +static bool scan_begin_new_cycle(void)
-> +{
-> +	/* Check if the cursor points to the head. */
-> +	if (ksm_scan.mm_slot != &ksm_mm_head)
-> +		return false;
-> +
-> +	/*
-> +	 * A number of pages can hang around indefinitely in per-cpu
-> +	 * LRU cache, raised page count preventing write_protect_page
-> +	 * from merging them.  Though it doesn't really matter much,
-> +	 * it is puzzling to see some stuck in pages_volatile until
-> +	 * other activity jostles them out, and they also prevented
-> +	 * LTP's KSM test from succeeding deterministically; so drain
-> +	 * them here (here rather than on entry to ksm_do_scan(),
-> +	 * so we don't IPI too often when pages_to_scan is set low).
-> +	 */
-> +	lru_add_drain_all();
+I agree.  I'll add a comment to clarify.
 
-The sashiko finding is silly, this reorders it after advisor_start_scan() which
-calls... ktime_get(), yeah it's zero delta :)
+> With your patch what happens on the system resume path? is the MHI
+> device recovered?
 
-> +	return true;
-> +}
-> +
-> +static struct ksm_mm_slot *scan_get_first_mm(void)
-> +{
-> +	struct ksm_mm_slot *mm_slot = ksm_scan.mm_slot;
-> +	struct mm_slot *slot;
-> +
-> +	spin_lock(&ksm_mmlist_lock);
-> +
-> +	slot = list_entry(mm_slot->slot.mm_node.next, struct mm_slot, mm_node);
-> +	mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
-> +	ksm_scan.mm_slot = mm_slot;
-> +
-> +	spin_unlock(&ksm_mmlist_lock);
+This laptop is generally quite a good suspend-resume regression test bed.
+It does actually have a wireless modem, but AFAIK, the device itself
+is always unused.
 
-NIT: optional, but this could be:
+$ lspci -nnk | grep -B 2 -A 3 -i mhi
+08:00.0 Unassigned class [ff00]: Quectel Wireless Solutions Co., Ltd.
+Device [1eac:1007]
+Subsystem: Quectel Wireless Solutions Co., Ltd. Device [1eac:100c]
+Kernel driver in use: mhi-pci-generic
+Kernel modules: mhi_pci_generic
 
-	scoped_guard(mutex, &ksm_mmlist_lock) {
-		slot = list_entry(mm_slot->slot.mm_node.next, struct mm_slot, mm_node);
-		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
-		ksm_scan.mm_slot = mm_slot;
-	}
+I have over 28,000 suspend resume results on its local drive, dating
+back to Linux-7.2.
+The most recent 3,000 cycles included this one line patch and showed no issues.
+There were 9 suspend failures on a run of 2,500 suspend cycles run Nov
+8 - Nov 9.
+I've attached the mhi messages, as they'd wrap if I pasted them here.
 
-> +
-> +	/*
-> +	 * Although we tested list_empty() above, a racing __ksm_exit
-> +	 * of the last mm on the list may have removed it since then.
-> +	 */
-> +	if (mm_slot == &ksm_mm_head)
-> +		return NULL;
-> +
-> +	return mm_slot;
-> +}
-> +
->  static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
->  {
->  	struct mm_struct *mm;
-> @@ -2653,36 +2696,15 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
->  		return NULL;
->
->  	mm_slot = ksm_scan.mm_slot;
-> -	if (mm_slot == &ksm_mm_head) {
-> +	if (scan_begin_new_cycle()) {
->  		advisor_start_scan();
->  		trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
->
-> -		/*
-> -		 * A number of pages can hang around indefinitely in per-cpu
-> -		 * LRU cache, raised page count preventing write_protect_page
-> -		 * from merging them.  Though it doesn't really matter much,
-> -		 * it is puzzling to see some stuck in pages_volatile until
-> -		 * other activity jostles them out, and they also prevented
-> -		 * LTP's KSM test from succeeding deterministically; so drain
-> -		 * them here (here rather than on entry to ksm_do_scan(),
-> -		 * so we don't IPI too often when pages_to_scan is set low).
-> -		 */
-> -		lru_add_drain_all();
-> -
->  		ksm_prune_migrate_nodes();
->  		ksm_reset_unstable_trees();
->
-> -		spin_lock(&ksm_mmlist_lock);
-> -		slot = list_entry(mm_slot->slot.mm_node.next,
-> -				  struct mm_slot, mm_node);
-> -		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
-> -		ksm_scan.mm_slot = mm_slot;
-> -		spin_unlock(&ksm_mmlist_lock);
-> -		/*
-> -		 * Although we tested list_empty() above, a racing __ksm_exit
-> -		 * of the last mm on the list may have removed it since then.
-> -		 */
-> -		if (mm_slot == &ksm_mm_head)
-> +		mm_slot = scan_get_first_mm();
-> +		if (!mm_slot)
->  			return NULL;
->  next_mm:
->  		ksm_scan.address = 0;
-> --
-> 2.34.1
->
+Twice we see this:
+mhi-pci-generic 0000:08:00.0: Unbalanced pm_runtime_enable!
 
---
-Cheers, Lorenzo
+perhaps a hint?
+
+thanks,
+-Len
+
+ps. apology for the previous top-post.
+
+--000000000000d19a49066028fad1
+Content-Type: text/plain; charset="US-ASCII"; name="mhi.dmesg.txt"
+Content-Disposition: attachment; filename="mhi.dmesg.txt"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mwf1y58o0>
+X-Attachment-Id: f_mwf1y58o0
+
+c3VzcGVuZC0yNjExMDgtMjM1NzA2L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVz
+Zy50eHQ6WyAgODU4LjY1ODExM10gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogZmFpbGVk
+IHRvIHN1c3BlbmQgZGV2aWNlOiAtMTYKc3VzcGVuZC0yNjExMDgtMjM1NzA2L2xlbmItdGhpbmtw
+YWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WyAgODU4LjY1ODEzM10gbWhpLXBjaS1nZW5l
+cmljIDAwMDA6MDg6MDAuMDogUE06IHBjaV9wbV9zdXNwZW5kKCk6IG1oaV9wY2lfc3VzcGVuZCBb
+bWhpX3BjaV9nZW5lcmljXSByZXR1cm5zIC0xNgpzdXNwZW5kLTI2MTEwOC0yMzU3MDYvbGVuYi10
+aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbICA4NTguNjU4MTQ5XSBtaGktcGNp
+LWdlbmVyaWMgMDAwMDowODowMC4wOiBQTTogZHBtX3J1bl9jYWxsYmFjaygpOiBwY2lfcG1fc3Vz
+cGVuZCByZXR1cm5zIC0xNgpzdXNwZW5kLTI2MTEwOC0yMzU3MDYvbGVuYi10aGlua3BhZC10MTYt
+Z2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbICA4NTguNjU4MTU5XSBtaGktcGNpLWdlbmVyaWMgMDAw
+MDowODowMC4wOiBQTTogcGNpX3BtX3N1c3BlbmQgcmV0dXJuZWQgLTE2IGFmdGVyIDE1MTQ1IHVz
+ZWNzCnN1c3BlbmQtMjYxMTA4LTIzNTcwNi9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVf
+ZG1lc2cudHh0OlsgIDg1OC42NTgxNjJdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBN
+OiBmYWlsZWQgdG8gc3VzcGVuZCBhc3luYzogZXJyb3IgLTE2CnN1c3BlbmQtMjYxMTA5LTAyMzMy
+My9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsxMDI0MC42MjE0MjZd
+IG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IGZhaWxlZCB0byBzdXNwZW5kIGRldmljZTog
+LTE2CnN1c3BlbmQtMjYxMTA5LTAyMzMyMy9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVf
+ZG1lc2cudHh0OlsxMDI0MC42MjE0ODRdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBN
+OiBwY2lfcG1fc3VzcGVuZCgpOiBtaGlfcGNpX3N1c3BlbmQgW21oaV9wY2lfZ2VuZXJpY10gcmV0
+dXJucyAtMTYKc3VzcGVuZC0yNjExMDktMDIzMzIzL2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2Zy
+ZWV6ZV9kbWVzZy50eHQ6WzEwMjQwLjYyMTUwMV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAu
+MDogUE06IGRwbV9ydW5fY2FsbGJhY2soKTogcGNpX3BtX3N1c3BlbmQgcmV0dXJucyAtMTYKc3Vz
+cGVuZC0yNjExMDktMDIzMzIzL2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50
+eHQ6WzEwMjQwLjYyMTUxMF0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IHBjaV9w
+bV9zdXNwZW5kIHJldHVybmVkIC0xNiBhZnRlciA4OCB1c2VjcwpzdXNwZW5kLTI2MTEwOS0wMjMz
+MjMvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMTAyNDAuNjIxNTEz
+XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQTTogZmFpbGVkIHRvIHN1c3BlbmQgYXN5
+bmM6IGVycm9yIC0xNgpzdXNwZW5kLTI2MTEwOS0wMjQyMDYvbGVuYi10aGlua3BhZC10MTYtZ2Vu
+LTNfZnJlZXplX2RtZXNnLnR4dDpbMTA3NjMuNzczNjkwXSBtaGktcGNpLWdlbmVyaWMgMDAwMDow
+ODowMC4wOiBmYWlsZWQgdG8gc3VzcGVuZCBkZXZpY2U6IC0xNgpzdXNwZW5kLTI2MTEwOS0wMjQy
+MDYvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMTA3NjMuNzczNzA1
+XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQTTogcGNpX3BtX3N1c3BlbmQoKTogbWhp
+X3BjaV9zdXNwZW5kIFttaGlfcGNpX2dlbmVyaWNdIHJldHVybnMgLTE2CnN1c3BlbmQtMjYxMTA5
+LTAyNDIwNi9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsxMDc2My43
+NzM3MTZdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBkcG1fcnVuX2NhbGxiYWNr
+KCk6IHBjaV9wbV9zdXNwZW5kIHJldHVybnMgLTE2CnN1c3BlbmQtMjYxMTA5LTAyNDIwNi9sZW5i
+LXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsxMDc2My43NzM3MjJdIG1oaS1w
+Y2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBwY2lfcG1fc3VzcGVuZCByZXR1cm5lZCAtMTYg
+YWZ0ZXIgMzQgdXNlY3MKc3VzcGVuZC0yNjExMDktMDI0MjA2L2xlbmItdGhpbmtwYWQtdDE2LWdl
+bi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzEwNzYzLjc3MzcyNV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6
+MDg6MDAuMDogUE06IGZhaWxlZCB0byBzdXNwZW5kIGFzeW5jOiBlcnJvciAtMTYKc3VzcGVuZC0y
+NjExMDktMDQ0NjU2L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzE4
+MjU0LjUyOTYxNV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogZmFpbGVkIHRvIHN1c3Bl
+bmQgZGV2aWNlOiAtMTYKc3VzcGVuZC0yNjExMDktMDQ0NjU2L2xlbmItdGhpbmtwYWQtdDE2LWdl
+bi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzE4MjU0LjUyOTYzMl0gbWhpLXBjaS1nZW5lcmljIDAwMDA6
+MDg6MDAuMDogUE06IHBjaV9wbV9zdXNwZW5kKCk6IG1oaV9wY2lfc3VzcGVuZCBbbWhpX3BjaV9n
+ZW5lcmljXSByZXR1cm5zIC0xNgpzdXNwZW5kLTI2MTEwOS0wNDQ2NTYvbGVuYi10aGlua3BhZC10
+MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMTgyNTQuNTI5NjUxXSBtaGktcGNpLWdlbmVyaWMg
+MDAwMDowODowMC4wOiBQTTogZHBtX3J1bl9jYWxsYmFjaygpOiBwY2lfcG1fc3VzcGVuZCByZXR1
+cm5zIC0xNgpzdXNwZW5kLTI2MTEwOS0wNDQ2NTYvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJl
+ZXplX2RtZXNnLnR4dDpbMTgyNTQuNTI5NjYwXSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4w
+OiBQTTogcGNpX3BtX3N1c3BlbmQgcmV0dXJuZWQgLTE2IGFmdGVyIDQ4IHVzZWNzCnN1c3BlbmQt
+MjYxMTA5LTA0NDY1Ni9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0Olsx
+ODI1NC41Mjk2NjJdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBmYWlsZWQgdG8g
+c3VzcGVuZCBhc3luYzogZXJyb3IgLTE2CnN1c3BlbmQtMjYxMTA5LTA0NDgyMS9sZW5iLXRoaW5r
+cGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsxODMzOS41Mjg4MTddIG1oaS1wY2ktZ2Vu
+ZXJpYyAwMDAwOjA4OjAwLjA6IGZhaWxlZCB0byBzdXNwZW5kIGRldmljZTogLTE2CnN1c3BlbmQt
+MjYxMTA5LTA0NDgyMS9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0Olsx
+ODMzOS41Mjg4MzFdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBwY2lfcG1fc3Vz
+cGVuZCgpOiBtaGlfcGNpX3N1c3BlbmQgW21oaV9wY2lfZ2VuZXJpY10gcmV0dXJucyAtMTYKc3Vz
+cGVuZC0yNjExMDktMDQ0ODIxL2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50
+eHQ6WzE4MzM5LjUyODgzOV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IGRwbV9y
+dW5fY2FsbGJhY2soKTogcGNpX3BtX3N1c3BlbmQgcmV0dXJucyAtMTYKc3VzcGVuZC0yNjExMDkt
+MDQ0ODIxL2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzE4MzM5LjUy
+ODg0NV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IHBjaV9wbV9zdXNwZW5kIHJl
+dHVybmVkIC0xNiBhZnRlciAzMSB1c2VjcwpzdXNwZW5kLTI2MTEwOS0wNDQ4MjEvbGVuYi10aGlu
+a3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMTgzMzkuNTI4ODQ3XSBtaGktcGNpLWdl
+bmVyaWMgMDAwMDowODowMC4wOiBQTTogZmFpbGVkIHRvIHN1c3BlbmQgYXN5bmM6IGVycm9yIC0x
+NgpzdXNwZW5kLTI2MTEwOS0wNTMyMjYvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2Rt
+ZXNnLnR4dDpbMjA5ODQuNjAxMzEyXSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBmYWls
+ZWQgdG8gc3VzcGVuZCBkZXZpY2U6IC0xNgpzdXNwZW5kLTI2MTEwOS0wNTMyMjYvbGVuYi10aGlu
+a3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMjA5ODQuNjAxMzQ2XSBtaGktcGNpLWdl
+bmVyaWMgMDAwMDowODowMC4wOiBQTTogcGNpX3BtX3N1c3BlbmQoKTogbWhpX3BjaV9zdXNwZW5k
+IFttaGlfcGNpX2dlbmVyaWNdIHJldHVybnMgLTE2CnN1c3BlbmQtMjYxMTA5LTA1MzIyNi9sZW5i
+LXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsyMDk4NC42MDEzNTRdIG1oaS1w
+Y2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBkcG1fcnVuX2NhbGxiYWNrKCk6IHBjaV9wbV9z
+dXNwZW5kIHJldHVybnMgLTE2CnN1c3BlbmQtMjYxMTA5LTA1MzIyNi9sZW5iLXRoaW5rcGFkLXQx
+Ni1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsyMDk4NC42MDEzNTldIG1oaS1wY2ktZ2VuZXJpYyAw
+MDAwOjA4OjAwLjA6IFBNOiBwY2lfcG1fc3VzcGVuZCByZXR1cm5lZCAtMTYgYWZ0ZXIgNTUgdXNl
+Y3MKc3VzcGVuZC0yNjExMDktMDUzMjI2L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9k
+bWVzZy50eHQ6WzIwOTg0LjYwMTM2MV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06
+IGZhaWxlZCB0byBzdXNwZW5kIGFzeW5jOiBlcnJvciAtMTYKc3VzcGVuZC0yNjExMDktMDUzMjQw
+L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzIwOTk3LjUzNDI3OF0g
+bWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogVW5iYWxhbmNlZCBwbV9ydW50aW1lX2VuYWJs
+ZSEKc3VzcGVuZC0yNjExMDktMDUzMjQwL2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9k
+bWVzZy50eHQ6WzIwOTk3LjU2MTIwM10gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogVW5i
+YWxhbmNlZCBwbV9ydW50aW1lX2VuYWJsZSEKc3VzcGVuZC0yNjExMDktMDUzNTE5L2xlbmItdGhp
+bmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzIxMTU3LjcxNTI0OF0gbWhpLXBjaS1n
+ZW5lcmljIDAwMDA6MDg6MDAuMDogZmFpbGVkIHRvIHN1c3BlbmQgZGV2aWNlOiAtMTYKc3VzcGVu
+ZC0yNjExMDktMDUzNTE5L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6
+WzIxMTU3LjcxNTI2NF0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IHBjaV9wbV9z
+dXNwZW5kKCk6IG1oaV9wY2lfc3VzcGVuZCBbbWhpX3BjaV9nZW5lcmljXSByZXR1cm5zIC0xNgpz
+dXNwZW5kLTI2MTEwOS0wNTM1MTkvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNn
+LnR4dDpbMjExNTcuNzE1Mjc3XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQTTogZHBt
+X3J1bl9jYWxsYmFjaygpOiBwY2lfcG1fc3VzcGVuZCByZXR1cm5zIC0xNgpzdXNwZW5kLTI2MTEw
+OS0wNTM1MTkvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMjExNTcu
+NzE1Mjg3XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQTTogcGNpX3BtX3N1c3BlbmQg
+cmV0dXJuZWQgLTE2IGFmdGVyIDQxIHVzZWNzCnN1c3BlbmQtMjYxMTA5LTA1MzUxOS9sZW5iLXRo
+aW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsyMTE1Ny43MTUyOTFdIG1oaS1wY2kt
+Z2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBmYWlsZWQgdG8gc3VzcGVuZCBhc3luYzogZXJyb3Ig
+LTE2CnN1c3BlbmQtMjYxMTA5LTA1NDExNC9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVf
+ZG1lc2cudHh0OlsyMTUxMi4zNDgyODldIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IGZh
+aWxlZCB0byBzdXNwZW5kIGRldmljZTogLTE2CnN1c3BlbmQtMjYxMTA5LTA1NDExNC9sZW5iLXRo
+aW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsyMTUxMi4zNDgzMzVdIG1oaS1wY2kt
+Z2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBwY2lfcG1fc3VzcGVuZCgpOiBtaGlfcGNpX3N1c3Bl
+bmQgW21oaV9wY2lfZ2VuZXJpY10gcmV0dXJucyAtMTYKc3VzcGVuZC0yNjExMDktMDU0MTE0L2xl
+bmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzIxNTEyLjM0ODM1NV0gbWhp
+LXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IGRwbV9ydW5fY2FsbGJhY2soKTogcGNpX3Bt
+X3N1c3BlbmQgcmV0dXJucyAtMTYKc3VzcGVuZC0yNjExMDktMDU0MTE0L2xlbmItdGhpbmtwYWQt
+dDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzIxNTEyLjM0ODM2NV0gbWhpLXBjaS1nZW5lcmlj
+IDAwMDA6MDg6MDAuMDogUE06IHBjaV9wbV9zdXNwZW5kIHJldHVybmVkIC0xNiBhZnRlciA3NyB1
+c2VjcwpzdXNwZW5kLTI2MTEwOS0wNTQxMTQvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXpl
+X2RtZXNnLnR4dDpbMjE1MTIuMzQ4MzY4XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQ
+TTogZmFpbGVkIHRvIHN1c3BlbmQgYXN5bmM6IGVycm9yIC0xNgpzdXNwZW5kLTI2MTEwOS0wOTE0
+MjkvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMzQzMDguMDg1Nzgz
+XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBmYWlsZWQgdG8gc3VzcGVuZCBkZXZpY2U6
+IC0xNgpzdXNwZW5kLTI2MTEwOS0wOTE0MjkvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXpl
+X2RtZXNnLnR4dDpbMzQzMDguMDg1NzkzXSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQ
+TTogcGNpX3BtX3N1c3BlbmQoKTogbWhpX3BjaV9zdXNwZW5kIFttaGlfcGNpX2dlbmVyaWNdIHJl
+dHVybnMgLTE2CnN1c3BlbmQtMjYxMTA5LTA5MTQyOS9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19m
+cmVlemVfZG1lc2cudHh0OlszNDMwOC4wODU4MDFdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAw
+LjA6IFBNOiBkcG1fcnVuX2NhbGxiYWNrKCk6IHBjaV9wbV9zdXNwZW5kIHJldHVybnMgLTE2CnN1
+c3BlbmQtMjYxMTA5LTA5MTQyOS9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cu
+dHh0OlszNDMwOC4wODU4MDddIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBwY2lf
+cG1fc3VzcGVuZCByZXR1cm5lZCAtMTYgYWZ0ZXIgMjUgdXNlY3MKc3VzcGVuZC0yNjExMDktMDkx
+NDI5L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzM0MzA4LjA4NTgw
+OV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IGZhaWxlZCB0byBzdXNwZW5kIGFz
+eW5jOiBlcnJvciAtMTYK
+--000000000000d19a49066028fad1--
