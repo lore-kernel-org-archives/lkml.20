@@ -1,110 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564338;
-	b=lfPvyvTAa14ssiUPkPbd4TUL095iWnbek6hvsbkJGf6T4z9mpBiK/wzS6epVpV7w9CBA
-	 dRAljYbDeVsN07nHTQPwP2LYFpOqX0Jw0kYPJ9lxfqhvE0/7eaHEoTiVJ7TyZmw1EPr18
-	 /APmkEB9AslD769ebFcOFiQf34atHlIdUeM1UEswyxLLFcUIkiwV2QR9sEEgE5f5GiztY
-	 8ElRjGBwC4etv94wubyVyGVmv9EAXISPGANKFW55gxmB0Z2GNcnKmAMC2MvvJLiGcmGZ7
-	 ps2VQJB+bkm7Hj+ZhAR/I2+nHdPJri1fA6vOGwfd027Mvq/xrsQRIoUImkfT3SrQ9Sw==
+	t=1794564359;
+	b=UQQ/jlr9n0mh5PDVBgDY0mzeMUnIf3VH4Lx6UjMJcI41e2u2aJRKC4KSjkryDjG9ExSg
+	 SngXi75Je+gNLsQ5qXuNGO4fy0zIGodFE/eG8pYnj+T+YV40JM3N4xRQPudwn6jFf706P
+	 /cI7fAOOW3U/UM1tTcJ8sWmThDkW3zOQyolL8WA+doE1lLdLcqjbOeGLwfSiuP8kBJCUa
+	 DKIAsvgh1z3eyX3ePPZt56Iur4hWeIuht63+CYvx9+q2VfUsq9vwOtYnFXJWs2VkPbnzA
+	 vYi94UjBrqinXgRy2tiy9JAr1bV5mlbwCB5PhMKrv8V2BDlCP2mJ1tiKMNcrjyBiVBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564338;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=/ZNAGjGCHSUHK/hbpNrctHFuArQcFUaSPHFuYTd8W2k=;
-	b=seCBN9BLi3nOSJCjhZHh7I7wzjewu3GgIRZnTQbXbp9TnHCUpwq1vzgoNri78Wcf2OHU
-	 jVD5LMp+QrlQ7+dcZPEKNvgyx1WdQy+XmiGzAQiqZFjXkYup9J3xGct6/e1K365yp55b1
-	 khNdeWuJePujv7CWGvLOgmCVvp939+RRJSlAKPLKuwG7RebQxr44W24/Tqsd47StyDSsI
-	 /C6Nt0aZYoZLfObSL5WlYIsRvMEs0bJEqjXBUOP8+aveJ0gMTDyr6CffNb9zNNE7DIXGu
-	 mElmLz4xweXJWbRalO2hsfxrd99Nch8ENthJdkI0OPMZlKDEGHxP9T4s1oxdNInCyPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564359;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YHQ39+MUMIA6jV73YxFg+JUt1THz2pOGWLEHf/X1POU=;
+	b=FkwAhy/DrBU4wcwsOM0bdStmNE5QQrgQ4UmXrqTobdDmhhKLcxbpxhECKtoAcPa5qo7Y
+	 RkFBxxzmkuWIhjsT6CbsV7xxOopGfcDhp5zdmm4N1deyJmfEtQOnAGuGfPd8EBTZaHA2a
+	 dakUrJJh6BBXCNQEM2YSjIbHwEh2JndUuRh/W3Qo1qN+3RVY/ogvV6Sh6A0ZjbjEeMGmF
+	 lxa/bhhA0DDHv4ALP8EFT+j6QHDBQ1mXsYRxmvfn8d6kqvXIg29kG3QZhiV0AZEeFy+tK
+	 4rSj64zObCngiFO6nrQzr3EbrahZlRFbsX70mam0OD/FlP3nI9XhBYb3Y+m1bTsnMPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=amutable.com;
-	spf=pass smtp.mailfrom=amutable.com;
-	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="BcN8/JZ3";
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Rq9zWNFm;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA818606B138
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:05:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA818606B138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFE3606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:05:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCFE3606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=BcN8/JZ3
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c5075fa7ed0so161294966b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:05:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794564336; x=1795169136; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/ZNAGjGCHSUHK/hbpNrctHFuArQcFUaSPHFuYTd8W2k=;
-        b=BcN8/JZ3o8G8RngOszXG3JTNOcmRF7Y5HhcgHfEFuj8bd59D6/ZB+k5Qh/rpeFRCcR
-         ddACGgLLZgU5b3f6uROOjMlLzNHxLpnDWTvmFTIG7dNNkaJHDW07G6TO1gom3Rvc3G6a
-         phj31A4a6/nEoCYWD8i1KXLteYhy5qLcfDwMY03tf9yOOPsaa+sC0St/LDVgowIEHsk0
-         tZO/CMI2RrlSiK2F32OSWBbCdipxonxIIN0DBtho56nDsRF+fFDKa92VHmnJVt2oHACg
-         qH7hz+1dQBsoiVIgFoQGohYiLAIIKP/PCGAm0hHsixZQutOWB167lk9DbkeNw+vQ2Hrh
-         L2Sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794564336; x=1795169136;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/ZNAGjGCHSUHK/hbpNrctHFuArQcFUaSPHFuYTd8W2k=;
-        b=Ch6fRfQKqDOm1oqlwBfk/iNnplh8Pcs7o4ZLJ2tGyjSHdDt5lG19RcvwiKiwBp8fbC
-         YDPo473QueXxHTFb6wM85GjMiHj+084J3vXTwwIuavR4ISIwTVzx/ArRwi1sGsFZRDvr
-         PD4MzM6n7Q3Z2HvkkFVl3NDYvbCUaYqYUPjKiEebgFicXDfoHML0yMIjbeH5aTMAFZUH
-         oKkl2Fk1vgc9AmoxB+HTcyvTzH3J3NQp2mZ2U53/BMSmseJdfeq2Xl/cVjL137y3NQ0i
-         DToTRZ5aJgWRXwZDx5+iFqv+ij7nL/lOHr7Wacglj6pLP3YASK9GXRxGOa7SyeqZJnDK
-         V6VQ==
-X-Forwarded-Encrypted: i=1; AL+hErGEyC03PT9TTtWtzbbtESlw8A2XPAPpr9sUgiV96RTK59/IKTvbpmdOW7ej2RsRD4NyByCUJ+LEchycei0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9d0UehiyWctX2w+Ac2zW24kgn4LL25U7NfoxodMLkPSGE0BhKN
-	nUpS2vNHtaH/jKIBx24cI2IgdOlkOv6cx/azMZzRbhDITx6rRSb9N4AMVCAYnS0NMUCS
-X-Gm-Gg: AYBFou269TllHMpPYmrGBWdO9qa4be712PoBpcNJL9tuMxieY3WC0A5CJZaRRqsqlDE
-	yqeR4kvkwRTdoSItBQ5/d6z+eczgjxNESX8KWqVH2Dlpz3QasIwh1gK0cITPvaFiYlcigTgvrKY
-	O70Vojz/FyYq3k65W+1OtbQH6mkWXV60mObgdxaUurHwvZDzlax/Ylh1sKccH/pKAdpS6B/LN17
-	DhDsDYcIeVvw+n8AD54Qs9j6VplSyNlQKjad2oW65CLhF/zO/8myiUKIs0lFr5PCgsqDTB/mR/d
-	FYdNR9QlOO6+MB2rqPz3td43CEO2PaUgeDlozy/MBqQYgctHMVKhGcLWKaX2J+M1i4RlFY43HUc
-	q4J9N+xwEuw6guOLEgXf0ZvD7pBsfoXMugi6LF6HuuEbcCFTJW+izSDZy52yYCSmoftQDyv9jh0
-	8bhto9274UH/g9CoqvDzaOQWr41QVeWrJPNWSltu8iBZWQtVsauR3HDAECz+kXW8KzAiENH7lVm
-	g2MpzD2WPf0zhu07xkY8HVL0zcE8zeYi4wrJhracHpyiGWK8QnYOpO3AAZE+hw7R5jUvCICg3hZ
-	oXKixo0Cr4pASNlvDWpY6gx3jO5yd4KjHb3nPFlkwOdPuBD4TLlkA863+ivhhiE=
-X-Received: by 2002:a17:907:94cb:b0:c2e:3a72:ffbd with SMTP id a640c23a62f3a-c5096389759mr162937766b.41.1794564336347;
-        Fri, 13 Nov 2026 02:05:36 -0800 (PST)
-Received: from [10.0.0.233] (tmo-086-54.customers.d1-online.com. [80.187.86.54])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5b93csm75365566b.5.2026.11.13.02.05.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 02:05:35 -0800 (PST)
-Message-ID: <8f532a01f6cc2eb73582864343e25be4ec990919.camel@amutable.com>
-Subject: Re: [PATCH RFC 14/41] debugfs: use fc_init_pseudo()
-From: Alexander Mikhalitsyn <alex@amutable.com>
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, Josef
- Bacik	 <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
- target-devel@vger.kernel.org, 	driver-core@lists.linux.dev,
- linux-mm@kvack.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
-	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
- netdev@vger.kernel.org, 	fuse-devel@lists.linux.dev,
- linux-efi@vger.kernel.org, 	xen-devel@lists.xenproject.org,
- ocfs2-devel@lists.linux.dev, 	linux-s390@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, 	linux-usb@vger.kernel.org, Amir Goldstein
- <amir73il@gmail.com>, 	linux-erofs@lists.ozlabs.org,
- linux-kselftest@vger.kernel.org
-Date: Fri, 13 Nov 2026 11:05:34 +0100
-In-Reply-To: <20261110-work-loop-pseudo-v1-14-4c998976c6c7@kernel.org>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
-	 <20261110-work-loop-pseudo-v1-14-4c998976c6c7@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Rq9zWNFm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794564357;
+	bh=P43MkHAOPRyb7oE/61ejrj/2m7wH0ZiP/q5aYWffMco=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=Rq9zWNFm8PPHZVAxYcvxmC4Zv5KbP9FNqJK9dsCUYmRgN2jZQB7voEG22+pbCXctr
+	 jDLZ9H9CDHnPkfkVN7BISlvZCNmwFE0MUDweh/MgNnD5XXWikqRosETec1PkD+VDPa
+	 Bsfjn0GxfeV/2n23vs+DnV1Rqg7e6f01kqgFRa4pBSiCMeh5hnDY8moz1WJGdZAwvr
+	 kswNch6ZElbuCDvIzB5BDmZFmsxoBT6ALyeCBw0iVGdabKEnhb3KGfsCMGydjwE4wU
+	 Uvz1RzNdvXWw1q1Vghdatf2se4m7149SDcimNuULc/M6UgSUuthTBLJ5/Vprht6OSG
+	 4smksaLWTwYlw==
+Received: from fedora1.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A8CC017E0A27;
+	Fri, 13 Nov 2026 11:05:56 +0100 (CET)
+Date: Fri, 13 Nov 2026 11:05:52 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Tuo Li <islituo@gmail.com>
+Cc: steven.price@arm.com, liviu.dudau@arm.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: Fix NULL pointer dereference in sync
+ signal cleanup
+Message-ID: <20261113110552.034cec24@fedora1.home>
+In-Reply-To: <20261113094456.5000-1-islituo@gmail.com>
+References: <20261113094456.5000-1-islituo@gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,42 +73,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2026-11-10 at 10:14 +0100, Christian Brauner wrote:
-> Initialize debugfs as a pseudo filesystem. This raises SB_I_PSEUDO
-> and
-> also SB_I_NOEXEC and SB_I_NODEV. debugfs never holds executables or
-> device nodes.
->=20
-> SB_I_NOEXEC also refuses PROT_EXEC mappings. The debugfs files that
-> can be mapped, kcov, relay channels and powernv's memtrace, map data.
->=20
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Fri, 13 Nov 2026 17:44:56 +0800
+Tuo Li <islituo@gmail.com> wrote:
 
-Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
+> In panthor_submit_ctx_add_sync_signal(), drm_syncobj_find() may return
+> NULL. The function then jumps to err_free_sig_sync, where
+> panthor_sync_signal_free() unconditionally calls drm_syncobj_put() on
+> the NULL pointer, causing a NULL pointer dereference.
+> 
+> Check sig_sync->syncobj before calling drm_syncobj_put() to avoid the
+> NULL pointer dereference.
+
+I really wish we had consistent behavior on those _put() helpers. Most
+of them check for NULL before calling kref_put(), but some don't,
+unfortunately...
+
+> 
+> Fixes: 4bdca1150792 ("drm/panthor: Add the driver frontend block")
+> Signed-off-by: Tuo Li <islituo@gmail.com>
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
 > ---
-> =C2=A0fs/debugfs/inode.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/fs/debugfs/inode.c b/fs/debugfs/inode.c
-> index b4915551ad31..f163f0bc5703 100644
-> --- a/fs/debugfs/inode.c
-> +++ b/fs/debugfs/inode.c
-> @@ -15,6 +15,7 @@
-> =C2=A0#include <linux/module.h>
-> =C2=A0#include <linux/fs.h>
-> =C2=A0#include <linux/fs_context.h>
-> +#include <linux/pseudo_fs.h>
-> =C2=A0#include <linux/fs_parser.h>
-> =C2=A0#include <linux/pagemap.h>
-> =C2=A0#include <linux/init.h>
-> @@ -317,6 +318,7 @@ static int debugfs_init_fs_context(struct
-> fs_context *fc)
-> =C2=A0	fsi->mode =3D DEBUGFS_DEFAULT_MODE;
-> =C2=A0
-> =C2=A0	fc->s_fs_info =3D fsi;
-> +	fc_init_pseudo(fc);
-> =C2=A0	fc->ops =3D &debugfs_context_ops;
-> =C2=A0	return 0;
-> =C2=A0}
+>  drivers/gpu/drm/panthor/panthor_drv.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index dc8d0191aef4..8d73956530a8 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -364,7 +364,9 @@ panthor_sync_signal_free(struct panthor_sync_signal *sig_sync)
+>  	if (!sig_sync)
+>  		return;
+>  
+> -	drm_syncobj_put(sig_sync->syncobj);
+> +	if (sig_sync->syncobj)
+> +		drm_syncobj_put(sig_sync->syncobj);
+> +
+>  	dma_fence_chain_free(sig_sync->chain);
+>  	dma_fence_put(sig_sync->fence);
+>  	kfree(sig_sync);
+
