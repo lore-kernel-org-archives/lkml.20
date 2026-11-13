@@ -1,80 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794549901;
-	b=QhWmYOh2tvRZuF7E9PjFgNvkAToU2fT4BHSGbPJVKruARjfMENfgQbQiegFPh3Fzt2Ob
-	 sDIcx1f1mM46mTMG9yy5AsPJbKuso1XEIgpAeS2VRVlasFfx1NYfjf0Xh9rtvPik0C8pR
-	 8svCp5pOawIRRz2rm5F6p7fjXwW+Vme8v6awF1QMQZRZFqpaiEw8PpPYxM+aa4vxWCRPS
-	 OBQ4fggTD9NoTs7W2ijp3B6rE4HuTZ15tqo6v1omDWSq5IRCKH+M/iyo5nkvTx3WRMPrJ
-	 1jMMZewOjWJVSVeltabln2ReTSRKjE3jY/NdREo7Tz27l/NPdATr7F4o+iDpZ8iXeAg==
+	t=1794549932;
+	b=n4cjBYQc8LKDxynYwSgWyO6xdZygTaQRiepqBNA1TCkjHdGhVDoPEdz7o/vql/gu4sDF
+	 nxtKComtSEIxWFuT1EwuY/9L75GKSsjIqgLrYVnNwZarFiu1qTkZD2GgfXkro9jCnKiHd
+	 hHSMEMCe/TA05a7UpKWw7VUEGmIwUOj3DE5gAQkzcvjjGmxrC67NqVCF5+f4nD8bhZ9Gh
+	 IMmd8JtBKogtRugKiT6ojWiQjH+BgTgG9foyJu0A8CmzXkt9FDXTJ0pEDaAtIwL/F/CzH
+	 vYp/55As4cnD1GYo4KY7FvaQMJPBpj5VXEjz9sww0LLy3RQY/0nO5+UBrQJXMF383PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794549901;
-	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=2Q0Kw6VKjPJ4bBmVqAq5ZaWu4zc0H8m2mSoY9o/wgk0=;
-	b=El1wWPga4DJZF4RjFD0IMUyeYLxGJoRXQzSt1D0+EDcEevpjnC6ZOqdVrdu6WxGvmTK5
-	 JOdtrQU130Cs4v0IsPSnJSv9TK1J5oLOyedeanf1i1oEG7OwE+kM0In8WbK/jBIKiDWBl
-	 nFUFAaI7x+xgCTZP7roGgr426LAFUYkRkAHcT4HQ6HCxEGrpB55igymp6WHdTWJ4vhurf
-	 uVVZ4qvjN6pGVeUhSgZ284EqEy+81fnR6kE9irfHm9ggo81hQ19hKa8N/BexBgI3z85xh
-	 f0xQcnscdlx11Pdk8azAvI9EpgNRYOo1zns6l3UljzfQgELycrgMllx19O2aNp6/xkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794549932;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=Cw0aNhtrZXS8kFyEmLL4uH/j57aq3MotWd+22cVvZWs=;
+	b=vmu9apUBQA3AyvJ8hC7lBxWUauwbWsyvOFRl+tuCmLtmm0G9yRrOpStiPDs94CtX0up6
+	 SLLnjKxd9C283qUZcdq7n7TTriBaisboH2W867H/jVRUODz4xB8Zn+VFugep25iAsPOkv
+	 a05TTVsFYuui+HxlNTYh3EnB29HAoKd499RecsipEM19BmqlMJGBuGjN6twQIGxhY7Ans
+	 pSxQbe2z41Z7eDYHLk6Qq04cC/c1kOaRPFPSJxnHFMvte3+aIyWvTsbxHYQn8ehAKOZTd
+	 LuCEPAEbPsIbgwdej37eo7Gs+qgj5Aolf37cXohjJdi0Q6GpOVKDr4dGJwraEo9Gdhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REIrOkJz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=5+Ud+1vm;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16964606A31C;
-	Fri, 13 Nov 2026 06:05:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E22E606A31C;
+	Fri, 13 Nov 2026 06:05:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E22E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REIrOkJz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26F61F000C4;
-	Fri, 13 Nov 2026 06:04:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794549900;
-	bh=2Q0Kw6VKjPJ4bBmVqAq5ZaWu4zc0H8m2mSoY9o/wgk0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=REIrOkJz2AHn01Jmb34bj98BYasFg8BqbFiumMW4g2v27buVo7lZVCCUbaiZW3RuM
-	 +wxBJ3/gX4+BELRdWdNU/J6PCzSOCrnZ2IYYh1A2ba4YSznn84fKf9sjN+D9wF4QHM
-	 SvSMtf7+mrJ13TBMzOObc8QfHQSTE5vcrsg2P1RmXkJF0g5vPmFE7R+/836jM3RdJi
-	 TzgoEtGCv25Lk+l6gF0k+8wxuzvl7lHKBraB7e32jqTKlGJ4O5Q7j1CSPzLdUvrLN9
-	 TNkSDm8aEPPw+MSqEDh6WgmRs0zAuMxpqzrInD6NnrBYPRGuHiYCIIX3C/vf+TCuxV
-	 RFWMNY2pAu6Nw==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Alexey Kardashevskiy <aik@amd.com>, iommu@lists.linux.dev
-Cc: Alex Williamson <alex@shazbot.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Steven Price <steven.price@arm.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>, kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v8 03/15] virt: coco: tsm: Complete PCI registration
- before publishing the device
-In-Reply-To: <9773f2fa-f80a-449c-9e9e-722d1c71f989@amd.com>
-References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
- <20261104161632.3547423-4-aneesh.kumar@kernel.org>
- <9773f2fa-f80a-449c-9e9e-722d1c71f989@amd.com>
-Date: Fri, 13 Nov 2026 11:34:48 +0530
-Message-ID: <yq5ah5hlmflr.fsf@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=5+Ud+1vm
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQmvZ1hYYz4yjT0;
+	Fri, 13 Nov 2026 14:05:30 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794549930;
+	bh=kEK/CdjUuLDdYkzvW76iRkve1W1+RjViKn+Zz6zXGgw=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=5+Ud+1vmD13rXc430CPlOpc5b1o4JP+wdtbUUC+UMpnJEGP7yK6Ehi+5m9Ga0Ba8s
+	 rUit8P3zcO201yaDBH9c14hTsrq1kQ3XGvTd92l/K97tcNZ7AspW5BONM05J/QYghA
+	 MqY3GkVro3z66P8IgeIkiLLRa4/gVKL9rx6TyIxFFNLDoKniqwcnwvZOELtb94A9YJ
+	 mSpyA2F7rGsJa+Wy4mcpXMN8lgE6AG7CgCQlq8myk/3k6TGS7lSndFcGtz6ubO8W6b
+	 GAb/dwsJ9QAh/nZh2lSlPF1qqt1+IK8nSqh1vhG9PTnXI+gw8/AWFUglwrA6O4OjhJ
+	 Wb3rR2LuAEgDA==
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 6AD65HZX055158;
+	Fri, 13 Nov 2026 14:05:18 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Fri, 13 Nov 2026 14:05:19 +0800 (CST)
+X-Zmail-TransId: 2afa6af6a89f931-79c0f
+X-Mailer: Zmail v1.0
+Message-ID: <20261113140519708mqg78DW--hT8RANbqMrZB@zte.com.cn>
+In-Reply-To: <20261112211246.GB11126@lst.de>
+References: 20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn,20261110230310932grXKWow1mHtiisyby_D4-@zte.com.cn,20261112211246.GB11126@lst.de
+Date: Fri, 13 Nov 2026 14:05:19 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,21 +72,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <hch@lst.de>
+Cc: <kbusch@kernel.org>, <axboe@kernel.dk>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>, <justin.tee@broadcom.com>,
+        <nareshgottumukkala83@gmail.com>, <paul.ely@broadcom.com>,
+        <kch@nvidia.com>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCAyLzZdIG52bWV0LXRjcDogb25seSB3YWl0IGZvciBpbi1jYXBzdWxlIGRhdGEgZm9yIGlubGluZSBTR0xz?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6AD65HZX055158
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Fri, 13 Nov 2026 14:05:30 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF6A8AA.000/4jQmvZ1hYYz4yjT0
 
-Alexey Kardashevskiy <aik@amd.com> writes:
+On Thu, Nov 12, 2026 at 10:12:46PM +0100, Christoph Hellwig wrote:
+> Nit: this would become much more readable if split into multiple
+> conditions instead of this giant compound expression.
 
-> On 5/11/26 03:16, Aneesh Kumar K.V (Arm) wrote:
+Agreed.  I'll split nvmet_tcp_sgl_is_inline() into separate checks and send
+a v2 of the series; the other five patches are unchanged and keep your
+Reviewed-by.
 
- [ ... 97 lines skipped ... ] 
-
->
-> Why do we do this only when pci_ops!=NULL? Also, why do we even allow
-> pci_ops==NULL? [a minute later] ah 04/15 does just that. Make it first
-> in the series so following patches get simpler?
->
-
-Sure, I'll move it to the beginning of the series.
-
--aneesh
+Thanks,
+Shao
