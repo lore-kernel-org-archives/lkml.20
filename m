@@ -1,107 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589471;
-	b=k7PD3RkIZ5YHb0qWIMz3Xl2VqYii5OzdG6l5mulyhkhwVRgKGQBVya0NeBVmtocNGhMO
-	 8Q4uo/ON6q4qEC2ZqT5rJTakHa275uTr+q9K7dhrk1rjAngNPDG6srAIZBQDQA7ZSvjM6
-	 9eoDq7t2t11jwGkguE2+u5kW9EBUh5VVQQ/U8A7qZaZ6GJ0e/jVTqY3cpfMetTZ+vRRjR
-	 1sl77Q9/cyNC6y2rvwtvagGanZVNGKlxAQUHUcm2z7JRyag7+nVkKKXrsrUeRhdeHdDat
-	 eE+/NCZhs38FUEkVVh6b8hQD+zNzegmjzq7ihi0+COO/kjRL/7fwhAf8s7lcaAojizw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589471;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zDSv49j+RC7blbeAA8J/fPgGpqdzGyAQV5qTaZUyPN8=;
-	b=4eIRrR3ZBBdu/139vj/pdD3ziOiUV5DQnOm61BRZlxSccc35IhfBGzvoSU/j+sLoz9ba
-	 6Ak8tTGNyv9Fq6PHBA+PFjGIokTbatRu9prSH/P3kBx04Fo2BxohC+cSmMNWw6ZIMarHd
-	 JdyyuIoOg+Qnm0vh1XJVOLqAardNfUJkojj9qZDyrOqIj7yDeXtnn8zqmHjcWuGQfeMFE
-	 RJFgPMY7uLZHKjGjMsqyapZWCOe0cvyVHSeqEDj3XlfzlzMkiqzHE0xeQbJ5ankOwEAhg
-	 dVfuWu99H0x01pFuUADJQtHwTCOTLIZE6+4mXyR47cvDz3nRGlTIwCsU6yEyJfWeHTg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HkBoG90O;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dqoPcTw0;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.5
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794589521;
+	b=N2x6h5xK9UizQlRvCB2oalW9PdjSFyei8Z4MYi0HW6xmwZ0A8S6fooqHrq46esH0FikZ
+	 Vexee2+PIfmS/WoMDqb5Dh+6OWyndVdLrpwP1fD0wlnzOKcSvx4WTPakQagTHpWiz+i9P
+	 QLb0nieP4e3RIGeX7VRh6qhMzZAdvRwL7F9qrEE73GnRaTRdhh8kunXslKTHgmPN+YyPi
+	 BYfHZ4JmGg73/23yIsJ/C4154qPavKWPF1rLVg6GKqdD1KqEX1RjyZMtS1bgkITrb7Ywt
+	 WQvdaMTPMCCPR0zp5K2s/xK5IqR7s2X4quLTFrAL0nS6lKYMpMgizhoOrgKV+MiS3KQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589521;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Message-ID:Date:MIME-Version:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+4mING0Rex+jtkx55aNx+cqpDXz5klhmvjWXbUn/VKM=;
+	b=FMvHF6e5+i2GE8CxAn9iWzKsf5+AAX/oNjwa6oo9tP08RevZNbDbfmxgCyXbE3UBtQ+b
+	 nAN5qwdgdo2lixqhFeb/tJk0+K/k1a2Qn8wmjLR8yBHkFn1cB5Oknh3bQU8TRm7mLGIBx
+	 yT/AKRQzgKj43mzI7phVvAAv8d3MWbjGc4W2m8deEj6cd8p078SH+HeFlmrDcj41Sj6cn
+	 uSxJqAHUrPK71mV3LmgsPynInQqNhGyGPNdqkjCTvxaN4VV5YB5w90BdWEiEY5ru6o/Gh
+	 LeijKhIDK6wrQ2+kXjLO8AJHPv+16QOUVTLJEvzG534NZBmXP3M0M4hkoGYIM2f7N/g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=axis.com;
+	spf=pass smtp.mailfrom=axis.com;
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=HpJ1SV1o;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.5
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011005.outbound.protection.outlook.com [52.101.65.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905E2606AA0E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:04:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 905E2606AA0E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EC2606A32E;
+	Fri, 13 Nov 2026 17:05:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7EC2606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HkBoG90O;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dqoPcTw0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794589469;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zDSv49j+RC7blbeAA8J/fPgGpqdzGyAQV5qTaZUyPN8=;
-	b=HkBoG90OJYAJNe917WcUK3ewMCkKkPQNkS011e1sV4io3kLzI27b2CP9UQ9p6HKl8Vk1Ti
-	/fIoPPpDU6I+eSx5RqrmF7fuhouRnwI+Wo7TvOGMCzyvNmkTlit+GybDINqEan19TIZqkq
-	udc6N/GGkChZAG7y9cVWKcaq7HfKPF0=
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-351-fth1x0dROkC3wmMEhL-3sA-1; Fri, 13 Nov 2026 12:04:26 -0500
-X-MC-Unique: fth1x0dROkC3wmMEhL-3sA-1
-X-Mimecast-MFC-AGG-ID: fth1x0dROkC3wmMEhL-3sA_1794589465
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b18165dc53so1753404a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:04:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794589465; x=1795194265; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zDSv49j+RC7blbeAA8J/fPgGpqdzGyAQV5qTaZUyPN8=;
-        b=dqoPcTw0eOUhLYTZ/p+sBLq2LDtf08z2YUoAup5NmCQp29wvF9oNEN5PEShwnYmV8l
-         N2Vzh7Rw5ZADVRvUm2qFD4AeBv/LbkRWndLnNBG135RQd6B1q0c1MxUpnTCZHCHz0qyp
-         Iatbo6PmcTP6xncENmbx/HJpS9AkjxO6zOtHjMoaFzsp+nisRUHxr/FSZDsgWf1yBnRp
-         j67y/xxd8zdxIHBhfMS9l6g1aWtxR+Dh61X/e6AuBQ7Pdd+LVen146VF5MCN861ePZvh
-         I1PLoB8IiBsUP3MaMRzoyG2hp/NstIqpExL3mASV+Y0W/5oC3tb+bFHq9PmR2h4WNFnZ
-         8Z5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794589465; x=1795194265;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zDSv49j+RC7blbeAA8J/fPgGpqdzGyAQV5qTaZUyPN8=;
-        b=N8HE1Hu4gF/N9QjlBZXjBIuUolEal66BooZ6AIY0GQdrkfXGUWDr1nRH3G65KpoTL4
-         Z683KFAU5xOwUGBNtjUZruOBf1beV9291KqN/CDFj8gwB1CBOPycgO8ZrgrwRFNg3Ohp
-         bRm4aVmG6HA7GLxcmDHRd7D149/2y9jDdm5MkzP0vHkO5g+Z1tAa4JFyyTFrlONEijTO
-         hvBPlfNvk7jDN/6B/RUVsnpJtZUTzNvAKzMZoH0W2YIr5HDU6uy8jBuDBw6DR/QB6+8s
-         xzA/H8qeOjtn82ujihV84zQ7f/c1JBKviG8V2Mwpvug9RUQTfx8u9otb9d5w/VPGBYNC
-         Rtig==
-X-Forwarded-Encrypted: i=1; AL+hErEc/flaKZS/XtnkrViG+gEKj9Z6Zc65G2u7WkzpMsaZHz4BAXDZGs48FcKWLbOaK4AUsUsOrv9SvOGKnJg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1mB71IQ0WBnpiNbPMLO5hjGUsc1WJjxB5jHW96b6/2Q8tph4X
-	T1SsOPCIBpxEm36HlTajxiwJl3NmNGXrkAP31JTzBS1h7NbIzEq1rluVzkfKg0Le+XAVPCJ91tq
-	GtNTHYm139MzCXpQ8ReCE+FiT2eSNqC1kOeqUh4vRDFxxKCBrSnCX78mz5QgTEa3jbA==
-X-Gm-Gg: AYBFou1ExiwPiTl1l00HxQVN7YHmDqrrs1Cl4IvSRR71kPnUckSGrwf8OuzmU0oID5J
-	Z1Ly+BfzDLVzvUR/H3xl/Uq9nCj+u/dT1p2Mzq7cDjZTKpQR4463dUH6++t7kwnR9Eo0n+bpX84
-	7vMhPxptKC8wwlVgTxeMIVKh8G8aubd2N5LqDC5jMn4kA7V+/Tl8hkAvjOqc+BPzfSpgJ1c0Jbi
-	1fkR/LRUJpuRJdaatBqhP1EMNIZl3koeKp72ISDnnMDF6eGKxyJnlmfg1I3gxs/6wnFnuPEx0Cl
-	IpP99WtAM0LA+6HE0lI6eDQk2YLT4iC3M/VfA5Ri3bnSIq2fy1bcvndlvtrPjDGwlSRy02SUONt
-	Sla/vp5PvVJaw+4lWn228KxeJsT5vkeaauRFDjP0Dh95mNfCkiT83U5ld0Y9AqnpxsWoJ1ig=
-X-Received: by 2002:a17:90b:4e8f:b0:3b0:ce1c:e754 with SMTP id 98e67ed59e1d1-3b1b0b52de7mr2828890a91.62.1794589465080;
-        Fri, 13 Nov 2026 09:04:25 -0800 (PST)
-X-Received: by 2002:a17:90b:4e8f:b0:3b0:ce1c:e754 with SMTP id 98e67ed59e1d1-3b1b0b52de7mr2828163a91.62.1794589454220;
-        Fri, 13 Nov 2026 09:04:14 -0800 (PST)
-Received: from [192.168.1.102] ([117.245.168.128])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f7d9971sm13310855ad.34.2026.11.13.09.04.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 09:04:13 -0800 (PST)
-Message-ID: <7d5f300f-ab18-4086-8a61-c3347168067a@redhat.com>
-Date: Fri, 13 Nov 2026 22:34:06 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=HpJ1SV1o
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tXwdT8ZsCKGH2vfZTuWVzWiNPv+XZxYns3s7waQSVLAlzSIQSbjTaH+I7RbInOmvtEZeIsd5crw3yRSCniAr/dljj3ehlBXcmYPHcOqvn4OstnCvgfB+mZeoVODxRzXiu1cHKDmBq2RJtAG5L+p9zZfP+m2svG3cWexnnGElmR6n2NrvHV8wRMu4xG05crLFxos0Z5C//HBPYYyD8+BLUvIWTloYMjvq44YahwjpNQcfxAHLz96cXHZApFkU4PttoZbXs/HobYPAqc3kYP0sHb5dxLuHsyQftNkgvZX2pbFhwihAH0I8EQzzAIpdI0FudS9zwDVIqbg0whSVU/J/vQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+4mING0Rex+jtkx55aNx+cqpDXz5klhmvjWXbUn/VKM=;
+ b=wf8rHCK60/8pFu4CifEYXqU4m/d9uTy5D3PhlhjEJGCFpP5cZUBQYh/Muc377/0P+xjGI0jjsIN03v8jHPILSXlplK94fmLZ9XA7QKowapTraNSzrtmL0fiVpiG41TIJOZpxzyoFoamuLJBsKkDuJFBZYOLBuwuhRx8rd7O9Ku2W8QRN6eqDP1si8r4aUouWwiy59DSQYFg/tV20TtTyK60w+VLAScbgctzK5mxt8O7ddq++VBQCsJ8pQxGSCpJe17zr6xzZiPJ26mpCDgn9lMltY0wDYCVCw1Frs4TtU3q2cKI3uXxQ/YagcSziZSOaarMhFlLBoSXF+X4LumUFKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+4mING0Rex+jtkx55aNx+cqpDXz5klhmvjWXbUn/VKM=;
+ b=HpJ1SV1opH+W4CM6GMzW2yQXAr2wPX5rlPyXg2e73vPihgFY/OY1TEFGS+eTU12HsIb0shmkIxtY9/YqnxROYxdwCwP6iAgTNgMeFdHlqNmD+civH+inkn8xY38ILKjXzYcB7Ef9QSZrf8bz8On9VNLpbC0UCb2UV4WlPqwNUAA=
+Received: from AS8P250CA0008.EURP250.PROD.OUTLOOK.COM (2603:10a6:20b:330::13)
+ by AM7PR02MB6418.eurprd02.prod.outlook.com (2603:10a6:20b:1bb::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 17:05:16 +0000
+Received: from ZR1PEPF0000E462.eurprd04.prod.outlook.com
+ (2603:10a6:20b:330:cafe::36) by AS8P250CA0008.outlook.office365.com
+ (2603:10a6:20b:330::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
+ Nov 2026 17:05:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ ZR1PEPF0000E462.mail.protection.outlook.com (10.167.241.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 17:05:12 +0000
+Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 13 Nov
+ 2026 18:05:01 +0100
+From: Waqar Hameed <waqar.hameed@axis.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+CC: <kernel@axis.com>, <linux-kernel@vger.kernel.org>,
+	<linux-rtc@vger.kernel.org>
+Subject: [PATCH] MAINTAINERS: Add Epson RX8111 RTC driver
+Message-ID: <9e4b67c34feb7a57ba2999b0600b4b44714aaa64.1794583440.git.waqar.hameed@axis.com>
+Date: Fri, 13 Nov 2026 18:05:01 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,185 +102,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] kho: walk bootmem areas in address order
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Chen Pei <cp0613@linux.alibaba.com>, George Guo <guodongtai@kylinos.cn>,
- Kexin Liu <liukexin@kylinos.cn>, Sourabh Jain <sourabhjain@linux.ibm.com>,
- kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
- <20261104-kho-bootmem-sizing-v2-1-b0d1a834780f@kernel.org>
- <990cc079-70ab-4fcf-9974-679aaf07849e@redhat.com>
- <avV9qoaPMBLCNOXD@kernel.org>
-Content-Language: en-US
-From: Mukesh Pilaniya <mpilaniy@redhat.com>
-In-Reply-To: <avV9qoaPMBLCNOXD@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-ClientProxiedBy: se-mail10w.axis.com (10.20.40.10) To se-mail10w.axis.com
+ (10.20.40.10)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZR1PEPF0000E462:EE_|AM7PR02MB6418:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5300f1c4-9988-420e-b3e6-08df41a847a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|18002099003|261009223027099003|11063799006|261021135927099003|56012099006|10067099003|261102123227099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	eUR9b9j3Xk2uNG5TciCOnKHWy4Zds1DKYOMH0KmkdpXPIE14FKLIfZ8Zue6H9Uz8NYKcIlOS2Bwa06Y/ntzTvSlJHakjtqQcF7LED4qj9sWGZPlwoJ410FSWSvwwmNoUXPvMnumCScpFJ+EO0VGLyI7GpeXFwatQUaRfMh4IJME/EA340Th3Mcl4UUWgRO+dpSc+bLi21zI+emPyX+YtpB+GV5AVJrxNNErkBXjF4mbGT+5VdT3f48C6XC010tNN7T1P3lsm61gKC0EYiUz+ech1alGWw1dXKt2nExV4qEL8b+dZvDm9X7I4rCxT0krYjBtnlSDLgWDM3xe1d4ZUVhddTVozpCq8adbQzP9m0Ai6mdrofQlGNWOX0NPsUxZck9RnWAtPu3uGTD38cagMQhm8LsUzBKk8SXOYnc72AQlMu7nSh0VD48K0cBHr1lhLDlE2i0gCupeNLTZ5/WYaP47XjFmbnO08ft6tSrU4MK/dbjZTkrJldZkhW0IFDOyWyEiAgQJ/UKKY4b/wdrXl3rN4VXrPeXAnzoQpvSvsbCEQ19NFo+XTFmB4JIX9hXdWw0v16m3Tcx4BJNBC+RpoETQcyIIVERL9e+2mdLe2/GFBuxei6Fn1kGpmfzFZ9eglM6gW3hNTTG7aqlCZYbIOLWxlmggfX++xES3n4elB6LLewWVly/YP7MRjDBXFR3ZaFHinRjlD6uAM0hhRCMB9Yg==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(18002099003)(261009223027099003)(11063799006)(261021135927099003)(56012099006)(10067099003)(261102123227099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	uM4iCfoaw071x0dQN8SOKbk06ew8Q8Gv3x4URY5ZVmDox63o5lmgKkCUqJkKxOJhtOo4FVmSmyRB58Mm36QU8p9WBvr52KZ8KGy1jJktF+EdByhiX9YpnPxl85IjZiwLnfcW0tFuSvbnF1pJATIv/9Sl1xezH5pYSeweQpNx6tHmHeKjb8o1zQFWHVdaQXH9aMwwh0HlKfWzbJTLpj0hlfSsnra1cL1rffSYkMZp6qVvOFWicwGZCSvWNEkBcE09F9otG3uA+puWef3NSHgLmN0AVz3Wtrbo/XTn9aFtRRfKXrATiXhC3aYTmIH1/SAkN5GmPGs6oWyJo0o8FSeqfiU5I0BIGH6L9rIvacG1l3/69EVBELAemo51ZF1UtzDn+cIGqjQjTnp/ms2Gp6F8vmgEDsCg/ojFi5y9DUGTAbMIXn2Hf9CUCaRjHJ5+rf6s
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 17:05:12.1026
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5300f1c4-9988-420e-b3e6-08df41a847a1
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	ZR1PEPF0000E462.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR02MB6418
 
-Hi Mike,
+Axis Communications has resources dedicated to maintain, test and review
+this driver. Thus, add myself and the company kernel mailing list to
+help out with this.
 
-Thanks for the quick check. I apologies in advance if I am missing
-something obvious.
+Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
+---
+ MAINTAINERS | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-On 12/11/26 2:19 pm, Mike Rapoport wrote:
-> On Thu, Nov 12, 2026 at 12:02:05PM +0530, Mukesh Pilaniya wrote:
->> Hi Mike,
->>
->> On 04/11/26 10:20 pm, Mike Rapoport (Microsoft) wrote:
->>> kexec_add_buffer() users may depend on the order in which memory holes are
->>> searched. For instance, arm64 places the kernel bottom-up and then
->>> requires the DTB to be above the kernel.
->>>
->>> kho_walk_bootmem() walks the bootmem areas in the order they were
->>> reserved, so if the kernel lands in a small area at the top of the memory
->>> there is no room left for the DTB and kexec fails. For example, on an
->>> arm64 VM with 2G of RAM and kho_bootmem=8M,64M,64M, the lowmem area is
->>> reserved first at the top of the memory, the kernel image takes most of
->>> it and kexec fails with
->>>
->>>   kexec_file(Image): Could not find any suitable kernel location!
->>>
->>> Sort the bootmem areas by address and walk them in ascending order, or in
->>> descending order for top-down searches, like kexec_walk_resources() does.
->>>
->>> Fixes: 3bdecc3c93f9 ("kexec: add KHO support to kexec file loads")
->>> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
->>> ---
->>>  kernel/liveupdate/kexec_handover.c | 57 ++++++++++++++++++++++++++++++--------
->>>  1 file changed, 46 insertions(+), 11 deletions(-)
->>>
->>> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
->>> index 6f1f55fe31819..2ac5d94f33fd4 100644
->>> --- a/kernel/liveupdate/kexec_handover.c
->>> +++ b/kernel/liveupdate/kexec_handover.c
->>> @@ -26,6 +26,7 @@
->>>  #include <linux/list.h>
->>>  #include <linux/memblock.h>
->>>  #include <linux/page-isolation.h>
->>> +#include <linux/sort.h>
->>>  #include <linux/unaligned.h>
->>>  #include <linux/vmalloc.h>
->>>  
->>> @@ -820,6 +821,14 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
->>>  	return false;
->>>  }
->>>  
->>> +static int __init kho_bootmem_cmp(const void *_a, const void *_b)
->>> +{
->>> +	const struct kho_bootmem *a = _a;
->>> +	const struct kho_bootmem *b = _b;
->>> +
->>> +	return cmp_int(a->addr, b->addr);
->>> +}
->>> +
->>>  /**
->>>   * kho_reserve_bootmem - Reserve a contiguous chunk of memory for kexec
->>>   *
->>> @@ -904,6 +913,9 @@ static void __init kho_reserve_bootmem(void)
->>>  	 */
->>>  	kho_bootmem_cnt = i;
->>>  
->>> +	sort(kho_bootmem, kho_bootmem_cnt, sizeof(*kho_bootmem),
->>> +	     kho_bootmem_cmp, NULL);
->> This only covers the case where this kernel allocated the areas itself.
->> On a KHO boot the array comes from the previous kernel. A kernel with
->> this series that is handed over from one without it therefore keeps
->> walking the areas in reservation order for every following
->> kexec_file_load, and the arm64 failure you describe comes back until the
->> next cold boot and vise versa because the ABI string is still
->> "kho-v4".
-> 
-> If we were able to kexec from a kernel with no reservation ordering, the
-> issue is not there, isn't it?
-IMHO that holds for the image that was just handed over, but maybe not
-for the next one. The producer's last kexec_file_load did place that
-exact Image, DTB and command line through the areas in that order, so I
-agree that reloading the same image from the consumer will find the same
-spot. The order is still arbitrary though, and whether it works seems to
-depend on the size of the image being loaded.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7070cf5dbfe98..520438faa8dbd 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -9998,6 +9998,13 @@ L:	linuxppc-dev@lists.ozlabs.org
+ S:	Maintained
+ F:	drivers/tty/ehv_bytechan.c
+ 
++EPSON RX8111 RTC DRIVER
++M:	Waqar Hameed <waqar.hameed@axis.com>
++L:	linux-rtc@vger.kernel.org
++L:	kernel@axis.com
++S:	Supported
++F:	drivers/rtc/rtc-rx8111.c
++
+ EPSON S1D13XXX FRAMEBUFFER DRIVER
+ M:	Kristoffer Ericson <kristoffer.ericson@gmail.com>
+ S:	Maintained
 
-To give you the case I was looking at: on a QEMU arm64 guest with 4K
-pages, 2 GiB of RAM and kho_bootmem=44M,64M,64M, the 44 MiB lowmem area
-is reserved first, at the top of RAM (0xb8800000). The Image is about
-38 MiB, and the DTB has to go above it on a 2 MiB boundary, which lands
-exactly on 0xbb400000, the end of that area. The load then fails with
-"kexec_file_load failed: Cannot assign requested address", and the next
-area is never tried, because the walk stops at the first area that
-cannot take the buffer. With the areas walked in address order the same
-image is placed in a lower, larger area and boots. So the first area
-decides, and a few MiB of growth in the Image or a larger DTB is enough
-to flip the result -- which is the part that makes me a bit nervous
-about the first kexec after a handover.
-
-It also does not settle down the chain, as far as I can tell. A kernel
-booted by KHO never reserves, so it never sorts: B inherits A's order,
-C inherits B's order, and only a cold boot sorts. That makes the same
-binary behave differently depending on how it was started. Sorting in
-kho_mem_retrieve as well would cover it.
-> 
-> And after a cycle of KHO boots to newer kernels we anyway can get to the
-> point when bootmem is not large enough.
-That is the same argument, and it is probably why I am not fully
-convinced that the previous successful kexec covers the ordering case
-either. The inherited state was adequate for the load that produced the
-running kernel, not necessarily for the load it is about to perform.
-
->  
->>> +static int kho_bootmem_walk_top_down(struct kexec_buf *kbuf,
->>> +				     int (*func)(struct resource *, void *))
->>>  {
->>>  	int ret = 0;
->>> -	int i;
->>>  
->>> -	for (i = 0; i < kho_bootmem_cnt; i++) {
->>> -		struct resource res = {
->>> -			.start = kho_bootmem[i].addr,
->>> -			.end = kho_bootmem[i].addr + kho_bootmem[i].size - 1,
->>> -		};
->>> +	for (int i = kho_bootmem_cnt - 1; i >= 0; i--) {
->>
->> kho_bootmem_cnt is unsigned, but the reverse loops in
->> kho_reserve_bootmem() and kho_bootmem_walk_top_down() start an int
->> counter at kho_bootmem_cnt - 1, which for a zero count is UINT_MAX
->> converted to int.  That conversion is implementation-defined; with the
->> current compilers it yields -1 and the loop body is skipped.
-> 
-> We never get here with kho_bootmem_cnt == 0.
-Unless I am misreading it, we do, via kho_bootmem=0%. The parser accepts
-it and stores the scale without a zero check, then bootmem_size_update()
-takes the explicit-size branch and assigns the zero-initialised
-bootmem_size_pernode to every node. kho_reserve_bootmem_area() returns
-early for a zero size without recording the area, so kho_bootmem_cnt
-stays 0 and kho_enable is left alone and only the error path clears it.
-
-kho_locate_mem_hole() is guarded by kho_enable only, so with cnt == 0
-both walks return 0 and the caller turns that into -EADDRNOTAVAIL: KHO
-is enabled with no regions and every kexec_file_load fails with "Cannot
-assign requested address".
-
-FWIW this became possible with 214f9649 commit, before it the
-zero-sized areas were recorded, so cnt was never 0. The zero-scale patch
-you posted in the v4 series [v3 1/5]thread closes this one.
-
->  
->> How about using this one.
->> 	for (unsigned int i = kho_bootmem_cnt; i-- > 0;)
->>
->> Reviewed-by: Mukesh Pilaniya <mpilaniy@redhat.com>
-> 
-> Thanks!
->  
->> -- 
->> Regards,
->> Mukesh Pilaniya
->>
-> 
-
+base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
 -- 
-Regards,
-Mukesh Pilaniya
+2.43.0
 
