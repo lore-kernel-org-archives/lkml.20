@@ -1,71 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590382;
-	b=bTWpoI4ZRgNtUL61t8y8/7sP4kpobseafveyDTeE11uCxLiCRfGCYVMlAQwr64O6dkkY
-	 tENq3qVc+ohsIf1gC0PlSG+loJ4mMnnuJjVMdCe2d22y6bRRleRzYsjV6Hq6bI4Q2wMm3
-	 PsZmn2l5/vU3iqAzPlSpTDSWyTDfhZGSHN9Nt+EjpGYnggo/ZWZ8uFAAJveHl8MT4Q80H
-	 4qRJBu0/eKit33c0kwr3SL3O1rI8olBooma/9GBDdBXWysQ9XDjEE6XrUxMoB9ATdFTXn
-	 utW6Epm5iTN/SabD2rdhlUH1i4zs2jL+WbRUf+QE5dfKR449Sqmt3fVop79l9WOGGiw==
+	t=1794590406;
+	b=4FwVqxc53Vbd/1XiAdVJmFWsCsf5Wg35doxOqyWQocaXFWaB9394SmwiQ2y6PJEiqb+8
+	 NN8b0XL+HcwwVOSPa0h8ocYV5aDt7AlOFAFiKnKR13d8ByMzIC5hfwLKzLcmd7RtMI6Fi
+	 YOJMG9sX1J2xQKnUT/bcswibu133tEMweWKIoz20RLxoafzW9sQDvOYIfr7SL+vw7eTta
+	 c0USdH+96d2JNUF6E+YU/HjbrLdtxspN8m4TKj3cua/resLKiiLxZQxeLxfE/p1SkZQK4
+	 U5QtPd8qqs20Dm5oehz9ouiZ0PTMnxXFosJVT9wsdxhvp7N3mg3GeOtb8E7bJeUZPFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590382;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=lLRe7OQ+TSz40sIuSGn/k/GXxs4txoePPfp4Cfqlpuo=;
-	b=seZj4eIvn/ovGuU7f+SM5j0FaxvM9E1XfW1zMrNLKmyjffKqwyJwOcldYkwGig47irC3
-	 2SD7y0A5OhC11m17XN5/KAThXqyB2DcpC9JfUciCy1GPavTeCa2JO5/ZXakgM0gtM8mPr
-	 s0iMyBuxJUUzCcJBRTy3b+YG3IMTGLUU1Nn6tnyCO2loXbm+XyD1DQtuIhNziILFShaBi
-	 miWw1HdGwXzctLeHujyvuQUwjunjlx43utEluxf2GXKWoL2Q5AOPryyT0zZNEMYCG5x2e
-	 Q0uyj8+lLskclLZX6w9FZIMu3/P+zbKLArqf395HsxipU9B2Uk3EUsR+9rxm86UEG7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590406;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=pLe6c2LhWdg08aU3SLTnHU4DwBkAqigblBo0XXQ9BX0=;
+	b=KApGcv9qsVC0ER7M0aBItfkgSix4Z6zeKOntRu6dqsRQwDV1J46pD89xsxYU2ZkDQz8v
+	 RTdSn0kFZt0WogU0v/L4DXLiqUfR+hZgrWE/vH51fqlH058bupRuPuDKqw/jzWEi0TRIC
+	 sNQ+1GmgOyyEOssh53DoKGGmQzlnMhROmCKrWPo5LpOXoE5teJyEDNonH0nt3YBdrr/2y
+	 KYNOvoDq9yMqBpoLvtfSlYv1wrlVax8z8k72pPLJyWzXhAx/YJzjQiMmM2G4HpyR2YMrF
+	 9EXjfct49Ae6BhP6OJ2rUJ4b+6gGwQlbqaeYLvbnl3RoUkIM5fJbkUuFlWhSjyal1dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=gQDmr+DC;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gYBGfrXt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95AD6606E651;
-	Fri, 13 Nov 2026 17:19:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95AD6606E651
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB58606B462;
+	Fri, 13 Nov 2026 17:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=gQDmr+DC
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 65197227A9;
-	Fri, 13 Nov 2026 18:19:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794590371;
-	bh=lLRe7OQ+TSz40sIuSGn/k/GXxs4txoePPfp4Cfqlpuo=; h=From:To:Subject;
-	b=gQDmr+DC0PzJkqKQHMverOutbN4CiJgTneAPacT/pLTZHq5gsyc/bXjMWCh0cuOdS
-	 +97MfdA+S4dGKJsNtaQ2OaGv/vPHQY8/M95adOp6rSVVnV7u0V2ew+v7uEatUltIQi
-	 C7CfUEHS/Kfe3kOYY7OJRmSDLxWONNCg2QBXRgXLPmqxBhlLNzC9xyMf6l8eLNfzKe
-	 1EFOzKOsQJkAOkqN/y3BGWSButhtaATx2KY0SqTsA6pcmNHvq0ib97TEpRqRs72KiQ
-	 EjRoqRINtyScFSLfgHyWYAnNNXZKM7CYnsyBJnvNzcFqAtXj0gGy5i0K1tpO7B8d+9
-	 LGLlF3PkarAng==
-Date: Fri, 13 Nov 2026 18:19:27 +0100
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-bsp@toradex.com,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 01/11] arm64: dts: freescale: imx8mm-verdin: Add SPI
- alias
-Message-ID: <20261113171927.GA762258@francesco-nb>
-References: <20261112150236.164850-1-francesco@dolcini.it>
- <20261112150236.164850-2-francesco@dolcini.it>
- <avXeK-IRXbKqI-pc@SMW015318>
- <20261113073135.GA8515@francesco-nb>
- <avc2nzql-JV7a-JH@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gYBGfrXt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E21151F000C6;
+	Fri, 13 Nov 2026 17:19:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794590406;
+	bh=pLe6c2LhWdg08aU3SLTnHU4DwBkAqigblBo0XXQ9BX0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gYBGfrXt2Ffp3CtT9lRu9Q4s81KSZzKqz9Lfo+PVwqO3aGrdqToyoAZeMLYx+juiA
+	 KtFrHhDOvqWjuv5gegWK1CFAegTV4RmiedbGywGgJfdkE+pu8ys3/EGxWW02qZWFpy
+	 HofAGIVx8fwFyNPwBLWF72gY4Vqk3SMEO1Pwq9eBSjoYvk8yZSUJKySbESzKGszr4o
+	 iCc/ryB4FO6VPjWC8EgEQeu7AWL8RDX4I+OW3weY7cfxZZCq9A8Z3l+mJkz84ZgeQI
+	 44bi4zPENd8IWPJH6wv4vXH4sIppBMhelgZjQY5z49TqHo3iXU4rYX3ca2x1J5HiGC
+	 ZVsqI99IAXQAA==
+Date: Fri, 13 Nov 2026 17:19:57 +0000
+From: Simon Horman <horms@kernel.org>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>, Julian Anastasov <ja@ssi.bg>,
+	Allison Henderson <achender@kernel.org>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	bridge@lists.linux.dev, linux-security-module@vger.kernel.org,
+	mptcp@lists.linux.dev, lvs-devel@vger.kernel.org,
+	linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
+	linux-sctp@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH net-next 13/14] netfilter: conntrack: annotate data-races
+ around timeout and tcp sysctls
+Message-ID: <20261113171957.GV18859@horms.kernel.org>
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+ <20261109025425.328445-14-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,61 +84,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avc2nzql-JV7a-JH@SMW015318>
+In-Reply-To: <20261109025425.328445-14-jiayuan.chen@linux.dev>
 
-On Fri, Nov 13, 2026 at 10:11:11AM -0600, Frank Li wrote:
-> On Fri, Nov 13, 2026 at 08:31:35AM +0100, Francesco Dolcini wrote:
-> > Hello Frank,
-> >
-> > On Thu, Nov 12, 2026 at 09:41:31AM -0600, Frank Li wrote:
-> > > On Thu, Nov 12, 2026 at 04:02:23PM +0100, Francesco Dolcini wrote:
-> > > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > >
-> > > > The Verdin family pinout defines the SoM interfaces and their
-> > > > numbering, SPI_1 being the SPI bus available to the carrier board,
-> > > > implemented by ecspi2 on Verdin iMX8MM.
-> > > >
-> > > > imx8mm.dtsi numbers ecspi2 as spi1, so the Linux bus number in sysfs
-> > > > and the spidev name do not match the Verdin interface. Add a spi0
-> > > > alias in the SoM dtsi and delete the inherited spi1, so ecspi2 is
-> > > > bus 0, zero-based with SPI_1 being spi0, and carries a single alias.
-> > > > ecspi3, internal to the SoM with the CAN controller and the TPM, keeps
-> > > > the spi2 alias inherited from the SoC.
-> > > >
-> > > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > > ---
-> > > >  arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi | 2 ++
-> > > >  1 file changed, 2 insertions(+)
-> > > >
-> > > > diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > index 1ac9d000d415..0369803a4d46 100644
-> > > > --- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > +++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > @@ -16,6 +16,8 @@ chosen {
-> > > >  	aliases {
-> > > >  		rtc0 = &rtc_i2c;
-> > > >  		rtc1 = &snvs_rtc;
-> > > > +		spi0 = &ecspi2;
-> > > > +		/delete-property/ spi1;
-> > >
-> > > Can you avoid delete property for new platform?
-> >
-> > Unfortunately this is needed.
-> >
-> > The included imx8mm.dtsi has
-> >
-> >   spi1 = &ecspi2;
+On Mon, Nov 09, 2026 at 10:52:12AM +0800, Jiayuan Chen wrote:
+> The nf_conntrack_*_timeout* knobs, nf_flowtable_tcp_timeout,
+> nf_flowtable_udp_timeout and nf_conntrack_tcp_{loose,be_liberal,
+> max_retrans,ignore_invalid_rst} are read in the packet path without any
+> lock while their sysctl handlers update them with WRITE_ONCE(). Add
+> READ_ONCE() to the readers.
 > 
-> Create patch move aliase to each boards' dts from imx8mm.dtsi, which is
-> board feature, not soc features.
+> KCSAN reports it when nf_conntrack_udp_timeout is changed while UDP
+> traffic goes through conntrack:
+> 
+>   BUG: KCSAN: data-race in nf_conntrack_udp_packet / proc_int_u2k_conv_uop
+> 
+>   write (marked) to 0xffffffffb0829bc4 of 4 bytes by task 436 on cpu 0:
+>    proc_int_u2k_conv_uop+0x92/0xa0
+>    sysctl_u2k_int_conv_hz+0x21/0x30
+>    proc_int_conv+0xdf/0x130
+>    do_proc_int_conv_jiffies+0x1b/0x30
+>    proc_vec_conv+0x21/0x40
+>    proc_vec+0x21e/0x6f0
+>    proc_dointvec_conv+0x21/0x40
+>    proc_dointvec_jiffies+0x15/0x30
+>    proc_sys_call_handler+0x282/0x3a0
+>    proc_sys_write+0x13/0x20
+>    ...
+> 
+>   read to 0xffffffffb0829bc4 of 4 bytes by task 439 on cpu 3:
+>    nf_conntrack_udp_packet+0x27b/0x550
+>    nf_conntrack_in+0x767/0xb20
+>    ipv4_conntrack_local+0xb0/0x120
+>    nf_hook_slow+0x7e/0x180
+>    nf_hook+0x1fa/0x4e0
+>    __ip_local_out+0x1ac/0x3f0
+>    ip_send_skb+0x31/0x120
+>    udp_send_skb+0x4bf/0x640
+>    udp_sendmsg+0xdec/0x18a0
+>    ...
+> 
+>   value changed: 0x00001d4c -> 0x00001e46
+> 
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-Please see the linked thread [0][1]. It's not a viable option.
-
-In addition, I can do this for my boards (Toradex), how do I know what I
-have to move for boards I do not know? I can't do that. The only way
-would be to duplicate the whole aliases on *every* board.
-
-Unfortunately your proposal does not work.
-
-Francesco
-
+Reviewed-by: Simon Horman <horms@kernel.org>
