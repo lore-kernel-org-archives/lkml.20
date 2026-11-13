@@ -1,102 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.171
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794578104;
-	b=Qtchg8LCIRCvWEJE8Z8HfrdNBaNIBEgUWkPIn+UjKW2CuqYkj+5ZOr1SETXBKCEv1Bm3
-	 qzlru7RAjOhg+3+3OWKvSD2zgbomOxaZMMPt4gOeGXpQ4aOfNAdplOfEekOTioaWRZEOu
-	 UGp20nWedTi9lgXDHLP98FZXLBF9FH0ujx1vUoXzf052jNO0GwRQ9V5e///rqXDv/uPka
-	 FlCTmxaGZxb0M3TWh1MluM2bP9JYWB+pIWSL+m0cCXS8aeeTsSyFmVlAzzhQkjVsO7m2R
-	 KAPH2uaAM5zf69g3qP2HIIozXFgYe1mX1niFXmkDQtVGclH+RYIk5Gf2vDkpCg9Uuqw==
+	t=1794578131;
+	b=oYgxtJxQDskBfwNaP6t19Ra6L+P4SVH0UMdvI53QG9WZKPrRLDCLuxwpAIN95HAprPAb
+	 gDmLLdjv4VgJuLvMHR7GFGjtaog4MDywE6MDrai2kqCKPYGE6z/pkP1DB5gr23q6PIzPn
+	 JdVQgyavSb+yJMfHvOjerSMhC54tQXhC91XKlGXM3B3tOEub5KF4Pjz9v97hMG0MbGO2e
+	 oxwIp8yUm8opaE7BTMJuNrxM7l1/l0pdCwh9BhqYZtG1whA5ADSGloTT0BYOU9kf59YMa
+	 gHy/JWmOGTqurD7+OOoKqlimdmvLtkykSbRUbpeomvq1HVR+0uQcf1XfN4X1knsU/CQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578104;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=0C2yalGdx6wKGFDsGp7XJEGbyjvOgIDpciutSW90K6w=;
-	b=a3N/ZSJ7kfNXfmXYVWTAoQWO6UjTofCfXDHqhPgms/kpWw0zR96GqLN3R7qVQbAzqjMn
-	 S5hpdfvjx2RqB7hYp0TFS4KxvTjVinnjwMiH5aw/Gzd7NmRSTAVOSYFwA4d2QncR20mu3
-	 o2jFpkUbqpYqihgYo3bS/PgLO90W+U0el4azyVjNMT/GWB5wWHFnzhrBbDj+rSllIhf/t
-	 C+z7KzOWSOoWxawaeaOQWEfShmbDsH9KFDM9roaxwoWPEUN30ObJeTWJdY/u1U28oDHv/
-	 vvs2iOpNRplrLSBAxzLXB8FIwfC+rl/x3tVc3fxEi0mHUeg0Zco/5zRhNZuwpXliTTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578131;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=t6pTPht3eimr74wi6pmlhJjfBxTMCktHwtP93q4eCVI=;
+	b=nFOxBySF9CE/FaO9jLcJk2qxk7l7lVnPi2fUFmNZDqx6TRxkSYTfqBtj0gzxrZDpiMUL
+	 g58qnc5BeUIk1U5W9eFJhwIOw9/1o63tH7V6HTEWa3u+++ujgqnuCWqgQM8VOaWdB+9rw
+	 K4foQMm6hD5WTlEofG2twXxbNoToIKz78u7z0eSQQ+ShbRyIoVFAc6yFF+iX1KVIxe+Z0
+	 3kQArb8qpybhPADhSn/WUaqdA1PjNcqwevbnZ3d1nJRrTIIl31i/cJFfWRWVVRyHxs81G
+	 j+ZLejAd/GLPqNzSIPR3fu0h7/hIXJPBHNhmnTBDgKkarwH/QucMi3EL6GtrkPOO3iA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=J6RZ5ab5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.171
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oRi8t7Sq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.51
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010051.outbound.protection.outlook.com [52.101.85.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE2E606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:55:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAE2E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C5F606A339;
+	Fri, 13 Nov 2026 13:55:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97C5F606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=J6RZ5ab5
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-4af81963f35so1258236b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:55:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794578103; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sob33l3VxM1Iq4+stVrVumSdb06sS7+yliZz42qAV5wYalQBlfO6CuFPwR9Jc9ApIh
-         zXzu6yioNP/dAqNygWv6cpSkNkVI4Wt+nvK6U5dFwYfn6cWUuI55E2DKOMTGFiVZjnPS
-         48m9TtfsZMu4vJORkPXM1GNyyS9ZJwXK7lmKdj47rlpjuoxIDqfNx2387sqxKF+ci6mc
-         qzGBISgXY5DvP5bKnby63acYmxh+nVmbTnrSvDhSlxj9W50jE1ap8uF8fMzQLXr4/FkI
-         +IRIHzcTgouqcS0UzlIM4WHf3GunpPdskBgL2COEWsWB6w7W+mPpPmGVReYAC3mNGqcf
-         mUQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0C2yalGdx6wKGFDsGp7XJEGbyjvOgIDpciutSW90K6w=;
-        fh=PP3FYsd4BCglVDWIq8QJ/1WdsBC3VtdsZEC4yDPhSms=;
-        b=TW8Q3VT6uQyndH462w7CGKnZZ7o2vqcr+qmsgd1JaTZ+aziyYalK20iVoBIoMFHSEj
-         bzmAMSyMd5w6eHDpzzIZ69zKnvNW3gEpO4Vznt0aULflI4mS8ALz6TmxMxzttTzoGMin
-         8gJ+q8T7nm6TF1NfqooclgI8RFZauYOl8CTXly/IE+1kSC1/TeErTldHLoZXF7/o6zuJ
-         eycXgD8i8v8LWD+2/wdpUXODmA0lOdXscfroaiKJCIDNiBdTPAq6q+ANcLiuQlVfIW9m
-         tqiHmtOzfpYdYE+DG12e+87u7jafgQUNOpc3mz61UTAV0Hv+/p8UyAzpfu/03gUvHoI1
-         FEKg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794578103; x=1795182903; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0C2yalGdx6wKGFDsGp7XJEGbyjvOgIDpciutSW90K6w=;
-        b=J6RZ5ab5UXSwcd6r6MnWMgbLFchJAoo+9Pm/kFc4B779wfv31aiE0ycYSYAWg71Hsr
-         yZ9akqMiU4P+odRT3gWIDNKs99JSGEVqeoFsANLpfnRH3iVTjGRyeySetgHua/HQ9ERp
-         cR2kXBE4ja0bTfirjwffOLepAnEwgmwIqSeOG/yBxGgKkIjIIhsiD1mklyikL0VZqsxE
-         rdGMdG7+fc2d6UXA9x92K9XgAq4Oj+lQj9baqSeirDYXLQ5sZr/ETRRckIbeG5mGrfRU
-         SXdNqCOaunQ6ezsKkoyTzvZ+KZ8qL5oPxTZDWFaiLAmkh0Jkx/qjqX8gd1MqVtX7r7Wq
-         y3pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794578103; x=1795182903;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0C2yalGdx6wKGFDsGp7XJEGbyjvOgIDpciutSW90K6w=;
-        b=1gxpJv2E3EiWEBkhahhI1EKkXGF/SvSxKwm1S2qNU2yQaB09U+fxXuBM+ndMMbHQrd
-         7jvMbhORNjGxGlE7Q796+Ve8E5rbZC4pqA1UUQ1TfKkcEa9i85d4H+RkhsfTUtfsQNgD
-         xS9He74bZd6DXrKKN6Nz1DuZH3RaCr0A/0qx28gpempYJA0GqBXKc3QHjJ9P0PdA7Fyn
-         rDJYJHqQ2epz2WeN1Vf9E7Wz4HoNHzOePJaraQNj7KAdbIm00s6zKwXAtl68eE5r6Tp8
-         iiBfOCWCyL/EYMnmHbrdRyMcCmXNXBKQxWlx2ylm0nM/YYjY1KX22YyggP/NIbnBVDAY
-         hhqg==
-X-Forwarded-Encrypted: i=1; AL+hErE0ef1cRxfptqO1qDPRoZv+ymerBKsDZOSwja9Y8ug01aLoXiU1cqA1OmhytQ6J32hnQHc2VmvCH6RO2z8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pW7O1a2ekYZG+3cqP7obAIJsmea38vplLktDNIcoeTubYTURx
-	tcu+m/fO962ECvHQgoxTgq2juavDT/LM18ex909w+Wklbzx95Xa3GjgAeSqXvJO+vvMpvWiaBbh
-	oLT7/24iw7VZgWrEA/+M3yuR4hy2jfJRS5Vl3iAmNXnZCaSMREPFu8vYTDi8=
-X-Gm-Gg: AYBFou1yhDQGjZxHPVyIr/ExcuUCL0RShkc7yVZaylAHPK0d3anGthf3gUC1nOETo9Z
-	7vHqHOiSSWwdHG+2Ysb/ujQ6EN7vubYc893romrnXDi2FSgOnochtxymcMWyGUOZgLt2FT6lNWY
-	VVqEedsKrJxpC9sEf4Zjumbr2mvj3lWWa4BUBBSu/krNMth/0P4TbPZOvrujxamjtKFLxpv1Nfu
-	tKMpQSnrq4V08wLZ8ZMPo0uZVILCoOMHq6dmU6iqv/Dz6RyX1dlYNLFfPZXXWuwed5MdRar/8rW
-	PSW2h9gHzz7x3UlyhU1h0QN7pJHTZtziHDhbaS7Xw4JFepyKyiZcTPNbrxtkfytc9nGZ2p6T9BZ
-	RGi4Yob/q0iYvVAy95dbWgFwQjJZ0cC+SBaBx9osjq2fJOHb6pWIxAzfsmllthCWmeXIpol9AYh
-	qLsZ7yBrMHTUrqmfrS0mq/O0xHfFz75CH3u08Ft+ajrCaXIhZTf43UE/qQ6J+wYv+9S614GsWf2
-	ohdd8LR
-X-Received: by 2002:a05:6808:179e:b0:4d6:9252:48c9 with SMTP id
- 5614622812f47-56e6520efa1mr1712240b6e.53.1794578102089; Fri, 13 Nov 2026
- 05:55:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oRi8t7Sq
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QWAnek0Rlzpsl8/YbLqV/iqGW3D3pGLJtu4M+qtkNBPyoeGeBAriacjAvYjSFDid0PUbfO8aNhmwq3l7U6W4Q+sXDOvYDWzwtqw9y0S6lngYSqdpjSVP9Cbupardt6LtO57GUNIJwtiwHCG/lZRPUIcb1/WBzTrv3o7ZqMz+Th4lQnZNwAlIJZGZRJ8wY4ca6GT+u0L1bSD7T4O+ewTWrKmKbMdmM15WHPNXffT7pBQDajnrtLh3x9+kG2agHp6Jhb/K8mME72E5NSlAYya0V6SZV3+KULwKNuWfJm7Vqo3fQIehf821Nc5D8xugPRWZ1ISn9WOR/6PPKmP4aoR6Pg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t6pTPht3eimr74wi6pmlhJjfBxTMCktHwtP93q4eCVI=;
+ b=eFoLMUH2Y9wfzuHz0He/pF2zaOGgmSGhkb+M6PH/YgvpB2BbZKJtufsplEXYK4QUDQKW8jVQ4/gXoN+LbOMOu8DBtonqd1QQhB3R6c+KlrJysmBsXpMqYWjTuDhvpd7nkbuhofPjxO9N0Y4IrwBVh7z/PEvASC/jWV0m8zeLItWrMdDEPmbcy8MmuTrIIR5OrbIEC2+Wogjg33twUfAvlDB6CScV4iu0KVsSOa589ooAiThw/O6/fch5LcpCQuTAvwtGb2NGNOxeQDD/sa5Ndq/V0nux9qTDZS9zTjvt62D+Ov0483RdofKJW73nF1MwSPk3lJV1DVYstDTogJEPNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t6pTPht3eimr74wi6pmlhJjfBxTMCktHwtP93q4eCVI=;
+ b=oRi8t7SqK048AM2E16Ao+7MsJp+1YDM/Ue/qTDPG/bTxnkbARb15hh/uHxdtapjpeGl/qjhdv2wcwfEirmd/tKdWlqLSGtpSo3sb5l/VKq62jFSeB9hXAE//gZrrI4EaEGK+5GhbMCGfGI0zvlqS6N8HBJMfG3frsAUFcZU1UHCmoEemvWm9ab0IXfOBl0Pnmf63/dfXBE6xCt/xJqqGPDF3TV0KozinUFcPTbzdYegszsIRbO0T7+Vn70qrmk2Fc7L2V0PmnoGBTFOeEFQiv04m+TyY1ULRKzzGH7vi+7RXxu8VRTmtkh3/LD/wtF1LBOcQFXYJZeLS91NpXQ74Lw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA1PR12MB5637.namprd12.prod.outlook.com (2603:10b6:806:228::13)
+ by SA1PR12MB7342.namprd12.prod.outlook.com (2603:10b6:806:2b3::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 13:55:22 +0000
+Received: from SA1PR12MB5637.namprd12.prod.outlook.com
+ ([fe80::29a8:4659:6935:73f7]) by SA1PR12MB5637.namprd12.prod.outlook.com
+ ([fe80::29a8:4659:6935:73f7%3]) with mapi id 15.21.0615.007; Fri, 13 Nov 2026
+ 13:55:22 +0000
+Message-ID: <c5353b88-e1bb-4ea3-8a7d-f468c1155968@nvidia.com>
+Date: Fri, 13 Nov 2026 19:25:13 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ACPI: CPPC: Scale EPP values to the register width
+To: Christian Loehle <christian.loehle@arm.com>,
+ "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Mario Limonciello <superm1@kernel.org>, viresh.kumar@linaro.org,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ zhanjie9@hisilicon.com, zhangpengjie2@huawei.com
+References: <20261112131316.827708-1-christian.loehle@arm.com>
+ <592580a1-ba88-4e22-b586-4aa2425f9760@arm.com>
+ <CAJZ5v0gXjngKSxX0Ku2wccWj9+oDQ7YqS6ziFZXDzMgm5GjVzg@mail.gmail.com>
+ <f8d23034-0d28-4726-829e-51cf687e5589@arm.com>
+ <37efae02-1f49-45ff-9e51-5a6a921ed1d5@kernel.org>
+ <4d9261e9-fc66-4197-b3ba-edcc98ffaaf7@arm.com>
+ <2b72fea4-b2ba-4ae5-91e8-d5830f024b2f@arm.com>
+ <CAJZ5v0g0b2iG21ExDhDjjaJN1Hwgmd53Ph690teqoRVexP1bTQ@mail.gmail.com>
+ <5a7fe17b-2b65-4157-b6a7-d7c0a1ee3fb5@arm.com>
+Content-Language: en-US
+From: Sumit Gupta <sumitg@nvidia.com>
+In-Reply-To: <5a7fe17b-2b65-4157-b6a7-d7c0a1ee3fb5@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0235.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1f4::17) To SA1PR12MB5637.namprd12.prod.outlook.com
+ (2603:10b6:806:228::13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,178 +107,294 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <6af6a9e8.fe96acdb.12252b.0000.GAE@google.com>
-In-Reply-To: <6af6a9e8.fe96acdb.12252b.0000.GAE@google.com>
-From: Aleksandr Nogikh <nogikh@google.com>
-Date: Fri, 13 Nov 2026 14:54:50 +0100
-X-Gm-Features: AclHuK9gPAeneZ0by_7S8O--DcO6yZl6a4icpapqzvMYjM1LieCofYV3lTcxPMw
-Message-ID: <CANp29Y63u6oNiz96PGUtH+pg+miU6Rk9bNty6-J2Ggz_HfbFgw@mail.gmail.com>
-Subject: Re: [syzbot] [kernfs?] BUG: unable to handle kernel paging request in kernfs_unlink_sibling
-To: syzbot <syzbot+02ab1258b7fa66eb1f7f@syzkaller.appspotmail.com>
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR12MB5637:EE_|SA1PR12MB7342:EE_
+X-MS-Office365-Filtering-Correlation-Id: 74d5bcf5-8ca5-4578-8378-08df418dc233
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|11063799006|4143699003|56012099006|261021135927099003|261021123027099003|261021121427099003|261022105027099003|261026121527099003|261026140227099003|261022075727099003|261009223027099003|261028144727099003|261102123227099003|261102130727099003|18002099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	5jLJ7J/0+o6UDdyXUWjm1KZLjGmq9Cb8cW3AP0MLnkxDrGnqxxFPYuPyjSgStmCWfvmqbhRDpCbpR9+rgW6KU6YgJTEaXhwcrhNj6jUWTk1SzsihsY5bG2tig1TSiL/W+GoEBmslggKwnYnrgHcT0hM1uMgkKmu+NyHuMSNV6aGNNjT2NdyLBgeiwhdf9VIGuwuWXxX1OYqdj/XhWY8cIQHKj92HRhWwNW/PkSOCAKeCcBkLmxCz46Ej6r3GnFpm8+7zEGinTF4H4dlwFwvvT/rVuGWeVzQgjpWBri9WnTI+uF0yY6AsFqYmxGduWNDqWv8UB4wJ1Bitp/LTWuW6efp5/rf6OeaU7C2V4VnycZuvFY/x/WiW0aGg4TqmONsZ5eVyZ2Tq8+VxJtGVVigPxSka/nBIPDyhALG+28S7B2vuhCyilenGgDsq9b+fmBgGkz/+EZA3IWtdrlXeltmMhrCMx0VmTUObqtVte6kQ8lJ/oGSf/4UwnWM0mYcu+cdG7tfSS6QC7RzJAelr5/6MXOyS21BHkl6WyXDe0HaLtEktQctUNp6eCR32So8KDtaA1foEuUBpDDQbEWJ4NQeBwFSIn8bvLNRDEHF1R0hWAkBzDjW8l/4FtwSeJO2XwDOABIElQLFWelfsXzIwo/UP0ivIbDGQtKhP5oiQbkBh5+4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB5637.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(261021135927099003)(261021123027099003)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261009223027099003)(261028144727099003)(261102123227099003)(261102130727099003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ajlneHl6N3JqRUxIaXB5TkhJWHdGTzdEdUpocGlqN1c4eVp5ZHVxcXg4WHp0?=
+ =?utf-8?B?YSsvdGFmSEhsUFZzVWk1RFJzZEVxM09IZCtyaDdMSjdlZ1lLRElLaVlCV0hW?=
+ =?utf-8?B?MHRHeThOODBNcWlwMkxvT1NyaGNIS3MzSXJ4WjNMOWY0V2hkNU5RbUhqMVov?=
+ =?utf-8?B?dGRFUUhwNVpmTThLOXBIak1OWitUTGlPYzN6MjVhSGh1RkFYb1huZDVrUUhS?=
+ =?utf-8?B?WVNVOWt2SmNaU0pORUFUOWsrZWlLc1lBaFIweWJUWmdOR2FVWE8yQy9iYzlK?=
+ =?utf-8?B?Y2JXeThpdC9COGdyOVNTbWVaeENpMkZzWEFPT2JkczY1NWJ3aHRiMlRoalV4?=
+ =?utf-8?B?YW9IeFoyMWVEWTlJcElMM2RzVkFDRFZDanJKazczUGVrWFptSUI5ZXp4Nmdy?=
+ =?utf-8?B?aExJNDdiczExZUQ3eWRwUERQOWZ0MFRMMDJsOWVhdzFXZ3Rncmc4Ry93ZjVB?=
+ =?utf-8?B?ZER2ZENCa3c4RDdoWVFlTloyMUlrQ3NQQklVK2dsM2RDSFBJVXAwZnJ0Skh1?=
+ =?utf-8?B?bk55ZE44ZnlveVV2Wi9YUkFMampRQTdMUEUvbjZsMFczK2ZycmRULzVyOUY0?=
+ =?utf-8?B?YmtYNitoTlpKMzNoVHQvWVV6NXcvSGlFenJieGgzMUlRU3I4WEo3eTJUT2lV?=
+ =?utf-8?B?cTUvZjhIRzdLY0U3U05KUWFhM1RtVGtma1RFV1FkRWdzUTVyZjdxYVFLK3px?=
+ =?utf-8?B?SDhpaU5Vell1TDN3S2ZVQi9oZGd6Mkk3cEFveG9mZHN1bnBRZHBmOXRNMEhR?=
+ =?utf-8?B?WGljYUVWd3Y1TEg2bE44dE9YeWtyK1BTTlMyZElEU1dIamFMSzE3SXNhQ1dq?=
+ =?utf-8?B?Y1VqV2dEUmMydmdpQkE4UnlvVERYcDdGcnpTTmFId0hRd2dEem1RUkRQcHI4?=
+ =?utf-8?B?ZDd5bnk2a29XSVB1SEN6Q3BmV0ZleTkvSTJoT1NIb2gxK2V4TUZRdVJiaU52?=
+ =?utf-8?B?ZGgzUjNxeVdLbmRsekQwcUNLd1loQVVPUHFQb0htcUE1OW1kckVuQzJBV25C?=
+ =?utf-8?B?TVd0c2YxcXptZzB3NWU4by9ycFFQRXc5VmNjNEFXQTJMRFpqY25jQU1JY2Nq?=
+ =?utf-8?B?amd2bHZ3UW8wVUVNYnJXSTlUaU1jOXBic2I4NWhYbTVhTldmRTllNUJqNUdG?=
+ =?utf-8?B?cE5YanpmWk9sNCtRR24yNy8yRk9YYm94RTVabThoVVgwR1o3U2ZIN1JjbFJw?=
+ =?utf-8?B?YkZWTE14S3g4NnZTVVFTTjllWTV0ZGoxckdHcmlUMCtGR1dTZVV4QlMvVGg0?=
+ =?utf-8?B?cy9jUDJEaVNncStydmhERWRvL2ZwUVFiRDF6ZzdqbVdZWVZWYjhsS2V2K0Np?=
+ =?utf-8?B?amgxb1JvanpTRkZZWmFGSjFoVTh1RkxYNVRxRTZiU0Y4U21QSWlnYWpYRTVa?=
+ =?utf-8?B?VzJXN2J2QjZOMFc2elp0YUdsYzB2NEZ4bWx5Nm13NjZpMHhORG92RVhYRkxX?=
+ =?utf-8?B?dS9QUzZhRHlybWNRQWFYdzZyYjdoZTdFVXVrWTJFTkY2dFZ3QWRtN3phSCs3?=
+ =?utf-8?B?NmRhRnRYQlVhaHRzTjVUc1BnTklPQUVhSCtaaW9IME45MzViTFJLK2NMdk91?=
+ =?utf-8?B?dHFWZDVnZnM0L3JzMDlGT1hPamxrYzRaYkZYaGZ3S0hsUCt4WFFZZkhFQTFN?=
+ =?utf-8?B?NE1XV08zTm9OMmppTHNyVHNXRGtPaE5PQjRxQW4vNmdTdmtuVVR6Znczc3Er?=
+ =?utf-8?B?Q1kyRHFjVWdSRnZSTmVPQndVbkNSQUJRS2RjSitsNm1Fc3pBWVFPYjZDS1Va?=
+ =?utf-8?B?UFY3K252Z2VYdHVvaXhDYWI2YnJBQm9mTnptTjk0K0ZvcDczbUJVWko2OXd4?=
+ =?utf-8?B?aXVKUVJEM3dyQzZET0VvVzFESUdkTnRMdE5wMHFVeVdjTFlmY0ZqWHRQYmZ3?=
+ =?utf-8?B?ZnVSWlB6a21KK1o0c2pEZUdVNHE2R3ZCWUw0MUQ5czVaRy93V0ZXMDZmd0lS?=
+ =?utf-8?B?SW5VNGt1VjVrWE5lcVRtOVRvYlFkWXRnbFk2dzRQZmF5S1pPUkVmZSs5am1v?=
+ =?utf-8?B?NDNpUkZza0V6cm8yNXhIUjZzK1NrZXFjd3NrWGswSko4blhxenNtOVZycHFp?=
+ =?utf-8?B?bG9ONDFHb0ZlRW5uMWtPSWZ6TG8wbVpxVmlsQVhkc1ZkT2hESU44YVpEUjQw?=
+ =?utf-8?B?RHZGWjJGV0NtdEY0VWVSQ2pScWJmWnZxTTU3MS8zd0FFcXRjM3FpSVZnNGZz?=
+ =?utf-8?B?dDhraWh2RlhMc09NbERMdWs5SUJKekhGQVJ1d1Qxbkt5RzNjREtQdmZxaVFm?=
+ =?utf-8?B?LzBkdlBKS2N4UlhJQkFoeTdCcUhEd3JsVkRLWU4zbjg0OWUzaENaTWQvV3hl?=
+ =?utf-8?Q?fHpboASvPCdRgZSI6k?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74d5bcf5-8ca5-4578-8378-08df418dc233
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5637.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 13:55:21.9812
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IrTY/uMNZBRdxH7+WWpgkcERXP4sBAvtIM+k/N6XGohjEeN/L0ye3vG1Usp7AVBJBbd9Xh8nt/pqTkOpiNSp9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7342
 
-#syz invalid
 
-Should no longer appear after https://github.com/google/syzkaller/pull/8111
 
-On Fri, Nov 13, 2026 at 7:10=E2=80=AFAM syzbot
-<syzbot+02ab1258b7fa66eb1f7f@syzkaller.appspotmail.com> wrote:
->
-> Hello,
->
-> syzbot found the following issue on:
->
-> HEAD commit:    58c1eb84e977 arm64: sdei: Preserve the interrupted contex=
-t..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux=
-.git for-kernelci
-> console output: https://syzkaller.appspot.com/x/log.txt?x=3D10ee7f8d58000=
-0
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=3Da58b6b4d667e7=
-a61
-> dashboard link: https://syzkaller.appspot.com/bug?extid=3D02ab1258b7fa66e=
-b1f7f
-> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.=
-8
-> userspace arch: arm64
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D17119f8d580=
-000
->
-> Downloadable assets:
-> disk image: https://storage.googleapis.com/syzbot-assets/b1ec47537e12/dis=
-k-58c1eb84.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/3bca0c2b1169/vmlinu=
-x-58c1eb84.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/0a7c49594d5a/I=
-mage-58c1eb84.gz.xz
->
-> AI-generated root cause summary:
-> The crash manifests during network namespace teardown (cleanup_net ->
-> rdma_dev_exit_net -> ib_free_port_attrs -> destroy_gid_attrs ->
-> kernfs_unlink_sibling -> rb_erase) when ____rb_erase_color encounters a N=
-ULL
-> sibling pointer and dereferences address 0x0 (detected by KASAN at shadow
-> address dfff800000000000). In a valid red-black tree, ____rb_erase_color =
-is only
-> entered after deleting a black node, so the sibling subtree must contain =
-at
-> least one black node and sibling can never be NULL; furthermore, all kern=
-fs
-> directory operations are strictly protected by root->kernfs_rwsem. This r=
-btree
-> corruption is induced externally: userspace mmaps the PCI BAR0 MMIO windo=
-w
-> exposed via sysfs (/sys/bus/pci/devices/.../resource0 in
-> drivers/pci/pci-sysfs.c) and writes arbitrary data into device MMIO space=
-,
-> reprogramming hardware DMA queues and causing device DMA to overwrite ker=
-nel
-> memory structures.
->
-> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=3D02ab125=
-8b7fa66eb1f7f
->
-> IMPORTANT: if you fix the issue, please add the following tag to the comm=
-it:
-> Reported-by: syzbot+02ab1258b7fa66eb1f7f@syzkaller.appspotmail.com
->
-> Unable to handle kernel paging request at virtual address dfff80000000000=
-0
-> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-> Mem abort info:
->   ESR =3D 0x0000000096000005
->   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
->   SET =3D 0, FnV =3D 0
->   EA =3D 0, S1PTW =3D 0
->   FSC =3D 0x05: level 1 translation fault
-> Data abort info:
->   ISV =3D 0, ISS =3D 0x00000005, ISS2 =3D 0x00000000
->   CM =3D 0, WnR =3D 0, TnD =3D 0, TagAccess =3D 0
->   GCS =3D 0, Overlay =3D 0, DirtyBit =3D 0
-> [dfff800000000000] address between user and kernel address ranges
-> Internal error: Oops: 0000000096000005 [#1]  SMP
-> Modules linked in:
-> CPU: 1 UID: 0 PID: 1195 Comm: kworker/u8:6 Not tainted syzkaller #0 PREEM=
-PT
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS G=
-oogle 11/06/2026
-> Workqueue: netns cleanup_net
-> pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=3D--)
-> pc : ____rb_erase_color lib/rbtree.c:354 [inline]
-> pc : rb_erase+0x4e4/0xba0 lib/rbtree.c:445
-> lr : kernfs_unlink_sibling+0x190/0x218 fs/kernfs/dir.c:449
-> sp : ffff800094d775f0
-> x29: ffff800094d77600 x28: ffff0000d985c408 x27: ffff0000d985c410
-> x26: 1fffe0001b30b882 x25: dfff800000000000 x24: ffff0000c6b58ca0
-> x23: 0000000000000000 x22: 0000000000000000 x21: ffff0000d98545e0
-> x20: ffff0000d985c400 x19: 0000000000000000 x18: 1fffe000359d3e28
-> x17: 0000000000000003 x16: ffff8000898b7000 x15: 0000000000000000
-> x14: 0000000000287419 x13: 0000000000000001 x12: 0000000000000003
-> x11: 0000000000000000 x10: 0000000000000001 x9 : 0000000000000000
-> x8 : 0000000000000000 x7 : ffff800080f6a0dc x6 : 0000000000000000
-> x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008046e414
-> x2 : 0000000000000001 x1 : ffff0000c6b58ca0 x0 : ffff0000d98545e0
-> Call trace:
->  ____rb_erase_color lib/rbtree.c:354 [inline] (P)
->  rb_erase+0x4e4/0xba0 lib/rbtree.c:445 (P)
->  kernfs_unlink_sibling+0x190/0x218 fs/kernfs/dir.c:449
->  __kernfs_remove+0x36c/0x748 fs/kernfs/dir.c:1584
->  kernfs_remove_by_name_ns+0x70/0xd0 fs/kernfs/dir.c:1796
->  kernfs_remove_by_name include/linux/kernfs.h:644 [inline]
->  remove_files+0x90/0x184 fs/sysfs/group.c:28
->  sysfs_remove_group+0x98/0x160 fs/sysfs/group.c:328
->  sysfs_remove_groups+0x5c/0xb4 fs/sysfs/group.c:352
->  destroy_gid_attrs drivers/infiniband/core/sysfs.c:1143 [inline]
->  ib_free_port_attrs+0xa8/0x340 drivers/infiniband/core/sysfs.c:1367
->  remove_one_compat_dev+0x54/0x7c drivers/infiniband/core/device.c:1035
->  rdma_dev_exit_net+0x188/0x388 drivers/infiniband/core/device.c:1173
->  ops_exit_list net/core/net_namespace.c:200 [inline]
->  ops_undo_list+0x3cc/0x81c net/core/net_namespace.c:253
->  cleanup_net+0x474/0x6c4 net/core/net_namespace.c:708
->  process_one_work kernel/workqueue.c:3495 [inline]
->  process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3578
->  worker_thread+0x798/0xbd0 kernel/workqueue.c:3659
->  kthread+0x304/0x3d4 kernel/kthread.c:436
->  ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
-> Code: 91004280 968b3531 f9400376 d343fed7 (38796ae8)
-> ---[ end trace 0000000000000000 ]---
-> ----------------
-> Code disassembly (best guess):
->    0:   91004280        add     x0, x20, #0x10
->    4:   968b3531        bl      0xfffffffffa2cd4c8
->    8:   f9400376        ldr     x22, [x27]
->    c:   d343fed7        lsr     x23, x22, #3
-> * 10:   38796ae8        ldrb    w8, [x23, x25] <-- trapping instruction
->
->
-> ---
-> This report is generated by a bot. It may contain errors.
-> See https://goo.gl/tpsmEJ for more information about syzbot.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
->
-> syzbot will keep track of this issue. See:
-> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
->
-> If the report is already addressed, let syzbot know by replying with:
-> #syz fix: exact-commit-title
->
-> If you want to overwrite report's subsystems, reply with:
-> #syz set subsystems: new-subsystem
-> (See the list of subsystem names on the web dashboard)
->
-> If the report is a duplicate of another one, reply with:
-> #syz dup: exact-subject-of-another-report
->
-> If you want to undo deduplication, reply with:
-> #syz undup
->
-> --
-> You received this message because you are subscribed to the Google Groups=
- "syzkaller-bugs" group.
-> To unsubscribe from this group and stop receiving emails from it, send an=
- email to syzkaller-bugs+unsubscribe@googlegroups.com.
-> To view this discussion visit https://groups.google.com/d/msgid/syzkaller=
--bugs/6af6a9e8.fe96acdb.12252b.0000.GAE%40google.com.
+On 13/11/26 18:02, Christian Loehle wrote:
+> External email: Use caution opening links or attachments
+> 
+> 
+> On 11/13/26 12:28, Rafael J. Wysocki (Intel) wrote:
+>> On Fri, Nov 13, 2026 at 1:22 PM Christian Loehle
+>> <christian.loehle@arm.com> wrote:
+>>>
+>>> On 11/12/26 17:19, Christian Loehle wrote:
+>>>> On 11/12/26 17:11, Mario Limonciello wrote:
+>>>>> On 11/12/26 08:05, Christian Loehle wrote:
+>>>>>> On 11/12/26 14:01, Rafael J. Wysocki (Intel) wrote:
+>>>>>>> On Thu, Nov 12, 2026 at 2:58 PM Christian Loehle
+>>>>>>> <christian.loehle@arm.com> wrote:
+>>>>>>>>
+>>>>>>>> On 11/12/26 13:13, Christian Loehle wrote:
+>>>>>>>>> The EPP sysfs interface uses 0-255, but ACPI permits 4-8 bit fields.
+>>>>>>>>> Writing 128 to a 4- or 6-bit SystemMemory field currently succeeds but
+>>>>>>>>> stores zero, selecting maximum performance.
+>>>>>>>>>
+>>>>>>>>> Scale writes to supported narrow EPP registers and normalize reads to
+>>>>>>>>> 0-255. Cover both EPP setters and cppc_get_perf() so saved firmware values
+>>>>>>>>> round-trip correctly.
+>>>>>>>>>
+>>>>>>>>> Fixes: 922607a2b462 ("cpufreq: CPPC: Add support for autonomous selection")
+>>>>>>>>> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+>>>>>>>>> ---
+>>>>>>>>>    .../ABI/testing/sysfs-devices-system-cpu      |  5 ++
+>>>>>>>>>    drivers/acpi/cppc_acpi.c                      | 46 +++++++++++++++++--
+>>>>>>>>>    2 files changed, 47 insertions(+), 4 deletions(-)
+>>>>>>>>>
+>>>>>>>>> diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
+>>>>>>>>> index d219fc27a0c9..c63b5cfd993c 100644
+>>>>>>>>> --- a/Documentation/ABI/testing/sysfs-devices-system-cpu
+>>>>>>>>> +++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
+>>>>>>>>> @@ -322,6 +322,11 @@ Description:     Energy performance preference
+>>>>>>>>>                 performance increase/decrease and the result of the hardware's
+>>>>>>>>>                 energy efficiency and performance optimization policies.
+>>>>>>>>>
+>>>>>>>>> +             For supported EPP registers narrower than eight bits, values are
+>>>>>>>>> +             scaled and rounded to the nearest hardware preference.
+>>>>>>>>> +             Reads use the same 0-255 scale and may differ from the requested
+>>>>>>>>> +             value due to the reduced precision.
+>>>>>>>>> +
+>>>>>>>>>                 Writing to this file only has meaning when Autonomous Selection is
+>>>>>>>>>                 enabled.
+>>>>>>>>>
+>>>>>>>>> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+>>>>>>>>> index 11a9f9eb6b4a..10b52163eb56 100644
+>>>>>>>>> --- a/drivers/acpi/cppc_acpi.c
+>>>>>>>>> +++ b/drivers/acpi/cppc_acpi.c
+>>>>>>>>> @@ -38,6 +38,7 @@
+>>>>>>>>>    #include <linux/iopoll.h>
+>>>>>>>>>    #include <linux/ktime.h>
+>>>>>>>>>    #include <linux/list.h>
+>>>>>>>>> +#include <linux/math64.h>
+>>>>>>>>>    #include <linux/mutex.h>
+>>>>>>>>>    #include <linux/rbtree.h>
+>>>>>>>>>    #include <linux/rwsem.h>
+>>>>>>>>> @@ -2841,6 +2842,25 @@ int cppc_get_highest_perf(int cpunum, u64 *highest_perf)
+>>>>>>>>>    }
+>>>>>>>>>    EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
+>>>>>>>>>
+>>>>>>>>> +/* Keep the EPP interface on an 8-bit scale, including firmware readback. */
+>>>>>>>>> +static u64 cppc_scale_epp(const struct cpc_register_resource *reg,
+>>>>>>>>> +                       u64 epp, bool to_reg)
+>>>>>>>>> +{
+>>>>>>>>> +     unsigned int width = reg->cpc_entry.reg.bit_width;
+>>>>>>>>> +     u32 max;
+>>>>>>>>> +
+>>>>>>>>> +     if (reg->type != ACPI_TYPE_BUFFER || width < 4 || width >= 8)
+>>>>>>>>> +             return epp;
+>>>>>>>>> +
+>>>>>>>>> +     max = BIT(width) - 1;
+>>>>>>>>> +     if (to_reg)
+>>>>>>>>> +             return DIV_ROUND_CLOSEST_ULL(epp * max,
+>>>>>>>>> +                                          CPPC_EPP_ENERGY_EFFICIENCY_PREF);
+>>>>>>>>> +
+>>>>>>>>> +     return DIV_ROUND_CLOSEST_ULL(epp * CPPC_EPP_ENERGY_EFFICIENCY_PREF,
+>>>>>>>>> +                                  max);
+>>>>>>>>> +}
+>>>>>>>>> +
+>>>>>>>>>    /**
+>>>>>>>>>     * cppc_get_epp_perf - Get the epp register value.
+>>>>>>>>>     * @cpunum: CPU from which to get epp preference value.
+>>>>>>>>> @@ -2850,7 +2870,15 @@ EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
+>>>>>>>>>     */
+>>>>>>>>>    int cppc_get_epp_perf(int cpunum, u64 *epp_perf)
+>>>>>>>>>    {
+>>>>>>>>> -     return cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
+>>>>>>>>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
+>>>>>>>>> +     int ret;
+>>>>>>>>> +
+>>>>>>>>> +     ret = cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
+>>>>>>>>> +     if (!ret)
+>>>>>>>>> +             *epp_perf = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
+>>>>>>>>> +                                        *epp_perf, false);
+>>>>>>>>> +
+>>>>>>>>> +     return ret;
+>>>>>>>>>    }
+>>>>>>>>>    EXPORT_SYMBOL_GPL(cppc_get_epp_perf);
+>>>>>>>>>
+>>>>>>>>> @@ -3150,6 +3178,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>>>>>>>         bool auto_sel_non_pcc;
+>>>>>>>>>         bool epp_pcc;
+>>>>>>>>>         bool epp_non_pcc;
+>>>>>>>>> +     u64 epp;
+>>>>>>>>>         int ret;
+>>>>>>>>>
+>>>>>>>>>         if (!cpc_desc) {
+>>>>>>>>> @@ -3159,6 +3188,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>>>>>>>
+>>>>>>>>>         auto_sel_reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
+>>>>>>>>>         epp_set_reg = &cpc_desc->cpc_regs[ENERGY_PERF];
+>>>>>>>>> +     epp = cppc_scale_epp(epp_set_reg, perf_ctrls->energy_perf, true);
+>>>>>>>>>         if (!enable && auto_sel_reg->type == ACPI_TYPE_INTEGER &&
+>>>>>>>>>             auto_sel_reg->cpc_entry.int_value == 1)
+>>>>>>>>>                 return -EOPNOTSUPP;
+>>>>>>>>> @@ -3177,7 +3207,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>>>>>>>                         return ret;
+>>>>>>>>>         }
+>>>>>>>>>         if (epp_non_pcc) {
+>>>>>>>>> -             ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
+>>>>>>>>> +             ret = cpc_write(cpu, epp_set_reg, epp);
+>>>>>>>>>                 if (ret)
+>>>>>>>>>                         return ret;
+>>>>>>>>>         }
+>>>>>>>>> @@ -3205,7 +3235,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>>>>>>>                 }
+>>>>>>>>>
+>>>>>>>>>                 if (epp_pcc) {
+>>>>>>>>> -                     ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
+>>>>>>>>> +                     ret = cpc_write(cpu, epp_set_reg, epp);
+>>>>>>>>>                         if (ret)
+>>>>>>>>>                                 goto out_unlock;
+>>>>>>>>>                 }
+>>>>>>>>> @@ -3235,9 +3265,17 @@ EXPORT_SYMBOL_GPL(cppc_set_epp_perf);
+>>>>>>>>>     */
+>>>>>>>>>    int cppc_set_epp(int cpu, u64 epp_val)
+>>>>>>>>>    {
+>>>>>>>>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
+>>>>>>>>> +
+>>>>>>>>>         if (epp_val > CPPC_EPP_ENERGY_EFFICIENCY_PREF)
+>>>>>>>>>                 return -EINVAL;
+>>>>>>>>>
+>>>>>>>>> +     if (!cpc_desc)
+>>>>>>>>> +             return -ENODEV;
+>>>>>>>>> +
+>>>>>>>>> +     epp_val = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
+>>>>>>>>> +                              epp_val, true);
+>>>>>>>>> +
+>>>>>>>>>         return cppc_set_reg_val(cpu, ENERGY_PERF, epp_val);
+>>>>>>>>>    }
+>>>>>>>>>    EXPORT_SYMBOL_GPL(cppc_set_epp);
+>>>>>>>>> @@ -3496,7 +3534,7 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+>>>>>>>>>                 if (ret)
+>>>>>>>>>                         goto out_err;
+>>>>>>>>>         }
+>>>>>>>>> -     perf_ctrls->energy_perf = energy_perf;
+>>>>>>>>> +     perf_ctrls->energy_perf = cppc_scale_epp(energy_perf_reg, energy_perf, false);
+>>>>>>>>>
+>>>>>>>>>         if (CPC_SUPPORTED(auto_sel_reg)) {
+>>>>>>>>>                 ret = cpc_read(cpu, auto_sel_reg, &auto_sel);
+>>>>>>>>
+>>>>>>>> +CC Sumit's actual email, sorry about that.
+>>>>>>>
+>>>>>>> So I'm assuming that this one is for Sumit to pick up and send again
+>>>>>>> along with a new version of
+>>>>>>>
+>>>>>>> https://lore.kernel.org/linux-acpi/20261112080442.4007723-1-sumitg@nvidia.com/
+>>>>>>>
+>>>>>>> Or please let me know if that is not the case.
+>>>>>>
+>>>>>> Yup, while it fixes an issue by itself technically, I don't think there
+>>>>>> are any affected platforms.
+>>>>>> I'm hoping that Sumit this (and the limit-write-at-init) patch as a series
+>>>>>> for all our convenience (and hopefully to get Sashiko to review them too).
+>>>>>> (I guess I should've mentioned that in the notes.)
+>>>>>>
+>>>>>> And sorry about ACPI/CPPC having such high traffic lately, I'm expecting once
+>>>>>> we've got the issues ironed out and the new features supported it'll be a
+>>>>>> lot more boring :)
+>>>>>
+>>>>> So the basic idea with this patch that the userspace interface is always 8 bit so higher level software will not need to know the lower level implementation detail at the expense of some granularity.
+>>>>>
+>>>>> Makes sense to me, but I'd like to know how realistic this hardware is going to be.  If it's purely hypothetical hardware; how about proposing to ASWG that this field must always be 8 bit?
+>>>>
+>>>> Good point, IMO it's hypothetical hardware that hopefully doesn't and won't exist.
+>>>> I'll try to raise this through that channel as well.
+>>>
+>>>
+>>> Quick update on this, after proposing it, Souvik came back and made me aware that
+>>> we've already proposed this:
+>>> https://github.com/tianocore/edk2/issues/10838
+>>>
+>>> I guess forget about $SUBJECT after all and I'll probe-fail <8bit and get the amd-pstate
+>>> handling correct.
+>>
+>> So should I wait for an update of
+>>
+>> https://lore.kernel.org/linux-acpi/20261112080442.4007723-1-sumitg@nvidia.com/
+>>
+>> or is it applicable as-is?  In which case, care to give it a tag?
+> 
+> I guess the issue is arguably preexisting and the fix doesn't touch the same code,
+> so feel free to apply,
+
+
+Yes, [1] can be applied as is. The issue Sashiko reported on it exists
+without [1] too, and [2] fixes it.
+
+[2] replaces the firmware MIN/MAX at init(). v5 of [1] kept them in
+autonomous mode. I'm not aware of any platform that needs the OS to
+keep them, but if one does, I will look at that separately.
+
+I can also resend [1] and [2] as a series if you prefer.
+
+[1] 
+https://lore.kernel.org/linux-acpi/20261112080442.4007723-1-sumitg@nvidia.com/
+[2] 
+https://lore.kernel.org/all/20261112113204.778904-1-christian.loehle@arm.com/
+
+Thanks,
+Sumit
+
