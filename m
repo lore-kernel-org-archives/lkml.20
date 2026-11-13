@@ -1,103 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794551230;
-	b=IP3P5hvIAgs6AM9cKTURhVyhHQrkd04JqAZuihwHCyMLUXM+e+iDxjfU3ZNP/92j9QX7
-	 JzRdPqcRtcZNuZan+fquU+2x2CFpddk4LErrUERAReVOq9eNSCpD22DIh6zr/bXtN/01U
-	 LJdrYJdSA9QGO5x3/dQcUIKUvmAUkfGmyDifArCaHQP84TD350q4ZNDBwGhhD4a0uQrPV
-	 N1u8PSqtmDWP67VmZRWCjFSBHQHYM4BSNRdUM+cn9Q5b16DgfytYaaZgUAjJKAbkaxsNJ
-	 HtO0Z7Ia99E7Po1Bp2L6BQIwCxQJmWsIpsrPBR3FZdJuqffX9cVugL7QNy6k12kdRSg==
+	t=1794551256;
+	b=d0a6kN5H8y1Pjs3J+c/gQ/Usc34Cf1UGaHodWyRM23UlYWTMGWH4xK/hFBG8YW8a0FV1
+	 FDlOcUR/AT+seDnvLzZ5JZTXn37gJYXEUWin/pr2TRqIwVCujn/VDjCKLKb+vqjTdp8Px
+	 RYEBTJnG978eEwwqVRp5b7O8u0DOEBUN+4yD+23/GXCyHV5oGktT1ItX2s/1eWNASwJKu
+	 760f79yhuUpPQ69sFShdv+4N0wGRDzkx5pP/U99iU66IY752Z3Bhw15AHIdcm3u6kEj/C
+	 1puvyOFKD1jOIpva8kzSu6UWwaQfrCuZLVDhWIal1g7FtnDZ/PsBzvk8/VU2SGlepQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551230;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=XltNWiKtwG9iBw8+GH1SYk3VMgJFEJVDDOL9ejVnQFk=;
-	b=uhmB93Yn3d5swq22zJWZNtVgqK2msEwIjaSeP8l0uGf/vj3geNxG9wW2L4baFN91spbF
-	 NlPCF67RNP7m2jubT3FNtOUIbsGOKxvAPCvvtH8SZCb9VNTdKVPLFzUMczE6dM7aacfSP
-	 rgB68I/uLfbNUTRJW76bHRmcxu+a2tRapciWMzDq+e8xTGNaA8FDYAIAhIfOZeFZULM+q
-	 khuBNB9Ii13VUw6Ihqnz0ksJGOH38GkGBl7jPE7C6v0lOP+vxiU1hbOp1X+osHFI6q9po
-	 fXG7QgIRW3Xmri2YxsDje7GMXMAKoGAWSNhlI73tmJ+cV++J9avL/DMbk1YmWAezeVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551256;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=RBv8eI2ALQLuMpCg5JVUkRO8J5aGKfpo6qj/UyA8v6g=;
+	b=XyCg96H33P+S2ETppNfWiDVF6S19Gf8S0/Iy8ZWrBd1FlMYSq26n9/Nyk7ZV6ZiEUcT9
+	 LW4LfsJqHUt9pFlwyuNQcBelODydaR1YxSjOKJHW/vx0Y6RyZArSM0E/dBP/ME0PCmppX
+	 7drUiP/E9DPvhUb3FRBlVgcWndxoTjs6b0EzloFJbGkBlGiRhll4Pxb0aKPgXE6NOoZVQ
+	 h1Mna2I/Az7VHrp7AtEplc5heoQrYOzwMjYOhplQRi64Tdwq37h9akQUiAwUv/AnKoy3c
+	 FTrWD2Ah4EVuYQOSxOaG43w7fe/Z53u1YEU+h230wdbZJHhp29Ng0dU2oIF9ST1H64w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MUvxZhYm;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aMbPyI1Z;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="bYTN0G/j";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6DE606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:27:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F6DE606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A70606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:27:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91A70606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MUvxZhYm
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so3681855e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:27:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aMbPyI1Z;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bYTN0G/j
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD5akoc3147310
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:27:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RBv8eI2ALQLuMpCg5JVUkRO8J5aGKfpo6qj/UyA8v6g=; b=aMbPyI1ZH0IIIKD4
+	bL2vndO6CjQ1X/qpJB4FgKo8Xqe3il4eLi4BpMsR5UYK+AErptattH5H+uJIrdyi
+	bNV6HPcY5jLLSrbQYAov5YJVMujZ3efa1nSR7KX7SBVudfAmgerf3bPoyD9JimrS
+	9vYhtE9xVB1bgfW5g7fjxpXVcVWPRoF3SM9h+B2wfzfEK1brEeZ5sgte11UZY7kT
+	F7GlbPJW0QBXs7jg73Pp4wvZMhv+8QjovgXw7XtMsv1FOkXYB9G4m8bbCs2dqWTX
+	nb4A7fvn5EiOJgyEEennuyQQvifsfj0uf1MEZ9QfE7R0FpH2kOEfTM948rhUqf9l
+	9BkaWQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwvja85d2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:27:34 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e8e16d22d8so11886295ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:27:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794551229; x=1795156029; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XltNWiKtwG9iBw8+GH1SYk3VMgJFEJVDDOL9ejVnQFk=;
-        b=MUvxZhYm5+xi+SJfP8nHhsZ1GXHZRgKcmtYpFlDoXTjjRpAAhHrxK/sL0p5zR3UDxZ
-         zoFe6J+qpK86Rz4t3v2DUKvCLnSK0WziR5goLmM6ybJ96s52a7n4l6ssjhqsUYaR+Jm/
-         Xs9hOLXj9PE+uwryRlkvLuERCrqJTf3zLvvS2FCslyTZTd9wswIAMULtnwF8vJn7f2H0
-         3wTzjD8Hp6/wsmtQJ0eNgdgUe4JwuhUhUM8UnvqdKeyZwp2YYRSg+jZBqsj6tEhsE3zD
-         Pz/u5C9YRb5rfcke4Gy7OJXnRI/iCfjiVWknhEe2HE/M51peV4kwHUDOt1TkMoov2shs
-         xFfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794551229; x=1795156029;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1794551254; x=1795156054; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XltNWiKtwG9iBw8+GH1SYk3VMgJFEJVDDOL9ejVnQFk=;
-        b=GAmVJlwcoY0Ph1A2YI2UiGM9JHU4b6Sh0WADNGFraNLwp/tlc3eHS2t2alE71V5NV8
-         jI9Hf1pZBk9f4mMpZ3PNlChbTdyOBuQRuH37lE1BeodqvX6fTubJSootHxz4NstoGd3x
-         ILgtxIKlk8YsFRvabxNMxUaexHuKedcpCG8OR5kCVetLaKWUvZeOqdqFcBLaLCs2/bNu
-         HAaqaSxGe8C23ONwW7YQbQtDhTfma2jiRJjvHbAhtD87dFigwSt4rkY6mLgfpueVkqAA
-         6/kJOUxsfJ0NuFC1R9NfJHI8Lx4peAOh0GGk2g3OnFX7z+QIivzBSMqa3/L4i3m6nOc7
-         ByEw==
-X-Forwarded-Encrypted: i=1; AL+hErEzHSU8geHTwiLUHKpUvamASLkvh2EEeFZqEOoZRXTk6yf/+fEI8C+hqyumSkzrw4GCOdiZXR6zGyJ19Tw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9Rm5wS9bwnFnkA8aGfRAjdKFtIAiECk8O0cTo5GAYQuD1SRk8
-	XyqF0eDMztlU/YIdQHAWKTcDL6qjkWihNEzu8apt/fmX4BctUugex/nOYuT49mTn7Oo=
-X-Gm-Gg: AYBFou0MmNAuzOV0k9CwSZaK6H9Pu/3vK4KvriXEAg8Wv3dw9J/ZVSEXzzsEVaH5Ziw
-	yDXxBqbmL9i3t2qlQ9f6Ec6RY7I0u5d1Xg7fyc5mnky+i5dgOBzlyEJ4nx6tME2xwgxdXcGeYjN
-	suBMA8ST6FDeAF6/oOiL60k0T1XeOYJyzKANZeXwMDocXMnlWX/uW1uVktZnL8Jum+c5fWak6Hx
-	OE1CWByUwMQ9rQ/1HoVmW5Lb7S2hC2w5FeEa0NOuc9cOdKLsSpsHtqMrjZp+JUEEukC7SADKF48
-	b82WUVHfjbiEE/5ywLO+mBfHA+AcLoCrF7DV7RuyE2ah2IFlQxxvAeHi1RtJD3ry4mov16n858+
-	7KDEG4u2ogugvuDDj0zYdTYHNyKyqagD5V0LgTcKf6PpoJ8hGJ5GFhjKbEEEJwncGpnGaDvjvz/
-	Jswl3QEmaeBiKtIKcwcII+wM2kFWXRzn6LqOrM+mPbdHw+aECVpuRPdSnc2uhCDr5i3uO13oVHl
-	KTGQtasSkI071pgj4rHYj8a039sYQkB+PKXFsVYZHNw3Muv7tgGWB8CjAZUejFC3KfzDiJM7W1n
-	XOEeK/YgeukchrL7b12IWr+MSfgGO0HkyplrMGMjc7AuQfwmdffTOR8chVm8nGU6dRDLbwdZbg=
-	=
-X-Received: by 2002:a05:600c:4ecd:b0:4a1:e6a9:4086 with SMTP id 5b1f17b1804b1-4bb5599a73fmr36037725e9.0.1794551228841;
-        Thu, 12 Nov 2026 22:27:08 -0800 (PST)
-Received: from localhost (ip-091-089-005-024.um28.pools.vodafone-ip.de. [91.89.5.24])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb4e29daa5sm133039875e9.12.2026.11.12.22.27.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 22:27:07 -0800 (PST)
-Date: Fri, 13 Nov 2026 07:27:06 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Val Packett <val@packett.cool>
-Cc: Sebastian Reichel <sre@kernel.org>, 
-	Marc Lainez <marc.lainez@gmail.com>, Luca Weiss <luca.weiss@fairphone.com>, 
-	=?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>, Danila Tikhonov <danila@jiaxyga.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] power: supply: add Qualcomm QGauge (qcom_qg) fuel
- gauge driver
-Message-ID: <avatRCrAgoPjV7rP@monoceros>
-References: <20261112170841.2189322-1-val@packett.cool>
- <20261112170841.2189322-3-val@packett.cool>
+        bh=RBv8eI2ALQLuMpCg5JVUkRO8J5aGKfpo6qj/UyA8v6g=;
+        b=bYTN0G/jPIe1PPn4kQwioTeChfWZ5MJmE9dETGJ/FmJnkiOsNnqGkzDMEVkI2TgK/I
+         WpJTDgKFRoUhIjAwL0qgthQHkugz8OLBRh+8jMkK1Xss9Cgrdz85R1bz6DJkCyZMrRpN
+         MhSTQ1pynuGMZ+GKp2CLb+/LgL7VBDBbmvgnY+MFKbU+O9Z8GLZtgBzxakTrej3WXxpY
+         bzE6quu1Q6m9mzOzA22RabDSNxFk/yID+yKtJs8NgN9FOigPOhxfSm9MNk2/6AcMgkl4
+         R/BjHo3jQ3n+/kapiCwjE5/hyEzgwOlUkWE9FQyWnTvJEgo1aaqGZVguYDptFrjDfkOA
+         PPVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794551254; x=1795156054;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RBv8eI2ALQLuMpCg5JVUkRO8J5aGKfpo6qj/UyA8v6g=;
+        b=o94e2hSihGuRW9TzOjh/ZBRmJ7f4UyaonzaYa11EeB9r/3kn9kWBMXh0xEMZbYlDXr
+         01Tcaw5BozdQ5v+NyA4APH2dOlXSBy8sQKgYWTS6AJEyxihwz7ktgC5BsIJowGwD0/DH
+         h/Qj3jKVt82bU8LsMF7YTmNdugIfEE1vDQmu4OF+XFcQtBDBIkX+aG2lPtm7pCanKGkK
+         ceny+S8SOpnRDFgmb+L/T+v7q+zb2FR8GGwPA97IyJGy9qw3YD4w4yu2pqAMAGXAgt4i
+         2YMpK2hqrfu8ip33suYX0N58gQUezM0xCUAUW0wA/iVqOWmrQMqsBVz6daA0JB2SirXL
+         1ZEg==
+X-Forwarded-Encrypted: i=1; AL+hErFP7lXyuMXmMWKwKhoPO2miLbxfmXY1il86F1XBVU02jvDHQGu+f6gRwg/QVA0NY2tlUdwgmpRbemR0JXQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8KSst8lSRm0HsuxM7M+oNn3sDZHBKWrCdScvC/xg1ftWAwK2+D
+	4ysonckM7S2zEzCAktVRVZSPLAMr7L+brNdQoph4op8QKVyGCm0Bjn8nYe1YZtkPCf5tgl68CHv
+	+YcEEJywVFogbZCUKTcbE8Lly7TzBL1+km5lKdx4lFepf4cTRuprYVC46BhFZ71kc+8w=
+X-Gm-Gg: AYBFou3N9TRS6mqLIJXu6h0eyZLfc3J9wOmmJvVEw/o+37oWqH5oFTKT0XGYbS/u2Fy
+	bZ0AFXLQThW896qGlV4G0nqpCIG2Lphw/4uAvgH05f8PR2HKgr8S7LrDMuaKSivENtwVTgzR4ng
+	j9i0vx86xh+IGmHrZbUlNcbeM+C8XoJLCYFQsgoEzJF7S9udjHEHO9OhRNdzFSPHDpZQJPvtwow
+	ll4AmL+lHWvbtbrcPuruEgRTglGRQivv5LImlzN2SI0u/uHa72yyBpWH6izLUe6x3EK80lqwg+B
+	RJ1isMPqsMmS1DQeLuocObwahWlb28XN3x4yB/7Lg5OPZ55cVYNAAxhLETr0SQ91Enu2v2nlU8i
+	cT2h8Smv1s3eDnwSvBE2YVp+PaeXjxqDWnXZntWC8RgXvQbmHA/E19mMhXxmx5wBUVzJ8PIo6vt
+	G3f159nA4N30DHyuhRmwFjuFMaPpAZbIAopSZ0c29tqC5SVw==
+X-Received: by 2002:a17:90b:4c8b:b0:3b0:9a1b:b6fe with SMTP id 98e67ed59e1d1-3b1b0d75fe2mr1354041a91.62.1794551253982;
+        Thu, 12 Nov 2026 22:27:33 -0800 (PST)
+X-Received: by 2002:a17:90b:4c8b:b0:3b0:9a1b:b6fe with SMTP id 98e67ed59e1d1-3b1b0d75fe2mr1354027a91.62.1794551253501;
+        Thu, 12 Nov 2026 22:27:33 -0800 (PST)
+Received: from [10.133.33.220] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc186fc72sm756387a12.5.2026.11.12.22.27.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 22:27:32 -0800 (PST)
+Message-ID: <4f680a92-c69c-459b-acc1-c877e88cc265@oss.qualcomm.com>
+Date: Fri, 13 Nov 2026 14:27:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,55 +116,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mwyna4jkd5v6s5iv"
-Content-Disposition: inline
-In-Reply-To: <20261112170841.2189322-3-val@packett.cool>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 8/9] cpufreq: tegra194: Add support for Tegra264
+To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
+        viresh.kumar@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, treding@nvidia.com, jonathanh@nvidia.com,
+        linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Cc: bbasu@nvidia.com, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+References: <20261104181521.3003578-1-sumitg@nvidia.com>
+ <20261104181521.3003578-9-sumitg@nvidia.com>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20261104181521.3003578-9-sumitg@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: oiv0m9lWaj3m7v-S_WYoREa_zW9Wj9_e
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAyNSBTYWx0ZWRfXyTDI3h6MV1S7
+ hCaO5jWpEbqT7M6AcVi/To2zDvxhbU+CspXTSLODN/vyqGD2dWHu+RaB/4bwiLKu8Ay1nGrcH62
+ eYiwo8/xPiFtSJoA+Lz7Xia/NQs2qnw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAyNSBTYWx0ZWRfXySmX7+7FUZ3X
+ LoqLSBKCLPakilfTelSpWLTOGAHsy3e3lcACl7s+5EKzLo0FmAEfQhApMHwqqo2c9L91/BTpqgN
+ 04LzfvjSzvitTh5ue2XQVgpPBql55Sk4P6FEePGe7UBxNtrq/1bSX/ext1EpD1DAmYxyiwIKX65
+ azm+IrkbZlNqQc832AoligW5otz1M8zgz4TwXhG432jJeUdVHvuTXA9vv0Wn7FWYLyBtnaKNwEa
+ a+yaiD2Ycp8xATus2JcAHSWps+DoCqplxpPq2s1yE2Ycst/C5IwfA9UM1pCS8erd2i3hxnqwt/W
+ FeUL5odW3QkIfpDMO2OuhfZwEeGj53RuHKqKCNnt2C2Rq2TEShTkeMKW5hnx/rcsNwfCPisEhpi
+ 65BUjbLJTmKk0VUp++VUXlh0XuEJ7/+uGpUVbEKxxp+ivnzPJAJ2pO2oXwliSNIUm9GZYns/pTR
+ /cZDsRwpOw97z45Zb0Q==
+X-Proofpoint-ORIG-GUID: oiv0m9lWaj3m7v-S_WYoREa_zW9Wj9_e
+X-Authority-Analysis: v=2.4 cv=AoN7T+9P c=1 sm=1 tr=0 ts=6af6add6 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=Ikd4Dj_1AAAA:8 a=xaSE4ohpd0vWBzKOhacA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_02,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 phishscore=0 suspectscore=0 spamscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611130025
+
+On 11/5/2026 2:15 AM, Sumit Gupta wrote:
+> Add cpufreq support for Tegra264. It requests and reads the CPU
+> frequency differently from earlier SoCs.
+> 
+> To request a frequency, the driver writes NDIV to a core_freq_req
+> register in the CCPLEX register space. Two clusters share a
+> cluster-clock unit and its register, so they always run at the same
+> frequency. The driver exposes each pair as one performance domain and
+> one cpufreq policy. Each CPU's "performance-domains" property gives the
+> domain index, which selects the register. If the CCPLEX node declares
+> "#performance-domain-cells", probe fails if any CPU lacks the property.
+> 
+> To read the frequency, the driver samples the per-CPU 64-bit AMU
+> counters through system registers. The AMU constant counter is the
+> reference. It ticks at the system counter rate, so the driver takes the
+> reference rate from CNTFRQ instead of the fixed 408 MHz clock.
+> 
+> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
+> ---
+>   drivers/cpufreq/Kconfig.arm        |   4 +-
+>   drivers/cpufreq/tegra194-cpufreq.c | 147 ++++++++++++++++++++++++++++-
+>   2 files changed, 144 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/cpufreq/Kconfig.arm b/drivers/cpufreq/Kconfig.arm
+> index a441668f9e0c..a5482b12be57 100644
+> --- a/drivers/cpufreq/Kconfig.arm
+> +++ b/drivers/cpufreq/Kconfig.arm
+> @@ -248,9 +248,9 @@ config ARM_TEGRA186_CPUFREQ
+>   
+>   config ARM_TEGRA194_CPUFREQ
+>   	tristate "Tegra194 CPUFreq support"
+> -	depends on ARCH_TEGRA_194_SOC || ARCH_TEGRA_234_SOC
+> +	depends on ARCH_TEGRA_194_SOC || ARCH_TEGRA_234_SOC || ARCH_TEGRA_264_SOC
+>   	depends on TEGRA_BPMP
+> -	default ARCH_TEGRA_194_SOC || ARCH_TEGRA_234_SOC
+> +	default ARCH_TEGRA_194_SOC || ARCH_TEGRA_234_SOC || ARCH_TEGRA_264_SOC
+>   	help
+>   	  This adds CPU frequency driver support for Tegra194 SOCs.
+>   
+> diff --git a/drivers/cpufreq/tegra194-cpufreq.c b/drivers/cpufreq/tegra194-cpufreq.c
+> index 1328aa0a1bd1..0767a6fd6bdc 100644
+> --- a/drivers/cpufreq/tegra194-cpufreq.c
+> +++ b/drivers/cpufreq/tegra194-cpufreq.c
+> @@ -14,7 +14,9 @@
+>   #include <linux/slab.h>
+>   #include <linux/units.h>
+>   
+> +#include <asm/arch_timer.h>
+>   #include <asm/cputype.h>
+> +#include <asm/sysreg.h>
+>   
+>   #include <soc/tegra/bpmp.h>
+>   #include <soc/tegra/bpmp-abi.h>
+> @@ -36,6 +38,18 @@
+>   			(data->regs + (MMCRAB_CLUSTER_BASE(cl) + data->soc->actmon_cntr_base))
+>   #define CORE_ACTMON_CNTR_REG(data, cl, cpu)	(CLUSTER_ACTMON_BASE(data, cl) + CORE_OFFSET(cpu))
+>   
+> +/*
+> + * Tegra264 requests a frequency by writing the NDIV to a core_freq_req
+> + * register in the CCPLEX register space.
+> + *
+> + * Two clusters that share a cluster-clock unit form a performance domain.
+> + * Each domain has one core_freq_req register. The registers are grouped
+> + * in blocks, two domains per block.
+> + */
+> +#define T264_CORE_FREQ_REQ_BLOCK_SIZE		0x400000
+> +#define T264_CORE_FREQ_REQ_BLOCK_DOMAIN0_OFFSET	0x40000
+> +#define T264_CORE_FREQ_REQ_BLOCK_DOMAIN1_OFFSET	0x50000
+> +
+>   /* cpufreq transisition latency */
+>   #define TEGRA_CPUFREQ_TRANSITION_LATENCY (300 * 1000) /* unit in nanoseconds */
+>   
+> @@ -70,6 +84,8 @@ struct tegra_cpufreq_ops {
+>   struct tegra_cpufreq_soc {
+>   	struct tegra_cpufreq_ops *ops;
+>   	u64 cnt_mask;
+> +	/* AMU's constant counter ticks at the system counter rate. */
+> +	bool ref_clk_from_cntfrq;
+>   	int maxcpus_per_cluster;
+>   	unsigned int num_clusters;
+>   	bool needs_mmio;
+> @@ -79,8 +95,10 @@ struct tegra_cpufreq_soc {
+>   
+>   struct tegra194_cpufreq_data {
+>   	void __iomem *regs;
+> +	resource_size_t regs_size;
+>   	struct cpufreq_frequency_table **bpmp_luts;
+>   	const struct tegra_cpufreq_soc *soc;
+> +	u32 ref_clk_mhz;
+>   	bool icc_dram_bw_scaling;
+>   	struct tegra_cpu_data *cpu_data;
+>   	enum cpuhp_state cpuhp_state;
+> @@ -240,6 +258,78 @@ static const struct tegra_cpufreq_soc tegra238_cpufreq_soc = {
+>   	.refclk_delta_min = 16000,
+>   };
+>   
+> +static void __iomem *tegra264_core_freq_req_reg(struct tegra194_cpufreq_data *data,
+> +						u32 clkid)
+> +{
+> +	u64 offset = (u64)(clkid / 2) * T264_CORE_FREQ_REQ_BLOCK_SIZE;
+> +
+> +	offset += (clkid % 2) ? T264_CORE_FREQ_REQ_BLOCK_DOMAIN1_OFFSET :
+> +				T264_CORE_FREQ_REQ_BLOCK_DOMAIN0_OFFSET;
+> +
+> +	/*
+> +	 * clkid comes from the device tree. Reject an index whose 32-bit
+> +	 * register does not fit in the mapped region.
+> +	 */
+> +	if (offset + sizeof(u32) > data->regs_size)
+> +		return NULL;
+> +
+> +	return data->regs + offset;
+> +}
+> +
+> +static int tegra264_get_cpu_ndiv(u32 cpu, u32 cpuid, u32 clusterid, u64 *ndiv)
+> +{
+> +	struct tegra194_cpufreq_data *data = cpufreq_get_driver_data();
+> +	u32 clkid = data->cpu_data[cpu].clkid;
+> +	void __iomem *reg;
+> +
+> +	reg = tegra264_core_freq_req_reg(data, clkid);
+> +	if (!reg)
+> +		return -EINVAL;
+> +
+> +	*ndiv = readl(reg) & NDIV_MASK;
+> +
+> +	return 0;
+> +}
+> +
+> +static void tegra264_set_cpu_ndiv(struct cpufreq_policy *policy, u64 ndiv)
+> +{
+> +	struct tegra194_cpufreq_data *data = cpufreq_get_driver_data();
+> +	u32 clkid = data->cpu_data[policy->cpu].clkid;
+> +	void __iomem *reg;
+> +
+> +	reg = tegra264_core_freq_req_reg(data, clkid);
+> +	if (reg)
+> +		writel(ndiv, reg);
+> +}
+> +
+> +/*
+> + * The AMU counters are per-CPU system registers, so this must run on the CPU
+> + * it samples. tegra194_calculate_speed() queues it there with queue_work_on().
+> + */
+> +static void tegra264_sample_counters(struct tegra194_cpufreq_data *data,
+> +				     struct tegra_cpu_ctr *c)
+> +{
+> +	c->coreclk_cnt = read_sysreg_s(SYS_AMEVCNTR0_CORE_EL0);
+> +	c->refclk_cnt = read_sysreg_s(SYS_AMEVCNTR0_CONST_EL0);
 
 
---mwyna4jkd5v6s5iv
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 2/5] power: supply: add Qualcomm QGauge (qcom_qg) fuel
- gauge driver
-MIME-Version: 1.0
+AMU is optional, so arm64 core reads these counters only with
+CONFIG_ARM64_AMU_EXTN and a per-CPU check (arch/arm64/kernel/
+topology.c). Is AMU always enabled on Tegra264, or should this be gated
+the same way?
 
-On Thu, Nov 12, 2026 at 02:07:28PM -0300, Val Packett wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
 
-Please don't include <linux/mod_devicetable.h>. That introduces a bunch
-of unneeded build dependencies and of_device_id is already provided
-(without these dependencies) by <linux/platform_device.h>.
-
-> [...]
-> +static const struct of_device_id qcom_qg_of_match[] = {
-> +	{ .compatible = "qcom,pm6150-qg" },
-> +	{ .compatible = "qcom,pmi632-qg" },
-> +	{}
-
-Please make this { } (i.e add a space) to match the most common style.
-
-> +};
-> +MODULE_DEVICE_TABLE(of, qcom_qg_of_match);
-
-Best regards
-Uwe
-
---mwyna4jkd5v6s5iv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr2rbYACgkQj4D7WH0S
-/k7nbgf/b6/rA4kIW1NyMoOtnNVBeGIHHHNfMkct33HHb1h0CiT6Hd1RLEJ6HH+F
-sW4pjg7G0QStID55MbOeFsfsHKUaOEsaLwutZ3fATturnz7k7RZRvLfAjNtR3k18
-hiWFbFdsTjH6SuQ/g7OijXpDO+E2v/5FHg8g/V0U5xwL0w4sWAME2Gxrc9Aed+1Z
-yb1H38UcmdaYkNs0WgAyYt2rGVtGDyt5nQqLm9gBfrCvoxDzCIxgiXJ61C9JMF0t
-UIk/sLbujBcPF2qrtmodX0CUE07kBKD7PV1TOWjB7Gcz+f3E/X3eQGPNNOk8mEQn
-pqgA7hr5DNGO6zRenFbDHgtssAhenA==
-=HgBt
------END PGP SIGNATURE-----
-
---mwyna4jkd5v6s5iv--
+-- 
+Thx and BRs,
+Zhongqiu Han
