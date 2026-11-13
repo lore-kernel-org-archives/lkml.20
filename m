@@ -1,54 +1,86 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794574501;
-	b=CkWL+wbC4Q8XS3f4of4B8a7byjuYRcCMwLaQ+t9VSeDZxp7My8e5OeF11ljPmKXL4InF
-	 cSoGnn3dRq4TaMoE4o18yjDnECJI+YWj8/0hDXt9z7cNc70WLsELjeSWm7XRc8ukj9gdB
-	 nca/tNYPUtgsjMEkphV3GdFaB8j7Dh6tcSTisFtaZYQcq++KXwehRKfbxd4J7IyX9a4AW
-	 IOsbcIw/BzEqqqjX8gXtjkr0WIGBIXDS53fUm7UV0F7Iw9pkK3+SQX2/ijnbw5CSmau5L
-	 xQKyizm8UNPprvlnZtJSoSFhSINb7PZKDmNR/iiT1MvOl+kPOgu1rThPGr2nZtN8E0w==
+	t=1794574565;
+	b=hRmhlaDp7mapc9xFX7iO2EkKYWQkUIAdtW6BXwAUJmZxslt66dYEHzZZx62Fb4zwDmT8
+	 NZiHqFZLEtBbN1LP99/0LCyJZsOcnsZeKbFaEyaGi7MzgSUVGbTZfFzYYUbFiMW5PdtvK
+	 CivLwi0cZIJsXsJQg1mKR89PVwJI0OL/FIs+9XzUKtECWaKiCEbHFT4ywiWNr20xZO2bd
+	 KEDPs2LuDd6zsuK8X37QNvmLVFbD88RkTm8erftoBMHRUH8b2tqL9KZnsiH7bnj0QQeos
+	 aJTgiE6hglz/IX65WIBWDbRl+v2ozvUXzbq10VG6H7z2UBlWjncleETkXbQKA/Ofd0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794574501;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=HKKXCOwXKUZdC+9rpZpOluJQ3C9x5U5tPguxAdmC9bU=;
-	b=fN5P5RQ6/3YEbIQ3ze1GkHoK4hWvzVMlPLB91NGVlyXE1cto9NF81RKwMQnO3Sw8OlZc
-	 V/br372VMyiFlcdXBvetr5MTzHr4mtDJmulmjZj8iAlxbZyg2Aain5Vq48XFC927OZem7
-	 +dzFk230oLcbTaUgbWIF+n/6NCxPflLW+PdA+pecY28D3X1v44PBaz0cpz8O6ylEiiRBp
-	 9wLPBd6oqPwCsfgsCe0QXzbXnL8MbALR7TFmTdWoTvIM8OFLn1LH0W/jIkq+iExg7vii9
-	 Up3oxTbRNFHxGDKg/KdFpayBd8yqK+UnUlzQbh5Oyi4Nt6fS4DTQdASZKIM+Jf26dYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794574565;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=4tSzNT5XSWSixiegslDJk3QLG0Zr8jciuO7mZR0zc5I=;
+	b=Si+dgTwp8zhnXev2MLMJC7AAOIu6ol63xQWDZxMAnIIftmVtZ670IeS2Q5OaGx9um1+z
+	 W0jcL1jBUoaM2oIp15DyhSYzkHZY3+g4FyPg/DK+gw8rb2Xb60OD4gjjz275TcXPg6F3X
+	 H9oZQ5v7g1b1GJZZaPew/YoDab4CDvEAl4PySwV/xxeGJ29VL8k001MrSvvfTEeQ/iRWH
+	 6SdOs+Hz73PxrS0aCI9+3+n62oIJXek5FBHlYt52PabLHKmZq5u0n0apCJJzzh4072BBD
+	 WcSCVZMcB6qs0XVvKERwH+9Mg2G6MQh84GCVjy47KHPodXtq9CmCv6XrVIJzuba+Eqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VwzbpA6b;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvj4yY1l;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6C1606A32D;
-	Fri, 13 Nov 2026 12:55:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1745D606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:56:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VwzbpA6b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70ADB1F000C4;
-	Fri, 13 Nov 2026 12:54:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvj4yY1l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F9B1F000C5;
+	Fri, 13 Nov 2026 12:56:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794574500;
-	bh=HKKXCOwXKUZdC+9rpZpOluJQ3C9x5U5tPguxAdmC9bU=;
+	s=k20260515; t=1794574564;
+	bh=4tSzNT5XSWSixiegslDJk3QLG0Zr8jciuO7mZR0zc5I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VwzbpA6blQGKWe2Blsinv9FWxgLFmMcDTIOtBzlcaUUiRKctHJ5zhgDdHhZ7IfZ7b
-	 /KWruEk3v7rH57Uywyo8iAMTZmGpeEcU9mQldbEIF8KXy+S9+LalPMlpumGg7nqbRn
-	 L2ZIDssRAwh/CTcZLbkwWz7wPanUbK1zQbAtqt/OiH/fMUgM5lJyACxb0tFECp/RB6
-	 5jLBQtK7XOkYOgPWLVWJ8j/qy7axMWpEo10Rd14pNC/CrETi/4DyxSZztl7CTzH+hl
-	 lP/Dc/7z3x0swbVB/fbQln/XasDQYOCPNTTcr7nzhSIpwh7fIUGITue6WkuLjiVO7+
-	 5pUon8EYo2Oqg==
-Date: Fri, 13 Nov 2026 12:54:56 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Shuai Liu <847807867@qq.com>
-Cc: linux-spi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	ojeda@kernel.org, dakr@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 0/3] rust: spi: add SPI driver abstractions
-Message-ID: <ceb9569c-afe8-4bb6-99ae-d9c3258d7558@sirena.org.uk>
-References: <179451185979.339049.12323339081307899766.b4-review@b4>
- <tencent_097BA6F40A0B8FBC4C130C6EBF58F8048006@qq.com>
+	b=lvj4yY1lMbAfCFEKpUy46MLT7MIRUMSw/9DvQi0lCqCyfEEWLXHLjrYGbcbvlyUgd
+	 Ee42FemA5b21zkdvvm2EAcIpaf0CjIEWN/7EUqsJjyBITnPtmVDcsG4MPROXfIcQFH
+	 YctRCRfK3yh8tnV6DyDCnIiemj6ANeOP5P89LsEZ75NDg646Bnpu6/VKcK8z8UH3Wj
+	 UHidyE1JlCdHLM1Gxtue3BpiaLFJ5AEJKZF3ACXzZxQreCex3EyZXGaYou4/uM0qna
+	 q9HmZIM31Sgl9Ew8S87KOh/SHp2hHnSzP38MwKYuY4xgcOd1he+AXwpFMLvfpsL3my
+	 TU28frsWTH7IQ==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id BD18B198003A;
+	Fri, 13 Nov 2026 07:55:59 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Fri, 13 Nov 2026 07:56:02 -0500
+X-ME-Sender: <xms:3wj3apbkmeonf4y5wE7ksEA3GtTBf57EWzkWE5neafKKC3LIBFU7qQ>
+    <xme:3wj3at7H_CSaBiiK8MxPCWEXxuf8_32SjEpBm7p6t46otfyshxxW0DySGHZC2nRx6
+    o3CnKqCMg3AcqUsOLjzzWxJ3gE-E_jODyZZW59-0WOiS1ywFfQoHSLq>
+X-ME-Received: <xmr:3wj3aoCjT6qOBmsBWaEBbadIi4IKYX-_viGElTeJ1FBxXk8-jPLWXELZq88>
+X-ME-Proxy-Cause: dmFkZTEALCY8BjEB9962J19+FFzaFn7/mDszJU/f0IQoJYE08F9eNi9AROuRlq7pU2+FXD
+    zoNVXqKBs3ph2NtrQiIbObaLyrIngOHx7B+sdK6iQ+jfItZBvkvsFLopEHbvs6okBQgb5T
+    T3FhlyqhoGdVKxR9UvwevmGemWC2pw9RXWPJmT/hEImGxMrfJhZLPtavP/c6QdWQg/A6b8
+    X5O11D6kkCylwxWMIUDUmx1JRIy29fX8Rzvm50e/adyzuWb9S0hJRhcuwm+lPAtw8FuGn4
+    rju8p9vVIWIvL96aJgoJcn0XKhXQzZ1uUAuAH7wCb597h85mktgUj4cIXuqKo5YXHCqSYw
+    ObzBzC+xeGRFdSq8OK9Iw179SQq7JXdMgizRPjcfc7bMNY4T6epVxNLGOJxv3xUQSLR/64
+    Zxw6vhBrfWdMRycJp9of5fwiEuNbYcgfNCpCp0cn3gxt62aAog+aWCJXFmQAiNZCZkWG9B
+    lWC/3udG+aiOLf/DbuEx2ykJWJHQaSgwcHKmqXrBVIxChV1yPNGmyFR+DbWWQVtVmpRQwj
+    NtZPNHIr8/CvIjr/tdwg11qigVVQJPIqaWNhPn6ysx/4QZa61YdCJv4sA2APKR+gfMKL8v
+    obEc1lTb9YEpWYZIrpyfGF/TB6GjA8e8r0Isgz4pTIYFCflmX0V2H1dmabRA
+X-ME-Proxy: <xmx:3wj3ak6FPmng3aMbspqR6Igf0D2sIbQk1-6WorKrbKKADDHG0AAPMQ>
+    <xmx:3wj3anJXJB8Zybw1x9dD0vuFCyrMwqOETaiw83FKYEJZqKOlm8gtEA>
+    <xmx:3wj3aoxiwa_YTR87D7tSQQJSTL7TiZczR50Ez5E-b68EkZsa0J6kjA>
+    <xmx:3wj3anFPKaQGh8qkS1LHsQZRjpVPAb0cT7GRfwH9jf9WeNj9M__Iug>
+    <xmx:3wj3aoklSg9r9EGOP_SJS-KycWDomPYN6vpd9TXmeUML4jPK2OXNFZsy>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Nov 2026 07:55:58 -0500 (EST)
+Date: Fri, 13 Nov 2026 12:55:57 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Pankaj Gupta <pankaj.gupta@amd.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H . Peter Anvin" <hpa@zytor.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	linux-kernel@vger.kernel.org, Mike Rapoport <rppt@kernel.org>, linux-mm@kvack.org, 
+	linux-efi@vger.kernel.org, Pankaj.gupta.linux@gmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2] x86/unaccepted_memory: Do not accept ranges that are
+ no longer E820 RAM
+Message-ID: <avcIhKCXFo8Pn01U@thinkstation>
+References: <20261113105554.199912-1-pankaj.gupta@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,40 +90,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CvcVQqCYWFX2kFIS"
-Content-Disposition: inline
-In-Reply-To: <tencent_097BA6F40A0B8FBC4C130C6EBF58F8048006@qq.com>
-X-Cookie: Flee at once, all is discovered.
-
-
---CvcVQqCYWFX2kFIS
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261113105554.199912-1-pankaj.gupta@amd.com>
 
-On Fri, Nov 13, 2026 at 10:05:28AM +0800, Shuai Liu wrote:
-> Rework the device I/O to map onto the lower-level C APIs, as suggested
-> by Mark Brown [1]: instead of leveraging the C convenience wrappers
-> (spi_write(), spi_read() and spi_write_then_read()), all device I/O is
-> now built on a single `SpiDevice::transfer()` primitive that maps onto
-> spi_sync(). The convenience methods `write()`, `read()` and
-> `write_then_read()` remain as thin wrappers on top of `transfer()`.
+On Fri, Nov 13, 2026 at 04:55:54AM -0600, Pankaj Gupta wrote:
+> Accept only whole pages of E820 RAM, and clear the bitmap bits only for the
+> units in which memory was accepted.
 
-This doesn't apply against current code, please check and resend.
+A bit in the bitmap covers the whole unit. If the hole doesn't start and
+end on a unit boundary, the unit at its edge is only partly accepted, but
+its bit gets cleared. The rest of the unit stays unaccepted and nothing
+records it.
 
---CvcVQqCYWFX2kFIS
-Content-Type: application/pgp-signature; name="signature.asc"
+This kernel never touches the hole, but the next one can. memmap= and mem=
+only edit e820_table. kexec_file_load() hands the next kernel
+e820_table_kexec, which is copied before the command line is parsed and
+still has the hole as RAM. The next kernel finds RAM with a clear bit and
+uses it. memmap=1M$0x1fff00000, then kexec into a kernel without it.
 
------BEGIN PGP SIGNATURE-----
+On TDX this is new. tdx_accept_memory() works on physical addresses, so
+today the hole is accepted together with the rest of the unit and the
+bitmap stays correct. Only SNP needs the direct mapping.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr3CKAACgkQJNaLcl1U
-h9BxvAf9FFXCckOE3lf05HMYN4Ot4Bo5H17CxFOi6H5J2UBecFWS3eyvwHlnt+/L
-fnTQatuMKkvPRGZMIlJOIdcpEj0oe4XOO5e0sbrxcuVgimrOXj72+4+F1g1M1w6W
-QrGyX4cPpAseVHjB6d6qnHJhosJLCbyiiSFlYfxXDhiC5yOpXePE9g7l+e3Jc6oP
-0n1bqHYmBM0s05/qj+/0AUTaTQg212zk9enntEcbxXI3i4WUfnB7KPMMzN+7zItU
-sxTHUHAY2elxp30quwc6+bI+2KaiaThr4DjvhTVfr/Dgbm4FpU0qMNcicbYm3UkC
-NaY/JK7EBln3TE7G0K+oZ4sOBGw8NQ==
-=a5fH
------END PGP SIGNATURE-----
+A unit cannot be half accepted. Given that, should we go with what Ard
+suggested and refuse memmap= holes in unaccepted memory instead?
 
---CvcVQqCYWFX2kFIS--
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
