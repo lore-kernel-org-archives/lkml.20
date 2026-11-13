@@ -1,102 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794608057;
-	b=f/MdeqUC4Pt5BwVmFGDcXdUT4oV+mJQ6bTVbPoMSKJmLQXTcm+miiYkaeRqKJoFapP+u
-	 9tzN/q6COjqIzXnMajFVH9XwMNqHd1Bzb4rWJBafUHr58DxZ1dpQogz3vsN/J3LsGwKYK
-	 jKgCp2PukpKSNWUevQLwoAInn5l1LMfUAEkH1v1Ca08OXWzVw/QPyls7hMeVhjas5ayfo
-	 SgqIm4J6nQBOp4Pl7x/0LifPUFEVLZQ4cC4F5Lv9+ZAhqHcDRoP1lF0x3cxL4YuVsn1Dm
-	 0CWld0e4ULIhO2Bn71K8Anr8DOZzDjrEuhkjmMhUIbRxPbUiPuGUfHsDTiZDkq9S7Kg==
+	t=1794608059;
+	b=5M2MxQjBuzB1kHgPrb0WJz/SJjGi7tqmQvRHNDTPSu89RMI12qgY8Fkhj0LcvQncLrhR
+	 ndARJedm7fU2zxEd8ljB1bKGGc7Viy4fNo7ZCB+hHUDnhMe1a2dzMnkGFQ4ac/UFbJEJ/
+	 xu/DznH32estsftZuhAq0QT28VDOLLMc+kdvZ8txhsgCEVdgWfwQbmJUMSVbE7BFmXXSQ
+	 avXLD7VqST5+wAp0Gv40+7ROK75p9cc1ufhomUz1heaQsWvT+U1AzTB270c6ysf3mwoPU
+	 y1RfwfZhdW8RbArAEUo8aqwjVX1yDAYDw2WBKRDNbFwcttB+xdGISjP4LCsY2RWr9uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608057;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=ak2Wm9pxr1mRdtezE4lHs4tQ/HsTkmBnYFyE5Zyx9V4=;
-	b=ft36em4mwLWGaNg1SHUXJhTgcd+AQb+VuRg6tFKXpNLVtWPgdSBHFk6XN810r4DEzc1X
-	 z/5F0BejYBmSgs8jpVYAxgkySaSjnl1XqyNllJlpydu5ZbdDw5zh2Wa4yIaOzUQ7Rp10q
-	 5yi8nnyNHC6LRCTZeQOgLdphpVWl9bgwPxwE3xlsgUlqECHsSgjeDK6O2wWrNfx+XYeHH
-	 My0eIiFhvRm7wfSTIRNrLu/ynC2A5BtMX4np7hrj3L0dfzqtdfE1SKs6XDkTYh7G5bkn/
-	 emPQu19PhhviPpfMoiBqHgoa7NkkmyFKCP5LEsXRRgZhyiD5D7XvY11140MIYG5Xxbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608059;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=pgq9kE5SUICsmlCxk4e9GW8xjHVaimZWvwiBTJYrn4w=;
+	b=xOkpsjvCTnPiwXYR5DQxv0T+k7VdqUXKbSTvY7tcqneC3pwiPOy1Sg8B84HGPZJFJPQj
+	 9kfQGmkfcNfIk5IUR44KiciiKFlL5JekrDlknjRw/iUJfC5veJIHaWnX59P3kCPifSsN2
+	 +SRT8Et6eCbTx9pB/xq8qlhKAGkkHyfgPwKho2VuRSClxsITDjh7GZpFS/TDZOiZyZG2a
+	 HeXNNC2BeQo/mBbZeJ9hYxoFWk3Dk3hKHgr2VkgkbykkMFFkyz+6ymTLVBPUAqfJPiaa3
+	 NduHQjhbCGMnaBMxMv+A4OoGUrRA+QYXyH1mjLQ6xPhcX2XZrFPaln/kqLhn4XNnyjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=cNZak7ic;
-	arc=none smtp.remote-ip=74.125.82.226
-Received: from mail-dy1-f226.google.com (mail-dy1-f226.google.com [74.125.82.226])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hWpqsqsi;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A0C606A886
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:14:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86A0C606A886
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CD0606A8BE
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:14:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35CD0606A8BE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=cNZak7ic
-Received: by mail-dy1-f226.google.com with SMTP id 5a478bee46e88-3791619605cso3036148eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:14:17 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794608057; x=1795212857;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ak2Wm9pxr1mRdtezE4lHs4tQ/HsTkmBnYFyE5Zyx9V4=;
-        b=utQvXpeY8oyOOL85Ptgjt4KgaxqqMUmIG79YcXskM51AHe4jM1k/JLEN2XuZEeSimH
-         RM6yjVlaQPKhBLWzeLa/7vHplx1U3buk5wCqFfU2cMkPFZvqFwDLfwP0dLM4ZdidWp+d
-         sEqs57cts7AG9R2+75yZBT8CqsdF/nUlYgnc0FdmmtX8oaLugGZrQP8l7IPSZ9qiRjP8
-         /daEpLmT5lA1cDEP+h6zasgappFUV89xR+HZCHc0ZL+0OMLHfBKsFX7fnuoWt8WpHbKA
-         ST5hqfoK6AEXfNDMPHNeWwEZqWDKHCCHl9PKqwhuKDNcXSOIvmWDKFBLQ8S3w2KCssNx
-         s8zw==
-X-Forwarded-Encrypted: i=1; AL+hErHQkwWtcaZdNYXeq5J9JcxToHLD2EknJFaFo4kt+WDwK/y6KYyRjlAjo/EG0kMnzBxLVgt3IkOx9v7gzbU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8c/01cPlisvH4NZ+dpAl0YG7lpl4Hbgh9xSwJ1P/6DnEr4vlRF
-	rcukC//Re2nCp82Z6e4uS7myLTmABcshUI1M6PueHUMpviVSX9cpzKWjbIq4E0BNqaGmhinXvNS
-	shL0RfarGaWfVUNYmpC4FDjEEYvzNcrJfFUgHH15t/xPqtXVyugk5dlFMVcbMdKapsAZyxq3lo+
-	+LUk7/sPdFU3foD5IshESj+UxS8rwkJZap3r3k6ZAOUQcTix3cKf0Kn73Im+lQGi7uyMzdtScd4
-	NLuZuPjf0F6oGKTyBImQInv
-X-Gm-Gg: AYBFou0iozH2VMRk8c5eg/b74BoB7Q/TIQATBJJ5NoDczYlCwoKslQnIVwe+lB6CYEE
-	eZRKm8dGOZ6cOG0YQCZSGc0c9IJ43HfWqzSitStZO+Eqsr5mxs8Y3z9zQxjxQ6W/Wm2virlGG5J
-	BnhO/W8N5hScGQvLx9wc0nn6QJJw2nHf0z5YVJ6Ri5IAaDuOlgjGn9URWVjByFMMfFdXops0LAq
-	2zpgiofy/wtWwkB+Ob0oVeV7MMaF6CJL9SUWT6Dp379IHJsLVpQtgODtWvt5WSxRRL19hPgKUOP
-	5k4P0mLSFmYVxRj9VvamVrG1qnngNZbI8m/bZ4/FZMjoe8yVDp3vuWYmIso3gRtVo1sg6BLV4jo
-	8m+ye/aN0WsF1UiuGEz5bxiHkbMyNVl7COn/L58jBWKInwEOS0WslPdr4cc8Ql6TXs7xwCA9V+8
-	yOmn4NMBLUCnsWV7cXSkDRL8m+FKJLaGBT2E0zyQPi
-X-Received: by 2002:a05:7301:7108:b0:376:b957:bfb with SMTP id 5a478bee46e88-3796628d619mr3083888eec.17.1794608056307;
-        Fri, 13 Nov 2026 14:14:16 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
-        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-3795a77246asm214129eec.22.2026.11.13.14.14.15
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 13 Nov 2026 14:14:16 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5363b06bcb2so31779051cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:14:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hWpqsqsi
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36de26cb4b3so1792196eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:14:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794608055; x=1795212855; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794608058; x=1795212858; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ak2Wm9pxr1mRdtezE4lHs4tQ/HsTkmBnYFyE5Zyx9V4=;
-        b=cNZak7icpEAkVysJyZvhYXzuHvmiFnuIpE/HIhJ0tyrfN/avaOQeIYBCaM5fs+YHli
-         25WKSkJvXzxbc5iWmV+Ny1N1gNkOAZR5Q0wNo36U1rwoau/uzrBEU147GVrjOu6pzPL1
-         eu2FuMGKkNPW+8wXnh+Z/LMhNzFf86LXojpoU=
-X-Forwarded-Encrypted: i=1; AL+hErGBG/0d7strEZ9e6+H+z+Oi9C5Zlyac97JPTtAvIXUI9OlkJ3SwvCavirATuHQ0FwpqPn2QEg9UCA8uSFk=@vger.kernel.org
-X-Received: by 2002:a05:622a:4d4d:b0:537:c478:70e6 with SMTP id d75a77b69052e-55ac755d4d2mr59848901cf.36.1794608054980;
-        Fri, 13 Nov 2026 14:14:14 -0800 (PST)
-X-Received: by 2002:a05:622a:4d4d:b0:537:c478:70e6 with SMTP id d75a77b69052e-55ac755d4d2mr59848581cf.36.1794608054560;
-        Fri, 13 Nov 2026 14:14:14 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad14f1ecasm27491251cf.24.2026.11.13.14.14.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 14:14:14 -0800 (PST)
-Message-ID: <98b20b6e-8268-4295-975b-8a290c00de23@broadcom.com>
-Date: Fri, 13 Nov 2026 14:14:11 -0800
+        bh=pgq9kE5SUICsmlCxk4e9GW8xjHVaimZWvwiBTJYrn4w=;
+        b=hWpqsqsi5Ai7VfHGHkn2ypoSvjA52xdLL/+tVGmCOmpGeUZLIqhLbki3VsruNTrq3u
+         Zg8eEN0fODY0o4LzDatAmU45Pmhobu/M38df8hpaaxPjwOXEaCT2HQ0MgxZJ1X9un901
+         aTUU1JlNvDY6FMkQ8vFn/wJPP8zrdhvKoNVZE00dqIIDfsb8bBTajo9wOXN7eAeuUoKG
+         MWG9s1NSljJW4v+a3EWb81B+yS2xNnPvdIJXLvJ0Hdue9E8vj8h5CVtFGQ7BXhXSCa/O
+         YFjO2l86t7bZgMT74iKltKqoKIPcBFYhYkznd5vLUAVkVq/32Yr0ulo+K5FowxJNqOlq
+         XYJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794608058; x=1795212858;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pgq9kE5SUICsmlCxk4e9GW8xjHVaimZWvwiBTJYrn4w=;
+        b=IVu+i118/wkNtfozYLDjRd+tmKneYXTm9zOtK4Sx3bKY29+jlUJq1G1tQ+fx2WmeeG
+         dx7AkVRCJEo0liW2rR8ZQHxM17MP/TBSw4ImdyXQY/pMz2hLkqcv7wz7hEpd+yeABsTm
+         Bz7uBeVsc3p9fOz/TrZamRbeQ21YUXZHtQXi0AugiVusVL+HtdkMytRrKhlUKVV31FPq
+         2Kj+FMVsdGYgGitTfBcpT4gbICT4ZlikojhGZFbc2gd8gVWrjgfOGsfYTydZLJAuU/a7
+         dosJCLJJ4lFycVICn2jLOE9jSmTIM89Dy15vMiEL1tzaaqCrnt6mhvUCVKv0L0GOBwqQ
+         k14A==
+X-Forwarded-Encrypted: i=1; AL+hErE5Lf7LbqqUk8LMX472UaoBbmgt3DWh4AjO/OLOYtH0lMkYV0ft6JSjE7eAbL4P8YsZUMavzoL79pHQNYc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cSVIRxo+xJLqsXJbYBju9tPXKuIN5lU2XWRHkytDvjwJ18jSv
+	81hXkRaHbQL7S+WkmKfPqlHYdCk1oPcl8O4hxYLaJmylQNGuk2gPQvsTQ7fqq1/CuQfq/y6vTvZ
+	DyRGi6ZnFJpKwng==
+X-Received: from dyay11.prod.google.com ([2002:a05:693c:62cb:b0:36f:9364:dc98])
+ (user=wusamuel job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:90b:b0:34d:755b:d60b with SMTP id 5a478bee46e88-37968b8a031mr3155013eec.34.1794608057786;
+ Fri, 13 Nov 2026 14:14:17 -0800 (PST)
+Date: Fri, 13 Nov 2026 14:12:49 -0800
+In-Reply-To: <20261113221248.3535369-11-wusamuel@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,82 +78,173 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/3] net: mdio: mdio-bcm-unimac: Add Clause 45
- support
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, Carlos Soto <carlos.soto@broadcom.com>,
- Justin Chen <justin.chen@broadcom.com>, Doug Berger <opendmb@gmail.com>,
- Nicolai Buchwitz <nb@tipi-net.de>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, open list <linux-kernel@vger.kernel.org>,
- Mlody12 mlody12 <kudzo51@gmail.com>
-References: <20261113211554.2058181-1-florian.fainelli@broadcom.com>
- <20261113211554.2058181-4-florian.fainelli@broadcom.com>
- <e4f0d156-a7ef-48d6-a034-955e01ef90a6@lunn.ch>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <e4f0d156-a7ef-48d6-a034-955e01ef90a6@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Mime-Version: 1.0
+References: <20261113221248.3535369-11-wusamuel@google.com>
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+Message-ID: <20261113221248.3535369-15-wusamuel@google.com>
+Subject: [PATCH bpf-next v3 4/9] kallsyms: Add KALLSYMS_QUERY_BY_ADDR ioctl to /proc/kallsyms
+From: Samuel Wu <wusamuel@google.com>
+To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
+	David Laight <david.laight.linux@gmail.com>, Samuel Wu <wusamuel@google.com>, 
+	kernel-team@android.com, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-modules@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/13/26 14:04, Andrew Lunn wrote:
->> +static void unimac_mdio_set_clause(struct unimac_mdio_priv *priv, bool is_c45)
->> +{
->> +	u32 cfg = unimac_mdio_readl(priv, MDIO_CFG);
->> +	u32 new_cfg = cfg;
->> +
->> +	if (is_c45)
->> +		new_cfg &= ~MDIO_C22;
->> +	else
->> +		new_cfg |= MDIO_C22;
->> +
->> +	if (new_cfg != cfg)
->> +		unimac_mdio_writel(priv, new_cfg, MDIO_CFG);
-> 
-> Is the write expensive? The bus is not faster, so is this optimisation
-> even noticeable?
+Symbolizers such as Perfetto read all of /proc/kallsyms and keep a
+sorted copy in memory to resolve addresses.
 
-It's not really noticeable, with the firmware images that we have it 
-saves roughly 30ms per firmware load per PHY, but it's a cheap 
-optimization to carry, so I don't see why not?
+Add the KALLSYMS_QUERY_BY_ADDR ioctl. It returns the symbol that covers
+an address, from the same sources and in the same order as %pS. BPF JIT
+symbols are hidden when /proc/kallsyms hides them. query_flags must be
+0; it is reserved for other modes.
+
+The command uses 'f' 0x31; register 0x31 in ioctl-number.rst.
+
+Suggested-by: Andrii Nakryiko <andrii@kernel.org>
+Signed-off-by: Samuel Wu <wusamuel@google.com>
+---
+ .../userspace-api/ioctl/ioctl-number.rst      |  2 +-
+ include/uapi/linux/fs.h                       | 13 ++++
+ kernel/kallsyms.c                             | 60 +++++++++++++++++++
+ 3 files changed, 74 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
+index f5dbb597257a..d9b66e7a29b7 100644
+--- a/Documentation/userspace-api/ioctl/ioctl-number.rst
++++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
+@@ -250,7 +250,7 @@ Code  Seq#    Include File                                             Comments
+ 'f'   00-0F  fs/ocfs2/ocfs2_fs.h                                       conflict!
+ 'f'   10-11  linux/fs.h                                                conflict! procfs ioctls (PROCFS_IOCTL_MAGIC)
+ 'f'   13-27  linux/fscrypt.h
+-'f'   30     linux/fs.h                                                procfs kallsyms ioctls (PROCFS_IOCTL_MAGIC)
++'f'   30-31  linux/fs.h                                                procfs kallsyms ioctls (PROCFS_IOCTL_MAGIC)
+ 'f'   81-8F  linux/fsverity.h
+ 'g'   00-0F  linux/usb/gadgetfs.h
+ 'g'   20-2F  linux/usb/g_printer.h
+diff --git a/include/uapi/linux/fs.h b/include/uapi/linux/fs.h
+index 987569dcdbea..c1a63c8560e2 100644
+--- a/include/uapi/linux/fs.h
++++ b/include/uapi/linux/fs.h
+@@ -676,6 +676,7 @@ struct procmap_query {
+ 
+ /* /proc/kallsyms ioctls. -EPERM if the opener cannot see kernel addresses. */
+ #define KALLSYMS_QUERY_BY_NAME	_IOC(_IOC_READ | _IOC_WRITE, PROCFS_IOCTL_MAGIC, 48, 0)
++#define KALLSYMS_QUERY_BY_ADDR	_IOC(_IOC_READ | _IOC_WRITE, PROCFS_IOCTL_MAGIC, 49, 0)
+ 
+ enum kallsyms_query_flags {
+ 	/* Match query_name as a prefix. */
+@@ -717,6 +718,18 @@ struct kallsyms_query_by_name {
+ 	__u64 sym_struct_size;	/* in - sizeof(struct kallsyms_query_sym) */
+ };
+ 
++/*
++ * Find the /proc/kallsyms entry that covers query_addr, or return -ENOENT.
++ * ftrace trampolines and kprobe pages are not resolved yet.
++ */
++struct kallsyms_query_by_addr {
++	__u64 size;		/* in - sizeof(struct kallsyms_query_by_addr) */
++	__u64 query_flags;	/* in - must be 0 */
++	__u64 query_addr;	/* in - kernel address */
++	__u64 sym;		/* in - user ptr to struct kallsyms_query_sym */
++	__u64 sym_struct_size;	/* in - sizeof(struct kallsyms_query_sym) */
++};
++
+ /*
+  * Shutdown the filesystem.
+  */
+diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
+index 29a9da04d8a3..6d7032cd3fd6 100644
+--- a/kernel/kallsyms.c
++++ b/kernel/kallsyms.c
+@@ -1223,6 +1223,64 @@ static int do_kallsyms_query_by_name(struct kallsyms_query_by_name __user *uarg)
+ 					 &bufs->m);
+ }
+ 
++/*
++ * Look up symbol from addr. Copy the module name under RCU, and hide BPF JIT
++ * symbols as /proc/kallsyms hides them.
++ */
++static int kallsyms_find_addr(unsigned long addr, struct kallsyms_sym_match *m)
++{
++	unsigned long offset;
++	char *modname;
++
++	guard(rcu)();
++	if (!kallsyms_lookup_buildid(addr, &m->size, &offset, &modname, NULL,
++				     m->name))
++		return -ENOENT;
++
++	/* Outside vmlinux, only BPF JIT symbols have no module name. */
++	if (!modname && !is_ksym_addr(addr)) {
++		if (!bpf_jit_kallsyms_enabled())
++			return -ENOENT;
++		modname = "bpf";
++	}
++
++	m->addr = addr - offset;
++	strscpy(m->modname, modname ?: "", MODULE_NAME_LEN);
++	return 0;
++}
++
++static int do_kallsyms_query_by_addr(struct kallsyms_query_by_addr __user *uarg)
++{
++	struct kallsyms_query_by_addr karg;
++	struct kallsyms_query_sym ksym;
++	struct kallsyms_sym_match m;
++	int err;
++
++	err = kallsyms_copy_query_from_user(&karg, sizeof(karg),
++					    offsetofend(struct kallsyms_query_by_addr,
++							sym_struct_size),
++					    uarg);
++	if (err)
++		return err;
++
++	if (karg.query_flags)
++		return -EINVAL;
++
++	err = kallsyms_copy_sym_from_user(&ksym, karg.sym, karg.sym_struct_size);
++	if (err)
++		return err;
++
++	if (karg.query_addr > ULONG_MAX)
++		return -ENOENT;
++
++	err = kallsyms_find_addr(karg.query_addr, &m);
++	if (err)
++		return err;
++
++	return kallsyms_copy_sym_to_user(karg.sym, karg.sym_struct_size, &ksym,
++					 &m);
++}
++
+ static long kallsyms_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ {
+ 	struct seq_file *m = file->private_data;
+@@ -1232,6 +1290,8 @@ static long kallsyms_ioctl(struct file *file, unsigned int cmd, unsigned long ar
+ 	switch (cmd) {
+ 	case KALLSYMS_QUERY_BY_NAME:
+ 		return iter->show_value ? do_kallsyms_query_by_name(uarg) : -EPERM;
++	case KALLSYMS_QUERY_BY_ADDR:
++		return iter->show_value ? do_kallsyms_query_by_addr(uarg) : -EPERM;
+ 	default:
+ 		return -ENOIOCTLCMD;
+ 	}
 -- 
-Florian
+2.56.0.679.gc527c65306-goog
+
