@@ -1,75 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577953;
-	b=KYaToxrjbwv04vT89EVR7ZU8UE+79QVmTNqDlqaQLQSm5/oN9PTarnAu3pQtWpomKFOq
-	 JaDE2Y9TTqewjTMXrYxMDLhyZzRbJ4kTuxr6QcFwvs4fedWh7J/9U84J+IR0B6zLJ8Lx2
-	 3xoaG72HdeVLo69thfZMS1zlIERxBZtiYpGouyTJHm59ouXR8PmzVDcWtJBu4E2LwnY7R
-	 gck86EsD4TEwtD2NK77XskyUDMIbygSuFTpdlJjTgq1JcQFjbcngUwl6BDuz/EnzaaiV6
-	 EqYRvaqjhVB/m4KjOthlvkMd3wp1Tfe4zcBP5dGQgxBQeVrS5GD4BXDRJxryKDmyNvg==
+	t=1794577955;
+	b=T9lpPsY2AoMQeuk4eGMi5xvDD87/77uJYMBsI7mqxpKxJJNxdN8vLfZ2YBATtF+Ns/0A
+	 tQar9M3FlllJcXdEg9aHbg8AF7qN7JDWhGtp8nzdyEesk2oZzRA/FVtf9t2EFDx6Vzyc0
+	 zIWl07PTULIqxqqT4CeRkLxY1IhZ5HzGYCObnMF2c4HR/5ih48n+vAiKQFgLjeoGser2r
+	 1WS3pSIl0dc0bCHk1sPrWXUN7gQ/OHNTeT25eA7tDpRmrlPVnzyngg4VWk7qFjvcH4ZPh
+	 gGAPEfEMbpk6ViIBX3DiSc/0RiyE5zEejHRq2V9N5Hl1WWKLq6u37F16y4R4hjFMJAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577953;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=o6rNxavkVSPGD6OXC5QlYB6spVgGCDdLKxziIS1EaPg=;
-	b=W6/wGkCfnM7EXgcxsLoZ+AzKjnmf/A0yb4Ws4zQGcRQalZILsx+ePC0o5zBmgTsjPYDl
-	 TGvDf7fYwsgbVZcDlAmjZ4TZ/KaNHV2rh5k7YQH3wzMkwR574bqH8+7r0ohkjtqv3hOb/
-	 00ndBni9uoB7kN4G1RQ2lqm1ccwRjrC/bkjx1N80/rdvUcs9A58NU0BCkAYFjEPZf7Rh8
-	 m/drF/vmIBitN4gnWURdu1MlU7X0oiCY268jz63ZlRsGuOBFP3jbgrL1w7FQ20qqrWtTd
-	 laTeY0wsxP7Xmu/L8nF5JZGwnRrkicCPoP+sZ0RYSPKGHNVwuMUZXrrfnZ2MWb4iyig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577955;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=DVK4z9etFVD2eXEgskV5ZDkyIhWAOb5codKfSON7FuE=;
+	b=fygQo14c9mWZLD28AXfONyUxugvMMxK626BlQakANwg76s9fxMldFiSCiA9u2PEcpza9
+	 DX465/Ce0y3Ov5chZE2sxQep1FiJfEs7wvIe9kLG3/4ZzRXmybKv3s2ViINMFyEtCqWO9
+	 5TsTtD6jc9FFmBAf4++NiNYjxcoSG8aizeYkiE9LZNf0k1Ot0NnlAeYUsS1QQI5MU9BEk
+	 gZAjoOVIGKgwV7WxkaMm8OSi45Zh3lIoTHP7mgQuaiPUEkvwOyjST70wY1H7VCSMtb0Ac
+	 Ide2VJjQv8REdXFPTnCSdT/UzQ7YHLXGeEA/tMxEzvDaZAPwWTwBr84hxfQxwF9vmnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZTJ4mr1d;
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RoQ4y/LM";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8759F606E0C6
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:52:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8759F606E0C6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C59C606E0D9;
+	Fri, 13 Nov 2026 13:52:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZTJ4mr1d
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b0a13ae043so1316971a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:52:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794577953; x=1795182753; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o6rNxavkVSPGD6OXC5QlYB6spVgGCDdLKxziIS1EaPg=;
-        b=ZTJ4mr1dVqcq1v73DSTZKzsy/Yocu/xyn4OjwBRY5OjWoByLoi+loB3b/JXDEyhGwh
-         wLMMYIoV14j4dZxikyfBpe3EplpOJ7GeOGiiGRKLpvYjYhUYiih0nUc77rEvMmnVTGeZ
-         gbNmAAt1mOjUM8FUSKWWReIM8mtP5T89xQq5EkB3YCLGzixnp/+Q6IhdN1VATWFcvyNZ
-         OiHJvqw29MLOKu58Iwd1pS9xxJu5MPCprjo6hWLv7jTxo5lQLsUsl51Ttjk9c9tsFImF
-         tIS20EfAPafTvuxCRP9HiTfSg+LZeSIDDBOeT0fDYsXFOidoQiQoJYlnJzte4ou4MMxT
-         yMuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794577953; x=1795182753;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o6rNxavkVSPGD6OXC5QlYB6spVgGCDdLKxziIS1EaPg=;
-        b=KOI7swgvMc71KIFGms24T8V+WoAjsjGNQbQ9OOE8k7jd0eo/aB1halbPKJiTBxCtDK
-         JEfCCR3RJEw87y9994AlirmIj96BwrsQx0xM1khFV2wCSEUNoXdeIwTv6dceLJ8J3HXA
-         /VqMDr6f68F7QibvcqadCMc4kQW7F2DknAHCL3wvy4+JaaeXM+fVIx6YplrhDGhwiBQ0
-         Bu3QISE3swt0/2xZfgCsN8w3IdXYXXU1Ekm9YA10fwBJ58CN6ZhhqTKpFUFF0ySjsKNu
-         kfSjQgdSGHBgRJchXSQO6G9cccUwvdfl7Av3fQo4hECOfFUYxUdtpnHImxQPBbiNZqvW
-         ZcYg==
-X-Forwarded-Encrypted: i=1; AL+hErHlg4g4GusYR8515BgtgNEbk+DOmJ8yUt1uuEJ85wfKiNk4ayGUHTEWMjgUB3ej5J6cZYn4hpSPwSAztv0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VZnio1hWtnjyieiyjrKtNwA/M8QJVFotCnJqdS+VpimXmDANV
-	K8DcLu3LNRE7AJMyU7GyTYPVNA7DUJLbiZRcTTS+pPJyVRNyMA0D16yanrdsNlRFS+IwMzRXpNd
-	OQtmYkA==
-X-Received: from pjuv18.prod.google.com ([2002:a17:90a:d592:b0:3ac:a379:dc7c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:48c9:b0:3b1:21d9:4c3d
- with SMTP id 98e67ed59e1d1-3b1b0cc8744mr2610201a91.39.1794577952603; Fri, 13
- Nov 2026 05:52:32 -0800 (PST)
-Date: Fri, 13 Nov 2026 05:47:33 -0800
-In-Reply-To: <20261022202734.592745-1-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RoQ4y/LM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AE591F000C4;
+	Fri, 13 Nov 2026 13:52:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794577954;
+	bh=DVK4z9etFVD2eXEgskV5ZDkyIhWAOb5codKfSON7FuE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RoQ4y/LMu5IZ34wonw3kFL5eyrmJh+9B+WwxGGhscM0mw7zrzPufIgBVXIEn3e35B
+	 24IgA6/0rPqG7i8HcmcnNziGf9uXsonS01vknanyf/bRSpHKXtYu3abCyIO4rHEfY+
+	 Q68m3I3fzzZxLeoiB58yd9Iotm6LCkn3aKgtzy0ybLRF4rb1HAU1ef7PXY7mDiYIZz
+	 tEblFwNMpfLI+uX+r67QSY9dqty92ChxpwZUUz7xynYYlSYa8vQF03/rwPuU8O7huY
+	 QDRWSkK16FsDBxWlFiAaNOEIJ9LNUMi7UyI98DeXGeR2CFbNfeKMhwVJTQ2dXdD9zc
+	 VzeLm+IJO1BKg==
+Message-ID: <30a6c6c2-95ad-4f98-a63e-25f311967ed8@kernel.org>
+Date: Fri, 13 Nov 2026 07:52:31 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,32 +50,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261022202734.592745-1-seanjc@google.com>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <179441776265.76316.16672462680333919952.b4-ty@b4>
-Subject: Re: [PATCH] KVM: nVMX: Nullify cached vmcs12 pointers if entering VMX
- operation fails
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ACPI: CPPC: Reject EPP registers narrower than 8 bits
+Content-Language: en-US
+To: Christian Loehle <christian.loehle@arm.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, viresh.kumar@linaro.org
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ sumitg@nvidia.com, luoxueqin@kylinos.cn, zhanjie9@hisilicon.com,
+ zhangpengjie2@huawei.com
+References: <20261113130411.1433174-1-christian.loehle@arm.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20261113130411.1433174-1-christian.loehle@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 22 Oct 2026 13:27:33 -0700, Sean Christopherson wrote:
-> Nullify the cached vmcs12 pointers after freeing them if "entering" VMX
-> ultimately fails (because of an allocation failure), so that if a stale
-> pointer is consumed, KVM hits a NULL pointer dereference instead of a
-> use-after-free.  I.e. crash the host instead of providing a potential
-> guest escape vector if KVM is buggy.
+On 11/13/26 07:04, Christian Loehle wrote:
+> The EPP interfaces use an 8-bit preference, but ACPI permits narrower
+> fields. With a 4- or 6-bit SystemMemory field, writing 128 succeeds but
+> stores zero, requesting maximum performance instead.
 > 
+> Reject a present EPP register narrower than eight bits during _CPC probe.
+> Use the existing error path to release previously acquired resources and
+> leave the CPU's CPPC descriptor unpublished. Keep absent EPP entries and
+> registers at least eight bits wide on their existing paths.
 > 
-> [...]
+> Fail the whole probe instead of disabling only EPP. This also makes
+> amd-pstate's acpi_cpc_valid() check reject the platform before registering
+> its MSR or shared-memory driver. No affected hardware is known or
+> expected and the specification is expected to no longer permit these
+> in the future.
+> 
+> Fixes: 922607a2b462 ("cpufreq: CPPC: Add support for autonomous selection")
+> Link: https://github.com/tianocore/edk2/issues/10838
+> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 
-Applied to kvm-x86 vmx, thanks!
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
-[1/1] KVM: nVMX: Nullify cached vmcs12 pointers if entering VMX operation fails
-      https://github.com/kvm-x86/linux/commit/7597bc333891
+> ---
+>   drivers/acpi/cppc_acpi.c | 9 +++++++++
+>   1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+> index 11a9f9eb6b4a..4c3d5778e428 100644
+> --- a/drivers/acpi/cppc_acpi.c
+> +++ b/drivers/acpi/cppc_acpi.c
+> @@ -2094,6 +2094,15 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+>   			cpc_apply_platform_quirks(gas_t, i - 2,
+>   						  platform_quirks);
+>   
+> +			/* EPP interfaces require the full 0-255 preference range. */
+> +			if (i - 2 == ENERGY_PERF && gas_t->bit_width < 8 &&
+> +			    !IS_NULL_REG(gas_t)) {
+> +				pr_debug("CPU%d: EPP register width %u is not supported\n",
+> +					 pr->id, gas_t->bit_width);
+> +				ret = -EOPNOTSUPP;
+> +				goto out_free;
+> +			}
+> +
+>   			/*
+>   			 * The PCC Subspace index is encoded inside
+>   			 * the CPC table entries. The same PCC index
 
---
-https://github.com/kvm-x86/linux/tree/next
