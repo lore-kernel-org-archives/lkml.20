@@ -1,107 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.61
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794574202;
-	b=Fa6dcbtu5ytwAtSTSje7EQLmIsl6vO9eiosYNEl8fohAGErOJydomI91HlJYAZEK+0XH
-	 7iLa7qullPQQmiT59iaRhyqFgEFVrb+VY9skcPR96uuz1wJ/JSyu1fRmGj0P6zMU++GOY
-	 WwXDWT5FMvNPpzYYDocIc9Q+FEvQGI0vkqBZ/S3NpylFVaaAQcnP41QvoS4kIf1ne9LeX
-	 NO+DPqxVw+EK53bstb7DmvKd7JMXsVbImsxco4wQwnvx3dzGmIt3Z4pUbZLOlQ4e8iHtu
-	 EvqJvlhqOixes2CI8bwCUSpaAaPtwuh+xUqmYzdb7Ilpc00yCemAhqsa1R27GpFw++Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794574202;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fhh23ipf5Kr3XGEeq5FPZ0EvQcPlo0jj5NBS9X47opQ=;
-	b=N/ZUeG5/1C3Aeeirns/A4CpTYuPmfgz+1j1UWK/g7Aerk+yrhxvDo1vrk6EG7Qo0e/CI
-	 VUzooBuoy9fFmHmib7WNokULWbpS0dQOTQ9FhDedSrDvyPHSxA/PDnIJzi/71ztkMEKtF
-	 ESLlS8peACwe5C/BHPM/vzgbuKB3l8lT/8i7rKbBFMe/KIoRep1F5jC3RUUTUAixCuB4Y
-	 pf1R7UrQvB3WT4ccQPzMyJQ88tnXVPO217rSZMeneGr0o+arIWkzRYCtAyFl4VYgrVOHY
-	 s0zcHRD969Igl2wU+bsD0CPf6awpMG1fIqc8oKw/FSxeHfK5ae2l7q7m0uhLPkZXrJQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XgpV3UGW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.61
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011061.outbound.protection.outlook.com [52.101.62.61])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794574192;
+	b=iWtNeBtBTJYagjZFE7BVYg8V5IylFoNnAnPnXSW1mmtyIQFtb4e1iZc43ZY0sNsFJlac
+	 l7wPI2caBht/HGDU0Dro3aAJ08dRVlGb4wEgyvMyeglgHpL0OwPeJnlOKjdkW1rqrjNln
+	 CmJl1ZwYx2vGXcMJ+R2F9KdN4okzAqGutFNuupF+T7n62LFFn4mcA1MM5DJoGp/kYfCsu
+	 Jj8HnxFxSNflLDXGZQlbgVHAxaLzR7MA0+CnwH2WbUVwvAvV9OCbyNxj/nFlOJt+mig/i
+	 /nXj/8eY563kFBP2srZBx2VdBKecU2YYrhhfIcI3wBf4m+NzJT4brH2+X7CvP4EkXHA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794574192;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=TzwipR1LCMAEarIzxU+ebA22tLIFqbxvhpauSxtFZxw=;
+	b=KlEWC45q+sA2wiI3XQUprAYCJT1bco/yJ6IkMj5DMCN547Ih1JbmH+pDrj1VnwotOCfO
+	 zFYB4YzAnnA1CHJxElwP9oMWb4Jthfg+JPDXF7JXEWLwpOiklh/vIM+ssTCYgdEa4pWrW
+	 UuqAK218xV0t36WupPofq1k2RYK1AZXieiW7QjAym6DRmYn3nf9j5liAbBDddQeutPHHD
+	 kBaura+BhCmaEs+uM2QKm0eIrf5gsIcz/XJrQvTd9XGdFgdM4lE/1FZd/VHSwRFBGQXWV
+	 aUtgDqy48NP0iB1ht+9aSAB/pliaN8B6yFHWhpdfmd+WORwdy+cWoZv6BD6rW7RZ4Ow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ufs+XkD1;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lmTsmUr3;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC8C60A6F44;
-	Fri, 13 Nov 2026 12:50:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FC8C60A6F44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94ECF606A88E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:49:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94ECF606A88E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XgpV3UGW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WZTxLM/H4r07esyx8ump2WD5OvBI9xHW3j/GEkvI53P4agt+WxeOijV+Lri5bsBJBFwNPh+xCKaoaX1PHdxrDUbA7Q2zNUSPZWtNnpMM2OqD9R+joh2RFG+qpq6cUuyCJTQwvbjHpTt/oXH+ouSiwp9zwDOWS05pbfshggv9e0opBkoZWq+I3tzVdum1WvUZ86ND+cm6Rc3XIkr5UTeFREDKlemYzc7uJ53Yky8YGxK96J8xyGoI358QjpUhA4zSyofov9BweJKCuiOsbM6BKLHB6mveEjwrb4MhijDtzBXnopiXJycPmN1MX5aYIQ68SOc4inBS/QoOmY4ot5eiwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fhh23ipf5Kr3XGEeq5FPZ0EvQcPlo0jj5NBS9X47opQ=;
- b=mibxZ247k1WnQ8lKnD33O/tC3oodplf6QA67WCmYRnKDpAVtn7eCJqCzCWqAiRmeWa9UuLmncn7Fg3aDer0i5PuhLX1yhiSHWijH6ize1DTq4hR04wZhutobiL0deLkIxuedJ9yaG7CSgoLlnYwGnZPvpe+Xy2KR1Z1TUkTGASNaJZFQGQ9T3Om+rZBJR6nqWqOwZSkbEuvaHRKHI49G37srmHiY75+6Ked3PiRRjOTSu2yOGq10yAZ+/E1+jyk8JEJWgCos3sK3s73mydeqafcsuW8v4FHpbiQS8itvOROAmZ9aFtt6SDgBmJGLP9i/Rn7m3ZbAuuDuoCZOdLd1ZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fhh23ipf5Kr3XGEeq5FPZ0EvQcPlo0jj5NBS9X47opQ=;
- b=XgpV3UGWDa1GIpNlAcQegl0xs+wb/fJMENuPmJxGh7PsHSs/b7KlLzOYf0HWs5638zb24fhmXQ4pumvCjTnLSc5D/1DNm/n0e22OSLseMQMxrwX4iFggTC3Cpg7E/OfGfIP3w8s6G7aqBztYBqLnMo/g6L4Uuv679S1cSbbJJWs=
-Received: from BN0PR03CA0016.namprd03.prod.outlook.com (2603:10b6:408:e6::21)
- by MN2PR12MB4405.namprd12.prod.outlook.com (2603:10b6:208:26d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 12:49:36 +0000
-Received: from BL6PEPF0006C3DB.namprd02.prod.outlook.com
- (2603:10b6:408:e6:cafe::1c) by BN0PR03CA0016.outlook.office365.com
- (2603:10b6:408:e6::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 12:49:35 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0006C3DB.mail.protection.outlook.com (10.167.249.229) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 12:49:35 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 13 Nov
- 2026 06:49:03 -0600
-Received: from localhost (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53 via Frontend
- Transport; Fri, 13 Nov 2026 06:49:02 -0600
-From: Michal Simek <michal.simek@amd.com>
-To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
-	<michal.simek@amd.com>, <git@amd.com>
-CC: Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, "open list:OPEN FIRMWARE
- AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated
- list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH] arm64: zynqmp: Disable DP for Kria SOM
-Date: Fri, 13 Nov 2026 13:48:53 +0100
-Message-ID: <ef31d389e963485d19ea5837d442ab0b1ac39b6a.1794574131.git.michal.simek@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ufs+XkD1;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lmTsmUr3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794574190;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TzwipR1LCMAEarIzxU+ebA22tLIFqbxvhpauSxtFZxw=;
+	b=Ufs+XkD1JsW2snGybwJeCFbsxdmrSizDVvAn0b9KAshLaUTqOiF8RacB3wwj76Kw1QQVTC
+	L8ut/9FxvLxEW7pSEPtX3rb+ugWNBk0euZPn95KWbgYD9KTqbkrpp5dmeq14akbXy7nRZk
+	7G91PsAUrCYd+zYfvSNSjljLniyMuME=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-57-6n-M0lSZP0eFVt4e9S5qHg-1; Fri, 13 Nov 2026 07:49:49 -0500
+X-MC-Unique: 6n-M0lSZP0eFVt4e9S5qHg-1
+X-Mimecast-MFC-AGG-ID: 6n-M0lSZP0eFVt4e9S5qHg_1794574188
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a35db2d6b3so5203495e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:49:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794574188; x=1795178988; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TzwipR1LCMAEarIzxU+ebA22tLIFqbxvhpauSxtFZxw=;
+        b=lmTsmUr3CCPY75iJ/bcghJ5i9XXJsqlO9ikUH0BUjTeqBp1MbCyxBaIfUDSNbWNIna
+         j+7t/GS9RuBn4uFewVk+dEknt1pBOkRZxl/v28QWBAAiY0Xd1cF4KVNlT5xVIf10TWFV
+         SOcZdNl2mBNSkoehYBZP/342U3NPGThuEVv/YwpYtxh3dqc22VDmGSP8mo60TIZlmsQO
+         WI3N4Kh0GX5rA49Z0NH2y5EbppiPW6ueOAFdtDaFULxZcE/GNx08KPmIyv/srbnphC04
+         vh7q56SqB7ZEX0QNKje8zi91/vevKC3sxDHP2U7UJ6V3NudF8beHiaHfRMeLCB/v5Pyb
+         rtRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794574188; x=1795178988;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TzwipR1LCMAEarIzxU+ebA22tLIFqbxvhpauSxtFZxw=;
+        b=nrlJ6G0RrNtPubmaNT3cbXodO6tx8HdqULl+dW0tFGUbD6l6qDxOrjdKI10CbM8yBV
+         2upEApeC+rjAAKpGYKtZCPiXNAs5hjs0Akzg7XiYauPYUjOcd+qUI6WiqN9tRUkckljL
+         dSgULayPPOTzDK56itsL2+i5shjt5pILvqKSwuRFM2ekmNZIEUDBBJAeHC/AO0Wzwc1q
+         SklN/hAN6QXru4nh+fyMyBGkUPv3GjD6wFpPIRZAFDUp5YRDIlbV86ZTyzLKN9ELMD1S
+         Ayj5RZDAcFoG9C+1pqgoKkIBnnsdMsbV3pDzyV+zTRursWw9n7s0lNPHuIsCZM8y5Iyf
+         IPtw==
+X-Forwarded-Encrypted: i=1; AL+hErFmE9q6qKL53z8CvSBL0Q9olZ6ywGFB6vhmAXqZbGHjb5XqIoTrNM+CitDSB5f07+xMAvVjVZcyi9y2n6k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1pM5SJvtd1zxALOwCTAuyn6HerhjyC/cbjfKTQNwHs0/Ete+T
+	v7mjkV4XPYRLS2A7/DZbrBdKBRSPKKSJsjhz4cRT6Y8dOHW316WNEh05ptAj42aBOGvgP92RRBL
+	U/lw+QS6sBgtk8LSUlfUtVjKVz7AttrLIbS7WRoNXHkmaGq+sANbqxXaCFMOG7ST7bQ==
+X-Gm-Gg: AYBFou1Gi9OVe0JxqMVwik4sELCjHn6s+an/G1XlBUOsVD7+HdtcrSuz88w0fd51HEu
+	9xxNDMvL7ZKEZj6FlUVX8pa43/q5EB3eoU8labdszyULjdU+Un6qsUxXcUHzMK4XGD1bQ/JEcqT
+	3qRRh3P8sjOfBxh6J9TY5B9VZzZ/gE9bME0HdZALUvfmDr5KbT9dE6I7Cv+wXPnfTUjPsOOhd9A
+	cdbDFlkEh0ePHBohwMAhhKRExvwvPS8T3JsGFuIYp37PKT5ucjc8mx6mCAZpAHgUW8Ij222rvR1
+	HPTO30UaS6wMg1g1kh4a+yn+e6iiCyRMFzpR7sYATbNG1eZbpEkKIq0wnrHG/0OpF0o11IpnbdJ
+	pxUxEwFlwdEd1TMe6oHU+0+AQgUSrCdlKp2/YzkVVwi5Y68drINtgRqNJeekY5EiKG2T0gbSh9v
+	7M3ekuaNIQ65Y=
+X-Received: by 2002:a05:600c:a30e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4bb55a5d63fmr43628985e9.11.1794574188162;
+        Fri, 13 Nov 2026 04:49:48 -0800 (PST)
+X-Received: by 2002:a05:600c:a30e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4bb55a5d63fmr43628375e9.11.1794574187689;
+        Fri, 13 Nov 2026 04:49:47 -0800 (PST)
+Received: from [192.168.0.19] (217.red-88-4-146.dynamicip.rima-tde.net. [88.4.146.217])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2adf53sm151135805e9.15.2026.11.13.04.49.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 04:49:45 -0800 (PST)
+From: Sergio Lopez <slp@redhat.com>
+Date: Fri, 13 Nov 2026 13:47:35 +0100
+Subject: [PATCH RFC v2 2/8] vsock: report datagram receive and send queue
+ state
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,64 +113,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=785; i=michal.simek@amd.com; h=from:subject:message-id; bh=Uw4/VEXAmEGOP8UvlS1CsYf7lCvDJCa2ephJAQA+Xx8=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWR9Z7dh/Cg3p+3j0ej8C/9MrKu4N/3xyD156L+DYG/f4 q0tUa8fd5SyMIhxMMiKKbJMZ9JxWPPt2lKx5ZH5MHNYmUCGMHBxCsBEMoMY/nCdaLAsPiJsdec6 259PIp8TXyV5TumIjokX9Nk0n1Nt+hmGv4LS9Wc6zItn8Ni6nshRZlzoYW8v5qV4M5dVmYE7ga2 dDQA=
-X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3DB:EE_|MN2PR12MB4405:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d0195fc-ece4-47dc-f59f-08df4184924d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|18002099003|261009223027099003|3023799007|56012099006|10067099003|261021123027099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	wvih0UIvfNzNux8iO46LxbxhHVafiLw8yegYjxwp26kNJJeNuf9zlODIhRzj6xOfD1he9EiZfewd38RSr+FsalwqevByZz044LHHtThdNRJjf2cB7Q7DQPK9mf0O1sh8FYWenqaEslC7Ujnz+2vanpIpTm0xYBfJYD3t+lUpz4HgV6YOMUJ+enUDaNEOch6LkPXuAeLxzVjeQCF1W/n95EhELXNw52aBI/miZKFd5iDjvjLAqqzqwKqa9VbyYaTMBfVKVfkmv429aVGqn5v+bB66aE+zjD2kmmy/jg25PdOHhlJpaKO8lE+auaSR4b+nNSYQHFrUK5xyE3kviJl+fcyWSe6QGvsn/ZydrVw62oAoDnLbjoPsJvYGd225mriwK0grryCazEJDwqqkuB4gmMYzbv8vLIXWp252IFQepV0t9i2+IpGcJOwtG0MDOc2uRMsm9F9UygznvJ9zh7f2xJ4Sk515SCqd9AG6MBgiil3bzfi4K7SjCzCYNmask7+LVpnnzwVFzVEjo9Wzt3WL5Xdv3ZgCXwspmn0WoUHqeFB9Bu2VQPR7PT3FyPyAXgbTnwtQhdVsoSAm+b/jsIgtzzAzgl4aJVaJ1yzJNCrrhtwB3M7E14I7FgRlfdfMFkI/OQDkHdCBV+ZI812k/Np13jkItL+QPIFIMloG37khB5aNN7P4HzhHQ+eBObYkAmYoaFXjdIT4FvUxF+6lu/6FxQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(18002099003)(261009223027099003)(3023799007)(56012099006)(10067099003)(261021123027099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	51CyLgdmcIQevLvoCCKEsD1w9DouKcaFgo6XzmvXvCo4wRmahuymRRHzFc8UTx3a8QR1hiNZRPodWH3UZa6odSAtmHisV53oRirbi2HrhHkIQyVLavYowZoSGSKippWi6mGZew3A0SPVvCHnGc4/jWo8dRl2lBv3qAkwiY4U+wP4dE8Rxt4SScVa0sZ4sqawNDs5htmNAiRuM7794aixYwwTtvlFF1TOGjDfgiQzYeU2/IhYLqZLsIABB2YVwbtHfJvQAGPKjXjqKsVp6WnS4ml62K9BOZ+LEN4r62GPXfFzaOP83ozt+H3Nza+b5E+HV8f/78uSsTeerYUw2/K6tQNIXnxJDHJQFmURCaolOc/iH3UEiuGWdfgfMjr+FL+F13OFJVGpBV+28wGQ2P/e8yoa4xhgiwp4ErIjdi5wBGUcX3HKIm0E7JQoouXpKGWk
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 12:49:35.5545
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d0195fc-ece4-47dc-f59f-08df4184924d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0006C3DB.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4405
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-vsock-dgram-support-v2-2-bacfc85b71ce@redhat.com>
+References: <20261113-vsock-dgram-support-v2-0-bacfc85b71ce@redhat.com>
+In-Reply-To: <20261113-vsock-dgram-support-v2-0-bacfc85b71ce@redhat.com>
+To: Stefano Garzarella <sgarzare@redhat.com>, 
+ Bobby Eshleman <bobbyeshleman@meta.com>, 
+ Alexei Starovoitov <ast@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Bryan Tan <bryan-bt.tan@broadcom.com>, 
+ Vishnu Dasa <vishnu.dasa@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Stefan Hajnoczi <stefanha@redhat.com>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+ Dexuan Cui <decui@microsoft.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-hyperv@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+ linux-doc@vger.kernel.org, Sergio Lopez <slp@redhat.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4270; i=slp@redhat.com;
+ h=from:subject:message-id; bh=DAGnzS4beIxvhBc5LWV62Y4RCwEPeEYebUU+gVLqZ9Q=;
+ b=owEBbQKS/ZANAwAKAfRpJ40vDAI1AcsmYgBq9wdc1HVuwZr7WAO3p5X3i9Hbncg0wLnW2CWGa
+ dt8UHDsRAGJAjMEAAEKAB0WIQS+1fz3US2GgJFC6KL0aSeNLwwCNQUCavcHXAAKCRD0aSeNLwwC
+ Ne95D/4xcEjEk6TsQj6Ph8foZvuU98DdLBcYKq+Lywy9+F8qDFnfQY7bzbWE3k0FAswmveRqM9n
+ pBPGB7f2ZPGyg5EMdAEUL1HQd2TtMVa0soWaiphkuqn/P72rTNImirhe6RFeX9yynltp0UgQ2DH
+ ZogLxK6KPSrRl5ThiNzbF+La2F94WXzvfytjX2MbFhQP7CyyrjkmrUUZJd6YEoo+1fsTb1dRvBG
+ D2HSG3i3C+M0K4KqIZObgWkfzaqKCYyqtqMsqbMED93+wpapn2copA/Zs18H578VdZRj/URVj2Y
+ 0i6QDx5WlAa/FX7MBkp+FsjiPgaOmrP7MAWiu9fLmVRj7PlKppl/X8j0LtGDOgq/Y+J54ZXlWa8
+ VQVT/VqTVvFG+lXUtA6//a9k9ytewq3ZOXiEZpldYKURp5E47aLuRA9YwZ6Z/mIY0tAs8zdg7l9
+ o6bnO2mC2sFMFlRGcz2/o/4RVadRtdDQrmQqwCfxfz5HmL2SRA6wzKWEVPS/Tg1aCe3YgsEoGzC
+ ywsKTw7HVls7gnJz1GmtgR687mjJpN+ELLSAGwWS7unPCdyhGNU0JgZArRz9m2nNbuCMSdrPwrG
+ EcIiZyURGquQ+Z94G9Oh6MSlbYNcflDRo2Wk/lglGuImynATDU82u8wQuOcvkPBkeGw7Hlmguk7
+ zjlR5wTokFxLAxg==
+X-Developer-Key: i=slp@redhat.com; a=openpgp;
+ fpr=BED5FCF7512D86809142E8A2F469278D2F0C0235
 
-DP is enabled via DT overlays and there is no need to have it enabled for
-SOM only. Schema validation also reports that phys/phy-names are required
-property which is not valid for SOM only DTs.
+Datagram receive queues hold whole messages, and transports may charge
+queued datagrams to the socket send buffer. Report the size of the
+next datagram payload for SIOCINQ under the receive-queue lock, so
+concurrent recvmsg() cannot free the skb during the query. Let
+transports override the length calculation to exclude headers such as
+VMCI's.
 
-Signed-off-by: Michal Simek <michal.simek@amd.com>
+Report datagram write readiness only while the send buffer has space.
+Set the asynchronous no-space flag when it is full so freeing pending
+send buffers can wake poll waiters.
+
+Signed-off-by: Sergio Lopez <slp@redhat.com>
 ---
+ include/net/af_vsock.h         |  2 ++
+ net/vmw_vsock/af_vsock.c       | 32 ++++++++++++++++++++++++--------
+ net/vmw_vsock/vmci_transport.c |  9 +++++++++
+ 3 files changed, 35 insertions(+), 8 deletions(-)
 
- arch/arm64/boot/dts/xilinx/zynqmp-sm-k26-revA.dts | 4 ----
- 1 file changed, 4 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sm-k26-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-sm-k26-revA.dts
-index 500af1d2232f..a81e61a4f4d4 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-sm-k26-revA.dts
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-sm-k26-revA.dts
-@@ -363,10 +363,6 @@ &ams_pl {
- 	status = "okay";
- };
+diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
+index ac061115ed30..e4fbea3b0e46 100644
+--- a/include/net/af_vsock.h
++++ b/include/net/af_vsock.h
+@@ -124,6 +124,8 @@ struct vsock_transport {
+ 	int (*dgram_enqueue)(struct vsock_sock *, struct sockaddr_vm *,
+ 			     struct msghdr *, size_t len);
+ 	bool (*dgram_allow)(struct vsock_sock *vsk, u32 cid, u32 port);
++	/* Optional payload length override, called with the receive queue locked. */
++	size_t (*dgram_payload_len)(const struct sk_buff *skb);
  
--&zynqmp_dpsub {
--	status = "okay";
--};
--
- &rtc {
- 	status = "okay";
- };
----
+ 	/* STREAM. */
+ 	/* TODO: stream_bind() */
+diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+index d5cf240d4ece..8a271eb66860 100644
+--- a/net/vmw_vsock/af_vsock.c
++++ b/net/vmw_vsock/af_vsock.c
+@@ -1359,16 +1359,20 @@ static __poll_t vsock_poll(struct file *file, struct socket *sock,
+ 		mask |= vsock_poll_shutdown(sk, peer_shutdown);
+ 
+ 		/* For datagram sockets we can read if there is something in
+-		 * the queue and write as long as the socket isn't shutdown for
+-		 * sending.
++		 * the queue and write if the send buffer has space and the
++		 * socket isn't shutdown for sending.
+ 		 */
+ 		if (!skb_queue_empty_lockless(&sk->sk_receive_queue) ||
+ 		    (sk->sk_shutdown & RCV_SHUTDOWN)) {
+ 			mask |= EPOLLIN | EPOLLRDNORM;
+ 		}
+ 
+-		if (!(sk->sk_shutdown & SEND_SHUTDOWN))
+-			mask |= EPOLLOUT | EPOLLWRNORM | EPOLLWRBAND;
++		if (!(sk->sk_shutdown & SEND_SHUTDOWN)) {
++			if (sock_writeable(sk))
++				mask |= EPOLLOUT | EPOLLWRNORM | EPOLLWRBAND;
++			else
++				sk_set_bit(SOCKWQ_ASYNC_NOSPACE, sk);
++		}
+ 
+ 	} else if (sock_type_connectible(sk->sk_type)) {
+ 		const struct vsock_transport *transport;
+@@ -1632,10 +1636,22 @@ static int vsock_do_ioctl(struct socket *sock, unsigned int cmd,
+ 			break;
+ 		}
+ 
+-		n_bytes = vsock_stream_has_data(vsk);
+-		if (n_bytes < 0) {
+-			ret = n_bytes;
+-			break;
++		if (sk->sk_type == SOCK_DGRAM) {
++			struct sk_buff *skb;
++
++			spin_lock_bh(&sk->sk_receive_queue.lock);
++			skb = skb_peek(&sk->sk_receive_queue);
++			if (skb && vsk->transport->dgram_payload_len)
++				n_bytes = vsk->transport->dgram_payload_len(skb);
++			else
++				n_bytes = skb ? skb->len : 0;
++			spin_unlock_bh(&sk->sk_receive_queue.lock);
++		} else {
++			n_bytes = vsock_stream_has_data(vsk);
++			if (n_bytes < 0) {
++				ret = n_bytes;
++				break;
++			}
+ 		}
+ 		ret = put_user(n_bytes, arg);
+ 		break;
+diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
+index 1f186e8f8364..2b9493e987d1 100644
+--- a/net/vmw_vsock/vmci_transport.c
++++ b/net/vmw_vsock/vmci_transport.c
+@@ -1761,6 +1761,14 @@ static int vmci_transport_dgram_enqueue(
+ 	return err - sizeof(*dg);
+ }
+ 
++static size_t vmci_transport_dgram_payload_len(const struct sk_buff *skb)
++{
++	if (skb->len < sizeof(struct vmci_datagram))
++		return 0;
++
++	return skb->len - sizeof(struct vmci_datagram);
++}
++
+ static int vmci_transport_dgram_dequeue(struct vsock_sock *vsk,
+ 					struct msghdr *msg, size_t len,
+ 					int flags)
+@@ -2075,6 +2083,7 @@ static struct vsock_transport vmci_transport = {
+ 	.connect = vmci_transport_connect,
+ 	.dgram_bind = vmci_transport_dgram_bind,
+ 	.dgram_dequeue = vmci_transport_dgram_dequeue,
++	.dgram_payload_len = vmci_transport_dgram_payload_len,
+ 	.dgram_enqueue = vmci_transport_dgram_enqueue,
+ 	.dgram_allow = vmci_transport_dgram_allow,
+ 	.stream_dequeue = vmci_transport_stream_dequeue,
 
 -- 
-2.43.0
+2.56.0
 
