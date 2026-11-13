@@ -1,92 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794586767;
-	b=GjwXwcVe68Xg3PQ6nlzMuCnAK9EJ5xHjBcy4hMh1R+jLokK4cwrd1HiW5BwKINd7fsKN
-	 BmTlt4N1m22r0iqVCOBaKQS7YVGMoocTg+bBwinVn8puOeO2yGTaMoSPMngEceS1Stedd
-	 oqkvrfKNKd1pMlmtTAY04a4nMvOhi4Cf4DltAmPwcHutl/dglIc41nYVjBmtH3H4WFsYw
-	 2ybcPKehwsBgdr0R+oujG5kKqCqz2heeOKFXbkVfqoskWkc/kWqlxWUXDo1Q9KphAjS0u
-	 bf65LwZndZwI1bMSHPwfqGQNNbyTPnrRsyJu1Fdd2oR05KywBrXNoFIL5opKjuBPl/Q==
+	t=1794586799;
+	b=pOKUlqAto57As6Qvd9tNmf2ffHDHvFyorpA/nFXe8szb1TOWOMUs+huweADq2Hyna8Tf
+	 fJONX7rB0+41SAqokLRFRf2QpvNKKjcHuIyRT6Jcyk11O1yh1+vwvnKJKtsoQPDgKAjR0
+	 E+NAmNAz7dNqGb5E5aKfNODMeMqX5tFOulBXZ8l91QAxwWqdn/tjscH7N3O1aQDrdL2rj
+	 FIwgKgp/n5uIc4THuTKJth7cXLuODbOID+VbegOrUTyMwq4uBopjkZPhr3yHSOWX68PqN
+	 jIJqIVqzL2CkbeE7tgtR6ciUz0Bzh/bGE96sdLjdqwOf/PZiUWzJ2xZEf+yM9VbuJhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794586767;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=oO/L4wT+HAyKwurpfHTFIZjxjNbn4DtR8FDLIyKt6mQ=;
-	b=uWi0IdWnhv74H/sW/5lLocjE0f45g4M8NVL8homYlOeuskaR+y/gnmCnoW0ylpWx/K96
-	 51/VxhTljOL5ui1fMibJPOMAEn/kZ3vHnmygWn9HMSqi+F2Kb/3vKF3/NKTSH05FmScIk
-	 wwxYOo+646bP8/uOkLh63NSqDK0Iqnf/9g/Ay+QfcaJgLfdgKHp22wm5n/0hpUAbHjBPp
-	 d6MS0MCcDlEBW+NXyIvdi0ieYPSLSkJLX+rNRXi6+jStgK1k6pKN5OBkmkJSKqy1vwngz
-	 yje6wOIEyhyyRixE5pV4hpCebBrq+n8waNMOoQdhjJ8VSFUmHElu0r8euMQj7HOFPxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794586799;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=SMgY5YNqGWPvm0q7pcA1ZGRkzwJOmnADRsWH2ZBgxGM=;
+	b=v97yn/oYihV3QRpHA1/if/EtbgfPsTmJ0PjVkmRym5ld+sUwlb6me6hF2I8EGPeJ0XUZ
+	 RzNcnfbwqmeKl33Co2Xi/g1Edw5jWZr4rr+9R35vHyTCziO1WKqlrjAzDIBGKeBETUCLR
+	 ikevCYG8ZN1h8kAYA0vRQBbs8SbYfoXHdWQuCnzz5dFH65ItkFNFSsK8arkjpRBCB2nqW
+	 0SN68ejiawpGvFfaE88mKHDP9+W3X6aZnFBeItgfMR3NvA0+vnd0zHgCaW9Aj8TuoNfum
+	 eM2fvK5idb77seRVxKU3oyUwsgf8K7RCPQ3a8ej/BsvqTRkLvUJNAD5StQEgoCqrDRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C4ScWfhF;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=rPf2dlCL;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=kWHqbXpb;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CDA606A881;
-	Fri, 13 Nov 2026 16:19:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32CDA606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2169606A32E;
+	Fri, 13 Nov 2026 16:19:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2169606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C4ScWfhF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794586768; x=1826122768;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=w/H3vxilWiIY/oBeomI3Vr9aXfPsr8K8inhIjjgOnYo=;
-  b=C4ScWfhFMkAry+zfOO/DjBIL6OrgZY+CvDgWtfqfEh0GF9RVzR1b5/sb
-   xZhfvWHNLnIh20yCYevfn9Pw3x6XyO58neFB/DT/hYSNj3WHzJxRmQChf
-   TuFlxCt5XoHsH5qWt163GfpnK23ysMb3nN2vOETCAyeU5nDBR4y/LwNNl
-   7hd0fFubaJScuslYTPnFCu7aXGV1tCdzLmubUiWyUmudbh2yZQ63Ub+Y9
-   K0e5NAUFiCsP9SGJOtpeS0fA1ZSYQ+D3sTH1EF9qWUKVwPWzAUVnH3ek+
-   ztIjuBJkAkxIlbfqONbaSIyBlLn3sNYnwONnSNBNHrchGKuZL7Se9/084
-   g==;
-X-CSE-ConnectionGUID: HUoctku+SD64Zas1iCnhUg==
-X-CSE-MsgGUID: UtTxuqX2S0qvNim72gw0Bg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3282226"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3282226"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:19:23 -0800
-X-CSE-ConnectionGUID: sqDIhBnTTNqwivE1rQNtUg==
-X-CSE-MsgGUID: /+xFyyifSpayyMkgOohuzA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="9128992"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:19:17 -0800
-Date: Fri, 13 Nov 2026 18:19:15 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 10/10] gpio: shared: generalize most code to firmware
- nodes
-Message-ID: <avc4g9cbAOEElzRX@ashevche-desk.local>
-References: <20261113-fwnode-for-each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com>
- <20261113-fwnode-for-each-prop-v2-10-4edc23d5cf50@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=rPf2dlCL;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=kWHqbXpb
+Date: Fri, 13 Nov 2026 17:19:55 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794586797;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SMgY5YNqGWPvm0q7pcA1ZGRkzwJOmnADRsWH2ZBgxGM=;
+	b=rPf2dlCL4z6PgfHhhX2kl8GJegar+XrtxAZFvEKNwYUPtS+4WXetIfkMYtM9qP0xtxPqTe
+	YZRlTP2hHiY05lCC+xnMz9Rq3N0GE7sjXfxGetT5RVWSN7RxJc0D62Cmg/eu7G1bdj4yfW
+	8lmZFRLsSL1urFvHBM43x68W9xyMFhN4JbhmxBjfj3oEfEvrAUwVGnlpCP91xkZqUq4MU8
+	mLAXOxwfXaVMJYyBMjZrK1yPjN3+X1lLDZDwKhB7/TRJmWvo5Q3YcBJ8zBb3CIxop2vlpm
+	mdfLm7oKmxqvmfhWNLwH65ApuIdEuFJKXH8VjJ/ldU5C4NLwJ7bWx0EwddbHrw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794586797;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SMgY5YNqGWPvm0q7pcA1ZGRkzwJOmnADRsWH2ZBgxGM=;
+	b=kWHqbXpbZZ/6dIucNH+FI1QqnotX4CfnBVkjwhlJifMOJ5dfGi0Hb8qS461kdQTIMTt4Py
+	2yMgOaXWr0XGibAQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: paulmck@kernel.org, rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RFC 1/7] rcutorture: Rewrite RCU priority-boost test
+ around a CPU-hungry reader
+Message-ID: <20261113161955.Ps45N002@linutronix.de>
+References: <20261111213826.2035045-1-joelagnelf@nvidia.com>
+ <20261111213826.2035045-2-joelagnelf@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,59 +86,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261113-fwnode-for-each-prop-v2-10-4edc23d5cf50@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261111213826.2035045-2-joelagnelf@nvidia.com>
 
-On Fri, Nov 13, 2026 at 04:47:10PM +0100, Bartosz Golaszewski wrote:
-> Ahead of adding support for sharing of GPIOs for other types of firmware
-> nodes, convert as much code in gpiolib-shared.c as possible to using
-> fwnode APIs and guard the remaining OF-specific bits with CONFIG_OF
-> guards.
+On 2026-11-11 16:38:19 [-0500], Joel Fernandes wrote:
+> --- a/kernel/rcu/rcutorture.c
+> +++ b/kernel/rcu/rcutorture.c
+> @@ -149,6 +149,7 @@ torture_param(int, test_boost, 1, "Test RCU prio boos=
+t: 0=3Dno, 1=3Dmaybe, 2=3Dyes.");
+>  torture_param(int, test_boost_duration, 4, "Duration of each boost test,=
+ seconds.");
+>  torture_param(int, test_boost_holdoff, 0, "Holdoff time from rcutorture =
+start, seconds.");
+>  torture_param(int, test_boost_interval, 7, "Interval between boost tests=
+, seconds.");
+> +torture_param(int, test_boost_reader_ms, 2000, "Boost-test reader CPU ti=
+me, ms.");
 
-...
+That that I look again later where you add the Documentation for this:
+You should check that this parameter is in range (not too small (<0) not
+to too large maybe). rcu_torture_init() checks also other.
 
-> -static int gpio_shared_of_scan(void)
-> +static __maybe_unused int gpio_shared_fwnode_traverse(struct fwnode_handle *curr)
->  {
-> -	if (of_root)
-> -		return gpio_shared_of_traverse(of_root);
-> +	int ret;
-> +
-> +	if (gpio_shared_fwnode_ignore(curr))
-> +		return 0;
-> +
-> +	ret = gpio_shared_fwnode_scan_properties(curr);
-> +	if (ret)
-> +		return ret;
-> +
-> +	fwnode_for_each_child_node_scoped(curr, child) {
-> +		ret = gpio_shared_fwnode_traverse(child);
-> +		if (ret)
-> +			return ret;
-> +	}
->  
->  	return 0;
->  }
-> -#else
-> +
->  static int gpio_shared_of_scan(void)
->  {
-> +#if IS_ENABLED(CONFIG_OF)
-> +	if (of_root)
-> +		return gpio_shared_fwnode_traverse(of_fwnode_handle(of_root));
-> +#endif
-> +
->  	return 0;
->  }
-> -#endif /* CONFIG_OF */
+>  torture_param(int, test_nmis, 0, "End-test NMI tests, 0 to disable.");
+>  torture_param(bool, test_no_idle_hz, true, "Test support for tickless id=
+le CPUs");
+>  torture_param(int, test_srcu_lockdep, 0, "Test specified SRCU deadlock s=
+cenario.");
+> @@ -1366,61 +1375,111 @@ static void rcu_torture_enable_rt_throttle(void)
+=E2=80=A6
+> +	smp_mb(); // Time check before reader check.
+> +	if (!READ_ONCE(br.finished) && !stuttered && !torture_must_stop()) {
+>  		VERBOSE_TOROUT_STRING("rcu_torture_boost boosting failed");
+>  		n_rcu_torture_boost_failure++;
+> +		pr_info("Boost inversion: reader got only %llu of %d ms CPU in %lu jif=
+fies, GP %s.\n",
+> +			READ_ONCE(br.ran_ns) / NSEC_PER_MSEC, test_boost_reader_ms, jiffies -=
+ start,
 
-Hmm... What do you exactly get from the compiler without this uglyfication?
+rcu_torture_boost_reader::ran_ns is u64 so this needs to be something
+like div64_ul().
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Sebastian
