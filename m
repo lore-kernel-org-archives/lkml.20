@@ -1,99 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794613294;
-	b=KGGpU/IswmeyL3c8RYyYZ9Eg7RxOE6BU+2CKaaIdBqhKDa0L6roQQv3tXUlgDuCYb8yL
-	 smPwN9NUtQlkZQruNI/UkNQoZ5u7d8ND+WYvxcyQVvivMrWZ0MAdKHbFlKe5UP23tb0wM
-	 wzB1YxyrayyuwsjcggftemWsD2Xf3uPNPEh4/KP5EvmMDbvzlCcHvTKNPZ0Qkz/O5/TX3
-	 MBIjwHR5yEVA2OlP+eZdZtX4oPzhl6jeTnFte7/n6j2ofJLalKu/+osMSRbeh7j6CGQTd
-	 DzVZrnax+7Gv/BD5cCNxfZ/xx0Klk5033ETz+PSy0GHDzWD9FdtFWGqYpjpKNWLu4Xw==
+	t=1794613681;
+	b=gmxwpMVzVnKnN8NSuUR5EYvAt1FJFzXRDMRI2VEFcN2RC7D9Tr5GPvZXbc1vbpnBtino
+	 TdHwfT2MNQI9TmyVSwJhBNnA/dqAl9LTe5yF8dg40d5l5Nb0sIlLPAcsiuuc2e6NuLGeI
+	 6PbTmxOiuTIS5VYEyKPN26HtKJLnTgp2kIrKgjIEe3qGBzIOc9BDAy/DJgSSCN68Fukfp
+	 ohURMcFThWGnr+wZK9cVpQIn5zorS8gGBkIhe2gpE9IaefDbMTkjKUyJ4JXSPKHNFTHy6
+	 gMFenAVlMj9KhX97QA2AdFQK/u4v6wHDitP/giOhKDw+gwXJaSbQtMYPb1s7+6LflQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794613294;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uhP7NsNuTURvYeD6nh/uw0NSt2AXYerXW40hmLyAFU0=;
-	b=AjwDFuxgagZn73qIFSMsztJPp44UNTsQoEJy6JTbwv4VBlDz11cQIsLH0bUAi8wUOyP7
-	 QgZmijZC/VlDWrjd39DjAqu20mtsbRCfWyYkKZX2MSz22oFs1xhcstWLue/DGibSfQMhV
-	 pvgunkEfVPGBdii8BV3h+5CgaohxH1J+o6bj8m6akmb1JYC9seO3rmxoRocAT7OnYkGtm
-	 RXiOcrzCrNMN+ZEQvDBWjyRIBnweMLijF0M8wQzJjPycCHexAM7I6mJfr4dsKSQIie6ok
-	 bMdzRYrnVxnPft6n2eEGWajF1LmadRZbS9w4g3GiTE2y8u0wIEWTMUL8qG/vt3d0oew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794613681;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XAsSJNfTx4xhfOoXkTkpm3mX3Z/RpG+PiPXGvL3JZzs=;
+	b=fi2jnJMfOMyy3WZqauwnWTB6qqgrtQEltS73amUphIM/reRmCegWO+CWGVLOGEKloa5V
+	 uB/pLNUIc2QbfFe8AVJQnMLTvuqK+BVbrEhnAhdmfxiKFyGojtOqbrph1hWvul5iNn4xm
+	 d6XZu9gN2X64XbyVKLVrRWuZE8IpSbIos+siEEawkeBWcIFCrqAm4KFMVjSEsxN863Z5q
+	 3L+pYmRY0gGyWvl0nN2rnrh7L8o49xtyikD3LEMxNoFbC4Ji37ku5sGQRh4Iho3KjvBXg
+	 3iFb+w9+LcZWkWmV7KGCrudhZE60hpEDG+/AfK0wxBFfZSE3nNzMM8Gjp1J78XPckhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qu2sj+hd;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7AEE606A894
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:41:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7AEE606A894
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=imeECTd5;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0537606A334;
+	Fri, 13 Nov 2026 23:47:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0537606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qu2sj+hd
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-89d6bd67045so775427b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:41:33 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=imeECTd5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794613293; x=1795218093; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uhP7NsNuTURvYeD6nh/uw0NSt2AXYerXW40hmLyAFU0=;
-        b=qu2sj+hdlYW06N5f/d4sV4hcAzCYdWk3j3lk+fV34nlII0vXpdosbk22gILAhYnUUT
-         TTFB/iCYalGOLI+1sl84d0y8Y2UlmXFzRuH9sMNPgO/dbxqo8lGU36RgnYJDXiXa+/3+
-         MkwTT2gcPv7uYZhFLvjuXvXI89yDPZZIRGQDbqCnwGbYIOhOsA756qkID4CRxN1xVkdG
-         4z0KaaLRijsXSew3yEuTxTDYM5CPfxFb+Cf6h319eQYmk82JJqlpy5kNm2W5+DpAwFs/
-         xQlsTkJi6Gll4HiNP8r4pMrbuW01+QtL7a7Z6zG5wxt2HzxJjrOBQV+xFBot905YHGR8
-         KvoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794613293; x=1795218093;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uhP7NsNuTURvYeD6nh/uw0NSt2AXYerXW40hmLyAFU0=;
-        b=Pzg76C7/FvHYczdmNwWfc19GyPc/+8kHIbkxLqCc7qvnXrKcRaZdCCsCn5GqnpWhHy
-         u7UkmGZeYiNqLtikoMjKOdyKHbVyPn/stx8Dd78M+xhrprUBEaGfTtDbi88JK+6w43Hj
-         C6sC1xigl410Ac41CuCA4VxjeTs6O8QlbbrvLzOIgtepci4UarRK9POhULaU9P1PHS/N
-         flXJLpGGH+A3aCZLBEiXYfat9gxhndOQB8VOmMmr9CW7DNuFiPrAn7x5gblxxs1ryfN2
-         hyRr0S2+WIo2EtigpVjdI3FSJwxHsXKxzN0OWEVKQ/nMtbktUn2Hdj6eosd4ukV8UHPu
-         botQ==
-X-Forwarded-Encrypted: i=1; AL+hErE/wGEoSrBxhXZLbBTdmc5iHUpbVpR1FmGNHnAZH5pae41oHueQd0OzR5mRo1QhQV39fYNuA0EN6ZrmZZc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cl/8XU1PMD82j24F4p8PXmbyc4Bb0dJhCKD8HwFLmXE8V5E1o
-	p/LRZEs7yWNHuZXuZqKGv5CXZIJI022BifgqxMhR/28ntE2S+PgjSYA0pNzw2qs/ItM=
-X-Gm-Gg: AYBFou1XG9PqRhhRJ9f4VvEGwN1ZGXfui/iaq3rQ1S6uAVM11zSL8bbd4q2mKDyeqR4
-	yQlXS7hMrvABkNgA6irT/nCrh/gI24DcnO55V/4cFaiTn5A+jlGBoU6E69RsNSQ+ByUNpbHrE0U
-	hdqX4NI7Ka2DTPRjExaZpvIE1rRVv4OYZqSnI+gCRbFrKAngweFVLHLVFaRWdOi7v/Lms/v3YZI
-	DnRM9juKoQ9d8j3g5I509NdKRaq8SwcCIk63swChZPdLBgDgzN1lKYy034qGl0IoPdowaoippUn
-	4oijurRa5dWgjfVZx2LP4eoCqQV1u9kWSSfekhbtf/XEUTAnUQrJ96tw/62OrnWtuhaoR2mE4U+
-	vKzT7NsDhnlgHv2xw3LleAAFDl+bZ2XBQ+8Bvw8FJkBW6zhtmTlBE2Z06ns3jArPke5sh1yg96d
-	o4rzOXn/o0lXvTHKE1pBP8RL5Cbst29u3fThMkpWgyBAdU1RT9/kKNJHttXXqhhvX9tsdOq0JzP
-	IHDRa47iZuDzUOfYfHz4C01t/AyDLm4oSIq18QOO0i2LRk1zwoRAGuArQiPBaEDiuv6BoB7+Fvc
-	RTp+GZHALN+VXMIb/3031OGd8pBycgXGHCQix5q2qCsS2A4a4zyKh7AaB2+3kCZmM+z74cF14LM
-	MbE2GXbXAMj6feI9CxfTkWtsSe+ha8fBUTqMKhOY=
-X-Received: by 2002:a05:6a00:812:b0:8b9:66d7:1016 with SMTP id d2e1a72fcca58-8bd62024937mr4783752b3a.8.1794613293130;
-        Fri, 13 Nov 2026 15:41:33 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:f861:b117:6318:c068])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed205364bsm1768831b3a.33.2026.11.13.15.41.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 15:41:32 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: michael.christie@oracle.com,
-	martin.petersen@oracle.com,
-	lduncan@suse.com,
-	cleech@redhat.com,
-	James.Bottomley@HansenPartnership.com
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] scsi: libiscsi: do not complete a task sent with a reserved ITT
-Date: Sat, 14 Nov 2026 08:41:21 +0900
-Message-ID: <20261113234121.397606-2-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113232322.395246-1-yhlee@isslab.korea.ac.kr>
-References: <20261113232322.395246-1-yhlee@isslab.korea.ac.kr>
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=imeECTd58AxEo9BWsUiwkbbdek7fBVIPutb742Y5F7i47S2xSl9lklGoLXERF5v8hgJ48bakuUonH
+	 6f2OCqiez55Rb2wKk8BrXtWqt8x6mt5MoTx0p9GrfrYHx0QPiH3pEcoaARQ52vMpT3LjlKg4bU4D4x
+	 DAMF2ylxXUKHjdGw=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26af7a1a1864-2a8ad;
+	Sat, 14 Nov 2026 07:47:56 +0800 (CST)
+X-RM-TRANSID:2ee26af7a1a1864-2a8ad
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from utest (unknown[112.23.72.224])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af7a19cd45-3375b;
+	Sat, 14 Nov 2026 07:47:56 +0800 (CST)
+X-RM-TRANSID:2ee16af7a19cd45-3375b
+From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+To: dan@pereq.eu
+Cc: elder@kernel.org,
+	gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org,
+	johan@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-usb@vger.kernel.org,
+	syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: [PATCH v3] greybus: verify the received message size covers the message header
+Date: Fri, 13 Nov 2026 23:47:39 +0000
+Message-ID: <20261113234739.1432-1-shishunbo@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <avV8I97uZJgX8Osk@stanley.mountain>
+References: <avV8I97uZJgX8Osk@stanley.mountain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,14 +76,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This is superseded by v2.  It depends on an earlier patch that has not
-been merged yet, so it did not apply on its own; v2 sends both as one
-series, with no code change:
+In gb_connection_recv(), the size of the received data is checked
+against sizeof(struct gb_operation_msg_hdr) and against the message
+size encoded in the header (msg_size), but msg_size itself is never
+checked against the header size.
 
-https://lore.kernel.org/all/20261113233938.397415-1-yhlee@isslab.korea.ac.kr/
+If a peer sends a message whose header claims a size smaller than
+the header itself (e.g. header.size == 3), the two existing checks
+both pass (size >= sizeof(header) and size >= msg_size), and the
+message is dispatched with the undersized msg_size.
 
-Best regards,
-Yehyeong Lee
+In gb_operation_create_incoming(), this leads to an unsigned
+integer underflow in:
+
+	request_size = size - sizeof(struct gb_operation_msg_hdr);
+
+The underflowed request_size then wraps back around in
+gb_operation_message_alloc():
+
+	message_size = payload_size + sizeof(*header);
+
+causing kzalloc() to allocate a buffer that is too small to hold
+the message header.  When the response is later prepared in
+gb_operation_response_alloc(), reading
+request_header->operation_id reads past the end of the undersized
+allocation, triggering a KASAN slab-out-of-bounds report.
+
+Link: https://lore.kernel.org/all/sashiko-outbox-210716@kernel.org/T/
+Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
+Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
+Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+---
+Changes in v3:
+- combine the two separate conditions and unify the error message
+ as suggested by dan. Thanks!
+
+ drivers/greybus/operation.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+index 7e12ffb2dd60..74429f3745bb 100644
+--- a/drivers/greybus/operation.c
++++ b/drivers/greybus/operation.c
+@@ -1047,9 +1047,9 @@ void gb_connection_recv(struct gb_connection *connection,
+ 	/* Use memcpy as data may be unaligned */
+ 	memcpy(&header, data, sizeof(header));
+ 	msg_size = le16_to_cpu(header.size);
+-	if (size < msg_size) {
++	if (msg_size < sizeof(header) || msg_size > size) {
+ 		dev_err_ratelimited(dev,
+-				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
++				    "%s: invalid message 0x%04x of type 0x%02x received (%zu < %zu)\n",
+ 				    connection->name,
+ 				    le16_to_cpu(header.operation_id),
+ 				    header.type, size, msg_size);
+-- 
+2.53.0
+
+
+
