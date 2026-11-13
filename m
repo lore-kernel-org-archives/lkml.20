@@ -1,99 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584681;
-	b=Jx001Q+pNrxao6gc4IbIoWICPaAk7zoIZ1Le/VoAbJjL0Jz0ebSRFJ/xJRIGS9N71rRi
-	 rdWXcyolZm/AtrHsZ2Iuy9g2sa0fqON5hB9wFvgp05JKaWm/R9l8jtVpHs3PoXE7m8Kva
-	 2mPr2Rv5m39tGUVDGsg+B+133Yj0gUVbIGXm2DdfFYD6csPVRYk9m0czWdWGLN38jz6C/
-	 oQ0gaTjgJT51rIjoj4nvbO22m0Y6GQOiitJRgUYF2CQCABfWd9OHlAnZS1JZGJiOPDNiQ
-	 V+++YmCSsrgG/7sIun034BsDL/5tLnFGT0BKzkbjCf6WtMS8oBd7gMkiTLWYllpO8nQ==
+	t=1794584688;
+	b=DzIfWK3yDbhsSn9VJ0gkXuEAlo1o8TzV/RK91a0BW0S7QVBBu3Wsj/DEfc1Cz8PXCcR7
+	 fiNpyYWWDGTGYl3j/vBa/9QdXsjW4TkpBb7mbjFOqitst/JQVI80mNWaR/JQPCverPSGr
+	 KRZb0KafCZzA1qxmL4PRUSicGpX5fslfqgj2bgWxncl8QSBY7VHECCpNcOixTo8GnwBOY
+	 MFm2AxBv72kjXqpzo1v1RBqtvZPhJgKmQ9hOhvyP5UvF69wDTmnpw2PkY/D9fSk+QkXAn
+	 KUMfoXJs4XokEgAaf/5TEHi6bMgiwxmRhgGy9OtTOLbrIWEfQ9/psvC/O3EIy9+f1RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584681;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584688;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=k3fq7sobyjyzCNZzJN1bjMh/9ywA3Vs0nu6XoBVK3sc=;
-	b=WgkeHHlJdQbuIMR5vsV62z04HcLjRBK4cF3Q0NszFpN/3/pAOqI/ucZPyWPG268YaGbH
-	 gpIdlwWRATfau1yzawVU2x8yXhTToH8Ima8+haTg7PLrrfl3ap5jqpPTAIUJrqte0mDcP
-	 q3KrT+nW2hWO86vwro7qwtzw95Y3mTlkev35ifppqdTpqGAX7rCSYQfmQNaXFnmXMMsgn
-	 8tz02NnfoU+QmsGWu0xUX1y1ru0jMzph61pmSj6wrb9ufLv0vLUP+fGUrSC921y19OoLI
-	 3+aQ9h8xQcfwABvoRpXVnsPlquYbGagPQAwtTlONZUs41fRZqE7bHrK8xZOveEJKM7A==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=IlVBna1TtvWg7z53GTsHNVCmcCxandIEmUciwncBErA=;
+	b=wqMk6MhiW4UmAX8XgKOch9e6xyR9DtAuZFB1sw9JhFOwKgud2q307wW1BhDBcYQA7Dh8
+	 ABblV5HanefqPy/EVYFZHnzo4z4zEFVuDamAM8avC0WcGkkylD5efGLyA8IBGBM426uxI
+	 N+rVW7e9qnIknIYmXQlmKATK1Nru+P6qA5AvqHJy9pOmVvVJA4/IoXtnPEBxeTgss3P5v
+	 L4Z1RtYTnPAkXEDmm2ggtIeCpAbXHdK/jygm/QSNooZ+AoDkM5BRJ0MFjxvAQ/GO5oWoh
+	 igq5ODvgGv56id25eMZu64fNGCnaWsoFoxGVzC3/lwltS/B2EfJc/yYOOCHQBT8T5jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Slc2SJQy;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="We4Cxyj/";
+	arc=none smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA8B606A887
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AA8B606A887
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2CA606A339
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:44:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD2CA606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Slc2SJQy
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b0d0b80fb9so1070472a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:44:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=We4Cxyj/
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b308fca7c3so10255147b3.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:44:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794584680; x=1795189480; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k3fq7sobyjyzCNZzJN1bjMh/9ywA3Vs0nu6XoBVK3sc=;
-        b=Slc2SJQy0o+vUZrOsbK+aKIq4EI0IHDy5IaM1eGdDPfCjxpZVYHQRuNfeHwqf6EE6t
-         uwe+ey69VctbElih+X+LuaQG0m6fCoNJ6X0jubKAuhE5NmAp4SnGSOD4nPq0XCLxiMLF
-         1Gfyzm+E0NbITwpwTA15YJLNWbWKeIWKus8Mknj8dneQl0DuwXpSaSxle+DK0ZJqIJx5
-         oa9djP2LKWzb142nfgp2ONsXcM4CZTBRZB4cOdKcqB+B5c4GTwiiVobD+iH3BnvlarRv
-         Xdr3E6WRS8XlHl2uVy24nNE8+GDhFQGkJgMTw1bBsJIO8CbaCnKvlkVgYMU+tVgfroam
-         OTmg==
+        d=gmail.com; s=20260707; t=1794584687; x=1795189487; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IlVBna1TtvWg7z53GTsHNVCmcCxandIEmUciwncBErA=;
+        b=We4Cxyj/ZP4Z4R+b+ym4kfzRGbmZuh70esTAu3IYFmiC62P5GwbPj9Y8I9OJjZObHx
+         kjVF6X2pXmwD9ZsSIONV0E3iY02Q5oHe4juHW9zEeMNet/LToaOMqVh2U4TNC0W6BMuH
+         Ll/TwrZLL4stzO/6ArLu8ohs3ShQyNAND9xBmgkh+wUnpe3ll2F63MnI0qpSlYaXWfMp
+         R8ICW6cq4pb6GDUuzS5cDoDR37xIBFTiFpnhVgBGi2ILHjGt1XjEMkyTExIIXaUVQRGh
+         todz4GGxnZQS+JFp71uubBhoWQZFbbmKrwrtEOzXrD5AiN3/ppNLJ1d6b7eQMGlbHggW
+         W3YA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794584680; x=1795189480;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k3fq7sobyjyzCNZzJN1bjMh/9ywA3Vs0nu6XoBVK3sc=;
-        b=MGay+uZAwBzi8sestEztsidPhBAUS/0jUR0ePcTJRelN6JZBrkf16NYBYti1SnZS4j
-         9/dsCLuUBMB0txp4tzSq27Ld7GxYDpHh5qydirkwW7Ws8XKACATkYIZf9RdlrQ+mQ/Ow
-         JuY7wJ57sb6vl7zaPmGwO6S//C3t7qB/ECZ+Rf2l+RVM5DR2VjgG0vFVUN2X/keWlrcN
-         H65Uuc+XoPSnguptdqaM4qoY+hKdCvFf7j8+0ZgrXEtnCTgWNfvF1y15F53lqe0ol12L
-         1AL/0IGTseVPROPfiplYTtHMgh7zDUguNdIqz1i0bXmJATV7F1LT2iWAymgFPtCNAFNO
-         H0zw==
-X-Forwarded-Encrypted: i=1; AL+hErGKI6N+F45mToBWNUnWc1TZ3VXb4uiwoRzCfuA1C++JPejRFhmoGYED7iTXGPJMAgLOPn2M0xH/rnEw6sE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8U3PMamHBRkdAjHDqtKrcQHuypx87oN6+UkdKaZrG0uc2cFvQY
-	6j7eosFihQpHlfrwcEx41YwUokkEUEKKib3lpPu0qi4WajYkCKZpShWpo/EJ+Q==
-X-Gm-Gg: AYBFou2K37Tn10YhIhWqWeEwRe8QSqCAX5pnLyVKXqkk9s561J/5erFsawVb7xGW/kw
-	LNRCQs00oDhbKGXsZaTEZuWUCkL2kQ3Ds5oauFbxNAwp9I3Q9I+VQvyxBSWQuAfo9r1sKGAaZMO
-	1S5u9UwLOMkxAT2+BEbKGpsPlOJlW8vhU3aQaHeGuouZueq01NZOArxPjh0T/LIIL8xtwwn0gTo
-	Uwo0+5uYuvsGIoGXjrlKPlG6HlLrsX8Bg59bSxMYncVm9UtUBBZcfG7g3spatIaRC/XEoiBuK0n
-	h70H2RmijDbF9apkvYD9DW8ANg6vGXCu5cRVr55K2HnVwtICuz7WIhruBN2XW1YD/Ya7rFLU6mz
-	pap/2VwFUVmGA1+BFUzMyAAsUc4GtSzYrEghpJr1Ksge0WmsNuG+emqd8a+jCFwroF4kBqLjNbq
-	q98tStiexpsUeh3mAv2MrO2ASAwU9qrLFXNA/UacekrnokzP4sahniJPFThQTUS96w8P5aRQjq4
-	+fNJ0yndB91MUxd+0iuPm2DOkgldZqotuUd+ZG4NQ/8lNpQIi0NVWZFE/9hfqab4xfMoYkkxv/u
-	VMHqdE3LlZV0GfYy5QX8bUPeYy8cXn306L/wKJtnrKfJ4PdMaYXRHE9gthvTCARZLy5JLOs=
-X-Received: by 2002:a17:90a:d44e:b0:3ac:8527:3fc5 with SMTP id 98e67ed59e1d1-3b1b081b149mr2743869a91.3.1794584679691;
-        Fri, 13 Nov 2026 07:44:39 -0800 (PST)
-Received: from localhost (218-35-178-218.cm.dynamic.apol.com.tw. [218.35.178.218])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3b110c0sm2064587a91.3.2026.11.13.07.44.36
+        d=1e100.net; s=20260707; t=1794584687; x=1795189487;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IlVBna1TtvWg7z53GTsHNVCmcCxandIEmUciwncBErA=;
+        b=RZSd//LMVTSiqoR9VNdU3xtMvC3mH4IDhrpEVEadenGvnN2U3POdGWjG9ngi4/uhBu
+         xqKyC6ZW65qke5zG2TDwH84sDyeiB2TlIzZ64mKTJlZ0iPU1OYArFrT70sM85g+ixYxL
+         zHA1aqQtQAnSD9JfFn+utkM3vNj/kbtYpFDNLB7zMhLdF5Gd5MvigcCkINbi3Baqf7mK
+         D71AAXq8sRVwjbSO2XqN5nH1z74X/2Wn/PzVPqiSX6smuP9rIMkByybM4svFa3gct/k2
+         Xj0zSbQroKr6B7kbv7I4jPnzJg5KClHIQugOYcEuE4xwt1H1sCII7vWTaNUWOWsX5mWq
+         IcHg==
+X-Forwarded-Encrypted: i=1; AL+hErGnefYXyYCx2YTvyT/5vaJSXA0XQMdGIocN3v/N7HLw/SENFPmlfljTDOv114z91aICRYEgLNtL04Qnecw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9mq2PD94e3SnNhecnFIs4QMkj9j0JKPLFf7a7KxW2ZPsnmU2Ck
+	jAAr9TH5ojSCBVl6y/sGOFoaDC8nEK+eAYnUdeWX1GXkFPfsxx/H754C
+X-Gm-Gg: AYBFou30VLh2cWzU7HoUAPO9vohDgS32aPEF5k3DVW0ZdKx7ee3ZhVCdwPft8Xo/vYB
+	+9ywVGgFgu/aRjjlRgr9HT7GJKIkf4JqSQO16G3FNyp5dE3wPGJbQ9lmkVppKC6ZIsSOGLfZxlJ
+	MnuOC+jGnNhNpt4/j/vHvVCu3446nW1bhj9/kMootBqxFthAXTRodGjnrr0iUN1iO5dd66iWaNl
+	s/jONUCCU6MEw3IOCBzJNmzysGsOeYhPv/3+dobEOeF+7LMy6Zzf0MgUMvo2y2YogkQSCXMhzQU
+	GJueClJzhPly3vAZkc+AM+8ISWW6w/MAkVkovH3jfMQex2eCZoxkGDLP0kFcopF0dI84x6u9EfO
+	NLUawmF6CBLFtwMlt9+xRUtufwy+tLXOWADB+owLtOoeYPbIOf9ReKHDElcVXy3bBgmKyPLVKga
+	3AN8q8SODsBUKGoIb4RdgKX73d20ZzFoaf+zPXQzRYwi3S6kCvGbDJGVq5BY32cZ2jd4oZdPjjy
+	iw4ZaWD37ELkObz3xfEjuM5Dhyl9U3BqVubMsEzPTaonqlzF/1GT/ggW2YLHkcUXY3TSE/1mvhk
+	HEwyd/oXcB64+VegPPS1fzJoTyN9Z7S4
+X-Received: by 2002:a05:690c:c:b0:8b0:acc6:8e5c with SMTP id 00721157ae682-8b4aa0d010bmr18869707b3.9.1794584686400;
+        Fri, 13 Nov 2026 07:44:46 -0800 (PST)
+Received: from [127.0.1.1] ([179.160.39.42])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa98caffsm22687767b3.27.2026.11.13.07.44.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:44:39 -0800 (PST)
-From: Kurt Lin <lylin1023@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Kevin Brodsky <kevin.brodsky@arm.com>,
-	Alexey Dobriyan <adobriyan@gmail.com>,
-	Swarup Laxman Kotiaklapudi <swarupkotikalapudi@gmail.com>,
-	linux-kselftest@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kurt Lin <lylin1023@gmail.com>
-Subject: [PATCH v2] selftests/proc: proc-empty-vm: handle CPUs without protection keys
-Date: Fri, 13 Nov 2026 23:44:11 +0800
-Message-ID: <20261113154411.568272-1-lylin1023@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109151912.156518-1-lylin1023@gmail.com>
-References: <20261109151912.156518-1-lylin1023@gmail.com>
+        Fri, 13 Nov 2026 07:44:45 -0800 (PST)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+Subject: [PATCH v2 0/6] arm64: dts: freescale: imx8mp-verdin: Add Toradex
+ Capacitive Touch Display 10.1" LVDS V1 and V2
+Date: Fri, 13 Nov 2026 12:44:06 -0300
+Message-Id: <20261113-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-v2-0-59c45f0a0d8e@toradex.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,54 +93,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEYw92oC/x2N0QqDMAxFf0XyvECtTmS/MvZQmrgF2irJKA7x3
+ 1d8u4d74BxgrMIGj+4A5Soma2ngbx3ETyhvRqHG4J2feufuWD0GzUhfw0WZLYbUnLzPecPKSlI
+ wEGGqZEhiWwo/w7U913DDGAfH89hPBK2xKS+yX/3n6zz/kx2AHY8AAAA=
+To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Leonardo Costa <leonardo.costa@toradex.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794584681; l=2077;
+ i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
+ bh=Q2mTJ7efr148vCErD5HWpVyB0Hsq6rr3sJWLD+6PnOo=;
+ b=vwPliPd0FIeZAo0T7lJ0fzGLYLA2vrxZUR15hNJE5V8Dv3HtNT1J36I0IQnXVen2qdujDfggD
+ A7g9G3o0h54BRVOY8/FFs151oqWBfQUf+LD4RD6K2r/B8BQ0hV/Z0AQ
+X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
+ pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
 
-On x86 CPUs without protection keys, pkey_alloc() fails with ENOSPC,
-as documented in pkey_alloc(2). protection_key_support() only expects
-ENOSYS or EINVAL, so the test fails on such machines, e.g. an Intel
-Core i5-7200U:
+This series adds device tree overlays for the Toradex Capacitive Touch
+Display 10.1" LVDS V1 and V2 with the Verdin iMX8M Plus SoM.
 
-  protection_key_support: error: rv -1, errno 28
+The display addition covers two interface types:
 
-Before commit dee87e09b0dd ("x86/pkeys: Fix pkey_alloc() return value
-when pkeys are not supported"), the first pkey_alloc() call on such
-CPUs wrongly returned EINVAL, so the failure only shows up on kernels
-with that fix.
+- Native LCDIF (LVDS)
+- DSI-to-LVDS adapter based on the SN65DSI84
 
-Treat ENOSPC as "no protection key support" as well. Keep accepting
-EINVAL for kernels before v7.3.
+Changes from v1:
+  - Include 'tdx' in the display panel overlay names, to make it clear
+    that these are Toradex products, and add 'v1' in the Toradex
+    Capacitive Touch Display 10.1" LVDS overlay, similarly to how it's
+    done with the V2 display.
+  - Link to v1: https://lore.kernel.org/linux-devicetree/20260813133335.1941580-1-leoreis.costa@gmail.com/T/#t
 
-An AI coding assistant (Claude) was used to analyze the failure and to
-draft the fix and this changelog. Tested on v7.4-rc1 on the machine
-above; the test now passes.
-
-Fixes: bf5add391eeb ("proc: test ProtectionKey in proc-empty-vm test")
-Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
-Signed-off-by: Kurt Lin <lylin1023@gmail.com>
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 ---
-v2:
-- Mention commit dee87e09b0dd, which made the failure visible (Kevin)
-- Add Reviewed-by from Kevin
+Leonardo Costa (6):
+      arm64: dts: freescale: imx8mp-verdin: Add Toradex Capacitive Touch Display 10.1" LVDS
+      arm64: dts: freescale: imx8mp-verdin: Add Toradex DSI to LVDS adapter with 10.1" display
+      arm64: dts: freescale: imx8mp-verdin: Add Mezzanine with Toradex Display 10.1" LVDS
+      arm64: dts: freescale: imx8mp-verdin: Add Toradex Capacitive Touch Display 10.1" LVDS V2
+      arm64: dts: freescale: imx8mp-verdin: Add Toradex DSI to LVDS adapter with the 10.1" V2 display
+      arm64: dts: freescale: imx8mp-verdin: Add Mezzanine with Toradex Display 10.1" LVDS V2
 
-v1: https://lore.kernel.org/linux-kselftest/20261109151912.156518-1-lylin1023@gmail.com/
+ arch/arm64/boot/dts/freescale/Makefile             |  30 +++++
+ ...zzanine-tdx-panel-cap-touch-10inch-lvds-v1.dtso |  71 ++++++++++++
+ ...zzanine-tdx-panel-cap-touch-10inch-lvds-v2.dtso | 107 +++++++++++++++++
+ ...-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso |  94 +++++++++++++++
+ ...-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtso | 129 +++++++++++++++++++++
+ ...-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtso |  95 +++++++++++++++
+ ...-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtso | 118 +++++++++++++++++++
+ 7 files changed, 644 insertions(+)
+---
+base-commit: 33adc96ac217d6e95b7c44ac383c19ca4ae2ff52
+change-id: 20261005-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-034c30e8416d
 
- tools/testing/selftests/proc/proc-empty-vm.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/tools/testing/selftests/proc/proc-empty-vm.c b/tools/testing/selftests/proc/proc-empty-vm.c
-index b3f898aab4ab..a9d3c973a663 100644
---- a/tools/testing/selftests/proc/proc-empty-vm.c
-+++ b/tools/testing/selftests/proc/proc-empty-vm.c
-@@ -77,6 +77,9 @@ static int protection_key_support(void)
- 	} else if (rv == -1 && errno == EINVAL) {
- 		// ospke=n
- 		return 0;
-+	} else if (rv == -1 && errno == ENOSPC) {
-+		// CPU without protection keys
-+		return 0;
- 	} else {
- 		fprintf(stderr, "%s: error: rv %ld, errno %d\n", __func__, rv, errno);
- 		exit(EXIT_FAILURE);
+Best regards,
 -- 
-2.56.0
+Leonardo Costa <leonardo.costa@toradex.com>
 
