@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581442;
-	b=uLUw1ifmJjJftUU7IsHpKVZLN4af17VAbAf8Jz+6zknSkUrQYNj/arUxF3pXkn42p3Lg
-	 eO7FCmq7LQL01VuY9/WFUraR/z4cDxDVCQLCcw++MOYbIl217zW+bO1CyTgbIQg3UZry1
-	 HOAm9ogIEdzc78kljEnMgdADDO1UaCB01k1dXPkYMpGkCCWf1dguv1SUXj4jZPaWwL/R1
-	 rcCUke2IHsSIjz28e0EkcAGD54fikLGy/ZIiksJ/fHU3YY9GEARXFPpHGlx/ubjarvKhF
-	 5fBqoQ0+nRRoZtMAp8VGBstCvIzx+JbC0gyrIinoXyywrr6G4sihKTYLWNQ8cU4RHfQ==
+	t=1794581443;
+	b=tUCAH8IKCfihbOo0YI+Ow6yn5PrB/UHruSJ4gDs62rPv7cZgMg5W1PBoMbdxPeWmS+5A
+	 1mhohmkuBK+RSy193dj5S7D09mbh+iFZE4GMAeZr+ILRD9T7UYTjNAHheN9edMmGf29dD
+	 l4P5AJz3tvnT33NkaHWzLaSC0O/oEzSzWHxmdHqnnjUzLb/5EBWQhEaaHnQ9Gh41uVHLY
+	 bYk0vcx2MLh4HN/zItmaGHtOCpwCxCtULRR9ddMSwN4EBSniSGzQxd2D2rJB+e57PDHMu
+	 syl9u2Cy4uI9f8ZtvLldTXJYj08aiwYIkrAE6o995xkmrjbUM0ku1sfGNUWC/BDpHcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581443;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=1sqIuqvMzVFwYcFFuvB/apl5px1GCvknNh/xIFDj1SY=;
-	b=emGnfFp8WXkChMOqIPdH1WhOHpZ2ltfJdzjMujGD0sH/p2SDB7oOx5N9TrPbk02RgkPu
-	 VVfylJFTamVjUe1QuXCdHvaZWLJaBM3uUbdbAY57KpguAFREeq+11DZJulQiEId4lkTwZ
-	 ReCBNgGtmb4VOV0dIcmkefs+wiFT/JOzMU/9e0AIRYy10ORxOg0Co8U23jHHPKGWUwEd7
-	 q3vDVT9XRO49zkeV/0Y9g+zB8di4FF9WmWjf3jVWgP6NTnVjtpOxVu1ZWpfyv8042gSSy
-	 ZSwC1pdgZQVB/3fJVLnQWR7PE6fe9BXhZKxL0RrPbmsffLQgTrpXO0E1hAGAiShdexw==
+	bh=EW6O7IX+lZj9zLE/PiayELXWaVWN1Nbov8vCucdwVl4=;
+	b=Q1SKfSndwL1hUqgk+XBHAb0/1APsmcpzXkuV98nM3eGLcns2QTSiIWslNqTmF9n5h46y
+	 LoOXdEMYbh6hsJ9XupwdYPLQT3RzxciWmDB4ihXNr5ImfcXZg5bMTVWd5F4lBd+dFM4Lm
+	 skghRhMSZHfe8BQ/hPPLSAAdi4l0NJtMj0nS+v1yVQiGHyFSR0WwZ3cCLRK0SW2UcUaFq
+	 rjdRc5FfBaOzGPVfk0NQL7amx1e96f2XCYAQovi1DpmbAlzB3DGz0J20oEG7WDMB5ll2X
+	 TceHc1T4wyjuTEZrUnNrC78oBWFUHurfUaD1Zu6+W5DGZBRhNRl9dAhyd9aDPp4uMEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WW3kvaeG;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=PkeGE4In;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DEAB0606A88B;
-	Fri, 13 Nov 2026 14:50:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEAB0606A88B
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 79D52606A89F
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:50:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79D52606A89F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WW3kvaeG
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=PkeGE4In
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6493C152B;
-	Fri, 13 Nov 2026 06:50:38 -0800 (PST)
-Received: from e144440.cambridge.arm.com (e144440.arm.com [10.2.199.104])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1E4B73F673;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D823E153B;
 	Fri, 13 Nov 2026 06:50:39 -0800 (PST)
+Received: from e144440.cambridge.arm.com (e144440.arm.com [10.2.199.104])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B1B5D3F673;
+	Fri, 13 Nov 2026 06:50:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794581441; bh=9SQUwLMIpYjcJX0oV2YKzFqBcvrlXidnGf8kMaWOSRA=;
+	t=1794581442; bh=CqJyYJhYvd31ezVbNyoKavdQzrZfJ6U+MBqZ2Ikozgo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=WW3kvaeG9n4NBPABbem1UbMv99+oSVaMw1U5+oBv4pPoupwTYXe4OMAfkgLFyHtVN
-	 GMCpq55Y+7ITdds5C+fDgP25eWxbVe0cI9jU1dh8LTjbZjt+rTmIJpiWLr5UvLYq/K
-	 FA1QCBM924D3Nf9NnWkqCzQD1gQPXaZba0GJw8zU=
+	b=PkeGE4Inm/n03a5yqmov9es2UtYkChOW+VnizQ8ryjmlmnGsH988HlNCkjvTLA+Z3
+	 TafguOT0bwf7RH3XHtCIzx02NN3tk/c0z1zt533SWdSTM1yOn7vXjNdodTLwcGrriU
+	 HMQh8rG2flRxB8NDSPVkJbT9Qn7vkWJGjjD6T9xg=
 From: Ryan Roberts <ryan.roberts@arm.com>
 To: Catalin Marinas <catalin.marinas@arm.com>,
 	Will Deacon <will@kernel.org>,
@@ -49,11 +49,10 @@ To: Catalin Marinas <catalin.marinas@arm.com>,
 	Linu Cherian <linu.cherian@arm.com>
 Cc: Ryan Roberts <ryan.roberts@arm.com>,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v1 2/6] arm64: cpufeature: Remove Cortex-X4 from the BBML3 allow list
-Date: Fri, 13 Nov 2026 14:50:16 +0000
-Message-ID: <20261113145022.2592454-3-ryan.roberts@arm.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 3/6] arm64: cputype: Add Cortex-A320 definitions
+Date: Fri, 13 Nov 2026 14:50:17 +0000
+Message-ID: <20261113145022.2592454-4-ryan.roberts@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261113145022.2592454-1-ryan.roberts@arm.com>
 References: <20261113145022.2592454-1-ryan.roberts@arm.com>
@@ -68,53 +67,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Cortex-X4 erratum 3043263 can cause a load or store to livelock when
-mapping size changes without break-before-make or when contiguous hints
-are programmed inconsistently.
+Add the Cortex-A320 part number and MIDR definition. The MIDR_EL1
+description in the Cortex-A320 Technical Reference Manual specifies
+implementer 0x41 and part number 0xd8f.
 
-The erratum was previously reported as fixed in r0p3. On that basis,
-commit 5aa4b625762e ("arm64: Add BBM Level 2 cpu feature") added
-Cortex-X4 from r0p3.
+These definitions will be used to identify Cortex-A320 in the BBML3
+allow list.
 
-The updated Cortex-X4 SDEN v13, dated 18 June 2026, lists r0p0, r0p1,
-r0p2 and r0p3 as affected and the erratum as open.
-
-Remove the entry so Cortex-X4 observes break-before-make, and record the
-workaround in the silicon errata registry.
-
-Cc: stable@vger.kernel.org
-Link: https://support.arm.com/documentation/109148/13-0/?lang=en
+Link: https://support.arm.com/documentation/109551/0002?lang=en&rev=0002-04
 Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
 ---
- Documentation/arch/arm64/silicon-errata.rst | 2 ++
- arch/arm64/kernel/cpufeature.c              | 1 -
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ arch/arm64/include/asm/cputype.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index 9ad965d3e1ea..9d6d13045a55 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -201,6 +201,8 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X3       | #4193786        | ARM64_ERRATUM_4118414       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-X4       | #3043263        | N/A                         |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X4       | #3194386        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X4       | #4118414        | ARM64_ERRATUM_4118414       |
-diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-index b15619690f42..8819652a67ed 100644
---- a/arch/arm64/kernel/cpufeature.c
-+++ b/arch/arm64/kernel/cpufeature.c
-@@ -2011,7 +2011,6 @@ bool cpu_supports_bbml3(void)
- {
- 	/* CPUs that support BBML3 but dont advertise through ID_AA64MMFR2_EL1 */
- 	static const struct midr_range supports_bbml3_list[] = {
--		MIDR_REV_RANGE(MIDR_CORTEX_X4, 0, 3, 0xf),
- 		MIDR_ALL_VERSIONS(MIDR_NVIDIA_OLYMPUS),
- 		MIDR_ALL_VERSIONS(MIDR_NVIDIA_RIGEL),
- 		MIDR_ALL_VERSIONS(MIDR_AMPERE1),
+diff --git a/arch/arm64/include/asm/cputype.h b/arch/arm64/include/asm/cputype.h
+index 6002d1d5f55f..abff1ba1c305 100644
+--- a/arch/arm64/include/asm/cputype.h
++++ b/arch/arm64/include/asm/cputype.h
+@@ -103,6 +103,7 @@
+ #define ARM_CPU_PART_C1_NANO		0xD8A
+ #define ARM_CPU_PART_C1_PRO		0xD8B
+ #define ARM_CPU_PART_C1_PREMIUM		0xD90
++#define ARM_CPU_PART_CORTEX_A320	0xD8F
+ 
+ #define APM_CPU_PART_XGENE		0x000
+ #define APM_CPU_VAR_POTENZA		0x00
+@@ -200,6 +201,7 @@
+ #define MIDR_C1_NANO MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_C1_NANO)
+ #define MIDR_C1_PRO MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_C1_PRO)
+ #define MIDR_C1_PREMIUM MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_C1_PREMIUM)
++#define MIDR_CORTEX_A320 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A320)
+ #define MIDR_THUNDERX	MIDR_CPU_MODEL(ARM_CPU_IMP_CAVIUM, CAVIUM_CPU_PART_THUNDERX)
+ #define MIDR_THUNDERX_81XX MIDR_CPU_MODEL(ARM_CPU_IMP_CAVIUM, CAVIUM_CPU_PART_THUNDERX_81XX)
+ #define MIDR_THUNDERX_83XX MIDR_CPU_MODEL(ARM_CPU_IMP_CAVIUM, CAVIUM_CPU_PART_THUNDERX_83XX)
 -- 
 2.43.0
 
