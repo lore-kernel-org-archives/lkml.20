@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564689;
-	b=XXzNQ6Vp0I8AN2AvQJznTlKJStC0oXijJAtmVuRdOzGndcsn9NokPH3Mqb5i2isz9I4a
-	 UltTUTk2qqK/rsJL8KjVISiTicQc825Pj9TIKcSG/IImJClJsME9veqxm3rwl73NnwFif
-	 ljacQ4qx7jLShTNDDYPfw+MiwOXld4aOe9/w9j+4v3VzCcsb3KwDJpwOYi3ZIm/W6VvYO
-	 sUg6jmX2uSdvWLU6x6rraZOd/f8FL01Mm6Tuckn3usBDeNrHeQB6g3hJmQSxOBNiNYO3p
-	 296YZ7i5quGEEWuWk1rgNrhUnQnLMfjSkCmK9gWm0mhAdeDwWhl+wlN2Ftw7X71tgZw==
+	t=1794564695;
+	b=5TwTKDr10oFpVRu51FPgAM5XxVPgeiije1tewTCbzGc4Z7dnQnY4UThSzm8xqHQJ3cCt
+	 HedDrcp47SdqCS6XvQj8X1PDnTZayoGRwtN/71lakDodDX6khJOo4alJHNc/6STtvNGyg
+	 dgpVv2AUYforAZ5qAtbB/PKbxcmAtokNGkTMXZ2c/U/SUVWEDylVuI/+HMdYl/PWUlK9d
+	 inC7lpLpA4HF/KD3INrSg715bwCc6Rzh+TOkWUkLMPA5v/lEkQe+23yI9qrVr5VrQ21c9
+	 jX45sTr3RDiljUkhc+s+ouTNCYIkIeZX1Z0d5t+HA18ceHMlCNxzWLjaBxR6Ii5qU5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564689;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=p0RK+IYs95gpjlIxIoHnheOHHg7wwsNB1dTa28TgEXc=;
-	b=SvkvHP87PIaq7/DRsUQEkL5kkDLF1inGlhBNImWTqB4zVhcSrA0HLXFuuI7c48djYuol
-	 9lg+8zwMTYDFGcovGR7nsJyCOZ9npgDvLUEDgmNo48hKbLSoD3zLmvkwUMzA2cQWY43eM
-	 XD42NqyeJQqhGOsK4MJGOvS2wF6v1ANTWcxP7iEw2/mcH5wVYMBfcCa8U1Mp/X8q/gwPo
-	 E68kyA5pw5TbKOTF+ZyOvLjrT5I7Ys3iTOei57OmH0sg9uiWry9FsGVS5PtdxPdrdHHeK
-	 Pr8vGmkSJPtTTPSolJ/g0vkEMoHwpYOsrUzcXoKVoVw3BzWIANhWeV3Z3rT3wcMLB4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564695;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=c5kWoRfoh+LID+vIMXgha8z+pQ8NIChzIfvaIu/18OQ=;
+	b=U4q79R/RXIjsf9zOx6bLoD/OywGQ0pSTKesZF08TUC1uR2sh5v4yy4QJu5u0RO2qb1DY
+	 mzTs7U2IPOhWXMPzhr2oiyVFrZAs1O+XdxFRbMnF+LBLTo5ep2e56rIQ6GaIOBBzDCsVp
+	 3DMvh18HrwtxGuiufodzNeOURPXleylXSNfP6vrpjIf9/d1pln88e051F5icCbbFe/Kh2
+	 15qSm01JKz7DpAYs+HiDz7IHVnhyxFO3Tcn6kfrLOYVFqXiF5LIK/wNRvA2pSIY+uDsAL
+	 P1d5LZa7cUWG/DyliXLs7I/Y5umwG9HV4DEeU3DDUuL0sVO3oY3gW/3Exi7PDClijbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ecQBSyIc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVfrwGb7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623C0606A8A3;
-	Fri, 13 Nov 2026 10:11:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B333606A8A3
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:11:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ecQBSyIc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE511F000D1;
-	Fri, 13 Nov 2026 10:11:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVfrwGb7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C610B1F00927
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:11:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794564689;
-	bh=p0RK+IYs95gpjlIxIoHnheOHHg7wwsNB1dTa28TgEXc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ecQBSyIcUWIq1+AWi2yVWcEaum5gQsY4wqBCQJNmf2nSsfSfiUTSAji189zo/un0k
-	 FRoZe9PFSTS4Gm1ODTUjdbDkEBL6mqmqzg2zy3fSxbHb1v0BqSsA97R8lo/MSzscjG
-	 MWFfHVTz3RlD7mcysOgD35o3AQUaBn95grYCX4/IbSLsq/6VRLvlqatU67KUb0iBQf
-	 3vPsX66g5jzFc33uti9t38WLAHw2qmUTAszc05g0rZ73YNuwabC77O7bHc347ZPh3D
-	 QJeLnJueodozV+4+QFX7qGTRxN8MuhY82jfig6OZC8u7FscGbLdiAf9Ao4UD3GYaKm
-	 4zcbAcGQik7Hw==
-Date: Fri, 13 Nov 2026 11:11:25 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Lukasz Majewski <lukma@nabladev.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Daniel Baluta <daniel.baluta@nxp.com>, 
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: arm: fsl: Add an entry for Cloos
- CBASE board
-Message-ID: <20261113-inscrutable-dancing-python-bfbcbd@quoll>
-References: <20261112163703.3358164-1-lukma@nabladev.com>
+	s=k20260515; t=1794564694;
+	bh=c5kWoRfoh+LID+vIMXgha8z+pQ8NIChzIfvaIu/18OQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YVfrwGb73VBd/mLLVth1dbc+CKZgt/nfR7trq3JvDURbVPM88IHuNK4v+2g7Yt6xe
+	 8TVrG6j3pw3Povif5CHNl0Ov4qX3JPFeIsEt4dbI4V6H34DWMcEfF0xKdpRLQ4Ybxm
+	 2UI5U6Z/P4MSaKw2PTrRBN4i7tAYUUQqRw9KC8+jtGw+l1617PQYrJqgI8MwMjXgC+
+	 uOto5Sqha6sV4NCrnJKFIdysqQzbvBIuyke+5he3GcLRuB36FGs37RrXl56CNhWBVO
+	 FBGHScyeX/XqH3y5R0xhOeeZprbuudAvWMJ3sxKIZmD4DNa2E4v7sPsl0uwcdzE0qf
+	 8+VoX66/yAI+Q==
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6deb848ddd7so1028321eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:11:34 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEnxxKtSKsCAmcd8QIE4odXKqt7gGMEf3FBjJVMbAElVWP2t4C7xnhfovGu4Uvyw6o+V7d33/bSaEgxSCM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+99FAmXgQSSSaV4IU1BzQjLvPtDJCQemDbVaYyD8cppJD8Y0gP
+	nMakeIw9ja4AflFzqR7dcFV1tj4mtOHShSnxLWZtJ6hPeAD4w1pZJLx2ib/1+V5kIX3+5TDGXrI
+	LtWUx1fqh2FkL4y5pa1SUOXw7r+/SGXQ=
+X-Received: by 2002:a05:6820:c2cb:10b0:700:8d6d:93fe with SMTP id
+ 006d021491bc7-71ab50158a9mr835957eaf.38.1794564693938; Fri, 13 Nov 2026
+ 02:11:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,23 +59,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261112163703.3358164-1-lukma@nabladev.com>
+References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
+ <20261030-clegoffic-pinctrl-scmi-gpio-v1-7-52d92843ad97@baylibre.com>
+In-Reply-To: <20261030-clegoffic-pinctrl-scmi-gpio-v1-7-52d92843ad97@baylibre.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 13 Nov 2026 11:11:17 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmS1Et_B_U2W5W3GAx8ge5V+B5innksqKwxYnBzh=JPag@mail.gmail.com>
+X-Gm-Features: AclHuK9gw9rzvmJfnK1wHvLc_pWsubTkRQG1I-TXfEXhLtnbQg50tNAfCDomXWw
+Message-ID: <CAD++jLmS1Et_B_U2W5W3GAx8ge5V+B5innksqKwxYnBzh=JPag@mail.gmail.com>
+Subject: Re: [PATCH 07/11] pinctrl: scmi: give no groups to pin-only functions
+To: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	Peng Fan <peng.fan@nxp.com>, Oleksii Moisieiev <oleksii_moisieiev@epam.com>, 
+	Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 05:37:01PM +0100, Lukasz Majewski wrote:
-> Add an entry for the i.MX8MM Cloos CBASE board.
-> 
-> Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
-> ---
-> Changes for v2:
-> - Place cbase in the correct order
-> ---
->  Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
->  1 file changed, 1 insertion(+)
+On Fri, Oct 30, 2026 at 4:58=E2=80=AFPM Cl=C3=A9ment Le Goffic
+<clegoffic@baylibre.com> wrote:
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> For a pin-only function PINCTRL_LIST_ASSOCIATIONS returns pins, but the
+> driver registered them as groups. Register pin-only functions without
+> groups.
+>
+> Fixes: eb524cb651b7 ("pinctrl: Implementation of the generic scmi-pinctrl=
+ driver")
+> Signed-off-by: Cl=C3=A9ment Le Goffic <clegoffic@baylibre.com>
 
-Best regards,
-Krzysztof
 
+Patch applied for fixes.
+
+Yours,
+Linus Walleij
