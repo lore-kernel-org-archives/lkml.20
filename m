@@ -1,67 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794550088;
-	b=hmnm4TQ5IbBvFKn9fItuEYWNPoUeiqILvCgDivUnInhMjEjMvCSWj8umuxMAS9/ZDoZW
-	 BpVB63Ird+KwRObMdGC4SRudNiSblZjggYSUIVH+vqboZEj7LaLufW2XKfbUc6lA/IN4z
-	 UEMZVaUF4SxmQZMzF5i0j0/q3agXfzHPnv2YgS3pexBa8Or0FfLQ0XwDV7Ch8VOiKjWrw
-	 HW4cMPSHBE4QVPv5gwtOCyCXl0b5Zbt1DcO/l9lzDtB5sTXItXeayftEimnHJZg6r026o
-	 Y1u6ra97ufTkq1miqIGYoKxxq5sTvu1sVXjcHY77QVqhCzs3nguHhWbp1TeSbD7esbw==
+	t=1794550188;
+	b=bBTjAo3S2CQnZbRRCUK1F8ICYOidB6Z3Faeziv+2vIh5D5rNcTsQhLD0s16WpLZnwaXv
+	 3zRB+dfDnh5ya4lCIVbIxh/ampXxM2T7/+9l/KGfZDbYswocNs/Y3JTRbqC48cNu+Xbji
+	 F/AYwCrCXydWgVNhPAk0eyk/PGaWvhwj4TgZbjt0L7SFT2hYhw3UPq9fNL+JPdLQ1KCtC
+	 1EFgjQ+eIC9F78WkP5+/VnZz1RC5CrgNX4bwJbM7Qz2qFTFR6eBe3fdmsBTBJ2QfklJwM
+	 NrfV2+8wGtkjnsXxSF5xqc1in8fMArSA5rZGfZeMfrVG5Q8ier7OAYPiOHURXbLIPXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794550088;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=wllpHAZYNSNkCt57+HHHYsgQEPuFI+eTbDLLhojO5E8=;
-	b=nJnSQfb4iyfJ/O7xH/H4BQui3LtuMBg5fo+yX/rZYCV7PKDlGzcfyFT4jTLpqT2RlgIq
-	 Ncxm3OBvt45mtQzWQK89tvx1TjCi8tWqtes92qVh0sNyhFWaNDBIqkutcY9b5n+YX516Y
-	 lt7B2w0xOZJFCxNk/SLFKBEZH9tgHkjJhxTJtFATHpyIgQMpFVa51V1kcLhykXpg+UfEI
-	 vxGuMFNeqLixtwAVtJTnfCn2ZvHFmLdocFvqMrRiP50smxdwuPZjQbOO9htCJvWfTFe1a
-	 jOIucGrB27LpXNZLqQ1cDpwZEakGoWs49WgUqjGaTOTg6zWBdZVPaCGKdQYcGpiwh1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794550188;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=1e0yVbVyaUWx+6t8WP8UY8dzBsxW0lJwI5VYRi8sJrc=;
+	b=aUiy/p4TTpM9uHjkN+IMp8+kNKu1WrgyrrwdZ4sg3KW4LdsstWTIk7446D37ajaBl8V+
+	 30eeDxMuAmA8Jm7J6Ss/dcXIFsI0jRHMoZzdKf/tAh1QXbuZjDpHvXdFGDS6srqAltLy0
+	 7z2XFBykw1l50N+wjEoTL8a5h8FsdNYkSNoBtdponP7gjO47HNAgdQoYEP9koEsyJBJNA
+	 fgVf3ViJmoEwLUtXnRq7mUCEeCGbQI+4wSGSThVF1BZkBkVH0YQVYzz0Pamx4aGD8NhtI
+	 DYOejXgLI5vecRE1mZWhjYmGaj0CcGaiYILhz813vPc2tExd75CB4wz66PLqX+AO9mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b="Pl9/Revv";
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ROqGFvX0;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=QZrJ0Y9R;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438FA606A321;
-	Fri, 13 Nov 2026 06:08:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 438FA606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B698A606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B698A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=Pl9/Revv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794550037;
-	bh=wllpHAZYNSNkCt57+HHHYsgQEPuFI+eTbDLLhojO5E8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=Pl9/RevvsMlSHBVs2R+kcCwWmKUoJbVyWBLKwBKUXlpSMYTYNLNjTzA8C7YBRjwxp
-	 2+fZ11LD5vsuKdy5suKatg9jS8HCjJ5Hx+lhuq+5aXCFyoEHCniL5BsZ6pHIiZLZlc
-	 GEwt7q13FanjKbJQu1yLiXv5inDRlv2ej/M9+fx4=
-X-QQ-mid: zesmtpgz5t1794550022tb8788a0c
-X-QQ-Originating-IP: 6UGuInMOY/d7vEfDBEDyZH5feZhcASUzl3QIHaKoVsY=
-Received: from PEC004119 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 13 Nov 2026 14:07:00 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2535765206702016621
-EX-QQ-RecipientCnt: 7
-From: Haowen Tu <tuhaowen@uniontech.com>
-To: broonie@kernel.org
-Cc: lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haowen Tu <tuhaowen@uniontech.com>
-Subject: [PATCH] ASoC: ak4375: Power off the codec if runtime resume fails
-Date: Fri, 13 Nov 2026 14:06:59 +0800
-Message-ID: <8C4BD8E710508D85+20261113060659.1497641-1-tuhaowen@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ROqGFvX0;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=QZrJ0Y9R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794550186;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1e0yVbVyaUWx+6t8WP8UY8dzBsxW0lJwI5VYRi8sJrc=;
+	b=ROqGFvX0jM4PXrIdC04TTYHXi09p1TKHOPZhS2h5e5qaPZyL7QKwWWpx83Hu0VDyoFd958
+	VDMbBN0jW5aTqLuYo6QoWbEacmtUiufbo0QwL4Rv3UPPcl+Ytk+duvH9VQGWSXksj8XM+f
+	Au33r+PY9mNiohTkXQJ9XJP52AEy6WY=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-627-e8JpCL2eP7yzPffE6y33pw-1; Fri, 13 Nov 2026 01:09:44 -0500
+X-MC-Unique: e8JpCL2eP7yzPffE6y33pw-1
+X-Mimecast-MFC-AGG-ID: e8JpCL2eP7yzPffE6y33pw_1794550183
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4ba078f26f4so3009565e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:09:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794550183; x=1795154983; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1e0yVbVyaUWx+6t8WP8UY8dzBsxW0lJwI5VYRi8sJrc=;
+        b=QZrJ0Y9RetdIoOJ8yW1TBkc5+0hTcH78/8G7ezdpjeHcSjyxNhFPYvXyilUneGDW9G
+         9Ot/o8Ml9sIxs0X9zn6AW9SFvuJlZCYXW62sfWOWQwzmZbeFIWt/n+SRKkwrGsTCHzwD
+         QCyWDx+cpfe0oPfpwzs6C0ALCeevMoZ7ZJjYcx4plNYuVEtGKoebf7p79SNCB3o1QjWB
+         3xGkL5eAYgao/pHIGieIgkfft9imoxtDcYr77mIaOIOar6os6ztL0SkNATxdVRqhizao
+         M9lMxeZRvuWpnbz3S7IpqUS95MtX3hy53Sq/nWnIUFWeJsKjSURj19HwS84mTjzGscjO
+         kXvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794550183; x=1795154983;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1e0yVbVyaUWx+6t8WP8UY8dzBsxW0lJwI5VYRi8sJrc=;
+        b=vXfXguzF2b+os3wzfSx5vzFUdXSne2PplAfjy9xtdMW61/Ple4oo0BUmPkgJ0LW6Ch
+         XsbGZ8u+NHGiGsW1mwMur6+jqLPu9tsRFX2x5wXXYWq9HniYPAH3j4+P1OADOf2CgqzA
+         6duPHJ+1qh12Uf1c5pe+a3CeJznefNX0pRImCgaJewQdPc98yE8xIFDI0PBqXNuVknCP
+         ugL17FzKClIt0dkwzXBtsDozjZgNenmBPvaKbro7HU8va0LSYrB+O2rXZu26jxKjFtjL
+         hyrfpQNQLE7LmH4a3AlmpbvYgCff1y+NC38pzNGIq+5GmW41VcxuHhP20gGqzMyB7dUD
+         lxfg==
+X-Forwarded-Encrypted: i=1; AL+hErFPh9aqnY+ADKKqkKzvhM+QGbaIUqw5AjSKfSQWAucex705tjjpDCllx3J5Or2Kwk7ICmYUg1aOUPdipKM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/XFCAjhzOTcyZsSQ4Ii94QtXfM16AaThS55CdWde0zEFKm+yIe
+	NR9y8w0G/FAubDa50Jhp27J5FStx19ESMpUHqjsiEiDBBlxx2Uqdgcrac9OcxoLsR6cAgyoXMbe
+	6xyUEb/kvmSwWwA2VKl3+HzW3LmiumD/AgKBQOyrcBT90D6j7zBIPV/rRvvZuMnTtug==
+X-Gm-Gg: AYBFou1doRwrVAhQkwF6M0CWZvNttbwEiuhZDR3T1JNFs60O1EjC7HuKQ5Sk39LOHBa
+	R9FhF4m84q20Z3CEsVayW4X6YG5zFNdwmhVu1/4pju5RM6gkGEzS4nB37JmfcNrR6UH0RyBx3ws
+	lDaZ3vyyjQSXFKmjiYzHGkGonZ3j6ncuIBUfx+QHFGQQohU+djkDTGa6APF7MX68GNq5I/pFimx
+	lb1KIPdVyjZJSdYSuOjlolVyXlmsLR3i8ktD2knfqMP2Y4CJ7UjI0QO+nBuG3KcBLGCADGn8GbY
+	d2EW/FmJ24369l8sP9EVLsYYOzyJBmf9yKMM1z0Ku70ifpsGgvco4JsuewKiHtKlqlEX72/IphI
+	pvEKp7CPZ7+Rzq/AlOH6A3qf37FAIK30LkCe9Q7LIHg==
+X-Received: by 2002:a05:600c:620f:b0:4a1:80d8:aed5 with SMTP id 5b1f17b1804b1-4bb55a3e3abmr26930915e9.6.1794550183277;
+        Thu, 12 Nov 2026 22:09:43 -0800 (PST)
+X-Received: by 2002:a05:600c:620f:b0:4a1:80d8:aed5 with SMTP id 5b1f17b1804b1-4bb55a3e3abmr26930375e9.6.1794550182655;
+        Thu, 12 Nov 2026 22:09:42 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1511:2900:ff37:b35c:a97:952d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55af1c5fsm33039755e9.12.2026.11.12.22.09.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 22:09:41 -0800 (PST)
+Date: Fri, 13 Nov 2026 01:09:39 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: zhaoguohan@kylinos.cn
+Cc: bp@alien8.de, dave.hansen@linux.intel.com, eperezma@redhat.com,
+	hpa@zytor.com, jasowang@redhat.com, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, mingo@redhat.com,
+	netdev@vger.kernel.org, tglx@kernel.org,
+	virtualization@lists.linux.dev, x86@kernel.org
+Subject: Re: [PATCH RFC] vhost: set dirty log bits without pinning pages on
+ x86
+Message-ID: <20261113010007-mutt-send-email-mst@kernel.org>
+References: <af7f05bf637337d35fdd10f3e0dbb5e39d7780e7.1794480795.git.mst@redhat.com>
+ <20261113012937.40818-1-zhaoguohan@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,67 +119,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: M4XCXY8dla+qkSZ5YbHjeUhdk8wCSBrjHbfeqDibfjpAkhuCi/U6wvJi
-	NSVoJ7BD18c0RORpBfXNy5fYvoyqseYf3sH1Si+jWyNLGUY3muyFAy9YC1r9c3p176VJewL
-	HnYNc7suaos49SkMNYPF+OhysvNaZhVcWm6QJoEuBJFg9nmbsD6l7QyoMhhRazSoJwiGzMB
-	fsJFM5xETfOuHf+Yp3hWaE3w2pmMOIBT01FZsLzzcDdjBEFsVq4B6R4qrvAayC2J6P3qKbg
-	f7/wv8S8HDSNoK5tyVKA66n4eK9cihdagEIHYUZwq7jqvWCq+s3OydR7H90tJX00HwsbO59
-	un8KGG61uqDgTJY1ApSd2PBQkchgZaass+D6tC7RTNSm0Q4z4bKBTI9k2c9amFyTfBkfu1U
-	0o1x7UQ+yecwQW7fZmu5AnaNsuLN2gV3mxsf4iWG8AIsM3MWxqXxkZBoPiX3N7tvT3JyqcJ
-	PeEj4Yq7Ib+34W94ew+Y0U/C0eyhUGmsxplHR7EdiVIXv00R92ovDrB0sKvVpjuCZlL31yJ
-	yewk4acVQN41aR8iBYAy2DotkvAEYxsfnP5GbLV4Q3PEStt11SqY1tAL80OOzyUtOkGMoV9
-	xhYJzUZGqr7qcvHMo2wkSEhVokuILOIQs8PWZIUY25StOCaKXL4r830iZn+tSIiT3QdfiDD
-	HHr4IK5YkUUuIjRAhuudaeDNV1F+y0mDJzoR1vShNKDR7maB6SyV6JZ7vvp3hAYiiFuvkHJ
-	aHxYdvTbgLnZckCh5u4K6NEmH/aJ1aTtT+rFhknZFf3aY0j1aHHeUIJX3OD9GfpFBRDZ3Th
-	lkCOVw7eSZBw0qceu5vTrGwJVj56EvetpEpiLhci9Q6zhv4Dfrj/IAdZN6A2YOVdKHbULdL
-	mTMidwek7LVMAQOmi7ZvkRcPsEXerRdHBeeZ7dO871L3wjTaPuYM2SfqJnp0uAF7RpQIGXD
-	CCyQEjnDbD3YCdTQzV04fUsqS+PJPUKXNRQcD92acvG2zohR9vxwxT/RGESYREqtU+DFqon
-	3SEmbLdVFsgbkEjBKBDt8SG4rSrOWDU2aWtRJRcF2vUJjJd78iSpW83GpRSs9ebvRmSpiCB
-	lzx+7Mo6G146afIfDcSO2/DY1HKNe0LvA==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113012937.40818-1-zhaoguohan@kylinos.cn>
 
-ak4375_runtime_resume() powers on the codec and leaves cache-only mode
-before synchronizing the register cache. If regcache_sync() fails, it
-returns the error without undoing either operation.
+On Fri, Nov 13, 2026 at 09:29:37AM +0800, zhaoguohan@kylinos.cn wrote:
+> On Thu, Nov 12, 2026 at 05:53:47AM -0500, Michael S. Tsirkin wrote:
+> > vhost had a TODO to replace page pinning with a version
+> > of set_bit that works on userspace memory, since forever.
+> >
+> > It is really best to avoid GUP on fast path entirely.
+> > Implement set_user_bit and use it in vhost, to do just that.
+> [...]
+> > lightly tested. pls test and resubmit with your tool.
+> 
+> Thanks, this is much simpler than my version. Two comments on
+> set_bit_user() before I resubmit:
+> 
+> > +	int __err = 0;							\
+> > +	__uaccess_begin();						\
+> > +	asm volatile("\n"						\
+> > +		     "1: " LOCK_PREFIX "orb %[mask], %[ptr]\n"		\
+> > +		     "2:\n"						\
+> > +		     _ASM_EXTABLE_TYPE_REG(1b, 2b, EX_TYPE_EFAULT_REG,	\
+> > +					   %[errout])			\
+> > +		     : [errout] "=r" (__err),				\
+> > +		       [ptr] "+m" (*(u8 __user *)(addr))		\
+> 
+> errout is only written on the fixup path, so it needs "+r", as in
+> __try_cmpxchg_user_asm(). With "=r" gcc drops the initialisation; here
+> (gcc 13.3, x86_64_defconfig) it even shares a register with mask:
 
-The runtime PM core leaves the device suspended on a resume error, so
-there is no matching runtime suspend callback to disable the supplies.
-The codec remains powered and register accesses still reach the hardware
-even though restoring its state failed.
+ah, subtle
 
-Restore cache-only mode and power off the codec on a cache sync error,
-leaving it in the same state as before the resume attempt.
+> 
+>      1a3:	lock or %dl,(%rax)
+>      1a9:	test   %edx,%edx
+>      1ab:	jne    1bd <log_write+0x5d>
+>      ...
+>      1bd:	mov    $0xfffffff2,%eax
+> 
+> so every call returns -EFAULT, and log_write() stops after the first
+> page.
+> 
+> > +	__uaccess_begin();						\
+> 
+> No access_ok() here. vhost checks the log range when it is set up and
+> I couldn't find a way around that, but GUP used to reject kernel
+> addresses by itself.
 
-Fixes: 53778b8292b5 ("ASoC: Add AK4375 support")
-Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
----
- sound/soc/codecs/ak4375.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+just a side effect of the api, unintentional.
 
-diff --git a/sound/soc/codecs/ak4375.c b/sound/soc/codecs/ak4375.c
-index 28cc41014bd9..469b81c5daca 100644
---- a/sound/soc/codecs/ak4375.c
-+++ b/sound/soc/codecs/ak4375.c
-@@ -460,7 +460,14 @@ static int ak4375_runtime_resume(struct device *dev)
- 	regcache_cache_only(ak4375->regmap, false);
- 	regcache_mark_dirty(ak4375->regmap);
- 
--	return regcache_sync(ak4375->regmap);
-+	ret = regcache_sync(ak4375->regmap);
-+	if (ret) {
-+		regcache_cache_only(ak4375->regmap, true);
-+		ak4375_power_off(ak4375);
-+		return ret;
-+	}
-+
-+	return 0;
- }
- 
- static const struct snd_soc_component_driver soc_codec_dev_ak4375 = {
--- 
-2.50.1
+> user_access_begin() would keep the check (and the
+> nospec barrier) local.
+
+To expand on why is that not needed, but feel free to dispute
+- addresses all pre-validated
+- there is no possible gadget here, it's a write, writes are not
+  speculated
+- lock prefix so no speculation anyway
+
+> Something like this, build-tested on x86_64 and
+> i386 only:
+> 
+> diff --git a/arch/x86/include/asm/uaccess.h b/arch/x86/include/asm/uaccess.h
+> --- a/arch/x86/include/asm/uaccess.h
+> +++ b/arch/x86/include/asm/uaccess.h
+> @@ -597,19 +597,23 @@ _label:									\
+>  /* set_bit() on a byte of user memory; returns -EFAULT on fault. */
+>  #define set_bit_user(nr, addr)					\
+>  ({									\
+> -	int __err = 0;							\
+> -	__uaccess_begin();						\
+> -	asm volatile("\n"						\
+> -		     "1: " LOCK_PREFIX "orb %[mask], %[ptr]\n"		\
+> -		     "2:\n"						\
+> -		     _ASM_EXTABLE_TYPE_REG(1b, 2b, EX_TYPE_EFAULT_REG,	\
+> -					   %[errout])			\
+> -		     : [errout] "=r" (__err),				\
+> -		       [ptr] "+m" (*(u8 __user *)(addr))		\
+> -		     : [mask] "q" ((unsigned char)BIT(nr))		\
+> -		     : "memory", "cc");				\
+> -	__uaccess_end();						\
+> -	__err ? -EFAULT : 0;						\
+> +	u8 __user *__p = (addr);					\
+> +	int __err = -EFAULT;						\
+> +	if (user_access_begin(__p, sizeof(*__p))) {			\
+> +		__err = 0;						\
+> +		asm volatile("\n"					\
+> +			     "1: " LOCK_PREFIX "orb %[mask], %[ptr]\n"	\
+> +			     "2:\n"					\
+> +			     _ASM_EXTABLE_TYPE_REG(1b, 2b,		\
+> +						   EX_TYPE_EFAULT_REG,	\
+> +						   %[errout])		\
+> +			     : [errout] "+r" (__err),			\
+> +			       [ptr] "+m" (*__p)			\
+> +			     : [mask] "q" ((unsigned char)BIT(nr))	\
+> +			     : "memory", "cc");			\
+> +		user_access_end();					\
+> +	}								\
+> +	__err;								\
+>  })
+>  
+>  /*
+> 
+> If this looks right, I'll fold it in, run my test in a VM and resubmit
+> with the test as a second patch.
+> 
+> Thanks,
+> Khan
 
