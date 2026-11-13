@@ -1,71 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530612;
-	b=ssgumcZh5epn4RI9U0ozJQq66kOpBVFXmBaadb4KzDMfDpkzJ/kGLhDWjWIB9BGAOnSi
-	 0zG3CfuwEg25CBubIITYRUJIOmb+J32ZgDefYdPLIJFM4/YvfH3p059m1FSYkZH/MiljH
-	 kuK7+YlBulZFjQfe/dCPwXIzFqJeIA8qdRJQ7OR4R8CO0/IaqMBcnXe4Qh2oW3j37m1lZ
-	 U7bD5MO3xg6uh4BQPICKcwyjo8Nbh/owS98P/oNxNoIXDG/ew2S9B6nyUIJ11quLEYJrM
-	 Bv7by8KM6/IY46CECsHmZPuCrmHhL/MXr/A2Ww4LOdg4ZGKeWj7NgGipw/gKnqFSN/A==
+	t=1794530654;
+	b=NX9tYgkFhZFjhDUN4acohvS7GizBACUEiRmCpcS1JGaqyYgpLtMk5tiHF0pfqx3yTId8
+	 cE/qItSePFPHaAheCEAoa4zr2XzFz6jhQuVk5Rj2ujqWh15BeXjVQo5L1DewpqDjLLtLG
+	 WtvgMpfVbLSCrVt2NRvWKj8w2LVgtCKzpQE2Ei2xzfHiL9SMWhwtW4hkW0LKU9NHwrdbo
+	 t+h49SjMyAjIudGo5/6pE1nJoZajWjCHryzH7336xlz2bA75ilcYAcly8vx4ngPRQSc0U
+	 MMsHhnmdCDQHkdklHtrC9X4iOeemssFVvJhl7CF3WmvLAg4ZLc/N+RyfTiFRi7Iwydg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530612;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530654;
 	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
 	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
 	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
 	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=YIV8AzjRKQ457fVdvC9cmzWy207wxkKwWswzLM1Rqq0=;
-	b=3BGvqEuWFM96dKS6HEsezGpK0IpSQclCsf9OiEP1hYKIVWsJQ6jfHCjcwhJ+u9LdIgXR
-	 LNO4Ym+cuhikynjRt2OcF+ZELqv042pK2KIYz7xW7L0OM8Yv+9n0hp/ncvP93NoJdxc0q
-	 jiEzSWKZNCLNzieFwf+vIV3z3Q/YxBRRFKDIoCRVNNg1kE93d5XLrFwxkYFlw8UYCNQPv
-	 pfZtvkhBI1Kmyqk9xoSzUlTwoYk13CgVPDHOtG0EOzBugVFcdyQ7W2+soYYm2zDw3eZaw
-	 wusgHllmGv3h5zTYzLcyi+ZK3kbCWVYe+OXVt9BMfzrr869mKp2rF7grl99ekubQVJg==
+	bh=gPEqd6cD/fqQw04EbCe32E6BIonMlduxm+Jx4+v1FHE=;
+	b=MYtR6jn7F3c08XtkjurtiA1izbYuk8+56aWIm7F0HG+UDP5KDUvsVA0PrSff95wPApOe
+	 Mntje6IvnD0zQ3k+O2m4WR22A4PEeFNI3yclGc/Ws7ITBULXI4xBeg4RFgaHKwr1Lk+7q
+	 4ThtYdDu5GAslAfua7tLDvQpt9LQnvBtIQaZdjVqBh247bhHo28e2FCya6odie1DniVNf
+	 T8T7C1SOUt1zdc2T7tLve5xvuleOwKTE305KMW3/6COO/SLDTQ92eOaB+K8yi94/Wizf3
+	 yEt6hxz8cNpQweA0s4vwDGwFYc/mv3+KKOtqEfT7xK/WzkPJSKHcQ338zfMEIbjD4Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=roeck-us.net;
 	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=hEmVTqqz;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=NFsDDVSI;
 	arc=none smtp.remote-ip=35.89.44.33
 Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC2B606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:43:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC2B606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238D2606A333
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:44:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 238D2606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=hEmVTqqz
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=NFsDDVSI
+Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
 	by cmsmtp with ESMTPS
-	id Ra1jxg94zAR1iRfO7xAuNT; Fri, 13 Nov 2026 00:43:31 +0000
+	id RcrLxhZksAR1iRfOoxAv6w; Fri, 13 Nov 2026 00:44:14 +0000
 Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
 	by cmsmtp with ESMTPS
-	id RfO6xpxQiSeuLRfO6xwH1h; Fri, 13 Nov 2026 00:43:31 +0000
-X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6af65d33
+	id RfNKxQwQuFhzrRfNLxLPVJ; Fri, 13 Nov 2026 00:42:43 +0000
+X-Authority-Analysis: v=2.4 cv=JY+8rVKV c=1 sm=1 tr=0 ts=6af65d03
  a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=mgGIjpb2KhxFcZy2RHUA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+ a=u2c38VbFgFXAgpsfhD0A:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:References:Cc:To:Subject:From:MIME-Version:Date:Message-ID:Sender
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
 	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
 	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
 	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=YIV8AzjRKQ457fVdvC9cmzWy207wxkKwWswzLM1Rqq0=; b=hEmVTqqzt0Mu
-	YE82aP7gKX+rOup052yGbDoYaDOnfVb5qmTBWH8/bfyOXMuwFEPeu3IgegcRyr8qWlrvDmlKVSeRo
-	LRW+tQZ7mCS8LaiEu3QYV7Q5+da9itqfLV8fVFrE+aGtYureF1+lzs/ei87LK2FCg2iVtk2CXQEH9
-	w47NktigSijrZFqWgMWOjrha7+GPWan29/ERuotvDy/NDfSHnf0GnrQjRpzTEwIrXXmJ0eEoFuYOo
-	2i/KSIhnnxgTAZUGTjVy1eYlWM1DqPuSNhtFUI8GOrhtt7+U1hFqAuXQ8Z/EHRvsuzyZ7O1fPRngf
-	JqckjbTPvnJ5UFlN8+A4NQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:37778)
+	List-Archive; bh=gPEqd6cD/fqQw04EbCe32E6BIonMlduxm+Jx4+v1FHE=; b=NFsDDVSI3739
+	BFP/m9EezS79Uh7f+eZwoFR9ze53dIuj7/S/TYa1YgvCO2CXb7oskLS6ARti8hlH44YRPhEI4jdS6
+	18T//UjOyARN7Y8rnJ1CsxYcWfEWm8kYp/HF/0aUTqTBUTNskuaj3xy++H6R9g/p9ElUQr3AMA4p3
+	qae5rKX/wPSGSDI7xWmosRrRpLfwqiv8Q9zw6Fkvz5H0t0bX++xFMUhdC6BBhJzQhDoYeGBlht244
+	h6vP2l9oNoakywR/w7nGdp3NUlSgboaZu+jnMv8FckacgWi2NSIGRCjXFaWjGn2mOuMZj/8NOb1T0
+	oSR1/M2Of2T4N8+dD9/S4Q==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:42682)
 	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.100.1)
 	(envelope-from <linux@roeck-us.net>)
-	id 1xRfO6-00000003MQm-0cyO;
-	Fri, 13 Nov 2026 06:13:30 +0530
-Message-ID: <5f914d65-5e5f-456a-bfc7-5dcf830cce69@roeck-us.net>
-Date: Thu, 12 Nov 2026 16:43:28 -0800
+	id 1xRfNK-00000003M8j-1MrI;
+	Fri, 13 Nov 2026 06:12:42 +0530
+Message-ID: <468e51cb-5852-4c8a-938d-bda2aca8c83e@roeck-us.net>
+Date: Thu, 12 Nov 2026 16:42:41 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,15 +76,16 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH] hwmon: (sht3x) Fix alarm attribute names in documentation
-To: Wayne Ho <wayneho219@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Pascal Sachs <pascal.sachs@sensirion.com>, linux-hwmon@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261112-sht3x-doc-alarm-attr-v1-1-91676362d133@gmail.com>
+Subject: Re: [PATCH v6 4/4] watchdog: vt8500: Add a restart handler
+To: Alexey Charkov <alchark@gmail.com>, Krzysztof Kozlowski
+ <krzk@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-watchdog@vger.kernel.org
+References: <20261112-vt8500-timer-updates-v6-0-fd1cea645d1f@gmail.com>
+ <20261112-vt8500-timer-updates-v6-4-fd1cea645d1f@gmail.com>
 Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
  xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
  RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
@@ -128,7 +129,7 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261112-sht3x-doc-alarm-attr-v1-1-91676362d133@gmail.com>
+In-Reply-To: <20261112-vt8500-timer-updates-v6-4-fd1cea645d1f@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
@@ -139,72 +140,93 @@ X-AntiAbuse: Sender Address Domain - roeck-us.net
 X-BWhitelist: no
 X-Source-IP: 108.223.40.66
 X-Source-L: No
-X-Exim-ID: 1xRfO6-00000003MQm-0cyO
+X-Exim-ID: 1xRfNK-00000003M8j-1MrI
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:37778
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:42682
 X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 9
+X-Email-Count: 2
 X-Org: HG=direseller_whb_net_legacy;ORG=directi;
 X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
 X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfJY9qhiwgPO+cXjVEwn/STCeJ0sbsykDeDotj3Z94L4+EuEfis34xMPvVGB7P4rUoAPYpMGY66ScB9ScuZWvacMMk4BiVQoe7dFDrmQOO/tV52gnPQII
- Qzw0E9UUbd8zkODvYLPULZOz+QI787UCKr/brSLQNJ65mtLnSd1lEBJ376cnboURnUFjOHXqLouznht2d+aTxwtZX6Cb/1yPcJyeIYGABNaEPbcmKR6U1Apb
+X-CMAE-Envelope: MS4xfGldJSQ2HtAjwKdwXn6gvo90nr79bnThCEYTv4atOvfd7233HAH9B213uuEkSLF2ODhUOXG7BcTBGvDC9+XilqgZn+FRPyIzmy5UBKGgVWoMPuV8WS8d
+ WQqES73iIXqL8xcEcpfHaV0mkG2MBF5B9Q1OOiBWbaSoZdq6q8l1xkGeSIUpTEdAuuzuvNQPTtn8vk4UWRFF8TeXer1YFQ35UjHJ47cE2GZPYJXQ4wQXbs3U
 
-On 11/11/26 22:01, Wayne Ho wrote:
-> The description of the periodic measure mode says that "the alert
-> attribute" is set when a reading exceeds the configured limits. The
-> driver has no such attribute, and never had one. The alarm state has
-> been exposed through temp1_alarm and humidity1_alarm since the driver
-> was added, which is also what the sysfs interface table further down in
-> the same document lists.
+On 11/12/26 10:55, Alexey Charkov wrote:
+> Reset the SoC through the watchdog when the machine's own restart hook
+> leaves it running: the PMSR write in vt8500_restart() has no effect on
+> WM8950, so a reboot there ends in "Reboot failed -- System halted"
+> unless a watchdog armed from userspace happens to fire.
 > 
-> Refer to the actual attribute names.
+> Arm the match a millisecond ahead of the current count, which leaves
+> ample margin for the register writes to land.
 > 
-> Fixes: 7c84f7f80d6f ("hwmon: add support for Sensirion SHT3x sensors")
-> Signed-off-by: Wayne Ho <wayneho219@gmail.com>
+> Register at priority 128, the default for restart handlers and also the
+> priority of the ARM machine restart hook. That hook is registered first,
+> from setup_arch(), and handlers of equal priority run in registration
+> order, so this one runs right after it and only matters where the hook
+> fails to reset the SoC.
+
+This isn't really the idea of restart handlers. The sequence should be well
+defined. That is what the priorities are for. Why not give it a slightly
+lower priority ?
+
+> 
+> Signed-off-by: Alexey Charkov <alchark@gmail.com>
 > ---
->   Documentation/hwmon/sht3x.rst | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
+>   drivers/watchdog/vt8500-wdt.c | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
 > 
-> diff --git a/Documentation/hwmon/sht3x.rst b/Documentation/hwmon/sht3x.rst
-> index 4f67671eb0c..3c022c058be 100644
-> --- a/Documentation/hwmon/sht3x.rst
-> +++ b/Documentation/hwmon/sht3x.rst
-> @@ -78,11 +78,11 @@ The allowed update_interval in milliseconds are as follows:
+> diff --git a/drivers/watchdog/vt8500-wdt.c b/drivers/watchdog/vt8500-wdt.c
+> index e0f838fd1d50..0ce1e2b06410 100644
+> --- a/drivers/watchdog/vt8500-wdt.c
+> +++ b/drivers/watchdog/vt8500-wdt.c
+> @@ -25,6 +25,9 @@
 >   
->   In the periodic measure mode, the sensor automatically triggers a measurement
->   with the configured update interval on the chip. When a temperature or humidity
-> -reading exceeds the configured limits, the alert attribute is set to 1 and
-> -the alert pin on the sensor is set to high.
-> +reading exceeds the configured limits, the temp1_alarm or humidity1_alarm
-> +attribute is set to 1 and the alert pin on the sensor is set to high.
+>   #define VT8500_WDT_DEFAULT_TIMEOUT	30	/* seconds */
+>   
+> +/* How far ahead of the current count to arm the match for a restart */
+> +#define VT8500_WDT_RESTART_TICKS	(VT8500_TIMER_HZ / 1000)	/* 1 ms */
+> +
+>   static bool nowayout = WATCHDOG_NOWAYOUT;
+>   module_param(nowayout, bool, 0);
+>   MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
+> @@ -75,9 +78,18 @@ static int vt8500_watchdog_stop(struct watchdog_device *wdd)
+>   	return 0;
+>   }
+>   
+> +static int vt8500_watchdog_restart(struct watchdog_device *wdd,
+> +				   unsigned long action, void *data)
+> +{
+> +	struct vt8500_wdt_info *info = watchdog_get_drvdata(wdd);
+> +
+> +	return vt8500_watchdog_arm(info, VT8500_WDT_RESTART_TICKS);
 
-Just replacing "alert" with "alarm", as below, would do the trick as well.
-
-If you resend with those changes, I'll apply it, but for the future please
-refrain from sending cosmetic patches. If you want to contribute, please
-consider fixing real bugs.
+This sets a 1-ms timer and doesn't wait for it to fire, so the next
+restart handler (if it exists) will be called. That seems odd,
+and may introduce unexpected behavior. Is this intentional ? If so,
+it should be explained.
 
 Thanks,
 Guenter
 
->   When the temperature and humidity readings move back between the hysteresis
-> -values, the alert bit is set to 0 and the alert pin on the sensor is set to
-> -low.
-> +values, the alarm attribute is set to 0 and the alert pin on the sensor is set
-> +to low.
+> +}
+> +
+>   static const struct watchdog_ops vt8500_watchdog_ops = {
+>   	.start			= vt8500_watchdog_start,
+>   	.stop			= vt8500_watchdog_stop,
+> +	.restart		= vt8500_watchdog_restart,
+>   };
 >   
->   The serial number exposed to debugfs allows for unique identification of the
->   sensors. For sts32, sts33 and sht33, the manufacturer provides calibration
+>   static const struct watchdog_info vt8500_watchdog_info = {
+> @@ -107,6 +119,7 @@ static int vt8500_wdt_probe(struct auxiliary_device *auxdev,
+>   	info = container_of(auxdev, struct vt8500_wdt_info, auxdev);
+>   	watchdog_set_drvdata(wdd, info);
+>   	watchdog_set_nowayout(wdd, nowayout);
+> +	watchdog_set_restart_priority(wdd, 128);
+>   
+>   	/* Let the core feed a watchdog left running, e.g. across kexec */
+>   	if (readl(info->regbase + VT8500_WDT_EN_REG) & VT8500_WDT_EN)
 > 
-> ---
-> base-commit: 44c8ceae2dd3ae536c5f4f956cedb24c157aac23
-> change-id: 20261112-sht3x-doc-alarm-attr-118ddfebc6ae
-> 
-> Best regards,
-> --
-> Wayne Ho <wayneho219@gmail.com>
-
 
