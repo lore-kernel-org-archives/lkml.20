@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794589172;
-	b=xCmw3pdu+VEjpGaxfND/P1SQu6xwYejlZwbjLgy37wwZ2nu2Rzqvu0vmYKb2ELSXwtW3
-	 i1QJ2Mc/xpIHVJT3lfCpCUydXB1lbfmmGhr8Rb3HvSxlDGuw9zk8QxlwDu9SlnNb3ct6s
-	 1512Mzm3ikogQC6gh8rwJHGyct0Ys2wiOhvTJ9LPHqd9lO3j7ZBcTv/4kixewxjJLs75A
-	 29xTai/1Ne8QAu88leKWHkqjvqqYWsJJV8TuAyISrKyNU3PZyBLf/ha9aFslyY9p5tMcO
-	 CWxw5si1AGB8tUuDVWRVbWXZwfCaAF2Kc2N94yCyG3aCcubpIFxaAL3eeUH6b7K9pSA==
+	t=1794589173;
+	b=ssr4PFuNfY69QyjFfNvUYnwkcJldNzoUsviMNmJUsTF3MUe/MpT7jzm0buVdrrHbl6/X
+	 IEL3lONkBJErwkIBDQ9xhbvLXbBVXxtd0Y/fKaIgaS3l1gEedjOAdwMsUvT3OqSLBNu/b
+	 1c/7iq/3RVkmq1EtouQTpGVFQycrqU0AA0HyQXu+p+AgzfmfEg2i7Q0btZ+Pu+1Xsl2Fe
+	 x/xQI7hPgl2tS2w8YmyxsU6/FJIzJPGqbL8VAteLi5uhybja/E85FQ1jtVI223zgFrRz4
+	 vbFNkv6Y7fC1JFfehRyTF3mVX7kFFiZea8QRJoe6GAqYOqM8YqhR2d2NlCYxypZBBzg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589172;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589173;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w9dg4AaaJaDRpTl41ChaxjBbqBnEhij/Tjfv4wRm3ss=;
-	b=GBL9yVcQfGigyOzSZzUbeqGPNnDjEekLNvrFdy7ejCqXis+kgXS25JNahJtfHdCSeWn+
-	 EJ4PmLM6O5zF8ioRvnDWT8D1KA9a0waiH62FVVszUTfpuaM+iAHtgCwyQE9ZVj6fsQPWi
-	 Y8zXTJPqprsew92Ifshtn+AUlltFPN4yuVaFveINDAAuT9/l0+044fvGApzYDiArYlBcA
-	 9DEIOSR9P3GNcQ3oGUZ2ytkkoJd6JDt4MRgQdCl6qzBauTjlitwfbnRfN8BTUWEsYrzGS
-	 sRHCGclCKvEYk+9xBADoBHfiFrCAP0Z/kZLSXJfZtkB6xBfMGKDp9l9+cJogD8EP/dw==
+	bh=U8Zgap9n9exkhoIyI7R2rZH5S9LLBlFPRSVvfmp1tjc=;
+	b=up34Yq+Lz7mebLQCNYdx3ijucSNuLmynPtSSp4S04hTWlhnmKlRl3DlSsmAnCSyO0+eU
+	 5n64ITEdovUxdW1EzDFBpDL738CUFx19FpvpvAUr/kaU81fZkxBuFEaze/k2zMrcsFMn5
+	 z1T+r66C+HddoHYGySUQcenMc38nkCpWWhu/ZHOzpxMrH1QRtx3z++eMho0xfrdtAEBCP
+	 M8MYHa46YN5HR9benW5OXfQUhyg4msgOiNoHh4z/e1bJnlQ2Yr7+0SZaI5j3Sm9YFx2ve
+	 MbtMZiKOIDKVX0MphT9ZPppJQAYwGrZitrF4yLRx0jSpTYUC8ztpNkCvPgaqsyOvGhg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDQfzj18;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jc4HAclq;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73FA60A260C;
-	Fri, 13 Nov 2026 16:59:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EA860A2625;
+	Fri, 13 Nov 2026 16:59:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDQfzj18
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jc4HAclq
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794589172;
-	b=ZzUXhtAinGxvLEuto/spAvM2krywTFUFKb2WknXhEkKma6z0EShr7Wbq/lzgQwu9eD/5
-	 z4clNXJwAZaiSZDIFtkNuj/0LGJvQadtgk40f+l09F9Cf20nHIrP/DCkx6rkH0aU6btSy
-	 cGPOzzdmXE19JgZRoSOk8x6F14stsJJ8A3Zti43ixRzASlJOoCsgm/01CD7fp/ufZlwlb
-	 gNaY9fopPZJ02+Sbu4ZbkJJBVZxNjjv4tNrn0qbHKD+gl2RQ6wzFeT7ruG8/uX6iA2YRG
-	 bAtgDy1pnd6eSFjXOIzw80BVeQeHayeKrXa3NbVgjFp9nMA6noynJt2Bh2S33aV3r3w==
+	t=1794589173;
+	b=sPA3gWg63iYOx2Jtr+Ov6s1oKEp/iXkyLNSXNH3FQVwfSLhpiidEKrfvTJZ1kcFDook5
+	 ihaneEm9Ita55YUWEgL/5HfD3wwkyoaTwcxHMzx29g7lq1HBj5XOV2Wuw7c84CUNey4Uh
+	 QmUXRrwttfYR28xn9n9ysJxGpDLMiPtWClmQYHEDzj92aShW9csmoc0bE4pM946xQvmhS
+	 vM+JDDviXLmilW9t5vVCx+QfyUdmxpS8iAtoXGThxvEDSns5Jadt58RoO6s+qAo9FDE6N
+	 KmiR0whkcqs19rDVRxKVMDrrBHiTHbu4FA11DeU9MBf6eaqLbzoDK9vNm+s8YI69WxA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794589172;
+	c=relaxed/relaxed; t=1794589173;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w9dg4AaaJaDRpTl41ChaxjBbqBnEhij/Tjfv4wRm3ss=;
-	b=i0DudhsoAKvFsbirI33wFHM4js1BCQIMcb3xZ2t7NuXeEqSIS8DM286sGFDXQrQ//EAr
-	 YhSX7xRrU3u+6R0hzfDnoiW43yBrv8Xsdz0nQM7el3YRrhkZh/Kzci7iepzsqp+V4i5Nn
-	 SOX2NL4tfBZFrkzmsWCsw6ILn3Ze41IEVxQut9zCq4kIpai6Hsn+CSz7M+be1tZUEcLju
-	 WjhouhYUYPeupMBb8vwzDRWvo+RT0P/h79ISRPj+wD7s+K4CUt3ld2/CAOm+BoHq37JnE
-	 IEi7IFMjcGAjGPP0cIUi4VB0RFCOHmJPKokO9JBhT1DB5CpRO4ZfEFbXw8b7P8G48TA==
+	bh=U8Zgap9n9exkhoIyI7R2rZH5S9LLBlFPRSVvfmp1tjc=;
+	b=2dALE/WrfszdXWYyw3/O81JrSV0L0kLU3doL/Tmw+JR1rHxRLIvglfAAO2vA5TyhX3BG
+	 vG6KSRj1Pp0b3K82IwG0OeoGABFugS3tj5Aec74TKipetL5yJIn11lRsG4nkhe2bssrZf
+	 Jue/g1mY5XJYQ+Rexgk1frCPOaqDE9ROjkiaAgGhMzUL6w8Va/dN1UXRdjHVQiX6jiCso
+	 VR5y4Xk54EEckcL0l/PLNbBOSdQkt50vE1+O6xOZ2oDQqQvA4B+SmdyfQeVlFMJVpyIIu
+	 1XHDwRxW1dok06WFCUyZJX5l1Lyig4NuGT0ipdZrp/BgaizMdu0Ty5VKWvjqkYpDa6w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D68B41F000CB;
+	by smtp.kernel.org (Postfix) with ESMTPS id D8CED1F000CD;
 	Fri, 13 Nov 2026 16:59:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794589172;
-	bh=w9dg4AaaJaDRpTl41ChaxjBbqBnEhij/Tjfv4wRm3ss=;
+	s=k20260515; t=1794589173;
+	bh=U8Zgap9n9exkhoIyI7R2rZH5S9LLBlFPRSVvfmp1tjc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=UDQfzj18jXhWV65rLY+CEWQ+4I5YItix/dgLGWEy+Se3t5m5/RGhnLHemOkiKdork
-	 wUbWj7xEXQcfDh292PRBvEQOHTubz/yMYzdIkjYqkwO7aT/xSv/uU/nzPblffdROgD
-	 b3qru9ZgPVZ5ZAwYDm1ozB/Im/Owus8L2y7SzRfl+b/sYNRXZWYM1MRYebw6TvO5oi
-	 aJNsD+3MI7PvymyO3KQiUkbY3BIIuF3+LDTVTKBBPMjmgv/x5UuXxo/oC22KedgG/Z
-	 Vb45M8562hzXUr/L+NV9sgntpk8BjK9S8/jVcLm4Lj7TV6hUfrGpQ7GNm0655YBjMV
-	 WYCX0mXzNYylA==
+	b=Jc4HAclqOaX81p5yMCB7uN1LOf1BmwpaodkBjhdbqQQMBTYrEsKsE0lzSzeuOEUnz
+	 sd+Ndnw5BJj/Sm4NNrRm4ZfF5KS49xdmygvdcK3D5IfRrMHYCie1Iy+FneNwCtu1Ts
+	 8NTi3SfUOUacbInzQ1yjehMKcrxvXb4lZd8LaOsrirdR9ZDBXbvRaRuwWI9JzqqHMl
+	 GFUpuRys6yCcHWLxshKg7+i8g3Sdi1/ZN91JFqpi3bSasWhFUNRWk3Rq0TcTmVRw9x
+	 j0eXrzeYUv6rFEW++w+0wZFTH2wPmepRm4YmJWr1tuZJI68adjlN+xtCpB59mLtz1U
+	 kgSFPjXcof2XA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5A18B49A1F;
+	by lkml.kernel.org (Postfix) with ESMTP id 6E5D949A23;
 	Fri, 13 Nov 2026 16:59:29 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Fri, 13 Nov 2026 08:59:24 -0800
-Subject: [PATCH net-next v11 05/14] net: ethernet: microchip: lan865x:
- Depends on PTP_1588_CLOCK_OPTIONAL
+Date: Fri, 13 Nov 2026 08:59:25 -0800
+Subject: [PATCH net-next v11 06/14] net: ethernet: adi: adin1140: Depends
+ on PTP_1588_CLOCK_OPTIONAL
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-s2500-mac-phy-support-v11-5-7a186141952c@onsemi.com>
+Message-Id: <20261113-s2500-mac-phy-support-v11-6-7a186141952c@onsemi.com>
 References: <20261113-s2500-mac-phy-support-v11-0-7a186141952c@onsemi.com>
 In-Reply-To: <20261113-s2500-mac-phy-support-v11-0-7a186141952c@onsemi.com>
 To: Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
@@ -108,11 +108,11 @@ Cc: Selva Rajagopal <Selvamani.Rajagopal@onsemi.com>,
  Jerry Ray <jerry.ray@microchip.com>, 
  Ciprian Regus <ciprian.regus@analog.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794589162; l=995;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794589162; l=885;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=Wj4qNO+pltej/S7LvUHDWa6nEFAP4MrIYcLCWkuKPJc=;
- b=vJ2gca9H5Wtp6WO/1h7EIJ3ofko42ULtcL9bO0LF0GsD4vmRIvI6czmjmEBLzK7vKyCBER/EB
- zIojPN+nAFsBgNjCdvzI4v3O7pOy1S6NkBPl38MsZVSauHYZXIo7X3V
+ bh=dJOynGT8LQS7gZHpVrO5NMdXlp4FfgcoOR3HZGXbf9w=;
+ b=CNL6HGGXOBlo0G8aV2zul7ivTTECNWbhxMJSKwvNM4B1AmpUwAJT9UxhqyZ/mBol3jue1Qme9
+ dcuxCiItFoeAjJgi1OrYgQUeJOdleqjv7acofS4/4j9AW3JOKrMdfQa
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -123,9 +123,9 @@ Content-Transfer-Encoding: 7bit
 
 From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-Add the PTP_1588_CLOCK_OPTIONAL dependency to LAN865X. A following
+Add the PTP_1588_CLOCK_OPTIONAL dependency to ADIN1140. A following
 patch makes OA_TC6 depend on it, but "select" ignores that, so
-LAN865X built in with PTP_1588_CLOCK=m would link-fail on
+ADIN1140 built in with PTP_1588_CLOCK=m would link-fail on
 ptp_clock_register().
 
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
@@ -135,21 +135,21 @@ changes in v11
   - Moved the vendor changes into its own patch.
   - New patch in v11.
 ---
- drivers/net/ethernet/microchip/lan865x/Kconfig | 1 +
+ drivers/net/ethernet/adi/Kconfig | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/microchip/lan865x/Kconfig b/drivers/net/ethernet/microchip/lan865x/Kconfig
-index 7f2a4e7e1915..342172cb8837 100644
---- a/drivers/net/ethernet/microchip/lan865x/Kconfig
-+++ b/drivers/net/ethernet/microchip/lan865x/Kconfig
-@@ -8,6 +8,7 @@ if NET_VENDOR_MICROCHIP
- config LAN865X
- 	tristate "LAN865x support"
+diff --git a/drivers/net/ethernet/adi/Kconfig b/drivers/net/ethernet/adi/Kconfig
+index bdb8ff7d15da..120a52e6b283 100644
+--- a/drivers/net/ethernet/adi/Kconfig
++++ b/drivers/net/ethernet/adi/Kconfig
+@@ -29,6 +29,7 @@ config ADIN1110
+ config ADIN1140
+ 	tristate "Analog Devices ADIN1140 MAC-PHY"
  	depends on SPI
 +	depends on PTP_1588_CLOCK_OPTIONAL
+ 	select ADIN1140_PHY
  	select OA_TC6
  	help
- 	  Support for the Microchip LAN8650/1 Rev.B0/B1 MACPHY Ethernet chip. It
 
 -- 
 2.43.0
