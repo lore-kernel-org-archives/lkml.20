@@ -1,135 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597363;
-	b=s7HWWn2TkQBiSrDoDvdz9uEmybzaLTeXR0xBJfzAoJ8V8lGfg7F+k0xPyt7XYZOj16PH
-	 nYc7T81ae+BAnmfPen+0w8ORVvYs1uCLmjvbVkNA7crNu2jC5d8W+W850GN4ZgFFthuUy
-	 Hvz1uUNWjm6RpfE0wJKU3IQ5rCQaU9t9dKmGthCw1ISnGCzAKNN9zTAl/J5SV0ERhm78F
-	 /1HN96/V2DxjZ0z+3IJNNE1wsMs84UHoLnpMeDpXY0PyVNWq0Ecw44rnJw3i2J9bEVxre
-	 bRDQ/39VW4vgFfC/lZFFLs6NPbW+a2ii0rXfpOIc7emZ717+1232yYDdWCJwAPLFVvw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597363;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=smnu7VD9Pz1vXy8ma2OlP4P/s5o4CZDhpsXj1YzIp78=;
-	b=2yYCdh1Hj0hlSMnnQIeMPTdjM8AGPLuJXpgoaUqXmd//o1Ojnz3q/DI2f/8NUdLTbo3O
-	 uTQC0281FszadDcYNK2C1Ii2As0bQmFK1Jl3p6yx6DZpbqUnCK8bkVk6JpYqS6URjF+75
-	 D3eWbjUnnqZYPKF43Keqz6MQuj3IsTjIM+0tB22Or2YL4v0bsVb1Qepusm1qmY68ZerMN
-	 xAUhin9ZfqcfpOg4kho3LgbOjNREU3Ls8vCRkG16EECBF6IsQ9KcIf1PnrXFpAtL3K7kW
-	 3dlVf9oTXFZPTRw1kNpVKBYkV9TZ8uOPCSczwHZC6L9AsgHN0LgrhmXTZNi/VGMCEug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dubeyko.com;
-	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MJ96ANHU;
-	arc=none smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794597433;
+	b=BzBt3j7XZPGcmQbqpGYMCcwkGBlP9ySzsXyNrRJz/ZoARuOXHn3HNhetXTrjVRCcVCQm
+	 H0NwLjLfIpnGlAk+KX92UAkyIJvybq2rK+lzcp7S2tOF1WVM3/eId6cy1eTkPgHReyN6/
+	 bMznN1juW5ONeCPyWeAF6uSu8AMMMkxIavRMc62tpdK44wIPLq9B/X/BAXJXGez80Om+x
+	 RxHvx36jZQUZKoErIxjRJYPMa8Tvjdfpgmze/ARgX+eEFQRI/pGrjTeqxdy7pW6bJrxbc
+	 JYs0PRvcE3Eg/fZ3u7c+mS6LJCGpdudq9ARa7fj7KTfZpBAm3Nb+oqonpM99kduwlQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597433;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=b1XYnIt1lApY4YFM4IKFhv+AVRPEbUIREWKuYtNAHXI=;
+	b=awIj1ttbwxd4dxa1nT9E5G1LRdga2YHolqxSZk2EjohWIMdfhRjLjkr2+WTq8bPrD7Ip
+	 Xm9cvd4yH8OlbvyxrtexDPvyVcjMjHRnhZ87mZ2SkwswEe+xt+qw69VUvZ3qoX8WFOpU8
+	 nyEfbVgXEB7O35bt0BHMlH8BgVuh646jTDf87bnA+QhByQeJWtxIX9owox6ekGGLk24Q4
+	 1+dGW0ON1gQJjLBLjnTlQsz4M+b88ZYxs9BRuxSGzSZIy0Z6yIrf7+K4lgEpkyfahds/u
+	 xIoL9ysR+gKu3CjZR0vI8qJWs491Ssht2JpwGfDWUUPrkftTh5N3BjtWWt+gKKclP8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=exOnpRP4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.22
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013022.outbound.protection.outlook.com [52.101.83.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072D2606A336
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:16:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 072D2606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD55606A333;
+	Fri, 13 Nov 2026 19:17:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FD55606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MJ96ANHU
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b335eeb340so13034487b3.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:16:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1794597362; x=1795202162; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=smnu7VD9Pz1vXy8ma2OlP4P/s5o4CZDhpsXj1YzIp78=;
-        b=MJ96ANHUD31SsK/+X3IbvX/qJUeo2NwA9VYta5uaqCSNpDt1S38ccpMLpbOkxUpwkN
-         mIMsQvL2tMtHFJCbVAbwmrvEhr0Iajg1hzk4kH1g1emsQwOs/8o8qYnbGsW9KIw0IeKt
-         TUB819w185X/mwZRZOPKBO4CXxv60/xkleUO1lhqHJVhFHzTOmSiBbtf8U13Jf95I+qe
-         70GnRjd8e2Tu7xWT0Qpqc7fsI/58Obhzer+jgFenwi3bkbkD6unxPWQoC9UFpA0DReWd
-         cA1CkmeWcaGREsXQ/YJW32yn9M0B9FDAxNjp+JMeRdwXkxpaXNlkBJELJUjPdVMbq8Au
-         sVjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794597362; x=1795202162;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=smnu7VD9Pz1vXy8ma2OlP4P/s5o4CZDhpsXj1YzIp78=;
-        b=s1mk5e+tCrS01vsVTknaHgQKnKR/E87Rpm3UB++BnI+nJlnA5VD+ZbMwZcV3tHH70L
-         PMGTei6zDUl04uUHu8Z1f4flUZNQvrWq0OppAJRBx6Yj+bLYOubtOETFFeKzad9DorGy
-         u3el63M6ahqJ5uOBe/5wvwTeOR/acd9hauvzWL4TsfbBaJx5XsIcnjgOP5dBzkJB2gd7
-         J/stP1NbkMaqk8k8JPfqOICE2tGdU1CYLXdaGU658giZayvMxOXvJFKPltd4sVYSfykA
-         TRlLxHxPhdsm0V6VoacWUiKkRUKYuBusDj+yCsG6aDMiZhEUW88cay7vWbhjvcW2xxXI
-         +FeQ==
-X-Forwarded-Encrypted: i=1; AL+hErESyxGNOgh153ngA9GPu7oTK3gFNV/8WpSC+lZUzu9VWaxLFOgo3y7/VooLBPs6QOmSsWwII+gYvm6+UuI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/t2+7rA2A9NSFPp9REY6nVeATXPCGzLLpqEvcGP/zBp8KlT7G6
-	xg7kfTk3xEJPnyyCOc0bKjZGBd5ucxAH34Sw/x9MwKI46UuntASAFT4YLMCeUVU/xu7OQDQyvlr
-	9h61WCYg=
-X-Gm-Gg: AYBFou2H5VtKabcpSoSvJkExkrBQy5QGCMm076nMVlTC6Bm5LR5+xP/pyjLx5k9WQWb
-	S+PpHYmS6Ved7JWmmEu3/qrWvtJth00ZR/77sOxoZLA/IxyyUzkLreBujb3+z/ire4SSu725msv
-	YPMYvYlHrwnBlhilpP6y9zbDEBLBTtvDXYAf2aCrbLaD5eDBAA4HR4sgE7oF1BEGYUS/xUAxaSU
-	T63QLFbli6+upvIqVzm7VEuPXGeT7DjmNNBq8jV3OjsL9CAi8rBEYZo5yEMVwcNmJbKCOV9NjDl
-	FnVmXxGzAmqXwo2kC0UhCprzsWQv10MJRo9j81I+hEC6tMdy6ew9FfNB/DbOicUJpbczMu+mG/N
-	3Din2p51H24Hprek85tfNQtDEwev3jQk5nRakP6uJs39axgVQiALcEEhLjuAByBWyOOEcl3PNgr
-	gauTlO39esRLiJ9cw6KtbmLo7U9qI+w0nSQl631lbKaFLZ9CeMRenYFUvhQ03mvf/pdDkEmInp1
-	zUvm/HEYWLx/P3I0P/mtoMKFwxXrZY6kh76RO0d0zPywSX8Z+nC5Iavku3Vo+MnKdS6yxSMJLQa
-	04PtRgZQH2fff335ySV+ZTUaXRfT5/Yyzm9K9S2ZKrnRn6yyIijuUPtypc91sMtQKE3O4M8bdFA
-	RI3BIJBrzgj+Jf0SEYqrlmVb4g0Scgfy1akoOsHpdRuIYJOwVM0+353NXdbvOlUitEco6jJXs6x
-	O3qoyJugCGsFNHWewvNU4=
-X-Received: by 2002:a05:690c:c18e:b0:8b3:38f3:8655 with SMTP id 00721157ae682-8b4aa2c1ef8mr16008637b3.75.1794597361992;
-        Fri, 13 Nov 2026 11:16:01 -0800 (PST)
-Received: from ?IPv6:2600:1700:6476:1430:93fe:5aa0:2dc4:7807? ([2600:1700:6476:1430:93fe:5aa0:2dc4:7807])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa7eeaf9sm27417987b3.4.2026.11.13.11.16.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 11:16:01 -0800 (PST)
-Message-ID: <ac65982941adb490a5a953557fdd76c649872d97.camel@dubeyko.com>
-Subject: Re: [Bug report] hfsplus: extents-tree search_key buffer is 24
- bytes but hfs_bnode_read_key() bounds key reads against 518 - slab OOB
- write on fsync
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Guikun Yang <yangguikun19@qq.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
-	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=exOnpRP4
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LBrHZgrqerMEDQ+oyQ3ujrCfL2g8L8J07GCrh4FKeu2++xz8GWBgGfYgNt0ZTIWcyJFryuZ8VTvEOHFe3F4VXEvjrSjajUQB/YIq7ecp2La0/FNDBrE1i5I6Y9uI3+yqhy6s2+4HLS9ir1mMY8k1eIpkTRYOa43yI/v+kw4fmb0oBuiimaGRqlB9/yfXFzDwvwLAR2xB9M1tk4Jf6ozzRIxncsB0rO+ygCdoZzbIJY9BTujIyUNsxQY+znsXu2dnug0RAHSOVPl9ydie+EP4pOPfKpgJDTDk3fQFfAyvh1NM3aOBXB4ECJO3cRjTJ7qkEgNWY5uGMXVq4M4iUYnshg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b1XYnIt1lApY4YFM4IKFhv+AVRPEbUIREWKuYtNAHXI=;
+ b=cTlav3DCdPrWsFrnfj35ZYPwPKcEuvsmFxCSfiJJtLEAKMLpNv8mrMRoPbld8lbjSszHxBlWyzV5WPjPSEMnMj154nTMRoTMggEah1cyPDYLqJFtzJEx68XTuK0F5oeApHJIUFjZFrFEzrPRkGKI0Yh9jcrCB+MQleUkSq+yMjPt0263G07+lZmdZbs37CwpN7zjrqE1gaTpjTvm7kjkuzFbNmjhGkzJagrI4rZbx7ZMNQgLd+02F/HgKBZSW3n12ViF8BHwM2S2IDFhkPGrjOtNRAj88O9XN2MOM0oraMdA9GCZBEQE3BXshefGnbmgAvsNI3rmQ7lrVNq6AYeauQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b1XYnIt1lApY4YFM4IKFhv+AVRPEbUIREWKuYtNAHXI=;
+ b=exOnpRP4oaejmv2lFL+yP2KA3KH9uNlcjUTIoklJaQZTkX4ftohpvyGSgDUMAPXReiWHtwfsBkOuanGYLxI9g36U8rFnYmkxMIOrqn8e66Vk4a+VQGAvwxnZIVApYHb4Mz8EKOzra+Gw/NVCiaDiQKNdsCKR0+iAsWKdHsDKvd9Aw+/ERibeTpTq1HV1RRjR+rfT4ObybB9urM4ijALS0BbGdLDp5+dPX+M8XuQiVotN+sBpDC0D2qvPqFdYNIojibHgGAPF27tgmp+qOeLBFtf2kKRXN9J4/K0E+ATLwijRowF4R+ysUUNbvU0dRIlxNMNI9VN/QDXfvTuIF2NODw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AS8PR04MB8898.eurprd04.prod.outlook.com (2603:10a6:20b:42d::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 13 Nov
+ 2026 19:17:09 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 19:17:09 +0000
+Date: Fri, 13 Nov 2026 14:17:02 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Emilio =?iso-8859-1?Q?L=F3pez?= <emilio@elopez.com.ar>,
+	Maxime Ripard <mripard@kernel.org>, dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Date: Fri, 13 Nov 2026 11:16:00 -0800
-In-Reply-To: <tencent_F85118A9AFDF9B230D4E8FA672510A3E2F08@qq.com>
-References: <tencent_F85118A9AFDF9B230D4E8FA672510A3E2F08@qq.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
- NFdvziOa4FgUBC4X71upsZIoZJeii2V/Jtc3B4g==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+Subject: Re: [PATCH] dmaengine: sun4i: retain cyclic descriptors until
+ callbacks drain
+Message-ID: <avdiLjdrrdLsuooY@lizhi-Precision-Tower-5810>
+References: <20261103-submit-sun4i-dma-callback-lifetime-v1-v1-1-4c5a0653104f@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-submit-sun4i-dma-callback-lifetime-v1-v1-1-4c5a0653104f@gmail.com>
+X-ClientProxiedBy: DM6PR03CA0088.namprd03.prod.outlook.com
+ (2603:10b6:5:333::21) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -139,156 +103,234 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS8PR04MB8898:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3183ca99-0bed-4adf-9817-08df41bab697
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|19092799006|7416014|376014|3023799007|56012099006|261026121527099003|261009223027099003|261026140227099003|5023799004|261021123027099003|11063799006|261102123227099003|261022075727099003|261021121427099003|261028144727099003|261022105027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	Ao5KzpXuSLGHkUgVRRryRh5DZn9HS/Y1/okbQ4ZFkWyYvuN14TS0cx6Emp2vW6NVnAj8F1O9U14rxKBHKkuwsTO4Otb1H1oGyDvETa2+rOCgE8SEolWWhlMitFB7DrY3DjY+gPsmhYB5xw2urpnX1iOFeauF+FpdrA7xsKjA6+OEpoLGzRtjdk5fbeAvbJ+CfAsPZHIYT+57jncAFgIml9ibz16Bm68ls0phWGErURj/kQjabFpIYprnq3nRbtxkwZIFUhxbXuSPrccQsr/0NS2r/ToUhZ6W211tGCjCLJ+ElUTnPwIxyXXY46bw2YZrtC3+qbXgLNBEEhMs4UC8d3GcnmFC8uqNGByADBvoJscxu1vhKdqoDEX3E6Yusllp8TyL0s8bcp1+cWpvZqDxNTIPmwdhiu3okRBgVAdMBEf6TiOTkQoo1js3kWrHD7v8US6UcfZewuB3uAqXxbaBMNEouW9xYS+C60MrTJrVNPvi30Po91CaecoQSxIkcr57ozvytP9m/4UqNZhMYQjifpN3g3pcoBp/avlQINQ04lADD7k2866c5LIDTxX8D/p1ZYUdr3wVgUh8EC5laqgzNQGpPKB6fCW7aZ8NqkumDgOIMaR5ylOTJCnheR4v7z8rUDOhvl5Oj6V6c4MuUso7lJYBQcBEwmffWXeSRPv0KXY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(19092799006)(7416014)(376014)(3023799007)(56012099006)(261026121527099003)(261009223027099003)(261026140227099003)(5023799004)(261021123027099003)(11063799006)(261102123227099003)(261022075727099003)(261021121427099003)(261028144727099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?iTd0MuBEVke5JOf8srRf8zkeMwgGsFC86/3sTDYcCUEiFohpZLrd0nUBqhh6?=
+ =?us-ascii?Q?aZyXBVmWs9WKP9E8IBrf4H5QIo956ndi5+9a3or68Gqk4dWjKt0H3oCPmV5H?=
+ =?us-ascii?Q?wbS5b6QZz9AGqcZ9Nt0Gk3/oCY3hyyJvn+GUIQ90JIzIP9IdXFaKNOFBuOHD?=
+ =?us-ascii?Q?64FS0fJ/etqlGsAtrorqbdz8EX5g/buOGnmD63SN/uULDbsJL+R57XVc+VGO?=
+ =?us-ascii?Q?1/aGCbo7uN1w825TfqBRGdhheSdXxMvOv7L+808WzWFsgAtdWiJ22hrhN1Zx?=
+ =?us-ascii?Q?iERV1jbOnji6SuFDURzkQ1VlhsJr/ai8CQ6uOIwztfOqKyIchVxX8zUxD8kE?=
+ =?us-ascii?Q?112xD81SjjxLepw+MP+DPOj0nMIQ63TWsCfWDiq9r1tFaG9nCcwXxB6v+uJm?=
+ =?us-ascii?Q?qnjv0d3pGyB13MWUsRvZMn/+z1JP9H54pAgJvBHccAl4UVwB8oNeYeFwkeo0?=
+ =?us-ascii?Q?07t5wn9qTDoAKllk/MWxnE63bWhukdNzj8uckJFfPqciHjMso6a+3vD4Cqh5?=
+ =?us-ascii?Q?xSwL9bdGkhTGNPO0KA1sm8GC/jODKB6L+lforiE2TtGKQB88Fl+tQ0BoLBBo?=
+ =?us-ascii?Q?7zCnEwOADLz9Iz8dmYL7kQRvTmUJj4VSivBqAYhkB+kKTAWCp69cvMFXqdSO?=
+ =?us-ascii?Q?TrcR/g1B8Z2LlqsKRkzd5pVvfSgKx1v8N/sStT+UVcgQXOy3A3/e7L2fONx0?=
+ =?us-ascii?Q?DJqVvLIfQHpaxYAdJxziDH98qB/bgJOQ6fL2OT9YtSfG7e7/X2gP4fBYOfs7?=
+ =?us-ascii?Q?XawQ5rRKvYswq5YAkQITxmFgG7daZ7GPEyD5nkSowkDMykjhoPDUctSRAZfy?=
+ =?us-ascii?Q?EitiRcSx/UiiolQpKoasP6Oa3ZG+UytAD12pBRjPQibzWq6L9PGjHOwiMR36?=
+ =?us-ascii?Q?9M4HcVgqx96x96NwdIFwHGz0D3FMEF+Qq3IeM9RjvG/GpqJKiWugX1b9cAbF?=
+ =?us-ascii?Q?DrG4O5AZCpTwNzg+3GUes2n9jXhuWl2MzHJvSwTUUBiMJDwTIcI37m2b1Q4x?=
+ =?us-ascii?Q?kTEddDMFpzegKd2wkB+50SgA3CfjR0t12hAighyaeGtIXNBJYnHukacaDPfE?=
+ =?us-ascii?Q?fYBSnayRsrhaQdSOY4B3Duz3jgq7D15dMM/yUFmyjEBsl89z0KnVlV2dM3u8?=
+ =?us-ascii?Q?SIUkjrVyrVKIFLrn+Cf5jzDa1VESIlKe39MYD5QkFdVCHk2WfYQjKx+a/Xu0?=
+ =?us-ascii?Q?rXf0968OY/f5CsYjnSnN+ei//T9hT+Kvs1zfmsnAcS9KVKYonwbaQJHyAQ/W?=
+ =?us-ascii?Q?XCFG5GKVVw5PYP/hu6Cjk1F2Q55NxSzUs/3hrILGeMV8v5lkR7mLLWnyvDS5?=
+ =?us-ascii?Q?D089dmmcX4K73d4SQKlgktt2ZvvK7WETP3wtrbonXPemjgEA03YIi6IQoc1Z?=
+ =?us-ascii?Q?vMRiGTY2/V5uhsekPjqEwghr3BajhZPXNLrZDzeKem1UwLo5wrJfAYRADKGe?=
+ =?us-ascii?Q?d93U6myFqPQQwSpSzcZ6to2j8dfkO0XLzI1Dfbj9sIzn9h6mW/Wyq9E7x8Gk?=
+ =?us-ascii?Q?qbUlGn5uuyuZDmLH55ddbfeyExB+rY02GADJHUrigfITu0NtgVAoLyuMDRBD?=
+ =?us-ascii?Q?9f0tT8rnEv4bniUEPMFRxMF20y1NYS7i0dLoPn4vc8lJN0ArGU9BBbCpomMB?=
+ =?us-ascii?Q?9/TJwzsEuIMjo8p3a93mUOl2km4AJ8dAASz2p+MSkRZYHjYHHGmD+UxMqVCU?=
+ =?us-ascii?Q?g8snKfc80rwfOw3fevcGRGuddkDUzuFH0WtkaxOkxj9xxczUfFtOmTNeHaqh?=
+ =?us-ascii?Q?RckML+0EV80OGfV1c82ycHc/aYRHkvZk0ZphSafPyceCAcc5umGl?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3183ca99-0bed-4adf-9817-08df41bab697
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 19:17:09.4679
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fHn/QxxQNe/rOzCPG+T0FgrypotUKU0HCf9maCqIyzGdRtVLY13G8lbWRVFGQgtn445GnwrTPtJB6DZvnPRUB3Lmx+o0L59ovafUeRTVDgU1O6BXfmSRLldwYiraEhuY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8898
 
-On Thu, 2026-11-12 at 22:00 +0800, Guikun Yang wrote:
-> Hi,
->=20
-> Appending to a file on a crafted HFS+ image ends in a
-> slab-out-of-bounds write into a 24-byte allocation. The extents tree
-> sizes its search key buffer from max_key_len, but
-> hfs_bnode_read_key() bounds the copy against the generic union size
-> (518), so any on-disk key length between 10 and 516 passes the bound
-> check and overflows the extents-tree buffer - and the reject path
-> itself memsets 518 bytes into the same 24-byte allocation.
->=20
-> =C2=A0 BUG: KASAN: slab-out-of-bounds in hfsplus_bnode_read+0x30/0x5f0
-> =C2=A0 Write of size 502 at addr ffff888005fb4100 by task init/1
-> =C2=A0=C2=A0 hfsplus_bnode_read -> hfs_bnode_read_key
-> =C2=A0=C2=A0 hfs_brec_insert -> __hfsplus_ext_write_extent
-> =C2=A0=C2=A0 hfsplus_ext_write_extent -> hfsplus_write_inode
-> =C2=A0=C2=A0 hfsplus_file_fsync -> do_fsync
-> =C2=A0 Allocated by task 1:
-> =C2=A0=C2=A0 hfsplus_find_init (kzalloc 24) -> hfsplus_ext_write_extent
-> =C2=A0 The buggy address is located 0 bytes inside of
-> =C2=A0=C2=A0 allocated 24-byte region, cache kmalloc-32
->=20
-> ## The size mismatch
->=20
-> hfs_find_init() sizes the search key per tree
-> (fs/hfsplus/bfind.c:22):
->=20
-> =C2=A0 ptr =3D kzalloc(tree->max_key_len * 2 + 4, GFP_KERNEL);
->=20
-> The extents tree's max_key_len is validated at mount to
-> HFSPLUS_EXT_KEYLEN - 2 =3D 10 (fs/hfsplus/btree.c:318), so its search
-> key is 24 bytes. The catalog tree's is 516*2+4 =3D 1036.
->=20
-> hfs_bnode_read_key() bounds the read with the generic key union
-> (fs/hfsplus/bnode.c):
->=20
-> =C2=A0 if (node->type =3D=3D HFS_NODE_LEAF || ...)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 key_len =3D hfs_bn=
-ode_read_u16(node, off) + 2;=C2=A0=C2=A0 /* raw disk
-> u16 */
-> =C2=A0 else
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 key_len =3D tree->=
-max_key_len + 2;
->=20
-> =C2=A0 if (key_len > sizeof(hfsplus_btree_key) || key_len < 1) {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memset(key, 0, siz=
-eof(hfsplus_btree_key));=C2=A0=C2=A0=C2=A0=C2=A0 /* 518 */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_err("hfsplus: I=
-nvalid key length: %u\n", key_len);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
-> =C2=A0 }
-> =C2=A0 hfs_bnode_read(node, key, off, key_len);
->=20
-> sizeof(hfsplus_btree_key) is the union of cat (518), attr (268) and
-> ext (12) keys - 518. That bound is correct only where the buffer is
-> the catalog one. For the extents tree it means:
->=20
-> - key_len 10..516 passes the check and memcpy writes key_len bytes
-> =C2=A0 into a 24-byte allocation (502 with a crafted key length of 500)
-> - key_len 517..65535, or any odd value, takes the reject path, which
-> =C2=A0 memsets 518 bytes into the same 24-byte allocation
->=20
-> Both paths are out-of-bounds writes; the second one fires even for a
-> "rejected" key.
->=20
-> ## Why the disk value reaches this point
->=20
-> The bnode loader validates key_size only against the record entry
-> size (fs/hfsplus/bnode.c:601):
->=20
-> =C2=A0 key_size =3D hfs_bnode_read_u16(node, off) + 2;
-> =C2=A0 if (key_size >=3D entry_size || key_size & 1)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto node_error;
->=20
-> A record with key length 500 in a 3814-byte slot passes: 502 < 3814
-> and even. The binary-search path that does check against
-> max_key_len (hfs_brec_keylen(), fs/hfsplus/brec.c:71) only runs for
-> the records it probes; placing the crafted record's cnid above the
-> search key keeps the search converging past it without ever probing
-> it. When an insert then forces a node split, hfs_bnode_split() moves
-> records verbatim into the new node, and brec.c:169 calls
->=20
-> =C2=A0 hfs_bnode_read_key(new_node, fd->search_key, 14);
->=20
-> on the new node's first record - the crafted one - with no
-> max_key_len bound in between.
->=20
-> ## Reproducer
->=20
-> The trigger is write(2) + fsync on a file whose data fork has 8
-> extents followed by a non-contiguous allocation, forcing
-> hfsplus_ext_write_extent() to insert into the extents tree and split
-> the crafted leaf:
->=20
-> =C2=A0 # positive: ext leaf rec2 key_len =3D 500
-> =C2=A0 python3 mk_hfsplus_ext.py base_file.img run.img
-> =C2=A0 python3 trigger_write.py run.img pos.log=C2=A0=C2=A0=C2=A0=C2=A0 #=
- KASAN OOB write 502
->=20
-> =C2=A0 # negative: same image, only that field differs
-> =C2=A0 python3 mk_hfsplus_ext.py base_file.img run.img neg=C2=A0=C2=A0 # =
-key_len =3D
-> 10
-> =C2=A0 python3 trigger_write.py run.img neg.log=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 # clean, write
-> returns 4096
->=20
-> The negative control differs from the positive image in exactly one
-> field - the crafted key length - and parses normally, printing
-> "vda1 <lv...>"-equivalent extents output with no KASAN report.
-> Positive 4/4, negative 3/3. Each run regenerates from the base image
-> (the mount consumes it by writing the real extents tree back).
->=20
-> ## Relation to the existing fixes
->=20
-> bb5e07cb92 ("hfs/hfsplus: fix slab-out-of-bounds in
-> hfs_bnode_read_key", 2024) added the 518 bound and the memset reject
-> path after syzbot hit the same function through fs/hfs and the
-> catalog tree, where the buffer is 1036 bytes and the bound holds.
-> The extents tree's buffer (24 bytes) was never covered by that fix -
-> the bound is larger than the buffer it protects, so the check is
-> inert there and the reject path is itself an overflow.
->=20
-> ## Suggested fix
->=20
-> Bound against the actual buffer, not the union:
->=20
-> =C2=A0 if (key_len > tree->max_key_len + 2 || key_len < 1) {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memset(key, 0, tre=
-e->max_key_len + 2);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_err("hfsplus: I=
-nvalid key length: %u\n", key_len);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
-> =C2=A0 }
->=20
-> This covers both the memcpy and the reject-path memset for every
-> tree with one change. The extents tree additionally can never see
-> a key_len above 12 on a well-formed volume (HFSPLUS_EXT_KEYLEN),
-> so max_key_len + 2 is the natural bound.
->=20
-> The reproducer (image builder for positive and negative cases,
-> serial logs) is available on request.
->=20
-> Tested on 7.3.0; fs/hfsplus/bnode.c is unchanged in current
-> mainline as of 2026-11-12.
->=20
+On Tue, Nov 03, 2026 at 11:25:58PM -0700, James Hilliard wrote:
+> A cyclic IRQ queues a virt-dma tasklet with a pointer to the active
+> descriptor. sun4i_dma_terminate_all() frees it without clearing the queued
+> cyclic callback or waiting for one which has already started. The tasklet
+> can subsequently access the freed descriptor. There is no
+> device_synchronize callback to let clients drain these callbacks before
+> releasing their own resources either.
+>
+> Serialize both half-transfer and end-transfer IRQ handling with termination
+> under the virtual-channel lock. Recheck the physical-channel association
+> after acquiring that lock so an IRQ which looked up the channel before
+> termination cannot use its detached transfer state.
+>
+> Move terminated cyclic descriptors to the virt-dma terminated list. This
+> clears any pending cyclic callback. Retain them until a new synchronize
+> callback has waited for the IRQ handler and drained the tasklet. Drain
+> callbacks before freeing channel resources as well. Termination itself
+> remains usable from atomic context and from a completion callback.
+>
+> Keep freeing other collected descriptors immediately: an in-flight
+> non-cyclic callback owns its descriptor on the tasklet's private list.
+>
+> Fixes: b096c1377d1e ("dmaengine: sun4i: Add support for the DMA engine on sun[457]i SoCs")
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>  drivers/dma/sun4i-dma.c | 46 +++++++++++++++++++++++++++++++++++-----------
+>  1 file changed, 35 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/dma/sun4i-dma.c b/drivers/dma/sun4i-dma.c
+> index 225e4a53502b..b92cd9c8676e 100644
+> --- a/drivers/dma/sun4i-dma.c
+> +++ b/drivers/dma/sun4i-dma.c
+> @@ -293,10 +293,20 @@ static int convert_buswidth(enum dma_slave_buswidth addr_width)
+>  	return (addr_width >> 1);
+>  }
+>
+> +static void sun4i_dma_synchronize(struct dma_chan *chan)
+> +{
+> +	struct sun4i_dma_dev *priv = to_sun4i_dma_dev(chan->device);
+> +	struct sun4i_dma_vchan *vchan = to_sun4i_dma_vchan(chan);
+> +
+> +	synchronize_irq(priv->irq);
+> +	vchan_synchronize(&vchan->vc);
+> +}
+> +
+>  static void sun4i_dma_free_chan_resources(struct dma_chan *chan)
+>  {
+>  	struct sun4i_dma_vchan *vchan = to_sun4i_dma_vchan(chan);
+>
+> +	sun4i_dma_synchronize(chan);
+>  	vchan_free_chan_resources(&vchan->vc);
+>  }
+>
+> @@ -322,7 +332,7 @@ static struct sun4i_dma_pchan *find_and_use_pchan(struct sun4i_dma_dev *priv,
+>  	spin_lock_irqsave(&priv->lock, flags);
+>  	for_each_clear_bit_from(i, priv->pchans_used, max) {
+>  		pchan = &pchans[i];
+> -		pchan->vchan = vchan;
+> +		WRITE_ONCE(pchan->vchan, vchan);
+>  		set_bit(i, priv->pchans_used);
+>  		break;
+>  	}
+> @@ -339,7 +349,7 @@ static void release_pchan(struct sun4i_dma_dev *priv,
+>
+>  	spin_lock_irqsave(&priv->lock, flags);
+>
+> -	pchan->vchan = NULL;
+> +	WRITE_ONCE(pchan->vchan, NULL);
+>  	clear_bit(nr, priv->pchans_used);
+>
+>  	spin_unlock_irqrestore(&priv->lock, flags);
+> @@ -970,13 +980,13 @@ static int sun4i_dma_terminate_all(struct dma_chan *chan)
+>  {
+>  	struct sun4i_dma_dev *priv = to_sun4i_dma_dev(chan->device);
+>  	struct sun4i_dma_vchan *vchan = to_sun4i_dma_vchan(chan);
+> -	struct sun4i_dma_pchan *pchan = vchan->pchan;
+> +	struct sun4i_dma_pchan *pchan;
+> +	struct virt_dma_desc *vd, *tmp;
+>  	LIST_HEAD(head);
+>  	unsigned long flags;
+>
+>  	spin_lock_irqsave(&vchan->vc.lock, flags);
+> -	vchan_get_all_descriptors(&vchan->vc, &head);
+> -	spin_unlock_irqrestore(&vchan->vc.lock, flags);
+> +	pchan = vchan->pchan;
+>
+>  	/*
+>  	 * Clearing the configuration register will halt the pchan. Interrupts
+> @@ -991,10 +1001,20 @@ static int sun4i_dma_terminate_all(struct dma_chan *chan)
+>  		release_pchan(priv, pchan);
+>  	}
+>
+> -	spin_lock_irqsave(&vchan->vc.lock, flags);
+>  	/* Clear these so the vchan is usable again */
+>  	vchan->processing = NULL;
+>  	vchan->pchan = NULL;
+> +	vchan->contract = NULL;
+> +
+> +	/* A tasklet may already be using the active cyclic descriptor. */
+> +	vchan_get_all_descriptors(&vchan->vc, &head);
+> +	list_for_each_entry_safe(vd, tmp, &head, node) {
+> +		if (!to_sun4i_dma_contract(vd)->is_cyclic)
+> +			continue;
+> +
+> +		list_del(&vd->node);
+> +		vchan_terminate_vdesc(vd);
+> +	}
 
+Can you move this logic to vchan-dma.c/h ? I supose other vchan should use
+this similar logic also.
 
-Please, send the formal patch for review and testing.
+Frank
 
-Thanks,
-Slava.
+>  	spin_unlock_irqrestore(&vchan->vc.lock, flags);
+>
+>  	vchan_dma_desc_free_list(&vchan->vc, &head);
+> @@ -1128,9 +1148,15 @@ static irqreturn_t sun4i_dma_interrupt(int irq, void *dev_id)
+>
+>  	for_each_set_bit(bit, &pendirq, 32) {
+>  		pchan = &pchans[bit >> 1];
+> -		vchan = pchan->vchan;
+> +		vchan = READ_ONCE(pchan->vchan);
+>  		if (!vchan) /* a terminated channel may still interrupt */
+>  			continue;
+> +
+> +		spin_lock(&vchan->vc.lock);
+> +		if (vchan->pchan != pchan || !vchan->processing) {
+> +			spin_unlock(&vchan->vc.lock);
+> +			continue;
+> +		}
+>  		contract = vchan->contract;
+>
+>  		/*
+> @@ -1138,8 +1164,6 @@ static irqreturn_t sun4i_dma_interrupt(int irq, void *dev_id)
+>  		 * interrupt (odd bit)
+>  		 */
+>  		if (bit & 1) {
+> -			spin_lock(&vchan->vc.lock);
+> -
+>  			/*
+>  			 * Move the promise into the completed list now that
+>  			 * we're done with it
+> @@ -1173,8 +1197,6 @@ static irqreturn_t sun4i_dma_interrupt(int irq, void *dev_id)
+>  				disableirqs |= BIT(bit);
+>  				release_pchan(priv, pchan);
+>  			}
+> -
+> -			spin_unlock(&vchan->vc.lock);
+>  		} else {
+>  			/* Half done interrupt */
+>  			if (contract->is_cyclic)
+> @@ -1182,6 +1204,7 @@ static irqreturn_t sun4i_dma_interrupt(int irq, void *dev_id)
+>  			else
+>  				disableirqs |= BIT(bit);
+>  		}
+> +		spin_unlock(&vchan->vc.lock);
+>  	}
+>
+>  	/* Disable the IRQs for events we handled */
+> @@ -1276,6 +1299,7 @@ static int sun4i_dma_probe(struct platform_device *pdev)
+>  	priv->slave.device_prep_dma_cyclic	= sun4i_dma_prep_dma_cyclic;
+>  	priv->slave.device_config		= sun4i_dma_config;
+>  	priv->slave.device_terminate_all	= sun4i_dma_terminate_all;
+> +	priv->slave.device_synchronize	= sun4i_dma_synchronize;
+>  	priv->slave.copy_align			= 2;
+>  	priv->slave.src_addr_widths		= BIT(DMA_SLAVE_BUSWIDTH_1_BYTE) |
+>  						  BIT(DMA_SLAVE_BUSWIDTH_2_BYTES) |
+>
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261103-submit-sun4i-dma-callback-lifetime-v1-b6192060b76f
+>
+> Best regards,
+> --
+> James Hilliard <james.hilliard1@gmail.com>
+>
