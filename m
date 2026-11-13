@@ -1,136 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595826;
-	b=Ja+YcaLmFXTktX/aEz4nXpCd3+XCu4Xv8mTXnG4sBjnS8sYY9UEcJJGGoNLc/k2+KWaY
-	 CtEn75TATXNFvDF4iQSeu5BxiQ5ID3+YVLuBt5LRaLz+d84qScBZ8bIE6JYKdlH8yePwt
-	 Vpk7a1El77xmBemD+kIyuu792d2zBBVXwfbVoi7Av/fbpBStooUxSjha8R+6SCIrHFGPC
-	 iZGhDHClImyThvNibpaA7InK8NeKcRsnb1OwEkQZ7ltoFzc13yZ2VsPK/kIlD8DP1yh5r
-	 /bGwzCUfOfY/MCBQs9AGrpfZkcj3tSeXSsbba5sapOjKLKO/4OLhhCIqsaCUnm9ZmmA==
+	t=1794595844;
+	b=mDZKL8BPb3YlXyO3nUlY5GKMpg8ji7l8yJYgyJ+ORvR4TJ7r0SPv+3GYgCezAk2nxoRB
+	 si/SLWhYdW3k1v1y77OwlyVO4kIQbhaQ6OYRYlnNz6OWYUX+dPy1hS1+rxrgbuRHxwYgC
+	 BvhTvaifW8PoJqZucEp90uAnJnJdGxQy2+7cDJfwG9ZTlGm/2iTjp4rbabY/TIbEZNAc/
+	 fdZjx0bQfnvDIrDWjwCQr6P3aw/PEO6RgHalg4Cms6HtWvmuyqPD5TIydcZEYVacyAEm4
+	 jlBdkGseMGsLC/DZ66LNlMdUfLHfmkeObLN527Al0bRVSxkNG12mP14YmujS14iue6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595826;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=UOGbIgdMvNNbvF3rlYZmS8C4yu1k+1TFWuu8QXx7o+g=;
-	b=NDXXgbIlzVIyoRx2TruoQexlEQfJiqX3eYNeZkh/QHKuibrnZFIVl8yYLy98IIuVfveT
-	 SghsxP1RshyovBfzcok/Rb3jkkEvBmRfL34ZVTyQQTTK1/h7oGIhCVN3XatLzmFhU/UOH
-	 9azLaVRDhDypYFBhNf5tCdLAv9/Z07nAvITlHaE2yOr76mVYqRUooB6Gs81gKjxMtf+Pp
-	 frDZlnGEzB6/A8HcOK5RzK7jZUFQnadcsHMr9MCGncmWZJrQkhvIYq/jp9IBBm6IFJ6Mo
-	 Mkw9HNR6W3rCAlW9EwUOXFlZcItfF/R0wqOoLTvXTeMiWNOhwGDv6QxpHLP6RwVDeBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595844;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Debian-User;
+	bh=MgeHtv+mqNFsSO+P+3k/hTr/fpbYj2PhQuyDxZDnze4=;
+	b=OTeSscUctWLVlXITlBggw+3u/2lDRORkfe9Oj5LVyyIv8Y6gjofMN0LA2yH/lZIr3a55
+	 blBpQtBEdNfq/XOeRydIn7OBePEZPEWV+uJ1sSkXAOiDgHqZtBP1QnvfrFYe0bg7eNx0i
+	 TOFmJ/aBv3Kdrg4OWcN2nXyTxpdAWnZ34+xs2BEUQ8QFucRMFJw2Gb/NihNeRbn+ipNjR
+	 IwBP88LU2AFP3CUJltZqN/ZMEUZgfVUWjxAu95k4E9+mMXyaQKgavzO6XY5TT9t+/JdYj
+	 EjcvBYMM+7G+y4JW8cs80UODo404vSf5bN4ZhjVlfDSDpiuXFw5XWJPK3cr6S/N5gsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Pai7rOpH;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XltLmC7h;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=U3JNPpvc;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426B0606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:50:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 426B0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53838606A331;
+	Fri, 13 Nov 2026 18:50:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53838606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Pai7rOpH;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XltLmC7h
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFR4si1076214
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:50:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=UOGbIgdMvNNbvF3rlYZmS8C4yu1k+1TFWuu
-	8QXx7o+g=; b=Pai7rOpHvCid7pBso1KJQNmUP3ay4+209rkTRCGKrA1soVsInzz
-	2+EI/9XiO0RAM/GnD/STisvs4OSF4TmMqSpaYOTZTy4YrfruHtbiexkEV8X+AKhJ
-	6HObc71xpqBRTgvwxdC0xYCS8IOuPWw7fCvssyM7FIliP505dAw/b9KSorRfVPSt
-	Hs1K6yoPpdFLUGK+7yQVE9fsj5oYSiZgP9Mx0gEp4TlIeIfax6HA+62qfOkZuIA5
-	ZsXxXC5DTQR/MQQPUz2nG7Lr+6BZ/wsoDvBGC3M/nm9/vZt3UjBSw5X6aDlmZjaC
-	IaQbELHasdMoTMISlwbVrivN0NT59bXZNNA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwh0an4sp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:50:25 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36de26cb4b3so1591794eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:50:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794595824; x=1795200624; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UOGbIgdMvNNbvF3rlYZmS8C4yu1k+1TFWuu8QXx7o+g=;
-        b=XltLmC7h+NXyy3oLGn6NsDLYzSSjVmqSyDRg4wL4qbJ8RYr3ysP6tLyNLtAP11iXfs
-         uFZs8yyK8C+g9xwr4zT8IsKbJUI256iAmXy1y13NzfF3NbPp6NUioYpp8xhAFp4nqoJa
-         GEmfPTHtw5lswFxkh+8G3Pi9iB+d7Q8nXNTzQfS2oH92FPIc8JAyzxJz7K+GnmWNtrG9
-         KqDkKIDls9GRqEi3oWYxyFQeEUoIComjXN4quh/HRzQ7hREJ4oVpBIUpUwRR8xtPv6pL
-         z8V3bS9bSrUS1cvJJWxHa7CPgMmipfHyLjX/D1rQ+evOCa3mYuUx29lapfHE/ACBYrv4
-         7Fzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595824; x=1795200624;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UOGbIgdMvNNbvF3rlYZmS8C4yu1k+1TFWuu8QXx7o+g=;
-        b=pxbwAugEbB7reN26Ey4Fr2vtUjVcZwUydhgw2cNNmIpByeeAmnxSNuHCfu3Aosp9rG
-         tACVwTDKwx6/ZkhAbMr+CFghdSb9ozNA1iavJ4C9NFxB2yyuzFP6edQITorbBknOTG33
-         I4dm2Nu1EYlbemXEpXhMUU2MNLc/POEFHI2EfIUcBd/SOg8wlIk9lYiDx8xT+mapDc3a
-         nxwa9IWeWc/duyQeR4+Ud0d9v7aT7bhRS3gAJE7Nrzj0XnqHe7QgjrPCo1gtNFviDsJ2
-         8cP3GOMvQiGku/OUfqDLmawwZwIMcUxAzIrgJn3DdoaMq2pplwBpBwPNE5YLqqDxkbz8
-         ZIsg==
-X-Forwarded-Encrypted: i=1; AL+hErGlQ+wbjciRtuLvXuv1jz0qGyJaI+jOrlEBHeONUey4srmFq8ZUCjUKoq6XrgV4CxC2o+Tdpu4TI37xESE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9GaTMrb1zHkrOlvpjok4umaoV076pEtjSpkS7T8jbTnGmXjaXV
-	5b5EmaP+P7VegGJQFqf3vpkvf1mbGxvnS+/7FHrFrgVHwsXP6TJCab1GTkD9HlfEIzDCrurfkjt
-	jZ0bbuyQofV8mBMxxvimQ3kKsKXjK2yMv1+KL/C2flA49nWrgAwnfGB3edUCslgym/HY=
-X-Gm-Gg: AYBFou3Kw1+yBxvy37slIZ4QI5k7McTXKfGdA8R7EeXCyU1+kUuxQQ/japczFo3Ait4
-	ieBVG7qQlIZYNzKQQ8vQcV0SELu2MX9TB48FatXdBdDCrAhsqAoGhB/2DYX+Zy+7gzvSsdBit53
-	OJ01ivZaHM5Gi51Xn2lNmQ2JP67rnXAFHuZqJoFnY+1Zm2i4QQZRYrn3p78gw9M+rTNV7BgL72F
-	zJCqu1ibVt+XkfXPH+ZJ0qGLygMb2dDLK2/DINRYUmZCFf342GBKy1G2HOiM67u7emJx3Q4gyIT
-	U/ei/cxYdnUYOEkgM5lyuqIiWCSuJp6Tu18EGf+bi9F7eQHgRX6ho0kdN16LebPDI7MarGv3w/w
-	2tlDJrhwCN3bqpmUbSlmt751MeQnf4hBvu3t3sbajZMemJIuFKeHtN1XoXFlOE/zeVcNhvRSOtK
-	8=
-X-Received: by 2002:a05:7301:90b:b0:34d:755b:d60b with SMTP id 5a478bee46e88-37968b8a031mr2753162eec.34.1794595824139;
-        Fri, 13 Nov 2026 10:50:24 -0800 (PST)
-X-Received: by 2002:a05:7301:90b:b0:34d:755b:d60b with SMTP id 5a478bee46e88-37968b8a031mr2753127eec.34.1794595823416;
-        Fri, 13 Nov 2026 10:50:23 -0800 (PST)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm15547667eec.21.2026.11.13.10.50.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:50:22 -0800 (PST)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Sumit Garg <sumit.garg@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
-        Simona Vetter <simona@ffwll.ch>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        "Bryan O'Donoghue" <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Jeff Johnson <jjohnson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-media@vger.kernel.org, netdev@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-remoteproc@vger.kernel.org,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH v2 0/9] Migrate PAS clients to qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
-Date: Sat, 14 Nov 2026 00:20:00 +0530
-Message-ID: <20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=U3JNPpvc
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=MgeHtv+mqNFsSO+P+3k/hTr/fpbYj2PhQuyDxZDnze4=; b=U3JNPpvcUep03+7zABuvnn2XEn
+	hGQA26NULGOfBIiX/buseMe874LrZTL0opH32KsrZ4zsiQAdkGWocO7BfXxvC345MZuMJzC/ZvWl5
+	mWKOI5x03InGYASv8pdiMR5MrphjwxwaXoJfZWmsnav+1UYFN6P0YTByW3YyBylBpM8btTHDh/q+Q
+	tJqccPCqLcDrzXiImNUAEc0YXclmuEvsj3rLkLWEQ+I9qoXnV50AxrRmwZVqEoauS44F17W3FUpH5
+	gwUgUkCmLDc/UF2PHXL/ZtGhtDx/tkxn70MYBS75jNVEEQoP8XzB/8nPaiqH4JsLQzm83g8a/18RU
+	90ZAxx4w==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <carnil@debian.org>)
+	id 1xRwM0-00Exf5-37;
+	Fri, 13 Nov 2026 18:50:29 +0000
+Received: by eldamar.lan (Postfix, from userid 1000)
+	id 17FF9DC0390; Fri, 13 Nov 2026 19:50:28 +0100 (CET)
+Date: Fri, 13 Nov 2026 19:50:28 +0100
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Mike Rapoport <rppt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Sasha Levin <sashal@kernel.org>, Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>
+Cc: x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [REGRESSION 6.12.117] CPA detected W^X violation:
+ 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 -
+ 0xffffffffc0477fff PFN 109c1f and WARNING at
+ arch/x86/mm/pat/set_memory.c:665 __change_page_attr_set_clr+0xf62/0xfb0
+Message-ID: <avdb9EPXBv2hRCzQ@eldamar.lan>
+References: <avcG_ggetL8ArwAx@eldamar.lan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,88 +77,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfXyAA//zvhU6kx
- Q8FqOXguZeQASSUH8bIPB9p9aLCrx5pND3cfp3/Gk+ethjGOz+z4o/KuscA0IxvGYBQM2ntvgK8
- 2vNHHfqWbsK7ErgX3sEkedyHWef45k0=
-X-Proofpoint-GUID: ygB3zzEhy97cwLaoftqg-wkIylYAdL6b
-X-Authority-Analysis: v=2.4 cv=N+e8hG9B c=1 sm=1 tr=0 ts=6af75bf1 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=zG7KPAmT95cOeVn0dqYA:9 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfX5i2pxvrJwbTw
- +k+W8aXhg8aiTfmzAoQogsByr5lIuU4L9fIyUwNT4TymeIZrm+engQY1b5TMzx+AcdaKAd5rOR7
- be7UStnVTToOo2DqI2Dny6tmeRU26vVC6AQ/LWYqO0QQ1MSE0dX68JoLMG+UGtcVm5mR9dCWgNf
- wcS5ilT6FNO27rpiwW+P/D/k1IApKWDCqV0a1wAQ8mkyfQxI/NHCoi9zxLpwpdIjXEI5t4ag4ZP
- eEXLWh9xWQO+uk3lPwMDb37I/589S/f8ROTI+9AgXnCkeh1QWTmU91TwY1zoqWPxgpHn0slz0PM
- Obn+e3PMW4Gg54JGxGCiT0WidZnbelgnfwJdkfqFOmU2O7M5fOJPPSecasT82e2Qgt3pFQyiChK
- mj1z8gbH2EOPeFjqNLFQYImFYkRmocEySYAewyhh3arQWvt7QXoHfTQEugkkoiIvjXitQoMqOxP
- iPAlnwy0MfNQXMO9UKQ==
-X-Proofpoint-ORIG-GUID: ygB3zzEhy97cwLaoftqg-wkIylYAdL6b
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0 priorityscore=1501
- phishscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130075
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avcG_ggetL8ArwAx@eldamar.lan>
+X-Debian-User: carnil
 
-In preparation to remove qcom_mdt_load() and qcom_pas_auth_and_reset()
-public function, migrate every user to the new PAS context-aware API
-qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset().
+Hi,
 
-This series migrates every remaining caller of the deprecated APIs
-(qcom_wcnss, adreno zap shader, iris, venus, IPA, ath12k) and then
-removes qcom_mdt_load() and qcom_pas_auth_and_reset() entirely.
+On Fri, Nov 13, 2026 at 01:47:58PM +0100, Salvatore Bonaccorso wrote:
+> Hi
+> 
+> While updating from 6.12.116 to 6.12.117 on one system the following
+> warning is seen:
+> 
+> [    0.991048] x86/mm: Checked W+X mappings: passed, no W+X pages found.
+> [    0.992476] Run /init as init process
+> [    0.993426]   with arguments:
+> [    0.993428]     /init
+> [    0.993428]   with environment:
+> [    0.993429]     HOME=/
+> [    0.993429]     TERM=linux
+> [    1.091378] ------------[ cut here ]------------
+> [    1.092538] CPA detected W^X violation: 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 - 0x
+> ffffffffc0477fff PFN 109c1f
+> [    1.093994] WARNING: CPU: 5 PID: 222 at arch/x86/mm/pat/set_memory.c:665 __change_page_attr_set_clr+0xf62/0xfb0
+> [    1.095730] Modules linked in:
+> [    1.097101] CPU: 5 UID: 0 PID: 222 Comm: (udev-worker) Not tainted 6.12.117+deb13-amd64 #1  Debian 6.12.117-1
+> [    1.098671] Hardware name: LENOVO 20XXS1FU00/20XXS1FU00, BIOS N32ETA2W (1.78 ) 07/23/2026
+> [    1.100096] RIP: 0010:__change_page_attr_set_clr+0xf62/0xfb0
+> [    1.101357] Code: 09 ea e9 19 fa ff ff 48 8b 4c 24 10 49 89 d9 4c 89 d6 48 89 54 24 08 48 c7 c7 38 43 95 a6 c6 05 d1 fd d7 01 01 e8 9e 76 01 00 <0f> 0b 48 8b 54 24 08 e9 22 fc ff ff 80 3d ba fd d7 01 00 0f 85 15
+> [    1.102928] RSP: 0018:ffffd02d40557648 EFLAGS: 00010286
+> [    1.104241] RAX: 0000000000000000 RBX: 0000000000109c1f RCX: 0000000000000003
+> [    1.105561] RDX: 0000000000000000 RSI: 0000000000000003 RDI: 0000000000000001
+> [    1.107204] RBP: 0000000109c1f121 R08: 0000000000000000 R09: ffffd02d405574c8
+> [    1.108503] R10: ffffffffa70b43a8 R11: 0000000000000003 R12: 0000000000000001
+> [    1.109816] R13: 0000000109c1f121 R14: 0000000000000001 R15: ffffffffc0477000
+> [    1.111556] FS:  00007fcf08a6b980(0000) GS:ffff88c4bf680000(0000) knlGS:0000000000000000
+> [    1.112888] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    1.114279] CR2: 000055cf7979a138 CR3: 000000014061e006 CR4: 0000000000f70ef0
+> [    1.115600] PKRU: 55555554
+> [    1.116935] Call Trace:
+> [    1.118345]  <TASK>
+> [    1.119677]  ? __purge_vmap_area_lazy+0x13c/0x320
+> [    1.120979]  ? _vm_unmap_aliases+0x217/0x260
+> [    1.122392]  change_page_attr_set_clr+0x104/0x1a0
+> [    1.123702]  set_memory_rw+0x28/0x40
+> [    1.125019]  apply_retpolines+0x19c/0x4c0
+> [    1.126404]  module_finalize+0x209/0x3e0
+> [    1.127690]  ? add_kallsyms+0x293/0x310
+> [    1.128985]  load_module+0x17f1/0x1e90
+> [    1.130318]  ? init_module_from_file+0x89/0xe0
+> [    1.131586]  init_module_from_file+0x89/0xe0
+> [    1.132873]  idempotent_init_module+0x11e/0x310
+> [    1.134175]  __x64_sys_finit_module+0x5e/0xb0
+> [    1.135433]  do_syscall_64+0x87/0x1b0
+> [    1.136706]  ? vfs_read+0x24d/0x370
+> [    1.137967]  ? __x64_sys_pread64+0x98/0xd0
+> [    1.139652]  ? arch_exit_to_user_mode_prepare.isra.0+0x16/0xa0
+> [    1.140905]  ? syscall_exit_to_user_mode+0x37/0x1b0
+> [    1.142172]  ? do_syscall_64+0x93/0x1b0
+> [    1.143402]  ? __count_memcg_events+0x53/0xf0
+> [    1.144644]  ? count_memcg_events.constprop.0+0x1a/0x30
+> [    1.145859]  ? handle_mm_fault+0x1bb/0x2c0
+> [    1.147452]  ? do_user_addr_fault+0x367/0x650
+> [    1.148626]  ? clear_bhb_loop+0x70/0xc0
+> [    1.149809]  ? clear_bhb_loop+0x70/0xc0
+> [    1.151303]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [    1.152445] RIP: 0033:0x7fcf095cf4f9
+> [    1.153586] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d e7 68 0d 00 f7 d8 64 89 01 48
+> [    1.155067] RSP: 002b:00007fffd10634a8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+> [    1.156238] RAX: ffffffffffffffda RBX: 000055cf79783110 RCX: 00007fcf095cf4f9
+> [    1.157419] RDX: 0000000000000004 RSI: 00007fcf07cf944d RDI: 0000000000000010
+> [    1.158766] RBP: 0000000000000004 R08: 0000000000000000 R09: 000055cf79763ba0
+> [    1.159927] R10: 0000000000000000 R11: 0000000000000246 R12: 00007fcf07cf944d
+> [    1.161090] R13: 0000000000020000 R14: 000055cf79784bc0 R15: 0000000000000000
+> [    1.162318]  </TASK>
+> [    1.163460] ---[ end trace 0000000000000000 ]---
+> 
+> I'm attaching for comparison as well the log from 6.12.116 which does
+> not show any CPA detected W^X violation message, while the 6.12.117
+> shows it twice, with one WARNING.
 
-Requesting the Ack from subsystem owners to get this merge
-through Bjorn's tree.
+One followup to this. Reverting 
 
-Changes in v2:
- - Addressed Sasiko comments.
- - Addressed Alex comment and added 1/9 as new patch in this
-   series and use the  API to other patches.
- - Commit description change.
- - Link to v1: https://lore.kernel.org/lkml/20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com/
+Fixes: 091c44b2d3c3 ("x86/mm/pat: Use pr_warn() for early W^X warnings")
+Fixes: 11d1ba991c07 ("x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()")
 
+"fixes" the problem.
 
-Mukesh Ojha (9):
-  firmware: qcom: pas: add qcom_pas_context_init() for pre-allocated
-    context
-  remoteproc: qcom_wcnss: migrate to qcom_mdt_pas_load() and
-    qcom_pas_prepare_and_auth_reset()
-  drm/msm/adreno: migrate zap shader loading to qcom_mdt_pas_load() and
-    qcom_pas_prepare_and_auth_reset()
-  media: iris: migrate firmware loading to qcom_mdt_pas_load() and
-    qcom_pas_prepare_and_auth_reset()
-  media: venus: migrate firmware loading to qcom_mdt_pas_load() and
-    qcom_pas_prepare_and_auth_reset()
-  net: ipa: migrate firmware loading to qcom_mdt_pas_load() and
-    qcom_pas_prepare_and_auth_reset()
-  wifi: ath12k: migrate firmware loading to qcom_mdt_pas_load() and
-    qcom_pas_prepare_and_auth_reset()
-  soc: qcom: mdt_loader: remove qcom_mdt_load()
-  firmware: qcom: pas: remove qcom_pas_auth_and_reset()
+Testing 6.12.118-rc1 which is on review does not change nothing, but
+that is not surprising as I think there are no changes in that area.
 
- drivers/firmware/qcom/qcom_pas.c              | 42 +++++++------
- drivers/firmware/qcom/qcom_pas.h              |  3 -
- drivers/firmware/qcom/qcom_pas_tee.c          |  6 --
- drivers/firmware/qcom/qcom_scm.c              |  7 +--
- drivers/gpu/drm/msm/adreno/adreno_gpu.c       | 22 ++-----
- drivers/media/platform/qcom/iris/iris_core.h  |  2 +
- .../media/platform/qcom/iris/iris_firmware.c  | 27 ++++----
- drivers/media/platform/qcom/venus/core.h      |  2 +
- drivers/media/platform/qcom/venus/firmware.c  | 29 ++++-----
- drivers/net/ipa/ipa_main.c                    | 23 +++----
- drivers/net/wireless/ath/ath12k/ahb.c         | 23 ++++---
- drivers/remoteproc/qcom_wcnss.c               | 12 ++--
- drivers/soc/qcom/mdt_loader.c                 | 63 +++++++------------
- include/linux/firmware/qcom/qcom_pas.h        |  3 +-
- include/linux/soc/qcom/mdt_loader.h           | 12 ----
- 15 files changed, 116 insertions(+), 160 deletions(-)
+On the other hand though testing 7.3.5-rc1 which is currently under
+review only logs:
 
--- 
-2.55.0
+[    0.096682] CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0200000 - 0xffffffffc0200fff PFN 100800
 
+but no WARNING anymore.
+
+Regards,
+Salvatore
