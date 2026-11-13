@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585355;
-	b=rXN62cdwBaHFBQANNuWk8wQNVP94IPCWfL1V36ihMTNClAAnBVZ9JyRHE095Pnw1ogZW
-	 KahyNLjftHJYjG+CrnwyfKA/3yQT6pLseSvcdwpV1iizoH+B2Gxh+9JCgTl896+3Eq+y5
-	 TKwngxHDFA0HpMd4bnMbh1PNxYwMOvVRQWcakvibvV4WiftF16eOKcM+x4Eg1uRIBWWD6
-	 dee5q8UxZfl4kTddjcO+Mgofpm83UOnv4Yc2JG+nBbKCAWjd9jplBWe7D7VhIWuQvrG2l
-	 rdpZ4NiRMrJ0XZwIPl6lDc9O8qIJ8rdHJx31BIeA5/2D4wxlm9qxXyepkBzRJONfGjg==
+	t=1794585363;
+	b=GDyUUJoh649o5OVxuXlx4SB5sENAQEPFtBEk8JbPPPnCZchk0NoLieyT5gNDG+lyjkvM
+	 TaG1+T0Qhk+bwhLtps4RPPyXQT3LMdf8HqSLgxaGt+3ELeLrYJBlzm2aD2f/UlzAW14Z4
+	 qxmfCfe3BC5i+ZT8/X2FNMIhwDl37d1bQlB9t8DgfBZB6oMMz54F+DoiJjaCoc5UAAwFI
+	 RZmQfIBnhMqe0qd5wGrNgxciaKcw+cvI5cxkkw7vj97vYu6RraWAdvvFlxM/ams79aWit
+	 duFL/j0ceC6y7RYh+9i3Fo/WMvSjDuovhoewgNiXPTNgApvBLECCe5RIwy++aWyD5vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585355;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585363;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=CMUex9QaVt4kBUvNHzmvhhFIyZe49ciRYY9TFKcjFJw=;
-	b=b85zRB+zHyCYAL+bJKoQ1Z/fUggn0lr/RJ0l1ScVMu11MaYQ4TGiTraszpxDyXnZTasj
-	 SVCurrfDHRPHZDpdDzielyHGWAo6xZCJj/lq/YsXN65AgJpYhn+8N2Vp6QvaW++9qYlGs
-	 QiBWWAR3/UOquFSe/UV0avGgAoQRcq4UaAwi2g0RGGfk70HaGXPx8NGQJ7D3BbMSDYaf/
-	 yBIl3LRkSQrbTNFhPo0W7YnuppBKVLOxn6BuDPKpESOx5s91YB7IBqKadMqkRwQGqvX/j
-	 dQLtyajGdPuVKRbfNXXYIyKXwAEeYMFA5fm9AJ/Nxjj/G/k7OhVJzTN1HfjiPHugJeg==
+	bh=SqSOMLlgNYqrdAahJUcBEY9hyvikJuhwkxWdK8FO/sU=;
+	b=dg1y2Te1KUIIz2BHMcqJyiDhHpUnCMtYUsqsfbDK0hQm4Ho+GuL/U8HYeVUd8kPnUvCp
+	 LmnDWixwEidvdVSeQ7Du+QeWWWBifMwfNVyup5XHkCxUfLCOp16ArDh8XM1qPrfGHU99j
+	 S5aguduc0ueHttQQATrirpQ3ooIqSqex0d7FvRX+RmA3apMSv3SG80srv+EQq0j+n7l4J
+	 jRjoioaaXOI8HQ13640VeS8wDZoHdQIzWuoylHpJLMPawZIsaqjMtjs1hcTTZopJC8ODN
+	 dsQFJZa5EzHw6Y/+rM3eYT1nnDE6ypqRfvSIjBF+lo5RakyctasnG/W6P8uqhurFevw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=resnulli.us;
 	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=eye0zNMq;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b="i1cN/i98";
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88203606A8A9
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:55:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88203606A8A9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F594606A8BF
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:56:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F594606A8BF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=eye0zNMq
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4697404c2bso195446266b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:55:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=i1cN/i98
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso262456866b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:56:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1794585352; x=1795190152; darn=vger.kernel.org;
+        d=resnulli.us; s=google; t=1794585360; x=1795190160; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CMUex9QaVt4kBUvNHzmvhhFIyZe49ciRYY9TFKcjFJw=;
-        b=eye0zNMq+C1y48Z6ZKGcUMoe3Ivbc8YcLwFww0ZGHeZBe/wgMcKoUJJfkALDUR8vrx
-         ZORoadYL8fUy1XLbnrcdeDsCvrne4Ke0Sqa+n9GQTmBdfvjAOijICiPEMumvnO9hJdin
-         sk7ld/9H8s/KDv5RVrNHA1r6iGOB4Tl8rMUf6vGRcJ1KN3eYXEmmY68H6BSDYeid5mmE
-         tziv7y2KjBpitkpPx+OUSYQPFR5sQiXzGA8Y3/G/WwMj5LnHj5edZpk6676phBIC7zd5
-         iTgvC0k1zmh+n4YhAxxViJQbDYwDcf5QYSS2D2psO1TfcIGTL3HNCGLO4qgkp5aK70je
-         y9MQ==
+        bh=SqSOMLlgNYqrdAahJUcBEY9hyvikJuhwkxWdK8FO/sU=;
+        b=i1cN/i98jfHXQVTMitG8989Rz8yPknv5VA6vlRKxBc+vRx7TKDnKnFuXLIZ0/D9wui
+         dLiUNXatpq4CN0+iWgDqnZlNg1r88Y3vxQQq6jVA7BiuaITfJTy9qX5uI39GuZk20s1t
+         JI1FyBFXmWJfmDTHevBqhIl7lanS9N/207SeZw8YFfo42X6owB1IfcBXhjzEy1mRcR6T
+         m9d1SW48IshRuhBEO7cpgn4VY+ZgJnnGxAKpKysj9+VTvbiKezXkgKb++CfZU+EfgJ8f
+         9sCHaYZTr3KdjPXRB2Y6cyHx9hJO4mCV4wAcKhGaIgcSpNDNPmCfLLSE8NVCUHFlvQGl
+         MlaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794585352; x=1795190152;
+        d=1e100.net; s=20260707; t=1794585360; x=1795190160;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CMUex9QaVt4kBUvNHzmvhhFIyZe49ciRYY9TFKcjFJw=;
-        b=jD5TQFEhovVEkF3EYY5U4DroS2lH5lTA12W/t/oG2crdtzBGLRg/NIwmvQrh4eg6YF
-         1I1qzjkJpGb1hgPzLLiSokBsatpcW5/D0vb+st39kdXe7WcnJsowm1fC4ouXg5YOaVqD
-         2C60v0zcRTnVrOq4UgTJfzvZDL8JPSN4fa5hAgR0mPKNjaFQoiliBLlsZdU2oViW+CZA
-         aociv/AimYMyXk1xeZQmkWADkzPUErgVMXMovyPpX7B+jREV9LSfAUIwEiBK+v3ZdRA9
-         lOwFAFwWDF2vucgHAOXuT7qNExksAP1w4tnGJQyhZRdCx9QYD26bV2YG5+0BSIU0tqUf
-         Rp3A==
-X-Gm-Message-State: APuU4Z+qWQTW12/eMDt7CHo8867eEJtrG6DAUZXb8fTP8HGPOm4pTXZA
-	whneUO5K3U78tWi9zBNegDQxhhfaXpwjfl8qq4BtXNW0SSL2s0Qxb4y0XLwqWu2aUzQ=
-X-Gm-Gg: AYBFou0ymszRJsrJrXVEn+FRDPX6jj4s/z8F5QN//MPyFFW/zbl4xhPRXQXhHgHnj0/
-	3EiPYDoshAt2xbimdoyr1NPaGqUUV6T6qAry7brHtE2mewzo7bhUxpm9tUU0VNQHFsmeD+Lm6aO
-	X/zOjac3KDEB5taueKSLqkCPCgv1X0nQLRXJPeiN7O+upOYgVVaWyLDCdTutCvD1J1OpDvJIEnI
-	Me5gbjZobzERHd/TjOjI0IhpfZyDbxHQBD2izCj2zSNv/SzVkmVEvQhtpXKcqU0gk0jbA6Ibjog
-	+GZoS6VTvxFpeoLx1KMmO5VmLfiCdqhUvfXC5cplX5WYX18A3/dKPu3JGwkekIIgeGvKMW8GQL6
-	/zmJAN/nFqJxPXLHqVvcoQ6fVJlp5HtY6eRZi6GUlTYvi9u5J3jVtySCmAzb9QbkfQAfr9XHscB
-	FfZAUF/ZRAJx7pFfBSRUqHHQsvaDSihokowVRrW4jbgWItjeQIiivT+x/NNCUmIUwkbJWagvm11
-	KAw+wzalPa+EuuzzhpamZhB9ul9FfOqjpHmH1vCPGZ2ptM5ALDhnc9ojSKp51AhvEva07j/uWYk
-	uR4IW4CdwCbX1xt3tVWQW2KDnVmibfzO1kPkI/ZY
-X-Received: by 2002:a17:907:9448:b0:c49:a571:c4f9 with SMTP id a640c23a62f3a-c50963d63b3mr241099866b.13.1794585351735;
-        Fri, 13 Nov 2026 07:55:51 -0800 (PST)
+        bh=SqSOMLlgNYqrdAahJUcBEY9hyvikJuhwkxWdK8FO/sU=;
+        b=l76FAM6T/KBQonAxtvKrntk3xEQuHDh/MfLZ7fM4+hOdGDgyzj1AJbWu4fh+Vkbg2z
+         0KKhR0BJ5H2qmt7jan4LcC5Mt/T66GDPYjjz4bw99MgA9PstA8hSYqNpvy0YEwah+fHo
+         RB32uRWYKyPojxd49AUP6lCph1GWAnSjTwppSpRxLh7ZrrcdJ9ghReGiZkNQ6jmhciBc
+         cR48/MAuKkqaRQ2e1JZs/2NJUcxsA46WKF40CC7uF2uj0MbZ52wYahbrm4iIKXZMB+6H
+         fqu3tp1iUEDtyqsMHDPmm/p7UHMUhKqo6V50CpWE/JFv/3yCXxwlZz5FUwgUI04ARFQG
+         45cQ==
+X-Gm-Message-State: APuU4Z9U6hSTS+bpiprFr58OOsEghFg6/i7wEZpGkVSRLbtoFxRrARWp
+	Q40TyXF555eKDI8Gaxv3o2fE/MojGD6ksCabL60KFXlDhJUGOUAznqDrXPh7ANsftqM=
+X-Gm-Gg: AYBFou2x/XOm5q8362h2q0K0PVpCLCGfZjr1f/cyfVwgOG+880rVkn1wiDVUKAgwSrL
+	7rweVWE4+fzFCjNscJK2mZGbQC3wjimIJvoN4JB1A8vlgMCagKHxdZjBhYTlxjY6/q4PmAa9XqQ
+	56r8B0OgKkTGp1gsdqlq6iKHua/Nwd7jpMbePdUcfxQpUTsEAjHh9Cx7F1NzCyUDHplNN1RYRP7
+	p7opNyNVcWHfoUAteGDTA6WEz4tfNSKJGLMff4Udv+V04FVvq9GETxxstdPffcDNOxACGuBhexm
+	ia5K8AK5NjxoBVvWu2A4WFNn7T6/HG0f1U9apemsNM2fBms4AS4MmlRRPvEdL/Yl+5P3PfJP5au
+	sgpdeFJL9r29nUkMBg/ij119FiTS2m674qsQ832grM9B4ZiiYtqIys2izZjIafBizhbWHILwPI5
+	4DGBEUL7DrQqK4EPyCbN1TzzL/GqALmgOEyR4oBXvHc5vfJ9PoritOJG6GlUaPX5lzOefWq3jQ9
+	RHHRRN0QE+RIqCTlFwFTW/hQIc2aRMJeFbU6DtoxU6V8YweMpmo1FCeAgvPTnCZMZiu/n0uodv4
+	FRfhnBSbhWOJgmo20Ov+8luvB0pkvvVOeLxGBPzB
+X-Received: by 2002:a17:906:ee85:b0:c4d:2895:e492 with SMTP id a640c23a62f3a-c509636a10dmr240061566b.21.1794585360413;
+        Fri, 13 Nov 2026 07:56:00 -0800 (PST)
 Received: from localhost ([140.209.217.212])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b3dbaesm115531466b.32.2026.11.13.07.55.50
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b7d1b7sm116345166b.74.2026.11.13.07.55.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:55:50 -0800 (PST)
+        Fri, 13 Nov 2026 07:55:59 -0800 (PST)
 From: Jiri Pirko <jiri@resnulli.us>
 To: linux-coco@lists.linux.dev
 Cc: linux-kernel@vger.kernel.org,
@@ -114,9 +114,9 @@ Cc: linux-kernel@vger.kernel.org,
 	dave.jiang@intel.com,
 	nik.borisov@suse.com,
 	sergii.dmytruk@3mdeb.com
-Subject: [PATCH RFC v2 07/15] ctlv: Prepare schema validation
-Date: Fri, 13 Nov 2026 16:55:06 +0100
-Message-ID: <20261113155515.2510194-8-jiri@resnulli.us>
+Subject: [PATCH RFC v2 09/15] ctlv: Prepare VA blob handling
+Date: Fri, 13 Nov 2026 16:55:08 +0100
+Message-ID: <20261113155515.2510194-10-jiri@resnulli.us>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113155515.2510194-1-jiri@resnulli.us>
 References: <20261113155515.2510194-1-jiri@resnulli.us>
@@ -133,1208 +133,598 @@ Content-Transfer-Encoding: 8bit
 
 From: Jiri Pirko <jiri@nvidia.com>
 
-Add generated-schema walking, message validation and request indexing.
-Use the descriptor layer to check blob fields.
+Add task-bound VA blob resolution and CPU read/write access for CTLV
+families.
 
-Keep CONFIG_CTLV unwired until dispatch completes the module.
+The blob object can be compile-checked individually. CONFIG_CTLV remains
+unwired until operation dispatch completes the module.
 
 Assisted-by: Cursor: GPT-5.6 Sol
 Assisted-by: Cursor: Claude Opus 5.5
 Signed-off-by: Jiri Pirko <jiri@nvidia.com>
 ---
 RFC->RFCv2:
-- refused extension points in a re-entering query reply
+- released a context's blobs from any task
 - returned EOVERFLOW for a blob range that wraps
-- simplified growing the request index
-- declared the request index free in schema.h
-- dropped the event record length
-- renamed stubs to extension points
-- made a check no error path depends on a CTLV_ASSERT()
+- moved the function kernel-doc to the definitions
 - said TLV, type, record and field instead of attr
 - said record instead of nest, the root being one
-- said node or field instead of placement
-- separated the steps of the longer functions
+- added ctlv_blob_too_short() for an output blob too short
 - took the UAPI headers from include/uapi/ctlv/
-- took the values the device's family chain gives an enum extension
-  point
 - moved to lib/ctlv/
-- said message instead of wire
 ---
- lib/ctlv/Makefile |    2 +-
- lib/ctlv/schema.c | 1092 +++++++++++++++++++++++++++++++++++++++++++++
- lib/ctlv/schema.h |   54 +++
- 3 files changed, 1147 insertions(+), 1 deletion(-)
- create mode 100644 lib/ctlv/schema.c
- create mode 100644 lib/ctlv/schema.h
+ include/linux/ctlv.h        |   9 +
+ include/linux/ctlv_family.h |  23 ++
+ lib/ctlv/Makefile           |   2 +-
+ lib/ctlv/blob.c             | 421 ++++++++++++++++++++++++++++++++++++
+ lib/ctlv/blob.h             |  15 ++
+ lib/ctlv/internal.h         |   8 +
+ 6 files changed, 477 insertions(+), 1 deletion(-)
+ create mode 100644 lib/ctlv/blob.c
+ create mode 100644 lib/ctlv/blob.h
 
+diff --git a/include/linux/ctlv.h b/include/linux/ctlv.h
+index 5b75550de678..afb71cc643d3 100644
+--- a/include/linux/ctlv.h
++++ b/include/linux/ctlv.h
+@@ -78,4 +78,13 @@ int ctlv_op_query_more(struct ctlv_op_ctx *ctx, u64 generation,
+ 		       u64 next_cursor);
+ int ctlv_op_query_done(struct ctlv_op_ctx *ctx, u64 generation);
+ 
++struct ctlv_blob;
++
++int ctlv_blob_put(struct ctlv_blob *blob);
++u64 ctlv_blob_len(const struct ctlv_blob *blob);
++int ctlv_blob_read(struct ctlv_blob *blob, u64 offset, void *dst, size_t len);
++int ctlv_blob_write(struct ctlv_blob *blob, u64 offset, const void *src,
++		    size_t len);
++int ctlv_blob_too_short(struct ctlv_blob *blob, u64 len);
++
+ #endif /* _LINUX_CTLV_H */
+diff --git a/include/linux/ctlv_family.h b/include/linux/ctlv_family.h
+index 4d7d4fb65fec..61ae5b7cec83 100644
+--- a/include/linux/ctlv_family.h
++++ b/include/linux/ctlv_family.h
+@@ -451,6 +451,8 @@ bool ctlv_put_binary(struct ctlv_cursor *record, u64 type, u8 kind,
+ bool ctlv_record_start(struct ctlv_cursor *record, struct ctlv_cursor *child,
+ 		       u64 type, u8 kind);
+ 
++struct ctlv_blob *ctlv_blob_resolve(struct ctlv_op_ctx *ctx,
++				    const struct ctlv_cursor *blob);
+ #define __CTLV_DEFINE_PUT(_name, _ctype, _put_fn, _type, _kind)	\
+ static inline bool _name##_put(struct ctlv_cursor *record,	\
+ 			       _ctype value)			\
+@@ -560,6 +562,17 @@ static inline void _name##_get(struct ctlv_cursor *inner,	\
+ 	ctlv_input_field(inner, record, _name##_ref());		\
+ }
+ 
++#define CTLV_IN_BLOB(_name)					\
++static inline struct ctlv_blob *				\
++_name##_resolve(struct ctlv_op_ctx *ctx,			\
++		const struct ctlv_cursor *record)		\
++{								\
++	struct ctlv_cursor cursor;				\
++								\
++	ctlv_input_field(&cursor, record, _name##_ref());	\
++	return ctlv_blob_resolve(ctx, &cursor);			\
++}
++
+ #define CTLV_IN_EACH_U64(_name)					\
+ static inline u64 _name##_get(const struct ctlv_cursor *cursor)	\
+ {								\
+@@ -604,4 +617,14 @@ _name##_get(const struct ctlv_cursor *cursor, u32 *len)		\
+ 	return ctlv_cursor_binary(cursor, len);			\
+ }
+ 
++#define CTLV_IN_EACH_BLOB(_name)				\
++static inline struct ctlv_blob *				\
++_name##_resolve(struct ctlv_op_ctx *ctx,			\
++		const struct ctlv_cursor *cursor)		\
++{								\
++	if (!ctlv_input_cursor(cursor, _name##_ref()))		\
++		return ERR_PTR(-EINVAL);			\
++	return ctlv_blob_resolve(ctx, cursor);			\
++}
++
+ #endif /* _LINUX_CTLV_FAMILY_H */
 diff --git a/lib/ctlv/Makefile b/lib/ctlv/Makefile
-index 5edc0b4b973f..3fd656835b8a 100644
+index e1a22a199ef1..4455062f83d7 100644
 --- a/lib/ctlv/Makefile
 +++ b/lib/ctlv/Makefile
 @@ -1,4 +1,4 @@
  # SPDX-License-Identifier: GPL-2.0
  obj-$(CONFIG_CTLV) += ctlv.o
  
--ctlv-y += blob_desc.o message.o
-+ctlv-y += blob_desc.o message.o schema.o
-diff --git a/lib/ctlv/schema.c b/lib/ctlv/schema.c
+-ctlv-y += blob_desc.o builder.o message.o schema.o
++ctlv-y += blob.o blob_desc.o builder.o message.o schema.o
+diff --git a/lib/ctlv/blob.c b/lib/ctlv/blob.c
 new file mode 100644
-index 000000000000..8ff3c7c5b5fe
+index 000000000000..14cbbc4bcab1
 --- /dev/null
-+++ b/lib/ctlv/schema.c
-@@ -0,0 +1,1092 @@
++++ b/lib/ctlv/blob.c
+@@ -0,0 +1,421 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
 + *
-+ * Generated metadata remains owner-local; effective schemas walk the chain.
++ * Blob backing is acquired lazily in the submitting task and held until put.
 + */
 +#include <linux/align.h>
++#include <linux/atomic.h>
 +#include <linux/bits.h>
++#include <linux/capability.h>
 +#include <linux/ctlv.h>
 +#include <linux/err.h>
 +#include <linux/errno.h>
++#include <linux/highmem.h>
 +#include <linux/limits.h>
 +#include <linux/minmax.h>
++#include <linux/mm.h>
++#include <linux/mm_types.h>
 +#include <linux/overflow.h>
++#include <linux/sched.h>
++#include <linux/sched/mm.h>
++#include <linux/sched/signal.h>
 +#include <linux/slab.h>
-+#include <linux/string.h>
 +#include <linux/types.h>
 +
 +#include <uapi/ctlv/ctlv.h>
 +#include <uapi/ctlv/ctlv_gen.h>
 +
++#include "blob.h"
 +#include "blob_desc.h"
 +#include "internal.h"
 +#include "message.h"
-+#include "schema.h"
 +
-+/* Every 64-bit payload, and every blob descriptor member, is this long. */
-+#define CTLV_SCHEMA_SCALAR_TLV_LEN (sizeof(struct ctlv_hdr) + sizeof(u64))
++struct ctlv_blob {
++	u64 len;
++	u8 direction;
++	u8 type;
++	/* Where the descriptor sat in the request, for error information. */
++	u32 tlv_offset;
++	u32 record_offset;
++	struct ctlv_op_ctx *ctx;
++	struct list_head entry;
++	union {
++		struct {
++			struct mm_struct *mm;
++			struct page **pages;
++			unsigned long pages_count;
++			u32 start;
++		} va;
++	};
++};
++
++static bool ctlv_blob_readable(const struct ctlv_blob *blob)
++{
++	return blob->direction != CTLV_BLOB_DIRECTION_OUTPUT;
++}
++
++static bool ctlv_blob_writable(const struct ctlv_blob *blob)
++{
++	return blob->direction != CTLV_BLOB_DIRECTION_INPUT;
++}
++
++static bool ctlv_blob_same_task(const struct ctlv_blob *blob)
++{
++	return !blob->ctx || !blob->ctx->submitter || blob->ctx->submitter == current;
++}
++
++static bool ctlv_blob_access_live(const struct ctlv_blob *blob)
++{
++	return ctlv_blob_same_task(blob) && (!blob->ctx || blob->ctx->blobs_live);
++}
 +
 +/*
-+ * Where composing a tree's maximum length gives up, which keeps the check on a
-+ * composed length from being passed by a total that wrapped.
++ * Charged against RLIMIT_MEMLOCK of the address space the pages came from. A
++ * pin lasts one op, which is why it is not FOLL_LONGTERM.
 + */
-+#define CTLV_SCHEMA_MAX_COMPOSED_LEN CTLV_MAX_INLINE_MESSAGE_LEN
-+
-+const struct ctlv_family *ctlv_family_ancestor(const struct ctlv_family *family, u32 up)
++static int ctlv_blob_pin_charge(struct mm_struct *mm, unsigned long pages_count)
 +{
-+	while (up-- && family)
-+		family = family->parent;
-+	return family;
++	unsigned long limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
++
++	if (atomic64_add_return(pages_count, &mm->pinned_vm) > limit && !capable(CAP_IPC_LOCK)) {
++		atomic64_sub(pages_count, &mm->pinned_vm);
++		return -ENOMEM;
++	}
++	return 0;
 +}
 +
-+u32 ctlv_family_levels(const struct ctlv_family *family)
++static int ctlv_blob_va_range(u64 address, u64 len, unsigned long *first_page,
++			      unsigned long *pages_count)
 +{
-+	const struct ctlv_family *ancestor;
-+	u32 levels = 0;
++	unsigned long first, last, span, count;
++	size_t bytes;
++	u64 end;
 +
-+	for (ancestor = family; ancestor; ancestor = ancestor->parent)
-+		levels++;
-+	return levels;
++	if (!len)
++		return -EINVAL;
++	if (check_add_overflow(address, len, &end))
++		return -EOVERFLOW;
++	if (end > TASK_SIZE)
++		return -EFAULT;
++
++	/* Bounded by an unsigned long above, so nothing below loses a bit. */
++	first = (unsigned long)address & PAGE_MASK;
++	last = ((unsigned long)end - 1) & PAGE_MASK;
++	if (check_sub_overflow(last, first, &span) ||
++	    check_add_overflow(span >> PAGE_SHIFT, 1UL, &count) ||
++	    check_mul_overflow(count, sizeof(struct page *), &bytes))
++		return -EOVERFLOW;
++
++	*first_page = first;
++	*pages_count = count;
++	return 0;
 +}
 +
-+void ctlv_schema_cursor_init(struct ctlv_schema_cursor *cursor, const struct ctlv_family *family)
++static int ctlv_blob_va_acquire(struct ctlv_blob *blob, u64 address)
 +{
-+	cursor->target = family;
-+	cursor->level = ctlv_family_levels(family);
-+	cursor->family = NULL;
-+	cursor->index = 0;
-+}
++	unsigned long pinned = 0, first, pages_count;
++	unsigned int gup_flags = 0;
++	struct page **pages;
++	int ret;
 +
-+const struct ctlv_op_schema *ctlv_schema_next_op(struct ctlv_schema_cursor *cursor,
-+						 const struct ctlv_family **family)
-+{
-+	while (cursor->level) {
-+		const struct ctlv_family_schema *schema;
++	/* Before charging or allocating, both of which this sizes. */
++	ret = ctlv_blob_va_range(address, blob->len, &first, &pages_count);
++	if (ret)
++		return ret;
 +
-+		if (!cursor->family)
-+			cursor->family = ctlv_family_ancestor(cursor->target, cursor->level - 1);
-+		schema = cursor->family->schema;
-+		if (cursor->index < schema->ops_count) {
-+			*family = cursor->family;
-+			return &schema->ops[cursor->index++];
++	pages = kvmalloc_array(pages_count, sizeof(*pages), GFP_KERNEL_ACCOUNT);
++	if (!pages)
++		return -ENOMEM;
++
++	if (ctlv_blob_writable(blob))
++		gup_flags |= FOLL_WRITE;
++	ret = ctlv_blob_pin_charge(current->mm, pages_count);
++	if (ret)
++		goto err_free_pages;
++
++	while (pinned < pages_count) {
++		long got = pin_user_pages_fast(first + (pinned << PAGE_SHIFT),
++					       min_t(unsigned long, pages_count - pinned, INT_MAX),
++					       gup_flags, pages + pinned);
++
++		/* A short pin is progress; nothing pinned is the caller's. */
++		if (got <= 0) {
++			ret = got ? (int)got : -EFAULT;
++			goto err_unpin;
 +		}
-+		cursor->level--;
-+		cursor->family = NULL;
-+		cursor->index = 0;
++		pinned += got;
 +	}
-+	return NULL;
++
++	/* Referenced, so the unpin is safe however far the submitter got. */
++	mmgrab(current->mm);
++	blob->va.start = offset_in_page(address);
++	blob->va.mm = current->mm;
++	blob->va.pages = pages;
++	blob->va.pages_count = pages_count;
++	return 0;
++
++	/* The pins taken, and the whole charge, which covered every page. */
++err_unpin:
++	unpin_user_pages(pages, pinned);
++	atomic64_sub(pages_count, &current->mm->pinned_vm);
++err_free_pages:
++	kvfree(pages);
++	return ret;
 +}
 +
-+bool ctlv_schema_member(const struct ctlv_family *family, const struct ctlv_schema_tree *tree,
-+			u32 node, u64 type, struct ctlv_schema_pos *member)
++static void ctlv_blob_va_release(struct ctlv_blob *blob)
 +{
-+	const struct ctlv_node_schema *record;
-+	u32 index;
-+
-+	if (!tree->node_schemas || node >= tree->node_schemas_count)
-+		return false;
-+	record = &tree->node_schemas[node];
-+
-+	for (index = 0; index < record->children_count; index++) {
-+		u32 child = record->first_child + index;
-+
-+		if (tree->node_schemas[child].type == type) {
-+			*member = (struct ctlv_schema_pos){
-+				.tree = tree,
-+				.node = child,
-+			};
-+			return true;
-+		}
-+	}
-+	for (index = 0; index < tree->ext_schemas_count; index++) {
-+		const struct ctlv_ext_schema *ext_schema = &tree->ext_schemas[index];
-+		const struct ctlv_ext_fill_schema *fill_schema;
-+
-+		if (ext_schema->node != node)
-+			continue;
-+		fill_schema = ctlv_schema_fill(family, ext_schema->family_id, ext_schema->ext_id);
-+		/* The members are children of the fill schema's root. */
-+		if (fill_schema &&
-+		    ctlv_schema_member(family, &fill_schema->members, 0, type, member))
-+			return true;
-+	}
-+	return false;
++	/* Dirtied, so that what the kernel wrote survives the unpin. */
++	unpin_user_pages_dirty_lock(blob->va.pages, blob->va.pages_count, ctlv_blob_writable(blob));
++	atomic64_sub(blob->va.pages_count, &blob->va.mm->pinned_vm);
++	kvfree(blob->va.pages);
++	mmdrop(blob->va.mm);
 +}
 +
-+const struct ctlv_ext_fill_schema *ctlv_schema_fill(const struct ctlv_family *family,
-+						    u16 family_id, u32 ext_id)
++static void ctlv_blob_va_copy(struct ctlv_blob *blob, u64 offset, void *buf, size_t len, bool write)
 +{
-+	const struct ctlv_family *owner;
-+	u32 index;
++	u64 at = blob->va.start + offset;
++	unsigned long index = at >> PAGE_SHIFT;
++	u32 in_page = offset_in_page(at);
++	u8 *bytes = buf;
 +
-+	for (owner = family; owner; owner = owner->parent) {
-+		const struct ctlv_family_schema *schema = owner->schema;
++	while (len) {
++		struct page *page = blob->va.pages[index++];
++		size_t step = min_t(size_t, len, PAGE_SIZE - in_page);
 +
-+		for (index = 0; index < schema->ext_fill_schemas_count; index++)
-+			if (schema->ext_fill_schemas[index].family_id == family_id &&
-+			    schema->ext_fill_schemas[index].ext_id == ext_id)
-+				return &schema->ext_fill_schemas[index];
++		if (write)
++			memcpy_to_page(page, in_page, bytes, step);
++		else
++			memcpy_from_page(bytes, page, in_page, step);
++		bytes += step;
++		len -= step;
++		in_page = 0;
 +	}
-+	return NULL;
 +}
 +
 +/**
-+ * ctlv_enum_ext_max - The highest value a family gives an enum extension point.
-+ * @family: the family of a device
-+ * @family_id: the family declaring the point
-+ * @ext_id: the point's <FAMILY>_ENUM_EXT_<NAME>
++ * ctlv_blob_len - Get a resolved blob's length.
++ * @blob: resolved blob
 + *
-+ * Return: the highest value the chain of @family gives the point, the lowest
-+ * being 1, or 0 where it gives none.
++ * Return: blob length in bytes.
 + */
-+u32 ctlv_enum_ext_max(const struct ctlv_family *family, u16 family_id, u32 ext_id)
++u64 ctlv_blob_len(const struct ctlv_blob *blob)
 +{
-+	const struct ctlv_family *owner;
-+	u32 index;
-+
-+	for (owner = family; owner; owner = owner->parent) {
-+		const struct ctlv_family_schema *schema = owner->schema;
-+
-+		for (index = 0; index < schema->enum_fill_schemas_count; index++)
-+			if (schema->enum_fill_schemas[index].family_id == family_id &&
-+			    schema->enum_fill_schemas[index].ext_id == ext_id)
-+				return schema->enum_fill_schemas[index].max;
-+	}
-+	return 0;
++	return blob->len;
 +}
-+EXPORT_SYMBOL_NS_GPL(ctlv_enum_ext_max, "CTLV");
-+
-+/* The highest value an enum node takes on a device of family. */
-+u64 ctlv_schema_enum_max(const struct ctlv_family *family, const struct ctlv_node_schema *node)
-+{
-+	if (!node->is_enum_ext)
-+		return node->range.max;
-+	return ctlv_enum_ext_max(family, node->enum_ext.family_id, node->enum_ext.ext_id);
-+}
++EXPORT_SYMBOL_NS_GPL(ctlv_blob_len, "CTLV");
 +
 +/*
-+ * The same arithmetic the generator did, over the tree it emitted plus this
-+ * family's fill schemas, since a fill makes an extension point longer.
++ * The length, the direction and addressing from zero are all the family's own
++ * to know, so getting one wrong is a kernel bug rather than a caller's.
 + */
-+
-+struct ctlv_schema_length_walk {
-+	const struct ctlv_family *family;
-+	bool bad;
-+};
-+
-+static u64 ctlv_schema_children_max_len(struct ctlv_schema_length_walk *walk,
-+					const struct ctlv_schema_tree *tree, u32 index, u32 depth);
-+
-+static u64 ctlv_schema_payload_max_len(struct ctlv_schema_length_walk *walk,
-+				       const struct ctlv_schema_tree *tree, u32 index, u32 depth)
++static bool ctlv_blob_range_ok(struct ctlv_blob *blob, u64 offset, size_t len, bool write)
 +{
-+	const struct ctlv_node_schema *node = &tree->node_schemas[index];
++	u64 end;
 +
-+	switch (node->kind) {
-+	case CTLV_SCHEMA_UINT:
-+	case CTLV_SCHEMA_SINT:
-+	case CTLV_SCHEMA_ENUM:
-+	case CTLV_SCHEMA_FLAGS:
-+		return sizeof(u64);
-+	case CTLV_SCHEMA_BOOL:
-+		return 1;
-+	case CTLV_SCHEMA_STRING:
-+		/*
-+		 * One terminating NUL, which the declared maximum excludes.
-+		 * Widened first so that a maximum at U32_MAX cannot wrap.
-+		 */
-+		return (u64)node->length.max_len + 1;
-+	case CTLV_SCHEMA_BINARY:
-+		return node->length.max_len;
-+	case CTLV_SCHEMA_BLOB:
-+		/*
-+		 * Type, length and an address; anything but a bare VA is one
-+		 * member wider, an fd with an optional offset.
-+		 */
-+		return (node->blob.backings == BIT(CTLV_BLOB_TYPE_VA) ? 3 : 4) *
-+		       ALIGN(CTLV_SCHEMA_SCALAR_TLV_LEN, CTLV_ALIGNTO);
-+	default:
-+		return ctlv_schema_children_max_len(walk, tree, index, depth);
-+	}
++	if (WARN_ON_ONCE(write ? !ctlv_blob_writable(blob) : !ctlv_blob_readable(blob)))
++		return false;
++	if (WARN_ON_ONCE(!ctlv_blob_access_live(blob)))
++		return false;
++	if (WARN_ON_ONCE(check_add_overflow(offset, (u64)len, &end) || end > blob->len))
++		return false;
++	return true;
 +}
 +
-+static u64 ctlv_schema_tlv_max_len(struct ctlv_schema_length_walk *walk,
-+				   const struct ctlv_schema_tree *tree, u32 index, u32 depth)
++static int ctlv_blob_copy(struct ctlv_blob *blob, u64 offset, void *buf, size_t len, bool write)
 +{
-+	return sizeof(struct ctlv_hdr) + ctlv_schema_payload_max_len(walk, tree, index, depth);
-+}
-+
-+static u64 ctlv_schema_children_max_len(struct ctlv_schema_length_walk *walk,
-+					const struct ctlv_schema_tree *tree, u32 index, u32 depth)
-+{
-+	const struct ctlv_node_schema *node = &tree->node_schemas[index];
-+	u64 total = 0;
-+	u32 i;
-+
-+	if (depth > CTLV_MAX_DECLARED_RECORD_DEPTH) {
-+		walk->bad = true;
++	if (!ctlv_blob_range_ok(blob, offset, len, write))
++		return -EINVAL;
++	if (!len)
 +		return 0;
-+	}
 +
-+	for (i = 0; i < node->children_count; i++) {
-+		u32 child = node->first_child + i;
-+		u64 each, all;
-+
-+		/*
-+		 * Neither an unlimited node nor one that re-enters has a
-+		 * maximum, and only a query reply may hold either.
-+		 */
-+		if (tree->node_schemas[child].reenters ||
-+		    !tree->node_schemas[child].max_occurrences) {
-+			walk->bad = true;
-+			return 0;
-+		}
-+
-+		each = ALIGN(ctlv_schema_tlv_max_len(walk, tree, child, depth + 1), CTLV_ALIGNTO);
-+		if (check_mul_overflow((u64)tree->node_schemas[child].max_occurrences, each,
-+				       &all) ||
-+		    check_add_overflow(total, all, &total) ||
-+		    total > CTLV_SCHEMA_MAX_COMPOSED_LEN) {
-+			walk->bad = true;
-+			return 0;
-+		}
-+	}
-+
-+	for (i = 0; i < tree->ext_schemas_count; i++) {
-+		const struct ctlv_ext_schema *ext_schema = &tree->ext_schemas[i];
-+		const struct ctlv_ext_fill_schema *fill_schema;
-+
-+		if (ext_schema->node != index)
-+			continue;
-+		fill_schema =
-+			ctlv_schema_fill(walk->family, ext_schema->family_id, ext_schema->ext_id);
-+		if (!fill_schema)
-+			continue;
-+		if (check_add_overflow(total,
-+				       ctlv_schema_children_max_len(walk, &fill_schema->members, 0,
-+								    depth),
-+				       &total) ||
-+		    total > CTLV_SCHEMA_MAX_COMPOSED_LEN) {
-+			walk->bad = true;
-+			return 0;
-+		}
-+	}
-+	return total;
-+}
-+
-+/* Buffer length that the largest indivisible leaf and its records need. */
-+static u64 ctlv_schema_min_len(struct ctlv_schema_length_walk *walk,
-+			       const struct ctlv_schema_tree *tree, u32 index, u32 above, u32 depth)
-+{
-+	const struct ctlv_node_schema *node = &tree->node_schemas[index];
-+	bool has_children = false;
-+	u64 deepest = 0;
-+	u32 i;
-+
-+	if (depth > CTLV_MAX_DECLARED_RECORD_DEPTH) {
-+		walk->bad = true;
++	switch (blob->type) {
++	case CTLV_BLOB_TYPE_VA:
++		ctlv_blob_va_copy(blob, offset, buf, len, write);
 +		return 0;
-+	}
-+
-+	for (i = 0; i < node->children_count; i++) {
-+		u32 child = node->first_child + i;
-+
-+		has_children = true;
-+		deepest = max(deepest,
-+			      ctlv_schema_min_len(walk, tree, child,
-+						  above + sizeof(struct ctlv_hdr), depth + 1));
-+	}
-+
-+	for (i = 0; i < tree->ext_schemas_count; i++) {
-+		const struct ctlv_ext_schema *ext_schema = &tree->ext_schemas[i];
-+		const struct ctlv_ext_fill_schema *fill_schema;
-+		const struct ctlv_node_schema *root;
-+		u32 member;
-+
-+		if (ext_schema->node != index)
-+			continue;
-+		fill_schema =
-+			ctlv_schema_fill(walk->family, ext_schema->family_id, ext_schema->ext_id);
-+		if (!fill_schema)
-+			continue;
-+		root = &fill_schema->members.node_schemas[0];
-+		for (member = 0; member < root->children_count; member++) {
-+			has_children = true;
-+			deepest = max(deepest, ctlv_schema_min_len(walk, &fill_schema->members,
-+								   root->first_child + member,
-+								   above + sizeof(struct ctlv_hdr),
-+								   depth + 1));
-+		}
-+	}
-+
-+	if (has_children)
-+		return deepest;
-+	/* An empty root is a message of its own header alone. */
-+	if (!index)
-+		return above + sizeof(struct ctlv_hdr);
-+	return above + ALIGN(ctlv_schema_tlv_max_len(walk, tree, index, depth), CTLV_ALIGNTO);
-+}
-+
-+static u64 ctlv_schema_root_max_len(struct ctlv_schema_length_walk *walk,
-+				    const struct ctlv_schema_tree *tree)
-+{
-+	return sizeof(struct ctlv_hdr) + ctlv_schema_children_max_len(walk, tree, 0, 0);
-+}
-+
-+/* Size one deepest legal leaf and every record above it. */
-+static u64 ctlv_schema_reentering_min_len(struct ctlv_schema_length_walk *walk,
-+					  const struct ctlv_schema_tree *tree)
-+{
-+	u64 leaf = 0;
-+	u32 index;
-+
-+	for (index = 1; index < tree->node_schemas_count; index++) {
-+		if (tree->node_schemas[index].kind == CTLV_SCHEMA_RECORD)
-+			continue;
-+		leaf = max(leaf,
-+			   ALIGN(ctlv_schema_tlv_max_len(walk, tree, index, 0), CTLV_ALIGNTO));
-+	}
-+	return (CTLV_MAX_RECORD_DEPTH + 1) * sizeof(struct ctlv_hdr) + leaf;
-+}
-+
-+static bool ctlv_schema_tree_reenters(const struct ctlv_schema_tree *tree)
-+{
-+	u32 index;
-+
-+	for (index = 0; index < tree->node_schemas_count; index++)
-+		if (tree->node_schemas[index].reenters)
-+			return true;
-+	return false;
-+}
-+
-+int ctlv_schema_op_sizes(const struct ctlv_family *family, const struct ctlv_op_schema *op,
-+			 struct ctlv_op_sizes *sizes)
-+{
-+	struct ctlv_schema_length_walk walk = { .family = family };
-+	u64 request = 0, reply = 0;
-+
-+	if (op->request.node_schemas)
-+		request = ctlv_schema_root_max_len(&walk, &op->request);
-+
-+	switch (op->type) {
-+	case CTLV_OP_TYPE_ACTION:
-+		if (op->reply.node_schemas)
-+			reply = ctlv_schema_root_max_len(&walk, &op->reply);
-+		break;
-+	case CTLV_OP_TYPE_QUERY:
-+		if (ctlv_schema_tree_reenters(&op->reply)) {
-+			/* This size ignores extension points, which ctlvgen rejects here. */
-+			if (WARN_ON_ONCE(op->reply.ext_schemas_count))
-+				return -EINVAL;
-+			reply = ctlv_schema_reentering_min_len(&walk, &op->reply);
-+		} else {
-+			reply = ctlv_schema_min_len(&walk, &op->reply, 0, 0, 0);
-+		}
-+		break;
 +	default:
 +		return -EINVAL;
 +	}
++}
 +
-+	if (walk.bad || request > CTLV_MAX_INLINE_MESSAGE_LEN ||
-+	    reply > CTLV_MAX_INLINE_MESSAGE_LEN)
-+		return -EINVAL;
++/**
++ * ctlv_blob_read - Copy bytes from a resolved input blob.
++ * @blob: resolved blob
++ * @offset: byte offset
++ * @dst: destination buffer
++ * @len: number of bytes
++ *
++ * Return: 0, or a negative error.
++ */
++int ctlv_blob_read(struct ctlv_blob *blob, u64 offset, void *dst, size_t len)
++{
++	return ctlv_blob_copy(blob, offset, dst, len, false);
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_blob_read, "CTLV");
 +
-+	*sizes = (struct ctlv_op_sizes){ .request_max_len = request };
-+	switch (op->type) {
-+	case CTLV_OP_TYPE_ACTION:
-+		sizes->action_reply_max_len = reply;
-+		break;
-+	case CTLV_OP_TYPE_QUERY:
-+		sizes->query_reply_min_len = reply;
-+		/*
-+		 * What the specification asked for, unless a filled extension
-+		 * point made one fragment longer than that.
-+		 */
-+		sizes->query_reply_suggested_len =
-+			max_t(u32, op->sizes.query_reply_suggested_len, reply);
++/**
++ * ctlv_blob_write - Copy bytes to a resolved output blob.
++ * @blob: resolved blob
++ * @offset: byte offset
++ * @src: source buffer
++ * @len: number of bytes
++ *
++ * Return: 0, or a negative error.
++ */
++int ctlv_blob_write(struct ctlv_blob *blob, u64 offset, const void *src, size_t len)
++{
++	return ctlv_blob_copy(blob, offset, (void *)src, len, true);
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_blob_write, "CTLV");
++
++/* Any task can release: a VA blob unpins through the mm it pinned from. */
++static int ctlv_blob_release(struct ctlv_blob *blob)
++{
++	switch (blob->type) {
++	case CTLV_BLOB_TYPE_VA:
++		ctlv_blob_va_release(blob);
 +		break;
 +	}
++	if (blob->ctx) {
++		list_del(&blob->entry);
++		blob->ctx = NULL;
++	}
++	kfree(blob);
 +	return 0;
 +}
 +
-+/*
-+ * Only a completely valid request reaches family code; nothing is repaired or
-+ * normalized. The first failure is the one recorded, and the walk stops there.
++/**
++ * ctlv_blob_put - Release a resolved blob.
++ * @blob: blob returned by a generated resolve helper
++ *
++ * Return: 0, or a negative error.
 + */
-+
-+struct ctlv_schema_validation {
-+	struct ctlv_msg *msg;
-+	struct ctlv_error *error;
-+};
-+
-+void ctlv_message_index_free(struct ctlv_msg *msg)
++int ctlv_blob_put(struct ctlv_blob *blob)
 +{
-+	struct ctlv_message_input_index *index;
++	if (!blob)
++		return 0;
++	if (WARN_ON_ONCE(!ctlv_blob_same_task(blob)))
++		return -EINVAL;
++	return ctlv_blob_release(blob);
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_blob_put, "CTLV");
 +
-+	if (!msg || !msg->index)
++void ctlv_blob_context_init(struct ctlv_op_ctx *ctx)
++{
++	INIT_LIST_HEAD(&ctx->blobs);
++	ctx->blobs_live = true;
++	ctx->blob_error = 0;
++}
++
++void ctlv_blob_context_track(struct ctlv_blob *blob, struct ctlv_op_ctx *ctx)
++{
++	blob->ctx = ctx;
++	list_add_tail(&blob->entry, &ctx->blobs);
++}
++
++int ctlv_blob_context_finish(struct ctlv_op_ctx *ctx)
++{
++	ctx->blobs_live = false;
++	if (WARN_ON_ONCE(!list_empty(&ctx->blobs)) && !ctx->blob_error)
++		ctx->blob_error = -EINVAL;
++	while (!list_empty(&ctx->blobs)) {
++		struct ctlv_blob *blob = list_first_entry(&ctx->blobs, struct ctlv_blob, entry);
++
++		ctlv_blob_release(blob);
++	}
++	return ctx->blob_error;
++}
++
++/*
++ * Which of an op's blobs was the unusable one, in the shape validation would
++ * have used. The errno the family returns says what went wrong.
++ */
++static void ctlv_blob_context_fail(struct ctlv_op_ctx *ctx, u32 tlv_offset, u32 record_offset,
++				   u64 required_length)
++{
++	if (ctx->error.reason)
 +		return;
-+	index = msg->index;
-+	kvfree(index->slots);
-+	kvfree(index->scopes);
-+	kvfree(index->records);
-+	kfree(index);
-+	msg->index = NULL;
++	ctx->error.reason = CTLV_VALIDATION_REASON_BAD_BLOB_DESCRIPTOR;
++	ctx->error.bad_tlv_offset = tlv_offset;
++	ctx->error.record_offset = record_offset;
++	ctx->error.required_length = required_length;
 +}
 +
-+/* kvrealloc() does not zero, so callers initialize every entry they add. */
-+static void *ctlv_schema_index_grow(void *items, u32 *capacity, u32 needed, size_t item_size)
-+{
-+	u32 grown = max3(needed, *capacity * 2, 16U);
-+	void *new;
-+
-+	if (needed <= *capacity)
-+		return items;
-+	new = kvrealloc(items, array_size(grown, item_size), GFP_KERNEL_ACCOUNT);
-+	if (!new)
-+		return ERR_PTR(-ENOMEM);
-+	*capacity = grown;
-+	return new;
-+}
-+
-+static int ctlv_schema_index_slots_add(struct ctlv_message_input_index *index, u32 count,
-+				       u32 *first)
-+{
-+	struct ctlv_message_input_slot *slots;
-+	u32 needed;
-+	u32 i;
-+
-+	if (check_add_overflow(index->slots_count, count, &needed))
-+		return -EOVERFLOW;
-+	slots = ctlv_schema_index_grow(index->slots, &index->slots_capacity, needed,
-+				       sizeof(*slots));
-+	if (IS_ERR(slots))
-+		return PTR_ERR(slots);
-+	index->slots = slots;
-+	*first = index->slots_count;
-+	for (i = index->slots_count; i < needed; i++)
-+		index->slots[i] = (struct ctlv_message_input_slot){
-+			.excess_offset = CTLV_MESSAGE_INPUT_INDEX_NONE,
-+			.first_record = CTLV_MESSAGE_INPUT_INDEX_NONE,
-+			.last_record = CTLV_MESSAGE_INPUT_INDEX_NONE,
-+		};
-+	index->slots_count = needed;
-+	return 0;
-+}
-+
-+static int ctlv_schema_index_scope_add(struct ctlv_schema_validation *v, u32 record_index,
-+				       const struct ctlv_schema_tree *tree, u32 node, bool optional)
-+{
-+	struct ctlv_message_input_index *index = v->msg->index;
-+	const struct ctlv_node_schema *parent = &tree->node_schemas[node];
-+	struct ctlv_message_input_scope *scopes;
-+	u32 needed;
-+	u32 first_slot;
-+	u32 scope_index;
-+	u32 i;
-+	int ret;
-+
-+	if (check_add_overflow(index->scopes_count, 1U, &needed))
-+		return -EOVERFLOW;
-+	scopes = ctlv_schema_index_grow(index->scopes, &index->scopes_capacity, needed,
-+					sizeof(*scopes));
-+	if (IS_ERR(scopes))
-+		return PTR_ERR(scopes);
-+	index->scopes = scopes;
-+
-+	ret = ctlv_schema_index_slots_add(index, parent->children_count, &first_slot);
-+	if (ret)
-+		return ret;
-+
-+	scope_index = index->scopes_count++;
-+	index->scopes[scope_index] = (struct ctlv_message_input_scope){
-+		.tree = tree,
-+		.record = record_index,
-+		.node = node,
-+		.first_slot = first_slot,
-+		.slots_count = parent->children_count,
-+		.optional = optional,
-+	};
-+	index->records[record_index].scopes_count++;
-+
-+	for (i = 0; i < tree->ext_schemas_count; i++) {
-+		const struct ctlv_ext_schema *ext_schema = &tree->ext_schemas[i];
-+		const struct ctlv_ext_fill_schema *fill_schema;
-+
-+		if (ext_schema->node != node)
-+			continue;
-+		fill_schema = ctlv_schema_fill(v->msg->family, ext_schema->family_id,
-+					       ext_schema->ext_id);
-+		if (!fill_schema)
-+			continue;
-+		ret = ctlv_schema_index_scope_add(v, record_index, &fill_schema->members, 0,
-+						  optional || ext_schema->optional);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
-+static int ctlv_schema_index_record_add(struct ctlv_schema_validation *v,
-+					const struct ctlv_schema_tree *tree, u32 node,
-+					const struct ctlv_hdr *record_hdr, u32 *record_index)
-+{
-+	struct ctlv_message_input_index *index = v->msg->index;
-+	struct ctlv_message_input_record *records;
-+	u32 needed;
-+	u32 added;
-+	int ret;
-+
-+	if (check_add_overflow(index->records_count, 1U, &needed))
-+		return -EOVERFLOW;
-+	records = ctlv_schema_index_grow(index->records, &index->records_capacity, needed,
-+					 sizeof(*records));
-+	if (IS_ERR(records))
-+		return PTR_ERR(records);
-+	index->records = records;
-+	added = index->records_count++;
-+	index->records[added] = (struct ctlv_message_input_record){
-+		.offset = ctlv_message_offset(v->msg, record_hdr),
-+		.first_scope = index->scopes_count,
-+		.next = CTLV_MESSAGE_INPUT_INDEX_NONE,
-+	};
-+	ret = ctlv_schema_index_scope_add(v, added, tree, node, false);
-+	if (ret)
-+		return ret;
-+	*record_index = added;
-+	return 0;
-+}
-+
-+/* A request is never a fragment: only a reply of a query is ever incomplete. */
-+#define CTLV_SCHEMA_HDR_F_REQUEST (CTLV_HDR_F_RECORD | CTLV_HDR_F_IGNORE_IF_UNKNOWN)
-+#define CTLV_SCHEMA_HDR_F_REPLY CTLV_HDR_F_RECORD
-+
-+/*
-+ * Record the first failure and refuse the message. @hdr is NULL when what is
-+ * wrong with the record is something it does not carry.
++/**
++ * ctlv_blob_too_short - Fail an op on an output blob too short for its data.
++ * @blob: resolved output blob
++ * @len: length the op needs @blob to have, more than it has
++ *
++ * Reports @blob and @len in the op's error information, unless an earlier
++ * failure is reported there already, so that the caller can retry with a
++ * blob that long.
++ *
++ * Return: -EMSGSIZE, for the family to return.
 + */
-+static int ctlv_schema_bad(struct ctlv_schema_validation *v, u32 reason,
-+			   const struct ctlv_hdr *record, const struct ctlv_hdr *hdr)
++int ctlv_blob_too_short(struct ctlv_blob *blob, u64 len)
 +{
-+	*v->error = (struct ctlv_error){
-+		.reason = reason,
-+		.bad_tlv_offset = ctlv_message_offset(v->msg, hdr ?: record),
-+		.record_offset = ctlv_message_offset(v->msg, record),
-+	};
-+	return -EINVAL;
-+}
-+
-+/* The one failure that names a field the message does not contain. */
-+static int ctlv_schema_bad_missing(struct ctlv_schema_validation *v, const struct ctlv_hdr *record,
-+				   u64 type)
-+{
-+	ctlv_schema_bad(v, CTLV_VALIDATION_REASON_MISSING_FIELD, record, NULL);
-+	v->error->missing_type = type;
-+	return -EINVAL;
-+}
-+
-+static struct ctlv_message_input_slot *ctlv_schema_index_slot(struct ctlv_schema_validation *v,
-+							      u32 record_index,
-+							      const struct ctlv_schema_pos *pos)
-+{
-+	struct ctlv_message_input_index *index = v->msg->index;
-+	const struct ctlv_message_input_record *record;
-+	u32 i;
-+
-+	if (WARN_ON_ONCE(record_index >= index->records_count))
-+		return NULL;
-+	record = &index->records[record_index];
-+	for (i = 0; i < record->scopes_count; i++) {
-+		const struct ctlv_message_input_scope *scope =
-+			&index->scopes[record->first_scope + i];
-+		const struct ctlv_node_schema *parent;
-+		u32 slot;
-+
-+		if (scope->tree != pos->tree)
-+			continue;
-+		parent = &scope->tree->node_schemas[scope->node];
-+		if (pos->node < parent->first_child ||
-+		    pos->node >= parent->first_child + scope->slots_count)
-+			continue;
-+		slot = pos->node - parent->first_child;
-+		return &index->slots[scope->first_slot + slot];
-+	}
-+	CTLV_ASSERT(0);
-+	return NULL;
-+}
-+
-+static int ctlv_schema_index_tlv_add(struct ctlv_schema_validation *v, u32 record_index,
-+				     const struct ctlv_schema_pos *pos, const struct ctlv_hdr *hdr,
-+				     bool *seen)
-+{
-+	struct ctlv_message_input_slot *slot = ctlv_schema_index_slot(v, record_index, pos);
-+	const struct ctlv_node_schema *schema = &pos->tree->node_schemas[pos->node];
-+	u32 offset = ctlv_message_offset(v->msg, hdr);
-+
-+	if (!slot)
++	if (WARN_ON_ONCE(!ctlv_blob_writable(blob) || !blob->ctx || len <= blob->len))
 +		return -EINVAL;
-+	*seen = slot->count;
-+	if (!slot->count)
-+		slot->first_offset = offset;
-+	slot->count++;
-+	if (schema->max_occurrences && slot->count > schema->max_occurrences &&
-+	    slot->excess_offset == CTLV_MESSAGE_INPUT_INDEX_NONE)
-+		slot->excess_offset = offset;
-+	slot->end_offset = offset + ALIGN((size_t)hdr->len, CTLV_ALIGNTO);
-+	return 0;
++	ctlv_blob_context_fail(blob->ctx, blob->tlv_offset, blob->record_offset, len);
++	return -EMSGSIZE;
 +}
++EXPORT_SYMBOL_NS_GPL(ctlv_blob_too_short, "CTLV");
 +
-+static void ctlv_schema_index_record_link(struct ctlv_message_input_index *index,
-+					  struct ctlv_message_input_slot *slot, u32 record_index)
++static struct ctlv_blob *ctlv_blob_acquire(const struct ctlv_blob_desc *desc, u8 direction)
 +{
-+	if (slot->first_record == CTLV_MESSAGE_INPUT_INDEX_NONE)
-+		slot->first_record = record_index;
-+	else
-+		index->records[slot->last_record].next = record_index;
-+	slot->last_record = record_index;
-+}
++	u64 address = desc->member[CTLV_BLOB_MEMBER_ADDRESS];
++	u64 len = desc->member[CTLV_BLOB_MEMBER_LENGTH];
++	struct ctlv_blob *blob;
++	int ret;
 +
-+static int ctlv_schema_index_required(struct ctlv_schema_validation *v, u32 record_index,
-+				      const struct ctlv_hdr *record_hdr)
-+{
-+	const struct ctlv_message_input_index *index = v->msg->index;
-+	const struct ctlv_message_input_record *record = &index->records[record_index];
-+	u32 i;
++	blob = kzalloc_obj(*blob, GFP_KERNEL_ACCOUNT);
++	if (!blob)
++		return ERR_PTR(-ENOMEM);
++	INIT_LIST_HEAD(&blob->entry);
++	blob->len = len;
++	blob->direction = direction;
++	blob->type = desc->member[CTLV_BLOB_MEMBER_TYPE];
 +
-+	for (i = 0; i < record->scopes_count; i++) {
-+		const struct ctlv_message_input_scope *scope =
-+			&index->scopes[record->first_scope + i];
-+		const struct ctlv_node_schema *parent = &scope->tree->node_schemas[scope->node];
-+		u32 slot;
-+
-+		for (slot = 0; slot < scope->slots_count; slot++) {
-+			const struct ctlv_message_input_slot *indexed;
-+			const struct ctlv_node_schema *child =
-+				&scope->tree->node_schemas[parent->first_child + slot];
-+			const struct ctlv_hdr *excess;
-+
-+			indexed = &index->slots[scope->first_slot + slot];
-+			if (!indexed->count && slot < parent->required_children_count &&
-+			    !scope->optional)
-+				return ctlv_schema_bad_missing(v, record_hdr, child->type);
-+			if (!child->max_occurrences || indexed->count <= child->max_occurrences)
-+				continue;
-+			if (WARN_ON_ONCE(indexed->excess_offset == CTLV_MESSAGE_INPUT_INDEX_NONE))
-+				return -EINVAL;
-+			excess = (const void *)((const u8 *)v->msg->root + indexed->excess_offset);
-+			return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_TOO_MANY_OCCURRENCES,
-+					       record_hdr, excess);
-+		}
++	ret = ctlv_blob_va_acquire(blob, address);
++	if (ret) {
++		kfree(blob);
++		return ERR_PTR(ret);
 +	}
-+	return 0;
++	return blob;
 +}
 +
-+/* The bits a TLV of this message may carry, whichever way it travelled. */
-+static u32 ctlv_schema_flags_allowed(const struct ctlv_schema_validation *v)
-+{
-+	return v->msg->request ? CTLV_SCHEMA_HDR_F_REQUEST : CTLV_SCHEMA_HDR_F_REPLY;
-+}
-+
-+static u64 ctlv_schema_scalar_value(const struct ctlv_hdr *hdr)
-+{
-+	/* Aligned by the message format: the root began an allocation. */
-+	return *(const u64 *)ctlv_message_hdr_payload(hdr);
-+}
-+
-+bool ctlv_schema_value_ok(const struct ctlv_family *family,
-+			  const struct ctlv_node_schema *node, u64 value)
-+{
-+	switch (node->kind) {
-+	case CTLV_SCHEMA_SINT:
-+		return (s64)value >= (s64)node->range.min && (s64)value <= (s64)node->range.max;
-+	case CTLV_SCHEMA_FLAGS:
-+		/* A bit no family declared is one nothing can be told about. */
-+		return !(value & ~node->flags_mask);
-+	case CTLV_SCHEMA_BOOL:
-+		return value <= 1;
-+	case CTLV_SCHEMA_ENUM:
-+		/*
-+		 * An enum's values are numbered in declaration order and never
-+		 * skipped, so its range bounds it like an integer.
-+		 */
-+		if (node->is_enum_ext)
-+			return value >= 1 && value <= ctlv_schema_enum_max(family, node);
-+		return value >= node->range.min && value <= node->range.max;
-+	default:
-+		return value >= node->range.min && value <= node->range.max;
-+	}
-+}
-+
-+bool ctlv_schema_length_ok(const struct ctlv_node_schema *node, u32 len)
-+{
-+	return len >= node->length.min_len && len <= node->length.max_len;
-+}
-+
-+static int ctlv_schema_check_integer(struct ctlv_schema_validation *v,
-+				     const struct ctlv_node_schema *node,
-+				     const struct ctlv_hdr *record, const struct ctlv_hdr *hdr)
-+{
-+	u64 value;
-+
-+	if (ctlv_message_hdr_payload_len(hdr) != sizeof(value))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_BAD_LENGTH, record, hdr);
-+	value = ctlv_schema_scalar_value(hdr);
-+	if (ctlv_schema_value_ok(v->msg->family, node, value))
-+		return 0;
-+	if (node->kind == CTLV_SCHEMA_FLAGS)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_UNKNOWN_FLAG, record, hdr);
-+	return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_VALUE_OUT_OF_RANGE, record, hdr);
-+}
-+
-+static int ctlv_schema_check_bool(struct ctlv_schema_validation *v,
-+				  const struct ctlv_node_schema *node,
-+				  const struct ctlv_hdr *record,
-+				  const struct ctlv_hdr *hdr)
-+{
-+	const u8 *value = ctlv_message_hdr_payload(hdr);
-+
-+	if (ctlv_message_hdr_payload_len(hdr) != sizeof(*value))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_BAD_LENGTH, record, hdr);
-+	if (!ctlv_schema_value_ok(v->msg->family, node, *value))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_VALUE_OUT_OF_RANGE, record, hdr);
-+	return 0;
-+}
-+
-+static int ctlv_schema_check_string(struct ctlv_schema_validation *v,
-+				    const struct ctlv_node_schema *node,
-+				    const struct ctlv_hdr *record, const struct ctlv_hdr *hdr)
-+{
-+	u32 len = ctlv_message_hdr_payload_len(hdr);
-+	const char *value = ctlv_message_hdr_payload(hdr);
-+
-+	/*
-+	 * One terminating NUL and no other, so a family may hand the payload
-+	 * to anything that takes a C string.
-+	 */
-+	if (!len || value[len - 1] || strnlen(value, len) != len - 1)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_BAD_STRING, record, hdr);
-+	if (!ctlv_schema_length_ok(node, len - 1))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_BAD_LENGTH, record, hdr);
-+	return 0;
-+}
-+
-+static int ctlv_schema_check_binary(struct ctlv_schema_validation *v,
-+				    const struct ctlv_node_schema *node,
-+				    const struct ctlv_hdr *record, const struct ctlv_hdr *hdr)
-+{
-+	if (!ctlv_schema_length_ok(node, ctlv_message_hdr_payload_len(hdr)))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_BAD_LENGTH, record, hdr);
-+	return 0;
-+}
-+
-+/*
-+ * The one shape the tree cannot describe: a record of core-owned fields
-+ * whose members depend on its type. Nothing here acquires anything.
-+ */
-+static int ctlv_schema_check_blob(struct ctlv_schema_validation *v,
-+				  const struct ctlv_node_schema *node, const struct ctlv_hdr *blob)
++struct ctlv_blob *ctlv_blob_resolve(struct ctlv_op_ctx *ctx, const struct ctlv_cursor *blob)
 +{
 +	const struct ctlv_hdr *bad = NULL;
++	const struct ctlv_node_schema *node;
++	u32 tlv_offset, record_offset;
 +	struct ctlv_blob_desc desc;
-+	u32 reason;
-+	int err;
++	struct ctlv_blob *acquired;
 +
-+	reason = ctlv_blob_desc_read(blob, &desc, &bad);
-+	if (reason)
-+		return ctlv_schema_bad(v, reason, blob, bad);
-+	err = ctlv_blob_desc_check(&desc, node);
-+	if (err)
-+		ctlv_schema_bad(v, CTLV_VALIDATION_REASON_BAD_BLOB_DESCRIPTOR, blob, NULL);
-+	return err;
-+}
++	/* An absent blob, or a cursor from some other execution entirely. */
++	if (WARN_ON_ONCE(blob->msg != &ctx->request || !ctlv_cursor_ok(blob)))
++		return ERR_PTR(-EINVAL);
++	node = &blob->tree->node_schemas[blob->node];
++	if (WARN_ON_ONCE(node->kind != CTLV_SCHEMA_BLOB))
++		return ERR_PTR(-EINVAL);
++	if (WARN_ON_ONCE(!ctx->blobs_live || !ctx->submitter || ctx->submitter != current))
++		return ERR_PTR(-EINVAL);
++	/* Validated before the callback, so anything wrong with it is a bug. */
++	if (WARN_ON_ONCE(ctlv_blob_desc_read(blob->hdr, &desc, &bad) ||
++			 ctlv_blob_desc_check(&desc, node)))
++		return ERR_PTR(-EINVAL);
 +
-+static int ctlv_schema_check_record(struct ctlv_schema_validation *v,
-+				    const struct ctlv_schema_tree *tree, u32 node,
-+				    const struct ctlv_hdr *record, u32 depth);
-+static int ctlv_schema_check_indexed_record(struct ctlv_schema_validation *v,
-+					    const struct ctlv_schema_tree *tree, u32 node,
-+					    const struct ctlv_hdr *record, u32 depth,
-+					    u32 *record_index);
-+
-+static int ctlv_schema_check_tlv(struct ctlv_schema_validation *v,
-+				 const struct ctlv_schema_pos *pos, const struct ctlv_hdr *record,
-+				 const struct ctlv_hdr *hdr, u32 depth, u32 *record_index)
-+{
-+	const struct ctlv_node_schema *node = &pos->tree->node_schemas[pos->node];
-+	bool is_record = node->kind == CTLV_SCHEMA_RECORD || node->kind == CTLV_SCHEMA_BLOB;
-+
-+	if (hdr->flags & ~ctlv_schema_flags_allowed(v))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_UNKNOWN_FLAG, record, hdr);
-+	/* The schema says whether a TLV is a record, not the sender. */
-+	if (!(hdr->flags & CTLV_HDR_F_RECORD) != !is_record)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_MALFORMED_MESSAGE, record, hdr);
-+
-+	switch (node->kind) {
-+	case CTLV_SCHEMA_BOOL:
-+		return ctlv_schema_check_bool(v, node, record, hdr);
-+	case CTLV_SCHEMA_STRING:
-+		return ctlv_schema_check_string(v, node, record, hdr);
-+	case CTLV_SCHEMA_BINARY:
-+		return ctlv_schema_check_binary(v, node, record, hdr);
-+	case CTLV_SCHEMA_BLOB:
-+		return ctlv_schema_check_blob(v, node, hdr);
-+	case CTLV_SCHEMA_RECORD:
-+		if (v->msg->request)
-+			return ctlv_schema_check_indexed_record(v, pos->tree, pos->node, hdr,
-+								depth + 1, record_index);
-+		return ctlv_schema_check_record(v, pos->tree, pos->node, hdr, depth + 1);
-+	default:
-+		return ctlv_schema_check_integer(v, node, record, hdr);
++	tlv_offset = ctlv_message_offset(blob->msg, blob->hdr);
++	record_offset = ctlv_message_offset(blob->msg, blob->parent);
++	acquired = ctlv_blob_acquire(&desc, node->blob.direction);
++	if (IS_ERR(acquired)) {
++		ctlv_blob_context_fail(ctx, tlv_offset, record_offset, 0);
++		return acquired;
 +	}
++	acquired->tlv_offset = tlv_offset;
++	acquired->record_offset = record_offset;
++	ctlv_blob_context_track(acquired, ctx);
++	return acquired;
 +}
-+
-+/* How many times one member occurs, and where the one too many is. */
-+static u32 ctlv_schema_occurrences(const struct ctlv_hdr *record, u64 type, u32 max,
-+				   const struct ctlv_hdr **excess)
-+{
-+	const struct ctlv_hdr *child = NULL;
-+	u32 count = 0;
-+
-+	while (ctlv_message_next(record, &child) == CTLV_MESSAGE_STEP_TLV) {
-+		if (child->type != type)
-+			continue;
-+		count++;
-+		if (max && count == max + 1)
-+			*excess = child;
-+	}
-+	return count;
-+}
-+
-+/*
-+ * An optional extension point makes everything it was filled with optional
-+ * too: what a descendant added cannot be something an ancestor's caller had
-+ * to send.
-+ */
-+static int ctlv_schema_check_members(struct ctlv_schema_validation *v,
-+				     const struct ctlv_schema_tree *tree, u32 node,
-+				     const struct ctlv_hdr *record, bool optional)
-+{
-+	const struct ctlv_node_schema *parent = &tree->node_schemas[node];
-+	u32 index;
-+
-+	for (index = 0; index < parent->children_count; index++) {
-+		const struct ctlv_hdr *excess = NULL;
-+		const struct ctlv_node_schema *child;
-+		u32 count;
-+
-+		child = &tree->node_schemas[parent->first_child + index];
-+		count = ctlv_schema_occurrences(record, child->type, child->max_occurrences,
-+						&excess);
-+		if (!count) {
-+			if (index < parent->required_children_count && !optional)
-+				return ctlv_schema_bad_missing(v, record, child->type);
-+			continue;
-+		}
-+		/* An unlimited node, which only a reply may hold. */
-+		if (child->max_occurrences && count > child->max_occurrences)
-+			return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_TOO_MANY_OCCURRENCES,
-+					       record, excess);
-+	}
-+
-+	for (index = 0; index < tree->ext_schemas_count; index++) {
-+		const struct ctlv_ext_schema *ext_schema = &tree->ext_schemas[index];
-+		const struct ctlv_ext_fill_schema *fill_schema;
-+		int ret;
-+
-+		if (ext_schema->node != node)
-+			continue;
-+		fill_schema = ctlv_schema_fill(v->msg->family, ext_schema->family_id,
-+					       ext_schema->ext_id);
-+		if (!fill_schema)
-+			continue;
-+		ret = ctlv_schema_check_members(v, &fill_schema->members, 0, record,
-+						optional || ext_schema->optional);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
-+/* Whether one tree places one type anywhere, fills included. */
-+static bool ctlv_schema_tree_declares(const struct ctlv_family *family,
-+				      const struct ctlv_schema_tree *tree, u64 type)
-+{
-+	u32 index;
-+
-+	for (index = 0; index < tree->node_schemas_count; index++)
-+		if (tree->node_schemas[index].type == type)
-+			return true;
-+	for (index = 0; index < tree->ext_schemas_count; index++) {
-+		const struct ctlv_ext_schema *ext_schema = &tree->ext_schemas[index];
-+		const struct ctlv_ext_fill_schema *fill_schema;
-+
-+		fill_schema = ctlv_schema_fill(family, ext_schema->family_id, ext_schema->ext_id);
-+		if (fill_schema &&
-+		    ctlv_schema_tree_declares(family, &fill_schema->members, type))
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/* Search every type known anywhere in the effective schema. */
-+static bool ctlv_schema_declares(const struct ctlv_family *family, u64 type)
-+{
-+	const struct ctlv_family *owner;
-+	struct ctlv_schema_cursor cursor;
-+	const struct ctlv_op_schema *op;
-+
-+	ctlv_schema_cursor_init(&cursor, family);
-+	while ((op = ctlv_schema_next_op(&cursor, &owner)))
-+		if (ctlv_schema_tree_declares(family, &op->request, type) ||
-+		    ctlv_schema_tree_declares(family, &op->reply, type))
-+			return true;
-+	return false;
-+}
-+
-+/*
-+ * Unknown IDs remain reserved unless explicitly ignorable; ignored unknown
-+ * records are opaque.
-+ */
-+static int ctlv_schema_check_unknown(struct ctlv_schema_validation *v,
-+				     const struct ctlv_hdr *record,
-+				     const struct ctlv_hdr *hdr)
-+{
-+	/* Which refuses the bit itself on a reply, where it means nothing. */
-+	if (hdr->flags & ~ctlv_schema_flags_allowed(v))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_UNKNOWN_FLAG, record, hdr);
-+	if (!(hdr->flags & CTLV_HDR_F_IGNORE_IF_UNKNOWN) ||
-+	    ctlv_schema_declares(v->msg->family, hdr->type))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_UNKNOWN_TYPE, record, hdr);
-+	return 0;
-+}
-+
-+static int ctlv_schema_check_indexed_record(struct ctlv_schema_validation *v,
-+					    const struct ctlv_schema_tree *tree, u32 node,
-+					    const struct ctlv_hdr *record, u32 depth,
-+					    u32 *record_index)
-+{
-+	struct ctlv_message_input_index *index = v->msg->index;
-+	const struct ctlv_hdr *child = NULL;
-+	const struct ctlv_hdr *split = NULL;
-+	u64 previous = 0;
-+	bool previous_valid = false;
-+	u32 added;
-+	enum ctlv_message_step step;
-+	int ret;
-+
-+	if (depth > CTLV_MAX_RECORD_DEPTH)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_RECORD_TOO_DEEP, record, NULL);
-+	ret = ctlv_schema_index_record_add(v, tree, node, record, &added);
-+	if (ret)
-+		return ret;
-+
-+	while ((step = ctlv_message_next(record, &child)) == CTLV_MESSAGE_STEP_TLV) {
-+		struct ctlv_schema_pos pos;
-+		bool seen;
-+
-+		if (!ctlv_schema_member(v->msg->family, tree, node, child->type, &pos)) {
-+			previous_valid = false;
-+			continue;
-+		}
-+		ret = ctlv_schema_index_tlv_add(v, added, &pos, child, &seen);
-+		if (ret)
-+			return ret;
-+		if (seen && (!previous_valid || previous != child->type) && !split)
-+			split = child;
-+		previous = child->type;
-+		previous_valid = true;
-+	}
-+
-+	ret = ctlv_schema_index_required(v, added, record);
-+	if (ret)
-+		return ret;
-+	if (step == CTLV_MESSAGE_STEP_BAD)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_MALFORMED_MESSAGE, record, NULL);
-+
-+	child = NULL;
-+	while (ctlv_message_next(record, &child) == CTLV_MESSAGE_STEP_TLV) {
-+		struct ctlv_schema_pos pos;
-+		struct ctlv_message_input_slot *slot;
-+		u32 child_record = CTLV_MESSAGE_INPUT_INDEX_NONE;
-+
-+		if (!ctlv_schema_member(v->msg->family, tree, node, child->type, &pos)) {
-+			ret = ctlv_schema_check_unknown(v, record, child);
-+			if (ret)
-+				return ret;
-+			continue;
-+		}
-+		if (child == split)
-+			return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_NONCONTIGUOUS_TYPE, record,
-+					       child);
-+		ret = ctlv_schema_check_tlv(v, &pos, record, child, depth, &child_record);
-+		if (ret)
-+			return ret;
-+		if (child_record != CTLV_MESSAGE_INPUT_INDEX_NONE) {
-+			slot = ctlv_schema_index_slot(v, added, &pos);
-+			if (!slot)
-+				return -EINVAL;
-+			ctlv_schema_index_record_link(index, slot, child_record);
-+		}
-+	}
-+	*record_index = added;
-+	return 0;
-+}
-+
-+/*
-+ * Required members first, then every TLV in the order the record carries them,
-+ * so that what is reported is the first thing a caller has to fix.
-+ */
-+static int ctlv_schema_check_record(struct ctlv_schema_validation *v,
-+				    const struct ctlv_schema_tree *tree, u32 node,
-+				    const struct ctlv_hdr *record, u32 depth)
-+{
-+	const struct ctlv_hdr *child = NULL;
-+	enum ctlv_message_step step;
-+	int ret;
-+
-+	if (depth > CTLV_MAX_RECORD_DEPTH)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_RECORD_TOO_DEEP, record, NULL);
-+
-+	ret = ctlv_schema_check_members(v, tree, node, record, false);
-+	if (ret)
-+		return ret;
-+
-+	while ((step = ctlv_message_next(record, &child)) == CTLV_MESSAGE_STEP_TLV) {
-+		struct ctlv_schema_pos pos;
-+
-+		if (!ctlv_schema_member(v->msg->family, tree, node, child->type, &pos)) {
-+			ret = ctlv_schema_check_unknown(v, record, child);
-+			if (ret)
-+				return ret;
-+			/* Skipped whole: the step past it checked its length. */
-+			continue;
-+		}
-+		ret = ctlv_schema_check_tlv(v, &pos, record, child, depth, NULL);
-+		if (ret)
-+			return ret;
-+	}
-+	if (step == CTLV_MESSAGE_STEP_BAD)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_MALFORMED_MESSAGE, record, NULL);
-+	return 0;
-+}
-+
-+int ctlv_schema_validate(struct ctlv_msg *msg, struct ctlv_error *error)
-+{
-+	struct ctlv_schema_validation validate = { .msg = msg, .error = error };
-+	u32 root_index;
-+	int ret;
-+
-+	if (!msg->request)
-+		return ctlv_schema_check_record(&validate, msg->tree, 0, msg->root, 0);
-+	if (WARN_ON_ONCE(msg->index))
-+		return -EINVAL;
-+	msg->index = kzalloc_obj(*msg->index, GFP_KERNEL_ACCOUNT);
-+	if (!msg->index)
-+		return -ENOMEM;
-+	ret = ctlv_schema_check_indexed_record(&validate, msg->tree, 0, msg->root, 0, &root_index);
-+	if (ret || WARN_ON_ONCE(root_index)) {
-+		ctlv_message_index_free(msg);
-+		return ret ?: -EINVAL;
-+	}
-+	return 0;
-+}
-diff --git a/lib/ctlv/schema.h b/lib/ctlv/schema.h
++EXPORT_SYMBOL_NS_GPL(ctlv_blob_resolve, "CTLV");
+diff --git a/lib/ctlv/blob.h b/lib/ctlv/blob.h
 new file mode 100644
-index 000000000000..60eb5cd927ae
+index 000000000000..bb7b933a1ced
 --- /dev/null
-+++ b/lib/ctlv/schema.h
-@@ -0,0 +1,54 @@
++++ b/lib/ctlv/blob.h
+@@ -0,0 +1,15 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
-+ *
-+ * Private generated-schema walkers.
-+ */
-+#ifndef _CTLV_SCHEMA_H
-+#define _CTLV_SCHEMA_H
++#ifndef _CTLV_BLOB_H
++#define _CTLV_BLOB_H
 +
-+#include <linux/ctlv_family.h>
 +#include <linux/types.h>
 +
-+struct ctlv_schema_cursor {
-+	const struct ctlv_family *target;
-+	const struct ctlv_family *family;
-+	u32 level;
-+	u32 index;
-+};
++struct ctlv_blob;
++struct ctlv_op_ctx;
 +
-+struct ctlv_schema_pos {
-+	const struct ctlv_schema_tree *tree;
-+	u32 node;
-+};
++void ctlv_blob_context_init(struct ctlv_op_ctx *ctx);
++void ctlv_blob_context_track(struct ctlv_blob *blob,
++			     struct ctlv_op_ctx *ctx);
++int ctlv_blob_context_finish(struct ctlv_op_ctx *ctx);
 +
-+const struct ctlv_family *
-+ctlv_family_ancestor(const struct ctlv_family *family, u32 up);
-+u32 ctlv_family_levels(const struct ctlv_family *family);
-+void ctlv_schema_cursor_init(struct ctlv_schema_cursor *cursor,
-+			     const struct ctlv_family *family);
-+const struct ctlv_op_schema *
-+ctlv_schema_next_op(struct ctlv_schema_cursor *cursor,
-+		    const struct ctlv_family **family);
-+const struct ctlv_ext_fill_schema *
-+ctlv_schema_fill(const struct ctlv_family *family, u16 family_id,
-+		 u32 ext_id);
-+u64 ctlv_schema_enum_max(const struct ctlv_family *family,
-+			 const struct ctlv_node_schema *node);
-+int ctlv_schema_op_sizes(const struct ctlv_family *family,
-+			 const struct ctlv_op_schema *op,
-+			 struct ctlv_op_sizes *sizes);
-+bool ctlv_schema_member(const struct ctlv_family *family,
-+			const struct ctlv_schema_tree *tree, u32 node,
-+			u64 type, struct ctlv_schema_pos *member);
-+bool ctlv_schema_value_ok(const struct ctlv_family *family,
-+			  const struct ctlv_node_schema *node, u64 value);
-+bool ctlv_schema_length_ok(const struct ctlv_node_schema *node, u32 len);
++#endif /* _CTLV_BLOB_H */
+diff --git a/lib/ctlv/internal.h b/lib/ctlv/internal.h
+index 90d07d2638d3..1dbab9709261 100644
+--- a/lib/ctlv/internal.h
++++ b/lib/ctlv/internal.h
+@@ -9,6 +9,7 @@
+ 
+ #include <linux/bug.h>
+ #include <linux/ctlv_family.h>
++#include <linux/list.h>
+ #include <linux/types.h>
+ 
+ #include <uapi/ctlv/ctlv.h>
+@@ -22,6 +23,8 @@
+ #define CTLV_ASSERT(cond) BUILD_BUG_ON_INVALID(cond)
+ #endif
+ 
++struct task_struct;
 +
-+struct ctlv_error;
-+struct ctlv_msg;
-+
-+int ctlv_schema_validate(struct ctlv_msg *msg, struct ctlv_error *error);
-+void ctlv_message_index_free(struct ctlv_msg *msg);
-+
-+#endif /* _CTLV_SCHEMA_H */
+ #define CTLV_ERROR_MESSAGE_LEN 256
+ 
+ /* An op that is always enabled has no per-device availability state. */
+@@ -58,6 +61,8 @@ struct ctlv_query_fragment {
+ 
+ struct ctlv_op_ctx {
+ 	const struct ctlv_family *family;
++	/* Compared against current and never followed: identity, not a hold. */
++	const struct task_struct *submitter;
+ 	const struct ctlv_op_entry *op;
+ 
+ 	struct ctlv_msg request;
+@@ -68,6 +73,9 @@ struct ctlv_op_ctx {
+ 	struct ctlv_cursor *deepest;
+ 
+ 	struct ctlv_query_fragment frag;
++	struct list_head blobs;
++	bool blobs_live;
++	int blob_error;
+ 	struct ctlv_error error;
+ };
+ 
 -- 
 2.56.0
 
