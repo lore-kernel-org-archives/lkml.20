@@ -1,65 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606848;
-	b=tnXApQ/WkvywV75tPZmunElYFb4hIOsD/1B0tQqXP34dTmp7OnWTFD+dtBcQbU93HL7V
-	 ZSRu6QOf8zMRk5SbzcMzgppmcPOvE4PPbct56aggZDHVSujjz+XsgWJt0lXvuSx8M+8ws
-	 NJNe012ZKvuu+VQwBeYk49F4OUXle1KdZq5jPdWucQeaPQTV7XrwBnnMpCoR6V8THkmgX
-	 Q17InQuCXVwlAorzSLkPBk463TXTbmR6OlIjykhNvzdkvne3q3F2u+uqB7ZnU6KizxfLf
-	 l2IEPomqzB/HdIKf4Kn277Mmlpfvgp2DKfEh+Ewfao88u6D/zxt3BWDShTKx8Xt1Lkg==
+	t=1794606893;
+	b=OrEWXOp6zoUteYnPoF4gm8Iqn94TzLjq1SKqlK+XJzrq3Uh4WecBT1M1FXtF7YMk7+sg
+	 Mw4X76oV5EHaz1ORswN1Eii4VuqPjLFiQwkIbUW3E/C8NhI6ISCOt4NGRn2jmSY8qsIlo
+	 M8ka/S1E+t2xogFfH8cTrgnaXIoHBF655dTi/qVuN2Z82+pb6N+LYSFIL7OKdETHB47MZ
+	 adAF+lpZLqbnx6NsR5SYuU6yOTL4oh2iq7XkFTXQKUoM6QECp4LhtrIy28blqrNu3fo+I
+	 cT+dbrZkU3M8jRig2SqVD1RRwsKFX4axXuMzedKm3z321GkM4AnYJ+NNoI5o33PVyVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606848;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1CcqFIpasLROjJEwz7TlT9+SP6PGVEwxfn522ZtvnGA=;
-	b=xAc/4Vsw0MFUC4cSgfqf2qX22E3GQW5t8irG2DmUM1xZqWhkUzcqSRbDCC/FuzqcAPkf
-	 X7ZWj+mEg97vUO/8/AmVwV8nY6NtuiMS6Ax/yUtjfv1zxT7ImwjRR4Xl+9+TCQaNbxw0y
-	 VmJQrn904DRl33zdmqqlJWNDw4lYAWqWPI/n3j8dtIyqBb2iKeJVA90XVvtFlSbAxCmtZ
-	 B25oja7VPQIj3HMGnAdS7Kx9jXXkfGmINxKkoED1sonWukPWpy4e5lmYsxaG2dv7h/aSZ
-	 B/dEACNjOPA7IfAY9dzah40+JdpYMUEvC3RxPESLlQPr1EagTVPrLmsUFvJ/1ipEK4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606893;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YxYvxkiTr3I4fwI/607mbu2WA82tAeXABlzoiYL5+2M=;
+	b=lc5XWAesgG5au7ZE2NWt54cmm8v7uIibwh71SOCzNGJdAtm/0nTaF600RjcC723ZckBK
+	 fEvvym7loZN/cftf/8gPjeCH8iRyDEHs5Fd53Sx3aPmJdbs1p9MQxz4nQHsXy/d2V5cy3
+	 4bDyLLJw40dgfAHCvwOrAsvirvCzqbUVoAojkVJvoCygCs2YACPN6ZakYhOZvG3CP6SIe
+	 S7xoawj9zI8sGLjGbdBp7cgfL2OCTPEw0DKtQyhaKLM9TIn2YNkiDY3M+1GpS6bt3Y/ZP
+	 UhfyodFdI5WmfpSwqrU8IhQm8aCfelRAO3MPPUWcl672v9/rwMZ9R10wVYtWM+TNYpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=m9sO5C1e;
-	arc=none smtp.remote-ip=95.215.58.114
-Received: from mta1.migadu.com (out-114.mta1.migadu.com [95.215.58.114])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIw4RN+w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1221D606A334
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:54:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1221D606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94051606A333;
+	Fri, 13 Nov 2026 21:54:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=m9sO5C1e
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WDMz8JwS9iO4OEO63+zyUH6bkhQYGGRugg2OY55yg+8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794606845; v=1; x=1795211645;
- b=m9sO5C1eUNNjLfIKQ526P0boL1mDYLXzDzG4HVH3iSoNoWDhxt1wZxN1/uVtsIc3514Jr3tq
- H8hfG3vVnIFlpsosfweQvGiSv/rmnmxNE6YvC58niotvloUp6LDHtKlom/DINRdV3VjPo1YNYjw
- /5jEY3I1rgjVYh5zkiy72OJ8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a174c48929158967;
-	Fri, 13 Nov 2026 21:54:05 +0000
-X-Mizu-Trace-ID: a174c48929158967
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 13 Nov 2026 21:54:04 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: "Serge E. Hallyn" <serge@hallyn.com>
-CC: Christian Brauner <brauner@kernel.org>,
- =?ISO-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- Josef Bacik <josef@toxicpanda.com>, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_userns=3A_security=3A_Inform_LSMs_?=
- =?US-ASCII?Q?of_capability_check_during_userns_creation?=
-In-Reply-To: <aveDlb6PlPSVoLD9@hallyn.com>
-References: <20261111205814.3282968-1-bradley.morgan@linux.dev> <aveDlb6PlPSVoLD9@hallyn.com>
-Message-ID: <4A0D804A-1199-4402-91EE-E37E8D6EA9E7@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIw4RN+w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C996B1F000C4;
+	Fri, 13 Nov 2026 21:54:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794606893;
+	bh=YxYvxkiTr3I4fwI/607mbu2WA82tAeXABlzoiYL5+2M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KIw4RN+w49C6lIdh2OA9wim+vaxIboICMvGfKhMz3Fbixhzp9ZQgQ33Li1sLiJt/j
+	 L6G84IrPlusWhqk4Z1pkyfm+Msji6bcw7r3zUW/Qbv5Fjnsf5+k2qtqDA008O0sBYG
+	 yFqVz3UeDBHdT7yl7h8rbNbERlf81oKYklGGgOAyXPs+8JnuQ4zh86uNOoAS5wL5fs
+	 d3O/RBaKn29it/6x/AAu1Ca7miaSMEXNRLku/CBUp0VU4BG5+GXlQ+yWOhaOPbEofy
+	 tWzDV9jd/EqpIxGCh59rYUkd0dvTCRej4QyaQ8EvXwNQOaeU6irlhseg0Sb4QxKgTn
+	 FSVGK5Fl0XLbA==
+Message-ID: <79141341-b259-433a-9656-286f5b2fb62f@kernel.org>
+Date: Fri, 13 Nov 2026 13:54:48 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,70 +51,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/9] wifi: ath12k: migrate firmware loading to
+ qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Alex Elder <elder@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jeff Johnson <jjohnson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org
+References: <20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com>
+ <20261113185009.157893-8-mukesh.ojha@oss.qualcomm.com>
+From: Jeff Johnson <jjohnson@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20261113185009.157893-8-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 13 November 2026 21:39:33 GMT, "Serge E. Hallyn" <serge@hallyn.com>
-wrote:
->On Wed, Nov 11, 2026 at 08:58:14PM +0000, Bradley Morgan wrote:
->> Right now security_capable() gets called in create_user_ns() to snapshot
->> whether the parent could setfcap, but the LSM gets zero context on where
->> the check actually came from. It is the same story as setid: without a
->> dedicated flag, security modules cannot tell this apart from regular
->> capability checks.
->> 
->> Add CAP_OPT_USERNS_CREATE and pass it along from create_user_ns().
->
->This should be patch 1/N in a set that introduces a user of it
->in some lsm.
+On 11/13/2026 10:50 AM, Mukesh Ojha wrote:
+> ath12k_ahb_power_up() calls qcom_mdt_load(), which bundles metadata
+> initialization, memory setup, and segment loading into a single API that
+> does not expose a PAS context. Later it calls qcom_pas_auth_and_reset() for
+> TrustZone authentication, which is the intended behaviour. However, a new
+> qcom_mdt_pas_load() has recently been introduced that works with a PAS
+> context and can handle everything qcom_mdt_load() provides, along with
+> additional functionality such as shmbridge creation and retrieving memory
+> from the shmbridge buffer when the same remote processor needs to run while
+> Linux runs at EL2.
+> 
+> Replace qcom_mdt_load() with qcom_pas_context_init() +
+> qcom_mdt_pas_load() and replace qcom_pas_auth_and_reset() with
+> qcom_pas_prepare_and_auth_reset(), using a stack-allocated struct
+> qcom_pas_context in ath12k_ahb_power_up(). The non-scm_auth path
+> retains qcom_mdt_load_no_init() with the caller-provided mem_region.
+> 
+> Apply the same pattern to ath12k_ahb_load_auth_shared_fw() for
+> consistency.
+> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-hmm. Did you read Christians suggestion? Let's see if Christian or anyone
-else could suggest a nice little lsm user for this.
+Acked-by: Jeff Johnson <jjohnson@kernel.org>
 
-If nobody responds, in coming days, I'll go and find and do a user for it.
-
->
->> Suggested-by: Christian Brauner <brauner@kernel.org>
->> Link:
->https://lore.kernel.org/all/20261111-kommt-gischt-ohnedies-469998d2f219@brauner/
->> Signed-off-by: Bradley Morgan <bradley.morgan@linux.dev>
->> ---
->> Thanks Christian for the suggestion :).
->> ---
->>  include/linux/security.h | 2 ++
->>  kernel/user_namespace.c  | 3 ++-
->>  2 files changed, 4 insertions(+), 1 deletion(-)
->> 
->> diff --git a/include/linux/security.h b/include/linux/security.h
->> index 40831fab54709..d24666a0b4833 100644
->> --- a/include/linux/security.h
->> +++ b/include/linux/security.h
->> @@ -75,6 +75,8 @@ struct nsset;
->>  #define CAP_OPT_NOAUDIT BIT(1)
->>  /* If capable is being called by a setid function */
->>  #define CAP_OPT_INSETID BIT(2)
->> +/* Is capable being called from the user namespace creation path? */
->> +#define CAP_OPT_USERNS_CREATE BIT(3)
->>  
->>  /* LSM Agnostic defines for security_sb_set_mnt_opts() flags */
->>  #define SECURITY_LSM_NATIVE_LABELS	1
->> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
->> index 57b7f10be74e1..37480f6d8369f 100644
->> --- a/kernel/user_namespace.c
->> +++ b/kernel/user_namespace.c
->> @@ -134,7 +134,8 @@ int create_user_ns(struct cred *new)
->>  	 * audit: the creator may never map uid 0.
->>  	 */
->>  	ns->parent_could_setfcap =
->> -		!security_capable(new, parent_ns, CAP_SETFCAP, CAP_OPT_NOAUDIT);
->> +		!security_capable(new, parent_ns, CAP_SETFCAP,
->> +				  CAP_OPT_NOAUDIT | CAP_OPT_USERNS_CREATE);
->>  
->>  	ret = ns_common_init(ns);
->>  	if (ret)
->> -- 
->> 2.53.0
->
-
---- Thanks!
