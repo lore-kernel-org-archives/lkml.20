@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794540951;
-	b=wMnVFcnBDdgU8a8u29vFe++Ho/XeCfgrQAcxjp6h3AzoGnB865q0UYFUtGuMyTdcujsW
-	 KzKi60veX1MjPS/+CJYt+NTWp6lbVwj20vr7w8FKJarHTk7GWkBwCNuAem6Sw/KSGGmaL
-	 2bS+W/lpWKREdpaThEFOeBWuYqdwdsN7C+18O8vol0D9EhKKHUM/pwrF2ajLT5XIU7wE9
-	 bkaopBxbrpAlEe2W37axwiwe9MFb2zYdyyGoqf9rgY8oCSSy+LRwXJPsgwOUDEa0dud/9
-	 lQ9riisRaxGGtOy17bVB+MyWHmoVixW/zfilRFc0oDaxsC4Hevpiq8X0cEXSw1KVfow==
+	t=1794540956;
+	b=0WmyqSv8yoX6XJ/P9aVANQtMacq6LrDKrFUx1rUHcKa7jdgAaklm12qP5eqAfKu85jnI
+	 Bi/X1WqgEh+FjddSOJiE3rBpIZtwgKRjPuWk89WbVL+hz8S7PbDzQPPBG1/z3eubNYmJk
+	 N31dWMBXFvmY6RB/d4aYCgHKGryulsKWk4hb62L4gu3/eR6415L/7aEDbIAd6t149DYWK
+	 +0RDUPbB31/L2b/Pgu+jDfUdJm8mg+DutBkosNlCC0MiU3RzgMtu81Giu+c3qc9C9aX0A
+	 4823hQ/XCnJz2k0KpA3NUukWA/NCti5ASOr/bf+5JnRLDb4XhtYbs7Kt+4BwD6Jp1yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794540951;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794540956;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=tH+sQfdDTDGWfh0zDLczcrbop696/ilbCo5M8/1+Vaw=;
-	b=GQgNOEj/bmZTI2K/9pmf7nGDM2kW+TiUSkNA7Qhym0uhz2UFxLmTBUC/h2/N0xL0vos2
-	 ReguwY6lToCqTGvzTFPYTgpZbSQEzSmo4+B7Jaj2o1GZvjEbak9eJ0JM6Z6WeAJT7ozt/
-	 g0o+z95L9tgz3AT3+TeiU75Zo9xAfBAcdJnco8kagtJ7h07RDvUCPvlyJ6+UDchnvrl0v
-	 b6mq6OGkQrM+fuxPCh4XJQfhdK5pmraRlwh7ryEtnXmlRQEc4nv3UZ8ScUuQ0L7OVA959
-	 RmXjuX/aAvhrbSbq746cmevmyfEc5yOsv4AQfu7+3C8zxL5CmFr8rY5z3T7+3nM6f/g==
+	bh=mTrWbknatFVsI+awgWDkyqVXl5d5IMgRvIrLdIBP3VA=;
+	b=aksZhqeRvE6HKOzf60or0Mucdl9Kp6v+13E78+MAZ5HBR+p3h30GPhb3/ufqNFGmsEcy
+	 9VOWUaQhHTp0Rh+kzz3RNkSkMrvW45d/skvIfgjl7hDRb6QIichUtN9IXjrFzU8erbHdA
+	 MKx1PWWsWS0XowwPesmwSTh7OLZrVdwNBp0SgMMagbAl7/456sGmUpQLkfMDhOKu/FIlO
+	 1RJLyU7SbA6Zv3Wl3yGxeP+zkm+M9D2a2a/AP8dU2oMzzJlBcrJg9Cn9QahjHxMitv+sH
+	 nI8ZsnFP99AJXc2D97Z6f+1lwtVu0/Rg+PPA/69NuOVy945r4FQW2+KRlvOL9TrgT4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=gotU3Dm7;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=MlbNm1GF;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACDE606A335
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:35:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CACDE606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94521606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:35:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94521606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=gotU3Dm7
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so683828eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:35:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=MlbNm1GF
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso324282a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:35:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794540950; x=1795145750; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1794540955; x=1795145755; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tH+sQfdDTDGWfh0zDLczcrbop696/ilbCo5M8/1+Vaw=;
-        b=gotU3Dm7O2KKxWvzxgw1UQKNbPgm/AyefEe4srm7gg/IN6hicKnLjS3DXXVI7gp5Tm
-         GFbRWNheacietTNJvDvBIT7n/Xh1sSkBY3yFe44ejAxU/aLhQ3dhk3Lq6bckTXp7mezj
-         Jk9QoAk+Nx76ntRd4OJZP/OHDDIOG0xNtnjOd5r0+5dnmD88SJ0IHErYGCXhNYCYVFvD
-         881tbEtpc/RbRykEvuQaazwVnVgDvJwdR03ASwXVgpTjbo5v1XT/eq7PYItim18pXxqq
-         I4YPcUcybY3wzMbh/EMEwoA3CzLFHf8jX87L2hY0+K+MCph+0Zw2LTKYZ1t16HpnVHd2
-         JhEw==
+        bh=mTrWbknatFVsI+awgWDkyqVXl5d5IMgRvIrLdIBP3VA=;
+        b=MlbNm1GFC6JfwDpLk1o0/1k+wRV1QqZ5U9JysiHqAumyb4N56NdBNlQ7SMHI3Sp56m
+         CZHjFv5F51XsrSCVusPH+lv68nie6a88j4nv2gadzb9sEry9pz6kOgsCYHWlq+YRgcmo
+         1bzfNnjPBn7Do2xiiB96cHjYmvmFDL4iC9kVMDaqvlLFCXPbNBBk/CcGEObA+4E7V4NE
+         05Ij02VYyijiQK8gHfGhlsHDraEYz3kzqrCO5uZcQSzqGEVr9WA6CoRHz0LXIysN5BHg
+         5MrXHW0U0LHOLAa3nltNFYg9ChAW27C7+lJT2HLlMkMHbt731ldXZsClgIMx01kBFKG2
+         NgdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794540950; x=1795145750;
+        d=1e100.net; s=20260707; t=1794540955; x=1795145755;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tH+sQfdDTDGWfh0zDLczcrbop696/ilbCo5M8/1+Vaw=;
-        b=GoySBNnD4I78gW2nOC6v8KUCcOpwPls6mZoWxvCl4beCqP3mA4ehfbCmNbAF/g0oKG
-         yU5kdKmEWQxk2ooHHkT1PVP3T9xghOEeLc3Mcv+pF8hdGhY1QIRg3XLAiyWOLOHBs1nb
-         l8CKGh9AnjciKTXQWodLLkIdzVGE1j3yOOdu9tD6RbNEvCgI9mitAPMBrUGx2nZ3vyuy
-         yrMVpEptCYwJSxJqS1RHYyHkPiJypb5eqJOI1FHEBZMWbD0NmZcQVNR2shrlK8CbT+Ws
-         1nQg6oP3AQ4Ea/XcyAE3h8P/9QDL9ftqeJTQ84inQGO6yy9CGTwfwZ+c8a5M8tywlpkC
-         VFow==
-X-Forwarded-Encrypted: i=1; AL+hErE10/TyidzDhFqaGG1Qf+XDEt/IpJ6D0XLQWY3jD6fGnRPL2E0Z4KdxHRoag6/fTRfBRYBcbi23i/rY0TM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/43K3mCrdjB5vkyVbQozEvXQwey0H8QMMfMHnkP7Emx5LKFdtv
-	hlTaJqVoADdjbUv6QIj0HK95pETR74wdw+Gl6sMfCyJdUwyJoU5/4la9bnX0lzz/xKc=
-X-Gm-Gg: AYBFou0BKNk61qmmvwppiWqc4y5rp/mD8ocO9iJRS/nTvhr2E9uLzBrP6HvGKp5Zyhk
-	ig80v7Lta+lgpCh+uxcpgcUOPMnH2lJ0oAo2hyWCPI0SdLfxFaJ7pwh/5LfwdFdc7zum1On2wEg
-	E81gAKl4JpPzoVd3ygyFzt+ugHIxhMJdM9miekbFe+81OL12eSngkop/nqo1hN3e19U2SPMj4BU
-	uue7g9ACu5odE6Ujf3Y8c63z2Vo7vxyq7INRi8fZTAyLoHUocNWoOA18ZOnouffh4t3hrmM4VgU
-	LFf/mUf3SF8GSnKrku4oCendLLS26RrcpRWSVpxVIHzAfG+1QGHH21Xjx7zivnxkFXJlOaFW1u9
-	NvY0ovqIgYT4Z0JtdKEnVK2doZtDcNR13ZmvklFqfe33wc5bvBf56VYV0BZpqwVZhF1++k2SRkD
-	zLSg0xRbmfC58xHSnJ3w3R6XBQxdlDC4ThJoIA+KaWMZoVGIvYvy7p6nA+YqtQx37Ag03uJ7z1E
-	YA2/dAKEZ8HhqhT0e7za6X648oDcRp4uPHjOPSgEvDL4GmiqZYVsl0d055S8sT2c1ySaEuCH/VH
-	7+wiKDfZ2VQZ9Bnvn535HtrjwVc5qPZvDd3wjkE631cklVbmtDzy3N/1kHCLUw==
-X-Received: by 2002:a05:7301:428f:b0:369:5583:bf4c with SMTP id 5a478bee46e88-379684ae79dmr990948eec.28.1794540949810;
-        Thu, 12 Nov 2026 19:35:49 -0800 (PST)
+        bh=mTrWbknatFVsI+awgWDkyqVXl5d5IMgRvIrLdIBP3VA=;
+        b=fq1T0UFz3IGvzAUhN93Y/RVMZrACPq9OVw0VSJFMt9A6gdWW/mXeHr+1NcUGqks+tQ
+         ZnCQdR8KptYm0mfN3z3al2929etbWYbt2cleEDMcrdUa5f2ZKuojjoqRNhkNEyziwLPx
+         Lne7MEh9G5WjYuRvIfp2SAEIM197y0NpsqoHFrPx2ojF5TbKFR6Gz1xKlQjWXSnCI+vm
+         sQNcd0svRKMJwu59ee6f8WIVfgU01mXVXyelSkwkeUJxlK2ty45XI9eBio+E+6hQbq7e
+         2tM3anzU4DtGyK81sI2FVgC3w20g8lOC9Votp7ApcpnCSA86Zq1FE6sKrCtwIr49Urek
+         VpNA==
+X-Forwarded-Encrypted: i=1; AL+hErE+g5HZeHj60P6xLyhk2l0ACPaZxH+T5N+5OIcmam8jIkWSHNXcFh19xif6BfVKwSxfy/eoThhY2fzIHXg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8L/OyoG+PQdAKYhdy3u2+Xreiz6dxwaGXIdhj2RmCL80u+zzUG
+	zfReQpkHhi3wOBbq0sb7K28O1khYSkWIYaixRK5j1rPGwa2ucedYKDNmNrkpSTuotGA=
+X-Gm-Gg: AYBFou3ROTLc4bKY7h/vUr0xr9zfJXf4ZH42fj0AVp18+2wlSTzMQf3xmIe7IQEtWpy
+	cPbze+doj/U1L/5TansjW6hT+v9SORnvVMYr23goPoWwqY/Die43f6K0Kd8inSTauGtm9cYP+pr
+	nJj1RMaoL8hdO0XlRrKYZJxCtBBvStF3ZVEYj8LQw3/K0Mqv8QAPtk5PUVyBfBr5nrzF2q43Ao7
+	av5VPXzT/aqGqJE2ez85baQR/9QdQx4md+4B8y9cQOhK1B41UxiilJeB6zsOeX5Ur+w2AH8OE9S
+	3xvphJDTk7BLzhbnR+j3QEG3ERltN+pXBgvzKnJU7J8+taA/kItG5gt9WfK3CjlR0Vlo7F+dRYP
+	gyL9tLMT+6O907b7X+7OAWk9vglMtTkm/PG62w3rMUFdqBkhdNqVbWvtNXifNJTiDN0GJnHh74y
+	9xWHzBCNIdS5y1+PlvgNeu7K5NITOZk7WWt49gwhGJA2/UE9muJJU0mIx1zflI66tqGJaEXOpi5
+	JIFUAjmxq1er8FURQ/QgZ3UrKJlYsRrIfnJMPTG4w8E3H21f3k2J+sbU32U9Vwfr9PAgOacmjhL
+	Xi5iKmmMol2choBqMrAp+tqNoOhKgxu2Lpm3FQi4z64eUAozgL4kLQqhP+M1jqK/sdb+/gLwu2O
+	gGuRELfY=
+X-Received: by 2002:a05:7300:f694:b0:375:fb27:2c59 with SMTP id 5a478bee46e88-37966c4a50emr1738130eec.20.1794540954454;
+        Thu, 12 Nov 2026 19:35:54 -0800 (PST)
 Received: from G6L4RL2QG9.bytedance.net ([61.213.176.12])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955e0d966sm2959426eec.15.2026.11.12.19.35.45
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955e0d966sm2959426eec.15.2026.11.12.19.35.50
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 19:35:49 -0800 (PST)
+        Thu, 12 Nov 2026 19:35:53 -0800 (PST)
 From: Muchun Song <songmuchun@bytedance.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	David Hildenbrand <david@kernel.org>,
@@ -98,9 +99,9 @@ Cc: Li Zhe <lizhe.67@bytedance.com>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v2 07/14] mm/hugetlb: drop boot-time HVO handling for gigantic folios
-Date: Fri, 13 Nov 2026 11:34:35 +0800
-Message-ID: <20261113033442.62970-8-songmuchun@bytedance.com>
+Subject: [PATCH v2 08/14] mm/hugetlb: initialize all struct pages for bootmem hugepages
+Date: Fri, 13 Nov 2026 11:34:36 +0800
+Message-ID: <20261113033442.62970-9-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261113033442.62970-1-songmuchun@bytedance.com>
 References: <20261113033442.62970-1-songmuchun@bytedance.com>
@@ -115,126 +116,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-HugeTLB HVO is currently supported on x86-64, riscv64, and LoongArch.
-On x86-64 and riscv64, gigantic HugeTLB pages are larger than the
-section size, so the existing section-based vmemmap optimization
-infrastructure is already sufficient to cover the whole folio.  On
-LoongArch, HugeTLB HVO is supported without gigantic HugeTLB pages.
+Boot-time gigantic hugepages currently leave the head struct page to
+the generic memmap initialization path while the HugeTLB code
+initializes the remaining struct pages itself.
 
-Therefore, boot-time HugeTLB HVO folios can rely on the section-based
-vmemmap optimization infrastructure directly, without the extra bulk
-optimization and fallback handling.
+Mark the full hugepage noinit and initialize the head struct page in
+hugetlb_folio_init_vmemmap() as well, so the whole compound-page setup
+is handled in one place.
+
+This can also reduce memblock metadata overhead when many boot-time
+HugeTLB pages are reserved, because physically contiguous hugepages
+can be covered by fewer noinit regions.
 
 Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 ---
- mm/hugetlb.c         | 25 +++++++------------------
- mm/hugetlb_vmemmap.c | 17 +----------------
- 2 files changed, 8 insertions(+), 34 deletions(-)
+ mm/hugetlb.c | 27 ++++++++++-----------------
+ 1 file changed, 10 insertions(+), 17 deletions(-)
 
 diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index ed3af959f615..3a307bc6db17 100644
+index 3a307bc6db17..2716a83a7386 100644
 --- a/mm/hugetlb.c
 +++ b/mm/hugetlb.c
-@@ -3345,21 +3345,7 @@ static void __init prep_and_add_bootmem_folios(struct hstate *h,
- 	unsigned long flags;
- 	struct folio *folio, *tmp_f;
+@@ -3243,15 +3243,7 @@ static bool __init alloc_bootmem_huge_page(struct hstate *h, int nid)
+ 		list_add_tail(&m->list, &huge_boot_pages[nid]);
+ 		m->flags |= HUGE_BOOTMEM_ZONES_VALID;
+ 		hugetlb_vmemmap_optimize_bootmem_page(pfn, huge_page_order(h));
+-		/*
+-		 * Only initialize the head struct page in memmap_init_reserved_pages,
+-		 * rest of the struct pages will be initialized by the HugeTLB
+-		 * subsystem itself.
+-		 * The head struct page is used to get folio information by the HugeTLB
+-		 * subsystem like zone id and node id.
+-		 */
+-		memblock_reserved_mark_noinit(__pa((void *)m + PAGE_SIZE),
+-				huge_page_size(h) - PAGE_SIZE);
++		memblock_reserved_mark_noinit(__pa(m), huge_page_size(h));
+ 	}
  
--	/* Send list for bulk vmemmap optimization processing */
--	hugetlb_vmemmap_optimize_folios(h, folio_list);
--
- 	list_for_each_entry_safe(folio, tmp_f, folio_list, lru) {
--		if (!folio_test_hugetlb_vmemmap_optimized(folio)) {
--			/*
--			 * If HVO fails, initialize all tail struct pages
--			 * We do not worry about potential long lock hold
--			 * time as this is early in boot and there should
--			 * be no contention.
--			 */
--			hugetlb_folio_init_tail_vmemmap(folio, h,
--					VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES,
--					pages_per_huge_page(h));
--		}
- 		hugetlb_bootmem_init_migratetype(folio, h);
- 		/* Subdivide locks to achieve better parallel performance */
- 		spin_lock_irqsave(&hugetlb_lock, flags);
-@@ -3383,6 +3369,8 @@ static void __init gather_bootmem_prealloc_node(unsigned long nid)
+ 	return true;
+@@ -3295,22 +3287,23 @@ static void __init hugetlb_folio_init_tail_vmemmap(struct folio *folio,
+ }
+ 
+ static void __init hugetlb_folio_init_vmemmap(struct folio *folio,
++					      unsigned long pfn,
+ 					      struct hstate *h,
++					      enum zone_type zone, int nid,
+ 					      unsigned long nr_pages)
+ {
+-	int ret;
++	struct page *head = &folio->page;
+ 
+ 	/*
+ 	 * This is an open-coded prep_compound_page() whereby we avoid
+ 	 * walking pages twice by initializing/preparing+freezing them in the
+ 	 * same go.
+ 	 */
+-	__folio_clear_reserved(folio);
++	__init_single_page(head, pfn, zone, nid);
+ 	__folio_set_head(folio);
+-	ret = folio_ref_freeze(folio, 1);
+-	VM_BUG_ON(!ret);
++	set_page_count(head, 0);
+ 	hugetlb_folio_init_tail_vmemmap(folio, h, 1, nr_pages);
+-	prep_compound_head(&folio->page, huge_page_order(h));
++	prep_compound_head(head, huge_page_order(h));
+ }
+ 
+ /*
+@@ -3368,8 +3361,9 @@ static void __init gather_bootmem_prealloc_node(unsigned long nid)
+ 	list_for_each_entry_safe(m, tm, &huge_boot_pages[nid], list) {
  		struct page *page = virt_to_page(m);
  		struct folio *folio = (void *)page;
- 		const unsigned long pfn = folio_pfn(folio);
-+		const unsigned long nr_pages = pages_per_huge_page(m->hstate);
-+		unsigned long nr_struct_pages = nr_pages;
+-		const unsigned long pfn = folio_pfn(folio);
++		const unsigned long pfn = PHYS_PFN(__pa(m));
+ 		const unsigned long nr_pages = pages_per_huge_page(m->hstate);
++		const enum zone_type zone = zone_idx(pfn_to_zone(pfn, nid));
+ 		unsigned long nr_struct_pages = nr_pages;
  
  		h = m->hstate;
- 		/*
-@@ -3396,13 +3384,14 @@ static void __init gather_bootmem_prealloc_node(unsigned long nid)
- 		VM_BUG_ON(!hstate_is_gigantic(h));
- 		WARN_ON(folio_ref_count(folio) != 1);
+@@ -3382,11 +3376,10 @@ static void __init gather_bootmem_prealloc_node(unsigned long nid)
+ 		prev_h = h;
  
--		hugetlb_folio_init_vmemmap(folio, h,
--					   VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES);
-+		if (vmemmap_optimizable_order(pfn_to_section_compound_order(pfn)))
-+			nr_struct_pages = VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES;
-+		hugetlb_folio_init_vmemmap(folio, h, nr_struct_pages);
+ 		VM_BUG_ON(!hstate_is_gigantic(h));
+-		WARN_ON(folio_ref_count(folio) != 1);
+ 
+ 		if (vmemmap_optimizable_order(pfn_to_section_compound_order(pfn)))
+ 			nr_struct_pages = VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES;
+-		hugetlb_folio_init_vmemmap(folio, h, nr_struct_pages);
++		hugetlb_folio_init_vmemmap(folio, pfn, h, zone, nid, nr_struct_pages);
  		init_new_hugetlb_folio(folio);
  
  		if (vmemmap_optimizable_order(pfn_to_section_compound_order(pfn)))
- 			folio_set_hugetlb_vmemmap_optimized(folio);
--		section_set_compound_order_range(pfn, folio_nr_pages(folio), 0);
-+		section_set_compound_order_range(pfn, nr_pages, 0);
- 
- 		list_add(&folio->lru, &folio_list);
- 
-@@ -3417,7 +3406,7 @@ static void __init gather_bootmem_prealloc_node(unsigned long nid)
- 		if (hugetlb_early_cma(h))
- 			folio_set_hugetlb_cma(folio);
- 		else
--			adjust_managed_page_count(page, pages_per_huge_page(h));
-+			adjust_managed_page_count(page, nr_pages);
- 		cond_resched();
- 	}
- 
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index ba8e11e399b2..d73ceeef392e 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -552,7 +552,6 @@ static int hugetlb_vmemmap_pteify_folio(const struct hstate *h, struct folio *fo
- void hugetlb_vmemmap_optimize_folios(struct hstate *h, struct list_head *folio_list)
- {
- 	struct folio *folio;
--	unsigned long nr_to_optimize = 0;
- 	LIST_HEAD(vmemmap_pages);
- 	unsigned long flags = VMEMMAP_DEFER_TLB_FLUSH;
- 
-@@ -560,18 +559,7 @@ void hugetlb_vmemmap_optimize_folios(struct hstate *h, struct list_head *folio_l
- 		return;
- 
- 	list_for_each_entry(folio, folio_list, lru) {
--		int ret;
--
--		/*
--		 * Bootmem gigantic folios may already be marked optimized when
--		 * their vmemmap layout was prepared earlier, so skip them here.
--		 */
--		if (folio_test_hugetlb_vmemmap_optimized(folio))
--			continue;
--
--		nr_to_optimize++;
--
--		ret = hugetlb_vmemmap_pteify_folio(h, folio, flags);
-+		int ret = hugetlb_vmemmap_pteify_folio(h, folio, flags);
- 
- 		/*
- 		 * Splitting the PMD requires allocating a page, thus let's fail
-@@ -583,9 +571,6 @@ void hugetlb_vmemmap_optimize_folios(struct hstate *h, struct list_head *folio_l
- 			break;
- 	}
- 
--	if (!nr_to_optimize)
--		return;
--
- 	flush_tlb_all();
- 
- 	list_for_each_entry(folio, folio_list, lru) {
 -- 
 2.54.0
 
