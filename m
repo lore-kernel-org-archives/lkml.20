@@ -1,69 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.76.10.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794563940;
-	b=n3U5/MfMWb9ol/EB/5vN4eARKqC0Y3E/f7B9jV5vIurvQxZhsJK7TZZn2C99+tWgP0lh
-	 IZhjIBkCazrL/9iMks1XHol9K763r/0v72QFkq1Eh4NUh6yB8ISNX3AHUaemp2k4cDHUW
-	 t4f0T/i67pnBuIV4j6Ow8MUs5Zkg05C9Qz+DkC7sXPtxhI+HVOM9ORW8V6/t44GnEKfYB
-	 oOnYRp7c8Fqqq6PXPwfjo5rYlAPpysyn2DWe/KKW059TuriAlt0GfZdcE+8Q5yzpFv2c+
-	 B0NbUlwVKDnsP4Qol9zb5x+dtNJvyTnwY24mB9NcVA4qBbir4Tl6L4fYxVewJl3QwkA==
+	t=1794564013;
+	b=f3tTfGnmrXLfnggYgxmNZbgrEb0ix4PZ/bwZ7AZ5QOM6i0QDvAOk0dTEWTxek85NW9lN
+	 3hFYV+ERZxiu2lle25XWEf8b34xAB/lJ7dg1kjH19k5Gx0dkSwmSf7p/CPliVwbXb6nEd
+	 gKc/4WTLNRbPiA1S2NXiJU7yn6AmHAvRkXqXFXH3daeQLJ9AY0BZnsLw2KyQypDdLfzDk
+	 ZCULXvWXNl0uFV+4g01SWJgh11vBXfMmGKmIXJE8TlUFS2A3wEIoL1Iw7mXlx2HMRIZxU
+	 KzmlPbfr0ioQw1chZKH5hGEi5IM9QTx6XS2XXtSOZRG6v0B4JnOu/ipWIBHY2ha6s9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794563940;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-Virus-Scanned:X-Spam-Level;
-	bh=Z8ldHOW7Jh2F6tB55n2yK83TrHX8HOmq++gHNOoKpbM=;
-	b=43jvoaCv874uqU1x8uT5PTuQ2i9fWN7cm4lG3IIiM/3VmiK3rQH1kdfuzRwVf3Y/fdz4
-	 OqkOsiM1kOCA/mKorLvpuKElMJJrAkl9SaYYRfodjFc2TDfs2OpSNHCviQ9KwomWh/n30
-	 v2J9pYdCjROAR8vDj5N9H59ubl/mbXBIclstvgdgXakdRJsVDTczow1d6qhP820ewrlSP
-	 hwDFYsjoNdaqajCH/5BdUO9ogJ8NxIfhDi1BpuN59j5rCEBYKiqtdZGpLytwAQCZAapc1
-	 zl7AjJMjtO+BupO1sOoOLoOM4JUTjxk5oOQicCEyww8vQA23JeoRf4xir5Q3hPx0jQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564013;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=CZEQVZ6TVB8PXZyirm0oWvsQKQ+yV93wdSIBjZmPOVw=;
+	b=g7qzc+yTROi725US3HFRyDcq2IsgmyrGKRKgvXT/PnjCuUzxCH8vub0jEtyoeSdkUada
+	 3qwyCnCUpzO7GLX2qWgRXv4mUjqbkSCRCtf2+Hdxj+j2hZCF+PbMFmilSN5rDu4hQ/Yaf
+	 i23OMG4xsdZOyyYpr6kwAgvLqHeYCU3ZWj1rMy+aL2/EHWshUa+bzHy3sAs6THau9xOFw
+	 Rz8vKBpmtNA7AfHUN1LDd/7tjTY3VgugR+MYnEYJW8HkP2JZFWolV4Syc8drU8b0a2x3h
+	 Wc2g8bGPaGeWH04Fr9opaBmRR4JM8MuP+fKCxwCpzBJlxa0KdkqvxJWkONrqVeMdgRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cispa.de;
-	spf=pass smtp.mailfrom=cispa.de;
-	dkim=pass header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=ceKLPTAx;
-	arc=none smtp.remote-ip=134.76.10.21
-Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioh3c7+L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AD9606A32A;
-	Fri, 13 Nov 2026 09:58:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09AD9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cispa.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1232606A337;
+	Fri, 13 Nov 2026 10:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=ceKLPTAx
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cispa.de;
-	s=2023-rsa; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:CC:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=Z8ldHOW7Jh2F6tB55n2yK83TrHX8HOmq++gHNOoKpbM=; b=ceKLPTAxriYEtBfMFr+ly6Q9CQ
-	P7Avfhi9L1WtV7iv0ZXw2uSAKcG/AkXEnFYRsbvk0MpG4pHcEHWum1FVYqFNjzKgXsOQSikcpGiBO
-	dDVHnvr8vO0REmUjiVDRCSNOfFHVLU5Av7CkF/e7FjYQoLxF3Xek9kTchzK2KRJGZlZMrL6/lj2Ws
-	uLLpqbt2yZpn2apgBP0QUftPswkQJp1K+qdYAXzR5woacDoNRYAYNjAa+a2K9YuukgW07FlHITDX/
-	MydLuvaIxObpAccFLfHYOh5P4UHktu/P43wYPIm5Zd1h15F9L8jrhVfrb4QcuCJ7dNhRYSBbPSQML
-	8vi8ruDg==;
-Received: from mailer.gwdg.de ([134.76.10.26]:53240)
-	by mailer.gwdg.de with esmtp (GWDG Mailer)
-	(envelope-from <florian.bauckholt@cispa.de>)
-	id 1xRo3R-005Tb9-1b;
-	Fri, 13 Nov 2026 10:58:45 +0100
-Received: from mbx19-sub-11.um.gwdg.de ([10.108.142.88] helo=email.gwdg.de)
-	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
-	(GWDG Mailer)
-	(envelope-from <florian.bauckholt@cispa.de>)
-	id 1xRo3S-000Y5M-0Q;
-	Fri, 13 Nov 2026 10:58:45 +0100
-Received: from [192.168.0.168] (10.250.9.199) by mbx19-sub-11.um.gwdg.de
- (10.108.142.88) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Fri, 13 Nov
- 2026 10:58:45 +0100
-Message-ID: <473700a3-f5d7-4a7a-b89a-12c51adcc3df@cispa.de>
-Date: Fri, 13 Nov 2026 10:58:44 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioh3c7+L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA301F000C4;
+	Fri, 13 Nov 2026 10:00:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794564012;
+	bh=CZEQVZ6TVB8PXZyirm0oWvsQKQ+yV93wdSIBjZmPOVw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ioh3c7+Li4hBvBjUiWmNiOBUipdlGq9BrKY1Gllg/1pwHe4dGrEqLu5Eib4iKE9vs
+	 UA9832q26rizKLXxFqb3g3RKIQUGWCCTjt+/s+xFwcTjDEEg3KR9dCESBg3O3OPw6R
+	 C6ADhMfinEJvPopECOflU3BqH+WfjYGOqM3GKZ9Mb39gFdGTLUx+dYJljEcRcYp2hn
+	 5f8AW0yrwbSj1r832w81nTXfJfKBtgE24MDxl5w1cLa3mmbQUJYbPgU+Jo1lrJ18m2
+	 ghFcegLfOjleLF6tlNqaFnaN7YTQgvJceIomLGKtoE2Y6u2WKM19qo40jfINrRbA3E
+	 ynOw0pUK1sf8g==
+Date: Fri, 13 Nov 2026 10:00:07 +0000
+From: Simon Horman <horms@kernel.org>
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
+	David Heidelberg <david@ixit.cz>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Thierry Escande <thierry.escande@linux.intel.com>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	Samuel Ortiz <sameo@rivosinc.com>, linux-kernel@vger.kernel.org,
+	yana06070@163.com
+Subject: Re: [PATCH net-next] NFC: digital: fix target leak after Type 1 Tag
+ discovery
+Message-ID: <20261113100007.GI18859@horms.kernel.org>
+References: <20261109031832.37642-1-yanxia@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,82 +64,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] crypto: ecdsa - Reject non-DER X9.62 signatures
-To: Stefan Berger <stefanb@linux.ibm.com>, Lukas Wunner <lukas@wunner.de>,
-	Ignat Korchagin <ignat@linux.win>, Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>, Jarkko Sakkinen <jarkko@kernel.org>
-CC: <linux-crypto@vger.kernel.org>, <keyrings@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261112-ecdsa-x962-der-v1-1-36b24c5f5e11@cispa.de>
- <e852580d-9e18-4733-a431-2db8c5f9c2a3@linux.ibm.com>
- <d3a49bde-769f-48a9-ab1b-0374d3d4753e@linux.ibm.com>
-Content-Language: en-US
-From: Florian Bauckholt <florian.bauckholt@cispa.de>
-In-Reply-To: <d3a49bde-769f-48a9-ab1b-0374d3d4753e@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MBX19-FMZ-07.um.gwdg.de (10.108.142.66) To
- mbx19-sub-11.um.gwdg.de (10.108.142.88)
-X-Virus-Scanned: (clean) by clamav
-X-Spam-Level: -
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109031832.37642-1-yanxia@cmss.chinamobile.com>
 
-Hi Stefan,
-
-thanks for testing.
-
-On 11/13/26 00:38, Stefan Berger wrote:
-> On 11/12/26 12:06 PM, Stefan Berger wrote:
->> I have a user-space test suite here:
->> https://github.com/stefanberger/eckey-testing
->>
->> It tries to load openssl-generated self-signed certs into the kernel
->> and this fails now:
->>
->> $ ./test-ecc-kernel-keys.sh
-
-I can reproduce this with your script. It fails without the
-KEYCTL_PKEY_VERIFY patch and passes with it.
-
->>> This is a behaviour change for every user of the x962 template (X.509
+On Mon, Nov 09, 2026 at 03:18:32AM +0000, Xia Yan wrote:
+> digital_in_recv_sens_res() allocates a target for an NFC-A response.
+> For a Type 1 Tag, it calls digital_target_found() synchronously.
+> nfc_targets_found() copies the target into dev->targets.
 > 
-> I would say a 'potential but unlikely behaviour change' because if you
-> signed with a tool (e.g., OpenSSL) that created properly (DER-)formatted
-> signatures in X.509 certificates, then those signatures still verify
-> with your patch applied. I would assume that most people signed with
-> such a tool. In your patch you seem to add more tests for proper DER
-> formatting that all existing x.509 certs and signatures should meet, right?
->
-
-Yes, this only changes behaviour for non-conforming signatures. Anything
-generated by OpenSSL behaves the same. I'll change the wording to be
-explicit about this for v2.
-
-The existing testmgr vectors covered only valid DER encodings and this
-patch adds new ones for the BER edge cases.
-
->>> certificates, module and IMA signatures, KEYCTL_PKEY_VERIFY): signatures
->>> that are valid ECDSA signatures but are not DER-encoded used to verify
->>> and are now rejected with -EINVAL. The p1363 template is not affected.
+> On success, rc is zero and the callback skips kfree(target).
+> The original allocation is lost when the callback returns.
+> Each completed Type 1 Tag discovery leaks one struct nfc_target.
 > 
-> What breaks the signature verification test in my test suite currently
-> was pointed out by AI. For signature verifications using the
-> KEYCTL_PKEY_VERIFY interface, it currently would pass along an input
-> size of 72 bytes for a secp256r1 signature, which is the max. size, but
-> this does not always correspond to the application provided signature
-> size, which may for example be just 71 bytes.
-> -               params->out_len = info.max_sig_size;
-> +               params->in2_len = uparams.in2_len;
+> Free the target after digital_target_found() returns. Clear the pointer
+> to avoid freeing it again on the error path. Keep the target for other
+> tag types, whose discovery continues asynchronously.
+> 
+> Found during a code review of NFC-A target ownership.
+> 
+> Fixes: 2c66daecc409 ("NFC Digital: Add NFC-A technology support")
+> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+> ---
+>  net/nfc/digital_technology.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/nfc/digital_technology.c b/net/nfc/digital_technology.c
+> index ae6487c10a25..2d52e390cc67 100644
+> --- a/net/nfc/digital_technology.c
+> +++ b/net/nfc/digital_technology.c
+> @@ -510,10 +510,13 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
+>  		goto exit;
+>  	}
+>  
+> -	if (DIGITAL_SENS_RES_IS_T1T(target->sens_res))
+> +	if (DIGITAL_SENS_RES_IS_T1T(target->sens_res)) {
+>  		rc = digital_target_found(ddev, target, NFC_PROTO_JEWEL);
+> -	else
+> +		kfree(target);
+> +		target = NULL;
+> +	} else {
+>  		rc = digital_in_send_sdd_req(ddev, target);
+> +	}
+>  
+>  exit:
+>  	dev_kfree_skb(resp);
 
-Yes, sorry, maybe I should have mentioned this in the commit message.
-The notes below the --- link to this exact fix:
+Thanks Yan,
 
-https://lore.kernel.org/r/20261111-keyctl-pkey-fixes-v1-1-934ebaa267a7@cispa.de
+I agree this is a bug and that you patch correctly addresses it.
+However, I wonder if it would be cleaner to confine cleanup to
+the exit path, centralising the kfree logic.
 
-The AI review in the thread also ran the patch without the keyctl fix.
+Something like this (compile tested only!):
 
-I'll move this dependency to the commit message for v2, or wait until
-the keyctl fix is in mainline.
-
-Thanks!
-Florian
+diff --git a/net/nfc/digital_technology.c b/net/nfc/digital_technology.c
+index ae6487c10a25..94880172f016 100644
+--- a/net/nfc/digital_technology.c
++++ b/net/nfc/digital_technology.c
+@@ -483,6 +483,7 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
+ 				     struct sk_buff *resp)
+ {
+ 	struct nfc_target *target = NULL;
++	bool res_is_t1t = false;
+ 	int rc;
+ 
+ 	if (IS_ERR(resp)) {
+@@ -510,7 +511,8 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
+ 		goto exit;
+ 	}
+ 
+-	if (DIGITAL_SENS_RES_IS_T1T(target->sens_res))
++	res_is_t1t = DIGITAL_SENS_RES_IS_T1T(target->sens_res);
++	if (res_is_t1t)
+ 		rc = digital_target_found(ddev, target, NFC_PROTO_JEWEL);
+ 	else
+ 		rc = digital_in_send_sdd_req(ddev, target);
+@@ -518,10 +520,11 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
+ exit:
+ 	dev_kfree_skb(resp);
+ 
+-	if (rc) {
++	if (rc || res_is_t1t)
+ 		kfree(target);
++
++	if (rc)
+ 		digital_poll_next_tech(ddev);
+-	}
+ }
+ 
+ int digital_in_send_sens_req(struct nfc_digital_dev *ddev, u8 rf_tech)
