@@ -1,102 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794558188;
-	b=MEcmWnKAAOCipYegeiNQNIAe2ZajVSMJFMsE+zP0EkaW/ITHc5ljkbwpwl4sMdlUELig
-	 Hh10UfuM2/4y5Zsd/7d2l2J1tOILVJIpRlm+cbQT8zwPpngZatgPXcTFN+BPuDyeIykuy
-	 g/iOF9X5lYQBqYmcurAn5y+kIaPhHt+DZXDM1Rg6UAjlyFIBNUajXvJpPct3kFzqUgYEG
-	 camdcxKxeEGomj59hUZAYluMBKLyfcWwb29TQM9A0zfkR9Ky2GWaJ59VgoZLEotcTTnHv
-	 yRKmKaiW80ZnH4wIGaPPmRSTnBflE0G/h3j+tutS3qKMu9EavZ8AdC+Ywx7yPnM7f9Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558188;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=CHg5JHziHE4Jpt9n0k93J782O7ifEZ9yYJVMuZq1mrQ=;
-	b=rCPNBZJwU+LKNY0zsqzaKV2cLC9vFvYK3vL+S+C6a/4bXStih8ZU4CCdppxEg8m3N6mr
-	 B5ISEcsYJWBhuK/D4lbGgjwdjKOHPVaG8FUW+Fg/y8Ezxtme06WC9o+7ZG37i1Fp+8Apn
-	 NnuZ6qBzEj1JTgCeoNvo2xFLiJueOzUXsX/Z2eYtHy5RJf8M35Bv9uruL3H1wuiVZQ+ka
-	 rUvQBNs5uKdbGcMOi+csm6JPIvb+frniBtGflaXLa96YxhyjhSqC3u2Ne4GAXC8rfd15p
-	 1OSZmhZ2FXnuJJuy+WJsWhLLJpf3uZF67lECYW6qqDwxbDo/za7JKzSLByacD108xLg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0QYKRkeZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794558191;
+	b=RWClXFJHf+t8s3nOnaVN4TIfHjf7eNDhMpayCbALu3CNKlk6FXUC4GTaPBUpzLxSrxdp
+	 133znzYO4wXxlMajq9enh5hhAZI9eSINZys+p0PNeQtYKZ1so9M+SC7PLKsvzdKlTYQ9i
+	 uRsiT47X0GaRVroKs/cuMSeflnP4EBC4/xNojLCvgw8OMptMWo9wdnkRSkrYlCW4/lPiC
+	 HBpqhHvrcdwD9K/QImS1WZB65CX5rl0IntmIbIX4z17sGqSWIcqOoV+hb2RzMM1RF5Qb5
+	 1EYRbtU+SIb4pZGDMw8QaFKYFv3wigxj+x19pCCsf/U95/Qy+IHy86hxGjADPlqj3mg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558191;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VPJu/fhG3mv1Az+DT8+czzkJ1uGzyr1+d2Uk/KtRO1s=;
+	b=To9MfPJedsoUR7QLXEYv42GdG1u0g8IQh/Iq9Eip0PAyd4JlnneppG7K5qz88sHW8IYG
+	 vOAXTgVxPZR6DNaum7MXdLwX0/4MWqv9eprop7Aho0E+TyqQX9w7KXxjJc3EiCeKOC+2N
+	 qBnd2+F+oiaTRRRQ7ZaprRXBwrd8Lc3rev9vkd2LIMDaxtQCim3XpUFdqPxKRcQT/q0sz
+	 C9FMg+xIy1XqxU1sFtw/AozxrTwgE9agBw84GP4eHPFpmA4hZKBhaDkVJqR4GdIdItbr8
+	 HN5dvoPvycq/Q9uxMRiP/8EI6Z7Sy82IrSzQ7bAnmjk9+99pOoQwo8eYaLQ3i60ULwg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=hCbs8aZ3;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F1E606A339
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:23:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48F1E606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C5A60A260A;
+	Fri, 13 Nov 2026 08:23:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8C5A60A260A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0QYKRkeZ
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b0cf2c0785so7431167b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:23:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794558187; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RrZVnyJtwf/C3gjtx/lqbFtCTlj0pJSW/nzs2jPlf6j4FOFcKYrvxdU9/k9u/Nm5IL
-         0Ko5ZiDChcav7OvR2vf39gYP6uoP6V3zuPVX31w1eY53aAS1YnI6CpU7Nf3kACACIl8x
-         STbhIIZdNREuJUuk8NO46wkaDvkLUxJFWTboR/7YTWMqEtJJZsKFTxejt573vXtGsSve
-         052vUjkNVo8PELU9cg3DEDEAOOyONvLPPOq2pxFdjVjio4SVHvXCPpX9MbyQIVZSpXtW
-         GcZHMIC4kYv7z9m/JHRPOuUUvWMq4oniSzVgZaM9fuHkKqKcsz0ZL5a/PGOOSfCosyA1
-         DVPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CHg5JHziHE4Jpt9n0k93J782O7ifEZ9yYJVMuZq1mrQ=;
-        fh=ANk6B2zegcYlaRbey3xzmUGvMsSo1h1OnJ/DlBXIruk=;
-        b=bf9067SnnwSXlsdtrhAsS1j3tO/jl3Q7qPhNBBMtOandBzsP0XVMGDn09fBmnWxCds
-         vFEmbjWFF7rLsLfP3fi5Bk+0l295OZmTwwYw75rNBJnCMCKtbbZi0jjyVB78S+MbgdXC
-         YlB2EgIZKwyICoWGQHN60mF6CF0XSI4FzmtOnwcxGPcfmqjbaHLmnAuzxzJHDW1eYctF
-         E/pWpcgr9Db0M1FIhvgWyxtUYrPKWnhYgLfQVeJHpk/UCrhv0awAiK6pcVqIj5aMsE79
-         9PhTTGZUhwRlzl8ixmz810tg2Wl9r3Z4q+z5JYx43Q8L5S68K/Q3Y93RkP7bEhHEfKXr
-         fdwA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794558187; x=1795162987; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CHg5JHziHE4Jpt9n0k93J782O7ifEZ9yYJVMuZq1mrQ=;
-        b=0QYKRkeZGgCKAK5bk2o2chwJMGsQY7GzXb0fwyB+14vTr1jkqNeIYyu33eNOeaTSmy
-         mhaaKT2ATnUTxHED0nT6gh+qOHKvLSjBN5uf0ZUj7HFsdBP3/EF7zNnJJnQt1n3+Usc2
-         c7smb34IRq3UuOGo9g9yZkOTsgTxKb+XNnH3xRQpt5Pgdx1uKXlTpI83L9zWI1r9ahts
-         8+edQVC3Vdhuj+dlGndhOpsK0JqIgFiK25XZ4B5beeKdfVO+DuXrOlNZoMEtrBrAnYEk
-         t1EdDeOQ5NLNyVdW3qZ/WWxYxVI7uGJz2WdJLbMFrgP0mNu0jInbTj5Cu9UoM+83Z7QK
-         +fEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794558187; x=1795162987;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CHg5JHziHE4Jpt9n0k93J782O7ifEZ9yYJVMuZq1mrQ=;
-        b=0AwQRBpri+o33Bn6t+PSdUAx2fuLStIbmOm5/8yUUyfeyJ7kBv4O9JErf6HTcwLvXC
-         vKGsx096SahC+ssq2y43VcwyG7Q+bbxfQWOO/36jERxsKa/A8pzbHRpup8ZmA0SRXc12
-         FNAS7YaOqcNb2FXj8u6Kw6R06nGwiw4P7ONWxOYnVlbEqj7VwsD6bo91PXvTFBe/uyvx
-         KhFBGhmW2VbxWL7z/xi2zy0URFdtEzBZV2HqhGTYMVfS+h0iDhS8n0CuPIt8Znodv1bX
-         JCvGFcyLZioSBxkmThntFKMVhwMN6PdzIvM8L/58rxxH2W28ACPkbvNSuWBeeHCHa0Wq
-         IU/w==
-X-Forwarded-Encrypted: i=1; AL+hErE/zikbgWMr0dnpauWojeNB6Ocl4jqIERlaCWuGilPzu/SKu6dgnbtSltBm3dRfQwdV9Lfl4so68epe+vk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/eS3N8k0h+3hV3V42o5IejVUyEG/l0ub2ES3HfNvvVQLBm1Bng
-	/2GXlS0Rbm06jJKZr3Ugq3/hxFYMNmaMUftGdLEzU7O9SpAE2bpONaMm1TIakStaQeI3EeaXRDD
-	tjpsT4bgrE+DPwa9T0E1zJFjFYKjwHuw=
-X-Gm-Gg: AYBFou3ghkVri3I31ObT2b3XF1DEPLiKFNWd2Tp/T9iwOwZmw4EGkXXgOrl8hE5zMoV
-	u8ZlbyYZQTdrfCQ6k5Lu1IRWccZTcD+g31hf6mcd4Wyw0qkcJiu7wV6AKuSDeoNX+EoxdP5HLRL
-	wE9chcNc7OYki/JP0eEh8Utp7AhSRQifmHGHuISmSXYDJ4pK75vLvWVNWaBLbaHmPfu6Tp4JEfX
-	8AzUrOwNTj5fDLLxUHSTBArd2CIHBAX9QzgjVBzIk8wG5IbPnaeiP4G13q/RmOrkLn7m6A3C4IH
-	S++clFG7vlmz1lULnf7HhyrL7ovttqjgZaOsOv7pjRzH7CdVHOT85AJELVOPL8BsQVsITF6nLh4
-	swZ4noQm/EMnhCHznUMPw1nUJYxGNGTX+goF1atPLuxAZ7IkorXHlh6jgKBvnpMctHSv22BWB+b
-	h9DCklikBn0R10vUYEjP5nSOD/+sQf3ZzEsY0RlnWkAmN7yvIXuOLZgpdeKW8V77+TNv9UtI9dT
-	hJ1JikXVDkHd2eGYTMHfPbbRyrG6ERlDLyobjEJH0Jt4CBaGDRGaZ/RfBMQUA==
-X-Received: by 2002:a05:690c:a923:10b0:8b3:2c71:b338 with SMTP id
- 00721157ae682-8b4aa33e3b6mr8947087b3.82.1794558187196; Fri, 13 Nov 2026
- 00:23:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=hCbs8aZ3
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id DBE3E44DC4;
+	Fri, 13 Nov 2026 19:23:02 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1794558182;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VPJu/fhG3mv1Az+DT8+czzkJ1uGzyr1+d2Uk/KtRO1s=;
+	b=hCbs8aZ3uxOQSt90WntKTNdz57wR6o9C7rgeUzVKS1vyAgnftsPW5GeaxjCPPZuDomcyed
+	ABeU9a6h00S4VOHDZHsS6wpScnnIZb6A5hCEIrPZIwYDqFloXRViFLlpk1Ba/V6zoGvyln
+	8006ZwjKlhWPQOOWxoLZHvMqTCW7SrEdkyM5t1ntH2cnSHE6RqgoddSxW7NwrA+XZ980Yi
+	PNklY8mgwptFuaz4ZFkJOodcjwmJHeQqfIi7M+RBTAEbl/24ZCRmj1tPt5nl/WdoE8rHkW
+	tfsPOcVJkFpO0LR0o+zj5kVXLC1F8MTqwByXWrsy/x5YI1JhlKDpP0k5M3Plog==
+X-GPT-Reason: legitimate; the message is a technical Linux kernel
+	patch submission that perfectly aligns with the recipient's domain
+	(alastair@d-silva.org) and the sender's identity (alastair@d-silva.org);
+	the content describes specific hardware register behaviors
+	(REG_SDIO_HISR_RX_REQUEST) and technical fixes (rtw88: sdio) typical
+	of open-source development; there are no phishing indicators, urgency,
+	or suspicious links, and the "Assisted-by: LLM" and "Reviewed-by" fields
+	are standard for modern kernel development workflows.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: linux-wireless@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>,
+	stable@vger.kernel.org
+Subject: [PATCH rtw-next v10 3/4] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
+Date: Fri, 13 Nov 2026 19:22:41 +1100
+Message-ID: <20261113082242.2773369-4-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261113082242.2773369-1-alastair@d-silva.org>
+References: <20261113082242.2773369-1-alastair@d-silva.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,37 +82,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112164642.38692-1-hmjm081106@gmail.com>
-In-Reply-To: <20261112164642.38692-1-hmjm081106@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 13 Nov 2026 10:22:30 +0200
-X-Gm-Features: AclHuK9gEreXQTMuEgxDO8HwoqRpAAdAWE2GTFJcD6vpcMJ_zpISOrJRwj1DDhI
-Message-ID: <CAHp75Vczc7pg5SaBw++eTbca6jo8nWjTBfOaEmmF6Q4Lnd1j+Q@mail.gmail.com>
-Subject: Re: [PATCH v2] staging: media: atomisp: Remove unneeded return statements
-To: Hezekiah Mogere Joseph Mayaka <hmjm081106@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 6:47=E2=80=AFPM Hezekiah Mogere Joseph Mayaka
-<hmjm081106@gmail.com> wrote:
->
-> Remove the bare return statements at the end of void functions
-> throughout the driver, along with the blank lines before them. They
-> have no effect and checkpatch.pl warns about them:
->
->   WARNING: void function return statements are not generally useful
+On 3081-based SDIO chips (observed on RTL8821CS; RTL8822BS and RTL8822CS
+are inferred to be affected as they share the 3081 architecture), clearing
+REG_SDIO_HISR_RX_REQUEST requires both a software W1C acknowledge and an
+empty RX FIFO. Masking this bit out before writing back to HISR prevents
+the software acknowledge from happening, leaving the bit asserted even
+after the FIFO is drained and causing an infinite interrupt storm loop
+that locks up the system.
 
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
+8051-based chips instead clear this bit in hardware once the RX buffer is
+empty without a W1C writeback, and software must not clear it.
 
-Not that this is a really required patch for the current state of the
-driver as a whole, but let's process it to avoid new patches like this
-again and again.
+Split rtw_sdio_handle_interrupt() into separate 8051 and 3081 handlers.
+For 3081, disable interrupts via HIMR, acknowledge all pending status
+bits via W1C writeback (preserving the existing full status word
+writeback used on non-RTL8723BS chips, now including
+REG_SDIO_HISR_RX_REQUEST), service pending events, and re-enable
+interrupts under irq_lock if still running.
 
+If unread packets remain in the FIFO when interrupts are re-enabled (or
+if new packets arrived), REG_SDIO_HISR_RX_REQUEST remains asserted and
+re-triggers the IRQ line. For 8051 chips, preserve the existing behavior.
 
---=20
-With Best Regards,
-Andy Shevchenko
+Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+---
+ drivers/net/wireless/realtek/rtw88/sdio.c | 73 ++++++++++++++++++-----
+ 1 file changed, 57 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index 3edbc627f9707..6100e691a5ca4 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1513,6 +1513,58 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
+ }
+ 
++static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
++{
++	if (hisr & REG_SDIO_HISR_TXERR)
++		rtw_sdio_tx_err_isr(rtwdev);
++	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
++		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
++		rtw_sdio_rx_isr(rtwdev);
++	}
++
++	/*
++	 * RTL8723BS keeps raising the interrupt after resume if undefined
++	 * status bits are written back, so acknowledge only the bits this
++	 * driver defines. Other chips keep the existing behaviour.
++	 */
++	if (rtw_is_8723bs(rtwdev))
++		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
++
++	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
++}
++
++static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
++{
++	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
++
++	rtw_sdio_disable_interrupt(rtwdev);
++
++	/*
++	 * Acknowledge all pending status bits via W1C writeback. Unlike 8051,
++	 * 3081 requires REG_SDIO_HISR_RX_REQUEST to be explicitly cleared by
++	 * software.
++	 */
++	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
++
++	if (hisr & REG_SDIO_HISR_TXERR)
++		rtw_sdio_tx_err_isr(rtwdev);
++	if (hisr & REG_SDIO_HISR_RX_REQUEST)
++		rtw_sdio_rx_isr(rtwdev);
++
++	/*
++	 * Unmasking HIMR re-asserts the IRQ line if new packets arrived or if
++	 * unread data remains in the RX FIFO (e.g. if the 64KB budget was
++	 * reached or an RX error occurred). On 3081 hardware, clearing
++	 * REG_SDIO_HISR_RX_REQUEST requires both the W1C writeback above and
++	 * an empty RX FIFO, so the bit remains asserted as long as unread
++	 * data is in the buffer and re-triggers the interrupt when unmasked.
++	 */
++	scoped_guard(mutex, &rtwsdio->irq_lock) {
++		if (rtwsdio->running)
++			rtw_sdio_enable_interrupt(rtwdev);
++	}
++}
++
+ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
+ {
+ 	struct ieee80211_hw *hw = sdio_get_drvdata(sdio_func);
+@@ -1531,24 +1583,13 @@ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
+ 	rtwsdio->irq_thread = current;
+ 
+ 	hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
+-
+-	if (hisr & REG_SDIO_HISR_TXERR)
+-		rtw_sdio_tx_err_isr(rtwdev);
+-	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
+-		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
+-		rtw_sdio_rx_isr(rtwdev);
++	if (hisr) {
++		if (rtw_chip_wcpu_8051(rtwdev))
++			rtw_sdio_handle_interrupt_8051(rtwdev, hisr);
++		else
++			rtw_sdio_handle_interrupt_3081(rtwdev, hisr);
+ 	}
+ 
+-	/*
+-	 * RTL8723BS keeps raising the interrupt after resume if undefined
+-	 * status bits are written back, so acknowledge only the bits this
+-	 * driver defines. Other chips keep the existing behaviour.
+-	 */
+-	if (rtw_is_8723bs(rtwdev))
+-		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
+-
+-	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
+-
+ 	rtwsdio->irq_thread = NULL;
+ }
+ 
+-- 
+2.53.0
+
