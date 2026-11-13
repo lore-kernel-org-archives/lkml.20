@@ -1,80 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794587975;
-	b=H4ea7ytxtLDN15ubmfXJ3gv8U9uD/QY72+XjqDhlecy8Af2tBrsF2MThRmzTfUFcmSmi
-	 mRV8rrI/bKU5qX3dfiO2BguIOVTWAQz2zbp0RcxXdfrB/LyAN0+OnpgVaJQtm/abxQGG/
-	 GVJ+tM2FGcn20pwLa1nkZEQ0C0nqTv4frRzQY+6fyhNfcMxjUP1PkN+pfNtdPlTTGWkN4
-	 W1a/mW+9ZLvBsLB7KKajBFzZZnqEd4hOvc2uq+dxcFfvieYUkOl19A4O8Ttjc/nrZG5ev
-	 768oyxSLYar1XDCuwTkwapbOCS5sX3UwPWULFirqg2pzb5wZHa9qDfEFGgeQLa3eDJA==
+	t=1794587973;
+	b=2FOUTGDyovO2Efs3nayJEbzKVXwrfvj3GeeqwhSapszhfsJFinZrVYINHr5OHxZwj7xY
+	 IDfMAhSikK3LvG6IH4hfxxFReGvaYmENpZMESkYo328druJ328Oa5rbPdj50ncTeaHZ8A
+	 tZ2S7fRR/bAx9lbG4fD/GHqnQWeTgwKuqLMP5yYjWwBpD9MI6hXZStY4XOVQ1G+U4w1Yx
+	 FCcIlF0R87yq4zxLLAXcWGsxWlAgojlFIApNT5TkL2WLmE7TMhQIfBHaIJ8kHJh26ffpC
+	 wBOm2yUFOX1jnkafzkBrWTR7AQKKsnFA5nLM3OHXuce//EftvzcVmcOsLKXxzaueS0A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587975;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=L+8j5OUsBR0easBe4yHHmV7NvUfkY0wWsAfLUlp+Yi0=;
-	b=yg6Tlu09iofg4Yb3VOp3TESxJfWHCUiJihTiFJnOSiDh2e0/pD4j0u/D++zsha0bfkJL
-	 28NhdjSiU438+u7UqGWnbxpNqlUjFS8uLejGsDoFE1wN6WVV7N1obD1qmHBKmoH5sRGjz
-	 I9KKYG4713xeiAizBx4e1z+FGtTGl1oLJBiRHf2JnwHz2VJOjyv7VbzsJnB2Zi99Ui7zF
-	 K+rlzcC3V5KITM2Wjn5TAnklIJG8n0vm83KV3tgqMeDUJIbsZJXfGFAR8bkM3fGbiSONJ
-	 Se4JMIsuNRw/Q78XdXKLP/U0ghgNdGRzqVCmy1xy+2j43XaXWEL5nKN9v01NLvR/RLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587973;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rw2+Wu07AzcSg0TC6g7lPJt693i+bJC0ptoRBW6zeXA=;
+	b=LwsoXhu0WeRr18JpsaAc9UcbFd2Aj60dTbZIs6hkcruzPd001gRO8mVooNvIvS3H+zwL
+	 pQvFSqAzoljNfCafZpa2IpTLkt3q9P8fa/dg0152oluk2uBOnr/vIl/fBoHiJIQjO3Ymg
+	 kiQpkfTAo6fElQl8d/5uunm3cgbDN2QGozgnCsaR2Kv4x89UUdP/r1/cnRybIviVrCOeN
+	 a6K3c0KuRpqCkCWGW0d/jVI+gd9JHzs2Pv4T2rV32p+O6tJuhTp+M66vjN6QthOwjnBP5
+	 JrGlGmHMjYFcOcAAmJ1anJtSmY/sPWBDvd2Zv3UIU9VuWXzPnqroqaxfo/lERatUkUg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQfLAZ2u;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F236A60A2628;
-	Fri, 13 Nov 2026 16:39:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQfLAZ2u
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794587974;
-	b=LuW5+z01YOe5yzfBQo5jW57/Kp0sfr+uZVvzfhwUbcD/i5Og1J5eQvlwm+fKZ6b/oaad
-	 0MOlKWxRzrWvF4zzZO+k4uzazSuXpj+/cONP3kQVx1GBKbH+nE/WormEu8EWXXJoKYYYK
-	 Lc++16/aQzivk3DA3OJ1ue8Pr+Z5ZXey52Lxe2wm7jJQZ1sPkON93hOBrEiwLx8Do6ocH
-	 DtxFjLdN/8q68kxXqSoW5zjUpdafNjJSzeuW45tM/FJpLFNiUv6KBtHn6MY95OZcHBnC+
-	 Da1chVpKVFgswnvkQmVEtn52QsJk/EP/iFE+rkKSNaBb2bHm6SYlVNUhhh9CHm7496w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794587974;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=L+8j5OUsBR0easBe4yHHmV7NvUfkY0wWsAfLUlp+Yi0=;
-	b=tyoPTddvnO+WgjXwOX5dvvJh6v9YE7lYfBR1BLjNV6Ewx/lYKuyoQ1kz5m4P8xa1+0DA
-	 aPN8wIFNYwTz+HFIGEDqPJEovBYCX2mlg5QuHu9plJf7ZXLRSTyikyEILd8JvnfE+AC8u
-	 xlBC1tXJ1JPRtXRTVbTxA9dhvTWr2dCO6NFJbGwmE9ZGzFhPGWkYpYWyn2tCjzECRQZak
-	 tlpNuRpLojsocjs+aOTsnOmu2eJTeHOmdDtoFs8sti+O3o09mnK8y2WGTKvbzhl0VB82a
-	 kK9bnDn59OE+aPHEbHbHLmM3/vNi9N0ciY++kq6HaF0PujoqKc2uObK3Qv+PUixaEOA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PJxwPzei;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3BF681F000C9;
-	Fri, 13 Nov 2026 16:39:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794587974;
-	bh=L+8j5OUsBR0easBe4yHHmV7NvUfkY0wWsAfLUlp+Yi0=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=QQfLAZ2u2lqa1W7gimpv02MRC4ZuZpWavtu5KopDbCasFJWtS8jGQYOFTReRGY6lk
-	 zZX7X48aHXLQD6CC5pNt5R94jl7hP3G3djPXZ9EohEPY2tmxZoYrPowq6a+wKMzgqF
-	 k2QAlLvpl6Z098t0dEgcwWaTP0YP0dJlAhdYVo9K6uTJXLnOcB/IBg/lz0pb9vV8pB
-	 O9dFkixN5C06IJ/y7NqakILNFlbFh6+n3Xv+OqtrR2o52ZhZZm9YRxHBtemncdm98I
-	 LJOwkY25jh0X1e7gCYIkv+s95rfHlSXe7WcVzCIyq70iMXCKZlBkSrKLtWCPUaXXpV
-	 AuPJrVEgANknA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C0C1749996;
-	Fri, 13 Nov 2026 16:39:33 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v3 0/2] usb: core: Pair ports of different host controllers
- through their connector
-Date: Fri, 13 Nov 2026 16:39:33 +0000
-Message-Id: <20261113-usb-port-pairing-v3-0-d6c6edb4341c@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689EE606BCAA
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:39:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 689EE606BCAA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PJxwPzei
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b581b6b0e9so1760678a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:39:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794587972; cv=none;
+        d=google.com; s=arc-20260327;
+        b=f8QiPcmck/nSjo7gtLUzlVXcQhSYejomHDzw0YacCCpj4kQu3xx4pBHwfOWkcBfdly
+         rE0vrdMMk9RJj7lF/Qg7yHcqjSp91ihG665glm+IVvRnjBWwuYYcUhfc1k7mR+ZuB62C
+         JiraEDjqiS1MuUngv3cb3JuR5kFJYz2jhIbsaeApuKJrxjawrVsCITB1sxF4bbF/WmHM
+         GtOO+0FnEHRvTXtjEyQdFROFL96dx7BP5MUZxRv1JSOu38LNC4z+csrQOXslHs7ksJG5
+         QX8Xao6kPOWZOibUUXb9r14MVNFSNu/NQgLJsHtY/GujGm2S/xXfW9KSZFVw6a9oD2SS
+         Tsuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rw2+Wu07AzcSg0TC6g7lPJt693i+bJC0ptoRBW6zeXA=;
+        fh=IuJkK6kGmW/Fm5uQcz6UREqTx24gqRx21jgAg7K6Oz0=;
+        b=f2TQsZC42McLGYLGehyPZ2fJwrrP/HUp6UxFfYekTMLvCTRDGS7xLzxFT/nlAlKqvZ
+         HcxN7UnRXvWpTXVGZ0bsJj6Cj+AGzc6/gyKen/L/xxFt+9kokZ5nOF6RMN1CFhYzaOwt
+         n8fJKPIUb6hjd3nnK0dPiFfraZKgELSzc6BCH2D2ZmZsocYkCK0Pk37LXAWxjxoxPF+i
+         WIPLJZ+Pb7SvdNbcCa3ELY5/HjXnuZB5UXPMvZmMx9nT2qYNN0UgkF9ifsbljgRpsnrl
+         KMYnXUKc3qca3MJtZI8ZlQhut09hJRzSi+uKfh1Y/fO1k5naoZTdg6xxNGAd2cv5aIDA
+         5nmg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794587972; x=1795192772; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rw2+Wu07AzcSg0TC6g7lPJt693i+bJC0ptoRBW6zeXA=;
+        b=PJxwPzeiqzZUHmNi4ZpZ3CE/irx8leO5P+PLZjT9cYIqt1Ihc6LYUfmTeLM9OHRujM
+         kiWqrg2HHxQbBnNW/0ZYloJ6IDoXIZ5b9R5QGqxqnzf2e3q8PoqIRymnhNLOpJphwcPY
+         ZYLi1TAawjgIbAZUINRghR/Z80Q7GkS4PrlIQOGUjx1UaZMFDVmzhTOpvEisrBM7yNt6
+         l4BqKOWLY7FoDYpD+O0m3K1cMG6r27O3NEhNdrPS6gBIYjxao0+YHpCbRdIDxxyllrgY
+         AazhY6bBo6qoiveyrTxbK1OnA/duerPVRxa5O83ugyxoBT1IhEUpiHRvebJRe+uTUqPZ
+         hXaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794587972; x=1795192772;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rw2+Wu07AzcSg0TC6g7lPJt693i+bJC0ptoRBW6zeXA=;
+        b=Fc7UtUCT5+l9HgTjg5L0z4Ns7pECjw15Pjc05FL/LDDr6PokTgNoMMv6sQmD8JSb5J
+         haot4dROLqGaLujb9Av4T9haYD948u5NdJdO8Mdh1kpcQuZJs7DxseOAHa9vUs/R4PZy
+         r4YXKuK7bbZfSDqYuPcBF0CGXS13dwNzkqeqyakXKNNFfL6lthf8npH4UYalIwxiORTg
+         wbn7mpeYuuKm7ZTxgmmmGzcvNRJ2zDQgCBSnDoUAdaC6lSDm6weWvqzpm2YH+axO2wdk
+         Px0uTIcap9r33hSEM2uDCC/+930GnjhTT12FT/BqmLqqVaS39O9FJMUtuhzU3t4o43sU
+         hFxA==
+X-Forwarded-Encrypted: i=1; AL+hErGUCiVM6A3w/R12oSbIhCzcBpUyPU5J+v9I42/k/EmqvIBGh1VVhwVpJda2VamOUPZsIasawBxDc/vd0PM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/17uJtRvzbMOXSCOg+MplobRFcOUDuFIAEui/XOG99UlgtWOlQ
+	ODK4NS32M1Ayeku3ynaIw5kXnMdRw0+1TNNds5W6yaoIPn2n12mr2vzl8wOhnuK1rGiQnm2Uw8x
+	8Qg5akmxISjjrkx52M18zJXTMUk36B6g=
+X-Gm-Gg: AYBFou0+W/3D2xUtPSY9r66N5ofE+KrxIwpZXHz7+yKm7e6yfF6yX/btB0YMsXdJYNz
+	CxmnMcCIQEQNduGJh3bIdWjcAjMObVQtklRAvM9CxaOgytNwQ4Cew7ec3ar8urwMmy6BbQGYXp3
+	bc9WljcEmjcUOlV2UfvDYh9Wq0QsWS+v1Kp3jANpR7NnaBhw2Ehahbjm3TJBQ+R7mtQ8d6IO+H3
+	2x+traAq8r1azXwDxROI8uTSBd7JSOo2bEiAQmhOzWjYxpx4J2RY01z4IQS0BV2kaRhMN4KwdBb
+	2dCzUEuJ8zmCFPwAZbSZ7TdsGY7yx2TBPOZiGTWongW17EPUlIYd3x67gUNYjgJtQ+JyEVXcUiB
+	lzqosgGWnNcS2wd//bbak/xatCQVctKSnYjtylr679HXC+NNwxisQXGIbfthpx6tNYJ0eWUrYcB
+	RjI5rjLl3QDGbbyesvltjuMw1Gbc/xVOrZHZbwuyz2YAR3HqhbQvQn6UNKmweRDGLscAdNKmeQT
+	qp+RK4XttjpgDXglMyXnLTvLaXwUqg=
+X-Received: by 2002:a05:6402:90a:b0:6b7:b872:27c0 with SMTP id
+ 4fb4d7f45d1cf-6b7c0c86ac7mr2641866a12.44.1794587971407; Fri, 13 Nov 2026
+ 08:39:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,101 +106,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBCF4auQrq1pB8HgynsYFwWmMEZo00KjI
- dzdFjcsjMs/efPNwjw6Qs8u2cIcBvJkxhj5IWNNr8YOObWxGQgopZSCz77m1riJW0WOxo4rLXR
- ZaqFqQBbPrENNr4283b/t5/qBzZSctOjJT8a9t59Bpt0fPkgueJWLM0LVArZw7QZFz2NjBpb4A
- HsAfgAQgVOhCyUVVFrqPbCu6wd/qm1JAwEAAA==
-X-Change-ID: 20261110-usb-port-pairing-af0f66f0ab2e
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Alan Stern <stern@rowland.harvard.edu>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mathias Nyman <mathias.nyman@intel.com>, Chen-Yu Tsai <wenst@chromium.org>, 
- Chen-Yu Tsai <wens@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587973; l=3327;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=94ljvUhZfOwcriwlLh+HVppbDrBWPBP8YRlEjtdMTao=;
- b=yRzdjuLIBZz2A126kliJbvh1YvnIeRw1y5fu8QBIot7q1f80EXqrlI3kteaqoUIwqlR6DpKnj
- YWHvVDy0DBoDPdejeeLbJ/9Vsn/H8xiduWQgZ39crdMjL0XcLOWBwq1
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+References: <20261113-submit-phy-mii-reset-v1-v1-0-02a55f352a91@gmail.com> <11acd5b1-3099-4e3f-9fdf-a3c5c6f098c4@lunn.ch>
+In-Reply-To: <11acd5b1-3099-4e3f-9fdf-a3c5c6f098c4@lunn.ch>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 13 Nov 2026 09:39:17 -0700
+X-Gm-Features: AclHuK-0ytg4Lbmg2sk7INYSUK5YlLS26Oz4Ge_M8WOZ7bj0w_qDEbjGo4B5KuQ
+Message-ID: <CADvTj4oPugtaeAXPvjJ10nhfKGDWTKbtALfuyF1+wUsHu2e90A@mail.gmail.com>
+Subject: Re: [PATCH net 0/4] net: phy: restore driver state after userspace
+ MII resets
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Michael Chan <michael.chan@broadcom.com>, Hauke Mehrtens <hauke@hauke-m.de>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Chen-Yu Tsai pointed out that root hub graph ports use the raw xHCI
-port number, as in DT and ACPI; v3 does that.
+On Fri, Nov 13, 2026 at 6:33=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> On Fri, Nov 13, 2026 at 01:48:39AM -0700, James Hilliard wrote:
+> > An MII ioctl reset needs to restore the PHY driver's configuration and
+> > software state before the PHY worker can access the device again.
+>
+> The MII ioctl is a footgun. If you use it for writing registers, don't
+> be surprised if bad things happen. Even reading registers can cause
+> bad side effects, like missed interrupts.
+>
+> The whole design is broken, there is no fixing it, so we don't try to
+> fix it.
 
-On the RK3588, USB 3.0 host 2 is a SuperSpeed-only xHCI and the USB 2.0
-lines of its connector go to a separate EHCI. The USB core pairs the
-SuperSpeed port with the dead USB 2.0 port of the same xHCI. On the
-Orange Pi 5, whose USB 3 Type-A port has VBUS always on, a USB 3 device
-present at boot connects at 480 Mb/s to the EHCI before the xHCI is up
-and stays there.
+Would it make sense to submit patches 1 and 2 as standalone fixes,
+separate from the reset recovery changes?
 
-Patch 1 pairs the two ports through a usb-connector whose halves lead
-to different hubs or host controllers. Patch 2 resets such a device
-once when the SuperSpeed root hub starts, so that it retries
-SuperSpeed. A device that ignores the reset (SanDisk Ultra Fit) stays
-at high speed.
+The b44 patch removes a spinlock held across sleeping phylib/MDIO
+operations, including ordinary register reads. The write-error patch
+propagates MDIO failures and avoids updating cached settings or running
+follow-up operations after a failed write.
 
-The Orange Pi 5/5B DT goes to the Rockchip tree separately; its EHCI
-"ports" node needs Chen-Yu's usb-hcd binding [1].
-usb_of_get_connect_type() still looks up root hub ports by root hub
-port number; Chen-Yu has fixes for those lookups. His M.2 series [2]
-finds a hub port's graph port with fwnode_graph_get_port_by_id(); this
-series does not depend on it.
+These fixes are independent of each other and neither adds reset
+recovery or attempts to make arbitrary register access safe.
 
-Tested on an Orange Pi 5 (RK3588S) with a v7.3 based kernel: a USB 3
-device present at boot came up at 5 Gb/s on host 2 in 4/4 boots and
-stayed there across 8 s2idle cycles, xHCI rebinds and unbind races.
-Type-C port pairing is unchanged. Not tested with an external USB 3 hub.
-
-Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed every change.
-
-[1] https://lore.kernel.org/all/20261014082037.1774672-2-wenst@chromium.org/
-[2] https://lore.kernel.org/all/20260916075745.3549953-1-wenst@chromium.org/
-
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-Changes in v3:
-- Patch 1: find root hub ports in the graph by the raw controller port
-  number (usb_hcd_find_raw_port_number()) on both sides (Chen-Yu Tsai)
-- Patch 1: don't skip a connector peer whose connect_type is "not
-  used"
-- Shorter commit messages and comments; patch 2 code unchanged
-- Link to v2: https://patch.msgid.link/20261112-usb-port-pairing-v2-0-45f5a1a29f1f@gmail.com
-
-Changes in v2:
-- Dropped v1 patch 1 (generic-ehci binding) for Chen-Yu Tsai's
-  usb-hcd binding (Chen-Yu Tsai, Rob Herring)
-- Patch 2: reset only when the SuperSpeed root hub starts, never a hub,
-  only on USB 2.0 root hub ports of another controller; cancel in
-  hub_quiesce(), runtime PM reference, freezable hub_wq (Sashiko)
-- v1 patch 4 (DTS) split out (Krzysztof Kozlowski)
-- Link to v1: https://patch.msgid.link/20261110-usb-port-pairing-v1-0-9307e29d2ed2@gmail.com
-
----
-Arun Iyengar (2):
-      usb: core: Pair ports of different hubs through their connector
-      usb: hub: Retry SuperSpeed for a device stuck on its USB 2.0 peer
-
- drivers/usb/core/hub.c  | 109 ++++++++++++++++++++++++++++++++++++++++++++++++
- drivers/usb/core/hub.h  |   3 ++
- drivers/usb/core/of.c   |  98 +++++++++++++++++++++++++++++++++++++++++++
- drivers/usb/core/port.c |  67 +++++++++++++++++++++++++++--
- include/linux/usb/of.h  |   8 ++++
- 5 files changed, 281 insertions(+), 4 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-usb-port-pairing-af0f66f0ab2e
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
-
+>
+> Sorry, but NACK.
+>
+>        Andrew
