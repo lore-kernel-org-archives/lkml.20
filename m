@@ -1,79 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794576662;
-	b=koKl8NxoVm/+Gh9KkLm9qEqLE/ed9oJbL+J+IC5SzeJ5LlcFys6HfqNcs2efxFLyT4UK
-	 PZW2mKtJwh2KzuLhVgPMZI8NOKuDdNc35teCaHFJ91VfVder1zz1YnRjF0fKLvRuFE+4S
-	 q7H0nFNPKUCUpYGfP9EJVtLVRErPGXkMCvG/VixTf/08mx5yrDk26fQ9o0k23Ws+A6/AE
-	 5Pfnqy4Shwa+CKe+0Khr7YFZWXK4MjUV+aKJg947Ecf9DtLPDaJ62oTMNSWngeT7Mlq1q
-	 E1sBubt6gkJdBZsWlDaDnpXxm078rdTPUdGwfQvOKa/bPsP7/4YuL8y75e/YC1O+ozg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794576662;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:Reply-To:Mail-Reply-To:In-Reply-To:References:Message-ID:
-	 X-Sender:Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=sjfGDhqsQQgcjYHH2kwsSi64IsRr+LqbxLOZSsUHavg=;
-	b=jXQ1az+zeqUau4Z/xaUdwgetrX5/u1GGXKxIINEzhdo2V6JxsIcldOVVk3auxxp22n8h
-	 JfmtLFqkW0X5uE4HhDGDoHufYtj/4ndcmfoiuR2+/0j56+6Q/XHPiXnMxWSBb4nG20Kis
-	 eJhshWOhSZugTqosdWfqKqCulnv47RI6P4OZFlh4HEAHKXBW7cSeotWFue21T4W6oWm2K
-	 Oj5fBxb5ytFkKlj8C2zCvJVFsE4tVrOaBtC5qIjXe9KW1w9Z36rAsKjB632vTTX++EWuy
-	 XcYsp3OqOXOjAJ1YySUQ6IOOe3TxzQzA4LBhebd3svzgUepT0IKcFRKSrZtmm8u+KtQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=FBcqAvpP;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.189.106
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794576723;
+	b=5D2eX+d5PpwHhcvfmYK7A6s05gUN+TA2ryOG+dPUarcr2cHV9kUzEY9vfN0/tywRySKl
+	 WJELUe0+aJluUioik5st+/Ygp2ZVD2b8L/DCqCYfTFCX7baTP1Gw+AlOhO6LZKSIiNnw0
+	 BogjXoOkThY1NuhScl2adM9u/oSKif6NcPHyUSv7TyOTEWBzMZWXX7Zr+gNvGHpSfhqBH
+	 nzPGZgsNF1zPQ44OR6S85EUrYTlwZpQ0M3SXBMPRI0oevI7ONszLOskf55lNu/fpdShD4
+	 wacM5i/Th6CcJBP/21ckWwCGaMOb3nnNDiC3/Fgg0oPhlZOnZTVkrnpcrlKCC+kxhbA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576723;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6ey04CRDOBDBiM+CEkBWGNJ1jBopZXpl9SjVmQkFVno=;
+	b=o8v4INzJa/Pvr/S6fZsuTX5tCeGU2oZrNqg9ao7JRaoKvEedFSW3+8+xH7/KXZKGvtaz
+	 0BhHwOwyKrYbyVBUsBQ+WEQJpExsYvgzsDOnY1EueUaZqHIvqvX6++L9C02yfhN9K+UlN
+	 Ka66Jagu42JOBXMEz87OwN1qVEqsSYoPcvkMU5cl3DgiMdf68JBKYVfQ6nyxiJpZoY9jF
+	 xvMUhVudkVJkWn4MUo9Do0pm+PT2VKLfmDp+bqWRNTOWApWXbs0mizllvnzrZ/gLKhX+z
+	 qhXT3l09HHxRPvTdJa3ignqGI50UVrKJzB7yD/P3iht80ehPtPWGcZVufTMFWGHAguw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=Y5mouyoQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.189.106
+Received: from YT3PR01CU008.outbound.protection.outlook.com (mail-canadacentralazon11020106.outbound.protection.outlook.com [52.101.189.106])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EBB606A33B;
-	Fri, 13 Nov 2026 13:31:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4EBB606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158BE606A323;
+	Fri, 13 Nov 2026 13:32:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 158BE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=FBcqAvpP
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCEPf31667815;
-	Fri, 13 Nov 2026 13:30:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:to; s=pp1;
-	 bh=sjfGDhqsQQgcjYHH2kwsSi64IsRr+LqbxLOZSsUHavg=; b=FBcqAvpPcebE
-	gm1Mg6Xfg2yNvftA6HvGkzDVDAupWZAPP1PsurYNXIv70pT/WVVpohDPlHhD0zfU
-	wFfIWLO38k/oL6A2cfsKF4Ego51TmoVmz1kD1bABqdNY6FqV1FNwz8Mr8Ai9RwQ6
-	/7BbLHM2jAi1uqwN+mR68d5r7Wnj6xctBdIZ7jvPLUDrIb8uo1RoT6dvg5PnVxXV
-	65/Rj/mAnUnas5LJ2jeBQDpUMPDhK0MTdyMImmriNOsAYqWdDnByayFe9SU26DEC
-	lM+Cp7kx+00Oj3x7tXZMa75GKmCN4qixQqetjUyvCPpA9y27d3uV3yI4GxDpB8ON
-	H1PYMbgirw==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hstdgjmrf-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 13:30:55 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADC5FMv2213383;
-	Fri, 13 Nov 2026 13:30:54 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hwegfbyw6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 13:30:54 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ADDUrOL63832502
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 13 Nov 2026 13:30:53 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8985358067;
-	Fri, 13 Nov 2026 13:30:53 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2E33C58043;
-	Fri, 13 Nov 2026 13:30:52 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 13 Nov 2026 13:30:52 +0000 (GMT)
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=Y5mouyoQ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nX/1zKFAeYtYrOCcNEzccsHbHJmnE6lGUVPgq6IEDQOFQsmNV4WRogZD+D9P3h/HXO0nYqreSGBIk/c5RQ/+NTBywR0D3wCaxScN5MvvEqc/otAAK/+w6GaNKOpyt/Ph+jfeNSyb1fAFFz/AuHjKH/ib/CecgMT87ZitAKDh1xNgkdeW/3MpWHfoAg1Q1LEcqBshr1njyMsrcfE5px+bMXNKAJbT9coNTRCUqETAazaYYHqnhwEIW4TWQtSpX3nN5gY9o4oCwWBkCAa+nD5ev4J5DpACaZH2oPULZE5rf/yCsK7CZvd2yscwGYRTKBrXNz4kclIkPbSA4OX56ASZXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6ey04CRDOBDBiM+CEkBWGNJ1jBopZXpl9SjVmQkFVno=;
+ b=eysT9b70ElI0wqIL4HKhDX8oN4OSrEPgs1u3xSMcCDtyTx8/6gQvRo9gHM75UiF0MbLpNnRXKjQ75+BNagvsBhq9tQCtOd9K76XB689TbNfieQVluuIgJ4fNrBLRKyEsEYKm0V2X2XXaRrupsYPaE/FqEoXk0j0kH3d/Q05W9ERQFqrAMjNseiu+yefyHz8HChgiwdbg+GyS9lmYrpUlg/fH9mfFNRF6ikFZy5nB1MHxIGJjkCn+B+Fk7HXqmr2gc475vqGS8kuFPEJvCBVa9+0rKtBdHRP65xNNeAJcFBa+O7ekZFb1eNk5hbB8I6ilvJ8EMDOm4BWB7XHiqMf20A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6ey04CRDOBDBiM+CEkBWGNJ1jBopZXpl9SjVmQkFVno=;
+ b=Y5mouyoQId9cdBrIu0+2WicwpIAssxXCQzteNhAoVPKdVMofXhewc6MOy9OgSvpt5pi6p4RAe0vpoDnKKBNeG6zuXa3jZmtEQpasdbHAH3I4NUBFNZaGIBy+pp43ZRv3C1h6oHOPphZ4k1A5XzuAdwnKkhGtQCGI3Ff5YGOUhZ8bhb8DCHDPubM6OgK6cRDPWcBx2PYV2ylp+5juefMkoRj3e+H5T2Wr53kqYTs6BX14v1ND99CewWdN2kw7nGn7z2ePidqi+gLF5oJLkD708FC0KyRVOiWt/2NfAoZv/QcbX8aH2KBV8i5wsQ7PPM6AmfCAsI+BydkNJ7IuGMOXGA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YQ1PR01MB967408.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:b3::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 13:31:58 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.008; Fri, 13 Nov 2026
+ 13:31:58 +0000
+Message-ID: <3cb19d75-4269-467c-9d58-6c3ec26abc3f@efficios.com>
+Date: Fri, 13 Nov 2026 08:31:56 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 15/29] sched/deadline: Rebuild the root domains'
+ accounting from the task list
+To: Juri Lelli <juri.lelli@redhat.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+ linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+ boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+ mathieu.poirier@linaro.org, longman@redhat.com, ridong.chen@linux.dev,
+ tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, parri.andrea@gmail.com,
+ m.szyprowski@samsung.com, kayracizmeci@gmail.com, weihengqiuu@gmail.com,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org,
+ Qais Yousef <qyousef@google.com>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-16-mathieu.desnoyers@efficios.com>
+ <avR6g-ndjl8Xdo1y@jlelli-thinkpadt14gen4.remote.csb>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <avR6g-ndjl8Xdo1y@jlelli-thinkpadt14gen4.remote.csb>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT1PR01CA0086.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::25) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,114 +110,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 13 Nov 2026 14:30:51 +0100
-From: Harald Freudenberger <freude@linux.ibm.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
-        =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-        Holger
- Dengler <dengler@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily
- Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
-        Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>,
-        linux-kbuild@vger.kernel.org, linux-s390@vger.kernel.org,
-        loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
-        linux-kernel@vger.kernel.org, "kernelci.org bot"
- <bot@kernelci.org>
-Subject: Re: [PATCH 1/2] s390/pkey: Include <linux/device-id/ap.h> for struct
- ap_device_id
-Reply-To: freude@linux.ibm.com
-Mail-Reply-To: freude@linux.ibm.com
-In-Reply-To: <66e4ee9c7f9b4bc48fcee92a94b6bb6d92fe1ad2.1794233316.git.sashal@kernel.org>
-References: <cover.1792144769.git.u.kleine-koenig@baylibre.com>
- <179416565740.60865.16102443399828949110.b4-review@b4>
- <66e4ee9c7f9b4bc48fcee92a94b6bb6d92fe1ad2.1794233316.git.sashal@kernel.org>
-Message-ID: <c9762ccd45e25032384bf9d83fa39765@linux.ibm.com>
-X-Sender: freude@linux.ibm.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=J+M/fwnS c=1 sm=1 tr=0 ts=6af7110f cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=U0zfkUukAAAA:8
- a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=fHy9Ve0kNF58s2Fdc2gA:9 a=CjuIK1q_8ugA:10
- a=rXRU1dkEVDZ1dOovDhQH:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA1MiBTYWx0ZWRfX2yEBsMs3Fufc
- X6ekDLWcm+zuX3nZH7lq9SbE6VKES2cB7zbRBXOKX4qnt6Kr1Zcop1JqjrMcj2u/6XuK3hoP3N+
- 5IWH9kZ88j7hBXmmH6YpnLKDL5Re/ojiGWzAhhDA4+ctqHxhM7HY/MA1yGyfGLF/4U8I8a7Za6M
- 0CFLE0RmDijyvQXuRxEoTA4iLGFoORWy191AcdKfRSGSImEUJOZg5oynXrcfZbqsDMOptdIP3Hb
- mRMowyejOqOlm+ZKDs7qBboJ/3E+r6JPeT1iX5eJjkcu7qOlI9bL1VTvp/8eoVPfOnsr1FieL1m
- /oCE+46hk0b5PStRwFXBqw3h3d35RJ/6GYv6YVo9G2LHYyVa+uFyW8Pi/IBUb5vUZvc+Mwg053W
- MN2bLO8iDs5vaazt6/JkPBU013CetqcIpHxuguyT/+9GPQo2ev+6O8h4aTMkvmKIPIqhBnpZYY+
- iXYmFpDK0Fipl/BioNQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA1MiBTYWx0ZWRfX7nb3+ufzodPl
- KsRl5+G2CveEw3hjF3u4u2jzp3ByxtkPDzd5C8XzMvXVEd2kKQsZ8IVfsUJXOQK2RQ1gqZvmUl4
- BNKtz+8onhMo7Q/+OltEy138iMLQ2AQ=
-X-Proofpoint-GUID: GMFUUyxkH7_jTqBOBqxJPpjx62uyavg8
-X-Proofpoint-ORIG-GUID: GMFUUyxkH7_jTqBOBqxJPpjx62uyavg8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_04,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 adultscore=0 suspectscore=0
- malwarescore=0 clxscore=1011 priorityscore=1501 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130052
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQ1PR01MB967408:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a4d2174-806f-4af8-5ed2-08df418a7dc7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|18002099003|22082099003|6133799003|4143699003|56012099006|10067099003|261102123227099003|261022105027099003|261026121527099003|261022075727099003|261028144727099003|261021121427099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	jCqbnzTefe0syRAaBPl0Qc3uYwUtoKXlJfkNAq3HaoiVRTKBHCH3vo9Jcgqqi9oDdPcKrWI0Amz87yG6JO2SjZ2QANae0Yh6A3FQ5ISoNUMOhg5PPL9OrQOSeRxgsRB+hXSfFrjzOagsjU3pZgv9Ht0wPFjjAvCwhYy6lufTAsNyJseesOVXBVXJfAOdb+WfZ58L7B0LFW9rklSc/biWbQE6I3YAkgRas9/pGA3SCK75Bvqi4DIRmPjC6bYxBhRRpneOSo+Q1N/93WbHEojuLw0Vgkvzb/GmeNI1AC9DZ56wapDRESsgz6BiyaJmC2WriTbAa9NUwTjT1ObuEjjghOgcTA/2Kqr6TFD0KVwWhjeiHbZt59ZZ6097dAiJ9u7dM3UtRYBJKy1uFEwtjMzRBk0cI9sUFmOu4pnTY6NVddCGD/qR8iasAgSq4SLK8/abDEtuU0SpZVTJ5cQdFX7w3HgGvR03Zi0jcD2AW5WVZydNOfm2Yc8Qq0gRETtV3MEhZVwG7Lh5QQio+QM8v0iMcTplm2hSM/2L8S1sB7gjteteqCdv8/t7+b6m09iAjzyioGrlfzq/wl9vacgOJfK6VAojH9ArhZ1PuzL9rBdPjuY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(18002099003)(22082099003)(6133799003)(4143699003)(56012099006)(10067099003)(261102123227099003)(261022105027099003)(261026121527099003)(261022075727099003)(261028144727099003)(261021121427099003)(261026140227099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R0hpY1d1U09tRzV2ekFSOVhPbHhxWFVOZzB1d2xSYlFIcjlpenRXcnFuQUZq?=
+ =?utf-8?B?aUxhcjNXbW1NVUMybDgyWTY3SW1OY0ZiYXR3ejd0RGlHYUpCWWJ4Q091WDZo?=
+ =?utf-8?B?UkRTYXQ3elo0NVNMUGZPM3NqT3pDZnQ1YlZrS0F1S2NoT3BwY0J5ZG1EaGZN?=
+ =?utf-8?B?R2RGc2pOcFcvQUg0T0laOUtvdldpWlVGL1J2MDJaRi96eDh2d1ZvK0Z0dlN6?=
+ =?utf-8?B?NC9yNjkwNzBkYVc2L0FLOXFoeDJNYTN3MTZpVEp0T2Z3UzUyOWJZWEF3WXAw?=
+ =?utf-8?B?Y1JYRkJlcG8vT1lnSzUzK3JadTl3OEl4eGJpeHBuZTA4VzA4cXBoWmU3TWhE?=
+ =?utf-8?B?d2llR2tDRWVmMmlkQ0VWQnMvVUFZc0FTOGZncWJFZUEvUUJKU0E3TjVmQmFz?=
+ =?utf-8?B?cTBDc3Y0SGl2L1dSOHovd1dyMkpFTDZyblFxbDdnb25GOFpRRVFSWGtnQyta?=
+ =?utf-8?B?a1MzUE5ZdTJITmFXcmR2QUNUdlUwY3RlMHVqTjFGK1ZGRmd1ZUpsZHBoSHFB?=
+ =?utf-8?B?SU1vcHlCOHg3SERPbmx4R2lUaGZkMlJGN3AzUHhmMjc3S0VLMzFESExmYm9O?=
+ =?utf-8?B?TldMa3hsZ2h3bm4rN3NHTXlsTUtlUGVoM2FvMU9GVHF4OE8vTUhaUDBJL1J6?=
+ =?utf-8?B?QnVtRTB2dUlJWlZEakw2enVrYTQ2bDJLQXZrQU5kME5IdkVVWUNybk9SN0hp?=
+ =?utf-8?B?WXVrVElnaWFudFlncVhNTWlVWjd0OWlqdEY4RDU3bnc5UTl4S28wcmpRVEkx?=
+ =?utf-8?B?bXVXS0ZIbUZqdzkwSnFaS3IyaWhZdkwvRmx1bE9URWxSaGJBdzByZG5mK2U0?=
+ =?utf-8?B?MkxhQUhlU0NaRDRCdHVzUlRyaU83K0RaOWtYSHhzeXRqMDJxbk44NjVqRDFN?=
+ =?utf-8?B?U2hzV3F4dVVsdXFEWDQyQVR6Zllvbk1JVkJ0UTNxa3J0OVVua1ZxaWdtMjEx?=
+ =?utf-8?B?QU5iVXd0VWVlRVNrbUVjUkI1N21hQklFNDI5Q05XM29HMDBiYVdRblA0NWN5?=
+ =?utf-8?B?dlZKdmxNOXRQVDZOYm5QNkF0SUZiQWs2MkVPN05UNHpQbmtGamRhMWI1VEp4?=
+ =?utf-8?B?dThtdFlrbko1YnBsY1VqNmxUYmRlRlVjSFZ4cXVRRGJhc0V3bXdiVVYzRmwr?=
+ =?utf-8?B?Y0dhdHZlaFd4NndWb2Yyb3RYNnNBZzJ6b2FXK1hCTExTeTlFL0JFaytXV1Ri?=
+ =?utf-8?B?NTI1aHRGcSsxWmNiQVlaN296Yzl1RDlSSW5TU0t4dVF2S0lzeVViV2ljQmNE?=
+ =?utf-8?B?T2JCZkszT1dNQXZ0d0paWHdISldPeGlUeisvRU9UbFZpSGtGZWZjWHZ1OUYx?=
+ =?utf-8?B?LzFqM1ZNQnhwOWczOHB6UzRkOTlLU2w4L0p3NWVSMmkyY1ZkYmxkendBS1l1?=
+ =?utf-8?B?ZHJIRDdWcmZYb2g4anRnbHJmbG45MEY4cXJwNmU5TGpQdEFOR004NmZubWFm?=
+ =?utf-8?B?MEpCVTlYWENmdEpuZ1VzRkJuZ21TeGx3ZHpyUkdQcEFXSG9CYjR6YTZDOTdI?=
+ =?utf-8?B?ZjBVOXgwRSs1U0txUFRpU0VKMEE0MFNhcTdoRDBOU0lQN0NWSmliYU9STUI5?=
+ =?utf-8?B?eEVHQ05xSy9COWsxaElRbzR1K0FEcHppV3V1TGc0Q1ROTlJMMXdwM2ZBSzNr?=
+ =?utf-8?B?MUVEem1hSjJEVEtXQ1hXYW9DOUQ1dlFwc2ZzUGN4Y3dZQVdrQ2RGU2pINGhJ?=
+ =?utf-8?B?Q09NbVJ1SUgzSUpTczYwZitWY0Q4YnRZcjk0cE5vOFUxdUdtVW1wVnJtN3cz?=
+ =?utf-8?B?U1hMaHo0aERZRmNKcXVUdlRVN1VyR0cxc1hYUjBDV25ZNEVrdndaTE1nTGRh?=
+ =?utf-8?B?TUUwZE9YcW1YZUhqdURxTy9BazJHVXBZSTdYQklienEzMFpTYm1VWTZrVU5s?=
+ =?utf-8?B?VkpLaU01UnJIbm5FM1ZTcU9POXNtRkJlRGZXb2FYQUlSOEtYcUgzZy8zYXlm?=
+ =?utf-8?B?bzBkOXh5Umg4cTVCbnkzZ2pma1pIemdpeW1QNUJDdDJSQVprbFhVWVRFcE1i?=
+ =?utf-8?B?R3JVWGoxdHU1T1BZTVVwUkJ5akZIc2ZpL3B0YXA2WllSNzFIdTl4VE54OWY2?=
+ =?utf-8?B?cUpvZ0syN1FMNkpmZm1ReFRCeUlDekEwYVhubVpNT0pramNxWVYyZkRTQU9X?=
+ =?utf-8?B?Zmh1aENXcUNldEN2eE9jWmdEbzBaSnVZWmZjVXNWZXJjaTBBbWF3YllmNXF6?=
+ =?utf-8?B?TjZnb0tick84aVQ2RHlEck9mSFJyVTlNWm53c3hDQjB6Tk5xUEFNTFprT2pt?=
+ =?utf-8?B?OTV6UWJrbEVnLytrT1I0YzI2MU82dmRweGxOVGVxZzBWSmtGdlNjNnYxd1d2?=
+ =?utf-8?B?ZHpXY2ZLNzlocFJhYis1d0NoaXdCWEEwUmRRVHp3K1I2YjlhbjAyQmlVTEx6?=
+ =?utf-8?Q?4g3zx6TYXAU0JKSo=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a4d2174-806f-4af8-5ed2-08df418a7dc7
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 13:31:58.2398
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LK6G0zONSNqnDegR+U+ix1IuUySZNR5BfvB/e4KnU8Ctea1NaLhilQyt8C0klYf+OvKYx2m76a6unREUXaru8JgXycLkjmiAAFZgKcsmOYc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB967408
 
-On 2026-11-09 15:14, Sasha Levin wrote:
-> pkey_cca.c and pkey_ep11.c got struct ap_device_id from
-> <linux/mod_devicetable.h> by way of <linux/cpufeature.h>. Commit
-> cdfdbc11552b ("Move struct cpu_feature to <linux/cpufeature.h>") 
-> dropped
-> that include, so s390 defconfig no longer builds:
-> 
->   drivers/s390/crypto/pkey_cca.c:22:28: error: array type has
-> incomplete element type 'struct ap_device_id'
->   drivers/s390/crypto/pkey_ep11.c:23:28: error: array type has
-> incomplete element type 'struct ap_device_id'
-> 
-> Include the header that defines it, as the other AP drivers do.
-> 
-> Reported-by: kernelci.org bot <bot@kernelci.org>
-> Closes:
-> https://d.kernelci.org/i/maestro:7baaa311bc9c30a8ad43f42c24225ab2fead866a
-> Fixes: cdfdbc11552b ("Move struct cpu_feature to <linux/cpufeature.h>")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/s390/crypto/pkey_cca.c  | 1 +
->  drivers/s390/crypto/pkey_ep11.c | 1 +
->  2 files changed, 2 insertions(+)
-> 
-> diff --git a/drivers/s390/crypto/pkey_cca.c 
-> b/drivers/s390/crypto/pkey_cca.c
-> index e8dc2f77c137b..f95d61fd5b090 100644
-> --- a/drivers/s390/crypto/pkey_cca.c
-> +++ b/drivers/s390/crypto/pkey_cca.c
-> @@ -10,6 +10,7 @@
->  #include <linux/init.h>
->  #include <linux/module.h>
->  #include <linux/cpufeature.h>
-> +#include <linux/device-id/ap.h>
-> 
->  #include "zcrypt_ccamisc.h"
->  #include "pkey_base.h"
-> diff --git a/drivers/s390/crypto/pkey_ep11.c 
-> b/drivers/s390/crypto/pkey_ep11.c
-> index f99c19323f3d7..f66fc97ad5adc 100644
-> --- a/drivers/s390/crypto/pkey_ep11.c
-> +++ b/drivers/s390/crypto/pkey_ep11.c
-> @@ -10,6 +10,7 @@
->  #include <linux/init.h>
->  #include <linux/module.h>
->  #include <linux/cpufeature.h>
-> +#include <linux/device-id/ap.h>
-> 
->  #include "zcrypt_ccamisc.h"
->  #include "zcrypt_ep11misc.h"
+Hi Juri,
 
-Acked-by: Harald Freudenberger <freude@linux.ibm.com>
+> The new walk drops the per-task pi_lock that dominated the old cost, so
+> the approach might be OK, but since this is Cc: stable and will
+> eventually reach Android, maybe someone from there can confirm before we
+> pull the trigger?
+>
+> Alternatively, a single global "any deadline task exist" bail would keep
+> suspend/resume free for the no-DL case without reintroducing any
+> per-cpuset bookkeeping to drift?
+
+You are right: the walk costs too much with no deadline task. I
+measured it.
+
+The test runs in a 64-vCPU guest with no debug options and no deadline
+task. A process holds N sleeping threads. A partition root is made and
+removed, and each change rebuilds the accounting. The time of one
+rebuild with this patch, in testing:
+
+   threads    one rebuild
+         0    0.04 to 0.08 ms
+      1000    0.12 to 0.17 ms
+     10000    0.7 to 1.2 ms
+     30000    2.3 ms
+
+The first three lines are from three runs, the last from one. Upstream
+returns early for a cpuset with no deadline task, so its rebuild does
+not grow with the number of threads. I did not measure it.
+
+ From reading, a suspend runs one rebuild for each CPU it takes offline,
+and a resume one for each CPU it brings back. With 8 CPUs and 10000
+threads that is 14 rebuilds: 10 to 16 ms on this host, and more on a
+phone.
+
+So the planned next version skips the walk when no task holds a
+deadline bandwidth, as you suggest. It keeps one count for the whole
+system, and none per cpuset: the number of tasks whose dl_bw is not 0.
+__setparam_dl() and __dl_clear_params() are the only places that change
+the dl_bw of a task, and they keep it.
+
+In the same test, a rebuild then takes 0.03 ms whatever the number of
+threads. With a deadline task in the system, the walk runs as before. A
+test on an Android device would still be welcome.
+
+For comparison, the single list of accounted tasks you suggested on
+patch 13 takes 0.03 ms in this test, whatever the number of threads. I
+left it out because the rebuild then runs with interrupts disabled for
+its whole length, which grows with the number of deadline tasks.
+
+Thanks,
+
+Mathieu
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
