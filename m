@@ -1,119 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582301;
-	b=nGzhtep2XJRuJZ0hL7S7K+TdS1Z9gvC6ductYWlm9M0pTwlfg2n6LBeJPLXvjOFHUBcx
-	 2sT3rE6dn9hlMiNSCh9/JzFSx0khFz8tiscD+p15INKX0e2QPt48rUfVZaY9OXQS2KoPi
-	 QBOpa7iYya8qRtquuDaz5OvW65jlAzOcGq5WJzaRrRBHrx672WUUiDjMsruTeylQ1MOui
-	 jirdG46XFYXXlkcO35xx66C1VY+9aZkIFJevJvsaBM33wc0FHOeOQCDKKj6vFGcaGIs3L
-	 QhGinllFbbPg72fYqzkGxDvoIC3YnC+Yilew0S/WfH9j5ubO0VTS5c010N51SVqj+KA==
+	t=1794582328;
+	b=SQUGxRiM1GV1C1T8rCFFT0QZ8h4WLrD2OdtP4hTP6tVxqeAaZvPEP4RBGmEv1U2pWkNc
+	 lVaYvIjTMgXUHnt5dwTUnJrtE8ZN59V5G1klUMDhNb5OWjd1+4ZYKn8j+1Htyxn7La1MY
+	 Sf1StO2CDfLVV8Ff04EPb4zaOUO6tvJLP3/ZutKpSUOrA4y/TDEHk/zn19pPOXsjZzJXp
+	 gxbJYmDIAP7AV3X3bzlNI/SliijwlwlNYtoCT8+74agZ9rWU4dcyOiHI988praEIEGWzm
+	 GoUPJQ21DXIzA7DO30Z6kxVGbpwAVW18HeYLr1m8ty8vfZzz1Dhx7Keu4XBkgqPh2KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582301;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=EfsGkFoCvw5Z3mmB7OlXO2ikw4/sUz2q7CxAknfxV6M=;
-	b=leHzRarY0T84lA1yQcenEmo8aNUUW/+TYm0s5Kt7P2hDfxWowReFn2gNj1v4JggfpsVf
-	 7BKk3FQxwgkLy9+qn+IAFBq4D7VQ7CefTnMqjIxqiRjbRnZfecIp6u36tN8aLU284LAcJ
-	 4hDeoz8sLEJ/okNeXoOS8LOcUIEQp9lFtivYy5tG3t2zu+9nGM74AlpyR0MN26uLC7D1D
-	 drqbaBu6IYxY/pgSY4YcuMyfoYWBw8W5YpCmdNS8wcgU4zuQ+dkWroOqYeM3yj5SL1fTK
-	 Xr2EbqpuAhdqBCMR2UTNL2U0Dwa7p4q6PRR1eFG7LgZtJhtp0G+UNwRsH9er/d20OXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582328;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=HqxJh8LeLomMq9f8MfMcaLKTjFwsymN5lyDButZPjvk=;
+	b=1xlIpj006ZBuQNsU7jZjAmKY3w9IGC5SKRS6EyjnEkWnL9fmiDllwa/2GB+d+fegm+cg
+	 1oKKUXE5wRq5i+vJIjnwaYtYBMwi+OwYcIjujKDpJXzR3D9vZ9HgvZnCA7hvBcKLBbIUf
+	 FB9glceECTdAKFCWcJ0X24usVah/s69yAWjOGnK8Vl6Oq/4xTuxPeAOssSqbmSx9e+hkh
+	 Ulh3y8hIxZOi9Fj6MRKivELqO4qDHU8CTMUd1+bxU5/ArxD75cyUNE0UFXF7NlvNC+Yus
+	 WyJ/SoOEr7q+Iz3EYfm5fs8Zzivi108yxwGDrgtAOr7an/g8JN1IBukfZsfcg2jYP5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ai2JN6Wg;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b3jvtKD3;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCCD606A88C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:05:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BCCD606A88C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M12fhF5I;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AF098606A337;
+	Fri, 13 Nov 2026 15:05:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF098606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ai2JN6Wg;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b3jvtKD3
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCKfvR583981
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:05:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EfsGkFoCvw5Z3mmB7OlXO2ikw4/sUz2q7CxAknfxV6M=; b=Ai2JN6Wg6D5WPmv8
-	r/3AltXCMnS5XmB7sVjWFHvOwG7pnZoQTJxCBDln5vN7b8MglhD4UKxxGJY62WGM
-	mXPlYWwoBJbqSQplVl4aJdQuGnXubcQBjuRzxsEKOxRrpUTWfv0LBdixd2YpAp7Z
-	b03GM1lOze/nnzt6IqDSiNHyUrxM02ynp7EmWqx9ECgmAvFluOec52+W3FctGrcz
-	LBDSYX+ufXfhJ7jxuiGCy3Hu20O7fzUbAeY0q5ZkCcPaTlx17OnWHoMCjeYgPVnO
-	EWCkuK4g7Al79PUND7wIYXkq3mZRjzL8S7gNiSJrJy7EW4pi5h715PyeOjZuDQSf
-	Lfe6pw==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwh0am9d8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:05:00 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a05a4396d2so862414b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:05:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794582299; x=1795187099; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EfsGkFoCvw5Z3mmB7OlXO2ikw4/sUz2q7CxAknfxV6M=;
-        b=b3jvtKD3K6MQYEDyWs9H4d2LWci0eGpm49rOx4H2UCCzJzQiz8eyG5Cq+IE06tIod5
-         YSDrciDapd/U8CStKXUDYmcO01ewQMj4wyTebBOD1NKDJ6+8XJ4qeTAOElMoiomGcmQR
-         J7HZbFt82eNhPXSXsX7lpsPTF+ML8+Hj0+swCij08yhdRq5rBzBmDKnPQLUTsYX4NAob
-         h17+/yigCRF8kYGTM9RcY4oalZ39aUsVy0IcDhwhOb1j+W87OrQX82WNCPyI4MCpEbWo
-         Zucr3i2DC2ztBk09g1hRUXrYgH6pGxNL6y8NmuhdmcrFzSygY5Ui1ens+epd19wz0T8x
-         B/tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794582299; x=1795187099;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EfsGkFoCvw5Z3mmB7OlXO2ikw4/sUz2q7CxAknfxV6M=;
-        b=jxWMJbBY18txKB89VhW0zenBRYpEpR2b43HmeASIk33XtYqwjl9ITpEkQv8EYYIMbJ
-         YuvEuLYYCbP6fxUHLaLuDpHv/Bc8v7A9/avMGw54YMtjJD9SHTt/NHtioIuWcZnye/bp
-         GlK3ZpB/I5m1StHOkt+l9DFd+Aeu0RHgIc/kPppiAO5x6IlXkoehmRzr268HFmWNsMZc
-         +HzAJxzp6bFpiIwWCL+miVpCe//sEH78dlVLXMw95EotERqwG9OZWhVM2pReNKIr/GgO
-         D+eY3WIJ02vBdSsNG+FfcgaPRMVTaeWPNl6Pk1e/BJZP4RD0dO1mRYK0CliYmkTQfbHI
-         +QdQ==
-X-Forwarded-Encrypted: i=1; AL+hErEve0HY+S7vUgZIOavDhILaSu/fWFPvcUzwVcFZS8KNMOsr9bYaKFpEKGZ8DfC4V7Bq3oF/C6KZ2t8uYcw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8PWRh6iUFvOa9UXsdyW0Zr4orfnQD+hQV4GSX0nsRB+pYqVVmQ
-	O8NuwMChb3iYTP8+GN3vizYPCdDPxToRDmTZ033lk3+UnLlnFlDtC5DjGJwENH1Eb9YobfEzl5B
-	M8DhqtWKQ2NXojIbMFo5dIeTs1jwymG070dtnGL7CQWJek9V8OSo1XJQm+pWjgE8iBiM=
-X-Gm-Gg: AYBFou2xvnw7Fo7TfTqR+GjR/TUw1mph8xB85zLkG79YPA56UUQAi+kaYy/PQG+kmlM
-	y093AIyi6hzZl9SHiWZgupN0jqvCWxnClM9NfRtwQT1KlFLVG42n/6EtgNQf8d6Vla7u1q6aYi0
-	bcENz+i9sONyDwSSQrJw6DSekVVVhAsWf66durzXUGLCHK7xGMWOhyM+gOoiXBfz3v7bapNCYsj
-	mcs6+mMfVuD5rTzE8HPwxIgmx8b4usf3qKIZNxCQ/AK1GX7d5vWXgMjkrlOXfUp7nAMIUOhM4iP
-	k8hNnVus7vJ0p7vITYmBZjp/m/WYsH75Ybzxux1jhlVD7+TOBALtmJCBtG/2CrgF+60xcjScWz+
-	6SqrguBJ0WAk9wHy7bey2z6W5oUjCNS9Ktw3PawODmzdS8vipUAlasDTfTilbauOBvFpQMFD457
-	l35yh4B5GU8Pkz1SW90PigNDfRslw=
-X-Received: by 2002:a05:6a00:94e3:b0:873:5267:dfd0 with SMTP id d2e1a72fcca58-8beb1dea1fdmr2808139b3a.5.1794582299082;
-        Fri, 13 Nov 2026 07:04:59 -0800 (PST)
-X-Received: by 2002:a05:6a00:94e3:b0:873:5267:dfd0 with SMTP id d2e1a72fcca58-8beb1dea1fdmr2808105b3a.5.1794582298485;
-        Fri, 13 Nov 2026 07:04:58 -0800 (PST)
-Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed243ffb6sm1252199b3a.43.2026.11.13.07.04.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:04:57 -0800 (PST)
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-To: Jeff Johnson <jjohnson@kernel.org>,
-        Shunsuke Nagashima <shunsuke@nagashi.ma>
-Cc: Kalle Valo <kvalo@kernel.org>, linux-wireless@vger.kernel.org,
-        ath10k@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260927-ath10k-bundle-status-v1-1-a1eea048ada9@nagashi.ma>
-References: <20260927-ath10k-bundle-status-v1-1-a1eea048ada9@nagashi.ma>
-Subject: Re: [PATCH ath-next] wifi: ath10k: fix status of bundled mgmt tx
- completions
-Message-Id: <179458229712.913702.1338158233604985110.b4-ty@b4>
-Date: Fri, 13 Nov 2026 07:04:57 -0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M12fhF5I
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B8F08339;
+	Fri, 13 Nov 2026 07:05:23 -0800 (PST)
+Received: from [10.0.129.47] (e122027.cambridge.arm.com [10.0.129.47])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9241B3F85F;
+	Fri, 13 Nov 2026 07:05:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794582326; bh=2gGXFp8DdyWHzkZJ43mrMnXa6dxyde9ZLLQErPALNlk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=M12fhF5IG8zd3yUh+xgUfyYz2F3btGRXZlVpEAyINOpwsQxA8xB/FOm1zVQL4FAem
+	 VLqMnYwAqaQvDT7PCtdtpGqOnixkolvb0d1FdtUphga8a4/EFH30E5XAu9c43h09L4
+	 eltIQJWe0rcYG3s6IbtO4xXe5jcQSTYZTXTnUXTs=
+Message-ID: <6c362b9e-6ac3-4cbb-8e9d-d666f87ef8c2@arm.com>
+Date: Fri, 13 Nov 2026 15:05:18 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,58 +53,371 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA2MCBTYWx0ZWRfXwATAhOzTY+FT
- xRyO8xN048CghmN5ELCAAWawvZ3tVJOznUR+/nGOzegB6vrQIexIjPzSnSCJj6NzdGl050aWmfB
- GvdDJqIRenihS8h4bVIMj9d3ICUAmuM=
-X-Proofpoint-GUID: WjHnet_HcpsxURdkyU7Iv20aqszfsMKq
-X-Authority-Analysis: v=2.4 cv=N+e8hG9B c=1 sm=1 tr=0 ts=6af7271c cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=ALV8Qg0lGWWfAH_4w1oA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA2MCBTYWx0ZWRfXy9uMWp4Cc1VT
- JrAk9OYQP+DlZ2hz5vw2wh5AgXd5DfHY2oeMElUyRjfFSDEJoXh2bd/sI55jQnWWUIjuSlKOEtw
- 6wny+URuVWmBBzxWeh6lwUgInjuAgY/FD000RzzbLagK4DXV9/vuwptIh9rWdSf83+Sabbi/tOl
- 3HckhakiddyYPoc81CLkcgPrtud7SiU3Y1OOvuQhk9rkos8QTy/nQi5ze60IOzVIjwLhDNFvk7i
- cluGQIpfsqv3C0sNn9je0yNFqeENDs5sYmyANLEt1LpZFhY0rfYWpeHb4OcaHHmM7Rvg1xN26cE
- bJnY1jYP/ALJfugTEMwAgJ1RZa7cN3jVGjtSWDtykn6qxeKbeDTkpULnRcw0hKG1xeWo81RHxkH
- VyXZVcmKorF9C7Ssq80kPBFGe+I1o9y6D2/btdJjxTqsWJo4rIKF3YHecgZQ4sAC1+HUsPDwxh0
- RPgTWytpR6VYc6wXsPg==
-X-Proofpoint-ORIG-GUID: WjHnet_HcpsxURdkyU7Iv20aqszfsMKq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_04,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0 priorityscore=1501
- phishscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130060
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/12] KVM: arm64: CCA: Tear down RTTs
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
+ Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
+ <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
+ Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
+ Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+ Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
+ <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
+ Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Kohei Enju <enju.kohei@fujitsu.com>
+References: <20261111145758.217946-1-steven.price@arm.com>
+ <20261111145758.217946-8-steven.price@arm.com>
+ <e1690e53-70fb-47fe-bd06-4758b1e196d2@arm.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <e1690e53-70fb-47fe-bd06-4758b1e196d2@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-On Sun, 27 Sep 2026 21:10:53 +0900, Shunsuke Nagashima wrote:
-> ath10k_wmi_event_mgmt_tx_bundle_compl() takes the completion status of
-> each report from desc_ids[i] instead of status[i]. Any non-zero status
-> is handled as "not acked", so a bundled report is marked as acked if
-> and only if its descriptor id is 0, whatever status the firmware
-> returned.
+On 13/11/2026 01:04, Suzuki K Poulose wrote:
+> On 11/11/2026 14:57, Steven Price wrote:
+>> The RMM owns the stage 2 page tables for a realm, and KVM must request
+>> that the RMM creates/destroys entries as necessary. The physical pages
+>> to store the page tables are delegated to the realm as required, and can
+>> be undelegated when no longer used.
+>>
+>> Creating new RTTs is the easy part, tearing down is a little more
+>> tricky. The result of realm_rtt_destroy() can be used to effectively
+>> walk the tree and destroy the entries (undelegating pages that were
+>> given to the realm).
+>>
+>> Tear down a created Realm whether it is still new or has been activated.
+>> Unmap the Realm IPA space once during stage-2 teardown. Defer
+>> destruction of non-root RTTs until final Realm destruction, after
+>> REALM_TERMINATE and before destroying the RD; root RTTs remain until the
+>> RD has gone away.
+>>
+>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>
+>> ---
+>> Changes since v1:
+>> - Tear down created Realms in both NEW and ACTIVE states. Fix the
+>>    RTT start level, page accounting on failed undelegation, and
+>>    handling of RTT granules returned by RMI.
+>> ---
+>>   arch/arm64/include/asm/kvm_rmi.h |   9 ++
+>>   arch/arm64/kvm/mmu.c             |  18 ++-
+>>   arch/arm64/kvm/rmi.c             | 189 +++++++++++++++++++++++++++++++
+>>   3 files changed, 215 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm64/include/asm/kvm_rmi.h b/arch/arm64/include/
+>> asm/kvm_rmi.h
+>> index f1a1ed6b91f5..58d825e40bdf 100644
+>> --- a/arch/arm64/include/asm/kvm_rmi.h
+>> +++ b/arch/arm64/include/asm/kvm_rmi.h
+>> @@ -57,6 +57,7 @@ enum realm_state {
+>>    * @sro: Preallocated SRO state context for Realm MMU operations
+>>    * @state: The lifetime state machine for the realm
+>>    * @ia_bits: Number of valid Input Address bits in the IPA
+>> + * @stage2_unmapped: The Realm stage-2 mappings have been removed
+>>    */
+>>   struct realm {
+>>       void *rd;
+>> @@ -70,6 +71,7 @@ struct realm {
+>>       struct rmi_sro_state *sro;
+>>       enum realm_state state;
+>>       unsigned int ia_bits;
+>> +    bool stage2_unmapped;
+>>   };
+>>     void kvm_init_rmi(void);
+>> @@ -77,5 +79,12 @@ u32 kvm_rmm_ipa_limit(void);
+>>     int kvm_init_realm(struct kvm *kvm);
+>>   void kvm_destroy_realm(struct kvm *kvm);
+>> +int kvm_realm_teardown_stage2(struct kvm *kvm);
+>> +
+>> +static inline bool kvm_realm_is_private_address(struct realm *realm,
+>> +                        unsigned long addr)
+>> +{
+>> +    return !(addr & BIT(realm->ia_bits - 1));
+>> +}
+>>     #endif /* __ASM_KVM_RMI_H */
+>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+>> index 9df3f8d5b4ef..be014f6c00e7 100644
+>> --- a/arch/arm64/kvm/mmu.c
+>> +++ b/arch/arm64/kvm/mmu.c
+>> @@ -1145,9 +1145,25 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct
+>> kvm_s2_mmu *mmu, unsigned long t
+>>       return err;
+>>   }
+>>   +static void kvm_realm_uninit_stage2(struct kvm_s2_mmu *mmu)
+>> +{
+>> +    struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
+>> +
+>> +    mutex_lock(&kvm->arch.config_lock);
+>> +    if (kvm_realm_state(kvm) == REALM_STATE_NEW ||
+>> +        kvm_realm_state(kvm) == REALM_STATE_ACTIVE) {
+>> +        kvm_set_realm_state(kvm, REALM_STATE_DYING);
+>> +        WARN_ON(kvm_realm_teardown_stage2(kvm));
+>> +    }
+>> +    mutex_unlock(&kvm->arch.config_lock);
+>> +}
+>> +
+>>   void kvm_uninit_stage2_mmu(struct kvm *kvm)
+>>   {
+>> -    kvm_free_stage2_pgd(&kvm->arch.mmu);
+>> +    if (kvm_realm_is_created(kvm))
+>> +        kvm_realm_uninit_stage2(&kvm->arch.mmu);
+>> +    else
+>> +        kvm_free_stage2_pgd(&kvm->arch.mmu);
 > 
-> The bundle handler read status[i] when it was added in
-> commit cc123fac978f ("ath10k: Handle bundled tx completion for
-> management frames"). The commit named in the Fixes tag replaced it
-> with desc_ids[i].
+> We added kvm_free_stage2_pgd() from kvm_destroy_realm() for Realms in
+> the previous patch. Should we move that here since, this is where we
 > 
-> [...]
+> 1. Deal with tearing down stage2
+> 2. And more importantly we are skipping it for Realms.
 
-Applied, thanks!
+I'm not quite sure what you're asking for here. We can't free the stage2
+PGD while the realm is existing (because the RMM has the pages) - so we
+defer it.
 
-[1/1] wifi: ath10k: fix status of bundled mgmt tx completions
-      commit: 51222df62c7af2f0f11ec25c9fa8bcaa0f87fac8
+>>       kvm_mmu_free_memory_cache(&kvm->arch.mmu.split_page_cache);
+>>   }
+>>   diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
+>> index 69c628cfb6c7..b904e6541fb0 100644
+>> --- a/arch/arm64/kvm/rmi.c
+>> +++ b/arch/arm64/kvm/rmi.c
+>> @@ -11,16 +11,193 @@
+>>   #include <asm/kvm_pgtable.h>
+>>   #include <asm/virt.h>
+>>   +static inline unsigned long rmi_rtt_level_mapsize(int level)
+>> +{
+>> +    if (WARN_ON(level > KVM_PGTABLE_LAST_LEVEL))
+>> +        return PAGE_SIZE;
+>> +
+>> +    return (1UL << ARM64_HW_PGTABLE_LEVEL_SHIFT(level));
+>> +}
+>> +
+> 
+> We agreed to use kvm_granule_size() instead of this ?
+> 
+> https://lore.kernel.org/all/cb183290-3fee-4535-aa3e-5cc172c2323a@arm.com
 
-Best regards,
--- 
-Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+That was a screw-up when I was squashing fixes back in - the next patch
+removes the code. I'll fix this up in the next version so it never
+appears. Thanks for pointing it out.
 
+>>   u32 kvm_rmm_ipa_limit(void)
+>>   {
+>>       return u64_get_bits(rmi_feat_reg(0), RMI_FEATURE_REGISTER_0_S2SZ);
+>>   }
+>>   +static int get_start_level(struct realm *realm)
+>> +{
+>> +    return 4 - max(2, stage2_pgtable_levels(realm->ia_bits));
+> 
+> I don't think we need this "max()". ia_bits is guaranteed to be
+>>= 32bit (ARM64_MIN_PARANGE_BITS, see kvm_init_ipa_range()), implying
+> that we have at least 2 levels on all page sizes.
+
+Ah, very true - Sashiko complained, but I hadn't noticed
+ARM64_MIN_PARANGE_BITS provided an effective minimum. I'll remove the
+max() and add a comment.
+
+>> +}
+>> +
+>> +static void free_rtt(phys_addr_t phys)
+>> +{
+>> +    kvm_account_pgtable_pages(phys_to_virt(phys), -1);
+>> +    if (rmi_free_delegated_page(phys))
+>> +        kvm_account_pgtable_pages(phys_to_virt(phys), 1);
+> 
+> Is there a reason why remove the account before freeing ? Could we do
+> this after we have reclaimed it ?
+
+Sashiko again:
+
+> Does calling kvm_account_pgtable_pages() after rmi_free_delegated_page()
+> access the page after it has already been freed and uncharged from its
+> memcg?
+
+Basically the problem is that rmi_free_delegated_page() frees the page
+back to the allocator. So doing the account after freeing means that
+technically the page could have been reused.
+
+>> +}
+>> +
+>> +/*
+>> + * realm_rtt_destroy - Destroy an RTT at @level for @addr.
+>> + *
+>> + * Returns - Result of the RMI_RTT_DESTROY call, and:
+>> + * @rtt_granule:    RTT granule, if the RTT was destroyed.
+>> + * @next_addr:        IPA corresponding to the next possible valid
+>> entry we
+>> + *            can target
+>> + */
+>> +static long realm_rtt_destroy(struct realm *realm, unsigned long addr,
+>> +                  int level, phys_addr_t *rtt_granule,
+>> +                  unsigned long *next_addr)
+>> +{
+>> +    unsigned long out_rtt;
+>> +    long ret;
+>> +
+>> +    ret = rmi_rtt_destroy(virt_to_phys(realm->rd), addr, level,
+>> +                  &out_rtt, next_addr);
+>> +
+>> +    if (ret == RMI_SUCCESS)
+>> +        *rtt_granule = out_rtt;
+>> +
+>> +    return ret;
+>> +}
+>> +
+>> +static int realm_tear_down_rtt_level(struct realm *realm, int level,
+>> +                     unsigned long start, unsigned long end)
+>> +{
+>> +    ssize_t map_size;
+>> +    unsigned long addr, next_addr;
+>> +
+>> +    if (WARN_ON(level > KVM_PGTABLE_LAST_LEVEL))
+>> +        return -EINVAL;
+>> +
+>> +    map_size = rmi_rtt_level_mapsize(level - 1);
+>> +
+> 
+> We agreed to add a WARN_ON() here to ensure the start address is aligned ?
+
+Indeed, and again I've managed to put it in the wrong commit (see the
+next patch). I'll fix this in the next revision.
+
+>> +    for (addr = start; addr < end; addr = next_addr) {
+>> +        phys_addr_t rtt_granule;
+>> +        long ret;
+>> +        unsigned long align_addr = ALIGN(addr, map_size);
+>> +
+>> +        next_addr = ALIGN(addr + 1, map_size);
+>> +
+>> +        if (next_addr > end || align_addr != addr) {
+>> +            /*
+>> +             * The target range is smaller than what this level
+>> +             * covers, recurse deeper.
+>> +             */
+>> +            ret = realm_tear_down_rtt_level(realm,
+>> +                            level + 1,
+>> +                            addr,
+>> +                            min(next_addr, end));
+>> +            if (ret)
+>> +                return ret;
+>> +            continue;
+>> +        }
+>> +
+>> +        ret = realm_rtt_destroy(realm, addr, level,
+>> +                    &rtt_granule, &next_addr);
+>> +        if (ret < 0)
+>> +            return ret;
+>> +
+>> +        switch (RMI_RESULT_STATUS(ret)) {
+>> +        case RMI_SUCCESS:
+>> +            free_rtt(rtt_granule);
+>> +            break;
+>> +        case RMI_ERROR_RTT:
+>> +            if (next_addr > addr) {
+>> +                /* Missing RTT, skip */
+>> +                break;
+>> +            }
+>> +            /*
+>> +             * We tear down the RTT range for the full IPA
+>> +             * space, after everything is unmapped. Also we
+>> +             * descend down only if we cannot tear down a
+>> +             * top level RTT. Thus RMM must be able to walk
+>> +             * to the requested level. e.g., a block mapping
+>> +             * exists at L1 or L2.
+>> +             */
+>> +            if (WARN_ON(RMI_RESULT_DATA_LEVEL(ret) != level))
+>> +                return -EBUSY;
+>> +            if (WARN_ON(level == KVM_PGTABLE_LAST_LEVEL))
+>> +                return -EBUSY;
+>> +
+>> +            /*
+>> +             * The table has active entries in it, recurse deeper
+>> +             * and tear down the RTTs.
+>> +             */
+>> +            next_addr = ALIGN(addr + 1, map_size);
+>> +            ret = realm_tear_down_rtt_level(realm,
+>> +                            level + 1,
+>> +                            addr,
+>> +                            next_addr);
+>> +            if (ret)
+>> +                return ret;
+>> +            /*
+>> +             * Now that the child RTTs are destroyed,
+>> +             * retry at this level.
+>> +             */
+>> +            next_addr = addr;
+>> +            break;
+>> +        default:
+>> +            WARN_ON(1);
+>> +            return -ENXIO;
+>> +        }
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> +
+>> +static int realm_tear_down_rtt_range(struct realm *realm,
+>> +                     unsigned long start, unsigned long end)
+>> +{
+>> +    /*
+>> +     * Root level RTTs can only be destroyed after the RD is
+>> destroyed. So
+>> +     * tear down everything below the root level
+>> +     */
+>> +    return realm_tear_down_rtt_level(realm, get_start_level(realm) + 1,
+>> +                     start, end);
+>> +}
+>> +
+>> +static int realm_destroy_rtts(struct kvm *kvm)
+>> +{
+>> +    struct realm *realm = &kvm->arch.realm;
+>> +    unsigned int ia_bits = realm->ia_bits;
+>> +
+>> +    lockdep_assert_held(&kvm->arch.config_lock);
+>> +
+>> +    return realm_tear_down_rtt_range(realm, 0, (1UL << ia_bits));
+>> +}
+>> +
+>> +static void realm_unmap_stage2(struct kvm *kvm)
+>> +{
+>> +    struct realm *realm = &kvm->arch.realm;
+>> +
+>> +    lockdep_assert_held(&kvm->arch.config_lock);
+>> +
+>> +    if (realm->stage2_unmapped)
+>> +        return;
+>> +
+>> +    write_lock(&kvm->mmu_lock);
+>> +    kvm_stage2_unmap_range(&kvm->arch.mmu, 0,
+>> +                   BIT(realm->ia_bits - 1), true);
+>> +    write_unlock(&kvm->mmu_lock);
+>> +
+>> +    realm->stage2_unmapped = true;
+>> +}
+>> +
+>> +int kvm_realm_teardown_stage2(struct kvm *kvm)
+>> +{
+>> +    lockdep_assert_held(&kvm->arch.config_lock);
+>> +
+>> +    realm_unmap_stage2(kvm);
+>> +    return 0;
+>> +}
+>> +
+>>   void kvm_destroy_realm(struct kvm *kvm)
+>>   {
+>>       struct realm *realm = &kvm->arch.realm;
+>>       size_t pgd_size = kvm_pgtable_stage2_pgd_size(kvm->arch.mmu.vtcr);
+>>   +    guard(mutex)(&kvm->arch.config_lock);
+> 
+> Do we need to document, why we need this mutex ?
+
+I'll add a comment.
+
+Thanks,
+Steve
