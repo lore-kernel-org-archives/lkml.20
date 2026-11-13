@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596245;
-	b=jJDqBE/e+qjEQ2CRcWQK23Z3S/Nva10eD7WXl2Gl7k6iADytaMfvHHsvg1bMKgwbN7U6
-	 mLFLKuCaSYDuph4IEcWJDun927fLywe0dh1cdzcsqe34akwKlP7wIferH35q6fWqqZX0L
-	 ceJK8G7u4naLl1m2nN1Q2uiRUaRX0yh7oSJOPxRnckXDiLbR+DTv0/DxtLfE06TWfykg5
-	 GRztgQVwUnUAHhRY8uUIa8AyaeXWE4sgEHFahNtWpZnP3iQlmtp7ksBjuWGL5zZK+e7hh
-	 BSJJVw8gUCKOYL/cxskrUqpJE2KuayGvBSXtC/HzPizLtWbE1OwjNgvdLaG1YO+E7Rw==
+	t=1794596240;
+	b=wfY7kMkOWHJ5OWozEU8X1uFes/XdvemG/nhPhWH4doJ1lJu7609Q4ynyZHvyJ0uNDWKb
+	 xAc2EG5QBHHQvYIEHI4In61FwuDPX5lu7GgGA86C3tsIDRheNvdFcXQ3SqOICwpNdMuhr
+	 K06kNp4Pm1932d3QhC9ulWPLjq3OMJLFiE6RZryBZJ931jHfACAoP/2BBBuRqkqalPMqO
+	 /WvkXGC6YUotyik85FUOrJJc7Bwcs49QLN62yWXl4ij4TZYFDPCKTIGgp9E5j9lRtV9Om
+	 cQwCprUo8D4aSS9l5Mp/0KDm7EqGfy3FRjOREHALkZl4gRk0NK8FBKP5gZUndLCkD0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596245;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596240;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=6z2IIANAK/q43/60wCSqFTZejveLr8Zsp4m5wY/kCvw=;
-	b=1LgDdvfvPS63CJNyOdZQOuFC/iec9T6o9aQrxbUSSqSq4qjlkgU0KQb4r8uvLJx2YwTz
-	 B7cJwX/DE+dHquHL3nBfNm+U5igKla6HWdh/zX6p4dFlvcUNZ35aluqcuz4cZ6Oj2PajI
-	 hdLTrKJCR0GjeXm0SW6Dg4KW49gtZXcvUDdQicsUZsHDdXaS8VdB2cZrbXRryJyyYW/3d
-	 bTQTotlp1vIBtRpwRHtCoymSmv8FIy5RJt9to2+eO8yltGmD3PyMCYjDs5bl7YsfkIo9P
-	 RZEvR1dXRPK8N9cPosOrmHLEIvuqEG5GKTivvk5v2aBWCm2Wx+UaLa/zKAkNIE4953Q==
+	bh=OKLsDxKgeNyTR2N6X6bMkhCfSN7v5jMUZuKftv1qAXY=;
+	b=XcDpkhpD6aLG+M4zB16LLzZWgbDrMR/SSKp67wPYAs2QTBFIspT8MiDAyvWvLJaY5ZVL
+	 tBUZLwDPJbtMHnThEnCOgdGAd9CJD9UwkGu5s3PZgx6FbkE3Uq/Mde6fHXtY4a2K3+p2z
+	 Y7YsxHBUv4QU5FZ7ZZCnPcFKOpvC79uuByptwuphmM6Myk+68s+7lg6taSv72rPhfx8TE
+	 j2BgRZkcJl2ExzYldCRCf5NRqnvNdJTyPzAG2TfTAYA1PKd+Rd8Q47FOT2tbKr9vBo/gw
+	 7Dna3j8MxLAd8xdHSg+TKzhwnbopUw0G3s+phRGSrfWbWl+bS/0Y+3wf3XUzGAH8+6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=readmodwrite.com;
 	spf=none smtp.mailfrom=readmodwrite.com;
-	dkim=pass header.d=readmodwrite-com.20260707.gappssmtp.com header.i=@readmodwrite-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KDjsMdfo;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=readmodwrite-com.20260707.gappssmtp.com header.i=@readmodwrite-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=N04J0XeF;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD4F606F2CC
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:57:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDD4F606F2CC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A547606E361
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:57:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A547606E361
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20260707.gappssmtp.com header.i=@readmodwrite-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KDjsMdfo
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso8196705e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:57:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=readmodwrite-com.20260707.gappssmtp.com header.i=@readmodwrite-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=N04J0XeF
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-498f5fa5103so577208f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:57:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20260707.gappssmtp.com; s=20260707; t=1794596243; x=1795201043; darn=vger.kernel.org;
+        d=readmodwrite-com.20260707.gappssmtp.com; s=20260707; t=1794596238; x=1795201038; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6z2IIANAK/q43/60wCSqFTZejveLr8Zsp4m5wY/kCvw=;
-        b=KDjsMdfoJcmpbFhv9qJKY3pWYjMAVGT53zaPEdiK9gOnI08JzEVYpZmSCI/0HXO6En
-         kCBmJ9VlqjsZeerCP51ZVtQE1LEA5x7bd3dCrqDIt74mqq9LS9RZ/NOF20sUJL0Y71I5
-         chvDDthMDfDSzfIWUAuQ0AmncB0BFy2THIZZCXsWk0K1OxKkp9Cgn17UbDojuFOqr+F4
-         ormaCmaujCo692yHTseuZEewMQIDaD2T2svo9sqLFqKrAQxlz88qr0kGyGxL45QCu2JK
-         XreuaVZ94ZSH3/J58+8+6uegv8hUJrdJYTQkwd15Lf/vS3PAlIypTnt8U8TkycwcrNEJ
-         ScHA==
+        bh=OKLsDxKgeNyTR2N6X6bMkhCfSN7v5jMUZuKftv1qAXY=;
+        b=N04J0XeFYgMqJJ+cfHcHbxusSoInKWkHEy1skit/PHAzcXBBChO6KBJ5HvaCez+YBU
+         Xs7oM1eRtMZn3DQx79UI0sXde1Khty1o2p5D6uyZKiEcULYK1vSRsXys2AzY3SxTbAf2
+         LXOWDuPcEp6IJuo/pWB0Rg/bR/mjv9sM2AcyRuafxqXmN5uE39fmbgfVNpaqCJeEeOH4
+         hxgVtKKIgAFUjFTy7pco7DPCqChbc5CMdRrrSK546g53aSKb74xIa6YEdpudEu3hjK6g
+         tv8Zsqd88jtaDO66kQb/FNv4tA2D2D318wQcRIC/ip1h99X/Phoity+wT6ZTVDlH5bpX
+         W+MA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794596243; x=1795201043;
+        d=1e100.net; s=20260707; t=1794596238; x=1795201038;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6z2IIANAK/q43/60wCSqFTZejveLr8Zsp4m5wY/kCvw=;
-        b=SDB+OqCYQp0civj0bXuDhSPHk/Imt4FR7jBI6iGZ0xLJaQbAzz67AZvwYi2MsOHnVR
-         Jlx4tu67Wabp6XylmO/rOb4+S1q/r50Y+i8jAq0+3HSZ/i578WeYZn5K1PLJYeLXNPdq
-         Mqo7lXO2aM48F8jtM9kXDrRF7A1JHVIc3HQq6Gmu4+gqpEAfI4WqOCY76gKVucgtc3Ar
-         nOJG259JwDNnmBE/rKXoDnwix7NK4fm+K9yUqGOrORl9T1pWeD24kdWJtAyjQhsi1gGe
-         3AahgiWAb71qvQFM68nv2MvNTQBOJUd9j9/wGIYKkdi2U4/DGPIaKpLls9TX6DCvvQBm
-         uNbw==
-X-Forwarded-Encrypted: i=1; AL+hErG89aSeW6FwqRMsnLcDdpRlTUL4UPQWtJ60ezjlsIKP0cw59YELfb3K6NDbDaaQdNBa64ACiarYLDUFfWY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9V1M//Kfh7CmiLbJlKEfs2N3WtN/KGQBmrj7EazzF7WDAqNnRc
-	4ok9ztVRqEexs3YZX3679KTALiL10MeEpe0ZQc7KD7hNsS6xG8gx6og8i/02tOMt7Qs=
-X-Gm-Gg: AYBFou2eX62a9UphXuyh62I1HcmkQSwG9lMddHzKFqHDrp32h2UTC/kjgSFpu8QDUFX
-	LKH8Um3TdGCL2745CqzxyYd4MFGyGlyLMqbMxFtkUy0o3BtajuwcDBx7CaEskdDvERT6kIGej5w
-	1TsFPVZVIqIz7LXzqjdf4hC1a1qqtnx9WpBgE7+hKNuvKkPqO54TSvGIzto5r62NSGJaz8w1dIF
-	sLNq5U+faoEDtoaxPAq6kabMD7BkCRYNQoGVH8IYszpr+dC/M9cg/ZsEIvJ8sEnkihJqkoWNs5b
-	bdb+MkfZJUkdLigxHKbBmbF+xDIwy3m0bVE1PY6uaUI0+46FsF+23SdkzS//1qTZD1OdZdBp9Ao
-	Ez29LK/k3WFDi2yKjb5gC6ZkLve+Yx/63LHhe4MfE7idSUhlMv7urfOKry7HNrFA+D2PLgNexGM
-	vAGywPhBF6ebNA7OiJf5H/giQuAuIQ9qhWfBa+Edqm3tc4GW49qtuOm8iuGLay1B0rnMlH73bPh
-	HzjWpmjzvwIk1EDXPightYQ275ryGBptMMqUuGZDH01LFBm3vhtvn6Mbkt0XnCZu3wUY6foJQJG
-	MX6YbuGZImXvZo0hdZx5aD1CpLdlJMnp4CHfpP1qDmxCjpcXpXA=
-X-Received: by 2002:a05:600c:628c:b0:4ba:6d8:dfad with SMTP id 5b1f17b1804b1-4bb55a6b67fmr78323595e9.14.1794596243301;
-        Fri, 13 Nov 2026 10:57:23 -0800 (PST)
+        bh=OKLsDxKgeNyTR2N6X6bMkhCfSN7v5jMUZuKftv1qAXY=;
+        b=qmWUYTi82ITQ6JsRCN7nXG8K1E4k7zrJPb+CtfftTsqNkG7YwENaKmJ8EbwJmvSoSD
+         LobC7u9MNRfH66/LuiF5blkJ8E0SIFSr9pzxwVEl+MwTx46arjCT/KWRYl1/2zjiXLbo
+         B9Ouoo33zAs1EJXF+UqHX+ASdRx2b2aRXfCfQR0HagLjeYUw6HreGpMTu8yAfdafR9gq
+         a0st0/BZHcQ9brJOtapssyVaESYu0rC4eRyZ4JHuxsEFdK6E2Y3ukIX2e4D/4n3IlemE
+         pQZ8rGeDuuiczBB17/78vyi0zJ5ZHUyUNHHGVTysI9s4/kCr8gXMDRFRCq7jorsAq3zu
+         //rQ==
+X-Forwarded-Encrypted: i=1; AL+hErF4MjaZJNucag5eESfTuAcQuAW7RDJD+SIznHawHq3z37zNN+srVsICWuZvUD78yPvExKOfwweyVMbN2sQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gHKcLIfEL6qlGq9OaEFqSA7kl1FZMzoVtbPH7nBELPC6oKZnq
+	iR9PjA9sWnmHNRNBju5WiKc7vtwMYTTUa2/VLsdtalTq8AkICg1OtgmFVrwi5SZnF/k=
+X-Gm-Gg: AYBFou3rjfJshpJU1LHsvcwVXBWtwwzOFUBbxgucE/qiMDkgV5IrfvSZxqh6dSx+p6M
+	n3DS37kp3I+VMm343ZqBsJkVLIpuP5q8GRwJ9SAiHACiaEOG49xzDdNS9rxQOFo/xdt3Tq/sX8E
+	7ITq3rFi0Itt+vzb8ZRqQwdEWX5BSIwqyHgdrUxxLTnEzzZ2dFv777mi+F9wurrTldYvmjRNCkQ
+	s+5LnVSR+RLSROaZrYMcgDPmJ4cfTkcC2QQyUd4tQZzKC6jdismAaPMVg5ucik/Ef19Hg97zyP1
+	PrrQ0L+sFyyZcP+AvtMyM3GpzOw/zL7xxiB2uku8eH1Lc9CCuxio2doDL3bCllGRw8Bz/j9sKoQ
+	tYq6mlBf8KFj00QJjnRXrsduQUPwfcPYwD008zOFa5wMG8jkV6Ru6pZlHyczgNcPmeaOhmiKzTL
+	PXr3Jh03aBJVO7aLobewiU1239rbR5qlefqTuA/QvZggcieYwLmDjRbpy1ahzXpKWN3HgJ3godm
+	+Phnj4lKR/6YZghYd/HlAnyhykvlMuy+LBSjgTK03iiLOqnrrH4n6/V2ZfTiVaRWTzfK0E1ZkFl
+	G9Cy8TIh49k/eemy5ZH50xBh26GF+A==
+X-Received: by 2002:a05:6000:430d:b0:48f:bbf3:cf52 with SMTP id ffacd0b85a97d-49c73350e7bmr8591785f8f.52.1794596237596;
+        Fri, 13 Nov 2026 10:57:17 -0800 (PST)
 Received: from matt-Precision-5490.. ([2a09:bac6:37a8:ec8::179:1b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f5972a7sm6417589f8f.21.2026.11.13.10.57.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f5972a7sm6417589f8f.21.2026.11.13.10.57.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:57:21 -0800 (PST)
+        Fri, 13 Nov 2026 10:57:16 -0800 (PST)
 From: Matt Fleming <matt@readmodwrite.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Marco Elver <elver@google.com>
@@ -93,9 +93,9 @@ Cc: Alexander Potapenko <glider@google.com>,
 	kasan-dev@googlegroups.com,
 	kernel-team@cloudflare.com,
 	Matt Fleming <mfleming@cloudflare.com>
-Subject: [PATCH v3 10/10] scripts/gdb: Decode compressed stack depot frames
-Date: Fri, 13 Nov 2026 18:57:02 +0000
-Message-ID: <20261113185702.1332171-11-matt@readmodwrite.com>
+Subject: [PATCH v3 07/10] stackdepot: Remove stack_depot_fetch()
+Date: Fri, 13 Nov 2026 18:56:59 +0000
+Message-ID: <20261113185702.1332171-8-matt@readmodwrite.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261113185702.1332171-1-matt@readmodwrite.com>
 References: <20261113185702.1332171-1-matt@readmodwrite.com>
@@ -112,101 +112,208 @@ Content-Transfer-Encoding: 8bit
 
 From: Matt Fleming <mfleming@cloudflare.com>
 
-lx-stack_depot_lookup reads stack_record->entries directly and would
-misread compressed frames as full-width addresses. Export
-STACK_RECORD_COMPRESSED through constants.py.in and decompress frames
-the same way as arch_stack_depot_frame_decompress() on x86-64 and
-arm64.
+All callers now use stack_depot_fetch_into(), stack_depot_print() or
+stack_depot_snprint(). stack_depot_fetch() hands out a pointer into
+depot storage, which leaks how frames are stored internally by
+stackdepot. This will be undesirable when compressed frame support
+lands in a later patch.
 
-Other architectures never compress frames (the generic hook rejects
-compression), but the helper raises an error if it meets compressed
-frames there.
+Add a KUnit test that stack_depot_snprint() output and return value
+match stack_trace_snprint(), including truncation.
 
 Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
 ---
- scripts/gdb/linux/constants.py.in |  5 +++++
- scripts/gdb/linux/stackdepot.py   | 23 +++++++++++++++++++----
- 2 files changed, 24 insertions(+), 4 deletions(-)
+ include/linux/stackdepot.h   | 11 ------
+ lib/stackdepot.c             | 68 ++++++++++++++++--------------------
+ lib/tests/stackdepot_kunit.c | 36 +++++++++++++++++++
+ 3 files changed, 66 insertions(+), 49 deletions(-)
 
-diff --git a/scripts/gdb/linux/constants.py.in b/scripts/gdb/linux/constants.py.in
-index dab8b80bed69..da6b39c3dc13 100644
---- a/scripts/gdb/linux/constants.py.in
-+++ b/scripts/gdb/linux/constants.py.in
-@@ -22,6 +22,7 @@
- #include <linux/radix-tree.h>
- #include <linux/maple_tree.h>
- #include <linux/slab.h>
-+#include <linux/stackdepot.h>
- #include <linux/threads.h>
- #include <linux/vmalloc.h>
+diff --git a/include/linux/stackdepot.h b/include/linux/stackdepot.h
+index 734529767c8a..dcc2e1d21f92 100644
+--- a/include/linux/stackdepot.h
++++ b/include/linux/stackdepot.h
+@@ -188,17 +188,6 @@ depot_stack_handle_t stack_depot_save(unsigned long *entries,
+  */
+ struct stack_record *__stack_depot_get_stack_record(depot_stack_handle_t handle);
  
-@@ -112,6 +113,10 @@ if IS_BUILTIN(CONFIG_PAGE_OWNER):
-     LX_GDBPARSED(PAGE_EXT_OWNER)
-     LX_GDBPARSED(PAGE_EXT_OWNER_ALLOCATED)
+-/**
+- * stack_depot_fetch - Fetch a stack trace from stack depot
+- *
+- * @handle:	Stack depot handle returned from stack_depot_save()
+- * @entries:	Pointer to store the address of the stack trace
+- *
+- * Return: Number of frames for the fetched stack
+- */
+-unsigned int stack_depot_fetch(depot_stack_handle_t handle,
+-			       unsigned long **entries);
+-
+ /**
+  * stack_depot_fetch_into - Fetch a stack trace into caller-owned storage
+  *
+diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+index 556f3ecdcc8f..8f1aaa0c6d88 100644
+--- a/lib/stackdepot.c
++++ b/lib/stackdepot.c
+@@ -757,33 +757,14 @@ struct stack_record *__stack_depot_get_stack_record(depot_stack_handle_t handle)
+ 	return depot_fetch_stack(handle);
+ }
  
-+/* linux/stackdepot.h */
-+if IS_BUILTIN(CONFIG_STACKDEPOT):
-+    LX_GDBPARSED(STACK_RECORD_COMPRESSED)
+-unsigned int stack_depot_fetch(depot_stack_handle_t handle,
+-			       unsigned long **entries)
++/* Copy the first @nr_entries frames of @stack into @entries. */
++static void depot_copy_entries(const struct stack_record *stack,
++			       unsigned long *entries, unsigned int nr_entries)
+ {
+-	struct stack_record *stack;
+-
+-	*entries = NULL;
+-	/*
+-	 * Let KMSAN know *entries is initialized. This shall prevent false
+-	 * positive reports if instrumented code accesses it.
+-	 */
+-	kmsan_unpoison_memory(entries, sizeof(*entries));
+-
+-	if (!handle || stack_depot_disabled)
+-		return 0;
+-
+-	stack = depot_fetch_stack(handle);
+-	/*
+-	 * Should never be NULL, otherwise this is a use-after-put (or just a
+-	 * corrupt handle).
+-	 */
+-	if (WARN(!stack, "corrupt handle or use after stack_depot_put()"))
+-		return 0;
+-
+-	*entries = stack->entries;
+-	return stack->size;
++	memcpy(entries, stack->entries, nr_entries * sizeof(*entries));
++	/* stackdepot.c is not instrumented; tell KMSAN the copy is initialized. */
++	kmsan_unpoison_memory(entries, nr_entries * sizeof(*entries));
+ }
+-EXPORT_SYMBOL_GPL(stack_depot_fetch);
+ 
+ unsigned int stack_depot_fetch_into(depot_stack_handle_t handle,
+ 				    unsigned long *entries,
+@@ -808,12 +789,27 @@ unsigned int stack_depot_fetch_into(depot_stack_handle_t handle,
+ 	if (nr_entries > max_entries)
+ 		return 0;
+ 
+-	memcpy(entries, stack->entries, nr_entries * sizeof(*entries));
+-	kmsan_unpoison_memory(entries, nr_entries * sizeof(*entries));
++	depot_copy_entries(stack, entries, nr_entries);
+ 	return nr_entries;
+ }
+ EXPORT_SYMBOL_GPL(stack_depot_fetch_into);
+ 
++static struct stack_record *depot_print_fetch(depot_stack_handle_t handle)
++{
++	struct stack_record *stack;
 +
- /* linux/slab.h */
- LX_GDBPARSED(SLAB_RED_ZONE)
- LX_GDBPARSED(SLAB_POISON)
-diff --git a/scripts/gdb/linux/stackdepot.py b/scripts/gdb/linux/stackdepot.py
-index aaa18af25cd1..f689cacb3cb7 100644
---- a/scripts/gdb/linux/stackdepot.py
-+++ b/scripts/gdb/linux/stackdepot.py
-@@ -20,6 +20,21 @@ def help():
-     gdb.write("Unrecognized command\n")
-     raise gdb.GdbError(t)
- 
-+def stack_record_entry(stack, i):
-+    if not int(stack['flags']) & constants.LX_STACK_RECORD_COMPRESSED:
-+        return int(stack['entries'][i])
++	if (!handle || stack_depot_disabled)
++		return NULL;
 +
-+    # Mirror arch_stack_depot_frame_decompress().
-+    payload = int(stack['compressed_entries'][i])
-+    if utils.is_target_arch("x86-64"):
-+        return 0xffffffff00000000 | payload
-+    if utils.is_target_arch("aarch64"):
-+        text = int(gdb.parse_and_eval("(unsigned long)_text"))
-+        if payload & 0x80000000:
-+            payload -= 1 << 32
-+        return (text + payload) & 0xffffffffffffffff
-+    raise gdb.GdbError("compressed stack depot frames are not supported on this architecture\n")
++	stack = depot_fetch_stack(handle);
++	/*
++	 * Should never be NULL, otherwise this is a use-after-put (or just a
++	 * corrupt handle).
++	 */
++	WARN(!stack, "corrupt handle or use after stack_depot_put()");
++	return stack;
++}
 +
- def stack_depot_fetch(handle):
-     global DEPOT_STACK_ALIGN
-     global stack_record_type
-@@ -40,7 +55,7 @@ def stack_depot_fetch(handle):
-     pool_index = parts['pool_index_plus_1'] - 1
-     if pool_index >= pools_num:
-         gdb.write("pool index %d out of bounds (%d) for stack id 0x%08x\n" % (pool_index, pools_num, handle))
--        return gdb.Value(0), 0
-+        return [], 0
+ void stack_depot_put(depot_stack_handle_t handle)
+ {
+ 	struct stack_record *stack;
+@@ -834,26 +830,22 @@ void stack_depot_put(depot_stack_handle_t handle)
+ }
+ EXPORT_SYMBOL_GPL(stack_depot_put);
  
-     stack_pools = gdb.parse_and_eval('stack_pools')
+-void stack_depot_print(depot_stack_handle_t stack)
++void stack_depot_print(depot_stack_handle_t handle)
+ {
+-	unsigned long *entries;
+-	unsigned int nr_entries;
++	struct stack_record *stack = depot_print_fetch(handle);
  
-@@ -48,10 +63,10 @@ def stack_depot_fetch(handle):
-         pool = stack_pools[pool_index]
-         stack = (pool + gdb.Value(offset).cast(utils.get_size_t_type())).cast(stack_record_type.get_type().pointer())
-         size = int(stack['size'].cast(utils.get_ulong_type()))
--        return stack['entries'], size
-+        return [stack_record_entry(stack, i) for i in range(size)], size
-     except Exception as e:
-         gdb.write("%s\n" % e)
--        return gdb.Value(0), 0
-+        return [], 0
+-	nr_entries = stack_depot_fetch(stack, &entries);
+-	if (nr_entries > 0)
+-		stack_trace_print(entries, nr_entries, 0);
++	if (stack)
++		stack_trace_print(stack->entries, stack->size, 0);
+ }
+ EXPORT_SYMBOL_GPL(stack_depot_print);
  
- def stack_depot_print(handle):
-     if not constants.LX_CONFIG_STACKDEPOT:
-@@ -61,7 +76,7 @@ def stack_depot_print(handle):
-     if nr_entries > 0:
-         for i in range(0, nr_entries):
-             try:
--                gdb.execute("x /i 0x%x" % (int(entries[i])))
-+                gdb.execute("x /i 0x%x" % entries[i])
-             except Exception as e:
-                 gdb.write("%s\n" % e)
+ int stack_depot_snprint(depot_stack_handle_t handle, char *buf, size_t size,
+ 		       int spaces)
+ {
+-	unsigned long *entries;
+-	unsigned int nr_entries;
++	struct stack_record *stack = depot_print_fetch(handle);
+ 
+-	nr_entries = stack_depot_fetch(handle, &entries);
+-	return nr_entries ? stack_trace_snprint(buf, size, entries, nr_entries,
+-						spaces) : 0;
++	return stack ? stack_trace_snprint(buf, size, stack->entries,
++					   stack->size, spaces) : 0;
+ }
+ EXPORT_SYMBOL_GPL(stack_depot_snprint);
+ 
+diff --git a/lib/tests/stackdepot_kunit.c b/lib/tests/stackdepot_kunit.c
+index b0c44c096976..ae4f7661a48f 100644
+--- a/lib/tests/stackdepot_kunit.c
++++ b/lib/tests/stackdepot_kunit.c
+@@ -3,6 +3,8 @@
+ #include <kunit/test.h>
+ #include <linux/array_size.h>
+ #include <linux/gfp.h>
++#include <linux/minmax.h>
++#include <linux/stacktrace.h>
+ #include <linux/stackdepot.h>
+ #include <linux/string.h>
+ 
+@@ -71,9 +73,43 @@ static void stackdepot_fetch_into_rejects_missing_or_short_stack(struct kunit *t
+ 	KUNIT_EXPECT_MEMEQ(test, fetched, expected, sizeof(expected));
+ }
+ 
++/* stack_depot_snprint() must match stack_trace_snprint(), with truncation. */
++static void stackdepot_snprint_matches_stack_trace(struct kunit *test)
++{
++	const unsigned int nr = min(40, CONFIG_STACKDEPOT_MAX_FRAMES);
++	const size_t size = 4096;
++	unsigned long entries[40];
++	depot_stack_handle_t handle;
++	char *got, *want;
++	unsigned int i;
++
++	for (i = 0; i < nr; i++)
++		entries[i] = 0x301000UL + 0x1000UL * i;
++	got = kunit_kzalloc(test, size, GFP_KERNEL);
++	want = kunit_kzalloc(test, size, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, got);
++	KUNIT_ASSERT_NOT_NULL(test, want);
++
++	KUNIT_ASSERT_EQ(test, stack_depot_init(), 0);
++	handle = stack_depot_save(entries, nr, GFP_KERNEL);
++	KUNIT_ASSERT_NE(test, handle, (depot_stack_handle_t)0);
++
++	KUNIT_EXPECT_EQ(test, stack_depot_snprint(handle, got, size, 2),
++			stack_trace_snprint(want, size, entries, nr, 2));
++	KUNIT_EXPECT_STREQ(test, got, want);
++
++	/* Truncate part-way through the trace. */
++	memset(got, 0, size);
++	memset(want, 0, size);
++	KUNIT_EXPECT_EQ(test, stack_depot_snprint(handle, got, 700, 0),
++			stack_trace_snprint(want, 700, entries, nr, 0));
++	KUNIT_EXPECT_STREQ(test, got, want);
++}
++
+ static struct kunit_case stackdepot_test_cases[] = {
+ 	KUNIT_CASE(stackdepot_fetch_into_roundtrip),
+ 	KUNIT_CASE(stackdepot_fetch_into_rejects_missing_or_short_stack),
++	KUNIT_CASE(stackdepot_snprint_matches_stack_trace),
+ 	{}
+ };
  
 -- 
 2.43.0
