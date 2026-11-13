@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.213
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.215
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794554205;
-	b=Km21IiUpXV1+EqaKplkC2vrAYPzf6sqU6opUw3eaRbU36LUW2UrUOU1Op9251FBqMjVU
-	 VlXlX/qqwvYFIKC6+NVWjiAU5947fOrd5SSvkiiTBHVvxPkK+yUUKe8JLef9P6EKzbWZ7
-	 SnArCoIrlxIYaZkXpYLeM9vQMfa7lbPFqi6pYBzWt6wiY72DW8Aj+gMUpsf9y7l54MrGZ
-	 RZYnTrBeaBX9O5Aa6kX4Ib+hUi68WIymkDJcyTfSCAdEiSRPYuR4BnHMZDkYaqPEztNFw
-	 8hYniwnaV7sqM+eo0SIyT2TPXoERidybjt/ZrY5qTpOcnM3WCex4RsJmTvLHoQdmi7Q==
+	t=1794554207;
+	b=NYFc8vqHwWGN0YkZwpMVmGiSmxjWrY9pGnYCjS3bPJaqfupejcz5IxUD3IsSrPnfj/Xb
+	 29tF1MOtw/55CHENwRV05BxbRtgxPpitP/PhlfrjsLR7AsjC+ixQPMVPObw+MIcKlM+1v
+	 grNaaLFVqemy/a1l2ZAETvAG9Ez7JZOWNVeuPlAvYILGb3qFelsT5d5KJ4W95drGTSjhj
+	 fIrsmHmWfxkTYNQ/nQqGLJmhR6GEzwbohfc9ZGSosRPbXTOXR9MButBfSwDTFSpuVhQ9W
+	 oN/3EL1Ct/ThbRNuMJdXwtX7sKt7oI2p91hgVXR9SidVo6OgXZVdNywDe+iCpWKUPUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794554205;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794554207;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=PY/h1faCj7YLTRJygAQBGN17l9LlZH+uqkX+EFa6XOI=;
-	b=fpw5vkX1cwC2QphiucS+h9ocs0IthDzqXVhEatNVSX3GcsQPLbIcYainppPTO/c6qVBD
-	 IDC9hnjDwAGoB42nwjW6j9itwp+7VpPGzcpxZqlonmxyz7NBYoGtDfHi4uMkOE5YqiU1v
-	 tAJg9Tt0UbnSMi0XK6jQruY+432aFV1tbdzeyHkBgz45o9BtDMmhmD0JMxUmeLqD56Ye/
-	 Rhgnxvy3gDTCqjTOLn8pipSUCAWfMXp2liMJPx3tRXXKX7J9sYH9XLEF68eY3IXxXLTVC
-	 sikWmuBTWEhWdWhX0/E96/YZCn1YqJ2bCjwQjxOwqmZJVPmik9ZYI3jHnjNsFsb23Cg==
+	bh=OhaEL51CLXcvLQ9HHnHXGASUdtFhJyIzcmlhJzZi/k8=;
+	b=Xz1iBKXNXMFYnRmYlekhG2wDQfEcdK1kk2lCzfDSoQL5o3REGL/ICSs0jdGxYLzhz6I8
+	 4kyZw6nX4lWtZbUJuXSnKCzOcJ2t9FB8+QBH1tqi4hCg0cqVeZGWDBg7cpwzsvfIW7juw
+	 ubQRUcsn7EkDBBTWA4Same27E+IHsWl95f53eggeEiYa70mVTywy4vzZOGhRSiycldbdi
+	 AkVQu88dSqVyhR2EHedMmVe/TvEjNmWPJ6FoWAk0+eabjXQ+2zSr2AbA92y/kO50Dx2mz
+	 grEB7XXFG9w1sK9vEKwHnPNxg0ySR0St71FxqLyNzB9X+uakexXXtVUOCPmJKl7ybgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nhEKbwwB;
-	arc=none smtp.remote-ip=91.218.175.213
-Received: from mta0.migadu.com (out-213.mta0.migadu.com [91.218.175.213])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K8Lzlh+G;
+	arc=none smtp.remote-ip=91.218.175.215
+Received: from mta0.migadu.com (out-215.mta0.migadu.com [91.218.175.215])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B1A606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:16:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2B1A606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610A0606A886
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:16:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 610A0606A886
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nhEKbwwB
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K8Lzlh+G
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8t8H4CQ8gn3R9f8nurhquSa//ipjY+XXPYQiq2AQR7Q=;
+DKIM-Signature: a=rsa-sha256; bh=gK3FEv3HtB5PH2bOaJrgzUy1LeJIdaerJNWPT7yY4Ig=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794554203; v=1; x=1795159003;
- b=nhEKbwwBNg/lBaKxIE59HIloDCsDEEPFLOKnNEKX3NcXwu1Kbar/SLH8txrDuHPnhcYtvF9p
- TUeWih+JPiPN17y/I/npOThvyRBT86Vg0hBXX4YaHdyaRWLF/hMF8Uf95iaM9BpW5w1xtNf8n1b
- +Ncok1IybhXuwqe9umoT+LIY=
+ t=1794554204; v=1; x=1795159004;
+ b=K8Lzlh+Gr6lPfpxKDtsQAVwJE3B6nrJNAhr4ZcjdWP0wzKwvVcIQwWELpeh4zlwF2b4WwfjM
+ 8J/ol2avkbzc4Sx3GS1wxlYCaSc2n7dixXqmxnOfN/mfHKVE2NZpBP8cB0MTczrtRbht0fu9sFe
+ 80yukW2L+nCyB04Kn+UhsBMg=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 211d82633146b9fb;
-	Fri, 13 Nov 2026 07:16:42 +0000
-X-Mizu-Trace-ID: 211d82633146b9fb
+Received: by smtp.migadu.com with ESMTPS id 6754d430aca00714;
+	Fri, 13 Nov 2026 07:16:44 +0000
+X-Mizu-Trace-ID: 6754d430aca00714
 X-Migadu-Flow: FLOW_OUT
 From: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>
 To: Paul Walmsley <pjw@kernel.org>,
@@ -56,9 +56,9 @@ Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
 	WangYuli <wangyuli@uniontech.com>,
 	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] riscv: kgdb: use patch_insn_write() to set breakpoints
-Date: Fri, 13 Nov 2026 08:16:12 +0100
-Message-ID: <20261113071616.219623-2-clement.leger@linux.dev>
+Subject: [PATCH 2/3] riscv: kgdb: use BREAK_INSTR_SIZE instead of hardcoded value
+Date: Fri, 13 Nov 2026 08:16:13 +0100
+Message-ID: <20261113071616.219623-3-clement.leger@linux.dev>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261113071616.219623-1-clement.leger@linux.dev>
 References: <20261113071616.219623-1-clement.leger@linux.dev>
@@ -74,85 +74,34 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When using CONFIG_STRICT_KERNEL_RWX, the text section is not writable
-and copy_to_kernel_nofault() returns -EFAULT. Fix this by using
-patch_insn_write() were applicable and implement
-kgdb_arch_set_breakpoint()/kgdb_arch_remove_breakpoint().
+Before commit 550c2aa787d1 ("riscv: KGDB: Remove ".option norvc/.option
+rvc" for kgdb_compiled_break"), .norvc was enforced and that resulted
+in a non compressed ebreak instruction so the +4 was legit. The
+previously mentionned commit removed that option, leading to ebreak
+being emitted as c.ebreak when compiled with CONFIG_RISCV_ISA_C=y.
 
-patch_insn_write() correctly remaps the text as writable using a fixmap
-alias.
+Use BREAK_INSTR_SIZE so epc is incremented by whatever size the break
+instruction is.
 
+Fixes: 550c2aa787d1 ("riscv: KGDB: Remove ".option norvc/.option rvc" for kgdb_compiled_break")
 Signed-off-by: Clément Léger <clement.leger@linux.dev>
 ---
- arch/riscv/kernel/kgdb.c | 34 +++++++++++++++++++++++++++++-----
- 1 file changed, 29 insertions(+), 5 deletions(-)
+ arch/riscv/kernel/kgdb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/riscv/kernel/kgdb.c b/arch/riscv/kernel/kgdb.c
-index 0bf629204c76..4ad817698af8 100644
+index 4ad817698af8..121dae87dc68 100644
 --- a/arch/riscv/kernel/kgdb.c
 +++ b/arch/riscv/kernel/kgdb.c
-@@ -12,6 +12,7 @@
- #include <asm/cacheflush.h>
- #include <asm/gdb_xml.h>
- #include <asm/insn.h>
-+#include <asm/text-patching.h>
+@@ -365,7 +365,7 @@ static int kgdb_riscv_notify(struct notifier_block *self, unsigned long cmd,
+ 		return NOTIFY_DONE;
  
- enum {
- 	NOT_KGDB_BREAK = 0,
-@@ -134,9 +135,9 @@ static int do_single_step(struct pt_regs *regs)
- 	stepped_address = addr;
+ 	if (type == KGDB_COMPILED_BREAK)
+-		regs->epc += 4;
++		regs->epc += BREAK_INSTR_SIZE;
  
- 	/* Replace the op code with the break instruction */
--	error = copy_to_kernel_nofault((void *)stepped_address,
--				   arch_kgdb_ops.gdb_bpt_instr,
--				   BREAK_INSTR_SIZE);
-+	error = patch_insn_write((void *)stepped_address,
-+				 arch_kgdb_ops.gdb_bpt_instr,
-+				 BREAK_INSTR_SIZE);
- 	/* Flush and return */
- 	if (!error) {
- 		flush_icache_range(addr, addr + BREAK_INSTR_SIZE);
-@@ -154,8 +155,8 @@ static int do_single_step(struct pt_regs *regs)
- static void undo_single_step(struct pt_regs *regs)
- {
- 	if (stepped_opcode != 0) {
--		copy_to_kernel_nofault((void *)stepped_address,
--				   (void *)&stepped_opcode, BREAK_INSTR_SIZE);
-+		patch_insn_write((void *)stepped_address,
-+				 (void *)&stepped_opcode, BREAK_INSTR_SIZE);
- 		flush_icache_range(stepped_address,
- 				   stepped_address + BREAK_INSTR_SIZE);
- 	}
-@@ -261,6 +262,29 @@ noinline void arch_kgdb_breakpoint(void)
- 	    "kgdb_compiled_break: ebreak\n");
- }
+ 	local_irq_restore(flags);
  
-+/*
-+ * Kernel text may be read-only (CONFIG_STRICT_KERNEL_RWX), so software
-+ * breakpoints must be planted through the writable patch alias instead of
-+ * writing the text address directly.
-+ */
-+int kgdb_arch_set_breakpoint(struct kgdb_bkpt *bpt)
-+{
-+	int err;
-+
-+	err = copy_from_kernel_nofault(bpt->saved_instr, (char *)bpt->bpt_addr,
-+				       BREAK_INSTR_SIZE);
-+	if (err)
-+		return err;
-+	return patch_insn_write((void *)bpt->bpt_addr,
-+				arch_kgdb_ops.gdb_bpt_instr, BREAK_INSTR_SIZE);
-+}
-+
-+int kgdb_arch_remove_breakpoint(struct kgdb_bkpt *bpt)
-+{
-+	return patch_insn_write((void *)bpt->bpt_addr, bpt->saved_instr,
-+				BREAK_INSTR_SIZE);
-+}
-+
- void kgdb_arch_handle_qxfer_pkt(char *remcom_in_buffer,
- 				char *remcom_out_buffer)
- {
 -- 
 2.55.0
 
