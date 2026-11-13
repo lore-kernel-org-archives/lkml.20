@@ -1,56 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794533112;
-	b=HHrrCNR17uN/BlUPVNx9kNiaeTHDrN922/ZVQVDKy/sJebvhWmjYdt6dZcPfGCR/jCh4
-	 oITTj4ap0SGctdZqJx4EB3G0CaW816Slpe9zJQQtHd/WLZaorlTbbvHuqJgigXcltaHyO
-	 ddoYJ95DshTN+88D+U+rzLD92HzPjnQMu8c5I3CnGUvxLWHqRi1S3IZnYcj2x/r0TLQsT
-	 2J62650PELd750ntXymlV01M67xUNrlWsl2XdV3XOHSdVl1+8od+2BXhUIDmseD2/H+PB
-	 QovYx9K2uBPESm9zBT4xMeYIQcbFdDVCf1oRBH71v0WLSDu3rJM2rkUq64aa1nXEZWw==
+	t=1794533166;
+	b=mZdReb547LSWV80B9t4i4dKPOC20l1p8PoNRpgAYrmFcAVV8oJ2mnHXd9BAjeJfOxSIp
+	 o1JvRMfYsnGUYPMpH3OxOhmHM1Q2SQOrMglk7Mlv3wf52ZNt1XUdPzCr44gU9gNmU3Wl2
+	 h2qtjjjz3IBZGk1qiy3bYztArX8dH9sbVoW9WO7kR7vkwYfgIdQSxEBtWRfFw3WyYwwfu
+	 Vh31mQxyPtgwWT1weo8YL9T8yHK4ekt5yVkjyDHd03v1pgXqYAKlWA1/OOEZ7CZfUGB4F
+	 FRGctDpbKzx4JmEQqml0EyXbqaP9ounaTP7xIQ4Tvk0guubPzTxTpWNXSp7IpHVcFXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794533112;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=0h7+1aT1XQG6/iyNPVj4qop9eLcBso7vpCHfOCz/wJg=;
-	b=AWqg2c5fvwdFQ8TKNy34VpXEN38ijatTCHYmshYM7i7U8uCKwVYMntcDgUAxwp+DvYrj
-	 tCK+ExZkCPx3iBdVG0gZPmpYHWlHiKM33WQsxYOfCkHpbT39KV6jvCQGIyZFrYEdss/1t
-	 TT6Cl05IQkXRDAYT0XhTmMy5Jbn9rfeb4oGXcMCN+hdj2DhDabriUPs2Y9qVusknJ20nw
-	 CUVl6xXTc6m4fuMjs+pGqDZEC2JBZL35Z99NdAOhL351mauWggkUIk/u2z8dwFBkAYIS+
-	 kS6c72PerSBPc8luVL8zUG8Ma/fDcPBBEaK0TuzJnmcVhHT2bXw9jIek9bIB1zp8i/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794533166;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=hn4/JimcjLWSomeENzWQ26kW3zxyIacdt8yyhBA+LZ4=;
+	b=UKMsRyohjicoruVC0HgqycroqWwTMTRk1PFjmTACwqjQ9KBTg/o9E3xk2jrknLK4vG1x
+	 iWRvL/SyaZCEmPInCiJqgzDHk49TqZKYmyCPjw6lu4VdKMqzmWX3ZTZpH/JlM9LaTcCaZ
+	 4SBQ9p2Y+mA4eMAzBsQivojEfYgDtrA938jJlvTWs1dGxnvlShpbvAVb+Z8jdq8FRYKMS
+	 uASbvD3Zf9iT/99qfStTa4OWqwGDg+z4iMOOqYAsjUoZdKRbHcBJIQ6jn5UZ/xaqobDZo
+	 40bXHxyeLV18hPSIyIR4RmWdUnuUyE/yPZ1+99RQPO9cGtNmh9wWB4vmRngRmkh1bBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=erebion.eu;
-	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=99b0vDAF;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=UiD6mtuL;
-	arc=none smtp.remote-ip=142.132.183.134
-Received: from erebion.eu (erebion.eu [142.132.183.134])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BfkdJxfF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A2960A5BC8;
-	Fri, 13 Nov 2026 01:25:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26A2960A5BC8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34EB7606A321;
+	Fri, 13 Nov 2026 01:26:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=99b0vDAF;
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=UiD6mtuL
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1794533098; bh=0h7+1aT1XQG6/iyNPVj4qop
-	9eLcBso7vpCHfOCz/wJg=; b=99b0vDAFXTfCfZXOlFL31mbL40yfSS9bdTVzBXeA2GO/mgeGRd
-	WYU2rCtVGcWqtBlPngT3J7MogqpwoA05jpCw==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1794533098; bh=0h7+1aT1XQG6/iyNPVj4qop
-	9eLcBso7vpCHfOCz/wJg=; b=UiD6mtuLGM0oklJR0/FbX2PPZqXQHyvcx+ya2UUpUxzp6ST3pS
-	5yKA+XAcEVYpYfgt+h608Bj4A16idB9ho104Gv5eW03eWn0I10yyvZjzLLmq5oLBbJzOhjzHR00
-	BB5AWNYNb5AxbGqPbbcA7D3+H5v4oznwKh1VgWv0uw4U6JvszSyFXC37IkMDwjDFa9UFYvihcRe
-	0TxM4JnLGu/2XPKfIMD9adLR9WEkW0PkdCJtnx4+GZt4JSXbavqQgwIE+Jsv35TB9Is+Gqbgiy6
-	BT1dnjgQ8d9erKd+O0Ql+lIF9jkl8S4T6+/S17L7QyV7KlV3+5p4Q4y1Myo+K1fmKeQ==;
-From: erebion <erebion@erebion.eu>
-Date: Fri, 13 Nov 2026 02:24:54 +0100
-Subject: [PATCH v4 10/12] arm64: dts: qcom: sm6350-lena: Add PMK8350
- thermals
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BfkdJxfF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 942CA1F000C4;
+	Fri, 13 Nov 2026 01:26:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794533165;
+	bh=hn4/JimcjLWSomeENzWQ26kW3zxyIacdt8yyhBA+LZ4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=BfkdJxfF7XAGqqVR1I/JBZnDT6HYfYly0snwkGUTlXl5oLy0Y1kO7oz/FnO0Lfnh9
+	 kxLZ7+rpCNP6pvklcLhgiFkk2jalYh6+Nx3JA+9uDdobh8YkjQi+zpFmsJFg4xdewA
+	 hC+s6G1QyRBRd8Ki4ZK53V2Equlo81pgoYsAcYnjcJa7ZE2DV1uk4S245znJi0/hxk
+	 CRPP75sTzc96+bw+gnR0bfoj4T75tByR1HYe+tgHuZewWUyfQ9NrvnEStGf+A63lx5
+	 a1POXoZMGbHX/sAbxk3OA/uKHt/ahIOy3xviwxIWt3Z/HaRyWV2ckplQGS2JaJhM2M
+	 mYkEQOLqwgGHQ==
+Date: Fri, 13 Nov 2026 01:25:59 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Yaohan Li <shunsheng1218@gmail.com>
+Cc: nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ paul@crapouillou.net, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] iio: buffer: hold a reference while DMA-BUF is
+ attached
+Message-ID: <20261113012559.103d333a@jic23-hlaptop>
+In-Reply-To: <20261112070940.2527455-1-shunsheng1218@gmail.com>
+References: <20261112070940.2527455-1-shunsheng1218@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,67 +61,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-pdx213-upstream-3-v4-10-4b01c50a821c@erebion.eu>
-References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
-In-Reply-To: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- erebion <erebion@erebion.eu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794533093; l=986;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=twKdrU7I/cmmPD/+C53vMHzqRkPt8uPHA4z20az+l8Y=;
- b=TFqZ9Ztx9nwSR5pp90PxPloKA+cGRt2o2bpCSL6lyg8quI2P1jjZedj9QOQsi+bh88c74kp59
- ZWEKIMtYGASC9+NgJ4PVurnqeyG9Gye+4fYWHnLToLvcgkSQYtvmueg
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Configure the thermals for the xo-thermal thermistor connected to
-PMK8350.
+On Thu, 12 Nov 2026 15:09:40 +0800
+Yaohan Li <shunsheng1218@gmail.com> wrote:
 
-The trip points can really only be considered as placeholders, more
-configuration with cooling etc. can be added later.
+> iio_buffer_attach_dmabuf() stores an IIO buffer pointer in the DMA-BUF
+> attachment without taking a buffer reference.  A delayed DMA fence
+> completion can release the attachment after the IIO device has been
+> unbound and its buffer freed.  The release callback then dereferences
+> the stale buffer while detaching the DMA-BUF.
+>=20
+> Take a reference when storing the buffer in the attachment, and drop
+> it after the final detach or when the attach operation fails.  This
+> keeps the buffer alive for the asynchronous completion path.
+>=20
+> A KASAN-enabled test with a DMA-BUF-capable IIO test device reproduced
+> the use-after-free on the unmodified kernel.  The same delayed
+> completion sequence produced no report with the change applied.
+>=20
+> Fixes: 3e26d9f08fbe0 ("iio: core: Add new DMABUF interface infrastructure=
+")
+> Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+>=20
+Applied to the fixes-togreg branch of iio.git.
 
-Signed-off-by: erebion <erebion@erebion.eu>
----
- arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Thanks,
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index d37f5090dbfa7..79097ae409bab 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -105,6 +105,18 @@ active-config0 {
- 				};
- 			};
- 		};
-+
-+		xo-thermal {
-+			thermal-sensors = <&pmk8350_adc_tm 0>;
-+
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
- 	};
- };
- 
-
--- 
-2.53.0
-
+Jonathan
