@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794608059;
-	b=5M2MxQjBuzB1kHgPrb0WJz/SJjGi7tqmQvRHNDTPSu89RMI12qgY8Fkhj0LcvQncLrhR
-	 ndARJedm7fU2zxEd8ljB1bKGGc7Viy4fNo7ZCB+hHUDnhMe1a2dzMnkGFQ4ac/UFbJEJ/
-	 xu/DznH32estsftZuhAq0QT28VDOLLMc+kdvZ8txhsgCEVdgWfwQbmJUMSVbE7BFmXXSQ
-	 avXLD7VqST5+wAp0Gv40+7ROK75p9cc1ufhomUz1heaQsWvT+U1AzTB270c6ysf3mwoPU
-	 y1RfwfZhdW8RbArAEUo8aqwjVX1yDAYDw2WBKRDNbFwcttB+xdGISjP4LCsY2RWr9uw==
+	t=1794608066;
+	b=GK90e3ZvzWZXHd9f1Utr4VKfgf3k6dpffTMlf3+EbDIaYAHmZI294VBnGKceEBHgGM4q
+	 jQ+/prwJ8r6GwMr1bN1PTr/zCxZjsc66E/97c/BPloY97NGWlNlAW11ervAjD64u1ZHtq
+	 m1TF1vk9kEkP9ROJOVwqZKYmonzgBDlG/scLyjrw6JIapySL5ddBGz84KjJ8W4DeNfJZK
+	 Pa2Pe2RxSf0DZMSTmdAmn2tjketFxAvKLwXPFsu7AJKPQi5IZ0srTADOzpZNjTM+kJQyA
+	 egw1CyvzGb42BextoL615kaexfBZ1/F/ixwsbhNBtEdUEH/4/8JkClJpxwtV8k5/g9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608059;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608066;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=pgq9kE5SUICsmlCxk4e9GW8xjHVaimZWvwiBTJYrn4w=;
-	b=xOkpsjvCTnPiwXYR5DQxv0T+k7VdqUXKbSTvY7tcqneC3pwiPOy1Sg8B84HGPZJFJPQj
-	 9kfQGmkfcNfIk5IUR44KiciiKFlL5JekrDlknjRw/iUJfC5veJIHaWnX59P3kCPifSsN2
-	 +SRT8Et6eCbTx9pB/xq8qlhKAGkkHyfgPwKho2VuRSClxsITDjh7GZpFS/TDZOiZyZG2a
-	 HeXNNC2BeQo/mBbZeJ9hYxoFWk3Dk3hKHgr2VkgkbykkMFFkyz+6ymTLVBPUAqfJPiaa3
-	 NduHQjhbCGMnaBMxMv+A4OoGUrRA+QYXyH1mjLQ6xPhcX2XZrFPaln/kqLhn4XNnyjA==
+	bh=VHi+ZeXinLJkVfkfboNP114V/6h0aWxNJE4DAqAGB1U=;
+	b=GuGA0tKHaFsTBy77qAIU7zkduFF4lTLWfDfe8wbdKvcMCsq1Pcm/Basx4ci1tj/h1eUH
+	 EMVJUF8Q+jEMXq5urQ9RCvZ3w4vOqSLF510jRP+4cKhM+a3iEO3u76UN/KxAd24IVA95h
+	 2KLHVH6f1yK2tlcE0YXs/MeZIat5Si3jBxsCbibc/aRh6Vii56KqlKJkdPXxOqcYgOxxO
+	 /gvcJ4cmJOy2hKM6xlCFtuGPXN2xunRriDPpDVe8nwn6syExjiLpZtZdZ1mEbVVVig+a8
+	 DZeP9pV1CpAmlSAtOfBGBsaDqTJ/pvc/zMpzjAgI5VPu8y/P88IaFQrhQuuOu14EdnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hWpqsqsi;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fjMOIPEu;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CD0606A8BE
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:14:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35CD0606A8BE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997B3606A880
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:14:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 997B3606A880
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hWpqsqsi
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36de26cb4b3so1792196eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:14:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fjMOIPEu
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-5641cd2cc13so1893616b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:14:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794608058; x=1795212858; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794608064; x=1795212864; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pgq9kE5SUICsmlCxk4e9GW8xjHVaimZWvwiBTJYrn4w=;
-        b=hWpqsqsi5Ai7VfHGHkn2ypoSvjA52xdLL/+tVGmCOmpGeUZLIqhLbki3VsruNTrq3u
-         Zg8eEN0fODY0o4LzDatAmU45Pmhobu/M38df8hpaaxPjwOXEaCT2HQ0MgxZJ1X9un901
-         aTUU1JlNvDY6FMkQ8vFn/wJPP8zrdhvKoNVZE00dqIIDfsb8bBTajo9wOXN7eAeuUoKG
-         MWG9s1NSljJW4v+a3EWb81B+yS2xNnPvdIJXLvJ0Hdue9E8vj8h5CVtFGQ7BXhXSCa/O
-         YFjO2l86t7bZgMT74iKltKqoKIPcBFYhYkznd5vLUAVkVq/32Yr0ulo+K5FowxJNqOlq
-         XYJw==
+        bh=VHi+ZeXinLJkVfkfboNP114V/6h0aWxNJE4DAqAGB1U=;
+        b=fjMOIPEujQ80OPuCk/2PwfPYl4muqyhEYEkrnqU2gj6MiPamTimEwjYFMt/H/9w7Wi
+         UTuuENUdduvK1Ox2OM9j6e9GAJEMPHdc53tzSSDAj1a6+ARSpQiJsqLxzv9iHK/mIhuf
+         S7bDxajxb9GFPHBWxjr2+Cfgm9DIP4GdAUYAQ7eGXov/HX/WKBKO8Vtt/FaZMGUFO88G
+         zMbzVQgLhL2PpkBGRoAQhEpGUZU/UEjt0UKMkpAYQ9N6m2bW/Wte6R88jCKB3aczvlkk
+         m3wa2cFuDRz1ah8RH2GBQgPRgT6KSKqZSiMGkxEnsF2VUy7YKRxWdFGIaSzdaXSeadYS
+         e9Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794608058; x=1795212858;
+        d=1e100.net; s=20260707; t=1794608064; x=1795212864;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pgq9kE5SUICsmlCxk4e9GW8xjHVaimZWvwiBTJYrn4w=;
-        b=IVu+i118/wkNtfozYLDjRd+tmKneYXTm9zOtK4Sx3bKY29+jlUJq1G1tQ+fx2WmeeG
-         dx7AkVRCJEo0liW2rR8ZQHxM17MP/TBSw4ImdyXQY/pMz2hLkqcv7wz7hEpd+yeABsTm
-         Bz7uBeVsc3p9fOz/TrZamRbeQ21YUXZHtQXi0AugiVusVL+HtdkMytRrKhlUKVV31FPq
-         2Kj+FMVsdGYgGitTfBcpT4gbICT4ZlikojhGZFbc2gd8gVWrjgfOGsfYTydZLJAuU/a7
-         dosJCLJJ4lFycVICn2jLOE9jSmTIM89Dy15vMiEL1tzaaqCrnt6mhvUCVKv0L0GOBwqQ
-         k14A==
-X-Forwarded-Encrypted: i=1; AL+hErE5Lf7LbqqUk8LMX472UaoBbmgt3DWh4AjO/OLOYtH0lMkYV0ft6JSjE7eAbL4P8YsZUMavzoL79pHQNYc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9cSVIRxo+xJLqsXJbYBju9tPXKuIN5lU2XWRHkytDvjwJ18jSv
-	81hXkRaHbQL7S+WkmKfPqlHYdCk1oPcl8O4hxYLaJmylQNGuk2gPQvsTQ7fqq1/CuQfq/y6vTvZ
-	DyRGi6ZnFJpKwng==
-X-Received: from dyay11.prod.google.com ([2002:a05:693c:62cb:b0:36f:9364:dc98])
+        bh=VHi+ZeXinLJkVfkfboNP114V/6h0aWxNJE4DAqAGB1U=;
+        b=TgwknNNafcQS8QfOtkke4f1YRAWU4XZxG/he3nAY/r00xpGUFU9jLDAVNaLhY9JB1V
+         kSPsbh8F7UAq3SaaGMBVX/3EKNUW5quLQ++zPorr/aYGUeJKb29Rsm7ZlGlO2KErmSL6
+         Ygrzbqq0hJU55q/nTNyYJsEzWnAJS/gsrIKBkWSh4TYrIqU+rJ32+UPREL3v6ctkuR1i
+         WuzWhnXP2dQvFvcDBaVzk9tNkctziWDYliOwWRraZDuNnYuiOKBQu31t2R4bYYn4WuI7
+         BGFVSDfK6fPFNopl3lP+6Yr6+i6YNe+OMdfSomM1rvHE/Akr4dd64jpSUT2csw0Rm4aB
+         cbQA==
+X-Forwarded-Encrypted: i=1; AL+hErFWYisKIJs/fs4Jsl8OXY3E/3ZKHAXaor/hONx0GHnUW+g/joz4Nn7d5rk3ajzDsBcyasG+i5CeCQyOH+Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+tD8hulrFPqNgvts1jRau0n7r1mWMSJ9wMrRhvi+7w/u5Elj8
+	cXAbvUrlGvA9NtxaJMkC722grCAP/oqeZmz957hWNPQWTvqbdX6glHdAyMhFVkHhIz6RQZeVK4f
+	lXi/aJrEejrBNug==
+X-Received: from ilbec7.prod.google.com ([2002:a05:6e02:4707:b0:53c:f2dd:1e17])
  (user=wusamuel job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:90b:b0:34d:755b:d60b with SMTP id 5a478bee46e88-37968b8a031mr3155013eec.34.1794608057786;
- Fri, 13 Nov 2026 14:14:17 -0800 (PST)
-Date: Fri, 13 Nov 2026 14:12:49 -0800
+ 2002:a05:6808:3505:b0:536:611a:7fd9 with SMTP id 5614622812f47-56e6015e8cfmr3125630b6e.7.1794608064235;
+ Fri, 13 Nov 2026 14:14:24 -0800 (PST)
+Date: Fri, 13 Nov 2026 14:12:50 -0800
 In-Reply-To: <20261113221248.3535369-11-wusamuel@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,22 +81,22 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261113221248.3535369-11-wusamuel@google.com>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-Message-ID: <20261113221248.3535369-15-wusamuel@google.com>
-Subject: [PATCH bpf-next v3 4/9] kallsyms: Add KALLSYMS_QUERY_BY_ADDR ioctl to /proc/kallsyms
+Message-ID: <20261113221248.3535369-16-wusamuel@google.com>
+Subject: [PATCH bpf-next v3 5/9] docs/procfs: Document KALLSYMS_QUERY_* ioctls
+ on /proc/kallsyms
 From: Samuel Wu <wusamuel@google.com>
 To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
 	Randy Dunlap <rdunlap@infradead.org>, Luis Chamberlain <mcgrof@kernel.org>, 
 	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
 	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
 	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
 	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
 	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
 Cc: Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
 	David Laight <david.laight.linux@gmail.com>, Samuel Wu <wusamuel@google.com>, 
 	kernel-team@android.com, linux-kernel@vger.kernel.org, 
@@ -105,146 +105,41 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>,
 	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 
-Symbolizers such as Perfetto read all of /proc/kallsyms and keep a
-sorted copy in memory to resolve addresses.
+Add kallsyms to the /proc file table, and a short section that refers to
+the KALLSYMS_QUERY_* definitions in include/uapi/linux/fs.h.
 
-Add the KALLSYMS_QUERY_BY_ADDR ioctl. It returns the symbol that covers
-an address, from the same sources and in the same order as %pS. BPF JIT
-symbols are hidden when /proc/kallsyms hides them. query_flags must be
-0; it is reserved for other modes.
-
-The command uses 'f' 0x31; register 0x31 in ioctl-number.rst.
-
-Suggested-by: Andrii Nakryiko <andrii@kernel.org>
 Signed-off-by: Samuel Wu <wusamuel@google.com>
 ---
- .../userspace-api/ioctl/ioctl-number.rst      |  2 +-
- include/uapi/linux/fs.h                       | 13 ++++
- kernel/kallsyms.c                             | 60 +++++++++++++++++++
- 3 files changed, 74 insertions(+), 1 deletion(-)
+ Documentation/filesystems/proc.rst | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
-index f5dbb597257a..d9b66e7a29b7 100644
---- a/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -250,7 +250,7 @@ Code  Seq#    Include File                                             Comments
- 'f'   00-0F  fs/ocfs2/ocfs2_fs.h                                       conflict!
- 'f'   10-11  linux/fs.h                                                conflict! procfs ioctls (PROCFS_IOCTL_MAGIC)
- 'f'   13-27  linux/fscrypt.h
--'f'   30     linux/fs.h                                                procfs kallsyms ioctls (PROCFS_IOCTL_MAGIC)
-+'f'   30-31  linux/fs.h                                                procfs kallsyms ioctls (PROCFS_IOCTL_MAGIC)
- 'f'   81-8F  linux/fsverity.h
- 'g'   00-0F  linux/usb/gadgetfs.h
- 'g'   20-2F  linux/usb/g_printer.h
-diff --git a/include/uapi/linux/fs.h b/include/uapi/linux/fs.h
-index 987569dcdbea..c1a63c8560e2 100644
---- a/include/uapi/linux/fs.h
-+++ b/include/uapi/linux/fs.h
-@@ -676,6 +676,7 @@ struct procmap_query {
+diff --git a/Documentation/filesystems/proc.rst b/Documentation/filesystems/proc.rst
+index fa7a468e8edf..442aae9ebd9e 100644
+--- a/Documentation/filesystems/proc.rst
++++ b/Documentation/filesystems/proc.rst
+@@ -761,6 +761,7 @@ files are there, and which are missing.
+  ioports      I/O port usage
+  irq 	      Masks for irq to cpu affinity			(2.4)(smp?)
+  isapnp       ISA PnP (Plug&Play) Info				(2.4)
++ kallsyms     All kernel symbols (see text)
+  kcore        Kernel core image (can be ELF or A.OUT(deprecated in 2.4))
+  kmsg         Kernel messages
+  ksyms        Kernel symbol table
+@@ -1368,6 +1369,14 @@ Provides counts of softirq handlers serviced since boot time, for each CPU.
+     HRTIMER:         0          0          0          0
+ 	RCU:      1678       1769       2178       2250
  
- /* /proc/kallsyms ioctls. -EPERM if the opener cannot see kernel addresses. */
- #define KALLSYMS_QUERY_BY_NAME	_IOC(_IOC_READ | _IOC_WRITE, PROCFS_IOCTL_MAGIC, 48, 0)
-+#define KALLSYMS_QUERY_BY_ADDR	_IOC(_IOC_READ | _IOC_WRITE, PROCFS_IOCTL_MAGIC, 49, 0)
++kallsyms
++~~~~~~~~
++
++Lists the kernel symbols of vmlinux, loaded modules, and dynamic sources such
++as BPF JIT images. The ``KALLSYMS_QUERY_BY_NAME`` and ``KALLSYMS_QUERY_BY_ADDR``
++ioctls find one symbol by name or by address without parsing the text. See
++``include/uapi/linux/fs.h`` for their structs and errors.
++
+ 1.3 Networking info in /proc/net
+ --------------------------------
  
- enum kallsyms_query_flags {
- 	/* Match query_name as a prefix. */
-@@ -717,6 +718,18 @@ struct kallsyms_query_by_name {
- 	__u64 sym_struct_size;	/* in - sizeof(struct kallsyms_query_sym) */
- };
- 
-+/*
-+ * Find the /proc/kallsyms entry that covers query_addr, or return -ENOENT.
-+ * ftrace trampolines and kprobe pages are not resolved yet.
-+ */
-+struct kallsyms_query_by_addr {
-+	__u64 size;		/* in - sizeof(struct kallsyms_query_by_addr) */
-+	__u64 query_flags;	/* in - must be 0 */
-+	__u64 query_addr;	/* in - kernel address */
-+	__u64 sym;		/* in - user ptr to struct kallsyms_query_sym */
-+	__u64 sym_struct_size;	/* in - sizeof(struct kallsyms_query_sym) */
-+};
-+
- /*
-  * Shutdown the filesystem.
-  */
-diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
-index 29a9da04d8a3..6d7032cd3fd6 100644
---- a/kernel/kallsyms.c
-+++ b/kernel/kallsyms.c
-@@ -1223,6 +1223,64 @@ static int do_kallsyms_query_by_name(struct kallsyms_query_by_name __user *uarg)
- 					 &bufs->m);
- }
- 
-+/*
-+ * Look up symbol from addr. Copy the module name under RCU, and hide BPF JIT
-+ * symbols as /proc/kallsyms hides them.
-+ */
-+static int kallsyms_find_addr(unsigned long addr, struct kallsyms_sym_match *m)
-+{
-+	unsigned long offset;
-+	char *modname;
-+
-+	guard(rcu)();
-+	if (!kallsyms_lookup_buildid(addr, &m->size, &offset, &modname, NULL,
-+				     m->name))
-+		return -ENOENT;
-+
-+	/* Outside vmlinux, only BPF JIT symbols have no module name. */
-+	if (!modname && !is_ksym_addr(addr)) {
-+		if (!bpf_jit_kallsyms_enabled())
-+			return -ENOENT;
-+		modname = "bpf";
-+	}
-+
-+	m->addr = addr - offset;
-+	strscpy(m->modname, modname ?: "", MODULE_NAME_LEN);
-+	return 0;
-+}
-+
-+static int do_kallsyms_query_by_addr(struct kallsyms_query_by_addr __user *uarg)
-+{
-+	struct kallsyms_query_by_addr karg;
-+	struct kallsyms_query_sym ksym;
-+	struct kallsyms_sym_match m;
-+	int err;
-+
-+	err = kallsyms_copy_query_from_user(&karg, sizeof(karg),
-+					    offsetofend(struct kallsyms_query_by_addr,
-+							sym_struct_size),
-+					    uarg);
-+	if (err)
-+		return err;
-+
-+	if (karg.query_flags)
-+		return -EINVAL;
-+
-+	err = kallsyms_copy_sym_from_user(&ksym, karg.sym, karg.sym_struct_size);
-+	if (err)
-+		return err;
-+
-+	if (karg.query_addr > ULONG_MAX)
-+		return -ENOENT;
-+
-+	err = kallsyms_find_addr(karg.query_addr, &m);
-+	if (err)
-+		return err;
-+
-+	return kallsyms_copy_sym_to_user(karg.sym, karg.sym_struct_size, &ksym,
-+					 &m);
-+}
-+
- static long kallsyms_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- {
- 	struct seq_file *m = file->private_data;
-@@ -1232,6 +1290,8 @@ static long kallsyms_ioctl(struct file *file, unsigned int cmd, unsigned long ar
- 	switch (cmd) {
- 	case KALLSYMS_QUERY_BY_NAME:
- 		return iter->show_value ? do_kallsyms_query_by_name(uarg) : -EPERM;
-+	case KALLSYMS_QUERY_BY_ADDR:
-+		return iter->show_value ? do_kallsyms_query_by_addr(uarg) : -EPERM;
- 	default:
- 		return -ENOIOCTLCMD;
- 	}
 -- 
 2.56.0.679.gc527c65306-goog
 
