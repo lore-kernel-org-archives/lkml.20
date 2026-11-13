@@ -1,73 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794565528;
-	b=Mc5jM3uYoD8EWthsl/ks9WKeDXBi6+jkM5YBzDJh1KPU4JCKn3e7nM+VlKGNMRd7+pwx
-	 2JYET7Nu02nFJNmFHCta2n/u8mSOYI/twbkCiyrWaE+B2i0cyLjrd66zO+/0InRrA22j4
-	 GfDgsV+/Ir7zMQ91DARjWb55j+fB9IQvPD1rJYOzFhCb1gQr3AyjRLjLkZdeHjPQch9t3
-	 X8MMa0n8DoWMOiFQHugVXgrS4GyykgQGDiFGw996X6uSl/kh6NWOVFdo/b8cYVhBzqHT+
-	 +uvxJJsptd9QMwYV2jx4fF1rcGMETGwwQ50Q1+aeCtJaJIX8tDgtjRuWJ+Zv0ww0/Tg==
+	t=1794565557;
+	b=YvgwP/BRNhIRPdVmE8Sj/esnZu6rjYcS1v5L0lux5hzdq1cv1ewzUGeO2K8/RY6NUXCD
+	 +J4MRr/8W4o4nzqx+5pWsS8vTdhxJbuifcLk2pE4lO5g6cy3l5ewZDyXkHKms4r4gF2r8
+	 cLIOSw4+CBR2aCtZ4g3AWlguvlL4zg6Tu00NRdP6kbJm+wVwM262bYlXmtU13FefHXnIc
+	 F0iGbYweG7rjqHInpFCqoAQrXwaEpzq2GHCdQC6S+tDuoO+6wxtKssrrFcqmF6+jYVgdZ
+	 Vu20FdvDv7T34jskXSRA1ddPrI3HamLcXxH4Y70icg42/1EOMXcBeyF9b6prRzOdJAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794565528;
-	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=34eweslnCjzZk3P3dkb/YboySmeDEbPaEMg/uu7bDtU=;
-	b=b0Vy2P4uXUxPyjXmb3V7/1unwCpuAG24+9agWcil+e0PwAVxK7QcLOQIcAih1FuEI39R
-	 zdkGrtUNrEAyxl2KyrggkfHtalGXEA/jVj8+LasbW5j4kReLtRbiy6W8OqB4ZLOCSiPie
-	 gB4UyS8jJWSOetWJZoRiioAp34/a3V4EIWbzN6am/75idh4oDgGpv2lAlI6srdIuDPOI0
-	 hsFfy1nDk5zE840uKk9+bh0CKk02izZZbRU8hRfewJM416L5BZfQd7hsXPgbKNUyq4OrY
-	 4tbJzSYT80cytuEXf5vUHkUCm1fQdEPs2LQrEh5vWXh5NmpR2FjfP1AV2c4jM1g/Q6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794565557;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=HaLYJhSTkNjizIEyz4raXHjkF7Mcm54Yi7yMX0V+C2E=;
+	b=qOyZblTK2AqCPobd/UONitr0xtc8M79E6wVUo5q7IbRo0cmG/doAZjgjZ8s0myJeJYCg
+	 wqr1Jq+LCEcXzeXIaqfJTnGIB/Ox/b5BwQ2VI8r3Jg+2mekQwepKIQUwBzf0uQ6nCv9NO
+	 OQndpGPKem3rD5RgKTU2d6Pj1Ri+KcjiaGtOMczQrXYqYcgLkacDLY+dLmC43ZqmlhSpw
+	 POhkELaVBUx/MkFJ9J5SbSG0MNhhMuJBF7qvFIKcXW4gzI+EdM4i58d2sfWoz1da2ujmD
+	 vWlnSEsB6MNOv9wzuB6B6xy5Kt5kew+wEa76WZ7MpAue0UHTeu0sMh5Oy3NLI33gBQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideco.ru;
-	spf=pass smtp.mailfrom=ideco.ru;
-	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b="ETh/jPkM";
-	arc=none smtp.remote-ip=51.250.56.165
-Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="g7S0/80V";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=md2KzU+L;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="g7S0/80V";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=md2KzU+L;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09ACD606A321;
-	Fri, 13 Nov 2026 10:25:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09ACD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ideco.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3929606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:25:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3929606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=ETh/jPkM
-Received: from [169.254.254.254] (localhost [127.0.0.1])
-	by smtp.ideco.ru (Postfix) with ESMTP id 37E5526BC3;
-	Fri, 13 Nov 2026 15:25:19 +0500 (+05)
-Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=g7S0/80V;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=md2KzU+L;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=g7S0/80V;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=md2KzU+L
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.ideco.ru (Postfix) with ESMTPSA id DB0B926BC0;
-	Fri, 13 Nov 2026 15:25:16 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru DB0B926BC0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
-	t=1794565518; bh=34eweslnCjzZk3P3dkb/YboySmeDEbPaEMg/uu7bDtU=;
-	h=From:To:Cc:Subject:Date;
-	b=ETh/jPkMCkpuyTeQd9NoMRCMSmMPyJvhxzX8TJuclHoA4bvmDn/X/igsbQMf+16ty
-	 uqXnzShJEFYg/oCm9ZP+IplFq6vt2STbQ0vtbtS6o8nbXqLfV0niT3ac7lWsrxfqL2
-	 /TP/pRIX2bXQcbrc2fJrkK/2ylyOeGL2rNxm36hDDIyrK6HHFj9Vb4xOq3pYsHkdtw
-	 FTfOEqJyNwKbbF3y8ClBDl0tCtz5fJ8o4wLkX/SnR4TiwW/3k2oiz9qa+z18Q/obnx
-	 lxPgNZ7rRMzWVNViSheG3kQKWHAKfgrg76xGOeOylUSG0+jWbdlurUx14Z3NIGAEN/
-	 Pi6D6amovLGoQ==
-From: Alex Kazinsky <a.kazinsky@ideco.ru>
-To: Detlev Casanova <detlev.casanova@collabora.com>
-Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH v3] media: rkvdec: Handle interrupts without a current context
-Date: Fri, 13 Nov 2026 14:24:52 +0400
-Message-ID: <20261113102456.4155237-1-a.kazinsky@ideco.ru>
-X-Mailer: git-send-email 2.56.0
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C60EA1F898;
+	Fri, 13 Nov 2026 10:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794565554; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaLYJhSTkNjizIEyz4raXHjkF7Mcm54Yi7yMX0V+C2E=;
+	b=g7S0/80VzZencT3Cmkq3Ge9GYEW6SXD9GZeEm3rtmKUaC5+8+vR5qAaKL2lLijFAlsQoN3
+	LXrw0ORrpWZyv6lT7+bCvWJG+NFx+fsXjcfOr6O690L50GpOhbGGuVNj1BCA8ZxcztBjbm
+	Vzfps28vThQ6avsmclyT73ADLqJaUnY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794565554;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaLYJhSTkNjizIEyz4raXHjkF7Mcm54Yi7yMX0V+C2E=;
+	b=md2KzU+LupZw3MTmIIGbP9ew/wibziYPKrhMbFAzAlOYxP6xZJtfKFwVWxCxw4EzO9gmqH
+	fzZrVVqmnzf1HMDQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794565554; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaLYJhSTkNjizIEyz4raXHjkF7Mcm54Yi7yMX0V+C2E=;
+	b=g7S0/80VzZencT3Cmkq3Ge9GYEW6SXD9GZeEm3rtmKUaC5+8+vR5qAaKL2lLijFAlsQoN3
+	LXrw0ORrpWZyv6lT7+bCvWJG+NFx+fsXjcfOr6O690L50GpOhbGGuVNj1BCA8ZxcztBjbm
+	Vzfps28vThQ6avsmclyT73ADLqJaUnY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794565554;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaLYJhSTkNjizIEyz4raXHjkF7Mcm54Yi7yMX0V+C2E=;
+	b=md2KzU+LupZw3MTmIIGbP9ew/wibziYPKrhMbFAzAlOYxP6xZJtfKFwVWxCxw4EzO9gmqH
+	fzZrVVqmnzf1HMDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 779D0134C3;
+	Fri, 13 Nov 2026 10:25:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id crkoE7Ll9mrKfQAAD6G6ig
+	(envelope-from <hare@suse.de>); Fri, 13 Nov 2026 10:25:54 +0000
+Message-ID: <aead1f29-eb58-4e44-b4f6-a8dfa7d7c193@suse.de>
+Date: Fri, 13 Nov 2026 11:25:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,167 +106,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvmet: clamp the last ANA group index against the real
+ array size
+To: Yuehong Wu <wuyuehong@cmss.chinamobile.com>,
+ linux-nvme@lists.infradead.org
+Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ Chaitanya Kulkarni <kch@nvidia.com>, Keith Busch <kbusch@kernel.org>,
+ Maurizio Lombardi <mlombard@redhat.com>,
+ Mohamed Khalfella <mkhalfella@purestorage.com>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Aurelien Aptel <aaptel@nvidia.com>, Nilay Shroff <nilay@linux.ibm.com>,
+ Jesse Taube <jtaubepe@redhat.com>, Rongzheng Wang <testwrzwrz@gmail.com>,
+ Kees Cook <kees@kernel.org>, Rosen Penev <rosenp@gmail.com>,
+ Guixin Liu <kanie@linux.alibaba.com>, Qing Zhang <diasyzhang@tencent.com>,
+ Eric Biggers <ebiggers@kernel.org>, Julian Sun <sunjunchao@bytedance.com>,
+ Yu Zhang <yuz08559@gmail.com>, linux-kernel@vger.kernel.org
+References: <20261106-nvmet-ana-grpid-1-yuehongwu@cmss.chinamobile.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261106-nvmet-ana-grpid-1-yuehongwu@cmss.chinamobile.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lst.de,grimberg.me,nvidia.com,kernel.org,redhat.com,purestorage.com,samsung.com,infradead.org,linux.ibm.com,gmail.com,linux.alibaba.com,tencent.com,bytedance.com,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,chinamobile.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.29
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-The watchdog can finish the current job before the threaded IRQ handler
-retrieves its context. In that case, v4l2_m2m_get_curr_priv() returns NULL,
-but the variant IRQ handlers unconditionally dereference ctx->dev.
+On 11/6/26 7:40 AM, Yuehong Wu wrote:
+> NVMET_MAX_ANAGRPS is the highest valid ANA group id, not the size of
+> nvmet_ana_group_enabled[]: the array has NVMET_MAX_ANAGRPS + 1 entries
+> and the controller advertises anagrpmax == NVMET_MAX_ANAGRPS.  Both
+> array_index_nospec() calls however pass NVMET_MAX_ANAGRPS as the size,
+> so for the last group the mask is 0 and the index quietly becomes 0:
+> 
+>   - nvmet_ana_groups_make_group() increments enabled[0] while the group
+>     keeps grpid == 128, so the later nvmet_ana_group_release() decrements
+>     enabled[128], which underflows to 0xffffffff.  The ANA log page then
+>     reports group 128 as inaccessible forever even though the configfs
+>     group no longer exists, and the increment on enabled[0] is never
+>     undone.
+> 
+>   - nvmet_ns_ana_grpid_store() accepts 128, stores 0 in ns->anagrpid and
+>     returns success, so the namespace silently stays in the default ANA
+>     group instead of the one the user asked for.
+> 
+> Both failures are silent, and they change what the target reports in its
+> ANA log page, which is what a host uses to select paths.
+> 
+> Pass the real array size in both calls, so the masking is kept but the
+> last group is no longer folded onto index 0.
+> 
+> Fixes: 20dc66f2d76b ("nvme: prevent potential spectre v1 gadget")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+> ---
+> Verified with nvme-loop in QEMU/KVM on 7.3.0-next-20261027, with two
+> kernels built from the same tree and differing only in these two lines
+> (no instrumentation):
+> 
+>   - before the patch, a group created as ports/1/ana_groups/128 is absent
+>     from the ANA log page (ngrps=1) even though configfs accepted it, and
+>     it is reported as expected afterwards (ngrps=2, group 128 optimized);
+>   - 128 written to a namespace ana_grpid reads back as 0 before the patch
+>     and as 128 after it, and the namespace is accounted to group 128;
+>   - removing the group again adds a phantom group 128 (state inaccessible,
+>     0 namespaces) to the ANA log page before the patch, and leaves no
+>     trace after it, even when creating and removing it repeatedly.
+> 
+>   drivers/nvme/target/configfs.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
+> index 8aea64d..48d3f68 100644
+> --- a/drivers/nvme/target/configfs.c
+> +++ b/drivers/nvme/target/configfs.c
+> @@ -701,7 +701,7 @@ static ssize_t nvmet_ns_ana_grpid_store(struct config_item *item,
+>   
+>   	down_write(&nvmet_ana_sem);
+>   	oldgrpid = ns->anagrpid;
+> -	newgrpid = array_index_nospec(newgrpid, NVMET_MAX_ANAGRPS);
+> +	newgrpid = array_index_nospec(newgrpid, NVMET_MAX_ANAGRPS + 1);
+>   	nvmet_ana_group_enabled[newgrpid]++;
+>   	ns->anagrpid = newgrpid;
+>   	nvmet_ana_group_enabled[oldgrpid]--;
+> @@ -2074,7 +2074,7 @@ static struct config_group *nvmet_ana_groups_make_group(
+>   	grp->grpid = grpid;
+>   
+>   	down_write(&nvmet_ana_sem);
+> -	grpid = array_index_nospec(grpid, NVMET_MAX_ANAGRPS);
+> +	grpid = array_index_nospec(grpid, NVMET_MAX_ANAGRPS + 1);
+>   	nvmet_ana_group_enabled[grpid]++;
+>   	up_write(&nvmet_ana_sem);
+>   
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-Pass only the device pointer to the variant IRQ handlers, so they can
-acknowledge interrupts without accessing the current context. Retrieve
-the context inside rkvdec_job_finish() instead. In the IRQ path, this
-happens only after successfully cancelling the watchdog, while the job
-is still active.
+Cheers,
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: f9c7b7deeffd ("media: rkvdec: Support per-variant interrupt handler")
-Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
----
-Changes in v3:
-- Pass only rkvdec_dev to the variant IRQ handlers.
-- Retrieve the current context inside rkvdec_job_finish().
-- Remove the NULL-context checks from the variant IRQ handlers, as
-  suggested by Nicolas Dufresne.
-
-Changes in v2:
-- Fix continuation-line alignment in the IRQ handler declarations.
-- Clarify that the issue has not been reproduced on hardware and
-  describe a possible test.
-
-v2: https://lore.kernel.org/all/20261026124808.642373-1-a.kazinsky@ideco.ru/
-v1: https://lore.kernel.org/all/20261023131124.94116-1-a.kazinsky@ideco.ru/
-
-The issue has not been reproduced on hardware. The watchdog/IRQ race
-is based on code analysis.
-
- .../media/platform/rockchip/rkvdec/rkvdec.c   | 26 ++++++++-----------
- .../media/platform/rockchip/rkvdec/rkvdec.h   |  3 ++-
- 2 files changed, 13 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index 5250dd59df2e..1b43f05b0299 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -1089,10 +1089,10 @@ static void rkvdec_job_finish_no_pm(struct rkvdec_ctx *ctx,
- 					 result);
- }
- 
--static void rkvdec_job_finish(struct rkvdec_ctx *ctx,
-+static void rkvdec_job_finish(struct rkvdec_dev *rkvdec,
- 			      enum vb2_buffer_state result)
- {
--	struct rkvdec_dev *rkvdec = ctx->dev;
-+	struct rkvdec_ctx *ctx = v4l2_m2m_get_curr_priv(rkvdec->m2m_dev);
- 
- 	pm_runtime_put_autosuspend(rkvdec->dev);
- 	rkvdec_job_finish_no_pm(ctx, result);
-@@ -1176,7 +1176,7 @@ static void rkvdec_device_run(void *priv)
- 
- 	ret = desc->ops->run(ctx);
- 	if (ret)
--		rkvdec_job_finish(ctx, VB2_BUF_STATE_ERROR);
-+		rkvdec_job_finish(rkvdec, VB2_BUF_STATE_ERROR);
- }
- 
- static const struct v4l2_m2m_ops rkvdec_m2m_ops = {
-@@ -1434,9 +1434,8 @@ static void rkvdec_iommu_restore(struct rkvdec_dev *rkvdec)
- 	}
- }
- 
--static irqreturn_t rk3399_irq_handler(struct rkvdec_ctx *ctx)
-+static irqreturn_t rk3399_irq_handler(struct rkvdec_dev *rkvdec)
- {
--	struct rkvdec_dev *rkvdec = ctx->dev;
- 	enum vb2_buffer_state state;
- 	u32 status;
- 
-@@ -1452,14 +1451,13 @@ static irqreturn_t rk3399_irq_handler(struct rkvdec_ctx *ctx)
- 	}
- 
- 	if (cancel_delayed_work(&rkvdec->watchdog_work))
--		rkvdec_job_finish(ctx, state);
-+		rkvdec_job_finish(rkvdec, state);
- 
- 	return IRQ_HANDLED;
- }
- 
--static irqreturn_t vdpu381_irq_handler(struct rkvdec_ctx *ctx)
-+static irqreturn_t vdpu381_irq_handler(struct rkvdec_dev *rkvdec)
- {
--	struct rkvdec_dev *rkvdec = ctx->dev;
- 	enum vb2_buffer_state state;
- 	bool need_reset = 0;
- 	u32 status;
-@@ -1481,14 +1479,13 @@ static irqreturn_t vdpu381_irq_handler(struct rkvdec_ctx *ctx)
- 		rkvdec_iommu_restore(rkvdec);
- 
- 	if (cancel_delayed_work(&rkvdec->watchdog_work))
--		rkvdec_job_finish(ctx, state);
-+		rkvdec_job_finish(rkvdec, state);
- 
- 	return IRQ_HANDLED;
- }
- 
--static irqreturn_t vdpu383_irq_handler(struct rkvdec_ctx *ctx)
-+static irqreturn_t vdpu383_irq_handler(struct rkvdec_dev *rkvdec)
- {
--	struct rkvdec_dev *rkvdec = ctx->dev;
- 	enum vb2_buffer_state state;
- 	bool need_reset = 0;
- 	u32 status;
-@@ -1510,7 +1507,7 @@ static irqreturn_t vdpu383_irq_handler(struct rkvdec_ctx *ctx)
- 		rkvdec_iommu_restore(rkvdec);
- 
- 	if (cancel_delayed_work(&rkvdec->watchdog_work))
--		rkvdec_job_finish(ctx, state);
-+		rkvdec_job_finish(rkvdec, state);
- 
- 	return IRQ_HANDLED;
- }
-@@ -1518,10 +1515,9 @@ static irqreturn_t vdpu383_irq_handler(struct rkvdec_ctx *ctx)
- static irqreturn_t rkvdec_irq_handler(int irq, void *priv)
- {
- 	struct rkvdec_dev *rkvdec = priv;
--	struct rkvdec_ctx *ctx = v4l2_m2m_get_curr_priv(rkvdec->m2m_dev);
- 	const struct rkvdec_variant *variant = rkvdec->variant;
- 
--	return variant->ops->irq_handler(ctx);
-+	return variant->ops->irq_handler(rkvdec);
- }
- 
- /*
-@@ -1607,7 +1603,7 @@ static void rkvdec_watchdog_func(struct work_struct *work)
- 	if (ctx) {
- 		dev_err(rkvdec->dev, "Frame processing timed out!\n");
- 		writel(RKVDEC_IRQ_DIS, rkvdec->regs + RKVDEC_REG_INTERRUPT);
--		rkvdec_job_finish(ctx, VB2_BUF_STATE_ERROR);
-+		rkvdec_job_finish(rkvdec, VB2_BUF_STATE_ERROR);
- 	}
- }
- 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-index a24be6638b6b..894c18eeb795 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-@@ -30,6 +30,7 @@
- #define RKVDEC_8K_PIXELS		(7680 * 4320)
- 
- struct rkvdec_ctx;
-+struct rkvdec_dev;
- struct rkvdec_rcb_config;
- 
- struct rkvdec_ctrl_desc {
-@@ -72,7 +73,7 @@ vb2_to_rkvdec_decoded_buf(struct vb2_buffer *buf)
- }
- 
- struct rkvdec_variant_ops {
--	irqreturn_t (*irq_handler)(struct rkvdec_ctx *ctx);
-+	irqreturn_t (*irq_handler)(struct rkvdec_dev *rkvdec);
- 	u32 (*colmv_size)(u16 width, u16 height);
- 	void (*flatten_matrices)(u8 *output, const u8 *input, int matrices, int row_length);
- };
+Hannes
 -- 
-2.56.0
-
-
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
