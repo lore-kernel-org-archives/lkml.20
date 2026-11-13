@@ -1,48 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794609416;
-	b=W1Fx8UA0gaWwMNIcT8fIaeAyIJVoV9/5RrSTpGBObp2vf4JvLHaxm4CIJu/IAm2aiPat
-	 plVOlBPRSLcVCVQL/BKhO3f9bAgnoYCHx3+lS016/p8QjH8PQ8Ko56s3d14MGDdCj84NK
-	 /JW+ZDsIAQmOI45nW3hzhLOt/VSgsks5LYdMzHq80YrKieBmegge6JCC844zVleeXYvYW
-	 jZfU/FZDTOgoNi6lhq/TdtRP6k4O+rfIUMqpmbsUJ2wx9sRHTuxWsbK1XEpbAqhwRbIpO
-	 v9Q1RU5NxaPIe8cqk3jnp0/OAfMWILRbrVpc6q5Km2TQUpmLjWAJy7N+p8lq5A1f4Tg==
+	t=1794609453;
+	b=mmv0keZ4irnsrWgxdUv9Ug71AzrrPZXD8TjmuskmbPPQkA0N6TMc/W0lI4hEI4Y2XSjA
+	 XImf0I37eYH8vzbr6HfqibM5Evt+TiAoKA/BF3oFJ/RnzLoePVHBTeVYRNjQISvJhkUGS
+	 sf/uRThuZlr7mhNalPmSZctbsFzbz3HsSFYWg0A18x2uOhaZlDlfEX/4o8tXXKBcw1Hz0
+	 RyoKj+bp05uPEj6pfdJ6afudNEfTLJk8xuvWUkmGCV+0Y+ZXT6c5U453tly8CLsFZPDcL
+	 6mX8uuZeOsaIrLxEDAA2DtRSA6AJauutVl3WvaRQa+p2TmXAfOe19FKAaNu7C+Z71vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794609416;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=AF9d3/s55owBhUJiIiIWyiUVQx0z+18PRAIyL8wj9Ms=;
-	b=QVgfI2IJyk4JH48Q4vAwzyAOwpuZGjkm7HJClptEm2gMhqpKOKpGB4g9Nbc45qxPH7ei
-	 iNQye1PQpWD190a/wxoYv4AMURWYP10tsGfynxiuRioF1dBQLPs8F5P0CyTbX4PW2G4Cd
-	 kyVTsfio1RO4Jo1TITv0DghTnTkWLsoTcZ2EILHmQK7vlBDCcczOHq2UhnG+Qj6Btjgex
-	 2gRdkNmJrtQs9Rr7O6cpmDXQVa1Tt0H/iec6bBQgqlpjzeOKMahoUiWWP32hvzzwkKo9y
-	 QiRbo/zC0bHVAMMUNph9y1AwpcYf4mx3DdBcfzwfA8n1rBbYb9Jw1TTOHHXtdgf9mKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794609453;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=iu+KitSBUBQmvGXjEE7eBTsuXt7zA8pwnDBVeMtxfq0=;
+	b=EPF73T3K/7xubXCCb/8gVtScItjUfEzWCY4nyEW0p4VRR8BxBmR7/xcwxFob4v6s5iiq
+	 gTZo60BuLjG66jQKs7Swxa+SKNoPKXQbzO40q4Ew5iZ381ZMub+zgKv0HT4h4ljQ8EQnV
+	 QWHu7KoDpwPO3Jhdth925uZp98VWRHu2Zpo70VuggbRoasCyzprr/yDce2zraA9bhFbo8
+	 FLD5gufwtlSmnhh3j4Bh0ExTpDxKSp5DKVwTILXgy7XXbUrczaOACuyAC02/2c4e/fB9/
+	 qYIvCOu0mFCoj5ah9jJeJwPxgxM4TwCM35nmk/R5LUV1sdkq8jFJIBy9f2hFcuWAoIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eoXoUkhH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=irbKGu6i;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3629C606A54B;
-	Fri, 13 Nov 2026 22:36:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BD8606A555
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:37:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86BD8606A555
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eoXoUkhH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB9E1F000C4;
-	Fri, 13 Nov 2026 22:36:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794609415;
-	bh=AF9d3/s55owBhUJiIiIWyiUVQx0z+18PRAIyL8wj9Ms=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=eoXoUkhHKqTdbPP8de0fEdn6CQgARYdt6dgs97p/KHNPMDVziBs3Hl/+zWMi4cG5u
-	 FdVjQmfLaxAOM0PFJRLV6px3ZPdEz4gdmemzBh24ggUnkvL49qKSwboy/msJMljC8s
-	 73j+Nl7o1KnQ404aJsMDIuYqPUw2nbrUqj75f/JH7YuiaZott3u25w9za4iNGVMkck
-	 D+vLzQWjm8Q8zLFFo65n3pvX97KJ6efNFdn/6BcUx/gLu2PV7RuSL5/qSdn2H4I/mf
-	 j9xUYHFm8VFH9TG04ln/0Mb0Ns83ZhX5lg9HeDmBewru9PN5RV1BS9NPkOTznAdnJe
-	 GJ+C4OFwmQsAQ==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id A595A326384A;
-	Fri, 13 Nov 2026 22:36:50 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=irbKGu6i
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3791619605cso3062612eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:37:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794609453; x=1795214253; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iu+KitSBUBQmvGXjEE7eBTsuXt7zA8pwnDBVeMtxfq0=;
+        b=irbKGu6i1uI8ip45+TPaTGtucz6fep1borw5lZ0NbIpENwxyKd2IKLdr+TkjlJWJh3
+         Yop7WpiGC1xwoDR300EiUqFOjiR8ig2oC5MdQ//lnZyzLyZaR6QOaKasEIvMn6mk0CEE
+         V0cKuee2pqwFvRs4TkTuS0CQ1RWVqPzL6p4kkxm0J156LvSHiURtT4z9B4jksvxsh9oI
+         pO7GHpx9Qf56qPsDSQCZMdPNkHlHKEYV+45Fmi0vseuMGvUPRbpiJVrsLjUDsA2hzMYa
+         bkreL6HmYFRidUPgT8r1bNEwe30a1eJ+FcT5yD66W1Vih2mJr1RDN057dsY+nYw10I7f
+         azig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794609453; x=1795214253;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=iu+KitSBUBQmvGXjEE7eBTsuXt7zA8pwnDBVeMtxfq0=;
+        b=tVmrENlz9dyOKGtG2IBgfKCZH/Q/+66Acl8B1QJDQrFcA4ePrgwUs/4zWTSHol8X4I
+         zDCqtuAlDD8C0Lfd7PlUy9PQZqkss5JHwTKRZDx+JjEET06vxOm27tR9TFZ+EM+/t34y
+         iRDPgcKPwXCVl05cfjTWRUbLWsrLr3qjqgtMohOJV25152HeraOEvnB90tCkxPFYNUI6
+         2Ug3IcaFvAIwwNtH+FSxmOmBkJSbWj3zSkAhmnV56M9KJ3tjzTeFT82Vydbe5xGyBLWj
+         WEtnzFhSvwtiC/38zOBkhX97N65jZSvNRAFdIC4o8dCBwb8FeXof29Lu7cGljvPoirG1
+         PQIg==
+X-Forwarded-Encrypted: i=1; AL+hErGjHpdRmkh2hBOC1Pv8pq16p7VTOO26zoR8gVO36V/ngzfDmHqrqZrVxuLsr2oeySZZq/Na2vbAgHgVCoo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VRuHcBK7sMZEQT63M27J0g10nLAUZMq4rPk4LUbfcX7I1cfL8
+	jDcQOQnHOB7MAJ7SzNaaUZnoKVYw5D9aV0RPnFJQ1PkR11pe6zCvxW/Q
+X-Gm-Gg: AYBFou1e0AkgzQ8ofHnvkL0kQlTYe89UpQ048Sn6MIaRmhYwUtmox0ig7tkM6k4+zU6
+	M2FXgdRfUYxUUHR8itx6R1SCr40Poi1fXl2q/G27D2wkYQWJUuBCekTeYFIBZnWRWKvNR5stJ9Q
+	zvVyd+EUpkz8V/zIfQTHkH+wOrg6PlhtWJlT0HSyfoTutNeV+Vf0bs0O9p0mgDL/ruXcdWZ22xc
+	ult3GPchWoAvDCjBT9PL1j2QTORd+7eOpq3wgCYSrNHs9slPbgCHrFVoADpdOYGCg+mwvG7OFZt
+	eYAIR1hjbvQuLyp7wNT4Niy1EaHYieHKwEstesoWcYPgCD5e89ZAY7EB14XVGSQs7e8lNyLxgt1
+	v0MXDYmM9IgGpXjpXPOjIGBQV/K6M7lts4MCXM0LdhX3L6vRY0GI/TLxPwA8YgpTVpMgvZfyhTr
+	9RCinP8HKrVdjCCTlg24pl+s/0Q62o85XLFTT0JtMltpM7n2iZTlKWRmjp5yxFzn2mXNpMUARIY
+	VNo4zMe92qtWqOFpoyu/e6H9EgBRa2EEnWJ2aX/GUbSAL0pfhQY0PPLgjlp8HEmyvzydV/rntkw
+	ftJd+QnHaosu87TUXPh8gCxV16M=
+X-Received: by 2002:a05:7301:f0b:b0:36c:9bc6:3ec with SMTP id 5a478bee46e88-379635648ddmr2887280eec.3.1794609452470;
+        Fri, 13 Nov 2026 14:37:32 -0800 (PST)
+Received: from localhost ([154.21.93.22])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d73dsm10591353eec.2.2026.11.13.14.37.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 14:37:31 -0800 (PST)
+Date: Sat, 14 Nov 2026 06:37:27 +0800
+From: Yao Yuan <yaoyuan0329os@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	Vishnu Sankar <vishnuocv@gmail.com>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Yuan Yao <yaoyuan@linux.alibaba.com>, Jingle Wu =?utf-8?B?5ZCz6YeR5ZyL?= <jingle.wu@emc.com.tw>
+Subject: Re: [PATCH v2 1/1] Input: trackpoint - Add new TP JYT_NDT device
+ variant id 7
+Message-ID: <aveQkso_7wCLskCY@sapienza>
+References: <20261113112202.10304-1-yaoyuan@linux.alibaba.com>
+ <20261113112202.10304-2-yaoyuan@linux.alibaba.com>
+ <avcxUnUh17L91ny9@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,90 +101,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 4/4] regulator: qcom-rpmh: Add debounce delay before
- disabling regulator
-From: Mark Brown <broonie@kernel.org>
-To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
- Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, 
- Saikiran <bjsaikiran@gmail.com>
-In-Reply-To: <20261027-regulator-off-on-delay-v5-4-f9c3b128c6d0@oss.qualcomm.com>
-References: <20261027-regulator-off-on-delay-v5-0-f9c3b128c6d0@oss.qualcomm.com>
- <20261027-regulator-off-on-delay-v5-4-f9c3b128c6d0@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 22:36:49 +0000
-Message-Id: <179460940931.590303.9395310796576570677.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2417; i=broonie@kernel.org;
- h=from:subject:message-id; bh=12pt1zHDasK7LJ9maTvmL1/ou7W8H6tUQyLIeXUDnbs=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+T2SapKf4ZNKZDg69QNP5j2NT9kgueOUgJGySF6C0I
- 1JfbtvFjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzE4SPDP/OGPp5H94L2LCy7
- rekdI5LtqTT7Z5CAW/RR9siV7ZNLgxkZFkbd2TzjpaUEt7jyMYeNCqsEUkK+/1z0Vaq8V6d/wpN
- jXAA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <avcxUnUh17L91ny9@google.com>
 
-> Some consumers rapidly toggle a regulator off and back on, e.g. a
-> driver that disables its supply on -EPROBE_DEFER and re-enables it on
-> the next probe attempt. Sending the disable to RPMh immediately causes
-> needless power cycling of the rail.
+On Fri, Nov 13, 2026 at 07:48:41AM -0800, Dmitry Torokhov wrote:
+> On Fri, Nov 13, 2026 at 07:22:02PM +0800, Yuan Yao wrote:
+> > The new trackpoint variant id 7 is found on Lenovo Thinkpad X14
+> > Gen1 laptop(Product Name: 21XMA006CD), it belongs to JYT_NDT with
+> > confirmation from Vishnu Sankar in Lenovo. now it's incorrectly
+> > probed as Generic or Logitech PS/2 mouse.
+> >
+> > Add the variant id 7 to match the TP_READ_ID command return
+> > value, probe the device as trackpoint correctly.
+> >
+> > BEFORE:
+> > input: PS/2 Generic Mouse as /devices/platform/i8042/serio1/input/input63
+> >
+> > AFTER:
+> > psmouse serio1: trackpoint: JYT_NDT TrackPoint firmware: 0xa1, buttons: 3/3
+> > input: TPPS/2 JYT_NDT TrackPoint as /devices/platform/i8042/serio1/input/input8
+> >
+> > Signed-off-by: Yuan Yao <yaoyuan@linux.alibaba.com>
+>
+> Applied, thank you.
 
-Looking at the code here this doesn't really seem at all driver specific
-- we could implement this in the core around any disable and enable
-operation.  Is there anything that really ties this to the driver code,
-or could it be factored out and available to everything?
+Thanks Dmitry.
+And Thanks again to Jingle Wu 吳金國 and Vishnu Sankar!
 
-There's also a bunch of stuff from Sashiko a lot of which looks valid
-but I didn't check it carefully.
-
-> + * @lock:			Serializes disable() against the teardown
-> + *				action, since both make a read-then-act decision
-> + *				on @debounce_delay that must be atomic to avoid
-> + *				queuing @delayed_off_work after teardown has
-> + *				swept it.  enable() needs no lock: its only
-> + *				shared-state access is cancel_delayed_work_sync(),
-> + *				which already serializes against
-> + *				@delayed_off_work.  @enabled and @rdev are also
-> + *				written by @delayed_off_work without this lock
-> + *				held, so they use READ_ONCE()/WRITE_ONCE() there.
-
-The work doesn't seem to write rdev, but does write last_off?
-
-> +static void rpmh_delayed_off_work(struct work_struct *work)
-> +{
-> +	struct rpmh_vreg *vreg = container_of(work,
-> +					struct rpmh_vreg, delayed_off_work.work);
-> +
-> +	/*
-> +	 * No locking needed. cancel_delayed_work_sync() already guarantees
-> +	 * this work has either not started or has fully finished by the
-> +	 * time enable()/teardown proceed to touch shared state.
-> +	 */
-> +	if (!_rpmh_regulator_set_enable_state(vreg, READ_ONCE(vreg->rdev), false))
-> +		vreg->last_off = ktime_get_boottime();
-> +}
-
-There's no reporting if the actual disable fails which seems bad.
-
->  static int rpmh_regulator_enable(struct regulator_dev *rdev)
->  {
-> -	return rpmh_regulator_set_enable_state(rdev, true);
-> +	struct rpmh_vreg *vreg = rdev_get_drvdata(rdev);
-> +	s64 remaining;
-> +
-> +	/* See struct rpmh_vreg's @lock for why no lock is needed here. */
-> +	if (cancel_delayed_work_sync(&vreg->delayed_off_work)) {
-> +		/* Queued disable never reached RPMh, so undo disable()'s flip. */
-> +		WRITE_ONCE(vreg->enabled, true);
-> +		return 0;
-> +	}
-
-Nor do we restore this flag.
-
--- 
-Mark Brown <broonie@kernel.org>
+>
+> --
+> Dmitry
