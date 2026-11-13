@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794604002;
-	b=QN3jCblIJoLvpI8HJGfkdNDvip9oKLK0n+ot/N0TctqBj0A2PboncHsp3qtjYcGdkymU
-	 dGZ6oeoXsuyE1aW5NWt36ScOarlrL5AF8i7GnpBoQSHZiNOv4f987b2JYB7k8sMJ2fDNb
-	 SD0DFPfYcB6IKDgZ6uBULXyjn+ZhL2LvkLMt6jZaEvROin0ZPOYuIOwoEhc0VSI+SNwoi
-	 +/V4LZl0y+Vfv/3/O/ojq4s8F4S0Ywsf1fg7Ph+oqM60vedIAtKgMowEAxXTdJVmbBhiz
-	 ETHrYrLNcdnxGtwk4G7fCJgHvc/o5phcXzi1wQRIIepuQBWyRLd5z+40cAckmNY2ugg==
+	b=LEcWvf0WACkLyfWy95XoawnzgJQOQDCW6BTZpAoakB2JDXIpF811t8Z+iq/xg+c/EpPL
+	 Q0hMKP1nj+l26T43BsMLemzsX3wf3d7mcy8bl5AvdnNysZ5DWj9h94TGMD8LTpJeehLZP
+	 xaIv6qev1XOwgOxAimGeKk53q/FTP99rTG2lXtboIozIk5025mb+llO88+1oNwIwYG/Dg
+	 U8uc1rYuonIpxfox4YsPl8XvzTI7mZzuH71Xhc897EZ8g3Ov/Xrtj2LD88LdaQGyBl8lS
+	 ywNbbi4W5wdggDmzdrN6g+MscyB16mL0knfWRp65dIiTiTKu0TeK1H2FcRkOUBJgtwQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794604002;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vXg2XMptD/ZrR/0Xri1h54OWX+8BpljQwFZ0ZnkL6l0=;
-	b=mJWCcKQBmaWoE/rPLkO7mWMUGdDaDIwyR0IIwpEnpxBWpiAQBsYMx08d2nb4jrOLyA6S
-	 FP/k4L0v+T66xa6vnYwlGgglyJL3RyPHdNHbru4vrEuDxz44EqFoAZyQ+aafwVYnuiuR2
-	 07W1oS5cSQebHraFAYJ0VjO1bbeB9wqN2ErAZeR13DzPdL4Imjozt7fhWMaXKBqOWrsHm
-	 JZueNIPSD8B7ZEddQrTwDNkfTmKxe1uagRxCZLl45UfCENjPg+N6Ur40SxnL88zzUpC4h
-	 xFiwYyo3YFwNjWQI46CjJVpetmVYdET0P7MAruLQzKpPnXj6tY/wiRypJjNr0ZoAO1w==
+	bh=wmM0UoGKZ7WqOCC0Wngrk9xRaWl7Etv16ThRosNIeD8=;
+	b=Sejiz9LzZ1j+iIoXyg423LhH02t1qyU1sMmwRLRr+DAYz+HRO/IoQdmgtLGAj8iz3Hfx
+	 H5Q2HS4Nuh69lVxWfyLOI9k6m6Lga5cHV3UVid1hI3jmKk2qGbb3oHWx7S3+catbkj9ai
+	 K8vfGlMgroWx4RwWWDVa0Yk+0ivmssLzU1wYvdLO98MuXpWe5YV2DZM+Hym8qwUwtSoAM
+	 YMLIOrER5uzSQYmle07bSIIhCsfQI/rhB2DexO13hzbrLiONqhMc+0LYPOPLWgFnK7EZA
+	 MAozIh3+nWWjN6iWPiSVacpmQL8vAVxV0nZUH8rpEPRYh40tAg3PKZ+ERJ3PlSlT+vA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7yQPMtp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MOncbFNu;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A80606A89C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0576C606A336;
 	Fri, 13 Nov 2026 21:06:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7yQPMtp
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MOncbFNu
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794604002;
-	b=LcaKymLm2f7FK/uXsAGZvivctDEvfGbzWUgfxhO0Sf3m1CkL+fUhAAGN574kGqreRIjq
-	 NTewOz3k41HisLNPlQ/b8OLvKhadeNhOhD/WqDDApHfmMySwRlB5g6p/wYC1Mwf9mEyRo
-	 WxnEVy6VXOsJTkd+HibG0SVFZorWtnyx911njLny348VIaqrTq1wNq3Jas2Io/q7VGqT/
-	 oy5GM7SAX/59I0/d7A7HmfGSjBkM91B3YGgFKmGzWCGzqxACvJ98HmyDVSYsfkj3osyh+
-	 mfuJEXpIdCWnXxMw1EV6Ms/dNYePajoLT3EogMMJLZ4UxzJzoBkBtT5j2r0efDxayMw==
+	t=1794604001;
+	b=KyuYyqd+2L34yKtJ51k93Eo3w4B4pqSKKyXehGtPeyUJ/HDlyVYF/MtujmJlu+o4Wupg
+	 SbOh/3L2YPGVapeiQ5Y8eZYHdwnemFfmqT90LrsBm1fUKrLirpntaeJg42cR9s/64HnvC
+	 TG6uBKKzp+FU4Rz1uytNZ6RfOxVKniPoijd6Bw3/yWjou/pa8kv7/Gbvvs7swuh7pDPdQ
+	 O+Tw0W/ktnvmH1WyZYDGiUist+dQ0YRByj3Wlx4Uh15M1yuI0NLjrjrU6Fr1aJ1L2FdXP
+	 Q5F9wbhcc2LnLZ96g1kKm8qq3bNgJEgWXex6OdN0jpoPYqdpQ6qp85SvMmyBgCe+U6g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794604002;
+	c=relaxed/relaxed; t=1794604001;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vXg2XMptD/ZrR/0Xri1h54OWX+8BpljQwFZ0ZnkL6l0=;
-	b=zbtxYjMXRih05EO0idBJu8sHcV/XxzZlwDpdcyTWhywzxVGHoHS2DX4c6ieVeeH0kHHp
-	 zusWZ10XudPdjjWkUzgSFnCzVw7+CiEriDUzq7HZk0+hMrnTHFiY24OiGxGBOQFhkDYoh
-	 1zjRhAnlsSEyeQzjR9SbE3wG/0z9f5sb/JClPGfdFeBxxFYFzsceI6fOFYGFVeldYUJBZ
-	 g6DrLSF6yOWnn1V2kiDBfM14Br+Trxp5MsPETE3q9UMRBKF/oUunLrHMnGKzukXqCU3LK
-	 m+4Y1/mD8bCZtNJfOHhQjTSU15U0ciUXWSxEHLb/RBNor1yqie0E0U0TJkmkWV7uHMg==
+	bh=wmM0UoGKZ7WqOCC0Wngrk9xRaWl7Etv16ThRosNIeD8=;
+	b=HnABwL5boifJKAH81+XHWTlhAQHzBgiyWwFEFaBJDoMS1CpX7R21KRtXNImLpHh3YE4Z
+	 98EFAMmmo2vZnMFpgsiOledhKFHOx9ZzoWsJ4aXUq92xFJ13r1uOaQYUoX65E3TSqk6RB
+	 fPxCVyPQWlSuDKll2rcQlLhZtCXW0AosR8ypCRd8y66MB+X7v47hoM/69is09XJL6SiBA
+	 bMAYoLwDLJS06KTnKhYIRvpghPUdiFqcb2Y/VVol0VPhhv3bPvg3hz8axNBS5Pq33Ikne
+	 VflJ9ZjbR/9bGYrxhLtBDP/Gq+4wksv7UoBzjDuHNaNguJxDsGCuYOsVM9W037uu66g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CAB461F000C6;
+	by smtp.kernel.org (Postfix) with ESMTPS id E1C311F000C7;
 	Fri, 13 Nov 2026 21:06:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794604002;
-	bh=vXg2XMptD/ZrR/0Xri1h54OWX+8BpljQwFZ0ZnkL6l0=;
+	s=k20260515; t=1794604001;
+	bh=wmM0UoGKZ7WqOCC0Wngrk9xRaWl7Etv16ThRosNIeD8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=H7yQPMtps3YO2p7eo6XFSw8xUIG34E68Po2f5OqzSkUsnWFqifVdOfna5h+wrArb9
-	 4cA8PBuNvV6nDot7ycXLJNQnweK+woxRFmDoEEAEIxQ354ryqr8NKSRPfF0+H8PT9E
-	 2PJ2pPFS1Rf9D9EMxeQxcEWc2tFxkynCV73XLXLFmsZmlpkDYSnnZ3/gRzsnDoGw9B
-	 zh7hDP39uLDKdrUaN1jv6KWEkVgdFbH1yzD5L7gQcLCX4KmtuGJquvy/LIhuAr2xR1
-	 +VaVbmAOuP06diaGOeBSG3DaeRlC8azyv2ELvJZlqA1nBV4I9CpDqB2VJXZ66wf6jm
-	 7KObXIKsWhNHA==
+	b=MOncbFNuGrElDPO2oYCzo6hYZVWru9LzVwkCmODzvQUPY1SlcQqHhshGgEWyJLKVM
+	 5eMdkvala6QpwvBBXUBT9OviGpM1od9fH5xGH4RZU8PRwDfB+v/FNY9QrNWUk6vUz3
+	 W+sEdNX0MwqTja1IcvN8JNl09IEgfhz47JUX9azIidg0FOqmNclLkhlt+NUgXsWzES
+	 lJwwi+phTCDWTmaSLeadrdOqC9Cfpqy811G14tzcW3JslDuLew0zRlofSDDG/bSW6Y
+	 ZC8aoXqINwME5KYXse5PQI/5FyTLgltjHvRiogbDunJTX2EsyYjpcFc6u0uA9tJ0W+
+	 SthioBWri5XQQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5AA1D49AFA;
+	by lkml.kernel.org (Postfix) with ESMTP id 7044249AFE;
 	Fri, 13 Nov 2026 21:06:40 +0000 (UTC)
 From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Fri, 13 Nov 2026 21:06:36 +0000
-Subject: [PATCH net v6 2/4] net: phy: keep the line of a postponed PHY
- interrupt balanced
+Date: Fri, 13 Nov 2026 21:06:37 +0000
+Subject: [PATCH net v6 3/4] net: phy: stop postponing PHY interrupts when
+ phy_suspend() fails
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-b4-phylib-mac-pm-irq-v3-v6-2-05af2503cb23@iav.lv>
+Message-Id: <20261113-b4-phylib-mac-pm-irq-v3-v6-3-05af2503cb23@iav.lv>
 References: <20261113-b4-phylib-mac-pm-irq-v3-v6-0-05af2503cb23@iav.lv>
 In-Reply-To: <20261113-b4-phylib-mac-pm-irq-v3-v6-0-05af2503cb23@iav.lv>
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
@@ -105,13 +105,13 @@ Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9280; i=iav@iav.lv;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2032; i=iav@iav.lv;
  h=from:subject:message-id;
- bh=1tntGGa1pMhdf5R5eDyoZ/pZqUGJ2p0rmYR2oDGDlSQ=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFnfq++9ufNj3jYtKXa3u4/Kg5QnsLyZUnK0z2n5xhanG
- y2lCRuFOkpZGMS4GGTFFFkmHNK4lbHk6l9/D/MHMHNYmUCGMHBxCsBERMsYGWa/kU+8fGdLWG3S
- 3o65v5YbsWf9PjjbKOr2ZhH5zyrVmgaMDGcMbqvxbAqKrrp/WeWv4malVee5eM1tCjKKzX7Hcnv
- v4gQA
+ bh=5VvbAr93FGmELOk5YU+LU+0e2l85PgvFDy/Bv6Z+ybI=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFnfq+8preMt/Pyy4Hnk/fmsp+vKI1cYBFXbZ3H2qtufe
+ Tzh/MbgjlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjCRr6sYGe43mfCkVc57W2F/
+ 480FoZ8FUS9d1Fs2JF/583/ZhASeuNUM/6v3vHeJu/84e5W6eChDle+s7b7s7A/nSORdCJH56/h
+ zMRcA
 X-Developer-Key: i=iav@iav.lv; a=openpgp;
  fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
 X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
@@ -121,228 +121,61 @@ Content-Transfer-Encoding: 7bit
 
 From: Igor Velkov <iav@iav.lv>
 
-phy_interrupt() postpones interrupts during a system sleep transition:
-it sets irq_rerun and disables the line, and mdio_bus_phy_resume()
-re-enables the line once and reruns the handler. Two paths leave the
-line unbalanced:
+When phy_suspend() fails in mdio_bus_phy_suspend(), irq_suspended
+stays set and the state machine stays stopped: the PM core does not
+resume a device whose suspend callback failed, and the next PHY
+interrupt disables the line until the next resume.
 
-- On an edge-triggered line the IRQ core does not mask a ONESHOT
-  interrupt, so an edge that arrives before disable_irq_nosync() runs
-  the thread again. That second run disables the line again, and the
-  line stays disabled after resume.
-- phy_free_interrupt() can run between the postponed interrupt and
-  mdio_bus_phy_resume() and leaves irq_rerun set. If the PHY was alone
-  on the line, a new request starts the line at depth 0, and the
-  enable_irq() in mdio_bus_phy_resume() is unbalanced.
-
-MAC drivers that close the interface in their suspend callback, such as
-cpsw, and ravb with Wake-on-LAN off, reach phy_free_interrupt() through
-phy_disconnect(), and so does dev_close() in a kernel-internal reset of
-the MAC such as stmmac_reset_subtask(), whose workqueue does not freeze.
-These drivers set mac_managed_pm, which a later patch brings under
-postponing.
-
-Let only the run that sets irq_rerun disable the line. Let
-phy_free_interrupt() clear irq_rerun when free_irq() leaves the line
-without users: free_irq() has shut it down, and the next request resets
-its depth. A shared line keeps irq_rerun, and mdio_bus_phy_resume()
-enables it, as before. Enabling it in phy_free_interrupt() instead would
-unmask a source that phy_disable_interrupts() failed to clear, and
-inside the noirq phase it would unbalance a wakeup line that
-suspend_device_irqs() enabled (IRQCHIP_ENABLE_WAKEUP_ON_SUSPEND).
-
-Add irq_pm_lock, so that phy_free_interrupt() does not clear irq_rerun
-between the check and the enable_irq() of the rerun after resume, and
-move the postponing and the rerun into helpers. phy_interrupt() never
-takes the lock, so synchronize_irq() and free_irq() can wait for the
-handler under it. irq_rerun stays a plain bool: one thread runs the
-handler, and the other two access it only under the lock, after
-free_irq() or synchronize_irq(). Mark the irq_suspended accesses with
-READ_ONCE() and WRITE_ONCE(): the handler reads it while the PM
-callbacks write it.
-
-This does not keep close and open off the MDIO bus: on close,
-phy_disconnect() calls phy_stop(), phy_disable_interrupts() and, in
-phy_detach(), phy_suspend(); on open, phy_attach_direct() calls
-phy_init_hw() and phy_request_interrupt() calls
-phy_enable_interrupts(). A MAC driver that powers its MDIO bus down
-during sleep must not close or open the interface until the bus is
-back.
+Undo the postponing and restart the state machine when phy_suspend()
+fails. Set suspended_by_mdio_bus only after phy_suspend() succeeds.
+Set before it, the flag outlived a failed suspend, and in a later cycle
+where mdio_bus_phy_may_suspend() returns false, mdio_bus_phy_resume()
+ran phy_init_hw() and phy_resume() on a PHY that the MDIO bus had not
+suspended.
 
 Fixes: 1758bde2e4aa ("net: phy: Don't trigger state machine while in suspend")
 Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
-Haoning Cheng's Tested-by on v5 is not carried: phy_free_interrupt()
-no longer enables a shared line.
+Haoning Cheng's Tested-by on v5 is not carried: this patch no longer
+changes the resume error path.
 ---
- drivers/net/phy/phy.c        | 17 +++++++++++---
- drivers/net/phy/phy_device.c | 56 +++++++++++++++++++++++++++-----------------
- include/linux/phy.h          |  7 ++++--
- 3 files changed, 54 insertions(+), 26 deletions(-)
+ drivers/net/phy/phy_device.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
-index 9af303d60bd6..8e03c99fce8f 100644
---- a/drivers/net/phy/phy.c
-+++ b/drivers/net/phy/phy.c
-@@ -1416,7 +1416,7 @@ static irqreturn_t phy_interrupt(int irq, void *phy_dat)
- 	/* Wakeup interrupts may occur during a system sleep transition.
- 	 * Postpone handling until the PHY has resumed.
- 	 */
--	if (IS_ENABLED(CONFIG_PM_SLEEP) && phydev->irq_suspended) {
-+	if (IS_ENABLED(CONFIG_PM_SLEEP) && READ_ONCE(phydev->irq_suspended)) {
- 		struct net_device *netdev = phydev->attached_dev;
- 
- 		if (netdev) {
-@@ -1430,8 +1430,11 @@ static irqreturn_t phy_interrupt(int irq, void *phy_dat)
- 				pm_wakeup_dev_event(parent, 0, true);
- 		}
- 
--		phydev->irq_rerun = true;
--		disable_irq_nosync(irq);
-+		/* Disable the line only once: an edge can rerun the thread. */
-+		if (!phydev->irq_rerun) {
-+			phydev->irq_rerun = true;
-+			disable_irq_nosync(irq);
-+		}
- 		return IRQ_HANDLED;
- 	}
- 
-@@ -1507,7 +1510,15 @@ EXPORT_SYMBOL(phy_request_interrupt);
- void phy_free_interrupt(struct phy_device *phydev)
- {
- 	phy_disable_interrupts(phydev);
-+
-+	mutex_lock(&phydev->irq_pm_lock);
- 	free_irq(phydev->irq, phydev);
-+	/* free_irq() shuts down a line left without users and the next request
-+	 * resets its depth; mdio_bus_phy_resume_irq() enables a shared line.
-+	 */
-+	if (!irq_has_action(phydev->irq))
-+		phydev->irq_rerun = false;
-+	mutex_unlock(&phydev->irq_pm_lock);
- }
- EXPORT_SYMBOL(phy_free_interrupt);
- 
 diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 1791d578f4dd..573eb234dc79 100644
+index 573eb234dc79..39e232a3144a 100644
 --- a/drivers/net/phy/phy_device.c
 +++ b/drivers/net/phy/phy_device.c
-@@ -332,6 +332,38 @@ static bool mdio_bus_phy_may_suspend(struct phy_device *phydev)
- 	return !phydev->suspended;
- }
- 
-+/* Wakeup interrupts may occur during the system sleep transition when
-+ * the PHY is inaccessible. Set flag to postpone handling until the PHY
-+ * has resumed. Wait for concurrent interrupt handler to complete.
-+ */
-+static __maybe_unused void mdio_bus_phy_suspend_irq(struct phy_device *phydev)
-+{
-+	if (!phy_interrupt_is_valid(phydev))
-+		return;
-+
-+	WRITE_ONCE(phydev->irq_suspended, true);
-+	synchronize_irq(phydev->irq);
-+}
-+
-+/* Rerun interrupts which were postponed by phy_interrupt()
-+ * because they occurred during the system sleep transition.
-+ */
-+static __maybe_unused void mdio_bus_phy_resume_irq(struct phy_device *phydev)
-+{
-+	WRITE_ONCE(phydev->irq_suspended, false);
-+	if (!phy_interrupt_is_valid(phydev))
-+		return;
-+
-+	mutex_lock(&phydev->irq_pm_lock);
-+	synchronize_irq(phydev->irq);
-+	if (phydev->irq_rerun) {
-+		phydev->irq_rerun = false;
-+		enable_irq(phydev->irq);
-+		irq_wake_thread(phydev->irq, phydev);
-+	}
-+	mutex_unlock(&phydev->irq_pm_lock);
-+}
-+
+@@ -367,6 +367,7 @@ static __maybe_unused void mdio_bus_phy_resume_irq(struct phy_device *phydev)
  static __maybe_unused int mdio_bus_phy_suspend(struct device *dev)
  {
  	struct phy_device *phydev = to_phy_device(dev);
-@@ -339,14 +371,7 @@ static __maybe_unused int mdio_bus_phy_suspend(struct device *dev)
++	int ret;
+ 
  	if (phydev->mac_managed_pm)
  		return 0;
+@@ -384,9 +385,20 @@ static __maybe_unused int mdio_bus_phy_suspend(struct device *dev)
+ 	if (!mdio_bus_phy_may_suspend(phydev))
+ 		return 0;
  
--	/* Wakeup interrupts may occur during the system sleep transition when
--	 * the PHY is inaccessible. Set flag to postpone handling until the PHY
--	 * has resumed. Wait for concurrent interrupt handler to complete.
--	 */
--	if (phy_interrupt_is_valid(phydev)) {
--		phydev->irq_suspended = true;
--		synchronize_irq(phydev->irq);
--	}
-+	mdio_bus_phy_suspend_irq(phydev);
++	ret = phy_suspend(phydev);
++	if (ret) {
++		/* The PM core skips the resume callback of a device whose
++		 * suspend callback failed.
++		 */
++		mdio_bus_phy_resume_irq(phydev);
++		if (phy_uses_state_machine(phydev))
++			phy_start_machine(phydev);
++		return ret;
++	}
++
+ 	phydev->suspended_by_mdio_bus = 1;
  
- 	/* We must stop the state machine manually, otherwise it stops out of
- 	 * control, possibly with the phydev->lock held. Upon resume, netdev
-@@ -393,19 +418,7 @@ static __maybe_unused int mdio_bus_phy_resume(struct device *dev)
- 	if (ret < 0)
- 		return ret;
- no_resume:
--	if (phy_interrupt_is_valid(phydev)) {
--		phydev->irq_suspended = false;
--		synchronize_irq(phydev->irq);
--
--		/* Rerun interrupts which were postponed by phy_interrupt()
--		 * because they occurred during the system sleep transition.
--		 */
--		if (phydev->irq_rerun) {
--			phydev->irq_rerun = false;
--			enable_irq(phydev->irq);
--			irq_wake_thread(phydev->irq, phydev);
--		}
--	}
-+	mdio_bus_phy_resume_irq(phydev);
+-	return phy_suspend(phydev);
++	return 0;
+ }
  
- 	if (phy_uses_state_machine(phydev))
- 		phy_start_machine(phydev);
-@@ -711,6 +724,7 @@ struct phy_device *phy_device_create(struct mii_bus *bus, int addr, u32 phy_id,
- 	dev->max_n_ports = 1;
- 
- 	mutex_init(&dev->lock);
-+	mutex_init(&dev->irq_pm_lock);
- 	INIT_DELAYED_WORK(&dev->state_queue, phy_state_machine);
- 
- 	/* Request the appropriate module unconditionally; don't
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 59c75296d535..96d14b6b544f 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -651,8 +651,7 @@ struct phy_oatc14_sqi_capability {
-  * @interrupts: Flag interrupts have been enabled
-  * @irq_suspended: Flag indicating PHY is suspended and therefore interrupt
-  *                 handling shall be postponed until PHY has resumed
-- * @irq_rerun: Flag indicating interrupts occurred while PHY was suspended,
-- *             requiring a rerun of the interrupt handler after resume
-+ * @irq_rerun: Set by the postponed interrupt that disabled the line
-  * @default_timestamp: Flag indicating whether we are using the phy
-  *		       timestamp as the default one
-  * @interface: enum phy_interface_t value
-@@ -675,6 +674,8 @@ struct phy_oatc14_sqi_capability {
-  * @n_ports: Number of ports currently attached to the PHY
-  * @max_n_ports: Max number of ports this PHY can expose
-  * @lock:  Mutex for serialization access to PHY
-+ * @irq_pm_lock: Serializes phy_free_interrupt() against the rerun of a
-+ *               postponed interrupt; phy_interrupt() never takes it
-  * @state_queue: Work queue for state machine
-  * @link_down_events: Number of times link was lost
-  * @shared: Pointer to private data shared by phys in one package
-@@ -808,6 +809,8 @@ struct phy_device {
- 	struct delayed_work state_queue;
- 
- 	struct mutex lock;
-+	/* Serializes phy_free_interrupt() against mdio_bus_phy_resume_irq() */
-+	struct mutex irq_pm_lock;
- 
- 	/* This may be modified under the rtnl lock */
- 	bool sfp_bus_attached;
+ static __maybe_unused int mdio_bus_phy_resume(struct device *dev)
 
 -- 
 2.43.0
