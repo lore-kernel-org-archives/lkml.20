@@ -1,139 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581322;
-	b=A/pfcht/E/hUlKbT30tLgYmicIB6X0ihZiXpzom3wdzhRWkYY9ad+zfnLNPNR93VhZ1U
-	 kxS9apskHUno1B4fe6vNR9r7UhpPOQnYPTbmdA+ojln0D5AV1lyFIuUMp84g7evf3+bMu
-	 JoGM6syW65+HInvMeTnl4FnKYGVxwZqUF1PtpvEeorYaVz3+2C1GdoykCUjfuUuhJdPpB
-	 y4aaRgd1CP4vDMr7HAqa1pxxeXqibBB+hTZC+kopBEYqkNpiA7Z1JCgoaeJpH5vsGKmsy
-	 ltNylQKmyKRv72ZUU2f/cdTD+rwe47Y7CGElqol6Mty55jMMxwCEbVcWbJtpQOZwNXg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581322;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=s980VbGVtwRk1EKpuniB7EiZ4GXO+PQXntiwlHmVNms=;
-	b=Bdn58tnWzYZJOJhjS0fbtZEaBgu6K54rk8mq+E8muWx1rzqZTnEe/LYwQs8HWFcMRefD
-	 TQZggNOy5aDLnM0lzEdOZiOdusrocd3CY/6PCdLOMUGC0Izhinoe4UHRx1LHy9AIMMV+/
-	 O0NmR4DXCYe8GZxpkI7ax2ENCvURY+sZUX8ub1go6kKqNFQHUKay4tctY0fjOH6TejSLq
-	 N/NAbN9inZUTTTHL8V++C2YdREyY335FyecmiKL0/2SzOdwTW0wDdnYyfYUjuVYVAdwFQ
-	 m6fJr2pAiUmdR3gjGiYVkLaptwcLnvPI5mBu9Bj7lEO9s53IsJiv1JHQkdXaSTdm4Fg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jI26Fp5n;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IJ4ZjB+M;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.129
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794581427;
+	b=ermHH7RucFIRDE1CUasO6efpb0NplCA5aHhbiL1YDyu7OuIU4/9i2TzULnrEoIlGSJI8
+	 WrMMrwXqm8lqAfQgUpFQSxlgZdkcwAKye3kAJDZgrUZCHOboPU7tI3Mz/7COT2OLEY6u9
+	 IEtshrNsShNJ4rZMaBcyyS1e5n4Oy2qqf539zD7z76JrnIGJVA2/5X1qSZu/YA/V+J6+m
+	 RN9vxTpBR5VoiOdjgJ35utnYAZ0dfjVjxwEdPT5FbvypyDvl6NnZVn4qbSNHrnYdxgqpE
+	 khiVipA9/hLsrHLMXS3qPy0KjfWUSw9pM9+bzkz/xXAcIcPfc3KMuLTy99iNB4ovpoQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581427;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ECVX/5zk6mejiKBUTdPa4xXiFeXBfKE+Ws1j5PsmeAM=;
+	b=WDrMMv8NdP3xy74gLol0rAWwlwlDZuJiQjrckPpWADFhFYMpsrgkzq0VZLGhQH7M5CEJ
+	 gKIvzFh4ciynw48mTKOkwjSej+F/brqwY/N46KJFOd3OnVSv0xrxVTlhCEUVBjKpbpYMX
+	 Cd/b/vKjPQ8maqrVXQdZtHQlfUHDMPUR6Py1P4mSYHVH5b+u0Vv25NYltmaSelR8lH7Rv
+	 eZHxhGP70rz0bKAqQEAZEL9FZtU7plqEIOTGpgPRhlT2hEdHcJsnI2HgZxV9qbLC5Xk06
+	 3DnH8yvnWkNSyG0+eHeIxBZ0S5jxGJp3sLV3RosHVtrXm7P/orH3aRWKhg7rv71wR+g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=vaisala.com;
+	spf=pass smtp.mailfrom=vaisala.com;
+	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=fs0m1kk5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.129
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11021129.outbound.protection.outlook.com [52.101.65.129])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD4A606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:48:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFD4A606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA1E606A330;
+	Fri, 13 Nov 2026 14:50:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DA1E606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jI26Fp5n;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IJ4ZjB+M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794581320;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s980VbGVtwRk1EKpuniB7EiZ4GXO+PQXntiwlHmVNms=;
-	b=jI26Fp5nBVoIhd9a8jwKUKDUzP8vBgV8rD/f8j0WT8IYEllqkqqIO5cWxU2NaCNwBJTyqH
-	R2mnm+0C5rQtK8qM1qQajcGIYRCc6XfvJMIkWvqAuJJsSc6R76JGcaB9iyNQIAf/G8mcXy
-	5TW0Uh/djK/8xoi8v6WKt8rBv8/WmaA=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-570-kxmKLHzeNs28a26f0BXw6A-1; Fri, 13 Nov 2026 09:48:39 -0500
-X-MC-Unique: kxmKLHzeNs28a26f0BXw6A-1
-X-Mimecast-MFC-AGG-ID: kxmKLHzeNs28a26f0BXw6A_1794581318
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a70b42bab0so7138985e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:48:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794581318; x=1795186118; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s980VbGVtwRk1EKpuniB7EiZ4GXO+PQXntiwlHmVNms=;
-        b=IJ4ZjB+M1HW0wkGSApBE2giAtVaZbWxA1nVfjBs6Bzk5fo/RrxHNXO8iCacUoQImlR
-         xAk0swVd4GT54XXNNzv0EvDuERIyISQokx1hLiQtpUeJghvCBthK/v0doYK2jTOG0xcg
-         tfxiQu1USplgJgH8L6GWLuqi4pxZpyVyabMuv1mwnUKhOo+GHwQu+Jir/W8W0SEMLEu+
-         7RNh4qatJgwXEBz+h6jQv/WVtDxZdaV2ZEq44bjfuoc0pRgN8U78wcETu6B5S7qIrPGf
-         UaWBHnGdexyOdgp2xV/AC1TXlPv7HPBpL/M77tG0PXnCoLFjdKSyMjoyXKAZs9hPyfQl
-         kUdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794581318; x=1795186118;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s980VbGVtwRk1EKpuniB7EiZ4GXO+PQXntiwlHmVNms=;
-        b=YBBupB4o1SBtw5mrZLYri7fxkn6mt8O1oAaYzyCEvP65eGciMPHMBlLjeWBhm2KC23
-         07L+OsrVuJBz3sjdatELOLfBHZINhIlsWdeTBJKDiJzy7yVW5mseUgKd4jtFuM4P/X68
-         ZqWWiprBVSctUywc0bmMahT1BFhK7DksyEE1tiayTIe1AceAcp1+VB7DbFw0ZLHS1LSk
-         s6upcRwoR+p1yP4aTauegOz3SEQB1sKsMpW7jSUPY1PgUdYBrLMxlo5ClPR8rcMbLYqg
-         j+8+HqVQkIkikEPNb5kMw0AgP9KESR2XZEdTw6SRaLkHdAuwBB0e4GQbdhzfmNcWSEkI
-         TsMg==
-X-Gm-Message-State: APuU4Z8ZszZdqkmIzOzsmpbv4YdiFTVI6VT3tcZMi5owq97I7BS+Kuhx
-	nO1E0ZQF773+QlKgKOkXcAJE60lE3UnRTjbm6qmv75yTNUH7YT3A9z5vZryhKykRmz6XWdGRsAK
-	cZTsUiYeLUs5BmzQDes3ROl5jcCdPWAIY4Kf7N3iIdqTFYLtNnGSycuH0deWs08LIQQ==
-X-Gm-Gg: AYBFou1WqlReTtsmz19lEKtsWfOzPXtYrpPZiBUdcMh6k2VFYFqWwFTHI6+7JmYsGX+
-	8Yli/ZpYJipaeEJ5rCqhfeKUo4pB5S+Hf01dgh3KjoSHnNcVQvMqwyjN5JxYOLoMwgFdSpRNTpa
-	+64HAw5i2QQrFfxBVG1Y2ol5bQH8PprnQltjke22Yqx2oWr98zVVAikWoGIMJ8fkYznyWFsdGSG
-	iVJCptg8R+g+MqtK0FNuBBq5UzMim2kG1iGedc3ZUmt3P8x8gP50OPSCKIF0xJkhUaQFz3LzwnP
-	Y1H7BEYfKxTGkrm10rtuIQvtvUsicjZWmM8Yh25lgOmkI83Ow31dfpc42XLzVFDPJwkex2KSTJg
-	9rCpYPiXI4HFpaV/U2LFUGRDChOa1S55+fQG8wV4muv4wxxHwU6uZAzfWXFHkzvPeRzLVpgkQa9
-	T5898=
-X-Received: by 2002:a05:600c:3acf:b0:4ba:4395:560f with SMTP id 5b1f17b1804b1-4bb55a70e39mr62402465e9.8.1794581318237;
-        Fri, 13 Nov 2026 06:48:38 -0800 (PST)
-X-Received: by 2002:a05:600c:3acf:b0:4ba:4395:560f with SMTP id 5b1f17b1804b1-4bb55a70e39mr62401905e9.8.1794581317838;
-        Fri, 13 Nov 2026 06:48:37 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ace535sm68040475e9.6.2026.11.13.06.48.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 06:48:35 -0800 (PST)
-Date: Fri, 13 Nov 2026 15:48:32 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
-	rcu@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	luca abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yurand2000@gmail.com>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
-	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Qais Yousef <qyousef@layalina.io>,
-	John Ogness <john.ogness@linutronix.de>
-Subject: Re: [PATCH v3 1/8] sched/deadline: Reject debugfs dl_server writes
- for not-active CPUs.
-Message-ID: <avcjQMlVELcauQld@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261113-sched_dl-v3-0-a76ffa1cdeee@linutronix.de>
- <20261113-sched_dl-v3-1-a76ffa1cdeee@linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=fs0m1kk5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eepy5k/CD27S8Ag6FDsCGmngPT3lK2dB+AZ+MS2VRC0hqwsB5OoxLtzxnehmqB0uZhuV3XtqMMSAf0wqvVlMGJLE/vkBajrZO3XQmAfZenScmWTxC9GsfEMlGlqOB/aj9S5XSbNDuQxYJIlprCrdDJc4/9kaxYXVu+b1IcRczurlmvKhu0LNeRpNRYgllerboS0Cq9dKPDyd/RkJ/+NNZN1WbW6Fpg5UtwcGEvXMF4ooP7zK9O8qshjaNV1t3om2zEvc+nDRHuR5REvP2kaUSEZX2oxeGUERs4VHFP6Fs+HGOW8s8tQqqx8Nvh3w0i5hQ5Pw8uQ7xBUVc1odP97QkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ECVX/5zk6mejiKBUTdPa4xXiFeXBfKE+Ws1j5PsmeAM=;
+ b=dC4OboFCzxwCuG60fvnV89eipfiVxq9ZsOPNIHqRvIYH0duVs7S4b9XgML7ybJ9qTUnE59E+/X1vF5WFnas1t04naE1DzhirEdhcmUJL37b6xxDF0TuUF1ZuduVEuj55iK4F3qzukJ26Z/GBmOgoY6o48ipt66DENRPLNxcqX44CZcK4azS5OvjiOPaxc8goHQJjKl+MgGZasQdZ04DrQ5SnH61xfZD9meC1LiCL2yx8N87ePRbTfrULdTxy1Y21ZPXXvnz04jJ+PsvMKnGfR+3E5V7NswJqAkPt136yUr8p91yYc41odaCeQp7S0+sH4iP6ehghzz5ecmn/bX2UWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
+ dkim=pass header.d=vaisala.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ECVX/5zk6mejiKBUTdPa4xXiFeXBfKE+Ws1j5PsmeAM=;
+ b=fs0m1kk5KbQFOWcbucg9j+0SFRD0/HGGnB6iKfGqv8VmlgdsXWQjhSqPi4yrtxIqXZTm5dj06B1Vd3YXGzchu8kKQjw8eOSrqtd0TUxH/845/klw5kzm2gRuoK7ba7JOFADmg3NBIdy2E+DktVA6MVoOfKhxYpiXhhReUTpMhJKGKBd8Ek6vDgoSWyJPQaVTfy6EaG6Lg9TvLGS8/nCT2xrTW9Gq0SxzWZMpPnImZMoXr9wnF+MIT+eElZKR82sD8B0N81ejdPdCQA5vYijxvtso+EQqLhbspYLbQpQ9NSH6Zc1OJTs7h0X2EZI2B+qMyi5I5mUbcMHKG85DSapGRA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vaisala.com;
+Received: from GVXPR06MB9766.eurprd06.prod.outlook.com (2603:10a6:150:1dc::17)
+ by AM8PR06MB7747.eurprd06.prod.outlook.com (2603:10a6:20b:363::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 14:50:21 +0000
+Received: from GVXPR06MB9766.eurprd06.prod.outlook.com
+ ([fe80::485c:86c9:bd8:53bc]) by GVXPR06MB9766.eurprd06.prod.outlook.com
+ ([fe80::485c:86c9:bd8:53bc%6]) with mapi id 15.21.0592.009; Fri, 13 Nov 2026
+ 14:50:21 +0000
+From: Niko Mauno <niko.mauno@vaisala.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	michal.simek@amd.com
+Cc: linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	jakub.turek@elsta.tech,
+	andriy.shevchenko@linux.intel.com,
+	Niko Mauno <niko.mauno@vaisala.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] serial: xilinx_uartps: fix oops when disabling RS-485
+Date: Fri, 13 Nov 2026 16:50:00 +0200
+Message-ID: <20261113145000.17691-1-niko.mauno@vaisala.com>
+X-Mailer: git-send-email 2.47.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: GV3PEPF0001DC3F.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::2e6) To GVXPR06MB9766.eurprd06.prod.outlook.com
+ (2603:10a6:150:1dc::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -143,70 +101,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113-sched_dl-v3-1-a76ffa1cdeee@linutronix.de>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR06MB9766:EE_|AM8PR06MB7747:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35c8d2f0-2588-461e-61ac-08df419570cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|52116014|366016|18002099003|261009223027099003|56012099006|261021135927099003|10067099003|261102123227099003|261026121527099003|261022105027099003|261022075727099003|261021121427099003|261026140227099003|261028144727099003|261021123027099003|38350700014|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	BXOutpn4TcQktM8hDfavhNgv16XQHNxCPB0kbxHsKd/WWQM5WVIT96OwCRTVsUzXCM2NGPzKRTlax5jg+h4Gq32E6VDEMm0YvnMyN8jSTHrSnQzLcRUlJPuL2bCGEitGgysHBxccMSgUmBrkVq5ipTGfb9tAXgFSXS7EkTob639PN1bGiuGQiQWi2BrPYYxtMJPl7nh6gOvu6PLwNzEeBxcOkM85OBeSxyuh7qDhR2PoZvTjX9ojXsmwaPB13kai0GguOpb1x9LCbHV6I1JvN/xzE3SxxMti0mk8TEYXXbfANYiOSa+AgNXdmWo00DEL330eGbG6jtJEjN+3eKbm2bihDHzIC9s3tGV7Eb82L30+lXiWcE3c9Jtnp8TRWfT2VBp5GfoHyI1m/OvIvE1OtcYIh/P4O4wez6PvjLpFu6lEtpXIih+8RYJ1pQyWsK4+U72UHB5Tfv0i8qYZR0oxeVF0/iOl5Cc39JHtiJQDOQWxcom9ABYNTbOvYnRuER+5ywRtvesWq+clmjEd92UAHOt5FAlj3d+frk8QQ0+V/kM7wlaSdDZlqL1wU2DN1uylXEEOy+H3sPcvpJm3764xqmyauulpavRz05CS9Itmvz7E/xx3xDaiIPhU6TsAhf58utgrcmetWM0MBgnZWmnSG84hxqd2xwxog7OCrbm5Y06hEgu1x1uQkMAMIw9LxQP1h0vqMfv1qfU6Mad+ajbF/H5V5QkeHar4eSsAzdaFWHA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR06MB9766.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(52116014)(366016)(18002099003)(261009223027099003)(56012099006)(261021135927099003)(10067099003)(261102123227099003)(261026121527099003)(261022105027099003)(261022075727099003)(261021121427099003)(261026140227099003)(261028144727099003)(261021123027099003)(38350700014)(11063799006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?TihvB/CN1bDsmUiY9k5TV//tc2JSBvBT0DQiG1DxIfMRqVI99bZFbKNys4As?=
+ =?us-ascii?Q?AeJbIN/gilYVsNjSHAgI+IAG9t7QP8ZQCxv/l/ztn5wo+BLn6w7oQYeiLBLX?=
+ =?us-ascii?Q?CZDih74xlxvF3suIosie+IdtpJRDGsTTpdv31EQ3+ZxAcXgFXr+FFYpfmwPY?=
+ =?us-ascii?Q?wvg9ZqMuXviUANG8xB9o3ji7lqqz6tNOtXXfq4B57apBsasEL7Yg1kFQWIze?=
+ =?us-ascii?Q?WK0ufuF0SnHY55nbpLeVMbQc0p7P+3LkbmN47/wJZ47uBEDVUH4Txj8yowqI?=
+ =?us-ascii?Q?EqLnEItgffy1eTtrYTgrX73LPQVTX+H/Qg23hygnVGKz+ZVwLp607gpA5nTz?=
+ =?us-ascii?Q?tQUkJLQ8ZS0LYmQQwnpsdEaRQ2kwY5N4xQ+mynezGjqdNKnYfIIksuKR54D8?=
+ =?us-ascii?Q?ShXRQFBOi8/zHXFonoFX/o5FMeTbvEvrNl5kLy8Rs88LRU/b2DZI2q3hLjCE?=
+ =?us-ascii?Q?OcLYH64fRmZhleTNJv7Rs+uT6QNeaiY+gQziHkdoJi4YtPRKdq9pdp3Z/bpO?=
+ =?us-ascii?Q?fZeIJt6rC64Mx7f0uN4hM597y5XHhQ5XQJ+kJkmiK0b6bbtJZ7GzdI9n9ZAM?=
+ =?us-ascii?Q?Kt6gpJgubxddJomiAwcVPuHgCdufjucvNh2euT02XjIwpBkzzNOT2J60xkFH?=
+ =?us-ascii?Q?7MCUJ8gQ/WeVFO+D0pzHMsSD/CDy2iksrMHy4txoE4270iz5p2dPYLtXYtZ0?=
+ =?us-ascii?Q?nwfRXN3ejYZOrM7OCD2C9rK5JgToM3BbMyRn8HKfi/KYhE+TNawHZT2284Go?=
+ =?us-ascii?Q?bxK7Vz7BK7Y1FtOmLBPSIEM/JK1NNWU4UAh9WyeI9HtoaBZvzQBdljhY8b5h?=
+ =?us-ascii?Q?6wW5qgcBIz4VqfDeK5fv079aImqQKoOvgsUkAzj7ZDcfbP33tWX1n9b78K5X?=
+ =?us-ascii?Q?UvUMhR0F1NV0CGDvsmxLtXSQtSGuSf3zB3MxYpMyQPRCycwb4hPTaCKdX1lc?=
+ =?us-ascii?Q?heT7Yx4B3VN+y/Y9EjQt74lqTEaLIfxVFUH44qznvavkuoPOWbASbWi3Iz/Q?=
+ =?us-ascii?Q?OrrG8gnFg7G/i11CCb1PWg85eeoQnqF90WfdgnBJKGHIkh2la9M3K1Y5j0zZ?=
+ =?us-ascii?Q?wx2s2MD83L4263hbLGlFSHUn0/hz++BR+iiELmz6Zl6WARNgkdIGWMYuorAo?=
+ =?us-ascii?Q?Hq/IKKeDh4/+SePrDea8R+fc6pELg+3U7ZwjMLqYIgKu9TN+SQoGsh5W034W?=
+ =?us-ascii?Q?bS7BthoQk8CN3z3EHw2RYpTeZi1henrjf+81AJxduZ3RYDj14hb5AkUjYXLr?=
+ =?us-ascii?Q?OtgqRCRCYX+hHUM4hBOPt0z7k1fJfwoztz86CTg6x4KuRZ6xEx+U/m8BUS8N?=
+ =?us-ascii?Q?BMhdQIyZFCfNIl2l3ieb9XnXBeXirFbkBKPyZFZmuNdMAtydNZKuCCiCGSHZ?=
+ =?us-ascii?Q?u98iwVdH6M+aQiOkSjCjNmNwXeNx582i3yj+9aAZ0uBUgYsbizJYVW1GmH/a?=
+ =?us-ascii?Q?YZQXSX1b1PJ8Y5z//ByKYrlgvQ4j/ygEqZwzdtH5w02qrekNQBmtPgzQ9wAH?=
+ =?us-ascii?Q?6JnaPONqjzDlQD350tsG60I3u4EBbGZyvj13G9SbE76L9wDgHD7jkIzvwC6q?=
+ =?us-ascii?Q?IU8XtjaN2jfwyKyo+580v4lPALZsU3dn70ZRcAmrbYdNI+TRqeNRTvbf9Q15?=
+ =?us-ascii?Q?AVNjojnP175u7KDrXB6tq7L21dMQL9Q3/yNaYX4R3O/talLUdX/qHlvMq98R?=
+ =?us-ascii?Q?espmAUGRzumr3hiVpn57+f/PVI3+N5a07NaBqlRtQCWTMOkHRIRY2HMptNW9?=
+ =?us-ascii?Q?H1Rtm3tYTg=3D=3D?=
+X-OriginatorOrg: vaisala.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35c8d2f0-2588-461e-61ac-08df419570cd
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR06MB9766.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 14:50:20.9989
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +PrZ7sflqDS2I/d4OXPA9MkwUZ9aws8NCf6wfZNQs9ESQ3njEi1SznDIwy7KT0ZQs4MIa5DygHzjkbexu/G0wA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR06MB7747
 
-Hello,
+cdns_rs485_config() sets up tx_timer only when RS-485 is enabled, but
+cancels it when RS-485 is disabled. A TIOCSRS485 that disables RS-485
+on a port that was never in RS-485 mode cancels a zero-filled hrtimer
+and oopses:
 
-On 13/11/26 11:50, Sebastian Andrzej Siewior wrote:
-> sched_server_write_common() checks if the CPU is online before allowing
-> fair_server updates. This is important because updating the fair_server
-> runtime/ period will use dl_bw_cpus() will return only the number of
-> CPUs which are also marked active.
-> 
-> The CPU is marked active as the last step during CPU-hotplug. If the CPU
-> has been marked "online" but not yet "active" or is stuck between those
-> two states then any update of period/ runtime will lead to a divide-by-0
-> error.
-> 
-> Let sched_server_write_common() check of active CPUs instead of online.
-> Additonaly, let dl_server_apply_params() return an error if dl_bw_cpus()
-> return 0 CPUs to avoid the divide error.
-> 
-> Fixes: 4043f54984161 ("sched/deadline: Reject debugfs dl_server writes for offline CPUs")
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> ---
->  kernel/sched/deadline.c | 3 +++
->  kernel/sched/debug.c    | 2 +-
->  2 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index dfae08625342e..10beb54281881 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -1920,6 +1920,9 @@ int dl_server_apply_params(struct sched_dl_entity *dl_se, u64 runtime, u64 perio
->  	cpus = dl_bw_cpus(cpu);
->  	cap = dl_bw_capacity(cpu);
->  
-> +	if (!cpus)
-> +		return -EBUSY;
-> +
->  	if (__dl_overflow(dl_b, cap, old_bw, new_bw))
->  		return -EBUSY;
->  
-> diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-> index e6a3b516c703b..1545139e52443 100644
-> --- a/kernel/sched/debug.c
-> +++ b/kernel/sched/debug.c
-> @@ -410,7 +410,7 @@ static ssize_t sched_server_write_common(struct file *filp, const char __user *u
->  			return  -EINVAL;
->  		}
->  
-> -		if (!cpu_online(cpu_of(rq)))
-> +		if (!cpu_active(cpu_of(rq)))
->  			return -EBUSY;
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000c when read
+  PC is at hrtimer_active+0x4/0x94
+  LR is at hrtimer_cancel+0x10/0x64
+  ...
+  Call trace:
+   hrtimer_active from hrtimer_cancel+0x10/0x64
+   hrtimer_cancel from cdns_rs485_config+0x10c/0x11c
+   cdns_rs485_config from uart_ioctl+0x7a4/0xc3c
+   uart_ioctl from tty_ioctl+0x3ec/0xbcc
 
-Mathieu's approach [1] looks safer to me. sched_cpu_deactivate() calls
-set_cpu_active(false) without rq->lock, so a write that passed the
-cpu_active() check can still be in flight until sched_set_rq_offline()
-(which the !cpus check then has to cover). On the online side,
-set_cpu_active(true) runs before the domains rebuild, so the check lets
-the write through against the def rd's accounting. rq->online is only
-changed under the rq->lock this write already holds.
+Set the timer up once in probe instead. This also stops a TIOCSRS485
+that enables RS-485 again from re-initialising the timer while a
+transmit delay may have it queued. The callback is switched at run
+time by the existing call sites, so its initial value does not matter.
 
-Thanks,
-Juri
+Fixes: fccc9d9233f9 ("tty: serial: uartps: Add rs485 support to uartps driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Niko Mauno <niko.mauno@vaisala.com>
+---
+Tested on a Zynq-7000 board on 6.12.y: without this patch the first
+TIOCSRS485 that disables RS-485 after boot oopses as above; with it,
+repeated enable/transmit/disable cycles run clean. Also reproduced and
+verified on v7.4-rc1 in QEMU.
 
-1 - 20261108185406.1549770-6-mathieu.desnoyers@efficios.com
+ drivers/tty/serial/xilinx_uartps.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/tty/serial/xilinx_uartps.c b/drivers/tty/serial/xilinx_uartps.c
+index e8c4b1fa7658..f93e374f6d0e 100644
+--- a/drivers/tty/serial/xilinx_uartps.c
++++ b/drivers/tty/serial/xilinx_uartps.c
+@@ -1620,10 +1620,6 @@ static int cdns_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 		val &= ~CDNS_UART_MODEMCR_FCM;
+ 		writel(val, port->membase + CDNS_UART_MODEMCR);
+ 
+-		/* Timer setup */
+-		hrtimer_setup(&cdns_uart->tx_timer, &cdns_rs485_tx_callback, CLOCK_MONOTONIC,
+-			      HRTIMER_MODE_REL);
+-
+ 		/* Disable transmitter and make Rx setup*/
+ 		cdns_uart_stop_tx(port);
+ 	} else {
+@@ -1782,6 +1778,8 @@ static int cdns_uart_probe(struct platform_device *pdev)
+ 	port->rs485_config = cdns_rs485_config;
+ 	port->rs485_supported = cdns_rs485_supported;
+ 	cdns_uart_data->port = port;
++	hrtimer_setup(&cdns_uart_data->tx_timer, &cdns_rs485_tx_callback,
++		      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+ 	platform_set_drvdata(pdev, port);
+ 
+ 	rc = uart_get_rs485_mode(port);
+
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+-- 
+2.47.3
 
