@@ -1,103 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794556926;
-	b=luCoxbeOtyyd16lEyiEIRn5cIWlncCGst6doMov395AeN4rnnniV1sRe7ZJIUdkUx2QR
-	 4aZ2fnMTknPCv4K7o3TeQ6QPHX9z1yPwBxl++e/OZMgFVhK1SsiOLGpyvJ8bkVoI1a0wX
-	 BEaz/XFfhHXRMdEAaA4faDxT6VfrlT5hFZEBZ0XMJWg4W8d2tafbkPswXrTLqY8P8yNRG
-	 Ee+EI5EBR0zFCYPsUO1mDH/eKUT72xrxYoKI0Y48l9EuE8RRwTSs/4mzkwBFDjYvP11oK
-	 ZxRV7WbntW9tHGCvaDJeVVNTWjuwdX3ub+Igq6vy7hNJFCR5wkvAtGWmLroeqHK2GeQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794556926;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794556945;
+	b=MFbeG/Il7wO9xxTq1WBL0dhkFF5NSKBM3MzL0fgcvvtQ2WCrHMfiveveYOUyr7Zv97PA
+	 CN9Fos4xzC48x5b2tBOXtP+JvgKTXrlPpgujH9mRL75y0tReBkJr2KdK33OVRvp3Hd4ZL
+	 rwu5Zt8/76cEf6QPXTKsG/unHLbIk5neQKNDLdDuIYd2l5aZ/y+bI2VKslwFPiRx/QrA6
+	 9rHBUTPuP0gM94ZfJUy3SzDpAY7K47wbjs3Jhfq6j6miuIY/8yRV701BpnGGQMF+n8ie+
+	 wbTPpHCjeBva+7TE7paIQ880VxhudgaS4WDk1MwuhdnM63ZLb2sQEQURolrSYR2c3SQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794556945;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QJxalrHssAZhNnjpSDoFedeDiy/biVpvzIuN3reWEpI=;
-	b=tHGo/Sfy1xGQWLYrDm1EliUjMuPv9ox3Y4/gtiOSkOglnXrn3WoEuFZLxRDmzHHx7E5h
-	 Eh8NpTkiazgHD1+/eVcwOBSXg7R6PXitVxddoyq9bRrQwwo9DRx8qEK8dWsHYQkfibCLo
-	 yFnxrvXdCvK0kSW32/IwtoPxVOJXSND1a+j8MnNEzidr1yfrDc7BPDkGwHY/ARoOpzorM
-	 dBSUE6iLIHC6MS0SLBy6eDpeJmuLfFQSR2z+xgND4rSfngOt3ecPrmppiKtNI6N7Z/1jd
-	 +aXuYJJ7IqM9cGosfOT1ELOP/0JyTxBRJt/MTIUdQBaDJZIRpicCa0LDKRVVpRWXbSg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=1G7wwdsFXzwTZgCSSKtVd92SqpW+oIP50QwttyQt5ZU=;
+	b=DO5gi0Nrz1dyk1GvJDEnu45JN69f9Gn0K3Ugx6wc1mPK62ggOwKvKg2ZPQh7NME1qSI7
+	 fILZ9Z9NZQvq2fFSMgyOw1RKtZjfCzicAUe2dlDG0Ne3OFUMiYmzdDda2MUp439xlX4ja
+	 6VGk7/MTC1s3XyKPFmjT2SeevTpknZIBsH9JNNilimppAYAUcbtkKYF7F60iEtv7lDA8G
+	 V1Uycuv3le+BmOWnTDMtbyNHEPV/kFaM/gJue+LihP1QeFNDDZ2FYDKNjBxaDLWcuZ/oB
+	 SRwK4Ny1Kgx010W9CCcJdIP0NMU5r4abRnwNufVPW5+u0T9VeNW2ZAe3Ba7MZk/rPyg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zTIYH4qx;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RmVsy0qT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.53
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C21606A330
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:02:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82C21606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F58606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:02:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99F58606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zTIYH4qx
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso3095465e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:02:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RmVsy0qT
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-716b58a4365so758368eaf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:02:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794556943; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Iywc6BZMtZp5YPJB6qlh5cqBL2HUfBNn16Os9bLe4rrkIJMwY0QePhbgV0qBgigZbF
+         2tBrLmO9DhCk72SWOu2rEg9dTfHSR/pMU1wGCM0n/yEjSlyGHCI/81Rakv8GAF+vjW3x
+         mxrRfscAhWrDO60mCacLcnilPY7i+k5hgyU0thAWLsBYCvcJB+AnsUzmSbaVx6hFtPg7
+         T+7s5m7g1aKQmq24QQHXziiMz5TqyphJmcWSl8Rj4rQ7olY9Oyt0b66VAH9heJSuKkEg
+         Y2y1cZKR4aqyQCMAtEJ7bp8d+uZPJETCXLZrv3HnjoXFEsJSyqPlhQiePYGuQ248z2yS
+         F5xQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=1G7wwdsFXzwTZgCSSKtVd92SqpW+oIP50QwttyQt5ZU=;
+        fh=Z+weGbnT//tNMUt/YoN0tVV8X6d3QnvAWGShoMu0/dA=;
+        b=ox6/sQoJsKqPLuAR/wG6d3Npm9qpjE3OZAkhsRjoVFcV++fr+za/z0uYHGZjgnMseU
+         eP9Am3DC8b5jy2Wnh8TzVnqCD5shgqqsCMLtNdl9UPhrSHn2iupIYMAB/0ZSi94jX/uC
+         b9hrUcuuvsqb3YyTPSKgdS4ztWrZ92RA+jmEyF0gk298v8r5OurcVjfKnlNT2nQ1nn0j
+         QbILWlxQmQskLF1tCeyHw0iAtuap9yDQHjMT1JAWRXElZ8RDZSkGZ5wtF2LrsDv4UjPD
+         xwkGLnoutwnpnJ/7/pOaojWmi9O3miNdxaf/2JycEcc54U+G/Wvdvdwx1aq2ginC+crR
+         zeCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794556925; x=1795161725; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QJxalrHssAZhNnjpSDoFedeDiy/biVpvzIuN3reWEpI=;
-        b=zTIYH4qxkd/UVxtwx/nA4llgh7bESZeGQaTm2prdn7irBT+NII+HvK+AbhWvy4rdyy
-         bYKhIfRmJ9GflhYQE4Nmct3m+qHljveeJJbUuliL3S8spo8t1HrXd2rQRIETLr2SDHu5
-         rlCHeYrkuksr7oUerEBI2GJebaIgDOaZUv7fYxsplA+DCFzWW7kM7wNsKY59ehJuaO9y
-         EwOcgpCz+aeujkXZGcwcKp3jPDVtnAEwCbkinfXL+hAYv6au+gBt75XxGINglZuKzWnY
-         RhucEJ7oA+h58Nlk5miFoKMfz8TFoOQ4Mn4cuxAqU8clBxCjhc65T1WK6xbgzu72gsFK
-         Wd4A==
+        d=gmail.com; s=20260707; t=1794556943; x=1795161743; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1G7wwdsFXzwTZgCSSKtVd92SqpW+oIP50QwttyQt5ZU=;
+        b=RmVsy0qTPdwYUhT/BPsMO15wGkbJRmkO6ydjPv+CctkUsQqIEcS1XM5zBKWz9NBb/H
+         wdfaVwyGakRqAbAgNkd+VpkZpqPk9mkz3oRMS+9cKJCMOvzK9myHT0+OTjHARsEqORzF
+         hxmqfNrYk17WRfuFnWQJNMY99bltpKRMn0VilyaUEENoCPonQSJ1ATzIpzNAO689zA7w
+         O1KAs5wm8+umGRyi+tCYysYAwUcpqSoVq0Uelmi0cUydUCTLHRIUeJirsOdwlsM/Vfph
+         RXxp6SNNER9vkGTSYoJkiZt81bk0o4Ci0dLvQ7dXR00jWwP8cwhLsDYkbO4lxZ6ihe77
+         dfMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794556925; x=1795161725;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QJxalrHssAZhNnjpSDoFedeDiy/biVpvzIuN3reWEpI=;
-        b=sDlun/tos8LFNWi5jbdvsjX23rjZ1fD8PryK5D5KyPW7hupJx0U43lsRSc0SwCf9j+
-         N25QrdSsZZbuM8iN32ceraZFwVFz3uXL6hhy0CbnC13aoy5FOaMX7kdIz/hMyTVQwAwD
-         O3dK+wgBrC6zoTutx7w4EQ5MGuQArxdlKqUHWgqM5/FmJgq7sa9S9TvHxTTc8k8D7MCU
-         S++8/NfYeSzMZ2ghseBe1/TKGreS5zfBaS5CMhVz+ZEFeV/1WniCyxqXMt67mIfu0Hyg
-         rdb8m0VM7EYw6n+D83j+x5ktPHveOLko1CQI5wF7Tx+dDmF0zLWjlycY5xtPB0/pbXV5
-         mjxQ==
-X-Forwarded-Encrypted: i=1; AL+hErFh78Xt0HUVQQzeHv+MZEow+m6/drj32oUfCjmkuFi2xEOkGzE6HIxplaIUMV4yL94vrQGEdFOEdgkQ+Ao=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/wf5Ak/2IvDBULBovzEw6Y9yAm6AUuk7GRizzltt+ImttvP+/q
-	mTGti3ZBJiIZ4W7HkCztTgsTB8lJSAaaIPjhpyDemQx+R74AVTF1FRVT
-X-Gm-Gg: AYBFou0Yk8oBhMK5nDP9iR1xg3ioXyx91yrFjSfeq2HBQhP4U1yoz5hmn+if3lMcA7Z
-	EnkbyS3/0gtOauqCeyCTwp4N4v5lBsl3qOO0t2vMWCQTwDTF++ZaXeFCDVQhFSE9AMn2RmU3CXM
-	DqY6M0a8Q3MiZyKqujDjy6gTbmC0vj0CwfDf6WTFpPENdIHG7ke0DnzE6b/JMELhcIbcmVw4oMA
-	awrQMCMO3jslxnC+DPuCbZovGPjjH3IxDSprhbfUwXWXoeNDUYEHOK1oA3MYUR7O+d+n/7YR2qV
-	qhVaPZy1sF1ZfjcCIAH9u+5NXTIoCBGt9xmDZcA/kRC3xCIGoKYd2aYVwnzQn+pmeXPX9omK7eB
-	sVsaiBoh4Rkunf7Upr76/qMFt9cdOWjQ9OWAImc9jdEGkajATA9x8M5CqO1SXxMMTob1Obg/ZmQ
-	UY2MQOjWzRTzSlBukRKQeV0rvX+vuiXpPaGg0XPulvzP5CAa9Ap0GpPpU0vQyCUYPByBi8msCPu
-	iTS6dQg5iksu0BlojatpyacTJuO2RtVpeFHEh0ScEziNt6c8PzBgusLei9t+c+DokjAssp/mjE4
-	PCUGiWqtpRQTr66+GflZGf60sk7ewYNbldCU
-X-Received: by 2002:a05:600c:c4a3:b0:4a1:9663:7639 with SMTP id 5b1f17b1804b1-4bb55ab5526mr35140005e9.34.1794556924633;
-        Fri, 13 Nov 2026 00:02:04 -0800 (PST)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2acf81sm121590835e9.14.2026.11.13.00.02.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 00:02:04 -0800 (PST)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Yao Yuan <yao.yuan@freescale.com>,
-	Wolfram Sang <wsa@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] i2c: imx: two fixes for a DMA write that is not acknowledged
-Date: Fri, 13 Nov 2026 09:02:03 +0100
-Message-ID: <20261113080203.1046422-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261113073250.1037215-1-mehmet.fide@gmail.com>
-References: 
+        d=1e100.net; s=20260707; t=1794556943; x=1795161743;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1G7wwdsFXzwTZgCSSKtVd92SqpW+oIP50QwttyQt5ZU=;
+        b=Uayh7j7aiD5qW4ERdAA9YkVDyCVR47YTZ339DqOZTQN+A6KOxfmWPUfnOBOhAli5Q4
+         MLXmmgrMaT2JE+CR4jUWYK0iRnSMC/JHL10DQRMHzHTNFXDyGeTfx32CYeES/1GUfOTP
+         hGmY0513wkJ4dbLCfVreOmsCfBv0PQzf4o+1aTIGp5C/4pwgUwkZM+Zndgpm19kW1/5N
+         3BfBKacCzoJuAKFkLJBd5UBEkpAEuE+U1cZl62RolzBNVJtyR9YLl/YQsN/3608olqI8
+         moMRt+f41inzgdv0c6l4Ji3imeugSwZ9tTmxwlTsUF3QmmK2iHlTQBbcG2KYgIw518kC
+         wyQw==
+X-Forwarded-Encrypted: i=1; AL+hErHEClPamVus1+gmvqkQqL7iSdc5wVWFEOBFMKjpOzXkgu6hEmP1sBlXhsRicn/VpcnXdr326qGrsEP0XX0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DVZlKrR29OqYXXO9FSa6UWChzlRaeOOqRyrm982R5mRt5vDK+
+	id01sTv7X7sBTnmMr+z3eZvDO1x4r1g+cdhqdj46D2Jh62AF17lW4MjybUj5KIauMcckJ+IzrZj
+	QXf4h7nh/2D3OeP9QKYzb5FMhy//hzSV+vkJUOKY=
+X-Gm-Gg: AYBFou1lNTdlogCXrI+Uw/roQ1YYmMunz9dainm6LeGFlgciVfgHvxo5Hx7CL29X88R
+	bhk4tvihkL6V5/SDjOBGCrlvNCYFWzlsHNuoUk/e0saaauu7V8kUzVRuIItl6lrQw+H0L8pChcb
+	DARsyQdDfJ7M9xBAV87DpCj5KzDjPUQW5cxPM07DLdo7WYVuWN8vmJ1MPE2BibFhLQgbc2rBRzF
+	KO+25Pv8V9eE8vxO4qVymenYfnMHuuWvosudO+Pk1P2QR3NtRuWy3OUHTEx77N+buq2HZg6Qs0f
+	S0jdb1Mh9/k7i4G7t368GpKBPz22faKVqR1JAmizANIwIO5vpGNQSGt19r6zL6CAdWtzg8qQKQm
+	ztNQPPWJr0Oco2LzYKXa+TZnNPXuLjCQ4Kz1bn9jBlzW78lCdg1wRDj9rnmnfdTK/WT3u4UFRMK
+	Z5YUmMgWT1kq+xKBq/V7I4ZPaN9r4VoCMP
+X-Received: by 2002:a05:6820:1c8c:b0:713:e433:7e6d with SMTP id
+ 006d021491bc7-71ab4f44671mr1076601eaf.36.1794556943434; Fri, 13 Nov 2026
+ 00:02:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,16 +104,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261112173246.3201729-1-hjf3108@gmail.com> <20261112173246.3201729-3-hjf3108@gmail.com>
+ <466A842E-68A6-4F5B-B0CB-8EF314AF34DA@linux.dev>
+In-Reply-To: <466A842E-68A6-4F5B-B0CB-8EF314AF34DA@linux.dev>
+From: Jie Feng <hjf3108@gmail.com>
+Date: Fri, 13 Nov 2026 16:01:47 +0800
+X-Gm-Features: AclHuK-fjDJAVn06x_jUIuJlL-ttRqKElTJSe4FX02KJdGNbRcV68FJ7UkiEH3A
+Message-ID: <CABOQOSWrZXet+SYmvvG1B+idYmWx60F_prbQ3QGSiKaA7z-AFQ@mail.gmail.com>
+Subject: Re: [PATCH rtw-next v3 2/5] wifi: rtw88: 88xxa: receive VHT SU
+ beamformed transmissions
+To: Luka Gejak <luka.gejak@linux.dev>
+Cc: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-A correction to the test note in this cover letter.
+On Fri, 13 Nov 2026 at 15:46, Luka Gejak <luka.gejak@linux.dev> wrote:
+>
+> Hi Jie Feng,
+>
+> Thanks for the new version. A question and a comment below.
+>
+> On November 12, 2026 6:32:41 PM GMT+01:00, Ho Jie Feng <hjf3108@gmail.com>
+> wrote:
+>
+> > diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
+> > index e243738809..fe93c93b1a 100644
+> > --- a/drivers/net/wireless/realtek/rtw88/main.c
+> > +++ b/drivers/net/wireless/realtek/rtw88/main.c
+>
+> [ ... ]
+>
+> > @@ -1621,10 +1622,13 @@ static void rtw_init_vht_cap(struct rtw_dev *rtwdev,
+> >                      0;
+> >       if (rtwdev->hal.rf_path_num > 1)
+> >               vht_cap->cap |= IEEE80211_VHT_CAP_TXSTBC;
+> > -     vht_cap->cap |= IEEE80211_VHT_CAP_MU_BEAMFORMEE_CAPABLE |
+> > -                     IEEE80211_VHT_CAP_SU_BEAMFORMEE_CAPABLE;
+> > -     vht_cap->cap |= (rtwdev->hal.bfee_sts_cap <<
+> > -                     IEEE80211_VHT_CAP_BEAMFORMEE_STS_SHIFT);
+> > +     if (rtw_bf_support && chip->bfer_su_max_num) {
+> > +             vht_cap->cap |= IEEE80211_VHT_CAP_SU_BEAMFORMEE_CAPABLE;
+> > +             vht_cap->cap |= rtwdev->hal.bfee_sts_cap <<
+> > +                             IEEE80211_VHT_CAP_BEAMFORMEE_STS_SHIFT;
+> > +     }
+> > +     if (rtw_bf_support && chip->bfer_mu_max_num)
+> > +             vht_cap->cap |= IEEE80211_VHT_CAP_MU_BEAMFORMEE_CAPABLE;
+>
+> In v2 this was its own patch, 3/7 "correctly expose beamformee
+> capabilities", after Bitterblue asked on v1 for it to be split out. Was
+> folding it back in here intended? I couldn't find it in the v3 changelog.
+Sorry, looks like I used the wrong commit on my local tree, will resend as a v4.
+Please ignore this v3.
 
-The v6.12.117 kernel I tested with is not plain stable. It carries a
-backport of commit 5f5c2d4579ca ("i2c: imx: prevent rescheduling in non
-dma mode"), so its i2c-imx.c has the interrupt state machine of
-mainline. "The touched code is the same" is true for that tree only.
-
-For stable: both patches apply to 6.18.y and 7.3.y. On 6.12.y and older
-patch 1 applies with fuzz and patch 2 does not apply, as the interrupt
-handler is different there. I can send backports for those trees once
-the patches are in mainline.
+> I can see a reason for it. Without this part, an AP that is also a MU
+> beamformer makes rtw_bf_assoc() take the MU branch and return at
+> bfer_mu_max_num, so the new config_bfee code would never run for it. If
+> that is why, maybe mention it in the changelog, and in the commit message
+> too, since this is core code and the support_bf check now hides the
+> beamformee caps on every chip when beamforming is turned off.
+>
+> [ ... ]
+>
+> > diff --git a/drivers/net/wireless/realtek/rtw88/rtw8812a.c b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
+> > index 55f1d3d324..5d58dff4fc 100644
+> > --- a/drivers/net/wireless/realtek/rtw88/rtw8812a.c
+> > +++ b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
+> > @@ -931,7 +931,7 @@ static const struct rtw_chip_ops rtw8812a_ops = {
+> >       .phy_calibration        = rtw8812a_phy_calibration,
+> >       .cck_pd_set             = rtw_phy_cck_pd_set,
+> >       .pwr_track              = rtw8812a_pwr_track,
+> > -     .config_bfee            = NULL,
+> > +     .config_bfee            = rtw88xxa_bf_config_bfee,
+> >       .set_gid_table          = NULL,
+> >       .cfg_csi_rate           = NULL,
+>
+> As far as I can see, 8812a, 8821a and 8814a are now the first chips that
+> can become a SU beamformee without a cfg_csi_rate op. Once rtw_bf_assoc()
+> has set bfee.role, the watchdog goes through
+>
+>         rtw_vif_watch_dog_iter()
+>           rtw_dynamic_csi_rate()
+>
+> and there new_csi_rate_idx is only written by that op:
+>
+>         u8 new_csi_rate_idx;
+>         ...
+>         rtw_chip_cfg_csi_rate(rtwdev, rtwdev->dm_info.min_rssi,
+>                               bf_info->cur_csi_rpt_rate,
+>                               fix_rate_enable, &new_csi_rate_idx);
+>
+>         if (new_csi_rate_idx != bf_info->cur_csi_rpt_rate)
+>                 bf_info->cur_csi_rpt_rate = new_csi_rate_idx;
+>
+> So if I read it right, it compares and stores an uninitialized value
+> there. cur_csi_rpt_rate has no other user on these chips, so it seems
+> harmless for now, but I think KMSAN would report it. Maybe
+> rtw_dynamic_csi_rate() could return early when the chip has no
+> cfg_csi_rate op?
+>
+> Best regards,
+> Luka Gejak
