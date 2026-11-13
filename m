@@ -1,75 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794568036;
-	b=Z9mzXb/z0nal33f3ia7MnDUIjq7sTOjNAyhWaD5cBrU19cIBgPzeODcw7bYndwG1lbyF
-	 plg4aUISF4mH/U8rkdCerQ3t9EgoTxG2tuvmZ5BHPdPYKtrdo3m1oxi4hBIylUsQ6gM3z
-	 VrUYMT/nuIu/5QZ7Pp1gMhTnZ6SXvhy4TVpdYVfw2KPNG6UTvZ/0ILnrFh2k1UPsO6nmY
-	 +a/4U5NUIewz/c+UVZYfolcr/EUMRenPsuE44+wH2HvMW2yvCE1lFyU2peMZAfo6x+WeN
-	 cEWbgw09ULR9zSqJGLDMDBci+NY2jlPN6C2OFHEMxyqO7g+y06qqmjvqZOyEMFW1aIQ==
+	t=1794568135;
+	b=VhwmCfCCx4KW5FoiFvqvR/UeVNku1oKTTo4ExbUcbsciqGHqDbRiWUdTrGRr1VxZG8Tr
+	 ePn8tdplGIACDeOKNCEqAaeBzPiKoFEGxHIDsDkw96NCXfc8nnsPse0PFn8kjt/grWa5+
+	 dUqfaclcYwwFMm9Z+oR7o37gpvgxU7i5awWXcU03Gwnb69M/QbjJxmQk3DmQhMEovs/np
+	 swQ8tkB4lGj7Zr7tBzHEUuoo8fZ4akYgdCM49qzD+extqk69lkOLvFnTyP5c6SL4G1Bqe
+	 STzZEsgvw8yrYZPg7WsxoRt+4cyMvdU327goj0AKWh/8yRFdOe7LUJFqPf9qfbXPfqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794568036;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568135;
 	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=0u4I5WkyGxxjmS7tCo9l1n8+vnW6qTUBkG9tKJuJIv0=;
-	b=2eE+lHJvlZAJLbCYoQaDnvTUT+OSelEXnhMOZ0Sq2SXo+xE9tgoQh0Pge+ZTjVKBZayM
-	 /66X8yWFoxgkMuTduweHvJYe+tKkKV5XGdQnu+Py+cU0MFZzFPOp7xb2CzZaQ6qDcSA5/
-	 dKYBf014q2TTCVQjvMxnGnZml8sOQaynE6EEOrD3ChOCipNL/qqqFLZg2ArP1uBxzkr9d
-	 z+xAyKaDU0gCu+4MhuoE2ZL83QfZFmErSe7KBdplQXLDD0uoUI33MSY9x5c4vWe+DUGEG
-	 RuLbB0NJCWmsNxMCIEvIxWUAwTeSGcApBjc9GtXp55QEktBEUJTAh67WMdO50KApbuQ==
+	bh=H42X3hyJK2xtTQxkZsujMjWKQGvRn9KWtqkTmAVsHHE=;
+	b=yXBske4cI8tmJZWWWz+xLOZoBdS5kpSENz94bnPcRt5IJURp2vnwFn5tbnR/luEGA1eI
+	 A/TNXSF7dEqj3jkRb11qomSgE2jqXRS56obD3Ls0MY5rM2Kc88RrgnLZMUV7fobvMzcJR
+	 /KFo65quXZ/hfOfUfUrjNoPXaoiXAYjnkmqHtJhTcjB9eWfapb1caFE98j14PA8vEKx+3
+	 va1Y1ZOT7/cPhhJ9tc/8pEY+hZwFlRQH9vkSap8BygcSielwo6n1jJd/qhXpZryQ9kReu
+	 uNttOwT7mU9X2FeeWtXJvqjmhRn4ZcUkpQhhGo14G2JSFWVG+N4/uga5msM37E9qpmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideco.ru;
 	spf=pass smtp.mailfrom=ideco.ru;
-	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=C8zGvDYD;
+	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=IzHPYv7r;
 	arc=none smtp.remote-ip=51.250.56.165
 Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BACE2606A323;
-	Fri, 13 Nov 2026 11:07:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BACE2606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA342606A331;
+	Fri, 13 Nov 2026 11:08:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA342606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=C8zGvDYD
+	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=IzHPYv7r
 Received: from [169.254.254.254] (localhost [127.0.0.1])
-	by smtp.ideco.ru (Postfix) with ESMTP id 4845C26BC5;
-	Fri, 13 Nov 2026 16:07:13 +0500 (+05)
+	by smtp.ideco.ru (Postfix) with ESMTP id 4BB1C26BC3;
+	Fri, 13 Nov 2026 16:08:53 +0500 (+05)
 Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.ideco.ru (Postfix) with ESMTPSA id BC9A326BC3;
-	Fri, 13 Nov 2026 16:07:08 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru BC9A326BC3
+	by smtp.ideco.ru (Postfix) with ESMTPSA id 789E026BC0;
+	Fri, 13 Nov 2026 16:08:51 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 789E026BC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
-	t=1794568032; bh=0u4I5WkyGxxjmS7tCo9l1n8+vnW6qTUBkG9tKJuJIv0=;
+	t=1794568132; bh=H42X3hyJK2xtTQxkZsujMjWKQGvRn9KWtqkTmAVsHHE=;
 	h=From:To:Cc:Subject:Date;
-	b=C8zGvDYDGBmVj+gaJSFjQmmG3YDxG0/mhlULOXAGGi0w6lBvfA9RmSOJAYDc3jwkx
-	 QzB8T8kzciyduOcqE1r3E+nOcdNv0tiBg59K43eMwXvoPHAoQ6IHu9GuiGs9oRGarA
-	 IAulTjfECLBW/01dDRuQ5N0U4P3BAzZ9mG2RsYMwxCLCHOseblX/4j7LuX5NL7Hf/B
-	 7/ZgBV4wHml/6kM9fZ3TMvahyEPEwLvvT0TS6Jm3l/OE6cMha9fQpDHW8YODOvWkJI
-	 LyggwSP6NCZvtepBvEGUy3KS29eDw0xyH5HHLdquBdxf4EqDrKNhinATiznqp6TP8D
-	 PLD0eypz+JMDw==
+	b=IzHPYv7rdTJpdRP/zNj0uJTMW1HSGPWPg4kaTGJf6HuV1ont6JHrXdcBRFEZ36SAY
+	 6TTnBf7Tw0D4t79t+Jju+USyTvR+OubCRPm9MokLORCBXCX8Z5sA8qYgMHZQXluCR0
+	 k6eQQ9Uy13k8+Y3PfRgdkpv3kQXDHVyeO8x2dpdhp8tj8RtZoxhi+EDLt1aPS/4tQe
+	 hH2NQmXJS/X7X7kWoERvYupW97p6pCJE+hz0Nj4YTQVxMOUZAKf5r0KEFDPhBU1Ib4
+	 49NDJpKf17fSZwKcN/IXmS9abXgZU9FeEO4IkdcPHwF03hovGXcsuTI/pDUUOZ9/cM
+	 /ux2XFH5AtwcA==
 From: Alex Kazinsky <a.kazinsky@ideco.ru>
-To: Dave Airlie <airlied@redhat.com>
+To: Tejun Heo <tj@kernel.org>
 Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	virtualization@lists.linux.dev,
-	spice-devel@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	Josef Bacik <josef@toxicpanda.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	lvc-project@linuxtesting.org,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/qxl: Handle failure to reference the surface release buffer
-Date: Fri, 13 Nov 2026 15:06:56 +0400
-Message-ID: <20261113110658.4188477-1-a.kazinsky@ideco.ru>
+Subject: [PATCH] blk-iocost: Fix overflow in donation weight calculation
+Date: Fri, 13 Nov 2026 15:08:40 +0400
+Message-ID: <20261113110842.4189035-1-a.kazinsky@ideco.ru>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,62 +77,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When allocating a surface destroy release, qxl_release_list_add()
-takes a reference to the buffer shared with the create release.
-If allocation of the list entry fails, the error is ignored and
-the destroy command is submitted without holding that reference.
+hweight_after_donation() receives usage as u32, clamped to the range
+[1, WEIGHT_ONE]. Since WEIGHT_ONE is 1 << 16, multiplying it by usage
+equal to WEIGHT_ONE wraps the 32-bit unsigned result to zero before
+it is passed to div64_s64().
 
-Once the current release buffer has changed and the create release
-has been freed, the buffer may be freed while the destroy release
-still points to it. Garbage collection can then access the freed
-buffer through qxl_release_map().
+This makes new_hwi zero, which is then clamped to 1, incorrectly
+reducing the cgroup's in-use weight to the minimum.
 
-Check the return value, free the new release and propagate the error
-before submitting the command. Increment release_count after successful
-release allocation to balance the decrement in qxl_release_free() on
-both the error and normal completion paths.
+Cast WEIGHT_ONE to s64 before multiplication to preserve the full
+product.
 
 Found by Linux Verification Center (linuxtesting.org) with SVACE static
 analysis tool.
 
-Fixes: 8002db6336dd ("qxl: convert qxl driver to proper use for reservations")
+Fixes: f1de2439ec43 ("blk-iocost: revamp donation amount determination")
 Cc: stable@vger.kernel.org
 Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
 ---
- drivers/gpu/drm/qxl/qxl_release.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ block/blk-iocost.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
-index 06979d0e8a9f..342c3600d425 100644
---- a/drivers/gpu/drm/qxl/qxl_release.c
-+++ b/drivers/gpu/drm/qxl/qxl_release.c
-@@ -262,6 +262,7 @@ int qxl_alloc_surface_release_reserved(struct qxl_device *qdev,
- {
- 	if (surface_cmd_type == QXL_SURFACE_CMD_DESTROY && create_rel) {
- 		int idr_ret;
-+		int ret;
- 		struct qxl_bo *bo;
- 		union qxl_release_info *info;
+diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+index 1c1025157d8e..0ffe34bd95b7 100644
+--- a/block/blk-iocost.c
++++ b/block/blk-iocost.c
+@@ -1853,7 +1853,8 @@ static u32 hweight_after_donation(struct ioc_gq *iocg, u32 old_hwi, u32 hwm,
+ 	delta = div64_s64(WEIGHT_ONE * (now->vnow - vtime),
+ 			  now->vnow - ioc->period_at_vtime);
+ 	target = WEIGHT_ONE * MARGIN_TARGET_PCT / 100;
+-	new_hwi = div64_s64(WEIGHT_ONE * usage, WEIGHT_ONE - target + delta);
++	new_hwi = div64_s64((s64)WEIGHT_ONE * usage,
++			    WEIGHT_ONE - target + delta);
  
-@@ -269,12 +270,17 @@ int qxl_alloc_surface_release_reserved(struct qxl_device *qdev,
- 		idr_ret = qxl_release_alloc(qdev, QXL_RELEASE_SURFACE_CMD, release);
- 		if (idr_ret < 0)
- 			return idr_ret;
-+		atomic_inc(&qdev->release_count);
- 		bo = create_rel->release_bo;
- 
- 		(*release)->release_bo = bo;
- 		(*release)->release_offset = create_rel->release_offset + 64;
- 
--		qxl_release_list_add(*release, bo);
-+		ret = qxl_release_list_add(*release, bo);
-+		if (ret) {
-+			qxl_release_free(qdev, *release);
-+			return ret;
-+		}
- 
- 		info = qxl_release_map(qdev, *release);
- 		info->id = idr_ret;
+ 	return clamp_t(s64, new_hwi, 1, hwm);
+ }
 -- 
 2.56.0
 
