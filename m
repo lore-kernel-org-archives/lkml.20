@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794568327;
-	b=DgS0Dq46lOQ5ieHtN2SD8QcjVKRL6OHgKDNx8Q5J8SOIWsmPSSN/E9iC2TkZCmd2hY10
-	 1h3M3VcKkdSFNPwfxcxLhs7tkxw61+jksHx32gSj8EZuYsspXxGJdvbxWB2Nh/TlI860c
-	 bBdo/AuprIFteouXOe2774bId/AY+oPvYv9cVLMc8S/FIRSbKJ7g22YSrXpv9xFuHjKfG
-	 MCCdoX1Y9RQ6WaQmmok1aKH9eDoFDBOq9uQ7h+mt3dopWhe0YrYcfoISeyFF7olvVb3QW
-	 UGorAQlVq0b7+XwxXX7vELZV5bvQ9UyqB/mjOaKFIalLW8R1TUyZ/svhNDWgf2zTg9w==
+	t=1794568328;
+	b=Z3uw48P2W74T6M/oKw1c0OOppY5sK8W+izqh2hvM57isuLHtXSQyEttutHIp3Cxcz8Mi
+	 0ayZDiRGmPbFiNidjV2FmrPvr808Brb60H5uS7ApvP4GxPMHxAth1oiUJsAwXedkBUtdm
+	 3a7mqR+K8HNTaeinspZuiqDLG8UZjylgBRM+c8wo7Fy8W3azO0xei20WV2yOp7v8pS88Q
+	 8POSFrgC0qwqbjYcUMvxjlkoDw4rvG6a0I/9CQFnTCnMqnRLtIXdhJ3bBRituejUPtgRw
+	 2PmlSlOZcMXkEC2MCJbQjwIVnZgrnCUYXeDdKjrpf0zi9zySGEyiJhxSaWl/ha1sr2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794568327;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=QVHTU60vGRb+Zvv52jZBctrQrlA3sz5HwG1d7pGxaWY=;
-	b=RBoFU/0Y3z9kGt9KZ5UHssd98hPQOE10F04LRqLY4eSIDJxUMW6v6urRgwSWsg65Kdll
-	 FfknNzMQk9VHfagwAA7wsre4ybnURBy+SBkTXUEff40dWUTz9KoTz/UDgX9CHd5GqH5rC
-	 u36lAAmxiaxtf9U4cLLnV7K6tj2e/+2oyeFiZuY2odZroQei4mj+6qqR9hBBqUP4kwUsk
-	 kBg4e+6e5nTYJcJPfFTQFNgP7KHLtJRKUXKyub6xVK40Scs1S/VthRGpkFFMiXnUNj5Sl
-	 ++/hy17uNUaEeQ86DXUG6Hac3YFS/qqFMWArBcRBOWQliwTVeeut40wPf8KGtRA75fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568328;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Tdw0bwQZ8Q79OsNUucWIgUjlWSc89vsrssM2V4jSnNE=;
+	b=BQyRjvNiEEUKmGY7x7KMuqomKuBAbEioaBQiJ6kGeQ4Y5atHWkTe4i2Ma+ueZ+NthnMp
+	 /vOumWx7j5f5S/ut5V7zVO/7arngYG4N3yQ7YL2YWj11aqinkAApN6c+YB1VLcxZQsKq5
+	 kzls0I+pTNv44EW29hsx3gfcMjfK5fwlSprC7ptF8UsZVvhSWn9rVYLmcjBj10a3U9rD7
+	 MyRTewF9qksuU2MafexfIH0JjS0+WTFElRmBssC6FUwfY2cGIPkd7RrwrQXrVfYeSY0YO
+	 ePmcL1dVJs6zCYxqbaasrm53/SBHLP20V46Odo4smmt7uvBaWMk5hi9qTunjps8nw9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XFG031gm;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideco.ru;
+	spf=pass smtp.mailfrom=ideco.ru;
+	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=gukuY0Xf;
+	arc=none smtp.remote-ip=51.250.56.165
+Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B9E606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:12:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80B9E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA25C606A33B
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:12:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA25C606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ideco.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XFG031gm
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8b69b8c6dd5so1240330b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:12:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794568326; x=1795173126; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QVHTU60vGRb+Zvv52jZBctrQrlA3sz5HwG1d7pGxaWY=;
-        b=XFG031gmS/DYARWYVF9N1b5qeQ3QCbIlj7fbLhel2SA7kiLMTbfx3DxyndMFiroata
-         Zim3QTF2gEnUpqge94EXyNyjUd02BCMWSgGOKaoe65EAotqpboFDgfToVqoRmc7jyutI
-         bg3RHw+R9iWe83kJc5PfZMGWB22Huc7WH6CZ7lTVpQjwszkCETZypTAyywn5MKcoUXHw
-         pQxZdRBylEd1U2EkAn7p2vCvspsdny1MSr1GLIpyiqNxQCDeXw6+UeOk9APupIOWNdJf
-         n/xrdOfLFBz0SNNtQ+JpvdS5yUX8+gX+PbquvAhB/srvgRNxYus+P0dDWthZsvmLPQUq
-         k5FA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794568326; x=1795173126;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QVHTU60vGRb+Zvv52jZBctrQrlA3sz5HwG1d7pGxaWY=;
-        b=piuwGBT/CXB+BLg94A9JNDupMoZavbILCehdR2QAuSoT5Y74dpz7yEQ02P5QvmdjLO
-         76FsgHkNxxRMHd9e8qi95XLrX1ZAmhLGA/kdU8nrkVKvVlU2W4CFS53Pec0L7DG15Mm5
-         EsA4Y5U3uszOA6sNqB3rAi8QRH0DXUK8VIlKNIANrtreztnMRHh7Uduwki3KZTLv+Od9
-         ybdztXXihL7Xg0gqI/PUuwQPeQ3dqy0entOE51PZuLJB7PvxrizknWQ/eEdapm4HtGK4
-         k7XINnBXCuVRrAHD2i8CoB32qHarfEKLW1/qQTfgfCL5bXIlWIZKsLtPO8ItnGkvzhD5
-         Rnhg==
-X-Forwarded-Encrypted: i=1; AL+hErHMCjqCDt+g1dA6I9+bonc7tqfJdep2Ny7Ov3HndxBJwFeblAw6Q1/yIIIOroHUfs1SXOekVc/kJKcO5Mo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8WHFW/Xt+CHid2NHd5eI34pUJ55wzYPVrOBmSUXg1pN0MgtDeN
-	JGW/j/P0TYOiu4Fm7ApEVPjeNEQRxkj6ib7PGtojO9ExXBhw7cGbxlBEYgye0W8/mMnmN/h1BJ0
-	ERsBsS/cExQGyaa5Mot7dfw==
-X-Received: from pfbff16.prod.google.com ([2002:a05:6a00:2f50:b0:88c:682e:9aab])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:4fc3:b0:89f:b166:bde6 with SMTP id d2e1a72fcca58-8beb8cc8ad6mr2186766b3a.54.1794568325401;
- Fri, 13 Nov 2026 03:12:05 -0800 (PST)
-Date: Fri, 13 Nov 2026 19:12:00 +0800
+	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=gukuY0Xf
+Received: from [169.254.254.254] (localhost [127.0.0.1])
+	by smtp.ideco.ru (Postfix) with ESMTP id 1D28226BC6;
+	Fri, 13 Nov 2026 16:12:06 +0500 (+05)
+Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.ideco.ru (Postfix) with ESMTPSA id 7E90B26BC3;
+	Fri, 13 Nov 2026 16:12:03 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 7E90B26BC3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
+	t=1794568324; bh=Tdw0bwQZ8Q79OsNUucWIgUjlWSc89vsrssM2V4jSnNE=;
+	h=From:To:Cc:Subject:Date;
+	b=gukuY0Xf1gE5F2BvUTIqm9aSWpFRbNUnT4Bv04r5npETypYaaeJsjkscsFGwjiLvB
+	 KmIilEUBW+ADZZJmAq4Z2ABzv1ZiShcJ81YL27mwVB+oGJF1bLqImpYYsKrwF75lBr
+	 AjwnK8TNMEWoRLHi2F6+BGb9sUu6q/MY2UefTCPpshCsMw2wnLKdrBdvhpgs8n8M7G
+	 SP6LXhN+unVyBEgmYDPEL+3tbYjKYQjKoQGrLJ7Ux+vva+E6UyegKkBjtRi0+g/jUL
+	 iqs3WPcypsurLJeq+RBD1CS3Ac9yXTfGbGHXVYqaEse1DfGtY/25VE49uFny6KUqMJ
+	 VxlUpkm1C4Pbw==
+From: Alex Kazinsky <a.kazinsky@ideco.ru>
+To: Daniel Thompson <danielt@kernel.org>
+Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
+	Douglas Anderson <dianders@chromium.org>,
+	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tim Bird <tim.bird@sony.com>,
+	Martin Hicks <mort@sgi.com>,
+	kgdb-bugreport@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH] kdb: Reject zero BYTESPERWORD before calculating the repeat count
+Date: Fri, 13 Nov 2026 15:11:51 +0400
+Message-ID: <20261113111152.4190309-1-a.kazinsky@ideco.ru>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,65 +75,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261113111202.3551341-1-stanleyjhu@google.com>
-Subject: [PATCH v2 0/2] scsi: ufs: core: Fix device management and PM recovery
-From: Stanley Jhu <stanleyjhu@google.com>
-To: linux-scsi@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>, 
-	Brian Kao <powenkao@google.com>, Can Guo <can.guo@oss.qualcomm.com>, 
-	"Bao D. Nguyen" <quic_nguyenb@quicinc.com>, Hongjie Fang <hongjiefang@asrmicro.com>, 
-	Praveen Talari <praveen.talari@oss.qualcomm.com>, Hoyoung Seo <hy50.seo@samsung.com>, 
-	John Garry <john.garry@linux.dev>, Hyeoncheol Jeong <hyenc.jeong@samsung.com>, 
-	Jens Axboe <axboe@kernel.dk>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
-	Stanley Jhu <stanleyjhu@google.com>, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-A UFS power management callback holds hba->dev_cmd.lock and the only
-reserved tag while it sends device management commands. When one of
-these commands times out, ufshcd_eh_timed_out() calls
-ufshcd_link_recovery() inline, which needs the same lock and reserved
-tag. ufshcd_err_handler() also calls ufshcd_link_recovery()
-concurrently with an active power management callback when
-pm_op_in_progress is set.
+Setting BYTESPERWORD to zero in the kdb environment causes kdb_md()
+to divide by zero when calculating the initial repeat count. The
+existing width validation happens after this division.
 
-Patch 1 stops the host controller in ufshcd_eh_timed_out() instead of
-running link recovery inline, recovers the link in
-ufshcd_set_dev_pwr_mode() for START STOP UNIT, and forces
-ufshcd_err_handler() for timed-out reserved requests.
+Reject a zero width with KDB_BADWIDTH before calculating the repeat
+count.
 
-Patch 2 removes the pm_op_in_progress shortcut from
-ufshcd_err_handler() so error handling waits for the callback, and
-recovers the link in __ufshcd_wl_resume() when START STOP UNIT fails
-while a fatal error is scheduled.
+Found by Linux Verification Center (linuxtesting.org) with SVACE static
+analysis tool.
 
-Based on mkp/scsi 7.4/scsi-fixes.
+Fixes: 5d5314d6795f ("kdb: core for kgdb back end (1 of 2)")
+Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+---
+ kernel/debug/kdb/kdb_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Differences from v1 [1]:
-- Replace patches 1/9 to 8/9 with patch 1/2 per Bart Van Assche [2]
-  and drop the external series dependency.
-- Rebase v1 patch 9/9 onto patch 1/2 as patch 2/2 and recover the
-  link in __ufshcd_wl_resume() on UFSHCD_STATE_EH_SCHEDULED_FATAL.
-
-[1] https://lore.kernel.org/r/20261112051542.1539779-1-stanleyjhu@google.com
-[2] https://lore.kernel.org/r/59c577b6-4749-4edc-9dd9-a83f2a124adb@acm.org
-
-Brian Kao (1):
-  scsi: ufs: core: Do not recover the link concurrently with a PM
-    callback
-
-Stanley Jhu (1):
-  scsi: ufs: core: Recover link in ufshcd_set_dev_pwr_mode() on timeout
-
- drivers/ufs/core/ufshcd.c | 62 +++++++++++++++++++++------------------
- 1 file changed, 33 insertions(+), 29 deletions(-)
-
-
-base-commit: e550f2b2b4aab4c5f12db89d04d8978ce4ed7b4e
+diff --git a/kernel/debug/kdb/kdb_main.c b/kernel/debug/kdb/kdb_main.c
+index 40c332d2179d..c3cbeb25f6fb 100644
+--- a/kernel/debug/kdb/kdb_main.c
++++ b/kernel/debug/kdb/kdb_main.c
+@@ -1527,6 +1527,9 @@ static int kdb_md(int argc, const char **argv)
+ 	kdbgetintenv("RADIX", &radix);
+ 	kdbgetintenv("BYTESPERWORD", &bytesperword);
+ 
++	if (!bytesperword)
++		return KDB_BADWIDTH;
++
+ 	/* Assume 'md <addr>' and start with environment values */
+ 	repeat = mdcount * 16 / bytesperword;
+ 
 -- 
-2.56.0.611.g1030f0b940-goog
+2.56.0
+
 
