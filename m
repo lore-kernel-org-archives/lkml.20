@@ -1,97 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794551339;
-	b=olCcK0BJO/SFd/aPsO8LALCykb8iakqSbotjWKsYeV7XXHG+g9STFi2zh5I7kg60slfx
-	 aNuQ3ZyQuiRsJEqrjSD8jaHYIBBr/R/uAsu8MUW5Ba4wke6z39DXI6QC/UgeypVbG2xV6
-	 fpBnS7E6vNZ2mJJz4lf2PbfAI0xz3nVALBNmmoE6tL5Ck8qGqqIoeTe383lx1JD9bIpAP
-	 TA55VXu1eNsnJI957oEQvHclH7Q2EXPLX5Gb9vhlAwjfXsI1pOD0rCHGEPuhr+2ka6BVb
-	 Nc/ZRYpcP7Fjop0DMit6iFHLcIiG8CJNtb/rfkuJjeWNSEf7PV7hBKwExciUdUaJFrQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551339;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794551414;
+	b=PxAnm05mYhOkgWZ1THpL3NPXbsrJKvOUEF+Vdkcai/Sidmen7/Rop9vsSd3CtjuHm4t6
+	 asIg762p7f89cgYFcrNgcySmPM9erv//YsQpWGgZM+KVQrJ2RjkQcaOVnsgap8j42K+Vj
+	 Y9Hnjar2u1x5x7Z0YJe7ykxn1wAS4hJpuTau3P/VxTU8lKFkhLKXcp5/JpMwJVqPYdNJl
+	 ztYI9E9vdrJGgWLYf2lz8AuENe/036d36Tv2FHagZsxaPGsUaFvl6zTyHoGqlNVg/R1NA
+	 4Y2h/uH5R4sQQYLcbv1JJurHdrnGFdFhjCQ87icASdcE6SQ1Gflbh3JcNg2Q13WUONg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551414;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=eMtI/QvyBu7WYuIQjEeNFc1ytajl1TcdksT1CryvP7Q=;
-	b=WaMxG49+SzVMOguYyGSR76t98LHwzgKI6U4cFLwM29X3dN8d4dky8QyMF+cbh7DhrXvV
-	 aPFakIAd03pZlqjpJhKIRFbQOnJ1KJIBucGFXKVGJtOH7hrQM/ti3vtRNk7ocQ3tZhBGz
-	 YfnSaY2FHQB5rYUBO9nPtnxMF+zbQ6tGErLHK0UmgLxnSwCa+QPNCXg3mg1yc9oU03+Gt
-	 3ynlwlhPAEkxQ2+FNcahrX8AGwXQaspIxFJqOcqNq0CbWfeyThusD3MkW0qJJBUpkh062
-	 WzVl+JkAZMYGaOxwC5YOLyXdsNGtUkedXJ10Ra4Nx3Mp6c39oYkHmocxNwLQVEL9EQg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=cz+kn4Du;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
+	b=qhjLFYgvbQYr/FpjKSiS8OtG1ZHa0KUmonKwKnP6cH1ETqP1diauiIY6+aLaZhkEchZE
+	 EPk7ux1NbTsJVBhxUXJ/mGUh3J0BXzNoQU+0ykkRBdYwSZIk5TJfT7tTwoFosJSlE1mwl
+	 F610suyW74+wTf/tFe90Gx4dy6ImRI4I/rlm84ca5bFJSQancHrd+JsPSACDtMRJHjrqa
+	 zzTSgUNXIsy4Tmu/C0N4InLVs9E46Dq1HoXCFDU1LupoexXgarGS0W1cGQPrDzuMt4dYM
+	 N+XChdht//4ZLcUfkLGdlHu/lt0AVlbhlvTlxQrmaJ82XOslYJZKMfPvh6Sw4705GuA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=brainfault.org;
+	spf=none smtp.mailfrom=brainfault.org;
+	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=CISkgUyd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.173
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CCB606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:28:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5CCB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D01606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:30:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7D01606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=cz+kn4Du
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-491846221ffso537289f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:28:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=CISkgUyd
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ad0102edd4so7660911fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:30:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794551412; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mcBVWA5TWq4cVW8x4ORn9LN7HDjHI3Ptr2EvRo1UW6hcbGAzhtlp15/zjvP3TbVBeD
+         YlXnPoLW201PKXAqwG3XQJE9txPEmWIdvVGfkyOsu7cjNonEPhxo2Pk8jIvKfCmpnFxF
+         pGqLe+EVkcuyXM7bXq6B8QRNRPr9xINQAApQgw3ISPp7XW6hPROlrKzm5eh6wHCqMLbb
+         tpFD9/mLv88Lg6+QYtz6gcxrum1M4Hm86bOAQ8LgBPrQicjKIRT0JJO7xT4/RUvs94mt
+         Gxh6Yj3KdgA97T/xDHnjnrc+IXKBP7tyj7RU5wYOVvI5MhOel1LZZAHHvGIFHoNlqTrb
+         q8TQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
+        fh=cX/K9czPjVNjIaCpR8Znsb9a4Dv83w4sd8k5vijL7Vc=;
+        b=Gnwc2SUWJ07ljL04FPFm6fMuExobvn7uxV4NB7iWAdSb6OHC1OYmpJwPnmeW4iSjHY
+         f+13oAhPGDYfO1D9eBsIJ8sr2kmC+AoBQDf495oSFl0BRxKrhT5n218krN/VBhhmhvtc
+         XSkVUVYaWy5Ubj31eAclBX5NDW+DfpBGe1szsPDVXXKuirm5j1mPw9fPbXw2rYD3zEuH
+         KFYDQ4STau2gQY5imBg86LlQpmIz6kgYWVERYsMQ/nViZxTGqo+06CXN5XyZhe+3EmDt
+         NQGjuf44yOF69SWH2s+1DaXnoodT+XjLXL0iNI+ajJrSJsmLm5lkG7rCEi1yve4Zqr6U
+         7PGQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794551337; x=1795156137; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=brainfault.org; s=google; t=1794551412; x=1795156212; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=eMtI/QvyBu7WYuIQjEeNFc1ytajl1TcdksT1CryvP7Q=;
-        b=cz+kn4DuwLvFxEnT1RdO8AR1F0oXhLYwqMLGi15pJafOa2ZLuQePGzmS7ybyfi+k4R
-         WYiiGoHG3sb31cMtl1+ZxQbkXtMAi4UZF4EvnXICafNJ5fWBMHe5WQVzeeJICIx8nvsH
-         LiOi25YLkt3ocFE/UzCKppsR+wA1Ug5dI7ymde9WPwJ/rIZEJ2Alei2RTLNgGDOgUOOA
-         /k9+0wb46DDy97V5Idh86mkwudDy+7/Mqg42ecANFcVbDlMlQ3gtFoeW9H2Dr8MOqVv8
-         XMiA3LXF49UOzeEfJnuFw3IdEUPHKbg0Jps4yu6DcRThZHDg5FpWnNmI7Efa2m/LQQuN
-         h+Ig==
+        bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
+        b=CISkgUydz5u2X77u78uCB1fRwoqbwfnH7RNmDCopYJjHDuyVTgOKMzYZCTkmUevY3g
+         3K5gvlQXqrBOx+waPEU20+MtV3M9UX4Ii1fRaHcNSwqHFX/t58xEIIo43Q5/5oat3alL
+         UFWy4s0BgaccGuhvrccPxulBiqx7gFYq9Yi+vvFNKVVZiNyeV/5V2Blol/QBCuMOJ6ir
+         ZeLzky/15YFIooTxDnd5PsFWe7BzdueFp5Fpw8AldUWc4Zoj5yPa8n8UVjdDd7H4zd7j
+         Z3qky2hKscrFwxxJYOYEm+t9zLlgaXK9fnKUk1rCo2A5XxFP0oHrA/TpJMTUZNjV3FSU
+         vVHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794551337; x=1795156137;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794551412; x=1795156212;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eMtI/QvyBu7WYuIQjEeNFc1ytajl1TcdksT1CryvP7Q=;
-        b=c+Ycu90AmxS/amo8W5PKuQnYF78qy3zowcJ5Wlw7Xr6IUmZgfiKQrSDxyS4+4SvSPQ
-         Zd0IWRGQ46pzZbTuUnoyWwD6a2+kgFVXgnmB5zYDmYeZAa1bFjpxYID7+umSm6IxZAYZ
-         l2fl0X41o09CDhTh++ysQP5Lb8SkJ3rXP2dUr12ukxnYdgtzV5wLcnbP7MAgcMM+O83k
-         sZGnsgeIjMcMU2+phniREpe/HYQXyqfmmMapvTeH6Eu5ffh6mpQUs3gWOklAa+aY9Vt/
-         P3cWZGCQcqEXQeY4pLDT5cmUcI7yq2I98QpHuDhJGPW5HWwJ+PZhDEpQeHC6cvHVs9W5
-         DyOA==
-X-Forwarded-Encrypted: i=1; AL+hErEa8PG48qAhX8vUlY/duesQr2i4/lSCGs6i1OLC+E/6QHSkT2kEE3P9hYM8ywmADZTx77MjeNB7zu4R1mQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2PmQzl46Ulu0BLiehYjJVhg2olFRMNqwMgkkgT4q88YmcS4ul
-	2fNfZIukdJkfcQNc2rGPac8fmNl7UiR3sfMi5r9xiLvm2L3lmn8ZeI9n24/lOljwlPo=
-X-Gm-Gg: AYBFou39vLbBRjg3dRLJPzf+F0VtHxiljpv0gCSXLGQ0z3uBVTn2AHkDmi8oSMJ813+
-	zG3sObCHzNtquOzQl+5Iv2LMO9B4yRVqaPSMqseUo+JOFhQUMWLYcrNEDfD33t780wvjqkeXLEx
-	Qc7x8+BOrW5w2+7loqMkxS6z/hYz4hRngla0kRVtmFWC69bAY3QifNhi8X+wP3jbPKNLJ1IYmTO
-	1NSlQeTw+0F8PZ6dkqiIe851X6QOphvtyWqHuHxS3Ug/3kNkCpZLO22qMXq7equbU21h30WmxHd
-	SWjFkv5owuh4imPTEnzvONJJRrnyC2W7HUh1oPlpmmdziNlIJEs3eM6Q/SF11VlVDe94phiGXom
-	+87jrB+PGJz2T63yX9QRJOG+ZoDnfQwqs70iT4yDg+r/zD6SoavEfNupuOneCW89e1UvaOW6ZbH
-	PykpQKgOMH680BJmyWebqxzohu+Wdpz7rkI8reEyijaOPZoOAeA6ztdMLyseUF0EiRIPZFHw3Ky
-	ik3ikEFoW/S+cSeOf09FTAsYjeAWTUqiPhZCKTs50H5ZNddytV7sh4XXy9qx1M3GPHuh99AMPCr
-	YT46YcLUv8rBUG5E4Spne64n7Z9HmG/EqgiGDJ+aa5LmZJ1+jyrBCk4i0d4+ZPZyicLH53I03A=
-	=
-X-Received: by 2002:a05:6000:2586:b0:48e:2f7e:bdbb with SMTP id ffacd0b85a97d-49c72c9c8b4mr3464138f8f.50.1794551337038;
-        Thu, 12 Nov 2026 22:28:57 -0800 (PST)
-Received: from localhost (ip-091-089-005-024.um28.pools.vodafone-ip.de. [91.89.5.24])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-49c5fe373casm3174771f8f.30.2026.11.12.22.28.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 22:28:56 -0800 (PST)
-Date: Fri, 13 Nov 2026 07:28:55 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	linux-input@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] Input: keyboard: Add Nuvoton MA35D1 keypad driver
-Message-ID: <avatz4Q8JbrAJNn_@monoceros>
-References: <20261110111419.89535-1-fyhsueh4linux@gmail.com>
- <20261110111419.89535-3-fyhsueh4linux@gmail.com>
+        bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
+        b=FApy5Y5pu73Y8qKXCdABZWtqFoHkrlhsHdgqApUyIpnjHau/DysLYdZ9CknACj+IHf
+         OY2SHH3woty91BhiFRzel6YBb2hxS01ZGYJQRGir9++ZoPTPwKrGpDu3jcOuaUmyM2Xk
+         0SZkKWFq7g3tfwl2nSgzuI8RHvTR09JKC+Pt02pIBbgz3xwzQpBqbg5aRP9K8iuPPWpB
+         wd0jJvprMnE7BabOugqhoticr2FRFKbVWSUDg0CUPzEJ1OY3YsY4dBG3ouwnI0c6wp4L
+         eqwkprk4LCWmSOT+BY+U5thAx6ilWotfpZ1FTHCOdtGcZtDcsj61Cj6vREJhs8IIpDbF
+         y/Qw==
+X-Forwarded-Encrypted: i=1; AL+hErEtnxOtXuGakXJBuXZ0oo/vped64Z4rOm6ZXDUar4/3jRd9d6Zhr3EukNNR8L95N+Ya9fhJnTEWgXrNqqk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TZtF2BTuSEE23eUTqAhErOe4nZk6mLOwFY2OS/dd8GgedpaHW
+	biLYW1DWI3ADT0GUnPAJO8/2c60iYiZUkipmnk7JIHV1VQGDXexFXQcci9Q3tVTnUiFUdmVmNHt
+	TZrK1uZ0RyRO4D7P30xTRpq80u4nqge/YTJvr62aWZg==
+X-Gm-Gg: AYBFou2hMIG0TLh2Plz+iS8vIvdH9z3BzokHHKFcSDPgjh6sy1lar7veNyjUlw3BoXv
+	aq7H5WLBNWmMgUyYjqluhWdNTXNiG1uWkUifOWh8Bs3OgKOdKpa4GZp1lqNrP/G2d67L1gFk5Pe
+	nso3AImbStQtwfp+9MOAGCYo2HVYpcZFTBNCS0UtFIq+c1pqB0Eu61Z66I+k5w0t82/fzFebfeH
+	DaG1mXFtin7mUUVPT2Q+qlv7FTbS+15kRalcutTeOtyt74oIipn9DboVbpZU9qf9k+/PQAV0Xg3
+	SXcXYCoerKb5+nCzlMr4zqzoIQC7AUUMughZDY0vpbeOMy7bBFsDp6R/W4zmCcOYud/eQUwcm5e
+	ff3DLOf/8C27hx3KV5xGLFNI/S4r0eV78HBkdKj79f8Dok5rGHzkMYdm+nLiiIv+4BFB0UiJVzy
+	5sLoR6KWpku9F3TTq3bTUNTlHBq1A+7I4hrgCM+sqEaBrcKrH0+4iYIcGv
+X-Received: by 2002:a05:651c:a182:b0:3ad:f0bb:344c with SMTP id
+ 38308e7fff4ca-3ae2b4cd92dmr4405361fa.10.1794551411872; Thu, 12 Nov 2026
+ 22:30:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,43 +105,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a2ifqpif6owwxnga"
-Content-Disposition: inline
-In-Reply-To: <20261110111419.89535-3-fyhsueh4linux@gmail.com>
+References: <20261022025248.477832-1-jinyue.li@linux.alibaba.com>
+In-Reply-To: <20261022025248.477832-1-jinyue.li@linux.alibaba.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Fri, 13 Nov 2026 11:59:59 +0530
+X-Gm-Features: AclHuK8NiJX_tgbZANqAwiOjegb650NzlAml5enSgYn0fBkXeJUfWcHpMs2vGKY
+Message-ID: <CAAhSdy13okqRhJLCygqZajrwDTa64gJt=SnCcZPRQxRd5E=WKQ@mail.gmail.com>
+Subject: Re: [PATCH] RISC-V: KVM: Fix double free of the split page cache
+To: Li Jinyue <jinyue.li@linux.alibaba.com>
+Cc: kvm-riscv@lists.infradead.org, kvm@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	atish.patra@linux.dev, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, wang.yechao255@zte.com.cn, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Oct 22, 2026 at 8:22=E2=80=AFAM Li Jinyue <jinyue.li@linux.alibaba.=
+com> wrote:
+>
+> kvm_riscv_mmu_free_pgd() frees pgd_split_page_cache after dropping
+> mmu_lock. It is reached from kvm_arch_flush_shadow_all(), i.e. from the
+> MMU notifier ->release() callback, which can run concurrently for the
+> same VM from exit_mmap() and from mmu_notifier_unregister() in
+> kvm_destroy_vm(). The stage-2 teardown is serialized by mmu_lock and the
+> second caller finds kvm->arch.pgd already cleared, but both callers then
+> go on to free the cache, and kvm_mmu_free_memory_cache() does not
+> tolerate concurrent callers:
+>
+>   BUG: KASAN: double-free in kvfree+0x28/0x32
+>   ...
+>    kfree+0xc4/0x428
+>    kvfree+0x28/0x32
+>    kvm_mmu_free_memory_cache+0x178/0x246
+>    kvm_riscv_mmu_free_pgd+0x20e/0x2b4
+>    kvm_arch_flush_shadow_all+0x1a/0x24
+>    kvm_mmu_notifier_release+0x36/0x7c
+>    __mmu_notifier_release+0x182/0x66a
+>    exit_mmap+0x7f8/0x8c4
+>    mmput+0x7e/0x2fc
+>    do_exit+0x57a/0x22b4
+>   ...
+>   Freed by task 15956 on cpu 3 at 8926.103524s:
+>   ...
+>    kvm_mmu_free_memory_cache+0x178/0x246
+>    kvm_riscv_mmu_free_pgd+0x20e/0x2b4
+>    kvm_arch_flush_shadow_all+0x1a/0x24
+>    kvm_mmu_notifier_release+0x36/0x7c
+>    mmu_notifier_unregister+0xf0/0x328
+>    kvm_put_kvm+0x32a/0x7b8
+>    kvm_vm_release+0x3a/0x50
+>    __fput+0x330/0x974
+>
+> The cache only feeds huge page splitting from VM ioctls, so it does not
+> need to be released together with the page table. Free it from
+> kvm_arch_destroy_vm() instead, which runs once after the MMU notifier
+> has been unregistered, as arm64 and x86 already do. The error path in
+> kvm_arch_init_vm() is not affected because the cache cannot have been
+> filled at that point.
+>
+> Found by syzkaller.
+>
+> Fixes: 6c7f75ef096a ("RISC-V: KVM: Add the split page cache for ioctl con=
+text")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Li Jinyue <jinyue.li@linux.alibaba.com>
 
---a2ifqpif6owwxnga
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v1 2/2] Input: keyboard: Add Nuvoton MA35D1 keypad driver
-MIME-Version: 1.0
+LGTM.
 
-On Tue, Nov 10, 2026 at 07:14:19PM +0800, Feng-Yi Hsueh wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
+Reviewed-by: Anup Patel <anup@brainfault.org>
 
-Please don't include <linux/mod_devicetable.h> as it introduces a bunch
-of unneeded build dependencies. <linux/platform_device.h> is sufficient
-to get of_device_id.
+Queued this as fix for Linux-7.4-rcX
 
-Best regards
-Uwe
+Thanks,
+Anup
 
---a2ifqpif6owwxnga
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr2riMACgkQj4D7WH0S
-/k6KPAf9EQ0HGivhdceUuk66CUKDwtvjh/7/jjrthGgkb+pdJryDbkedlXcCKjK9
-b+TSwyp0Ij45TIIFMN/ZFfLea+1FM3nTPndVlZsIIDgJctKr0b9642hqhFrvkbPy
-57e6YCZlJnH+P0baX7Z7JCgbPo34/RX6nn3dmY96cVDPx9nlO82bZlUKT0+O81nc
-6nAdhy73QjVG7hEQYipP7SJUFRNOCOBxqjT4iIelWp8tvmFrMUdux3Yi2kmSL405
-R0HXdDse9VWP/awUS/rl6ACGhds1ZJbh03SA5seeuZxX/6xVqbyap9pvvDIndv21
-UM+9r6MVkXax2D6HXkYWSiATc2X9cQ==
-=FoqO
------END PGP SIGNATURE-----
-
---a2ifqpif6owwxnga--
+> ---
+>  arch/riscv/kvm/mmu.c | 2 --
+>  arch/riscv/kvm/vm.c  | 2 ++
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
+> index 3e955d808743..74dece22d172 100644
+> --- a/arch/riscv/kvm/mmu.c
+> +++ b/arch/riscv/kvm/mmu.c
+> @@ -798,8 +798,6 @@ void kvm_riscv_mmu_free_pgd(struct kvm *kvm)
+>
+>         if (pgd)
+>                 free_pages((unsigned long)pgd, get_order(kvm_riscv_gstage=
+_pgd_size));
+> -
+> -       kvm_mmu_free_memory_cache(&kvm->arch.pgd_split_page_cache);
+>  }
+>
+>  void kvm_riscv_mmu_update_hgatp(struct kvm_vcpu *vcpu)
+> diff --git a/arch/riscv/kvm/vm.c b/arch/riscv/kvm/vm.c
+> index a9f083feeb76..a7e1b518257a 100644
+> --- a/arch/riscv/kvm/vm.c
+> +++ b/arch/riscv/kvm/vm.c
+> @@ -54,6 +54,8 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
+>         kvm_destroy_vcpus(kvm);
+>
+>         kvm_riscv_aia_destroy_vm(kvm);
+> +
+> +       kvm_mmu_free_memory_cache(&kvm->arch.pgd_split_page_cache);
+>  }
+>
+>  int kvm_vm_ioctl_irq_line(struct kvm *kvm, struct kvm_irq_level *irql,
+>
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> --
+> 2.25.1
+>
