@@ -1,90 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794564203;
-	b=Nqkt1PHp+SUsbTKSQeQ8+vcR1432sG/hGKwQGjkWRrP5ndUqf8W8K4tGPWdKkbKvbBAn
-	 hh+PioZUOZi6tB1y+755meusa0m2AVcjCD+w/1zz+zt4G7DdJHOHu/rilMr5b4vfRbZ96
-	 0kO7oxLmDP4Vl0T7vB1y4Xx2fICNelo4EWNhRjLNQQ1LhCk9UQK9i8mOY8Zr9auTmM7S/
-	 xvxdEr/yYK2dOsL8p7cR97Fr+NqIjOI5Btt7dGS41aWdkIrAeD7EKc2Qcu/Y+XKopfT2K
-	 ZRVBOJ8byLem/3ni+gJsH+fQyMNRmNCpu7IKKjIEl6j1O8zDvnuebujuoZbeb0+v6eg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564203;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=jn7aSqmX7Bdz/eneT4RXbR5rgE989xqw1xr9DvTT8pE=;
-	b=tirvJXq/cT4SiC6PPBpt5utall0F1IpiCgofogoylJm1ysEO1Kpiz6KET0PeeKaQL6Db
-	 aKuM5ZqsUuwo1KL1k+p2OZRCteeIYCq28ktVHipxD4DLgA1givMWt+jTMxw+vgjWmaR6G
-	 szVTS8VlQiJsk4MhfYpQ3kIjjnTIeOuC5Oe7UqENVVhZ6uW47V/i4nmtKaLsWpx1v6mc1
-	 DoLsIFPcp33ubCREJTedK0pd+rMhNAhTlH8KDdAbwMp11d1n0J3HwNhQC6SjXTQ3DYkQF
-	 94oRh9GZ1i7MVm7v9o65t1RM73UJNDW+qrzjK65vFyUZ32xoR8fHonf19by0rj7Ewgg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=J4u44Z76;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=1sDEaCr8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.166])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794564223;
+	b=2gmz1ZEqot9e70pbMJiY+GdwPogKu8DQaL2s3Ggx4AvvimwyNj8Ag7htw5m7Qubj4GpZ
+	 INtA2xSilm/mSihMWdPYZw34TxCzOTS5drljL8xgtflGnjz8AV1jDg+Gn+cqzJscz5mc9
+	 Cj5NCmZbB+L09YWt6SYcRrKlInxhlIeaSHESy7n8FkgtPhmjvXVlpD8UdUbnSfQ1gssHy
+	 dCquGOkRjTMRAmrBjRZkgbLhUT9g2ePpBKcwQF5hIqT0CCxRMsAyHpXSGmp/2ShMiWHtN
+	 ByUxGSfhdcCfDKlTlTEngZUSpHEn8GizXKrO1x1xy3wdkJ0Kn25l7iWPVdPuszD5kPA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564223;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=6cN8hpP/bnwcYzPsZf0cUkd2pk5Vve+UdRh8Jmnig90=;
+	b=dXC1+c7U7nsKYtMxOjdImUjTa55TwwF19V0cWpIBah99+kA/pZ4wGsdTUXpj2QSs4gkJ
+	 I2onPxMkBYrZu1MCE2F9rIy6cni2eUzf7cwCjhXnRN9Gcn9fzmr0TcTcBmvIxyHqCrZSJ
+	 gDYy6gMfLSEErd2sqd3zt/76lYEQCb4xp681dELwfP7lOFJa+Y+p62qyzV9A0FiMckCjS
+	 tKR9YI2tqrk8ZSMokCVTNhlv0s6UmzHB4xLOMcFp9rLKvltUHvNEijCnhXcOXYN68vGEV
+	 pp1X01gJJ9s5UijFeDd8kZPe/XIWgzw1VV60mP3hzjW+JWTFmlgn1UVmUUlpAbf7yJw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=amutable.com;
+	spf=pass smtp.mailfrom=amutable.com;
+	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="YppAuU/f";
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2C7606A333;
-	Fri, 13 Nov 2026 10:03:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E2C7606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7175606A8B7
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:03:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7175606A8B7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=J4u44Z76;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=1sDEaCr8
-ARC-Seal: i=1; a=rsa-sha256; t=1794564192; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=sA9GokYDfj7V0DBdFvM3MI3W6Nd4EPmv7P4XdUdU7B7/VSgKbT+TloZ/2VvWkj9F8q
-    gSBSb5RowCdeOm5uMk5+G4JmDx6dUuLfXXcutwwANkEd4T1CwE1W+RroFAAu6mECbHQ0
-    LTnGxaVT0uAZL3oiQDcdon6FHb+XlBdg4i58SIwf861HI0TFpPbO8flUo6ZhXu6rHlLa
-    nffmM2Sad/HfvakX/NNIaFZg1P08Jq8y5rVknHAcw0ghXQ5/B4ECrTZvB04cosg43gCm
-    GSAbsVjz0HZbIh2JkXmoWXiKwhO27GAN0ZjzetFLfM9Dmgy2TTS1teG48Fmt3GLIhTSr
-    UayA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794564192;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=jn7aSqmX7Bdz/eneT4RXbR5rgE989xqw1xr9DvTT8pE=;
-    b=BoLrDPIs664b1e6sK/NgDUlAiUXmHHvPbuA2Nc6iaVH+/NEkWFjal0ahHFyaSbNlbO
-    x6Q/nHfLIE9CHNEOhXS4IML+RyMXbDh3+6o7TjyjMzOpl4Gp8GJ4ZN3YbDsCYTRQAtjA
-    Obp9yIZVdyo3B3MHJJyaqictJQyqBFJbA7ryViocJd3IRIRTMe/YYmMzcBfEu/QJp4Fb
-    tEXGhYwlXh/9kq2t0KY+6Yp58NTGJgPdsKLB7kV/Qigx+sphyLu69Pud4hJ6Y10dJlYn
-    r26tKr7UZIzIkUCDvhtkDlvfFJclBcKqmLSzgYptGDChG00QcQFWLiuojQPWSQIvjP6X
-    ba/g==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794564192;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=jn7aSqmX7Bdz/eneT4RXbR5rgE989xqw1xr9DvTT8pE=;
-    b=J4u44Z76fHLT0pc18llafTSWZ6DXvfHsiY8mJKjBJrl+wQ2DduKhaUGfRDB+eUxsdN
-    d+XQnbt2VZQdWAi+xTuta8mzPP9lbLvqvtxRMpb7oLZCSMSTGWBnkE+Iy+PvWZk3mtGo
-    YSXetWauph6+y75U9zeXpJ+nVC0djuVR6cGLHPT891dlA80C2DQnipwC5RMrJ/YFxr3e
-    G3yycWGlNnO6hcPfVT/Al/O6JbIys53qIQV1vgbgR3HU+gnbhT8rC8QgB/M3oSWJynOx
-    /U/cRVS4yapqPzEBVxsd+ckre35fH/R1paHDAbAHjrN5lXgoddcj22Z5UkCem1e43B3Z
-    e/Ww==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794564192;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=jn7aSqmX7Bdz/eneT4RXbR5rgE989xqw1xr9DvTT8pE=;
-    b=1sDEaCr8BlPCaV7BGBQhpyufNw8SfqUoFqYvakUxGMmSrZ0VKpqFFUQ9Q+KhgmcxFK
-    llasZHxCv3jhS2xgbUBg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2ZoHmMiNHYIZPrro6QPZGBqKLoYar6phQmxG"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22ADA3BFpd
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Fri, 13 Nov 2026 11:03:11 +0100 (CET)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=YppAuU/f
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c169ae1cb26so172962566b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:03:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794564221; x=1795169021; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=6cN8hpP/bnwcYzPsZf0cUkd2pk5Vve+UdRh8Jmnig90=;
+        b=YppAuU/f77eWMTZ8F/Y/RTjltBDd6igz4EttMolmckndL9mvAt3euwqVCnUFPcnj1L
+         wpVFClVgg0YlcE6bTABHQT1NnQyujG09t70SZ+IGoHQq0qQgGGwB+4JQikI2kaQwvi8W
+         H3KupRONVF9kXu90kRN/xwbfNoANJajav9pnhnb3IMIJ4A6DWEq+8017kOKRrUT+YN/m
+         jRUDmGHXRq1c+43Y1O2K5XEGEQl+nQ8YkAZ+/5vrEItOhIamTuHGEOkZUAeGsE8baOwB
+         Dj4haSBpRwT/bMXANPqkevI0ogqYaGkZDRE/CPrkXlmZ9T16K5sayD5Snik8DtXgYcT5
+         haBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794564221; x=1795169021;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6cN8hpP/bnwcYzPsZf0cUkd2pk5Vve+UdRh8Jmnig90=;
+        b=08gRNzynVK0IydSKJxfTo7JfOQxfWVTqplYKLr43wR/Na45vF0er8NfSRCdste+GJN
+         NrM9CFeUaEnU13mQPDd2Bz93qLodCQCRFKGo0Hi2QQeC9r1JmWf5gLPpcqF9vBY09VeU
+         kSwWFvbHjiFn1idqJcJTZ4s8/m8otj9iIEMIqvw2pPBkKS5bpZqbd1nx/CFif8I7NUF3
+         ZjRyvPRhe5SSF+kRY2pu9UsCTlvSbG5m9/9cm8xSAfpuY2SuCvUW40rQB0rSNxapRM+D
+         X/xGDoORsNrUUYaMpQalbss71ZmZWw/N8Bg7hZuSpii5c3arLaYEdRSQlxLHMy8tpypF
+         fFMw==
+X-Forwarded-Encrypted: i=1; AL+hErHgHOAuBOy2Pa8oFyw8mHTop6MPegAy4P4PWwnR/IFp9oPt3DB54g+d8B59BwLPrVumq+rZbkXvM5cY+0M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87qQUat84NxsAkcmLdhrnnm6sUvIQ1+1EBi2NpiH6Mgtmt/CaZ
+	ijkZ6Rpa8bnzzqoJVwejPsFdXDzMAixFhNd1T3LMFNtqyM+GcTLKXtXWeiCvVjpIFnsj
+X-Gm-Gg: AYBFou0S1UjqhGgviq6LStiDjhssA0D3KxBeXAch2GvstBd9YAdZdeO8WK9de5xz4Mm
+	lPaDL3/Cs7rdfmQEYI+ZVc1pw/gu5pDpTAq1ilDM9fN7FejxBG0Fk0hhBHFSYZZu/V5E2oTkfvL
+	d3103HzrN4FsKaUQp32ULa/IiGLLt1bCT0lNWJs1CaSrm7SUuIxA7ZVBOdHmpTki1sIT1kTlPtW
+	FBZbTq9R28xqdI5W8NnODg4Gyd9qHRJYPz5VUinelW8po3YgEFNDuLbfc/utyim4y9IKwNEXMWF
+	pHHn7bV84Jy9Rjd7uX1bKA1ITrpxCcXA4FehMh4e1r0KFJWueghnyrqGlHTeiQORSzLdyEG32F4
+	wlrniFCL/pJ6pX37dM8PvJLnis52Af9wlOtsrqDtpZmGSCyESMLzGtVmKdP9e6wpDQgB7jJ0Jmz
+	IUy1+xDuiE4pfT3tXaZhCC2v+l+fQ69/rDTQ47vkYnlLE+pfqDIstrUeywJ5GsmnHCxMi2g89dV
+	kRJhL+Nwum2MWr1Ec8LUTBWD9v+OLFphe9fFMuUFXUaAzDr0HxvOI4DZ460eL4G36470P5Oi9cw
+	W0tPySRhE6vKl5BGpWiMqKzWW31z615HjAA+iss1Esqqgor+5m89FlSXDNRH5RA=
+X-Received: by 2002:a17:907:7b8c:b0:c42:bc58:f21 with SMTP id a640c23a62f3a-c50963856f2mr175546966b.15.1794564221164;
+        Fri, 13 Nov 2026 02:03:41 -0800 (PST)
+Received: from [10.0.0.233] (tmo-086-54.customers.d1-online.com. [80.187.86.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b23b3asm74752966b.27.2026.11.13.02.03.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 02:03:40 -0800 (PST)
+Message-ID: <cfcbef5caf7651b63774549fa1999d34981c78a4.camel@amutable.com>
+Subject: Re: [PATCH RFC 09/41] bpf: use fc_init_pseudo() for bpffs
+From: Alexander Mikhalitsyn <alex@amutable.com>
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, Josef
+ Bacik	 <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, 	driver-core@lists.linux.dev,
+ linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, 	fuse-devel@lists.linux.dev,
+ linux-efi@vger.kernel.org, 	xen-devel@lists.xenproject.org,
+ ocfs2-devel@lists.linux.dev, 	linux-s390@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, 	linux-usb@vger.kernel.org, Amir Goldstein
+ <amir73il@gmail.com>, 	linux-erofs@lists.ozlabs.org,
+ linux-kselftest@vger.kernel.org
+Date: Fri, 13 Nov 2026 11:03:39 +0100
+In-Reply-To: <20261110-work-loop-pseudo-v1-9-4c998976c6c7@kernel.org>
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+	 <20261110-work-loop-pseudo-v1-9-4c998976c6c7@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,316 +113,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH 2/3] pinctrl: ingenic: Add X2600 register and GPIO IRQ
- support
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <d8e981be7badb4cb2476e58399010e533df40916.camel@crapouillou.net>
-Date: Fri, 13 Nov 2026 11:02:40 +0100
-Cc: Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org,
- letux-kernel@openphoenux.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <209B96BB-1458-442B-95B8-F0F6BA204E9B@goldelico.com>
-References: <cover.1794557697.git.hns@goldelico.com>
- <1c495c7ac851aff2a798c82acf33bbb33da37953.1794557697.git.hns@goldelico.com>
- <3784202f7f6baa63b548af4c491805852e5835df.camel@crapouillou.net>
- <11E0E075-D267-4E50-906C-022D297A4988@goldelico.com>
- <d8e981be7badb4cb2476e58399010e533df40916.camel@crapouillou.net>
-To: Paul Cercueil <paul@crapouillou.net>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
 
-
-
-> Am 13.11.2026 um 10:54 schrieb Paul Cercueil <paul@crapouillou.net>:
+On Tue, 2026-11-10 at 10:14 +0100, Christian Brauner wrote:
+> Initialize bpffs as a pseudo filesystem instead of raising
+> SB_I_NOEXEC and SB_I_NODEV by hand. This adds SB_I_PSEUDO.
 >=20
-> Le vendredi 13 novembre 2026 =C3=A0 10:49 +0100, H. Nikolaus Schaller =
-a =C3=A9crit :
->> Hi Paul,
->>=20
->>> Am 13.11.2026 um 10:37 schrieb Paul Cercueil <paul@crapouillou.net>:
->>>=20
->>> Hi Nikolaus,
->>>=20
->>> Le vendredi 13 novembre 2026 =C3=A0 09:14 +0100, H. Nikolaus =
-Schaller a =C3=A9crit :
->>>> Add the X2600 SoC ID and adapt the GPIO register access functions
->>>> to its register layout.
->>>>=20
->>>> Unlike earlier Ingenic SoCs, the X2600 uses a register bank
->>>> spacing of 0x1000 and provides separate shadow registers and
->>>> load registers for each GPIO port. It also uses a dedicated
->>>> register for clearing GPIO interrupt flags.
->>>>=20
->>>> Update the GPIO interrupt configuration to account for hardware
->>>> dual-edge detection on X1600, X2000 and X2600. These SoCs require
->>>> PAT1 to be set when dual-edge detection is enabled, while X1000
->>>> and X1830 continue to use software emulation.
->>>=20
->>> So at the same time you're fixing X1600/X2000 and adding support for =
-X2600.
->>> Looks to me like it should be splitted into two patches.
->>=20
->> Well, I have to look if it can be split.
->>=20
->> So far the driver for X1600/X2000 does not have dual-edge support by
->> hardware (programming the EDG bit).
->>=20
->> But registers and programming model are the same. Therefore it is =
-more
->> or less a nice side-effect that x2600 adds functions to x1600/x2000.
->>=20
->> I.e. new code would be replacing some is_soc_or_above(jzgc->jzpc, =
-ID_X2600)
->> with is_soc_or_above(jzgc->jzpc, ID_X1600) to fix it for them.
->>=20
->> Or otherwise we have to split full x2600 support into two patches.
->>=20
->> Is this worth a separate patch or should we leave it as a comment in
->> the commit message?
->=20
-> My idea was that you'd first swap X1600/X1830, then add support for =
-hardware
-> dual-edge support if >=3D X1600, and finally add X2600 support.
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Ah, ok. Fine with that. Will do for V2.
+Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
 
-BR and thanks,
-Nikolaus
-
+> ---
+> =C2=A0kernel/bpf/inode.c | 4 ++--
+> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
 >=20
->>>> The corrected interrupt configuration has been tested on X1600,
->>>> X2000, and X2600, including GPIO dual-edge interrupts by a
->>>> gpio-button.
->>>>=20
->>>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
->>>> ---
->>>> drivers/pinctrl/pinctrl-ingenic.c | 71 =
-+++++++++++++++++++++++++------
->>>> 1 file changed, 58 insertions(+), 13 deletions(-)
->>>>=20
->>>> diff --git a/drivers/pinctrl/pinctrl-ingenic.c =
-b/drivers/pinctrl/pinctrl-
->>>> ingenic.c
->>>> index a62532c49fb60..90c734c74d267 100644
->>>> --- a/drivers/pinctrl/pinctrl-ingenic.c
->>>> +++ b/drivers/pinctrl/pinctrl-ingenic.c
->>>> @@ -70,6 +70,10 @@
->>>> #define X2000_GPIO_SR 0xd0
->>>> #define X2000_GPIO_SMT 0xe0
->>>>=20
->>>> +#define X2600_GPIO_FLAG_CLR 0x58 /* write only */
->>>> +#define X2600_GPIO_SHADOW_OFFSET 0x800
->>>> +#define X2600_GPIO_PAGLD (X2600_GPIO_SHADOW_OFFSET +
->>>> 0xf0)
->>>> +
->>>> #define REG_SET(x) ((x) + 0x4)
->>>> #define REG_CLEAR(x) ((x) + 0x8)
->>>>=20
->>>> @@ -114,6 +118,7 @@ enum jz_version {
->>>>  ID_X1830,
->>>>  ID_X2000,
->>>>  ID_X2100,
->>>> + ID_X2600,
->>>> };
->>>>=20
->>>> struct ingenic_chip_info {
->>>> @@ -164,7 +169,8 @@ static const unsigned long enabled_socs =3D
->>>>  IS_ENABLED(CONFIG_MACH_X1600) << ID_X1600 |
->>>>  IS_ENABLED(CONFIG_MACH_X1830) << ID_X1830 |
->>>>  IS_ENABLED(CONFIG_MACH_X2000) << ID_X2000 |
->>>> - IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100;
->>>> + IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100 |
->>>> + IS_ENABLED(CONFIG_MACH_X2600) << ID_X2600;
->>>>=20
->>>> static bool
->>>> is_soc_or_above(const struct ingenic_pinctrl *jzpc, enum jz_version
->>>> version)
->>>> @@ -3545,15 +3551,21 @@ static void =
-ingenic_gpio_shadow_set_bit(struct
->>>> ingenic_gpio_chip *jzgc,
->>>>  else
->>>>  reg =3D REG_CLEAR(reg);
->>>>=20
->>>> - regmap_write(jzgc->jzpc->map, REG_PZ_BASE(
->>>> - jzgc->jzpc->info->reg_offset) + reg, BIT(offset));
->>>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
->>>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
->>>> X2600_GPIO_SHADOW_OFFSET + reg,
->>>> +      BIT(offset));
->>>> + else
->>>> + regmap_write(jzgc->jzpc->map, REG_PZ_BASE(jzgc->jzpc->info-
->>>>> reg_offset) + reg,
->>>> +      BIT(offset));
->>>> }
->>>>=20
->>>> static void ingenic_gpio_shadow_set_bit_load(struct =
-ingenic_gpio_chip
->>>> *jzgc)
->>>> {
->>>> - regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(
->>>> - jzgc->jzpc->info->reg_offset),
->>>> - jzgc->gc.base / PINS_PER_GPIO_CHIP);
->>>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
->>>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
->>>> X2600_GPIO_PAGLD, 1);
->>>> + else
->>>> + regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(jzgc->jzpc->info-
->>>>> reg_offset),
->>>> +      jzgc->gc.base / PINS_PER_GPIO_CHIP);
->>>> }
->>>>=20
->>>> static void jz4730_gpio_set_bits(struct ingenic_gpio_chip *jzgc,
->>>> @@ -3618,6 +3630,12 @@ static void irq_set_type(struct =
-ingenic_gpio_chip
->>>> *jzgc,
->>>>  break;
->>>>  }
->>>>=20
->>>> + if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
->>>> +     (is_soc_or_above(jzgc->jzpc, ID_X2000) ||
->>>> +      (is_soc_or_above(jzgc->jzpc, ID_X1600) &&
->>>> +       !is_soc_or_above(jzgc->jzpc, ID_X1830))))
->>>=20
->>> I remember you saying (in another patchset) that the X1830 was older =
-than
->>> the
->>> X1600, if that's the case the IDs for X1600 and X1830 should be =
-swapped. I
->>> believe this patch would then become much simpler.
->>=20
->> Indeed. So I can swap the ID's in V2.
->=20
-> I just checked in the programming manuals and indeed it seems to be =
-the case.
-> Weird! I had no idea.
->=20
-> Cheers,
-> -Paul
->=20
->>>> + val2 =3D true;
->>>> +
->>>>  if (is_soc_or_above(jzgc->jzpc, ID_JZ4770)) {
->>>>  reg1 =3D JZ4770_GPIO_PAT1;
->>>>  reg2 =3D JZ4770_GPIO_PAT0;
->>>> @@ -3640,6 +3658,9 @@ static void irq_set_type(struct =
-ingenic_gpio_chip
->>>> *jzgc,
->>>>  ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
->>>>  ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
->>>>  ingenic_gpio_shadow_set_bit_load(jzgc);
->>>> +
->>>> + if (is_soc_or_above(jzgc->jzpc, ID_X1600) &&
->>>> !is_soc_or_above(jzgc->jzpc, ID_X1830))
->>>> + ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset,
->>>> val3);
->>>>  } else {
->>>>  ingenic_gpio_set_bit(jzgc, reg2, offset, val1);
->>>>  ingenic_gpio_set_bit(jzgc, reg1, offset, val2);
->>>> @@ -3714,7 +3735,8 @@ static void ingenic_gpio_irq_ack(struct =
-irq_data
->>>> *irqd)
->>>>  bool high;
->>>>=20
->>>>  if ((irqd_get_trigger_type(irqd) =3D=3D IRQ_TYPE_EDGE_BOTH) &&
->>>> -     !is_soc_or_above(jzgc->jzpc, ID_X2000)) {
->>>> +     (!is_soc_or_above(jzgc->jzpc, ID_X1600) ||
->>>> +     (is_soc_or_above(jzgc->jzpc, ID_X1830) && =
-!is_soc_or_above(jzgc-
->>>>> jzpc, ID_X2000)))) {
->>>>  /*
->>>>   * Switch to an interrupt for the opposite edge to the one
->>>> that
->>>>   * triggered the interrupt being ACKed.
->>>> @@ -3726,7 +3748,9 @@ static void ingenic_gpio_irq_ack(struct =
-irq_data
->>>> *irqd)
->>>>  irq_set_type(jzgc, irq, IRQ_TYPE_LEVEL_HIGH);
->>>>  }
->>>>=20
->>>> - if (is_soc_or_above(jzgc->jzpc, ID_JZ4770))
->>>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
->>>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
->>>> X2600_GPIO_FLAG_CLR, BIT(irq));
->>>> + else if (is_soc_or_above(jzgc->jzpc, ID_JZ4770))
->>>>  ingenic_gpio_set_bit(jzgc, JZ4770_GPIO_FLAG, irq, false);
->>>>  else if (is_soc_or_above(jzgc->jzpc, ID_JZ4740))
->>>>  ingenic_gpio_set_bit(jzgc, JZ4740_GPIO_DATA, irq, true);
->>>> @@ -3754,7 +3778,9 @@ static int ingenic_gpio_irq_set_type(struct =
-irq_data
->>>> *irqd, unsigned int type)
->>>>  irq_set_handler_locked(irqd, handle_bad_irq);
->>>>  }
->>>>=20
->>>> - if ((type =3D=3D IRQ_TYPE_EDGE_BOTH) && =
-!is_soc_or_above(jzgc->jzpc,
->>>> ID_X2000)) {
->>>> + if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
->>>> +     (!is_soc_or_above(jzgc->jzpc, ID_X1600) ||
->>>> +     (is_soc_or_above(jzgc->jzpc, ID_X1830) && =
-!is_soc_or_above(jzgc-
->>>>> jzpc, ID_X2000)))) {
->>>>  /*
->>>>   * The hardware does not support interrupts on both edges.
->>>> The
->>>>   * best we can do is to set up a single-edge interrupt and
->>>> then
->>>> @@ -3849,16 +3875,35 @@ static inline void
->>>> ingenic_shadow_config_pin(struct
->>>> ingenic_pinctrl *jzpc,
->>>>  unsigned int pin, u8 reg, bool set)
->>>> {
->>>>  unsigned int idx =3D pin % PINS_PER_GPIO_CHIP;
->>>> + unsigned int offt =3D pin / PINS_PER_GPIO_CHIP;
->>>>=20
->>>> - regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
->>>> - (set ? REG_SET(reg) : REG_CLEAR(reg)), BIT(idx));
->>>> + if (set)
->>>> + reg =3D REG_SET(reg);
->>>> + else
->>>> + reg =3D REG_CLEAR(reg);
->>>> +
->>>> + if (is_soc_or_above(jzpc, ID_X2600)) {
->>>> + u32 target_reg =3D (offt * jzpc->info->reg_offset) +
->>>> X2600_GPIO_SHADOW_OFFSET + reg;
->>>> +
->>>> + regmap_write(jzpc->map, target_reg, BIT(idx));
->>>> + } else {
->>>> + regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
->>>> reg, BIT(idx));
->>>> + }
->>>> }
->>>>=20
->>>> static inline void ingenic_shadow_config_pin_load(struct =
-ingenic_pinctrl
->>>> *jzpc,
->>>>  unsigned int pin)
->>>> {
->>>> - regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info->reg_offset),
->>>> - pin / PINS_PER_GPIO_CHIP);
->>>> + unsigned int offt =3D pin / PINS_PER_GPIO_CHIP;
->>>> +
->>>> + if (is_soc_or_above(jzpc, ID_X2600)) {
->>>> + u32 target_load_reg =3D (offt * jzpc->info->reg_offset) +
->>>> X2600_GPIO_PAGLD;
->>>> +
->>>> + regmap_write(jzpc->map, target_load_reg, 1);
->>>> + } else {
->>>> + regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info-
->>>>> reg_offset),
->>>> +      pin / PINS_PER_GPIO_CHIP);
->>>> + }
->>>> }
->>>>=20
->>>> static inline void jz4730_config_pin_function(struct =
-ingenic_pinctrl
->>>> *jzpc,
-
-
+> diff --git a/kernel/bpf/inode.c b/kernel/bpf/inode.c
+> index c6f328e4752e..57cf3775c076 100644
+> --- a/kernel/bpf/inode.c
+> +++ b/kernel/bpf/inode.c
+> @@ -15,6 +15,7 @@
+> =C2=A0#include <linux/namei.h>
+> =C2=A0#include <linux/fs.h>
+> =C2=A0#include <linux/fs_context.h>
+> +#include <linux/pseudo_fs.h>
+> =C2=A0#include <linux/fs_parser.h>
+> =C2=A0#include <linux/kdev_t.h>
+> =C2=A0#include <linux/filter.h>
+> @@ -1197,8 +1198,6 @@ static int bpf_fill_super(struct super_block
+> *sb, struct fs_context *fc)
+> =C2=A0	sb->s_magic =3D BPF_FS_MAGIC;
+> =C2=A0	sb->s_op =3D &bpf_super_ops;
+> =C2=A0	sb->s_xattr =3D bpf_fs_xattr_handlers;
+> -	sb->s_iflags |=3D SB_I_NOEXEC;
+> -	sb->s_iflags |=3D SB_I_NODEV;
+> =C2=A0	sb->s_time_gran =3D 1;
+> =C2=A0
+> =C2=A0	inode =3D bpf_get_inode(sb, NULL, S_IFDIR | 0777);
+> @@ -1261,6 +1260,7 @@ static int bpf_init_fs_context(struct
+> fs_context *fc)
+> =C2=A0	opts->delegate_attachs =3D 0;
+> =C2=A0
+> =C2=A0	fc->s_fs_info =3D opts;
+> +	fc_init_pseudo(fc);
+> =C2=A0	fc->ops =3D &bpf_context_ops;
+> =C2=A0	return 0;
+> =C2=A0}
