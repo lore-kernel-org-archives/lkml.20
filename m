@@ -1,63 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537863;
-	b=WsiwkXK2SuodPg47eFCodcpVZ1YPY1+rAt5LXmt9g6n9ZDemQZg5uEMiA2V/D1VLYn0i
-	 ZBZEjo+E1OPfhK4GCmnPDJq3vEsilsmxzCr6acPC3wAeW0jxxaY31stRJeFqm9Vlcfd6D
-	 2VJVFg3FuxTOiqiCJVuRBlSOjYUtOMFtMF1C2w4wctAe6VJqKPUjzO/jklKfOSNvZS50y
-	 0QuP/8ensSmnaGO8np0YDDJIayTT0oWsoypz5sQbsJNLo530bVZ8DClXJp1vfdgoG8iEs
-	 Fkadzd21fitejlTK2FzEgEWdO0b46WNeazIVZTZAwpi5juzQirnM581QE01JN/im5yA==
+	t=1794537904;
+	b=VEqvppSA5yq0Ns5oIZDgRpzic5G9ZwpcoaBjeSUZ6mUdvreazrjuljX3mA4BHKRV/XBd
+	 XWoavkzyvsHT1mA5dJmPsz/QNTpQ7QflEZM9zYjup96nalGxI9Kugl+XnVxwq3vvAwyf0
+	 EkcyUT+7relsA3BbvRWGDT3nz2MAKddZll0CWIL8dl1VxJK4pf86Jal76nuNWrgTtvk2q
+	 mOLgr6se0mPIxeiEz5xdltQb+DShaglTa0z+obRJCOMr/LqC5CZvTSJCvsSAO8H9GcbKm
+	 C3vD1SS3/CR+bWlrNq5aUPQABcowQ9pLktX3bK07wQ6KkTzrPdsLX6nRonvjtmcY38Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537863;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=4TRHs1DfBlKdmDJbWxzloimLXw9ZeFotvX38yZ1XhRg=;
-	b=gZeFkHcKZV8HGX2aJ8i7xMtMB1ih//vXFDpldKChx3OCSBkK+yWqMyYYB9cWdesPUVOz
-	 jlUv8jYKvNySQkjrjEuvVY8KluNyVrBe6+4kscH4nSpWj55S4oaFIk0Ag7+Y/rhnioIP1
-	 CglWQ4zStMOF1V8IMXfxK8WrgKmQ+HOe/1DtQT+zOU9gV32kAA8kgMTpI8XQSHkMijPi4
-	 mt/yXTRKvgkWYx5wag0F+04+NiiDCbk5envtn6mxpcJQqgSBf18xM+80Y1MY77QF5eVgT
-	 55BU7OpWzbjg3LKAXkZftU8mZxsasT1AKcUe0QBEU/ogt1MThOk4qJAloJ2O80H1sjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537904;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=BvnjJ+ijwNCz4Oqh6fIRvQJmHHYb6TrYy/+fUMqfBHY=;
+	b=F/0IAY65RdXNgJz3PN5qEA9OWQTXE1v7tzbwHc2nq5GTCoIJzgpDP1Vh9UKiTF0X3miE
+	 oQam+QcsLBhPjY5uG7rjQ+IT9cG+Ssh549972O2/qwH6CxR/6PZRUd+c5DgC7JxkdtfqN
+	 bDdrF6jYMjsNfupP12TgTz14PcoMFIWAXhwWmb24s+DGungmCcz+4Yy7TAp6d3wqjrTGA
+	 9N4tuB7qLjVM065qFZPMFRNjWEOk7SQzixVXn5OepAnPqgO8LwrnxdO8zBeqPZ7cKq1cH
+	 /+0w1E2ZW+8mxhCMjBUPBuEiEz54o0QS9bQuZwbjwqaZPPqEHvTKjp9vUwAVMlLt+vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NUA+44mg;
-	arc=none smtp.remote-ip=91.218.175.232
-Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=smail.nju.edu.cn;
+	spf=pass smtp.mailfrom=smail.nju.edu.cn;
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b="Eyo/eOwI";
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A510606A33E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:44:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A510606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D80606A321;
+	Fri, 13 Nov 2026 02:44:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52D80606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NUA+44mg
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uM/mtAX4nI/KfIYibTQw8PdMaeavSpiAqFsZsivtIZI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794537860; v=1; x=1795142660;
- b=NUA+44mg64uewSieqnzAL2rKJ+0elhQ10PV6OrkLhHAC+F2SNGJhQL0HSNtQGSzMOuBLoV/G
- Jb5Pm0GhIMyA7fQz5j/+cSxIip+TfDjaJS1YIvhg2SOA6vOEgX35T2t4ISpLjs71Ssu4f2XgyV5
- ArgOKOqhTl8HRYGEmboS0dak=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 7cb7555790e61df8;
-	Fri, 13 Nov 2026 02:44:20 +0000
-X-Mizu-Trace-ID: 7cb7555790e61df8
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 13 Nov 2026 10:44:09 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Kalpesh Solanki <skalpesh942@gmail.com>
-Cc: Jay Vosburgh <jv@jvosburgh.net>, netdev@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=Eyo/eOwI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1794537897;
+	bh=BvnjJ+ijwNCz4Oqh6fIRvQJmHHYb6TrYy/+fUMqfBHY=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=Eyo/eOwIwO5xf0JJeC8k8dv0M6ihtJYsd4Mb0kuC6LV5ramxL6IGPoiDjNyCGeUvY
+	 JHgw5x944mB7x1gFGNiKoOQD8DGtHjkBBsmcddG81Xq4zy/i64hqR2sbdV9l3xPepo
+	 akihVzLEFSg9RI42A51avSjPgzqQ0gkHkStzbUQc=
+X-QQ-mid: zesmtpip4t1794537896t28d3ce76
+X-QQ-Originating-IP: 8bNVuMHbsAAJOnkojDgQ/gdWwQl9+fUJephuDPM7+yg=
+Received: from workstation-Precision-7920-Towe ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 13 Nov 2026 10:44:54 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 2829769366848978719
+From: Kang Chen <k.chen@smail.nju.edu.cn>
+To: Yonghong Song <yonghong.song@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Jiale Yao <yaojiale02@163.com>
-Subject: Re: [PATCH] bonding: reject IEEE 802.15.4 and 6LoWPAN devices in
- bond_enslave
-Message-ID: <avZ5eZLRKVgdc_7D@fedora>
-References: <20261112130833.233208-1-skalpesh942@gmail.com>
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	cgroups@vger.kernel.org
+Subject: [PATCH bpf v2 1/2] bpf: make css iterator stay drained after NULL
+Date: Fri, 13 Nov 2026 10:44:52 +0800
+Message-Id: <20261113024453.922726-1-k.chen@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110125110.2935707-1-k.chen@smail.nju.edu.cn>
+References: <20261110125110.2935707-1-k.chen@smail.nju.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,73 +77,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261112130833.233208-1-skalpesh942@gmail.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
+X-QQ-XMAILINFO: MGkdl44gKMhXGT0WLYifunCVXSvlcdhrIi3RyFw/lFbSGNC4nwydAJdR
+	wTHg+NQ/FP7WvMgKwpglxwOd22ovoirZvlj+uQvkodxGJkmuDEd81abqE45Xntrg5fW/oLp
+	M3EXMBhqMmelRzUXReuBAIiT2N1z0KAbtTp/yPp8k5ITIRFJFwIClSctu804Ob33VjCDvIJ
+	Yh08iBvzbaYG4aLTkh0D7T30pR/aCOK6Kq6qNmzsEL4ijP9Ug/OnW6REdiIvIiwK7oMN+h2
+	aOdSIjz1AN9xL5+1YrT2P4DWgnvJwifwAKwztalUyNkShDxZwWVsCDYVKWDpizCSKb/JuNj
+	JOd42D/l0f58vhTKPurlUPXDpjAkSmQpxveMpC+rznUcmNNd+h6scYBdGppoIiguDML54hB
+	CCLezI9EfxPb4XL5kfQmNcVHF5IruQgtpEq0OrHaE9jkv6v7AnZIaoUlireM2TxXtF2x1Pa
+	9wWPpyCasaYljOOKO7NL/+n1qYOPyrVfWMCwgjD4S3CNFSeMeJN0iA7cUyDxamcjGsJtYy5
+	Y7Hpp5uFWNra54OUUbOEYyNq+U+rT1596yT+b0Z66nqeuSEu9Al5B0GhVEQlcWQ3XXn86Hl
+	u3C3o+no6gZPrEQ7Erco8jyLb1zYPjm9maogU2K6cWzjTV+a/hTuXZECBrPZ+iaQt2JLypm
+	dOB+HewnlKBtKfbjukAn5P6c96NlC38AfPo3nQI9Nc38d1Pd901gZyMNYMDEGoLaNh68GON
+	Ful6ZCQq1udWkZbLBAdqG5qEjk1ZSlZYICTp/+refqz6pnf0s9g9M8lyvwuz2uuJwf9CGSG
+	HUWeGRbGwRLmb3vmdQTsWCTfWxpE/o7cqw/L4vXxcCewzy9vb6rsmYfSvOg/O/RvDLxcx6I
+	I2mFQgHnIrO/i5AX0KBwcUtUsBF99nU16AZOXFn4SSiEenDUEbKSpxWJgKDlks1oiBhOVuX
+	Qv+fJ5xEvhTKcXd/O1oDWpqX/JEqGEPPsz8GjB++ORe7V0yEdxV8w/UBQfY7LrlYJAcVZfh
+	olsrInh5akHLrQrIlq
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Nov 12, 2026 at 06:38:33PM +0530, Kalpesh Solanki wrote:
-> When the first non-Ethernet slave is enslaved to a bond,
-> bond_setup_by_slave() copies slave_dev->type to the bond device.
-> However, the bonding driver does not set up subsystem-specific
-> mid-layer contexts or private structures:
-> 
-> 1. IEEE 802.15.4 routines (such as ieee802154_llsec_dump_table(),
->    nl-phy.c, and socket callbacks) identify WPAN devices by dev->type
->    alone and unconditionally dereference dev->ieee802154_ptr and
->    dev->ml_priv (ieee802154_mlme_ops). Because bonding never allocates
->    these, this results in a NULL pointer dereference.
-> 
-> 2. The 6LoWPAN netdevice notifier (lowpan_event()) identifies devices
->    by dev->type == ARPHRD_6LOWPAN and treats netdev_priv(dev) as
->    struct lowpan_dev. On a bond master, netdev_priv() is struct bonding,
->    so writes to lowpan_dev(dev)->ctx.table flags on events like
->    NETDEV_DOWN corrupt the bonding driver's private state.
-> 
-> The team driver closed an identical gap in commit 9043be310c6a ("team:
-> reject CAN, IEEE 802.15.4 and 6LoWPAN devices in team_port_add"). Bonding
-> previously only blocked CAN devices in commit 8ba68464e478 ("bonding:
-> refuse to enslave CAN devices").
-> 
-> Reject ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR, and ARPHRD_6LOWPAN
-> devices in bond_enslave().
-> 
-> Fixes: 8ba68464e478 ("bonding: refuse to enslave CAN devices")
+bpf_iter_css_next() leaves kit->pos NULL at the end of the walk, but
+kit->start still points at the starting css.  css_next_descendant_pre(),
+css_next_descendant_post(), css_next_child() and the ancestors walk all
+treat a NULL position as "start from @start", so a next() call after
+exhaustion returns elements again.
 
-Nit: I’m a bit wondering whether we should use this fix tag.
-The issue exists both before and after this commit.
+The verifier relies on the iterator contract that once next() returns
+NULL it keeps returning NULL: process_iter_next_call() marks the
+iterator DRAINED and treats later next() results as the constant zero.
+A restarted css iteration therefore hands the BPF program a kernel
+pointer while the verifier believes R0 == 0.
 
-On the positive side, the tag can notify users to backport this
-patch if they also carry 8ba68464e478.
+Clear kit->start when the position becomes NULL.  bpf_iter_css_destroy()
+is a no-op, so no cleanup depends on @start after exhaustion.
 
-Since this is not a regression, it should probably target net-next.
+Fixes: 7251d0905e75 ("bpf: Introduce css open-coded iterator kfuncs")
+Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+---
+v2:
+- Shorten the code comment; move the rationale to the commit message.
 
-> Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
-> ---
->  drivers/net/bonding/bond_main.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-> index 7019e5d8fdc..b3b003e39b2 100644
-> --- a/drivers/net/bonding/bond_main.c
-> +++ b/drivers/net/bonding/bond_main.c
-> @@ -1894,9 +1894,12 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
->  	struct sockaddr_storage ss;
->  	int res = 0, i;
->  
-> -	if (slave_dev->type == ARPHRD_CAN) {
-> +	if (slave_dev->type == ARPHRD_CAN ||
-> +	    slave_dev->type == ARPHRD_IEEE802154 ||
-> +	    slave_dev->type == ARPHRD_IEEE802154_MONITOR ||
-> +	    slave_dev->type == ARPHRD_6LOWPAN) {
->  		BOND_NL_ERR(bond_dev, extack,
-> -			    "CAN devices cannot be enslaved");
-> +			    "CAN, IEEE 802.15.4 and 6LoWPAN devices cannot be enslaved");
->  		return -EPERM;
->  	}
->  
-> -- 
-> 2.53.0
-> 
+ kernel/bpf/cgroup_iter.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+diff --git a/kernel/bpf/cgroup_iter.c b/kernel/bpf/cgroup_iter.c
+index fd51fe3d92cc..9e466ef2c433 100644
+--- a/kernel/bpf/cgroup_iter.c
++++ b/kernel/bpf/cgroup_iter.c
+@@ -365,6 +365,10 @@ __bpf_kfunc struct cgroup_subsys_state *bpf_iter_css_next(struct bpf_iter_css *i
+ 		kit->pos = kit->pos ? kit->pos->parent : kit->start;
+ 	}
+ 
++	/* Once NULL is returned, next() has to keep returning NULL. */
++	if (!kit->pos)
++		kit->start = NULL;
++
+ 	return kit->pos;
+ }
+ 
+-- 
+2.34.1
+
