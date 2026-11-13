@@ -1,47 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.120.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794600190;
-	b=5LQeFuPz4JQa5BxQ2Wkt1yXUshBeZiHW4+uT9RWZtBjkhbv/RsKVCcQUZ/RWk9OWXNb9
-	 XY6L2vvRVUTS2dyvSPd5yquWo/L7tVv5FGCBxy9zci9SXaKkBW6AnzcNnXZv9UUA7HMmI
-	 EVD6a/tDimC7kC9ZlLVSeqTMJjccc8ePLP82cmWJcyuMBDIdydz8S5qzfa29lODN4KYrc
-	 8TvPY9WHQrfaHDOxT6uk70dDZSTGZQ1E0NOy2nrBfkpzbv8TAStB9fmlU0bnCvXjilOWL
-	 zy/rKPXE/N31G0KQ1TX0snY3MwYuU76EOgEIfvJWR20w/VWin+PDDen1kamQLHyUwdw==
+	t=1794600215;
+	b=CUhK4InLO5cBxIwiToS2zlwds/n+uUtMKigBD9MHCWc1KQtXD3t9Ecev7ubV8fcoeeog
+	 Pdiwy+UnBszTpE6QukMuU5FkhDKhQY8sg8fpYyc80k80f9azt87mLpYInoevzWhBjWTa+
+	 n7eBusRQdMLz3OvPuzFTFpfhAh0v8tw2PKRN9WK4pb/U/WuaM1B4SE51Uop3/ghQqx2GD
+	 CJgS/EKX5+E512c3eSsiVzqXZlqBXC5bcseH7uf2Ajd67LFrO68F5DBwlAGNEwYCYZAnj
+	 BtyNViSrI+2nuD0NboHwuE+nGvFT2BeorH1hcew2EZa5afqW5PeP/x/bK6vha0O4iGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794600190;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=HdQQRt/CgHJflkJafdeqoWxFHY5SFOsLjrXPZfDp7E8=;
-	b=i8PIR1lRaPsKAf3fb6DGmHJhDNidUM0IlsJpS8eJqcqnqzVgevELzQANO/g+bchBDoLs
-	 6wpW/EaPVEL9cHcg9FQD2Uf8DHapjEE27fSC6J5H0ZjI4FnazEJcBhdtyuk7fBPjqG2sx
-	 eXvEI+eUHrQdPKW3rWQlz1Tw1hNjRaNDmIJ+YnXJrXQljPpyOQ9Tp6dyrJw92vmXVnLQy
-	 UpbWaTXAsKZguLfAxHAjdvyJ+HWMNEHkUBCoGZkm2cS8GXHePRXGv6kcVM3i746MUf26h
-	 aQiYMRedqKYS9QGyiSZPsIRYsWXBT+djBrQFtdTDVN9iEVkYEYvTe/XHNT8RIx3qYWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794600215;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-Id:In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Spam_score:X-Spam_bar;
+	bh=G2Z4BXXxGmGeisBjYmhaiDRUECEdjrVKtWcBVKsZ7eM=;
+	b=T0Wqw2aK7xst0o1nzhXRGQL1ZZD9/Bvj19Zd8wxqyVUKt8hz9KIDVhyrIg37q/bWPIFL
+	 ljBm2juOt6fsIA/HUr24X8e8dYiijzoJO1PTrBObuiWQdjcSZpq/KHj7EIqFmW1wShJK8
+	 JS7RwNhNGbNXOf+nIXugigXEV73qQMcJKlBlXkozeVNSzqfO7hrkNAAVEZHOTLPoZil/Y
+	 Q3q768uiAo1E7SrYOPZ9Gh9zKkXwt79hqddPBCyhc95kf3KE2Ldhjhop5I+/vHYk5hsP8
+	 ASWvCzY8+ZZP57xC6twotkY5cw6hAWLRmV2mcCH6C1p1pyJPI9/anNt5EsE1RiKLj0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TlrFg8X0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=hugovil.com;
+	spf=pass smtp.mailfrom=hugovil.com;
+	dkim=pass header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=DshtSLZq;
+	arc=none smtp.remote-ip=162.243.120.170
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCBB606A323;
-	Fri, 13 Nov 2026 20:03:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE59606A333;
+	Fri, 13 Nov 2026 20:03:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EE59606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TlrFg8X0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 901F61F000C6;
-	Fri, 13 Nov 2026 20:03:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794600189;
-	bh=HdQQRt/CgHJflkJafdeqoWxFHY5SFOsLjrXPZfDp7E8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TlrFg8X0AUB4Vm67OzMwLnuL9ahl3Pw5r3X9tm+PjK/f3ZGnXwMx56AU0yk2zAn57
-	 GDIOEAe/hcJOW795WrjVEMPe9PSEKQ/w4IyIpnKgcypvlNIddvLpmUQ7xuwaFwejzZ
-	 dSr3MD6IQGYdygBLKFvjyNJ0rzzWChkutY4pTXadyw1/FyGvEWWELV5QFeV7U4rMOE
-	 DkiZdGgY2cPRtxHO5905s6aMxNcChen4/Au3qZ70bQKYLRRj1nccZLkHpxMdxhuwRL
-	 QkDE/YTxe29nxalHy0hwbrV2IiyzuaaVWUjPz085uA7WpZVxCcrxUOvmG66jXzGfM9
-	 hFxKTW4IUPjyg==
-Message-ID: <69e27ce5-8378-489a-ad8e-37c364cf63c5@kernel.org>
-Date: Fri, 13 Nov 2026 21:03:03 +0100
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=DshtSLZq
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=G2Z4BXXxGmGeisBjYmhaiDRUECEdjrVKtWcBVKsZ7eM=; b=DshtSLZqeDsgD8rAvcDqn3SMDt
+	bSLeGYqi/x2sc0BKozFbASSrYtWQN38w1gKvQTQHK8ZqNbTPdDXTFP5DXV7wQL8NOa5BIgfq0UjS0
+	+5tvHUT15o/aDtSN5IqNOuz9hHjvdS10ctqvcGHBJ07J+1+w4iYbRWkkvb0SUsVs3OLs=;
+Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xRxUi-000000002aq-1ZAC;
+	Fri, 13 Nov 2026 15:03:32 -0500
+Date: Fri, 13 Nov 2026 15:03:31 -0500
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: gregkh@linuxfoundation.org, jirislaby@kernel.org,
+ linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] serial: sc16is7xx: Fix clock leak on invalid clock
+ frequency
+Message-Id: <20261113150331.0133a3b8601bcb64b6536ef8@hugovil.com>
+In-Reply-To: <20261113103855.2144-1-laixiangwu@cmss.chinamobile.com>
+References: <20261113103855.2144-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,124 +63,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
-To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, jgg@ziepe.ca,
- leon@kernel.org, akpm@linux-foundation.org, kas@kernel.org,
- dave.hansen@linux.intel.com, bp@alien8.de, rppt@kernel.org,
- stable@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-References: <20261113195536.2660763-1-gourry@gourry.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261113195536.2660763-1-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Spam_score: -2.0
+X-Spam_bar: --
 
-On 11/13/26 20:55, Gregory Price (Meta) wrote:
-> HMM can grant ordinary device write access to a userspace shadow stack.
-> On x86, pte_write() is true for a shadow-stack PTE, so a populated page
-> can be returned with HMM_PFN_WRITE without taking a CPU write fault.
+Hi,
+
+On Fri, 13 Nov 2026 18:38:54 +0800
+Xiangwu Lai <laixiangwu@cmss.chinamobile.com> wrote:
+
+> sc16is7xx_probe() enables the clock with clk_prepare_enable() early
+> in the probe path.  If the resulting clock frequency cannot be
+> determined (neither from the clock itself, nor from the
+> "clock-frequency" property or platform data), the driver bails out
+> with -EINVAL, but it does so with a plain return, leaving the clock
+> prepared and enabled.
 > 
-> Nouveau translates that flag into a writable GPU mapping.
+> Switch to devm_clk_get_optional_enabled(), which drops the clock
+> reference and disables the clock automatically when the probe fails
+> and when the device is removed.  The manual clock management is no
+> longer needed: drop clk_prepare_enable(), the out_clk label and the
+> clk_disable_unprepare() call in sc16is7xx_remove().
 > 
-> Reject shadow-stack VMAs in hmm_vma_walk_test(). Use the existing
-> unsupported-range handling: a requested fault returns -EFAULT, while a
-> snapshot records HMM_PFN_ERROR.
-> 
-> Link: https://lore.kernel.org/linux-mm/20261111-mason-migrate-et-al-fixes-v1-10-3d2454362e8d@kernel.org/
-> Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
-> Cc: stable@vger.kernel.org
-> Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> Fixes: cb1b206cff46 ("serial: sc16is7xx: Use devm_clk_get_optional()")
+> Suggested-by: Hugo Villeneuve <hugo@hugovil.com>
+> Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+
+Reviewed-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+
+
 > ---
->  mm/hmm.c | 3 +++
->  1 file changed, 3 insertions(+)
+> Changes in v2:
 > 
-> diff --git a/mm/hmm.c b/mm/hmm.c
-> index 2f1e98c6b644..fa61ca59d927 100644
-> --- a/mm/hmm.c
-> +++ b/mm/hmm.c
-> @@ -596,6 +596,7 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
->  	struct vm_area_struct *vma = walk->vma;
+> - Rework the patch following Hugo Villeneuve's suggestion: switch to
+>   devm_clk_get_optional_enabled() so the clock is disabled
+>   automatically on probe failure and on remove, and remove the now
+>   unneeded manual clock management (clk_prepare_enable(), the
+>   out_clk label and the clk_disable_unprepare() call in
+>   sc16is7xx_remove()).  The -EINVAL path keeps its original plain
+>   return since devm handles the cleanup.
+> 
+> Link: https://lore.kernel.org/all/20261030085508.1882-1-laixiangwu@cmss.chinamobile.com
+>  drivers/tty/serial/sc16is7xx.c | 18 ++++--------------
+>  1 file changed, 4 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+> index fba588559..a69b71fb8 100644
+> --- a/drivers/tty/serial/sc16is7xx.c
+> +++ b/drivers/tty/serial/sc16is7xx.c
+> @@ -1605,14 +1605,10 @@ int sc16is7xx_probe(struct device *dev, const struct sc16is7xx_devtype *devtype,
+>  		dev_dbg(dev,
+>  			"No interrupt pin definition, falling back to polling mode\n");
 >  
->  	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)) &&
-> +	    !vma_test_single_mask(vma, VMA_SHADOW_STACK) &&
->  	    vma->vm_flags & VM_READ)
->  		return 0;
+> -	s->clk = devm_clk_get_optional(dev, NULL);
+> +	s->clk = devm_clk_get_optional_enabled(dev, NULL);
+>  	if (IS_ERR(s->clk))
+>  		return PTR_ERR(s->clk);
 >  
-> @@ -607,6 +608,8 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
->  	 * allow write access either. HMM does not support architectures that
->  	 * allow write without read.
->  	 *
-> +	 * Devices must not gain ordinary write access to shadow stacks.
-> +	 *
->  	 * If a fault is requested for an unsupported range then it is a hard
->  	 * failure.
->  	 */
+> -	ret = clk_prepare_enable(s->clk);
+> -	if (ret)
+> -		return ret;
+> -
+>  	freq = clk_get_rate(s->clk);
+>  	if (freq == 0) {
+>  		if (uartclk)
+> @@ -1631,10 +1627,9 @@ int sc16is7xx_probe(struct device *dev, const struct sc16is7xx_devtype *devtype,
+>  	kthread_init_worker(&s->kworker);
+>  	s->kworker_task = kthread_run(kthread_worker_fn, &s->kworker,
+>  				      "sc16is7xx");
+> -	if (IS_ERR(s->kworker_task)) {
+> -		ret = PTR_ERR(s->kworker_task);
+> -		goto out_clk;
+> -	}
+> +	if (IS_ERR(s->kworker_task))
+> +		return PTR_ERR(s->kworker_task);
+> +
+>  	sched_set_fifo(s->kworker_task);
+>  
+>  	ret = sc16is7xx_reset(dev, regmaps[0]);
+> @@ -1711,9 +1706,6 @@ int sc16is7xx_probe(struct device *dev, const struct sc16is7xx_devtype *devtype,
+>  out_kthread:
+>  	kthread_stop(s->kworker_task);
+>  
+> -out_clk:
+> -	clk_disable_unprepare(s->clk);
+> -
+>  	return ret;
+>  }
+>  EXPORT_SYMBOL_GPL(sc16is7xx_probe);
+> @@ -1740,8 +1732,6 @@ void sc16is7xx_remove(struct device *dev)
+>  
+>  	kthread_flush_worker(&s->kworker);
+>  	kthread_stop(s->kworker_task);
+> -
+> -	clk_disable_unprepare(s->clk);
+>  }
+>  EXPORT_SYMBOL_GPL(sc16is7xx_remove);
+>  
+> -- 
+> 2.50.1.windows.1
+> 
+> 
+> 
+> 
 
-Cool, so I can drop
-
-	e27dc0754e3f4 mm/hmm: refuse shadow stack vmas in hmm_range_fault()
-
-:)
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
-
-I used the comment:
-
-+        * Shadow stack VMAs must not be written, and there is no particular
-+        * reason to allow read access to shadow stacks from devices, so just
-+        * disallow it entirely.
-+        *
 
 -- 
-Cheers,
-
-David
+Hugo Villeneuve
