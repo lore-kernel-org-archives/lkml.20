@@ -1,38 +1,39 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.73
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794547955;
-	b=aBmpmG/Iu6YVnJ9kcXbb845wDxnGKeHvGV+SSgfxxcurOltt4iia69q7Ljx9JszpZz5f
-	 8lMeibf7PJAAIrrCqMyh+JkWBgBLrOyDO5oFxXjbOQ45XizGXHLNWIjtm8yhgVTgLX5xl
-	 p6lJ8cSxbGFjPjWYe45k0njO1DFbODuenjElLCEUZbWV/Z1e/BajbICckWkW2MNeWgXqp
-	 Bp4SNIAV1L/VPflsWLl06Rkg+5oDIaFgs+clxyg96Iqmr4FAIF/PjrT30gyWDh4Ji1cz9
-	 yXSJ8UA8qebOaY6fCZxpNUHRjZKBAVtXWaVL5jmogXuTXSdu+2GSUePHDRjRh0AqUsA==
+	t=1794547959;
+	b=H3xhDKqnAaG0/iMHGLPB3ZK2D5UfG29dLGyJydPMCvOgWkhFOxGFTXOjJCiEhq1PqF/t
+	 MuLEZqJ/V6dVTLF0JYjHyybs/S1c4mY3XuRLRKfqEJRm3ADWUyJwV93woPBrzQkx0N+/T
+	 vzXB0FhHXB9hxMWqxCLb3B2/ICMHuho+CQh6pW+jm3ek8XQ7SwChrxVJu7PIaxQeGca5N
+	 SE36CVXEr1LqAbvktUb8xwzfThb8MiUNsTTCPWxpWabUa6IVVTYGN1byumCQlc5QYnurg
+	 kv5kAHokvPJzmB8qaYRDIBYR2i9wnzw8yk3+9vgKu8D2EKNnwNB5ZHgHp0o9m8rrm8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794547955;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794547959;
 	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=59/hF3sIz5vy5pjCFH7TIjq0oVRc37w8+FMpktdK4TI=;
-	b=pUrx2epQC0MgHFmjlRUBTEfBKcPcBaE0HkfRzeONMtrg4ke7TTi64qpXmGESpk+ILcvM
-	 RrnCkWLsa3Ymdp8je+bOwgpJI+bZlOBXnZF/fiMAhyoHZ6cig4F9sZLerH3SB//WC67mg
-	 KnKae7gZVMJdz5uzOxobtzGzEXygneiqzUo1OMGxm5rDGA/UrUwu5iFD7nbJajSWfR1pd
-	 zZErvSYQzYUhwp/qmPYqUVAK9ZlcFcVGOqbKe8oZWqwuBYyvEzeWvQeJrDACV/CFdTxm1
-	 H8P6ZavTijmJX0F5Dx+5M4CP0f/mOTPi33C9AXtX8sLhyPdxWjR8ZnjWIEMBojmcLkA==
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=gO4fXpmHkGGnhp/y5ktDMWAcVpm6cOdhfAwLKdNSs34=;
+	b=sfUdMdvjVpXnuF53hphijzhWNKxFQPGsf2hMiCUOrCgMrNMZV6DoZq5vqyXidtxaguD1
+	 TLmuyJk+HPX5Pd6RewsyLuGPaDm+6HTV1CRSbhDGmL2096QigElA8q45cKYSWjatQL/RU
+	 djTDXQPRRJO2X8Tq3yWGJROqLVO0GR5gGKy/KotTcX7HKp/p1AVpkfy2KVgMx6mw/uHnb
+	 XcxjO+fW6jQ96bFsKbkZhj3MxEh85QljSlOAzKewOQAH5PoyR5y0mfmeDYcd0lblTBCA5
+	 vy8OwZjovEdBla7Qp8mjtHUjK+CsIMOoHsLWb+Ak1WIjh/9qYC7bH7c/jrU3m0wgCmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kaihong.com;
 	spf=pass smtp.mailfrom=kaihong.com;
-	arc=none smtp.remote-ip=115.124.28.53
-Received: from out28-53.mail.aliyun.com (out28-53.mail.aliyun.com [115.124.28.53])
+	arc=none smtp.remote-ip=115.124.28.73
+Received: from out28-73.mail.aliyun.com (out28-73.mail.aliyun.com [115.124.28.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02FA8606A884;
-	Fri, 13 Nov 2026 05:32:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02FA8606A884
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A0E606A88A;
+	Fri, 13 Nov 2026 05:32:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1A0E606A88A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kaihong.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaihong.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.4780966|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0231934-0.00123713-0.975569;FP=7888793062833208487|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083032240;MF=wangxiaolei01@kaihong.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.k13i.MA_1794547943;
-Received: from nj-vm-261.pxvirt.local(mailfrom:wangxiaolei01@kaihong.com fp:SMTPD_---.k13i.MA_1794547943 cluster:ay29)
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1082897|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.214202-0.00041429-0.785383;FP=9475219001989795462|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045099153;MF=wangxiaolei01@kaihong.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.k13i.Sy_1794547951;
+Received: from nj-vm-261.pxvirt.local(mailfrom:wangxiaolei01@kaihong.com fp:SMTPD_---.k13i.Sy_1794547951 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Fri, 13 Nov 2026 13:32:23 +0800
+          Fri, 13 Nov 2026 13:32:32 +0800
 From: Xiaolei Wang <wangxiaolei01@kaihong.com>
 To: linusw@kernel.org,
 	florian.fainelli@broadcom.com,
@@ -47,11 +48,15 @@ To: linusw@kernel.org,
 Cc: linux-gpio@vger.kernel.org,
 	linux-rpi-kernel@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/4] pinctrl: bcm: Two bounds fixes and a dt_free_map cleanup
-Date: Fri, 13 Nov 2026 05:32:17 +0000
-Message-Id: <20261113053221.3131068-1-wangxiaolei01@kaihong.com>
+	linux-kernel@vger.kernel.org,
+	Jonathan Bell <jonathan@raspberrypi.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 4/4] pinctrl: bcm: Add missing SGPIO entries to the BCM2712 AON tables
+Date: Fri, 13 Nov 2026 05:32:21 +0000
+Message-Id: <20261113053221.3131068-5-wangxiaolei01@kaihong.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261113053221.3131068-1-wangxiaolei01@kaihong.com>
+References: <20261113053221.3131068-1-wangxiaolei01@kaihong.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,51 +68,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes two out-of-bounds accesses in the BCM pin controllers
-and drops two hand-written dt_free_map callbacks that duplicate
-pinctrl_utils_free_map().
+The BCM2712 AON controller describes six SGPIO pins as pin 32..37, but
+the AON function tables stop at the last normal GPIO: pin 16 for C0 and
+pin 14 for D0. Both are indexed by pin number, so dumping the pin list
+walks past the end of the table:
 
-1/4 indexes funcs[] with the raw FSEL field, which is 1-based: 0 means
-GPIO, 1..n_funcs map to funcs[0..n_funcs - 1]. Every debugfs readback is
-therefore shifted by one slot, and n_funcs indexes past the array. Index
-with fsel - 1 and map 0 and out-of-range values back to GPIO.
+  A=/sys/kernel/debug/pinctrl/107d510700.pinctrl-aon-pinctrl-bcm2712
+  cat $A/pins
 
-2/4 and 3/4 replace the per-driver dt_free_map with
-pinconf_generic_dt_free_map(). Both drivers already select
-GENERIC_PINCONF, and brcmstb already uses the generic dt_node_to_map, so
-this is a mechanical cleanup with no behaviour change.
+pinctrl_pins_show() hands desc->pins[i].number to pin_dbg_show(), so the
+list jumps from the last GPIO pin to pin 32, where a valid mux bit makes
+brcmstb_pinctrl_fsel_get() evaluate pin_funcs[32].funcs[] outside the
+array. The set path walks the same table for any DT node that assigns a
+function to aon_sgpio0..5.
 
-4/4 adds the missing AON SGPIO entries. The controller describes six
-SGPIO pins at pin 32..37, but the function tables stop at pin 16 (C0)
-and pin 14 (D0), so dumping the pin list indexes past the end. The
-function data comes from the downstream rpi-6.12.y driver; C0 and D0
-differ on the HDMI1 and PMIC I2C signals.
+Add the entries as pin 32..37 to match pin_regs[] and pins[]. The values
+are from the downstream driver (rpi-6.12.y), which keeps separate C0 and
+D0 tables; they differ on the HDMI1 and PMIC pins, where D0 selects
+vc_i2c0 and vc_i2c3 while C0 uses vc_i2c4 and vc_i2c5. The empty indices
+in between are harmless, their mux bit is zero.
 
-Testing: 1/4 was run on a Raspberry Pi 5 with KASAN; the "alt8" readback
-no longer splats and field 0 reports GPIO. 4/4's out-of-bounds read was
-reproduced on the same board. Its D0 entries are not runtime tested,
-because the board loads the C0 table.
+Tested on a Raspberry Pi 5 (C0): "cat $A/pins" triggers a KASAN
+global-out-of-bounds report in brcmstb_pctl_pin_dbg_show() with the
+driver as-is. The D0 table is not runtime tested.
 
-Changes in v2:
-- 1/4: the commit message describes the bug in prose instead of pasting
-  the fix, as Andrea suggested.
-- 4/4 is new, for the SGPIO out-of-bounds read he reported.
+Fixes: 657cbf9b24ba ("pinctrl: bcm: Add STB family pin controller driver")
+Cc: Jonathan Bell <jonathan@raspberrypi.com>
+Cc: Phil Elwell <phil@raspberrypi.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Xiaolei Wang <wangxiaolei01@kaihong.com>
+---
+ drivers/pinctrl/bcm/pinctrl-brcmstb-bcm2712.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Link to v1:
-- https://patchwork.kernel.org/project/linux-arm-kernel/cover/20261106070628.1428691-1-wangxiaolei01@kaihong.com/
-
-
-Xiaolei Wang (4):
-  pinctrl: bcm: Fix off-by-one and out-of-bounds access in fsel_get()
-  pinctrl: bcm: Use pinconf_generic_dt_free_map in bcm2835
-  pinctrl: bcm: Use pinconf_generic_dt_free_map in brcmstb
-  pinctrl: bcm: Add missing SGPIO entries to the BCM2712 AON tables
-
- drivers/pinctrl/bcm/pinctrl-bcm2835.c         | 16 ++----------
- drivers/pinctrl/bcm/pinctrl-brcmstb-bcm2712.c | 12 +++++++++
- drivers/pinctrl/bcm/pinctrl-brcmstb.c         | 26 ++++++++-----------
- 3 files changed, 25 insertions(+), 29 deletions(-)
-
+diff --git a/drivers/pinctrl/bcm/pinctrl-brcmstb-bcm2712.c b/drivers/pinctrl/bcm/pinctrl-brcmstb-bcm2712.c
+index 752b78e2c0d8..1720c220cf3e 100644
+--- a/drivers/pinctrl/bcm/pinctrl-brcmstb-bcm2712.c
++++ b/drivers/pinctrl/bcm/pinctrl-brcmstb-bcm2712.c
+@@ -510,6 +510,12 @@ static const struct brcmstb_pin_funcs bcm2712_c0_aon_gpio_pin_funcs[] = {
+ 	BRCMSTB_PIN(14, bsc_m1, uart0, vc_uart0, uui, vc_spi5, arm_jtag, vc_uart2, vc_i2c3),
+ 	BRCMSTB_PIN(15, ir_in, aon_fp_4sec_resetb, vc_uart0, pm_led_out, ctl_hdmi_5v, aon_pwm, aon_gpclk, _),
+ 	BRCMSTB_PIN(16, aon_cpu_standbyb, gpclk0, pm_led_out, ctl_hdmi_5v, vc_pwm0, usb_pwr, aud_fs_clk0, _),
++	BRCMSTB_PIN(32, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m0, vc_i2c0, _, _, _, _),
++	BRCMSTB_PIN(33, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m0, vc_i2c0, _, _, _, _),
++	BRCMSTB_PIN(34, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m1, vc_i2c4, ctl_hdmi_5v, _, _, _),
++	BRCMSTB_PIN(35, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m1, vc_i2c4, _, _, _, _),
++	BRCMSTB_PIN(36, avs_pmu_bsc, bsc_m2, vc_i2c5, ctl_hdmi_5v, _, _, _, _),
++	BRCMSTB_PIN(37, avs_pmu_bsc, bsc_m2, vc_i2c5, _, _, _, _, _),
+ };
+ 
+ static const struct brcmstb_pin_funcs bcm2712_c0_gpio_pin_funcs[] = {
+@@ -585,6 +591,12 @@ static const struct brcmstb_pin_funcs bcm2712_d0_aon_gpio_pin_funcs[] = {
+ 	BRCMSTB_PIN(12, uart1, vc_uart2, vc_uart0, vc_spi0, usb_pwr, vc_uart2, vc_spi3, _),
+ 	BRCMSTB_PIN(13, bsc_m1, vc_uart0, uui, vc_spi0, arm_jtag, vc_uart2, vc_i2c3, _),
+ 	BRCMSTB_PIN(14, bsc_m1, aon_gpclk, vc_uart0, uui, vc_spi0, arm_jtag, vc_uart2, vc_i2c3),
++	BRCMSTB_PIN(32, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m0, vc_i2c0, _, _, _, _),
++	BRCMSTB_PIN(33, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m0, vc_i2c0, _, _, _, _),
++	BRCMSTB_PIN(34, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m1, vc_i2c0, ctl_hdmi_5v, _, _, _),
++	BRCMSTB_PIN(35, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m1, vc_i2c0, _, _, _, _),
++	BRCMSTB_PIN(36, avs_pmu_bsc, bsc_m2, vc_i2c3, ctl_hdmi_5v, _, _, _, _),
++	BRCMSTB_PIN(37, avs_pmu_bsc, bsc_m2, vc_i2c3, _, _, _, _, _),
+ };
+ 
+ static const struct brcmstb_pin_funcs bcm2712_d0_gpio_pin_funcs[] = {
 -- 
 2.34.1
 
