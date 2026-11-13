@@ -1,90 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595136;
-	b=K86QULUaA9jaJTMhMPgaUSrlLeSztnuzAs6onVfrbEEnx5HL2HtofbQul50krbaxPfMB
-	 aGL86YM4M0zDVNWwbvGXkXKy3Jp+5lgAfOZtpvIW1wTD5QK95lOK+AFyp6LdDRW7byaWm
-	 eU58vm6ZlsSMIYDE08OHhdsmjUPI9BhirQp7zudklCFVDWkgGGYiH8i7gKRhXhlC6A/MS
-	 f9uPPgV3t69G1TQUJoSULaKrDqq1flGwESfy9/xuhevYg2hMspGT09LYQnjXMhSH/OCOl
-	 HWuIItCLl4xIUqC993vOM6ga+su3XRG+vlmIjrooAvnwrscnlZE37M04xBfKhepXAQg==
+	t=1794595121;
+	b=15B0KD0A9yEZUmcVAOa6xIZ6UFYaghjlgqVeO1YQcfBg4v88ETRcqtXGCrgGOKmZa0Po
+	 4/BuC9TjG5ROBLA/o/OEsJ3almYVqz3G/OK/M+vZ4xv/K6/myILsPdGb7vv9mP5IS8fX7
+	 aUMwvsJGS2waAX31U39yEclOWVUJFzSpxWIwDOMGoPOgLDQY4mw/fS092V1u9aZ/QgW+2
+	 XhWijLSp62jQ13EnVnbWb2c5wUf7dpMSnKWhII6tiWVybVxozp2LEcUnND1y1rDsQUIXR
+	 re/KyTn7XpepUALIcHSP/pMPaYVkbjjue44cGF8pGOYdLo2D2dIugu1hc/CyCsnXmDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595121;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=p+fB/+3zgCM7NxjMth5ofyDAxapd4dJV3e25SOIGyn0=;
-	b=sNj6lYycwl7amzg5h1sAz6F98EnByMbFtbiSyB7GRIAVQDfBc0j53PrxQ/6nihZjyW/j
-	 REiEMFhU8TCTfr6s0Sy73AK8D3IVOPTGPWAqS266EAbPRkt+UkCuPRKj+93OfwE1gWx8G
-	 /ttdgtFa+AFS7GioDhP1yoVv8P4xezWAjjL+8ywqbw0umPUm6ohxDpL3PbGPdJ/URBSCP
-	 xuV/562Pnb421GaUeHkA1vfymT0Owl7I44Q+C9wZ44/Sz/yittZb61xEOofWxmKbx7Vhd
-	 yx0KCr1WD1zb7tETEAZTHKsFrjLOtmIzTwa4CnFqlfNM7GacUO1TBADb2vsSLNyn17w==
+	bh=QVzyg4PzzarhWqW6AHgu+GO/EUiNPPfu0ZCHZHvx1b4=;
+	b=A3R/s9Nfk2R6L3F1XhGD/zTjs4bGCT5e+/fuCQ6bnOwkrzVDEm6oxlJRQ02bBLRnTKxu
+	 VHnpMpZeQ1u5yN9FO9oVUakm9HgSYtXH2OICGMLhTV4pT0ACOrIyMVQt82l3WALgbowSd
+	 GR9ArytwgoqkKEh0cGFlUzlcUHVldZtKcvlhz+48Of12I81vwTqZq/yX77kzXVCIgXC5e
+	 jw9BzM7hUrD2aBieqmyfcIdBvmb+CouDC++QkCCDbDJl2MOeNgoOixlflpsReVJgcUn7h
+	 8bfPomBUQ2tMozntNBhnLs7rQ6U3yn7fp6E8MCXYKu3yHXxjzmmjaBY0+qevyvCGGlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="tBk0/V2x";
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=R8qmkeFe;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A1D60A6F46
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:38:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89A1D60A6F46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DD6606A8A0
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:38:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6DD6606A8A0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tBk0/V2x
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-490a0e72588so573638f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:38:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=R8qmkeFe
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4918c2d727fso659077f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:38:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794595134; x=1795199934; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794595118; x=1795199918; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p+fB/+3zgCM7NxjMth5ofyDAxapd4dJV3e25SOIGyn0=;
-        b=tBk0/V2x/FD5MN56oTYx+Rbel7KWO8vro7J0ZSYNlzGWncmWjcdCYrP0aso9ltZTom
-         BLEVDChuemhZi5CJhLitt/JeIMoi10UZ0iJQw9Olu85GPRltUnFs6SoaW90opVgHshKn
-         5Oadp6vHgV3D3jmDN/Y0OZHk7K5+bCeMtRw14O4Oj7HTGQ1CSrr2TsObgSad6rpC2cNd
-         Bij9M5YBqj17F/3PwhLSFE2dpdPWvkpJe+8amGGxji+MGwiKLi4eA/7Wohk/dOQUtext
-         uEQVwuA+9RiJ/PZES6uW337oXRaivPhD4Gz9+f34Ajh+9MGfxPgZAssjLLs7EItmo5uP
-         oRmA==
+        bh=QVzyg4PzzarhWqW6AHgu+GO/EUiNPPfu0ZCHZHvx1b4=;
+        b=R8qmkeFeWKWTaF9+shFBSL5oUiwJmRcAN0orjFvAUZ+2UYXJOkZ1uP+NhaqAZ0B6/p
+         m6kvpJAqI4L53zY0LZivatg9UUOk5NzV9+4juf8oWchtW5N+GOipm81ekc53UW+ZR6xM
+         Jc5q14jDzrI3Fso++j5ydZvKkzhwrSO9oTcY/tMulcl2cbYScuiSWln1AEiRpEeWUhRF
+         UvxAA/Y/EfOvpzlo5L4rIfvWH596fDPWWYcXSggZ3cBeaZC4tq40fMR8CdDertdWcx6l
+         LV4YBP0UHIWg1ILy2wWYb3ULzwxKHXKGx2/shjG/UZOg7fUMT6TvMDz0x5zXiNW0HDeK
+         AAgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595134; x=1795199934;
+        d=1e100.net; s=20260707; t=1794595118; x=1795199918;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p+fB/+3zgCM7NxjMth5ofyDAxapd4dJV3e25SOIGyn0=;
-        b=sSRxiMCNEGSBhTi4Lpnt1Cc+Q6V8j6V8BBKISo+zyjaEpMtazM7pDf1y2Bq6FYP+NO
-         eCSt2vhY5vijDDHZ5T5/bkiOVXpy9ngn4nHbiDIGTqlV4nN4vAbhxvnzc6P3a27Mbjy/
-         qA5qlcsozUjb060ef4r/xFbrrvh+CuoUICbDzJUoXCPa+ExyP6aLc8BGC31Df+HzA5kf
-         qTbwslCKbqO0vb/ZKc9/bm5d15S3pWRou72XjHEvKzmqqkzrtAzG2lqK/2ed5bh3JGdS
-         v3Kf0607ltAwekhTNbyTVcfX5FeeAJt/a0G0wO7x21NkOU8TfRC/K1ce3mTzYfY5tHy6
-         YPjg==
-X-Forwarded-Encrypted: i=1; AL+hErFvhI4NQjGhgAbANtCic2s/o5pSVk/iWfJgucJNmFlgTdvOg5/cUt3zN9Jw0lvxz6eZgS3iRJEEXEOwiRM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WykZS5hth0KOZH9IVuSt1UbxiAiSh9JhqYLOxxfyyaTlakGA8
-	RlN6+KeoyO2R/QzsJwgc03AOed1qJeExW5kxAxRc9L/AVwixDEANEKaaDMnI3UFxME8PRmxkTwm
-	KWcBH
-X-Gm-Gg: AYBFou0/lsc6LLzV0JCu0ZaXKRMpeQKhqh5/M9WO3VFURunQMm8JgIZxBLctSE/Jk+z
-	VXyVAmo3LqlKWLWqAkt3n7CvJAtSggzNulCQAWcezt9FN3Smc/nfHdoO57Nvr/S/1Fu4w4dA/r2
-	PQAsaALhrNjV1O8/DoF3TNJJKvfxQLa89MbtB/hx2E9gFXLMmRejuvDEjFY7MbKQQ2uKDaCbE1E
-	T4/clPG1kX6peLw6ECRAiKwBXzpDgJbHGYpFm5L/063kkNNAvW5aEcMT1RZSwPWpRvIl9u2Cv3D
-	gIPquKqNqu0jrKb5yese1HuI2Jbstb2ldSZDXS8uNhYsRuZI1j6uYq21IgDk87ErKKZywrB2uV3
-	EkcyurBfOkn42AvOu7K31NC9AahiuDMVGz/gZPkSdqdxNzlfbJ8Egrz+PQGCsleG5xJ+6T+7oBF
-	+h9AMpaotId4QrB9q4WxUhKKwlx0s4THdwaqKUaa8j6CrpvosAtk+vKLYMI2gkMMVRtDzqY0TZN
-	f5VRfjSj+LljIRkW4YzZoTGyF2uiHn275PAcbfdmqD6dQ4nXvJf+KrILYhWbd0cI1Q0pblAlxf2
-	IraRAm3y8AjJUOoapZevK2EHNOQsQij8ep8JWp1kGRM=
-X-Received: by 2002:adf:e19b:0:b0:498:b92a:2f7 with SMTP id ffacd0b85a97d-49c71d49040mr6762889f8f.30.1794595133762;
-        Fri, 13 Nov 2026 10:38:53 -0800 (PST)
+        bh=QVzyg4PzzarhWqW6AHgu+GO/EUiNPPfu0ZCHZHvx1b4=;
+        b=OcCt58/Xf5hD3DsX0Ez9WSUYowEmZy3j8S4PtVWbeC7ckSXzDnM4Omi15jhN7aakL7
+         lCP4XC//xkreiCgIJ0JoiPLus1vt4s4rmaw8iQYPbz0QN00HV0lJfTw3uXfOF9nBLKeg
+         JY+nQ54j+G7iCEV/6Pl4rz04QUgkKPwXd+/pW+n/qLaI2mWtEUMMlqiMPYP0rk/jzmmq
+         7kUH1c1AUpMg19lymyVpHwMF+PNiEljsG+TeYYqoZseL9VdIYB/HsSSgnWoMNw7vV4jR
+         b19S8cHffC4mfClAhZeN4sczEnF2fUNfGE7jAsiHiNJ6NV6ZjTMT/FwXRwj3mhjTWJFF
+         HRJA==
+X-Forwarded-Encrypted: i=1; AL+hErHA9XnS62KUGubsHinrE3Gf9eXRAUWcT+qs5CKLAN8uiJmtGh1xOx8JG++tAE1jAjFQX7eXd2LnVIPwilc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RBGOxHbXE4Q70u8gnrcC+XZYErhb5SQvnOF83y96N+zvkRVB/
+	znR277Oydx8SuLFtKWAKB+6DTj5oPWmYhfQLrsKYYRafJyBG0miek+L1B8mSaHZ3N2o=
+X-Gm-Gg: AYBFou0sV2rRYHr2FLmPY1Db9V2kpG6kyvwE+Q69DLXEX0cHUdwwTeiJRTb17ow3ZMd
+	yl9tV5e2Lx5uMwlncA978bgHIyWachzUkNFpGKdnEXuXEBmH5wGrxn5/JM8rsizpciQ/loX9SMX
+	+vQeTRoecsfvYIW3US/h5DuIembARccxFFJFBRTB4amqRDD4A6/EzvOOjnRoQOVhKBwTUGRPKlI
+	/XkaSNUAH/KGEiupwiRsxc5JdfH9EfqN0T4T3wkP53q+MYvxXe3SQhnPmAusioNg7s2cPpBWVg/
+	pa0SDaXzEz5qwdZgcfZAxfs7KWHMy0zZZmDsHdM/GrAWaupintHQE582+9tRpvZ5xafjhFkwHSS
+	9G62quCXxao9ZJkpLwpliTNdtuie8nyujWR6FaAU7h37OuHfGSTbvzATIYsReVhwG/6hi7iskqX
+	O1Xc4iOtk+eDgAUzQ4Oiqon5gWsnhXS1jJk/bDcWVUiih3gWYKz6qLlqi4FBPbqOoQJH7y3prPc
+	j0/K5iNEk4RcOPJqykMQ8S3sdIfW8C/lJBZWXKn/39+LK9NQLdwNxZl0htZnxiEyLDdgiAIKJgI
+	gMhxM5Lt4VBD44pznhcEdD7XE1rE85M4tP4bdKXNthBR2MPsfXI5IpZZbEOMI1IT
+X-Received: by 2002:a05:6000:18a3:b0:48d:f3a5:4563 with SMTP id ffacd0b85a97d-49c70ed9360mr8729678f8f.20.1794595117555;
+        Fri, 13 Nov 2026 10:38:37 -0800 (PST)
 Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.52
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:38:53 -0800 (PST)
+        Fri, 13 Nov 2026 10:38:37 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 13 Nov 2026 19:38:29 +0100
-Subject: [PATCH RFC 15/23] ASoC: qcom: lpass: allocate LPM buffer memory to
- DAIs
+Date: Fri, 13 Nov 2026 19:38:16 +0100
+Subject: [PATCH RFC 02/23] clk: qcom: add SM8650 LPASS core & audio clock
+ controllers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-topic-sm8650-el2-v1-15-5183f6aab9fc@linaro.org>
+Message-Id: <20261113-topic-sm8650-el2-v1-2-5183f6aab9fc@linaro.org>
 References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 In-Reply-To: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -114,359 +113,1371 @@ Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
  linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
  linux-gpio@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13010;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=41256;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=gWz/GkhE/wFLqkiHW5rRxhQg0uwe4tBnjLj5sOHaHrQ=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91klQDgcb8lgV2D9XmRJ2nG4O+mslZwXc0voWgts
- k2zKdNKJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZJQAKCRB33NvayMhJ0YsLD/
- 9Lu935tBPx3m9w1khGDO6MoDWG94vw90VKShraCttAqQHMdi1IM1ftOZp5ardSFlWqhTqyawejWRZV
- lDofwZHr+tWpy3BeEY5mamGhOrRrra532GeMSipmu41NkP1uNMiTGCwZRF7OSqVZPQfhAfnjU0d5fk
- MErnt2dmfYnlOt4jBoEEK841LswTzJIPJqvoVepulDYi0Drf3EVcexP0h+ELmGH+eIIbBuIT939GSo
- z9exV1DZkJeRmJUyqEp58VXbLA1yCqdl1CxcrL6gaLLcZDQvHxSUk+SIf0FuyrMdzLMYyiTM4G6ejI
- 6AokjvJkLmL6t7cIwpOo5DmTwTyUT5VTlCmdfn7PN+pJXh6GmNk4/pjFrb5fp4ED8Orf+Ecd+mr+XG
- G/k/FRK9mxLnSzYOFz+my6kw5gPjNJYpOoh4UFYqt2z3U+5AUb1QA1pSM4uCzifecIjWzEce82Fbty
- LjRK48M+vD+GIvZ5bjtJY7SBjEbNhu6KDMFlyATA106jGrXI/LUjcmOajotos9hcovwFGV1fMh46PT
- UCVxLDr1/7WWoOVeSIu65K95967aTBLarPT+GVL7mAeDCLz9zgu6tha8WswJOzophiB088Hon1lRtK
- OJd1OaJiIBdocQ7EdT6zyk/u1fU3zDAGXAFo2UZBnirdrvztXjgYlVq0lZAg==
+ bh=qpy4rOV6l2xkmUsZicLqui0l7N98pZfnTjmhd6w4PD8=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91keoFPAkDr9HSGEPYGwperoQmhMM0vV2ZrbC2Yt
+ 46iG7hSJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZHgAKCRB33NvayMhJ0TNID/
+ 91/0mONNP9NlMGs1k8FTMycgNk+Tt4iMZhHaBWd3e7n414oWtDVU2z/vTJ8CrZpnfmUGE4xQKy13fU
+ +qcRSaILa/AJlbfgIYM7/qtKqnoFktJEDuXopmLtd7x/rSs87EWkW6SQYa2LUGqcZlFhpCxFZghexb
+ 4EJAS9TUIx0zz3qmQ6EM0dsBVW118sDdo3YAnD/58jnIFVCDbRWF6kOvEKSTz+Di2rCGKrdwUxLtfg
+ CJTXsFpYtf+igRFIN27PDQE21ZWN9Sninzcdj20oTmvUP+Y5vBTB1YuBh2g2ipIYj1tk/pN4nzQoSu
+ NmcGcpuOCdeniq1zbmZa0uEmcIoWa2c0YmlgNaT6iGOgZ+fs0wkw8GqT0l3HHZfv9LBzsgw0oAAfEv
+ cKHqYUuXpORXLcnrPVAwvPqzeRDOhrGlELuEYa8kC3JQXeZqwUejxuY6knJks2MrLwr4rpsb5LBfmy
+ hnhrXEa7ZVbuYSvJy5RyvPO7ZWhFslNofQILslTQ5wVS9Xp+6OQCYun1EhliABghFYsraDVZqDFVnT
+ yTxcCRtDXlRH1qska2YU5f4yYOJ0VMI80W9m5eu/c+JMb2c7u6H9KURoBrSaleOpLxcbKc9oIPNvn1
+ JlcR5G/9pEzkD4uQzh572TiAIMbopuqmOPxaZdM0QMpvO80xzi2FdxC/lxrQ==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-When using MI2S on non-core LPAIFs, the hardware can only
-fetch data from the LPM buffers and not from DDR memory,
-allocate the DMA buffers in each LPM memory for all users
-and drop the static allocation.
+Without the ADSP firmware, the LPASS clocks (MI2S bit clocks, codec
+macro MCLKs, LPM memory clocks...) must be controlled by Linux.
+
+Add drivers for the SM8650 LPASS HM, core, audio and AON clock
+controllers, the HM, audio and AON controllers keeping their iface clock
+enabled while in use, LPASS HM's being the GCC LPASS config NoC clock.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- sound/soc/qcom/lpass-cpu.c      |  27 ++++---
- sound/soc/qcom/lpass-platform.c | 152 ++++++++++++++++++++++++++++++++++++----
- sound/soc/qcom/lpass.h          |   9 +++
- 3 files changed, 165 insertions(+), 23 deletions(-)
+ drivers/clk/qcom/Kconfig               |  12 +
+ drivers/clk/qcom/Makefile              |   1 +
+ drivers/clk/qcom/lpassaudiocc-sm8650.c | 777 +++++++++++++++++++++++++++++++++
+ drivers/clk/qcom/lpasscorecc-sm8650.c  | 509 +++++++++++++++++++++
+ 4 files changed, 1299 insertions(+)
 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index 9ebbc422c63c..4bbcd59ebd60 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -1258,16 +1258,6 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 			dev_err(dev, "failed to get cdc dma clocks %d\n", ret);
- 			return ret;
- 		}
--
--		res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "lpass-rxtx-cdc-dma-lpm");
--		if (!res)
--			return -EINVAL;
--		drvdata->rxtx_cdc_dma_lpm_buf = res->start;
--
--		res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "lpass-va-cdc-dma-lpm");
--		if (!res)
--			return -EINVAL;
--		drvdata->va_cdc_dma_lpm_buf = res->start;
- 	}
+diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
+index 27d0ab24d50a..a693948322f8 100644
+--- a/drivers/clk/qcom/Kconfig
++++ b/drivers/clk/qcom/Kconfig
+@@ -1959,6 +1959,18 @@ config SM_GPUCC_8750
+ 	  Say Y if you want to support graphics controller devices and
+ 	  functionality such as 3D graphics.
  
- 	if (variant->mi2s_desc) {
-@@ -1281,6 +1271,9 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 						   variant->mi2s_desc[i].reg_name);
- 			if (ret)
- 				return ret;
++config SM_LPASS_CORECC_8650
++	tristate "SM8650 LPASS Core & Audio Clock Controller"
++	depends on ARM64 || COMPILE_TEST
++	select SM_GCC_8650
++	select QCOM_GDSC
++	default m if ARCH_QCOM
++	help
++	  Support for the LPASS(Low Power Audio Subsystem) core and audio clock
++	  controller on SM8650 devices.
++	  Say Y if you want to use LPASS clocks and power domains of the LPASS
++	  core clock controller.
 +
-+			if (variant->mi2s_desc[i].lpm_type != LPASS_LPM_NONE)
-+				drvdata->mi2s_lpm_enable = true;
- 		}
- 	} else {
- 		drvdata->num_lpaif = 1;
-@@ -1290,6 +1283,20 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 			return ret;
- 	}
- 
-+	if (drvdata->codec_dma_enable || drvdata->mi2s_lpm_enable) {
-+		res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "lpass-rxtx-cdc-dma-lpm");
-+		if (!res)
-+			return -EINVAL;
-+		drvdata->rxtx_cdc_dma_lpm_buf = res->start;
-+		drvdata->rxtx_cdc_dma_lpm_size = resource_size(res);
+ config SM_LPASSCC_6115
+ 	tristate "SM6115 Low Power Audio Subsystem (LPASS) Clock Controller"
+ 	depends on ARM64 || COMPILE_TEST
+diff --git a/drivers/clk/qcom/Makefile b/drivers/clk/qcom/Makefile
+index 6affb5073f26..b6862dc0437a 100644
+--- a/drivers/clk/qcom/Makefile
++++ b/drivers/clk/qcom/Makefile
+@@ -213,6 +213,7 @@ obj-$(CONFIG_SM_GPUCC_8550) += gpucc-sm8550.o
+ obj-$(CONFIG_SM_GPUCC_8650) += gpucc-sm8650.o
+ obj-$(CONFIG_SM_GPUCC_8750) += gpucc-sm8750.o gxclkctl-kaanapali.o
+ obj-$(CONFIG_SM_GPUCC_MILOS) += gpucc-milos.o gxclkctl-kaanapali.o
++obj-$(CONFIG_SM_LPASS_CORECC_8650) += lpasscorecc-sm8650.o lpassaudiocc-sm8650.o
+ obj-$(CONFIG_SM_LPASSCC_6115) += lpasscc-sm6115.o
+ obj-$(CONFIG_SM_TCSRCC_8550) += tcsrcc-sm8550.o
+ obj-$(CONFIG_SM_TCSRCC_8650) += tcsrcc-sm8650.o
+diff --git a/drivers/clk/qcom/lpassaudiocc-sm8650.c b/drivers/clk/qcom/lpassaudiocc-sm8650.c
+new file mode 100644
+index 000000000000..636ce9a1b345
+--- /dev/null
++++ b/drivers/clk/qcom/lpassaudiocc-sm8650.c
+@@ -0,0 +1,777 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2021, The Linux Foundation. All rights reserved.
++ * Copyright (c) 2025, Qualcomm Innovation Center, Inc. All rights reserved.
++ */
 +
-+		res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "lpass-va-cdc-dma-lpm");
-+		if (!res)
-+			return -EINVAL;
-+		drvdata->va_cdc_dma_lpm_buf = res->start;
-+		drvdata->va_cdc_dma_lpm_size = resource_size(res);
-+	}
++#include <linux/clk-provider.h>
++#include <linux/err.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/pm_clock.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
 +
- 	if (drvdata->hdmi_port_enable) {
- 		drvdata->hdmiif = devm_platform_ioremap_resource_byname(pdev, "lpass-hdmiif");
- 		if (IS_ERR(drvdata->hdmiif))
-diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
-index a953db262aa0..75d2c872f512 100644
---- a/sound/soc/qcom/lpass-platform.c
-+++ b/sound/soc/qcom/lpass-platform.c
-@@ -49,6 +49,31 @@ static const struct snd_pcm_hardware lpass_platform_pcm_hardware = {
- 	.fifo_size		=	0,
- };
- 
-+/* MI2S ports with their DMA buffer in a LPM block */
-+static const struct snd_pcm_hardware lpass_platform_lpm_mi2s_hardware = {
-+	.info			=	SNDRV_PCM_INFO_MMAP |
-+					SNDRV_PCM_INFO_MMAP_VALID |
-+					SNDRV_PCM_INFO_INTERLEAVED |
-+					SNDRV_PCM_INFO_PAUSE |
-+					SNDRV_PCM_INFO_RESUME,
-+	.formats		=	SNDRV_PCM_FMTBIT_S16 |
-+					SNDRV_PCM_FMTBIT_S24 |
-+					SNDRV_PCM_FMTBIT_S32,
-+	.rates			=	SNDRV_PCM_RATE_8000_192000,
-+	.rate_min		=	8000,
-+	.rate_max		=	192000,
-+	.channels_min		=	1,
-+	.channels_max		=	8,
-+	.buffer_bytes_max	=	LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE,
-+	.period_bytes_max	=	LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE /
-+						LPASS_PLATFORM_PERIODS,
-+	.period_bytes_min	=	LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE /
-+						LPASS_PLATFORM_PERIODS,
-+	.periods_min		=	LPASS_PLATFORM_PERIODS,
-+	.periods_max		=	LPASS_PLATFORM_PERIODS,
-+	.fifo_size		=	0,
++#include <dt-bindings/clock/qcom,lpassaudiocc-sm8650.h>
++
++#include "clk-branch.h"
++#include "clk-rcg.h"
++#include "clk-regmap.h"
++#include "clk-regmap-divider.h"
++#include "clk-regmap-mux.h"
++#include "common.h"
++#include "gdsc.h"
++#include "reset.h"
++
++enum {
++	P_BI_TCXO,
 +};
 +
- static const struct snd_pcm_hardware lpass_platform_rxtx_hardware = {
- 	.info			=	SNDRV_PCM_INFO_MMAP |
- 					SNDRV_PCM_INFO_MMAP_VALID |
-@@ -312,6 +337,13 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
- 			dev_err(soc_runtime->dev, "error writing to rdmactl reg: %d\n", ret);
- 			return ret;
- 		}
-+		if (is_lpm_mi2s_port(drvdata, dai_id)) {
-+			snd_soc_set_runtime_hwparams(substream,
-+						     &lpass_platform_lpm_mi2s_hardware);
-+			runtime->dma_bytes = lpass_platform_lpm_mi2s_hardware.buffer_bytes_max;
-+			snd_pcm_set_runtime_buffer(substream, &substream->dma_buffer);
-+			break;
-+		}
- 		snd_soc_set_runtime_hwparams(substream, &lpass_platform_pcm_hardware);
- 		runtime->dma_bytes = lpass_platform_pcm_hardware.buffer_bytes_max;
- 		break;
-@@ -1047,9 +1079,10 @@ static int lpass_platform_pcmops_mmap(struct snd_soc_component *component,
- {
- 	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
-+	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
- 	unsigned int dai_id = cpu_dai->driver->id;
- 
--	if (is_cdc_dma_port(dai_id))
-+	if (is_cdc_dma_port(dai_id) || is_lpm_mi2s_port(drvdata, dai_id))
- 		return lpass_platform_cdc_dma_mmap(substream, vma);
- 
- 	return snd_pcm_lib_default_mmap(substream, vma);
-@@ -1315,23 +1348,55 @@ static int lpass_platform_prealloc_cdc_dma_buffer(struct snd_soc_component *comp
- 	switch (dai_id) {
- 	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
- 		buf->bytes = lpass_platform_rxtx_hardware.buffer_bytes_max;
--		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf;
-+		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf + drvdata->va_lpm_offset;
- 		break;
- 	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
- 		buf->bytes = lpass_platform_rxtx_hardware.buffer_bytes_max;
--		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf + LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE;
-+		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf +
-+				drvdata->va_lpm_offset + LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE;
- 		break;
- 	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
- 		buf->bytes = lpass_platform_va_hardware.buffer_bytes_max;
--		buf->addr = drvdata->va_cdc_dma_lpm_buf;
-+		buf->addr = drvdata->va_cdc_dma_lpm_buf + drvdata->va_lpm_offset;
- 		break;
- 	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
- 		buf->bytes = lpass_platform_wsa_hardware.buffer_bytes_max;
--		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf + LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-+		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf + drvdata->wsa_lpm_offset;
- 		break;
- 	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
- 		buf->bytes = lpass_platform_wsa_hardware.buffer_bytes_max;
--		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf + LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 3;
-+		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf +
-+				drvdata->wsa_lpm_offset + LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE;
-+		break;
-+	case MI2S_PRIMARY ... MI2S_QUINARY:
-+	case MI2S_SENARY ... MI2S_SEPTENARY:
-+		if (is_lpm_mi2s_port(drvdata, dai_id)) {
-+			unsigned int port_id = mi2s_port_id(dai_id);
++static const struct parent_map lpass_audio_cc_parent_map_0[] = {
++	{ P_BI_TCXO, 0 },
++};
 +
-+			buf->bytes = lpass_platform_lpm_mi2s_hardware.buffer_bytes_max;
-+			switch (drvdata->mi2s_lpm[port_id]) {
-+			case LPASS_RXTX_CDC_LPM:
-+				if (pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream)
-+					buf->addr = drvdata->rxtx_cdc_dma_lpm_buf +
-+						    drvdata->mi2s_lpm_offset[port_id];
-+				else
-+					buf->addr = drvdata->rxtx_cdc_dma_lpm_buf +
-+						    drvdata->mi2s_lpm_offset[port_id] +
-+						    LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE;
-+				break;
-+			case LPASS_VA_CDC_LPM:
-+				if (pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream)
-+					buf->addr = drvdata->va_cdc_dma_lpm_buf +
-+						    drvdata->mi2s_lpm_offset[port_id];
-+				else
-+					buf->addr = drvdata->va_cdc_dma_lpm_buf +
-+						    drvdata->mi2s_lpm_offset[port_id] +
-+						    LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE;
-+				break;
-+			default:
-+				break;
-+			}
-+		}
- 		break;
- 	default:
- 		break;
-@@ -1347,15 +1412,12 @@ static int lpass_platform_pcm_new(struct snd_soc_component *component,
- {
- 	struct snd_pcm *pcm = soc_runtime->pcm;
- 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
-+	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
- 	unsigned int dai_id = cpu_dai->driver->id;
- 
- 	size_t size = lpass_platform_pcm_hardware.buffer_bytes_max;
- 
--	/*
--	 * Lpass codec dma can access only lpass lpm hardware memory.
--	 * ioremap is for HLOS to access hardware memory.
--	 */
--	if (is_cdc_dma_port(dai_id))
-+	if (is_cdc_dma_port(dai_id) || is_lpm_mi2s_port(drvdata, dai_id))
- 		return lpass_platform_prealloc_cdc_dma_buffer(component, pcm, dai_id);
- 
- 	return snd_pcm_set_fixed_buffer_all(pcm, SNDRV_DMA_TYPE_NONCOHERENT,
-@@ -1417,6 +1479,7 @@ static int lpass_platform_copy(struct snd_soc_component *component,
- 			       unsigned long pos, struct iov_iter *buf,
- 			       unsigned long bytes)
- {
-+	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
- 	struct snd_pcm_runtime *rt = substream->runtime;
- 	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
-@@ -1427,7 +1490,7 @@ static int lpass_platform_copy(struct snd_soc_component *component,
- 				channel * (rt->dma_bytes / rt->channels));
- 
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--		if (is_cdc_dma_port(dai_id)) {
-+		if (is_cdc_dma_port(dai_id) || is_lpm_mi2s_port(drvdata, dai_id)) {
- 			if (copy_from_iter_toio(dma_buf, bytes, buf) != bytes)
- 				ret = -EFAULT;
- 		} else {
-@@ -1435,7 +1498,7 @@ static int lpass_platform_copy(struct snd_soc_component *component,
- 				ret = -EFAULT;
- 		}
- 	} else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
--		if (is_cdc_dma_port(dai_id)) {
-+		if (is_cdc_dma_port(dai_id) || is_lpm_mi2s_port(drvdata, dai_id)) {
- 			if (copy_to_iter_fromio(dma_buf, bytes, buf) != bytes)
- 				ret = -EFAULT;
- 		} else {
-@@ -1464,6 +1527,64 @@ static const struct snd_soc_component_driver lpass_component_driver = {
- 
- };
- 
-+static int lpass_platform_allocate_lpm(struct lpass_data *drvdata)
++static const struct clk_parent_data lpass_audio_cc_parent_data_0[] = {
++	{ .index = 0 },
++};
++
++static const struct parent_map lpass_aon_cc_parent_map_0[] = {
++	{ P_BI_TCXO, 0 },
++};
++
++static const struct clk_parent_data lpass_aon_cc_parent_data_0[] = {
++	{ .index = 0 },
++};
++
++/* XO only for now: the ADSP plan also uses the audio CC PLLs for MCLKs */
++static const struct freq_tbl ftbl_lpass_mclk_clk_src[] = {
++	F(9600000, P_BI_TCXO, 2, 0, 0),
++	F(19200000, P_BI_TCXO, 1, 0, 0),
++	{ }
++};
++
++/* XO only for now: the ADSP plan feeds these from the audio CC DIG PLL */
++static const struct freq_tbl ftbl_lpass_cc_ext_clk_src[] = {
++	F(1536000, P_BI_TCXO, 1, 2, 25),
++	F(2304000, P_BI_TCXO, 1, 3, 25),
++	F(3072000, P_BI_TCXO, 1, 4, 25),
++	F(9600000, P_BI_TCXO, 2, 0, 0),
++	F(19200000, P_BI_TCXO, 1, 0, 0),
++	{ }
++};
++
++static struct clk_rcg2 lpass_aon_cc_ext_if1_clk_src = {
++	.cmd_rcgr = 0xb004,
++	.mnd_width = 16,
++	.hid_width = 5,
++	.parent_map = lpass_audio_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_cc_ext_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_aon_cc_ext_if1_clk_src",
++		.parent_data = lpass_aon_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_aon_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_rcg2 lpass_aon_cc_main_rcg_clk_src = {
++	.cmd_rcgr = 0x19000,
++	.mnd_width = 0,
++	.hid_width = 5,
++	.parent_map = lpass_aon_cc_parent_map_0,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_aon_cc_main_rcg_clk_src",
++		.parent_data = lpass_aon_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_aon_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_rcg2 lpass_aon_cc_tx_mclk_clk_src = {
++	.cmd_rcgr = 0x1b004,
++	.mnd_width = 0,
++	.hid_width = 5,
++	.parent_map = lpass_aon_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_mclk_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_aon_cc_tx_mclk_clk_src",
++		.parent_data = lpass_aon_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_aon_cc_parent_data_0),
++		//.flags = CLK_OPS_PARENT_ENABLE,
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_rcg2 lpass_audio_cc_ext_if1_clk_src = {
++	.cmd_rcgr = 0x18004,
++	.mnd_width = 16,
++	.hid_width = 5,
++	.parent_map = lpass_audio_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_cc_ext_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_audio_cc_ext_if1_clk_src",
++		.parent_data = lpass_audio_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_audio_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_rcg2 lpass_audio_cc_ext_if2_clk_src = {
++	.cmd_rcgr = 0x19004,
++	.mnd_width = 16,
++	.hid_width = 5,
++	.parent_map = lpass_audio_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_cc_ext_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_audio_cc_ext_if2_clk_src",
++		.parent_data = lpass_audio_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_audio_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_rcg2 lpass_audio_cc_ext_if4_clk_src = {
++	.cmd_rcgr = 0x1c004,
++	.mnd_width = 16,
++	.hid_width = 5,
++	.parent_map = lpass_audio_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_cc_ext_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_audio_cc_ext_if4_clk_src",
++		.parent_data = lpass_audio_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_audio_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_rcg2 lpass_audio_cc_ext_if5_clk_src = {
++	.cmd_rcgr = 0x1d004,
++	.mnd_width = 16,
++	.hid_width = 5,
++	.parent_map = lpass_audio_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_cc_ext_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_audio_cc_ext_if5_clk_src",
++		.parent_data = lpass_audio_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_audio_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_rcg2 lpass_audio_cc_wsa_mclk_clk_src = {
++	.cmd_rcgr = 0x2a004,
++	.mnd_width = 8,
++	.hid_width = 5,
++	.parent_map = lpass_audio_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_mclk_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_audio_cc_wsa_mclk_clk_src",
++		.parent_data = lpass_audio_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_audio_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_rcg2 lpass_audio_cc_rx_mclk_clk_src = {
++	.cmd_rcgr = 0x2c004,
++	.mnd_width = 8,
++	.hid_width = 5,
++	.parent_map = lpass_audio_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_mclk_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_audio_cc_rx_mclk_clk_src",
++		.parent_data = lpass_audio_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_audio_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++/* MCLK = RCG / CDIV (reset value: divide by 2), the 2X clocks are the RCG */
++static struct clk_regmap_div lpass_audio_cc_cdiv_rx_mclk_div_clk_src = {
++	.reg = 0x2c0d0,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(const struct clk_init_data) {
++		.name = "lpass_audio_cc_cdiv_rx_mclk_div_clk_src",
++		.parent_hws = (const struct clk_hw*[]){
++			&lpass_audio_cc_rx_mclk_clk_src.clkr.hw,
++		},
++		.num_parents = 1,
++		.flags = CLK_SET_RATE_PARENT,
++		.ops = &clk_regmap_div_ro_ops,
++	},
++};
++
++static struct clk_regmap_div lpass_audio_cc_cdiv_wsa_mclk_div_clk_src = {
++	.reg = 0x2a0d0,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(const struct clk_init_data) {
++		.name = "lpass_audio_cc_cdiv_wsa_mclk_div_clk_src",
++		.parent_hws = (const struct clk_hw*[]){
++			&lpass_audio_cc_wsa_mclk_clk_src.clkr.hw,
++		},
++		.num_parents = 1,
++		.flags = CLK_SET_RATE_PARENT,
++		.ops = &clk_regmap_div_ro_ops,
++	},
++};
++
++static struct clk_regmap_div lpass_aon_cc_cdiv_tx_mclk_div_clk_src = {
++	.reg = 0x1b010,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(const struct clk_init_data) {
++		.name = "lpass_aon_cc_cdiv_tx_mclk_div_clk_src",
++		.parent_hws = (const struct clk_hw*[]){
++			&lpass_aon_cc_tx_mclk_clk_src.clkr.hw,
++		},
++		.num_parents = 1,
++		.flags = CLK_SET_RATE_PARENT,
++		.ops = &clk_regmap_div_ro_ops,
++	},
++};
++
++static struct clk_branch lpass_aon_cc_audio_hm_h_clk;
++
++static struct clk_branch lpass_audio_cc_codec_mem_clk = {
++	.halt_reg = 0x2e000,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x2e000,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_codec_mem_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_audio_hm_h_clk.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_codec_mem0_clk = {
++	.halt_reg = 0x2e004,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x2e004,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_codec_mem0_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_audio_hm_h_clk.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_codec_mem1_clk = {
++	.halt_reg = 0x2e010,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x2e010,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_codec_mem1_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_audio_hm_h_clk.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_codec_mem2_clk = {
++	.halt_reg = 0x2e01c,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x2e01c,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_codec_mem2_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_audio_hm_h_clk.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_codec_mem3_clk = {
++	.halt_reg = 0x2e028,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x2e028,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_codec_mem3_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_audio_hm_h_clk.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_rx_mclk_clk = {
++	.halt_reg = 0x2c0d4,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x2c0d4,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_rx_mclk_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_audio_cc_cdiv_rx_mclk_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_ext_if1_ibit_clk = {
++	.halt_reg = 0x1801c,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x1801c,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_ext_if1_ibit_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_audio_cc_ext_if1_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_ext_if2_ibit_clk = {
++	.halt_reg = 0x1901c,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x1901c,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_ext_if2_ibit_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_audio_cc_ext_if2_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_ext_if4_ibit_clk = {
++	.halt_reg = 0x1c01c,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x1c01c,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_ext_if4_ibit_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_audio_cc_ext_if4_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_ext_if5_ibit_clk = {
++	.halt_reg = 0x1d01c,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x1d01c,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_ext_if5_ibit_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_audio_cc_ext_if5_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_wsa_mclk_clk = {
++	.halt_reg = 0x2a0d4,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x2a0d4,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_wsa_mclk_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_audio_cc_cdiv_wsa_mclk_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_wsa2_mclk_clk = {
++	.halt_reg = 0x2d004,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x2d004,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_wsa2_mclk_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_audio_cc_wsa_mclk_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_aon_cc_tx_mclk_clk;
++
++static struct clk_branch lpass_audio_cc_tx_mclk_wsa_clk = {
++	.halt_reg = 0x2a0f4,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x2a0f4,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_tx_mclk_wsa_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_tx_mclk_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_tx_mclk_rx_clk = {
++	.halt_reg = 0x2c0e0,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x2c0e0,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_tx_mclk_rx_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_tx_mclk_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_audio_cc_tx_mclk_wsa2_clk = {
++	.halt_reg = 0x2d00c,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x2d00c,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_audio_cc_tx_mclk_wsa2_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_tx_mclk_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_aon_cc_ext_if1_ibit_clk = {
++	.halt_reg = 0xb01c,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0xb01c,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_aon_cc_ext_if1_ibit_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_ext_if1_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_aon_cc_audio_hm_h_clk = {
++	.halt_reg = 0x11014,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x11014,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_aon_cc_audio_hm_h_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_main_rcg_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_aon_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_aon_cc_va_mem0_clk = {
++	.halt_reg = 0x11060,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x11060,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_aon_cc_va_mem0_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_main_rcg_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_aon_cc_tx_mclk_clk = {
++	.halt_reg = 0x1b014,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x1b014,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_aon_cc_tx_mclk_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_aon_cc_cdiv_tx_mclk_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct gdsc lpass_aon_cc_lpass_audio_hm_gdsc = {
++	.gdscr = 0x11090,
++	.pd = {
++		.name = "lpass_aon_cc_lpass_audio_hm_gdsc",
++	},
++	.pwrsts = PWRSTS_OFF_ON,
++	.flags = RETAIN_FF_ENABLE,
++};
++
++static struct clk_regmap *lpass_aon_cc_sm8650_clocks[] = {
++	[LPASS_AON_CC_MAIN_RCG_CLK_SRC] = &lpass_aon_cc_main_rcg_clk_src.clkr,
++	[LPASS_AON_CC_AUDIO_HM_H_CLK] = &lpass_aon_cc_audio_hm_h_clk.clkr,
++	[LPASS_AON_CC_VA_MEM0_CLK] = &lpass_aon_cc_va_mem0_clk.clkr,
++	[LPASS_AON_CC_TX_MCLK_CLK_SRC] = &lpass_aon_cc_tx_mclk_clk_src.clkr,
++	[LPASS_AON_CC_TX_MCLK_CLK] = &lpass_aon_cc_tx_mclk_clk.clkr,
++	[LPASS_AON_CC_CDIV_TX_MCLK_DIV_CLK_SRC] = &lpass_aon_cc_cdiv_tx_mclk_div_clk_src.clkr,
++	[LPASS_AON_CC_EXT_IF1_CLK_SRC] = &lpass_aon_cc_ext_if1_clk_src.clkr,
++	[LPASS_AON_CC_EXT_IF1_IBIT_CLK] = &lpass_aon_cc_ext_if1_ibit_clk.clkr,
++};
++
++static struct gdsc *lpass_aon_cc_sm8650_gdscs[] = {
++	[LPASS_AON_CC_LPASS_AUDIO_HM_GDSC] = &lpass_aon_cc_lpass_audio_hm_gdsc,
++};
++
++static struct clk_regmap *lpass_audio_cc_sm8650_clocks[] = {
++	[LPASS_AUDIO_CC_WSA_MCLK_CLK_SRC] = &lpass_audio_cc_wsa_mclk_clk_src.clkr,
++	[LPASS_AUDIO_CC_RX_MCLK_CLK] = &lpass_audio_cc_rx_mclk_clk.clkr,
++	[LPASS_AUDIO_CC_RX_MCLK_CLK_SRC] = &lpass_audio_cc_rx_mclk_clk_src.clkr,
++	[LPASS_AUDIO_CC_WSA_MCLK_CLK] = &lpass_audio_cc_wsa_mclk_clk.clkr,
++	[LPASS_AUDIO_CC_WSA2_MCLK_CLK] = &lpass_audio_cc_wsa2_mclk_clk.clkr,
++	[LPASS_AUDIO_CC_CODEC_MEM_CLK] = &lpass_audio_cc_codec_mem_clk.clkr,
++	[LPASS_AUDIO_CC_CODEC_MEM0_CLK] = &lpass_audio_cc_codec_mem0_clk.clkr,
++	[LPASS_AUDIO_CC_CODEC_MEM1_CLK] = &lpass_audio_cc_codec_mem1_clk.clkr,
++	[LPASS_AUDIO_CC_CODEC_MEM2_CLK] = &lpass_audio_cc_codec_mem2_clk.clkr,
++	[LPASS_AUDIO_CC_CODEC_MEM3_CLK] = &lpass_audio_cc_codec_mem3_clk.clkr,
++	[LPASS_AUDIO_CC_TX_MCLK_WSA_CLK] = &lpass_audio_cc_tx_mclk_wsa_clk.clkr,
++	[LPASS_AUDIO_CC_TX_MCLK_RX_CLK] = &lpass_audio_cc_tx_mclk_rx_clk.clkr,
++	[LPASS_AUDIO_CC_TX_MCLK_WSA2_CLK] = &lpass_audio_cc_tx_mclk_wsa2_clk.clkr,
++	[LPASS_AUDIO_CC_CDIV_RX_MCLK_DIV_CLK_SRC] = &lpass_audio_cc_cdiv_rx_mclk_div_clk_src.clkr,
++	[LPASS_AUDIO_CC_CDIV_WSA_MCLK_DIV_CLK_SRC] = &lpass_audio_cc_cdiv_wsa_mclk_div_clk_src.clkr,
++	[LPASS_AUDIO_CC_EXT_IF1_CLK_SRC] = &lpass_audio_cc_ext_if1_clk_src.clkr,
++	[LPASS_AUDIO_CC_EXT_IF1_IBIT_CLK] = &lpass_audio_cc_ext_if1_ibit_clk.clkr,
++	[LPASS_AUDIO_CC_EXT_IF2_CLK_SRC] = &lpass_audio_cc_ext_if2_clk_src.clkr,
++	[LPASS_AUDIO_CC_EXT_IF2_IBIT_CLK] = &lpass_audio_cc_ext_if2_ibit_clk.clkr,
++	[LPASS_AUDIO_CC_EXT_IF4_CLK_SRC] = &lpass_audio_cc_ext_if4_clk_src.clkr,
++	[LPASS_AUDIO_CC_EXT_IF4_IBIT_CLK] = &lpass_audio_cc_ext_if4_ibit_clk.clkr,
++	[LPASS_AUDIO_CC_EXT_IF5_CLK_SRC] = &lpass_audio_cc_ext_if5_clk_src.clkr,
++	[LPASS_AUDIO_CC_EXT_IF5_IBIT_CLK] = &lpass_audio_cc_ext_if5_ibit_clk.clkr,
++};
++
++static const struct regmap_config lpass_audio_cc_sm8650_regmap_config = {
++	.name = "lpasscc_audio",
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.max_register = 0x2f000,
++	.fast_io = true,
++};
++
++static const struct qcom_cc_desc lpass_audio_cc_sm8650_desc = {
++	.config = &lpass_audio_cc_sm8650_regmap_config,
++	.clks = lpass_audio_cc_sm8650_clocks,
++	.num_clks = ARRAY_SIZE(lpass_audio_cc_sm8650_clocks),
++};
++
++static const struct of_device_id lpass_audio_cc_sm8650_match_table[] = {
++	{ .compatible = "qcom,sm8650-lpassaudiocc" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, lpass_audio_cc_sm8650_match_table);
++
++static int lpass_audio_cc_sm8650_probe(struct platform_device *pdev)
 +{
-+	u32 rxtx_cdc_dma_lpm_remain = drvdata->rxtx_cdc_dma_lpm_size;
-+	u32 va_cdc_dma_lpm_remain = drvdata->va_cdc_dma_lpm_size;
-+	u32 rxtx_cdc_dma_lpm_offset = 0;
-+	u32 va_cdc_dma_lpm_offset = 0;
-+	int port_id;
++	int ret;
 +
-+	if (drvdata->codec_dma_enable) {
-+		drvdata->rxtx_lpm_offset = rxtx_cdc_dma_lpm_offset;
-+		rxtx_cdc_dma_lpm_offset += LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-+		rxtx_cdc_dma_lpm_remain -= LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-+
-+		drvdata->va_lpm_offset = va_cdc_dma_lpm_offset;
-+		va_cdc_dma_lpm_offset += LPASS_VA_CDC_DMA_LPM_BUFF_SIZE;
-+		va_cdc_dma_lpm_remain -= LPASS_VA_CDC_DMA_LPM_BUFF_SIZE;
-+
-+		if (drvdata->wsa_enable) {
-+			drvdata->wsa_lpm_offset = rxtx_cdc_dma_lpm_offset;
-+			rxtx_cdc_dma_lpm_offset += LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-+			rxtx_cdc_dma_lpm_remain -= LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-+		}
-+	}
-+
-+	if (!drvdata->mi2s_lpm_enable)
-+		return 0;
-+
-+	for (port_id = 0; port_id < LPASS_MAX_MI2S_PORTS; port_id++) {
-+		if (!test_bit(port_id, &drvdata->lpaif_port_enable))
-+			continue;
-+
-+		switch (drvdata->mi2s_lpm[port_id]) {
-+		case LPASS_RXTX_CDC_LPM:
-+			if (rxtx_cdc_dma_lpm_remain < LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE)
-+				return -EINVAL;
-+			drvdata->mi2s_lpm_offset[port_id] = rxtx_cdc_dma_lpm_offset;
-+			rxtx_cdc_dma_lpm_offset += LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-+			rxtx_cdc_dma_lpm_remain -= LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-+			break;
-+		case LPASS_VA_CDC_LPM:
-+			/*
-+			 * VA Codec uses 12KiB, but MI2S uses 8KiB
-+			 * Meaning only VA _or_ a single MI2S can be enabled
-+			 */
-+			if (va_cdc_dma_lpm_remain < LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE)
-+				return -EINVAL;
-+			drvdata->mi2s_lpm_offset[port_id] = va_cdc_dma_lpm_offset;
-+			va_cdc_dma_lpm_offset += LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-+			va_cdc_dma_lpm_remain -= LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-+			break;
-+		default:
-+			break;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int lpass_platform_init_lpaif(struct platform_device *pdev, int idx,
- 				     const char *irq_name, unsigned long irqflags)
- {
-@@ -1629,6 +1750,11 @@ int asoc_qcom_lpass_platform_register(struct platform_device *pdev)
- 			return ret;
- 		}
- 	}
-+
-+	ret = lpass_platform_allocate_lpm(drvdata);
++	ret = devm_pm_runtime_enable(&pdev->dev);
 +	if (ret)
 +		return ret;
 +
- 	return devm_snd_soc_register_component(&pdev->dev,
- 			&lpass_component_driver, NULL, 0);
- }
-diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
-index 71f1274dfa89..8f361f2808ca 100644
---- a/sound/soc/qcom/lpass.h
-+++ b/sound/soc/qcom/lpass.h
-@@ -196,6 +196,7 @@ struct lpass_data {
- 	int hdmi_port_enable;
- 	int codec_dma_enable;
- 	int wsa_enable;
-+	int mi2s_lpm_enable;
- 
- 	/* LPAIF instances, 0 is the core "lpass-lpaif" one */
- 	struct lpass_lpaif lpaif[LPASS_MAX_LPAIF];
-@@ -214,7 +215,15 @@ struct lpass_data {
- 	void __iomem *wsa_lpaif;
- 
- 	u32 rxtx_cdc_dma_lpm_buf;
-+	u32 rxtx_cdc_dma_lpm_size;
- 	u32 va_cdc_dma_lpm_buf;
-+	u32 va_cdc_dma_lpm_size;
++	ret = devm_pm_clk_create(&pdev->dev);
++	if (ret)
++		return ret;
 +
-+	/* LPM buffer assignment */
-+	u32 rxtx_lpm_offset;
-+	u32 va_lpm_offset;
-+	u32 wsa_lpm_offset;
-+	u32 mi2s_lpm_offset[LPASS_MAX_MI2S_PORTS];
- 
- 	/* regmap backed by the low-power audio interface (LPAIF) registers */
- 	struct regmap *hdmiif_map;
++	ret = pm_clk_add(&pdev->dev, "iface");
++	if (ret < 0) {
++		dev_err(&pdev->dev, "failed to acquire iface clock\n");
++		return ret;
++	}
++
++	ret = pm_runtime_resume_and_get(&pdev->dev);
++	if (ret)
++		return ret;
++
++	ret = qcom_cc_probe(pdev, &lpass_audio_cc_sm8650_desc);
++
++	pm_runtime_put_sync(&pdev->dev);
++
++	return ret;
++}
++
++static const struct dev_pm_ops lpass_audio_cc_sm8650_pm_ops = {
++	SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
++};
++
++static struct platform_driver lpass_audio_cc_sm8650_driver = {
++	.probe = lpass_audio_cc_sm8650_probe,
++	.driver = {
++		.name = "lpass_audio_cc-sm8650",
++		.of_match_table = lpass_audio_cc_sm8650_match_table,
++		.pm = &lpass_audio_cc_sm8650_pm_ops,
++	},
++};
++
++static const struct regmap_config lpass_aon_cc_sm8650_regmap_config = {
++	.name = "lpasscc_aon",
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.max_register = 0x2f000,
++	.fast_io = true,
++};
++
++static const struct qcom_cc_desc lpass_aon_cc_sm8650_desc = {
++	.config = &lpass_aon_cc_sm8650_regmap_config,
++	.clks = lpass_aon_cc_sm8650_clocks,
++	.num_clks = ARRAY_SIZE(lpass_aon_cc_sm8650_clocks),
++	.gdscs = lpass_aon_cc_sm8650_gdscs,
++	.num_gdscs = ARRAY_SIZE(lpass_aon_cc_sm8650_gdscs),
++};
++
++static int lpass_aon_cc_sm8650_probe(struct platform_device *pdev)
++{
++	int ret;
++
++	ret = devm_pm_runtime_enable(&pdev->dev);
++	if (ret)
++		return ret;
++
++	ret = devm_pm_clk_create(&pdev->dev);
++	if (ret)
++		return ret;
++
++	ret = pm_clk_add(&pdev->dev, "iface");
++	if (ret < 0) {
++		dev_err(&pdev->dev, "failed to acquire iface clock\n");
++		return ret;
++	}
++
++	ret = pm_runtime_resume_and_get(&pdev->dev);
++	if (ret)
++		return ret;
++
++	ret = qcom_cc_probe(pdev, &lpass_aon_cc_sm8650_desc);
++
++	pm_runtime_put_sync(&pdev->dev);
++
++	return ret;
++}
++
++static const struct of_device_id lpass_aon_cc_sm8650_match_table[] = {
++	{ .compatible = "qcom,sm8650-lpassaoncc" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, lpass_aon_cc_sm8650_match_table);
++
++static struct platform_driver lpass_aon_cc_sm8650_driver = {
++	.probe = lpass_aon_cc_sm8650_probe,
++	.driver = {
++		.name = "lpass_aon_cc-sm8650",
++		.of_match_table = lpass_aon_cc_sm8650_match_table,
++		.pm = &lpass_audio_cc_sm8650_pm_ops,
++	},
++};
++
++static int __init lpass_audio_cc_sm8650_init(void)
++{
++	int ret;
++
++	ret = platform_driver_register(&lpass_aon_cc_sm8650_driver);
++	if (ret)
++		return ret;
++
++	return platform_driver_register(&lpass_audio_cc_sm8650_driver);
++}
++subsys_initcall(lpass_audio_cc_sm8650_init);
++
++static void __exit lpass_audio_cc_sm8650_exit(void)
++{
++	platform_driver_unregister(&lpass_audio_cc_sm8650_driver);
++	platform_driver_unregister(&lpass_aon_cc_sm8650_driver);
++}
++module_exit(lpass_audio_cc_sm8650_exit);
++
++MODULE_DESCRIPTION("LPASS Audio CC SM8650 Driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/clk/qcom/lpasscorecc-sm8650.c b/drivers/clk/qcom/lpasscorecc-sm8650.c
+new file mode 100644
+index 000000000000..4f91ab0d772e
+--- /dev/null
++++ b/drivers/clk/qcom/lpasscorecc-sm8650.c
+@@ -0,0 +1,509 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2021, The Linux Foundation. All rights reserved.
++ */
++
++#include <linux/clk-provider.h>
++#include <linux/err.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/pm_clock.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++
++#include <dt-bindings/clock/qcom,lpasscorecc-sm8650.h>
++
++#include "clk-alpha-pll.h"
++#include "clk-branch.h"
++#include "clk-rcg.h"
++#include "clk-regmap.h"
++#include "clk-regmap-divider.h"
++#include "common.h"
++#include "gdsc.h"
++
++enum {
++	P_BI_TCXO,
++	P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN,
++	P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN_DIV_CLK_SRC,
++	P_LPASS_CORE_CC_DIG_PLL_OUT_ODD,
++};
++
++static const struct pll_vco lucid_ole_vco[] = {
++	{ 249600000, 2300000000, 0 },
++};
++
++static const struct alpha_pll_config lpass_core_cc_dig_pll_config = {
++	/* 614.4 MHz */
++	.l = 0x20,
++	.alpha = 0x0,
++	.config_ctl_val = 0x20485699,
++	.config_ctl_hi_val = 0x00182261,
++	.config_ctl_hi1_val = 0x82aa299c,
++	.test_ctl_val = 0x00000000,
++	.test_ctl_hi_val = 0x00000003,
++	.test_ctl_hi1_val = 0x00009000,
++	.test_ctl_hi2_val = 0x00000034,
++	.user_ctl_val = 0x00000000,
++	.user_ctl_hi_val = 0x00000005,
++};
++
++static struct clk_alpha_pll lpass_core_cc_dig_pll = {
++	.offset = 0x0,
++	.config = &lpass_core_cc_dig_pll_config,
++	.vco_table = lucid_ole_vco,
++	.num_vco = ARRAY_SIZE(lucid_ole_vco),
++	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID_OLE],
++	.clkr = {
++		.hw.init = &(struct clk_init_data){
++			.name = "lpass_core_cc_dig_pll",
++			.parent_data = &(const struct clk_parent_data){
++				.index = 0,
++			},
++			.num_parents = 1,
++			.ops = &clk_alpha_pll_lucid_evo_ops,
++		},
++	},
++};
++
++static const struct clk_div_table post_div_table_lpass_core_cc_dig_pll_out_odd[] = {
++	{ 0x5, 5 },
++	{ }
++};
++
++static struct clk_alpha_pll_postdiv lpass_core_cc_dig_pll_out_odd = {
++	.offset = 0x0,
++	.post_div_shift = 14,
++	.post_div_table = post_div_table_lpass_core_cc_dig_pll_out_odd,
++	.num_post_div = ARRAY_SIZE(post_div_table_lpass_core_cc_dig_pll_out_odd),
++	.width = 4,
++	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID_OLE],
++	.clkr.hw.init = &(struct clk_init_data){
++		.name = "lpass_core_cc_dig_pll_out_odd",
++		.parent_hws = (const struct clk_hw*[]){
++			&lpass_core_cc_dig_pll.clkr.hw,
++		},
++		.num_parents = 1,
++		.flags = CLK_SET_RATE_PARENT,
++		.ops = &clk_alpha_pll_postdiv_lucid_ops,
++	},
++};
++
++static struct clk_regmap_div lpass_core_cc_dig_pll_out_main_div_clk_src = {
++	.reg = 0x10008,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(struct clk_init_data) {
++		.name = "lpass_core_cc_dig_pll_out_main_div_clk_src",
++		.parent_hws = (const struct clk_hw*[]){
++			&lpass_core_cc_dig_pll.clkr.hw,
++		},
++		.num_parents = 1,
++		.flags = CLK_SET_RATE_PARENT,
++		.ops = &clk_regmap_div_ro_ops,
++	},
++};
++
++static const struct parent_map lpass_core_cc_parent_map_0[] = {
++	{ P_BI_TCXO, 0 },
++	{ P_LPASS_CORE_CC_DIG_PLL_OUT_ODD, 5 },
++};
++
++static const struct clk_parent_data lpass_core_cc_parent_data_0[] = {
++	{ .index = 0 },
++	{ .hw = &lpass_core_cc_dig_pll_out_odd.clkr.hw },
++};
++
++static const struct parent_map lpass_core_cc_parent_map_2[] = {
++	{ P_BI_TCXO, 0 },
++	{ P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN, 1 },
++	{ P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN_DIV_CLK_SRC, 2 },
++};
++
++static const struct clk_parent_data lpass_core_cc_parent_data_ao_2[] = {
++	{ .index = 1 },
++	{ .hw = &lpass_core_cc_dig_pll.clkr.hw },
++	{ .hw = &lpass_core_cc_dig_pll_out_main_div_clk_src.clkr.hw },
++};
++
++static const struct freq_tbl ftbl_lpass_core_cc_core_clk_src[] = {
++	F(19200000, P_BI_TCXO, 1, 0, 0),
++	F(51200000, P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN_DIV_CLK_SRC, 6, 0, 0),
++	F(102400000, P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN_DIV_CLK_SRC, 3, 0, 0),
++	F(204800000, P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN, 3, 0, 0),
++	{ }
++};
++
++static struct clk_rcg2 lpass_core_cc_core_clk_src = {
++	.cmd_rcgr = 0x25000,
++	.mnd_width = 8,
++	.hid_width = 5,
++	.parent_map = lpass_core_cc_parent_map_2,
++	.freq_tbl = ftbl_lpass_core_cc_core_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_core_cc_core_clk_src",
++		.parent_data = lpass_core_cc_parent_data_ao_2,
++		.num_parents = ARRAY_SIZE(lpass_core_cc_parent_data_ao_2),
++		.ops = &clk_rcg2_shared_ops,
++	},
++};
++
++static const struct freq_tbl ftbl_lpass_core_cc_ext_if0_clk_src[] = {
++	F(1536000, P_BI_TCXO, 1, 2, 25),
++	F(2304000, P_BI_TCXO, 1, 3, 25),
++	F(3072000, P_BI_TCXO, 1, 4, 25),
++	F(9600000, P_BI_TCXO, 2, 0, 0),
++	F(19200000, P_BI_TCXO, 1, 0, 0),
++	{ }
++};
++
++static struct clk_rcg2 lpass_core_cc_ext_if0_clk_src = {
++	.cmd_rcgr = 0x18000,
++	.mnd_width = 16,
++	.hid_width = 5,
++	.parent_map = lpass_core_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_core_cc_ext_if0_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_core_cc_ext_if0_clk_src",
++		.parent_data = lpass_core_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_core_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_rcg2 lpass_core_cc_ext_if1_clk_src = {
++	.cmd_rcgr = 0x19000,
++	.mnd_width = 16,
++	.hid_width = 5,
++	.parent_map = lpass_core_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_core_cc_ext_if0_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_core_cc_ext_if1_clk_src",
++		.parent_data = lpass_core_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_core_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_rcg2 lpass_core_cc_ext_if2_clk_src = {
++	.cmd_rcgr = 0x1a000,
++	.mnd_width = 16,
++	.hid_width = 5,
++	.parent_map = lpass_core_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_core_cc_ext_if0_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_core_cc_ext_if2_clk_src",
++		.parent_data = lpass_core_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_core_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_rcg2 lpass_core_cc_ext_mclk0_clk_src = {
++	.cmd_rcgr = 0x28000,
++	.mnd_width = 8,
++	.hid_width = 5,
++	.parent_map = lpass_core_cc_parent_map_0,
++	.freq_tbl = ftbl_lpass_core_cc_ext_if0_clk_src,
++	.clkr.hw.init = &(const struct clk_init_data){
++		.name = "lpass_core_cc_ext_mclk0_clk_src",
++		.parent_data = lpass_core_cc_parent_data_0,
++		.num_parents = ARRAY_SIZE(lpass_core_cc_parent_data_0),
++		.ops = &clk_rcg2_ops,
++	},
++};
++
++static struct clk_branch lpass_core_cc_core_clk = {
++	.halt_reg = 0x27000,
++	.halt_check = BRANCH_HALT_VOTED,
++	.hwcg_reg = 0x27000,
++	.hwcg_bit = 1,
++	.clkr = {
++		.enable_reg = 0x27000,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_core_cc_core_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_core_cc_core_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_aon_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_core_cc_ext_if0_ibit_clk = {
++	.halt_reg = 0x18018,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x18018,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_core_cc_ext_if0_ibit_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_core_cc_ext_if0_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_core_cc_ext_if1_ibit_clk = {
++	.halt_reg = 0x19018,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x19018,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_core_cc_ext_if1_ibit_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_core_cc_ext_if1_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_core_cc_ext_if2_ibit_clk = {
++	.halt_reg = 0x1a018,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x1a018,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_core_cc_ext_if2_ibit_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_core_cc_ext_if2_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_core_cc_lpm_core_clk = {
++	.halt_reg = 0x26000,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x26000,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_core_cc_lpm_core_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_core_cc_core_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_core_cc_lpm_mem0_core_clk = {
++	.halt_reg = 0x26004,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x26004,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_core_cc_lpm_mem0_core_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_core_cc_core_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_core_cc_ext_mclk0_clk = {
++	.halt_reg = 0x28014,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x28014,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_core_cc_ext_mclk0_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_core_cc_ext_mclk0_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch lpass_core_cc_sysnoc_mport_core_clk = {
++	.halt_reg = 0x2b000,
++	.halt_check = BRANCH_HALT_VOTED,
++	.hwcg_reg = 0x2b000,
++	.hwcg_bit = 1,
++	.clkr = {
++		.enable_reg = 0x2b000,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data){
++			.name = "lpass_core_cc_sysnoc_mport_core_clk",
++			.parent_hws = (const struct clk_hw*[]){
++				&lpass_core_cc_core_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct gdsc lpass_core_cc_lpass_core_hm_gdsc = {
++	.gdscr = 0x0,
++	.pd = {
++		.name = "lpass_core_cc_lpass_core_hm_gdsc",
++	},
++	.pwrsts = PWRSTS_OFF_ON,
++	.flags = RETAIN_FF_ENABLE,
++};
++
++static struct clk_regmap *lpass_core_cc_sm8650_clocks[] = {
++	[LPASS_CORE_CC_CORE_CLK] = &lpass_core_cc_core_clk.clkr,
++	[LPASS_CORE_CC_CORE_CLK_SRC] = &lpass_core_cc_core_clk_src.clkr,
++	[LPASS_CORE_CC_DIG_PLL] = &lpass_core_cc_dig_pll.clkr,
++	[LPASS_CORE_CC_DIG_PLL_OUT_MAIN_DIV_CLK_SRC] =
++		&lpass_core_cc_dig_pll_out_main_div_clk_src.clkr,
++	[LPASS_CORE_CC_DIG_PLL_OUT_ODD] = &lpass_core_cc_dig_pll_out_odd.clkr,
++	[LPASS_CORE_CC_EXT_IF0_CLK_SRC] = &lpass_core_cc_ext_if0_clk_src.clkr,
++	[LPASS_CORE_CC_EXT_IF0_IBIT_CLK] = &lpass_core_cc_ext_if0_ibit_clk.clkr,
++	[LPASS_CORE_CC_EXT_IF1_CLK_SRC] = &lpass_core_cc_ext_if1_clk_src.clkr,
++	[LPASS_CORE_CC_EXT_IF1_IBIT_CLK] = &lpass_core_cc_ext_if1_ibit_clk.clkr,
++	[LPASS_CORE_CC_EXT_IF2_CLK_SRC] = &lpass_core_cc_ext_if2_clk_src.clkr,
++	[LPASS_CORE_CC_EXT_IF2_IBIT_CLK] = &lpass_core_cc_ext_if2_ibit_clk.clkr,
++	[LPASS_CORE_CC_LPM_CORE_CLK] = &lpass_core_cc_lpm_core_clk.clkr,
++	[LPASS_CORE_CC_LPM_MEM0_CORE_CLK] = &lpass_core_cc_lpm_mem0_core_clk.clkr,
++	[LPASS_CORE_CC_SYSNOC_MPORT_CORE_CLK] = &lpass_core_cc_sysnoc_mport_core_clk.clkr,
++	[LPASS_CORE_CC_EXT_MCLK0_CLK] = &lpass_core_cc_ext_mclk0_clk.clkr,
++	[LPASS_CORE_CC_EXT_MCLK0_CLK_SRC] = &lpass_core_cc_ext_mclk0_clk_src.clkr,
++};
++
++static const struct regmap_config lpass_core_cc_sm8650_regmap_config = {
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.max_register = 0x56014,
++	.fast_io = true,
++};
++
++static struct clk_alpha_pll *lpass_core_cc_sm8650_plls[] = {
++	&lpass_core_cc_dig_pll,
++};
++
++static const struct qcom_cc_driver_data lpass_core_cc_sm8650_driver_data = {
++	.alpha_plls = lpass_core_cc_sm8650_plls,
++	.num_alpha_plls = ARRAY_SIZE(lpass_core_cc_sm8650_plls),
++};
++
++static const struct qcom_cc_desc lpass_core_cc_sm8650_desc = {
++	.config = &lpass_core_cc_sm8650_regmap_config,
++	.clks = lpass_core_cc_sm8650_clocks,
++	.num_clks = ARRAY_SIZE(lpass_core_cc_sm8650_clocks),
++	.driver_data = &lpass_core_cc_sm8650_driver_data,
++	.use_rpm = true,
++};
++
++static const struct of_device_id lpass_core_cc_sm8650_match_table[] = {
++	{ .compatible = "qcom,sm8650-lpasscorecc" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, lpass_core_cc_sm8650_match_table);
++
++static struct gdsc *lpass_core_hm_sm8650_gdscs[] = {
++	[LPASS_CORE_HM_GDSC] = &lpass_core_cc_lpass_core_hm_gdsc,
++};
++
++static const struct regmap_config lpass_core_hm_sm8650_regmap_config = {
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.max_register = 0x9000,
++	.fast_io = true,
++};
++
++static const u32 lpass_core_hm_sm8650_critical_cbcrs[] = {
++	0x9000, /* LPASS_TOP_CC_LPASS_CORE_SWAY_AHB_LS */
++};
++
++static const struct qcom_cc_driver_data lpass_core_hm_sm8650_driver_data = {
++	.clk_cbcrs = lpass_core_hm_sm8650_critical_cbcrs,
++	.num_clk_cbcrs = ARRAY_SIZE(lpass_core_hm_sm8650_critical_cbcrs),
++};
++
++static const struct qcom_cc_desc lpass_core_hm_sm8650_desc = {
++	.config = &lpass_core_hm_sm8650_regmap_config,
++	.gdscs = lpass_core_hm_sm8650_gdscs,
++	.num_gdscs = ARRAY_SIZE(lpass_core_hm_sm8650_gdscs),
++	.driver_data = &lpass_core_hm_sm8650_driver_data,
++	.use_rpm = true,
++};
++
++static int lpass_core_cc_sm8650_probe(struct platform_device *pdev)
++{
++	return qcom_cc_probe(pdev, &lpass_core_cc_sm8650_desc);
++}
++
++static struct platform_driver lpass_core_cc_sm8650_driver = {
++	.probe = lpass_core_cc_sm8650_probe,
++	.driver = {
++		.name = "lpass_core_cc-sm8650",
++		.of_match_table = lpass_core_cc_sm8650_match_table,
++	},
++};
++
++static int lpass_hm_core_probe(struct platform_device *pdev)
++{
++	return qcom_cc_probe(pdev, &lpass_core_hm_sm8650_desc);
++}
++
++static const struct dev_pm_ops lpass_hm_sm8650_pm_ops = {
++	SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
++};
++
++static const struct of_device_id lpass_hm_sm8650_match_table[] = {
++	{ .compatible = "qcom,sm8650-lpasshm" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, lpass_hm_sm8650_match_table);
++
++static struct platform_driver lpass_hm_sm8650_driver = {
++	.probe = lpass_hm_core_probe,
++	.driver = {
++		.name = "lpass_hm-sm8650",
++		.of_match_table = lpass_hm_sm8650_match_table,
++		.pm = &lpass_hm_sm8650_pm_ops,
++	},
++};
++
++static int __init lpass_core_cc_sm8650_init(void)
++{
++	int ret;
++
++	ret = platform_driver_register(&lpass_hm_sm8650_driver);
++	if (ret)
++		return ret;
++
++	return platform_driver_register(&lpass_core_cc_sm8650_driver);
++}
++subsys_initcall(lpass_core_cc_sm8650_init);
++
++static void __exit lpass_core_cc_sm8650_exit(void)
++{
++	platform_driver_unregister(&lpass_core_cc_sm8650_driver);
++	platform_driver_unregister(&lpass_hm_sm8650_driver);
++}
++module_exit(lpass_core_cc_sm8650_exit);
++
++MODULE_DESCRIPTION("QTI LPASS_CORE_CC SM8650 Driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
