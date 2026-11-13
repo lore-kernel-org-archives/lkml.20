@@ -1,75 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604141;
-	b=zCEyp8WcJ5gMuopx90ts3Ojia/ZBZBhpLO3Psr13Svavl1wkD9Xch9rUtDjWitVDOuyc
-	 5chYuUmfgXFC/RrwyW6AfnxK4CflEFZqT55/3/r62XYCoqvL/xzL1ntLDfgofWSAnWGqq
-	 UdlFPN/UnbQk+apImaQr5qKdRYCxLxmtVSROkl5vmzpNfEMQTN0QtrEkvpCpxqDYXFZUN
-	 MPuolRil3DvYGToxUp6TWGJR1qzonuJWSe4OD8ToCRNZnn/IdzK9hDG5jCW7WYaFbxiRt
-	 a5n+5/4wGzWVrXcEHP4/DQ0n1l7pqHy3uiYWozuQwvHquytbGKhILqw4A1Ln4fsJOmA==
+	t=1794604167;
+	b=uDMpKQLhn6w0kOOT8I7U5k81MHoh8HGJ0Guuk+X9YyZxAEY6GI/0v3Hm32jiqyAeGmhI
+	 PPmhXxwsLnJKUBimzOKbb/phsI7RrztgdVgn8w1xYNf94wKH06HArTKRNVK/uyKZPAyXL
+	 xq/SHnO2k8Ni36b1wIWeGXU7JkkbPqx0zxXexEngRm6z2LdhK1FQ+2gCP1KV9zrxIqNN4
+	 3JZ3s7/JukCwdx1OkLO1kf73NxJyyzyzWX6C6T0S1nPfRNUkNWmk6oEtHcMHLW9qhcxa7
+	 5tpvqF09fTu1Inun/Wtd692Fqg7+qgWq+Cc8EY4pqZnp8sTof8QU2kS0el/+MXftQBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604141;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604167;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=bii9amTscW3OiRnhlO30jawc6UkXtGMoD9aSHOraYfA=;
-	b=yt34UEGz7P0OYFaZbfJlwBV7L6AWG4cwOwg9ds604b10wmQYuge5QXwq4rUGIPuQ4sjf
-	 TC6l7MLIpyJgiHkdOpomqf0mcgyYAWLK7M88S8XvAa993PpUcbebFzZJeLnbmcGHHLVJs
-	 Voo6xo19VTcGt1QDFav45p3slwsEv/1vxx8s2piP97Hc9Gms+xkX10ZAmsuJvYX8OTzCe
-	 gX0Ydfpk2Yr3mVL7fW+C6uwL0flJCTUv+n6irQ4wkso0YjmekhCnlec58Odane0eDXGZz
-	 esAQnGI5S0hGydPJIaPlR9tDtwgBnyL6NHnhDm9EBhr3uLFFqhqkBzKsFAt95Moh9hw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/XWpc39jBynwI4nBXv0NNeAvE7u5mNOBsmUvCwWc94s=;
+	b=bwcN7P6kc1ECf03Yt2dFQs1y+qFM9i5R8mp9PGrXZMob9WFfbrZdQL/AsAFw8vADjQfl
+	 ao4PaWjjV+wcTbBXd0Pg3Tk9/TaQgTAYGH5QfrY6dhe1cechNoTMpmkxObjcKKz6YmpyC
+	 DjmTCzmXke7opz7foVSmlvNU9u6DxsyqG7NX31YHKzu/kRCjSdvmDEfSoq+WSJcX3gWFN
+	 vhYXJH9dUJG00fTCD7j2ySd1tcIqvuP4ty+pjsmefIQ5YMhFG1K6tX6InuXx+ed9f1pbV
+	 VWVjQEyBXf2J0xt2VyhDgmHtiF0cLeimHzc5aeXXrt0gAAM7LerU9zrzUUq91f44jNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mLSV5C1P;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aLz0Y4MS;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C2D60A5BFD
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:09:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34C2D60A5BFD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65E3606A339
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:09:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D65E3606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mLSV5C1P
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so2125895eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:09:01 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aLz0Y4MS
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15dd124bbe7so503316c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:09:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794604140; x=1795208940; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=chromium.org; s=google; t=1794604166; x=1795208966; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bii9amTscW3OiRnhlO30jawc6UkXtGMoD9aSHOraYfA=;
-        b=mLSV5C1PUglmLVqgAzko8QNE4DG2RAkCb+9hOZzPOgJoHzLO74GherwjKKPoJ+3wyr
-         80DhPgoIXoBS+TItQk6UZFC/wH2natAHCMccK5GcF2KkTYP8ICnlk9FiTrtj326uOV4B
-         3LlFkd1LFVBEhfuy7fPAdffJOucWxzBUGVWjtiA/32mxkmqDwzYsLVYaE1I4CEE21WbF
-         QlAfXDoCxy4E8iGMrIDvX2Mqg0jemjitVPJumwS3AdV6Lxy7KrTMnw+5lihawpRYCVMd
-         yp4S83rOb1oiEMgMYOhhBZQhSZcLxyl6PJSD17uh9QRZFGkvZuI/1jUE2RkTHYqA//DP
-         liZA==
+        bh=/XWpc39jBynwI4nBXv0NNeAvE7u5mNOBsmUvCwWc94s=;
+        b=aLz0Y4MS5HVFlOxmPqqFMPg0eifh1MyYKl/shV1TSg6AxCreEouIS+gfPiKcMe7L9e
+         OJULCa6qggA7ACGjZYTTTAD8i4wnoNX4gtt2F8uaWmZybukSpX1dnjUmD89JcyNbtIoz
+         4T+1uksvKL1Z2sg/crUlpSJThsjBU/GFWUcGI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794604140; x=1795208940;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bii9amTscW3OiRnhlO30jawc6UkXtGMoD9aSHOraYfA=;
-        b=VI08fsh+2Zwqs0p294by/ksVW7w18Msg26AhvG2XaHOJPlAgK+MdE5C7dh2MKhb6Y5
-         Yu65WMgMShhC0Wd4fHuM9j0Sd30IPbk/O60qA0nJQEfgJEzK7WZozw3Qzxq1GjWPb86Y
-         QuKpMvZDtlOerwQoirnMvuwrQma9nQFHdcu7OLoZwtGLQaOUCK0ehr5nKcd6GTfQIaeE
-         zOH1JploreIzX892eYaJdkNZVlEdwI+Y8jbYJ5bvuTL0kbeLbZprnRkc0qIuHw7At1mc
-         zz12abo1YqJyNHxlT+O68mkemXRP1Jg6kTEsRbHZl+9d9936ezRT0MDG1XkJJtaAYF9B
-         +8rA==
-X-Forwarded-Encrypted: i=1; AL+hErE4B0DtYKK3wni5KU93tmZZJm2AkVr8S+/0ph181p9PsRDGFzBkKPYz7W40akZXm7Kl8mpLclZl39X1XI8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9D6etSgh2/CDhMdoutlkf57yXZwqbWz2thzp8QNhkG/+KGlZ6e
-	pj7vx4WUYkzpGobV/bD7scykU9fNiKD2TFPWhVkM2pz0qFRhy8wbO/QtHUvvxTXCgONbfO6LJfQ
-	I3L3uXEigbQ==
-X-Received: from dycnm5.prod.google.com ([2002:a05:7300:d185:b0:35a:c4b6:314b])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:c01a:20b0:36d:4135:cd7
- with SMTP id 5a478bee46e88-37966292657mr3506079eec.18.1794604139933; Fri, 13
- Nov 2026 13:08:59 -0800 (PST)
-Date: Fri, 13 Nov 2026 13:08:22 -0800
-In-Reply-To: <20261113210822.3112700-1-irogers@google.com>
+        d=1e100.net; s=20260707; t=1794604166; x=1795208966;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/XWpc39jBynwI4nBXv0NNeAvE7u5mNOBsmUvCwWc94s=;
+        b=SAHbq24WVmoGrG+sFBfDX1LHzoQFXS0mgSEZVFTMTdDgtVZ3HXthXnTFib9PYFi0TA
+         A/v7D75gIV7BDsjA7Jzh1ivN+IF4kCgltjSpW2GQCXT089aEeJqS3heIicoDRc0nd+s4
+         Y8Ol2L0ET8t712O22e4hj4dHupHC9eRlqh32qZ/bF9peTamXok6K9cYBn4V4Do979Kco
+         J6K4dfMe3+U3zJu6hEsAJ90O5J7ZbTlCdr99uX5HcNoKm+KYsnOqMHT4xLYCEoFr81G7
+         F6P29Z6McN9lvR3wAYtbWcAbr07BP9xr2/F85oWINa6pIDUbq/meHUEPBAdSulbsF/d9
+         vU5Q==
+X-Forwarded-Encrypted: i=1; AL+hErEQBOhWovnfgKySiVTmUlv7UZY2fkuX37JYgZLmAzdI1E5iaC6J//qhK+T4pWC1xRm7D5kQkHbnSeRhPco=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/tI65ndlrpqgFiYCO7mv1EAdOVF8YG55NoHO+mkWZMN5NvzSOI
+	+p+7Wg161odNSRar4clRxfQsSTqLGM8oGPOc+L61TYBf7h+gSCjI2k93zYFmPSrTQA==
+X-Gm-Gg: AYBFou0lsQEf4QdG4FIckciqmijaPUEgD/VvbCqPPpd9WENKwIRP1fun0y24A42yYTG
+	tkX6zs4htluyhNy9p4nCaLxQytS2IoAM/bXzmp9vJxb6lJTe24C0807vzJeJ2zeMHwSIuOZ//An
+	qmt6mmiLnE5z3YdLnkJqm0EFt1M43+200+NhiqFXKCS0KXRouhu2muPLTwizNAATe/QA2PgdRk8
+	olmv02gXGPB0N8VdPss+nN+mbpWPvrRzibPPo7hcmq1vE68smKrosDC3VAJs3c4ueSuOcqtnFCK
+	awyWcregvotx5M7bEEbOsoJhd5jYquIQ/o4fmRLmwbRDmuti2vfcUId6QxkU48ioI+PFd9qV0mY
+	P2yAlioKG40GQKi+fwO/0P/QRW/Eu2LNlpM0sfHIQzgTD4o39HDOMGHtm4elqGMsDwcWtQHPJMK
+	ArvMGs32GlI7mOgAAAaaTMqgI4h2afsbUFIeH1TfffvgUYpC/vlc+l4bppiLAfmWFhWtp7U0gez
+	pkgQWq9NgIZhjo2fVr9jbN8pKl2xxNOAWnLN4WGfeICiYXoJhiuc7Fd3f4cH+dLO59Arienptai
+	JU0Xe629PYw8y1dwNlRn12P+UWYniNZ/yfne5pqNzvLNWOwTvqogkKl4jIjv997oOv/Z/WbcWA2
+	rD5UKifR8oGI3LQ==
+X-Received: by 2002:a05:701b:4182:10b0:1b2:5128:df1b with SMTP id a92af1059eb24-1b5031b7dd3mr3390648c88.45.1794604165722;
+        Fri, 13 Nov 2026 13:09:25 -0800 (PST)
+Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:38c:b779:3be9:e682])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm8463040c88.0.2026.11.13.13.09.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 13:09:23 -0800 (PST)
+From: Douglas Anderson <dianders@chromium.org>
+To: Devicetree-compiler@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	Julius Werner <jwerner@chromium.org>,
+	Michal Simek <michal.simek@amd.com>,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+	linux-arm-kernel@lists.infradead.org,
+	Simon Glass <sjg@chromium.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	linux-kbuild@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Will Deacon <will@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Devicetree@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Nicolas Schier <nsc@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Saravana Kannan <saravanak@kernel.org>,
+	Brian Norris <briannorris@chromium.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	David Sterba <dsterba@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Manuel Ebner <manuelebnerli@mailbox.org>,
+	Marco Elver <elver@google.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Nick Terrell <terrelln@fb.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Rong Xu <xur@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	cros-qcom-dts-watchers@chromium.org,
+	devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org,
+	workflows@vger.kernel.org
+Subject: [RFC PATCH v2 0/5] arm64: Add FIT configurations for sc7180-trogdor and google,lga
+Date: Fri, 13 Nov 2026 13:09:09 -0800
+Message-ID: <20261113210918.356261-1-dianders@chromium.org>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,163 +134,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261113210822.3112700-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113210822.3112700-11-irogers@google.com>
-Subject: [PATCH 10/10] perf build: Default JEVENTS_ARCH to all
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
-Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Kan Liang <kan.liang@linux.intel.com>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Because block-indexed string compression packs PMU event and metric
-strings into independently compressed ~8 KiB blocks decompressed on
-demand via (block_id << 16) | sub_offset, bundling non-host
-architectures' compressed blocks in .rodata incurs zero runtime
-decompression CPU or heap memory unless those architectures are queried.
-With zstd enabled, bundling PMU event and metric tables for all
-architectures (JEVENTS_ARCH=all) is 5.77 MiB smaller overall than an
-uncompressed x86-only build (JEVENTS_ARCH=x86 JEVENTS_COMPRESS=none),
-cutting the stripped perf binary nearly in half (-45.4%) while enabling
-cross-architecture perf.data analysis out of the box:
 
-  Component                   x86 + none      all + zstd      Delta
-  -----------------------------------------------------------------
-  pmu-events-string.o (dec)   6,901,987 B      794,032 B    -88.5%
-  pmu-events.o (dec)            257,987 B      314,940 B    +22.1%
-  pmu-events-in.o (dec)       7,160,005 B    1,109,002 B    -84.5%
-  perf stripped (file size)  13,321,832 B    7,276,200 B    -45.4%
-  perf unstripped (file)     24,526,816 B   18,494,088 B    -24.6%
+The end goal of this series is to move forward on producing a
+"universal" Pixel 10 boot image that can boot on a variety of Pixel
+10 devices (frankel, blazer, and mustang and eventually multiple
+revisions of each). At the moment, this is impossible since the Pixel
+10 bootloader:
+* Picks the base devicetree based on SoC ID information.
+* Picks an overlay devicetree based on Board ID information.
+* Needs metadata associated with each overlay to match it up.
 
-Adding every non-x86 architecture (arm64, powerpc, riscv, s390, nds32)
-only adds +55.6 KiB of compact tables in pmu-events.o and +194.6 KiB of
-compressed string blocks in pmu-events-string.o (785,912 B .text for all
-vs 586,654 B for x86).
+Since we don't have per-board overlays and don't have per-board
+metadata, that means that today you need to pick exactly one revision
+of one board and build a boot image just for that.
 
-Runtime decompression overhead is minimal. Measured on a hybrid Intel
-Core i7-14700 (cpu_core + cpu_atom) across 100 interleaved rounds of
-'perf stat true' (which parses default events and Default/TopdownL1
-metrics across both core PMUs plus common):
+How does this series help us?
+1. It uses a checked-in `.fitconfig` configuration file alongside the
+   `.dts` files to select which DTBs belong in the FIT image and to
+   associate metadata with each board's configuration in
+   `scripts/make_fit.py` [1]. Other tools can parse this metadata in
+   order to craft a package that the Pixel bootloader can understand.
+2. It integrates a call to the new `fdtfactor` tool [2], which results
+   in a "base dtb + board dtbo" that looks like what the bootloader
+   needs, at least as long as all the boards have the same SoC.
 
-  Build mode    Wall med   Delta wall   User med   Sys med   MinFlt
-  -----------------------------------------------------------------
-  none (x86)    27.10 ms           --   12.01 ms  16.52 ms    4,036
-  zstd (x86)    29.93 ms     +2.83 ms   12.65 ms  17.92 ms    4,583
-  zlib (x86)    31.13 ms     +4.03 ms   13.96 ms  17.65 ms    4,548
-  lzma (x86)    35.05 ms     +7.95 ms   19.25 ms  17.87 ms    4,555
-  all + zstd    30.25 ms     +3.15 ms   14.05 ms  18.04 ms    4,652
+What happens if everyone hates this series and it gets dropped on the
+floor? Honestly, everything here could just go out of tree and it
+would be "fine". IMO it's nice to have the Board ID / SoC ID
+information for each devicetree stored in the same repository as the
+devicetrees themselves are, but if this has to live somewhere else
+then so be it.
 
-Where the ~2.8-3.1 ms in 'perf stat true' (zstd) goes:
-1. Pure decompression CPU (+0.64 ms user time on x86, +2.04 ms on all):
-   Digesting the 64 KiB ZSTD_DDict once and decompressing the touched
-   8 KiB blocks takes ~640 us in user space on x86 (compared to +1.95 ms
-   with zlib and +7.24 ms with lzma).
-2. Anonymous heap page faults (~1.4 ms sys time, +547 to +616 minor
-   faults): In a warm-cache benchmark, uncompressed mode faults
-   pre-populated page-cache pages from .rodata, whereas compressed mode
-   allocates malloc() buffers (~2.1 MiB across ~265 decompressed 8 KiB
-   blocks), incurring kernel zero-page minor faults. On a cold-disk
-   invocation, reading ~6 MB less .rodata from disk offsets this.
-3. Why ~265 blocks are touched on 'perf stat true': Resolving Default
-   metricgroups (TopdownL1, Default2, Default3, Default4) calls
-   pmu_metrics_table__for_each_metric() across both cpu_core and
-   cpu_atom (alderlake) plus common, linearly scanning every metric in
-   those tables (~190 metric blocks) before binary-searching the ~30
-   referenced events (~75 event blocks).
+NOTE: from reading the above, you might wonder why the sc7180-trogdor
+`.fitconfig` configuration file is part of this series. The answer: it's
+a board I was previously deeply involved in and it is a convenient way
+for me to prove out that the Chromebook use case works well. I did hack
+up some changes to the ChromeOS build system to use the provided FIT
+image and it worked great, but since I'm not on the ChromeOS team these
+days it's not something I personally plan to follow-up with. It sounds
+plausible that Chen-Yu may follow-up with it or post a similar change
+for some Mediatek Chromebooks.
 
-On 'perf list' (100 interleaved rounds), user CPU time only increases
-from 32.10 ms (none) to 34.09 ms (zstd, +2.00 ms) and is unchanged at
-32.08 ms for all+zstd, negligible next to the ~850 ms spent scanning
-sysfs PMUs and tracepoints.
+[1] https://github.com/open-source-firmware/flat-image-tree/pull/66
+[2] https://lore.kernel.org/r/20261101220224.1436242-1-dianders@chromium.org
+v1: https://lore.kernel.org/r/20261020153652.2907186-1-dianders@chromium.org
 
-Default JEVENTS_ARCH to all in Makefile.config and pmu-events/Build,
-allow single-architecture builds via JEVENTS_ARCH=<arch> (falling back
-to NO_JEVENTS=1 if that architecture lacks mapfile.csv), and update
-tools/perf/tests/make to exercise JEVENTS_ARCH=$(SRCARCH) alongside the
-new default.
+Changes in v2:
+- New preparatory patch documenting preexisting FIT_COMPRESSION and
+  FIT_DECOMPOSE_DTBS variables (Simon Glass)
+- Replace FIT_ITS + mkimage + fdtget/fdtput approach with FIT_CONFIG
+  .fitconfig sidecar files handled directly by scripts/make_fit.py
+  (Simon Glass)
+- Support subnode properties (e.g. match-1/...) and u32 integer values
+  for the proposed FIT configuration match subnode spec (Simon Glass)
+- Document FIT_CONFIG in Documentation/kbuild/kbuild.rst and under
+  image.fit in arm64 'make help' (Simon Glass)
+- Update fdtfactor invocation for v2+ flags (-v -> -s, -f -> -F)
+- Expand commit message and notes to explain why FIT_FACTOR_DTBS is
+  needed, that fdtfactor is an external host dependency, and that
+  compressed DTBs in the FIT are supported (Simon Glass)
+- Document the optional fdtfactor dependency and FIT_FACTOR_DTBS /
+  FDTFACTOR / FDTFACTOR_ARGS in Documentation/process/changes.rst,
+  Documentation/kbuild/kbuild.rst, and arm64 'make help' (Simon Glass)
+- Drop fdtget/fdtput sync and hostprog patches (patches 1-3 in v1) now
+  that scripts/make_fit.py handles FIT configuration files directly
+  (Simon Glass)
+- Replace checked-in lga.its with a compact lga.fitconfig sidecar file
+  consumed by scripts/make_fit.py (Simon Glass)
+- Move board/SoC matching metadata from the configuration description
+  string to a typed match-1 subnode per the proposed FIT spec extension
+  (Simon Glass)
+- Replace 728-line sc7180-trogdor.its with a 49-line
+  sc7180-trogdor.fitconfig sidecar file consumed by scripts/make_fit.py
+  (Simon Glass)
+- Move motivation for sc7180-trogdor from commit notes into the commit
+  message body (Simon Glass)
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/Makefile.config  | 9 +++++++--
- tools/perf/Makefile.perf    | 3 +++
- tools/perf/pmu-events/Build | 2 +-
- tools/perf/tests/make       | 3 ++-
- 4 files changed, 13 insertions(+), 4 deletions(-)
+Douglas Anderson (5):
+  kbuild: fit: Document FIT_COMPRESSION and FIT_DECOMPOSE_DTBS
+  kbuild: fit: Support selecting DTBs and config properties from a file
+  kbuild: fit: Add opt-in FIT_FACTOR_DTBS support using fdtfactor
+  arm64: dts: google: lga: Add lga.fitconfig FIT configuration file
+  arm64: dts: qcom: sc7180: Add sc7180-trogdor.fitconfig FIT config file
 
-diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
-index b4764f69f47f..6051d7c7dee8 100644
---- a/tools/perf/Makefile.config
-+++ b/tools/perf/Makefile.config
-@@ -872,9 +872,14 @@ else
-   endif
- endif
- 
-+ifeq ($(JEVENTS_ARCH),)
-+  JEVENTS_ARCH := all
-+endif
- ifneq ($(NO_JEVENTS),1)
--  ifeq ($(wildcard pmu-events/arch/$(SRCARCH)/mapfile.csv),)
--    NO_JEVENTS := 1
-+  ifneq ($(JEVENTS_ARCH),all)
-+    ifeq ($(wildcard pmu-events/arch/$(JEVENTS_ARCH)/mapfile.csv),)
-+      NO_JEVENTS := 1
-+    endif
-   endif
- endif
- ifneq ($(NO_JEVENTS),1)
-diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index 53ab82681569..e9b8945b5622 100644
---- a/tools/perf/Makefile.perf
-+++ b/tools/perf/Makefile.perf
-@@ -130,6 +130,9 @@ include ../scripts/utilities.mak
- #
- # Define NO_PYLINT if you do not want to run pylint during build
- #
-+# Define JEVENTS_ARCH=<arch|all> to select which architecture(s) PMU event and
-+# metric tables are generated for (defaults to all).
-+#
- # Define JEVENTS_COMPRESS=<zstd|zlib|lzma|none> to select or disable
- # block-indexed compression of generated PMU event and metric strings, where
- # strings are packed into ~8 KiB blocks compressed independently and
-diff --git a/tools/perf/pmu-events/Build b/tools/perf/pmu-events/Build
-index 88b6b47951e0..32fc1378ef3a 100644
---- a/tools/perf/pmu-events/Build
-+++ b/tools/perf/pmu-events/Build
-@@ -36,7 +36,7 @@ else
- 
- # Setup the JEVENTS_ARCH, JEVENTS_MODEL and JEVENTS_COMPRESS
- ifeq ($(JEVENTS_ARCH),)
--JEVENTS_ARCH=$(SRCARCH)
-+JEVENTS_ARCH=all
- endif
- ifeq ($(JEVENTS_MODEL),)
- JEVENTS_MODEL=all
-diff --git a/tools/perf/tests/make b/tools/perf/tests/make
-index 5a04f67257ac..b69ddc9e1489 100644
---- a/tools/perf/tests/make
-+++ b/tools/perf/tests/make
-@@ -77,6 +77,7 @@ make_clang_nondistro := CC=clang BUILD_NONDISTRO=1
- make_extra_tests    := EXTRA_TESTS=1
- make_no_jevents     := NO_JEVENTS=1
- make_jevents_all    := JEVENTS_ARCH=all
-+make_jevents_arch   := JEVENTS_ARCH=$(SRCARCH)
- make_jevents_compress_none := JEVENTS_COMPRESS=none
- make_no_bpf_skel    := BUILD_BPF_SKEL=0
- make_gen_vmlinux_h  := GEN_VMLINUX_H=1
-@@ -172,7 +173,7 @@ endif
- endif
- run += make_extra_tests
- run += make_no_jevents
--run += make_jevents_all
-+run += make_jevents_arch
- run += make_jevents_compress_none
- run += make_no_bpf_skel
- run += make_gen_vmlinux_h
+ Documentation/kbuild/kbuild.rst               |  33 +++++
+ Documentation/process/changes.rst             |  10 ++
+ arch/arm64/Makefile                           |   2 +
+ arch/arm64/boot/dts/google/lga.fitconfig      |  22 ++++
+ .../boot/dts/qcom/sc7180-trogdor.fitconfig    |  49 ++++++++
+ scripts/Makefile.dtbs                         |  17 +++
+ scripts/Makefile.lib                          |  32 ++++-
+ scripts/make_fit.py                           | 117 +++++++++++++++---
+ 8 files changed, 267 insertions(+), 15 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/google/lga.fitconfig
+ create mode 100644 arch/arm64/boot/dts/qcom/sc7180-trogdor.fitconfig
+
 -- 
-2.56.1.703.gf848ed807c-goog
+2.56.0.611.g1030f0b940-goog
 
