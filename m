@@ -1,90 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794599430;
-	b=4UrdNv2TjP6J+VkPU2BV9YeWoOb4r7ZbZ0tXInJ3rkjWrua3pJ62hZkAGwHwjfxn9oAG
-	 JWOIEUfGCfbg2MtO9POOsU/41rLIiFXCWtESaPPoc/VRfKMNK5OIASqzcVfodXxAt2XxE
-	 0FIwPWyz8uYTK5wOzkeKKgXo5mKV469eCoblzP/ocG5L+i+JqILMNvby74W0g+ADO+zDS
-	 bXDPhjAVaYP3yFrNSgTElhHPKG2d/tkDmtLUzh5OgO3NHN9Oa7k3puf4zxtJ07A5d1Kib
-	 cOKzDwMFvWbhq6x9QiKL91I8J9BqpzqhFxsVUMf9HJ8f34LmrTWQss9755t/1qiwijw==
+	t=1794599461;
+	b=0+3xwWXSUbTXAQfWHd+K2ALM3o6s2mrfZMbGIc3sWDhVQhbtIWbCUzKA7+7IVMUPBf8a
+	 lWFkBoJT69BuUngdAeW8TtVAsHxewlzM4GFtlBzz4Ke847hdAxafRRR0Vpmr+hjPCx4hP
+	 xk7VWb7zVadw2ZQOEHbuKJmvoHpwPR89nlc+hUHEqofmqGKbRoWQQ8OICQm2F0+uubEyB
+	 wyqt3HW8ilDUizJfvwUf3lWUI2GCp/4GY/ArZFUb8pz6pAuKpmquCtZlgVAPp67RKvWej
+	 q0GqKQd/U0st+8vhWVYRhT2gks+zli7X9nsN6NuUbFu6WTOkALgPKUvhrgEQNeRzhIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794599430;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=a2cHGLKa4ChBnuzA4CAjFivDrSBNfot35o4OmhNmk7I=;
-	b=qNS5d/V1qhVwh39kvl+8nPKQUN97uB2kLY1DRAypmMF90HWjNX1QWdRbYZwEV1oKa39l
-	 FIRi1kemwiJaH5Hz6L8EEEVVRpver4g7r8GJa+l9X0xo24szNZVpPkFzVGJCvZCCOML8R
-	 9ltbhe6txU2Y9BlPOGmC+401cekXYc5Iu3exAPG2OLCTPJiqBfQMterYf079A74cgXAhl
-	 MJQCU6oNDOLuAwrgrmBFyhrbIBFZcG/qaOhkjqtdO/XDobw57IM4OfI78BNsmaLFs9ulP
-	 sAmzBQ3cgIPaysR2255EWeKIMfDSb4ITZHOyiROlUyv7UFgPt6riIKG0dplI6NK16NA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794599461;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1RViC7k9xKhgymEU03e/S7bNs6re40TdTRhXbj9cDgQ=;
+	b=ETsv9RWpg2tNEQdBI5X9i1KaSur6fIQChtTyik3E/0SazZimj5ioiHyJMaeuw5Qim5tt
+	 b9isJO7LVB58P4H8TSgRyqDdf4NykkpBzB66VwCkHzpxxsdShzCUsXTx/RzIQ3nyQ1v0Z
+	 aVMsZAzxJs4O9KhNMTCdpp+BzaxQspoWHo2fGOnUmjMTMXSDX4JrfWGqn6LrycMc2Eo9l
+	 DwFaLAX9FMe8BoK3ChQVWDbIUVmO9gYh2hJKM1fzji839rdyDdZzrHyLmES+2fOwGKTQa
+	 ymG4QDj7ZOG82yY3q6jqq3N0BqjwuHndrW4dLrkfUgzK45tqxyudv2qfwKX1Sl8/m1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=XJxNNhwt;
-	arc=none smtp.remote-ip=209.85.215.170
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=leDAC8+b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84CB4606A335
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:50:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84CB4606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3034C606A32D;
+	Fri, 13 Nov 2026 19:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=XJxNNhwt
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso537905a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:50:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794599430; x=1795204230; darn=vger.kernel.org;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=a2cHGLKa4ChBnuzA4CAjFivDrSBNfot35o4OmhNmk7I=;
-        b=XJxNNhwtP8bo7X/MfuL+1ly6k1wUKRjBUk/gv564/quCH/tLGcASLoIlXSZL56/mq1
-         zB+VsAIT5RaCLIzbdjuGIQYE2DOO51CLoQKlalLNVK9Vht2KF0TQfC+6kuQl7uXOB3Kv
-         uZfcpMYYRKkq/xR5LQwghiOY6EaW/Lb+TSNrY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794599430; x=1795204230;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a2cHGLKa4ChBnuzA4CAjFivDrSBNfot35o4OmhNmk7I=;
-        b=hkJRf0IP0AbX68KmZ2D3K217U/7VZr+j63DN3p6VCMLQJ93p0f30OYGG3iXzExESfH
-         jBIGFUzx4bH6nq1lAE5K28EMRERfrbbw8/HfKbhLC/6VBx+0r1AeNEfZJx9wCalgTGYE
-         BoR0UWN6+5j9pR3dV8iqr3kFApsdqInYLWFHzGHRInCWPX/zxLy72aP87tqPA6aRz/g0
-         ztX5X6IjFP0qlGnYMgtt1NCpeORp6TlvLDhT9KQSsTuCAeax+cSEglBa+HCHkETPc4yg
-         S0mA0GjMoadF31kHr0730RwrniBb6eYYVHxIbD4keS/CI04h5kkzRYj6MlisV8YQP7g/
-         vZ8g==
-X-Forwarded-Encrypted: i=1; AL+hErHlGg6tAdp3+to7tgHRhOzUMTlAx30HvUX+24TLKR3iXGQZYLr/RGfX3MckkCMrG73niftUDjGZmLJqtP8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/qDBBpgTpqhW15eC/Pvj8i7tfu3dchyG1zyzQ6gmBcHcsZj1Oz
-	cYCux3fsnHWN5Q7m57enAyl0whcGjx5XMqSC4zv8TzjsaPRu6pzN2j6KX+6f08Gkpzo=
-X-Gm-Gg: AYBFou38gQPD2C8hXhLDFkM6/cFjT9y1b4e+IQd41DdoPWexhQMuE3suJw2gOAZttDQ
-	1bIk1vaQAAYfWFkBQ+2INS0/caRvIP1TqkW2uCQT2GrRa8dz3vxcEaZ3cMxYtbq1HgGLMVysyCm
-	OZKDeVeOOWqcMMouAsYxP4AVeqiRnkvAsKYvGJUqju+l4SpSsRPqCNZb/543Umdz7WFmH5jBvS1
-	tHn9K6jcPEeEFJ/e8ogrmOfbLVvQ7xJIf66cJFQp8yot5+WxtUQR+Hoqz0/rV344Ds5vU7+EcE4
-	fVVUymBQ/gugR97IK6muhIdKELY9WehbVCXz1u5lNQ8AiQCawcTmySCQiy2pzrGRqdTqMf6CD4x
-	Th9bNstyRItEoO9NwVSlBCscPpI9HYUApuUKvhtX+ETRK7ek1qc1z94unowakURBA+DV8q+24zl
-	4txCuhMbipHDPjv0jlTsz5SSC/JWTWZAKo5sC+vDeOtW4hrjjycEzDOxotCOhTEmm9Z/Kk842YP
-	7fCLHnqZl/nzat1BbiI1etuRGPix1PQReCcyVUmXhTOvqOVB7jh9TpGBjQeh1GtzMyaYqQqcYIs
-	snpIEXNzP3LNpIKPJSy3EoQQh3SdLN+zJSowDBc06A3LruGPcXUg/e9cPbE2WQAYU4IMwt6wseK
-	LwHCMVrbfXo5mJn02QB/1Bw5tPJkqprlgc6WSlLCo+FyHDxl2b5O0X5JWg30fqRvRjNSgVtWOsk
-	EbRFZenEdh+xXnNTz6MlU47t5OhOxJWYAB2wyxHfqpXB8c5E4arYUAYm1Bgc8s
-X-Received: by 2002:a17:90b:134f:b0:3ac:b048:fa13 with SMTP id 98e67ed59e1d1-3b1b0cf9ad5mr3440579a91.67.1794599429822;
-        Fri, 13 Nov 2026 11:50:29 -0800 (PST)
-Received: from [172.22.0.2] ([50.175.87.158])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18adce4sm1656569a12.23.2026.11.13.11.50.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 11:50:28 -0800 (PST)
-Date: Fri, 13 Nov 2026 11:50:23 -0800
-From: Chris Down <chris@chrisdown.name>
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>
-Subject: Re: [PATCH] PCI: liveupdate: Factor out pci_dev_ser allocation and release
-In-Reply-To: <20261109174009.735309-1-dmatlack@google.com>
-References: <20261109174009.735309-1-dmatlack@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=leDAC8+b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CADD01F000C4;
+	Fri, 13 Nov 2026 19:51:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794599461;
+	bh=1RViC7k9xKhgymEU03e/S7bNs6re40TdTRhXbj9cDgQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=leDAC8+bQloJn/mEZ9sZ1efIwIAqUVa3id0mx/Y2OlOs9fVnjj4oKZ29696nzFK7x
+	 1t3oPt5lQr76cPiw4ip5HYWAvsgSXaTDaTQcGcc7/SbdwTnhLZlwHfXEDeMIeo4oex
+	 UCIi9I6eKG9DHyTLmaaFcBNaxalsgJUx2BfwooQyGyHqdUaxpvsCEp+G/+P+XwmAfb
+	 W00+IFZOB6APS+IUJf/aTxiV3RBzfSKM3UASuw7sW7HSSX8x/N9iQP3xUFSd2PQvAj
+	 LE6BlN9cwi8CQv6dsiTR4u8t/swVJSgNoIbEj1j/rw2FNvHrjGkS7ogepXaeMr5pOU
+	 mbuO9/v3iQu+w==
+Date: Fri, 13 Nov 2026 09:50:59 -1000
+Message-ID: <2a1f54ec70384b99add9987a462b2052@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Kang Chen <k.chen@smail.nju.edu.cn>
+Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH sched_ext v2 1/2] sched_ext: make DSQ iterator stay drained after NULL
+In-Reply-To: <20261113024505.922854-1-k.chen@smail.nju.edu.cn>
+References: <20261110125113.2935742-1-k.chen@smail.nju.edu.cn> <20261113024505.922854-1-k.chen@smail.nju.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,16 +57,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Message-ID: <20261113115023.0690d833fdabaa41@chrisdown.name>
-User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-Hi David,
+Hello, Kang.
 
-Thanks for following up on this! I've tested that this works well.
+v1 is already applied to sched_ext/for-7.4-fixes.
 
-Reviewed-by: Chris Down <chris@chrisdown.name>
-Tested-by: Chris Down <chris@chrisdown.name>
+The selftest doesn't catch the bug reliably. Every ops.dequeue() invocation
+overwrites next_after_drain and the test reads it once at the end. If the
+last invocation saw an empty DSQ, the restarted walk returns NULL too and
+the test passes on a kernel without the fix. Here, it passed about half of
+the runs on an idle VM without the fix.
 
-Chris
+Also, I don't think the selftest is all that useful.
+
+Thanks.
+
+--
+tejun
