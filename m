@@ -1,56 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537759;
-	b=gt5PnLOxK6ySWhGg+bJC9btN3mZHOYeQ9r6amV8ZKTT0AdB/TKxMLHuRSJW3/wvuQmUJ
-	 onDbAmXpB3yyfaO0tbSOZIpvOLTFT3MauIUKvpE6MoOGHzkIG0U/XPsZ1DVCb7aCI+d4R
-	 16i1uVLKz2xihxRFah1nK/vtGvwEykBWq0yuE350t9u/YM/mTBIkvM1bq2D3DsX+vHZOT
-	 KDrmUVeV0twoS6xz7aNRkAz29Ke9tQ0h90lHNvnuGLfVsboH03O8thWdIh5MGi6fqw1mE
-	 ZTLNb0WgEEeenp/GzQWIOSaKqsF/k7JTGidFxBn5oaX8CjWrmDtAeiHT2zKTaZTVl1g==
+	t=1794537773;
+	b=ceSFaE9YE3Ii3hLFRQSpIyUIQUABy5pyPWVPxz7E3c4Gh29b7Ej6bJWJoO6/OCaimRji
+	 wq8SQSXvt9OpykoxRbHTqeYvpZahGkaZWdqhT+NasK/bnKiOAW9Gi3LrYD/CcJWGxLa8l
+	 l+ZWlcUIntQJD8vV5agE+fN5fBfISqmfpFVuKuTG4gOmzQmq8GV1d+lw246dV6Tx621Hm
+	 28WfvEnjanH+dlbLbaWQJoMdzCS14TQHVaaLbAcQfwI6t7RNClpCZyd+NF6P6/nUYtOjm
+	 B78IUH+LW8ww5lWlz8GS8ckHXdRRvls23H6WlcH04FFjB1jXAp+vu4qKL7TkI79bJ1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537759;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jQRGsd7cMv6GWPamWfpww1CqH3rlOptCcJ9oQe+sBGg=;
-	b=JALVUBcfy5chA0XAQekrKNpKIKRQuOYTUt6Oj/CqleCBJaUkHaNj0ZplAPJQoCg1IxI3
-	 q6zvjE9ee9Al1QAjKzvVdwxa7ytrd2+AVaEKk2w9v/RiMBtCc35e1Bkdl+cmBActmofT5
-	 RHBp5nhSGxtqYPDkxfhMCPTCHUuiMMhpcW8w/Pnz1RXWyE0FkKCCTkN5US9Z5y8XfPgzN
-	 1hRSJFuQtlXJihv0w5HPkxsYOw6cFGnA7kW98QPgJeJCjArX71b7y8jWGxN/8npxc8bgi
-	 MZhsRdpw2Ma6g9PzVNoVO0llT38GL82F+442lW3/8rMpDsxz/LG3rBmQWKpVVITKkjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537773;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=rpfqaLD/s0aZ2I2qPUV8mwprDsWG5GFsyO34/kwcrmE=;
+	b=4j04rXvuEcnRLrJReOdxr9ANfBdlFGdBPJYYEFWpHcJGoBRqXCq+rNzJ/+Yc+BnSHlhP
+	 hlv4QNAEOhjCoxk3DWCj4CW2y6Rvd/oIc4X/UNVu52InhZaykz4lcvioZMdm1ehobugew
+	 t9PncbJ7pF1CBPodLh/aYdJvjq/Z6/hayxZtvrQHJcXSNd0KDkSCiZeRR254422JleKos
+	 pIP/KzXKVrGtFyJy5Tof20usV83p1MSmooYr8q4HvfI5WCeCInT7C8mRrqYB7ukp5T9ja
+	 l8sAXcEA0fMVzJxTyOQCAX3Mf3+upbct6cRe5pzcbWYKDUmve7Pwyuj140WVqgUXEZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OE0b+NA8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=v2J4x8w4;
+	arc=none smtp.remote-ip=115.124.30.132
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E91A9606A330;
-	Fri, 13 Nov 2026 02:42:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A63F606A32E;
+	Fri, 13 Nov 2026 02:42:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A63F606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OE0b+NA8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC1D91F000C4;
-	Fri, 13 Nov 2026 02:42:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794537758;
-	bh=jQRGsd7cMv6GWPamWfpww1CqH3rlOptCcJ9oQe+sBGg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OE0b+NA8xUWU6fbC4NV8Ynxt3V43jQEqtwT9grvgeXAyoQ1qVxA1c4zTRJySzfFND
-	 Tq8ko47QSBZx7ZAZ4m+18/Am7EdW3xbN3cF+8ruLeT4Fcbgo61CrDkKL3N3PggxO9i
-	 lw2bsC1NGw4D4N0ToxkKfLrhGTqvzq7W37hq+AGTmFm2bcjWVNdg41UoCilcdM0J+e
-	 3+EYP2voUdO6r3J5rFoEJE0bF4q/c2+8E05yp0zsZtpMTQf3Vq/eBcVoRC6wA5LhMW
-	 I5pRW/bT7gyziWMQi/fKkP9dBVjx+EyiAUf72Zgh07VWdKLU2neyeFJCrSEWeFB0QD
-	 tymQ47M+EBAWg==
-Date: Thu, 12 Nov 2026 18:42:36 -0800
-From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: Longjun Luo <luolongjuna@gmail.com>
-Cc: peterz@infradead.org, mbenes@suse.cz, pmladek@suse.com, 
-	joe.lawrence@redhat.com, song@kernel.org, puranjay@kernel.org, nathan@kernel.org, 
-	ndesaulniers@google.com, morbo@google.com, justinstitt@google.com, 
-	live-patching@vger.kernel.org, llvm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 01/11] objtool/klp: Fix checksums and copying of
- wide strings
-Message-ID: <avZ3jEbnuVu5Qv2G@jpoimboe>
-References: <20261104133158.3187525-1-luolongjuna@gmail.com>
- <20261104133158.3187525-2-luolongjuna@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=v2J4x8w4
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794537765; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=rpfqaLD/s0aZ2I2qPUV8mwprDsWG5GFsyO34/kwcrmE=;
+	b=v2J4x8w4xEhBnkI2KXUn9Obj2RPAX7Pm0AMMy1kLpWiU10VOmZmULFBcgr9nLPL6XyBojG03lx+TyWpUnuo9dhfVQxUM/fWx+m4kDo+3HAo1cXY16nG3LvB5VEvEG88b9fl0VUKNPUm8gcrhVwtvUSppvcUk8rAw5vErkQDIHgM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XEdeb.M_1794537762;
+Received: from 30.74.144.124(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEdeb.M_1794537762 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 13 Nov 2026 10:42:43 +0800
+Message-ID: <795b8d8a-4f6f-451f-9274-ccb8380e03dd@linux.alibaba.com>
+Date: Fri, 13 Nov 2026 10:42:42 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,73 +53,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104133158.3187525-2-luolongjuna@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/khugepaged: reject shmem collapse ranges beyond i_size
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Pedro Falcato <pfalcato@suse.de>
+Cc: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261112142335.2749597-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <avYBFPhB46XWAG4A@pedro-suse.tail5790ac.ts.net>
+ <20261112145036.97f74a828755d5b9178a3e3a@linux-foundation.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261112145036.97f74a828755d5b9178a3e3a@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 09:31:47PM +0800, Longjun Luo wrote:
-> SHF_STRINGS sections can contain elements wider than one byte. Using
-> strlen() truncates their contents at an embedded zero byte, hiding
-> changes and copying incomplete strings into the patch.
+
+
+On 11/13/26 6:50 AM, Andrew Morton wrote:
+> On Thu, 12 Nov 2026 18:11:35 +0000 Pedro Falcato <pfalcato@suse.de> wrote:
 > 
-> Find the terminating zero element using sh_entsize. Use the resulting
-> length for both reference checksums and copying, and propagate errors
-> through checksum calculation. Keep single-byte string handling unchanged.
+>> On Thu, Nov 12, 2026 at 02:23:35PM +0000, Jérémy Jean wrote:
+>>> MADV_COLLAPSE lets collapse_file() treat absent shmem pages as holes
+>>> filled with zeros. It does not check i_size, which allows one present
+>>> page to become a huge mapping that covers the whole collapse range,
+>>> including pages beyond EOF. This makes those pages writable. A later
+>>> file extension can expose their contents after F_SEAL_WRITE.
+>>>
+>>> Hold inode i_rwsem in read mode while collapsing shmem so i_size
+>>> cannot change. Reject a collapse if its page range extends past
+>>> i_size rounded up to PAGE_SIZE. Keep i_size_read() outside the
+>>> page-cache XArray lock because its 32-bit SMP reader is not IRQ
+>>> safe.
+>>
+>> I don't think this is an issue. shmem/tmpfs purposefully maps with large pages
+>> across i_size, and collapsing across i_size is a feature, not a bug.
+
+Yes. finish_fault() even has comments explaining the special case for 
+shmem/tmpfs.
+
+	/*
+	 * Do not allow to map with PTEs beyond i_size and with PMD
+	 * across i_size to preserve SIGBUS semantics.
+	 *
+	 * Make an exception for shmem/tmpfs that for long time
+	 * intentionally mapped with PMDs across i_size.
+	 */
+	needs_fallback = !shmem_mapping(mapping) &&
+		file_end < folio_next_index(folio);
+
+> hoo boy, this again, See
+> https://lore-kernel.gnuweeb.org/linux-mm/nwkpojnictbg6jicccpxyfi63ol4tmfajrlx24u5xxoxx7lv5f@jkw3o7j6tlfs/T/
+> and enjoy.
 > 
-> Add a test for two- and four-byte strings, including references from data.
-> 
-> Validated the available objtool tests with GCC 16.2.1 and Clang
-> 22.1.8. No failures.
+> It's not good that this sequence permits non-zero data to be exposed in
+> areas which ftruncate() created - the ftruncate() contract says it
+> doesn't do that.
 
-Please give example(s) of such "wide strings" in the changelog.
-
-> Fixes: 0d83da43b1e1 ("objtool/klp: Add --checksum option to generate per-function checksums")
-> Fixes: dd590d4d57eb ("objtool/klp: Introduce klp diff subcommand for diffing object files")
-> Fixes: 873a2208ea31 ("objtool/klp: Calculate object checksums")
-> Assisted-by: LLM
-> Signed-off-by: Longjun Luo <luolongjuna@gmail.com>
-> ---
->  tools/objtool/elf.c                           | 29 +++++++++
->  tools/objtool/include/objtool/elf.h           |  1 +
->  tools/objtool/klp-checksum.c                  | 44 ++++++++-----
->  tools/objtool/klp-diff.c                      | 14 ++--
->  .../tests/generic/fixtures/identity/common.h  | 15 +++++
->  .../generic/fixtures/identity/wide_string.c   | 36 ++++++++++
->  .../generic/test-checksum-wide-string.sh      | 39 +++++++++++
->  tools/objtool/tests/identity-lib.sh           | 65 +++++++++++++++++++
->  8 files changed, 223 insertions(+), 20 deletions(-)
->  create mode 100644 tools/objtool/tests/generic/fixtures/identity/common.h
->  create mode 100644 tools/objtool/tests/generic/fixtures/identity/wide_string.c
->  create mode 100755 tools/objtool/tests/generic/test-checksum-wide-string.sh
->  create mode 100644 tools/objtool/tests/identity-lib.sh
-> 
-> diff --git a/tools/objtool/elf.c b/tools/objtool/elf.c
-> index a791f4ea6ec1..71f1a272e468 100644
-> --- a/tools/objtool/elf.c
-> +++ b/tools/objtool/elf.c
-> @@ -1382,6 +1382,35 @@ struct elf *elf_create_file(GElf_Ehdr *ehdr, const char *name)
->  	return elf;
->  }
->  
-> +/* Wide strings, such as the u16 PSR setup table, end at an all-zero element. */
-> +ssize_t elf_string_len(struct section *sec, unsigned long offset)
-
-What is the "u16 PSR setup table"?
-
-> +{
-> +	size_t entsize = sec->sh.sh_entsize, size, len;
-> +	const char *str;
-> +
-> +	/*
-> +	 * FIXME: GCC's range_string() uses a one-past-end string pointer.
-> +	 * strlen() reads past the section; preserve the string base and addend.
-> +	 */
-> +	if (entsize == 1)
-> +		return strlen(sec->data->d_buf + offset);
-
-I don't understand what this comment means either.  Please make sure all
-comments and changelogs are written by humans, as LLMs tend to write
-nonsensically.
-
--- 
-Josh
+That's a valid concern and this is a known issue for shmem/tmpfs. Brian 
+previously posted a patchset to fix it:
+https://lore.kernel.org/all/20251112162522.412295-1-bfoster@redhat.com/
