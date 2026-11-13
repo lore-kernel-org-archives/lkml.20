@@ -1,71 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794534772;
-	b=rgMN/X1DKAcwkNzMBQqQXzQVLWBzgz+NQtZq4SH797pnB0UrD85IxBAy4feG6mZYWrbQ
-	 CSqnWqsJiS6f1jMaXW+okY/6Grs/qV7C84bZhGkuI7S7XL0j+X2VO8y9p2qrDLaEFKHog
-	 YAPy+KVWldJxToGXdG85pU4gyfJV78X04rw5hAT3/uxlLum1n8dus1QLuQbS9dUaXE86x
-	 qzrvXvl5h3gDaI/EtOGwkYTBGg0n3FDRqf2K9AbONA29dJn73yCcYC8fqTaq6E6I8enVu
-	 vyJYU9nWB2Rgg5IN+S7SsXJvILmMhlK3fYvUXC0dlTMj0xlERLCkWD/qw7CDXEk3/UQ==
+	t=1794534834;
+	b=bLLMxXDtukp9qxw/EvevosRA7tDTRujdKHwuC20sv7lQvTsTZciGhujGGu8AFsP8csnC
+	 wieQx+Tt5eISLR51zwroCiHnsixNEkK0x4GjH46LIreb8QFwMe7fz87dABom56sTKyTaD
+	 91+7ZWgQZjcGEtw9VN0kVPz5HRvIgHuhLr+gBTQgcb2AZ+ykOzv44+QsF8+VOButbX7gd
+	 vM+pei25ch18cWcuXccSpWslBh6WpMjKrEjTDjspT5FYb00jfmr6tVbTIN4lVLK+k5Vki
+	 EEq1s1C2/VIEpAx03UkSm4vq3pxuQ1NeIXpfgCW1KPCrGW3Ck6Po/iSjnc5Pskl/JPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794534772;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=dUzo3UGgXY0oHBScVAe5t2TvKWuG/rK4hhPW0dEbd48=;
-	b=zg+hBd12u64A8n8jseO15PlH5tQNMNoCvWA+ptoB/jE4HoyLOzSe+8HeWTxvoNwhXKMO
-	 tacdcJUYMahu++PKsTshnR3h1eLhauC68VkBxboGUL66LhAQLHoXz27Ey6QjDGN8L5mwl
-	 GJJQ4gIIY5xJSGLUcHcdMgyYaqqxV7sjIOnB+50RLEBua5MbeZijVpJeyeYEEGDG6ZB+N
-	 ktY9i/cdrpETyCPriVAzPFmBR9jBGHQ6ZhhpM9vXTOgKVS6rqfu+IhzAQRayfFIpE998c
-	 Ui975xVjqcS4nhbP/zhmRwaVb8zkl/maktUyTBU59juDe3UDKSOgpXdQwaPY1b42z9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794534834;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DJGW9+6zznTnsyPYZZe/qVXufV83u2YocM25E6tMsGc=;
+	b=4sQ2yGHnaUrxKXcLS928kzVhkzImJiolSa4C81zajld557v7Y4Fb3pvg9/i/LbtZGSMW
+	 l61DI+nD3ecbnt5BNjqAXULnhz60e4Apbn2BODXEuwpj/IsxBwlfIgcBSQKbE+z0n2qxG
+	 WnQIzNgsxU4umoTDNfYEkvt/6tgAJzX+ZgcikVk8igNI3b6O5/ZdlJCXAqv1DGUw8xCpW
+	 0GA7/YWPMLYhUFbr6bCJuOtl07uUKhWNbq420kQN6NNrIhU4g6vNae0GTMA23Ma8JxzLZ
+	 ZZ8x1M7pwhNsyQvsyTB2FFMS2LZUisI3eHvAIrIqx1iOjq7CSJ6B3JNxHH0SvYKe7lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MUjgymgh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+c7WqgT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1131B606A31C;
-	Fri, 13 Nov 2026 01:52:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95A4606A31C;
+	Fri, 13 Nov 2026 01:53:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MUjgymgh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153521F000C4;
-	Fri, 13 Nov 2026 01:52:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+c7WqgT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E700E1F000C4;
+	Fri, 13 Nov 2026 01:53:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794534771;
-	bh=dUzo3UGgXY0oHBScVAe5t2TvKWuG/rK4hhPW0dEbd48=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MUjgymgh5PvB1DM1usyj8GMmNXD10UuhNp+4Xs50YA+7I9tsciAQB0BGg15x8CMRy
-	 ChNyD6HtWLGBUAnBZq1azhDr/UFLyjLkUrN+rGiojt3wrAEpu/s337md/xtgj47Wy0
-	 i8fq2kWd28/4TQxIPrNBu+Sc236HRhY5zXXMRNU3BY8f27hY4r9kG9QnsnEKdV63mh
-	 iJ6hEl7nKGtbAGZ1xwFVv9Ofhp2HJYrmCtwZl2Klth+edTIgI4ezmQt32pBHLRtoLp
-	 DYP9RzNADqpk9Zk3PwJEZoAPQRXzHkNP94wlDk+UFe4uDzch44rBSOD/aTCdhpBCDi
-	 HXMQLVyn2nyLQ==
-From: Sasha Levin <sashal@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	linux-kbuild@vger.kernel.org,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/7] kbuild: build the userspace tools in tools/ with the kernel
-Date: Thu, 12 Nov 2026 20:52:48 -0500
-Message-ID: <20261113015248.777097-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112122347.dbb972627dc856c50eb01cd0@linux-foundation.org>
-References: <20261112195427.3411746-1-sashal@kernel.org> <20261112122347.dbb972627dc856c50eb01cd0@linux-foundation.org>
+	s=k20260515; t=1794534834;
+	bh=DJGW9+6zznTnsyPYZZe/qVXufV83u2YocM25E6tMsGc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=G+c7WqgTV6j00Wcllc5IjpzxFwZEPNBztFkyixxZAYsI5bl96nLbmBxtY+D/a1Fvl
+	 NvgGUrKnLRdqKb3YfItix7EGTbEA/cZGvSsRuXmbh5eN7acwd3VwmwLIeQzMEdKrte
+	 MXH4ygAiIaKaI/RV27ChUX/sg2fqSYs3uiNHS6JGuNlDXdyCVOryq1G4jCKbz8llRa
+	 /0Ezhwn2UvfUW+J9GGJynG39Njnq2IJo8/8sFXItdpt+anyKooIIXugbbqNV9B557Y
+	 j0k7WAfiGL90ri/MdMPqhqjqWGdWwvp940nf6gYnV5yMs3drh4d36V0tAUjXetrFU3
+	 5ovpanT3IdbAw==
+Date: Fri, 13 Nov 2026 01:53:48 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, Gwendal Grignou <gwendal@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: proximity: sx9360: reject out-of-range
+ hardware gain values
+Message-ID: <20261113015348.75a452bb@jic23-hlaptop>
+In-Reply-To: <20261111164041.341776-3-kapoorarnav43@gmail.com>
+References: <20261111164041.341776-1-kapoorarnav43@gmail.com>
+	<20261111164041.341776-3-kapoorarnav43@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,29 +64,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 12:23:47PM -0800, Andrew Morton wrote:
->So the 20-odd selftests which build modules and then modprobe them can
->find that some of the exports which they need were zapped by
->CONFIG_TRIM_UNUSED_KSYMS, so their modprobe fails.
+On Wed, 11 Nov 2026 22:10:37 +0530
+Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
 
-[...]
+> sx9360_write_gain() passes the value from userspace to ilog2() and then
+> FIELD_PREP() into the 3-bit PROX_CTRL0 gain field without checking it,
+> so some values silently program a gain unrelated to the one requested,
+> and the write still reports success:
+> 
+>   - 16 to 255 write gain codes 4 to 7, which the driver does not
+>     advertise, and the next read reports gains of 16 to 128;
+>   - 256 and larger wrap around in the field, e.g. 256 sets a gain of 1;
+>   - 0 and negative values write code 7 (read back as 128), because
+>     ilog2(0) is -1 and a negative int becomes a large unsigned value.
+> 
+> Return -ERANGE for values <= 0 and for values above the gain of 8 code.
+> FIELD_FIT() is not enough here, as the field also holds codes 4 to 7,
+> which the driver doesn't support. Values between the supported gains
+> of 1, 2, 4 and 8 are still rounded down, as before.
+> 
+> Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
+> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+The whole off by one thing you had an RFC for can be handled
+on top of this which is just making sure existing values actually
+fit etc.
 
->Does this patchset fix this CONFIG_TRIM_UNUSED_KSYMS-vs-sefltests thing?
+Applied to the testing branch of iio.git.
 
-No, not yet, but almost :)
-
-This only builds userspace, and the selftests that build their own modules
-(bpf, livepatch, mm, net/bench, sched_ext) aren't there quite yet.
-
-It does get us closer though. With this in, a selftest is a Kconfig entry, so
-the kernel build knows which ones it's going to build. For the ones with
-modules we could then either build the modules together with the kernel's, so
-modpost sees what they import, or generate the whitelist from them.
-
-I haven't tried either yet. I can look at it once this foundation is in.
-
--- 
 Thanks,
-Sasha
+
+Jonathan
+
+> ---
+>  drivers/iio/proximity/sx9360.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
+> index 2a9b37df8f62..22b6b751c0a3 100644
+> --- a/drivers/iio/proximity/sx9360.c
+> +++ b/drivers/iio/proximity/sx9360.c
+> @@ -68,6 +68,7 @@
+>  #define SX9360_REG_PROX_CTRL0_PHM	0x41
+>  #define SX9360_REG_PROX_CTRL0_GAIN_MASK	GENMASK(5, 3)
+>  #define SX9360_REG_PROX_CTRL0_GAIN_1		0x80
+> +#define SX9360_REG_PROX_CTRL0_GAIN_8		0x3
+>  #define SX9360_REG_PROX_CTRL0_RAWFILT_MASK	GENMASK(2, 0)
+>  #define SX9360_REG_PROX_CTRL0_RAWFILT_1P50	0x01
+>  #define SX9360_REG_PROX_CTRL1		0x42
+> @@ -625,7 +626,13 @@ static int sx9360_write_gain(struct sx_common_data *data,
+>  {
+>  	unsigned int gain, reg;
+>  
+> +	if (val <= 0)
+> +		return -ERANGE;
+> +
+>  	gain = ilog2(val);
+> +	if (gain > SX9360_REG_PROX_CTRL0_GAIN_8)
+> +		return -ERANGE;
+> +
+>  	reg = SX9360_REG_PROX_CTRL0_PHR + chan->channel;
+>  	gain = FIELD_PREP(SX9360_REG_PROX_CTRL0_GAIN_MASK, gain);
+>  
+
