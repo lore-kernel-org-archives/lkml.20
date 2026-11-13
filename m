@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794560509;
-	b=B4jmh4SVyx/4CCCcKn5HKT+HSMDzdYFzKqnWXnYTrn/pStJfNcP8Ps2wb2j7I23MS6HK
-	 BxkXUYeFgwHi85TJvl09ewaNr0AHQ5LBLhmPB4BPlsvaFPp9Iq6VRqSQkP0IoXUrO18uw
-	 2sGqEbLzXTNquNLpADgL2AWbchjUExScESOBliKZLt8Y2Os7eo8tlS0y95ucLW1XBK7qu
-	 +c58v6CfChNRdSxD8EBkE+/DmQg29Yyy9FrMGbf4CzhuvuRmaqHUP8BNs7tDCNbHNnpDD
-	 qTYEWtL5RRwiBECUxhoR6UfVWsROOBCqzc803pRK5T5zOUjpgvyarjaJQ1qbdmpDCdA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794560509;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=M6B8f0IfLCQpM2CN85V5qfdLHaKaGk88JdSAU1srRdw=;
-	b=VXBwQzAvxiQmToBqrVNTRT8RASeJyJO+Rl2MEBNjYWuj5oXX9YxM/eZjcfaXOJbeuHo/
-	 ALaXQthA2TexAQ42Wsb9z/eISIBnrGT/UPOhXNg1rVoO4WNVUwtDHRD+BqCjEPmRVZCr8
-	 UwwCfAj/cim8skDiJE7A58m3qlHCUlLWYezaesv/94fSYIknsl72prLnwRFcxPKOBoh3Y
-	 pS9qg0FRd2G7MpQRRSAo+0jtL6tNjKAE5GQ2oM8jlahz13ZYv6lCESlO9BSZnhGviBAe8
-	 pfpanwX+Prs1dAMs8Ao/v63Mbk9rpWdCxHUFAIWBlvonG0Z37FzH0Wiyc4PG+wGNPbA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WE6EFMsU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794560538;
+	b=TaXbvLwlb8YEtFZPBuLj281YLNkX5ndPV+Ta8eGEXHMc9dxqgYhPfoP8YGYwGHD1G1qi
+	 7sQx2WJ3j3Xbcql2qmBDz/kOgMPT7ILz3mXZQUDjVfCIVxq0KDVioWtaIJQBfQ1FkdDj1
+	 +NcXMmmU0Ev4w0m5rLnemBOMzL7ys+xMpStM9q8fYB4azZ5moBD+ZtFjm1tnUzqC2XQ6X
+	 MCJKF8c/YfH1nS2CS363LqkpVRrFQBCExtyTAxQyAYjgqOG/ce0OMtWWVfMbySdytZevJ
+	 K0YyJfqJxpyVIP+R/ghNAlzGxkO0CkmKhDVpOsTcdI5sWlJ1ZDoUpVhTLAO68l0QXmQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560538;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=ShlP1QFQYWNs/RofmHP2lRmg95fTwvmsIbJOEo+1Nkc=;
+	b=3FvEn0MOOomwn8FbF89Dhnff2ymhy5MWiMIzZN/aV8Ak/oLW1Gq81iEtdOZBXtEX4Gr8
+	 9iiS7fzF4vDSyOEk02vraDqpO7Cw+0dmgdBdqwxYc/L7ScLj50fOfGQA3yYTWjQQIpMfm
+	 DmfRNPmLyQkw0Hzc891hxd1YjdMeTexMTSPeWX87XUGmoapbjahnhObFouUlWyrPWEmSL
+	 d6xYehXaZYWsSjMz4geXWCOyIjzhPkV6+GMECypVzv5jJPMqbcINy2fxTLpNksOgaL2Wt
+	 OSZ4///rHwxg96BBFYaRPN30+LFmTH/ohEZMSXkFIlxs5xCV9W4+TifF46IFCxspajA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NKhNeKUb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
+Received: from mail-lr2-f8.google.com (mail-lr2-f8.google.com [74.125.230.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2472C606A886;
-	Fri, 13 Nov 2026 09:01:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A89606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:02:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7A89606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WE6EFMsU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02021F000CA;
-	Fri, 13 Nov 2026 09:01:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794560508;
-	bh=M6B8f0IfLCQpM2CN85V5qfdLHaKaGk88JdSAU1srRdw=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=WE6EFMsUyMnowKzvAHr9vnxGBEHn+Rg21j+T3LKafH709q8yTd6nWRLdHn5c1acHU
-	 2apMniFhLz9r6ZCdNuo/dzf2tVUccyZS6EPNHaDE3CT34e0vQ0wcJBh9AAp/ztm+Nv
-	 AXx9u9JwwxSMYFHqqZoDhcK4tqI4e26yt/MtB7T2hsm7XKkjkJNZiY5vkJ/E2FJHX/
-	 n4vXqG8/+i0WXFEXZMQryk92nmg69ls7oVQshtpFJYBDno4s0gTQOG0G8OJ/CRgJIC
-	 FHGVN1nAk60MMsQ3kRyPtEzBlcOHAr434jgPiGsaSjjZfg24raeQN+4glU9dqg89m6
-	 8QCMBv567sRRw==
-Message-ID: <5042d545-24ae-4567-a39c-a28bcb1d1ed1@kernel.org>
-Date: Fri, 13 Nov 2026 10:01:44 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NKhNeKUb
+Received: by mail-lr2-f8.google.com with SMTP id 38308e7fff4ca-3adf0220e61so4768101fa.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:02:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794560536; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Qi9nPDX5AQG6N1OZSlLPBDh3/pv29Nt61y4VA3L+gTOmgPzmK8g8Fpl/iLaGQz7lvf
+         tfCUrhccArgmvxQwf4Tl8TahasfidyZUurkqiZMVNNKv2uZxYn4QEsCaoO6eZF8tOUj4
+         7LDQ80vpt7QJ8AqihXnkw7houiCyYFwM2Cb7LZRenHKcdsc/2psL6jgDjXvV7RP9Uh8q
+         jS/yUJi4PwS/sPls1M8EHsmLax/tfaL+O6VlhpbFf3c7utFkU4VLK61YFxHDnpyVIWQy
+         X9QPhtwOBkyO8htxooWuqfj7InohDj6mx8WThnXfHG4yE4dftzz2asAI+iYh3Ea+o81I
+         GXng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ShlP1QFQYWNs/RofmHP2lRmg95fTwvmsIbJOEo+1Nkc=;
+        fh=vm452+FK7xII37m/S1waQGVq7mI03QD0FfGZ5CZUfCM=;
+        b=JIAizgdxOjPbcWAgj5VygPPSR7IToCsV7y8iHCa9X2/pFHkvn2bqHyiNJT+a7/nM3P
+         Lh3GuRqZA8Xt2ftjcncwjAL1OwgkmKBgqJZxLkGi+HVGbbNhBUAXu7LXBsfeKG2OyR6/
+         AqgwB+CWKCWZLm1ShCADzQizePaWifZlYID4kigo+7XDevXOtlNnvKpBrR67lO37jAF0
+         fpKMRuy0qQ/xbVnJJFZRyfTLJ3D3JBuuM6KUW8WtTcySlLzv/XhpDR8QhDTRy5IPx7xD
+         rKi/yNWMGKS+xZM8HN3wBNGhtJUh62UsQIPCrH/J/zweF53AsZq6/fNsrVKObJCR3RmW
+         HyHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794560536; x=1795165336; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ShlP1QFQYWNs/RofmHP2lRmg95fTwvmsIbJOEo+1Nkc=;
+        b=NKhNeKUbz3nV9Y9Yq+59eD30vV280zDQg1sNyOEYIieLDElmHLs20LCcnzkf5MbhIW
+         takXOiZtaYPjbmUNZZmzo1fnPIK3Ji8Q0Zz0NV5f23skw/D780ekbqMBEbR7felmUIq9
+         HUVpvoq+TMkZOEf2bJXM3quhu1v/eIEEZlBBJOiV4+XyZG2T2voHsb5A7G+x5pKeft3j
+         E4SnyXHi4htLkxcKF9S4j/vwUxhki6m/p0eMfN+WBBrK4kXnb+7DU10i1mdZahBBA6xo
+         +2EUnmtDpivWbrgWEh+mj0UhVHKh9r3xL4XDWbPvFZw2XXGZeNsSGQc+KaZxYEVL4J0C
+         F5JQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794560536; x=1795165336;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ShlP1QFQYWNs/RofmHP2lRmg95fTwvmsIbJOEo+1Nkc=;
+        b=IxiVyQaoFFcA8GoGzJdvswbdL5qVjf9bszFycmu881ZwenKk5RHrfn2l2KHna+IkMF
+         5zEK4/VK8z5xx2P2Zgxc5x/fAx4JuSbPjhBLCBXjxqWGa0G7WtSUKskBY+eB8ZBp+b0O
+         c28qZR6NyRP3m3ehDvaVlVArrBIMMwroE2xU/IW5eiQCvvzixYsOX5SehJ6lnqslmtZZ
+         k9cEhi8mKaj3OgNF57MA41/1TNZH3Rwt8UGib7OKsqinS+f987A1TKU8V7nfPhQNvXnP
+         O4uaMRHs+ISiZNWjmUE1BjJTDMSza9Md8a/0NjLEtxEgTrPPn9j72mSrnjD3NUpOaDIP
+         mpkA==
+X-Forwarded-Encrypted: i=1; AL+hErFSvEaK982USIBzZQRSy30afKQ64v7fBL9dEwf5IRFvpiQZTTMH2PsAfvgeQ/3FnSnaJi2bQv1yrz6Agf4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9IU/2GiFnhvT0GUZGVckfiLQh/wl17j1JhH0nmIfmL9BnMlE8
+	lWZCze+b58gNk6mPLE5wWW4W1VMofLRwSP4arE5X1uY42I9Xf593cxS6iMqbI72aayDQ2ISZC12
+	JiwVIT/+poPfR3GBq+fdVBqt0YQ5yFbw=
+X-Gm-Gg: AYBFou1N1lY9S1qWZccu58DLnLlxPGsA4N4aMufTaXWFHRoK5jpG5Q8d0Qt+gh+dUZ4
+	v+t0Ucdt3ybRHj9m6qMankMsZmDhcG/Zm4vgBUwDghDioSGpn36xRcsZyY233AonyPnM8yYHhLV
+	hU1jdZWfOrlJ4VLt9WkhVKIt/Tk4MlQsIA3B/8eNDP2/i/e75KCcf/Hr0nsmfBCA5qE0emgD9Vr
+	WUijlf0z0dlh63JFf4aB3svFpYiH+VUD37AZvovVFex7dmCVofebkRq/olpGI9NUXIR2FV/rMdz
+	Nbp5Hn52/rNGxeA9SOJaH77QGQ3hJwFO2uRbS2/FJc7i4OJMcsvQfpQVrUPX971+YSrjdQSZtsy
+	iDuygyJxQBWcsfH6zu1RfeSlUfc4xr6LnnD9oHbt4JY/vtbzYFtay3lyjxU4=
+X-Received: by 2002:a05:6512:b85:b0:5c1:4974:c153 with SMTP id
+ 2adb3069b0e04-5c1707740dbmr682345e87.27.1794560535586; Fri, 13 Nov 2026
+ 01:02:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,176 +103,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v3 00/10] media: synopsys: hdmirx: support an HDMI bridge
- in front of the receiver
-To: Sascha Hauer <s.hauer@pengutronix.de>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>
-Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
-Content-Language: en-US, nl
-In-Reply-To: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261113021845.1697485-1-w1355457260@gmail.com> <avbAkhu1V5wiVTkY@kekkonen.localdomain>
+In-Reply-To: <avbAkhu1V5wiVTkY@kekkonen.localdomain>
+From: z Y <w1355457260@gmail.com>
+Date: Fri, 13 Nov 2026 17:02:04 +0800
+X-Gm-Features: AclHuK-ejvsvZRZ1-nlBgJMJsxD4K4EbVb5r9KS4oPiuqrt78W2Z9owTA57KJlg
+Message-ID: <CABG6VKNUs3m1t+8OytB_UQ1_j+DZ2pP+C25qV6-q11jfdJwLhg@mail.gmail.com>
+Subject: Re: [PATCH v2] media: media-entity: make media_entity_cleanup() a
+ no-op macro without MC
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Biren Pandya <birenpandya@gmail.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Sascha,
+> I'd still call the argument "entity". Without MC, you can e.g. pass the
+> macro multiple arguments otherwise. I can make the change while applying.
 
-On 05/10/2026 15:28, Sascha Hauer wrote:
-> The Synopsys HDMI receiver driver assumes the HDMI connector belongs to
-> it: the connector's +5V line arrives on hpd-gpios, and there is nothing
-> between the source and the receiver. On the board this series comes from
-> that is not the case. An HDMI bridge owns the connector, the receiver
-> sits behind it, and the two are described by an OF graph endpoint.
-> 
-> Three things follow from that, and the series is arranged in that order.
-> 
-> Patch 1 comes before them and is a fix for the driver as it is. The
-> driver data is devm allocated, but an open file descriptor keeps the
-> video device alive past unbind, so the last close works on freed memory.
-> The media device the series adds would have been torn down the same way,
-> which is why the fix leads the series. It stands on its own and is
-> marked for stable.
-> 
-> Patches 2-3 give the driver a media device and register the video device
-> as an entity with a sink pad. On their own they add a graph with one node
-> in it; they exist so that there is somewhere for the bridge to appear.
-> 
-> Patches 4-5 add the endpoint to the binding and bind the remote subdev
-> through a v4l2 async notifier, linking its source pad to the receiver's
-> sink pad. Such a board cannot provide hpd-gpios, so the binding requires
-> either hpd-gpios or the port. Without an endpoint in the device tree the
-> driver keeps working exactly as before, so boards wired straight to the
-> connector are unaffected.
-> 
-> Patch 6 is fallout from the wait for signal lock, which was bounded by an
-> iteration count whose duration came from the 5V debounce it called
-> each time round. That debounce goes away on a board with no hpd-gpios
-> later in the series, so the wait gets a real timeout first.
-> 
-> Patches 7-10 are the 5V state itself. Patch 7 stops probe requiring an
-> interrupt for hpd-gpios. Patch 8 makes v4l2_device_unregister_subdev()
-> wait for notifications already in flight. Nothing kept a subdev from
-> notifying a v4l2_device that was unbinding it; that is not new with this
-> series, as asynchronously bound subdevs sending V4L2_EVENT_SOURCE_CHANGE
-> race the same way today. Patch 9 adds V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT,
-> and patch 10 has the receiver set v4l2_dev.notify and take the state from
-> whatever is bound in front of it. The notification is only an edge, as
-> the 5V interrupt is with hpd-gpios: the hotplug worker then asks the
-> subdev through g_input_status(), so nothing is cached that could go
-> stale against bind or unbind. Without a det_irq there is nothing to
-> disable across suspend and remove either, so patch 10 disables the
-> hotplug work items themselves instead of cancelling them. Patch 8 is
-> what lets the notify callback read sd->v4l2_dev while the subdev is
-> being unbound.
-> 
-> V4L2_CID_DV_RX_POWER_PRESENT is otherwise the only place this state is
-> published - adv7604, adv7842, tc358743 and tda1997x all set that control
-> from their cable detect interrupt and stop there - while a format change
-> already gets an in-kernel notification through v4l2_subdev_notify_event().
-> An earlier version of this series hooked the control with
-> v4l2_ctrl_notify() instead. That reaches into another device's control
-> handler, and the only thing it bought was working with those four
-> drivers unmodified, which turns out to be worth nothing: they are HDMI
-> sinks, so none of them could sit in front of an HDMI receiver anyway.
-> 
-> Nothing in tree sends the new notification yet. The driver for the device
-> on this board does, and the alternative was a mechanism that no in-tree
-> driver could have used either.
-> 
-> There is no in-tree device tree using the new port yet: the board is not
-> upstream, and the device in front of the receiver, a Lontium LT86102UXE
-> 1:2 HDMI splitter, has no driver upstream either. I would rather send the
-> infrastructure for review now than sit on it until the board lands.
-> 
-> Tested on that board, and build tested for arm64 at each patch with W=1.
-> 
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+Agreed, naming it `entity` is better. I used a variadic macro only to
+avoid checkpatch's MACRO_ARG_UNUSED warning; please feel free to change
+it while applying.
 
-As mentioned in my reply to patch 1/10 I'll take that one. But for the remaining
-9 patches I need to see the 'v4l2-compliance -m /dev/mediaX -s' output to make
-sure the media device topology is sane and streaming works as expected.
-
-Use the v4l2-compliance version from the v4l-utils git repo so you have the latest
-code.
-
-I also need more time to review the v4l2 core notify patches. Apologies for not
-doing that sooner, I hadn't noticed before that this series made core changes as well.
-
-I haven't looked at that notify code for years, so I will need to refresh my
-memory.
-
-My plan is to merge patch 1/10 today in our next branch. It is probably best
-if you post a v4 rebased to that and including the v4l2-compliance output in
-the cover letter.
-
-Regards,
-
-	Hans
-
-> ---
-> Changes in v3:
-> - new patch 1: free the driver data from the v4l2_device release callback
->   instead of devres, an open file descriptor keeps the video device alive
->   past unbind. The media device cleanup Sashiko flagged on the old patch
->   1 was the same problem, which predates the series (Sashiko on patch 1)
-> - v4l2-device: wait for the SRCU grace period on every subdev
->   unregistration, not only when the v4l2_device has a notify callback,
->   as the reader dereferences v4l2_dev either way (Sashiko on patch 7)
-> - Link to v2: https://lore.kernel.org/r/20260924-hdmirx-media-v2-0-c12f641d8b0f@pengutronix.de
-> 
-> Changes in v2:
-> - dt-bindings: squash "add the source port" and "make hpd-gpios optional"
->   into one patch and require exactly one of hpd-gpios and port (Conor)
-> - dt-bindings: drop the OS-specific sentence from the port description
->   (Conor)
-> - hdmirx: take graph_mutex around media_create_pad_link() in the async
->   bound callback, the media device is already registered (Sashiko)
-> - new patch 7: v4l2-device: wait for notifications when unregistering a
->   subdev, so a notification cannot outlive the unbind of the receiver
->   (Sashiko on patch 9)
-> - hdmirx: ask the subdev in front for the 5V state on every notification
->   instead of caching what the notification carries, and disable the
->   hotplug work items across probe, suspend and remove instead of gating
->   the workers on a flag and cancelling once more after the notifier is
->   unregistered
-> - Link to v1: https://lore.kernel.org/r/20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de
-> 
-> ---
-> Gerald Loacker (6):
->       media: synopsys: hdmirx: add media device infrastructure
->       media: synopsys: hdmirx: add media entity for video capture device
->       media: synopsys: hdmirx: add async subdevice support
->       media: synopsys: hdmirx: give the signal lock wait a real timeout
->       media: synopsys: hdmirx: skip the 5V detect interrupt without a GPIO
->       media: synopsys: hdmirx: get the 5V state from the upstream subdev
-> 
-> Sascha Hauer (4):
->       media: synopsys: hdmirx: free the driver data when the last user is gone
->       dt-bindings: media: snps,dw-hdmi-rx: add a port for a bridge in front
->       media: v4l2-device: wait for notifications when unregistering a subdev
->       media: v4l2-subdev: notify the bridge when the source power changes
-> 
->  .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml |  21 +-
->  Documentation/driver-api/media/v4l2-subdev.rst     |   8 +-
->  drivers/media/platform/synopsys/hdmirx/Kconfig     |   1 +
->  .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 355 +++++++++++++++++----
->  drivers/media/v4l2-core/v4l2-device.c              |  42 +++
->  include/media/v4l2-device.h                        |  15 +-
->  include/media/v4l2-subdev.h                        |  12 +
->  7 files changed, 386 insertions(+), 68 deletions(-)
-> ---
-> base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
-> change-id: 20260904-hdmirx-media-fe7eb952b2be
-> 
-> Best regards,
-
+Thanks,
+Zixin
