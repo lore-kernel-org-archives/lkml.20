@@ -1,62 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794568165;
-	b=zTOxglK8KgtN1pXk7E6s68xfHVgeGdXWpf8zk53WgioN6/shpKbDMUOqu2lzKbpXBtMX
-	 Mxr9RkQy/Wj3md+F16Xn6SXf99+GP2yyZrdcrymnLgyB+CWm3NjX9Sz9rVirheuGoAU5X
-	 k96r3CAdHUoGljFBbvgOKYFnP3TVPAfjwJLQ5OGnGAWVJSaedpe3LrcVQz9PI8sBEtm5z
-	 NDnsDb8Yf2C3zDyRowrmfg+b7cIizZxAVsXvJ5xQfd+pgcJyb58gNU7O+WHj3cNae0+Ki
-	 AM14+MApfODgciwHdaXT6hHLeD5iCFD+0u7CGTuqhuGOewczyIjM8wmr0PshJzu1K7Q==
+	t=1794568168;
+	b=UILduUQr6bdLvqu0gBz0Z9uCQc1STaOyZDbIX49XYNBZyPSgmM1XH2nMkaxTuHXEN6Nf
+	 tgPAk7PfAu12RtyeExNpULh75IjvqYdCGKOqls1Chi9fF5FQu+LHYsr5QpPgNPChJFO+T
+	 VVjDbH1evf9UUT5UlPDlxRj6lLSuxUYGvmVjv2UgeSWa1hvm7HqK5SYmSXcbc3MBD3Y/J
+	 qgLpq1ASjJfju2/EN98CuSp8+MEzAAhLcEG5mr6zAg8prDlLR7l/5E5UcyLEa/Ywstih3
+	 QvCZGSiuWcDK4j6ta6M4s67MFdr6C3Z2tnDqE23DzlMTPAdf5g/ZEvoZxFkkDp+uiFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794568165;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:MIME-Version;
-	bh=YkrPJYGuN22LqlhtaKzTis883sMPr2P4NmJrMmHDtd0=;
-	b=shaqKqiRqlV+5B/1XicQwr9Dn0KN/K6mfBjsv6B9j/HtMQD6CK4JMPpSCjUMp7hrylkf
-	 yWX4sFQaAkAqT+5QTdvcwMzA+rnWoBYefMQ+ItBejl37pqdDIB3ooKEYyAJnvGn6CRzs/
-	 MbLIf/OxNmpNccNWOErHsBJ5omH1H4wIkElwL7J+5AX3r9skXj5+tBSGHX5vNF2m5gDVA
-	 L1dGBA9gs2BPMRG1NIRUL3JkJy6cOzifwxRv1qKZWwUcCHeLxeqDpnoCgb/N71jEiasBS
-	 G/eDXmNjGURYov513u9+PJHFN/M8qc4xcydxiCldRHo/THrPf2738myLqTPGGq8YkNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568168;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=m8HWtytzLVi5PL3pkolpGz2L94QyN43vZ3eUYHbSeu4=;
+	b=dwZ5fRmQJgOIDYzVKmWnTCk3X/7A5xkthwqSdzuhBqQBTuJ+O4hhBgAAokMFeutTz+4J
+	 R/XWVTatTDl9FlEQq/qsBkTG2Py2KTSH2P2fkGBziZDvCTfNUApJEw+pe6bRbe7VBWwlY
+	 obOfOBg6qYeLbZzZaLZ1HHZUrDEfjw1s8EWGPzmgssBZigIgkjXTxa/tjt4xUZ/dfezMv
+	 u95GBOD5wW/6CRqnD6YNWNIcQzk/djijhony2r89dt2y0WdceHts3QPeQ9Xin58oX8u9N
+	 Q5zsexVE5j0inCnxGRjttd6SJCyrW7lYIXU4EbiRdRlYhDUHegeFeUlWYxY4T2I5ClA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=itx.no;
-	spf=pass smtp.mailfrom=itx.no;
-	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=osdAobZl;
-	arc=none smtp.remote-ip=91.189.121.228
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	dmarc=pass header.from=ideco.ru;
+	spf=pass smtp.mailfrom=ideco.ru;
+	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=nCgSoPJi;
+	arc=none smtp.remote-ip=51.250.56.165
+Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D450D606A881;
-	Fri, 13 Nov 2026 11:09:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D450D606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96335606A335;
+	Fri, 13 Nov 2026 11:09:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96335606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ideco.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=osdAobZl
-Message-ID: <8f50f1b1bcbb1e1ebeb97e23e0896bfdf92b47a7.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1794568156;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YkrPJYGuN22LqlhtaKzTis883sMPr2P4NmJrMmHDtd0=;
-	b=osdAobZlSOYt2lgfqIAHmeZhYvkkmnZbHSsSMYykPqOL/3MjTmUTtlpPnuGp5ArhYhJsha
-	G48LQUgvbWKq61f8j46U34kccqLrvZ7dmCgdcse32Ut1ol3OS1xNM9SWNF+EWA0H3Xfmiv
-	7oZ+wtEO7RiKp/OmUqV1ROtfh4MEkaM=
-Subject: Re: [PATCH 1/4] sparc64: kprobes: Single-step from an executable
- instruction slot
-From: Stian Halseth <stian@itx.no>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, Andreas Larsson
-	 <andreas@gaisler.com>, Naveen N Rao <naveen@kernel.org>, 
-	sparclinux@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Fri, 13 Nov 2026 12:09:15 +0100
-In-Reply-To: <undine-1794562347340141345-b03249069e19e203@undined.local>
-References: <20261009180336.1315684-1-stian@itx.no>
-	 <20261009180336.1315684-2-stian@itx.no>
-	 <undine-1794562347340141345-b03249069e19e203@undined.local>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-gVucIkXZSnn+fNtu2DLT"
+	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=nCgSoPJi
+Received: from [169.254.254.254] (localhost [127.0.0.1])
+	by smtp.ideco.ru (Postfix) with ESMTP id DC7F826BC6;
+	Fri, 13 Nov 2026 16:09:25 +0500 (+05)
+Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.ideco.ru (Postfix) with ESMTPSA id 4CB3626BC0;
+	Fri, 13 Nov 2026 16:09:24 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 4CB3626BC0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
+	t=1794568165; bh=m8HWtytzLVi5PL3pkolpGz2L94QyN43vZ3eUYHbSeu4=;
+	h=From:To:Cc:Subject:Date;
+	b=nCgSoPJiQzPF6RjVmEEM/qqvYxB78QHWG+a5JNRoKZOpkveP8kIlGLtF1zi93fwUu
+	 NaeFpnU8oOpCkmjiIae1Dw3uyQmeqQ3PlUnSqIAOc1QM1cD/3PxoGeJEYgq2CmsahP
+	 Pd7r5PoWzz5LNkGE99D3m2/2CQ4kKx+UVef3K89v/SHkEnVr4O4yynUjlleq3WrS/0
+	 J7h63WBIMIorc3ZRZ/ZIrS/vVySe+uNUVgDWjZ8/5I4KJ5jpYaqN7zMeP2nFIwOwmg
+	 kLOwRtnAxYAahwmzsnBzwbfwetElEXzQI3I6O+gyYXpyzSWVD+XqozK8yywKjP06I+
+	 HR+ZfUWD144qg==
+From: Alex Kazinsky <a.kazinsky@ideco.ru>
+To: David Rhodes <david.rhodes@cirrus.com>
+Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	"Vlad . Karpovich" <vkarpovi@opensource.cirrus.com>,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH] ASoC: cs35l45: Check spi_setup() return value
+Date: Fri, 13 Nov 2026 15:09:05 +0400
+Message-ID: <20261113110907.4189173-1-a.kazinsky@ideco.ru>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,55 +78,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+The SPI probe ignores errors from spi_setup() after updating the maximum
+bus frequency. If setup fails, initialization continues and accesses the
+device without ensuring that the SPI configuration succeeded.
+
+Check the return value and abort probe on failure, propagating the
+original error.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE static
+analysis tool.
+
+Fixes: 74b14e2850a3 ("ASoC: cs35l45: DSP Support")
+Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+---
+ sound/soc/codecs/cs35l45-spi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/cs35l45-spi.c b/sound/soc/codecs/cs35l45-spi.c
+index 76f46dc5ab2c..dcef36d31c45 100644
+--- a/sound/soc/codecs/cs35l45-spi.c
++++ b/sound/soc/codecs/cs35l45-spi.c
+@@ -24,7 +24,9 @@ static int cs35l45_spi_probe(struct spi_device *spi)
+ 		return -ENOMEM;
+ 
+ 	spi->max_speed_hz = CS35L45_SPI_MAX_FREQ;
+-	spi_setup(spi);
++	ret = spi_setup(spi);
++	if (ret)
++		return ret;
+ 
+ 	spi_set_drvdata(spi, cs35l45);
+ 	cs35l45->regmap = devm_regmap_init_spi(spi, &cs35l45_spi_regmap);
+-- 
+2.56.0
 
 
---=-gVucIkXZSnn+fNtu2DLT
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Masami,
-
-On Fri, 2026-11-13 at 18:32 +0900, Masami Hiramatsu (Google) wrote:
->=20
-> With this change, the p->ainsn.insn becomes NULL here when kill_kprobe()
-> calls this function because (1) init.text is removed or (2) probed module
-> is unloaded.
->=20
-> If another module is loaded at the same region and another kprobe
-> is registered at the same address, register_aggr_kprobe() ->
-> init_aggr_kprobe() -> flush_insn_slot(NULL) is called. This can
-> cause a problem because it is defined as:
->=20
-> #define flush_insn_slot(p)		\
-> do { 	flushi(&(p)->ainsn.insn[0]);	\
-> 	flushi(&(p)->ainsn.insn[1]);	\
-> 	flushi(&(p)->ainsn.insn[2]);	\
-> } while (0)
->=20
-> Since the flush_insn_slot() is only needed if p->ainsn.insn is
-> embedded in the struct kprobe, as this changed it to insn_slot,
-> we don't need this macro anymore.
-> So you should update it as same as other arch like:
->=20
-> #define flush_insn_slot(p) do { } while (0)
-
-Thanks for the review, I'll test and adopt that change in v2.
-
-I'll check for any other feedback, then prepare the v2 later today.
-
-/Stian
-
-
---=-gVucIkXZSnn+fNtu2DLT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCavbv2wAKCRDoeAEuJe36
-Vn5tAP0WLfGIZ+2j1Jm/D4EbZn/oASoN5OasDMZ7QO9Pv7Mo7gEA5jM2+qvMKjjl
-T9/2JGJex+ASHhpfpNjMYz26VVYxBAw=
-=l2oT
------END PGP SIGNATURE-----
-
---=-gVucIkXZSnn+fNtu2DLT--
