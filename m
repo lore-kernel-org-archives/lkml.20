@@ -1,94 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530282;
-	b=NxKoW2rLQHQtVU434LfTRGPiDaAIbkLvvggFWIfDn10dfrHYnml5I/2LqtA9ELOvGyZZ
-	 M221BB84jxWZ/IjCfPEIvQ5vuXKD0QvTYHVCpR8dgwTy5MaZoSVB/2wp6jWN0wscnJ73K
-	 wpWfH2egw+t8T8VDzvV5ydNVG7x4v5/5RE3051ibI1aLigg2WYUnY5Tuyr999l4fgzHzw
-	 4Xmx9d9mtRYtGWL2oTbghk+QuXynFn7lJHIKJSfi5cixjJXXlHyJxyBv316aUTUTX1Tm2
-	 7hIAxzUgT2wcnpRTMiKNR/NZYP/orMbEp5JN4R4Cc9ut0OSBIFiEwvvnszwX2EikxbQ==
+	t=1794530294;
+	b=HwQWe/iJo3lU0IJa2GXgFfIzwECG4BSlrNIV5vJg8aAWYYKx17Fq0P9u+kGsSkAaR66e
+	 gbg9K1iGzQvNtcV6eZSMb5t049wIa6TT4mIKsMoEqOca6Shx7CHwqbyfSNo0X2h9KoDdU
+	 1TMo28pGI1P4uIRckV9MpLwHDwemimZ88ICIM8JyJry6oZGDHOUgK2ndUwSgGddM5dqtt
+	 mXYueZ+NVWH+3RQ3KpenHSik3+39AKZrfRQF6jQuTUUaJvwkB4SKI+SuITlRntBR+Q3bo
+	 Cw13y4aHSueXvpo/X89l90qAs5GFnoHqxe/d18RDAWgJh/OdNqNx6L9nEa7eIDRROaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530282;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530294;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zGnrGgV51ZfRMc1cSUcC07752LjxuuaOfMYKT2Lu9s8=;
-	b=dnpQ4zbegwoj+8xhYNpER4LIXSEjIr/MrotggL17xIW/rrzDnqjJEMSGaHmk5do2w/zB
-	 gIzX3lxwvGQcP7ie9xKHsvUz6vRxwBxnYkZNPch5wOadd6EQT4xViXbeMEnx2E/Z01jO5
-	 4Bq7rvraaB7R+cE433boZdjm6PY1i7wAXjkTfYBQZt8SpAcsG59ztsBUM+vzLOZEIg/rk
-	 LFMMIfEwd66orHJzcQm5vNJ2vi1fsVWB6sdS0KeERpKuI30wmhRTM7IyrjAnNH4no2/Cu
-	 yCUAlR169zI8/VBjqrKFVeYhzyvEFIfXGojr4DF8Wv4j0Wn+toD9jV7m6j8zxT9pL6w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=duoDFkSq7fe9og5fEiEDZZmXvPbbqJk+mbywRo7M0do=;
+	b=t7N84wL5imKjJo5t+Nv8KL6wAH5fZQoZt6HFah+nYB0MTaWqNtzv4zTT1O5BXHlHBWJg
+	 MQSA5nxAULIzKPCtlWyhKTDX71vZOBhPMgZ2pDNzImKtyF5riCW+VA0rYWGB+cAdobTHN
+	 u0yTcFkFlf394uNmJZyZTIfBgZYl/ah88NmuJQ03XJhAVjoxo0C7dR7d1swWnPeNDX0KF
+	 6SbhiS4gUyT49hzb2NIRDE2bRgemLvbj5zmzKDMlP1olPNQgf9qPX3MhlqfQGUqLUmguS
+	 4jShf7LU2rankr7Xh86nBF8P2M770f0bRSOLoKMbXgyWLEOVOFOsYfHDRBERVVPxnlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dubeyko.com;
-	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Qt7xbgCD;
-	arc=none smtp.remote-ip=74.125.224.50
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hx8WV6GI;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A28606A335
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:38:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0A28606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C67606A8A1
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:38:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82C67606A8A1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Qt7xbgCD
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67be7b9abc8so324692d50.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:38:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hx8WV6GI
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so5510885e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:38:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1794530281; x=1795135081; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zGnrGgV51ZfRMc1cSUcC07752LjxuuaOfMYKT2Lu9s8=;
-        b=Qt7xbgCDk5woTD8moFfnVvQd9sauI3GkWJN2k2jEW5l/VflCusDJZVhOTjuK2q+rz9
-         7DQa10YnplDxPU1v9zOsbvXfA6MCxHOLGYRW6+7xNy7lqVhk+1AhNa870T/BuRXxuEH3
-         AmxpO1FsnfCgv3H/zsn3WUyc+hKomwTsesF2zwbp25vFP8HdiZN8L7qakQ0O3/aYAZb9
-         shj7JedViV3ddSQBGhsJ8e8D90JayGu43JjL+DafbhbU2AGiSpj6gIWlnFDgWlE7cL/H
-         7cObd++RV2ZFogp3t1kfPMjug1WJKOypnFgoyiWnYkp1zsvwRFMD0tmC2copeDSmv9kb
-         AKUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794530281; x=1795135081;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794530293; x=1795135093; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zGnrGgV51ZfRMc1cSUcC07752LjxuuaOfMYKT2Lu9s8=;
-        b=JZ7l6T4ySB8vCY4FZ+cDrJmGxiC5wfiruxyS+v1+M5OaIFlDUJIv0bSrHI0KI36Rdn
-         byy5Dk6r2KQdXOgxdGTUTSbqA2OHkprHS0CEyeacibvFiJM9uf+rLSeb0fGqZhGVXidW
-         ZUHYMNQQFdaC5Sl6l1hE0XKTbK95JIjDP1YoaExxn7wIWgc3pnK9x+Y5hWGXnhMbVFaC
-         RNQPf3WZCh4EXXVbBnuinQkmRCUTJVw2psV9EPHbkHEpku/ko6BCdGDaGpT0C+3xNS8i
-         pW49hAW3SMfZ+pnlrAxHVEejIkGnDnmNYuleRPQQrlzbZmJLP+v2AoR1DtLnv22PETPC
-         Zqqw==
-X-Forwarded-Encrypted: i=1; AL+hErFQGfU3B0j9nRNtGDZeAvHwIMlm+476uL4vfpF7JtuCuoKYZMKwGJW6RpX36p0NScijngcMRtdQ0rbQrPg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z84NcS7kNAjdGZ7UxDpDUkBvOGOoZn/2cWio9wfZB1lRFiorrU9
-	FBch91BLxkhmArzjZLuCMrt39D96GbfhilCnIyEezmBS5SjxJ5mxRq7SFM4qSLVJngE=
-X-Gm-Gg: AYBFou0AXpMqer4N6K6UEn/lvsknWuF8/joJoyyXvNbSXRvzy79fo9yDCQ+LBl2TBR0
-	cimrXsIF2docNGW0S+RaXwMhwgi8cfDli3RwyxkiT+JUWoAX2tlDJfk48+AFJwAOeqIXFKjtrD7
-	+SJ1zpt3neEkpQ5AFSTS6660T+qtjrFHfyU2H2WlHB/JyCxgw72rnjX17RLNhSqXn+Or2hcVKZp
-	DX4tONXrvLXMxAABIaC2Ndg1usu+PY1GMGIYkCrlLz6og6lApacxDao6t7Jlt5HK7bIgg+NFiQm
-	fdoR3+ZRGeDuTzW+7Fu4IKC91RGxHUzMLK9S2idrLCQw3su/mZKGnfW3AKfyHyUDhp9u3aRbpil
-	3Zj1za/bIQ0ftVYIGbGrg6TiEuSYPeZzXnef0JkZWaCSjDddkNzGrRfOyC/rWgEaeJcu35UcHpc
-	9wtKMSAklDzgZEaUilBgK8BkIYcKtvVYycg0yaRQ4Bqs9r7oD7IYPf1l/Vf0vTZC/EVY9bbUVvZ
-	GubiX3pZafL9+j0GW0KsrZM/L9Pt7gDHUq6zMHg0ZQSlA2g4Bxx2RFKmKEVYnhbwYGdYu6MQZkk
-	jT9uQcxCe2gMyMxh9NOFDAjxyNuPDl/fFkA//AmmZwi14mWtGyIpkBXqr7qAwXEndEqbkSM1xsQ
-	6aCv57vHaAhCl9nLliKuCkdQW8fF7lepbE4kg2M2yjtF/Voo6nyOlhk1mPa6L04XWZN2lA/c=
-X-Received: by 2002:a05:690e:47c8:10b0:67c:1c81:fe46 with SMTP id 956f58d0204a3-67d898314c5mr465618d50.91.1794530281004;
-        Thu, 12 Nov 2026 16:38:01 -0800 (PST)
-Received: from system76-laptop.attlocal.net ([2600:1700:6476:1430:3a31:6c95:5610:70f6])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a59e70asm706463d50.10.2026.11.12.16.37.59
+        bh=duoDFkSq7fe9og5fEiEDZZmXvPbbqJk+mbywRo7M0do=;
+        b=Hx8WV6GI7COrYTUITlY83lA3f62jv3xrBMYJO3vPpozhkrFj4asH14WDng6QIkPr9A
+         FRfwe07ZcGtuqaVBq56nrdgYiz5KiwN98vqSzWMPTOpq59lmQxTxwN3C8RacbNafNh6J
+         Cu90jUZ0sdUl/LeTbo+RhMK9/mvOq/2a/fx/Y2hw7dcWBfyudhpSsFj51SFRG2f69XFs
+         C+Rq2GaSED0uVYoq1LII/tm3O4YxvNLULJom7zFGbmq4qnR0LchSOlAKdeUBpRAXsDtD
+         uZUxYec3QGwEIZ42VCSKGe1hlDYgw5H6G3P7hgKKMHSVU7LYg1meVBBXARarfVZmVxNp
+         L1pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794530293; x=1795135093;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=duoDFkSq7fe9og5fEiEDZZmXvPbbqJk+mbywRo7M0do=;
+        b=d93a3vIvFnNs1Un1zoVeBDpMA21e4Th/FpXPPhrw2lPwSmVtmrYXlHnVVcIVbf3Jz+
+         XcFGqkIAt046xxSuN06bhW2NcSiwT2+eEVJP4GL2u36QZXYsGxD89K0+Og7XX2b7k9p+
+         t9xt+lxTIrIjz5Rs6cGSpWG+oBHGewPVgI9CmJ0BZc4soAKD6clLwJn3bErLl34vnm/C
+         +g3wtPbz9Dltsgknz8N+tUVmxDsAjF3RBqt85Hxg+35F01M/KbwyAnX2yMQZu46O/DBH
+         Cr3i7vJx8q4reRF6N6pzkGPia0TKiP7sQ0ojef99n80aqe0rBEVYeTD9iduUe9OprpXQ
+         Os/g==
+X-Forwarded-Encrypted: i=1; AL+hErHBhEoIZfON6YJdS0IXPGYj9QqMTgBRAKD2bXnpdQUmrdmm8QId4W14SUUZraD2R1luTMhwdz7+8X8n1kk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Dg46K7c5IICIB5XM2DLCTcfJLuijUBhir24IE2NR2pAMbdJAQ
+	JAIHI/vp1oEbauKGnkUbPLeRDc+HgszelfMr5eLsL8iNc9j0ossZSF87
+X-Gm-Gg: AYBFou27sVUDcEisSQnOAdBD+Q1kRojVo0ad0NFZvu0VASB5U9CWHQaxNr82t5pr3A6
+	S39uEuY6iidv7hnDEmUJXxCQTfGQIxBYnfd0eE7lHnfizN3pjzJ2m7HVumJx5PMF3fe/7GGfCH1
+	trm3SaRbJFLODR46toXdwWnThOeAZgeFhGy6uvpBreOuS0gcI7aGYbI2AEg2oJOgac3dfgM8LJ2
+	yH5Y/6gScGtU5k3GpMTLlBtysgAO3H+OLDfNfNCt2+ENsUYK87l0pgDUTMNdqM8vjbNz5OGgcIx
+	AVg9jOH0MXxJlqxs/92QaUA8W8W4lHNV8uoEoonoH86AWMXpO1NI4cP4DOFX8JqT4pfqSCm2nEW
+	Yg47CJpF2/+3WnzDfML7S89YWaxDRLh1XpDpC6f8xxRapvUG8N5sgWGBo59kk501GmKKY5aCFKy
+	FcQ5IbgV+sF21j38h5zSH2CpGQUvm86XAMXzjlnFy9Ak2exl8ktJjrhqUidDKgeVs0GbIezKrgr
+	x1R1HTAFQ/jePGxOY8qzLN89pnrass5Yrli1RO8lw/vVwwiCs3lGz3XnHJnPNZ5ebjsWNyB68hF
+	TAWN3BdlThFMuvvao68n24GCvtxB+JmTdaBGrI1RecYfLqdGXg6Cm7od/B1FhzTrtUF/Bqy1/Rv
+	fa9cA7kHOqoyl0Z4QkV6C3Ht9BDrqshDLIy94eDNzsqjS4I2QDd91CR5JLjUoIVOpycs1vljLwn
+	If3wtspX/ypNkmYdkWqiQy2e5TdlD6D0Q/81PlCVE=
+X-Received: by 2002:a05:6000:611:b0:48d:f02e:f7cc with SMTP id ffacd0b85a97d-49c7044c3f5mr2386582f8f.24.1794530292921;
+        Thu, 12 Nov 2026 16:38:12 -0800 (PST)
+Received: from navid-pc ([2a01:4b00:a856:6220::a11])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60116323sm1975267f8f.32.2026.11.12.16.38.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 16:38:00 -0800 (PST)
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com
-Cc: linux-fsdevel@vger.kernel.org,
+        Thu, 12 Nov 2026 16:38:12 -0800 (PST)
+From: Navid Ghahremani <ghahramani.navid@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-arm-kernel@lists.infradead.org,
+	arnd@arndb.de,
+	stefandoesinger@gmail.com,
+	krzk@kernel.org,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	linux-kernel@vger.kernel.org,
-	vdubeyko@coreweave.com,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH 0/2] hfs/hfsplus: don't take inode_lock in ->fsync()
-Date: Thu, 12 Nov 2026 16:37:54 -0800
-Message-ID: <20261113003756.1066989-1-slava@dubeyko.com>
-X-Mailer: git-send-email 2.53.0
+	linux-clk@vger.kernel.org
+Subject: Re: [PATCH v2 06/24] clk: zte: Add ZX279128S CRM clock and reset driver
+Date: Fri, 13 Nov 2026 00:38:11 +0000
+Message-ID: <20261113003811.3670011-1-ghahramani.navid@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <95690313aa006369e994b6c4a7af69b809a84337.camel@pengutronix.de>
+References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-7-ghahramani.navid@gmail.com> <95690313aa006369e994b6c4a7af69b809a84337.camel@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,27 +108,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Both hfs_file_fsync() and hfsplus_file_fsync() take inode_lock()
-around the metadata part of fsync. For both file systems
-it is not needed: the inode's metadata is written by
-the same ->write_inode() path that the flusher threads use
-without inode_lock, the b-tree records are updated under the b-tree
-locks, and the b-tree, bitmap and MDB/volume header flushes are
-per-superblock and serialized by their own locks (mdb_lock in HFS,
-vh_mutex/alloc_mutex in HFS+). The lock only holds off writers of the
-file for the whole duration of the metadata and device cache flushes.
+Hi Philipp,
 
-Drop inode_lock()/inode_unlock() from both ->fsync()
-handlers. Patch 1 is for HFS+, patch 2 does the same for HFS.
+Thanks for the review. The next version splits this up like Stefan
+asked. The resets move out of drivers/clk into a reset driver in
+drivers/reset that uses the CRM regmap and is probed from an MFD
+parent, like Stefan's zx297520v3 reset driver that you reviewed. Your
+points apply to that driver.
 
-Viacheslav Dubeyko (2):
-  hfsplus: don't take inode_lock in hfsplus_file_fsync()
-  hfs: don't take inode_lock in hfs_file_fsync()
+Philipp Zabel wrote:
+> Don't select RESET_SIMPLE without using it.
 
- fs/hfs/inode.c     | 2 --
- fs/hfsplus/inode.c | 3 ---
- 2 files changed, 5 deletions(-)
+The new driver won't select it.
 
--- 
-2.53.0
+> Why share the lock? Each reset controller has its own register.
 
+The new driver doesn't share a lock, the regmap has its own.
+
+> This check is unnecessary, fwnode_reset_simple_xlate() already checked
+> this before the reset control was created.
+
+That check is gone in the new driver.
+
+> Why is this initialized from CLK_OF_DECLARE_DRIVER()?
+> Surely USB resets are not required early?
+
+Only because the reset code was part of the early clock driver. Nothing
+needs these resets early, and the new driver is a normal platform
+driver.
+
+> This is exactly the same as zx_reset_data, why duplicate it?
+
+The two controllers will share one data structure and one set of ops.
+
+Best regards,
+Navid
