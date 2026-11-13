@@ -1,54 +1,157 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584276;
-	b=cvwOR4colFVzgUavG06fH3/69LwA58OvGLkKb5jl+UftUedOJK9ghKDqbmY3Hw/Cr+u1
-	 9aqf65BJ2s/7Szb5sekgXc87ryRztsWHle+lv0wgxl50oLZ1/hAIPwgd1FuXGWnj+cici
-	 tBiy0ziZw5GIyfLvocKApG0ZTRcVHVjNP4gukFxmuKMOp7az2LNbjjoPS68CFATDEMIhg
-	 cvs8sHky8aKfyug6bT8xBJcsJzcE79S4H2N7OcPGr1Lc2oG/3Zh1y+wkaznQbB7P/2TwR
-	 /zZMPvK4uMnBkNAckrSq8rOrWmWf56Bk/UsIoQLEqApKGjoL1urZq+WVRDFvqr3GLOw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584276;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=T9Y/TaQNUb3/griwMCePCu25yQGlbSAhSGmqu+WzWLQ=;
-	b=Z0FBz93Qc04t1YX8n4SPVF5e4wsibjFy4HPfJ0138SBpCoJxi6SUb5eiqHP/6neZFKNj
-	 Hro7SJ7Vn/myMqr7T8KeacFDEmMiKKSzAPWAOAS6CpGQYGdoshs5oEx3XVDuTA79ebwLk
-	 rDk473dl6eqW+XmMFPoWOCiMtJi44I/Zrd3TiDYnYF5NG5XNQCnSgKHN75h3D8nq83zt5
-	 t9uTDy06WsatTo18MoACbvo+gea51uNrl1DELKqeznSE0yx0u8mwPjNdpylUWtO4qDqJw
-	 gVWo7GS2Q9lMTkeoRDYdWVZH9EsGIsV0bDrD/bw1qL8bXW4ihk2qO8vFroxJlnAfkig==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.72
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794584332;
+	b=CXaFe7wZ8033WgMotNvm6z/tUfbCnGK7/MikRUFuwvj9wejmu97/CgIIN+5ZXu5m7NyE
+	 sLHNQ8Ue+jPfGlqksyPCAJI6PM7hx5DcCiryzWQ59T3Loyq+Y6oc+xd4nfft5Y4/GdZGT
+	 HPMOXqs5Rk2A/hoFFk77/TB3bC/FabAMzpoqTeqtXVvTFcFjJf5JkqVQjfCr04Ye/5Kt3
+	 J6LeLX3DqyUgOkyIs47BgvDSEONGwJFzVIw6FhwGDjy8yPEZh97ZWBEWN6gOOY18SQFBg
+	 B4Hf/cokjFUIGHm529+CeMTnORzIaLKgxHbXUJMpdj8Ir2qomkRuKCBcIKaRXQbTFOA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584332;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tajjZCCyQqa0wsfxM/YWzJN75onxCBmeCEQ4wb6aivo=;
+	b=idGON1HoDW/Yadf7QCJtB6JZXjcPEfEyBo0fUi9zPJeIXQ2BYp38drFK0i/zqo015hIl
+	 +nVjbMIods4N+Oq9JPSxFRKpJGeoPJL0D7AAkw/ABzhiVtHYjFSmjVQ0+0OSb2gcOrXY0
+	 Pfw1Z/MVr212zgxaqwtkxgFzFCdJWE/MR3GawwNzgslJb54/TMMqZ5JTb0Bn7Z/gMPorr
+	 TAMHFB1TGOMLb5y93WKQHP6PgE50WTJARnT0UT0tc1QYF4fHnBrSiLv4dGHOsVAeR/okc
+	 tnFg9yHeBJWw0BFj5QvT5ma3F9nrucshUWiTLm7DWApYIsxdiLArN4xlk//4mCK1gCg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Xr8k7dGt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.53
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010053.outbound.protection.outlook.com [40.93.198.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF870606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:37:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF870606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8488f31d754so696370a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:37:55 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794584275; x=1795189075;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T9Y/TaQNUb3/griwMCePCu25yQGlbSAhSGmqu+WzWLQ=;
-        b=zQ63d7XZodbswoVjr7j0d2xf3LKyMCfnGCHpSxNJFfifSE0u4FbhVzfqcnsTMemWMK
-         SoU4apl6NrEb7UbmzPpxtnrRmoKUpO59EtFwwXXEeuTngbG7zUtAM6js54Xif1bMGSDb
-         MDzanjnu/zsQJHyKFYlKfD/J2eqmXxKiWl3NnOD+J+nVqk6t3QFqiDbL2y+l7aB5hhA3
-         LOS0JQvlCOSQrLd4XeHmBrnE1UqviFsJLO3NWzuD7GcOzDNWjTG17k4bRW4JMz7QSU0e
-         e8KSoLKM39++lP0Gx2INenE1HwAmDWKAEPdvivVQzq3CRXZ7rI+uFuEW3WaHkPcijfoI
-         dZ6Q==
-X-Forwarded-Encrypted: i=1; AL+hErE25LkofcB7siVs0w04y9Tym3Fh+tW5/f/T9Vm/XOS5TmwBhpWYnVZ6n4CPyavpG2SjWG+1lWfVn+aCYOQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hEb3wkjM3deVwyFmQEzBQFWzh8EupdO3dq0snU5Wn3jK8gP+Y
-	HF4xGJOEr68KvIePZycRZCXZG38VzSscSuK5BHBUGY0CiKrGCluLMxeRn46Fzw0nr3EiVIZwgR7
-	LfEa9ZKsO2LmgjcanihDjbHK6zGhoh93QdED13zRS15vD5cWgA4/JdNIowO4=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C284606A327;
+	Fri, 13 Nov 2026 15:38:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C284606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Xr8k7dGt
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Owv2oC6JndNZQ4bWJ76TV6AZQHBRLt4PKDBTESI3hC8effZ3TO5NcmEFIh+bI0rpMPRNbCzUOv073aBwsfp+Cr8Fmp0F+as9ceXKBvWXigA3z6S8tRVAwihOAo1lGIn+OABXUYo3yrnWL0NANor8yYRf/pXdl60iBpejVtzAjso1Typ9dkqhQD6fvrY2kf23P/sSzMInQH8+72v4kWVq2JkrpI944NEl2WTUVLCqIzFGJhV82a0Mq4kCF2kcK87TVaC9nRFnjbGdfbpo5AKHUSZy04c5l7sgP+V6ci7rssw4M6pdCyzyFKEbJp2EJibmPpS3dqEcf9Tz4aY2k+w+ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tajjZCCyQqa0wsfxM/YWzJN75onxCBmeCEQ4wb6aivo=;
+ b=xpPIt2UPEYOBujOK1+0YYR1C0kxCv6kB4H6qyD7yW/p0de/1CW5mZERTnDrdjhBq/cNka+mKLcaEKs7CBc42GJ2u6tfx1FgFBYcNATIzBOJ0CLpS4z16SgnsQwOYqUPl/38e9masMNgz/aDTVy0ptIdQX+6MMCxcHwqyFc9uNvtJrZupa+zu+1bH4bXP0OIiXTf+/WCi5bA2RsSq7UbWnYUMCPBH4n+dELx5iEJDT+iHfPcZQMAk3RBWwppjvr/vMWfWaVsuEp9T5NVH4JDjDvj8O8CSqovs9mtb1d6ql4Zj20CFJMFvcwWP2DJhpqBQo+l2TgQ9VCzIi3cHsaejCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tajjZCCyQqa0wsfxM/YWzJN75onxCBmeCEQ4wb6aivo=;
+ b=Xr8k7dGtvhpZVXzoagRd2phn2nU9fraOQSTVwTuuaC4OAnD4LgC6SWp/Tfn6qL9pMrKq0BXbw3sEwqISNRdBr6oNUUTgUKg7rCsjJtIH6QJ5B9nLSdfad+q5yJ+PN1lqme/E+Oo22EMSzBYLZ+tUOTQ9OKHiQ2KmyeW5jGCR465+fZGd/gKXiTO+6xz1my1w8Qyu99Wbi/m62tpa2pPHIo7EhBLwI8pOzXXlloNQ1ByIAu7JReQPVLflGKz0AsXkr4yvrM731BtEwWVwUqq3YYe08nzGAQ43opuHsgy2zsmhX5u99XnJiJQijyM/a+WlKWTylrr9y30WZpZVKCqdKg==
+Received: from CY8PR12MB7290.namprd12.prod.outlook.com (2603:10b6:930:55::13)
+ by CH3PR12MB347562.namprd12.prod.outlook.com (2603:10b6:610:367::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 15:38:48 +0000
+Received: from CY8PR12MB7290.namprd12.prod.outlook.com
+ ([fe80::a8ce:7b9b:3e72:d1cc]) by CY8PR12MB7290.namprd12.prod.outlook.com
+ ([fe80::a8ce:7b9b:3e72:d1cc%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 15:38:48 +0000
+From: "Qiuxu (Leo) Zhuo" <qzhuo@nvidia.com>
+To: Breno Leitao <leitao@debian.org>, Tony Luck <tony.luck@intel.com>,
+	Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>, Ingo
+ Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+	"x86@kernel.org" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, Qiuxu
+ Zhuo <qiuxu.zhuo@intel.com>
+CC: "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Rik van Riel
+	<riel@surriel.com>, "kernel-team@meta.com" <kernel-team@meta.com>
+Subject: RE: [PATCH v3 2/2] x86/mce: Rate-limit the CMCI storm transition
+ notices
+Thread-Topic: [PATCH v3 2/2] x86/mce: Rate-limit the CMCI storm transition
+ notices
+Thread-Index: AQHdc2+Xiee38t2R8UOZprEfA5wyqLcsIwag
+Date: Fri, 13 Nov 2026 15:38:48 +0000
+Message-ID:
+ <CY8PR12MB7290CC3725299D8009357253D17F2@CY8PR12MB7290.namprd12.prod.outlook.com>
+References: <20261113-mci_ratelimit-v3-0-ada38c5a6c88@debian.org>
+ <20261113-mci_ratelimit-v3-2-ada38c5a6c88@debian.org>
+In-Reply-To: <20261113-mci_ratelimit-v3-2-ada38c5a6c88@debian.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7290:EE_|CH3PR12MB347562:EE_
+x-ms-office365-filtering-correlation-id: db570403-bdde-4113-3208-08df419c35a8
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|376014|1800799024|10070799003|23010399003|366016|38070700021|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ geSGNq7v/2Mma6lnaujlsmqIDeYbBSliUjSL1jdenCniOfMidK3oW5cDJigNpxCubwcaNT/rVMcpktCN0LDSJg3iR6ZWMuj3EOkz3dnSOT+ZxKTGGIbOcMstsmcmzFvSc3hrjGtazClpVUA20LsUP7HWv+N65CmFXxPGo8xo3N+rBlfuyGjt0bJmXPgpcfc3B0KC24iDvBdQB8dsbh07+TLsOqyeUDRSgi3A70zR5mnHEpwNrmG1g2yUFGKHfnovW11mu85HOaqFxVLDRSZyqhguOjhI8CHr7b4q6QqzFSz8YhD1GdSjPJ4Oun3IP8dhQu3XqyzqX+n5p7yGNpP9o0svNvjzYceicpXJ1ow/3daWICkXQ3wQjGzqCpXTKq3Oy7VxyFdNUrUuWTVRV+RytauWNAmZngt566lw8UTt6xuJBXctmAi1Tf1i01P9AA1WycHhMeLOUxN4ulAPmwqz2ZaqN6hp+cXPjzWDK72miPhB9dl6pWW6Su0b5z2NUghzyZ2PPfW8WglKnGenZUC6TX6/RhUO0eBxNgnXWjz0Y726SrZo79fqWz2V9yb128cxxp/evsyiO9j3pKB+iTO7evLx4s0E/X38BmqRMJEtShCX/QZrl/74UUkJzbHTp2bxxcakNsZnP6Q0DrV/I4Xg1aFR3TUB7WOiKnA9Bp4KsP5nKwmyUQK8kHIbw8d7gXb7bbD2YKhoDDtts0ZOGA/pfQHw1oYhKZxK1iTpirYlnro=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7290.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(10070799003)(23010399003)(366016)(38070700021)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?eWFoVThWakVoZGVncXFXeng1ZUhTUHlYU0xwa2hZM1VuQ3BOSU1pdEUvS3Nm?=
+ =?utf-8?B?VkhvRysyN2Y2c3U2M2N2VU1aL1psdVR0d1JsTTNDbGFvTTA2ZzkrNUNMOWRT?=
+ =?utf-8?B?QWNnVllrWlJRc254Tzhuamdmc3JqUnhSOHhKemlCNUxRUk9MV2xrYTBjZDd0?=
+ =?utf-8?B?UVlaalh4S0dsWEQ4V2FaVzlpcXdiR0JGbDlvcDh4Z3E5RGd0bzkvNll5OWVP?=
+ =?utf-8?B?dlZFeWFQNU1Pdk95aXJCY0FHaDVGbjlNQ0tVSS9pUGhDRnhGT1plWW5QRXJX?=
+ =?utf-8?B?OGNWL2w4NWtzbXNCSFpYSFpxRGluNGI5OVFlSjlxT0pKd3EvdFBoZTNhRGhx?=
+ =?utf-8?B?TU1hc3dKNWxyT2VEa0d0TXdsYXdzVDdWallxZ0FRekIxMzhNTmtWK0tPQ3VM?=
+ =?utf-8?B?dlQzSDhpbXlIUFhUL0YwNktBSFh5ZkRCS1pkdkJJME1vVFFMTTg4WlBUTDhm?=
+ =?utf-8?B?WFlvYWpERHFEQ1AwSmVZOHM0TzNYM0svNnFYek9wSnkxQ0FSMTZTM3kxcmxB?=
+ =?utf-8?B?Z3JiQVM2OEt1d2lzbDNrdDZTcHozYVZBb0dkcko5d3huWFlBT3djdzRRb3NR?=
+ =?utf-8?B?Y3V3dE1MMFRHRlBaTmhRSUg1SlFOSFFjamJqVnJFaUdBZkFjYWRwYmtCWHlI?=
+ =?utf-8?B?QzVieC9nR0dkZ0Jsa0U1NTUyWHVINy96NlNTdWR3Ti9maDl0aVV4Si9VSG15?=
+ =?utf-8?B?VE01dmVUYnc5U3FyRE9PTWFFUjg1aGxGVDMzNlhCZUxoYlJZOUhXWGhqbSt0?=
+ =?utf-8?B?M0prSC9TK1RGRjRUYTZrSGJwaU9KcU95SmJaLzBnMy8vTG8zYnBuU00wOVI1?=
+ =?utf-8?B?cldMcUdLUEhpanVBcW1JSUZLQmxBbG02dGxGdEZxcE5SSXRuRzltMkxsc0hM?=
+ =?utf-8?B?RGszWmRFL1NLZEJlUFhBQlphK2JySTZpMTZ2Vzg2YnphR2FueENRRU04OGtw?=
+ =?utf-8?B?V3dsZVlrQjdVRHFIalpWdisySG5JNTNGK3ZUOHUxdUgzTUtzSXoyU0hPS3VG?=
+ =?utf-8?B?eTc0NGZ1dUltZFZFa3MrdGUwemZ1eFlOSTd4UlZlaUxEY0NJNGt0dzFoa1Mw?=
+ =?utf-8?B?QVFaajM3MXh0RnlsMUFEbnRFeVNCRzA3NEQzUVo0NkQ3alhTamszMm9CTlBp?=
+ =?utf-8?B?bHZra1hSbzE5dUZRYlRYYlp0YmtlRUN6R24vOUwzNWhiWkREM0RvRFVMblpz?=
+ =?utf-8?B?S2lmcnBCeUgyMjgzOEZoNm1CdnZjZjRlRTZyQkMwQU1qR29hcWpaek0wb0lL?=
+ =?utf-8?B?NWVQR0RoQlVuZmZzVGhLYldXR3UzQzJCZmNidmQrKzRmcTYxV2RVeVR5MThN?=
+ =?utf-8?B?MUlXZjkyUjQ0TWVBWW5pOUVyMTBjRFkvK0dUeVB5dnFRcUpDbG5tVlI3eUxp?=
+ =?utf-8?B?RFNEdGpUdWVOUmtMUWVjcmNSTWVWTy9hSGpLQUJsM1B5Ly8xeWlyTEp3a1Yy?=
+ =?utf-8?B?Vng4ZWQrQnpQS1pvK0dNVk5XK0x6ZVZUZ2NJMlpYek9UZWE1UTkrb0tRNTdh?=
+ =?utf-8?B?ZEFPeXZUMHQrMFU3Ry8rS2xqMFhyUHl2aFdpS3AyaFdoWXk3a0ZVVGJJVDha?=
+ =?utf-8?B?TG1UNXNoZThzREh2cEtmMkFvVUxnVXFvNDZPZk9IVmVic1FTd1Q5eUt5RjZs?=
+ =?utf-8?B?dEdLemdIaDVoUFBMQjlFR2dYbkhlbTNsQVp5N05vUnArejVFR2J1bDNWb1lq?=
+ =?utf-8?B?MWhjcjJscHhNZVpVRGJNdjdlYnY2MDFsd3JtRUFiZW5kaTdJdDNYNlRCQmlX?=
+ =?utf-8?B?N01lSVRRK3cyUTZ0dStna3dZR3hhZnpKTmFROUxhZDI4M3FLR2tYMzJOTXk0?=
+ =?utf-8?B?UVdWNmVHSVIzU3ppaFBoajdQK0hZSll4V2lua0JPWjhLNnF6dkdsYUFEazdY?=
+ =?utf-8?B?aEMreE5JekNESmRxNUoxdFdmSDUyMEkvU1FiL1h0S1d1Vlg0eGFBaTdWeXJR?=
+ =?utf-8?B?bU40OTFSR2tPVzRJQmNtVjJ4QmwySElUOEQxblRpUVEzcTlHLytTMXFGSmNW?=
+ =?utf-8?B?WFpJY2tsQWVBNzcxbndKYmtQdkdsZGZOTm0vZDJoRFR5emttVFdKRkYzd3g3?=
+ =?utf-8?B?dGNScXo1RzZzblZHM01YbHBDZWpRaUpEUmtMVkU2SHlIUU1hcFRIckxHWlVP?=
+ =?utf-8?B?ckRRU25lL0wzclM5aitIVlF0QXB4aDdMWkhhMXZXVTJWdjhMcStidkdTQUZy?=
+ =?utf-8?B?N0NPZ25ZU1VaQmpzL1Vrb0kwUm1MTHpCWit2QU5SaEZQNHFNdG11RGdLeFFE?=
+ =?utf-8?B?aFFZVXVyQitVZHZBWHpNNUVvMllUNDFKenBKMzBPVlIrUEZTMWJCS1NPb3lB?=
+ =?utf-8?B?dnp3dDJLM3V4YlhQUUJta2Y3YlFqNkEvZG1yRVRDNS96ZHlxdDduOGhZVnk0?=
+ =?utf-8?Q?VSZavh8j1H8abjYRogLVnKjY0m1CpDZ8n2Sq/?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,307 +161,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1a02:b0:4fb:8469:fc4f with SMTP id
- 5614622812f47-56e64df31femr2010169b6e.29.1794584274942; Fri, 13 Nov 2026
- 07:37:54 -0800 (PST)
-Date: Fri, 13 Nov 2026 07:37:54 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af72ed2.fe96acdb.12252b.0006.GAE@google.com>
-Subject: [syzbot] [net?] possible deadlock in mptcp_close (5)
-From: syzbot <syzbot+fe510de4a165d4512813@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7290.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: db570403-bdde-4113-3208-08df419c35a8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2026 15:38:48.0265
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FnCMF6czrg/RbW8dZ70DCpfFRD6nxX4CrMLhxFlHboN6sb43K0SNv2hPb1U6ijWstVZMs6L8qaitXwjRxBGdLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB347562
 
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    145480b28ca8 net/mlx5: HWS, fix flow meter release on FTE ..
-git tree:       net
-console output: https://syzkaller.appspot.com/x/log.txt?x=15776b55580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d44b06612b68f56
-dashboard link: https://syzkaller.appspot.com/bug?extid=fe510de4a165d4512813
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/6f77cec177cc/disk-145480b2.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/846aaa5e713a/vmlinux-145480b2.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/db5f4ddbee05/bzImage-145480b2.xz
-
-AI-generated root cause summary:
-When attaching a socket to an NBD device in nbd_add_socket(),
-nbd_reclassify_socket() attempts to assign the socket a distinct lockdep class
-(sk_lock-AF_INET-NBD) to decouple it from general networking socket locks. If
-the socket lock happens to be held or busy during addition,
-sock_allow_reclassification() returns false, causing nbd_reclassify_socket() to
-silently skip reclassification and leave the socket with the default
-sk_lock-AF_INET class. Consequently, when NBD acquires lock_sock under
-nsock->tx_lock (e.g. during recv_work or request dispatch under fs_reclaim),
-lockdep records the chain fs_reclaim -> &nsock->tx_lock -> sk_lock-AF_INET. When
-an unrelated userspace AF_INET socket (here, an MPTCP socket during
-mptcp_close()) subsequently performs a GFP_KERNEL allocation while holding
-lock_sock, lockdep triggers a false-positive circular locking dependency warning
-between fs_reclaim and sk_lock-AF_INET.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=fe510de4a165d4512813
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+fe510de4a165d4512813@syzkaller.appspotmail.com
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz.0.3453/19253 is trying to acquire lock:
-ffffffff90294f80 (fs_reclaim){+.+.}-{0:0}, at: might_alloc include/linux/sched/mm.h:316 [inline]
-ffffffff90294f80 (fs_reclaim){+.+.}-{0:0}, at: slab_pre_alloc_hook mm/slub.c:4673 [inline]
-ffffffff90294f80 (fs_reclaim){+.+.}-{0:0}, at: slab_alloc_node mm/slub.c:5011 [inline]
-ffffffff90294f80 (fs_reclaim){+.+.}-{0:0}, at: kmem_cache_alloc_node_noprof+0x5f/0x600 mm/slub.c:5105
-
-but task is already holding lock:
-ffff88803354a720 (sk_lock-AF_INET){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1717 [inline]
-ffff88803354a720 (sk_lock-AF_INET){+.+.}-{0:0}, at: mptcp_close+0x1d/0x1a0 net/mptcp/protocol.c:3537
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #6 (sk_lock-AF_INET){+.+.}-{0:0}:
-       lock_sock_nested+0x41/0x100 net/core/sock.c:3906
-       lock_sock include/net/sock.h:1717 [inline]
-       inet_shutdown+0x6a/0x390 net/ipv4/af_inet.c:913
-       nbd_mark_nsock_dead+0x2cb/0x550 drivers/block/nbd.c:319
-       recv_work+0x1d14/0x1e30 drivers/block/nbd.c:1030
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #5 (&nsock->tx_lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       nbd_handle_cmd drivers/block/nbd.c:1143 [inline]
-       nbd_queue_rq+0x373/0xff0 drivers/block/nbd.c:1207
-       blk_mq_dispatch_rq_list+0x499/0x1990 block/blk-mq.c:2141
-       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
-       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
-       __blk_mq_sched_dispatch_requests+0xd36/0x1580 block/blk-mq-sched.c:307
-       blk_mq_sched_dispatch_requests+0xd7/0x190 block/blk-mq-sched.c:329
-       blk_mq_run_work_fn+0x167/0x2f0 block/blk-mq.c:2556
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #4 (&cmd->lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       nbd_queue_rq+0xc1/0xff0 drivers/block/nbd.c:1199
-       blk_mq_dispatch_rq_list+0x499/0x1990 block/blk-mq.c:2141
-       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
-       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
-       __blk_mq_sched_dispatch_requests+0xd36/0x1580 block/blk-mq-sched.c:307
-       blk_mq_sched_dispatch_requests+0xd7/0x190 block/blk-mq-sched.c:329
-       blk_mq_run_work_fn+0x167/0x2f0 block/blk-mq.c:2556
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #3 (set->srcu){.+.+}-{0:0}:
-       srcu_lock_sync include/linux/srcu.h:225 [inline]
-       __synchronize_srcu+0xca/0x2f0 kernel/rcu/srcutree.c:1662
-       elevator_switch+0x1e8/0x7b0 block/elevator.c:576
-       elevator_change+0x2fa/0x480 block/elevator.c:681
-       elevator_set_default+0x375/0x440 block/elevator.c:754
-       blk_register_queue+0x404/0x4f0 block/blk-sysfs.c:992
-       __add_disk+0x6b8/0xdb0 block/genhd.c:531
-       add_disk_fwnode+0x100/0x3a0 block/genhd.c:600
-       add_disk include/linux/blkdev.h:801 [inline]
-       nbd_dev_add+0x733/0xb60 drivers/block/nbd.c:2026
-       nbd_init+0x168/0x1f0 drivers/block/nbd.c:2743
-       do_one_initcall+0x250/0x870 init/main.c:1419
-       do_initcall_level+0x10a/0x1a0 init/main.c:1481
-       do_initcalls+0x59/0xa0 init/main.c:1497
-       kernel_init_freeable+0x29d/0x3e0 init/main.c:1732
-       kernel_init+0x22/0x1d0 init/main.c:1622
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #2 (&q->elevator_lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       elevator_change+0x1af/0x480 block/elevator.c:679
-       elevator_set_none+0xb5/0x140 block/elevator.c:769
-       blk_mq_elv_switch_none block/blk-mq.c:5160 [inline]
-       __blk_mq_update_nr_hw_queues block/blk-mq.c:5205 [inline]
-       blk_mq_update_nr_hw_queues+0x60b/0x1b70 block/blk-mq.c:5273
-       nbd_start_device+0x189/0xb30 drivers/block/nbd.c:1530
-       nbd_genl_connect+0x167d/0x1cd0 drivers/block/nbd.c:2310
-       genl_family_rcv_msg_doit+0x233/0x340 net/netlink/genetlink.c:1114
-       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
-       genl_rcv_msg+0x614/0x7a0 net/netlink/genetlink.c:1209
-       netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2585
-       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
-       netlink_unicast_kernel net/netlink/af_netlink.c:1336 [inline]
-       netlink_unicast+0x8ef/0xa80 net/netlink/af_netlink.c:1362
-       netlink_sendmsg+0x7f0/0xb20 net/netlink/af_netlink.c:1921
-       sock_sendmsg_nosec+0x14e/0x190 net/socket.c:800
-       __sock_sendmsg net/socket.c:818 [inline]
-       ____sys_sendmsg+0x49f/0x790 net/socket.c:2713
-       ___sys_sendmsg+0x2f7/0x3d0 net/socket.c:2770
-       __sys_sendmsg net/socket.c:2802 [inline]
-       __do_sys_sendmsg net/socket.c:2807 [inline]
-       __se_sys_sendmsg net/socket.c:2805 [inline]
-       __x64_sys_sendmsg+0x1b1/0x290 net/socket.c:2805
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #1 (&q->q_usage_counter(io)#49){++++}-{0:0}:
-       blk_alloc_queue+0x544/0x690 block/blk-core.c:505
-       blk_mq_alloc_queue block/blk-mq.c:4460 [inline]
-       __blk_mq_alloc_disk+0x194/0x390 block/blk-mq.c:4507
-       nbd_dev_add+0x494/0xb60 drivers/block/nbd.c:1996
-       nbd_init+0x168/0x1f0 drivers/block/nbd.c:2743
-       do_one_initcall+0x250/0x870 init/main.c:1419
-       do_initcall_level+0x10a/0x1a0 init/main.c:1481
-       do_initcalls+0x59/0xa0 init/main.c:1497
-       kernel_init_freeable+0x29d/0x3e0 init/main.c:1732
-       kernel_init+0x22/0x1d0 init/main.c:1622
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #0 (fs_reclaim){+.+.}-{0:0}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
-       __fs_reclaim_acquire mm/page_alloc.c:4365 [inline]
-       fs_reclaim_acquire+0x71/0x100 mm/page_alloc.c:4379
-       might_alloc include/linux/sched/mm.h:316 [inline]
-       slab_pre_alloc_hook mm/slub.c:4673 [inline]
-       slab_alloc_node mm/slub.c:5011 [inline]
-       kmem_cache_alloc_node_noprof+0x5f/0x600 mm/slub.c:5105
-       __alloc_skb+0x1db/0x7a0 net/core/skbuff.c:705
-       alloc_skb include/linux/skbuff.h:1390 [inline]
-       nlmsg_new include/net/netlink.h:1055 [inline]
-       mptcp_event+0x13b/0x990 net/mptcp/pm_netlink.c:582
-       __mptcp_close+0x871/0xd10 net/mptcp/protocol.c:3521
-       mptcp_close+0x28/0x1a0 net/mptcp/protocol.c:3539
-       inet_release+0x143/0x190 net/ipv4/af_inet.c:443
-       __sock_release+0xa0/0x1f0 net/socket.c:735
-       sock_close+0x1c/0x30 net/socket.c:1529
-       __fput+0x408/0xa40 fs/file_table.c:512
-       fput_close_sync+0x11f/0x240 fs/file_table.c:618
-       filp_close_sync+0x6e/0xa0 fs/open.c:1573
-       __range_close fs/file.c:919 [inline]
-       __do_sys_close_range fs/file.c:1003 [inline]
-       __se_sys_close_range+0xa77/0xef0 fs/file.c:954
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  fs_reclaim --> &nsock->tx_lock --> sk_lock-AF_INET
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(sk_lock-AF_INET);
-                               lock(&nsock->tx_lock);
-                               lock(sk_lock-AF_INET);
-  lock(fs_reclaim);
-
- *** DEADLOCK ***
-
-locks held by syz.0.3453/19253: 2, last CPU#1:
- #0: ffff8880529b4740 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1026 [inline]
- #0: ffff8880529b4740 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0 net/socket.c:734
- #1: ffff88803354a720 (sk_lock-AF_INET){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1717 [inline]
- #1: ffff88803354a720 (sk_lock-AF_INET){+.+.}-{0:0}, at: mptcp_close+0x1d/0x1a0 net/mptcp/protocol.c:3537
-
-stack backtrace:
-CPU: 1 UID: 0 PID: 19253 Comm: syz.0.3453 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- __fs_reclaim_acquire mm/page_alloc.c:4365 [inline]
- fs_reclaim_acquire+0x71/0x100 mm/page_alloc.c:4379
- might_alloc include/linux/sched/mm.h:316 [inline]
- slab_pre_alloc_hook mm/slub.c:4673 [inline]
- slab_alloc_node mm/slub.c:5011 [inline]
- kmem_cache_alloc_node_noprof+0x5f/0x600 mm/slub.c:5105
- __alloc_skb+0x1db/0x7a0 net/core/skbuff.c:705
- alloc_skb include/linux/skbuff.h:1390 [inline]
- nlmsg_new include/net/netlink.h:1055 [inline]
- mptcp_event+0x13b/0x990 net/mptcp/pm_netlink.c:582
- __mptcp_close+0x871/0xd10 net/mptcp/protocol.c:3521
- mptcp_close+0x28/0x1a0 net/mptcp/protocol.c:3539
- inet_release+0x143/0x190 net/ipv4/af_inet.c:443
- __sock_release+0xa0/0x1f0 net/socket.c:735
- sock_close+0x1c/0x30 net/socket.c:1529
- __fput+0x408/0xa40 fs/file_table.c:512
- fput_close_sync+0x11f/0x240 fs/file_table.c:618
- filp_close_sync+0x6e/0xa0 fs/open.c:1573
- __range_close fs/file.c:919 [inline]
- __do_sys_close_range fs/file.c:1003 [inline]
- __se_sys_close_range+0xa77/0xef0 fs/file.c:954
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f3143da94d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff94a73f18 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
-RAX: ffffffffffffffda RBX: 00007fff94a74000 RCX: 00007f3143da94d9
-RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
-RBP: 000000000005c95b R08: 0000000000000001 R09: 0000000000000000
-R10: 0000001b31620000 R11: 0000000000000246 R12: 00007fff94a74040
-R13: 00007f314402609c R14: 000000000005c9a5 R15: 00007f3144026090
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+PiBGcm9tOiBCcmVubyBMZWl0YW8gPGxlaXRhb0BkZWJpYW4ub3JnPg0KPiBTZW50OiBGcmlkYXks
+IE5vdmVtYmVyIDEzLCAyMDI2IDg6NDkgUE0NCj4gVG86IFRvbnkgTHVjayA8dG9ueS5sdWNrQGlu
+dGVsLmNvbT47IEJvcmlzbGF2IFBldGtvdiA8YnBAYWxpZW44LmRlPjsgVGhvbWFzDQo+IEdsZWl4
+bmVyIDx0Z2x4QGtlcm5lbC5vcmc+OyBJbmdvIE1vbG5hciA8bWluZ29AcmVkaGF0LmNvbT47IERh
+dmUgSGFuc2VuDQo+IDxkYXZlLmhhbnNlbkBsaW51eC5pbnRlbC5jb20+OyB4ODZAa2VybmVsLm9y
+ZzsgSC4gUGV0ZXIgQW52aW4NCj4gPGhwYUB6eXRvci5jb20+OyBRaXV4dSAoTGVvKSBaaHVvIDxx
+emh1b0BudmlkaWEuY29tPjsgUWl1eHUgWmh1bw0KPiA8cWl1eHUuemh1b0BpbnRlbC5jb20+DQo+
+IENjOiBsaW51eC1lZGFjQHZnZXIua2VybmVsLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVs
+Lm9yZzsgUmlrIHZhbiBSaWVsDQo+IDxyaWVsQHN1cnJpZWwuY29tPjsgQnJlbm8gTGVpdGFvIDxs
+ZWl0YW9AZGViaWFuLm9yZz47IGtlcm5lbC10ZWFtQG1ldGEuY29tDQo+IFN1YmplY3Q6IFtQQVRD
+SCB2MyAyLzJdIHg4Ni9tY2U6IFJhdGUtbGltaXQgdGhlIENNQ0kgc3Rvcm0gdHJhbnNpdGlvbiBu
+b3RpY2VzDQo+IA0KPiANCj4gbWNlX3RyYWNrX3N0b3JtKCkgcHJpbnRzIGEgbGluZSBldmVyeSB0
+aW1lIGEgYmFuayBlbnRlcnMgc3Rvcm0gbW9kZSBhbmQgYW5vdGhlcg0KPiBldmVyeSB0aW1lIGl0
+IGxlYXZlcy4gTmVpdGhlciBpcyBib3VuZGVkLCBzbyB0aGUgbG9nIHZvbHVtZSBmb2xsb3dzIHdo
+YXRldmVyIHJhdGUNCj4gdGhlIGJhbmsgZmxhcHMgYXQuDQo+IA0KPiBPbmUgaG9zdCBpbiBvdXIg
+ZmxlZXQgbG9nZ2VkIDk5NzA3MjYgIkNNQ0kgc3Rvcm0gZGV0ZWN0ZWQiIGFuZCA5OTcwNzM0ICJD
+TUNJDQo+IHN0b3JtIHN1YnNpZGVkIiBsaW5lcyBmb3IgYSBzaW5nbGUgYmFuayBvdmVyIGZvdXIg
+ZGF5cywgd2hpY2ggaXMgYSBiaXQgZXhjZXNzaXZlIGZvciBhbGwNCj4gbW9uaXRvcmluZyBwdXJw
+b3Nlcy4NCj4gDQo+IFB1dCBib3RoIHRyYW5zaXRpb25zIGJlaGluZCBvbmUgcmF0ZWxpbWl0Lg0K
+PiANCj4gQWNrZWQtYnk6IFRvbnkgTHVjayA8dG9ueS5sdWNrQGludGVsLmNvbT4NCj4gU2lnbmVk
+LW9mZi1ieTogQnJlbm8gTGVpdGFvIDxsZWl0YW9AZGViaWFuLm9yZz4NCg0KTEdUTS4gVGhhbmtz
+Lg0KDQpSZXZpZXdlZC1ieTogUWl1eHUgWmh1byA8cXpodW9AbnZpZGlhLmNvbT4NCg==
