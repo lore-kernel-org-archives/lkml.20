@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.178
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794587712;
-	b=N3gJOfP1b+fdxv+o1Y0hRxyMKaXVSLaSySCAjmEGmT5COGqjM6r3rfi266JlBlNzF0la
-	 N/nuibkhtAQXMtxr++9/FCDaYE/esRH2voRVn5XMZvgJcQ/Z0RdzD5COtw12dy8fk17kC
-	 OVSTm+h9ZTTcxjbkEBSkDcmugi533QsfP5ge4QpPxDfqiG060Zi3CNocA/8xvo0VoZuX8
-	 kuuChH3xgNctar11ogrKqTzhJWrEhw7V7JT3FhcZ2ZAFjejOYDKrg9BlqzdHbcJ3eTKDW
-	 efC/6r+O6A7ZSCvc7h0vD6LwFdHJmRfgRRRlpLHiuU2tqr5Y2CjxgDsBj8LDo/y39Mw==
+	t=1794587743;
+	b=OOZCUxhHqWA2giTxQ9qrWu+tce9p0tov30TEmmXVvlOuLulSNZNAptINSBsgFvrd+om1
+	 +h+ycA17pSiAOJSTl+/5rnTPJ3eDqKiTpgVVitgGV2tr+4CaJi/ozcgLpzEaEWnxs7j3W
+	 hdhZiMe0fhZTQNBqlZSGh/J4t0zBXbDcwv6pYOIoEEOwfWAz1J3usqqDrbaFw35vWygiH
+	 IiNKN8Pc/w6+OwwL21oDdiiL0oQeCEE9PBp96xVWGVTtAYW4LgKYkv0VroP90ZWj1InOK
+	 1ercHEpFMKtwzhRXX+iAAVdqIdn3+SgFeSB0A93Lk8kL/zG6mGrkHixfof2Zi2rarjA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587712;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587743;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=xrD29yEt3//vypzd/WFZNa9lHxGVeY2L/1gSF8kcYKk=;
-	b=bYqCBRIjBkp+xNcrLuasbqDJLCTT7AZKzgxMrrkbdLl8Dk30+kYBukaPcscHvodMKPLU
-	 P/82hnpne2Mdcok69kgN63hy3pZENEJ88rM+dfvbBv6mP1nL8ARMlo0RdDJTMJ6ZYRtYi
-	 Y5L4+M9EE3Hi/mGC3Ozuwhl6SjA3UQ81CkKxwJTuYDwfvEj+m/E1oLbjy8vDbEQOTqqy7
-	 3qir96ciJSLRAkKkOwOfl8ll6hNF0E8YHOni5K+btlQUEyGMDTA4hpSnoby3cU31eFCMP
-	 KX09kpy4ATp7QWvVQb7iGWXHs3UdFkTCQKSBF9fSQVsRqH7JQ4NBlaLbEsHaEqB01cA==
+	bh=6Wvtz9D6vgbM+u/1wpqOZ954b+KYcK1dv6Mh68QSbho=;
+	b=1A8NrLqeFunIzMKgKLdTx+29Mt+EkxI82yQXhHWJItxXXWHY19D3/IkZcU9NjkMpT+MW
+	 xWfUGfV0GWVD24YdeUu2/Dx3JhWaKwvmP++5mwijobcB3fe6GSQFD50cPTRUhr9Bf78yo
+	 5m+OhFPHEGB5RZUkFCeGM3ryaM7DGZS0NUpQYwowzcvc6SstXRRWlbqR05AVZ4Pkxl8bp
+	 c0Jgxb909vzmYrBjY7+Al3o/uEyYFxU7ajixfXRmcWg7DWblZeP8I15Pl1LFTbnGSsC48
+	 2IsJ/sKpwYrqorKD8ripOH3qL2jnRkTsJFnNlPnCl+jo6mF1AY+tYqMEP9zBXX2sx0Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bjZkwKQw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BzroyGQE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.178
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51868606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:35:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51868606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D874C606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:35:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D874C606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bjZkwKQw
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5383c97c8cfso447931cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:35:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794587711; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BzroyGQE
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-533202fe429so426031cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:35:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794587742; cv=none;
         d=google.com; s=arc-20260327;
-        b=AauGDuCCHNSiiEdWdd+TAN52ZBCKxdx/z8dYoHjyLMKBWLYZV6AOtP8zj2OsuwtSHJ
-         +alOvO91WKOyqQ6q/dz1/8BkyUVlqXUsAMO9DBLUDR5BO64wUPeizudSRABKlMiIooqm
-         LK3NYWs/Idz708fXNhM/1u7tf2TW8SxUi00036Ly26g8ufgwDNHYibRolx++lLz4Fo9G
-         TrNC8KjxVddZW2vgk9Hycd14i0B1fgroUK0d4SIRBbiglJhVz8PggHFEHZ0ZpXRFfFyw
-         tGXioe3/Vrw1FbJoWIgO1jOuB+Dar3J7n7pncdC2FZCt+2u6PgDMGCNA+2XdwFxLQ+r+
-         UW1g==
+        b=ZqXyxzNWGhLEHuJTlgBPqGKAWVige+ma4xs8SXThIAHh0XhtDzhB/dfAxXEL61RCTh
+         RMQaqdCzeqYWX17hT3ZurENQxN2c+mBopKBj4A97RW15hqTZYnd5RmGdbcqQqIJ2JH4A
+         BD0UJmLT47AA8LhWecdltGTCW7BWpzUTbb435SNxygf7ACaL+FRVbARJddPY1GBLxQji
+         mi7fjthOmTf8Kr/Z5Lx18oNbLwsX7vtiTVGmUnrErcNvb3bXlHKuOsNgO7uOVzWtHC9a
+         JDG0tzkv6k+ymDCGx4WRW57S9QQ+2Qmp39Tai7BoJ1jSZYscXTOJnd7kLZc6ALWtRiuu
+         zwAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=xrD29yEt3//vypzd/WFZNa9lHxGVeY2L/1gSF8kcYKk=;
-        fh=xXmgtvXdzIxsJrZpmb+UQCwAlYdKioBy7bU30nkAIYE=;
-        b=UmYPAw3KdwRHBLrurS9ekXdmvcmAaJWd3i4msHXxrvcr8nr2dYKuuNRpThPzOB4cAX
-         yihihaAH/BsI7dpb7a7TxzV5GBVhL60DJeH0hRDI/5T39o6PkHQpCG90FKIi4EbPVV/b
-         r3lmFaWSLEsDO6eFQLwv4dXjt15FtDjKJgMi/5qRmiD4yY88Pd52RYk/zIp/zoCKtOpV
-         o+mpQoYJhwVwBz5MrOBUbZBjJ8GQhz3uNv6ni5G351AWglBK9Egdc3TLUEcOjSQ2/UcY
-         Thzt3e9rmoOXvmJ1zx/atfsoIrlL4kSwNxs5TXHcJlGsrqL4KDbgbYpvnEkhcMUIGs6g
-         LhEA==;
+        bh=6Wvtz9D6vgbM+u/1wpqOZ954b+KYcK1dv6Mh68QSbho=;
+        fh=pHXnmMqNQuErD+HBKCy66qkbmx1BiZum4nisDrQzO90=;
+        b=O4920w1gmY/59X1gPe1x5Pk7yU43fplGCJmDuCOuPVbKHMzUgUoTngCbihDvgbu2N/
+         InWhy8Yx9sfQu1LUWKHrJTBu3yskG1CCkPKwBZHu7/phxGGna73FLuAmpXPwwhsIddMZ
+         24nHPgbMRucTOIhdn5dyxmmXCfBmmy351vCRw3yw0UuojJw/5pqYJ6AcmCJLeFvQyZmi
+         RYWgXbsmbuXX8SnvQx1qoSRxbQV2DzDYXh3OS/20Sg4k9PABav0fENm9XSLNDVGM4z4s
+         WdGq6tldfQBurPZFuJq2rD2sXKyZtFPGnXITXC8FupPx+g6CFscOHPAMq4VPCJPq6QyZ
+         DSRg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794587711; x=1795192511; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794587742; x=1795192542; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=xrD29yEt3//vypzd/WFZNa9lHxGVeY2L/1gSF8kcYKk=;
-        b=bjZkwKQwarfQCokl+bReY7YfF50Xxtjoqdd0QOvCX76RT1KRX0mKFan/bMPKql3RvN
-         dHVzSEcOIXLorbkJz9imLGgsXS63UwQhqSiQ0xnubEQjksGFBwLRL85cUj2aHDPCYc90
-         Yi0JyHsfiUByilFI/7DemKLLmJ1suBzQj7XdERvzgN+VGW7R/FlVqKTfy5g065sPk1P0
-         9EWs5k8Pri3znfXL9l8hOwkbYUTilLjX5OOzgQcJ4LhjWjp3n41ctNfCVLG9WHMcspzO
-         QHxEfIn+jEugkeal06YEod4E0LHsDnWH5ctf6HZGQuvPS3Lnp9zsCIw8gfwwxmaEFTIy
-         bTSQ==
+        bh=6Wvtz9D6vgbM+u/1wpqOZ954b+KYcK1dv6Mh68QSbho=;
+        b=BzroyGQEclR38tAAhozFMMhmB0SRz6tvHPqBp2ub7NhpVkg5b3TfyLZB6azeiSWCLD
+         4wmL32iW/VAp77UJ6xll9u5GhVL28v+7f56VEFjbp96HkyuSuU/Wzy08bfeV65iNcFO0
+         n/7+klqKK37IdN0wCxzailjWpQL9VXtEmPdwfJbcQMA0YOtnSE2PDsDkC9sSzzjJmPvm
+         CbnQmii0HGehhLl5qAAXYjIdHes0nheJzO17DhOp4drrc+0nP7iQ4zwhjYrs+E4K0mhi
+         2Visqqnt/V7IL6+HmTLckQ8jbv7qb1hfWfnDUSGu0BwpFuGuOS3BhOPJHEnWgtAG+yzT
+         rBkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794587711; x=1795192511;
+        d=1e100.net; s=20260707; t=1794587742; x=1795192542;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xrD29yEt3//vypzd/WFZNa9lHxGVeY2L/1gSF8kcYKk=;
-        b=ESfk1NJvMs8i/eITPnGYoRnPuOS9vVXeOSoorWe96+QibZP09MtnJWgStcXQteqxbX
-         1ndFgjoEPEW3dmgCQjAFm8s/2BVyfv856FvnWCsIDvSSePGVsRANBXrr+vSNSCZ7jl1f
-         ERYWfn0bHb2+NzadttGRtdCIhTErBK5rPO8led8YYdrcjknz6ME2nfp/ALNXeJ8mcbDm
-         pjNxIH9HQ9T6D7YPGjs9D9kMjD3zWC9SZqWeOqzKkKYAfksA1qU1VrJGwbo2rwgreGU5
-         ZToikqzEonv9vtTVSAqVQqFofuA7a/onNfQLq5Czq1frRLLdzB8OffTfZWlrHMDJeaEF
-         fMeA==
-X-Forwarded-Encrypted: i=1; AL+hErE28ILUod13O8simDd/0sbuFDjVLGd8gfezJbfVEplmXKuxBgAGmx0Tggh6c7Gogw7BvTdlM1FKFq3Sw0k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8h6SXIRLuN7IHbHJcUFaeArDqhcNpeaBeHkJ43P3HMK3eNfaS7
-	rJ34QCJYdjRuFBkCQxreY3qGVCEk2b/+QdcAruYA0I5aajXSG7b2kRfXGXfqCEEMd4tmwnYjxj8
-	ahsuVBZCpb/KO05qnZ4BDQ5QMJ5mBmOdE2yqFEMMh
-X-Gm-Gg: AYBFou29sYppfV1zQYEV9TLkMYMoGKl4ZrYk7PdFRyDDWp7Qbd8mO2j4zyxx5lEpnFg
-	wUPzU3nuXVoaPl7aRu8bBrzBWkAFzh5BXK8PR5EmUiueed0JN7lwoW8ma8/aA0TREIIpCzrSUNp
-	c4tqer7qS9D5gt4Zpby1A5w2zKT0dE/pxNZk4N+yjY10mq/Y6mlTADrc3sVPxgmPK2XO05G7lji
-	70DR+6DlcXvdJIVmkxwSg95haQRnXXk+8F9/B8C6z5bFI3RPKxKQSa7G1lB4oMvH32KYe5FaT5s
-	IFR4zGGyhC6QPT0n+KVxk60c2F4f1oXvh+jSJ/FdxIhAJvC7aW69ZjGBsU40/WrU02VLlQNUXah
-	5QMXi9fg5d2ljMrk01eEcQPGSgTKhNO0nyJgyyWYYjFHYCx2YdQETStEJ1hrv904vS2E=
-X-Received: by 2002:a05:622a:1ccf:b0:55b:ce7e:e65 with SMTP id
- d75a77b69052e-55bce7e113emr6611301cf.12.1794587710393; Fri, 13 Nov 2026
- 08:35:10 -0800 (PST)
+        bh=6Wvtz9D6vgbM+u/1wpqOZ954b+KYcK1dv6Mh68QSbho=;
+        b=YcR5tkQbZdB0F5zL0PWt3qPZrtwJYbEk4P6lntAo+twrrAIgU0+GpIXKlHb7JduJ/q
+         70lg2vb5jn4/DK3S7PMKHmX6WPDkvyWw6ByQzwVwpZATl8wDo8/GOQo0j4qqiUD0LWyB
+         uFvPKPjGILdnzCEFzkvZa8McLgnPTFJJI0U5X7JvAR1LlZ99r8j8gTEmR4LQZirCKmI3
+         T9JICAFlK8BZMlDhIY8BEycdJpMtK3EpDlwuC/iVCF8vK4He1rjD/rliQgRrcLHs68ID
+         xZxEOEkFuGjXdIAEmlKZYnO1fZUPap8eNwdQZn+BvVRSZIjuZnfRnYgN7ppzEn/frDGe
+         iakQ==
+X-Forwarded-Encrypted: i=1; AL+hErHOK1eDpooqDMQsTSvRW3hI+kNVkM4uXM6PgX3sddF40kASeyqnIXjquC/V8sUOcbOJ+CzVrY95SuI+dRY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9WbgawAParr4YGOpEylPZd8daC+UepyWg4HkN+m9e67Es/4/Ds
+	86XGziuqN7qIzGPDNi3X5c33sP5FzEKv/R0j/xKw0tM5XxcyUQDHwsGdQIJ6GIZJt4qtazZ3Hbg
+	NBB4566i2qZL8N6FUTZkxzkEsn3u08EtUhS++PS/JVLtMYOtooi4dZu3zIT8=
+X-Gm-Gg: AYBFou3aeWwSaCP9z9GsZWWqLEp0xFHot326BHUBFU/62HJ3FETkLCgJloMsy8YwLsn
+	fHraTOC79nchRqZ/STOeQkvCxlQrT1x4WtbG/g+Apo95DJHadowlrYeDbrHrY5GVxoJzje7LBGg
+	4ewy8TZjbQrBibPDV0NkPA080TBphmvQ4lZdU9oQ3Hw+ZA7ZEFCWBjWm/8NJWvFGFqbFgG9lV+l
+	APKMVpHiVDgZYqkb28u0Sg7+Rf9SQfXaxm3pnaRNtRgSEKh3QNfElDGYTb0m3UMAEnqcuDEU7Sx
+	4AKfCeTpP2I8+47KPv+1z4kDGArDeN43gIZ6rPD4vwuC+Rj+P3NLrtBal517Hr9yY7NQKucY4yl
+	XmhAwY37ELrqDhabklf+ikHCbhD6MhrSk8m95zv5+bSe+dim/BWp8lzSlKAZ4uWBvK6rcpjH0+t
+	cpxidIkM65VjXc
+X-Received: by 2002:a05:622a:4d9b:b0:536:78de:775f with SMTP id
+ d75a77b69052e-55b44e0a79amr14925261cf.15.1794587741025; Fri, 13 Nov 2026
+ 08:35:41 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,15 +105,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111174213.3526604-1-irogers@google.com> <20261111174213.3526604-16-irogers@google.com>
- <avVoe_hajXqJpfmq@google.com>
-In-Reply-To: <avVoe_hajXqJpfmq@google.com>
+References: <20261111174213.3526604-1-irogers@google.com> <20261111174213.3526604-17-irogers@google.com>
+ <avVl_JNcFqq7sZvd@google.com>
+In-Reply-To: <avVl_JNcFqq7sZvd@google.com>
 From: Ian Rogers <irogers@google.com>
-Date: Fri, 13 Nov 2026 08:34:58 -0800
-X-Gm-Features: AclHuK_7fmidtjnY23su_Zqg7HL7UTKU7Xj3J_Z1_BDHCkhGqtFv7HpxmgYMpYE
-Message-ID: <CAP-5=fV3hTWRH3B=rZ9LQeubu2mb+caXyQxdRtAfRtYO7PCA6g@mail.gmail.com>
-Subject: Re: [PATCH v12 15/20] perf intel-tpebs: Fix race in tpebs_stop() and
- tpebs_cmd.out fd handling
+Date: Fri, 13 Nov 2026 08:35:29 -0800
+X-Gm-Features: AclHuK8PfQbklhmPM2_Vg84I7H9O-DXLd-KLmS3zmzOFzPck-cWzjRORBggtnwY
+Message-ID: <CAP-5=fXFBqUgsC2Uug0BDBLg2Cg6O8C9ULF95j7kd7npeUhG5g@mail.gmail.com>
+Subject: Re: [PATCH v12 16/20] perf intel-tpebs: Use DEFINE_MUTEX for tpebs_mtx
 To: Namhyung Kim <namhyung@kernel.org>
 Cc: acme@kernel.org, adrian.hunter@intel.com, bvanassche@acm.org, 
 	elver@google.com, james.clark@linaro.org, jolsa@kernel.org, 
@@ -123,46 +123,50 @@ Cc: acme@kernel.org, adrian.hunter@intel.com, bvanassche@acm.org,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2026 at 11:19=E2=80=AFPM Namhyung Kim <namhyung@kernel.org>=
+On Wed, Nov 11, 2026 at 11:08=E2=80=AFPM Namhyung Kim <namhyung@kernel.org>=
  wrote:
 >
-> On Wed, Nov 11, 2026 at 09:42:07AM -0800, Ian Rogers wrote:
-> > In tpebs_stop(), read tpebs_reader_thread into a local variable before
-> > releasing tpebs_mtx to call pthread_join().
+> On Wed, Nov 11, 2026 at 09:42:08AM -0800, Ian Rogers wrote:
+> > Replace tpebs_mtx_get() and its pthread_once() initialization helper
+> > tpebs_init() with DEFINE_MUTEX(tpebs_mtx) and static initializers for
+> > control_fd and ack_fd.
 > >
-> > Transfer ownership of tpebs_cmd.out to __sample_reader() by passing it
-> > as the thread argument and setting tpebs_cmd.out =3D -1 in
-> > evsel__tpebs_open() so tpebs_stop() does not double-close the fd closed
-> > by perf_session__delete(). Also reset tpebs_cmd.pid =3D 0 and
-> > tpebs_cmd.out =3D -1 and return early if start_command() fails in
-> > evsel__tpebs_start_perf_record(), as start_command() closes the pipe
-> > internally and may leave cmd->pid =3D -1 on error.
+> > Signed-off-by: Ian Rogers <irogers@google.com>
+> > ---
+> >  tools/perf/util/intel-tpebs.c | 91 +++++++++++++++--------------------
+> >  1 file changed, 38 insertions(+), 53 deletions(-)
 > >
-> > Serialize tpebs_send_record_cmd() with teardown via tpebs_cmd_in_flight
-> > and tpebs_cmd_cond, newline-terminate control commands so consecutive
-> > writes cannot coalesce in evlist__ctlfd_recv(), check
-> > check_if_command_finished(&tpebs_cmd) under tpebs_mtx only when not
-> > stopping, ignore late samples in process_sample_event() once
-> > tpebs_stopping is set, and guard evsel__tpebs_open() against a
-> > concurrent tpebs_stop() with tpebs_gen, tpebs_enabled, and
-> > tpebs_stopping across closing the fds and finish_command().
+> > diff --git a/tools/perf/util/intel-tpebs.c b/tools/perf/util/intel-tpeb=
+s.c
+> > index 5cb090b27fbd..2edd8297fa1b 100644
+> > --- a/tools/perf/util/intel-tpebs.c
+> > +++ b/tools/perf/util/intel-tpebs.c
+> > @@ -38,12 +38,12 @@
 > >
-> > Include <pthread.h>, <signal.h>, <stdint.h>, <stdlib.h>, <string.h>, an=
-d
-> > <unistd.h> explicitly.
+> >  bool tpebs_recording;
+> >  enum tpebs_mode tpebs_mode;
+> > +static DEFINE_MUTEX(tpebs_mtx);
+> >  static LIST_HEAD(tpebs_results);
+> >  static pthread_t tpebs_reader_thread;
+> >  static struct child_process tpebs_cmd;
+> > -static int control_fd[2], ack_fd[2];
+> > -static struct mutex tpebs_mtx;
+> >  static struct cond tpebs_cmd_cond =3D { .cond =3D PTHREAD_COND_INITIAL=
+IZER };
+> > +static int control_fd[2] =3D { -1, -1 }, ack_fd[2] =3D { -1, -1 };
 >
-> I feel it's too verbose and not clear what's problem.  Please explain
-> the race and how it fixes the issue concisely.
+> Nit: I think it's better to split the line when they have initializers.
 
-Agreed, the commit message grew unwieldy across revisions. In v13, I've
-rewritten it into two short paragraphs summarizing the two bugs (the
-tpebs_cmd.out double-close/leak between __sample_reader() and
-tpebs_stop(), and the unlocked tpebs_reader_thread read / concurrent
-open-close teardown race across tpebs_send_record_cmd()'s unlocked
-window) and how they are fixed.
+Done in v13 (along with folding in the __guarded_by(&tpebs_mtx)
+annotations from the next patch).
 
 Thanks,
 Ian
 
 > Thanks,
 > Namhyung
+>
+>
+> >  static bool tpebs_stopping;
+> >  static bool tpebs_enabled;
+> >  static bool tpebs_cmd_in_flight;
