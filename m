@@ -1,47 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606042;
-	b=w7AYXNfT+9Qf6OlvatM84JX3nDvKvmP1Dg4wO55K8ll0KmmjmA4nPhyhqYGcjQLIPnSG
-	 GcaESVrCHPVc9XIEIg4icIHGJENhqrmM3sfmGPUTQQYkGuKXZDWGD/0WNfmCXXXgal+RW
-	 /m9zM7Jbth8pp3WxdhJ5b7GgDmAha7WkaTTFdA3UdYzLlhl2NjXk4nXTgOQFrMmrrtMdW
-	 Te0klXGmK5Db1dvDCWRmk26Y1ntDC/liEgB+d1fd9fYIj/dZF8Z0ahulvnXbvjuVtFBkh
-	 GJ2tXOR6Cjg07QzqN4GLH6k0fYs0XDENGh07Tz+Gwst462m9ZINLuZW948O9BWNCTlw==
+	t=1794606043;
+	b=JLGENgUdkREUieW+7JktxeVU6W4guTjWmw7GG1ATTQ+Lnr4o/ZW7M9TDtwbMgRdNi2HR
+	 4Bs5k8gwmFKK0/WVP9Z/LvRtWZ9m3rxeP+ZIuBYKYgR2m4JlK0COLR7xwXc8lLTaax4l/
+	 Mij1UTcK5+kjQXoywKKLg1xO71KLmPgH0a5thfRslQttqVI+Vyerhal3rnRFoldziq9Qi
+	 ZFZUbnhSI+QLFatw4f50dr+9cnot7jRZwXR/rqVhsVhHjULiP0G4U95qV99kMj1+rT1iz
+	 sASBUshzuiAGltp5JEdurhLUvMh9f0F6nr4Ax/lpBq4S99DUlxLL3SBHlsiarYbM36w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606042;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=P1llZ08OdgTejftE/Zr62LvYnJQ1b5X/QxBDEpfHpvw=;
-	b=2WhKXVGV5pM6WHZxY6Ocntppw3XDCByQ802I6rrg84bE7cAe02V6gWHkMHucp+bkgjPc
-	 8stpevor2nvNXfjsxXu3khYxOPL/QB6n9Sah9FCnqHEPKPE3QTTEh+u9FzkUkJ1j8GJmj
-	 GEeiqbm38Mt2OUGFLqrMrFK2+UOFqhPBjNHafLFZgNpedQrcAX6a+qqBV5Yd8c+nk/huR
-	 btOOzd3kAEhypFFPbD0sc3T84lVtcxTcDKbJ23xk1wwPpGdHeIHQimkpDSITp6cXLcp3K
-	 1b7FupkOxaO/JE1obB9bXqBldm9aVnXjvS0+8Xh9IZoZy6RrrDJFhtpAsIBjeEXS5yA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606043;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=F5vBY1gPtD652vCrxBwVeVr/LompxEXIerO1EpMdQsE=;
+	b=4FqkV2z4+aoN7vf2yyW5jsDTjjeZkM8t2Jool2wFJ7HsQFjdPWUWgEln1TwD3Ajb/SbU
+	 jzcq1GUqZFpV0SVmNxaejVm8O0YzAKuWqiJrnfIWDiua3wQaqdzUBBlqN5u30rsMEiUFJ
+	 RiiqqjZHDLyy8yxuYGCVn/LhCdqKuHQDLZN9l9mSor0C+gNhOoEIobMx9V7xSwTQduZN1
+	 Bw5i+16bn/UykCKuIVCySdtq1amqcMkBXfa7HD/DABForm5HYFSr4ZdR+HUIpxw1O1DGs
+	 nA+5vpq9cV+HkpNEd91RUcznGtml6mG1oq0L9+l31xYLfH78aROTjLUEmjUQHye2ZXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AX7USU0W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A25606A333;
-	Fri, 13 Nov 2026 21:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AX7USU0W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E3E1F000C4;
-	Fri, 13 Nov 2026 21:40:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794606042;
-	bh=P1llZ08OdgTejftE/Zr62LvYnJQ1b5X/QxBDEpfHpvw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AX7USU0W6anKzcrRLBQdaC+yiY9KxCD7w7bGRNj34mps7b9sCJ+2njdozvZ13Sv1A
-	 5DEDBAZhp3CXzv5xyTDwgeoZEdbYxI0DEqB8UPwXkShseY9DviUFLkgLvhKa5dzRNk
-	 FBMClX5B3CafyBUJxjxN9G59blWZ65JOyNeG7C/FsdXwgJhvHHZoAyeubc9amyjPSa
-	 vHyRl/Atlq99zIEelKyRYEZkEq5cvRQWjoQE04E0afBOxxVvDbjB/cAtwu2wojFuP+
-	 dAaV8d04vYXJHYY+LGgbGGPOCbZs0Ig8eawUOGcsrznVXljCcs5/u+Tq5wbQMDikUO
-	 IHoYdJ337SSWQ==
-Message-ID: <0cff8050-24ef-47ff-b107-70a5acdea631@kernel.org>
-Date: Fri, 13 Nov 2026 22:40:31 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E60606A336;
+	Fri, 13 Nov 2026 21:40:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48E60606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [192.168.0.104] (unknown [123.116.51.226])
+	by APP-03 (Coremail) with SMTP id rQCowAD3yZq4g_dqwtv5AA--.12651S2;
+	Sat, 14 Nov 2026 05:40:10 +0800 (CST)
+Message-ID: <0b6a04d7-d15d-4362-8e75-4f7120b277cd@iscas.ac.cn>
+Date: Sat, 14 Nov 2026 05:40:09 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,86 +46,82 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/8] mm/huge_memory: clean up and speed up large folio
- splitting
-To: kasong@tencent.com, linux-mm@kvack.org
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Matthew Wilcox <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-References: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH net v2 0/2] net: spacemit: Fix TX timeout work deadlock
+ and RTNL in PM callbacks
+To: Ali Tariq <alitariq45892@gmail.com>, netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Yixun Lan <dlan@kernel.org>, Troy Mitchell
+ <troy.mitchell@linux.spacemit.com>, Chukun Pan <amadeus@jmu.edu.cn>,
+ Tomas Hlavacek <tmshlvck@gmail.com>, Muhammad Bilal <meatuni001@gmail.com>,
+ Siddharth Vadapalli <s-vadapalli@ti.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org, leitao@debian.org
+References: <20261113132435.434615-1-alitariq45892@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
+From: Vivian Wang <wangruikang@iscas.ac.cn>
+In-Reply-To: <20261113132435.434615-1-alitariq45892@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:rQCowAD3yZq4g_dqwtv5AA--.12651S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cw1fJr4fKry3Cw15Ar1UJrb_yoW8XFyrpa
+	yag390kw40gr4Ivr42vFs2yF18Cw4xt3yUJrsagrWrZ3ZxuF1xCry2gw15Xr17ur1fJryj
+	vFWjya18GFWqvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
+	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkI
+	wI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
+	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
+	17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
+	C0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
+	73UjIFyTuYvjxU30PfDUUUU
+X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
 
-On 11/13/26 22:26, Kairui Song via B4 Relay wrote:
-> Hi all,
-> 
-> This series slghtly cleans up the large folio split path and reduces
-> its overhead: uniformly splitting PMD sized file folios to order 0
-> is over 20% faster.
+On 11/13/26 21:24, Ali Tariq wrote:
+> This series fixes two locking problems in the SpacemiT K1 Ethernet
+> driver.
+>
+> Patch 1 fixes the TX timeout work, which ends up waiting for itself
+> through cancel_work_sync() in emac_down(), so every TX timeout leaves
+> RTNL held forever.
+>
+> Patch 2 takes RTNL in emac_suspend() and emac_resume(), which fixes the
+> "suspicious RCU usage" warning from phy_disconnect() on suspend. It
+> depends on patch 1: suspend disables the TX timeout work before taking
+> RTNL, so it never waits for the work while holding the lock.
+>
+> Tested on Orange Pi RV2 (SpacemiT K1) with a lockdep kernel: 12
+> suspend/resume cycles without the warning. The board loses its network
+> after about a dozen cycles with or without this series; that is a
+> separate issue.
+>
+> Changes in v2:
+> - New patch 1 to fix the TX timeout work deadlock (reported by Troy,
+>   approach suggested by Vivian)
+> - Patch 2: take RTNL before the netif_running() checks
+> - Patch 2: drop Breno's Reviewed-by, since the patch changed
+>
+> v1: https://lore.kernel.org/netdev/20261105123441.2524171-1-alitariq45892@gmail.com/
+>
+> Ali Tariq (2):
+>   net: spacemit: Fix TX timeout work deadlocking on itself
+>   net: spacemit: Hold RTNL lock in emac_resume() and emac_suspend()
+>
+>  drivers/net/ethernet/spacemit/k1_emac.c | 19 ++++++++++++++++---
+>  1 file changed, 16 insertions(+), 3 deletions(-)
 
-I expect (well, and I have) some fixes in that area, so we better hold this off
-for the next week.
+Much appreciated. This series is:
 
--- 
-Cheers,
+Reviewed-by: Vivian Wang <wangruikang@iscas.ac.cn>
 
-David
+Thanks,
+Vivian "dramforever" Wang
+
