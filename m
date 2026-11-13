@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604254;
-	b=Abk4t2qwh2gaFZ1Ia33ayJq9le2qtvu7xR1Fx23ypv7qw4KKJ5Ayhg51C4uW+CDcVis7
-	 NTxIhinAofNSPCVMqn/F04QkSfjiiyTSYh1IM9RQuF+2qp5eBX3EMs7npqswR26RRjSZh
-	 d8YCdx1mZXaCZeqhZBKia/xPWV4F1ZMDkrpNMn7S3bT3lROQWdTKrOJtWQNVqcBDm8Gsd
-	 7mxig3XwsvwzvoyRt23+Az4+OFJMBYz+8gHJtqZnyPlBpF+CZqD4ec3eCZXZnOtGxhKqq
-	 7IBY8l85aXwjOU+sxYx723Jv0bsCEgD07viHrWTDLMPU6ZxaqemZf9iawnEN0fG93+g==
+	t=1794604257;
+	b=UKpRdtvmKE+KQuTAH3Hei26PU0Grk1wk7J21KHjMQ5P/RHPmebPkYKD9ImFxjEY9BTxa
+	 4bQv5YIbHOG/WLx3rI5/PhL6vnK21t35/2b3u5hmW1CrkkDhx16KQ+VYNB1p5HTWaCVwT
+	 i9ttydj/smIQRQ3ZjHAEtwDMrEW3NW4e2v6FDEizV01PLt3WZrbEnkFtrERvMT9xqMMCt
+	 AkLqNTp+X75lLZUhOLR0Ktr855twGg1aKnTlS8haEKubvXslei07VmnAXbqVeN0/tLf0U
+	 1V867x72OHrRtf5OQ2E1hbwqpqymuorBdaXCEC4V7772rn/aVUDHJ0W5m1ue+MjzonQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604254;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GN0ortW4nQvstQDFiIJ5PqM8QgjEi3y1N04o3CsU+ao=;
-	b=x+U/VXJfs33RfMjWdB/EZYRlGmarkmiATZlWlCsTHH9HWByOtcVvz8h+aHJx597C3hhY
-	 nMlezm4lEcI6vrr6zl37iLfy8+tiI9QFt8vearamM6Duz4/a4WbFjZS8NsXl+pBT0O3P/
-	 Nw6qLHbcu4+xdG1nkJS6Jcz+gKdSg7htNRMMJtYCHpqqrgMwTMkdPz4QESO1oHCCV3RnB
-	 slWX+BzmF1ZEgxQrztYfwyKqDf+NcptEpZIJhg6g8KBrFeiFfpOSTA12xGVApC1SRSyCl
-	 /FoBYjvNkXw2N5bQvKypvWQrSvzGpldmUs9Yu3mUVe+Xej2Ky+ILnMdOUZe7MlXtRtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604257;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=woAy0d8eRRcTuv2sX9SO2fVmGylcnK0pSyo3soQzkhs=;
+	b=Qnmq3388n1daJmkSYuJPyXqz8J3GxoJUUAe+hSwnYyd031Vl2QlbSLR8p1FjU//r4Q0U
+	 LoqR5Gx//4YW/m6r31p6RYtNSEDNLPtavHoIX5IK66GQQdQGRf/OUK8kSPEnjnVZo6s5i
+	 EvC5zvNfUraQ6dxKsLXnC4RapqiC4d0UV9XzmWWo9WwOOusrdV8kXXRQQcHY4L9jMY2vH
+	 s6/wv5mex/OQtU8wKVx7ExzgIHyqoNkMf6p3SepaGFupuYKQ6IlzDeQYz5ZT/rLhWB8pC
+	 +a79YEdV2X+REjVfnGmwm8CdTu/TC+vx6EoH8uLEYYfehmuMuwWyhsNFb4A5GZGyZng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fpgNN4Up;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455D9606A332
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:10:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 455D9606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67c246c0c60so2472543d50.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:10:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794604253; x=1795209053;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GN0ortW4nQvstQDFiIJ5PqM8QgjEi3y1N04o3CsU+ao=;
-        b=WeibyteW+XPmkqeoximBfXpZKgZG5pdTFD9jIDoECtyWDrA12nhuQXZSmEoYzwYSOG
-         RSVf4hwb60rybXHBy49IS7yb4zKZOSGrPn6bWAqmca3UDORjDx4/VGy/eh/oam+ef4cO
-         1Oi4JvEowZRErK5N2hFQi+bfbMXhIU+fiBZr3ORdi3eFRoC3goZmN0fCBYwtKrxPt1vY
-         ldG4S2j0a4UACgU7bjxoz/hU2/KPKp/iygSLRQE1gfkU2CY/wgbQ8c89RHlRAVTLDbjm
-         isoCdxgg0JXuuLc8AYR+ER7TK99Gm4qaKjjDd2zll1ibj0a3aidYXQ1PgNhWrkmd3USZ
-         A0Yw==
-X-Forwarded-Encrypted: i=1; AL+hErHHR4F60mDVsA3ClyyA7MWuOSXd5yz0Tn57V+vqlLpoz/0T9lj7x0dad4uQVIgS4vNJUJjQMMlxx5uC6UA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+H0fr56aq/fcc1Y/pdJ9iaf7LxcmoVguOXANalzAHvwtorkgIY
-	/xi6sfIb7TF8t0v/EyJcy3gen2b/CSnPxiZahmn97BLuLjOiH+qqAp2s
-X-Gm-Gg: AYBFou26arPhslQMnk4LypYSY3qK5IBKFTO8ntvHNK50NhLqvwBYX+yNT4xfET7eFTI
-	6MkO80UyCuTPE3OOcn9L4TUwIaAiWvZAukgLBEpl1wcXX2JsS9IUU7XrtzX+km5Z2sJG3C/hCw3
-	EfoyOHW8etQwF4OL3qRGNBRElLKtN42FYNv0Lyw5PcmbcFsG8OFUdrSREq5Play9mLkAh1XXxO5
-	gPy10KSc2D/K1HwsIkLvgFVhfdUVN9L3uCNH6nD5+auB1Ir0XnrnkOjuB32AkQUBVofyW0wUv1T
-	LfOIGtMdX1xaRWHPCJ8JWs/pmdFlCtVnVWJsKpiiG24TYWziehP/3swfWM8xtLSm9FTrdGJvxOC
-	GFh5PXUefO/2NlENAwRGYKNhSYKu0GO3LH8myenhFgF0ksfaHGSYh0ou7+P9aXTmm3TfR2Il+Cl
-	rWB093SGypvBsgZprp/nY4UsOBrPDjQA4+QgVfV1zrPiEJZelfS0GjohMNtm77ouSZAfQ7KEyeq
-	GWJNvMiRTXDYw78CWOPwLnq8hKSXdFGiRjvpif7tO1vTklje6SLbpBjzxpTd4x0LcNUuCcINL9o
-	+AqKgxOan+tMhnsC3pWl6q3KfVup+UsEgzfhtX1eZKkuvjvSgPVEz0Pks+ehcZn5CuKdGnmdkIk
-	CkST5AZ8Wge38B75eG9fqbE4FhjFbNF7Pu26OyvGS/54PO0o1CYJp
-X-Received: by 2002:a05:690e:190d:b0:67b:fc94:86d4 with SMTP id 956f58d0204a3-67c78c3c92emr4305281d50.8.1794604253368;
-        Fri, 13 Nov 2026 13:10:53 -0800 (PST)
-Received: from localhost.localdomain ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a64b04bsm3050965d50.23.2026.11.13.13.10.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 13 Nov 2026 13:10:52 -0800 (PST)
-From: Joseph Telaak <joseph@telaak.dev>
-To: dri-devel@lists.freedesktop.org
-Cc: patrik.r.jakobsson@gmail.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	alessio.belle@imgtec.com,
-	luigi.santivetti@imgtec.com,
-	christian.koenig@amd.com,
-	thomas.hellstrom@linux.intel.com,
-	imagination@lists.freedesktop.org,
-	frank.binns@imgtec.com,
-	operatingsystemsdepression@gmail.com,
-	matthew.brost@intel.com,
-	dakr@kernel.org,
-	phasta@kernel.org,
-	sumit.semwal@linaro.org,
-	linux-media@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	u.kleine-koenig@baylibre.com
-Subject: Re: [PATCH RFC 00/13] drm/powervr_sgx: Add a DRM driver for PowerVR SGX5xx GPUs
-Date: Fri, 13 Nov 2026 16:10:51 -0500
-Message-ID: <20261113211051.88798-1-joseph@telaak.dev>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
-References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EE6606A330;
+	Fri, 13 Nov 2026 21:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fpgNN4Up
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9791F000C5;
+	Fri, 13 Nov 2026 21:10:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794604257;
+	bh=woAy0d8eRRcTuv2sX9SO2fVmGylcnK0pSyo3soQzkhs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fpgNN4UprwXgj/HxHbTVI/comjJrFyYaY1gAJjVko+aaQStJXe6gZ6xdtXsX7QKNv
+	 ckbQO122b2CDerOrdG8MCuTM70zSzP3rsutrkoQ6cqUH4b/u5s5c/MmLrux5jG+HRc
+	 5uyB6WAuTBizeTvbFfqT0QU+JnAXw0ZqUFh/7QI/uQ4UTQBvQEigzA/JuDo8iG8/gI
+	 tO+2TUlQWL0CjRNdndg7xQooNKdwX/UgyWFonLENlUAXujlNRe5uOo6vOpNj1JQgJk
+	 Jn8+16Qcnrc7FBJ2HcyxXAVcUrum3pbsVxDZvzpJrUicauqflHOwgIgHxCsep1Aiq1
+	 z0vvlHVANazKQ==
+Date: Fri, 13 Nov 2026 21:10:51 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/madvise: zap markers from guard regions
+Message-ID: <avd8raDA-DooZ2gL@gremlin>
+References: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,10 +59,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
 
-The Mesa side of this was declined, so I'm withdrawing this series.
-The driver will stay out of tree. Thanks to everyone who took the time
-to review it.
+On Fri, Nov 13, 2026 at 09:04:45PM +0000, Lorenzo Stoakes (ARM) wrote:
+> v2:
+> * Updated to just zap everything as per David + Tal.
 
-Joseph
+Sorry, forgot to mention that I had to drop the tags because of the new
+approach.
+
+Would appreciate people looking at the v2 fresh :)
+
+Thanks!
+
+>
+> v1:
+> https://lore.kernel.org/r/20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org
+
+--
+Cheers, Lorenzo
