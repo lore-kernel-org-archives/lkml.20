@@ -1,67 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794587534;
-	b=4VyND3Rd5KDfxDb39WpYz2biQhgiXbykOuk7nhZMbPXQO8P1ZuTVk4HsoneumZGLE++m
-	 eBTRj5mTBHMeLeMZSFtb3Wn5RCJIEFsPNcDMvUhcFc+wk8KPgqjeRUWv9BNXFwouA+x9R
-	 o1QRSxzF/iCfVgeZJekEmrqBKHeEOXv6ptJB9iEJ/6bh2iNJvWy+SinYfpFIGe3VYQYeP
-	 NvKBVMqczKBtnNESKpUEG9LjuCOuYSmyRARb0fmBA/rRd23DLb0kezhKWeBGJIdUquBFv
-	 wprkqhTuy0E6F/xC/3yBlcpdtDrD5PhVmJqQrrq6tIdwZGYL7Y/jRKz1ZuQvfsaRGGg==
+	t=1794587537;
+	b=nZixfvU2oeC1f+yO2uNZpVjk4z/19/PxsdPutJUYikvqCtYGXxss7kx6Axmogbel2PFY
+	 J57PxKzl/qFx3c2vpS+LcdMePBN5g7qMDThY/MdD6wro5lbhYBvwSCPNedOj82lWl8tW9
+	 hiEr0u1KDJVBQ/1v1YOTU7+jEuR7iK255p2rG8GhHwl34waXP2QX9hKutt383V5xTvnIm
+	 i7Lz7H5XyuNO1AdVVE3VxG9NreckvfCzlkQiGiLnBU3mlvHH+UHDE1VUGkDfEEy8jF6ld
+	 wQH929rV+m89QPxiqIvGg/1SzCFgGyuHg+Z+8XGRuArT+CzOqYDwocKU+e0YNyB7u3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587534;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PNcT/5y2n6lEbOwIhnDRPuYyHAXovWjkBvNCMurPMiY=;
-	b=UQ04yHguHwxgKstBVJ6Ihe/1ULPMNqUlvVSD2JM2cOUedUaxc85929D3QotQ9KfJLD2z
-	 Qq173w0NbwtgbUVMDcStW/EI6nt5e1TXaKwGLDCsIXejS1jfCWOnKtS3enXmatq1uSmFy
-	 4lD5FdyLpefQOWoFwu4b2zggNbvpcvF2LgDK3ITTLmYIiIaitNc92Vd7okL6qDq5yYsoa
-	 Y3UHtYGqem+h1rPUU1zE2vSaFjQCn3dw47xNQW7YVLKFkq3TFOiLDQkE9jwMkhetyh5rT
-	 ceSjZ7VoqVGeutVEnShPV3pRRFJGYR5kf5hvYtlqHOPyKww4hDDE6OkQDVU8rb5qUgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587537;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=hbYuJXsU/Y/fx8jdL3h62cRD0Al1NC/ykCIIJh5wMVw=;
+	b=gbuKLpafWziuvEfRnl5nnv9WCYX6aYnovveYdhv5cUE1FBpYubgUeUsH3PJECr8vibV0
+	 u8/Nd7JIUmtk1E/6VyqMqKw0xc/L8YRulP9coz+7gulRSBECYPzc7SpydGZ0MHAaBEq6G
+	 glgvqZ+uyeeqaqqMia7VIkapIaMPB9w3/kMEKClSjpqVJzuJxu2oRj6APlfDUW9Ge9zbu
+	 uw4KdOExrJBA9hHsm/GZ3whQNhbrs8dN+j9W7ul/lkrBSH8MuYbnCXO8OfjRRcRtPOFbS
+	 6Ps2P+h74ArxxmPekFoVt5ceTIeM1E5xPEkQyZcdP0rvtAQ5VTuQl+14ENDV0HuHakQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iG4ce+3F;
-	arc=none smtp.remote-ip=91.218.175.81
-Received: from mta0.migadu.com (out-81.mta0.migadu.com [91.218.175.81])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T41V0Bu2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1EF606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED1EF606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C53606A887
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:32:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iG4ce+3F
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lwWaUSrzqmUWWYePuSvSuPl4hpMxYnFKddQhLhmwfiY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794587532; v=1; x=1795192332;
- b=iG4ce+3FghKGXRu07m2qpS6JRz3LQRAH3mDN4cbT4DKPncHdTd7yOSxHOBO4Ll23k8Et2mB1
- 0oV2a0DB7UWJfLmnM6h4MA/IZAficdKUAWDELcbMVMuNEeJad8CF9BhN99i2epIaXR3a4qpKb+8
- BXnrPnsyb9FbeeaERo/eRfOA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 67f2414c01a569b6;
-	Fri, 13 Nov 2026 16:32:11 +0000
-X-Mizu-Trace-ID: 67f2414c01a569b6
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 13 Nov 2026 17:32:06 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Zong-Zhe Yang <kevin_yang@realtek.com>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- Mehmet Fide <mehmet.fide@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
-CC: Tzu-En Huang <tehuang@realtek.com>, Yan-Hsuan Chuang <yhchuang@realtek.com>,
- Kalle Valo <kvalo@kernel.org>, Stanislaw Gruszka <sgruszka@redhat.com>,
- Brian Norris <briannorris@chromium.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "mehmet.fide@screeningeagle.com" <mehmet.fide@screeningeagle.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_1/3=5D_wifi=3A_rtw88=3A_free_the_re?=
- =?US-ASCII?Q?served_pages_of_an_interface_on_firmware_recovery?=
-In-Reply-To: <96da951407ab4c39b7e229ca365950eb@realtek.com>
-References: <7DDD0FC3-AD89-4819-8058-15DFDA7E5D6D@linux.dev> <96da951407ab4c39b7e229ca365950eb@realtek.com>
-Message-ID: <5FA04DA4-863E-46D3-A993-5F3C074ABC37@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T41V0Bu2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A48B71F000C4;
+	Fri, 13 Nov 2026 16:32:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794587537;
+	bh=hbYuJXsU/Y/fx8jdL3h62cRD0Al1NC/ykCIIJh5wMVw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T41V0Bu2rECZifE6tzxy5moCxah3+ZtB1epMqBSiZHDzn6/sMeRTSNHiPMesT8hbF
+	 7gOFXEcQt6ncbLan1WVi01I2Oq+ggxDyMDg2waTaaOc25DpRRiXXwAsbghDG0r5U7/
+	 AdmAFmI6sRabBntJVXsSZ6sGRkhNrncvqplQEzX9M5SzwxvGXFerFeCdEeHQCfnXN3
+	 emTnT7cJj4yqhUI/qamjQFDNrPZ9DT0To6nA/rVox036FPyUvzpvaI9dzqB0wzQe89
+	 gGt5SFO8iwq2cSTQqiyKtJQR8lo4KlPx/LruX5x+UXFtpNq7bSgpUFGtTpnO5IgSlF
+	 w9Q3puAdqK3Bw==
+Date: Fri, 13 Nov 2026 17:32:08 +0100
+From: Gao Xiang <xiang@kernel.org>
+To: Gou Hao <gouhao@uniontech.com>
+Cc: xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
+	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
+	hongzhen@linux.alibaba.com, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, guanwentao@uniontech.com,
+	niecheng1@uniontech.com, gouhaojake@163.com
+Subject: Re: [PATCH] erofs: reject turning inode_share on during remount
+Message-ID: <avc7iAy-qfS3g0PA@MacBookPro.fritz.box>
+Mail-Followup-To: Gou Hao <gouhao@uniontech.com>, xiang@kernel.org,
+	chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
+	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
+	hongzhen@linux.alibaba.com, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, guanwentao@uniontech.com,
+	niecheng1@uniontech.com, gouhaojake@163.com
+References: <20261113113204.560730-1-gouhao@uniontech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,64 +66,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261113113204.560730-1-gouhao@uniontech.com>
 
-On November 13, 2026 11:21:16 AM GMT+01:00, Zong-Zhe Yang
-<kevin_yang@realtek.com> wrote:
->Luka Gejak <luka.gejak@linux.dev> wrote:
->> 
->> On November 11, 2026 10:32:37 PM GMT+01:00, Mehmet Fide
->> <mehmet.fide@gmail.com> wrote:
->> 
->> > diff --git a/drivers/net/wireless/realtek/rtw88/main.c
->> b/drivers/net/wireless/realtek/rtw88/main.c
->> > index f7708ad17b6f..adc54b063382 100644
->> > --- a/drivers/net/wireless/realtek/rtw88/main.c
->> > +++ b/drivers/net/wireless/realtek/rtw88/main.c
->> > @@ -627,6 +627,7 @@ static void rtw_reset_vif_iter(void *data, u8
->*mac,
->> struct ieee80211_vif *vif)
->> >       rtw_bf_disassoc(rtwdev, vif, NULL);
->> >       rtw_vif_assoc_changed(rtwvif, NULL);
->> >       rtw_txq_cleanup(rtwdev, vif->txq);
->> > +     rtw_remove_rsvd_page(rtwdev, rtwvif);
->> 
->> As far as I can see, update_beacon_work can still run after this reset
->> and before ieee80211_reconfig() adds the interfaces again.
->> rtw_core_stop() cancels it from rtw_enter_ips(), but rtw_ops_set_tim()
->> can queue it again right after, for example when a frame for a dozing
->> station gets buffered. ieee80211_restart_work() then flushes
->> local->workqueue before it calls ieee80211_reconfig().
->> 
->> So if I read it right, with an AP interface (ap_active stays set) the
->> work now finds every per vif list empty and runs into this in
->> __rtw_build_rsvd_page_from_vifs():
->> 
->>         rsvd_pkt = list_first_entry_or_null(&rtwdev->rsvd_page_list,
->>                                             struct rtw_rsvd_page,
->> build_list);
->>         if (!rsvd_pkt) {
->>                 WARN(1, "Should not have an empty reserved page\n");
->>                 return -EINVAL;
->>         }
->> 
->> Before this patch it built the page from the stale entries and did not
->> warn. Maybe rtw_fw_update_beacon_work() could skip the download while
->> RTW_FLAG_RESTARTING is set? The reconfig downloads the beacon again for
->> BSS_CHANGED_BEACON anyway.
->> 
->
->How about adding a flag to indicate if this rtwvif has been init-ed or not
->?
->If init-ed and rtw_ops_add_interface() again, call rtw_remove_rsvd_page()
->first.
->
+Hi Hao,
 
-Thank you for your suggestion. I am fine with either approach, as outcome
-is the same either way. So Mehmet, choose whatever you are more comfortable
-doing.
+On Fri, Nov 13, 2026 at 07:32:04PM +0800, Gou Hao wrote:
+> The inode_share and domain_id constraint is validated when a
+> superblock is initialized, but remount replaces the live mount options
+> with a newly parsed option set without rechecking it.
+> 
+> Therefore a filesystem mounted without domain_id can enable inode_share
+> by remount.  For an image with ishare xattrs, the next lookup of a
+> regular file then passes a NULL domain_id to
+> erofs_xattr_fill_inode_fingerprint() and crashes.
+> 
+> Since domain_id cannot be changed by remount, reject turning inode_share
+> on during remount.
+> 
+> Reproducer:
+> 
+> 	mkfs.erofs --xattr-inode-digest=erofs.fingerprint.v1 img  man/
+> 	mount img t
+> 	mount -o remount,inode_share t
+> 	ls t/
+> 
+> Full crash log:
+> 
+> [   50.416381] erofs (device loop0): mounted with root inode @ nid 37.
+> [   78.553276] BUG: kernel NULL pointer dereference, address: 0000000000000000
+> [   78.553882] #PF: supervisor read access in kernel mode
+> [   78.554326] #PF: error_code(0x0000) - not-present page
 
-Best regards,
-Luka Gejak
+The full stack can be simplified a bit, there are two many overly
+long lines.
+
+I can simplify it later manually.
+
+> [   78.554762] PGD 0 P4D 0
+> [   78.555014] Oops: Oops: 0000 [#1] SMP NOPTI
+> [   78.555423] CPU: 4 UID: 0 PID: 4446 Comm: ls Kdump: loaded Not tainted 7.3.0-erofs #2 PREEMPTLAZY
+> [   78.556105] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
+> [   78.556942] RIP: 0010:strlen+0x0/0x20
+> [   78.557284] Code: f7 75 ec 31 c0 e9 40 76 02 00 48 89 f8 c3 cc cc cc cc 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 <80> 3f 00 74 14 48 89 f8 48 83 c0 01 80 38 00 75 f7 48 29 f8 e9 07
+> [   78.558636] RSP: 0018:ffffd2bb444afab8 EFLAGS: 00010212
+> [   78.559092] RAX: 0000000000001000 RBX: 0000000000000027 RCX: 000000000000000c
+> [   78.559652] RDX: ffffffffffffffff RSI: ffff8f2bcdef0d71 RDI: 0000000000000000
+> [   78.560267] RBP: ffff8f2bc526b000 R08: 0000000000000610 R09: 00000000e096ebe3
+> [   78.560839] R10: 0000000074d3def0 R11: 0000000085971d85 R12: ffff8f2be536fae0
+> [   78.561443] R13: ffffd2bb444afb08 R14: 0000000000000000 R15: ffff8f2bcdef0d61
+> [   78.562019] FS:  00007fe2289c94c0(0000) GS:ffff8f2f478c2000(0000) knlGS:0000000000000000
+> [   78.562673] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   78.563133] CR2: 0000000000000000 CR3: 000000011e6ec001 CR4: 0000000000772ef0
+> [   78.563656] PKRU: 55555554
+> [   78.563892] Call Trace:
+> [   78.564111]  <TASK>
+> [   78.564315]  erofs_xattr_fill_inode_fingerprint+0x95/0x150 [erofs]
+> [   78.564785]  erofs_ishare_fill_inode+0x75/0x260 [erofs]
+> [   78.565193]  erofs_fill_inode+0x12e/0x190 [erofs]
+> [   78.565603]  erofs_iget+0x85/0xc0 [erofs]
+> [   78.565950]  erofs_lookup+0xe6/0xf0 [erofs]
+> [   78.566312]  __lookup_slow+0x5b/0x100
+> [   78.566631]  lookup_slow+0x39/0x60
+> [   78.566914]  path_lookupat+0x19b/0x2a0
+> [   78.567223]  filename_lookup+0xf0/0x200
+> [   78.567534]  ? filldir64+0x38/0x190
+> [   78.567822]  vfs_statx+0x7d/0x150
+> [   78.568096]  do_statx+0x66/0xb0
+> [   78.568367]  __x64_sys_statx+0x64/0xd0
+> [   78.568670]  do_syscall_64+0x8d/0x460
+> [   78.568974]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [   78.569367] RIP: 0033:0x7fe228b5c0de
+> [   78.569665] Code: 2d 0d 00 ba ff ff ff ff 64 c7 00 16 00 00 00 e9 a5 fd ff ff e8 53 c0 01 00 0f 1f 00 f3 0f 1e fa 41 89 ca b8 4c 01 00 00 0f 05 <48> 3d 00 f0 ff ff 77 2a 89 c1 85 c0 74 0f 48 8b 05 05 2d 0d 00 64
+> [   78.570936] RSP: 002b:00007ffec5afe428 EFLAGS: 00000246 ORIG_RAX: 000000000000014c
+> [   78.571485] RAX: ffffffffffffffda RBX: 0000564bf6a2c498 RCX: 00007fe228b5c0de
+> [   78.572007] RDX: 0000000000000900 RSI: 00007ffec5afe560 RDI: 00000000ffffff9c
+> [   78.572532] RBP: 0000000000000002 R08: 00007ffec5afe430 R09: 00000000f6a31900
+> [   78.573061] R10: 0000000000000002 R11: 0000000000000246 R12: 0000000000000000
+> [   78.573595] R13: 0000564bf6a319f3 R14: 0000000000000000 R15: 0000564bf6a2c480
+> [   78.574130]  </TASK>
+> [   78.574334] Modules linked in: erofs loop nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 rfkill ip_set nf_tables intel_rapl_msr intel_rapl_common intel_uncore_frequency_common skx_edac_common nfit sunrpc libnvdimm snd_hda_codec_generic kvm_intel snd_hda_intel snd_hda_codec rapl snd_hda_core pcspkr snd_intel_dspcfg i2c_piix4 joydev virtio_balloon snd_hwdep i2c_smbus rtc_cmos eni_vdpa vdpa sg fuse fsdev_dax sr_mod bochs cdrom drm_shmem_helper drm_client_lib drm_kms_helper sd_mod ahci ata_generic libahci ata_piix drm libata virtio_net net_failover failover serio_raw dm_mirror dm_region_hash dm_log dm_multipath dm_mod
+> [   78.578967] CR2: 0000000000000000
+> 
+> Fixes: 5ef3208e3be5 ("erofs: introduce the page cache share feature")
+> 
+> Signed-off-by: Gou Hao <gouhao@uniontech.com>
+
+Reviewed-by: Gao Xiang <xiang@kernel.org>
+
+Thanks,
+Gao Xiang
