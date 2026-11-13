@@ -1,76 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794578887;
-	b=HpQCBN9XZG1RjRLBoscMIszEd95i/p34vYSqP+M6KGdcn3LqDmtnPX+sNwpAvM3oKqUB
-	 INUTL6ZDiAfjU7N0CmxGlbPbjhcWzMPmwDEYtvlYTVwLrXqGE6JuYsnlU1h2akxaw9w88
-	 XUb988Kir8Q7tHiwd5ewdsA+07+1OxDTWvxuGyLEmM1i8zMEW51MRGBZi5WIvWMNct2EU
-	 XdVLY5s4EMU4V6AY+UvYbKUdUvlLBfsW6x4TFvKqkckjCyJPPaaPZL81Ry0P92673LS8i
-	 +nnQesUQ5YjJhpW82sH1YoDX2r8EOGSEleo1re8KBtjpxRlCkso+3+Fx9MjXhsg3cgQ==
+	t=1794578908;
+	b=1u+aZ/96RnJOK1jf79rezfe+YWfvDMjGv3GWeOwjMEElexkzz+uPBCVjPV4HY4nmZM+M
+	 qZQcv4OLimXGkxiUInnu5v1wkDMy3MDHpQtLEx7pvM/fHl669RJ5NpLcvzTmGcwpqX/5R
+	 uMve8ImS5z6zZGyObfYBSFvJGgMYQVLmCwwJ/PFTA7ykTLOu1oxbS5sU+YA0AcV6nAGOV
+	 2ZW7ukSgTiyQeJps3uoYoHYxDkvFfX3QLz0xShgfmppcXLBmYshOzcCqwcDFetDeVxn01
+	 Dk9xCr0FtEIUnr8dUOEq+cojFiTStdt7LzN+ItPm32iiyKd1ebJTLzp/tMNKgkVUd9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578887;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=n7cVia9sMCuK38IPq0c2Vj047wAgXP1lK8/kz0AS6VY=;
-	b=Q28mh2ZrkAV66pH3Oh7RwS7Dg0K0SwOVE01a2XHtxG1W3eAmDYUNJKg7Ln7eMUK6YWw3
-	 S8/BOO8eaYiZ6Uo/FGg45fuktzv5zeruDMIC42o4kJ4vAHZvmK4l1bUjRqm280MYgMMAm
-	 BZMZF4gEhldpguWnDBmhhHq2c9kiSYTTT/iqTvsqOIljhrk0Ys08tU0BuigGQydqKyfmm
-	 Z5Zcc28yt1Pf7GqA395aMsUSYmo++c4LOOvDalCauqsYOoFdMDyc3PKXI9VPluldvDJ3Z
-	 WkG2oIH5HD9uvhKJbqXaqyFi2zUkygOI1sRJevoL8pNs97n21QHIbt1F/4fh6pffxUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578908;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=WsrGw3edm9FzwMEE9G632XVGf6LNTuNlP557XSOGQsU=;
+	b=LhKOmcmi1KIQE/ANE69VJ6YhnZUNyq839KNbbZQbPJ1eCcWehLXCqVDIOMxTRqyPbM08
+	 yCQB32Z5cJmBz1CsQRMLKdQbkda0n46To4tgCDtpXaeH6ftV64RyjaLR23eWpGUGOzB70
+	 r/e9cCOIC9aXqVSCx9/P5tb5D0d2DgrceLzhXnVLx07j40MGWeM0ULGB9krVugLQut/9z
+	 483WGl4VQFvmsePo1vySCv39uLsOiMIV7ui9tGfbSAlWo9HWhqQpRw4vVYa7WMCf7quQM
+	 RTCRSk2gqRbpsiKmz4b7UlhXS4vy/GGNmfUWd+W676bMSAUHodGaQoZmec8E1r2kw8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CWlte0AN;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=v1KRo8ct;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A748606A323;
-	Fri, 13 Nov 2026 14:08:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A748606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D8B606A323;
+	Fri, 13 Nov 2026 14:08:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80D8B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CWlte0AN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794578887; x=1826114887;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bhznoLiBqCl32w7oDyhSSediGWB4SNiiwODIA4P/vmo=;
-  b=CWlte0ANEODbPz5wWin/8WWTFUlhORPogNwA5gcPaiXpTqD89IwkBo2u
-   svXxfoNUrUuOJT5PHUtSk3uPgu7KtwnyRXlb/ZGITzsO6yKBbgVoojYXN
-   /NACReiy7DKBNkXI41l6QcDFo0RD/ib4N/F6UZbH0Jrfuf7k5Hocq3sBE
-   Jf8VPGWHg2/khf8DxF/f/VYYTbA/SchOfOCLDOmOTOrVPELOQ2769W2zU
-   FeS+ajsODT2PdLTUrxB/iJZK9AZxr9rBQNDKaYCytY3tGS9xi0XyjZePX
-   cyLs0f243c9j0y21StiYtxUkrOFY/4ArIvAicAPx5ldE/hEi1CsupNuzq
-   A==;
-X-CSE-ConnectionGUID: icMUxm9yQBufp4EJte2f/g==
-X-CSE-MsgGUID: dDqFtO0gSZCWBeS4TSUh9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3269812"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3269812"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:08:06 -0800
-X-CSE-ConnectionGUID: 9N6ttaSDTv2JjFfr2B3SqA==
-X-CSE-MsgGUID: deacJUKmTWOJlI4xNenDLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="9014490"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:08:04 -0800
-Date: Fri, 13 Nov 2026 16:08:01 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Zhu Jun <zhujun2@cmss.chinamobile.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	crofts@kernel.org, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] iio: temperature: mcp9600: Avoid overflow when
- scaling thresholds
-Message-ID: <avcZwcY8HQrUjbF5@ashevche-desk.local>
-References: <20261113080558.173889-1-zhujun2@cmss.chinamobile.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=v1KRo8ct
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=WsrGw3edm9FzwMEE9G632XVGf6LNTuNlP557XSOGQsU=; b=v1KRo8ctYX8V68DybfaVBGInQB
+	CAwiZBXVU6EzUsd1jj3OmGkx32696PURT0HnInRE5ZfPYpFtl0z1t/Dza3SLYw0hl935/NAJzDftN
+	P8qyfok68We1jdiuyeUcXCtGp13dv7DeaStf+ixq2AhQgy5LVkObq9Jn4EOVqsOUMvgs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xRrwo-00GHxb-VE; Fri, 13 Nov 2026 15:08:10 +0100
+Date: Fri, 13 Nov 2026 15:08:10 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: joseph@telaak.dev
+Cc: Hauke Mehrtens <hauke@hauke-m.de>, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 0/2] net: dsa: mxl-gsw1xx: reset the switch
+ through reset-gpios
+Message-ID: <a2f45802-b75b-4a19-9508-2d1b5ebe473a@lunn.ch>
+References: <20261112-mxl-gsw1xx-reset-v3-0-863e82074893@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,80 +72,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261113080558.173889-1-zhujun2@cmss.chinamobile.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261112-mxl-gsw1xx-reset-v3-0-863e82074893@telaak.dev>
 
-On Fri, Nov 13, 2026 at 04:04:56PM +0800, Zhu Jun wrote:
-> mcp9600_write_thresh() scales the integer part by 1000000 in int
-> arithmetic before clamping to the supported temperature range. The
-> multiplication can overflow, so a request such as 3000 degrees can
-> select the lower threshold instead of the upper threshold.
-> 
-> Cast MICRO to s64 before multiplying so that scaling and the fractional
-> addition or subtraction use signed 64-bit arithmetic. Let the existing
-> per-junction bounds clamp the result. Use MICRO consistently and use
-> div_s64() for the final conversion to support 32-bit architectures.
+> This is separate from commit 82e2c7db0830 ("net: dsa: mxl-gsw1xx: force
+> internal PHYs into a known reset state"), which only programs the PHY
+> bits of RST_REQ. On this board that commit is applied, and the PHYs still
+> sit at the shifted addresses; only a hardware reset of the switch moves
+> them back.
 
-...
+I don't think 82e2c7db0830 is relevant here. The commit message says
+nothing about the address of the PHY.
 
->  #include <linux/interrupt.h>
->  #include <linux/irq.h>
+How does the bootloader change the address? I assume there is a
+register it writes?
 
->  #include <linux/math.h>
+Is there a comment about why it changes the address?
 
-This can be dropped now as it's implied by math64.h.
+Does the driver have an implicit assumption about the addresses of the
+PHYs? Should the driver actually be writing this register to put the
+PHYs at the expected address?
 
-> +#include <linux/math64.h>
->  #include <linux/minmax.h>
->  #include <linux/module.h>
-> +#include <linux/units.h>
-
-...
-
->  	struct mcp9600_data *data = iio_priv(indio_dev);
->  	struct i2c_client *client = data->client;
-> -	int s_val, i;
-> +	s64 s_val;
-> +	int i;
-
-Please, keep the reversed xmas tree order.
-
->  	s16 thresh;
->  	u8 hyst;
-
-...
-
->  		/* Scale value to include decimal part into calculations */
-> -		s_val = (val < 0) ? ((val * 1000000) - val2) :
-> -				    ((val * 1000000) + val2);
-
-> +		s_val = (val < 0) ? ((val * (s64)MICRO) - val2) :
-> +				    ((val * (s64)MICRO) + val2);
-
-I think we can avoid casting by doing
-
-		s_val = val < 0 ? -((val * MICRO) + val2) : ((val * MICRO) + val2);
-
->  		if (chan->channel2 == IIO_MOD_TEMP_AMBIENT) {
->  			s_val = max(s_val, MCP9600_MIN_TEMP_COLD_JUNCTION_MICRO);
->  			s_val = min(s_val, MCP9600_MAX_TEMP_COLD_JUNCTION_MICRO);
-
-This is also clamping.
-
-...
-
-> -		thresh = (s16)(s_val / (1000000 >> 4));
-> +		thresh = (s16)div_s64(s_val, MICRO >> 4);
-
-Do you need casting here?
-
->  		return i2c_smbus_write_word_swapped(client,
->  						    MCP9600_ALERT_LIMIT(i + 1),
->  						    thresh);
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+	Andrew
