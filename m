@@ -1,115 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794598610;
-	b=Fmz43x9RTv86kE9C39jPwRNrumflvN9+2MPAlUSB/OAplovmqR03djMHvD0HecZw2rNN
-	 YDmddEbghamLO6+oxP/HpAVMHNp4NdpaJaY/IHQ/cZQd+NQHl8MAdf7g8vVWS/Asivt2F
-	 ToCnuQV9qfnf0a8vVVqKbSPLBxw9YiU8RGw30VM0ENs9eR3FhGj79eTHjffPaM2Hz732I
-	 X5gkzglQ5InClYih7wqJrgwZ1wCsha6gLWYz8MRT7FoWlURqP0Yno5HciOkGkv5FJbobj
-	 Cut2WYm5JqoymCmL4WCrNZQf1MaNOHLYtMv0bwoadnJbdg+A87kfPNP8fva/5BSq/1A==
+	t=1794598618;
+	b=oOQJxMt36KsEXRrcfXwAIjwhEq1gGwo6dO4PkCxcDwjeqe7oF/qDv4TXUASVLz9E93/B
+	 CaLuhs1x/aZxxkttttOnas/7hvciol0Q/5IDeKjIUuaFDpwXy8lNiMinFOCUGkOM10h+y
+	 gn7pdyF+Ll8XMTt4BmsJbTsbGYMwXn3PYwCZ9CUe/UxjdhJQslgUeeuSOJ//CP8UFTpa7
+	 FVEc32EiPdbXXPZF+PPlH8eK8eXPpkjAOxLfNYQ9HeOm8DUCtctlBfLyySf+bmWnH+UFi
+	 usb8fhPBD+eg8Y2Dq+1PcKGHGCiOa6aB3oL849UxPx+uPwSPc7DuK5hea8Y2kZwAf+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598610;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=7a/BOOYVA8+aYd3dIJ6rz4xghG/CN3gEEzRrakAvdFQ=;
-	b=miHkT1O++YrrX3OR2/rSD4SU06TMGZPeEhJP4Co6hHmaMrDuqE7ikDM/1yaO9bGgIlET
-	 8t5+iDCXw8LzlTZJoTminsoDIeHlKacaykwRm75ti4BAj2G+3vzwyTgjUO+tcP6jkh8yr
-	 bIjLxsnHCwPNhRIhPGug6b0366LUvpnM3JyYkzGzKVAB4rTw4sjoFdxoVmxTn3NPErQaa
-	 2hwvmv3E+RwjK0WHtTiwhFLMUk/RkyoGyCPl1eqAX/scUkECwAInZCrYltbJqJIPjHuvk
-	 aXFoKRFCMx6C0sZZU/oL0YaBwopHcwzuM1qByKYKSyPl3GgmcUEKepbsbj24ClWpckw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598618;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8ItVvwZvGG+Kdi9d+txCXAOFgDEf2Km9Gecmc5ltb+I=;
+	b=bLR76G30/zRMucCeTjVQiFHWFHz8GGdXgfAtRddWKfqPhWJgKkLjkEm/75zon6Sg5lW2
+	 2FIJqIz6jrWncnEQvx56sdzsgnxopYZUsSsEkQqbKgiHr3Lrksa+KgPkxb9GXizZIq6mS
+	 Tl3+0d9XMBpx0RhxjuB1adUhFsdJIiFQWi3X8cUypo3WmVkQK9Zk7DC8vazbE7EkuFlH1
+	 A1NohweTizsRZn6+9rkovIPTmrzJ/rLJHYYQiydBPME9nzcU7EmxoGMK4ZwMAqz1CO046
+	 vw3v+FAbjs6/agEEMT8zpDbi80rS7WEWI2pLr3qX5t0LHiK0gHqrZbs4JRymjFQnrog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PKvZ1kPo;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iB5wLPDd;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=a6XZ0mbD;
+	arc=none smtp.remote-ip=74.125.224.53
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878F6606A332
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:36:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 878F6606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2A6606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA2A6606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PKvZ1kPo;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iB5wLPDd
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADJ1kjT1085274
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:36:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=7a/BOOYVA8+
-	aYd3dIJ6rz4xghG/CN3gEEzRrakAvdFQ=; b=PKvZ1kPo9aumDk2mUchEphi2Xal
-	3B1cjsXsP4FA1x7svA9nyvJZTKg1RNOKL7/TReeIxHKDzsjzsJUAk/t9pCJc2LjG
-	5wCTgev4444Ab8FYbjHUSl8IXklvKqTvx8VjtF3ktxsu9RbXnK3S3hj00N8Z54U3
-	7r2FruX0VYSJkg3AdYkNvU//d6cXhjmXlP1Cslv53+UFQRaFYuHSUMWPw9u9IX4K
-	RCZNhKnnO61PmWpn9xOCll76bzUzhIPnAPvfT1/Ok5YcduuiZpsRqie0/HDUqJME
-	UsUtU4/YE4TRNUxaz/DgYAIeMVK4amc9+HsKk6diz+IdngUEAJs5IdpYwJQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwvjaaxw4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:36:48 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9495af07676so132594485a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:36:48 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=a6XZ0mbD
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-67bec5dc8d4so914983d50.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:36:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794598608; x=1795203408; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7a/BOOYVA8+aYd3dIJ6rz4xghG/CN3gEEzRrakAvdFQ=;
-        b=iB5wLPDdDYSyNMBR1fJ8yxpdLBFF6mA4rMhM4I3frrvYLrkub2MGWJFDGUxSWQARHF
-         KKayn3TDMxMHrHhXWnC6geSnPi4xeo2e0I6HuV/b/0gY4wrr6WKofOQNhwnCfLyNmx+v
-         Z6dsjcQ6hv/8Qm3NHN960AOg8wmVzwsRXJIPsZ5dQsiQmLAuyjIKIBjm88yQKST/mG4j
-         uUGvFlxkLf2n7z2xIrn3zOxlzliVd4rMMQs7C+usOeOaEHMpjyRzkL78/B7sjRZkXdLJ
-         IU6ZmpW33b/rO0PPzj/7lhdJDwkRaAaENnJEjbKSzFlqBd866aB8GvDhaWKm0Xa9npzg
-         D+sw==
+        d=cs.unc.edu; s=google; t=1794598617; x=1795203417; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8ItVvwZvGG+Kdi9d+txCXAOFgDEf2Km9Gecmc5ltb+I=;
+        b=a6XZ0mbDy0pgWyfRlQvkVd+DzgenIvgbq6yL1LHALdWgeL+295hESdQZlopkRG42Lt
+         0Pu15Sqs+b/6IT1wCo+dtPvB13ZvLdHsmAdQz8S09rwv3edtSC/LYENdEsT1sHPfIhB4
+         xia7L/H5nkYwvFM+fih6j7iCMMA/S0c8jLU0GJb7WY0HKoWJrh70w+QbsTXhTjpBOmkT
+         rfrTpPNlbfp5Z9jfzdya0+ugEcq4a21OlGLJjQTC+ECWMbL0yJcnx0JpPNX3AhTWsp+e
+         8HoSytjaNSKF+NqPBhekVyu6Ys9tU7P5xjeAvPjfxlV1U3PJFaidZwIwx/+Nh0+LAspL
+         Iasw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794598608; x=1795203408;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7a/BOOYVA8+aYd3dIJ6rz4xghG/CN3gEEzRrakAvdFQ=;
-        b=l+HoYbIpBOVyEafeQYs5U6MIxYCb8WNh14DAuF9GSIczynEY7zgdFBAuxDn/UpDsSs
-         vvBKINkj5+0kocjfJulY8cEsUEA3DsiH6fkuRZnQSSIDSDDdB2xOLnAG/husvT9FLVRB
-         JIuRiquBSEyw4nsrn/LDup0rcG8YYVmbbCeWXOELXOwiAFRByE4euVbBT8qQDz/lpaXu
-         EvJWwgCAAwNo0Uv2G6UtoZWkYD/WclLxgi6bXpRww1fDh52mzJcY8riShMvHnka3S05Z
-         Y2zR2mCaL5ft5cK9XTv0cm67aF6DDjGcjNKKztwrhkoWD5tNTh2JUJTMO7Ea/YfMiyeA
-         1H2Q==
-X-Gm-Message-State: APuU4Z8tf6sV3+u/Qbc3vfx9Rwye9KRIy56bdfP+FIzJ6QSGzWJtrBqT
-	/Su+lpMkYeBqVenFADmb+W/VDW/+qgyYBpKtysAiDqwJxcDpyGaPFbsO+TdALRfqYckhpNFR1fm
-	UZk6gHumcvvC/bwnqMFYgI/jU8cgG0966Pw6gYDT7LC8a+Po4npysUhEbkY0HcmagbCs=
-X-Gm-Gg: AYBFou2AQldY8ok0GDJf7V8/cWPys8zMmfV8OGvGiv+qKvtH4SWk2fSsIYmz1g+prjZ
-	OreRFbStMZBsY2dEBl9AujwyrRHxj/xkbKs/Is/3edW+ewqcfAykJVBY5Qhx2UW9kFg3h5opAe+
-	P1dj+NtiImBuvFFYrMXOm5VPItpAF/n5Crrr37yiECgEBHL+TiurSsLwK6V8jVbQANf3nWUV51N
-	g+m6rfGPL1I+h4BCORogMmwzGd6nf6AuCLMPvo2q00q0GVPthWoCAeO6lrPjwpthxFAK6mQaGC5
-	13gFgBF9ytlGEwhA2wY5dpeFCiG3//x2R959k+aSsgATYM4t1TZkvbnBN5rklQQ7yYJFGoszWdc
-	rtQhScVaQWgO6YvGnzB57ZSJ2GAu/XTmjKf8kJ2n69kXFUHwoLyLuRXzGmICnqARCYfKbpnoYhT
-	1aoiKzdg3ltaky3TMPgQ==
-X-Received: by 2002:a05:620a:4503:b0:93f:2e08:6420 with SMTP id af79cd13be357-9494bb52812mr607094985a.38.1794598607458;
-        Fri, 13 Nov 2026 11:36:47 -0800 (PST)
-X-Received: by 2002:a05:620a:4503:b0:93f:2e08:6420 with SMTP id af79cd13be357-9494bb52812mr607091585a.38.1794598606927;
-        Fri, 13 Nov 2026 11:36:46 -0800 (PST)
-Received: from trex (50.red-81-37-172.dynamicip.rima-tde.net. [81.37.172.50])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60da11c5sm6268876f8f.54.2026.11.13.11.36.45
+        d=1e100.net; s=20260707; t=1794598617; x=1795203417;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8ItVvwZvGG+Kdi9d+txCXAOFgDEf2Km9Gecmc5ltb+I=;
+        b=iePkb8iDVk0r7fBMTOkGe8b/JhSOkYikTKiBJ5YVst0TXAXrrTlbi9M6DYYU5PXLMq
+         Iixs9uoKg76DLytuS42mKDPsmihiAY7JuY/mbGinZXp0v67dshZ0Q7NDhbNeg+3evySV
+         ZVNl6Wah0osakwdLQcpGnvAAcxyEKxJlZio3Tk4OfFEiQR+XsVyRDCvXpHeUdBdj7dS4
+         3+yObixlSXD3WpgXmOZR5dV0z18QTvtYV7LAXuk1yBVIZDg8Q6qUJjT6fElondyqhwBk
+         0UkGsRJJ5uaimjjyNJVehFSL62cxAD4S/258DPwm59Q35cP+Z0iabjU9onr1lEaqguOB
+         qwXA==
+X-Forwarded-Encrypted: i=1; AL+hErH/to5Jsn03TikPXAmizlOQK0090+hnAZZ87vmHYNkjs8E4J4JJvvZGnIL4j6CI0tdJ9T/UNpBNXPPoKhQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/u5RvIX7lfQd0QTDfk2TT3BkenJjSf5gvznL98ex51dPboc7b9
+	c8a8Db9pv0cG23T/BTuzkbAgBUuhV3cPzYAEjxFWulXWLeKuitHq3ym41g0rdPJM2g==
+X-Gm-Gg: AYBFou2xOB2f+fnXj0QiPb3VvkJqbzQEsO/2nkcRyzC0JgQWVkXOpzmJkZtdqSmX5wo
+	as2e3CeQgAq2GBWXfK8iCdlWh2XfmDv++BSPAZmq91o/0yEYOOin7/9XZwuDjcA1/BzGsTprdGO
+	2LDhnmV37Xmcb7tbSW1xm+aiaRxWXgZzpq9Upwj5XVr4T9HTcvFoCV8zVx9SJfLRtcyqxSzO7Xq
+	CWpIVmitwGN1jTW4w12156PCRXfq8vjYqpFzmFaKfNdgXaHj0BJcE+vJfl33QuRwFO8vNaR5hSQ
+	Rvfhwdagk67G0hKbwvDJxcqXcWJSu7tWEbwkdVJPpI/6OHZ4Y5Eo+vUK0xdCbSkA/KDhuaOafHy
+	jk+0OZHhD3CgMcdrSiRYVwiDhxsGcghY6BBRphB8olUe1ImuK6VWdas47USwWtyHgNrILoo+hJ3
+	xC9z3Vd74ZzQ7eP67zM0O+CxC/ekmRtJqQKxCiyoOqmoMz3ttNYWhF7LxYzv94SW5caFeyy/NeM
+	+/XVKzfYALOpUoxqvr5Qa5+1jtiavYy/vB47u05bXEw5BeT5Z3fHYEDM1a156GHL127lAO1Olho
+	yBicP8W85v2hPeq7jL8QAe6xgtZz+66Eht9BmnA/YIV1TZU5pqQ=
+X-Received: by 2002:a05:690e:140b:b0:67c:175c:df7a with SMTP id 956f58d0204a3-67d895a7c36mr2662489d50.37.1794598616814;
+        Fri, 13 Nov 2026 11:36:56 -0800 (PST)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a5ea356sm2845680d50.17.2026.11.13.11.36.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 11:36:45 -0800 (PST)
-From: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
-To: jorge.ramirez@oss.qualcomm.com, jarkko@kernel.org, peterhuewe@gmx.de,
-        jgg@ziepe.ca, sumit.garg@oss.qualcomm.com
-Cc: linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
-Subject: [PATCH v4 2/2] tpm_ftpm_tee: use the tpm_optee transport core
-Date: Fri, 13 Nov 2026 20:36:34 +0100
-Message-ID: <20261113193639.4020859-3-jorge.ramirez@oss.qualcomm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261113193639.4020859-1-jorge.ramirez@oss.qualcomm.com>
-References: <20261113193639.4020859-1-jorge.ramirez@oss.qualcomm.com>
+        Fri, 13 Nov 2026 11:36:55 -0800 (PST)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Benjamin Coddington <bcodding@hammerspace.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] tls: fix send() returning success after the TCP send failed
+Date: Fri, 13 Nov 2026 14:36:48 -0500
+Message-ID: <20261113193649.3822306-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,455 +102,73 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: P-PXmR9jv9Oj9dYeYDW8-EU0tozYU7Y0
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3OCBTYWx0ZWRfX5ZLZYLlDZHFb
- YZ+7h/ZYgWxdMYEGxxphbTwfvDTgNGcYzctVYHB+7mMmuuDHT2A1Tmv30v2SSRp0NF6qp94ySNI
- 3WGrEPZUGFqjUw47hUKN+brj5rznDHE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3OCBTYWx0ZWRfX1G1bQnXLqsVn
- +GH936AJwRy9BZXOwo/c+1qcBzezyuNukKYXaHHC1kQRbKGgifMC6nPS6DwvTFBKfOR+tgSl6BN
- N4YkmwKC7bwUSTf9GOpN9yi0TVl3x+ut3vHT8U11KHy/C2xP8UDp9S9EWM8prw15oqyjpDuAOlW
- 4wplqUUjLAu0HnSeBSX/QN+DTYnOboNgHdE/y+mWwwfX1qFYOjWW5OdM0kSdlKCaRnc5Phjqosm
- SUgZvJITRQBLG/5VqVG8v9ZRgKlAugE4OwvPEiF7CE48WwoPtJaGpxnF6gpwXlIMnFcQN7YZuGU
- YtP0cvRhk5Ht9Wk5SoRu0V2frBNvw0JYjXdnAP+AtYCZptqVPeZHWOo5YVFR664hpxiEIJOyjsG
- 0Dr1RQkc4/Nt0oXA+Q8kF9X7/VVILT9oI417+H0dvCOAD/iVC8wPsRJUBQB21jf78+EgHhtiDEp
- KdOMy3m/4F6EoXq1Cqw==
-X-Proofpoint-ORIG-GUID: P-PXmR9jv9Oj9dYeYDW8-EU0tozYU7Y0
-X-Authority-Analysis: v=2.4 cv=AoN7T+9P c=1 sm=1 tr=0 ts=6af766d0 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=VbO86HPdXvN82gCvB8O6pw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=NEAV23lmAAAA:8
- a=p5XVOwWNAAAA:20 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=DtFL08XvnnzGsi3Z16wA:9
- a=IoWCM6iH3mJn3m4BftBB:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_06,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 adultscore=0 phishscore=0 suspectscore=0 spamscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611130078
 
-The firmware-TPM driver and the new discrete-TPM driver share the same
-OP-TEE transport, now factored into a common core. Move the firmware-TPM
-driver onto it so the transport is not duplicated. The driver keeps its
-name, its platform/OF binding and its shutdown behaviour; only the
-transport is shared.
+Commit b341ca51d267 ("tls: Fix tls_sw_sendmsg error handling") made
+tls_tx_records() pass the error of the TCP send to tls_err_abort()
+instead of -EBADMSG.
 
-Two functional changes come from sharing the core: a command longer than
-the caller's buffer is now rejected (it was previously only checked
-against the application's maximum), and a failed command submission
-returns -EIO instead of the raw error code from the secure world.
+However, bpf_exec_tx_verdict() still looks for EBADMSG in sk_err to
+tell that the record was not sent. With any other error, the record
+stays counted. As of now, send() on a kTLS socket returns success after
+the TCP connection can no longer send, for example after
+shutdown(SHUT_WR) or after a reset. Nothing reaches the peer, and the
+caller is not told.
 
-Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+The issue can be reproduced with:
+
+    python3 - <<'EOF'
+    import socket, struct
+    l = socket.create_server(("127.0.0.1", 0))
+    c = socket.create_connection(l.getsockname())
+    c.setsockopt(socket.SOL_TCP, 31, b"tls")
+    c.setsockopt(282, 1, struct.pack("HH", 0x0303, 51) + bytes(36))
+    c.shutdown(socket.SHUT_WR)
+    print(c.send(b"hello"))
+    EOF
+
+Before commit b341ca51d267 ("tls: Fix tls_sw_sendmsg error handling"),
+the result is:
+
+    OSError: [Errno 74] Bad message
+
+After that commit, the result is:
+
+    5
+
+This patch will make bpf_exec_tx_verdict() check for any error in
+sk_err. The send() above then fails with EPIPE, as it does on a plain
+TCP socket.
+
+Fixes: b341ca51d267 ("tls: Fix tls_sw_sendmsg error handling")
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
- drivers/char/tpm/Kconfig        |   1 +
- drivers/char/tpm/tpm_ftpm_tee.c | 294 ++------------------------------
- drivers/char/tpm/tpm_ftpm_tee.h |  35 ----
- 3 files changed, 19 insertions(+), 311 deletions(-)
- delete mode 100644 drivers/char/tpm/tpm_ftpm_tee.h
+Tested on net: with this patch, the send() above and a send() after a
+reset fail with EPIPE, and a send() on a TCP_REPAIR socket fails with
+EINVAL, as they do on a plain TCP socket. The tls selftests pass.
 
-diff --git a/drivers/char/tpm/Kconfig b/drivers/char/tpm/Kconfig
-index 779154e05204..35aff3003a32 100644
---- a/drivers/char/tpm/Kconfig
-+++ b/drivers/char/tpm/Kconfig
-@@ -240,6 +240,7 @@ config TCG_VTPM_PROXY
- config TCG_FTPM_TEE
- 	tristate "TEE based fTPM Interface"
- 	depends on TEE && OPTEE
-+	select TCG_OPTEE
- 	help
- 	  This driver proxies for firmware TPM running in TEE.
+Not addressed here: a caller that ignores the error and sends again
+still gets one more record queued per send(), because
+sk_stream_error() clears sk_err for EPIPE. Before commit b341ca51d267
+the EBADMSG stayed set and later sends failed early.
+
+ net/tls/tls_sw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+index 226e0f176fdc..f3e496fa47ae 100644
+--- a/net/tls/tls_sw.c
++++ b/net/tls/tls_sw.c
+@@ -711,7 +711,7 @@ static int bpf_exec_tx_verdict(struct sk_msg *msg, struct sock *sk,
+ 	int err;
  
-diff --git a/drivers/char/tpm/tpm_ftpm_tee.c b/drivers/char/tpm/tpm_ftpm_tee.c
-index 340b4884835c..1665e9b584a7 100644
---- a/drivers/char/tpm/tpm_ftpm_tee.c
-+++ b/drivers/char/tpm/tpm_ftpm_tee.c
-@@ -7,17 +7,22 @@
-  *
-  * A reference implementation is available here:
-  * https://github.com/microsoft/ms-tpm-20-ref/tree/master/Samples/ARM32-FirmwareTPM/optee_ta/fTPM
-+ *
-+ * The TEE transport is shared with other OP-TEE TPM front-ends and lives in
-+ * tpm_optee; this file only carries the fTPM identity and its platform/OF
-+ * binding.
-  */
- 
- #include <linux/acpi.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/tee_drv.h>
--#include <linux/tpm.h>
- #include <linux/uuid.h>
- 
--#include "tpm.h"
--#include "tpm_ftpm_tee.h"
-+#include "tpm_optee.h"
-+
-+/* The TAF ID implemented in the fTPM TA */
-+#define FTPM_OPTEE_TA_SUBMIT_COMMAND	0
- 
- /*
-  * TA_FTPM_UUID: BC50D971-D4C9-42C4-82CB-343FB7F37896
-@@ -26,298 +31,36 @@
-  * Defined here in the reference implementation:
-  * https://github.com/microsoft/ms-tpm-20-ref/blob/master/Samples/ARM32-FirmwareTPM/optee_ta/fTPM/include/fTPM.h#L42
-  */
--static const uuid_t ftpm_ta_uuid =
--	UUID_INIT(0xBC50D971, 0xD4C9, 0x42C4,
--		  0x82, 0xCB, 0x34, 0x3F, 0xB7, 0xF3, 0x78, 0x96);
--
--/**
-- * ftpm_tee_tpm_op_send() - send TPM commands through the TEE shared memory
-- * and retrieve the response.
-- * @chip:	the tpm_chip description as specified in driver/char/tpm/tpm.h
-- * @buf:	the buffer to send and to store the response.
-- * @bufsiz:	the size of the buffer.
-- * @cmd_len:	the number of bytes to send.
-- *
-- * Return:
-- *	In case of success, returns the number of bytes received.
-- *	On failure, -errno
-- */
--static int ftpm_tee_tpm_op_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz,
--				size_t cmd_len)
--{
--	struct ftpm_tee_private *pvt_data = dev_get_drvdata(chip->dev.parent);
--	size_t resp_len;
--	int rc;
--	u8 *temp_buf;
--	struct tpm_header *resp_header;
--	struct tee_ioctl_invoke_arg transceive_args;
--	struct tee_param command_params[4];
--	struct tee_shm *shm = pvt_data->shm;
--
--	if (cmd_len > MAX_COMMAND_SIZE) {
--		dev_err(&chip->dev,
--			"%s: len=%zd exceeds MAX_COMMAND_SIZE supported by fTPM TA\n",
--			__func__, cmd_len);
--		return -EIO;
--	}
--
--	memset(&transceive_args, 0, sizeof(transceive_args));
--	memset(command_params, 0, sizeof(command_params));
--
--	/* Invoke FTPM_OPTEE_TA_SUBMIT_COMMAND function of fTPM TA */
--	transceive_args = (struct tee_ioctl_invoke_arg) {
--		.func = FTPM_OPTEE_TA_SUBMIT_COMMAND,
--		.session = pvt_data->session,
--		.num_params = 4,
--	};
--
--	/* Fill FTPM_OPTEE_TA_SUBMIT_COMMAND parameters */
--	command_params[0] = (struct tee_param) {
--		.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT,
--		.u.memref = {
--			.shm = shm,
--			.size = cmd_len,
--			.shm_offs = 0,
--		},
--	};
--
--	temp_buf = tee_shm_get_va(shm, 0);
--	if (IS_ERR(temp_buf)) {
--		dev_err(&chip->dev, "%s: tee_shm_get_va failed for transmit\n",
--			__func__);
--		return PTR_ERR(temp_buf);
--	}
--	memset(temp_buf, 0, (MAX_COMMAND_SIZE + MAX_RESPONSE_SIZE));
--	memcpy(temp_buf, buf, cmd_len);
--
--	command_params[1] = (struct tee_param) {
--		.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT,
--		.u.memref = {
--			.shm = shm,
--			.size = MAX_RESPONSE_SIZE,
--			.shm_offs = MAX_COMMAND_SIZE,
--		},
--	};
--
--	rc = tee_client_invoke_func(pvt_data->ctx, &transceive_args,
--				    command_params);
--	if ((rc < 0) || (transceive_args.ret != 0)) {
--		dev_err(&chip->dev, "%s: SUBMIT_COMMAND invoke error: 0x%x\n",
--			__func__, transceive_args.ret);
--		return (rc < 0) ? rc : transceive_args.ret;
--	}
--
--	temp_buf = tee_shm_get_va(shm, command_params[1].u.memref.shm_offs);
--	if (IS_ERR(temp_buf)) {
--		dev_err(&chip->dev, "%s: tee_shm_get_va failed for receive\n",
--			__func__);
--		return PTR_ERR(temp_buf);
--	}
--
--	resp_header = (struct tpm_header *)temp_buf;
--	resp_len = be32_to_cpu(resp_header->length);
--
--	/* sanity check resp_len */
--	if (resp_len < TPM_HEADER_SIZE) {
--		dev_err(&chip->dev, "%s: tpm response header too small\n",
--			__func__);
--		return -EIO;
--	}
--	if (resp_len > MAX_RESPONSE_SIZE) {
--		dev_err(&chip->dev,
--			"%s: resp_len=%zd exceeds MAX_RESPONSE_SIZE\n",
--			__func__, resp_len);
--		return -EIO;
--	}
--	if (resp_len > bufsiz) {
--		dev_err(&chip->dev,
--			"%s: resp_len=%zd exceeds bufsiz=%zd\n",
--			__func__, resp_len, bufsiz);
--		return -EIO;
--	}
--
--	memcpy(buf, temp_buf, resp_len);
--
--	return resp_len;
--}
--
--static const struct tpm_class_ops ftpm_tee_tpm_ops = {
--	.flags = TPM_OPS_AUTO_STARTUP,
--	.send = ftpm_tee_tpm_op_send,
-+static const struct tpm_optee_config ftpm_tee_config = {
-+	.ta_uuid = UUID_INIT(0xBC50D971, 0xD4C9, 0x42C4,
-+			     0x82, 0xCB, 0x34, 0x3F, 0xB7, 0xF3, 0x78, 0x96),
-+	.login	 = TEE_IOCTL_LOGIN_PUBLIC,
-+	.cmd_id	 = FTPM_OPTEE_TA_SUBMIT_COMMAND,
- };
- 
--/*
-- * Check whether this driver supports the fTPM TA in the TEE instance
-- * represented by the params (ver/data) to this function.
-- */
--static int ftpm_tee_match(struct tee_ioctl_version_data *ver, const void *data)
--{
--	/*
--	 * Currently this driver only support GP Complaint OPTEE based fTPM TA
--	 */
--	if ((ver->impl_id == TEE_IMPL_ID_OPTEE) &&
--		(ver->gen_caps & TEE_GEN_CAP_GP))
--		return 1;
--	else
--		return 0;
--}
--
--/**
-- * ftpm_tee_probe_generic() - initialize the fTPM
-- * @dev: the device description.
-- *
-- * Return:
-- *	On success, 0. On failure, -errno.
-- */
--static int ftpm_tee_probe_generic(struct device *dev)
--{
--	int rc;
--	struct tpm_chip *chip;
--	struct ftpm_tee_private *pvt_data = NULL;
--	struct tee_ioctl_open_session_arg sess_arg;
--
--	pvt_data = devm_kzalloc_obj(dev, struct ftpm_tee_private);
--	if (!pvt_data)
--		return -ENOMEM;
--
--	dev_set_drvdata(dev, pvt_data);
--
--	/* Open context with TEE driver */
--	pvt_data->ctx = tee_client_open_context(NULL, ftpm_tee_match, NULL,
--						NULL);
--	if (IS_ERR(pvt_data->ctx)) {
--		if (PTR_ERR(pvt_data->ctx) == -ENOENT)
--			return -EPROBE_DEFER;
--		dev_err(dev, "%s: tee_client_open_context failed\n", __func__);
--		return PTR_ERR(pvt_data->ctx);
--	}
--
--	/* Open a session with fTPM TA */
--	memset(&sess_arg, 0, sizeof(sess_arg));
--	export_uuid(sess_arg.uuid, &ftpm_ta_uuid);
--	sess_arg.clnt_login = TEE_IOCTL_LOGIN_PUBLIC;
--	sess_arg.num_params = 0;
--
--	rc = tee_client_open_session(pvt_data->ctx, &sess_arg, NULL);
--	if ((rc < 0) || (sess_arg.ret != 0)) {
--		dev_err(dev, "%s: tee_client_open_session failed, err=%x\n",
--			__func__, sess_arg.ret);
--		rc = -EINVAL;
--		goto out_tee_session;
--	}
--	pvt_data->session = sess_arg.session;
--
--	/* Allocate dynamic shared memory with fTPM TA */
--	pvt_data->shm = tee_shm_alloc_kernel_buf(pvt_data->ctx,
--						 MAX_COMMAND_SIZE +
--						 MAX_RESPONSE_SIZE);
--	if (IS_ERR(pvt_data->shm)) {
--		dev_err(dev, "%s: tee_shm_alloc_kernel_buf failed\n", __func__);
--		rc = -ENOMEM;
--		goto out_shm_alloc;
--	}
--
--	/* Allocate new struct tpm_chip instance */
--	chip = tpm_chip_alloc(dev, &ftpm_tee_tpm_ops);
--	if (IS_ERR(chip)) {
--		dev_err(dev, "%s: tpm_chip_alloc failed\n", __func__);
--		rc = PTR_ERR(chip);
--		goto out_chip_alloc;
--	}
--
--	pvt_data->chip = chip;
--	pvt_data->chip->flags |= TPM_CHIP_FLAG_TPM2 | TPM_CHIP_FLAG_SYNC;
--
--	/* Create a character device for the fTPM */
--	rc = tpm_chip_register(pvt_data->chip);
--	if (rc) {
--		dev_err(dev, "%s: tpm_chip_register failed with rc=%d\n",
--			__func__, rc);
--		goto out_chip;
--	}
--
--	return 0;
--
--out_chip:
--	put_device(&pvt_data->chip->dev);
--out_chip_alloc:
--	tee_shm_free(pvt_data->shm);
--out_shm_alloc:
--	tee_client_close_session(pvt_data->ctx, pvt_data->session);
--out_tee_session:
--	tee_client_close_context(pvt_data->ctx);
--
--	return rc;
--}
--
- static int ftpm_tee_probe(struct tee_client_device *tcdev)
- {
--	struct device *dev = &tcdev->dev;
--
--	return ftpm_tee_probe_generic(dev);
-+	return tpm_optee_probe(&tcdev->dev, &ftpm_tee_config);
- }
- 
- static int ftpm_plat_tee_probe(struct platform_device *pdev)
- {
--	struct device *dev = &pdev->dev;
--
--	return ftpm_tee_probe_generic(dev);
--}
--
--/**
-- * ftpm_tee_remove_generic() - remove the TPM device
-- * @dev: the device description.
-- *
-- * Return:
-- *	0 always.
-- */
--static void ftpm_tee_remove_generic(struct device *dev)
--{
--	struct ftpm_tee_private *pvt_data = dev_get_drvdata(dev);
--
--	/* Release the chip */
--	tpm_chip_unregister(pvt_data->chip);
--
--	/* frees chip */
--	put_device(&pvt_data->chip->dev);
--
--	/* Free the shared memory pool */
--	tee_shm_free(pvt_data->shm);
--
--	/* close the existing session with fTPM TA*/
--	tee_client_close_session(pvt_data->ctx, pvt_data->session);
--
--	/* close the context with TEE driver */
--	tee_client_close_context(pvt_data->ctx);
--
--	/* memory allocated with devm_kzalloc() is freed automatically */
-+	return tpm_optee_probe(&pdev->dev, &ftpm_tee_config);
- }
- 
- static void ftpm_tee_remove(struct tee_client_device *tcdev)
- {
--	struct device *dev = &tcdev->dev;
--
--	ftpm_tee_remove_generic(dev);
-+	tpm_optee_remove(&tcdev->dev);
- }
- 
- static void ftpm_plat_tee_remove(struct platform_device *pdev)
- {
--	struct device *dev = &pdev->dev;
--
--	ftpm_tee_remove_generic(dev);
-+	tpm_optee_remove(&pdev->dev);
- }
- 
--/**
-- * ftpm_plat_tee_shutdown() - shutdown the TPM device
-- * @pdev: the platform_device description.
-- */
- static void ftpm_plat_tee_shutdown(struct platform_device *pdev)
- {
--	struct ftpm_tee_private *pvt_data = dev_get_drvdata(&pdev->dev);
--
--	tee_shm_free(pvt_data->shm);
--	tee_client_close_session(pvt_data->ctx, pvt_data->session);
--	tee_client_close_context(pvt_data->ctx);
-+	tpm_optee_shutdown(&pdev->dev);
- }
- 
- static const struct of_device_id of_ftpm_tee_ids[] = {
-@@ -342,7 +85,6 @@ static const struct tee_client_device_id optee_ftpm_id_table[] = {
- 		   0x82, 0xcb, 0x34, 0x3f, 0xb7, 0xf3, 0x78, 0x96)},
- 	{}
- };
--
- MODULE_DEVICE_TABLE(tee, optee_ftpm_id_table);
- 
- static struct tee_client_driver ftpm_tee_driver = {
-diff --git a/drivers/char/tpm/tpm_ftpm_tee.h b/drivers/char/tpm/tpm_ftpm_tee.h
-deleted file mode 100644
-index 8d5c3f0d2879..000000000000
---- a/drivers/char/tpm/tpm_ftpm_tee.h
-+++ /dev/null
-@@ -1,35 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Copyright (C) Microsoft Corporation
-- */
--
--#ifndef __TPM_FTPM_TEE_H__
--#define __TPM_FTPM_TEE_H__
--
--#include <linux/tee_drv.h>
--#include <linux/tpm.h>
--#include <linux/uuid.h>
--
--/* The TAFs ID implemented in this TA */
--#define FTPM_OPTEE_TA_SUBMIT_COMMAND  (0)
--#define FTPM_OPTEE_TA_EMULATE_PPI     (1)
--
--/* max. buffer size supported by fTPM  */
--#define MAX_COMMAND_SIZE       4096
--#define MAX_RESPONSE_SIZE      4096
--
--/**
-- * struct ftpm_tee_private - fTPM's private data
-- * @chip:     struct tpm_chip instance registered with tpm framework.
-- * @session:  fTPM TA session identifier.
-- * @ctx:      TEE context handler.
-- * @shm:      Memory pool shared with fTPM TA in TEE.
-- */
--struct ftpm_tee_private {
--	struct tpm_chip *chip;
--	u32 session;
--	struct tee_context *ctx;
--	struct tee_shm *shm;
--};
--
--#endif /* __TPM_FTPM_TEE_H__ */
+ 	err = tls_push_record(sk, flags, record_type);
+-	if (err && err != -EINPROGRESS && sk->sk_err == EBADMSG) {
++	if (err && err != -EINPROGRESS && sk->sk_err) {
+ 		*copied -= sk_msg_free(sk, msg);
+ 		tls_free_open_rec(sk);
+ 		err = -sk->sk_err;
+
+base-commit: ead6fa9a0ab194f02a2f36d634b193e9c5f9a1c6
 -- 
-2.55.0
+2.53.0
 
