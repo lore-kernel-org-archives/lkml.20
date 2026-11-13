@@ -1,71 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794607479;
-	b=bIMqfrlRCcUucmT2OK8c2ep2ykADxmHDH2SDKHIYAvJdGkFq71+8WLbfapJYP9l8745g
-	 9PhTXzUf/ms7pMgXalYpFZxLvAmoh3jkYalD6lWcCaZjjs0d2gdvPjNxl2bLMcLGwGQbE
-	 jf+7axh69TLxm9OtI8bTPr0Yu6hEsrKek5sMc0cLnv2CXjfpJKU/6s/DoI0GapwTikYbf
-	 kLj29rUGgNDQ1eM75XHJDL+lnBs8oyABaerfkUdDdmH4Qx0xyWVYK3udEvuRRioNQtaWp
-	 HTqslESYpRlBoa7d17ftFyP6u/3QGDlN1nu6tzUKZ+/vgF3MEKJeBra95WvCitbXaMw==
+	t=1794607488;
+	b=kcclVKY8bbxKFmrXBEbkUXVnK2YmjJ+/PzgiC5jHNoQLnIKpObLPoObzSaIL3C42PO8b
+	 jw/nxNeFHbtd7Hrwlwjekq9jdtm+AOJawXAcylFoAawtpBg4cEP+yrvYcRF+FFNnqu03a
+	 8ezMVxcMXz2jsN4u6fNoAdidb2vzH8PX3LvG1tGONNnzMkfk3gGH88gXO6m89WUXKvmJu
+	 D9RmV4ejuPkBAcePhmnk2hft6h2bOMPRyJvYYY2XSvV8vZ6yLo88m4uniehS31BtpaT+f
+	 a5pGyMQfpysjmS9JTotJ6puRFPzR+/wL4bmeqeXw5gJscBtgmo/6d/8LPA3JOtoUcpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794607479;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=060IlpN6nZBHuShVfn1h6xjHXL8bq9e9OYpRoM9tWdM=;
-	b=qXK4MHRSG4abOoabTGp3elXGDOe+RyWR/Jh1kh7uDV0/x1slilJLwRjwpwgJDPVrjrfS
-	 Dn2Hyai8ClByUyAmanniGpD0hGKbGOPOqAAb+qj9k99UcAsfX/S7siuid/4eOWQRxC0Mg
-	 sOQoyDAq2TYrQ7QpLkUoFuvZxAFzuLBg/cS5Q0FHh0y1RYPpWpsntodlZQhk+tVZB/xi4
-	 OiLdatIodqPJw1WPk9lvHkLe/BHfjxuCpuxXeZMNb5WPnmixjcXE6hxCYPJ/gxXzbE2ei
-	 GpgvshiYDeGnSQXU7cVRv+Nc+t9sjFyfWfi+uQfsJmOSjWGZaXtNAWC8QdJKN+R0dAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794607488;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=rKxcqwDCc8YSQZaViD5Eexs1w3IH6V9O5T4AQU6d5A0=;
+	b=dc/7V2a6GRlV5lgPxQvjMDOfyLPVNmEtsy7lAPucZ0uJnHfIxw2tQcy3tOoGQuaxR88h
+	 XSrPRbsADwhgBiWsRZQJXTpqamqxpNyhqNXxQn9mYi/s9kfKLRJnYnfASmntRtSH0HS8V
+	 he+haOioJEfQTrMclFfv8GO6HWK0Dv+oZs3ytiF4Yf9rcBE0MqNEZJiGyqo6Gktl9zBYp
+	 VF0qfcNPWFtlY4RdQvOgwUevxPlveDAuLJwyi0djMTuZyXbW2dKFh1v53arLpUaGZAXGb
+	 eUmgCQD47p7zxZHa6ioRJD8flEMXwnmpP1m8mRi1e2kcM0v8p/Vq88chTnKWt5YammQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QtKGYcQI;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=WcCwCPyL;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D17B606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:04:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D17B606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE449606A329;
+	Fri, 13 Nov 2026 22:04:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE449606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QtKGYcQI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=060I
-	lpN6nZBHuShVfn1h6xjHXL8bq9e9OYpRoM9tWdM=; b=QtKGYcQINLZUbtBvGCrX
-	feBVnRhzy4dEj4v8brwXHAjMaRSL7bcMQaulQM1FlgQOGXCUMedRIYcOXT9cAZCa
-	kRyT5afiDUnnj/EqONlbiNV1sxsCNgDfidTvRAaHQ+4S9wvNzHNT3Rqj6I/DKVeC
-	aXmoKMaCQDVwusYmeKu0SqpliUW7whlJohAEdqKFwD2XMhypU58x38EiedEkywjb
-	DYkYWEEJTtfJ3ODg0NVlHHEHhWrO8oQ1kobOVK0CaA1DwB4A0L/l2UqffG3r+8iw
-	fof+7B1NO0+SruLY6T6U7ByveZh4NZ/m9lz8z6Fdm3hkB/sj1+5m/xmejGZpMLXB
-	NQ==
-Received: (qmail 379181 invoked from network); 13 Nov 2026 23:04:34 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 13 Nov 2026 23:04:34 +0100
-X-UD-Smtp-Session: l3s3148p1@E2f9nC9g+uAujntX
-Date: Fri, 13 Nov 2026 23:04:32 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>, driver-core@lists.linux.dev,
-	linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v2 2/8] i2c: core: fix swnode use-after-free on client
- deregistration
-Message-ID: <aveJbJBz0lRkpXMV@shikoro>
-References: <20261110085125.2535508-1-johan@kernel.org>
- <20261110085125.2535508-3-johan@kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=WcCwCPyL
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=rKxcqwDCc8YSQZaViD5Eexs1w3IH6V9O5T4AQU6d5A0=; b=WcCwCPyLSAYwf4LhU38k2PzlZk
+	/SdK4omqo0Hj6rQmCM9+AcsL42+6XWoIOG+2lD6BFSJVnvb2pgUSuAlJs5yr6Z64Qm1E/lYD0uSWO
+	Rg9W9RDvbYQ7l1Gix2Yc/yhauufuD0tEFQoytQCkdCVK2As90ejMPAM3MIcXhNu2cJjc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xRzNu-00GNCy-Sk; Fri, 13 Nov 2026 23:04:38 +0100
+Date: Fri, 13 Nov 2026 23:04:38 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, Carlos Soto <carlos.soto@broadcom.com>,
+	Justin Chen <justin.chen@broadcom.com>,
+	Doug Berger <opendmb@gmail.com>, Nicolai Buchwitz <nb@tipi-net.de>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	Mlody12 mlody12 <kudzo51@gmail.com>
+Subject: Re: [PATCH net-next 3/3] net: mdio: mdio-bcm-unimac: Add Clause 45
+ support
+Message-ID: <e4f0d156-a7ef-48d6-a034-955e01ef90a6@lunn.ch>
+References: <20261113211554.2058181-1-florian.fainelli@broadcom.com>
+ <20261113211554.2058181-4-florian.fainelli@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,59 +72,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="j+L7QhPvMLGA3QYz"
-Content-Disposition: inline
-In-Reply-To: <20261110085125.2535508-3-johan@kernel.org>
-
---j+L7QhPvMLGA3QYz
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261113211554.2058181-4-florian.fainelli@broadcom.com>
 
-On Tue, Nov 10, 2026 at 09:51:18AM +0100, Johan Hovold wrote:
-> If a client has both a primary and a secondary firmware node, the
-> secondary node is accessed via the ->secondary pointer of the primary
-> node.
->=20
-> Use a temporary variable to track whether the firmware node is a
-> software node and remove any software node before dropping its reference
-> to avoid a use-after-free in device_remove_software_node() when
-> accessing the secondary firmware node.
->=20
-> Fixes: df6d7277e552 ("i2c: core: Do not dereference fwnode in struct devi=
-ce")
-> Fixes: 1c24e5fc0c70 ("i2c: core: Fix double-free of fwnode in i2c_unregis=
-ter_device()")
-> Cc: stable@vger.kernel.org	# 6.16
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Cc: Hans de Goede <hansg@kernel.org>
-> Signed-off-by: Johan Hovold <johan@kernel.org>
+> +static void unimac_mdio_set_clause(struct unimac_mdio_priv *priv, bool is_c45)
+> +{
+> +	u32 cfg = unimac_mdio_readl(priv, MDIO_CFG);
+> +	u32 new_cfg = cfg;
+> +
+> +	if (is_c45)
+> +		new_cfg &= ~MDIO_C22;
+> +	else
+> +		new_cfg |= MDIO_C22;
+> +
+> +	if (new_cfg != cfg)
+> +		unimac_mdio_writel(priv, new_cfg, MDIO_CFG);
 
-Looks reasonable to me. Thanks for doing this and the cleanup in patch
-4/8.
+Is the write expensive? The bus is not faster, so is this optimisation
+even noticeable?
 
-Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-
-
---j+L7QhPvMLGA3QYz
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr3iWwACgkQFA3kzBSg
-KbaIMA//eWcgbnF7PZjDx4nprctqMRhaYXXJNHPesqlrO7deaWAuj6I1+Cliuco4
-sUxbGoaqeI3Pdn5iMAVHzuzxk4YWp9NqEGaarZZ6oT3MrPx8oTvQwYwnNTsou6yz
-t+x04+dPmw5di/r02KlpuI//3aGLKLVH1TStEZ7fdYdeKf9Cjw1BhzTQ5evVW0H2
-Xurqmq1uWGZ3QUvb7+LppwTkp3wp6AFbjY8Y2pRmxfrM4VgGuYLWExK7P//qqKR1
-pkpxjV4XGIvlZDlX7ynIWf55Yh2xWNjI89dS2ytFYtkXXgKf3KoGzZ+fGg0Y1Yhf
-mHJbnTCL+24rtpfDhPnC1fci8rVLJ2VvKVLtfXK3zaNe6ZOshRh8Rdl+dwfNckLi
-BMzTAr8NWsfp8m+sCrPZUDRk+bDEZiGu5IQbbgw4WwdREq/5g6z3eo+G7PF2D+HY
-cFHkyOVcMkKfq4IyYTm9AVXIKl1Oruz9QyefgNHCmdauegytSfsuI+oBvw66kXBu
-MhPSRrAlD2FLZYmOjfUT1R+rbncrT6tLHHwlRnSsjdvnVrZN5PUr+r3Jx9KTkchQ
-jTkp8P3WIcE3j3A+5DynJ2+VKhN9Pi/n/dLaK84buiyzOlzbm+TZ8NylR2nng6+q
-44eBFj99f+HuUQI/i9a6ovZwD1E9fLT0+J55g4IKqUeVi9KoIak=
-=UwRm
------END PGP SIGNATURE-----
-
---j+L7QhPvMLGA3QYz--
+Andrew
