@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794568336;
-	b=vvR4hNo7Jr27wdmAuiUznJpvwfZBSPb7tJDQEob+MxLrI2P3ZAigXUU0u/rVFz9PKAIT
-	 PQipRqRcj3P1UxCtN6Yu0XYC/6D1j2I005NilJWztQ8Fy3fP5S2ovM9ifzX/39w1N8aZi
-	 cuuUIfsy6noEaUZrEkjxzep4MGvTxhQD+TLG+qje8mpoN+pYZH+5YNTMkAGkdmgiVk0Vz
-	 c8Yxvh4/a1LAUnJNRJyH6BK9fIEbe/8Hba6Qrn5adchOX/ZWtQvbJWYDnMLom7Sz8TRRt
-	 nJxDoKn0zLuirBVD5WPvPJxerIgutO2oRd5luBUTByIdRK7CCq1siyeSevMsFH+ysKQ==
+	t=1794568379;
+	b=DoonruLPXYYUJ9gykaeMNeormOfVnnSTIuTKxpdVHxzXqXVnqARyX6yOg2CmrUWp8xa0
+	 G7swsarN+39xk25Gyst3kFsWUPG6NINtSak8CT0A2UgZrdVFBbOq1lrsmune+PXwDDo5D
+	 k3+bnAvhSJ2Zq92pFRlJWmcG26OB+FehbvLu7BhwxhrwEOJ3SVgXGzRF2ycZfSnIKz4UC
+	 HKgS9pAsHCkwRigBrOTRpr3aN4qRrImkjGERZO1KZxFAmV4WbV3CHlMr6o7+d6q6qp+PY
+	 Tx5Mb8/TROUz6u31h1NRavWkFZMw/B+zqnussp359TiO+F0eNM5OZ8oUyORLpy2RSpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794568336;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568379;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1MudG6EhnjWN3b8vEqsH4RydXk8BVX8M1isKdnTFXec=;
-	b=v32vLI2Ei/8epA3SVAVZMr4hQIfgu89Fzb77spLGItqBA4lcEejDJcaQdzUqjzLm/4o0
-	 umqFaxeQOEdzns8Xf4itaG1AfIR8T0FYTZkAIbR+VvSCQu486niVF1ZTeS0nhApwjOL5U
-	 qCi/sj6RPH9wNiXpqyfHpfjzis7Bk9PmvBFLgrmuCuilYKk9RP0rfnKHNv0r0dUeO+6Bi
-	 Noiq3yImjAMlHyKJGkyuLn4ShLMJJgN9jpVeWYwUXjHnwi+eQVLZhyKcTw1uxBTpIT1XA
-	 IB8CIwEky+yzuharDtf6hi27uxsjWDTsJEdFrg2W3F5MC4gWbnk7qKRdsUOXQt4J5/A==
+	bh=YE/QFiUmU3OYrjYzXRMMATHqXl1z5aveyaIXT6zCXNs=;
+	b=ZiN8W3MCXddPexToIAt9hVa++To0xDlB5PEN1H791PdBnRj2iXTVdzK4InGYrYa1rrzh
+	 BBasdqCzAOY/SsaEpnSg3kXVxlu1TUFfkR6t1UHe/+VDs83g/Dt43Xr6wU/Ev342vR6wk
+	 cVIJrV8k+yFB2hPuQIS0mAswCH7ONMh0L0V7bJGyFtTcRtMnkIJMwLiqSiQriwJBmZ9NM
+	 yyH0rA0FXSKGk6EAHv8u5Ilz51EzNXp5UAz3GtJDw39uAEy3j3Dt2wf4R6nQ40Oc8IHVh
+	 7vys3DYbGdCRArUOmODxSABfdMaFpPyy0aTGZA0Py3JbEw9JqX2HePapsnA3Y8kwPvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xee1wWKf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLqQPuwB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5A1606A8AC;
-	Fri, 13 Nov 2026 11:12:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05AC606A323;
+	Fri, 13 Nov 2026 11:12:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xee1wWKf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCD711F000C5;
-	Fri, 13 Nov 2026 11:12:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLqQPuwB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2F9B1F000C4;
+	Fri, 13 Nov 2026 11:12:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794568335;
-	bh=1MudG6EhnjWN3b8vEqsH4RydXk8BVX8M1isKdnTFXec=;
+	s=k20260515; t=1794568379;
+	bh=YE/QFiUmU3OYrjYzXRMMATHqXl1z5aveyaIXT6zCXNs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Xee1wWKf4RHIdGt0yenAsYu1dbGb7mgUKdgRVsgcHpG99pxKF9wrxw0d1F0s4ULCP
-	 6nV4jqcv4VFBppasIYnsSrBIjEL12e+0Hsma/ri1UE8yDQnCL5ulxOZhcLAk3Q8gZC
-	 p4SbnuNgNuLyFOUo6+hxOu3og1IDBkKG1bq+NUcnzMcuuAJE7WoM+mhpx15eEx9god
-	 2vUFaeJnhCSt9XiXkf+LKz2Fj0tYFtXSYKZcO2sIdI20ffht3yKGbm5zkFr05E31fG
-	 BeYsW5Tc/C3uFp0HbfR5lwjgaS17kGM/bk/XKzIQ5F39GO0S7kwCZk3dievyt50/mq
-	 KuPOytF14WIhQ==
-Date: Fri, 13 Nov 2026 12:12:12 +0100
+	b=RLqQPuwBt4mADxbvW1lqlsDuGrKL59sU9HusL5TZqEstdiigTp//KxFNmgVsXiB/u
+	 Hu3PxDr+IafRqR34zNggZX0y1A3hBIX4ZABy0DBVICfL8soGxe268Z3/p2CACkRt+Z
+	 BTDd8JtoA/QCbfJ92e+rXuoNodBxzTsBZhNF68hVQzUHvWUkMhEnguZWQoMF6250oF
+	 WiOQUDmpWl6c743VM14Tj1r9n+7OuqUfxn5rNeEgpaoHH76yzkXAPspFP294JickIw
+	 YDd8q6q/qjew/qhiJ53gOolgnmj8hB5+HRsZ5wbRB7pCI73BRDcOKUe6hfff4IOv7a
+	 0Q2nl2rRtUhsw==
+Date: Fri, 13 Nov 2026 12:12:55 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
 Cc: Rob Herring <robh@kernel.org>, 
@@ -48,10 +48,11 @@ Cc: Rob Herring <robh@kernel.org>,
 	Samuel Holland <samuel@sholland.org>, Andre Przywara <andre.przywara@arm.com>, 
 	Enzo Adriano <enzo.adriano.code@gmail.com>, Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, 
 	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: arm: sunxi: document Radxa Cubie A7Z
-Message-ID: <20261113-tacky-unbeatable-pronghorn-74ed4e@quoll>
+Subject: Re: [PATCH 3/3] arm64: dts: allwinner: sun60i-a733-cubie-a7z: add
+ the user LED
+Message-ID: <20261113-shapeless-dodo-of-skill-32b3cb@quoll>
 References: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
- <20261111134919.90264-2-vinicius.eduardo.pedrosa@gmail.com>
+ <20261111134919.90264-4-vinicius.eduardo.pedrosa@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,17 +64,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111134919.90264-2-vinicius.eduardo.pedrosa@gmail.com>
+In-Reply-To: <20261111134919.90264-4-vinicius.eduardo.pedrosa@gmail.com>
 
-On Wed, Nov 11, 2026 at 10:49:15AM -0300, Vinicius Pedrosa wrote:
-> Document the Radxa Cubie A7Z, an Allwinner A733-based board.
+On Wed, Nov 11, 2026 at 10:49:17AM -0300, Vinicius Pedrosa wrote:
+> Describe the green user LED on the Radxa Cubie A7Z. It is driven high
+> by PM2 and uses the heartbeat trigger by default.
 > 
 > Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
 > ---
->  Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+>  .../boot/dts/allwinner/sun60i-a733-cubie-a7z.dts     | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+This should be squashed, you just added the file in previous patch.
 
 Best regards,
 Krzysztof
