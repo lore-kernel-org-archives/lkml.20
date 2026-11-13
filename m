@@ -1,47 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794561479;
-	b=qBf0GB9TsiBt9iDP7yHUCBSSYHJZ6G58LHs7Tgrn9ulHDA49GoZGH4+NvXwN7V+YAK9w
-	 KMwdkeudWxbVmuTWEBorwEf451Eblz2SGlGWupNpFVYnCsof8Tk6UCEHP/JvDJwslnGBz
-	 joWL+q1+rzLDZHoAaDTVFR4JKZ2a7fPsJ1utzQ3jZ0fgtBU19X3NOo9r5TPZ4SU75vvuJ
-	 sg8XFzzK9WLt1oOHG7uRpc31pCdRIvxJP9khtvqmoCk5Yc0LuiW3ZSGQFyftH7tv6m7vq
-	 U3D/zyAdYrY2n5SLm5D/imJGeDD1dfQYeKnygHKPx5lGb3MzIKZuS6Xzs0i8YIxd8tQ==
+	t=1794561531;
+	b=aRnLGQ0or5N4C5ZnKoVg6iSKiqDKQMl/Wrjh8xamT4iBkG/otbJqyJvhc3NB0ztWdHQ3
+	 qLiACE4vADmFtpSlE1nTntrviNJJ5XuyJh4cn0zznfiukizTjleQf61UWCvdq4HbIEkzq
+	 FJz4sUsqMcmHXo5D6+BYn+LbXaF2o/tWajjwcXlyUhTvzEIQ2pV1NdbQBbGjqK6HkPIbT
+	 rMKQ+V7kq1m0U8UQIIlFgGLUFjQ2AJ+5Y4EnrrIBj2Q6w4srAYjK4UISzYpo6n42Oxto5
+	 V5DqSFzpbDOuPheD6dmDGZugGt64cg7IlVBo9B88I19w16xKmFoD7mAB5g2wHZqbg0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794561479;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=eStupLSXeWq6p5mACFQucqZl8B+vHFCM7s/qEMYl1DA=;
-	b=mb+L4IwDEsjiSBAeXANweVb0JeYV+rzTkKGfDbS7HsCZAQf13Q03C27oDiPPBwfL0oHo
-	 tjDD1jyVFn7GoOUga1uxlJZN+cH1MVHctwwDGFD414bBnN8fXrQYIiTIXHFCcTyL8OIG/
-	 W+R9LljIRpufDXKh0JtiSrkc7CPtv5MIGm6Y0g7uaPenteYrJpUCYYLxEMnK0T01i/Atv
-	 +LRIQLC12Ng4bNA29g8760I5ql45TKCg54togstQuNf3/owbhnE+hV9/VvQvaL8LUKOf9
-	 cjb/v9QHu0b8NXFTIpdav2utDvTxw7gon5JKqgKXMMlTZb7jv60FOvxhY3pJnPOnzkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794561531;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=6y/Vwdb7m8Q4VQEZiWRGa4EBI0ZcNW5mrZJmNnLAIEk=;
+	b=orgGRkg9Y+VE57KdKV8RAhn0G2adIwXnNkwBzG3H1ryfRsr16CyBmrVAlzHztowktIZ1
+	 7kWws7KHdva7t9+XFTC4quUk8zUnPCxaKYep524JTVo3yLGkQDxBqBqqFlTLy70xR0COy
+	 7Jo04GXw765dptNi67bgHeTiLSFeW2E/dP3pxv8xrxmrhy93NkTD6YtnGTLtjhUPuUHdN
+	 U9B8h7SAUFXQhhdD1vrP3AmvL22fKl/sciLrmSN/T59hxTyXcwFuQG/KJ8X3J1RQyaQ3+
+	 4sAZ4hqb2FdZEJcZkgLwujlRK+kpPeA+oMwqfDAmzc5dHMuJHns/o7oa0ElS/IPoWXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lp8IreAf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=XU1Lk5w0;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0cGPAQzH;
+	arc=none smtp.remote-ip=202.12.124.155
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E73606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:17:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7812B606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:18:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7812B606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lp8IreAf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7FA51F000C4;
-	Fri, 13 Nov 2026 09:17:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794561479;
-	bh=eStupLSXeWq6p5mACFQucqZl8B+vHFCM7s/qEMYl1DA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lp8IreAfVoWjkixVIy9DCUXHkhoExRX0F1bbq7RlUuuTLL2eI+T7WMiDI5rw6sIv+
-	 Tm2Suo/+oDXFjmRwIiOnV02E4vaOWMUZ8wTK/EJAeUrdGwkD26bi30Vw8xnP/kIV98
-	 u7ddgT8/w0FqgbOAedwo4GGOSF4BjyPO/jdwIfbdfuaYHbCW2mLAR0Bv8XNN52x2dt
-	 RxgOs0ydh/zyJPL/0Pug88P7wSdbgFS3HkokHC8vobelXDq1P+NMXkg+e3grB/8qcc
-	 jEcjzrWoR30bVGhisVhMc6gHD9Yr99w1Sdg6Ylsj6TL0yP959LlIrHJl2PfcF12YSh
-	 RgyN/1I/zeC4g==
-Message-ID: <ba5dd85a-20a3-4f76-a929-4fc2df8fecf0@kernel.org>
-Date: Fri, 13 Nov 2026 10:17:54 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=XU1Lk5w0;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0cGPAQzH
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id AD1E07A04A2
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:18:50 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 13 Nov 2026 04:18:50 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794561517;
+	 x=1794647917; bh=6y/Vwdb7m8Q4VQEZiWRGa4EBI0ZcNW5mrZJmNnLAIEk=; b=
+	XU1Lk5w0uu+L798wbsZMLuM/oLYfa2jptOAdI0/brmVfRTwfItVhsy3/WAwvax1F
+	fuaQl4/YNqrjvvedfsQ98apUbuq2EWa3KR/0yNMIo8oMGN6RYG2KhrIIjntO7XyE
+	3T/x22Q0ofh10QVEM3ULAFsFyWj3odFZ7AoKT22lf3icg2StEk+zw2eVVSKHPx+k
+	jvSYUMM/Ua6Iws2yFqcpGetJUD14kijTlkJiW8MpsS1uZxK6FFg9urFhVnwDhwlk
+	Q2sm/viJV6LlSQ9L7J0bNYRhncmf/YGINIJsD/H/Jcg0bofs5O/+sC/SeoLB0FIb
+	JBzviiALhI7Sr8vj5M0l8Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794561517; x=
+	1794647917; bh=6y/Vwdb7m8Q4VQEZiWRGa4EBI0ZcNW5mrZJmNnLAIEk=; b=0
+	cGPAQzH3SBhTsnw+2A9ATJi83tr8tGmI+3kDDLfaTEaRbD5laHcp8CEuyufeolH9
+	jURzrwqeJ7ww6MXCBKDrknmhPGSRPic4aLVzEIABu0DK1XaLZxihlxBePOJqkVI7
+	8U26SDrkzAAubG/VO1ysi5U+MZosEKyDySXbdlR14MknUMkpTa2U73QgwVPhGWo0
+	1CRBlJ2Jo+kwqpRUt2hOGj0KXxfNA9ddfC3jatqzvpCv/BoiYk4TzDg5zI/t7r+q
+	VtSrxa3A1dYMyBXFDt6yYVgyPOWgq6KEsM5mSRXJi8NyFP8ps0wXYBQGOlvhgcdM
+	8GGdR0qeBeN+LCQipeAvQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794561517; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:d+sLMAytEvgELfZZnIdy7gOG3q5LTWeiK/9IPH1DpvH79WA
+	Pi5jh1DepRVFJgzmpUskbN4r0LYxaShjm42oAmFJecTGNCaRqIpI86WQjKtXsMa5
+	NpMQid7N3xlrecz2w1BugGRz91D1Ku5jACgnMKAl9fnYC3rZcqdnRj3ahMYjSXXu
+	L29qifWQEhulfe3PvAFyOtaO94FcLPTYuw6j6IJFGOgAmy7eJP9z1CeNh2cQriYz
+	SHMN/zBAeWP+6a8vp/4N1OFXqgkKxusB2G2S7PzpxwtQxKN7p5bQCWwUUuVNdpvF
+	+2ZZvGb5GKEWLLhpUzzNNLice2EIG9L6bBRCXng==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:vxkME9aONuWR23Ea+xNeRHIFYOKp3Ac+/gT4UmzDtbY=:vv1cmvtVAPstmIXGMWwsHMK7bkwINRxjdcmQxQpM0k8=;
+X-ME-Sender: <xms:59X2attsw9jzsR2DUXa62XldNiNGsOnYuvtuSGWCEWJVshM_h3vLtg>
+    <xme:59X2ahTvdP4tih94hNRex_pSoHh7BSjTgNR3au7lIU_BLhrc0JNfgH1QHALo6fbI9
+    F2P3TSxOICtcRLssuCHUsnZCIZfOrWCz5_RdAhRNdxTrFkjkvmYyGtxvg>
+X-ME-Proxy-Cause: dmFkZTFVGdrpsZrdpDlQwvZlSXs02XDBfEcLRW3P1tW5KGZAS4C4fdOW+W5npGRXES212F
+    utLs+hHqpTKLWMZ8tmzA9bRCMjG0dVFWaSgJP+Kckx36Uhk3RvGJbOg+K4+tlArKmH5okZ
+    6FgrfzpHTKtyBWqQtQ5SXsJIHv2n58bHsVCtj2LHVz7CM+T2lcvIrMZU9wZdnHcSztbo3Z
+    PRGrfN5bV9fOZ8IBqi+gkiEDpyNnnh9UROjquhjmwPcYIK/5TwNMJ3JjwjX/ueMEKWjrBo
+    A984hL86fNebMBTXelnTURIMGALHrSY516+YwVrZluwfyr2j6zlviEFXVo6AMfekpGh+YM
+    9c7UuzdfAJ4GPX25yxpydOysxG4iok0RzNv8mvAsX9+/oOTxH+YneYQynPdVFxaaZ/fhrp
+    I+cvtUg/aCxktQ8IVzPAKNgg7FDajd6PMTLOh81U3GlPlYGp0BGc2zo/dxBTVxkXAHr8Zy
+    6X3adHnyud1c6HaY/j1ad5kiVuHeb8/Do47imt06tXJNNAOg7/FxaVQQCVEAQWbqwQu6sl
+    BZaqbgAGHOJsRnqob8hw23nUoUuidlrWANfNd4fkJJlU7qivtKsw6n3UxSJSZq7Yxx2PlU
+    +quMQCQmgDc1BLWKWPSNYJB/IVjbT8IwBH0VeL8UOfE0sS3NBxiwDMRpchuw
+X-ME-Proxy: <xmx:6tX2agqyKoQmSsheqqC2_7zSEJ_p8jtnYFSH9zQgk6vHM_U9OcD1Fg>
+    <xmx:6tX2as8NGURzv57ffr7OrcTGIoV_qwI3Qi5wFRpU6pQqvFxRPgEoUQ>
+    <xmx:6tX2ah4yH9TU7d222ttOVwAZD23Qqesdxspq21XIczL7_LjK0nQ87A>
+    <xmx:6tX2amjDrofUuFTMkIbeFBNLIsmZOjajRlgRPWVYfIsCOlPeVITU1w>
+    <xmx:7dX2amMSM3lU66UWuHc95ZrHdkPEHIlb_f9fZLmlQxUm6A9xbSczPzX8>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 0B16132A0099; Fri, 13 Nov 2026 04:18:31 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,169 +115,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm/page_alloc: only skip kswapd nodes below their
- kswapd watermark
-Content-Language: en-US
-To: Joshua Hahn <joshua.hahnjy@gmail.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Gregory Price <gourry@gourry.net>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
- "Jose A . Perez de Azpillaga" <azpijr@gmail.com>,
- Daniel Hodges <hodgesd@meta.com>, Andrew Morton <akpm@linux-foundation.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
-References: <20261112214738.3002458-1-joshua.hahnjy@gmail.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261112214738.3002458-1-joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+X-ThreadId: AmcrnnMArev7
+Date: Fri, 13 Nov 2026 10:18:10 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Siddharth Chintamaneni" <sidchintamaneni@gmail.com>,
+ "Fuad Tabba" <fuad.tabba@linux.dev>
+Cc: "Marc Zyngier" <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>,
+ "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>,
+ "Suzuki K Poulose" <suzuki.poulose@arm.com>,
+ "Joey Gouly" <joey.gouly@arm.com>, "Zenghui Yu" <yuzenghui@huawei.com>,
+ "Steffen Eiden" <seiden@linux.ibm.com>,
+ "Yicong Yang" <yangyicong@hisilicon.com>,
+ "Zhou Wang" <wangzhou1@hisilicon.com>,
+ "Navneet Singh" <navneetsingh@microsoft.com>, apais@microsoft.com,
+ rlmenge@gmail.com, hargar@linux.microsoft.com, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <0a5e252e-1494-4b0f-a761-d984238c9d0d@app.fastmail.com>
+In-Reply-To: <20261112180741.17614-1-sidchintamaneni@gmail.com>
+References: <20261023070110.1833446-1-fuad.tabba@linux.dev>
+ <20261023070110.1833446-2-fuad.tabba@linux.dev>
+ <86fqxwzul7.wl-maz@kernel.org>
+ <CA+EHjTw08SZC_3Uodt6ew6vXVH-doW-8G41fVCF-rmaKsv+0fQ@mail.gmail.com>
+ <86ecdgzp6m.wl-maz@kernel.org>
+ <CA+EHjTy0jpY3sdVCENJRj_kfRDwbZ6TpkCAHQ2xUO-7ZuErpcA@mail.gmail.com>
+ <ad724195-3452-495a-a50a-5e5c8093a483@app.fastmail.com>
+ <CA+EHjTyLnAXanf9R7SuoL3gFZUNewX7QOnW=mc3qzwvaxg7jJg@mail.gmail.com>
+ <040cf379-baba-4e3a-bf3d-6bc009a9e28d@app.fastmail.com>
+ <20261112180741.17614-1-sidchintamaneni@gmail.com>
+Subject: Re: [PATCH 1/2] KVM: arm64: Hide FEAT_LS64_ACCDATA from guests
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On 11/12/26 22:47, Joshua Hahn wrote:
-> Commit 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to
-> NUMA restrictions") makes get_page_from_freelist() skip any node with
-> kswapd running to avoid piling on already-pressured nodes.
-> 
-> This assumes that kswapd was woken to create free space, although kswapd
-> can be woken up for other reasons, like higher order allocation
-> failures. Thus, fragmented nodes with failed high order allocations will
-> always wake up kswapd and direct order-0 allocations to the fallback
-> path, even when there is free space.
-> 
-> This behavior was observed on 2-NUMA Meta production workloads where
-> faults would pile on already pressured remote nodes while stranding
-> memory on the relatively empty local node, causing unnecessary pressure.
-> 
-> Only skip nodes with kswapd running if the node is under the relevant
-> low-memory watermark.
-> 
-> On a 2-NUMA VM with a 60G node0 and a 20G node1, with THP enabled=always
-> and defrag=defer, I ran a process that prefers allocating on node0.
-> With a fragmented node0:
-> - Before the patch, 66% of faults were served from node0
-> - After the patch, 100% of faults were served from node0
-> 
-> Fixes: 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to NUMA restrictions")
-> Suggested-by: Daniel Hodges <hodgesd@meta.com>
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Acked-by: Gregory Price (Meta) <gourry@gourry.net>
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-> ---
-> v2 --> v3:
-> - Shortening cover letter, suggested by Gregory and Johannes
-> - Collect signatures
-> 
-> v1 --> v2:
-> - Added a Fixes tag and separated this from the other cleanup patches
-> - Check zone_watermark_fast with no flag to match the call in
->   pgdat_balanced().
-> - Calculates mark outside the zone_watermark_fast check to match the
->   style for the other zone checks.
-> - Wordsmithing commit message to explain the unaddressed gap.
-> - Yes, this is ugly. I have another series to clean this code up but
->   I wanted this to be a feature-minimal patch so that it could be
->   easily backported. Things will be much prettier once those are landed.
+On Thu, Nov 12, 2026, at 19:07, Siddharth Chintamaneni wrote:
+> On Tue, Oct 27, 2026 at 02:48:29PM +0100, Arnd Bergmann wrote:
+>> On Sat, Oct 24, 2026, at 09:14, Fuad Tabba wrote:
+>> > On a host that runs at EL1 (nVHE or hVHE), this also requires
+>> > __init_el2_fgt to set nACCDATA_EL1 in HFGRTR_EL2 and HFGWTR_EL2, and
+>> > __init_el2_hcrx to set HCRX_EL2.EnAS0. Without them, the ACCDATA_EL1
+>> > access traps to EL2 and the hypervisor panics, and so does ST64BV0
+>> > once SCTLR_EL1.EnAS0 is set. Happy to write those and the KVM change
+>> > once you're ready to post this.
+>>
+>> Thanks for the offer, that part is definitely not my area.
+>
+> We are preparing to post the Microsoft Smart Data Accelerator (SDA) VF
+> dmaengine driver for Microsoft Cobalt SoCs, which uses IOMMU SVA with
+> direct EL0 ST64BV0 portal submissions carrying the process PASID in
+> ACCDATA_EL1.
+>
+> Now that Fuad's KVM guest FEAT_LS64_ACCDATA series is queued, are you
+> planning to post the host ST64BV0 SVA + EL2/KVM patches as a standalone
+> series soon?
 
-Easily backported, but there's no Cc stable. So I'm adding it as it seems
-useful enough for LTS kernels. But at the same time not urgent for rcX hotfix.
+Yes, sorry for the delay on my side, I'll try to get it to you ASAP.
 
-Applied to page_alloc/for-next, thanks.
+For my understanding of your requirements:
 
-> 
->  mm/page_alloc.c | 23 ++++++++++++++++-------
->  1 file changed, 16 insertions(+), 7 deletions(-)
-> 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 8532af052d74b..56121c3f9c4a7 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -45,6 +45,7 @@
->  #include <linux/mmu_notifier.h>
->  #include <linux/migrate.h>
->  #include <linux/sched/mm.h>
-> +#include <linux/sched/sysctl.h>
->  #include <linux/page_owner.h>
->  #include <linux/page_table_check.h>
->  #include <linux/memcontrol.h>
-> @@ -3799,6 +3800,9 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
->  	struct zoneref *z;
->  	struct zone *zone;
->  	struct pglist_data *last_pgdat = NULL;
-> +	enum zone_watermarks kswapd_watermark =
-> +		sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING ?
-> +		WMARK_PROMO : WMARK_HIGH;
->  	bool last_pgdat_dirty_ok = false;
->  	bool no_fallback;
->  	bool skip_kswapd_nodes = nr_online_nodes > 1;
-> @@ -3866,16 +3870,21 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
->  		}
->  
->  		/*
-> -		 * If kswapd is already active on a node, keep looking
-> -		 * for other nodes that might be idle. This can happen
-> -		 * if another process has NUMA bindings and is causing
-> -		 * kswapd wakeups on only some nodes. Avoid accidental
-> -		 * "node_reclaim_mode"-like behavior in this case.
-> +		 * If kswapd is already active on a node and the zone is below
-> +		 * its kswapd watermark for this request, keep looking for
-> +		 * other nodes that might be idle. This can happen if another
-> +		 * process has NUMA bindings and is causing kswapd wakeups on
-> +		 * only some nodes. Avoid accidental "node_reclaim_mode"-like
-> +		 * behavior in this case.
->  		 */
->  		if (skip_kswapd_nodes &&
->  		    !waitqueue_active(&zone->zone_pgdat->kswapd_wait)) {
-> -			skipped_kswapd_nodes = true;
-> -			continue;
-> +			mark = wmark_pages(zone, kswapd_watermark);
-> +			if (!zone_watermark_fast(zone, order, mark,
-> +					ac->highest_zoneidx, 0, gfp_mask)) {
-> +				skipped_kswapd_nodes = true;
-> +				continue;
-> +			}
->  		}
->  
->  		cond_accept_memory(zone, order, alloc_flags);
+- Is that hardware using an SMMUv3 or a different type of IOMMU?
+- Do you have userspace calling ST64BV0 on the host, guest or possibly both?
 
+> Either way, we have Cobalt hardware with FEAT_LS64_ACCDATA available and
+> would be happy to test your patches on silicon, or help put together and
+> carry any remaining pieces alongside our driver series if you prefer.
+
+Sounds good, thanks!
+
+    Arnd
