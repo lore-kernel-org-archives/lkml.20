@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794542859;
-	b=HO5mWcWBLohTBbXKlzd20L4nW9sDzIUHKney7s6moAel1S7M+RgTAB8UVEQZnly9+irJ
-	 n9T9ybjJwW1E4OLwccsJYFpnFGUugr2uA+8MysVYwKvgvXnsBxkkx4xadvFs/KSWXIzFB
-	 WvL0XSUwvZ7AVAV+kiztSNV8lEBNvWQk3zsNDdykRHTS5xIpN32NubYtia6LPeD8TFHFe
-	 BuWroc1l1J6a0rRzNLxLWvm0YiJHGVkiCiIU6OnuEl6BQnXxV3aGJdil7D7XxjDFRYGqO
-	 Yx+1pDW4dmJaASyd7wJkCm/vDBjmdPK1bG/IM52OnFl0xOQGf7/C80oAg8OU1c898Sw==
+	t=1794542903;
+	b=puH4C1yq5oyr2Sagn+hG9ky3Tzvpuq+DoATwlmffiovBaeR+VNWgVxJiNGcBmWQ1zD17
+	 xg2o8qQd2a2kUvNZnMabovjOBnY5ESNrOrrNDOMfyrXUf1m/b9HTqz1ditojSdTxZiERx
+	 JBtBdJy3KlqzV8tWLHwnShIYt+cmaRsyzmlA+gu0hdfect88UikGxeQt6eSwo1JgPSGfj
+	 jJb3A3G9A23f3pYTtsL8ygoHPZpRvr6UC6OM2spO9n2PmVLfQ90ELqUJ4es9jwrsL0ntI
+	 1axToPiIVE7wTy9BQpZx5LLlZOGnmZ/GpzpmzsF4fQU7mbL+YJrwnyN0sdFB3LQ3MgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794542859;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=URjcWFFmaQz9JzFhkAeN4Frd2qPoCJDSemfggDPbALI=;
-	b=iLsKmfegyTyY2EW74UhTiJCzDH1F4PZf6wVAl9Utpdlp/bac7b05FKzsT/cbHWgGJ9pW
-	 ICTKqqyAXu9UCEU3D5+zVfOpqvcPwMHN4FvKmgZZPB6jk5RmRpipGU0Oq+j/sjrjsvt5x
-	 xZhGOvtwmO5mtVgN8t0nDlA8lSE7GUOnTD526TkeSamqkZwnuK8nOLZ/K/CzvMrF7usJp
-	 LweUf1U94+G0CVrebh6ipY0R9seC0jaYUwa9E5lbVXwBeO3/tpK3WNgDqqpYCje6F+Rii
-	 n5yZlQcG7NRZ///VMFPyuE7QcG0zEPCu5Gkc4s5qAAdw3k1XTwABsMAt3MeVwJDcrdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794542903;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8YARFsfshi83KcJAZu11qEFspbOUXOBNNkYtX280ZF4=;
+	b=ml04ySx3lp3gX6TkhY1YCnoWEald4wsy1iuIE2EAyaGJE6iiO0F9Ropr6Repl+a+3nat
+	 zH7yjaGIT1COatpg3rlKPHxbqW40Z8eaFG3OCaTd6LoqRS0StP5e3HGJZZQhosCKRlRS6
+	 wsLZNwaLX29Z8guCw3aujGCnqNOsLJZaqA0hFCylXyJf7ECkkPSekWSGdBvOzf/F7XGHT
+	 jhq32z5Nh0HEEGsy88ZLOoWXk4FVWP+JEohFdVknYE3fPh7rJMl26exye/CXPdiSc0Xoj
+	 JuU1tsQRMc5MtJNdn4BJdUS9QuFZ6Es204Wfj37cmFYFacFtYdp2wAZnYKgdq6R5BYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lh+5Wx9z;
-	arc=none smtp.remote-ip=91.218.175.114
-Received: from mta0.migadu.com (out-114.mta0.migadu.com [91.218.175.114])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNlulHIL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F349606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:07:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F349606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D1F606A323;
+	Fri, 13 Nov 2026 04:08:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lh+5Wx9z
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WOR7k447wuym28T+VI83MiZCHdDAluAll1lu5BCwOYk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794542855; v=1; x=1795147655;
- b=lh+5Wx9zqLFj+ASf4/F0EYXl7iurm2KL7BxNxHir87qOojq9SoWRR8J38Ikg9jRnuL6fHvLo
- 90LdRDEpg3CUcSn7OcJSU6lpdZSUJ8N14ZvKpiKgsdKPpvn+dbQQ+N+wSqA3FTq9uzm+/3ZFgCH
- haFgQQZGW1zlhO8Sw0gK/oVY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 65693a2ca75d0c4c;
-	Fri, 13 Nov 2026 04:07:35 +0000
-X-Mizu-Trace-ID: 65693a2ca75d0c4c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2df669c7-d321-4cf3-8e04-250ad527a28c@linux.dev>
-Date: Fri, 13 Nov 2026 12:07:19 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNlulHIL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318871F000C4;
+	Fri, 13 Nov 2026 04:08:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794542902;
+	bh=8YARFsfshi83KcJAZu11qEFspbOUXOBNNkYtX280ZF4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iNlulHIL2SCc/Ua0Dc/VeDfAjB02OCQvHD+MzXAmOhhxh+bZgS+UL96+x2DCtz1op
+	 264qXfZCs2EyN2TtlyLiDMruuz4hw2cNgl8y5RjXdjSy6kSGCM5C3R8Y6/jeBgjvlX
+	 hu5wQXOZ3CUF8bK7vd82ZaaDeBaI2Tr58/pnBQndI8uKpIvywufrXxRY2N9ykpFy9u
+	 MUWrdwXqo8TYz5kR6h8Q825vzr9LcUVa9oJlTsUajpP+rFujxdAMxV3XM3AW3NJ+BD
+	 1jyDoUy90T4f1LMR7Bhgmzref1+wEOAT6c2nTMqKC3NnCJx0d/FLlWMSe9Ftk4gTVS
+	 4seotPE5TqjcA==
+Date: Thu, 12 Nov 2026 20:08:20 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>, linux-mmc@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] ufs: ufs-qcom: Enable ICE before enabling crypto
+ support
+Message-ID: <20261113040820.GE1742@sol>
+References: <20261112-qcom_ice_pm_enable-v2-0-177e454d6f22@oss.qualcomm.com>
+ <20261112-qcom_ice_pm_enable-v2-2-177e454d6f22@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,53 +63,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, void@manifault.com, arighi@nvidia.com,
- changwoo@igalia.com, liwanwu@kylinos.cn, usama.arif@linux.dev,
- sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH 0/6] sched_ext: fix kfunc, sub-sched, flatcg and idle-mask
- issues
-To: Tejun Heo <tj@kernel.org>
-References: <20261112130934.563321-1-cui.tao@linux.dev>
- <eb63bdf20dd6e2f09b0e7c81bc905878@kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <eb63bdf20dd6e2f09b0e7c81bc905878@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-qcom_ice_pm_enable-v2-2-177e454d6f22@oss.qualcomm.com>
 
-Hello Tejun,
+On Thu, Nov 12, 2026 at 06:48:18PM +0530, Kuldeep Singh wrote:
+> ufs-qcom currently exposes UFS crypto profile and sets UFSHCD_CAP_CRYPTO
+> before enabling ICE. This leaves a window where blk-crypto can issue
+> keyslot programming calls before ufs-qcom has explicitly enabled ICE.
 
-在 2026/11/13 01:34, Tejun Heo 写道:
-> Hello, Tao.
-> 
-> On Thu, Nov 12, 2026 at 09:09:28PM +0800, Tao Cui wrote:
->> This series fixes six issues in the sched_ext core, the scx_flatcg
->> example scheduler and the CID helpers. The core.c fixes travel as a
->> separate series.
-> 
-> There's one actual fix here (1/6) and the rest are rather vacuous. Can you
-> please think more through each change and whether it makes sense in the
-> context of actual usage? If these are coming from LLM scans, please don't
-> just follow the details that they surface. It'd help to actually use the
-> thing that you're producing patches for and think through the implications
-> of the changes that you're suggesting.
-> 
+Please be more specific about what actually goes wrong, and why.  During
+probe, the crypto profile hasn't actually been registered with the block
+layer yet.  So the above seems inaccurate.  Likewise in the MMC patch.
 
-Thanks for the feedback.
+>  static int ufs_qcom_ice_init(struct ufs_qcom_host *host)
+>  {
+> @@ -188,6 +190,12 @@ static int ufs_qcom_ice_init(struct ufs_qcom_host *host)
+>  
+>  	host->ice = ice;
+>  
+> +	err = qcom_ice_enable(host->ice);
 
-I did use LLM as a development aid. Some of the patches started with
-issues it identified.
+Use the 'ice' local variable.
 
-I see your point. I focused too much on the issues and not enough on
-whether the fixes made sense in the context of actual sched_ext
-usage. I'll keep that in mind for future submissions.
+> @@ -636,12 +645,15 @@ static int ufs_qcom_hce_enable_notify(struct ufs_hba *hba,
+>  		 * is initialized.
+>  		 */
+>  		err = ufs_qcom_enable_lane_clks(host);
+> +		if (err)
+> +			return err;
+> +
+> +		err = ufs_qcom_ice_enable(host);
+>  		break;
+>  	case POST_CHANGE:
+>  		/* check if UFS PHY moved from DISABLED to HIBERN8 */
+>  		err = ufs_qcom_check_hibern8(hba);
+>  		ufs_qcom_enable_hw_clk_gating(hba);
+> -		ufs_qcom_ice_enable(host);
+>  		ufs_qcom_config_ice_allocator(host);
+>  		break;
 
-Thanks,
-Tao
+Needs an explanation for why ufs_qcom_config_ice_allocator() and
+ufs_qcom_ice_enable() need to be called at different times.
 
-> Thanks.
-> 
-> --
-> tejun
-
+- Eric
