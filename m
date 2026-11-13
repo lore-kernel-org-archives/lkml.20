@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530283;
-	b=awjZQqn8bWUedrZQLTur0wI1kxvr+unawsLnNX8VZopa/Hb/9GqW+joNOvRid5PucpCZ
-	 2IKo+XjmCo+eW20H3WxNCY4OIcL8IolPd6f1RRJRVMhecEcPr8WW4dCFo9eD+jC9491A5
-	 hZCMDoNU3yDjVAEGZPt8bS18TJcAYBdC94dVb4NLXIuZsXlm+NRH5tHW1E9s78UEC5E7X
-	 Q4l1FswQELDBd3/O615dtvmN+GMtrQ7+xfZixh9jUKzEpQvI9Loz6LTIlDhZOrHdasmnd
-	 08WbTl11GqLZUD+bn0QoX7b+qEYqr14lhmRsmaIXuPxbWw7ipg0W3P3NlOjMnhDwoUw==
+	t=1794530284;
+	b=cTA022OrtrIVFMq/mfyY0FXlb16fmTM/ALxiUUIspwPIY6VqfZr+vEqxcBCt4NhBTPLN
+	 f64FB//q8DGkZSHHtq+FlPzWEaLqlh8JRcnAA6FB1Ib1mrzT3j1eKSitYlE4dEDytevRW
+	 NEWdDYH4pn6FMxXt4ko7+Vrt/ERJmx27UUlwpJQhMq9w4goNQWmDeI2zSEwKuPgTIMSWY
+	 Z7p6LKEycxkcbqy7xTu+vZdjrLK8MoW7T90tuSR30NyY/BIp4JrjUKMqF9lqj4Qy5bxTb
+	 ll/3E8c71ijJLfGPlIPHGTqo11r7FxJo4lnKi7J6dWgTIOd/APbAhlslIgpx+Nx+u3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530283;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530284;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=TmhPabmk4V5KcMSPRK/OfQ2JXZzmDv9LEr+le+m5Hhc=;
-	b=CLXKrpDOZ1emK8nVNc7xgwIVadJ0MwdOL2gwkAWcQMZp2zI0s01OUy/2bQS+WT+if1Fp
-	 QGUVcxMdlm1KriFzxUrwnMPwCxWztIX5nbc7+2Q+dphbnck0NQ3mb97N1PUuBquonqI7H
-	 5rhwRSddW0dXnOf9BfwUcw3R8IMGq4FyUSKR/6YIib//7zOAGyQRwBfGyV9En3DKvmrcV
-	 RlPZ+9Lq3tm1rcX3XhohY5IblOHyCWXya8X9fS1RRg6byGH9ELN0UYxv1MYz3AQR8EdJK
-	 d0yz/auaeCShQt0ZZjTr7Dd/uuwGTdI5bSrhSBT4lYy2vhA/HZ5wCcOBq5cCSXUzWKQ==
+	bh=yvnB08mB1Yr/sTOxjBu451e6X91xT4mCIJMKnwmb83k=;
+	b=DX4Qb9k03TANwyGSpzHVILcR2OdfAX/RiLb61ekHyMZW08fWTG1hsNTI8Cj4imTcCPK7
+	 jKyZj10l170B+4N27o5rWK6gCjC3r8Iw7/X/RIvkkA0YcvXN5DrS4uZvYGb6/kgAD+bj8
+	 ElUIakG/8tviHkDdgUyE6g3c8agqhxw75qg3JjkbkGxV+fQwVz5RO7S7opxhn9R4zx6Vj
+	 a4Hq42Mqjwoqvk4pJSGjcaWiNmw/hM7Jjo0wdM7h7Bv05YeGbYp7/uPiFGST/b5TZmQBI
+	 bosZGvra5H7QE4t8qmvT0pnC0fWAHnFKEY5v/3f28h8CqKJgzjHbKP7w/gX9vewDL+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=dubeyko.com;
 	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Rbogv6Vh;
-	arc=none smtp.remote-ip=74.125.224.43
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VETePA8S;
+	arc=none smtp.remote-ip=74.125.224.50
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE4160A382E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:38:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AE4160A382E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77775606A899
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:38:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77775606A899
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Rbogv6Vh
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-67c6f1019a3so512302d50.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:38:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VETePA8S
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67be1e468a8so318208d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:38:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1794530282; x=1795135082; darn=vger.kernel.org;
+        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1794530284; x=1795135084; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TmhPabmk4V5KcMSPRK/OfQ2JXZzmDv9LEr+le+m5Hhc=;
-        b=Rbogv6VhsyZFwdkg8FS6gSssCsVqR1tgJL4N/h0qUG7A6vXzvETfhL3c+Cn0IetF+u
-         Kq8Emc+/GwebvjPmGonHEbBecwFuXDlj6abryZSdQWJI15OR5KnsyywKlQBrtm5zCjVp
-         /dOOkGeNSbsldtDfKrIZbVfCP3fApWJ+HVWS/nV2G4H7GttbFWi/6jvPMeuT4TkfGqdM
-         hjMRTvFmwZIha/wTV6Pg9WsAvDCZQgfMs25vgf/9b/3p+DeT2iE4/3B8l72hsZfPaTT0
-         eQO9GPUYrlWHC5lCVPIjfX/mi9yAgfDuRC+M52EGy/HFQHS/pE1gneQ3od8zgX1cVKxC
-         U+hw==
+        bh=yvnB08mB1Yr/sTOxjBu451e6X91xT4mCIJMKnwmb83k=;
+        b=VETePA8SaTBgwPLR66wcxj/CWzGZGW63wgzGCaPpKDKjyzEs9IvmpDWjHpmJl/Bfrw
+         1JCHbgUiUkPp07I+aq0kzZc3Dv8jk13hDZomic25cNl3OIn4qiSfB65ItZLykcrJ6Hf9
+         Ju3iElnm19xcrdrtwNAFK5elRtPYfkxbRObQLxW9TMneYKG9yMolBF3799fWxvu2qBD8
+         9HrBMLxM5q7PzeV2UoSffiPZbU+lS6tCAA1baFRgnLAl0A+pGdrvbmm2CYmELQAO+vKh
+         3I14/QaL2nCTo1pFaIR10Kc+O9sp9j7VN/4Kquv6AeTUPaH+B5g6l/+XvFOrzdsbnZf/
+         KPUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794530282; x=1795135082;
+        d=1e100.net; s=20260707; t=1794530284; x=1795135084;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TmhPabmk4V5KcMSPRK/OfQ2JXZzmDv9LEr+le+m5Hhc=;
-        b=Ri/SRexjanBZDD++tpDleh1MlbSyRaebnj7cL3+kEGJkUlUh9bdM4bpmlVHc5XxFnU
-         xLE0tZZA0aVAMKiwUiL01kVEE7NfeD9D+mQQz25DTk/fDXG3nF3EJdfJnVmwtYV20+39
-         U8+i5VJIvoy2d3PyNVKaSO6A7zYTSe+BpVtPAafi9BaR3LbZkkM1bPS+gOCe4oqWebgH
-         U1gbtehetVHatRR3XbBX5yscdKqu/3nr6y0geNopOEfSkknVV5w8CQysgPH23inCM9R9
-         lN6q2DnD30j+Ud5Yu6HGLu8IGs94um2tl1C/i31y2bu5ODjelGPCAMZJgI0fcn8fgp2T
-         KgTg==
-X-Forwarded-Encrypted: i=1; AL+hErHEFuvylrias6KFc+Mt0BWSq42aB9n9oEoJvipfLY/M50Kl+vj9DUx+vq9nFXgtms3YUeYhGN9NDvG4DpU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Od/MWqLBQf38EACEHoUpEtUSjmyRkvCLt6+xvmZVF8LvUkF40
-	8vUotI8tmEblbEV2lo9pPoj8lK+OzgLP1nVZPTPwkFiu1ybyVpCuGA4P0RHFoTMMzwc=
-X-Gm-Gg: AYBFou2pcrO8VeskPUFaW10AMlPUNevg5KX4sY9CT4ckQJ1o8wvGvQ/NBI4VoR0DlSf
-	jDso06zatkSPkTzl+kBU9PMCLKy3E87RRzraRgzy+jK4tvtDyL/XvRVmsTrcpiOTsyx9RljpJjU
-	gXWvzKS0YVjT45AUfzvZZrgQWk6KByl3RMhycA+GhkzfMVNUF9ZjWhsDsbY6ZHzW9sKHm+Fl0n4
-	DTMzEKsexPgfmk3lqMZtgSP6YUMv88aGGpWuP7O8DVVf0797s0NABCrgtgQAn2fiH5MwaDs5Cdv
-	OmtfL9Mlr6DxF+LLbqcWPw11CIowQGS5ub443zAvOwH2xDA9kj1q3C/jWw6YZY2GsPqZQfe3xqZ
-	tBK0igVZV7J7EeXKccb3VXobE6XYbajCWE5j/EFq3WnEY9OKmcK9zWTmWsnbARkXmo7tNLsyRS6
-	FJnEpuWAWDIsljtHUFhICjIHNii6MKvZx+tgUiIlQehPhsmZ8K23ZiTQY54jTVJ44XPU7x7cEKu
-	l/ijymA9eMDrCR9ECCvXxiY13nScd9HsqwyJWqYMH1lAbl5nPrzb7uyD1tr+ior/aC2OuTQQA7o
-	36Uj2fOgvXcEUJj+nTwzwmXyINvh0BQ3OLfcMLlpS2Pr40ctbzKIH5euF0tPlrjoXJNXMx5iQEX
-	8uUbPBnysMKfxHBezVjeW7jXWcp9m9x2BXZpP7Re4Or3MzOk2KfYf4AaIBrIZay8f4xT1Gls=
-X-Received: by 2002:a05:690e:419a:b0:67c:cab:bd71 with SMTP id 956f58d0204a3-67d896ea1b2mr429723d50.106.1794530282261;
-        Thu, 12 Nov 2026 16:38:02 -0800 (PST)
+        bh=yvnB08mB1Yr/sTOxjBu451e6X91xT4mCIJMKnwmb83k=;
+        b=oICHGVG8Uc9/ZCdMxVKCDYFlZlxQXhC0YnrjBmyx7G+fiRgxUq4goxhHmoT7KIzVD+
+         h77YyoP/1zgDHhTqrN63pmA7HDM+uYmFCuxRjqYihUeXnji8laMvNqC9eEJ6PyXx7EB5
+         jgxTaYGbDLp7iF51vdgxymR+ez4feXHNHXkRM2UpfTt7eK2ugjOlZI1OS+caEWC/I2hY
+         IKnoWcaMmYkph5nhtxQnSulf6JZZSR16hpIKIxbMhSWpPk6AV7yPMcLis1O6wY7Y/+Xy
+         +I8iQjMzkimkfyiRvm0XrKBDnZm7DTeHs2E7LYrpMBSsoM8W0rs1TrmbOpSpumX2DBcP
+         kZGg==
+X-Forwarded-Encrypted: i=1; AL+hErH4W1572N/IcdxAIw1cU/XlDChL4O9V2u/Y4GBaMdvRuReS6VrCxf66lFYLemkt1cESJYpgM0x6xc778p0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+vHoURpwjnh5siUBnnlNSnAgaJSc4kJK+1OVKpkt5SeuyBg73t
+	eUwYhbnvID0fvrnX+PpNEIfJRYPFQMn2vGFPQ+gzz8/qVc12BXc51M4Yiq2PU3XGrqs=
+X-Gm-Gg: AYBFou1pwGZ/1EdcxYsOCE7Jaftg7a4FBYYE5C4EKF/nr+KYfmGSXZ/vp5DPyAPO/mZ
+	zp5VErvuUmfejzkCKeSp8gk3rOEedMV35r9KfFkJ5FLYmKykoYpjkNsdV+kueIPMoH7UFguh8x+
+	okNuTRb+Mxaz2Y6YtiSPThI5JXsi5BpDkReCKIDkZCb8L0tslddEYHNWYHgNLXzTccXMYPBmFGW
+	7lrPCiYsECwQj/pbF7Vugx/vKB/zv/VUMbog5p1J5MiYGCCpl6gXNDhYYV3PABcIiDlIEoIpEZA
+	fsU6tj9Wsk6ogXFoTeObG81ZuFVwbb56wxBBZxQPIJDziQv2lmzc2BhmJcx7vS4opJL6bGmJBzN
+	ShvPEeOIhTmyojrAGlx8o8a67FwJQ9KfmRnEq72i9IBZQc1y9LD88Yd4nRW/y4dMXW9LNexbfOe
+	VvNqrw7i5RQk7jM0NiaLBkwPpRkQQBfs11OKYSRpbToqMBMqKho1UksXhUzFVCgiDfA4hUxeSAI
+	JzxpDEyep6xlRu0M7XTGoh65I1pfYxpwWNAC4GReQTGTEDmrLxiJJy0u6jBDo0b/43K1oHQ0O5n
+	N2WYP79QA5xiepv+N2dMpwJpTRoPxOr4drGx8It4DDr/B37ENRDPy3DjuoXINbDDzE2hLdTCtd1
+	m4IWl49Q42vvO0/6yykSn60aKsO1qSjvAGiP0TlKrkKd8OtSFRi625RllLq0W4+YD2r0JRok=
+X-Received: by 2002:a53:dac3:0:b0:67b:ea61:fe6 with SMTP id 956f58d0204a3-67d897ce9b6mr535293d50.106.1794530283607;
+        Thu, 12 Nov 2026 16:38:03 -0800 (PST)
 Received: from system76-laptop.attlocal.net ([2600:1700:6476:1430:3a31:6c95:5610:70f6])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a59e70asm706463d50.10.2026.11.12.16.38.01
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a59e70asm706463d50.10.2026.11.12.16.38.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 16:38:01 -0800 (PST)
+        Thu, 12 Nov 2026 16:38:03 -0800 (PST)
 From: Viacheslav Dubeyko <slava@dubeyko.com>
 To: glaubitz@physik.fu-berlin.de,
 	frank.li@vivo.com
@@ -86,9 +86,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	vdubeyko@coreweave.com,
 	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH 1/2] hfsplus: don't take inode_lock in hfsplus_file_fsync()
-Date: Thu, 12 Nov 2026 16:37:55 -0800
-Message-ID: <20261113003756.1066989-2-slava@dubeyko.com>
+Subject: [PATCH 2/2] hfs: don't take inode_lock in hfs_file_fsync()
+Date: Thu, 12 Nov 2026 16:37:56 -0800
+Message-ID: <20261113003756.1066989-3-slava@dubeyko.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261113003756.1066989-1-slava@dubeyko.com>
 References: <20261113003756.1066989-1-slava@dubeyko.com>
@@ -103,35 +103,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hfsplus_file_fsync() takes inode_lock() around the metadata part of
-fsync. For HFS+ it is not needed, because everything done under the lock is
+hfs_file_fsync() takes inode_lock() around the metadata part of fsync.
+For HFS it is not needed, because everything done under the lock is
 already serialized by other means:
 
-- sync_inode_metadata() ends up in hfsplus_write_inode(), which is
-  also called by the flusher threads and by sync without holding
-  inode_lock. Concurrent writeback of the same inode is serialized by
-  the writeback code itself (I_SYNC), the extent record is written
-  under hip->extents_lock, and the catalog record is updated under
-  the catalog b-tree lock taken by hfs_find_init().
+- write_inode_now() ends up in hfs_write_inode(), which is also called
+  by the flusher threads and by sync without holding inode_lock.
+  Concurrent writeback of the same inode is serialized by the
+  writeback code itself (I_SYNC), and the extent and catalog records
+  are updated under the extents and catalog b-tree locks taken by
+  hfs_find_init().
 
-- The catalog, extents, attributes and allocation file flushes are
-  per-superblock, not per-inode. They are guarded by the atomic
-  HFSPLUS_I_*_DIRTY bits and the page cache of the b-tree inodes, so
-  fsync() calls on different inodes already run this code in parallel,
-  as does hfsplus_sync_fs(), which does the same flushes without
-  inode_lock.
+- flush_delayed_work() of mdb_work runs flush_mdb(), which commits the
+  MDB, the alternate MDB and the volume bitmap under sbi->mdb_lock.
+  This state is per-superblock, so inode_lock of one file never
+  protected it anyway.
 
-- The volume header is prepared and committed under sbi->vh_mutex
-  (and sbi->alloc_mutex in hfsplus_commit_superblock()).
+- sync_blockdev() works on the block device and needs no inode lock.
 
 So inode_lock only serializes fsync() of an inode against write(),
-truncate and setattr on the same inode, and against another fsync()
-of it, without protecting any state that is not already protected.
-Taking it there also means that fsync() of a large file holds off
-writers of that file for the whole duration of the b-tree flushes and
-the device cache flush. Other file systems (for example, ext4) don't
-take inode_lock in ->fsync() either. Drop inode_lock()/inode_unlock()
-from hfsplus_file_fsync().
+truncate and setattr on the same inode, and against another fsync() of
+it, without protecting any state that is not already protected, while
+holding off writers of that file for the whole duration of the MDB
+commit and the block device flush. Drop inode_lock()/inode_unlock()
+from hfs_file_fsync().
 
 Fixes: 02c24a82187d ("fs: push i_mutex and filemap_write_and_wait down into ->fsync() handlers")
 cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
@@ -139,28 +134,27 @@ cc: Yangtao Li <frank.li@vivo.com>
 cc: linux-fsdevel@vger.kernel.org
 Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
 ---
- fs/hfsplus/inode.c | 3 ---
- 1 file changed, 3 deletions(-)
+ fs/hfs/inode.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/fs/hfsplus/inode.c b/fs/hfsplus/inode.c
-index 5fa72b465922..8073fb99217d 100644
---- a/fs/hfsplus/inode.c
-+++ b/fs/hfsplus/inode.c
-@@ -370,7 +370,6 @@ int hfsplus_file_fsync(struct file *file, loff_t start, loff_t end,
- 	error = file_write_and_wait_range(file, start, end);
- 	if (error)
- 		return error;
+diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
+index ef1275bbbcbb..f1122ffae712 100644
+--- a/fs/hfs/inode.c
++++ b/fs/hfs/inode.c
+@@ -773,7 +773,6 @@ static int hfs_file_fsync(struct file *filp, loff_t start, loff_t end,
+ 	ret = file_write_and_wait_range(filp, start, end);
+ 	if (ret)
+ 		return ret;
 -	inode_lock(inode);
  
- 	/*
- 	 * Sync inode metadata into the catalog and extent trees.
-@@ -429,8 +428,6 @@ int hfsplus_file_fsync(struct file *file, loff_t start, loff_t end,
- 	if (!test_bit(HFSPLUS_SB_NOBARRIER, &sbi->flags))
- 		blkdev_issue_flush(inode->i_sb->s_bdev);
- 
+ 	/* sync the inode to buffers */
+ 	ret = write_inode_now(inode, 0);
+@@ -785,7 +784,6 @@ static int hfs_file_fsync(struct file *filp, loff_t start, loff_t end,
+ 	err = sync_blockdev(sb->s_bdev);
+ 	if (!ret)
+ 		ret = err;
 -	inode_unlock(inode);
--
- 	return error;
+ 	return ret;
  }
  
 -- 
