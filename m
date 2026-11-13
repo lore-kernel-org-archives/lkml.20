@@ -1,95 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794583603;
-	b=AoRkyNvzoLQ2MQAfEk/jWzfjnpObUqFqs9WmI3zDqmol6muazCkNGVFrzyHOXy2w28nv
-	 Ei7qHJSvKw/H9DGpYMRPDvMUSwh31ggQBe6DayHnpDh3nMnhKHMk9ZlCq5vCEU2FDcuGk
-	 IMCw7pZDzi9hLCR3nDNoZS+APQ/wzUUg3xegVVrj+RGUgw0YS/fSErB2vBhwHMRrcDM1O
-	 3I2mrqxm5MaaL4Y4qE1cO4lOYN1YOrFF4byIJcDZ/5H4/BaOGo6QSi/iJVQyRgND6lHMH
-	 mmJZX7uUaZPow1uKVb4//opdu27wQjqO9QedC5uxBEHALALLpvzVrzJAfcKoccp7zyw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794583603;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.70
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794583653;
+	b=3JH3xMyfQiTGxnQ/BT34dQXC1fPqyBZMofcExzm94GsKo/AJ54UVPUqnc4StAniPZmKP
+	 I/jUM+GGuHrG0ZKjdxMNQO8p/gCregWn0ea0avut+qNCEJyYE2CkyizXQytm5poUI0ctS
+	 n4RUkAycKzxLH2JiC+nnYTAcX4VH1H9KmCGdieDDziYiXpCQq8sAYoB4fHvtdh3aTpiUt
+	 VOkpLd3pKAut8zzazl2wr8Fqlk7oKy3+9wIBVoe4/UfDEt1w+iNqTf/uukm1WRgjuaQ7S
+	 qzWGZAtz69RieU9eY84stGZK5iG66c2AA3nsoA2+vTXINqGiaD7x94Vx17aFC1cyyuw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794583653;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Si5kjDQN8ERxEKMt3iF6CinVTQG2FudMBDMZ6idH8FY=;
-	b=dyPzOKkOFvg/K1kYNhnFS9PNV8w+OtRF6cygxqqSQ/YBxOsnWaPhr5/oSm7HE92O+Ust
-	 FRa0kd5HEAflF9TKx1nd6bL+6vpHUuDxw8ve0wzFz42/Tee8TubLnITkHmUg1t/P0LcMb
-	 ZuxVkBpQ+n0lXYs8e48L2nryPIh+zIBUK1mFvDDOzp8pW39WcEk2caM6Ed3Ysn0wxVIey
-	 YtUQGJUvPVapuyuEiqqbmGqEssRHO0VyZsd2CFrHBd3cJlLPk0XlbUlOH4NpIRHxJxNzm
-	 4WZHrPmmEjyZ6H5ut4ymtJAQOtPC1znNFREWGT6ydPKu+tdqKotu9Vu0KoUKp1btx8Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5ohoGJE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	bh=Ufj3bjLDpGq20+8LFXkkxCdAXIxC5JGd/uesP7CXbSQ=;
+	b=FmE0a5tQjfdWe2tP5cPWrdlcpmMz0uNaGdrO3ljX7X2d1LKp4buV8GQL/XUQS6VoUHCq
+	 SAPAeEAZ9iHEUOmahcRSeTaRW1aGhtb+36AyN6/4raDYEKijaOTf41jqNBFHLRuUlYzYu
+	 /WR+uHJS8MPf31Jm1y5s28t2WcqXd2IYXWXGFtxpmLMNm6HMCIMMOZzNc68j3JoVOzMJ/
+	 nvvdHM4bKbSZlQpqaw7IR9LCe7w4nEzFKoli07UvTUSxKlrBnLMK0vDgsjgbQdE//7lBC
+	 rVp3gbEs0iVvvktWXVDLxCFXRRk2H1xgkJlSdKZQEgNNRXLaiOfsNjKli65oo2FO0Dw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pp3EJHp1;
+	arc=none smtp.remote-ip=209.85.218.70
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A2B606A32D;
-	Fri, 13 Nov 2026 15:26:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A2D606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:27:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08A2D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5ohoGJE
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794583602;
-	b=vkzB0n09b2ObqOQnqsrTz9H+NFapxG0VqSUec16iR1A4Mwx8a7/lhL2wgvjZ7AdlAK6v
-	 cC72RXm0mzeSAK8Gq5zebIwvfK6DdbpL1rRcSoAMtHPQuIe/6bpUnB0TjiJWYBDAtMy2S
-	 ez0nbalFiqDjkdZxFvpPQFWTedPmquoV39FDWd3mWctkXtqJffgOCD3Za5Vvfooah7yrT
-	 2Y7QB7emD7GDFT7UCTPQ2O9RJp0U1siHW2dEKnDg5usPny2La2bINLClW1HtX6GE5vw80
-	 /igJTJuwLnCE5t+KZYhWLpM+ITSs91yEv2lmQ9h7MYNFergDXiQoBy4toEYPDRTub0g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794583602;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Si5kjDQN8ERxEKMt3iF6CinVTQG2FudMBDMZ6idH8FY=;
-	b=cTZ9Jr/cVmW/qmZZ733IpidjMoxueI/NlOcMcny1g28G+d+jnbpf7HPlK7ljQzYbWd/8
-	 TpcmJwRaBChkcRmv1mQyA5YKMlsecGe+IhP+bYCNycWSlf3fOUEK1C2I9r+XwWdmtzpNh
-	 VEK3ozP/xSGRn7xAPOKzcyF6FqWh9Be6mSTQ2qdB8apfR+tjwndEI7gfJ9K9ADpHpvUvO
-	 UeRTgpazcyECTh3tD34TCtt9/fysBuhgMv+cHJEYpQ/bWbnKAQ7p7WrD79l+lDjbpRS9+
-	 qlT9tJfBs3sA1CjEUTiERg0sGzqg+QISabyofcSe2Ex+t45pTXQ5wyYh8FodsXgLWhg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id 733131F000C4;
-	Fri, 13 Nov 2026 15:26:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794583602;
-	bh=Si5kjDQN8ERxEKMt3iF6CinVTQG2FudMBDMZ6idH8FY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=F5ohoGJEo9iVackwuzsHP0KDjBftCM5Fs3ItiejL5W/X+woEFZ2sFoqSEbhsu2tD8
-	 DfQUJepI2ZKEvzFK1P+7Jt+eYPtssXcjoFlA3pPTXDNKOPtMMO5qZlUUrzIixRjVyw
-	 4GSScUtDOawdpRJpTwXcEt4Zl1mHZOlbJ7onrmHxN9Yifvce/spsdI7Zrn7reHwTod
-	 +zFqcMoQogxWHsmLdUzvmIV8EvAwNwaeMbtEy39ez7rUkP5rtY9C0wByyUKRyMhlf+
-	 MhjShHalgLNB+kpsHXOfxYpi1ENe/jSxiysnQ0jUPtsEYaxlDiJRQGK/xamPoVUV0g
-	 b1atVsZP01gbw==
-Date: Fri, 13 Nov 2026 16:26:33 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matti
- Vaittinen <mazziesaccount@gmail.com>, Rodolfo Giometti
- <giometti@enneenne.com>, Marcelo Schmitt <marcelo.schmitt@analog.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>, Angelo Dureghello
- <adureghello@baylibre.com>, Tobias Sperling <tobias.sperling@softing.com>,
- Eason Yang <j2anfernee@gmail.com>, Marilene Andrade Garcia
- <marilene.agarcia@gmail.com>, Cosmin Tanislav
- <cosmin-gabriel.tanislav.xa@renesas.com>, duje@dujemihanovic.xyz, Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>, Victor
- Chernyakin <chernyakin.victor.j@outlook.com>, herve.codina@bootlin.com,
- thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: adc: add driver for Texas Instruments
- TLA2528 adc
-Message-ID: <20261113162633.0000670a@kernel.org>
-In-Reply-To: <20261113151543.2241604-3-maxime.chevallier@bootlin.com>
-References: <20261113151543.2241604-1-maxime.chevallier@bootlin.com>
-	<20261113151543.2241604-3-maxime.chevallier@bootlin.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pp3EJHp1
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c42888c50c4so37474166b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:27:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794583651; x=1795188451; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ufj3bjLDpGq20+8LFXkkxCdAXIxC5JGd/uesP7CXbSQ=;
+        b=pp3EJHp1ttZ0m+dK7vaMjimBBXm2TQHLlVACJtfuO8Qp1b9UI2HpixPrU7LNr3M4kS
+         GHyHkPYJBftBWF+R/nsrHtml0rnVVY9Flq2FhRwsUI7J0Ota20FWFnmXhR1xjblUv+/3
+         CnnRS5unlW0pBDquMiZwieZRutJ8EvimuuMqo2RdYAIDIMacMourFb3Vb/Awn9WD6dIS
+         Y8e8tjnBf8XMT7BIVAMfxHXuqYsoVYnIJq5GFPDhoZQPKrhK63TnmJVQ1jvftevba2+J
+         NyPfVG1ClpLk+97wZ8s18Y9K3zO7jp0h4U85x+JEC15/jMR99/6SNYtjKRV07f0Ym/KR
+         J3EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794583651; x=1795188451;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ufj3bjLDpGq20+8LFXkkxCdAXIxC5JGd/uesP7CXbSQ=;
+        b=Os4EsWVrEK6eV3LVqlJwQjxiL6/Xw1PfD0wrjZLQq3PSeDEeq3CXlLjz8KXygd3Ji/
+         NgJnTnhC9Gcev6CJQcKWwliOa0r4gLuQqyfN4TGIe+wdPlPqyt4gry9iSgiLlf+1G2wc
+         PSX+IpeIzWImAfl1d9EBSiHU0zXAFHYwK9Zlk/a7eQMSJmUezHbAZrWyirUyktxUASu5
+         AY1JTXqUl6wrbguw3ijkrD/UWi/7Cd22J/gmT7gSCYu0s7zwwpdF5nbcsDwTwfuTPfRZ
+         WFBRWTga1z1xdDHyLyNWUDBw+38M6lIMxKdU5ZbjGfH12gc2E3jfHdOmJtlmJNe7zQil
+         mvcg==
+X-Forwarded-Encrypted: i=1; AL+hErGr0cdJ8hqw4SO1KBNVDd9qDG/4A+0Wq2rB6jNm1QlZTGp68595C9h+vlL2iFQA8e0MOei8AOc+DoI14Qk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/5guNF3OsuekxtoOxcm4rUY6HzHMXjEG+hQheCZ8hz+4Hc1dMV
+	Yj96OtA3mv++WX6KI8DeE7v4/MEw2I1gNgZMYsjbAfS0KDD9Y/AxWa4qX7w7HQx5cM0kj9DiHRw
+	ZXz5grtJt+sphROTQiotsag==
+X-Received: from ejbkh10.prod.google.com ([2002:a17:906:f80a:b0:c50:7d13:f19a])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:9485:b0:c40:b477:dfa0 with SMTP id a640c23a62f3a-c509637afb4mr264673666b.18.1794583650971;
+ Fri, 13 Nov 2026 07:27:30 -0800 (PST)
+Date: Fri, 13 Nov 2026 15:27:09 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,29 +77,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261113152729.837429-1-vdonnefort@google.com>
+Subject: [PATCH v1 0/4] ring-buffer: Fix remote reader page swap and memory ordering
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, bgrzesik@google.com, 
+	Vincent Donnefort <vdonnefort@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 13 Nov 2026 16:15:42 +0100
-Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:
+Bart=C5=82omiej reported a remote tracing issue on Android kernel branches.
+Although that code differs from mainline, investigating the report
+showed that upstream has the same underlying shortfalls:
 
-> Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
-> channels, that can also be configured as 16-bit averaging channels.
-> 
-> This is a very simple driver, allowing reading raw values for each
-> channel. GPIO mode isn't supported for now, as well as buffered mode and
-> the 16-bit averaging mode.
-> 
-> Co-developed-by: Rodolfo Giometti <giometti@enneenne.com>
-> Signed-off-by: Rodolfo Giometti <giometti@enneenne.com>
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> ---
+1. Potential corruption of a simple ring buffer because it does not
+   prevent swapping the reader page with the head when the reader page
+   is already the tail page (nor order the page::commit reset before
+   updating tail_page).
 
-This looks ready to be applied.
+2. Potential failure of rb_advance_reader() because
+   __rb_get_reader_page_from_remote() checks rb_num_of_entries() before
+   checking the reader page commit via rb_page_size(), and lacks memory
+   barriers ordering page::commit and meta::entries.
 
-Reviewed-by: Joshua Crofts <crofts@kernel.org>
+While at it, order page::commit with page::data and page::time_stamp
+(patch 3) and add the missing pages_read increment on remote reader page
+swaps (patch 4).
 
--- 
-Kind regards,
-Joshua Crofts
+Vincent Donnefort (4):
+  ring-buffer: Skip remote reader page swap when on tail
+  ring-buffer: Check remote reader page commit before meta entries
+  ring-buffer: Order remote page commit with data and timestamp
+  ring-buffer: Increment pages_read on remote ring buffer page swap
+
+ kernel/trace/ring_buffer.c        | 46 +++++++++++++++++++++----------
+ kernel/trace/simple_ring_buffer.c | 26 ++++++++++++++++-
+ 2 files changed, 57 insertions(+), 15 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+--=20
+2.56.0.611.g1030f0b940-goog
+
