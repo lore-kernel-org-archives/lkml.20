@@ -1,109 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794568475;
-	b=1HF13yfVdZeVGi3SmceibWPhRyn0iaez2TPTqHk5647m4ivZ0O7wbbTeW031PEFLulXA
-	 nD3az84bK5jXy0NaPLfwpWwJExoZg/TYxeYAC5chNvP5wjlMetbeQsNEK3pkSJfj3YrJH
-	 65oLx1uh/sxey4fgAjM36UCsflUxKnUrj5OPcXhQJKKZyWYpyGMaUhBfKNed4cIcGV8oI
-	 1zv+foYzgRAQ0NxbCHt9RpCecbAl65f+1xmB8HiLMbNoAAKm4dY+roYL9r9tbr1hhAXed
-	 NjDRzrh8TIPwDAUA++hcWq+M3zhVkSNJj78tXQ0YRKSnH5F9ZOdeVcqPQxJguCBwm0Q==
+	t=1794568476;
+	b=vAQa+K3uuzID9Z/X/Rv1u/tjBI37JwpFVY0Scggry24JTMunUPqA6elF61oiFDFHLQ1j
+	 OdbL11SoGBJ9JM3CVZVGU0JjdMLfiIKDZetFEVmwsLw9tLiatXjo9X7VRT/bDfM++Od6O
+	 ld8jW9SKadRkBL+wVDRJaCYmrCbawhLQU/n+ZmcVGZ0NVafuNuOG9e5hD3P7f34luLC/W
+	 BusaeW/toxO5bdwpnBx3ZlH9BubFrzIGcqEIAaV5aFY73/B8p8onILF0BpU595W/+7Lpa
+	 RWlpSzNgOLRRvEd6e+JCwg+Dh/YPhTLQy48gBUDqPB5afJTHKIFQWUG2Mwze4EPp4qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794568475;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568476;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
 	 Content-Transfer-Encoding;
-	bh=k6T+kUrBS45iigoe1LEtqjopIjVrHfrGfCCOaWL4OrQ=;
-	b=iz7xlu+bXDZbozK51iokFEngmCyn2gKZ2YzqjUJVqKoJNBc57wEttKyQgnctJWxZbuMu
-	 84/Qs27S5s47TFx5jGQGUZcdHwf6MuZ1w99bFqoybuDubosGZvtkn37OLuk/Yk72BHJXt
-	 0d/+niaS4jn+BkOCEoq2ECFLPGn4IjoE6sXo24qlWxIcNY6NNSINrKlH/ghP/4fDD9fXn
-	 24eIaL08W/vgOhjTQkE5AgO3y6AmRHXUI+sL+n3wrZKEdnvKEq5EvF/A5+mF520+nx/zt
-	 nbBUJFLuwXppqfFvi082xzVSstq0wvdfagbxZa4jGdprFHJW5kJiDa3fQn6OD0mfPyw==
+	bh=CugqVWAuawrwerm7blKnvsOa3BQVmagcewjHznzs45w=;
+	b=iQH6K0fNIblXp0ZDXICAaNEUams7UVyMqkcMNMmyT1Iwcsk09/D+5FaAWHKviXRBktDB
+	 8Vu1i0Hw+w1OvjZVoLQfArrRACNOo92NgJ6JVhwlFl34DLVZ46fsSpO6zx3SwD+utY+v9
+	 Dumalnoyk891hHrpW1sOAD794Ywj0XxThHzC9qaOhFBg2z8IUIC1t+XeNfFnk1GOh+n/j
+	 ogodCdj7KHiUGWDImz8FR106yMg7LzAKiwEXsU5zvXjlI+DM3ku0LA/ah1l1tUDomev1t
+	 NPpMPRrLrFP7DKBZhyqMbnYAeQbd8ZFVuMONk0X41v0kG8TTpe4Fi/ZiL4fBpxKcF6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MbZnWhCp;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=kp+BbCqu;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E713606A336
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:14:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E713606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E394606A33B
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E394606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MbZnWhCp
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so4143015e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:14:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=kp+BbCqu
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-490a0e72588so300994f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:14:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794568472; x=1795173272; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1794568474; x=1795173274; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=k6T+kUrBS45iigoe1LEtqjopIjVrHfrGfCCOaWL4OrQ=;
-        b=MbZnWhCptH+hbsqb/9OhqAZmJFMmXWTuiO8EgvD1nH8jadNvi9Pb3kV/tAWCSULNcJ
-         0QSaAAbBA6hcRyu408ggHdvmxF7MDOIQr8uOhUqUKiPoYwNeihuZnlJLW1dvkoU5I5c+
-         UqAP6p3ipIjBsNnnGBMgN7LRzTR555G1vqlCJffYzDKr3CqINYLZBrsc5qK1LPPuYdDp
-         J5cnI+EA+I8frMZ/4LiDSqhd7px9dqVXMXulbOkcuO8mX7+o3BjV6rhBx9yHAMwL7Cw1
-         S7+Y06BTu35Y17mj8VNUlf1oGA42lMqp3M4nTUh0jGg02bWV8UBlM1AcGD1HPPyOLmmZ
-         bENA==
+        bh=CugqVWAuawrwerm7blKnvsOa3BQVmagcewjHznzs45w=;
+        b=kp+BbCqubQUG8rQrnEbUtzkBreaBNT6dGsCtStLkwZnVr7rnxMSpu2wPWXIF+STByf
+         m4EZGlxqQM6YKCNA5uHEGimCIbzMio0TGE58ytvySSmB/p9ySyjfa96YWflAimEk5F7r
+         J1dE80YpMN8xF7R/+oagKMavT6pBPF8RjSd7C/ZYFDLFFzmZwxy3ndKhTYrLX6SNh5LJ
+         iez0RdbVhSu5guo81pQX+Wfc3uwqq4mIijKuH42VBwmpNc9vc/GKPFw3xfpME2l6hnNm
+         zr7+rynVk2i4TrUXL0hZAO0341tHnmw0LlYQrFN6VUNcTvj3cUXv356OS9RyPuaDBHsT
+         IdxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794568472; x=1795173272;
+        d=1e100.net; s=20260707; t=1794568474; x=1795173274;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=k6T+kUrBS45iigoe1LEtqjopIjVrHfrGfCCOaWL4OrQ=;
-        b=BeaAmRIhx1GQ1W7AAPgiJxhAtO2gNsRflGFpLTGCzpg+6EVOBvfx3zYj3CGCPXaId1
-         nwopc5tExs7iFsvtiykOvOonTUjgHvf1rRWuOGWDGWMx3SLeDBRIR+LUCUUXu9Y2EbHB
-         QZfh9EFedqufvBcYfWGcngHX2nqakQTz344Q/hZoCaXgQbObyfo2wi/H+YEjlislyuG5
-         gpxxCjw41EoPEsigV7Nf4VnY8QriRsMUX7Zp3R1GV+FKoQaEicVS7qpGgXt99oilmUhH
-         riapBoBaXMUWdiBKuXaEiuCyyEvqjgpgemYl5JWBIHmjqGNFin5FAz63TTTz2BERsnh7
-         q1zw==
-X-Forwarded-Encrypted: i=1; AL+hErFQDVJFR9skCa3HE2i7p/90/PngG4tOH5pQyHL8mbQXOgUxW3vu53F14sjOuP86iFz9L/TOtaM34HFpCvI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qP7SnhSulsecRkgZyFnd6FA2InZDUwBTsrHUdtiinfjRVJjdh
-	9P7NivYTAsPRzYNmeSGuabvJRbgIbX/sV9qCPSDVVqpc+5WdK8q8drJQmKwuWbEteKI=
-X-Gm-Gg: AYBFou2vA3nT22VN5Er2Zzjh34FNyhvw/qSOTA4EaFY0uABB2gbGp461YfUClGvL2v+
-	44yi682WyyMwJMD5oK7O5NUOZkCA+eIm4Ujwr1PKXhyclZXO79w7oKwUwPLLuT06Gp/a5ztt0cJ
-	WycAIYo97E6qRjQ/GqiIJ0rvDpL/tnpKFvCUgRXW2PhVRXKvFxv9AbU5k3dytfDeb/9MinNmYNa
-	rLnYg8AzcUVw9PiG3hYD4d9APunM22sDNjr8mugHAVfwvVaxZiSMCrmVp8emdCPHz0894G7+YU7
-	3D+NEK20MnR5jZ+Vh4HMKbQkvgOQ309lmMfrJcZcADwTKYP4iT9S3+AF73en24dW1Oxvs2v6ybR
-	lrV7jbCbAHxm/4vOiEUlfXCrT++TWyH//WEvuiYFcOsKPs7mMk+L5TULX6g4hGtGc/nnBKrwI7S
-	sZmn5cK5h+/KV/7SLO/cDqKWur3Bbk72BBr7sJBcpymx4x9nY+YSsdtW73Psg4rv/A0XlXRT0VH
-	hqpA9NfXRdTJFwFX7GghLYRIxe9HYhVGT7PIqp27w77c+pdAanhKZXtJsDgopM8x/w+NGCneTLu
-	sqygyFvCqWJSivRHm3zaKDtX1SV7HYPAoKSGhQbBjRkfLtb5lewYKsQg8rqYimvPBi2HVeoxHcN
-	t92v6P96almfUHDADXg==
-X-Received: by 2002:a05:600c:1f90:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4bb55a57b96mr41725385e9.9.1794568472217;
-        Fri, 13 Nov 2026 03:14:32 -0800 (PST)
+        bh=CugqVWAuawrwerm7blKnvsOa3BQVmagcewjHznzs45w=;
+        b=MjChMV7USqSMobFHQlG4cEloU2LgCYy0XBiKPqfRg6jNbhi3BVUakWRutkztnfbGVC
+         QERzwN5cTGF9KPuuOgupkyuIjImmC6an2RIfHz7VkQN9xlVNRvRnoqnsakLuwNTv7pcl
+         6hY+77haurSOrrAnpaqjsJK9/kQloWIi6NUS9NrV38v2QmX1PrSCLsQ90KAO2lx7nnr0
+         SM4ycqghlwJ2E0aj/kHFt566umbrluc23IE7/5YexU4b5FbaVVlvALPBWpSes5jJM/Yk
+         ItST6Y0sJ3sN6XwfbzE6TK8YrQ3GrA8SB0lXOOy9qSY2LvS+khcYuwD8Tx7vcKIAuWdF
+         qSJw==
+X-Forwarded-Encrypted: i=1; AL+hErGM/24ftDXHpxZ3TTWWqC06F3vU3yLhjzS2eOU9c8M7nQLEa/e6AbLofj0X9oAzf7WE7gFR/Ydzse7JhNM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OfbYyPj685MhOpMz18GqdVKro88Ig9viNZ9/+LFtBZJwjGrFi
+	lX/e3jer2ADDAR2P1cx38VJdY9ucc/Vjy3zYKThvR6kJi58HjrQmW+3/Ou2UDCcvTP0=
+X-Gm-Gg: AYBFou1MUzMaokpmdB5Dxj4p1v7WkyZfdBzHjHgrSA0LOvVSKBU3P4alAdhGB58VEB6
+	tjsfI8LHHc1h36cZbrKUuqNg+9gR0luBypDe7usPT8S+h0JsaQUQt9LAzEnk4ayOmf6T2PaD8CB
+	MfFWglJmIHBEr4nCtELju+dUN9Bgo6mN8gbn6A8xzTFz9Jg1E1HbShFTDGZFcig+EpR5ojt1/4s
+	Q00CnPBCW845blFTo2y+yfkQirDXp/D5Vifx0zrtIoNqeXhsMUvlNM+NAdItkAyzQQp2Gv8E8D3
+	HHC+wgHhm9Tpql9qBq+5XhmgyPyTREOsp7zEVFZTce7r50w2ARoP6nQKWye+3Lppw1CD9U6OBI6
+	HM+8y5VOHB03/Q++493qXOYEhtNiObNQXnfRmqVBoiHg6l7xHrpl4K5S1/yRKyyjWfDZmk909J+
+	imCS/AkqXeoOMjiQArQdbBLeIzmQEiYEtfzW3pwFrZNjjD7ky1oWfH5QdohKle3Wz1wqGB2ysrb
+	3MITS0EBcnaNiI7HRJiE8ITxipM4KdDSnsYk+aGrHW/074gbixYCFrQLbpdKNS8bFlIyI2D17Ss
+	E5sIdem5UlFpclb6AW4NAD045T1/6SAcJ2kk62kk7JoQywiAMxSfokP+fyyg0+tCAkk3wuIF+XY
+	CfP70w3Ir1AhmMD3W/urdG6SmIbG5u2ir8BuJEg==
+X-Received: by 2002:a05:6000:4714:b0:48d:f0e4:27a4 with SMTP id ffacd0b85a97d-49c71785315mr4684760f8f.24.1794568473546;
+        Fri, 13 Nov 2026 03:14:33 -0800 (PST)
 Received: from localhost (p200300f65f19a904278f3f81ea855105.dip0.t-ipconnect.de. [2003:f6:5f19:a904:278f:3f81:ea85:5105])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb4e29d24dsm150251465e9.11.2026.11.13.03.14.30
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-49c5f782396sm4858544f8f.24.2026.11.13.03.14.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 03:14:30 -0800 (PST)
+        Fri, 13 Nov 2026 03:14:33 -0800 (PST)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: Len Brown <lenb@kernel.org>,
-	Kai-Heng Feng <kaihengf@nvidia.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Mika Westerberg <westeri@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
 	Chu Guangqing <chuguangqing@inspur.com>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>,
-	Saranya Gopal <saranya.gopal@intel.com>,
-	Jakob Riemenschneider <riemenschneiderjakob@gmail.com>,
-	Gergo Koteles <soyer@irl.hu>,
+	Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>,
 	Yauhen Kharuzhy <jekhor@gmail.com>,
 	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 3/4] ACPI: Use named initializers for acpi_device_id arrays
-Date: Fri, 13 Nov 2026 12:13:59 +0100
-Message-ID:  <78dc04789c71a0e0b43c52f7814121b9a763851a.1794567577.git.ukleinek@kernel.org>
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org
+Subject: [PATCH v1 4/4] ACPI: Unify *_device_id list terminators
+Date: Fri, 13 Nov 2026 12:14:00 +0100
+Message-ID:  <68abd7c74b17f3ff08bd825b08b99d7b77ca76ac.1794567577.git.ukleinek@kernel.org>
 X-Mailer: git-send-email 2.56.0.rc1
 In-Reply-To: <cover.1794567577.git.ukleinek@kernel.org>
 References: <cover.1794567577.git.ukleinek@kernel.org>
@@ -117,978 +110,326 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=42693; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=idIkLMifW96yRmOGypTU8IiwK0VZIbzA2+3kGJ3yxTA=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq9vD99Fc1x7BoVk/bqVyLTmExYRCFKU5XdBC0V jni/rI5Vz+JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavbw/QAKCRCPgPtYfRL+ TvW3B/0XCAWncp9HjSyZ4Pgbm8XrmazV0xGM4mVqGIuV6hzpbnA7mEfnFyKllO2rwNqdo00xMuz zT/51z3vPcdKSz8KpPUxMrHiFxPjiVuZFMpbYewPZcckaMLnfTUt6r2bvBMb2vyK3pgt2P5urrp 7cRdjO8AjQOakKmHlUIV7nJQD1xUtcHQtfLG8BMKOh5rrlTo/Bq8ScsEKbvoZ6LJXmyfh6d1XF8 kzym24XEXRl4n3LGjQOAr1lrGuIpHf0JIHLZ9pUsKT9yAPeVK7IvPpVsS2Ykt8fsGz+234PH6kz FqXt4/5lxBRyNAvt75yel3c+EhmoO8pWmWGMlkAWYKALJZXG
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10266; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=+6PqnFs9xNMlcyaJnD61eEm38xx+1W6KaISepWhZ3LA=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq9vECntQcbmqHyqMqXM6ndAzXOFB7wm6LEZuhn maJnAzthW6JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavbxAgAKCRCPgPtYfRL+ TvFuCACOfUmF6gLB98HOWz7U5y+WCHPZGCfevOEySB/VR4BmQLyNzYGDHlbOTeDZl+7yC620hWU gdXv4e+HGZYgCK8aM7DlUpJgH67MPSQR1vl4chxUmHRUm3zRu+JH07oAR2sK0JuYmhbRzfeIa2h L6pS9c3Xw6/rXX6VPsEVne1Xyl8igNGd6NrhEO1fOB8Ux5bTw0OAo0x6+tRPMVOPPwog7yCIMdn hSoYcOvmYW3xesKMXSkPMG4PX/CbfjBeB6yV950WyPpCeenaH6it9SMQdlXCCAjgtdCgdbQbjGL qi9BvkNMvZJilS8DpZC2AcoWIaKYEZdgqoXK8XwjyzCw9slC
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
-While being less compact, using named initializers allows to more easily
-see which members of the structs are assigned which value without having
-to lookup the declaration of the struct. And it's also more robust
-against changes to the struct definition.
+Consistenly use a single space and no trailing , for the list
+terminator. This doesn't introduce any changes to the compiled result of
+the modified drivers and just aligns these to the common style of the
+other device_id arrays.
 
-This patch doesn't modify the compiled arrays, only its representation in
-source form benefits.
-
-Co-Authored-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- drivers/acpi/acpi_apd.c         |  46 +--
- drivers/acpi/acpi_platform.c    |  12 +-
- drivers/acpi/acpi_pnp.c         | 512 ++++++++++++++++----------------
- drivers/acpi/acpi_processor.c   |   6 +-
- drivers/acpi/apei/ghes-nvidia.c |   2 +-
- drivers/acpi/button.c           |  10 +-
- drivers/acpi/evged.c            |   2 +-
- drivers/acpi/pfr_telemetry.c    |   2 +-
- drivers/acpi/pfr_update.c       |   2 +-
- drivers/acpi/scan.c             |  34 +--
- drivers/acpi/x86/cmos_rtc.c     |   2 +-
- drivers/acpi/x86/lpss.c         |  54 ++--
- drivers/acpi/x86/s2idle.c       |  10 +-
- drivers/acpi/x86/utils.c        |   2 +-
- include/linux/acpi.h            |   6 +-
- 15 files changed, 351 insertions(+), 351 deletions(-)
+ drivers/acpi/ac.c                       | 2 +-
+ drivers/acpi/acpi_video.c               | 4 ++--
+ drivers/acpi/battery.c                  | 2 +-
+ drivers/acpi/bus.c                      | 2 +-
+ drivers/acpi/button.c                   | 2 +-
+ drivers/acpi/ec.c                       | 2 +-
+ drivers/acpi/mipi-disco-img.c           | 2 +-
+ drivers/acpi/osi.c                      | 2 +-
+ drivers/acpi/pci_slot.c                 | 2 +-
+ drivers/acpi/pmic/intel_pmic_bxtwc.c    | 2 +-
+ drivers/acpi/pmic/intel_pmic_chtdc_ti.c | 2 +-
+ drivers/acpi/pmic/intel_pmic_chtwc.c    | 2 +-
+ drivers/acpi/power.c                    | 2 +-
+ drivers/acpi/processor_idle.c           | 2 +-
+ drivers/acpi/sleep.c                    | 2 +-
+ drivers/acpi/thermal.c                  | 2 +-
+ drivers/acpi/video_detect.c             | 2 +-
+ drivers/acpi/x86/blacklist.c            | 2 +-
+ drivers/acpi/x86/lpss.c                 | 4 ++--
+ drivers/acpi/x86/utils.c                | 4 ++--
+ 20 files changed, 23 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/acpi/acpi_apd.c b/drivers/acpi/acpi_apd.c
-index ea226fd98756..14a19846ba91 100644
---- a/drivers/acpi/acpi_apd.c
-+++ b/drivers/acpi/acpi_apd.c
-@@ -248,31 +248,31 @@ static int acpi_apd_create_device(struct acpi_device *adev,
- static const struct acpi_device_id acpi_apd_device_ids[] = {
- 	/* Generic apd devices */
- #ifdef CONFIG_X86_AMD_PLATFORM_DEVICE
--	{ "AMD0010", APD_ADDR(cz_i2c_desc) },
--	{ "AMD0020", APD_ADDR(cz_uart_desc) },
--	{ "AMD0030", },
--	{ "AMD0040", APD_ADDR(fch_misc_desc)},
--	{ "AMDI0010", APD_ADDR(wt_i2c_desc) },
--	{ "AMDI0015", APD_ADDR(wt_i3c_desc) },
--	{ "AMDI0019", APD_ADDR(wt_i2c_desc) },
--	{ "AMDI0020", APD_ADDR(cz_uart_desc) },
--	{ "AMDI0021", APD_ADDR(cz_uart_desc) },
--	{ "AMDI0022", APD_ADDR(cz_uart_desc) },
--	{ "HYGO0010", APD_ADDR(wt_i2c_desc) },
-+	{ .id = "AMD0010",  .driver_data = APD_ADDR(cz_i2c_desc) },
-+	{ .id = "AMD0020",  .driver_data = APD_ADDR(cz_uart_desc) },
-+	{ .id = "AMD0030",  .driver_data = (unsigned long)NULL },
-+	{ .id = "AMD0040",  .driver_data = APD_ADDR(fch_misc_desc)},
-+	{ .id = "AMDI0010", .driver_data = APD_ADDR(wt_i2c_desc) },
-+	{ .id = "AMDI0015", .driver_data = APD_ADDR(wt_i3c_desc) },
-+	{ .id = "AMDI0019", .driver_data = APD_ADDR(wt_i2c_desc) },
-+	{ .id = "AMDI0020", .driver_data = APD_ADDR(cz_uart_desc) },
-+	{ .id = "AMDI0021", .driver_data = APD_ADDR(cz_uart_desc) },
-+	{ .id = "AMDI0022", .driver_data = APD_ADDR(cz_uart_desc) },
-+	{ .id = "HYGO0010", .driver_data = APD_ADDR(wt_i2c_desc) },
+diff --git a/drivers/acpi/ac.c b/drivers/acpi/ac.c
+index 168e1d495b7b..85f1c54c9378 100644
+--- a/drivers/acpi/ac.c
++++ b/drivers/acpi/ac.c
+@@ -187,7 +187,7 @@ static const struct dmi_system_id ac_dmi_table[]  __initconst = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "32597CG"),
+ 		},
+ 	},
+-	{},
++	{ }
+ };
+ 
+ static int acpi_ac_probe(struct platform_device *pdev)
+diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
+index 2a2822516665..548303bb3a14 100644
+--- a/drivers/acpi/acpi_video.c
++++ b/drivers/acpi/acpi_video.c
+@@ -92,7 +92,7 @@ enum acpi_video_level_idx {
+ 
+ static const struct auxiliary_device_id video_bus_auxiliary_id_table[] = {
+ 	{ .name = "acpi.video_bus" },
+-	{},
++	{ }
+ };
+ MODULE_DEVICE_TABLE(auxiliary, video_bus_auxiliary_id_table);
+ 
+@@ -518,7 +518,7 @@ static const struct dmi_system_id video_dmi_table[] = {
+ 		DMI_MATCH(DMI_PRODUCT_NAME, "EasyNote MZ35"),
+ 		},
+ 	},
+-	{}
++	{ }
+ };
+ 
+ static unsigned long long
+diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
+index 8b1b66cf5369..c1f36e6dfab4 100644
+--- a/drivers/acpi/battery.c
++++ b/drivers/acpi/battery.c
+@@ -1387,7 +1387,7 @@ static const struct dmi_system_id bat_dmi_table[] __initconst = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "Surface Go 3"),
+ 		},
+ 	},
+-	{},
++	{ }
+ };
+ 
+ static void acpi_battery_wakeup_cleanup(void *data)
+diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
+index 1d6867dec925..3cf1719b5246 100644
+--- a/drivers/acpi/bus.c
++++ b/drivers/acpi/bus.c
+@@ -66,7 +66,7 @@ static const struct dmi_system_id dsdt_dmi_table[] __initconst = {
+ 		DMI_MATCH(DMI_PRODUCT_NAME, "Satellite"),
+ 		},
+ 	},
+-	{}
++	{ }
+ };
  #endif
- #ifdef CONFIG_ARM64
--	{ "APMC0D0F", APD_ADDR(xgene_i2c_desc) },
--	{ "BRCM900D", APD_ADDR(vulcan_spi_desc) },
--	{ "CAV900D",  APD_ADDR(vulcan_spi_desc) },
--	{ "CAV9007",  APD_ADDR(thunderx2_i2c_desc) },
--	{ "HISI02A1", APD_ADDR(hip07_i2c_desc) },
--	{ "HISI02A2", APD_ADDR(hip08_i2c_desc) },
--	{ "HISI02A3", APD_ADDR(hip08_lite_i2c_desc) },
--	{ "HISI0173", APD_ADDR(hip08_spi_desc) },
--	{ "HJMC3001", APD_ADDR(hjmc_i2c_desc) },
--	{ "LECA0002", APD_ADDR(leca_spi_desc) },
--	{ "LECA0003", APD_ADDR(leca_i2c_desc) },
--	{ "NXP0001", APD_ADDR(nxp_i2c_desc) },
-+	{ .id = "APMC0D0F", .driver_data = APD_ADDR(xgene_i2c_desc) },
-+	{ .id = "BRCM900D", .driver_data = APD_ADDR(vulcan_spi_desc) },
-+	{ .id = "CAV900D",  .driver_data = APD_ADDR(vulcan_spi_desc) },
-+	{ .id = "CAV9007",  .driver_data = APD_ADDR(thunderx2_i2c_desc) },
-+	{ .id = "HISI02A1", .driver_data = APD_ADDR(hip07_i2c_desc) },
-+	{ .id = "HISI02A2", .driver_data = APD_ADDR(hip08_i2c_desc) },
-+	{ .id = "HISI02A3", .driver_data = APD_ADDR(hip08_lite_i2c_desc) },
-+	{ .id = "HISI0173", .driver_data = APD_ADDR(hip08_spi_desc) },
-+	{ .id = "HJMC3001", .driver_data = APD_ADDR(hjmc_i2c_desc) },
-+	{ .id = "LECA0002", .driver_data = APD_ADDR(leca_spi_desc) },
-+	{ .id = "LECA0003", .driver_data = APD_ADDR(leca_i2c_desc) },
-+	{ .id = "NXP0001",  .driver_data = APD_ADDR(nxp_i2c_desc) },
- #endif
- 	{ }
- };
-diff --git a/drivers/acpi/acpi_platform.c b/drivers/acpi/acpi_platform.c
-index 80ea7121744d..aafba11434b4 100644
---- a/drivers/acpi/acpi_platform.c
-+++ b/drivers/acpi/acpi_platform.c
-@@ -25,12 +25,12 @@
- #define ACPI_ALLOW_WO_RESOURCES		BIT(0)
  
- static const struct acpi_device_id forbidden_id_list[] = {
--	{"ACPI0009", 0},	/* IOxAPIC */
--	{"ACPI000A", 0},	/* IOAPIC */
--	{"PNP0000",  0},	/* PIC */
--	{"PNP0100",  0},	/* Timer */
--	{"PNP0200",  0},	/* AT DMA Controller */
--	{ACPI_SMBUS_MS_HID,  ACPI_ALLOW_WO_RESOURCES},	/* ACPI SMBUS virtual device */
-+	{ .id = "ACPI0009", .driver_data = 0 },	/* IOxAPIC */
-+	{ .id = "ACPI000A", .driver_data = 0 },	/* IOAPIC */
-+	{ .id = "PNP0000", .driver_data = 0 },	/* PIC */
-+	{ .id = "PNP0100", .driver_data = 0 },	/* Timer */
-+	{ .id = "PNP0200", .driver_data = 0 },	/* AT DMA Controller */
-+	{ .id = ACPI_SMBUS_MS_HID, .driver_data = ACPI_ALLOW_WO_RESOURCES },	/* ACPI SMBUS virtual device */
- 	{ }
- };
- 
-diff --git a/drivers/acpi/acpi_pnp.c b/drivers/acpi/acpi_pnp.c
-index ea9858e00238..fec894467425 100644
---- a/drivers/acpi/acpi_pnp.c
-+++ b/drivers/acpi/acpi_pnp.c
-@@ -15,292 +15,292 @@
- 
- static const struct acpi_device_id acpi_pnp_device_ids[] = {
- 	/* pata_isapnp */
--	{"PNP0600"},		/* Generic ESDI/IDE/ATA compatible hard disk controller */
-+	{ .id = "PNP0600" },		/* Generic ESDI/IDE/ATA compatible hard disk controller */
- 	/* floppy */
--	{"PNP0700"},
-+	{ .id = "PNP0700" },
- 	/* tpm_inf_pnp */
--	{"IFX0101"},		/* Infineon TPMs */
--	{"IFX0102"},		/* Infineon TPMs */
-+	{ .id = "IFX0101" },		/* Infineon TPMs */
-+	{ .id = "IFX0102" },		/* Infineon TPMs */
- 	/*tpm_tis */
--	{"PNP0C31"},		/* TPM */
--	{"ATM1200"},		/* Atmel */
--	{"IFX0102"},		/* Infineon */
--	{"BCM0101"},		/* Broadcom */
--	{"BCM0102"},		/* Broadcom */
--	{"NSC1200"},		/* National */
--	{"ICO0102"},		/* Intel */
-+	{ .id = "PNP0C31" },		/* TPM */
-+	{ .id = "ATM1200" },		/* Atmel */
-+	{ .id = "IFX0102" },		/* Infineon */
-+	{ .id = "BCM0101" },		/* Broadcom */
-+	{ .id = "BCM0102" },		/* Broadcom */
-+	{ .id = "NSC1200" },		/* National */
-+	{ .id = "ICO0102" },		/* Intel */
- 	/* ide   */
--	{"PNP0600"},		/* Generic ESDI/IDE/ATA compatible hard disk controller */
-+	{ .id = "PNP0600" },		/* Generic ESDI/IDE/ATA compatible hard disk controller */
- 	/* ns558 */
--	{"ASB16fd"},		/* AdLib NSC16 */
--	{"AZT3001"},		/* AZT1008 */
--	{"CDC0001"},		/* Opl3-SAx */
--	{"CSC0001"},		/* CS4232 */
--	{"CSC000f"},		/* CS4236 */
--	{"CSC0101"},		/* CS4327 */
--	{"CTL7001"},		/* SB16 */
--	{"CTL7002"},		/* AWE64 */
--	{"CTL7005"},		/* Vibra16 */
--	{"ENS2020"},		/* SoundscapeVIVO */
--	{"ESS0001"},		/* ES1869 */
--	{"ESS0005"},		/* ES1878 */
--	{"ESS6880"},		/* ES688 */
--	{"IBM0012"},		/* CS4232 */
--	{"OPT0001"},		/* OPTi Audio16 */
--	{"YMH0006"},		/* Opl3-SA */
--	{"YMH0022"},		/* Opl3-SAx */
--	{"PNPb02f"},		/* Generic */
-+	{ .id = "ASB16fd" },		/* AdLib NSC16 */
-+	{ .id = "AZT3001" },		/* AZT1008 */
-+	{ .id = "CDC0001" },		/* Opl3-SAx */
-+	{ .id = "CSC0001" },		/* CS4232 */
-+	{ .id = "CSC000f" },		/* CS4236 */
-+	{ .id = "CSC0101" },		/* CS4327 */
-+	{ .id = "CTL7001" },		/* SB16 */
-+	{ .id = "CTL7002" },		/* AWE64 */
-+	{ .id = "CTL7005" },		/* Vibra16 */
-+	{ .id = "ENS2020" },		/* SoundscapeVIVO */
-+	{ .id = "ESS0001" },		/* ES1869 */
-+	{ .id = "ESS0005" },		/* ES1878 */
-+	{ .id = "ESS6880" },		/* ES688 */
-+	{ .id = "IBM0012" },		/* CS4232 */
-+	{ .id = "OPT0001" },		/* OPTi Audio16 */
-+	{ .id = "YMH0006" },		/* Opl3-SA */
-+	{ .id = "YMH0022" },		/* Opl3-SAx */
-+	{ .id = "PNPb02f" },		/* Generic */
- 	/* i8042 kbd */
--	{"PNP0300"},
--	{"PNP0301"},
--	{"PNP0302"},
--	{"PNP0303"},
--	{"PNP0304"},
--	{"PNP0305"},
--	{"PNP0306"},
--	{"PNP0309"},
--	{"PNP030a"},
--	{"PNP030b"},
--	{"PNP0320"},
--	{"PNP0343"},
--	{"PNP0344"},
--	{"PNP0345"},
--	{"CPQA0D7"},
-+	{ .id = "PNP0300" },
-+	{ .id = "PNP0301" },
-+	{ .id = "PNP0302" },
-+	{ .id = "PNP0303" },
-+	{ .id = "PNP0304" },
-+	{ .id = "PNP0305" },
-+	{ .id = "PNP0306" },
-+	{ .id = "PNP0309" },
-+	{ .id = "PNP030a" },
-+	{ .id = "PNP030b" },
-+	{ .id = "PNP0320" },
-+	{ .id = "PNP0343" },
-+	{ .id = "PNP0344" },
-+	{ .id = "PNP0345" },
-+	{ .id = "CPQA0D7" },
- 	/* i8042 aux */
--	{"AUI0200"},
--	{"FJC6000"},
--	{"FJC6001"},
--	{"PNP0f03"},
--	{"PNP0f0b"},
--	{"PNP0f0e"},
--	{"PNP0f12"},
--	{"PNP0f13"},
--	{"PNP0f19"},
--	{"PNP0f1c"},
--	{"SYN0801"},
-+	{ .id = "AUI0200" },
-+	{ .id = "FJC6000" },
-+	{ .id = "FJC6001" },
-+	{ .id = "PNP0f03" },
-+	{ .id = "PNP0f0b" },
-+	{ .id = "PNP0f0e" },
-+	{ .id = "PNP0f12" },
-+	{ .id = "PNP0f13" },
-+	{ .id = "PNP0f19" },
-+	{ .id = "PNP0f1c" },
-+	{ .id = "SYN0801" },
- 	/* fcpnp */
--	{"AVM0900"},
-+	{ .id = "AVM0900" },
- 	/* radio-cadet */
--	{"MSM0c24"},		/* ADS Cadet AM/FM Radio Card */
-+	{ .id = "MSM0c24" },		/* ADS Cadet AM/FM Radio Card */
- 	/* radio-gemtek */
--	{"ADS7183"},		/* AOpen FX-3D/Pro Radio */
-+	{ .id = "ADS7183" },		/* AOpen FX-3D/Pro Radio */
- 	/* radio-sf16fmr2 */
--	{"MFRad13"},		/* tuner subdevice of SF16-FMD2 */
-+	{ .id = "MFRad13" },		/* tuner subdevice of SF16-FMD2 */
- 	/* ene_ir */
--	{"ENE0100"},
--	{"ENE0200"},
--	{"ENE0201"},
--	{"ENE0202"},
-+	{ .id = "ENE0100" },
-+	{ .id = "ENE0200" },
-+	{ .id = "ENE0201" },
-+	{ .id = "ENE0202" },
- 	/* fintek-cir */
--	{"FIT0002"},		/* CIR */
-+	{ .id = "FIT0002" },		/* CIR */
- 	/* ite-cir */
--	{"ITE8704"},		/* Default model */
--	{"ITE8713"},		/* CIR found in EEEBox 1501U */
--	{"ITE8708"},		/* Bridged IT8512 */
--	{"ITE8709"},		/* SRAM-Bridged IT8512 */
-+	{ .id = "ITE8704" },		/* Default model */
-+	{ .id = "ITE8713" },		/* CIR found in EEEBox 1501U */
-+	{ .id = "ITE8708" },		/* Bridged IT8512 */
-+	{ .id = "ITE8709" },		/* SRAM-Bridged IT8512 */
- 	/* nuvoton-cir */
--	{"WEC0530"},		/* CIR */
--	{"NTN0530"},		/* CIR for new chip's pnp id */
-+	{ .id = "WEC0530" },		/* CIR */
-+	{ .id = "NTN0530" },		/* CIR for new chip's pnp id */
- 	/* Winbond CIR */
--	{"WEC1022"},
-+	{ .id = "WEC1022" },
- 	/* wbsd */
--	{"WEC0517"},
--	{"WEC0518"},
-+	{ .id = "WEC0517" },
-+	{ .id = "WEC0518" },
- 	/* Winbond CIR */
--	{"TCM5090"},		/* 3Com Etherlink III (TP) */
--	{"TCM5091"},		/* 3Com Etherlink III */
--	{"TCM5094"},		/* 3Com Etherlink III (combo) */
--	{"TCM5095"},		/* 3Com Etherlink III (TPO) */
--	{"TCM5098"},		/* 3Com Etherlink III (TPC) */
--	{"PNP80f7"},		/* 3Com Etherlink III compatible */
--	{"PNP80f8"},		/* 3Com Etherlink III compatible */
-+	{ .id = "TCM5090" },		/* 3Com Etherlink III (TP) */
-+	{ .id = "TCM5091" },		/* 3Com Etherlink III */
-+	{ .id = "TCM5094" },		/* 3Com Etherlink III (combo) */
-+	{ .id = "TCM5095" },		/* 3Com Etherlink III (TPO) */
-+	{ .id = "TCM5098" },		/* 3Com Etherlink III (TPC) */
-+	{ .id = "PNP80f7" },		/* 3Com Etherlink III compatible */
-+	{ .id = "PNP80f8" },		/* 3Com Etherlink III compatible */
- 	/* nsc-ircc */
--	{"NSC6001"},
--	{"HWPC224"},
--	{"IBM0071"},
-+	{ .id = "NSC6001" },
-+	{ .id = "HWPC224" },
-+	{ .id = "IBM0071" },
- 	/* smsc-ircc2 */
--	{"SMCf010"},
-+	{ .id = "SMCf010" },
- 	/* parport_pc */
--	{"PNP0400"},		/* Standard LPT Printer Port */
--	{"PNP0401"},		/* ECP Printer Port */
-+	{ .id = "PNP0400" },		/* Standard LPT Printer Port */
-+	{ .id = "PNP0401" },		/* ECP Printer Port */
- 	/* apple-gmux */
--	{"APP000B"},
-+	{ .id = "APP000B" },
- 	/* c6xdigio */
--	{"PNP0400"},		/* Standard LPT Printer Port */
--	{"PNP0401"},		/* ECP Printer Port */
-+	{ .id = "PNP0400" },		/* Standard LPT Printer Port */
-+	{ .id = "PNP0401" },		/* ECP Printer Port */
- 	/* ni_atmio.c */
--	{"NIC1900"},
--	{"NIC2400"},
--	{"NIC2500"},
--	{"NIC2600"},
--	{"NIC2700"},
-+	{ .id = "NIC1900" },
-+	{ .id = "NIC2400" },
-+	{ .id = "NIC2500" },
-+	{ .id = "NIC2600" },
-+	{ .id = "NIC2700" },
- 	/* serial */
--	{"AAC000F"},		/* Archtek America Corp. Archtek SmartLink Modem 3334BT Plug & Play */
--	{"ADC0001"},		/* Anchor Datacomm BV. SXPro 144 External Data Fax Modem Plug & Play */
--	{"ADC0002"},		/* SXPro 288 External Data Fax Modem Plug & Play */
--	{"AEI0250"},		/* PROLiNK 1456VH ISA PnP K56flex Fax Modem */
--	{"AEI1240"},		/* Actiontec ISA PNP 56K X2 Fax Modem */
--	{"AKY1021"},		/* Rockwell 56K ACF II Fax+Data+Voice Modem */
--	{"ALI5123"},		/* ALi Fast Infrared Controller */
--	{"AZT4001"},		/* AZT3005 PnP SOUND DEVICE */
--	{"BDP3336"},		/* Best Data Products Inc. Smart One 336F PnP Modem */
--	{"BRI0A49"},		/* Boca Complete Ofc Communicator 14.4 Data-FAX */
--	{"BRI1400"},		/* Boca Research 33,600 ACF Modem */
--	{"BRI3400"},		/* Boca 33.6 Kbps Internal FD34FSVD */
--	{"CPI4050"},		/* Computer Peripherals Inc. EuroViVa CommCenter-33.6 SP PnP */
--	{"CTL3001"},		/* Creative Labs Phone Blaster 28.8 DSVD PnP Voice */
--	{"CTL3011"},		/* Creative Labs Modem Blaster 28.8 DSVD PnP Voice */
--	{"DAV0336"},		/* Davicom ISA 33.6K Modem */
--	{"DMB1032"},		/* Creative Modem Blaster Flash56 DI5601-1 */
--	{"DMB2001"},		/* Creative Modem Blaster V.90 DI5660 */
--	{"ETT0002"},		/* E-Tech CyberBULLET PC56RVP */
--	{"FUJ0202"},		/* Fujitsu 33600 PnP-I2 R Plug & Play */
--	{"FUJ0205"},		/* Fujitsu FMV-FX431 Plug & Play */
--	{"FUJ0206"},		/* Fujitsu 33600 PnP-I4 R Plug & Play */
--	{"FUJ0209"},		/* Fujitsu Fax Voice 33600 PNP-I5 R Plug & Play */
--	{"GVC000F"},		/* Archtek SmartLink Modem 3334BT Plug & Play */
--	{"GVC0303"},		/* Archtek SmartLink Modem 3334BRV 33.6K Data Fax Voice */
--	{"HAY0001"},		/* Hayes Optima 288 V.34-V.FC + FAX + Voice Plug & Play */
--	{"HAY000C"},		/* Hayes Optima 336 V.34 + FAX + Voice PnP */
--	{"HAY000D"},		/* Hayes Optima 336B V.34 + FAX + Voice PnP */
--	{"HAY5670"},		/* Hayes Accura 56K Ext Fax Modem PnP */
--	{"HAY5674"},		/* Hayes Accura 56K Ext Fax Modem PnP */
--	{"HAY5675"},		/* Hayes Accura 56K Fax Modem PnP */
--	{"HAYF000"},		/* Hayes 288, V.34 + FAX */
--	{"HAYF001"},		/* Hayes Optima 288 V.34 + FAX + Voice, Plug & Play */
--	{"IBM0033"},		/* IBM Thinkpad 701 Internal Modem Voice */
--	{"PNP4972"},		/* Intermec CV60 touchscreen port */
--	{"IXDC801"},		/* Intertex 28k8 33k6 Voice EXT PnP */
--	{"IXDC901"},		/* Intertex 33k6 56k Voice EXT PnP */
--	{"IXDD801"},		/* Intertex 28k8 33k6 Voice SP EXT PnP */
--	{"IXDD901"},		/* Intertex 33k6 56k Voice SP EXT PnP */
--	{"IXDF401"},		/* Intertex 28k8 33k6 Voice SP INT PnP */
--	{"IXDF801"},		/* Intertex 28k8 33k6 Voice SP EXT PnP */
--	{"IXDF901"},		/* Intertex 33k6 56k Voice SP EXT PnP */
--	{"KOR4522"},		/* KORTEX 28800 Externe PnP */
--	{"KORF661"},		/* KXPro 33.6 Vocal ASVD PnP */
--	{"LAS4040"},		/* LASAT Internet 33600 PnP */
--	{"LAS4540"},		/* Lasat Safire 560 PnP */
--	{"LAS5440"},		/* Lasat Safire 336  PnP */
--	{"MNP0281"},		/* Microcom TravelPorte FAST V.34 Plug & Play */
--	{"MNP0336"},		/* Microcom DeskPorte V.34 FAST or FAST+ Plug & Play */
--	{"MNP0339"},		/* Microcom DeskPorte FAST EP 28.8 Plug & Play */
--	{"MNP0342"},		/* Microcom DeskPorte 28.8P Plug & Play */
--	{"MNP0500"},		/* Microcom DeskPorte FAST ES 28.8 Plug & Play */
--	{"MNP0501"},		/* Microcom DeskPorte FAST ES 28.8 Plug & Play */
--	{"MNP0502"},		/* Microcom DeskPorte 28.8S Internal Plug & Play */
--	{"MOT1105"},		/* Motorola BitSURFR Plug & Play */
--	{"MOT1111"},		/* Motorola TA210 Plug & Play */
--	{"MOT1114"},		/* Motorola HMTA 200 (ISDN) Plug & Play */
--	{"MOT1115"},		/* Motorola BitSURFR Plug & Play */
--	{"MOT1190"},		/* Motorola Lifestyle 28.8 Internal */
--	{"MOT1501"},		/* Motorola V.3400 Plug & Play */
--	{"MOT1502"},		/* Motorola Lifestyle 28.8 V.34 Plug & Play */
--	{"MOT1505"},		/* Motorola Power 28.8 V.34 Plug & Play */
--	{"MOT1509"},		/* Motorola ModemSURFR External 28.8 Plug & Play */
--	{"MOT150A"},		/* Motorola Premier 33.6 Desktop Plug & Play */
--	{"MOT150F"},		/* Motorola VoiceSURFR 56K External PnP */
--	{"MOT1510"},		/* Motorola ModemSURFR 56K External PnP */
--	{"MOT1550"},		/* Motorola ModemSURFR 56K Internal PnP */
--	{"MOT1560"},		/* Motorola ModemSURFR Internal 28.8 Plug & Play */
--	{"MOT1580"},		/* Motorola Premier 33.6 Internal Plug & Play */
--	{"MOT15B0"},		/* Motorola OnlineSURFR 28.8 Internal Plug & Play */
--	{"MOT15F0"},		/* Motorola VoiceSURFR 56K Internal PnP */
--	{"MVX00A1"},		/*  Deskline K56 Phone System PnP */
--	{"MVX00F2"},		/* PC Rider K56 Phone System PnP */
--	{"nEC8241"},		/* NEC 98NOTE SPEAKER PHONE FAX MODEM(33600bps) */
--	{"PMC2430"},		/* Pace 56 Voice Internal Plug & Play Modem */
--	{"PNP0500"},		/* Generic standard PC COM port     */
--	{"PNP0501"},		/* Generic 16550A-compatible COM port */
--	{"PNPC000"},		/* Compaq 14400 Modem */
--	{"PNPC001"},		/* Compaq 2400/9600 Modem */
--	{"PNPC031"},		/* Dial-Up Networking Serial Cable between 2 PCs */
--	{"PNPC032"},		/* Dial-Up Networking Parallel Cable between 2 PCs */
--	{"PNPC100"},		/* Standard 9600 bps Modem */
--	{"PNPC101"},		/* Standard 14400 bps Modem */
--	{"PNPC102"},		/*  Standard 28800 bps Modem */
--	{"PNPC103"},		/*  Standard Modem */
--	{"PNPC104"},		/*  Standard 9600 bps Modem */
--	{"PNPC105"},		/*  Standard 14400 bps Modem */
--	{"PNPC106"},		/*  Standard 28800 bps Modem */
--	{"PNPC107"},		/*  Standard Modem */
--	{"PNPC108"},		/* Standard 9600 bps Modem */
--	{"PNPC109"},		/* Standard 14400 bps Modem */
--	{"PNPC10A"},		/* Standard 28800 bps Modem */
--	{"PNPC10B"},		/* Standard Modem */
--	{"PNPC10C"},		/* Standard 9600 bps Modem */
--	{"PNPC10D"},		/* Standard 14400 bps Modem */
--	{"PNPC10E"},		/* Standard 28800 bps Modem */
--	{"PNPC10F"},		/* Standard Modem */
--	{"PNP2000"},		/* Standard PCMCIA Card Modem */
--	{"ROK0030"},		/* Rockwell 33.6 DPF Internal PnP, Modular Technology 33.6 Internal PnP */
--	{"ROK0100"},		/* KORTEX 14400 Externe PnP */
--	{"ROK4120"},		/* Rockwell 28.8 */
--	{"ROK4920"},		/* Viking 28.8 INTERNAL Fax+Data+Voice PnP */
--	{"RSS00A0"},		/* Rockwell 33.6 DPF External PnP, BT Prologue 33.6 External PnP, Modular Technology 33.6 External PnP */
--	{"RSS0262"},		/* Viking 56K FAX INT */
--	{"RSS0250"},		/* K56 par,VV,Voice,Speakphone,AudioSpan,PnP */
--	{"SUP1310"},		/* SupraExpress 28.8 Data/Fax PnP modem */
--	{"SUP1381"},		/* SupraExpress 336i PnP Voice Modem */
--	{"SUP1421"},		/* SupraExpress 33.6 Data/Fax PnP modem */
--	{"SUP1590"},		/* SupraExpress 33.6 Data/Fax PnP modem */
--	{"SUP1620"},		/* SupraExpress 336i Sp ASVD */
--	{"SUP1760"},		/* SupraExpress 33.6 Data/Fax PnP modem */
--	{"SUP2171"},		/* SupraExpress 56i Sp Intl */
--	{"TEX0011"},		/* Phoebe Micro 33.6 Data Fax 1433VQH Plug & Play */
--	{"UAC000F"},		/* Archtek SmartLink Modem 3334BT Plug & Play */
--	{"USR0000"},		/* 3Com Corp. Gateway Telepath IIvi 33.6 */
--	{"USR0002"},		/* U.S. Robotics Sporster 33.6K Fax INT PnP */
--	{"USR0004"},		/*  Sportster Vi 14.4 PnP FAX Voicemail */
--	{"USR0006"},		/* U.S. Robotics 33.6K Voice INT PnP */
--	{"USR0007"},		/* U.S. Robotics 33.6K Voice EXT PnP */
--	{"USR0009"},		/* U.S. Robotics Courier V.Everything INT PnP */
--	{"USR2002"},		/* U.S. Robotics 33.6K Voice INT PnP */
--	{"USR2070"},		/* U.S. Robotics 56K Voice INT PnP */
--	{"USR2080"},		/* U.S. Robotics 56K Voice EXT PnP */
--	{"USR3031"},		/* U.S. Robotics 56K FAX INT */
--	{"USR3050"},		/* U.S. Robotics 56K FAX INT */
--	{"USR3070"},		/* U.S. Robotics 56K Voice INT PnP */
--	{"USR3080"},		/* U.S. Robotics 56K Voice EXT PnP */
--	{"USR3090"},		/* U.S. Robotics 56K Voice INT PnP */
--	{"USR9100"},		/* U.S. Robotics 56K Message  */
--	{"USR9160"},		/* U.S. Robotics 56K FAX EXT PnP */
--	{"USR9170"},		/* U.S. Robotics 56K FAX INT PnP */
--	{"USR9180"},		/* U.S. Robotics 56K Voice EXT PnP */
--	{"USR9190"},		/* U.S. Robotics 56K Voice INT PnP */
--	{"WACFXXX"},		/* Wacom tablets */
--	{"FPI2002"},		/* Compaq touchscreen */
--	{"FUJ02B2"},		/* Fujitsu Stylistic touchscreens */
--	{"FUJ02B3"},
--	{"FUJ02B4"},		/* Fujitsu Stylistic LT touchscreens */
--	{"FUJ02B6"},		/* Passive Fujitsu Stylistic touchscreens */
--	{"FUJ02B7"},
--	{"FUJ02B8"},
--	{"FUJ02B9"},
--	{"FUJ02BC"},
--	{"FUJ02E5"},		/* Fujitsu Wacom Tablet PC device */
--	{"FUJ02E6"},		/* Fujitsu P-series tablet PC device */
--	{"FUJ02E7"},		/* Fujitsu Wacom 2FGT Tablet PC device */
--	{"FUJ02E9"},		/* Fujitsu Wacom 1FGT Tablet PC device */
--	{"LTS0001"},		/* LG C1 EXPRESS DUAL (C1-PB11A3) touch screen (actually a FUJ02E6 in disguise) */
--	{"WCI0003"},		/* Rockwell's (PORALiNK) 33600 INT PNP */
--	{"WEC1022"},		/* Winbond CIR port, should not be probed. We should keep track of it to prevent the legacy serial driver from probing it */
-+	{ .id = "AAC000F" },		/* Archtek America Corp. Archtek SmartLink Modem 3334BT Plug & Play */
-+	{ .id = "ADC0001" },		/* Anchor Datacomm BV. SXPro 144 External Data Fax Modem Plug & Play */
-+	{ .id = "ADC0002" },		/* SXPro 288 External Data Fax Modem Plug & Play */
-+	{ .id = "AEI0250" },		/* PROLiNK 1456VH ISA PnP K56flex Fax Modem */
-+	{ .id = "AEI1240" },		/* Actiontec ISA PNP 56K X2 Fax Modem */
-+	{ .id = "AKY1021" },		/* Rockwell 56K ACF II Fax+Data+Voice Modem */
-+	{ .id = "ALI5123" },		/* ALi Fast Infrared Controller */
-+	{ .id = "AZT4001" },		/* AZT3005 PnP SOUND DEVICE */
-+	{ .id = "BDP3336" },		/* Best Data Products Inc. Smart One 336F PnP Modem */
-+	{ .id = "BRI0A49" },		/* Boca Complete Ofc Communicator 14.4 Data-FAX */
-+	{ .id = "BRI1400" },		/* Boca Research 33,600 ACF Modem */
-+	{ .id = "BRI3400" },		/* Boca 33.6 Kbps Internal FD34FSVD */
-+	{ .id = "CPI4050" },		/* Computer Peripherals Inc. EuroViVa CommCenter-33.6 SP PnP */
-+	{ .id = "CTL3001" },		/* Creative Labs Phone Blaster 28.8 DSVD PnP Voice */
-+	{ .id = "CTL3011" },		/* Creative Labs Modem Blaster 28.8 DSVD PnP Voice */
-+	{ .id = "DAV0336" },		/* Davicom ISA 33.6K Modem */
-+	{ .id = "DMB1032" },		/* Creative Modem Blaster Flash56 DI5601-1 */
-+	{ .id = "DMB2001" },		/* Creative Modem Blaster V.90 DI5660 */
-+	{ .id = "ETT0002" },		/* E-Tech CyberBULLET PC56RVP */
-+	{ .id = "FUJ0202" },		/* Fujitsu 33600 PnP-I2 R Plug & Play */
-+	{ .id = "FUJ0205" },		/* Fujitsu FMV-FX431 Plug & Play */
-+	{ .id = "FUJ0206" },		/* Fujitsu 33600 PnP-I4 R Plug & Play */
-+	{ .id = "FUJ0209" },		/* Fujitsu Fax Voice 33600 PNP-I5 R Plug & Play */
-+	{ .id = "GVC000F" },		/* Archtek SmartLink Modem 3334BT Plug & Play */
-+	{ .id = "GVC0303" },		/* Archtek SmartLink Modem 3334BRV 33.6K Data Fax Voice */
-+	{ .id = "HAY0001" },		/* Hayes Optima 288 V.34-V.FC + FAX + Voice Plug & Play */
-+	{ .id = "HAY000C" },		/* Hayes Optima 336 V.34 + FAX + Voice PnP */
-+	{ .id = "HAY000D" },		/* Hayes Optima 336B V.34 + FAX + Voice PnP */
-+	{ .id = "HAY5670" },		/* Hayes Accura 56K Ext Fax Modem PnP */
-+	{ .id = "HAY5674" },		/* Hayes Accura 56K Ext Fax Modem PnP */
-+	{ .id = "HAY5675" },		/* Hayes Accura 56K Fax Modem PnP */
-+	{ .id = "HAYF000" },		/* Hayes 288, V.34 + FAX */
-+	{ .id = "HAYF001" },		/* Hayes Optima 288 V.34 + FAX + Voice, Plug & Play */
-+	{ .id = "IBM0033" },		/* IBM Thinkpad 701 Internal Modem Voice */
-+	{ .id = "PNP4972" },		/* Intermec CV60 touchscreen port */
-+	{ .id = "IXDC801" },		/* Intertex 28k8 33k6 Voice EXT PnP */
-+	{ .id = "IXDC901" },		/* Intertex 33k6 56k Voice EXT PnP */
-+	{ .id = "IXDD801" },		/* Intertex 28k8 33k6 Voice SP EXT PnP */
-+	{ .id = "IXDD901" },		/* Intertex 33k6 56k Voice SP EXT PnP */
-+	{ .id = "IXDF401" },		/* Intertex 28k8 33k6 Voice SP INT PnP */
-+	{ .id = "IXDF801" },		/* Intertex 28k8 33k6 Voice SP EXT PnP */
-+	{ .id = "IXDF901" },		/* Intertex 33k6 56k Voice SP EXT PnP */
-+	{ .id = "KOR4522" },		/* KORTEX 28800 Externe PnP */
-+	{ .id = "KORF661" },		/* KXPro 33.6 Vocal ASVD PnP */
-+	{ .id = "LAS4040" },		/* LASAT Internet 33600 PnP */
-+	{ .id = "LAS4540" },		/* Lasat Safire 560 PnP */
-+	{ .id = "LAS5440" },		/* Lasat Safire 336  PnP */
-+	{ .id = "MNP0281" },		/* Microcom TravelPorte FAST V.34 Plug & Play */
-+	{ .id = "MNP0336" },		/* Microcom DeskPorte V.34 FAST or FAST+ Plug & Play */
-+	{ .id = "MNP0339" },		/* Microcom DeskPorte FAST EP 28.8 Plug & Play */
-+	{ .id = "MNP0342" },		/* Microcom DeskPorte 28.8P Plug & Play */
-+	{ .id = "MNP0500" },		/* Microcom DeskPorte FAST ES 28.8 Plug & Play */
-+	{ .id = "MNP0501" },		/* Microcom DeskPorte FAST ES 28.8 Plug & Play */
-+	{ .id = "MNP0502" },		/* Microcom DeskPorte 28.8S Internal Plug & Play */
-+	{ .id = "MOT1105" },		/* Motorola BitSURFR Plug & Play */
-+	{ .id = "MOT1111" },		/* Motorola TA210 Plug & Play */
-+	{ .id = "MOT1114" },		/* Motorola HMTA 200 (ISDN) Plug & Play */
-+	{ .id = "MOT1115" },		/* Motorola BitSURFR Plug & Play */
-+	{ .id = "MOT1190" },		/* Motorola Lifestyle 28.8 Internal */
-+	{ .id = "MOT1501" },		/* Motorola V.3400 Plug & Play */
-+	{ .id = "MOT1502" },		/* Motorola Lifestyle 28.8 V.34 Plug & Play */
-+	{ .id = "MOT1505" },		/* Motorola Power 28.8 V.34 Plug & Play */
-+	{ .id = "MOT1509" },		/* Motorola ModemSURFR External 28.8 Plug & Play */
-+	{ .id = "MOT150A" },		/* Motorola Premier 33.6 Desktop Plug & Play */
-+	{ .id = "MOT150F" },		/* Motorola VoiceSURFR 56K External PnP */
-+	{ .id = "MOT1510" },		/* Motorola ModemSURFR 56K External PnP */
-+	{ .id = "MOT1550" },		/* Motorola ModemSURFR 56K Internal PnP */
-+	{ .id = "MOT1560" },		/* Motorola ModemSURFR Internal 28.8 Plug & Play */
-+	{ .id = "MOT1580" },		/* Motorola Premier 33.6 Internal Plug & Play */
-+	{ .id = "MOT15B0" },		/* Motorola OnlineSURFR 28.8 Internal Plug & Play */
-+	{ .id = "MOT15F0" },		/* Motorola VoiceSURFR 56K Internal PnP */
-+	{ .id = "MVX00A1" },		/*  Deskline K56 Phone System PnP */
-+	{ .id = "MVX00F2" },		/* PC Rider K56 Phone System PnP */
-+	{ .id = "nEC8241" },		/* NEC 98NOTE SPEAKER PHONE FAX MODEM(33600bps) */
-+	{ .id = "PMC2430" },		/* Pace 56 Voice Internal Plug & Play Modem */
-+	{ .id = "PNP0500" },		/* Generic standard PC COM port     */
-+	{ .id = "PNP0501" },		/* Generic 16550A-compatible COM port */
-+	{ .id = "PNPC000" },		/* Compaq 14400 Modem */
-+	{ .id = "PNPC001" },		/* Compaq 2400/9600 Modem */
-+	{ .id = "PNPC031" },		/* Dial-Up Networking Serial Cable between 2 PCs */
-+	{ .id = "PNPC032" },		/* Dial-Up Networking Parallel Cable between 2 PCs */
-+	{ .id = "PNPC100" },		/* Standard 9600 bps Modem */
-+	{ .id = "PNPC101" },		/* Standard 14400 bps Modem */
-+	{ .id = "PNPC102" },		/* Standard 28800 bps Modem */
-+	{ .id = "PNPC103" },		/* Standard Modem */
-+	{ .id = "PNPC104" },		/* Standard 9600 bps Modem */
-+	{ .id = "PNPC105" },		/* Standard 14400 bps Modem */
-+	{ .id = "PNPC106" },		/* Standard 28800 bps Modem */
-+	{ .id = "PNPC107" },		/* Standard Modem */
-+	{ .id = "PNPC108" },		/* Standard 9600 bps Modem */
-+	{ .id = "PNPC109" },		/* Standard 14400 bps Modem */
-+	{ .id = "PNPC10A" },		/* Standard 28800 bps Modem */
-+	{ .id = "PNPC10B" },		/* Standard Modem */
-+	{ .id = "PNPC10C" },		/* Standard 9600 bps Modem */
-+	{ .id = "PNPC10D" },		/* Standard 14400 bps Modem */
-+	{ .id = "PNPC10E" },		/* Standard 28800 bps Modem */
-+	{ .id = "PNPC10F" },		/* Standard Modem */
-+	{ .id = "PNP2000" },		/* Standard PCMCIA Card Modem */
-+	{ .id = "ROK0030" },		/* Rockwell 33.6 DPF Internal PnP, Modular Technology 33.6 Internal PnP */
-+	{ .id = "ROK0100" },		/* KORTEX 14400 Externe PnP */
-+	{ .id = "ROK4120" },		/* Rockwell 28.8 */
-+	{ .id = "ROK4920" },		/* Viking 28.8 INTERNAL Fax+Data+Voice PnP */
-+	{ .id = "RSS00A0" },		/* Rockwell 33.6 DPF External PnP, BT Prologue 33.6 External PnP, Modular Technology 33.6 External PnP */
-+	{ .id = "RSS0262" },		/* Viking 56K FAX INT */
-+	{ .id = "RSS0250" },		/* K56 par,VV,Voice,Speakphone,AudioSpan,PnP */
-+	{ .id = "SUP1310" },		/* SupraExpress 28.8 Data/Fax PnP modem */
-+	{ .id = "SUP1381" },		/* SupraExpress 336i PnP Voice Modem */
-+	{ .id = "SUP1421" },		/* SupraExpress 33.6 Data/Fax PnP modem */
-+	{ .id = "SUP1590" },		/* SupraExpress 33.6 Data/Fax PnP modem */
-+	{ .id = "SUP1620" },		/* SupraExpress 336i Sp ASVD */
-+	{ .id = "SUP1760" },		/* SupraExpress 33.6 Data/Fax PnP modem */
-+	{ .id = "SUP2171" },		/* SupraExpress 56i Sp Intl */
-+	{ .id = "TEX0011" },		/* Phoebe Micro 33.6 Data Fax 1433VQH Plug & Play */
-+	{ .id = "UAC000F" },		/* Archtek SmartLink Modem 3334BT Plug & Play */
-+	{ .id = "USR0000" },		/* 3Com Corp. Gateway Telepath IIvi 33.6 */
-+	{ .id = "USR0002" },		/* U.S. Robotics Sporster 33.6K Fax INT PnP */
-+	{ .id = "USR0004" },		/*  Sportster Vi 14.4 PnP FAX Voicemail */
-+	{ .id = "USR0006" },		/* U.S. Robotics 33.6K Voice INT PnP */
-+	{ .id = "USR0007" },		/* U.S. Robotics 33.6K Voice EXT PnP */
-+	{ .id = "USR0009" },		/* U.S. Robotics Courier V.Everything INT PnP */
-+	{ .id = "USR2002" },		/* U.S. Robotics 33.6K Voice INT PnP */
-+	{ .id = "USR2070" },		/* U.S. Robotics 56K Voice INT PnP */
-+	{ .id = "USR2080" },		/* U.S. Robotics 56K Voice EXT PnP */
-+	{ .id = "USR3031" },		/* U.S. Robotics 56K FAX INT */
-+	{ .id = "USR3050" },		/* U.S. Robotics 56K FAX INT */
-+	{ .id = "USR3070" },		/* U.S. Robotics 56K Voice INT PnP */
-+	{ .id = "USR3080" },		/* U.S. Robotics 56K Voice EXT PnP */
-+	{ .id = "USR3090" },		/* U.S. Robotics 56K Voice INT PnP */
-+	{ .id = "USR9100" },		/* U.S. Robotics 56K Message  */
-+	{ .id = "USR9160" },		/* U.S. Robotics 56K FAX EXT PnP */
-+	{ .id = "USR9170" },		/* U.S. Robotics 56K FAX INT PnP */
-+	{ .id = "USR9180" },		/* U.S. Robotics 56K Voice EXT PnP */
-+	{ .id = "USR9190" },		/* U.S. Robotics 56K Voice INT PnP */
-+	{ .id = "WACFXXX" },		/* Wacom tablets */
-+	{ .id = "FPI2002" },		/* Compaq touchscreen */
-+	{ .id = "FUJ02B2" },		/* Fujitsu Stylistic touchscreens */
-+	{ .id = "FUJ02B3" },
-+	{ .id = "FUJ02B4" },		/* Fujitsu Stylistic LT touchscreens */
-+	{ .id = "FUJ02B6" },		/* Passive Fujitsu Stylistic touchscreens */
-+	{ .id = "FUJ02B7" },
-+	{ .id = "FUJ02B8" },
-+	{ .id = "FUJ02B9" },
-+	{ .id = "FUJ02BC" },
-+	{ .id = "FUJ02E5" },		/* Fujitsu Wacom Tablet PC device */
-+	{ .id = "FUJ02E6" },		/* Fujitsu P-series tablet PC device */
-+	{ .id = "FUJ02E7" },		/* Fujitsu Wacom 2FGT Tablet PC device */
-+	{ .id = "FUJ02E9" },		/* Fujitsu Wacom 1FGT Tablet PC device */
-+	{ .id = "LTS0001" },		/* LG C1 EXPRESS DUAL (C1-PB11A3) touch screen (actually a FUJ02E6 in disguise) */
-+	{ .id = "WCI0003" },		/* Rockwell's (PORALiNK) 33600 INT PNP */
-+	{ .id = "WEC1022" },		/* Winbond CIR port, should not be probed. We should keep track of it to prevent the legacy serial driver from probing it */
- 	/* scl200wdt */
--	{"NSC0800"},		/* National Semiconductor PC87307/PC97307 watchdog component */
-+	{ .id = "NSC0800" },		/* National Semiconductor PC87307/PC97307 watchdog component */
- 	/* mpu401 */
--	{"PNPb006"},
-+	{ .id = "PNPb006" },
- 	/* cs423x-pnpbios */
--	{"CSC0100"},
--	{"CSC0103"},
--	{"CSC0110"},
--	{"CSC0000"},
--	{"GIM0100"},		/* Guillemot Turtlebeach something appears to be cs4232 compatible */
-+	{ .id = "CSC0100" },
-+	{ .id = "CSC0103" },
-+	{ .id = "CSC0110" },
-+	{ .id = "CSC0000" },
-+	{ .id = "GIM0100" },		/* Guillemot Turtlebeach something appears to be cs4232 compatible */
- 	/* es18xx-pnpbios */
--	{"ESS1869"},
--	{"ESS1879"},
-+	{ .id = "ESS1869" },
-+	{ .id = "ESS1879" },
- 	/* snd-opl3sa2-pnpbios */
--	{"YMH0021"},
--	{"NMX2210"},		/* Gateway Solo 2500 */
-+	{ .id = "YMH0021" },
-+	{ .id = "NMX2210" },		/* Gateway Solo 2500 */
- 	{ }
- };
- 
-diff --git a/drivers/acpi/acpi_processor.c b/drivers/acpi/acpi_processor.c
-index 5fbab54171b7..db6e66631c9e 100644
---- a/drivers/acpi/acpi_processor.c
-+++ b/drivers/acpi/acpi_processor.c
-@@ -631,8 +631,8 @@ void __init acpi_early_processor_control_setup(void)
-  */
- static const struct acpi_device_id processor_device_ids[] = {
- 
--	{ ACPI_PROCESSOR_OBJECT_HID, },
--	{ ACPI_PROCESSOR_DEVICE_HID, },
-+	{ .id = ACPI_PROCESSOR_OBJECT_HID },
-+	{ .id = ACPI_PROCESSOR_DEVICE_HID },
- 
- 	{ }
- };
-@@ -655,7 +655,7 @@ static int acpi_processor_container_attach(struct acpi_device *dev,
- }
- 
- static const struct acpi_device_id processor_container_ids[] = {
--	{ ACPI_PROCESSOR_CONTAINER_HID, },
-+	{ .id = ACPI_PROCESSOR_CONTAINER_HID },
- 	{ }
- };
- 
-diff --git a/drivers/acpi/apei/ghes-nvidia.c b/drivers/acpi/apei/ghes-nvidia.c
-index bdd797fcb054..098845895fbc 100644
---- a/drivers/acpi/apei/ghes-nvidia.c
-+++ b/drivers/acpi/apei/ghes-nvidia.c
-@@ -130,7 +130,7 @@ static int nvidia_ghes_probe(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id nvidia_ghes_acpi_match[] = {
--	{ "NVDA2012" },
-+	{ .id = "NVDA2012" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, nvidia_ghes_acpi_match);
 diff --git a/drivers/acpi/button.c b/drivers/acpi/button.c
-index 73a9efe07160..66a57eea2280 100644
+index 66a57eea2280..c41fba556030 100644
 --- a/drivers/acpi/button.c
 +++ b/drivers/acpi/button.c
-@@ -60,11 +60,11 @@ MODULE_DESCRIPTION("ACPI Button Driver");
- MODULE_LICENSE("GPL");
- 
- static const struct acpi_device_id button_device_ids[] = {
--	{ACPI_BUTTON_HID_LID, ACPI_BUTTON_TYPE_LID},
--	{ACPI_BUTTON_HID_SLEEP, ACPI_BUTTON_TYPE_SLEEP},
--	{ACPI_BUTTON_HID_SLEEPF, ACPI_BUTTON_TYPE_SLEEP},
--	{ACPI_BUTTON_HID_POWER, ACPI_BUTTON_TYPE_POWER},
--	{ACPI_BUTTON_HID_POWERF, ACPI_BUTTON_TYPE_POWER},
-+	{ .id = ACPI_BUTTON_HID_LID, .driver_data = ACPI_BUTTON_TYPE_LID },
-+	{ .id = ACPI_BUTTON_HID_SLEEP, .driver_data = ACPI_BUTTON_TYPE_SLEEP },
-+	{ .id = ACPI_BUTTON_HID_SLEEPF, .driver_data = ACPI_BUTTON_TYPE_SLEEP },
-+	{ .id = ACPI_BUTTON_HID_POWER, .driver_data = ACPI_BUTTON_TYPE_POWER },
-+	{ .id = ACPI_BUTTON_HID_POWERF, .driver_data = ACPI_BUTTON_TYPE_POWER },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, button_device_ids);
-diff --git a/drivers/acpi/evged.c b/drivers/acpi/evged.c
-index e8c60f902846..189dc68b8875 100644
---- a/drivers/acpi/evged.c
-+++ b/drivers/acpi/evged.c
-@@ -179,7 +179,7 @@ static void ged_remove(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id ged_acpi_ids[] = {
--	{"ACPI0013"},
-+	{ .id = "ACPI0013" },
- 	{ }
+@@ -167,7 +167,7 @@ static const struct dmi_system_id dmi_lid_quirks[] = {
+ 		},
+ 		.driver_data = (void *)(long)ACPI_BUTTON_LID_INIT_OPEN,
+ 	},
+-	{}
++	{ }
  };
  
-diff --git a/drivers/acpi/pfr_telemetry.c b/drivers/acpi/pfr_telemetry.c
-index 818359e21d1a..ed5711d26cb3 100644
---- a/drivers/acpi/pfr_telemetry.c
-+++ b/drivers/acpi/pfr_telemetry.c
-@@ -415,7 +415,7 @@ static int acpi_pfrt_log_probe(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id acpi_pfrt_log_ids[] = {
--	{"INTC1081"},
-+	{ .id = "INTC1081" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, acpi_pfrt_log_ids);
-diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
-index 993ab5a479f5..997dbc3a95be 100644
---- a/drivers/acpi/pfr_update.c
-+++ b/drivers/acpi/pfr_update.c
-@@ -594,7 +594,7 @@ static int acpi_pfru_probe(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id acpi_pfru_ids[] = {
--	{"INTC1080"},
-+	{ .id = "INTC1080" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, acpi_pfru_ids);
-diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-index 913da04062b7..0a607a741215 100644
---- a/drivers/acpi/scan.c
-+++ b/drivers/acpi/scan.c
-@@ -1821,33 +1821,33 @@ static bool acpi_device_enumeration_by_parent(struct acpi_device *device)
- 	 * by the drivers/platform/x86/serial-multi-instantiate.c driver, which
- 	 * knows which client device id to use for each resource.
- 	 */
--		{"AWDZ8399", },
--		{"BSG1160", },
--		{"BSG2150", },
--		{"CSC3551", },
--		{"CSC3554", },
--		{"CSC3556", },
--		{"CSC3557", },
--		{"INT33FE", },
--		{"INT3515", },
--		{"TXNW2781", },
-+		{ .id = "AWDZ8399" },
-+		{ .id = "BSG1160" },
-+		{ .id = "BSG2150" },
-+		{ .id = "CSC3551" },
-+		{ .id = "CSC3554" },
-+		{ .id = "CSC3556" },
-+		{ .id = "CSC3557" },
-+		{ .id = "INT33FE" },
-+		{ .id = "INT3515" },
-+		{ .id = "TXNW2781" },
- 		/* Non-conforming _HID for Cirrus Logic already released */
--		{"CLSA0100", },
--		{"CLSA0101", },
--		{"CLSA0102", },
-+		{ .id = "CLSA0100" },
-+		{ .id = "CLSA0101" },
-+		{ .id = "CLSA0102" },
- 	/*
- 	 * Some ACPI devs contain SerialBus resources even though they are not
- 	 * attached to a serial bus at all.
- 	 */
--		{"MSHW0028", },
-+		{ .id = "MSHW0028" },
- 	/*
- 	 * HIDs of device with an UartSerialBusV2 resource for which userspace
- 	 * expects a regular tty cdev to be created (instead of the in kernel
- 	 * serdev) and which have a kernel driver which expects a platform_dev
- 	 * such as the rfkill-gpio driver.
- 	 */
--		{"BCM4752", },
--		{"LNV4752", },
-+		{ .id = "BCM4752" },
-+		{ .id = "LNV4752" },
- 		{ }
- 	};
- 
-@@ -2355,7 +2355,7 @@ static void acpi_default_enumeration(struct acpi_device *device)
- }
- 
- static const struct acpi_device_id generic_device_ids[] = {
--	{ACPI_DT_NAMESPACE_HID, },
-+	{ .id = ACPI_DT_NAMESPACE_HID },
- 	{ }
+ static int acpi_button_probe(struct platform_device *pdev);
+diff --git a/drivers/acpi/ec.c b/drivers/acpi/ec.c
+index d947118657a8..da7f35a42dd4 100644
+--- a/drivers/acpi/ec.c
++++ b/drivers/acpi/ec.c
+@@ -2017,7 +2017,7 @@ static const struct dmi_system_id ec_dmi_table[] __initconst = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
+ 		},
+ 	},
+-	{}
++	{ }
  };
  
-diff --git a/drivers/acpi/x86/cmos_rtc.c b/drivers/acpi/x86/cmos_rtc.c
-index ced334e19896..d9891b00d090 100644
---- a/drivers/acpi/x86/cmos_rtc.c
-+++ b/drivers/acpi/x86/cmos_rtc.c
-@@ -18,7 +18,7 @@
- #include "../internal.h"
- 
- static const struct acpi_device_id acpi_cmos_rtc_ids[] = {
--	{ "ACPI000E", 1 }, /* ACPI Time and Alarm Device (TAD) */
-+	{ .id = "ACPI000E", .driver_data = 1 }, /* ACPI Time and Alarm Device (TAD) */
- 	ACPI_CMOS_RTC_IDS
+ void __init acpi_ec_ecdt_probe(void)
+diff --git a/drivers/acpi/mipi-disco-img.c b/drivers/acpi/mipi-disco-img.c
+index ea4bffe3c02d..86df7dc25339 100644
+--- a/drivers/acpi/mipi-disco-img.c
++++ b/drivers/acpi/mipi-disco-img.c
+@@ -736,7 +736,7 @@ static const struct x86_cpu_id dell_broken_mipi_disco_cpu_gens[] = {
+ 	X86_MATCH_VFM(INTEL_RAPTORLAKE, NULL),
+ 	X86_MATCH_VFM(INTEL_RAPTORLAKE_P, NULL),
+ 	X86_MATCH_VFM(INTEL_RAPTORLAKE_S, NULL),
+-	{}
++	{ }
  };
  
+ static const char *strnext(const char *s1, const char *s2)
+diff --git a/drivers/acpi/osi.c b/drivers/acpi/osi.c
+index 9470f1830ff5..0fcb0d006065 100644
+--- a/drivers/acpi/osi.c
++++ b/drivers/acpi/osi.c
+@@ -473,7 +473,7 @@ static const struct dmi_system_id acpi_osi_dmi_table[] __initconst = {
+ 		     DMI_MATCH(DMI_PRODUCT_NAME, "1015PX"),
+ 		},
+ 	},
+-	{}
++	{ }
+ };
+ 
+ static __init void acpi_osi_dmi_blacklisted(void)
+diff --git a/drivers/acpi/pci_slot.c b/drivers/acpi/pci_slot.c
+index 33a123074071..e5cf81b6c8e1 100644
+--- a/drivers/acpi/pci_slot.c
++++ b/drivers/acpi/pci_slot.c
+@@ -178,7 +178,7 @@ static const struct dmi_system_id acpi_pci_slot_dmi_table[] __initconst = {
+ 		DMI_MATCH(DMI_BIOS_VERSION, "PRIMEQUEST"),
+ 		},
+ 	},
+-	{}
++	{ }
+ };
+ 
+ void __init acpi_pci_slot_init(void)
+diff --git a/drivers/acpi/pmic/intel_pmic_bxtwc.c b/drivers/acpi/pmic/intel_pmic_bxtwc.c
+index c332afbf82bd..99c05b62df43 100644
+--- a/drivers/acpi/pmic/intel_pmic_bxtwc.c
++++ b/drivers/acpi/pmic/intel_pmic_bxtwc.c
+@@ -395,7 +395,7 @@ static int intel_bxtwc_pmic_opregion_probe(struct platform_device *pdev)
+ 
+ static const struct platform_device_id bxt_wc_opregion_id_table[] = {
+ 	{ .name = "bxt_wcove_region" },
+-	{},
++	{ }
+ };
+ 
+ static struct platform_driver intel_bxtwc_pmic_opregion_driver = {
+diff --git a/drivers/acpi/pmic/intel_pmic_chtdc_ti.c b/drivers/acpi/pmic/intel_pmic_chtdc_ti.c
+index ecb36fbc1e7f..5424cf72fb1b 100644
+--- a/drivers/acpi/pmic/intel_pmic_chtdc_ti.c
++++ b/drivers/acpi/pmic/intel_pmic_chtdc_ti.c
+@@ -127,7 +127,7 @@ static int chtdc_ti_pmic_opregion_probe(struct platform_device *pdev)
+ 
+ static const struct platform_device_id chtdc_ti_pmic_opregion_id_table[] = {
+ 	{ .name = "chtdc_ti_region" },
+-	{},
++	{ }
+ };
+ 
+ static struct platform_driver chtdc_ti_pmic_opregion_driver = {
+diff --git a/drivers/acpi/pmic/intel_pmic_chtwc.c b/drivers/acpi/pmic/intel_pmic_chtwc.c
+index 81caede51ca2..f4c90907b020 100644
+--- a/drivers/acpi/pmic/intel_pmic_chtwc.c
++++ b/drivers/acpi/pmic/intel_pmic_chtwc.c
+@@ -275,7 +275,7 @@ static int intel_cht_wc_pmic_opregion_probe(struct platform_device *pdev)
+ 
+ static const struct platform_device_id cht_wc_opregion_id_table[] = {
+ 	{ .name = "cht_wcove_region" },
+-	{},
++	{ }
+ };
+ 
+ static struct platform_driver intel_cht_wc_pmic_opregion_driver = {
+diff --git a/drivers/acpi/power.c b/drivers/acpi/power.c
+index c77342a584f0..e97eb73bb2fe 100644
+--- a/drivers/acpi/power.c
++++ b/drivers/acpi/power.c
+@@ -1093,7 +1093,7 @@ static const struct dmi_system_id dmi_hp_elitebook_gp12pxp_quirk[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "HP EliteBook 855 G7 Notebook PC"),
+ 		},
+ 	},
+-	{}
++	{ }
+ };
+ 
+ static const struct dmi_system_id dmi_leave_unused_power_resources_on[] = {
+diff --git a/drivers/acpi/processor_idle.c b/drivers/acpi/processor_idle.c
+index e113bcbbb882..9238e12e37fd 100644
+--- a/drivers/acpi/processor_idle.c
++++ b/drivers/acpi/processor_idle.c
+@@ -105,7 +105,7 @@ static const struct dmi_system_id processor_power_dmi_table[] = {
+ 	  DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK Computer Inc."),
+ 	  DMI_MATCH(DMI_PRODUCT_NAME,"L8400B series Notebook PC")},
+ 	 (void *)1},
+-	{},
++	{ }
+ };
+ 
+ 
+diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
+index 641056e0252b..7c1fb5b844be 100644
+--- a/drivers/acpi/sleep.c
++++ b/drivers/acpi/sleep.c
+@@ -407,7 +407,7 @@ static const struct dmi_system_id acpisleep_dmi_table[] __initconst = {
+ 		DMI_MATCH(DMI_PRODUCT_NAME, "20GGA00L00"),
+ 		},
+ 	},
+-	{},
++	{ }
+ };
+ 
+ static bool ignore_blacklist;
+diff --git a/drivers/acpi/thermal.c b/drivers/acpi/thermal.c
+index da631bbe8ea2..3d06744924b6 100644
+--- a/drivers/acpi/thermal.c
++++ b/drivers/acpi/thermal.c
+@@ -1014,7 +1014,7 @@ static const struct dmi_system_id thermal_dmi_table[] __initconst = {
+ 		DMI_MATCH(DMI_BOARD_NAME, "7ZX"),
+ 		},
+ 	},
+-	{}
++	{ }
+ };
+ 
+ static int __init acpi_thermal_init(void)
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index 2050b8ff5384..997794d3b3d6 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -986,7 +986,7 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 		DMI_MATCH(DMI_PRODUCT_NAME, "Mipad2"),
+ 		},
+ 	},
+-	{ },
++	{ }
+ };
+ 
+ static bool google_cros_ec_present(void)
+diff --git a/drivers/acpi/x86/blacklist.c b/drivers/acpi/x86/blacklist.c
+index 55214d0a12b1..553291330f39 100644
+--- a/drivers/acpi/x86/blacklist.c
++++ b/drivers/acpi/x86/blacklist.c
+@@ -134,7 +134,7 @@ static const struct dmi_system_id acpi_rev_dmi_table[] __initconst = {
+ 		},
+ 	},
+ #endif
+-	{}
++	{ }
+ };
+ 
+ #endif /* CONFIG_DMI */
 diff --git a/drivers/acpi/x86/lpss.c b/drivers/acpi/x86/lpss.c
-index 0171eef00484..50b6db40bb18 100644
+index 50b6db40bb18..fa0f1b61614d 100644
 --- a/drivers/acpi/x86/lpss.c
 +++ b/drivers/acpi/x86/lpss.c
-@@ -351,41 +351,41 @@ static const struct x86_cpu_id lpss_cpu_ids[] = {
- 
- static const struct acpi_device_id acpi_lpss_device_ids[] = {
- 	/* Generic LPSS devices */
--	{ "INTL9C60", LPSS_ADDR(lpss_dma_desc) },
-+	{ .id = "INTL9C60", .driver_data = LPSS_ADDR(lpss_dma_desc) },
- 
- 	/* Lynxpoint LPSS devices */
--	{ "INT33C0", LPSS_ADDR(lpt_spi_dev_desc) },
--	{ "INT33C1", LPSS_ADDR(lpt_spi_dev_desc) },
--	{ "INT33C2", LPSS_ADDR(lpt_i2c_dev_desc) },
--	{ "INT33C3", LPSS_ADDR(lpt_i2c_dev_desc) },
--	{ "INT33C4", LPSS_ADDR(lpt_uart_dev_desc) },
--	{ "INT33C5", LPSS_ADDR(lpt_uart_dev_desc) },
--	{ "INT33C6", LPSS_ADDR(lpt_sdio_dev_desc) },
-+	{ .id = "INT33C0", .driver_data = LPSS_ADDR(lpt_spi_dev_desc) },
-+	{ .id = "INT33C1", .driver_data = LPSS_ADDR(lpt_spi_dev_desc) },
-+	{ .id = "INT33C2", .driver_data = LPSS_ADDR(lpt_i2c_dev_desc) },
-+	{ .id = "INT33C3", .driver_data = LPSS_ADDR(lpt_i2c_dev_desc) },
-+	{ .id = "INT33C4", .driver_data = LPSS_ADDR(lpt_uart_dev_desc) },
-+	{ .id = "INT33C5", .driver_data = LPSS_ADDR(lpt_uart_dev_desc) },
-+	{ .id = "INT33C6", .driver_data = LPSS_ADDR(lpt_sdio_dev_desc) },
- 
- 	/* BayTrail LPSS devices */
--	{ "80860F09", LPSS_ADDR(byt_pwm_dev_desc) },
--	{ "80860F0A", LPSS_ADDR(byt_uart_dev_desc) },
--	{ "80860F0E", LPSS_ADDR(byt_spi_dev_desc) },
--	{ "80860F14", LPSS_ADDR(byt_sdio_dev_desc) },
--	{ "80860F41", LPSS_ADDR(byt_i2c_dev_desc) },
-+	{ .id = "80860F09", .driver_data = LPSS_ADDR(byt_pwm_dev_desc) },
-+	{ .id = "80860F0A", .driver_data = LPSS_ADDR(byt_uart_dev_desc) },
-+	{ .id = "80860F0E", .driver_data = LPSS_ADDR(byt_spi_dev_desc) },
-+	{ .id = "80860F14", .driver_data = LPSS_ADDR(byt_sdio_dev_desc) },
-+	{ .id = "80860F41", .driver_data = LPSS_ADDR(byt_i2c_dev_desc) },
- 
- 	/* Braswell LPSS devices */
--	{ "80862286", LPSS_ADDR(lpss_dma_desc) },
--	{ "80862288", LPSS_ADDR(bsw_pwm_dev_desc) },
--	{ "80862289", LPSS_ADDR(bsw_pwm2_dev_desc) },
--	{ "8086228A", LPSS_ADDR(bsw_uart_dev_desc) },
--	{ "8086228E", LPSS_ADDR(bsw_spi_dev_desc) },
--	{ "808622C0", LPSS_ADDR(lpss_dma_desc) },
--	{ "808622C1", LPSS_ADDR(bsw_i2c_dev_desc) },
-+	{ .id = "80862286", .driver_data = LPSS_ADDR(lpss_dma_desc) },
-+	{ .id = "80862288", .driver_data = LPSS_ADDR(bsw_pwm_dev_desc) },
-+	{ .id = "80862289", .driver_data = LPSS_ADDR(bsw_pwm2_dev_desc) },
-+	{ .id = "8086228A", .driver_data = LPSS_ADDR(bsw_uart_dev_desc) },
-+	{ .id = "8086228E", .driver_data = LPSS_ADDR(bsw_spi_dev_desc) },
-+	{ .id = "808622C0", .driver_data = LPSS_ADDR(lpss_dma_desc) },
-+	{ .id = "808622C1", .driver_data = LPSS_ADDR(bsw_i2c_dev_desc) },
- 
- 	/* Broadwell LPSS devices */
--	{ "INT3430", LPSS_ADDR(lpt_spi_dev_desc) },
--	{ "INT3431", LPSS_ADDR(lpt_spi_dev_desc) },
--	{ "INT3432", LPSS_ADDR(lpt_i2c_dev_desc) },
--	{ "INT3433", LPSS_ADDR(lpt_i2c_dev_desc) },
--	{ "INT3434", LPSS_ADDR(lpt_uart_dev_desc) },
--	{ "INT3435", LPSS_ADDR(lpt_uart_dev_desc) },
--	{ "INT3436", LPSS_ADDR(lpt_sdio_dev_desc) },
-+	{ .id = "INT3430", .driver_data = LPSS_ADDR(lpt_spi_dev_desc) },
-+	{ .id = "INT3431", .driver_data = LPSS_ADDR(lpt_spi_dev_desc) },
-+	{ .id = "INT3432", .driver_data = LPSS_ADDR(lpt_i2c_dev_desc) },
-+	{ .id = "INT3433", .driver_data = LPSS_ADDR(lpt_i2c_dev_desc) },
-+	{ .id = "INT3434", .driver_data = LPSS_ADDR(lpt_uart_dev_desc) },
-+	{ .id = "INT3435", .driver_data = LPSS_ADDR(lpt_uart_dev_desc) },
-+	{ .id = "INT3436", .driver_data = LPSS_ADDR(lpt_sdio_dev_desc) },
- 
- 	{ }
- };
-diff --git a/drivers/acpi/x86/s2idle.c b/drivers/acpi/x86/s2idle.c
-index 74e36c6365dc..51c9cbf5beb4 100644
---- a/drivers/acpi/x86/s2idle.c
-+++ b/drivers/acpi/x86/s2idle.c
-@@ -122,7 +122,7 @@ module_param(check_lps0_constraints, bool, 0644);
- MODULE_PARM_DESC(check_lps0_constraints, "Check LPS0 device constraints");
- 
- static const struct acpi_device_id lps0_device_ids[] = {
--	{"PNP0D80", },
-+	{ .id = "PNP0D80" },
- 	{ }
+@@ -340,7 +340,7 @@ static const struct lpss_device_desc bsw_spi_dev_desc = {
+ static const struct x86_cpu_id lpss_cpu_ids[] = {
+ 	X86_MATCH_VFM(INTEL_ATOM_SILVERMONT,	NULL),
+ 	X86_MATCH_VFM(INTEL_ATOM_AIRMONT,	NULL),
+-	{}
++	{ }
  };
  
-@@ -520,10 +520,10 @@ static const struct amd_lps0_hid_device_data amd_cezanne = {
+ #else
+@@ -493,7 +493,7 @@ static const struct dmi_system_id i2c1_dep_missing_dmi_ids[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "T200TA"),
+ 		},
+ 	},
+-	{}
++	{ }
  };
  
- static const struct acpi_device_id amd_hid_ids[] = {
--	{"AMD0004",	(kernel_ulong_t)&amd_picasso,	},
--	{"AMD0005",	(kernel_ulong_t)&amd_picasso,	},
--	{"AMDI0005",	(kernel_ulong_t)&amd_picasso,	},
--	{"AMDI0006",	(kernel_ulong_t)&amd_cezanne,	},
-+	{ .id = "AMD0004", .driver_data = (kernel_ulong_t)&amd_picasso },
-+	{ .id = "AMD0005", .driver_data = (kernel_ulong_t)&amd_picasso },
-+	{ .id = "AMDI0005", .driver_data = (kernel_ulong_t)&amd_picasso },
-+	{ .id = "AMDI0006", .driver_data = (kernel_ulong_t)&amd_cezanne },
- 	{ }
- };
- 
+ /*
 diff --git a/drivers/acpi/x86/utils.c b/drivers/acpi/x86/utils.c
-index 32c74864226f..e723575399b8 100644
+index e723575399b8..b6ef5dfb662a 100644
 --- a/drivers/acpi/x86/utils.c
 +++ b/drivers/acpi/x86/utils.c
-@@ -47,7 +47,7 @@ struct override_status_id {
+@@ -49,7 +49,7 @@ struct override_status_id {
+ #define ENTRY(status, hid, uid, path, cpu_vfm, dmi...) {		\
+ 	{ { .id = hid }, { } },						\
+ 	{ X86_MATCH_VFM(cpu_vfm, NULL), {} },				\
+-	{ { .matches = dmi }, {} },					\
++	{ { .matches = dmi }, { } },					\
+ 	uid,								\
+ 	path,								\
+ 	status,								\
+@@ -458,7 +458,7 @@ static const struct dmi_system_id acpi_quirk_skip_dmi_ids[] = {
+ 					ACPI_QUIRK_SKIP_ACPI_AC_AND_BATTERY),
+ 	},
+ #endif
+-	{}
++	{ }
  };
  
- #define ENTRY(status, hid, uid, path, cpu_vfm, dmi...) {		\
--	{ { hid, }, { } },						\
-+	{ { .id = hid }, { } },						\
- 	{ X86_MATCH_VFM(cpu_vfm, NULL), {} },				\
- 	{ { .matches = dmi }, {} },					\
- 	uid,								\
-diff --git a/include/linux/acpi.h b/include/linux/acpi.h
-index aed3ddb388c0..a77f476115da 100644
---- a/include/linux/acpi.h
-+++ b/include/linux/acpi.h
-@@ -828,9 +828,9 @@ int acpi_mrrm_max_mem_region(void);
- #endif
- 
- #define ACPI_CMOS_RTC_IDS	\
--	{ "PNP0B00", },		\
--	{ "PNP0B01", },		\
--	{ "PNP0B02", },		\
-+	{ .id = "PNP0B00" },	\
-+	{ .id = "PNP0B01" },	\
-+	{ .id = "PNP0B02" },	\
- 	{ }
- 
- extern bool cmos_rtc_platform_device_present;
+ #if IS_ENABLED(CONFIG_X86_ANDROID_TABLETS)
 -- 
 2.56.0.rc1
 
