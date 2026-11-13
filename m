@@ -1,102 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794560412;
-	b=u3K/LfXQhXcuZ6pomw5rYa8yiav4m/1AIO1ndXUowG9t+JjbXX+9LoMgWgB3lwQO3sCh
-	 7M+FA5YggcGFyVazQnk1elkYF6PmSSe70A7Qblk9xkRH7GbP1UkWZF7q28kl09ZK0TDaA
-	 juLymR7g5HVELyyVA8J+zjVwqn8hOGqRwiSZcoLkYiEmF2If0/zWdRG6+7AlpSaH0K7wQ
-	 Jr7gGnzfEv3DJouGAiIILn+UsPtwSIYquS1haPY4oVHOQgyRa0iVF1p1piPXiI4GoRlbe
-	 M6haAu4bdg7XvEBteD0iO6h/XM4ujalZ/IogJuShIYSGebpp5EWeShd1E+dPLMzIZYA==
+	t=1794560487;
+	b=BYq9iCPTtxeQhOMeTaXc2uPS75M5QrBoJoaMkUL3CCJluGeQEZM4cX6jr6NpTjwrxrBF
+	 RjhOELIW7wwSKhR2Mz0ih6k9WRFVrfnVGRxyecslMEQ6TlirB6uNZMniXDnaCd3OFhCTR
+	 lSdi9ixnmpHZMir5vq+8yrGZPu3ctWWgRRSFoMo3sqtAt1DUk6unBOa7L2NAcr5gUwipY
+	 kinBTvB4aNEqF6XOnLok88WuGvPV1kuIIEfTPZhgbB2bKUqI3WMe2makSwuRFX/vXYXjR
+	 C4bK7sQ3uM6xzPA3dOzlhuzHgtoSwSyCm1SXf796g8f9FBegHADh1bUtJK4QidfRitQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794560412;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560487;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Un80vRFzwpcVSJmCxlKjL26KdkwkmzqjZ1VKDAH+aPE=;
-	b=SKwy9ghp5HHmEvIAgbYxbz4Ucbujti//8/H+zAOq9FhEfXjXHoogFdB/PCQCXHgANdar
-	 CyzExH0hg3UyUrBpm971TPqb6Cn3ScSUlbu/0mQ+69NsHHpxTfNPuyzRI1fyxE2245lfy
-	 qaLQwtzJwNlPd0gX7BLhRog+tcO0yKd/c+DwGVZKosikWxKd4P6wYx/2/c+9hojbbIRWL
-	 kYs0BcTc8efZFHVOmTiI9wVpBZogTwzwVdgdKM+7KisWMNO/HONv74ztdywyI3QW6OcvF
-	 T6HqLO1MygJf1JF+ljXHFWubsZ2dquP2HzVrRj42WxjFR8sSg7UCBTEDUMoE62lzBWQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=E3a97Mkr7cqGGxSA1yo/Xc4eASuJjZXRMaeChH71cvE=;
+	b=KthxpjuGu6sloBbXjbiZ7tx6yPTNP7DtFj1m+b3AWTfhba+7HbIetBjl2JJOm5HSAkjF
+	 uA5PCc1Vl1HS1mVFBImnnRYWgr5MDO8hflBLAXCjRv4UbukdX/9RQGZNuWdeg//ERyi1y
+	 5Ok02eY02QCvCdv+5jgfVZtIeeq5DhtAduv2my2iwiZ+qM6LQhjLSq0Z+D11Nv0c6TdE4
+	 GnkWGdwPk3foqQWzRT6JHxkOJBR+HUruMWmCOxRGaIERWs16KT47kMGdQW+xZNt0h9Axi
+	 RdmEeHcUz4Qetm7ugaDE25p2p7ETZ/4gzig5KvsRPsS9x2pbv8alPVyAYJ+JPTvaAGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wo4k2G9C;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kNZuCq0z;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09127606A896
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:00:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09127606A896
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90E6606A333
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:01:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B90E6606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wo4k2G9C
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ed08b07213so4265425ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:00:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kNZuCq0z
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso4272215ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:01:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794560411; x=1795165211; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Un80vRFzwpcVSJmCxlKjL26KdkwkmzqjZ1VKDAH+aPE=;
-        b=wo4k2G9Ch+TdfLfKs3LSzSmoXQG/4x9YfDkSpb7CG24WR2mcPTjIJuoR6KK0Tvq81H
-         9hks5LOa5Eowl5fFrARTQyvR3ttBVXQHLLqyRTJWvPgJ8Qo2Wh2JU7Ydef/nrAET9D4t
-         qintq2fx9FyCfJzlqBNAWXfJtgd0kjo8hl3+yInmg4qfq1J/u0HVDFEs3UFnxR1ndR3i
-         erkae8PQHbdcTmEBhagTbda6IExPwxCULbsjQYNYWy/b2NHAQpAAgYYTsE2T9ps3T2Ql
-         whhWtevMFy8kw/Z8r2KlTkH+7cBJ2/TxRSYRhWTZRj+o/oeXAxEPPXSbHM5F6pUCyWac
-         EelQ==
+        d=gmail.com; s=20260707; t=1794560486; x=1795165286; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E3a97Mkr7cqGGxSA1yo/Xc4eASuJjZXRMaeChH71cvE=;
+        b=kNZuCq0zNrhjHBoGvHgoqEvu7LGBEuwEdjNIy7eUNd67NKJ2NyxrR+BbOokPwv/wpn
+         I01FTR0qFkGM36MV+f0cjh/1T1j0L8APHuN8zQ3iBJjNcZ3wRKz7nFsQD4pMJszQrTQh
+         PzMWGbQo3Qn6IHI4Dn9a/8QDg8uz1olXxO2UsF6/PWBrppuqR/GDKd77tcUz4xLXx3iQ
+         pUJH3+a2cpB2hbFyVGcwhlqcUutKMwX01H2R9uAsWW2lkcGZhHEsFEnJLkCbEG/FXkId
+         KE3dTzzb7rUkp/iCDRK3v4cj6d2FTsKZSc5FvVAkgcblXMCwcsXjYkKeeB94b9oaHaON
+         aqGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794560411; x=1795165211;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Un80vRFzwpcVSJmCxlKjL26KdkwkmzqjZ1VKDAH+aPE=;
-        b=hVQrWNEJlSIuEZYUXkYGKa45PtnhH0DLgXvf3seGIwdUhj3I7QfjriY43kJNExQhKL
-         ztuHrslLfpBjgDdaPEFXs7XN0yicEpCZ0MYCBEMDERNcA+63fY9BahdbN4mbGZb+OwBG
-         0ZbYfGjYm4jzwbhScJeiKwxkDBjKyiIcivKJtnuo4CwrNRz1dfHB8vc4zASWNdTJkAoE
-         91eddXZZilU2P2zqIjTATtaxzoBL6e9Jw3KFZDtXIUgbrHkCttrRM9J3QupYJrH2Jqwf
-         9iHMBosc6/oKR5GsCHOcCdnF6b6y0y5ksHAdEX8Kqkb8kQ9jrS41pL6EQdyvULuD1OpD
-         QzGw==
-X-Forwarded-Encrypted: i=1; AL+hErFOw1OxKZ9/hA5X1/zL2ukECzILzjqzl/iz0ztNKQ7w6uIIdkgUzavUIgrwzgn7fxCzxuams5JUrWV+TIY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+n0I4yDfmBd93dUiY1Tmr1TUHRAzxOnaC3drQ5OMXX+F7YfWBL
-	LRX6ti8efTFBx+/td+GFnM0SQXRMfJhMfo0QOoBLRTALWbAtQbO3EIZl
-X-Gm-Gg: AYBFou0RtCAt9V3YUBpRgCu61R6URztx2WGFqaTJeHJ6zCi2yhIyIc+o8uZPmruEabr
-	SDfAYmQLrm8z+cjoEUUDEUvnbx2t0RArtxaAZwxCQRD8/MF2VBvFhZCw26OAM9RtPL6BZpd7tc4
-	dYVecWv/DStPgs3FxIA/s3Mcb8pUKi7ihOw9nrbOZI228beqjId3BAPkWqCPmPidsTL5+vcL4AV
-	khQ9/X0PEpmnkR8UnwGhBU9ptc+NJwN343D78O77ZqdZKa8AfLtksmD1XesaRsM1poLEb5K1Jo0
-	8O2+hSQe2WPTHKRvbz2WQ+pXdlmxWdPN77CSRbDqBNwzR8P6FW3t1NDYXOx0IPjGld1J3TP+To+
-	32DEsM2PyvKhOkgNnWYzyQHgz9Ng9zUo5o3KrCH7Ohd7erkAyzdJ/72r9A/kurPB+6XytXDuy8T
-	0UVHDplH/5YlLzm4dC4EMvCPU2ERdyFA9FDBwg75bVW8NgvYZznghKznqKcn17Bb1xFD9/RijUs
-	f2S/M+qk/9BMBCdSyiSjMaddRBJJcSQPPogleinRK+t18xjnF0mVDUqeGCsqOG0A65JEGOaVJdZ
-	YsAioq2zlHmP6zVvfsUoeG2U3s3CXT7RIrByt4FTvZWnuLrk6Q2RC5xWpfV+RvEGcVskWz/k8IL
-	4Zqtj
-X-Received: by 2002:a17:903:18e:b0:2e9:4bf3:37a1 with SMTP id d9443c01a7336-2ee0dd9fb88mr18714675ad.63.1794560411369;
-        Fri, 13 Nov 2026 01:00:11 -0800 (PST)
-Received: from fyhsueh.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f8dc859sm6953055ad.59.2026.11.13.01.00.08
+        d=1e100.net; s=20260707; t=1794560486; x=1795165286;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E3a97Mkr7cqGGxSA1yo/Xc4eASuJjZXRMaeChH71cvE=;
+        b=BIUPKfXCHQL3lgJuLeWTVthuaGWw3GCOK1vpQThdFBWnQVJp8vdF/E11aqcWpJBnT6
+         4L4RHukBU1srBaaoKh7c5Rt7tB49UxEjEaqpGAOJ0/GrqwCLtntIKHRbio5398H22f2M
+         eKoWenPjyHPczF8kXnqveh+jYEmPGQffQt6UUCUMdhYsn+tMu8ZpaeEOtOoTmfJ8/A8S
+         w95iOf4mFt/s8osKtyA4nVIjYVgnmBEPyfhml/qsvYY0tdL9qqbvn3muvDrX9B+3eoDq
+         3heiQ78VW2g34ykNX53RNo9Ao2+G/NzEEqbzfoBFrvFjH5sGF3l8AZJvPmpyfeaA0uN2
+         AkYg==
+X-Forwarded-Encrypted: i=1; AL+hErEMW2pIjn0CEQ37zbojYf+n9EJQBi8/5d4tHnDZyx9g/2mKajZvbpvCMJMKUxWohL7G5uk+NSx4uOE3hQ4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Eqx8g6URiIvolUwrogCs36MQyebS1bUkvtjAKf4WhP8sKs5SK
+	imFYOP7I1V2/YTIemx8VM5DSJJAysJ8hxZ+sIvwbe8ZKmv+ID53XEAuY
+X-Gm-Gg: AYBFou1qKAG857T+QY/CcER5ujfrLmvwjgEDIVde+mBQkwV5yvUWW7BHe73J+Be5uEq
+	Wagw8SSnr9kF4liiSlhb+f53m6K/s6RTFXrA5aKtz0YRlVkeOmVo0Ibkxf/Wm+jQ3ayMcyeWxV5
+	Cikw9KPIU3ggyXAzNvnvWt3FssNf7vPF3dF6QVyNavvmNZR0+dc/XbK0sAU4pfy0eOUYl8KUyr2
+	10VjocGCuK/P5WI0GC9N4BBOn743wFNPlMoyklI2MxbA34oHtLO3GPFeLJjebda759nyW0CHp17
+	XrP8v+YR4Yr2FdeVX1XZJO6zPDVuYHMKrVZa8YbUqWbl/0OCKnX6qsadiZ+2Ht4d8pjUCnCsMlO
+	7xJKAWQCLTW3aVdOFzEUneLFkGs/v4JFjqIxBo3cUlq38GVmCYsIsMWY3EM8+vKs61PKYV5Hhib
+	i1dxJsb4b4uzMJQ+4gy6HZCx4J4buG6oyqO169fbapTEZJ9i33crs4mLVYXmKZSzR0vIjEmoZND
+	Swp7UoNdcMjV8PnXRJEUuiYvhyFl1i9V5PxmosXfsjardtHL7y0yVXFfzayyohNLMx5NBlwau1P
+	vBp6udlSQRG31qf4mu4OW0ta9SZ4MNtkOLeNsHAbAfFb
+X-Received: by 2002:a17:903:3887:b0:2e9:528c:ba02 with SMTP id d9443c01a7336-2ee0dcca259mr16655485ad.60.1794560485927;
+        Fri, 13 Nov 2026 01:01:25 -0800 (PST)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f8d708fsm6770405ad.58.2026.11.13.01.01.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 01:00:10 -0800 (PST)
-From: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
-To: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	linux-arm-kernel@lists.infradead.org,
+        Fri, 13 Nov 2026 01:01:25 -0800 (PST)
+From: Vernon Yang <vernon2gm@gmail.com>
+To: stable@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	sashal@kernel.org
+Cc: akpm@linux-foundation.org,
+	shuah@kernel.org,
+	liwang@redhat.com,
+	jackmanb@google.com,
 	linux-kernel@vger.kernel.org,
-	fyhsueh4linux@gmail.com
-Subject: [PATCH v2 1/2] dt-bindings: input: Add Nuvoton MA35D1 keypad controller
-Date: Fri, 13 Nov 2026 16:59:59 +0800
-Message-ID: <20261113085959.32798-1-fyhsueh4linux@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113084852.32727-1-fyhsueh4linux@gmail.com>
-References: <20261113084852.32727-1-fyhsueh4linux@gmail.com>
+	Vernon Yang <yanglincheng@kylinos.cn>
+Subject: [PATCH 6.6.y] selftests/mm: include kselftest.h in vm_util.h
+Date: Fri, 13 Nov 2026 17:00:59 +0800
+Message-ID: <20261113090059.380783-1-vernon2gm@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,100 +101,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Document the Nuvoton MA35D1 hardware matrix keypad controller.
+From: Vernon Yang <yanglincheng@kylinos.cn>
 
-The controller supports up to eight rows and eight columns
-and generates interrupts for key press and release events.
+commit d8a866c766ebe34b4371d42f4a3edca200f5e645 upstream.
 
-Signed-off-by: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
+The 6.6.y backport of commit fdc3bc349794 ("ksm_tests: skip hugepage
+test when Transparent Hugepages are disabled"), added a KSFT_SKIP return
+to khugepaged.c, but the prerequisite include from upstream commit
+d8a866c766eb ("selftests/mm: add commentary about 9pfs bugs") was not
+backported.
+
+As a result, the selftests/mm build fails:
+
+  khugepaged.c:1195:24: error: ‘KSFT_SKIP’ undeclared (first use in this function)
+
+Add the missing include, only the vm_util.h hunk of commit d8a866c766eb
+("selftests/mm: add commentary about 9pfs bugs") is needed here.
+
+The remaining hunks depend on commit 32b42970e861 ("selftests/mm: skip
+gup_longterm tests on weird filesystems") and commit 571a4b62ed63
+("selftests/mm: skip map_populate on weird filesystems"), which are not
+present in this tree, so we don't need to backport the remaining hunks.
+
+Fixes: 6b117e23481d ("ksm_tests: skip hugepage test when Transparent Hugepages are disabled")
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
 ---
- .../bindings/input/nuvoton,ma35d1-keypad.yaml | 75 +++++++++++++++++++
- 1 file changed, 75 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml
+ tools/testing/selftests/mm/vm_util.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml b/Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml
-new file mode 100644
-index 000000000000..ff4f94166f0e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml
-@@ -0,0 +1,75 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/input/nuvoton,ma35d1-keypad.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Nuvoton MA35D1 Matrix Keypad Controller
-+
-+maintainers:
-+  - Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
-+
-+description: |
-+  The Nuvoton MA35D1 keypad controller scans a matrix of up to eight rows
-+  and eight columns and reports key press and release interrupts.
-+
-+allOf:
-+  - $ref: /schemas/input/matrix-keymap.yaml#
-+  - $ref: /schemas/input/input.yaml#
-+
-+properties:
-+  compatible:
-+    const: nuvoton,ma35d1-keypad
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  keypad,num-rows:
-+    minimum: 2
-+    maximum: 8
-+
-+  keypad,num-columns:
-+    minimum: 1
-+    maximum: 8
-+
-+  autorepeat: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - keypad,num-rows
-+  - keypad,num-columns
-+  - linux,keymap
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
-+    #include <dt-bindings/input/input.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    keypad@404a0000 {
-+        compatible = "nuvoton,ma35d1-keypad";
-+        reg = <0x404a0000 0x10000>;
-+        interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&clk KPI_GATE>;
-+
-+        keypad,num-rows = <4>;
-+        keypad,num-columns = <1>;
-+        linux,keymap = <MATRIX_KEY(0, 0, KEY_1)
-+                        MATRIX_KEY(1, 0, KEY_2)
-+                        MATRIX_KEY(2, 0, KEY_3)
-+                        MATRIX_KEY(3, 0, KEY_4)>;
-+    };
+diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
+index 9816d6e9bce6..f14ebc809585 100644
+--- a/tools/testing/selftests/mm/vm_util.h
++++ b/tools/testing/selftests/mm/vm_util.h
+@@ -5,6 +5,7 @@
+ #include <err.h>
+ #include <strings.h> /* ffsl() */
+ #include <unistd.h> /* _SC_PAGESIZE */
++#include "../kselftest.h"
+ 
+ #define BIT_ULL(nr)                   (1ULL << (nr))
+ #define PM_SOFT_DIRTY                 BIT_ULL(55)
+
+base-commit: 5139929c698c273e07cb0635732f6a918a7b8e78
 -- 
-2.43.0
+2.56.0
 
