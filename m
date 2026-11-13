@@ -1,119 +1,141 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604476;
-	b=4Gjmcs0QF6wIDVgZHIwgDNmcP/IcFgte9/EgianypeOEYX2HOL8XDCR5DAch1PysJ+wq
-	 VwCJHI3sh42QD6CxoZqYJiwRCa+Vy9OfC+06l74FrG1N+2cxFrOWmOQ8cD3L+U3Pqp54j
-	 LxpOKbVSSJO2D+OkRx8+Gq/pq80UPKOgJ28b3mV0AZgc+MsKqjoS6y/g2qOlcpS0FKJUF
-	 Co8kuE3kPf0LqikY1yWznTiwbwpuauviexajzBKJqm8ZLgDwfKcmyM9A0jVJ1Ch8pvlEH
-	 SHI/ZG0D3z7NMOGCOR59iQIFSSeEP2DuV8DMxJft1Gko2GIylfT/HVL7sBi7WEzhYkg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604476;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP;
-	bh=bi+qbuXC7Kr0qdcc2OWqT62yrf9jqwzAVB3DjteEz/8=;
-	b=N724ZPGd9kk908ypIMImMRndgRcdLmqixyWnM45aDS0Kw0o+PzORtOn+fbynFE4vnvOS
-	 0e8mvL3TmYGGuSZ1FlxC22JMfmwgWb26S0snIiOxc5UOVcm7dQGnmZGqp7m4zx92oawgn
-	 PlRjSZu3x0PvdHjTDnGjIMvLARDcZLD7GupYwd+8xE9ZwqlkfhT/Ffpa2z6jgK+luWOke
-	 VX4Sn2cSkeelFjcP4MCRyhvzUWFfu58NQvCO+7FMjZ5ItMvy2suZlkjujE8X65WaWr1a6
-	 y5jinSFR+b30zED2RXxVImhr5LzdzmmZFivjIHd9K0Z8gq+4uAX0qYk4bnt9JYNU1Hg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=posteo.de;
-	spf=pass smtp.mailfrom=posteo.de;
-	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=e66y+Ya3;
-	arc=none smtp.remote-ip=185.67.36.66
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794604528;
+	b=h68gaZCwloztfWFP3L5sYaSj5afpG525OPwRXlGO5ZMCOAUdMBZGC3zoc8fE43yPSK1R
+	 4UZggR6ahegZbi8xUBh7LDxM8SQKaTl8IUhU57NJCip2N5rccu5FIYLlkD28Qc0+4Ocp8
+	 9DWXn3Fxc1ct2Nd5W/bnHzMxdyMiQK73sqrkFgFXkmhRqbmSCqKb8jVgVQgATE5tiwTX6
+	 tq9BVTHij3Z5xsJC2+6cq/aEmqQLIejXiFq1fFMCeYMOPH9x4RRSjGAp9VdFmQZBxA+u9
+	 fvj2sVW0n76cNE8nWG7dvIoQ3Y2oDqHTuUbLGrw84pd2aQnQGM6FOD0qk9sUbkgCgLQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604528;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:
+	 Subject:Content-Language:To:CC:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=vv9M5YrB2iJrwSPQu+p2ArX7oBr6HguEbYCfvKU7Y+4=;
+	b=g8JxJQU/Fozo2iLADxDgj6AYS5YjpZP3f159vIWOaQNMhccksxWgfnirdWODdCOopqxf
+	 q4jl66AaKWJMSgstg6y1BFYOYcIFEApw8RW0SugkP40kOt4yZj7JD6XwVCpswKifww3jy
+	 I1yhm1mibX+bPtzcfC2rqZ2ljmd06Ooi8XwrlAx4wT6wu4GKf4yubdXc1oAIyVbgXs+vm
+	 fmSZjanyI8AGLSv2JJPZphbAvyyw4NgLqG7fukzxhclTE9gHyPL7HtL3bPDsoOsc4Jwbe
+	 rT2Rh8fb8XylAuuVOtKUM0wzCNS6NUs3sMdV0bWFsKLfBwj9mE5IBVlUJnss6YmZ+3w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VcPt8qtw;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=BUfaXhSL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3539606A338
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:14:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3539606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AAF606A323;
+	Fri, 13 Nov 2026 21:15:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5AAF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=e66y+Ya3
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id F235624010A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:14:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1794604466;
-	bh=bi+qbuXC7Kr0qdcc2OWqT62yrf9jqwzAVB3DjteEz/8=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=e66y+Ya3CBpmgj5yn6s1yu62nY7pVrXAfMTeZO6eM+InWKyLDt/d+2AzOin1l7mY4
-	 D4xGZ4dUKdoxDYA40buJ8Om9oMSiz1OvYxIKtVeEjoWM6Qj5+cwkktmYTfmH/o7tcH
-	 WfvLaja9IpRnIyL6b3HD1DsioGcV1JAtUK02t9xZbtOnoBPm8Cu55PLZI8U3wO+GBT
-	 C/kCb1yk9g1GALRmSUz0en6i6hCBLcLrLGQt56mOk9NX6TgdE5liu2qViYCd5FEuBY
-	 8n7U/3RIwGmbbuQN6wa6A9WQYuLUbBgryxFamZ7vvdlSn5R2BF3bjl46Or8d1iKsBz
-	 Wrw+Qh0jPyZ6g==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jR94H1xfCz9rxD;
-	Fri, 13 Nov 2026 22:14:23 +0100 (CET)
-Message-ID: <3e4aafb4c2dab636e9f113199d4cb95e0af9c6bb.camel@posteo.de>
-Subject: Re: [PATCH 4/7] rust: serdev: remove the unbind() callback
-From: Markus Probst <markus.probst@posteo.de>
-To: Danilo Krummrich <dakr@kernel.org>, gregkh@linuxfoundation.org, 
-	rafael@kernel.org, johan@kernel.org, david.m.ertman@intel.com,
- iweiny@kernel.org, 	leon@kernel.org, ojeda@kernel.org, boqun@kernel.org,
- gary@garyguo.net, 	bjorn3_gh@protonmail.com, lossin@kernel.org,
- a.hindborg@kernel.org, 	aliceryhl@google.com, tmgross@umich.edu,
- daniel.almeida@collabora.com, 	tamird@kernel.org, acourbot@nvidia.com,
- work@onurozkan.dev, igor.korotin@linux.dev, 	bhelgaas@google.com,
- kwilczynski@kernel.org
-Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-usb@vger.kernel.org
-Date: Fri, 13 Nov 2026 21:14:25 +0000
-In-Reply-To: <20261112005455.1224352-5-dakr@kernel.org>
-References: <20261112005455.1224352-1-dakr@kernel.org>
-	 <20261112005455.1224352-5-dakr@kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-EDAa2rzL4vfrR9iRkevA"
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VcPt8qtw;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=BUfaXhSL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794604527; x=1826140527;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=VDNgBACBXL9ti1MibyTmgSrI2+4wcP6MvI5PsdogBRQ=;
+  b=VcPt8qtwVubrgOisimSewzWjfx0kbocEo1WM5QOwYBBMejGd24sVcPR/
+   LQwLtn6UhflMlFUi2qvmn2/82VvCvz6/Zgwmu6mFy1SAFW5mcre6bsg7Z
+   V0YFqfJjHX3jki1E0LFMb0gLxunjHx1f1Zc1xLnl1XZ81hwwECDanwlAa
+   01ETWiXmSEls/7vYlQANla3F0pARptQDf8+nHpFbFdk9QVV4R2PsaioXC
+   GZC2SJudGvjSWmd2Me6np7udl1J/MRqzBFp2Yp06Mt2ZVTpSkXldxgTjt
+   uadKVcSUKmkv2839LRBwYc2M/aLddtJ0SqzfqBYUGDlzZ11DRPnmX6QiO
+   A==;
+X-CSE-ConnectionGUID: 9x8vnwN4QVOZVsV1pLb5+g==
+X-CSE-MsgGUID: NSIbf/bzQfaaGzuOPvn5+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3326803"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3326803"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 13:15:27 -0800
+X-CSE-ConnectionGUID: a8G85FbeRBqPy8pwlYBA9g==
+X-CSE-MsgGUID: noTontpTStWDYZKv8AzB8A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="9114787"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 13:15:26 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 13:15:26 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 13:15:26 -0800
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.51)
+ by edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 13:15:26 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WomUoK1/7uGiy80PLJNyNo0x1NGt+BMoQrkuf/dS4/pgc+NijAlfueZZGuAVZgUx2/89iEq72R8NppaBkQsybaVWWrPIpOTqGlzrHfFuuFDu5WmKUhkxDOVpTlO5Qr1HaZqw31Wc/RetS99ipwxIO5FQC81yP5CrmOADF0RHSdkKlPIZufKG8i7brmRikrx7Up+MAvyyjCRdvU+rY6dAA/rAxqHnZTmbgG5qOVXHNDp4Dw81cipC1bQ5Ge9I1UdnjIZaK8Osp1Qa1e0UORLAcZaZ2ILCcNrD6/yXYUZDByEb2Uywj3F97l8frc2A+r5E2JZwkId7p1g0zbOMJmlevg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vv9M5YrB2iJrwSPQu+p2ArX7oBr6HguEbYCfvKU7Y+4=;
+ b=xObxviZExfuYEO4JdC11fWNPbnws010mpDUg0rK1Wp96bTMeeuLRg7swI33gSHikB9yZ0iLIgcbHo0RiICzntyVD+gLKfdJbg8NQYltJvhf1ZjZlY2BA6S2dq/1jFz4uFXDB9aFMcPE4Sg5Cma/qVB5T7ZuejOfgfkLRT78XPGlIrdS71LDYFPoxXarTO2OiEA/kMAIybJYSy3Ab8sGmxDQaduKE3O7zqjok+5SW3jNqmoq1pX/Xp8hFHAjH8IvqRYSZI9eRzyXaIzWw22KhDa1SvtFeGTQWorDBD/JLKzGlSwbhXvlWgI9nYyFxzWKR5pGvYCOwkof8jKUYBv8tlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vv9M5YrB2iJrwSPQu+p2ArX7oBr6HguEbYCfvKU7Y+4=;
+ b=BUfaXhSL/3nnw26c1tbR9UBRwMOA7PTETrld7B+742kjTOX8I9WtQ3EhAgLE6f7Ov96EB7P8AvhFCVcv4rl13jlSH5jMAvwRV6X9EE61GXcpNrY54iQq5oCh1JXH//c0/JoFKqVD74GiFHS89aSwloFakwXeE9v3RnTCm5I9seU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CY8PR11MB7846.namprd11.prod.outlook.com (2603:10b6:930:79::14)
+ by CY5PR11MB6365.namprd11.prod.outlook.com (2603:10b6:930:3b::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 21:15:22 +0000
+Received: from CY8PR11MB7846.namprd11.prod.outlook.com
+ ([fe80::cae0:d05c:b2fc:c395]) by CY8PR11MB7846.namprd11.prod.outlook.com
+ ([fe80::cae0:d05c:b2fc:c395%7]) with mapi id 15.21.0592.010; Fri, 13 Nov 2026
+ 21:15:21 +0000
+Message-ID: <88cf2dd9-9308-44a2-a536-6285c9783c57@intel.com>
+Date: Fri, 13 Nov 2026 13:15:18 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] x86/mce: Restore rate limit on MCE logged message
+Content-Language: en-US
+To: Breno Leitao <leitao@debian.org>, Tony Luck <tony.luck@intel.com>,
+	Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>, "Ingo
+ Molnar" <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+	<x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, Qiuxu Zhuo
+	<qzhuo@nvidia.com>, Qiuxu Zhuo <qiuxu.zhuo@intel.com>
+CC: <linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Rik van Riel
+	<riel@surriel.com>, <kernel-team@meta.com>, <stable@vger.kernel.org>
+References: <20261113-mci_ratelimit-v3-0-ada38c5a6c88@debian.org>
+ <20261113-mci_ratelimit-v3-1-ada38c5a6c88@debian.org>
+From: Sohil Mehta <sohil.mehta@intel.com>
+In-Reply-To: <20261113-mci_ratelimit-v3-1-ada38c5a6c88@debian.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY1P220CA0022.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5c3::14) To CY8PR11MB7846.namprd11.prod.outlook.com
+ (2603:10b6:930:79::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,143 +145,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR11MB7846:EE_|CY5PR11MB6365:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ba1a9cd-304a-4628-ea6c-08df41cb39cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|921020|4143699003|11063799006|56012099006|261021123027099003|261102123227099003|261021121427099003|261102130727099003|261026121527099003|10067099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: NMfh7pafd9F0DeCf56HF/VY+cVOkgo87RMNh+4kPrJl2rvxgD6iegkrNZCEb48xToocCREvTLaeguaqJAjFxFSqbwNvGLaUFIlSmFxMPQ7cPHeY0TBlMdyF1DBcx3uf+G3pYPQ1nfrUHoojTp50WfMuFAxN+Y7m1cKSGForfT2VUnHjLft0NfU4mueEGOokOAvpLgTtZXt4N72HFqtj3GlOnq4AAbblQMvrGEbw/sltuLDQX/Zbt7q7J1J/gpVHCalOUe70CMbD1QIz/UqJie9ttwZr68aSr1hb6P6hO80wz1pUZ7mrWhYzj/E2BzGzaqQ0X4JtQmLAZu98OWJKN06rGiCkUyeG1KR5AOSgNZ37FwSaDJd2K61g6xlwalygElGdIefsMyCHRQDPTFiDm37fu8rnD0I6aaWWs91MrYstyY31Xh7KQyKUj1pEFdxqZrAAui40WLF5oN8JD7NCAq3YzhslnNQ/tED4nyMX9tSxC2M0qKbZaDkhb1s43xUD8TiiEgEYWDjmA4Zn/GCWTmmpSj45PclFF2QVLPMOiTMpHn9DO7n+QpR0YxSxyctsBDR4RJ/C4Yx16RJzXqTguOXnjViQMsusxC+vJpAyJx+zBh3PAzKZFd5tKBcg91dvssr/uOpFGn3OIe5AlbQvQYCg7K19PCB3h3X9O2f4CbUYMtjyCsgI7HFml7LSwJsfpMzpDiuFMkG7iJFT+eAtyEg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR11MB7846.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(921020)(4143699003)(11063799006)(56012099006)(261021123027099003)(261102123227099003)(261021121427099003)(261102130727099003)(261026121527099003)(10067099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzlLc1dWY1pPK0lVS1BZNmw0clR1NWVhcHdySFIxamNmeW0ybmdkRk1VRFVE?=
+ =?utf-8?B?K1FQZEhySXBUVnJjWlhXRkVRUWtjV3JuVlpJa2loVm5rSDNlNWw4NnA5anp5?=
+ =?utf-8?B?ekc1ZzAyS1VTRW5JaEYvYXNQSDJMb25yNURqNHpxUGpkWFh1ektJK0xlelVi?=
+ =?utf-8?B?bjY1Y1JnK1lraWlSbkl0Vm43WnJpODNCT0dHQmJLSThEVU12aTF4QmhUVVp3?=
+ =?utf-8?B?enhVcmFnZGh3OUkxYjd3WEl0VVlXZDcrbzRic2ZrT2ZWd2NtcU9QeHFaclp6?=
+ =?utf-8?B?TE1pOWZ0d2VocGNFYXBlQ0xGcDJ1T0hML3VIRHZrVkdnZjB0Rk5oTTRJU2la?=
+ =?utf-8?B?Wkkva0JadkxkVDVXVzVuaXdrM1lKYlhDdEhHdDlkbFRNT0oyd1F0NnVlOFk4?=
+ =?utf-8?B?Z0VERW1TbnhSenB2ZndRWndPU3d4STgrN0xiY3F2OW9td2d1eFRYMFhib3M3?=
+ =?utf-8?B?ZXFndG5DVVFsaVFnaWZ6TkxTcnpKQ0Z5eTlMNVB2UUhxNHk3MjhQQ2FSVmFW?=
+ =?utf-8?B?aFNrbkhlVzVaRytjdTV6RlNqZXF1VGYzbS9reW9KalkxaXV6bHdTci81REJ3?=
+ =?utf-8?B?YzQ2cWQzakZiRWRya1BCOEJTekRwSzJBZ0Fnb0NZMkt5ejd6a056QkJjZ3lI?=
+ =?utf-8?B?WnhXZytYeFNCSkpTdlYzT3FYdEZqbnhoenFxT1pVQ0N2UjNEbUoyK2Z2TDl4?=
+ =?utf-8?B?L1hKV0dJYUM1eEdDek1kZW1zakJlc3FKK3dxS0J4MVVmQjdTYzBvUXlhbnRr?=
+ =?utf-8?B?dG1PUG5GdURWZzFiUWJpeWZKTUl4aURrbWtPSFY2b1ZpS0NlRHVRY0JrSXNz?=
+ =?utf-8?B?UG5aak0vTzRWeDFhRUY1YVNUeDJJRzRoc2grQW9zZ2hzY2RlQXV5N1hmWjds?=
+ =?utf-8?B?KzQwOXNEZFN2aENEU2NoL3M2Y3pxeG15ZmRVNUs3ZDRmaGZGVys3TDNxSTJI?=
+ =?utf-8?B?eUdNeTdFZ0g0SE9La2lyRW5Sdjk0WDNTaEJHZmUzRFpoeFV4UXZBSzc3bnVo?=
+ =?utf-8?B?WFdQdWVQQ2RRSlpWT3l4d21NR2NpczZrR2JLQmt1R2NvdU5XN3NWRWJaUVM3?=
+ =?utf-8?B?b3RTWndXdXFGVXRqV29rMjJDdlVHZ3UyZ3Vzb1g0N3doNTBiVlpQbW9CbTBF?=
+ =?utf-8?B?RlUwOEdUTk1uUlo3TTJMNHNEb1g5UEZISVJvSjJ4VDlYaDZ0dEhpN0NCbXAy?=
+ =?utf-8?B?U3lJTC95VndSQSttSm1wWHhHTG81NVUyR01ydE5NNzY5WkR2S0Q5ZjE4N1lJ?=
+ =?utf-8?B?R2hGdStLTXZJR2p0SEJ6ZHZqRkRMN281TEFsbDM2aTYyMlh4dmFEaVFGSFYr?=
+ =?utf-8?B?NE5POXdKbjFvS0w0WW12U0lIS2FYajZVV1JyT1ZveVhFdzRLN0NYeUtqaXh5?=
+ =?utf-8?B?a0xRdWlKWVpoN0F5aWl2bVdHMXpNM3g0RXpSWWU5dWxwNXZudjBTeGx1dE0y?=
+ =?utf-8?B?NUk2bk13STdBWU9yZUJ2a3F2ZDNsYXRPZGRkNkxXM0RldldZalMvcm5xVmg0?=
+ =?utf-8?B?VVV3aFFhZ0FjdjhBOHp6TjVYTXczSS9kR20yNUQwSkxTSEtqeUJnS25MbjQz?=
+ =?utf-8?B?d1A4T2NQMUMwVUNFTEJBMlJYdndueS9JVThsRkxMUG5CT3dPLzJjVU9XUUcw?=
+ =?utf-8?B?SVNHZUtCN244N1pNVjZ1ZTVRYXppSnNoRGc1L2FwVS80bWhieFcvT1dnQUIw?=
+ =?utf-8?B?a0h4Z3FNTDU2dnMzNWdPTW1pQUdGTkh5R2lLeUdKN1doencxSWxPVzlIVEw0?=
+ =?utf-8?B?ZGNUeC95ejd0cXRWeWJsZDRteWNBN0YreWdmeWR0MHRNdDlqTXlWUXlxdnJF?=
+ =?utf-8?B?N3QwaDBLelgycFJpNlhKUXZSRHR1VWVQYXBKSS9hYjJmK09PM3FqaGZNMXlx?=
+ =?utf-8?B?RzRmcDEyK1EvUVVtK1hDQjZNTzdTRVZGVDV6UzNoeUdMQjBML3hURmlld29C?=
+ =?utf-8?B?N3FZdWZlSmp0a25pZXFGVFRWNkgyTmp5TldZbVBNVjNKYkwvYVRXdjJoMnpy?=
+ =?utf-8?B?bUJrRjhPMEY4ek5QK3ZpUVFDYllWTC90QzRHMnhoaDltTlEweHBWVVUvQWRp?=
+ =?utf-8?B?ZGNScHJ2aUlkc3N1K25jUTVPdTJydDNNRGJzMHg4Um4wd0dhcXJwSjZRRnFr?=
+ =?utf-8?B?NXBVS3FIQUROMC9rRVZvYldzdFhjUXBjV1pPQ3BWdlpQdFRhdkdLTVJ6VDRr?=
+ =?utf-8?B?MjZVWnhmTHNDOHZlaXZBNFZsM294Umx5NmRvUzhiK0x2QzZEVkNJVXEvS0pH?=
+ =?utf-8?B?TjdXNlJqWjBUaVJLM3VrVU9GRzFFZ3Npck5YZUk2K2RXVWd1L1MwOXlJc2JH?=
+ =?utf-8?B?NzZFVms5MEg3Q2ppZkJWcW1rUCtTTzRIYlFoQTBhUWtGNUJrU2s5dz09?=
+X-Exchange-RoutingPolicyChecked: qiY1kLshcl46HLVY9biXWWJFAWglfWHcGgl2MCzayLuI5+kLJjKsv9ORcde+jtcddHcengv78Kv7jX7iH0Qe0Zzx4GzD3KjbMQnwVcRWioQz6wYI6T4WQqdRRCTOhuMwl1Qaj6wbdr2VdX3ziaMBYLG2Bw/fPneItQ3o/9QvQ+X+Kn9OqR4Bx0sivv7ESukN4HKTrMrqRepUZP8CYuxOpFT43RVEEdW6LzhWQRPo/XhlVYq25VCHLf8yCmQn+lbNglvpGv4ZZ8QKozrwrBo1Io496haLD4yTwjN7PrOj3gMAsBY9LseQ52YJt3z82kgE2RokVzSnftyDnppUK2xcKQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ba1a9cd-304a-4628-ea6c-08df41cb39cf
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7846.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 21:15:21.6318
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WJYajlXZrAZb9IK6eQiovzcIE788b3+oMkkjW2LcH+0IGRiTX5KPs8yxWTWqnZEBiwpuKu7DaZsRTLWzUlhguQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6365
+X-OriginatorOrg: intel.com
 
+On 11/13/2026 4:49 AM, Breno Leitao wrote:
+> From: Rik van Riel <riel@surriel.com>
+> 
+> Commit ea324444ece9f ("x86/mce: Restore MCA polling interval halving")
+> moved the "Machine check events logged" print from mce_notify_irq()
+> into mce_log() and dropped its two-per-minute rate limit as a side
+> effect.
+> 
+> A particularly unhappy system can spew out around 100 million
+> of those "Machine check events logged" messages every hour,
+> without that rate limit. A large fleet may have several unhappy
+> systems, leaving the netcons infrastructure somewhat flustered.
+> 
+> Reinstate the rate limit we had before.
+> 
 
---=-EDAa2rzL4vfrR9iRkevA
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Nit: How about avoiding the 'we' and saying:
 
-On Thu, 2026-11-12 at 01:52 +0100, Danilo Krummrich wrote:
-> The driver model uses native Rust lifetimes to let driver data retain
-> device resources and a Device<Bound> reference for the duration of the
-> binding. Both remain accessible from the destructor, so a separate
-> unbind() callback is no longer needed.
->=20
-> Remove serdev::Driver::unbind() and the adapter's remove callback and
-> document that device teardown belongs in Drop or PinnedDrop.
->=20
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+  Reinstate the two-per-minute rate limit.
+
+> Fixes: ea324444ece9f ("x86/mce: Restore MCA polling interval halving")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rik van Riel <riel@surriel.com>
+> Reviewed-by: Tony Luck <tony.luck@intel.com>
+> Reviewed-by: Qiuxu Zhuo <qzhuo@nvidia.com>
+> Reviewed-by: Breno Leitao <leitao@debian.org>
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 > ---
->  rust/kernel/serdev.rs | 41 ++++-------------------------------------
->  1 file changed, 4 insertions(+), 37 deletions(-)
->=20
-> diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-> index 17ca504b7f8d..fd998b68b74f 100644
-> --- a/rust/kernel/serdev.rs
-> +++ b/rust/kernel/serdev.rs
-> @@ -81,7 +81,6 @@ unsafe fn register(
->          unsafe {
->              (*sdrv.get()).driver.name =3D name.as_char_ptr();
->              (*sdrv.get()).probe =3D Some(Self::probe_callback);
-> -            (*sdrv.get()).remove =3D Some(Self::remove_callback);
->              (*sdrv.get()).driver.of_match_table =3D of_table;
->              (*sdrv.get()).driver.acpi_match_table =3D acpi_table;
->          }
-> @@ -210,29 +209,6 @@ extern "C" fn probe_callback(sdev: *mut bindings::se=
-rdev_device) -> kernel::ffi:
->          })
->      }
-> =20
-> -    extern "C" fn remove_callback(sdev: *mut bindings::serdev_device) {
-> -        // SAFETY: The serial device bus only ever calls the remove call=
-back with a valid pointer
-> -        // to a `struct serdev_device`.
-> -        //
-> -        // INVARIANT: `sdev` is valid for the duration of `remove_callba=
-ck()`.
-> -        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInternal<=
-'_>>>() };
-> -
-> -        // SAFETY: `remove_callback` is only ever called after a success=
-ful call to
-> -        // `probe_callback`, hence it's guaranteed that `Device::set_drv=
-data()` has been called
-> -        // and stored a `Pin<KBox<PrivateData<'_, T>>>`.
-> -        let private_data =3D unsafe { sdev.as_ref().drvdata_borrow::<Pri=
-vateData<'_, T>>() };
-> -
-> -        // SAFETY: No one has exclusive access to `private_data.driver`.
-> -        let data =3D unsafe { &*private_data.driver.get() };
-> -        // SAFETY:
-> -        // - `private_data.driver` is pinned.
-> -        // - `remove_callback` is only ever called after a successful ca=
-ll to `probe_callback`,
-> -        //   hence it's guaranteed that `private_data.driver` was initia=
-lized.
-> -        let data_pinned =3D unsafe { Pin::new_unchecked(data.assume_init=
-_ref()) };
-> -
-> -        T::unbind(sdev, data_pinned);
-> -    }
-> -
->      extern "C" fn receive_buf_callback(
->          sdev: *mut bindings::serdev_device,
->          buf: *const u8,
-> @@ -365,6 +341,10 @@ pub trait Driver {
->      type IdInfo: 'static;
-> =20
->      /// The type of the driver's bus device private data.
-> +    ///
-> +    /// Device teardown should be performed in [`Drop`] or [`PinnedDrop`=
-](pin_init::PinnedDrop)
-> +    /// for this type. The `'bound` lifetime allows the data to retain d=
-evice resources and a
-> +    /// [`Device<device::Bound>`] reference for use during teardown.
->      type Data<'bound>: Send + Sync + 'bound;
-> =20
->      /// The table of OF device ids supported by the driver.
-> @@ -382,19 +362,6 @@ fn probe<'bound>(
->          id_info: Option<&'bound Self::IdInfo>,
->      ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
-> =20
-> -    /// Serial device bus device driver unbind.
-> -    ///
-> -    /// Called when a [`Device`] is unbound from its bound [`Driver`]. I=
-mplementing this callback
-> -    /// is optional.
-> -    ///
-> -    /// This callback serves as a place for drivers to perform teardown =
-operations that require a
-> -    /// `&Device<Core>` or `&Device<Bound>` reference. For instance.
-> -    ///
-> -    /// Otherwise, release operations for driver resources should be per=
-formed in `Drop`.
-> -    fn unbind<'bound>(sdev: &'bound Device<device::Core<'_>>, this: Pin<=
-&Self::Data<'bound>>) {
-> -        let _ =3D (sdev, this);
-> -    }
-> -
->      /// Serial device bus device data receive callback.
->      ///
->      /// Called when data got received from device.
 
-Reviewed-by: Markus Probst <markus.probst@posteo.de>
+Reviewed-by: Sohil Mehta <sohil.mehta@intel.com>
 
-Thanks
-- Markus Probst
+>  arch/x86/kernel/cpu/mce/core.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+> index 50b1614968be6a..06f858faf2b1cd 100644
+> --- a/arch/x86/kernel/cpu/mce/core.c
+> +++ b/arch/x86/kernel/cpu/mce/core.c
+> @@ -150,8 +150,12 @@ EXPORT_PER_CPU_SYMBOL_GPL(injectm);
+>  
+>  void mce_log(struct mce_hw_err *err)
+>  {
+> +	/* Not more than two messages every minute */
+> +	static DEFINE_RATELIMIT_STATE(ratelimit, 60*HZ, 2);
+> +
+>  	if (mce_gen_pool_add(err)) {
+> -		pr_info(HW_ERR "Machine check events logged\n");
+> +		if (__ratelimit(&ratelimit))
+> +			pr_info(HW_ERR "Machine check events logged\n");
+>  		irq_work_queue(&mce_irq_work);
+>  	}
+>  }
+> 
 
 
---=-EDAa2rzL4vfrR9iRkevA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmr3fakbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPS9NAQAJz35dn34vwO1cHY+moo
-kIjIgv5XKwFm73AdFdW7aqUO9XCW9TQqd4JCG8Sg8++Jq6vkXd+GnrO4jHcuhoAU
-n6+/uv0aG5iH2FF2UbfA7BA0VY5ZTL1wI5WFrpXpsJGPoe2E4NCeNvhkF3PvkDqy
-CSKx5R3xkGoA2v/HB1nEcmkh1s9/qa3gTS6f+vaE/M5XXogmYcX424ktnA42jUdR
-joohrncC/wHKQhShQWNjOhYJh8oPHPZLKJhXq3rtiT1GNNmiijrnK/RhJZbCWwBT
-tVTIkVfmaZxdQ8weTr0FB8OhOyao0NMmrNZvAhv4xuTGx1KHCb267y/35iR7Mg6i
-Fjy9YWiOEboK+fBTIAOtGuAm2XrLtT54KV1u+0R8CoMwsUgcBjZ7F+1hPBiEpkME
-PJhRPSXwYA913kusT3+m8HWlbuObBNyD8kOTyVD44bxYB3C5y6yOxfp+P+J/Ax5x
-qWLXbLRuOGOTzgj6cyluHPbjcsoDewsAFUkvBbk5huHHTGom8LjhAEiHqnajmm4k
-m7ItRvbrxPl+sy6/JTXu/45vZh2xblT7AC8rGvRNZHoErdeY56KVEEio9td08FJE
-qPlLHfuuo/Jy52qpiIlM7ue5VkA/tkGZri/I0krHiTkvRMfTgIoP8ZMt8JOkPqdE
-Zxou2D0rXcA8KBONQi+Nwbxv
-=mwoh
------END PGP SIGNATURE-----
-
---=-EDAa2rzL4vfrR9iRkevA--
