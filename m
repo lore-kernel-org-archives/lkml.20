@@ -1,62 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794549725;
-	b=xpdWsHFdRn1xBt2RdStuh6nvCeJjXxvCKcKl38MUH+QiSedl4/QhFfGUnJRmVH4DP3tW
-	 m1ecKnJyQIZGA3sg4qpKfvMPyzcEmxknu/Dc8zPFt2m5k1KdgPJVroOFUoGQ+obAEamHW
-	 lSiNPqGpEDCjkSOp01uU6ihuasdYlD36e6PRQfuIe9KaioWs03owYpVsFwLvx5tCnn56b
-	 /VjFZkhnjQiWRxCy+iIMt+423IshBn3UfXwBarYFLBv6ztEs2qlcCBHhG8JWn5MkcLKip
-	 z3RE2R1G1gvMcg1qo41o8WN3QEEejn4XiKaLvQ/dYfVWV8cTqdxYs0r0FkhltCeREjg==
+	t=1794549889;
+	b=OPXesOsm0LmxR7GWeQpDGV9F5IBknfYz/1v+SSLJndTeYBXTQRIxB+ncA6E6EvOAK+lT
+	 7X31XWi3H6RjHv2lwwgzTMulpFUTZlKKEWj6CAXfgG7L3U/u/Za7hAZdtiAZ0AIgIhozU
+	 OZtC36KUn7qLpYdlSvtq7lTaDUAl+Ieag80Y1bVsXe1/q7ypwATZk1Y5NFdll74LOjK79
+	 7re/Wvxuua470k+9iLDQUG7Hqcgnja6HOXJBmWfSFDXSZDm3ShZXll7+mmtqay++ZGQFe
+	 7Jp0OSw4NHAgLnoFps8xsFmNe0AkVnfk9pj9aX5W6UJz/+5zbqF5/A91m457j+tospQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794549725;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=f0tfoDPeXWlHqzej2oB2Yoxq7N2r8FCUr0elWdc55Ws=;
-	b=i0iNY3hxf+dw6soyw+bR0khBoai6Mz3JUIi/3G/lO85OrM1h5cRwmXBFMVeOkWniNxcO
-	 KI+GIx0Ut9ZXAc47ZYcWycw4KG5zjyA8fDmi6puZ0541kFiu6ZOsjzrvAOxREGk1jIkZ9
-	 jJt9HuSWlCRxNf9mAGyFtqrmGHxGAX/UGI4DQwQFahKU6O3Kfu7jJG2rFw5ujcGJwxtAS
-	 R06T4PJoG3lXq7bmDj/+PjgKUvSnXGaYbKr7hVQ5cPsRS19jCEBzY1woRdNp8Gny61v2W
-	 nuNRUoP1JF4JdKz2f3wYH8S74CA5zZ9n21OHXSVs1f7FRk+7nFBeLwC8+i2bgitYueQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794549889;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=7xFaxwfpj5KbqoBFMnfOTbn14r38Tg3ox9XxMLJZOVU=;
+	b=Zj+zIJ35jsbNhej5ipwjEVbst4TL0I2OV4iHPOBCUqrcMeQ9IxYMbKNA1DknFioe3VDb
+	 J3srsvvItkOignHzoLt6eCy3/re9VeG3Y9tEBa8NMbhRZczGzRc3V2jo3chzz8MuWZBKZ
+	 ZYDmq9hyI/q+3Fl2UADlKdZAoezx4AhVPnCKur3RP34xuI5hLUCssKBUDYxzOd38MWDP+
+	 ogNzJo3Jm4K4QTtN/VwtMALv1W3/dRLZM6wCQ99sOsvaccveGgsvqDaQ//bdbBxyW/lkz
+	 6JSl3+3iP2ruAPj1gytliS076pqdBm1zB+3bvgACjNbcNGTcVh5Bdhz9v/HdRyC9obA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z8cXUfPW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b="fJwB/xFG";
+	arc=none smtp.remote-ip=209.85.219.42
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9C4606A8A0;
-	Fri, 13 Nov 2026 06:02:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C02606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:04:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97C02606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z8cXUfPW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E91DB1F000D0;
-	Fri, 13 Nov 2026 06:02:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794549724;
-	bh=f0tfoDPeXWlHqzej2oB2Yoxq7N2r8FCUr0elWdc55Ws=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Z8cXUfPWGtOAHMN62suecoKKASGV+mxijsNH9B6yd4g3y9XdsEquCmx+eyoN2R1iN
-	 EU9pOdggS9f51v6Dj9aFgGVLwEEqb9RyVHVCLDRYUoBwp7F9Ndo2cbeC2qcT5Hnob+
-	 oQ4DPCU5ehxemXUx5m8Nv/brm76NbVti/Q44Qy7tP57pDfWoQ0KcWg2rLAMmhcsaV2
-	 4VZ77myXE+VZwek6yOnrfgqL2TOOwUKbe0gJCo1yu7SBxsEHkNSncSkxgVa8ZAyhAc
-	 d807GNZryb8SQreJlLgEQLvSRgtx6QyIbj4EWCGprSVxIOnq92l1SejISV3tO7xCTi
-	 2J3tchq2es3Mw==
-Subject: Re: [PATCH can-next v3 7/9] selftests: can: add J1939 TP/ETP
- multi-frame tests against CAN_RAW
-From: netdev-bot+sashiko@kernel.org
-To: o.rempel@pengutronix.de
-Cc: robin@protonic.nl, socketcan@hartkopp.net, mkl@pengutronix.de,
- shuah@kernel.org, kernel@pengutronix.de, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- fmaurer@redhat.com, mailhol@kernel.org, alexander.hoelzl@gmx.net,
- quchaosheng000406@163.com, penguin-kernel@I-love.SAKURA.ne.jp,
- kuba@kernel.org
-Date: Fri, 13 Nov 2026 06:02:03 +0000
-Message-ID: <179454972353.488853.9453703448480835098@kernel.org>
-In-Reply-To: <20261111-j1939-selftests-v3-7-5a80277ab363@pengutronix.de>
-References: <20261111-j1939-selftests-v3-7-5a80277ab363@pengutronix.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=fJwB/xFG
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91f0274f88cso9511826d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:04:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794549887; x=1795154687; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7xFaxwfpj5KbqoBFMnfOTbn14r38Tg3ox9XxMLJZOVU=;
+        b=fJwB/xFGCSUa1c4sQ0nFcTBxPUDm0vEK4o6+MJileOdSFdDCEI2Wr7/g242Ygl+kT9
+         Lxq4nTF8fe5GG5jbyMUmH0KJWyXOf3As3tBnq0G7axZBe9Pz0DoIXUk2lv3O39uQz4Ik
+         ec7QwCs28s4Zzx1mG2qV8l5NMwEvL/xrxfIEn9JcVYBEJqVgSgzSHQpd1F8KjEvlMx0e
+         TTv01NljTV6NpwN9WCB6mGrZn2WePa4GrVt2gkrszeM08caPpJiVublWEhjQJGFhstvy
+         3hj4UpgRgUSehRDwuhfIh90pbVNzoBYBfYUn8V1l8jv9xGBw+qCGO0QvEZpJfEpjiW1i
+         bugQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794549887; x=1795154687;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7xFaxwfpj5KbqoBFMnfOTbn14r38Tg3ox9XxMLJZOVU=;
+        b=wStrGUMYyb8sL02CSLW35HkU3TYZX5EqFPMa+Exef9Qaih4V7KRvmMTG59dgZJQAaW
+         j3C2IVJDFsJyFHKlXaA8AabInJx6hozAhxYwjWUjs62AXr5xv3WqE/a2iwOLDoUZWl8r
+         OxJMB1+adP/bLqN8wJJoEKsuSgTlIAUQo8oiFzDOZldfoRt3Q79jTdDbzjy0fLx3IwHR
+         sh63clTrEYfx1Z4n3JYU7W/m3NYSpUBjl+4ZVkQPR56RreRIEZ2PlKVggjfTfEsyHVD/
+         Pk4GVkHhiEPtBYrNPn92Y1L7XBRAvsp8QKG0M2un9VxVR0snThLmHd1dlTow6OPVaPJ7
+         OKig==
+X-Forwarded-Encrypted: i=1; AL+hErGzKqI84x+MX38/Z/MwJJGhxE/mkkAetr3EOZgqeVjU38WHXTTIlWmh5akWVd12Zju7NBZMw2DxTv9IRjM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CJjiObnQzbDeMoFGJ6oHc3xzB0IqafZW6tNMZgqFjb2O7BHxp
+	AYkRAc1XVPEGM4U5m2/6npg9O9QRMbKMviUaKwEy0ke9EzL5/+e6gyYQJDWztoczOQY=
+X-Gm-Gg: AYBFou2Ky0S8HoaccIlwhyVQzWtfAOSJ2/JMc8fy+VPiQ5aGwB8BQIOniWKAcYpagSX
+	w9LlNRIny/2jaBwc/i3XbEeliibHRdt4y1ad5wjaErE3frNcoxpmd9Fbd9d83AmVMmSeo4tgbJ+
+	KyV0d8De3Q0kdyMk0rkhOsQp6UexNG4lLNy4M4zre7zZP3TENVedl8QSPEVKlimmdam414qkrza
+	vGfa5rAFEPvZ5QOwHGMxFmvbzhEx5vi3oGrn9tRiKZsng0/mHdC70QTtqbxR3/bIcN9mmnKUIiZ
+	3PQvka/UIp0x/Kpx9ES4pnpMsiuVIolz6y3D6iigQjKTqOUr5hJbKjaTwOsLlW8Qv6BjCMrDhGF
+	bcHyST7B1UtxKe70o3ANK/mheZ7ol4HATgTh3c/APSlGnYkyimsBNaffOod5kakwzb0CvxL4gRA
+	pla7GMqUW5wuw75D4a1OeY2rLZMcvEUbDSFy2TIjfafMv5rrdp7qnc91CnJk7963Gb8pXHnRVR7
+	oHX2fhpHYhttc5lvNnAbMUA+BVk7iuJbmLwFM1YCteZ/mfjXLcLouZn8El8rR+Y48CTSRWDDA49
+	oLpZS9hhlg56PrQEptzZbCyPJoxw6dvdw/8gNEZnXuOMa2PmMaURdxyYSfNo2HJ+HWETS2c7frj
+	MV+0l7lM=
+X-Received: by 2002:a05:6214:3f81:b0:91c:6d83:60ed with SMTP id 6a1803df08f44-91f2424ace7mr21809446d6.55.1794549887409;
+        Thu, 12 Nov 2026 22:04:47 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23c9ade7sm13257376d6.5.2026.11.12.22.04.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 22:04:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,134 +89,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 08/12] mm/migrate_device: do not migrate a
+ uffd-protected zero page
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+ James Houghton <jthoughton@google.com>, 
+ Andrea Arcangeli <aarcange@redhat.com>, 
+ Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>, 
+ Andrei Vagin <avagin@gmail.com>, Stephen Rothwell <sfr@canb.auug.org.au>, 
+ Arnd Bergmann <arnd@arndb.de>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ =?utf-8?q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>, 
+ Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org
+In-Reply-To: <20261111-uffd-state-fixes-v1-8-00713d368976@columbia.edu>
+References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-8-00713d368976@columbia.edu>
+Date: Fri, 13 Nov 2026 01:04:45 -0500
+Message-Id: <179454988585.482102.2051616940227067987.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 2026-11-11 12:55 -0500, Tal Zussman wrote:
+> migrate_vma_setup() installs a migration entry for each page it
+> collects, which carries the uffd bit over to the new PTE. However, a PTE
+> that maps the zero page is left in place without a migration entry.
+> migrate_vma_insert_page() later overwrites it with a new PTE that is
+> built only from the VMA flags, so the uffd-wp bit or the RWP PAGE_NONE
+> protection of the old PTE is lost. The same applies to the huge zero
+> PMD.
+> 
+> Once a driver has migrated such a zero page, writes and accesses to it
+> no longer fault into userfaultfd, so the manager misses them. With async
+> tracking, PAGEMAP_SCAN unconditionally reports the page as written or
+> accessed.
+> 
+> This requires a driver that migrates memory to a device.
+> 
+> To fix it, do not mark a zero page for migration if its entry has the
+> uffd bit set in a VMA registered for WP or RWP. The driver sees an
+> address that was not migrated, which drivers already have to deal with.
+> 
+> The uffd bit can also be set after the zero page was collected, as
+> write-protecting only takes the mmap lock for read. So check again under
+> the page table lock in migrate_vma_insert_page() and
+> migrate_vma_insert_huge_pmd_page().
+> 
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Similar to last patch, this changelog could be improved.  My best
+attempt at summarizing:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+"""
+Device migration replaces a zero-page mapping with a fresh entry,
+losing its userfaultfd WP or RWP protection.
 
-- [Medium] The patch adds four TP/ETP tests (tp_rx_from_raw,
-  tp_tx_to_raw, etp_rx_from_raw, etp_tx_to_raw) that the author says can…
+Don't migrate the uffd-protected zero pages.
 
---
+Skip protected zero pages during collection. Check again under the
+page-table lock before insertion, because another thread can apply
+protection after collection finishes.
 
-selftests: can: add J1939 TP/ETP multi-frame tests against CAN_RAW
+The alternative ...
+"""
 
-This adds TP and ETP round-trip selftests in both directions. A CAN_RAW
-socket acts as the transport peer, so the frames are checked as they
-appear on the wire. The TX tests also check that the TX-completion ACK
-reaches the error queue only after the peer's EOMA.
+I have concerns with this:
 
-> diff --git a/tools/testing/selftests/net/can/Makefile b/tools/testing/selftests/net/can/Makefile
-> index 21898e645ced7..99113184a525a 100644
-> --- a/tools/testing/selftests/net/can/Makefile
-> +++ b/tools/testing/selftests/net/can/Makefile
-> @@ -9,6 +9,7 @@ LOCAL_HDRS := j1939_helpers.h j1939_tests.h ../../clock-helpers.h
->  TEST_PROGS := \
->  	test_j1939_addr.sh \
->  	test_j1939_base.sh \
-> +	test_j1939_multi.sh \
->  	test_j1939_opts.sh \
->  	test_j1939_wire.sh \
->  	test_raw_filter.sh \
+> The alternative would be to carry the uffd state over in
+> migrate_vma_insert_page() and migrate_vma_insert_huge_pmd_page(). Not
+> migrating the zero page is simpler, and a zero page that is protected by
+> userfaultfd in a range that a driver migrates should be rare.
 
-[ ... ]
+This basically force-fails a migration of a uffd protected zero page.
 
-> diff --git a/tools/testing/selftests/net/can/test_j1939_multi.c b/tools/testing/selftests/net/can/test_j1939_multi.c
-> new file mode 100644
-> index 0000000000000..aec96e83305cf
-> --- /dev/null
-> +++ b/tools/testing/selftests/net/can/test_j1939_multi.c
-> @@ -0,0 +1,682 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-> +/*
-> + * J1939 multi-frame wire selftests: TP and ETP against CAN_RAW.
-> + *
+Wouldn't we expect this to cause drivers to fail to make progress if
+they require that page to be resident on the device?  Not sure we want
+to force drivers to try to handle this special case (if they even can).
 
-[ ... ]
-
-> + * Known stack race: the stack updates a session from the loopback echo of
-> + * its own CTS, RTS and DT frames, and the CAN_RAW peer can read that echo
-> + * before the stack has handled it. A peer frame that follows quickly can
-> + * then cancel the session, so these tests can fail at random. The fix
-> + * belongs in the stack; this file does not work around it.
-
-[Severity: Medium]
-test_j1939_multi.sh goes straight into TEST_PROGS. Will a default
-kselftest run then see random failures from this race that cannot be told
-apart from real regressions?
-
-The raw peer always gets the echo first. raw_init() sets a zero can_mask,
-which puts the raw socket on rx[RX_ALL]. j1939 registers on rx[RX_FIL].
-can_rcv_filter() walks the two lists in that order:
-
-net/can/af_can.c:can_rcv_filter() {
-    ...
-	/* check for unfiltered entries */
-	hlist_for_each_entry_rcu(rcv, &dev_rcv_lists->rx[RX_ALL], list) {
-		deliver(skb, rcv);
-    ...
-	/* check for can_id/mask entries */
-	hlist_for_each_entry_rcu(rcv, &dev_rcv_lists->rx[RX_FIL], list) {
-    ...
-}
-
-In the RX tests, tp_serve_cts_ok() and etp_rx_serve_cts_ok() send the DPO
-and DT frames as soon as they read the kernel's CTS. If the stack has not
-handled the echo of its own CTS yet, last_cmd still holds the RTS. The
-peer's DT then lands in the default case here:
-
-net/can/j1939/transport.c:j1939_xtp_rx_dat_one() {
-    ...
-	switch (session->last_cmd) {
-	case 0xff:
-		break;
-	case J1939_ETP_CMD_DPO:
-    ...
-	default:
-		netdev_info(priv->ndev, "%s: 0x%p: last %02x\n", __func__,
-			    session, session->last_cmd);
-		goto out_session_cancel;
-	}
-    ...
-}
-
-In the TX tests, tp_tx_to_raw() and etp_tx_serve_block_ok() send a CTS
-right after they read the kernel's RTS or the last DT of a block. If the
-peer's CTS is handled before the RTS echo, last_cmd becomes CTS. The late
-echo then cancels the session:
-
-net/can/j1939/transport.c:j1939_xtp_rx_rts_session_active() {
-    ...
-	if (session->last_cmd != 0) {
-		/* we received a second rts on the same connection */
-    ...
-		j1939_session_timers_cancel(session);
-		j1939_session_cancel(session, J1939_XTP_ABORT_BUSY);
-    ...
-}
-
-A late echo of the last DT of a block can also arrive after the peer's
-next ETP.CTS. That echo hits the same default case in
-j1939_xtp_rx_dat_one().
-
-This file comment is the only note about the race in the tree. The Q/A
-under the --- line gets dropped when the patch is applied, and the commit
-message does not mention the race. At the end of the series ("selftests:
-can: check SO_J1939_PROMISC receive effect") the comment is the same and
-test_j1939_multi.sh is still in TEST_PROGS with nothing to work around
-the race.
-
-Could these tests stay out of the default run, be marked as expected
-failures, or wait for the stack to handle each echo before the peer
-replies, until the stack is fixed? Could the commit message also mention
-the race?
+We'll need some input from the migrate_device/GPU folks.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-j1939-selftests-v3-0-5a80277ab363%40pengutronix.de
+~Gregory
+
