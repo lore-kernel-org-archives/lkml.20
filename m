@@ -1,102 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794572207;
-	b=MtuJbWKv/kHXjd5XihXv51OcJ5QtgXBuDCMihPQ8qBOe2GrK3kH+IyDhmsXKCwKvg6H2
-	 BTWIxU/ClRnv8GIIjv2JUCdSoM0YLlV+HmMHDpkBvn+ooRgNhKRaLLhY6YHOSXHdcUn3n
-	 JRSUzW1SGs0HnxJYU6N8gbwNtx3jWbGcrBxv0dSRxSxM+qWasjsxC5LVUeh21ZhmGU844
-	 pG9HyUK0CZUnrHKK9YCC3Y5pbZylWustklZt1sfwrKvjz+TfEIvBq983asnWCO3+p/kOY
-	 yCkml1S6Rw1D1C6SM+D47nXYbZq0TqfbgQMbvWvbl3Gn00OcEXj/gQhzwIZrmoRF6EA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794572207;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=yh//LwFAWkhuSX27zp/CKGjXWFK/r7pkuQ5AkJ8bS8k=;
-	b=mNpZ76opSIW46L8l6DbSmJqplg+Ut6iDSHsNRbn6S5o9OfXnPExZ5DnRC9zssPbVW27C
-	 fsEN1NtONDo72zERAvDDdCCEdRXOqqqJ4/3Xz8yNRhO9Zp0E1RuavsMeDoRLDpOq82RgI
-	 p0IZu+U3aA2CnTclIJ/zZpIrYZ0icFrjRyocln+wcMRh62SxaoZESMuoC1+HCI80ymtJD
-	 3GdoGDwUdLdf5DXyqeQ6GxnKKAMOVo67k5AnINTraRD4foXVIGv7ka1dhxn3dpjDRBSTQ
-	 RXaX9mHRm6aR0dCwqhLkW/nDApj8M4ws77Vub6vAp82tP+ADnIxs08QrA9LMEtOl/Gw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=brainfault.org;
-	spf=none smtp.mailfrom=brainfault.org;
-	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b="e/Zx56Yb";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794572222;
+	b=Zqgepw6UOWN3icekake4FrvJEQFohuTrXb3BzjhSmHh+db8kNDdld7k6yiyOGTO2nS4a
+	 p3MP7psZeVcq34kiKbL5FLJbfp6S4zoydEJ+QiGgnnF9T1/VtC1+NoDYrTW8FTFj8Gxby
+	 uD/f+rvjLOElZR2+lztadiMqdK6TSWWGtWC8WYLZT9y6VjjXTlQ0BVjiTD9VTZgRcxDcq
+	 8DpqQKsbPfy6t8Kgy/sjv7MukCIqznM/NZow0fpusVlZj2FOcJDJyT0C9QtwcylQOUeTf
+	 W9d8BXOrvC5V6uwxVfO+b0QLBAAKI1DqtIdOvlj2r+O6OaT4q9YyuSjehXASj3Wo/Xg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794572222;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=RkCxsTE7UpoOTRo2gEh6+gpKeHmTHzxM3PCv6l/f2Nc=;
+	b=mRTzZcrSlbdQgWdpCMv1dWYVLeHg+4j3DbjZPTekbkc94fEnoIMJCW7lHFVbYWrtHztm
+	 OkmHgJfF9SOQ55oKqWG4gpS5lBXqq7Z5/TNlSpW0tikpKwiAa4t9pcwZQHtapcStKuDkl
+	 jqTp+L4Kj9cQiTjV16bwwvjLTdSogjLZ1tfCo8MxMapkGKSpyJI2LojHn11uoXzGDDZIx
+	 rMz8gVrEJYkSX7WMUmMkYlZLFHzei0RuJZDx2kxAIQ4xJ3ZLpjqaLIttWVkADWOIWXFwn
+	 PdsETYkEofwTWsUVezf6HGLwHRR7a5cLwWrl8VEX1ls/dI4pZwBR23XIdu6381kxuXA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eYwF0+gr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IET5H4dL;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eYwF0+gr;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IET5H4dL;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FB0606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:16:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2FB0606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44770606A323;
+	Fri, 13 Nov 2026 12:17:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44770606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=e/Zx56Yb
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so1825666a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:16:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794572205; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nv1JPtcPH0oZEp1fhLnN3PVXQ6GP+LGksjhOmS4EM/FYz2bFTAxAhr1NK4PAmAH2Dg
-         wu8fMQS9j/DMzmWvgwBBHc+TQ1s2npsBhplwzVdmJZwzDZ/OOQOwpZXoBQONXIdE0ZtW
-         wYIhXLKkQd4FTUiTbJIDdTY15wcBmWLGMaYc4iS6EmvxFI0bxp2VxpBrcEyCq81THu7o
-         GKzpnT+/5dg++GkJUWqG4kATuUYO0E+SzHIjizKLUk9e9sQNHmi/nazZR0cOIF6tkSZu
-         z/Exw62KYyWziHUyVtdCx+5N3MxcVabSJjnQsqbPJf4pS2lNEgjrdGYs8VV9/KZHrBbm
-         o6pQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yh//LwFAWkhuSX27zp/CKGjXWFK/r7pkuQ5AkJ8bS8k=;
-        fh=F/NiICs9vDEdJEXN2no6kZ7s4fMS3qNZlAH74keqQQ8=;
-        b=O8Vtp9VpsSTihgsmD0Bqvlzs5HHVrbH2mzRbesWGf9e4BdSXCKps5NhXA15KdOykl9
-         ts2JSjqAN1sMpT6fyGJvDK9UMeY7sKyBMjNUpuVffZQe0REYPYUaRa7B8vTqOnGz+cKu
-         pI5x5O0UjXoWYszaqcNvZlPSjoFtT5+oWDCvCRZdm0iMBGrAyo3/ASa/ZuD8n2c8w8Cy
-         PCqLB7htfhePkRaNtQMe/pAay30IqJRQ3vK9hPz0OQTQhstwabacXTas5fDP23+ZxMXh
-         5e8hCbQ5ZYUXZW1mmUNKKmyTBrNMsNM82nAQUWaL0erWqg5poTWSMmVdQ+67Z+lHMZm4
-         H9Wg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1794572205; x=1795177005; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yh//LwFAWkhuSX27zp/CKGjXWFK/r7pkuQ5AkJ8bS8k=;
-        b=e/Zx56YbBCjgsMtG5kmlIHcHvE1J6P4joVmzF9dfp0gpew/WcvK+LQo86o3z5cIQyI
-         yK/1GAJiVW9CEyH9ubTAy6Wzcuk5LfuDIOU4HSPzBZO5VsDaBgG2mvNLrS2jZjQJafOb
-         5uoSaa7DjtWrkm4WowzVwxq7KrrQiGO5+QN2QGNBX+f9fsL/G6ONSjLQou0mIqQ6dBZe
-         nNvWPGqi8QX9PFdJFbuKvu5RxG62KdLZmrUdVIhSKPNC/tw+lME1WznJ1/o993s+XHQ2
-         37yB4jGRiscVgqNWd5/ZqJaK6+rBt172tp8VegOdRm6TG5pTfXaby5H26I5BjOqDhAui
-         MNyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794572205; x=1795177005;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yh//LwFAWkhuSX27zp/CKGjXWFK/r7pkuQ5AkJ8bS8k=;
-        b=ifsMidZzby29AR2AOZrHw8/ggy6E/mUnkIzXrR97I3LMM7Rcp5MW6OAuby80azbkBg
-         yen9y4t5COF3zXzg4QktXLaI1/NnkSFLp2utM+pS5urhHMWKwpp9Ax4nXvQnvSUFDq74
-         OBJ7kf6JBpBAYRj1hlQKn/ZU3LpQNFAkRwAltIto7rHjJiAgAKxFt/4C05ANhgSby2RJ
-         veXGCeYWgmnyseFOdI52OUjY3VGH6XHTiH/yMIYW9ON+L6k6+/ohy5Guem+YyW431KQu
-         punXqeg2HErdl1wzKxJFs3HnuAFLHeRRG3/G7YtE3rjZPf/r4bbPykzO8Jv5RoNk1WBI
-         tCUQ==
-X-Forwarded-Encrypted: i=1; AL+hErFtnsmfgjv2kVb+CJXU6Nu+Y78TEn4gnHm2QE3n78hdFwUNuBge+aPMbk6g8/7WEm+c3pN/iZxGyfbwXuc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89G/tRneWaWRclRus+w9QJT+9vP0q9XghT3KeF0aWD2z60uicJ
-	g4jl4XyRVIZu6u0oNTQQK7EDwTlzT/N1KLAsxKtuJXNU7nCbHoDBvpFLrKXjddvPiZj/Nc8tyGG
-	+JR6Pp873rrYEPp6eaH50VEy/SQzZ0CWmu7icY/qOMA==
-X-Gm-Gg: AYBFou3ESIeB7BpDwRRwsdUbYatyR9pKw2pxrjWl9XEK7NPlBJPMZTLIyNaYqOCiuQ0
-	bPmvZlBRRWRKX2QH6h8WTjc9aYDidwAaXZTwGXd/U5XPGzQdcZf9RLWUHcS+S+Z3azbONof+EHT
-	2o8avetHUcQxV/8J3iuzROjAD2Ygjm7ye4eHf5yDIME76GcsVJRqTja+rsaaLq7w/RE9kc9awsj
-	3xEZc6UC5qVJn0AxZpOpEksdyRPjz95pcP15UKD3VRH3RANNWPj6XrYhVLtgcd6Nh10udDqgyx1
-	Qnbcw27XLRSVr3Ch/qAF5FbtIvt7pXrC/oA/cKvU/gXumh/HqByJhuIG0/sppHhsdHmG4EVG6Ue
-	T4O9vk+rvVbZ4G8muXrIUPbr3PAFxDtr8mhF4SnkoZlyYpxiP29QQZwDseOJ4RjHNZMCiYX7ft+
-	GeXt64GsImC3rFPGoSGP7VH69nQss+BSbe1qxrPEgNfXUYLKHYm99yymsgplqO+mBBbsmgQebGh
-	uRn
-X-Received: by 2002:a05:6402:5177:b0:6b6:fddc:dbc1 with SMTP id
- 4fb4d7f45d1cf-6b7c08b08admr1438436a12.6.1794572204712; Fri, 13 Nov 2026
- 04:16:44 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eYwF0+gr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IET5H4dL;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eYwF0+gr;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IET5H4dL
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 149961F7E0;
+	Fri, 13 Nov 2026 12:16:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794572219; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RkCxsTE7UpoOTRo2gEh6+gpKeHmTHzxM3PCv6l/f2Nc=;
+	b=eYwF0+grD5yz822qXK4j4lZQA7+F5zFTtAIdrpbbteFpryBUKCagoTK/s4IY3biPfYGGOm
+	ArKMietOFeQj4+szkoNRRdLwtOUcWpACYrdRtMXev6tG143iyltzpQBFIxTpDs67lu94ZA
+	z4mhBhxF8ppfUECccQdfyMTRfxyw3rs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794572219;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RkCxsTE7UpoOTRo2gEh6+gpKeHmTHzxM3PCv6l/f2Nc=;
+	b=IET5H4dLdgIFtMe2xgdA7dNRE7n52M+khxDID5uijIqx6HFvkz+d4Fs7hWMhXtJsBkCXux
+	vixNgNzRV0d3G7CA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=eYwF0+gr;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=IET5H4dL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794572219; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RkCxsTE7UpoOTRo2gEh6+gpKeHmTHzxM3PCv6l/f2Nc=;
+	b=eYwF0+grD5yz822qXK4j4lZQA7+F5zFTtAIdrpbbteFpryBUKCagoTK/s4IY3biPfYGGOm
+	ArKMietOFeQj4+szkoNRRdLwtOUcWpACYrdRtMXev6tG143iyltzpQBFIxTpDs67lu94ZA
+	z4mhBhxF8ppfUECccQdfyMTRfxyw3rs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794572219;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RkCxsTE7UpoOTRo2gEh6+gpKeHmTHzxM3PCv6l/f2Nc=;
+	b=IET5H4dLdgIFtMe2xgdA7dNRE7n52M+khxDID5uijIqx6HFvkz+d4Fs7hWMhXtJsBkCXux
+	vixNgNzRV0d3G7CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6D6E61344A;
+	Fri, 13 Nov 2026 12:16:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id iNJmO7n/9mrVcQAAD6G6ig
+	(envelope-from <ematsumiya@suse.de>); Fri, 13 Nov 2026 12:16:58 +0000
+Date: Fri, 13 Nov 2026 09:16:56 -0300
+From: Enzo Matsumiya <ematsumiya@suse.de>
+To: shyckless@gmail.com
+Cc: pc@manguebit.org, linkinjeon@kernel.org, linux-cifs@vger.kernel.org, 
+	sprasad@microsoft.com, smfrench@gmail.com, ronniesahlberg@gmail.com, 
+	bharathsm@microsoft.com, linux-kernel@vger.kernel.org, 
+	daniel.birtwhistle@gehealthcare.com, samba-technical@lists.samba.org, tom@talpey.com
+Subject: Re: [PATCH] smb: client: fail SMB2 responses with a bad signature
+Message-ID: <avb81ry-kS6GfWkO@suse.de>
+References: <20261113-smb2-sign-v1-1-937ee7c20f08@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,192 +111,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <tencent_C8B170AF63DC42F81A47F9EA044BB4B11C09@qq.com>
-In-Reply-To: <tencent_C8B170AF63DC42F81A47F9EA044BB4B11C09@qq.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Fri, 13 Nov 2026 17:46:32 +0530
-X-Gm-Features: AclHuK-Kyzf_3Aa78LNIir_Q7TGPINiFuQF__Q3gkCjYhZcKlm3MtE70aN1T8Lg
-Message-ID: <CAAhSdy3K1AFB-DWKznNru+x2hNiP5_M+uTZEZBHWwdvLfJrNQA@mail.gmail.com>
-Subject: Re: [PATCH] RISC-V: KVM: Fix G-stage page table memory leak on VM destroy
-To: Yangyu Chen <cyy@cyyself.name>
-Cc: atish.patra@linux.dev, pjw@kernel.org, palmer@dabbelt.com, 
-	aou@eecs.berkeley.edu, alex@ghiti.fr, kvm@vger.kernel.org, 
-	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261113-smb2-sign-v1-1-937ee7c20f08@gmail.com>
+X-Rspamd-Queue-Id: 149961F7E0
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-13.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[manguebit.org,kernel.org,vger.kernel.org,microsoft.com,gmail.com,gehealthcare.com,lists.samba.org,talpey.com];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MID_RHS_MATCH_FROM(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,ntu.edu.sg:email,suse.de:dkim,gehealthcare.com:email,hust.edu.cn:email]
+X-Spam-Score: -13.51
 
-On Sat, Oct 31, 2026 at 12:28=E2=80=AFAM Yangyu Chen <cyy@cyyself.name> wro=
-te:
+On 11/13, Suyuan Wang via B4 Relay wrote:
+>From: Suyuan Wang <stevewong@hust.edu.cn>
 >
-> kvm_riscv_mmu_free_pgd() tears down the G-stage with
-> kvm_riscv_gstage_unmap_range() over the whole guest physical address
-> space. That function looks up each address with
-> kvm_riscv_gstage_get_leaf(), which walks down to the leaf PTE, and then
-> clears only that leaf. kvm_riscv_gstage_op_pte() frees a page table only
-> when it is called on a non-leaf PTE, which never happens here, so every
-> page table below the PGD is leaked when a VM is destroyed. With 4 KiB
-> mappings this is one page per 2 MiB of guest memory that was ever
-> mapped, plus the upper-level tables.
+>smb2_check_receive() checks the response signature when signing is on,
+>but a failed check is only logged:
 >
-> The leaked pages are not slab, vmalloc or page cache, so they show up
-> only as unaccounted used memory. On a SpacemiT K3 host, a workload that
-> creates and destroys tens of thousands of small VMs leaked 0.5-1 MiB per
-> VM and ran the host out of memory after about 20,000 VMs.
+>    rc = smb2_verify_signature(&rqst, server);
+>    if (rc)
+>            cifs_server_dbg(VFS, "SMB signature verification returned ...",
+>                            rc);
+>    ...
+>    return map_smb2_to_linux_error(mid->resp_buf, log_error);
 >
-> Add kvm_riscv_gstage_unmap_all(), which calls kvm_riscv_gstage_op_pte()
-> with GSTAGE_OP_CLEAR on every PGD entry. That recursively clears all
-> leaf PTEs and frees each page table below the PGD. Use it in
-> kvm_riscv_mmu_free_pgd().
+>The status from the response is returned as usual, and the caller goes
+>on to use a response whose signature is wrong. This is the path for
+>synchronous requests and for smb2_writev_callback(). On a signed but
+>unencrypted connection, anyone who can modify the traffic can change
+>e.g. a directory listing, and the client accepts it.
 >
-> Tested with a reproducer script that builds a minimal KVM host kernel
-> from a source tree and boots it under QEMU 11.0.2 (TCG, rv64 with H,
-> Sv57x4 G-stage). Its init creates 10 VMs one after another. Each guest
-> writes one word in every 2 MiB of an 8 GiB RAM region (anonymous memory
-> with MADV_NOHUGEPAGE, so 4 KiB G-stage mappings) and then shuts down,
-> so each VM needs 4096 last-level page tables (16 MiB). MemFree lost per
-> VM, after one warm-up VM:
+>Return the verification error instead.
 >
->   before:  16415 kB  (RESULT: LEAK)
->   after:    1636 kB  (RESULT: OK, noise)
+>Unlike the SMB1 fix in commit dc96f01d54cc ("smb: client: terminate
+>session upon failed client required signing"), don't reconnect: this
+>runs in the thread that sent the request, and only cifsd should call
+>cifs_reconnect(). And fail the request whichever side required signing,
+>since a response with a bad signature can't be trusted either way.
 >
-> The bug was found while investigating the host OOM, and the fix and
-> reproducer were written with the help of an AI coding assistant
-> (Claude). The analysis, fix and test results above were reviewed by
-> the submitter.
+>Found with a static analysis tool and checked by hand.
 >
-> Fixes: 9d05c1fee837 ("RISC-V: KVM: Implement stage2 page table programmin=
-g")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yangyu Chen <cyy@cyyself.name>
+>Reported-by: Daniel Birtwhistle <daniel.birtwhistle@gehealthcare.com>
+>Closes: https://lore.kernel.org/linux-cifs/SN4PR22MB28883DAF57E0B4D4BFB1C22AEEC42@SN4PR22MB2888.namprd22.prod.outlook.com/
+>Fixes: 3c1bf7e48e9e ("CIFS: Enable signing in SMB2")
+>Cc: stable@vger.kernel.org
+>Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+>Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+>Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
+>---
+>We found this on our own and only saw Daniel's report afterwards.
+>
+>For SMB1 Steve wanted to keep just logging when the server, but not the
+>client, required signing:
+>https://lore.kernel.org/all/CAH2r5msfYRdaGAMuTbni-0T20tQi=N=fT4qxiaQ3siQ_WVm=Qg@mail.gmail.com/
+>This patch doesn't make that exception. If you want it here too, I can
+>send a v2 that remembers whether the client required signing.
+>
+>Tested in QEMU with Samba 4.15 (server signing = mandatory, mounted with
+>vers=3.1.1,sign) and a proxy in between that renames a file in
+>QUERY_DIRECTORY responses and leaves the signature as is. Before the
+>patch the renamed file shows up in getdents64(), after it getdents64()
+>fails with EACCES. Mount, read and write on the same connection still
+>work, and lockdep stayed quiet.
+>---
+> fs/smb/client/smb2transport.c | 4 +++-
+> 1 file changed, 3 insertions(+), 1 deletion(-)
+>
+>diff --git a/fs/smb/client/smb2transport.c b/fs/smb/client/smb2transport.c
+>index 080864b24a0c..62121d7a44a8 100644
+>--- a/fs/smb/client/smb2transport.c
+>+++ b/fs/smb/client/smb2transport.c
+>@@ -711,9 +711,11 @@ smb2_check_receive(struct mid_q_entry *mid, struct TCP_Server_Info *server,
+> 		int rc;
+>
+> 		rc = smb2_verify_signature(&rqst, server);
+>-		if (rc)
+>+		if (rc) {
+> 			cifs_server_dbg(VFS, "SMB signature verification returned error = %d\n",
+> 				 rc);
+>+			return rc;
+>+		}
 
-Good catch. Thanks for the fix.
+Reading my reply to that other patch again https://lore.kernel.org/all/s4kmfu25glkgu44wl46e3q3bjvyhlbcvnlaiuqkuey4qlg4d5o@s7ispothcved/
+I now think that, indeed, reconnecting on mismatching signatures might
+be too much.
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
+However, I still think the error should only be returned if signing is
+required (*) AND rc == -EACCES.
 
-Queued this patch as a fix for Linux-7.4-rcX
+Any other error should always be returned unconditionally.
 
-Thanks,
-Anup
+(*) Note that "signing required" at that point means that either/both
+client and server required signing, and the other side agreed -- it
+doesn't really matter who asked for it.
 
-> ---
-> How to reproduce:
+> 	}
 >
-> The reproducer script is at
-> https://gist.github.com/cyyself/23abb87a8ad9ee8c64ce03cca78669fc
-> and needs riscv64-linux-gnu-gcc, qemu-system-riscv64 and cpio. Run it
-> from the top of a kernel source tree:
+> 	return map_smb2_to_linux_error(mid->resp_buf, log_error);
 >
->         $ cd linux
->         $ /path/to/kvm-riscv-gstage-leak.sh
+>---
+
+You might want to strip the lines below.
+
+>base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+>change-id: 20261113-smb2-sign-2f316c91c873
 >
-> It builds a minimal riscv64 KVM host kernel (allnoconfig + KVM) into
-> .kvm-leak-build/ and boots it under QEMU (TCG, -cpu rv64,h=3Dtrue) with a
-> static test program as /init. The test creates 10 VMs one after another.
-> Each guest touches one page in every 2 MiB of 8 GiB of guest RAM, so it
-> needs 16 MiB of last-level G-stage page tables. The test then prints how
-> much MemFree each VM leaves behind. The first run takes about 1.5
-> minutes, mostly kernel build; reruns take about 10 seconds.
->
-> Without this patch:
->
->         10 VMs, each touching one 4 KiB page per 2 MiB of 8 GiB guest RAM
->         MemFree 2037664 -> 1873512 kB: 16415 kB lost per VM (a leaking ke=
-rnel loses ~16384 kB)
->         RESULT: LEAK
->
-> With this patch:
->
->         MemFree 2054080 -> 2037716 kB: 1636 kB lost per VM (a leaking ker=
-nel loses ~16384 kB)
->         RESULT: OK
->
-> The exit status is 0 for OK, 1 for LEAK and 2 if the test could not
-> run. IMAGE=3D<path/to/Image> boots an existing kernel instead of building
-> one. That kernel needs CONFIG_KVM=3Dy, CONFIG_BLK_DEV_INITRD=3Dy and
-> CONFIG_DEVTMPFS=3Dy.
->
-> I also tested VMs that select Sv39x4, Sv48x4 and Sv57x4 through
-> KVM_CAP_VM_GPA_BITS, and four VMs with mixed modes alive at the same
-> time, destroyed one by one while the remaining VMs kept running and
-> were checked for correct guest memory contents. With this patch, no
-> memory was lost in any mode and no guest data was corrupted. Without
-> it, every mode leaked about 16 MiB per VM.
-> ---
->  arch/riscv/include/asm/kvm_gstage.h |  2 ++
->  arch/riscv/kvm/gstage.c             | 22 ++++++++++++++++++++++
->  arch/riscv/kvm/mmu.c                |  3 +--
->  3 files changed, 25 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/riscv/include/asm/kvm_gstage.h b/arch/riscv/include/asm=
-/kvm_gstage.h
-> index aaf080ba1b77..90ec9e0b34b1 100644
-> --- a/arch/riscv/include/asm/kvm_gstage.h
-> +++ b/arch/riscv/include/asm/kvm_gstage.h
-> @@ -80,6 +80,8 @@ bool kvm_riscv_gstage_op_pte(struct kvm_gstage *gstage,=
- gpa_t addr,
->  bool kvm_riscv_gstage_unmap_range(struct kvm_gstage *gstage,
->                                   gpa_t start, gpa_t size, bool may_block=
-);
->
-> +bool kvm_riscv_gstage_unmap_all(struct kvm_gstage *gstage);
-> +
->  bool kvm_riscv_gstage_wp_range(struct kvm_gstage *gstage, gpa_t start, g=
-pa_t end);
->
->  bool kvm_riscv_gstage_wp_pt_masked(struct kvm_gstage *gstage, gfn_t base=
-_gfn,
-> diff --git a/arch/riscv/kvm/gstage.c b/arch/riscv/kvm/gstage.c
-> index e5002cb9cbef..c912cdc2021f 100644
-> --- a/arch/riscv/kvm/gstage.c
-> +++ b/arch/riscv/kvm/gstage.c
-> @@ -456,6 +456,28 @@ bool kvm_riscv_gstage_unmap_range(struct kvm_gstage =
-*gstage,
->         return flush;
->  }
->
-> +/*
-> + * Clear every G-stage mapping and free all page tables below the PGD.
-> + * kvm_riscv_gstage_unmap_range() only clears leaf PTEs and leaves the
-> + * page tables in place, so it cannot be used to tear down a G-stage.
-> + */
-> +bool kvm_riscv_gstage_unmap_all(struct kvm_gstage *gstage)
-> +{
-> +       u32 level =3D gstage->pgd_levels - 1;
-> +       pte_t *pgd =3D (pte_t *)gstage->pgd;
-> +       unsigned long i, page_size;
-> +       bool flush =3D false;
-> +
-> +       if (gstage_level_to_page_size(gstage, level, &page_size))
-> +               return false;
-> +
-> +       for (i =3D 0; i < kvm_riscv_gstage_pgd_size / sizeof(pte_t); i++)
-> +               flush |=3D kvm_riscv_gstage_op_pte(gstage, i * page_size,=
- &pgd[i],
-> +                                                level, GSTAGE_OP_CLEAR);
-> +
-> +       return flush;
-> +}
-> +
->  bool kvm_riscv_gstage_wp_range(struct kvm_gstage *gstage, gpa_t start, g=
-pa_t end)
->  {
->         int ret;
-> diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-> index 371fccaf9df0..87838a0f6bb9 100644
-> --- a/arch/riscv/kvm/mmu.c
-> +++ b/arch/riscv/kvm/mmu.c
-> @@ -784,8 +784,7 @@ void kvm_riscv_mmu_free_pgd(struct kvm *kvm)
->         write_lock(&kvm->mmu_lock);
->         if (kvm->arch.pgd) {
->                 kvm_riscv_gstage_init(&gstage, kvm);
-> -               flush =3D kvm_riscv_gstage_unmap_range(&gstage, 0UL,
-> -                       kvm_riscv_gstage_gpa_size(kvm->arch.pgd_levels), =
-false);
-> +               flush =3D kvm_riscv_gstage_unmap_all(&gstage);
->                 pgd =3D READ_ONCE(kvm->arch.pgd);
->                 kvm->arch.pgd =3D NULL;
->                 kvm->arch.pgd_phys =3D 0;
-> --
-> 2.53.0
->
+>Best regards,
+>--
+>Suyuan Wang <shyckless@gmail.com>
+
+
+Cheers,
+
+Enzo
