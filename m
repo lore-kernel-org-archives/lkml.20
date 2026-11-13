@@ -1,102 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.36
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794605097;
-	b=HwnETMPNoqaz8ODe719dHPUNLmY4L0QILkQ8whE7xi9hkEm7JAGdIoqtolZdG7SUYwm3
-	 t9tRDOAuIz8VbqjU54i7OfFD6E6Edt8WAQSTJD81iZhwomiKOKckUHfDZfpHtNOGXEZm2
-	 12kUfjUa0wU7X/belKUucfcLTmiPx6RJlzdU5Y6iwoBG1JjM+XkssQ16u9f1W7pFwDCJN
-	 6WK8YrCvomQ1IaS/Aqp1GC3QDGfyTqQvBLA2ITNQgiA4COvMB2E+NpBwG3e0cBRrbN04W
-	 vbbXKof5Z4XFH86T54x2idQFyP4xHHuIC8oQjveeHFHEojEyoXGOXZmAWsEdGKnmzUg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794605097;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=tqbenaJBLexQ34JxbkENCu7nq1W+2e4OJKqhDGZzuKk=;
-	b=EwYBMYnmFHrmouacoA2vmi8QT8lsI98xCLM+TTP4Gl5hc3zUhC4t5I6w/zL4lhlJkQzH
-	 puSAetEF6yj6tdL0kPRZmozyaajecYc6pagwgvK+dSaNAWNLMBn+62Bn2D3D5DWwne5oX
-	 nrdRk+hyyT8lZXDh9Q6sJXxsEzO2bMneRqObkArD7/41AUfom9tQIhnOnSib6m7dKyBe7
-	 UxE5z4aMkOF9vRm/xZf0i/vY8m9uLJQIJq1nRgLLbHjIPnAg6tPMtX57fAhVpFgKNxIny
-	 tKuYWLYcEIZseAH6TaLe514f9VCdLM23AICL/dDfTIIhUJh0M4SkKFmxKe/VSQgwZQQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="KTeGA/Ms";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.36
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011036.outbound.protection.outlook.com [52.101.70.36])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794605171;
+	b=u4RcayElfzz5TLiFqr5VgbNJYU9gSYZar7F+5mrLBOLnaVortZc9X//OWeR+88HlzEwp
+	 gktI1c53qwLzTfsmND8lASt2stjTU9aieTlJ3Pt1KgR7Uwwd7sAkkbDk7KanwBCHkLvWT
+	 b7D2rDRjZINmW+o837HWhJBcw7x9ueKU5nG0Gd87/X2zCUmkTDXhI78wjj4Jx/VmndqEe
+	 J0o4K2Vo9etWVKm5iQDX5+X72vZLlfMunG3zDfkRKW5jCVEiVBRmzLbr+y454ar/9PAAG
+	 F1t5dyL3/fikQgLbE/K5/EaLevfDu2411rvw8yxtTDKnW4jiOL8qnxxsTGiSVXNY1eg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794605171;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=14DbhITib14ppVX3i7Picll2u9OpRT8wBV6cw1FaJPg=;
+	b=QmRYyoT+MV6l3t4uE9qR+y7p/ZpOFVQUghzUGCvm5c2yd9Ny3YJ9OIiGvShndZzJHsLf
+	 zV2oL3an01eqe/co+4DFQlQCSNEb2sseo/Xbg/o96oHywPqnZI3Oi0V5xlosw19KqPIYY
+	 zbbmrgzhNftQ/6QKvOY/PKom0ZgPx3Mm1ttezezD0mCjdbz5sh2tu9+ikh/6Tu7TEFKXq
+	 dq+Grj6DAos0Uy2wdcNoNojk/vkm4KZMSGB48cVb2r+c82hR17eOKgQOqIeNw6FE/Znt1
+	 csf31x2bWui4ZYGNehFcva4SlbpqBnPI2DvUvjAwCjtt096qIFyaN6j72ZlY0NmBmWw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=AKqtjcn9;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987E2606A323;
-	Fri, 13 Nov 2026 21:24:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 987E2606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C5A606A32D;
+	Fri, 13 Nov 2026 21:26:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5C5A606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=KTeGA/Ms
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o4zYcvpiA2l8u/4k5C7ibekDA+uIhaqilK+Z6yj773t04RZUpq/iMjFdxF5RmCJ8sEJ9KUntW8bDDsQKLNgj/6Jt++cSPvWbx27ijwNR2bHhJsn1TgXgWcAGGyvBVdV+pxee7tRV6Ctdn1f0m/dl29knJ0nBuSTGfGjg0tNpbGJZ3gF7d9Xm+On+kF1FudThSnDff0Qwmi6ZurywPbFzC5b45BT+vVOr0qCRXRXXrXkJtB4qZjdAG88lC/siOyG0J0Qqt2/u6e3bqZE5LHwVog6IlrhnZMWAskOpYjxxhXfQC0yB9sVRkuoR3Ce1eS4VozmQnRlzYeujzFyVE/D14A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tqbenaJBLexQ34JxbkENCu7nq1W+2e4OJKqhDGZzuKk=;
- b=yTn0jDA1OPNJGh7aOqm0Zi9iZmLmpOkzR7OoVPMo+SGvDYUY3o769T5APeyTiVur3Xj/G1wzSHJ7sguaS5eEmtM9HBqmV4U7gQqvGhgzzOONKSXi/QRlC30dbIcWZbufTcZFzp3iFvU/ONrlRdiNyNi3/AqgTUAJnb+LxRAvP3pBNgRDtht6Yjk5jQm6mNE7++Nh4JpEwvRLrjApyHmvID3FonDuUZf6eU8FVk3erw72kVD7SKhoc0DBqPyYvZGwoi4+7f5OE39XFM8rowBQwRI309heHX8EL7BL5NH7CaU0n/9pw3KlnRrf/sc+QthRt72zMLvlU65KT9z8MRMYNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tqbenaJBLexQ34JxbkENCu7nq1W+2e4OJKqhDGZzuKk=;
- b=KTeGA/MsBCwLkXE4nxACV6ZvJlA4oKxrgRGcKA2+d9YdKmUWXp5bv2EysBcw4P6SBuym2t39kLuQX7Hzi/M9RpIdTLWTlMw9q+QnsuzLIVh/TSVGiQCRohy5Lj8fBFUJQ3tvyTOJRqVRYe1TADaYi5jFyLUfYBSnNCRYrteaiveRjQuVKCXedGeGwDLbQBD9/ibOTB056iOguzB/ipQUsqzLe3FtZxa/Kz6j9plK87EKsy1u/PtO4LFccl4tf5BTCMmNjWVFznv8wx9RdQqk0RlzFdWNPFh1MWNX6WwG1VEw8xfmIfVCN3MJz5T7WEM0PG3UGT8t+qgKQ8pH1/U/6g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PAXPR04MB8655.eurprd04.prod.outlook.com (2603:10a6:102:21e::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 13 Nov
- 2026 21:24:52 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
- 21:24:52 +0000
-Date: Fri, 13 Nov 2026 15:24:42 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: vjardin@free.fr
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>
-Subject: Re: [PATCH v3 3/5] soc: fsl: guts: add the RCW override of any RCWSR
-Message-ID: <aveAGsPO3rBqccLj@SMW015318>
-References: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-0-5a0063f1da9e@free.fr>
- <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
-X-ClientProxiedBy: DS1P220CA0013.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:455::8)
- To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=AKqtjcn9
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=14DbhITib14ppVX3i7Picll2u9OpRT8wBV6cw1FaJPg=; b=AKqtjcn9H5nJ/tb/KVjKAhGI/L
+	6FHDvu1Aj51VzpM+SCyLiV+/0BrV/gxyS4fhEbHJMP3ms9/TUQ4ZGw/uNwga4LPjxV8/p3vEn2YkL
+	TMkSrJEDq1rDTm4Z5oedrU7wQMQ+OLvF67lqIuaiiJkxAr4yNehWj191xEz0tdHRfad74DdfHm5u6
+	aY2fvq0o5kloTw6OExdw6AmUFgG4fBTLwPMeBKvYg8u0mf5sKJctUAMHv5xTS0TV2nhYhdryNvVsq
+	8/DEv4d4D+blQJR3R9kEA45UGOGXMWNXxYC4OXvcKNa8qAgQwUj1ZEj44d4nAk6zZFxMhVFD0QNOs
+	ESQ1gGXw==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Elaine Zhang <zhangqing@rock-chips.com>,
+ Richard Cochran <richardcochran@gmail.com>, 1579567540@qq.com
+Cc: Cunhao Lu <1579567540@qq.com>, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org
+Subject:
+ Re: [PATCH v5 2/4] clk: rockchip: Add internal support for 24-bit fractional
+ dividers
+Date: Fri, 13 Nov 2026 22:25:55 +0100
+Message-ID: <Yf6NfRPFTxKjDagKAm6hpw@sntech.de>
+In-Reply-To: <20261030-add-board-ok3572-c-clk-v5-2-9a43403cb149@qq.com>
+References:
+ <20261030-add-board-ok3572-c-clk-v5-0-9a43403cb149@qq.com>
+ <20261030-add-board-ok3572-c-clk-v5-2-9a43403cb149@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,185 +71,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB8655:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07353583-612b-4eaf-da6c-08df41cc8e0e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|366016|7416014|23010399003|376014|6133799003|22082099003|10067099003|18002099003|3023799007|11063799006|261028144727099003|56012099006|4143699003|261021121427099003|261026140227099003|261026121527099003|261009223027099003|261022105027099003|261102123227099003|261022075727099003|261102130727099003|41080700001|15866825006;
-X-Microsoft-Antispam-Message-Info:
-	VHe74ec1s1zrhZI93dUjk18ZMw3MJ4QNJB78fkgfyztYe3AiPunyj1BJgUY9BH2GantBQzc3jOdI31WPlTyabOP0MQe3jSlttx203mP3xezX0Iasl5OYTqHkFrSihE425ZTSGkQbERXBIoiyZqMEUBKNBMNwhup1oIFstJvHf2D4O2fEKWiyxl/UNFiv2anHAM31iH5ZDL+VUOotj7xJc8rxoYvEhgUkhulCqNhjKeraanlxHX/9XdRPntYMXOHIU8+sZVcTB+TnAonyGop9XDSiIoCnwcWD0ZoX3T3FnUEqczqk/9PK4RocmUFJYySXoG5VGAALZ/WT/3n62ILUw9wc2JFeoitGngOy90XVJAYwc/oD4sBQLwjzTA0E1/+j/t52qs3zd1jokiXMqs+GDwDiE6/rAgxLFPPLxzGyNAyuo5KZLdWhO06w/I1MBW/PZqnhW7vKEmHh/pvs4SryEWh3+wPAVl8T8UjahtM4O48siEu35KM65Ym3qkZT7k4JA7VFwuiFCWi9qA+2NSEpRzVMM2BvPYyeyjoD2EpqdWeVFHoJ4yCslYmpTtLLAeJE0cZ+mRN18xXmrbLHWiUIY/AiAHp4TnUViKjFA9xwpvBqSA8MGBGYVCM8R9k3qGluP2Qs1w/mVUC8ZQBLcP4a/r7109TRDxiQgbRozkA6etot2fl849BbtxuD9LhKYeRnt0BcjJIjsnGxPHYM6rMJN/wh3slHQL7EmQLxOww6Fw/Pa1KnRn/sIEauBWH2mz5B
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(23010399003)(376014)(6133799003)(22082099003)(10067099003)(18002099003)(3023799007)(11063799006)(261028144727099003)(56012099006)(4143699003)(261021121427099003)(261026140227099003)(261026121527099003)(261009223027099003)(261022105027099003)(261102123227099003)(261022075727099003)(261102130727099003)(41080700001)(15866825006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GuNQBJFkreTYsngsXmx7y8GYkb8bqSeEd3krjz1sW8MDN2m1AUpUOIIyJYEo?=
- =?us-ascii?Q?JamnLPa29wo24Yi/DUtnH0QYqitr/YhNAJVlDfp8sYGBSpBcIyQcRReiVvmd?=
- =?us-ascii?Q?d02S20BtfFmVTxvCLyKoRUjtYvfuiS8/2BfvWx733j7/ZrdVzXKedRN7Jokw?=
- =?us-ascii?Q?CSID+505rHfwcMjFbwShLAC3v5tYzX9jub5gb06lP8B6qkb4KZpfrJZtRx5H?=
- =?us-ascii?Q?kRHpEKAVueHvpEoYuqOn6rld5ryG9CD7D/l6FqmPyztqyPrU0ubUM+el4CDt?=
- =?us-ascii?Q?Fnhvd8mUSN6y/0JfIjLWrBMRYrEWx3qJsDXkoSfNy8UIp/39EF7Kurr02HnN?=
- =?us-ascii?Q?RSaWKMZ6dSEOGSSG5NFhNNu5YeTNotoPoxM/xnGkcGRXla49ZBgB3gUxN+E9?=
- =?us-ascii?Q?RIVHOBb/5dj7kf1BR2VTvXlASxtIFEMnjNZd8tVZ0nvbIpCIUCTkFhk0kjob?=
- =?us-ascii?Q?OvulTn9wsiDG4QlLCWIZblwkOCghPofsuZGbcMKndFZo6+QSIxAMEDlUexu/?=
- =?us-ascii?Q?XosiP5grjy6JdYMKvZXvweI8U3BHBua0d3WOCqEObK/mAZLw/RLiguAv1ksh?=
- =?us-ascii?Q?7zgWr33ETgL8SjT7FyvY9Wf5kSB5bYdT/10PAIOmOSPk9OJ6mM4b2U0hOrxn?=
- =?us-ascii?Q?psi1xm2gd6NwLjGVoaq0H9dDaoDsCLT9wIywO/ZuWsnaBtO9FhlFBGPpZVg+?=
- =?us-ascii?Q?rr8V6Tjnhde2mgAlbkqpgwzyGiDgXVqEwrOFTFAAjN8BjqC8lv20ntTx/OpP?=
- =?us-ascii?Q?jelnlAdGszwdjjNaSnCYIl5x7UXpMBQtHvrGG/q3JxuFi9d+HsmZjmsEpPvz?=
- =?us-ascii?Q?ZlJyJPjWcXhqaXBaVau67B0g+dFqPmvBW8pC4eVJDad8cFPtvH1IZRbWrRAk?=
- =?us-ascii?Q?z6mou8sfMWm7ewR1OKpHNUK+ZTIZMw7o4Gl0lpMogGJdwanbC/WKeWj5auio?=
- =?us-ascii?Q?wTfDOBl8UOatAefs0w9DxA8+2LTn51J2IzcIffYU+atsVrDxjnaunnsmEZ71?=
- =?us-ascii?Q?3gMbww7YuVwAEeuGFtOVSRLYxcgfREByMtEO5v8Ci1AAGqIutYWQf86/Xjzs?=
- =?us-ascii?Q?V00faFtAoOOLsLsLvB8h66z4b2vJrB5iUYcWkpA4AoYT9mbEdz7h7xGo3NNL?=
- =?us-ascii?Q?dRDsrVIJOA8CalH7hP9Kc0qno14Sajtd9Bap4PbXmpPju6nGwIVkdQVEovBu?=
- =?us-ascii?Q?TNBLtV+L0k2UO+bSoGHfY3AWO5WZxECmt2a28RBj/mk100+BOjOpm4pgoOpW?=
- =?us-ascii?Q?p23HoHrAV9kOSd/G+OdNwwUnVVF6sda9uept9P3LL5UrmV06SIw1qbcWDbUJ?=
- =?us-ascii?Q?Wds6enP1rywS7HhX6uPHzF3i61rrQsFX/da7EaAf94F7uiyf6DMMhFe/SfYs?=
- =?us-ascii?Q?JP1UymkelvG6brZJUFBCLifWHToOvAwrcKT8Xx8UTQuCwPy8Bm3cPyNHhzHJ?=
- =?us-ascii?Q?H981vd07rOXT1hROs/G8Ux5Qd8FtIhAUDvvAIztyCtnFWgxkZ5coUh3X7QIm?=
- =?us-ascii?Q?LBwKINMo3Kfnah1tfOkrNF5r5BpfB/MjWDFVjrUlgLZ5a10ipih1wrCt/DC8?=
- =?us-ascii?Q?9tcgmuE5c67oKscuizKDGupHGiaI6ZHJxYlW8Eh9ZtEexE5kHMsMaIyLlnHw?=
- =?us-ascii?Q?ReyiVh4xxnUPMq4RZzsHuoUquPEjVJtKoogWjydP7dFMOITvXEYqigjOxKfl?=
- =?us-ascii?Q?3rTsewBFwParUhaQvtFZDEE8iBoUyHs5uBf3AuNea2n4ghpUQObGYh3xqLtV?=
- =?us-ascii?Q?Iqm40trIXTJRUPtbRMMaC9DvxunT2aukqEgTCM2t0YZ9Bz6SRe+B?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07353583-612b-4eaf-da6c-08df41cc8e0e
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 21:24:52.4331
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q9deMreC95ePZE2ipxwGrSe9mI/FUtKZC9g1Yt4Hrbh2YATVWvOgVKZRiRGmet/XKR9O5nkKEqSC1m3BmdSoZqxMuYDzr8zrjBvXfHhG79/jHGKDlKW3/neWrop51dhg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8655
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Sun, Nov 08, 2026 at 11:06:51AM +0100, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
->
-> fsl_guts_rcw_rmw() only serves the SerDes lane modes. Export it for
-> other fields of the RCW:
->  - fsl_guts_rcw_read() reads a status register
->  - fsl_guts_rcw_override() changes fields of one under rcwcr_lock and
->    waits for the status register to follow
->  - fsl_guts_rcw_override_supported() tells whether the DCSR view of DCFG,
->    which holds the override registers, is mapped
->
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
-> ---
-
-Supposed go through pinctrl tree
-
-Acked-by: Frank Li <Frank.li@nxp.com>
+Hi,
 
 
->  drivers/soc/fsl/guts.c   | 73 ++++++++++++++++++++++++++++++++++++++++++++++++
->  include/linux/fsl/guts.h |  3 ++
->  2 files changed, 76 insertions(+)
->
-> diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
-> index 28361c63e26c..d2e3f66d0da4 100644
-> --- a/drivers/soc/fsl/guts.c
-> +++ b/drivers/soc/fsl/guts.c
-> @@ -369,6 +369,79 @@ int fsl_guts_lane_set_mode(int serdes_idx, int lane, enum lynx_lane_mode lane_mo
->  }
->  EXPORT_SYMBOL_NS_GPL(fsl_guts_lane_set_mode, "FSL_GUTS");
->
-> +/**
-> + * fsl_guts_rcw_read() - read a RCW status register
-> + * @index: one-based index, RCWSR1 to RCWSR32
-> + * @val: the value read
-> + *
-> + * Return: 0 on success, -ENODEV before the DCFG block is mapped,
-> + * -EINVAL when @index is not 1 to 32
-> + */
-> +int fsl_guts_rcw_read(unsigned int index, u32 *val)
+sorry it took me a bit to get to clock driver patches :-)
+
+Am Freitag, 30. Oktober 2026, 10:43:58 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Cunhao Lu via B4 Relay:
+> From: Elaine Zhang <zhangqing@rock-chips.com>
+>=20
+> Some Rockchip clocks split each 24-bit numerator and denominator between
+> a low register containing 16 bits of each value and a high register
+> containing the remaining 8 bits.
+>=20
+> Add an internal Rockchip fractional-divider helper and clock branch type
+> for this register layout. This provides the support needed by the RK3572
+> audio fractional clocks.
+
+Please add a paragraph about the "v2" naming.
+I assume the v2 is a Rockchip naming, because v1 was the other one that
+could still fit the regular franctional divider.
+
+
+
+> +static inline u32 clk_fd_v2_readl(struct clk_fractional_divider_v2 *fd,
+> +				  void __iomem *reg)
 > +{
-> +	if (!soc.dcfg_ccsr)
-> +		return -ENODEV;
-> +	if (index < 1 || index > ARRAY_SIZE(soc.dcfg_ccsr->rcwsr))
-> +		return -EINVAL;
+> +	return readl(reg);
+> +}
 > +
-> +	*val = fsl_guts_read(&soc.dcfg_ccsr->rcwsr[index - 1]);
+> +static inline void clk_fd_v2_writel(struct clk_fractional_divider_v2 *fd,
+> +				    void __iomem *reg, u32 val)
+> +{
+> +	writel(val, reg);
+> +}
+
+
+why do we have those? They do not serve any purpose I can see.
+So please just use readl and writel directly at the appropriate places.
+
+
+> +static int clk_fd_v2_get_divider(struct clk_hw *hw, unsigned long rate,
+> +				 unsigned long parent_rate,
+> +				 unsigned long *m, unsigned long *n)
+> +{
+> +	struct clk_fractional_divider_v2 *fd =3D to_clk_fd_v2(hw);
+> +	u32 factor;
+> +
+> +	if (!parent_rate)
+> +		return -EINVAL;
+> +	if (!rate || rate > parent_rate)
+> +		rate =3D parent_rate;
+> +
+> +	rational_best_approximation(rate, parent_rate,
+> +				    GENMASK(fd->mwidth - 1, 0),
+> +				    GENMASK(fd->nwidth - 1, 0),
+> +				    m, n);
+> +
+> +	if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED) {
+> +		(*m)--;
+> +		(*n)--;
+> +	}
+
+=2E.. blank line please ...
+
+> +	if (!*m && !(fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED))
+> +		return clk_fd_v2_get_low_rate_divider(fd, rate, parent_rate, m, n);
+
+=2E.. blank line please ...
+
+> +	/*
+> +	 * When compensation the fractional divider,
+> +	 * the [1:0] bits of the numerator register are omitted,
+> +	 * which will lead to a large deviation in the result.
+> +	 * Therefore, it is required that the numerator must
+> +	 * be at least 4.
+> +	 *
+> +	 * Note that there are some exceptions here:
+> +	 * If there is an even frac div, we need to keep the original
+> +	 * numerator(<4) and denominator. Otherwise, it may cause the
+> +	 * issue that the duty ratio is not 50%.
+> +	 */
+> +	if (*m < 4 && *m !=3D 0) {
+> +		if (*n % 2 =3D=3D 0)
+> +			factor =3D 1;
+> +		else
+> +			factor =3D DIV_ROUND_UP(4, *m);
+> +
+> +		if (*m > GENMASK(fd->mwidth - 1, 0) / factor ||
+> +		    *n > GENMASK(fd->nwidth - 1, 0) / factor) {
+> +			if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED)
+> +				return -EINVAL;
+> +			return clk_fd_v2_get_low_rate_divider(fd, rate, parent_rate, m, n);
+> +		}
+> +
+> +		*n *=3D factor;
+> +		*m *=3D factor;
+> +	}
 > +
 > +	return 0;
 > +}
-> +EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_read, "FSL_GUTS");
 > +
-> +/**
-> + * fsl_guts_rcw_override() - override fields of a RCW
-> + * @index: one-based index of the RCWSR and RCWCR pair
-> + * @val: the new value of the fields, in place
-> + * @mask: the fields to change
-> + *
-> + * The fields outside @mask keep the value the status register shows. The
-> + * override register is written and the status register polled until it
-> + * shows the result, as fsl_guts_lane_set_mode() does for a SerDes lane.
-> + *
-> + * Context: takes rcwcr_lock, shared with fsl_guts_lane_set_mode(), and
-> + * busy-polls the status register for up to RCW_TIMEOUT_US. Does not
-> + * sleep; must not be called from interrupt context.
-> + *
-> + * Return: 0 on success, -EOPNOTSUPP without a DCSR mapping of DCFG,
-> + * negative error otherwise
-> + */
-> +int fsl_guts_rcw_override(unsigned int index, u32 val, u32 mask)
-> +{
-> +	int err;
+
+[...]
+
 > +
-> +	if (!soc.dcfg_ccsr)
-> +		return -ENODEV;
-> +	if (!soc.dcfg_dcsr)
-> +		return -EOPNOTSUPP;
-> +	if (index < 1 || index > ARRAY_SIZE(soc.dcfg_ccsr->rcwsr))
-> +		return -EINVAL;
+> +static const struct clk_ops clk_fractional_divider_ops_v2 =3D {
+> +	.recalc_rate =3D clk_fd_v2_recalc_rate,
+> +	.determine_rate =3D clk_fd_v2_determine_rate,
+> +	.set_rate =3D clk_fd_v2_set_rate,
+> +};
 > +
-> +	spin_lock(&soc.rcwcr_lock);
-> +	err = fsl_guts_rcw_rmw(index - 1, val & mask, mask);
-> +	spin_unlock(&soc.rcwcr_lock);
-> +	if (err)
-> +		pr_err("RCW override of RCWSR%u failed: %pe\n", index,
-> +		       ERR_PTR(err));
-> +
-> +	return err;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_override, "FSL_GUTS");
-> +
-> +/**
-> + * fsl_guts_rcw_override_supported() - can a Reset Configuration Word be
-> + *				       overridden?
-> + *
-> + * Return: true when the DCFG block is mapped with its DCSR view, the
-> + * second reg of the dcfg node, which holds the override registers
-> + */
-> +bool fsl_guts_rcw_override_supported(void)
-> +{
-> +	return soc.dcfg_ccsr && soc.dcfg_dcsr;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_override_supported, "FSL_GUTS");
-> +
->  static u64 fsl_guts_get_soc_uid(const char *compat, unsigned int offset)
->  {
->  	struct device_node *np;
-> diff --git a/include/linux/fsl/guts.h b/include/linux/fsl/guts.h
-> index 8d5ffb985fee..7127de897c23 100644
-> --- a/include/linux/fsl/guts.h
-> +++ b/include/linux/fsl/guts.h
-> @@ -142,6 +142,9 @@ int fsl_guts_lane_validate(int serdes_idx, int lane,
->  			   enum lynx_lane_mode lane_mode);
->  int fsl_guts_lane_set_mode(int serdes_idx, int lane,
->  			   enum lynx_lane_mode lane_mode);
-> +int fsl_guts_rcw_read(unsigned int index, u32 *val);
-> +int fsl_guts_rcw_override(unsigned int index, u32 val, u32 mask);
-> +bool fsl_guts_rcw_override_supported(void);
->
->  /* Alternate function signal multiplex control */
->  #define MPC85xx_PMUXCR_QE(x) (0x8000 >> (x))
->
-> --
-> 2.43.0
->
->
->
+> +static struct clk_hw *clk_hw_register_fractional_divider_v2(struct devic=
+e *dev,
+
+maybe adapt the function name.
+=46unction above abbreviated things to
+
+clk_fd_v2_something, so naming this clk_hw_register_fd_v2()
+might make that line less unwieldy?
+
+
+
+Thanks
+Heiko
+
+
