@@ -1,90 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=3.69.218.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585906;
-	b=zMvTA42TBBoiUBHRXCj6rCFeFZusoyfd/CGBWgwoDk3XuOm9TDpANorm5KLUwD3mpVfz
-	 wSQ4H93/BYdci3zjAoQeTAaGKUkrPrua1K4fl2TAyjKAhA7NHdqfFJrEyyqw1BVqRFDRj
-	 5eIQPdez0WlOOGidAMq//mb2ZU24o8VaJUUPDPUdfqppVZAB9sWSt8KZwqQ6wEUAMZBcm
-	 vrE2owWjqWs+M6dMABWqnc12BveKJlqNkKGaUAQxGj8PefO/mwPBWBxhjyJP4dkoan06m
-	 0cQxj1CAehzTeWXjCkh3LIFzqkgnDvJ38b53lAS4GVAuB/svevrkSn6bC+LB9hKD69Q==
+	t=1794586041;
+	b=iUvu/IFd0OaPFQzanTtNxq83W95Hjcb+38cqMV5bGVHlM4Z7C8z4oZZdFyUCP1GCO3xD
+	 +cq77kW5LN0g9M0uukD4cTSfe8nTHrwovs13hn8BFd6FDGRiOmVfWOhebwda6xmfLaMqr
+	 D4eZbChDStWG+87SDC68APCMeBfliaYVw5/oE0NriWhTDha4yT+PIQ3yNTnylPN+cnLYI
+	 s2B3YTV0TdUAOBVonazI5kSImRqu2LZTnVVl/ZTXzQclAdwFrfoOqKynExk8fOgzEO96q
+	 yeTxcx5Ayg5AmkpIbGQYKq5KbWWcUzgGx1/KSaOQGmxCzWLwbx2wpHeAdKocYJ42ABA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585906;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=7Kw3jpXIq4jFZtKzMcPDKxBZyvXYg2GOy824z751lHM=;
-	b=NJHupNuTw8xBEnr0R1oOUaxSHd+oohI+IOCX0fUfvZf7jsR6kMo0tLAcpo+DKF6i1mZy
-	 kBDHDlubpvKsWnfNnjYFydq8r9GgC+jtca6RDGdHLj89TJ1ZHl1CQ4+2UNqL0x5dX/+ev
-	 2YQJ88W3INSk9Ev8hbJHq1LBJLMo+5182/77ohGF9rQIjWriOndBZmPilWwTLWktvcv4v
-	 32ne46FPORKytXTQLn2LzgFKRfdVj41vWDsQ+dRb75BPlbtbATX3nfshKhrf1QKaw04UX
-	 WJHAIZanJUhI/JypDnE0+QPNL3k79mMXB/fYDY/Z7pmkpW1YXZmeoLv9KCWqG+E7yUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794586041;
+	h=DMARC-Filter:Received:X-Titan-User-Uid:DKIM-Signature:X-AuthUser:
+	 Received:Feedback-ID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-F-Verdict:
+	 X-Titan-Src-Out:X-CMAE-Score:X-CMAE-Analysis;
+	bh=/33BZSI7RWJKcZ5gy6yopR/tiV89Y2TBrmcYVRw3IIs=;
+	b=aU8egeXoKnLcUk4zWvKdW+zXWpPx31HsHWXFM9mJMX667frOlzqpgsKE1xmJi4eC62ny
+	 NW7W4WaEGeJs9xaMivjLVfeKMWgJhqnppgXkiatojyonOADLII/X+hLzkRNfR4sqp7q90
+	 akxKE9wwsuCy6UNx4pxiw2ENpizkuDjEXEM7cuLI03X/pTtaBlMN4k9VukBsFK6v9UDGh
+	 aWxGb6OStB1qNT1ktsO4+UZ+x57pTf0YFFHR9wyB34xi6HCpr7HzMVsvcMmUhCwJrKjJ5
+	 9lYVTNkgP56YQDrjlrYQ5D/GDEj7rgutZ0Q4zdBGQp4CMRHWwHBN04ccL7RreeswUuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b="SOb/xgQc";
-	arc=none smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=techsingularity.net;
+	spf=pass smtp.mailfrom=techsingularity.net;
+	dkim=pass header.d=techsingularity.net header.i=@techsingularity.net header.a=rsa-sha256 header.s=titan1 header.b=dsg8LhDh;
+	arc=none smtp.remote-ip=3.69.218.78
+Received: from mail45.out.titan.email (mail45.out.titan.email [3.69.218.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361496076214
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:05:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 361496076214
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF63606A880
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:07:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FF63606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=techsingularity.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=techsingularity.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=SOb/xgQc
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b6e7a05225so2214625a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:05:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1794585904; x=1795190704; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7Kw3jpXIq4jFZtKzMcPDKxBZyvXYg2GOy824z751lHM=;
-        b=SOb/xgQcyJqJV3fKqjmRGGbJgehdAOrhA3EbTniYpSFN9VG1M8/QE6f0G5SaWLB67B
-         wX3cksYY2S+OXmZfAKrm8S8bm9fssk/Fd5med7zF1L0uhNZbzjHhV4WfOcS70B2DmX4w
-         MaOdUK8lcTnJ0ABUJzCvWVLoRpVNd0U0vaEcEV0JlfPZy+HDNcjk9VG5yr5GCHZPdcBi
-         tVCkSDlzKAy1dBv9LaTKGzdR+x9fwiUA+4Ekkz0C5Nqb/re+BZ4MMule3tszbeJ2zRXY
-         SVBlR96YUFt/di8TxXsZRllTLOy+i9T5HIfJBglIHabYyg+5kJb7RjoYoU1/9WHf1WWe
-         MyrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794585904; x=1795190704;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7Kw3jpXIq4jFZtKzMcPDKxBZyvXYg2GOy824z751lHM=;
-        b=09Ihwn6bF+7bzIu0jskWkmBtpGpFD8B+wnN13WS8xuGqBitWDPOr9y0VI9V7/M8uFT
-         wv+Ax4x1dpCst0VAfaGy0Cmq8jBGIha3wuEWU6V8nIyKJP8DWNZ8xQqbh4wxYsjBklhh
-         uwrcwExMgUhNg0Am6Sb6Qhv3EE6cLcAAkslwDwhqqeqhaNJOLql2RYsGFmp7nJAVu5+T
-         fGfMyjmxaY7Isq4IdWF2rn5O0dNsoIne3uI/8HuyqNFq75xtTlaqgrgnMUj6nb4/bPfK
-         Lr9h9aLOCIy7CUr9BIl4alEVK3ZUUo6NXTiWH2Md+wYGQ+4gPxAT+hIRX6TGbzg8ge+Q
-         TRug==
-X-Forwarded-Encrypted: i=1; AL+hErEW47oHWZKrFIt/qNMYczWSGvRI62eRMRzFYOGYZwcr+XhFLqmScWVmYMVZzE3F77PJwAeYKDMQqwvUyvI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TuKZ2vQRkDM9iQaudQK8hwvqbhpdqN88lgbXxaCmONLBRADKq
-	Vj7JJ5NEo1bQrsr5YxErfbSUC6aps59NyugCQRZ3i4kDGyAnHDviNmqVRelR8vJ5B6U=
-X-Gm-Gg: AYBFou3cKHpnw1PKaMehmJdDXiv/Ed/xLaIDpBfgXJ604CKpQ/6enyO9m0TOAPj7AgJ
-	Usf4+Rf+EXR4KrAcb4q5EOxGspnAB+R4ekojOWfE5i26/G97m2mLH782gg8jwHJe+rNh5UdgcNV
-	Fj9r6ZNnzvvxDNugmg1TZokTe7TmUwUoynB++xXGWu5sl14nN70T24IxB1Q84GGzavBGyAgn4c5
-	KWCDoneviBczU5ccGOtwhNEZTiRFNIJqaLuPlZR7rALCmxAssSBmyZmba8BCXWan/9KYk0Un3pf
-	Vm3bI5g9PhXvUMn8sWhPYjdRARXJKwlZdbfxyRFk2aJng1bm+z21bqfI/TqktQp3w/mckIn0y2o
-	f1jemtzvu9Kp//lnn8sr/I5H2i5fjcSPs55W4eP8twwg5CpyTPXVfpFxj9TMVVaOkeZYRHyx5Vh
-	5pxCcboi/oXt0Jj9RhGZwj29ozihsa7KygVOrko+AJz09ILshi8cf5lJt5LR3KJ6Z7IH1w1bhiI
-	4oHPPSrM7SvgAbgLKdqR+SmEebzc3SGLGOUly0N6Wy6GKCJ47oZtbzqS5RipYIwYs96IIyxD9rx
-	OMHhq/FH8eqb4kE6zO7QHbNV4KqvbCeCqA381HZAKQy/EfCPB8dudCeClTwhM7P2onlwHVwqkwB
-	lhVAlcyM=
-X-Received: by 2002:a05:6402:222c:b0:6b4:d1ed:95b3 with SMTP id 4fb4d7f45d1cf-6b7c0d200eemr1933559a12.41.1794585904556;
-        Fri, 13 Nov 2026 08:05:04 -0800 (PST)
-Received: from [172.16.240.104] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c264d99csm1123946a12.36.2026.11.13.08.05.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 08:05:04 -0800 (PST)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 13 Nov 2026 16:56:46 +0100
-Subject: [PATCH v3 5/5] arm64: dts: qcom: sm7225-fairphone-fp4: Add battery
- temperature node
+	dkim=pass (1024-bit key, unprotected) header.d=techsingularity.net header.i=@techsingularity.net header.a=rsa-sha256 header.s=titan1 header.b=dsg8LhDh
+Received: from localhost (localhost [127.0.0.1])
+	by smtp-out0101.titan.email (Postfix) with ESMTP id 4jR2Fq6cT3zBrKF;
+	Fri, 13 Nov 2026 16:07:11 +0000 (UTC)
+X-Titan-User-Uid: eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..nuN4ao5b43NV-t1b.VZ66Pqo0Rwnq_w5r0_dF36ZgW46fjTnVzO-8xUaDhRoIYv-Dc0j8jQ4uMZZYVvuBMinMMXd5E0FH4G8Su05MFbfqlxlP4FpLSu2SPz71lqjYRsOImtNmxfnibA.t_wgZR084at6uM5NBayd7g
+DKIM-Signature: a=rsa-sha256; bh=/33BZSI7RWJKcZ5gy6yopR/tiV89Y2TBrmcYVRw3IIs=;
+	c=relaxed/relaxed; d=techsingularity.net;
+	h=from:date:mime-version:cc:to:subject:message-id:from:to:cc:subject:date:message-id:in-reply-to:reply-to:references;
+	q=dns/txt; s=titan1; t=1794586031; v=1;
+	b=dsg8LhDhtd+sg0BV8040En8+DbvRJQFpJPoVkvlerKMkIlRnVPzhodRx8ODkuq8HTFzsAa5R
+	1BH+3ahpo/NI9065aKui3Hr/mI6xeww+zZu/6JVC7Hlq3OMS6SBLUbYeONN9D3qZGW+BliZF7+R
+	BcPVDFukyPnJoKKGG9OGg9H4=
+X-AuthUser: mgorman@techsingularity.net
+Received: from morpheus.112glenside.lan (unknown [84.203.203.92])
+	by smtp-out0101.titan.email (Postfix) with ESMTPA id 4jR2Fq1y8BzBrK7;
+	Fri, 13 Nov 2026 16:07:11 +0000 (UTC)
+Feedback-ID: :mgorman@techsingularity.net:techsingularity.net:flockmailId
+From: Mel Gorman <mgorman@techsingularity.net>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Seiji Nishikawa <snishika@redhat.com>,
+	Mian Yousaf Kaukab <ykaukab@suse.de>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Mel Gorman <mgorman@techsingularity.net>
+Subject: [PATCH v3] sched/rt: Do not account migrate-disabled tasks as pushable
+Date: Fri, 13 Nov 2026 16:06:55 +0000
+Message-ID: <20261113160655.2909479-1-mgorman@techsingularity.net>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,143 +72,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261113-bat-temp-adc-v3-5-743979a8fd90@fairphone.com>
-References: <20261113-bat-temp-adc-v3-0-743979a8fd90@fairphone.com>
-In-Reply-To: <20261113-bat-temp-adc-v3-0-743979a8fd90@fairphone.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- Jens Reidel <adrian@mainlining.org>, 
- Casey Connolly <casey.connolly@linaro.org>, Val Packett <val@packett.cool>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794585895; l=2551;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=BTbJE+uVkaO8/e9NHFNdcxadF4slrFM2xvgSTnvAGGo=;
- b=cVBBAj087LJNnomjguZpThneLwRiRu9MSVg4YxOXarDvVQijERMPCJyr2UsYdSnMUUXSAZRwj
- dA3YJuS87CcBsIa8XButhSk1nsJGHUrL0+mPVI/KRuZHfjefLVspIaC
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+X-F-Verdict: SPFVALID
+X-Titan-Src-Out: 1794586031677109802.1930444.5877224391477654648@prod-euc1-smtp-out1003.
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.4 cv=KNjj5FFo c=1 sm=1 tr=0 ts=6af735af
+ a=dHTmtt/8nVOqzZzb7mKMSw==:117 a=dHTmtt/8nVOqzZzb7mKMSw==:17
+ a=IkcTkHD0fZMA:10 a=CEWIc4RMnpUA:10 a=R_Myd5XaAAAA:8
+ a=ABQdM34JG4xPYB-nf_EA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=L2g4Dz8VuBQ37YGmWQah:22
 
-Add a generic-adc-thermal node to convert the voltage read by the
-battery temperature ADC into degree Celsius using the provided lookup
-table.
+RT_PUSH_IPI is intended to minimise latency and rq lock contention when
+migrating tasks to balance RT task distribution. The problem is that
+if a CPU is rt_overloaded but has no tasks that can be pushed then IPIs
+can be fired continually at the same CPU but fail to move any task due
+to migrate_disable() on PREEMPT_RT. A specific case was "pgrep" running
+at RT priority, its CPU being the target of a continuous stream of IPIs
+without any task moving.  While the pgrep can be bound to another CPU by
+the application, the underlying problem was that pgrep is spinlock-intensive
+which disables migration on PREEMPT_RT.
 
-This will later be used as input for the fuel gauge node (QGauge on the
-PM7250B).
+Commit dae5c0292080 ("sched/rt,dl: Skip migrate-disabled tasks when
+picking a push candidate") stops pick_next_pushable_task() returning a
+migrate-disabled task which fixes the balancer trying to push pinned tasks
+off the CPU. It notes
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+    The self-IPI path is closed by the rto_next_cpu() fix above, and that
+    part works. But the runqueue is still marked overloaded, because the
+    pinned task is still advertised as pushable. Other CPUs now send the
+    push-IPIs during their own RT balancing, and the same loop runs again.
+    Closing the self-IPI path did not stop a pinned task from triggering
+    push balancing.
+
+As above, the runqueue is still marked overloaded by enqueue_task_rt()
+and put_prev_task_rt() even if the task is migrate-disabled. A
+migrate-disabled task reaches the pushable list through enqueue_task_rt()
+or put_prev_task_rt() when it is preempted, or when it wakes while
+still migrate-disabled. Either path calls enqueue_pushable_task() to set
+rq->rt.overloaded and rto_mask if unset. Once set, every pull from another
+CPU that fires an IPI may only find migrate-disabled tasks rendering the IPI
+useless for a condition that was detectable when placed on the pushable list.
+
+Stop adding migrate-disabled tasks to the pushable list if RT_PUSH_IPI is
+enabled. This is not a heuristic as migrate-disabled tasks cannot move. Even
+when migration is enabled, the rq still has no pushable candidates until the
+task schedules. The !RT_PUSH_IPI behaviour is preserved and migrate-disabled
+tasks are added to the pushable list. Without IPI, the alternative path in
+pull_rt_task() must find runqueues with off-CPU migrate-disabled tasks. It
+can then push the running task away allowing the migrate-disabled task
+to run.
+
+A test case creates a "victim" task with short work/sleep cycles allowed
+to run on CPU1 and CPU2 that optionally disables migration (md=1) while
+running.  A second task mostly does work pinned on CPU1 with short sleeps,
+a third task mostly sleeps on CPU2 so CPU2 pulls frequently.  The results are
+
+| Kernel (7.4-rc2)      |     CPU1-md=1 |   CPU2-md=1 |    CPU1-md=0 |    CPU2-md=0 |
+|-----------------------|---------------|-------------|--------------|--------------|
+| vanilla-rt-push-ipi   | 41474.7 ±0.1% |           0 | 4784.4 ±0.2% |   85.0 ±9.9% |
+| patch-rt-push-ipi     |             0 | 0.3 ±380.6% | 4792.1 ±0.3% |  87.1 ±10.8% |
+| patch-no-rt-push-ipi  |             0 |           0 |            0 |            0 |
+(RT push IPIs per CPU per 5 s interval, mean ±CoV over 30 intervals,
+ md=1 means the "victim" with cpumask for CPUs 1-2 disables migration)
+
+The vanilla 7.4-rc2 kernel fired 40k+ IPIs every 5 seconds with
+low variance over 30 samples with a migrate-disabled task sitting on
+CPU1. Separate testing showed that the IPIs were not resulting in tasks
+moving and therefore spurious. The patch stops the spurious IPIs (second
+row). Disabling RT_PUSH_IPI also showed no IPIs but it was confirmed that
+tasks were still moved.
+
+Note that altering the RT class only is deliberate and deadline is left
+alone other than moving the "p->nr_cpus_allowed > 1" check for consistency.
+The justification for RT special-casing migrate-disabled is eliminating
+ineffective RT_PUSH_IPIs. Deadline tries to push the task running on the rq
+that holds an off-CPU, migrate-disabled task, so that the migrate-disabled
+task can run there instead of waiting while another CPU runs later-deadline
+work. The cost of that push is bounded, unlike arbitrary IPIs, and
+justifiable because deadline ordering is otherwise violated.
+
+For deadline the same two decision sites on pushable exist, and any change
+must update both together.
+
+In the specific context of put_prev_task_dl(), the task is going off-CPU
+with migration disabled, so pushing the running task may take longer
+than letting the running task use its budget. The problem is that the
+time to migrate the running task can only be estimated but ignoring EDF
+requirements is a root-domain-wide violation of deadline principles.
+That is out of scope for this patch.
+
+In the specific context of enqueue_task_dl(), it could be justified on
+the basis that the task is only enqueued, not yet running. This is the
+same question as put_prev_task_dl() -- honour EDF ordering or ignore it.
+That is also out of scope for this patch.
+
+Updating deadline with a matching is_migration_disabled() check is not
+justified by the RT IPI problem. Deadline has different requirements that
+merit its own patch and separate justification.
+
+[ykaukab@suse.de: authored fix for spurious IPIs when RT_PUSH_IPI enabled]
+[mgorman@techsingularity.net: deadline, changelog, preserve !RT_PUSH_IPI]
+Signed-off-by: Yousaf Kaukab <ykaukab@suse.de>
+Signed-off-by: Mel Gorman <mgorman@techsingularity.net>
 ---
- arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 83 +++++++++++++++++++++++
- 1 file changed, 83 insertions(+)
+ kernel/sched/deadline.c |  7 +++++--
+ kernel/sched/rt.c       | 11 +++++++++--
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-index 37aa272019cc..0b8c6f353f96 100644
---- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-+++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-@@ -96,6 +96,89 @@ memory@efe01000 {
- 		};
- 	};
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index dfae08625342..9f58da0014a5 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -584,6 +584,9 @@ static void enqueue_pushable_dl_task(struct rq *rq, struct task_struct *p)
  
-+	bat_therm_sensor: thermal-sensor-bat-therm {
-+		compatible = "generic-adc-thermal";
-+		#thermal-sensor-cells = <0>;
-+		#io-channel-cells = <0>;
-+		io-channels = <&pm7250b_adc ADC5_BAT_THERM_30K_PU>;
-+		io-channel-names = "sensor-channel";
-+		/*
-+		 * Voltage to temperature table for 10kΩ (B=3435K) NTC with a
-+		 * 1.875V reference and 30kΩ pull-up.
-+		 */
-+		temperature-lookup-table = <
-+			(-40000) 1673
-+			(-38000) 1649
-+			(-36000) 1623
-+			(-34000) 1596
-+			(-32000) 1566
-+			(-30000) 1535
-+			(-28000) 1502
-+			(-26000) 1467
-+			(-24000) 1430
-+			(-22000) 1392
-+			(-20000) 1352
-+			(-18000) 1311
-+			(-16000) 1269
-+			(-14000) 1226
-+			(-12000) 1182
-+			(-10000) 1138
-+			 (-8000) 1093
-+			 (-6000) 1049
-+			 (-4000) 1004
-+			 (-2000) 960
-+			       0 917
-+			    2000 874
-+			    4000 832
-+			    6000 791
-+			    8000 752
-+			   10000 713
-+			   12000 676
-+			   14000 640
-+			   16000 606
-+			   18000 573
-+			   20000 541
-+			   22000 511
-+			   24000 483
-+			   26000 455
-+			   28000 430
-+			   30000 405
-+			   32000 382
-+			   34000 360
-+			   36000 340
-+			   38000 320
-+			   40000 302
-+			   42000 285
-+			   44000 269
-+			   46000 253
-+			   48000 239
-+			   50000 225
-+			   52000 213
-+			   54000 201
-+			   56000 190
-+			   58000 179
-+			   60000 169
-+			   62000 160
-+			   64000 152
-+			   66000 143
-+			   68000 136
-+			   70000 128
-+			   72000 122
-+			   74000 115
-+			   76000 109
-+			   78000 104
-+			   80000 98
-+			   82000 93
-+			   84000 89
-+			   86000 84
-+			   88000 80
-+			   90000 76
-+			   92000 73
-+			   94000 69
-+			   96000 66
-+			   98000 63>;
-+	};
+ 	WARN_ON_ONCE(!RB_EMPTY_NODE(&p->pushable_dl_tasks));
+ 
++	if (p->nr_cpus_allowed <= 1)
++		return;
 +
- 	msm_therm_sensor: thermal-sensor-msm {
- 		compatible = "generic-adc-thermal";
- 		#thermal-sensor-cells = <0>;
-
+ 	leftmost = rb_add_cached(&p->pushable_dl_tasks,
+ 				 &rq->dl.pushable_dl_tasks_root,
+ 				 __pushable_less);
+@@ -2545,7 +2548,7 @@ static void enqueue_task_dl(struct rq *rq, struct task_struct *p, int flags)
+ 	if (dl_rq->curr == dl_se)
+ 		return;
+ 
+-	if (!task_current(rq, p) && !dl_se->dl_throttled && p->nr_cpus_allowed > 1)
++	if (!task_current(rq, p) && !dl_se->dl_throttled)
+ 		enqueue_pushable_dl_task(rq, p);
+ }
+ 
+@@ -2867,7 +2870,7 @@ static void put_prev_task_dl(struct rq *rq, struct task_struct *p, struct task_s
+ 	if (task_is_blocked(p))
+ 		return;
+ 
+-	if (on_dl_rq(dl_se) && p->nr_cpus_allowed > 1)
++	if (on_dl_rq(dl_se))
+ 		enqueue_pushable_dl_task(rq, p);
+ }
+ 
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 1535046a23ff..bb640278d30e 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -396,6 +396,13 @@ static inline void rt_queue_pull_task(struct rq *rq)
+ 
+ static void enqueue_pushable_task(struct rq *rq, struct task_struct *p)
+ {
++	if (p->nr_cpus_allowed <= 1)
++		return;
++#ifdef HAVE_RT_PUSH_IPI
++	if (sched_feat(RT_PUSH_IPI) && is_migration_disabled(p))
++		return;
++#endif
++
+ 	plist_del(&p->pushable_tasks, &rq->rt.pushable_tasks);
+ 	plist_node_init(&p->pushable_tasks, p->prio);
+ 	plist_add(&p->pushable_tasks, &rq->rt.pushable_tasks);
+@@ -1448,7 +1455,7 @@ enqueue_task_rt(struct rq *rq, struct task_struct *p, int flags)
+ 	if (task_is_blocked(p))
+ 		return;
+ 
+-	if (!task_current(rq, p) && p->nr_cpus_allowed > 1)
++	if (!task_current(rq, p))
+ 		enqueue_pushable_task(rq, p);
+ }
+ 
+@@ -1746,7 +1753,7 @@ static void put_prev_task_rt(struct rq *rq, struct task_struct *p, struct task_s
+ 	 * The previous task needs to be made eligible for pushing
+ 	 * if it is still active
+ 	 */
+-	if (on_rt_rq(&p->rt) && p->nr_cpus_allowed > 1)
++	if (on_rt_rq(&p->rt))
+ 		enqueue_pushable_task(rq, p);
+ }
+ 
 -- 
-2.56.1
+2.55.0
 
