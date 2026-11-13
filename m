@@ -1,90 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794605966;
-	b=I1rQB14SejABkAW3GrEuINB6b5zhcq4JqcarrFL5ZpTqR3rI36TxPAetSnCiW9c6yM37
-	 ePg+c8rqnqvnQg7JYoUDCRz1R0fJfU0AigsbmfGwaV1vQF7erMgt2qb43dxyhYpr/uD6t
-	 V+8XTViaATk+axf6Sh4xA62Woz/xEsUFqKZQNRsjFkXslWOcGPFxyjz3jopAzNIgzSZsz
-	 aDq3XcqYiEnWJiKQXgXVFiOP499kLPTs7dGkS47dv7lYvOMq0pW7wsJSKrc090Gr+EDzt
-	 JijJfRxK9lWcj7dGoRaWyjcb1dlJ0MBOU3JB1isiUvySurUukYkJmNUeEJrVMY3sL6Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794605966;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794605972;
+	b=pY38UTNodMH+y3FgEmReoW6OEH2tzWB3G+hIVz/0yveOlDxBFrOxrlPLDRRl0Ct0W3gW
+	 mnKJ/cGWDuc5x8hIu3xEefHZjaGSyHM5DTXyghVDXTnzQSRtQOgtzZf4BZQ5ESwfLb1a9
+	 MLdlxu2vsQcDfuuEeq1Ehw+z+uge8O2jPEsDzrtqN9gBy/i+pzxv+XH5xBexvWvnTXdfb
+	 rt2tEtWtpC2oyEzy3GGRV907EOjTT76+EFwlcCcIX8s7wI83uI4DggeMS/T2eLCRWuBB7
+	 QXmadr7n9c7Y0p4g/x6eNrp05dyoeovp0R9qSxrS0MRyN8TfJLNlzR7tWf3XSu8fhgQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794605972;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=sN3tj/FW6lEkb5ESYZ24Fc6VqpV32e4/0iNa9+GF0B8=;
-	b=vxbgYM6/GnlqyT4v24X6xKPK9C+taeeSm4I0lbC7+d0W6kFwDgN8y309NQSk/vrUBO4V
-	 2RO+urZHo72SwREROKYP+7bfxLl6h1RPWVfszLq26OLbch0Ftxpllyl0fj+okotlzfzHu
-	 5p3+TKDaVb5O406jpQM7yEE/M/m/aJfyLuywdIXOdVYwfftQoSzFzO6O3AmBG3WhxRI6D
-	 l+GIpjnVbN1RXFMoR9tf+9BPPETxCiBHN8x7knl6ay2VBiPeC/mqq9Mi0WetZvlTLzkgL
-	 BnPd0mEoyAITHIhwjki0ahEOl7ekibQEioHfiRlaC0edtsUWcu40ntYZxjQZlWR1C0g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yf8PQ2Dy;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	bh=gX+jaWsdQdLNGoqVpAczWKnlHXr6VQWsFTApnkkxsUY=;
+	b=OUkQ9kanhv33xDHA4sSPMRYZp4DVecTku4tnDg7UVCmAFUnVSmPuAc0YPj0FqLwAAJAC
+	 HKksRlFZljukWQ+mosB18vWGS2OdnfVDoJCm6MFxfQm1fTBATtifChK93u2PBMDpR7ZZl
+	 XvxAX2AVdS5aFgddaLGuzXpchX0cII1as9fqx9G2PBY/kyM1Xu2tTHnWYLr11/wZ+/nbM
+	 vaFxjyT21tVVkNgsF9+XJqamxGFEx/JiBiy/LBOBlCEUrIcMqvEFAt8WW6xXjEbJ1BG5W
+	 qWHIcjv4c8I9y1eJ4UrTPZrkgmdBRbbowQnDjGeZG59GZ/mxVZLE41tkm2bTvD/MzrA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=F0PoWYnB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68593606A323;
-	Fri, 13 Nov 2026 21:39:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68593606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B537606A333;
+	Fri, 13 Nov 2026 21:39:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B537606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yf8PQ2Dy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794605966; x=1826141966;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=c9p9t4VE534FXUhXu6OxhZWuIffdCLQSBk4DddauVXw=;
-  b=Yf8PQ2DyY/qXrRaiwqWp+CwkloDsHUYjn7xnrfJVQUM1PK4vBMakq9+t
-   /qwBuHkjFw0LZFOKbmvLU9JM7AkOfJdkF+Lg2J2DrEOXQCrP8SLuxpy8o
-   Ay1QXOEhhiFqyI01yncH1AXKCnQB1Wh/dikiJixzOrNwTcoInHDgkBNJd
-   ZupaiIViQY1DghVLLRN+Bi/ZvVedu4Y8j+vcLMdHVh2dn6HUc1Qe+IieM
-   WAt0mmfMs+42kDenD1uaTvGTXMs5qRN8s+vV08JhSzYFE3kVHo6UO/8K4
-   ZZrVMuSwYzLZCPaU8ZzEV+4zpyne2MhLcUCM7xw/wlQ71zXjc3vSV7wWC
-   w==;
-X-CSE-ConnectionGUID: cZ+TJkpqRLm8E2PXBvWMzQ==
-X-CSE-MsgGUID: xjRo7hK1SlK4GTCSsqAqeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3410979"
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="3410979"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 13:39:25 -0800
-X-CSE-ConnectionGUID: 2Pw22IxDSriY6YrYR05Tyg==
-X-CSE-MsgGUID: e+pYcP6CSwGCNkglA8Exjg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="9342060"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2026 13:39:21 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xRyzN-0000000147T-03zh;
-	Fri, 13 Nov 2026 21:39:17 +0000
-Date: Sat, 14 Nov 2026 05:38:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Chris Down <chris@chrisdown.name>, Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@linux-foundation.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Kees Cook <kees@kernel.org>, Marco Elver <elver@google.com>,
-	GONG Ruiqi <gongruiqi@huaweicloud.com>,
-	Jonathan Corbet <corbet@lwn.net>, linux-hardening@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH v3 5/6] mm/slab: Support disabling
- KMALLOC_PARTITION_CACHES at boot
-Message-ID: <202611140551.XAyf9KWi-lkp@intel.com>
-References: <9a4caff0336c78a7adc746786c81c9c01f89c40b.1794506262.git.chris@chrisdown.name>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=F0PoWYnB
+Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.4.pengutronix.de [10.9.0.3])
+	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id AF0A820128B;
+	Fri, 13 Nov 2026 22:39:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794605964;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gX+jaWsdQdLNGoqVpAczWKnlHXr6VQWsFTApnkkxsUY=;
+	b=F0PoWYnBIM42NEGkfwC35DWf3Cli3oHB+9CEyCQRIxYJ3e/WlNHTk1IwqdE063MMURqanI
+	shFl2Fhn0Ngdtc0IDYTk9XdnakrXgPoZK9OwUAWEILCOv5q2ZT7ahrHfN6maOc5zJGciiX
+	fnCnRZpO52kaamTcDlofNcUcjkX3gYxkHKxOVezCBeQy2d0W6m1Jns1bp+syvcX5w+ogXP
+	YyLDcggSDqLJAwgG5klNARIwV/eYFDOZFVQFCU+nDLfO/tBZ42Q3+V0dfCnphUEccXdy3D
+	5JPXlWjhr2a5DnPHLfxB/oLDvR0e3a+8zmczpJgP/xudoRMXhSLhGl6pU8V6fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794605964;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gX+jaWsdQdLNGoqVpAczWKnlHXr6VQWsFTApnkkxsUY=;
+	b=eQ6cyWXQJybeoCHZZy7KVytLRIPo9jjHeYAxjrrzLg5ttCKuW60MPQwV3lG0okz/Mptef0
+	eTnN4Al6nr6l0t/Roams/zcNKUhI49Kg8Y1K53XBx2kekLcarOLx60eXzEWf1bAul3/zkE
+	no5HSxH6jmSdhqR/6XMXoqQetHqsBDirMghkP00zD7IITZSQ7HBUEMlfCIy5QYPtklQDVw
+	T+brIXqjEY10mHZ9lFabh7X4AZI//x+mcBPpYFkt+lFm23xVrt2EZygQXVeqjEq8lyemrP
+	HAOqadx8CYyLh55JQF25cw3XsHHqFziSYkXFuFlTI5ojUqqzwQPC+FAUYv1T3Q==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794605964; a=rsa-sha256;
+	cv=none;
+	b=Tgy8FoLVUrIk+FkJFcUpcuiQAO/ys9wtPU+0IUV5H3dsdb2Qw34xnE1/WLEUvyqHCp2/Qv
+	vc2pdk9HYNPymKmCJSwYWspgZfsVwd1Jx3zdn6bUTZIJ+lwIoXdtNx/rpfVVLjPT/Vz4Yb
+	NBhjjdrwHsGCyVnQiYV36/721geXMoDhiYbttY+njuT+X7YUkECp6YNTKSfToLS3jy0x/R
+	tS+pt8GUp/OUDCG1UVbCr3goKDnHKIulwlhZA6MoLz98UwUyXnS8WdD8bNiFiVCc7X5304
+	+TYYoyiBCJnAs1nUObQxb+GKyFebpuW145KckLZCMikSCvVV1rFJ/Z+3ilFjag==
+Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1058)
+	id 9087A1C0265; Fri, 13 Nov 2026 22:39:24 +0100 (CET)
+Date: Fri, 13 Nov 2026 22:39:24 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	stable+noautosel@kernel.org
+Subject: Re: [PATCH net-next v4 3/3] net: phy: dp83tg720: report inclusive RX
+ packet totals
+Message-ID: <aveDjK-2qZL-4Sm2@pengutronix.de>
+References: <20261113-submit-acx00-phy-stats-v1-v4-0-986b8a4a1871@gmail.com>
+ <20261113-submit-acx00-phy-stats-v1-v4-3-986b8a4a1871@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,105 +98,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <9a4caff0336c78a7adc746786c81c9c01f89c40b.1794506262.git.chris@chrisdown.name>
+In-Reply-To: <20261113-submit-acx00-phy-stats-v1-v4-3-986b8a4a1871@gmail.com>
 
-Hi Chris,
+On Fri, Nov 13, 2026 at 10:12:07AM -0700, James Hilliard wrote:
+> The DP83TG720S-Q1 datasheet describes PKT_STAT_4 and PKT_STAT_5
+> (0x063c and 0x063d) as the total received packet count, including packets
+> with errors. The driver currently reports this count through rx_packets,
+> which is defined as successfully received packets.
+>
+> Report the accumulated count through rx_packets_total instead. This
+> exposes it as RxFramesTotal rather than RxFrames in the ethtool phydev
+> statistics group, matching the hardware counter's semantics.
+>
+> Fixes: 677d895af1cc ("net: phy: dp83tg720: add statistics support")
+> Link: https://www.ti.com/lit/ds/symlink/dp83tg720s-q1.pdf
+> Cc: <stable+noautosel@kernel.org> # Requires the new PHY receive-total statistics API
+> Cc: Oleksij Rempel <o.rempel@pengutronix.de>
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-kernel test robot noticed the following build warnings:
+I do not think this patch should go in. Please drop it from the series.
+Patches 1 and 2 do not depend on it; dp83tg720 can keep reporting
+rx_packets as it does today.
 
-[auto build test WARNING on ce6518e61e3b4bf4f97f7ac6204049b9eba7eb75]
+The datasheet (SNLS604G) does not say that this count includes frames
+with errors. Tables 7-80 and 7-81 describe the fields only as the lower
+and upper 16 bits of the Rx packet counter. Section 6.3.1.3 and Table 6-2
+list a total packet count and a count of packets with errors. They do
+not say whether the total includes those packets. The word "total" alone
+does not settle it.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Chris-Down/mm-slab-Enable-SLAB_FREELIST_HARDENED-by-default/20261113-005125
-base:   ce6518e61e3b4bf4f97f7ac6204049b9eba7eb75
-patch link:    https://lore.kernel.org/r/9a4caff0336c78a7adc746786c81c9c01f89c40b.1794506262.git.chris%40chrisdown.name
-patch subject: [PATCH v3 5/6] mm/slab: Support disabling KMALLOC_PARTITION_CACHES at boot
-config: arm-allnoconfig (https://download.01.org/0day-ci/archive/20261114/202611140551.XAyf9KWi-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261114/202611140551.XAyf9KWi-lkp@intel.com/reproduce)
+Before the reported value changes, I need either a test or other TI
+documentation that shows whether the counter includes frames with
+CRC errors.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611140551.XAyf9KWi-lkp@intel.com/
+Even if it turns out that the counter includes frames with CRC errors, I
+would rather subtract the CRC error count (RxErrors) in the driver and
+keep rx_packets with its documented meaning than change the interface
+for existing users.
 
-All warnings (new ones prefixed by >>):
-
->> mm/slab_common.c:1029:44: warning: overlapping comparisons always evaluate to false [-Wtautological-overlap-compare]
-    1029 |         } else if (type > KMALLOC_PARTITION_START && type <= KMALLOC_PARTITION_END) {
-         |                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   1 warning generated.
-
-
-vim +1029 mm/slab_common.c
-
-   999	
-  1000	static void __init
-  1001	new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
-  1002	{
-  1003		slab_flags_t flags = 0;
-  1004		unsigned int minalign = __kmalloc_minalign();
-  1005		unsigned int aligned_size = kmalloc_info[idx].size;
-  1006		int aligned_idx = idx;
-  1007	
-  1008		if ((KMALLOC_RECLAIM != KMALLOC_NORMAL) && (type == KMALLOC_RECLAIM)) {
-  1009			flags |= SLAB_RECLAIM_ACCOUNT;
-  1010		} else if (IS_ENABLED(CONFIG_MEMCG) && (type == KMALLOC_CGROUP)) {
-  1011			if (mem_cgroup_kmem_disabled()) {
-  1012				kmalloc_caches[type][idx] = kmalloc_caches[KMALLOC_NORMAL][idx];
-  1013				return;
-  1014			}
-  1015			flags |= SLAB_ACCOUNT;
-  1016		} else if (IS_ENABLED(CONFIG_SLAB_OBJ_EXT) && type == KMALLOC_NO_OBJ_EXT) {
-  1017			if (!need_kmalloc_no_objext()) {
-  1018				kmalloc_caches[type][idx] = kmalloc_caches[KMALLOC_NORMAL][idx];
-  1019				return;
-  1020			}
-  1021			flags |= SLAB_NO_OBJ_EXT | SLAB_NO_MERGE;
-  1022		} else if (IS_ENABLED(CONFIG_ZONE_DMA) && (type == KMALLOC_DMA)) {
-  1023			flags |= SLAB_CACHE_DMA;
-  1024		}
-  1025	
-  1026		if (kmalloc_partition_enabled) {
-  1027			if (type >= KMALLOC_PARTITION_START && type <= KMALLOC_PARTITION_END)
-  1028				flags |= SLAB_NO_MERGE;
-> 1029		} else if (type > KMALLOC_PARTITION_START && type <= KMALLOC_PARTITION_END) {
-  1030			/* Use the normal caches, which have already been created. */
-  1031			kmalloc_caches[type][idx] = kmalloc_caches[KMALLOC_NORMAL][idx];
-  1032			return;
-  1033		}
-  1034	
-  1035		/*
-  1036		 * If memcg_kmem is enabled and this is a KMALLOC_NORMAL cache and not
-  1037		 * aliased with any other type, make sure it's never merged with any other
-  1038		 * cache.
-  1039		 *
-  1040		 * In other cases the kmalloc cache may end up being used for a
-  1041		 * __GFP_ACCOUNT allocation so mark it as such. The exception is a
-  1042		 * KMALLOC_NO_OBJ_EXT cache.
-  1043		 */
-  1044		if (!mem_cgroup_kmem_disabled()) {
-  1045			if (type == KMALLOC_NORMAL && KMALLOC_RECLAIM != KMALLOC_NORMAL)
-  1046				flags |= SLAB_NO_MERGE;
-  1047			else if (!(flags & SLAB_NO_OBJ_EXT))
-  1048				flags |= SLAB_MAY_ACCOUNT;
-  1049		}
-  1050	
-  1051		if (minalign > ARCH_KMALLOC_MINALIGN) {
-  1052			aligned_size = ALIGN(aligned_size, minalign);
-  1053			aligned_idx = __kmalloc_index(aligned_size, false);
-  1054		}
-  1055	
-  1056		if (!kmalloc_caches[type][aligned_idx])
-  1057			kmalloc_caches[type][aligned_idx] = create_kmalloc_cache(
-  1058						kmalloc_info[aligned_idx].name[type],
-  1059						aligned_size, flags);
-  1060		if (idx != aligned_idx)
-  1061			kmalloc_caches[type][idx] = kmalloc_caches[type][aligned_idx];
-  1062	}
-  1063	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Oleksij
