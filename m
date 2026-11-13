@@ -1,70 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.38.221.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794615543;
-	b=ktZxRH5w48S2EPHBNKFysWTvoB3XtPyaoDanO7C3DnLZnBuwKVPH5s7y1p9ul7pwUdlV
-	 Hoz8+ECZqVzKPWISa8/GCxbblB5Ypu7pVKNTbipwD/NJkSiCdZOeXelIob1bdB0NbC/oL
-	 EzeT6vYuWNzkPNEBO/pWY+FOaRhI1gemzxGlrebR6tNZjbkZGbHUVJNuzKRSZCgjM54ky
-	 NmFSvBQtz1xFt/WjTebtlEW3QnVyqEBPxlfOlv43+X7CW5tSKTIhpO6Cq7q8w6ZBOgjLn
-	 m5Ku+eAn5LAOZbDwzt69LWE1vyOhWi0juOD1bPYE5MFQaGLYfC5uAIjDWDVKOrLUXfA==
+	t=1794615607;
+	b=KJ1XV0GQ1n/t4GryR4P6u7rEG95WX11a44BvBY/e5HVLQtJIu4UBFFJFoB+jS2vLLYlC
+	 iXZHq8/NsNewaU/j/QLeMTpFATXajAuhTCUP1dd5AAhnGzkupLBNiSLNd+iHfHi/djCmz
+	 LIxEMkT6kbu+KEjIgk26MFN0z0i7IiCGZp/GI7Jnt5sAF8jA/1zw8wrPM19RF0Rvw5lN2
+	 cQD30/9oSzZln7wbY5x7oIlarC5/YovAfUTOXa2hnLvW7mixYVvyJnroS6k5mx8DUlORT
+	 RH4MlhSujT0VcR3/hqHSlqQMdytIL5He+HX6q9iCx+0q6pxtfXHklTcol/lA/g/UF5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794615543;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=MSvljgKgU/szqSBx788QRhbzoClpYoi49j1GKaxE2xA=;
-	b=u4t7fgYbhkBMuYGdJWy+lRq8PWX+FVADLrt/s/9Dv0tkqzxK/ZGEcfhywI04hos2K+2a
-	 IKD45WvABsvJHEI92EYW6f21C660DFdLS88Gzc7+R9TctVbtLCBsPKdLBDljD+08LURcG
-	 1ZP9sOnpT0/bLxGEkpAB59O+i77VKCT1Gb+A7xUjtK+6JSA1+E4awhRM8W/ewAtgTQ43t
-	 H/7+BNiataMXh1hrnpM3tnJpDFvDVsOqgush7cvEjf/sN86bHa4W9wvS1rPSZ5GhlVGzI
-	 xBKUbaA49w7Iyl6TQrde3QtJttKXGPAnwW8z2BJSMqR3SbDZmsC+EflX/AHMXYLYimQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794615607;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YzoVwKXdu4bRp6i6Knn083VLCdrykd8y+Wq3sWyutSY=;
+	b=AMiW8wPwdI0vOM6jNnROVZkq8n89r13qvhxb6N5DVjohQrWW++z2vsgjdikh+ezYh+5s
+	 5b/Yc5XTWwA76iOEHRnjG0KmcnmfyRQL4JFCV6Pg0Z0bFdiE/RtxR6ubt70YyqIH8HWA9
+	 nrTEl01z6hglE1gFdAb7ny/8u7sFyjc9Shm7IZXUPrTa+wbfpjatoVMAQegUNOxVwKTFI
+	 cplmIKjP4MKkhjFmCCoZiz7cIiBti5RPutIbrz1S4UICgBwnOmGf1R3Je4BV+luY2/QEr
+	 Vyme/7etVluU5KF6fqDCp1d5rLqy7IwbgmfCYEuP3R91WehuTCtlN1dGfJGPOKsWk1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b="Et/GXKbd";
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dmarc=pass header.from=loljews.com;
+	spf=pass smtp.mailfrom=loljews.com;
+	dkim=pass header.d=loljews.com header.i=@loljews.com header.a=rsa-sha256 header.s=mail header.b="dvWiR/60";
+	arc=none smtp.remote-ip=54.38.221.178
+Received: from mnc015mcc432.ss7-reroute.local (unknown [54.38.221.178])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F0D606A339;
-	Sat, 14 Nov 2026 00:19:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1F0D606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0114606A332;
+	Sat, 14 Nov 2026 00:20:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0114606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=loljews.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loljews.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Et/GXKbd
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1817910E944;
-	Sat, 14 Nov 2026 01:18:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794615536; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=MSvljgKgU/szqSBx788QRhbzoClpYoi49j1GKaxE2xA=;
-	b=Et/GXKbdVWG1GGt2DDwnm7peMqUKJ1359ci2XdtvbHTbkvOaSNK7lgjFh5tTiHo5bnYcVY
-	K63b/6KO069FVKaS1kEgBom3aRxxp5XsYDFlbLhHMqY2WjupCsJWaNtJRT3JO8OfLrZYFs
-	cKAJrRRgl8E5v7ZbLRONqNEPnnFDiwQM08IdcciNOPHTRGDlSrDHoGPKaCY1c+96Cv1Y7X
-	TFS3VSHHrdP0+5hEj2HcIhIi65tfpNacgYThJJ5PQ0rtBuvAKhkgTx6jmOz2H7Or/TFF1d
-	lqFTcv6lU3/A8BzQopwitSLGc/ah1h5/p0Bmiaf+cLeEQeZ+rN/elZXIgzfwbQ==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Aswath Govindraju <a-govindraju@ti.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 2/2] arm64: dts: imx95: Add support for Data Modul i.MX95 eDM SBC
-Date: Sat, 14 Nov 2026 01:18:26 +0100
-Message-ID: <20261114001844.30606-2-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114001844.30606-1-marex@nabladev.com>
-References: <20261114001844.30606-1-marex@nabladev.com>
+	dkim=pass (2048-bit key, unprotected) header.d=loljews.com header.i=@loljews.com header.a=rsa-sha256 header.s=mail header.b=dvWiR/60
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=loljews.com; s=mail;
+	t=1794615596; bh=YzoVwKXdu4bRp6i6Knn083VLCdrykd8y+Wq3sWyutSY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dvWiR/60W/Rhw4XpnJ5ASwsQcdt3Lk46hI8WhnKVSXCeHLIznpBG4dGMMEitrp47+
+	 FC8gb0QuI5p/oi3+KGivsDpFfPjWhmNIIxnX8mExPaRykq4ka/Nlr8MUbuuZZafI1g
+	 VqLTbFOuHSKyOk2lUevF9/5qxa8fl9nAsYQribHhNVF3IhPQFIetVVB4wBiSi8UNF2
+	 80gSrNqGg9FzLIVr/kWsJvctfVTnCYOPMebhLEpbth4trU1GHEE5NpOleIF/65SwJU
+	 u5mdKppi5t+us1c3539ZIiCqsja7nZbjJuwFBXF+RLEqquABjsgdC3jABdTz8SEIka
+	 JAHrpAtVKqKog==
+Received: from loljews.com (localhost [127.0.0.1])
+	by postfix (Postfix) with ESMTP id CA5C327A6703;
+	Sat, 14 Nov 2026 02:19:56 +0200 (EET)
+From: Sandeep Haemoon <sandeeph@loljews.com>
+To: netdev@vger.kernel.org
+Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Russell King <linux@armlinux.org.uk>, Daniel Golle <daniel@makrotopia.org>, Mason Chang <mason-cw.chang@mediatek.com>, Frank Wunderlich <frank-w@public-files.de>, linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v5 3/3] net: ethernet: mtk_eth_soc: add 9K jumbo
+Date: Sat, 14 Nov 2026 00:40:11 +0200
+Message-Id: <patch-4eb300e7236ba2f2de7e128f63ec2552@loljews.com>
+In-Reply-To: <patch-f1e62a87eb0f914e1ea52a395f465998@loljews.com>
+References: <patch-f1e62a87eb0f914e1ea52a395f465998@loljews.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,1142 +62,678 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Add support for Data Modul i.MX95 eDM SBC board. This is an
-evaluation board for various custom display units. Currently
-supported are serial console, ethernet, eMMC, SD, SPI NOR,
-USB host and PCIe.
+The driver caps max_mtu at 2030 bytes and programs the MAC max-rx
+field for at most 2048-byte frames, so MTU > 2K is rejected and 9K
+jumbo frames are not usable on the 10G XGMII MACs.
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Aswath Govindraju <a-govindraju@ti.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-can@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
-V2: - Rename PCIE_M2-E_EN to PCIE_M2-M_EN
-    - Fix the PCAL expander GPIO reset
-V3: - Fix regulator-5p0v node name
-    - Use reset-gpios consistently
-V4: - Replace gpio with gpios DT property
-V5: - Rebase on next-20260928
-V6: - Remove backlight supply nodes
-V7: - Rebase on next-20261113 which contains trivial Makefile change
-      that made V6 no longer apply
----
- arch/arm64/boot/dts/freescale/Makefile        |    1 +
- .../freescale/imx95-data-modul-edm-sbc.dts    | 1079 +++++++++++++++++
- 2 files changed, 1080 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
+Add a MTK_NETSYS_RX_9K capability for MT7988 and:
+- advertise a 9194-byte max_mtu on the XGMII MACs, from the DT
+  phy_mode at probe time, so DSA can raise the conduit MTU before the
+  netdev is opened.  The four bytes below the 9216-byte MAC and ring
+  cap keep room for the 802.1Q tag of a maximum-size frame;
+- derive the shared RX buffer length from the largest MTU of any MAC,
+  with the 802.1Q headroom added before the 1 KiB round-up and a 2K
+  minimum, and size the RX rings from it.  The QDMA RX ring is never
+  polled or refilled by the CPU, so it keeps its 2K buffers;
+- program the PDMA RX SDL max-frame field from that length on netsys
+  v3+.  The field is written the way the MediaTek downstream driver
+  does, frame length offset by MTK_PDMA_LRO_SDL in GENMASK(30, 16);
+  the encoding is not publicly documented, and without this new write
+  the DMA engine keeps its small reset default (~1518 bytes) and
+  drops larger frames on the wire, so a datasheet confirmation of the
+  layout would be welcome;
+- program XMAC_RX_CFG2 from the same length on the XGMII MACs, keeping
+  the bits outside the length field, so 802.1Q-tagged frames fit at
+  any MTU.  GMAC1 (the built-in switch port, phy-mode internal) keeps
+  its MCR programming instead: the XMAC register is not used for it,
+  and the MCR max-rx field gets the jumbo field (bits 31:28, in
+  1024-byte units, the encoding of the MediaTek downstream driver),
+  so the same shared length can be programmed for GMAC1 as for the
+  XGMII MACs.  The write runs after the XGMII setup of
+  mtk_mac_config(), whose MAC_MCR_FORCE_LINK_DOWN write is a
+  full-register write that would otherwise reset the field to the
+  1518 bucket.  Whether the internal switch path enforces the MCR
+  field for switch-side frames at all is a hardware property: the
+  downstream reference programs no limit for GMAC1 and jumbo frames
+  pass the switch on the reference hardware, which suggests the field
+  is not enforced there;
+- rewrite the MAC limits on every successful mtk_mac_config() and on
+  every mtk_hw_init() call on the SoCs with the capability, so no MAC
+  accepts a frame the rings cannot hold, not even after a reopen with
+  a smaller MTU.  The other SoCs keep their per-device limits: they
+  never grow their rings, and their MCR programming is left exactly
+  as before this patch;
+- reject a runtime MTU change that would need larger buffers while
+  DMA is running (-EBUSY).  Shrinking is allowed: the rings keep the
+  buffers they already have.  The rings are shared by every MAC, so
+  raising a DSA user port MTU on a live system fails while any MAC is
+  up; the runtime reallocation that lifts this is a separate series.
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index cfd5482843586..01a98a15408b9 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -980,6 +980,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-frdm-pro.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-aquila-clover.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-aquila-dev-uart4-mcu.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-aquila-dev.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-data-modul-edm-sbc.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-navq.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-toradex-osm-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-toradex-smarc-dev-ser0-mcu.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
-new file mode 100644
-index 0000000000000..5ca26c6ab665f
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
-@@ -0,0 +1,1079 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (C) 2025-2026 Marek Vasut <marex@nabladev.com>
+XDP runs only on rings that have a page_pool, and the pool cannot back
+buffers larger than MTK_PP_MAX_BUF_SIZE, so an MTU that needs a larger
+buffer cannot be combined with XDP; attaching a program is rejected in
+that case.  The check uses eth->rx_buf_len, the length the live rings
+were actually built with; when the rings are not live, or the attach
+itself tears them down, the next open re-derives the length from the
+current MTUs and that value is checked instead.  A program can
+therefore never attach and silently not run, and an attach on a
+closed device is never rejected over a stale ring length.  Detaching
+is always allowed: it does not need a page_pool.
+
+With the 1 KiB rounding, the buffer length is order-1 (8 KiB) for
+rx_buf_len 4096..7168 (MTU about 3051..7146) and order-2 (16 KiB)
+from rx_buf_len 8192 (MTU 7147) up: once any MAC's MTU reaches 7147,
+every RX buffer is a 16 KiB compound page, which pins around 64 MiB
+at the 9K ring size while DMA is up and turns the refill into a
+high-order GFP_ATOMIC allocation.  skb->truesize reports the size
+that was actually allocated for those buffers, not the smaller
+frag_size.  That correction also covers the HW-LRO rings on mt2701,
+mt7622, mt7623 and mt7629, whose ~12.4 KiB buffers now report 16 KiB.
+
+This is a forward-port of the MediaTek downstream jumbo work: Mason
+Chang's "change default rx buffer length" and "add 9k jumbo frame
+support" (MediaTek OpenWrt feed 999-eth-30/31, carried in
+frank-w/BPI-Router-Linux), plus Frank Wunderlich's "try to fix crash
+the right way".  The runtime reallocation of Mason's "dynamic rx
+buffer adjustment" (feed 999-eth-33) is not included; it will be sent
+separately.
+
+Link: https://github.com/frank-w/BPI-Router-Linux/commit/b4c6cb1d5532
+Link: https://github.com/mediatek/mtk-openwrt-feeds
+Signed-off-by: Sandeep Haemoon <sandeeph@loljews.com>
+---
+ drivers/net/ethernet/mediatek/mtk_eth_soc.c | 308 ++++++++++++++++----
+ drivers/net/ethernet/mediatek/mtk_eth_soc.h |  16 +-
+ 2 files changed, 268 insertions(+), 56 deletions(-)
+
+diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+index 6768ab8ebe..e9c7069af4 100644
+--- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
++++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+@@ -170,6 +170,7 @@ static const struct mtk_reg_map mt7988_reg_map = {
+ 		.pcrx_ptr	= 0x6908,
+ 		.glo_cfg	= 0x6a04,
+ 		.rst_idx	= 0x6a08,
++		.rx_cfg		= 0x6a10,
+ 		.delay_irq	= 0x6a0c,
+ 		.irq_status	= 0x6a20,
+ 		.irq_mask	= 0x6a28,
+@@ -554,6 +555,62 @@ static int mtk_mac_prepare(struct phylink_config *config, unsigned int mode,
+ 	return 0;
+ }
+ 
++/* The MACs are fed from the shared RX rings, so the maximum frame they may
++ * accept is a property of the ring buffer length.  GMAC1 on netsys v3+ is
++ * the built-in switch port: it has no XMAC_RX_CFG2 limit register, so it
++ * keeps the MCR programming the other SoCs use, extended with the MCR
++ * jumbo field so its limit can grow with the rings like the XGMII MACs'.
 + */
++static void mtk_set_mcr_max_rx(struct mtk_mac *mac, u32 val)
++{
++	struct mtk_eth *eth = mac->hw;
++	u32 mcr_cur, mcr_new;
 +
-+/dts-v1/;
++	if (MTK_HAS_CAPS(eth->soc->caps, MTK_SOC_MT7628))
++		return;
 +
-+#include <dt-bindings/i3c/i3c.h>
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/pwm/pwm.h>
-+#include <dt-bindings/usb/pd.h>
-+#include "imx95.dtsi"
++	if (!mtk_interface_mode_is_xgmii(eth, mac->interface) ||
++	    mac->id == MTK_GMAC1_ID) {
++		mcr_cur = mtk_r32(mac->hw, MTK_MAC_MCR(mac->id));
++		mcr_new = mcr_cur & ~MAC_MCR_MAX_RX_MASK;
 +
-+/ {
-+	model = "Data Modul i.MX95 eDM SBC";
-+	compatible = "dmo,imx95-data-modul-edm-sbc", "fsl,imx95";
++		if (val <= 1518)
++			mcr_new |= MAC_MCR_MAX_RX(MAC_MCR_MAX_RX_1518);
++		else if (val <= 1536)
++			mcr_new |= MAC_MCR_MAX_RX(MAC_MCR_MAX_RX_1536);
++		else if (val <= 1552)
++			mcr_new |= MAC_MCR_MAX_RX(MAC_MCR_MAX_RX_1552);
++		else
++			mcr_new |= MAC_MCR_MAX_RX(MAC_MCR_MAX_RX_2048);
 +
-+	aliases {
-+		ethernet0 = &enetc_port0;
-+		ethernet1 = &enetc_port1;
-+		gpio0 = &gpio1;
-+		gpio1 = &gpio2;
-+		gpio2 = &gpio3;
-+		gpio3 = &gpio4;
-+		gpio4 = &gpio5;
-+		i2c0 = &lpi2c1;
-+		i2c1 = &lpi2c2;
-+		i2c2 = &lpi2c5;
-+		mmc0 = &usdhc1;
-+		mmc1 = &usdhc2;
-+		mmc2 = &usdhc3;
-+		serial0 = &lpuart1;
-+		serial1 = &lpuart2;
-+		serial2 = &lpuart5;
-+		serial3 = &lpuart7;
-+		serial4 = &lpuart8;
-+	};
-+
-+	chosen {
-+		stdout-path = &lpuart1;
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x0 0x80000000 0 0x80000000>;
-+	};
-+
-+	bt_sco_codec: bt-sco-codec {
-+		compatible = "linux,bt-sco";
-+		#sound-dai-cells = <1>;
-+	};
-+
-+	flexcan3_phy: can-phy0 {
-+		compatible = "microchip,ata6563", "ti,tcan1042";
-+		#phy-cells = <0>;
-+		max-bitrate = <5000000>;
-+		standby-gpios = <&i2c2_gpio_expander_20 15 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	flexcan5_phy: can-phy1 {
-+		compatible = "microchip,ata6563", "ti,tcan1042";
-+		#phy-cells = <0>;
-+		max-bitrate = <5000000>;
-+		standby-gpios = <&i2c2_gpio_expander_20 16 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	led {
-+		compatible = "gpio-leds";
-+		pinctrl-0 = <&pinctrl_led>;
-+		pinctrl-names = "default";
-+
-+		led-0 {
-+			color = <LED_COLOR_ID_GREEN>;
-+			default-state = "off";
-+			function = LED_FUNCTION_INDICATOR;
-+			function-enumerator = <0>;
-+			gpios = <&gpio5 9 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-1 {
-+			color = <LED_COLOR_ID_RED>;
-+			default-state = "off";
-+			function = LED_FUNCTION_INDICATOR;
-+			function-enumerator = <0>;
-+			gpios = <&gpio5 8 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+
-+	reg_1p8v: regulator-1p8v {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <1800000>;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-name = "VDD_1V8";
-+	};
-+
-+	/* PF09 SW1, but the PMIC is controlled by CM33 */
-+	reg_3p3v: regulator-3p3v {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "VDD_3V3";
-+	};
-+
-+	reg_5p0v: regulator-5p0v {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <5000000>;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-name = "VDD_5V0";
-+	};
-+
-+	reg_pcie0: regulator-pcie0 {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "PCIE_M2-B_EN";
-+		gpios = <&i2c2_gpio_expander_20 6 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_pcie1: regulator-pcie1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "PCIE_M2-M_EN";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpios = <&i2c2_gpio_expander_21 7 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_usb2_vbus: regulator-usb2-vbus {
-+		compatible = "regulator-fixed";
-+		regulator-name = "USB2_VBUS";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpios = <&i2c2_gpio_expander_21 16 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_usdhc2_vmmc: regulator-usdhc2 {
-+		compatible = "regulator-fixed";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-name = "VDD_SD2_3V3";
-+	};
-+
-+	sound-bt-sco {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,bitclock-inversion;
-+		simple-audio-card,bitclock-master = <&btcpu>;
-+		simple-audio-card,format = "dsp_a";
-+		simple-audio-card,frame-master = <&btcpu>;
-+		simple-audio-card,name = "bt-sco-audio";
-+
-+		simple-audio-card,codec {
-+			sound-dai = <&bt_sco_codec 1>;
-+		};
-+
-+		btcpu: simple-audio-card,cpu {
-+			dai-tdm-slot-num = <2>;
-+			dai-tdm-slot-width = <16>;
-+			sound-dai = <&sai5>;
-+		};
-+	};
-+
-+	sound-micfil {
-+		compatible = "fsl,imx-audio-card";
-+		model = "micfil-audio";
-+
-+		pri-dai-link {
-+			link-name = "micfil hifi";
-+			format = "i2s";
-+			cpu {
-+				sound-dai = <&micfil>;
-+			};
-+		};
-+	};
-+
-+	sound-tas2552 {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,bitclock-master = <&cpudai>;
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,frame-master = <&cpudai>;
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,name = "tas2552-audio";
-+		simple-audio-card,routing = "Speaker", "OUT";
-+		simple-audio-card,widgets = "Speaker", "Speaker";
-+
-+		simple-audio-card,codec {
-+			sound-dai = <&tas2552>;
-+		};
-+
-+		cpudai: simple-audio-card,cpu {
-+			sound-dai = <&sai3>;
-+		};
-+	};
-+};
-+
-+&enetc_port0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_enetc0>;
-+	phy-handle = <&ethphy0>;
-+	phy-mode = "rgmii-id";
-+	status = "okay";
-+};
-+
-+&enetc_port1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_enetc1>;
-+	phy-handle = <&ethphy1>;
-+	phy-mode = "rgmii-id";
-+	status = "okay";
-+};
-+
-+&flexcan3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_flexcan3>;
-+	phys = <&flexcan3_phy>;
-+	status = "okay";
-+};
-+
-+&flexcan5 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_flexcan5>;
-+	phys = <&flexcan5_phy>;
-+	status = "okay";
-+};
-+
-+&gpio1 {
-+	gpio-line-names =
-+		"", "", "", "",
-+		"", "BOOT_MODE0", "", "BOOT_MODE1",
-+		"", "", "SYS_WAKEUP", "BOOT_MODE2",
-+		"", "BOOT_MODE3", "", "";
-+	status = "okay";
-+};
-+
-+&gpio5 {
-+	pcal6524-reset-hog {
-+		gpio-hog;
-+		gpios = <10 0>;
-+		output-high;
-+		line-name = "IO_XPNDR_RST_1V8";
-+	};
-+
-+	pewake0-hog {
-+		gpio-hog;
-+		gpios = <14 0>;
-+		input;
-+		line-name = "PCIE_PEWAKE_M2-B";
-+	};
-+
-+	pewake1-hog {
-+		gpio-hog;
-+		gpios = <17 0>;
-+		input;
-+		line-name = "PCIE_PEWAKE_M2-M";
-+	};
-+};
-+
-+&i3c2 {	/* Feature connector I2C/I3C */
-+	i2c-scl-hz = <400000>;
-+	pinctrl-0 = <&pinctrl_i3c2>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&lpi2c2 {
-+	clock-frequency = <400000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpi2c2>;
-+	status = "okay";
-+
-+	i2c2_gpio_expander_20: gpio@20 {	/* U12 */
-+		compatible = "nxp,pcal6524";
-+		reg = <0x20>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-controller;
-+		interrupts-extended = <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-+		vcc-supply = <&reg_3p3v>;
-+		/*
-+		 * reset-gpios cannot be used because the reset
-+		 * line is shared by multiple PCAL6524 consumers.
++		/* The bucket encodes at most 2048; the SoCs with the 9K
++		 * capability need the jumbo field, in 1024-byte units, for
++		 * anything larger.  Clearing it together with the bucket
++		 * keeps a later MTU shrink from leaving a stale larger
++		 * limit behind.
 +		 */
-+		gpio-line-names =
-+			/* Port 0 */
-+			"UART8_RS232-485_MODE0", "UART8_RS232-485_MODE1",
-+			"UART8_RS232-485_Term_TX", "UART8_RS232-485_Term_RX",
-+			"UART8_RS232-485_EN", "VDD_3V3_M2-E_EN",
-+			"VDD_3V3_M2-B_EN", "M2_I2C_ALERT",
-+			/* Port 1 */
-+			"M2-B_FULL_CARD_PWROFF", "M2-B_W_DISABLE1",
-+			"M2-B_W_DISABLE2", "M2-B_RESET",
-+			"M2-E_W_DISABLE1", "M2-E_W_DISABLE2",
-+			"M2-E_SDIO_RESET", "CAN3_STBY",
-+			/* Port 2 */
-+			"CAN5_STBY", "V_LCD_EN",
-+			"V_LCD_SEL_3V3", "V_LCD_SEL_5V0",
-+			"V_LCD_SEL_12V0", "V_12V0_CC",
-+			"V_12V0_PG", "AUDIO_EN";
-+	};
++		if (MTK_HAS_CAPS(eth->soc->caps, MTK_NETSYS_RX_9K)) {
++			u32 jumbo = DIV_ROUND_UP(val, MTK_MAX_RX_LENGTH_UNIT);
 +
-+	i2c2_gpio_expander_21: gpio@21 {	/* U14 */
-+		compatible = "nxp,pcal6524";
-+		reg = <0x21>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-controller;
-+		interrupts-extended = <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-+		vcc-supply = <&reg_3p3v>;
-+		/*
-+		 * reset-gpios cannot be used because the reset
-+		 * line is shared by multiple PCAL6524 consumers.
++			mcr_new &= ~MAC_MCR_MAX_RX_JUMBO_MASK;
++
++			if (val > 1552)
++				mcr_new |= MAC_MCR_MAX_RX_JUMBO(jumbo);
++		}
++
++		if (mcr_new != mcr_cur)
++			mtk_w32(mac->hw, mcr_new, MTK_MAC_MCR(mac->id));
++	} else {
++		mcr_cur = mtk_r32(mac->hw, MTK_XMAC_RX_CFG2(mac->id));
++		mcr_new = mcr_cur & ~MTK_XMAC_MAX_RX_MASK;
++		mcr_new |= FIELD_PREP(MTK_XMAC_MAX_RX_MASK,
++				      min_t(u32, val, MTK_MAX_RX_LENGTH_9K));
++
++		if (mcr_new != mcr_cur)
++			mtk_w32(mac->hw, mcr_new, MTK_XMAC_RX_CFG2(mac->id));
++	}
++}
++
+ static void mtk_mac_config(struct phylink_config *config, unsigned int mode,
+ 			   const struct phylink_link_state *state)
+ {
+@@ -678,6 +735,18 @@ static void mtk_mac_config(struct phylink_config *config, unsigned int mode,
+ 			mtk_setup_bridge_switch(eth);
+ 	}
+ 
++	/* On the SoCs with the 9K capability the rings grow with the MTU, so
++	 * rewrite the MAC limit on every successful mac_config, not only
++	 * when the interface mode changes: a reopen after an MTU change
++	 * must narrow the MACs that still carry the previous, larger
++	 * limit.  This must run after the XGMII setup above: its
++	 * MAC_MCR_FORCE_LINK_DOWN write is a full-register write that
++	 * would otherwise reset GMAC1's max-rx field (its limit lives in
++	 * the MCR register, not in XMAC_RX_CFG2) back to the 1518 bucket.
++	 */
++	if (MTK_HAS_CAPS(eth->soc->caps, MTK_NETSYS_RX_9K))
++		mtk_set_mcr_max_rx(mac, eth->rx_buf_len);
++
+ 	return;
+ 
+ err_phy:
+@@ -1242,22 +1311,22 @@ static void mtk_get_stats64(struct net_device *dev,
+ 	storage->tx_dropped = dev->stats.tx_dropped;
+ }
+ 
+-static inline int mtk_max_frag_size(int mtu)
++static inline int mtk_max_frag_size(u32 rx_buf_len, int mtu)
+ {
+-	/* make sure buf_size will be at least MTK_MAX_RX_LENGTH */
+-	if (mtu + MTK_RX_ETH_HLEN < MTK_MAX_RX_LENGTH_2K)
+-		mtu = MTK_MAX_RX_LENGTH_2K - MTK_RX_ETH_HLEN;
++	/* make sure buf_size will be at least the rx buffer length */
++	if (mtu + MTK_RX_ETH_HLEN < rx_buf_len)
++		mtu = rx_buf_len - MTK_RX_ETH_HLEN;
+ 
+ 	return SKB_DATA_ALIGN(MTK_RX_HLEN + mtu) +
+ 		SKB_DATA_ALIGN(sizeof(struct skb_shared_info));
+ }
+ 
+-static inline int mtk_max_buf_size(int frag_size)
++static inline int mtk_max_buf_size(u32 rx_buf_len, int frag_size)
+ {
+ 	int buf_size = frag_size - NET_SKB_PAD - NET_IP_ALIGN -
+ 		       SKB_DATA_ALIGN(sizeof(struct skb_shared_info));
+ 
+-	WARN_ON(buf_size < MTK_MAX_RX_LENGTH_2K);
++	WARN_ON(buf_size < rx_buf_len);
+ 
+ 	return buf_size;
+ }
+@@ -1280,9 +1349,17 @@ static bool mtk_rx_get_desc(struct mtk_eth *eth, struct mtk_rx_dma_v2 *rxd,
+ 	return true;
+ }
+ 
+-static void *mtk_max_lro_buf_alloc(gfp_t gfp_mask)
++/* mtk_max_buf_alloc() rounds the buffer up to a whole page order, so
++ * report the size it actually allocated, not the smaller frag_size, in
++ * skb->truesize.
++ */
++static unsigned int mtk_buf_alloc_size(unsigned int size)
++{
++	return PAGE_SIZE << get_order(size);
++}
++
++static void *mtk_max_buf_alloc(unsigned int size, gfp_t gfp_mask)
+ {
+-	unsigned int size = mtk_max_frag_size(MTK_MAX_LRO_RX_LENGTH);
+ 	unsigned long data;
+ 
+ 	data = __get_free_pages(gfp_mask | __GFP_COMP | __GFP_NOWARN,
+@@ -2268,6 +2345,15 @@ static int mtk_poll_rx(struct napi_struct *napi, int budget,
+ 
+ 		pktlen = RX_DMA_GET_PLEN0(trxd.rxd2);
+ 
++		/* The engine can report a length larger than the posted
++		 * buffer; never pass the unwritten remainder of the buffer
++		 * up the stack.
 +		 */
-+		gpio-line-names =
-+			/* Port 0 */
-+			"V_BKL_PWM_SEL_5V0", "V_BKL_EN_SEL_5V0",
-+			"UART7_RS232-485_MODE0", "UART7_RS232-485_MODE1",
-+			"UART7_RS232-485_Term_TX", "UART7_RS232-485_Term_RX",
-+			"UART7_RS232-485_EN", "VDD_3V3_M2-M_EN",
-+			/* Port 1 */
-+			"TOUCH_INT", "TOUCH_RESET",
-+			"CAMERA_PWREN", "CAMERA_LED",
-+			"MIPI_DSI-CSI_BL_EN", "MIPI_DSI-CSI_RESET",
-+			"MIPI_DSI-CSI_INT", "LVDS_PANEL_GPIO",
-+			/* Port 2 */
-+			"USB2_PWR_EN", "USB2_PWR_OC#",
-+			"VDD_1V2_USB_PG", "PF09_PG",
-+			"USB_HUB_RESET", "PF09_FS0B",
-+			"PF53_VDD_ARM_PG", "PF53_VDD_SOC_PG";
-+
-+		usb-hub-hog {
-+			gpio-hog;
-+			gpios = <20 0>;
-+			output-high;
-+			line-name = "USB_HUB_RESET";
-+		};
-+	};
-+
-+	i2c2_gpio_expander_22: gpio@22 {	/* U13 */
-+		compatible = "nxp,pcal6524";
-+		reg = <0x22>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-controller;
-+		interrupts-extended = <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-+		vcc-supply = <&reg_3p3v>;
-+		/*
-+		 * reset-gpios cannot be used because the reset
-+		 * line is shared by multiple PCAL6524 consumers.
-+		 */
-+		gpio-line-names =
-+			/* Port 0 */
-+			"eMMC_RESET", "WDOG_IRQ#",
-+			"FAN_ALERT", "VDD_1V2_ETH_PG",
-+			"ENET1_RESET", "ENET2_RESET",
-+			"TPM_IRQ", "TPM_RESET",
-+			/* Port 1 */
-+			"FEATURE_CONN_GPIO1", "FEATURE_CONN_GPIO2",
-+			"FEATURE_CONN_GPIO3", "FEATURE_CONN_GPIO4",
-+			"FEATURE_CONN_GPIO5", "FEATURE_CONN_GPIO6",
-+			"", "",
-+			/* Port 2 */
-+			"", "", "", "", "", "",
-+			"UART5_SEL", "EEPROM_WRITE_ENABLE";
-+	};
-+
-+	fan_controller: fan-controller@2f {
-+		compatible = "microchip,emc2301", "microchip,emc2305";
-+		reg = <0x2f>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		#pwm-cells = <3>;
-+
-+		fan@0 {
-+			reg = <0x0>;
-+			pwms = <&fan_controller 26000 0 1>;
-+			#cooling-cells = <2>;
-+		};
-+	};
-+
-+	tas2552: audio-codec@40 {
-+		compatible = "ti,tas2552";
-+		reg = <0x40>;
-+		#sound-dai-cells = <0>;
-+		avdd-supply = <&reg_1p8v>;
-+		iovdd-supply = <&reg_3p3v>;
-+		vbat-supply = <&reg_5p0v>;
-+		enable-gpio = <&i2c2_gpio_expander_20 23 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	temperature-sensor@43 {
-+		compatible = "ti,tmp110", "ti,tmp102";
-+		reg = <0x43>;
-+	};
-+};
-+
-+&lpi2c5 {
-+	clock-frequency = <400000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpi2c5>;
-+	status = "okay";
-+};
-+
-+&lpuart1 {	/* A55 Debug */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart1>;
-+	status = "okay";
-+};
-+
-+&lpuart2 {	/* M33 Debug */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart2>;
-+	status = "reserved";
-+};
-+
-+&lpuart5 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart5>;
-+	uart-has-rtscts;
-+	status = "okay";
-+};
-+
-+&lpuart7 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart7>;
-+	uart-has-rtscts;
-+	status = "okay";
-+};
-+
-+&lpuart8 {	/* M7 Debug */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart8>;
-+	uart-has-rtscts;
-+	status = "okay";
-+};
-+
-+&lpspi1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpspi1>;
-+	cs-gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
-+	status = "okay";
-+
-+	flash@0 {	/* W25Q128FVSI */
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <10000000>;
-+	};
-+};
-+
-+&lpspi6 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpspi6>;
-+	cs-gpios = <&gpio2 0 GPIO_ACTIVE_LOW>;
-+	status = "okay";
-+};
-+
-+&micfil {
-+	#sound-dai-cells = <0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pdm>;
-+	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-+			  <&scmi_clk IMX95_CLK_PDM>;
-+	assigned-clock-parents = <0>, <0>, <0>, <0>,
-+				 <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-+	assigned-clock-rates = <3932160000>,
-+			       <3612672000>, <393216000>,
-+			       <361267200>, <49152000>;
-+	status = "okay";
-+};
-+
-+&mu7 {
-+	status = "okay";
-+};
-+
-+&netc_blk_ctrl {
-+	status = "okay";
-+};
-+
-+&netc_emdio {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_emdio>;
-+	status = "okay";
-+
-+	ethphy0: ethernet-phy@1 {	/* KSZ9131RNXI U20 */
-+		compatible = "ethernet-phy-id0022.1640";
-+		reg = <1>;
-+		interrupts-extended = <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
-+		reset-assert-us = <1000>;
-+		/* RESET_N signal rise time ~100ms */
-+		reset-deassert-us = <120000>;
-+		reset-gpios = <&i2c2_gpio_expander_22 4 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	ethphy1: ethernet-phy@2 {	/* KSZ9131RNXI U22 */
-+		compatible = "ethernet-phy-id0022.1640";
-+		reg = <2>;
-+		interrupts-extended = <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
-+		reset-assert-us = <1000>;
-+		/* RESET_N signal rise time ~100ms */
-+		reset-deassert-us = <120000>;
-+		reset-gpios = <&i2c2_gpio_expander_22 5 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&netc_timer {
-+	status = "okay";
-+};
-+
-+&netcmix_blk_ctrl {
-+	status = "okay";
-+};
-+
-+&pcie0 {	/* M.2 Key-B */
-+	pinctrl-0 = <&pinctrl_pcie0>;
-+	pinctrl-names = "default";
-+	reset-gpios = <&gpio5 13 GPIO_ACTIVE_LOW>;
-+	vpcie-supply = <&reg_pcie0>;
-+	status = "okay";
-+};
-+
-+&pcie1 {	/* M.2 Key-M */
-+	pinctrl-0 = <&pinctrl_pcie1>;
-+	pinctrl-names = "default";
-+	reset-gpios = <&gpio5 16 GPIO_ACTIVE_LOW>;
-+	vpcie-supply = <&reg_pcie1>;
-+	status = "okay";
-+};
-+
-+&sai3 {
-+	#sound-dai-cells = <0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_sai3>;
-+	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-+			  <&scmi_clk IMX95_CLK_SAI3>;
-+	assigned-clock-parents = <0>, <0>, <0>, <0>,
-+				 <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-+	assigned-clock-rates = <3932160000>,
-+			       <3612672000>, <393216000>,
-+			       <361267200>, <12288000>;
-+	fsl,sai-mclk-direction-output;
-+	status = "okay";
-+};
-+
-+&sai4 {
-+	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-+			  <&scmi_clk IMX95_CLK_SAI4>;
-+	assigned-clock-parents = <0>, <0>, <0>, <0>, <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-+	assigned-clock-rates = <3932160000>, <3612672000>, <393216000>, <361267200>, <12288000>;
-+	#sound-dai-cells = <0>;
-+	pinctrl-0 = <&pinctrl_sai4>;
-+	pinctrl-names = "default";
-+	fsl,sai-mclk-direction-output;
-+	status = "okay";
-+};
-+
-+&sai5 {
-+	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-+			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-+			  <&scmi_clk IMX95_CLK_SAI5>;
-+	assigned-clock-parents = <0>, <0>, <0>, <0>, <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-+	assigned-clock-rates = <3932160000>, <3612672000>, <393216000>, <361267200>, <12288000>;
-+	#sound-dai-cells = <0>;
-+	pinctrl-0 = <&pinctrl_sai5>;
-+	pinctrl-names = "default";
-+	fsl,sai-mclk-direction-output;
-+	status = "okay";
-+};
-+
-+&thermal_zones {
-+	pf09-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 2>;
-+
-+		trips {
-+			trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+
-+	pf53arm-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 4>;
-+
-+		cooling-maps {
-+			map0 {
-+				trip = <&pf5301_alert>;
-+				cooling-device =
-+					<&A55_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+			};
-+		};
-+
-+		trips {
-+			pf5301_alert: trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			pf5301_crit: trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+
-+	pf53soc-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 3>;
-+
-+		trips {
-+			pf5302_alert: trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			pf5302_crit: trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+};
-+
-+&tpm3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_tpm3>;
-+	status = "okay";
-+};
-+
-+&tpm4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_tpm4>;
-+	status = "okay";
-+};
-+
-+&usb2 {
-+	dr_mode = "host";
-+	vbus-supply = <&reg_usb2_vbus>;
-+	status = "okay";
-+};
-+
-+&usb3 {
-+	status = "okay";
-+};
-+
-+&usb3_dwc3 {
-+	dr_mode = "host";
-+	status = "okay";
-+};
-+
-+&usb3_phy {
-+	status = "okay";
-+};
-+
-+&usdhc1 {	/* eMMC */
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+	pinctrl-0 = <&pinctrl_usdhc1>;
-+	pinctrl-1 = <&pinctrl_usdhc1_100mhz>;
-+	pinctrl-2 = <&pinctrl_usdhc1_200mhz>;
-+	pinctrl-3 = <&pinctrl_usdhc1>;
-+	bus-width = <8>;
-+	non-removable;
-+	no-sdio;
-+	no-sd;
-+	status = "okay";
-+};
-+
-+&usdhc2 {	/* SD-Card */
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+	pinctrl-0 = <&pinctrl_usdhc2>;
-+	pinctrl-1 = <&pinctrl_usdhc2_100mhz>;
-+	pinctrl-2 = <&pinctrl_usdhc2_200mhz>;
-+	pinctrl-3 = <&pinctrl_usdhc2>;
-+	cd-gpios = <&gpio3 0 GPIO_ACTIVE_LOW>;
-+	vmmc-supply = <&reg_usdhc2_vmmc>;
-+	bus-width = <4>;
-+	status = "okay";
-+};
-+
-+&usdhc3 {	/* M.2 Key-E */
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+	pinctrl-0 = <&pinctrl_usdhc3>;
-+	pinctrl-1 = <&pinctrl_usdhc3_100mhz>;
-+	pinctrl-2 = <&pinctrl_usdhc3_200mhz>;
-+	pinctrl-3 = <&pinctrl_usdhc3>;
-+	bus-width = <4>;
-+	status = "okay";
-+};
-+
-+&wdog3 {
-+	fsl,ext-reset-output;
-+	status = "okay";
-+};
-+
-+&scmi_iomuxc {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_hog>;
-+
-+	pinctrl_hog: hoggrp {
-+		fsl,pins = <
-+			/* PCIe 0 PEWAKE */
-+			IMX95_PAD_GPIO_IO34__GPIO5_IO_BIT14			0x4000031e
-+			/* PCIe 1 PEWAKE */
-+			IMX95_PAD_GPIO_IO37__GPIO5_IO_BIT17			0x4000031e
-+			/* BOOT_MODE2 */
-+			IMX95_PAD_SAI1_TXFS__AONMIX_TOP_GPIO1_IO_BIT11		0x4000031e
-+			/* IO_XPNDR_RST_1V8 shared by multiple expanders */
-+			IMX95_PAD_XSPI1_SS0_B__GPIO5_IO_BIT10			0x40000b9e
-+			/* IO_XPNDR_INT_1V8 shared by multiple expanders */
-+			IMX95_PAD_XSPI1_SS1_B__GPIO5_IO_BIT11			0x40000b9e
-+		>;
-+	};
-+
-+	pinctrl_emdio: emdiogrp {
-+		fsl,pins = <
-+			IMX95_PAD_ENET2_MDC__NETCMIX_TOP_NETC_MDC		0x50e
-+			IMX95_PAD_ENET2_MDIO__NETCMIX_TOP_NETC_MDIO		0x90e
-+		>;
-+	};
-+
-+	pinctrl_enetc0: enetc0grp {
-+		fsl,pins = <
-+			IMX95_PAD_ENET1_RD0__NETCMIX_TOP_ETH0_RGMII_RD0		0x57e
-+			IMX95_PAD_ENET1_RD1__NETCMIX_TOP_ETH0_RGMII_RD1		0x57e
-+			IMX95_PAD_ENET1_RD2__NETCMIX_TOP_ETH0_RGMII_RD2		0x57e
-+			IMX95_PAD_ENET1_RD3__NETCMIX_TOP_ETH0_RGMII_RD3		0x57e
-+			IMX95_PAD_ENET1_RXC__NETCMIX_TOP_ETH0_RGMII_RX_CLK	0x58e
-+			IMX95_PAD_ENET1_RX_CTL__NETCMIX_TOP_ETH0_RGMII_RX_CTL	0x57e
-+			IMX95_PAD_ENET1_TD0__NETCMIX_TOP_ETH0_RGMII_TD0		0x50e
-+			IMX95_PAD_ENET1_TD1__NETCMIX_TOP_ETH0_RGMII_TD1		0x50e
-+			IMX95_PAD_ENET1_TD2__NETCMIX_TOP_ETH0_RGMII_TD2		0x50e
-+			IMX95_PAD_ENET1_TD3__NETCMIX_TOP_ETH0_RGMII_TD3		0x50e
-+			IMX95_PAD_ENET1_TXC__NETCMIX_TOP_ETH0_RGMII_TX_CLK	0x58e
-+			IMX95_PAD_ENET1_TX_CTL__NETCMIX_TOP_ETH0_RGMII_TX_CTL	0x57e
-+		>;
-+	};
-+
-+	pinctrl_enetc1: enetc1grp {
-+		fsl,pins = <
-+			IMX95_PAD_ENET2_RD0__NETCMIX_TOP_ETH1_RGMII_RD0		0x57e
-+			IMX95_PAD_ENET2_RD1__NETCMIX_TOP_ETH1_RGMII_RD1		0x57e
-+			IMX95_PAD_ENET2_RD2__NETCMIX_TOP_ETH1_RGMII_RD2		0x57e
-+			IMX95_PAD_ENET2_RD3__NETCMIX_TOP_ETH1_RGMII_RD3		0x57e
-+			IMX95_PAD_ENET2_RXC__NETCMIX_TOP_ETH1_RGMII_RX_CLK	0x58e
-+			IMX95_PAD_ENET2_RX_CTL__NETCMIX_TOP_ETH1_RGMII_RX_CTL	0x57e
-+			IMX95_PAD_ENET2_TD0__NETCMIX_TOP_ETH1_RGMII_TD0		0x50e
-+			IMX95_PAD_ENET2_TD1__NETCMIX_TOP_ETH1_RGMII_TD1		0x50e
-+			IMX95_PAD_ENET2_TD2__NETCMIX_TOP_ETH1_RGMII_TD2		0x50e
-+			IMX95_PAD_ENET2_TD3__NETCMIX_TOP_ETH1_RGMII_TD3		0x50e
-+			IMX95_PAD_ENET2_TXC__NETCMIX_TOP_ETH1_RGMII_TX_CLK	0x58e
-+			IMX95_PAD_ENET2_TX_CTL__NETCMIX_TOP_ETH1_RGMII_TX_CTL	0x57e
-+		>;
-+	};
-+
-+	pinctrl_flexcan3: flexcan3grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO28__CAN3_TX				0x39e
-+			IMX95_PAD_GPIO_IO29__CAN3_RX				0x39e
-+		>;
-+	};
-+
-+	pinctrl_flexcan5: flexcan5grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO30__CAN5_TX				0x39e
-+			IMX95_PAD_GPIO_IO31__CAN5_RX				0x39e
-+		>;
-+	};
-+
-+	pinctrl_i3c2: i3c2grp {
-+		fsl,pins = <
-+			IMX95_PAD_ENET1_MDC__I3C2_SCL				0x40000186
-+			IMX95_PAD_ENET1_MDIO__I3C2_SDA				0x40000186
-+		>;
-+	};
-+
-+	pinctrl_led: ledgrp {
-+		fsl,pins = <
-+			IMX95_PAD_XSPI1_DQS__GPIO5_IO_BIT8			0x14e
-+			IMX95_PAD_XSPI1_SCLK__GPIO5_IO_BIT9			0x14e
-+		>;
-+	};
-+
-+	pinctrl_lpi2c2: lpi2c2grp {
-+		fsl,pins = <
-+			IMX95_PAD_I2C2_SCL__AONMIX_TOP_LPI2C2_SCL		0x40000b9e
-+			IMX95_PAD_I2C2_SDA__AONMIX_TOP_LPI2C2_SDA		0x40000b9e
-+		>;
-+	};
-+
-+	pinctrl_lpi2c5: lpi2c5grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO22__LPI2C5_SDA				0x40000b9e
-+			IMX95_PAD_GPIO_IO23__LPI2C5_SCL				0x40000b9e
-+		>;
-+	};
-+
-+	pinctrl_lpspi1: lpspi1grp {
-+		fsl,pins = <
-+			IMX95_PAD_SAI1_TXC__AONMIX_TOP_LPSPI1_SIN		0x3fe
-+			IMX95_PAD_SAI1_TXD0__AONMIX_TOP_LPSPI1_SCK		0x3fe
-+			IMX95_PAD_SAI1_RXD0__AONMIX_TOP_LPSPI1_SOUT		0x3fe
-+			IMX95_PAD_PDM_BIT_STREAM0__AONMIX_TOP_GPIO1_IO_BIT9	0x3fe
-+		>;
-+	};
-+
-+	pinctrl_lpspi6: lpspi6grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO00__GPIO2_IO_BIT0			0x3fe
-+			IMX95_PAD_GPIO_IO01__LPSPI6_SIN				0x3fe
-+			IMX95_PAD_GPIO_IO02__LPSPI6_SOUT			0x3fe
-+			IMX95_PAD_GPIO_IO03__LPSPI6_SCK				0x3fe
-+		>;
-+	};
-+
-+	pinctrl_pcie0: pcie0grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO32__HSIOMIX_TOP_PCIE1_CLKREQ_B		0x4000031e
-+			IMX95_PAD_GPIO_IO33__GPIO5_IO_BIT13			0x31e
-+		>;
-+	};
-+
-+	pinctrl_pcie1: pcie1grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO35__HSIOMIX_TOP_PCIE2_CLKREQ_B		0x4000031e
-+			IMX95_PAD_GPIO_IO36__GPIO5_IO_BIT16			0x31e
-+		>;
-+	};
-+
-+	pinctrl_panel_backlight_lvds: backlightlvdsgrp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO27__GPIO2_IO_BIT27			0x31e
-+		>;
-+	};
-+
-+	pinctrl_pdm: pdmgrp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO04__AONMIX_TOP_PDM_CLK			0x31e
-+			IMX95_PAD_GPIO_IO05__AONMIX_TOP_PDM_BIT_STREAM_BIT0	0x31e
-+			IMX95_PAD_GPIO_IO06__AONMIX_TOP_PDM_BIT_STREAM_BIT1	0x31e
-+		>;
-+	};
-+
-+	pinctrl_sai4: sai4grp {
-+		fsl,pins = <
-+			IMX95_PAD_XSPI1_DATA0__SAI4_TX_BCLK			0x31e
-+			IMX95_PAD_XSPI1_DATA1__SAI4_TX_SYNC			0x31e
-+			IMX95_PAD_XSPI1_DATA2__SAI4_TX_DATA_BIT0		0x31e
-+			IMX95_PAD_XSPI1_DATA3__SAI4_RX_DATA_BIT0		0x31e
-+		>;
-+	};
-+
-+	pinctrl_sai5: sai5grp {
-+		fsl,pins = <
-+			IMX95_PAD_XSPI1_DATA4__SAI5_TX_DATA_BIT0		0x31e
-+			IMX95_PAD_XSPI1_DATA5__SAI5_TX_SYNC			0x31e
-+			IMX95_PAD_XSPI1_DATA6__SAI5_TX_BCLK			0x31e
-+			IMX95_PAD_XSPI1_DATA7__SAI5_RX_DATA_BIT0		0x31e
-+		>;
-+	};
-+
-+	pinctrl_sai3: sai3grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO16__SAI3_TX_BCLK			0x31e
-+			IMX95_PAD_GPIO_IO17__SAI3_MCLK				0x31e
-+			IMX95_PAD_GPIO_IO18__SAI3_RX_BCLK			0x31e
-+			IMX95_PAD_GPIO_IO19__SAI3_RX_SYNC			0x31e
-+			IMX95_PAD_GPIO_IO20__SAI3_RX_DATA_BIT0			0x31e
-+			IMX95_PAD_GPIO_IO21__SAI3_TX_DATA_BIT0			0x31e
-+			IMX95_PAD_GPIO_IO26__SAI3_TX_SYNC			0x31e
-+		>;
-+	};
-+
-+	pinctrl_tpm3: tpm3grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO24__TPM3_CH3				0x51e
-+		>;
-+	};
-+
-+	pinctrl_tpm4: tpm4grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO25__TPM4_CH3				0x51e
-+		>;
-+	};
-+
-+	pinctrl_uart1: uart1grp {
-+		fsl,pins = <
-+			IMX95_PAD_UART1_RXD__AONMIX_TOP_LPUART1_RX		0x31e
-+			IMX95_PAD_UART1_TXD__AONMIX_TOP_LPUART1_TX		0x31e
-+		>;
-+	};
-+
-+	pinctrl_uart2: uart2grp {
-+		fsl,pins = <
-+			IMX95_PAD_UART2_RXD__AONMIX_TOP_LPUART2_RX		0x31e
-+			IMX95_PAD_UART2_TXD__AONMIX_TOP_LPUART2_TX		0x31e
-+		>;
-+	};
-+
-+	pinctrl_uart5: uart5grp {
-+		fsl,pins = <
-+			IMX95_PAD_DAP_TDO_TRACESWO__LPUART5_TX			0x31e
-+			IMX95_PAD_DAP_TDI__LPUART5_RX				0x31e
-+			IMX95_PAD_DAP_TMS_SWDIO__LPUART5_RTS_B			0x31e
-+			IMX95_PAD_DAP_TCLK_SWCLK__LPUART5_CTS_B			0x31e
-+		>;
-+	};
-+
-+	pinctrl_uart7: uart7grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO08__LPUART7_TX				0x31e
-+			IMX95_PAD_GPIO_IO09__LPUART7_RX				0x31e
-+			IMX95_PAD_GPIO_IO10__LPUART7_CTS_B			0x31e
-+			IMX95_PAD_GPIO_IO11__LPUART7_RTS_B			0x31e
-+		>;
-+	};
-+
-+	pinctrl_uart8: uart8grp {
-+		fsl,pins = <
-+			IMX95_PAD_GPIO_IO12__LPUART8_TX				0x31e
-+			IMX95_PAD_GPIO_IO13__LPUART8_RX				0x31e
-+			IMX95_PAD_GPIO_IO14__LPUART8_CTS_B			0x31e
-+			IMX95_PAD_GPIO_IO15__LPUART8_RTS_B			0x31e
-+		>;
-+	};
-+
-+	pinctrl_usdhc1: usdhc1grp {
-+		fsl,pins = <
-+			IMX95_PAD_SD1_CLK__USDHC1_CLK				0x158e
-+			IMX95_PAD_SD1_CMD__USDHC1_CMD				0x138e
-+			IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x138e
-+			IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x138e
-+			IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x138e
-+			IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x138e
-+			IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x138e
-+			IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x138e
-+			IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e
-+			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e
-+			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e
-+		>;
-+	};
-+
-+	pinctrl_usdhc1_100mhz: usdhc1-100mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD1_CLK__USDHC1_CLK				0x158e
-+			IMX95_PAD_SD1_CMD__USDHC1_CMD				0x138e
-+			IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x138e
-+			IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x138e
-+			IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x138e
-+			IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x138e
-+			IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x138e
-+			IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x138e
-+			IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e
-+			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e
-+			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e
-+		>;
-+	};
-+
-+	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD1_CLK__USDHC1_CLK				0x15fe
-+			IMX95_PAD_SD1_CMD__USDHC1_CMD				0x13fe
-+			IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x13fe
-+			IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x13fe
-+			IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x13fe
-+			IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x13fe
-+			IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x13fe
-+			IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x13fe
-+			IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x13fe
-+			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x13fe
-+			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x15fe
-+		>;
-+	};
-+
-+	pinctrl_usdhc2: usdhc2grp {
-+		fsl,pins = <
-+			IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e
-+			IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e
-+			IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e
-+			IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e
-+			IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
-+			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
-+			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
-+			IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0			0x31e
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e
-+			IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e
-+			IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e
-+			IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e
-+			IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
-+			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
-+			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
-+			IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0			0x31e
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e
-+			IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e
-+			IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e
-+			IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e
-+			IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
-+			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
-+			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
-+			IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0			0x31e
-+		>;
-+	};
-+
-+	pinctrl_usdhc3: usdhc3grp {
-+		fsl,pins = <
-+			IMX95_PAD_SD3_CLK__USDHC3_CLK				0x158e
-+			IMX95_PAD_SD3_CMD__USDHC3_CMD				0x138e
-+			IMX95_PAD_SD3_DATA0__USDHC3_DATA0			0x138e
-+			IMX95_PAD_SD3_DATA1__USDHC3_DATA1			0x138e
-+			IMX95_PAD_SD3_DATA2__USDHC3_DATA2			0x138e
-+			IMX95_PAD_SD3_DATA3__USDHC3_DATA3			0x138e
-+		>;
-+	};
-+
-+	pinctrl_usdhc3_100mhz: usdhc3-100mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD3_CLK__USDHC3_CLK				0x158e
-+			IMX95_PAD_SD3_CMD__USDHC3_CMD				0x138e
-+			IMX95_PAD_SD3_DATA0__USDHC3_DATA0			0x138e
-+			IMX95_PAD_SD3_DATA1__USDHC3_DATA1			0x138e
-+			IMX95_PAD_SD3_DATA2__USDHC3_DATA2			0x138e
-+			IMX95_PAD_SD3_DATA3__USDHC3_DATA3			0x138e
-+		>;
-+	};
-+
-+	pinctrl_usdhc3_200mhz: usdhc3-200mhzgrp {
-+		fsl,pins = <
-+			IMX95_PAD_SD3_CLK__USDHC3_CLK				0x158e
-+			IMX95_PAD_SD3_CMD__USDHC3_CMD				0x138e
-+			IMX95_PAD_SD3_DATA0__USDHC3_DATA0			0x138e
-+			IMX95_PAD_SD3_DATA1__USDHC3_DATA1			0x138e
-+			IMX95_PAD_SD3_DATA2__USDHC3_DATA2			0x138e
-+			IMX95_PAD_SD3_DATA3__USDHC3_DATA3			0x138e
-+		>;
-+	};
-+};
++		if (unlikely(pktlen > ring->buf_size)) {
++			netdev->stats.rx_length_errors++;
++			goto release_desc;
++		}
++
+ 		/* alloc new buffer */
+ 		if (ring->page_pool) {
+ 			struct page *page = virt_to_head_page(data);
+@@ -2313,10 +2399,15 @@ static int mtk_poll_rx(struct napi_struct *napi, int budget,
+ 				skb_metadata_set(skb, metasize);
+ 			skb_mark_for_recycle(skb);
+ 		} else {
++			unsigned int alloc_size = ring->frag_size > PAGE_SIZE ?
++				mtk_buf_alloc_size(ring->frag_size) :
++				ring->frag_size;
++
+ 			if (ring->frag_size <= PAGE_SIZE)
+ 				new_data = napi_alloc_frag(ring->frag_size);
+ 			else
+-				new_data = mtk_max_lro_buf_alloc(GFP_ATOMIC);
++				new_data = mtk_max_buf_alloc(ring->frag_size,
++							     GFP_ATOMIC);
+ 
+ 			if (unlikely(!new_data)) {
+ 				netdev->stats.rx_dropped++;
+@@ -2339,7 +2430,7 @@ static int mtk_poll_rx(struct napi_struct *napi, int budget,
+ 			dma_unmap_single(eth->dma_dev, ((u64)trxd.rxd1 | addr64),
+ 					 ring->buf_size, DMA_FROM_DEVICE);
+ 
+-			skb = build_skb(data, ring->frag_size);
++			skb = build_skb(data, alloc_size);
+ 			if (unlikely(!skb)) {
+ 				netdev->stats.rx_dropped++;
+ 				skb_free_frag(data);
+@@ -2800,6 +2891,7 @@ static int mtk_rx_alloc(struct mtk_eth *eth, int ring_no, int rx_flag)
+ 	const struct mtk_soc_data *soc = eth->soc;
+ 	struct mtk_rx_ring *ring;
+ 	int rx_data_len, rx_dma_size;
++	u32 buf_len;
+ 	int i;
+ 
+ 	if (rx_flag == MTK_RX_FLAGS_QDMA) {
+@@ -2818,8 +2910,19 @@ static int mtk_rx_alloc(struct mtk_eth *eth, int ring_no, int rx_flag)
+ 		rx_dma_size = soc->rx.dma_size;
+ 	}
+ 
+-	ring->frag_size = mtk_max_frag_size(rx_data_len);
+-	ring->buf_size = mtk_max_buf_size(ring->frag_size);
++	/* The QDMA RX ring is only ever scratch memory for the engine: the
++	 * CPU neither polls nor refills it, so it keeps its 2K buffers
++	 * even when the polled rings grow.
++	 */
++	if (rx_flag == MTK_RX_FLAGS_QDMA)
++		buf_len = MTK_MAX_RX_LENGTH_2K;
++	else if (rx_flag == MTK_RX_FLAGS_HWLRO)
++		buf_len = max_t(u32, eth->rx_buf_len, MTK_MAX_LRO_RX_LENGTH);
++	else
++		buf_len = eth->rx_buf_len;
++
++	ring->frag_size = mtk_max_frag_size(buf_len, rx_data_len);
++	ring->buf_size  = mtk_max_buf_size(buf_len, ring->frag_size);
+ 	ring->data = kcalloc(rx_dma_size, sizeof(*ring->data),
+ 			     GFP_KERNEL);
+ 	if (!ring->data)
+@@ -2864,7 +2967,8 @@ static int mtk_rx_alloc(struct mtk_eth *eth, int ring_no, int rx_flag)
+ 			if (ring->frag_size <= PAGE_SIZE)
+ 				data = netdev_alloc_frag(ring->frag_size);
+ 			else
+-				data = mtk_max_lro_buf_alloc(GFP_KERNEL);
++				data = mtk_max_buf_alloc(ring->frag_size,
++							 GFP_KERNEL);
+ 
+ 			if (!data)
+ 				return -ENOMEM;
+@@ -3260,6 +3364,58 @@ static int mtk_dma_busy_wait(struct mtk_eth *eth)
+ 	return ret;
+ }
+ 
++static int mtk_max_gmac_mtu(struct mtk_eth *eth)
++{
++	int i, max_mtu = ETH_DATA_LEN;
++
++	for (i = 0; i < ARRAY_SIZE(eth->netdev); i++)
++		if (eth->netdev[i] && eth->netdev[i]->mtu > max_mtu)
++			max_mtu = eth->netdev[i]->mtu;
++
++	return max_mtu;
++}
++
++static u32 mtk_rx_buf_len_from_mtu(int max_mtu)
++{
++	int length = max_mtu + MTK_RX_ETH_HLEN + VLAN_HLEN;
++
++	if (length <= MTK_MAX_RX_LENGTH_2K)
++		return MTK_MAX_RX_LENGTH_2K;
++
++	return DIV_ROUND_UP(length, 1024) * 1024;
++}
++
++/* The rx rings are shared by every MAC, so their buffers are sized for
++ * the largest MTU configured on any of them.
++ */
++static u32 mtk_rx_buf_len(struct mtk_eth *eth)
++{
++	return mtk_rx_buf_len_from_mtu(mtk_max_gmac_mtu(eth));
++}
++
++/* Program the PDMA RX max-frame (SDL) field from the shared RX buffer
++ * length.  The field only exists on netsys v3+ and is programmed the way
++ * the MediaTek downstream driver does: frame length offset by
++ * MTK_PDMA_LRO_SDL in GENMASK(30, 16).  The encoding is the vendor's and
++ * not publicly documented; without the write the DMA engine keeps its
++ * small reset default (~1518 bytes) and drops larger frames on the wire,
++ * so a datasheet confirmation of the layout would be welcome.
++ */
++static void mtk_pdma_set_sdl(struct mtk_eth *eth)
++{
++	const struct mtk_reg_map *reg_map = eth->soc->reg_map;
++	u32 val;
++
++	if (!mtk_is_netsys_v3_or_greater(eth))
++		return;
++
++	val = mtk_r32(eth, reg_map->pdma.rx_cfg);
++	val &= ~MTK_RX_CFG_SDL_MASK;
++	val |= FIELD_PREP(MTK_RX_CFG_SDL_MASK,
++			  MTK_PDMA_LRO_SDL + eth->rx_buf_len);
++	mtk_w32(eth, val, reg_map->pdma.rx_cfg);
++}
++
+ static int mtk_dma_init(struct mtk_eth *eth)
+ {
+ 	int err;
+@@ -3268,6 +3424,14 @@ static int mtk_dma_init(struct mtk_eth *eth)
+ 	if (mtk_dma_busy_wait(eth))
+ 		return -EBUSY;
+ 
++	/* Derived here, at ring allocation, so eth->rx_buf_len always
++	 * describes the buffers the rings actually hold; mtk_change_mtu()
++	 * updates it while DMA is down so it describes the rings-to-be,
++	 * and mtk_mac_config() then never lets a MAC accept a frame the
++	 * rings cannot take.
++	 */
++	eth->rx_buf_len = mtk_rx_buf_len(eth);
++
+ 	if (MTK_HAS_CAPS(eth->soc->caps, MTK_QDMA)) {
+ 		/* QDMA needs scratch memory for internal reordering of the
+ 		 * descriptors
+@@ -3311,6 +3475,8 @@ static int mtk_dma_init(struct mtk_eth *eth)
+ 		mtk_w32(eth, 0x0, eth->soc->reg_map->qdma.hred);
+ 	}
+ 
++	mtk_pdma_set_sdl(eth);
++
+ 	return 0;
+ }
+ 
+@@ -3601,17 +3767,6 @@ static int mtk_device_event(struct notifier_block *n, unsigned long event, void
+ 	return NOTIFY_DONE;
+ }
+ 
+-static int mtk_max_gmac_mtu(struct mtk_eth *eth)
+-{
+-	int i, max_mtu = ETH_DATA_LEN;
+-
+-	for (i = 0; i < ARRAY_SIZE(eth->netdev); i++)
+-		if (eth->netdev[i] && eth->netdev[i]->mtu > max_mtu)
+-			max_mtu = eth->netdev[i]->mtu;
+-
+-	return max_mtu;
+-}
+-
+ static int mtk_open(struct net_device *dev)
+ {
+ 	struct mtk_mac *mac = netdev_priv(dev);
+@@ -3781,6 +3936,7 @@ static int mtk_xdp_setup(struct net_device *dev, struct bpf_prog *prog,
+ 	struct mtk_mac *mac = netdev_priv(dev);
+ 	struct mtk_eth *eth = mac->hw;
+ 	struct bpf_prog *old_prog;
++	u32 rx_buf_len;
+ 	bool need_update;
+ 
+ 	if (eth->hwlro) {
+@@ -3788,12 +3944,28 @@ static int mtk_xdp_setup(struct net_device *dev, struct bpf_prog *prog,
+ 		return -EOPNOTSUPP;
+ 	}
+ 
+-	if (dev->mtu > MTK_PP_MAX_BUF_SIZE) {
++	need_update = !!eth->prog != !!prog;
++
++	/* XDP only runs on rings that have a page_pool, and the pool is
++	 * only created when the shared RX buffer length fits
++	 * MTK_PP_MAX_BUF_SIZE.  eth->rx_buf_len describes the live rings;
++	 * when the rings are not live, or this attach tears them down,
++	 * the next open re-derives it from the current MTUs, so check
++	 * that value instead.  A detach never needs a pool, so it is not
++	 * checked at all.
++	 */
++	rx_buf_len = eth->rx_buf_len;
++	if (prog &&
++	    (!refcount_read(&eth->dma_refcnt) ||
++	     (netif_running(dev) && need_update &&
++	      refcount_read(&eth->dma_refcnt) == 1)))
++		rx_buf_len = mtk_rx_buf_len(eth);
++
++	if (prog && rx_buf_len > MTK_PP_MAX_BUF_SIZE) {
+ 		NL_SET_ERR_MSG_MOD(extack, "MTU too large for XDP");
+ 		return -EOPNOTSUPP;
+ 	}
+ 
+-	need_update = !!eth->prog != !!prog;
+ 	if (netif_running(dev) && need_update)
+ 		mtk_stop(dev);
+ 
+@@ -3928,30 +4100,6 @@ static void mtk_dim_tx(struct work_struct *work)
+ 	dim->state = DIM_START_MEASURE;
+ }
+ 
+-static void mtk_set_mcr_max_rx(struct mtk_mac *mac, u32 val)
+-{
+-	struct mtk_eth *eth = mac->hw;
+-	u32 mcr_cur, mcr_new;
+-
+-	if (MTK_HAS_CAPS(eth->soc->caps, MTK_SOC_MT7628))
+-		return;
+-
+-	mcr_cur = mtk_r32(mac->hw, MTK_MAC_MCR(mac->id));
+-	mcr_new = mcr_cur & ~MAC_MCR_MAX_RX_MASK;
+-
+-	if (val <= 1518)
+-		mcr_new |= MAC_MCR_MAX_RX(MAC_MCR_MAX_RX_1518);
+-	else if (val <= 1536)
+-		mcr_new |= MAC_MCR_MAX_RX(MAC_MCR_MAX_RX_1536);
+-	else if (val <= 1552)
+-		mcr_new |= MAC_MCR_MAX_RX(MAC_MCR_MAX_RX_1552);
+-	else
+-		mcr_new |= MAC_MCR_MAX_RX(MAC_MCR_MAX_RX_2048);
+-
+-	if (mcr_new != mcr_cur)
+-		mtk_w32(mac->hw, mcr_new, MTK_MAC_MCR(mac->id));
+-}
+-
+ static void mtk_hw_reset(struct mtk_eth *eth)
+ {
+ 	u32 val;
+@@ -4219,8 +4367,11 @@ static int mtk_hw_init(struct mtk_eth *eth, bool reset)
+ 			continue;
+ 
+ 		mtk_w32(eth, MAC_MCR_FORCE_LINK_DOWN, MTK_MAC_MCR(i));
+-		mtk_set_mcr_max_rx(netdev_priv(dev),
+-				   dev->mtu + MTK_RX_ETH_HLEN);
++		if (MTK_HAS_CAPS(eth->soc->caps, MTK_NETSYS_RX_9K))
++			mtk_set_mcr_max_rx(netdev_priv(dev), eth->rx_buf_len);
++		else
++			mtk_set_mcr_max_rx(netdev_priv(dev),
++					   dev->mtu + MTK_RX_ETH_HLEN);
+ 	}
+ 
+ 	/* Indicates CDM to parse the MTK special tag from CPU
+@@ -4361,21 +4512,59 @@ static int mtk_change_mtu(struct net_device *dev, int new_mtu)
+ 	int length = new_mtu + MTK_RX_ETH_HLEN;
+ 	struct mtk_mac *mac = netdev_priv(dev);
+ 	struct mtk_eth *eth = mac->hw;
++	u32 rx_buf_len;
++	bool running;
+ 	int max_mtu, i;
+ 
++	/* The RX rings are shared by every MAC, so the buffer length
++	 * follows the largest MTU of all of them, the new one included.
++	 */
++	max_mtu = new_mtu;
++	for (i = 0; i < MTK_MAX_DEVS; i++) {
++		if (eth->netdev[i] && eth->netdev[i] != dev &&
++		    eth->netdev[i]->mtu > max_mtu)
++			max_mtu = eth->netdev[i]->mtu;
++	}
++	rx_buf_len = mtk_rx_buf_len_from_mtu(max_mtu);
++
+ 	if (rcu_access_pointer(eth->prog) &&
+-	    length > MTK_PP_MAX_BUF_SIZE) {
++	    rx_buf_len > MTK_PP_MAX_BUF_SIZE) {
+ 		netdev_err(dev, "Invalid MTU for XDP mode\n");
+ 		return -EINVAL;
+ 	}
+ 
+-	mtk_set_mcr_max_rx(mac, length);
++	/* The rings cannot be resized in place while DMA is running: a
++	 * larger buffer can only come from the reallocation at the next
++	 * open, so reject it.  A smaller one is fine, the buffers the
++	 * rings already hold are big enough for it.
++	 */
++	running = refcount_read(&eth->dma_refcnt);
++	if (running && rx_buf_len > eth->rx_buf_len)
++		return -EBUSY;
++
++	/* On the SoCs whose rings grow with the MTU, keep the MAC limit in
++	 * step with the shared buffers; the other SoCs keep the per-device
++	 * limit they always had.
++	 */
++	if (MTK_HAS_CAPS(eth->soc->caps, MTK_NETSYS_RX_9K))
++		mtk_set_mcr_max_rx(mac, rx_buf_len);
++	else
++		mtk_set_mcr_max_rx(mac, length);
++
+ 	WRITE_ONCE(dev->mtu, new_mtu);
+ 
+ 	max_mtu = mtk_max_gmac_mtu(eth);
+ 	for (i = 0; i < ARRAY_SIZE(eth->ppe); i++)
+ 		mtk_ppe_update_mtu(eth->ppe[i], max_mtu);
+ 
++	/* While DMA is up the rings keep the buffers they were built
++	 * with; update eth->rx_buf_len only when DMA is down so it keeps
++	 * describing the buffers the rings hold, or will hold at the next
++	 * open.
++	 */
++	if (!running)
++		eth->rx_buf_len = rx_buf_len;
++
+ 	return 0;
+ }
+ 
+@@ -5021,8 +5210,17 @@ static int mtk_add_mac(struct mtk_eth *eth, struct device_node *np)
+ 	eth->netdev[id]->irq = eth->irq[MTK_FE_IRQ_SHARED];
+ 	eth->netdev[id]->dev.of_node = np;
+ 
++	/* DSA sets the conduit MTU (user MTU + tag) before the netdev is
++	 * opened, so max_mtu must already be final here.  Deriving it only
++	 * in mtk_open() leaves the conduit at its 1504 default and blocks
++	 * 9K frames on the DSA user ports.
++	 */
+ 	if (MTK_HAS_CAPS(eth->soc->caps, MTK_SOC_MT7628))
+ 		eth->netdev[id]->max_mtu = MTK_MAX_RX_LENGTH - MTK_RX_ETH_HLEN;
++	else if (MTK_HAS_CAPS(eth->soc->caps, MTK_NETSYS_RX_9K) &&
++		 mtk_interface_mode_is_xgmii(eth, phy_mode))
++		eth->netdev[id]->max_mtu =
++			MTK_MAX_RX_LENGTH_9K - MTK_RX_ETH_HLEN - VLAN_HLEN;
+ 	else
+ 		eth->netdev[id]->max_mtu = MTK_MAX_RX_LENGTH_2K - MTK_RX_ETH_HLEN;
+ 
+@@ -5163,6 +5361,8 @@ static int mtk_probe(struct platform_device *pdev)
+ 	spin_lock_init(&eth->rx_irq_lock);
+ 	spin_lock_init(&eth->dim_lock);
+ 
++	eth->rx_buf_len = MTK_MAX_RX_LENGTH_2K;
++
+ 	eth->rx_dim.mode = DIM_CQ_PERIOD_MODE_START_FROM_EQE;
+ 	INIT_WORK(&eth->rx_dim.work, mtk_dim_rx);
+ 	INIT_DELAYED_WORK(&eth->reset.monitor_work, mtk_hw_reset_monitor_work);
+diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.h b/drivers/net/ethernet/mediatek/mtk_eth_soc.h
+index 88a9b3b23b..4b4a544612 100644
+--- a/drivers/net/ethernet/mediatek/mtk_eth_soc.h
++++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.h
+@@ -28,7 +28,9 @@
+ #define MTK_QDMA_NUM_QUEUES	16
+ #define MTK_QDMA_PAGE_SIZE	2048
+ #define MTK_MAX_RX_LENGTH	1536
++#define MTK_MAX_RX_LENGTH_UNIT	1024
+ #define MTK_MAX_RX_LENGTH_2K	2048
++#define MTK_MAX_RX_LENGTH_9K	9216
+ #define MTK_TX_DMA_BUF_LEN	0x3fff
+ #define MTK_TX_DMA_BUF_LEN_V2	0xffff
+ #define MTK_QDMA_RING_SIZE	2048
+@@ -198,9 +200,10 @@
+ #define MTK_MULTI_EN		BIT(10)
+ #define MTK_PDMA_SIZE_8DWORDS	(1 << 4)
+ 
+-/* PDMA Global Configuration Register */
++/* PDMA RX Configuration Register */
+ #define MTK_PDMA_LRO_SDL	0x3000
+ #define MTK_RX_CFG_SDL_OFFSET	16
++#define MTK_RX_CFG_SDL_MASK	GENMASK(30, MTK_RX_CFG_SDL_OFFSET)
+ 
+ /* PDMA Reset Index Register */
+ #define MTK_PST_DRX_IDX0	BIT(16)
+@@ -451,6 +454,9 @@
+ 
+ /* Mac control registers */
+ #define MTK_MAC_MCR(x)		(0x10100 + (x * 0x100))
++#define MAC_MCR_MAX_RX_JUMBO_MASK	GENMASK(31, 28)
++#define MAC_MCR_MAX_RX_JUMBO(x)		\
++	FIELD_PREP(MAC_MCR_MAX_RX_JUMBO_MASK, (x))
+ #define MAC_MCR_MAX_RX_MASK	GENMASK(25, 24)
+ #define MAC_MCR_MAX_RX(_x)	(MAC_MCR_MAX_RX_MASK & ((_x) << 24))
+ #define MAC_MCR_MAX_RX_1518	0x0
+@@ -530,6 +536,8 @@
+ /* XFI Mac control registers */
+ #define MTK_XMAC_BASE(x)	(0x12000 + (((x) - 1) * 0x1000))
+ #define MTK_XMAC_MCR(x)		(MTK_XMAC_BASE(x))
++#define MTK_XMAC_RX_CFG2(x)	(MTK_XMAC_MCR(x) + 0xd0)
++#define MTK_XMAC_MAX_RX_MASK	GENMASK(13, 0)
+ #define XMAC_MCR_TRX_DISABLE	0xf
+ #define XMAC_MCR_FORCE_TX_FC	BIT(5)
+ #define XMAC_MCR_FORCE_RX_FC	BIT(4)
+@@ -985,6 +993,7 @@ enum mkt_eth_capabilities {
+ 	MTK_INFRA_BIT,
+ 	MTK_SHARED_SGMII_BIT,
+ 	MTK_HWLRO_BIT,
++	MTK_NETSYS_RX_9K_BIT,
+ 	MTK_SHARED_INT_BIT,
+ 	MTK_TRGMII_MT7621_CLK_BIT,
+ 	MTK_QDMA_BIT,
+@@ -1026,6 +1035,7 @@ enum mkt_eth_capabilities {
+ #define MTK_INFRA		BIT_ULL(MTK_INFRA_BIT)
+ #define MTK_SHARED_SGMII	BIT_ULL(MTK_SHARED_SGMII_BIT)
+ #define MTK_HWLRO		BIT_ULL(MTK_HWLRO_BIT)
++#define MTK_NETSYS_RX_9K	BIT_ULL(MTK_NETSYS_RX_9K_BIT)
+ #define MTK_SHARED_INT		BIT_ULL(MTK_SHARED_INT_BIT)
+ #define MTK_TRGMII_MT7621_CLK	BIT_ULL(MTK_TRGMII_MT7621_CLK_BIT)
+ #define MTK_QDMA		BIT_ULL(MTK_QDMA_BIT)
+@@ -1127,7 +1137,7 @@ enum mkt_eth_capabilities {
+ 
+ #define MT7988_CAPS  (MTK_36BIT_DMA | MTK_GDM1_ESW | MTK_GMAC2_2P5GPHY | \
+ 		      MTK_MUX_GMAC2_TO_2P5GPHY | MTK_QDMA | MTK_RSTCTRL_PPE1 | \
+-		      MTK_RSTCTRL_PPE2 | MTK_SRAM)
++		      MTK_RSTCTRL_PPE2 | MTK_SRAM | MTK_NETSYS_RX_9K)
+ 
+ struct mtk_tx_dma_desc_info {
+ 	dma_addr_t	addr;
+@@ -1150,6 +1160,7 @@ struct mtk_reg_map {
+ 		u32	pcrx_ptr;	/* rx cpu pointer */
+ 		u32	glo_cfg;	/* global configuration */
+ 		u32	rst_idx;	/* reset index */
++		u32	rx_cfg;		/* rx dma configuration */
+ 		u32	delay_irq;	/* delay interrupt */
+ 		u32	irq_status;	/* interrupt status */
+ 		u32	irq_mask;	/* interrupt mask */
+@@ -1314,6 +1325,7 @@ struct mtk_eth {
+ 	struct mtk_tx_ring		tx_ring;
+ 	struct mtk_rx_ring		rx_ring[MTK_MAX_RX_RING_NUM];
+ 	struct mtk_rx_ring		rx_ring_qdma;
++	u32				rx_buf_len;
+ 	struct napi_struct		tx_napi;
+ 	struct napi_struct		rx_napi;
+ 	void				*scratch_ring;
 -- 
 2.53.0
 
