@@ -1,62 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794600543;
-	b=PvsaTESXQeihrNhhtxtzSWk62X6jMcd40ilBaadyTLHPaHvWccBgN5jefUo0/0/HyIAM
-	 40s45CHnhR9XgV6j5WQRUK067OrZwcxl/6uBu1wKFJHItGyWQSTSNt7O8wCHA6ZRPHqa+
-	 6HB9WWDjpDFc8QMCm0qys/UTaBngRkvxSbebe9ANRyc0l58nEa0M2MO4+qAtmht+kbOM5
-	 FuJzlCKHVQb/VMySi6ZaJpx87657cppIz9BP+g1SmUB5GSMCw/5zOAAvejPi7OZhpUsxx
-	 VyxONH7Pl/7UTTBV37XbzlL4tQ16Nj8iyEo52PJSNlgY8iVr3+mg/wTInBOGAXbcG3g==
+	t=1794600546;
+	b=1uqAXz6tf3T6w2IhbXpOZ4Qz0GmxCf2BcnwK+VTcPxB1sC3hS0ywKPNUBnddoaetj4Wm
+	 2NA05SxzSZhXxGte029v2M9Lt68uRSS15BR091nyJIRtkujlULnkzrNkpMeAxBUc7lBuJ
+	 7z/HXGNSmRNQX/VMo6hIbmHJJb9TEwwsk4B9DNIjqRtxSoN1NarArrHl2RebsnjiFeC4T
+	 eD6r0IeM2LEm6atv2HgrGqidsXhMvLkmP2evQny1AMAm0zNWfZ7xlOaNNpy4hgW9o85DO
+	 sAzK3bUiuEBp3CXXS4yLyaaf04dZl0hbU0Lc1Zzfb7kxcdyMCkjZu6wBDGtNGIkTp+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794600543;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=W3ZRwmyeoSx2P6LJWkTE9jsMV9ncUeCi/EgPMhmK56w=;
-	b=cmpCnZQB30lg/FWirMMDA31MMsHbevqA5b0Vn+u6caDi2mUmn9mkYrEz8tm+ub41Rwbw
-	 7wphzBqFcZ9x9t+PZ8cL1kbsYJgl3Dh5KVSr48+KKFhYV2wmki64xK3IM2Smv8xBNJmld
-	 nZcJPbzQLpVceovROb8yD60qbunsVtpPzXFEOTHLl/9MOL7ur49qIQ9MpN0hmu1QCHZKp
-	 JvNrF6eyzCS45Wx4Qoc3KXm5WgW13GtVAsL/B+QtN5JAXHJxl+wwjCARENhtvJ+wrqwWJ
-	 WddND5hMfGmlH/KrafJDRtpZqGzlQ3vVReJLiNE9tdABIMgb4jxsqwVCtcGW8W32ymw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794600546;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=OzoadZhT6+7BRQ3IJcP5Fei5yMlRSCEB5hfbLUnwCWI=;
+	b=YJcdF3iNxlJtyaKmfGLqlm4F949UXlBRlSDwpV/ypsGB6Hgb2ATSZ9h3gQOnWxM4HMhK
+	 EMhdlMHHPr0Atj8/9csgP4qXcSu0pTt1KeTHjL6h/CwEQ6FwkCZ2GcDPmwWfboQDts8Op
+	 XrgO11FitgUEbwBUWGwXRajT3ls9iwgauuygjUWBD/Em1rghgvOcpjpqeDHmVwdmCO+Rf
+	 FGnmVTQBOvOSqvmKTL8Z9iFAYVZJTk9wVEzLzkkR25dxr0Z5Dt9yaBpJ+6tVz0Mnmrqyh
+	 19jP+CkTcF6QV08tRclYXoLVULoiImGGC81dBBaGzmqugPVhnRMTr11J1//LCV54LXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PHeEh/lF";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=WSWhl2K6;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FFB606A88F;
-	Fri, 13 Nov 2026 20:09:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E22606A897;
+	Fri, 13 Nov 2026 20:09:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94E22606A897
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHeEh/lF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADAB41F000C9;
-	Fri, 13 Nov 2026 20:09:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794600543;
-	bh=W3ZRwmyeoSx2P6LJWkTE9jsMV9ncUeCi/EgPMhmK56w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PHeEh/lF+49moiwMlXdKgHAPQcUApJvpsLx0JAfxmD+PmzIXMAFJrA6dSC/ISfxRk
-	 EQh3ps1nfgQ7bbzGJvD2l7eS0R44AZUBkoxKjO7ofAVfMUh9cMkV8oapfO61Z69uSX
-	 F6t0SOLIlB/Kzjueb/e0fkBUAdS2y4a1Npmsfar0CY+QXMSceyKKGZEW3KVmHyY4mD
-	 Vgpq0rNfr1osGBdiQgXAMFW7zHJYFRWBVIZGS+JrHFbb3EyKUyUs4zk8tU7n7ND3z3
-	 JTB1ovnbKjFs7bcoHY2HAwcyqUYlTe4bMX4vHfBEvVcyZDhzN6Vbv97gAwx/5xG2RK
-	 qeUiJf1MjQtiQ==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v2 02/11] perf annotate-data: Resolve DW_OP_addrx global variables
-Date: Fri, 13 Nov 2026 17:08:40 -0300
-Message-ID: <20261113200850.2803460-3-acme@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261113200850.2803460-1-acme@kernel.org>
-References: <20261113200850.2803460-1-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=WSWhl2K6
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=OzoadZhT6+7BRQ3IJcP5Fei5yMlRSCEB5hfbLUnwCWI=; b=WSWhl2K65oqcQXRPW3xwJqF/pO
+	zFtu5vaJYoHz65FakgJo1v2gCjH/3pMRL5An5WODpB3VF4tU8B1kIEVDK70z/Z+OKmcPZr8lhisuc
+	vYSSOWoFAW1Igw+OpjRecyGJ2ZIgMqjr44BiO3MXe030HObNNVx6RcAeq6i3dEaPndEPyYsWHu115
+	oaq7Q+0o3At+Qv9pq0IPMNyxOW6BeaKnDGjS0/gc/iB9vE+7DD3FuorFsOtHO3OoPUZSio/IUCSzq
+	bB1rIRoQR3aO0k3a2aTl+1DNMx//skVXripCpxQ7dzEG6hFYhbZar0ZChkWFdgP+A7dCdVObJ729D
+	ff/NKobw==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, iav@iav.lv
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Igor Velkov <iav@iav.lv>
+Subject:
+ Re: [PATCH] arm64: dts: rockchip: Enable SDR104 on the ODROID-M1 SD card
+Date: Fri, 13 Nov 2026 21:09:01 +0100
+Message-ID: <ozv3Kw_6ToOMhu6IF4wDPQ@sntech.de>
+In-Reply-To: <20261110-odroid-m1-sdr104-v1-1-8edc6d5c1bf6@iav.lv>
+References: <20261110-odroid-m1-sdr104-v1-1-8edc6d5c1bf6@iav.lv>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,235 +63,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+Am Dienstag, 10. November 2026, 03:50:01 Mitteleurop=C3=A4ische Normalzeit =
+schrieb Igor Velkov via B4 Relay:
+> From: Igor Velkov <iav@iav.lv>
+>=20
+> The SD card already switches to 1.8 V, but only SDR50 is allowed, and
+> clk_sdmmc0 on RK3568 is a mux without a divider: dw_mmc-rockchip asks
+> it for twice the card clock, 200 MHz for SDR50, the mux rounds down to
+> the 100 MHz parent and the card runs at 50 MHz.
+>=20
+> Allow SDR104 instead; the MMC core still falls back to SDR50 for cards
+> without SDR104. With the 150 MHz max-frequency from rk356x-base.dtsi
+> the clock comes from the 300 MHz parent and the card runs at 150 MHz.
+> Hardkernel's vendor kernel already uses sd-uhs-sdr104 on this board.
+> With a SanDisk 128 GB card, direct read goes from 22 MB/s to
+> 58-64 MB/s and direct write from 20 MB/s to 47-50 MB/s.
+>=20
+> Signed-off-by: Igor Velkov <iav@iav.lv>
+> ---
+> Tested with an Armbian 7.3.3 kernel (rockchip64), the property added to
+> the DTB with fdtput: reboot, sysrq-b, watchdog reset, poweroff, s2idle,
+> deep, hibernate, hybrid-sleep and suspend-then-hibernate; the card
+> re-tuned and came back in SDR104 at 150 MHz in all 29 runs.
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts b/arch/arm=
+64/boot/dts/rockchip/rk3568-odroid-m1.dts
+> index ec43dee18094..6f77e73abc8e 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
+> @@ -610,7 +610,7 @@ &sdmmc0 {
+>  	disable-wp;
+>  	pinctrl-names =3D "default";
+>  	pinctrl-0 =3D <&sdmmc0_bus4 &sdmmc0_clk &sdmmc0_cmd &sdmmc0_det>;
+> -	sd-uhs-sdr50;
+> +	sd-uhs-sdr104;
 
-clang emits DW_AT_location with DW_OP_addrx for global variables in
-DWARF 5, gcc emits DW_OP_addr.  The address index was not resolved, so
-those variables were not found by address; the by-name fallback also
-missed the ones in .bss past the file backed end of the last segment.
+You then want both of them in the file.
+The devicetree does not care about what mmc drivers do internally, aka
+that fallback and the properties describe
 
-Resolve the index with dwarf_getlocation_attr() + dwarf_formaddr() and
-use the resulting address in the by-address lookup and in the global
-variable cache.  Add a test that compiles the workload with clang
--gdwarf-5 and checks that the global is annotated.
+SD UHS SDR50 speed is supported
+and
+SD UHS SDR104 speed is supported
 
-Fixes: d60469d7c0e5c4e8 ("perf dwarf-aux: Add die_find_variable_by_addr()")
-Fixes: d7b60803a790b716 ("perf dwarf-aux: Add die_collect_global_vars()")
-Cc: Namhyung Kim <namhyung@kernel.org>
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- .../tests/shell/data_type_profiling_clang.sh  | 108 ++++++++++++++++++
- tools/perf/util/dwarf-aux.c                   |  42 ++++++-
- 2 files changed, 145 insertions(+), 5 deletions(-)
- create mode 100755 tools/perf/tests/shell/data_type_profiling_clang.sh
+So both are needed.
 
-diff --git a/tools/perf/tests/shell/data_type_profiling_clang.sh b/tools/perf/tests/shell/data_type_profiling_clang.sh
-new file mode 100755
-index 0000000000000000..8e425952d4742a2c
---- /dev/null
-+++ b/tools/perf/tests/shell/data_type_profiling_clang.sh
-@@ -0,0 +1,108 @@
-+#!/bin/bash
-+# perf data type profiling tests with clang DWARF 5
-+# SPDX-License-Identifier: GPL-2.0
-+
-+set -e
-+
-+# clang describes the location of globals with DW_OP_addrx where gcc
-+# uses DW_OP_addr, so the workload has to be built here to get that
-+# encoding.
-+
-+command -v clang > /dev/null || exit 2
-+
-+perfdata=$(mktemp /tmp/__perf_test.perf.data.XXXXX)
-+perfout=$(mktemp /tmp/__perf_test.perf.out.XXXXX)
-+prog=$(mktemp /tmp/__perf_test.clang.XXXXX)
-+src="${prog}.c"
-+
-+cleanup()
-+{
-+	rm -f "$perfdata" "$perfout" "$prog" "$src"
-+	trap - EXIT TERM INT
-+}
-+
-+trap_cleanup()
-+{
-+	echo "Unexpected signal in ${FUNCNAME[1]}"
-+	cleanup
-+	exit 1
-+}
-+trap trap_cleanup EXIT TERM INT
-+
-+# No point in recording if the PMU cannot do memory events.
-+if perf mem record -o /dev/null -- true 2>&1 | \
-+		grep -q "failed: no PMU supports the memory events"; then
-+	cleanup
-+	exit 2
-+fi
-+if ! perf mem record -o /dev/null -- true 2>/dev/null; then
-+	echo "Skip: cannot record memory events on this PMU"
-+	cleanup
-+	exit 2
-+fi
-+
-+cat > "$src" <<'EOF'
-+#include <signal.h>
-+#include <unistd.h>
-+
-+struct conn {
-+	int saddr;
-+	int daddr;
-+	long bytes;
-+};
-+
-+static volatile struct conn conn;
-+static volatile sig_atomic_t done;
-+
-+static void stop(int sig)
-+{
-+	done = 1;
-+}
-+
-+int main(void)
-+{
-+	unsigned long sum = 0;
-+	int i = 0;
-+
-+	signal(SIGALRM, stop);
-+	alarm(1);
-+
-+	while (!done) {
-+		conn.saddr = i;
-+		conn.daddr = i + 1;
-+		sum += conn.bytes;
-+		i++;
-+	}
-+	return sum != 0;
-+}
-+EOF
-+
-+# -fPIE keeps the accesses PC-relative on x86_64, the operand form the
-+# data type resolver handles.
-+if ! clang -O0 -gdwarf-5 -fPIE -pie -o "$prog" "$src"; then
-+	echo "Skip: cannot build the workload with clang"
-+	cleanup
-+	exit 2
-+fi
-+
-+if ! perf mem record -o "$perfdata" -- "$prog" > /dev/null 2>&1; then
-+	echo "FAIL: perf mem record"
-+	cleanup
-+	exit 1
-+fi
-+
-+if ! perf annotate --code-with-type -i "$perfdata" --stdio \
-+		--percent-limit 1 > "$perfout" 2>/dev/null; then
-+	echo "FAIL: perf annotate"
-+	cleanup
-+	exit 1
-+fi
-+
-+if ! grep -q "# data-type: struct conn" "$perfout"; then
-+	echo "FAIL: struct conn not resolved, DW_OP_addrx not handled?"
-+	cleanup
-+	exit 1
-+fi
-+
-+echo "DW_OP_addrx global resolved"
-+cleanup
-diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
-index 48a11c95a67686e4..5db7458f01116a4e 100644
---- a/tools/perf/util/dwarf-aux.c
-+++ b/tools/perf/util/dwarf-aux.c
-@@ -14,6 +14,11 @@
- #include "strbuf.h"
- #include "string2.h"
- 
-+/* DWARF 5 address index, libdw's dwarf_getlocations() returns it unresolved */
-+#ifndef DW_OP_addrx
-+#define DW_OP_addrx 0xa1
-+#endif
-+
- /**
-  * cu_find_realpath - Find the realpath of the target file
-  * @cu_die: A DIE(dwarf information entry) of CU(compilation Unit)
-@@ -1629,6 +1634,31 @@ Dwarf_Die *die_find_variable_by_reg(Dwarf_Die *sc_die, Dwarf_Addr pc, int reg,
- 	return result;
- }
- 
-+/*
-+ * Get the absolute address of a location expression that consists of a
-+ * single address, either DW_OP_addr or DW_OP_addrx.  libdw leaves the
-+ * DWARF 5 address index unresolved, it has to be looked up in .debug_addr.
-+ */
-+static bool die_get_location_addr(Dwarf_Attribute *attr, Dwarf_Op *ops,
-+				  Dwarf_Addr *addr)
-+{
-+	if (ops->atom == DW_OP_addr) {
-+		*addr = ops->number;
-+		return true;
-+	}
-+
-+	if (ops->atom == DW_OP_addrx) {
-+		Dwarf_Attribute addr_attr;
-+
-+		if (dwarf_getlocation_attr(attr, ops, &addr_attr) != 0)
-+			return false;
-+
-+		return dwarf_formaddr(&addr_attr, addr) == 0;
-+	}
-+
-+	return false;
-+}
-+
- /* Only checks direct child DIEs in the given scope */
- static int __die_find_var_addr_cb(Dwarf_Die *die_mem, void *arg)
- {
-@@ -1647,11 +1677,13 @@ static int __die_find_var_addr_cb(Dwarf_Die *die_mem, void *arg)
- 		return DIE_FIND_CB_SIBLING;
- 
- 	while ((off = dwarf_getlocations(&attr, off, &base, &start, &end, &ops, &nops)) > 0) {
--		if (ops->atom != DW_OP_addr)
-+		Dwarf_Addr addr;
-+
-+		if (!die_get_location_addr(&attr, ops, &addr))
- 			continue;
- 
- 		if (check_allowed_ops(ops, nops) &&
--		    match_var_offset(die_mem, data, data->addr, ops->number,
-+		    match_var_offset(die_mem, data, data->addr, addr,
- 				     /*is_pointer=*/false))
- 			return DIE_FIND_CB_END;
- 	}
-@@ -1777,7 +1809,7 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
- 	Dwarf_Die type_die;
- 	int tag = dwarf_tag(die_mem);
- 	Dwarf_Attribute attr;
--	Dwarf_Addr base, start, end;
-+	Dwarf_Addr base, start, end, addr;
- 	Dwarf_Op *ops;
- 	size_t nops;
- 	struct die_var_type *vt;
-@@ -1792,7 +1824,7 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
- 	if (dwarf_getlocations(&attr, 0, &base, &start, &end, &ops, &nops) <= 0)
- 		return DIE_FIND_CB_SIBLING;
- 
--	if (ops->atom != DW_OP_addr)
-+	if (!die_get_location_addr(&attr, ops, &addr))
- 		return DIE_FIND_CB_SIBLING;
- 
- 	if (!check_allowed_ops(ops, nops))
-@@ -1808,7 +1840,7 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
- 	vt->die_off = dwarf_dieoffset(&type_die);
- 	vt->die_tag = dwarf_tag(&type_die);
- 	vt->from_alt = !die_same_file(die_mem, &type_die);
--	vt->addr = ops->number;
-+	vt->addr = addr;
- 	vt->end = 0;
- 	vt->has_range = false;
- 	vt->reg = -1;
--- 
-2.56.0
+Thanks
+Heiko
+
+
 
