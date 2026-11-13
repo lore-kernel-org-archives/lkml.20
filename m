@@ -1,73 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585689;
-	b=tXG/D10L5phNGqq9uezbB1eXHk+BhYE87djx3oGamZ9lKdrzypvDJOF5YwtcL5foq+LJ
-	 8q1PtI3AgAaiylvvNuXnWOzhgqs8iIvgtcDHgsJ1pLG6nrtYR4WjOew6rShTDH0jzuGwf
-	 Kjo01M2ZhOuclLKja6qrIUMSBwRCtwp3IWsMO7KMMzJj/l4+bdDG8ySQbVpU5n5ikbFkp
-	 RXhhwb+ImfnFAWu8JCzKfRcGajT7e6x2Pp7GRaztTBN7Tuti2nYDPrFxXO3OiLERSRFr3
-	 encc8AeV+BNSxkntEaANhx5AzPbr4Vd35pV2/9Gw8kg0hW+r1nBl+pNs6mX7vRdaUaQ==
+	t=1794585754;
+	b=dhl88y9Zz3KoRZZ3fqjYOq9lIDuXD9w5sXjyo/ODC4CQWVXNo6IS1YfnrVT8HhY1SNxc
+	 zD49KGFvP9TrPQrRzMiC7HsbJwNl3XZrqRyD9F6ZZg+LtcAGU59tT9yPMCOdaZZBjrusk
+	 knE8RyCgK1cf3ZMyG1T7jeenW0M5v3KCUks/pieyAz6Y3ghzwcxbeTzzWmJQ6EiFtlKU/
+	 kHpFJVCzxQwSpySrHv234XC1JUb93ZDEQNcUZI6AWwDXd3rw106DMu19jF4PFsqtolXuK
+	 eThkIb2GicGRAub+YLRvIpguXWGe0V6vGvc7ev1NtI9mDz9NnPOYzRQGWBnLKbuvUMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585689;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=HleTIWYdp5rg8KbqbWhYqUCQQeH4sgjGSrJAPDXXpvU=;
-	b=coT9iofO70z5hjMltr8RC/njzqoLkEwQYBYSLmJURcX9ztrDxraacJuNGbYq3881pxlB
-	 BKxRNFkHm90S57AqFegFz0oRaGc5jysDMRpQruuuslrz86ilyUGSet52fJBpMGruxm9rI
-	 HWhOtTo6me3DXxXhPbbIjXPr6m9nTLd192FYXdnpk+/VucSz/QWvN1wTQwJaNTct+Rn9n
-	 RUoqAa1kuUaXQmH690N0siu9zQc+mCQigen8KVhi1d59Ukfwbi71btQpyZK6et3CPYk0D
-	 sbkwW6tgHxkYtb/CYAMjjMN+O5AecYyNMu85mQ9tWtPOGodDGE5sJcnGvga3tiaUbbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585754;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=MNUoIzyeaKo/uF6h8gon1B39RII7Y8clZOK5xI9vBmY=;
+	b=ipgUQ1UGXCsHreHt/nhB79BkTnWZOFdF5DcyroCGdei3ZGb28VFH4WY56Qo1DBy8ujvP
+	 oaGSkttS9G+qQO3I0VvZuD0eCSsK0AWsIX9kC6UoLNgPTkFzyeYRr2vbNOhz0ZQLaVRte
+	 O+CkLcTJKKHaB7r3XiGKMGUDDM5jOJGSbAnEJsxO1D9ynL1OenGURsgJmZwPj/d4uZ/lP
+	 Hb1giyNa2J3LoBRPwEPZHmz1RQ6oL29sQ1SXTW4c8+1WhtuWlGLRH84+hPr7FXGP2Type
+	 07jKMdsGAawyP0OL52jRNAOPn3REcZrNxsX52w8bs/oaWKIkUyQ6Avf5eGpRJdEM1PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="Ao/VB78d";
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pxsPxteg;
+	arc=none smtp.remote-ip=209.85.128.169
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDEC60744EC
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:01:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BDEC60744EC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E53606AE20
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:02:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18E53606AE20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ao/VB78d
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 338824E415A7;
-	Fri, 13 Nov 2026 16:01:27 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E70B760015;
-	Fri, 13 Nov 2026 16:01:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 794B611BC0C42;
-	Fri, 13 Nov 2026 17:01:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794585685; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=HleTIWYdp5rg8KbqbWhYqUCQQeH4sgjGSrJAPDXXpvU=;
-	b=Ao/VB78dBVLCwpkI6+DUrdgJRzDK2ewWHrXZ7pvppzjud1Tz93mbjLdwfqvTRCQGCJ9+35
-	UOHIOwOLDfgXYkHWOeJeG2kQK2ifZulBMhjPpvr3JN+b59k/u4de4phJPTvA9l1LoJtWRK
-	KbsiPYHfShC7n9XBSR5AlLtyBK7b6pr+9L2XkoFOoKzRW7RdjBRKs2JngS1DqzyNJApCkF
-	mMRD/WCOnlzY9XC4+y5M8aLCzodLDjYJtpdsDVHY/RdtbiEXInhVZRrsUJXSKpP1vsLfhm
-	OdL0NEVrXIlB0lovzoGyqdiV5Mr3pjxzvsMWaRVu2ebQr5tF87GM2VPNyHm+Ow==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Thomas Gleixner <tglx@kernel.org>, Vladimir Kondratiev
- <vladimir.kondratiev@mobileye.com>, =?utf-8?Q?Beno=C3=AEt?= Monin
- <benoit.monin@bootlin.com>, =?utf-8?Q?Th=C3=A9o?= Lebrun
- <theo.lebrun@bootlin.com>, Radu
- Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI
- controller driver
-In-Reply-To: <87v766uy6i.ffs@fw13>
-References: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
- <20261102-eyeq5_msi-v2-2-4aa3d3608064@bootlin.com> <87v766uy6i.ffs@fw13>
-Date: Fri, 13 Nov 2026 17:01:21 +0100
-Message-ID: <87y0awpvou.fsf@BLaptop.bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pxsPxteg
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b3a332105bso10487367b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:02:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794585752; x=1795190552; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MNUoIzyeaKo/uF6h8gon1B39RII7Y8clZOK5xI9vBmY=;
+        b=pxsPxteg6J3nI56+e5asagA9q3vTZM5YhhZlkV2F4SsuwFvU51T4jtC3vKKohuDyQw
+         YM77XieyG9GMoUorWhwmeup/er3NomA+z9optgxaMApBvGiFLSd3Ru9Oe5JLK64YFdnE
+         gLXLcFzeywCLM2HGxyPXID2fFXZf+8kK5k1e/sPgwEcVGIkYUN1vlur8psdUs35dydf4
+         nHBrgh6BH9Bbx7BrWOG1rW4RH6AFLXufp52eZ6+C9lNa0DolxqVk+b5zdDa6/3sP3pyG
+         VIkLX7DvBoVdUsWhpapVrq2Z9ypl/wFKiYf2I/e7CrvDHOcSYNC5hya7VGHA0q3mN6rJ
+         AwOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794585752; x=1795190552;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MNUoIzyeaKo/uF6h8gon1B39RII7Y8clZOK5xI9vBmY=;
+        b=WP6qsm+eH1e4fgjXrZRF0HYVtoMciAbvSBXRFk3Llmp86/KNbDQwmudOhPaJAHK+vF
+         Pdg8rOoU4u12VHrVaXDDxTwg95k5XPHIUo7AGbw526XAqf8kwPJB5w0pWExSlPepAGZn
+         i+7kfW1nuo1CyQAQJAmu6wZqEfk9NvCjj9ZjyBbK8YZGkKTI3qMAgzgaaLaRvzUiQTmi
+         5uHJD6ohDzUp1DKNsTG3crhWmdTn+gXiw12XFNWG6ZeuEmNKHcDKCXx8NhXUOgX4YRZj
+         314y8sUTrchEmY/JUGu7R2vMqaGVZWnuijDCEmbBlcXq0GdyeItBtFJKq3NiYGm/wbKP
+         1VmA==
+X-Forwarded-Encrypted: i=1; AL+hErEkhsKf4em3hTWM9/xSHYa7RZ86BSIdmgcr8WwrH/gVX/3dkzCoZ5H95i1oy5sQTN3FMrSGwzvw+h645k4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yIHfDWwrgGCQmm+53dvn0ameqathQ6ctZKJm9YPq16UzIHhf9
+	2Sdbo5LsnUeEi126dJvwN+E946nPskxGLcLBtVHF/ZYGauV+8lpG69UB
+X-Gm-Gg: AYBFou1kUmDbHrMw/cH7t/x1p8AL5iljKImLRsDbUo7YztJs+y7TbnnM1VvZ/C58FoG
+	ClzoK1k0mYleh5zEDD+KW5V80ojWFgZwnXWy/pvOqtCYKODQ32dgcpTD1P+pmtZRiHfXYDN+a8p
+	l89UjIf5NPRL5hTlkghMZxZLAV1y2a2R6o597FB8KlUzQOlNyQy4now7SkUZkc5UepHpLIMKukq
+	1MK9WaSEpmix22FBAt2Lrf3p5wUG/VCmIZBBjpD1H9NgIzh/HJy/f9uMmyiyVE1y5+mlTEhAW6J
+	bwI8ahLut/1kIympp+ZEhMRBN5mG1IQHhg/qXfkaFfvQ87NNO5hM2wC2+iKAqX2W1MvJugzimhC
+	+kpA/ILXziwMQhYgNuQjdKM3ymeMtw6ngcj4M0EKvcchMF0c8Kvi0Q9kQADuCdf1d1YqHXCcdLi
+	CEmIBv8/EdcofGYnt1YfkovzdlY+AR/46dXyQSFCAVRzybnOZyP9vZ5REldpT5R64EcMTuLDLR/
+	esQA00z7xQBaPLoqNHREu0IcHF8BFQxQsI0cS5NAfDqvOTGoJMOiGm9LIFwydVIdClCdHYcxwPe
+	OmlX0BgaSCgETLSj+0t+TMMXDfv+gpLYWVXTeUbeXbLYE3J4QDybj7ySj26ORnqX8mcf6C+z+F3
+	0hTI=
+X-Received: by 2002:a05:690c:e20b:10b0:8b1:60a0:c311 with SMTP id 00721157ae682-8b4aa2fa74dmr11913577b3.33.1794585750867;
+        Fri, 13 Nov 2026 08:02:30 -0800 (PST)
+Received: from dell-pro-plus ([2804:29b8:5080:dd51:39c5:770e:6bea:512e])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa7f1a0dsm23456747b3.1.2026.11.13.08.02.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 08:02:29 -0800 (PST)
+From: Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
+To: linux-doc@vger.kernel.org
+Cc: danielmaraboo@gmail.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-kernel@vger.kernel.org,
+	Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
+Subject: [PATCH] docs: translations: pt_BR: add researcher guidelines
+Date: Fri, 13 Nov 2026 13:01:53 -0300
+Message-ID: <20261113160153.216027-1-ic.gabrielribeiro@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,177 +100,216 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello Thomas,
+Translate the kernel researcher guidelines into Brazilian Portuguese and
+link the page from the pt_BR process index.
 
-> On Mon, Nov 02 2026 at 17:50, Gregory CLEMENT wrote:
->> +static void __eyeq_msi_mask_irq(struct eyeq_msi *msi, unsigned int bit)
->> +{
->> +	u16 value;
->> +
->> +	lockdep_assert_held(&msi->lock);
->> +
->> +	value =3D readw(msi->gcsr_base + GCSR_IRQMASK);
->> +	value &=3D ~FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
->> +	writew(value, msi->gcsr_base + GCSR_IRQMASK);
->> +}
->> +
->> +static void __eyeq_msi_unmask_irq(struct eyeq_msi *msi, unsigned int bi=
-t)
->> +{
->> +	u16 value;
->> +
->> +	lockdep_assert_held(&msi->lock);
->> +
->> +	value =3D readw(msi->gcsr_base + GCSR_IRQMASK);
->> +	value |=3D FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
->> +	writew(value, msi->gcsr_base + GCSR_IRQMASK);
->> +}
->> +
->> +static void eyeq_msi_mask_irq(struct irq_data *data)
->> +{
->> +	struct eyeq_msi *msi =3D irq_data_get_irq_chip_data(data);
->> +
->> +	guard(raw_spinlock_irqsave)(&msi->lock);
->
-> What's the reason for ...irqsave() here? The mask/unmask callbacks are
-> invoked with the interrupt descriptor lock held and interrupts disabled,
-> so a plain raw_spinlock() is sufficient, no?
+---
+ Documentation/translations/pt_BR/process/index.rst |   1 +
+ .../pt_BR/process/researcher-guidelines.rst         | 176 ++++++++++++++++++
+ 2 files changed, 177 insertions(+)
 
-
-Indeed we can just use a raw_spinlock() .
-
->
->> +static void eyeq_msi_isr(struct irq_desc *desc)
->> +{
->> +	struct irq_chip *parent_chip =3D irq_desc_get_chip(desc);
->> +	struct eyeq_msi *msi =3D irq_desc_get_handler_data(desc);
->> +	void __iomem *status_reg;
->> +	unsigned long pending;
->> +	unsigned int bit;
->> +
->> +	chained_irq_enter(parent_chip, desc);
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?h=3Di=
-rq/drivers&id=3D6cf0d999a18e799965cf2cf4a0157e257c805946
-
-It is not yet in v7.4-rc1,but I can rebase on tip/irq-drivers branch to
-use it.
-
->
->> +static int eyeq_msi_domain_alloc(struct irq_domain *domain, unsigned in=
-t virq,
->> +				 unsigned int nr_irqs, void *args)
->> +{
->> +	DECLARE_BITMAP(reserved, EYEQ_MSI_MAX_VECTORS);
->> +	struct eyeq_msi *msi =3D domain->host_data;
->> +	unsigned long bit =3D 0;
->> +	unsigned int i;
->> +
->> +	bitmap_zero(reserved, EYEQ_MSI_MAX_VECTORS);
->> +
->> +	scoped_guard(raw_spinlock_irqsave, &msi->lock) {
->> +		for (i =3D 0; i < nr_irqs; i++) {
->
-> This does not support MULTI_MSI, so nr_irqs is always 1. That allows to
-> simplify both alloc() and free() by a lot, no?
-
-Indeed you are right again. I will simplify it based on this.
-
->
->> +#define EYEQ_MSI_FLAGS_REQUIRED			\
->> +	(MSI_FLAG_USE_DEF_DOM_OPS |		\
->> +	 MSI_FLAG_USE_DEF_CHIP_OPS |		\
->> +	 MSI_FLAG_PCI_MSI_MASK_PARENT)
->
-> Just a cosmetic nit:
->
-> #define EYEQ_MSI_FLAGS_REQUIRED		(MSI_FLAG_USE_DEF_DOM_OPS |	\
-> 					 MSI_FLAG_USE_DEF_CHIP_OPS |	\
-> 					 MSI_FLAG_PCI_MSI_MASK_PARENT)
->
-> is easier to read. But no strong opinion.
-
-OK for me.
->
->> +#define EYEQ_MSI_FLAGS_SUPPORTED		\
->> +	(MSI_FLAG_PCI_MSIX |			\
->> +	 MSI_GENERIC_FLAGS_MASK)
->> +
->> +static const struct msi_parent_ops eyeq_msi_parent_ops =3D {
->> +	.required_flags		=3D EYEQ_MSI_FLAGS_REQUIRED,
->> +	.supported_flags	=3D EYEQ_MSI_FLAGS_SUPPORTED,
->> +	.bus_select_token	=3D DOMAIN_BUS_NEXUS,
->> +	.bus_select_mask	=3D MATCH_PCI_MSI,
->> +	.prefix			=3D "EYEQ-",
->> +	.init_dev_msi_info	=3D msi_lib_init_dev_msi_info,
->> +};
->> +
->> +/*
->> + * In endpoint mode the snooper is a platform MSI controller: the host =
-writes
->> + * the doorbell and the snooper raises a local interrupt. Expose it as a
->> + * platform MSI parent so endpoint functions can allocate doorbells.
->> + */
->> +static const struct msi_parent_ops eyeq_msi_platform_parent_ops =3D {
->> +	.required_flags		=3D EYEQ_MSI_FLAGS_REQUIRED,
->> +	.supported_flags	=3D EYEQ_MSI_FLAGS_SUPPORTED,
->> +	.bus_select_token	=3D DOMAIN_BUS_NEXUS,
->> +	.bus_select_mask	=3D MATCH_PLATFORM_MSI,
->> +	.prefix			=3D "EYEQ-",
->
-> It might be sensible to use a distinct prefix here, e.g. 'EYEQ-P-' or
-> so.
-
-OK
-
->
->> +static int eyeq_msi_create_domain(struct eyeq_msi *msi, struct device_n=
-ode *node, bool is_rc)
->
-> __init ?
->
->> +static int eyeq_msi_parse_vector_region(struct eyeq_msi *msi, struct de=
-vice_node *node)
->
-> __init ?
->
->> +static int eyeq_msi_parse_dt(struct eyeq_msi *msi, struct device_node *=
-node)
->
-> __init ?
->
->> +static void eyeq_msi_program_hardware(struct eyeq_msi *msi, bool is_rc)
->
-> __init ?
-
-The __init annotations no longer apply because v3 converted the driver
-to a platform driver, so those helpers can run after init memory is
-freed.
-
-
->
->> +
->> +static int __init eyeq_msi_of_init(struct device_node *node, struct dev=
-ice_node *parent)
->> +{
->
-> Also please check the sashiko response vs. handle_simple_irq() and the
-> affinity mechanism.
-
-As you pointed on my v3 it was already taken into account.
-
-I will send a v4 based on your review and asked to Vladimir if he can
-also review it.
-
-Thanks!
-
-Gregory
-
---=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+diff --git a/Documentation/translations/pt_BR/process/index.rst b/Documentation/translations/pt_BR/process/index.rst
+index da92a7026e..05f4cd7915 100644
+--- a/Documentation/translations/pt_BR/process/index.rst
++++ b/Documentation/translations/pt_BR/process/index.rst
+@@ -63,10 +63,11 @@ Estas são as regras pelas quais tentamos viver na comunidade do kernel
+    Interpretação do Código de Conduta do Kernel Linux <code-of-conduct-interpretation>
+    Modelos de Maturidade para Contribuição no Kernel Linux <contribution-maturity-model.rst>
+    Declaração de Aplicação do Kernel Linux <kernel-enforcement-statement>
+-   Declaração sobre Drivers do Kernel <kernel-driver-statement>
+-   A interface de drivers do kernel Linux <stable-api-nonsense>
+-   Estilo de gerenciamento do kernel Linux <management-style>
+-   Assistentes de código <coding-assistants>
++    Declaração sobre Drivers do Kernel <kernel-driver-statement>
++    A interface de drivers do kernel Linux <stable-api-nonsense>
++    Estilo de gerenciamento do kernel Linux <management-style>
++    Diretrizes para pesquisadores <researcher-guidelines>
++    Assistentes de código <coding-assistants>
+    O manual da árvore tip <maintainer-tip>
+    Conclave (Continuidade do projeto) <conclave>
+ 
+diff --git a/Documentation/translations/pt_BR/process/researcher-guidelines.rst b/Documentation/translations/pt_BR/process/researcher-guidelines.rst
+new file mode 100644
+index 0000000000..5ebc72cd2d
+--- /dev/null
++++ b/Documentation/translations/pt_BR/process/researcher-guidelines.rst
+@@ -0,0 +1,176 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++.. _pt_BR_researcher_guidelines:
++
++Diretrizes para pesquisadores
+++++++++++++++++++++++++++++++
++
++A comunidade do kernel Linux dá boas-vindas à pesquisa transparente sobre o
++kernel Linux, as atividades envolvidas em sua produção e quaisquer outros
++subprodutos de seu desenvolvimento. O Linux se beneficia muito desse tipo de
++pesquisa, e a maioria de seus aspectos é impulsionada por pesquisas de uma
++forma ou de outra.
++
++A comunidade agradece muito quando pesquisadores compartilham resultados
++preliminares antes de torná-los públicos, especialmente se a pesquisa envolver
++segurança. O envolvimento antecipado ajuda a melhorar a qualidade da pesquisa
++e também a capacidade do Linux de melhorar a partir dela. Em qualquer caso,
++recomenda-se compartilhar com a comunidade cópias de acesso aberto dos
++trabalhos publicados.
++
++Este documento busca esclarecer quais práticas a comunidade do kernel Linux
++considera aceitáveis e inaceitáveis na realização desse tipo de pesquisa. No
++mínimo, essas pesquisas e atividades relacionadas devem seguir as regras
++padrão de ética em pesquisa. Para saber mais sobre ética em pesquisa em geral,
++ética em tecnologia e, em particular, pesquisa sobre comunidades de
++desenvolvedores, consulte:
++
++* `História da ética em pesquisa <https://www.unlv.edu/research/ORI-HSR/history-ethics>`_
++* `Ética da IEEE <https://www.ieee.org/about/ethics/index.html>`_
++* `Perspectivas de desenvolvedores e pesquisadores sobre a ética de experimentos em projetos de código aberto <https://arxiv.org/pdf/2112.13217.pdf>`_
++
++A comunidade do kernel Linux espera que todos que interagem com o projeto
++estejam agindo de boa-fé para tornar o Linux melhor. Pesquisas sobre qualquer
++artefato produzido pela comunidade do kernel Linux que esteja disponível
++publicamente (incluindo, mas não se limitando ao código-fonte) são bem-vindas;
++pesquisas sobre desenvolvedores, porém, devem ocorrer somente mediante adesão
++explícita dos próprios desenvolvedores.
++
++Pesquisas passivas baseadas inteiramente em fontes disponíveis publicamente,
++incluindo publicações em listas de discussão públicas e commits em
++repositórios públicos, são claramente permitidas. Ainda assim, como em
++qualquer pesquisa, a ética padrão deve ser respeitada.
++
++Pesquisas ativas sobre o comportamento de desenvolvedores, por outro lado,
++devem ser realizadas com o acordo explícito dos desenvolvedores envolvidos e
++com plena divulgação a cada um deles. Não se pode interagir com
++desenvolvedores nem realizar experimentos com eles sem consentimento; isso
++também faz parte da ética padrão em pesquisa.
++
++Questionários
++=============
++
++Pesquisas frequentemente assumem a forma de questionários enviados a
++mantenedores ou colaboradores. Como regra geral, porém, a comunidade do kernel
++obtém pouco valor desses questionários. O processo de desenvolvimento do
++kernel funciona porque todos os desenvolvedores se beneficiam de sua
++participação, inclusive ao trabalhar com outros que têm objetivos diferentes.
++Responder a um questionário, porém, é uma demanda unilateral imposta a
++desenvolvedores ocupados, sem benefício correspondente para eles ou para a
++comunidade do kernel como um todo. Por esse motivo, esse método de pesquisa
++é desencorajado.
++
++Os membros da comunidade do kernel já recebem emails em excesso e
++provavelmente verão pedidos para responder a questionários como mais uma
++demanda por seu tempo. Enviar esses pedidos priva a comunidade do tempo
++valioso de seus colaboradores e dificilmente produzirá respostas
++estatisticamente úteis.
++
++Como alternativa, pesquisadores devem considerar participar de eventos para
++desenvolvedores, organizar sessões em que possam explicar o projeto de
++pesquisa e seus benefícios para os participantes e interagir diretamente com
++a comunidade nesses eventos. As informações obtidas serão muito mais ricas
++que as de um questionário por email, e a comunidade também poderá aprender
++com as percepções dos pesquisadores.
++
++Patches
++=======
++
++Para esclarecer: enviar patches aos desenvolvedores *é* interagir com eles,
++mas eles já consentiram em receber *contribuições de boa-fé*. Não há
++consentimento para enviar patches intencionalmente defeituosos ou vulneráveis,
++nem para contribuir com informações enganosas nas discussões. Esse tipo de
++comunicação pode prejudicar o desenvolvedor (por exemplo, consumindo tempo,
++esforço e ânimo) e o projeto, ao corroer a confiança de toda a comunidade de
++desenvolvimento no colaborador (e também na organização à qual ele pertence),
++prejudicar os esforços para oferecer feedback construtivo aos colaboradores
++e expor os usuários finais ao risco de falhas de software.
++
++A participação de pesquisadores no próprio desenvolvimento do Linux, assim
++como a de qualquer pessoa, é bem-vinda e incentivada. Pesquisar o código do
++Linux é uma prática comum, especialmente ao desenvolver ou executar
++ferramentas de análise que produzam resultados acionáveis.
++
++Ao interagir com a comunidade de desenvolvimento, enviar um patch tem sido
++tradicionalmente a melhor maneira de causar impacto. O Linux já tem muitos
++bugs conhecidos — o que é muito mais útil são correções verificadas. Antes de
++contribuir, leia atentamente a documentação apropriada:
++
++* Documentation/process/development-process.rst
++* Documentation/process/submitting-patches.rst
++* Documentation/admin-guide/reporting-issues.rst
++* Documentation/process/security-bugs.rst
++
++Em seguida, envie um patch (incluindo uma mensagem de commit com todos os
++detalhes listados abaixo) e acompanhe qualquer feedback de outros
++desenvolvedores.
++
++Ao enviar patches produzidos a partir de pesquisas, as mensagens de commit
++devem conter pelo menos os detalhes a seguir, para que os desenvolvedores
++tenham contexto suficiente para entender a contribuição. Responda:
++
++* Qual é o problema específico encontrado?
++* Como se pode chegar a esse problema em um sistema em execução?
++* Que efeito a ocorrência do problema teria no sistema?
++* Como o problema foi encontrado? Especificamente, inclua detalhes sobre
++  quaisquer testes, programas de análise estática ou dinâmica e outras
++  ferramentas ou métodos usados no trabalho.
++* Em qual versão do Linux o problema foi encontrado? Recomenda-se fortemente
++  usar a versão mais recente ou um branch recente do linux-next (veja
++  Documentation/process/howto.rst).
++* O que foi alterado para corrigir o problema e por que se acredita que a
++  correção está correta?
++* Como a alteração foi testada em compilação e em tempo de execução?
++* Qual commit anterior esta alteração corrige? Isso deve constar em uma tag
++  "Fixes:", conforme descrito na documentação.
++* Quem mais revisou este patch? Isso deve constar nas tags "Reviewed-by:"
++  apropriadas; veja abaixo.
++
++Por exemplo::
++
++  From: Author <author@email>
++  Subject: [PATCH] drivers/foo_bar: Add missing kfree()
++
++  The error path in foo_bar driver does not correctly free the allocated
++  struct foo_bar_info. This can happen if the attached foo_bar device
++  rejects the initialization packets sent during foo_bar_probe(). This
++  would result in a 64 byte slab memory leak once per device attach,
++  wasting memory resources over time.
++
++  This flaw was found using an experimental static analysis tool we are
++  developing, LeakMagic[1], which reported the following warning when
++  analyzing the v5.15 kernel release:
++
++   path/to/foo_bar.c:187: missing kfree() call?
++
++  Add the missing kfree() to the error path. No other references to
++  this memory exist outside the probe function, so this is the only
++  place it can be freed.
++
++  x86_64 and arm64 defconfig builds with CONFIG_FOO_BAR=y using GCC
++  11.2 show no new warnings, and LeakMagic no longer warns about this
++  code path. As we don't have a FooBar device to test with, no runtime
++  testing was able to be performed.
++
++  [1] https://url/to/leakmagic/details
++
++  Reported-by: Researcher <researcher@email>
++  Fixes: aaaabbbbccccdddd ("Introduce support for FooBar")
++  Signed-off-by: Author <author@email>
++  Reviewed-by: Reviewer <reviewer@email>
++
++Se você está contribuindo pela primeira vez, recomenda-se que o patch seja
++revisado por outras pessoas em caráter privado antes de ser enviado às listas
++públicas. (Isso é obrigatório se tiverem lhe dito explicitamente que seus
++patches precisam de uma revisão interna mais cuidadosa.) Espera-se que essas
++pessoas tenham a tag "Reviewed-by" incluída no patch resultante. Encontrar
++outro desenvolvedor familiarizado com contribuições ao Linux, especialmente
++na sua própria organização, e pedir ajuda para revisar antes do envio às
++listas públicas tende a melhorar significativamente a qualidade dos patches
++e, assim, reduzir a carga de trabalho de outros desenvolvedores.
++
++Se não for possível encontrar alguém para revisar os patches internamente e
++você precisar de ajuda para encontrar essa pessoa, ou se tiver outras dúvidas
++sobre este documento e as expectativas da comunidade de desenvolvimento,
++entre em contato com a lista privada de emails do Conselho Consultivo
++Técnico: <tech-board@groups.linuxfoundation.org>.
