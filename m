@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577647;
-	b=GFQ5uySIdLXgN0aABghf+A9LumYmyzfnV/C02wJRfBaGDp8w+k7sfIMOb3XHnZfTEXfo
-	 4Ck6u+YzZGhGFRz4/OLYLK516FuMs4/h1t11iKCgADimIu41leqMBEB/fXei1seaMUI18
-	 pXzaNyivuH4cYDqTVlvPxvYJKHElM+9Lzz/qc9P1ukGbj1/VgXnnKczgCn4uYu+1ylean
-	 H/0lin3nPrxLyBub7ix2qQAU+dJSR149674HjHir01kvgQg8EdJrLzXULIL4p4m46fmyh
-	 pAEvexKbaJYWMPBUifapWZ4DrKzcjgfohxE6Uu6WYavQ7Z/DaESh7zcrsja+fQrxJ5g==
+	t=1794577658;
+	b=iCYQtaGLAMl1XkqLSb5c2Aav6ArGvV6K9Jh1MUHrYRfmde/JHAuauMT4SeZl7lvpk8cF
+	 MVDZPI5jpFCKlXhxX4WFvImd710SDKRqGVLUxkz2aEq7oC7UxhSi3t3VrDxUE60LwODhl
+	 nx5KxYD3Bdqt8nXH5GaFTqnaYgww/0A94wMiLL2Vt0dqkQS8qkCfoZ/3A762WAcuLXOuM
+	 hHaOmEg2aMJdRy6ZpJ8J9KYK5ftXaW/GvjoonozTSw9lrMw7hFBQFDUMnpg2D7u4jvwaV
+	 2ppmljw6ubtdjS6RQcoGNWjwEVfxLpZgLWhj8LckSoVZvdqtBCI1lHX6STZJqfHS6Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577647;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577658;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=kLkSOcJpYReFLUI0Gi+43gyJKNu0BPMvCXqZSLQ886Y=;
-	b=ODLkI8RN3MLXaTkdoagjhzDiIwcrKTxJynjHE9jDAEqXL4MVRugeP1J5/u6dEqB1LbKm
-	 91o0qSR7ZQXxRh9cbMdRUjb3kSCsag1g9zL7o77T4K+TNLrJWfCpwIB7FCXN9scfj/b+J
-	 Cnnpr7dmjgCnCj1bHa0K+ctpiQ5LSqFTjawAqXoLcKDhCoI4dwX4cHLpOwfpqvEcOcC1s
-	 j3bXuqOQ0ni0ccJ07ZZ1scZQDDT6NSr5wkVeD02RKxaHu+MC0QYyKk3dh+c1DNwfNB4in
-	 4KIvyFDnRcYCCBU33xRlAyWkQ2V1194MVXo0nClRwtAik6fMEbNxzc9ZdPxSHwZPHtw==
+	bh=Uh3RNZiwQ8OEliQwz60GaSWCgjS92PjWqF45e5QPMWE=;
+	b=Q9dPcOWsbB8aVgeXDvkSpwP9CHybTQfjdFyRUy2NN5qhFW0fG0XYrCQhwS5Z62mjXtze
+	 N9tCb50YjvTlxGI6Diygg4Eg9grO0zVWiORDVjDNpCTXX3ki6mgxI/tk0KIhwPJURm7E+
+	 ABTFe3utN/eEliC27HXfGAwhG1mBhO5PpoXmVM7sj2DJcDK4C92Bp3FQseT5TYaKWEdvY
+	 li/WKiDWNl8ID4ej6CNr4ScsQthMVJQcuqCAtiipdGfFky3eo7U4SpBMGyAynVmK1Z412
+	 T+MQ99bNaA/E8Xz99oVDX1FPNHN3qeRG5l/GnoOHAuQ306Su47WOLVreWA4kWYl+BXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YN+3fIeR;
-	arc=none smtp.remote-ip=209.85.215.199
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mChKw73R;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF207606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:47:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF207606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BC4606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:47:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15BC4606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YN+3fIeR
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd5fd34fee0so629205a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:47:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mChKw73R
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b17b31c3beso926516a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:47:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794577646; x=1795182446; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794577656; x=1795182456; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kLkSOcJpYReFLUI0Gi+43gyJKNu0BPMvCXqZSLQ886Y=;
-        b=YN+3fIeRCj5FYZK2CTRBYWPgIwK3Modi0TuaTLObsBjVn4ZWo35fyvSYP8SK8Q77Rn
-         2pVkvHg89Posq5P80+RhszdyLd9K5Fbf0PDbWocsD7GSXpwA0dCVR433ZCKpIS10A0xh
-         1rzy8p2bsSatQxBLLuTH3FXlhqyD8nSUxlfPe6mizkdlSVBtqSKKi/t4Q+K47ut1pXso
-         wtq3SEtqTse0Is7KCEbXvTYXVm1xHs0uWzMmiNUfbdPSIDW8fPz0YaPCkGtWZM6K4Lfj
-         hwX6bzueWtIzOsl9a1qMw2U3Si3NbD+6aYCQgOpfNRUUdVV7cD0R9HHWhBAaVumqoo5s
-         HSOw==
+        bh=Uh3RNZiwQ8OEliQwz60GaSWCgjS92PjWqF45e5QPMWE=;
+        b=mChKw73RMvMekalbwIWe8vJQeNvBuAqoFw9E6LWWYbcMqUuXDvVGlHTLU8n/PqxdKL
+         j5K9gDqwD+/0CTMTFAtxDuqyu7cxgmBzY8Ju5hwgNLshJS4w/4lSN3SaYU3JEWz0+Xak
+         da8uSjJJ10NkQfa73Hi//PBJluj78+H3S/po8W7LsqqH4uMBbF3g/iYIskDP2aKIdts9
+         o7GQQLrvh2y8kGnXVLqcYJMCXCC9Jt9b8+0V65HBdYxpZFkn/ERRJ6MMZIMcrPOgV09m
+         7eWINQ8gZ7gPfty3HBdvHYTcxr1IQD88TJYFrwZjM1pbJOzGg17meejlsNBHlIcEqiLo
+         XdMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794577646; x=1795182446;
+        d=1e100.net; s=20260707; t=1794577656; x=1795182456;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kLkSOcJpYReFLUI0Gi+43gyJKNu0BPMvCXqZSLQ886Y=;
-        b=ZhTltPNX5GqHPKmp/732WMnjIqfdMoDiPeAb/vK+vJtwYzkcD5wiRFf+DwBMxmakoL
-         PBqW59WGJqyzsCmQIK4drW45oVQwoKC3aGDfJ9rOTDpZV/OoBsd3Fqf45MWKhYHDEXym
-         NPIcjQuwuQnJ5+Df/0G2C+gpepujFm2h0aeOo5hy0wv0pqst5uXJTXaLdXErEML/qs3P
-         SaW0wlZa8rM/l9042BH+QJ1Zs+voH7FOqL54/WcWWXrbZVsMp475bzBrxseGNjHQljJE
-         DHEaP6y1Bo5Pwu5nQXfc8Xy+ZPewVZzS1xsYbkBQLrXuY7ZndeDl5Oe1YUr8RLTdWAtx
-         1rVQ==
-X-Forwarded-Encrypted: i=1; AL+hErEc4E/bUj/9l21tGZg99WVElsNwWxGpePpTFHBNp3GvZTVpopDbu8ZGATH+FR0V9dJvYGBupophfOKaY1I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/fswye7ppOTlbPiTuHzBN437uNBenXaBB91j1L6V/X3KN7g8Xg
-	wzQnrIcZqyDL5OqAnCkPJ+a3EdfJNhxYCZMyhsMS1G8vs9ENqB7sCZhhXvkMfHM7zUgqSgCDkiB
-	eNtdUGw==
-X-Received: from plbl7.prod.google.com ([2002:a17:902:eb07:b0:2eb:50b1:b505])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1647:b0:3b1:2d60:66cc
- with SMTP id 98e67ed59e1d1-3b1b07feb76mr2151845a91.8.1794577645893; Fri, 13
- Nov 2026 05:47:25 -0800 (PST)
-Date: Fri, 13 Nov 2026 05:46:12 -0800
-In-Reply-To: <20261017093016.32348-1-amirmohammad.eftekhar@cispa.de>
+        bh=Uh3RNZiwQ8OEliQwz60GaSWCgjS92PjWqF45e5QPMWE=;
+        b=jTif+AOOCElCJikZno+CUjEvWy4k5jGoYUmQJiSNpDFvPgAydDz1vb4as4VwkiUx/j
+         RWBosA10wuQf0KemfPjjekiXGp3glUlEJiqFXuxSCi3tp9HDECX3uTeBQ51K3EenPn9K
+         Ri1i/jlndusVUELWnpiU1DeEEbtLZ3hld7jUAvvMMjKg4thvOb4kbGURwftClQkEbuCn
+         G7TIu8xYl/9jvUFmVW8LuemWJFAQ0ghsX/ErcT3xRqGhZXJVTRYeRWFI7XMNWdAKN4E8
+         2MRSIws2XbJOHnGXRxtHqX/w81+vtuv0n2r0L3sgx8lxjP+WVx20B3Py4Gm+vFv9KAcD
+         xmRg==
+X-Forwarded-Encrypted: i=1; AL+hErFtYrWqxpm4pSkzhVGjFqZUfVZFGRLGVwiW+WjOqHc4Z3o3kVZof+hj4BgWQuOJi3TRAwIqwJM1BcUELmw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XiN4CUykF6eD0H/EZy0uiUJa/KT4xbqcj0aBlAkKW39nXPtUL
+	WxDPFfF3JhpidVNMLyt/vkOcqAf48SCejdItnCFcu38wmKbTwhSagILTozOQAs5+SURfHQhohd2
+	UOu30AQ==
+X-Received: from pjbgc19.prod.google.com ([2002:a17:90b:3113:b0:3b0:a379:b383])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4a50:b0:3a8:c0cd:57f9
+ with SMTP id 98e67ed59e1d1-3b1b0a0db23mr2345964a91.25.1794577656089; Fri, 13
+ Nov 2026 05:47:36 -0800 (PST)
+Date: Fri, 13 Nov 2026 05:46:14 -0800
+In-Reply-To: <20260922071945.693714-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,30 +79,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261017093016.32348-1-amirmohammad.eftekhar@cispa.de>
+References: <20260922071945.693714-1-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <179441749877.74221.21689652864513523.b4-ty@b4>
-Subject: Re: [PATCH] KVM: nVMX: Clear nested.smm.guest_mode on a failed RSM-to-L2
+Message-ID: <179441838666.82439.8379969006436543719.b4-ty@b4>
+Subject: Re: [PATCH v2 0/2] KVM: selftests: Fix incremental build dependencies
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, pbonzini@redhat.com, 
-	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	"=?UTF-8?q?Michal=20Koutn=C3=BD?=" <mkoutny@suse.com>, James Houghton <jthoughton@google.com>, Will Deacon <will@kernel.org>, 
+	kvm@vger.kernel.org, kvmarm@lists.linux.dev, cgroups@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
 
-On Sat, 17 Oct 2026 11:30:10 +0200, Amirmohammad Eftekhar wrote:
-> vmx_leave_smm() consumes nested.smm.vmxon into nested.vmxon up front, but
-> clears nested.smm.guest_mode only on the success path.  On either failure
-> arm (nested_vmx_check_restored_vmcs12() < 0, or
-> nested_vmx_enter_non_root_mode() != NVMX_VMENTRY_SUCCESS) it returns early
-> with nested.smm.guest_mode still true while nested.smm.vmxon is already
-> false.
+On Tue, 22 Sep 2026 08:19:43 +0100, Fuad Tabba wrote:
+> Changes since v1 [1]:
+>   - Use FORCE for the sysreg header rule instead of duplicating the
+>     generator's inputs. (Oliver)
+>   - Added patch 2, the same class of bug in libcgroup.mk, found while
+>     testing patch 1.
+> 
+> Two fixes for Makefile rules that name a directory where a file's mtime
+> is what matters. The first is arm64-only: the sysreg header isn't
+> regenerated on an incremental build when the sysreg table changes. The
+> second is arch-independent: cgroup_util.o recompiles, and every test
+> relinks, on the run after any rebuild in lib/. The two patches are
+> independent.
 > 
 > [...]
 
-Applied to kvm-x86 fixes, thanks!
+Applied patch 1 to kvm-x86 fixes, thanks!
 
-[1/1] KVM: nVMX: Clear nested.smm.guest_mode on a failed RSM-to-L2
-      https://github.com/kvm-x86/linux/commit/bcc359264f15
+[1/2] KVM: selftests: Fix arm64 sysreg header dependencies
+      https://github.com/kvm-x86/linux/commit/b2ddd6af0646
 
 --
 https://github.com/kvm-x86/linux/tree/next
