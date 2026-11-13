@@ -1,100 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.203
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794610551;
-	b=TRndtuvD9H+EPY9orSr5Mtoi01N3rvF/GjTb2Seak7nDDe3MS5dIb4Bh/jq3YI21vwyD
-	 hrvOgiEb8c21VqD7OD/eDtFlVKjpjxZW94uuyf216AuHr4e7KCpLUeukmMooeMYvtZNdx
-	 nnIfCstrVrmPDu5q1sAz7e2bEeJf0u3cLFTEpI2A6/Ztujsj/QMpvUsvIIPYJPhWInTON
-	 Zs0sdWHuDJBOXTOCqo5EZ9mw2aQiY3U5+lHQl7sfeS1QgEMsQk+/7X/O3emhYyVLTFKv4
-	 +mZuInghQZP+9vq46/DLxym9M2IEmO1XCPFJY+jbdsimSvQtRLPAvWpr5tpuweGOTrA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794610551;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ubHIV78BWdtikOGMl2tBl1TNThY7XLd4PDLG1WQAfwA=;
-	b=vb/CX/t+yllPaWoGPcQNdCiEIjbRkdzv+SyrK99lAvP78DN2gi2efYyohlQNhgXfimzg
-	 pyqXL+Jehauj2bKLb8g5qKW+jNWV7oCa553v+xyz1c2q4m3ruGJQ7sxTfm6zYFOipwbTi
-	 paDn2t5QnjJW2WasL/1VWb883YaHu8nC5XiOtTH/Utby4n3qhgj+jkjFfF464+WE1ATUJ
-	 Ht2jjCEXc8Gdtq37aMOfOkpTgP13fhXCMdUpICICh5l4r0SVK5Gr+83TRHtcy6eMKhfuq
-	 0MpBnLIGwJUNPErJ9HAcouGNvuSfquX399uVo43YBcXXO99RuE6I4TC29KZZjkKr7/g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T8hARIt+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.203
-Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794610554;
+	b=fEqlrFhyMmReRur5+2plCN4woxzBSXgLRH/7LA+6AU/253DTWsVsrBgADUXCT1Yj/TO4
+	 cvC/DZsYsezERDGhwtCdNLAC8Vp6qMHtIu+kmOPDEkEiSA6EDZ+g5Hn/V4UW7btTTi6mG
+	 D0LJi9DIzwgBnl8yhFhCRktYI72NBsPp3OIcHxBwExILLsOrvd6Mt3deB34ojQXdowiZP
+	 dpIg2EULUSs+3KwvbcH01ZQxsshPrv6rOM9J4r8vlRlHRA0gm9rEguVX39G+puo0mCyr0
+	 sws7ZN7WIouQSAxnbG+C4IbVawE7jkmPxJK8msBBz3oCJ4z5rAPBA9xh3EVz8eHYlnw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794610554;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=KN3BAQQz6V4aWs3TRbBIzGlNzQXPAP/3NN2RobaOAEE=;
+	b=zxCeSbP0hzMqacB75PoePZi38buWIDrC8WVxO99/B0g44g6sY+qEQ4yg/5ft9T/W2jtV
+	 X9/zjYchkYvFsTHaG5NwuOz6nu4i7vLFjX3O5yxH/+kyypiMf2xCRxjEbwcFVXhR9lA+f
+	 6B7NsTEhuFIAvlUBYkxQojbTN5V8RVzbx/8726pAhJGJpQzyceBG/pW6tHVZjebN6Hu9L
+	 6BxW5JGBZY5QwcEnelekz/5WATTvqLaK09szve7YsR/GoWpUAE/qkGiBJfslhwa4sRzgY
+	 T/IprHqfxCg9dm6+TLjDgbfFD6Yvx8/Pr0sMAUYhbQvUvX33+h+YnfeKHcpisTfnPaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Zr/r1yff";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F0A606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:55:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49F0A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA19606A890;
+	Fri, 13 Nov 2026 22:55:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T8hARIt+
-Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-5681e6e7818so558970b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:55:51 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794610550; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fxlEiVm6JU6zKwjY17maPoTUucExk90oaDldZKXSKdX/PC+JdC3xh2gmsKKkb3uC3Y
-         qZIsiYkIbnrCDePKW2m3Gq9+b6onwlFFbFsX3Az0kYGZa2f4PiyTX/xszq0G5Uuo6jY7
-         c0NNVSzth50Ucg4PqYJdaT1b/LvrFmUwBIjH2p7pxxYzsXHWSLKjQ8nYxPDCvz/HubAx
-         JeSeGbKPjLGsdgESpeioGWp9/yZjU+iND1SsmvBP2qGzzlibQnandOcE3m1HhVdMK77V
-         mrKQJJXFLGuD8iRGMeirPpDKzcGaujQqlM/zCVqp/OrPd1a6CGDnsgufBdx6QMaqgaP+
-         OJ+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ubHIV78BWdtikOGMl2tBl1TNThY7XLd4PDLG1WQAfwA=;
-        fh=lyrzgqlPWQTnnC+Trn/w0H1QL3/DSbyPKC4KjZIZ4qA=;
-        b=WKOXdAYb4Cmq9eYxNR+KjP6JEvmE9n538uWoOQu76kvZ1+0GZTsNN9Yv/bGP2FfDJa
-         7EJVtMEigpHnIVlfMGHSiqVBew99Qwubyy3AM34kwgObXP0PgF0jqlihB7z9PnLLhCKs
-         EPqv2JZRD7pKF28uWdHQ7K/GrNfv3kyoJlJNz9kcUoarqUQ41VvxWyGHEY8m3zclrsag
-         qB/4XoAk6W4qCauZnA+PPIdrfcB3k6S2BTCtB8QGYGlHUfljENlPx4bX2y6Ryj+AaSyd
-         6JQjXmSMwHRpf/VP2nZPtmUd4kX5d5M8sT+lp0qcPqw41LrWAOFkGJKky+7NTXKGcSrH
-         QKVw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794610550; x=1795215350; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ubHIV78BWdtikOGMl2tBl1TNThY7XLd4PDLG1WQAfwA=;
-        b=T8hARIt+NW/FmW4/v/sit/FuJmA+iWrY0G9FAUkVCaY5ReC4DhU1n+4d5HNCZx/sqN
-         p2LpU5HqGTycZUoSsC7EgjFQDuek2CryyOAC9wy7u9eFvv9NnRZz7ppKcqKwwKhZg7A5
-         FneRPeENdI/K5C7y69Uh9+xIdnlp7vqaL02jEGjbC2J0urD0pY22a+Crie9SNJi7ytQW
-         6bzWxT3AVzJ07bR5nfk7c6kuwFuA1mJX06yXTwaJhJaRyD+8uktkpC2Z0Czw7x/a5Rp1
-         bD0O8L2pdnp1fayOogb+nYkGkYhsrWtIoa9hAX48la8jEqyot5Qrd962dcxk8voN4ysu
-         Al2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794610550; x=1795215350;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ubHIV78BWdtikOGMl2tBl1TNThY7XLd4PDLG1WQAfwA=;
-        b=bCK0G/FwmEqUfXl8/aNaMLis4a7uhvKyh8Mm/0ySiLQLMtsj+RD9h3NOQKB62UTQAu
-         hIHhniJz4fO1XQeCEvRJSvfeldSNgy6Msi3xDaw9wkfRQZExJ6q/wnDtVyxIIDhoTTYd
-         aCrgIQuhZ3lRTI2SQG/sgVit59Xyb1lyTjkgj6GwKwz0ZXiN1MFb1Khmqz3A+rRyoWq9
-         a68+ZpQD/C9PdvDL3v6o0/4PWEYPoRYSuz1BCkWwTNhL67jZMxUdNvEucEKlPiug23V4
-         WKLRyl7UQMe0dCO+T5wa5RWI4U01Cj982vg2T9wLbriNWzAa0YYepCuK42MfT+818hZ2
-         fTOA==
-X-Forwarded-Encrypted: i=1; AL+hErF2jlVPNVJUfQCqCJzYgScCDihEfKVap+3ovFnvK0ES60wiId9maP+NiM1+Put18z5SHOPyfgQE6mgVBxU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nZFvqJbbTS8/m7F6jHFwz5LY0/4AcooJMxvqqsvIR1/Bx/bkW
-	z+cy3qJtV3wHOEhoHUvKGJup30zrFl53wkupzJQiw7hRtWVWv8C04ln+ATX2Cc8AFaYJuPJSECT
-	2hAglppi+mP/UVmf/fD4HjMjL7uWk3xk=
-X-Gm-Gg: AYBFou282bkyKsOdKsDEFLv4LNywbv5zuQJ7AogMVH8fXNT9N5Qy9alb0TO1UY9xD0y
-	gswvGFZLQmnF/Mxda/Yo82JKRAzy5HfN3fCepipZmulmObUI55NhqQL95uhI3fcHAKLy4XUa+Z4
-	82WgPHADb9fEEyWSR/3RCYY+eutLjYMPYJOrtEyWaodQBJP945+UyTitO9GiUsAcxwa5HTWaPFy
-	UqsMEb/Ax1anXx6PxEmStWKIWSgvYK4oGmb+2A+iAII8wrIZCJQF7tayHx8YkikH7v+NDrMu2yO
-	z84NiQdm+YyZvdK1HD8GmYghKG/7c8QxhPjfUbRTjlQbroflbkgseq46VIh4raamNNPwNgX30Mf
-	2wGpsKcgrWzSnaAWx43MFChYGShmn0Q8JhA58r6F6+MpA6GsqqIqx2zgrHepHgPBm7GS2gJXIur
-	6E2peTWrOwoEgO88SKsZVKEbOi6D9G4sdg8m/eCR3xPpGIwo3jlBFJ
-X-Received: by 2002:a05:6808:244e:b0:55b:f88d:919f with SMTP id
- 5614622812f47-56e65317dbamr3590625b6e.53.1794610550183; Fri, 13 Nov 2026
- 14:55:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zr/r1yff
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4053A1F000C4;
+	Fri, 13 Nov 2026 22:55:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794610554;
+	bh=KN3BAQQz6V4aWs3TRbBIzGlNzQXPAP/3NN2RobaOAEE=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Zr/r1yffsWfgcq3GiAScelw76p+OkyQYD2uH4hI/pcXZT/7E7x2Do+HBZm7e8OFNx
+	 c1oIKY+cvZEYv2sTZiX8+jnO5YqRpoKeiMbazqRw1aa4yUaQNbK7Mb95zvfQKKK1ig
+	 mxTFsa/RQhH/hCyvaswWfMYIpbiYkjjf2EiN/QQuWlfHGZB+EWhPT+tIC3Q4Mu5j8o
+	 t3lv1MPLpzLCUm09+TGX/ieOrJzoVKxT/z452fFm5NUzwDYL01fzfKWTbIMccvSMuj
+	 9FGL0SOXawyhCSF1WGLngab9+y6SU5rYrE3XlyC8yaZy7Xut3XdxIC/7rV4CX8ZWVe
+	 haNQtCPugcyAw==
+Content-Type: multipart/mixed; boundary="===============8280819268335858825=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,26 +49,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106124639.12584-1-dennylin0707@gmail.com>
- <20261112075624.23c04230@kernel.org> <706b09ea-49cc-4801-a24b-b22d2ea7d257@lunn.ch>
- <bc45c1e8-6904-47f7-9c96-512e024c9d71@gmail.com> <20261112113550.016cdab3@kernel.org>
-In-Reply-To: <20261112113550.016cdab3@kernel.org>
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Fri, 13 Nov 2026 14:55:38 -0800
-X-Gm-Features: AclHuK9f-4XUFh-cJPJlk-I0MGZ48DWAeQPY9iTICab41F9Jkn5YSmRgl-29Kew
-Message-ID: <CAGEkeHdz3GPv8sd0SLD7zbRBPFfzMrWBSWG7uxho8uOUJAL4fA@mail.gmail.com>
-Subject: Re: [PATCH net] vlan: prevent cross-netns MII register writes
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>, davem@davemloft.net, 
-	edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, n05ec@lzu.edu.cn, 
-	ylong030@ucr.edu, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Message-Id: <2f27a1ffca14cd87a744c447c5fded67459c1497ebafe05350f4721ef994c3f0@mail.kernel.org>
+In-Reply-To: <20261113221248.3535369-14-wusamuel@google.com>
+References: <20261113221248.3535369-14-wusamuel@google.com>
+Subject: Re: [PATCH bpf-next v3 3/9] kallsyms: Add KALLSYMS_QUERY_BY_NAME ioctl to /proc/kallsyms
+From: bot+bpf-ci@kernel.org
+To: wusamuel@google.com,corbet@lwn.net,skhan@linuxfoundation.org,rdunlap@infradead.org,mcgrof@kernel.org,petr.pavlu@suse.com,da.gomez@kernel.org,samitolvanen@google.com,atomlin@atomlin.com,viro@zeniv.linux.org.uk,brauner@kernel.org,jack@suse.cz,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,nathan@kernel.org,ndesaulniers@google.com,morbo@google.com,justinstitt@google.com
+Cc: akpm@linux-foundation.org,pmladek@suse.com,david.laight.linux@gmail.com,wusamuel@google.com,kernel-team@android.com,linux-kernel@vger.kernel.org,linux-fsdevel@vger.kernel.org,linux-doc@vger.kernel.org,linux-modules@vger.kernel.org,bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,llvm@lists.linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri, 13 Nov 2026 22:55:50 +0000 (UTC)
 
-On Thu, Nov 12, 2026 at 11:35 AM Jakub Kicinski <kuba@kernel.org> wrote:
-> Maybe we can just delete it in -next and see if anyone complains?
+--===============8280819268335858825==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Will do, I'll send a patch for net-next.
+> kallsyms: Add KALLSYMS_QUERY_BY_NAME ioctl to /proc/kallsyms
 
-Andrew, vlan is the only one doing this.
+TL;DR:
+- KALLSYMS_QUERY_BY_NAME may scan BPF ksyms quadratically in one syscall with
+  no cond_resched(), possibly cancelling the speedup
+- module_filter may return -ENOENT for init symbols that the unfiltered query
+  finds via the ftrace section
 
-Hungyu
+> diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
+> --- a/kernel/kallsyms.c
+> +++ b/kernel/kallsyms.c
+
+[ ... ]
+
+> +static int kallsyms_find_name_other(unsigned int sec, unsigned int *idx,
+> +				    const struct kallsyms_name_query *q,
+> +				    struct kallsyms_sym_match *m)
+> +{
+
+[ ... ]
+
+> +	do {
+> +		if (sec == KSYM_SEC_BPF)
+> +			err = bpf_get_kallsym(*idx, &m->addr, &type, m->name);
+> +		else if (sec == KSYM_SEC_KPROBE)
+> +			err = kprobe_get_kallsym(*idx, &m->addr, &type, m->name);
+> +		else
+> +			err = ftrace_mod_get_kallsym(*idx, &m->addr, &type,
+> +						     m->name, m->modname,
+> +						     &exported);
+> +		if (!err && !strncmp(m->name, q->name, q->cmp_len))
+> +			return 0;
+> +		(*idx)++;
+> +	} while (!err);
+
+Is this loop quadratic in the number of BPF ksyms, with no reschedule point?
+
+bpf_get_kallsym() restarts from the list head on every call and walks
+forward to the index:
+
+    list_for_each_entry_rcu(ksym, &bpf_kallsyms, lnode) {
+        if (it++ != symnum)
+            continue;
+
+So one ioctl that scans the BPF section without a match does n(n+1)/2 list
+steps inside a single syscall.  Every exhaustive query gets there, since
+even a query whose matches are all in vmlinux or modules still scans the
+ftrace, BPF and kprobe sections on the call that returns -ENOENT.
+
+The uapi comment tells users to keep calling with pos + 1 until -ENOENT,
+and the libbpf user later in this series (822e9da9a9b7 "libbpf: Resolve
+typeless ksyms via KALLSYMS_QUERY_BY_NAME ioctl") does this twice per
+typeless extern, once for the exact name and once for the "<name>.llvm."
+prefix.
+
+With read() of /proc/kallsyms the same getter cost is spread across
+syscalls, because seq_read fills at most one seq_file buffer per call.  Here
+all of it lands in each call that reaches the BPF section.  On hosts with
+thousands of BPF programs and trampolines, does this cancel the speedup the
+commit message describes?
+
+On kernels without ARCH_HAS_PREEMPT_LAZY, or with ARCH_NO_PREEMPT, it is
+also a long run with no reschedule, whereas kallsyms_on_each_symbol() and
+kallsyms_on_each_match_symbol() in this file call cond_resched().
+
+Would a helper that walks bpf_kallsyms once from a start index be better,
+or at least a cond_resched() in this loop?  ftrace_mod_get_kallsym() has the
+same restart-from-the-beginning pattern, although its lists are usually
+small.
+
+[ ... ]
+
+> +	if (karg.module_filter) {
+> +		len = kallsyms_copy_str_from_user(bufs->module_filter,
+> +						  sizeof(bufs->module_filter),
+> +						  karg.module_filter);
+> +		if (len < 0)
+> +			return len;
+> +		if (!strcmp(bufs->module_filter, "vmlinux")) {
+> +			end_sec = KSYM_SEC_VMLINUX + 1;
+> +		} else {
+> +			first_sec = KSYM_SEC_MODULE;
+> +			end_sec = KSYM_SEC_MODULE + 1;
+> +			q.modname = bufs->module_filter;
+> +		}
+
+Can module_filter return -ENOENT for a symbol that the unfiltered query
+finds in the same module?
+
+When a module name is given, only KSYM_SEC_MODULE is searched.  But
+/proc/kallsyms also lists entries for a loaded module from the ftrace
+section.  ftrace_free_mem(), called from do_init_module() for the module's
+init text, runs allocate_ftrace_mod_map() when any ftrace_ops is registered,
+and ftrace_mod_get_kallsym() returns those entries with
+strscpy(module_name, mod_map->mod->name, ...).  They appear as, for example:
+
+    ffffffffc0a01000 T foo_init [foo]
+
+and remain until the module is unloaded, because ftrace_release_mod() frees
+the map then.  After init, mod->kallsyms has switched to core_kallsyms, so
+these init symbols are no longer in the module section.  That gives:
+
+    BY_NAME("foo_init", module_filter = NULL)  -> match, sym_module = "foo"
+    BY_NAME("foo_init", module_filter = "foo") -> -ENOENT
+
+The uapi comment says the ioctl finds a symbol "in the entries of
+/proc/kallsyms", so the filtered result does not look like the unfiltered
+result limited to [foo].  kallsyms_find_name_other() does not check
+q->modname for the ftrace section, so extending end_sec alone would not be
+enough.
+
+Should the filtered case also search KSYM_SEC_FTRACE and skip entries whose
+m->modname differs from q->modname, or should the uapi comment document that
+module_filter only covers the module's own symbol table?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/43520044354
+--===============8280819268335858825==--
