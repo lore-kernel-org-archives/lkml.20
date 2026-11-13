@@ -1,53 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.60.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.42.203.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567783;
-	b=4UmSiKJYkbHJDx1jsEcwRg36i4KfFYuYlNnVcKlPv2tRnhiySDYBL/fWSILvG1WhG/bP
-	 vRrVodGJ/L/9vbdEyzFVsuC9Wb3rkiDiCz/g1yOf1ZprqOZ3V9rW9buau9vd6wdovNOl9
-	 iLOBON1VUfmiWkmrZLXo6t9K1uHhpoIIHxaFlsmxnpG24L2BRyT/paAEkgJKnNB0Eyr6+
-	 7891jOu6hkJGj3BqOXZMO2iQdnsEfrpBIE0PhoK3QoMf8cKsWavAkjwPCmFve7TrO/6Hk
-	 GJd6nKca57uHJV5rd0PpN1/BScCkiAf6KmFS+PXIlLQc4t1PVKbpP6u5ZlogCSld1XA==
+	t=1794567805;
+	b=oanJls0Akj3Osd0lToImTsVPjcS7hUms9zxmJl28XzqILFDTnTBG8HEsjHmb9UKWuWHg
+	 Td5TNNbV6GA68r0cSv3DBhki5NQH6y+8qzeMjI4VM9kVyqjB6Dx1KGKuqzlzjQbrlqeAX
+	 EyNhWAic6J7h4KUzmP1kx4gcvPm3AuN6nXXIdnYA93CmOjL0IRCPdCXWfTiTZyG2WXzFk
+	 k9boCXNaqYHoNbey6oRFzYWoBaVk5ME1r21NvjEdDgHbDGkZH4zWOpr89a83fhc4Qq2xV
+	 uoe7vsk7YXUZtyX8TzTbrPocM3T2opsYM841aOVM8zW14LIGsFrgwe21A3c/oGOqqag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567783;
-	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:
-	 Message-ID:Date:MIME-Version:User-Agent:Content-Language:To:Cc:From:
-	 Subject:Content-Type:Content-Transfer-Encoding;
-	bh=0jtrBX8FtvSLkOBcHo3ilWdn8svmU2wZqpyXZecbL3A=;
-	b=mERJYspBvi6Pf3qwbxz/2hZol8vILC1ZrdLtbEEnKVcRhbOezfWYJNILW6/aVxXMEHX/
-	 gjGNcXXOau6yKZitXbvGN3+PPSZZbNrTmA3dmoCwpBukJili5cc0T4f2SoKxeoLCUH4dr
-	 SiBu4ZbRCx+BYktAYrF2qh/9NvOCy0B6+81+gGPSVd9AX1BU9fPrLhSpqxqWHRXwVTdSf
-	 mJbpZda3vuXCOlOmlqM3clNFW2lnrR1g8XZvMiTaQTn90PVPU/TZd5O1Z5QBoYDnJ2KIv
-	 +m8Bs/dgf+Pqi+jgA+YwXzcBMOOPtCqejG+KC0Jhd4HPMG4IqP2HOIPyUeQLUYtpJRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567805;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=IfMDB5jT1COQwB7EaC+iwOi7A/4j/kO76zTU8Es9W8g=;
+	b=WuNzaSJJmrIsooYXjhUXP1c8H1FbzH9aKwpUOgWHN0oyUthgqGOoSz1C792kHRNE0yah
+	 +M00HuB0sIvdlqgpfUuBbLUWhecbMN4buZQ+A0nwpwAeLMcTsUg0gcnjyYD9qY3KRnrrq
+	 1ONvqcTPFRDd/M+L8RFVbiPCjMaJkDqv5InCdkf9EgXU64Hdk0jQm4Xq7kNJOkzxI7UpG
+	 ywQYOOpY5tWgHedXS6FiW02vwbdXPVmKc3SWoU0yblXMJObG3ypD/b7I7JeufYYsArpYz
+	 S7CyMmekVLE+T8Zyvpm6z+7L1RBjMKsCKiejGE8QyzYxmesQgSzPNxEsL4NirYMQLOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=scst.dev;
-	spf=pass smtp.mailfrom=scst.dev;
-	dkim=pass header.d=scst.dev header.i=@scst.dev header.a=rsa-sha256 header.s=mail header.b=OTRA4icC;
-	arc=none smtp.remote-ip=51.250.60.161
-Received: from forward101d.mail.yandex.net (forward101d.mail.yandex.net [51.250.60.161])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=lvmUcpjE;
+	arc=none smtp.remote-ip=52.42.203.116
+Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108FE606B241
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:02:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 108FE606B241
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=scst.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=scst.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83668606A331;
+	Fri, 13 Nov 2026 11:03:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83668606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=scst.dev header.i=@scst.dev header.a=rsa-sha256 header.s=mail header.b=OTRA4icC
-Received: from mail-nwsmtp-smtp-production-main-77 (mail-nwsmtp-smtp-production-main-77.yp-c.yandex.net)
-	by forward101d.mail.yandex.net (postfix) with ESMTPS id 7441DC0056;
-	Fri, 13 Nov 2026 14:02:51 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-77 with ESMTPSA id m2T1LaofYiE0-Hlo0eWK1;
-	Fri, 13 Nov 2026 14:02:50 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=scst.dev; s=mail;
-	t=1794567770; bh=0jtrBX8FtvSLkOBcHo3ilWdn8svmU2wZqpyXZecbL3A=;
-	h=Subject:From:Cc:To:Date:Message-ID;
-	b=OTRA4icC8TyQw7bedOfZ56n6WX2UnOYyEwLgWD6ztbrfp91c3Kdg0mHdDXmai9dr+
-	 xxKMCwg1DQcwugQpnD4c4poUQW1ONjjV6ywhlFHtSHiQeSy1LyuakkveHvJLtmgID2
-	 i8krOWdCKX33zX8Tzx1XDZHswlg9dcd7X4ZtgNMw=
-Authentication-Results: mail-nwsmtp-smtp-production-main-77; dkim=pass header.i=@scst.dev
-Message-ID: <0099f610-a48b-4557-8515-e4df444262e8@scst.dev>
-Date: Fri, 13 Nov 2026 14:02:47 +0300
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=lvmUcpjE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794567805; x=1826103805;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=IfMDB5jT1COQwB7EaC+iwOi7A/4j/kO76zTU8Es9W8g=;
+  b=lvmUcpjEzJlppHb1fGrSe6vx6PvOqn6YlzXX+t3MZFWUQoTsQ5UAn8tD
+   Ck329CfBbCryLn2lyDMa6bwR0khU15wrYujjxfyAQcqgleNzFQYs2Ejhu
+   OGTPjakD3YjYsb42xOJ1lxQjJFt+0Ng21jYrgrCNgNMUpB1lwh0Qm8LcX
+   N5mKB8fr9bNxO8iRlid6cPoOLTgtTb5gjLh3Yp3NOzI36njDeuJj0LeZK
+   ec1SEMqP66nTxjbkDCEImNdY/UvlCCO7SOtIL3NUzucD8Ns8rOWx0A9oH
+   zZQfjmNtgv8OD5szHlfsC7CpT2FXtc6Q4RDBh1LaZPn7ab/VdgO5l6cm2
+   A==;
+X-CSE-ConnectionGUID: wc8Sr9MET0GF1ptZHaPoFg==
+X-CSE-MsgGUID: RrTJuRR+R/++b5y85wG1Gw==
+X-IronPort-AV: E=Sophos;i="6.27,211,1787011200"; 
+   d="scan'208";a="33912430"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 11:03:23 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:22474]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.227:2525] with esmtp (Farcaster)
+ id a839e1dc-e47b-4102-9419-ebbca99491bb; Fri, 13 Nov 2026 11:03:22 +0000 (UTC)
+X-Farcaster-Flow-ID: a839e1dc-e47b-4102-9419-ebbca99491bb
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Fri, 13 Nov 2026 11:03:22 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Fri, 13 Nov 2026
+ 11:03:19 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>, Dmitry Torokhov
+	<dmitry.torokhov@gmail.com>, Laurent Pinchart
+	<laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Armin Wolf
+	<W_Armin@gmx.de>, Sebastian Reichel <sre@kernel.org>, Andrew Morton
+	<akpm@linux-foundation.org>
+CC: <linux-acpi@vger.kernel.org>, <acpica-devel@lists.linux.dev>,
+	<linux-input@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+	<linux-pwm@vger.kernel.org>, <platform-driver-x86@vger.kernel.org>,
+	<linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Eliav Farber
+	<farbere@amazon.com>
+Subject: Re: [PATCH v6 0/7] notifier: convert remaining drivers to device-managed registration
+Date: Fri, 13 Nov 2026 11:03:15 +0000
+Message-ID: <20261113110315.20412-1-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261113104218.32566-1-farbere@amazon.com>
+References: <20261113104218.32566-1-farbere@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,52 +93,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: linux-nvme@lists.infradead.org
-Cc: hch@lst.de, sagi@grimberg.me, kch@nvidia.com, kbusch@kernel.org,
- linux-kernel@vger.kernel.org
-From: Gleb Chesnokov <gleb.chesnokov@scst.dev>
-Subject: [PATCH] nvmet: report backend transport errors as path errors
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The block backend maps BLK_STS_TRANSPORT to NVME_SC_INTERNAL with DNR
-set. This discards the backend's transport error classification. A Linux
-native multipath host completes the request before considering path
-failover, even if another controller can still access the namespace.
+Patches 5/7, 6/7 and 7/7 are not in this thread. My mail server refused the
+second half of the series with a submission rate limit, and the resend went
+out as a separate thread:
 
-Map BLK_STS_TRANSPORT to NVME_SC_INTERNAL_PATH_ERROR without DNR instead.
-The transport failure is behind the controller, so report an internal
-path error rather than a host path error. Associate the error log entry
-with the namespace, as for the existing access-denied status.
+  5/7 https://lore.kernel.org/all/20261113104459.35839-1-farbere@amazon.com/
+  6/7 https://lore.kernel.org/all/20261113104459.35839-2-farbere@amazon.com/
+  7/7 https://lore.kernel.org/all/20261113104459.35839-3-farbere@amazon.com/
 
-This allows otherwise retryable native multipath requests to reach path
-error handling.
+All seven patches were delivered, so I am not resending them. Sorry for the
+split thread.
 
-Signed-off-by: Gleb Chesnokov <gleb.chesnokov@scst.dev>
----
-OpenAI Codex assisted with the code analysis, patch and changelog.
-
- drivers/nvme/target/io-cmd-bdev.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/nvme/target/io-cmd-bdev.c b/drivers/nvme/target/io-cmd-bdev.c
-index 72618dced191..da640b8e8241 100644
---- a/drivers/nvme/target/io-cmd-bdev.c
-+++ b/drivers/nvme/target/io-cmd-bdev.c
-@@ -167,6 +167,10 @@ u16 blk_to_nvme_status(struct nvmet_req *req, blk_status_t blk_sts)
- 		status = NVME_SC_ACCESS_DENIED;
- 		req->error_loc = offsetof(struct nvme_rw_command, nsid);
- 		break;
-+	case BLK_STS_TRANSPORT:
-+		status = NVME_SC_INTERNAL_PATH_ERROR;
-+		req->error_loc = offsetof(struct nvme_rw_command, nsid);
-+		break;
- 	case BLK_STS_IOERR:
- 	default:
- 		status = NVME_SC_INTERNAL | NVME_STATUS_DNR;
-
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
--- 
-2.56.0
+--
+Thanks, Eliav
