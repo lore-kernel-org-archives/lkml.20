@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794559506;
-	b=pyuPhHFntgkoT3CQFg5NcB6aDmPyM5e09A7HiYP3CKswn9D5zB9nJRsttUZTJiqnUxSe
-	 DX9sNMOW1hj8x5H8jgko1hZfZdDbvSjY/Shs1I1gBAY5eP6MN/AXhUcn+qgVK2V2P8wuD
-	 ImMVAUhyse4oW/5be2mjazCzyf37dis5lNUKEA9BMsFn9pYYRbv0Jh1ivbykVXfSVPi0H
-	 zr6kiXi5gvITFjRw9QqzVgJgG5KUIQ/0aKBWIMja8HUy8Bfju96lQlw4/0lGQB2f5nDAJ
-	 yqjcOuQ6cB1wLeVh6XG0+LhCA60YHxhu9RabD2I8JsLJH7wpgIa4EvFm7ojIFmHWs3w==
+	t=1794559507;
+	b=DivJOLT8jvWjqcvoyyGoEY+BeBaJDWlIilE1mc3QvIwxzQTW+KXa4pOCg7MndHcXJfRN
+	 /dBK+K1i8WxrKvOFxekaiIWnpH+Cylig2HbVc3abOS513RS5rshp35mmq1F75zhAnsx0R
+	 9Zy6S8lkssNAT7/u/oP/0P+ijwkTNW4PBl4GNJ60yCKABrsNqA1/myar7zLuCE7AxAVKG
+	 cZn2z1OALCZjLTHv0b1J95pJShHjdgrWBIlVL61Hk5e3Hec3Zv50l2gBouKWXamNUnYjQ
+	 ZMLfD9KBKBpyIs9SJx0PqY9GdZNw16+0vTqnNgGnWdw0bNSK6tx28/vka8Z3YFkLphw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559506;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559507;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Us1gVL4HePkaxbUhVypXyAHCO7V+bnBHInwTgzPnw0o=;
-	b=x0XphnAbbyQ1dlzDGFaTqhifldx0lErF7ZdDyjhhATiEtzOxiqrtHeB9kXlep/np8Dky
-	 F2g4gpp2tCp0f03426glYKjTkRQo+osBI8hbLHcGWolnig0kwOZh2qcsn5oIyxRomME4n
-	 HLN4owe7ksPlXk8+TUcNOG0ytTorSe9IrETtPexMju6Zvs1FPaQ6S9XPpVf0ovzT7o88h
-	 tQcfg4ib25MAS6ta9H2paDCVKk29yLe2rL2zlFQ7T2DrIYSKKjGrBh4x1yM1BVZiDNkGy
-	 27x1ptB/LADkQlacSJzJTpSSjzX/DKlCIgl0GgdyomuOxekERBhib3QVe+vkowi+Mug==
+	bh=AGOtK77h1IMEUh2ILX1I4QN6zn+UjhgWbqlbQNGAxok=;
+	b=hiajifNAJt4oDSjICvm/zZfj3yb32zqkWr4cwTd73+WZS+18WLf0eACZB5B2yGi8XPkE
+	 o+xVY6QhlVcN1Paym63e47kL/JnHoyAZcylVsGG6uA/mjq90GQYLIfZOmQqP2OxVb/hXJ
+	 ndRYv/Re2ChWMAshnsOiewNqC9rppX6qw6MiEBs0BtTNBPwdBBI6sbK9SaJkQvoM2O14i
+	 vpbZvSBNAN/FcJAahYOgiu00uAQ6nh+6cv8Vpht8EItu0B5g4WvrGhQdNd0vRsOuS23o3
+	 177QYO+wvKzCkn9tNtWwUXoiytss9rCf9LuWga6vdTo63s4UZo7lyATCBm+dtOnj+lw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfkgP1FN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U6xb33TA;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56A3606A8B3;
-	Fri, 13 Nov 2026 08:45:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 903C060A6F77;
+	Fri, 13 Nov 2026 08:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfkgP1FN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U6xb33TA
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794559506;
-	b=EFM4klSjwUhk/cFW8f5sjUHxri3eEj/foSS2SpLdOLUVlBNMnsytZYo3+c+7HVRZ8wEP
-	 qDmFjVFpTHs2yewdhqO7pUI9UszoQI137Xdxry+FGhvx6lULOhYN+01iRULpxdnY7ggBe
-	 bOLNo/qBuZkiaqN/c1/PuXiHDCs4NMovgfMIqFEnyrEVsNKBuBMe7Nc+W01d47hUUERmU
-	 O3M/8KwaIV9FSIVXERYs6yCz7/OzBbe8GKPF0asZ1s6PxdB9WXgWH8LcaWHASWdpajweB
-	 jCOS8IXwWMso2aEihtZird8LtXMC9rRgJOHn8dtowsAIf+r7+s0Znj3Rlo6vrYZhItg==
+	t=1794559507;
+	b=NmHekQ1a8gJEKefNT4z8v1nsbrWa3Rr8oPugmfwN+eZSSPM13PHVYgKcOkrIVgNkk9rB
+	 GrGFpqWAJwHbqZMS3BhAih+0fyhw2SvVy13NBlMDgKaAf+9ntCOxy7EU1N0Z2cZH02cYj
+	 cMZB37BHcM/qw9C3fsFd/Z9s2c5HAKlI5mi5WPpREwa+Vj/10HTNjTwDEs8wD/aWyA9Mm
+	 srK2wcSsw1Q/2HjIe94imWdDOBqvPzekqx4n7Wz/7bZia2jSaFSH0iGmeJD19a9ywwmIJ
+	 oZNmdSl9Iu7SoRkhKt6CbZ3sxvJaFTahkvKWH1/3Blo3wyCTUMi8PWLG9SJ8HMnsF5g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794559506;
+	c=relaxed/relaxed; t=1794559507;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Us1gVL4HePkaxbUhVypXyAHCO7V+bnBHInwTgzPnw0o=;
-	b=3e2tZLGbppNmbWG5AobDzHt+SshaIjGcLyChYMwyYYrxVN9nq5FufNXt8lyV0z19UwVm
-	 69kGna9SHzLgKtPcsFSLP8Vm+47Us4gXNfVwwLqpGoWSQM2NLyYUjMo6tWfcA/GgToDVH
-	 329WwLWvPZCgg+vvgeMNwI2pWe4VqB7+5lX6/dAdnmOVa38/dF8WGehbI2f1JRu0D2N33
-	 YdCKTgDxSHbCGBWTucxxilQht5cOsjFaixo+CZWDYf6m4usBGhpP31FspVFlJGoE9LM5B
-	 9/epvyrvBBzq2XDAJSWY3JB0+ynDtnSxIx0MlftVDASN7jkNJNe1aM4uB1NCdGb7mCA==
+	bh=AGOtK77h1IMEUh2ILX1I4QN6zn+UjhgWbqlbQNGAxok=;
+	b=3IxqA4na3pnfpbkR7M4r3AMpmsGVPVjmYarPh45UiEmksxTrHov+5eu8mH8zKNAUTtU/
+	 H6QIwVSi3NXvmSwmDdStAYLM//VxN8scgVtxh334XW6IEEwEOKnyMGxvfK9LGUZu73zVg
+	 C3d2QXcEJL8joor41R4L/shGrMLWxtTfjvgVLSMt76lX0iCI4icswA8VDYNLDBzhK/hut
+	 XPUOHmRiztyrL0KRvxh7BSZ9qAxAxjF0aG5DU8UIdHpEmlIXlNDgQuEiTu4f8PLQ3u7Ca
+	 ZQThfwi83poemAf/JHP6BelsWfoPwRougdZZNBDKz+rCsrM1Zs/OrYuqqECw1+WoLKQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1D5251F000CB;
+	by smtp.kernel.org (Postfix) with ESMTPS id 1C0041F000C7;
 	Fri, 13 Nov 2026 08:45:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794559506;
-	bh=Us1gVL4HePkaxbUhVypXyAHCO7V+bnBHInwTgzPnw0o=;
+	s=k20260515; t=1794559507;
+	bh=AGOtK77h1IMEUh2ILX1I4QN6zn+UjhgWbqlbQNGAxok=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OfkgP1FNooClVGWHFEjFO7pDjXRBgzj5AroB4DIFskipX/g9iNXUv8KSBXJyYAOlW
-	 C/Veru8CC1yH8JgxsnAviFc8P+QMU5QDTP3Wu51lkK5Ggq6G9Nza5JBd8vCRK/bXKE
-	 rSXKAx02DGe82VIMd+mUIwGevuiYKbT6PxkwjaF/jxiej05v4cZ/cBcA1giy/YAvDK
-	 OEilpprcoD8QF0l14dWc6Mb0dgsz6TREZUR2sC93kkBDDTN4ElUNPhv9aKyPuWf7ps
-	 gbOLLOaiGE2NOMNvAxVmYbTEWDa/ihZAZ9wTF3EttHbGuB1JgoRuyuU2Ujq5noFCoi
-	 MSLdw9wI5hHZA==
+	b=U6xb33TAxfuLZluegmNIW64e08evLCOkFt2cRYfTjulfFD2j8pG2tqOZGRdQulV2K
+	 3Oq+1+i3W/LPlehEIsLvMa04yvX3Uvbgqj3RCrUWcYKQXvB7yV0+Lc9NKahFY5HbhF
+	 C2SU2XAk1/ZN6qTAJkp5F2vXP8Y9liBFQ/Kd8eRV4U7rX0+u6ugmQZAlUWULIAFj2V
+	 nUopOqJ2ULPcyqZn36LCX0SVljvFrUv9dSE+FcXbItIkLY5pwioaKST7oXTt+Ez0hD
+	 T+nFTXgjv4+eZWxGSlC53uXjk+XC/9jUelRDGxWKzeX5TAdVFvTgsbvF8vpIBdScw9
+	 eS/L2/441qEaA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9B187476CD;
+	by lkml.kernel.org (Postfix) with ESMTP id 84085476C8;
 	Fri, 13 Nov 2026 08:45:05 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 08:45:06 +0000
-Subject: [PATCH v3 2/3] iommu/arm-smmu-v3: Enable an optional clock
+Date: Fri, 13 Nov 2026 08:45:05 +0000
+Subject: [PATCH v3 1/3] dt-bindings: iommu: arm,smmu-v3: Allow a clock and
+ a reset
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-smmu-v3-pcie-pd-v3-2-39eb4f919529@gmail.com>
+Message-Id: <20261113-smmu-v3-pcie-pd-v3-1-39eb4f919529@gmail.com>
 References: <20261113-smmu-v3-pcie-pd-v3-0-39eb4f919529@gmail.com>
 In-Reply-To: <20261113-smmu-v3-pcie-pd-v3-0-39eb4f919529@gmail.com>
 To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
@@ -100,11 +101,11 @@ Cc: Pranjal Shrivastava <praan@google.com>,
  Finley Xiao <finley.xiao@rock-chips.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794559505; l=1706;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794559505; l=1030;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=7zvWTrIyWfGyWvQ0NqQRx0ysMD5mOH6jVqLwWsAbCjA=;
- b=iB/b/B6lXe5GW9lrzof7V2M+wHDzQOeYjXWkLR31k1MNGJ+wI4j8G9ACorIgUxMAbVXg92/yq
- xjHrCRw97DzAYCXduuqoYeCsXbRcpK4Uqh8NOT9cweRDp2q3FtH0ujJ
+ bh=SG9fFTOzKpSkhJ/pzr/TczrngVXDEsaz0Xd0nLP1l2E=;
+ b=zvewCNzhQBIlNRliWXhF1vEqy3EpLyfIGKH2wQS/4ZlC1ARQC9YQRNNt7njPZkT4WDvEAYCao
+ bsnfPcnNH6jCEB8J8orvs1j2essY7HehjzB1vsoPLxYRSLVFFNSdjHv
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -115,54 +116,35 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On the RK3588 the PCIe SMMU's clock is gated as unused when no PCIe
-controller holds it, and the next register access (the CR0 write at
-shutdown) hangs. Enable the clock from the firmware node, if there is
-one, while the driver is bound.
-
-Do it first in probe, as the firmware probe may take a Tegra CMDQV
-reference that only arm_smmu_impl_probe() releases.
+The RK3588 PCIe MMU-600 has a clock (ACLK_MMU_PCIE) and a reset
+(SRST_A_MMU_PCIE) in the CRU. When no PCIe controller holds the clock,
+it is gated as unused and the SMMU stops responding. Allow one clock and
+one reset.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 6d4520c47308..d3f42316b0d6 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -12,6 +12,7 @@
- #include <linux/acpi.h>
- #include <linux/acpi_iort.h>
- #include <linux/bitops.h>
-+#include <linux/clk.h>
- #include <linux/crash_dump.h>
- #include <linux/delay.h>
- #include <linux/err.h>
-@@ -5786,12 +5787,22 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
- 	resource_size_t ioaddr;
- 	struct arm_smmu_device *smmu;
- 	struct device *dev = &pdev->dev;
-+	struct clk *clk;
+diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+index 3c044e4f03d4..9ab80142a485 100644
+--- a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
++++ b/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+@@ -63,6 +63,14 @@ properties:
  
- 	smmu = devm_kzalloc(dev, sizeof(*smmu), GFP_KERNEL);
- 	if (!smmu)
- 		return -ENOMEM;
- 	smmu->dev = dev;
+   msi-parent: true
  
-+	/*
-+	 * Before the firmware probe: it may take a reference on the Tegra
-+	 * CMDQV device that only arm_smmu_impl_probe() releases.
-+	 */
-+	clk = devm_clk_get_optional_enabled(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to enable clock\n");
++  clocks:
++    maxItems: 1
++    description:
++      Clock of the SMMU's register and memory interfaces.
 +
- 	if (dev->of_node) {
- 		ret = arm_smmu_device_dt_probe(pdev, smmu);
- 	} else {
++  resets:
++    maxItems: 1
++
+   nvidia,cmdqv:
+     description: |
+       A phandle to its pairing CMDQV extension for an implementation on NVIDIA
 
 -- 
 2.55.0
