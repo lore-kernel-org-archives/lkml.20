@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794593717;
-	b=a4baitVlgBFncqj5ZrwxKGQ5GDrzgubaIqElpAB7LmDjGhD2mHgtwn9J02f9ECCUOs8F
-	 JLQ7vGdhZjs6ZmX43CSi+LdkUQV4sMsGEU7oWczHFInlTlpYrtlve1IbmlcpL58a1qyD5
-	 KcQE/Z17cnoJr40VaWo5Hf06ciDrosYw70QiFl/m0aYsuFCjs8u7T5L977PdbV8a3BF0r
-	 flGDgb+IPNkndLDTH03ZxqmkJ9dQVFiskb8xB2XVzerG951v+scHr5Z7um6vc8xPjdpQf
-	 ticum+xuhXgQzs69VbCZ1bq3191gOJYfprFlb3vAyGRtx1O87vONZXxEcvK8kd6lWpQ==
+	t=1794593720;
+	b=ekRIGCue0Bku6lHn2Myjsuhoge3WPMyz0AAp8IjrvW1wCzMJ590/BaqEf9DFjVUoeMUU
+	 KErWrSUi2L1gghSUuf910YcgblMhf7PGZj/ScN74yznCM736hNJUBU4OtYSqJ0uO4H0J2
+	 NxS77COGlMVimvl98Ul/cn7YaMEDYdrtRwRw/QvazcVV/poANHGFnN3rjQ76xwbY3cRPD
+	 zlzlHd2YoVi0Ux8ogd3GSQ6PQuISJ3y1Yd3gSU+QT4MWRuloI8a9cHPrev6qlbhLH6KDd
+	 UcZ6Houpn8FCaQindYJfKUVyOut7G8TR3rXLPQV1nvlvwK5W5Ini1Y4P9+KCHQdVMCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794593717;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794593720;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=pXd3NE3a9vZpON3Emx1ANH5JXe3mwmM6bqAyvg/n24k=;
-	b=rup+lF1VDLl10e8mgf4qEQboubE2Bm3i4+zMtT6a6gxbyd3owlQFfnoAfOOv2PR71GQi
-	 TMD4bx1kuHhmLXPI3pUeG+Jj+UzgSxX/k0cyrF2pPTFt4UA4khuCOxLCm+LKiptRhXHAY
-	 5MKpYqunywrBEITn8epwVkjxTLs4ZyVsQxJnx9lfG7qfMddo1Ac1ZAwYxqrypBIxEWYrI
-	 cNyTcL1Y6BqVfQwSLeGISPnDYik/yF4b5sPJW3SxMwz/UTNyUQxVIj0EToqsNwyONyNjt
-	 5c22FGcyDtWSzKRyZcIgc37REyZdgXWfShU2eJEgaiFGnGtWyD66IUA/oPXzmIMNI0w==
+	bh=AhCzpLtbe9iJpwmdU5McSq2qiByfFjtLJcA82Te7vkE=;
+	b=lQXdnnC6V9GvTwwDhr4+rbe6XkLo2MiCghUAiGCnvgaYGdGkB60CrIIgvO6eJ3ONXVxF
+	 4a5PHJ8QjGbs+R0fnLPl5/k1UMTj2ne/VN6VWB4t2Va0/W/xVS0wdBb/yf/5woIt5bJ44
+	 eIEksf72SwWUppkWr+qmNHS8J4NXyZxaoKlnzuoTIrtQdKe3V4qAZm7ebOUHy4k9QZAU/
+	 HQUQ7n98cRF1AKAmXz1hwPeGUlPBQw0nXlf/KHXBFO74h6NjgSq25YUpmY/fEecTgs+MO
+	 DVT7yuz11UylufnV7016AB2hrRRkywVfQCvOzuoSHQDW8wzVujTNw1rHN5nDyIMedQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LD4geWOh;
-	arc=none smtp.remote-ip=209.85.210.54
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GRVegGAy;
+	arc=none smtp.remote-ip=209.85.161.51
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55743606A338
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:15:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55743606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26EEF606A33E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:15:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26EEF606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LD4geWOh
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-843cf077f10so2768444a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:15:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GRVegGAy
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-702fd86d674so1634462eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:15:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794593715; x=1795198515; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794593718; x=1795198518; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pXd3NE3a9vZpON3Emx1ANH5JXe3mwmM6bqAyvg/n24k=;
-        b=LD4geWOh/+TM6mt5JXNr7IV00e/So0WoR1NWeirFANS8jUc1LSrIQN8g/UVHF4DT/v
-         gDk7UHbhdL3xxhnW5owSDj5f+J8GfFP6gaEL/SAJWDcJC9kOPg7J7zgXfJkpioeQ4WV6
-         SPJYdkNT8B7wXDvGz0wJNa1BQDbpaWJMbA8+HkgmhG2LQD71qZVqE4qv/5Onh48MbS3y
-         bd8RtrSMyxf6qe4d5zd/NuLklCUE2/lBsuSzBNRsyzq+UTJflaUuG7XvyJ7109dsgTJv
-         whEL/7wi8N+vRbFV/bjbmRWEv4dsl6uhOzS8BPhfflV7HtDhrbrzLadw29rz9gxVPUE+
-         XM8g==
+        bh=AhCzpLtbe9iJpwmdU5McSq2qiByfFjtLJcA82Te7vkE=;
+        b=GRVegGAy0/5hFgUAjavkDmIok1AL5joKczXWLkpoQNRHceLosgrD5ZDacLSuiUlxx+
+         x24iC00QqDF940mCgHSxpuh6MUB4wB22vWo5Mj9MvQ9YcF/rqxbweQuM6F9H7WxYbjIX
+         o8smFyIJ1K4hftIDmH5atYFRMs6oRlPdgQAUORMyAgaBs0Mg5st8JTlNTHkgsmWstSpg
+         qgecQMXcsccaI+LiRKzJL1T0MlLjPmTvewcTXTyXIQcpdY5Pn14PhAeH5yycPHsIsOO7
+         nsLOck/EAdNhcJ0NM0yHH85sPDPILQd5k5iDAnnyWafSBVyrnVjmfuEQ6Cuy4vm3wXwm
+         VmNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794593715; x=1795198515;
+        d=1e100.net; s=20260707; t=1794593718; x=1795198518;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pXd3NE3a9vZpON3Emx1ANH5JXe3mwmM6bqAyvg/n24k=;
-        b=kZv20ZdWrnAZZ6K46qci0duBi77C+TRomEp4rDg0wAfgHlldibcno5cMxjelZ0DI7x
-         YmgBAo/j4UfknS0tBhqzHoXak1amgVpzXiuscbEQQuIdZMtGNYJV6bUMZiukYgc/RmMZ
-         090Ie2+Wm+nmi+CS//LuKCAmub7JmVy3hI7Fn5QFnCsanAI4PSOVLVpK6Jykv9J7GIwq
-         nfEXJyl3auxrnTlQaeMmGCw4YHWOZUWvzIwWIZ7YDmA23MLcdvwqe+V01PxI4dS7wnuD
-         eyHc4p7MwAxfEBM+ISDFSiQa6OqQCLq88KjbFYZhQox1xY1espKusCW1lilmmj6HAEKy
-         OA7g==
-X-Forwarded-Encrypted: i=1; AL+hErFRaQFID5Y/SP0TQ5IgvawQGL1IAnMKZmgaJT2/YTwi5KG12EmoUlm4ILdCgh7rlbvj+59aB3wngCFHDJU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cd1h7OxjJOeDDF2+V3wLDmAAX+2+4JXW6zssZHCP0N3fShPwI
-	YlmugREOxOS08sCp4NM63vgiNP+Lqhr273LPnopuysZTpZzmL/x/W/yLbS/5Yxrg
-X-Gm-Gg: AYBFou2U11mAaMkgjMDHHzJ0eOxwCuCMzZH4HFdOXY362v8/eJ6CQByfmJJ2HTdEGVo
-	beQt7Y7q9LlmfSFHXC/+piCNaXnzTShBc2E+E0DZzsIk3iLUvdYnw8I4n58ZElhwMt/t8UAltvX
-	WXVaBK+Ty2qjErYmk4IW2MHPul5nBZPiMg5xx9z1DHo4jgURIE4iOGUtJv+DLMerOcTuJnQ1YlW
-	bLOBqrP9sk4kbczV5EqodxEfMZk35la9lJnsaxaOHrXtgGbpKifWITQjZcWd+S8XkVqPLxy2axk
-	sBnaa/6v3eKqxG9EEzUJ0emzMZvsPb+G5rhI0PTM63whtMghP8tS2EmuzlIuE5OPZ7WjRByyW8a
-	3ryLPeTJkj9MYiUnEjeTIRwCeclPc9diwAHX0iJ7g2bdShdKAbdR41SsHuNS3C0y7l9pSE8Z2j/
-	1iArGz84P4xAIbKb401vSLA/9sbsneyqu2AyPAFjBQA8LqwVE5M4AVkZht+zOm/Xh6PpqTDC227
-	sLKT4c67D9plobEMVT1Nze/hPc55yH2fRtUDYy6YdbEk6NQdQ5XklaGUmP2fUZjqwQWeSlKWUUF
-	wBUyGgtNSc/ClobTwI5/LoZGzZwYtK7bTAHt8fs2wRY8HCOpW4Fxqnu9+N/crPTzCPqqGhircGc
-	FWKfuanIsZR1e/beIPBxdjqlf/xdEJIcgXTTsUG5Elf6jwq4YWd9lLXGXqktUjzlOxawSo5CYYf
-	kZrGA9xiZMoyTsK1RX+hJAcAEpQVDI6esgOhd8h+VI1RfdWEvk/EQ=
-X-Received: by 2002:a05:6830:a21b:10b0:81c:a6c8:8a65 with SMTP id 46e09a7af769-86289905565mr1874053a34.25.1794593715114;
-        Fri, 13 Nov 2026 10:15:15 -0800 (PST)
+        bh=AhCzpLtbe9iJpwmdU5McSq2qiByfFjtLJcA82Te7vkE=;
+        b=CxbCOQN2wf588wt5J/ErRu2reeyy9Ep6Z3JeNpCkMR6c1xxwvL4ZuBxxu6x1dO6bSm
+         ozUQDVRFdk5oUPdt0T5VQwIbfeWbnKmtlYqDgzsMj1o7aqWLdNExbGzZ8dBk2LF8e1Ck
+         yhhHIGcKtQGlhnKJTHgZ+k7zV0k9RSUTYJESK0qUod4LYcNGYqDcMZ+wVZ9xx7Lgoec0
+         M0Jn0XEoz9wzkm+pc0+aC5y69HuyRKlZabky8wxu+CGDFYrOm3kUHvCeXDT/JZfh94Yz
+         FeoCFXt0W27ekQ6XbqBn5zs1AnB6TamwADQqWV8rAcOoeeJwLoZ1SyTI2T4kG6i+bKCV
+         5BRw==
+X-Forwarded-Encrypted: i=1; AL+hErEYZLB68xs+37mAZeqkTrhc77vGIL3/upoEp5R4HzzrnKeFkszFfbf+G0Jc++Y91tQvvNgEwigViLDnPgA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/4YseNrz4rX8bxy9UwLVhZCEMyyMcDhMEfPUx91bOwgzsut2kb
+	1PT4NyCmL5uEQzJAPCym0ZI4FdqHrq6mKTOWr5AVsBwW0j5YpLydlpJn7cP63dlB
+X-Gm-Gg: AYBFou33vqKteBy4s5LOKfkegUYqS7knf0yjyKXoUPaFCzKyO1YWSNqHdSN+5iUIBuc
+	PCbAyjpAcB9YwPMrlNECiX0unPYMWCNXCXDWMlHnLJ3wb7tGEsa9etj7x8gqDOPTEmqTs5h/NSq
+	zuT6E8bQkpSVwEeTRjf8dJ/Qbs7vQnnXEfaDeLZ7DIJA/cxi5kOqFHi0El890juCFLUX5RF30Dh
+	7JPTheZwR3cxM7e2ow0aCA0G4v4PGdESv/ihIftP8R58Ah8O9ObhnQwqAsD+tZZ3uSesRi2MeiR
+	D0zoTNd8qHmXFR6l9kZ2nhJ86GKoKwp6TMsO5sdj32zZAAj5iHztxbek/n1gXpNu9ftPbxVg2WX
+	mBOq1ceiaQWrBenAk43fEFrDSHyWuiTfZm5pNUjWpgFZn7Y51MpLtxRrSUfR0R8r0QucBqDWNVZ
+	C4w6F48uBVvVoQ3pV1FXTwD5CN4hhqdoatAmBRsedgzs+vYDAd3MKGcqgTt0Tb7iPGaYX86YrTb
+	9huQXZYhqvYGF3JwUpZZw7DnQgHYh7Ke1SJlj5KcrGPPLOlfkWW9mJWVs+6fOP7UoQaQkWBITLS
+	VWhYmXthnB48PqoSxH0bwne5p01GnIV8KPk7+MldslB4HWAp2UWS/Nno9K9d2j1nGP40uwz5Gc1
+	1CYe78awPOJoGFgwWkLXcqjzf1xwXfeEo7IvSxGXRi9hd0NrWQ/JGT+VTPr8vftzjzvq3ugc+/I
+	tucI7Y3CCEHv+SqO73onZAXsxFfXOCkQHTL7SkYc2N/kdcj9lh9Nw=
+X-Received: by 2002:a05:6820:1351:b0:6da:e0c:c3b4 with SMTP id 006d021491bc7-71ab50c0a93mr2295214eaf.59.1794593717236;
+        Fri, 13 Nov 2026 10:15:17 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628817d979sm3253414a34.22.2026.11.13.10.15.14
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628817d979sm3253414a34.22.2026.11.13.10.15.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:15:14 -0800 (PST)
+        Fri, 13 Nov 2026 10:15:16 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 13 Nov 2026 11:14:17 -0700
-Subject: [PATCH v4 01/58] nvmem: disconnect provider callbacks before
- unregister returns
+Date: Fri, 13 Nov 2026 11:14:19 -0700
+Subject: [PATCH v4 03/58] mtd: separate class devices from retained backing
+ objects
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-1-556b1d7c6221@gmail.com>
+Message-Id: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-3-556b1d7c6221@gmail.com>
 References: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
 In-Reply-To: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -107,1235 +107,2739 @@ Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
  Srinivas Kandagatla <srini@kernel.org>, Tze Yee Ng <tze.yee.ng@altera.com>
 X-Mailer: b4 0.15.2
 
-An NVMEM consumer or device reference can outlive provider unbind. The
-reference retains the NVMEM allocation, but not the private data or
-hardware resources that the provider releases during remove. Pinning the
-provider module also does not prevent unbind from freeing that state.
+MTD handles retain registered nodes, but not the backing allocation
+owned by the controller driver. An open partition can therefore refer to
+freed master metadata after unbind. Bare device references introduce
+another lifetime: their final put may run after both the driver and MTD
+modules have unloaded.
 
-Reject new callback access once unregister starts and drain admitted
-accesses with SRCU before returning to the provider. Cover register
-access, keepout handling, cell post-processing and device matching.
-Existing consumers retain core-owned metadata and return -ENODEV after
-disconnection. Release the write-protect GPIO after the drain so
-retained references do not prevent a new provider from requesting it.
-The final device release frees only core-owned data.
+Allocate class devices separately from mtd_info. Delete their
+interfaces, drain NVMEM access and clear module-owned pointers before
+dropping MTD metadata. Keep the class object, device type, PM dispatch
+and final device-data release in a small built-in component, including
+when MTD is modular. A bare device reference then retains data without
+requiring a callback into an unloaded module.
 
-Give cell entries their own references and retire layout cells when
-their driver is unbound. Remove and drain cell attributes and callbacks
-before layout-owned state is freed. Rebinding creates new entries; held
-old cells remain disconnected. Remove partially added cells when a
-layout probe fails, and destroy the layout during provider unregister
-rather than at the final consumer put.
+The PM core can retain a class device across removal. Clear its backing
+association under the device lock, which also covers PM callback lookup
+and execution, so active callbacks finish before metadata is released.
+Later callbacks find no backing object and return without accessing it.
+Keep the attribute groups on the device and detach them after
+device_del() has drained their callbacks.
 
-Track layout ownership explicitly so provider cells added after layout
-creation survive its unbind. Rebuild sysfs cell attributes when layouts
-bind or unbind, retaining cell entries until their attributes have been
-removed. Free partial attribute allocations on failure and remove the
-group before device deletion. Only notify provider removal after a
-successful registration notification.
+Add optional backing ownership initialized by mtd_set_release(). The
+driver, registered nodes and acquired MTD handles each hold a reference.
+Retained nested partitions also own references to their parent metadata.
+Drop the driver's reference with mtd_put_master() after unregister and
+hardware disconnection; final metadata cleanup must not access released
+resources.
 
-Preserve the existing exporter-module references and allow providers
-to specify an explicit NULL owner when their operations are built in.
-Providers remain responsible for unregistering before releasing
-callback state.
+Finish driver cleanup before dropping its initial reference. Final
+release belongs to the subsystem core providing the MTD operations and
+only frees retained data. The existing MTD handle ownership keeps that
+core resident; it does not require keeping the controller driver loaded
+or waiting for userspace to close files during module removal.
 
-Retain the firmware node explicitly and serialize consumer-reference
-acquisition with disconnection. This lets MTD unregister an OTP provider
-before freeing its backing object without requiring a release callback
-into the departing provider module.
+Distinguish registration from retained references, rejecting new opens
+of removed devices. Balance direct master opens even with
+partitioned-master support disabled, independently of later publication.
+Remove the IDR entry at the final MTD put, when the corresponding NVMEM
+name is unregistered.
 
+Keep partition publication and registration under the partition lock.
+Retain a handle while parsing subpartitions outside the lock and reject
+new children if their parent was removed. This prevents deletion from
+finding a partition before its class device exists or freeing it while
+the parser is still using it.
+
+Keep subordinate directories conditional on CONFIG_MTD, so boolean
+options below a modular core do not become built-in references to it.
+Pass the MTD operation owner explicitly to NVMEM, including NULL for
+built-in operations, instead of falling back to the controller module.
+
+Update MTD users for the separate class device, parent and firmware-node
+fields. Registration failures detach the device before returning backing
+storage to the caller, including when device release is deferred.
+
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Srinivas Kandagatla <srini@kernel.org>
 Cc: Tze Yee Ng <tze.yee.ng@altera.com>
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/nvmem/Kconfig                |   1 +
- drivers/nvmem/core.c                 | 463 +++++++++++++++++++++++------------
- drivers/nvmem/internals.h            |  16 +-
- drivers/nvmem/layouts.c              |   2 +
- drivers/nvmem/layouts/fixed-layout.c |   2 +-
- drivers/nvmem/layouts/onie-tlv.c     |  20 +-
- drivers/nvmem/layouts/sl28vpd.c      |   3 +-
- drivers/nvmem/layouts/u-boot-env.c   |  25 +-
- include/linux/nvmem-provider.h       |  16 +-
- 9 files changed, 373 insertions(+), 175 deletions(-)
+ drivers/Makefile                                   |   2 +-
+ drivers/media/pci/cobalt/cobalt-flash.c            |   2 +-
+ drivers/mtd/Kconfig                                |   4 +
+ drivers/mtd/Makefile                               |   5 +-
+ drivers/mtd/devices/bcm47xxsflash.c                |   2 +-
+ drivers/mtd/devices/docg3.c                        |   4 +-
+ drivers/mtd/devices/mchp23k256.c                   |   2 +-
+ drivers/mtd/devices/mchp48l640.c                   |   2 +-
+ drivers/mtd/devices/mtd_dataflash.c                |   2 +-
+ drivers/mtd/devices/mtd_intel_dg.c                 |  30 +--
+ drivers/mtd/devices/powernv_flash.c                |   4 +-
+ drivers/mtd/devices/spear_smi.c                    |   2 +-
+ drivers/mtd/devices/sst25l.c                       |   2 +-
+ drivers/mtd/devices/st_spi_fsm.c                   |   8 +-
+ drivers/mtd/hyperbus/hyperbus-core.c               |   2 +-
+ drivers/mtd/lpddr/lpddr2_nvm.c                     |   2 +-
+ drivers/mtd/maps/lantiq-flash.c                    |   2 +-
+ drivers/mtd/maps/physmap-core.c                    |   2 +-
+ drivers/mtd/maps/plat-ram.c                        |   2 +-
+ drivers/mtd/maps/pxa2xx-flash.c                    |   2 +-
+ drivers/mtd/maps/sa1100-flash.c                    |   2 +-
+ drivers/mtd/maps/vmu-flash.c                       |   2 +-
+ drivers/mtd/mtd_blkdevs.c                          |   2 +-
+ drivers/mtd/mtd_virt_concat.c                      |  10 +-
+ drivers/mtd/mtdcore.c                              | 284 +++++++++++++--------
+ drivers/mtd/mtdcore.h                              |   5 +
+ drivers/mtd/mtddevice.c                            |  59 +++++
+ drivers/mtd/mtddevice.h                            |  12 +
+ drivers/mtd/mtdpart.c                              |  49 ++--
+ drivers/mtd/mtdpstore.c                            |  50 ++--
+ drivers/mtd/nand/ecc.c                             |   3 +-
+ drivers/mtd/nand/onenand/generic.c                 |   2 +-
+ drivers/mtd/nand/onenand/onenand_omap2.c           |   2 +-
+ drivers/mtd/nand/onenand/onenand_samsung.c         |   2 +-
+ drivers/mtd/nand/raw/ams-delta.c                   |   4 +-
+ drivers/mtd/nand/raw/arasan-nand-controller.c      |   2 +-
+ drivers/mtd/nand/raw/atmel/nand-controller.c       |   2 +-
+ drivers/mtd/nand/raw/au1550nd.c                    |   2 +-
+ drivers/mtd/nand/raw/bcm47xxnflash/main.c          |   2 +-
+ drivers/mtd/nand/raw/brcmnand/brcmnand.c           |   2 +-
+ drivers/mtd/nand/raw/cadence-nand-controller.c     |   2 +-
+ drivers/mtd/nand/raw/cafe_nand.c                   |   2 +-
+ drivers/mtd/nand/raw/davinci_nand.c                |   2 +-
+ drivers/mtd/nand/raw/denali.c                      |   2 +-
+ drivers/mtd/nand/raw/fsl_elbc_nand.c               |   2 +-
+ drivers/mtd/nand/raw/fsl_ifc_nand.c                |   2 +-
+ drivers/mtd/nand/raw/fsl_upm.c                     |   2 +-
+ drivers/mtd/nand/raw/fsmc_nand.c                   |   2 +-
+ drivers/mtd/nand/raw/gpio.c                        |   2 +-
+ drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c         |   2 +-
+ drivers/mtd/nand/raw/hisi504_nand.c                |   2 +-
+ drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c    |   2 +-
+ drivers/mtd/nand/raw/intel-nand-controller.c       |   2 +-
+ drivers/mtd/nand/raw/loongson-nand-controller.c    |   2 +-
+ drivers/mtd/nand/raw/lpc32xx_mlc.c                 |  18 +-
+ drivers/mtd/nand/raw/lpc32xx_slc.c                 |  18 +-
+ drivers/mtd/nand/raw/marvell_nand.c                |   2 +-
+ drivers/mtd/nand/raw/meson_nand.c                  |   2 +-
+ drivers/mtd/nand/raw/mpc5121_nfc.c                 |   2 +-
+ drivers/mtd/nand/raw/mtk_nand.c                    |   4 +-
+ drivers/mtd/nand/raw/mxc_nand.c                    |   4 +-
+ drivers/mtd/nand/raw/mxic_nand.c                   |   2 +-
+ drivers/mtd/nand/raw/nand_base.c                   |   4 +-
+ drivers/mtd/nand/raw/nand_macronix.c               |   4 +-
+ drivers/mtd/nand/raw/nand_onfi.c                   |   4 +-
+ drivers/mtd/nand/raw/ndfc.c                        |   2 +-
+ .../mtd/nand/raw/nuvoton-ma35d1-nand-controller.c  |   6 +-
+ drivers/mtd/nand/raw/omap2.c                       |   2 +-
+ drivers/mtd/nand/raw/orion_nand.c                  |   2 +-
+ drivers/mtd/nand/raw/pasemi_nand.c                 |   2 +-
+ drivers/mtd/nand/raw/pl35x-nand-controller.c       |   2 +-
+ drivers/mtd/nand/raw/plat_nand.c                   |   2 +-
+ drivers/mtd/nand/raw/qcom_nandc.c                  |   2 +-
+ drivers/mtd/nand/raw/r852.c                        |   8 +-
+ drivers/mtd/nand/raw/renesas-nand-controller.c     |   2 +-
+ drivers/mtd/nand/raw/rockchip-nand-controller.c    |   4 +-
+ drivers/mtd/nand/raw/sh_flctl.c                    |   2 +-
+ drivers/mtd/nand/raw/sharpsl.c                     |   2 +-
+ drivers/mtd/nand/raw/socrates_nand.c               |   2 +-
+ drivers/mtd/nand/raw/stm32_fmc2_nand.c             |   2 +-
+ drivers/mtd/nand/raw/sunxi_nand.c                  |   2 +-
+ drivers/mtd/nand/raw/technologic-nand-controller.c |   2 +-
+ drivers/mtd/nand/raw/tegra_nand.c                  |   2 +-
+ drivers/mtd/nand/raw/txx9ndfmc.c                   |   2 +-
+ drivers/mtd/nand/raw/vf610_nfc.c                   |   2 +-
+ drivers/mtd/nand/raw/xway_nand.c                   |   2 +-
+ drivers/mtd/nand/spi/core.c                        |   2 +-
+ drivers/mtd/nand/spi/esmt.c                        |   2 +-
+ drivers/mtd/nand/spi/micron.c                      |   4 +-
+ drivers/mtd/nand/spi/otp.c                         |   2 +-
+ drivers/mtd/spi-nor/core.c                         |   2 +-
+ drivers/mtd/ubi/build.c                            |   2 +-
+ include/linux/mtd/mtd.h                            |  20 +-
+ 93 files changed, 463 insertions(+), 298 deletions(-)
 
-diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-index c36c2a4c2a0b..550f3118071a 100644
---- a/drivers/nvmem/Kconfig
-+++ b/drivers/nvmem/Kconfig
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- menuconfig NVMEM
- 	bool "NVMEM Support"
-+	select SRCU
- 	imply NVMEM_LAYOUTS
+diff --git a/drivers/Makefile b/drivers/Makefile
+index 0841ea851847..86adb803c79a 100644
+--- a/drivers/Makefile
++++ b/drivers/Makefile
+@@ -84,7 +84,7 @@ obj-y				+= scsi/
+ obj-y				+= nvme/
+ obj-$(CONFIG_ATA)		+= ata/
+ obj-$(CONFIG_TARGET_CORE)	+= target/
+-obj-$(CONFIG_MTD)		+= mtd/
++obj-$(CONFIG_MTD_DEVICE)		+= mtd/
+ obj-$(CONFIG_SPI)		+= spi/
+ obj-$(CONFIG_SPMI)		+= spmi/
+ obj-$(CONFIG_HSI)		+= hsi/
+diff --git a/drivers/media/pci/cobalt/cobalt-flash.c b/drivers/media/pci/cobalt/cobalt-flash.c
+index 1d3c64b4cf6d..14f87cd54b9c 100644
+--- a/drivers/media/pci/cobalt/cobalt-flash.c
++++ b/drivers/media/pci/cobalt/cobalt-flash.c
+@@ -102,7 +102,7 @@ int cobalt_flash_probe(struct cobalt *cobalt)
+ 	}
+ 
+ 	mtd->owner = THIS_MODULE;
+-	mtd->dev.parent = &cobalt->pci_dev->dev;
++	mtd->parent_dev = &cobalt->pci_dev->dev;
+ 	mtd_device_register(mtd, NULL, 0);
+ 	return 0;
+ }
+diff --git a/drivers/mtd/Kconfig b/drivers/mtd/Kconfig
+index 0421c6208de7..d13a065874ba 100644
+--- a/drivers/mtd/Kconfig
++++ b/drivers/mtd/Kconfig
+@@ -1,5 +1,9 @@
++config MTD_DEVICE
++	bool
++
+ menuconfig MTD
+ 	tristate "Memory Technology Device (MTD) support"
++	select MTD_DEVICE
+ 	imply NVMEM
  	help
- 	  Support for NVMEM(Non Volatile Memory) devices like EEPROM, EFUSES...
-diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-index 0556d140170a..b71d80d140dd 100644
---- a/drivers/nvmem/core.c
-+++ b/drivers/nvmem/core.c
-@@ -13,6 +13,7 @@
- #include <linux/idr.h>
- #include <linux/init.h>
- #include <linux/kref.h>
-+#include <linux/lockdep.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/nvmem-consumer.h>
-@@ -26,7 +27,11 @@
- #define to_nvmem_device(d) container_of(d, struct nvmem_device, dev)
+ 	  Memory Technology Devices are flash, RAM and similar chips, often
+diff --git a/drivers/mtd/Makefile b/drivers/mtd/Makefile
+index 7b6dd53e8150..ebe27c88c4ae 100644
+--- a/drivers/mtd/Makefile
++++ b/drivers/mtd/Makefile
+@@ -4,11 +4,12 @@
+ #
  
- #define FLAG_COMPAT		BIT(0)
-+#define FLAG_REGISTERED		BIT(1)
- struct nvmem_cell_entry {
-+	struct kref		refcnt;
-+	bool			disconnected;
-+	struct nvmem_layout	*layout;
- 	const char		*name;
- 	int			offset;
- 	size_t			raw_len;
-@@ -54,31 +59,30 @@ static LIST_HEAD(nvmem_lookup_list);
+ # Core functionality.
++obj-$(CONFIG_MTD_DEVICE)		+= mtddevice.o
+ obj-$(CONFIG_MTD)		+= mtd.o
+ mtd-y				:= mtdcore.o mtdsuper.o mtdconcat.o mtdpart.o mtdchar.o
+ mtd-$(CONFIG_MTD_VIRT_CONCAT)	+= mtd_virt_concat.o
  
- static BLOCKING_NOTIFIER_HEAD(nvmem_notifier);
+-obj-y				+= parsers/
++obj-$(CONFIG_MTD)		+= parsers/
  
-+static void nvmem_cell_entry_put(struct nvmem_cell_entry *cell);
-+
- static int __nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
- 			    void *val, size_t bytes)
- {
--	struct nvmem_operations *ops = nvmem->ops;
--
--	if (!ops->reg_read)
-+	if (!nvmem->reg_read)
- 		return -EOPNOTSUPP;
+ # 'Users' - code which presents functionality to userspace.
+ obj-$(CONFIG_MTD_BLKDEVS)	+= mtd_blkdevs.o
+@@ -27,7 +28,7 @@ obj-$(CONFIG_MTD_SWAP)		+= mtdswap.o
+ nftl-objs		:= nftlcore.o nftlmount.o
+ inftl-objs		:= inftlcore.o inftlmount.o
  
--	return ops->reg_read(nvmem->priv, offset, val, bytes);
-+	return nvmem->reg_read(nvmem->priv, offset, val, bytes);
- }
+-obj-y		+= chips/ lpddr/ maps/ devices/ nand/ tests/
++obj-$(CONFIG_MTD)	+= chips/ lpddr/ maps/ devices/ nand/ tests/
  
- static int __nvmem_reg_write(struct nvmem_device *nvmem, unsigned int offset,
- 			     void *val, size_t bytes)
- {
--	struct nvmem_operations *ops = nvmem->ops;
- 	int ret, wr_ok;
+ obj-$(CONFIG_MTD_SPI_NOR)	+= spi-nor/
+ obj-$(CONFIG_MTD_UBI)		+= ubi/
+diff --git a/drivers/mtd/devices/bcm47xxsflash.c b/drivers/mtd/devices/bcm47xxsflash.c
+index 2edc46741774..bb18ed449c1c 100644
+--- a/drivers/mtd/devices/bcm47xxsflash.c
++++ b/drivers/mtd/devices/bcm47xxsflash.c
+@@ -252,7 +252,7 @@ static void bcm47xxsflash_fill_mtd(struct bcm47xxsflash *b47s,
+ 	struct mtd_info *mtd = &b47s->mtd;
  
--	if (!ops->reg_write)
-+	if (!nvmem->reg_write)
- 		return -EOPNOTSUPP;
+ 	mtd->priv = b47s;
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 	mtd->name = "bcm47xxsflash";
  
- 	ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 0);
- 	if (ret)
- 		return ret;
- 
--	wr_ok = ops->reg_write(nvmem->priv, offset, val, bytes);
-+	wr_ok = nvmem->reg_write(nvmem->priv, offset, val, bytes);
- 
- 	ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 1);
- 	if (ret)
-@@ -154,6 +158,10 @@ static int nvmem_access_with_keepouts(struct nvmem_device *nvmem,
- static int nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
- 			  void *val, size_t bytes)
- {
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected))
-+		return -ENODEV;
-+
- 	if (!nvmem->nkeepout)
- 		return __nvmem_reg_read(nvmem, offset, val, bytes);
- 
-@@ -163,6 +171,10 @@ static int nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
- static int nvmem_reg_write(struct nvmem_device *nvmem, unsigned int offset,
- 			   void *val, size_t bytes)
- {
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected))
-+		return -ENODEV;
-+
- 	if (!nvmem->nkeepout)
- 		return __nvmem_reg_write(nvmem, offset, val, bytes);
- 
-@@ -289,8 +301,6 @@ static ssize_t bin_attr_nvmem_write(struct file *filp, struct kobject *kobj,
- 
- static umode_t nvmem_bin_attr_get_umode(struct nvmem_device *nvmem)
- {
--	struct nvmem_operations *ops = nvmem->ops;
--
- 	umode_t mode = 0400;
- 
- 	if (!nvmem->root_only)
-@@ -299,10 +309,10 @@ static umode_t nvmem_bin_attr_get_umode(struct nvmem_device *nvmem)
- 	if (!nvmem->read_only)
- 		mode |= 0200;
- 
--	if (!ops->reg_write)
-+	if (!nvmem->reg_write)
- 		mode &= ~0200;
- 
--	if (!ops->reg_read)
-+	if (!nvmem->reg_read)
- 		mode &= ~0444;
- 
- 	return mode;
-@@ -333,7 +343,6 @@ static umode_t nvmem_attr_is_visible(struct kobject *kobj,
- {
- 	struct device *dev = kobj_to_dev(kobj);
- 	struct nvmem_device *nvmem = to_nvmem_device(dev);
--	struct nvmem_operations *ops = nvmem->ops;
- 
- 	/*
- 	 * If the device has no .reg_write operation, do not allow
-@@ -342,7 +351,7 @@ static umode_t nvmem_attr_is_visible(struct kobject *kobj,
- 	 * can be forced into read-write mode using the 'force_ro'
- 	 * attribute.
- 	 */
--	if (attr == &dev_attr_force_ro.attr && !ops->reg_write)
-+	if (attr == &dev_attr_force_ro.attr && !nvmem->reg_write)
- 		return 0;	/* Attribute not visible */
- 
- 	return attr->mode;
-@@ -466,59 +475,102 @@ static void nvmem_sysfs_remove_compat(struct nvmem_device *nvmem)
- 		device_remove_bin_file(nvmem->base_dev, &nvmem->eeprom);
- }
- 
--static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
-+static void nvmem_sysfs_free_cell_attrs(const struct bin_attribute * const *attrs)
- {
--	struct attribute_group group = {
--		.name	= "cells",
--	};
--	struct nvmem_cell_entry *entry;
--	const struct bin_attribute **pattrs;
--	struct bin_attribute *attrs;
--	unsigned int ncells = 0, i = 0;
--	int ret;
-+	if (!attrs)
-+		return;
- 
--	guard(mutex)(&nvmem_mutex);
-+	for (int i = 0; attrs[i]; i++) {
-+		nvmem_cell_entry_put(attrs[i]->private);
-+		kfree(attrs[i]->attr.name);
-+		kfree(attrs[i]);
-+	}
-+	kfree(attrs);
-+}
- 
--	if (list_empty(&nvmem->cells) || nvmem->sysfs_cells_populated)
--		return 0;
-+static void __nvmem_sysfs_remove_cells(struct nvmem_device *nvmem)
-+{
-+	lockdep_assert_held(&nvmem->sysfs_mutex);
- 
--	/* Allocate an array of attributes with a sentinel */
--	ncells = list_count_nodes(&nvmem->cells);
--	pattrs = devm_kcalloc(&nvmem->dev, ncells + 1,
--			      sizeof(struct bin_attribute *), GFP_KERNEL);
--	if (!pattrs)
--		return -ENOMEM;
-+	if (!nvmem->sysfs_cells_populated)
-+		return;
- 
--	attrs = devm_kcalloc(&nvmem->dev, ncells, sizeof(struct bin_attribute), GFP_KERNEL);
--	if (!attrs)
--		return -ENOMEM;
-+	device_remove_group(&nvmem->dev, &nvmem->cells_group);
-+	nvmem_sysfs_free_cell_attrs(nvmem->cells_group.bin_attrs);
-+	nvmem->cells_group.bin_attrs = NULL;
-+	nvmem->sysfs_cells_populated = false;
-+}
-+
-+static void nvmem_sysfs_remove_cells(struct nvmem_device *nvmem)
-+{
-+	guard(mutex)(&nvmem->sysfs_mutex);
-+	__nvmem_sysfs_remove_cells(nvmem);
-+}
-+
-+static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
-+{
-+	struct nvmem_cell_entry *entry;
-+	const struct bin_attribute **attrs = NULL;
-+	unsigned int i = 0;
-+	int ret = 0;
- 
--	/* Initialize each attribute to take the name and size of the cell */
--	list_for_each_entry(entry, &nvmem->cells, node) {
--		sysfs_bin_attr_init(&attrs[i]);
--		attrs[i].attr.name = devm_kasprintf(&nvmem->dev, GFP_KERNEL,
--						    "%s@%x,%x", entry->name,
--						    entry->offset,
--						    entry->bit_offset);
--		attrs[i].attr.mode = 0444 & nvmem_bin_attr_get_umode(nvmem);
--		attrs[i].size = entry->bytes;
--		attrs[i].read = &nvmem_cell_attr_read;
--		attrs[i].private = entry;
--		if (!attrs[i].attr.name)
-+	guard(mutex)(&nvmem->sysfs_mutex);
-+
-+	__nvmem_sysfs_remove_cells(nvmem);
-+
-+	scoped_guard(mutex, &nvmem_mutex) {
-+		if (nvmem->disconnected)
-+			return -ENODEV;
-+		if (list_empty(&nvmem->cells))
-+			return 0;
-+
-+		attrs = kcalloc(list_count_nodes(&nvmem->cells) + 1,
-+				sizeof(*attrs), GFP_KERNEL);
-+		if (!attrs)
- 			return -ENOMEM;
- 
--		pattrs[i] = &attrs[i];
--		i++;
-+		list_for_each_entry(entry, &nvmem->cells, node) {
-+			struct bin_attribute *attr;
-+
-+			attr = kzalloc_obj(*attr);
-+			if (!attr) {
-+				ret = -ENOMEM;
-+				break;
-+			}
-+			sysfs_bin_attr_init(attr);
-+			attr->attr.name = kasprintf(GFP_KERNEL, "%s@%x,%x",
-+						   entry->name, entry->offset,
-+						   entry->bit_offset);
-+			if (!attr->attr.name) {
-+				kfree(attr);
-+				ret = -ENOMEM;
-+				break;
-+			}
-+			attr->attr.mode = 0444 & nvmem_bin_attr_get_umode(nvmem);
-+			attr->size = entry->bytes;
-+			attr->read = nvmem_cell_attr_read;
-+			attr->private = entry;
-+			kref_get(&entry->refcnt);
-+			attrs[i++] = attr;
-+		}
+ 	mtd->type = MTD_NORFLASH;
+diff --git a/drivers/mtd/devices/docg3.c b/drivers/mtd/devices/docg3.c
+index 603fd0efc2ea..9e582457f8b5 100644
+--- a/drivers/mtd/devices/docg3.c
++++ b/drivers/mtd/devices/docg3.c
+@@ -1730,7 +1730,7 @@ static void __init doc_dbg_register(struct mtd_info *floor)
+ 	if (IS_ERR_OR_NULL(root)) {
+ 		if (IS_ENABLED(CONFIG_DEBUG_FS) &&
+ 		    !IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER))
+-			dev_warn(floor->dev.parent,
++			dev_warn(floor->parent_dev,
+ 				 "CONFIG_MTD_PARTITIONED_MASTER must be enabled to expose debugfs stuff\n");
+ 		return;
  	}
-+	if (ret)
-+		goto err_free;
+@@ -1817,7 +1817,7 @@ doc_probe_device(struct docg3_cascade *cascade, int floor, struct device *dev)
+ 	if (!mtd)
+ 		goto nomem2;
+ 	mtd->priv = docg3;
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 	bbt_nbpages = DIV_ROUND_UP(docg3->max_block + 1,
+ 				   8 * DOC_LAYOUT_PAGE_SIZE);
+ 	docg3->bbt = kcalloc(DOC_LAYOUT_PAGE_SIZE, bbt_nbpages, GFP_KERNEL);
+diff --git a/drivers/mtd/devices/mchp23k256.c b/drivers/mtd/devices/mchp23k256.c
+index 66e058df4c32..65975d426973 100644
+--- a/drivers/mtd/devices/mchp23k256.c
++++ b/drivers/mtd/devices/mchp23k256.c
+@@ -193,7 +193,7 @@ static int mchp23k256_probe(struct spi_device *spi)
+ 		flash->caps = &mchp23k256_caps;
  
--	group.bin_attrs = pattrs;
-+	nvmem->cells_group.name = "cells";
-+	nvmem->cells_group.bin_attrs = attrs;
+ 	mtd_set_of_node(&flash->mtd, spi->dev.of_node);
+-	flash->mtd.dev.parent	= &spi->dev;
++	flash->mtd.parent_dev	= &spi->dev;
+ 	flash->mtd.type		= MTD_RAM;
+ 	flash->mtd.flags	= MTD_CAP_RAM;
+ 	flash->mtd.writesize	= 1;
+diff --git a/drivers/mtd/devices/mchp48l640.c b/drivers/mtd/devices/mchp48l640.c
+index 4af9208f9690..1768a79024ea 100644
+--- a/drivers/mtd/devices/mchp48l640.c
++++ b/drivers/mtd/devices/mchp48l640.c
+@@ -340,7 +340,7 @@ static int mchp48l640_probe(struct spi_device *spi)
+ 		flash->caps = &mchp48l640_caps;
  
--	ret = device_add_group(&nvmem->dev, &group);
--	if (ret)
--		return ret;
-+	ret = device_add_group(&nvmem->dev, &nvmem->cells_group);
-+	if (ret) {
-+		nvmem->cells_group.bin_attrs = NULL;
-+		goto err_free;
-+	}
+ 	mtd_set_of_node(&flash->mtd, spi->dev.of_node);
+-	flash->mtd.dev.parent	= &spi->dev;
++	flash->mtd.parent_dev	= &spi->dev;
+ 	flash->mtd.type		= MTD_RAM;
+ 	flash->mtd.flags	= MTD_CAP_RAM;
+ 	flash->mtd.writesize	= flash->caps->page_size;
+diff --git a/drivers/mtd/devices/mtd_dataflash.c b/drivers/mtd/devices/mtd_dataflash.c
+index e766258d76f7..72158ee7518f 100644
+--- a/drivers/mtd/devices/mtd_dataflash.c
++++ b/drivers/mtd/devices/mtd_dataflash.c
+@@ -653,7 +653,7 @@ static int add_dataflash_otp(struct spi_device *spi, char *name, int nr_pages,
+ 	device->_write = dataflash_write;
+ 	device->priv = priv;
  
- 	nvmem->sysfs_cells_populated = true;
-+	return 0;
+-	device->dev.parent = &spi->dev;
++	device->parent_dev = &spi->dev;
+ 	mtd_set_of_node(device, spi->dev.of_node);
  
-+err_free:
-+	nvmem_sysfs_free_cell_attrs(attrs);
- 	return ret;
- }
- 
-@@ -533,6 +585,10 @@ static void nvmem_sysfs_remove_compat(struct nvmem_device *nvmem)
- {
- }
- 
-+static void nvmem_sysfs_remove_cells(struct nvmem_device *nvmem)
-+{
-+}
-+
- #endif /* CONFIG_NVMEM_SYSFS */
- 
- static void nvmem_release(struct device *dev)
-@@ -540,8 +596,8 @@ static void nvmem_release(struct device *dev)
- 	struct nvmem_device *nvmem = to_nvmem_device(dev);
- 
- 	ida_free(&nvmem_ida, nvmem->id);
--	gpiod_put(nvmem->wp_gpio);
--	kfree(nvmem->ops);
-+	of_node_put(nvmem->dev.of_node);
-+	cleanup_srcu_struct(&nvmem->srcu);
- 	kfree(nvmem);
- }
- 
-@@ -553,22 +609,30 @@ static const struct bus_type nvmem_bus_type = {
- 	.name		= "nvmem",
- };
- 
--static void nvmem_cell_entry_drop(struct nvmem_cell_entry *cell)
-+static void nvmem_cell_entry_release(struct kref *ref)
- {
--	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_CELL_REMOVE, cell);
--	scoped_guard(mutex, &nvmem_mutex)
--		list_del(&cell->node);
-+	struct nvmem_cell_entry *cell = container_of(ref, struct nvmem_cell_entry, refcnt);
-+
- 	of_node_put(cell->np);
- 	kfree_const(cell->name);
- 	kfree(cell);
- }
- 
-+static void nvmem_cell_entry_put(struct nvmem_cell_entry *cell)
-+{
-+	kref_put(&cell->refcnt, nvmem_cell_entry_release);
-+}
-+
- static void nvmem_device_remove_all_cells(const struct nvmem_device *nvmem)
- {
- 	struct nvmem_cell_entry *cell, *p;
- 
--	list_for_each_entry_safe(cell, p, &nvmem->cells, node)
--		nvmem_cell_entry_drop(cell);
-+	list_for_each_entry_safe(cell, p, &nvmem->cells, node) {
-+		blocking_notifier_call_chain(&nvmem_notifier, NVMEM_CELL_REMOVE, cell);
-+		scoped_guard(mutex, &nvmem_mutex)
-+			list_del(&cell->node);
-+		nvmem_cell_entry_put(cell);
-+	}
- }
- 
- static void nvmem_cell_entry_add(struct nvmem_cell_entry *cell)
-@@ -583,6 +647,7 @@ static int nvmem_cell_info_to_nvmem_cell_entry_nodup(struct nvmem_device *nvmem,
- 						     struct nvmem_cell_entry *cell)
- {
- 	cell->nvmem = nvmem;
-+	cell->disconnected = false;
- 	cell->offset = info->offset;
- 	cell->raw_len = info->raw_len ?: info->bytes;
- 	cell->bytes = info->bytes;
-@@ -639,20 +704,17 @@ static int nvmem_cell_info_to_nvmem_cell_entry(struct nvmem_device *nvmem,
- 	return 0;
- }
- 
--/**
-- * nvmem_add_one_cell() - Add one cell information to an nvmem device
-- *
-- * @nvmem: nvmem device to add cells to.
-- * @info: nvmem cell info to add to the device
-- *
-- * Return: 0 or negative error code on failure.
-- */
--int nvmem_add_one_cell(struct nvmem_device *nvmem,
--		       const struct nvmem_cell_info *info)
-+static int __nvmem_add_one_cell(struct nvmem_device *nvmem,
-+				const struct nvmem_cell_info *info,
-+				struct nvmem_layout *layout)
- {
- 	struct nvmem_cell_entry *cell;
- 	int rval;
- 
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected))
-+		return -ENODEV;
-+
- 	cell = kzalloc_obj(*cell);
- 	if (!cell)
- 		return -ENOMEM;
-@@ -663,12 +725,45 @@ int nvmem_add_one_cell(struct nvmem_device *nvmem,
- 		return rval;
- 	}
- 
-+	kref_init(&cell->refcnt);
-+	cell->layout = layout;
- 	nvmem_cell_entry_add(cell);
- 
- 	return 0;
- }
-+
-+/**
-+ * nvmem_add_one_cell() - Add one cell information to an nvmem device
-+ *
-+ * @nvmem: nvmem device to add cells to.
-+ * @info: nvmem cell info to add to the device
-+ *
-+ * Return: 0 or negative error code on failure.
-+ */
-+int nvmem_add_one_cell(struct nvmem_device *nvmem,
-+		       const struct nvmem_cell_info *info)
-+{
-+	return __nvmem_add_one_cell(nvmem, info, NULL);
-+}
- EXPORT_SYMBOL_GPL(nvmem_add_one_cell);
- 
-+/**
-+ * nvmem_layout_add_cell() - Add a cell owned by an NVMEM layout
-+ * @layout: Layout registering the cell from its add_cells callback.
-+ * @info: Cell description.
-+ *
-+ * The cell and its post-processing callback are disconnected when the layout
-+ * is unregistered. Provider cells added with nvmem_add_one_cell() are retained.
-+ *
-+ * Return: 0 or a negative error code.
-+ */
-+int nvmem_layout_add_cell(struct nvmem_layout *layout,
-+			  const struct nvmem_cell_info *info)
-+{
-+	return __nvmem_add_one_cell(layout->nvmem, info, layout);
-+}
-+EXPORT_SYMBOL_GPL(nvmem_layout_add_cell);
-+
- /**
-  * nvmem_add_cells() - Add cell information to an nvmem device
-  *
-@@ -729,6 +824,7 @@ nvmem_find_cell_entry_by_name(struct nvmem_device *nvmem, const char *cell_id)
- 	list_for_each_entry(iter, &nvmem->cells, node) {
- 		if (strcmp(cell_id, iter->name) == 0) {
- 			cell = iter;
-+			kref_get(&cell->refcnt);
- 			break;
- 		}
- 	}
-@@ -789,12 +885,17 @@ static int nvmem_validate_keepouts(struct nvmem_device *nvmem)
- 	return 0;
- }
- 
--int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
-+static int __nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np,
-+				     struct nvmem_layout *layout)
- {
- 	struct device *dev = &nvmem->dev;
- 	const __be32 *addr;
- 	int len, ret;
- 
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected))
-+		return -ENODEV;
-+
- 	for_each_child_of_node_scoped(np, child) {
- 		struct nvmem_cell_info info = {0};
- 
-@@ -827,7 +928,7 @@ int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
- 		if (nvmem->fixup_dt_cell_info)
- 			nvmem->fixup_dt_cell_info(nvmem, &info);
- 
--		ret = nvmem_add_one_cell(nvmem, &info);
-+		ret = __nvmem_add_one_cell(nvmem, &info, layout);
- 		kfree(info.name);
- 		if (ret) {
- 			of_node_put(info.np);
-@@ -837,8 +938,19 @@ int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
- 
- 	return 0;
- }
-+
-+int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
-+{
-+	return __nvmem_add_cells_from_dt(nvmem, np, NULL);
-+}
- EXPORT_SYMBOL_GPL(nvmem_add_cells_from_dt);
- 
-+int nvmem_layout_add_cells_from_dt(struct nvmem_layout *layout, struct device_node *np)
-+{
-+	return __nvmem_add_cells_from_dt(layout->nvmem, np, layout);
-+}
-+EXPORT_SYMBOL_GPL(nvmem_layout_add_cells_from_dt);
-+
- static int nvmem_add_cells_from_legacy_of(struct nvmem_device *nvmem)
- {
- 	return nvmem_add_cells_from_dt(nvmem, nvmem->dev.of_node);
-@@ -851,29 +963,68 @@ int nvmem_layout_register(struct nvmem_layout *layout)
- 	if (!layout->add_cells)
+ 	if (revision >= 'c')
+diff --git a/drivers/mtd/devices/mtd_intel_dg.c b/drivers/mtd/devices/mtd_intel_dg.c
+index a566e86eb5e3..d4dc094fa170 100644
+--- a/drivers/mtd/devices/mtd_intel_dg.c
++++ b/drivers/mtd/devices/mtd_intel_dg.c
+@@ -510,7 +510,7 @@ static int intel_dg_mtd_erase(struct mtd_info *mtd, struct erase_info *info)
  		return -EINVAL;
  
--	/* Populate the cells */
--	ret = layout->add_cells(layout);
-+	scoped_guard(srcu, &layout->nvmem->srcu) {
-+		if (READ_ONCE(layout->nvmem->disconnected))
-+			return -ENODEV;
-+		ret = layout->add_cells(layout);
-+	}
- 	if (ret)
--		return ret;
-+		goto err_unregister;
+ 	if (!IS_ALIGNED(info->addr, SZ_4K) || !IS_ALIGNED(info->len, SZ_4K)) {
+-		dev_err(&mtd->dev, "unaligned erase %llx %llx\n",
++		dev_err(mtd->dev, "unaligned erase %llx %llx\n",
+ 			info->addr, info->len);
+ 		info->fail_addr = MTD_FAIL_ADDR_UNKNOWN;
+ 		return -EINVAL;
+@@ -521,7 +521,7 @@ static int intel_dg_mtd_erase(struct mtd_info *mtd, struct erase_info *info)
  
- #ifdef CONFIG_NVMEM_SYSFS
- 	ret = nvmem_populate_sysfs_cells(layout->nvmem);
--	if (ret) {
--		nvmem_device_remove_all_cells(layout->nvmem);
--		return ret;
--	}
-+	if (ret)
-+		goto err_unregister;
- #endif
- 
- 	return 0;
-+
-+err_unregister:
-+	nvmem_layout_unregister(layout);
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(nvmem_layout_register);
- 
- void nvmem_layout_unregister(struct nvmem_layout *layout)
- {
--	/* Keep the API even with an empty stub in case we need it later */
-+	struct nvmem_device *nvmem = layout->nvmem;
-+	struct nvmem_cell_entry *cell, *next;
-+	LIST_HEAD(cells);
-+
-+	scoped_guard(mutex, &nvmem_mutex) {
-+		list_for_each_entry_safe(cell, next, &nvmem->cells, node) {
-+			if (cell->layout != layout)
-+				continue;
-+			WRITE_ONCE(cell->disconnected, true);
-+			list_move_tail(&cell->node, &cells);
-+		}
-+	}
-+
-+	nvmem_sysfs_remove_cells(nvmem);
-+
-+	/* Old cell handles retain data, never a departing layout's callbacks. */
-+	synchronize_srcu(&nvmem->srcu);
-+	list_for_each_entry_safe(cell, next, &cells, node) {
-+		blocking_notifier_call_chain(&nvmem_notifier, NVMEM_CELL_REMOVE, cell);
-+		list_del(&cell->node);
-+		nvmem_cell_entry_put(cell);
-+	}
-+#ifdef CONFIG_NVMEM_SYSFS
-+	if (!READ_ONCE(nvmem->disconnected) && nvmem_populate_sysfs_cells(nvmem))
-+		dev_warn(&nvmem->dev, "Failed to restore provider cell attributes\n");
-+#endif
- }
- EXPORT_SYMBOL_GPL(nvmem_layout_unregister);
- 
-+static void nvmem_disconnect(struct nvmem_device *nvmem)
-+{
-+	scoped_guard(mutex, &nvmem_mutex)
-+		WRITE_ONCE(nvmem->disconnected, true);
-+	synchronize_srcu(&nvmem->srcu);
-+	gpiod_put(nvmem->wp_gpio);
-+	nvmem->wp_gpio = NULL;
-+}
-+
- /**
-  * nvmem_register() - Register a nvmem device for given nvmem_config.
-  * Also creates a binary entry in /sys/bus/nvmem/devices/dev-name/nvmem
-@@ -883,10 +1034,8 @@ EXPORT_SYMBOL_GPL(nvmem_layout_unregister);
-  * Return: Will be an ERR_PTR() on error or a valid pointer to nvmem_device
-  * on success.
-  */
--
- struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- {
--	struct nvmem_operations *ops;
- 	struct nvmem_device *nvmem;
- 	int rval;
- 
-@@ -900,15 +1049,15 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 	if (!nvmem)
- 		return ERR_PTR(-ENOMEM);
- 
--	ops = kzalloc_obj(*ops);
--	if (!ops) {
-+	rval = init_srcu_struct(&nvmem->srcu);
-+	if (rval) {
- 		kfree(nvmem);
--		return ERR_PTR(-ENOMEM);
-+		return ERR_PTR(rval);
+ 	ret = pm_runtime_resume_and_get(nvm->dev);
+ 	if (ret < 0) {
+-		dev_err(&mtd->dev, "rpm: get failed %d\n", ret);
++		dev_err(mtd->dev, "rpm: get failed %d\n", ret);
+ 		return ret;
  	}
  
- 	rval = ida_alloc(&nvmem_ida, GFP_KERNEL);
- 	if (rval < 0) {
--		kfree(ops);
-+		cleanup_srcu_struct(&nvmem->srcu);
- 		kfree(nvmem);
- 		return ERR_PTR(rval);
- 	}
-@@ -918,9 +1067,11 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 	nvmem->dev.type = &nvmem_provider_type;
- 	nvmem->dev.bus = &nvmem_bus_type;
- 	nvmem->dev.parent = config->dev;
--	nvmem->ops = ops;
+@@ -530,7 +530,7 @@ static int intel_dg_mtd_erase(struct mtd_info *mtd, struct erase_info *info)
  
- 	device_initialize(&nvmem->dev);
-+	mutex_init(&nvmem->sysfs_mutex);
-+
-+	nvmem->priv = config->priv;
- 
- 	if (!config->ignore_wp)
- 		nvmem->wp_gpio = gpiod_get_optional(config->dev, "wp",
-@@ -935,24 +1086,23 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 	INIT_LIST_HEAD(&nvmem->cells);
- 	nvmem->fixup_dt_cell_info = config->fixup_dt_cell_info;
- 
--	ops->reg_read = config->reg_read;
--	ops->reg_write = config->reg_write;
-+	nvmem->reg_read = config->reg_read;
-+	nvmem->reg_write = config->reg_write;
- 
- 	nvmem->owner = config->owner;
--	if (!nvmem->owner && config->dev->driver)
-+	if (!nvmem->owner && !config->owner_is_explicit && config->dev->driver)
- 		nvmem->owner = config->dev->driver->owner;
- 	nvmem->stride = config->stride ?: 1;
- 	nvmem->word_size = config->word_size ?: 1;
- 	nvmem->size = config->size;
- 	nvmem->root_only = config->root_only;
--	nvmem->priv = config->priv;
- 	nvmem->type = config->type;
- 	nvmem->keepout = config->keepout;
- 	nvmem->nkeepout = config->nkeepout;
- 	if (config->of_node)
--		nvmem->dev.of_node = config->of_node;
-+		nvmem->dev.of_node = of_node_get(config->of_node);
- 	else
--		nvmem->dev.of_node = config->dev->of_node;
-+		nvmem->dev.of_node = of_node_get(config->dev->of_node);
- 
- 	switch (config->id) {
- 	case NVMEM_DEVID_NONE:
-@@ -972,7 +1122,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 		goto err_put_device;
- 
- 	nvmem->read_only = device_property_present(config->dev, "read-only") ||
--			   config->read_only || !ops->reg_write;
-+			   config->read_only || !nvmem->reg_write;
- 
- #ifdef CONFIG_NVMEM_SYSFS
- 	nvmem->dev.groups = nvmem_dev_groups;
-@@ -1010,7 +1160,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 
- 	rval = nvmem_populate_layout(nvmem);
- 	if (rval)
--		goto err_remove_dev;
-+		goto err_unregister;
- 
- 	/* If the device has WP GPIO, default to read-only */
- 	if (nvmem->wp_gpio)
-@@ -1019,23 +1169,25 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- #ifdef CONFIG_NVMEM_SYSFS
- 	rval = nvmem_populate_sysfs_cells(nvmem);
- 	if (rval)
--		goto err_destroy_layout;
-+		goto err_unregister;
- #endif
- 
-+	nvmem->flags |= FLAG_REGISTERED;
- 	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_ADD, nvmem);
- 
- 	return nvmem;
- 
--#ifdef CONFIG_NVMEM_SYSFS
--err_destroy_layout:
--	nvmem_destroy_layout(nvmem);
--#endif
--err_remove_dev:
--	device_del(&nvmem->dev);
-+err_unregister:
-+	nvmem_unregister(nvmem);
-+	return ERR_PTR(rval);
- err_remove_cells:
-+	nvmem_disconnect(nvmem);
- 	nvmem_device_remove_all_cells(nvmem);
- 	nvmem_sysfs_remove_compat(nvmem);
-+	goto err_put_disconnected;
- err_put_device:
-+	nvmem_disconnect(nvmem);
-+err_put_disconnected:
- 	put_device(&nvmem->dev);
- 
- 	return ERR_PTR(rval);
-@@ -1048,24 +1200,31 @@ static void nvmem_device_release(struct kref *kref)
- 
- 	nvmem = container_of(kref, struct nvmem_device, refcnt);
- 
--	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_REMOVE, nvmem);
--
--	nvmem_sysfs_remove_compat(nvmem);
--
--	nvmem_device_remove_all_cells(nvmem);
--	nvmem_destroy_layout(nvmem);
--	device_unregister(&nvmem->dev);
-+	put_device(&nvmem->dev);
- }
- 
- /**
-  * nvmem_unregister() - Unregister previously registered nvmem device
-  *
-  * @nvmem: Pointer to previously registered nvmem device.
-+ *
-+ * Stop and drain provider callbacks before returning. Existing consumers keep
-+ * their core-owned metadata, but further access returns -ENODEV.
-  */
- void nvmem_unregister(struct nvmem_device *nvmem)
- {
--	if (nvmem)
--		kref_put(&nvmem->refcnt, nvmem_device_release);
-+	if (!nvmem)
-+		return;
-+
-+	nvmem_disconnect(nvmem);
-+	nvmem_destroy_layout(nvmem);
-+	if (nvmem->flags & FLAG_REGISTERED)
-+		blocking_notifier_call_chain(&nvmem_notifier, NVMEM_REMOVE, nvmem);
-+	nvmem_sysfs_remove_compat(nvmem);
-+	nvmem_sysfs_remove_cells(nvmem);
-+	device_del(&nvmem->dev);
-+	nvmem_device_remove_all_cells(nvmem);
-+	kref_put(&nvmem->refcnt, nvmem_device_release);
- }
- EXPORT_SYMBOL_GPL(nvmem_unregister);
- 
-@@ -1103,17 +1262,33 @@ struct nvmem_device *devm_nvmem_register(struct device *dev,
- }
- EXPORT_SYMBOL_GPL(devm_nvmem_register);
- 
-+struct nvmem_match_data {
-+	void *data;
-+	int (*match)(struct device *dev, const void *data);
-+};
-+
-+static int nvmem_match_device(struct device *dev, const void *data)
-+{
-+	const struct nvmem_match_data *match = data;
-+	struct nvmem_device *nvmem = to_nvmem_device(dev);
-+
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected))
-+		return 0;
-+	return match->match(dev, match->data);
-+}
-+
- static struct nvmem_device *nvmem_device_match(void *data,
- 			int (*match)(struct device *dev, const void *data))
- {
-+	struct nvmem_match_data match_data = { .data = data, .match = match };
- 	struct nvmem_device *nvmem = NULL;
- 	struct device *dev;
- 
--	scoped_guard(mutex, &nvmem_mutex) {
--		dev = bus_find_device(&nvmem_bus_type, NULL, data, match);
--		if (dev)
--			nvmem = to_nvmem_device(dev);
--	}
-+	guard(mutex)(&nvmem_mutex);
-+	dev = bus_find_device(&nvmem_bus_type, NULL, &match_data, nvmem_match_device);
-+	if (dev)
-+		nvmem = to_nvmem_device(dev);
- 	if (!nvmem)
- 		return ERR_PTR(-EPROBE_DEFER);
- 
-@@ -1121,8 +1296,7 @@ static struct nvmem_device *nvmem_device_match(void *data,
- 		dev_err(&nvmem->dev,
- 			"could not increase module refcount for cell %s\n",
- 			nvmem_dev_name(nvmem));
--
--		put_device(&nvmem->dev);
-+		put_device(dev);
- 		return ERR_PTR(-EINVAL);
- 	}
- 
-@@ -1337,8 +1511,10 @@ nvmem_cell_get_from_lookup(struct device *dev, const char *con_id)
- 				cell = ERR_PTR(-ENOENT);
- 			} else {
- 				cell = nvmem_create_cell(cell_entry, con_id, 0);
--				if (IS_ERR(cell))
-+				if (IS_ERR(cell)) {
-+					nvmem_cell_entry_put(cell_entry);
- 					nvmem_device_put(nvmem);
-+				}
- 			}
+ 	while (total_len > 0) {
+ 		if (!IS_ALIGNED(addr, SZ_4K) || !IS_ALIGNED(total_len, SZ_4K)) {
+-			dev_err(&mtd->dev, "unaligned erase %llx %zx\n", addr, total_len);
++			dev_err(mtd->dev, "unaligned erase %llx %zx\n", addr, total_len);
+ 			info->fail_addr = addr;
+ 			ret = -ERANGE;
  			break;
- 		}
-@@ -1347,12 +1523,6 @@ nvmem_cell_get_from_lookup(struct device *dev, const char *con_id)
- 	return cell;
- }
+@@ -538,7 +538,7 @@ static int intel_dg_mtd_erase(struct mtd_info *mtd, struct erase_info *info)
  
--static void nvmem_layout_module_put(struct nvmem_device *nvmem)
+ 		idx = idg_nvm_get_region(nvm, addr);
+ 		if (idx >= nvm->nregions) {
+-			dev_err(&mtd->dev, "out of range");
++			dev_err(mtd->dev, "out of range");
+ 			info->fail_addr = MTD_FAIL_ADDR_UNKNOWN;
+ 			ret = -ERANGE;
+ 			break;
+@@ -550,12 +550,12 @@ static int intel_dg_mtd_erase(struct mtd_info *mtd, struct erase_info *info)
+ 		if (len > nvm->regions[idx].size - from)
+ 			len = nvm->regions[idx].size - from;
+ 
+-		dev_dbg(&mtd->dev, "erasing region[%d] %s from %llx len %zx\n",
++		dev_dbg(mtd->dev, "erasing region[%d] %s from %llx len %zx\n",
+ 			region, nvm->regions[idx].name, from, len);
+ 
+ 		bytes = idg_erase(nvm, region, from, len, &info->fail_addr);
+ 		if (bytes < 0) {
+-			dev_dbg(&mtd->dev, "erase failed with %zd\n", bytes);
++			dev_dbg(mtd->dev, "erase failed with %zd\n", bytes);
+ 			info->fail_addr += nvm->regions[idx].offset;
+ 			ret = bytes;
+ 			break;
+@@ -582,11 +582,11 @@ static int intel_dg_mtd_read(struct mtd_info *mtd, loff_t from, size_t len,
+ 
+ 	idx = idg_nvm_get_region(nvm, from);
+ 
+-	dev_dbg(&mtd->dev, "reading region[%d] %s from %lld len %zd\n",
++	dev_dbg(mtd->dev, "reading region[%d] %s from %lld len %zd\n",
+ 		nvm->regions[idx].id, nvm->regions[idx].name, from, len);
+ 
+ 	if (idx >= nvm->nregions) {
+-		dev_err(&mtd->dev, "out of range");
++		dev_err(mtd->dev, "out of range");
+ 		return -ERANGE;
+ 	}
+ 
+@@ -597,7 +597,7 @@ static int intel_dg_mtd_read(struct mtd_info *mtd, loff_t from, size_t len,
+ 
+ 	ret = pm_runtime_resume_and_get(nvm->dev);
+ 	if (ret < 0) {
+-		dev_err(&mtd->dev, "rpm: get failed %zd\n", ret);
++		dev_err(mtd->dev, "rpm: get failed %zd\n", ret);
+ 		return ret;
+ 	}
+ 
+@@ -605,7 +605,7 @@ static int intel_dg_mtd_read(struct mtd_info *mtd, loff_t from, size_t len,
+ 
+ 	ret = idg_read(nvm, region, from, len, buf);
+ 	if (ret < 0) {
+-		dev_dbg(&mtd->dev, "read failed with %zd\n", ret);
++		dev_dbg(mtd->dev, "read failed with %zd\n", ret);
+ 	} else {
+ 		*retlen = ret;
+ 		ret = 0;
+@@ -628,11 +628,11 @@ static int intel_dg_mtd_write(struct mtd_info *mtd, loff_t to, size_t len,
+ 
+ 	idx = idg_nvm_get_region(nvm, to);
+ 
+-	dev_dbg(&mtd->dev, "writing region[%d] %s to %lld len %zd\n",
++	dev_dbg(mtd->dev, "writing region[%d] %s to %lld len %zd\n",
+ 		nvm->regions[idx].id, nvm->regions[idx].name, to, len);
+ 
+ 	if (idx >= nvm->nregions) {
+-		dev_err(&mtd->dev, "out of range");
++		dev_err(mtd->dev, "out of range");
+ 		return -ERANGE;
+ 	}
+ 
+@@ -643,7 +643,7 @@ static int intel_dg_mtd_write(struct mtd_info *mtd, loff_t to, size_t len,
+ 
+ 	ret = pm_runtime_resume_and_get(nvm->dev);
+ 	if (ret < 0) {
+-		dev_err(&mtd->dev, "rpm: get failed %zd\n", ret);
++		dev_err(mtd->dev, "rpm: get failed %zd\n", ret);
+ 		return ret;
+ 	}
+ 
+@@ -651,7 +651,7 @@ static int intel_dg_mtd_write(struct mtd_info *mtd, loff_t to, size_t len,
+ 
+ 	ret = idg_write(nvm, region, to, len, buf);
+ 	if (ret < 0) {
+-		dev_dbg(&mtd->dev, "write failed with %zd\n", ret);
++		dev_dbg(mtd->dev, "write failed with %zd\n", ret);
+ 	} else {
+ 		*retlen = ret;
+ 		ret = 0;
+@@ -707,7 +707,7 @@ static int intel_dg_nvm_init_mtd(struct intel_dg_nvm *nvm, struct device *device
+ 	dev_dbg(device, "registering with mtd\n");
+ 
+ 	nvm->mtd.owner = THIS_MODULE;
+-	nvm->mtd.dev.parent = device;
++	nvm->mtd.parent_dev = device;
+ 	nvm->mtd.flags = MTD_CAP_NORFLASH;
+ 	nvm->mtd.type = MTD_DATAFLASH;
+ 	nvm->mtd.priv = nvm;
+diff --git a/drivers/mtd/devices/powernv_flash.c b/drivers/mtd/devices/powernv_flash.c
+index a12427d9e20f..b02e8695703e 100644
+--- a/drivers/mtd/devices/powernv_flash.c
++++ b/drivers/mtd/devices/powernv_flash.c
+@@ -47,7 +47,7 @@ static int powernv_flash_async_op(struct mtd_info *mtd, enum flash_op op,
+ 		loff_t offset, size_t len, size_t *retlen, u_char *buf)
+ {
+ 	struct powernv_flash *info = (struct powernv_flash *)mtd->priv;
+-	struct device *dev = &mtd->dev;
++	struct device *dev = mtd->dev;
+ 	int token;
+ 	struct opal_msg msg;
+ 	int rc;
+@@ -219,7 +219,7 @@ static int powernv_flash_set_driver_info(struct device *dev,
+ 	mtd->_erase = powernv_flash_erase;
+ 	mtd->_read = powernv_flash_read;
+ 	mtd->_write = powernv_flash_write;
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 	mtd_set_of_node(mtd, dev->of_node);
+ 	return 0;
+ }
+diff --git a/drivers/mtd/devices/spear_smi.c b/drivers/mtd/devices/spear_smi.c
+index f02f96bff450..d46610c52fae 100644
+--- a/drivers/mtd/devices/spear_smi.c
++++ b/drivers/mtd/devices/spear_smi.c
+@@ -885,7 +885,7 @@ static int spear_smi_setup_banks(struct platform_device *pdev,
+ 	else
+ 		flash->mtd.name = flash_devices[flash_index].name;
+ 
+-	flash->mtd.dev.parent = &pdev->dev;
++	flash->mtd.parent_dev = &pdev->dev;
+ 	mtd_set_of_node(&flash->mtd, np);
+ 	flash->mtd.type = MTD_NORFLASH;
+ 	flash->mtd.writesize = 1;
+diff --git a/drivers/mtd/devices/sst25l.c b/drivers/mtd/devices/sst25l.c
+index 8813994ce9f4..5d178dddab7b 100644
+--- a/drivers/mtd/devices/sst25l.c
++++ b/drivers/mtd/devices/sst25l.c
+@@ -368,7 +368,7 @@ static int sst25l_probe(struct spi_device *spi)
+ 	if (data && data->name)
+ 		flash->mtd.name = data->name;
+ 
+-	flash->mtd.dev.parent   = &spi->dev;
++	flash->mtd.parent_dev   = &spi->dev;
+ 	flash->mtd.type		= MTD_NORFLASH;
+ 	flash->mtd.flags	= MTD_CAP_NORFLASH;
+ 	flash->mtd.erasesize	= flash_info->erase_size;
+diff --git a/drivers/mtd/devices/st_spi_fsm.c b/drivers/mtd/devices/st_spi_fsm.c
+index f2266145b821..83972b8ce30d 100644
+--- a/drivers/mtd/devices/st_spi_fsm.c
++++ b/drivers/mtd/devices/st_spi_fsm.c
+@@ -1669,7 +1669,7 @@ static int stfsm_write(struct stfsm *fsm, const uint8_t *buf,
+ static int stfsm_mtd_read(struct mtd_info *mtd, loff_t from, size_t len,
+ 			  size_t *retlen, u_char *buf)
+ {
+-	struct stfsm *fsm = dev_get_drvdata(mtd->dev.parent);
++	struct stfsm *fsm = dev_get_drvdata(mtd->parent_dev);
+ 	uint32_t bytes;
+ 
+ 	dev_dbg(fsm->dev, "%s from 0x%08x, len %zd\n",
+@@ -1745,7 +1745,7 @@ static int stfsm_erase_chip(struct stfsm *fsm)
+ static int stfsm_mtd_write(struct mtd_info *mtd, loff_t to, size_t len,
+ 			   size_t *retlen, const u_char *buf)
+ {
+-	struct stfsm *fsm = dev_get_drvdata(mtd->dev.parent);
++	struct stfsm *fsm = dev_get_drvdata(mtd->parent_dev);
+ 
+ 	u32 page_offs;
+ 	u32 bytes;
+@@ -1790,7 +1790,7 @@ static int stfsm_mtd_write(struct mtd_info *mtd, loff_t to, size_t len,
+  */
+ static int stfsm_mtd_erase(struct mtd_info *mtd, struct erase_info *instr)
+ {
+-	struct stfsm *fsm = dev_get_drvdata(mtd->dev.parent);
++	struct stfsm *fsm = dev_get_drvdata(mtd->parent_dev);
+ 	u32 addr, len;
+ 	int ret;
+ 
+@@ -2074,7 +2074,7 @@ static int stfsm_probe(struct platform_device *pdev)
+ 		return ret;
+ 
+ 	fsm->mtd.name		= info->name;
+-	fsm->mtd.dev.parent	= &pdev->dev;
++	fsm->mtd.parent_dev	= &pdev->dev;
+ 	mtd_set_of_node(&fsm->mtd, np);
+ 	fsm->mtd.type		= MTD_NORFLASH;
+ 	fsm->mtd.writesize	= 4;
+diff --git a/drivers/mtd/hyperbus/hyperbus-core.c b/drivers/mtd/hyperbus/hyperbus-core.c
+index 4d8047d43e48..48cdf5c031af 100644
+--- a/drivers/mtd/hyperbus/hyperbus-core.c
++++ b/drivers/mtd/hyperbus/hyperbus-core.c
+@@ -112,7 +112,7 @@ int hyperbus_register_device(struct hyperbus_device *hbdev)
+ 		return -ENODEV;
+ 	}
+ 
+-	hbdev->mtd->dev.parent = dev;
++	hbdev->mtd->parent_dev = dev;
+ 	mtd_set_of_node(hbdev->mtd, np);
+ 
+ 	ret = mtd_device_register(hbdev->mtd, NULL, 0);
+diff --git a/drivers/mtd/lpddr/lpddr2_nvm.c b/drivers/mtd/lpddr/lpddr2_nvm.c
+index 565b71f7fdd5..447431187edf 100644
+--- a/drivers/mtd/lpddr/lpddr2_nvm.c
++++ b/drivers/mtd/lpddr/lpddr2_nvm.c
+@@ -457,7 +457,7 @@ static int lpddr2_nvm_probe(struct platform_device *pdev)
+ 
+ 	/* Populate mtd_info data structure */
+ 	*mtd = lpddr2_nvm_mtd_info;
+-	mtd->dev.parent		= &pdev->dev;
++	mtd->parent_dev		= &pdev->dev;
+ 	mtd->name		= pdev->dev.init_name;
+ 	mtd->priv		= map;
+ 	mtd->size		= resource_size(add_range);
+diff --git a/drivers/mtd/maps/lantiq-flash.c b/drivers/mtd/maps/lantiq-flash.c
+index 80d467eba92a..35b2c821ce3c 100644
+--- a/drivers/mtd/maps/lantiq-flash.c
++++ b/drivers/mtd/maps/lantiq-flash.c
+@@ -146,7 +146,7 @@ ltq_mtd_probe(struct platform_device *pdev)
+ 		return -ENXIO;
+ 	}
+ 
+-	ltq_mtd->mtd->dev.parent = &pdev->dev;
++	ltq_mtd->mtd->parent_dev = &pdev->dev;
+ 	mtd_set_of_node(ltq_mtd->mtd, pdev->dev.of_node);
+ 
+ 	cfi = ltq_mtd->map->fldrv_priv;
+diff --git a/drivers/mtd/maps/physmap-core.c b/drivers/mtd/maps/physmap-core.c
+index dcda7685fc99..e2bb14931bc8 100644
+--- a/drivers/mtd/maps/physmap-core.c
++++ b/drivers/mtd/maps/physmap-core.c
+@@ -568,7 +568,7 @@ static int physmap_flash_probe(struct platform_device *dev)
+ 			err = -ENXIO;
+ 			goto err_out;
+ 		}
+-		info->mtds[i]->dev.parent = &dev->dev;
++		info->mtds[i]->parent_dev = &dev->dev;
+ 	}
+ 
+ 	if (info->nmaps == 1) {
+diff --git a/drivers/mtd/maps/plat-ram.c b/drivers/mtd/maps/plat-ram.c
+index 816111031cf1..5a7c9d1ade01 100644
+--- a/drivers/mtd/maps/plat-ram.c
++++ b/drivers/mtd/maps/plat-ram.c
+@@ -163,7 +163,7 @@ static int platram_probe(struct platform_device *pdev)
+ 		goto exit_free;
+ 	}
+ 
+-	info->mtd->dev.parent = &pdev->dev;
++	info->mtd->parent_dev = &pdev->dev;
+ 
+ 	platram_setrw(info, PLATRAM_RW);
+ 
+diff --git a/drivers/mtd/maps/pxa2xx-flash.c b/drivers/mtd/maps/pxa2xx-flash.c
+index bc303a9909d4..754419d19554 100644
+--- a/drivers/mtd/maps/pxa2xx-flash.c
++++ b/drivers/mtd/maps/pxa2xx-flash.c
+@@ -89,7 +89,7 @@ static int pxa2xx_flash_probe(struct platform_device *pdev)
+ 		kfree(info);
+ 		return -EIO;
+ 	}
+-	info->mtd->dev.parent = &pdev->dev;
++	info->mtd->parent_dev = &pdev->dev;
+ 
+ 	mtd_device_parse_register(info->mtd, probes, NULL, flash->parts,
+ 				  flash->nr_parts);
+diff --git a/drivers/mtd/maps/sa1100-flash.c b/drivers/mtd/maps/sa1100-flash.c
+index 4506b27a905e..dcddcbf18fdf 100644
+--- a/drivers/mtd/maps/sa1100-flash.c
++++ b/drivers/mtd/maps/sa1100-flash.c
+@@ -242,7 +242,7 @@ static struct sa_info *sa1100_setup_mtd(struct platform_device *pdev,
+ 			goto err;
+ 		}
+ 	}
+-	info->mtd->dev.parent = &pdev->dev;
++	info->mtd->parent_dev = &pdev->dev;
+ 
+ 	if (ret == 0)
+ 		return info;
+diff --git a/drivers/mtd/maps/vmu-flash.c b/drivers/mtd/maps/vmu-flash.c
+index 10244e6731d0..82709a81c35c 100644
+--- a/drivers/mtd/maps/vmu-flash.c
++++ b/drivers/mtd/maps/vmu-flash.c
+@@ -547,7 +547,7 @@ static void vmu_queryblocks(struct mapleq *mq)
+ 	mpart->partition = card->partition;
+ 	mtd_cur->priv = mpart;
+ 	mtd_cur->owner = THIS_MODULE;
+-	mtd_cur->dev.parent = &mdev->dev;
++	mtd_cur->parent_dev = &mdev->dev;
+ 
+ 	pcache = kzalloc_obj(struct vmu_cache);
+ 	if (!pcache)
+diff --git a/drivers/mtd/mtd_blkdevs.c b/drivers/mtd/mtd_blkdevs.c
+index 4d2e7b7774e9..957087c10220 100644
+--- a/drivers/mtd/mtd_blkdevs.c
++++ b/drivers/mtd/mtd_blkdevs.c
+@@ -379,7 +379,7 @@ int add_mtd_blktrans_dev(struct mtd_blktrans_dev *new)
+ 	if (new->readonly)
+ 		set_disk_ro(gd, 1);
+ 
+-	ret = device_add_disk(&new->mtd->dev, gd, NULL);
++	ret = device_add_disk(new->mtd->dev, gd, NULL);
+ 	if (ret)
+ 		goto out_cleanup_disk;
+ 
+diff --git a/drivers/mtd/mtd_virt_concat.c b/drivers/mtd/mtd_virt_concat.c
+index da4277ced4d6..0d501e1565c0 100644
+--- a/drivers/mtd/mtd_virt_concat.c
++++ b/drivers/mtd/mtd_virt_concat.c
+@@ -100,7 +100,7 @@ int mtd_virt_concat_destroy(struct mtd_info *mtd)
+ 
+ 		/* Find the concat item that hold the mtd device */
+ 		for (idx = 0; idx < item->count; idx++) {
+-			if (item->nodes[idx] == mtd->dev.of_node) {
++			if (item->nodes[idx] == mtd_get_of_node(mtd)) {
+ 				is_mtd_found = true;
+ 				break;
+ 			}
+@@ -116,7 +116,7 @@ int mtd_virt_concat_destroy(struct mtd_info *mtd)
+ 		 */
+ 		for (idx = 0; idx < concat->num_subdev; idx++) {
+ 			child = concat->subdev[idx];
+-			if (child->dev.of_node != mtd->dev.of_node) {
++			if (mtd_get_of_node(child) != mtd_get_of_node(mtd)) {
+ 				ret = add_mtd_device(child);
+ 				if (ret)
+ 					goto out;
+@@ -223,7 +223,7 @@ bool mtd_virt_concat_add(struct mtd_info *mtd)
+ 	list_for_each_entry(item, &concat_node_list, head) {
+ 		concat = item->concat;
+ 		for (idx = 0; idx < item->count; idx++) {
+-			if (item->nodes[idx] == mtd->dev.of_node) {
++			if (item->nodes[idx] == mtd_get_of_node(mtd)) {
+ 				concat->subdev[concat->num_subdev++] = mtd;
+ 				return true;
+ 			}
+@@ -333,8 +333,8 @@ int mtd_virt_concat_create_join(void)
+ 			}
+ 			concat->mtd = *mtd;
+ 			/* Arbitrary set the first device as parent */
+-			concat->mtd.dev.parent = concat->subdev[0]->dev.parent;
+-			concat->mtd.dev = concat->subdev[0]->dev;
++			concat->mtd.parent_dev = concat->subdev[0]->parent_dev;
++			mtd_set_of_node(&concat->mtd, mtd_get_of_node(concat->subdev[0]));
+ 
+ 			/* Add the mtd device */
+ 			ret = add_mtd_device(&concat->mtd);
+diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+index 620326279957..dd404d36156e 100644
+--- a/drivers/mtd/mtdcore.c
++++ b/drivers/mtd/mtdcore.c
+@@ -37,38 +37,10 @@
+ #include <linux/mtd/concat.h>
+ 
+ #include "mtdcore.h"
++#include "mtddevice.h"
+ 
+ struct backing_dev_info *mtd_bdi;
+ 
+-#ifdef CONFIG_PM_SLEEP
+-
+-static int mtd_cls_suspend(struct device *dev)
 -{
--	if (nvmem->layout && nvmem->layout->dev.driver)
--		module_put(nvmem->layout->dev.driver->owner);
+-	struct mtd_info *mtd = dev_get_drvdata(dev);
+-
+-	return mtd ? mtd_suspend(mtd) : 0;
 -}
 -
- #if IS_ENABLED(CONFIG_OF)
- static struct nvmem_cell_entry *
- nvmem_find_cell_entry_by_node(struct nvmem_device *nvmem, struct device_node *np)
-@@ -1362,25 +1532,15 @@ nvmem_find_cell_entry_by_node(struct nvmem_device *nvmem, struct device_node *np
- 	guard(mutex)(&nvmem_mutex);
- 
- 	list_for_each_entry(cell, &nvmem->cells, node) {
--		if (np == cell->np)
-+		if (np == cell->np) {
-+			kref_get(&cell->refcnt);
- 			return cell;
-+		}
- 	}
- 
- 	return NULL;
- }
- 
--static int nvmem_layout_module_get_optional(struct nvmem_device *nvmem)
+-static int mtd_cls_resume(struct device *dev)
 -{
--	if (!nvmem->layout)
--		return 0;
+-	struct mtd_info *mtd = dev_get_drvdata(dev);
 -
--	if (!nvmem->layout->dev.driver ||
--	    !try_module_get(nvmem->layout->dev.driver->owner))
--		return -EPROBE_DEFER;
--
+-	if (mtd)
+-		mtd_resume(mtd);
 -	return 0;
 -}
 -
- /**
-  * of_nvmem_cell_get() - Get a nvmem cell from given device node and cell id
-  *
-@@ -1443,25 +1603,17 @@ struct nvmem_cell *of_nvmem_cell_get(struct device_node *np, const char *id)
- 		return ERR_CAST(nvmem);
- 	}
- 
--	ret = nvmem_layout_module_get_optional(nvmem);
--	if (ret) {
--		of_node_put(cell_np);
--		nvmem_device_put(nvmem);
--		return ERR_PTR(ret);
--	}
+-static SIMPLE_DEV_PM_OPS(mtd_cls_pm_ops, mtd_cls_suspend, mtd_cls_resume);
+-#define MTD_CLS_PM_OPS (&mtd_cls_pm_ops)
+-#else
+-#define MTD_CLS_PM_OPS NULL
+-#endif
 -
- 	cell_entry = nvmem_find_cell_entry_by_node(nvmem, cell_np);
- 	of_node_put(cell_np);
- 	if (!cell_entry) {
--		nvmem_layout_module_put(nvmem);
--		ret = nvmem->layout ? -EPROBE_DEFER : -ENOENT;
-+		ret = READ_ONCE(nvmem->layout) ? -EPROBE_DEFER : -ENOENT;
- 		nvmem_device_put(nvmem);
- 		return ERR_PTR(ret);
- 	}
- 
- 	cell = nvmem_create_cell(cell_entry, id, cell_index);
- 	if (IS_ERR(cell)) {
--		nvmem_layout_module_put(nvmem);
-+		nvmem_cell_entry_put(cell_entry);
- 		nvmem_device_put(nvmem);
- 	}
- 
-@@ -1575,8 +1727,8 @@ void nvmem_cell_put(struct nvmem_cell *cell)
- 	if (cell->id)
- 		kfree_const(cell->id);
- 
-+	nvmem_cell_entry_put(cell->entry);
- 	kfree(cell);
--	nvmem_layout_module_put(nvmem);
- 	nvmem_device_put(nvmem);
- }
- EXPORT_SYMBOL_GPL(nvmem_cell_put);
-@@ -1628,6 +1780,10 @@ static int __nvmem_cell_read(struct nvmem_device *nvmem,
- {
- 	int rc;
- 
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected) || READ_ONCE(cell->disconnected))
-+		return -ENODEV;
-+
- 	rc = nvmem_reg_read(nvmem, cell->offset, buf, cell->raw_len);
- 
- 	if (rc)
-@@ -1742,7 +1898,14 @@ static int __nvmem_cell_entry_write(struct nvmem_cell_entry *cell, void *buf, si
- 	struct nvmem_device *nvmem = cell->nvmem;
- 	int rc;
- 
--	if (!nvmem || nvmem->read_only ||
-+	if (!nvmem)
-+		return -EINVAL;
-+
-+	guard(srcu)(&nvmem->srcu);
-+	if (READ_ONCE(nvmem->disconnected) || READ_ONCE(cell->disconnected))
-+		return -ENODEV;
-+
-+	if (nvmem->read_only ||
- 	    (cell->bit_offset == 0 && len != cell->bytes))
- 		return -EINVAL;
- 
-diff --git a/drivers/nvmem/internals.h b/drivers/nvmem/internals.h
-index 4e610deeaa7b..6c6d4a690e8f 100644
---- a/drivers/nvmem/internals.h
-+++ b/drivers/nvmem/internals.h
-@@ -4,14 +4,10 @@
- #define _LINUX_NVMEM_INTERNALS_H
- 
- #include <linux/device.h>
-+#include <linux/mutex.h>
- #include <linux/nvmem-consumer.h>
- #include <linux/nvmem-provider.h>
--
--/* Hold pointers to callbacks owned by the nvmem provider module. */
--struct nvmem_operations {
--	nvmem_reg_read_t	reg_read;
--	nvmem_reg_write_t	reg_write;
+-static struct class mtd_class = {
+-	.name = "mtd",
+-	.pm = MTD_CLS_PM_OPS,
 -};
-+#include <linux/srcu.h>
+-
+ static DEFINE_IDR(mtd_idr);
  
- struct nvmem_device {
- 	struct module		*owner;
-@@ -20,6 +16,8 @@ struct nvmem_device {
- 	int			word_size;
- 	int			id;
- 	struct kref		refcnt;
-+	struct srcu_struct	srcu;
-+	bool			disconnected;
- 	size_t			size;
- 	bool			read_only;
- 	bool			root_only;
-@@ -34,12 +32,16 @@ struct nvmem_device {
- 	unsigned int		nkeepout;
- 	struct gpio_desc	*wp_gpio;
- 	struct nvmem_layout	*layout;
--	struct nvmem_operations	*ops;
-+	nvmem_reg_read_t		reg_read;
-+	nvmem_reg_write_t	reg_write;
- 	void *priv;
-+	struct mutex		sysfs_mutex;
- 	bool			sysfs_cells_populated;
-+	struct attribute_group cells_group;
- };
+ /* These are exported solely for the purpose of mtd_blkdevs.c. You
+@@ -78,7 +50,15 @@ EXPORT_SYMBOL_GPL(mtd_table_mutex);
  
- int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np);
-+int nvmem_layout_add_cells_from_dt(struct nvmem_layout *layout, struct device_node *np);
- 
- #if IS_ENABLED(CONFIG_OF)
- int nvmem_layout_bus_register(void);
-diff --git a/drivers/nvmem/layouts.c b/drivers/nvmem/layouts.c
-index 07a34be9669c..32995c9be68d 100644
---- a/drivers/nvmem/layouts.c
-+++ b/drivers/nvmem/layouts.c
-@@ -118,6 +118,7 @@ static int nvmem_layout_create_device(struct nvmem_device *nvmem,
- 
- 	ret = device_add(dev);
- 	if (ret) {
-+		nvmem->layout = NULL;
- 		put_device(dev);
- 		return ret;
- 	}
-@@ -192,6 +193,7 @@ void nvmem_destroy_layout(struct nvmem_device *nvmem)
- 	dev = &nvmem->layout->dev;
- 	of_node_clear_flag(dev->of_node, OF_POPULATED_BUS);
- 	device_unregister(dev);
-+	WRITE_ONCE(nvmem->layout, NULL);
- }
- 
- int nvmem_layout_bus_register(void)
-diff --git a/drivers/nvmem/layouts/fixed-layout.c b/drivers/nvmem/layouts/fixed-layout.c
-index 635d448b3dd2..b97f39897a75 100644
---- a/drivers/nvmem/layouts/fixed-layout.c
-+++ b/drivers/nvmem/layouts/fixed-layout.c
-@@ -19,7 +19,7 @@ static int fixed_layout_add_cells(struct nvmem_layout *layout)
- 	if (!np)
- 		return -ENOENT;
- 
--	ret = nvmem_add_cells_from_dt(layout->nvmem, np);
-+	ret = nvmem_layout_add_cells_from_dt(layout, np);
- 	of_node_put(np);
- 
- 	return ret;
-diff --git a/drivers/nvmem/layouts/onie-tlv.c b/drivers/nvmem/layouts/onie-tlv.c
-index 8b0f3c1b8a0e..99e7a5406b4c 100644
---- a/drivers/nvmem/layouts/onie-tlv.c
-+++ b/drivers/nvmem/layouts/onie-tlv.c
-@@ -95,18 +95,19 @@ static nvmem_cell_post_process_t onie_tlv_read_cb(u8 type, u8 *buf)
- 	return NULL;
- }
- 
--static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
-+static int onie_tlv_add_cells(struct nvmem_layout *layout,
- 			      size_t data_len, u8 *data)
+ struct mtd_info *__mtd_next_device(int i)
  {
-+	struct device *dev = &layout->dev;
- 	struct nvmem_cell_info cell = {};
--	struct device_node *layout;
-+	struct device_node *layout_np;
- 	struct onie_tlv tlv;
- 	unsigned int hdr_len = sizeof(struct onie_tlv_hdr);
- 	unsigned int offset = 0;
- 	int ret;
+-	return idr_get_next(&mtd_idr, &i);
++	struct mtd_info *mtd;
++
++	while ((mtd = idr_get_next(&mtd_idr, &i))) {
++		if (mtd->registered)
++			return mtd;
++		i++;
++	}
++
++	return NULL;
+ }
+ EXPORT_SYMBOL_GPL(__mtd_next_device);
  
--	layout = of_nvmem_layout_get_container(nvmem);
--	if (!layout)
-+	layout_np = of_nvmem_layout_get_container(layout->nvmem);
-+	if (!layout_np)
- 		return -ENOENT;
+@@ -87,54 +67,117 @@ static LIST_HEAD(mtd_notifiers);
  
- 	while (offset < data_len) {
-@@ -123,12 +124,13 @@ static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
+ #define MTD_DEVT(index) MKDEV(MTD_CHAR_MAJOR, (index)*2)
  
- 		cell.offset = hdr_len + offset + sizeof(tlv.type) + sizeof(tlv.len);
- 		cell.bytes = tlv.len;
--		cell.np = of_get_child_by_name(layout, cell.name);
-+		cell.np = of_get_child_by_name(layout_np, cell.name);
- 		cell.read_post_process = onie_tlv_read_cb(tlv.type, data + offset + sizeof(tlv));
+-/* REVISIT once MTD uses the driver model better, whoever allocates
+- * the mtd_info will probably want to use the release() hook...
++static void mtd_master_release(struct kref *ref)
++{
++	struct mtd_info *master = container_of(ref, struct mtd_info,
++					     master.life_refcnt);
++
++	master->master.release(master);
++}
++
++void mtd_get_lifetime(struct mtd_info *master)
++{
++	if (master->master.release)
++		kref_get(&master->master.life_refcnt);
++}
++
++void mtd_put_lifetime(struct mtd_info *master)
++{
++	if (master->master.release)
++		kref_put(&master->master.life_refcnt, mtd_master_release);
++}
++
++/**
++ * mtd_set_release - initialize the lifetime of a dynamically allocated master
++ * @master: master MTD device
++ * @release: core callback freeing the backing object and retained metadata
++ *
++ * Call once before registration. The driver owns the initial reference and
++ * drops it with mtd_put_master() after unregistering and disconnecting hardware.
++ * Registered MTD devices and acquired handles retain the backing object too.
++ * Driver cleanup must finish before the initial reference is dropped. The
++ * release callback only frees data and belongs to the core providing the MTD
++ * operations, identified by master->owner, not to the controller driver.
+  */
+-static void mtd_release(struct device *dev)
++void mtd_set_release(struct mtd_info *master,
++		     void (*release)(struct mtd_info *mtd))
+ {
+-	struct mtd_info *mtd = dev_get_drvdata(dev);
+-	dev_t index = MTD_DEVT(mtd->index);
++	kref_init(&master->master.life_refcnt);
++	master->master.release = release;
++}
++EXPORT_SYMBOL_GPL(mtd_set_release);
++
++/**
++ * mtd_put_master - drop the driver's initial lifetime reference
++ * @master: master initialized by mtd_set_release()
++ *
++ * Hardware access and driver callbacks must already be disconnected and
++ * drained. Unbind may return while handles retain core-owned metadata.
++ */
++void mtd_put_master(struct mtd_info *master)
++{
++	mtd_put_lifetime(master);
++}
++EXPORT_SYMBOL_GPL(mtd_put_master);
++
++static void mtd_data_release(struct kref *ref)
++{
++	struct mtd_info *mtd = container_of(ref, struct mtd_info, data_refcnt);
++	struct mtd_info *master = mtd->ref_master;
++	struct mtd_info *parent = mtd->parent;
++	struct device *dev = mtd->dev;
  
--		ret = nvmem_add_one_cell(nvmem, &cell);
-+		ret = nvmem_layout_add_cell(layout, &cell);
- 		if (ret) {
--			of_node_put(layout);
-+			of_node_put(cell.np);
-+			of_node_put(layout_np);
- 			return ret;
- 		}
+-	idr_remove(&mtd_idr, mtd->index);
+ 	of_node_put(mtd_get_of_node(mtd));
++	mtd->dev = NULL;
++	mtd->ref_master = NULL;
  
-@@ -136,7 +138,7 @@ static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
- 		offset += sizeof(tlv) + tlv.len;
+ 	if (mtd_is_partition(mtd))
+ 		release_mtd_partition(mtd);
+ 
+-	/* remove /dev/mtdXro node */
+-	device_destroy(&mtd_class, index + 1);
++	if (master) {
++		if (parent && parent != master)
++			mtd_put_data(parent);
++		mtd_put_lifetime(master);
++	}
++	put_device(dev);
++	module_put(THIS_MODULE);
+ }
+ 
+-/*
+- * No-op device release used in add_mtd_device() error paths.
+- * Prevents mtd_release() from being called via device_release(),
+- * which would free the mtd_info that the caller still manages.
+- */
+-static void mtd_dev_release_nop(struct device *dev)
++void mtd_get_data(struct mtd_info *mtd)
+ {
++	kref_get(&mtd->data_refcnt);
++}
++
++void mtd_put_data(struct mtd_info *mtd)
++{
++	kref_put(&mtd->data_refcnt, mtd_data_release);
++}
++
++static void mtd_device_detach(struct device *dev)
++{
++	/* A queued system-sleep callback may run after device_del(). */
++	guard(device)(dev);
++
++	dev_set_drvdata(dev, NULL);
++	dev->groups = NULL;
+ }
+ 
+ static void mtd_device_release(struct kref *kref)
+ {
+ 	struct mtd_info *mtd = container_of(kref, struct mtd_info, refcnt);
+-	bool is_partition = mtd_is_partition(mtd);
++
++	/* The table mutex is held by the registration or handle put path. */
++	idr_remove(&mtd_idr, mtd->index);
++	device_destroy(&mtd_class, MTD_DEVT(mtd->index) + 1);
+ 
+ 	debugfs_remove_recursive(mtd->dbg.dfs_dir);
+ 
+ 	/* Try to remove the NVMEM provider */
+ 	nvmem_unregister(mtd->nvmem);
+ 
+-	device_unregister(&mtd->dev);
+-
+-	/*
+-	 *  Clear dev so mtd can be safely re-registered later if desired.
+-	 *  Should not be done for partition,
+-	 *  as it was already destroyed in device_unregister().
+-	 */
+-	if (!is_partition)
+-		memset(&mtd->dev, 0, sizeof(mtd->dev));
+-
+-	module_put(THIS_MODULE);
++	device_del(mtd->dev);
++	mtd_device_detach(mtd->dev);
++	mtd_put_data(mtd);
+ }
+ 
+ #define MTD_DEVICE_ATTR_RO(name) \
+@@ -371,12 +414,6 @@ static struct attribute *mtd_attrs[] = {
+ };
+ ATTRIBUTE_GROUPS(mtd);
+ 
+-static const struct device_type mtd_devtype = {
+-	.name		= "mtd",
+-	.groups		= mtd_groups,
+-	.release	= mtd_release,
+-};
+-
+ static bool mtd_expert_analysis_mode;
+ 
+ #ifdef CONFIG_DEBUG_FS
+@@ -434,7 +471,7 @@ DEFINE_SHOW_ATTRIBUTE(mtd_ooblayout_free);
+ 
+ static void mtd_debugfs_populate(struct mtd_info *mtd)
+ {
+-	struct device *dev = &mtd->dev;
++	struct device *dev = mtd->dev;
+ 	struct mtd_oob_region region;
+ 
+ 	if (IS_ERR_OR_NULL(dfs_dir_mtd))
+@@ -610,9 +647,10 @@ static int mtd_nvmem_add(struct mtd_info *mtd)
+ 	struct nvmem_config config = {};
+ 
+ 	config.id = NVMEM_DEVID_NONE;
+-	config.dev = &mtd->dev;
+-	config.name = dev_name(&mtd->dev);
+-	config.owner = THIS_MODULE;
++	config.dev = mtd->dev;
++	config.name = dev_name(mtd->dev);
++	config.owner = mtd_get_master(mtd)->owner;
++	config.owner_is_explicit = true;
+ 	config.add_legacy_fixed_of_cells = of_device_is_compatible(node, "nvmem-cells");
+ 	config.reg_read = mtd_nvmem_reg_read;
+ 	config.size = mtd->size;
+@@ -629,7 +667,7 @@ static int mtd_nvmem_add(struct mtd_info *mtd)
+ 		if (PTR_ERR(mtd->nvmem) == -EOPNOTSUPP)
+ 			mtd->nvmem = NULL;
+ 		else
+-			return dev_err_probe(&mtd->dev, PTR_ERR(mtd->nvmem),
++			return dev_err_probe(mtd->dev, PTR_ERR(mtd->nvmem),
+ 					     "Failed to register NVMEM device\n");
  	}
  
--	of_node_put(layout);
-+	of_node_put(layout_np);
+@@ -703,6 +741,7 @@ int add_mtd_device(struct mtd_info *mtd)
+ 	struct device_node *np = mtd_get_of_node(mtd);
+ 	struct mtd_info *master = mtd_get_master(mtd);
+ 	struct mtd_notifier *not;
++	struct device *dev;
+ 	int i, error, ofidx;
+ 
+ 	/*
+@@ -710,7 +749,7 @@ int add_mtd_device(struct mtd_info *mtd)
+ 	 * mtd_device_parse_register() multiple times on the same master MTD,
+ 	 * especially with CONFIG_MTD_PARTITIONED_MASTER=y.
+ 	 */
+-	if (WARN_ONCE(mtd->dev.type, "MTD already registered\n"))
++	if (WARN_ONCE(mtd->dev, "MTD already registered\n"))
+ 		return -EEXIST;
+ 
+ 	BUG_ON(mtd->writesize == 0);
+@@ -756,6 +795,13 @@ int add_mtd_device(struct mtd_info *mtd)
+ 
+ 	mtd->index = i;
+ 	kref_init(&mtd->refcnt);
++	kref_init(&mtd->data_refcnt);
++	if (master->master.release) {
++		mtd_get_lifetime(master);
++		mtd->ref_master = master;
++		if (mtd->parent && mtd->parent != master)
++			mtd_get_data(mtd->parent);
++	}
+ 
+ 	/* default value if not set by driver */
+ 	if (mtd->bitflip_threshold == 0)
+@@ -793,18 +839,21 @@ int add_mtd_device(struct mtd_info *mtd)
+ 		error = 0;
+ 	}
+ 
+-	/* Caller should have set dev.parent to match the
+-	 * physical device, if appropriate.
+-	 */
+-	mtd->dev.type = &mtd_devtype;
+-	mtd->dev.class = &mtd_class;
+-	mtd->dev.devt = MTD_DEVT(i);
+-	error = dev_set_name(&mtd->dev, "mtd%d", i);
+-	if (error)
+-		goto fail_devname;
+-	dev_set_drvdata(&mtd->dev, mtd);
+ 	mtd_set_of_node(mtd, mtd_find_of_node(mtd));
+-	error = device_register(&mtd->dev);
++	dev = mtd_class_device_alloc(mtd_get_of_node(mtd));
++	if (!dev) {
++		error = -ENOMEM;
++		goto fail_alloc;
++	}
++	mtd->dev = dev;
++	dev->parent = mtd->parent_dev;
++	dev->groups = mtd_groups;
++	dev->devt = MTD_DEVT(i);
++	dev_set_drvdata(dev, mtd);
++	error = dev_set_name(dev, "mtd%d", i);
++	if (error)
++		goto fail_added;
++	error = device_add(dev);
+ 	if (error)
+ 		goto fail_added;
+ 
+@@ -815,10 +864,12 @@ int add_mtd_device(struct mtd_info *mtd)
+ 
+ 	mtd_debugfs_populate(mtd);
+ 
+-	device_create(&mtd_class, mtd->dev.parent, MTD_DEVT(i) + 1, NULL,
++	device_create(&mtd_class, mtd->parent_dev, MTD_DEVT(i) + 1, NULL,
+ 		      "mtd%dro", i);
+ 
+ 	pr_debug("mtd: Giving out device %d to %s\n", i, mtd->name);
++	__module_get(THIS_MODULE);
++	mtd->registered = true;
+ 	/* No need to get a refcount on the module containing
+ 	   the notifier, since we hold the mtd_table_mutex */
+ 	list_for_each_entry(not, &mtd_notifiers, list)
+@@ -836,27 +887,24 @@ int add_mtd_device(struct mtd_info *mtd)
+ 		}
+ 	}
+ 
+-	/* We _know_ we aren't being removed, because
+-	   our caller is still holding us here. So none
+-	   of this try_ nonsense, and no bitching about it
+-	   either. :) */
+-	__module_get(THIS_MODULE);
+ 	return 0;
+ 
+ fail_nvmem_add:
+-	device_del(&mtd->dev);
++	device_del(dev);
+ fail_added:
+-	/*
+-	 * Clear type and set nop release to prevent mtd_release() ->
+-	 * release_mtd_partition() -> free_partition() from freeing mtd.
+-	 * The caller handles cleanup on failure.
+-	 */
+-	mtd->dev.type = NULL;
+-	mtd->dev.release = mtd_dev_release_nop;
+-	put_device(&mtd->dev);
++	mtd_device_detach(dev);
++	put_device(dev);
++	mtd->dev = NULL;
++fail_alloc:
+ 	of_node_put(mtd_get_of_node(mtd));
+-fail_devname:
++	mtd_set_of_node(mtd, np);
+ 	idr_remove(&mtd_idr, i);
++	if (mtd->ref_master) {
++		mtd->ref_master = NULL;
++		if (mtd->parent && mtd->parent != master)
++			mtd_put_data(mtd->parent);
++		mtd_put_lifetime(master);
++	}
+ fail_locked:
+ 	mutex_unlock(&mtd_table_mutex);
+ 	return error;
+@@ -879,7 +927,7 @@ int del_mtd_device(struct mtd_info *mtd)
+ 
+ 	mutex_lock(&mtd_table_mutex);
+ 
+-	if (idr_find(&mtd_idr, mtd->index) != mtd) {
++	if (idr_find(&mtd_idr, mtd->index) != mtd || !mtd->registered) {
+ 		ret = -ENODEV;
+ 		goto out_error;
+ 	}
+@@ -889,6 +937,7 @@ int del_mtd_device(struct mtd_info *mtd)
+ 	list_for_each_entry(not, &mtd_notifiers, list)
+ 		not->remove(mtd);
+ 
++	mtd->registered = false;
+ 	kref_put(&mtd->refcnt, mtd_device_release);
+ 	ret = 0;
+ 
+@@ -901,13 +950,13 @@ int del_mtd_device(struct mtd_info *mtd)
+  * Set a few defaults based on the parent devices, if not provided by the
+  * driver
+  */
+-static void mtd_set_dev_defaults(struct mtd_info *mtd)
++void mtd_set_dev_defaults(struct mtd_info *mtd)
+ {
+-	if (mtd->dev.parent) {
+-		if (!mtd->owner && mtd->dev.parent->driver)
+-			mtd->owner = mtd->dev.parent->driver->owner;
++	if (mtd->parent_dev) {
++		if (!mtd->master.release && !mtd->owner && mtd->parent_dev->driver)
++			mtd->owner = mtd->parent_dev->driver->owner;
+ 		if (!mtd->name)
+-			mtd->name = dev_name(mtd->dev.parent);
++			mtd->name = dev_name(mtd->parent_dev);
+ 	} else {
+ 		pr_debug("mtd device won't show a device symlink in sysfs\n");
+ 	}
+@@ -960,13 +1009,14 @@ static struct nvmem_device *mtd_otp_nvmem_register(struct mtd_info *mtd,
+ 	struct device_node *np;
+ 
+ 	/* DT binding is optional */
+-	np = of_get_compatible_child(mtd->dev.of_node, compatible);
++	np = of_get_compatible_child(mtd_get_of_node(mtd), compatible);
+ 
+ 	/* OTP nvmem will be registered on the physical device */
+-	config.dev = mtd->dev.parent;
++	config.dev = mtd->parent_dev;
+ 	config.name = compatible;
+ 	config.id = NVMEM_DEVID_AUTO;
+-	config.owner = THIS_MODULE;
++	config.owner = mtd->owner;
++	config.owner_is_explicit = true;
+ 	config.add_legacy_fixed_of_cells = !mtd_type_is_nand(mtd);
+ 	config.type = NVMEM_TYPE_OTP;
+ 	config.root_only = true;
+@@ -1016,7 +1066,7 @@ static int mtd_nvmem_fact_otp_reg_read(void *priv, unsigned int offset,
+ 
+ static int mtd_otp_nvmem_add(struct mtd_info *mtd)
+ {
+-	struct device *dev = mtd->dev.parent;
++	struct device *dev = mtd->parent_dev;
+ 	struct nvmem_device *nvmem;
+ 	ssize_t size;
+ 	int err;
+@@ -1150,7 +1200,7 @@ int mtd_device_parse_register(struct mtd_info *mtd, const char * const *types,
+ 		ret = 0;
+ 	else if (nr_parts)
+ 		ret = add_mtd_partitions(mtd, parts, nr_parts);
+-	else if (!device_is_registered(&mtd->dev))
++	else if (!mtd->dev || !device_is_registered(mtd->dev))
+ 		ret = add_mtd_device(mtd);
+ 	else
+ 		ret = 0;
+@@ -1184,7 +1234,7 @@ int mtd_device_parse_register(struct mtd_info *mtd, const char * const *types,
+ 		nvmem_unregister(mtd->otp_factory_nvmem);
+ 	}
+ 
+-	if (ret && device_is_registered(&mtd->dev)) {
++	if (ret && mtd->dev && device_is_registered(mtd->dev)) {
+ 		err = del_mtd_device(mtd);
+ 		if (err)
+ 			pr_err("Error when deleting MTD device (%d)\n", err);
+@@ -1225,7 +1275,7 @@ int mtd_device_unregister(struct mtd_info *master)
+ 	if (err)
+ 		return err;
+ 
+-	if (!device_is_registered(&master->dev))
++	if (!master->dev || !device_is_registered(master->dev))
+ 		return 0;
+ 
+ 	return del_mtd_device(master);
+@@ -1328,7 +1378,6 @@ struct mtd_info *get_mtd_device(struct mtd_info *mtd, int num)
+ }
+ EXPORT_SYMBOL_GPL(get_mtd_device);
+ 
+-
+ /**
+  * get_mtd_device_by_dev - acquire the MTD associated with a class device
+  * @dev: referenced MTD class device
+@@ -1342,7 +1391,7 @@ struct mtd_info *get_mtd_device_by_dev(struct device *dev)
+ 
+ 	guard(mutex)(&mtd_table_mutex);
+ 	mtd_for_each_device(mtd) {
+-		if (&mtd->dev != dev)
++		if (mtd->dev != dev)
+ 			continue;
+ 		err = __get_mtd_device(mtd);
+ 		return err ? ERR_PTR(err) : mtd;
+@@ -1355,8 +1404,12 @@ EXPORT_SYMBOL_GPL(get_mtd_device_by_dev);
+ int __get_mtd_device(struct mtd_info *mtd)
+ {
+ 	struct mtd_info *master = mtd_get_master(mtd);
++	bool master_ref = mtd == master || IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER);
+ 	int err;
+ 
++	if (!mtd->registered)
++		return -ENODEV;
++
+ 	if (master->_get_device) {
+ 		err = master->_get_device(mtd);
+ 		if (err)
+@@ -1369,13 +1422,14 @@ int __get_mtd_device(struct mtd_info *mtd)
+ 		return -ENODEV;
+ 	}
+ 
++	mtd_get_lifetime(master);
+ 	while (mtd) {
+ 		if (mtd != master)
+ 			kref_get(&mtd->refcnt);
+ 		mtd = mtd->parent;
+ 	}
+ 
+-	if (IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER))
++	if (master_ref)
+ 		kref_get(&master->refcnt);
  
  	return 0;
- }
-@@ -221,7 +223,7 @@ static int onie_tlv_parse_table(struct nvmem_layout *layout)
- 		return -EINVAL;
+@@ -1460,8 +1514,10 @@ EXPORT_SYMBOL_GPL(put_mtd_device);
+ void __put_mtd_device(struct mtd_info *mtd)
+ {
+ 	struct mtd_info *master = mtd_get_master(mtd);
++	bool master_ref = mtd == master || IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER);
+ 	/* master can be freed in _put_device */
+ 	struct module *owner = master->owner;
++	bool managed = master->master.release;
  
- 	data = table + hdr_len;
--	ret = onie_tlv_add_cells(dev, nvmem, data_len, data);
-+	ret = onie_tlv_add_cells(layout, data_len, data);
+ 	while (mtd) {
+ 		/* kref_put() can relese mtd, so keep a reference mtd->parent */
+@@ -1472,12 +1528,14 @@ void __put_mtd_device(struct mtd_info *mtd)
+ 		mtd = parent;
+ 	}
+ 
+-	if (IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER))
++	if (master_ref)
+ 		kref_put(&master->refcnt, mtd_device_release);
+ 
+-	/* must be the last use of master */
++	/* Legacy _put_device() callbacks can free an unmanaged master. */
+ 	if (master->_put_device)
+ 		master->_put_device(master);
++	if (managed)
++		mtd_put_lifetime(master);
+ 
+ 	/* _put_device() runs code from @owner, so drop the module last */
+ 	module_put(owner);
+diff --git a/drivers/mtd/mtdcore.h b/drivers/mtd/mtdcore.h
+index b014861a06a6..cf8f08d372a6 100644
+--- a/drivers/mtd/mtdcore.h
++++ b/drivers/mtd/mtdcore.h
+@@ -10,6 +10,11 @@ extern struct backing_dev_info *mtd_bdi;
+ struct mtd_info *__mtd_next_device(int i);
+ int __must_check add_mtd_device(struct mtd_info *mtd);
+ int del_mtd_device(struct mtd_info *mtd);
++void mtd_set_dev_defaults(struct mtd_info *mtd);
++void mtd_get_lifetime(struct mtd_info *master);
++void mtd_put_lifetime(struct mtd_info *master);
++void mtd_get_data(struct mtd_info *mtd);
++void mtd_put_data(struct mtd_info *mtd);
+ int add_mtd_partitions(struct mtd_info *, const struct mtd_partition *, int);
+ int del_mtd_partitions(struct mtd_info *);
+ void release_mtd_partition(struct mtd_info *mtd);
+diff --git a/drivers/mtd/mtddevice.c b/drivers/mtd/mtddevice.c
+new file mode 100644
+index 000000000000..83ad70c0d202
+--- /dev/null
++++ b/drivers/mtd/mtddevice.c
+@@ -0,0 +1,59 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <linux/device.h>
++#include <linux/export.h>
++#include <linux/mtd/mtd.h>
++#include <linux/of.h>
++#include <linux/slab.h>
++
++#include "mtddevice.h"
++
++static int mtd_cls_suspend(struct device *dev)
++{
++	struct mtd_info *mtd = dev_get_drvdata(dev);
++
++	return mtd ? mtd_suspend(mtd) : 0;
++}
++
++static int mtd_cls_resume(struct device *dev)
++{
++	struct mtd_info *mtd = dev_get_drvdata(dev);
++
++	if (mtd)
++		mtd_resume(mtd);
++	return 0;
++}
++static DEFINE_SIMPLE_DEV_PM_OPS(mtd_cls_pm_ops, mtd_cls_suspend, mtd_cls_resume);
++
++struct class mtd_class = {
++	.name = "mtd",
++	.pm = pm_sleep_ptr(&mtd_cls_pm_ops),
++};
++EXPORT_SYMBOL_GPL(mtd_class);
++
++static const struct device_type mtd_devtype = {
++	.name = "mtd",
++};
++
++/* Device references may outlive both the controller and the MTD module. */
++static void mtd_class_device_release(struct device *dev)
++{
++	of_node_put(dev->of_node);
++	kfree(dev);
++}
++
++struct device *mtd_class_device_alloc(struct device_node *np)
++{
++	struct device *dev = kzalloc_obj(*dev);
++
++	if (!dev)
++		return NULL;
++
++	device_initialize(dev);
++	dev->release = mtd_class_device_release;
++	dev->type = &mtd_devtype;
++	dev->class = &mtd_class;
++	dev->of_node = of_node_get(np);
++	return dev;
++}
++EXPORT_SYMBOL_GPL(mtd_class_device_alloc);
+diff --git a/drivers/mtd/mtddevice.h b/drivers/mtd/mtddevice.h
+new file mode 100644
+index 000000000000..429557dbaab1
+--- /dev/null
++++ b/drivers/mtd/mtddevice.h
+@@ -0,0 +1,12 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __MTD_DEVICE_H
++#define __MTD_DEVICE_H
++
++struct device;
++struct device_node;
++struct class;
++
++extern struct class mtd_class;
++struct device *mtd_class_device_alloc(struct device_node *np);
++
++#endif
+diff --git a/drivers/mtd/mtdpart.c b/drivers/mtd/mtdpart.c
+index c316cfe92c7e..58d134347691 100644
+--- a/drivers/mtd/mtdpart.c
++++ b/drivers/mtd/mtdpart.c
+@@ -87,9 +87,9 @@ static struct mtd_info *allocate_partition(struct mtd_info *parent,
+ 	 * parent conditional on that option. Note, this is a way to
+ 	 * distinguish between the parent and its partitions in sysfs.
+ 	 */
+-	child->dev.parent = IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER) || mtd_is_partition(parent) ?
+-			    &parent->dev : parent->dev.parent;
+-	child->dev.of_node = part->of_node;
++	child->parent_dev = IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER) || mtd_is_partition(parent) ?
++			    parent->dev : parent->parent_dev;
++	child->of_node = part->of_node;
+ 	child->parent = parent;
+ 	child->part.offset = part->offset;
+ 	INIT_LIST_HEAD(&child->partitions);
+@@ -239,7 +239,7 @@ static const struct attribute *mtd_partition_attrs[] = {
+ 
+ static int mtd_add_partition_attrs(struct mtd_info *new)
+ {
+-	int ret = sysfs_create_files(&new->dev.kobj, mtd_partition_attrs);
++	int ret = sysfs_create_files(&new->dev->kobj, mtd_partition_attrs);
+ 	if (ret)
+ 		printk(KERN_WARNING
+ 		       "mtd: failed to create partition attrs, err=%d\n", ret);
+@@ -279,7 +279,8 @@ int mtd_add_partition(struct mtd_info *parent, const char *name,
+ 	part.offset = offset;
+ 
+ 	mutex_lock(&master->master.partitions_lock);
+-	if (master->master.unregistering) {
++	if (master->master.unregistering ||
++	    (mtd_is_partition(parent) && !parent->registered)) {
+ 		ret = -ENODEV;
+ 		goto err_unlock;
+ 	}
+@@ -329,7 +330,7 @@ static int __mtd_del_partition(struct mtd_info *mtd)
+ 			return err;
+ 	}
+ 
+-	sysfs_remove_files(&mtd->dev.kobj, mtd_partition_attrs);
++	sysfs_remove_files(&mtd->dev->kobj, mtd_partition_attrs);
+ 
+ 	list_del_init(&mtd->part.node);
+ 	err = del_mtd_device(mtd);
+@@ -419,35 +420,47 @@ int add_mtd_partitions(struct mtd_info *parent,
+ 	       nbparts, parent->name);
+ 
+ 	for (i = 0; i < nbparts; i++) {
++		mutex_lock(&master->master.partitions_lock);
++		if (master->master.unregistering ||
++		    (mtd_is_partition(parent) && !parent->registered)) {
++			ret = -ENODEV;
++			goto err_unlock;
++		}
++
+ 		child = allocate_partition(parent, parts + i, i, cur_offset);
+ 		if (IS_ERR(child)) {
+ 			ret = PTR_ERR(child);
+-			goto err_del_partitions;
++			goto err_unlock;
+ 		}
+ 
+ 		if (IS_REACHABLE(CONFIG_MTD_VIRT_CONCAT)) {
+-			if (mtd_virt_concat_add(child))
++			if (mtd_virt_concat_add(child)) {
++				mutex_unlock(&master->master.partitions_lock);
+ 				continue;
++			}
+ 		}
+ 
+-		mutex_lock(&master->master.partitions_lock);
+ 		list_add_tail(&child->part.node, &parent->partitions);
+-		mutex_unlock(&master->master.partitions_lock);
+ 
+ 		ret = add_mtd_device(child);
+ 		if (ret) {
+-			mutex_lock(&master->master.partitions_lock);
+ 			list_del(&child->part.node);
+-			mutex_unlock(&master->master.partitions_lock);
+-
+ 			free_partition(child);
+-			goto err_del_partitions;
++			goto err_unlock;
+ 		}
+ 
+ 		mtd_add_partition_attrs(child);
++		cur_offset = child->part.offset + child->part.size;
++
++		/* Parsing drops the partition lock and may race with deletion. */
++		ret = PTR_ERR_OR_ZERO(get_mtd_device(child, -1));
++		if (ret)
++			goto err_unlock;
++		mutex_unlock(&master->master.partitions_lock);
+ 
+ 		/* Look for subpartitions (skip if no maching parser found) */
+ 		ret = parse_mtd_partitions(child, parts[i].types, NULL);
++		put_mtd_device(child);
+ 		if (ret < 0 && ret == -ENOENT) {
+ 			pr_debug("Skip parsing subpartitions: %d\n", ret);
+ 			continue;
+@@ -455,12 +468,12 @@ int add_mtd_partitions(struct mtd_info *parent,
+ 			pr_err("Failed to parse subpartitions: %d\n", ret);
+ 			goto err_del_partitions;
+ 		}
+-
+-		cur_offset = child->part.offset + child->part.size;
+ 	}
+ 
+ 	return 0;
+ 
++err_unlock:
++	mutex_unlock(&master->master.partitions_lock);
+ err_del_partitions:
+ 	del_mtd_partitions(master);
+ 
+@@ -613,10 +626,10 @@ static int mtd_part_of_parse(struct mtd_info *master,
+ 	const char *fixed = "fixed-partitions";
+ 	int ret, err = 0;
+ 
+-	dev = &master->dev;
++	dev = master->dev;
+ 	/* Use parent device (controller) if the top level MTD is not registered */
+ 	if (!IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER) && !mtd_is_partition(master))
+-		dev = master->dev.parent;
++		dev = master->parent_dev;
+ 
+ 	np = mtd_get_of_node(master);
+ 	if (mtd_is_partition(master))
+diff --git a/drivers/mtd/mtdpstore.c b/drivers/mtd/mtdpstore.c
+index 9cf3872e37ae..64776d434bf6 100644
+--- a/drivers/mtd/mtdpstore.c
++++ b/drivers/mtd/mtdpstore.c
+@@ -37,7 +37,7 @@ static int mtdpstore_block_isbad(struct mtdpstore_context *cxt, loff_t off)
+ 		return true;
+ 	ret = mtd_block_isbad(mtd, off);
+ 	if (ret < 0) {
+-		dev_err(&mtd->dev, "mtd_block_isbad failed, aborting\n");
++		dev_err(mtd->dev, "mtd_block_isbad failed, aborting\n");
+ 		return ret;
+ 	} else if (ret > 0) {
+ 		set_bit(blknum, cxt->badmap);
+@@ -63,7 +63,7 @@ static inline void mtdpstore_mark_used(struct mtdpstore_context *cxt,
+ 	struct mtd_info *mtd = cxt->mtd;
+ 	u64 zonenum = div_u64(off, cxt->info.kmsg_size);
+ 
+-	dev_dbg(&mtd->dev, "mark zone %llu used\n", zonenum);
++	dev_dbg(mtd->dev, "mark zone %llu used\n", zonenum);
+ 	set_bit(zonenum, cxt->usedmap);
+ }
+ 
+@@ -73,7 +73,7 @@ static inline void mtdpstore_mark_unused(struct mtdpstore_context *cxt,
+ 	struct mtd_info *mtd = cxt->mtd;
+ 	u64 zonenum = div_u64(off, cxt->info.kmsg_size);
+ 
+-	dev_dbg(&mtd->dev, "mark zone %llu unused\n", zonenum);
++	dev_dbg(mtd->dev, "mark zone %llu unused\n", zonenum);
+ 	clear_bit(zonenum, cxt->usedmap);
+ }
+ 
+@@ -87,7 +87,7 @@ static inline void mtdpstore_block_mark_unused(struct mtdpstore_context *cxt,
+ 	off = ALIGN_DOWN(off, mtd->erasesize);
+ 	zonenum = div_u64(off, cxt->info.kmsg_size);
+ 	while (zonecnt > 0) {
+-		dev_dbg(&mtd->dev, "mark zone %llu unused\n", zonenum);
++		dev_dbg(mtd->dev, "mark zone %llu unused\n", zonenum);
+ 		clear_bit(zonenum, cxt->usedmap);
+ 		zonenum++;
+ 		zonecnt--;
+@@ -142,7 +142,7 @@ static void mtdpstore_mark_removed(struct mtdpstore_context *cxt, loff_t off)
+ 	struct mtd_info *mtd = cxt->mtd;
+ 	u64 zonenum = div_u64(off, cxt->info.kmsg_size);
+ 
+-	dev_dbg(&mtd->dev, "mark zone %llu removed\n", zonenum);
++	dev_dbg(mtd->dev, "mark zone %llu removed\n", zonenum);
+ 	set_bit(zonenum, cxt->rmmap);
+ }
+ 
+@@ -187,14 +187,14 @@ static int mtdpstore_erase_do(struct mtdpstore_context *cxt, loff_t off)
+ 	int ret;
+ 
+ 	off = ALIGN_DOWN(off, cxt->mtd->erasesize);
+-	dev_dbg(&mtd->dev, "try to erase off 0x%llx\n", off);
++	dev_dbg(mtd->dev, "try to erase off 0x%llx\n", off);
+ 	erase.len = cxt->mtd->erasesize;
+ 	erase.addr = off;
+ 	ret = mtd_erase(cxt->mtd, &erase);
+ 	if (!ret)
+ 		mtdpstore_block_clear_removed(cxt, off);
+ 	else
+-		dev_err(&mtd->dev, "erase of region [0x%llx, 0x%llx] on \"%s\" failed\n",
++		dev_err(mtd->dev, "erase of region [0x%llx, 0x%llx] on \"%s\" failed\n",
+ 		       (unsigned long long)erase.addr,
+ 		       (unsigned long long)erase.len, cxt->info.device);
+ 	return ret;
+@@ -266,8 +266,8 @@ static int mtdpstore_security(struct mtdpstore_context *cxt, loff_t off)
+ 	}
+ 
+ 	if (ret)
+-		dev_err(&mtd->dev, "all blocks bad!\n");
+-	dev_dbg(&mtd->dev, "end security\n");
++		dev_err(mtd->dev, "all blocks bad!\n");
++	dev_dbg(mtd->dev, "end security\n");
+ 	return ret;
+ }
+ 
+@@ -285,10 +285,10 @@ static ssize_t mtdpstore_write(const char *buf, size_t size, loff_t off)
+ 	if (mtdpstore_is_used(cxt, off))
+ 		return -ENOMSG;
+ 
+-	dev_dbg(&mtd->dev, "try to write off 0x%llx size %zu\n", off, size);
++	dev_dbg(mtd->dev, "try to write off 0x%llx size %zu\n", off, size);
+ 	ret = mtd_write(cxt->mtd, off, size, &retlen, (u_char *)buf);
+ 	if (ret < 0 || retlen != size) {
+-		dev_err(&mtd->dev, "write failure at %lld (%zu of %zu written), err %d\n",
++		dev_err(mtd->dev, "write failure at %lld (%zu of %zu written), err %d\n",
+ 				off, retlen, size, ret);
+ 		return -EIO;
+ 	}
+@@ -317,14 +317,14 @@ static ssize_t mtdpstore_read(char *buf, size_t size, loff_t off)
+ 	if (mtdpstore_block_isbad(cxt, off))
+ 		return -ENOMSG;
+ 
+-	dev_dbg(&mtd->dev, "try to read off 0x%llx size %zu\n", off, size);
++	dev_dbg(mtd->dev, "try to read off 0x%llx size %zu\n", off, size);
+ 	for (done = 0, retlen = 0; done < size; done += retlen) {
+ 		retlen = 0;
+ 
+ 		ret = mtd_read(cxt->mtd, off + done, size - done, &retlen,
+ 				(u_char *)buf + done);
+ 		if (mtdpstore_is_io_error(ret)) {
+-			dev_err(&mtd->dev, "read failure at %lld (%zu of %zu read), err %d\n",
++			dev_err(mtd->dev, "read failure at %lld (%zu of %zu read), err %d\n",
+ 					off + done, retlen, size - done, ret);
+ 			/* the zone may be broken, try next one */
+ 			return -ENOMSG;
+@@ -337,7 +337,7 @@ static ssize_t mtdpstore_read(char *buf, size_t size, loff_t off)
+ 		 * valid or not.
+ 		 */
+ 		if (mtd_is_eccerr(ret)) {
+-			dev_err(&mtd->dev, "ecc error at %lld (%zu of %zu read), err %d\n",
++			dev_err(mtd->dev, "ecc error at %lld (%zu of %zu read), err %d\n",
+ 					off + done, retlen, size - done, ret);
+ 			/* driver may not set retlen when ecc error */
+ 			retlen = retlen == 0 ? size - done : retlen;
+@@ -369,7 +369,7 @@ static ssize_t mtdpstore_panic_write(const char *buf, size_t size, loff_t off)
+ 
+ 	ret = mtd_panic_write(cxt->mtd, off, size, &retlen, (u_char *)buf);
+ 	if (ret < 0 || size != retlen) {
+-		dev_err(&mtd->dev, "panic write failure at %lld (%zu of %zu read), err %d\n",
++		dev_err(mtd->dev, "panic write failure at %lld (%zu of %zu read), err %d\n",
+ 				off, retlen, size, ret);
+ 		return -EIO;
+ 	}
+@@ -391,10 +391,10 @@ static void mtdpstore_notify_add(struct mtd_info *mtd)
+ 	if (mtd->index != cxt->index || cxt->index < 0)
+ 		return;
+ 
+-	dev_dbg(&mtd->dev, "found matching MTD device %s\n", mtd->name);
++	dev_dbg(mtd->dev, "found matching MTD device %s\n", mtd->name);
+ 
+ 	if (mtd->size < info->kmsg_size * 2) {
+-		dev_err(&mtd->dev, "MTD partition %d not big enough\n",
++		dev_err(mtd->dev, "MTD partition %d not big enough\n",
+ 				mtd->index);
+ 		return;
+ 	}
+@@ -405,23 +405,23 @@ static void mtdpstore_notify_add(struct mtd_info *mtd)
+ 	 * is designed on it.
+ 	 */
+ 	if (mtd->erasesize < info->kmsg_size) {
+-		dev_err(&mtd->dev, "eraseblock size of MTD partition %d too small\n",
++		dev_err(mtd->dev, "eraseblock size of MTD partition %d too small\n",
+ 				mtd->index);
+ 		return;
+ 	}
+ 	if (unlikely(info->kmsg_size % mtd->writesize)) {
+-		dev_err(&mtd->dev, "record size %lu KB must align to write size %d KB\n",
++		dev_err(mtd->dev, "record size %lu KB must align to write size %d KB\n",
+ 				info->kmsg_size / 1024,
+ 				mtd->writesize / 1024);
+ 		return;
+ 	}
+ 
+ 	longcnt = BITS_TO_LONGS(div_u64(mtd->size, info->kmsg_size));
+-	cxt->rmmap = devm_kcalloc(&mtd->dev, longcnt, sizeof(long), GFP_KERNEL);
+-	cxt->usedmap = devm_kcalloc(&mtd->dev, longcnt, sizeof(long), GFP_KERNEL);
++	cxt->rmmap = devm_kcalloc(mtd->dev, longcnt, sizeof(long), GFP_KERNEL);
++	cxt->usedmap = devm_kcalloc(mtd->dev, longcnt, sizeof(long), GFP_KERNEL);
+ 
+ 	longcnt = BITS_TO_LONGS(div_u64(mtd->size, mtd->erasesize));
+-	cxt->badmap = devm_kcalloc(&mtd->dev, longcnt, sizeof(long), GFP_KERNEL);
++	cxt->badmap = devm_kcalloc(mtd->dev, longcnt, sizeof(long), GFP_KERNEL);
+ 
+ 	if (!cxt->rmmap || !cxt->usedmap || !cxt->badmap)
+ 		return;
+@@ -436,12 +436,12 @@ static void mtdpstore_notify_add(struct mtd_info *mtd)
+ 
+ 	ret = register_pstore_device(&cxt->dev);
+ 	if (ret) {
+-		dev_err(&mtd->dev, "mtd%d register to psblk failed\n",
++		dev_err(mtd->dev, "mtd%d register to psblk failed\n",
+ 				mtd->index);
+ 		return;
+ 	}
+ 	cxt->mtd = mtd;
+-	dev_info(&mtd->dev, "Attached to MTD device %d\n", mtd->index);
++	dev_info(mtd->dev, "Attached to MTD device %d\n", mtd->index);
+ }
+ 
+ static int mtdpstore_flush_removed_do(struct mtdpstore_context *cxt,
+@@ -477,7 +477,7 @@ static int mtdpstore_flush_removed_do(struct mtdpstore_context *cxt,
+ 		if (mtdpstore_is_used(cxt, off)) {
+ 			ret = mtd_write(mtd, off, zonesize, &retlen, buf);
+ 			if (ret)
+-				dev_err(&mtd->dev, "write failure at %lld (%zu of %u written), err %d\n",
++				dev_err(mtd->dev, "write failure at %lld (%zu of %u written), err %d\n",
+ 						off, retlen, zonesize, ret);
+ 		}
+ 
+diff --git a/drivers/mtd/nand/ecc.c b/drivers/mtd/nand/ecc.c
+index 6ccdff3fc913..cd507a68aec5 100644
+--- a/drivers/mtd/nand/ecc.c
++++ b/drivers/mtd/nand/ecc.c
+@@ -664,7 +664,6 @@ static struct nand_ecc_engine *nand_ecc_match_on_host_hw_engine(struct device *d
+ struct nand_ecc_engine *nand_ecc_get_on_host_hw_engine(struct nand_device *nand)
+ {
+ 	struct nand_ecc_engine *engine = NULL;
+-	struct device *dev = &nand->mtd.dev;
+ 	struct platform_device *pdev;
+ 	struct device_node *np;
+ 
+@@ -672,7 +671,7 @@ struct nand_ecc_engine *nand_ecc_get_on_host_hw_engine(struct nand_device *nand)
+ 		return NULL;
+ 
+ 	/* Check for an explicit nand-ecc-engine property */
+-	np = of_parse_phandle(dev->of_node, "nand-ecc-engine", 0);
++	np = of_parse_phandle(mtd_get_of_node(&nand->mtd), "nand-ecc-engine", 0);
+ 	if (np) {
+ 		pdev = of_find_device_by_node(np);
+ 		if (!pdev)
+diff --git a/drivers/mtd/nand/onenand/generic.c b/drivers/mtd/nand/onenand/generic.c
+index 3191904ced14..8f82b86b8b83 100644
+--- a/drivers/mtd/nand/onenand/generic.c
++++ b/drivers/mtd/nand/onenand/generic.c
+@@ -60,7 +60,7 @@ static int generic_onenand_probe(struct platform_device *pdev)
+ 
+ 	info->onenand.irq = err;
+ 
+-	info->mtd.dev.parent = &pdev->dev;
++	info->mtd.parent_dev = &pdev->dev;
+ 	info->mtd.priv = &info->onenand;
+ 
+ 	if (onenand_scan(&info->mtd, 1)) {
+diff --git a/drivers/mtd/nand/onenand/onenand_omap2.c b/drivers/mtd/nand/onenand/onenand_omap2.c
+index 644498187d8f..5890e13a29d0 100644
+--- a/drivers/mtd/nand/onenand/onenand_omap2.c
++++ b/drivers/mtd/nand/onenand/onenand_omap2.c
+@@ -513,7 +513,7 @@ static int omap2_onenand_probe(struct platform_device *pdev)
+ 
+ 	c->pdev = pdev;
+ 	c->mtd.priv = &c->onenand;
+-	c->mtd.dev.parent = dev;
++	c->mtd.parent_dev = dev;
+ 	mtd_set_of_node(&c->mtd, dev->of_node);
+ 
+ 	dev_info(dev, "initializing on CS%d (0x%08lx), va %p, %s mode\n",
+diff --git a/drivers/mtd/nand/onenand/onenand_samsung.c b/drivers/mtd/nand/onenand/onenand_samsung.c
+index b7b7758ce4d8..a9f465f281b3 100644
+--- a/drivers/mtd/nand/onenand/onenand_samsung.c
++++ b/drivers/mtd/nand/onenand/onenand_samsung.c
+@@ -859,7 +859,7 @@ static int s3c_onenand_probe(struct platform_device *pdev)
+ 
+ 	this = (struct onenand_chip *) &mtd[1];
+ 	mtd->priv = this;
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 	onenand->pdev = pdev;
+ 	onenand->type = platform_get_device_id(pdev)->driver_data;
+ 
+diff --git a/drivers/mtd/nand/raw/ams-delta.c b/drivers/mtd/nand/raw/ams-delta.c
+index fb2b7db70297..1afeb38145cd 100644
+--- a/drivers/mtd/nand/raw/ams-delta.c
++++ b/drivers/mtd/nand/raw/ams-delta.c
+@@ -196,7 +196,7 @@ static int gpio_nand_setup_interface(struct nand_chip *this, int csline,
+ {
+ 	struct gpio_nand *priv = nand_get_controller_data(this);
+ 	const struct nand_sdr_timings *sdr = nand_get_sdr_timings(cf);
+-	struct device *dev = &nand_to_mtd(this)->dev;
++	struct device *dev = nand_to_mtd(this)->parent_dev;
+ 
+ 	if (IS_ERR(sdr))
+ 		return PTR_ERR(sdr);
+@@ -258,7 +258,7 @@ static int gpio_nand_probe(struct platform_device *pdev)
+ 	this = &priv->nand_chip;
+ 
+ 	mtd = nand_to_mtd(this);
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 
+ 	nand_set_controller_data(this, priv);
+ 	nand_set_flash_node(this, pdev->dev.of_node);
+diff --git a/drivers/mtd/nand/raw/arasan-nand-controller.c b/drivers/mtd/nand/raw/arasan-nand-controller.c
+index 865754737f5f..839aef6c460b 100644
+--- a/drivers/mtd/nand/raw/arasan-nand-controller.c
++++ b/drivers/mtd/nand/raw/arasan-nand-controller.c
+@@ -1315,7 +1315,7 @@ static int anfc_chip_init(struct arasan_nfc *nfc, struct device_node *np)
+ 
+ 	chip = &anand->chip;
+ 	mtd = nand_to_mtd(chip);
+-	mtd->dev.parent = nfc->dev;
++	mtd->parent_dev = nfc->dev;
+ 	chip->controller = &nfc->controller;
+ 	chip->options = NAND_BUSWIDTH_AUTO | NAND_NO_SUBPAGE_WRITE |
+ 			NAND_USES_DMA;
+diff --git a/drivers/mtd/nand/raw/atmel/nand-controller.c b/drivers/mtd/nand/raw/atmel/nand-controller.c
+index 9a724de67624..0c79d30b9e30 100644
+--- a/drivers/mtd/nand/raw/atmel/nand-controller.c
++++ b/drivers/mtd/nand/raw/atmel/nand-controller.c
+@@ -1575,7 +1575,7 @@ static void atmel_nand_init(struct atmel_nand_controller *nc,
+ 	struct nand_chip *chip = &nand->base;
+ 	struct mtd_info *mtd = nand_to_mtd(chip);
+ 
+-	mtd->dev.parent = nc->dev;
++	mtd->parent_dev = nc->dev;
+ 	nand->base.controller = &nc->base;
+ 
+ 	if (!nc->mck || !nc->caps->ops->setup_interface)
+diff --git a/drivers/mtd/nand/raw/au1550nd.c b/drivers/mtd/nand/raw/au1550nd.c
+index 6796afe9cd29..01c2c8b191eb 100644
+--- a/drivers/mtd/nand/raw/au1550nd.c
++++ b/drivers/mtd/nand/raw/au1550nd.c
+@@ -291,7 +291,7 @@ static int au1550nd_probe(struct platform_device *pdev)
+ 
+ 	this = &ctx->chip;
+ 	mtd = nand_to_mtd(this);
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 
+ 	/* figure out which CS# r->start belongs to */
+ 	cs = find_nand_cs(r->start);
+diff --git a/drivers/mtd/nand/raw/bcm47xxnflash/main.c b/drivers/mtd/nand/raw/bcm47xxnflash/main.c
+index 4d4e185c22e5..4cccf00f67f7 100644
+--- a/drivers/mtd/nand/raw/bcm47xxnflash/main.c
++++ b/drivers/mtd/nand/raw/bcm47xxnflash/main.c
+@@ -32,7 +32,7 @@ static int bcm47xxnflash_probe(struct platform_device *pdev)
+ 
+ 	nand_set_controller_data(&b47n->nand_chip, b47n);
+ 	mtd = nand_to_mtd(&b47n->nand_chip);
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 	b47n->cc = container_of(nflash, struct bcma_drv_cc, nflash);
+ 
+ 	if (b47n->cc->core->bus->chipinfo.id == BCMA_CHIP_ID_BCM4706) {
+diff --git a/drivers/mtd/nand/raw/brcmnand/brcmnand.c b/drivers/mtd/nand/raw/brcmnand/brcmnand.c
+index 4a1f5e736a1c..0378014da6d2 100644
+--- a/drivers/mtd/nand/raw/brcmnand/brcmnand.c
++++ b/drivers/mtd/nand/raw/brcmnand/brcmnand.c
+@@ -3097,7 +3097,7 @@ static int brcmnand_init_cs(struct brcmnand_host *host,
+ 		return -ENOMEM;
+ 
+ 	mtd->owner = THIS_MODULE;
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 
+ 	chip->ecc.engine_type = NAND_ECC_ENGINE_TYPE_ON_HOST;
+ 	chip->ecc.read_page = brcmnand_read_page;
+diff --git a/drivers/mtd/nand/raw/cadence-nand-controller.c b/drivers/mtd/nand/raw/cadence-nand-controller.c
+index d53b35a8b3cb..05d0659e6527 100644
+--- a/drivers/mtd/nand/raw/cadence-nand-controller.c
++++ b/drivers/mtd/nand/raw/cadence-nand-controller.c
+@@ -3048,7 +3048,7 @@ static int cadence_nand_chip_init(struct cdns_nand_ctrl *cdns_ctrl,
+ 	nand_set_flash_node(chip, np);
+ 
+ 	mtd = nand_to_mtd(chip);
+-	mtd->dev.parent = cdns_ctrl->dev;
++	mtd->parent_dev = cdns_ctrl->dev;
+ 
+ 	/*
+ 	 * Default to HW ECC engine mode. If the nand-ecc-mode property is given
+diff --git a/drivers/mtd/nand/raw/cafe_nand.c b/drivers/mtd/nand/raw/cafe_nand.c
+index f3117b031cd2..e936c9807bf8 100644
+--- a/drivers/mtd/nand/raw/cafe_nand.c
++++ b/drivers/mtd/nand/raw/cafe_nand.c
+@@ -685,7 +685,7 @@ static int cafe_nand_probe(struct pci_dev *pdev,
+ 	}
+ 
+ 	mtd = nand_to_mtd(&cafe->nand);
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 	nand_set_controller_data(&cafe->nand, cafe);
+ 
+ 	cafe->pdev = pdev;
+diff --git a/drivers/mtd/nand/raw/davinci_nand.c b/drivers/mtd/nand/raw/davinci_nand.c
+index 3986553881d0..17c6fa73f4c3 100644
+--- a/drivers/mtd/nand/raw/davinci_nand.c
++++ b/drivers/mtd/nand/raw/davinci_nand.c
+@@ -958,7 +958,7 @@ static int nand_davinci_probe(struct platform_device *pdev)
+ 	info->aemif		= dev_get_drvdata(pdev->dev.parent);
+ 
+ 	mtd			= nand_to_mtd(&info->chip);
+-	mtd->dev.parent		= &pdev->dev;
++	mtd->parent_dev		= &pdev->dev;
+ 	nand_set_flash_node(&info->chip, pdev->dev.of_node);
+ 
+ 	/* options such as NAND_BBT_USE_FLASH */
+diff --git a/drivers/mtd/nand/raw/denali.c b/drivers/mtd/nand/raw/denali.c
+index fa2439cb4daa..9c07e4e25a27 100644
+--- a/drivers/mtd/nand/raw/denali.c
++++ b/drivers/mtd/nand/raw/denali.c
+@@ -1216,7 +1216,7 @@ int denali_chip_init(struct denali_controller *denali,
+ 		}
+ 	}
+ 
+-	mtd->dev.parent = denali->dev;
++	mtd->parent_dev = denali->dev;
+ 
+ 	/*
+ 	 * Fallback to the default name if DT did not give "label" property.
+diff --git a/drivers/mtd/nand/raw/fsl_elbc_nand.c b/drivers/mtd/nand/raw/fsl_elbc_nand.c
+index c655d27bc4cc..6216ffea4324 100644
+--- a/drivers/mtd/nand/raw/fsl_elbc_nand.c
++++ b/drivers/mtd/nand/raw/fsl_elbc_nand.c
+@@ -687,7 +687,7 @@ static int fsl_elbc_chip_init(struct fsl_elbc_mtd *priv)
+ 	dev_dbg(priv->dev, "eLBC Set Information for bank %d\n", priv->bank);
+ 
+ 	/* Fill in fsl_elbc_mtd structure */
+-	mtd->dev.parent = priv->dev;
++	mtd->parent_dev = priv->dev;
+ 	nand_set_flash_node(chip, priv->dev->of_node);
+ 
+ 	/* set timeout to maximum */
+diff --git a/drivers/mtd/nand/raw/fsl_ifc_nand.c b/drivers/mtd/nand/raw/fsl_ifc_nand.c
+index cc75b6a67e07..20ae012adbaa 100644
+--- a/drivers/mtd/nand/raw/fsl_ifc_nand.c
++++ b/drivers/mtd/nand/raw/fsl_ifc_nand.c
+@@ -868,7 +868,7 @@ static int fsl_ifc_chip_init(struct fsl_ifc_mtd *priv)
+ 	int ret;
+ 
+ 	/* Fill in fsl_ifc_mtd structure */
+-	mtd->dev.parent = priv->dev;
++	mtd->parent_dev = priv->dev;
+ 
+ 	struct device_node *np __free(device_node) =
+ 		of_get_next_child_with_prefix(priv->dev->of_node, NULL, "nand");
+diff --git a/drivers/mtd/nand/raw/fsl_upm.c b/drivers/mtd/nand/raw/fsl_upm.c
+index f4dc990a8da1..28335dedb987 100644
+--- a/drivers/mtd/nand/raw/fsl_upm.c
++++ b/drivers/mtd/nand/raw/fsl_upm.c
+@@ -50,7 +50,7 @@ static int fun_chip_init(struct fsl_upm_nand *fun,
+ 	fun->chip.ecc.engine_type = NAND_ECC_ENGINE_TYPE_SOFT;
+ 	fun->chip.ecc.algo = NAND_ECC_ALGO_HAMMING;
+ 	fun->chip.controller = &fun->base;
+-	mtd->dev.parent = fun->dev;
++	mtd->parent_dev = fun->dev;
+ 
+ 	flash_np = of_get_next_child(upm_np, NULL);
+ 	if (!flash_np)
+diff --git a/drivers/mtd/nand/raw/fsmc_nand.c b/drivers/mtd/nand/raw/fsmc_nand.c
+index 0b1817cdfc5a..3cd25395d791 100644
+--- a/drivers/mtd/nand/raw/fsmc_nand.c
++++ b/drivers/mtd/nand/raw/fsmc_nand.c
+@@ -1102,7 +1102,7 @@ static int __init fsmc_nand_probe(struct platform_device *pdev)
+ 	mtd = nand_to_mtd(&host->nand);
+ 	nand_set_flash_node(nand, pdev->dev.of_node);
+ 
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 
+ 	nand->badblockbits = 7;
+ 
+diff --git a/drivers/mtd/nand/raw/gpio.c b/drivers/mtd/nand/raw/gpio.c
+index 69e5e43532a4..d17fb2244923 100644
+--- a/drivers/mtd/nand/raw/gpio.c
++++ b/drivers/mtd/nand/raw/gpio.c
+@@ -353,7 +353,7 @@ static int gpio_nand_probe(struct platform_device *pdev)
+ 	chip->controller	= &gpiomtd->base;
+ 
+ 	mtd			= nand_to_mtd(chip);
+-	mtd->dev.parent		= dev;
++	mtd->parent_dev		= dev;
+ 
+ 	platform_set_drvdata(pdev, gpiomtd);
+ 
+diff --git a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
+index 527165ccc839..4822485bd512 100644
+--- a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
++++ b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
+@@ -2714,7 +2714,7 @@ static int gpmi_nand_init(struct gpmi_nand_data *this)
+ 
+ 	/* init the MTD data structures */
+ 	mtd->name		= "gpmi-nand";
+-	mtd->dev.parent		= this->dev;
++	mtd->parent_dev		= this->dev;
+ 
+ 	/* init the nand_chip{}, we don't support a 16-bit NAND Flash bus. */
+ 	nand_set_controller_data(chip, this);
+diff --git a/drivers/mtd/nand/raw/hisi504_nand.c b/drivers/mtd/nand/raw/hisi504_nand.c
+index d97270ec1185..ccc21d21c3e0 100644
+--- a/drivers/mtd/nand/raw/hisi504_nand.c
++++ b/drivers/mtd/nand/raw/hisi504_nand.c
+@@ -762,7 +762,7 @@ static int hisi_nfc_probe(struct platform_device *pdev)
+ 		return PTR_ERR(host->mmio);
+ 
+ 	mtd->name		= "hisi_nand";
+-	mtd->dev.parent         = &pdev->dev;
++	mtd->parent_dev         = &pdev->dev;
+ 
+ 	nand_set_controller_data(chip, host);
+ 	nand_set_flash_node(chip, np);
+diff --git a/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c b/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c
+index f1e2c82936b3..bdda06ae0d72 100644
+--- a/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c
++++ b/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c
+@@ -394,7 +394,7 @@ static int ingenic_nand_init_chip(struct platform_device *pdev,
+ 				   cs->bank);
+ 	if (!mtd->name)
+ 		return -ENOMEM;
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 
+ 	chip->options = NAND_NO_SUBPAGE_WRITE;
+ 	chip->ecc.engine_type = NAND_ECC_ENGINE_TYPE_ON_HOST;
+diff --git a/drivers/mtd/nand/raw/intel-nand-controller.c b/drivers/mtd/nand/raw/intel-nand-controller.c
+index 97c82e9c1af2..d8071180cc0d 100644
+--- a/drivers/mtd/nand/raw/intel-nand-controller.c
++++ b/drivers/mtd/nand/raw/intel-nand-controller.c
+@@ -677,7 +677,7 @@ static int ebu_nand_probe(struct platform_device *pdev)
+ 		goto err_cleanup_dma;
+ 	}
+ 
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 	ebu_host->dev = dev;
+ 
+ 	platform_set_drvdata(pdev, ebu_host);
+diff --git a/drivers/mtd/nand/raw/loongson-nand-controller.c b/drivers/mtd/nand/raw/loongson-nand-controller.c
+index 8490412d5be1..741e19f351d1 100644
+--- a/drivers/mtd/nand/raw/loongson-nand-controller.c
++++ b/drivers/mtd/nand/raw/loongson-nand-controller.c
+@@ -862,7 +862,7 @@ static int loongson_nand_chip_init(struct loongson_nand_host *host)
+ 	chip->controller = &host->controller;
+ 	chip->options = NAND_NO_SUBPAGE_WRITE | NAND_USES_DMA | NAND_BROKEN_XD;
+ 	chip->buf_align = 16;
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 	mtd->owner = THIS_MODULE;
+ 
+ 	ret = nand_scan(chip, 1);
+diff --git a/drivers/mtd/nand/raw/lpc32xx_mlc.c b/drivers/mtd/nand/raw/lpc32xx_mlc.c
+index 8436015edcb4..408b2aba2fdd 100644
+--- a/drivers/mtd/nand/raw/lpc32xx_mlc.c
++++ b/drivers/mtd/nand/raw/lpc32xx_mlc.c
+@@ -328,7 +328,7 @@ static int lpc32xx_waitfunc_nand(struct nand_chip *chip)
+ 
+ 	while (!(readb(MLC_ISR(host->io_base)) & MLCISR_NAND_READY)) {
+ 		/* Seems to be delayed sometimes by controller */
+-		dev_dbg(&mtd->dev, "Warning: NAND not ready.\n");
++		dev_dbg(mtd->dev, "Warning: NAND not ready.\n");
+ 		cpu_relax();
+ 	}
+ 
+@@ -348,7 +348,7 @@ static int lpc32xx_waitfunc_controller(struct nand_chip *chip)
+ 
+ 	while (!(readb(MLC_ISR(host->io_base)) &
+ 		 MLCISR_CONTROLLER_READY)) {
+-		dev_dbg(&mtd->dev, "Warning: Controller not ready.\n");
++		dev_dbg(mtd->dev, "Warning: Controller not ready.\n");
+ 		cpu_relax();
+ 	}
+ 
+@@ -402,13 +402,13 @@ static int lpc32xx_xmit_dma(struct mtd_info *mtd, void *mem, int len,
+ 	res = dma_map_sg(host->dma_chan->device->dev, &host->sgl, 1,
+ 			 DMA_BIDIRECTIONAL);
+ 	if (res != 1) {
+-		dev_err(mtd->dev.parent, "Failed to map sg list\n");
++		dev_err(mtd->parent_dev, "Failed to map sg list\n");
+ 		return -ENXIO;
+ 	}
+ 	desc = dmaengine_prep_slave_sg(host->dma_chan, &host->sgl, 1, dir,
+ 				       flags);
+ 	if (!desc) {
+-		dev_err(mtd->dev.parent, "Failed to prepare slave sg\n");
++		dev_err(mtd->parent_dev, "Failed to prepare slave sg\n");
+ 		res = -ENXIO;
+ 		goto out1;
+ 	}
+@@ -472,7 +472,7 @@ static int lpc32xx_read_page(struct nand_chip *chip, uint8_t *buf,
+ 		mlc_isr = readl(MLC_ISR(host->io_base));
+ 		if (mlc_isr & MLCISR_DECODER_FAILURE) {
+ 			mtd->ecc_stats.failed++;
+-			dev_warn(&mtd->dev, "%s: DECODER_FAILURE\n", __func__);
++			dev_warn(mtd->dev, "%s: DECODER_FAILURE\n", __func__);
+ 		} else if (mlc_isr & MLCISR_ERRORS_DETECTED) {
+ 			mtd->ecc_stats.corrected += ((mlc_isr >> 4) & 0x3) + 1;
+ 		}
+@@ -579,9 +579,9 @@ static int lpc32xx_dma_setup(struct lpc32xx_nand_host *host)
+ {
+ 	struct mtd_info *mtd = nand_to_mtd(&host->nand_chip);
+ 
+-	host->dma_chan = dma_request_chan(mtd->dev.parent, "rx-tx");
++	host->dma_chan = dma_request_chan(mtd->parent_dev, "rx-tx");
+ 	if (IS_ERR(host->dma_chan)) {
+-		dev_err(mtd->dev.parent, "Failed to request DMA channel\n");
++		dev_err(mtd->parent_dev, "Failed to request DMA channel\n");
+ 		return PTR_ERR(host->dma_chan);
+ 	}
+ 
+@@ -600,7 +600,7 @@ static int lpc32xx_dma_setup(struct lpc32xx_nand_host *host)
+ 	host->dma_slave_config.src_addr = MLC_BUFF(host->io_base_phy);
+ 	host->dma_slave_config.dst_addr = MLC_BUFF(host->io_base_phy);
+ 	if (dmaengine_slave_config(host->dma_chan, &host->dma_slave_config)) {
+-		dev_err(mtd->dev.parent, "Failed to setup DMA slave\n");
++		dev_err(mtd->parent_dev, "Failed to setup DMA slave\n");
+ 		goto out1;
+ 	}
+ 
+@@ -724,7 +724,7 @@ static int lpc32xx_nand_probe(struct platform_device *pdev)
+ 	/* link the private data structures */
+ 	nand_set_controller_data(nand_chip, host);
+ 	nand_set_flash_node(nand_chip, pdev->dev.of_node);
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 
+ 	/* Get NAND clock */
+ 	host->clk = clk_get(&pdev->dev, NULL);
+diff --git a/drivers/mtd/nand/raw/lpc32xx_slc.c b/drivers/mtd/nand/raw/lpc32xx_slc.c
+index b4d90afa9267..f75ae484ce86 100644
+--- a/drivers/mtd/nand/raw/lpc32xx_slc.c
++++ b/drivers/mtd/nand/raw/lpc32xx_slc.c
+@@ -440,7 +440,7 @@ static int lpc32xx_xmit_dma(struct mtd_info *mtd, dma_addr_t dma,
+ 	/* DMA controller does flow control: */
+ 	host->dma_slave_config.device_fc = false;
+ 	if (dmaengine_slave_config(host->dma_chan, &host->dma_slave_config)) {
+-		dev_err(mtd->dev.parent, "Failed to setup DMA slave\n");
++		dev_err(mtd->parent_dev, "Failed to setup DMA slave\n");
+ 		return -ENXIO;
+ 	}
+ 
+@@ -449,13 +449,13 @@ static int lpc32xx_xmit_dma(struct mtd_info *mtd, dma_addr_t dma,
+ 	res = dma_map_sg(host->dma_chan->device->dev, &host->sgl, 1,
+ 			 DMA_BIDIRECTIONAL);
+ 	if (res != 1) {
+-		dev_err(mtd->dev.parent, "Failed to map sg list\n");
++		dev_err(mtd->parent_dev, "Failed to map sg list\n");
+ 		return -ENXIO;
+ 	}
+ 	desc = dmaengine_prep_slave_sg(host->dma_chan, &host->sgl, 1, dir,
+ 				       flags);
+ 	if (!desc) {
+-		dev_err(mtd->dev.parent, "Failed to prepare slave sg\n");
++		dev_err(mtd->parent_dev, "Failed to prepare slave sg\n");
+ 		goto out1;
+ 	}
+ 
+@@ -559,13 +559,13 @@ static int lpc32xx_xfer(struct mtd_info *mtd, uint8_t *buf, int eccsubpages,
+ 	 * safety reasons for now.
+ 	 */
+ 	if (readl(SLC_STAT(host->io_base)) & SLCSTAT_DMA_FIFO) {
+-		dev_warn(mtd->dev.parent, "FIFO not empty!\n");
++		dev_warn(mtd->parent_dev, "FIFO not empty!\n");
+ 		timeout = jiffies + msecs_to_jiffies(LPC32XX_DMA_TIMEOUT);
+ 		while ((readl(SLC_STAT(host->io_base)) & SLCSTAT_DMA_FIFO) &&
+ 		       time_before(jiffies, timeout))
+ 			cpu_relax();
+ 		if (!time_before(jiffies, timeout)) {
+-			dev_err(mtd->dev.parent, "FIFO held data too long\n");
++			dev_err(mtd->parent_dev, "FIFO held data too long\n");
+ 			status = -EIO;
+ 		}
+ 	}
+@@ -582,7 +582,7 @@ static int lpc32xx_xfer(struct mtd_info *mtd, uint8_t *buf, int eccsubpages,
+ 	if (readl(SLC_STAT(host->io_base)) & SLCSTAT_DMA_FIFO ||
+ 	    readl(SLC_TC(host->io_base))) {
+ 		/* Something is left in the FIFO, something is wrong */
+-		dev_err(mtd->dev.parent, "DMA FIFO failure\n");
++		dev_err(mtd->parent_dev, "DMA FIFO failure\n");
+ 		status = -EIO;
+ 	}
+ 
+@@ -726,9 +726,9 @@ static int lpc32xx_nand_dma_setup(struct lpc32xx_nand_host *host)
+ {
+ 	struct mtd_info *mtd = nand_to_mtd(&host->nand_chip);
+ 
+-	host->dma_chan = dma_request_chan(mtd->dev.parent, "rx-tx");
++	host->dma_chan = dma_request_chan(mtd->parent_dev, "rx-tx");
+ 	if (IS_ERR(host->dma_chan)) {
+-		dev_err(mtd->dev.parent, "Failed to request DMA channel\n");
++		dev_err(mtd->parent_dev, "Failed to request DMA channel\n");
+ 		return PTR_ERR(host->dma_chan);
+ 	}
+ 
+@@ -863,7 +863,7 @@ static int lpc32xx_nand_probe(struct platform_device *pdev)
+ 	nand_set_controller_data(chip, host);
+ 	nand_set_flash_node(chip, pdev->dev.of_node);
+ 	mtd->owner = THIS_MODULE;
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 
+ 	/* Get NAND clock */
+ 	host->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+diff --git a/drivers/mtd/nand/raw/marvell_nand.c b/drivers/mtd/nand/raw/marvell_nand.c
+index 38b7eb5b992c..56350209f7e0 100644
+--- a/drivers/mtd/nand/raw/marvell_nand.c
++++ b/drivers/mtd/nand/raw/marvell_nand.c
+@@ -2723,7 +2723,7 @@ static int marvell_nand_chip_init(struct device *dev, struct marvell_nfc *nfc,
+ 		chip->options |= NAND_KEEP_TIMINGS;
+ 
+ 	mtd = nand_to_mtd(chip);
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 
+ 	/*
+ 	 * Save a reference value for timing registers before
+diff --git a/drivers/mtd/nand/raw/meson_nand.c b/drivers/mtd/nand/raw/meson_nand.c
+index b8834aa96e81..2a554f62a25e 100644
+--- a/drivers/mtd/nand/raw/meson_nand.c
++++ b/drivers/mtd/nand/raw/meson_nand.c
+@@ -1428,7 +1428,7 @@ meson_nfc_nand_chip_init(struct device *dev,
+ 	nand->options |= NAND_USES_DMA;
+ 	mtd = nand_to_mtd(nand);
+ 	mtd->owner = THIS_MODULE;
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 
+ 	ret = of_property_read_u32(np, "nand-rb", &nand_rb_val);
+ 	if (ret == -EINVAL)
+diff --git a/drivers/mtd/nand/raw/mpc5121_nfc.c b/drivers/mtd/nand/raw/mpc5121_nfc.c
+index e6594548b7e0..0aeeb6327472 100644
+--- a/drivers/mtd/nand/raw/mpc5121_nfc.c
++++ b/drivers/mtd/nand/raw/mpc5121_nfc.c
+@@ -655,7 +655,7 @@ static int mpc5121_nfc_probe(struct platform_device *op)
+ 	prv->controller.ops = &mpc5121_nfc_ops;
+ 	chip->controller = &prv->controller;
+ 
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 	nand_set_controller_data(chip, prv);
+ 	nand_set_flash_node(chip, dn);
+ 	prv->dev = dev;
+diff --git a/drivers/mtd/nand/raw/mtk_nand.c b/drivers/mtd/nand/raw/mtk_nand.c
+index 21c7e1102746..a36a82d10aa7 100644
+--- a/drivers/mtd/nand/raw/mtk_nand.c
++++ b/drivers/mtd/nand/raw/mtk_nand.c
+@@ -1296,7 +1296,7 @@ static int mtk_nfc_ecc_init(struct device *dev, struct mtd_info *mtd)
+ static int mtk_nfc_attach_chip(struct nand_chip *chip)
+ {
+ 	struct mtd_info *mtd = nand_to_mtd(chip);
+-	struct device *dev = mtd->dev.parent;
++	struct device *dev = mtd->parent_dev;
+ 	struct mtk_nfc *nfc = nand_get_controller_data(chip);
+ 	struct mtk_nfc_nand_chip *mtk_nand = to_mtk_nand(chip);
+ 	int len;
+@@ -1407,7 +1407,7 @@ static int mtk_nfc_nand_chip_init(struct device *dev, struct mtk_nfc *nfc,
+ 
+ 	mtd = nand_to_mtd(nand);
+ 	mtd->owner = THIS_MODULE;
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 	mtd->name = MTK_NAME;
+ 	mtd_set_ooblayout(mtd, &mtk_nfc_ooblayout_ops);
+ 
+diff --git a/drivers/mtd/nand/raw/mxc_nand.c b/drivers/mtd/nand/raw/mxc_nand.c
+index 4d8b92e7e672..f976cf3f7210 100644
+--- a/drivers/mtd/nand/raw/mxc_nand.c
++++ b/drivers/mtd/nand/raw/mxc_nand.c
+@@ -1398,7 +1398,7 @@ static int mxcnd_attach_chip(struct nand_chip *chip)
+ {
+ 	struct mtd_info *mtd = nand_to_mtd(chip);
+ 	struct mxc_nand_host *host = nand_get_controller_data(chip);
+-	struct device *dev = mtd->dev.parent;
++	struct device *dev = mtd->parent_dev;
+ 
+ 	chip->ecc.bytes = host->devtype_data->eccbytes;
+ 	host->eccsize = host->devtype_data->eccsize;
+@@ -1708,7 +1708,7 @@ static int mxcnd_probe(struct platform_device *pdev)
+ 	/* structures must be linked */
+ 	this = &host->nand;
+ 	mtd = nand_to_mtd(this);
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 	mtd->name = DRIVER_NAME;
+ 
+ 	/* 50 us command delay time */
+diff --git a/drivers/mtd/nand/raw/mxic_nand.c b/drivers/mtd/nand/raw/mxic_nand.c
+index 92de26697359..ce9fe27fb4ac 100644
+--- a/drivers/mtd/nand/raw/mxic_nand.c
++++ b/drivers/mtd/nand/raw/mxic_nand.c
+@@ -515,7 +515,7 @@ static int mxic_nfc_probe(struct platform_device *pdev)
+ 
+ 	nand_chip = &nfc->chip;
+ 	mtd = nand_to_mtd(nand_chip);
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 
+ 	for_each_child_of_node(np, nand_np)
+ 		nand_set_flash_node(nand_chip, nand_np);
+diff --git a/drivers/mtd/nand/raw/nand_base.c b/drivers/mtd/nand/raw/nand_base.c
+index f125c529c62d..f6a054919c06 100644
+--- a/drivers/mtd/nand/raw/nand_base.c
++++ b/drivers/mtd/nand/raw/nand_base.c
+@@ -5576,8 +5576,8 @@ static int nand_scan_ident(struct nand_chip *chip, unsigned int maxchips,
  	if (ret)
  		return ret;
  
-diff --git a/drivers/nvmem/layouts/sl28vpd.c b/drivers/nvmem/layouts/sl28vpd.c
-index e93b020b0836..1e65a0b6c61f 100644
---- a/drivers/nvmem/layouts/sl28vpd.c
-+++ b/drivers/nvmem/layouts/sl28vpd.c
-@@ -124,8 +124,9 @@ static int sl28vpd_add_cells(struct nvmem_layout *layout)
- 		info.read_post_process = pinfo->read_post_process;
- 		info.np = of_get_child_by_name(layout_np, pinfo->name);
+-	if (!mtd->name && mtd->dev.parent)
+-		mtd->name = dev_name(mtd->dev.parent);
++	if (!mtd->name && mtd->parent_dev)
++		mtd->name = dev_name(mtd->parent_dev);
  
--		ret = nvmem_add_one_cell(nvmem, &info);
-+		ret = nvmem_layout_add_cell(layout, &info);
- 		if (ret) {
-+			of_node_put(info.np);
- 			of_node_put(layout_np);
- 			return ret;
- 		}
-diff --git a/drivers/nvmem/layouts/u-boot-env.c b/drivers/nvmem/layouts/u-boot-env.c
-index 33ec2350386f..83c687e43e5a 100644
---- a/drivers/nvmem/layouts/u-boot-env.c
-+++ b/drivers/nvmem/layouts/u-boot-env.c
-@@ -49,11 +49,13 @@ static int u_boot_env_read_post_process_ethaddr(void *context, const char *id, i
- 	return 0;
- }
+ 	/* Set the default functions */
+ 	nand_set_defaults(chip);
+diff --git a/drivers/mtd/nand/raw/nand_macronix.c b/drivers/mtd/nand/raw/nand_macronix.c
+index 4fe7036ae992..7169c014d197 100644
+--- a/drivers/mtd/nand/raw/nand_macronix.c
++++ b/drivers/mtd/nand/raw/nand_macronix.c
+@@ -419,11 +419,11 @@ static int __macronix_30lfxg18ac_rw_otp(struct mtd_info *mtd,
  
--static int u_boot_env_parse_cells(struct device *dev, struct nvmem_device *nvmem, uint8_t *buf,
-+static int u_boot_env_parse_cells(struct device *dev, struct nvmem_device *nvmem,
-+				  struct nvmem_layout *layout, uint8_t *buf,
- 				  size_t data_offset, size_t data_len)
+ out_otp:
+ 	if (ret)
+-		dev_err(&mtd->dev, "failed to perform OTP IO: %i\n", ret);
++		dev_err(mtd->dev, "failed to perform OTP IO: %i\n", ret);
+ 
+ 	ret = macronix_30lfxg18ac_otp_disable(nand);
+ 	if (ret)
+-		dev_err(&mtd->dev, "failed to leave OTP mode after %s\n",
++		dev_err(mtd->dev, "failed to leave OTP mode after %s\n",
+ 			write ? "write" : "read");
+ 
+ 	nand_deselect_target(nand);
+diff --git a/drivers/mtd/nand/raw/nand_onfi.c b/drivers/mtd/nand/raw/nand_onfi.c
+index b5e304c35738..4bacc1c89c6b 100644
+--- a/drivers/mtd/nand/raw/nand_onfi.c
++++ b/drivers/mtd/nand/raw/nand_onfi.c
+@@ -87,7 +87,7 @@ static int nand_flash_detect_ext_param_page(struct nand_chip *chip,
+ 		s = ep->sections + i;
+ 		section_len = s->length * 16;
+ 		if (section_len > remaining) {
+-			dev_dbg(&mtd->dev,
++			dev_dbg(mtd->dev,
+ 				"ONFI extended parameter section %d exceeds page\n",
+ 				i);
+ 			goto ext_out;
+@@ -95,7 +95,7 @@ static int nand_flash_detect_ext_param_page(struct nand_chip *chip,
+ 
+ 		if (s->type == ONFI_SECTION_TYPE_2) {
+ 			if (section_len < sizeof(*ecc)) {
+-				dev_dbg(&mtd->dev,
++				dev_dbg(mtd->dev,
+ 					"ONFI extended parameter ECC section %d is too short\n",
+ 					i);
+ 				goto ext_out;
+diff --git a/drivers/mtd/nand/raw/ndfc.c b/drivers/mtd/nand/raw/ndfc.c
+index d7b119028a71..ce10fc6a41aa 100644
+--- a/drivers/mtd/nand/raw/ndfc.c
++++ b/drivers/mtd/nand/raw/ndfc.c
+@@ -155,7 +155,7 @@ static int ndfc_chip_init(struct ndfc_controller *ndfc,
+ 	chip->ecc.strength = 1;
+ 	nand_set_controller_data(chip, ndfc);
+ 
+-	mtd->dev.parent = &ndfc->ofdev->dev;
++	mtd->parent_dev = &ndfc->ofdev->dev;
+ 
+ 	flash_np = of_get_next_child(node, NULL);
+ 	if (!flash_np)
+diff --git a/drivers/mtd/nand/raw/nuvoton-ma35d1-nand-controller.c b/drivers/mtd/nand/raw/nuvoton-ma35d1-nand-controller.c
+index f659d3a6b9ef..23db2f4fefbb 100644
+--- a/drivers/mtd/nand/raw/nuvoton-ma35d1-nand-controller.c
++++ b/drivers/mtd/nand/raw/nuvoton-ma35d1-nand-controller.c
+@@ -235,7 +235,7 @@ static int ma35_nand_hwecc_init(struct nand_chip *chip, struct ma35_nand_info *n
  {
- 	char *data = buf + data_offset;
- 	char *var, *value, *eq;
-+	int ret;
+ 	struct ma35_nand_chip *nvtnand = to_ma35_nand(chip);
+ 	struct mtd_info *mtd = nand_to_mtd(chip);
+-	struct device *dev = mtd->dev.parent;
++	struct device *dev = mtd->parent_dev;
+ 	u32 reg;
  
- 	for (var = data;
- 	     var < data + data_len && *var;
-@@ -78,14 +80,19 @@ static int u_boot_env_parse_cells(struct device *dev, struct nvmem_device *nvmem
- 			info.read_post_process = u_boot_env_read_post_process_ethaddr;
- 		}
+ 	nand->buffer = devm_kzalloc(dev, mtd->writesize, GFP_KERNEL);
+@@ -736,7 +736,7 @@ static int ma35_nand_attach_chip(struct nand_chip *chip)
+ {
+ 	struct ma35_nand_info *nand = nand_get_controller_data(chip);
+ 	struct mtd_info *mtd = nand_to_mtd(chip);
+-	struct device *dev = mtd->dev.parent;
++	struct device *dev = mtd->parent_dev;
+ 	u32 reg;
  
--		nvmem_add_one_cell(nvmem, &info);
-+		ret = layout ? nvmem_layout_add_cell(layout, &info) :
-+			       nvmem_add_one_cell(nvmem, &info);
-+		if (ret) {
-+			of_node_put(info.np);
-+			return ret;
-+		}
+ 	if (chip->options & NAND_BUSWIDTH_16) {
+@@ -900,7 +900,7 @@ static int ma35_nand_chip_init(struct device *dev, struct ma35_nand_info *nand,
+ 
+ 	mtd = nand_to_mtd(chip);
+ 	mtd->owner = THIS_MODULE;
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 
+ 	mtd_set_ooblayout(mtd, &ma35_ooblayout_ops);
+ 	ret = nand_scan(chip, nsels);
+diff --git a/drivers/mtd/nand/raw/omap2.c b/drivers/mtd/nand/raw/omap2.c
+index 4909e62dc11e..aee7df4d768f 100644
+--- a/drivers/mtd/nand/raw/omap2.c
++++ b/drivers/mtd/nand/raw/omap2.c
+@@ -2237,7 +2237,7 @@ static int omap_nand_probe(struct platform_device *pdev)
+ 
+ 	nand_chip		= &info->nand;
+ 	mtd			= nand_to_mtd(nand_chip);
+-	mtd->dev.parent		= &pdev->dev;
++	mtd->parent_dev		= &pdev->dev;
+ 	nand_set_flash_node(nand_chip, dev->of_node);
+ 
+ 	if (!mtd->name) {
+diff --git a/drivers/mtd/nand/raw/orion_nand.c b/drivers/mtd/nand/raw/orion_nand.c
+index 47e80d5e58c5..6cec25425710 100644
+--- a/drivers/mtd/nand/raw/orion_nand.c
++++ b/drivers/mtd/nand/raw/orion_nand.c
+@@ -148,7 +148,7 @@ static int __init orion_nand_probe(struct platform_device *pdev)
+ 		board = dev_get_platdata(&pdev->dev);
  	}
  
- 	return 0;
- }
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
  
--int u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
--		     enum u_boot_env_format format)
-+static int __u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
-+			      struct nvmem_layout *layout, enum u_boot_env_format format)
+ 	nand_set_controller_data(nc, board);
+ 	nand_set_flash_node(nc, pdev->dev.of_node);
+diff --git a/drivers/mtd/nand/raw/pasemi_nand.c b/drivers/mtd/nand/raw/pasemi_nand.c
+index 09409b703d93..b497e84636c1 100644
+--- a/drivers/mtd/nand/raw/pasemi_nand.c
++++ b/drivers/mtd/nand/raw/pasemi_nand.c
+@@ -129,7 +129,7 @@ static int pasemi_nand_probe(struct platform_device *ofdev)
+ 	pasemi_nand_mtd = nand_to_mtd(chip);
+ 
+ 	/* Link the private data with the MTD structure */
+-	pasemi_nand_mtd->dev.parent = dev;
++	pasemi_nand_mtd->parent_dev = dev;
+ 
+ 	chip->legacy.IO_ADDR_R = of_iomap(np, 0);
+ 	chip->legacy.IO_ADDR_W = chip->legacy.IO_ADDR_R;
+diff --git a/drivers/mtd/nand/raw/pl35x-nand-controller.c b/drivers/mtd/nand/raw/pl35x-nand-controller.c
+index 26b61d856143..537387014e2a 100644
+--- a/drivers/mtd/nand/raw/pl35x-nand-controller.c
++++ b/drivers/mtd/nand/raw/pl35x-nand-controller.c
+@@ -1082,7 +1082,7 @@ static int pl35x_nand_chip_init(struct pl35x_nandc *nfc,
+ 	chip->bbt_options = NAND_BBT_USE_FLASH;
+ 	chip->controller = &nfc->controller;
+ 	mtd = nand_to_mtd(chip);
+-	mtd->dev.parent = nfc->dev;
++	mtd->parent_dev = nfc->dev;
+ 	nand_set_flash_node(chip, np);
+ 	if (!mtd->name) {
+ 		mtd->name = devm_kasprintf(nfc->dev, GFP_KERNEL,
+diff --git a/drivers/mtd/nand/raw/plat_nand.c b/drivers/mtd/nand/raw/plat_nand.c
+index fe31551bcf5f..a2775886e7c4 100644
+--- a/drivers/mtd/nand/raw/plat_nand.c
++++ b/drivers/mtd/nand/raw/plat_nand.c
+@@ -88,7 +88,7 @@ static int plat_nand_probe(struct platform_device *pdev)
+ 
+ 	nand_set_flash_node(&data->chip, pdev->dev.of_node);
+ 	mtd = nand_to_mtd(&data->chip);
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 
+ 	data->chip.legacy.IO_ADDR_R = data->io_base;
+ 	data->chip.legacy.IO_ADDR_W = data->io_base;
+diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qcom_nandc.c
+index 978fa84f051d..c2ccb999ad8d 100644
+--- a/drivers/mtd/nand/raw/qcom_nandc.c
++++ b/drivers/mtd/nand/raw/qcom_nandc.c
+@@ -2031,7 +2031,7 @@ static int qcom_nand_host_init(struct qcom_nand_controller *nandc,
+ 		return -ENOMEM;
+ 
+ 	mtd->owner = THIS_MODULE;
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 
+ 	/*
+ 	 * the bad block marker is readable only when we read the last codeword
+diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
+index bf1c1be7f2aa..566662d45c2c 100644
+--- a/drivers/mtd/nand/raw/r852.c
++++ b/drivers/mtd/nand/raw/r852.c
+@@ -589,7 +589,7 @@ static void r852_update_card_detect(struct r852_device *dev)
+ static ssize_t media_type_show(struct device *sys_dev,
+ 			       struct device_attribute *attr, char *buf)
  {
- 	size_t crc32_data_offset;
- 	size_t crc32_data_len;
-@@ -156,13 +163,19 @@ int u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
+-	struct mtd_info *mtd = container_of(sys_dev, struct mtd_info, dev);
++	struct mtd_info *mtd = dev_get_drvdata(sys_dev);
+ 	struct r852_device *dev = r852_get_dev(mtd);
+ 	char *data = dev->sm ? "smartmedia" : "xd";
+ 
+@@ -635,7 +635,7 @@ static int r852_register_nand_device(struct r852_device *dev)
+ 
+ 	WARN_ON(dev->card_registered);
+ 
+-	mtd->dev.parent = &dev->pci_dev->dev;
++	mtd->parent_dev = &dev->pci_dev->dev;
+ 
+ 	if (dev->readonly)
+ 		dev->chip->options |= NAND_ROM;
+@@ -645,7 +645,7 @@ static int r852_register_nand_device(struct r852_device *dev)
+ 	if (sm_register_device(mtd, dev->sm))
+ 		goto error1;
+ 
+-	if (device_create_file(&mtd->dev, &dev_attr_media_type)) {
++	if (device_create_file(mtd->dev, &dev_attr_media_type)) {
+ 		message("can't create media type sysfs attribute");
+ 		goto error3;
  	}
+@@ -672,7 +672,7 @@ static void r852_unregister_nand_device(struct r852_device *dev)
+ 	if (!dev->card_registered)
+ 		return;
  
- 	buf[dev_size - 1] = '\0';
--	err = u_boot_env_parse_cells(dev, nvmem, buf, data_offset, data_len);
-+	err = u_boot_env_parse_cells(dev, nvmem, layout, buf, data_offset, data_len);
+-	device_remove_file(&mtd->dev, &dev_attr_media_type);
++	device_remove_file(mtd->dev, &dev_attr_media_type);
+ 	WARN_ON(mtd_device_unregister(mtd));
+ 	nand_cleanup(dev->chip);
+ 	r852_engine_disable(dev);
+diff --git a/drivers/mtd/nand/raw/renesas-nand-controller.c b/drivers/mtd/nand/raw/renesas-nand-controller.c
+index 201dd62b9990..135cdb67a472 100644
+--- a/drivers/mtd/nand/raw/renesas-nand-controller.c
++++ b/drivers/mtd/nand/raw/renesas-nand-controller.c
+@@ -1254,7 +1254,7 @@ static int rnandc_chip_init(struct rnandc *rnandc, struct device_node *np)
+ 	nand_set_flash_node(chip, np);
  
- err_kfree:
- 	kfree(buf);
- err_out:
- 	return err;
- }
-+
-+int u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
-+		     enum u_boot_env_format format)
-+{
-+	return __u_boot_env_parse(dev, nvmem, NULL, format);
-+}
- EXPORT_SYMBOL_GPL(u_boot_env_parse);
+ 	mtd = nand_to_mtd(chip);
+-	mtd->dev.parent = rnandc->dev;
++	mtd->parent_dev = rnandc->dev;
+ 	if (!mtd->name) {
+ 		dev_err(rnandc->dev, "Missing MTD label\n");
+ 		return -EINVAL;
+diff --git a/drivers/mtd/nand/raw/rockchip-nand-controller.c b/drivers/mtd/nand/raw/rockchip-nand-controller.c
+index 9444ba02696d..1e56e5e41f79 100644
+--- a/drivers/mtd/nand/raw/rockchip-nand-controller.c
++++ b/drivers/mtd/nand/raw/rockchip-nand-controller.c
+@@ -1028,7 +1028,7 @@ static int rk_nfc_ecc_init(struct device *dev, struct mtd_info *mtd)
+ static int rk_nfc_attach_chip(struct nand_chip *chip)
+ {
+ 	struct mtd_info *mtd = nand_to_mtd(chip);
+-	struct device *dev = mtd->dev.parent;
++	struct device *dev = mtd->parent_dev;
+ 	struct rk_nfc *nfc = nand_get_controller_data(chip);
+ 	struct rk_nfc_nand_chip *rknand = rk_nfc_to_rknand(chip);
+ 	struct nand_ecc_ctrl *ecc = &chip->ecc;
+@@ -1175,7 +1175,7 @@ static int rk_nfc_nand_chip_init(struct device *dev, struct rk_nfc *nfc,
  
- static int u_boot_env_add_cells(struct nvmem_layout *layout)
-@@ -172,7 +185,7 @@ static int u_boot_env_add_cells(struct nvmem_layout *layout)
+ 	mtd = nand_to_mtd(chip);
+ 	mtd->owner = THIS_MODULE;
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
  
- 	format = (uintptr_t)device_get_match_data(dev);
+ 	if (!mtd->name) {
+ 		dev_err(nfc->dev, "NAND label property is mandatory\n");
+diff --git a/drivers/mtd/nand/raw/sh_flctl.c b/drivers/mtd/nand/raw/sh_flctl.c
+index 97f733e481ff..36ba5b3da3a0 100644
+--- a/drivers/mtd/nand/raw/sh_flctl.c
++++ b/drivers/mtd/nand/raw/sh_flctl.c
+@@ -1153,7 +1153,7 @@ static int flctl_probe(struct platform_device *pdev)
+ 	nand = &flctl->chip;
+ 	flctl_mtd = nand_to_mtd(nand);
+ 	nand_set_flash_node(nand, pdev->dev.of_node);
+-	flctl_mtd->dev.parent = &pdev->dev;
++	flctl_mtd->parent_dev = &pdev->dev;
+ 	flctl->pdev = pdev;
+ 	flctl->hwecc = pdata->has_hwecc;
+ 	flctl->holden = pdata->use_holden;
+diff --git a/drivers/mtd/nand/raw/sharpsl.c b/drivers/mtd/nand/raw/sharpsl.c
+index 4154ab74f169..5aea5afd480e 100644
+--- a/drivers/mtd/nand/raw/sharpsl.c
++++ b/drivers/mtd/nand/raw/sharpsl.c
+@@ -160,7 +160,7 @@ static int sharpsl_nand_probe(struct platform_device *pdev)
  
--	return u_boot_env_parse(dev, layout->nvmem, format);
-+	return __u_boot_env_parse(dev, layout->nvmem, layout, format);
- }
+ 	/* Link the private data with the MTD structure */
+ 	mtd = nand_to_mtd(this);
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 	mtd_set_ooblayout(mtd, data->ecc_layout);
  
- static int u_boot_env_probe(struct nvmem_layout *layout)
-diff --git a/include/linux/nvmem-provider.h b/include/linux/nvmem-provider.h
-index 6063fe5b7784..87d871a6d5c6 100644
---- a/include/linux/nvmem-provider.h
-+++ b/include/linux/nvmem-provider.h
-@@ -81,6 +81,8 @@ struct nvmem_cell_info {
-  * @name:	Optional name.
-  * @id:		Optional device ID used in full name. Ignored if name is NULL.
-  * @owner:	Pointer to exporter module. Used for refcounting.
-+ * @owner_is_explicit: Use @owner even when NULL, without defaulting to the
-+ *		parent driver's module.
-  * @cells:	Optional array of pre-defined NVMEM cells.
-  * @ncells:	Number of elements in cells.
-  * @add_legacy_fixed_of_cells:	Read fixed NVMEM cells from old OF syntax.
-@@ -107,12 +109,16 @@ struct nvmem_cell_info {
+ 	platform_set_drvdata(pdev, sharpsl);
+diff --git a/drivers/mtd/nand/raw/socrates_nand.c b/drivers/mtd/nand/raw/socrates_nand.c
+index 668584683ce5..91d4394c1137 100644
+--- a/drivers/mtd/nand/raw/socrates_nand.c
++++ b/drivers/mtd/nand/raw/socrates_nand.c
+@@ -164,7 +164,7 @@ static int socrates_nand_probe(struct platform_device *ofdev)
+ 	nand_set_controller_data(nand_chip, host);
+ 	nand_set_flash_node(nand_chip, ofdev->dev.of_node);
+ 	mtd->name = "socrates_nand";
+-	mtd->dev.parent = &ofdev->dev;
++	mtd->parent_dev = &ofdev->dev;
+ 
+ 	nand_chip->legacy.cmd_ctrl = socrates_nand_cmd_ctrl;
+ 	nand_chip->legacy.read_byte = socrates_nand_read_byte;
+diff --git a/drivers/mtd/nand/raw/stm32_fmc2_nand.c b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
+index 9f42f8ab3212..78af58d87960 100644
+--- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
++++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
+@@ -2011,7 +2011,7 @@ static int stm32_fmc2_nfc_probe(struct platform_device *pdev)
+ 	nand = &nfc->nand;
+ 	chip = &nand->chip;
+ 	mtd = nand_to_mtd(chip);
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 
+ 	chip->controller = &nfc->base;
+ 	chip->options |= NAND_BUSWIDTH_AUTO | NAND_NO_SUBPAGE_WRITE |
+diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
+index f41feebe4257..4fcb7977de02 100644
+--- a/drivers/mtd/nand/raw/sunxi_nand.c
++++ b/drivers/mtd/nand/raw/sunxi_nand.c
+@@ -2514,7 +2514,7 @@ static int sunxi_nand_chip_init(struct device *dev, struct sunxi_nfc *nfc,
+ 	nand_set_flash_node(nand, np);
+ 
+ 	mtd = nand_to_mtd(nand);
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 
+ 	ret = nand_scan(nand, nsels);
+ 	if (ret)
+diff --git a/drivers/mtd/nand/raw/technologic-nand-controller.c b/drivers/mtd/nand/raw/technologic-nand-controller.c
+index a3294aaf43bd..a4de53f954e5 100644
+--- a/drivers/mtd/nand/raw/technologic-nand-controller.c
++++ b/drivers/mtd/nand/raw/technologic-nand-controller.c
+@@ -160,7 +160,7 @@ static int ts72xx_nand_probe(struct platform_device *pdev)
+ 
+ 	nand_set_flash_node(&data->chip, to_of_node(child));
+ 	mtd = nand_to_mtd(&data->chip);
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 	platform_set_drvdata(pdev, data);
+ 
+ 	/*
+diff --git a/drivers/mtd/nand/raw/tegra_nand.c b/drivers/mtd/nand/raw/tegra_nand.c
+index 1104d75b6cbe..ef765fa21e72 100644
+--- a/drivers/mtd/nand/raw/tegra_nand.c
++++ b/drivers/mtd/nand/raw/tegra_nand.c
+@@ -1115,7 +1115,7 @@ static int tegra_nand_chips_init(struct device *dev,
+ 
+ 	mtd = nand_to_mtd(chip);
+ 
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 	mtd->owner = THIS_MODULE;
+ 
+ 	nand_set_flash_node(chip, np_nand);
+diff --git a/drivers/mtd/nand/raw/txx9ndfmc.c b/drivers/mtd/nand/raw/txx9ndfmc.c
+index 4cc6e91dbc23..6fd6e530c38b 100644
+--- a/drivers/mtd/nand/raw/txx9ndfmc.c
++++ b/drivers/mtd/nand/raw/txx9ndfmc.c
+@@ -324,7 +324,7 @@ static int txx9ndfmc_probe(struct platform_device *dev)
+ 			continue;
+ 		chip = &txx9_priv->chip;
+ 		mtd = nand_to_mtd(chip);
+-		mtd->dev.parent = &dev->dev;
++		mtd->parent_dev = &dev->dev;
+ 
+ 		chip->legacy.read_byte = txx9ndfmc_read_byte;
+ 		chip->legacy.read_buf = txx9ndfmc_read_buf;
+diff --git a/drivers/mtd/nand/raw/vf610_nfc.c b/drivers/mtd/nand/raw/vf610_nfc.c
+index 9940681810cf..57da9eab940e 100644
+--- a/drivers/mtd/nand/raw/vf610_nfc.c
++++ b/drivers/mtd/nand/raw/vf610_nfc.c
+@@ -822,7 +822,7 @@ static int vf610_nfc_probe(struct platform_device *pdev)
+ 	mtd = nand_to_mtd(chip);
+ 
+ 	mtd->owner = THIS_MODULE;
+-	mtd->dev.parent = nfc->dev;
++	mtd->parent_dev = nfc->dev;
+ 	mtd->name = DRV_NAME;
+ 
+ 	irq = platform_get_irq(pdev, 0);
+diff --git a/drivers/mtd/nand/raw/xway_nand.c b/drivers/mtd/nand/raw/xway_nand.c
+index af84395dc66e..7fcefb24fc23 100644
+--- a/drivers/mtd/nand/raw/xway_nand.c
++++ b/drivers/mtd/nand/raw/xway_nand.c
+@@ -182,7 +182,7 @@ static int xway_nand_probe(struct platform_device *pdev)
+ 
+ 	nand_set_flash_node(&data->chip, pdev->dev.of_node);
+ 	mtd = nand_to_mtd(&data->chip);
+-	mtd->dev.parent = &pdev->dev;
++	mtd->parent_dev = &pdev->dev;
+ 
+ 	data->chip.legacy.cmd_ctrl = xway_cmd_ctrl;
+ 	data->chip.legacy.dev_ready = xway_dev_ready;
+diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+index 86a8d759682b..ff86b619c003 100644
+--- a/drivers/mtd/nand/spi/core.c
++++ b/drivers/mtd/nand/spi/core.c
+@@ -2046,7 +2046,7 @@ static int spinand_probe(struct spi_mem *mem)
+ 	spinand_set_of_node(spinand, mem->spi->dev.of_node);
+ 	mutex_init(&spinand->lock);
+ 	mtd = spinand_to_mtd(spinand);
+-	mtd->dev.parent = &mem->spi->dev;
++	mtd->parent_dev = &mem->spi->dev;
+ 
+ 	ret = spinand_init(spinand);
+ 	if (ret)
+diff --git a/drivers/mtd/nand/spi/esmt.c b/drivers/mtd/nand/spi/esmt.c
+index 8607c2fdedcf..0c08cfdc85e3 100644
+--- a/drivers/mtd/nand/spi/esmt.c
++++ b/drivers/mtd/nand/spi/esmt.c
+@@ -165,7 +165,7 @@ static int f50l1g41lb_otp_lock(struct spinand_device *spinand, loff_t from,
+ 
+ out:
+ 	if (spinand_upd_cfg(spinand, ESMT_F50L1G41LB_CFG_OTP_LOCK, 0)) {
+-		dev_warn(&spinand_to_mtd(spinand)->dev,
++		dev_warn(spinand_to_mtd(spinand)->dev,
+ 			 "Can not disable OTP mode\n");
+ 		ret = -EIO;
+ 	}
+diff --git a/drivers/mtd/nand/spi/micron.c b/drivers/mtd/nand/spi/micron.c
+index 36f6cbbd7462..888b9cff46ab 100644
+--- a/drivers/mtd/nand/spi/micron.c
++++ b/drivers/mtd/nand/spi/micron.c
+@@ -195,7 +195,7 @@ static int mt29f2g01abagd_otp_is_locked(struct spinand_device *spinand)
+ 
+ 	if (spinand_upd_cfg(spinand, MICRON_MT29F2G01ABAGD_CFG_OTP_LOCK,
+ 			    0)) {
+-		dev_warn(&spinand_to_mtd(spinand)->dev,
++		dev_warn(spinand_to_mtd(spinand)->dev,
+ 			 "Can not disable OTP mode\n");
+ 		ret = -EIO;
+ 	}
+@@ -279,7 +279,7 @@ static int mt29f2g01abagd_otp_lock(struct spinand_device *spinand, loff_t from,
+ 
+ out:
+ 	if (spinand_upd_cfg(spinand, MICRON_MT29F2G01ABAGD_CFG_OTP_LOCK, 0)) {
+-		dev_warn(&spinand_to_mtd(spinand)->dev,
++		dev_warn(spinand_to_mtd(spinand)->dev,
+ 			 "Can not disable OTP mode\n");
+ 		ret = -EIO;
+ 	}
+diff --git a/drivers/mtd/nand/spi/otp.c b/drivers/mtd/nand/spi/otp.c
+index ce41bca86ea9..168bbfdc5ad8 100644
+--- a/drivers/mtd/nand/spi/otp.c
++++ b/drivers/mtd/nand/spi/otp.c
+@@ -116,7 +116,7 @@ static int spinand_otp_rw(struct spinand_device *spinand, loff_t ofs,
+ 	*retlen = copied;
+ 
+ 	if (spinand_upd_cfg(spinand, CFG_OTP_ENABLE, 0)) {
+-		dev_warn(&spinand_to_mtd(spinand)->dev,
++		dev_warn(spinand_to_mtd(spinand)->dev,
+ 			 "Can not disable OTP mode\n");
+ 		ret = -EIO;
+ 	}
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index ccf4396cdcd0..0f1005b96ccf 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -3579,7 +3579,7 @@ static int spi_nor_set_mtd_info(struct spi_nor *nor)
+ 	spi_nor_set_mtd_locking_ops(nor);
+ 	spi_nor_set_mtd_otp_ops(nor);
+ 
+-	mtd->dev.parent = dev;
++	mtd->parent_dev = dev;
+ 	if (!mtd->name)
+ 		mtd->name = dev_name(dev);
+ 	mtd->type = MTD_NORFLASH;
+diff --git a/drivers/mtd/ubi/build.c b/drivers/mtd/ubi/build.c
+index 910e6b0ff5e7..d1468a9a8917 100644
+--- a/drivers/mtd/ubi/build.c
++++ b/drivers/mtd/ubi/build.c
+@@ -951,7 +951,7 @@ int ubi_attach_mtd_dev(struct mtd_info *mtd, int ubi_num,
+ 	ubi->dev.release = dev_release;
+ 	ubi->dev.class = &ubi_class;
+ 	ubi->dev.groups = ubi_dev_groups;
+-	ubi->dev.parent = &mtd->dev;
++	ubi->dev.parent = mtd->dev;
+ 
+ 	ubi->mtd = mtd;
+ 	ubi->ubi_num = ubi_num;
+diff --git a/include/linux/mtd/mtd.h b/include/linux/mtd/mtd.h
+index 745655e0d462..7c95d2ee4615 100644
+--- a/include/linux/mtd/mtd.h
++++ b/include/linux/mtd/mtd.h
+@@ -225,6 +225,8 @@ struct mtd_part {
+  *		     sub-partitions.
+  * @suspended: set to 1 when the device is suspended, 0 otherwise
+  * @unregistering: removal has started; protected by partitions_lock
++ * @life_refcnt: optional lifetime reference count for the backing object
++ * @release: core callback freeing data after its last lifetime reference
   *
-  * Note: Specifying name and setting id to -1 implies a unique device
-  * whose name is provided as-is (kept unaltered).
-+ *
-+ * Provider callbacks and @priv must remain valid until nvmem_unregister()
-+ * returns, or until a failed nvmem_register() returns.
-  */
- struct nvmem_config {
- 	struct device		*dev;
- 	const char		*name;
- 	int			id;
- 	struct module		*owner;
-+	bool			owner_is_explicit;
- 	const struct nvmem_cell_info	*cells;
- 	int			ncells;
- 	bool			add_legacy_fixed_of_cells;
-@@ -144,7 +150,7 @@ struct nvmem_config {
-  * @nvmem:		The underlying NVMEM device
-  * @add_cells:		Will be called if a nvmem device is found which
-  *			has this layout. The function will add layout
-- *			specific cells with nvmem_add_one_cell().
-+ *			specific cells with nvmem_layout_add_cell().
-  *
-  * A nvmem device can hold a well defined structure which can just be
-  * evaluated during runtime. For example a TLV list, or a list of "name=val"
-@@ -173,6 +179,8 @@ struct nvmem_device *devm_nvmem_register(struct device *dev,
+  * This struct is embedded in mtd_info and contains master-specific
+  * properties/fields. The master is the root MTD device from the MTD partition
+@@ -235,6 +237,8 @@ struct mtd_master {
+ 	struct mutex chrdev_lock;
+ 	unsigned int suspended : 1;
+ 	bool unregistering;
++	struct kref life_refcnt;
++	void (*release)(struct mtd_info *mtd);
+ };
  
- int nvmem_add_one_cell(struct nvmem_device *nvmem,
- 		       const struct nvmem_cell_info *info);
-+int nvmem_layout_add_cell(struct nvmem_layout *layout,
-+			  const struct nvmem_cell_info *info);
+ struct mtd_info {
+@@ -380,8 +384,15 @@ struct mtd_info {
+ 	void *priv;
  
- int nvmem_layout_register(struct nvmem_layout *layout);
- void nvmem_layout_unregister(struct nvmem_layout *layout);
-@@ -212,6 +220,12 @@ static inline int nvmem_layout_register(struct nvmem_layout *layout)
- 	return -EOPNOTSUPP;
+ 	struct module *owner;
+-	struct device dev;
++	struct device *dev;
++	struct device *parent_dev;
++	struct device_node *of_node;
+ 	struct kref refcnt;
++	struct kref data_refcnt;
++	/* Protected by mtd_table_mutex; false after del_mtd_device(). */
++	bool registered;
++	/* Lifetime reference held until the MTD metadata is released. */
++	struct mtd_info *ref_master;
+ 	struct mtd_debug_info dbg;
+ 	struct nvmem_device *nvmem;
+ 	struct nvmem_device *otp_user_nvmem;
+@@ -463,14 +474,14 @@ static inline void mtd_set_pairing_scheme(struct mtd_info *mtd,
+ static inline void mtd_set_of_node(struct mtd_info *mtd,
+ 				   struct device_node *np)
+ {
+-	mtd->dev.of_node = np;
++	mtd->of_node = np;
+ 	if (!mtd->name)
+ 		of_property_read_string(np, "label", &mtd->name);
  }
  
-+static inline int nvmem_layout_add_cell(struct nvmem_layout *layout,
-+				       const struct nvmem_cell_info *info)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- static inline void nvmem_layout_unregister(struct nvmem_layout *layout) {}
+ static inline struct device_node *mtd_get_of_node(struct mtd_info *mtd)
+ {
+-	return dev_of_node(&mtd->dev);
++	return mtd->of_node;
+ }
  
- static inline int nvmem_add_cells_from_dt(struct nvmem_device *nvmem,
+ static inline u32 mtd_oobavail(struct mtd_info *mtd, struct mtd_oob_ops *ops)
+@@ -683,6 +694,9 @@ extern int mtd_device_parse_register(struct mtd_info *mtd,
+ #define mtd_device_register(master, parts, nr_parts)	\
+ 	mtd_device_parse_register(master, NULL, NULL, parts, nr_parts)
+ extern int mtd_device_unregister(struct mtd_info *master);
++void mtd_set_release(struct mtd_info *master,
++		     void (*release)(struct mtd_info *mtd));
++void mtd_put_master(struct mtd_info *master);
+ extern struct mtd_info *get_mtd_device(struct mtd_info *mtd, int num);
+ struct mtd_info *get_mtd_device_by_dev(struct device *dev);
+ extern int __get_mtd_device(struct mtd_info *mtd);
 
 -- 
 2.53.0
