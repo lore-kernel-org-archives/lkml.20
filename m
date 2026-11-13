@@ -1,44 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532858;
-	b=s7HBVwFUuDXTyF9IWJl2XsCEJr32RaWpmBDL2QWmhfCWECtfXDDndP+bCwD6DAwaknvu
-	 UALLZEcST2fFg4zy0EO304ZukIyf6dYi3O2j2H4KFY2tJ/tV0GvBp4ljgvsY3MRm5b7x3
-	 Lt9v12+H+r+jFDx/Jq+1koek8B3xSRJWZwJdjdwAUn1O6f93zdvEcP4JNchSzmHIQXiko
-	 DDb3ZQgHLwM9KUXF8m7FeimzFv915XrMsh4kzm6UtUVVb1HyvXDEE3ClOuDkXjkRkok6A
-	 3ADPl3QbffuCOqmv5LLTMMrp8O3MHMUYmDq8vbY9tzykHbiKqZiWNk6B9BaBVNW9p6w==
+	t=1794533006;
+	b=Na5tLsg2Lo4ZpGnz2kPJQkIwdiNG8/qzs4GmeXOh+sGqyk4Lk54ubeIbnyEQFVaULRaV
+	 x6vYwWwhk9NOzzfv3aEBIl04lLTuRTTFtKdgEeWL965a6MTzU7SZA0iOoZb1FWUCXGaQ9
+	 5jxt8mPmR9YXU2HmO1SQ3Bc8LpTLJtTK9lO8Eq7Ejj13Xkx3JGtoX4XIc3oI8SiTMz6XD
+	 vb9+jCBgLZ0KzLNZcibDcEPn0iS42xgH+2tfvSy9NTtJenWO7OdOufXifuXHyNNqECMDV
+	 8e/Oo7nqRLI8hqJNClYC49wVpyHN9bfx2ekXu/ImWX20yr5+XyusO36ORW4juQOrkqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532858;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=WGzrbb9Ex+mxcBU1HN07l5VKAti9MvUiAb5zdaFIefE=;
-	b=FHyTUkpGJyAE1Z13p/px6HeBPpXCsNuPhuPy027NnMe6sVnOPIim55AcaB+L0M1zOluq
-	 GUb5iTkjVqgGsOtjH7159LYBOKtaUedna4z0oM5Av/iFcGS54hGC6HLQUp/eAM2wkHgrY
-	 M5h7j2jArtbDDvwmh7yWT8tX4qQVc3vNeOMH0CSWLmFxGr5Pyemh3S/UcahlhGEpcbMM/
-	 b5x20iWwKIsyzSFxTeB2S6gPVYvXYFSUtvCZvwy9IvtwHUJaqG7K+H5bSkRA38uKW6k3G
-	 zYRlhklWxAxdMwGeNFHa/6R+Ym+cX7BUKXC3xiygBDlHdJfnZpcWce5XZGGqzxS8NlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794533006;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=9ThB1/zw69OWXTSMpOLXkS0laxUVjvIT+W3FMQmOb3Q=;
+	b=Kfddb75r0mggIH04eFe/4CBjV4FjBCt+ICz+6cZKC0kWyCcqhGj9bPRoOO52DQFaP2dn
+	 /C1gzT8iK0BlAxxbpbbuuE0po3GwbuawX0F04lMHITlKOhijvVBrvm0din8wIMOlme4du
+	 kTquJcwnWn67kX1aJHSUpcrhvcvHNF/XY9mG1HL71EnUMUWLWN8mXF4XxvjlNGgZDxlIv
+	 r5voJU9u5/00kRDL1+lXanbkKsH2xY7tUb3deqr9f1rBZl9KlJrx6nAC4mncZwvJLR8yL
+	 Efe/39O1ZuAFM++IPPt/hyXENWRFTpKC95HNCAW4zZP9nMaNQM2ewduhRwcuqoryIpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="jzY9LK4/";
-	arc=none smtp.remote-ip=160.236.53.112
-Received: from mail-m16023653112.xmail.ntesmail.com (mail-m16023653112.xmail.ntesmail.com [160.236.53.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=nexthop.ai;
+	spf=pass smtp.mailfrom=nexthop.ai;
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=GTiaISFX;
+	arc=none smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F48606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:20:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21F48606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE36606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:23:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAE36606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=jzY9LK4/
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 548371a1c;
-	Fri, 13 Nov 2026 09:20:45 +0800 (GMT+08:00)
-Message-ID: <fc6344ec-c05c-424c-b625-10db05a971e6@rock-chips.com>
-Date: Fri, 13 Nov 2026 09:20:42 +0800
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=GTiaISFX
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b3402105b9so4666717b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:23:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1794533005; x=1795137805; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9ThB1/zw69OWXTSMpOLXkS0laxUVjvIT+W3FMQmOb3Q=;
+        b=GTiaISFXFMwlQRO0n2/KtqU9W7SvrXe5qiAcaTbvIMxPy6l6yIO+ycn/shtcvuSkpH
+         Ms+TdlOHLFbh5qGXdxR8C41LOY3K27cDOfz3HD7vFkkn3ERTuR819vXjeZcU6W49zy7J
+         S6J8ZrNCYAQ/2N/tXm8xoAjg9cfiSSsIMz7l9sv69JbG2fMC9Xjb0vVGtjvyGEmI7Uy2
+         2JDhC/MS6YObbZ+fM7zi36etDnJ6kW8iNj442l05eZR5whnbQog4IQXrec5XfsKjkiwL
+         s0+MM2plCc52hBujj/3836Huu5My2vuh7x3sriFXDV7GFGYpxjukNbeJsuqv7PUV376c
+         4wHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794533005; x=1795137805;
+        h=content-transfer-encoding:mime-version:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9ThB1/zw69OWXTSMpOLXkS0laxUVjvIT+W3FMQmOb3Q=;
+        b=QjDgOhykG50YR6KY9r9WtuHQ3xgbn2dTQHjcikI7F7TzDZrWbL1PR3NTCE0o2AQjmT
+         sfwKaeIMWaHxrGn9qLFdiIQbsNIqHrtnAZnHU29/VEmBgNvb90Gy5FjErUapxhOV6T92
+         jvPAtXXIs89Vf3B5KF8IEDD4I90uHkfTpxXRasZfeSMcOkSGu+9VubOtSPNojIIKjKw0
+         rRsXpO0ub4BkKSww/ICVxmvsYQkKAN8/8YjGZ8A45UT3zovkoI8WWccVRv3mIxBNlRJr
+         6otYo27CQ3ofKAHUzkJV2W93EN8xGc19DauRGpuPX0jdmj86qfemu1fl3qAM4r1KEWbF
+         cnog==
+X-Forwarded-Encrypted: i=1; AL+hErHIA6ITH67VGKnx7Vub6jWwoOT11Yu7JRcXoQRbMCjsO4L8G6Vp1vSHBNxf1w8QsL7/IHAeOcGl+ks7/r8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nxA5AXF0OI5qA3YKej6YPvtx/Qu8LDls50hAdgWfoFANA+ncL
+	mXFuvm3a7LVZq3DHQe4B2Daee5KFlPTrr67xwuW6CRYDX/SxGqv1n90VZ3nEQ9nZ4eA=
+X-Gm-Gg: AYBFou3dYirUhou2dpXtEfk7Jlmg80ROPCXBYgoVtwDBS99gDovEDRaeU8802hPGzXK
+	EX5zhRu4ImQMMBCZHy6fnv9GoSp7YpjxLb+7sfqQCFtrJpSjzHBDqQ1JrPGg2aHxLti8wTN6Q/C
+	II37aySA0+9XCFS148qmoQxkwXgeF8BTTMScMjp7H2ucaam6pR76QwNjdNXspr+lHLtq9q3Bkcy
+	d+Z8gBttdEuC08RDJ8n7Jmn8NDeiEDjJ8Rs2nYvjoQs4ijumniqrhpPo/WHQNy5qmKh+bQbLFBU
+	lsA8POxFyJC3C/4MXgvnV1f2zciRBNJozd+EUKc7+JXwSCmmsssQ6DgqWXLgcRps8ejUU0K2t6Z
+	8Pq5tOlIe/hfIBXOVyItumIy0he9X9vjfciSt/aT5wQQKKr+UxCHUg6sPHkx+U3kX6yu41HW8WW
+	RNzaFFLfGjKa5yrAkGbDKI5a6yiD1PDetvlMCtdpqMQIYf1rQWIlEQ0eYwXDhljz/uyuv9jKSy6
+	rUpwsP+ocAwdESlZ9CIAHo9F7mx9dkyl3wPMOaoOCw3Mcta7PL9rtiovIOe86VVXW41FFxbM4RC
+	vOU3T7FTXs+IDcr7LCCiXXwQULIDVDLDFkqALK+lDVPULPg=
+X-Received: by 2002:a05:690c:c1c1:b0:8b0:95a7:37e2 with SMTP id 00721157ae682-8b4aa33412cmr5356997b3.80.1794533004833;
+        Thu, 12 Nov 2026 17:23:24 -0800 (PST)
+Received: from localhost ([23.145.140.5])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa9e8d20sm9341667b3.38.2026.11.12.17.23.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 17:23:24 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 12 Nov 2026 17:23:22 -0800
+Message-Id: <DMTOUWAKBIER.19DO7XAP7Z2R3@nexthop.ai>
+To: "Rob Herring" <robh@kernel.org>
+Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
+ <frowand.list@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Shawn
+ Guo" <shawnguo@kernel.org>, "Grant Likely" <grant.likely@secretlab.ca>,
+ "Grant Likely" <grant.likely@linaro.org>, "Pantelis Antoniou"
+ <pantelis.antoniou@konsulko.com>, "David Daney" <david.daney@cavium.com>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+In-Reply-To: <20261112221205.GA1425386-robh@kernel.org>
+References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai> <20261105124030.GA1449284-robh@kernel.org> <DMNRHQBO1JLB.3IO0N8NYJML4G@nexthop.ai> <20261106132432.GA2551143-robh@kernel.org> <DMOE1TFEAB6G.EC2KYRBTZR9@nexthop.ai> <20261112221205.GA1425386-robh@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,106 +104,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/9] drm/rockchip: vop2: Balance window fetches across
- both AXI ports on RK3588
-To: aiyengar1990@gmail.com
-Cc: Piotr Zalewski <pZ010001011111@proton.me>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sascha Hauer <s.hauer@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
- <20261112-vop2-fixes-v2-5-8218c1cf8ac8@gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261112-vop2-fixes-v2-5-8218c1cf8ac8@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1d27e280b03a7kunmefdcd92d9fac3
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDS05NVh0dGEkaSR0dHkhJTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=jzY9LK4/ON6eY6KhwhGwDVueItq52MIS7fwO64EYIVFJy5Mz06nIqScMNriiPDu/bUJ2koMefOB910yaEfbpxGlF3wIhKIHA1tMwV12yF92OINKB3LKSnkBYoYjykSFjJGwndeIRanbA4czxac+JdPz5ClaIInavT0NQX42zpns=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=WGzrbb9Ex+mxcBU1HN07l5VKAti9MvUiAb5zdaFIefE=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 
-Hi Arun,
+On Thu, Nov 12, 2026 at 04:12:05PM -0600, Rob Herring wrote:
+> Stable bus numbers is a solution to your problem. What's the problem you
+> are trying to solve?
 
-On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> The RK3588 VOP2 fetches through two AXI read ports. Every window has a
-> fixed default port in rk3588_vop_win_data: Cluster0/1 and Esmart0/1 use
-> AXI0, Cluster2/3 and Esmart2/3 use AXI1. The port is chosen by a per
-> window register (CLUSTER_CTRL[13] / ESMART_AXI_CTRL[1]), though, and it
-> is programmed on every plane update.
-> 
-> One port can't sustain two full screen 4K@120Hz layers. With the
-> console on Cluster0 (the primary plane of video port 0) and a video on
-> Esmart0 (its overlay plane), both on AXI0, HDMI 3840x2160@120 reports
-> POST_BUF_EMPTY on about half of all lines (~120000 per second) and the
-> picture is scrambled. The VOP read rate measured with the DDR PMU drops
-> from the expected 6.3 GB/s to 3.2 GB/s: the fetch collapses instead of
-> merely saturating. Measured at 4K@120Hz, XR24 primary plane:
-> 
->   Cluster0 + Esmart0 (AXI0 + AXI0)	~120k POST_BUF_EMPTY/s
->   Cluster2 + Esmart2 (AXI1 + AXI1)	~100k/s
->   Esmart0 + Esmart1  (AXI0 + AXI0)	~90k/s (XR24 both)
->   Cluster0 + Esmart2 (AXI0 + AXI1)	0, 9.2 GB/s read
->   Cluster0 + Cluster2 (AXI0 + AXI1)	0, 8.6 GB/s read
-> 
-> Moving Esmart0 to AXI1 at runtime (with no other change) makes the
-> first case clean. Raising ACLK_VOP from 750 to 850 MHz, or changing
-> the NoC QoS priority or mode of the VOP ports, makes no difference,
-> and neither does the buffer placement (both planes scanning out the
-> same buffer fail the same way). So the limit is per port, and the
-> fixed assignment puts both layers of the most common configuration on
-> the same port while the other one sits idle. Lower modes are affected
-> too: the same port also carries Cluster1 for a second display, and
-> under DDR contention from other masters a 4K@60Hz port with the
-> console, an overlay and a second display underflows for short bursts.
-> 
-> Choose the port of a window when it starts fetching instead. The atomic
-> check assigns the ports from the whole new state and keeps the
-> assignment in a private object for the next check. The port of a window
-> is also stored in its plane state, and that is what the plane update
-> programs: commits on different video ports aren't ordered against each
-> other, so the private state of a commit may already be replaced and
-> freed when its planes are updated. A window that keeps fetching keeps
-> its port, so an active layer is never moved. The windows
-> that start fetching, the busiest first, each get the port that leaves
-> the busier port least loaded, preferring the default one on a tie. The
-> load of a window is its estimated fetch rate: source size x bits per
-> pixel of all its planes x refresh rate.
-> 
-> A window must not share an AXI read ID with another window on the same
-> port. The IDs in the table are unique per default port, and mirrored
-> between the two ports (Cluster0/Cluster2, Esmart0/Esmart2, ...), so a
-> window can always use the port its mirror isn't on. A window that is
-> switched off keeps fetching until the next frame start of its video
-> port, so its read IDs stay in use for a window that starts on another
-> video port in the same commit, and until the commit that switched it
-> off is done.
-> 
-> This is only enabled for RK3588, where it was measured.
+Labeling hwmon channels on an embedded Linux system.
 
-According to TRM, "In order to maintain synchronization between layers,
-allocationg the layers used by the one port on AXI0 and AXI buses
-respectively is not allowed."
+The board has an x86 host with ACPI firmware and a PCIe FPGA that
+provides a dozen or so I2C masters, with muxes behind them leading to
+PSUs, fan controllers, voltage regulators and temperature sensors. The
+FPGA driver applies an overlay at probe time that describes all of this.
+Userspace labels the hwmon channels with libsensors, and sensors.conf
+picks a chip by its bus and address, e.g. "pmbus-i2c-12-40".
 
-Fortunately, we have another way to accomplish this: use the VP merge
-feature. Please refer to the patch below.
+The same parts sit at the same address behind different mux channels
+(PSU1 and PSU2 are both at 0x58, for example). Their hwmon "name" and
+their address are identical, so the bus is the only thing that tells
+them apart.
 
-https://lore.kernel.org/all/20261029081429.862-1-kernel@airkyi.com/
+libsensors has a "bus" statement that maps a bus number in the config
+to an adapter name, which would avoid relying on numbers. It doesn't
+work here, because the adapter names aren't stable either. Mux channels
+are named "i2c-%d-mux (chan_id %d)" after the parent's dynamic number,
+and the xiic masters are named after their platform device, which comes
+from the MMIO address the PCI BAR ended up at. A udev by-path symlink
+for /dev/i2c-N wouldn't help, since libsensors doesn't use /dev/i2c-N
+at all. It reads /sys/class/hwmon, where the bus number is part of the
+parent device name ("12-0058").
 
--- 
-Best, 
-Chaoyi
+> How aliases interact with an ACPI system is another aspect I have yet to
+> consider...
+
+On these systems the base DT is drivers/of/empty_root.dts, which has no
+/aliases node. So no alias is honored from the base DT, every bus is
+numbered dynamically starting at 0, and the overlay is the only place
+an alias could come from.
+
+> Right, but there is no fallback for some cases. Having that is the only
+> way this could work.
+
+Can you spell out what that would take? Does every subsystem that
+hands out ids from aliases need its own fallback, i.e. the i2c, i3c,
+spi and mmc cores, plus mtd and the serial drivers, before overlay
+aliases could go in? And if so, would you want each of those as a
+separate series through its own tree, landing ahead of the OF patches,
+or all together in one series?
+
+Thanks,
+Abdurrahman
