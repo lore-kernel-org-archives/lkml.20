@@ -1,64 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.65.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794601192;
-	b=Ad4uvh6/dCKY/pxLVrbOrZsXJcafiGqj7ptG12l/88gP7KoI4uFlAcwlEuO+zav+PM5P
-	 H7eQMiPiQvzaym8PNlLsVcO7MhiDGZPokLc8kCB64yjgwSFzvpKMTcoY/DhG0XUpT9a4W
-	 xOlQ+b9dKlw0hcp5d6Vw6Z96Qx29hcsFFYWF16sd/lpw/8Ueo3ac6UOXdkabXa7ZFIdsz
-	 C4Az1oOi5XPDp/TCf0I62/G/W4ikyLA8yY9scpG+rzGXDpk5csxrfnFGgWZGzTWDJGj6m
-	 FZ5j7IQn0rd/3n5Fctcq9KihfMc2tSV5yvVbQNPSQ11mwK0JmIWeIIhUhZp/lmmvH1Q==
+	t=1794601250;
+	b=d+dGgALh2CfoI5/LtFq2AE3dRlPmQf+XCPZKFZUVBdZ/am5lqqWlAwQ01Ezhh7SCO/As
+	 8lAzkVNBU1xP6C4OWalv32B0vHCnQ0b4IPDwvntab6kNmWg6MTVh8JZzzDblaWmvxdtZ9
+	 SccbPf/Pq9hmq9ZHcXWpLcChm50i2Ko8WFxsBfyyfnYNVW7RLwr3mxCUoojAE03kkK4q3
+	 c8xT9T2lEXk5gMFBEhm4ZCG0b7BJtnzzoVYodVBp2vbV/5ZNZumFEQjdumTl5aLsL1xcx
+	 NcVgeuNUh7U6lInM1MeadecP3A6arJ0KpdiHuEE6V0iH9LHGRQ4jUsPbYw6ma9LFu+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601192;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:
-	 X-Flowmailer-Platform:Feedback-ID;
-	bh=nEmSNqsLdN7B5gPU1pl2Y9r9cTa2cz5CXQYAbJkS2hk=;
-	b=TZHA8U9Sp19mnAEQsqnI6BLWNJTgUC7HQxgskq5yft4yIntdp86hneUaYFZdKjKgicCe
-	 zt503VwxkuvhL62T+WPJ3ZQdm4f5KSiAErTfF7jQXFYssLbY6CHY6JwsbT8ixShIM5roc
-	 tGTaDQeMgrmAzF1875Zq5AJZ0kxWUQ6XVLX40V9HSmXIjozjb2kcGhka3sta7aOfRc+sx
-	 3tjVDdJ5NDR5QD+BAyq7k0muRfXDuXwR1b3fnSPiiuY95o8z3wE8Q0OGTPmylLKJ9b14T
-	 0bVS82jwNT8iRe7tRYDwEUjrYqhgmrp1v5MiHgKcALGo4/smG5Ms5t2o2kcIglhnpEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601250;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=lDAm+zBD66b88hz5K7F1FDsYw+RIkjC9cHi9f3iS4y8=;
+	b=T39ovgJbcVPWRjJhL6DCyp8SqJmoK3kVeXM13FK2XaI7YHbsubzksJXySCTSojKjKBVj
+	 wGtzFbN5f2nParJHIIPB4V0GXyCRnQoLK1EZVbEto6dXIWzZP4jPukxZF8vncSV4XYBHK
+	 nO894kOSd+QWNfiwNqOigt6YHn5Y1WkXWHAdO/DKqNz48fsryLFN43y9SnAgK5QAS+Dee
+	 Y5PkTlrv+aIf0hoVpRFOJWaVfmScXdbi9/l/oo2xpwciL2BHDYsd+j8JTF4zDrSvJmMAV
+	 zX+X6Td3vyntth+d/T0ru/6t09A5MgWsEB7Bb4yaYVHKVhZ5gXmCnqApJM0nNBV8dDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=siemens.com;
-	spf=pass smtp.mailfrom=rts-flowmailer.siemens.com;
-	dkim=pass header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm1 header.b=VVWgKuBc;
-	arc=none smtp.remote-ip=185.136.65.226
-Received: from mta-65-226.siemens.flowmailer.net (mta-65-226.siemens.flowmailer.net [185.136.65.226])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7ZFZGyJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54206606A330
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:19:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54206606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E0342606A323;
+	Fri, 13 Nov 2026 20:20:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm1 header.b=VVWgKuBc
-Received: by mta-65-226.siemens.flowmailer.net with ESMTPSA id 2026111320193969c105d1c3000207f9
-        for <linux-kernel@vger.kernel.org>;
-        Fri, 13 Nov 2026 21:19:39 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=nEmSNqsLdN7B5gPU1pl2Y9r9cTa2cz5CXQYAbJkS2hk=;
- b=VVWgKuBcvy/iJj2rwXpSrCUgMXYuTPGE6vIvqGuvvMPs2OoMO2ondFJJIw+m4l5/RR0ZPX
- lmu+SdnLTU8ZDi5O6Oz112hqXE+OqcoYWfItzmXMGLplaaOy9lasuW+2Z5Ba2mzrY6G3Y95z
- F6j/qIB1EtISbHR3DQV6oRQ3tgOwnyLPNehn/xdrkiK8lD8Y7EXG3GpDEfO3pGvkfg/drYJd
- 4F/5z9molQ1gd9xOXCFpsq/yv2zyXgF9Tw2v/ikM1B1UqX6PHRuL3JjXDT9Ia2cHjYcfrga+
- QQ1dJYrXYWu6O0/Rgt8w0UUAwNDfmWQdmazC5MeutoARtqidfmDA8Beg==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: linux-leds@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 0/3] leds: trigger: netdev: fix sysfs_update_group() races
-Date: Fri, 13 Nov 2026 21:19:29 +0100
-Message-ID: <20261113201936.2645736-1-alexander.sverdlin@siemens.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7ZFZGyJ
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EF9351F000C4;
+	Fri, 13 Nov 2026 20:20:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794601249;
+	bh=lDAm+zBD66b88hz5K7F1FDsYw+RIkjC9cHi9f3iS4y8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D7ZFZGyJQXMWawyYsmDGFMzswQ9j6Aevq/SNOuHwRx809Bf/ZTxaitWJZrNI2+Rh6
+	 hD1kHONqfBmuMRZnMtq2bozUvHa1QPt94QYnhlc2mnn5b6sWUNQYR6wZJzpFDtuKNA
+	 mUDaEFEl+HNy725s//wTx85CURGa0YUOEsy4/S6z+K5Wh8/RwNxbwiu006YV2tAuSF
+	 Tm820A1tX4ElFYz7M5MYxblO8aJ3v/r/xu7ZwIHxS0iXPCfPBx944QNBX2G+DeRUX0
+	 nf8SVYjNbWC2zJ1X5aKvm4EBnBLGf3hMFYSityFxtvWOT6GqLBjiC+V4CjPNs9VljV
+	 jtq1ViTjK/ZeQ==
+Date: Fri, 13 Nov 2026 22:20:45 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	Stuart Yoder <stuart.yoder@arm.com>, apais@microsoft.com,
+	rlmenge@gmail.com, hargar@linux.microsoft.com,
+	linux-integrity@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v1 1/1] tpm: tpm_crb_ffa: Only register driver when ACPI
+ TPM2 uses FF-A
+Message-ID: <avdxHSKkqubIrAZ5@kernel.org>
+References: <20261112233807.70664-1-sidchintamaneni@gmail.com>
+ <avdXkLKJwuNv0vZ4@kernel.org>
+ <CAE5sdEgEFjGz6W0e5g4uxRVC2Otyvr4Pak-aAZogObWaFtNsTA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,93 +65,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAE5sdEgEFjGz6W0e5g4uxRVC2Otyvr4Pak-aAZogObWaFtNsTA@mail.gmail.com>
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+On Fri, Nov 13, 2026 at 11:31:31AM -0800, Siddharth Chintamaneni wrote:
+> On Fri, 13 Nov 2026 at 10:31, Jarkko Sakkinen <jarkko@kernel.org> wrote:
+> >
+> > On Thu, Nov 12, 2026 at 11:38:07PM +0000, Siddharth Chintamaneni wrote:
+> > > Prior to commit 677042afb97a ("tpm: tpm_crb_ffa: revert defered_probed
+> > > when tpm_crb_ffa is built-in"), built-in tpm_crb_ffa only registered
+> > > tpm_crb_ffa_driver from tpm_crb_ffa_init() after crb_acpi_probe()
+> > > confirmed start_method == ACPI_TPM2_CRB_WITH_ARM_FFA. After that
+> > > commit, tpm_crb_ffa unconditionally registers on the FF-A bus at
+> > > device_initcall time (and when loaded as a module) without checking
+> > > the platform's ACPI TPM2 table.
+> > >
+> > > A platform's firmware may expose a TPM CRB over FF-A Secure Partition
+> > > for UEFI boot services while advertising a non-FF-A start method to
+> > > the OS in the ACPI TPM2 table. When the ACPI TPM2 table designates a
+> > > non-FF-A start method, Linux has no consumer for tpm_crb_ffa and
+> > > should not probe the FF-A TPM service.
+> > >
+> > > On Microsoft Cobalt 200 systems, the ACPI TPM2 table does not use
+> > > ACPI_TPM2_CRB_WITH_ARM_FFA, yet ffa_init() discovers the FF-A TPM
+> > > partition and tpm_crb_ffa_probe() unconditionally sends
+> > > CRB_FFA_GET_INTERFACE_VERSION via FFA_MSG_SEND_DIRECT_REQ2/REQ SMC.
+> > > That request wedges the calling CPU in Secure World (with Non-Secure
+> > > interrupts and GICv3 pseudo-NMIs masked), hanging boot with an RCU CPU
+> > > stall:
+> > >
+> > >   [    5.507519] ARM FF-A: Driver version 1.2
+> > >   [    5.507519] ARM FF-A: Firmware version 1.2 found
+> > >   [    5.507551] ARM FF-A: Notification setup failed -61, not enabled
+> > >   [    7.150580] Freeing initrd memory: 293640K
+> > >   [   65.515248] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
+> > >   [   65.521346] rcu:     10-...0: (3 GPs behind) idle=dd9c/1/0x4000000000000000 softirq=37/37 fqs=5262
+> > >   [   65.530031] rcu:              hardirqs   softirqs   csw/system
+> > >   [   65.535589] rcu:      number:        0          0            0
+> > >   [   65.541146] rcu:     cputime:        0          0            0   ==> 30028(ms)
+> > >   [   65.548102] rcu:     (detected by 66, t=15010 jiffies, g=-951, q=1384 ncpus=132)
+> > >   [   65.555228] Sending NMI from CPU 66 to CPUs 10:
+> > >   [   75.560686] After 10 seconds, these CPUS still haven't responded to the NMI: 10
+> > >
+> > > Check the ACPI TPM2 table in tpm_crb_ffa_driver_init() and return
+> > > -ENODEV before calling ffa_register() unless the table is present and
+> > > specifies ACPI_TPM2_CRB_WITH_ARM_FFA, matching the check_acpi_tpm2()
+> > > pattern in tpm_tis.c. This ensures Linux only issues FF-A TPM requests
+> > >
+> > > when ACPI advertises the FF-A start method (for both built-in and
+> > > modular builds), while preserving normal FF-A bus probing on platforms
+> > > that use CRB over FF-A.
+> > >
+> > > Fixes: 677042afb97a ("tpm: tpm_crb_ffa: revert defered_probed when tpm_crb_ffa is built-in")
+> > > Fixes: eb93f0734ef1 ("tpm_crb: ffa_tpm: Implement driver compliant to CRB over FF-A")
+> >
+> > Pick the older.
+> >
+> > I attached a prepending patch that caches the start method, which can be
+> > later used in tpm_tis and tpm_crb.
+> >
+> > So that totals four patches:
+> >
+> > 1. My patch.
+> > 2. Your fix using the cached value.
+> > 3. tpm_tis update to use the cached value.
+> > 4. tpm_crb update to use the cached value.
+> >
+> 
+> Sounds good! I can put together that 4 patch v2 series.
+> 
+> Two quick notes before I spin v2
+> 
+> - Module loading with CONFIG_TCG_CRB=m and CONFIG_TCG_ARM_CRB_FFA=m:
+>   As Sashiko flagged on v1 [1], because tpm_crb.ko directly references
+>   tpm_crb_ffa_init() and tpm_crb_ffa_start(), returning -ENODEV from
+>   tpm_crb_ffa's module_init would prevent modprobe from loading
+>   tpm_crb.ko on non-FF-A systems. In v2, I will move the start_method
+>   check into tpm_crb_ffa_probe() (matching check_acpi_tpm2() in tpm_tis)
+>   so both modules load cleanly while still skipping the FF-A probe on
+>   non-FF-A platforms
+> 
+> - regarding the location of caching approach -
+>   tpm_crb_ffa never allocates a struct tpm_chip, and both tpm_tis
+>   (check_acpi_tpm2()) and tpm_crb (crb_acpi_probe()) check start_method
+>   before calling tpmm_chip_alloc().  Would it work for you if patch 1
+>   caches start_method once in tpm_init() (subsys_initcall in
+>   tpm-interface.c) and exports a small helper (e.g.
+>   tpm_acpi_start_method()) so tpm_crb_ffa_probe(), tpm_tis, and tpm_crb
+>   can all query it before chip allocation? (Also noticed a small '||' ->
+>   '&&' typo on the header.length check in the attached patch.)
 
-The netdev LED trigger refreshes the link_speed attribute group with
-sysfs_update_group() from several contexts (the NETDEV_CHANGE notifier,
-device_name writes and, indirectly, trigger (de)activation) that share no
-common lock. On a board that emits PHY link events while the trigger is
-being (re)armed during boot this is observed as a hard sysfs failure:
+Move it to tpm_init() and store the result to a global variable, let's
+say tpm2_acpi_start_method. There's only one of these so it's all fine.
 
-  sysfs: cannot create duplicate filename '...green:lan/link_10'
-  ...
-  led_trigger_set
-  led_trigger_write
+You can then mark the resulting commit as:
 
-The window between activate() and device_add_groups() in led_trigger_set()
-is narrow, so to reproduce it reliably I artificially widened it with the
-debug patch below:
+Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Co-developed-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 
---- a/drivers/leds/led-triggers.c
-+++ b/drivers/leds/led-triggers.c
-@@ -12,6 +12,7 @@
- #include <linux/list.h>
- #include <linux/spinlock.h>
- #include <linux/device.h>
-+#include <linux/delay.h>
- #include <linux/timer.h>
- #include <linux/rwsem.h>
- #include <linux/leds.h>
-@@ -223,6 +224,8 @@ int led_trigger_set(struct led_classdev *led_cdev, struct led_trigger *trig)
- 		if (ret)
- 			goto err_activate;
+I just put those tag because it is easy to mix up with Co-by tag,
+when using it.
 
-+		msleep(5000);
-+
- 		ret = device_add_groups(led_cdev->dev, trig->groups);
- 		if (ret) {
- 			dev_err(led_cdev->dev, "Failed to add trigger attributes\n");
-
-With that msleep() in place, writing the trigger while a NETDEV_CHANGE is
-delivered from the linkwatch workqueue reproduces the duplicate-filename
-splat every time.
-
-The whole series is LOCKDEP-verified.
-
-Changelog:
-v7:
-- rebased onto for-leds-next as of 687615faae92
-- dropped patches 2 and 5 superseded by Lee's be29a52d48b5
-- added Lee's tags into patches 1-2, but not patch 3 as it was changed
-  substantially in rebase
-v6:
-- report invalid interval to user space
-- fixed unlocked hw_control check in interval_store()
-- added missing carrier_link_up check in netdev_trig_sw_blink()
-- https://lore.kernel.org/all/20261027113349.383147-1-alexander.sverdlin@siemens.com/
-v5:
-- removed unset_device_name()
-- https://lore.kernel.org/all/20261020124651.1987272-1-alexander.sverdlin@siemens.com/
-v4:
-- introduced netdev_trig_sw_blink() and used it in netdev_trig_work()
-- https://lore.kernel.org/all/20261001131206.2513248-1-alexander.sverdlin@siemens.com/
-v3:
-- introduced unset_device_name() as a counterpart of set_device_name()
-- guard() has been converted to either explicit mutex_lock()/mutex_unlock()
-  or scoped_guard()
-- rebased onto next-20260925
-- https://lore.kernel.org/all/20260929120902.2793138-1-alexander.sverdlin@siemens.com/
-v2:
-- addressed pre-existing issues found by Sashiko (patches 1&2)
-- reduced verbosity both in comments and in commit messages
-- patch 3 is a combined rework of patches 1&2 from v1
-- dropped sync from cancel_delayed_work() (worker now takes the lock)
-- https://lore.kernel.org/all/20260921093249.3481413-1-alexander.sverdlin@siemens.com/
-v1:
-- https://lore.kernel.org/all/20260914132356.807004-1-alexander.sverdlin@siemens.com/
-
-Alexander Sverdlin (3):
-  leds: trigger: netdev: Put netdev on activate error path
-  leds: trigger: netdev: Fix sysfs_update_group() races
-  leds: trigger: netdev: Report invalid interval to user space
-
- drivers/leds/trigger/ledtrig-netdev.c | 83 +++++++++++++++++----------
- 1 file changed, 53 insertions(+), 30 deletions(-)
-
--- 
-2.56.0
-
+Br, Jarkko
