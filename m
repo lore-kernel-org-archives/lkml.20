@@ -1,60 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794563483;
-	b=nDm/aQDBQRVv25nQwseDBT7ssoDkEG++DVzFKdAhpBr9Ej7Qtg9dQIi8uEZWBsjBNRxy
-	 Eb7Kex+F/Ruuu9MQ3DEQU7R4GLP7nivcZ9Y0/vrVoGlO05DNCD52sdIAYYjGSlihcfA4a
-	 2Ce0wUvDSkGXGHdTXHL234rRaTJpWImjCFHbGGmZ+OSVzeAYcKRZN5F22sC1U6mvdr2aJ
-	 zKybwLeEvj+jyBlbu2/02nmc5xVWJKPKF/pQxVWVIrD/+2/8mTysjwxhSJC5ZamuYgGou
-	 cy1cJFC6vTkFdC/ZH9RUmq86Zl6f7u8IPEytXrOp3gQhNeYuaB/rEL4iNiNMDRilzXQ==
+	t=1794563518;
+	b=riRPqEpoaO+UD7ve3RTbrBLux0d4T4UyY4J29lsMQCjSjAAoN8MTHcgnIla04BAS/HEw
+	 xdxeAdr1SeScVozhLDS9jmLNPA69h010cKpoTU/hkmhgYU++QRRlKjFPeIGuhxfRoCTN+
+	 UrFDy70aqubAU6rUAJJYQylRjxF99s7DQJdj1pH/oLXlmIpz2W3YQVxrYUPoAX+QWOf+l
+	 0JUvgxmyez/I6eHpbAnKIZK+tHCsJm1dnJ2tp+FgRxTDtDRflLUkgGC3YFGguAzl3gUAG
+	 Nc2jf7AK1gKhKqP/g2/YlPfYOptneVGQzQ1oIkb0L+3S1otnpFJeEf9sBlLFJormc6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794563483;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qM35vwS1YLDmGN+uv5ChOSkJ1AQ+cagXNb3hozKL5uQ=;
-	b=k0GR6AALbH8Xlu79accZsuVz6Qk29xqspf6mKjXfOt6pxllMxJw+lEKo2vmtfmOpqAtz
-	 6QM8c62GhNE39YXp4LYZ3mp+RArznBwvOlxwHnCE+jDH2EU0nyrQZxQ+IQLhqImMUd2Yq
-	 t6AMOUNtE8PiZPmKxzug4Kbi2AK4N4zF3dXUIk0WD/VA8UcNuvxf5uGZFC+XAi/Ddlczf
-	 +OR5ZJ0VZS1sxwH2ycjVExQslE36T1xef1JeM+uVqrl+xgEneOSFyj/GCSWzS6qI7po4h
-	 LC8SDsjBHoiKmHBsJEcxIetvSNhSktyFmRP7mlkJK7xOstuE2I2FkouiEKU91UDWaOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794563518;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=f4FQDKbejT3J1n5vJtGKFu4K5+PWNmUP6Rk+a9iJRqo=;
+	b=wdnhlWyeH5TvE6duq3kljQz/0xKnkrIgM3sAPmLnlvhWcp8nt+0VQOEgn2mrijkopdVh
+	 KnwxooJC+SkWHOvALmQpkqiivWtFgBwbjpBVx5CV3+hZGWq2eMZKdAvCsGcv8Z5zuWvHq
+	 1ffPhdIfP4DSYReWHNS7sEAVGQvwtdTGwvVTEYhx5cpTXw6LgHVrftlogZ/ekmIM2lcQN
+	 XSgCcX/IwKn5RUfllGnAhmc6jkdWI0LjvM9WTWZq+718217oV55JM0sR5TTnscN9h7ytV
+	 P2J2Vsohlac6ZJl0WBqlpdzJo/M2Ki+IBDb4Z/jzSNZVtrHjC2c07iyDMF/wC7JiQLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OzPAZyKh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bfqf14KD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7EA2E606A32E;
-	Fri, 13 Nov 2026 09:51:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C78C606A31C;
+	Fri, 13 Nov 2026 09:51:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OzPAZyKh
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2C0301F000C4;
-	Fri, 13 Nov 2026 09:51:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bfqf14KD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 796FB1F000C4;
+	Fri, 13 Nov 2026 09:51:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794563483;
-	bh=qM35vwS1YLDmGN+uv5ChOSkJ1AQ+cagXNb3hozKL5uQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OzPAZyKhgPMlAiei7wa9AeaBgu/62M/YNxUEvd9plcL9qt/WqBdIM0YUpRBnSCouP
-	 +h75WO6+MvcNemlz1oBDAox5E7JV8A/k750VTdIlM6ESJg0r+M+k1HEvUT2Y5jzkfE
-	 M6He/fV5RoJri/dWqNYCPU2w/xpOrq7NAqd0RaguU56WqU1EcGtPk1Io2AXYyTLFaF
-	 9w5pIHBF850UWvbeouekS97Fy8GJ0iHxoGM3he0GKCg9yiKXCjCGR6jlaeOAvsgYEI
-	 /mm4p0eMwbAEpkMzRYtA3iwrLRfzKMfGHncqsNKPxizmcPijnOLE1hejHpOFIVdaNh
-	 KGthWFnxSYDhw==
-Date: Fri, 13 Nov 2026 10:51:19 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Linghui Wu <linghui.wu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>, 
-	Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>, Shuai Zhang <shuai.zhang@oss.qualcomm.com>, 
-	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/3] power: sequencing: qcom-wcn: support SW_CTRL wake
- IRQ
-Message-ID: <i6ihipvdbcxz2xnfercbk3payexgqddx7b5fgoejah6awitltm@xhjtl6cs57ot>
-References: <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
- <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
+	s=k20260515; t=1794563518;
+	bh=f4FQDKbejT3J1n5vJtGKFu4K5+PWNmUP6Rk+a9iJRqo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Bfqf14KD2OgZDu86Z/9aV8o4CIRH0r8OahYXT0TKwNcziKzrzdOLXoTAuoYlVGbx7
+	 pfgaSnNXw4J4gKWSz3NfG4AmnVizFOTOUtX5VUBwyPSnwRVd/IxOIkD3QNFOAvr7DO
+	 7i+U4rAXiFfeOsXzW6MCVh6mgiRN8nJEJ2PIk0O4d18zjcuQ78R6WDZfvLVksXSBuv
+	 P25IM8Gp4K5zOe50DJEWq5UCxBUWkQZKXb4fCZPvguf372n9zDOO6cVxeqEuYBMZ4N
+	 IeRF1SkqeYixgTjc83/xHzbtEqEG2ETWEZ5zheXeg6drve1ZzHS5E8eQgVHHhu7mbz
+	 A8Y0NGmPcugDg==
+From: David Hildenbrand <david@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Pedro Falcato <pfalcato@suse.de>, 
+ Lorenzo Stoakes <ljs@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Hugh Dickins <hughd@google.com>, Chris Mason <mason@kernel.org>, 
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com
+In-Reply-To: <20261111182445.656620-1-kas@kernel.org>
+References: <20261111182445.656620-1-kas@kernel.org>
+Subject: Re: [PATCH v3] mm/memory: refuse to map page cache folios that are
+ not uptodate
+Message-Id: <179456351421.3136.15619726484550572099.b4-ty@b4>
+Date: Fri, 13 Nov 2026 10:51:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,28 +67,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-On Thu, Nov 12, 2026 at 03:20:06PM +0800, Linghui Wu wrote:
-> Some WCN3990-family devices use the SW_CTRL GPIO to indicate that
-> resources need to remain available while the application processor is
-> suspended.
+On Wed, 11 Nov 2026 18:24:43 +0000, Kiryl Shutsemau (Meta) wrote:
+> A page cache folio that is not uptodate holds data that was never read
+> in or cleared. shmem fallocate(2), for one, adds such folios and clears
+> them only on first use. Mapping one hands userspace whatever the memory
+> held before.
 > 
-> Teach the Qualcomm WCN power-sequencing driver to use the existing
-> SW_CTRL GPIO as a dedicated wake IRQ when the power sequencer is marked
-> as a wakeup source. The PM core keeps the IRQ disabled during normal
-> operation and arms it for system suspend.
+> Each path that maps page cache checks for this itself: fault-around in
+> next_uptodate_folio(), a fault in filemap_fault() or shmem_get_folio().
+> Nothing in the mapping code does, so a caller that misses the check
+> leaks stale memory silently. MADV_COLLAPSE did exactly that with
+> fallocated shmem THPs until recently.
 > 
-> The series documents wakeup-source for the WCN PMU binding and enables
-> it for the Shikra CQM, CQS and IQS EVKs.
-> 
-> The series has been validated on linux-next on Shikra hardware.
->
+> [...]
 
-When addressing sashiko's comments in v5 - please send it as a new
-thread, not a reply to existing threads.
+Applied, thanks!
 
-Thanks,
-Bartosz
+tree: mm/core.git
+branch: core-7.5.misc
+
+Applied patches will appear soon in mm-next, followed by linux-next.
+
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/1] mm/memory: refuse to map page cache folios that are not uptodate
+      https://git.kernel.org/mm/core/c/2b2a2b86
+
+-- 
+Cheers,
+
+David
+
