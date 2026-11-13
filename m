@@ -1,86 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794594372;
-	b=sbikfoIXJW0CnDTD2HlzYjaezmzWRLDB1KkD1pHUHPAdo9xK1lF9rIwBJQNOnbLKNhlC
-	 OrQXdKvQxLl49YkIGvwZgxRXirP427a5ZwE4AYnn93niIDOt3X4dRFhYQeA9KWeklH4Tq
-	 OywjHXvpl8RBE/XoNZ30MmYmFavp7kZXrmV6nEeZjlcHRhNLR7AiEk9l28ako7mUAymdv
-	 z7o9yRAnQ+zrQVf76oRxiXtinHx+4RXGs6RF4m3TXD3U7xVFXglYND4kH1bJG6MVbzO9Z
-	 8kXWyWizf5F1wC8LEzJWRNLL9Mf9BsLCpjX0O4tEPIA4P2Q9XfNlHkVCkjZaDDgAtow==
+	t=1794594379;
+	b=w/pffCSc7yZ2wMzbNLGRl0lzFJhuqWnIryuKwe37BJxtmPVyqPaClpVw7vmyKjPZLUBH
+	 +dqVUFaHBJmI8fVmdpmFIvy8/0v6Y58mcENSnihaVKSkga3FMKxRDcdyL8GwsG65BumhG
+	 UQiK3btQBRvQxnj3lrxyrbtUI38uD4wrt4zg1KyHgwYc9QQvT1okcQfRwkxI/DZhipPAl
+	 hRRaRbL3EwNgsBbUZ/2KVSIr55hIkK7L9Bixa5gaNCzyKN++BnCYMFwkAr+FVm9RIBKDf
+	 XLnf+cJE3Jkd7b8ZNM741Ugkp50bfPnjEgJKZRJJtfUSxl313ikMW0azbQmnyqc7Bmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794594372;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=IX1iZaNJLB1qFWspuJQ627JyfU1mRPwlI1mRlrUZmuc=;
-	b=wkrIHf4dZ8wZtcSXZSWwuQiWjFWXABn4NMW4NfHp4K3w/NiSfbjJ2adL9whja9ZV3RGI
-	 vGvyVHUO0EaRpovR6zhjH+Nd0IDYpePknR/CERozV/ssAo2jzlMXhKokf3IzC4wMQ6nOz
-	 hfrWGVUTJ8Qj9pMrV9MCagwiFOR4VGjmWUYwwqJ5MqNsdlJGclQn/JgcGT2tuwd2oBMKJ
-	 JsYpGjbI9G7wgu8jfj0dF4d1Yb8ZlDyy0L++Qq4+DJ6gYopKH2VmOSKOPTSgOSMoq2XJn
-	 Mnu6HexVF6AiHHGr2NmpzQpjfke6v+KaibZKoVX4lzAEFXUHburdbbcmxM1l2D0/O9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794594379;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=2riwwIuDITOXYtuG9XDP+0W9d4KCwIC3n7aRF44epYw=;
+	b=M2SsP/Hh6YoQ6LATwHhhzUIH2SvkJXRfVd0nreOcDS44u/uz4/yBuNLF2DrKxSrAv8ao
+	 ATP8Jk0TSXJ0pNC262x7rDv3B4HMWWxwyZDi2JRSjF95E8aeleAf39iIOQAm2KTU7qg0f
+	 qR6Rat4J1ugvqjfiTnDZ/xyI0DSLxITzpyEZrca4c6vfFhFcE2n5pqh3QGxhS6F/RQyQB
+	 sbRllV4DmVmiJhohVyYuRebnSI/YtqYBoVjw6F31xzDDaUq0OUdLGbmgy7YgUhdUW2Sok
+	 hOdtVD7ZKohD+D9XNvTRT6//FZMmnLzN7hIVCrTZKbH0WXnfBRyuMHWE5rCe95J6muQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=bymOiu+6;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o5xz7HG6;
+	arc=none smtp.remote-ip=209.85.160.51
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F12D606A336;
-	Fri, 13 Nov 2026 18:26:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F12D606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D98A60A5BE5
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:26:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D98A60A5BE5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=bymOiu+6
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=IX1iZaNJLB1qFWspuJQ627JyfU1mRPwlI1mRlrUZmuc=; b=bymOiu+6kimhBRiDzENbm3XDZC
-	pfqZW0XcWU5qq6cfuVRFHEc3eGaFM8DlREQeS6M+MFvNAvHMcdVtGBW6tCRagT4qzPGpkhIRDtM/c
-	Yqmf1VAdaiKPhfgv9cppdW59tICSP0umJ3J4ajnWuQuuvggzTBtC46aa4NR/R+64rwttGYSWm3RCU
-	V3HQJi3bsyzakhlMs78UymZBOFwJn9W1tigGvazIpq0DuG04xyqC3ve1jxKIJLpVk7LOMQRDOqi3h
-	FZq2Xu2TAe5LqfVxwKJSqdRu1YMJNfrAIMVIJF3EwFvaHJeBAPKD/ilfTIq3rrb0bY9igQHoriAsT
-	4nDChIbQ==;
-Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRvyR-00000004cSz-3Qgp;
-	Fri, 13 Nov 2026 18:26:07 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xRvyR-00000000LYF-2eXe;
-	Fri, 13 Nov 2026 18:26:07 +0000
-From: David Woodhouse <dwmw2@infradead.org>
-To: =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	ashish.kalra@amd.com,
-	michael.roth@amd.com,
-	nsaenz@amazon.com,
-	anelkz@amazon.de,
-	James.Bottomley@HansenPartnership.com,
-	Melody Wang <huibo.wang@amd.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	kvm-riscv@lists.infradead.org,
-	x86@kernel.org,
-	coconut-svsm@lists.linux.dev,
-	joerg.roedel@amd.com,
-	Mushahid Hussain <hmushi@amazon.co.uk>,
-	Sriram Nambakam <snambakam@linux.microsoft.com>,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [RFC PATCH 07/13] KVM: x86: Inhibit APICv when VM planes are enabled
-Date: Fri, 13 Nov 2026 11:26:01 -0700
-Message-ID: <20261113182607.82813-8-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261113182607.82813-1-dwmw2@infradead.org>
-References: <20260608144252.351443-1-joro@8bytes.org>
- <20261113182607.82813-1-dwmw2@infradead.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o5xz7HG6
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-451a49abd8aso1901556fac.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:26:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794594378; x=1795199178; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2riwwIuDITOXYtuG9XDP+0W9d4KCwIC3n7aRF44epYw=;
+        b=o5xz7HG6WgXf14fqxfpm8jNhX/AYdR51ZrstH8VL31atsFYeLXRwvrqswQml5n5P9x
+         K2WP301LAxjxpdXD8trfn5cXZ7GOPV4wvepIBEcUYrSkTEPN5Vsp1rOOvokfsRiv8n0/
+         2Ia9sJuM+Q/xA/j+Tz1E9+m9wiKFzJ5fCIXeX294S+jrPS3RpAWazVCt0riKUDgLM2zP
+         Lk5cqOh9CzS32NamHUaS3VOPiuBTGjCMMyt9Ix9NoWuH6LIhDLOXvSzMvz3MApTsoLVF
+         5dQlc7tjHHYqClrpUZrAvChsykMp7FhmkjuL/8RPMVx4C9pWq3/+4pOwHp2RU2SxXX0W
+         vutw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794594378; x=1795199178;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2riwwIuDITOXYtuG9XDP+0W9d4KCwIC3n7aRF44epYw=;
+        b=oZXzpE7AIava3R7K7Legi2RXflNpDRrUmigxsg5drsoQXVbLVIsEAA+Srh+ZNs1pBd
+         sWRRkfFyx7YRTILpDeqMQGvuwuNFmuZ+riCJGDLMKTlf7r9dEVVgmMXrjC9J/ChFMMj+
+         yHdirHKqeD2DSZ3/pIc/qTJ5wURRomsuFiEXuCaLtE7VdtBLdVFQS4dfS7AxSc4D+81F
+         B9GL2dlMTJASq0ysYOMNh8Wtn2KlHmaCEXvcCQNPEBJOAiAKiO71klf0wSgdG49l7yaJ
+         QuEXZNIQ+FTLGFDdbnpf4pVxzaKQx4EjoZMor3/EO+UlxNT5ek1ldqg2xE0r3CX8kEUG
+         +fIA==
+X-Forwarded-Encrypted: i=1; AL+hErExMtEtrBpmIfrRrx20Sz2E4IWGwXyEdgX6T7r5LVECRemezgNkRofyf+ElF1C9DuSgNkSUBiYTC87Ua84=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+sBh4I47RLRbuFXgVacyYe15/AM4CAcT5LKRw6/jppB49mNa3
+	MVDOnwhZQbcPQ1T6OisxL0mI5MANae4Hh5rfr9afZWsQFpJiAB1e+7gH
+X-Gm-Gg: AYBFou2ds6evBtFkKBCzs8kQrQfD6uzX/lgjdTtUmF6WF5HsoVhLUkE/+R3lHpSMHGB
+	OTcsTlLiM1W2d9GuTzsIN/9p217XlvJ4KUtA1TxWr9u3ZvEYG8Gvxbkm8czXG7H3o/bUHgtQFaj
+	QSQmH0mrI5IlcG9sD8BI9+N0uI0NnuPFt2oksNpOjVMgDEXWPEQW0JBTN2et/KM5AKrp7h1rPvC
+	aT+44hTzM6spedenEUpvf96p8c7U3LJQG/gEM5kks9nDDt2dbsI2XlufL5nAmX6uxH4rxNVzy9L
+	xXWMeAoPNlimLZy8YnvHvxBeJlRXuLRTKsj5XLt0tI8wuVackfssdhwH1rz8ubf71Yto7zQWdxp
+	6B9iZTZBTwovvm7TeuPzQK+766rpwY+WUQK76INCPtqy7mvNuQM1dZBEplYaMXg0mG/Qkvn0+Py
+	H829U4fXY3crRmIa5RNnB9EUKqRBu0i3v8suMqGQcXmkPYuDzkPeyBNRyOt0brSFnCUMWb6C0kf
+	XsqspSgu6H1vPudiOl8lwqOFO4peGcwhLOCs7Hbd2ou0GVHltuIxRiq6WTX7PYURpAyfKj2js7K
+	RH9AAeJe0n24dayuDvq3KJWBzuwNQdZ0ya4ALtse/kHik1+ZU8JSEAxHEWyfXulSWWWZW+fpmuA
+	v8fu7BjtCrvPiGn+uIV0IlHQws3Tkod5qhYjd65hxso1wI1Rmp571iMTmh3LOgjVJjq6tTq+fL9
+	lACPUaZQXIBqDP/2jSeIJ1MH9L7VwNO5gVXhYGjesRFgsW0PjCCz4=
+X-Received: by 2002:a05:6870:c459:10b0:48f:e0e5:a1f6 with SMTP id 586e51a60fabf-4afdf948d70mr2365773fac.42.1794594378235;
+        Fri, 13 Nov 2026 10:26:18 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4afe2011c25sm1887061fac.2.2026.11.13.10.26.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 10:26:16 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 13 Nov 2026 11:15:06 -0700
+Subject: [PATCH v4 50/58] mtd: rawnand: ingenic: retain chip state across
+ removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,146 +94,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-50-556b1d7c6221@gmail.com>
+References: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
+In-Reply-To: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ James Hilliard <james.hilliard1@gmail.com>, 
+ Harvey Hunt <harveyhuntnexus@gmail.com>, linux-mips@vger.kernel.org, 
+ Paul Cercueil <paul@crapouillou.net>
+X-Mailer: b4 0.15.2
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+Unregister and disconnect all chips before releasing the ECC provider.
+Retain each chip and its shared controller until the final MTD put,
+while releasing hardware resources during device removal.
 
-With APICv live on plane-0 vCPUs while their plane-1 twins use
-software injection, the twins trip the APICv coherency checks: stale
-vcpu-vs-VM activation state at vcpu_enter_guest(), and timer interrupt
-injection against a vCPU that is not the running one. Cross-plane
-event delivery depends on software-injection bookkeeping that hardware
-acceleration bypasses.
+Run NAND cleanup during disconnection; the final core-owned put only
+releases retained allocation and layout data.
 
-Add APICV_INHIBIT_REASON_PLANES, set it when a plane above 0 is
-created, and include it in the VMX and AVIC required-inhibit masks;
-__kvm_set_or_clear_apicv_inhibit() silently ignores a reason the
-vendor mask does not carry. Drop the inhibit again when the
-KVM_CREATE_PLANE error path destroys the last nonzero plane of a live
-VM; at VM teardown plane 0 is already gone and the update is skipped.
-
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Cc: Harvey Hunt <harveyhuntnexus@gmail.com>
+Cc: linux-mips@vger.kernel.org
+Cc: Paul Cercueil <paul@crapouillou.net>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- arch/x86/kvm/svm/svm.h  |  3 ++-
- arch/x86/kvm/vmx/main.c |  3 ++-
- arch/x86/kvm/x86.c      | 41 +++++++++++++++++++++++++++++++++++++++++
- arch/x86/kvm/x86.h      |  8 ++++++++
- 4 files changed, 53 insertions(+), 2 deletions(-)
+ drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c | 39 +++++++++++++++++--------
+ 1 file changed, 27 insertions(+), 12 deletions(-)
 
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index 2b7663722be6..e7fced399e05 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -982,7 +982,8 @@ extern struct kvm_x86_nested_ops svm_nested_ops;
- 	BIT(APICV_INHIBIT_REASON_APIC_ID_MODIFIED) |	\
- 	BIT(APICV_INHIBIT_REASON_APIC_BASE_MODIFIED) |	\
- 	BIT(APICV_INHIBIT_REASON_LOGICAL_ID_ALIASED) |	\
--	BIT(APICV_INHIBIT_REASON_PHYSICAL_ID_TOO_BIG)	\
-+	BIT(APICV_INHIBIT_REASON_PHYSICAL_ID_TOO_BIG) |	\
-+	BIT(APICV_INHIBIT_REASON_PLANES)		\
- )
+diff --git a/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c b/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c
+index bdda06ae0d72..2818ffe76796 100644
+--- a/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c
++++ b/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c
+@@ -368,7 +368,7 @@ static int ingenic_nand_init_chip(struct platform_device *pdev,
+ 	if (IS_ERR(cs->base))
+ 		return PTR_ERR(cs->base);
  
- bool __init avic_hardware_setup(void);
-diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
-index 2d84910df724..14d21d02bff4 100644
---- a/arch/x86/kvm/vmx/main.c
-+++ b/arch/x86/kvm/vmx/main.c
-@@ -1004,7 +1004,8 @@ static int vt_handle_exit(struct kvm_vcpu *vcpu,
- 	 BIT(APICV_INHIBIT_REASON_BLOCKIRQ) |			\
- 	 BIT(APICV_INHIBIT_REASON_PHYSICAL_ID_ALIASED) |	\
- 	 BIT(APICV_INHIBIT_REASON_APIC_ID_MODIFIED) |		\
--	 BIT(APICV_INHIBIT_REASON_APIC_BASE_MODIFIED))
-+	 BIT(APICV_INHIBIT_REASON_APIC_BASE_MODIFIED) |	\
-+	 BIT(APICV_INHIBIT_REASON_PLANES))
+-	nand = devm_kzalloc(dev, sizeof(*nand), GFP_KERNEL);
++	nand = kzalloc_obj(*nand);
+ 	if (!nand)
+ 		return -ENOMEM;
  
- struct kvm_x86_ops vt_x86_ops __initdata = {
- 	.name = KBUILD_MODNAME,
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index e8cefde75838..6d3d93e85a65 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -10247,12 +10247,53 @@ int kvm_arch_plane_init(struct kvm *kvm, struct kvm_plane *plane,
- {
- 	mutex_init(&plane->arch.apic_map_lock);
+@@ -377,7 +377,7 @@ static int ingenic_nand_init_chip(struct platform_device *pdev,
+ 	if (IS_ERR(nand->busy_gpio)) {
+ 		ret = PTR_ERR(nand->busy_gpio);
+ 		dev_err(dev, "failed to request busy GPIO: %d\n", ret);
+-		return ret;
++		goto free_chip;
+ 	}
  
-+	/*
-+	 * Cross-plane event delivery (forced VTL entry, twin kicks, NMI
-+	 * folding) relies on software injection via KVM_REQ_EVENT; hardware
-+	 * APIC virtualization on one twin would bypass the bookkeeping the
-+	 * other twin's plane depends on.
-+	 */
-+	if (plane_level > 0)
-+		kvm_set_apicv_inhibit(kvm, APICV_INHIBIT_REASON_PLANES);
-+
+ 	nand->wp_gpio = devm_gpiod_get_optional(dev, "wp", GPIOD_OUT_LOW);
+@@ -385,15 +385,17 @@ static int ingenic_nand_init_chip(struct platform_device *pdev,
+ 	if (IS_ERR(nand->wp_gpio)) {
+ 		ret = PTR_ERR(nand->wp_gpio);
+ 		dev_err(dev, "failed to request WP GPIO: %d\n", ret);
+-		return ret;
++		goto free_chip;
+ 	}
+ 
+ 	chip = &nand->chip;
+ 	mtd = nand_to_mtd(chip);
+ 	mtd->name = devm_kasprintf(dev, GFP_KERNEL, "%s.%d", dev_name(dev),
+ 				   cs->bank);
+-	if (!mtd->name)
+-		return -ENOMEM;
++	if (!mtd->name) {
++		ret = -ENOMEM;
++		goto free_chip;
++	}
+ 	mtd->parent_dev = dev;
+ 
+ 	chip->options = NAND_NO_SUBPAGE_WRITE;
+@@ -404,17 +406,27 @@ static int ingenic_nand_init_chip(struct platform_device *pdev,
+ 	chip->controller->ops = &ingenic_nand_controller_ops;
+ 	ret = nand_scan(chip, 1);
+ 	if (ret)
+-		return ret;
++		goto free_chip;
++	ret = nand_set_lifetime(chip, to_ingenic_nand(nand_to_mtd(chip)));
++	if (ret) {
++		nand_cleanup(chip);
++		goto free_chip;
++	}
+ 
+ 	ret = mtd_device_register(mtd, NULL, 0);
+ 	if (ret) {
+-		nand_cleanup(chip);
++		nand_disconnect(chip);
++		mtd_put_master(mtd);
+ 		return ret;
+ 	}
+ 
+ 	list_add_tail(&nand->chip_list, &nfc->chips);
+ 
  	return 0;
++
++free_chip:
++	kfree(nand);
++	return ret;
  }
  
- void kvm_arch_plane_destroy(struct kvm_plane *plane)
+ static void ingenic_nand_cleanup_chips(struct ingenic_nfc *nfc)
+@@ -429,8 +441,9 @@ static void ingenic_nand_cleanup_chips(struct ingenic_nfc *nfc)
+ 		chip = &ingenic_chip->chip;
+ 		ret = mtd_device_unregister(nand_to_mtd(chip));
+ 		WARN_ON(ret);
+-		nand_cleanup(chip);
++		nand_disconnect(chip);
+ 		list_del(&ingenic_chip->chip_list);
++		mtd_put_master(nand_to_mtd(chip));
+ 	}
+ }
+ 
+@@ -474,9 +487,12 @@ static int ingenic_nand_probe(struct platform_device *pdev)
+ 		return -ENODEV;
+ 	}
+ 
+-	nfc = devm_kzalloc(dev, struct_size(nfc, cs, num_banks), GFP_KERNEL);
++	nfc = kzalloc(struct_size(nfc, cs, num_banks), GFP_KERNEL);
+ 	if (!nfc)
+ 		return -ENOMEM;
++	ret = devm_nand_controller_init(dev, &nfc->controller, nfc);
++	if (ret)
++		return ret;
+ 
+ 	nfc->soc_info = device_get_match_data(dev);
+ 	if (!nfc->soc_info)
+@@ -493,7 +509,6 @@ static int ingenic_nand_probe(struct platform_device *pdev)
+ 	nfc->dev = dev;
+ 	nfc->num_banks = num_banks;
+ 
+-	nand_controller_init(&nfc->controller);
+ 	INIT_LIST_HEAD(&nfc->chips);
+ 
+ 	ret = ingenic_nand_init_chips(nfc, pdev);
+@@ -511,10 +526,10 @@ static void ingenic_nand_remove(struct platform_device *pdev)
  {
-+	struct kvm *kvm = plane->kvm;
-+	int i;
+ 	struct ingenic_nfc *nfc = platform_get_drvdata(pdev);
+ 
++	ingenic_nand_cleanup_chips(nfc);
 +
- 	kvfree(rcu_dereference_check(plane->arch.apic_map, 1));
-+
-+	if (plane->level == 0)
-+		return;
-+
-+	/*
-+	 * Drop the APICv inhibit taken in kvm_arch_plane_init() when the
-+	 * last nonzero plane goes away.  Only the KVM_CREATE_PLANE error
-+	 * path destroys a nonzero plane while the VM is live; at VM
-+	 * teardown plane 0 is destroyed first and kvm->planes[0] is
-+	 * already NULL, which skips the update (the inhibit machinery
-+	 * needs plane 0 and SRCU, both gone by then).
-+	 */
-+	if (!kvm->planes[0])
-+		return;
-+
-+	/*
-+	 * Reaching here means a nonzero plane died while the VM is live,
-+	 * which only the KVM_CREATE_PLANE error path does - under
-+	 * kvm->lock.  A future kvm_destroy_planes() reordered to tear
-+	 * nonzero planes down before plane 0 would get here locklessly;
-+	 * catch that instead of silently poking freed APICv state.
-+	 */
-+	lockdep_assert_held(&kvm->lock);
-+
-+	for (i = 1; i < KVM_MAX_PLANES; i++)
-+		if (kvm->planes[i] && kvm->planes[i] != plane)
-+			return;
-+
-+	kvm_clear_apicv_inhibit(kvm, APICV_INHIBIT_REASON_PLANES);
+ 	if (nfc->ecc)
+ 		ingenic_ecc_release(nfc->ecc);
+-
+-	ingenic_nand_cleanup_chips(nfc);
  }
  
- int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
-diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
-index 498974d38773..fb87ceaa9563 100644
---- a/arch/x86/kvm/x86.h
-+++ b/arch/x86/kvm/x86.h
-@@ -580,6 +580,13 @@ enum kvm_apicv_inhibit {
- 	APICV_INHIBIT_REASON_APIC_ID_MODIFIED,
- 	APICV_INHIBIT_REASON_APIC_BASE_MODIFIED,
- 
-+	/*
-+	 * APICv is inhibited when the VM has multiple planes (Hyper-V VTLs).
-+	 * Cross-plane event delivery relies on software injection; hardware
-+	 * acceleration on one twin would bypass it.
-+	 */
-+	APICV_INHIBIT_REASON_PLANES,
-+
- 	/******************************************************/
- 	/* INHIBITs that are relevant only to the AMD's AVIC. */
- 	/******************************************************/
-@@ -637,6 +644,7 @@ enum kvm_apicv_inhibit {
- 	__APICV_INHIBIT_REASON(PHYSICAL_ID_ALIASED),	\
- 	__APICV_INHIBIT_REASON(APIC_ID_MODIFIED),	\
- 	__APICV_INHIBIT_REASON(APIC_BASE_MODIFIED),	\
-+	__APICV_INHIBIT_REASON(PLANES),			\
- 	__APICV_INHIBIT_REASON(NESTED),			\
- 	__APICV_INHIBIT_REASON(IRQWIN),			\
- 	__APICV_INHIBIT_REASON(PIT_REINJ),		\
+ static const struct jz_soc_info jz4740_soc_info = {
+
 -- 
-2.50.1
+2.53.0
 
