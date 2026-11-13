@@ -1,94 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559801;
-	b=MHthKSQt8fG1XEEsA5FAN4Icq1QTpAf0rwD5GGZgsAWRnMGxyjhTf4wE8mf0/UIHs948
-	 JpQLgQ/EYvXsED6zCFDUuNlYXAsr0YwCVYH0a8hbTWeLPAXIqrxIYDrlYHJmeuXYM6R6F
-	 zFONccVyB29yhLhPE9gvbGCpQGRbZmO8EPU/yAIfISBxqfx62/d7ENDai0qjAlL4zSvtY
-	 ILituVCD4btUYBEF1H4ryewB/v3toZm5yQdPdjF959xdoQ9kZN75RsGZOuz3P/1PsT/h5
-	 cqQWWwYp6z84f5OMRK2SIDsbpSWxGnGZZRUVI1x7yo9AgJ9RwMwYTUls7Ga+YBXE6uw==
+	t=1794559828;
+	b=gKAT3h4dT1hWWGPbETkECp4nyzsR4T40AhMeo8zS5Byb58ctZdxImuYQ1kBzjJXc5e5e
+	 Ns78AO2gqP0m9XaNj7HvXq/CYT8T/wufSbbNWEQzWQSL+C/2JgZLHhLlf1LmGwPWY8MN7
+	 +OG8mPm/9MdjYATGfhWMRipfH/NMj6HPQ3DRKq42z2zTV/BYI/ISCIapG1UkNwNcH0Xr9
+	 5+3FUD5DORvq0vR1BnpMk7zlWJ6P5OLNuJexNOdXRokor3r13uO1XO2TqQGit4T8HODhF
+	 KPgNys46jBIo1nYVBW4NxusPbUjzADXsSNgniuOQGy28vlsB22v1P/BNHotQXHlew9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559801;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=g3miSUCaoPJIQa6siBt7PZKkvjuOEV2JhJvHnsT+V6w=;
-	b=E6ZH2nvb5EpFT2XpxqUrivR6ayspT8Sq89s7l0g4B4O5owszEp8dMSgos2U2AyPAWRBZ
-	 bSQHerP12GJS4aMAf6zyCwUxOK3zCGPyGP1y59YlDEZHO6ne/CL/gch25zm0gSWM0jKjN
-	 zAe4lECmB6lRAr8w7dz2UkYXAltvbAi41IYqk2IDSkTNsldTvcrRrMWd+O/sf/poHCEJL
-	 ZxD2kn/4u2GQ0bDtCph14WNJBJ6lw5zJ1LUMvtImC74jqaxJdA1lAS+lLV5X3PjeVBcBf
-	 W+nF2Kg9o3t4pOD7JPxtbFK0/eUXRffgbQ14wZ5srlUzbcYDlBwCeqaW7ZJ1XO0vjIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559828;
+	h=DMARC-Filter:DKIM-Signature:Date:Mime-Version:In-Reply-To:X-Mailer:
+	 To:Message-Id:Content-Transfer-Encoding:References:X-Original-From:
+	 Content-Type:Cc:Subject:X-Lms-Return-Path:From;
+	bh=BRtBrIkCJ4EaL32K9DlOPnqwkNfnHFCSjQCoKgoeAeI=;
+	b=Wd+xyGUQCVYNN57LaIZr8a6cIRgc5/ob1rae6BHqhOeJByrnTS9vFkJPSsxijWNIo8rl
+	 ukN0r38PDNZtBJ8to6/xmGzMJazxayi0Brky3Kghk3R/uoVtWvrnVFcDZCF+Gxbx+kzIl
+	 j+FkTXEIBLMgn5srm38dICWAYtFPWkRdHpFOEPGsGv6WqOzHrm7qc6K5TvI60nP8pAFMv
+	 uyP6OKkInPVzmudNOkM1hgzfJLhw5T0oVQ9+IsfqtQTfN/pKyIQTVNUiHhhlHLuQ8xEtU
+	 ffq9EyyPXHR4KBsO/E2zyv/ey1ogbEgs+BPTyUG6hgeBwni2sVftFfawZNxZfw/uqeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ZON/i+W8";
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=Rmrg7xnK;
+	arc=none smtp.remote-ip=209.127.231.111
+Received: from va-2-111.ptr.blmpb.com (va-2-111.ptr.blmpb.com [209.127.231.111])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7516F60A2600
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:50:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7516F60A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CB6606A33A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:50:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1CB6606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZON/i+W8
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-37986eb6fa2so1671341eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:50:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794559800; x=1795164600; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g3miSUCaoPJIQa6siBt7PZKkvjuOEV2JhJvHnsT+V6w=;
-        b=ZON/i+W8XsXz5Wknk9fht63U3KVaZ13JVr5w8KUqnsRn0Vc/GV6ziuZwGkUKHgIlkt
-         8mgpNb9khjPlDffmQ7S73g2QRht0M00qA+LDp1AvleIyKQByt4cEoOcJ3a9ccBDZDDxV
-         gUsnT3V7t2NPbybOBxI/RLCI7i/RGDVwZyNCJXCpyMdbHe2rCyAzyyfppNUqj7/xa7YF
-         noMR340NlOmpPprTb6Tmf6XDAkeKbLIDG66T9QIOgSFTwy2GuvWDyb5M2cR7H13/qDAS
-         8IvPCrb/mx6ONEgx0MB/HO8gF6YC6GsB3ve+y/aoEEOjNXtpY6Lgx9pmEA9L3VE6+cTh
-         ykrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559800; x=1795164600;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g3miSUCaoPJIQa6siBt7PZKkvjuOEV2JhJvHnsT+V6w=;
-        b=v4KRXyRVMS4ugsbFAa1cylv0Zd03VYO30cNOxYttBfjQ8pysSPNSJz3hj6wFAg5QJz
-         UPy9B6jV/ifpXkonbxd/OZkBHbafzr38of3k3ZLRtTyIqEbRqygT7VLR/AMBm4Tky7AK
-         LBTnQWQuvw/G3KrAWqOkaL4HHQ0XZjHwlz+FRc0nduIytzC2HOnkJ69sxnsnpTGyWSXW
-         nUAowD3O5CSAiFgJ3gvzd6sO1tHMyBkq6X8/ci9KlgtY7BPnEXY96V7Wvd2pX7axu9Wz
-         P5DguuZ9XGDrCxcXiyvgOcvsYABJVoHgdditxTLZMd9lnlynObp4K9p1NLDuHwLW5Rng
-         RSdQ==
-X-Forwarded-Encrypted: i=1; AL+hErHoY+GinMCd+cmjYr6fWHqOIF2RLBZZsQttIR0bF+g3uYb3q3NjiIiNVu/L8KAsJVaYh2oN2b9zaTLwsZ8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gKcFSFtgT8bUjdeil6/ZFDjeqd4kurXAPQxkj7KHvj9yS3r9n
-	zlFE5fLz4+RQAmZF3AvARvX30UiQrmP3oa6WJhSdl4hk5cTYF/4lk/MS0jH0vKYzr4c=
-X-Gm-Gg: AYBFou03vFcR/3Nj/xynzkF/w1bvA4Dq/vBErHMzpKjfeAFCD2Uei9d4FMZyAeLKoBw
-	iT5TDXdJJVTTGAJZb1S8j4iKuUaOebbygM5XazgnLSUjiNwIfJpI35cwzNwqhEf191Ov5hW0AE7
-	Jfp4TB/k3egVTNUiYVYXX/baoC9Uwb6RZcGVet+KBoJAzumcCwlUk7uKz8OIZZxu3PWH0ABreFD
-	/yLt3ZZ9gXFeBKE2VEQDvDTK5Qp/zzXXqKTUaSO/qAQAC5Yu64/uJT3axUswPxRPKIZ65RIbVm7
-	WXVDrgRSSsap+x454ihfORV3HW/bWVhdtXcMtUd9/IK79t0F8WKyhWCl5UpM2IXa4sexA2UKxTB
-	eCcN0CtbkCwvxFLkoHgQv3+i5QKURpGDIz27HcGAE1tgWH/+I4+c/sDBHPkNUFUon2XR/MGtEJW
-	sGR5KcDBXUBdLG2u4jwl6o8tB63YumJNNYHT5uS54Kkb4NaJ8y77scjU1edJ2pNl+M7viUAUyAB
-	rv1jPfsijWx8FDXzGl3k16LwiKoFq+SgAdzqEo95+Gi7G/PbI+YD5MGTBJb22cNSjc9kA/b7QiR
-	y1U7f166khNbRkzrRBf/i+Uq+GgJws8PHr52/YCpkLRIWPjeu9Kxt3rzxMax88D/GECMU/fucwY
-	VCpSMMtFzjOO49t4rHCHlf/NxX1DUUwuCAJ453ACngdE=
-X-Received: by 2002:a05:693c:3f02:b0:36e:1fbe:3571 with SMTP id 5a478bee46e88-3796365ee8dmr1632220eec.3.1794559799163;
-        Fri, 13 Nov 2026 00:49:59 -0800 (PST)
-Received: from lwq-System-Product-Name.. ([2602:feda:30:cafe:ec49:38a8:0:1866])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955822d58sm5251032eec.10.2026.11.13.00.49.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 00:49:58 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-To: amit@kernel.org,
-	arnd@arndb.de,
-	gregkh@linuxfoundation.org
-Cc: rusty@rustcorp.com.au,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5] virtio_console: fix buffer ownership and unplug races in the read path
-Date: Fri, 13 Nov 2026 16:49:52 +0800
-Message-Id: <20261113084952.211929-1-shunsheng1218@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=Rmrg7xnK
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794559824; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=BRtBrIkCJ4EaL32K9DlOPnqwkNfnHFCSjQCoKgoeAeI=;
+ b=Rmrg7xnKYuZTpGzOpvufLixsjzkgqeyHnS7ghFxk6Q8rFuldGz2kUzdl4nsJEdVcDVZzIr
+ ZYEmoaR9AwfTPQ6rcTXIgjO/hKJAjptAVV/+ABf0QIKyRWlGZwf+v22+L980XUQIUPpmNa
+ vurCWKK9Bo1e+Vj0KQKP2o9KqvHzToPRBtEbE6S2Ohaca7EYjdI/qkzxag4SG/djIAYLNp
+ 2f12cXNSdfOrOE7TZ3nflYnvtNskoXIBZk5rjjAm5vHXdyM3GeeO5bH/nhSmSw5PvGFIih
+ hOvj0zj1AgbnhpP0oiYGp1q36y6jHNaZ5nW9HiwnEHuD0Z/M38IeCZ5CROMO5g==
+Date: Fri, 13 Nov 2026 16:49:48 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,567 +52,126 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+In-Reply-To: <179455442014.482102.4069329165987986914.b4-reply@b4>
+X-Mailer: git-send-email 2.45.2
+To: <gourry@gourry.net>
+Message-Id: <20261113084948.78661-1-lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 7bit
+References: <179455442014.482102.4069329165987986914.b4-reply@b4>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: <akpm@linux-foundation.org>, <cgroups@vger.kernel.org>, 
+	<david@kernel.org>, <joshua.hahnjy@gmail.com>, 
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-mm@kvack.org>, <lizhe.67@bytedance.com>, <ljs@kernel.org>, 
+	<mhocko@suse.com>, <muchun.song@linux.dev>, <rakie.kim@sk.com>, 
+	<roman.gushchin@linux.dev>, <shakeel.butt@linux.dev>, 
+	<weixugc@google.com>, <ying.huang@linux.alibaba.com>, <ziy@nvidia.com>
+Subject: Re: [RFC v2 1/1] mm: add source selector to memory.reclaim
+X-Lms-Return-Path: <lba+26af6cf45+407931+vger.kernel.org+lizhe.67@bytedance.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
 
-Two readers can use the same port at once. The read path checks for
-input under inbuf_lock, but fill_readbuf() copies to userspace after the
-lock is released. A second reader can take the same buffer, and the
-input callback can prefetch the next buffer while the first one is still
-in use. This can duplicate data or change its order.
+On Fri, 13 Nov 2026 02:20:20 -0500, gourry@gourry.net wrote:
 
-The read path can also touch the input virtqueue after unplug_port() has
-started tearing it down.
+> > On 2026-11-02 15:04 +0800, Li Zhe wrote:
+> > +	Specifying a source value constrains where proactive reclaim applies
+> > +	pressure. Currently only source=nodes:<nodelist> is supported. For
+> > +	example::
+> > +
+> > +	  echo "1G source=nodes:0-1" > memory.reclaim
+> > +
+> > +	This reclaims memory of the target cgroup resident on nodes 0-1.
+> 
+> you buried the fact that you want to allow source=zswap in your cover
+> letter. I was confused by nodes: was needed here until i re-read.
+> 
+> As Joshua mentioned, i don't think you need the separate cover letter,
+> and I agree this is far too long for the proposed change.
 
-Let one reader claim port->inbuf while it copies. The claim is published
-under inbuf_lock; other readers wait, and the input callback does not
-prefetch until the claim is released. If the reader does not consume the
-whole buffer, the remainder goes back to port->inbuf before another
-reader can use the next one.
+Agreed. The nodes: prefix was meant to keep source= a typed selector,
+but I made the motivation and possible future extensions too long and
+distracting. I will make v3 much clearer and shorter, and keep the focus
+on source=nodes.
 
-Publish an unplugging state before teardown. Read and poll snapshot the
-input state under inbuf_lock, while host_connected is read with
-READ_ONCE(). A read that observes unplug returns -ENODEV, poll reports
-EPOLLHUP, and a buffer returned after unplug is freed instead of being
-requeued. This also distinguishes unplug from a normal host disconnect.
+> ---
+> 
+> When I asked for testing, I wasn't concerned with the functionality,
+> I was asking what problem this actually solves. performance? fairness?
+> 
+> Shaping the distribution of memory is neat and clearly works, but why
+> does userspace want this?
+> 
+> The interface "lacking flexibility" is not a problem in and of itself.
 
-The HVC callback lifetime is a separate, adjacent issue handled by the
-hvc_kick change. This patch only covers the read-buffer ownership and
-unplug races.
+Thanks, this is a fair point. Sorry, I also made that earlier
+explanation too long, so let me summarize the intended use cases here:
 
-Tested with a QEMU virtio-serial device under KASAN. The unpatched
-driver duplicated records with two readers and hit a virtqueue
-use-after-free when a read raced with unplug. With this change, 20,000
-records were delivered once and in order, reads observing unplug
-returned -ENODEV, and removing one port left the other port usable.
-CONFIG_CONSOLE_POLL and real remoteproc DMA were not runtime-tested.
+https://lore.kernel.org/all/67fcd8db-269d-43f1-aea2-8c41165747d0@bytedance.com/
 
-Fixes: 203baab8ba319 ("virtio: console: Introduce function to hand off data from host to readers")
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
----
-Changes in v5:
-- Restore the Fixes tag for the original reader hand-off implementation.
-- Author rewrote the commit message in a shorter, direct form.  No code
-  changes from v4.
-- Clarify that the read-buffer ownership fix is independent.  The HVC
-  callback lifetime after inbuf_lock is dropped is a separate, adjacent
-  fix in #10 v2:
-  https://lore.kernel.org/r/20261105114450.971521-1-shunsheng1218@gmail.com/
-- Add single-port PORT_REMOVE coverage: the target reader returns
-  -ENODEV while another port on the same device remains usable.
-- CONFIG_CONSOLE_POLL and real remoteproc DMA remain untested.
+In short, performance, fairness and cost are all part of the goal. One
+target is mixed DRAM/CXL systems where user space keeps each memcg near
+its own DRAM/CXL resident ratio target, based on the workload's
+latency/throughput and cost requirements. Another target is the case you
+described below, where user space wants memcg-scoped reclaim to apply
+pressure to the desired tier first, rather than reclaiming from warmer
+memory on the top tier. This is especially useful when a memcg is close
+to its memory limit and user space wants charge-reducing reclaim to
+start from colder/lower-tier memory first.
 
-AI tools assisted with source review and test harness development.
-The author wrote the final commit message and reviewed the resulting
-code and test results.
+> I CAN see why you might want to proactively shape what data is swapped.
+> Let me give you an example:
+> 
+> ---
+> The global node reclaim interfaces allow us to put pressure on distinct
+> nodes - which lets us shape which node is swapped from first.
+> 
+> Example: node0-1=DRAM, node2-3:CXL
+> 
+>   echo 1G > node2/reclaim   # swap from CXL
+>   echo 1G > node3/reclaim   # swap from CXL
+>   echo 1G > node0/reclaim   # demote to CXL
+>   echo 1G > node1/reclaim   # demote to CXL
+> 
+> But the memcg.reclaim interface only allows us to pressure the complete
+> set of cpuset.mems nodes for that memcg
+> 
+>   cat cpuset.mems           # 0-3
+>   echo 1G > memory.reclaim  # makes progress from any of 0-3
+> 
+> Presently, proactive reclaim iterates nodes in node or fallback order,
+> meaning it attempts to make progress from the fastest node possible
+> first - which attempts to demote by default.  If the lower nodes are
+> full, this demotion will fail and we'll swap directly from the top tier,
+> which is (presumably) warmer than the bottom tiers.
+> 
+> Enable source-bound reclaim in the memory.reclaim interface so that user
+> space can have the same control over memcg memory tiers that global
+> proactive reclaim has.
+> 
+>   echo 2G source=nodes:2-3 > memory.reclaim  # [z]swap from CXL
+>   echo 2G source=nodes:0-1 > memory.reclaim  # demote to CXL
+> 
+> This lets user proactive reclaim to target the coldest memory first
+> rather than preferring to reclaim from node0 first and potentially
+> swap out memory warmer than what is present on a CXL tier.
+> ---
+> 
+> With this, you might be able to demonstrate fewer refaults and less
+> DRAM (node0) memory consumed by zswap. These are clear benefits.
 
-v4: https://lore.kernel.org/r/20261106091739.1334178-1-shunsheng1218@gmail.com/
-v3: https://lore.kernel.org/r/20261106053438.1206065-1-shunsheng1218@gmail.com/
-v2: https://lore.kernel.org/r/20261105114535.972013-1-shunsheng1218@gmail.com/
-v1: https://lore.kernel.org/r/179378543196.71890.7555371342727156729@gmail.com/
+Thanks for the example. It makes the problem much easier to discuss. I
+will refer to it when reworking the v3 motivation, and will avoid
+framing the issue as a generic flexibility problem.
 
- drivers/char/virtio_console.c | 347 +++++++++++++++++++++++++++++-----
- 1 file changed, 298 insertions(+), 49 deletions(-)
+> I would argue that memory.reclaim should operate this way anyway,
+> and that would could make proactive reclaim do this by default, but
+> I could see the policy bits in userland being useful as well
+> 
+> Performance may not be the only reason you want this, but you need to
+> help me understand what you're trying to accomplish.
 
-diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.c
-index 019bcae81af5c..6573db068eee3 100644
---- a/drivers/char/virtio_console.c
-+++ b/drivers/char/virtio_console.c
-@@ -180,6 +180,23 @@ struct port {
- 	/* The current buffer from which data has to be fed to readers */
- 	struct port_buffer *inbuf;
- 
-+	/*
-+	 * True while a reader owns an exclusively claimed inbuf outside
-+	 * inbuf_lock, possibly sleeping in copy_to_user().  Nobody may
-+	 * prefetch the next buffer meanwhile: the claimer's unconsumed
-+	 * remainder goes back to inbuf first, or the prefetched buffer
-+	 * would be dropped or the stream reordered.
-+	 */
-+	bool inbuf_claimed;
-+
-+	/*
-+	 * Set at the start of unplug_port(), before any teardown.  The
-+	 * read path checks it under inbuf_lock and stops touching the
-+	 * input virtqueue; a reader returning a claimed buffer frees it
-+	 * instead of requeueing it.
-+	 */
-+	bool unplugging;
-+
- 	/*
- 	 * To protect the operations on the in_vq associated with this
- 	 * port.  Has to be a spinlock because it can be called from
-@@ -534,19 +551,56 @@ static void discard_port_data(struct port *port)
- 			 err);
- }
- 
--static bool port_has_data(struct port *port)
-+/*
-+ * Input state of a port, snapshotted under inbuf_lock.  The distinction
-+ * between a buffer that can be acquired now (AVAILABLE) and one that is
-+ * owned by another reader (CLAIMED) matters for poll() and for blocking
-+ * reads: only AVAILABLE must be reported as readable, while both mean
-+ * that unread data may still be pending for the EOF logic.
-+ */
-+enum port_input_state {
-+	PORT_INPUT_EMPTY,
-+	PORT_INPUT_AVAILABLE,
-+	PORT_INPUT_CLAIMED,
-+	PORT_INPUT_UNPLUGGED,
-+};
-+
-+/*
-+ * Consistent snapshot of the input state and the connection state.
-+ * unplug_port() publishes the unplugging state and clears
-+ * guest_connected/host_connected under inbuf_lock, so taking all of
-+ * them in the same critical section lets the read and poll paths tell
-+ * an unplug from a normal host disconnect.
-+ */
-+struct port_read_snapshot {
-+	enum port_input_state input;
-+	bool guest_connected;
-+	bool host_connected;
-+};
-+
-+/* Callers must not hold inbuf_lock. */
-+static struct port_read_snapshot port_read_snapshot(struct port *port)
- {
-+	struct port_read_snapshot snap;
- 	unsigned long flags;
--	bool ret;
- 
--	ret = false;
- 	spin_lock_irqsave(&port->inbuf_lock, flags);
--	port->inbuf = get_inbuf(port);
--	if (port->inbuf)
--		ret = true;
-+
-+	snap.guest_connected = port->guest_connected;
-+	snap.host_connected = READ_ONCE(port->host_connected);
-+
-+	if (port->unplugging || !port->portdev) {
-+		snap.input = PORT_INPUT_UNPLUGGED;
-+	} else if (port->inbuf_claimed) {
-+		snap.input = PORT_INPUT_CLAIMED;
-+	} else {
-+		port->inbuf = get_inbuf(port);
-+		snap.input = port->inbuf ? PORT_INPUT_AVAILABLE
-+					 : PORT_INPUT_EMPTY;
-+	}
- 
- 	spin_unlock_irqrestore(&port->inbuf_lock, flags);
--	return ret;
-+	return snap;
- }
- 
- static ssize_t __send_control_msg(struct ports_device *portdev, u32 port_id,
-@@ -692,24 +746,122 @@ static ssize_t __send_to_port(struct port *port, struct scatterlist *sg,
-  * Give out the data that's requested from the buffer that we have
-  * queued up.
-  */
-+static bool will_read_block(struct port *port);
-+
- static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
--			    size_t out_count, bool to_user)
-+			    size_t out_count, bool to_user, bool nonblock)
- {
- 	struct port_buffer *buf;
-+	struct port_read_snapshot snap;
- 	unsigned long flags;
-+	bool free_requeue_buf = false;
-+	int err;
- 
--	if (!out_count || !port_has_data(port))
-+	if (!out_count)
- 		return 0;
- 
-+retry:
-+	spin_lock_irqsave(&port->inbuf_lock, flags);
-+
-+	/* The port is going away; its vqs are being torn down. */
-+	if (port->unplugging || !port->portdev) {
-+		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+		/* Userspace sees a removed port; HVC just has no data. */
-+		return to_user ? -ENODEV : 0;
-+	}
-+
-+	/*
-+	 * Another reader (a userspace read() or the HVC console poll)
-+	 * owns the claimed buffer, possibly sleeping in copy_to_user().
-+	 * Prefetching the next buffer here would drop or reorder the
-+	 * claimed data once the owner returns its unconsumed remainder,
-+	 * so report no data instead.  The HVC poll will simply retry;
-+	 * a userspace reader waits for the claim to be released.
-+	 */
-+	if (port->inbuf_claimed) {
-+		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+		if (!to_user)
-+			return 0;
-+		if (nonblock)
-+			return -EAGAIN;
-+
-+		err = wait_event_freezable(port->waitqueue,
-+					   !READ_ONCE(port->inbuf_claimed) ||
-+					   READ_ONCE(port->unplugging));
-+		if (err)
-+			return err;
-+		goto retry;
-+	}
-+
-+	port->inbuf = get_inbuf(port);
- 	buf = port->inbuf;
-+	if (!buf) {
-+		bool guest = port->guest_connected;
-+		bool host = READ_ONCE(port->host_connected);
-+
-+		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+		if (!to_user)
-+			return 0;
-+		if (!guest)
-+			return -ENODEV;
-+		if (nonblock)
-+			return host ? -EAGAIN : 0;
-+		if (!host)
-+			return 0;
-+		/*
-+		 * The input is empty but the guest is still connected.
-+		 * Wait for data, a disconnect or the unplug fence, then
-+		 * re-snapshot instead of reusing the state above.
-+		 */
-+		err = wait_event_freezable(port->waitqueue,
-+					   !will_read_block(port));
-+		if (err)
-+			return err;
-+
-+		snap = port_read_snapshot(port);
-+		if (snap.input == PORT_INPUT_UNPLUGGED ||
-+		    !snap.guest_connected)
-+			return -ENODEV;
-+		if (snap.input == PORT_INPUT_EMPTY && !snap.host_connected)
-+			return 0;
-+		goto retry;
-+	}
-+
-+	/*
-+	 * Claim the buffer: we own it exclusively while copying,
-+	 * without holding inbuf_lock.
-+	 */
-+	port->inbuf = NULL;
-+	port->inbuf_claimed = true;
-+	spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+
- 	out_count = min(out_count, buf->len - buf->offset);
- 
- 	if (to_user) {
- 		ssize_t ret;
- 
- 		ret = copy_to_user(out_buf, buf->buf + buf->offset, out_count);
--		if (ret)
-+		if (ret) {
-+			bool free_it;
-+
-+			/*
-+			 * The copy failed: hand the buffer back with its
-+			 * data intact, unless the port is being unplugged,
-+			 * in which case nobody would free it anymore.
-+			 */
-+			spin_lock_irqsave(&port->inbuf_lock, flags);
-+			free_it = port->unplugging || !port->portdev;
-+			if (!free_it)
-+				port->inbuf = buf;
-+			port->inbuf_claimed = false;
-+			spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+
-+			if (free_it)
-+				free_buf(buf, true);
-+			else
-+				wake_up_interruptible(&port->waitqueue);
- 			return -EFAULT;
-+		}
- 	} else {
- 		memcpy((__force u8 *)out_buf, buf->buf + buf->offset,
- 		       out_count);
-@@ -717,19 +869,57 @@ static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
- 
- 	buf->offset += out_count;
- 
--	if (buf->offset == buf->len) {
-+	spin_lock_irqsave(&port->inbuf_lock, flags);
-+
-+	if (port->unplugging || !port->portdev) {
-+		/*
-+		 * The port was unplugged while we were copying: the vqs
-+		 * are going away, so free the buffer instead of requeueing
-+		 * it.  Runs outside the lock; sleepability matches the
-+		 * caller's context (to_user == false is the atomic HVC
-+		 * path, whose DMA frees are deferred by free_buf()).
-+		 */
-+		port->inbuf_claimed = false;
-+		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+		free_buf(buf, to_user);
-+		wake_up_interruptible(&port->waitqueue);
-+		return out_count;
-+	}
-+
-+	if (buf->offset < buf->len) {
-+		/* Data left in this buffer; serve it before the next one. */
-+		port->inbuf = buf;
-+	} else {
- 		/*
- 		 * We're done using all the data in this buffer.
- 		 * Re-queue so that the Host can send us more data.
- 		 */
--		spin_lock_irqsave(&port->inbuf_lock, flags);
--		port->inbuf = NULL;
--
--		if (add_inbuf(port->in_vq, buf) < 0)
-+		if (add_inbuf(port->in_vq, buf) < 0) {
- 			dev_warn(port->dev, "failed add_buf\n");
--
--		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+			/*
-+			 * Defer the free: free_buf() may call
-+			 * dma_free_coherent() (rproc buffers) when the
-+			 * caller can sleep, which is illegal with
-+			 * inbuf_lock held and IRQs off.
-+			 */
-+			free_requeue_buf = true;
-+		}
- 	}
-+
-+	/*
-+	 * Release the claim.  Do not touch buf afterwards: it may have
-+	 * been freed above (failed requeue).  Wake unconditionally:
-+	 * readers waiting for the claim need a wakeup even when the
-+	 * buffer was fully consumed.
-+	 */
-+	port->inbuf_claimed = false;
-+	spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+
-+	if (free_requeue_buf)
-+		free_buf(buf, to_user);
-+
-+	wake_up_interruptible(&port->waitqueue);
-+
- 	/* Return the number of bytes actually copied */
- 	return out_count;
- }
-@@ -737,11 +927,17 @@ static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
- /* The condition that must be true for polling to end */
- static bool will_read_block(struct port *port)
- {
--	if (!port->guest_connected) {
--		/* Port got hot-unplugged. Let's exit. */
-+	struct port_read_snapshot snap = port_read_snapshot(port);
-+
-+	if (snap.input == PORT_INPUT_UNPLUGGED || !snap.guest_connected)
- 		return false;
--	}
--	return !port_has_data(port) && port->host_connected;
-+	if (snap.input == PORT_INPUT_AVAILABLE)
-+		return false;
-+	/* Another reader owns the claimed buffer: wait for it. */
-+	if (snap.input == PORT_INPUT_CLAIMED)
-+		return true;
-+
-+	return snap.host_connected;
- }
- 
- static bool will_write_block(struct port *port)
-@@ -771,21 +967,27 @@ static ssize_t port_fops_read(struct file *filp, char __user *ubuf,
- 			      size_t count, loff_t *offp)
- {
- 	struct port *port;
-+	struct port_read_snapshot snap;
- 	ssize_t ret;
- 
- 	port = filp->private_data;
- 
--	/* Port is hot-unplugged. */
--	if (!port->guest_connected)
-+	/* Zero-length reads always return 0. */
-+	if (!count)
-+		return 0;
-+
-+	snap = port_read_snapshot(port);
-+	if (snap.input == PORT_INPUT_UNPLUGGED || !snap.guest_connected)
- 		return -ENODEV;
- 
--	if (!port_has_data(port)) {
-+	if (snap.input != PORT_INPUT_AVAILABLE) {
- 		/*
--		 * If nothing's connected on the host just return 0 in
--		 * case of list_empty; this tells the userspace app
--		 * that there's no connection
-+		 * No buffer can be acquired right now: the input is empty
-+		 * or another reader owns the claimed buffer.  A host
-+		 * disconnect is only EOF when no reader still holds
-+		 * unread bytes; with a claim outstanding, wait for it.
- 		 */
--		if (!port->host_connected)
-+		if (snap.input == PORT_INPUT_EMPTY && !snap.host_connected)
- 			return 0;
- 		if (filp->f_flags & O_NONBLOCK)
- 			return -EAGAIN;
-@@ -795,23 +997,19 @@ static ssize_t port_fops_read(struct file *filp, char __user *ubuf,
- 		if (ret < 0)
- 			return ret;
- 	}
--	/* Port got hot-unplugged while we were waiting above. */
--	if (!port->guest_connected)
--		return -ENODEV;
-+
- 	/*
--	 * We could've received a disconnection message while we were
--	 * waiting for more data.
--	 *
--	 * This check is not clubbed in the if() statement above as we
--	 * might receive some data as well as the host could get
--	 * disconnected after we got woken up from our wait.  So we
--	 * really want to give off whatever data we have and only then
--	 * check for host_connected.
-+	 * Re-snapshot after the wait: an unplug or a host disconnect may
-+	 * have happened, and the pre-wait state must not be reused.
- 	 */
--	if (!port_has_data(port) && !port->host_connected)
-+	snap = port_read_snapshot(port);
-+	if (snap.input == PORT_INPUT_UNPLUGGED || !snap.guest_connected)
-+		return -ENODEV;
-+	if (snap.input == PORT_INPUT_EMPTY && !snap.host_connected)
- 		return 0;
- 
--	return fill_readbuf(port, ubuf, count, true);
-+	return fill_readbuf(port, ubuf, count, true,
-+			     filp->f_flags & O_NONBLOCK);
- }
- 
- static int wait_port_writable(struct port *port, bool nonblock)
-@@ -995,21 +1193,25 @@ static ssize_t port_fops_splice_write(struct pipe_inode_info *pipe,
- static __poll_t port_fops_poll(struct file *filp, poll_table *wait)
- {
- 	struct port *port;
-+	struct port_read_snapshot snap;
- 	__poll_t ret;
- 
- 	port = filp->private_data;
- 	poll_wait(filp, &port->waitqueue, wait);
- 
--	if (!port->guest_connected) {
--		/* Port got unplugged */
-+	snap = port_read_snapshot(port);
-+
-+	/* Port got unplugged. */
-+	if (snap.input == PORT_INPUT_UNPLUGGED || !snap.guest_connected)
- 		return EPOLLHUP;
--	}
-+
- 	ret = 0;
--	if (!will_read_block(port))
-+	if (snap.input == PORT_INPUT_AVAILABLE ||
-+	    (snap.input == PORT_INPUT_EMPTY && !snap.host_connected))
- 		ret |= EPOLLIN | EPOLLRDNORM;
- 	if (!will_write_block(port))
- 		ret |= EPOLLOUT;
--	if (!port->host_connected)
-+	if (!snap.host_connected)
- 		ret |= EPOLLHUP;
- 
- 	return ret;
-@@ -1206,7 +1408,7 @@ static ssize_t get_chars(u32 vtermno, u8 *buf, size_t count)
- 	/* If we don't have an input queue yet, we can't get input. */
- 	BUG_ON(!port->in_vq);
- 
--	return fill_readbuf(port, (__force u8 __user *)buf, count, false);
-+	return fill_readbuf(port, (__force u8 __user *)buf, count, false, false);
- }
- 
- static void resize_console(struct port *port)
-@@ -1400,6 +1602,8 @@ static int add_port(struct ports_device *portdev, u32 id)
- 
- 	port->name = NULL;
- 	port->inbuf = NULL;
-+	port->inbuf_claimed = false;
-+	port->unplugging = false;
- 	port->cons.hvc = NULL;
- 	port->async_queue = NULL;
- 
-@@ -1533,6 +1737,17 @@ static void remove_port_data(struct port *port)
-  */
- static void unplug_port(struct port *port)
- {
-+	/*
-+	 * Mark the port as being unplugged before any teardown, so the
-+	 * read path stops touching the input virtqueue: readers check
-+	 * this flag under inbuf_lock and bail out, and a reader that is
-+	 * returning a claimed buffer frees it instead of requeueing it
-+	 * to a virtqueue that may already be gone.
-+	 */
-+	spin_lock_irq(&port->inbuf_lock);
-+	port->unplugging = true;
-+	spin_unlock_irq(&port->inbuf_lock);
-+
- 	spin_lock_irq(&port->portdev->ports_lock);
- 	list_del(&port->list);
- 	spin_unlock_irq(&port->portdev->ports_lock);
-@@ -1579,6 +1794,18 @@ static void unplug_port(struct port *port)
- 	debugfs_remove(port->debugfs_file);
- 	kfree(port->name);
- 
-+	/*
-+	 * Reclaim rproc DMA buffers deferred by the atomic cleanup
-+	 * paths before the port is fully torn down.  For the normal
-+	 * HVC polling path, the console entry was removed from
-+	 * pdrvdata.consoles above, so a get_chars() that starts later
-+	 * cannot find this port, while hvc_remove() waits (via hp->lock)
-+	 * for a get_chars() that had already found it.  The
-+	 * CONFIG_CONSOLE_POLL path is outside this normal teardown
-+	 * synchronization and has not been runtime-tested.
-+	 */
-+	reclaim_dma_bufs();
-+
- 	/*
- 	 * Locks around here are not necessary - a port can't be
- 	 * opened after we removed the port struct from ports_list
-@@ -1791,7 +2018,28 @@ static void in_intr(struct virtqueue *vq)
- 	}
- 
- 	spin_lock_irqsave(&port->inbuf_lock, flags);
--	port->inbuf = get_inbuf(port);
-+
-+	/*
-+	 * The port is being unplugged: unplug_port() tears down portdev,
-+	 * the guest_connected state and the HVC adapter.  Do not touch
-+	 * the input virtqueue or any of that state; just drop the port
-+	 * reference taken by find_port_by_vq().
-+	 */
-+	if (port->unplugging || !port->portdev) {
-+		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+		wake_up_interruptible(&port->waitqueue);
-+		kref_put(&port->kref, remove_port);
-+		return;
-+	}
-+
-+	/*
-+	 * A reader may own an exclusively claimed buffer, possibly
-+	 * sleeping in copy_to_user().  Do not prefetch the next buffer
-+	 * now: the claimer's unconsumed remainder must go back to
-+	 * port->inbuf first, or the prefetched buffer would be lost.
-+	 */
-+	if (!port->inbuf_claimed)
-+		port->inbuf = get_inbuf(port);
- 
- 	/*
- 	 * Normally the port should not accept data when the port is
-@@ -1810,7 +2058,8 @@ static void in_intr(struct virtqueue *vq)
- 	 * guest_connected to true.
- 	 */
- 
--	if (!port->guest_connected && !is_rproc_serial(port->portdev->vdev))
-+	if (!port->inbuf_claimed && !port->guest_connected &&
-+	    !is_rproc_serial(port->portdev->vdev))
- 		discard_port_data(port);
- 
- 	/* Send a SIGIO indicating new data in case the process asked for it */
--- 
-2.34.1
+Thanks again for the review and suggestions.
 
+Thanks,
+Zhe
