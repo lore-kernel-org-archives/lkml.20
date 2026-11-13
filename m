@@ -1,56 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590340;
-	b=qyjv11BKNwfBR1eVrPVIXASyBc59t28Me8Y8zIbD/O8rYgKfIbdi7B5YidprGuMEWVPw
-	 k37lym8ceHtwrIcXqno5hwP8TgXus0+fVQ9uUXsMAyh1sT8zTTLx+OhrQhS4uZ7qWF7/F
-	 hyFTxv8IRdVG7AgJ8Ys15QH6e5qUCt459hbYEoQkpE/DsdtHAdCn+Ke3Q5xs6IVPsAac7
-	 FZ33doo5i2QwOqJNVhWmvYKK7OwrdutM0SEjaJe47/tEwKz0Y0yK9d0ErvR3RvJ1BwPTx
-	 8X83IAuegpj4kb7QNu9rpI4Ef5ftV+Lk2rBqjDPoDci7P/addAiJCLTUesXwKvMS3oQ==
+	t=1794590382;
+	b=bTWpoI4ZRgNtUL61t8y8/7sP4kpobseafveyDTeE11uCxLiCRfGCYVMlAQwr64O6dkkY
+	 tENq3qVc+ohsIf1gC0PlSG+loJ4mMnnuJjVMdCe2d22y6bRRleRzYsjV6Hq6bI4Q2wMm3
+	 PsZmn2l5/vU3iqAzPlSpTDSWyTDfhZGSHN9Nt+EjpGYnggo/ZWZ8uFAAJveHl8MT4Q80H
+	 4qRJBu0/eKit33c0kwr3SL3O1rI8olBooma/9GBDdBXWysQ9XDjEE6XrUxMoB9ATdFTXn
+	 utW6Epm5iTN/SabD2rdhlUH1i4zs2jL+WbRUf+QE5dfKR449Sqmt3fVop79l9WOGGiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590340;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+cycbEhwswLeXCs3zWykLJjiooQDa12N5+D+GVlohvs=;
-	b=krdISnHkwZBIzb2GIiT6GqR3XmuUrByl4xcKEukti3gHjz075o3GxToFdWciFrfgqmjf
-	 2u6yf3B0/VYucD72x1LlQOc29nzrU+xLpz4u+OZACAw0Un9wUPaI7EBFuI4Uml7GQZxTt
-	 EMjmB5FjJ3Hz4U5LUazRFrw/4BWy0gonZiqSGHoEk1yCp3L727PkZJdEnhh0XN5PFWWij
-	 xBydDZSnMGVX2SgF0w3OXAsJ8KCg1BAS51nzcpEmvm9RNL9ibnEflNBvI9+pEbrYia/1e
-	 gsUKgH6sitQyf4Zd3oxrzdtctpS0X5Gqs+1ozgJeO3pI09YFoZ34wiUq0JPawD1K4eQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590382;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=lLRe7OQ+TSz40sIuSGn/k/GXxs4txoePPfp4Cfqlpuo=;
+	b=seZj4eIvn/ovGuU7f+SM5j0FaxvM9E1XfW1zMrNLKmyjffKqwyJwOcldYkwGig47irC3
+	 2SD7y0A5OhC11m17XN5/KAThXqyB2DcpC9JfUciCy1GPavTeCa2JO5/ZXakgM0gtM8mPr
+	 s0iMyBuxJUUzCcJBRTy3b+YG3IMTGLUU1Nn6tnyCO2loXbm+XyD1DQtuIhNziILFShaBi
+	 miWw1HdGwXzctLeHujyvuQUwjunjlx43utEluxf2GXKWoL2Q5AOPryyT0zZNEMYCG5x2e
+	 Q0uyj8+lLskclLZX6w9FZIMu3/P+zbKLArqf395HsxipU9B2Uk3EUsR+9rxm86UEG7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BlAWRyt9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=gQDmr+DC;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9C3606D4BE;
-	Fri, 13 Nov 2026 17:19:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95AD6606E651;
+	Fri, 13 Nov 2026 17:19:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95AD6606E651
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BlAWRyt9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D23CC1F000CA;
-	Fri, 13 Nov 2026 17:18:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794590340;
-	bh=+cycbEhwswLeXCs3zWykLJjiooQDa12N5+D+GVlohvs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BlAWRyt9y4N6pMImSO+7YGb6aFuWf1N5xw+Saz3m/m/ecfT61/jDu8UrNaiDmZEjs
-	 Sr6GpgqHYTPaa3UOE3QIE5rnK/3PrPFDoljOSdFXluj8nY3BcK/FvAfqfypHjNfFDB
-	 krEJK6jW84RQ+oJ0iG6o3FsHIDA6i4Bud/jQWBmge/nH0z7skUjYyNtOkQfP5avw89
-	 UqYBMsqEFed7mrwkdtXVVZiYyMxjQuFOrgUSnX6tTAip9M58CwjrjoIoUAAqQbZ3TR
-	 VBqyFhtLTQLEYcqvXbLWOA+QrXf0JUR+bFRvQnMETCyKiYRAPT5MXmyD+m1PX0JhXg
-	 Zpy33ag/ZIWxg==
-Date: Fri, 13 Nov 2026 17:18:55 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
-Cc: dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	ychuang3@nuvoton.com, schung@nuvoton.com,
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=gQDmr+DC
+Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 65197227A9;
+	Fri, 13 Nov 2026 18:19:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1794590371;
+	bh=lLRe7OQ+TSz40sIuSGn/k/GXxs4txoePPfp4Cfqlpuo=; h=From:To:Subject;
+	b=gQDmr+DC0PzJkqKQHMverOutbN4CiJgTneAPacT/pLTZHq5gsyc/bXjMWCh0cuOdS
+	 +97MfdA+S4dGKJsNtaQ2OaGv/vPHQY8/M95adOp6rSVVnV7u0V2ew+v7uEatUltIQi
+	 C7CfUEHS/Kfe3kOYY7OJRmSDLxWONNCg2QBXRgXLPmqxBhlLNzC9xyMf6l8eLNfzKe
+	 1EFOzKOsQJkAOkqN/y3BGWSButhtaATx2KY0SqTsA6pcmNHvq0ib97TEpRqRs72KiQ
+	 EjRoqRINtyScFSLfgHyWYAnNNXZKM7CYnsyBJnvNzcFqAtXj0gGy5i0K1tpO7B8d+9
+	 LGLlF3PkarAng==
+Date: Fri, 13 Nov 2026 18:19:27 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-bsp@toradex.com,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: input: Add Nuvoton MA35D1 keypad
- controller
-Message-ID: <20261113-stadium-prowler-0bb8a177a2ec@spud>
-References: <20261113084852.32727-1-fyhsueh4linux@gmail.com>
- <20261113085959.32798-1-fyhsueh4linux@gmail.com>
+Subject: Re: [PATCH v1 01/11] arm64: dts: freescale: imx8mm-verdin: Add SPI
+ alias
+Message-ID: <20261113171927.GA762258@francesco-nb>
+References: <20261112150236.164850-1-francesco@dolcini.it>
+ <20261112150236.164850-2-francesco@dolcini.it>
+ <avXeK-IRXbKqI-pc@SMW015318>
+ <20261113073135.GA8515@francesco-nb>
+ <avc2nzql-JV7a-JH@SMW015318>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,27 +75,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eKOVTR4HhWToRLNa"
-Content-Disposition: inline
-In-Reply-To: <20261113085959.32798-1-fyhsueh4linux@gmail.com>
-
---eKOVTR4HhWToRLNa
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <avc2nzql-JV7a-JH@SMW015318>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+On Fri, Nov 13, 2026 at 10:11:11AM -0600, Frank Li wrote:
+> On Fri, Nov 13, 2026 at 08:31:35AM +0100, Francesco Dolcini wrote:
+> > Hello Frank,
+> >
+> > On Thu, Nov 12, 2026 at 09:41:31AM -0600, Frank Li wrote:
+> > > On Thu, Nov 12, 2026 at 04:02:23PM +0100, Francesco Dolcini wrote:
+> > > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > > >
+> > > > The Verdin family pinout defines the SoM interfaces and their
+> > > > numbering, SPI_1 being the SPI bus available to the carrier board,
+> > > > implemented by ecspi2 on Verdin iMX8MM.
+> > > >
+> > > > imx8mm.dtsi numbers ecspi2 as spi1, so the Linux bus number in sysfs
+> > > > and the spidev name do not match the Verdin interface. Add a spi0
+> > > > alias in the SoM dtsi and delete the inherited spi1, so ecspi2 is
+> > > > bus 0, zero-based with SPI_1 being spi0, and carries a single alias.
+> > > > ecspi3, internal to the SoM with the CAN controller and the TPM, keeps
+> > > > the spi2 alias inherited from the SoC.
+> > > >
+> > > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > > > ---
+> > > >  arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi | 2 ++
+> > > >  1 file changed, 2 insertions(+)
+> > > >
+> > > > diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
+> > > > index 1ac9d000d415..0369803a4d46 100644
+> > > > --- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
+> > > > +++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
+> > > > @@ -16,6 +16,8 @@ chosen {
+> > > >  	aliases {
+> > > >  		rtc0 = &rtc_i2c;
+> > > >  		rtc1 = &snvs_rtc;
+> > > > +		spi0 = &ecspi2;
+> > > > +		/delete-property/ spi1;
+> > >
+> > > Can you avoid delete property for new platform?
+> >
+> > Unfortunately this is needed.
+> >
+> > The included imx8mm.dtsi has
+> >
+> >   spi1 = &ecspi2;
+> 
+> Create patch move aliase to each boards' dts from imx8mm.dtsi, which is
+> board feature, not soc features.
 
---eKOVTR4HhWToRLNa
-Content-Type: application/pgp-signature; name=signature.asc
+Please see the linked thread [0][1]. It's not a viable option.
 
------BEGIN PGP SIGNATURE-----
+In addition, I can do this for my boards (Toradex), how do I know what I
+have to move for boards I do not know? I can't do that. The only way
+would be to duplicate the whole aliases on *every* board.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavdGfwAKCRB4tDGHoIJi
-0gZVAP9nvT2zzc/A55G8N7PyXKYNDaweWMOhgMmpZ/K2Z3kH0wD/ZSR8UzoZ/Fx4
-viG8gqdUBHOhXvvEBQXaRDWCciupiQg=
-=Cy+e
------END PGP SIGNATURE-----
+Unfortunately your proposal does not work.
 
---eKOVTR4HhWToRLNa--
+Francesco
+
