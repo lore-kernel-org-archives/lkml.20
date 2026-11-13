@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794529974;
-	b=HBJxnJvyWQhXyE1CpISh4gzCtSty7WfDRuyoUmxEPVYETImU3UYdiFU/hcf/OgQH+MCM
-	 5IZOkHekAaTuNNLSNEi01KfE6flctKriZ1uh+y3oXVpAawBArpxG2WkpWwPOBju4i9UTV
-	 WBWu1Xc9dGf3BA1LPDyoZNjnnsbLsVl201D/3tKkBYvIClqMjpnw0U6AA4/eO0tEJ8uzv
-	 xnd8oOGon4pSD1ouI2PRM/P/qaZKyhgCaRmwqM4B0c9YS4QOChdO3aJcPYCH3Favg4v6r
-	 5+XG86rPOjmz0ktZo0oy4kmzL2128JFVEk25p2eU5l/bC7jG5hRaUI9G4g87qHYSE/Q==
+	t=1794529975;
+	b=37kVcfplPjEJ43R6vDS/EmEDZpRGp0yB82ajw9oXaIeg74FX4W1kaeMf+Cx0VeaFubp4
+	 M0tf/fbr/OnypUlK40DLjKPGhst3W/P46gN2Tn9CHv9CbEt9n0GWquZcvkCIlCJZ+F2Va
+	 aLN9JGqK7T+uFAd6XX1pUtzUhTSgXqLjpCNuaoKOjHVnSU5XVwy+INHStdL/Eqr5DvKyX
+	 gLUJxOGtxwxRqhEFVwNufMLLJUl/yr0kv9IyJUCLsQRk22eBIyqhyAaxjNyHHys3bc4r6
+	 qoPr88KuufO8yIBWeqCa5ZmoUNPNlMGntN9iGktl5G8sXOcGASlgJfjH6EVtcGcQ8eA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794529974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794529975;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yYu0eY1UZbsMmMAOZmc2pDgF48gbMDmIGtbneONALR8=;
-	b=DdVVjxm+cIZHq2IBoVVjfE6FsOoUP9ScS8BkUSO66M3hObldSTdmWG7VTxpzsdpXckSg
-	 q+9/wa+g+AJXa0blW1sYNJkyCF97bdEDWDarCbex4PvmVp3ugLIxm+TMouvNJqgRQ60zB
-	 ayCQunmcrpoF/YqwEPG9zwBkbPEPbFABP9I46YecX9+rGcGFtDCGbqg9h7oYv/mRHxqs8
-	 /mXT1VovLacO38zM92vnzWl+1MR8jh284TZoUcrWqZJoZLT5fXg5Hufo2CwW4K4yqbCn/
-	 BVnRmOlpkqidpJ8qwJC61chQbePoUPSdFO9qwBbCPWFyCa3xG4t6fWL5UL0qyOsssPQ==
+	bh=SYf2QT8mXgitJrAtfBYV5ej4Bnof56pnlLuqMVHVyEU=;
+	b=A6+pbJUF2rWpKNBlWgUy4PmyrUG3nTyvPtr4o0mT9I2fzDbb3BxidvyVeWOgRopJtG2e
+	 hRmGsleo4pjasS9uPvqY1sfik5XhktcShMp21lenMC7MsMMfWAi8EuIE45DaAfUtoFSW3
+	 ZSenPGUbTc42bWEQPES2UGfvRauCH2qMSBDlEocQ6bwNljyEgnw9sm8P+ayDMi+sixUzL
+	 EtItDtmwlcfz51Qjhet0+t29/kGYQLbxIQJ/t5U0m0peMcEu80PtzDkuJ0km76P+DQDej
+	 DxiSFZHhe4a+wSiQjBLGDRDsLGZMCGqahRDd9qvo9ZFXmgTrk3ekr+HzoTDTVycGuzg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YFfOXMr4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WN1z+kDD;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D0060A6F70;
-	Fri, 13 Nov 2026 00:32:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AF1606B7CA;
+	Fri, 13 Nov 2026 00:32:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YFfOXMr4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WN1z+kDD
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794529974;
-	b=REdXUnsCdRwddekvuBeJo1oNirR5dTa1Lw2Q6fhGHp9FPnyoxq9IiGefuFmLi5zVOopL
-	 wYWQIzr0f9UjSXwoZLq7J3taYvrEsEDmaRfo1IKoTmT80xvGxgw2SR+U0AvtfhM/8NwtH
-	 B4R/NKSG56d8AozCDJhU+/lQdDR0cfEuLs6vEtmdWcmEIB8oRCAeAwTJH+42+neJlLWAL
-	 rjQpi/t3SwYJV4/SrkIL8iAAXjG/lPPHqBh0be8ZtOg9wsFMYh+2/LzjNKDG3dd+j1Unc
-	 L7L+QLsAB5dz3FxrhUo4kYjIl+xh6F3P0RP/m26ShgRds6u0qqd/OqS1IAF05KU+e6A==
+	t=1794529975;
+	b=mBW+4vNT4T8ZkLp5RLDa+XomZOpsnIKHUE5Q2BwEFUPWf6tCV2Y/E7bAbYeYrFiFV3Vl
+	 nwidZ/N6gFt25qS87JOHqnq/6Ow19QZgniPacxmcBPvMklDY+jWijnJuBJh7LWP8xaewH
+	 rVH9OejQVINt/ojJX5XMFnSeN4xWCArASNbPCBUpOLy6HmE5dSaYj1wCZgJAm9goILtjl
+	 e5AHo7r9IfUou0VCL5HIToZv2rEw4ai8VyOIcHpJpHrBNOmHL+HqCSAmpvwM5PRvVIGHS
+	 EpfRp1UAvt31JQ1EKUoTQXT5gdskwKivFX4HC7WxKR3wqeHYWMQoMDrpe4vGVIDnU0Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794529974;
+	c=relaxed/relaxed; t=1794529975;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yYu0eY1UZbsMmMAOZmc2pDgF48gbMDmIGtbneONALR8=;
-	b=VgnrsfR2TrzRcnNStSe6fd6DD5KvrUrzHG3BiQ4dE/n7nYayHNdfMl05KR/LuxJ+WSUL
-	 F3d1CYkLsBGAQP0+sQg+RTNz6weF4L2UpMOKSiumFKaYe0UnTLB66T4W5m7eB6U5r18AC
-	 jOPcsr1F7Tl4Muow4wIwPxGuEaU8Nfd0fvAlwxP64/HrLKk/asZMx2f99HzEIy7k4prBW
-	 8CwL1tc+dpoF2sNnxeBxQ/ePAssTBZr7gvLQ68mWlTCztzzYZA5nWUowUaYXRVYS1PHkO
-	 HUMqTz+VQYc92XmE0fJ0npotKBirVVydt3iKUbrnU1WFqaBCq5nRIO1SpLgO8M6yhFA==
+	bh=SYf2QT8mXgitJrAtfBYV5ej4Bnof56pnlLuqMVHVyEU=;
+	b=PIk87AyJE2eqXhZZpUh9NkOHJWz0+UPSSBkOuT//MPTX7/J1tRP2kRYdGz3yW30cPFxt
+	 ikRWrRilgEENNL0I8LmBuitgg+VAoC3oeV/ZzPJ/Ko5Rx0xNKn943G6gApBOmndvzYfc3
+	 ndNxh0vYrpAuU90mdcuKzhdkV05U84miRb9pOuBYctgiYvOyfMvw24t/jKGuNQC+uIypt
+	 6MlMoZqTXlcYwi+l8s4n1vsIqwinm9+aQFaylfHtgD/P/ySvUUArBp7JhuGbaj+FNS1lW
+	 ZrfYqVT62FRDF2GwpiDmhrPHy3GN3jjcFj1CTeXB9duuGamfVgrBo7LT/dJu7HbX1uw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 230F41F000CD;
+	by smtp.kernel.org (Postfix) with ESMTPS id 0569E1F0092A;
 	Fri, 13 Nov 2026 00:32:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794529974;
-	bh=yYu0eY1UZbsMmMAOZmc2pDgF48gbMDmIGtbneONALR8=;
+	s=k20260515; t=1794529975;
+	bh=SYf2QT8mXgitJrAtfBYV5ej4Bnof56pnlLuqMVHVyEU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=YFfOXMr4sIsyojr9Uc4Zf08llU5lkvwJNRiwwAVrfjZSKfko4u8xyaGZtN3A2QLK8
-	 q66lkJZGS/A5g1+7l199abP9/V4tOpJ/3q+cWbFELeRnSqK/WOs9y7Xt5WKNEI5sbm
-	 o9UQHxzcn6Azp5E83mAoXzgjiQ3JtFvLXzR594kXMhggYbQckw+IoGK4dbcV47P2MJ
-	 kogfUvETo4QBFxJ2fTpKr+gfe3LYfFKOO4blu+rPvt3D0UhSeBJtdD00UfplU9kbrK
-	 cFdSG6IVZzh9SsHBoj/WZEME6PTLHcDgdMLLL0Qu3a5gwiyzBnePzW3hoPI3ert5Yv
-	 yEcUm5XxmuV5w==
+	b=WN1z+kDD9dJiM4sFSKLrHjwHtXTEs1Ea/PH5iCIFx5fcn1zpyTTgVXRi/GZ2GtlLH
+	 0nCoJWkI+ne9Xo8QE7V9iVUq5QebqAc7OHWKz9vUDuTn2palfusZnthxPYdyY3MqTm
+	 yBL5ikZCY8FH3P4VrTJiGZIoHwUL/SHPjEoCdX7hVaim7M+/j2NBnmXftjyFbb8ayT
+	 1aiYTWpScLcJx9hIBSTT1dxUl8wE8FAFsq55OLki8Ol0ZXZ/7T+7EpmffRh8ChYeNJ
+	 0XObh+Gtf7YB833NtPVhbWC1HE6Vmfp+GZbfCFB9SHH+mABQ69obFsmVxvlJXilnTm
+	 LlXMCvmMuYQ7Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 972764757D;
+	by lkml.kernel.org (Postfix) with ESMTP id 6C23247569;
 	Fri, 13 Nov 2026 00:32:48 +0000 (UTC)
 From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Date: Thu, 12 Nov 2026 19:32:50 -0500
-Subject: [PATCH net v6 3/3] net/smc: skip the DMB nocopy accounting until
- the send buffer is set
+Date: Thu, 12 Nov 2026 19:32:48 -0500
+Subject: [PATCH net v6 1/3] net/smc: order the CDC receive path against RMB
+ publication
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-b4-disp-1c8d3a53-v6-3-36a38ae35021@proton.me>
+Message-Id: <20261112-b4-disp-1c8d3a53-v6-1-36a38ae35021@proton.me>
 References: <20261112-b4-disp-1c8d3a53-v6-0-36a38ae35021@proton.me>
 In-Reply-To: <20261112-b4-disp-1c8d3a53-v6-0-36a38ae35021@proton.me>
 To: Mahanta Jambigi <mjambigi@linux.ibm.com>, 
@@ -99,11 +99,11 @@ Cc: Hans Wippel <hwippel@linux.ibm.com>, linux-kernel@vger.kernel.org,
  Wen Gu <guwen@linux.alibaba.com>, linux-s390@vger.kernel.org, 
  Simon Horman <horms@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794529967; l=3196;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794529967; l=2887;
  i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
- bh=nt/R23dT6xDo9Kn8+8jVzh2IwHUKALEJsmXM6ZDy9BQ=;
- b=HzbPDA+YBBZlmDLCZNEqGeHNImMERgtKIKu+RQ4NThQ/oEpwpqGqMSwI6y5Fx8DGQhXBMN/y9
- CcDJ+EVvKd9BvlMFFWrYRHcjBL1o1Eq60+xvoOuPJr/aJGAINtpjKNr
+ bh=2rv6B0D/pQPP0IMQU/D54a72ysNQDMpYUG+Lt+SivGA=;
+ b=sgG6hWAl3Na+CyT1IqdbjAOCV7bhuNGI1OMumuUojRDCCkeZ5m7U2H/FgLCvK1TGhYUIoF/PX
+ CrLBKzcQ7rnAOs6QSYNwpp/Xnz5xDdHY7tKHkBFGTKGOJZNuLS03WFV
 X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
  pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
 X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
@@ -114,81 +114,70 @@ Content-Transfer-Encoding: 7bit
 
 From: Bryam Vargas <hexlabsecurity@proton.me>
 
-With SMC-D DMB nocopy (the loopback device), smcd_buf_attach() sets
-conn->sndbuf_desc after the connection can already receive a CDC. When
-a DMB is reused, the peer of its previous connection can still hold
-the DMB token, and its next consumer update makes
-smc_cdc_msg_recv_action() dereference the NULL sndbuf_desc in the
-nocopy accounting.
+smc_conn_create() adds an SMC-R connection to the token tree before
+smc_buf_create() sets conn->rmb_desc. Tokens come from one global
+counter, so a peer in the link group can predict the next one. A CDC
+with that token, arriving in the window, makes
+smc_cdc_msg_recv_action() dereference a NULL rmb_desc in softirq.
 
-Set sndbuf_desc with a release store after sndbuf_space, and skip the
-nocopy accounting while sndbuf_desc is unset. Nothing of ours can have
-been consumed before the attach, so the skipped accounting has nothing
-to credit. The update's cursors and flags are still applied to the new
-connection, as those of a CDC that leaves the consumer cursor alone
-already are. The rest of the receive path handles an unset sndbuf_desc
-since commit b395dd319cea ("net/smc: do not dereference an unset send
-buffer on the SMC-D teardown path").
+Set rmb_desc with a release store after the receive fields that go
+with it, and drop a CDC in smc_cdc_rx_handler() while rmb_desc is
+unset. A conforming peer learns the token only from the CLC accept or
+confirm, sent after smc_buf_create(), so nothing it sends is dropped.
+The SMC-D receive tasklet needs no check: smc_ism_set_conn() publishes
+the connection under smcd->lock, which smcd_handle_irq() also takes.
 
-Fixes: cc0ab806fc52 ("net/smc: adapt cursor update when sndbuf and peer DMB are merged")
+Fixes: 69cb7dc0218b ("net/smc: add common buffer size in send and receive buffer descriptors")
+Closes: https://sashiko.dev/#/patchset/20261008-b4-disp-f7cd3d96-v6-0-fba616c0920c@proton.me?part=1
 Cc: stable@vger.kernel.org
 Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 ---
- net/smc/smc_cdc.c  | 10 +++++++++-
- net/smc/smc_core.c |  7 ++++---
- 2 files changed, 13 insertions(+), 4 deletions(-)
+The Closes tag is Sashiko's report of this window, in its review of
+v6 of the cursor series. v9 of that series is at
+https://lore.kernel.org/all/20261112-b4-disp-0287c16e-v9-0-e5e8fa688177@proton.me/
+and its 2/6 conflicts with this patch in __smc_buf_create(): keep
+its rmb_len store at the top of the is_rmb block, before the release
+store. The tree is the same in either order.
+---
+ net/smc/smc_cdc.c  | 5 ++++-
+ net/smc/smc_core.c | 3 ++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/net/smc/smc_cdc.c b/net/smc/smc_cdc.c
-index b3bcc206efe3..4a4a279b405b 100644
+index 32d6d03df321..ee5ba6c7a5b4 100644
 --- a/net/smc/smc_cdc.c
 +++ b/net/smc/smc_cdc.c
-@@ -333,6 +333,7 @@ static void smc_cdc_msg_recv_action(struct smc_sock *smc,
- 	union smc_host_cursor cons_old, prod_old;
- 	struct smc_connection *conn = &smc->conn;
- 	int diff_cons, diff_prod, diff_tx;
-+	struct smc_buf_desc *sndbuf_desc;
- 
- 	/* smc_conn_create() can have cleared rmb_desc */
- 	if (!smp_load_acquire(&conn->rmb_desc))
-@@ -357,12 +358,19 @@ static void smc_cdc_msg_recv_action(struct smc_sock *smc,
- 		 * peer RMB, then update tx_curs_fin and sndbuf_space
- 		 * here since peer has already consumed the data.
- 		 */
-+		sndbuf_desc = NULL;
- 		if (conn->lgr->is_smcd &&
- 		    smc_ism_support_dmb_nocopy(conn->lgr->smcd)) {
-+			/* NULL until smcd_buf_attach(), but the old peer of
-+			 * a reused DMB can already signal us.
-+			 */
-+			sndbuf_desc = smp_load_acquire(&conn->sndbuf_desc);
-+		}
-+		if (sndbuf_desc) {
- 			/* Calculate consumed data and
- 			 * increment free send buffer space.
- 			 */
--			diff_tx = smc_curs_diff(conn->sndbuf_desc->len,
-+			diff_tx = smc_curs_diff(sndbuf_desc->len,
- 						&conn->tx_curs_fin,
- 						&conn->local_rx_ctrl.cons);
- 			/* increase local sndbuf space and fin_curs */
+@@ -483,7 +483,10 @@ static void smc_cdc_rx_handler(struct ib_wc *wc, void *buf)
+ 	lgr = smc_get_lgr(link);
+ 	read_lock_bh(&lgr->conns_lock);
+ 	conn = smc_lgr_find_conn(ntohl(cdc->token), lgr);
+-	if (!conn || conn->out_of_sync) {
++	/* The connection is in the token tree before __smc_buf_create()
++	 * sets its RMB: drop a CDC that comes earlier.
++	 */
++	if (!conn || conn->out_of_sync || !smp_load_acquire(&conn->rmb_desc)) {
+ 		read_unlock_bh(&lgr->conns_lock);
+ 		return;
+ 	}
 diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-index 9ef9019bc497..982cfc79ee1c 100644
+index a3164201c142..02269cede641 100644
 --- a/net/smc/smc_core.c
 +++ b/net/smc/smc_core.c
-@@ -2654,9 +2654,10 @@ int smcd_buf_attach(struct smc_sock *smc)
- 	buf_desc->cpu_addr =
- 		(u8 *)buf_desc->cpu_addr + sizeof(struct smcd_cdc_msg);
- 	buf_desc->len -= sizeof(struct smcd_cdc_msg);
--	conn->sndbuf_desc = buf_desc;
--	conn->sndbuf_desc->used = 1;
--	atomic_set(&conn->sndbuf_space, conn->sndbuf_desc->len);
-+	buf_desc->used = 1;
-+	atomic_set(&conn->sndbuf_space, buf_desc->len);
-+	/* Set last; pairs with the acquire in smc_cdc_msg_recv_action() */
-+	smp_store_release(&conn->sndbuf_desc, buf_desc);
- 	return 0;
+@@ -2544,12 +2544,13 @@ static int __smc_buf_create(struct smc_sock *smc, bool is_smcd, bool is_rmb)
+ 	}
  
- free:
+ 	if (is_rmb) {
+-		conn->rmb_desc = buf_desc;
+ 		conn->rmbe_size_comp = bufsize_comp;
+ 		smc->sk.sk_rcvbuf = bufsize * 2;
+ 		atomic_set(&conn->bytes_to_rcv, 0);
+ 		conn->rmbe_update_limit =
+ 			smc_rmb_wnd_update_limit(buf_desc->len);
++		/* Set last; smc_cdc_rx_handler() tests it with an acquire */
++		smp_store_release(&conn->rmb_desc, buf_desc);
+ 		if (is_smcd)
+ 			smc_ism_set_conn(conn); /* map RMB/smcd_dev to conn */
+ 	} else {
 
 -- 
 2.56.0
