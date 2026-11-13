@@ -1,88 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596307;
-	b=W84tTn2GzDw842WBCb+8h+7EZA5uYZeBBafkNmWzJka+ohPkFJTpFfIYdFhf/9WgIbaS
-	 jxRpzY8qY7ueJ58KtKRXtl7gLq04N4LZDC7bsSrSQ5Irbd3nhG/DygYWrEZ7fYKbmRb+K
-	 jPgVyI0GaqaQmZoyYjGI+W/adZtjBrrgscBBCbe2sR3xBz34Z9FGpztXGJ+HAkwdBrbKR
-	 ggfeSEjTsxa4WExUg6KEeHQ9JrPPNKbAf/+SV7/G+TLTvWF9MmAuq1705QEgO3gOT67YV
-	 3O+P56sURtpeJvJGGPiewqnNRpiDF4GFYK/bfgWw58qEU0xI0HlmyHd+0+Gd+2/ndkg==
+	t=1794596361;
+	b=XnCa8gJohvLypBWe7HW57ZteLPL5zUZdVz2iym6qJYG4WDU8VPrfZI/tk4u9KdEZpH26
+	 PHG/SZNJ52zbRb3yTzxEgyx7TRNFdr4EqZirX2cU5EK09eErE0sZZcbI1df1BalYISV/k
+	 iq/TEJEDcGDEXpxeC/zozkLXQ9B2Yz9Y2ZmSFA/8Dpbiyhdx2+50coBbCIVZcg3nlLPIN
+	 nESN60EuFQZQ/4IA3wse9/qsfbuWQ69STaUpyLwjbWGSpwjnJJ0lLXpLIElq1DrDdi765
+	 nYnUfW1SMKaCcaHDA86JEzKCTjkkG8/dIgV1Xz3c8lY25ZLc7W9r60k6XNPovz7+FPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596307;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:DKIM-Signature:Subject:From:
-	 To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=lEeskuJPkdiI8gE2TYZrxOjdiP0LZZey/2Bh096XvUk=;
-	b=Ic/u5TAUfed0xmSi3K3Bzsi3IhsZ3Mc6JmzbexayKRXhI3AtLLGZ0dyFZW/6xzXLO0TN
-	 ZQnoM51mdBkNR6KRL41Kw9bRVTCmwtIXSs4zF4sb5NP4camMAEheqsbZR9vH3mLJoPus9
-	 Tfo0PntJmUp4OaN8BD3M8qU6mV/+L6/PyHNfDpRVuBbosY+HxIDkgdfJ8lYmpmPtWEEl9
-	 R0jZ4M1JqIRCzZX1/vLjZDaguFWRTvi1FiY/02rBjBk9yaDrymLF1sHZut2/Cqoo/csKU
-	 Mmb3BlVJHxkrXqmIlzMosWtuoiDKX/gTHC3daaBjQpfEJV/7tj17PQsxCqRxDoSt+9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596361;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=oKYwtAy384se2IlC59uUmr1JNttg2fedjzRBumwdbzc=;
+	b=DKRkIVXybbMMxJgn/ciCbYR4DO04wpjj9t3cCZLNqiuxVsAI0Q0P2wHGOM8PNNPI40T1
+	 EOJkm1nJXFmnGyfkbMtf6I9HkOYVxl+kfg55ZWvQf12wKavuBNBO1IRhSnZlAZw/RINua
+	 fAoNvUDjJTtcEtVaza1YDlaQ3Y0l0hSlQvWNka60vEaJ1EP7odHikQ4u0bF61m5ed/c4Z
+	 idu6lAebe82pHJtJqATE10OI6Fa7ghCJoIoRfzZ17y2n4R7BnDB2YI53QDT9bI3RBXemJ
+	 Ebw+QDui+pvJoYhuhg8MtM/T4K+fh8COUPOwOuMDgBbvTBjsY/NBNaSaFld54+cPSBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Nsa5LHdz;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="+/Q+661T";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDaMOK5u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379D16071069;
-	Fri, 13 Nov 2026 18:58:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 379D16071069
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A493606B2E3;
+	Fri, 13 Nov 2026 18:59:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Nsa5LHdz;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=+/Q+661T
-Message-ID: <5a6183e3480a0d910e275acf591e2db8700da827.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794596304;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lEeskuJPkdiI8gE2TYZrxOjdiP0LZZey/2Bh096XvUk=;
-	b=Nsa5LHdz+ZYikhtmHbjxEddO/69fFul88+8iEoKxSL3lTvhRV1XLziHTU3MeQJ3m85tJeb
-	2Kd2ZM3rvEnfGugLwHF3OZt+vfXsl3gaBBE7aGESxEYk2fh/Xs6aWabHfnXb6qozVC3Ijc
-	btF/VsGDwPDS7lJzT0J1HHBG6C4hnnDf2PUHntndrG6ju0R13uLb6VnDbkxPpQoCOpILUq
-	uFekou8wbBekyhInQWdA9plgpMznKFC8iTfKdW8K1FaXLC6BZ0lKADdgf/QHcvjbhXAF/S
-	s89ezdujqXDPsv8Za0myV9KOVA+64E+v3yvyI2gKyWq6ddU7nkBrP3KWiT17UQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794596304;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lEeskuJPkdiI8gE2TYZrxOjdiP0LZZey/2Bh096XvUk=;
-	b=+/Q+661TL+IzyNJ7cFVuJ+g+Wd94X6upSp9cBnHdlJnTfdeNxCSPFyYNSd6A5eAhlhLKSm
-	HqZhgCH0i26RAqBw==
-Subject: Re: [PATCH net-next v4 4/8] dt-bindings: mfd: Add SoC-e SWIP parent
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn
- <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>, Eric Dumazet <edumazet@kernel.org>, Lee
- Jones <lee@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,  netdev@vger.kernel.org, mfd@lists.linux.dev,
- Martin Kaistra <martin.kaistra@linutronix.de>, Benedikt Spranger
- <b.spranger@linutronix.de>
-Date: Fri, 13 Nov 2026 19:58:21 +0100
-In-Reply-To: <20261110192118.GA1412882-robh@kernel.org>
-References: 
-	<20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
-	 <20261105-devel-vstrassheim-soce-dsa-ml-v4-4-02f3cde2afa1@linutronix.de>
-	 <20261106-judicious-penguin-of-enhancement-b28c8b@quoll>
-	 <f5c7c9901aca84f0b814e5b6c153db84af826dd7.camel@linutronix.de>
-	 <cc35b2127b04772f05948ac51c8faa5ef07da0b0.camel@linutronix.de>
-	 <20261110192118.GA1412882-robh@kernel.org>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDaMOK5u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A1A1F000C8;
+	Fri, 13 Nov 2026 18:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794596361;
+	bh=oKYwtAy384se2IlC59uUmr1JNttg2fedjzRBumwdbzc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nDaMOK5ufaeDqLt20jMUOOFsoToU8KhFAITZrzYGZ5tnRHmbk8MNbY5DTp1RyyRhY
+	 pwu+PiHZ4SYlcc/o4KvRMOD8wmuah0AswpS378uqlDWhL+qtabrTTsYD3XIGAFbgAM
+	 naVKXN0cCv+oFBi7TLU2v41Lva+96UI9hqUYc8wyhFgWXmAybc+i2W2Jjp9bc5A0J4
+	 XqGijg3octrWxKt6+JH4v0sT3ciI7yM1CJ6pmnqlzKO6vg+r3rDUvBc9+QjNjMBSqR
+	 ZWsdA5AskjJaRMxWZRo8XcFbtRa1Dfhzx6LdAUieE7Ac+ZxfJlGePWNAA+Lh4Q51Sx
+	 GOzvkKh0TXAmA==
+Date: Fri, 13 Nov 2026 18:59:08 +0000
+From: Lee Jones <lee@kernel.org>
+To: Thomas Richard <thomas.richard@bootlin.com>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Andy Shevchenko <andy@kernel.org>, AnilKumar Ch <anilkumar@ti.com>,
+	Arnd Bergmann <arnd@arndb.de>, Binbin Zhou <zhoubinbin@loongson.cn>,
+	Brent Casavant <bcasavan@sgi.com>,
+	Chong Qiao <qiaochong@loongson.cn>,
+	Corey Minyard <corey@minyard.net>,
+	David Lechner <dlechner@baylibre.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Felipe Balbi <balbi@ti.com>, Gyungoh Yoo <jack.yoo@maxim-ic.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Hsin-Hsiung Wang <hsin-hsiung.wang@mediatek.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Joshua Kinard <linux@kumba.dev>, Kai Svahn <kai.svahn@nokia.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Kumar Sanghvi <kumar.sanghvi@stericsson.com>,
+	Linus Walleij <linusw@kernel.org>, linux-crypto@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-input@vger.kernel.org, linux-omap@vger.kernel.org,
+	Mattias Nilsson <mattias.i.nilsson@stericsson.com>,
+	Mattias Wallin <mattias.wallin@stericsson.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>, mfd@lists.linux.dev,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Milo Kim <woogyom.kim@gmail.com>, Ming Yu <tmyu0@nuvoton.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Pantelis Antoniou <panto@antoniou-consulting.com>,
+	Pat Gefre <pfg@sgi.com>, Paul Burton <paulburton@kernel.org>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	Qunqin Zhao <zhaoqunqin@loongson.cn>,
+	Rabin Vincent <rabin.vincent@stericsson.com>,
+	Rachna Patil <rachna@ti.com>, Roger Quadros <rogerq@kernel.org>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	Srinidhi Kasagar <srinidhi.kasagar@stericsson.com>,
+	Stanislaw Skowronek <skylark@unaligned.org>,
+	Stephen Warren <swarren@nvidia.com>,
+	Sundar Iyer <sundar.iyer@stericsson.com>,
+	syed khasim <x0khasim@ti.com>,
+	Thomas Bogendoerfer <tbogendoerfer@suse.de>,
+	Tony Lindgren <tony@atomide.com>,
+	Yinggang Gu <guyinggang@loongson.cn>
+Subject: Re: [PATCH v2 00/27] mfd: Assorted resource lifetime, teardown, and
+ error-handling fixes
+Message-ID: <20261113185908.GI6323@joneslee-macbookpro.roam.internal>
+References: <20261027093306.2812695-1-lee@kernel.org>
+ <179458365250.76424.12505088783548230611.b4-ty@b4>
+ <5a68f043-7c9a-44ef-b297-2821886bdcfe@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,153 +107,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5a68f043-7c9a-44ef-b297-2821886bdcfe@bootlin.com>
 
-On Tue, 2026-11-10 at 13:21 -0600, Rob Herring wrote:
-> On Tue, Nov 10, 2026 at 05:10:15PM +0100, Vasilij Strassheim wrote:
-> > On Fri, 2026-11-06 at 22:51 +0100, Vasilij Strassheim wrote:
-> > > On Fri, 2026-11-06 at 12:13 +0100, Krzysztof Kozlowski wrote:
-> > > > On Thu, Nov 05, 2026 at 03:16:48PM +0100, Vasilij Strassheim wrote:
-> > > > > Add a binding for the SoC-e SWIP multifunction FPGA IP core.
-> > > > >=20
-> > > > > Describe the shared MMIO address space and address translation fo=
-r
-> > > > > the required Ethernet switch child and the optional integrated MD=
-IO
-> > > > > controller and MMIO-controlled MDIO multiplexer.
-> > > > >=20
-> > > > > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
-> > > > > ---
-> > > > >  .../devicetree/bindings/mfd/soce,swip.yaml         | 137 +++++++=
-++++++++++++++
-> > > > >  1 file changed, 137 insertions(+)
-> > > > >=20
-> > > > > diff --git a/Documentation/devicetree/bindings/mfd/soce,swip.yaml=
- b/Documentation/devicetree/bindings/mfd/soce,swip.yaml
-> > > > > new file mode 100644
-> > > > > index 000000000000..625be299e262
-> > > > > --- /dev/null
-> > > > > +++ b/Documentation/devicetree/bindings/mfd/soce,swip.yaml
-> > > > > @@ -0,0 +1,137 @@
-> > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > +%YAML 1.2
-> > > > > +---
-> > > > > +$id: http://devicetree.org/schemas/mfd/soce,swip.yaml#
-> > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > +
-> > > > > +title: SoC-e SWIP multifunction Ethernet switch FPGA IP core
-> > > > > +
-> > > > > +maintainers:
-> > > > > +  - Vasilij Strassheim <v.strassheim@linutronix.de>
-> > > > > +
-> > > > > +description:
-> > > > > +  SoC-e Switch IP (SWIP) cores integrate Ethernet switching logi=
-c, an
-> > > > > +  MDIO controller, and an MDIO bus multiplexer in one memory-map=
-ped device.
-> > > > > +  The MDIO bus multiplexer is wired to the integrated MDIO contr=
-oller.
-> > > > > +
-> > > > > +properties:
-> > > > > +  compatible:
-> > > > > +    const: soce,swip
-> > > > > +
-> > > > > +  reg:
-> > > > > +    maxItems: 1
-> > > > > +
-> > > > > +  '#address-cells':
-> > > > > +    const: 1
-> > > > > +
-> > > > > +  '#size-cells':
-> > > > > +    const: 1
-> > > > > +
-> > > > > +  ranges: true
-> > > > > +
-> > > > > +  mdio@204:
-> > > > > +    $ref: /schemas/net/soce,swip-mdio.yaml#
-> > > > > +    unevaluatedProperties: false
-> > > > > +
-> > > > > +  mdio-mux@202:
-> > > > > +    $ref: /schemas/net/mdio-mux-mmioreg.yaml#
-> > > > > +    unevaluatedProperties: false
->=20
-> Given the MDIO bus and mux registers are adjacent, I don't know that=20
-> putting the mux into its own node and driver really buys you anything.=
-=20
-> Can't your MDIO driver handle the muxing directly? mdio-mux-mmioreg was=
-=20
-> created for when you have mux registers in some completely unrelated=20
-> block.
->=20
+On Fri, 13 Nov 2026, Thomas Richard wrote:
 
-What it buys me is less custom code to maintain for bus selection and
-selector-value validation.
+> Hi Lee,
+> 
+> On 11/13/26 4:27 PM, Lee Jones wrote:
+> > [26/27] i2c: cgbc: Propagate hardware errors when polling read status
+> >         (no commit info)
+> 
+> I noticed you did not applied this patch. It conflicts with my ongoing
+> series "Congatec Board Controller: Add storage devices support". For the
+> V5 I rebased it on top of Krzysztof's series that you applied and this
+> series.
+> 
+> I don't know what is your plan for this patch. Will you apply it? Should
+> I pick it into my series, or should we have to deal with I2C tree?
+> Please let me know.
 
-The MDIO controller and mux were combined in a previous version.
-Following Andrew's suggestion [1], I moved the controller into its own
-driver and stacked mdio-mux-mmioreg on top of it.
-Sure, the selector is part of the same MDIO control register. But the
-generic driver already provides the masked register update and
-selector-value checks. My preference is to keep the current approach
-to reuse existing code, even if it requires some integration and
-documentation efforts.
+I didn't merge it because it's not mine to take.
 
-I don't mind changing to a combined MDIO controller and mux, as done
-in mdio-mux-bcm6368.c, while still using the generic MDIO mux core.
+I can either take it with an Ack or happy for anyone else to take it.
 
-Could we agree on the preferred approach so that the binding and
-driver changes stay aligned?
-
-> > > > > +
-> > > > > +  ethernet-switch:
-> > > >=20
-> > > > Why are you mixing children with and without bus addresses? This is
-> > > > discouraged and shows that device is not correctly represented, e.g=
-. if
-> > > > the ethernet-switch does not have resources, then THIS device is th=
-e
-> > > > ethernet switch.
-> > > >=20
-> > >=20
-> > > There is no hardware reason for leaving the switch child unaddressed.
-> > > Just an error that occurred while converting the binding to the MFD
-> > > model.
-> > > I will describe the switch function as an ethernet-switch@0 child nod=
-e
-> > > with a reg property for it's register resources, like the ocelot MFD
-> > > binding.
-> >=20
-> > It looks like I need a different name for the MFD parent to avoid a
-> > naming collision with the ethernet-switch@0 child. I checked other
-> > bindings but could not find a suitable example.
-> >=20
-> > I would appreciate any suggestions for a suitable name for the parent
-> > node representing the FPGA IP core. It mainly acts as a container for
-> > its child devices. I am considering "bus", "ip-core" or "shell".
->=20
-> Krzysztof's point was combine the child and parent nodes into the=20
-> parent. This is not really an MFD. Almost every ethernet MAC has an MDIO=
-=20
-> controller in it and none of those bindings are MFDs.
-
-The suggestion to consider an MFD also came from Andrew in an earlier
-discussion [2]. Since this FPGA design contains several functional
-blocks, I liked the approach of grouping them under a common parent.
-
-The IP core can also include an I2C master for accessing external
-devices as a synthesis option. It also supports synchronization with
-external PPS and 10 MHz reference signals. I had future Linux support
-for these functions in mind. Ocelot is another switch described as an
-MFD, with additional functions such as GPIO and pin control.
-
-I am open to either approach. Could we agree on the preferred hardware
-model before I update the binding and driver?
-
-I can also provide more information if any hardware details are still
-unclear.
-
->=20
-> Rob
-
-Thanks,
-Vasilij
-
+-- 
+Lee Jones
