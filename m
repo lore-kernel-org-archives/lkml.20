@@ -1,49 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582328;
-	b=SQUGxRiM1GV1C1T8rCFFT0QZ8h4WLrD2OdtP4hTP6tVxqeAaZvPEP4RBGmEv1U2pWkNc
-	 lVaYvIjTMgXUHnt5dwTUnJrtE8ZN59V5G1klUMDhNb5OWjd1+4ZYKn8j+1Htyxn7La1MY
-	 Sf1StO2CDfLVV8Ff04EPb4zaOUO6tvJLP3/ZutKpSUOrA4y/TDEHk/zn19pPOXsjZzJXp
-	 gxbJYmDIAP7AV3X3bzlNI/SliijwlwlNYtoCT8+74agZ9rWU4dcyOiHI988praEIEGWzm
-	 GoUPJQ21DXIzA7DO30Z6kxVGbpwAVW18HeYLr1m8ty8vfZzz1Dhx7Keu4XBkgqPh2KA==
+	t=1794582352;
+	b=QlJqN2ozkNEQgMP+d6ynkYwrUuJiYYL3X8hiufFcBIZE4FH267W3mAe/9SWc6XQqocxw
+	 jmyjrShpka0a1e2sQIJQDDqeBStegMw8UXAhF7ddhPXiVCKFGG4+UdI2mwi2dbIjqMnWN
+	 Bh4F6ZLxy4vUpca/4Y2bwFr1fnm/2VZVslS5IwaatMcBjlMn3VAN0s+sFtpXxwIm/dny3
+	 lDpgkpDMO99T7mrC8O2B+0CjFIHvdTwMbfaJK9opdMqa6lgMcKCP1iPa398BBYgwTjUkb
+	 KIOtatYZ2TLAL14j+rUHMDivFg+IYpJPNtEw/t7Y7xNQBofyePllDG9UkowQYCep5BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582328;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=HqxJh8LeLomMq9f8MfMcaLKTjFwsymN5lyDButZPjvk=;
-	b=1xlIpj006ZBuQNsU7jZjAmKY3w9IGC5SKRS6EyjnEkWnL9fmiDllwa/2GB+d+fegm+cg
-	 1oKKUXE5wRq5i+vJIjnwaYtYBMwi+OwYcIjujKDpJXzR3D9vZ9HgvZnCA7hvBcKLBbIUf
-	 FB9glceECTdAKFCWcJ0X24usVah/s69yAWjOGnK8Vl6Oq/4xTuxPeAOssSqbmSx9e+hkh
-	 Ulh3y8hIxZOi9Fj6MRKivELqO4qDHU8CTMUd1+bxU5/ArxD75cyUNE0UFXF7NlvNC+Yus
-	 WyJ/SoOEr7q+Iz3EYfm5fs8Zzivi108yxwGDrgtAOr7an/g8JN1IBukfZsfcg2jYP5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582352;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=x+Xd1db6zPqMxOaxpQfVku2qqOYSO4cm/68ivCtsVLQ=;
+	b=TfTgfKMGyeSfpMe7pmPvWdSyREMMwUowNjdBqUQs1SSKnxrI5nzZuhbEhHS1IYMu5Y8o
+	 gHqIMZYMUyI0zqlStIzldlSM7A0bv7Wu9FFgtXMmZNLCcSo3qhB/Y9jc9Gg5qx/t9mOpD
+	 skhFp9/GmaaH6iYBdou85v+7ZZK5cbvxolc4NR/6He4KWsckLq/+VOuHwo/+nqcU+CQzY
+	 PCexg97iVQ215z2v6mT7kCx9tacmkOFk90VOBDJGR2Chh/YIdY+Yz1Fq63dE80hiwQI/H
+	 4dCbDdpta9bNQIesR0UAU0jRivxLs7nwUpkAC9eAX2AdjxqycAV6c7H2V1NuqeLFrHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M12fhF5I;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AF098606A337;
-	Fri, 13 Nov 2026 15:05:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF098606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gBj1J2bn;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39763606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:05:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39763606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M12fhF5I
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B8F08339;
-	Fri, 13 Nov 2026 07:05:23 -0800 (PST)
-Received: from [10.0.129.47] (e122027.cambridge.arm.com [10.0.129.47])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9241B3F85F;
-	Fri, 13 Nov 2026 07:05:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794582326; bh=2gGXFp8DdyWHzkZJ43mrMnXa6dxyde9ZLLQErPALNlk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=M12fhF5IG8zd3yUh+xgUfyYz2F3btGRXZlVpEAyINOpwsQxA8xB/FOm1zVQL4FAem
-	 VLqMnYwAqaQvDT7PCtdtpGqOnixkolvb0d1FdtUphga8a4/EFH30E5XAu9c43h09L4
-	 eltIQJWe0rcYG3s6IbtO4xXe5jcQSTYZTXTnUXTs=
-Message-ID: <6c362b9e-6ac3-4cbb-8e9d-d666f87ef8c2@arm.com>
-Date: Fri, 13 Nov 2026 15:05:18 +0000
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gBj1J2bn
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a210470b49so8886455e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:05:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794582349; x=1795187149; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x+Xd1db6zPqMxOaxpQfVku2qqOYSO4cm/68ivCtsVLQ=;
+        b=gBj1J2bn0z9VTnTLTBdspNJvCaOXOTdxEjmggLUvm2x930Uau0W2VFzWZPJv3gzmcX
+         4kOgyyenoKfuv+g+ra7q2nJLCdgshWiFfaXHJjL7NYk35ofR033uhc5K4gdY0oULhH2i
+         bDST57DdjHnZZ4CkrcFGUxc5I2phkZgwmH1ZKZYke3VxITNG6IbC+lgFxtNSnYA2dBMN
+         kxTnX9uO7xzQFDFHVgG5YtF6ps3NG6AerEMFoWu09BHQXx0bEKj4bwltZohWtEYGX/v4
+         hnnoUFrrdnBaGp0L2qHrElbJM/bJxxpERIQouOrQcgAWz+Q8+jDICxLTXiW/lin+/uuv
+         Bdhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794582349; x=1795187149;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x+Xd1db6zPqMxOaxpQfVku2qqOYSO4cm/68ivCtsVLQ=;
+        b=qHmmrPpQSJ2XhuUN6pxp+sDtz5VNpAeAZcR2GZaLAlnKuc5N2nvtmz6R80udo5Ddou
+         83ibdHJsTWERAfuy0/AQ7edsvLSrEaor8hEvz5Zk+EHAuXJc95seHQvkWa5IzRTapdEG
+         fDs3tIGKMdULq3+GMsyx+UPGDeok3FBf51UmIQVpkJU244GaeWQZoqBo9VrNGq10H5Ay
+         yvUEK0e+C/UpvV+Z1FzW1ogZ3pr8QqxMXheWKoz/PgcQ/HuhZAwq3sacJ/0+qet+RZra
+         SKSYF9jzFxsKeyq9MRKg32TBSJitXIsCBGNSgIqNhua4tfGpq+ESEfeCb8Wd0G7px637
+         qkLQ==
+X-Forwarded-Encrypted: i=1; AL+hErFf8I6djBnOrWqUAFdd0vc4XnRrdqzeXztk3YTrKf4XaAqppKgKBF03Kx9bpeRjcjA1kDeAyGdGajDdaj8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wpqFo+wPHJzfG1IGFzThyCl1ZICNQz9Jmz/QeuhFE7nwCn4Um
+	pUFq5kR9ej7Fs43lDgoy1QxJTbFrc0Gawb2+b/Gx8vVFyFuLhwIaexlQeqPA0xLaaYw=
+X-Gm-Gg: AYBFou3Vo9QtvYDMhj/Wv84OTsqiWIwcK4qXKcb18z6hY/bPnUmdg8SaEndgTKe5u67
+	xzkSr3RQpMXdLPZXx2EVO28JkXj7nLX94ALeRwhOe9f8+BkoRWtziz3BGT5Rijl+3CR3DGCxN2c
+	Wd9ADiYA5xwoWCoZclXcUYs82lWLAXeFPzdTH44ZlzG6ul2P3GE08r5whfdBonE31XXKaUn4IQd
+	2o5j15/7eLlhSQkv6Aj1D12kFV0ehI9jmCteC6Vdpmor8R210vFaruIeLjSWmCDDbxytViUzXAO
+	GNV8tT9kukVt8OCwlrHPJ5wRn2n+63/fV4hB5TQ0+liNIIEO/GVq9Xh+Gm71iRMlVFC3cij1S2W
+	BkK2CrjKrDvRaougtC1zwge4JDG/eHMyl9NmhlrYumFyX+ZsPdH1BCPYte8LcFlLtuZq9RMcisY
+	lCU7KX25FIMZTFUohx7ZkYG7ZUgBwkxBIVfRMjJ3mri8lGPkcDBvFbFvKCTflWrTltT46qW4TyL
+	IEFW4Yego8eWDjgfjhfs8dJ10MS4W7S6m7W5wfs0ccM/UTNd03Ux6wYQqcpxIhV81XrL+/6YwF7
+	FkBDBFklIltxTDe0PqRtOlmPQDqZ/Do=
+X-Received: by 2002:a05:600c:46d5:b0:4a5:87b3:ddc1 with SMTP id 5b1f17b1804b1-4bb55a8329amr58179765e9.13.1794582349341;
+        Fri, 13 Nov 2026 07:05:49 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2538b9sm270777285e9.1.2026.11.13.07.05.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 07:05:48 -0800 (PST)
+Date: Fri, 13 Nov 2026 16:05:46 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Breno Leitao <leitao@debian.org>, printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jason Wessel <jason.wessel@windriver.com>,
+	Daniel Thompson <danielt@kernel.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
+	Feng Tang <feng.tang@linux.alibaba.com>,
+	Rio <rioo.tsukatsukii@gmail.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Pnina Feder <pnina.feder@mobileye.com>,
+	Gal Pressman <gal@nvidia.com>, Petr Pavlu <petr.pavlu@suse.com>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	"Cen Zhang (Microsoft)" <blbllhy@gmail.com>,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	kgdb-bugreport@lists.sourceforge.net
+Subject: Re: [PATCH printk v2 1/6] printk: Introduce and specify flush reasons
+Message-ID: <avcnSjj2P9UfsBn7@pathway.suse.cz>
+References: <20261111181942.593695-1-john.ogness@linutronix.de>
+ <20261111181942.593695-2-john.ogness@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,371 +123,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/12] KVM: arm64: CCA: Tear down RTTs
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
- Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
- <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
- Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
- Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
- Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
- <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
- Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Kohei Enju <enju.kohei@fujitsu.com>
-References: <20261111145758.217946-1-steven.price@arm.com>
- <20261111145758.217946-8-steven.price@arm.com>
- <e1690e53-70fb-47fe-bd06-4758b1e196d2@arm.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <e1690e53-70fb-47fe-bd06-4758b1e196d2@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111181942.593695-2-john.ogness@linutronix.de>
 
-On 13/11/2026 01:04, Suzuki K Poulose wrote:
-> On 11/11/2026 14:57, Steven Price wrote:
->> The RMM owns the stage 2 page tables for a realm, and KVM must request
->> that the RMM creates/destroys entries as necessary. The physical pages
->> to store the page tables are delegated to the realm as required, and can
->> be undelegated when no longer used.
->>
->> Creating new RTTs is the easy part, tearing down is a little more
->> tricky. The result of realm_rtt_destroy() can be used to effectively
->> walk the tree and destroy the entries (undelegating pages that were
->> given to the realm).
->>
->> Tear down a created Realm whether it is still new or has been activated.
->> Unmap the Realm IPA space once during stage-2 teardown. Defer
->> destruction of non-root RTTs until final Realm destruction, after
->> REALM_TERMINATE and before destroying the RD; root RTTs remain until the
->> RD has gone away.
->>
->> Signed-off-by: Steven Price <steven.price@arm.com>
->>
->> ---
->> Changes since v1:
->> - Tear down created Realms in both NEW and ACTIVE states. Fix the
->>    RTT start level, page accounting on failed undelegation, and
->>    handling of RTT granules returned by RMI.
->> ---
->>   arch/arm64/include/asm/kvm_rmi.h |   9 ++
->>   arch/arm64/kvm/mmu.c             |  18 ++-
->>   arch/arm64/kvm/rmi.c             | 189 +++++++++++++++++++++++++++++++
->>   3 files changed, 215 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/include/asm/kvm_rmi.h b/arch/arm64/include/
->> asm/kvm_rmi.h
->> index f1a1ed6b91f5..58d825e40bdf 100644
->> --- a/arch/arm64/include/asm/kvm_rmi.h
->> +++ b/arch/arm64/include/asm/kvm_rmi.h
->> @@ -57,6 +57,7 @@ enum realm_state {
->>    * @sro: Preallocated SRO state context for Realm MMU operations
->>    * @state: The lifetime state machine for the realm
->>    * @ia_bits: Number of valid Input Address bits in the IPA
->> + * @stage2_unmapped: The Realm stage-2 mappings have been removed
->>    */
->>   struct realm {
->>       void *rd;
->> @@ -70,6 +71,7 @@ struct realm {
->>       struct rmi_sro_state *sro;
->>       enum realm_state state;
->>       unsigned int ia_bits;
->> +    bool stage2_unmapped;
->>   };
->>     void kvm_init_rmi(void);
->> @@ -77,5 +79,12 @@ u32 kvm_rmm_ipa_limit(void);
->>     int kvm_init_realm(struct kvm *kvm);
->>   void kvm_destroy_realm(struct kvm *kvm);
->> +int kvm_realm_teardown_stage2(struct kvm *kvm);
->> +
->> +static inline bool kvm_realm_is_private_address(struct realm *realm,
->> +                        unsigned long addr)
->> +{
->> +    return !(addr & BIT(realm->ia_bits - 1));
->> +}
->>     #endif /* __ASM_KVM_RMI_H */
->> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->> index 9df3f8d5b4ef..be014f6c00e7 100644
->> --- a/arch/arm64/kvm/mmu.c
->> +++ b/arch/arm64/kvm/mmu.c
->> @@ -1145,9 +1145,25 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct
->> kvm_s2_mmu *mmu, unsigned long t
->>       return err;
->>   }
->>   +static void kvm_realm_uninit_stage2(struct kvm_s2_mmu *mmu)
->> +{
->> +    struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
->> +
->> +    mutex_lock(&kvm->arch.config_lock);
->> +    if (kvm_realm_state(kvm) == REALM_STATE_NEW ||
->> +        kvm_realm_state(kvm) == REALM_STATE_ACTIVE) {
->> +        kvm_set_realm_state(kvm, REALM_STATE_DYING);
->> +        WARN_ON(kvm_realm_teardown_stage2(kvm));
->> +    }
->> +    mutex_unlock(&kvm->arch.config_lock);
->> +}
->> +
->>   void kvm_uninit_stage2_mmu(struct kvm *kvm)
->>   {
->> -    kvm_free_stage2_pgd(&kvm->arch.mmu);
->> +    if (kvm_realm_is_created(kvm))
->> +        kvm_realm_uninit_stage2(&kvm->arch.mmu);
->> +    else
->> +        kvm_free_stage2_pgd(&kvm->arch.mmu);
+On Wed 2026-11-11 19:25:17, John Ogness wrote:
+> Prepare for per-console atomic flushing policies by introducing
+> enum pr_flush_reason to classify various reasons for performing a
+> printk backlog flush. The reasons are specified for
+> printk_trigger_flush() and console_flush_on_panic().
 > 
-> We added kvm_free_stage2_pgd() from kvm_destroy_realm() for Realms in
-> the previous patch. Should we move that here since, this is where we
+> For atomic printing from printk_trigger_flush(), propagate the
+> reason down to __nbcon_atomic_flush_pending_con(), where the actual
+> atomic flushing is executed.
 > 
-> 1. Deal with tearing down stage2
-> 2. And more importantly we are skipping it for Realms.
-
-I'm not quite sure what you're asking for here. We can't free the stage2
-PGD while the realm is existing (because the RMM has the pages) - so we
-defer it.
-
->>       kvm_mmu_free_memory_cache(&kvm->arch.mmu.split_page_cache);
->>   }
->>   diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
->> index 69c628cfb6c7..b904e6541fb0 100644
->> --- a/arch/arm64/kvm/rmi.c
->> +++ b/arch/arm64/kvm/rmi.c
->> @@ -11,16 +11,193 @@
->>   #include <asm/kvm_pgtable.h>
->>   #include <asm/virt.h>
->>   +static inline unsigned long rmi_rtt_level_mapsize(int level)
->> +{
->> +    if (WARN_ON(level > KVM_PGTABLE_LAST_LEVEL))
->> +        return PAGE_SIZE;
->> +
->> +    return (1UL << ARM64_HW_PGTABLE_LEVEL_SHIFT(level));
->> +}
->> +
+> For legacy printing, use a new global variable @legacy_flush_reason
+> to track the reason in case nbcon consoles are using legacy
+> printing.
 > 
-> We agreed to use kvm_granule_size() instead of this ?
+> Update all printk_trigger_flush() and console_flush_on_panic()
+> call sites as well as any explicit lower-level atomic flush calls
+> to specify the reason.
 > 
-> https://lore.kernel.org/all/cb183290-3fee-4535-aa3e-5cc172c2323a@arm.com
+> Note that PR_FLUSH_RUNTIME is used for cases where the reason for
+> the flush is not clearly defined.
 
-That was a screw-up when I was squashing fixes back in - the next patch
-removes the code. I'll fix this up in the next version so it never
-appears. Thanks for pointing it out.
+> --- a/include/linux/printk.h
+> +++ b/include/linux/printk.h
+> @@ -145,6 +145,24 @@ void early_printk(const char *s, ...) { }
+>  
+>  struct dev_printk_info;
+>  
+> +/**
+> + * enum pr_flush_reason - Reason for a flush
+> + * @PR_FLUSH_RUNTIME:	A flush while the kernel is running
+> + * @PR_FLUSH_RESTART:	The kernel is ending, but another instance should
+> + *			follow (reboot, kexec)
+> + * @PR_FLUSH_HANG:	The kernel is ending and will enter an infinite loop
+> + * @PR_FLUSH_KDB:	Printing while KDB is active
+> + *
+> + * Flush reasons are used to determine if unsafe atomic flushing should be
+> + * performed, based on individual console policies.
+> + */
+> +enum pr_flush_reason {
+> +	PR_FLUSH_RUNTIME = 0,
+> +	PR_FLUSH_RESTART,
+> +	PR_FLUSH_HANG,
+> +	PR_FLUSH_KDB,
+> +};
 
->>   u32 kvm_rmm_ipa_limit(void)
->>   {
->>       return u64_get_bits(rmi_feat_reg(0), RMI_FEATURE_REGISTER_0_S2SZ);
->>   }
->>   +static int get_start_level(struct realm *realm)
->> +{
->> +    return 4 - max(2, stage2_pgtable_levels(realm->ia_bits));
-> 
-> I don't think we need this "max()". ia_bits is guaranteed to be
->>= 32bit (ARM64_MIN_PARANGE_BITS, see kvm_init_ipa_range()), implying
-> that we have at least 2 levels on all page sizes.
+This entire patchset adds a lot of complexity just to enable all
+4 new policy flags for netconsole in the last patch.
 
-Ah, very true - Sashiko complained, but I hadn't noticed
-ARM64_MIN_PARANGE_BITS provided an effective minimum. I'll remove the
-max() and add a comment.
+There already have few dimensions which affect console flushing:
 
->> +}
->> +
->> +static void free_rtt(phys_addr_t phys)
->> +{
->> +    kvm_account_pgtable_pages(phys_to_virt(phys), -1);
->> +    if (rmi_free_delegated_page(phys))
->> +        kvm_account_pgtable_pages(phys_to_virt(phys), 1);
-> 
-> Is there a reason why remove the account before freeing ? Could we do
-> this after we have reclaimed it ?
+   + console_loglevel
+   + nbcon_prio
 
-Sashiko again:
+This patchset adds 8 new terms in pr_flush_reason and
+nbcon_unsafe_flush_flags just to explicitly set all
+flush_flags in netconsole.
 
-> Does calling kvm_account_pgtable_pages() after rmi_free_delegated_page()
-> access the page after it has already been freed and uncharged from its
-> memcg?
+Let's start with pr_flush_reason. I am not sure if it is worth it:
 
-Basically the problem is that rmi_free_delegated_page() frees the page
-back to the allocator. So doing the account after freeing means that
-technically the page could have been reused.
+  + PR_FLUSH_RUNTIME is the default
 
->> +}
->> +
->> +/*
->> + * realm_rtt_destroy - Destroy an RTT at @level for @addr.
->> + *
->> + * Returns - Result of the RMI_RTT_DESTROY call, and:
->> + * @rtt_granule:    RTT granule, if the RTT was destroyed.
->> + * @next_addr:        IPA corresponding to the next possible valid
->> entry we
->> + *            can target
->> + */
->> +static long realm_rtt_destroy(struct realm *realm, unsigned long addr,
->> +                  int level, phys_addr_t *rtt_granule,
->> +                  unsigned long *next_addr)
->> +{
->> +    unsigned long out_rtt;
->> +    long ret;
->> +
->> +    ret = rmi_rtt_destroy(virt_to_phys(realm->rd), addr, level,
->> +                  &out_rtt, next_addr);
->> +
->> +    if (ret == RMI_SUCCESS)
->> +        *rtt_granule = out_rtt;
->> +
->> +    return ret;
->> +}
->> +
->> +static int realm_tear_down_rtt_level(struct realm *realm, int level,
->> +                     unsigned long start, unsigned long end)
->> +{
->> +    ssize_t map_size;
->> +    unsigned long addr, next_addr;
->> +
->> +    if (WARN_ON(level > KVM_PGTABLE_LAST_LEVEL))
->> +        return -EINVAL;
->> +
->> +    map_size = rmi_rtt_level_mapsize(level - 1);
->> +
-> 
-> We agreed to add a WARN_ON() here to ensure the start address is aligned ?
+  + PR_FLUSH_RESTART can be detected by system_state > SYSTEM_RUNNING
 
-Indeed, and again I've managed to put it in the wrong commit (see the
-next patch). I'll fix this in the next revision.
+  + PR_FLUSH_HANG has only one caller currently distinguished by
+	the global panic_nbcon_allow_unsafe_takeover
 
->> +    for (addr = start; addr < end; addr = next_addr) {
->> +        phys_addr_t rtt_granule;
->> +        long ret;
->> +        unsigned long align_addr = ALIGN(addr, map_size);
->> +
->> +        next_addr = ALIGN(addr + 1, map_size);
->> +
->> +        if (next_addr > end || align_addr != addr) {
->> +            /*
->> +             * The target range is smaller than what this level
->> +             * covers, recurse deeper.
->> +             */
->> +            ret = realm_tear_down_rtt_level(realm,
->> +                            level + 1,
->> +                            addr,
->> +                            min(next_addr, end));
->> +            if (ret)
->> +                return ret;
->> +            continue;
->> +        }
->> +
->> +        ret = realm_rtt_destroy(realm, addr, level,
->> +                    &rtt_granule, &next_addr);
->> +        if (ret < 0)
->> +            return ret;
->> +
->> +        switch (RMI_RESULT_STATUS(ret)) {
->> +        case RMI_SUCCESS:
->> +            free_rtt(rtt_granule);
->> +            break;
->> +        case RMI_ERROR_RTT:
->> +            if (next_addr > addr) {
->> +                /* Missing RTT, skip */
->> +                break;
->> +            }
->> +            /*
->> +             * We tear down the RTT range for the full IPA
->> +             * space, after everything is unmapped. Also we
->> +             * descend down only if we cannot tear down a
->> +             * top level RTT. Thus RMM must be able to walk
->> +             * to the requested level. e.g., a block mapping
->> +             * exists at L1 or L2.
->> +             */
->> +            if (WARN_ON(RMI_RESULT_DATA_LEVEL(ret) != level))
->> +                return -EBUSY;
->> +            if (WARN_ON(level == KVM_PGTABLE_LAST_LEVEL))
->> +                return -EBUSY;
->> +
->> +            /*
->> +             * The table has active entries in it, recurse deeper
->> +             * and tear down the RTTs.
->> +             */
->> +            next_addr = ALIGN(addr + 1, map_size);
->> +            ret = realm_tear_down_rtt_level(realm,
->> +                            level + 1,
->> +                            addr,
->> +                            next_addr);
->> +            if (ret)
->> +                return ret;
->> +            /*
->> +             * Now that the child RTTs are destroyed,
->> +             * retry at this level.
->> +             */
->> +            next_addr = addr;
->> +            break;
->> +        default:
->> +            WARN_ON(1);
->> +            return -ENXIO;
->> +        }
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->> +static int realm_tear_down_rtt_range(struct realm *realm,
->> +                     unsigned long start, unsigned long end)
->> +{
->> +    /*
->> +     * Root level RTTs can only be destroyed after the RD is
->> destroyed. So
->> +     * tear down everything below the root level
->> +     */
->> +    return realm_tear_down_rtt_level(realm, get_start_level(realm) + 1,
->> +                     start, end);
->> +}
->> +
->> +static int realm_destroy_rtts(struct kvm *kvm)
->> +{
->> +    struct realm *realm = &kvm->arch.realm;
->> +    unsigned int ia_bits = realm->ia_bits;
->> +
->> +    lockdep_assert_held(&kvm->arch.config_lock);
->> +
->> +    return realm_tear_down_rtt_range(realm, 0, (1UL << ia_bits));
->> +}
->> +
->> +static void realm_unmap_stage2(struct kvm *kvm)
->> +{
->> +    struct realm *realm = &kvm->arch.realm;
->> +
->> +    lockdep_assert_held(&kvm->arch.config_lock);
->> +
->> +    if (realm->stage2_unmapped)
->> +        return;
->> +
->> +    write_lock(&kvm->mmu_lock);
->> +    kvm_stage2_unmap_range(&kvm->arch.mmu, 0,
->> +                   BIT(realm->ia_bits - 1), true);
->> +    write_unlock(&kvm->mmu_lock);
->> +
->> +    realm->stage2_unmapped = true;
->> +}
->> +
->> +int kvm_realm_teardown_stage2(struct kvm *kvm)
->> +{
->> +    lockdep_assert_held(&kvm->arch.config_lock);
->> +
->> +    realm_unmap_stage2(kvm);
->> +    return 0;
->> +}
->> +
->>   void kvm_destroy_realm(struct kvm *kvm)
->>   {
->>       struct realm *realm = &kvm->arch.realm;
->>       size_t pgd_size = kvm_pgtable_stage2_pgd_size(kvm->arch.mmu.vtcr);
->>   +    guard(mutex)(&kvm->arch.config_lock);
-> 
-> Do we need to document, why we need this mutex ?
+  +  PR_FLUSH_KDB can be detected by kdb_trap_printk and
+     kdb_printf_cpu, see vprintk() implementation.
 
-I'll add a comment.
 
-Thanks,
-Steve
+IMHO, it makes things worse because nbcon_atomic_flush_pending() has
+to use PR_FLUSH_RUNTIME in vprintk_emit(). But I think that we
+would like to flush it the same way as an explicit flush called
+in the given context.
+
+Best Regards,
+Petr
