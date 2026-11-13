@@ -1,61 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794563443;
-	b=0Q9NLObmcwt0SDiyxb7PtkOoF8auyp98I4Q4MmIcQSkaiRjFLvD3P8o8G3sbWFpqq+jU
-	 vlmq6t81VGDbxIRMchrYDHxj1rSXMMzNdF/6hIC5+I4EwAPnF5Pr92joKIz039O7maOXA
-	 +HWnyru86mSSscSZUoMLz+U6jcCKvaRRRPIkzUxo5XQFS/MBiGwBTm5FWemuZ8kY0FYy7
-	 RSclY3YEJN2fciwuDOljKzzvro9MbM/n+Diq9EJ4u/eJ6iTN5NZ5XMWIbgkKeC7vtAFLZ
-	 LxaeTOv//F7X2CQyoF9weni/fbThBd9vQg2eUKh4jjZSgf2ljPM7Mf1wyhxDObW0RZQ==
+	t=1794563461;
+	b=tm7ux+Dc4nJxT4946S8JPjJDS1X2UNxb7ZHAyYAMW2kjkFcRGuAH4Fcqf0c/mRQyhyHV
+	 fFK9ZxLBpKkSbwsKENogxtaBjvpRt0L0XkqYL9UvUKjGcIfs2z9JxVIvqI/NLMcRZ0twt
+	 ENSDCeb/XQplCZEFi3yghZe/RY4YP3B+dgt++oALHgvP2YMEp0VXl0gT68aa3i0l5mOe4
+	 unModxA0uC4qvcdBLqrAIIjarIJhA1/uQkLJPGrbZ7wzM0ZmIaIuDiRBNjYwLq6sx1CmA
+	 vjVTlSKSHG/sGYla8ZKAww4YGFtc6SQlMIV19gk2Zd/WuEMO1oI622XQ2XPUC/VHHiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794563443;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hHT2umhe5/VsYXvEBOQ+ZmvRrEXfOlaHgHKhtcHGoQU=;
-	b=r8zlj4WYb7ahEKJueRZy0LnBVdPhQBhqfBNK+eohFS/09KVtc9Oq2j40jj3jwTKLVXs6
-	 6EhZ00cRd4e9DMCKcuSQFMuY8tqfRTpNjDREoaVGXXNJkrO7nusJFskmFaWnGZIAbQZol
-	 H6E4fiOrr0AIvrFuP5Fee23sxC7hHBUTAryQ2EoGMKmM6Omc3vskotrhp4j51yKFd+nQd
-	 WOtjC1WVAwOT2wpiAFBlGa9yqPXoGAKvKpSl9eYYKDMy319vF8V0ADYoclauNjUYiNkOw
-	 a99CUGSaiMerJJi5ypLvAimjYKPzidBop6TIUTYc3+Bztw6xZTnAIxxyLNxDiJ/8nhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794563461;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=gRQOcYVLYl+C1cjG0ifST8FfIE974oDInNoO7fKrBgs=;
+	b=vr1mPQn4VMMUvovdaOCPdOyj9K42/dDOsCBuvn0roZ8qMrtKW0SiwB7IgsUr3JPo8fg4
+	 R1+zWFqdO7Ddsgf5qOZpC9FIqDX7BBToP8kzJjrnfnVAGiTyrgrbAqHIoaIuRdk1NoXfG
+	 omDjG77TroCJfMg4WHdQ7WAEmibMSUGby0CYj760hjfIcwC6HrN8N83TB1tqnCwPwxUx8
+	 6vtakDMXmxYmJ/5y9Q56U9Ez7QiMjh3NZd75KLgST8+oxcNurhNOzmGxP5hskPAFKJDu8
+	 QQmnioY8T8+qSUP1L2izjlSgGPDaxliy+CdqvUFHc6QllgVAW9WmE4pV5RcqqmDYLxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=oO+aCfK8;
-	arc=none smtp.remote-ip=115.124.30.112
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBWGHeLj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B63606A88D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:50:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4B63606A88D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13D2606A321;
+	Fri, 13 Nov 2026 09:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=oO+aCfK8
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794563435; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=hHT2umhe5/VsYXvEBOQ+ZmvRrEXfOlaHgHKhtcHGoQU=;
-	b=oO+aCfK8TswiBukJFuUPcaiUNCTJW9WupwXZAPdazsl7yZwghC+94HxAPOo26ogAJXR4wn7RGn1YP4K43Qog4St3RKFdrztvs9FsdIb2eukhTg1l2xpa3v+/V8NcGGOgaJ1s79UZeS6BXTCtm1ZMgmu+69WNfbHxnXkVf4IvnCk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=guanghuifeng@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XEefzuT_1794563434;
-Received: from VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com fp:SMTPD_---0XEefzuT_1794563434 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 13 Nov 2026 17:50:34 +0800
-From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-To: joro@8bytes.org,
-	vasant.hegde@amd.com,
-	suravee.suthikulpanit@amd.com,
-	will@kernel.org,
-	robin.murphy@arm.com
-Cc: iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] iommu/amd: Reuse device data for IRTE cache invalidation
-Date: Fri, 13 Nov 2026 17:50:17 +0800
-Message-ID: <20261113095017.1835921-3-guanghuifeng@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261113095017.1835921-1-guanghuifeng@linux.alibaba.com>
-References: <20261113095017.1835921-1-guanghuifeng@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBWGHeLj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932A81F000C4;
+	Fri, 13 Nov 2026 09:50:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794563461;
+	bh=gRQOcYVLYl+C1cjG0ifST8FfIE974oDInNoO7fKrBgs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OBWGHeLjiICUmUa+HiT1ssx+8Uqlo1phTos0ZuTHvWmR/8/Ch5AvBYfwMF3bzrp7F
+	 aPo4ly43nFqtLorXsJCdMpVgEBYgPlSGOgmmx1dXHKBrb9rOCrdu/zgocxUmyjvYRV
+	 tMrigyURtbFnaXyl1O4smlP5IhBqEi5GiLnZCgtYUhIOJpx90sJdqPNp7V8jonhk3t
+	 3bAmeBciurMykgS41aAGm569izU3WBZQLrjeHhDvKcaHJW9Qt2M7o4MOwbL3aQ9fF6
+	 McmRjbyDbZvugNbnszeXCS6/Xm2ZHT3+P2pY5yUaIhwvm+lsr2BXF5oSiOoaThzBDj
+	 IVEnBsmW5nhKg==
+Message-ID: <1707907e-2261-4d3b-87fb-3dfc662e0347@kernel.org>
+Date: Fri, 13 Nov 2026 10:50:57 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,333 +51,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] zram: Avoid duplicate slots in batched writeback
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Jens Axboe <axboe@kernel.dk>, raoxu <raoxu@uniontech.com>,
+ minchan@kernel.org, linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
+References: <F24EF6333964B482+20261110061830.272091-1-raoxu@uniontech.com>
+ <avK6Y1VmIYIBrorl@google.com>
+ <20261112232621.6e8916a6e92bbb1afeb1e2a3@linux-foundation.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261112232621.6e8916a6e92bbb1afeb1e2a3@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Switching an interrupt route between guest and remapping modes, changing
-IRQ affinity, and enabling or disabling an IRTE all perform a linear
-device lookup to invalidate the IRT cache for DMA aliases.  Nested VM
-entry and exit can repeat this for every posted interrupt route.
-A reported workload with 4334 device entries shows median lookup
-latencies of 22-33 us per invocation.
+On 11/13/26 08:26, Andrew Morton wrote:
+> On Tue, 10 Nov 2026 15:40:13 +0900 Sergey Senozhatsky <senozhatsky@chromium.org> wrote:
+> 
+>> On (26/11/10 14:18), raoxu wrote:
+>>> The writeback interface accepts multiple page_index and page_indexes
+>>> parameters in one operation. Their ranges can overlap, but
+>>> scan_slots_for_writeback() only excludes slots that are already being
+>>> written back or marked as same-filled.
+>>>
+>>> A slot selected by an earlier range is placed on the post-processing list
+>>> and marked with ZRAM_PP_SLOT. Without checking that flag, an overlapping
+>>> range can enqueue the same slot again and submit it for writeback more
+>>> than once.
+>>>
+>>> Skip slots already marked ZRAM_PP_SLOT while holding the slot lock. This
+>>> keeps each slot in a writeback scan session represented by at most one
+>>> post-processing entry and leaves the existing release and reuse paths
+>>> unchanged.
+>>>
+>>> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+>>
+>> LGTM.
+>> Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+>>
+>> Jens, do you want to pick it up and route via block tree or should
+>> we route via "more traditional" tree (Andrew's tree)?
+> 
+> I grabbed it.
+> 
+> I did recently attempt to pull zram out of the mm project, by moving it
+> from mm.git's mm-unstable branch and into mm.git's mm-nonmm-unstable
+> branch.  Because "why does the mm project contain a block device
+> driver".
+> 
+> I undid that change after about a week - it didn't work out because
+> zram is joined at the hip with mm/zsmalloc.c.  zsmalloc is also used by
+> mm/zswap.c.
 
-Save the allocation-time device data in struct amd_ir_data and thread it
-through all IRTE update paths:
+Are there cleaner ways of isolating both things?
 
- - modify_irte_ga() and modify_irte() accept a dev_data parameter and
-   pass it to iommu_flush_irt_and_complete().
+Like, many drivers use kmalloc() etc, and they are not part of core-mm :)
 
- - The amd_irte_ops callbacks (activate, deactivate, set_affinity) are
-   extended to carry dev_data, so amd_ir_update_irte() and the
-   irq_remapping activate/deactivate chip callbacks pass the cached
-   pointer.
-
- - amd_iommu_activate_guest_mode() and deactivate_guest_mode() pass
-   ir_data->dev_data directly.
-
- - free_irte() receives dev_data from irq_remapping_free().
-
- - amd_ir_set_vcpu_affinity() reuses ir_data->dev_data for the vCPU
-   affinity capability check.
-
-This eliminates all search_dev_data() list walks from IRTE update
-paths.  For non-PCI interrupt sources (IOAPIC, HPET) whose dev_data is
-NULL from allocation, iommu_flush_irt_and_complete() skips the DMA
-alias walk and invalidates only the single devid, which is correct
-because these sources have no DMA aliases.
-
-Device data is retained in the segment list across unplug and reused on
-reprobe, so the cached pointer remains valid throughout the IRQ
-lifetime.  Continue resolving the PCI device through dev_data->dev so
-that later device association is observed.
-
-The invalidation path still skips everything when IRT caching is
-disabled and preserves DMA alias invalidation, command ordering,
-locking and completion waits when it is enabled.
-
-Fixes: 5aac28784dca ("iommu/amd: Invalidate IRT cache for DMA aliases")
-Reported-by: Yifei Ge <geyifei@linux.alibaba.com>
-Co-developed-by: hr567 <hr567@linux.alibaba.com>
-Signed-off-by: hr567 <hr567@linux.alibaba.com>
-Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
----
- drivers/iommu/amd/amd_iommu_types.h | 10 ++--
- drivers/iommu/amd/iommu.c           | 74 ++++++++++++++++-------------
- 2 files changed, 48 insertions(+), 36 deletions(-)
-
-diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
-index f98770db0090..da6d90f3a574 100644
---- a/drivers/iommu/amd/amd_iommu_types.h
-+++ b/drivers/iommu/amd/amd_iommu_types.h
-@@ -1029,6 +1029,7 @@ struct irq_2_irte {
- 
- struct amd_ir_data {
- 	struct amd_iommu *iommu;
-+	struct iommu_dev_data *dev_data;
- 	struct irq_2_irte irq_2_irte;
- 	struct msi_msg msi_entry;
- 	void *entry;    /* Pointer to union irte or struct irte_ga */
-@@ -1045,9 +1046,12 @@ struct amd_ir_data {
- 
- struct amd_irte_ops {
- 	void (*prepare)(void *, u32, bool, u8, u32, int);
--	void (*activate)(struct amd_iommu *iommu, void *, u16, u16);
--	void (*deactivate)(struct amd_iommu *iommu, void *, u16, u16);
--	void (*set_affinity)(struct amd_iommu *iommu, void *, u16, u16, u8, u32);
-+	void (*activate)(struct amd_iommu *iommu, void *, u16, u16,
-+			 struct iommu_dev_data *);
-+	void (*deactivate)(struct amd_iommu *iommu, void *, u16, u16,
-+			   struct iommu_dev_data *);
-+	void (*set_affinity)(struct amd_iommu *iommu, void *, u16, u16, u8,
-+			     u32, struct iommu_dev_data *);
- 	void *(*get)(struct irq_remap_table *, int);
- 	void (*set_allocated)(struct irq_remap_table *, int);
- 	bool (*is_allocated)(struct irq_remap_table *, int);
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 8f5a38ae2e29..6876de9cce71 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -3291,19 +3291,18 @@ static int iommu_flush_dev_irt(struct pci_dev *unused, u16 devid, void *data)
- 	return ret;
- }
- 
--static void iommu_flush_irt_and_complete(struct amd_iommu *iommu, u16 devid)
-+static void iommu_flush_irt_and_complete(struct amd_iommu *iommu, u16 devid,
-+					 struct iommu_dev_data *dev_data)
- {
- 	int ret;
- 	u64 data;
- 	unsigned long flags;
- 	struct iommu_cmd cmd;
- 	struct pci_dev *pdev = NULL;
--	struct iommu_dev_data *dev_data;
- 
- 	if (iommu->irtcachedis_enabled)
- 		return;
- 
--	dev_data = search_dev_data(iommu, devid);
- 	if (dev_data && dev_data->dev && dev_is_pci(dev_data->dev))
- 		pdev = to_pci_dev(dev_data->dev);
- 
-@@ -3579,7 +3578,7 @@ static int __modify_irte_ga(struct amd_iommu *iommu, u16 devid, int index,
- }
- 
- static int modify_irte_ga(struct amd_iommu *iommu, u16 devid, int index,
--			  struct irte_ga *irte)
-+			  struct irte_ga *irte, struct iommu_dev_data *dev_data)
- {
- 	int ret;
- 
-@@ -3587,13 +3586,13 @@ static int modify_irte_ga(struct amd_iommu *iommu, u16 devid, int index,
- 	if (ret)
- 		return ret;
- 
--	iommu_flush_irt_and_complete(iommu, devid);
-+	iommu_flush_irt_and_complete(iommu, devid, dev_data);
- 
- 	return 0;
- }
- 
--static int modify_irte(struct amd_iommu *iommu,
--		       u16 devid, int index, union irte *irte)
-+static int modify_irte(struct amd_iommu *iommu, u16 devid, int index,
-+		       union irte *irte, struct iommu_dev_data *dev_data)
- {
- 	struct irq_remap_table *table;
- 	unsigned long flags;
-@@ -3606,12 +3605,13 @@ static int modify_irte(struct amd_iommu *iommu,
- 	table->table[index] = irte->val;
- 	raw_spin_unlock_irqrestore(&table->lock, flags);
- 
--	iommu_flush_irt_and_complete(iommu, devid);
-+	iommu_flush_irt_and_complete(iommu, devid, dev_data);
- 
- 	return 0;
- }
- 
--static void free_irte(struct amd_iommu *iommu, u16 devid, int index)
-+static void free_irte(struct amd_iommu *iommu, u16 devid, int index,
-+		      struct iommu_dev_data *dev_data)
- {
- 	struct irq_remap_table *table;
- 	unsigned long flags;
-@@ -3624,7 +3624,7 @@ static void free_irte(struct amd_iommu *iommu, u16 devid, int index)
- 	iommu->irte_ops->clear_allocated(table, index);
- 	raw_spin_unlock_irqrestore(&table->lock, flags);
- 
--	iommu_flush_irt_and_complete(iommu, devid);
-+	iommu_flush_irt_and_complete(iommu, devid, dev_data);
- }
- 
- static void irte_prepare(void *entry,
-@@ -3657,50 +3657,57 @@ static void irte_ga_prepare(void *entry,
- 	irte->lo.fields_remap.valid       = 1;
- }
- 
--static void irte_activate(struct amd_iommu *iommu, void *entry, u16 devid, u16 index)
-+static void irte_activate(struct amd_iommu *iommu, void *entry, u16 devid,
-+			  u16 index, struct iommu_dev_data *dev_data)
- {
- 	union irte *irte = (union irte *) entry;
- 
- 	irte->fields.valid = 1;
--	modify_irte(iommu, devid, index, irte);
-+	modify_irte(iommu, devid, index, irte, dev_data);
- }
- 
--static void irte_ga_activate(struct amd_iommu *iommu, void *entry, u16 devid, u16 index)
-+static void irte_ga_activate(struct amd_iommu *iommu, void *entry, u16 devid,
-+			     u16 index, struct iommu_dev_data *dev_data)
- {
- 	struct irte_ga *irte = (struct irte_ga *) entry;
- 
- 	irte->lo.fields_remap.valid = 1;
--	modify_irte_ga(iommu, devid, index, irte);
-+	modify_irte_ga(iommu, devid, index, irte, dev_data);
- }
- 
--static void irte_deactivate(struct amd_iommu *iommu, void *entry, u16 devid, u16 index)
-+static void irte_deactivate(struct amd_iommu *iommu, void *entry, u16 devid,
-+			    u16 index, struct iommu_dev_data *dev_data)
- {
- 	union irte *irte = (union irte *) entry;
- 
- 	irte->fields.valid = 0;
--	modify_irte(iommu, devid, index, irte);
-+	modify_irte(iommu, devid, index, irte, dev_data);
- }
- 
--static void irte_ga_deactivate(struct amd_iommu *iommu, void *entry, u16 devid, u16 index)
-+static void irte_ga_deactivate(struct amd_iommu *iommu, void *entry, u16 devid,
-+			       u16 index, struct iommu_dev_data *dev_data)
- {
- 	struct irte_ga *irte = (struct irte_ga *) entry;
- 
- 	irte->lo.fields_remap.valid = 0;
--	modify_irte_ga(iommu, devid, index, irte);
-+	modify_irte_ga(iommu, devid, index, irte, dev_data);
- }
- 
--static void irte_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
--			      u8 vector, u32 dest_apicid)
-+static void irte_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid,
-+			      u16 index, u8 vector, u32 dest_apicid,
-+			      struct iommu_dev_data *dev_data)
- {
- 	union irte *irte = (union irte *) entry;
- 
- 	irte->fields.vector = vector;
- 	irte->fields.destination = dest_apicid;
--	modify_irte(iommu, devid, index, irte);
-+	modify_irte(iommu, devid, index, irte, dev_data);
- }
- 
--static void irte_ga_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
--				 u8 vector, u32 dest_apicid)
-+static void irte_ga_set_affinity(struct amd_iommu *iommu, void *entry,
-+				 u16 devid, u16 index, u8 vector,
-+				 u32 dest_apicid,
-+				 struct iommu_dev_data *dev_data)
- {
- 	struct irte_ga *irte = (struct irte_ga *) entry;
- 
-@@ -3710,7 +3717,7 @@ static void irte_ga_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid
- 					APICID_TO_IRTE_DEST_LO(dest_apicid);
- 		irte->hi.fields.destination =
- 					APICID_TO_IRTE_DEST_HI(dest_apicid);
--		modify_irte_ga(iommu, devid, index, irte);
-+		modify_irte_ga(iommu, devid, index, irte, dev_data);
- 	}
- }
- 
-@@ -3946,6 +3953,7 @@ static int irq_remapping_alloc(struct irq_domain *domain, unsigned int virq,
- 		}
- 
- 		data->iommu = iommu;
-+		data->dev_data = dev_data;
- 		irq_data->hwirq = (devid << 16) + i;
- 		irq_data->chip_data = data;
- 		irq_data->chip = &amd_ir_chip;
-@@ -3964,7 +3972,7 @@ static int irq_remapping_alloc(struct irq_domain *domain, unsigned int virq,
- 		}
- 	}
- 	for (i = 0; i < nr_irqs; i++)
--		free_irte(iommu, devid, index + i);
-+		free_irte(iommu, devid, index + i, dev_data);
- out_free_parent:
- 	irq_domain_free_irqs_common(domain, virq, nr_irqs);
- 	return ret;
-@@ -3983,7 +3991,8 @@ static void irq_remapping_free(struct irq_domain *domain, unsigned int virq,
- 		if (irq_data && irq_data->chip_data) {
- 			data = irq_data->chip_data;
- 			irte_info = &data->irq_2_irte;
--			free_irte(data->iommu, irte_info->devid, irte_info->index);
-+			free_irte(data->iommu, irte_info->devid,
-+				  irte_info->index, data->dev_data);
- 			kfree(data->entry);
- 			kfree(data);
- 		}
-@@ -4008,7 +4017,7 @@ static int irq_remapping_activate(struct irq_domain *domain,
- 		return 0;
- 
- 	iommu->irte_ops->activate(iommu, data->entry, irte_info->devid,
--				  irte_info->index);
-+				  irte_info->index, data->dev_data);
- 	amd_ir_update_irte(irq_data, iommu, data, irte_info, cfg);
- 	return 0;
- }
-@@ -4022,7 +4031,7 @@ static void irq_remapping_deactivate(struct irq_domain *domain,
- 
- 	if (iommu)
- 		iommu->irte_ops->deactivate(iommu, data->entry, irte_info->devid,
--					    irte_info->index);
-+					    irte_info->index, data->dev_data);
- }
- 
- static int irq_remapping_select(struct irq_domain *d, struct irq_fwspec *fwspec,
-@@ -4134,7 +4143,7 @@ int amd_iommu_activate_guest_mode(void *data, int cpu, bool ga_log_intr)
- 	__amd_iommu_update_ga(entry, cpu, ga_log_intr);
- 
- 	return modify_irte_ga(ir_data->iommu, ir_data->irq_2_irte.devid,
--			      ir_data->irq_2_irte.index, entry);
-+			      ir_data->irq_2_irte.index, entry, ir_data->dev_data);
- }
- EXPORT_SYMBOL(amd_iommu_activate_guest_mode);
- 
-@@ -4166,7 +4175,7 @@ int amd_iommu_deactivate_guest_mode(void *data)
- 				APICID_TO_IRTE_DEST_HI(cfg->dest_apicid);
- 
- 	return modify_irte_ga(ir_data->iommu, ir_data->irq_2_irte.devid,
--			      ir_data->irq_2_irte.index, entry);
-+			      ir_data->irq_2_irte.index, entry, ir_data->dev_data);
- }
- EXPORT_SYMBOL(amd_iommu_deactivate_guest_mode);
- 
-@@ -4175,7 +4184,6 @@ static int amd_ir_set_vcpu_affinity(struct irq_data *data, void *info)
- 	int ret;
- 	struct amd_iommu_pi_data *pi_data = info;
- 	struct amd_ir_data *ir_data = data->chip_data;
--	struct irq_2_irte *irte_info = &ir_data->irq_2_irte;
- 	struct iommu_dev_data *dev_data;
- 
- 	if (WARN_ON_ONCE(!AMD_IOMMU_GUEST_IR_VAPIC(amd_iommu_guest_ir)))
-@@ -4184,7 +4192,7 @@ static int amd_ir_set_vcpu_affinity(struct irq_data *data, void *info)
- 	if (ir_data->iommu == NULL)
- 		return -EINVAL;
- 
--	dev_data = search_dev_data(ir_data->iommu, irte_info->devid);
-+	dev_data = ir_data->dev_data;
- 
- 	/* Note:
- 	 * This device has never been set up for guest mode.
-@@ -4226,7 +4234,7 @@ static void amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
- 	 */
- 	iommu->irte_ops->set_affinity(iommu, ir_data->entry, irte_info->devid,
- 				      irte_info->index, cfg->vector,
--				      cfg->dest_apicid);
-+				      cfg->dest_apicid, ir_data->dev_data);
- }
- 
- static int amd_ir_set_affinity(struct irq_data *data,
 -- 
-2.43.7
+Cheers,
 
+David
