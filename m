@@ -1,90 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794594398;
-	b=AlGFWLRUEdQbznT28mBZGTlTWYCg5FKbCtvzVsPXCJgvOKrld+3EDEKjx/4YKecomrRG
-	 UzNUjnapedEf1cUfRmk+m51nhyCvNF0pcgSRAgamaAFAR1i0BS2XSyXAJovJBzeLtjy7Z
-	 JK1GmRhrxWXh6ONqUnnjBPDTHsLGrq3CjGjWL68yUSGEbBpIh2a8WRan4EugyJL6hnuYC
-	 9iGC2+KptGv1S+QD+hFSzHeZugYB7GIpGyOfFnhoCRWReGTC4Nlq6ziqJFjDoknJpoYAT
-	 Jc2mEKuy7Jj76l1oWiqWi0+edn6F3hQiffX1Zf3Qrxv2mduD8lbam9ROExQXKuwY03w==
+	t=1794594399;
+	b=HT5dTJdTpObEsTF8pKUhAEz2xGMQUXlb0dEeJXwXFDYGPz7+jxq7PwEj3UhX74/vku1V
+	 X6y4QwDZ71oeNIJvAHk56XTGH5eztW2tsFc2tSNd+64xZddXe0dAqSCarS0dvjimzTsOW
+	 LJ2OrQROt9cE8PSisAA8UtzYqC+N5MeJt9hiopVUMVFnwiBXsYa86/cvJHsyAdYOuirXk
+	 99e3VPCX0ZbjDj4yvGbS26Y532dZ3eHFmscI74FJFWTQ6G+vFQvxHl9aEt8b+d0gNOvQn
+	 H4OfjANvGHyrebTzpgcJcW2X6W5bUfHsZQsNdhnuCodO0sIQ4GQYir9LW2ywf/Uog6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794594398;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=/L/Nci4ktbTPxprvc8HZEEfP8HI+RCw3HClXWoZFfOg=;
-	b=mtJfMw+uqvy4Apsks27HrzqH6AHFPK3Z0VxHGPPriKMntuqk8BImnJZESSpdtFMcj+hb
-	 yu+/0N5o4nA0PQ8g9XIchuAB5tUaJR2yXHHf4YRMubXYX4i654EzA+LtBay1r8yh2jjEX
-	 glnaGkPP2ZEc+JnJdjLNSItpbNFal2xv6rKmRaxy8IReFiqIYfsxeo0IAJ+RWkIhEOfzc
-	 r4HoTD4ia/qPcC641kacWDK14Fm3b0Q4OnVBkeu1Wt/cQp+qeJVEDzXZQz4LkuXePZEwh
-	 JU78smOUP+/GCvD3IhEI6D5r1AufKFnfGIH9hWU93927YNFZyHqxe0S7IQFinMh6x4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794594399;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=1AnoyR0j7y5hdrymYbL+ph5cczEf+Al0Tzoil8ZfR/Q=;
+	b=qpBtbY2kvlpcTBp2litcszcP1yKM+rFyxrN2W2tYxld24K4CKPeYU6zyQkMOipBj+tc3
+	 l5CPFKbu+HyklhPpRkGSlO3vCuZuEOdsz8K49I4uPByz1I9/9nJjj/XSd93pCCEX/Ngr9
+	 VbtI0coU4QWQy6ITBI6NDjbi/M7+LyXcR7VPzCpyVxsuVi/ZCeWoCYlyc1flT60fKUBM7
+	 kKOF+3TPYrU+YULit1+jjIx8yF20zC1pd3jNmSVgkR5+ipp6j0wRwUgmx9SDXNwZla6Zc
+	 OEW46hiKbI9T87OOQRKTnxKL/dX9lOFGOHQ9L7LatKvfMLCiVT8dC6yofGjxY1Kx1nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="zd0y/uyH";
-	arc=none smtp.remote-ip=209.85.161.46
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=desiato.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=hEmKYu4c;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA07F606C14D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA07F606C14D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE11606C14B;
+	Fri, 13 Nov 2026 18:26:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EE11606C14B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zd0y/uyH
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-717034b331dso1462765eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:26:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794594396; x=1795199196; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/L/Nci4ktbTPxprvc8HZEEfP8HI+RCw3HClXWoZFfOg=;
-        b=zd0y/uyH8VHumLtC2B3NGB7Beq/Jl7uHF09PM69S0rl4kT2/Vo649ROm1BVaK/FMwl
-         0Kq43t4uPfSYs4RqPrfzIQ5ZyGMK7SY8l7xNQ1ghBXRxLDSB2QntC93oNDdDma8La2J/
-         uCq63uiShqTNLVn9voS/EIgKe3rvWSIXHj4tuN7/v6e88xlwzGbZPjEsVMfg51XafUds
-         9OHBc0Q7+r7QYGMd/LKlIozXGXM6LaGJlg6LcYtuJkTzcx2HWmUasfwJUd4oN8zlZvwN
-         W+QAS5oU4QCzdhtRYhhYUimeT9etdc9betdpYi0sLhJXNCbP4j8Zlfm9qSHcrEc1FoVS
-         Z62A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794594396; x=1795199196;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/L/Nci4ktbTPxprvc8HZEEfP8HI+RCw3HClXWoZFfOg=;
-        b=YrT9BzWloOUNNE9Qm5U2wpFmADIp5ZEOM5TTrSEatjPsHDb3TZutmRMRLf1JfIbrYS
-         K4n2v9ZT2gGfwfIq2k4bzx4iv9K5qYmfxb79EvHDVGLsZqt6D2jDIn1CaslnVS1y4GAm
-         dYavXjwLa9f9OZUwlARVkAfeOp3a6pTo0LB6jBuina0XjYbHGnURSnFRFo3iogt8h7nL
-         wx3UccxluZvpliPkm0ONL6uvrY4O5xSXGVafzaD2pDjKNw5kypjqa2gi9kHTWo58lEf4
-         bzGBMq46G9A3yVhJMUE6D/II3AQFmr2nOUsYLk7+U3Xo9GmqCXpWqIE0A72B87guts6t
-         j0MA==
-X-Forwarded-Encrypted: i=1; AL+hErH2hCNovTo/csDy7YhxYi2JR9mQvwG6RnIl38H/fgF0yjcD//aSEeF0VBt4VpR0MYayVwB9oUh4G7SSVkA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9fyPjgJomp8HzQZ4H/d3X95Te2yf+iCIS/UXU/CK6lqwvTr0iW
-	RCJtCG6YmrcEFwoBJ+kAWqkMmLsoHjhgMvNE5uA0O37mG1TAhVFX/XPB
-X-Gm-Gg: AYBFou0WIwIijEPOsfOZmcPx56+LMJUZoIRoi+W/qgDxw35DTKNdma+Stt53QfjSnTL
-	IU3yo3hcuKx0rskl3FeWmzQiHp5XFqLlebJMfHgD5LPoBfm93fnJCGkG8iPqBZ45je7haVWqxoq
-	oe5pOXw6hLR07tsDrfcm0AVpFmej8JAyyQ+CeV8qRD+ZZ8EnwIOo7XaMHEH6POMBadU4UtM8CUj
-	XGrAiYs6PKRa0OMv/LSxPu8Lfhdej+z1DMLgj5RW/RKjazZ3eJfdteWDJcZJlCNHknelUuJp5oJ
-	DbuOENTdI0+c3alggX3e42KnJqMtjEZxx1E2pjv8xrMwxlBgHvblpfOCPm9HpRc2SJMxvE4l8ko
-	1CbnlG6jUSR6uFk97XZKcMIWJTcGysFtLzGV1mgntL+RBXZXf+kSAcKRApsuEwRiZbGvhz1wJrm
-	uktS+aukR4jKAvoPi+otFVAjN73rybih7dVyi5QuNECv8NnQAW8AAhn1IjF431HTk5LGzdBNAAd
-	puU/NTeMYuYeEKzCte+Tc7eaVjaFFXKliXqkZMAhW9QN9KK7+Q/lNSwti6l5Am/ewzrINjV1OAa
-	v2B4ATlvC73+5JeZZ57Y9sX2uZfHzqYcJhUNgiHnP6ot7hhS4RaJMUxk/pmyW3990wxWsQ+nBqR
-	riosvP9IJmVp5gi8sseBGnrgWS+0nVkrfn1NovlJfuTuyegljdj2j5yn95iIoqHx6tHAi9tKgsd
-	lg1KpxZX8aVE+ONEjm3MpPauCRzAHCpy30JfJizRbxLpdK4vIiZpg=
-X-Received: by 2002:a05:6820:c449:20b0:70a:598b:12a9 with SMTP id 006d021491bc7-71ab50bcda7mr1553769eaf.53.1794594396542;
-        Fri, 13 Nov 2026 10:26:36 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4afe2011c25sm1887061fac.2.2026.11.13.10.26.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:26:33 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 13 Nov 2026 11:15:13 -0700
-Subject: [PATCH v4 57/58] mtd: rawnand: cs553x: retain chip state across
- removal
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=hEmKYu4c
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=1AnoyR0j7y5hdrymYbL+ph5cczEf+Al0Tzoil8ZfR/Q=; b=hEmKYu4crsHN6alaS6gx4febeC
+	bBb2NUhbMZ5nWRl3GR3qDIUZZj9V3hZFviUpX5E2SmikEwTum+wkvcL4hR0+ud4EXfbfT1pTv97r7
+	H4nSpPnODolqqQyw81YXnMDLl0QPwSyDqGfhmTW7fXZZ8+vwMO0rVE5rjn8OPd9mCSstFbUmL8VKp
+	C4gP2NpnmJg/mzEAIWov1vU4Y6mRSlilz+pPxacK8RJLR6siF04H7xrN0yrsJXKReF40AqvkNEXAM
+	L+zp+1MsgIWI5PCEqROMMPtxAiLdq0lcO2na+uqUF9pTLSSafp6xbLjyHWyynqv6BPqWFTL6CBVCY
+	e26pXl9g==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRvyU-0000000BeOY-15uE;
+	Fri, 13 Nov 2026 18:26:30 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xRvyR-00000000LY7-2B60;
+	Fri, 13 Nov 2026 18:26:07 +0000
+From: David Woodhouse <dwmw2@infradead.org>
+To: =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	ashish.kalra@amd.com,
+	michael.roth@amd.com,
+	nsaenz@amazon.com,
+	anelkz@amazon.de,
+	James.Bottomley@HansenPartnership.com,
+	Melody Wang <huibo.wang@amd.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	kvm-riscv@lists.infradead.org,
+	x86@kernel.org,
+	coconut-svsm@lists.linux.dev,
+	joerg.roedel@amd.com,
+	Mushahid Hussain <hmushi@amazon.co.uk>,
+	Sriram Nambakam <snambakam@linux.microsoft.com>,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [RFC PATCH 05/13] KVM: selftests: Cover plane run-state ioctls in planes_test
+Date: Fri, 13 Nov 2026 11:25:59 -0700
+Message-ID: <20261113182607.82813-6-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261113182607.82813-1-dwmw2@infradead.org>
+References: <20260608144252.351443-1-joro@8bytes.org>
+ <20261113182607.82813-1-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,139 +90,264 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-57-556b1d7c6221@gmail.com>
-References: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
-In-Reply-To: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-Keep chip metadata alive while MTD references remain after a partial
-registration is unwound. Disconnect before unmapping the
-controller, and release the backing allocation at the final MTD put.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-Check registration failures and release the corresponding controller
-without leaving it in the registered-device array.
+Assert that a new plane-1 vCPU starts with KVM_PLANE_RUN_STATE_INACTIVE
+and plane 0's with no flags, that every valid combination of
+KVM_PLANE_RUN_STATE_USER_HOLD, KVM_PLANE_RUN_STATE_SUSPENDED and
+KVM_PLANE_RUN_STATE_INACTIVE reads back as written (so a saved state
+restores), and that clearing them reads back as runnable. INACTIVE on
+plane 0, INACTIVE together with SUSPENDED and the lowest undefined bit
+are refused with EINVAL, and a refused SET leaves an existing hold in
+place. On a VM that did not enable more than one plane both ioctls fail
+with EINVAL.
 
-Run NAND cleanup during disconnection; the final core-owned put only
-releases retained allocation and layout data.
+With plane 0 held and nothing runnable, KVM_RUN still honours
+immediate_exit with EINTR, and otherwise exits with KVM_EXIT_PLANE_EVENT
+and cause KVM_PLANE_EVENT_HELD, with kvm_run's if_flag and apic_base
+filled in as on any other exit. That exit leaves registers marked in
+kvm_dirty_regs unconsumed and unrefreshed, and once plane 1 is released
+they land in plane 1, not plane 0. If plane 0 holds a pending I/O
+completion, here from a real-mode OUT, a held KVM_RUN fails with EBUSY,
+with or without immediate_exit, leaves the KVM_EXIT_IO in kvm_run and
+plane 0's RIP on the OUT, and the OUT retires once plane 0 is released.
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- drivers/mtd/nand/raw/cs553x_nand.c | 44 +++++++++++++++++++++++++-------------
- 1 file changed, 29 insertions(+), 15 deletions(-)
+ tools/testing/selftests/kvm/x86/planes_test.c | 198 +++++++++++++++++-
+ 1 file changed, 196 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/cs553x_nand.c b/drivers/mtd/nand/raw/cs553x_nand.c
-index 0b872b1e3b04..4a43f5e542ca 100644
---- a/drivers/mtd/nand/raw/cs553x_nand.c
-+++ b/drivers/mtd/nand/raw/cs553x_nand.c
-@@ -263,6 +263,7 @@ static int __init cs553x_init_one(int cs, int mmio, unsigned long adr)
- 	int err = 0;
- 	struct nand_chip *this;
- 	struct mtd_info *new_mtd;
-+	const char *name;
+diff --git a/tools/testing/selftests/kvm/x86/planes_test.c b/tools/testing/selftests/kvm/x86/planes_test.c
+index f7db6cb6807d..968f1b099b8e 100644
+--- a/tools/testing/selftests/kvm/x86/planes_test.c
++++ b/tools/testing/selftests/kvm/x86/planes_test.c
+@@ -8,6 +8,10 @@
+ #include <string.h>
  
- 	pr_notice("Probing CS553x NAND controller CS#%d at %sIO 0x%08lx\n",
- 		  cs, mmio ? "MM" : "P", adr);
-@@ -285,9 +286,6 @@ static int __init cs553x_init_one(int cs, int mmio, unsigned long adr)
- 	this->controller = &controller->base;
- 	new_mtd = nand_to_mtd(this);
- 
--	/* Link the private data with the MTD structure */
--	new_mtd->owner = THIS_MODULE;
--
- 	/* map physical address */
- 	controller->mmio = ioremap(adr, 4096);
- 	if (!controller->mmio) {
-@@ -309,6 +307,13 @@ static int __init cs553x_init_one(int cs, int mmio, unsigned long adr)
- 	err = nand_scan(this, 1);
- 	if (err)
- 		goto out_free;
-+	name = new_mtd->name;
-+	err = nand_set_lifetime(this, container_of(this, struct cs553x_nand_controller, chip));
-+	if (err) {
-+		nand_cleanup(this);
-+		goto out_free;
-+	}
-+	kfree(name);
- 
- 	controllers[cs] = controller;
- 	goto out;
-@@ -344,6 +349,7 @@ static int __init cs553x_init(void)
- {
- 	int err = -ENXIO;
- 	int i;
-+	int registered = 0;
- 	uint64_t val;
- 
- 	/* If the CPU isn't a Geode GX or LX, abort */
-@@ -374,14 +380,22 @@ static int __init cs553x_init(void)
- 	   do mtdconcat etc. if we want to. */
- 	for (i = 0; i < NR_CS553X_CONTROLLERS; i++) {
- 		if (controllers[i]) {
--			/* If any devices registered, return success. Else the last error. */
--			mtd_device_register(nand_to_mtd(&controllers[i]->chip),
--					    NULL, 0);
--			err = 0;
-+			struct cs553x_nand_controller *controller = controllers[i];
-+			struct mtd_info *mtd = nand_to_mtd(&controller->chip);
+ #include "kvm_util.h"
++#include "processor.h"
 +
-+			err = mtd_device_register(mtd, NULL, 0);
-+			if (err) {
-+				nand_disconnect(&controller->chip);
-+				iounmap(controller->mmio);
-+				controllers[i] = NULL;
-+				mtd_put_master(mtd);
-+			} else {
-+				registered++;
-+			}
- 		}
- 	}
++/* Where the run-state test puts plane 0's one instruction. */
++#define CODE_GPA	0x1000
  
--	return err;
-+	return registered ? 0 : err;
+ /*
+  * Whether this host lets a VM have more than one plane: the opt-in also
+@@ -61,12 +65,22 @@ static void test_enable_cap_bounds(void)
+ static void test_enable_cap_too_late(void)
+ {
+ 	struct kvm_vm *vm = vm_create_barebones_irqchip(true);
+-
+-	__vm_vcpu_add(vm, 0);
++	struct kvm_vcpu *vcpu = __vm_vcpu_add(vm, 0);
+ 
+ 	TEST_ASSERT_EQ(__vm_enable_cap(vm, KVM_CAP_PLANES, 2), -1);
+ 	TEST_ASSERT_EQ(errno, EEXIST);
+ 
++	/* Without more than one user-managed plane there is no run state. */
++	{
++		u64 flags;
++
++		TEST_ASSERT_EQ(__vcpu_ioctl(vcpu, KVM_GET_PLANE_RUN_STATE, &flags), -1);
++		TEST_ASSERT_EQ(errno, EINVAL);
++		flags = 0;
++		TEST_ASSERT_EQ(__vcpu_ioctl(vcpu, KVM_SET_PLANE_RUN_STATE, &flags), -1);
++		TEST_ASSERT_EQ(errno, EINVAL);
++	}
++
+ 	kvm_vm_free(vm);
  }
  
- module_init(cs553x_init);
-@@ -392,25 +406,25 @@ static void __exit cs553x_cleanup(void)
+@@ -107,6 +121,186 @@ static void test_plane_lifecycle(void)
+ 	vcpu0 = __vm_vcpu_add(vm, 0);
+ 	vcpu1 = __vm_plane_vcpu_add(vcpu0, plane);
  
- 	for (i = 0; i < NR_CS553X_CONTROLLERS; i++) {
- 		struct cs553x_nand_controller *controller = controllers[i];
--		struct nand_chip *this = &controller->chip;
--		struct mtd_info *mtd = nand_to_mtd(this);
-+		struct nand_chip *this;
-+		struct mtd_info *mtd;
- 		int ret;
- 
--		if (!mtd)
-+		if (!controller)
- 			continue;
-+		this = &controller->chip;
-+		mtd = nand_to_mtd(this);
- 
- 		/* Release resources, unregister device */
- 		ret = mtd_device_unregister(mtd);
- 		WARN_ON(ret);
--		nand_cleanup(this);
--		kfree(mtd->name);
-+		nand_disconnect(this);
- 		controllers[i] = NULL;
- 
- 		/* unmap physical address */
- 		iounmap(controller->mmio);
- 
--		/* Free the MTD device structure */
--		kfree(controller);
-+		mtd_put_master(mtd);
- 	}
- }
- 
-
++	/*
++	 * A new plane-1 vCPU is inactive, and plane 0's has no flags.
++	 * Every valid combination reads back as written, so a saved state
++	 * restores; unknown bits, INACTIVE on plane 0 and INACTIVE together
++	 * with SUSPENDED are refused.
++	 */
++	{
++		static const u64 states[] = {
++			KVM_PLANE_RUN_STATE_USER_HOLD,
++			KVM_PLANE_RUN_STATE_SUSPENDED,
++			KVM_PLANE_RUN_STATE_USER_HOLD |
++				KVM_PLANE_RUN_STATE_SUSPENDED,
++			KVM_PLANE_RUN_STATE_INACTIVE,
++			KVM_PLANE_RUN_STATE_USER_HOLD |
++				KVM_PLANE_RUN_STATE_INACTIVE,
++			0,
++		};
++		u64 flags = ~0ULL;
++		int i;
++
++		plane_vcpu_ioctl(vcpu1, KVM_GET_PLANE_RUN_STATE, &flags);
++		TEST_ASSERT_EQ(flags, KVM_PLANE_RUN_STATE_INACTIVE);
++		flags = ~0ULL;
++		vcpu_ioctl(vcpu0, KVM_GET_PLANE_RUN_STATE, &flags);
++		TEST_ASSERT_EQ(flags, 0);
++
++		flags = KVM_PLANE_RUN_STATE_INACTIVE;
++		TEST_ASSERT_EQ(__vcpu_ioctl(vcpu0, KVM_SET_PLANE_RUN_STATE,
++					    &flags), -1);
++		TEST_ASSERT_EQ(errno, EINVAL);
++
++		for (i = 0; i < ARRAY_SIZE(states); i++) {
++			flags = states[i];
++			plane_vcpu_ioctl(vcpu1, KVM_SET_PLANE_RUN_STATE, &flags);
++			flags = ~0ULL;
++			plane_vcpu_ioctl(vcpu1, KVM_GET_PLANE_RUN_STATE, &flags);
++			TEST_ASSERT_EQ(flags, states[i]);
++		}
++
++		/* A refused SET leaves the hold in place. */
++		flags = KVM_PLANE_RUN_STATE_USER_HOLD;
++		plane_vcpu_ioctl(vcpu1, KVM_SET_PLANE_RUN_STATE, &flags);
++
++		flags = KVM_PLANE_RUN_STATE_INACTIVE | KVM_PLANE_RUN_STATE_SUSPENDED;
++		TEST_ASSERT_EQ(__plane_vcpu_ioctl(vcpu1, KVM_SET_PLANE_RUN_STATE,
++						  &flags), -1);
++		TEST_ASSERT_EQ(errno, EINVAL);
++
++		/* The lowest bit that no flag defines. */
++		flags = ~(u64)(KVM_PLANE_RUN_STATE_USER_HOLD |
++			       KVM_PLANE_RUN_STATE_SUSPENDED |
++			       KVM_PLANE_RUN_STATE_INACTIVE);
++		flags &= -flags;
++		TEST_ASSERT_EQ(__plane_vcpu_ioctl(vcpu1, KVM_SET_PLANE_RUN_STATE,
++						  &flags), -1);
++		TEST_ASSERT_EQ(errno, EINVAL);
++		flags = ~0ULL;
++		plane_vcpu_ioctl(vcpu1, KVM_GET_PLANE_RUN_STATE, &flags);
++		TEST_ASSERT_EQ(flags, KVM_PLANE_RUN_STATE_USER_HOLD);
++	}
++
++	/*
++	 * Plane 1 is held from above.  With plane 0 held too, nothing is
++	 * runnable, and KVM_RUN hands that back to userspace instead of
++	 * running the held plane 0.
++	 */
++	{
++		u64 flags = KVM_PLANE_RUN_STATE_USER_HOLD;
++		struct kvm_regs regs;
++
++		vcpu_ioctl(vcpu0, KVM_SET_PLANE_RUN_STATE, &flags);
++
++		/* immediate_exit yields EINTR, as on any KVM_RUN. */
++		vcpu0->run->immediate_exit = 1;
++		TEST_ASSERT_EQ(__vcpu_run(vcpu0), -1);
++		TEST_ASSERT_EQ(errno, EINTR);
++		vcpu0->run->immediate_exit = 0;
++
++		/* The exit fills in kvm_run like any other: poison two fields. */
++		vcpu0->run->if_flag = 0xff;
++		vcpu0->run->apic_base = 0;
++		TEST_ASSERT_EQ(__vcpu_run(vcpu0), 0);
++		TEST_ASSERT_EQ(vcpu0->run->exit_reason, KVM_EXIT_PLANE_EVENT);
++		TEST_ASSERT_EQ(vcpu0->run->plane_event.cause, KVM_PLANE_EVENT_HELD);
++		TEST_ASSERT_EQ(vcpu0->run->plane_event.plane, 0);
++		TEST_ASSERT_EQ(vcpu0->run->if_flag, 0);
++		TEST_ASSERT_EQ(vcpu0->run->apic_base,
++			       vcpu_get_msr(vcpu0, MSR_IA32_APICBASE));
++
++		/*
++		 * Registers userspace marks dirty are for the plane that runs
++		 * next: the held exit neither consumes nor overwrites them.
++		 */
++		plane_vcpu_ioctl(vcpu1, KVM_GET_REGS, &vcpu0->run->s.regs.regs);
++		vcpu0->run->s.regs.regs.rdx = 0x5ca1ab1e;	/* arbitrary marker */
++		vcpu0->run->kvm_valid_regs = KVM_SYNC_X86_REGS;
++		vcpu0->run->kvm_dirty_regs = KVM_SYNC_X86_REGS;
++		TEST_ASSERT_EQ(__vcpu_run(vcpu0), 0);
++		TEST_ASSERT_EQ(vcpu0->run->exit_reason, KVM_EXIT_PLANE_EVENT);
++		TEST_ASSERT_EQ(vcpu0->run->kvm_dirty_regs, KVM_SYNC_X86_REGS);
++		TEST_ASSERT_EQ(vcpu0->run->s.regs.regs.rdx, 0x5ca1ab1e);
++
++		/*
++		 * Released, plane 1 is next and takes them; immediate_exit
++		 * stops it before entry, after the registers are applied.
++		 */
++		flags = 0;
++		plane_vcpu_ioctl(vcpu1, KVM_SET_PLANE_RUN_STATE, &flags);
++		vcpu0->run->immediate_exit = 1;
++		TEST_ASSERT_EQ(__vcpu_run(vcpu0), -1);
++		TEST_ASSERT_EQ(errno, EINTR);
++		vcpu0->run->immediate_exit = 0;
++		TEST_ASSERT_EQ(vcpu0->run->kvm_dirty_regs, 0);
++		vcpu0->run->kvm_valid_regs = 0;
++
++		plane_vcpu_ioctl(vcpu1, KVM_GET_REGS, &regs);
++		TEST_ASSERT_EQ(regs.rdx, 0x5ca1ab1e);
++		vcpu_ioctl(vcpu0, KVM_GET_REGS, &regs);
++		TEST_ASSERT(regs.rdx != 0x5ca1ab1e,
++			    "plane 0 took the registers dirtied while it was held");
++
++		vcpu_ioctl(vcpu0, KVM_SET_PLANE_RUN_STATE, &flags);
++	}
++
++	/*
++	 * A completion plane 0 still owes its last exit stays pending while
++	 * plane 0 is held: KVM_RUN fails with EBUSY and leaves the exit in
++	 * kvm_run, and the completion runs once plane 0 runs again.  The
++	 * exit is a real-mode OUT at CODE_GPA, which userspace handles.
++	 */
++	{
++		static const u8 out_insn[] = { 0xe6, 0x10 };	/* out %al, $0x10 */
++		u64 flags = KVM_PLANE_RUN_STATE_USER_HOLD;
++		struct kvm_sregs sregs;
++		struct kvm_regs regs;
++
++		vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, CODE_GPA,
++					    1, 1, 0);
++		memcpy(addr_gpa2hva(vm, CODE_GPA), out_insn, sizeof(out_insn));
++
++		vcpu_sregs_get(vcpu0, &sregs);
++		sregs.cs.selector = 0;
++		sregs.cs.base = 0;
++		vcpu_sregs_set(vcpu0, &sregs);
++		vcpu_regs_get(vcpu0, &regs);
++		regs.rip = CODE_GPA;
++		vcpu_regs_set(vcpu0, &regs);
++
++		/* Plane 1 stays held, so only plane 0 can run. */
++		plane_vcpu_ioctl(vcpu1, KVM_SET_PLANE_RUN_STATE, &flags);
++		TEST_ASSERT_EQ(__vcpu_run(vcpu0), 0);
++		TEST_ASSERT_EQ(vcpu0->run->exit_reason, KVM_EXIT_IO);
++		TEST_ASSERT_EQ(vcpu0->run->io.direction, KVM_EXIT_IO_OUT);
++		TEST_ASSERT_EQ(vcpu0->run->io.port, 0x10);
++
++		vcpu_ioctl(vcpu0, KVM_SET_PLANE_RUN_STATE, &flags);
++		vcpu0->run->immediate_exit = 1;
++		TEST_ASSERT_EQ(__vcpu_run(vcpu0), -1);
++		TEST_ASSERT_EQ(errno, EBUSY);
++		vcpu0->run->immediate_exit = 0;
++		TEST_ASSERT_EQ(__vcpu_run(vcpu0), -1);
++		TEST_ASSERT_EQ(errno, EBUSY);
++		TEST_ASSERT_EQ(vcpu0->run->exit_reason, KVM_EXIT_IO);
++		TEST_ASSERT_EQ(vcpu0->run->io.port, 0x10);
++		vcpu_regs_get(vcpu0, &regs);
++		TEST_ASSERT_EQ(regs.rip, CODE_GPA);
++
++		/* Released, plane 0 retires the OUT before immediate_exit. */
++		flags = 0;
++		vcpu_ioctl(vcpu0, KVM_SET_PLANE_RUN_STATE, &flags);
++		vcpu0->run->immediate_exit = 1;
++		TEST_ASSERT_EQ(__vcpu_run(vcpu0), -1);
++		TEST_ASSERT_EQ(errno, EINTR);
++		vcpu0->run->immediate_exit = 0;
++		vcpu_regs_get(vcpu0, &regs);
++		TEST_ASSERT_EQ(regs.rip, CODE_GPA + sizeof(out_insn));
++
++		plane_vcpu_ioctl(vcpu1, KVM_SET_PLANE_RUN_STATE, &flags);
++	}
++
+ 	/* Register state is per plane: write plane 1, plane 0 unaffected. */
+ 	plane_vcpu_ioctl(vcpu1, KVM_GET_REGS, &regs1);
+ 	regs1.rbx = 0x5157ca11;	/* arbitrary marker */
 -- 
-2.53.0
+2.50.1
 
