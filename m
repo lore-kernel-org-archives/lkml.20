@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794531773;
-	b=L6fYj0KZoaRWLDuevGzlwZJ5LKnr8UdDzpJeE882JKlxm537FUgTRDuW9UPLzw1j8PqH
-	 84lF1tvMRuvYO248a7YCK9fNgc6dWrIzOh70Cd8W++ZD1iBEmea27GgZ/piLhZwlvaAC8
-	 WV9xGlaM3bs7hNMMbmIU2OmRVAZ0+f2WXBUiVH6NuMPqFRlBADpc62PH3+KAuYp/bRbnf
-	 ZHcDRtIHNLkSdNdRACCMVH36bzQEmgLAvVP6JwM82PO9AsnGWzyjNA6EdOxLOOWRtuLfP
-	 YISYmOSoaGPLATeLKR4yeK9k1+2tNfU1sZw+TmPIHhzTO2dk0fgTDyQ7hJ6Om99OUrw==
+	t=1794531881;
+	b=rKEILJhznATRP587Flxc8iZR+gbPk5b63hFM8BXyt8+GElMkISWLOMxfN3D1Jzp0Lz+d
+	 rppnfjWaBuT5ImKisypTYRJj7MjevSCqO3F6gH5B0pMf6fyHO0/EjS077cxf0Bl2gGwTh
+	 63xMRp8cPCrwUkQBge+3x9Dhhrn+nEiZWUK2f87FCOpzH/w7zHlfzvnJam1DT8WS0o9dY
+	 ZBOLKv5JC3D2sY3cyF2IQNJO/j7f+93l8dYCR4c4h9oFNwpg09U4bSwJqmlGukvSFogBv
+	 azw4Zeojas/7Iyh/d29Oa/ScTl9JAH332VT6Z+iR3BQegvLfdWe8qiSZNASdKHaNgbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794531773;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=nIAyxgbc0dBhpCr5slLCIJwaBkTcRa7SaWQgrgx1Si8=;
-	b=066fc93Tu0RC2TwQWuoLRFmeBvc+T9krCS9R8GB0lhYEmMRvHxS//MfRP+j2IRFd71Td
-	 r54TAzswOtgedcxkrl8qhSG/JQoEr07teGZWI2BoD6PKS+sPWfwHJeApodhFRiV+lyrS9
-	 kwZIydsMKHMZGdCHIFYBuDVGO0DUDPzZIItX6Hj3BbRLmq60NilBiKqfRD9PZ3Qja5oHS
-	 vPaT3mYgvqk/y/YPNmXPvuXFxg5udQFSW7G5z0OIQk1UwH7acSPlYkMiwf/OaivoOJgSf
-	 qmg+P18tj1fvwWpgFwqOJGhtgH5ovbwR4E7um5FFIntC4TRVkmy+fk84hTrl64W6k9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794531881;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=gVbU/8JPE5V4Tpy3sU+jiRyX3k8tAyApN/EFzo86Rhs=;
+	b=utPeHFyF+tPWEmmJtYtoqJ3SWgn5sU6GrjLRFIbBW5m709DYx2Ec6HWAC3UAC9/UxgiY
+	 X1sjXtxVoz97OZK7YoCh4Ao5BOzCS8pImMPj8Vumr6hqNkRBpWBPIG2LGOXaQ92cRPh0h
+	 yB99oluP0uyMB7SfjTTWke++hJUhe5CpAqrN1WvdymQm4+HDi+Gw9d01aCi20NqHEE1qU
+	 ingPCYYO/N6dKepOKfGNfM3nCWjj6cmZj23Vty6xuBXjpGo7QWm+cY2lQY44K63LDBUsd
+	 xpXCC5AvfSk8H2/pU2EzsyiM0v6N29O6VqKIY12HjPUipZMXjkXSgorbBYDD7ylreow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=UPoJn0rz;
-	arc=none smtp.remote-ip=109.224.244.16
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80408606A888;
-	Fri, 13 Nov 2026 01:02:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80408606A888
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=EAeqLQhu;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2A5D2606A32A;
+	Fri, 13 Nov 2026 01:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A5D2606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=UPoJn0rz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794531769; x=1794790969;
-	bh=nIAyxgbc0dBhpCr5slLCIJwaBkTcRa7SaWQgrgx1Si8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=UPoJn0rzmtHUnLQ3O/nDivcaaFknqIJOpiUP6CguPaEYrsZf9c4+VWjk9lh8C1RQ0
-	 U6UdFKyG5ILHNkFJtK40fc/kPVF9udi3XKUxhZIV/IBnUvgHg4wzUzW8SNoiZPP08Y
-	 UCluRZj4JY7xfr4a2jMkmx1GaJIY29RQcEGwbr5F7zdRmIRc7iQ9mqBzvRMhYWVp2l
-	 Cj/St8K+v3rNSvmk/FCJ06oPLBfCUy9Sq/0ecwro+jy4dQvhOT1p+Q7jm4Gvf4MHB8
-	 utS7d8+rT29949okFa++22lapjfVSay/+HbGqObp0nPgnhe1F2qNieLlfu4fctyTD3
-	 ugaaZWpYtmmww==
-Date: Fri, 13 Nov 2026 01:02:45 +0000
-To: Paolo Abeni <pabeni@redhat.com>, netdev-bot+sashiko@kernel.org
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Cc: Sidraya Jayagond <sidraya@linux.ibm.com>, Jakub Kicinski <kuba@kernel.org>, Mahanta Jambigi <mjambigi@linux.ibm.com>, "D . Wythe" <alibuda@linux.alibaba.com>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Guangguan Wang <guangguan.wang@linux.alibaba.com>, Ursula Braun <ubraun@linux.ibm.com>, Stefan Raspl <raspl@linux.ibm.com>, linux-s390@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>, linux-kernel@vger.kernel.org, Hidayath Khan <hidayath@linux.ibm.com>, Simon Horman <horms@kernel.org>, Wenjia Zhang <wenjia@linux.ibm.com>, Tony Lu <tonylu@linux.alibaba.com>, linux-rdma@vger.kernel.org, netdev@vger.kernel.org, Dust Li <dust.li@linux.alibaba.com>
-Subject: Re: [PATCH net v8 4/4] net/smc: bound the link failover cursor advance to the send buffer
-Message-ID: <20261113010235.418440-1-hexlabsecurity@proton.me>
-In-Reply-To: <fc454b46-b66c-4a16-aa1c-3ea0c2e91d15@redhat.com>
-References: <20261029-b4-disp-33001ace-v8-4-f9bb96e17827@proton.me> <179364387382.3131.13471253186660322977@kernel.org> <fc454b46-b66c-4a16-aa1c-3ea0c2e91d15@redhat.com>
-Feedback-ID: 199661219:user:proton
-X-Pm-Message-ID: 3134a679630143b5913b128635697a100cf4272a
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=EAeqLQhu
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3C9E9169C;
+	Thu, 12 Nov 2026 17:04:36 -0800 (PST)
+Received: from [10.57.67.215] (unknown [10.57.67.215])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CC15A3F632;
+	Thu, 12 Nov 2026 17:04:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794531879; bh=9dMYhU0WWNPR+Ta4CK4SjyDUrDPMjrGxgkSS46Xa71E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=EAeqLQhuToMk7SuICWPxyDE3Ru/0zt9OIGnbLWxeIMBMnawdnAWAiXgKwUhCMoE5I
+	 0TiiFj2Ker405Hyb4Z7ggwhCgllTXx3XD0Az0umrkvY4SnBM6H56bym2cv3bTOS21h
+	 efQZzplsXmEFAQz2xfKoEuLgjF3L6MikLDrO5yRo=
+Message-ID: <e1690e53-70fb-47fe-bd06-4758b1e196d2@arm.com>
+Date: Fri, 13 Nov 2026 01:04:34 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,81 +53,352 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/12] KVM: arm64: CCA: Tear down RTTs
+Content-Language: en-GB
+To: Steven Price <steven.price@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
+ Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
+ <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
+ Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
+ Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+ Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
+ <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
+ Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Kohei Enju <enju.kohei@fujitsu.com>
+References: <20261111145758.217946-1-steven.price@arm.com>
+ <20261111145758.217946-8-steven.price@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261111145758.217946-8-steven.price@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 11/3/26 11:22, Paolo Abeni wrote:
-> On 11/2/26 19:24, netdev-bot+sashiko@kernel.org wrote:
-> > - [Medium] The patch adds a cons.count < peer_rmbe_size gate to
-> >    smc_switch_cursor().
-> > - [Medium] The new bound in smc_switch_cursor(), diff <=3D
-> >    smc_curs_diff(len, &tx_curs_sent, &prep), is computed from a snapsho=
-t...
-> I think the above are the last 2 comments standing that need to be addres=
-sed,
-> (the high one in patch 1 is addressed by patch 2, the high one in patch 2=
- is
-> addressed by a separate patch).
+On 11/11/2026 14:57, Steven Price wrote:
+> The RMM owns the stage 2 page tables for a realm, and KVM must request
+> that the RMM creates/destroys entries as necessary. The physical pages
+> to store the page tables are delegated to the realm as required, and can
+> be undelegated when no longer used.
+> 
+> Creating new RTTs is the easy part, tearing down is a little more
+> tricky. The result of realm_rtt_destroy() can be used to effectively
+> walk the tree and destroy the entries (undelegating pages that were
+> given to the realm).
+> 
+> Tear down a created Realm whether it is still new or has been activated.
+> Unmap the Realm IPA space once during stage-2 teardown. Defer
+> destruction of non-root RTTs until final Realm destruction, after
+> REALM_TERMINATE and before destroying the RD; root RTTs remain until the
+> RD has gone away.
+> 
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> 
+> ---
+> Changes since v1:
+> - Tear down created Realms in both NEW and ACTIVE states. Fix the
+>    RTT start level, page accounting on failed undelegation, and
+>    handling of RTT granules returned by RMI.
+> ---
+>   arch/arm64/include/asm/kvm_rmi.h |   9 ++
+>   arch/arm64/kvm/mmu.c             |  18 ++-
+>   arch/arm64/kvm/rmi.c             | 189 +++++++++++++++++++++++++++++++
+>   3 files changed, 215 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_rmi.h b/arch/arm64/include/asm/kvm_rmi.h
+> index f1a1ed6b91f5..58d825e40bdf 100644
+> --- a/arch/arm64/include/asm/kvm_rmi.h
+> +++ b/arch/arm64/include/asm/kvm_rmi.h
+> @@ -57,6 +57,7 @@ enum realm_state {
+>    * @sro: Preallocated SRO state context for Realm MMU operations
+>    * @state: The lifetime state machine for the realm
+>    * @ia_bits: Number of valid Input Address bits in the IPA
+> + * @stage2_unmapped: The Realm stage-2 mappings have been removed
+>    */
+>   struct realm {
+>   	void *rd;
+> @@ -70,6 +71,7 @@ struct realm {
+>   	struct rmi_sro_state *sro;
+>   	enum realm_state state;
+>   	unsigned int ia_bits;
+> +	bool stage2_unmapped;
+>   };
+>   
+>   void kvm_init_rmi(void);
+> @@ -77,5 +79,12 @@ u32 kvm_rmm_ipa_limit(void);
+>   
+>   int kvm_init_realm(struct kvm *kvm);
+>   void kvm_destroy_realm(struct kvm *kvm);
+> +int kvm_realm_teardown_stage2(struct kvm *kvm);
+> +
+> +static inline bool kvm_realm_is_private_address(struct realm *realm,
+> +						unsigned long addr)
+> +{
+> +	return !(addr & BIT(realm->ia_bits - 1));
+> +}
+>   
+>   #endif /* __ASM_KVM_RMI_H */
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index 9df3f8d5b4ef..be014f6c00e7 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -1145,9 +1145,25 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu, unsigned long t
+>   	return err;
+>   }
+>   
+> +static void kvm_realm_uninit_stage2(struct kvm_s2_mmu *mmu)
+> +{
+> +	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
+> +
+> +	mutex_lock(&kvm->arch.config_lock);
+> +	if (kvm_realm_state(kvm) == REALM_STATE_NEW ||
+> +	    kvm_realm_state(kvm) == REALM_STATE_ACTIVE) {
+> +		kvm_set_realm_state(kvm, REALM_STATE_DYING);
+> +		WARN_ON(kvm_realm_teardown_stage2(kvm));
+> +	}
+> +	mutex_unlock(&kvm->arch.config_lock);
+> +}
+> +
+>   void kvm_uninit_stage2_mmu(struct kvm *kvm)
+>   {
+> -	kvm_free_stage2_pgd(&kvm->arch.mmu);
+> +	if (kvm_realm_is_created(kvm))
+> +		kvm_realm_uninit_stage2(&kvm->arch.mmu);
+> +	else
+> +		kvm_free_stage2_pgd(&kvm->arch.mmu);
 
-Both are right; v9 [1] changes the code for each.
+We added kvm_free_stage2_pgd() from kvm_destroy_realm() for Realms in
+the previous patch. Should we move that here since, this is where we
 
-> > - [Medium] The patch adds a cons.count < peer_rmbe_size gate to
-> >    smc_switch_cursor().
+1. Deal with tearing down stage2
+2. And more importantly we are skipping it for Realms.
 
-For a count past the RMBE, v8 turned a stalled connection into a write
-past the peer's RMBE. A check in smc_write_space() isn't enough:
-smc_cdc_msg_recv_action() credits peer_rmbe_space from the next
-consumer cursor, so one more CDC after the switch opens the window
-again. A conforming peer gets the same write if it keeps reading across
-the end of its RMBE before the resend.
 
-v9 bounds the write where its length and destination are computed (new
-5/6): at most one RMBE per call, and the first chunk ends no later than
-the RMBE whatever the wraps say. On rxe with a 16K RMBE and the count
-forged at RMBE + 4096, v8 posts 16384 bytes from offset 1 and the link
-goes down; v9 posts 16383 + 1 and the link stays up. With a conforming
-peer, 9000 bytes unconfirmed at the failover and read before the
-resend, then 2000 more sent, unpatched and v8 post the 11000 bytes in
-one chunk from offset 12001 and the surviving link goes down; v9 posts
-4383 + 6617 and the peer reads the stream intact.
+>   	kvm_mmu_free_memory_cache(&kvm->arch.mmu.split_page_cache);
+>   }
+>   
+> diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
+> index 69c628cfb6c7..b904e6541fb0 100644
+> --- a/arch/arm64/kvm/rmi.c
+> +++ b/arch/arm64/kvm/rmi.c
+> @@ -11,16 +11,193 @@
+>   #include <asm/kvm_pgtable.h>
+>   #include <asm/virt.h>
+>   
+> +static inline unsigned long rmi_rtt_level_mapsize(int level)
+> +{
+> +	if (WARN_ON(level > KVM_PGTABLE_LAST_LEVEL))
+> +		return PAGE_SIZE;
+> +
+> +	return (1UL << ARM64_HW_PGTABLE_LEVEL_SHIFT(level));
+> +}
+> +
 
-5/6 turns one-chunk writes into two, so it sits on a fix for how
-smcr_tx_rdma_writes() sizes the second chunk's source (new 4/6, the
-pre-existing [High] on the source SGE in the review of v7's 4/4). A
-conforming peer reaches that one: a completion handled between the
-first two cursor copies of smc_switch_cursor() leaves tx_curs_sent 600
-bytes behind prod, and unpatched and v8 then build a source SGE that
-ends 4536 bytes past the send buffer (KASAN splat on the unpatched
-run).
+We agreed to use kvm_granule_size() instead of this ?
 
-> > - [Medium] The new bound in smc_switch_cursor(), diff <=3D
-> >    smc_curs_diff(len, &tx_curs_sent, &prep), is computed from a snapsho=
-t...
+https://lore.kernel.org/all/cb183290-3fee-4535-aa3e-5cc172c2323a@arm.com
 
-6/6 (v8's 4/4) sets tx_curs_fin and local_tx_ctrl_fin from the advanced
-tx_curs_sent and local_tx_ctrl.prod, which change only under send_lock,
-instead of adding to the live cursors: the first of the review's two
-options. With a completion handed to smc_cdc_tx_handler() inside the
-switch (test hook), v8 leaves local_tx_ctrl_fin at count 16713 for a
-16384-byte RMBE; v9 leaves it on prod.
 
-The switch still isn't serialized against smc_cdc_tx_handler(): a
-completion handled inside it is still credited to sndbuf_space more
-than once (the pre-existing [High] on that race) and can make the next
-write hand the peer bytes it has already read. 3/6 keeps send() inside
-the send buffer, but send() can then overwrite data the peer has not
-received (by inspection). Serializing the switch means taking the
-socket spinlock around send_lock in smc_switch_conns(); v9 doesn't do
-that. In two races with a completion inside the switch v9 ends worse
-than unpatched; the cover has both.
 
-The [Low] of that review, on the new comment in smc_switch_cursor():
-6/6's comment no longer says "else that peer stalls", and the message
-no longer says "still sizes".
+>   u32 kvm_rmm_ipa_limit(void)
+>   {
+>   	return u64_get_bits(rmi_feat_reg(0), RMI_FEATURE_REGISTER_0_S2SZ);
+>   }
+>   
+> +static int get_start_level(struct realm *realm)
+> +{
+> +	return 4 - max(2, stage2_pgtable_levels(realm->ia_bits));
 
-[1] https://lore.kernel.org/all/20261112-b4-disp-0287c16e-v9-0-e5e8fa688177=
-@proton.me/
+I don't think we need this "max()". ia_bits is guaranteed to be
+ >= 32bit (ARM64_MIN_PARANGE_BITS, see kvm_init_ipa_range()), implying
+that we have at least 2 levels on all page sizes.
 
-Thanks,
-Bryam
+> +}
+> +
+> +static void free_rtt(phys_addr_t phys)
+> +{
+> +	kvm_account_pgtable_pages(phys_to_virt(phys), -1);
+> +	if (rmi_free_delegated_page(phys))
+> +		kvm_account_pgtable_pages(phys_to_virt(phys), 1);
 
+Is there a reason why remove the account before freeing ? Could we do
+this after we have reclaimed it ?
+
+> +}
+> +
+> +/*
+> + * realm_rtt_destroy - Destroy an RTT at @level for @addr.
+> + *
+> + * Returns - Result of the RMI_RTT_DESTROY call, and:
+> + * @rtt_granule:	RTT granule, if the RTT was destroyed.
+> + * @next_addr:		IPA corresponding to the next possible valid entry we
+> + *			can target
+> + */
+> +static long realm_rtt_destroy(struct realm *realm, unsigned long addr,
+> +			      int level, phys_addr_t *rtt_granule,
+> +			      unsigned long *next_addr)
+> +{
+> +	unsigned long out_rtt;
+> +	long ret;
+> +
+> +	ret = rmi_rtt_destroy(virt_to_phys(realm->rd), addr, level,
+> +			      &out_rtt, next_addr);
+> +
+> +	if (ret == RMI_SUCCESS)
+> +		*rtt_granule = out_rtt;
+> +
+> +	return ret;
+> +}
+> +
+> +static int realm_tear_down_rtt_level(struct realm *realm, int level,
+> +				     unsigned long start, unsigned long end)
+> +{
+> +	ssize_t map_size;
+> +	unsigned long addr, next_addr;
+> +
+> +	if (WARN_ON(level > KVM_PGTABLE_LAST_LEVEL))
+> +		return -EINVAL;
+> +
+> +	map_size = rmi_rtt_level_mapsize(level - 1);
+> +
+
+We agreed to add a WARN_ON() here to ensure the start address is aligned ?
+
+
+Suzuki
+
+
+> +	for (addr = start; addr < end; addr = next_addr) {
+> +		phys_addr_t rtt_granule;
+> +		long ret;
+> +		unsigned long align_addr = ALIGN(addr, map_size);
+> +
+> +		next_addr = ALIGN(addr + 1, map_size);
+> +
+> +		if (next_addr > end || align_addr != addr) {
+> +			/*
+> +			 * The target range is smaller than what this level
+> +			 * covers, recurse deeper.
+> +			 */
+> +			ret = realm_tear_down_rtt_level(realm,
+> +							level + 1,
+> +							addr,
+> +							min(next_addr, end));
+> +			if (ret)
+> +				return ret;
+> +			continue;
+> +		}
+> +
+> +		ret = realm_rtt_destroy(realm, addr, level,
+> +					&rtt_granule, &next_addr);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		switch (RMI_RESULT_STATUS(ret)) {
+> +		case RMI_SUCCESS:
+> +			free_rtt(rtt_granule);
+> +			break;
+> +		case RMI_ERROR_RTT:
+> +			if (next_addr > addr) {
+> +				/* Missing RTT, skip */
+> +				break;
+> +			}
+> +			/*
+> +			 * We tear down the RTT range for the full IPA
+> +			 * space, after everything is unmapped. Also we
+> +			 * descend down only if we cannot tear down a
+> +			 * top level RTT. Thus RMM must be able to walk
+> +			 * to the requested level. e.g., a block mapping
+> +			 * exists at L1 or L2.
+> +			 */
+> +			if (WARN_ON(RMI_RESULT_DATA_LEVEL(ret) != level))
+> +				return -EBUSY;
+> +			if (WARN_ON(level == KVM_PGTABLE_LAST_LEVEL))
+> +				return -EBUSY;
+> +
+> +			/*
+> +			 * The table has active entries in it, recurse deeper
+> +			 * and tear down the RTTs.
+> +			 */
+> +			next_addr = ALIGN(addr + 1, map_size);
+> +			ret = realm_tear_down_rtt_level(realm,
+> +							level + 1,
+> +							addr,
+> +							next_addr);
+> +			if (ret)
+> +				return ret;
+> +			/*
+> +			 * Now that the child RTTs are destroyed,
+> +			 * retry at this level.
+> +			 */
+> +			next_addr = addr;
+> +			break;
+> +		default:
+> +			WARN_ON(1);
+> +			return -ENXIO;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int realm_tear_down_rtt_range(struct realm *realm,
+> +				     unsigned long start, unsigned long end)
+> +{
+> +	/*
+> +	 * Root level RTTs can only be destroyed after the RD is destroyed. So
+> +	 * tear down everything below the root level
+> +	 */
+> +	return realm_tear_down_rtt_level(realm, get_start_level(realm) + 1,
+> +					 start, end);
+> +}
+> +
+> +static int realm_destroy_rtts(struct kvm *kvm)
+> +{
+> +	struct realm *realm = &kvm->arch.realm;
+> +	unsigned int ia_bits = realm->ia_bits;
+> +
+> +	lockdep_assert_held(&kvm->arch.config_lock);
+> +
+> +	return realm_tear_down_rtt_range(realm, 0, (1UL << ia_bits));
+> +}
+> +
+> +static void realm_unmap_stage2(struct kvm *kvm)
+> +{
+> +	struct realm *realm = &kvm->arch.realm;
+> +
+> +	lockdep_assert_held(&kvm->arch.config_lock);
+> +
+> +	if (realm->stage2_unmapped)
+> +		return;
+> +
+> +	write_lock(&kvm->mmu_lock);
+> +	kvm_stage2_unmap_range(&kvm->arch.mmu, 0,
+> +			       BIT(realm->ia_bits - 1), true);
+> +	write_unlock(&kvm->mmu_lock);
+> +
+> +	realm->stage2_unmapped = true;
+> +}
+> +
+> +int kvm_realm_teardown_stage2(struct kvm *kvm)
+> +{
+> +	lockdep_assert_held(&kvm->arch.config_lock);
+> +
+> +	realm_unmap_stage2(kvm);
+> +	return 0;
+> +}
+> +
+>   void kvm_destroy_realm(struct kvm *kvm)
+>   {
+>   	struct realm *realm = &kvm->arch.realm;
+>   	size_t pgd_size = kvm_pgtable_stage2_pgd_size(kvm->arch.mmu.vtcr);
+>   
+> +	guard(mutex)(&kvm->arch.config_lock);
+
+Do we need to document, why we need this mutex ?
+
+Suzuki
