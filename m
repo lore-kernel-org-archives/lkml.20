@@ -1,58 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558574;
-	b=0yLpCk9CREOtDGk/MyndZmTbhvWSbjFFAg5HoIIlUJ826lZTlcjrDwuOfFqMY8gUhJi3
-	 fxPy+cYE6LgXWQkbvTs+xJ9cUPoJbLhB1Bx9RQ7ijshDJFF/ZG4L4kZ20Xaj5RezNI5P1
-	 8ElkwLbwTInjsmTXeDmOkdxO+GyvQTQxp9vv4iq0//ZoTp7feNBOR7TrukD+QXEDhdrcV
-	 hXCNZac1msBfmrs5SLoz1NfF7UqEdlurNefbVoSDv8p8ROKigLx5hAa9cc6se0+b+c6Bb
-	 mXpUcuXwVYAtVnX/KK1GWi9zYcVoyfriNrgC1522iu4MNk4D8hLlZR8+ynaLOvQ2vZA==
+	t=1794558577;
+	b=Xg5b59H4+l4oqj0+S8RdP9Yw0xdFfoCIZlgOuzDdRx7A22oHb+ILTfDyGUrpWddId6B/
+	 V16wkRHcfSmk7lug33FvN7cpXhNhOXtyq1SZoXMHHGEzDh443nYAUCbQ8JE7/IU6Yu9LU
+	 hcrNpJyvCrdXA+k5/4b9lvEsbPGZiXogTySy0LMzG5MBb8Wh2Q6PqyiPf+O5N83pmeXNo
+	 k3qOREidLs+JdVTsBbu27vAv4iDo63fHv8LaRLiWoBSRkELCz/yDUxhpO9m++8135aJP9
+	 6E84mIist2g+av9ioVHWAGIbdYwxx+5sCFz95RiV2RTcpbA48EzOKd3E7OOOeNMWQYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558574;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=EF5DIfZ9Y99pubZVtfC2+MQ5VunckKy102q1PdbbPEM=;
-	b=Ll92ujlTRQ4JWh9/twJWgwmXRWQ2Fl7oD3OGEzPyE+v6Ip9UlHlhINoCMK0JusDOd6WE
-	 kPImqkEb1DSUdEgr3f6vlhOBaz2KDGJiSyp3ZThwA3O8Zr5Xk81abVOtZgCQLkEqaoE19
-	 qcDTGSiQyHlrZ52WbSnw6RAVDzTc6Z9oqVcsIoVFkMGpBRsOanxYTuHR2e84kcqfRx3li
-	 uyhQ9VrozhjIVkxdHhrJo64wKt1awUloRGQjKG6r2HGUN3z3s/yi9nBC97VyyWIyYiy2H
-	 x/aogq/Pbs0tBTxBU/UQtvD3Sdp4jFnsrdAiYFaNf9Z2BeWUJ9uKtO2U660u3oMopaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558577;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=1mYFa7xxgjAJeyPToTySUaczpeeUgBwhkLFQ6YEU7hQ=;
+	b=TxzLPr9Hd/0MFJazqouSgnckiohSnCnww7F6gBUKMHssltKLO8mav2hXACD6aOUQcokr
+	 IZedKNNLGHDr+JBRjhrFrz/QAYlU6ZeIIssT3IGy/6m9tZbk0/zT7DwAlIP94FC1T5NZL
+	 icUVm61+aK8K9KvOp4rDdfCL9pm5kfF41At0M2/0BSnGgPPJ6VGH86zb34LFhsxCDQv4O
+	 tlfvE1JHb7FUxFWHuONyH/P9swfZGVBom/OrhvkKDO4l0OqpJgVKDkqhOKEn0BCHmNQkw
+	 sOxRrNI6TlWLee1CXL48tJOzMMf8aZGv+9IOv+ZyErfKwkmSIiFhVcNTpfaSZhtlcWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cVsmWEJE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=1g4.org;
+	spf=pass smtp.mailfrom=1g4.org;
+	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=Z4pVlkPr;
+	arc=none smtp.remote-ip=109.224.244.119
+Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch [109.224.244.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB98960A3830;
-	Fri, 13 Nov 2026 08:29:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02C7960A383A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:29:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02C7960A383A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cVsmWEJE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277981F000C4;
-	Fri, 13 Nov 2026 08:29:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794558574;
-	bh=EF5DIfZ9Y99pubZVtfC2+MQ5VunckKy102q1PdbbPEM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cVsmWEJEbRBJKo2Kf/mktW8VNak8yNhdwrfUSoki/+l7W9h88RT7ToLqd38YbLCFO
-	 CeW7Hqlgy2pz82sklEMr/O3oWp6HBXDX6UGSV/mytFayjquGEaq36Czb8GdG3n5FXQ
-	 qO6nMhX3Ajdg+smoZupGi/37/9caUZysNRbKYTD9VdAA5+i5pAWy0mXBfyhsVRYyK3
-	 FiSVtT/twMU54F2j+H9aWZLUYDd3eJzNUJ/idgiBVlS6Nzh+1ILSzQx4WdY5CNM9po
-	 tTRxNh0RRdhnBCXoa1S343udDWiUIdx71NeZqFX8W/ENuJehfMs7WxTPYOTosc8vng
-	 xWgnF3AJjpVWw==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH v3 10/13] tracing/probes: Allow symstr type for function entry arguments in return probes
-Date: Fri, 13 Nov 2026 17:29:30 +0900
-Message-ID: <179455857080.403392.10171666250083335438.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179455847934.403392.15146485751358774349.stgit@devnote2>
-References: <179455847934.403392.15146485751358774349.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=Z4pVlkPr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
+	s=protonmail; t=1794558573; x=1794817773;
+	bh=1mYFa7xxgjAJeyPToTySUaczpeeUgBwhkLFQ6YEU7hQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Z4pVlkPru5cQylQgYvXMOr49LFb2OHKQRpwgqEsPQ8IYOcp5mY86PTpezXkfEXJIM
+	 TSWPAC6obDhtBNj8zBxGTMp4LunDoLDgHI8CkgfsnlwI90lWB9o6nf88ZWXy5JTsyJ
+	 oyg4WoL4zZxN7i4Q4dYHhxADPMk3sh+uRVhA6rIsjYPzgl+bzhDT/FttGFSsPYvf5B
+	 UZxLMtao3ZKqzEClyme06nK7cG5P1Vh00IoMUU72thYfI/lkBUMkmXeqLlIgi6RL8Y
+	 GlCImxsZ7xBP1myXhpZBT84h2pzXJ9nbLH4rhzSnwNydeyT9lMMQhmNIm9Y6BzKyC6
+	 E8DKtqW7gMFxg==
+Date: Fri, 13 Nov 2026 08:29:24 +0000
+To: Ding Meng <meng.ding@siemens.com>, "gerhard@engleder-embedded.com" <gerhard@engleder-embedded.com>
+From: Paul Moses <p@1g4.org>
+Cc: Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org, Willem de Bruijn <willemdebruijn.kernel@gmail.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jonathan Corbet <corbet@lwn.net>, Andrew Lunn <andrew+netdev@lunn.ch>, Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Richard Cochran <richardcochran@gmail.com>, florian.bezdeka@siemens.com, jan.kiszka@siemens.com, wq.wang@siemens.com, Jason Xing <kerneljasonxing@gmail.com>, Simon Horman <horms@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Martin KaFai Lau
+	<martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, intel-wired-lan@lists.osuosl.org, linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH] net: mark skb NAPI IDs independently of busy polling
+Message-ID: <Fhn2gT70aJ-2_eak73NBZYuXuKtVb64PoD8VQ9jwm-S-K0RhZilAg9iwSBJ0RlaiSrRvM1vPw1aHvGPjcktu9GmdBuvFk9244-q2IVOrFu0=@1g4.org>
+In-Reply-To: <4pqljild2fp6eotiicvwbwu2wfw66fzd4qamwt6utirdjxlaok@iiu2f3k7azrp>
+References: <20261105071706.7043-1-meng.ding@siemens.com> <20261110134539.12d860ef@kernel.org> <4pqljild2fp6eotiicvwbwu2wfw66fzd4qamwt6utirdjxlaok@iiu2f3k7azrp>
+Feedback-ID: 8253658:user:proton
+X-Pm-Message-ID: 8667dd8222532892df754a88db7395758801c657
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,35 +65,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Function entry arguments accessed in return probes ($argN or BTF entry
-arguments) are fetched from the entry data buffer via FETCH_OP_EDATA,
-which was omitted from the allowed operations for the "symstr" type and
-rejected with BAD_SYMSTRING.
+>=20
+> Then, drivers that use deferred timestamp conversion (e.g. igc, engleder)=
+ must
+> specify a busy poll dependency if they want to obtain the original net
+> device upon consuming the skb. However, this dependency is far from
+> obvious, and annotating it for future features of this kind will be very
+> hard to discover.
 
-Allow FETCH_OP_EDATA to be formatted as "symstr".
+The "deferred timestamp conversion" was incomplete is what I'm saying.
 
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- kernel/trace/trace_probe.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index 9c789ca316b7..65dc5c19deae 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -1962,7 +1962,8 @@ static int finalize_fetch_insn(struct fetch_insn *code,
- 		if (!strcmp(parg->type->name, "symstr")) {
- 			if (code->op != FETCH_OP_REG && code->op != FETCH_OP_STACK &&
- 			    code->op != FETCH_OP_RETVAL && code->op != FETCH_OP_ARG &&
--			    code->op != FETCH_OP_DEREF && code->op != FETCH_OP_TP_ARG) {
-+			    code->op != FETCH_OP_DEREF && code->op != FETCH_OP_TP_ARG &&
-+			    code->op != FETCH_OP_EDATA) {
- 				trace_probe_log_err(ctx->offset + type_offset,
- 						    BAD_SYMSTRING);
- 				return -EINVAL;
-
+This started with 97dc7cd92ac6, 0abb62b68252 and 069b142f5819 were built up=
+on
+it, so maybe Gerhard should decide the path forward?
