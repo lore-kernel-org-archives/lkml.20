@@ -1,67 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794605171;
-	b=u4RcayElfzz5TLiFqr5VgbNJYU9gSYZar7F+5mrLBOLnaVortZc9X//OWeR+88HlzEwp
-	 gktI1c53qwLzTfsmND8lASt2stjTU9aieTlJ3Pt1KgR7Uwwd7sAkkbDk7KanwBCHkLvWT
-	 b7D2rDRjZINmW+o837HWhJBcw7x9ueKU5nG0Gd87/X2zCUmkTDXhI78wjj4Jx/VmndqEe
-	 J0o4K2Vo9etWVKm5iQDX5+X72vZLlfMunG3zDfkRKW5jCVEiVBRmzLbr+y454ar/9PAAG
-	 F1t5dyL3/fikQgLbE/K5/EaLevfDu2411rvw8yxtTDKnW4jiOL8qnxxsTGiSVXNY1eg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794605171;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=14DbhITib14ppVX3i7Picll2u9OpRT8wBV6cw1FaJPg=;
-	b=QmRYyoT+MV6l3t4uE9qR+y7p/ZpOFVQUghzUGCvm5c2yd9Ny3YJ9OIiGvShndZzJHsLf
-	 zV2oL3an01eqe/co+4DFQlQCSNEb2sseo/Xbg/o96oHywPqnZI3Oi0V5xlosw19KqPIYY
-	 zbbmrgzhNftQ/6QKvOY/PKom0ZgPx3Mm1ttezezD0mCjdbz5sh2tu9+ikh/6Tu7TEFKXq
-	 dq+Grj6DAos0Uy2wdcNoNojk/vkm4KZMSGB48cVb2r+c82hR17eOKgQOqIeNw6FE/Znt1
-	 csf31x2bWui4ZYGNehFcva4SlbpqBnPI2DvUvjAwCjtt096qIFyaN6j72ZlY0NmBmWw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=AKqtjcn9;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794605197;
+	b=pwliVGOhaaQzCYw+gMD8kzEAgyZxQcCjRnLhzTla8VIEv9dT0lKlfsZmQZudtXnvZwva
+	 ih9kVFzCLVnZUOFvrKvIGZD4lGOrDKq/4WQH27H92xYJloyu4OWymBEPP/rheIGLSHEym
+	 +r8f1wabLWjuQVBIZryAagVlkQje1an3mXth6u238EZudsntj2G4ttbqKRk4t1Yfw9+33
+	 wqNQPYiX8A82hI+lf8xg+V+82sCXcTshxL0xGuNbZ/u3TlGJGYS82zIVRtKjA4mRzzwXI
+	 2wib1oT8Q+nT2GUqlLq8Om51DQKFoR0SY+LsKcVDAxquNV4ZJEh3RcvGkBaNnIr+70Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794605197;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=E8yCXp8faGSQwgD+KEglK48bXByCKj/OR8JWpMaiRFw=;
+	b=1uo8JUOpHJhwU/hK5ZyqqixCjqcZtSUzm1Yf+Q7TeYcxWYNQ/ssX6ZQsUge3XcurgKbj
+	 xbKK30inL9ke0nR3xiXhImQYdMqSCOOB05zh49ZYs/iUg1imGniY5zFVKHLZtwXgJgVY+
+	 a2xEJ1OfPI2f/7xCThPS4ryS15Gbx3i1QUDpqw25LGBWWwtJs5m7wOhEM8CoaAd4r07V2
+	 GmYp1EbyIE3oWIgojAgAhKaTPVknfD3GePIqwowbRLc7sPDcJGG8pUHXgR5MF9H7BIbeg
+	 0o4eKtvhyH/h3UXoTDIaVrJAD+RemJN1Rvy8eA0u3h4P0J3457tY4//w8WGTULnivXQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1gtGWuH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C5A606A32D;
-	Fri, 13 Nov 2026 21:26:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5C5A606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E9F606A332;
+	Fri, 13 Nov 2026 21:26:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=AKqtjcn9
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=14DbhITib14ppVX3i7Picll2u9OpRT8wBV6cw1FaJPg=; b=AKqtjcn9H5nJ/tb/KVjKAhGI/L
-	6FHDvu1Aj51VzpM+SCyLiV+/0BrV/gxyS4fhEbHJMP3ms9/TUQ4ZGw/uNwga4LPjxV8/p3vEn2YkL
-	TMkSrJEDq1rDTm4Z5oedrU7wQMQ+OLvF67lqIuaiiJkxAr4yNehWj191xEz0tdHRfad74DdfHm5u6
-	aY2fvq0o5kloTw6OExdw6AmUFgG4fBTLwPMeBKvYg8u0mf5sKJctUAMHv5xTS0TV2nhYhdryNvVsq
-	8/DEv4d4D+blQJR3R9kEA45UGOGXMWNXxYC4OXvcKNa8qAgQwUj1ZEj44d4nAk6zZFxMhVFD0QNOs
-	ESQ1gGXw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Elaine Zhang <zhangqing@rock-chips.com>,
- Richard Cochran <richardcochran@gmail.com>, 1579567540@qq.com
-Cc: Cunhao Lu <1579567540@qq.com>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-Subject:
- Re: [PATCH v5 2/4] clk: rockchip: Add internal support for 24-bit fractional
- dividers
-Date: Fri, 13 Nov 2026 22:25:55 +0100
-Message-ID: <Yf6NfRPFTxKjDagKAm6hpw@sntech.de>
-In-Reply-To: <20261030-add-board-ok3572-c-clk-v5-2-9a43403cb149@qq.com>
-References:
- <20261030-add-board-ok3572-c-clk-v5-0-9a43403cb149@qq.com>
- <20261030-add-board-ok3572-c-clk-v5-2-9a43403cb149@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1gtGWuH
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794605197;
+	b=a697GhvWXyWYo62oODXnwbBQOUtmrcRFi48G9JCW96l1OpieO+XnKIFXdzJ/aJBhwXh0
+	 oeFemGp5rGUMi9GzAUq7ynbOjsalS6g/k46lb8ZeijRgPs5nGRKftVYidkcXnvRd2cKsY
+	 TZ+nQI7b2+EZQY4Tq7bCdAAEWdDXhs6RhSyOjr+nDhTlTqR8q7xMbX2+ZMrMfKpIVRoGG
+	 DeiSmAOhoea4pNeMFS/37mU/wPHEkwA5w+00qf1IC8VNPs8GnVa21OcP1xsUpO7KxRwUK
+	 ZxmVWpt+IKCSaeLRlTLjw1vf5AWphf5G9uGWei+A5yeqauada5ThYrRTPpUxevV7l4w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794605197;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=E8yCXp8faGSQwgD+KEglK48bXByCKj/OR8JWpMaiRFw=;
+	b=e18Ixe42YfyNxK32sgeaciGU92dKM/AzgzLWi9SMng9lh2CpYPQEzpmuI2MIdTZRgayE
+	 ec+xuLiplkTQhJMMFlFBsHJv1NPhu6mCb4G47Uz5ZqJ1d2CKbmGLhepDWKYh6u5qC7V/T
+	 wDdAfrVJjJzTFwF594uKDbYhwnw9A1N0Po2TSI0q7twRU3TaBr088wqBmedQ9yL1nf4d4
+	 SDv96IrQDv5G5L2vYwBiwmyeMEYic0+rTMYHr16hq6ueisvIfXpyL5LKyCgd3ylhovV8O
+	 DeVL4fWxDr/MFXiGZPItpDX6DHbsmlWgZWH4RM7RRkwKrRxzBjGfbFV5Ld8H9GsxfrQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7707D1F000C6;
+	Fri, 13 Nov 2026 21:26:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794605197;
+	bh=E8yCXp8faGSQwgD+KEglK48bXByCKj/OR8JWpMaiRFw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=L1gtGWuHMldpnkv1B2eRqRSgMVyDyp6RKjdRYbOYqRBauBvsYdpbzzUonAeO18572
+	 EC5QuTdn0cL7c6+/RQF3txYeFEWwGb0HcvPnPKHq0CHl3A+CzlVd8VzBix8YvVm00o
+	 TKID0ahqEqnj7lA88M/nu3KNXoNyn+f/8KoVoSjcPYaU51JkVJkNSjgdRJMSK73Xmn
+	 /FV256jN942QZnT2jPEu5XMYKB36oUTKjfUm4QREMSzIprYO9h5mj5sCGIrynhqwfR
+	 6S1knQWqO7Q5kwO8Li1Y5bypWZTQQTIye3grqMNTJ8hC+OLL2XRQUNWQX+4nAshgK+
+	 SOWBjc6r1xu5g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 039D949B16;
+	Fri, 13 Nov 2026 21:26:36 +0000 (UTC)
+From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
+Date: Sat, 14 Nov 2026 05:26:18 +0800
+Subject: [PATCH RFC 2/8] xarray: add xas_prev_canonical()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,132 +82,263 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-swap-thp-split-v1-2-dfa8d4fa448d@tencent.com>
+References: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
+In-Reply-To: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
+To: linux-mm@kvack.org
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Matthew Wilcox <willy@infradead.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ Kairui Song <kasong@tencent.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794605194; l=8119;
+ i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
+ bh=F1Xh8X4E0iUXFanXwmpaX6dnEVbj5dOQIdvLxxlmNoQ=;
+ b=l5BlWayWK/H3mc/6q/UJE4gWzCpMxj2+G0VExlA1+S1X0md5aFyGgy37Sayjtiec9Kjgx0f8C
+ etPS5lgKfU/BWase7XmBFH+du30T8Fs+gRYkvZo1+UtwN/H3Wep4hfG
+X-Developer-Key: i=kasong@tencent.com; a=ed25519;
+ pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
+X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
+ with auth_id=562
+X-Original-From: Kairui Song <kasong@tencent.com>
+Reply-To: kasong@tencent.com
+Content-Transfer-Encoding: 7bit
 
-Hi,
+From: Kairui Song <kasong@tencent.com>
 
+xas_prev() moves one index at a time, so stepping backwards into a
+multi-index entry can stop on a sibling slot. The new xas_prev_canonical()
+steps back over an entry as a whole: it leaves the state on the slot
+holding the entry and on the first index that entry covers, so
+xas_get_order() also reports its order.
 
-sorry it took me a bit to get to clock driver patches :-)
+A cursor already inside an entry reports it instead of stepping off.
 
-Am Freitag, 30. Oktober 2026, 10:43:58 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Cunhao Lu via B4 Relay:
-> From: Elaine Zhang <zhangqing@rock-chips.com>
->=20
-> Some Rockchip clocks split each 24-bit numerator and denominator between
-> a low register containing 16 bits of each value and a high register
-> containing the remaining 8 bits.
->=20
-> Add an internal Rockchip fractional-divider helper and clock branch type
-> for this register layout. This provides the support needed by the RK3572
-> audio fractional clocks.
+Cover it in the test suite too.
 
-Please add a paragraph about the "v2" naming.
-I assume the v2 is a Rockchip naming, because v1 was the other one that
-could still fit the regular franctional divider.
+Signed-off-by: Kairui Song <kasong@tencent.com>
+---
+ include/linux/xarray.h | 49 +++++++++++++++++++++++++
+ lib/test_xarray.c      | 97 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ lib/xarray.c           |  8 -----
+ 3 files changed, 146 insertions(+), 8 deletions(-)
 
+diff --git a/include/linux/xarray.h b/include/linux/xarray.h
+index be850174e802..b76d24e7a46b 100644
+--- a/include/linux/xarray.h
++++ b/include/linux/xarray.h
+@@ -1502,6 +1502,15 @@ static inline bool xas_top(struct xa_node *node)
+ 	return node <= XAS_RESTART;
+ }
+ 
++/* Move the index either forwards (find) or backwards (sibling slot) */
++static inline void xas_move_index(struct xa_state *xas, unsigned long offset)
++{
++	unsigned int shift = xas->xa_node->shift;
++
++	xas->xa_index &= ~XA_CHUNK_MASK << shift;
++	xas->xa_index += offset << shift;
++}
++
+ /**
+  * xas_reset() - Reset an XArray operation state.
+  * @xas: XArray operation state.
+@@ -1883,6 +1892,46 @@ static inline void *xas_prev(struct xa_state *xas)
+ 	return xa_entry(xas->xa, node, xas->xa_offset);
+ }
+ 
++/**
++ * xas_prev_canonical() - Move iterator to the previous entry, onto the slot
++ * which stores it.
++ * @xas: XArray operation state.
++ *
++ * Same as xas_prev(), but it steps back over a multi-index entry as a
++ * whole: the state is left on the slot which stores the entry and on its
++ * first index, so xas_get_order() reports its order.  A cursor already
++ * inside an entry reports that entry instead of stepping off it.
++ *
++ * Context: Any context.  Hold the xa_lock or the RCU lock across the
++ * whole walk; xas_pause() is forward-only.
++ * Return: The entry at the new position, or %NULL (empty slot, error
++ * state, or the end of the walk).  The result may be an internal entry,
++ * which needs xas_retry().
++ */
++static inline void *xas_prev_canonical(struct xa_state *xas)
++{
++	void *entry = NULL;
++
++	/* step back unless @xas is already inside an entry */
++	if (!xas_is_node(xas) ||
++	    xas->xa_offset >= XA_CHUNK_SIZE ||
++	    xas->xa_offset == ((xas->xa_index >> xas->xa_node->shift) &
++			       XA_CHUNK_MASK))
++		entry = xas_prev(xas);
++	if (!xas_is_node(xas))
++		return entry;
++	if (xa_is_sibling(entry))
++		xas->xa_offset = xa_to_sibling(entry);
++
++	entry = xa_entry(xas->xa, xas->xa_node, xas->xa_offset);
++	/* a concurrent store or split can leave a sibling or a node here */
++	if (xa_is_sibling(entry) ||
++	    (xas->xa_node->shift && xa_is_node(entry)))
++		return XA_RETRY_ENTRY;
++	xas_move_index(xas, xas->xa_offset);
++	return entry;
++}
++
+ /**
+  * xas_next() - Move state to next index.
+  * @xas: XArray operation state.
+diff --git a/lib/test_xarray.c b/lib/test_xarray.c
+index 615f7730a5bd..ad4507982b5b 100644
+--- a/lib/test_xarray.c
++++ b/lib/test_xarray.c
+@@ -2011,6 +2011,101 @@ static noinline void check_split(struct xarray *xa)
+ static void check_split(struct xarray *xa) { }
+ #endif
+ 
++/* Only the head holds an entry, and there is no node to walk */
++static noinline void check_prev_canonical_no_walk(struct xarray *xa)
++{
++	XA_STATE(xas, xa, 0);
++
++	xa_store(xa, 0, xa_mk_value(0x123), GFP_KERNEL);
++	xas_lock(&xas);
++	XA_BUG_ON(xa, xas_prev_canonical(&xas) != xa_mk_value(0x123));
++	XA_BUG_ON(xa, xas.xa_index != 0);
++	xas_unlock(&xas);
++	xa_destroy(xa);
++}
++
++static noinline void check_prev_canonical(struct xarray *xa)
++{
++	XA_STATE(xas, xa, 0);
++	void *entry;
++	unsigned long index;
++
++	/* Order 0 entries at [XA_CHUNK_SIZE / 2, XA_CHUNK_SIZE * 3 / 2 - 1] */
++	for (index = XA_CHUNK_SIZE / 2; index < XA_CHUNK_SIZE * 3 / 2; index++)
++		xa_store(xa, index, xa_mk_value(index), GFP_KERNEL);
++	/* A single order 0 entry at the very end */
++	xa_store(xa, XA_CHUNK_SIZE * 17 / 4, xa_mk_value(0xef), GFP_KERNEL);
++
++#ifdef CONFIG_XARRAY_MULTI
++	/* Entry A at [XA_CHUNK_SIZE * 3 / 2, XA_CHUNK_SIZE * 2 - 1] */
++	xa_store_order(xa, XA_CHUNK_SIZE * 3 / 2, XA_CHUNK_SHIFT - 1,
++		       xa_mk_value(0x123), GFP_KERNEL);
++	/* Entry B at [XA_CHUNK_SIZE * 2, XA_CHUNK_SIZE * 4 - 1] */
++	xa_store_order(xa, 2 * XA_CHUNK_SIZE, XA_CHUNK_SHIFT + 1,
++		       xa_mk_value(0x456), GFP_KERNEL);
++	/* Entry C at [XA_CHUNK_SIZE * 4, XA_CHUNK_SIZE * 17 / 4 - 1] */
++	xa_store_order(xa, 4 * XA_CHUNK_SIZE, XA_CHUNK_SHIFT - 2,
++		       xa_mk_value(0x789), GFP_KERNEL);
++#endif
++
++	xas_lock(&xas);
++#ifdef CONFIG_XARRAY_MULTI
++	/* A cursor inside the entry A reports it */
++	xas_set_order(&xas, 2 * XA_CHUNK_SIZE - 1, 0);
++	xas_load(&xas);
++	XA_BUG_ON(xa, xas_prev_canonical(&xas) != xa_mk_value(0x123));
++	XA_BUG_ON(xa, xas.xa_index != XA_CHUNK_SIZE * 3 / 2);
++	XA_BUG_ON(xa, xas_get_order(&xas) != XA_CHUNK_SHIFT - 1);
++	/* Replacing it to 0xABC: an order 0 store keeps its siblings */
++	XA_BUG_ON(xa, xas_store(&xas, xa_mk_value(0xABC)) !=
++		       xa_mk_value(0x123));
++#endif
++
++	/* A bounded walk over the last leaf ends past its last slot */
++	xas_set(&xas, 4 * XA_CHUNK_SIZE);
++	xas_for_each(&xas, entry, 5 * XA_CHUNK_SIZE - 1) { }
++	XA_BUG_ON(xa, xas.xa_offset != XA_CHUNK_SIZE);
++	XA_BUG_ON(xa, xas_prev_canonical(&xas) != NULL);
++	XA_BUG_ON(xa, xas.xa_index != 5 * XA_CHUNK_SIZE - 1);
++
++	/* Walk, and every step lands one entry back */
++	xas_set_order(&xas, XA_CHUNK_SIZE * 17 / 4, 0);
++
++	/* Read back the ending order 0 entry */
++	XA_BUG_ON(xa, xas_prev_canonical(&xas) != xa_mk_value(0xef));
++	XA_BUG_ON(xa, xas.xa_index != XA_CHUNK_SIZE * 17 / 4);
++	XA_BUG_ON(xa, xas_get_order(&xas) != 0);
++
++#ifdef CONFIG_XARRAY_MULTI
++	/* Read entry C */
++	XA_BUG_ON(xa, xas_prev_canonical(&xas) != xa_mk_value(0x789));
++	XA_BUG_ON(xa, xas.xa_index != 4 * XA_CHUNK_SIZE);
++	XA_BUG_ON(xa, xas_get_order(&xas) != XA_CHUNK_SHIFT - 2);
++	/* Read entry B */
++	XA_BUG_ON(xa, xas_prev_canonical(&xas) != xa_mk_value(0x456));
++	XA_BUG_ON(xa, xas.xa_index != 2 * XA_CHUNK_SIZE);
++	XA_BUG_ON(xa, xas_get_order(&xas) != XA_CHUNK_SHIFT + 1);
++	/* Read entry A, holding the value stored above */
++	XA_BUG_ON(xa, xas_prev_canonical(&xas) != xa_mk_value(0xABC));
++	XA_BUG_ON(xa, xas.xa_index != XA_CHUNK_SIZE * 3 / 2);
++	XA_BUG_ON(xa, xas_get_order(&xas) != XA_CHUNK_SHIFT - 1);
++#endif
++
++	/* The order 0 entries, in the leaf below entry A */
++	xas_set_order(&xas, XA_CHUNK_SIZE * 3 / 2 - 1, 0);
++	for (index = XA_CHUNK_SIZE * 3 / 2; index > XA_CHUNK_SIZE / 2; index--) {
++		XA_BUG_ON(xa, xas_prev_canonical(&xas) !=
++			       xa_mk_value(index - 1));
++		XA_BUG_ON(xa, xas_store(&xas, xa_mk_value(2)) !=
++			       xa_mk_value(index - 1));
++	}
++
++	/* The hole ends the walk */
++	XA_BUG_ON(xa, xas_prev_canonical(&xas) != NULL);
++	xas_unlock(&xas);
++	xa_destroy(xa);
++}
++
+ static void check_align_1(struct xarray *xa, char *name)
+ {
+ 	int i;
+@@ -2328,6 +2423,8 @@ static int xarray_checks(void)
+ 	check_store_iter(&array);
+ 	check_align(&xa0);
+ 	check_split(&array);
++	check_prev_canonical_no_walk(&array);
++	check_prev_canonical(&array);
+ 
+ 	check_workingset(&array, 0);
+ 	check_workingset(&array, 64);
+diff --git a/lib/xarray.c b/lib/xarray.c
+index 48f440d114e1..1c295b9404dc 100644
+--- a/lib/xarray.c
++++ b/lib/xarray.c
+@@ -152,14 +152,6 @@ static void xas_set_offset(struct xa_state *xas)
+ 	xas->xa_offset = get_offset(xas->xa_index, xas->xa_node);
+ }
+ 
+-/* move the index either forwards (find) or backwards (sibling slot) */
+-static void xas_move_index(struct xa_state *xas, unsigned long offset)
+-{
+-	unsigned int shift = xas->xa_node->shift;
+-	xas->xa_index &= ~XA_CHUNK_MASK << shift;
+-	xas->xa_index += offset << shift;
+-}
+-
+ static void xas_next_offset(struct xa_state *xas)
+ {
+ 	xas->xa_offset++;
 
-
-> +static inline u32 clk_fd_v2_readl(struct clk_fractional_divider_v2 *fd,
-> +				  void __iomem *reg)
-> +{
-> +	return readl(reg);
-> +}
-> +
-> +static inline void clk_fd_v2_writel(struct clk_fractional_divider_v2 *fd,
-> +				    void __iomem *reg, u32 val)
-> +{
-> +	writel(val, reg);
-> +}
-
-
-why do we have those? They do not serve any purpose I can see.
-So please just use readl and writel directly at the appropriate places.
-
-
-> +static int clk_fd_v2_get_divider(struct clk_hw *hw, unsigned long rate,
-> +				 unsigned long parent_rate,
-> +				 unsigned long *m, unsigned long *n)
-> +{
-> +	struct clk_fractional_divider_v2 *fd =3D to_clk_fd_v2(hw);
-> +	u32 factor;
-> +
-> +	if (!parent_rate)
-> +		return -EINVAL;
-> +	if (!rate || rate > parent_rate)
-> +		rate =3D parent_rate;
-> +
-> +	rational_best_approximation(rate, parent_rate,
-> +				    GENMASK(fd->mwidth - 1, 0),
-> +				    GENMASK(fd->nwidth - 1, 0),
-> +				    m, n);
-> +
-> +	if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED) {
-> +		(*m)--;
-> +		(*n)--;
-> +	}
-
-=2E.. blank line please ...
-
-> +	if (!*m && !(fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED))
-> +		return clk_fd_v2_get_low_rate_divider(fd, rate, parent_rate, m, n);
-
-=2E.. blank line please ...
-
-> +	/*
-> +	 * When compensation the fractional divider,
-> +	 * the [1:0] bits of the numerator register are omitted,
-> +	 * which will lead to a large deviation in the result.
-> +	 * Therefore, it is required that the numerator must
-> +	 * be at least 4.
-> +	 *
-> +	 * Note that there are some exceptions here:
-> +	 * If there is an even frac div, we need to keep the original
-> +	 * numerator(<4) and denominator. Otherwise, it may cause the
-> +	 * issue that the duty ratio is not 50%.
-> +	 */
-> +	if (*m < 4 && *m !=3D 0) {
-> +		if (*n % 2 =3D=3D 0)
-> +			factor =3D 1;
-> +		else
-> +			factor =3D DIV_ROUND_UP(4, *m);
-> +
-> +		if (*m > GENMASK(fd->mwidth - 1, 0) / factor ||
-> +		    *n > GENMASK(fd->nwidth - 1, 0) / factor) {
-> +			if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED)
-> +				return -EINVAL;
-> +			return clk_fd_v2_get_low_rate_divider(fd, rate, parent_rate, m, n);
-> +		}
-> +
-> +		*n *=3D factor;
-> +		*m *=3D factor;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-
-[...]
-
-> +
-> +static const struct clk_ops clk_fractional_divider_ops_v2 =3D {
-> +	.recalc_rate =3D clk_fd_v2_recalc_rate,
-> +	.determine_rate =3D clk_fd_v2_determine_rate,
-> +	.set_rate =3D clk_fd_v2_set_rate,
-> +};
-> +
-> +static struct clk_hw *clk_hw_register_fractional_divider_v2(struct devic=
-e *dev,
-
-maybe adapt the function name.
-=46unction above abbreviated things to
-
-clk_fd_v2_something, so naming this clk_hw_register_fd_v2()
-might make that line less unwieldy?
-
-
-
-Thanks
-Heiko
+-- 
+2.56.1
 
 
