@@ -1,59 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794601973;
-	b=w6iMaZeFYwlRcQM9WZLNTb1u6a1p4VRn4kE6321jWizwsf78AgZ/ZUFAqNOGKQStCCek
-	 BBB4sLOxT1NynZpwvlA1XzZaaM1a0LcBkPCFeYUXkH4gLr43PEUcISR5iEaxRJ5NcoPuv
-	 bdI/yucr60lKx43D5SMIfwVUYuyr1SRnW7Wx8WLoG8F+E9v0jw0tBJB00AzzwFnQ0x3vW
-	 jQVvCOsBDHgARTiVONZlxPOVmV0O7IYudxxM9IR0Lo+UI0281WvpkoL84vAzaRHsYIw6a
-	 CRoxgv+RbVpKeE2GBIGGRDV5LsaGmClNf3iXGX06W/D1hPHHTssFWW+WLGlXRqPAIXQ==
+	t=1794601983;
+	b=pcF7RG8IS3EMSSFpMZIRmmSm5/Mikee87YqPohYTaUnwK1Oy7ynGzX+C3sYeSORIjKhr
+	 yIFH/5O3T93JxgPVIO5GriMmyeunUHRWXGO1MudUwnhBX4rVHHEPISauzcNmr/hRU92Wz
+	 QN0nJ+LfnJiaMcODPtCaTTsKLsYK+6hit1Rt9pIYBn7+Lk09Zh6Yt1+IKRrcs7/G4tIcA
+	 HGoivNKH3Wt/LW+7rsjG5B1x9pY7P9EnjENz8zos8+yYf6tmMUWniV/froPPd8c3vo70m
+	 GShV0W4SZ0ptmkP/VHTzHDwdOxJFqT3dLHtQEu738mmJnyj4GAf0wel5bUAKz+6KyAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601973;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=7kGyvkK08X7x1lT2uCcH0FMHoas2jrbCjIylRbFLUhU=;
-	b=sNquF25DMR342eB7ZnIpadPz5V3n4xzSr4zOPbHsp3d2KzsWje9Xp0aQmXAA5f7OZmec
-	 k7bsXRNlmx/2/8g0LamaKfJH4hZsEi8+5CUJdCnag1xibFfHO/lHzjfrkL1ChWbQK4QlX
-	 pnrjaCSFkJ/HMBEtLpJ/xCbh4B+wFx0ocNENKMK6+PZ9HGVWFVw49jH9wPnKyApymBGO5
-	 ItDidPpJX3lFXezxHruOVjZoTvjZrOXgvGD3BIrxupy9cnZSzjx8Hvd1pOFxogVF2jMqM
-	 T+9gfOcts9MOXCqnhq6ls5J/ybaN7BkL/pLf0IwQAkPL1mLNnbvvgs/bHls3dbjCjzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601983;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=KB3jO2Uh980sYfYogP8Ce6aR0qJaY2oratJHAC8zDpM=;
+	b=JeD2j9t+o+BNSyNpdMe+97V5P7rmGrbCmbkZDS7RHR7a0DcqtqMXZBa3m5VS7xe6MUBO
+	 kXuGSxlEyIwfjE7jsGF8j7gyshmxJoRRBHWYxFpKBpJi/FiyA3T+u9jxxSb7X37JQ4dOO
+	 QumST+WSDj5cXjQYYDlIJc7OEUJUpDzv8/6ejFShKeyipspMo3Yi8sBe4RNakO19HIlM0
+	 RM/tpXzhC5Wx89sjul2V0EonqvxByNz1rFVGGIrwg9kjIc5juPI2APUg/s2sKgG1aVhLm
+	 v0WJJ+2dNhe2ooWjyzP56vpF1DAefnkWZa0V6113sVCbIoLAuILNW7QjOpqUha3QRWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2pk+jG4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=bckuey0Z;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFE8606A331;
-	Fri, 13 Nov 2026 20:32:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538A1606A327;
+	Fri, 13 Nov 2026 20:33:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 538A1606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2pk+jG4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6156C1F000C4;
-	Fri, 13 Nov 2026 20:32:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794601973;
-	bh=7kGyvkK08X7x1lT2uCcH0FMHoas2jrbCjIylRbFLUhU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F2pk+jG4qUvodejQG38Pf9aLunFm0mGPRbuZwJxDgkyHq7jOf+NJX1i/vtDIatCPf
-	 Cw2NBFZtuONe4xwLRjLZQQviA5lPwdhtGZgKNvrguufJykmq95BoxszydeILAPgPWB
-	 vNYGqGq/D5E7LWSO7AagLb34uHE8769m3fs97xzHZdS4tb5IGuw3M1rwA86XR+4fYP
-	 NwnwwvzQ8Je8HFhReph9Hnq5uE+AvFEGZUEhJZEdJyfr8Qsjv9d1/ZC0SGtQqk5A2f
-	 p5qcpnnvksMjDPjc48+mt9oxd18LnMfhIY366tkaJk/nfQW8WEw1Ut6/id++D3wz6D
-	 fQqI4bWU6FDPA==
-Date: Fri, 13 Nov 2026 20:32:46 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Carlos =?utf-8?B?TMOzcGV6?= <clopez@suse.de>, kvm@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, seanjc@google.com, pbonzini@redhat.com, 
-	akpm@linux-foundation.org, peterx@redhat.com, imbrenda@linux.ibm.com, 
-	borntraeger@linux.ibm.com, frankja@linux.ibm.com, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>
-Subject: Re: [PATCH v3 0/9] KVM: don't zap secondary MMU on permission upgrade
-Message-ID: <avdzWA5nrPLoIztq@gremlin>
-References: <20261112142039.907090-2-clopez@suse.de>
- <2ff19317-8da9-4014-be04-27fc218b8eea@kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=bckuey0Z
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=KB3jO2Uh980sYfYogP8Ce6aR0qJaY2oratJHAC8zDpM=; b=bckuey0Z9y3l43ZbikGRihLCKL
+	alpuVFssHwH4Vcv4s1nhWQILNGHj15E7P7hUv8oqbcqyWcjaTA12NdS+xvH5ogkyUvfBiPii+VfHY
+	5DxWfBoejA3LNErUg71EDJ4j5cSxdmFG0eWYIP7M2HZG6hxwJJWqInJo1DrbO9sOteMc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xRxx9-00GMIW-Eu; Fri, 13 Nov 2026 21:32:55 +0100
+Date: Fri, 13 Nov 2026 21:32:55 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Artem Shimko <a.shimko.dev@gmail.com>
+Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	maxime.chevallier@bootlin.com, pavel@ucw.cz,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-leds@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH net-next 3/3] net: phy: dap8211r: add led hardware
+ control support
+Message-ID: <8ef5b0a7-58f6-4c62-8153-6a9c8d3703f7@lunn.ch>
+References: <20261113110546.173624-1-a.shimko.dev@gmail.com>
+ <20261113110546.173624-4-a.shimko.dev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,24 +67,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2ff19317-8da9-4014-be04-27fc218b8eea@kernel.org>
+In-Reply-To: <20261113110546.173624-4-a.shimko.dev@gmail.com>
 
-On Fri, Nov 13, 2026 at 08:00:02PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/12/26 15:20, Carlos López wrote:
-> We generally don't add performance improvements without clear motivation and
-> data to back it up.
->
-> MM is currently busy with more important stuff, so best to keep your changes to
-> a bare minimum.
+> +#define DAP8211R_LED_ACT_BLINK		BIT(13)
+> +#define DAP8211R_LED_FULL_DUPLEX	BIT(12)
+> +#define DAP8211R_LED_HALF_DUPLEX	BIT(11)
+> +#define DAP8211R_LED_TX			BIT(10)
+> +#define DAP8211R_LED_RX			BIT(9)
+> +#define DAP8211R_LED_LINK_1000		BIT(6)
+> +#define DAP8211R_LED_LINK_100		BIT(5)
+> +#define DAP8211R_LED_LINK_10		BIT(4)
 
-I'm sorry after what I've seen from this series I'm pretty convinced it'd need a
-whole bunch of revisions, and we just don't have time for this kind of thing
-this cycle.
+Do any of these bits allow forced on/off?
 
-This is v3 and I already want to NAK it...
+> +static int dap8211r_led_hw_is_supported(struct phy_device *phydev, u8 index, unsigned long rules)
+> +{
+> +	switch (index) {
+> +	case DAP8211R_LED_ID_0:
+> +		fallthrough;
+> +	case DAP8211R_LED_ID_1:
+> +		fallthrough;
+> +	case DAP8211R_LED_ID_2:
+> +		break;
 
---
-Cheers, Lorenzo
+You can collapse case statements, without fallthrough, if there is no
+code.
+
+It is also possible to do:
+
+case DAP8211R_LED_ID_0..DAP8211R_LED_ID_2:
+
+     Andrew
