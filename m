@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794547374;
-	b=dsVoC7cT+PMwihplkn5lKLUjlA9XHhFnb6sY2jiD7MnVEGdLEFvUBGGwRcJ7boFDTpLo
-	 hMVubRjwJDnh2XtuSVuHupr5ojcNWskBvGnKpXOKcjpn/xUKbYP+MoYWROxvbbGvZXriw
-	 bzV53H/EkCrpm8QjJzlM2PNWSOtKYkfpJOEM2sT5wYIKwdmYMXS3ibWIOxOHTL/On4s0B
-	 o4MwS2FBEqH+6qg6wAOk3nMh20gFFpuuabah4WhxoVEpks83DQsCLkHgiBSnNd42co4yM
-	 dEhHL/7UP+fvSJUL9+pNZG/nEB8UEPPLJ/mDN2R+WHnSFttTbTA0cVl+Obu79Zwn+yw==
+	t=1794547404;
+	b=LaKF3lcTXYGfbBTXUCvUMqdw0cM73o/+3QDO03CMzwEBrVRjWYmMn7JvBbe4Fvkylfw/
+	 r518oAWyZn/DEopBVwlChARMiFeGy5i+q0AGWINCXWXUPypQsT/bNkHd/dHcxsu5dbZog
+	 kjb+qUf7DKWRVtxgK3uSQgiDatvLHfUzT38oFduNYjbuHilX4dfTOC2gkdGLGMTk2RaDD
+	 I8Y+J/7ssSfo0lu4Tv02d+Qfs1SjlasoV9107QZ3mOpwRcL93YPJ7CHrF3vDKlNE6vzLb
+	 TGvfkNuxvhZgxDhoW5e5UcKVN2kd2eEjVL+Dgsg36D2LCcexmdzXvFShJFpE1XQDxyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794547374;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794547404;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
 	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=Ox4n6KYykVTZqhM4hkJTXpATyoWTeYxSGb9cMjYE3n0=;
-	b=l9CXk0ejKGU36xyOFndIRKi8ufvseoaL983xnOgKzxB3Sr6sTmCRhK/3mjzxgpPV0F/a
-	 dtECemAT+CZ6AV2fjfmVveVmxHpJsddDMQxtGZt9XVB3nLfAjPOmUfcXnMd1cd7KpmQiY
-	 ZqPBYCwc8vPce149y5Mp28f5ioefBH0IY2JyURnllhnkRs07zNjeptepQrWqJdtkTbEE2
-	 j/PmBFSiRCLtYRpXFHMVYem4f98xsXXvLIaXvoDKEWbhPgBx2SQdmHE742VSLYgilfyEx
-	 YL7ja0G2miQFLgKe9AAtojJdwxYtzMASEfCK7m6t2JpvJXMYIDUieE5bDjp5GZPL8Xw==
+	bh=hu9Bl2aKV+qWTG9SKgrVwWdxUFqgIaURnoD0XjS0m3E=;
+	b=2z++ld/S9Tig07PE6hG2LYaV3DqQJUDpVsxxVBCxRXFkPBYejLJatLbS75on19cricMw
+	 Qyx+inShstHWO8pF0DSwRC/sgLAyGoRR2qquT9ip9AXPceau56zuLctMDs9nx0Ffr+ozI
+	 dcN0cVnxyvql8AaaMIoN72hhXxbW/BR/wtNryrWQcvJ2jotRuPsPTEwus5S5deUwybhHP
+	 uWorCY+CFWMyepSXMs2zXNnGgeD44UjwdGFoccEBgq/HjMpJ04/9vP005dMpTj875Pkx1
+	 S7Tp0e6Pq0hVt0Z8XJymEgcH5fjBonJC+vYXBfvVRPnpWvGor9U6YYCI2SaLRDhw8NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IKpf1jIN;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=JP0Y09cm;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368CC606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:22:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 368CC606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5260E606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:23:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5260E606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IKpf1jIN
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c468bd799ecso95430266b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:22:54 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=JP0Y09cm
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c50715c2757so81622066b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:23:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794547373; x=1795152173; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794547403; x=1795152203; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ox4n6KYykVTZqhM4hkJTXpATyoWTeYxSGb9cMjYE3n0=;
-        b=IKpf1jINs8ZITU6IZxziDDL2xXi+aPd26IbGR6CqTg5uLARRiARBNHRXjcN/RdnUny
-         yetrBC6ygWN1fUxH12UefKUlU/WjXWK5o/09+2mZ4EFS1bSi4H2XGgzht81HX3mUp92P
-         XD1PrQO6uNorhQO3aCa1wu1F66lCGKsigKTA4=
+        bh=hu9Bl2aKV+qWTG9SKgrVwWdxUFqgIaURnoD0XjS0m3E=;
+        b=JP0Y09cmzGGumOnAWR9fSacxwYhTHvKhAfi/RDRvGMGhAixSt4o3we2jY/gqMPb81W
+         nDZKHaiqlhGv/m2wCQC6nWYD+VO1VockPQF7YvFqr6rnEBrdA4U5s243fJw6KwxeUh2S
+         pR9Qp8YqtYRs6X5abTCUUK8cGSbm7JM8gpyuI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794547373; x=1795152173;
+        d=1e100.net; s=20260707; t=1794547403; x=1795152203;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=Ox4n6KYykVTZqhM4hkJTXpATyoWTeYxSGb9cMjYE3n0=;
-        b=OAV5ju8LmoVjpJkgJfxkEViGgBPuIySVJ3BKDgnuH4F9+fWn3lFDRWV4c60H4IHXZP
-         Mn+54N8j4/soIgWyfFvTcd9ZqTk0b7BrdKG0Fe47ZCdBJh4zWohCxFaLPS+poR2N3gTb
-         jCXNU0uHFxOczo0/aTIoQfv+rQGlveq41wNdQzn2mG/fLrRme6P/lraxps3Zc8rtpv4B
-         /yEjeMkwjkl+DbSzNA633ezWlRRWmJ4gvrYCwX6uyDDExYFOL2qXNajEaEoeLf3oL7kE
-         JLA4mlfEepDuNSMIHWrToxVZfl5S5WbOSQRx+6NKzV4us5xEFQyOb5Ow5mKjNtBR/seC
-         KB2Q==
-X-Forwarded-Encrypted: i=1; AL+hErF3GIPXRmNkFjPnhB9m3TpH8rUXUXq0sfCKfFjLdvHB4XcKU+Cm6E9eSSn1HNHzoTRRrc9AD2uzva6k2bk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++2lOOPeTwu6pddyKfOqeUXTtRD6w6GHCHgqMhuSm+eMCYglDM
-	4cexEPPy9/IGgLFarWLX6Fm11HrJg09adgs/0rYXJNWNlUsSXS8fpCPhfnXp8r47uzEePilAurN
-	ADl1zuGpn
-X-Gm-Gg: AYBFou0i41HzAy3R96tV/b427P/2BckA1oRASVbA+tyR4e84Acq2mfu1VD4ISw48YOF
-	pvC3d8+j2hmF80exGxFX/i97ankhyJGAWbSCbu5f5csu6WWzVqLlVgiy9aPHYncsVrSVd7yWum+
-	Z0wfWXbjNy1Oh4sBE80kDxjne5rgWZcELH2LF24R4hvo8S0qZAbW9JUjCfeCwZJhpoGQoQgq/OE
-	LdIaFfF1O4SFtd/iLVFD8nOWHnOgzKfp74wL7VMhe1/ICz/0J7Qg32B98yxAxAeXzCk6uJuCZ5s
-	xjGnOm0kM/rDgziSvrR2P3l3QJjagsN6qrmVAoLy5Rwia9jfZjinU6JJtMpg+d3mawNxQ61MDC0
-	tuTb7celJoXn7eDboAsaSbaffYOuC2co1Zql7FEveYZt2Nyye4cgPhRetMfXVCHKzB+nnKcodv3
-	suPPnNhuhdL1TOpXo2fJww5dnoVd3OpCcgTu813owNgGmP3y+dYFlJhqeQpKEvFxPyp1A/J5G9L
-	n5M7HYOV5SG1XpuQo+FUDxHNIVGTO6dWuyELuR5d7A1CQ6Nv9NWpqb7bNrUFRWzycz2WLQwMuqr
-	r9/rY0evrLK41Fc38oBPF3JdT0AK8Ydnaw9IJcKww4Wiy0c3Eaeawt3RBlK5DQHvt8xw
-X-Received: by 2002:a17:907:d402:b0:c40:d920:747c with SMTP id a640c23a62f3a-c509614fbf8mr106442866b.7.1794547372350;
-        Thu, 12 Nov 2026 21:22:52 -0800 (PST)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com. [209.85.221.47])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c00fsm52081566b.3.2026.11.12.21.22.51
+        bh=hu9Bl2aKV+qWTG9SKgrVwWdxUFqgIaURnoD0XjS0m3E=;
+        b=h570PmW0SKk1KHhfO8YYKJ5msDv+A7xOrnEe7785rPcfbBSyNm329FadMGTPAkzvGn
+         EOYUUKEJghqngAcHp9P8LUL1MiqBwMUmdRJ1+1hcoaaBZkN6WqorqjnyUHjYdtXyA+yJ
+         5gBvE+TjhU8PvOepspCY7sbGOgcRP/a4oCD9yQjeDc6bH8satISGRu9mFMXPMLr8OgVk
+         gk69WuYr4aOiPXx6CzJnWWrazDx3Hmtqw92btnCjffCCGauclxt1v9VoJM9RT6Q8a5Fy
+         athToIVOaSmoaWyfpj6qVqbN7v3XPujaY8hn/JiupmIxFeureKKkhTP6/+11R0eL2Jy/
+         J5Ig==
+X-Forwarded-Encrypted: i=1; AL+hErH++1gNch7pP9VPARFWauQ4RxNeNL51zT4rhdS+yHYOjlTwx0wtA9inJxfJpBQOL5wdh0cZTxt1al2y+HI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+pn3fEklR/8q3vxkM3HXn3qQh42r3z1U8T3E1/NRMxmSu41Yg2
+	mHLuQQMArFfw1Hy7QH+jVNNAFbaSwf0aBLG9ADyGcHPkTlqBVW3DpibGM0okbNmSg6j16ZbsgND
+	lAmAhPFo+
+X-Gm-Gg: AYBFou3s//o2mCXHtjYt2uiUs3gocNj90yb0xHu4zplkKXN5HT+N1HbCKBYemwKEAlf
+	n935eNphIqkaYZpHDALbCepLOLNxCwG73WZ8lyliNAbPafRoG5Fja2W4jmDLQSJA9U3bve5lJg8
+	ymlFEOr3Zk5sbO9KMZu5ulf14u9R4oxDb/dXrC52kiCEIvYkkIRzci8juJQPY/WJAL0Of2HxrJe
+	6A782zjG3a3kBh+mcGqoSIrZEttb8Xzd6jGXn3yGGRq3Pg7HU5xUTz8kBkep5MChHdRdZODJqUv
+	OR00ogRNYb11P292LGFdUkUUF2EzKb0Hlq+CYvUj31MPJSzzsdrasCidqC/N6YUEirvANcELboC
+	egRiDFSWCFSZHr5k99/Funxt0Zcw+szaW3ogayLynyUw3WLPsfhUAw7RkmtYyZJ02T/yEqz9WP/
+	Qbz5tSNrZ0FPmxhPzEOLjZbLOg22krxIk9Cu/yuZvub44MjCFL4Ih8/acMk9vzn0hLLjPAExUav
+	JE1Oxkjvek8l1FdZQcjfX3UFD+TgaykJjxyRlsp1P5kNp2evLQ1zSJoEpXkXem8q+C2lti8YOSe
+	s+8YJRAJ3/r+XNBcm/1/XtUK3tfQq+JxwiFeBn6r2wTk22W9Atf3pSZ6nIxtJEtkJnJe
+X-Received: by 2002:a17:907:72cb:b0:c41:b94c:4538 with SMTP id a640c23a62f3a-c509640727cmr92011866b.47.1794547402674;
+        Thu, 12 Nov 2026 21:23:22 -0800 (PST)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com. [209.85.221.46])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c213sm50923666b.7.2026.11.12.21.23.20
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 21:22:52 -0800 (PST)
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so554293f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:22:50 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEbtN0ljo93re4bcXkmg1Y8MmIlnj2lDQkCAkj/3VkR5hYsvaWk9YKAuDLXvjul/XUHKRjdhAQHKjWe7zY=@vger.kernel.org
-X-Received: by 2002:a5d:4f86:0:b0:48d:f831:2681 with SMTP id
- ffacd0b85a97d-49c71f334a4mr2062026f8f.38.1794547369976; Thu, 12 Nov 2026
- 21:22:49 -0800 (PST)
+        Thu, 12 Nov 2026 21:23:21 -0800 (PST)
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so699697f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:23:20 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEXBR6/7Q49ekwUFRBDoeVKFgZIJ2+y/wuTdcEGn7kbanGGvFh5EC4nO2Fkl7INKMDthkzw1JMzedQOjvA=@vger.kernel.org
+X-Received: by 2002:a05:6000:4688:b0:488:7d08:edbc with SMTP id
+ ffacd0b85a97d-49c714a2a99mr2054397f8f.24.1794547398778; Thu, 12 Nov 2026
+ 21:23:18 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,15 +94,14 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261101220224.1436242-1-dianders@chromium.org>
- <20261101220224.1436242-13-dianders@chromium.org> <avPsIBLWNrNexcbt@gractus.seuss>
-In-Reply-To: <avPsIBLWNrNexcbt@gractus.seuss>
+ <20261101220224.1436242-15-dianders@chromium.org> <avUgDyB9p0_OSxal@gractus.seuss>
+In-Reply-To: <avUgDyB9p0_OSxal@gractus.seuss>
 From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 12 Nov 2026 21:22:38 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=Uy0dxbzoMN6hA7FY3R6hyqcL2j8d2-YeivS=_+dA7NfQ@mail.gmail.com>
-X-Gm-Features: AclHuK_tr2qaJcNGS3TJ5jGwHVn7SwIIvG0pdGd-5SNir7fQgEzYdizCECgdiOU
-Message-ID: <CAD=FV=Uy0dxbzoMN6hA7FY3R6hyqcL2j8d2-YeivS=_+dA7NfQ@mail.gmail.com>
-Subject: Re: [PATCH v3 12/15] fdtfactor: Add tool to split DTBs into a base
- DTB and overlays
+Date: Thu, 12 Nov 2026 21:23:06 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=XdPm0zQJe3rbeKMDnBia4qzuetxn4T2CMeh1+7tLOt+A@mail.gmail.com>
+X-Gm-Features: AclHuK9aXeqWfCXMZOPBMpM60f8-snYNUMCFOIZWOgLzWEySRUCP9VJFMXuuRXk
+Message-ID: <CAD=FV=XdPm0zQJe3rbeKMDnBia4qzuetxn4T2CMeh1+7tLOt+A@mail.gmail.com>
+Subject: Re: [PATCH v3 14/15] fdtfactor: Support compressed DTB inputs and outputs
 To: David Gibson <david@gibson.dropbear.id.au>
 Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -116,140 +115,70 @@ Content-Type: text/plain; charset="UTF-8"
 
 Hi David,
 
-On Tue, Nov 10, 2026 at 8:16 PM David Gibson
+On Wed, Nov 11, 2026 at 6:10 PM David Gibson
 <david@gibson.dropbear.id.au> wrote:
 >
-> On Sun, Nov 01, 2026 at 02:01:19PM -0800, Douglas Anderson wrote:
-> > diff --git a/README.md b/README.md
-> > index fcfc2e55d804..61fefc4424fe 100644
-> > --- a/README.md
-> > +++ b/README.md
-> > @@ -112,6 +112,49 @@ $ meson setup -Dpython=disabled build
-> >  More work remains to support all of libfdt, including access to numeric
-> >  values.
-> >
-> > +## fdtfactor
+> On Sun, Nov 01, 2026 at 02:01:21PM -0800, Douglas Anderson wrote:
+> > Extend `fdtfactor` to detect compressed input blobs by magic bytes or
+> > file extension, transparently decompress them before factoring, and
+> > compress the resulting `.dtbo` and `base.dtb` outputs when appropriate:
+> ...
+> Hmm.  Whenever I see a pretty complex chunk of code dedicated to
+> auto-detecting and guessing the right thing to do, I worry about it
+> doing something weird with an unexpected group of inputs.
 >
-> Pre-existing, but it would be nice to have blurbs for dtdiff,
-> fdt{get,put} and the other anciliary tools we already include.
+> How much usability would you really lose, if you required that the
+> compression method be explicitly supplied (I'd envisage a single
+> option which controls both input and output sides)?
 
-Agreed -- in my draft v4 I've added a preparatory patch adding brief
-`README.md` sections for `dtc` and the ancillary tools (`dtdiff`,
-`fdtget`, `fdtput`, `fdtdump`, `convert-dtsv0`, and `fdtoverlay`).
+Very little in practice -- build pipelines factoring standalone `.dtb`
+files already know which compression format they're using, and requiring
+an explicit option catches mixed or unexpected inputs instead of
+guessing.
+
+In my draft v4 I've replaced the magic-byte/extension auto-detection and
+`--base-compression` with a single `-C` / `--compression` option
+(`none`, `lz4`, `lz4_legacy`, `lzma`, `xz`, `gzip`; default `none`)
+controlling both input decompression and output compression for the base
+DTB and `.dtbo` files (with `--output-base-dtb` defaulting to
+`base.dtb.<ext>`). (In `-F` / `--fit` mode, each `/images/fdt-*` node
+already explicitly declares its compression via its FIT `compression`
+property.) That also lets us drop `detect_compression()`,
+`split_dtb_filename()`, and the mixed-compression stats logic.
 
 
-> > +        self.filename = filename
-> > +        with open(filename, 'rb') as f:
-> > +            raw_bytes = f.read()
-> > +        self.raw_bytes = raw_bytes
+> > -* `-s`, `--stats`: Print size savings summary.
+> > +* `-s`, `--stats`: Print uncompressed and compressed size savings.
 >
-> AFAICT, self.raw_bytes is never used again (unlike the raw_bytes
-> local).
+> I don't think this hunk really adds anything useful.
 
-`_print_dtb_stats()` actually used `len(d.raw_bytes)` further down to
-compute `orig_uncomp` when `--stats` is passed, though nothing ever
-reads the buffer contents again after `__init__()`. In my draft v4 I've
-replaced `self.raw_bytes` with `self.uncompressed_size = len(raw_bytes)`
-(pairing with `self.compressed_size` in the compression patch) so we
-don't keep all the uncompressed DTB buffers in memory just for their
-lengths.
+Dropped in my draft v4.
 
 
-> > +            if 'phandle' in node.props:
-> > +                node.phandle = node.get_u32('phandle')
-> > +                del node.props['phandle']
-> > +
-> > +            if node.phandle is not None:
+> >      parser.add_argument(
+> >          '-s', '--stats',
+> >          action='store_true',
+> > -        help='Print size statistics summary',
+> > +        help='Print size statistics and compression summary',
 >
-> Changing this to:
-> if node.phandle is None:
-> continue
-> reduces nesting and IMO, would make this a little more readable.
+> To, compression fits already in "size statistics".
 
-Done in my draft v4 (and did the same for a couple of other `for` loops
-in `fdtfactor`).
+Dropped in my draft v4.
 
 
-> > +                offsets = sorted(set(lf_node.get_u32_list(prop_name)))
+> > +    # Compressed (.dtb.gz / .dtb.xz / .dtb.lzma / .dtb.lz4) modes
+> > +    for comp_spec in "gz:gzip -9 -k -f:gzip -d -f" \
+> > +     "xz:xz -k -f:xz -d -f" \
+> > +     "lzma:xz --format=lzma -k -f:xz -d -f" \
+> > +     "lz4:lz4 -12 -q -f -m:lz4 -d -q -f --rm" \
+> > +     "lz4:lz4 -l -12 -q -f -m:lz4 -d -q -f --rm"; do
+> > + ext="${comp_spec%%:*}"
 >
-> I don't think there's any reason to convert the list to a set before sorting.
+> Because we use 4-character indent depth, we should consistently use
+> spaces to indent in run_tests.sh, not mix tabs and spaces.  Mixing
+> them here has the side effect of making these lines not look indented
+> from the for statement in patch format.
 
-Done in my draft v4 (`offsets = sorted(lf_prop.as_uint32_list())`).
-Neither `dtc` nor `libfdt` emits duplicate offsets in
-`/__local_fixups__`, and dropping `set()` also means any duplicate
-offset in a malformed blob will be caught by the overlapping-offset
-check right below.
-
-
-> > +    base_root = FactoredTree()
-> > +    next_ph = 1
-> > +    for path, _ in dtbs[0].root.walk():
-> > +        if path not in common_paths:
-> > +            continue
->
-> I think this makes the loop equivalent to:
-> for path in common_paths:
->    ....
->
-> > +        if path and base_root.get_node(path.rpartition('/')[0]) is None:
-> > +            continue
-
-We can't iterate `common_paths` directly here because `common_paths` is
-an unordered `set`:
-
-1. The `base_root.get_node(path.rpartition('/')[0]) is None` check right
-   below relies on parents always being visited before their children so
-   that if an ancestor was excluded, its descendants are skipped too.
-   Iterating a `set` can visit `/a/b` before `/a`, causing `/a/b` to be
-   wrongly skipped.
-2. Walking `dtbs[0].root.walk()` preserves `dtbs[0]`'s subnode ordering
-   in `base_root` and keeps sequential `next_ph` assignment
-   deterministic across `PYTHONHASHSEED` values.
-
-I've added a comment above the loop in my draft v4 explaining why it
-iterates `dtbs[0]`'s nodes in pre-order instead of iterating
-`common_paths`.
-
-
-> > +        has_phandle = any(
-> > +            d.root.get_node(path).phandle is not None for d in dtbs
-> > +        )
->
-> I expect this will work in practice, but arguably the condition you
-> really need here is whether the node is referred to by any fixup in
-> any non-common property.
->
-> > +        if has_phandle and path and path not in common_sym_targets:
-> > +            continue
-> > +        base_node = base_root.create_path(path)
-> > +        if has_phandle:
-> > +            base_node.phandle = next_ph
-> > +            next_ph += 1
-
-For the `common_sym_targets` exclusion (`if has_phandle and path and
-path not in common_sym_targets: continue`), that's true in principle
-with respect to `/__fixups__`: an overlay only needs a symbol in
-`base.dtb`'s `/__symbols__` if a non-common property ends up referencing
-`path`. There are a couple of catches if we tried to relax this, though:
-
-1. Which properties are common vs. non-common isn't known yet here --
-   `_build_base_tree()` decides that next, and its candidate eligibility
-   depends on which fixup target nodes are in `base_root` (so resolving
-   both together would need an iterative pass).
-2. Even when no non-common property references `path`, `base_node` still
-   needs a `phandle` in `base.dtb` if `path` is referenced by a *common*
-   property in `base.dtb`, or if `path` has a symbol in `/__symbols__`
-   (from `dtc -@`) so the reconstructed DTB retains its `phandle`
-   property and remains valid as a base for any further runtime overlays
-   targeting that symbol. Conversely, if one board had a `phandle` on
-   `path` (e.g. a board-specific label) and another board didn't,
-   putting `path` in `base.dtb` with a `phandle` would add a `phandle`
-   property to the second board's reconstructed DTB that wasn't in its
-   original DTB.
-
-Since in `dtc -@` inputs almost every node with a `phandle` also has a
-label in `/__symbols__`, checking `has_phandle` up front keeps this
-single-pass and exact. I've expanded the docstring on
-`_find_common_nodes_and_phandles()` in my draft v4 to note this.
+Fixed across all patches touching `tests/run_tests.sh` in my draft v4.
 
 -Doug
