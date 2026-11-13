@@ -1,66 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.126
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.143
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794553594;
-	b=YAriAAkI4p5yPnVJsuamCbF+uOsHWGoTWwZaY2FzhV85OfPg8nHngRFSWBb3/QZ/j41n
-	 /BQKAlQT6cJ/CHw79+OJRKpzJ/Ye4yBbK7yHq6FTHtnwthzBxWgsJAJ/TxU/cXAagQJ6F
-	 r6qFi6Nrm7z2/0mPcLa0T1mD8H+GxgYeBxaTR8ZVXxHA4938oH5pF8F5n6INWI11PWA7F
-	 yza42lVWFZoYUD8koimFdD0VxOV3C0MRxEwvkZmOtKirbHBfZ2G0IT3XYq6JdMywQ0QjL
-	 Mm6OLVgW7KVDz2eiMKJF5HSt8fkBHV/GTHbIN4DS815PSBv8tJwYNtpLLlYBm7sXfrQ==
+	t=1794553607;
+	b=sN7MOKlwhP1ZyeP5o2unl99roy2ysxyvjflH0QPhjnz73k+JTOGu36uUVG8qyFgaLRzK
+	 wRzisQ27RrkICnM28l10hRhvFUY/P5YWofJaVNBfZfQOosh8RJ6drsKedBlXeAyCPEgMm
+	 Y1HarcuL6mYL3OcivXRaN7MkdBDB8wPazkZx2wxLl1hOVM331jUipSlkjP0gKL7JmYxt5
+	 +z4gbulqbBLK5AH/mqYvGDQeNwIMZww1japFIY0rc57ByHeUlA4kXkSgmYeCgMJbN5d28
+	 0k2q9YJxo0n7ilopuohsM7w4k1XkfCMst6MRJbHBEfCMsiHRiuX1lrARsqjQR9brK9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794553594;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794553607;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4dL6718CjmrEnD528xX0GaVmfeB3Ih1PoOomOicJTmk=;
-	b=NDvpOG6btazl2LSIPH5/uzpFD3xKiVjrej5ijw+pa9eUwlPZE2uqjj0EzUpUMq2SaqUs
-	 5rHtoRo04cpoC2eOFvpzbnOdIKOJmGd8IMPE3LOlX8Dthpel7RW6VTcUVUAxyukArDgEf
-	 y+WCD66R5iOnjh7PorfaNO2bW3OLB/z7pJt/RVerTUeG9lz3PGf5m1ZD9SNfZmjOTXru1
-	 cjKalsBPqKxf0LGag3VFF86DSfpxAfhI89s6+ajOd/LK4uCvWN3gP6LPCjh2jxoiR6Ec1
-	 A0xconKv6qL8ld66K0H+QVwqQ6PrF/vpdS1hxjljOtAcx5wNNBzEtNsUlAd3VOJVL6Q==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=tz/3kHKfP5O1F2qPHz5sww7BaOT1KLvA0dXNCk/OZIk=;
+	b=Nv+QHAV7pW+BwGbt/U7zu88I5tLDR48uaZu39Fp8XRYCRKbRaEQu7AHVt/sri7HYmhmo
+	 4vF7q3JsTdj1d2XiZBgVIFCoQPRejsQ6a4VThUA6dDCd/XJeTfagb8AHo5/KOCpQ4am/d
+	 0+eyioboPJSC6NKIJWJILZ+99AfpXpNS8kHVZ6fThWr66ZeEFUJ0evzMWliCTL419nfZa
+	 8Hz18ffzYemzyhNzYUOPfYX7gzRG/4SlWxXKRwPkaf9qUEYj+yUAwxkAjwky/eKXtI5Im
+	 1CGf1f6liLWroX9ftA7y25jSMj2IeLJiXAV2ujd6uFBm3i4JjFVs3fMJLXV2A8UKxZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aMDlVYwR;
-	arc=none smtp.remote-ip=95.215.58.126
-Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HCTOAUYa;
+	arc=none smtp.remote-ip=95.215.58.143
+Received: from mta1.migadu.com (out-143.mta1.migadu.com [95.215.58.143])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02EA606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:06:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E02EA606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1237D606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:06:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1237D606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aMDlVYwR
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HCTOAUYa
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=n162zU1LsiDQjzL5WwI3PMMZWu0/W5egH3fDuHDdVqA=;
+DKIM-Signature: a=rsa-sha256; bh=ERnLBl8wC0u2PnoqT3bHbS7adfW2xOd+NgxfHeJjTDM=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794553590; v=1; x=1795158390;
- b=aMDlVYwRpN9krvsVUUDdAkTD5n3zcnZlTPDsNtuo4EvH2Wpy9LW1yLpbgcBX/iX5ptCogGIl
- Br4xB0UsVnB7RWdtYDq1TR4WdRBvmgZqNwbq5H3y694BZWgg8ysffTpq3lv29yTVyyh1kJXKeyz
- AjZovhSj0L/MtEiEcg7H/P8E=
+ t=1794553605; v=1; x=1795158405;
+ b=HCTOAUYaFgw7pCqA4CZGypARO6Cef0gopMDQw7f6zI2rbiMuJl8KzhnkRlN0iwFGKh7n+YMh
+ gge6Au3wmDjj1hQpAyFgYcykBgleRShCzVf2vlcrK6iyhYtm8lcHnemvKUZZsebFB9ivJLTQnOp
+ MRCIeO5ZTYWLXWEeDd/W4vFs=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 58c73366565f7543;
-	Fri, 13 Nov 2026 07:06:30 +0000
-X-Mizu-Trace-ID: 58c73366565f7543
+Received: by smtp.migadu.com with ESMTPS id 089f84f20e46ec29;
+	Fri, 13 Nov 2026 07:06:44 +0000
+X-Mizu-Trace-ID: 089f84f20e46ec29
 X-Migadu-Flow: FLOW_OUT
-Date: Fri, 13 Nov 2026 15:06:17 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Yuyang Huang <yuyanghuang@google.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, 1342116488@qq.com
-Subject: Re: [PATCH net-next v2] ipv4: igmp: report IFA_TARGET_NETNSID in
- multicast address dumps
-Message-ID: <ava26Y1CKb0CJrId@fedora>
-References: <20261112082352.152338-1-sunwenbo@cmss.chinamobile.com>
+From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
+To: Christoph Hellwig <hch@lst.de>,
+	Anuj Gupta <anuj1072538@gmail.com>,
+	Nitesh Shetty <nj.shetty@samsung.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	christian.koenig@amd.com,
+	Philipp Stanner <phasta@kernel.org>,
+	Dan Williams <djbw@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	tytso@mit.edu,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	asml.silence@gmail.com,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	nvdimm@lists.linux.dev,
+	linux-ext4@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	Li Wang <liwang@kylinos.cn>,
+	Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+Subject: [RFC PATCH v2 0/8] ext4: Add dma-buf read/write support
+Date: Fri, 13 Nov 2026 15:06:13 +0800
+Message-ID: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,76 +94,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112082352.152338-1-sunwenbo@cmss.chinamobile.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 04:23:52PM +0800, Wenbo Sun wrote:
-> Commit eb4e17a1d915 ("netlink: support dumping IPv4 multicast addresses")
-> extended RTM_GETMULTICAST to dump IPv4 multicast addresses by reusing
-> inet_valid_dump_ifaddr_req(), which already accepts IFA_TARGET_NETNSID
-> and switches to the target network namespace. However,
-> inet_fill_ifmcaddr() does not include IFA_TARGET_NETNSID in the dump
-> replies yet.
-> 
-> In contrast, IPv4 unicast dumps (inet_fill_ifaddr()), IPv6 multicast
-> dumps (inet6_fill_ifmcaddr()), and AF_PACKET multicast dumps
-> (dev_mc_fill_addr()) all report IFA_TARGET_NETNSID when a netns id is
-> specified. Adding the same behavior to IPv4 multicast dumps aligns
-> reporting across address families and helps userspace consistently
-> identify target-netns replies.
-> 
-> Emit IFA_TARGET_NETNSID in inet_fill_ifmcaddr() when args->netnsid >= 0,
-> and initialize fillargs.netnsid = -1 in inet_ifmcaddr_notify() so that
-> multicast join/leave notifications do not include IFA_TARGET_NETNSID or
-> exceed their preallocated skb size.
-> 
-> This alignment was identified with the assistance of an LLM-based code
-> review tool, confirmed in a User-Mode Linux (UML) environment where AF_INET
-> RTM_GETMULTICAST dumps with IFA_TARGET_NETNSID omitted the attribute while
-> AF_INET6 included it, and verified in UML that AF_INET multicast dumps
-> now report IFA_TARGET_NETNSID, regular dumps without netnsid continue to
-> work, and multicast join/leave notifications succeed without warning.
-> 
-> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-> ---
-> Changes in v2:
-> - Target net-next as an enhancement/alignment change and drop the Fixes
->   tag, per Hangbin Liu's review.
-> - Soften and clarify the commit message to reflect feature alignment with
->   inet_fill_ifaddr(), inet6_fill_ifmcaddr(), and dev_mc_fill_addr().
-> - Link to v1: https://lore.kernel.org/r/20261111082222.327963-1-sunwenbo@cmss.chinamobile.com
-> 
->  net/ipv4/igmp.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
-> index 144fca158adc..831d003677ba 100644
-> --- a/net/ipv4/igmp.c
-> +++ b/net/ipv4/igmp.c
-> @@ -1517,6 +1517,12 @@ int inet_fill_ifmcaddr(struct sk_buff *skb, struct net_device *dev,
->  	ifm->ifa_scope = RT_SCOPE_UNIVERSE;
->  	ifm->ifa_index = dev->ifindex;
->  
-> +	if (args->netnsid >= 0 &&
-> +	    nla_put_s32(skb, IFA_TARGET_NETNSID, args->netnsid)) {
-> +		nlmsg_cancel(skb, nlh);
-> +		return -EMSGSIZE;
-> +	}
-> +
->  	ci.cstamp = (READ_ONCE(im->mca_cstamp) - INITIAL_JIFFIES) * 100UL / HZ;
->  	ci.tstamp = ci.cstamp;
->  	ci.ifa_prefered = INFINITY_LIFE_TIME;
-> @@ -1538,6 +1544,7 @@ static void inet_ifmcaddr_notify(struct net_device *dev,
->  {
->  	struct inet_fill_args fillargs = {
->  		.event = event,
-> +		.netnsid = -1,
->  	};
->  	struct net *net = dev_net(dev);
->  	struct sk_buff *skb;
-> -- 
-> 2.33.0
-> 
+From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+This series adds dma-buf read/write support for ext4. The dma-buf direct
+I/O infrastructure allows dma-buf to be handed to file I/O as an iov_iter,
+but currently it only supports raw block devices. To better serve the
+GPU-NVMe direct access through normal filesystems, prior work for XFS has
+been discussed at [1]. We are also interested in this field and working on
+it [2].
+
+The series is based on v7.4-rc2 (7475ea8b5861), which already contains
+the common dma-buf direct I/O infrastructure, so it no longer depends on a
+separate base tree.
+Patches 1-2 carry the block and iomap prerequisites from Nitesh Shetty and
+Anuj Gupta:
+- bdev_init_dma_buf_io_ctx in patch 1 was moved to block/bdev.c as
+suggested by Christoph.
+- iomap_file_init_dma_buf_io_ctx from that series is not carried. ext4
+calls bdev_init_dma_buf_io_ctx directly, and the capability check is
+handled by FMODE_CAN_DMABUF_IO.
+
+The design is:
+- FMODE_CAN_DMABUF_IO marks files that can be the target of dma-buf I/O;
+  a filesystem sets it at open time for inodes whose data can be reached
+  without the page cache.
+- dma_buf_io_ctx_create() refuses files that lack the flag and checks the
+  current f_flags for O_DIRECT at registration.
+- As F_SETFL can clear O_DIRECT afterwards, the paths that would fall back
+  to buffered or copied I/O still need per-I/O checks in the callers.
+- DAX is rechecked per I/O because it can be enabled after open.
+- iomap must not ask for a buffered fallback on behalf of a dma-buf
+  iterator: -ENOTBLK would be refused by the callers and would turn a
+  failure into a successful transfer of zero bytes.
+
+Patch 3 keeps the buffered fallback out of dma-buf I/O, patches 4-7 add
+the refusals on the common paths and the capability flag, and patch 8
+enables ext4.
+
+Known limitation: 
+1. A dma-buf read that reaches a hole or an unwritten
+extent fails as a whole, even when an earlier mapped extent was already
+transferred into the buffer, so the caller does not learn how much of the
+dma-buf was filled.  Reporting the prefix instead would return a short
+read, which callers cannot tell apart from the end of the file, and both
+the buffered and the direct path normally hide holes by zero-filling.
+Probing the mapping before submitting anything would fix it, but that
+belongs to the common iomap series.
+
+2. A refused dma-buf I/O reaches the caller as -EOPNOTSUPP through
+iomap_dio_set_error(), which also emits an fserror notification even
+though no I/O was submitted.  The report could be limited to requests
+that did submit a bio, since iomap_dio_bio_iter() accounts dio->size at
+submission time, but that changes what fserror users see for every iomap
+filesystem, so this version leaves it as it is and asks the fserror
+maintainers.
+
+Testing:
+- io_uring dma-buf suite (udmabuf + REGISTER_BUFFERS_UPDATE + READ_FIXED /
+  WRITE_FIXED) against ext4 on a PCIe NVMe namespace, all passed.
+- xfstests -g quick on ext4 devices: 689 tests ran, 11 reported  failures,
+  all of them environment related, no failure is attributable to this 
+  series.
+
+[1] https://lore.kernel.org/linux-xfs/20261016091919.971295-1-anuj1072538@gmail.com/
+[2] https://lore.kernel.org/all/20260908131545.105987-1-liwang@kylinos.cn/
+
+Changelog:
+==========
+RFC v2:
+- Rebased onto v7.4-rc2 and dropped the dependency on a separate base
+  tree; the block and iomap prerequisites are patches 1-2.
+- Added patch 3, which reports why a dma-buf direct I/O could not be done
+  instead of asking for a buffered fallback that the callers refuse.
+- Split the block changes: patch 4 only factors the integrity check
+  into a helper, and patch 5 refuses a dma-buf bio in the inline
+  encryption fallback, which is where the data pages are walked
+  instead of in blk_mq_submit_bio(). (Christoph)
+- Dropped the mm/filemap and iomap_file_buffered_write() guards; the
+  refusals now happen in the callers that would fall back to buffered
+  or copied I/O. (Christoph)
+- Added the FMODE_CAN_DMABUF_IO flag and use it to check whether a bdev or
+  a filesystem can do dma-buf I/O. (Christoph)
+
+RFC v1:
+- https://lore.kernel.org/all/20261105065847.196540-1-mengmeng.zhao@linux.dev/
+
+Mengmeng Zhao (6):
+  iomap: don't ask for a buffered fallback for dma-buf iterators
+  blk-mq: factor out a dma-buf bio refusal helper
+  blk-crypto: refuse dma-buf bios in the fallback path
+  fs: add FMODE_CAN_DMABUF_IO and require it for dma-buf I/O contexts
+  dax: refuse dma-buf iterators in dax_iomap_rw()
+  ext4: support dma-buf registered buffers for direct I/O
+
+Nitesh Shetty (2):
+  block: factor out bdev_init_dma_buf_io_ctx()
+  iomap: add dma-buf direct I/O guards
+
+ .../filesystems/iomap/operations.rst          |  3 ++
+ block/bdev.c                                  | 14 ++++++
+ block/blk-crypto.c                            |  8 ++++
+ block/blk-mq.c                                | 24 ++++++----
+ block/fops.c                                  | 12 +----
+ drivers/dma-buf/dma-buf-io.c                  | 13 ++++--
+ fs/dax.c                                      |  4 ++
+ fs/ext4/ext4.h                                | 11 +++++
+ fs/ext4/file.c                                | 44 +++++++++++++++++--
+ fs/iomap/direct-io.c                          | 41 +++++++++++++++--
+ include/linux/blkdev.h                        |  8 ++++
+ include/linux/fs.h                            |  8 +++-
+ 12 files changed, 159 insertions(+), 31 deletions(-)
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.43.0
+
