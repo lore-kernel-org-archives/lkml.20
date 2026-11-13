@@ -1,103 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589372;
-	b=K+/TPl/ELMFo9fDdB4hqKQxdV7kOU3uUNf2CIrIt1KvhsUg1BJ4mett3WRJuN+8nlW2g
-	 4Ad+ovJoNsM1J2ogGXK3jtnFIvwHwM6osjBTEwn9mKDaqYJaqUprF0GcJ4t/++9hBltQO
-	 4slZ2VnyfLogeFvFMaJ0xkZ5eYsXGUgM6mDTUrnb8XiEOcJwkssBRZ3kUMlqkJGDUMcBi
-	 ZUJkMU0Qn7oi6YeW7SI9aKZ8lyHld9Ui+65VzsC9mM7ws/zp8baIGE7JPXAnNfpmBB0Z4
-	 oKq04cKt011laMZT/POXOKeQF0XXTdqeeV+tH5XVDM8T2X0iPau57R5sZ+gaJ48fkQg==
+	t=1794589388;
+	b=i1OoqGFKBoIyZI4MPmonqIQgxtnyEBm9JIj2HJ5KNP6DWEKSnNTQXskjZh3+nsJvGXxZ
+	 CAS2ubkKxe5fDg1y4c9MMWDNzthBYGrOSWsL0m6S+6lu7YPrFf1iXdZsUfRUFSEJAejDC
+	 DKLdtcKaO6NRilYY0QS2UA0WuKYdXZk5crH6aUoH4VLlos54CaUe//zUz0i6jkYs4Z65u
+	 y0N6LHz1vf3PQyGDB2k4L53AJvmXfbr4AsypdNKbrBaTr2/bOEKjnDKqKTCC0m9kjkAmS
+	 JhAScuraHxDdYzxEvw2lOZbd0ooCWwGvvNOJH2onMZisJYLUL7iGf/6FmUWg5y5MsHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589372;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=ym2hLsozA7ZSQayntiTQLoO7fGKekGn6gbjoRP5CLXE=;
-	b=kYHmbeFzRPBsF9IaaVH9kR06gdhl2cbXcz4mybzy87o0mbb3HuiENVqF+0hShQrdgB5i
-	 PDSmrSxuewqwjxzQi2pJKVwKqcFzJ6IPX1cze9kTpODcjIfGr/iROew62Zdw3N+jsLym0
-	 9Vqqqnd+zXzASjDf/QPSVRFy3MDRFRsts87FCAWPp1ktO08CcxlikcsYRWRfaUCKR1+jJ
-	 C5mzYF3HYOn5Sf92EVxhlMMWCdm2okKx5ars2nCk0ZPQ9uWDDw/+tHC3KhpK219LNSl93
-	 Ks4zGhVVcdSCFh0aTchZSnkpP5r2FhXOa7g5t6zfOkjlUbiLuW7OJzfOeuds/K1PPKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589388;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=b1iBR06mysXuO9oyeYat1Y60ZRUTWo8aGvB3eQgMSoA=;
+	b=wQd/RjuM1wv6l7irQHU472HDOCk25/yBjY+VjUmbd03zQcU0BEyL0iWUpNgRQI/JaEek
+	 ZuhjCJJsZsSSZkOqTrgc7HAJHMYMHzFmFIGfOaLWc8nevwsMn3tMm3XGfmHwIlEtUrMF9
+	 PbzghVKXFKWtbJilcy04gCDqOv3jLrM4eeYGjxNwdTwLoqz9aC1X+4aCdQijQa2o1AMIl
+	 s+9dwKRMUqp4fV2FXADE++L1qYPUO+uwrHR8GgLBVEUN+6oUmAnBXQwlY8MyNE4KG4DDp
+	 2tIB87Z/9KmLldGTo7JIULlKYRHgehJSQf1DNuE2r7uFWlGZ2iwcOUxd39pBcwf07ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="wmFo/9UB";
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxgRo1RS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29863606A882
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:02:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29863606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2383606A893
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:03:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wmFo/9UB
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36d73027aedso429715eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:02:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794589371; x=1795194171; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ym2hLsozA7ZSQayntiTQLoO7fGKekGn6gbjoRP5CLXE=;
-        b=wmFo/9UBoL9/fi9B+miMvv37P7UpU2FoOc+M6Eekvn8LgLVHVIIPyoE5Jn2T9FcHcc
-         FOcrA4RRVYam2oSrfBtAKa/ncJHHKnjnnwru8PDAbroLSpYXXH41gpGmApzKschZ2p+r
-         anuv8pU9QtFRC0YPk2UmYZbQGYaxn7Z0FQURyRtEDXGd+4jEEXHxLzoJw7jcI272PcUj
-         J/3soGoSb9FGOc1/0EMijJx9SutbYCPnmXscokmh4r4YRcOzLG6za6668LE/hsZ1Q8JD
-         5z08tyNHX0GIpsRx19UL2/U9d3naDzDSMn1ys00fnNvQv1fzgCJMZgyFFh9jgJsTIxzK
-         IHnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794589371; x=1795194171;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ym2hLsozA7ZSQayntiTQLoO7fGKekGn6gbjoRP5CLXE=;
-        b=ReTZcpdzrXz5XlMmSJnwqaJODMDthG2r+orkBdY3OGf6GIEG2Isxw+QjVczuaOv4Zb
-         EggJ/AMApxDfo75tCRQzkUyltdRzPa5fg9PaKE9HNKQx2JnC2ZsKJoiZXCueLACKnJzD
-         2rcZjohH8lOMIlwzzHaVTxXlr3jdTuS7Ce5bCvF91zUmnK4RHsOaii7jW6W7T+ex/JI+
-         HgYS8nu01J/NpWmuI3UiHPkc8knx2ixmvuZ4iDWhvRL9p/xtySE1e+G0IM6vwUjXwiNT
-         E3bXJ0+SnMB2Y6NZ+z+iYnSg3L0r+q74vV1oLNeqyY9KfSD5sx+OJMtE3M83UofM7IJ+
-         cNXw==
-X-Forwarded-Encrypted: i=1; AL+hErGAb52WfdDxRP4jDRyjwS2lS+HscKxRoLcFshYsuWTuxaZi6mE0EmQ7Y4Cq65ONs3RxMGEEHFn9Iaf4xoA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9TOX7PvEP7jreQv3Zyote4pfBogz3aNn4iY+Zd8BfSJ5FOWQfT
-	uUuO+dKjWELuKppt9vahqf8whNkrrcw4JrATbwVxeFuDeO1XglyTvFgT
-X-Gm-Gg: AYBFou2AyNYdRk2csobMRtKOEQw9iEtqrF5z5veFyHldkue2qajE2vooboTXHA/bdg5
-	ngk77bOKVZz2vKlkhyhjpdlD9ygxU+nuS2gWslpHUzJBoyptmEAGYzYrL8G56/4XiJ2zrfKWTHo
-	xT1S/QWWsix36OaBCv9+HOIs6GrMHRATecl0tYBB6xrOfcA9WV6mEjKc27MAl1FGToZmSNGORJm
-	plIlSsFJ0NdgI2LM5EUdMXVTbFFFIowvoeFMIhNBgVuAJ5ELBRzeTtQ+Q86ewV1oSKGAmacwzGt
-	Nwt/xZaHeAo9Z8W1Xnak+EPlSpG4Xks0sGxeBsr8E4D8IcFd/tvqU7Wbwlu50SPcSVgJxS4fdvT
-	zSFd9nNVo35HuGZo72gl6BT6oAtjhiLxSaBsgLzHEmU2Bw1ut+aAbaYLkZ0VnxtHiX52P7dLSb3
-	rSNYitsk3mAUEv/k1w0TahGpWZJKMVOFA6sPUTyDJNa06xx7/mjUbq0QUYVPeE+9Mw+JSXgV8RZ
-	hJHTm5clm4TLS79WXdOA5hW+wX+e75a43zJU+kaNnIqDC00V+DlGYLgqmU9GBAdscIXRLG3IHZp
-	Vb7T/OEeocbpd7IMYwRUSFI=
-X-Received: by 2002:a05:701b:280a:b0:185:b157:f271 with SMTP id a92af1059eb24-1b50310fafamr2760874c88.23.1794589370935;
-        Fri, 13 Nov 2026 09:02:50 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:69::])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50316e195sm9999831c88.8.2026.11.13.09.02.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 09:02:50 -0800 (PST)
-Date: Fri, 13 Nov 2026 09:02:46 -0800
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Octavian Purdila <tavip@google.com>, Paolo Abeni <pabeni@redhat.com>, 
-	netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	michael.chan@broadcom.com, pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch, 
-	edumazet@kernel.org, horms@kernel.org, shuah@kernel.org, sdf@fomichev.me, 
-	leitao@debian.org, dtatulea@nvidia.com, asml.silence@gmail.com, 
-	bobbyeshleman@meta.com, daniel@iogearbox.net, razor@blackwall.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net-next v4 0/5] net: devmem: size TX net_iovs from the
- dmabuf layout
-Message-ID: <avc_ptmBkAahiBHJ@devvm16445.scu0.facebook.com>
-References: <20261111224740.2744522-1-sdf@fomichev.me>
- <1b764043-2efd-4e65-adb9-a47c0136446b@redhat.com>
- <avZC2hp_0ODMQ4SG@devvm16445.scu0.facebook.com>
- <avZZ-6GGciPC0Lti@devvm16445.scu0.facebook.com>
- <CAHS8izOp2BpO7WnrNZRUryGQg=L3xreF8nSFp5S2_sO8HGhqpg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxgRo1RS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960901F000C4;
+	Fri, 13 Nov 2026 17:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794589387;
+	bh=b1iBR06mysXuO9oyeYat1Y60ZRUTWo8aGvB3eQgMSoA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gxgRo1RSHOc9qKClV3C26LtiU6p9kJ/ozWFc2K79GFXHw+V2zqI8muvqqPuT4rTGb
+	 BUE9WsN9VTM1kBKFeWkGNHnimcaZMkVYoq/DW3cbrQSCB2M2NdK2RJ/d3t4+hu4WXM
+	 WXpLNE0S3SYsXfJPnIH4GsjXlK0DEshXuvHyAM6VzNlhTsxLBSL5Jo6JBZxBpjsZIX
+	 zFYwbUqm6nnXo+AW9MkjpY+zf6p4JSo4FoURUI++QVNVql9g9hYlQcbwrhS9ymsd9h
+	 8u2FsT3d2Q2ZRsjr08T5ai3DkOY6FqfMIa5FUHfIvmXG06XsEKYJdJIccJidjFEDkx
+	 4lAwW/x6Qcm3Q==
+Message-ID: <13c40a66-4ce9-4d9a-801b-a3debfecee22@kernel.org>
+Date: Fri, 13 Nov 2026 18:03:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,85 +51,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHS8izOp2BpO7WnrNZRUryGQg=L3xreF8nSFp5S2_sO8HGhqpg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] mm: page_alloc: add a watermark check that knows
+ the migratetype
+Content-Language: en-US
+To: Kiryl Shutsemau <kas@kernel.org>, Harry Yoo <harry@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com
+References: <20261102093939.3340540-1-kas@kernel.org>
+ <20261102093939.3340540-2-kas@kernel.org> <auynaZkzdzL6Aeyo@thinkstation>
+ <avTEezDIsJBhsPmi@thinkstation>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
+ KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
+ 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
+ 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
+ tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
+ Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
+ 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
+ LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
+ 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
+ BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
+ QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
+ gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
+ CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
+ UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
+ XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
+ 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
+ FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
+ QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
+ 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
+ icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
+ uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
+ SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
+ cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
+ La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
+ FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
+ bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
+ +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
+ jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
+ CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
+ HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
+ SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
+ 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
+ 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
+ 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
+ wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
+ NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
+ OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
+ jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
+In-Reply-To: <avTEezDIsJBhsPmi@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 11/12, Mina Almasry wrote:
-> On Thu, Nov 12, 2026 at 4:42 PM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
-> >
-> > On 11/12, Stanislav Fomichev wrote:
-> > > On 11/12, Paolo Abeni wrote:
-> > > > Hi,
-> > > >
-> > > > A few (late) questions/comments to check I'm not missing relevant
-> > > > points,
-> > > >
-> > > > On 11/11/26 23:47, Stanislav Fomichev wrote:
-> > > > > TX bindings use PAGE_SIZE net_iovs, so a frag covers at most a page.
-> > > > > A 64KB skb needs 16 frags, and MAX_SKB_FRAGS caps devmem skbs at about
-> > > > > 68KB, which makes BIG TCP ineffective for devmem TX.
-> > > >
-> > > > ... with default .config. You could set MAX_SKB_FRAGS to 45 and reach
-> > > > ~180K...
-> > > > > This series picks the TX net_iov size from the dmabuf sg table instead:
-> > > > > the largest power of 2, up to 2MB, which aligns every DMA segment. With
-> > > > > a 2MB hugepage-backed udmabuf a BIG TCP skb takes a few frags. There's
-> > > > > no UAPI change since TX addresses are dmabuf offsets.
-> > > >
-> > > > ... still this option should be more effective because the limit would be
-> > > > higher and the skb would use less cachelines for the shared_info,
-> > > >
-> > > > I'm wondering if making a comparison vs MAX_SKB_FRAGS==45 would be
-> > > > complex and if you could do that, too.
-> > >
-> > > Originally I did not want to include bigtcp to keep it apples to apples:
-> > > same tso size, just 16 frags in skb vs 1 (in ideal case).
-> > >
-> > > I just tried running mlx5 with 45 frags configured and it fails to start with
-> > > the following error:
-> > > mlx5e_attach_netdev() warns "MLX5E: Max SQ WQEBBs firmware capability: 16, needed 23" and returns -EIO.
-> > >
-> > > (fwiw quick review with llm claims that mlx5 only supports up to 20 skb frags)
-> > >
-> > > What I also tried just now is `gso_max_size 524280` (on top of this series)
-> > > and it ups single flow throughput from 200Gbps to 240Gbps (presumably
-> > > by making the receiver go faster with 512K TSOs vs 64K TSOs) and halves
-> > > the sender softirq..
-> > >
-> > > I hope this gives you more data, not sure running with 20 frags is worth
-> > > it (vs 16)? LMK if you disagree or want me to run something else.
-> >
-> > Fun fact, also setting gro_max_size on the receiver gets line rate over
-> > single flow:
-> >
-> > I   client.c: Connected 1:cpu 39 | 1:cpu 118
-> > client: == Source 2401:db00:255a:4a:bace::b
-> > client:   Tx389.448 Gbps (2921248849920 bytes in 60008026 usec)
-> > client:   Rx  0.000 Gbps (0 bytes in 60008026 usec)
-> > client:   TCP retrans reord rtt rttvar d_ce snd_wnd cwnd
-> > client:             2   125  86      2    0 15300608 10142
-> > client:   net CPU 39: usr: 0.03% sys: 0.06% idle:67.39% iow: 0.00% irq: 5.69% sirq:26.81%
-> > client:   app CPU 40: usr: 0.05% sys: 2.91% idle:95.67% iow: 0.00% irq: 0.21% sirq: 1.14%
-> > client: == Target 2401:db00:255a:44:bace::b
-> > client:   Tx  0.000 Gbps (0 bytes in 60009306 usec)
-> > client:   Rx389.438 Gbps (2921238435008 bytes in 60009306 usec)
-> > client:   TCP retrans reord rtt rttvar d_ce snd_wnd cwnd
-> > client:             0     0 210    122    0  999424   10
-> > client:   net CPU118: usr: 0.00% sys: 0.00% idle: 1.60% iow: 0.00% irq: 0.33% sirq:98.05%
-> > client:   app CPU119: usr: 2.75% sys:77.46% idle:18.95% iow: 0.00% irq: 0.47% sirq: 0.34%
-> >
-> > 4200MTU, 32K rx-buf-len, this patch series, gso/gro_mas_size of 524280,
-> > still the default number of frags (enough on rx to fill 512K GRO with 32K
-> > chunks).
+On 11/11/26 20:49, Kiryl Shutsemau wrote:
+> On Thu, Nov 05, 2026 at 05:06:39PM +0000, Harry Yoo wrote:
+>> On Mon, Nov 02, 2026 at 09:39:34AM +0000, Kiryl Shutsemau (Meta) wrote:
+>> > The high-order check in __zone_watermark_ok() accepts a free page of any
+>> > migratetype.  Under ALLOC_NOFRAGMENT, a request below pageblock_order can
+>> > only take a page of its own migratetype or claim a whole free block, so
+>> > the check can pass when the allocation cannot succeed.
+>> > 
+>> > Telling those apart needs the request's migratetype, but not every check
+>> > wants them told apart.  A check whether an allocation can be served now
+>> > has to count only the pages it can take.
+>> >
+>> > A check whether there is enough free memory counts every migratetype:
+>> > kswapd and kcompactd balancing a zone, order-0 thresholds, the
+>> > slowpath's forecast whether reclaim and compaction can still make
+>> > progress.  Reclaim and compaction work across migratetypes to free whole
+>> > pageblocks.
+>> 
+>> nit: perhaps we could make the changelog above bit more concise.
+>> 
+>> I think the necessary bit here is "With defrag_mode, allocations cannot
+>> steal a page from pageblocks of other migrate type, thus
+>> __zone_watermark_ok() needs to take that into account."
 > 
-> With 'devmem' over udmabuf? Is this possible without devmem on your
-> setup? How much is devmem helping I wonder.
+> 
+> It is ALLOC_NOFRAGMENT, not defrag_mode: Normal zone allocations get it
+> on the first attempt when DMA32 is populated, with defrag_mode off. And
+> such an allocation can still claim a whole free pageblock of another
+> migratetype.
+> 
+> But fair, it can be shorter. A tighter version is below; it also says
+> why kcompactd passes MIGRATE_MOVABLE.
+> 
+>> nit: maybe let's set cc.migratetype and pass it?
+> 
+> The value is not read there: __zone_watermark_ok_mt() uses the
+> migratetype only under ALLOC_NOFRAGMENT, and kcompactd never passes it.
+> kcompactd_node_suitable() makes the same call and has no compact_control
+> to take it from.
+> 
+> Thanks for the review.
+> 
+> The new changelog:
+> 
+> 	The high-order check in __zone_watermark_ok() accepts a free page of any
+> 	migratetype.  Under ALLOC_NOFRAGMENT, a request below pageblock_order can
+> 	only take a page of its own migratetype or claim a whole free block, so
+> 	the check can pass when the allocation cannot succeed.
+> 
+> 	Only a check whether one allocation can be served now should count just
+> 	the pages it can take.
 
-Yes, devmem+udmabuf. I think what's helping here the most is 32K rx frags
-and bigtcp, this makes it possible to pack 512K TSOs into a single skb
-on rx (which is the bottleneck). At least on mlx5 don't think there
-is a way currently to configure that outside of iou/devmem memory
-providers? FWIW, devmem socket api with the cmsgs is not supper
-efficient, but bigger chunks do help here as well.
+Please try actually reading this sentence, does it make any sense? It
+instantly reminded me of the meme classic: "Has anyone really been far even
+as decided to use even go want to do look more like?"
+
+> A check whether a zone has enough free memory
+> 	serves no single allocation and counts every migratetype: reclaim and
+> 	compaction free whole pageblocks across migratetypes.
+
+Oh yeah always this damned style again. What did they train the models on?
+
+> 	Add __zone_watermark_ok_mt(), which takes the migratetype, for the first
+> 	kind:
+> 
+> 	  - the allocator fast path, zone_watermark_fast();
+> 	  - its recheck after node reclaim in get_page_from_freelist();
+> 	  - compaction's up-front check, compaction_suit_allocation_order().
+> 
+> 	__zone_watermark_ok() wraps it for the second kind.  kcompactd shares
+> 	compaction_suit_allocation_order() with direct compaction and passes
+> 	MIGRATE_MOVABLE, which is not read without ALLOC_NOFRAGMENT.
+> 
+> 	Declare both in mm/internal.h: nothing outside mm uses them.
+> 
+> 	Nothing reads the migratetype yet: no functional change.  Preparation for
+> 	making the high-order check honour ALLOC_NOFRAGMENT.
+> 
+> Looks good?
+
+Not really :(
+
+
