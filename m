@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794568328;
-	b=Z3uw48P2W74T6M/oKw1c0OOppY5sK8W+izqh2hvM57isuLHtXSQyEttutHIp3Cxcz8Mi
-	 0ayZDiRGmPbFiNidjV2FmrPvr808Brb60H5uS7ApvP4GxPMHxAth1oiUJsAwXedkBUtdm
-	 3a7mqR+K8HNTaeinspZuiqDLG8UZjylgBRM+c8wo7Fy8W3azO0xei20WV2yOp7v8pS88Q
-	 8POSFrgC0qwqbjYcUMvxjlkoDw4rvG6a0I/9CQFnTCnMqnRLtIXdhJ3bBRituejUPtgRw
-	 2PmlSlOZcMXkEC2MCJbQjwIVnZgrnCUYXeDdKjrpf0zi9zySGEyiJhxSaWl/ha1sr2Q==
+	t=1794568330;
+	b=dHQ7YIiunosT/6uUYmbgzQrfrd4zNIFpKc89YLKwdP28lIAFPLuem/5TARHq5x/uGPSI
+	 aPLs0dJlyTtp1gpqMd8wEjVB72XDOlbiH8sfEQMV5LA8AS7vbs4ZpeyfBSJ1qHFNa3I7s
+	 ++7fRiGEpnbgof2J34/Tq8kmYnX3aoq9DydQqk+Rt4wxFn0DPhbTbN1lnyiMoSnRSAJFE
+	 WWnbLiwOcehctNrCraMth6XIvlYlL8+Mouy81HDyZkjhNpHR4/3pE6TyBX58sl3Pw1vvq
+	 YiFmK+8c/6KMuybeOySFo0dcDEjD2a7IUwANglM6Wr1i75fn/uqFKkr5a/NrYKaSVcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794568328;
-	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Tdw0bwQZ8Q79OsNUucWIgUjlWSc89vsrssM2V4jSnNE=;
-	b=BQyRjvNiEEUKmGY7x7KMuqomKuBAbEioaBQiJ6kGeQ4Y5atHWkTe4i2Ma+ueZ+NthnMp
-	 /vOumWx7j5f5S/ut5V7zVO/7arngYG4N3yQ7YL2YWj11aqinkAApN6c+YB1VLcxZQsKq5
-	 kzls0I+pTNv44EW29hsx3gfcMjfK5fwlSprC7ptF8UsZVvhSWn9rVYLmcjBj10a3U9rD7
-	 MyRTewF9qksuU2MafexfIH0JjS0+WTFElRmBssC6FUwfY2cGIPkd7RrwrQXrVfYeSY0YO
-	 ePmcL1dVJs6zCYxqbaasrm53/SBHLP20V46Odo4smmt7uvBaWMk5hi9qTunjps8nw9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568330;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=0crRzYpZW9dxW1wNlc5vxnIxQkrZjxGjYg3H3gi691g=;
+	b=v6MkfJLKWKxEetIu8eXNh2AuPRMs3cuHQsWK6HGyrd+SsUcwZ3S4jyUafWS4jWsBC/ZN
+	 6Zr/WlBo4RWcQ5H0nXt+qenTV6e6AUq5/OYRBeXjVlQOxB8cQoY6UxBEz5WX5mS2M81N5
+	 TI4daD2HoqB5ooebFlpHZE7EfeFhJJYD/wNq48nd9f1RtRMsDQTU+zAQPxP7w4omxvvBa
+	 Ek4E+7bGCLYHB2ISWK8LM8ilAU9czJf06Gn/A3RPURQWFvASw2DNnyLlWrXaz8IRulAp2
+	 //38D4Gcdl12+rVdDWEKOme3iO669LXBON3WBBb4IVtra15v+JrucgIDEBtMFH5EQWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideco.ru;
-	spf=pass smtp.mailfrom=ideco.ru;
-	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=gukuY0Xf;
-	arc=none smtp.remote-ip=51.250.56.165
-Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lt7uHD8l;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA25C606A33B
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:12:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA25C606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ideco.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9295A606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:12:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9295A606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=gukuY0Xf
-Received: from [169.254.254.254] (localhost [127.0.0.1])
-	by smtp.ideco.ru (Postfix) with ESMTP id 1D28226BC6;
-	Fri, 13 Nov 2026 16:12:06 +0500 (+05)
-Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.ideco.ru (Postfix) with ESMTPSA id 7E90B26BC3;
-	Fri, 13 Nov 2026 16:12:03 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 7E90B26BC3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
-	t=1794568324; bh=Tdw0bwQZ8Q79OsNUucWIgUjlWSc89vsrssM2V4jSnNE=;
-	h=From:To:Cc:Subject:Date;
-	b=gukuY0Xf1gE5F2BvUTIqm9aSWpFRbNUnT4Bv04r5npETypYaaeJsjkscsFGwjiLvB
-	 KmIilEUBW+ADZZJmAq4Z2ABzv1ZiShcJ81YL27mwVB+oGJF1bLqImpYYsKrwF75lBr
-	 AjwnK8TNMEWoRLHi2F6+BGb9sUu6q/MY2UefTCPpshCsMw2wnLKdrBdvhpgs8n8M7G
-	 SP6LXhN+unVyBEgmYDPEL+3tbYjKYQjKoQGrLJ7Ux+vva+E6UyegKkBjtRi0+g/jUL
-	 iqs3WPcypsurLJeq+RBD1CS3Ac9yXTfGbGHXVYqaEse1DfGtY/25VE49uFny6KUqMJ
-	 VxlUpkm1C4Pbw==
-From: Alex Kazinsky <a.kazinsky@ideco.ru>
-To: Daniel Thompson <danielt@kernel.org>
-Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
-	Douglas Anderson <dianders@chromium.org>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tim Bird <tim.bird@sony.com>,
-	Martin Hicks <mort@sgi.com>,
-	kgdb-bugreport@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH] kdb: Reject zero BYTESPERWORD before calculating the repeat count
-Date: Fri, 13 Nov 2026 15:11:51 +0400
-Message-ID: <20261113111152.4190309-1-a.kazinsky@ideco.ru>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lt7uHD8l
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso1307734eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:12:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794568329; x=1795173129; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0crRzYpZW9dxW1wNlc5vxnIxQkrZjxGjYg3H3gi691g=;
+        b=lt7uHD8l1toqas3ElXYiSGHB+RSr1qoum94HaRnGkl7zHQQ+rmAqvYjFlQ5WJ0ye4L
+         HRdZjC8VkeJqUE+aHiBXrn3fhjwx9lPbN4+9iqrFU4m3xRvWksL2C6Rm9Iqq48bC0dJn
+         V8XpHYLbWRZF+U3u8V9cx5vp9kSkjCTDnXg1RsqOu0SUEzgKKBSdwZfhnU/oB3KtKFHL
+         Ti1htwVV1oLdCkXYAkQbzvCmzIZrkLALlgsOHqf6I1JwCXV3njJUTIIvwIPQXJHl/k7w
+         2OIO3KpxSxhtPALsglrF1QZnqgp9YywSNzxCxAHieFwET8P8OxPcLHM0SxLLhh7ZU5+F
+         /TzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794568329; x=1795173129;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0crRzYpZW9dxW1wNlc5vxnIxQkrZjxGjYg3H3gi691g=;
+        b=p/jD4cSfSDeOQgxvR6qfinJ909zxt0tRdVBVBV42aYM3g8NbaVdni3E5KVf5U4iGXC
+         2fSI8JQW8/bhS7c0X3HnHV4i+CwUG5fNK6t7WktM3K6mtUWbsL4Wk74dFJ4Yve3u3ykh
+         0Jx8YMeOdTLomwqiAE2xdrCkt+nS6FRaoAdEqiT0BGmukxMlJS1fbBV1KPawJxxZ0XE3
+         8deh0eY0cwndOgknDxWI5IKBUvrlgiF2GQZ1saQFzifnsZ3Y/3TiY2THecW1GcX8xa04
+         beOZV8MkrLdndw4Uu/JWW5Tlvg49eWr1y48K7DEbs0NIvbX2vimrGWkS/Xh7Wy7ZH/WW
+         5Z6w==
+X-Forwarded-Encrypted: i=1; AL+hErHAXnveWtXuD7tpxTZQ5scxfRFDB0JSmjrAEXwWRtPRRSSYEPoyCwJrzfbM076hc3lYioXaBtwfA8SnUOY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9DXVIRdsGMFtfKU1HcEqrsoDJSJ0zX5+TmKFe25JNFAdAgjrbd
+	JqWvMTu3XeaNshHIJ4Wvcxm/3k6ajE/HdQ05x+0kh6nF9cUr4h0qk0RY10V0hn40IqUaL2wT5PW
+	jPiUeU4qz679Vhmqd90YVvg==
+X-Received: from dybhh46.prod.google.com ([2002:a05:7301:292e:b0:376:93cf:d6ce])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:d189:b0:36e:e349:f2cb with SMTP id 5a478bee46e88-3796628e28amr1996025eec.19.1794568328133;
+ Fri, 13 Nov 2026 03:12:08 -0800 (PST)
+Date: Fri, 13 Nov 2026 19:12:01 +0800
+In-Reply-To: <20261113111202.3551341-1-stanleyjhu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,40 +78,165 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261113111202.3551341-1-stanleyjhu@google.com>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261113111202.3551341-2-stanleyjhu@google.com>
+Subject: [PATCH v2 1/2] scsi: ufs: core: Recover link in ufshcd_set_dev_pwr_mode()
+ on timeout
+From: Stanley Jhu <stanleyjhu@google.com>
+To: linux-scsi@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Brian Kao <powenkao@google.com>, Can Guo <can.guo@oss.qualcomm.com>, 
+	"Bao D. Nguyen" <quic_nguyenb@quicinc.com>, Hongjie Fang <hongjiefang@asrmicro.com>, 
+	Praveen Talari <praveen.talari@oss.qualcomm.com>, Hoyoung Seo <hy50.seo@samsung.com>, 
+	John Garry <john.garry@linux.dev>, Hyeoncheol Jeong <hyenc.jeong@samsung.com>, 
+	Jens Axboe <axboe@kernel.dk>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+	Stanley Jhu <stanleyjhu@google.com>, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Setting BYTESPERWORD to zero in the kdb environment causes kdb_md()
-to divide by zero when calculating the initial repeat count. The
-existing width validation happens after this division.
+ufshcd_eh_timed_out() calls ufshcd_link_recovery() when a command
+times out during a power management operation. Link recovery sends a
+NOP OUT, which needs hba->dev_cmd.lock and the only reserved tag.
 
-Reject a zero width with KDB_BADWIDTH before calculating the repeat
-count.
+1. Runtime resume sends a query with the reserved tag while it holds
+   hba->dev_cmd.lock.
+2. The device does not answer and the query times out.
+3. ufshcd_eh_timed_out() calls ufshcd_link_recovery().
+4. In MCQ mode ufshcd_verify_dev_init() waits for hba->dev_cmd.lock
+   while __ufshcd_wl_resume() waits for the query. Resume hangs.
+5. In legacy mode the query completes but the timeout handler still
+   holds the reserved tag. The NOP OUT fails with -ENOMEM and the
+   host enters UFSHCD_STATE_ERROR.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE static
-analysis tool.
+Stop the host controller in ufshcd_eh_timed_out() and recover the
+link in ufshcd_set_dev_pwr_mode(), which issues START STOP UNIT
+without hba->dev_cmd.lock or the reserved tag. For modes other than
+active, ufshcd_set_dev_pwr_mode() then fails and the caller aborts
+the power transition.
 
-Fixes: 5d5314d6795f ("kdb: core for kgdb back end (1 of 2)")
-Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+Recovering the link there needs four more changes. First, START STOP
+UNIT is completed with DID_TRANSPORT_FAILFAST and is not retried.
+ufshcd_set_dev_pwr_mode() also recovers the link if START STOP UNIT
+succeeds but the controller is disabled. Hosts with
+UFSHCI_QUIRK_BROKEN_HCE do not use the HCE bit, so
+ufshcd_set_dev_pwr_mode() checks only the timeout result on them.
+Second, in MCQ mode ufshcd_eh_timed_out() reaps the completion queue
+before it completes the command, so a late completion cannot complete
+the tag twice. Third, a timed-out reserved request forces
+ufshcd_err_handler(), because no power management caller recovers
+after it. Fourth, in MCQ mode ufshcd_err_handler() does not poll the
+completion queues while the controller is disabled.
+
+Fixes: 01d5e237b339 ("scsi: ufs: core: Handle PM commands timeout before SCSI EH")
+Cc: stable@vger.kernel.org # 7.2.x
+Suggested-by: Bart Van Assche <bvanassche@acm.org>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- kernel/debug/kdb/kdb_main.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/ufs/core/ufshcd.c | 43 ++++++++++++++++++++++++++++-----------
+ 1 file changed, 31 insertions(+), 12 deletions(-)
 
-diff --git a/kernel/debug/kdb/kdb_main.c b/kernel/debug/kdb/kdb_main.c
-index 40c332d2179d..c3cbeb25f6fb 100644
---- a/kernel/debug/kdb/kdb_main.c
-+++ b/kernel/debug/kdb/kdb_main.c
-@@ -1527,6 +1527,9 @@ static int kdb_md(int argc, const char **argv)
- 	kdbgetintenv("RADIX", &radix);
- 	kdbgetintenv("BYTESPERWORD", &bytesperword);
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index ddc953b45ce9..0f5365bd90f0 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -7108,8 +7108,12 @@ static void ufshcd_err_handler(struct work_struct *work)
+ 	ufshcd_set_eh_in_progress(hba);
+ 	spin_unlock_irqrestore(&hba->host->host_lock, flags);
  
-+	if (!bytesperword)
-+		return KDB_BADWIDTH;
+-	/* Complete requests that have door-bell cleared by h/w */
+-	ufshcd_complete_requests(hba, false);
++	/*
++	 * Complete requests that have door-bell cleared by h/w.
++	 * CQTPy must not be read while the controller is disabled.
++	 */
++	if (!hba->mcq_enabled || ufshcd_is_hba_active(hba))
++		ufshcd_complete_requests(hba, false);
+ 	spin_lock_irqsave(&hba->host->host_lock, flags);
+ again:
+ 	needs_restore = false;
+@@ -9660,17 +9664,20 @@ static enum scsi_timeout_action ufshcd_eh_timed_out(struct scsi_cmnd *scmd)
+ 	}
+ 
+ 	/*
+-	 * Handle the timeout directly to prevent a deadlock between
+-	 * ufshcd_set_dev_pwr_mode() and ufshcd_err_handler().
++	 * Stop the host controller so that @scmd can be completed here.
++	 * ufshcd_set_dev_pwr_mode() recovers the link for START STOP
++	 * UNIT. ufshcd_err_handler() recovers it for other commands.
+ 	 */
+-	ufshcd_link_recovery(hba);
+-	dev_info(hba->dev, "%s() finished; outstanding_tasks = %#lx.\n",
+-		 __func__, hba->outstanding_tasks);
++	ufshcd_hba_stop(hba);
++	if (!ufshcd_is_scsi_cmd(scmd))
++		ufshcd_force_error_recovery(hba);
++	if (hba->mcq_enabled) {
++		struct ufs_hw_queue *hwq =
++			ufshcd_mcq_req_to_hwq(hba, scsi_cmd_to_rq(scmd));
 +
- 	/* Assume 'md <addr>' and start with environment values */
- 	repeat = mdcount * 16 / bytesperword;
++		ufshcd_mcq_compl_all_cqes_lock(hba, hwq);
++	}
  
+-	/*
+-	 * ufshcd_link_recovery() may already have completed @scmd, e.g. via
+-	 * the existing MCQ force-completion path.
+-	 */
+ 	if (!test_bit(SCMD_STATE_COMPLETE, &scmd->state)) {
+ 		if (!hba->mcq_enabled) {
+ 			struct request *rq = scsi_cmd_to_rq(scmd);
+@@ -9680,7 +9687,7 @@ static enum scsi_timeout_action ufshcd_eh_timed_out(struct scsi_cmnd *scmd)
+ 		}
+ 
+ 		if (ufshcd_is_scsi_cmd(scmd)) {
+-			set_host_byte(scmd, DID_REQUEUE);
++			set_host_byte(scmd, DID_TRANSPORT_FAILFAST);
+ 			ufshcd_release_scsi_cmd(hba, scmd);
+ 		} else {
+ 			set_host_byte(scmd, DID_TIME_OUT);
+@@ -10137,6 +10144,9 @@ static int ufshcd_execute_start_stop(struct scsi_device *sdev,
+ {
+ 	const unsigned char cdb[6] = { START_STOP, 0, 0, 0, pwr_mode << 4, 0 };
+ 	struct scsi_failure failure_defs[] = {
++		{
++			.result = DID_TRANSPORT_FAILFAST << 16,
++		},
+ 		{
+ 			.allowed = 2,
+ 			.result = SCMD_FAILURE_RESULT_ANY,
+@@ -10172,6 +10182,7 @@ static int ufshcd_set_dev_pwr_mode(struct ufs_hba *hba,
+ 	struct scsi_sense_hdr sshdr;
+ 	struct scsi_device *sdp;
+ 	unsigned long flags;
++	bool fenced;
+ 	int ret;
+ 
+ 	spin_lock_irqsave(&hba->host->host_lock, flags);
+@@ -10199,6 +10210,7 @@ static int ufshcd_set_dev_pwr_mode(struct ufs_hba *hba,
+ 	 * already suspended childs.
+ 	 */
+ 	ret = ufshcd_execute_start_stop(sdp, pwr_mode, &sshdr);
++	fenced = ret > 0 && host_byte(ret) == DID_TRANSPORT_FAILFAST;
+ 	if (ret) {
+ 		sdev_printk(KERN_WARNING, sdp,
+ 			    "START_STOP failed for power mode: %d, result %x\n",
+@@ -10212,6 +10224,13 @@ static int ufshcd_set_dev_pwr_mode(struct ufs_hba *hba,
+ 		hba->curr_dev_pwr_mode = pwr_mode;
+ 	}
+ 
++	if (fenced || (!(hba->quirks & UFSHCI_QUIRK_BROKEN_HCE) &&
++		       !ufshcd_is_hba_active(hba))) {
++		ret = ufshcd_link_recovery(hba);
++		if (!ret && hba->curr_dev_pwr_mode != pwr_mode)
++			ret = -EIO;
++	}
++
+ 	scsi_device_put(sdp);
+ 	WRITE_ONCE(hba->host->eh_noresume, 0);
+ 	return ret;
 -- 
-2.56.0
-
+2.56.0.611.g1030f0b940-goog
 
