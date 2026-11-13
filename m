@@ -1,48 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794603897;
-	b=bECLsSB5E3xctJzm61sDQzmKF+28aWvPgxvHvG8LutXxOcWO10EKnRzz2UkUXn5x+b7g
-	 IoNfG+AoHm7EdrZCAnbg6BDXGsnrs15x9SLMWdR5c/f+2i7D7bEaFEKyK5itIgIaXpbxK
-	 GFl3AMQ/Do+mGUaW3vsLmellpZAEYpNYEtMUyUM6rBCyBKAFHLBokRcLFuMpOmEZB3KCO
-	 ublNfWcWzC/ouFTA4HiGVihJJDCCudYebXl9xDVhFEY9HQUGYam4r9VV/LCJHcBrzv3Pa
-	 6HOQnTAM4xwuCyTh7Cw5jhr1NdQ1Qqilmdk7H3En0y4/gZZZBOtxaRRJ5kmaLYS1/CA==
+	t=1794603972;
+	b=c3jA+k1A40GJywocc6blxTyaKComSDpSKcl79RCIToqrhZVBa+bTlfPeZtV2YJSWg0Yr
+	 Gv9AZnVrg679wAkcIks1jhNE4qzH9VjqZrc03jzf86WW5bIbdaaQRkUoCvFzx2RuVq4HQ
+	 wIv+cipMHoXNNVxEr5Ojt9qpon8EDxW1FDq4K+hT4mNexV79eCZZeFsDUXJluNii+xIPZ
+	 9ozkmrSHY6nFyGob3E1vfxuLiEJWQsx/NRbQ5H1wetrTBBNW7l9MEaJ1rDAejEOcEJTRO
+	 McCKMvsC7EsG1LnzQVsnr+B7EDYGbXRT3aQLBlaRZ5pqvaVJF4zyBo8CmrJbiGR376w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794603897;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=1ER8KpZ3zfRFsc0jAuE6Pv7xhdhSa8bJ/BY3j/U6NO0=;
-	b=CyVco6XJLR9+9ySV6itcTpumN6i3Mpya20K5BO5lVN7nR3Fwu4PpfMQL6S5ztXTqoktd
-	 aig7N6oYq/dpITg+N1hMJm72VPiQ8fqmAMjqcXB0EFo+Xu8FdZJS+32oYjn3x7hb9H3LW
-	 WWhk2+z3D5iwvlelJ4X0laBaXqCkr2ucIbZ9j3mRW9CZ9KMF+zuHOgIUD9pXn1IkEwZUN
-	 samQanOXQWIS30bkscHRhcUqFdXw8XEmkG87ea7AQpbVfLbDfBrwBySCNXOMkAVEuCD01
-	 OmYOPHEv13cZ3fLLl1PmA4rRnOo9CHxogf+rcjy9OMEcqMLHx71NMQa2HpSxiiccDCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603972;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=1kXcbvm0z7UiM619s9T7DtZLjsDWfr0JMHsOiwfZJ/E=;
+	b=Hq5angGdPrWMTJ7mzalvakLARyVsDCUrXjD2kUdT2Cnc++YXO8duJFOXMj3nW87uiMlP
+	 ZYim6XqB9monxox5Mr4SSOJ7ibPXHUTtoFM6UAxzCJruWeU6nb57Nn9xwi0nPVYEqgp33
+	 B9vDhLJUuKpY42TIPrm5y9qDl1KnxZT62Buj0qtCj9THkGze9PzclWBE46R3H55JWV3fW
+	 5w/hF5eYctXcMKSkO410WKRAngBUC73tx/8RBTqLgr2QAP79gQuqMKdXaBw6OVXs0ZSbF
+	 7XZz2Tb4Jl6JvLsjp3DF5FIAK4EafJNpmUpcN8Tss1QCQpYITDzfQhDC2EuIiVHWQ0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XBDkP1ME;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=aBchvwHb;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2B8606A332;
-	Fri, 13 Nov 2026 21:04:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2282606A335;
+	Fri, 13 Nov 2026 21:06:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2282606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XBDkP1ME
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43DE21F000C4;
-	Fri, 13 Nov 2026 21:04:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794603897;
-	bh=1ER8KpZ3zfRFsc0jAuE6Pv7xhdhSa8bJ/BY3j/U6NO0=;
-	h=From:Date:Subject:To:Cc;
-	b=XBDkP1MEYjEMGPCiPmFni2Ws0WRv4aL3OTjNO+w9UPvmGu3mzeiYhRQTgvPU1N5Ev
-	 WA4d2hotLdiO5VF0t3MnFFJvphAgOW98+piK5A+4gmOygY3s4Y9xD3ZEipC4yhHiW6
-	 wifW6CuA4bs01ifCUkSQc+VFLckm+nmsBVJC40SP3Wb5pYGXRKjv3SSZSCNVZEL+7h
-	 LzH5FlT1p8yBdLx9YdQetNOkI4mXGsUbfRFYsYHVB42fFy1YNYm616jr90CqWVrv5B
-	 HB4o/T2Dbm09kOwGm1ZN3/mAJEinmVexTAVx1gdUhbIboA85h2OUY59SQqm7FpDkuJ
-	 cBi1c7kytoqWA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 13 Nov 2026 21:04:45 +0000
-Subject: [PATCH v2] mm/madvise: zap markers from guard regions
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=aBchvwHb
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=1kXcbvm0z7UiM619s9T7DtZLjsDWfr0JMHsOiwfZJ/E=; b=aBchvwHbNaXOhdjSZx9GbShvul
+	tdiw9DRvJ9mDxFyDrAQyXmZFn4n9wHvp5tHczlVFRnXm74D9cWdxR4ZFImsjfwDbJc6M0aJaDKVhU
+	oxXAoma6NJl0G6YSgeWIGR/qRMDHYnei31DG00HWl5PO/BC98blWaEo8MU5D7kpo9ipY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xRyT5-00GMcm-Gu; Fri, 13 Nov 2026 22:05:55 +0100
+Date: Fri, 13 Nov 2026 22:05:55 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Daniel Golle <daniel@makrotopia.org>
+Cc: joseph@telaak.dev, Hauke Mehrtens <hauke@hauke-m.de>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 0/2] net: dsa: mxl-gsw1xx: reset the switch
+ through reset-gpios
+Message-ID: <9804b024-236a-4791-aa55-d83a71b2598c@lunn.ch>
+References: <20261112-mxl-gsw1xx-reset-v3-0-863e82074893@telaak.dev>
+ <a2f45802-b75b-4a19-9508-2d1b5ebe473a@lunn.ch>
+ <avcoghKd4CU13QI_@makrotopia.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,170 +72,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBAAv0J6do27URFP/sNwWOgWNpLWtIAaw
- t+tvMDjzGFmMUmiSjLXYjFRZk0afAbaFabt2XcCajMbOtAZEQmsJh6G8ILJOQvdxNGC+jRmCXy
- i6ohUsS0bkwvPKE7fW/1eZ+41jSF+ttmMP/tfd0ZAaFp3aZCZS5LbQ6KXYR9iZ+p1Xb+8kMwdx
- wAAAA==
-X-Change-ID: 20261112-disallow-uffd-guard-install-a5294129ad7b
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, 
- David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Shuah Khan <shuah@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, ljs@kernel.org, 
- Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5253; i=ljs@kernel.org;
- h=from:subject:message-id; bh=ood4PU4Ndo2QhkvUaqc8rbDLFfrVqELevFrBKP9tELw=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+Vxfezvg0d+LfR989XbMj/8rY+k7wXj/j6WOriLDW4
- //PLD97sqOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATea/KyDCJ+eCbM6zllktM
- mRe/TTuTKn+TbXZY8/amri/OD+78/3+L4b/3VQXmLHEhlowZvikJQRt62XlYyv4n9pzenvfr7Id
- X1swA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avcoghKd4CU13QI_@makrotopia.org>
 
-In order to establish guard regions, guard markers are installed in the
-page tables of a mapped VMA.
+> I *guess* that in this case the vendor wants to avoid using PHY
+> address 0 which is widely misunderstood as being the "broadcast
+> address" (which it is, but only in scope of AUI attachments and SFP
+> modules).
 
-However, problems arise when one tries to combine this with registering a
-VMA for userfaultfd, as such operations may themselves need to install page
-table markers such as uffd-wp.
+There are no standard for copper SFP modules, so i find it hard to
+accept that SFP modules expect 0 to work as a broadcast address.
 
-When the installation is attempted the guard marker prevents these markers
-being applied, which can lead to unexpected results (especially if the
-guard regions are later removed.)
+> > Does the driver have an implicit assumption about the addresses of the
+> > PHYs? Should the driver actually be writing this register to put the
+> > PHYs at the expected address?
+> 
+> The driver does what is described in the device tree. Ie. boot firmware
+> applying a non-default PHY addresses should just say so in the DT passed
+> to Linux imho.
 
-This is especially problematic because guard region installation causes the
-regions to be zapped first, meaning that the removal of userfaultfd-tracked
-ranges will not be logged in this case.
+And this is what i was wondering about. Is it the DT which is wrong,
+or the driver?
 
-Additionally, the uffd-wp page table marker will be propagated regardless
-for file-backed mappings as the zap being performed does not clear these
-markers.
-
-This is problematic, as it can cause repeated failure to install guard
-markers resulting in an infinite loop.
-
-Therefore, update guard region installation to invoke the zap with the
-ZAP_FLAG_DROP_MARKER flag applied.
-
-Both before and after this change, uffd remove events will not trigger on
-guard region installation, nor will write protect state be propagated after
-guard region removal.
-
-This makes sense as conceptually, guard regions mark a part of a VMA as
-effectively unmapped at the page table level, and removing the markers is
-like mapping the VMA again, over which operation uffd markers would in any
-case be lost.
-
-A survey of open source users indicates nobody is relying on installing
-guard regions in uffd-armed VMAs. Software including glibc, android,
-tcmalloc and CRIU were checked.
-
-This change means that any already established guard regions are removed on
-zap. These will be overwritten with the newly installed guard markers on
-success.
-
-However, if this fails for some reason (fatal signal likely the only
-reasonable cause), guard regions may remain removed, and concurrent faults
-may succeed in the interim in the range.
-
-Since the installation failing guarantees nothing about the range being
-installed into, and since success overwrites with guard markers, this isn't
-an issue.
-
-Since MADV_DONTNEED does something similar, abstract the zapping to
-zap_range() and call it from both places.
-
-Fixes: f807123d578d ("mm: allow guard regions in file-backed and read-only mappings")
-Reported-by: Tal Zussman <tz2294@columbia.edu>
-Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-9-00713d368976@columbia.edu/
-Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-10-00713d368976@columbia.edu/
-Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu/
-Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
-v2:
-* Updated to just zap everything as per David + Tal.
-
-v1:
-https://lore.kernel.org/r/20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org
----
- mm/madvise.c | 28 +++++++++++++++++++---------
- 1 file changed, 19 insertions(+), 9 deletions(-)
-
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 0214efd2a014..4f7728583207 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -850,6 +850,19 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
- 	return 0;
- }
- 
-+static void zap_range(struct madvise_behavior *madv_behavior,
-+		      zap_flags_t flags)
-+{
-+	const struct madvise_behavior_range *range = &madv_behavior->range;
-+	struct zap_details details = {
-+		.reclaim_pt = true,
-+		.zap_flags = flags,
-+	};
-+
-+	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
-+			      range->start, range->end - range->start, &details);
-+}
-+
- /*
-  * Application no longer needs these pages.  If the pages are dirty,
-  * it's OK to just throw them away.  The app will be more careful about
-@@ -872,13 +885,7 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
- static long madvise_dontneed_single_vma(struct madvise_behavior *madv_behavior)
- 
- {
--	struct madvise_behavior_range *range = &madv_behavior->range;
--	struct zap_details details = {
--		.reclaim_pt = true,
--	};
--
--	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
--			      range->start, range->end - range->start, &details);
-+	zap_range(madv_behavior, 0);
- 	return 0;
- }
- 
-@@ -1217,9 +1224,11 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
- 
- 		/*
- 		 * OK some of the range have non-guard pages mapped, zap
--		 * them. This leaves existing guard pages in place.
-+		 * them. This also drops any PTE markers in the range,
-+		 * including existing guard markers, which we reinstall on
-+		 * the next attempt.
- 		 */
--		zap_vma_range(vma, range->start, range->end - range->start);
-+		zap_range(madv_behavior, ZAP_FLAG_DROP_MARKER);
- 	}
- 
- 	/*
-@@ -1845,6 +1854,7 @@ static bool madvise_batch_tlb_flush(int behavior)
- 	case MADV_DONTNEED:
- 	case MADV_DONTNEED_LOCKED:
- 	case MADV_FREE:
-+	case MADV_GUARD_INSTALL:
- 		return true;
- 	default:
- 		return false;
-
----
-base-commit: 4318887a3efa4c53d6f083ccfd7105b809a3ac65
-change-id: 20261112-disallow-uffd-guard-install-a5294129ad7b
-
-Cheers,
--- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
+   Andrew
