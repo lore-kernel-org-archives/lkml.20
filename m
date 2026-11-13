@@ -1,95 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604271;
-	b=V0EXA67Rkw2svFQLXzeVcGEDmVApmr2Wc5+xijlqIRT9TaS33TIOqxCZqVl8WaU5lJ0f
-	 TbVsiD9XDeTd40yPdQAaJZf4mTGpzEUF6bNW6iDpnnF1uJQnObddQNcstsrKOk50oguum
-	 IbRw5/9sDncsQ+oBtkluvQ50eZrU+gmgss6tTKjt0YS9N5PiDFVixPzhl7iZ9x732C2Kl
-	 bfe9qxYXPDAvLtmiU0KxUHTwNPnJZFkGvGQROI9K3jlrTlZ3O5j5/xFOl6mrWI/QHHHdZ
-	 CME1QII99fWizJa4ckRnHEN1F43+vvWBpuNnv+ZIh+tYG+p8EJc1G83b8UsBDJp6BvA==
+	t=1794604273;
+	b=xO73goaj4bgwY5OyRaSLEL8seEZYHPjJcKhygEko/FOoLoIAAlcYFQmlidgCXlIENjbP
+	 G5loNcBlCaDbqY9PxHKTipfJWpC6W8U9vnlv5YkjUf5tHB3guG4bLu105mC25sqBlXl7c
+	 FjggKY9zcUu4z+ZkaFB4QCO/NUe6INziq9H1XUQmAn/02xtdUhKRx3xZHQQabzy9FjCr7
+	 gYs8LEFe51s5nOGdL4zvut7C3mfJ2ATy9kmQ6ahXWdK+fKIibpdvkn4ndmK8TBDStippv
+	 z0pNT7rSINKDcfhYPKempN7D+fUjN/NVahQt2uUV4Lyhvmm8GEAwTI7HGfYN6zpjL7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604271;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604273;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:X-Google-Original-Message-ID:Date:From:To:Cc:Subject:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=syr2zQi3P5/X/MdyWfs8bAH3/tIBu7dhoU7d8aGI8vY=;
-	b=QYlHn3BOXgso/LU6vc3xtq+fseBtrZJ6/TpRNz1k1zkCbgXMLAfL7Px7SMfatrmzkYYQ
-	 PtY+mtmhH5gXH3pj6QwjE+cvrhBkKglj+dQMvwr07oTu4H9xnIgLRN1Am8XZlHiQKUq+L
-	 n1qQTMXiZXR8gDwfeN9JI8yrAKV7E7PKBuMxRl7aKBQ9+EH81is4z4vTifNu1ChSSfqSI
-	 SgdiQRwH9eDlRoGYqJ0vohppaaEuIFbcAJpjmzDviIu6ZpwUhRkWhGtmHcCxnFxLn8b6r
-	 ubcJCsDFgJSbKYGPYoyPD52Q2rPBOk2sq2yQ2MhezHA5PIo5OAKYwo8UXJWTtEhylKg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=lJbx/9/bxRie1Vn/nZGlTEpf8lzACywxzUaMCTo6+iM=;
+	b=GIcYfrI6YOcSzBZNeiDCwDKDCpjZMIlfkzp0c48Hgkig/7HRrMK5GurMwgjZt4a/gRr5
+	 7Cp6KuJpzedbEaLG/J6SrdNs9+FhQP3O39kqHvaFHuVCo3/07rQvU8UTTlUPaKXz/Jlqv
+	 L65revLLzxTXVsZt7gNAtSEcL6RVEF46sFfvfbts+8yfoxY5dETNcB6mE5JYek21K+PJr
+	 fMRBtnbiE2sOgQtqqg1lEeVzKW/b23eWtI0cBu/aXG3DMjb1dDUDNvfm0JeBGeGuxclPO
+	 3gJx9Raasg7TFt2DLsl84N0C24E8DF338tebcQ+/41EwFFK/QUk0j5bRyWcobvrG8/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hPI+pwhg;
-	arc=none smtp.remote-ip=74.125.231.128
-Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V6nj67LU;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F39606A89E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:11:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3F39606A89E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD6B606A8A7
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:11:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AD6B606A8A7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hPI+pwhg
-Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-84e8a9fae57so581879a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:11:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V6nj67LU
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso2080267eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:11:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794604268; x=1795209068; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:subject:cc:to:from
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794604272; x=1795209072; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=syr2zQi3P5/X/MdyWfs8bAH3/tIBu7dhoU7d8aGI8vY=;
-        b=hPI+pwhgZkI+aHsBRmfp7v/HxQGf0QciGR7PeTntDZ6fFyMCqodfb/S5DYonAWufFL
-         743v28a9Np9nARzZQSS4/ZKKweEFtGk3L7hdd4uMIVrLCam11CRkXlJ2tX4ij60V048b
-         LZZ2sLGxE+S/4np57UgzBxAoMFyQaw4FFVbzCkXkZYTR9S1Kate65uFRZ4evllUfSJWO
-         rWT3KNZDB/qZwGiRIPMxvjcpFlGs3kAcDvg/aP2/IV3AwuwZLPH8ayuh9JIV5HadsP5L
-         Kzycskp5o4zecX36lNmySymS9Y6mXqeDltFwFAhYwISb6yA2wX1CJNl0v27F45erFdDI
-         +udw==
+        bh=lJbx/9/bxRie1Vn/nZGlTEpf8lzACywxzUaMCTo6+iM=;
+        b=V6nj67LU8dZXPkDQICg9M5mBfi6zHYC+EN4JelVGit6Q3yi2gAeqA/VnUvLbBagMNt
+         wEMVSBvlpF8K4/jgr5kdoH7PZ/tIaLDSaVZb6do0SncKxH5HIIVhlM+jQJIozEwew4ZW
+         LRSZg6cAvb7WI7HPBqabjaNsdt0SJrcOPhqu+OxwWA/jTYljZ7V4DseAlYJLTKYz76V8
+         +OqAN3btfck1h2WNr98KljwcxAPLbE0Z6ImeWdI3K/Yl9SBVyoIUA7p5VF4fFG4nq54C
+         T85eRz+yOB2ojj1b/mVfafX+9olq8XX99t7DhUYwsWQMT9uhQxKAa/RLkaHHfhergQxj
+         b7aA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794604268; x=1795209068;
-        h=content-disposition:content-type:mime-version:subject:cc:to:from
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794604272; x=1795209072;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=syr2zQi3P5/X/MdyWfs8bAH3/tIBu7dhoU7d8aGI8vY=;
-        b=nSHO5z17q01p7NJyCbHFBOzKpPYnlsjQvTltie3XZ/F8w+jXC93ljiRrGrYob4OujH
-         f49dShHQh+3PvpWDK6B6+iz+jbvop60aW4BjTDH2Z82TZpDT+27+OzdHylw3ejsa6fWO
-         wnMLCfo0I0WlrYOW155s73ZTpRC+o4Z77uqveQdcyt/ikTc6AQf3evuZF/wbEvilqm58
-         hio2P94rfHEa9Kn15lPiMHfIGfDeWG81nY9wKc++AAoluhSMjTjVznekEuci9ugQJQ3G
-         AKuaFLaTTWmHSqHsic5W1eZxyaM3GfkE/91Zyfnz36YHXaAcLzmQ90PA4xE6TafIwDlt
-         ccPg==
-X-Forwarded-Encrypted: i=1; AL+hErH7kofiegee+c4FJNKNeV0aRZ1iXU5EpgABA5zHrkJbx8fB2/+xz3lloEgdqXHDaZXXd5icNn8DgLkSWMI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+J7lpblPYjbVaAIE/Ad7w+7pZlDFn6GH1qJKue+u/FXow/V/9P
-	a7DWldov2vCBuq8PkdxyPN6GHfvUpkImtcH9tUaEWbKRagvPmv/MnVBR
-X-Gm-Gg: AYBFou374srtRDOc3Njgl+PcVvfNmV4qVSyz1ZaRex3MxnfkPqisPn/dP7O4e46xZpD
-	MHHSaU7nt1JllFWwxW3jIPo9XyDIVh02jBOdlmwsiRSQS3JqLkFhKLWdklmzHEh3gL8+ISGnAeQ
-	kzRPWGwCDx1eLJsL4vTAUWKz8/+J2FY8BJ5CBgqIBK1SB36exDe1cKIiAW1XYTNHHNtLxg1ZdNP
-	DifPhdTmqxzAOf4Sce9jE3mhVWl59zAQtqRVGKhYmEXeIeIphc9OrjTighdh31xhTfEsSIkg2vN
-	XBHiCJiiJIuC6uYS5M9Ydno+SdRrTwBrsWjREAO/f2t2fxAcj7iOLVgbZnLcpR1GVfzViCXH5JG
-	V2METvZ1+tQckZNbDSdGAliIiiEoWOPgsm/bZU7Bnd3xrigrnxvzIUaBJryeW5Nq6LrAgHGfHcO
-	AhyVKjWLf7ZKllzvBWOMRwT/u8xkXBy13BoeWBEsdegaRLUnKvLZpQ/fW48+6/NTbh6fsd6Pov/
-	18KmwK0+zlVe/mdtNIxO4xquIYguWTFbMv+aNBVNKlSPsKk1+EQNgeyDHe4nXr1qUTecPFzw01p
-	xFdI2pHWITjShwss+Yocj9A=
-X-Received: by 2002:a05:6830:a143:20b0:862:9ff6:53b6 with SMTP id 46e09a7af769-8629ff6580cmr496542a34.23.1794604268657;
-        Fri, 13 Nov 2026 13:11:08 -0800 (PST)
-Received: from kk-arrow ([2601:245:4581:6413::1ad8])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880a52basm3756471a34.4.2026.11.13.13.11.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 13:11:08 -0800 (PST)
-Message-ID: <6af77cec.d7a53d1d.2ea921.e37a@mx.google.com>
-X-Google-Original-Message-ID: <20261113150000-avd3DU1eQOhL4sRB.GA>
-Date: Fri, 13 Nov 2026 15:11:03 -0600
-From: Josh Klecka <joshklecka.dev@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>, 
-	Zhang Heng <zhangheng@kylinos.cn>, Damien Dagorn <damien.dagorn29@gmail.com>, 
-	Kailang Yang <kailang@realtek.com>, Eric Naim <dnaim@cachyos.org>, 
-	Matej Sochan <matej.sochan@gmail.com>, Denis Yakovlev <mfthesun@vivaldi.net>, 
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Add mute LED support for HP Pavillion
- Aero 13-be1xxx
+        bh=lJbx/9/bxRie1Vn/nZGlTEpf8lzACywxzUaMCTo6+iM=;
+        b=ebWVxDzWTAIsdLNu8k/OrQIIkFb3VBQAHWhzmHLC5BjsXapzZAJG38Y1FyoNgo5w2C
+         xBtlahGAQuDFQ2kBwf00XPWur1krYTz8g1zdUqrrzibSFqv5NSDhMPu76OmWiUlhU8qN
+         fPp1aX4XA3KdNUaENPSdv+8YL6mA0PRZjKjOwD2uPOAIYk75dSqD2gohLG7E3xwsUgZ8
+         MLun4yMazNKtmJySbA2iyMpJFw+GcM0ePz3tDN9v1mHp4tEUN8t/RcE5nc1AkeWGf8QJ
+         rpg51i3FQmD+AQyQtFX3R+IZj+7XuDORjEsxkSsK8I5JaQ4i1wxnQsUG2YnatoDSsHcq
+         T+fg==
+X-Forwarded-Encrypted: i=1; AL+hErHlcLBcWmVlfiXcQYMsrNuKFQcTDO0worbwm0kjGlrfiTs4hDLk24kaBzQaZMGu3J0Gx48sBJSZZ1BTZe4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/mim4MwascDdZcyQbB1R3/tSVTiM+/nMeWnmIGZO6X/QxfK99B
+	BGr4wtQ3BYCUuHc/CsZq6LXNUGGUSQqRSSsGZbRLtMd7pANP9v/SpJCoz6UQWn9tMqbghkZ5S8+
+	akhSQWLLmoQ==
+X-Received: from dyax22-n1.prod.google.com ([2002:a05:693c:4196:10b0:33e:5767:2163])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:f18e:b0:360:b8b4:840a
+ with SMTP id 5a478bee46e88-37967ad9187mr3983497eec.39.1794604271929; Fri, 13
+ Nov 2026 13:11:11 -0800 (PST)
+Date: Fri, 13 Nov 2026 13:10:52 -0800
+In-Reply-To: <20261113211105.3118281-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,37 +78,670 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
+References: <20261113211105.3118281-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261113211105.3118281-2-irogers@google.com>
+Subject: [PATCH 01/11] perf pmu: Generalize pmu_alias_info_file() and lazy
+ single-event sysfs loading
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
+Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The HP Pavillion Aero 13-be1xxx audio controller (103c:89fa) uses
-the ALC287 chipset. This model is similar to the 13-be0xxx model
-(which is already in the fixup table).
+Prepare struct perf_pmu_alias and sysfs event loading for layered
+filesystem overlays while keeping struct perf_pmu_alias private to
+pmu.c:
 
-Adding this model to the fixup table using the ALC287_FIXUP_HP_GPIO_LED
-quirk makes the mute led on the keyboard work.
+1. Add enum pmu_event_file_kind and pmu_event_file_kind() in pmu.c,
+   teaching pmu_alias_info_file() to recognize extended sidecar
+   extensions (.scale-unit, .desc, .long-desc, .topic, .compat,
+   .deprecated, .legacy-terms, .retire-lat-mean, .retire-lat-min, and
+   .retire-lat-max) alongside existing kernel sysfs sidecars (.unit,
+   .scale, .per-pkg, and .snapshot).
+2. Switch sidecar attribute readers to openat() relative to an open
+   events directory fd, allowing boolean sidecars to express both 0
+   and 1 and marking alias->info_loaded once read so sidecars are not
+   re-opened repeatedly.
+3. Make perf_pmu__find_alias() lazily open only the requested event
+   (trying exact, lowercase, and uppercase names) and its sidecars via
+   openat() instead of calling pmu_aliases_parse() to readdir() and
+   open every file in <sysfs>/<pmu>/events/ on a single-event lookup.
 
-It has been tested on the target model (HP Pavillion Aero 13 be1xxx),
-and confirmed to operate correctly.
-
-Signed-off-by: Josh Klecka <joshklecka.dev@gmail.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- sound/hda/codecs/realtek/alc269.c | 1 +
- 1 file changed, 1 insertion(+)
+ tools/perf/util/pmu.c | 365 +++++++++++++++++++++++++++++-------------
+ 1 file changed, 252 insertions(+), 113 deletions(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 96fa8c2782bb..ae7a46234355 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7864,6 +7864,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x89da, "HP Spectre x360 14t-ea100", ALC245_FIXUP_HP_SPECTRE_X360_EU0XXX),
- 	SND_PCI_QUIRK(0x103c, 0x89e7, "HP Elite x2 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x89f6, "HP Pavilion 15-eg2xxx", ALC287_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x89fa, "HP Pavilion Aero Laptop 13-be1xxx", ALC287_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8a05, "HP Dragonfly Folio G3 2-in-1", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8a06, "HP Dragonfly Folio G3 2-in-1", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8a0e, "HP Pavilion Laptop 15-eh2xxx", ALC287_FIXUP_HP_GPIO_LED),
+diff --git a/tools/perf/util/pmu.c b/tools/perf/util/pmu.c
+index 01753d5c69d1..d10b8c0810fb 100644
+--- a/tools/perf/util/pmu.c
++++ b/tools/perf/util/pmu.c
+@@ -10,9 +10,11 @@
+ #include <unistd.h>
+ #include <errno.h>
+ #include <stdbool.h>
++#include <stdint.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <strings.h>
+ #include <dirent.h>
+ #include <api/fs/fs.h>
+ #include <api/io.h>
+@@ -54,9 +56,28 @@ enum event_source {
+ 	EVENT_SRC_SYS_JSON,
+ };
+ 
++enum pmu_event_file_kind {
++	PMU_EVENT_FILE_BASE,
++	PMU_EVENT_FILE_UNIT,
++	PMU_EVENT_FILE_SCALE,
++	PMU_EVENT_FILE_PER_PKG,
++	PMU_EVENT_FILE_SNAPSHOT,
++	PMU_EVENT_FILE_SCALE_UNIT,
++	PMU_EVENT_FILE_DESC,
++	PMU_EVENT_FILE_LONG_DESC,
++	PMU_EVENT_FILE_TOPIC,
++	PMU_EVENT_FILE_COMPAT,
++	PMU_EVENT_FILE_DEPRECATED,
++	PMU_EVENT_FILE_LEGACY_TERMS,
++	PMU_EVENT_FILE_RETIRE_LAT_MEAN,
++	PMU_EVENT_FILE_RETIRE_LAT_MIN,
++	PMU_EVENT_FILE_RETIRE_LAT_MAX,
++};
++
+ /**
+- * struct perf_pmu_alias - An event either read from sysfs or builtin in
+- * pmu-events.c, created by parsing the pmu-events json files.
++ * struct perf_pmu_alias - An event either read from sysfs, a directory
++ * overlay, or builtin in pmu-events.c, created by parsing the pmu-events json
++ * files.
+  */
+ struct perf_pmu_alias {
+ 	/** @name: Name of the event like "mem-loads". */
+@@ -74,7 +95,7 @@ struct perf_pmu_alias {
+ 	char *terms;
+ 	/**
+ 	 * @legacy_terms: If the event aliases a legacy event, holds a copy
+-	 * ofthe legacy event string.
++	 * of the legacy event string.
+ 	 */
+ 	char *legacy_terms;
+ 	/**
+@@ -82,8 +103,10 @@ struct perf_pmu_alias {
+ 	 * differ from the PMU name as it won't have suffixes.
+ 	 */
+ 	char *pmu_name;
++	/** @compat: Optional uncore/system PMU identifier match pattern. */
++	char *compat;
+ 	/** @unit: Units for the event, such as bytes or cache lines. */
+-	char unit[UNIT_MAX_LEN+1];
++	char unit[UNIT_MAX_LEN + 1];
+ 	/** @scale: Value to scale read counter values by. */
+ 	double scale;
+ 	/** @retirement_latency_mean: Value to be given for unsampled retirement latency mean. */
+@@ -111,7 +134,7 @@ struct perf_pmu_alias {
+ 	bool deprecated;
+ 	/**
+ 	 * @legacy_deprecated_checked: Legacy events may not be supported by the
+-	 * PMU need to be checked. If they aren't supported they are marked
++	 * PMU and need to be checked. If they aren't supported they are marked
+ 	 * deprecated.
+ 	 */
+ 	bool legacy_deprecated_checked;
+@@ -119,6 +142,26 @@ struct perf_pmu_alias {
+ 	bool from_sysfs;
+ 	/** @info_loaded: Have the scale, unit and other values been read from disk? */
+ 	bool info_loaded;
++	/** @resolved: Fully resolved across all PMU layers. */
++	bool resolved;
++	/** @terms_from_legacy: @terms was promoted from @legacy_terms. */
++	bool terms_from_legacy;
++	/** @has_scale: Has scale been explicitly set by a layer? */
++	bool has_scale;
++	/** @has_unit: Has unit been explicitly set by a layer? */
++	bool has_unit;
++	/** @has_per_pkg: Has per_pkg been explicitly set by a layer? */
++	bool has_per_pkg;
++	/** @has_snapshot: Has snapshot been explicitly set by a layer? */
++	bool has_snapshot;
++	/** @has_deprecated: Has deprecated been explicitly set by a layer? */
++	bool has_deprecated;
++	/** @has_retire_lat_mean: Has retirement_latency_mean been explicitly set? */
++	bool has_retire_lat_mean;
++	/** @has_retire_lat_min: Has retirement_latency_min been explicitly set? */
++	bool has_retire_lat_min;
++	/** @has_retire_lat_max: Has retirement_latency_max been explicitly set? */
++	bool has_retire_lat_max;
+ };
+ 
+ static int pmu_aliases_parse(struct perf_pmu *pmu);
+@@ -295,28 +338,64 @@ int perf_pmu__convert_scale(const char *scale, char **end, double *sval)
+ 	return parse_double(scale, end, sval);
+ }
+ 
+-static int perf_pmu__parse_scale(struct perf_pmu *pmu, struct perf_pmu_alias *alias)
++static const struct {
++	const char *suffix;
++	size_t len;
++	enum pmu_event_file_kind kind;
++} pmu_event_suffixes[] = {
++	{ ".unit",		5,  PMU_EVENT_FILE_UNIT },
++	{ ".desc",		5,  PMU_EVENT_FILE_DESC },
++	{ ".scale",		6,  PMU_EVENT_FILE_SCALE },
++	{ ".topic",		6,  PMU_EVENT_FILE_TOPIC },
++	{ ".compat",		7,  PMU_EVENT_FILE_COMPAT },
++	{ ".per-pkg",		8,  PMU_EVENT_FILE_PER_PKG },
++	{ ".snapshot",		9,  PMU_EVENT_FILE_SNAPSHOT },
++	{ ".long-desc",		10, PMU_EVENT_FILE_LONG_DESC },
++	{ ".scale-unit",	11, PMU_EVENT_FILE_SCALE_UNIT },
++	{ ".deprecated",	11, PMU_EVENT_FILE_DEPRECATED },
++	{ ".legacy-terms",	13, PMU_EVENT_FILE_LEGACY_TERMS },
++	{ ".retire-lat-min",	15, PMU_EVENT_FILE_RETIRE_LAT_MIN },
++	{ ".retire-lat-max",	15, PMU_EVENT_FILE_RETIRE_LAT_MAX },
++	{ ".retire-lat-mean",	16, PMU_EVENT_FILE_RETIRE_LAT_MEAN },
++};
++
++static enum pmu_event_file_kind pmu_event_file_kind(const char *name, size_t *base_len)
++{
++	size_t len = strlen(name);
++
++	for (size_t i = 0; i < ARRAY_SIZE(pmu_event_suffixes); i++) {
++		size_t slen = pmu_event_suffixes[i].len;
++
++		if (len > slen && !strcasecmp(name + len - slen, pmu_event_suffixes[i].suffix)) {
++			if (base_len)
++				*base_len = len - slen;
++			return pmu_event_suffixes[i].kind;
++		}
++	}
++	if (base_len)
++		*base_len = len;
++	return PMU_EVENT_FILE_BASE;
++}
++
++static inline bool pmu_alias_info_file(const char *name)
++{
++	return pmu_event_file_kind(name, NULL) != PMU_EVENT_FILE_BASE;
++}
++
++static int perf_pmu__parse_scale_at(int events_dir_fd, const char *event_name,
++				    struct perf_pmu_alias *alias)
+ {
+-	struct stat st;
+ 	ssize_t sret;
+-	size_t len;
+ 	char scale[128];
++	char filename[NAME_MAX + 16];
+ 	int fd, ret = -1;
+-	char path[PATH_MAX];
+-
+-	len = perf_pmu__event_source_devices_scnprintf(path, sizeof(path));
+-	if (!len)
+-		return 0;
+-	scnprintf(path + len, sizeof(path) - len, "%s/events/%s.scale", pmu->name, alias->name);
+ 
+-	fd = open(path, O_RDONLY);
++	scnprintf(filename, sizeof(filename), "%s.scale", event_name);
++	fd = openat(events_dir_fd, filename, O_RDONLY);
+ 	if (fd == -1)
+ 		return -1;
+ 
+-	if (fstat(fd, &st) < 0)
+-		goto error;
+-
+-	sret = read(fd, scale, sizeof(scale)-1);
++	sret = read(fd, scale, sizeof(scale) - 1);
+ 	if (sret <= 0)
+ 		goto error;
+ 
+@@ -326,25 +405,22 @@ static int perf_pmu__parse_scale(struct perf_pmu *pmu, struct perf_pmu_alias *al
+ 		scale[sret] = '\0';
+ 
+ 	ret = perf_pmu__convert_scale(scale, NULL, &alias->scale);
++	if (!ret)
++		alias->has_scale = true;
+ error:
+ 	close(fd);
+ 	return ret;
+ }
+ 
+-static int perf_pmu__parse_unit(struct perf_pmu *pmu, struct perf_pmu_alias *alias)
++static int perf_pmu__parse_unit_at(int events_dir_fd, const char *event_name,
++				   struct perf_pmu_alias *alias)
+ {
+-	char path[PATH_MAX];
+-	size_t len;
++	char filename[NAME_MAX + 16];
+ 	ssize_t sret;
+ 	int fd;
+ 
+-
+-	len = perf_pmu__event_source_devices_scnprintf(path, sizeof(path));
+-	if (!len)
+-		return 0;
+-	scnprintf(path + len, sizeof(path) - len, "%s/events/%s.unit", pmu->name, alias->name);
+-
+-	fd = open(path, O_RDONLY);
++	scnprintf(filename, sizeof(filename), "%s.unit", event_name);
++	fd = openat(events_dir_fd, filename, O_RDONLY);
+ 	if (fd == -1)
+ 		return -1;
+ 
+@@ -359,6 +435,7 @@ static int perf_pmu__parse_unit(struct perf_pmu *pmu, struct perf_pmu_alias *ali
+ 	else
+ 		alias->unit[sret] = '\0';
+ 
++	alias->has_unit = true;
+ 	return 0;
+ error:
+ 	close(fd);
+@@ -366,45 +443,57 @@ static int perf_pmu__parse_unit(struct perf_pmu *pmu, struct perf_pmu_alias *ali
+ 	return -1;
+ }
+ 
+-static bool perf_pmu__parse_event_source_bool(const char *pmu_name, const char *event_name,
+-					      const char *suffix)
++static int perf_pmu__parse_bool_at(int events_dir_fd, const char *event_name,
++				   const char *suffix, bool *out_val)
+ {
+-	char path[PATH_MAX];
+-	size_t len;
++	char filename[NAME_MAX + 32];
++	char buf[16];
++	ssize_t sret;
+ 	int fd;
+ 
+-	len = perf_pmu__event_source_devices_scnprintf(path, sizeof(path));
+-	if (!len)
+-		return false;
+-
+-	scnprintf(path + len, sizeof(path) - len, "%s/events/%s.%s", pmu_name, event_name, suffix);
+-
+-	fd = open(path, O_RDONLY);
++	scnprintf(filename, sizeof(filename), "%s.%s", event_name, suffix);
++	fd = openat(events_dir_fd, filename, O_RDONLY);
+ 	if (fd == -1)
+-		return false;
++		return -ENOENT;
+ 
+-#ifndef NDEBUG
+-	{
+-		char buf[8];
++	sret = read(fd, buf, sizeof(buf) - 1);
++	close(fd);
++	if (sret <= 0)
++		return -EINVAL;
+ 
+-		len = read(fd, buf, sizeof(buf));
+-		assert(len == 1 || len == 2);
+-		assert(buf[0] == '1');
+-	}
+-#endif
++	while (sret > 0 && isspace(buf[sret - 1]))
++		sret--;
++	buf[sret] = '\0';
+ 
+-	close(fd);
+-	return true;
++	if (!strcmp(buf, "1") || !strcasecmp(buf, "true") || !strcasecmp(buf, "yes")) {
++		*out_val = true;
++		return 0;
++	}
++	if (!strcmp(buf, "0") || !strcasecmp(buf, "false") || !strcasecmp(buf, "no")) {
++		*out_val = false;
++		return 0;
++	}
++	return -EINVAL;
+ }
+ 
+-static void perf_pmu__parse_per_pkg(struct perf_pmu *pmu, struct perf_pmu_alias *alias)
++static void read_alias_info_at(int events_dir_fd, struct perf_pmu_alias *alias)
+ {
+-	alias->per_pkg = perf_pmu__parse_event_source_bool(pmu->name, alias->name, "per-pkg");
+-}
++	bool val;
+ 
+-static void perf_pmu__parse_snapshot(struct perf_pmu *pmu, struct perf_pmu_alias *alias)
+-{
+-	alias->snapshot = perf_pmu__parse_event_source_bool(pmu->name, alias->name, "snapshot");
++	if (!alias->from_sysfs || alias->info_loaded || events_dir_fd < 0)
++		return;
++
++	perf_pmu__parse_unit_at(events_dir_fd, alias->name, alias);
++	perf_pmu__parse_scale_at(events_dir_fd, alias->name, alias);
++	if (perf_pmu__parse_bool_at(events_dir_fd, alias->name, "per-pkg", &val) == 0) {
++		alias->per_pkg = val;
++		alias->has_per_pkg = true;
++	}
++	if (perf_pmu__parse_bool_at(events_dir_fd, alias->name, "snapshot", &val) == 0) {
++		alias->snapshot = val;
++		alias->has_snapshot = true;
++	}
++	alias->info_loaded = true;
+ }
+ 
+ /* Delete an alias entry. */
+@@ -418,6 +507,7 @@ static void perf_pmu_free_alias(struct perf_pmu_alias *alias)
+ 	zfree(&alias->long_desc);
+ 	zfree(&alias->topic);
+ 	zfree(&alias->pmu_name);
++	zfree(&alias->compat);
+ 	zfree(&alias->terms);
+ 	zfree(&alias->legacy_terms);
+ 	free(alias);
+@@ -438,13 +528,22 @@ static void perf_pmu__del_aliases(struct perf_pmu *pmu)
+ 	pmu->aliases = NULL;
+ }
+ 
++static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
++			       const char *desc, const char *val, int val_fd,
++			       const struct pmu_event *pe, enum event_source src,
++			       int events_dir_fd);
++
+ static struct perf_pmu_alias *perf_pmu__find_alias(struct perf_pmu *pmu,
+ 						   const char *name,
+ 						   bool load)
+ {
+-	struct perf_pmu_alias *alias;
+-	bool has_sysfs_event;
+-	char event_file_name[NAME_MAX + 8];
++	struct perf_pmu_alias *alias = NULL;
++	char path[PATH_MAX];
++	char lower_name[NAME_MAX];
++	char upper_name[NAME_MAX];
++	const char *candidates[3];
++	size_t nr_candidates = 0, name_len, path_len;
++	int events_dir_fd;
+ 
+ 	if (hashmap__find(pmu->aliases, name, &alias))
+ 		return alias;
+@@ -452,29 +551,61 @@ static struct perf_pmu_alias *perf_pmu__find_alias(struct perf_pmu *pmu,
+ 	if (!load || pmu->sysfs_aliases_loaded)
+ 		return NULL;
+ 
+-	/*
+-	 * Test if alias/event 'name' exists in the PMU's sysfs/events
+-	 * directory. If not skip parsing the sysfs aliases. Sysfs event
+-	 * name must be all lower or all upper case.
+-	 */
+-	scnprintf(event_file_name, sizeof(event_file_name), "events/%s", name);
+-	for (size_t i = 7, n = 7 + strlen(name); i < n; i++)
+-		event_file_name[i] = tolower(event_file_name[i]);
++	name_len = strlen(name);
++	if (name_len == 0 || name_len >= NAME_MAX || name[0] == '.' ||
++	    strchr(name, '/') || pmu_alias_info_file(name))
++		return NULL;
+ 
+-	has_sysfs_event = perf_pmu__file_exists(pmu, event_file_name);
+-	if (!has_sysfs_event) {
+-		for (size_t i = 7, n = 7 + strlen(name); i < n; i++)
+-			event_file_name[i] = toupper(event_file_name[i]);
++	path_len = perf_pmu__event_source_devices_scnprintf(path, sizeof(path));
++	if (!path_len)
++		return NULL;
++	scnprintf(path + path_len, sizeof(path) - path_len, "%s/events", pmu->name);
+ 
+-		has_sysfs_event = perf_pmu__file_exists(pmu, event_file_name);
++	events_dir_fd = open(path, O_DIRECTORY | O_RDONLY);
++	if (events_dir_fd == -1) {
++		if (errno == ENOENT)
++			pmu->sysfs_aliases_loaded = true;
++		return NULL;
+ 	}
+-	if (has_sysfs_event) {
+-		pmu_aliases_parse(pmu);
+-		if (hashmap__find(pmu->aliases, name, &alias))
+-			return alias;
++
++	candidates[nr_candidates++] = name;
++	for (size_t i = 0; i < name_len; i++) {
++		lower_name[i] = tolower((unsigned char)name[i]);
++		upper_name[i] = toupper((unsigned char)name[i]);
+ 	}
++	lower_name[name_len] = '\0';
++	upper_name[name_len] = '\0';
+ 
+-	return NULL;
++	if (strcmp(lower_name, name) != 0)
++		candidates[nr_candidates++] = lower_name;
++	if (strcmp(upper_name, name) != 0 && strcmp(upper_name, lower_name) != 0)
++		candidates[nr_candidates++] = upper_name;
++
++	/*
++	 * Lazily open only the requested event and its sidecars via openat()
++	 * rather than scanning every file in sysfs/events/.
++	 */
++	for (size_t i = 0; i < nr_candidates; i++) {
++		struct stat st;
++		int fd = openat(events_dir_fd, candidates[i], O_RDONLY);
++
++		if (fd < 0)
++			continue;
++		if (fstat(fd, &st) == 0 && !S_ISDIR(st.st_mode)) {
++			if (perf_pmu__new_alias(pmu, candidates[i], /*desc=*/NULL,
++						/*val=*/NULL, fd, /*pe=*/NULL,
++						EVENT_SRC_SYSFS, events_dir_fd) == 0 &&
++			    hashmap__find(pmu->aliases, name, &alias)) {
++				read_alias_info_at(events_dir_fd, alias);
++				close(fd);
++				break;
++			}
++		}
++		close(fd);
++	}
++
++	close(events_dir_fd);
++	return alias;
+ }
+ 
+ static bool assign_str(const char *name, const char *field, char **old_str,
+@@ -497,21 +628,30 @@ static bool assign_str(const char *name, const char *field, char **old_str,
+ 
+ static void read_alias_info(struct perf_pmu *pmu, struct perf_pmu_alias *alias)
+ {
++	char path[PATH_MAX];
++	size_t len;
++	int events_dir_fd;
++
+ 	if (!alias->from_sysfs || alias->info_loaded)
+ 		return;
+ 
+-	/*
+-	 * load unit name and scale if available
+-	 */
+-	perf_pmu__parse_unit(pmu, alias);
+-	perf_pmu__parse_scale(pmu, alias);
+-	perf_pmu__parse_per_pkg(pmu, alias);
+-	perf_pmu__parse_snapshot(pmu, alias);
++	len = perf_pmu__event_source_devices_scnprintf(path, sizeof(path));
++	if (!len)
++		return;
++	scnprintf(path + len, sizeof(path) - len, "%s/events", pmu->name);
++
++	events_dir_fd = open(path, O_DIRECTORY | O_RDONLY);
++	if (events_dir_fd == -1)
++		return;
++
++	read_alias_info_at(events_dir_fd, alias);
++	close(events_dir_fd);
+ }
+ 
+ struct update_alias_data {
+ 	struct perf_pmu *pmu;
+ 	struct perf_pmu_alias *alias;
++	int events_dir_fd;
+ 	bool legacy;
+ };
+ 
+@@ -522,7 +662,10 @@ static int update_alias(const struct pmu_event *pe,
+ 	struct update_alias_data *data = vdata;
+ 	int ret = 0;
+ 
+-	read_alias_info(data->pmu, data->alias);
++	if (data->events_dir_fd >= 0)
++		read_alias_info_at(data->events_dir_fd, data->alias);
++	else
++		read_alias_info(data->pmu, data->alias);
+ 	assign_str(pe->name, "desc", &data->alias->desc, pe->desc);
+ 	assign_str(pe->name, "long_desc", &data->alias->long_desc, pe->long_desc);
+ 	assign_str(pe->name, "topic", &data->alias->topic, pe->topic);
+@@ -559,8 +702,9 @@ static int update_alias(const struct pmu_event *pe,
+ }
+ 
+ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+-				const char *desc, const char *val, int val_fd,
+-			        const struct pmu_event *pe, enum event_source src)
++			       const char *desc, const char *val, int val_fd,
++			       const struct pmu_event *pe, enum event_source src,
++			       int events_dir_fd)
+ {
+ 	struct perf_pmu_alias *alias, *old_alias;
+ 	int ret = 0;
+@@ -607,8 +751,10 @@ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+ 		ret = parse_double(pe->retirement_latency_max, NULL,
+ 				   &alias->retirement_latency_max);
+ 	}
+-	if (ret)
++	if (ret) {
++		perf_pmu_free_alias(alias);
+ 		return ret;
++	}
+ 
+ 	if (val_fd < 0) {
+ 		alias->terms = strdup(val);
+@@ -621,6 +767,7 @@ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+ 		ret = io__getline(&io, &alias->terms, &line_len) < 0 ? -errno : 0;
+ 		if (ret) {
+ 			pr_err("Failed to read alias %s\n", name);
++			perf_pmu_free_alias(alias);
+ 			return ret;
+ 		}
+ 		if (line_len >= 1 && alias->terms[line_len - 1] == '\n')
+@@ -631,6 +778,7 @@ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+ 	alias->long_desc = long_desc ? strdup(long_desc) : NULL;
+ 	alias->topic = topic ? strdup(topic) : NULL;
+ 	alias->pmu_name = pmu_name ? strdup(pmu_name) : NULL;
++	alias->compat = (pe && pe->compat) ? strdup(pe->compat) : NULL;
+ 	if (unit) {
+ 		if (perf_pmu__convert_scale(unit, (char **)&unit, &alias->scale) < 0) {
+ 			perf_pmu_free_alias(alias);
+@@ -647,6 +795,7 @@ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+ 			struct update_alias_data data = {
+ 				.pmu = pmu,
+ 				.alias = alias,
++				.events_dir_fd = events_dir_fd,
+ 				.legacy = false,
+ 			};
+ 			if ((pmu_events_table__find_event(pmu->events_table, pmu, name,
+@@ -681,28 +830,11 @@ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+ 	return 0;
+ }
+ 
+-static inline bool pmu_alias_info_file(const char *name)
+-{
+-	size_t len;
+-
+-	len = strlen(name);
+-	if (len > 5 && !strcmp(name + len - 5, ".unit"))
+-		return true;
+-	if (len > 6 && !strcmp(name + len - 6, ".scale"))
+-		return true;
+-	if (len > 8 && !strcmp(name + len - 8, ".per-pkg"))
+-		return true;
+-	if (len > 9 && !strcmp(name + len - 9, ".snapshot"))
+-		return true;
+-
+-	return false;
+-}
+-
+ /*
+  * Reading the pmu event aliases definition, which should be located at:
+  * /sys/bus/event_source/devices/<dev>/events as sysfs group attributes.
+  */
+-static int __pmu_aliases_parse(struct perf_pmu *pmu, int events_dir_fd)
++static int __pmu_aliases_parse(struct perf_pmu *pmu, int events_dir_fd, bool eager_info)
+ {
+ 	struct io_dirent64 *evt_ent;
+ 	struct io_dir event_dir;
+@@ -713,7 +845,7 @@ static int __pmu_aliases_parse(struct perf_pmu *pmu, int events_dir_fd)
+ 		char *name = evt_ent->d_name;
+ 		int fd;
+ 
+-		if (!strcmp(name, ".") || !strcmp(name, ".."))
++		if (!strcmp(name, ".") || !strcmp(name, "..") || name[0] == '.')
+ 			continue;
+ 
+ 		/*
+@@ -730,8 +862,14 @@ static int __pmu_aliases_parse(struct perf_pmu *pmu, int events_dir_fd)
+ 
+ 		if (perf_pmu__new_alias(pmu, name, /*desc=*/ NULL,
+ 					/*val=*/ NULL, fd, /*pe=*/ NULL,
+-					EVENT_SRC_SYSFS) < 0)
++					EVENT_SRC_SYSFS, events_dir_fd) < 0)
+ 			pr_debug("Cannot set up %s\n", name);
++		else if (eager_info) {
++			struct perf_pmu_alias *alias;
++
++			if (hashmap__find(pmu->aliases, name, &alias))
++				read_alias_info_at(events_dir_fd, alias);
++		}
+ 		close(fd);
+ 	}
+ 
+@@ -758,7 +896,7 @@ static int pmu_aliases_parse(struct perf_pmu *pmu)
+ 		pmu->sysfs_aliases_loaded = true;
+ 		return 0;
+ 	}
+-	ret = __pmu_aliases_parse(pmu, events_dir_fd);
++	ret = __pmu_aliases_parse(pmu, events_dir_fd, /*eager_info=*/false);
+ 	close(events_dir_fd);
+ 	return ret;
+ }
+@@ -774,7 +912,7 @@ static int pmu_aliases_parse_eager(struct perf_pmu *pmu, int sysfs_fd)
+ 		pmu->sysfs_aliases_loaded = true;
+ 		return 0;
+ 	}
+-	ret = __pmu_aliases_parse(pmu, events_dir_fd);
++	ret = __pmu_aliases_parse(pmu, events_dir_fd, /*eager_info=*/true);
+ 	close(events_dir_fd);
+ 	return ret;
+ }
+@@ -1066,7 +1204,7 @@ static int pmu_add_cpu_aliases_map_callback(const struct pmu_event *pe,
+ 	struct perf_pmu *pmu = vdata;
+ 
+ 	perf_pmu__new_alias(pmu, pe->name, pe->desc, pe->event, /*val_fd=*/ -1,
+-			    pe, EVENT_SRC_CPU_JSON);
++			    pe, EVENT_SRC_CPU_JSON, /*events_dir_fd=*/ -1);
+ 	return 0;
+ }
+ 
+@@ -1119,7 +1257,8 @@ static int pmu_add_sys_aliases_iter_fn(const struct pmu_event *pe,
+ 				pe->event,
+ 				/*val_fd=*/ -1,
+ 				pe,
+-				EVENT_SRC_SYS_JSON);
++				EVENT_SRC_SYS_JSON,
++				/*events_dir_fd=*/ -1);
+ 	}
+ 	return 0;
+ }
+
+base-commit: 4af65363b11fc4fe65fcb497f68bbe4f3e3a4d2c
+prerequisite-patch-id: 3e93fd262f5e70cff78114a0736c8fc8abeb7977
+prerequisite-patch-id: 5e284ee3a3af71e8bfe3e40719396cf60fbece96
+prerequisite-patch-id: 4d4b5b43c0ca0ac929fb3b73db615805e022d86a
+prerequisite-patch-id: 447412f5e17799157dc8981ffa28378bc5f7fe72
+prerequisite-patch-id: ac7b807fcd0e795cc831307eed2d7148a609b941
+prerequisite-patch-id: 8c306425c73d176dfeeede044b57f7ed383e19d1
+prerequisite-patch-id: dfce7f2910fbd18bc8dc3965c52cf6b08a825180
+prerequisite-patch-id: 4730aa572afe4e6d47f6aceaff92fccc15327881
+prerequisite-patch-id: 17cb0dd6eaa58cec5d6309dda84f122c6e381d4d
+prerequisite-patch-id: cda8414fd68671e1333246f22cbfedb980173821
 -- 
-2.55.0
+2.56.1.703.gf848ed807c-goog
 
