@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606566;
-	b=2QB6KLF0YVbtB/8V6pbh7spX8XEkpg6/Yvo9OXazbYOV0dQ4+Slc1hKw3o2EN+FpK/AN
-	 X7ABUH6G1jdkZy1ianw7xXbCE6apOVI/Q+hYacPf2H8twDTBkXjqj/Nfbl3vXuFt7/SiN
-	 fK2nrB3ZA0PYomenbhRhbUFacVJpCqSdBNujbCcbEDGJ4h9dmmTeoOkwVLuixqAagfYKw
-	 Iil6EYsDWRmTg3TnXpDYF8IK8c4crLYg+miqhJXh42cWgqoXlXWn4ZhQKY1bZ1i9UY895
-	 7h5VRUJhrSe0oQYjO9zPp1rfI/1gmuq6X8weiHX3uTgWBU7oPf3xqKb3u7nXOi+0Utg==
+	t=1794606569;
+	b=0BhEpbaBUSimNiuthHevPbcAHEyqTlTrWFFgQraiojpuGeqqsidneB9LeFs0jxurkBb/
+	 uG/bQS7s2IK9Qy9aygRgAvhjmRLugoJkJavjB7R1nHRJMVpDqiNr+z6qT8XcwOJ75nfg4
+	 eypt4DTbJ5QmCnBlIqPmX+nI2XdUpn8Re7NkmOpfPiBo0zyE6BakFImKSe/pOadO4eweO
+	 V9/YnY3IIl+g3W8K6nGg6P9ejUCVrN/sHHbqwUQ71koxEJ/4fiowJ+kZjh9B8WAFl7dC3
+	 cQGbUfZ/k604dukP7YKjzf1f8Ts9Qk+pnD57hR1bBG+LxeIypjUxzT3TdXFzzrGAysg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606566;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606569;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=6oSPPOo0C6N3cNWQ993MVB5Cg/gZqiSL0WgLi3FPcVs=;
-	b=fi318i+6PO/4CD73HrMVctnueDHuctYjKYUNPkme9mG4nZB3u7g6Xg48lWYiCQmxTYvh
-	 lsmj+70DmAuVUlE+vsLnhQhWgWFX/VmiSMu7G1tUA1waCDa/kxIQ82TyYW50Fnb0V2Yj6
-	 v4vqZXtE2gRZFz6huZUqVtDsiXbcWCSDOjh/m+kKPnb6it45qpADEaFqCp518G36BbMK5
-	 xIqrsml9+nbfq5F7XzHXZBEiVOTR7N7M9msoeIhhVN1GKduieh4SbMzxNbZz04UmBlKtZ
-	 2kwjqxkG05r8q34YnDLOs0hGB4MRYgE2ZlYoprUEeU9GrGerfKwNLDAPA4ESSq/HgcQ==
+	bh=eLMRs6tGAi+pj+BgiCyYGtaXdwslAeT3pBREDlZ4/UY=;
+	b=AtvBLQOc8q6hkI+vU8IICFfFBYNRK3+XKOs8IGwkNPsNnzOLWlD+WtMcsH+1vVcogB5o
+	 MZmOTSFCHzse7MCevFAt7bgEA4fFi/ncLyT/7liCOIMnll+RiE2W9XQG65n+0P+MLKhlf
+	 HXTFUqjxxZ2byycfW59e82L0bGfEuQFbHAPsiXCAUcP2VLTISEF2J+D5Ars6b/+8JL86S
+	 NX3sozp8fnO8W7PE4DWAyC22LUodp+D9vvQ3CpOs5iayrf3pDl/Kh1LY/npAyFh71mv4j
+	 Z/2C2dYhrdEGCRx9KHFcyqI4i7NzhQ3QvAkeqLd7H5S/1TS/Wx66CbhcFvQ5CBnAxTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OqtBuF8C;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oyNuE2Gg;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1109260A2605
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1109260A2605
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF7D60A2612
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:49:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FF7D60A2612
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OqtBuF8C
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-378722fd4a3so1683953eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oyNuE2Gg
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36d1353fdcdso6221830eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794606565; x=1795211365; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794606568; x=1795211368; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6oSPPOo0C6N3cNWQ993MVB5Cg/gZqiSL0WgLi3FPcVs=;
-        b=OqtBuF8CYVrxv90m5tqD5cjRUOf9aUlrmuEU8newpmkajQ7mmVQejV0cKMgonkjAOh
-         C8w+IZS9m8hm+Br8r3kS112E7AdUQZY3m2buRHfNWH4rZbBUGM7flkcKfNs/JnifSiKc
-         4UxyD8yl1tF7Y/m+9q9N9ylEODzVIoKpDJJClHxJpC3a2pSZaL2yb9H9Kkx2r+7qKwYS
-         jEOl1TRe2He+tgraSGRfiQ3Y1LDDMM8sM53FKXnEiRzey5ITjys44q/jiTlgGGdh1I4R
-         7Chx4ZETKVB/1vn025ZXSUQ6ZN3XfZGbGsxrtRaxATaV9gV7lEVO19SPjfVjzPcy9SAv
-         YGZg==
+        bh=eLMRs6tGAi+pj+BgiCyYGtaXdwslAeT3pBREDlZ4/UY=;
+        b=oyNuE2Gg4VwQowCxrRW8EL5ry+h0A4WjOshFvds6RLzAoRV5xX6u/Q1oAxD44wzAkT
+         cOldXBXupOo6yW/ccK86fZmGhbQR+WBxKPvDE8xzVtOiFtQZvhgPtyukex/NDg/+n2ty
+         IYboTJLjdSofFw9tyfjUREmK1RvKRMlQDz/tUyIwMdgfW5NdlZfHui00QWlMOKrhqJiL
+         YJdcdzcivOJD/JjH6DR1zB5OgvhB5EHQvDHCxo9a0AWVy/1nHnLk79Zht3+ZC6ZCs5Mk
+         9lj6NZHucxFPmfyFknam5fvs8Y+RwhoQk81jsSOxCNa3CpdeI7IP5h0+FGPNErK9y7dv
+         Bg6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606565; x=1795211365;
+        d=1e100.net; s=20260707; t=1794606568; x=1795211368;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6oSPPOo0C6N3cNWQ993MVB5Cg/gZqiSL0WgLi3FPcVs=;
-        b=vK+apKA6vUlr/hvKQywxYumbuvKGT27ptb6NDSSpZatT89B+XdqubaV2nbUgaXDIvx
-         fxFARuFwAolJd/DhWFrsjf0OMaOPjS1okMTIO6RY7Ob0gzmFsSkST5iiMURPH2/JnX2V
-         4GY9s7Q/WQRP1FrI+3qqQzjCYMnDjt6wOInqJmr10mcBGDN5hK+fmlScVBXWzN58U/VY
-         bk9HXlCANEb4YS/gD+0TtF0hWKcR3ScmXsJIU+HOu+PjW+10mVHKhAKNCDJL93i70WR8
-         yOE7H40ueLGkbe9TVVNyNjJbRo76NyFDWlAS+fQvrszqKtSTbXY53fxwATFqPcneo/cV
-         nF3A==
-X-Forwarded-Encrypted: i=1; AL+hErGuTJ1IZ4AP0bI+Drz5zsEfZqbQq+8+50zPBTOFvSKns0Gc8Bu/rgS8ygj+lNWJVL/ast8WX6Dhh4bcM7I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/W7nCwy66dcQItVZpOJgw0mYy6z86NrMUL+30eNuUlBjxOpsXL
-	k09C3WlZ5aX6P2DZm0edz/Lu1NVLJB+LcE8jsKPbZe7lpxLgzcwa1q7UVx/CLgvjiArAd8TlVoB
-	1Hj+ZBTSNpw==
-X-Received: from dlev25.prod.google.com ([2002:a05:701b:4659:b0:1a7:3dca:e320])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4293:20b0:187:efba:9ba2
- with SMTP id a92af1059eb24-1b5031562cemr3697275c88.44.1794606564709; Fri, 13
- Nov 2026 13:49:24 -0800 (PST)
-Date: Fri, 13 Nov 2026 13:48:29 -0800
+        bh=eLMRs6tGAi+pj+BgiCyYGtaXdwslAeT3pBREDlZ4/UY=;
+        b=TvIveAhUhwYPVKyMQYM7xcd+kHgZ/x6taijVpYxZvbDyl85cRjkXcCyxSitN7Kj7n5
+         CJ0urHnZtCX/eTIOrifM4/O+vVAJzbsFZSdy3hZ7UmXrJV3ZViDYjL46PW9eSu/EIbj2
+         p6uxaiGn3vLDGZR1kuMCdTPJQaOfBxUB1xHKsHNxh0pOH3AyZKBG9lj1CQdQCHkS8It7
+         jXbxz2dDvwd3I4K/ncqUqzERt9wcP6fLTLW1+25tBAK/4A4xej/TUma//on/cij3xet3
+         NbJB1gw3Nrp7Hq09skfZTzWWWnM8R8iJVMxGHj1SGNO4zXsHdm5nnuKJeBFjs6XT4IRm
+         46Mw==
+X-Forwarded-Encrypted: i=1; AL+hErGFrwQHvhuDahjv6v4e9NHnu+HxMUZli3qC97tWdqllal5k5sLEzJ1lHQzYCoGHIw11K2UuoYjyg6ugo4Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+BE8buzVWPyuHROJlUxdTRYDfyPk/dyS8jY1vT4fxrNOljdvN4
+	ole0v0IXWb4PaNOrpU+oo2CR3bJ9EnbP9MNIBmYhdO69ek5ZYfsGzaTCTaDHLwUN7SIRCJCrijc
+	L3inxuyOOSA==
+X-Received: from dyad24.prod.google.com ([2002:a05:693c:8358:b0:369:68b5:ef])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:e2d:b0:378:3227:b4dd
+ with SMTP id 5a478bee46e88-37966a5c862mr3175386eec.18.1794606567340; Fri, 13
+ Nov 2026 13:49:27 -0800 (PST)
+Date: Fri, 13 Nov 2026 13:48:30 -0800
 In-Reply-To: <20261113214850.3329699-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261113214850.3329699-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113214850.3329699-6-irogers@google.com>
-Subject: [PATCH v1 05/26] perf hashmap: Always build perf's hashmap and avoid
- libbpf symbol conflict
+Message-ID: <20261113214850.3329699-7-irogers@google.com>
+Subject: [PATCH v1 06/26] perf hashmap: Fix strict aliasing violations in hashmap
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -92,394 +91,166 @@ Cc: Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
 	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Previously tools/perf/util/hashmap.o was only compiled when libbpf was
-disabled or linked dynamically; with static libbpf.a, perf linked
-against libbpf's internal hashmap symbols.
+The hashmap in perf util (copied from libbpf) contained strict
+aliasing violations. Specifically, the hashmap_cast_ptr(p) macro was
+casting pointers (such as void **) to long *, and these were
+subsequently dereferenced in functions like __hashmap__insert(),
+__hashmap__find(), and __hashmap__delete().
 
-To allow perf's hashmap implementation to diverge from libbpf's without
-colliding with libbpf.a's global hashmap symbols or churning callers:
-- Always build util/hashmap.o in tools/perf/util/Build.
-- Rename the backing C functions in util/hashmap.c to __hashmap__*
-  (__hashmap__init, __hashmap__new, __hashmap__clear, __hashmap__free,
-  __hashmap__size, __hashmap__capacity, __hashmap__insert,
-  __hashmap__find, and __hashmap__delete, along with the internal
-  __hashmap__* helpers).
-- Keep the existing struct hashmap and hashmap__* header wrappers in
-  util/hashmap.h forwarding to those functions, and update the single
-  direct hashmap_find() call in hwmon_pmu.c to hashmap__find().
+C's strict aliasing rules (C11 6.5/7) prohibit accessing an object
+through an lvalue of an incompatible type. Dereferencing a long * to
+write to a void * object is a violation, even if they share the same
+size, as they are not compatible types. This can lead to undefined
+behavior, especially with aggressive compiler optimizations.
+
+Fix this by:
+1. Updating __hashmap__insert(), __hashmap__find(), and
+   __hashmap__delete() to take void * for their output parameters
+   (old_key, old_value, and value), and zeroing old_key/old_value on
+   entry in __hashmap__delete() to match __hashmap__insert().
+2. Modifying the implementation to use memcpy() and memset() for
+   accessing these output parameters. Accessing an object as an array of
+   characters (as done by memcpy) is a permitted exception to the
+   strict aliasing rules.
+3. Updating the hashmap_cast_ptr(p) macro to return void *, ensuring
+   compatibility with the new function signatures while preserving the
+   static assertion that ensures the pointed-to type matches the size of
+   a long.
+
+Input parameters (key and value) remain as long, as they involve value
+conversion rather than incompatible pointer dereferencing, which is safe
+under strict aliasing rules.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/Build       |  9 ----
- tools/perf/util/hashmap.c   | 70 +++++++++++++++----------------
- tools/perf/util/hashmap.h   | 83 ++++++++++++++++++++++++++-----------
- tools/perf/util/hwmon_pmu.c |  2 +-
- 4 files changed, 94 insertions(+), 70 deletions(-)
+ tools/perf/util/hashmap.c | 26 ++++++++++++++++----------
+ tools/perf/util/hashmap.h |  8 ++++----
+ 2 files changed, 20 insertions(+), 14 deletions(-)
 
-diff --git a/tools/perf/util/Build b/tools/perf/util/Build
-index 2c1f880c4c47..d9090f217301 100644
---- a/tools/perf/util/Build
-+++ b/tools/perf/util/Build
-@@ -197,16 +197,7 @@ perf-util-$(CONFIG_LIBELF) += symbol-elf.o
- perf-util-$(CONFIG_LIBELF) += probe-file.o
- perf-util-$(CONFIG_LIBELF) += probe-event.o
- 
--ifdef CONFIG_LIBBPF_DYNAMIC
--  hashmap := 1
--endif
--ifndef CONFIG_LIBBPF
--  hashmap := 1
--endif
--
--ifdef hashmap
- perf-util-y += hashmap.o
--endif
- 
- ifndef CONFIG_LIBELF
- perf-util-y += symbol-minimal.o
 diff --git a/tools/perf/util/hashmap.c b/tools/perf/util/hashmap.c
-index 140ee4055676..b6f80a92f5dd 100644
+index b6f80a92f5dd..7fd87c7d72be 100644
 --- a/tools/perf/util/hashmap.c
 +++ b/tools/perf/util/hashmap.c
-@@ -21,22 +21,22 @@
- /* start with 4 buckets */
- #define HASHMAP_MIN_CAP_BITS 2
+@@ -8,6 +8,7 @@
+ #include <stdint.h>
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <string.h>
+ #include <errno.h>
+ #include <linux/err.h>
+ #include "hashmap.h"
+@@ -153,24 +154,24 @@ static bool __hashmap__find_entry(const struct hashmap *map,
  
--static void hashmap_add_entry(struct hashmap_entry **pprev,
--			      struct hashmap_entry *entry)
-+static void __hashmap__add_entry(struct hashmap_entry **pprev,
-+				 struct hashmap_entry *entry)
- {
- 	entry->next = *pprev;
- 	*pprev = entry;
- }
- 
--static void hashmap_del_entry(struct hashmap_entry **pprev,
--			      struct hashmap_entry *entry)
-+static void __hashmap__del_entry(struct hashmap_entry **pprev,
-+				 struct hashmap_entry *entry)
- {
- 	*pprev = entry->next;
- 	entry->next = NULL;
- }
- 
--void hashmap__init(struct hashmap *map, hashmap_hash_fn hash_fn,
--		   hashmap_equal_fn equal_fn, void *ctx)
-+void __hashmap__init(struct hashmap *map, hashmap_hash_fn hash_fn,
-+		     hashmap_equal_fn equal_fn, void *ctx)
- {
- 	map->hash_fn = hash_fn;
- 	map->equal_fn = equal_fn;
-@@ -48,19 +48,19 @@ void hashmap__init(struct hashmap *map, hashmap_hash_fn hash_fn,
- 	map->sz = 0;
- }
- 
--struct hashmap *hashmap__new(hashmap_hash_fn hash_fn,
--			     hashmap_equal_fn equal_fn,
--			     void *ctx)
-+struct hashmap *__hashmap__new(hashmap_hash_fn hash_fn,
-+			       hashmap_equal_fn equal_fn,
-+			       void *ctx)
- {
- 	struct hashmap *map = malloc(sizeof(struct hashmap));
- 
- 	if (!map)
- 		return ERR_PTR(-ENOMEM);
--	hashmap__init(map, hash_fn, equal_fn, ctx);
-+	__hashmap__init(map, hash_fn, equal_fn, ctx);
- 	return map;
- }
- 
--void hashmap__clear(struct hashmap *map)
-+void __hashmap__clear(struct hashmap *map)
- {
- 	struct hashmap_entry *cur, *tmp;
- 	size_t bkt;
-@@ -73,32 +73,32 @@ void hashmap__clear(struct hashmap *map)
- 	map->cap = map->cap_bits = map->sz = 0;
- }
- 
--void hashmap__free(struct hashmap *map)
-+void __hashmap__free(struct hashmap *map)
- {
- 	if (IS_ERR_OR_NULL(map))
- 		return;
- 
--	hashmap__clear(map);
-+	__hashmap__clear(map);
- 	free(map);
- }
- 
--size_t hashmap__size(const struct hashmap *map)
-+size_t __hashmap__size(const struct hashmap *map)
- {
- 	return map->sz;
- }
- 
--size_t hashmap__capacity(const struct hashmap *map)
-+size_t __hashmap__capacity(const struct hashmap *map)
- {
- 	return map->cap;
- }
- 
--static bool hashmap_needs_to_grow(struct hashmap *map)
-+static bool __hashmap__needs_to_grow(struct hashmap *map)
- {
- 	/* grow if empty or more than 75% filled */
- 	return (map->cap == 0) || ((map->sz + 1) * 4 / 3 > map->cap);
- }
- 
--static int hashmap_grow(struct hashmap *map)
-+static int __hashmap__grow(struct hashmap *map)
- {
- 	struct hashmap_entry **new_buckets;
- 	struct hashmap_entry *cur, *tmp;
-@@ -116,7 +116,7 @@ static int hashmap_grow(struct hashmap *map)
- 
- 	hashmap__for_each_entry_safe(map, cur, tmp, bkt) {
- 		h = hash_bits(map->hash_fn(cur->key, map->ctx), new_cap_bits);
--		hashmap_add_entry(&new_buckets[h], cur);
-+		__hashmap__add_entry(&new_buckets[h], cur);
- 	}
- 
- 	map->cap = new_cap;
-@@ -127,10 +127,10 @@ static int hashmap_grow(struct hashmap *map)
- 	return 0;
- }
- 
--static bool hashmap_find_entry(const struct hashmap *map,
--			       const long key, size_t hash,
--			       struct hashmap_entry ***pprev,
--			       struct hashmap_entry **entry)
-+static bool __hashmap__find_entry(const struct hashmap *map,
-+				  const long key, size_t hash,
-+				  struct hashmap_entry ***pprev,
-+				  struct hashmap_entry **entry)
- {
- 	struct hashmap_entry *cur, **prev_ptr;
- 
-@@ -151,9 +151,9 @@ static bool hashmap_find_entry(const struct hashmap *map,
- 	return false;
- }
- 
--int hashmap_insert(struct hashmap *map, long key, long value,
--		   enum hashmap_insert_strategy strategy,
--		   long *old_key, long *old_value)
-+int __hashmap__insert(struct hashmap *map, long key, long value,
-+		      enum hashmap_insert_strategy strategy,
-+		      long *old_key, long *old_value)
+ int __hashmap__insert(struct hashmap *map, long key, long value,
+ 		      enum hashmap_insert_strategy strategy,
+-		      long *old_key, long *old_value)
++		      void *old_key, void *old_value)
  {
  	struct hashmap_entry *entry;
  	size_t h;
-@@ -166,7 +166,7 @@ int hashmap_insert(struct hashmap *map, long key, long value,
+ 	int err;
+ 
+ 	if (old_key)
+-		*old_key = 0;
++		memset(old_key, 0, sizeof(long));
+ 	if (old_value)
+-		*old_value = 0;
++		memset(old_value, 0, sizeof(long));
  
  	h = hash_bits(map->hash_fn(key, map->ctx), map->cap_bits);
  	if (strategy != HASHMAP_APPEND &&
--	    hashmap_find_entry(map, key, h, NULL, &entry)) {
-+	    __hashmap__find_entry(map, key, h, NULL, &entry)) {
+ 	    __hashmap__find_entry(map, key, h, NULL, &entry)) {
  		if (old_key)
- 			*old_key = entry->key;
+-			*old_key = entry->key;
++			memcpy(old_key, &entry->key, sizeof(long));
  		if (old_value)
-@@ -184,8 +184,8 @@ int hashmap_insert(struct hashmap *map, long key, long value,
- 	if (strategy == HASHMAP_UPDATE)
- 		return -ENOENT;
+-			*old_value = entry->value;
++			memcpy(old_value, &entry->value, sizeof(long));
  
--	if (hashmap_needs_to_grow(map)) {
--		err = hashmap_grow(map);
-+	if (__hashmap__needs_to_grow(map)) {
-+		err = __hashmap__grow(map);
- 		if (err)
- 			return err;
- 		h = hash_bits(map->hash_fn(key, map->ctx), map->cap_bits);
-@@ -197,19 +197,19 @@ int hashmap_insert(struct hashmap *map, long key, long value,
- 
- 	entry->key = key;
- 	entry->value = value;
--	hashmap_add_entry(&map->buckets[h], entry);
-+	__hashmap__add_entry(&map->buckets[h], entry);
- 	map->sz++;
- 
+ 		if (strategy == HASHMAP_SET || strategy == HASHMAP_UPDATE) {
+ 			entry->key = key;
+@@ -203,7 +204,7 @@ int __hashmap__insert(struct hashmap *map, long key, long value,
  	return 0;
  }
  
--bool hashmap_find(const struct hashmap *map, long key, long *value)
-+bool __hashmap__find(const struct hashmap *map, long key, long *value)
+-bool __hashmap__find(const struct hashmap *map, long key, long *value)
++bool __hashmap__find(const struct hashmap *map, long key, void *value)
  {
  	struct hashmap_entry *entry;
  	size_t h;
- 
- 	h = hash_bits(map->hash_fn(key, map->ctx), map->cap_bits);
--	if (!hashmap_find_entry(map, key, h, NULL, &entry))
-+	if (!__hashmap__find_entry(map, key, h, NULL, &entry))
+@@ -213,24 +214,29 @@ bool __hashmap__find(const struct hashmap *map, long key, long *value)
  		return false;
  
  	if (value)
-@@ -217,14 +217,14 @@ bool hashmap_find(const struct hashmap *map, long key, long *value)
+-		*value = entry->value;
++		memcpy(value, &entry->value, sizeof(long));
  	return true;
  }
  
--bool hashmap_delete(struct hashmap *map, long key,
--		    long *old_key, long *old_value)
-+bool __hashmap__delete(struct hashmap *map, long key,
-+		       long *old_key, long *old_value)
+ bool __hashmap__delete(struct hashmap *map, long key,
+-		       long *old_key, long *old_value)
++		       void *old_key, void *old_value)
  {
  	struct hashmap_entry **pprev, *entry;
  	size_t h;
  
++	if (old_key)
++		memset(old_key, 0, sizeof(long));
++	if (old_value)
++		memset(old_value, 0, sizeof(long));
++
  	h = hash_bits(map->hash_fn(key, map->ctx), map->cap_bits);
--	if (!hashmap_find_entry(map, key, h, &pprev, &entry))
-+	if (!__hashmap__find_entry(map, key, h, &pprev, &entry))
+ 	if (!__hashmap__find_entry(map, key, h, &pprev, &entry))
  		return false;
  
  	if (old_key)
-@@ -232,7 +232,7 @@ bool hashmap_delete(struct hashmap *map, long key,
+-		*old_key = entry->key;
++		memcpy(old_key, &entry->key, sizeof(long));
  	if (old_value)
- 		*old_value = entry->value;
+-		*old_value = entry->value;
++		memcpy(old_value, &entry->value, sizeof(long));
  
--	hashmap_del_entry(pprev, entry);
-+	__hashmap__del_entry(pprev, entry);
+ 	__hashmap__del_entry(pprev, entry);
  	free(entry);
- 	map->sz--;
- 
 diff --git a/tools/perf/util/hashmap.h b/tools/perf/util/hashmap.h
-index 0c4f155e8eb7..f8bc70a33026 100644
+index f8bc70a33026..4dcc2cf3ef1a 100644
 --- a/tools/perf/util/hashmap.h
 +++ b/tools/perf/util/hashmap.h
-@@ -5,8 +5,8 @@
-  *
-  * Copyright (c) 2019 Facebook
-  */
--#ifndef __LIBBPF_HASHMAP_H
--#define __LIBBPF_HASHMAP_H
-+#ifndef __PERF_UTIL_HASHMAP_H
-+#define __PERF_UTIL_HASHMAP_H
- 
- #include <stdbool.h>
- #include <stddef.h>
-@@ -80,16 +80,49 @@ struct hashmap {
- 	size_t sz;
- };
- 
--void hashmap__init(struct hashmap *map, hashmap_hash_fn hash_fn,
--		   hashmap_equal_fn equal_fn, void *ctx);
--struct hashmap *hashmap__new(hashmap_hash_fn hash_fn,
--			     hashmap_equal_fn equal_fn,
--			     void *ctx);
--void hashmap__clear(struct hashmap *map);
--void hashmap__free(struct hashmap *map);
-+void __hashmap__init(struct hashmap *map, hashmap_hash_fn hash_fn,
-+		     hashmap_equal_fn equal_fn, void *ctx);
-+struct hashmap *__hashmap__new(hashmap_hash_fn hash_fn,
-+			       hashmap_equal_fn equal_fn,
-+			       void *ctx);
-+void __hashmap__clear(struct hashmap *map);
-+void __hashmap__free(struct hashmap *map);
- 
--size_t hashmap__size(const struct hashmap *map);
--size_t hashmap__capacity(const struct hashmap *map);
-+size_t __hashmap__size(const struct hashmap *map);
-+size_t __hashmap__capacity(const struct hashmap *map);
-+
-+static inline void hashmap__init(struct hashmap *map, hashmap_hash_fn hash_fn,
-+				 hashmap_equal_fn equal_fn, void *ctx)
-+{
-+	__hashmap__init(map, hash_fn, equal_fn, ctx);
-+}
-+
-+static inline struct hashmap *hashmap__new(hashmap_hash_fn hash_fn,
-+					   hashmap_equal_fn equal_fn,
-+					   void *ctx)
-+{
-+	return __hashmap__new(hash_fn, equal_fn, ctx);
-+}
-+
-+static inline void hashmap__clear(struct hashmap *map)
-+{
-+	__hashmap__clear(map);
-+}
-+
-+static inline void hashmap__free(struct hashmap *map)
-+{
-+	__hashmap__free(map);
-+}
-+
-+static inline size_t hashmap__size(const struct hashmap *map)
-+{
-+	return __hashmap__size(map);
-+}
-+
-+static inline size_t hashmap__capacity(const struct hashmap *map)
-+{
-+	return __hashmap__capacity(map);
-+}
+@@ -149,7 +149,7 @@ enum hashmap_insert_strategy {
+ 	_Static_assert((__builtin_constant_p((p)) ? (p) == NULL : 0) ||			\
+ 				sizeof(*(p)) == sizeof(long),				\
+ 		       #p " pointee should be a long-sized integer or a pointer");	\
+-	(long *)(p);									\
++	(void *)(p);									\
+ })
  
  /*
-  * Hashmap insertion strategy:
-@@ -126,14 +159,14 @@ enum hashmap_insert_strategy {
-  * through old_key and old_value to allow calling code do proper memory
-  * management.
+@@ -161,7 +161,7 @@ enum hashmap_insert_strategy {
   */
--int hashmap_insert(struct hashmap *map, long key, long value,
--		   enum hashmap_insert_strategy strategy,
--		   long *old_key, long *old_value);
-+int __hashmap__insert(struct hashmap *map, long key, long value,
-+		      enum hashmap_insert_strategy strategy,
-+		      long *old_key, long *old_value);
+ int __hashmap__insert(struct hashmap *map, long key, long value,
+ 		      enum hashmap_insert_strategy strategy,
+-		      long *old_key, long *old_value);
++		      void *old_key, void *old_value);
  
  #define hashmap__insert(map, key, value, strategy, old_key, old_value) \
--	hashmap_insert((map), (long)(key), (long)(value), (strategy),  \
--		       hashmap_cast_ptr(old_key),		       \
--		       hashmap_cast_ptr(old_value))
-+	__hashmap__insert((map), (long)(key), (long)(value), (strategy), \
-+			  hashmap_cast_ptr(old_key),			\
-+			  hashmap_cast_ptr(old_value))
- 
- #define hashmap__add(map, key, value) \
- 	hashmap__insert((map), (key), (value), HASHMAP_ADD, NULL, NULL)
-@@ -147,17 +180,17 @@ int hashmap_insert(struct hashmap *map, long key, long value,
+ 	__hashmap__insert((map), (long)(key), (long)(value), (strategy), \
+@@ -180,14 +180,14 @@ int __hashmap__insert(struct hashmap *map, long key, long value,
  #define hashmap__append(map, key, value) \
  	hashmap__insert((map), (key), (value), HASHMAP_APPEND, NULL, NULL)
  
--bool hashmap_delete(struct hashmap *map, long key, long *old_key, long *old_value);
-+bool __hashmap__delete(struct hashmap *map, long key, long *old_key, long *old_value);
+-bool __hashmap__delete(struct hashmap *map, long key, long *old_key, long *old_value);
++bool __hashmap__delete(struct hashmap *map, long key, void *old_key, void *old_value);
  
--#define hashmap__delete(map, key, old_key, old_value)		       \
--	hashmap_delete((map), (long)(key),			       \
--		       hashmap_cast_ptr(old_key),		       \
--		       hashmap_cast_ptr(old_value))
-+#define hashmap__delete(map, key, old_key, old_value) \
-+	__hashmap__delete((map), (long)(key), \
-+			  hashmap_cast_ptr(old_key),			\
-+			  hashmap_cast_ptr(old_value))
+ #define hashmap__delete(map, key, old_key, old_value) \
+ 	__hashmap__delete((map), (long)(key), \
+ 			  hashmap_cast_ptr(old_key),			\
+ 			  hashmap_cast_ptr(old_value))
  
--bool hashmap_find(const struct hashmap *map, long key, long *value);
-+bool __hashmap__find(const struct hashmap *map, long key, long *value);
+-bool __hashmap__find(const struct hashmap *map, long key, long *value);
++bool __hashmap__find(const struct hashmap *map, long key, void *value);
  
  #define hashmap__find(map, key, value) \
--	hashmap_find((map), (long)(key), hashmap_cast_ptr(value))
-+	__hashmap__find((map), (long)(key), hashmap_cast_ptr(value))
- 
- /*
-  * hashmap__for_each_entry - iterate over all entries in hashmap
-@@ -205,4 +238,4 @@ bool hashmap_find(const struct hashmap *map, long key, long *value);
- 	     cur = tmp)							    \
- 		if ((map)->equal_fn(cur->key, (_key), (map)->ctx))
- 
--#endif /* __LIBBPF_HASHMAP_H */
-+#endif /* __PERF_UTIL_HASHMAP_H */
-diff --git a/tools/perf/util/hwmon_pmu.c b/tools/perf/util/hwmon_pmu.c
-index 96aeb379e169..c150fc0d7bd3 100644
---- a/tools/perf/util/hwmon_pmu.c
-+++ b/tools/perf/util/hwmon_pmu.c
-@@ -571,7 +571,7 @@ bool hwmon_pmu__have_event(struct perf_pmu *pmu, const char *name)
- 
- 	key.type = type;
- 	key.num = number;
--	if (hashmap_find(&hwm->events, key.type_and_num, /*value=*/NULL))
-+	if (hashmap__find(&hwm->events, key.type_and_num, /*value=*/NULL))
- 		return true;
- 	if (key.num != -1)
- 		return false;
+ 	__hashmap__find((map), (long)(key), hashmap_cast_ptr(value))
 -- 
 2.56.1.703.gf848ed807c-goog
 
