@@ -1,59 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559680;
-	b=Em1RV5ADw+1PgOt7qX9L3Ryq70Dl0oYuxsiO/Jx1clR/L7zznHxjjJwVj3ORYRzs33aO
-	 Z+NzrZ2UljOJ+NjvhLxdzQngPQPL06DTFkkCGCqpC7YNUoWQnHFgt5+VmoQOVwZnh75BW
-	 qPvKyY+QWAe2xcmt3ksl/nD+u+3o5JeuuQ2h3+lgRgy7Szy3fKguJv4iNVltMeQjOemo3
-	 CW0/TqyeCwkyiTSiNw15xP82M8ntLpV5X0Qoh5LkrER73i6lOtYQHIJk/AcsMePURELwB
-	 IyNtcwkwyTEhYwq6oj3iba9YSFIdJpLCmVFoMt2XIzdJj6wOXkXZ0nHuZwLIPTtHDZQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559680;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-QQ-SENDSIZE:
-	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=oKU2j8bN1o+Dr7cNQliLRr9DTF+HNjYHfrmyMONRynM=;
-	b=r1pImpZKh6Ga1P9gWyvw9ki8ryUoIbcpzmS8IsjSPIEW4tcc5NhVXdJSOIn/G4yJ26Z0
-	 rSq7LfI3Knj85JZgbz9dB1bZQfBVTbn/klvpmdWZpR8qzGtJ0U5KN5sUz2s+7mYOrvs76
-	 VjLsoi6FrkynbtCZMtkwNvD8J6mW0Mmzow+vKUJDSkfY2OJR8ihkAF3inFE0HFdIZccMY
-	 C7U11dbP0q/ZomH6ffoi6twdTEDyh6pFOashXBHGZsnFogHesFf+ePCf8dMgNCXAWK1ad
-	 64D8IxoAXLuR/rD+M62zgF+0/WWO4QwkuirI7fV+bvIusb0c/Z8Z4/JTdnJD+Pu95wQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=cuF1Ome9;
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794559690;
+	b=ANm0Q+fjxHPTIgSKM8dK5Z7VQ3TC+vKu5S1S0blPK1j3QzQHr+zBRR4loTlXi5SZvFsw
+	 Y3MBG2YwKrc/6f3FIJIt4OeThlwokYVhMX8dkSWCynXN7g6tcPJAXvuxqy75p3UAe8hSj
+	 YaeqAnUA9m4bzIkeMTtlYd5blsj1EyrVGRK3LGqAGI+nI9igPuh5/z2s8sGCBmiBdY7m4
+	 bcWFMEnb1hocc8aVQvYukFatblekGM5UDG+XCgJd2DUlvZ/AS9EpDK2wK/CUlHQsXXQ0Z
+	 3+e85uD/2jWsGvbDlqGHzeUPufXZGriyz73Wv/RqSVC5mzB6PIPsK+7wsxaEiaFYzBg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559690;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Sb4C2w/d5w6+ocGzHVnaU8bpcCXtQ0zPQIONnx/cfo8=;
+	b=oRcuk2cswSH1iIpbytmpOWIX5OcFu5JVJncCfYHX8A7xmCishkWr4Ud8tzL9nzNqauHp
+	 p+WvDIjSzi1jdSbS41bLNInjDP7UQDnVK3XOVl0CEZGQGlLC6vbJ2vS8yMxl8afqY9HPx
+	 Cf2ILfW769rxL9iAOUGp5cjqdbhl2ORzO6z9WsQNVjuOovThMkt8EKuMyFAQtWZTto+vY
+	 di+F8d4w7OIIex7u53DlM2ik5RYblCy0B/dQXbJl9dNpd82gXoFQ7U/QKi67NlnlHBArT
+	 u9L1Sy3au/ih3hELOVLCGyhlYgUGWEZI7yCXR0fgmhrZE7iWs9uE8NoOD7ZUtWU7r8Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QSZlkHq+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1366B606B363;
-	Fri, 13 Nov 2026 08:47:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1366B606B363
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE80606B37F
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:48:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFE80606B37F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=cuF1Ome9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794559639;
-	bh=oKU2j8bN1o+Dr7cNQliLRr9DTF+HNjYHfrmyMONRynM=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=cuF1Ome9t81fE5dJAWwUZBS0LXZGdGX54pK4EWH/FZLarTlsojx7Y23aHkhjnqdPz
-	 flRbLgrHP5WTls9hJ1DRHOg/QEYh3KVm6Hpod12JvuWYiVxuFzFfnZtN7x1L78H+Rp
-	 Jq1I555NaJJb00P0q0K3MtG6sDdlmj3SM3/9fy5E=
-X-QQ-mid: esmtpgz15t1794559624t5efbcce9
-X-QQ-Originating-IP: Do0zNIbIbBLllmWo7Po164zagHd9OJpsc0BMqtAS6xI=
-Received: from [10.10.7.69] ( [1.202.39.170])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 13 Nov 2026 16:46:45 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 975368059114725145
-EX-QQ-RecipientCnt: 9
-From: Jinming Zhao <zhaojinming@uniontech.com>
-Date: Fri, 13 Nov 2026 16:46:38 +0800
-Subject: [PATCH] crypto: qce - use the mapped scatterlist count for ahash
- requests
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QSZlkHq+
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-675617e81f9so635903d50.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:48:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794559689; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GLWo7X3mNiZQTbA6EfePNz4jGyKvsoTaeVcOOIxgK9QNYLTTmVVn+1XeLYqbN9zt4a
+         nnMS7aAWRB+lTiq/e8fcXDZMwng13HzQc/S8Zv0d1SQlpIhusNCdRSc7GQI5tdeETtpy
+         +9KcgHD7iWyJuRrFx5XBRP0eZlfC/Qo2mqkkevZsgPhoHqm4U2N04n4payf40ITrMnYz
+         xS+n9+botBTxiiYcR5XNmmy11+TCr3Ct2b32fzQJ0YybyIWbFGQvs0EKE9KLjEL7JNhj
+         Harqysmf7GYYzuY4aPNv0BsJ7NjRyWajBFvFcL+lwfbhReDpLosrtc1WtUDzU9o129rB
+         3dFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Sb4C2w/d5w6+ocGzHVnaU8bpcCXtQ0zPQIONnx/cfo8=;
+        fh=ARwoMLnzD30WLO8YCDXS8Jx7N+t3UBxzAv7hLjcdn1U=;
+        b=PMjwF73ueU1jqrGbhAAJVKeFEiA4v4ySUJ+b3K/6v6YSZoInySU6ebN4lP5t/kpPRJ
+         ig3WZEV+hW6KcUvXr/ICdJcXmy+ZYEBJdROt+SAYYynBca3RbmYjVPQOrmV9g3kd5B99
+         6fapI4OZq78gnrP/C0e0qmnTG1q0CQjOIKLOniIdLdFBkq4j20dghb4QU901fbyxOPPf
+         a9e1qd1UjyZM4Gy9T1E+UchQvFAr2RvFHCLfp3WalmHKk+Q1PbntZ7t/flTUradAjOfd
+         fQIrccTwPgb8ygwVfXqEGy9Ewrw1BIAJfQQOJoR7G3MjclZSA0SoMj0TGQ6SGUqUsX50
+         7FoQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794559689; x=1795164489; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Sb4C2w/d5w6+ocGzHVnaU8bpcCXtQ0zPQIONnx/cfo8=;
+        b=QSZlkHq+cmszNgUi7FcavufnIwocDZOFiFULftEhiI2WI5o8l0XNNv2JA9f7ikENig
+         M4VUV4Pn8ONiz52MKMdn//q0tre9wN5Olo5ZPdpCqt3tNXa+W5oSpH5dyue0D5wUVffv
+         hVqAxRW0RrWGJcgrTWsV+gyzqcPapFKQTa7Jibcih4pcg3mItoSOGxVce1wmIfmCVNko
+         szZOKA4dVpwlC7M7ckSnTzFwB+nKkBtyVXDjHIhY2+rySyJfsIO4PBb/v8cqPmU4LwJQ
+         /YyHy5JP5bZceFKfXrcCyaBx4iDcQUQTSAprwE6PMJZSdYhzPGNb1wzJRCh+BVTzTSHJ
+         w4jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794559689; x=1795164489;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Sb4C2w/d5w6+ocGzHVnaU8bpcCXtQ0zPQIONnx/cfo8=;
+        b=IYsUDn9TEkusrAk4lJsXvuidzQe7tYbA0SXl31fNm8/qcgq45cbhGHpAvOFvp5/J/r
+         Ke60EylNgRJ8sQsIauPJmACSW/rND54Zodo+brMwpC5xlOyzZHyuhK0RdzFK7rEtfyZf
+         qJnYwQnuZVN5UEKuKeJdcD//mN9yQumaNYSD3xEPh1BiedP835ZpFE0D+31RcWF6IeL2
+         znVsX15YDxnmrpT7Yv7wcNKb63bVExuOqDKVMGU9NZC/ncbhKlGSQTmsnn482ru2n6/Q
+         pl625rE+ma/Stm75VtqGWzm4p/2uIXgXVxLIGADuo0lqyJiFNYqlaH1E9GOE/dFArthz
+         rOWA==
+X-Forwarded-Encrypted: i=1; AL+hErGlXhOeD/gHC0AD0nPNTuuZe5qUqotVM9kKo92bx6L3Taq0yhBGunnV3r21XMN97yUX9JpzV+zW3LQvhxk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+crYE0lKLlLtVRYWwF8Wg0mQgXrWGdX7vL2rH9vataHAF8BfsM
+	5hrwhW0SxoqoRXqzkXU3oK+Aqo/QRUtCT9GVLK+OFoCDE06yJjnioDslT7wfzMgR/I7Q/hCpjd6
+	mzhX/EYvUT02zR9NfWzs/xZ+6+IkbNFY=
+X-Gm-Gg: AYBFou3+KZsdNXwuxoQ7fc9IMNxfzBm/uphzm8DBJ6lPB2X6nrKprFQMuK23BXJw0ki
+	JLFroYarKquBkEM+8rs5skQmncMFfXZAVul4uXcq65x/fOijqqnp3uBkvXWrNz4Mj2cp7ockaU9
+	hdM4JGyObsLsJ6RdZFF1ibbdO8WvSWmOUMRpFAYlp4iYxRvfmwVe9cvU7N05Ds5XoaWR6z77Ogn
+	SgtsYeukedm+3n1wVmjbsYioJjv0YTI5GIjSN5W7tYSf8Vz0+7cemEZPs0mda+QvWlBaYgEsE/M
+	fYEQtFme5wu+BqFZ/URLV+MGf6Y5Yd0H+FgNIXZl0OdvXYj/d33b9vfFX30BHsy4b8veEO218PK
+	o3qaoivOYkCEbS0rRWhfMc+Qp6RQCV+znHdV7i+0lThqViuSqQ2Rg1vukcHlyC2iUEpksmgWYF+
+	jl7Z/rVv5pHOZ5OoOQ51xVD1QIs3T2ZwrEOiLv1yg8q+pEwT7HIJonrXXc+WloWAmvXMG1fOmkS
+	I2w80mA+29Kb9Ci/Gj/7gIt8tyQme8QoPyOs6GDhxXjP7l5tG8acULVXPXzLpHTVpYzex8Vg/Vv
+	101XVLY=
+X-Received: by 2002:a53:d682:0:b0:67c:1d73:fd3d with SMTP id
+ 956f58d0204a3-67d897d5059mr810181d50.108.1794559689013; Fri, 13 Nov 2026
+ 00:48:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,109 +107,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-qce-ahash-dma-count-v1-1-0423b54d75c8@uniontech.com>
-X-B4-Tracking: v=1; b=H4sIAG3O9moC/yXMQQ6CQAxA0auQrm1CESF6FcOilOqUhEGnYEwId
- 3fU5Vv8v4FrMnW4FBskfZnbHDPoUIAEjndFG7KhKquGiI74FEUO7AGHiVHmNS5Yk9atnM49tQy
- 5fCS92ft3vXZ/+9qPKst3Bfv+AQK3qxJ3AAAA
-X-Change-ID: 20261113-qce-ahash-dma-count-41e47c59b17a
-To: Bartosz Golaszewski <brgl@kernel.org>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, 
- LABBE Corentin <clabbe.montjoie@gmail.com>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Jinming Zhao <zhaojinming@uniontech.com>
-X-Mailer: b4 0.15.2
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NhUkPfKlCtQwFTwOjOKF1/E/X3z/goMPIr8h3Xdl6xZwpVj8DUDwVgHQ
-	9cKHq5M/ttesQck6JfLfqVvM4oN3L6sjpIukwY32RZuIQ5NujbBaG0+zEpZcEa/+mF1Chnv
-	XH5SKvxdfKoCeoMMgWTZayIg59uHh6LUuTiEbRCeurGfdbvag6jSObJ0k3brROy8fZ3VnmO
-	HX2LqjGT9nsHLa6K89JQ9A49gf2D0DJ327G11TsosMM6nd6txs8rT2nY0+Sz0joFhb7X/aq
-	RBgdcwB6ebxt6HQVrHDvSufVl3IIfxvURt2Poh7tchyJuBhjONjBbGUvPDjdbFFILYM/z1Y
-	i1AqzqX3ldndS4FO6fWya+LrrETby3j3w1N/4C86wTyr3szQeJ/RRlAKya14bdY/qdaAiG5
-	BbAGcOlk4RiMqCd9SCa6rV1RCIH48707ESET4vCX+itbQDiL+zcvWLZ9z9fH3xL2OiVy/7n
-	v3ItYbpUYhyIsqzJxrXcbi07nVteUK/k7faf7L6b78nzDTDK0+LRB/5uHUIYYoNoKW80SGI
-	p8ofZ/9Wkh+/Jw7ibcViJ7j/3RaZ+iRSZ1fD+ydYGlJ2w4I8GglRjYRbunAyrw6XbPa/I4F
-	hIFUvDraXUz5Ei7rzKSro2NWcqmA29PBYbH/fe/DsiPzJv3nE8ZRXP0dthI5xIiwaU0lv0+
-	I73wn6wOjFJ7uRi8r+DUlZ/CSYxLBA7pjyg1gBHuij0nUMvJyqGdCDKvQkZ8jZWjmD3gFty
-	GMIddM/utSG961eH7KwwyV0NJhwEUs9NwuFBhWiYQEzH8wlywrPit19+SGQ9NNCOy+UBurg
-	XrmvI8zm1xIHu2DflrRa0+OTQU7HpvVMeXSeluU4UTtHwpNujPPwQHHFpbZyuYGiSMRvV8L
-	/wNuVgl78KLJUTbIKwZBm9DbB51rbDwmuzCfwys2cm9YV/hm9IE6XTZkDoRAMa746rQzK+3
-	owOqb6wbzFNNZmx/cLG6EB335eqvgLV3cPJNKVm1TyCD5lk56Eash2uEpI1WxJ/DAxQkyj+
-	wnFDPJ8uEy7WY0hPH7fAGOIdJD/vv/tnhkjeBH4D/YtZgnKLkfC5tHQchFpY+qkyNr2aFkC
-	A==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+References: <20261113082546.176582-1-zhujun2@cmss.chinamobile.com> <CAHp75VeOjqWoEM36OMgtiiwu3XWiu5wfJf59vYFuGSApbWpPaA@mail.gmail.com>
+In-Reply-To: <CAHp75VeOjqWoEM36OMgtiiwu3XWiu5wfJf59vYFuGSApbWpPaA@mail.gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Fri, 13 Nov 2026 10:47:32 +0200
+X-Gm-Features: AclHuK9rjEqJxLRL5SgQJUJktkIm-qEWvtfM6EjpPfAvf3U0-d31BCeAdrVtQ3o
+Message-ID: <CAHp75Vfy97JHMaURigbF92z7Eypfuny8PUk94=-43S6p6PhknQ@mail.gmail.com>
+Subject: Re: [PATCH v3] iio: potentiostat: lmp91000: Handle configuration
+ write errors
+To: Zhu Jun <zhujun2@cmss.chinamobile.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
+	andy@kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-qce_ahash_async_req_handle() maps the source scatterlist with
-dma_map_sg(), which returns the number of entries after the DMA mapper
-has coalesced them.  The driver keeps that value in ret but immediately
-overwrites it with the result of the second dma_map_sg() call for the
-result buffer, so qce_dma_prep_sgs() and the later unmaps use
-rctx->src_nents, the count from sg_nents_for_len() before mapping.
+On Fri, Nov 13, 2026 at 10:41=E2=80=AFAM Andy Shevchenko
+<andy.shevchenko@gmail.com> wrote:
+> On Fri, Nov 13, 2026 at 10:25=E2=80=AFAM Zhu Jun <zhujun2@cmss.chinamobil=
+e.com> wrote:
 
-When the DMA mapper merges entries, the descriptor is prepared with more
-entries than were mapped, so the DMA engine may read sg_dma_address and
-sg_dma_len from entries that were never populated.  This can lead to
-IOMMU faults or memory corruption.  Store the mapped count in
-rctx->src_nents so the descriptor and both unmap paths use the count
-returned by dma_map_sg().
+...
 
-This issue was found in the Sashiko review of the "crypto: qce - fix CCM
-AAD buffer leak and AEAD error-path bugs" series.
+> > Check the configuration writes and return the first error. After a
+> > successful unlock, attempt to restore write protection even if a
+> > configuration write fails. Return a relock error when both configuratio=
+n
+> > writes succeeded.
+> >
+> > lmp91000_probe() returns either error before registering the IIO device=
+,
+> > so the caller does not need to distinguish their source. Preserve the
+> > configuration error if restoring write protection also fails.
 
-Link: https://sashiko.dev/#/patchset/20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com
-Fixes: fea40451530fe ("crypto: qce - dma_map_sg can handle chained SG")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jinming Zhao <zhaojinming@uniontech.com>
----
-qce_ahash_async_req_handle() maps the source scatterlist with
-dma_map_sg(), which returns the number of entries after the DMA mapper
-has coalesced them.  The driver keeps that value in ret but then
-overwrites it with the result of the second dma_map_sg() call for the
-result buffer, so qce_dma_prep_sgs() and the later unmaps use the
-rctx->src_nents value computed before mapping.
+Btw, this is still unclear. See below.
 
-When the DMA mapper merges entries, the descriptor is prepared with more
-entries than were mapped, so the DMA engine may read sg_dma_address and
-sg_dma_len from entries that were never populated, which can lead to
-IOMMU faults or memory corruption.  Store the mapped count in
-rctx->src_nents so the descriptor and both unmap paths use the count
-returned by dma_map_sg().
+...
 
-This issue was found in the Sashiko review of the "crypto: qce - fix CCM
-AAD buffer leak and AEAD error-path bugs" series:
-https://sashiko.dev/#/patchset/20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0%40uniontech.com
----
- drivers/crypto/qce/sha.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+> > -       regmap_write(data->regmap, LMP91000_REG_LOCK, 0);
+> > -       regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
+> > -       regmap_write(data->regmap, LMP91000_REG_REFCN,
+> > -                    LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_REFCN_50=
+_ZERO);
+> > +       ret =3D regmap_write(data->regmap, LMP91000_REG_LOCK, 0);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       ret =3D regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
+> > +       if (ret)
+> > +               goto relock;
+> > +
+> > +       ret =3D regmap_write(data->regmap, LMP91000_REG_REFCN,
+> > +                          LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_RE=
+FCN_50_ZERO);
+> > +       if (ret)
+> > +               goto relock;
+> > +
+> > +       return regmap_write(data->regmap, LMP91000_REG_LOCK, 1);
+> > +
+> > +relock:
+> >         regmap_write(data->regmap, LMP91000_REG_LOCK, 1);
+>
+> What's the point of duplicating this?
+> Before label you can easily do
+>
+>   ret =3D 0;
+>
+> relock:
+>   ...
 
-diff --git a/drivers/crypto/qce/sha.c b/drivers/crypto/qce/sha.c
-index b67d749db05f..c53d0e53784e 100644
---- a/drivers/crypto/qce/sha.c
-+++ b/drivers/crypto/qce/sha.c
-@@ -97,6 +97,12 @@ static int qce_ahash_async_req_handle(struct crypto_async_request *async_req)
- 	if (!ret)
- 		return -EIO;
- 
-+	/*
-+	 * dma_map_sg() can coalesce entries, so use the number of mapped
-+	 * entries for the descriptor and for the later unmap.
-+	 */
-+	rctx->src_nents = ret;
-+
- 	sg_init_one(&rctx->result_sg, qce->dma.result_buf, QCE_RESULT_BUF_SZ);
- 
- 	ret = dma_map_sg(qce->dev, &rctx->result_sg, 1, DMA_FROM_DEVICE);
+Ah, okay, I see that the relock error is returned only on success of
+the configuration update. Why is this inconsistency? Really, you need
+to elaborate first on what the caller is suppose to do when
+1) unlock failed;
+2) unlock was successful, but configuration was failed;
+3) unlock and configuration was successful, but relock failed.
 
----
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
-change-id: 20261113-qce-ahash-dma-count-41e47c59b17a
+In all of these cases the user gets an error, but it doesn't know
+which stage was failed. What is the caller supposed to do?
 
-Best regards,
---  
-Jinming Zhao <zhaojinming@uniontech.com>
+No need to send a new patch, let's keep discussion here to understand
+the code flow better.
 
+> > -       return 0;
+> > +       return ret;
+> >  }
+
+
+--=20
+With Best Regards,
+Andy Shevchenko
