@@ -1,101 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794578723;
-	b=uLFPnrltcOpahFAbo0yw283UWKXXeeOtVnOq1Nv3ET1gMNtlcKrk2eMhx9XnfgXPk1RD
-	 SOk2DrUGMvD1rplbjHt8rE4MizW4o8YM+0wpOvkbv7lkgJ07h6Zj/SzMrw5nv97JeiRcF
-	 CT6yLf191n3c5mRszWIwQL5fFRAy2QwhUWzjr1m5tczWSiXrRTl9JAH0wcLmSDgKSR7wV
-	 nq84F4MjYSCbDBLXTlrERtNyKK3x1uhxKnix2yOC2+ILqoPqTB9xD0RU9khfSlXV5F1TX
-	 5RdW0GeMtx2IsD+0XML6LYug8ngd0kbKjA/ODNMNGikVBl5Xp8InGp6YPFzJ799UQYw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578723;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DNr5TSnyeXCioTMiWAjRgZq6UDA4HuekgOMRX+0ndmc=;
-	b=FVKzJZTYtmfMQ3g667DiGF+KKptIxh0FdpfsCfpWE8PLmy9T3vTeXApTnFnrr2yymdsj
-	 Jzj41lxPElOR7KbNnWyyRmDbgtBwcikf1k0oxCIGzNTM1Lvic/LqMTwkuXM/HGQ8CM2DG
-	 V274wA2onDC6zrmi5DirHXD8uHKFljqx0aYKTBQ6arcCsQXDXHxI/4gJ1vLvILhrv7PMY
-	 lh+dKNf7od8ezeriMHMY1uHnNX85SGaZM/TA8LJqSxqdjgxFjrj2noP9GqtB7Uv7uZlz0
-	 hLCS3lPJmGRWISwxKkqABpojRd2lgAphoJ4kGKp6PMcwYYSrqteE81HjknWLjdr7UTg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ow2ifrnm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794578734;
+	b=lFDpUzAzhw4dqHtYdkhGIhu24Pd2Ztt7v4AkL7rFPp2oio5mEJWGSQI9Kc8VpONtH/l6
+	 uuNZW1Pc1ifwKRils0/lGhXRgUSXkccuhg46LLUAWiye9DJHQwIji8n2WNRcHaEP0/Ulk
+	 /9uYpHQHLK2ZbpsT5yhhBffmvPAhGvBYp15EPTdIWKCXC3biTLSf21T8AgNG99yrfYmhf
+	 G5bFpAEb48Ourb1A1lLZKmrhrXFhrnjA/SzYrB1RkGfqasWukd9JI0Lke0tHkUGGP+urJ
+	 AwnMKBxkDaXrlu+tOLm3tR/vq0REJs+aubTxITKTq8WeSE6IW6sfqFtIpO7dBWUj54Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578734;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LOjx6oEGbB7XtY97QD54yKBprd/VH9r8uevA8iC/xWA=;
+	b=De7evixVmzsW7iKX4++pK5+YFsUX5Z0iLzZTxcYtGLAOV6krBeCsAM7DErK8z6+436U/
+	 MrkqfMFxbFKcUY0kJv5/9vPsq6haARrmJr6Cj3yhXFVEgtEKrtxm1bnIOEzRAHWclzJV/
+	 1UOVaftTjKTSAE3ZDlhrKJScLVDAgKHsGTwFjCujfjYh4B7KU0bu05i1G9z0PUTXUUAcS
+	 9icLdDJEZnjP+ZQFKI+AEmfEsj0D4FvUnlM3L8oR82gbZa5ahYwMFLLgljlTpj1cbmm0/
+	 ZUUkJuOz/Uk630TJh8I5o0xlh10shtFv1DX4KCDPQbWavJGNVr914UeEFCL58qGH7XQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LUvzRnQn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88458606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:05:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88458606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDB4606A323;
+	Fri, 13 Nov 2026 14:05:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ow2ifrnm
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4cd28978b8so18791466b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:05:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794578722; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qjJ2N7sUEaa7r1SUcQj7RTuaakT5+GSaonzqE7lI2619ezgfszg83LLqbtmvjvftaT
-         nw3DUkAVLldYJOTCsHmQBwlXJ3md71hb/NlO9qd62kerT1pwk1iB2EhvwuOORTcTd88a
-         hi/EHknQVJazTP3+Nq542rul+SE0q0habhbBlmw/UqCpnBgzDODeH6ttnpYBOiksT0lP
-         imtVtQPeOrgwbNNf3QyUF4PUAQja97oxOaszJvozkhkqtI5jKHPVpP5Z2rbjehQwiH/5
-         07mhuNR5knuSQFdeaxG078SM8PUHq4M+M86Isy0sZcu63eghl/hur9gwD3hoMIksDj2V
-         IH7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DNr5TSnyeXCioTMiWAjRgZq6UDA4HuekgOMRX+0ndmc=;
-        fh=gl+OLRR/i8GJb/9SRFHaJAhsxb1FiRymzij9vfEf7vI=;
-        b=rV7dlw8Cir/v5XPT2DWdjLsNxQc/m9a/b5M8kZpWGYEnNbjXSNPnKxiZqB1YNjBJVQ
-         wA54DNn9GafzwW+JEE3OZFmOnEoc3X8HYsH12BDxJMM4ZQ8Wuqetmu6i8XrVMR9/FpGG
-         IJFo3WlO4Hl53p7owiT9IZ4zxIr6+oPvjpY3raFbNsig9OhkNd9FFliP0WBwXXdyUESJ
-         g2MXREUG/dpcEWtR13HGxPDaLKv5uOEQayxCqf5N99tWy1vC/mTeaf4uxBRa0H5sfcAq
-         ieZ02MpLZihgR1dFwO6OfyK/3Lw6HM/Tzcf3uy9gDhoSAqFK2VducIR1CvbKbwselkHT
-         oZ7Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794578722; x=1795183522; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DNr5TSnyeXCioTMiWAjRgZq6UDA4HuekgOMRX+0ndmc=;
-        b=Ow2ifrnmR0QXxZPsdFnCW9MkLp03O4yDotjlrm0q/8LFMQ1D3qyR0P9KYOGj2M127O
-         qXfQDUQq4bq8QuddTIQmnKfRP2fVs6aYNXUbile9TnssjXskUQpLTQLtZ4Eze2AVSgVj
-         0tCub0H8n++kLqnVSiRbhYZwDimdp4zOXkox+40r8DC7U2tpiC4WXvUsqhxSaTFXyOnz
-         WOuoflvEq5+VNFYaT/40Mhzxt4Tn0/VMs200/7g56W3kYv595FA/XqQdtp4+PmAJ/gZC
-         mWOtX0u91pHOvTGI1n9JpHQ2vr1rfZoI3NikSP4y9Nb1l5Y0YKJRwgmRUyiblHYwS6bq
-         6VqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794578722; x=1795183522;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DNr5TSnyeXCioTMiWAjRgZq6UDA4HuekgOMRX+0ndmc=;
-        b=NWGJcejDUvXKhIGWlKrtXT/GBmIvo8XPeuupP1Wfe/xzMdeIQ9d+pOhOpdzmK3v8bu
-         mkb4Zkd5IxJnLZbFevHqfk6GtncqPGItskGk78tRrnY143QH4CHkznF37a6XvC16uuhF
-         4FkzYo3oAioOormaKqix+/c23a8y6lHcYhRaAio9MXeAJcaxfG5D3PUp3Nb5O7fxyGHr
-         IjnHOAHqQc6fo7sY0K8txFgxx37fMBbJBnkc9YF8pjhZ/31gpLNpKf3+sNprlmJF38Xa
-         cllR38vD82kTpVnvdlI2ncJlFjI1IB/TzjAhNhXfulpy8moH9C/Mm2RS17AFCiq+qaSs
-         heTA==
-X-Forwarded-Encrypted: i=1; AL+hErGu6ZcdPt+m+8iW9DWs9yll4fRBisiVsLvWuqUt9YdaVg3Mi4QrK3/QvrjkHxvjActeQD9WtqgLQWfi75g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lO3nCGwM5NK5dEv4IK7++I9KG+uX1LOw+JiNxgWTVFW7Ml9BQ
-	8mGWghZmqRdgjW6p0PmEA3cFGA7xaw+hJBezw6iqV8GVB9AGHBd5PHWtCQ7Q7r2kZHgn3n/7Rle
-	biQl6joCmr8nY4MkrZ+qrUoQpEHZvuEg=
-X-Gm-Gg: AYBFou2vIIbhNsJt5TDYyuRQXi9T1/vjDxhyBOr7/cpvLFVscDPtuPAGDRueg/PYnVE
-	O+V16ZQtHaEL/2i3t4wEXYlHveEokJSMV7QPUwSNGgN5PFKvnodCRq3glq2KugHJZXM2Bt7Wd3I
-	i6xbfXNSDDhPQ7O53atJiL6k/N1dR/rtX8XWE2PAYZep1PbVDcW/dVAu3eqTEdgP8b4vyvDgUGY
-	XjR0WrpsIDNY8Q/BuXEPrQkEBmbsttZNe6CuynQWmp/mQ4cu3vNsX2VGL/rWxJFwFOaBrkB2lVb
-	BEoQHbPKCns3oeHi1wvm6p68uHK/WRLGAjpqBQtKcsANZUE0om6+Z0ZLvkb9yMGDfsX4cMoB5RR
-	CQVq4lk/TrjWXmvu9fgL4LGMqdnjP5wOhfJGPiEDZEZM7o3AWYlzr3g4K15W6WV0GUrJUuMeKED
-	/ZRgv7mWAfgplMy3c40ZTko3l0URIMR5l68wDVhnPDD4VI2JHm0KfNeRwDLjc=
-X-Received: by 2002:a17:906:f183:b0:c2e:3698:dbba with SMTP id
- a640c23a62f3a-c509642ceeamr231259866b.4.1794578721566; Fri, 13 Nov 2026
- 06:05:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LUvzRnQn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22A181F000C6;
+	Fri, 13 Nov 2026 14:05:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794578734;
+	bh=LOjx6oEGbB7XtY97QD54yKBprd/VH9r8uevA8iC/xWA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LUvzRnQn/HOD9r9OOWVR0Msf0kSylQoriehP8qdRnawC0KsgaXAoAg2wK7GVMGkV7
+	 jp/+iFifwM9ctnH2BD/hcfAa2gXIOgmVnMckMonosOtHMxOOByJUZEYs4IeTIuD7gk
+	 yE6y/A0YqFg/5HsZ8dZH94Pno8of9OCfEe5ZrLk/6lTI8lt4LjtNQtY4pn6cUsvcfv
+	 ZFI+g8ZhjLL0U9I6Xu8o9lgWthhCBGKPfnVqJ2tkrDw56ner98piDTkgayIC2Vkkn4
+	 1BxRF2EVL2AJCObith+tOg9hvUeAS2kOhYInxCYdBQnnrwKMOkFIdN/HI/Nwy5mVRm
+	 oBsvzXzK9vR8w==
+Date: Fri, 13 Nov 2026 14:05:29 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Mina Hui-Min Chou <minachou@andestech.com>
+Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, jic23@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be,
+	magnus.damm@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	randolph@andestech.com, cyyang772@andestech.com,
+	tim609@andestech.com, az70021@gmail.com
+Subject: Re: [PATCH v2 12/19] dt-bindings: cache: andestech: update schema
+ for generic LLC support
+Message-ID: <20261113-emporium-provolone-0e7b0e39c97a@spud>
+References: <20261113071143.1446167-1-minachou@andestech.com>
+ <20261113071143.1446167-13-minachou@andestech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,174 +64,206 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
- <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
- <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com> <CADnq5_MRA2bQG5x9xiGAT5ddh0jHMqg=u2OhCPvJxPr3ddTurA@mail.gmail.com>
- <b9f69d90-73ef-4a22-a347-0d70f014a7de@gmail.com>
-In-Reply-To: <b9f69d90-73ef-4a22-a347-0d70f014a7de@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 13 Nov 2026 09:05:03 -0500
-X-Gm-Features: AclHuK-JbGhOW0X8f8QmVd6MttZ4a5YiYIvDhIqm2gvUw0T3yQw5z9xjNDXU7XI
-Message-ID: <CADnq5_PZ3B863S238TkrGSubWa_VExySu9pkh5xDfrST11y5GQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
- PowerPlay for MCLK switch
-To: Richard Lane <richardlanedev@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
-	Rodrigo Siqueira <siqueira@igalia.com>, Mario Limonciello <mario.limonciello@amd.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="NvIhCNPRm1ByCO8d"
+Content-Disposition: inline
+In-Reply-To: <20261113071143.1446167-13-minachou@andestech.com>
+
+--NvIhCNPRm1ByCO8d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 7:15=E2=80=AFPM Richard Lane <richardlanedev@gmail.=
-com> wrote:
->
-> On 10/11/2026 19:59, Alex Deucher wrote:
-> > On Tue, Nov 10, 2026 at 1:49=E2=80=AFPM Richard Lane <richardlanedev@gm=
-ail.com> wrote:
-> >>
-> >> On 09/11/2026 20:34, Alex Deucher wrote:
-> >>> On Mon, Nov 2, 2026 at 3:31=E2=80=AFAM Richard Lane <richardlanedev@g=
-mail.com> wrote:
-> >>>>
-> >>>> When driving multiple displays or tiled panels with identical timing=
-s
-> >>>> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Display
-> >>>> Core's program_timing_sync() aligns the CRTCs into a timing sync gro=
-up
-> >>>> in hardware during dc_commit_streams().
-> >>>>
-> >>>> However, on DCE < 12, Display Core leaves
-> >>>> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is not
-> >>>> informed that the streams have synchronized vertical blanking interv=
-als,
-> >>>> SMU7 prevents MCLK switching at idle or causes modeset underflows.
-> >>>>
-> >>>> If all active streams belong to the same timing sync group
-> >>>> (timing_sync_info.group_size =3D=3D params.stream_count), report
-> >>>> all_displays_in_sync =3D true to PowerPlay after committing the stre=
-ams so
-> >>>> SMU7 can safely downclock MCLK at idle.
-> >>>>
-> >>>
-> >>> Looking at this a little deeper, the function bw_calcs() in
-> >>> dce_calcs.c already calculates all_displays_in_sync using the helper
-> >>> all_displays_in_sync().  Can you look into this and figure out why
-> >>> that is not working as expected?  My concern with this patch is that
-> >>> DCE and DCN have different logic for handling mclk switching so I'm
-> >>> not sure it's safe to call dm_pp_apply_display_requirements() directl=
-y
-> >>> from common code.
-> >>>
-> >>> Thanks,
-> >>>
-> >>> Alex
-> >>
-> >> Moving it to dce_clk_mgr.c and using resource_are_streams_timing_synch=
-ronizable() also works. Is that a solution?
-> >
-> > I think that would be preferred, but in general, why doesn't the
-> > current flow I described work?  The function bw_calcs() dce_calcs.c
-> > already calculates the all_displays_in_sync flag using the helper
-> > all_displays_in_sync().  Is all_displays_in_sync() not checking
-> > something properly or is the overall call timing wrong such that
-> > all_displays_in_sync() can't properly calculate whether all of the
-> > displays are synced at the point that it gets called?
-> >
-> > Alex
-> >
->
-> I think this could be limited to DCE 6,8,10 rather than DCE < 12 as in th=
-ese
-> cases DC uses dce100_validate_bandwdith() which doesn't call bw_calcs() a=
-nd
-> dce_pplib_apply_display_requirements() in dce_clk_mgr.c so
-> pp_display_cfg->all_displays_in_sync is unset.
+On Fri, Nov 13, 2026 at 03:11:36PM +0800, Mina Hui-Min Chou wrote:
+> The last level cache controller of Andes cores is not specific to
+> AX45MP. Other Andes cores, such as the A27L2, use the same controller
+> with the same register interface, but the binding only accepts
+> andestech,ax45mp-cache. Add andestech,llcache for them, and describe
+> the binding as an Andes last level cache rather than an AX45MP L2
+> cache.
+>=20
+> The cache-level, cache-sets and cache-size constraints describe the
+> AX45MP L2 cache, so apply them to andestech,ax45mp-cache only. The LLC
+> of other Andes cores can be level 3 and have other geometries, so
+> allow cache-level 3 and require cache-sets only for AX45MP. Match
+> renesas,r9a07g043f-ax45mp-cache explicitly instead of through the else
+> branch, which would otherwise also apply to andestech,llcache.
+>=20
+> Also add an example for andestech,llcache, and add myself as a
+> maintainer of the binding.
+>=20
+> Signed-off-by: Mina Hui-Min Chou <minachou@andestech.com>
+> ---
+>  .../cache/andestech,ax45mp-cache.yaml         | 71 ++++++++++++++-----
+>  1 file changed, 54 insertions(+), 17 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/cache/andestech,ax45mp-cac=
+he.yaml b/Documentation/devicetree/bindings/cache/andestech,ax45mp-cache.ya=
+ml
+> index b135ffa4ab6b..da9688cc95f7 100644
+> --- a/Documentation/devicetree/bindings/cache/andestech,ax45mp-cache.yaml
+> +++ b/Documentation/devicetree/bindings/cache/andestech,ax45mp-cache.yaml
+> @@ -5,14 +5,15 @@
+>  $id: http://devicetree.org/schemas/cache/andestech,ax45mp-cache.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> =20
+> -title: Andestech AX45MP L2 Cache Controller
+> +title: Andestech Last Level Cache Controller
+> =20
+>  maintainers:
+>    - Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> +  - Mina Hui-Min Chou <minachou@andestech.com>
+> =20
+>  description:
+> -  A level-2 cache (L2C) is used to improve the system performance by pro=
+viding
+> -  a large amount of cache line entries and reasonable access delays. The=
+ L2C
+> +  A last level cache (LLC) is used to improve the system performance by =
+providing
+> +  a large amount of cache line entries and reasonable access delays. The=
+ LLC
+>    is shared between cores, and a non-inclusive non-exclusive policy is u=
+sed.
+> =20
+>  select:
+> @@ -21,18 +22,23 @@ select:
+>        contains:
+>          enum:
+>            - andestech,ax45mp-cache
+> +          - andestech,llcache
+> =20
+>    required:
+>      - compatible
+> =20
+>  properties:
+>    compatible:
+> -    items:
+> -      - enum:
+> -          - andestech,qilai-ax45mp-cache
+> -          - renesas,r9a07g043f-ax45mp-cache
+> -      - const: andestech,ax45mp-cache
+> -      - const: cache
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - andestech,qilai-ax45mp-cache
+> +              - renesas,r9a07g043f-ax45mp-cache
+> +          - const: andestech,ax45mp-cache
+> +          - const: cache
+> +      - items:
+> +          - const: andestech,llcache
+> +          - const: cache
 
-How about adding bw_calcs() to dce100_validate_bandwdith()?  Or if
-there are issues there, just add the all_displays_in_sync() checks to
-dce100_validate_bandwdith().
+Device specific compatibles are mandatory. I would accept this patch
+with a
+          - not: {}
+            description: Need a SoC specific compatible
+like the safexcel eip binding.
 
-Alex
+pw-bot: changes-requested
 
->
-> Richard
->
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr=
-.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> >> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> >> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> >> @@ -31,6 +31,7 @@
-> >>  #include "dmcu.h"
-> >>  #include "core_types.h"
-> >>  #include "dal_asic_id.h"
-> >> +#include "resource.h"
-> >>
-> >>  /*
-> >>   * Currently the register shifts and masks in this file are used for =
-dce100 and dce80
-> >> @@ -319,8 +320,17 @@ static void dce_pplib_apply_display_requirements(
-> >>         struct dc_state *context)
-> >>  {
-> >>         struct dm_pp_display_configuration *pp_display_cfg =3D &contex=
-t->pp_display_cfg;
-> >> +       int j;
-> >>
-> >>         dce110_fill_display_configs(context, pp_display_cfg);
-> >> +       pp_display_cfg->all_displays_in_sync =3D pp_display_cfg->displ=
-ay_count > 1;
-> >> +       for (j =3D 1; j < context->stream_count; j++) {
-> >> +               if (!resource_are_streams_timing_synchronizable(
-> >> +                           context->streams[0], context->streams[j]))=
- {
-> >> +                       pp_display_cfg->all_displays_in_sync =3D false=
-;
-> >> +                       break;
-> >> +               }
-> >> +       }
-> >>
-> >>         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg,=
- sizeof(*pp_display_cfg)) !=3D  0)
-> >>                 dm_pp_apply_display_requirements(dc->ctx, pp_display_c=
-fg);
-> >>
-> >> Richard
-> >>
-> >>>
-> >>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> >>>> ---
-> >>>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
-> >>>>  1 file changed, 10 insertions(+)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/dri=
-vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>>> index 74cd88d8d580..b4531383437e 100644
-> >>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>>> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct d=
-rm_atomic_commit *state,
-> >>>>         dc_exit_ips_for_hw_access(dm->dc);
-> >>>>         WARN_ON(!dc_commit_streams(dm->dc, &params));
-> >>>>
-> >>>> +       if (params.stream_count > 1 &&
-> >>>> +           dm->dc->current_state->stream_status[0].timing_sync_info=
-.group_size =3D=3D
-> >>>> +           params.stream_count) {
-> >>>> +               struct dm_pp_display_configuration *pp_cfg =3D
-> >>>> +                       &dm->dc->current_state->pp_display_cfg;
-> >>>> +
-> >>>> +               pp_cfg->all_displays_in_sync =3D true;
-> >>>> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg=
-);
-> >>>> +       }
-> >>>> +
-> >>>>         bool frl_stream_found =3D false;
-> >>>>
-> >>>>         for (i =3D 0; i < params.stream_count; i++) {
-> >>>> --
-> >>>> 2.55.0
-> >>
->
+Thanks,
+Conor.
+
+
+> =20
+>    reg:
+>      maxItems: 1
+> @@ -44,13 +50,11 @@ properties:
+>      const: 64
+> =20
+>    cache-level:
+> -    const: 2
+> +    enum: [2, 3]
+> =20
+> -  cache-sets:
+> -    enum: [1024, 2048]
+> +  cache-sets: true
+> =20
+> -  cache-size:
+> -    enum: [131072, 262144, 524288, 1048576, 2097152]
+> +  cache-size: true
+> =20
+>    cache-unified: true
+> =20
+> @@ -64,7 +68,6 @@ required:
+>    - interrupts
+>    - cache-line-size
+>    - cache-level
+> -  - cache-sets
+>    - cache-size
+>    - cache-unified
+> =20
+> @@ -73,15 +76,36 @@ allOf:
+>        properties:
+>          compatible:
+>            contains:
+> -            const: andestech,qilai-ax45mp-cache
+> +            const: andestech,ax45mp-cache
+> +    then:
+> +      properties:
+> +        cache-level:
+> +          const: 2
+> +        cache-sets:
+> +          enum: [1024, 2048]
+> +        cache-size:
+> +          enum: [131072, 262144, 524288, 1048576, 2097152]
+> +      required:
+> +        - cache-sets
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: andestech,qilai-ax45mp-cache
+>      then:
+>        properties:
+>          cache-sets:
+>            const: 2048
+>          cache-size:
+>            const: 2097152
+> -    else:
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: renesas,r9a07g043f-ax45mp-cache
+> +    then:
+>        properties:
+>          cache-sets:
+>            const: 1024
+> @@ -101,3 +125,16 @@ examples:
+>          cache-size =3D <262144>;
+>          cache-unified;
+>      };
+> +
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    cache-controller@e0500000 {
+> +        compatible =3D "andestech,llcache", "cache";
+> +        reg =3D <0xe0500000 0x10000>;
+> +        interrupts =3D <16 IRQ_TYPE_LEVEL_HIGH>;
+> +        cache-line-size =3D <64>;
+> +        cache-level =3D <2>;
+> +        cache-size =3D <262144>;
+> +        cache-unified;
+> +    };
+> --=20
+> 2.34.1
+>=20
+
+--NvIhCNPRm1ByCO8d
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavcZKQAKCRB4tDGHoIJi
+0uHvAQCrXjifTuDDgyGXIkJkqbdHt3X2TEOcQaFieQczO/ZIHAD9HhXAgmRlKGIs
+/KTS4wXNHI6k4xKnBkLYE/RaOg7J3A8=
+=vUL2
+-----END PGP SIGNATURE-----
+
+--NvIhCNPRm1ByCO8d--
