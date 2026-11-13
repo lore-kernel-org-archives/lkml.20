@@ -1,104 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581284;
-	b=YiYiEbfmQcRBvqDwBjtjI9Hi1VgHl/qUUihXDXuH0WfBvyagNKHFrk8TMSQYF157mZWH
-	 hInl9ESXXfJYHG/X9/0I9xwvPNi2Gqwz3TubJpfMXrUwepGDIEhw5c9m9+nGUJVzWudO9
-	 73AyemanZzzxjpGZGlyXgm4gLqKEixLxWNzV/8v+3txFl6AWEJUekEOa+wimBnpEmADqH
-	 jTtmTEJV3qacNPEfle72nlNiYy0k/E8uoibwW7Xt9MDvAj06yua4paJ8fXNJJyiDyEAbJ
-	 gqGqAAyIl5s3w87QU/55+1F91gdhxw/PelbyvdR6cbcKImkFqQkgv7EXBe+/hrTqtDQ==
+	t=1794581305;
+	b=BNlMCb2/EqbLe8XBfE4s4KEAI3VTP5F9Whr0puUWT7jH6Zk6Eo1yva3RXQsiRErrgPeo
+	 wWBN2GqHzNj022k2mdusZSZcb7piJkFGvw+isqa8AG5z3uOlV2ArEV5BRbmmje9H0JFU1
+	 vTwjVGnQ/mo1A54feBQX7AmTSDF1TMGW0tOKqwvZAtnD3pSzapFqeU5BPF0LC8YaqdP2U
+	 B2sOsQfgNtNxhKmgBqhHDwbF2SlM1Bcxzmo5gOPZ1PMGPLskDOoF50x9eRR1AdUDVSR4s
+	 PADK29p2X1l7VlqVezy5MyyNLx1eUhcNo5fDGFws3OnalckrZfGgWOcIJcVoFblzGaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581284;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=aIBk4rSjn8B0K4wUs8oS5U1trZ1HzjT4mfYr04c9C5A=;
-	b=Bm8ddhhG50DraP/P7XqG001u0hYjFUb9dYuQJ4AGddw13DYNP87tbCzVRkGzY6UCER6a
-	 z8smu4gpOBTE7h4PCTfpGRUcR8UDdCakGjmsz1bBZ0HdL04tZZhwAXPV9YWXdC/PABbQu
-	 46lUgyL4CzOS4KMy/Jh8FsRf+Nfwb7TGuab5DTYSGUQc/kbvzfcvzP5W+qosX8tNw1Yeu
-	 fQw37BoVEHOcq/tbCcOZ913qntpQrG7XXtWOqm3vUdq2zAQM0wS04tvQK0FuidrNkhC6C
-	 mF0M2kEvm9uTo4LX+PFZBEmVVeAhhNGKI33U3uJqd6G/OF2k+pZwuZUkoznB2IkyOXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581305;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=R9Pr21bVx/xxYw3kwGKqOTAyMkXovKTj5MckXFGzrRg=;
+	b=CMq9H6v16TTDZRYUxGlkyi2HPLqseBtICyQ/Tarspf8vzS79OAvgYDXLWaDcdc393cuB
+	 BCTruC04pELlKYbFnSqdMLuJDlTeyA9FS+KVpeMQjX5nOueE3B33YoeEpkbMxrVziBA8X
+	 it/dWvPKzRaD3bU1IX1ZAi3xWd6AGmdvPjru/H5hge2AgMySrW3SfrfD+5kfdT4ygkxML
+	 cvkFhdBlYCu5bQBLavfbGehZR5e623RmM7JfAEjuuda4w7YiH33pgF+hwvdqYo5Mnp2ZP
+	 aHmW5I2HSeGNJWWfTdel4762dmBgb81os691FPqKOyt+DaC+UY3MgAbzufnpxtJ/KaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HQo9Ob0R;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=cXwiVjcU;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=zKOky6Ga;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB003606A32D;
-	Fri, 13 Nov 2026 14:48:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB003606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D06606A327;
+	Fri, 13 Nov 2026 14:48:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72D06606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HQo9Ob0R
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794581284; x=1826117284;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yX9p1HtRUXhQngAEtVPacN6yL6qsAp558i61nVU+Yhw=;
-  b=HQo9Ob0R83whKVzEp52FwnqZNYVU3SkjDjyGA6ez8aPPB6NoassJN0Fr
-   jXyC8aM7J1ldMlNtEyVZjJowamu6snrKvZUtkX+PzKNehHhQvNlogW0/0
-   YR4Vn3YPjVBHhp9rrVhoTi4LcGq32kjGvxwJvQ7DVSUfmMI0fcxHcmc46
-   +iSFpGI5M5oD8mYrfzdvYTYW5AuxjQcHfrwNi1CzXrU33EItMRjIjATZT
-   win2FpBv69zO6bIri+yNUaxDl7ziteJkTccLKMQFzar5YmKcacmSc1xr9
-   3PNll4gQO5JvG1ppg40p+QEsm2oQ/emW6SpkWepAuO2vrYvcrzxUZTnJN
-   w==;
-X-CSE-ConnectionGUID: yezIwCG7SF6FpPI+JqdlcA==
-X-CSE-MsgGUID: 8iEyWDlvTrOfARdgtOK2LA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3463719"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3463719"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:48:03 -0800
-X-CSE-ConnectionGUID: X1D/LeLzQ+ui8rZwEbY5sw==
-X-CSE-MsgGUID: S5B+0Y9kTt+TeyN365jamA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="9101431"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:47:56 -0800
-Date: Fri, 13 Nov 2026 16:47:54 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Andreas Schwab <schwab@linux-m68k.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Len Brown <lenb@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 1/7] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <avcjGlgQBnXHaFFh@ashevche-desk.local>
-References: <cover.1794574496.git.alx@kernel.org>
- <f25bf43d7f18c99019a52b9ba9a1e46fa68174c7.1794574496.git.alx@kernel.org>
- <avcfuBAbNkBrk6uy@ashevche-desk.local>
- <avcf5V0B52MV4_PZ@ashevche-desk.local>
- <avcg2NEwaV-AuuCl@devuan>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=cXwiVjcU;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=zKOky6Ga
+Date: Fri, 13 Nov 2026 14:48:20 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794581302;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R9Pr21bVx/xxYw3kwGKqOTAyMkXovKTj5MckXFGzrRg=;
+	b=cXwiVjcUWWxZI1lhmFM0ToSZLpCIlBmJnS/HejsbLQkbj2mBqkqzWnMPRz50yG+EX0TAWp
+	uaS4LtrAu8sFEsnaWyuJUTyr5MlEjyh7pnM3+ZwnuSKo6mH6ssPTHbUvVuk2oz4ZJZ6bVZ
+	DrerkaaMU69Hb5z8HTGUlwweexUmRualh0Ayhg6EzOaSfuQXJbfgF4nIICQowPtLectJ/S
+	ks8wH2NY8lCu+s7hryVMm1rXZ6rnUPB0ktcUwUmROe51/NnB4l2MMq8HTFKiNPfoPohkSk
+	qYvEl3PgCDNhSczHRRPuSEA/r9uXDpPGstUJoBbKmDxdy65rGJu6p7CA5YyuEA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794581302;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R9Pr21bVx/xxYw3kwGKqOTAyMkXovKTj5MckXFGzrRg=;
+	b=zKOky6GasAh2CjDbOHvEOnYlNIEQ8u0yoUsA3Bhtq5IvzvAeLFVHtz2pLRcBi+GhEC7/v8
+	yJoduLc3iPhO9FBA==
+From: "tip-bot2 for Yuho Choi" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: irq/drivers] irqchip/gic-v3-its: Drop ITS node reference on
+ its_of_probe() errors
+Cc: Marc Zyngier <maz@kernel.org>, Yuho Choi <oss.patchbox@gmail.com>,
+ Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261112204944.1427733-2-oss.patchbox@gmail.com>
+References: <20261112204944.1427733-2-oss.patchbox@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,37 +79,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avcg2NEwaV-AuuCl@devuan>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Message-ID: <179458130013.2969448.6533178628928154524.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 13, 2026 at 03:40:31PM +0100, Alejandro Colomar wrote:
-> > On Fri, Nov 13, 2026 at 04:33:37PM +0200, Andy Shevchenko wrote:
-> > > On Fri, Nov 13, 2026 at 02:10:29PM +0100, Alejandro Colomar wrote:
+The following commit has been merged into the irq/drivers branch of tip:
 
-...
+Commit-ID:     aab02e49f0b54a0837e58c67651c4abdad1a3208
+Gitweb:        https://git.kernel.org/tip/aab02e49f0b54a0837e58c67651c4abdad1=
+a3208
+Author:        Yuho Choi <oss.patchbox@gmail.com>
+AuthorDate:    Thu, 12 Nov 2026 15:49:37 -05:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Fri, 13 Nov 2026 15:42:23 +01:00
 
-> > > > Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > > > Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
-> > 
-> > > It's unreferred Link tag, spurious? Please, refer to it in the commit message
-> > > to understand why it's here. Use Link: $URL [1] and use [1] in the text.
-> > 
-> > Ah, perhaps you wanted Closes tag instead?
-> 
-> Yeah, it was for linking to Bart's report.  BTW, is it okay to have two
-> consecutive patches with the same Closes tag?
+irqchip/gic-v3-its: Drop ITS node reference on its_of_probe() errors
 
-I think so.
+its_of_probe() walks the ITS nodes with of_find_matching_node(), which
+drops the reference on the previous node and returns the next one with
+its reference count raised. The loops are balanced when they run to the
+end, but the three error returns (a failed its_reset_one(), a failed
+its_node_init() and a failed its_probe_one()) leave with the current
+node still referenced.
 
-> I guess it is, because they close different aspects of the same issue.  But
-> at the same time, the first one doesn't fully close the link.  I guess yeah,
-> I should just put it in both.  Thanks!
+Declare the iterator in each loop with __free(device_node), so that the
+reference is dropped whichever way the loop is left.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Fixes: c733ebb7cb67 ("irqchip/gic-v3-its: Reset each ITS's BASERn register be=
+fore probe")
+Fixes: 9585a495ac93 ("irqchip/gic-v3-its: Split allocation from initialisatio=
+n of its_node")
+Suggested-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Acked-by: Marc Zyngier <maz@kernel.org>
+Link: https://patch.msgid.link/20261112204944.1427733-2-oss.patchbox@gmail.com
+---
+ drivers/irqchip/irq-gic-v3-its.c |  9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-it=
+s.c
+index 282e4ba..3cf94c2 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -5572,7 +5572,6 @@ static void its_node_destroy(struct its_node *its)
+=20
+ static int __init its_of_probe(struct device_node *node)
+ {
+-	struct device_node *np;
+ 	struct resource res;
+ 	int err;
+=20
+@@ -5582,8 +5581,8 @@ static int __init its_of_probe(struct device_node *node)
+ 	 * reset, don't even try to go any further, as this could
+ 	 * result in something even worse.
+ 	 */
+-	for (np =3D of_find_matching_node(node, its_device_id); np;
+-	     np =3D of_find_matching_node(np, its_device_id)) {
++	for (struct device_node *np __free(device_node) =3D of_find_matching_node(n=
+ode, its_device_id);
++	     np; np =3D of_find_matching_node(np, its_device_id)) {
+ 		if (!of_device_is_available(np) ||
+ 		    !of_property_read_bool(np, "msi-controller") ||
+ 		    of_address_to_resource(np, 0, &res))
+@@ -5594,8 +5593,8 @@ static int __init its_of_probe(struct device_node *node)
+ 			return err;
+ 	}
+=20
+-	for (np =3D of_find_matching_node(node, its_device_id); np;
+-	     np =3D of_find_matching_node(np, its_device_id)) {
++	for (struct device_node *np __free(device_node) =3D of_find_matching_node(n=
+ode, its_device_id);
++	     np; np =3D of_find_matching_node(np, its_device_id)) {
+ 		struct its_node *its;
+=20
+ 		if (!of_device_is_available(np))
