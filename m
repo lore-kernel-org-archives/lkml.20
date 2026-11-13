@@ -1,67 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.33.104.253
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794555894;
-	b=B03syd2sdVzJhfJPU122UGHam3DaymAUPoFetuBd7pp7iaZ9vvRWjVA0snAxnW4Ho41s
-	 b9nkUi9Ph20LqR5Bd9UIyIz2UNH2HJkLPliGCXcj9ulh9yxED9MEg+0sxZIEeFXH2OUV0
-	 1OJyU5vgwZZESCSijJwlE9NNTYDCfHg088kH+ptkH3iiBwj8DaHYzhrS4C5yu4buyxMXB
-	 AgD8Dpobdft/YycCDYj9ACXq9z9Oxdx08aqegdJiru6zinNtZzLFvPLUN8gehibodA9sS
-	 6kSafryPYue1GsLFMz1hPXgtb5JsTrtEAhnsHkPihlh3L/EL8hpi7XSTJXLGxBGgfMA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794555894;
-	h=DMARC-Filter:Received:Received:Received:X-OVh-ClientIp:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:x-ovh-tracer-id:X-VR-SPAMSTATE:
-	 X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
-	bh=KaTTHc3w8R6rF7gqqWlw2mFxpaUpNPS0l+rvQI9X3UA=;
-	b=ZyuOIKZ+5cXcCym572LpkPvXNMsnb/NPxr5B3pOiySAKroTY283QPL9FnRPFuBIoi4lW
-	 aikGN+WLfkit4Ssdw5CddGatDKj6fBNDvvbFi5cuMIOgB79aNSZEIRxaNdvQeOz6yDabR
-	 /olbQd06rzZEJKzhVd+pNUAz94ML9Lbgu1t6X/0LWMFSgZRh2eENgNISyZxYQ7yCebghR
-	 ae59+xlD1crVGc2zS0o2yn5+2zWnr7ZzPuwGTN19qktAOYD+dVbCQDrZfcTOQgKbHlvxJ
-	 NNTpWHlckMHpWQnOBnYa+aOUrxVJKs9hxhyp/7EFwbE2ST3LEbihz1m3FG5L7eNOgiw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=3mdeb.com;
-	spf=pass smtp.mailfrom=3mdeb.com;
-	dkim=pass header.d=3mdeb.com header.i=@3mdeb.com header.a=rsa-sha256 header.s=ovhmo3617313-selector1 header.b="Wm8/urQe";
-	arc=none smtp.remote-ip=178.33.104.253
-Received: from 12.mo584.mail-out.ovh.net (12.mo584.mail-out.ovh.net [178.33.104.253])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794555911;
+	b=CZc8IDTjfn7s3pH0hF4KGH7NocS27yw9QIlbjUFH+TUvb+fTzZ/RRS8b6wqG1qW5OobC
+	 G9KM/QyzDuA05wMHy4iLNxIPTaGE2McaX9Lmgz31ue5Sh+wV3CPAx95CSeetasR2TorAV
+	 955dte2pEF0t++nOomr1j3eD15gSKu2wGj4X1W3uCRRcpSuiSDEPCZLsbb9bG6YfmJxXt
+	 Wlk1AMFAGqWYHOwULrl9vpGgda5TEWNnnts0piSLC+1N1qF5bt5L9CDBNcOGktEnlODYe
+	 zLOAZ8mAYqTaN/CKgTStyWN6lQAdlNGejPM3WEru1tij98vxlhGVMT8od0QT35r2/Pg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794555911;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=uQFAlRBHBpTrKEbc1EEKL9YBp7MmZvjWg94AE+sNfOM=;
+	b=OQ0k/w8L81nnUEHzuK9G5R99PH0ZUXe1+k1TUPOjrKi0W/jCuUhikSwLr2RmgDE7hlcR
+	 A4ePkhfh01nvJzlw+HSFP51282UmbWF+m0swcrtPjYONV+ghlIAT9oY0TenHjkJMQJtv7
+	 AqcbU2BrhlYSVMWsB6WDjQ7FQaxXQLG4ep8x7o1ipAQ7+dpL+lv6vwZPQb+RRmwH2JU40
+	 m3bsVCQMUGwncHiggtXakift8FQ8qda2cbbjUDx6xtZ/iz7R7Nxt0i94jRW1+xGvfEMlg
+	 6Vvp1ByR/EEp6LeMqx+PQHeXL+0DTKLqG8+6LEjRy6DnGghh9bAmmz1zsXLT7xUFXRw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZX0fe53t;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FC4606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56FC4606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=3mdeb.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=3mdeb.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0BD606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:45:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A0BD606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=3mdeb.com header.i=@3mdeb.com header.a=rsa-sha256 header.s=ovhmo3617313-selector1 header.b=Wm8/urQe
-Received: from director8.ghost.mail-out.ovh.net (unknown [10.110.54.164])
-	by mo584.mail-out.ovh.net (Postfix) with ESMTP id 4jQq663MSgz8YPV
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:44:46 +0000 (UTC)
-Received: from ghost-submission-7ccd8bbbb6-cl275 (unknown [10.108.42.118])
-	by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 4B8D9C01BC;
-	Fri, 13 Nov 2026 07:44:45 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.109])
-	by ghost-submission-7ccd8bbbb6-cl275 with ESMTPSA
-	id Hrv+B+u/9mr5jjgAjijQbg:T2
-	(envelope-from <filip.golas@3mdeb.com>); Fri, 13 Nov 2026 07:44:45 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-109S0030e054812-a7f2-40ce-adf0-051fe7a7f619,
-                    F6EB7A3E9421D9EE3A955D9585EDAC62A977302C) smtp.auth=filip.golas@3mdeb.com
-X-OVh-ClientIp:37.47.248.243
-From: =?UTF-8?q?Filip=20Go=C5=82a=C5=9B?= <filip.golas@3mdeb.com>
-To: =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal.kopec@3mdeb.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Guenter Roeck <linux@roeck-us.net>,
-	=?UTF-8?q?Filip=20Go=C5=82a=C5=9B?= <filip.golas@3mdeb.com>
-Subject: [PATCH 1/3] platform/x86: dasharo-acpi: Extract dasharo_call() from dasharo_read_channel()
-Date: Fri, 13 Nov 2026 08:43:45 +0100
-Message-ID: <20261113074347.2301465-2-filip.golas@3mdeb.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261113074347.2301465-1-filip.golas@3mdeb.com>
-References: <20261113074347.2301465-1-filip.golas@3mdeb.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZX0fe53t
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3adef2bf7acso1095971fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:45:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794555909; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iQRm+CaTOBzoSBf0N5tqcgLlHVDBhqgaW06uQwEFFzoJuHfsHojVs2ArFv4pGBgJR7
+         v7QVGmZWnZAMRmmwVhOVL574XMKgwATtuBUYY9NHfQQs6ejAl1B4vkUFsx2AIADvuev3
+         VHSeN6w5wAGq8n7gO+36Lt+C38RGjI5nHG7pCQYEI48NjrSKcnbsO3yFBbSVyqY9IVHr
+         BFe/iuKLy2M6CYmWOBxhQOoZfioFUSCdiXvVPJ/sC9nqDXW7WOohfbh+mPEzRBE4ElOB
+         ZVxWwe8/C9l8osZt2Sb0Dhb3OzXgUn+9jfqaolhYZcvb5ZImqnGGsyg/X0zrblr1w7fI
+         +VRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=uQFAlRBHBpTrKEbc1EEKL9YBp7MmZvjWg94AE+sNfOM=;
+        fh=Xtgy2yyiSi3AlRuGH/C+LXkzHZ9lsbDd4rJn0UvOrro=;
+        b=nsF5fwEeyY8UNRlGbatpryje9sOx6hG9IR0WNMsN9NPuE7cPbcclIELlvbwC+nZiEh
+         RIJXX10uViNOM4PbrrEssrm6zSY8SFuKSv0/JdwRBfmjfFAEk6SxI44JVAKAHFfvTQoo
+         mya04v8So107cEOV5eZ9Et0dxDT0fIyKVn8My0y87jBDgfISwXgj0d993E3/zY3DSEnQ
+         N59CpH4+vpqEW0nify9TB2MPORvrRYMfaQCTwjmmxieedIRPH0ccnT1rswNa6bZE3QrC
+         eoFo7UC4d0j7UA/3LzbZ8t52Gc8p/pbYxgHghI0gF5P+xCKTDOwqzLcVgArF21jijMpj
+         74bQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794555909; x=1795160709; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uQFAlRBHBpTrKEbc1EEKL9YBp7MmZvjWg94AE+sNfOM=;
+        b=ZX0fe53t1HxoVaTOfHuPsA1VtFhkn+2so1yR7DI+LDkXXU6ame2LRcASeMlzlxOS+c
+         kaJhJiAVoGD2zmSCW/n/nevzDSpeqRzrkKkkOzBc4+wQKV8Wy42mORne4zHXrr3VWIuX
+         tD/HGaQ1rYvUV5Q7Ozp0ma/Rb3vGRtPfP4TOmLi4jZUxwZpL4GcfJg+Z9fswK+yNsmi4
+         x0j7HW7eT/oJOlZvtaeHaLGyeRkBjgtg0axtMvAWajbnLflTxfVl5eiGA/TZm4eerbqW
+         n6vmLn/3pLI3x9jW/7Z8iB+eZCuNTgbMyd53fYAElPbUbVxKjLP5xjZebNGznrVO0woa
+         NtlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794555909; x=1795160709;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uQFAlRBHBpTrKEbc1EEKL9YBp7MmZvjWg94AE+sNfOM=;
+        b=lisPv+dqFb4nUm1rXWuxzQklpPNHGIkCJ5C68pQ7ica8ZH1pkzFkEWWw11BCJ2vTNZ
+         1+CcIC8assCkcUigusdEpHjEeBK/Sr0CK7Pqf9l+F3jSukC0ncWuRb+2aC/xH/ME8kIk
+         q1F24v7s9Nj2+joXxgxKkYZkRxWFLj2lKC65JwadM/SObIQmFJ1Rvz393akneqbZ3RM/
+         Mk2TFUWlNvTH8UUqkg7fGEG9iZVs1jJdzDru7/0goTPu4+ihnIuOJFnc8vvqRFnZgbW4
+         rIccgvkZgUlA+TRQN8pkFkhbsxHE2aMsKQqQR2QbNuhOnlgAZ5h3FTWF95XFtNNSjLYw
+         fJxw==
+X-Forwarded-Encrypted: i=1; AL+hErE8e7xkC97DUuAkCXrOVmxHy8p9ErlxcF51QnrvdFgwBj/dE25hOkBUQLKZdvUVJU8AOKnLNlGnl3v80zg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+t4T4Nmqwq5G5l2sIdRCaVH+Lgxum6Ennc4Lg5nHkbZAsnocNZ
+	AXa8fzaAQUcY3wIrQErTngA7kKKlVsAlLZuoyu5Rp1fpJnkW7sbgyEpuuEEHbezqu4bk+jhozbd
+	8Elz+sZMILBuQ6zh+FXCPw5V8n+gGVB8=
+X-Gm-Gg: AYBFou0F6mqZq7xFjbhb3ndojBK+YepYc9V4Uef1wx6EGV/2APix8Nk6jfgYcfpbfVD
+	Hoc8+xnQ+qXi5N5FT8Uu3mPS+PPECcFbYYtb6Bg3wjZY8lJgp9qGE6U1LarWp9CGIhpyS8rA3pq
+	vegeB+sg/bJ4MjmQTDikvscJO8mZ6cCG7lg9Wo3TrvsLWOuH+gHPIjo8X7BqhszabwzHx5HHBFX
+	gmiSDPCNoni6on+1mhzZG+jczV6JJnxgLDB6N5vtCLBee5HF+GA2JMtfB9c/vtt2hFF7Oqqj+U2
+	R3jCroqRQoQsrFNG6nf2wqi9F9c1WFJHu6y8XIib5Izk+bjGDzCEPYhYcGMyCPJQsw9ec6CGcZJ
+	9JT90qybY4jigpIp6aFwhY8Kacw6R+ZUXODNcuKEgrkGUPmy1jDW4mo0jEZrrIH8oQjhe1qz0Ik
+	bCF9hlilmzhQCPheAsrA==
+X-Received: by 2002:a05:6512:3d0f:b0:5bf:e6a1:3115 with SMTP id
+ 2adb3069b0e04-5c170771fabmr758264e87.2.1794555908550; Thu, 12 Nov 2026
+ 23:45:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,102 +104,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 13829991506800209903
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFlXx8+5JEVtbgskvn0mQwqwMiiUHVSJhKYYHJKacS3OogXmGYQzZSvElqTpv7MA26TfMZE1aPnucRMMWpnPSw7cwpUpV9rYonc9FqEtY61eI5P65EfaAQB/GOcsu7ZjW2myG0aC1gnunV1nnjJBGnnAsK0TkmGoLJIuPsr4F4fA2qwl88bGdgsMxS7EVKZg43uq6VXwrzV2kFOSXfG7oTtmCSoBgXxZoCX4RzDSQ9QvszATqN7V42JtdM/TvGtGIkflSyaaIIY+NgpBUKDrAdUM3dRwZpsTnxNDPnyiOSSBb0tAL7kcmZZYphQ1Sf8nd69ZMtjv5V27+oqMmiRpQ/8Vlg0QT2HEgGqX+uW67spGAHNh2pjXbt7vBeGv7LskmYQyUVZESCg9h21/ENZIIGAhBEbf1gWXtrwJFjh/1vk3u30qXo+WXSiAdaU+Z5o9THfBI/iZJ9mLOF89xWZdOfO0lq8SKARgIWOkbBjyUIkMbXbPhnggdMSBEgvRW8TxvtisJpQza2DOrcFWtjJ1RDi6k6Pnl78CfDwBMJjCTTWO8EfHt4WGNS1EL/CHQpIuOfh5KWiS682rxvodPvNzNUcvXN8NKBjOpFj9vFYdz7gEk9TnfLxLFU9ao9WMShrx74LiX6tkzf/VjI4Fm0Nj4sAGumekJYi23n+TF5wPC2wqA
-DKIM-Signature: a=rsa-sha256; bh=KaTTHc3w8R6rF7gqqWlw2mFxpaUpNPS0l+rvQI9X3UA=;
- c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1794555886; v=1;
- b=Wm8/urQebOGxivJXPn87IKUjBmkg82NhnYQIGZWgXa34yBrzSrRxO9ZnZWVKxFsj1HP1lNmS
- XHpYCnB/4vs4I2ZmobO3+G6xNHcGTfW5Agk2dALbBqJAbj+0lFJYKquVBVrdUtnCLCO7GgiKQnW
- 4zNIPlREhpghsreEl8YoxdCX6S+b0lJ96JMiLON4RusPpLddISzHXWkd4ltpLdiH7OQvEg9zV41
- FmVhP4kdr7tviKKb3BIOK91JSk+WdwNMrxNoXKq3xwqP1BChRnf82xMenm629QdEG/aTvunRZRg
- TStYrARB1jAiXx0tNwqxbykWG3isAYSqPU1xMckLrJIBA==
+References: <20261112-opi5-typec-self-powered-v2-1-751906d65b70@gmail.com> <lAAxUnzGTXWSlQTm8PmFcg@sntech.de>
+In-Reply-To: <lAAxUnzGTXWSlQTm8PmFcg@sntech.de>
+From: Arun Iyengar <aiyengar1990@gmail.com>
+Date: Thu, 12 Nov 2026 23:44:56 -0800
+X-Gm-Features: AclHuK-px0U6hKw50ELPgjTts3juNb6KJSAEdMlgQ9nDhQ9zdUWQkc1yUvT3LMY
+Message-ID: <CAEy9hNXiBRaj-JtjOAy4de_BQV1jAKUjUCkYzSpksu605HTNZw@mail.gmail.com>
+Subject: Re: [PATCH v2] arm64: dts: rockchip: Mark the Orange Pi 5/5B Type-C
+ port self-powered
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Move the ACPI method evaluation out of dasharo_read_channel() into a new
-dasharo_call() helper, which additionally accepts up to two extra integer
-arguments after the channel's group and index. This allows the upcoming
-write and fan curve support to reuse the same code path.
+> As you describe this as fixing a stale state accross reboots, does
+> applying this before the tcpm patch degrade current functionality of
+> the device?
 
-No functional change intended.
+I don't expect it to, but I have not run this patch on its own, only
+together with the tcpm series.
 
-Signed-off-by: Filip Gołaś <filip.golas@3mdeb.com>
----
- drivers/platform/x86/dasharo-acpi.c | 40 +++++++++++++++++++++--------
- 1 file changed, 30 insertions(+), 10 deletions(-)
+Without the tcpm patch the tErrorRecovery wait at boot ends after a few
+microseconds, so CC is only open for a moment and boot should behave as
+it does today. A later error recovery opens CC for tErrorRecovery,
+which is what a self-powered port is supposed to do. The warm reboot
+with a DP cable attached often fails today, and I expect that to stay
+so until the tcpm series is in.
 
-diff --git a/drivers/platform/x86/dasharo-acpi.c b/drivers/platform/x86/dasharo-acpi.c
-index dfea00cdde18..13d97eb43511 100644
---- a/drivers/platform/x86/dasharo-acpi.c
-+++ b/drivers/platform/x86/dasharo-acpi.c
-@@ -93,13 +93,18 @@ static int dasharo_get_feature_cap_count(struct dasharo_data *data, enum dasharo
- 	return count;
- }
- 
--static int dasharo_read_channel(struct dasharo_data *data, char *method, enum dasharo_feature feat, int channel, long *value)
-+/*
-+ * Evaluate a DASH method taking the group and index of a channel, followed by
-+ * up to two more integer arguments, and returning an integer.
-+ */
-+static int dasharo_call(struct dasharo_data *data, const char *method, enum dasharo_feature feat,
-+			int channel, const u64 *args, unsigned int n_args, u64 *ret)
- {
- 	struct acpi_object_list obj_list;
--	union acpi_object obj[2];
-+	union acpi_object obj[4];
- 	acpi_handle handle;
- 	acpi_status status;
--	u64 val;
-+	unsigned int i;
- 
- 	if (feat >= ARRAY_SIZE(data->capabilities))
- 		return -EINVAL;
-@@ -107,20 +112,35 @@ static int dasharo_read_channel(struct dasharo_data *data, char *method, enum da
- 	if (channel >= data->caps_found[feat])
- 		return -EINVAL;
- 
-+	if (n_args > ARRAY_SIZE(obj) - 2) // 2 fixed args always at obj[0] and obj[1]
-+		return -EINVAL;
-+
- 	obj[0].type = ACPI_TYPE_INTEGER;
- 	obj[0].integer.value = data->capabilities[feat][channel].group;
- 	obj[1].type = ACPI_TYPE_INTEGER;
- 	obj[1].integer.value = data->capabilities[feat][channel].index;
--	obj_list.count = 2;
--	obj_list.pointer = &obj[0];
-+	for (i = 0; i < n_args; ++i) {
-+		obj[2 + i].type = ACPI_TYPE_INTEGER;
-+		obj[2 + i].integer.value = args[i];
-+	}
-+	obj_list.count = 2 + n_args;
-+	obj_list.pointer = obj;
- 
- 	handle = ACPI_HANDLE(&data->pdev->dev);
--	status = acpi_evaluate_integer(handle, method, &obj_list, &val);
--	if (ACPI_FAILURE(status))
--		return -ENODEV;
-+	status = acpi_evaluate_integer(handle, (acpi_string)method, &obj_list, ret);
-+	return ACPI_FAILURE(status) ? -ENODEV : 0;
-+}
- 
--	*value = val;
--	return 0;
-+static int dasharo_read_channel(struct dasharo_data *data, const char *method,
-+				enum dasharo_feature feat, int channel, long *value)
-+{
-+	u64 val;
-+	int ret;
-+
-+	ret = dasharo_call(data, method, feat, channel, NULL, 0, &val);
-+	if (!ret)
-+		*value = val;
-+	return ret;
- }
- 
- static int dasharo_hwmon_read(struct device *dev, enum hwmon_sensor_types type,
--- 
-2.56.0
+If you prefer, hold this one until the tcpm patch is applied.
 
+Arun
