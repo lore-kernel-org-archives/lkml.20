@@ -1,55 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794592988;
-	b=F48xTMa+Gm6e4vGxjnKzp0Bxcz97uO4LdV6hwlS/21KKpkMH4g8fCNI9md7qjBj9FoHA
-	 5nZa25WX+Ajy3nCQfFvPouDIJhtGf4OzhwqllrixEB9lHgGG9ntOwvSIAlLfC3zkcjBYG
-	 d1HSD3KbwmuTVEPwKwgSkHImTy6BjdJUiY+cXZEcz/dp+JLhmLm/QrWg2tLFjexOoU5ld
-	 aqLjvgdE7ArF35mhsLplLpahvv081dvwGiVEOTdhrMSFJ9bMNKWfLhS3mcMmtzErRmeVj
-	 SwZgDw4f91uJTOcQsckqZ8pJHzFs62wKjkVkUD6IUNTOZ65INvQJnYrkHov0eNRC1Pg==
+	t=1794592991;
+	b=qp+feRa1JbO3UZrPUf/e06WD/AC1oSCjUlzTNTYzXlKWkvxrheYH7yY94hbxE8J0058u
+	 WP4yqPdlV8q4qMEspuOtYrqf6/53CQeUsyXQKbtQkFCXtJTcjYxwts8X6GfgJ3wM9BgvB
+	 cmh8NfrZULLF17e7Z5gXueZLybYRqGczMfX0EHJ7ogLbMj2i9RiwxV0V+HMirnNA5KvC9
+	 jri4eL6i3PbzyZCPAnFzb2msGy09vxNPaAx2I4xQYBIvC1T4UyQsks+Nvq1sJYkGW5j3r
+	 SbaokGuLqrJJEg42AJgldzU0YCkR2CYf3xTE3JlrdD0/mXDIPN371xYcwftFcOewiKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794592988;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+G47jzw3JYsE9pT98xgL+H9LhozLbLQVlFv/D8tdtxw=;
-	b=UdOnd10aYZald2aX9Cr4JSjQwwkPd+qEjOG7yxOum1jtwaGtZD1JyU+F1MvazuV1Gid6
-	 sGmepejZl2M6egpAVeRfqCCuDiKi68snJUZjB4FKXPd8gEN8efZ+WzoNi6qZ912Uzogvj
-	 s5s0bvJ94z3KNikJZnvEbAE6njmY281sPYVT3CQVhZVrLPXDfqGkvxaAJ/ilg+eQx6L0l
-	 p0vncJWpKRIrn7u68Yu5XvFLglbK+xayTUIydaEwJOt34prUPCdd47NgSIH4LoY1DLN2M
-	 X1APKrdl+xMX5DmW3antqwVJ/+2lVPuU2zLbpPlZQUpfGb5BhufF7KMtGh5PYV2Csag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794592991;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=BDCHJcU2rmlWsGcn+ewx78IR8adyNMNohPpcRFq14As=;
+	b=o99htOYXorzyF5GoWC5W8TSVwz8p6bPmsDI7q85yCDj5hJ/hnxSgQwBhiJFoYY467uur
+	 vwE3RH2qwo9xPmvwKB6VYk/irF+t7MIc6E2CPflGiVP8A9wO9JqmD79idjtAheHTjwFB1
+	 7zQQXlfTCahtCu2eUmwokGvE2NueDqGznrrGauJJ0YH1rOqUpiztlSYZ3UomFfx/9HWy1
+	 WKI/VWVwn8QWwxB6SGEVK+zmeo4FifapdLX70fiBEffvh3cF7M1G05uvDUIYJ1WXroUZN
+	 kq6w1EaiZI6GF/RVctVa/gcfwC6g+PAYa6cDD947mDUc2Hgb2bXw1tSm31xlc3BmDag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPh82f4o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=MhyKUQnl;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E2F606A8B2
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:03:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FE860A2624;
+	Fri, 13 Nov 2026 18:03:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10FE860A2624
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPh82f4o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07A3A1F000C8
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:03:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794592988;
-	bh=+G47jzw3JYsE9pT98xgL+H9LhozLbLQVlFv/D8tdtxw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nPh82f4o8MP8LzTO+cl6NuGelxAQ2ckgH5PZv3l4MC22xfpN0185/L5yqd1bwoR2A
-	 TzLbUQolRnSS2eVlizaSzSnzR73L2D6UFAb+p2EzNlkf9ryXRFe9f650MdI34MyJr7
-	 O0aIdHZBfbJVV3FSNeldR526eGY/fMBZLyxOOTTKL1l/ZDQciXI1q+jJSfiBHd10PV
-	 VnYcrmIvX7iPuS1Ipx/tayjFEW6V4OMCtHAQl3LxNGW6fTgXAn8FfiYUOa6fKuGHMO
-	 OJTAoQsXd/Agk9B3xEQbNUDN6OxtaG6XCxFKRLwHgSQ1/53L6CfdfLNph0z95nGAmP
-	 55BpLfmIa4xkg==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ae25dcbd81so17044911fa.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:03:07 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEbVHuX+zDr0ce/w98hh1uJgTh+pu5ThK1jps47WvFEI7INZ1hZjnURPq749rM/PuFXQk5BtMnxpvNJwmU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9rLe+RN6eV6ER5y8g2WTlUUPf+JXDMz/Lyit6EmJI5TnG9sL3
-	cnf/pbn5e3P4Y4fP4lceBk2vglFRpSVR5U1yY6EmpTEmEpAL/KxSr5z4deN4TW/Hv6pfEP+VVbQ
-	2fGRhUCmB28iwWlY8SEniOjB7qWyAMso=
-X-Received: by 2002:a2e:8a88:0:b0:3aa:fd7d:6164 with SMTP id
- 38308e7fff4ca-3ae2b68121fmr10253851fa.25.1794592986378; Fri, 13 Nov 2026
- 10:03:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=MhyKUQnl
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jR4qd60XCz5B0yy;
+	Sat, 14 Nov 2026 02:03:09 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794592989;
+	bh=Wt8hU2Qj8hmcKvInfU21LWe6vuoriDsz4R9lOL2ZmM8=;
+	h=Date:From:To:Cc:Subject;
+	b=MhyKUQnlRacNizMZCT/VexD9WZJKvjTCAXX1+6qIxKwBodCwnHHEEamAtCweZNTT0
+	 X9rDFUOw2GH+74l3T4V6M0i5hFKCstqtEg11sCBI/R4j+dzEL/iKIyMw91rw1U+W8f
+	 QU/q6MGAcE0IsDXDDrCo4xkEDk3EAkZKJrmissMACySLVmAQAK+DQ8u13N4tN0XjRQ
+	 eHEOIiiEocH5PvijHge8sOAyrXVkGgcHZ5vTbEvV3rXviZdGgvLbL98VHnupOzpAgC
+	 yX5lYsA9DpmDXibfiFZsJqyH+G7+gXFnhaBC1gavSW34Z3jFSG+UmPiBeESkoioEjK
+	 uUMa6X85cj8Ew==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6ADI31Er073681;
+	Sat, 14 Nov 2026 02:03:01 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sat, 14 Nov 2026 02:03:05 +0800 (CST)
+X-Zmail-TransId: 2afa6af750d97c4-3b6e4
+X-Mailer: Zmail v1.0
+Message-ID: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
+Date: Sat, 14 Nov 2026 02:03:05 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,93 +69,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261110225452.2349540-1-jamien@nvidia.com>
-In-Reply-To: <20261110225452.2349540-1-jamien@nvidia.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 13 Nov 2026 19:02:53 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0hZHT8P2Ld3xa6K8OboUdoNAWvWrcoE1cp+4=Qtqc=PPQ@mail.gmail.com>
-X-Gm-Features: AclHuK-O7QkpH7cmOnGuu9WgWj8q1A8eetbKHBhEoZxBhcB3jUpXoMj6E0dz3a0
-Message-ID: <CAJZ5v0hZHT8P2Ld3xa6K8OboUdoNAWvWrcoE1cp+4=Qtqc=PPQ@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: sysfs: Release the table references taken during init
-To: Jamie Nguyen <jamien@nvidia.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIFJFU0VORCAwLzVdIGF0YTogZml4IHBsYXRmb3JtIGRyaXZlciBwcm9iZSwgcmVtb3ZhbCBhbmQgbG9ja2luZyBpc3N1ZXM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6ADI31Er073681
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Sat, 14 Nov 2026 02:03:09 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF750DD.001/4jR4qd60XCz5B0yy
 
-On Tue, Nov 10, 2026 at 11:55=E2=80=AFPM Jamie Nguyen <jamien@nvidia.com> w=
-rote:
->
-> acpi_tables_sysfs_init() gets each table with acpi_get_table_by_index()
-> to create its file, and acpi_table_attr_init() gets the second instance
-> of the table's signature with acpi_get_table() to decide whether the
-> file name needs an instance number. Neither reference is ever released,
-> so every table stays mapped. The file's read handler already gets and
-> puts the table on each read.
->
-> Release both references once the table is no longer used.
->
-> Fixes: 174cc7187e6f ("ACPICA: Tables: Back port acpi_get_table_with_size(=
-) and early_acpi_os_unmap_memory() from Linux kernel")
-> Signed-off-by: Jamie Nguyen <jamien@nvidia.com>
-> ---
-> Sashiko flagged this, as a pre-existing issue, in its review of a
-> previous patch that I sent:
-> https://sashiko.dev/#/patchset/20261013193900.1258808-1-jamien%40nvidia.c=
-om
->
-> With the references released, a table that nothing else holds is
-> unmapped after init, and each read of its file maps it again
-> (acpi_table_show() already gets and puts the table).
->
-> Tested on an arm64 server and in QEMU (x86_64), with a test-only change
-> that prints each table's validation count after boot:
-> - Every table's count is one lower, and the second SSDT's is two lower,
->   since the instance check in acpi_table_attr_init() also held it.
-> - All table files read back the same as without the patch, and
->   repeated and parallel reads leave the counts unchanged.
-> - The BERT and BDAT data files still match /dev/mem.
-> - Loading and unloading SSDTs through ACPI configfs still works (QEMU).
->
->  drivers/acpi/sysfs.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/acpi/sysfs.c b/drivers/acpi/sysfs.c
-> index 49a820b39c2917a..d1b57d1246aafb1 100644
-> --- a/drivers/acpi/sysfs.c
-> +++ b/drivers/acpi/sysfs.c
-> @@ -372,6 +372,7 @@ static int acpi_table_attr_init(struct kobject *table=
-s_obj,
->                          table_attr->instance);
->                 strcat(table_attr->filename, instance_str);
->         }
-> +       acpi_put_table(header);
->
->         table_attr->attr.size =3D table_header->length;
->         table_attr->attr.read =3D acpi_table_show;
-> @@ -593,15 +594,19 @@ static int acpi_tables_sysfs_init(void)
->                         continue;
->
->                 table_attr =3D kzalloc_obj(*table_attr);
-> -               if (!table_attr)
-> +               if (!table_attr) {
-> +                       acpi_put_table(table_header);
->                         break;
-> +               }
->
->                 if (acpi_table_attr_init(tables_kobj, table_attr, table_h=
-eader)) {
->                         kfree(table_attr);
-> +                       acpi_put_table(table_header);
->                         break;
->                 }
->                 list_add_tail(&table_attr->node, &acpi_table_attr_list);
->                 acpi_table_data_init(table_header, table_attr);
-> +               acpi_put_table(table_header);
->         }
->
->         kobject_uevent(tables_kobj, KOBJ_ADD);
->
+The ATA platform drivers in this series have independent defects in
+their probe, removal or locking paths.  They share the same shape:
+state established in probe is not checked, torn down or serialized
+consistently.
 
-Applied as 7.5 material, thanks!
+Patch 1 fixes recursive locking in the IXP4xx CF PIO callback, which
+can hang the first data transfer, including IDENTIFY during probe.  Patch 2
+returns the host activation error from the Buddha probe path instead of
+reporting a successful bind.  Patch 3 makes the QorIQ and Seattle
+drivers inherit ahci_platform_ops so that host teardown runs host_stop.
+Patch 4 stops only the Gemini SATA bridges that started successfully.
+Patch 5 serializes the controller-wide SGPIO update in the Seattle LED
+callback.
+
+Each patch touches one driver, except patch 3, which covers the QorIQ
+and Seattle AHCI platform drivers.  The patches are independent and any
+subset can be applied; the order lists the more severe failures first.
+
+All five patches carry QEMU A/B test descriptions after the --- line.
+
+This is a resend of [1].  Patches 1/5 and 3/5 lost their final
+context line in transport, so git apply reported a corrupt patch;
+5/5 had the same trailing line.  The diff content is unchanged; all
+five patches now end with the format-patch signature, which keeps the
+blank context line in place.  Sorry for the noise.
+
+[1] https://lore.kernel.org/all/20261112221230052E8YTrPU5pi8AJJy6dnh9E@zte.com.cn/
+
+Shao Mingyin (5):
+  ata: pata_ixp4xx_cf: avoid recursive locking in the PIO callback
+  ata: pata_buddha: propagate host activation errors
+  ata: ahci: release QorIQ and Seattle platform resources on removal
+  ata: pata_ftide010: stop only successfully started Gemini bridges
+  ata: ahci_seattle: serialize SGPIO register updates
+
+ drivers/ata/ahci_qoriq.c     |  2 +-
+ drivers/ata/ahci_seattle.c   |  8 ++++----
+ drivers/ata/pata_buddha.c    |  6 ++----
+ drivers/ata/pata_ftide010.c  | 37 +++++++++++++++++++------------------
+ drivers/ata/pata_ixp4xx_cf.c |  5 +----
+ 5 files changed, 27 insertions(+), 31 deletions(-)
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
