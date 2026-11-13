@@ -1,94 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794548981;
-	b=aN8uR5PnMB5JnXO/NSCGWvDTcRRkmu3KfDyLTfl/56NO9Tp8t4hq034K/gyFpE4wM/by
-	 dJFdv95gqVlDgXLj0QJ24xkGW9Hwe07Zz3cV338JmA/M7e1JmG06vtyLWe0Ri41t4xNod
-	 NOtemBmsVriFYgMlOwpCzSTXKVf5kpGCQBvOylfMrXMF8EGiAu8CJxvQgRnWD/W/kAiq7
-	 H48zTZjtYJSfEKN3YrHSjybzkUArRbKXer4SuAzs2Y6lqv2/Z7vESpKc8+aC76jFhuS+R
-	 LRrDIA2BQAig6ptkFFiJAg7CoQ4aiXh/3YFO8iv8Mma4iVPyz4kz66kJ6BZ7HIoAWPQ==
+	t=1794548999;
+	b=eic1KbWdu2yU+IufpTmLfzXpKSkMs/C+unULU3utQuRnHjGcgJxA3eK5rLnpfFP4QA0y
+	 c5F5yLVttM7MDr8plxxzK+d06B2ZDgm6yOPRrAzTE5LG571vQZzlBlNV2efFU3FW7RjkV
+	 vYNDqglvD/2kIm6jW4IFv0DkEPrAx2EDN5RA0tzUCYnkPulgtnc3dcphccmDT6yMn+7jx
+	 KFZ8N76fCa+1R0fsoD8DA2hCDzGdWbb/p7c3V1RMHhXHPLgY0Xmgu5oJNBeqW+hbvGGOX
+	 qfXtMZ/lT+NCsNQsgy6SSU6bAZV1oOAZ8A3EC3qQzfYXK7cg8k3adW51DYpOd89fo9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794548981;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xQdVfz3MZ0n2Y8Oaz47zK9HN2fz7nOQrOgwJG2ZDEIg=;
-	b=AbKV2zbv36SyNFjagvUv655MXAA3wbdstgdLxEEdyQChlZmbmNA/MIewBF8sbcqhIKOm
-	 du682zTLpKgP986pNm6BisYcU+iwAWU/kaaFZMX7qkb0gea9vkb9QXhyOoJMZPFuAlouc
-	 DKCnEsk9kLa7csg2uR6i4Y63056uPAItnDqxzsQTrjMdJo8cokXYD+e1GGjRCVQ0wwfVK
-	 InA88xal82mbYBIiL9ePgPfjyhXKmQcazXbQpBa5iLYNAI6YC3mgj1Lz1m7dmI8tjDyfV
-	 bVm6V/ZMaznSO77P/HGPzvGlBxcigvRVv4ioYpikIIsAy2RzRgSCVwlqNOK4WlzafJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794548999;
+	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=1QCHCXTpwhaXOHfzz5l15bpjdkFUiznzxAOCYs8/1D0=;
+	b=tPwp9jUs9ypXgFTNorDrTFFVWxnlPxGW2loTel60SRHCfHNGCWAoqNbh/MW1a7FezTmJ
+	 cekm66ohFho2r2s15PxHDBJF+WZAtr9IjzJuwxzzB9E6rkqVT1n97tYpV2gIZ1UnbcC2r
+	 Sy8WYCoEbJ/ZnXcXAAi5D7l3/GSQS5wDUupzbyGQXYf5t/Ag3lnVjo7RYB8CPcIlXuSLT
+	 qqqbFfQWZ+IDfcSUN0yyDosISuoa+DjFe+jzCizCJi/m4FLM/NhKUNLeV8gJkWrfxkomm
+	 ZJecprt5F+jvxIv2M1uUCFx7xfDf/bXXw3E8fPERMwpwnwONvvN2nJ411OLjD7ukEpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vo+LxCNq;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+IV7MCg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF902606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:49:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF902606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17BFD606A31C;
+	Fri, 13 Nov 2026 05:49:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vo+LxCNq
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-ccca948203aso386633a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:49:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794548980; x=1795153780; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xQdVfz3MZ0n2Y8Oaz47zK9HN2fz7nOQrOgwJG2ZDEIg=;
-        b=vo+LxCNq0Hxjv1jXVu/Ve/PTfjdV+EGgC8fcfGVeqPQdY1IwMwUXiq+8hqvNvnjgrs
-         hFJy3xtj79ub3Npkw6fs4B8dt5KeFLkyl021eKZ9i5io5GId4/1yQ1wPf9aKV62nfL+9
-         L18T73aQXWNONCCLnYpPtUlLQRkXM81Ma0oUVliXA+uu8KQMUR5CjMhwVTwzF+k4DX3R
-         rMthfnqBZAQWj9I7Gs6dC5XbsrRqO746THiMdaylZQ0ezW3JnlGzLusrMIkfEuuVuU9v
-         /KtYDujZ7dU82S9xPh8KTXfAGxuKLRc7gHZwwajDkAZGdl22lepzQ2zRMhjh+CRo8RBl
-         gkDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794548980; x=1795153780;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xQdVfz3MZ0n2Y8Oaz47zK9HN2fz7nOQrOgwJG2ZDEIg=;
-        b=VoxBv1MHnuzwsutFBapHc46qDefBClNz71FfOywGRJdfA7s0Xq99J4WbI7luEOqpSv
-         gZOM2rmH/bPffnRa+CGRAo918AnFagmcqeToRO+meh9wGkOztevJ4hfcREr0GMW30Knq
-         Bm36kLdD+7RBW5ODMPFqGtuyKZA5jo+SmWqpzqD9FrcaBlllqAE1ET9RKKrgg49lJ9hM
-         HBSFY9cQ6egBxZCJ9I0pdobOPO8WyASX/HxhXzgBydMWgNFESypmsuTJtmrFcZ+TgZSf
-         DsONY6oWcYAatFk/jE8Tkdpe/c4kGgLWJt8HUP9vMqSBLD/aKOyPLVQPZpX1N7edAUZi
-         3Bdw==
-X-Forwarded-Encrypted: i=1; AL+hErFheCi6QwbEjR8p8UfcdmbpJjjIIvnGcCqHEp7ca4tX63Tr3dEp35q2qDSt/VV9owtdbVuHbF0upmeMOiU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9y7eT+r2MZkaskcK9QMpTvYwkDNzZzWOtXG8d8CPmTBm7XAPGe
-	Dck3dx6euZ843KjX8E1jUvVCFx0fqjhebWE/kqEN7+Zl+r7ShqvZh8Wy
-X-Gm-Gg: AYBFou0F+CERnkCJQIFU/KnLOYAQpnkRcFhjxA+xBPfdT+umC+pMOGNfNdltbGNHwrf
-	FWz7rJAtJ+qHFtJTUvE0i3k8q8aZlWOuQfqcEOgt3bPgOcosoDC3asfe9ckMGzAlgjPplCjpLBc
-	We5hh8B8At2E30cEclEtitu7tIVjAiDSsI4iQ59/gDiiGAXqCSn5laADJAlj+2TtGGbdUfZbE7l
-	lF5M7hv2n1gGH1ScX65WmBMz934FuuRNfX3odeSGbnS08zvA8b2bDIB0AFm5F2oXwaYz48L5/al
-	TvFpai6Rn44eAToKWCVgvQkFy0H9wQbt1ATsSo9GgMacMDwlT/jWnDmLgPdxrwcy4yzEs1AGVFx
-	R6AWS10pf6je4DuFvqbyOBdCPXB681pY/ioG27MgR9QnrB45j+NgviDxKSDLArInRCpzw4ae+Gv
-	bb6yhGiPjk46SY/3JINDxaIi1o7O8DJ/py+HxiCia4InVpJoPpaIeTjd8GKPlLGYMH0SdQ/uLMy
-	00Kj4RCAAENjka0pZY1o6cyW/JV/heeH1xPU6KY4sNBD/aHktHGzF9vjQ/2TOJW0PAHjhZ3VCN9
-	wE+7XLXGqc+c8mNO19xcXYVxIpydkWhdHuCNxYB8SuWYVElumSxg9fkhBSb9LfWaRiWKDAfo0GK
-	SkBCQrmFDMarhN7MXkzJtdeleo9p8NNPxG2/jKvAs+HboLTEeblFrJ65QBJd30Cc=
-X-Received: by 2002:a05:693c:3f02:b0:36e:1fbe:3571 with SMTP id 5a478bee46e88-3796365ee8dmr1372806eec.3.1794548979615;
-        Thu, 12 Nov 2026 21:49:39 -0800 (PST)
-Received: from localhost.localdomain (2001-b400-e25c-c447-241a-96a0-8669-d6f0.emome-ip6.hinet.net. [2001:b400:e25c:c447:241a:96a0:8669:d6f0])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm3518485eec.22.2026.11.12.21.49.37
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 21:49:39 -0800 (PST)
-From: Wayne Ho <wayneho219@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Pascal Sachs <pascal.sachs@sensirion.com>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wayne Ho <wayneho219@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] hwmon: (sht3x) Fix overflow when writing alert limits
-Date: Fri, 13 Nov 2026 13:48:57 +0800
-Message-ID: <20261113054857.97048-1-wayneho219@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+IV7MCg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C2A01F000C6;
+	Fri, 13 Nov 2026 05:49:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794548998;
+	bh=1QCHCXTpwhaXOHfzz5l15bpjdkFUiznzxAOCYs8/1D0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=n+IV7MCgQdlJEEHAi6QKi/kWy8yzp/3uca4izpMGuczcmGYuWXP3sYO6HEulgaSBr
+	 jiPtYks0VWhhv6b2H6VteZ5IaAhh5Zd1R7Q4rLovkGkISG7tPg3bxeb2G1DXjlB6qP
+	 VDyDvwuF4X1U7cRFjeD2owWdYNi28hs7F7wxcGqpCUmQtrw4osKtcRuZM/NooYos0O
+	 sJd4CYmm5Y50NXab3eCYjqRnjvTWUiEw4GDByC7PDQE+k0Q4B6nt+VDWI6ysFMK5zr
+	 /KLvD3AiUaFTwd3rQgKN4RRszouPPgU26Q/Db8U6YHBXoV5XrhRsmcRCyb/Io6mwFw
+	 l2Ohtqal/D2+Q==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Alexey Kardashevskiy <aik@amd.com>, iommu@lists.linux.dev
+Cc: Alex Williamson <alex@shazbot.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Steven Price <steven.price@arm.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>, kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v8 02/15] virt: coco: tsm: Remove the device from lookup
+ before PCI teardown
+In-Reply-To: <9eb572d7-fa3a-4734-9773-44a3fb465b6a@amd.com>
+References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
+ <20261104161632.3547423-3-aneesh.kumar@kernel.org>
+ <9eb572d7-fa3a-4734-9773-44a3fb465b6a@amd.com>
+Date: Fri, 13 Nov 2026 11:19:45 +0530
+Message-ID: <yq5ajymhmgau.fsf@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,63 +84,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-limit_write() encodes the limits with 32-bit arithmetic, which overflows
-for the largest accepted values:
+Alexey Kardashevskiy <aik@amd.com> writes:
 
-  (130000 + 45000) * 24543 = 4295025000 > U32_MAX
-  100000 * 42950           = 4295000000 > U32_MAX
+> On 5/11/26 03:16, Aneesh Kumar K.V (Arm) wrote:
+>> PCI connect looks up a TSM by ID under pci_tsm_rwsem. Previously,
+>> tsm_unregister() released that lock after tearing down PCI state while
+>> the TSM was still in the class lookup. 
+>
+> tsm_unregister() is not touching that lock, what do I miss?
+>
 
-Writing 130000 to temp1_max therefore programs -45 degrees C, and
-writing 100000 to humidity1_max programs 0 %RH, so a limit set to its
-maximum makes the alert fire instead of never firing. Reading the
-attributes back returns the cached values, so this is not visible from
-sysfs.
+pci_tsm_unregister(). It uses guard(rwsem_write)(&pci_tsm_rwsem), so the
+lock is released when pci_tsm_unregister() returns. We previously called
+device_unregister() only after that.
 
-Use 64-bit arithmetic and clamp each result to its field width. Even
-with 64-bit arithmetic, 130000 encodes to 0x200, which overflows the
-9-bit temperature field, and 100000 encodes to 0x10000, which is still 0
-after masking.
+>
+>> A racing connect could then
+>> attach a new PCI context that the teardown would never see.
+>> 
+>> Remove the device from the class lookup first, then take the PCI write
+>> lock to drain in-flight operations and destroy their contexts. Drop the
+>> device reference only after PCI teardown completes.
+>> 
+>> Fixes: 3225f52cde56 ("PCI/TSM: Establish Secure Sessions and Link Encryption")
+>> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+>> ---
+>>   drivers/virt/coco/tsm-core.c | 22 ++++++++++++++--------
+>>   1 file changed, 14 insertions(+), 8 deletions(-)
+>> 
+>> diff --git a/drivers/virt/coco/tsm-core.c b/drivers/virt/coco/tsm-core.c
+>> index e784993353d8..f79135986102 100644
+>> --- a/drivers/virt/coco/tsm-core.c
+>> +++ b/drivers/virt/coco/tsm-core.c
+>> @@ -56,26 +56,25 @@ static struct tsm_dev *alloc_tsm_dev(struct device *parent)
+>>   	return no_free_ptr(tsm_dev);
+>>   }
+>>   
+>> -static struct tsm_dev *tsm_register_pci_or_reset(struct tsm_dev *tsm_dev,
+>> -						 struct pci_tsm_ops *pci_ops)
+>> +static int tsm_register_pci(struct tsm_dev *tsm_dev, struct pci_tsm_ops *pci_ops)
+>
+> Why changing a pointer to an int here as later tsm_register() converts
+> it back to a pointer?
+>
 
-Prepared with the help of an AI coding assistant (Claude); I reproduced
-the bug and tested the fix on hardware.
+At the end of the series we have
+static int tsm_register_pci(struct tsm_dev *tsm_dev, struct pci_tsm_ops *pci_ops)
 
-Fixes: 7c84f7f80d6f ("hwmon: add support for Sensirion SHT3x sensors")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-hwmon/20260725222229.EA69B1F000E9@smtp.kernel.org/
-Signed-off-by: Wayne Ho <wayneho219@gmail.com>
----
 
-Notes:
-    Tested on an STM32MP215F-DK (SHT30) with this change backported to a
-    v6.6 based kernel, reading the high alert set limit register (0xE11F)
-    back with i2ctransfer (before -> after):
-    
-      humidity1_max = 100000                          0x0133 -> 0xff33
-      temp1_max = 130000 (humidity1_max is 100000)    0x0000 -> 0xffff
-    
-    All other accepted values encode as before (checked exhaustively in
-    userspace). On hwmon-next, this was build-tested only.
+>
+> And I never understood what is _reset for here (so +1 for that) but
+> now we have tsm_register_pci() and pci_tsm_register() which is weird.
+> May be just open code it? Thanks,
+>
 
- drivers/hwmon/sht3x.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+How about rename that to 
+__tsm_register(struct tsm_dev *tsm_dev, struct pci_tsm_ops *pci_ops)
 
-diff --git a/drivers/hwmon/sht3x.c b/drivers/hwmon/sht3x.c
-index 866e9113f..68ab1cf1e 100644
---- a/drivers/hwmon/sht3x.c
-+++ b/drivers/hwmon/sht3x.c
-@@ -388,8 +388,8 @@ static size_t limit_write(struct device *dev,
- 	 * adapted for fixed point arithmetic and packed the same as
- 	 * in limit_read()
- 	 */
--	raw = ((u32)(temperature + 45000) * 24543) >> (16 + 7);
--	raw |= ((humidity * 42950) >> 16) & 0xfe00;
-+	raw = min(((u64)(temperature + 45000) * 24543) >> (16 + 7), 0x1ff);
-+	raw |= min(((u64)humidity * 42950) >> 16, 0xffff) & 0xfe00;
- 
- 	put_unaligned_be16(raw, position);
- 	position += SHT3X_WORD_LEN;
--- 
-2.43.0
 
+-aneesh
