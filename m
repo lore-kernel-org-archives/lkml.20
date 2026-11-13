@@ -1,80 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794535539;
-	b=rwWPYGbfdupZ0KEdokYqriccyulesWWhOxgTP9FjmPcP0Hy/xD7TbPmd0c/9JJi6qxJw
-	 xZ9FIluhGEbVwgAnusp0POJ2IIcsavMeDQwtXQ1gg5ufUnJd1/Z0p5hzMefZNmnPZNzHd
-	 qZe2h7A3ibpSYFUljDeW6pYugpj7FhJ3H0nxxvkthEfmoRO/nfs4+aSQayQDnZGdaawCd
-	 loF8aOmiMSQJ1LXkdBhliyl4QrUg0piYzIQ8QPwHT4eIGzrSr7iU/Dn1pYRmaibKSuWU9
-	 RsfX/kVNGrzk7Ubv0gOezAOU5gk6oGcxVfPyvcLIGi9CfaD3pOzyH7VgW5vO9FBfcJw==
+	t=1794535591;
+	b=HDtdJo4x0gU4hwp92WqqLAfbNOI9yCOhJCO3QU/JRpALx3BTAqwnXgsU+DmdrUtdIHvH
+	 ekGTLZGBwOyZy7MmeFpUX7a1fl/mYaQax9TvB7d4buTwy7dDNI3Gi1j0N8sqFGnEoWtiy
+	 +TwuQoYH0H++8jtELlt9SHN7a6Ah0cw9Kaa5VUF4FoK2D+PEtTFlmbo0ubd/45A5/SfqE
+	 cXHZR3DTxk6mKMuUcRvKHjT11+T/Ic6q+CLM+hrEina5gLW4+ZLO6+94ZhCMQgIJvBCM4
+	 4AyDkwiSlDSMlIL9OmhcA5TAddlN4DwxyLQ/0nDOaXIob8pLfziLa8mqvH8j0GipMUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794535539;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SH2K0IZ23OkcIsFx4oDzQZl4/bONJGIjQlDJpj+NxWM=;
-	b=MKLpn063oC61q04Zq/CJXnVLePLRsUOIBHnVi7ezvyNaQDnZiforL5nplrbmPBTT9teA
-	 VDOMTi2zebz/ZRgGvog250okY1ElKy0c37NYZTLODRsBm+L1yBILxguNV0CvB5KQ9zUv6
-	 yF+J6Y2jVihWeJ2o76OIdsTNN6+Ct6LyTUA0CTpOIbPyU6RB0STFAvxjDHORzYsPbOu5Z
-	 Bq9yohwwxclbUN+/uA9aFq5reEMVvHL2BvZVjdcl0WlKiFOQlFDhU0mPBpyFjfTdpT3eR
-	 8t8XgyXijrDjqwbPyTM33uwhf56ZxyUcWRGEtvQYAG70ecyr6eY9Tu2Nq7epT2QbkAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794535591;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=XNZDrVcq+boAL+pOGbd+KtTtVDRMXO3ms/PyKJ+Acm0=;
+	b=Gify4foqrwtuvbmRz4GN4mx4uYpd/0Ek6hWi9xtTy8e54BtZxnMR5Dvoh8PHKImhFOeR
+	 avX+jg/jEHzUDWOdfigCmS03kOa1YcpS6V4qQjvBS9g1enebIhB74sejNEUSPnwRuGphG
+	 OK4rTp9QsHjjnmfnc9pJ5O+Cv7FdZmgwSwKjfEg6hZKI+wgZhlcuqQXYvOR1AEHKz23L9
+	 cZZU92nNV20zvo6S8QWWoMBGEPqgHLNohSearCm2faI0dMGUymSZoRMJGQqBwSLkaFava
+	 JDbmlDtJwingppYqQiCqljWM26sXmWpYMXbz3A2pEkdPujwAC1ggE7hmJVpivIFUEIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=o2DVsVr2;
-	arc=none smtp.remote-ip=203.205.221.231
-Received: from out203-205-221-231.mail.qq.com (out203-205-221-231.mail.qq.com [203.205.221.231])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b/kTqyKr";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00683606A321;
-	Fri, 13 Nov 2026 02:05:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00683606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506B1606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:06:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=o2DVsVr2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794535530; bh=SH2K0IZ23OkcIsFx4oDzQZl4/bONJGIjQlDJpj+NxWM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o2DVsVr2bXciyM0axwI1PVL7O0wNwXgHNNUfXt529C6KJoIE+lcnie6tLdBuI2oaN
-	 igwuU0jkdqyWClypcem160pEFn32+a5ovqnVhGJK7etDj9auHvyi7GZVaaPWk84CkB
-	 LoO4NmLkuvMJORvMxFI0/jSj8nCXhS0pyMOJ97jI=
-Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.198])
-	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
-	id 15C15046; Fri, 13 Nov 2026 10:05:28 +0800
-X-QQ-mid: xmsmtpt1794535528tu4vz4lwi
-Message-ID: <tencent_097BA6F40A0B8FBC4C130C6EBF58F8048006@qq.com>
-X-QQ-XMAILINFO: M2fYR77PcAoOryWMOI95lTS2XQ1GUjRLJALfPDTKR1XvLgssXEgvcmPsdXpuP/
-	 cqUL6wPUFLlNYikMgHaO8/WUtdbH8Dt67L/dp+hzVDQ7dD8jM2GS71yEYjCXUJXcAiG5m8L/VlEk
-	 V+0Q2yxMI7G4yt26DJ5HhNeEPegdbUHr4vuZ840/T0OuUrHxW7i+qdXyB2itcsM3WTnaCrloomXo
-	 yPccmtpTPAYNjr/J9VG/DiylDyAh3w7qRKvLtzlTzhC3r++GA9F7ChYFbO2FzsGkl15pB5NFwUDz
-	 Mh4QRkMgfCebUwSFVKphlx5iL2tNNMCIRCm3WPODBSUCinxxMXsyw/U0TbpUMAv2//MpqNUEUm3S
-	 T6KeVX4o2XkdGgq8oZls6/SOb5GYIFJL01qhVRiG6Anl4bPze/WAtx0LvSAaIGKuHJtNy2YHNFFd
-	 2Zu7C39XEcn41ZzR5a75tgn201PpapljTMCeeCXArK6DfDllrrZtUObtMorGQLnhAU2Ze0n95Xci
-	 30TugJ0trxamuSKgjJU13+bdf05hFO8P2tW+Kx4X06M3I8qMASxI0xtSKBVRKn56yPTnPYY9OPhO
-	 RtUIn7fhh3+M1iOZSxitseuBevqRJx622xsXLP2h+igRqJOAfFbg57vEPtgFztKkxVE5B25P50s0
-	 yHNc23irOiZbeR6xeBxIFEuwFS8gvsD89FIWFLmnQPY1GEn7JIkW5lRmfU18G8kRi2dGBaFbwbar
-	 z0Pp0xsFWM3+jGqou6lvtieKxlpEp2aBytqaSLSPdtQhfdax3dPTtxmZdY+/iLb+vAw0DXJ229mv
-	 OysY9AolBucqxJ+tVfn2CvATcRBV7R4I4Q2cLZhWWcmTneyIIejzezQ3liU/ql7Zn114WtfhegTj
-	 4TqkPZEfzLKjluYDFreI2NjVBrJJ5R/mwozdH6pfi+LIzUlLUDx8qbFscYgVAMLjV/HFWogU03LQ
-	 +A0K9qJ/FV548aUvQt7CaGBIYP/Qe7BiBeuD89Uo4zJsyBMmFnxj2l/vE9T7S+ABQ3hpb39MGUuP
-	 iYKNT6xZr6RfRVRWnL0X8Hgc8m3WdsJ0sYAPkboAW1pumvXHGxnA6YjpAllANA+m2pIPpvY0cxyE
-	 yCGF92C7pLzWd0ytM=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-spi@vger.kernel.org
-Cc: rust-for-linux@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>,
-	ojeda@kernel.org,
-	dakr@kernel.org,
-	linux-kernel@vger.kernel.org,
-	847807867@qq.com
-Subject: [PATCH v7 0/3] rust: spi: add SPI driver abstractions
-Date: Fri, 13 Nov 2026 10:05:28 +0800
-X-OQ-MSGID: <20261113020528.596830-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179451185979.339049.12323339081307899766.b4-review@b4>
-References: <179451185979.339049.12323339081307899766.b4-review@b4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b/kTqyKr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44811F000C8
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:06:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794535590;
+	bh=XNZDrVcq+boAL+pOGbd+KtTtVDRMXO3ms/PyKJ+Acm0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=b/kTqyKrZHjXWCX5MnPJs6jJRq9YqkjaiEZlUTvB0DoO7c/mUAu5mm5TrQkIBSEvw
+	 pnCz6sIO26Tgp1s91FTJxqJWoZfRyX+udwTLgguVFB/xxWYlRPA3gRkDLAkKO7BqSW
+	 R3MGzYC7DqSA6TT5swxa7P9nkljist5autFdc+3X15XVlS/CZWVapIp9VZvCgX9ASe
+	 vjRvaYTq5KtHiBLhQfTlo9xiQSV7Mr+ba3QaiBHpIDWyftbnF2jTqMS/IUb66lH/nI
+	 Kku/QAxjL5pjlgLPxA5P3z7gRhIGAdjUMNw0bTh2vPeZilEPqE6gQ2XMIP5VHYCbRg
+	 l7CbkDcQPeihQ==
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso751771a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:06:30 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHGeKxGIyWomhDUlsLoLIdCun1dN71N2K+G5nKrjimKsfGxI4ewISd3q8wxImsGhJenVxSSjjvHqGReQEs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bbuU1F79aUiTAtm19p5DEk+KFA45R3/O2L6rHWHDMft0kcB90
+	A46OsEMrP/wXyo/JfdhVgyInczABrq1oJZDQLsJXCCkRXW84eDCNf6D5SmaFsyR6YAqW69OOvtb
+	1iDVNNBs4eqwNRmQWDLlM7BpsFw3eR6k=
+X-Received: by 2002:a05:6402:c50b:20b0:6b1:a647:981e with SMTP id
+ 4fb4d7f45d1cf-6b7c0c52570mr790505a12.24.1794535589658; Thu, 12 Nov 2026
+ 18:06:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,50 +59,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111092421.3771992-1-chenhuacai@loongson.cn>
+ <20261111170600.GS1779021@noisy.programming.kicks-ass.net>
+ <CAAhV-H6SYOjOw+owmStK7sr-HOiADC1zZ4Cii5hv1q+qYAUETg@mail.gmail.com> <20261112081348.GB2668804@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261112081348.GB2668804@noisy.programming.kicks-ass.net>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Fri, 13 Nov 2026 10:06:17 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H7U5=VYEnb9sv4VF7p6Wc77sy1NW0ZCPH23LzPr7wYkRg@mail.gmail.com>
+X-Gm-Features: AclHuK_JVN4dasIdBgm1TIXgmrLvT8GsJW8f9xBjTyZqO8uWl502owJkHbxQpwE
+Message-ID: <CAAhV-H7U5=VYEnb9sv4VF7p6Wc77sy1NW0ZCPH23LzPr7wYkRg@mail.gmail.com>
+Subject: Re: [PATCH] lib/smp_processor_id: Don't warn if there is only one CPU
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Huacai Chen <chenhuacai@loongson.cn>, Andrew Morton <akpm@linux-foundation.org>, 
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Tiezhu Yang <yangtiezhu@loongson.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Rework the device I/O to map onto the lower-level C APIs, as suggested
-by Mark Brown [1]: instead of leveraging the C convenience wrappers
-(spi_write(), spi_read() and spi_write_then_read()), all device I/O is
-now built on a single `SpiDevice::transfer()` primitive that maps onto
-spi_sync(). The convenience methods `write()`, `read()` and
-`write_then_read()` remain as thin wrappers on top of `transfer()`.
+On Thu, Nov 12, 2026 at 4:13=E2=80=AFPM Peter Zijlstra <peterz@infradead.or=
+g> wrote:
+>
+> On Thu, Nov 12, 2026 at 11:14:57AM +0800, Huacai Chen wrote:
+> > Hi, Peter,
+> >
+> > On Thu, Nov 12, 2026 at 1:06=E2=80=AFAM Peter Zijlstra <peterz@infradea=
+d.org> wrote:
+> > >
+> > > On Wed, Nov 11, 2026 at 05:24:21PM +0800, Huacai Chen wrote:
+> > > > When CONFIG_DEBUG_PREEMPT is enabled on a Non-SMP (single-core) ker=
+nel,
+> > > > calls to smp_processor_id() in preemptible contexts trigger some fa=
+lse
+> > > > positive "BUG: using smp_processor_id() in preemptible" warnings, w=
+hich
+> > > > are harmless noise because the process always executes on CPU 0 and=
+ CPU
+> > > > migration is impossible.
+> > >
+> > > The check is still valid, you don't want to have any code that uses
+> > > smp_processor_id() outside of preempt_disable(). Such code would be
+> > > invalid on SMP, even when ran on UP.
+> > Thank you for your reply.
+> >
+> > At first I also think that smp_processor_id() should always be called
+> > in preempt disabled context, but after investigation, I found:
+> >
+> > There are 5 existing skip conditions.
+> >
+> > 1. if (likely(preempt_count()))
+> > 2. if (irqs_disabled())
+> > 3. if (is_percpu_thread())
+> > 4. if (current->migration_disabled)
+> > 5. if (system_state < SYSTEM_SCHEDULING)
+> >
+> > Condition 1 and 2 is to make sure smp_processor_id() is called in
+> > preempt disabled context, but Condition 3, 4 and 5 is not.
+> >
+> > Condition 5 can make sure no context switching since the scheduler
+> > hasn't begun to work, but Condition 3 and 4 can not.
+> >
+> > In other words, Condition 3 and 4 can only make sure the current
+> > execution will not be migrated to another CPU, and I think my new
+> > condition is exactly the same.
+>
+> It is not; your patch would suppress any and all checks when ran with
+> just a single CPU. Even when the code is clearly buggered.
+OK, now I know my skip condition bypasses too many cases, then is it
+acceptable to use "if (!IS_ENABLED(CONFIG_SMP))"? In this way the SMP
+behaviours are the same as before.
 
-`spi_sync()` requires DMA-safe transfer buffers and Rust slices may be
-located anywhere (e.g. on the stack), so the Rust layer owns the
-bounce-buffering: every transfer buffer is copied into a kmalloc'd
-buffer before submission, and received data is copied back afterwards.
-This removes the dependency on the C convenience wrappers (and their
-helpers) entirely, and adds full-duplex support via
-`Transfer::full_duplex()`, which the wrappers do not offer.
+Huacai
 
-Changes in v7:
-- Rework device I/O around a `transfer()` primitive that maps onto
-  spi_sync(), per Mark Brown's review (patch 2).
-- Drop the spi_write()/spi_read() helpers; add
-  spi_message_init()/spi_message_add_tail() helpers instead (patch 1).
-
-[1] https://lore.kernel.org/rust-for-linux/179451185979.339049.12323339081307899766.b4-review@b4/
-
-Shuai Liu (3):
-  rust: helpers: add SPI helpers
-  rust: spi: add SPI driver abstractions
-  samples: rust: add SPI driver sample
-
- rust/bindings/bindings_helper.h |   1 +
- rust/helpers/helpers.c          |   1 +
- rust/helpers/spi.c              |  26 ++
- rust/kernel/Kconfig.test        |  11 +
- rust/kernel/lib.rs              |   2 +
- rust/kernel/spi.rs              | 673 ++++++++++++++++++++++++++++++++
- samples/rust/Kconfig            |  11 +
- samples/rust/Makefile           |   1 +
- samples/rust/rust_driver_spi.rs |  66 ++++
- 9 files changed, 792 insertions(+)
- create mode 100644 rust/helpers/spi.c
- create mode 100644 rust/kernel/spi.rs
- create mode 100644 samples/rust/rust_driver_spi.rs
-
--- 
-2.43.0
-
+>
+> > > All code must be SMP ready.
+> > This is why I use "if (nr_cpu_ids =3D=3D 1)" rather than "if
+> > (!IS_ENABLED(CONFIG_SMP))".
+> >
+> > >
+> > > Aside from that, nr_cpu_ids is the wrong number to check.
+> > Correct me if I'm wrong, do you mean checking num_online_cpus()?
+>
+> num_possible_cpus() is what I was thinking of. Notably, there is no
+> requirement that the CPU bitmap is dense. You can have nr_cpu_ids at 256
+> and use 255 for your boot CPU. It would be completely daft to do so, but
+> it is still valid.
