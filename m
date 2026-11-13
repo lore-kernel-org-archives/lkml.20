@@ -1,63 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794614121;
-	b=caWJSmq36Bb+EnUxsXsBDHwUkYx+mfzynzSPGN1AagdxhpFAbYtaqZYuTpl8YqNKj7c9
-	 VyJtsGpXTJdDC67v5LO91xHSf+I/8VRhDF3GPKWRcyEULJhBlhemlc6fwDIKzk5Q/661/
-	 +E/Zg8sHc0eGuQyWbkcCHGRduTT8glSl2iACqrgpEIn7WWbLISG9NFeGPO4MBvkBU4aLX
-	 K3BeROebld/A2vs8QRLYdqB5Yifdn5QDif1eFTB5khBY+TXKtz3behud9Ie8uGSFOcdox
-	 aKx4nZFFNOeRigysV9CveZiVO8nTJzkeXcDGLq7C4wV2EW+LmgNHRqr5Ki5I2FQycRQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794614121;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=BDmNp4Xz5w21MkSPxai69E07DBPtE9YzGQTBFDr72RM=;
-	b=jxfNPXqgUo+jaqzDOknb0gxl7nbEPcaNWayDlDs8wYhGWqQH7I0s1vEg2oH3hG4JhYu1
-	 XXvHLFYWX1u7D4awPHPsFpoK3cgblF+UYBkQrTK+crhGAL6m5pe/zGLOrqlMPNAmgeNWy
-	 b8n2xFIDOnMkrKsjhFblSO4klyx9N8vwWWSuhd9Ehf9x2W+9IzmsiY0VK0LwvyIT6c4dp
-	 RjQSp1Y/2J2U6YQ1xRIrZ/9iOS3IwhSyboa4oiMiicEvmbSiCRqL20WOGLrhMc2x0fRA0
-	 xR+R8QfKuNv9U5t4d533cgRM6fwlnJ7/Kmm4qnLLSj7bqTZRdKXTYmNUUZXscDAyAVg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ph4ntom-rev.uz;
-	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
-	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=OwtDwi9i;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
-Received: from sender5-of-o54.zoho.com (sender5-of-o54.zoho.com [165.173.182.54])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794614146;
+	b=EvO9NJd1mdcgbSZSgkuVEUbN5Wz1QVrUBWbJOdbO47LLt/tvV56+Ex07BAkkmuMkefEn
+	 eti3k5TPzhPpHX1Bfpoe+wx/0wDe+csN1HNlxv6Tgwrg4Qoa6keP2ue/XQLj3rL8TaBS6
+	 sUxZ55qPVdayfSfxc+iRbFgvewcDJZHlH7LqeKMof8Emo08LL/T+2oBU9lXbHTGXvvu4V
+	 HfvretxMXrNGBuA8uHw0s7G/p8pvNV2B9I06rXaSpQpc0Ke0iDSP/fiPSNQqbkUXumK90
+	 YQXLIfZo6ic+0AgVURnIUYPXigGiBmi3WsnL8BsWlN7OSMje1kENcUsuD7DQiRoZ/+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794614146;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=/wHlDXhGpogQsiezmZhcDfowx6jzRaWm0ETUcfvu/zw=;
+	b=EY7WH50leJnjiQJJAKI+ux3n1eQehqmxIU3ZMeVrOiEUXviuMMv3oknLONW3nl3hEa51
+	 FQw9Hjl9gE8gyRMZaGdBA8g+r3hqHWpMch4S4HQaweVqKIWcj9pLH2nVtW7CdLro+vYUB
+	 tPPQOEaaX4JR+PW9cN1oZYAx3FXfazEa6mcX+fvfSgas+PDWRjNSVmQzWNaweVkeRpuYn
+	 TAtA803LfdfedqtmmKC62nwy+NZMrwTNS9JOYJNnITqJSsaeH+N+Kk2i63XpLGFqLYcem
+	 fRKJcbR8a6mfRIQ8+m7Vf7obOrYVFzQB06zyJC1lDNpq5TP8hhOjZXTGDeX//a5bWHQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WrgcfJ4/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBBC606A338;
-	Fri, 13 Nov 2026 23:55:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FBBC606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9075606A882;
+	Fri, 13 Nov 2026 23:55:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=OwtDwi9i
-ARC-Seal: i=1; a=rsa-sha256; t=1794613948; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XSSJdMnEGl862DCS2sZZd3iwWjRkkAxX2HE5ENpDy667wonU6nXkRQCjqxzzciLBGs9/WxeANjjjpdC+CGsR1FV/N5qPznojNkN9RrPLGeUkAsTSUCe7VkywGuYYKFtVuMn2td0wioGeWdxgacyc0+DLpGtSpCnzqSNEIi2a9XU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794613948; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=BDmNp4Xz5w21MkSPxai69E07DBPtE9YzGQTBFDr72RM=; 
-	b=H6jkBfXk6x8iIY2AY0XROd6V4S6aY/KacDUsJ/3PYa8v2dGSQn2Aas+0Z6ZvPyTiV/vab1t6NAyPosg9rMXdIbGcXDxgT5HKmiKipUDVb1kiBFZr/UIZ5ZTnhaKr2hDTlgS5XJY3gleFeyRkvkksxXbsjkDB7TR9NT+spb8L4qY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ph4ntom-rev.uz;
-	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
-	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
-DKIM-Signature: a=rsa-sha256; b=OwtDwi9iH0zjcqE6mIKqwHjP+yiHjFFAgc4x1oxw31hQ1S86WJ41ML1cmJw/cpNQs8EXaL3rJ3TsJ/5IDRU4uwJRM4eRsZ/vondLMia4IbGuqAJPulZXiRYlkOkyCaspoz6nSJek3L1NW5/Kzsp2qM4+USz++rxcAE59jL+LHT430w4hzf3m/+TcO2pfPY4zeV+F08LJBf8PK7oDJm400KBdACHSrJ1Pm+VvrYkSpGOHyC7DUXgVa0Xzrq6fpJ8lxAKNf++AKzjSRzFiYMpIym7azMS19lhLmKft/2MllgFd1liczOM4pWJDnK/ORBaldghAbnT3bmbiD8osSg4lCw==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=BDmNp4Xz5w21MkSPxai69E07DBPtE9YzGQTBFDr72RM=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794613946521832.1566096560762;
-	Fri, 13 Nov 2026 15:52:26 -0800 (PST)
-From: Enver Ikromov <owner@ph4ntom-rev.uz>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Enver Ikromov <owner@ph4ntom-rev.uz>
-Subject: [PATCH rtw-next v5 05/10] wifi: rtw89: use AP self role for monitor interfaces
-Date: Sat, 14 Nov 2026 04:52:06 +0500
-Message-ID: <20261113235211.1911-6-owner@ph4ntom-rev.uz>
-X-Mailer: git-send-email 2.56.0.windows.4
-In-Reply-To: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
-References: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrgcfJ4/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D867B1F000C4;
+	Fri, 13 Nov 2026 23:55:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794614145;
+	bh=/wHlDXhGpogQsiezmZhcDfowx6jzRaWm0ETUcfvu/zw=;
+	h=Date:From:To:Cc:Subject;
+	b=WrgcfJ4/B9LvqbnXF3HQ2VVvoyCVurvOKnY6FMGUYurW3tIZY7/H00/zGNk+icrdZ
+	 LJ0Pn+ykF4Gk6KVzg6AeQcsSC9hVsdyb8WbiVgfkO1+TbhMLp6lnuqILNVtK0ZdkpG
+	 FMCmd3hC8pWJtbtWAfP6iBwvwTjDRo9sNiy/4VSeBLUf9H3+wQdD4L5jbOzViOmJe/
+	 NcjSJOl4rlnZuingLq6ZvIOQKbPqXEg5mw9HmW3AKffNpQMVpbHQCh2npXLUje5Jxb
+	 1iYuktw2lzBAESupZvK7rux5V+UtmCKKraDgHTmbVEqf7D3qzzu7nSCl4jYU6VcNz2
+	 z50UMOMwSz9/Q==
+Date: Sat, 14 Nov 2026 00:55:40 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Mimi Zohar <zohar@linux.ibm.com>, 
+	Roberto Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+	Eric Snowberg <eric.snowberg@oracle.com>
+Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, Jan Kara <jack@suse.cz>, linux-integrity@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: ima/evm: security.ima and security.evm get written to frozen
+ filesystems
+Message-ID: <20261114-erstmal-vererben-leibhaftig-63db6f0c66ba@brauner>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,48 +59,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-rtw89_vif_type_mapping() leaves net_type and self_role zero for
-NL80211_IFTYPE_MONITOR, i.e. RTW89_NET_TYPE_NO_LINK and
-RTW89_SELF_ROLE_CLIENT. When rtw89_mac_add_vif() initializes the
-interface, rtw89_mac_vif_init() first creates the role via H2C
-ROLE_MAINTAIN and then sends JoinInfo with disassoc set (op == 1) and
-this client role.
+Hey,
 
-In firmware (verified on RTL8852AE firmware 0.13.36.2), the JoinInfo
-H2C handler treats (self_role != RTW89_SELF_ROLE_AP && op == 1) as a
-station disconnect request (HAL8852A_Role_Disconnect), which clears the
-newly created role's active bit in the firmware role table and skips
-initializing its CMAC control table entry (CCTL_ResetByMacid). Frames
-queued on that MAC ID are then silently dropped instead of transmitted.
+I'm working on some freeze protection fixes that plague the tree.
+IMA and EVM update security.ima and security.evm without freeze
+protection. IOW, they modify filesystems that are frozen. On ext4 that
+trips the WARN_ON() in ext4_journal_check_start().
 
-With self_role set to RTW89_SELF_ROLE_AP and net_type kept at
-RTW89_NET_TYPE_NO_LINK, the JoinInfo H2C handler initializes the
-MAC ID's CMAC control entry and connects the role without enabling
-client TBTT tracking (gated on RTW89_SELF_ROLE_CLIENT) or AP beacon
-transmission (gated on RTW89_NET_TYPE_AP_MODE). Set both fields
-explicitly for monitor interfaces.
+The update on the last close:
 
-Signed-off-by: Enver Ikromov <owner@ph4ntom-rev.uz>
----
- drivers/net/wireless/realtek/rtw89/core.c | 2 ++
- 1 file changed, 2 insertions(+)
+__fput()
+-> security_file_release()
+   -> ima_file_free()
+      -> ima_check_last_writer()                  # iint->mutex
+         -> ima_update_xattr()                    # inode lock
+            -> ima_fix_xattr()
+               -> __vfs_setxattr_noperm(security.ima)
+                  -> evm_inode_post_setxattr()
+                     -> evm_update_evmxattr()
 
-diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
-index 3447f0e..9cf2b03 100644
---- a/drivers/net/wireless/realtek/rtw89/core.c
-+++ b/drivers/net/wireless/realtek/rtw89/core.c
-@@ -5756,6 +5756,8 @@ void rtw89_vif_type_mapping(struct rtw89_vif_link *rtwvif_link, bool assoc)
- 		rtwvif_link->self_role = RTW89_SELF_ROLE_CLIENT;
- 		break;
- 	case NL80211_IFTYPE_MONITOR:
-+		rtwvif_link->net_type = RTW89_NET_TYPE_NO_LINK;
-+		rtwvif_link->self_role = RTW89_SELF_ROLE_AP;
- 		break;
- 	default:
- 		WARN_ON(1);
--- 
-2.56.0.windows.4
+Nothing on that path holds sb_writers. Write to a file covered by an
+appraise policy, freeze the filesystem, close the file.
 
+The same happens when files are appraised:
+
+- fix mode: ima_appraise_measurement() -> ima_fix_xattr() and
+  evm_fix_hmac()
+- evm_verify_hmac() converting a digsig into an HMAC
+
+for open, exec, mmap and kernel_read_file(). Only an O_TRUNC open of an
+existing file holds sb_writers there.
+
+Reproducer on v7.4-rc1, booted with ima_appraise=fix, ext4 on /dev/vdb:
+
+    mount /dev/vdb /mnt
+    echo "appraise fsuuid=$(blkid -s UUID -o value /dev/vdb)" > /sys/kernel/security/ima/policy
+    echo a > /mnt/f; sync
+    exec 3>>/mnt/f; echo b >&3
+    fsfreeze -f /mnt
+    exec 3>&-
+
+The close rewrites security.ima on the frozen filesystem:
+
+  WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0, CPU#0: bash/280
+  Call Trace:
+   __ext4_journal_start_sb+0x7a/0x470
+   ext4_xattr_set+0x20d/0x380
+   __vfs_setxattr+0x10f/0x170
+   __vfs_setxattr_noperm+0xf4/0x5e0
+   ima_update_xattr+0x1bb/0x2a0
+   ima_file_free+0x2a7/0x3c0
+   security_file_release+0x55/0x60
+   __fput+0x2d6/0xab0
+   fput_close_sync+0xf2/0x1c0
+   filp_close_sync+0x5c/0x90
+   __x64_sys_close+0x71/0xe0
+   do_syscall_64+0x10e/0x5e0
+
+Removing security.ima from a file and opening it while frozen does the
+same from the appraisal:
+
+   __vfs_setxattr_noperm+0xf4/0x5e0
+   ima_appraise_measurement+0x2d2/0x36a0
+   process_measurement+0x15b8/0x2120
+   ima_file_check+0xbc/0x110
+   security_file_post_open+0x3f/0x90
+   path_openat+0x4ab/0x2300
+
+I don't think this has a trivial fix. iint->mutex nests inside
+sb_writers: do_open() holds mnt_want_write() for O_TRUNC across
+security_file_post_open() -> ima_file_check() -> process_measurement().
+
+So taking sb_start_write() under iint->mutex or under the inode lock
+inverts the order and deadlocks against a pending freeze:
+
+- close holds iint->mutex and waits in sb_start_write()
+- an O_TRUNC open holds sb_writers and waits for iint->mutex
+- the freezer waits for the open
+
+Skipping the update while frozen isn't great either.
+ima_check_last_writer() has already cleared IMA_UPDATE_XATTR by then and
+nothing redoes the update, so the next open in enforce mode fails with
+-EACCES on the stale hash.
+
+For close the only thing I see is taking sb_start_write() before
+iint->mutex when an update may be needed. That makes close() block
+while the filesystem is frozen, which xfs_file_release() goes out of
+its way to avoid.
+
+The appraisal-time fixups can use sb_start_write_trylock() and skip when
+frozen since they're best effort anyway.
+
+This goes back to 2fe5d6def167 ("ima: integrity appraisal extension").
