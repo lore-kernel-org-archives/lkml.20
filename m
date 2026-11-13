@@ -1,89 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794593980;
-	b=EutDeQD5bHu7Gm/PZWEz9GyvhISGck+SplfZoA+ZtmjJ/rRU1Ogpf/tUyTwP5G4YpDMU
-	 1kNd/uooH9TReHlEqpQAEznr+hseTMQJSO6zppWlNLjFsTGLkVIG1a3dCBUmWItpoK2hO
-	 CAGmp0e8Ue10P7IorXZlrdO/E5E3LQQ1cVGUoi7p8RDyOqwKWq6DHsze1A+D6pJrhBPNM
-	 iPxSIZiD2gVC9c4Mx0mT6ADmq0frU3ZoWC/7hSWwNUyH5FgB1uXCRde8D/OzcG4JrOF4X
-	 QNV8Q2CVlHi4B+ulfRFIruQjHZvTy5jN6JQ1ovpMmymYscggeC7vBUN6G1pMRiI2cdg==
+	t=1794594004;
+	b=Mab3dP97yPYS96x7cky7i4wLK9Tcg+6gDCuOC3VXlVGCdJHILjQxvwBOa7QLvQ/LaAuT
+	 YDg5GhLpwpsEl/5I6dOIT+STisGsAtPGMLZflDk3/Ow2fAtm7s50iT5lLOcEILwvWpEkx
+	 DFsWGFUQGtI3gvYqW/VU/TbW8Wm85maraK9dZdPV50aiyEMP+nRBv2+Y7zWQQ3RjAZixM
+	 raLEjq9VoKlBxNbShD6wZbyqVdgbvjS8ypWKX8XPd7NtRGYpeEL1kHRewo5t1NEd0TbIs
+	 dM8W+GBGU2j2FBBokQyY2LwODaTo23lZgVA16+o8U3UBke0W5U7UFGOX5w91cnPyBPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794593980;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794594004;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CENXtX1/W/MRp/DcAqbUbrZhUcyfT59CNNpcWDlZbsw=;
-	b=ROBo76l30Bq4w8khyOY1m08MKMqEcbpQfLlhkPdEpCPbyasS5nwNmpwZTxmkbriVPLrJ
-	 9ooHt+Ji3jgzHYWcLkJcG7G08T5Oy2lSfW1oUcgfPoj/sjJQun8QsXMfe2HpPt2Mvq4JC
-	 9vTJfZ4ZbhvlVzEYQM2xjcccVMUHsk8iv60YBknwkzVQ+xDiMnQJhZZqDUrwvIMA8Ryc6
-	 uiyl5rfyUmfqfgcyF3m5d/c75ElNJPuancggYAwMlLeLbTyMV4Ec6WB9amRyjSwkG5JSD
-	 4vQtwoeACv5ic2VThyUMUUg/g9yhhIZN9PW8kMrP3yPlZxsCUOmnFF/w0KFw5UqyTvg==
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Lc+M+xeSWFmNgJrag+pyxq6yWGejUKhFy+lMV3S6Pbk=;
+	b=wJp7Pf/KI9fMq/6uGBXgchpLH7gXpV3zD3LSUs/UEl12+mW8ft0phBNDNKFMz09u2GWQ
+	 a1XcUmvf1ebsxf3DtoT95+Jsqx56ItBhFhc7SVRNWciacKEf/5lYOdM7yVwT1e0UK8f8L
+	 R72EBSoKpEYm4VMMy/EL118v/h6jx5JADSnMugZyBohMfqrWlatXoSAkibcrVWJIFBr7Z
+	 9dRCRvx0l/nKzin8uiBGwcDJPblZDmOurNaLafPJWzgBjLe8DL9rJFj1Bfmgx6Jk0vo/9
+	 uYPySgB7TCPV3hAp6Wg0kVU+0FNhUULvaoeJbKMsDftAibAVPsobUu7Xnv2voYngVPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZBWNIUpT;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="GtYGTsq/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VXuibiXw;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD72606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:19:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FD72606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E71606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:20:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3E71606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZBWNIUpT
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso17362265e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:19:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GtYGTsq/;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VXuibiXw
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADH3eBs3868332
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:20:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Lc+M+xeSWFmNgJrag+pyxq6yWGejUKhFy+lMV3S6Pbk=; b=GtYGTsq/XWnTnkK1
+	yJGIY10GmMfnla23Y69I4f9PPzFqbzkyJUu2EA+fOP2RYQ92GlIb/G6toOw6MYld
+	C7tRIyY9qWlf6K8TKQfb8uEfy8WgBws+4ERDnk0D+cYWWtSry6xCmO/geD/mQcpW
+	UsMtNyp7JaMxkc2gd4q9OU+7GY6VU3jPRtfcde4fQuCDHrFRrVGUO4KvBhwp4ofZ
+	kfyh6xAGcetHKWNgKpMoQ1CjMzLY2E+addy6ERV1+VJaII71gV9IL8I2zoIQ0fgL
+	NO014vOusphBnkORyNVDc27bEy1eMwJ+mErnw0/R67NDz0O+v9pJn26YXjrZvbLC
+	KeXqcQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hx6ma88q5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:20:02 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36f26e6abe9so1527910eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:20:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794593978; x=1795198778; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794594002; x=1795198802; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CENXtX1/W/MRp/DcAqbUbrZhUcyfT59CNNpcWDlZbsw=;
-        b=ZBWNIUpTzZN2uRy2q5KN3dzd4ycS0bX6OSapit7Dfuzls/o9BmSymtEAwV7D27WPTE
-         hs2DUXs+VCbAkp8mweL3beZ0hwRFeg6YdlQ3qPGHYJZysT0eKtlw8Hqab+1yn94ijLx2
-         L4jPimLmXFBPMhCSww94GpHH+C0XH4lY+Eeiajw9FWKnBPIzjFYP+yjyLxRSDfrN+lTR
-         b7mAaD4WZ5Xun2QqTd8mkpXF8/f6k2en5DCF+g2y77HKoyldTdiei7mNxJiwSdi3TLvC
-         TuohG4BTazDqiA7sQRueapEuMgTSes3gDb8c566mbYEbzV/i8BXGidgSzYRUbwJR90mn
-         xTpw==
+        bh=Lc+M+xeSWFmNgJrag+pyxq6yWGejUKhFy+lMV3S6Pbk=;
+        b=VXuibiXwsMUkIxEY8H3x+5+3sGZD4Lid8/eoqPFkwBLxBzBtA8/muPRC1vGCR4HzGg
+         w/47cRbmSPkDhQgsIVmpLu3tLtaKMW19v++PT79olepdBNZrau6mRVcN1Y1YiPOYuvXN
+         +mUy1I3Yskmu+oaJsoo9P5EKjUSKVIU/2Y2okI+V2AmSizhlKuHDrLsukotJQ+1Pt2fh
+         1ODJhDPjTSOI/0ZkE2O7tdln8lmGX5Y9WIBRuhT35VI2S2GGPQqitMLNKAdNE1hVtJRg
+         xyaNcAq7Pt+Ri5XlTe/UiJvApycYbO9mQQK+Kmcb8QNSs5aHNduXZVZFf+A4znNsWWO+
+         bS3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794593978; x=1795198778;
+        d=1e100.net; s=20260707; t=1794594002; x=1795198802;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CENXtX1/W/MRp/DcAqbUbrZhUcyfT59CNNpcWDlZbsw=;
-        b=w9UI0OhmtSkvpJP8kgNHLLnipaWFHOjBLAYVM4VK7z4IHrrmWP2rDeK3dNj13CC7aM
-         CXiYpQsg2WceSAKq3jx7CvfZlosan3814BqKNOzKN5Ujp4rnDBEKKo/3QWLOap9phD9u
-         63kQK7MubMuXgj154ga94FOkBUEJ4dGLIMKgBblKdIm5oZiI7I1YvVOMKE+EUqbwZ/D1
-         RrfDa9DiTQtbWmy3qULTWkJNJqeIDwXr5ld8TSfbd86gNWCtLoYTaU1eBv6UYoZ2KOOb
-         ZqR6ZLnq9md4TchQ3sWAG3vzmB0lja8ZQzWObjzSdv7tfDrEwbgQXO5L9ELL7JnzqWAk
-         O/Fw==
-X-Forwarded-Encrypted: i=1; AL+hErFNYmJCb0bhbqGPsYfMZK2YU/V+hhOlWURazQiVeo5iF6ZHziuSrfbc3vOlbH3cxb/QPnjJhEkU+mDsOCA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VIdBwamrifb/9mEe5EZSUWsuA3dzKujov65i6A93li1cay8m2
-	peI0YfjKE9MkPbpq7GvDBHAhhScBhVxljlKSgDfT6ItvIKuRwGFpSAAD
-X-Gm-Gg: AYBFou2mBnvqm0zN91mc25SyInLNYXjulb40xfQp1ftHG5E0ERyngpx1UTmdnwz2fdd
-	jXlNleGd8THWK9Mu5Ahq/NyCLSw94nUjRQ1kCuDGFYjHdfrYh9alOV7fNW4uC/ERnQwzEQVPUSF
-	yRuxZs7YvCPqiaWNwAsby+o8hoh0xSKVPbS/anM8jLAl64IxeJOfrh7AnfgOkBAKerFfuweOPUt
-	yUfDIqbDBn74Qa9CZHeKtMiPErsd/oBrrYi8jvb3rxTMaImKUaSLVpjVx51vcRX2bg82eQrM1O+
-	fqnJB2JwDenGeHPt7YIicxemScRt990GmXhRfvSj8fSJgDN1RscZ4zX30p+er+60+BF6nud0rCX
-	+jJBlLLwOOg99pUFPR8ECk9ts4cYGdPNajSNzoBsXhZ+WuPfgMNlSAiq4egvi9isO/PCKM1VP2r
-	NJz9TI2V5TLuKw+aA+mZ5F1Xgw4pO6nSWgdGLxDFNNQ/GqZwz0Fl6JOCHqyVkTbSK2917QCXDw6
-	vi4/qThIAQn6Ycrxri6z3WdKLVmzTG0/Gt02Rx91PXi5GIGJMze8WbQD/qW6vstdiBAUTwtafBM
-	untOPTOnF5BzoIKIGexNGcEgQjzEJszknqgyoZlgPY9otPfukI52+SfRktiKMinTPaiq8CjwdEs
-	DtA==
-X-Received: by 2002:a05:600c:34d0:b0:4a2:133:45e1 with SMTP id 5b1f17b1804b1-4bb55a59f41mr72807635e9.24.1794593978271;
-        Fri, 13 Nov 2026 10:19:38 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-65-71.play-internet.pl. [109.243.65.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5667a8aesm54253275e9.1.2026.11.13.10.19.36
+        bh=Lc+M+xeSWFmNgJrag+pyxq6yWGejUKhFy+lMV3S6Pbk=;
+        b=KbsCt1Wr/HYU8K8Wiq6polMBdGbCIUdWKtpE3zxZpXIwIpQTIf8vjxfH+sdKlqfO83
+         cxKtFWR2lIbMCQNGG5ttsMpm9q68cTyxKcYPTiDTmgdoGwnT8PVR8gp/6TGUNScWCuDT
+         BOdlfXs+hBCSiAiuoXQtfsMcm7c0HEwFFiVon68vICZ8xV/TK1n0VgSQ2jzv+Vazzc4Q
+         in7+Ye2xr0qnp5HRrLv5L6mlAmFf+ARbSPoSGsaIT1iLiJ6QXvd3h2kszhtNJDqNyzZR
+         XdlUuOnQ2s/eiYR5HPcCO7lH5PZT+aVvVex9cM9G9a3NPkx/XKKZJXg4UfcyOoKwN8HY
+         uBqQ==
+X-Forwarded-Encrypted: i=1; AL+hErGZcVbtNnCRLXkfDKCyfxp1aSlpgvlIrR9QDlP2oHSBUSZRzWl8jvTJ9Nxtalz6bwCzh3fkwLk4CKpD5qQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qLwBp0FuG2p2GTX+QOi3AMnxlRQRFcAxMXdQ+DiYQkgDtOArC
+	BqjZNRNkDiHm3M5MGH8hsD8+JEb5h39jE40Bw9Y4TnNABSP1u2HKDPbvheECM2FWpjBJ93U6uOE
+	3FLBOw6oXuMGPbuM9SW3k+fKUvhnX/hUm53SR9cUoTB39CLkMtH8s8bkXGFFX0/htzg==
+X-Gm-Gg: AYBFou11DQYXe3EQoZqtawg6dsoEr0fQP487FeE2++YPgDJt9Axun5AhgVcMbpvLk3H
+	Pd3q2jVF8rISp5j8EWAL4T+Pd9H3woAANbcIRnsoVOwvQQG0bjEccJYXhGwBJQoN+bKWk2bppqv
+	yNU/+XIzXrMZn9HUgXhXBWroaOGEwDaCDJ+sL7gn1/fXOtGuFnYAyU17YN5hzrNCLdB/I46BPXM
+	qBPS9/ASh1TOLRXiRvG1OmUYLZYODE7rLeO2XEEdBjAvpIcXmxZ0TiYOlp2+qPaPUfx8BLFvIva
+	3AUx94DrE74Crcm/hHmI9v+EhNukINHnJGkErUHl8fXexjYcXkrRxTeyV+JetS8Kjttze5lD9ze
+	uGGFF6VRjVjRR3wcPYpcIoGdlrouPExMt1swFtWH+tnWpqORX5vO7zNzsYFaX+1qVAlGiZ9vnrp
+	k2x4syugmuoUYkZOiP6tBadGkZkym3GgxFkPYU52PanXtipB2agWpG+wGyHG6a7LhjCA==
+X-Received: by 2002:a05:7300:fb8c:b0:376:a62b:ae09 with SMTP id 5a478bee46e88-3796676a1e8mr3880941eec.16.1794594001974;
+        Fri, 13 Nov 2026 10:20:01 -0800 (PST)
+X-Received: by 2002:a05:7300:fb8c:b0:376:a62b:ae09 with SMTP id 5a478bee46e88-3796676a1e8mr3880923eec.16.1794594001412;
+        Fri, 13 Nov 2026 10:20:01 -0800 (PST)
+Received: from [10.50.62.158] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563df84fsm17285676eec.20.2026.11.13.10.19.58
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 10:19:37 -0800 (PST)
-Message-ID: <7e634bef-6d23-4a57-b3e6-b5585045ca19@gmail.com>
-Date: Fri, 13 Nov 2026 19:19:36 +0100
+        Fri, 13 Nov 2026 10:20:01 -0800 (PST)
+Message-ID: <a509d2e4-c192-443f-a6b8-587efca47ffd@oss.qualcomm.com>
+Date: Fri, 13 Nov 2026 23:49:56 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,180 +117,88 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RISC-V: KVM: Order IMSIC VS-file write before releasing
- vsfile_lock
-To: Anup Patel <anup.patel@oss.qualcomm.com>
-Cc: Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261023142550.148604-1-oleksii.kurochko@gmail.com>
- <CABBgwmuBBbyBytwRBTeAqF=0c1m+TFK8E3yPopGNQAsrMFO2vg@mail.gmail.com>
+Subject: Re: [PATCH wireless-next v4 08/21] wifi: nl80211/cfg80211: pack SMD
+ dynamic context along with frame
+To: Allen Ye <Allen.Ye@mediatek.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+        "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        Jouni Malinen <jouni.malinen@oss.qualcomm.com>,
+        Aditya Sathish <asathish@qti.qualcomm.com>
+References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
+ <20261106-smd-v4-8-62e39487f51a@oss.qualcomm.com>
+ <ea313f0127e2cfa72a3572f1893e59c6e2c22cd1.camel@mediatek.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <CABBgwmuBBbyBytwRBTeAqF=0c1m+TFK8E3yPopGNQAsrMFO2vg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+In-Reply-To: <ea313f0127e2cfa72a3572f1893e59c6e2c22cd1.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Fn71KXrgSpcUCrtiAXGtxo-BfqzQUswS
+X-Authority-Analysis: v=2.4 cv=RbcFmFtv c=1 sm=1 tr=0 ts=6af754d2 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=eljfwrJUAE9ARPuycr8A:9 a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3MyBTYWx0ZWRfX302njOZ03uFI
+ 3oO6vh+U8JdNtF0lWTd+E0I4rFJ3Dt7XsesKL0FqkgIAfDxnjva1UeSOfI7fAOAvAyOnJkv5v2r
+ QFSwTHwgJQsglwmWt9Drr/7VMsDXDsKY2ajFY0UVUSjrV/rD80+Ksmk61u+jrBSoFnByBJjJZgT
+ lxmdXrf9Lii5HVenO0jPAat6llHcHRvlHxK1zaMrprprUo3a4+MXLK1ARYaLZxEoiD8O1G2op68
+ 6z3QDt4p6nyiuuPKDd+k0pXS4kEY4e8wtJ1S03qC2/W7Z3IzAHmYak+TNSeW//wDFmXZ+IuBKjI
+ VjnaHR+TcjB0DG/gtAKV75zL0SBLwoPVKRdIu+4Fc+oQRe1CmlK+WsZVnEgtLTYy0eWHF25Y1q5
+ MC8QgklL1/y9EYi2MyOUcjgJKEcAVJN/cdje5R8LMHcaz/GsY8cSZTRmWNKhSiMCRVHeLywr3ND
+ JFppAedhV4yLRHhcfcw==
+X-Proofpoint-ORIG-GUID: Fn71KXrgSpcUCrtiAXGtxo-BfqzQUswS
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3MyBTYWx0ZWRfX+L6KuV/ZVXC2
+ ZSCIuVP6eZkE4Q58UcVkEMTi6Blc+E3yyzpgV8Uo6MzEBiQpvcqUtjEkZ2Ufa7OERQ5Z4qRQs3I
+ rlNV3g6pwJ4mOPknOT0sRLxh4M6NKDg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 suspectscore=0
+ clxscore=1015 lowpriorityscore=0 bulkscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130073
 
 
 
-On 11/13/26 9:00 AM, Anup Patel wrote:
-> On Fri, Oct 23, 2026 at 7:56 PM Oleksii Kurochko
-> <oleksii.kurochko@gmail.com> wrote:
->>
->> kvm_riscv_vcpu_aia_imsic_inject() writes the interrupt identity to the
->> SETIPNUM register of the vCPU's IMSIC VS-file while holding vsfile_lock
->> for reading. The lock keeps the VS-file from being switched under the
->> injector: kvm_riscv_vcpu_aia_imsic_update() and
->> kvm_riscv_vcpu_aia_imsic_release() take it for writing to move the vCPU
->> to a new VS-file or to the SW-file, then read and clear the old VS-file
->> and free its HGEI line.
->>
->> On RISC-V, writel() is followed only by mmiowb_set_pending(). The
->> trailing "fence o,w" is deferred to spin_unlock() by the mmiowb()
->> tracking, and rwlocks don't take part in that tracking:
->> queued_read_unlock() issues just "fence rw,w" before the AMO, which
->> doesn't order device output. So the SETIPNUM write can still be in
->> flight after another hart has observed vsfile_lock being released. If
->> the old VS-file is read and cleared before the write lands, the
->> interrupt is lost. If the HGEI line has already been handed out
->> again, the interrupt ends up in another vCPU's VS-file.
->>
->> Add an explicit RISCV_FENCE(o, w) after the write to the VS-file, which
->> is what spin_unlock() would issue via mmiowb().
->>
->> Fixes: db8b7e97d613 ("RISC-V: KVM: Add in-kernel virtualization of AIA IMSIC")
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> ---
->> Why RISCV_FENCE(o, w) and not mmiowb():
->>
->> - Since the mmiowb() rework in v5.2 (e.g. commit 60ca1e5a200c
->>    ("mmiowb: Hook up mmiowb helpers to spinlocks and generic I/O
->>    accessors")), mmiowb() is an implementation detail of the spinlock
->>    code. Explicit invocations were removed from drivers by commit
->>    fb24ea52f78e ("drivers: Remove explicit invocations of mmiowb()") and
->>    from the documentation by commit 915530396c78 ("Documentation: Kill
->>    all references to mmiowb()"), so adding a new direct caller would go
->>    against that.
->>
->> - RISCV_FENCE(o, w) states exactly the ordering needed here (device
->>    output before the store that releases the lock), which is fine for
->>    arch-specific code, and it is the same instruction mmiowb() expands to
->>    on RISC-V. wmb() ("fence ow,ow") would also work but is stronger than
->>    required.
->>
->> Scope: this only orders the write before the lock release. Whether a
->> write that is already in global memory order is guaranteed to have
->> taken effect in the old VS-file before kvm_riscv_vcpu_aia_imsic_update()
->> or kvm_riscv_vcpu_aia_imsic_release() reads and clears it is a separate
->> question, see https://github.com/riscv/riscv-aia/issues/172. If it
->> isn't, these paths will also need to drain the old VS-file, and such a
->> drain depends on the ordering added here.
->> ---
->>   arch/riscv/kvm/aia_imsic.c | 7 +++++++
->>   1 file changed, 7 insertions(+)
->>
->> diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
->> index f17dc559a709..807bb73a129a 100644
->> --- a/arch/riscv/kvm/aia_imsic.c
->> +++ b/arch/riscv/kvm/aia_imsic.c
->> @@ -1056,6 +1056,13 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vcpu *vcpu,
->>
->>          if (imsic->vsfile_cpu >= 0) {
->>                  writel(iid, imsic->vsfile_va + IMSIC_MMIO_SETIPNUM_LE);
->> +               /*
->> +                * rwlocks don't participate in mmiowb() tracking, so order
->> +                * the write to the VS-file before releasing vsfile_lock,
->> +                * i.e. before the vCPU can be moved off this VS-file and
->> +                * the VS-file read and cleared.
->> +                */
->> +               RISCV_FENCE(o, w);
+On 11/11/2026 02:44 pm, Allen Ye wrote:
+> On Fri, 2026-11-06 at 13:28 +0530, Pooventhiran G wrote:
 > 
-> Another fence after every writel() is a big hammer in the path.
+> Hi Pooventhiran,
 > 
-> If the intention is to have correct contents when VS-file is read then
-> better place to add a fence is at the start of imsic_vsfile_local_read().
-Thanks for the review.
+> A question on how the context is collected here.
+> 
+>> While packing the received management frame in nl80211_send_mgmt() to
+>> send to userspace, nest the SMD dynamic context along with the frame
+>> message.
+> 
+> On MediaTek chipsets (mt76), the dynamic context is kept in FW/HW, so
+> the driver has to fetch it from the firmware with an MCU command. This
+> means the driver has to hold the ST request frame until the firmware
+> replies with an event, and only then pass the frame up. Holding RX
+> frames in the driver is the problematic part: the frame has to be kept
+> outside the normal RX path, kept in order with the frames that follow
+> it, and handled if the firmware reply is delayed or never arrives.
+> 
+> 1. With the context attached to the frame, how it gets collected
+> depends on each vendor driver's own implementation (on mt76, this may
+> mean holding the frame in the driver as described above). If userspace
+> instead queried it via GET_SMD_CTX / SMD_CTX_EVENT for ST preparation
+> and ST execution via the current AP MLD, as it already does for ST
+> execution via the target AP MLD, the flow would be the same for every
+> driver, regardless of where the context is kept. Would that be
+> acceptable?
+> 
+> 2. If not, could the frame-attached context be optional (e.g. behind a
+> capability flag), with userspace falling back to GET_SMD_CTX?
+> 
 
-I don't think a fence in imsic_vsfile_local_read() helps here. The
-problem is on the writer's side, and imsic_vsfile_local_read() runs on
-a different hart.
+Hi Allen. Sure, that option could also be added if some drivers choose not to
+pack in the rx_mgmt frame itself. Since it will be a fallback, I can change
+hostapd to directly query the driver for context using GET_SMD_CTX if it does
+not find the context attached to the received frame?
 
-The SETIPNUM write is done by whichever hart calls
-kvm_riscv_vcpu_aia_imsic_inject(), which can be any CPU (irqfd,
-ioctl, ...). imsic_vsfile_local_read() runs on the old vsfile_cpu, via
-the IPI from imsic_vsfile_read(). A fence only orders the accesses of
-the hart that executes it, so a fence on the reading hart can't make
-another hart's MMIO store land.
+> Thanks,
+> Allen
 
-Without the fence, this can happen:
-
-   hart A (inject)            hart B (update/release)    hart C (old 
-vsfile_cpu)
-   read_lock()
-   writel(SETIPNUM)
-     (store still in flight)
-   read_unlock()
-                              write_lock()
-                              switch VS-file
-                              write_unlock()
-                              IPI ------------------->
-                                                        fence  <-proposed
-                                                        read+clear VSfile
-                              free HGEI
-   SETIPNUM lands: the interrupt
-   is lost, or ends up in another
-   vCPU's VS-file if the HGEI was
-   already reused
-
-Hart A's unlock can become visible before its SETIPNUM write has
-reached the IMSIC, because read_unlock() doesn't order device output.
-Nothing that hart B or hart C does afterwards can wait for that write.
-Only hart A can hold back its unlock until the write is ordered, and
-that is what the fence o,w after writel() does.
-
-With the fence:
-
-   hart A (inject)            hart B (update/release)    hart C (old 
-vsfile_cpu)
-   read_lock()
-   writel(SETIPNUM)
-   fence o,w
-   read_unlock()
-                              write_lock()
-                              switch VS-file
-                              write_unlock()
-                              IPI ------------------->
-                                                       read+clear VS-file
-                              free HGEI
-
-The SETIPNUM write is now ordered before the unlock, so it is also
-ordered before everything hart B does after taking the lock, and,
-through the IPI, before hart C reads the old VS-file. It can no longer
-arrive after the read or after the HGEI is freed.
-
-About the cost: this is the same fence that every writel() under a
-spinlock already gets. On RISC-V, writel() only sets mmiowb pending and
-spin_unlock() then issues "fence o,w". We need it explicitly here only
-because vsfile_lock is an rwlock. It runs once per injected MSI, and
-only when the vCPU has a VS-file.
-
-The only way I see to keep it out of the inject path is for
-update/release to IPI every CPU that might be injecting and run
-"fence o,w" there before the old VS-file is read. That is much heavier
-and moves the cost to vCPU migration, so I'd rather keep the fence in
-inject. Let me know if you'd still prefer the other way.
-
-One more thing, not directly connected to this patch: could you please
-also take a look at https://github.com/riscv/riscv-aia/issues/172?
-The fence makes sure that the SETIPNUM write is ordered before hart C
-reads the old VS-file, but hart C reads it through CSRs
-(vsiselect/vsireg), not through memory. As far as I can tell, the spec
-doesn't say whether a write that is already in global memory order is
-guaranteed to be visible in eip at that point. If it isn't,
-update/release will also need to drain the old VS-file before reading
-it. Such a drain would build on this fence rather than replace it, since
-it only works if the write is ordered before the unlock.
-
-~ Oleksii
