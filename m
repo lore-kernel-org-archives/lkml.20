@@ -1,86 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.135
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794579621;
-	b=o9Zb6ffWTkpemXBf2SnTq0GV/9kBLQLq72MeMvfojy4+dgbn5R9ybeDWhGoHJhhLzi/k
-	 /9JpZySnZorKAaNCv+Lk+rgIDTumNDmyxLajvaK6kr/ExdrGUw7irTUAwsGJVaFU0237s
-	 K4M085Be45iYvxG/JVIWbCOX1SiknFQrqYzxgDByEIZu1+sioYFJBa4CfWK6LnoKvyOUV
-	 x58ztCQ+K2qlj7d5ZcM/IqhepSIruwNEs886R2S5YSpDQgW55QgGAFqGaK/UWmm/cQK0l
-	 uLeQR0h1N4V1u/EDlQk4GssEDlRDhGnaNSrgHTCDe3BP2rMZsukR8kDGnYnBC075SnQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794579621;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=1XGp+CMXGHG/pi4uNlO7x2x1Sm+2mnO/G8onrrvTQjY=;
-	b=k06C+Viyngqkinn3oXXl5pIhqsChhQ731xc/24kXwuQLw6XzoFQxv39WgUVb36bwMZPZ
-	 BS4INqLPWPgNYC3RKL2w/5yBtvaZ16PABdxfBUnsFyriPSquciQt7PdflRnpKRSvFP4Uc
-	 ZM8a8kjH2idq4A33pMyuYS3jvmSnYvN/rpBjZCDOWFsD3KEdWzet8inTHr7t4ExMpi9Ys
-	 f3TugMDUuCrCZm6xPdIYQdkVMn0fqOFuhGLxP3ebhEjHF9N3tKCY/dySMtexZ/Ab3F+iN
-	 fDqRRhhB4Nk4yT6f3iKaJThNZV0kMsHnU9fSM8isTzaphQRYFLejfRJCBFjTv9MFT8Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=blackwall.org;
-	spf=none smtp.mailfrom=blackwall.org;
-	dkim=pass header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=JyEbpi8C;
-	arc=none smtp.remote-ip=74.125.228.135
-Received: from mail-ej2-f7.google.com (mail-ej2-f7.google.com [74.125.228.135])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794579641;
+	b=ECawKTb/ndpuPc7L55ZOy4FwfK4Bme6MzgBjkEiQ6oXroFKxm8/TsyQ5qjqvFKgWHuJB
+	 V5FU+If9OsAAw9j/5Mbp2CgtA2Tvs+5/jfh4YZ21KoFD0Bhfb//+L3+yGG/iiyu04cSDH
+	 CesFLXAqYvNqzvrjMUZHh2AaBP6oPaPvTvVIBtHovwY7thXgG/nhFzpbPpc1huiivbOdO
+	 X6xi3sLxnY3sFIcIDafjGcmN9AT+R0XothwRM9WRp+yvv8N3F7UF3IdBKahm/Zhx8dY1K
+	 mrYtPCQRNQelVRVduxebRVIomncwXlLwmqVDNF9rk+IujPsBvUXRaLJ6BbDQ2XlB5IQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794579641;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=AQx41P30RpB5UyfLvCsV2knE3MPPBlmTTuQPtkbGIMc=;
+	b=2NUpbiX/x3OmevA4Ew2/QNpTnquRil0eNrRIExT05NenIKi42cs3Ung4MMzkjtCvrAf4
+	 mFOeUclGc81kkkmkt8Srp5HD35yK0F6I1/DiA5b2LivD6tLgoThVFIdNa9kGwLi/ZLI5F
+	 C9Qz7ibqtPjX5jY3K9u7oHhdV50obkuVMr/fCBuETM0tF7CE9elcuLGBcIMCe1nvay+xt
+	 JsEBX1pqU/5UIzNcJg0vcrNIk1BJ8txPVBABygzOwTN3FrmJcv+2QN7qMIz1ucoeL55Fs
+	 2GZZbQrI1vQSYCZABbPsaJaL7PuOwKvrIpy+q1icSlqDSHQJZii3FskFPI8zKaQyhCA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=SepjYy6X;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.44
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013044.outbound.protection.outlook.com [40.107.159.44])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50615606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:20:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50615606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB239606A323;
+	Fri, 13 Nov 2026 14:20:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB239606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=JyEbpi8C
-Received: by mail-ej2-f7.google.com with SMTP id a640c23a62f3a-c505c42e4ecso58367466b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:20:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1794579618; x=1795184418; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1XGp+CMXGHG/pi4uNlO7x2x1Sm+2mnO/G8onrrvTQjY=;
-        b=JyEbpi8CfOLUucQMMLXmwEo/6hJ8WdxOtOzP/yAknVS9nodM1YKqB+12gkWL/3rUgF
-         8mku4p028Tfzw3L5pkS2ZcXWe5dDbZrtFNCkThBQ4IinjKx/q4KYOqjzvBietyY/OJ+J
-         cUOEJAhiOrRg2EUecM8KBjJI/t7/OLsNOvUDvIm7vIAnp9pxp7UL+BoQSZgEHGwCOYqw
-         QAWtxwYUJz2ZZXsrGDN6nuSxq1F4wv4wKd4Fd28xwzTQjR7EY4GKi3ZhcZ3DKp0JyvJo
-         5UwXvogUyDKCkF6YZreK56p1HepTpAfengXBaWTg9VAWTnvoBbp3Qo5M2DE25+4zrohD
-         m9lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794579618; x=1795184418;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1XGp+CMXGHG/pi4uNlO7x2x1Sm+2mnO/G8onrrvTQjY=;
-        b=IzehEl8XSS4ERyCJ1Fdkm2k1mT8ATkqOqTkbOlI0zJYYn9L07lHdAy/TEWKb7gFg/B
-         He0cVzNY30T06z25zdgR/X6GrHULazRWHWMnHYi7DslrsNmVOsaIt5l4iwofQ1eNQTTW
-         0Ji1k7sBlYjoZHrYVjVvn0VckvSEd5MOGlw3hc6BDGvzXcBNid5anb3yYXGXxgBFQ5ea
-         EhiL5cVX73t8JD2vGQdVyru6SZcjFEk8PEIxWN+HNplGSNVqjAJ+jhlHIkUwDb+Ryttc
-         tCUxw2RSyDc4a8rOY6MEw5ybQ0kTT5aPXN+AjpBv3UK0q1yBx6GwfCXu45rPrrtcA3aF
-         kUqg==
-X-Forwarded-Encrypted: i=1; AL+hErGAh3X67DvVuTN6bUYva/qYjPmDAkVqUBJZHozsU7+BDkXtHgDQlDFjRi1S04Qg8m/XXeAIbsUxK0td/o0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89UaFU8kMnjkvxRHqveYe9aNs/pYhNXRa1TiHi7gz9/6H/GOpm
-	FqX/Z35wVw2BJjaQk1DQgfqWyqwtJrwiqBwhRh9pTTuEIlLmHGSklQV6knLQCes8Ygs=
-X-Gm-Gg: AYBFou2Jc3jL64KuOM+l6rUpne5kawfGNZf2UdgOiclMkJvW1bh0XYc4+w71NfU54/L
-	2nKTbCe0uI4OBo/9k9rot6n5poh/Ki3q4t+vjJcUViCS90H/uKTAHb7+PZhmv6G/XeVKZHl6+EF
-	jNYt5rUQ68P3XOsKP/K2UfYg/VRfCn7gHJznJoH6xjjN7u7nIZ5ZqKZtxaqINgmn1Nkcx89u6ye
-	ma9E97+845x0yMTTH48CWYI2Cv2QbnbcIbUAM0gyAuKSI4a0wpOsUqJulPtqAHdAlfJKIpfRcTW
-	9htfuPf/cP3bqfX3fc6p4gmQ6TLv3bVYhfKIgRUc7U1bkn12lvNI3gCz5bF9pW3nljldkvy2Piy
-	Qn+qr8Sk8pUd272siTunJ9eQk/zVe+zoMZSw2iQxUIvqD4oxyiv7hmvJw5vZzyyn7AEKdvpPIbt
-	JWrUqh4Tr5Unkxyzj/cKJXsoI0LM/22EhQnx8wdWDpeRD22VeOzzofcFtHGyCvVqS3MJ8OBrRRN
-	/h/JPr3WlFAhDVxmkIb0JQvMK+l6D3B4NlY7SMIQ2r1g/LcrVMcbi3sTGIpbOs6yCvm4lUd086r
-	ldrvAkfP3Wl9LlVzhYv2T+vMtmEY+FWeGf+U5YEp6JlbgV4Q8L9sVi5cOMo=
-X-Received: by 2002:a17:907:3da7:b0:c2a:b1cc:158d with SMTP id a640c23a62f3a-c5096396869mr263379266b.32.1794579618240;
-        Fri, 13 Nov 2026 06:20:18 -0800 (PST)
-Received: from [192.168.0.161] (78-154-14-127.ip.btc-net.bg. [78.154.14.127])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b5b078sm104083166b.56.2026.11.13.06.20.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 06:20:17 -0800 (PST)
-Message-ID: <ae6f0971-d308-4c05-acc8-a1b16b29fa29@blackwall.org>
-Date: Fri, 13 Nov 2026 16:20:15 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=SepjYy6X
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eqvQEd5U0WI21eKN2VFBjNSpnlvNE1qRT6krN+v41K840RY3HAFgG2gHGY1U0jABIWaH17wyEHWlHCUCubqZYi+IWag2qRxZZyf6Pz9Y9EuioItzMJ0hKkMTY7qGsnuPtNFXLPBNm1pAg3wPjXGsqzvHWIirh1deZf9rzL8Q3LgbPm9N+G9xn0kgE6LL5VwWcMNXRfcJWAsklZH+5dFhLu7d/d6gjcNhWXOdZ/IdSRtT4Qca9L6a8SyHT9XFhVQ0GrtuLreFGKvd2MUnGIgeV6MjOMo5EApgcG7ictNa3pDOpW4t8ThCqGui4fFcZUGl3Ue8gTnx6ib6QtiIPTOD4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AQx41P30RpB5UyfLvCsV2knE3MPPBlmTTuQPtkbGIMc=;
+ b=fDzZjvIFusHfyUGFxU+78J5pSaok8UZ93TdDHU/gBxhx3N73VxE83AByBt2aBZ7ojKOJRcw5rjQA8ZaUJRKOAsbMxRWVJrv2irZlsBz65kI3MoYt+BiD/C+JuyG+Vn+BAtHPk+5O1uyPiPo23ia7tDCO7rzEHKLixLbRGfFLz+PlPLkgzmunqn2fMUS98cykNvlhxnWfapt+CWuGSVwtt8T+nD59WyI0Xu5SfzSMu2aaiQmysOeVU2Zun0+BXmDCbc4E2ujtR7eJsfce3iNStPriRp00B/kiTdB++zgYtSoFFG1sksYr+ipS3w42d4BJCWCv7rE2OZV6uQ92T+Q6VA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AQx41P30RpB5UyfLvCsV2knE3MPPBlmTTuQPtkbGIMc=;
+ b=SepjYy6Xr6fi0t71TL63cSBHb/HkQ1WMMaN3XfU1ivkqFB33rNJYgSG5jXI35epeJORLreVS/vOzVUCLlp4oi22pqWmauDFzQBVhVgZCJKGB2ip/xnuv/g7qghgsUAwbrCRFhhnM/e4fZ/502R8uGuMl7BxgALqVmsAvwUWhnF2uyCxzuuiTHn/Gr9ENofSWDX8j2GEr+n+DoDxAJAQMLVEN1C3RWfYXitlq/Cs3Qws22NP/cJIilpGrDPJapaO9J4/gw/PIJxKUeed3fgHUfecOacEI1WK4XZ92WfnrGTBDJxCx4bXwZashSmLniAp2CAjbgXRUSLQ+4KkxwMhINw==
+Received: from DUZPR01CA0153.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4bd::6) by AS8PR10MB7859.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:633::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.0; Fri, 13 Nov
+ 2026 14:20:33 +0000
+Received: from DU2PEPF00028D01.eurprd03.prod.outlook.com
+ (2603:10a6:10:4bd:cafe::58) by DUZPR01CA0153.outlook.office365.com
+ (2603:10a6:10:4bd::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Fri,
+ 13 Nov 2026 14:20:33 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DU2PEPF00028D01.mail.protection.outlook.com (10.167.242.185) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 14:20:32 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 13 Nov
+ 2026 15:21:30 +0100
+Received: from localhost (10.48.87.100) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 13 Nov
+ 2026 15:20:31 +0100
+From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+CC: Linux STM32 <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, Patrick Delaunay
+	<patrick.delaunay@foss.st.com>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/3] dt-bindings: add STM32MP21 regulator bindings
+Date: Fri, 13 Nov 2026 15:10:39 +0100
+Message-ID: <20261113151038.1.I3b816ba92be5ff94cfe86a2f1c643645416cdb2b@changeid>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261113141342.557258-1-patrick.delaunay@foss.st.com>
+References: <20261113141342.557258-1-patrick.delaunay@foss.st.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,131 +116,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Nikolay Aleksandrov <razor@blackwall.org>
-Subject: Re: [PATCH net-next v4 0/5] net: devmem: size TX net_iovs from the
- dmabuf layout
-To: Stanislav Fomichev <sdf.kernel@gmail.com>, netdev@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
- andrew+netdev@lunn.ch, edumazet@kernel.org, horms@kernel.org,
- shuah@kernel.org, almasrymina@google.com, sdf@fomichev.me,
- leitao@debian.org, dtatulea@nvidia.com, asml.silence@gmail.com,
- bobbyeshleman@meta.com, daniel@iogearbox.net, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261111224740.2744522-1-sdf@fomichev.me>
-Content-Language: en-US, bg
-In-Reply-To: <20261111224740.2744522-1-sdf@fomichev.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D01:EE_|AS8PR10MB7859:EE_
+X-MS-Office365-Filtering-Correlation-Id: f59e27da-2886-432e-bc80-08df419146d8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|7416014|22082099003|18002099003|261009223027099003|56012099006|11063799006|261102123227099003|261028144727099003|261021123027099003|261026121527099003|261026140227099003|261021135927099003|261022105027099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	srIohjV3hOEZgV8w7EMzs2LUpKR7wApgVsKiBAmuCuMRbc0hcJ6ZLFZkOn4wF7gwn3QGvQDPVADaiLKlP9xrjs8ws4DPpej6tA86+UrqerJGnoB+wN8dIgourMb3QlGJ/rqWj5Qx2htH4UBui52fpgHBwQ8p0EYFmQ1bmktoG1G/f5qPIDeNAeJRc4t5Zq3ccD6gOt3Fa+vp0fJ6yofSr67wFWhZUw2+RXY0mFji4BDJ/s/nRS3dvyN0pJnuxIgu2kSnB5zLszmqLTt+EKxT7Vojb1Ig4SFrVla7neXzWnf7qRw2yauLv2ug/F9N778azSpAr0CliOEgXeOFEvA6Tfi8lqf7V44+5X7nLxpu55F76JQWBKCPk2JrAW73OvGRBKYdXf7WzzBXK8lEFBzibjZEH1LTJQNEUPcrPcOxsjHJznRUcD2o4g8KEXy6E4OiFOIFf5WFycqestLgHsrH8p3UYvisf3+WTq5J9uyj7JiDx6JCiQ6MGpWPczPmNUJaYzSp6zamK2szHosF0pK/U2iXE/gOyI4Wj2syBhS2iCLgcMXRS7wukttpmXYS59MvTYTxQ0V9/TvTwE9BpON66Rg8od1BZyTJpSwPintZdHgTNgIcXScFh0MdDN3hSO/pCVSjrs+zrIuVmnoBmYIfmuO6gaDtAwh1YRkwYlGxRWw7Cy3G9/LmldzQvYTTtLN1vXcJ4pYhbFCh+UhuNBZPGw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(7416014)(22082099003)(18002099003)(261009223027099003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261021123027099003)(261026121527099003)(261026140227099003)(261021135927099003)(261022105027099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3qZlnAkI6xO2DcIEcCsdmhgvuRLNYxIwc+mDP0MOnej2AW3UWFS2eHLbiDZtVhLkGxo4zrtpOE8e1J2el9EMuEF+XAYrFHnzz7Ie7CD3yY6S4+3dLAk79oSanREnTcRd4F3YLnjQg5VN1iFvfl68xbsqx+TaMwR2za1gp0iCzRR+VE3/d6nu2pnmcJ+wm36mDojJsfuGLcrN3117eL3e0GwE3Fb+axUKBEgs17GbZuT6+lpbEvfj7M2ixcOhi9ZOusiqRjDmV54ZI6kieatyW4r2PZr3kAbaWOyXEov/W7Kae0eQ4tT7KecYukzrcqhYM701t6FjQZ9nky+yDxHf+JpE7sP2IPeF7tgx0tsPyfr14eCpyC1VFHd8DWDeJ2gD5D7bWjFL0lyY6KsBiFxeAOSEeTY3HX77OGR/2QvcIua0S2tCne2nfKGIpPjHrRQw
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 14:20:32.3326
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f59e27da-2886-432e-bc80-08df419146d8
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028D01.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB7859
 
-On 12/11/2026 00:47, Stanislav Fomichev wrote:
-> TX bindings use PAGE_SIZE net_iovs, so a frag covers at most a page.
-> A 64KB skb needs 16 frags, and MAX_SKB_FRAGS caps devmem skbs at about
-> 68KB, which makes BIG TCP ineffective for devmem TX.
-> 
-> This series picks the TX net_iov size from the dmabuf sg table instead:
-> the largest power of 2, up to 2MB, which aligns every DMA segment. With
-> a 2MB hugepage-backed udmabuf a BIG TCP skb takes a few frags. There's
-> no UAPI change since TX addresses are dmabuf offsets.
-> 
-> This doesn't make skbs larger. TCP still sizes them with size_goal.
-> Only the frags get larger, and a single frag can now cover the whole
-> skb.
-> 
-> An skb stays under 64KB unless BIG TCP is enabled. With BIG TCP,
-> MSG_ZEROCOPY from huge pages can already create frags of 64KB or
-> more. So drivers already have to handle them:
-> - mlx5 has a 31-bit length per data segment
-> - gve splits frags into 16KB descriptors
-> - fbnic doesn't enable BIG TCP
-> - bnxt has a 16-bit BD length. It is broken for such page frags today
->    and will be fixed separately.
-> 
-> Tested on two mlx5 400Gb/s hosts with kperf (udmabuf, 32KB RX
-> net_iovs, 2MB hugepage-backed TX buffer), series backported to a 7.1
-> kernel on the sender only. 1 flow, MTU 4200, receiver tcp_rmem capped
-> at 16MB so it doesn't drop, median of 5 x 60s runs:
-> 
->                                before    after
->    frags per skb (sender)       16-17      1-2
->    throughput (Gb/s)            208.6    211.2
->    sender sendmsg CPU (sys)     40.8%    19.5%   (-52%)
-> 
-> The receiver's CPU is the bottleneck, so the gain is CPU, not
-> throughput. More of the transmit runs from the ACK path, so the
-> sender's softirq grows (52% -> 59%), but sys + sirq still drops by 16%.
-> 
-> kperf output (sender side) of runs near the median, before:
-> 
->    client: == Source <sender>
->    client:   Tx213.826 Gbps (1603901849600 bytes in 60007723 usec)
->    client:   Rx  0.000 Gbps (0 bytes in 60007723 usec)
->    client:   TCP retrans reord rtt rttvar d_ce snd_wnd cwnd
->    client:             0     0 633      2    0 15556608 7657
->    client:   net CPU 49: usr: 0.01% sys: 0.10% idle:44.13% iow: 0.00% irq: 3.21% sirq:52.53%
->    client:   app CPU 50: usr: 0.05% sys:41.55% idle:53.88% iow: 0.00% irq: 1.40% sirq: 3.10%
-> 
-> after:
-> 
->    client: == Source <sender>
->    client:   Tx211.242 Gbps (1584440279040 bytes in 60004741 usec)
->    client:   Rx  0.000 Gbps (0 bytes in 60004741 usec)
->    client:   TCP retrans reord rtt rttvar d_ce snd_wnd cwnd
->    client:             0     0 556      3    0 15499264 7650
->    client:   net CPU 13: usr: 0.01% sys: 0.08% idle:37.75% iow: 0.00% irq: 3.87% sirq:58.26%
->    client:   app CPU 14: usr: 0.06% sys:19.48% idle:77.23% iow: 0.00% irq: 1.19% sirq: 2.02%
-> 
-> The bnxt patch was tested on two 50Gb/s bnxt hosts with
-> CONFIG_MAX_SKB_FRAGS=45. With the default of 17 its check compiles
-> out. ncdevmem sending 1KB chunks builds skbs with up to 45 frags. The
-> stack segments them and the data arrives intact.
-> 
-> Patches:
-> - 1: bnxt: segment GSO skbs with too many frags in the stack
-> - 2-3: devmem TX prep (truesize, niov_shift in the TX lookup)
-> - 4: pick the TX net_iov size from the sg table
-> - 5: selftest for TX from a hugepage-backed dmabuf
-> 
-> v4:
-> - drop the per-device frag size limit and the bnxt, fbnic and mlx5
->    patches. Drivers already have to handle large page frags (Jakub).
-> 
-> v3: https://lore.kernel.org/netdev/20261105222058.944293-1-sdf@fomichev.me/
-> - default the netmem TX frag size limit to PAGE_SIZE, opt in bnxt,
->    fbnic and mlx5 (Mina)
-> 
-> v2: https://lore.kernel.org/netdev/20261103235152.1904727-1-sdf@fomichev.me/
-> - reword the TX truesize commit message (Mina)
-> - explain why the TX net_iov size ignores the device limit (Mina)
-> - use 1 flow results in the cover letter (Mina)
-> 
-> v1: https://lore.kernel.org/netdev/20261102191438.1059771-1-sdf@fomichev.me/
-> 
-> Stanislav Fomichev (5):
->    bnxt_en: let the stack segment GSO skbs with too many frags
->    net: devmem: charge the frag length to TX skb truesize
->    net: devmem: use niov_shift in net_devmem_get_niov_at()
->    net: devmem: size TX net_iovs from the dmabuf sg table
->    selftests: drv-net: devmem: TX from a hugepage-backed dmabuf
-> 
->   drivers/net/ethernet/broadcom/bnxt/bnxt.c     |  5 +++
->   net/core/datagram.c                           |  2 +-
->   net/core/devmem.c                             | 36 +++++++++++++---
->   net/core/netdev-genl.c                        |  2 +-
->   .../selftests/drivers/net/hw/devmem.py        | 10 ++++-
->   .../selftests/drivers/net/hw/devmem_lib.py    | 43 +++++++++++++++++--
->   .../selftests/drivers/net/hw/ncdevmem.c       |  8 +++-
->   .../selftests/drivers/net/hw/nk_devmem.py     | 11 ++++-
->   8 files changed, 101 insertions(+), 16 deletions(-)
-> 
+These bindings will be used for the SCMI voltage domain.
 
-Nice, I also tested it with netkit and TXed a 2MB net_iov size.
-For the set:
+Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+---
 
-Tested-by: Nikolay Aleksandrov <razor@blackwall.org>
-Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
+ .../regulator/st,stm32mp21-regulator.h        | 48 +++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+ create mode 100644 include/dt-bindings/regulator/st,stm32mp21-regulator.h
 
-Thanks,
-  Nik
+diff --git a/include/dt-bindings/regulator/st,stm32mp21-regulator.h b/include/dt-bindings/regulator/st,stm32mp21-regulator.h
+new file mode 100644
+index 000000000000..fcafcfb6dc54
+--- /dev/null
++++ b/include/dt-bindings/regulator/st,stm32mp21-regulator.h
+@@ -0,0 +1,48 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
++/*
++ * Copyright (C) 2026, STMicroelectronics - All Rights Reserved
++ */
++
++#ifndef __DT_BINDINGS_REGULATOR_ST_STM32MP21_REGULATOR_H
++#define __DT_BINDINGS_REGULATOR_ST_STM32MP21_REGULATOR_H
++
++/* SCMI voltage domains identifiers */
++
++/* SOC Internal regulators */
++#define VOLTD_SCMI_VDDIO1		0
++#define VOLTD_SCMI_VDDIO2		1
++#define VOLTD_SCMI_VDDIO3		2
++#define VOLTD_SCMI_ADC			3
++#define VOLTD_SCMI_VREFBUF		4
++
++/* STPMIC regulators (STPMIC25/STM32MP2L/STPMIC1L) */
++#define VOLTD_SCMI_STPMIC_BUCK1		5
++#define VOLTD_SCMI_STPMIC_BUCK2		6
++#define VOLTD_SCMI_STPMIC_BUCK3		7
++#define VOLTD_SCMI_STPMIC_BUCK4		8
++#define VOLTD_SCMI_STPMIC_BUCK5		9
++#define VOLTD_SCMI_STPMIC_BUCK6		10
++#define VOLTD_SCMI_STPMIC_BUCK7		11
++#define VOLTD_SCMI_STPMIC_LDO1		12
++#define VOLTD_SCMI_STPMIC_LDO2		13
++#define VOLTD_SCMI_STPMIC_LDO3		14
++#define VOLTD_SCMI_STPMIC_LDO4		15
++#define VOLTD_SCMI_STPMIC_LDO5		16
++#define VOLTD_SCMI_STPMIC_LDO6		17
++#define VOLTD_SCMI_STPMIC_LDO7		18
++#define VOLTD_SCMI_STPMIC_LDO8		19
++#define VOLTD_SCMI_STPMIC_REFDDR	20
++#define VOLTD_SCMI_STPMIC_GPO1		21
++#define VOLTD_SCMI_STPMIC_GPO2		22
++#define VOLTD_SCMI_STPMIC_GPO3		23
++#define VOLTD_SCMI_STPMIC_GPO4		24
++#define VOLTD_SCMI_STPMIC_GPO5		25
++
++/* External regulators */
++#define VOLTD_SCMI_REGU0		26
++#define VOLTD_SCMI_REGU1		27
++#define VOLTD_SCMI_REGU2		28
++#define VOLTD_SCMI_REGU3		29
++#define VOLTD_SCMI_REGU4		30
++
++#endif /*__DT_BINDINGS_REGULATOR_ST_STM32MP21_REGULATOR_H */
+-- 
+2.43.0
 
