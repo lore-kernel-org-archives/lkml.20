@@ -1,85 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794576365;
-	b=RfpV+RwbtV5yYU3z+bBhazQzOlJanQJggAyQIl20S++v2q4er5orDNTeaKAFL2fF1ptG
-	 XB/BlIOl3H3uWdghOnHa4ZKP1lx3Ft7cRxXcp4gSdVcFY1VFLpyjZGprEi7Jx9rrTD0bq
-	 wi/a9ltSQoU4PmycO8r+3efk4vrNQP+V7fmFYs487GG3+K96OIpWHkVzfSQ7TfiuJuw8L
-	 p9yaex3vGD7mIEjQ2MlZjTpCvgzq1MPv0y1fynTV6BOkbFuSWEIwrFT6s7X8uw2Zcc5nd
-	 Fqxa8lU5OSCPwWM2lrGR9Gl+pCgnnSzxpV6w33iM0tuJZKYTu5tn8RLmOhDTZ8KG/Lw==
+	t=1794576375;
+	b=k54VCQ0sRuYcXWC3L/4b+hj9imMIZYapDjmKJrEJHsb5FEfAugniOaH5dp9m+HY98oOj
+	 MT4X7xwTTLaf0QxHMT+qkdv9AvPiPdUSAzCejNK4R+m2l9OwsPvVTBG+9ib6OZlklPMjU
+	 Jf9U/3mszUTen/MTFFGQPS+zwRa7Ccff8D1kbSY8M4U2sr925mteZdtj4SHknBD3ji2xS
+	 PBtJSY/fHi+v/x9DkNj7LOIU/cOyeI/w8SzkYPr79YL3gFKIGT2Lej0awaXzpglTuR/XM
+	 RMBGAQt/wcOL6hDSaTQZc+ocjb2PbQNm1ASOJFzm1rLocypEErWc7t/tG86WlAe+u9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794576365;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=uozLgHIJcCRVIWGDkYXRUzxamxNdBt+/LrMuLz+mwMI=;
-	b=kQjOyHovK9lNfsXUsjbxEWupYeq6V+xhTpVDUZfdbp+REmgyUn92+Y94mh5RSqGfbPNU
-	 VDgsMrLhlkt4E7YW/HxS7g5VFg3nNvUF08tlNxfjexXltCV0Ok+9BdP9CNJiGmuOz2UJC
-	 dP+WCf2cIgJV2+7fmOCuj4yWk0qwzlERDj/cA1akXAszsye2FlRj/3SSMP6KCazCaTAee
-	 MZolefCFIISvMrWInO/Id89NvXI2w9LE9Y3xK4SvMAgyyxUZGDKxEvEoosvXOrcxZS28b
-	 qRxN815+t02bMv5vK5e46wS/fN3gETDsGIYKnhCObjo4W9B4EdjxEQ3tm2HhYbR/7Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576375;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=GFBfprroMIj7lP2HR0JBsqsLFaCtGD9563ECW+hbRiQ=;
+	b=neQm6PGnSw3BkFOwfbJbovo12WiGe+93DnPGwnObo82gHPSbVS1sdJ2LAxNg6nYHR71o
+	 9DggzfSG2OWsDn5GioFiWdoTBsN9uyiCrcasMo5WlJOSHNY2+/HggPioRYYsCv5AnttcG
+	 APQ8IBe4lpngPszjfoSXPTmbds/fZGYLqTeYVv2/z616w1UFDI8U6zt9CEegBaZOAfJhq
+	 7E0iztYzZrJLO6IMoP7dCBVjbSK74h8Zl1XOGEitUny7nnyE5WBVHPC3WvuvBW9xnQhHo
+	 aT5OHD6yQBKKU80wrMIexe5IleuvcSWR0tr8KQ/vzdAjHwxnisj3r8RFX8+vo1WWoVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gduD1r5A;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDA3606A339;
-	Fri, 13 Nov 2026 13:26:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BDA3606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=APvEPR0n;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 47FEB606A89E;
+	Fri, 13 Nov 2026 13:26:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47FEB606A89E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gduD1r5A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794576364; x=1826112364;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JHDAA9GQ4cle8mcEUojmH66XcPzPvCOf30Osct56EHk=;
-  b=gduD1r5AnvwflVvtZveQnXzKMIvXEzKXzhs1ZHf/HFwdsNAyr8Wzk4BE
-   JnKkBXo78AVaPLvrkmxvV//e/rqyaBy+9JVEaWoAJUWzTEUahOelGJ9u3
-   iJUYG9cmrWHaYElzCJXMs/MEnMAMRbRPekPYH3y467QmpUbyjRDIcjTE0
-   QO4CjYDddHiw5ODVLLXaiRBnBLw9QJ9n9o3WJ3+lWzbwJdNJk/TBfeO2m
-   ijmFYeuLy4KyOUPBt6oEaw66BRPdTU9xW6e9mSbKHhHQB3QVUUQwud1HE
-   VxKvvOE4Ctaiz1z7xFHXrTQzXDVxR4j1q9BBGqL6j+nefvJ7D165m9plB
-   A==;
-X-CSE-ConnectionGUID: ryXcCur4T5+hrAx54OAOCA==
-X-CSE-MsgGUID: 1hzw80O1TyqbC3PdSyI3ww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3391427"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3391427"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 05:26:04 -0800
-X-CSE-ConnectionGUID: Er+W26QyRNC/UrHD4NE/dg==
-X-CSE-MsgGUID: QkWApvgoRmGXBcHIZhw0QA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="10698097"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa011.fm.intel.com with ESMTP; 13 Nov 2026 05:25:58 -0800
-Date: Fri, 13 Nov 2026 21:17:42 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Ankit Agrawal <ankita@nvidia.com>
-Cc: linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dave@stgolabs.net, jic23@kernel.org,
-	dave.jiang@intel.com, alison.schofield@intel.com,
-	vishal.l.verma@intel.com, jgg@nvidia.com, aneesh.kumar@kernel.org,
-	aik@amd.com, iweiny@kernel.org, ming.li@zohomail.com,
-	icheng@nvidia.com, bhelgaas@google.com, smadhavan@nvidia.com,
-	ilpo.jarvinen@linux.intel.com,
-	Smita.KoralahalliChannabasappa@amd.com,
-	andriy.shevchenko@linux.intel.com, linux-coco@lists.linux.dev,
-	terry.bowman@amd.com, nik.borisov@suse.com, brads@mainlining.org,
-	lukas@wunner.de, rrichter@amd.com, gourry@gourry.net
-Subject: Re: [RFC PATCH v2 1/5] PCI/TSM: Create MMIO descriptors via TDISP
- Report
-Message-ID: <avcN9pz4mCRKA5zM@yilunxu-OptiPlex-7050>
-References: <20261105152909.53452-1-ankita@nvidia.com>
- <20261105152909.53452-2-ankita@nvidia.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=APvEPR0n
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1B7421516;
+	Fri, 13 Nov 2026 05:26:11 -0800 (PST)
+Received: from e135073.arm.com (unknown [10.57.14.137])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CC51D3F85F;
+	Fri, 13 Nov 2026 05:26:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794576374; bh=M/LAD+SaqRe2mHN4epjNom3PLX82QH6gyWxe6EtlDt0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=APvEPR0nrqajNBlUqFfP/odymgnYot9m6AzGtrzrWSNUm7rzlsMM6JK3r+/Ve6sYN
+	 6E3Wry4C02rrE3zOVFkJBpeMP/a//q2F1HMOypMwe8SqthOAGybJNCpG3wuGD8u4rC
+	 YvVf1+SsSr8HSGa1Zo2egLRA/CerWalRStJ5VnjE=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
+	James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Terry Bowman <terry.bowman@amd.com>,
+	Dan Williams <djbw@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Morduan Zang <zhangdandan@uniontech.com>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH v4 00/12] CPER: Add Memory Error Section 2 support
+Date: Fri, 13 Nov 2026 14:24:42 +0100
+Message-ID: <20261113132600.3355836-1-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,169 +80,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105152909.53452-2-ankita@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 03:29:05PM +0000, Ankit Agrawal wrote:
-> After pci_tsm_bind() and pci_tsm_lock() the low level TSM driver is
-> expected to populate the TDISP GET_DEVICE_INTERFACE_REPORT response
-> payload for the device.
-> 
-> Add pci_tsm_mmio_alloc()/pci_tsm_mmio_free() to parse that report into
-> a set of encrypted MMIO ranges, and pci_tsm_mmio_setup()/
-> pci_tsm_mmio_teardown() to mark those ranges as encrypted in iomem via
-> a new encrypted_iomem_resource tree (IORES_DESC_ENCRYPTED). With those
-> descriptors the TSM driver can use pci_tsm_mmio_setup() to inform
-> ioremap() how to map the device per the device expectations. The VM
-> is expected to validate the interface with the relying party before
-> accepting the device for operation.
-> 
-> pci_tsm_mmio_alloc() also recovers the obfuscated starting address for
-> each encrypted MMIO range, since the VM is never disclosed the HPA
-> that correlates to the GPA of the device's MMIO. The obfuscated
+The support is mostly duplicated from Memory Error Section handling.
+Other than differences coming from the content of  Memory Error
+Section 1 and 2, differences in the support are:
 
-I think we need to make clear why we need to parse the obfuscated
-addresses like this. IIUC what the guest really needs are the BarID &
-the offset within the Bar, so that it knows exactly where the MMIO range
-lies. That requires the obfuscation never affects the address bits
-for the in-Bar offset. Thus the MRO should be Bar aligned. And since
-there is only one MRO across all MMIO ranges, it has to be aligned to the
-largest Bar size.
+- v2 do not rely on a compact "struct cper_mem_err_compact" struct.
+This structure was used to support older versions of the Memory
+Error Section (1). This is not needed for the new structure.
 
-> address is BAR aligned.
+- The compact version is also used by the tracing framework.
+To avoid relying and propagating a non-standard record format,
+through trace event (cf. extlog_mem event) the new trace event
+prints each field individually.
 
-The obfuscated address is not BAR aligned, the MRO should be Bar aligned.
+The last patch of the serie was only build-tested due to the
+absence of relevant hardware. apei_mce_report_mem_error() and
+arch_apei_report_mem_error() implementations were also removed since
+last version.
 
-> 
-> BAR alignment is not mandated by the PCI TDISP specification. So this
-> relies on the TSM implementation: the MMIO reporting offset (MRO) it
-> programs must be a multiple of the largest BAR size so that the
-> in-BAR offset of a reported range can be recovered as
-> (reported address % BAR size). Arm CCA specifies this in DEN0137
-> section A9.6.2 ("This algorithm assumes that the MRO value is a
-> multiple of the BAR size") and recommends the RMM pick
-> MRO = x * 2^n with 2^n >= the largest BAR size.
-> 
+It will also require a proper handling from the rasdaemon. Applying
+this last patch without rasdaemon support will silent the reports of
+Memory Error Section 2 error, cf. ras_userspace_consumers() check.
 
-I think the following doesn't belong to the changelog, could be put
-under ---
-
-> Based on an original patch by Aneesh Kumar K.V [1], and cherry-picked
-> from Dan Williams' upstream commit [2]. Major functional differences
-> from Dan's posting is due to the lack of evidence-store infrastructure
-> yet (device_evidence / DEVICE_EVIDENCE_TYPE_REPORT). The
-> pci_tsm_mmio_alloc() takes the raw report bytes directly from the caller
-> instead of pulling them from a device evidence store.
-> 
-> Link: https://lore.kernel.org/linux-coco/20251117140007.122062-8-aneesh.kumar@kernel.org/ [1]
-> Link: https://lore.kernel.org/all/20260705220819.2472765-15-djbw@kernel.org/ [2]
-> 
-> Signed-off-by: Ankit Agrawal <ankita@nvidia.com>
-> Reviewed-by: Bradley Morgan <brads@mainlining.org>
-> ---
->  drivers/pci/tsm.c       | 239 ++++++++++++++++++++++++++++++++++++++++
->  include/linux/ioport.h  |   2 +
->  include/linux/pci-tsm.h |  33 ++++++
->  kernel/resource.c       |   8 ++
->  4 files changed, 282 insertions(+)
-> 
-> diff --git a/drivers/pci/tsm.c b/drivers/pci/tsm.c
-> index 5fdcd7f2e820..d074bfd18d40 100644
-> --- a/drivers/pci/tsm.c
-> +++ b/drivers/pci/tsm.c
-> @@ -9,11 +9,16 @@
->  #define dev_fmt(fmt) "PCI/TSM: " fmt
->  
->  #include <linux/bitfield.h>
-> +#include <linux/overflow.h>
->  #include <linux/pci.h>
->  #include <linux/pci-doe.h>
->  #include <linux/pci-tsm.h>
-> +#include <linux/range.h>
-> +#include <linux/sizes.h>
-> +#include <linux/slab.h>
->  #include <linux/sysfs.h>
->  #include <linux/tsm.h>
-> +#include <linux/unaligned.h>
-
-Didn't find it needed.
-
->  #include <linux/xarray.h>
->  #include "pci.h"
-
-[...]
-
-> +int pci_tsm_mmio_setup(struct pci_dev *pdev, struct pci_tsm_mmio *mmio)
-> +{
-> +	int i;
-> +
-> +	device_lock_assert(&pdev->dev);
-> +	if (pdev->dev.driver)
-> +		return -EBUSY;
-> +
-> +	for (i = 0; i < mmio->nr; i++) {
-> +		struct resource *res = pci_tsm_mmio_resource(mmio, i);
-> +		int j;
-> +
-> +		if (resource_size(res) == 0 || !(res->flags & IORESOURCE_MEM))
-> +			break;
-> +
-> +		/* Only require the caller to set the range, init remainder */
-> +		*res = DEFINE_RES_NAMED_DESC(res->start, resource_size(res),
-> +					     pci_name(pdev), IORESOURCE_MEM,
-> +					     IORES_DESC_ENCRYPTED);
-> +
-> +		for (j = 0; j < PCI_NUM_RESOURCES; j++)
-
-You've changed to pci_dev_for_each_resource in Patch 3, why not change
-it here? Then Patch 3 would be clearer.
-
-> +			if (resource_contains(pci_resource_n(pdev, j), res))
-> +				break;
-> +
-> +		/* Request is outside of device MMIO */
-> +		if (j >= PCI_NUM_RESOURCES)
-> +			break;
-> +
-> +		if (insert_resource(&encrypted_iomem_resource, res) != 0)
-> +			break;
-> +	}
-> +
-> +	if (i == mmio->nr)
-> +		return 0;
-> +
-> +	mmio_teardown(mmio, i);
-> +
-> +	return -EINVAL;
-> +}
-> +EXPORT_SYMBOL_GPL(pci_tsm_mmio_setup);
-> +
-
-[...]
-
-> +/**
-> + * struct pci_tsm_mmio_entry - an encrypted MMIO range
-> + * @res: MMIO address range (typically Guest Physical Address, GPA)
-> + * @tsm_offset: Host Physical Address, HPA obfuscation offset added by the TSM.
-> + *		Translates report addresses to GPA.
-> + */
-> +struct pci_tsm_mmio_entry {
-> +	struct resource res;
-> +	u64 tsm_offset;
-
-As mentioned [1], could you replace tsm_offset by mmio_range_index
-according to this patch [2]
-
-[1] https://lore.kernel.org/all/atIY1Joa%2F%2F+hCRcr@yilunxu-OptiPlex-7050/
-[2] https://lore.kernel.org/all/20260924041032.1096569-8-zhenzhong.duan@intel.com/
+Future:
+- _OSC support (if agreed)
+- Addition of arm64 tracepoints
+https://lore.kernel.org/lkml/20261023170405.000060b8@oss.qualcomm.com/
+- Emission of lossy CPER Mem error v1 tracepoints for legacy userspace
+  tools
+https://lore.kernel.org/lkml/at0rs4parlHFGI7k@hu-ashoraj-lv.qualcomm.com/
 
 
-Others LGTM.
+RFC: https://lore.kernel.org/all/20260929074659.2587216-1-pierre.gondois@arm.com/#t
+V1:  https://lore.kernel.org/all/20261019145643.1877246-1-pierre.gondois@arm.com/
+- Corrections from Jonathan's review
+- New patch:
+    [PATCH v2 4/6] EDAC/ghes: Extract error report initialization
+- Last patch not in RFC as it has been reviewed by Jonathan@
+    [PATCH v2 6/6] ACPI: extlog: add Memory Error Section 2 trace event
+V2:
+- Updated ghes_edac_init_error() to ghes_edac_init_error_desc(),
+  which now only acts on the input "struct edac_raw_error_desc"
+  + added lockdep_assert_held() to ghes_edac_init_error_desc()
+- Accumulate failures with "queued |=" in ghes_do_proc()
+- New PATCH:
+  [PATCH v3 5/7] ACPI: APEI: Extract common memory failure handling
 
-BTW: Is it possible we merge this patch alone when we collect enough
-reviews? This is about PCIe TSM and several other series depend on it.
+V3:
+- Added <linux/bits.h> include
+- Used pr_warn_rate_limited()
+- Removed one warn for smbios handle overflow
+- Replaced __string() -> __string_len() in trace event
 
+Added patch to us scnprintf():
+- cper: Return actual bytes written by DIMM location helpers
+Added patches to increase buffer size and prevent overflows:
+- EDAC/ghes: Small buffer fixes for mem other_detail helpers
+- efi/cper: Pass buffer length to memory location helpers
+- efi/cper: Pass buffer length to DIMM location helpers
 
-Thanks,
-Yilun
+Pierre Gondois (12):
+  cper: use BIT_ULL() for processor and memory validation bits
+  cper: add Memory Error Section 2 structures
+  cper: add helpers to handle Memory Error Section 2
+  cper: Return actual bytes written by DIMM location helpers
+  EDAC/ghes: Extract error report initialization
+  ACPI: APEI: Extract common memory failure handling
+  ACPI: APEI: add separate Memory Error Section 2 handlers
+  ACPI: extlog: add Memory Error Section 2 trace event
+  efi/cper: Pass buffer length to DIMM location helpers
+  efi/cper: Pass buffer length to memory location helpers
+  EDAC/ghes: Small buffer fixes for mem other_detail helpers
+  efi/cper: Increase memory error location and detail buffer sizes
+
+ drivers/acpi/acpi_extlog.c  |   6 +
+ drivers/acpi/apei/ghes.c    |  58 ++++++++--
+ drivers/edac/ghes_edac.c    | 211 ++++++++++++++++++++++++++++--------
+ drivers/firmware/efi/cper.c | 137 ++++++++++++++++++++---
+ drivers/ras/ras.c           |   1 +
+ include/acpi/ghes.h         |   2 +
+ include/linux/cper.h        | 138 ++++++++++++++++-------
+ include/linux/edac.h        |   2 +-
+ include/ras/ras_event.h     | 102 +++++++++++++++++
+ 9 files changed, 548 insertions(+), 109 deletions(-)
+
+--
+2.43.0
