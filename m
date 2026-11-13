@@ -1,72 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794552820;
-	b=1URA6fVay8cR/lQ/lenkfjVvylG1KBaxTQQ8xAmFDxe68PSFY3TIldEXvs+TkDrYKpSO
-	 GbLMEkG4kcU2NNz8wiF73Z654O8HMXUd/kycLVtrNt/TqObNbUa9uoAdRT0hXZJPFp1wD
-	 PE2bjmaLRSQlO2iY3L1U/a+P0BkFyd7C9Gjp5xACpwAKPlOiDZIqCc5lqQ1QzVcXSnbdB
-	 dV/9NiGz2O96Xmo7JmkTyLMD4JJrdffQMtOYtRoi8qHyQGPV2mX3dzi3YCYMn5upGamqt
-	 FRpA/twwbE4+9tTsPuP5H5tNq2E4uGN8lWYxcxjq4/7txJ14jMstifkwMRpRsXsmdlQ==
+	t=1794552886;
+	b=CQ/v/Nym2UWTn2iif/oJK8L7sDPHHrsTTxKd5qPXBO/kJkqNQEDlBYq5qhYoBegU2Tj8
+	 4Xo8RalwKVE55ND4+yJoekw0VneawQxMrgx+vk/VHoyxG6kyMtU5wah4htCCUby7J+WOq
+	 FIYb1p1vfydoedM7FbuY4JBkTYnLfPwre7SvgVmPp/YJQL+4SrKIqPHwNpDRKFvML575I
+	 Fmd5/yBN2gTEdOnx8R9hTfv51faHW/fuC67fCl7R6kxAtF23CkPPH5juWqNnw9azz1Bil
+	 dOjnd9W2SCPGLyKSSV51n9yhpTJqNk6YJfLOhjb2T/Rl6u9IP6V6mGV9kRLmNlgXprA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794552820;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=eRq6wTCSjBW5NE3wTloFuQbWBWvxneqtC2vRx7rsxKw=;
-	b=A2L04c3w2atha8JIhevnC4JULgL7lfoge3Zwg78PBus9mHejkAeVwJt4/ouvYrUd89iI
-	 usAXcsCBCOUIRJ+Ym+oNxPW2Ta6oGxrrqOEOAHfew/gUq+yL5mAfflyBSxBJdXFTfN1s0
-	 Mg6ZwezYOByhM+c48mD5VrbjU3K+1olJWMQTHMhggwstbkTTco+euisKsGt3kJehFhtNH
-	 eSed3u10rMLI1UWeU3VivJv7K+F39d8NtkYsNvZSbWpjafXCZaEVr20FBDQg/Es7bpo5d
-	 L+PzfggqH1YkeaCPyMyg7Py2DYCee/yGV5NQoL6hlzivrwEPyCUyAT7BBYZ0TQjff5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794552886;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=R2fhwLvHTy1x0CH3Us+GlmFnqE7m+FoayPcluGQhNk4=;
+	b=CQvQ0hBUjIdvrQ9hHIFuhTn4maiKwMsr35R1Y1J4BPnrwhKkuJDTYEaDWcaw/39DbuRn
+	 Ygv4goFV/bXCGiE+VdyTbFqQbjN+7wgAgVYeOVe8xJPddN3iYekRyQI7R2KFBaFbiOIL1
+	 9qQHkzTNdYEsewwucOLf+y6KtPt7APVMQmTHw3UpD/3Gs9H0ziiaFHSJcVfVOdhQ47XqD
+	 W/HtTU6Z2Wj2geBmB7ro6ghziLvN43y7EK6azeMqJnNl9qc02F471LmBG9/czXlZgFaE5
+	 Iw6a9ZfSsl4xVkzkCdMXpVQACYlX8/MD1NCqG85ZY3JZzAjfZHdXQxPRQRPUuBAOFWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AzJ5O9Eg;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d9VC2BA2;
+	arc=none smtp.remote-ip=91.218.175.131
+Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E71606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:53:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0E71606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E4E606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:54:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69E4E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AzJ5O9Eg
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3724667bc16so373712eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:53:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794552819; x=1795157619; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eRq6wTCSjBW5NE3wTloFuQbWBWvxneqtC2vRx7rsxKw=;
-        b=AzJ5O9Eg7CElXOQSfNUvkl1pHodcr3JeY+WWo4T461sGTFGkDovclOGVoJ1qAjVIa+
-         bm3ihCFt+/Lk2wVulzZZebLLW0iT32y9Zje5X+6zCGVmfK7HgnYdLOmf3Vp12nCyR8on
-         g/2N9B2ORQ7/Si3T3NAsyavlK11MovPa+T11BBdBUGmg1uvWUPZaG7qIpkcvisWo2Rq9
-         V8XymPHbFWNcsv/Ssgm6kzjBRpieyUvABF6aMSHRjxj1dmiEzUvFgQdK/kBvwRsg+k1x
-         NcZwGrTm9RO9XiHUp46BFeAT6JQXr9v8BiR+HyVVPUNGEgtoTOCTsLrPaFclXH4Bhyre
-         hYpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794552819; x=1795157619;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eRq6wTCSjBW5NE3wTloFuQbWBWvxneqtC2vRx7rsxKw=;
-        b=DKQ1Qv+0cqg3EyeaBHCsIEfpnmhGDwUR0x45PRUNMeSnxx8tbEJrUQnAswSqq7e0Tz
-         RUfwrmUEH5bAp2bRYbBTIswVPMN2KJWFDNciT26MHWFbDsI/WpR/zGW4ficYrsg8rSxS
-         VkAcC7QM9e8ATpqnZB17l9cIGRYzE31e/MzyCmBLZTYCM+0WJi/p0vRbRdN0VcvD+uRC
-         fYD+3eZAWgJgwj2RBhU/pNC1HnnsJ8UQpBZ/6TiFJhjq8p28bvlJhqhibNCXyY4g59pj
-         0fTEv94CxZqxBWeiziMjY4+ZwO45vYc06pdV33WLubYXUUqIf+oIH5rE7U/lsERN70rN
-         wKQQ==
-X-Forwarded-Encrypted: i=1; AL+hErFJbkGdG/mt4CIyrZQwxHe8DFrsIOOa8TxBFc+n3VxM5VKdl+tneuQIgOB959BEdr+ZlGV35pAr80Gp8qg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8q8W4lZ9yAPcnZoY6223/4Vej1XICUHgC+JmSNUGsc93j4jUji
-	65g954GthByGLXLInkQ7hb//33Vt2E7ZxfNHL4vvhio4hGhLFnDMZauG7PMMoPL8zxQ0K/5UZ8H
-	Q7SmLimTRYlbMzxAd5xi2ahCWaP0FW4NtGtTELQ==
-X-Received: from dybml12.prod.google.com ([2002:a05:7301:150c:b0:36a:209:2e4])
- (user=sarthakkukreti job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:80cd:b0:377:82e:2d79 with SMTP id 5a478bee46e88-377e093ecaamr4738406eec.9.1794552818284;
- Thu, 12 Nov 2026 22:53:38 -0800 (PST)
-Date: Thu, 12 Nov 2026 22:53:29 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d9VC2BA2
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OsS3qsQqkiRhs5vCMH87Zrs/o6a3Yg7xoB13t5bDoD4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794552883; v=1; x=1795157683;
+ b=d9VC2BA2Ksc1SYEexOYvI9NbFfuD/9nfwxBBhF+mNKQLkVqU2gSStA4WlHVhf7nFXBFWwzuQ
+ k8O0A56dcZDb5ubBDi3UcyHv21/DbmvNbaUQeZUNTUH+JRuPAXf4sMhzwxy7hGyqKV5Q4kdf7rD
+ KDsPmJq7QnuxL04lT2fjBqUw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f6a10e7b9b8e81ff;
+	Fri, 13 Nov 2026 06:54:43 +0000
+X-Mizu-Trace-ID: f6a10e7b9b8e81ff
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 13 Nov 2026 07:54:40 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: linux-wireless@vger.kernel.org, Mehmet Fide <mehmet.fide@gmail.com>,
+ Ping-Ke Shih <pkshih@realtek.com>
+CC: Tzu-En Huang <tehuang@realtek.com>, Yan-Hsuan Chuang <yhchuang@realtek.com>,
+ Kalle Valo <kvalo@kernel.org>, Stanislaw Gruszka <sgruszka@redhat.com>,
+ Brian Norris <briannorris@chromium.org>, linux-kernel@vger.kernel.org,
+ mehmet.fide@screeningeagle.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_1/3=5D_wifi=3A_rtw88=3A_free_the_re?=
+ =?US-ASCII?Q?served_pages_of_an_interface_on_firmware_recovery?=
+In-Reply-To: <20261111213239.569224-2-mehmet.fide@gmail.com>
+References: <20261111213239.569224-1-mehmet.fide@gmail.com> <20261111213239.569224-2-mehmet.fide@gmail.com>
+Message-ID: <7DDD0FC3-AD89-4819-8058-15DFDA7E5D6D@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,59 +68,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261113065332.929085-1-sarthakkukreti@google.com>
-Subject: [PATCH 0/3] fs: reject casefolded names that fold to ".", "..", or empty
-From: Sarthak Kukreti <sarthakkukreti@google.com>
-To: "Theodore Ts'o" <tytso@mit.edu>, Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>
-Cc: Gabriel Krisman Bertazi <krisman@collabora.co.uk>, Eric Biggers <ebiggers@google.com>, 
-	Dmitry Torokhov <dtor@google.com>, linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
-	Sarthak Kukreti <sarthakkukreti@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Unicode normalization in fs/unicode strips Default_Ignorable_Code_Point
-characters (such as U+202E RIGHT-TO-LEFT OVERRIDE and U+200B ZERO WIDTH
-SPACE) in both UTF8_NFDI and UTF8_NFDICF. In casefolded directories,
-filenames consisting of 0 to 2 ASCII dots plus ignorable code points
-(e.g. "\u202e", ".\u202e", "..\u202e") pass VFS path walk as normal
-multi-byte components, but fold to "", ".", or ".." in utf8_casefold():
+Hi Mehmet,
 
-1. Looking up ".\u202e" folds to "." and matches the on-disk "." entry
-   (de->inode == dir->i_ino) in generic_ci_match(), triggering
-   EXT4_ERROR_INODE ("linked to parent dir") in ext4_lookup().
-2. Looking up "..\u202e" folds to ".." and matches the on-disk ".."
-   entry, returning -ELOOP via d_splice_alias() (or triggering
-   EXT4_ERROR_INODE on the root directory).
-3. Filenames consisting solely of ignorable characters fold to "" (0
-   bytes), causing distinct ignorable-only filenames to hash and compare
-   equal and creating entries that e2fsck flags as corruption.
+Thanks for sending these. One comment below.
 
-This series rejects casefolding and case-insensitive matching of names
-that fold to "", ".", or ".." across libfs (d_hash, d_compare,
-generic_ci_match, and generic_ci_validate_strict_name), ext4
-(ext4_fname_setup_ci_filename and ext4fs_dirhash), and f2fs
-(f2fs_init_casefolded_name), while preserving exact byte-equality
-matching for genuine "." and ".." lookups (such as NFS ext4_get_parent)
-and opaque byte fallback for invalid UTF-8 sequences in non-strict mode.
+On November 11, 2026 10:32:37 PM GMT+01:00, Mehmet Fide
+<mehmet.fide@gmail.com> wrote:
 
-Dmitry Torokhov (1):
-  f2fs: reject casefolded names that fold to ".", "..", or empty
+> diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
+> index f7708ad17b6f..adc54b063382 100644
+> --- a/drivers/net/wireless/realtek/rtw88/main.c
+> +++ b/drivers/net/wireless/realtek/rtw88/main.c
+> @@ -627,6 +627,7 @@ static void rtw_reset_vif_iter(void *data, u8 *mac, struct ieee80211_vif *vif)
+>       rtw_bf_disassoc(rtwdev, vif, NULL);
+>       rtw_vif_assoc_changed(rtwvif, NULL);
+>       rtw_txq_cleanup(rtwdev, vif->txq);
+> +     rtw_remove_rsvd_page(rtwdev, rtwvif);
 
-Sarthak Kukreti (2):
-  libfs: reject casefolded names that fold to ".", "..", or empty
-  ext4: reject casefolded names that fold to ".", "..", or empty
+As far as I can see, update_beacon_work can still run after this reset
+and before ieee80211_reconfig() adds the interfaces again.
+rtw_core_stop() cancels it from rtw_enter_ips(), but rtw_ops_set_tim()
+can queue it again right after, for example when a frame for a dozing
+station gets buffered. ieee80211_restart_work() then flushes
+local->workqueue before it calls ieee80211_reconfig().
 
- fs/ext4/hash-test.c | 12 ++++++++++++
- fs/ext4/hash.c      |  2 +-
- fs/ext4/namei.c     | 11 +++++++++--
- fs/f2fs/dir.c       |  6 +++++-
- fs/libfs.c          | 52 +++++++++++++++++++++++++++++++++++++++++++++++++++-
- include/linux/fs.h  | 29 +++++++++++++----------------
- 6 files changed, 91 insertions(+), 21 deletions(-)
+So if I read it right, with an AP interface (ap_active stays set) the
+work now finds every per vif list empty and runs into this in
+__rtw_build_rsvd_page_from_vifs():
 
--- 
-2.56.0.611.g1030f0b940-goog
+        rsvd_pkt = list_first_entry_or_null(&rtwdev->rsvd_page_list,
+                                            struct rtw_rsvd_page, build_list);
+        if (!rsvd_pkt) {
+                WARN(1, "Should not have an empty reserved page\n");
+                return -EINVAL;
+        }
 
+Before this patch it built the page from the stale entries and did not
+warn. Maybe rtw_fw_update_beacon_work() could skip the download while
+RTW_FLAG_RESTARTING is set? The reconfig downloads the beacon again for
+BSS_CHANGED_BEACON anyway.
+
+Best regards,
+Luka Gejak
