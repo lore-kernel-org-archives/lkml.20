@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.203.23.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794554211;
-	b=fNbzfZvtiDnsWcE1kphfA5E8RuVpRre5OR6FXKCmyYgYCAMzq29uX/qt1CwtXicg4PFX
-	 Q8fgKHEw1i484xsqE5jutNccaS484A7FPhZFx+vGzPSKAirXNXB/RSyDD3L705xoaLUkg
-	 YUzRCcLBy2S8U7ossftNGcHdrBuI6dOgXBSu1wGteLREjrht8Q3orNMGPPjIFhlbtPpL+
-	 +JQS0YYWbY3I6Ps7et30l+7j+TPqJDXawpSfFgRdn8E+KwtvasetoFp4yLA5jTgHT7nqT
-	 khEz2BZLhVLMto388gywqYZOQIhNOGTyDHuDIXy8TNX3ApcfWMOZrzplh0JqGcay5Rg==
+	t=1794554273;
+	b=xWmHuAnRn60W1ag7SaRiZ3XsY7V8AOmSawVRQRwCYvhOCk17KDpEhI6YzT8EwpE8RuEx
+	 GDltmn05R/kJfh2ptJMlMZo44frr5TqB8pkSH/KEZgu0zbvVd5ttSONR8ydJsg/8lGtdF
+	 sgRPZmEgsBbT6I7lyJZmMDlavkGDu/+4zbkM93LhNjInf4HuJ2g2jhIylFDNgAe9WHBHf
+	 Rc0ytK5HZ5UtiyLWpACyuVdRfYQvIbmPIEzMzm4rI4BQp401iDXXwxu2n/fZfcJazJOiU
+	 LX33esgugyju/x5tJLdPdoFUqm8udqrRZ5GC4moutt4wSpoJSqeYnHpkSAE2j2nCdlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794554211;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Cmhjlcc9wJVtem4SAw+5SbMmWK+OqLsq7s+Ps8ybe1A=;
-	b=v36wAK0xDWujiPrGoeZ3fgBbEraaLMDlQHoWKbOYVqdjjMOeMVnPpf35coRyvE7DV/lW
-	 SoNr2APA7uNKtWlkK6UI33STSVCj7vRPy8ksJgiraAq4RTkaF9Ah0mCRlozHtMuLIal0/
-	 pWT/pBy6WEDoyZq1Rfm5wmwj7j1vY+EJLOaIJPgBIh5Qr41/rYVGZcUmF/yk2oSplbOqM
-	 nlZsCv6v2U9snhL6n6c9jeRdcYa0Wzw5rXv9KFAw6HtYpekdFn6vKB1bliHwmvzhuJ2dn
-	 xL4ZteTapZzhSKBJdb5p96ZunkqoedHT1k9yJmFkHGqV55CbSiL0pt/Mnz01sCVFM0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794554273;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+PvlK30IsPvyDmdVzBsctIGAzhTBquDxEsbqbTaHXwg=;
+	b=5HlGMp8Oe9uo2MQByHf/VCXLOKvYiAv1NFkG5c7HoqdNiPgg7EyBJXl1Zk+92f0lmzdS
+	 wgVs0g58lzM0lJlZUbujGq8uA4YtBVQhhGHxvnK1LcZycPK4HzYIyzdUAdRkCLSoC7/fr
+	 ZcYL+eFU6jx5lU71U3YnwBQPxsM9k0w6iBv9QZue9RrQRkTQh0IHtxfqZGzcBm8SF6wwI
+	 TJcquvOTSFw/H7WgQDXp4XFUfzQo3FPoML4qHk0n1YA159AJI7MA3TE9774P4YfEURXyd
+	 w65C0vJQARABi6a0fA5u6KtToR7TRNjzDzKueYtblPqBI2MAXXxdpDy1O+NQK1p4JQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ua91YIgP;
-	arc=none smtp.remote-ip=91.218.175.218
-Received: from mta0.migadu.com (out-218.mta0.migadu.com [91.218.175.218])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=blackshift.org;
+	spf=pass smtp.mailfrom=blackshift.org;
+	arc=none smtp.remote-ip=116.203.23.228
+Received: from glittertind.blackshift.org (glittertind.blackshift.org [116.203.23.228])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC724606A8AF
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:16:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC724606A8AF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ua91YIgP
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MlAH7VVzOoKTqgoo5+r2zLsQBkmZI7/9xOBOGcbvc/Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794554209; v=1; x=1795159009;
- b=ua91YIgP/VnkPuSdPKiD5Of5yIeP/6g9HpC4luBogIIkE9kfJvtiqWGI2/72Z7nTyZRSeCrK
- zyaTqt5Fx7SUdRiCG75h70LR1sJE3xBu1/zbCvb8mQ4qeNvKB2HIZxnkhA1/NumBVe8f3fsiXZm
- OT5gUt5UK56kJCtTeVc/z+kQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e03740ce7c941dc8;
-	Fri, 13 Nov 2026 07:16:46 +0000
-X-Mizu-Trace-ID: e03740ce7c941dc8
-X-Migadu-Flow: FLOW_OUT
-From: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	WangYuli <wangyuli@uniontech.com>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] riscv: kgdb: clear bit 0 of single-step jump targets
-Date: Fri, 13 Nov 2026 08:16:14 +0100
-Message-ID: <20261113071616.219623-4-clement.leger@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261113071616.219623-1-clement.leger@linux.dev>
-References: <20261113071616.219623-1-clement.leger@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B1F606A32D;
+	Fri, 13 Nov 2026 07:17:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69B1F606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackshift.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blackshift.org
+Received: from bjornoya.blackshift.org (unknown [IPv6:2003:102:af17:cb00:cf3e:e168:1a5d:8293])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature RSA-PSS (4096 bits) client-digest SHA256)
+	(Client CN "bjornoya.blackshift.org", Issuer "YR2" (not verified))
+	by glittertind.blackshift.org (Postfix) with ESMTPS id 43FCB79E6C0;
+	Fri, 13 Nov 2026 07:17:48 +0000 (UTC)
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id AA4D25EA5C4;
+	Fri, 13 Nov 2026 07:17:47 +0000 (UTC)
+Date: Fri, 13 Nov 2026 08:17:47 +0100
+From: Marc Kleine-Budde <mkl@blackshift.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: o.rempel@pengutronix.de, robin@protonic.nl, socketcan@hartkopp.net, 
+	mkl@pengutronix.de, shuah@kernel.org, kernel@pengutronix.de, 
+	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	fmaurer@redhat.com, mailhol@kernel.org, alexander.hoelzl@gmx.net, 
+	quchaosheng000406@163.com, penguin-kernel@i-love.sakura.ne.jp, kuba@kernel.org
+Subject: Re: [PATCH can-next v2 2/9] selftests: can: add J1939 test helper
+ header and library
+Message-ID: <20261113-classy-evasive-mule-559cfd-mkl@blackshift.org>
+References: <20261104-j1939-selftests-v2-2-cf797c83317b@pengutronix.de>
+ <179394331774.488853.9726002978646630085@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,43 +65,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ri4qm6tshdojjwng"
+Content-Disposition: inline
+In-Reply-To: <179394331774.488853.9726002978646630085@kernel.org>
 
-Per the RISC-V ISA, JALR (and C.JR/C.JALR) clear the lowest bit of
-the calculated target address, so that auxiliary information can be
-stored in the low bit of function pointers. kgdb's software single
-step must compute the same target the hardware will actually take.
 
-This mirrors what the kprobe instruction simulator already does in
-simulate_jalr().
+--ri4qm6tshdojjwng
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH can-next v2 2/9] selftests: can: add J1939 test helper
+ header and library
+MIME-Version: 1.0
 
-Signed-off-by: Clément Léger <clement.leger@linux.dev>
----
- arch/riscv/kernel/kgdb.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 06.11.2026 05:35:17, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in ca=
+se
+> you want to address the nit picks below when you respin.
+>
+> Low priority / nit picks for your consideration:
+>
+> - [Low] selftests: can: silent skip in j1939_test_main() when protocol is
+>   missing
 
-diff --git a/arch/riscv/kernel/kgdb.c b/arch/riscv/kernel/kgdb.c
-index 121dae87dc68..647560194d8c 100644
---- a/arch/riscv/kernel/kgdb.c
-+++ b/arch/riscv/kernel/kgdb.c
-@@ -48,7 +48,7 @@ static int get_step_address(struct pt_regs *regs, unsigned long *next_addr)
- 		if (riscv_insn_is_c_jalr(op_code) ||
- 		    riscv_insn_is_c_jr(op_code)) {
- 			rs1_num = decode_register_index(op_code, RVC_C2_RS1_OPOFF);
--			*next_addr = regs_ptr[rs1_num];
-+			*next_addr = regs_ptr[rs1_num] & ~1UL;
- 		} else if (riscv_insn_is_c_j(op_code) ||
- 			   riscv_insn_is_c_jal(op_code)) {
- 			*next_addr = RVC_EXTRACT_JTYPE_IMM(op_code) + pc;
-@@ -109,6 +109,7 @@ static int get_step_address(struct pt_regs *regs, unsigned long *next_addr)
- 			if (rs1_num)
- 				*next_addr = ((unsigned long *)regs)[rs1_num];
- 			*next_addr += RV_EXTRACT_ITYPE_IMM(op_code);
-+			*next_addr &= ~1UL;
- 		} else if (riscv_insn_is_sret(op_code)) {
- 			*next_addr = pc;
- 		} else {
--- 
-2.55.0
+pr-bot: cr
 
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--ri4qm6tshdojjwng
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCava5mAAKCRDMOmT6rpmt
+0hvaAP9vUxyGuySMNG4POpe13CNvZdJujh4Bjs5N1ffj9YFqXQD9FAbTZ6gTgFjt
+84gHs7uZzUPaloLGa8OhmYfgCbQlzQ8=
+=Jp/F
+-----END PGP SIGNATURE-----
+
+--ri4qm6tshdojjwng--
