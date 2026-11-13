@@ -1,113 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794588347;
-	b=uf5+R2GaxekZrRbXhDrpB0j856NTNDkj5wi8JgEzM5EekbjxA6syxKy8kZM+ggdUZAQ8
-	 5s1bGFephCdMTe95AWnXguiBf40shUWspb6cK1dKBFByMLb+uw85HwShzAdHw/GzpJ1HO
-	 KZHOD0qB5XBmuHJkX6cEoNbDE755xt27bP2/Gey9p7auEi5oXBllQBcEjSCDLD67QQsDZ
-	 lKojGl0iq2isubYn9OvDwF4P0sAJ2fWTT2mNobXNnTfc0R0MHRDsfZgwiOPtZFp3FQ1ez
-	 OcScrY5NXwNJsVG+E5zNfvVBr4ePHshBN/Eej9AbtlncHWoq12NCpzNBKIPhfRSiaOQ==
+	t=1794588371;
+	b=Z47Y9VNfKOJkdmd/xNp+cNuGoMB2D2Ueh7g69OoRxTqHSSZJcHe+qa0Ipbpb0x8LyyA7
+	 i6vkS03aV0LyjzVaxQeyDmWqodDXgNsMPvW15euGJfyFbs6XUJKcf8Y7ownBYZSIIO4Mu
+	 /LwTR4TnvW2qtjzNPLjqhFJIBsXzv08yB80uhVyu4Xkf9c0XHDoDf68/v3+oKGqfH+6yk
+	 l9uE6PxR1qGYTeDNE1itsgdeQFuo3yrh3i+1MHqreWMT0rmnsPJId1CGt9OU3RJ44FTkI
+	 8egXAPPuIIlmJCI9wNgbsXZ26pVMqnLwoYqJZ6GRieAddbD7Y5hfjJQD+z8DuianL5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588347;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=R+/O0E+zf0N3c+NrcyoG+TI06SvcltBVHoSInsjKEsQ=;
-	b=wL9nCZpVpUO4g/pKTz8orwp4GjY3DQ1a0Sy7JGzklJkzlVnl3OIi6ktlTtdJV7UeKdCp
-	 meld5uLuEy/NRrP5yN8KhIkqXhlNuihDJibDq4Uz3QROFsWwP7kTx1feqSiWvgGKqlFCt
-	 lVxMWIkYeCJlPilKQpWZMU3rPfSZpO3RHSo42h/46QpCJQ7nTQukL6CPegMcvVFDSHhHx
-	 PBirxBzgrzCfGQtsAvmGLouwxK/1WNsjYomCeHN1MFYII/bh7zCLZE/BOJDPeaQK1TBOQ
-	 XgufwD6Oeu8XS3hdai9NWpOIpd1YQkVDYKGwbF9Qy0a3Gwym/lElK5OvJVVtrQCzuKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588371;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7adDJu+xJ9rJRwV/7K7rSG0s5vC11B4S7V3+Mb90FEk=;
+	b=rq2dItAZh/tTrI8xMabOZhWUoiOduQy3ckNuzhXlD7Y647P9pIYVYh7TvPDETcJWby0o
+	 9vWGJ9Q+LHaIO7ccsy3qwIqTRlxg6g/Iiz11pzqXYuErol3gHUQxRt2mT2cs35+QvDG9V
+	 /wlijw5weIUkKrHVyWCJT593NFYkqrgMDlJl/jG7cUH132O7S6aF9L1XVbpb152qcQjZe
+	 j/WIzRSg7YouMak1CcURqHGrppnQgIS9FjUqZZqoZkW4KhlBGilNsFjk2ShqKl/oyEeKH
+	 uXakYmlq5/HhvzqtBaU8uwqPIbHDVuKWg6pZqwyzrjcEX9qGTwYSau22+t7/oLBrD6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fL9qG4Jk;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PxbgW8KA;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="S/8/O/LJ";
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09F8606E217
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:45:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A09F8606E217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70464606E233
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:46:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70464606E233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fL9qG4Jk;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PxbgW8KA
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFRTv1533300
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:45:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	R+/O0E+zf0N3c+NrcyoG+TI06SvcltBVHoSInsjKEsQ=; b=fL9qG4Jkr8RPUfio
-	N+z7F8EnCeEt08B0Zh7Y4KoC4VKB4QPoFBUgOCJPTol4YUpoPecwvrGZh8VGSbUR
-	sQK6kuJPouCGP4VizTc4TLXR0OPFu2CfzvGOClI3Gkblxsq9Om3KSqLqJ/cor5P7
-	8BIQxW5j5Pzjc+mmwTMTQghBtwO+rcreiCzEVA5rrdx6Abh6xe90538tSYG6jrBy
-	YG6xicaTOytooeOy//L+mVo+V9o5fx2d9YqUAkl84ddEPL8QvEaeF8PwNCxbLnl/
-	fHWfFK13clU7RMaOdbVg6rN+Us2pmoXcI/E+YP6SBFu0isIBnBU4FGCdXaTOFwp0
-	zvnNyw==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwvjaa9rh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:45:45 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b25d977b91so952145c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:45:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S/8/O/LJ
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9ae391a05so7271005ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:46:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794588345; x=1795193145; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R+/O0E+zf0N3c+NrcyoG+TI06SvcltBVHoSInsjKEsQ=;
-        b=PxbgW8KAe8rlvuLPNgY0MYidPJTXDKpOEuLjCqO1VkKmr/h2eYKYFlcNCWW7QhJcrU
-         kwKDtH9E9pscokn0S3xjtFQWQpyrvyuQntFSe3STpCsPkZ+9MfJdzFZuJrqt5XqIj6Xg
-         d+NHmkOxoBB4O1XjjyvAQEfKUIHnrKWlByQshPHVQ3bifO+A1tHhAtlAS8XKPycIBNng
-         Qsdr7zWn642hZ5VeItiVyqO1s4CW5yhUZJN4VUzU6Qqc1GO3uLt6I7Zm7kGIwZDtE/oY
-         5p9+FU5Vg3GHIuKhxSy95EUn/oW3aNvMQg1zmN9ItzA9tBEW3NMupv/EVyTlFRzKHX+l
-         AfjQ==
+        d=gmail.com; s=20260707; t=1794588371; x=1795193171; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7adDJu+xJ9rJRwV/7K7rSG0s5vC11B4S7V3+Mb90FEk=;
+        b=S/8/O/LJKEzeClFPb6i2ohZGtTKtLDzfJindxVJE8tQvas8wsiyFQxM9e/ialrRJZb
+         zlDySdTOa5SKcaD8Oa2hFb0MZRAg6o7ui9hEP4z6d/mS8a44w4BZguSqE2Oa1c9Q/TNa
+         uTctn5HeYoIb4RurMLijI0QmDxPq3TCp2kBeoSWd/a8N6yTFVdksODLOw/nEuRkJmzeb
+         nuB9iwsEzjuc6BnZVGB3wrj52WD0YoF98pA9YJ6k6tOhsr0jDr3ZiJ+rydOYf5FypLQ2
+         srLzi02ftCc9O/nu13CpOeyRJMX6I6kSXQAtuUP/CiAh+e0NCmC2C6YjFrGTGdXZejol
+         +T7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794588345; x=1795193145;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794588371; x=1795193171;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=R+/O0E+zf0N3c+NrcyoG+TI06SvcltBVHoSInsjKEsQ=;
-        b=sPPjnZLK9J3VFBdv3/C8phHTmu3HivUbyH10BB2ntaIKpnCZLk/86qOjNSSlTDk2Sh
-         iH2eAg2/ozAmD4tdqkXe4Ryb2RQ/X0DN2iWj6jGLhiJNWDFhVOQBSNpyb1nPXqM9eCdp
-         FX6taiFcOWo8/DLBLCz0iEAu5FjMpHytdEUz+fmUD0Voa31tsusd5X3qDHP8hCVuiCq6
-         ikCfu6in/PB+wkUM5UiNb3oiWgMSJqB8UvYByIL2mXOPDP6yyDS00IfmredBUn/SzpQh
-         ySJhZ6E2r5sJ2gmZ34htegF1ir4dfJhdx/sECzcomh2mf3g9oi7CL+adK4g0qUJati9y
-         1zuQ==
-X-Forwarded-Encrypted: i=1; AL+hErF3sEGBdEzct7RKbSoH/ILjcKmbNZ2pYmU7E7yfbtSpoz1TSLfyIzjOy0LPWicZHQ1tqmyFEEfTIcAI4Tc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iA3wWp9uF5CJy/XzT9pVtGjZpvAddHHHHh0KTy9fOJU7jPy5V
-	R4U+6ZsAbfd82PMo3BCMT2rOL5JZgf8ikM246fs2IcHwz61JypPHffRQ9LkZCAbefL5dYPq4bn/
-	ffgHOWK+GL03UcISkNWUi2+DaMDZ/V9cIc6qr4wACPC3GEQO80kle36JfbBSftOckfYTK5JOd5g
-	==
-X-Gm-Gg: AYBFou37PIWLPy9a8X0eVyvGANjlkSlmVaIyG2wjUa2c4syN6Q/DpAwYa4g/W86SxD8
-	gBI9ksOPCFhlMmu08ObXiCDBioei52Sl1gmZusp9fXGxjVHCzGy2KeGYsruV1JeU+HKB4i48zyB
-	k1kOHTUNRPO7allZaRvAT7EGbaF4ThPf6+c8fuDflUkFsRp4Ho9yCe7pjmNHZuUjSYYO8brL2v5
-	mazbIbJfFHlosx2IziHm/LpEVoPoAOcpqKq5zkW4dCmo+r6JhE62Pjq51N+nx/p9ldq7t4US6Si
-	ASNQR3y2eQkBYdQ5cVXRNlA6yNzA2DKlxL01BWmM6fHOtmmjCG/wwTTf/fOScH2MI4ZBssAkgQR
-	LxhYtm+iwIXgFBCByGN1F3jy1oRkn+q6mGLPeLV5nKIqfo8NNW/AqwVlSENcRmPKTKbPcbaxEUM
-	PwsUs8oOaKJY6R+iSI1x/Ms7lbhxqAmJdOEQLG8cz9fiACQvkx1SwYB2wECi6DDGYCsg==
-X-Received: by 2002:a05:7022:92a:b0:192:74cf:1db2 with SMTP id a92af1059eb24-1b5030e9a6emr4116464c88.11.1794588345189;
-        Fri, 13 Nov 2026 08:45:45 -0800 (PST)
-X-Received: by 2002:a05:7022:92a:b0:192:74cf:1db2 with SMTP id a92af1059eb24-1b5030e9a6emr4116424c88.11.1794588344528;
-        Fri, 13 Nov 2026 08:45:44 -0800 (PST)
-Received: from [10.50.62.158] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b98e5sm8556045c88.14.2026.11.13.08.45.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 08:45:44 -0800 (PST)
-Message-ID: <f1d28ac0-b0f4-49b6-adc7-0785ba88282e@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 22:15:41 +0530
+        bh=7adDJu+xJ9rJRwV/7K7rSG0s5vC11B4S7V3+Mb90FEk=;
+        b=OSiZLUugYHTjMabmxzGh8J9AAbk0nVJG2cRZ4HnAvHmpGB6HE4ZULSUUMATytudKkQ
+         QdbaHGcczDCAYvkJXgiYw+SBx9j9xwsKPB5+T1ykT0nrSw23YAG2N+El97+lOc4E6IS4
+         ND1ieIWMrRVqzcx4S+G6w5EZQNtmZFVm2dS2iA6nFWg7ig59tPWMVI0p5SP0wGsRltoC
+         qxt8hwBJZbxZezZ5wbjKXX+1gzWXb7YG/vvjZnn5KONItLmGEi6rcUiIWKYA7cgEGIqp
+         XJUoeb5fT5kYm0QC8oiO5kCEdhcbRSzXs9JktZEwOEGu0EyRuXcmy9yrnQQ+J1EOgorn
+         F2mQ==
+X-Forwarded-Encrypted: i=1; AL+hErEh3bV8jQun/5a+SZgX85D1F21UMuVuPCfg6QfohGPH9BrhqssOPK3ztePATkxM/yII1vLS0gg2tIYhH4Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zzZXRCpcT4LhT+gE7NBX5wc4QjxcQcL6wUdt//LSqnshMeHkv
+	7SwINWEcHB1SRFbQWGZTUf5eft6NHo503cp67yIeKKWpmgcWo70iqXdA
+X-Gm-Gg: AYBFou1/ukpqADWNLDKIXe9mh/Zk7MANLKIIcoU4jhMGXnL3DQiDooCaEYKNeAYu9A7
+	I4UX7KdgMSAT3QXaXieExyirxNEnewNGr/wc6KqljM3wusE7CpGcvl+6+XleBIlKH5Ff2EPtg6q
+	H++i03z2T2Z4iyMKhE+ieT28NwFceZbL3i4Z+u/xnHDp57p2uWKnX4v/TTNpERxzpDT3aE/rtav
+	e3JiAW18kDHpX79Vz68zy8oSXfasOIt887mXLbnwwxTJ5Y2mLZrcjGjK8F+ZbwI5SRVyzQlkxmn
+	Yhq4nWcoI3OGctlioGo43UTJYw7+58xwo6qyBsnDv57hDwijaB4+MnAYHGYdEnKpAUnkYwN69vF
+	IkgJq/p1JfFBc7GXDAupbApqklqRLG7I1B+u5xdOz+B2jQYtt/k+qJIPQTZcOMHKc1zGUSS2RG7
+	k8YRhg5PaM8ZUa/K2Bf5JVHqiK9em/b7JRbNX3ff3A0B+TfifIurmpVGR54vtc8FQdnvjDDmzoZ
+	N3uz7R0OHw09OnjwtuYCJ9BHX48DF/UOjtnODrJHBw/ehX/+JARewyDrRJUY1GxobUoJrSEhDh4
+	fz3nPIQkieYYVvDIQ4O3nCn3l5NL/x4f8eP0Qj7puRt9NF2y4A==
+X-Received: by 2002:a17:903:22c3:b0:2ea:f85d:a076 with SMTP id d9443c01a7336-2edf21c0a32mr46602165ad.35.1794588370521;
+        Fri, 13 Nov 2026 08:46:10 -0800 (PST)
+Received: from localhost.localdomain ([112.170.44.210])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f868231sm12908475ad.50.2026.11.13.08.46.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 08:46:08 -0800 (PST)
+From: Junyoung Jang <graypanda.inzag@gmail.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: Junyoung Jang <graypanda.inzag@gmail.com>,
+	ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] fs/ntfs3: validate dlen before copying filename dup in do_action()
+Date: Sat, 14 Nov 2026 01:46:04 +0900
+Message-ID: <20261113164605.782979-1-graypanda.inzag@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,122 +95,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH wireless-next v4 05/21] wifi: nl80211: define interfaces
- for SMD BSS Transition context transfer
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
- <20261106-smd-v4-5-62e39487f51a@oss.qualcomm.com>
- <554491de8880420965217a37a7748d48622f1187.camel@sipsolutions.net>
-Content-Language: en-US
-From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-In-Reply-To: <554491de8880420965217a37a7748d48622f1187.camel@sipsolutions.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Vd3Xn3Keajy0JEsM9O9onYxmfwcZGE-h
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA2NiBTYWx0ZWRfXwliQg+RMheC2
- lEsef0c/55qIUJun1J8ipAqGi0dzI1WZCfVwCdoNh3eo55oZ14wS7wuTa77wQV5XeF4VbR//iH8
- XsWvQ3HBkVeqiZZeuRoSefL9JPLzyDE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA2NiBTYWx0ZWRfX4wpTMSkJyt1D
- nlgMMrJ7uDamoVRUok/2jqeXnA+0Lob2+t271/5RdN1qdgr/LOjl0iYZJoFGwcBok2jcuuviALk
- dSZg134HoeYCl+LnnCVzjg6by9ly202dTW9EAtl2cuaAKfns1+NUQnmVjdh9L6vQaiDqHrnDQAv
- I5lOT3dnguScMg7Znypy3Lxe+76zVI1VsBM64mYsb3dQNVrai4SPpCp4fCV+bU41kmhmbsKbq4H
- aI7JBjofWIFfaB3xaQmVATFT2xBhnZ3/aiblz0Av9btaK4zwJHgpQ30nGZaDwR+IA+gvwDkijPH
- 5AAN8zbieI4m4GUu1ZvKXQtJSiumsqQz5w6b0O7QyV0SCujgpJZXUayO35FJtHlWTHia6Henfq8
- 3A9kXg0y0z3R8+hY5JFfgshgsYsdcUBAipzJ8QGfbyNwPmLScwryK93KFmcq+O33VErbw0ZKzai
- mkKWOOu+XT3Yh5gdNeg==
-X-Proofpoint-ORIG-GUID: Vd3Xn3Keajy0JEsM9O9onYxmfwcZGE-h
-X-Authority-Analysis: v=2.4 cv=AoN7T+9P c=1 sm=1 tr=0 ts=6af73eb9 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=u-lSwiENm7VDL5mirAsA:9 a=QEXdDO2ut3YA:10 a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 adultscore=0 phishscore=0 suspectscore=0 spamscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611130066
+Content-Transfer-Encoding: 8bit
 
+In log_replay(), data and dlen are derived from the on-disk redo_off/len
+and undo_off/len fields. When handling UpdateFileNameRoot and
+UpdateFileNameAllocation in do_action(), the code unconditionally copies
+sizeof(fname->dup) (56 bytes) from data:
 
+    memmove(&fname->dup, data, sizeof(fname->dup));
 
-On 11/11/2026 12:15 am, Johannes Berg wrote:
-> On Fri, 2026-11-06 at 13:28 +0530, Pooventhiran G wrote:
->>
->> +/**
->> + * enum nl80211_smd_ctx_type - SMD Request Type values
-> 
-> This is more "ST request type" or something.
-> 
-> You're conflating "SMD" with "SMD transition" throughout, and the "BSS"
-> in the subject isn't really supposed to be there
-> 
+Neither handler checks that dlen is at least sizeof(fname->dup), and the
+generic log record validation does not enforce this operation-specific
+minimum.
 
-I will change it to SMD Transition (and ST) and remove "BSS".
+A crafted journal record with client_data_len=0x98, redo_off=0x90,
+redo_len=1, and the multi-page flag set passes the record range check
+(0x90 + 1 <= 0x98), allocates a 152-byte buffer in find_log_rec(), and
+triggers a 48-byte KASAN slab-out-of-bounds read past the end of that
+buffer during a read-write mount:
 
->> + * Used with %NL80211_ATTR_SMD_CTX_TYPE.
->> + *
->> + * @NL80211_SMD_CTX_TYPE_PREP: SMD BSS Transition (ST) Preparation.
-> 
-> (as here)
-> 
->> + * @NL80211_SMD_CTX_TYPE_EXEC: ST Execution.
->> + * @NUM_SMD_CTX_TYPES: internal.
->> + * @NL80211_SMD_CTX_TYPE_MAX: Max type of ST context.
->> + */
->> +enum nl80211_smd_ctx_type {
->> +	NL80211_SMD_CTX_TYPE_PREP,
->> +	NL80211_SMD_CTX_TYPE_EXEC,
->> +
->> +	NUM_SMD_CTX_TYPES,
->> +	NL80211_SMD_CTX_TYPE_MAX = NUM_SMD_CTX_TYPES - 1,
->> +};
->> +
->> +/**
->> + * enum nl80211_smd_ctx_ba_param - SMD Block Ack Context attributes
->> + *
->> + * @__NL80211_SMD_CTX_BA_ATTR_INVALID: Invalid attribute.
->> + * @NL80211_SMD_CTX_BA_ATTR_BUFF_SIZE: Required (u16) BA buffer size.
->> + * @NL80211_SMD_CTX_BA_ATTR_POLICY: Required (u8) BA policy.
->> + * @NL80211_SMD_CTX_BA_ATTR_AMSDU_SUPPORT: Flag attribute to indicate
->> + *	AMSDU support.
->> + * @NL80211_SMD_CTX_BA_ATTR_TIMEOUT: Required (u16) Block Ack timeout.
->> + * @NL80211_SMD_CTX_BA_ATTR_EXT_NO_FRAG: Flag attribute to indicate
->> + *	fragmentation support.
->> + * @NL80211_SMD_CTX_BA_ATTR_EXT_FRAG_LEVEL: Required (u8) HE fragmentation
->> + *	level.
->> + * @NL80211_SMD_CTX_BA_ATTR_EXT_BUFF_SIZE: Required (u16) extended buffer size.
-> 
-> Same here as in the other patch - splitting the buffer size into two
-> variables or attributes seems ridiculous.
-> 
+  BUG: KASAN: slab-out-of-bounds in do_action.isra.0+0x353f/0x83c0
+  Read of size 56 at addr ffff888007d9bc90 by task busybox/67
+  Call Trace:
+   <TASK>
+   __asan_memmove+0x23/0x60
+   do_action.isra.0+0x353f/0x83c0
+   find_log_rec+0x277/0x500
+   ...
+  The buggy address belongs to the object at ffff888007d9bc00
+   allocated 152-byte region [ffff888007d9bc00, ffff888007d9bc98)
 
-Sure.
+Validate that dlen is at least sizeof(fname->dup) before copying in both
+UpdateFileNameRoot and UpdateFileNameAllocation, jumping to dirty_vol on
+a short payload.
 
->> + * @NL80211_SMD_CTX_DL_ATTR_VALID_TID_BITMAP: Optional (u8) TIDs included.
-> 
-> That doesn't really make sense, it just introduces a place where things
-> can drift - the per TID nested values below already implicitly say which
-> TIDs are valid.
-> 
+Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
+Cc: stable@vger.kernel.org
+Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
+---
+Notes / Reproducer:
 
-Ouch! Yes, it is not needed in the nl interface. It was originally added for
-GET_SMD_CTX but that does not need it anymore too. I will clean this up.
+- Tested on Linux 7.4.0-rc2 (067c5c24cef2) x86-64 in QEMU/KVM with
+  CONFIG_NTFS3_FS=y, CONFIG_KASAN=y, CONFIG_KASAN_INLINE=y, and
+  CONFIG_FORTIFY_SOURCE=n (patched kernel mounts cleanly with 0 KASAN
+  splats).
+- Note that previously posted patches bounding the destination index
+  entry or checking off + len <= client_data_len do not catch this case,
+  because the destination entry is valid and 0x90 + 1 <= 0x98 holds.
+- Disclosure: Assisted by a custom LLM-based tool; all results,
+  including the root-cause analysis, reproducer, and patch, were
+  manually reviewed and verified by a human.
 
->> +/**
->> + * enum nl80211_smd_ctx_ul - SMD Dynamic Context - UL direction
-> 
-> Right now I don't see a lot of value in splitting UL/DL attributes when
-> they're basically mostly the same - we can probably unify that into one
-> space and maybe have a few that are one direction or the other only?
-> 
+To reproduce:
+1. Fetch windows-interrupted-1.img.gz from:
+   https://raw.githubusercontent.com/antimatter-studios/rust-fs-ntfs/main/test-disks/windows-interrupted-1.img.gz
+2. Patch 3 bytes using poc.py below (`python3 poc.py windows-interrupted-1.img.gz short-source.img`)
+   and mount read-write (`mount -t ntfs3 -o force short-source.img /mnt`).
 
-Sure, Johannes. I will combine these two into one namespace with separate
-labels for those that differ in type.
+Reproducer script (poc.py):
 
-> johannes
+  #!/usr/bin/env python3
+  # SPDX-License-Identifier: GPL-2.0-only
+  import argparse, gzip, hashlib
+  from pathlib import Path
 
+  BASE_SHA256 = "c45659e95104eca5f793c3f21061f42705a01783e62d1c7a46c63e4089db0b9a"
+  TRIGGER_SHA256 = "0e176bdd374e73dc3f40163320d6d69bfe36fe664735a50001a3bcbcad2ec2e4"
+  CHANGES = (
+      (0x292F878, 0x00, 0x01),  # LFS_RECORD_HDR.flags: separate allocation
+      (0x292F884, 0x28, 0x90),  # LOG_REC_HDR.redo_off low byte
+      (0x292F886, 0x38, 0x01),  # LOG_REC_HDR.redo_len low byte
+  )
+
+  parser = argparse.ArgumentParser()
+  parser.add_argument("fixture_gz", type=Path)
+  parser.add_argument("output_img", type=Path)
+  args = parser.parse_args()
+
+  image = bytearray(gzip.decompress(args.fixture_gz.read_bytes()))
+  assert hashlib.sha256(image).hexdigest() == BASE_SHA256
+  for offset, old, new in CHANGES:
+      assert image[offset] == old
+      image[offset] = new
+  assert hashlib.sha256(image).hexdigest() == TRIGGER_SHA256
+  args.output_img.write_bytes(image)
+
+ fs/ntfs3/fslog.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+index bb8d40bb5869..29840814c82e 100644
+--- a/fs/ntfs3/fslog.c
++++ b/fs/ntfs3/fslog.c
+@@ -3568,6 +3568,8 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+ 
+ 		e = Add2Ptr(attr, le16_to_cpu(lrh->attr_off));
+ 		fname = (struct ATTR_FILE_NAME *)(e + 1);
++		if (dlen < sizeof(fname->dup))
++			goto dirty_vol;
+ 		memmove(&fname->dup, data, sizeof(fname->dup)); //
+ 		mi->dirty = true;
+ 		break;
+@@ -3753,6 +3755,8 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+ 		}
+ 
+ 		fname = (struct ATTR_FILE_NAME *)(e + 1);
++		if (dlen < sizeof(fname->dup))
++			goto dirty_vol;
+ 		memmove(&fname->dup, data, sizeof(fname->dup));
+ 
+ 		a_dirty = true;
+-- 
+2.43.0
