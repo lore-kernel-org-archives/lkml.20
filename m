@@ -1,68 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794603972;
-	b=c3jA+k1A40GJywocc6blxTyaKComSDpSKcl79RCIToqrhZVBa+bTlfPeZtV2YJSWg0Yr
-	 Gv9AZnVrg679wAkcIks1jhNE4qzH9VjqZrc03jzf86WW5bIbdaaQRkUoCvFzx2RuVq4HQ
-	 wIv+cipMHoXNNVxEr5Ojt9qpon8EDxW1FDq4K+hT4mNexV79eCZZeFsDUXJluNii+xIPZ
-	 9ozkmrSHY6nFyGob3E1vfxuLiEJWQsx/NRbQ5H1wetrTBBNW7l9MEaJ1rDAejEOcEJTRO
-	 McCKMvsC7EsG1LnzQVsnr+B7EDYGbXRT3aQLBlaRZ5pqvaVJF4zyBo8CmrJbiGR376w==
+	t=1794603973;
+	b=Hz68l3vN6TlEbMAvP7aKh9UZ9XshbL1Zy8xDkn/Q9qHcQI3qsFcPqB2ceE4BGPw6SwfN
+	 8T98Eu7PgyDkqK9AFCAjSRsvuprYeq9Ge7TrK0lwzbPKEo/z94xs0SjQkMAmTX1Q6c2pI
+	 9XDtqyvJNxwxJgkA7Tqm588cX6hk3yBHNU7EKIJAiFqIzrL6Netk+89tT/s2UritmaTOV
+	 2t4km/pN7HRuvAP6k5ODE+cK0eWWbwQVN5Ec9KCDAyk4NSYguWFcY9ZYHPHy2CYa8JCDC
+	 chytEanIrQGMRSuAwqR76OJhlEAGTPbtbocJf+cuTZgJHWhV50dBta7+CBlfUZCXA8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794603972;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=1kXcbvm0z7UiM619s9T7DtZLjsDWfr0JMHsOiwfZJ/E=;
-	b=Hq5angGdPrWMTJ7mzalvakLARyVsDCUrXjD2kUdT2Cnc++YXO8duJFOXMj3nW87uiMlP
-	 ZYim6XqB9monxox5Mr4SSOJ7ibPXHUTtoFM6UAxzCJruWeU6nb57Nn9xwi0nPVYEqgp33
-	 B9vDhLJUuKpY42TIPrm5y9qDl1KnxZT62Buj0qtCj9THkGze9PzclWBE46R3H55JWV3fW
-	 5w/hF5eYctXcMKSkO410WKRAngBUC73tx/8RBTqLgr2QAP79gQuqMKdXaBw6OVXs0ZSbF
-	 7XZz2Tb4Jl6JvLsjp3DF5FIAK4EafJNpmUpcN8Tss1QCQpYITDzfQhDC2EuIiVHWQ0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603973;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=/l2BNci3Cf9HeoDE6HY6XAwN4GIVkcON+ovNV/ZiaKk=;
+	b=csROHeJ4iMmytBS+kYSD4hzbn7U/uN6Xp2mkuDK+QpsquD/zkT7Ymjj5myWMSc5+IhYR
+	 u7Fwaap1Iaz7Uia6+M9AAeCUmtyFypFmlZH20Fh9XrUkIfpkdTsVbI/tI9h+EDyVfn0uW
+	 OljunSLvMs2JljK9JjT7Gu8v3FpPTyQR6DVKsPkLjDjVBfNvknWg8uaENvY5vtVjtQxJs
+	 dVdBu68UeuEJGDbFkrrHIQU5vDvlNIjo/6s1aklZolIycA5ce4JVKMMEARAe4FDTOmRxk
+	 jtlVvRAxFmdn4dtDfzQD3vEfqu+GHW9cCR0IJF1vmbmJHtZ5hnWXZ77umRocieVFeiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=aBchvwHb;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XKZCc74H;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2282606A335;
-	Fri, 13 Nov 2026 21:06:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2282606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9419606A88A;
+	Fri, 13 Nov 2026 21:06:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=aBchvwHb
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=1kXcbvm0z7UiM619s9T7DtZLjsDWfr0JMHsOiwfZJ/E=; b=aBchvwHbNaXOhdjSZx9GbShvul
-	tdiw9DRvJ9mDxFyDrAQyXmZFn4n9wHvp5tHczlVFRnXm74D9cWdxR4ZFImsjfwDbJc6M0aJaDKVhU
-	oxXAoma6NJl0G6YSgeWIGR/qRMDHYnei31DG00HWl5PO/BC98blWaEo8MU5D7kpo9ipY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xRyT5-00GMcm-Gu; Fri, 13 Nov 2026 22:05:55 +0100
-Date: Fri, 13 Nov 2026 22:05:55 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: joseph@telaak.dev, Hauke Mehrtens <hauke@hauke-m.de>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XKZCc74H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19F501F000C4;
+	Fri, 13 Nov 2026 21:06:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794603972;
+	bh=/l2BNci3Cf9HeoDE6HY6XAwN4GIVkcON+ovNV/ZiaKk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XKZCc74H33Cu1XhPqQIGS9zpzaLozY3DpqJw9mCjFEeAdTzJ3EPh+2h8J1xuhjopI
+	 RJOgbQQas61wrl9GniueMLE1mKOiBtMXiVbaOoL7gj5y7cn603+LptEx2zUCuZAh9J
+	 jYTENUc8RSOGPYHlm/vlEEFRqQgV1BRGLRDnjM29PIw/75eKeEIBOb0yOddlP946vC
+	 f/sgduhPZ2jWdmrZXf42Z+faDs4LO/ymtbdLdlZmvMdN5O4D0HaO3FulwOvWaR1dwv
+	 J2/pgLHcA+5LiJMbGZE+6Iqc/WBj/QO8e2dZAueaulUz57/mGw36Leq6NApDOZ3jAS
+	 4RARqzNpb5aCA==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 9101731BCC91; Fri, 13 Nov 2026 21:06:02 +0000 (GMT)
+Date: Fri, 13 Nov 2026 21:06:02 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Daniel Carter <yass27106@gmail.com>
+Cc: krzk@kernel.org, andersson@kernel.org, srini@kernel.org,
+	konradybcio@kernel.org, robh@kernel.org, conor+dt@kernel.org,
+	vkoul@kernel.org, tiwai@suse.com, perex@perex.cz,
+	lgirdwood@gmail.com, pierre-louis.bossart@linux.dev,
+	yung-chuan.liao@linux.intel.com, abelvesa@kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 0/2] net: dsa: mxl-gsw1xx: reset the switch
- through reset-gpios
-Message-ID: <9804b024-236a-4791-aa55-d83a71b2598c@lunn.ch>
-References: <20261112-mxl-gsw1xx-reset-v3-0-863e82074893@telaak.dev>
- <a2f45802-b75b-4a19-9508-2d1b5ebe473a@lunn.ch>
- <avcoghKd4CU13QI_@makrotopia.org>
+Subject: Re: [PATCH v3 1/4] dt-bindings: qcom: document Asus Vivobook 16
+ X1607QA
+Message-ID: <d7b0ac39-f204-46ec-9614-460611a7ae38@sirena.org.uk>
+References: <9032798812284dd2842cbf003c75cc0b@gmail.com>
+ <1ce6d7664e48413d9a5a8b11a986f746@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,27 +66,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YzSVgOqsbmCzfzx+"
+Content-Disposition: inline
+In-Reply-To: <1ce6d7664e48413d9a5a8b11a986f746@gmail.com>
+X-Cookie: When in doubt, lead trump.
+
+
+--YzSVgOqsbmCzfzx+
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avcoghKd4CU13QI_@makrotopia.org>
 
-> I *guess* that in this case the vendor wants to avoid using PHY
-> address 0 which is widely misunderstood as being the "broadcast
-> address" (which it is, but only in scope of AUI attachments and SFP
-> modules).
+On Fri, Nov 13, 2026 at 01:02:39PM -0800, Daniel Carter wrote:
+> Document the compatible for the Asus Vivobook 16 X1607QA laptop,
+> based on the Qualcomm X1P42100 (purwa) SoC.
 
-There are no standard for copper SFP modules, so i find it hard to
-accept that SFP modules expect 0 to work as a broadcast address.
+Please don't send new patches in reply to old patches or serieses, this
+makes it harder for both people and tools to understand what is going
+on - it can bury things in mailboxes and make it difficult to keep track
+of what current patches are, both for the new patches and the old ones.
 
-> > Does the driver have an implicit assumption about the addresses of the
-> > PHYs? Should the driver actually be writing this register to put the
-> > PHYs at the expected address?
-> 
-> The driver does what is described in the device tree. Ie. boot firmware
-> applying a non-default PHY addresses should just say so in the DT passed
-> to Linux imho.
+You might want to look at b4 to send the patches, especially it's web
+submission endpoint which avoids having to configure mail:
 
-And this is what i was wondering about. Is it the DT which is wrong,
-or the driver?
+   https://b4.docs.kernel.org/en/latest/contributor/overview.html
 
-   Andrew
+
+--YzSVgOqsbmCzfzx+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavd7ugAKCRAv73Ows9A4
+ibzHAP9sN/q2DyJ/6kQWe2d0a8ULIqgi9a3ujUBNvN2D/5hMMQD/TuzN542hYfaF
+SghEiAMS0awWz0LImGwWe0LHPqaVHAk=
+=Hb5z
+-----END PGP SIGNATURE-----
+
+--YzSVgOqsbmCzfzx+--
