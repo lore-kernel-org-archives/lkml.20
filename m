@@ -1,85 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564598;
-	b=PYhdI5gggTBGIhYZnM4UmpA85SqqjAst6QqKFyhBOOSxUQOusMC3JYX4ZHJwWQcUY41u
-	 a/ZG0B6KLo35loaH5TIMAcF3lKGWxXtXIBDWHTdC0UhvfjVCYjjEH8rwCiZlWT0Cp6/Ce
-	 K+GbyHxI3um44OXa9/CbU7DhFCv31e58RIfrpi5FnGBqAaa2NyLtEwtx4G9YHlnZqhhv1
-	 T8xuv1msCDcE2VKxRV2PjVxkN0gr9ZmABZnMZbgVzU+zBuRxSJr3Hh6reeg2b5e+djiOa
-	 wv4fFZwplaD1YwU2tZWM+3TIZWBhF7mIUOLbCvz6hS5FuX1cs5fIeOYeCQXIOwpExng==
+	t=1794564657;
+	b=zKsvXGo9bVSNZEVhPpBgeK8u+GxJYGu9O5sKFNqU21tRF0jlb5F4ojQ7eIqS/Zy4KWHo
+	 fHzUAtQSRqzrliVexUyNBVr++zQDLsrZ18Zs1ZmagsXv0Xk3ZwjZOLeQhyNEqK32xI/uY
+	 skOJdlg39ggVpyMVoc3jJx6ASuJaXi6Qk+RDQctajHaMehyIeUutvI8DDLumc3aqVS4hN
+	 wvEFDBHsO4xsW8uX0DJ5fuEtiLX0S9hqY/IZU971Dz4OPbgizD5keE4rkJNUUngmvl4LH
+	 KiipBX95ZTBj0AdroWMkYOB/3m3Y0GcyAAU0IbdTQlr8mmsS+e2uMZmoLPIYKNdh8NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564598;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564657;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=DI86z/0Iql/9v/K5OtJPg8rVycvTnslIkr8t7coMOfc=;
-	b=v+15j0BeCXqE6yXIR+dv4/Uu7+HErWPtzCDowrVSsdgM4Zl5JBWkF8ZuVwRDm3UcIDqL
-	 gdVe/zGstqZ9r9MXNcRwYQTjDHe5pVb+2lODAvmJxEZNbsicqC31GlLIxnxT9rdcjvl7p
-	 1NLif7khlpgbbFkcn1CYUpJ+OFMTQa6KudI90b9giANHERI3iAaR26rBsWN5WOz+HggbZ
-	 iflPEyg3sw3Dc1Gop650HpKXr5YhBu9IhpJ4IzJaX4eiAMvet8CGdlH+1zFZeSQi34O/T
-	 YiACOzycACEC2ocZQ6e3oaJzpAovksBGX9QyNmZQD64uMpc78bL5KTXX3MwvQnXLdiQ==
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=RUn5HyOzv5zK74OCIfLVACQcizuS/sHn5qpIQd0Zvv8=;
+	b=GG6Vh8S503Ea8G1T5ESPdWZ6WhIg1qG5o8WIcLZf/Nio3N0FV+7DwvNwmjsXS9gc8GVl
+	 EWxf5DImhfV6Ps+rdW8LrTmd0G13zLvagWlczLQJy4oa5c3FD5ekkehbZC0dovlrUqhQI
+	 vwGqPTjsTk7Vuigt3LeO+dnXUsiwz+d3JtO/qIl/9E2mP4bMoboXwYIhDnOuJF0Oiv+VH
+	 zGF/qugD+IiVRKY5Ce2HoStXH7Jb0mNzvDunqCYCWiPYEuKev41iOoXf08S+OvbwNmzfz
+	 Db7UxJIEHFJRDyyhqBe38TVZ7lu+8uMA0Gl3cTaN+aUSkBXzkMZCTDT8UfMREvkp8/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=p6TyeFko;
-	arc=none smtp.remote-ip=74.125.228.131
-Received: from mail-ej2-f3.google.com (mail-ej2-f3.google.com [74.125.228.131])
+	dmarc=none header.from=amutable.com;
+	spf=pass smtp.mailfrom=amutable.com;
+	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=afSYRRYW;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C820606A880
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:09:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C820606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169D2606A336
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:10:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 169D2606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=p6TyeFko
-Received: by mail-ej2-f3.google.com with SMTP id a640c23a62f3a-c50485c0cb8so44586366b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:09:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=afSYRRYW
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-490d59c3edaso395270f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:10:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1794564595; x=1795169395; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DI86z/0Iql/9v/K5OtJPg8rVycvTnslIkr8t7coMOfc=;
-        b=p6TyeFkoVOUeZsZn+YShv7EPwTXNl4nm5v+8cd6w4mNijv/76ZHOonPgnttdyGWHSZ
-         uIdexMvZ9JRZBPffyXh2pUxZFR4jWSuGrFipiIfD+EG+eg5YTLuoEOXo9FEdqpooZBMC
-         rGdSQVMdhAxOa9pGZzVjc3efrhntuBZexoEB+v1b8dbGr+vzSeRSe7zFJnaKeTpnx2Nt
-         B590OHIZSOAFKWdHE3H1S5NCMDILzqfTkV77AkZBPtflgccLep9cwQb5FK6Zf+L4F30k
-         ry/j3H8g59MVDo+3QQxIWzqBneHeP5D97A/+Jo1ZnDLPRw3bPwE4QoZEeO2FeUb+zx5l
-         PJhQ==
+        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794564655; x=1795169455; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=RUn5HyOzv5zK74OCIfLVACQcizuS/sHn5qpIQd0Zvv8=;
+        b=afSYRRYW0Lzg1RjNF5a8Z8fp4FTD8+wBAkqEEgX+uXVLN6iB/1Oe+S3s3pjBsHkfPy
+         t+OYs+BeBV0n1jEyBb10NVx3dBSZolIBqoZV0sAqk1NmAyPkc8BtADcPrCcEDzdTW4+p
+         zgkm0FzjpTOQt7I53MJB0zmRNwJ5JPK+9oiFhFL/qPiFq6x22bgZ8fSq9Se2ho9ikF+q
+         rg0gx4TedCmdQu2h6zCkoXcFHWmQ+ZQsRVeKTv2sVCXhncyHGZ2k8DCVvoh7926dtvhd
+         5w+l12l3Dd1UCqA4z70s6tomNhqNtGqcJuf3lRDB60cxVt/wNhZpOgzeegjchzcaCyfn
+         tojQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794564595; x=1795169395;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794564655; x=1795169455;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DI86z/0Iql/9v/K5OtJPg8rVycvTnslIkr8t7coMOfc=;
-        b=fmti878hKDxjFglBkU0adWCpcygq/ocB4Y2bXa499Ge7NIup0ydiDeMrPaIBlx5aC7
-         JS4JPn9L9CDPsLwnomreX6BPkFH0TRX/TCbcDXFK2/6+I0HEqw5paRDOWAbatseqXLiS
-         EAsjOepqT0bRnN1XvVAxRFdwR2g0lA1a6c758MFSokVAKWNYbrn1p0SveYI+ONFTIy0Q
-         FixGNN0DgpqYb7r+sxNawU7UZujlDSy9VN+lMKML4s2SImTXjjgBy72N09kbT2+P5TEb
-         i4FG4HwUgl6OiihXAj70HU4vlUeKHfAK5k4yQBbb8Fh04nbKCKR5eJzjmgWVWKzdtfI5
-         BMhw==
-X-Forwarded-Encrypted: i=1; AL+hErFUvqCCm0pKURO6eRKzEcAHLrRyNNQz1LlgZqUd+tHR+rYdTogQmiRn93vSPm9cUvsHPFFdcwc4cucIMU8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kWKzMmUy/UzAijS9YjUIzBf2SrgiyQguSDMCHtPDZPHzCy9Vg
-	/S7Gw8uEopjrZdO14ecvLT138ldqCHyMVEgM5zLbnQSXJcyPcucG2At1ZML0Agm/eck=
-X-Gm-Gg: AYBFou28Jfaoh3vIA8DXbay6qM4lozdtiF2ACMhJoi39joEuszObSqZAGBOgKpjNAEK
-	d3JTm6mmjPIbuDQYgECkOEuZIkaELFbdU7K0wUSH3PS+d5T/97crhr7vtX1nEVr3hY5y2b6NxMk
-	/TEqcTYmg79bR12Vqv7a+1ruHvqwhfgnFDp91bxEfJ1EL1Ce7pHwbfh36GIX2o4c1gCaEtfxx3V
-	nsZRe7LtFFmOp2Yf1okuvEzMW1swmii7UXnRbScjYF5LwHwRDXwBX6TZKJQ/ZxcQZV2xaR/m5OA
-	okdyE8YkGhIxoAR24swGp9eEp11zFP+BFRIgPcwTQNf3PunOqwD3cpuzU4fH7bWvjiCtgZsYDXG
-	bKBYe1cfMAuJxSgsCdOE6Uvxs7+CNWi/umjXR8BZUk89MH4SIQzygxrZw1kDO5BWXFg1nCRNsQk
-	8vPCptEirvi+HI9oXAxB9Fhwcyn4ClHQvTmDDEwRd4e57NDjDO/OmI3MpFk55PDCBuawLskkSzR
-	xHjq88OF+x7A09lRnohZpx9BkRcBLhJWyJcEuUAvLX3BREJtRV6BVjuyE3WVC76qildbZKV4phU
-	uE1YbATY/N6fbqmwAoeAyXuoVdOPA+1Y5BhPC+c/DORkm+L0JhNSYwOwIj4GGFm/3GRd2Ux31w=
-	=
-X-Received: by 2002:a17:907:d40d:b0:c25:504a:1e25 with SMTP id a640c23a62f3a-c5096372189mr164295066b.13.1794564594691;
-        Fri, 13 Nov 2026 02:09:54 -0800 (PST)
-Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5b93csm75758766b.5.2026.11.13.02.09.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 02:09:54 -0800 (PST)
+        bh=RUn5HyOzv5zK74OCIfLVACQcizuS/sHn5qpIQd0Zvv8=;
+        b=RDBWU3ZP+biFuv3AzUm2m8GEEnjbP9gCC46Jxy/O6aTjxoPKslpSNZX58KxESAiRIU
+         KsGFyk8tcbGbnNt6cMTWb2BeQ8IZcRZYISrlXPgzCS/KTWA76czQ8UnbpacdUhdWk5Gn
+         4iZjepV+XvM2Yew0dxRQFL1R4CFqL27inzQdSLwMhfVtPQnvSVm8cBF17RIl/hjDpPaH
+         jMIjbZNRCOX1ahdRPQYmlhu30Fgwz3pGxpw3pvTSnKL7o425JMW4L3pWfKqV1s/30gKt
+         IdBsq26BxVHL1vVeMCCyVPgrIXF2ue6yX1pk159Q+MqwghqRWc2wZjT/gwXDBn6fpjxM
+         v0EQ==
+X-Forwarded-Encrypted: i=1; AL+hErHr0q0ngBx+uM2Vv8mrU3KChXlg9Jh9liQg97DFE6VIFJHVlErL8Ynjs+cILPLLo1tQ78fpqCZwiU1YW9o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/UPRtxZqm9YQRtUbLQ+RW05kbnJMtHucPvH9RRH+HsUsIJKKdF
+	tD5nsN9rxGP2wNog5hGccGvhpVenSshgCKRvESkJBYtURQZ++C+dEvCGNFo4hblAO+le
+X-Gm-Gg: AYBFou0z5J4fTuqOiVIYKVR/qolQlyIXAz8CdI/WM+5vlVTaVx1mj+LX5y/PDyxjv4g
+	9zTIeKjbf69fs6YOAt7qKJhZMmdtafecPBlI26ii+m8CYjAvKgFPe+yGWq6B+RuzsF5/1RRNxl7
+	b4IfLrBUkuBqbPD9sEe9lNrKVFEi1AjEsKiBAT0ZV4aESzRSAxlPDfUWEcc4jFup9Sz7EiVEpPy
+	ex2QMrXMwjl6EdA0JcMEokCN9kODhboAj4AzD9T93HazGVILW9ZzDwCi2jbK0LGyIdaRqkGAXtB
+	UF/26IaobKDQAzRIDi+Z09s+1eHUvhV1bKMxUh9SEih7r1US163jGz6zIrZibcTxM6DAYbJbRrO
+	Ce6Mo0w3ANl6n3mtA5S3j8vcIdRj9OJ0ByqzHxcyTodxM4y0lLli7EkVXRTuMbltB309MK0Xq92
+	AJ7mL0/bpxOcMzR5/bvVAJ1eOuHIdeHaFdWze9niStfxf0Tce7DTkTA6V4JrxNFDqimRTKS3sI8
+	O6gcHM3xsrJq/SVI2mwJz9o8lsa41nJUycW+IJCbpWPDzgfemYYqLdcN71X3MTIFmKLVV9wNbYf
+	vcT56jrlmxMuNxCa76VE3oHfYN4hZL7mmAxveSt299tnrOfa4ptGdcPFIjcKS5g=
+X-Received: by 2002:a05:6000:470e:b0:499:ffd4:f519 with SMTP id ffacd0b85a97d-49b02d4c2cfmr11662822f8f.23.1794564655454;
+        Fri, 13 Nov 2026 02:10:55 -0800 (PST)
+Received: from [10.0.0.233] (tmo-086-54.customers.d1-online.com. [80.187.86.54])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5a32d336sm4988050f8f.0.2026.11.13.02.10.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 02:10:55 -0800 (PST)
+Message-ID: <0894c601b3f3c5b92008c6c399faaa539b658307.camel@amutable.com>
+Subject: Re: [PATCH RFC 17/41] securityfs: use fc_init_pseudo()
+From: Alexander Mikhalitsyn <alex@amutable.com>
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, Josef
+ Bacik	 <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, 	driver-core@lists.linux.dev,
+ linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, 	fuse-devel@lists.linux.dev,
+ linux-efi@vger.kernel.org, 	xen-devel@lists.xenproject.org,
+ ocfs2-devel@lists.linux.dev, 	linux-s390@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, 	linux-usb@vger.kernel.org, Amir Goldstein
+ <amir73il@gmail.com>, 	linux-erofs@lists.ozlabs.org,
+ linux-kselftest@vger.kernel.org
+Date: Fri, 13 Nov 2026 11:10:52 +0100
+In-Reply-To: <20261110-work-loop-pseudo-v1-17-4c998976c6c7@kernel.org>
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+	 <20261110-work-loop-pseudo-v1-17-4c998976c6c7@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,85 +113,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 13 Nov 2026 11:09:53 +0100
-Message-Id: <DMU0219YWEL8.35KQSMY192RH4@fairphone.com>
-Cc: "Marc Lainez" <marc.lainez@gmail.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>, =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
- <barnabas.czeman@mainlining.org>, "Danila Tikhonov" <danila@jiaxyga.com>,
- "Sebastian Reichel" <sre@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>, "Konrad
- Dybcio" <konradybcio@kernel.org>, "Abel Vesa" <abelvesa@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <phone-devel@vger.kernel.org>,
- <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/5] iio: adc: qcom-spmi-adc5: Add
- ADC5_BAT_THERM_100K_PU
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Val Packett" <val@packett.cool>, "Jonathan Cameron" <jic23@kernel.org>,
- "David Lechner" <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20261112170841.2189322-1-val@packett.cool>
- <20261112170841.2189322-4-val@packett.cool>
-In-Reply-To: <20261112170841.2189322-4-val@packett.cool>
+MIME-Version: 1.0
 
-Hi Val,
+On Tue, 2026-11-10 at 10:14 +0100, Christian Brauner wrote:
+> Initialize securityfs as a pseudo filesystem. This raises SB_I_PSEUDO
+> and
+> also SB_I_NOEXEC and SB_I_NODEV. securityfs never holds executables
+> or
+> device nodes.
+>=20
+> AppArmor puts a .null device node into securityfs but only ever opens
+> it via dentry_open() which doesn't care about SB_I_NODEV.
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-On Thu Nov 12, 2026 at 6:07 PM CET, Val Packett wrote:
-> Even though it existed in bindings for the longest time,
-> ADC5_BAT_THERM_100K_PU was never assigned in the driver. Do so.
->
-> Signed-off-by: Val Packett <val@packett.cool>
+Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
+
 > ---
->  drivers/iio/adc/qcom-spmi-adc5.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/iio/adc/qcom-spmi-adc5.c b/drivers/iio/adc/qcom-spmi=
--adc5.c
-> index d57ba8526e0c..c27ff89429f5 100644
-> --- a/drivers/iio/adc/qcom-spmi-adc5.c
-> +++ b/drivers/iio/adc/qcom-spmi-adc5.c
-> @@ -542,6 +542,8 @@ static const struct adc5_channels adc5_chans_pmic[ADC=
-5_MAX_CHANNEL] =3D {
->  					SCALE_HW_CALIB_DEFAULT)
->  	[ADC5_XO_THERM_100K_PU]	=3D ADC5_CHAN_TEMP("xo_therm", 0,
->  					SCALE_HW_CALIB_XOTHERM)
-> +	[ADC5_BAT_THERM_100K_PU]	=3D ADC5_CHAN_TEMP("bat_therm", 0,
-> +					SCALE_HW_CALIB_THERM_100K_PULLUP)
-
-While this will work fine for some devices, unfortunately this won't
-work for quite some other devices that don't use a 30K, 100K or 400K
-NTC in the battery - or when the NTC beta (B) is differing to the
-hardcoded lookup table.
-
-For example on Fairphone 4 (pm7250b fwiw), the battery has a 10k=CE=A9 NTC,
-so using the ADC5_BAT_THERM_30K_PU with the hard-coded lookup tables
-would result in very wrong temperature values. Even ignoring the whole
-NTC beta topic.
-
-You can see my proposed patch series at
-https://lore.kernel.org/linux-arm-msm/20260220-bat-temp-adc-v2-0-fe34ed4ea8=
-51@fairphone.com/
-
-Unfortunately it's from February and I haven't spent more time on this
-topic since then, mostly because fuel gauge anyways was downstream, so
-pushing just this upstream wouldn't make much difference.
-
-Now it does, so I should get back to it... Let me know your thoughts!
-
-(Fairphone 3 with SDM632/PMI632 would actually be fine-ish as-is because
-the battery has a 100k=CE=A9 NTC and the beta probably is close enough to
-what's in adcmap_100k_104ef_104fb_1875_vref)
-
-Regards
-Luca
-
->  	[ADC5_BAT_ID_100K_PU]	=3D ADC5_CHAN_TEMP("bat_id", 0,
->  					SCALE_HW_CALIB_DEFAULT)
->  	[ADC5_AMUX_THM1_100K_PU] =3D ADC5_CHAN_TEMP("amux_thm1_100k_pu", 0,
-
-
+> =C2=A0security/inode.c | 2 ++
+> =C2=A01 file changed, 2 insertions(+)
+>=20
+> diff --git a/security/inode.c b/security/inode.c
+> index 080402367674..93997a9f16fc 100644
+> --- a/security/inode.c
+> +++ b/security/inode.c
+> @@ -14,6 +14,7 @@
+> =C2=A0#include <linux/kobject.h>
+> =C2=A0#include <linux/fs.h>
+> =C2=A0#include <linux/fs_context.h>
+> +#include <linux/pseudo_fs.h>
+> =C2=A0#include <linux/mount.h>
+> =C2=A0#include <linux/pagemap.h>
+> =C2=A0#include <linux/init.h>
+> @@ -64,6 +65,7 @@ static const struct fs_context_operations
+> securityfs_context_ops =3D {
+> =C2=A0
+> =C2=A0static int securityfs_init_fs_context(struct fs_context *fc)
+> =C2=A0{
+> +	fc_init_pseudo(fc);
+> =C2=A0	fc->ops =3D &securityfs_context_ops;
+> =C2=A0	return 0;
+> =C2=A0}
