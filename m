@@ -1,77 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794571530;
-	b=ptNhdyZUbscTzYjAhJ66y10slF80wxx/0WLXAlrUEwCOPyodKjQHLkIuEFlJOX71dst6
-	 A42Txoqr4IHWnNdUlJlNuhaqlWWW6evR7RLAt9ooXEEsB3doE0K+bVSYD3BmH9xjnMV9Q
-	 Qv5ixjg6rYftsc/SMW7NIwg+qi2H/K6Awi7Ck1V4/x7VTTQmTYC9ujPA6hqE76dPsIlTl
-	 4uBIkW7vocnN2H4+u0nuVgVa3/9ifOMM/6fC6oClJ5sb8JPi9GTSXZVC1wKR3Bb5Eyir2
-	 LrV950eiomTBrNeZzFgBlE1YgmCwnmaw4boJerf8rFs15s+arYaJeZcK+pXUl0s6SMg==
+	t=1794571559;
+	b=2IcOGyX7scSefHPowG5fs6H3f8PfZgpy0vOLy7omThSLya2JJ29Cr9kVyI6uFlJRcP/Z
+	 oashYN6RPWOuuWYcTtcq39m6T6hcXlp+XB07ixNma4O/rs/LxhYum3y1rXkzU4Eo4kr+Y
+	 UqALI2QH/qm47WIKX6J/3KO7siABEv0/tOeVSBM/l0fyKlLiuqZf3m86scR1up6CRZpeR
+	 qtkMHxWBJ3/CjMVFpl6L0w+d6oI3vrftktqLVM5duKbRRf8EMLXlW1Q6947K5NCHOoUl6
+	 AQ/XQNzatYv6KiPuMWRQhmu+dQLb4Wp9faTI1cEAsVw6j9CMUGGJz/c+XmJuDCQzqcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794571530;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=JCyADuE7MAyHJhJI3+8pvWzlvXz5TnZK+HIgXhrnClU=;
-	b=R7tACoZ1rqjs58cfPidpf38S9t9QhiP9obSVQoUIj1NMHKFL3mS72LXblBnViv1FNISz
-	 xupYeVbQ3/yzoxmOOclxidBECuG/fs+c2qllJaHslpHtBWBhSOCwvzsDTB0MXFapAkPrA
-	 TqzC1MPWBQf9vRbSLaGF9145FZFYFZrTa/rn7u9Z6UJqH058orzAoX0K/QqVYKyrkfA1v
-	 ou4uTFB3JOlOG+3iu0CZz2Ongd+Id+h9I4b+X1thR/KDW/iKK4y5E+Sdly8qB81cd2FDG
-	 2TnWHJ233Hsl/5lI57+akXfpu/3sPd0tujMNP5MQtXpIeUSXHpSfTwcvxCr5q1Fhc3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794571559;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ew8hOC13o9wfy+m40ApTMAeA1rhG3tv6pgX/NAGeWFg=;
+	b=G6S5OznqkerFBM+M0+nL/r3MF7nWDNSftmWsDDuRg4R7uInfQRsw1zZXM4Lw/GbX/iJL
+	 OhEHy0vsujJrmF6Wj5MjeG0sKrhCKKRTjZTP8utFgwXzefN9YxW2EshRDUMCw+MhHeMSW
+	 3/+OWlAEfCs9IJAUrwiWze2nawXF+hfTix0lDEIsQ9Evu3OU0oipnj4es1zvNXsZnqy2E
+	 AqjlZQaqncJFJnUenE0dweGVgjeDEKfI+9WxYb9SS0s9EhSeTPskG7j6cT9BmY5WuNF+G
+	 4tpHM0co6XAszwDTvJcMFK5Yzxja82vMTpiIy6gQ7Igkjty14DVlqWmg67JviiWNLTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PQ+E46Xc;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mu99j7RL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75FE1606A8F9;
-	Fri, 13 Nov 2026 12:05:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75FE1606A8F9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE6F606A88F;
+	Fri, 13 Nov 2026 12:05:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PQ+E46Xc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794571531; x=1826107531;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=stDOacIHpZsQKcozLdna80o9rydyKM8XxSmzyeGn9PU=;
-  b=PQ+E46XcMan/e8voQGQPKry7UpWKlBzhIc/JV5+ziGqmEUluYVAma8Dc
-   vBz3GS0LzzNBx8KIbEokcS2YmSfNWcQCqqxIl8odKvBB20xVOtTtXsXmW
-   hZOf0Jvj+/xp01xSm12To0e8UYWuiCIald7z4Usevhxeytx+WUjvnsQr3
-   uTTctwlVuzTeYD6E8qn7vHQsiVHDYUhTngLQaZwindwomgV2I5Z3SePFD
-   d5+W9Bz5469Z0WdYm47vIZlqHtbvm1tFX3oaQ56Q2gwn3WIwSOlywdxhH
-   AY0yMxGpMSo/anV1yQDKVHkJ6XgcNs+mHpjSgED+3cU4DH4/elZrnaYUI
-   g==;
-X-CSE-ConnectionGUID: GHaD37YyQbmo7906bwqjFg==
-X-CSE-MsgGUID: AP8KsE/SRR+tbtlGIY4QLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3264210"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3264210"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:05:30 -0800
-X-CSE-ConnectionGUID: dGo70yMbQiOj77x0eMxSJA==
-X-CSE-MsgGUID: 8cEgRXuDQIm1sQfBQO+jgA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="9067875"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa003.fm.intel.com with ESMTP; 13 Nov 2026 04:05:28 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 1A93299; Fri, 13 Nov 2026 13:05:27 +0100 (CET)
-Date: Fri, 13 Nov 2026 13:05:27 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Cc: bryan.odonoghue@linaro.org, linux-arm-msm@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: tcpm: qcom: Release connector fwnode after
- regulator lookup
-Message-ID: <avb9Bwr_VSkB56rP@black.igk.intel.com>
-References: <20261112021836.1851-1-laixiangwu@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mu99j7RL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E9A61F000C4;
+	Fri, 13 Nov 2026 12:05:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794571559;
+	bh=ew8hOC13o9wfy+m40ApTMAeA1rhG3tv6pgX/NAGeWFg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Mu99j7RLydX3ZksQxHNiqiV8a9C3HGC7C1B9GQzP3i7C2+X8JW5Nsl3ld9KFTB67b
+	 rTQi6bipXdld3U/uSYywJut+ua83KWwKn6KOM6cBbQ9OazBf9YJBKXJOG9raq88INl
+	 6748FiobUagmQyYCWbJzCZjOYLV+iqHT4vmAdGQoY1QFh/4D3MvGnzABWwgyfZZ8nC
+	 qc/PYUysfEen/3hzq4svDwJ/RgFoGqU9AMuqKy2lrFD2S6tqSL9RYtMASWBjIQDY4d
+	 YydpyRu0sSvtrB/5rpTSYMdQ5Eh2XX5FTmVV3wKdx/zsKDlnmB+0OS7/K3AkwYAiXw
+	 nHkUQpXGCnGXw==
+Date: Fri, 13 Nov 2026 13:05:49 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 0/6] Add strprefix() and fix a bug with it
+Message-ID: <avb862Pr0NKPVPQg@devuan>
+References: <cover.1794425425.git.alx@kernel.org>
+ <avTIWshl9klX0obF@devuan>
+ <avXYmk5sZKS0rm92@ashevche-desk.local>
+ <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,47 +72,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="l2hgnnxajsc5hpxz"
 Content-Disposition: inline
-In-Reply-To: <20261112021836.1851-1-laixiangwu@cmss.chinamobile.com>
+In-Reply-To: <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
 
-On Thu, Nov 12, 2026 at 10:18:36AM +0800, Xiangwu Lai wrote:
-> pmic_typec_port_probe() looks up the "connector" child node with
-> device_get_named_child_node(), which takes a reference on the
-> returned fwnode.  The node is only used for the VBUS regulator lookup
-> from the connector node and the reference is never dropped, so every
-> probe leaks one fwnode reference.
-> 
-> Release the reference right after the regulator lookup, mirroring
-> the parent driver which already manages its own reference on the
-> same node.
-> 
-> Fixes: 506927b6bf29 ("usb: typec: tcpm: qcom: prefer VBUS supply from the connector node")
-> Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+--l2hgnnxajsc5hpxz
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 0/6] Add strprefix() and fix a bug with it
+Message-ID: <avb862Pr0NKPVPQg@devuan>
+References: <cover.1794425425.git.alx@kernel.org>
+ <avTIWshl9klX0obF@devuan>
+ <avXYmk5sZKS0rm92@ashevche-desk.local>
+ <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
+MIME-Version: 1.0
+In-Reply-To: <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
 
-> ---
->  drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-> index d3523435f..084e8e9a8 100644
-> --- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-> +++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-> @@ -733,6 +733,8 @@ int qcom_pmic_typec_port_probe(struct platform_device *pdev,
->  	pmic_typec_port->vdd_vbus = devm_of_regulator_get_optional(dev,
->  								   to_of_node(connector),
->  								   "vbus");
-> +	fwnode_handle_put(connector);
-> +
->  	if (pmic_typec_port->vdd_vbus == ERR_PTR(-ENODEV))
->  		pmic_typec_port->vdd_vbus = devm_regulator_get(dev, "vdd-vbus");
->  	if (IS_ERR(pmic_typec_port->vdd_vbus))
-> -- 
-> 2.50.1.windows.1
-> 
-> 
+Hi Bart,
 
--- 
-heikki
+> Date: 2026-11-13 10:25:00+0100
+> From: Bartosz Golaszewski <brgl@kernel.org>
+>
+[...]
+> > Are you sure that it's okay to use asm/bug.h APIs in string.h?
+> > The include/linux/string.h along with the backed C implementations is r=
+eally
+> > special in the kernel. Hint: check which stages of kernel boot use it.
+> >
+>=20
+> Agreed. I'd just move the implementation into lib/string.c and not do a
+> static inline function here.
+
+Hmm, thanks!  I'll do that.
+
+
+Have a lovely day!
+Alex
+
+>=20
+> Bart
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--l2hgnnxajsc5hpxz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr2/RMACgkQ64mZXMKQ
+wqmNSw/+NhDKyBjn0lq0zuI2m5yLY3P6tSCdyIBSR8OKvV5HIUio9mh8ljNal/ym
+Sz0hjW4t9OVFiCg4UARs3vPAujQq7jO/vSAa3C2PWQT46VE9RK8aNskYMmFWXuWd
+/DcT6X54849AYkHr7FP5+q+l8Q2HFMnXGV+Delvdb/82rKB04/wRMBbFefcJMi92
+Z9Ks9wf1Y0JsCjcLHYZIgXD0w3RhzLM33+Cq5jdJtVeTOiBSPLZYywEDeFEBwrJ+
+dPkGu2/yKZbN3db4knaI8n8NYmcAYrVehn2XaD0PcYigSCt4IryJjkodh54Z7BOL
+fsod+nYMQt6xTt4nE6+g2UgHFhAjxnIjsgr8Rd3josxeqnQJCheCcMUgNIiZR1SA
+GFo/CmMtE9IMtffygFSkSt86VQRpSIH49pkeSNwdb40izuxkLmahKBTfUW4tRiYm
+NQcO7je5MPGGnM3qSOZSq2EebLlpck0CohvFJvzAKJ7od11NiOIISgnFQ6DuUSqX
+zUUTaJt+q2Mt+DcHQj0RFxgWs8xUuacQhaItoGcljBZSM1t5GoamUxGzQqpT6Jp5
+0/Im57WXfZxwYbLBbm71EGkOdaNOfb/Gf3g+N34lBjCn7/bxd642ooo4FD2Rq61Q
+Y8jtSDFA9KFhFTV/Q2NPiBI48xDhzabFoQguGK28sPybiAZK4Uk=
+=BE9Y
+-----END PGP SIGNATURE-----
+
+--l2hgnnxajsc5hpxz--
