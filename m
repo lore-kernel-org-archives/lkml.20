@@ -1,62 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577305;
-	b=f1YoHeGSnFUVg1aKa1ksbvew77xACz+2kZ5pWQqymXb6hwoBdw+X612iQohRXJ4ZbHKf
-	 efsyBLfn4cmAXV4+JkuSIauBIdQGQnGEp5f2yN8Xag+ikLgINBNxoSZbPw8cU4j/Vkg5+
-	 H38LOD9g50QyvLtcoeCJHe2mPF26OW9BEkPchATUPq0+Qgluxk4MChZZxApBXABxGD2qF
-	 JRUCSNNn3sOYIsZn9rp41bphHY0AoaPLPJ4inUGo2XN7DvVnzN2En7FFgw8mKRHY36Ppb
-	 RpIW09yuSjHv0jF8m/+QRsbR/tHt4K3mqwZIZzzvSSTtKZIeVjTGLDZODpMGQ7o8LRA==
+	t=1794577306;
+	b=5ly/9AQZG9PLvINUAhU2faM0iTQWQG3rC0ryaoV378pD5l+TUkVhjEt8OWQFluKHHniz
+	 Qcoiwv/AVHWid5lphsF1qE0nfHKOEWkTMPRFcb+OXQ4b5twGSmYkTgPqKDVQFyYCua1vv
+	 R4YhIwnZkec8Q0aoFiZhld+05Zibk+w7OoWHYbjk7nxE+BPLDKY/1zoSDblgxEHaFi8x8
+	 Zx5IiMnRUizTLePleQEbWavOWcfO/WSB78SI+jjsrt66lveSvFnmzGewmoezFxPJ8Hhj5
+	 +1c4+BSsFdCKgE6Aj+xzERLvQsHVG+o2EKSskxaryiF5sC5DRAGQ/nVqLVlI2oGNNlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577305;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 X-Debian-User;
-	bh=2/YHWXloHM6NRG40BpIM23KsyPGTOxBBteru1wPX7WI=;
-	b=snpBPKImDY5CsqIzAzepTUCHWdfANm6OFwpDvfJSLsJtWu3nOnqL4jkXBvY3brUo7w2h
-	 w2nYXXhMX1PzJ71nJr2Cwssq539gOARWctg5yeEP/i4lx9nfjRdjU5n9h0Il7dZ1NuoHl
-	 MsZr4BaBXMzmdaCktjQHwC4OZHJOr1991Eesm01eesYsyFBGVwlRGD8c/uY2+Ze1z1hqz
-	 2v+zAgoa5zo6g2xF3WTbuv7WDsx4mJ7AXBiDfYWJNw4yLj2yesKPrCgJ/kNHdP5TiCwrX
-	 Uw3YMeQNf0lrsnWTynB83k14KVnACv2j4fH3H/cGV6VI1IAn+KSWxp7/zRNoXJ6x0og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577306;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=lXWADzxXGxHpcFv7Ee701Kzn+Er/ey5xktA1/baHiuI=;
+	b=voL+Lnn67X2Gi8y30i43/PyarEk8xh6m4S2zKMrRI/0KW5YuQPHMQ2+9iPa66syKWkqy
+	 FPoH2BHWvuzOXgruoFFo+RpgYlWPfX7qfpy+uANFv1bvkRpgX0miZUDLx04QVSeNZw5HM
+	 GxazK+Xnn81sG5jJrJfR8fscAKUgL7zJWr2cYhWJRhIOhXTOmZL5e9PWJChrAeUyX/aJj
+	 GYRMRanbNxwb3+TJtQ4Bag8vElMNbsqAO5iJHt1IBeQJtBeXD2n2ZIprMMWP52dm85iOX
+	 5PfD2bxqIL3nmMPXe74M7hIZ26yeVE+MrZCoG/Le9ZHl2/tQ361uSsCN+Hnaawaio2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=gkTm0r4m;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tGDy3QH9;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F185606A323;
-	Fri, 13 Nov 2026 13:41:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F185606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B25606A334
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:41:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53B25606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=gkTm0r4m
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Type:MIME-Version:Message-ID:
-	Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=2/YHWXloHM6NRG40BpIM23KsyPGTOxBBteru1wPX7WI=; b=gkTm0r4m04jVkuRPR2BXolPhBG
-	HPCULuqlhawqnijke2K7d96Dd4AI0QtCSLfw4aDrfFgHTJbNKwPvzfyDCNOaBfqEmBDflV/5+VoUl
-	TfMvlvPHdAHFLiMtqPEe+Tww/0LpCDaK55JDao6nQCQN3U7TnI4Q1o17Kp1fVjjdRgTu5xYhFQK4M
-	XIOqMArye+JmaTJfFlznDK51WLr1QcEUusYcq74At0SlM8iNZT/03L/XOUJibUYaXj8Ir1cv8LmHy
-	gpMy72jigkg+HCA9D7rqwUqoLEuEnxBuhOE7Sk2+xga196nyjAgKQX2mZeek4G7vVXejYrJ0Ig4pf
-	Snx7nwRw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xRrXA-00EnAK-0S;
-	Fri, 13 Nov 2026 13:41:40 +0000
-Date: Fri, 13 Nov 2026 05:41:35 -0800
-From: Breno Leitao <leitao@debian.org>
-To: john.ogness@linutronix.de, pmladek@suse.com, kuba@kernel.org, 
-	gustavold@gmail.com
-Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev, 
-	netdev@vger.kernel.org
-Subject: [RFC] netconsole: plan for a safe atomic write
-Message-ID: <avcI9gVR7brRHQSQ@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tGDy3QH9
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 9F9111A164B;
+	Fri, 13 Nov 2026 13:41:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6754C60015;
+	Fri, 13 Nov 2026 13:41:44 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 51AA111BC0565;
+	Fri, 13 Nov 2026 14:41:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794577303; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=lXWADzxXGxHpcFv7Ee701Kzn+Er/ey5xktA1/baHiuI=;
+	b=tGDy3QH970C9Sqf19bxSrzJeay9jZ2KWaPC4+yMx5LCeW4HAf1jyRzHVYmChUrWobCi9Sh
+	Q9yyhIBpnN1rlGkvMnQNlRlVL6iXp+KWs66WQ5k98LolBcTQd8Pd40lrcTvUEhA4x6TJTd
+	0+7thjXE/8gA/rLXqwU0iI2ID2MpGvmxjQJmOJBPK+0GApD3g7lHMD27SiXv4IhfrRYdiX
+	hRLcq97tEBKWbcYO8DnduHX8dsKuploHIsb//TceHPuW6QeDA2GRxFKqLHXVVJUKBlCJIw
+	sbNkmH6sXEX7Hr1yAKmvBHlgU7fYGCWJ7JGZjuhTZzjQ9I9Vdm9YyACYdr/f6g==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Robert Richter <rric@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	Umesh Kumar <ukumar@marvell.com>,
+	Shashank Gupta <shashankg@marvell.com>,
+	Tanmay Jagdale <tanmay@marvell.com>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v2 0/4] i2c: octeon/thunderx: Fix DMA mask + improvements
+Date: Fri, 13 Nov 2026 14:41:24 +0100
+Message-ID: <20261113134128.58826-1-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,53 +73,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hello,
+Hi Robert, Andi,
 
-netconsole is CON_NBCON_ATOMIC_UNSAFE, so write_atomic() only runs at
-the very end of panic. There is a desired to have called safe atomic
-printing[1].
+This patchset adds a fix to the ThunderX driver where the DMA mask was
+not set, sometimes preventing MSI-X from being initialized properly.
 
-This is the plan I would like to agree on before posting patches:
+The v2 brings an extra patch that fixes an infinite loop in the clock
+divisor calculation.
 
-1. Now that we have one console per target, use one lock per
-   console/target.
-   - printk holds the target's device_lock around write_thread(),
-     write_atomic() runs under the console ownership, and stopping
-     a target takes both. target_list_lock and the cleanup list go away:
-     the list changes under dynamic_netconsole_mutex and RTNL, and is
-     walked under either.
+The other two patches improve error handling on the bus, and the latency
+in HS mode.
 
-2. A per-target field to track atomic writes.
-   - In that mode, skbs come only from a pool popped without a lock and
-     refilled through irq_work.
+Cheers,
+-Paul
 
-3. A try-once netpoll transmit, as Jakub outlined [2]:
-   - One HARD_TX_TRYLOCK, then busy, with no polling, freeing or
-     wakeups, which can deadlock under rq->lock[3].
-   - It refuses when this CPU owns the queue (netif_tx_owned()), is in
-     the device's NAPI poll (netpoll_owner_active()), or is in NMI on
-     PREEMPT_RT.
+Changelog:
 
-This does not make ndo_start_xmit() safe, so the flag stays until
-drivers can opt in to atomic transmit.
+v2:
+ - [1/4]: New patch
+ - Every other patch untouched.
 
-It is still unclear to me whether write_atomic() should depend on the
-context (regular NMI/panic): 
- * For regular NMI use the try lock as best effort
- * Ignore the locks only in the final panic flush. (unclear if this is
-   an option)
+Tanmay Jagdale (4):
+  i2c: octeon: Fix infinite loop in clock divisor calculation
+  i2c: octeon: Add error state recovery
+  i2c: thunderx: Set DMA mask
+  i2c: thunderx: Use polling with delay in HS mode
 
-Is this a reasonable plan, or, there are some missing parts I am not
-seeing?
+ drivers/i2c/busses/i2c-octeon-core.c     | 35 ++++++++++++++----------
+ drivers/i2c/busses/i2c-thunderx-pcidrv.c |  4 +++
+ 2 files changed, 24 insertions(+), 15 deletions(-)
 
-Thanks,
---breno
-
-[1] https://lore.kernel.org/all/874ie4y5mw.fsf@jogness.linutronix.de/
-[2] https://lore.kernel.org/all/20260617132127.645534d1@kernel.org/
-[3] https://lore.kernel.org/all/20260610183621.3915271-1-vlad.wing@gmail.com/
+-- 
+2.47.3
 
