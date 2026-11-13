@@ -1,65 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567572;
-	b=Sowt9RwvnJCQMnca7CjpKzE5oTgZA3+2McpC5fZS41NDTFZZ2Tx+pajFn8QRZlxOSTmS
-	 C8TGre94RYVq8/bYW+TYeyr40TqtTpzM7boeuTe8HOhdBwFFKjb16uKk7sw+gmIGtvNpD
-	 4m771Pdr3Z/6lb6jDSHNGYgG00xt8QDPHrUozqRo9XXGHNMp7FxJ8Nb8N00HYUlnMo8As
-	 wYhQteIdnUghxxmt5x5C+a85bjS6py5xSO1bBWkRN1COvmTHwIwtN+DHrsXu/HfXE34M4
-	 gwQprwCNvNFwwAygWhUEG2IhdAnkZ7/55R4TNISVW82RpziVGisqvmj4bKoG5LpowFg==
+	t=1794567648;
+	b=zVnK4kIVYPTGwHTTyTACPueriDz6uxqtEs+DMcLvlLtr0O4H/lubGO7gsKpk82YSFbZx
+	 Q3I2RefD9EDc5/WY2jffr3jwHxGH1f687oLzbwoNUXbdEyIbUWJjp/DHKAh8Ulx9McXiy
+	 spokEtjw760xKEnNLr5tjeNEYYXT1MNh/6JU4MUcWt73vhrwIVNHdesKKogtsEybnzFEo
+	 IUR4lB4F7+aGjaWMfYDlaW8yYcwS2tcr6UPgt/OhDfDgcQrxjKTmxBtFOMjkS/TEauTff
+	 gIcocoabzd+is5iw+kVEfJrq2bMb+iTxJybavZak8LgrVMv+NU0tE+euPY05DHBEydg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567572;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=oo7RjrzXgo/CEjpliqz3gqGyxd1KPs7Uh1SXdbTUxR0=;
-	b=UBD66G2z/VATEiJdqPV7k0nkf5CMp2Wtg/ZDyzyT8Zy7iPtezza12/d7Tk2gQhlNhild
-	 k0DPcpu+VDU3a0HxPrV50nxMvV6mb2oN46AnjYzh4UiO+8oirAXp7Np2Zg+lXNWcv6if5
-	 Jh5T0Lm2nBxuqu2Bq/IzZwxJ0GXusorYbQrgdq5NzCSqjRO+tFlZmM9Ckt37IoV3qNyj0
-	 +b7+UQ5KQHU06Zu7MQBEA+gdlZPQSSUKw8u0f4JkNCLNcVIUk/IDXnZEAmwLSoLkVxn5Y
-	 cZMNcaRyw4ErKA4ip1LVOKfulh38fe7BSAhUSIuprzuwplYIH54SqJsnRczWspZ1+WQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567648;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=E0Spw+Wz+o3GYXN/Tq9YXE4Yt9eck1f5/t1doKsqquU=;
+	b=EzWrm/XylagjGGydkrizYHRMGtUqPnUJMS8CadR9htXiEnwmLdV80LPH5caI8AtTNiFw
+	 dcaT2NJVoBbsl47Dz9A7tllTgBruhcm9tT26gD3+/RMR7aqUBfSxtg5CXExyhmxTepeF2
+	 uJT0R3VfJWBu741Sdap47MWqS9fpaB9NcdvODA5B/3p3St0zGkeUIPBNLDXT5DARFRzF5
+	 40a0b6Zz625VOyI35cPHHPVCwGoahL3Z58Ql646eVuFiXm04nKYQG2K32El3ph1IUUB5G
+	 CGwRu50BgW3JuI52jr6EbgLt767cTXSn4QrA2O6AnZWjCI9aQhAOSz7HAp60cDeVC5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eHdmZKVl;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B91A8606A339;
-	Fri, 13 Nov 2026 10:59:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B91A8606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=IOhWIIOB;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D52606BDAF
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:00:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9D52606BDAF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eHdmZKVl
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E9DE1C0A;
-	Fri, 13 Nov 2026 02:59:28 -0800 (PST)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C858E3F673;
-	Fri, 13 Nov 2026 02:59:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794567571; bh=XUZhmq3u2xNG1YGicKKUsCPDU/uHI8M/joODV72JgGs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eHdmZKVlUeRxbO1js0VxizZUUCi7kGK+xvO/6P5sh6DJZKnORb99eLSQS/SQghozh
-	 ktmmK0lqA7D3BO5kICPE1q4y7Jf8241rP8coqLJZp9JJ52aQ6jw7jbkOOwJMXtJgi4
-	 tJDI3pvxprJULRN9Te+ZFfeWCxGLIRRfLB1jHb1s=
-Date: Fri, 13 Nov 2026 10:59:28 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: Ian Rogers <irogers@google.com>
-Cc: James Clark <james.clark@linaro.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Mike Leach <mike.leach@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 10/14] perf cs-etm: Synthesize exception entries
- separately from branches
-Message-ID: <20261113105928.GN9176@e132581.arm.com>
-References: <20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com>
- <20261030-perf_cs_etm_fix_non_taken-v3-10-7629b52ab047@arm.com>
- <CAP-5=fUMwOb6Gj+5DOu9-yNmthDz5ghAqrzmZ4ACX0g+9WB59w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=IOhWIIOB
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8b29b83fdf1so329910b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:00:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794567646; x=1795172446; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E0Spw+Wz+o3GYXN/Tq9YXE4Yt9eck1f5/t1doKsqquU=;
+        b=IOhWIIOBXi9j/kk02rDsO6zNJ3cl7siqpWtb/Sj3TCpjHuCCw3yNel0d2DJ6FxfkT9
+         TqyUISsm20FuA+0YFJuOApZYIEtui30MUBE/mGKK4spCG6HpYMaFOZ7h67CI8YJm5tCL
+         5X2kd7djjo5wbnCsH+wJOC7nWwV1Rb8f5jH6Lnco8yieYaBV4vPrabyljUHnfQXZKt4s
+         W+rpU6CCwNfMTpeBDZkgf1T92ZQXb8KxDb4q3rTd50F+c1cjfN6AL7b8vesSu7CFvPuW
+         T9Z4N1TSB8vDQX5OtZ5NpWOSDHNFOM11I9IGp8yftqOOXaL6gTb0415Jx61Aa6+LxxjN
+         O4bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794567646; x=1795172446;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E0Spw+Wz+o3GYXN/Tq9YXE4Yt9eck1f5/t1doKsqquU=;
+        b=EBLpoz5IGxzCVJ2N0JJRABrwFGY4mI+/wZqMO8m1dG5zBAOlr+awGxWMcSNcPT8bY0
+         V1J43M1jccwrGmGm0loUWRqivtQszuMU6DIAjC3vuVgddTk8HjyWQwen9myFQNchnQQJ
+         vZinB3cIjgwx40SqoI689wEhb9dbiLASoYilJwwjVZEY38k1f+e9LA8fuWtLCV0d9XKs
+         2jfZZ2jkwyzian70/ic11mDtrpLvRh1SHo6wGIKSQFdEM4sJZ1AAM8Baqvoou0OcoP3N
+         SmOREdsAgAiOVJaGdi4vcPCrlTrHJPLUDcGiYhik6FQGOaLdoLtErxPzBoThKDY/yqSd
+         CjHA==
+X-Forwarded-Encrypted: i=1; AL+hErHsqwnFCpugI+x41qKeyhuAoSILYgWFHPhQmSCO9tfPfSj8cDVPJeEwvcRvFEbKOg0drn4hi9m5pkUwJ+w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XfpZb8GoGCfuHDASEHH6RSWB7gheRrFy+lPg+VLelhHmZwKpx
+	sOM1f8t6VtEFTbI6Y5J7FBdC9QigJuU0I/TcBjRI2Ohsrk6+ZagxS67K0O5grDoohUI=
+X-Gm-Gg: AYBFou2kn0J+fnPQSwoCK+5gItSd+zh0KR4RHooNvPAUSX/7DBWOzbLpvBPRQ/JZ5Iu
+	JMA1ylDh/h4TWMo4DWB9iUt2b72/8fcHQKaW7c7ZWobRL8bs7NP0r/hJUonojtQcHaduQPvsn+t
+	aNpFcGddHpbtP0bJECc53c0k3wihoUCnLOHAHPmsb+FI8ds9RhzjOz1DpNrT4mUL7K8DCechmMH
+	2/TaBBejoi+1ZWhwWEgU7DKaDR1bd/x5ErpGxI1wFzBIW/cEL3lrfJ2Du+t2g6jtbzfuyMAJBo1
+	CtS0nT4UCAddbOEI+gYjgA2kLcs8+AsFPmZqvRqwyCeo3F+0GTxk+0ZSnh2i1zAom7vi5ztzVjk
+	/mTUgjpgxJ+alAc1z5ijfS5NOEaQTEOe7DCtxqOO2iQeH22sp8EzXP5SS2vlnXnJIxumQKDaLL4
+	NFGfZRomNDdlE0rouCOGQArkFT5+9TExx2DSVGxyCcxOCDTM4MULjYiy7fbj5flZ+e9mzA/fEis
+	Vt3/cR+UnbTENeSg8Tk/yJznlAdDOD9AhiiLJaXiSTm7VkGcu4RBp2xPJ3aHjS6RttEh7AT7iI+
+	TaFEGYWfHiFvL/dCzigO4LlcoxBBdazZflVLBsr+0uYaHhJ5rkvpDe2pBgd8LftxrrP4UOXP7h3
+	dbmYi4ujthoyyP8fhddF6AQW7FkcQSpTX5WrLqw==
+X-Received: by 2002:a05:6a00:2d0c:b0:8b1:d612:e945 with SMTP id d2e1a72fcca58-8beb753a01fmr2253520b3a.52.1794567645735;
+        Fri, 13 Nov 2026 03:00:45 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:7e8c:590a:782b:a57b])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bececce013sm945262b3a.6.2026.11.13.03.00.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 03:00:45 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: jgross@suse.com
+Cc: sstabellini@kernel.org,
+	oleksandr_tyshchenko@epam.com,
+	xen-devel@lists.xenproject.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	martin.petersen@oracle.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] xen/scsiback: disable the IRQ before draining in-flight requests
+Date: Fri, 13 Nov 2026 20:00:36 +0900
+Message-ID: <20261113110036.146860-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,50 +100,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAP-5=fUMwOb6Gj+5DOu9-yNmthDz5ghAqrzmZ4ACX0g+9WB59w@mail.gmail.com>
 
-Hi Ian,
+scsiback_disconnect() drains the in-flight count before stopping the only
+thing that can raise it.  scsiback_cmd_exec() (xen-scsiback.c:426) runs in
+the backend's threaded IRQ handler, so a request can be admitted just after
+wait_event() has seen zero, and its response is written later from target
+core context by scsiback_send_response() (:347) - after the ring has been
+unmapped, and on the scsiback_remove() path (:1268-1280) after kfree(info).
 
-On Thu, Nov 12, 2026 at 11:07:55PM -0800, Ian Rogers wrote:
+xen-blkback and xen-netback stop their request processing first:
+kthread_stop() before reading ring->inflight
+(xen-blkback/xenbus.c:290-304), and the kthreads and napi before
+unbinding and unmapping (xen-netback/interface.c:673-700).
 
-[...]
+Call disable_irq() before the drain: it waits for a running handler, so
+nothing is admitted afterwards, while info->irq and its event channel stay
+valid for the responses written during the drain.  Unbind only once the
+drain is done, with the ring still mapped until then.
 
-> Hi Leo,
-> 
-> After commit 9648f9fc3525 ("perf cs-etm: Synthesize exception entries
-> separately from branches") in perf-tools-next, perf's build-test
-> (`make -C tools/perf O=/tmp/build CORESIGHT=1`, i.e. `make_with_coresight_O`)
-> with GCC 15.2.0 (`gcc (Debian 15.2.0-14) 15.2.0`, `-O3`) fails with:
-> 
->   In function ‘cs_etm__t32_instr_size’,
->       inlined from ‘cs_etm__instr_size’ at util/cs-etm.c:1390:10,
->       inlined from ‘cs_etm__copy_insn’ at util/cs-etm.c:1572:21:
->   util/cs-etm.c:1381:28: error: ‘instrBytes’ may be used uninitialized
->  [-Werror=maybe-uninitialized]
->    1381 |         return ((instrBytes[1] & 0xF8) >= 0xE8) ? 4 : 2;
->             |                  ~~~~~~~~~~^~~
->   util/cs-etm.c: In function ‘cs_etm__copy_insn’:
->   util/cs-etm.c:1372:12: note: ‘instrBytes’ declared here
->    1372 |         u8 instrBytes[2];
->             |            ^~~~~~~~~~
-> 
-> The uninitialized `instrBytes` in cs_etm__t32_instr_size() is actually
-> pre-existing from commit a7ee4d625ede ("perf cs-etm: Support for ARM
-> A32/T32 instruction sets in CoreSight trace"): cs_etm__frontend_mem_access()
-> (via __cs_etm__mem_access()) can return 0 without writing to instrBytes
-> when thread__find_map(), map__dso(), or dso__data_read_offset() fails.
-> The changes around cs_etm__copy_insn() in this patch just shifted GCC's
-> -O3 inlining enough for it to inline __cs_etm__mem_access() and spot the
-> uninitialized read of instrBytes[1].
-> 
-> Zero-initializing `u8 instrBytes[2] = {};` (similar to instr16/instr32 in
-> cs_etm__is_svc_instr()) or checking that cs_etm__frontend_mem_access() read
-> ARRAY_SIZE(instrBytes) bytes before inspecting instrBytes[1] should fix it.
+Reproduced in a nested-Xen lab with KASAN.  Reaching the window needed two
+test-only usleep_range() delays, one after wait_event() returns and one at
+the top of scsiback_do_resp_with_sense() once the teardown has started.
+With both off nothing was produced (4 rounds unpatched, 2 patched); with
+both on the unpatched driver crashed in 6 of 6 valid cells, the patched in
+0 of 5:
 
-See the series to fix the issue:
-https://lore.kernel.org/linux-perf-users/20261113-perf_fix_gcc15_failure-v1-0-eae592c5ff64@arm.com/T/#mcbc1b4ce7284c9575b273d504354ac733bcf39aa
+[  168.546709] BUG: KASAN: vmalloc-out-of-bounds in scsiback_send_response+0x516/0x5d0
+[  168.551012] Write of size 4 at addr ffffc900000230a4 by task kworker/0:1/11
+[  168.554757]
+[  168.555908] CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted 7.3.0-kCTLblk2-15482-g21a7f44fd076-dirty #10 PREEMPT(full)
+[  168.555914] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[  168.555918] Workqueue: target_completion target_complete_ok_work
+[  168.555939] Call Trace:
+[  168.555946]  <TASK>
+[  168.555949]  dump_stack_lvl+0x64/0x80
+[  168.555958]  print_report+0xd0/0x630
+[  168.555966]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[  168.555978]  ? scsiback_send_response+0x516/0x5d0
+[  168.555983]  kasan_report+0xce/0x100
+[  168.555988]  ? scsiback_send_response+0x516/0x5d0
+[  168.555992]  scsiback_send_response+0x516/0x5d0
+[  168.555997]  ? __pfx_scsiback_send_response+0x10/0x10
+[  168.556001]  scsiback_do_resp_with_sense+0x87/0x230
+[  168.556007]  scsiback_cmd_done+0xc0/0x290
+[  168.556011]  ? update_cfs_rq_load_avg+0x5a/0x560
+[  168.556023]  scsiback_queue_status+0xd3/0x100
+[  168.556028]  target_complete_ok_work+0x467/0xc30
+[  168.556032]  ? __pfx_target_complete_ok_work+0x10/0x10
+[  168.556036]  ? put_prev_task_fair+0x44d/0xa30
+[  168.556039]  ? finish_task_switch.isra.0+0x1d9/0xa70
+[  168.556047]  process_one_work+0x697/0x1060
+[  168.556052]  ? __pfx___schedule+0x10/0x10
+[  168.556058]  ? __pfx_process_one_work+0x10/0x10
+[  168.556061]  ? _raw_spin_lock_irq+0x86/0xe0
+[  168.556065]  ? __pfx_target_complete_ok_work+0x10/0x10
+[  168.556069]  ? assign_work+0x11d/0x370
+[  168.556074]  worker_thread+0x45b/0xd10
+[  168.556078]  ? __pfx_worker_thread+0x10/0x10
+[  168.556081]  ? __pfx_worker_thread+0x10/0x10
+[  168.556083]  kthread+0x2c8/0x3b0
+[  168.556090]  ? recalc_sigpending+0x15c/0x1e0
+[  168.556094]  ? __pfx_kthread+0x10/0x10
+[  168.556098]  ret_from_fork+0x373/0x5b0
+[  168.556104]  ? __pfx_ret_from_fork+0x10/0x10
+[  168.556107]  ? __switch_to+0x3c4/0xb40
+[  168.556115]  ? __pfx_kthread+0x10/0x10
+[  168.556120]  ret_from_fork_asm+0x1a/0x30
+[  168.556127]  </TASK>
+[  168.556129]
+[  168.639704] The buggy address belongs to a vmalloc virtual mapping
+[  168.642324] Memory state around the buggy address:
+[  168.644439]  ffffc90000022f80: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+[  168.647698]  ffffc90000023000: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+[  168.650951] >ffffc90000023080: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+[  168.669199]                                ^
+[  168.671056]  ffffc90000023100: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+[  168.674050]  ffffc90000023180: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+[  168.676974] ==================================================================
 
-Thanks for sharing the log and analysis.
+[  168.682117] BUG: unable to handle page fault for address: ffffc900000230a4
+[  168.684784] #PF: supervisor write access in kernel mode
+[  168.686797] #PF: error_code(0x0002) - not-present page
+[  168.688797] PGD 100000067 P4D 100000067 PUD 10019c067 PMD 1001a1067 PTE 0
+[  168.691319] Oops: Oops: 0002 [#1] SMP KASAN NOPTI
+[  168.693246] CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Tainted: G    B                7.3.0-kCTLblk2-15482-g21a7f44fd076-dirty #10 PREEMPT(full)
+[  168.699142] Tainted: [B]=BAD_PAGE
+[  168.700896] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[  168.705056] Workqueue: target_completion target_complete_ok_work
+[  168.707701] RIP: 0010:scsiback_send_response+0x1b6/0x5d0
+[  168.710147] Code: 48 89 f8 83 e0 07 83 c0 03 40 38 f0 7c 09 40 84 f6 0f 85 60 03 00 00 48 89 d8 48 c1 e0 06 48 29 d8 48 c1 e0 02 48 8d 7c 01 40 <89> 94 01 a4 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1
+[  168.718883] RSP: 0018:ffffc900000bfaa0 EFLAGS: 00010046
+[  168.721447] RAX: 0000000000000000 RBX: 0000000000000000 RCX: ffffc90000023000
+[  168.724785] RDX: 0000000000000000 RSI: 0000000000000008 RDI: ffffc90000023040
+[  168.727913] RBP: ffff88810a4a7238 R08: 0000000000000246 R09: fffffbfff0de2638
+[  168.730938] R10: ffffffff86f131c7 R11: ffff888100077320 R12: 1ffff92000017f59
+[  168.733902] R13: 0000000000000000 R14: 0000000000000000 R15: ffff88810a6de200
+[  168.736874] FS:  0000000000000000(0000) GS:ffff8881b034d000(0000) knlGS:0000000000000000
+[  168.740171] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  168.742490] CR2: ffffc900000230a4 CR3: 0000000103271005 CR4: 0000000000770ef0
+[  168.745350] PKRU: 55555554
+[  168.746577] Call Trace:
+[  168.747772]  <TASK>
+[  168.748872]  ? __pfx_scsiback_send_response+0x10/0x10
+[  168.751022]  scsiback_do_resp_with_sense+0x87/0x230
+[  168.753109]  scsiback_cmd_done+0xc0/0x290
+[  168.754847]  ? update_cfs_rq_load_avg+0x5a/0x560
+[  168.756782]  scsiback_queue_status+0xd3/0x100
+[  168.758630]  target_complete_ok_work+0x467/0xc30
+[  168.760556]  ? __pfx_target_complete_ok_work+0x10/0x10
+[  168.762644]  ? put_prev_task_fair+0x44d/0xa30
+[  168.764512]  ? finish_task_switch.isra.0+0x1d9/0xa70
+[  168.766584]  process_one_work+0x697/0x1060
+[  168.768282]  ? __pfx___schedule+0x10/0x10
+[  168.769973]  ? __pfx_process_one_work+0x10/0x10
+[  168.771880]  ? _raw_spin_lock_irq+0x86/0xe0
+[  168.773599]  ? __pfx_target_complete_ok_work+0x10/0x10
+[  168.775721]  ? assign_work+0x11d/0x370
+[  168.777324]  worker_thread+0x45b/0xd10
+[  168.778899]  ? __pfx_worker_thread+0x10/0x10
+[  168.780648]  ? __pfx_worker_thread+0x10/0x10
+[  168.782415]  kthread+0x2c8/0x3b0
+[  168.783877]  ? recalc_sigpending+0x15c/0x1e0
+[  168.785697]  ? __pfx_kthread+0x10/0x10
+[  168.787218]  ret_from_fork+0x373/0x5b0
+[  168.788752]  ? __pfx_ret_from_fork+0x10/0x10
+[  168.790500]  ? __switch_to+0x3c4/0xb40
+[  168.792029]  ? __pfx_kthread+0x10/0x10
+[  168.793555]  ret_from_fork_asm+0x1a/0x30
+[  168.795180]  </TASK>
+[  168.796205] Modules linked in:
+[  168.797596] CR2: ffffc900000230a4
+[  168.799084] ---[ end trace 0000000000000000 ]---
+
+Fixes: d9d660f6e562 ("xen-scsiback: Add Xen PV SCSI backend driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v2:
+- disable the IRQ before the drain and unbind it after the drain, instead
+  of unbinding first, so info->irq stays valid for responses sent during
+  the drain (Sashiko)
+- dropped Juergen's Reviewed-by since the code changed
+  v1: https://lore.kernel.org/all/20261109122654.30859-1-yhlee@isslab.korea.ac.kr/
+
+Reported to the Xen security team first; xen-scsiback is not security supported, so posting here as suggested.
+
+ drivers/xen/xen-scsiback.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/xen/xen-scsiback.c b/drivers/xen/xen-scsiback.c
+index c7036e0e41bda1..4204b555c908c7 100644
+--- a/drivers/xen/xen-scsiback.c
++++ b/drivers/xen/xen-scsiback.c
+@@ -603,6 +603,9 @@ static int scsiback_gnttab_data_map(struct vscsiif_request *ring_req,
+ 
+ static void scsiback_disconnect(struct vscsibk_info *info)
+ {
++	/* Stop admitting requests before draining the in-flight ones. */
++	disable_irq(info->irq);
++
+ 	wait_event(info->waiting_to_free,
+ 		atomic_read(&info->nr_unreplied_reqs) == 0);
+ 
+
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+-- 
+2.43.0
+
