@@ -1,69 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.10.4.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794549933;
-	b=2jPByQpNpECSDnzUwAE7dLEwgX+4vFcQuAYUWlVREjE2j0lcpI3Osyh/OOvJh+lsKs6g
-	 9VIplhLmw/qME+/+aKwIFapqJw+USWnoN1qyPhZy69sIlhy/z8s45kRZZnLwgZbwjog34
-	 2nNx/Pq0SXNKsD4OTzkFkWw5tyliP2jUiwF35Xr3eIQKNHjun4n/LdkQCaJ0KGqj1IDlK
-	 cZJ0/PbUjcjtQ4Df1RmKgx9CyKb02pEO8PE/Bft5ouIc7lEWo18LVq2qFavnoGEZfJoyc
-	 Uvg8VHSB4IeTQhqhaBXjfP4K011pijC6llVlppdWyCT/Wk7GRc7bwwuXcQrfyhpkn4Q==
+	t=1794549970;
+	b=KX9FPqAUupp/Oyop1e0JcimgGn3tjylncMtGVAiZhHzy5Si5l34d69Fv/jkT5FK2ur5L
+	 ocS3nZE8MfmxohdkkbQ3JMwLxvVj+H7WNP1vRxpK5BZ0wS/D8xhG7bGSGuXgBlyUGRI4/
+	 ICR5991CiMKmyedApFurSQrf/7a/yamHhGMz5XHr6OkasqA6AGw6Ee2Ub5AHh63c2mxWO
+	 7Oa05Rsujy75X0pY5I6y4CJFtxblTh+cDJWNj4vnFFfZmmcJoeeojnDI9cXCL2Zhs3KjW
+	 TQvOrY1dCTVp3DsgtGH7sTSVq+THIt6po+jYdHAVUId7iDxYPfe2Jq80DfTiWbZLlOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794549933;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=vYNnqpv5ra5Do0/x+PQ75UVuIRWg97u6BznB3aU7cnQ=;
-	b=4kB/wZ9cPDkoylA1KcBMRz4492faaYTo3jSOPv0e2dzr5Gihffyp3gM2gYEiQBlSL/YV
-	 UnvM9qSW8e2k7pYjiZcdTo2wUotW+ljRAGJZiX7X/FL8WGxveDT5kx0+EYS8p9eu6l8Vw
-	 H9W9cwqsPFnZ0OKOvPGpxI00vzO6W/yX+2IgtRCVkYVzBHDhLDkoY61TSsOcLc/gka/Ny
-	 xv1RmACfFjUE/Z6MHb8KpGQrmFr/Wgzs8G3hCEvQG1a4rnPDaCaJXKcj92TTIJneupkak
-	 XW4u+CzBbYxut8IO/Ar1zf5WogTF2npK7BKIIebQ0vanDmBKOS08sHqbJR+pYRHzz3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794549970;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy:X-TM-AS-Product-Ver:X-TM-AS-Result:
+	 X-TMASE-MatchedRID:X-TM-AS-User-Approved-Sender:
+	 X-TM-AS-User-Blocked-Sender:X-TMASE-Result:X-TMASE-Version:
+	 X-TM-SNTS-SMTP;
+	bh=flMc6FuWcJEoYIXLkF7OAV5DREmZKu32e8v9NGn7M9o=;
+	b=gGlgSPyzePwCAVZTFO+9d5/Ux0IkZjVK3cdwNpO2/ClcXWboVDVS8T4snKXlAX4mqDAW
+	 b5rf/vFwv4kbrHIT4FPMZ89KqnFPyIo6YgsA/+N3PLb1xeh6QcxOPzAGLRYkUMJWvI9Tk
+	 wghd1GbDpGRMPs6bNdnwVOwnj0v4zr/HZ+GFMAlPBqVxBliISu1oClZ6XB32FqNvpJS6j
+	 UB+8P5NNOlyGDl9U0hp7QI0Q5t/3GAnQI5v7Fg6VM5WwkVWCv6Yj2TU0BLNjcNU3TOgoP
+	 RP2kZ9LJNFJD0cFqeHuXsyHsRo7WMmtiKoKw5D2z8WuIuY7igg2Euyvlcmh6TcBYYlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="n8NLht/d";
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=asmedia.com.tw;
+	spf=pass smtp.mailfrom=asmedia.com.tw;
+	dkim=pass header.d=asmedia.com.tw header.i=@asmedia.com.tw header.a=rsa-sha256 header.s=asmediacomtw header.b=l7BOD+Qa;
+	arc=none smtp.remote-ip=103.10.4.13
+Received: from ms.asus.com (ms.asus.com [103.10.4.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B38606A321;
-	Fri, 13 Nov 2026 06:05:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3B38606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A647606A31C;
+	Fri, 13 Nov 2026 06:06:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A647606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=asmedia.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asmedia.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=n8NLht/d
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQmvb1m5wz8XrrX;
-	Fri, 13 Nov 2026 14:05:31 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794549931;
-	bh=d6QFtlYbFS3rLC3ptLnfBFGhLsTg8baDr960zJpwHqI=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=n8NLht/dbUDeBicrHPfMzVME2grIgPqVGRNqnPXnxYDDVdeUK2DQ9tvlsyveaQ+uB
-	 PUEgTSQzeHUICfHIWqwPfea9MlRmr/h1kObe2ga3hDfNXvfRV2LafkmcEip82whIel
-	 5clY2Q9+twPLdIud+AydITjIgM2mSywI6urfVRIIfNeppWdjx183Hy0ZnRMbrHpU5v
-	 IDGOqJX97DnWNr/tvVTv1bTQQpQeT9e+I5W0wENeUms3nypxZD+WBZI5qj2Cniee/n
-	 dH9TIWfnvA15DhyS/SjWKhllJ+U1k1P49ERlhuJwT13jcPfiOwl9nJAzqF+E0Ug4No
-	 IWmap0S9Z5huQ==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 6AD65I5s055166;
-	Fri, 13 Nov 2026 14:05:18 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 13 Nov 2026 14:05:20 +0800 (CST)
-X-Zmail-TransId: 2afc6af6a8a0970-5ac6d
-X-Mailer: Zmail v1.0
-Message-ID: <20261113140520013r7cZBG_pl1-iZRH4hIR8x@zte.com.cn>
-In-Reply-To: <589669fc-4cb2-429c-9960-1c89efb597f9@kernel.org>
-References: 20261112220120113cXLhRk6iDVvhfgGPoZ5vJ@zte.com.cn,589669fc-4cb2-429c-9960-1c89efb597f9@kernel.org
-Date: Fri, 13 Nov 2026 14:05:20 +0800 (CST)
+	dkim=pass (1024-bit key, unprotected) header.d=asmedia.com.tw header.i=@asmedia.com.tw header.a=rsa-sha256 header.s=asmediacomtw header.b=l7BOD+Qa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=asmedia.com.tw; i=@asmedia.com.tw; q=dns/txt;
+  s=asmediacomtw; t=1794549970; x=1826085970;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=flMc6FuWcJEoYIXLkF7OAV5DREmZKu32e8v9NGn7M9o=;
+  b=l7BOD+Qa5xyOLO1wC83RdAfBAZao7wfUpvPoGNyLUoSYitzTvIAjRBwB
+   L0q/kiIf45QQDV2/AYvMJNwgSkKh7dnqDJHwDrAhuVC/q+y2lYl6pXLMQ
+   W+ydHmP/KPMciqkMha/TbkUJrw+hIrprsMrjNFFgdiLlOFFSSD5GYFtk3
+   Q=;
+X-CSE-ConnectionGUID: toLrWvyeQVqzppneDsA2+Q==
+X-CSE-MsgGUID: KSpWdTozQFeByX+zxzPJ9A==
+Received: from apza006tmd.corpnet.asus ([172.22.47.66])
+  by ms.asus.com with ESMTP; 13 Nov 2026 14:06:02 +0800
+Received: from mymail.asus.com (42.79.126.46) by APZA006TMD.corpnet.asus
+ (172.22.47.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Fri, 13 Nov
+ 2026 14:06:00 +0800
+From: Szuying Chen <Chloe_Chen@asmedia.com.tw>
+To: <Markus.Elfring@web.de>, <linusw@kernel.org>,
+	<linux-gpio@vger.kernel.org>, <brgl@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <Yd_Tseng@asmedia.com.tw>,
+	<Jesse1_Chang@asmedia.com.tw>, <Richard_Hsu@asmedia.com.tw>, Szuying Chen
+	<Chloe_Chen@asmedia.com.tw>
+Subject: Re: Re: [PATCH v3] gpio: amdptpci: add support for AMD PT PCI controller
+Date: Fri, 13 Nov 2026 14:05:36 +0800
+Message-ID: <20261113060538.4105-1-Chloe_Chen@asmedia.com.tw>
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,27 +72,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>
-Cc: <cassel@kernel.org>, <linux-ide@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2MyAxLzRdIGF0YTogbGliYXRhLXNjc2k6IHJlamVjdCByZXNlcnZlZCBiaXRzIGluIDMyLWJ5dGUgcGFzc3RocnU=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6AD65I5s055166
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Fri, 13 Nov 2026 14:05:31 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF6A8AB.000/4jQmvb1m5wz8XrrX
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: APZA003MDI.corpnet.asus (172.22.47.31) To
+ APZA006TMD.corpnet.asus (172.22.47.66)
+X-TM-AS-Product-Ver: SMEX-14.0.0.3239-9.1.2019-30316.004
+X-TM-AS-Result: No-10--11.792200-8.000000
+X-TMASE-MatchedRID: /zrVISaer8Ju4DGBDoAs85GPSO6O5JCagKzitR6I0vS4jV9yUdXXgZ0i
+	AknL6Q/ZOoqFo6Nyyo5XHUOvAXclSmP0Ggjc6Q3cBZs/2FGsjFCIbFhMgnneR+NFKGiXDz16pR7
+	uRPM/V2RXNTAoFR626JevLf+TF4u/cNIaCdesyLsarEv/I2gPytXNOAQ2MSi2D9tBl6aBswtIkE
+	j2f2VroVo7GmCOJYd1+LH4VPpSV+tT0PyBnvNi7Sue369BGRwwiwAyD/hxCLy9BjdpmOpiF81Jy
+	1PXqwqcoVo+XKPEcnGJ+hk79BwW7k6vshqw/l+H
+X-TM-AS-User-Approved-Sender: No
+X-TM-AS-User-Blocked-Sender: No
+X-TMASE-Result: 10--11.792200-8.000000
+X-TMASE-Version: SMEX-14.0.0.3239-9.1.2019-30316.004
+X-TM-SNTS-SMTP:
+	3C1D71A61776DA73EF965B4C3231CF4B0C76A68F3FFE5AECDC1319594E99E5052000:8
 
-On Fri, Nov 13, 2026 at 09:20:15AM +0900, Damien Le Moal wrote:
-> Long line. Please split it after "dev,".
+Hi Markus,
 
-Agreed.  I'll split that line and send a v4 with your Reviewed-by on 1/4;
-patches 2/4-4/4 are unchanged and keep their tags.
+Thanks for the review and feedback.
 
-Thanks,
-Shao
+>> This email and any attachments to it contain confidential information and are intended solely for the use of the individual to whom it
+…
+
+>I find such a signature inappropriate for a contribution in a public mailing list.
+
+Agreed, sorry about that. I have asked our IT team to disable this disclaimer
+for external emails, so it should be gone from v4 onward.
+
+Best regards,
+Szuying
+
