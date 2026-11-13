@@ -1,73 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794569271;
-	b=bIWB/OVkSPMa7gPHgKcJYKLP4GA0PAb/xeg8o3i5RI93InAd7DhY7y6vfaPZjpXPqU/3
-	 c9O8UaU4AMBLYgpXl8XqgGH53DlreGbJBQrXz6yJka/ULNeXPmwDFJwPAo4yVTN3grGi8
-	 afS1gf6i6DYok+JuMCkGZOOzCNbbcglroEpR2D88xO/orYAX1tGtfADrb323m+9IBR7MO
-	 1Diqu4k5idhGdH1XutFbF2OpJ+OD1aE6zcKeBvjXYp4m5o8FmtINC6tPQLUlTU2mvieIx
-	 2bzKJ8noV8Sl2GSjI2ZzLE8Bz9mHZtYbeNbMUUvgyVUE3cAMyzpGdySgKteXUHrDI1A==
+	t=1794569294;
+	b=pGH0QEKh9irwRYTP8hquc1JsvUhn3JDkibNL9WfcNhgVnrFVXb3u6gvmlageD379QX1T
+	 KtVfB8H/0Yyddh1UTpFxirvpf335sYYPd22Bm93RoXW8OHagAVfbGfbJb6cOuFGZQWsz3
+	 BUudjFJRniFknnuyFuhFbyEajviBbVDoCaAmfVzJWIVZSvDN2crEDDUePIsy1vWyVt/6e
+	 8As63ZvJ5Pl3hX+gNlaPmOCmz9X1dejc9dargjEfQcV9IQuz4oaG5s0E15cdhcY2gcIg2
+	 mc54G7dIvsBR1yMY9zMFx8k8lSCIrFuOehuJlbbk0JmgTXX1hf4ddx6XdjAT5WdLvnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794569271;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Reinject:
-	 X-QCInternal:X-QCInternal:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Wt7SPvPW8b0kziVptjkxustWVqpjCQIxu8LBOybk5Ps=;
-	b=IJTTDtZCgYXuvkl1FiJYUBtyQnR6nU6Piz6B+nMQGtxKrKOuf/FxfRd7x+6QuRAH//cb
-	 qOtkAsuUnRcmOj3YiBGj51lGiTPFuB9UFWHZJIP7QVrSQ01rYrXlZ0A7M2fnNuNdQ6j3t
-	 dzWEKHZD+Ug7I7cFAieUG0HGNPPWitOitqVhKZ1Y9RJV3je/TYcJFHQ8bCROV+JSUx1JL
-	 p5f19EHvM9df/ugLZMAj6r2bmDHH0DV41f8z382Cd8hasAG7Rk2inMTAjL+uGUdLUAjm6
-	 tDGm0Y5fgLGvb4uupW/McrUc09iOSfQ3/4uN7jnfOpZufFoX2Fc48BD1Ob4ACD08D+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794569294;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/0hFdLUUBMubQi9ZZLh74tQ0C+rY0zzfWhh+F7mlSYU=;
+	b=oRjjqCEvR6QpOe9jG3WlXCMSUZyv69nuGIogL4itovsOqzHlLERXhoMP9YMhJAxvfqna
+	 Hra4M/OUJE7zi4WCUs8jRNuY4nOR5WhsB6hjKwT8/3ZYCcIK0QcQJAfAjdzwVA5xa1a5l
+	 t2wNjQVl0j5dX7ssk9fa6SZvQwkScRjmx2dX+k8txKZBd5uZwMiY/oTv5X7bxvpCysBxB
+	 ptGhqmThy4G6SN5pLfqp/Y0dIkZfD/gnWxvStOspGoY504fjjxKBhF3i0kNPJW7j82pef
+	 C6+VbtBxu/VngeIDdwXpExH78LDskKW3VEJ/r/6KsGoqODhcOOk7Kqdx6898H/U0euA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hFdvGrtR;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Nb9Vr/jI";
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43BEF606A321;
-	Fri, 13 Nov 2026 11:27:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43BEF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CC4606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:28:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92CC4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hFdvGrtR
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD8VJAD2515639;
-	Fri, 13 Nov 2026 11:27:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=Wt7SPvPW8b0kziVptjkxus
-	tWVqpjCQIxu8LBOybk5Ps=; b=hFdvGrtRjzpJxY4diVHNTp6ysc11u83szexSUb
-	DS7Eqt/UTBOuNV0vAJYN3OXilXd1/07izXKsr0VmPR4zYnoqpHl43rTsmWZoXJd6
-	xtRT4JW1IvoOOBt7CvbQkR9uNjZ5UqX+17HBCXvoGzH7sDJk3YswiYHADlHCPXyH
-	VaImAi1NDsbmD9Q9T/CtWA6ZcVYDft1etdTqKmwiCcVxWcKgUkq6Co9iyZX4lM2Y
-	XAeM4Bmo4Sej1e8nSWPCKm6eSbwo+TU534toN/rprGm6Y2UOWJku3EevtY69c4f3
-	/ZvSDmndtxdRB/TfT+MROnP0y4y6YDz7vIZpuU7R0BfCc32g==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwg1bbsc3-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 11:27:45 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADAtNSx290272;
-	Fri, 13 Nov 2026 10:55:23 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-mdsor-hyd.qualcomm.com [10.147.243.209])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6ADAtMwm290252
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 10:55:23 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4770534)
-	id C399EA6D; Fri, 13 Nov 2026 16:25:21 +0530 (+0530)
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-Subject: [PATCH 0/7] arm64: dts: qcom: lemans-draco-evk: Add display panel
- overlays
-Date: Fri, 13 Nov 2026 16:25:12 +0530
-Message-Id: <20261113-draco-evk-display-v1-0-28a19c6aea87@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nb9Vr/jI
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so5641885e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:28:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794569292; x=1795174092; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/0hFdLUUBMubQi9ZZLh74tQ0C+rY0zzfWhh+F7mlSYU=;
+        b=Nb9Vr/jI7+IuNc/+SwtDXA4rDxVd/FSO1D8SAuF3dNjS98p9gcQX29pKO9uA/isGTz
+         oiWzIoZ+uLHtD/9s0flk2+s4YKkf2NfblXxSY2ZketonWfN7fNgUUeCA4A24mc8JW66j
+         NSsqExUqDIZ4qQ10a1bZtAUMToInJUaWSZzCcpBF6lf6rQNUTxNdem0sDjLZlCLKomDY
+         kGU76SxdTVCCONEMEwKLgqUDHqQkzvpE4pKuJzdHVGDQ+BlD983r+89sVTO/ilCvlQ8j
+         4HAP2yNhQ5gpK7sy+kV5hc0Xd/1NT8HZdM247Zzra9gmzb4Ybaj907HYRG/UymSRYdGd
+         rpKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794569292; x=1795174092;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/0hFdLUUBMubQi9ZZLh74tQ0C+rY0zzfWhh+F7mlSYU=;
+        b=mI7YWDYy3x1OphElxuIxP8sIGKHEtfRYW9GzWfw9+/NSKLnZ2FEqWYo8PdEYaViym5
+         /xOs9ppm0ARBrJTS8qcpAY+Dgm/dYiYOHp1X93Vy93Ci7ldwh4TPTj/IPa2sP8W370uY
+         DalNrCyGE+ZORF9QWAhMtKWKbWNeMic0UHuqubfKbK9Z9qnSElX/HN/yPJKwnEgUe04D
+         srk8rbDTfoEZyW+W0+LtlyqNB/qChrL30BU0xWA6qB0E8eRmaUNhIjHufG/yYRZac/t/
+         IyQSjvDOCHh92sEfgxEy+ZPWa4vv/KMd2DP6OC91YTgBkXcJ7BMEt46oKE726Gvvac3j
+         SkVQ==
+X-Forwarded-Encrypted: i=1; AL+hErHdcH020Cishaz6sayd6MyrdBt/QfEnHiPMTdSB3O4xnfdynYzMwoCAZ5DIBm6S2Iuj0qCOAAaFfIvCzdo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tV+8p2x1BpEE3u3p4Wm6lDldM606lPFM4SHASC8YN8jrJnN+C
+	2fZYDgdHDxNlNVtZHnyyNRHusZsEQ3uGNRx8CoHXrqGvo7gH13VfYHx1
+X-Gm-Gg: AYBFou3VJ6SEaX/slQifBLeiisBgrhg8sOnWbdZbYK9dmKXZ57InQzjXFIaUmiLEssz
+	uKoU3KS9cqNDUlEZO+CNA2NRM8sAoWrFueZdT/19EEdlTSYjjxw5/e+hIbTu9dYy6WFakdR8kYS
+	kGfuOX7hdnj5nN95hwjGD96at6315oitQ54XvbvKrBYLLAKsLsXaHH7Br72n4p8nQvUJ79IZtZo
+	bZHhtHgn4VUvijJ8rOtk7oCtP9hh8Hlg127XIhAMq5rqmdf0gFZNHyUYOrEcFGHULWZc3O6lo/L
+	Ih1OCl2VOqgZJsgrCwLcFuwsNisiQtFlJ0RXcHiG60vYbxyGLYtKHIcby1tw6eM1HyTVQQh+J4p
+	Fr42QqBJUFdlmupZei2IJl7fwOtLJX0R1jzhiQwOJVyIwT+TVs9YHrFI8kVQRdZbXDEGKF+FUK+
+	Wc2wuVYt/V/juW3ssTrPO6Jb7PHBHPfePPQxJMRJpR7JWCZZLHL+Ptn/jmhzIhsboPOanl4qq1a
+	nPdbkHj6Ri2Nj4l1u0GAKggi7pXdNutbR6oHQuNryTUg4UEE/JXOLs8RlsMTzJ2N1lAshNKlAxl
+	LOZgXVMPuk6NBw==
+X-Received: by 2002:a05:600c:3e17:b0:4bb:53e4:a7c8 with SMTP id 5b1f17b1804b1-4bb55aa27cfmr44169585e9.22.1794569291720;
+        Fri, 13 Nov 2026 03:28:11 -0800 (PST)
+Received: from nobara ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb56680ea9sm35107545e9.0.2026.11.13.03.28.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 03:28:11 -0800 (PST)
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Peter Xu <peterx@redhat.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Tal Zussman <tz2294@columbia.edu>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: [PATCH] Documentation/userfaultfd: document RWP behavior when the PTE is dropped
+Date: Fri, 13 Nov 2026 12:27:42 +0100
+Message-ID: <20261113112806.109578-1-azpijr@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,125 +110,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJHs9moC/22P226DMAyGXwXleq4wTQlB07T3mHqRg+mycmoMa
- FPVd1+AXvbG0m/Z32ffBVMMxKLO7iLSEjgMfQr4lgn3bfoLQfApiyIvSkTMwUfjBqDlCj7w2Jo
- /OBpfWCxL6SSJtDdGasLvxvw675ln+0NuWkHPiUi3OcmmfUx0xGw2WZ29b64cNbTUmZ6fyib0p
- oX9KAYbQ3+ZR1gQ0k3OWNKywVzJz4H5cJtN64auO6TysRpf8AuEdtLpKQeLSpwqgaRWldWy0mW
- Dr0HWMMHaCVOdeUmqUKejwpMV58fjH0URsm1OAQAA
-X-Change-ID: 20261110-draco-evk-display-3ad2b1664c4e
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org,
-        Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
-        venkata.valluru@oss.qualcomm.com,
-        Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
-        Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794567321; l=3092;
- i=mohit.dsor@oss.qualcomm.com; s=20260808; h=from:subject:message-id;
- bh=3M0UkypA7DwC2Mbb+uqmLXjQSqj1+1ldsfW57S+JMbE=;
- b=dUDFkfAcdzDENhkvnzCSdccsAxwH/s7L2lBMwUgqUL6/aSHDvsRmMD/A0zkXM7XVc1RYpOZdv
- 86LwQ0QSP7sAftMmaFSxLBLTMMsIAPF9om6rwY09VRTvq29oKDuHA2+
-X-Developer-Key: i=mohit.dsor@oss.qualcomm.com; a=ed25519;
- pk=outHVBN53JhozDw1xkj3G1qrqqE5scMBP7M4WL3aHQQ=
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=c6Q+0h9l c=1 sm=1 tr=0 ts=6af6f431 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=FsgQvhl3dctB2t-A26gA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: kd0FDYaX4bVF93OGg2b5DD24KA0IAO8R
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA0NSBTYWx0ZWRfXxXh7o5lkBg3W
- VFdWg+jS9Dj+XJl7WXjCg6JfM6A9K3j50RBdQpHgCyWsHQrT/kaoGHHoKJ73ADtQYWDK1Du//w6
- 0GmggBAKVIbHeHdKzmzKOjEuItfX+f+hEA1/o5iDnU7+42bbdXwzo4db8CN0N3jz2JWJ4x/7c+n
- lrGTvrPZD+URFsiq0osugMuzh3i3b4X/uPoEk6vlW9XNIeH8vXC22aNXmWS7neua2mdZpsjvhG7
- G3JcwxcIcsscnoTqvg8OyhG52F8gvccTiwIub17rZqMt72C1N135TVMeewXX8gpt/aeAClkTWY3
- GSDJ0nCbdQ5t5R7gQK04PjNFf4vuQqxVPWvhHJ/PABEyFJAEKAl9uLEb8E/FHpjmpyldRinfKqb
- ltpoMunRqeGFoYnJveiZ7EZwhRIrdD/TvKafY74eaIL3EdOVvikMpgSQlW98n9ojNucn86QeBQ7
- UfvwR7HLD/EpYOehL/w==
-X-Proofpoint-ORIG-GUID: kd0FDYaX4bVF93OGg2b5DD24KA0IAO8R
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA0NSBTYWx0ZWRfX2PHRgChgq0rp
- Z5ZhQcqB8e96vSnc4ktcOs7rR1jSWedjRfSK6gKA3N3VAgy9K2fuGXCMpLoHXbixauUpk7pQrxA
- 5OZnCJ1hxcWVyVqtbXjN3/MktQjW+vg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_03,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130045
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The Qualcomm SA8775P/QCS9100 (LeMans) SoC card is mounted on the
-Draco EVK carrier card. The DSI0 interface from the SoC card is
-routed to either the 22-pin DSI connector on the carrier card named
-JDISP1 DSI0 or to the DSI0_B2B connector, through a MUX which can
-be selected by a hardware DIP switch. There are multiple daughter
-cards designed that can be connected to this B2B connector.
+"Scope of protection" lists only the PTE drops requested by the user and
+says the range has to be re-armed afterwards. On shmem the kernel drops
+the PTE as well (page reclaim, collapse), and RWP has no marker by design:
+the next access is a minor or a missing fault, and the user is expected to
+register for those. Document this, together with the modes that sync and
+async tracking need.
 
-The below B2B display interface is enabled by default in the base DTB:
-  - DSI-to-HDMI using the LT9611UXD daughter card
+The VMM example registers guest_mem with RWP and MISSING only, so a vCPU
+write to an offset that is not mapped there can be lost during eviction.
+Add MINOR to the registration and describe how the handler treats minor
+faults.
 
-The following overlay DTs are added for additional display
-configurations:
-  - lemans-draco-evk-dlc0697-dsi: DLC DLC0697 DSI panel with DLC
-    daughter card
-  - lemans-draco-evk-raspberrypi-dsi-7inch: Raspberry Pi 7-inch DSI
-    panel with touch via the 22-pin DSI connector
-  - lemans-draco-evk-waveshare-dsi-8inch: Waveshare 8-inch DSI panel
-    with touch via the 22-pin DSI connector
-  - lemans-draco-evk-lvds-auo,g133han01: AUO G133HAN01 LVDS panel
-    with LVDS daughter card
-
-These overlays are applied on top of the lemans-draco-evk base DTB.
-
-Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+Link: https://lore.kernel.org/linux-mm/856cdf21-7982-475a-b244-a7ceff4eb6aa@kernel.org/
+Link: https://lore.kernel.org/linux-mm/avWnaR7VVEGa7yNp@thinkstation/
+Suggested-by: Tal Zussman <tz2294@columbia.edu>
+Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 ---
-Anand Tiwari (1):
-      arm64: dts: qcom: lemans-draco-evk: Add AUO G133HAN01 LVDS panel overlay
+this is the first time I'm writing documentation, so I accept any
+suggestions to improve it :) and I tried to follow the documentation's
+own style.
 
-Mohit Dsor (3):
-      arm64: dts: qcom: lemans-draco-evk: Add LT9611UXD HDMI bridge support
-      arm64: dts: qcom: lemans-draco-evk: Add hdmi-dual-dsi overlay
-      arm64: defconfig: Enable PCA9685 PWM controller
+ Documentation/admin-guide/mm/userfaultfd.rst | 65 ++++++++++++++++----
+ 1 file changed, 53 insertions(+), 12 deletions(-)
 
-Vishnu Saini (3):
-      arm64: dts: qcom: lemans-draco-evk: Add DLC DLC0697 DSI panel overlay
-      arm64: dts: qcom: lemans-draco-evk: Add RPi 7-inch DSI panel overlay
-      arm64: dts: qcom: lemans-draco-evk: Add Waveshare 8-inch DSI panel overlay
+diff --git a/Documentation/admin-guide/mm/userfaultfd.rst b/Documentation/admin-guide/mm/userfaultfd.rst
+index 97daea83b7f1..19bdac668f93 100644
+--- a/Documentation/admin-guide/mm/userfaultfd.rst
++++ b/Documentation/admin-guide/mm/userfaultfd.rst
+@@ -384,17 +384,45 @@ normal missing path (``do_anonymous_page()``, ``do_swap_page()``,
+ the population itself, co-register the range with
+ ``UFFDIO_REGISTER_MODE_MISSING``.
+ 
+-Protection is preserved across page reclaim: a page swapped out while
+-RWP-protected carries the marker on its swap entry, and swap-in restores
+-the PROT_NONE state so the first access after swap-in still faults. The
+-same applies to pages temporarily replaced by migration entries.
+-
+-Operations that drop the PTE entirely — ``MADV_DONTNEED`` on anonymous
+-memory, hole-punch on shmem, truncation of a file mapping — also drop the
+-RWP marker: the next access re-populates the range without protection.
+-Unlike WP (which persists via ``PTE_MARKER_UFFD_WP``), there is no
+-persistent RWP marker today. The user needs to re-arm the range with
+-``UFFDIO_RWPROTECT`` after any operation that explicitly frees PTEs.
++Protection of anonymous memory is preserved across page reclaim: a page
++swapped out while RWP-protected carries the marker on its swap entry, and
++swap-in restores the PROT_NONE state so the first access after swap-in
++still faults. The same applies to pages temporarily replaced by migration
++entries. Shmem is different: reclaiming a shmem page leaves the PTE empty
++rather than installing a swap entry, so the protection is dropped along
++with the PTE.
++
++Operations that drop the PTE entirely also drop the RWP protection. Some
++are requested by the user — ``MADV_DONTNEED``, hole-punch on shmem,
++truncation of a file mapping — and some are initiated by the kernel on
++shmem: page reclaim, and collapse into a huge page by khugepaged or
++``MADV_COLLAPSE``. Unlike WP (which persists via ``PTE_MARKER_UFFD_WP``),
++there is no persistent RWP marker, and this is intentional: once the PTE is
++gone, the next access takes a page fault that userfaultfd can deliver, and
++that fault is the notification. Which fault it is depends on what happened
++to the page:
++
++- The page is still in the page cache or in swap: the access is a minor
++  fault, delivered if the range is co-registered with
++  ``UFFDIO_REGISTER_MODE_MINOR``.
++
++- The page is gone: the access is a missing fault, delivered if the range
++  is co-registered with ``UFFDIO_REGISTER_MODE_MISSING``.
++
++WP cannot use the same scheme — a minor fault would trap reads as well as
++writes — which is why it needs a marker.
++
++Without the matching mode the page is mapped back silently and without
++protection, so what to co-register depends on the tracking mode:
++
++- Sync mode: the access would be lost. Co-register shmem and hugetlbfs
++  ranges with ``UFFDIO_REGISTER_MODE_MINOR`` (and
++  ``UFFDIO_REGISTER_MODE_MISSING`` if the file can have holes), and
++  anonymous ranges, where minor faults are not available, with
++  ``UFFDIO_REGISTER_MODE_MISSING``.
++
++- Async mode: neither is needed. A page faulted back in is mapped without
++  the uffd bit, so ``PAGEMAP_SCAN`` reports it as accessed.
+ 
+ **Fault Handling:**
+ 
+@@ -486,10 +514,16 @@ never traps on its own ::
+     ioctl(uffd, UFFDIO_API, &api);
+     if (!(api.features & UFFD_FEATURE_RWP))
+         /* RWP unavailable on this kernel/arch -- fall back. */
++    /*
++     * MINOR: an offset in the page cache but not mapped in guest_mem
++     * would be mapped back without a fault, and a vCPU write between
++     * the pwrite() and the hole punch in step 4 would be lost.
++     */
+     ioctl(uffd, UFFDIO_REGISTER, &(struct uffdio_register){
+         .range = { guest_mem, guest_size },
+         .mode = UFFDIO_REGISTER_MODE_RWP |
+-                UFFDIO_REGISTER_MODE_MISSING,
++                UFFDIO_REGISTER_MODE_MISSING |
++                UFFDIO_REGISTER_MODE_MINOR,
+     });
+ 
+     /* Tracking loop */
+@@ -550,6 +584,13 @@ progress. After ``fallocate()`` punches the page out and ``UFFDIO_WAKE``
+ fires, the vCPU retries the access, faults as ``MISSING``, and the
+ handler resolves it with ``UFFDIO_COPY`` from storage.
+ 
++The same holds for an offset being evicted that is not mapped in
++``guest_mem``, except that the vCPU blocks with a
++``UFFD_PAGEFAULT_FLAG_MINOR`` fault, which the handler leaves pending until
++the page has been punched out. Minor faults on any other offset are
++resolved with ``UFFDIO_CONTINUE``: the page is mapped without RWP
++protection, so the next scan reports it as accessed.
++
+ This workflow targets shmem and hugetlbfs (both support a private
+ ``io_mem`` mapping over the same fd). Anonymous-memory backings need a
+ different inner-loop strategy because the VMM has no way to read the
 
- arch/arm64/boot/dts/qcom/Makefile                  |  20 ++++
- .../dts/qcom/lemans-draco-evk-dlc0697-dsi.dtso     |  81 +++++++++++++
- .../dts/qcom/lemans-draco-evk-hdmi-dual-dsi.dtso   |  38 ++++++
- .../qcom/lemans-draco-evk-lvds-auo,g133han01.dtso  | 131 +++++++++++++++++++++
- .../lemans-draco-evk-raspberrypi-dsi-7inch.dtso    |  98 +++++++++++++++
- arch/arm64/boot/dts/qcom/lemans-draco-evk-som.dtsi |   5 +
- .../qcom/lemans-draco-evk-waveshare-dsi-8inch.dtso |  94 +++++++++++++++
- arch/arm64/boot/dts/qcom/lemans-draco-evk.dts      | 119 +++++++++++++++++++
- arch/arm64/configs/defconfig                       |   1 +
- 9 files changed, 587 insertions(+)
----
-base-commit: d4e72753715bc741a78c4f7e8cf4f182f14f96c0
-change-id: 20261110-draco-evk-display-3ad2b1664c4e
-prerequisite-message-id: <20261019-lemans-draco-final-changes-bringup-v1-0-dcabe94f1074@oss.qualcomm.com>
-prerequisite-patch-id: 642840f2fbb8ad320deef8ce40c94d18cf3b9f70
-prerequisite-patch-id: 5b6f00308e9659c1f43974c383aaf93a09e3cc15
-prerequisite-patch-id: 00a00addce3621808e6596af67db464db21f8d61
-prerequisite-message-id: <20261021-lt9611c-v7-v18-0-4978b94896f1@oss.qualcomm.com>
-prerequisite-patch-id: 49f1e01bb5594ce9c4301ce4b16715834ece7f41
-prerequisite-patch-id: 21cfbbfd71515961501a768edad476740336c13c
-
-Best regards,
---  
-Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+base-commit: 31a696f9c37defab0f28f774e00ac7f135889ec3
+-- 
+2.56.0
 
