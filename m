@@ -1,57 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794594844;
-	b=DOJDbLIjeKTZTGV+TlTzXZpYSHSO3asHBRnRYcjFYIoQ39cBWyaEE648KOzj/5uljGyK
-	 oxPbWJXcTNZJNI8i/+zeVFILizRTaucvqephQwesevO6HPbw4lVPE37fdP7/LiF18dIXJ
-	 u3k+isNviBsW9fxnbM7yfBTXVVZsCb/kiEjdHWq9/rUncCjIXX43HH7vECe6CYo0/gslv
-	 wxwiir6ABpExSa2QPA7ECAl7KquWPLDb4CfRzBMhqVW46OiruGdWoTS12gA+aK/bByqZH
-	 r8FTMpWr3rR16nYumV99aPTmZuAV/M85TCXT0TOMy6Gb/nKJgN1oEGZFZ3g6qibwO2A==
+	t=1794594855;
+	b=lU66V8su3GMBAazzOlgavlI7V75hwZaphSQAtyZOr/08It2KpANe2kgc1WaT4Pafzkmu
+	 h0ePixByEJgUyttuR4OxpaHWNIxRusyQzK2IAgVk6G2JNOt6vgHXUb7cOEH5roCOsYN1c
+	 0gQroPXyMT0R9asHkJ8TKIb5exWgUYR9YsBUn9roTpfEBVunftOVqmmlYe+SGxYDitb1o
+	 Q/0sia4PBC9sEAL/XvYvz4TPBIjXMvJf5wRfy7YZsG0JqvLLKHjpeHSNUK1lX+fKmjRDj
+	 ZqbynFgl+l55LlAbGXwpk3lNa8tOm6TfTKoSno31tDID9MpUBhTWPKc1ExQs3DeFWzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794594844;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oaQhh+OUaneKvMweWF8ZyU1MwloL7jZ9x7ji0DPo+Wk=;
-	b=ttyBvps+2WENR7Ap/svmxmaRPnAM37VikmccmQ3DASLdKJw/77YoUgCL4fBOjDF/ehXL
-	 lAYAqZmkT0Arpl1SYOkqEes+tjhSbsZnlzpvXtCQicpfV5cGwHRdGzJaObJcLpVGkvTYY
-	 6tH9VBmuI8hv95Cablg9dJIuXjfC3drqqzB0crmPHN8//8gUSxxI0kCF/WFYe3iMNI37y
-	 vtlA8JNilq08C22kMaJYrTVzUdbd7bH+q5tmitxgxyql3bihnI5RfnlIXJx/DZ10gLlvG
-	 5Oy5IhzZ+yP1uivjHCOKMTGdj6KmAax/DNx8NLtPz8H1xDDgS31PrrgJv26bz+nTNQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794594855;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
+	 UI-OutboundReport;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	b=MSRdZjepfZcAfU8bsbilSJM7NQLXOlg4ZUWLjeBy6tZsuhT9w5pUETg7K9+jpS9PV0tq
+	 smLq70VDq8KgqxuY/WWVaFZHUxkY6PpqJNdqHscLU2zsbmvHO+7glnCbvoC8UxloHadbD
+	 DVjl2nh2J5RUe7Ovq27nOvdoBzuzDhAJV/6P6/gsiZC0VjpamF6XUecyPF8erzoMeOsb7
+	 uOge9nuOuiOY2qVC7KRog6b/UhMRc/JueF+oLhNYQfaf9VjBb9Q9ZYY2YcsBFAjYRtpll
+	 7xsb8mHxDarZ2MpVJ7Z3KrXtHl3GS70Js6sEBfvucN7TcbhmFQt7FU752QFs070xlSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZ1086Fz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=TUWTZv0S;
+	arc=none smtp.remote-ip=212.227.17.20
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7019606A327;
-	Fri, 13 Nov 2026 18:34:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2582606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:34:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2582606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZ1086Fz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495A91F000C4;
-	Fri, 13 Nov 2026 18:34:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794594844;
-	bh=oaQhh+OUaneKvMweWF8ZyU1MwloL7jZ9x7ji0DPo+Wk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZZ1086FzH91iVXWyrIQAbmA+4VKgd6hgeP9KgDIq7htPi8caWMneXeYCkHLDQvad0
-	 80nHSaspgyKpRo3U9nAUKlcSOj/lKSebNswKERvqronWsKpZrm5p97IVcgjwlrpAHS
-	 CCjZzeH9P9aLLLYphv/mOffu0Gs/k2IZEcNNMiOGEOiPH1l0Zp7vMAqcM0iSeVKDym
-	 ioml1YtyaWhwZSmSxXICwOW6lvcEzmv3UtHuyMbQRiSOm2c+PBgbHCuHcSV4lSbQC5
-	 fv2phVOLaUTmYQQsFQ0rfbIvD6q51ruFBoNBkJD2fOV8kYm7ImqcOUaWjtAi4h9B4w
-	 14mL7QvN3GjKQ==
-Date: Fri, 13 Nov 2026 10:34:01 -0800
-From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: Longjun Luo <luolongjuna@gmail.com>
-Cc: peterz@infradead.org, mbenes@suse.cz, pmladek@suse.com, 
-	joe.lawrence@redhat.com, song@kernel.org, puranjay@kernel.org, nathan@kernel.org, 
-	ndesaulniers@google.com, morbo@google.com, justinstitt@google.com, 
-	live-patching@vger.kernel.org, llvm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 00/11] objtool/klp: DWARF-based cross-build symbol
- correlation
-Message-ID: <avdWz3m2YJnlGgnS@jpoimboe>
-References: <20261104133158.3187525-1-luolongjuna@gmail.com>
- <avZ9Ku61M8z-2axF@jpoimboe>
- <CAKL4jwXA4OBVLFGAP4DWw6i9d5bneU=Ur=D58FnrssOt7ygm6A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=TUWTZv0S
+DKIM2-Signature:  i=1; m=1; t=1794594851;
+ mf=PHJ3YXJzb3dAZ214LmRlPg==;
+ rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+ d=gmx.de;
+ s=s31663417:rsa-sha256:Pg/NxJ3spKaEmNMdUBxz91nWjUi3
+   bsXbDyOYqslmdc3Z+kVB1WMe3/Zp2birEQ5CJGMDB9l7IU9Xdo2KAEe1/qdSfSda90HxEs6OGVr
+   zqZcU7yDQ5LvK85X/IcEkSr9X3VSbVA0+3Ryvg7vty1PZuvLsdmat170srZu7rqImjzRNMdt+uJ
+   hyJj5o3qT06U65v+cmT0t1RgJjdoDwNNAV5YQAyNxSqGIuX58rAY+XOLZNKU5QHInsMfj2/iEPl
+   WCn6n40DY6ullI41uTLFZXOz2e+o/GNY1Zoz++yn618WQE2Dk0QlS33roSwx82y6oBWdaEm32I4
+   mW+X0H5u8Mfyww==;
+Message-Instance:  m=1;
+ h=sha256:
+   xoLSlonDk8t/je3Nw8ZuIHfWgicKQk++qZwACQq78m8=:
+   SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=,
+  sha512:
+   z4uQUaoawK45+a/tMShQ69PSL5oY1cwGdSHQ/gH69RSEgOhwWw8YuUDr73pRgKh7Dyj0uT3qNdjIuJ/3AGw6SQ==:
+   2YrOd1GYvt7+qDNxT9rOtjMhT8UwUkOGaWX6YqIHrGD/2kzn7ayaDsVYdwseAafAO2j2jUkaM3NAZ3khe4EZsw==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1794594835; x=1795199635; i=rwarsow@gmx.de;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=TUWTZv0SeZQOfG9KuerbIUurC3djDFWWjcO9KoRZQla7N3HkZlSOZbnkdD3ZTwGM
+	 QNfRW0dmVMNs1+QF1mY7lFdHoCRv5Zv/KtHYaXZLNYhGbmvwR65IE02qzd7kDkMjZ
+	 c83xIws90smaj8nWIMjB2GytkIE3onD27TK0HYNjnQFV/1zqpl0lg8CztIOIO36Ux
+	 mPwYWnvU+BjUF59hWaZKw4xB6POSc5G+6zEyh4iqSVjp3+hQga8WNiqgOQpqTDNxN
+	 trM0gFSnGICKAHEqFqE1TbTTWpEwj+/uuYfxzPAs4cfZRwkKG+MQSdLwUNp12ephw
+	 d/I1tdYhayNy8WFj0w==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N4QsY-1wQnhN0hDK-00yPD0; Fri, 13
+ Nov 2026 19:33:55 +0100
+Message-ID: <cd90d672-ab52-439c-9ca8-0fd31429df88@gmx.de>
+Date: Fri, 13 Nov 2026 19:33:52 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,32 +81,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAKL4jwXA4OBVLFGAP4DWw6i9d5bneU=Ur=D58FnrssOt7ygm6A@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 000/507] 7.3.5-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261113153753.358973689@linuxfoundation.org>
+From: Ronald Warsow <rwarsow@gmx.de>
+Content-Language: de-DE, en-US
+In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:AwpBJs8geJlCawVUSgzRQdfdvIXmuGCjtCWSJ8dVnLM9pAEsIvf
+ EW1SUM9JxdxI0/wmdKGfNGc50fFhCVM47IhI4ZrWjNvfKBS4/ii/ylI/Q1cVy77SmAgxsUG
+ o+dF80TNT2dTb6g/H4OSfzHtcrKNNCdArH3+DQHlkTYD5lUDmHTrdwwmDhx7GZsluvvSiVa
+ fwMwsJ7w8Zd2hn3V5ynQQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:DdTyGxCye/8=;FiJOOauR+glFy/xVjNpmmDD0Mq9
+ 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
+ +U=
 
-On Fri, Nov 13, 2026 at 11:58:31AM +0800, Longjun Luo wrote:
-> I understand the concern about readability. Since English is not my
-> native language, I drafted the content myself and used AI to help with
-> the English writing before reviewing and sending it out. I'll keep the
-> information density in mind going forward.
-> 
-> Just to clarify the background: this design comes from my practical work
-> on userspace livepatch, and v1/v2 were meant to present the two
-> layers of that design as a whole. While dealing with LTO in practice, I
-> ran into many recurring correlation issues, so I tried to abstract and
-> model the problem systematically rather than hunting for corner cases,
-> and I brought that modeling process into this review.
-> 
-> As noted in the RFC, this patchset is intended to validate the
-> feasibility of the approach. I wanted feedback on the overall design
-> before deciding whether to take it further.
-> 
-> Thanks for taking the time to review and share your thoughts.
+Hi
 
-Thanks, that makes sense, but for upstreaming I think we will need to
-take a more iterative approach, even if it ends up causing some
-intermediate patches to be obsoleted by later ones.
+kernel build / boot test on x86_64 (Intel).
 
--- 
-Josh
+No regressions here.
+
+Thanks
+
+Tested-by: Ronald Warsow <rwarsow@gmx.de>
