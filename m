@@ -1,62 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.120.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589107;
-	b=mm5V9ygGxjk/qu67JenNoPTlt79wzSTPicknqCNgEkXokdzMfKAnkvPRcOFC1+UNV0I0
-	 jIY1mkGPaB/s/UzBZcTsL/zyAPIGquhC/W4iTa1z/sfRlBrfyzviPrx40vMz04Fa2v6wA
-	 aTSuCIigb4yrU4jq8j7UmMKNH2jhQBHCM/NdbeZBU+/I7vLYcOKJ20Kj4gqJJ1i5gw/qB
-	 /MPCsjvKiqY7MRPbTYy35erQMuu3k/hoG3wFNA5EuzzjWDy5uwSNWTVywDju6zEwzQsiH
-	 sYGpw9R6kYy3uecIHl/Dab3rumPPsNluRXGjiqrZKm5u/L89wwoS3K6iRjfC1o/igmg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589107;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-Id:In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Spam_score:X-Spam_bar;
-	bh=673kMR1s22yHaTq4PExkzsyhSKIG/6M6+SYEFKzCo4Q=;
-	b=mfXQkPLKdeXm5XRR2U7DD2tUw49akerRMPW6Cgdr8klxv3LrN5gT9o8AGgckvHAiZE1F
-	 zdu41t8BaDkM5Kmiv+p+Zih52H11YSH6q5N3qxbHZ2PN9aPSszIbomHer93/GUHnCmq3P
-	 Mznm5+w/tTR8WfFPZJ3z6W2loMnsYIGTaGAi+0ybxwCUZ/mQ6EH2HkztGysEFjUuQCcTU
-	 nKRILVs13mZzRsR+uWPDVnC1zLNl7WBZcbWh9iBYqujijklRHpMXSWDzR0zMPmh/QLEHI
-	 KY6iEWKc7Pt1vG1k7usO37jPec/2Kul97kKVhpUFoIQ9jm7W13mDSrhbEgkEMIX5PMw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hugovil.com;
-	spf=pass smtp.mailfrom=hugovil.com;
-	dkim=pass header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=yBgxpE1a;
-	arc=none smtp.remote-ip=162.243.120.170
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794589141;
+	b=qLXgZahcqkmQG4TksZgiH/3pjMjWqwSMVRwB8G+iYRjUlwRPdwzof1WROUjZF54Iy8XQ
+	 si09FrG/Gn5Sg0u0fCU83KFqQE0XycTbiSpr/FseoTmgxmfjUYdUNvBzn1wMJdXsiXnDe
+	 MejMkgoqjq7Fs33ePUbGB/cyeg/NcdYhGYdHM2AsjnUfFrgmY+p1JWv2+5a+JThhqyB8X
+	 00R3nbpvJ2nbBX8Av65Ih/l4WAyykphJ3A7mboM7YvBQ91pu4qQ12Z5E+GIkyVrToUmZ4
+	 VhmpO48vHUa47aNRtqmSIg0cI/SyoWSSmyP/BoQPT/S3FBclIUTWJZdRniTvafLRNqQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589141;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=MVb5iT744tTyx+u4e9UrULc8qZkgleIykKXyvixHqbk=;
+	b=bQMCYablw4JLn8osczF+JW2Gmz6ZsJ79z/yljIqft7JMwMOE7fN3VUVdjTbPZ7dx7xnX
+	 SyqoRFN4Gpf9Ks61VhOnH9vOiziADBjI39wHlG0pv4yQRA9+Ca6OwJGKUJU2o7+SqJVS0
+	 2P5bBzY63S0smUW6ZhecjN34fG/vKSfULl5A7n0yhe6Fr+y8tCj62u3grsLP2FUqAyHlN
+	 9ML/kzZ+Fe0WrgJi1zGMbMl6EMe7ar/s+3/WulV2hEW5nLoPBpeg3UAEwiQEJot8HoqVD
+	 iQVvYJrCUYwcLSDx6tlYIxji3VOKMxkulMqQugJ2IUAajY7ThcyQo83DgJ794cyE47w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=DbsQb1ZZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B35606A327;
-	Fri, 13 Nov 2026 16:58:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8B35606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C73D606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:58:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C73D606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=yBgxpE1a
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=673kMR1s22yHaTq4PExkzsyhSKIG/6M6+SYEFKzCo4Q=; b=yBgxpE1apmvdsLZ0wXDmUwfPwy
-	3vvFFPPkiwORSIPoIvyjEqhlau6390+La+1ty0mW875Hr7REkrpearB+H56Qmj1S23h5kmH2FyEtg
-	agLTGr4A1FQyKn0glyKVBZIo3nXdVPcazMuZAUhzgl98V+I/y34oKifZN+ylvwObxyh0=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xRubY-000000001Fz-1rTY;
-	Fri, 13 Nov 2026 11:58:24 -0500
-Date: Fri, 13 Nov 2026 11:58:23 -0500
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] serial: sc16is7xx: Fix clock leak on invalid clock
- frequency
-Message-Id: <20261113115823.68e12fc677c8e0f5f166e593@hugovil.com>
-In-Reply-To: <20261113103755.2126-1-laixiangwu@cmss.chinamobile.com>
-References: <20261112163916.00d07adafb3caad1d83a2d1c@hugovil.com>
-	<20261113103755.2126-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=DbsQb1ZZ
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 880032000E3;
+	Fri, 13 Nov 2026 17:58:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794589133;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=MVb5iT744tTyx+u4e9UrULc8qZkgleIykKXyvixHqbk=;
+	b=DbsQb1ZZMcZohZghIEo83MUlDZT9gSSsi/r9Hg3LR6ddCBoBwX6lXKxulLCc+oaZl/J+is
+	bcrc4pz5YZySzmFJiVnzQxnoGYVePd9zwJhgKUq801TOBuXt7zrGAoRa65ah+pz2yS6t+y
+	PrBT0MZQRF6k5fXNQGxJMezSeuw30o69Q2tP+POUYMPzTyab0D7jiyiDgjls5lznCXPBDo
+	KpGtlYc05zMzJotGHWL7NHm6qiaYE4d9Oex5alRoJu8LvK4BjW/nj4UKKXuwNFKYH3yXI0
+	f/8dWkMqlc+VxII0P1h0bssTg9EOAcYa/MqkpBviOTB1N7PrD8YesHMKbQCQeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794589133;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=MVb5iT744tTyx+u4e9UrULc8qZkgleIykKXyvixHqbk=;
+	b=NXfu/agVijYtFB9Mg+fJPOOZ70mT6ScK0MEATod0pno9XOcAEYRrrFcwnIurmvgDLmB6Vm
+	f7SYniphHwe0T/FcByOj/0m892mZ5upnmawmAtlhz17IkEy3Jh0YJirozJTiWK3Asr9bZJ
+	j2b3soCg4AVtaaiJx4tlF7REWgf/Sfontmw3gLlexnQbseldcBHg27jklwtUXaDnFiZkN2
+	9HDoWRUE1jc1USKP3UuDzQbacVk4mJpiRbIKYp6tE5V1rlZG7odmUG5jF/9OFkDuzoOaTX
+	uq6JOxNkNIv2vCiYbyBY+wFy6byqBYfIZQwrzsCLlWlFGxfyjmVumUB3y4WpLQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794589133; a=rsa-sha256;
+	cv=none;
+	b=R6OPrkEVJrFpySZXnv4NcUsLi6Gbr+JfUsLa89AUKOMj3ELDAZOhqeHyRKl3jTO3wfx6z3
+	2TMez/WfjXn44AmjCxufIrqW7fmWH8Btac8frthRRdEPkqx44rTB26dQvnYTmEWOyW0sGF
+	jqui/XMuvV3NwOFM5IUvs5dK8zenSFBRxwuURH3ri92/79K85Hz5XotJ6UX2Icz6gq4nnX
+	hm9y9m+aTXK039Cl178aJ4HEX5ZINDmX+dsuRlFPQhH+pdMJ8Y91s2RVsTnWGkRNMeAlkM
+	9+OnvNliCy3kBhmnYkRs6wBOg8wCkBJ0m7k7U1CARDtIh+KklDMEGxnJFhsY7A==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1xRuc1-0041Ib-1X;
+	Fri, 13 Nov 2026 17:58:53 +0100
+From: Philipp Zabel <p.zabel@pengutronix.de>
+Subject: [PATCH 0/3] drm/panel: ilitek-ili9881c: Fix Ampire, Startek, and
+ TDO panels
+Date: Fri, 13 Nov 2026 17:58:52 +0100
+Message-Id: <20261113-panel-ilitek9881c-lanes-v1-0-9d9320cc1387@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,38 +87,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Spam_score: -2.0
-X-Spam_bar: --
+X-B4-Tracking: v=1; b=H4sIAMxB92oC/yXMQQrCMBCF4auEWTvgNBCjVxEXbTLV0RBDpkqh9
+ O5Ndfk9eP8CylVY4WIWqPwVlXduoIOB8OjznVFiM3THzhGRxdJnTihJJn6dvaeAqS2Kg/PkTtF
+ HayO0d6k8yvwrX29/62d4cpj2HKzrBqrWUrt7AAAA
+X-Change-ID: 20261113-panel-ilitek9881c-lanes-b68167d8d33d
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+X-Mailer: b4 0.16.1-dev-53874
 
-Hi Xiangwu,
+Those three panels got their number of lanes set to zero. Set the
+number of lanes back to 4, to make them light up again. Tested with
+the Ampire AM8001280G panel.
 
-On Fri, 13 Nov 2026 18:37:54 +0800
-Xiangwu Lai <laixiangwu@cmss.chinamobile.com> wrote:
+Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+---
+Philipp Zabel (3):
+      drm/panel: ilitek-ili9881c: Fix Ampire AM8001280G support
+      drm/panel: ilitek-ili9881c: Fix Startek KD050HDFIA020-C020A support
+      drm/panel: ilitek-ili9881c: Fix TDO TL050HDV35 support
 
-> Hi Hugo,
-> 
-> thanks for the review!
-> 
-> Agreed, devm_clk_get_optional_enabled() is the cleaner way: the clock
-> reference is dropped and the clock disabled automatically on probe
-> failure and on remove, so the manual management, the out_clk label
-> and the clk_disable_unprepare() in sc16is7xx_remove() all go away,
-> and the -EINVAL path keeps its original plain return.
-> 
-> I've reworked the patch accordingly; v2 follows shortly.
-> 
-> Best regards,
-> Xiangwu Lai
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 3 +++
+ 1 file changed, 3 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261113-panel-ilitek9881c-lanes-b68167d8d33d
 
-Great.
+Best regards,
+--  
+Philipp Zabel <p.zabel@pengutronix.de>
 
-But once again, there is no context as you didn't reply to the original
-email.
-
-Please always reply to the original email.
-
--- 
-Hugo Villeneuve
