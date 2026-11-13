@@ -1,64 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582563;
-	b=Gge4+pcVj6jtZX9kgkFN/MvpBzJgpolzc/qw1ed8Xt1NSB4okEC3nSte8Fu+R2Q9OEv0
-	 S9CAlVt+6f4Z0CAscPWr3wFCG5q9OhYotj213QYRPxldUTx5wole6aqyyBdHF2iMgmefQ
-	 nK0G4dH3WuGUWSARVR5kzSTZuAkqkCWJdcmU75yVm1pOPFMKtrEA+shZPM/hSIs/OMvPt
-	 IVfcXo39+sZQwHYXK05WsKCwtmlOEnq4qtDq1vmDuxqImy5KMDkXVFn7fOEVJD4X+Fes8
-	 reeBpApLtORmrDwb39bZOuRgYWr2S9XzaTLJszl5orMVNv4801X2u3PflIGs8FtsMtA==
+	t=1794582629;
+	b=SMvk1/RWhpmFfvTkK5+VX3/646QvxrXyQhcNH90OvsIZjkTTENKCu2WpAtgu/ETFVz4Y
+	 kIFCJSzM75lNRVpXxbAsZv7TOievMwMt1YueQU4Pld2qdvkjW3G1q0IGGgb9gCTI/hGHN
+	 IfpaEksX/EDeSZLYWBJNZmGtbSRO/dhZIdG3j6OksBYIaodClyJNM42p4nE3+S8LCA7Ys
+	 4O4JFbRGtCNbC/Li5cEhtxdY/7RsM5IYmxgY3jQe/GHQ8ExbMCKzuTU/JyzX1tWLXlwRx
+	 fwEISfEcHY2VFvY7nouhoAAHCrD02KsfJl7iVBpgU5gDMH7wTUevOmS4n6YCijCRx8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582563;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YhhO7/0iTxjUgYPU7yp0EU2ty4W5aUmJ10rWB1Jk+Xs=;
-	b=0S+860hz1VWkTz/B4VjCIoF6G+b/pLLFrNF9Yez7zaY5Wz7DuRos84SNsTYFLwKJWano
-	 Qie2Oeva/7KM8jgoxUGSCDxG/1pmdApzSJIsLyCNatnGdD4FvOTKwM2RNFDqRuRnjO7Ds
-	 swByQ2SJDitybUBTuXfbjCOiNEQJn6LwfhPBGmlsra6CnhSLcmw2EMw7gKiHc72vQcLEP
-	 Kr2xNoDUVNbXOW7vaBMpgr42klKZcyRCGN9hYt2w4zLDWnz4yECv6u8zUbvCTMy8BFzBM
-	 jXzdT1j85ynaDaQhEKYCNzCRuBbA5BTlLgwh8CpAQexhccZW59TZ/0268ByOcTtxYOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582629;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type;
+	bh=/bOZaKuWDgzdIBtnYxUiBUDvqzx9ophFtd7ONrx4yPs=;
+	b=vWrNqZFFZsvrlRESpAVAew5eG9g/iP6Srffvak/oP6kVPcmmxpFtU8xehWdvb0YemMaA
+	 GduXiAkbPZ7WjKyINHQL/RyGglHdiLNxY4CRBK7V83SUH+09XkEkIJDNqZICvJOxcEfwf
+	 xqd08nrIiy7Dgr31jlUNweQ9y5R/lMttv6hFn1VhlyJsM4m0OtGDt1Aq+AO5JVpBjZiIG
+	 Y7IYhlSuDJSvPEANiF2odOabf94S5cjl+fLtc7AuNgj7gdKJUeWrtGWfWioWPT87PLqyG
+	 tCjpL/RaCJamzi5Jt6vpgtRcspxk74JR8qeiK2jMnFhW6uD/Gtjwoir6Kq9X8Fb5ssw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6bI937m;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="aI9uD/VL";
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7A6606A32E;
-	Fri, 13 Nov 2026 15:09:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1AF606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:10:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E1AF606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6bI937m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E1AB1F000C7;
-	Fri, 13 Nov 2026 15:09:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794582563;
-	bh=YhhO7/0iTxjUgYPU7yp0EU2ty4W5aUmJ10rWB1Jk+Xs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z6bI937m8Ulwig7JDjeRynydA1/lkmp3/gIgL+ypcTjW0RXidEzforeTutILibm4+
-	 cP3sxU96ym9giLSCFBOAwm817Nyx4W5zyzAiUU4WU2bYrtCSYp4tvN2soY/FUKuqr+
-	 Y4F1ItBO75utMT+txJOb4CVlD9q+mBUMuD7S11kDXQsZq7TLDziI7hb/Te/0aeK5BB
-	 MNI3CGIqt2KGWlxnWwfJaKQZ7NOJx9hljO5D90W6jA8zrwqxxWwh95V7Av0kNFhDZ3
-	 HvO6fczbSFDFdvMDy4jb2NFi+pOQfK1XayZFAb0j5izLsRrVz/ikRh2ngBziuz2kYU
-	 A3ZXM6UChsO0A==
-From: Sasha Levin <sashal@kernel.org>
-To: Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Bill Wendling <morbo@google.com>,
-	Chuck Wolber <chuck@wolber.net>,
-	Justin Stitt <justinstitt@google.com>,
-	llvm@lists.linux.dev,
-	Marco Elver <elver@google.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH v2 11/20] objtool: Detect code coverage instrumentation in noinstr code
-Date: Fri, 13 Nov 2026 10:09:20 -0500
-Message-ID: <20261113150920.1953634-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avX80WkCFuGyS1y0@jpoimboe>
-References: <20261103015238.3780910-1-sashal@kernel.org> <20261103015238.3780910-12-sashal@kernel.org> <avVaaxKUA2ArB6RG@jpoimboe> <20261112130906.1316655-1-sashal@kernel.org> <20261112151232.GC1813469@noisy.programming.kicks-ass.net> <avX80WkCFuGyS1y0@jpoimboe>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=aI9uD/VL
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4910b863b84so1295423f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:10:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794582627; x=1795187427; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/bOZaKuWDgzdIBtnYxUiBUDvqzx9ophFtd7ONrx4yPs=;
+        b=aI9uD/VL3MFl/YTVFubfpHc2gfhbaGha11xUKjpX78I3nhL8QQ0L33UQ8NLfTFQChN
+         /akBeYMMP8N+/hOod74W5o2ZulzkVlbzN6CJZrYgpRqpm5n3Y7kQ6otNETxOr/WI5B5E
+         XSIuCLVEY+Q1FevbN8CS6dDtFGysIJiv3tiXK0cvRDnJlM9Cmt7uS99Y6rm34ynNlaNZ
+         G+MPdTtTqM6XPsWU/UoVDtkFP6lDXbGCLcN4qXfHh23sEyUei8IJoY3YOfc2jA4uv8AP
+         IVGDcfvEUaIookJwPZ3uFWqxuwVnEaRdNZPg+bt3YdWyFIObxT2Wa9L7lVnEpE0Gjs9y
+         AQrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794582627; x=1795187427;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/bOZaKuWDgzdIBtnYxUiBUDvqzx9ophFtd7ONrx4yPs=;
+        b=RN5xGWqGXN90Aat5zZvFdJIpMyBuw177Ttw+kDnK5ppdxIaBBclhgCSOa29gzSmA28
+         DUV+nau6UmBk/EgkG0ZaKMvptvq0+7ith7g1UgYc/kr4o4SUAliD+DoXsJvOGpS2lpq3
+         5g4FQnxlGk23yOssaVygTaMOUXBSVN3iKbm91aqma0h1o5eezvgFeJrOkqqOsbJaP1Az
+         u5u+FQPGP85sy/lx1gMKRWr00HgYladqVWsX2OJeg7YRm7ov86mSA7oUT68M/BlnjplB
+         xOXcmUXj4Vg6R3c8S+JcZ2UiA5hdXHhqv/O5ZG6/I4W+ib/ZB77PJA7rt7LWtLIqrtpp
+         kydA==
+X-Forwarded-Encrypted: i=1; AL+hErEelj2GDP5ngrMvGOJKszOKhEg7QD2XX88q1qcO9o1v0c/f4HuG0AvpnsbMrI1bpbevM9A2FPmdIxmF44o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+oIx1VQrJ5RCAth5jr9wkMu1lqnn/DsIViSEvOSziNZFXoaMDk
+	7QMgreVffBXGG45k95iW48lhXijj3t1JgmYPJ4CfM0YkrD/O7fBhfR4rDqdm42ceBsc=
+X-Gm-Gg: AYBFou3/ddgeJ8ycNbC2DjOD/Am7FeWimlaW8EjeqsMISlTl/+OrtZJKwZM8IJNhIHH
+	zTVnk0icmRikfWZUqgl49Ikl/ZtzJewUPz6mLmo5BwRlnYKeETKhV7f1xLPym+xq+AhUO+gLtVx
+	QnXylVtAMtGqGRU8HpaRlkd4OZWqWCOq5rOCMirs2TCbfmRHhIebsVXwhrmFIyGH/88WDSVAN9Q
+	10WuSKltHZd8zHsG/72QpLDAfr3yEnyIVP8+X7u2Fp2yIQjLvSdb5WoKL1kRY665ggqwyzkP2O1
+	5y8piMGgwfiheiCcQ3AYSsuXyD+MoqzaXN+nVsE8kNggf+Ho2mU3OaeOI/LYFC2sFkkz225CtQc
+	Dwv82QmaDUyGH+kTXg3ME+W9CeMafTFgiSRoONGkyBArv+WYDfDihSrVgxeEYOug8ocW+T35J5C
+	8rU/5n2GJZVtL67GaOjMa6vlYTfTQsCUmCcUAR9P+qfdVcahJBIiCRYACn0+wf/HjJgt7okcUeh
+	jjUACEkkhWs2RHsbRxbnCkiscXekBhhRXw1ovGiOo3KT98zLdLqjb0TA0F6qHIc58XwJAqzRxeN
+	9pJRYh97zvVohoJgd6Pwd4K1VKPYgpPi5aK45PNP+pPBm0+g
+X-Received: by 2002:a05:6000:27d3:b0:492:aff5:da60 with SMTP id ffacd0b85a97d-49b01cf341fmr9163986f8f.13.1794582627273;
+        Fri, 13 Nov 2026 07:10:27 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8d615sm5879282f8f.56.2026.11.13.07.10.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 07:10:26 -0800 (PST)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Valerio Setti <vsetti@baylibre.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Martin
+ Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, Valerio
+ Setti <vsetti@baylibre.com>
+Subject: Re: [PATCH v2 0/2] ASoC: meson: gx-formatter: change stream lock
+ from mutex to spinlock
+In-Reply-To: <20261111-gx-formatter-use-spinlock-v2-0-763241aeca52@baylibre.com>
+References: <20261111-gx-formatter-use-spinlock-v2-0-763241aeca52@baylibre.com>
+Date: Fri, 13 Nov 2026 16:10:26 +0100
+Message-ID: <1jzevczs0t.fsf@starbuckisacylon.baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,49 +102,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Thu, Nov 12, 2026 at 10:41:44AM -0800, Josh Poimboeuf wrote:
->I must be missing something, if somebody sets a watchpoint in
->exc_debug_kernel(), don't they get to keep the pieces?
+On mer. 11 nov. 2026 at 11:12, Valerio Setti <vsetti@baylibre.com> wrote:
 
-Fair enough, the watchpoint was just the easiest way to show it. The
-real reason is that noinstr isn't supposed to have compiler
-instrumentation at all, and inlining sneaks the counters back in.
+> Patch 1 fixes a pre-existing bugs, present since v7.3, reported by
+> Sashiko [1] while reviewing the series adding I2S input support for
+> Amlogic GX SoCs [2].
+> [2] depends on patch 1 to address Sashiko's comment.
+>
+> Patch 2 adds a hardening check suggested by Martin while reviewing v1.
+>
+> [1] https://lore.kernel.org/all/sashiko-outbox-176054@kernel.org/
+> [2] https://lore.kernel.org/all/20261018-audin-v5-0-4b8cc13a1b22@baylibre.com/
+>
+> Signed-off-by: Valerio Setti <vsetti@baylibre.com>
 
->It's also not clear why --hack-noinstr can't be extended to either NOP
->out the affected instructions, or change the address relocation to point
->to a dummy variable that won't trap.
-
-I tried it, and I think it works better than patch 4, with some caveats :)
-
-NOPing alone isn't enough: besides MC/DC, Clang sometimes loads a
-counter address into a register and increments it later. So I NOP the
-plain counter updates and point the rest at a dummy. With GCC that
-gets all of them. With Clang, 230 of about 3500 still go to the dummy.
-
-Compared to patch 4, a boot covers about 14% more code, since the
-__always_inline helpers it dropped are some of the hottest code we
-have. It also fixes a GCC MC/DC build failure and some objtool UACCESS
-warnings that patch 4 caused, and it handles modules, which this check
-never looked at.
-
-The catch is that it's x86-64 only. Other architectures would stay
-where they are today: whatever gets inlined into noinstr keeps its gcov
-counters, and nothing checks. Keeping patch 4 just for them doesn't
-look worth it to me. It cleans up Clang on arm64, but GCC still has
-about 190 counters in noinstr there either way, and the GCC MC/DC
-build failure shows up on arm64 too.
-
-Peter, are you OK with fixing this on x86 only and leaving the other
-architectures as they are? If so, I'll switch to this in v3 and drop
-patch 4.
-
->And the changelog needs all that background, as the justification is not
->clear at all (to me).
-
-Will do.
-
---
-Thanks,
-Sasha
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
