@@ -1,103 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794578131;
-	b=oYgxtJxQDskBfwNaP6t19Ra6L+P4SVH0UMdvI53QG9WZKPrRLDCLuxwpAIN95HAprPAb
-	 gDmLLdjv4VgJuLvMHR7GFGjtaog4MDywE6MDrai2kqCKPYGE6z/pkP1DB5gr23q6PIzPn
-	 JdVQgyavSb+yJMfHvOjerSMhC54tQXhC91XKlGXM3B3tOEub5KF4Pjz9v97hMG0MbGO2e
-	 oxwIp8yUm8opaE7BTMJuNrxM7l1/l0pdCwh9BhqYZtG1whA5ADSGloTT0BYOU9kf59YMa
-	 gHy/JWmOGTqurD7+OOoKqlimdmvLtkykSbRUbpeomvq1HVR+0uQcf1XfN4X1knsU/CQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578131;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=t6pTPht3eimr74wi6pmlhJjfBxTMCktHwtP93q4eCVI=;
-	b=nFOxBySF9CE/FaO9jLcJk2qxk7l7lVnPi2fUFmNZDqx6TRxkSYTfqBtj0gzxrZDpiMUL
-	 g58qnc5BeUIk1U5W9eFJhwIOw9/1o63tH7V6HTEWa3u+++ujgqnuCWqgQM8VOaWdB+9rw
-	 K4foQMm6hD5WTlEofG2twXxbNoToIKz78u7z0eSQQ+ShbRyIoVFAc6yFF+iX1KVIxe+Z0
-	 3kQArb8qpybhPADhSn/WUaqdA1PjNcqwevbnZ3d1nJRrTIIl31i/cJFfWRWVVRyHxs81G
-	 j+ZLejAd/GLPqNzSIPR3fu0h7/hIXJPBHNhmnTBDgKkarwH/QucMi3EL6GtrkPOO3iA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oRi8t7Sq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.51
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010051.outbound.protection.outlook.com [52.101.85.51])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794578206;
+	b=jgtfYogD/iHZ0sRsTLrj/RMzpcFz3FpDZ7Sm9oxTJR7lF8b5kOVuHn9/erfr6IlCLMWe
+	 eOMZSJcprcZD7AWxZM1kU9o9srRo03/IKSyjxWgx3W1NAi42E3hrX6JWuEBBmiop5hPK8
+	 u7jg1mG883UYPOQH6U4kz9FIiHYnNLL/2+o0Ih4reiWcHGQ/NrAd8l9B/SaQZWDJaPgBc
+	 CtOpTEpgJp3Zt7SXYUWX/z6n3iitb3gItGaq8AgcugVI533tFAv5DyuNlh6h42QGYIB4O
+	 aglgAQi9SqyIObOMXFE+uONsLTU5bcnsDckVS2FV2NgwLNAFR3OdMcico6Ws7xBWP5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578206;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=OBZlMLfPsVQIpOJpXajuH7DlrD4e9+7gm2lISPcBfUk=;
+	b=ge7HlTDLWI8I9rNnoA7fY1u7LLCrqc8sgC+ljdancHPds8XRS8Jz4eSAKzqMB1bB787l
+	 nGxlrM/cCSCPG1GH2bJDZbTD5UX0YJGh3QY51dRP+WZhdsJ0WlToKyIqwJpvX7f+fjROi
+	 tZkMYrZeRucg00doi41f7KxjPXoVyBgyn+Aezy9OQq9eajwUHXuTI9ggAklCnbRPsQlAL
+	 CqYnl+TLNAwY0148bJnCjbjGgDxu9XPhONrjppTDEhYSL1TepyMWQJhv0rFbj+jybBMLv
+	 9/CwCol4yuZqXTmteL4HZeuglQHjny4VSU1ISZ63xuie9D/5FdX6LHmVpx0CMv1TaKA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="JdB/b9SI";
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C5F606A339;
-	Fri, 13 Nov 2026 13:55:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97C5F606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C62606A887
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:56:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49C62606A887
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oRi8t7Sq
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QWAnek0Rlzpsl8/YbLqV/iqGW3D3pGLJtu4M+qtkNBPyoeGeBAriacjAvYjSFDid0PUbfO8aNhmwq3l7U6W4Q+sXDOvYDWzwtqw9y0S6lngYSqdpjSVP9Cbupardt6LtO57GUNIJwtiwHCG/lZRPUIcb1/WBzTrv3o7ZqMz+Th4lQnZNwAlIJZGZRJ8wY4ca6GT+u0L1bSD7T4O+ewTWrKmKbMdmM15WHPNXffT7pBQDajnrtLh3x9+kG2agHp6Jhb/K8mME72E5NSlAYya0V6SZV3+KULwKNuWfJm7Vqo3fQIehf821Nc5D8xugPRWZ1ISn9WOR/6PPKmP4aoR6Pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t6pTPht3eimr74wi6pmlhJjfBxTMCktHwtP93q4eCVI=;
- b=eFoLMUH2Y9wfzuHz0He/pF2zaOGgmSGhkb+M6PH/YgvpB2BbZKJtufsplEXYK4QUDQKW8jVQ4/gXoN+LbOMOu8DBtonqd1QQhB3R6c+KlrJysmBsXpMqYWjTuDhvpd7nkbuhofPjxO9N0Y4IrwBVh7z/PEvASC/jWV0m8zeLItWrMdDEPmbcy8MmuTrIIR5OrbIEC2+Wogjg33twUfAvlDB6CScV4iu0KVsSOa589ooAiThw/O6/fch5LcpCQuTAvwtGb2NGNOxeQDD/sa5Ndq/V0nux9qTDZS9zTjvt62D+Ov0483RdofKJW73nF1MwSPk3lJV1DVYstDTogJEPNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t6pTPht3eimr74wi6pmlhJjfBxTMCktHwtP93q4eCVI=;
- b=oRi8t7SqK048AM2E16Ao+7MsJp+1YDM/Ue/qTDPG/bTxnkbARb15hh/uHxdtapjpeGl/qjhdv2wcwfEirmd/tKdWlqLSGtpSo3sb5l/VKq62jFSeB9hXAE//gZrrI4EaEGK+5GhbMCGfGI0zvlqS6N8HBJMfG3frsAUFcZU1UHCmoEemvWm9ab0IXfOBl0Pnmf63/dfXBE6xCt/xJqqGPDF3TV0KozinUFcPTbzdYegszsIRbO0T7+Vn70qrmk2Fc7L2V0PmnoGBTFOeEFQiv04m+TyY1ULRKzzGH7vi+7RXxu8VRTmtkh3/LD/wtF1LBOcQFXYJZeLS91NpXQ74Lw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB5637.namprd12.prod.outlook.com (2603:10b6:806:228::13)
- by SA1PR12MB7342.namprd12.prod.outlook.com (2603:10b6:806:2b3::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 13:55:22 +0000
-Received: from SA1PR12MB5637.namprd12.prod.outlook.com
- ([fe80::29a8:4659:6935:73f7]) by SA1PR12MB5637.namprd12.prod.outlook.com
- ([fe80::29a8:4659:6935:73f7%3]) with mapi id 15.21.0615.007; Fri, 13 Nov 2026
- 13:55:22 +0000
-Message-ID: <c5353b88-e1bb-4ea3-8a7d-f468c1155968@nvidia.com>
-Date: Fri, 13 Nov 2026 19:25:13 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ACPI: CPPC: Scale EPP values to the register width
-To: Christian Loehle <christian.loehle@arm.com>,
- "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Mario Limonciello <superm1@kernel.org>, viresh.kumar@linaro.org,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- zhanjie9@hisilicon.com, zhangpengjie2@huawei.com
-References: <20261112131316.827708-1-christian.loehle@arm.com>
- <592580a1-ba88-4e22-b586-4aa2425f9760@arm.com>
- <CAJZ5v0gXjngKSxX0Ku2wccWj9+oDQ7YqS6ziFZXDzMgm5GjVzg@mail.gmail.com>
- <f8d23034-0d28-4726-829e-51cf687e5589@arm.com>
- <37efae02-1f49-45ff-9e51-5a6a921ed1d5@kernel.org>
- <4d9261e9-fc66-4197-b3ba-edcc98ffaaf7@arm.com>
- <2b72fea4-b2ba-4ae5-91e8-d5830f024b2f@arm.com>
- <CAJZ5v0g0b2iG21ExDhDjjaJN1Hwgmd53Ph690teqoRVexP1bTQ@mail.gmail.com>
- <5a7fe17b-2b65-4157-b6a7-d7c0a1ee3fb5@arm.com>
-Content-Language: en-US
-From: Sumit Gupta <sumitg@nvidia.com>
-In-Reply-To: <5a7fe17b-2b65-4157-b6a7-d7c0a1ee3fb5@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0235.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f4::17) To SA1PR12MB5637.namprd12.prod.outlook.com
- (2603:10b6:806:228::13)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JdB/b9SI
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso1377990f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:56:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794578203; x=1795183003; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OBZlMLfPsVQIpOJpXajuH7DlrD4e9+7gm2lISPcBfUk=;
+        b=JdB/b9SI/CROIyJHCy0lJHwrDpPDapsRqUypDQCUAHyUyV7DnANg0i1VESfMP/0Dlx
+         f4b9a/xwBJ90XvVvr8jxfBb7o6b++VeHlMqNDRdmmhDMB0HY2WXqj3UOkIID9LyQos8o
+         vEqOD157NNkJPgHjvlWEE8f75LpG0vOpS4OjYwyqFCwoPFuF/vwSUy5OydSaRA3AXKqy
+         3HNGrHnpKPYViL7AP5x2KYKPPEilpenEn/DjoDDwUEZHvKiKmBjPCE4GHw6R2k1zmztn
+         hB5UVSADnW2CeTPQxHNt4VjkgsOUp66fMYmJflbNI5QSs6XrLNGPeNK+0BTWjtgg1NDF
+         ZphQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794578203; x=1795183003;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=OBZlMLfPsVQIpOJpXajuH7DlrD4e9+7gm2lISPcBfUk=;
+        b=LOSCDPleaVE/KZgrM3N5SkBUSDVy2ZuCj+HIQQLdVgYJyNahzCCDzGWekLQ/11L53z
+         TR/AWoA25jSwfYjx2arQoLIXk4xqZMraKgYfK99+iIuB24Ah5y1DC4eWBheW8UyfDT2w
+         GD0SQg1fhqhsAC3UcphIdV2r0P3Z6ZaIdECaKnAefWtILd7d+nNsK4eu/hoOhFoulRz1
+         GcmP+LGDfQUfDjjIdF6KTtG7sULYU1N4FpCiBK5Rn/gnk1negJTqxaPDdP3lhl9Aoz6u
+         Qki4A/UeUHqYonE8ahNWbd37EqIfu0n5ogkRDuVHAziE27V5LKUTpXKOeVcE1X58n8/+
+         IyqQ==
+X-Forwarded-Encrypted: i=1; AL+hErE43PeQzH2t6kOlnZxZaGckVwOs3LHjl80ym9yy9Z86pewJvvSpTKtKzsbzVWKKTitzxYGg9Jm6bMOsD3s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/4RboCvLAFMIRlGa/gsnZnuwJ989FM7S8wHWvYQ2MSDVjB0UaY
+	3MQ35TcH6XFGMTF3cC6FTosEw/gpv+InCCM3pWVB7gn3uX5jsboNdM2TGzVbIYhaC+j0KgafikG
+	mblI9v9rDnA==
+X-Gm-Gg: AYBFou1GObagZOIavoRWayhEJWlick3GlqCAWiSxwpI+SLiAe3nvcFCUMjBJo1gZAjL
+	0IpCp1QrFkX8axePIFhh2pgJ9tI8A6BphnGMj6Jwx1t8/b5SFLrERmEEw1LDDqODj6MSXPKunRY
+	xgUgqGLXPMEEOD+uZDcYGfPZo54O9vnoEiau+5sd++C5ONjjL0nQgGE3fg0JeMWf6UQ5MIyIgrr
+	e0whtLntMmtuh29fXQxVGr83mgWHdnlx/ysnK8dJ2VDk91gzxCS/CuwWv0vDQgVWaGfr7sRjUXu
+	hHayG7QQcOizmIXPVKOfgFn/lvQn+4IRgx6ax9mFHj9qifffFBogQJUeTyKoGlCRR5fGIfKoXbn
+	+Q2KJia4SdF/PnSSvrf2Sb5w2kgutboaA2Nzp/0LeJ56GbrNhHbdjMx1wxSFoLxtB5RGKtsvuyq
+	mZmHWn6ea/X50P7jjyo1Zt3lDPpc4fngqfB0KMTraEHqDUSLAnhwk/LhPeUnld/g4tp24nmPira
+	cqWlkLbWrQNJlMsFqQoB4OP1Eu3j/TMGnJxCQPAVQ4RZ6leJM9mkd2onb9dEXdwpqC/o47VPQe9
+	oRPpbKKuTqdr
+X-Received: by 2002:a05:6000:2c04:b0:48e:3b53:e100 with SMTP id ffacd0b85a97d-49c73164e37mr5793896f8f.56.1794578203223;
+        Fri, 13 Nov 2026 05:56:43 -0800 (PST)
+Received: from [127.0.1.1] ([151.61.248.197])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c608d10b2sm8233202f8f.44.2026.11.13.05.56.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 05:56:42 -0800 (PST)
+From: Valerio Setti <vsetti@baylibre.com>
+Date: Fri, 13 Nov 2026 14:56:34 +0100
+Subject: [PATCH v2] ASoC: meson: aiu-fifo: prevent sleeping when spinlock
+ is held
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,294 +93,234 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB5637:EE_|SA1PR12MB7342:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74d5bcf5-8ca5-4578-8378-08df418dc233
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|11063799006|4143699003|56012099006|261021135927099003|261021123027099003|261021121427099003|261022105027099003|261026121527099003|261026140227099003|261022075727099003|261009223027099003|261028144727099003|261102123227099003|261102130727099003|18002099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	5jLJ7J/0+o6UDdyXUWjm1KZLjGmq9Cb8cW3AP0MLnkxDrGnqxxFPYuPyjSgStmCWfvmqbhRDpCbpR9+rgW6KU6YgJTEaXhwcrhNj6jUWTk1SzsihsY5bG2tig1TSiL/W+GoEBmslggKwnYnrgHcT0hM1uMgkKmu+NyHuMSNV6aGNNjT2NdyLBgeiwhdf9VIGuwuWXxX1OYqdj/XhWY8cIQHKj92HRhWwNW/PkSOCAKeCcBkLmxCz46Ej6r3GnFpm8+7zEGinTF4H4dlwFwvvT/rVuGWeVzQgjpWBri9WnTI+uF0yY6AsFqYmxGduWNDqWv8UB4wJ1Bitp/LTWuW6efp5/rf6OeaU7C2V4VnycZuvFY/x/WiW0aGg4TqmONsZ5eVyZ2Tq8+VxJtGVVigPxSka/nBIPDyhALG+28S7B2vuhCyilenGgDsq9b+fmBgGkz/+EZA3IWtdrlXeltmMhrCMx0VmTUObqtVte6kQ8lJ/oGSf/4UwnWM0mYcu+cdG7tfSS6QC7RzJAelr5/6MXOyS21BHkl6WyXDe0HaLtEktQctUNp6eCR32So8KDtaA1foEuUBpDDQbEWJ4NQeBwFSIn8bvLNRDEHF1R0hWAkBzDjW8l/4FtwSeJO2XwDOABIElQLFWelfsXzIwo/UP0ivIbDGQtKhP5oiQbkBh5+4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB5637.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(261021135927099003)(261021123027099003)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261009223027099003)(261028144727099003)(261102123227099003)(261102130727099003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ajlneHl6N3JqRUxIaXB5TkhJWHdGTzdEdUpocGlqN1c4eVp5ZHVxcXg4WHp0?=
- =?utf-8?B?YSsvdGFmSEhsUFZzVWk1RFJzZEVxM09IZCtyaDdMSjdlZ1lLRElLaVlCV0hW?=
- =?utf-8?B?MHRHeThOODBNcWlwMkxvT1NyaGNIS3MzSXJ4WjNMOWY0V2hkNU5RbUhqMVov?=
- =?utf-8?B?dGRFUUhwNVpmTThLOXBIak1OWitUTGlPYzN6MjVhSGh1RkFYb1huZDVrUUhS?=
- =?utf-8?B?WVNVOWt2SmNaU0pORUFUOWsrZWlLc1lBaFIweWJUWmdOR2FVWE8yQy9iYzlK?=
- =?utf-8?B?Y2JXeThpdC9COGdyOVNTbWVaeENpMkZzWEFPT2JkczY1NWJ3aHRiMlRoalV4?=
- =?utf-8?B?YW9IeFoyMWVEWTlJcElMM2RzVkFDRFZDanJKazczUGVrWFptSUI5ZXp4Nmdy?=
- =?utf-8?B?aExJNDdiczExZUQ3eWRwUERQOWZ0MFRMMDJsOWVhdzFXZ3Rncmc4Ry93ZjVB?=
- =?utf-8?B?ZER2ZENCa3c4RDdoWVFlTloyMUlrQ3NQQklVK2dsM2RDSFBJVXAwZnJ0Skh1?=
- =?utf-8?B?bk55ZE44ZnlveVV2Wi9YUkFMampRQTdMUEUvbjZsMFczK2ZycmRULzVyOUY0?=
- =?utf-8?B?YmtYNitoTlpKMzNoVHQvWVV6NXcvSGlFenJieGgzMUlRU3I4WEo3eTJUT2lV?=
- =?utf-8?B?cTUvZjhIRzdLY0U3U05KUWFhM1RtVGtma1RFV1FkRWdzUTVyZjdxYVFLK3px?=
- =?utf-8?B?SDhpaU5Vell1TDN3S2ZVQi9oZGd6Mkk3cEFveG9mZHN1bnBRZHBmOXRNMEhR?=
- =?utf-8?B?WGljYUVWd3Y1TEg2bE44dE9YeWtyK1BTTlMyZElEU1dIamFMSzE3SXNhQ1dq?=
- =?utf-8?B?Y1VqV2dEUmMydmdpQkE4UnlvVERYcDdGcnpTTmFId0hRd2dEem1RUkRQcHI4?=
- =?utf-8?B?ZDd5bnk2a29XSVB1SEN6Q3BmV0ZleTkvSTJoT1NIb2gxK2V4TUZRdVJiaU52?=
- =?utf-8?B?ZGgzUjNxeVdLbmRsekQwcUNLd1loQVVPUHFQb0htcUE1OW1kckVuQzJBV25C?=
- =?utf-8?B?TVd0c2YxcXptZzB3NWU4by9ycFFQRXc5VmNjNEFXQTJMRFpqY25jQU1JY2Nq?=
- =?utf-8?B?amd2bHZ3UW8wVUVNYnJXSTlUaU1jOXBic2I4NWhYbTVhTldmRTllNUJqNUdG?=
- =?utf-8?B?cE5YanpmWk9sNCtRR24yNy8yRk9YYm94RTVabThoVVgwR1o3U2ZIN1JjbFJw?=
- =?utf-8?B?YkZWTE14S3g4NnZTVVFTTjllWTV0ZGoxckdHcmlUMCtGR1dTZVV4QlMvVGg0?=
- =?utf-8?B?cy9jUDJEaVNncStydmhERWRvL2ZwUVFiRDF6ZzdqbVdZWVZWYjhsS2V2K0Np?=
- =?utf-8?B?amgxb1JvanpTRkZZWmFGSjFoVTh1RkxYNVRxRTZiU0Y4U21QSWlnYWpYRTVa?=
- =?utf-8?B?VzJXN2J2QjZOMFc2elp0YUdsYzB2NEZ4bWx5Nm13NjZpMHhORG92RVhYRkxX?=
- =?utf-8?B?dS9QUzZhRHlybWNRQWFYdzZyYjdoZTdFVXVrWTJFTkY2dFZ3QWRtN3phSCs3?=
- =?utf-8?B?NmRhRnRYQlVhaHRzTjVUc1BnTklPQUVhSCtaaW9IME45MzViTFJLK2NMdk91?=
- =?utf-8?B?dHFWZDVnZnM0L3JzMDlGT1hPamxrYzRaYkZYaGZ3S0hsUCt4WFFZZkhFQTFN?=
- =?utf-8?B?NE1XV08zTm9OMmppTHNyVHNXRGtPaE5PQjRxQW4vNmdTdmtuVVR6Znczc3Er?=
- =?utf-8?B?Q1kyRHFjVWdSRnZSTmVPQndVbkNSQUJRS2RjSitsNm1Fc3pBWVFPYjZDS1Va?=
- =?utf-8?B?UFY3K252Z2VYdHVvaXhDYWI2YnJBQm9mTnptTjk0K0ZvcDczbUJVWko2OXd4?=
- =?utf-8?B?aXVKUVJEM3dyQzZET0VvVzFESUdkTnRMdE5wMHFVeVdjTFlmY0ZqWHRQYmZ3?=
- =?utf-8?B?ZnVSWlB6a21KK1o0c2pEZUdVNHE2R3ZCWUw0MUQ5czVaRy93V0ZXMDZmd0lS?=
- =?utf-8?B?SW5VNGt1VjVrWE5lcVRtOVRvYlFkWXRnbFk2dzRQZmF5S1pPUkVmZSs5am1v?=
- =?utf-8?B?NDNpUkZza0V6cm8yNXhIUjZzK1NrZXFjd3NrWGswSko4blhxenNtOVZycHFp?=
- =?utf-8?B?bG9ONDFHb0ZlRW5uMWtPSWZ6TG8wbVpxVmlsQVhkc1ZkT2hESU44YVpEUjQw?=
- =?utf-8?B?RHZGWjJGV0NtdEY0VWVSQ2pScWJmWnZxTTU3MS8zd0FFcXRjM3FpSVZnNGZz?=
- =?utf-8?B?dDhraWh2RlhMc09NbERMdWs5SUJKekhGQVJ1d1Qxbkt5RzNjREtQdmZxaVFm?=
- =?utf-8?B?LzBkdlBKS2N4UlhJQkFoeTdCcUhEd3JsVkRLWU4zbjg0OWUzaENaTWQvV3hl?=
- =?utf-8?Q?fHpboASvPCdRgZSI6k?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74d5bcf5-8ca5-4578-8378-08df418dc233
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5637.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 13:55:21.9812
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IrTY/uMNZBRdxH7+WWpgkcERXP4sBAvtIM+k/N6XGohjEeN/L0ye3vG1Usp7AVBJBbd9Xh8nt/pqTkOpiNSp9Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7342
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-aiu-fifo-fix-sleep-on-spinlock-v2-1-f72015c933bf@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIABEX92oC/42OQQqDMBBFryJZd4oRsbWr3kNcJONYp7WJZFQq4
+ t0b7QU6iw8PHv/PqoQCk6hbsqpAMwt7FyE7JQo74x4E3ERWWZoVOh4YnqDl1sf4gPREA3gHMrD
+ rPb4gJSS8NkVuSqtiyRAoisdAVf9YJvskHPfW3ehYRh+W44NZ797fY7MGDQ2WRHmqzQXbuzVLz
+ zbQGf1b1du2fQEYrvXP4QAAAA==
+X-Change-ID: 20261111-aiu-fifo-fix-sleep-on-spinlock-0ecec8d64a9b
+To: Jerome Brunet <jbrunet@baylibre.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ Christian Hewitt <christianshewitt@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Valerio Setti <vsetti@baylibre.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8520; i=vsetti@baylibre.com;
+ h=from:subject:message-id; bh=1fTo+4uyzOmAFYCXX+UpHdSokP50b/OzdEc4+14QE3g=;
+ b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFnfxcWni/3fFB9qK6qqP5GFWSD57ZtNzeVSj3Jctm7Z+
+ HXF41jJjlIWBjEuBlkxRRaW6fd+F5SqPTROOFkAM4eVCWQIAxenAExkrx8jw9XD8btX35RcsIjj
+ wlFj+btzlsZ8aH3vJRZ89LjY5zD9jXKMDO+urbGo4BPd/mbbo49PJRUetDQ7/eWwWG2udfKiwIr
+ UE+wA
+X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
+ fpr=0497DEFB707526E13360C970DE4B936DD13A0100
 
+dai_links in the gx-card are atomic which means that the DAI trigger
+callback is called with the spinlock held. This means that usage of
+potentially sleeping functions (e.g. mutexes) is not allowed here.
 
+'snd_soc_component_write'/'snd_soc_component_read' take the component's
+io_mutex on entry.
 
-On 13/11/26 18:02, Christian Loehle wrote:
-> External email: Use caution opening links or attachments
-> 
-> 
-> On 11/13/26 12:28, Rafael J. Wysocki (Intel) wrote:
->> On Fri, Nov 13, 2026 at 1:22 PM Christian Loehle
->> <christian.loehle@arm.com> wrote:
->>>
->>> On 11/12/26 17:19, Christian Loehle wrote:
->>>> On 11/12/26 17:11, Mario Limonciello wrote:
->>>>> On 11/12/26 08:05, Christian Loehle wrote:
->>>>>> On 11/12/26 14:01, Rafael J. Wysocki (Intel) wrote:
->>>>>>> On Thu, Nov 12, 2026 at 2:58 PM Christian Loehle
->>>>>>> <christian.loehle@arm.com> wrote:
->>>>>>>>
->>>>>>>> On 11/12/26 13:13, Christian Loehle wrote:
->>>>>>>>> The EPP sysfs interface uses 0-255, but ACPI permits 4-8 bit fields.
->>>>>>>>> Writing 128 to a 4- or 6-bit SystemMemory field currently succeeds but
->>>>>>>>> stores zero, selecting maximum performance.
->>>>>>>>>
->>>>>>>>> Scale writes to supported narrow EPP registers and normalize reads to
->>>>>>>>> 0-255. Cover both EPP setters and cppc_get_perf() so saved firmware values
->>>>>>>>> round-trip correctly.
->>>>>>>>>
->>>>>>>>> Fixes: 922607a2b462 ("cpufreq: CPPC: Add support for autonomous selection")
->>>>>>>>> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
->>>>>>>>> ---
->>>>>>>>>    .../ABI/testing/sysfs-devices-system-cpu      |  5 ++
->>>>>>>>>    drivers/acpi/cppc_acpi.c                      | 46 +++++++++++++++++--
->>>>>>>>>    2 files changed, 47 insertions(+), 4 deletions(-)
->>>>>>>>>
->>>>>>>>> diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
->>>>>>>>> index d219fc27a0c9..c63b5cfd993c 100644
->>>>>>>>> --- a/Documentation/ABI/testing/sysfs-devices-system-cpu
->>>>>>>>> +++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
->>>>>>>>> @@ -322,6 +322,11 @@ Description:     Energy performance preference
->>>>>>>>>                 performance increase/decrease and the result of the hardware's
->>>>>>>>>                 energy efficiency and performance optimization policies.
->>>>>>>>>
->>>>>>>>> +             For supported EPP registers narrower than eight bits, values are
->>>>>>>>> +             scaled and rounded to the nearest hardware preference.
->>>>>>>>> +             Reads use the same 0-255 scale and may differ from the requested
->>>>>>>>> +             value due to the reduced precision.
->>>>>>>>> +
->>>>>>>>>                 Writing to this file only has meaning when Autonomous Selection is
->>>>>>>>>                 enabled.
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
->>>>>>>>> index 11a9f9eb6b4a..10b52163eb56 100644
->>>>>>>>> --- a/drivers/acpi/cppc_acpi.c
->>>>>>>>> +++ b/drivers/acpi/cppc_acpi.c
->>>>>>>>> @@ -38,6 +38,7 @@
->>>>>>>>>    #include <linux/iopoll.h>
->>>>>>>>>    #include <linux/ktime.h>
->>>>>>>>>    #include <linux/list.h>
->>>>>>>>> +#include <linux/math64.h>
->>>>>>>>>    #include <linux/mutex.h>
->>>>>>>>>    #include <linux/rbtree.h>
->>>>>>>>>    #include <linux/rwsem.h>
->>>>>>>>> @@ -2841,6 +2842,25 @@ int cppc_get_highest_perf(int cpunum, u64 *highest_perf)
->>>>>>>>>    }
->>>>>>>>>    EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
->>>>>>>>>
->>>>>>>>> +/* Keep the EPP interface on an 8-bit scale, including firmware readback. */
->>>>>>>>> +static u64 cppc_scale_epp(const struct cpc_register_resource *reg,
->>>>>>>>> +                       u64 epp, bool to_reg)
->>>>>>>>> +{
->>>>>>>>> +     unsigned int width = reg->cpc_entry.reg.bit_width;
->>>>>>>>> +     u32 max;
->>>>>>>>> +
->>>>>>>>> +     if (reg->type != ACPI_TYPE_BUFFER || width < 4 || width >= 8)
->>>>>>>>> +             return epp;
->>>>>>>>> +
->>>>>>>>> +     max = BIT(width) - 1;
->>>>>>>>> +     if (to_reg)
->>>>>>>>> +             return DIV_ROUND_CLOSEST_ULL(epp * max,
->>>>>>>>> +                                          CPPC_EPP_ENERGY_EFFICIENCY_PREF);
->>>>>>>>> +
->>>>>>>>> +     return DIV_ROUND_CLOSEST_ULL(epp * CPPC_EPP_ENERGY_EFFICIENCY_PREF,
->>>>>>>>> +                                  max);
->>>>>>>>> +}
->>>>>>>>> +
->>>>>>>>>    /**
->>>>>>>>>     * cppc_get_epp_perf - Get the epp register value.
->>>>>>>>>     * @cpunum: CPU from which to get epp preference value.
->>>>>>>>> @@ -2850,7 +2870,15 @@ EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
->>>>>>>>>     */
->>>>>>>>>    int cppc_get_epp_perf(int cpunum, u64 *epp_perf)
->>>>>>>>>    {
->>>>>>>>> -     return cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
->>>>>>>>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
->>>>>>>>> +     int ret;
->>>>>>>>> +
->>>>>>>>> +     ret = cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
->>>>>>>>> +     if (!ret)
->>>>>>>>> +             *epp_perf = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
->>>>>>>>> +                                        *epp_perf, false);
->>>>>>>>> +
->>>>>>>>> +     return ret;
->>>>>>>>>    }
->>>>>>>>>    EXPORT_SYMBOL_GPL(cppc_get_epp_perf);
->>>>>>>>>
->>>>>>>>> @@ -3150,6 +3178,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>>>>>>>         bool auto_sel_non_pcc;
->>>>>>>>>         bool epp_pcc;
->>>>>>>>>         bool epp_non_pcc;
->>>>>>>>> +     u64 epp;
->>>>>>>>>         int ret;
->>>>>>>>>
->>>>>>>>>         if (!cpc_desc) {
->>>>>>>>> @@ -3159,6 +3188,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>>>>>>>
->>>>>>>>>         auto_sel_reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
->>>>>>>>>         epp_set_reg = &cpc_desc->cpc_regs[ENERGY_PERF];
->>>>>>>>> +     epp = cppc_scale_epp(epp_set_reg, perf_ctrls->energy_perf, true);
->>>>>>>>>         if (!enable && auto_sel_reg->type == ACPI_TYPE_INTEGER &&
->>>>>>>>>             auto_sel_reg->cpc_entry.int_value == 1)
->>>>>>>>>                 return -EOPNOTSUPP;
->>>>>>>>> @@ -3177,7 +3207,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>>>>>>>                         return ret;
->>>>>>>>>         }
->>>>>>>>>         if (epp_non_pcc) {
->>>>>>>>> -             ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
->>>>>>>>> +             ret = cpc_write(cpu, epp_set_reg, epp);
->>>>>>>>>                 if (ret)
->>>>>>>>>                         return ret;
->>>>>>>>>         }
->>>>>>>>> @@ -3205,7 +3235,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>>>>>>>                 }
->>>>>>>>>
->>>>>>>>>                 if (epp_pcc) {
->>>>>>>>> -                     ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
->>>>>>>>> +                     ret = cpc_write(cpu, epp_set_reg, epp);
->>>>>>>>>                         if (ret)
->>>>>>>>>                                 goto out_unlock;
->>>>>>>>>                 }
->>>>>>>>> @@ -3235,9 +3265,17 @@ EXPORT_SYMBOL_GPL(cppc_set_epp_perf);
->>>>>>>>>     */
->>>>>>>>>    int cppc_set_epp(int cpu, u64 epp_val)
->>>>>>>>>    {
->>>>>>>>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
->>>>>>>>> +
->>>>>>>>>         if (epp_val > CPPC_EPP_ENERGY_EFFICIENCY_PREF)
->>>>>>>>>                 return -EINVAL;
->>>>>>>>>
->>>>>>>>> +     if (!cpc_desc)
->>>>>>>>> +             return -ENODEV;
->>>>>>>>> +
->>>>>>>>> +     epp_val = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
->>>>>>>>> +                              epp_val, true);
->>>>>>>>> +
->>>>>>>>>         return cppc_set_reg_val(cpu, ENERGY_PERF, epp_val);
->>>>>>>>>    }
->>>>>>>>>    EXPORT_SYMBOL_GPL(cppc_set_epp);
->>>>>>>>> @@ -3496,7 +3534,7 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
->>>>>>>>>                 if (ret)
->>>>>>>>>                         goto out_err;
->>>>>>>>>         }
->>>>>>>>> -     perf_ctrls->energy_perf = energy_perf;
->>>>>>>>> +     perf_ctrls->energy_perf = cppc_scale_epp(energy_perf_reg, energy_perf, false);
->>>>>>>>>
->>>>>>>>>         if (CPC_SUPPORTED(auto_sel_reg)) {
->>>>>>>>>                 ret = cpc_read(cpu, auto_sel_reg, &auto_sel);
->>>>>>>>
->>>>>>>> +CC Sumit's actual email, sorry about that.
->>>>>>>
->>>>>>> So I'm assuming that this one is for Sumit to pick up and send again
->>>>>>> along with a new version of
->>>>>>>
->>>>>>> https://lore.kernel.org/linux-acpi/20261112080442.4007723-1-sumitg@nvidia.com/
->>>>>>>
->>>>>>> Or please let me know if that is not the case.
->>>>>>
->>>>>> Yup, while it fixes an issue by itself technically, I don't think there
->>>>>> are any affected platforms.
->>>>>> I'm hoping that Sumit this (and the limit-write-at-init) patch as a series
->>>>>> for all our convenience (and hopefully to get Sashiko to review them too).
->>>>>> (I guess I should've mentioned that in the notes.)
->>>>>>
->>>>>> And sorry about ACPI/CPPC having such high traffic lately, I'm expecting once
->>>>>> we've got the issues ironed out and the new features supported it'll be a
->>>>>> lot more boring :)
->>>>>
->>>>> So the basic idea with this patch that the userspace interface is always 8 bit so higher level software will not need to know the lower level implementation detail at the expense of some granularity.
->>>>>
->>>>> Makes sense to me, but I'd like to know how realistic this hardware is going to be.  If it's purely hypothetical hardware; how about proposing to ASWG that this field must always be 8 bit?
->>>>
->>>> Good point, IMO it's hypothetical hardware that hopefully doesn't and won't exist.
->>>> I'll try to raise this through that channel as well.
->>>
->>>
->>> Quick update on this, after proposing it, Souvik came back and made me aware that
->>> we've already proposed this:
->>> https://github.com/tianocore/edk2/issues/10838
->>>
->>> I guess forget about $SUBJECT after all and I'll probe-fail <8bit and get the amd-pstate
->>> handling correct.
->>
->> So should I wait for an update of
->>
->> https://lore.kernel.org/linux-acpi/20261112080442.4007723-1-sumitg@nvidia.com/
->>
->> or is it applicable as-is?  In which case, care to give it a tag?
-> 
-> I guess the issue is arguably preexisting and the fix doesn't touch the same code,
-> so feel free to apply,
+Replace usage of these functions in:
+- 'aiu_fifo_i2s_trigger'
+- 'fifo_spdif_trigger'
+- 'aiu_fifo_pointer'
 
+This is meant to resolve the following runtime bug found while starting I2S
+playback on an OdroidC2 device where the kernel was built enabling
+CONFIG_DEBUG_ATOMIC_SLEEP and CONFIG_PROVE_LOCKING:
 
-Yes, [1] can be applied as is. The issue Sashiko reported on it exists
-without [1] too, and [2] fixes it.
+  Playback device is hw:0,0
+  Stream parameters are 44100Hz, S16_LE, 2 channels
+  Sine wave rate is 1000.0000Hz
+  Rate set to 44100Hz (requested 44100Hz)
+  Buffer size range from 128 to 262144
+  Period size range from 64 [   21.012074] BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
+  [   21.018009] in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 267, name: speaker-test
+  [   21.026184] preempt_count: 1, expected: 0
+  [   21.030151] RCU nest depth: 0, expected: 0
+  [   21.034205] locks held by speaker-test/267: 1, last CPU#3:
+  [   21.039638]  #0: ffff000003dbd910 (&group->lock#2){....}-{3:3}, at: snd_pcm_stream_lock_irq+0x40/0x60
+  [   21.048782] irq event stamp: 5274
+  [   21.052059] hardirqs last  enabled at (5273): [<ffff800081494240>] _raw_spin_unlock_irq+0x38/0x80
+  [   21.060856] hardirqs last disabled at (5274): [<ffff8000814935c8>] _raw_spin_lock_irq+0x80/0x90
+  [   21.069481] softirqs last  enabled at (5238): [<ffff8000800f9aec>] handle_softirqs+0x584/0x5e0
+  [   21.078020] softirqs last disabled at (5231): [<ffff800080010324>] __do_softirq+0x1c/0x28
+  [   21.086133] CPU: 3 UID: 0 PID: 267 Comm: speaker-test Not tainted 7.3.0 #2 PREEMPT
+  [   21.086141] Hardware name: Hardkernel ODROID-C2 (DT)
+  [   21.086145] Call trace:
+  [   21.086149]  show_stack+0x20/0x40 (C)
+  [   21.086160]  dump_stack_lvl+0x6c/0x98
+  [   21.086171]  dump_stack+0x18/0x24
+  [   21.086179]  __might_resched+0x160/0x230
+  [   21.086189]  __might_sleep+0x50/0x90
+  [   21.086197]  __mutex_lock+0x64/0x8a0
+  [   21.086206]  mutex_lock_nested+0x2c/0x40
+  [   21.086215]  snd_soc_component_write+0x38/0x80
+  [   21.086227]  aiu_fifo_i2s_trigger+0x74/0x90
+  [   21.086237]  soc_dai_trigger.part.0+0x44/0x90
+  [   21.086246]  snd_soc_pcm_dai_trigger+0x174/0x280
+  [   21.086255]  soc_pcm_trigger+0xe4/0x1f0
+  [   21.086265]  dpcm_dai_trigger_fe_be+0x30/0xb0
+  [   21.086276]  dpcm_fe_dai_do_trigger+0x11c/0x1a0
+  [   21.086287]  dpcm_fe_dai_trigger+0x40/0x60
+  [   21.086296]  snd_pcm_do_start+0x4c/0x80
+  [   21.086307]  snd_pcm_action_single+0x50/0xc0
+  [   21.086316]  snd_pcm_action+0x88/0xb0
+  [   21.086325]  snd_pcm_start+0x2c/0x40
+  [   21.086335]  __snd_pcm_lib_xfer+0x660/0x810
+  [   21.086345]  snd_pcm_common_ioctl+0xa20/0x17e0
+  [   21.086356]  snd_pcm_ioctl+0x3c/0x60
+  [   21.086366]  __arm64_sys_ioctl+0xac/0x110
+  [   21.086376]  invoke_syscall+0x5c/0x120
+  [   21.086386]  el0_svc_common.constprop.0+0x48/0xf0
+  [   21.086395]  do_el0_svc+0x24/0x40
+  [   21.086404]  el0_svc+0x54/0x3b0
+  [   21.086414]  el0t_64_sync_handler+0xa0/0xf0
+  [   21.086424]  el0t_64_sync+0x198/0x1a0
 
-[2] replaces the firmware MIN/MAX at init(). v5 of [1] kept them in
-autonomous mode. I'm not aware of any platform that needs the OS to
-keep them, but if one does, I will look at that separately.
+Note: the return value of 'regmap_read' in 'aiu_fifo_pointer' is
+intentionally ignored. Regmap is MMIO here and read failures shouldn't
+happen. Also 'axg-fifo.c' is doing the same in its 'axg_fifo_pcm_pointer'.
 
-I can also resend [1] and [2] as a series if you prefer.
+Fixes: e8712315c44d ("ASoC: soc-component: use io_mutex correctly")
+Fixes: 6b59c53c8adc ("ASoC: meson: aiu: fifo-spdif: soft reset the S/PDIF datapath on start/stop")
+Signed-off-by: Valerio Setti <vsetti@baylibre.com>
+---
+I found this issue while working on [1].
+This patch is independent of [1] and they can go in in any order. They
+are fixing the same problem in different modules.
 
-[1] 
-https://lore.kernel.org/linux-acpi/20261112080442.4007723-1-sumitg@nvidia.com/
-[2] 
-https://lore.kernel.org/all/20261112113204.778904-1-christian.loehle@arm.com/
+[1]: https://lore.kernel.org/all/20261021-gx-formatter-use-spinlock-v1-1-71ebc9224c03@baylibre.com/
+---
+Changes in v2:
+- Removed handling of 'regmap_read' failures in 'aiu_fifo_pointer'. Since
+  ragmap is MMIO here, read failures cannot happen. [Martin]
+- Link to v1: https://patch.msgid.link/20261111-aiu-fifo-fix-sleep-on-spinlock-v1-1-dc9ee401a7cf@baylibre.com
 
-Thanks,
-Sumit
+To: Jerome Brunet <jbrunet@baylibre.com>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Takashi Iwai <tiwai@suse.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Kevin Hilman <khilman@baylibre.com>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Christian Hewitt <christianshewitt@gmail.com>
+Cc: linux-sound@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-amlogic@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+ sound/soc/meson/aiu-fifo-i2s.c   | 15 ++++++++++++---
+ sound/soc/meson/aiu-fifo-spdif.c | 14 ++++++++++----
+ sound/soc/meson/aiu-fifo.c       |  3 ++-
+ 3 files changed, 24 insertions(+), 8 deletions(-)
+
+diff --git a/sound/soc/meson/aiu-fifo-i2s.c b/sound/soc/meson/aiu-fifo-i2s.c
+index eccbc16b293ad..8f785241585df 100644
+--- a/sound/soc/meson/aiu-fifo-i2s.c
++++ b/sound/soc/meson/aiu-fifo-i2s.c
+@@ -5,6 +5,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
++#include <linux/regmap.h>
+ #include <sound/pcm_params.h>
+ #include <sound/soc.h>
+ #include <sound/soc-dai.h>
+@@ -48,14 +49,22 @@ static int aiu_fifo_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
+ 				struct snd_soc_dai *dai)
+ {
+ 	struct snd_soc_component *component = dai->component;
++	unsigned int val;
++	int ret;
+ 
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		snd_soc_component_write(component, AIU_RST_SOFT,
+-					AIU_RST_SOFT_I2S_FAST);
+-		snd_soc_component_read(component, AIU_I2S_SYNC);
++		ret = regmap_write(component->regmap, AIU_RST_SOFT, AIU_RST_SOFT_I2S_FAST);
++		if (ret < 0)
++			return snd_soc_ret(component->dev, ret,
++					   "Failed to write register on trigger");
++
++		ret = regmap_read(component->regmap, AIU_I2S_SYNC, &val);
++		if (ret < 0)
++			return snd_soc_ret(component->dev, ret,
++					   "Failed to read register on trigger");
+ 		break;
+ 	}
+ 
+diff --git a/sound/soc/meson/aiu-fifo-spdif.c b/sound/soc/meson/aiu-fifo-spdif.c
+index a9861c5d66374..297834bce1c7a 100644
+--- a/sound/soc/meson/aiu-fifo-spdif.c
++++ b/sound/soc/meson/aiu-fifo-spdif.c
+@@ -69,15 +69,21 @@ static int fifo_spdif_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		snd_soc_component_write(component, AIU_RST_SOFT,
+-					AIU_RST_SOFT_958_FAST);
++		ret = regmap_write(component->regmap, AIU_RST_SOFT, AIU_RST_SOFT_958_FAST);
++		if (ret < 0)
++			return snd_soc_ret(component->dev, ret,
++					   "Failed to write register on trigger");
++
+ 		fifo_spdif_dcu_enable(component, true);
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 	case SNDRV_PCM_TRIGGER_STOP:
+-		snd_soc_component_write(component, AIU_RST_SOFT,
+-					AIU_RST_SOFT_958_FAST);
++		ret = regmap_write(component->regmap, AIU_RST_SOFT, AIU_RST_SOFT_958_FAST);
++		if (ret < 0)
++			return snd_soc_ret(component->dev, ret,
++					   "Failed to write register on trigger");
++
+ 		fifo_spdif_dcu_enable(component, false);
+ 		break;
+ 	default:
+diff --git a/sound/soc/meson/aiu-fifo.c b/sound/soc/meson/aiu-fifo.c
+index 8b54f9681d00c..edb47095c059d 100644
+--- a/sound/soc/meson/aiu-fifo.c
++++ b/sound/soc/meson/aiu-fifo.c
+@@ -5,6 +5,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
++#include <linux/regmap.h>
+ #include <linux/dma-mapping.h>
+ #include <sound/pcm_params.h>
+ #include <sound/soc.h>
+@@ -38,7 +39,7 @@ snd_pcm_uframes_t aiu_fifo_pointer(struct snd_soc_component *component,
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	unsigned int addr;
+ 
+-	addr = snd_soc_component_read(component, fifo->mem_offset + AIU_MEM_RD);
++	regmap_read(component->regmap, fifo->mem_offset + AIU_MEM_RD, &addr);
+ 
+ 	return bytes_to_frames(runtime, addr - (unsigned int)runtime->dma_addr);
+ }
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261111-aiu-fifo-fix-sleep-on-spinlock-0ecec8d64a9b
+
+Best regards,
+--  
+Valerio Setti <vsetti@baylibre.com>
 
