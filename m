@@ -1,76 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794542729;
-	b=yCNc8hkmhQZzphnTDHSRZ1nD2zybP4339pbSFKxfW18BZ/fWa23Y/7YxM0TfGoSGWEIU
-	 we/32KeJGiR4WaPpCbZ2zz6QoGuQ7KOUexi1XiEchaNqyulMVUI14PwcoWAqBb+WABTIJ
-	 Wo1rxdb6MGqQUk4/CD4cUAyGVNsG8gG3sEJ3eot4EFfvI1tJqCeh8F2hjFD0TiFdQVnck
-	 fcetXgBxRsqDDbKrLCecUetqV/AG58GO6Am40iga8y9gYyLoMTProqsPD3JB8mrUz3Spa
-	 ljyxRQB4GHs5Mft2cFbX0AVUi44RzQORQ4vs62XF6gNNYlgqraEhN3gPQS+yZ/dN8ew==
+	t=1794542804;
+	b=GMD1UWwYJ9OFBnUvR5SOepF01r8wRcpKd4XkkIieTTCI8lPEDCKMcZVUEeWD8uA8j5Jk
+	 Kq2U/P2XUDv390nRBuXN0dhmddQ8cg1TMc0N4hHDMIJppv0ldcnEfd1QgQffEIOZ2owtH
+	 m4zpuTDkZO6QDm6JZn50RTrzTVpGlEB5/BXFgFFIlGyZqskNfGrlAAo12aJjQHoJzgzZY
+	 oPMxVGCtPOt6+hiOLhtIwo0zqxZrodu5WWbtKw7LNWmJXu/GwDPuSU2h1Qn5HuUzZ0UWE
+	 Bt5q9+Oh2Fs6ToTM6MPETRT0jVcies7/oudfFKzLG4dxA6qeLl72XcT6knd7+S4ffOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794542729;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
-	b=f9Mn3aMUOeZbTjTwdO/kRZMR04cjKJNtf4+UXZpDteNhzUFX7dNIGnDr7EwPN/GDRtjs
-	 BBRiatOfcpf4gPcOnw1ieBUaT81tJTNQ7CYNaXiVvbAStOO0SmQyi+Z5BJdzJFpq0R892
-	 71N03zW8ibpVHb77RdrWZqckUyGTRmJx+ggRhbarKJlDXe1TBTSke1HuugB6Y92vq/6p3
-	 vCF/mSmiknl0PLSdyFfyw+k7RABmXH1niUeXlogAqIYXLcqCeCkzJLOfKwN+jcfl+cejS
-	 B7XjCFfn96DIQq/9Gu92LlTC+ctvUYZpsIhH2MiTauQkrnkK8JQIYWvCoREEAxUMGQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794542804;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=tuA60olfOPNvdkAZ/j00xlMiIOiP361+dfqsaehGjQU=;
+	b=pmZs5fo0G0VLW9RsroaI0MO5rwTPGP72EaR0OCnqCrx53gnCQ/NpLecP3Ie1Cz/FS/js
+	 I0G9sTLrlb810EXgn6q64bILw1iMRsjNCF4zd2Ycj5am286NcKZFeRLsvSoiMGv6AAW7T
+	 YkheB8pETnK3ltOAq2xkImbDb/gqW6efY6Q8NkHv3haB31Mp1lTo5VxfphZ+B8yd+k5HC
+	 5fRwrlvf5+JILk1VxjKpuuhrvErazZFKZj3HMBa2oydaRepWWz6g9INYs3DREjgwqUQWd
+	 IQTOajt8oXhSA0Co6ipA2bMHMxif3DDBqt9MrpvONtXzNWLl1Jdu7uN4h8CaZ3CXfBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sSSBTmRC;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wRcPyN8a;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQtFcJ4B;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4615F606A323;
-	Fri, 13 Nov 2026 04:05:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4615F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9D3606A31C;
+	Fri, 13 Nov 2026 04:06:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sSSBTmRC;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wRcPyN8a
-Date: Fri, 13 Nov 2026 04:05:24 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794542727;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
-	b=sSSBTmRCpi0eiAS4KAqr8V5qDfn/JyZfMtdIhS7Z3Q7+UdVOzoDO3JgbJbAVzIuLXrFsEx
-	JfGy3rxlJ1EH6oweewdlXWxlGnywMZve4IXHlQN0Sa5KBNEAExoNTsGbKOaxLVHBZ462kP
-	y3bEgzjeHjiQ40pJdlE5i/yNt48+itVIEVZ8CkMYRTp4YdxQVGdiUnssvVMD56XXWPifIq
-	oeSznuYKxwyyApZoycCEtHdHL4aID2p+p7p5p/nYrkriTt1nkskzp71TKX77HusCGhQZtb
-	528v16otET/etAWdDmvjzIfzaatJc7Za30yfnWucTPUAFAFzQqCbOuKdS8YEQQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794542727;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
-	b=wRcPyN8aNyAWUnahwuKvbtQEFgPKmtGUFvZPwFQ56tTrsxbI7cnpvuuWQjjQESDsXl/WVz
-	04wdOMtRNkBlcbCw==
-From: "tip-bot2 for Hengyu Liang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/video: Preserve the default VGA fallback for
- legacy modes
-Cc: Hengyu Liang <hengyul@cs.unc.edu>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261103031630.2085194-1-hengyul@cs.unc.edu>
-References: <20261103031630.2085194-1-hengyul@cs.unc.edu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQtFcJ4B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3101F000C4;
+	Fri, 13 Nov 2026 04:06:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794542804;
+	bh=tuA60olfOPNvdkAZ/j00xlMiIOiP361+dfqsaehGjQU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=EQtFcJ4BNe2SbOwbVspWNP8nzBg2I1LK4KPzLE86/Oo4ST9cUm/rh6Y2WwU2MJ8mw
+	 A5PwkmP7v97L6m1rp0BydeG0TZ5cOafUO2FtcfxiIvQfPGhMmzWSWcugjhrOJSXaJ/
+	 6Zn9EUa/QujxJ21B0Dh8AP0j/CeqzXZpBPgXk7nNoE1ZbLQvcec8TEpmVRt1TV+v5y
+	 nSn68Z3ZBvlWdMKx3EoQdlxs1FLP3reZApzdK1VeZa9fhv9tX+qycxP1P3LHERxafI
+	 JMwAFK+Tp63qIHALdE8Uv4cxLK3h2EynuZRLEsOZd2nSJv1ljEv+UN+icl7tqO9gk7
+	 6N+6w615OoOww==
+Subject: Re: [PATCH net-next v4 2/2] net: pcs: xpcs: make supported_interfaces
+ authoritative
+From: netdev-bot+sashiko@kernel.org
+To: coiaprant@gmail.com
+Cc: kuba@kernel.org, pabeni@redhat.com, jiawenwu@trustnetic.com,
+ mengyuanlou@net-swift.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ heiko@sntech.de, aleksandr.loktionov@intel.com, fabio.baltieri@gmail.com,
+ netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 13 Nov 2026 04:06:42 +0000
+Message-ID: <179454280276.2199510.48600645261637152@kernel.org>
+In-Reply-To: <20261110160554.918652-3-coiaprant@gmail.com>
+References: <20261110160554.918652-3-coiaprant@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,79 +66,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179454272497.2969448.17262198902355060931.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the x86/urgent branch of tip:
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Commit-ID:     3b4c98b47ba7c3c57bcf54fb85f54a854622041c
-Gitweb:        https://git.kernel.org/tip/3b4c98b47ba7c3c57bcf54fb85f54a85462=
-2041c
-Author:        Hengyu Liang <hengyul@cs.unc.edu>
-AuthorDate:    Mon, 02 Nov 2026 22:16:30 -05:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Thu, 12 Nov 2026 20:01:18 -08:00
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
-x86/video: Preserve the default VGA fallback for legacy modes
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Commit
+- [Medium] The commit message overstates what the core hunk fixes.
+- [Low] The commit message leaves out the behaviour change that actually
+  matters.
+- [Low] xpcs_rk_create() puts PHY_INTERFACE_MODE_QSGMII into the platform
+  mask, and its comment says "The RK3568 XPCS supports 1000BASE-X, SGMII…
 
-  596b3678326d ("x86/video: Only fall back to vga_default_device() without sc=
-reen info")
+--
 
-made video_is_primary_device() rely exclusively on screen_info resources
-whenever any are available.
+net: pcs: xpcs: make supported_interfaces authoritative
 
-However, screen_info_resources() also returns legacy I/O and memory ranges for
-VGA text modes. These ranges are not PCI BARs, so pci_find_resource() does not
-find them and the default VGA fallback is skipped. As a result, no device is
-primary in VGA text mode.
+This commit makes xpcs_find_compat() return NULL for any interface that
+is not set in pcs.supported_interfaces. It also narrows the Rockchip
+XPCS mask in xpcs_rk_create(). It does this by intersecting the mask
+with a platform mask of 1000BASE-X, SGMII and QSGMII.
 
-On a SeaBIOS QEMU guest with bochs and VKMS, the boot VGA (bochs) loses its
-DRM boot_display attribute. VKMS registers fb0 and bochs registers fb1. VKMS
-is not a PCI device, so it is not primary either. With no primary device,
-fbcon keeps the console on fb0 and never remaps it to bochs. This can be
-checked with:
+> However, xpcs_find_compat() only walks desc->compat[] and does not look
+> at pcs.supported_interfaces. If a caller ever passes an interface
+> outside the mask, the core would still find and configure a compat
+> entry for it, contradicting the mask the glue already set. This was a
+> known gap: the mask was written but never consulted by the core.
 
-  cat /sys/class/drm/card1/boot_display
-  stty -F /dev/tty1 size
+[Severity: Medium]
+Does this describe the code as it was before this patch?
 
-Without the fix, boot_display is missing and tty1 is 48 rows by 128 columns.
-With it, boot_display contains 1 and tty1 is 50 rows by 160 columns. VKMS only
-makes the console part visible. Without VKMS, tty1 has the same size with and
-without the fix, but boot_display is still missing without it.
+In the core, only xpcs_create() writes pcs.supported_interfaces. It does
+so through xpcs_get_interfaces(), which builds the mask from the same
+table that xpcs_find_compat() walks:
 
-Use resource-based selection only for linear framebuffers. Fall back to
-vga_default_device() for legacy display modes, while keeping EFI and VESA
-framebuffer ownership authoritative.
+drivers/net/pcs/pcs-xpcs.c:xpcs_get_interfaces() {
+	for (compat = xpcs->desc->compat; compat->supported; compat++)
+		__set_bit(compat->interface, interfaces);
+}
 
-Fixes: 596b3678326d ("x86/video: Only fall back to vga_default_device() witho=
-ut screen info")
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261103031630.2085194-1-hengyul@cs.unc.edu
----
- arch/x86/video/video-common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+For every existing user, a set bit and a compat entry mean the same
+thing. The new test_bit() in xpcs_find_compat() therefore can't reject
+anything.
 
-diff --git a/arch/x86/video/video-common.c b/arch/x86/video/video-common.c
-index 8ed82ff..b8f8334 100644
---- a/arch/x86/video/video-common.c
-+++ b/arch/x86/video/video-common.c
-@@ -45,7 +45,7 @@ bool video_is_primary_device(struct device *dev)
-=20
- #ifdef CONFIG_SCREEN_INFO
- 	numres =3D screen_info_resources(si, res, ARRAY_SIZE(res));
--	if (numres > 0) {
-+	if (numres > 0 && __screen_info_has_lfb(screen_info_video_type(si))) {
- 		for (i =3D 0; i < numres; ++i) {
- 			if (!(res[i].flags & IORESOURCE_MEM))
- 				continue;
+Before this patch, xpcs_rk_create() didn't touch pcs.supported_interfaces
+either. So no mask had been "already set" by the glue. This same patch
+adds the narrowing.
+
+phylink also already checks the mask before it uses the PCS:
+
+drivers/net/phy/phylink.c:phylink_validate_mac_and_pcs() {
+    ...
+		if (!phy_interface_empty(pcs->supported_interfaces) &&
+		    !test_bit(state->interface, pcs->supported_interfaces)) {
+			phylink_err(pl, "MAC returned PCS which does not support %s\n",
+				    phy_modes(state->interface));
+			return -EINVAL;
+		}
+    ...
+}
+
+The only path that skips phylink seems to be the exported
+xpcs_get_an_mode(). It is called from stmmac_init_phy() with
+plat->phy_interface. On RK that is always SGMII, which stays in the
+mask.
+
+Could the commit message say that the xpcs_find_compat() change is
+defensive, and that the behaviour change comes from the glue narrowing
+the mask?
+
+> diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
+> index 6f0a110e32d24..b14b55dbd26cc 100644
+> --- a/drivers/net/pcs/pcs-xpcs-rk.c
+> +++ b/drivers/net/pcs/pcs-xpcs-rk.c
+
+[ ... ]
+
+> @@ -536,6 +537,15 @@ struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node *pcs, int
+>  		return xpcs;
+>  	}
+>  
+> +	/*
+> +	 * The RK3568 XPCS supports 1000BASE-X, SGMII and QSGMII.
+> +	 */
+> +	__set_bit(PHY_INTERFACE_MODE_1000BASEX, supported_interfaces);
+> +	__set_bit(PHY_INTERFACE_MODE_SGMII, supported_interfaces);
+> +	__set_bit(PHY_INTERFACE_MODE_QSGMII, supported_interfaces);
+
+[Severity: Low]
+Should QSGMII be in this mask?
+
+synopsys_xpcs_compat[] has no QSGMII entry. phy_interface_and() always
+clears this bit, so it is dead code today.
+
+The commit message says the glue "will automatically pick it up" once
+the core supports QSGMII. However, nothing in the RK integration seems
+to handle QSGMII:
+
+- pcs-xpcs-rk.c only calls phy_init() and phy_power_on() on the SerDes.
+  It never sets a SerDes mode for each interface.
+- rk_gmac_probe() only installs rk_pcs_init() and rk_select_pcs() when
+  plat_dat->phy_interface is PHY_INTERFACE_MODE_SGMII.
+- rk_gmac_check_ops() and rk_gmac_powerup() only accept RGMII*, RMII
+  and SGMII.
+
+Another integration might later need a QSGMII entry in
+synopsys_xpcs_compat[]. In that case the bit would survive here, and
+stmmac_phylink_setup() would OR it into phylink's supported_interfaces
+for dwmac-rk.
+
+Would phylink then be able to select QSGMII, even though neither the
+SerDes nor the MAC glue is set up for it?
+
+> +	phy_interface_and(xpcs->pcs.supported_interfaces, xpcs->pcs.supported_interfaces,
+> +			  supported_interfaces);
+
+[Severity: Low]
+Should the commit message mention that this narrowing changes the
+phylink configuration of dwmac-rk?
+
+rk_pcs_init() stores this XPCS in priv->hw->xpcs. stmmac_phylink_setup()
+then ORs its mask into phylink's interface masks:
+
+drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:stmmac_phylink_setup() {
+    ...
+	if (pcs)
+		phy_interface_or(config->supported_interfaces,
+				 config->supported_interfaces,
+				 pcs->supported_interfaces);
+    ...
+		if (pcs)
+			phy_interface_or(config->lpi_interfaces,
+					 config->lpi_interfaces,
+					 pcs->supported_interfaces);
+    ...
+}
+
+The lpi_interfaces update only happens when priv->dma_cap.eee is set
+and STMMAC_FLAG_EEE_DISABLE is not.
+
+Before this patch, the full synopsys_xpcs_compat[] set was advertised to
+phylink for dwmac-rk as both supported and LPI-capable. That set is
+USXGMII, 10GKR, 25GBASER, XLGMII, 50GBASER, LAUI, 100GBASEP, 10GBASER,
+SGMII, 1000BASEX and 2500BASEX. After this patch, both masks shrink to
+SGMII and 1000BASEX.
+
+rk_select_pcs() returns the XPCS for any interface. That makes this
+narrowing the part of the patch that actually changes behaviour.
+
+The commit message only describes the xpcs_find_compat() change, and
+says:
+
+  the MAC side forces the phy mode, so phylink does not normally pass an
+  interface outside the mask.
+
+Could the message also describe the change to the dwmac-rk phylink
+supported_interfaces and lpi_interfaces?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110160554.918652-1-coiaprant%40gmail.com
