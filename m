@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606611;
-	b=koYy/wuc0v/lt5uWbCIBf8pB2JdqySbf+69qO7TGhoiggMnMAwzXYDOxfjB4feRdSJxr
-	 TgkeO8lHJ5So+kcla/IlWhqDfCzOFQMOfeBdZUttnMt2oalivnOvJPB2ARheSj5HP4raS
-	 /Pk15lW3HGMnl+P37U7wlRUpAdiEAUt51TFpQSK7iUDt8OUS3x2EmoCgiKGCAemSENb2M
-	 jKlZeoNlRld9JG38E/JYzTkFCm2HL1GJvcxIQPbkAbb7UHzmuifTyN9JsYNTkL8jjx6/r
-	 5/pRcPTYUs/94AO1YJOj5YiEXaVqFmNNEu8mrQRSEnBQGdZduLVFFX+6MpTNV9fvQKA==
+	t=1794606614;
+	b=xENIUcBy16nW7aE0iYvhYjILNgKDBdgfbyk8MIGCITMwTyKVqZNofdTYGJUv6N/wEcvk
+	 OIQ2UBB1AuRV2uhZsj6kYfV8pjdDCaROqKMIvqBPg7eahAzBseLhhLEdkcvKdFCrEVleS
+	 PJdVcpLoC8fnDpW//mdAPZvCb7bW4Glm/fztfccHE2Z7jGBMJ3gFp0rucZNYMXUhF1T/6
+	 3kZWqoUchtMcgGGQ/xey4NIC5IGQi+azyd5WcBLf6poy8CXx7q5kXLhuYhqj7xmDlO7rT
+	 Oh11CxvBPs9OIkcQirOEU+JHADqiIrXuj8uE8wrDAD4WTnw4k/QSxLNV7FCeq60oSYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606611;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606614;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=bXogm2TJduwpsZYvgZveO8MsbB/2neyvTtGG+82aO2o=;
-	b=HDXU+dm/KjB+bgtmyGUMRlYpau3z+xw1bFOlmUVBQ0hg0zZWKepakbFxN6uw4KUYdaO7
-	 j14j8GMqseHVnQgkYAiKWEW8dbG0u865HM97g04TqZFkX7GqIMMT61mIKD8o6ARHxMFHT
-	 yIPctZ2vvahOH8quwkxc4xelXtDJyp6CcE4mvnxTAqzTRr4xsLZtSdZ5qDqIR9BxIPQp6
-	 4nSi5Ptaoia46gC02kmknmflfw10n4RqW+VHDmYFlF94USDDvMepb30ZUonwM5rDQyErT
-	 RESe1ai+35eIM4eYaNmoi7cHWg4HNPPBzZOFeq65dC1HCPpWAvuVY7ZWFLGHaPTcrsA==
+	bh=yx/V2gPrdDaexlpKpFWuCGkCF4A7cUFJ2vXkWtFB820=;
+	b=EiDQVdb2T7+q0+erTnr00G8z1R5aVGVnOYuacFRlj8AzJlzKoFUbALWR/p2LM4Gmt/Hu
+	 0P1FlqYZXTd5iML46x17krctgqSo7+V5jqbNbqnyvxRVfykXMgUDZU5vvbZA+8EmmqObR
+	 4bJw1wGTgwW8wM3IAZBZX1vR3CRq0fl4qFh9xLhiit6824jK2monJXCkBAhqyv1RxQwYy
+	 5qleW0zqb5LzmEjBjeIXOiKp3vW9fUpZhcD2tWwqQCB0ihEdiClMuzepSViMuYdZ9bbrP
+	 hMS7Q8qghj2e0NPxv9aHojHBHHBQ/PiqQDpIe48ltYijTxCndV+oA5ZhtMpHYc7Cx6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hxblArbZ;
-	arc=none smtp.remote-ip=74.125.82.69
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=g2pLdmWc;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8D460A6F79
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:50:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E8D460A6F79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8BC9606AC10
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8BC9606AC10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hxblArbZ
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1383723dfddso1628318c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:50:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=g2pLdmWc
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso2117732eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:50:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794606610; x=1795211410; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794606613; x=1795211413; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bXogm2TJduwpsZYvgZveO8MsbB/2neyvTtGG+82aO2o=;
-        b=hxblArbZkamRvUy9Lm9faZJ+YH8WQcW0JyIEbPfjDaTUyWqsflPbGU/vhsVrwhIzjd
-         70lwgtDImkCzN4NWOEgjJ+mtGrMR/n1cqYOAnLP0Xc7FOEpmHO6YqILrRV16zHDAj81m
-         Avry3cxPDNtBrtgS5kUvGGJ3fa5fyA5RduyOFnAJIj1o9pNOJ4AceYvHT7NA/VmDt3S0
-         vL5YHmEEX6LAfzeuzNbMDEdLVZmM7KZHFlDoyBVrrUlHcQWK6To2JzNA7dBxmlW8KxS5
-         NoqyldSAuyvesfcrie685lPZ6/LwZgKJB6xF1W5PVd6EPqKvyet2vMghst0yCcim0F7d
-         voKg==
+        bh=yx/V2gPrdDaexlpKpFWuCGkCF4A7cUFJ2vXkWtFB820=;
+        b=g2pLdmWcmbryDqxCG90MG9+9+HBDgereGU3IVi0P+LDmILiML4PPxoWe231G7ubmm1
+         sMejR/HvYvhfGrpmIKNnIkyIM3V6ynlU1iSbU/FeHz7ru+o6TChkNSIKpKHA1S6yVTH9
+         /aEx/mNQsuzv5uBxOZw7EdfBMVgUIddvinkAohVTRWif7lxYYGEOpB4iMzE7+gz2959P
+         p2SxS+g/HBBayiEsCstdjNXSD5rgM7TEJjwCaoWaJbYkCt2CUyGmz+p6bqqlxkDujnCZ
+         LlEJkLpr82TvGEGdsuOSV8BFdRQH6js3ZLWR+3FCXoPMFKg69muvqm38VpYyMiDpeBws
+         3DwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606610; x=1795211410;
+        d=1e100.net; s=20260707; t=1794606613; x=1795211413;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bXogm2TJduwpsZYvgZveO8MsbB/2neyvTtGG+82aO2o=;
-        b=p+C41vRlOpo+Tn0E5v8BD80HiyZf46c0Fl/vha+9YzquqAbpPlQ4EI5Ok3q0hnCFq7
-         83APtmDKswo+dTXR49va9ojtUiuP5JKVxc9xOTeQi0xNNFDNKkl8wlsAZbfOraXbLG4b
-         nr6uSig2X3srn0wX+sPaOMcCFLW2hm2wItTdOl6Blj2ywT9aqAzFQhWyJSlWsH6OkIbh
-         haOmT8jDfIEE2cUdsB8zKujsSTqfD8sratycoJY3lLw51ZklimK1iyBd2hkwDk4+2910
-         So2/5lQsGw8Y9JqJXlc32lKQKfo2nJbjKJkza0NskwZpLPvoRKPEKYU/8nWbiyTRKMtH
-         7IbA==
-X-Forwarded-Encrypted: i=1; AL+hErFW/eBcqtCChxKV1AsRS+DjK4DsId7rYFwo/ci5mKdTdW/5IvtW70JWraPGuIDBJAJO6V0OtREbzD4MvsU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NuHIm9hG0M31T4ugED6mdif1/cGL1UqtQjpeIxQLyDQK1lMy+
-	x+EukDIV9nmCF22wSuBXsGJYmSY1mHOP5zm50wa1NYRpLXoT3/MPODJfdtqRayDXjrMkeW+W/fs
-	YF3roigUMgw==
-X-Received: from dybnj40.prod.google.com ([2002:a05:7300:d0a8:b0:36a:de0:d28a])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:7a12:b0:36c:dbac:705d
- with SMTP id 5a478bee46e88-37967506a76mr3300984eec.15.1794606609796; Fri, 13
- Nov 2026 13:50:09 -0800 (PST)
-Date: Fri, 13 Nov 2026 13:48:46 -0800
+        bh=yx/V2gPrdDaexlpKpFWuCGkCF4A7cUFJ2vXkWtFB820=;
+        b=sBaTD/J0Gvw57xdzSh88HwDLIHcJQznsGkRPRYXWJnqc0fYfe9kxJpZMA36sl6hTaX
+         ajO0C/dkfmWWug/G7c9ukDJboVLZeCxX47Z1fGA6nS6Tl3UEzVlWoowcfi213uFiVHXx
+         iqhuR/MRtZEq64wCM8imu4ohrd18GLkMajnOeiXxKpdgfFFLMfweRX+Ra+Rm/uOzFYO+
+         RjAY8wgxKQAbVbJ+uDeXWOdrPA0wNx5IDvS6nvJ7eJ4epjufNn9//uIuiJpjn1KbNCKO
+         cKUeeHBMdkv3Eum+aAB5JLEMbXEGmQjFvzwmOhWGvkwrQxmd+UBJ0rmYQ2zS7ISQkWe2
+         Z9wQ==
+X-Forwarded-Encrypted: i=1; AL+hErGgnhGafJbeNLe2rxlgxPYwJXf52CAw32QifrnZU8gkY+BMNrkzC4sky4V34eZ/LUCN9diDvi5fj/Gghc4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9zmgR5loDcHSUH2qkYdRFV3oX6VmE+ZizlDAtfW2JORcPgmc/n
+	72IvvcFYPl1OouNlpS/rKOPTJ0U74ADcjZrHrFzQ42/WXJdp3f4s8pKH7zx2EOvSBbyECiXfvmH
+	7WbrbUD6QyA==
+X-Received: from dyad22.prod.google.com ([2002:a05:693c:8356:b0:376:b21d:4a0d])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:fc09:b0:36e:b3e6:ebe7
+ with SMTP id 5a478bee46e88-37966a58499mr2990761eec.26.1794606612605; Fri, 13
+ Nov 2026 13:50:12 -0800 (PST)
+Date: Fri, 13 Nov 2026 13:48:47 -0800
 In-Reply-To: <20261113214850.3329699-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261113214850.3329699-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113214850.3329699-23-irogers@google.com>
-Subject: [PATCH v1 22/26] perf annotate-data: Use generic hashmap for
- type_hist samples
+Message-ID: <20261113214850.3329699-24-irogers@google.com>
+Subject: [PATCH v1 23/26] perf inject: Use generic hashmap for aslr remap_addresses
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -92,68 +91,73 @@ Cc: Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
 	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Convert type_hist::samples in util/annotate-data.{c,h} and
-ui/browsers/annotate-data.c to
-DECLARE_HASHMAP(type_hist_map, int, struct type_hist_entry *).
+Convert aslr_tool::remap_addresses in util/aslr.c to
+DECLARE_HASHMAP(remap_addresses_map, struct remap_addresses_key *, u64 *).
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/annotate-data.c | 10 +++++-----
- tools/perf/util/annotate-data.h |  5 ++++-
- 2 files changed, 9 insertions(+), 6 deletions(-)
+ tools/perf/util/aslr.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-index 2332d465f975..dabbbb34fcd8 100644
---- a/tools/perf/util/annotate-data.c
-+++ b/tools/perf/util/annotate-data.c
-@@ -2059,12 +2059,12 @@ static int alloc_data_type_histograms(struct annotated_data_type *adt, int nr_en
- static void delete_data_type_histograms(struct annotated_data_type *adt)
- {
- 	for (int i = 0; i < adt->nr_histograms; i++) {
--		struct hashmap *map = &adt->histograms[i].samples;
--		struct hashmap_entry *pos, *tmp;
--		size_t bkt;
-+		struct type_hist_map *map = &adt->histograms[i].samples;
-+		int offset;
-+		struct type_hist_entry *entry;
- 
--		hashmap__for_each_entry_safe(map, pos, tmp, bkt)
--			free(pos->pvalue);
-+		hashmap__for_each_safe(map, offset, entry)
-+			free(entry);
- 		hashmap__clear(map);
- 	}
- 
-diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
-index 184262c73562..b5b780d26004 100644
---- a/tools/perf/util/annotate-data.h
-+++ b/tools/perf/util/annotate-data.h
-@@ -8,6 +8,7 @@
- #include <linux/types.h>
- #include "dwarf-regs.h"
- #include "annotate.h"
+diff --git a/tools/perf/util/aslr.c b/tools/perf/util/aslr.c
+index e365f807b021..068e0250b151 100644
+--- a/tools/perf/util/aslr.c
++++ b/tools/perf/util/aslr.c
+@@ -6,6 +6,7 @@
+ #include "event.h"
+ #include "evsel.h"
+ #include "evlist.h"
 +#include "hashmap.h"
- 
- #ifdef HAVE_LIBDW_SUPPORT
- #include "debuginfo.h"
-@@ -81,6 +82,8 @@ struct type_hist_entry {
- 	u64 period;
+ #include "machine.h"
+ #include "map.h"
+ #include "thread.h"
+@@ -69,6 +70,9 @@ static bool evsel_equal(long key1, long key2, void *ctx __maybe_unused)
+ struct process_top_address {
+ 	u64 remapped_max;
  };
- 
-+DECLARE_HASHMAP(type_hist_map, int, struct type_hist_entry *);
 +
- /**
-  * struct type_hist - Type histogram for each event
-  * @nr_samples: Total number of samples in this data type
-@@ -90,7 +93,7 @@ struct type_hist_entry {
- struct type_hist {
- 	u64			nr_samples;
- 	u64			period;
--	struct hashmap		samples;
-+	struct type_hist_map	samples;
- };
++DECLARE_HASHMAP(remap_addresses_map, struct remap_addresses_key *, u64 *);
++
+ struct aslr_tool {
+ 	/** @tool: The tool implemented here and a pointer to a delegate to process the data. */
+ 	struct delegate_tool tool;
+@@ -77,7 +81,7 @@ struct aslr_tool {
+ 	/** @event_copy: Buffer used to create an event to pass to the delegate. */
+ 	char event_copy[PERF_SAMPLE_MAX_SIZE] __aligned(8);
+ 	/** @remap_addresses: mapping from remap_addresses_key to remapped address. */
+-	struct hashmap remap_addresses;
++	struct remap_addresses_map remap_addresses;
+ 	/** @top_addresses: mapping from process to max remapped address. */
+ 	struct hashmap top_addresses;
+ 	/**
+@@ -1331,6 +1335,8 @@ void aslr_tool__delete(struct perf_tool *tool)
+ {
+ 	struct delegate_tool *del_tool;
+ 	struct aslr_tool *aslr;
++	struct remap_addresses_key *rkey;
++	u64 *rval;
+ 	struct hashmap_entry *cur;
+ 	size_t bkt;
+ 	struct rb_node *nd;
+@@ -1341,13 +1347,11 @@ void aslr_tool__delete(struct perf_tool *tool)
+ 	del_tool = container_of(tool, struct delegate_tool, tool);
+ 	aslr = container_of(del_tool, struct aslr_tool, tool);
  
- /**
+-	hashmap__for_each_entry(&aslr->remap_addresses, cur, bkt) {
+-		struct remap_addresses_key *key = (struct remap_addresses_key *)cur->pkey;
+-
+-		if (key)
+-			dso__put(key->dso);
+-		zfree(&cur->pkey);
+-		zfree(&cur->pvalue);
++	hashmap__for_each(&aslr->remap_addresses, rkey, rval) {
++		if (rkey)
++			dso__put(rkey->dso);
++		free(rkey);
++		free(rval);
+ 	}
+ 	hashmap__for_each_entry(&aslr->top_addresses, cur, bkt) {
+ 		zfree(&cur->pkey);
 -- 
 2.56.1.703.gf848ed807c-goog
 
