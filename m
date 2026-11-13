@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794588038;
-	b=AtzwhQ2JXh6tJ7iEjI1I/NLb8GD3TRgVrBA+01T1Ch37HKS/KBIv9qirACmRaL8guZV1
-	 U5tRh225mTAELZJCxQJJOtLj9uBUkLfk4ni5cvw2vhWO0loQGv5aMRjzQ5KA3k39fZYpr
-	 /j0yzJlM0u5FXIy7cjRP2JEnDALQNBAf4a3cwk3+r8Glbj2MjnjhQgb020IfYi2JSt7GW
-	 em9LdBN+WaxpwMhIY5BpBPHsc0UVHlbv/cCuPKMarJD6FJSe5xasWG2KCLxWeHbiXTyuI
-	 40P/ukJ8+TqxNNo4kRekypXe+bXkLGwgg3TQU8RNWdHcW5m8RKT86EQTSemTe7ha3VQ==
+	b=DNBtT8tN7Jge3lkaNb7qc/CBIjo12vblbMpc/WHvIYI4CM1Y+xUMmub5Lxzub2uqzIjI
+	 u5YV7qJJGa8Iz4mWKdILfcYuBoC0H8OFMzX2ku/sJOBuEjNOrj8kg/eRwZvZyuMnUPazQ
+	 fxrWZvWeYfAcz9BgXIQ0WNtdQnLoH/BUyIOKEg4RRfidjRsZP0JMF1JYvLyJLZy9suGGL
+	 QPnrlnoN6G2fnjVYxuBCBljGVKbco4CyJAjBdzQ+i+KkPBfpLUcDpFmXALJ0plhqwnXxs
+	 XL4ZRMkBbpnFJIezf5KVfC0yLB3ksQX/Ea63J5UbmzEDjCN4YMpusHds/Imf3yJLIKA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794588038;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Ea52I2vnQCe6Ni6efkUTjPrh+GmNSqV3kj5+yTLJAXI=;
-	b=kCCiu0BvG1qj5Zh4FVj5nP8f4W4wjxLQbpu6vrzPGNp7IHg79xIzvsiopCagtq7HJRWK
-	 YYoam3fxidrtM5uuVgYo4/WX0M/pLq/wBGoKJ895+/QpgbWc9GEZflvU5frk9G/5dI5So
-	 2IT+m43uLeCbRrSZO012GdgA+gIurjyUR5bAfbYfLDhDz6qBrg3vt8L5y+J8qvBdH6EkT
-	 rx0eGidneyE3vynSsP4ekR33I7jF9cANEOWzhEw/pA77sB3+/whdKNnE6MzGWy7l6ELTZ
-	 K4hXKq+nqUnmcMTjSIjo35DZ3NVuPzxEKbwLVlQ0CRGezzQqzhi2GhPf9QrJ1ROVoRw==
+	bh=BVzq2TVxNl7sAlgFnyFmzccAIM4zI5WuCQ9eRu5l8NU=;
+	b=qd1aSgqIjFdMdJ4suyp0GJ1a9W7SiKPITVaNYJKUgeqvXlc6UiXE0IcLJasvQn46D9+Y
+	 a3UIV5UjJZ1SMNLJSna9wmZ1tChat4RYyVoKjbLW3GR/aHGjN9jXWC3PBHmo3XUN/cKkj
+	 wqrnUhcGith86ovhN/t/lPuCrC3U+P0vHXLtUH7NRfV7sLkf5ZK5QPyubzpkUKS4gCJSm
+	 Fa7j1v3/7Ubi59uyFAR1Y1MiUJaNTksk5Uncqh6iXdpPKDR8NMMN6PdMFqWqMMrWJLCBX
+	 40pESHLPu2/aTFzCHWZ43COb2/SIgV/Cx/vCcLFM9Qhz8D7QCwr0wD1/SjGURNZF98Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E6z+1PLw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JHXM3yd2;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8B7606EBD8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E549606EBE2;
 	Fri, 13 Nov 2026 16:40:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E6z+1PLw
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JHXM3yd2
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794588037;
-	b=rWHVYq8EWtVlBdkATnfY2VCI5cA5S5Qq3/Kp4u0Vm6u6e9QMk3Ly6EClQADtmFqvNjb7
-	 JkD/oFtXcVZbnzzvdKNmFu1uIihZXgA+FUJYtvE8sw2cx/qQGwQW8U5C/ZrHz0TQQsPfh
-	 z27/HnOme71boanfhwtjsTo14qd0/30AtQo+W8sGhIChhHA8GYcGhw75FsILTxt2/lYB9
-	 4wxlEw6hhq+HIiqi4rAVBvi/BNyKDNqTIlFnKzX2NbsGwfqpruoOo8DYIYxzIKAGKmJQs
-	 m765hfgxQtDa4nVla8b2VfGjCm2x38HP7weUCV9bWqlFWfFTBHiFzmjlqbv4la3HUmw==
+	t=1794588038;
+	b=ikXZaXta1x22eFw9lMLSvVqrKKspEzjRVMmGJkQ/1c8R2er6CeJHQVejLwnCCpRd65As
+	 j+3/jhDNDJxy9syFa0gy+HZk0xaVp1ZzwfnwoQDpGwR8nbXLB/qS9X4xYw7oRtrwZm6J9
+	 8yUhf5R9CI5JGnDomHw4B2dw/+VRH9oFIyt68MKI3ol52vTlo/cruSh4Nkh6ZQc7ioYAa
+	 qTcil7qxfNjr/7UuvW9t2CBZJUf4nx5J7YWoUcC47HdqnUrEr69pSvj89lRcWajESA1lR
+	 9HOiwhnu15pJT23Z0YuS3oATVtZZ+wTYY8MAim/UAXwBRQztfokdMoT0C8PCYjItNLg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794588037;
+	c=relaxed/relaxed; t=1794588038;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Ea52I2vnQCe6Ni6efkUTjPrh+GmNSqV3kj5+yTLJAXI=;
-	b=iIu5mM7nW7jMxPT7HweHlWsQ9iZC3mrOkaJf8VnqqwFw4/M+2tPWrJ/kfPJNdLFcTwe1
-	 u98XgGcjNTABdZ8bJEe8fk7yklwqQNhnMwIIjDSmqeP4a8UBsW93F5uqGcYttTK7e5P9m
-	 RxpEhIZENNT61dJ3lJ5SptNSh7LBbrW5XQ07xGrW9dkdr64zPTArlhdUXA3sGLTepSVYq
-	 nAXZkdvetotubfwYOyHRIPZB94VKQ7OBCAUsQMatBR1fylXbW/8ksyCqA5TA/8sSA/f3m
-	 pP47DoEfOYYIByKQFk8KjbcYocHFqGWb3Y6vNJn3N660nOW7U8Mu1myEpFLIkcJvkiw==
+	bh=BVzq2TVxNl7sAlgFnyFmzccAIM4zI5WuCQ9eRu5l8NU=;
+	b=vKElS6mPK+gxf3dwfpdsEHY+Ng0KuT6Tbwm96c2uUby+/LdO8iLIwevOP0l+QRQ4yhRs
+	 sSZ60gU8lJedpKaA9Ia5Cqlf6tRjluTyas5OLIbaBq/5RER3cwZuEnXg2QLnEtC65RMVv
+	 K1echYFveaS3I7/E10s6eX7q2VzCnzVbqTy/yNWC1d5V3CQHbR7ooDZkNea1hzFQjQhlW
+	 FfaFZSV3qGurD+SDxKCn9trjZ/NcRXm/F19scP92sbhY8HMQoSOgL6gdtHNUaVXLFv+hQ
+	 focK3f1xo6y6xRp6Vkj+Kixizs9/oSAjBFS/E10E/IIG2ecTS3A1q9eL8ouJ/9ihN5g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0CE771F00931;
-	Fri, 13 Nov 2026 16:40:36 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0D68E1F00925;
+	Fri, 13 Nov 2026 16:40:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794588037;
-	bh=Ea52I2vnQCe6Ni6efkUTjPrh+GmNSqV3kj5+yTLJAXI=;
+	s=k20260515; t=1794588038;
+	bh=BVzq2TVxNl7sAlgFnyFmzccAIM4zI5WuCQ9eRu5l8NU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=E6z+1PLw8ZgAazWXSe/Qw4zD+zAqi2H3Z5Kcwfn7C/AiwBCNpw28yhjPMtymk2QuB
-	 P6sSxXZzhObCZtfShROoo2fgNwwI1B4xqlVDi8I30JsJcUqug85DI7JUatjjPVryWR
-	 WZvVrz8jRD8cH+CKvqQza9dTw9KTakTtcX9FpXayjtAd2dHd3iA9aPbGL+Y/Z8JR7q
-	 FfYI1hrx3OxBWNjo923169tWLrmZ567rMD5z5DW7ApxFFm5BHOFc3pMeMQi7FEqLgj
-	 rTxJoqUyokjDYaI9ZwNyIuPNSPfNWs72fF3EQeUA0pV8xjCol9YNxVR11UUcc1qAxt
-	 jBKTFUTIfgW0Q==
+	b=JHXM3yd2uZ9GqcR/axW2ErnRfSCSl8FZ1IBwQ4oE/ObWwM819FBrThOhtysV6l7X9
+	 gMfOgpI68hw7LN1kDPyQSyUHfKdh4eLhQEvG2wdhD7+RZpi7ngUDDTfWA8WdFcGcNC
+	 IjdsRzKgbPLT6tPK/ORZYDmlPCQdqqyenbKF/H8JlShq744ci8l3ZrTMrHwqZAUptu
+	 8S524S6WEG3uXkaRL8a9+UnVfoja6isdg1YY2xjMBGHWgJwJByQtU1ilw4YptuO0dZ
+	 HK3baPZ/wBuI7/UPPmkwIfZMdoP/CePVKzA8p6S+daxvYXvJ1qnfT/YuhJuQX9x0b7
+	 rpNTgw3o3PKdg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A7008499FF;
+	by lkml.kernel.org (Postfix) with ESMTP id 53483499EF;
 	Fri, 13 Nov 2026 16:40:33 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 16:40:42 +0000
-Subject: [PATCH v3 11/12] arm64: dts: rockchip: Add the reset lines of the
- RK3588 VEPU121 cores
+Date: Fri, 13 Nov 2026 16:40:38 +0000
+Subject: [PATCH v3 07/12] media: verisilicon: Reinitialize the IOMMU after
+ resetting an encoder core
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-hantro-robust-v3-11-82383c722ad2@gmail.com>
+Message-Id: <20261113-hantro-robust-v3-7-82383c722ad2@gmail.com>
 References: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
 In-Reply-To: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
@@ -108,11 +108,11 @@ Cc: linux-media@vger.kernel.org, iommu@lists.linux.dev,
  Sascha Hauer <s.hauer@pengutronix.de>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588032; l=2128;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588032; l=6191;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=pWGgDNReqboxSyr5VfPbRCUDYTeDvzJsJNZ3jQadXZk=;
- b=xlaQlRPGNedb+7Aggz+XzrrJ5V2GEFZb3cM3x2htpaw4NA4fX5zQHfHCaZ26hKfcMjd+YQkLU
- 0XqMYpqifR5AhYVZjF+SM+b95Ukk4rvYav9GDAd5ZwXPXSEPWJMgVFE
+ bh=jnOaMXXkqIdF/W+aQDFv26f6KiRw45A2/C/Mdhu62GA=;
+ b=E4l1drfEiAJSnLdl7T1rjptWqXeyJxfVf8LWkzKBpQsl0eMJm3v7Ft2xmP0KSV33xJ3HB+flB
+ wrhXSrVghzjB5HwZj+B+UJIj5sxF23fny1XAmR69NlLHTdNujLTd272
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -123,60 +123,182 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Describe the AXI and AHB reset lines of the four VEPU121 JPEG encoder
-cores, so that the driver can reset a core that is stuck after a fault
-of its IOMMU.
+A Rockchip encoder core that faulted on an unmapped IOVA leaves its
+IOMMU with the fault pending, and the reset pulse of the previous patch
+can reset the IOMMU behind its driver. The IOMMU is only reprogrammed
+on runtime resume, which doesn't happen between back-to-back jobs.
 
-The IOMMU of each core sits in the same register block and is clocked
-by the same clocks, so these resets likely cover its bus interface as
-well. This relies on the driver not leaving the VPU in reset after
-remove ("media: verisilicon: Don't hold the VPU in reset after remove").
+Do like rkvdec: allocate an empty paging domain at probe and, after the
+reset pulse, attach and detach it. The IOMMU driver reprograms the
+IOMMU on each domain change, and the default domain keeps its mappings.
+
+Only do this for a device with reset lines whose domain is a DMA
+domain. If the attach fails, the IOMMU may be left without translation
+(rockchip-iommu falls back to its identity domain), so refuse all
+further jobs.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/media/platform/verisilicon/hantro.h        |  5 ++
+ drivers/media/platform/verisilicon/hantro_drv.c    | 62 ++++++++++++++++++++++
+ drivers/media/platform/verisilicon/hantro_hw.h     |  1 +
+ .../media/platform/verisilicon/rockchip_vpu_hw.c   |  6 ++-
+ 4 files changed, 73 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index aa69fd3793fd..227465d446a2 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1325,6 +1325,8 @@ vepu121_0: video-codec@fdba0000 {
- 		clock-names = "aclk", "hclk";
- 		iommus = <&vepu121_0_mmu>;
- 		power-domains = <&power RK3588_PD_VDPU>;
-+		resets = <&cru SRST_A_JPEG_ENCODER0>, <&cru SRST_H_JPEG_ENCODER0>;
-+		reset-names = "axi", "ahb";
- 	};
+diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
+index 0353de154a1e..e3881ca21c56 100644
+--- a/drivers/media/platform/verisilicon/hantro.h
++++ b/drivers/media/platform/verisilicon/hantro.h
+@@ -193,6 +193,9 @@ hantro_vdev_to_func(struct video_device *vdev)
+  *			shared with interrupt handlers.
+  * @variant:		Hardware variant-specific parameters.
+  * @watchdog_work:	Delayed work for hardware timeout handling.
++ * @empty_domain:	Empty IOMMU domain, used to reinitialize the IOMMU after
++ *			a reset of the core. NULL if not needed.
++ * @iommu_lost:		The IOMMU couldn't be reinitialized, no job can run.
+  */
+ struct hantro_dev {
+ 	struct v4l2_device v4l2_dev;
+@@ -213,6 +216,8 @@ struct hantro_dev {
+ 	spinlock_t irqlock;
+ 	const struct hantro_variant *variant;
+ 	struct delayed_work watchdog_work;
++	struct iommu_domain *empty_domain;
++	bool iommu_lost;
+ };
  
- 	vepu121_0_mmu: iommu@fdba0800 {
-@@ -1345,6 +1347,8 @@ vepu121_1: video-codec@fdba4000 {
- 		clock-names = "aclk", "hclk";
- 		iommus = <&vepu121_1_mmu>;
- 		power-domains = <&power RK3588_PD_VDPU>;
-+		resets = <&cru SRST_A_JPEG_ENCODER1>, <&cru SRST_H_JPEG_ENCODER1>;
-+		reset-names = "axi", "ahb";
- 	};
+ /**
+diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+index daec9f1ea968..9bb4d1582622 100644
+--- a/drivers/media/platform/verisilicon/hantro_drv.c
++++ b/drivers/media/platform/verisilicon/hantro_drv.c
+@@ -11,6 +11,7 @@
+  */
  
- 	vepu121_1_mmu: iommu@fdba4800 {
-@@ -1365,6 +1369,8 @@ vepu121_2: video-codec@fdba8000 {
- 		clock-names = "aclk", "hclk";
- 		iommus = <&vepu121_2_mmu>;
- 		power-domains = <&power RK3588_PD_VDPU>;
-+		resets = <&cru SRST_A_JPEG_ENCODER2>, <&cru SRST_H_JPEG_ENCODER2>;
-+		reset-names = "axi", "ahb";
- 	};
+ #include <linux/clk.h>
++#include <linux/iommu.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_platform.h>
+@@ -113,6 +114,30 @@ void hantro_irq_done(struct hantro_dev *vpu,
+ 	}
+ }
  
- 	vepu121_2_mmu: iommu@fdba8800 {
-@@ -1385,6 +1391,8 @@ vepu121_3: video-codec@fdbac000 {
- 		clock-names = "aclk", "hclk";
- 		iommus = <&vepu121_3_mmu>;
- 		power-domains = <&power RK3588_PD_VDPU>;
-+		resets = <&cru SRST_A_JPEG_ENCODER3>, <&cru SRST_H_JPEG_ENCODER3>;
-+		reset-names = "axi", "ahb";
- 	};
++/*
++ * Pulsing the reset lines of a core can reset its IOMMU behind the IOMMU
++ * driver. Attaching and detaching the empty domain makes the driver reprogram
++ * it; the default domain keeps its mappings. A failed attach may leave the
++ * IOMMU without translation, so no further job may run.
++ */
++void hantro_iommu_restore(struct hantro_dev *vpu)
++{
++	int ret;
++
++	if (!vpu->empty_domain)
++		return;
++
++	ret = iommu_attach_device(vpu->empty_domain, vpu->dev);
++	if (ret) {
++		dev_err(vpu->dev, "Failed to reinitialize the IOMMU (%d), refusing further jobs\n",
++			ret);
++		vpu->iommu_lost = true;
++		return;
++	}
++
++	iommu_detach_device(vpu->empty_domain, vpu->dev);
++}
++
+ void hantro_watchdog(struct work_struct *work)
+ {
+ 	struct hantro_dev *vpu;
+@@ -175,6 +200,9 @@ static void device_run(void *priv)
+ 	src = hantro_get_src_buf(ctx);
+ 	dst = hantro_get_dst_buf(ctx);
  
- 	vepu121_3_mmu: iommu@fdbac800 {
++	if (unlikely(vpu->iommu_lost))
++		goto err_cancel_job;
++
+ 	ret = pm_runtime_resume_and_get(vpu->dev);
+ 	if (ret < 0)
+ 		goto err_cancel_job;
+@@ -1074,6 +1102,36 @@ static struct v4l2_m2m_dev *hantro_get_v4l2_m2m_dev(struct hantro_dev *vpu)
+ 	return v4l2_m2m_init(&vpu_m2m_ops);
+ }
+ 
++static void hantro_free_empty_domain(void *data)
++{
++	iommu_domain_free(data);
++}
++
++static int hantro_alloc_empty_domain(struct hantro_dev *vpu)
++{
++	struct iommu_domain *domain;
++
++	/*
++	 * Only needed if the core can be reset, and only possible with a DMA
++	 * domain to return to.
++	 */
++	if (!vpu->resets)
++		return 0;
++
++	domain = iommu_get_domain_for_dev(vpu->dev);
++	if (!domain || !iommu_is_dma_domain(domain))
++		return 0;
++
++	domain = iommu_paging_domain_alloc(vpu->dev);
++	if (IS_ERR(domain))
++		return PTR_ERR(domain);
++
++	vpu->empty_domain = domain;
++
++	return devm_add_action_or_reset(vpu->dev, hantro_free_empty_domain,
++					domain);
++}
++
+ static int hantro_probe(struct platform_device *pdev)
+ {
+ 	struct hantro_dev *vpu;
+@@ -1134,6 +1192,10 @@ static int hantro_probe(struct platform_device *pdev)
+ 	if (IS_ERR(vpu->resets))
+ 		return PTR_ERR(vpu->resets);
+ 
++	ret = hantro_alloc_empty_domain(vpu);
++	if (ret)
++		return ret;
++
+ 	num_bases = vpu->variant->num_regs ?: 1;
+ 	vpu->reg_bases = devm_kcalloc(&pdev->dev, num_bases,
+ 				      sizeof(*vpu->reg_bases), GFP_KERNEL);
+diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
+index 13e573f1f19d..aa610dd5beef 100644
+--- a/drivers/media/platform/verisilicon/hantro_hw.h
++++ b/drivers/media/platform/verisilicon/hantro_hw.h
+@@ -427,6 +427,7 @@ extern const struct hantro_postproc_ops rockchip_vpu981_postproc_ops;
+ extern const u32 hantro_vp8_dec_mc_filter[8][6];
+ 
+ void hantro_watchdog(struct work_struct *work);
++void hantro_iommu_restore(struct hantro_dev *vpu);
+ void hantro_irq_done(struct hantro_dev *vpu,
+ 		     enum vb2_buffer_state result);
+ void hantro_start_prepare_run(struct hantro_ctx *ctx);
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+index 1467ae2bed1a..113b6977031d 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+@@ -490,8 +490,12 @@ static void rockchip_vpu_enc_hw_reset(struct hantro_dev *vpu)
+ 	udelay(5);
+ 
+ 	ret = reset_control_deassert(vpu->resets);
+-	if (ret)
++	if (ret) {
+ 		dev_err(vpu->dev, "Failed to deassert resets: %d\n", ret);
++		return;
++	}
++
++	hantro_iommu_restore(vpu);
+ }
+ 
+ static void rockchip_vpu1_enc_reset(struct hantro_ctx *ctx)
 
 -- 
 2.55.0
