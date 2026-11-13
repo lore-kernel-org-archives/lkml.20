@@ -1,111 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794586611;
-	b=DTtMzj3d6Vc/sBpRZkjPDwVwvd99ROgTTfgG8zlMz1zFHfG4Uz5l+haB8Q32hxv2ZgGy
-	 KZsc3eCgRsNL+D6XZtYzcLYJA6FR1GX/BkW/hzsvGFxIJH7S3ncsSrDskCYpqwANkRUVx
-	 TULkA/oNDjsJ/HL+T77nf8cmazFQcGunWS9BsDsYUxPoo+ESVWTasoSJrPNyHs2U9pbeP
-	 liIVo6px4PgFCkiPbEawdHR6Uqb7tZP1HiYxtSQgUsA0KNM8dsdIr47WBGFSzLLs7drE4
-	 u+yo4H7k2WN3AlG9AR55zCeY0K7t7FOWJ0c2uey1nX9yS3pE7aXdRrg6QAk0ulCL10A==
+	t=1794586613;
+	b=M21qTHjqZkJ91q+5RYSsD+Qb0SyxRUM6PXlyjv3V08V7bw5c/CC7O4N2CVMEL2EmjQiv
+	 nUngzGQ18bWHh70P0+pdv/MiIfejusYgPrgX0Pd6EEiy7397Z9mbFwjv2RBqZLyrlz2+G
+	 K6m8yV2+woTy4+5MzBmEKR0YrtnLjUD1LWt8iu/GIuygypHgxxSZTCrsvzOoLZm/VtVQx
+	 8fW8wSooW21JHh6gDVe/EpL16HNLR1Nf86g8MlZXyN9fmN9ANdsWZATCqOsuckpW+29sc
+	 XEo6bhczbVx0apHWLQ5OZYhsIysNu3RtIlk7zNMMrk8Tp+KA0wfhYI1Ri+leRzzAdRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794586611;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=H30vDZBdOJDenpq5EIpvqS/4MkBubKh2+TBdAXZszqI=;
-	b=q0YL47GLD4gjQ7NEXOcg+FUBMqfUQbT6fG85B5FqBw3FcaFM5pA/t9qGgjNxt48yO+T+
-	 5kVu0o/oN5Ad0yViQynKSWOTNXO/ac4j1QS8gy5QR7AJYMDcAhgeMnxQKgHeVi7ng92z6
-	 ul2FjuQwZ1TptEkANHE90f7zx8urmA0K4AmM0pmIutiDFHeqpWoNxKBhOeT/6PvHKmbBR
-	 0atPiM3647Q4xgxZ9/qlirSh5l6csCATKp3vg/hSM9HbNeT3DOoKKaQ4e9SZCYI+iOzjp
-	 5ZrJnoRz82nSVctKXmZ8YITGEmrDzmNgyWFHYHI1ZRaNeFwatNk2SDXELBl+YvaMiUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794586613;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=CVtKY2baAFqQRZbKIAhuVTcQeg51Dsb2Tf0U1oZ+Jro=;
+	b=AWRICsqMXUsm0rrn9Wj/AHZYDhJtjuKfvBbi15QpXvMADNKe5ZOLPMaPbAPmO/6AH6CW
+	 DhpXg8TdRHjGIjPK+HzvgDkjLOWTF6tApEI6WO8PMqwCJTurcAmegJchrZ4tD7MsjtelW
+	 p9BR/7dKxkrMxOYbfDQ5nwkbNzyoa1mLzvqMikhvUzuP1yu/+yw/uUlVQt60+XQvEfIk0
+	 kv0aUwlu6eYguZg1ashe30v4xMlrLKgQzRkCPo2+xiqkIPuzMnV2DXOz26NqHVdErzalL
+	 kZe5mmXg/IYZvwND18LPLN6HKjACDBjis1j2xiLpH2c74qVCY30S1F9XkgHA92+17qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=afeB76iU;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=uFCc6bR0;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ou9UlLra;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917C4606A33F
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:16:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 917C4606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2989606AE0F;
+	Fri, 13 Nov 2026 16:16:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=afeB76iU;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=uFCc6bR0
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 46A8AEC000C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:16:49 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 13 Nov 2026 11:16:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794586607;
-	 x=1794673007; bh=H30vDZBdOJDenpq5EIpvqS/4MkBubKh2+TBdAXZszqI=; b=
-	afeB76iUzdE5nJdHDpFjJHP7ez7gXDP40TdlN25xmulIKCuqIqRb0oIGRA6MRhmU
-	z2xqinH7F/SNNs9+2Vs36XmFwuzDhm0UH2+pRhepwQqKId57nuFCfQXq+bBtW4UN
-	VYzLaJSLH+JmsGjQjxoAYFKVPsOlSfAQIcaLdFC2AufiH1xlBejGmlw6bi1XW/Yk
-	bG82uLkfqSK3Z+y67YWGnw67+DGBMDHrBGMlyO5LDdUCnsnbaE8CD5w7Hss4hgw+
-	W8H4JyhdDtUC3cDf4NmhEjA9vWgwfwBMhIOyL0QJHf36qheNBLVrxfylw621/exE
-	RpFLKzjC+PmjhXEMRB6C5g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794586607; x=
-	1794673007; bh=H30vDZBdOJDenpq5EIpvqS/4MkBubKh2+TBdAXZszqI=; b=u
-	FCc6bR0qdoiI64jwEIOhXfMJOYkO13t9i0rjCIRbmFY9MYFr5YGZ1yXSmiFkjpAr
-	Og8UJ+9Ou1ERYcSdQDenl/7Fu7F+KrzKLDzsbahxAdNsbnF17+NnTtaKnx+L8TSB
-	wG6y8AMxgm9E9FhHTkM1U/Gkufj4IKHnVr35lgRoqiQrBb07mQyDi/tztBLorGDQ
-	TE1kpmojnkfUe5miaWNpJURPPNYRoWMNmVPQi4xO4aNXAhnsbEQiGr53gum9iOTK
-	fF87PU9IxeYYsdSeZJxqrSpSsxdxpnrD4EJcCgQbfAN++izQ8SnD63C5yg1TxqLy
-	ILKm7BRbpYPMcySGU2DDw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794586607; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:cC/cbm0ObqinyudD1aaAOAhHDFgrYT/qaAQiNsis8eBXi9G
-	lVpVB3SGw4ttxP0N7eWAyGDfk8GwFUipxthmxMc5byCcgL2XYXXEHF+NkKeVJACa
-	/o2EGy9uVUJ1m/2uzA7omw+U5FC/4vWaEwRgv+P1vv9uYMHll/PQXfc5xtBO+mdz
-	S9nyiCVLDhisf0Zmv6575q0Tl0Q/WUMePRXjJXmBqhgsTxB2SYzBHqWO2sI4S01y
-	V00No78K/9AQxiav3QU7MEJhyaJLG48mGI/S9ub2yXiTeLWCr9IukOuLYB5as0qh
-	icvv8dyXnf7wOBjXBKiZ/ttxJQdWe3zbOEWDkuw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:pOuX7BGdERjLJ23f5qoTD3RgdrfKmtQdr+vs5OXJ2Vw=:Uw4fpfbi+OexC/1YaP2Nl7p+xzhBQwuX0+ZwZWN3Xj0=;
-X-ME-Sender: <xms:7Tf3ap2rrfsUYGUzwmczU5LOiXo-m8sOiCk5pZs6sIk7PJvrTg8V3Q>
-    <xme:7Tf3aq7za2eLZdt1tup9lNrJJ_OJwFdvvvdaCuIpq3w3EFuf5pN0NY8bi6ynjCKg7
-    szrJyaDr492gsk1n8NIdO3vArlpXwadR9CuTk7LtL92AW4rCZ0p96g>
-X-ME-Proxy-Cause: dmFkZTFmQ3mOPR95qqIsM6rQ2XtjwUbXXV34TXoXn4KTjXy/4V9g8khdg4tDAwKQIYvpte
-    ygWKkpY8L50GipDZa1o5qyYMPQE69b9lUfAUu7EXzsdGNmZNcJtdTrdatTXGGshC1ShMW1
-    LgCMhdx9Nk1n8QEcSWbw6oKxMJUBz9itammYbSNULFoRK560w+ZIErNUrXEh7vmM7hQF9B
-    HWunAr0DU+emkhAmOtcOua9g2tZVoDCgfj58C3e64/DQ2PcFEhKkBdM15ZMc3b148SA79N
-    MozL/m4yQkmbFZmCGtY7jBXfj5zPCftgk+LfcHXGEwFatZbTLjCi+cUBIrzm51+uqpcuiE
-    fHbtchis7gPNurtLUTG7Iz6llj4q8GkCSdw9oE53AMW8mhwyJuSEPV3WA/Z/zVKpzTpPUg
-    rFra64KFahIL24sabSsae8l7+feZBHylRPdPwWjh2ZWz4wUCcEZ9PA3yff3m+qBHEfeiHR
-    +NsGH5+i5jHtJTveVwQxHCga3IRNOPILYO8JNXnH3KD+vs4+Nk8WYp+gaYc6iMX/PpYPqp
-    SEiUb/Lxk6TLsyl2iz4IXsF1rLX7mUWMnZ5i3vN1LG71tqgtR88Lv9AGQSHlOR4UKYxRP2
-    gDly8TkyBiPAcxmrs1Fag4JvHJvwsbBwxJjkBZlf7Nl7Qveh2r7iBkQzK4lw
-X-ME-Proxy: <xmx:7jf3ai9KVI8WlSuRwZIm9yVi64HilOmDDhZ0zBYcKQN1O8-hozfEew>
-    <xmx:7jf3auIddDUXZhPvcg9CfKrf5BC_BRLFx1Nfe4cVqBTf_Gx_UsjZDw>
-    <xmx:7jf3arjYjCWUg1wSugNADrfVqX8n6BOi3MUnzxrjBKHnnlMILHsn3A>
-    <xmx:7jf3au58evwA-twLVoEAr74c1aoYhOeT59DLYq_NKh4uisdqAFUENg>
-    <xmx:7zf3amFe4HXdcIn11CHjuChe5RgMg-fsft2AeNYYBP_L8Y-IhM1TQIHj>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 3E95732A009C; Fri, 13 Nov 2026 11:16:45 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ou9UlLra
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD991F000C5;
+	Fri, 13 Nov 2026 16:16:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794586612;
+	bh=CVtKY2baAFqQRZbKIAhuVTcQeg51Dsb2Tf0U1oZ+Jro=;
+	h=Date:From:To:Cc:Subject;
+	b=ou9UlLra4LK+xJLE/zAyTNqUJTN29nb19guDGIaorpNjG7Yg41XCOF26QNTvepmcJ
+	 XzJn03IadGfZcWNl5WsW/z3Nc5+4sHoWXsWendDUDEOHjuPqQIvsgIhyU17Wo5hkCX
+	 GcMwc1+EBRMv3i/iTMzf+HLSo52CXKhDiCgsNsruntVpiLi+d6WOAxdzcN4lFxg20A
+	 uIEzdaTDyZ3HLCb9LedBOV6wfJy1N7+Oj0bnUh3XPIoyn2B/LmZcSiEY4kIEuV6L8d
+	 DcYy7BWVFLzb1rmQbRNRM/Z2tkT26t8vcmyfJBpSRVu5olldaKBLtY2QMAV9m38MGw
+	 v9tMLMSjpRqFg==
+Date: Fri, 13 Nov 2026 16:16:47 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	DRM XE List <intel-xe@lists.freedesktop.org>
+Cc: Daniel Charles <daniel.charles@intel.com>,
+	Dave Airlie <airlied@redhat.com>,
+	DRI <dri-devel@lists.freedesktop.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Matt Roper <matthew.d.roper@intel.com>,
+	Raag Jadav <raag.jadav@intel.com>,
+	Riana Tauro <riana.tauro@intel.com>,
+	Satyanarayana K V P <satyanarayana.k.v.p@intel.com>,
+	Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Subject: linux-next: manual merge of the drm-xe tree with the drm-fixes tree
+Message-ID: <avc376Z6nj4HlOnJ@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,43 +66,271 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AOb5ClfA_nYF
-Date: Fri, 13 Nov 2026 17:16:24 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Thomas Huth" <thuth@redhat.com>, "Mark Brown" <broonie@kernel.org>
-Cc: "Linux Kernel Mailing List" <linux-kernel@vger.kernel.org>,
- linux-next <linux-next@vger.kernel.org>
-Message-Id: <c96b327e-959a-4363-bb39-f9e313c92b9b@app.fastmail.com>
-In-Reply-To: <cdd71b25-9149-476b-b31f-c29b3b2896b7@redhat.com>
-References: <avcnFxad0xS5KrZs@sirena.org.uk>
- <cdd71b25-9149-476b-b31f-c29b3b2896b7@redhat.com>
-Subject: Re: linux-next: build failure after merge of the asm-generic tree
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="XMSiqA4Qoh9OzPbI"
+Content-Disposition: inline
 
-On Fri, Nov 13, 2026, at 16:45, Thomas Huth wrote:
-__signed__ char __s8'
->> /usr/include/asm-generic/int-ll64.h:21: Error: unknown mnemonic `typedef' -- `typedef unsigned char __u8'
-1
->> 
->> Caused by commit
->> 
->>     625b37748a148 (treewide: Stop defining __ASSEMBLY__ for assembler files)
->> 
->> I have used the tree from next-20261112 instead.
 
->
-> the fix is:
->
->   https://lore.kernel.org/lkml/20261030174323.370687-1-thuth@redhat.com/
->
-> ... Arnd, could you pick it up into your tree, please?
+--XMSiqA4Qoh9OzPbI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Sorry about that, I had already applied it locally but forgot to push
-out the updated branch. Pushed now.
+Hi all,
 
-There was another report for the 0day build bot about the same error
-on powerpc, but not enough information for me to reproduce, so it's
-possible that we need another fix like this.
+Today's linux-next merge of the drm-xe tree got conflicts in:
 
-     Arnd
+  drivers/gpu/drm/xe/xe_lmtt.c
+  drivers/gpu/drm/xe/xe_pm.c
+
+between commits:
+
+  fc0ba46fd8278 ("drm/xe: Access GT MMIO after pcode init")
+  a17c5ed0dc715 ("drm/xe/pm: Apply tile workarounds after PCODE initializat=
+ion")
+  3654a4d734df9 ("drm/xe/pf: Program LMTT directory pointer from each GT's =
+init path")
+
+=66rom the drm-fixes tree and commits:
+
+  641ffb2132839 ("drm/xe/pm: Apply tile workarounds after PCODE initializat=
+ion")
+  a8653bee6a040 ("drm/xe/pf: Program LMTT directory pointer from each GT's =
+init path")
+  c9edd9cf7e613 ("drm/xe/pf: Use multicast writes for early-generation LMTT=
+ config")
+  be082ef8157b7 ("drm/xe/pm: skip BO eviction on iGPU for non-hibernation s=
+leep")
+  ff03d9510426e ("drm/xe/pm: Introduce xe_device_suspend/resume()")
+
+=66rom the drm-xe tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --git a/drivers/gpu/drm/xe/xe_lmtt.c b/drivers/gpu/drm/xe/xe_lmtt.c
+index 8fba3c01fac29..ea2a3eeefccd7 100644
+--- a/drivers/gpu/drm/xe/xe_lmtt.c
++++ b/drivers/gpu/drm/xe/xe_lmtt.c
+@@ -220,14 +220,8 @@ static void lmtt_setup_dir_ptr_gt(struct xe_gt *gt, u3=
+2 config)
+ 	struct xe_reg reg;
+ 	u32 val_read;
+=20
+-	if (GRAPHICS_VER(xe) < 20) {
+-		reg =3D LMEM_CFG;
+-		xe_mmio_write32(&gt->mmio, reg, config);
+-		return;
+-	}
+-
+ 	if (xe_gt_is_main_type(gt)) {
+-		reg_mcr =3D XE2_LMEM_CFG_MCR;
++		reg_mcr =3D GRAPHICS_VER(xe) < 20 ? LMEM_CFG_MCR : XE2_LMEM_CFG_MCR;
+ 		xe_gt_mcr_multicast_write(gt, reg_mcr, config);
+ 		val_read =3D xe_gt_mcr_unicast_read_any(gt, reg_mcr);
+ 		xe_gt_assert_msg(gt, val_read =3D=3D config, "LMEM_CFG_MCR: %#x !=3D %#x=
+\n",
+diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
+index 61d68c09189f7..f73f68bd449b8 100644
+--- a/drivers/gpu/drm/xe/xe_pm.c
++++ b/drivers/gpu/drm/xe/xe_pm.c
+@@ -167,59 +167,38 @@ static void xe_rpm_lockmap_release(const struct xe_de=
+vice *xe)
+ }
+=20
+ /**
+- * xe_pm_suspend - Helper for System suspend, i.e. S0->S3 / S0->S2idle
++ * xe_pm_needs_bo_evict() - Check if bo eviction is needed
++ * @xe: The xe device.
++ * @hibernate: Hibernation event
++ *
++ * Return: %true if bo eviction is needed, %false otherwise.
++ */
++bool xe_pm_needs_bo_evict(struct xe_device *xe, bool hibernate)
++{
++	return IS_DGFX(xe) || hibernate;
++}
++
++/**
++ * xe_pm_suspend - Helper for System suspend, i.e. S0->S3 / S0->S2idle / S=
+0->S4
+  * @xe: xe device instance
++ * @hibernate: true if preparing for S4 hibernation, false for < S4 suspend
+  *
+  * Return: 0 on success
+  */
+-int xe_pm_suspend(struct xe_device *xe)
++int xe_pm_suspend(struct xe_device *xe, bool hibernate)
+ {
+-	struct xe_gt *gt;
+-	u8 id;
+ 	int err;
+=20
+ 	drm_dbg(&xe->drm, "Suspending device\n");
+ 	xe_pm_block_begin_signalling();
+ 	trace_xe_pm_suspend(xe, __builtin_return_address(0));
+=20
+-	err =3D xe_pxp_pm_suspend(xe->pxp);
++	err =3D xe_device_suspend(xe, hibernate, false);
+ 	if (err)
+-		goto err;
++		drm_dbg(&xe->drm, "Device suspend failed %d\n", err);
++	else
++		drm_dbg(&xe->drm, "Device suspended\n");
+=20
+-	xe_late_bind_pm_suspend(&xe->late_bind);
+-
+-	for_each_gt(gt, xe, id)
+-		xe_gt_suspend_prepare(gt);
+-
+-	xe_display_pm_suspend(xe);
+-
+-	/* FIXME: Super racey... */
+-	err =3D xe_bo_evict_all(xe);
+-	if (err)
+-		goto err_display;
+-
+-	for_each_gt(gt, xe, id) {
+-		err =3D xe_gt_suspend(gt);
+-		if (err)
+-			goto err_display;
+-	}
+-
+-	xe_irq_suspend(xe);
+-
+-	xe_display_pm_suspend_late(xe);
+-
+-	xe_i2c_pm_suspend(xe);
+-
+-	drm_dbg(&xe->drm, "Device suspended\n");
+-	xe_pm_block_end_signalling();
+-
+-	return 0;
+-
+-err_display:
+-	xe_display_pm_resume(xe);
+-	xe_pxp_pm_resume(xe->pxp);
+-err:
+-	drm_dbg(&xe->drm, "Device suspend failed %d\n", err);
+ 	xe_pm_block_end_signalling();
+ 	return err;
+ }
+@@ -232,71 +211,18 @@ int xe_pm_suspend(struct xe_device *xe)
+  */
+ int xe_pm_resume(struct xe_device *xe)
+ {
+-	struct xe_tile *tile;
+-	struct xe_gt *gt;
+-	u8 id;
+ 	int err;
+=20
+ 	xe_pm_block_begin_signalling();
+ 	drm_dbg(&xe->drm, "Resuming device\n");
+ 	trace_xe_pm_resume(xe, __builtin_return_address(0));
+=20
+-	err =3D xe_pcode_ready(xe, true);
++	err =3D xe_device_resume(xe, false);
+ 	if (err)
+-		return err;
++		drm_dbg(&xe->drm, "Device resume failed %d\n", err);
++	else
++		drm_dbg(&xe->drm, "Device resumed\n");
+=20
+-	for_each_tile(tile, xe, id)
+-		xe_wa_apply_tile_workarounds(tile);
+-
+-	for_each_gt(gt, xe, id)
+-		xe_gt_resume_early(gt);
+-
+-	xe_display_pm_resume_early(xe);
+-
+-	/*
+-	 * This only restores pinned memory which is the memory required for the
+-	 * GT(s) to resume.
+-	 */
+-	err =3D xe_bo_restore_early(xe);
+-	if (err)
+-		goto err;
+-
+-	xe_i2c_pm_resume(xe, true);
+-
+-	xe_sysctrl_pm_resume(xe);
+-
+-	xe_irq_resume(xe);
+-
+-	for_each_gt(gt, xe, id) {
+-		err =3D xe_gt_resume(gt);
+-		if (err)
+-			break;
+-	}
+-
+-	/*
+-	 * Try to bring up display before bailing from GT resume failure,
+-	 * so we don't leave the user clueless with a blank screen.
+-	 */
+-	xe_display_pm_resume(xe);
+-	if (err)
+-		goto err;
+-
+-	err =3D xe_bo_restore_late(xe);
+-	if (err)
+-		goto err;
+-
+-	xe_pxp_pm_resume(xe->pxp);
+-
+-	if (IS_VF_CCS_READY(xe))
+-		xe_sriov_vf_ccs_register_context(xe);
+-
+-	xe_late_bind_pm_resume(&xe->late_bind);
+-
+-	drm_dbg(&xe->drm, "Device resumed\n");
+-	xe_pm_block_end_signalling();
+-	return 0;
+-err:
+-	drm_dbg(&xe->drm, "Device resume failed %d\n", err);
+ 	xe_pm_block_end_signalling();
+ 	return err;
+ }
+@@ -461,6 +387,9 @@ static int xe_pm_notifier_callback(struct notifier_bloc=
+k *nb,
+ 		struct xe_validation_ctx ctx;
+=20
+ 		reinit_completion(&xe->pm_block);
++		if (!xe_pm_needs_bo_evict(xe, action =3D=3D PM_HIBERNATION_PREPARE))
++			break;
++
+ 		xe_pm_block_begin_signalling();
+ 		xe_pm_runtime_get(xe);
+ 		(void)xe_validation_ctx_init(&ctx, &xe->val, NULL,
+@@ -485,6 +414,9 @@ static int xe_pm_notifier_callback(struct notifier_bloc=
+k *nb,
+ 	case PM_POST_SUSPEND:
+ 		complete_all(&xe->pm_block);
+ 		xe_pm_wake_rebind_workers(xe);
++		if (!xe_pm_needs_bo_evict(xe, action =3D=3D PM_POST_HIBERNATION))
++			break;
++
+ 		xe_bo_notifier_unprepare_all_pinned(xe);
+ 		xe_pm_runtime_put(xe);
+ 		break;
+
+--XMSiqA4Qoh9OzPbI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr3N+4ACgkQJNaLcl1U
+h9BLqAf/a3VOhfxKmfNmCvWN2ecgw9zW1XzW85UjqSaB8G+zpEtW4dYS6Z1nfuoi
+uKQfq5WhY/uibOk++SEfu7ImvrcesgyeIiyfKyud1NZOU9gHtjqBLY6QNmoEdrbY
+QizOViLZzd/2EdDSnSrxvK8CfVvbhBPiQHrm58s1Dh54f3IGCQZZsWL7XU5Kdblv
+vjt7r0ukVD0amxvJOqisObSOhRhLFBtfzLbaDLHhiirkB7TdmMwgVjq6yg1YPS1+
+Z4Cx4E1FVDPm/NAQamngiBzyosfZGK/M+4RIKkqB41f9uv3QJ3FfYfWmcCe2W2GZ
+LNtT6dfWmMA28P9x/UTgh2IwQAwvmg==
+=+BY7
+-----END PGP SIGNATURE-----
+
+--XMSiqA4Qoh9OzPbI--
