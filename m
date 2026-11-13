@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794587961;
-	b=TeE8LBkxfNZLUm5yJA/vaibe11RevDVbjpbF77UTptGixbJsbxKqicG0nAdcKcQC1Ax8
-	 QtoCZHwz6X6t9I+6tKKuJpo79dkavolzqtAftv5eFwzUURWH5BPiFvvMVOUh0sHH4u6No
-	 BAgbSg4LfuzKEqzxVshTjIkxPQiVf+ykmaFIDWNLQM/D/JjQzFTsPf2EINmRDwXnoyvOY
-	 rDfT4o+pnx9SX3q4vACj0PywmqN2NK07WH6Yj3by9gpY1kfst25H4u0aXYa1QLNikfoJR
-	 wj7/tx4PcwH8ITCI0sXEahyFoNTfSxtbU/+Mes5Os6Rg2YQzmFCDKssyS1nHV6p4CHg==
+	t=1794587975;
+	b=H4ea7ytxtLDN15ubmfXJ3gv8U9uD/QY72+XjqDhlecy8Af2tBrsF2MThRmzTfUFcmSmi
+	 mRV8rrI/bKU5qX3dfiO2BguIOVTWAQz2zbp0RcxXdfrB/LyAN0+OnpgVaJQtm/abxQGG/
+	 GVJ+tM2FGcn20pwLa1nkZEQ0C0nqTv4frRzQY+6fyhNfcMxjUP1PkN+pfNtdPlTTGWkN4
+	 W1a/mW+9ZLvBsLB7KKajBFzZZnqEd4hOvc2uq+dxcFfvieYUkOl19A4O8Ttjc/nrZG5ev
+	 768oyxSLYar1XDCuwTkwapbOCS5sX3UwPWULFirqg2pzb5wZHa9qDfEFGgeQLa3eDJA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587961;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RxSPduDOiaRwH24FYN3D1kk/0l8Fy9fc2Bjq8nF2JJA=;
-	b=dfCTMtjH3+AKPtu4WL8hgF29Yj0bpLHcDK3U0RxayfOlGoe21DsNJVBTfHWfjaf08Glx
-	 s37Q+CbOllzfMXY16ZBnQfPzBeWmXkA509Bcn873VTIUSmd4OCSq+2blhrSipzFFoiMKK
-	 vDZf2WmpUtnKIGLR7poxZeysfBg7WiUBJbjRHpu8WU4ZUKUM3PANeqi4sAj2KG8JigH65
-	 ZkSUYfpfFU5LrSYNhTt8+t3+WIY8nkGIJKe+5prLhDZOQPrvoEWSflr5JTPXn6um/aLc9
-	 k985V5biP1SsjxmGqtX/a9xkojMGq/1i2CYzoYhiNBb/5dbyfiRiT7H4TJmjNHUrw0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587975;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=L+8j5OUsBR0easBe4yHHmV7NvUfkY0wWsAfLUlp+Yi0=;
+	b=yg6Tlu09iofg4Yb3VOp3TESxJfWHCUiJihTiFJnOSiDh2e0/pD4j0u/D++zsha0bfkJL
+	 28NhdjSiU438+u7UqGWnbxpNqlUjFS8uLejGsDoFE1wN6WVV7N1obD1qmHBKmoH5sRGjz
+	 I9KKYG4713xeiAizBx4e1z+FGtTGl1oLJBiRHf2JnwHz2VJOjyv7VbzsJnB2Zi99Ui7zF
+	 K+rlzcC3V5KITM2Wjn5TAnklIJG8n0vm83KV3tgqMeDUJIbsZJXfGFAR8bkM3fGbiSONJ
+	 Se4JMIsuNRw/Q78XdXKLP/U0ghgNdGRzqVCmy1xy+2j43XaXWEL5nKN9v01NLvR/RLQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQsol5aN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQfLAZ2u;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B968D606AFDB
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F236A60A2628;
+	Fri, 13 Nov 2026 16:39:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQsol5aN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQfLAZ2u
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794587961;
-	b=s86bV+Cac68hQ5HU3g3kkJogOc9ApZxwIKaNr/TfCCOdel8LVUfx9xklEvUk3aS/kv28
-	 qS/28upT6juVQsja8Q4HlsYwITN9CEcSbNBiubWrOwxybC6AiGPxeTxyZnmbfLVvFfRip
-	 rZgkTJoe2oQUr18H1jHyayyxY7Z4FH/54PMQMz0fXfbt/90+LsL54DzMduv0jqLTl0axs
-	 Q7UNCOZ9GBp6xTx/5YK8icm7KIbLBDPzps3bnk4TVn77udqpx0XqMdzcrZCE32x3gESkM
-	 6jJvOvhxi2EHX3hO+uCGEMxSDAvc/qWflKjudT2TnAwvDNQwuA332vxFb3Y5y0D8icw==
+	t=1794587974;
+	b=LuW5+z01YOe5yzfBQo5jW57/Kp0sfr+uZVvzfhwUbcD/i5Og1J5eQvlwm+fKZ6b/oaad
+	 0MOlKWxRzrWvF4zzZO+k4uzazSuXpj+/cONP3kQVx1GBKbH+nE/WormEu8EWXXJoKYYYK
+	 Lc++16/aQzivk3DA3OJ1ue8Pr+Z5ZXey52Lxe2wm7jJQZ1sPkON93hOBrEiwLx8Do6ocH
+	 DtxFjLdN/8q68kxXqSoW5zjUpdafNjJSzeuW45tM/FJpLFNiUv6KBtHn6MY95OZcHBnC+
+	 Da1chVpKVFgswnvkQmVEtn52QsJk/EP/iFE+rkKSNaBb2bHm6SYlVNUhhh9CHm7496w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794587961;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RxSPduDOiaRwH24FYN3D1kk/0l8Fy9fc2Bjq8nF2JJA=;
-	b=nrgiCt5cWIRULFpL7k0JynE/7dvmviMV1gSFZlKgpBMFgf80k8IrVlVLmc0vdt59q/j4
-	 bMOpOB6C3h0BgBphhne7WbOEwMkpETe89toteaRKqntDpChxhuTw8IGTXok2p88jlO9YI
-	 ZICRWLcv8azxler3muGcQN/CxT4bFHM6vkMvA2YuRAap5xcJTqkI59+rJZkUXZhRYAk/m
-	 QSIDSD/3e5qMVhWBC1jjuyCb1Ie9oOxSu6GA7yGZS84cL1ejeeB0jfJIkAM/tnjhRzJKi
-	 M81HYgfEmXzMP6TFb++iJvN8KbXXdopFSFcvJwyU6VgnA8LDrXu/qX5vmcn3atgLj4g==
+	c=relaxed/relaxed; t=1794587974;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=L+8j5OUsBR0easBe4yHHmV7NvUfkY0wWsAfLUlp+Yi0=;
+	b=tyoPTddvnO+WgjXwOX5dvvJh6v9YE7lYfBR1BLjNV6Ewx/lYKuyoQ1kz5m4P8xa1+0DA
+	 aPN8wIFNYwTz+HFIGEDqPJEovBYCX2mlg5QuHu9plJf7ZXLRSTyikyEILd8JvnfE+AC8u
+	 xlBC1tXJ1JPRtXRTVbTxA9dhvTWr2dCO6NFJbGwmE9ZGzFhPGWkYpYWyn2tCjzECRQZak
+	 tlpNuRpLojsocjs+aOTsnOmu2eJTeHOmdDtoFs8sti+O3o09mnK8y2WGTKvbzhl0VB82a
+	 kK9bnDn59OE+aPHEbHbHLmM3/vNi9N0ciY++kq6HaF0PujoqKc2uObK3Qv+PUixaEOA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 76FC11F000CB;
-	Fri, 13 Nov 2026 16:39:20 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 3BF681F000C9;
+	Fri, 13 Nov 2026 16:39:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794587961;
-	bh=RxSPduDOiaRwH24FYN3D1kk/0l8Fy9fc2Bjq8nF2JJA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OQsol5aNf1uXX2dUm8oO4jIhguMpZgV7cjjtG/1G505aWLHoqCVH2b5zJ3PT9jxPf
-	 4wEPe5NoIZcgZxOfRUdRb8uptBHi0AGAKSACICX9GVrRLE4mLXtFwrAhaJo8HFwroH
-	 rthyGICias9U/oFZ3J2Cok3d014ZNQjfBX6xZ1CBa++nQPuKFyS06b0PxWLfOWv8xI
-	 bW970A9iHrPRGf4q7fNNLDbjbOM1Y7f0FU4WhB/HNNdyFD9Ive6zrIxJNFtCSc0VI1
-	 5v062EnVuY+tKdDWtkQqzVL8JlB+17hnJgGcnCPvN+6qfv54d0QZl/1RWZYC3lGEkn
-	 KjPx8ZDAP0Kag==
+	s=k20260515; t=1794587974;
+	bh=L+8j5OUsBR0easBe4yHHmV7NvUfkY0wWsAfLUlp+Yi0=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=QQfLAZ2u2lqa1W7gimpv02MRC4ZuZpWavtu5KopDbCasFJWtS8jGQYOFTReRGY6lk
+	 zZX7X48aHXLQD6CC5pNt5R94jl7hP3G3djPXZ9EohEPY2tmxZoYrPowq6a+wKMzgqF
+	 k2QAlLvpl6Z098t0dEgcwWaTP0YP0dJlAhdYVo9K6uTJXLnOcB/IBg/lz0pb9vV8pB
+	 O9dFkixN5C06IJ/y7NqakILNFlbFh6+n3Xv+OqtrR2o52ZhZZm9YRxHBtemncdm98I
+	 LJOwkY25jh0X1e7gCYIkv+s95rfHlSXe7WcVzCIyq70iMXCKZlBkSrKLtWCPUaXXpV
+	 AuPJrVEgANknA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 15606499C9;
-	Fri, 13 Nov 2026 16:39:19 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id C0C1749996;
+	Fri, 13 Nov 2026 16:39:33 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 16:39:24 +0000
-Subject: [PATCH v3 7/8] drm/rockchip: vop2: Keep the other LUT_PORT_SEL
- fields on gamma LUT updates
+Subject: [PATCH v3 0/2] usb: core: Pair ports of different host controllers
+ through their connector
+Date: Fri, 13 Nov 2026 16:39:33 +0000
+Message-Id: <20261113-usb-port-pairing-v3-0-d6c6edb4341c@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,69 +85,100 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-vop2-fixes-v3-7-08ae37e83b5c@gmail.com>
-References: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
-In-Reply-To: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Piotr Zalewski <pZ010001011111@proton.me>, 
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
- Damon Ding <damon.ding@rock-chips.com>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBCF4auQrq1pB8HgynsYFwWmMEZo00KjI
+ dzdFjcsjMs/efPNwjw6Qs8u2cIcBvJkxhj5IWNNr8YOObWxGQgopZSCz77m1riJW0WOxo4rLXR
+ ZaqFqQBbPrENNr4283b/t5/qBzZSctOjJT8a9t59Bpt0fPkgueJWLM0LVArZw7QZFz2NjBpb4A
+ HsAfgAQgVOhCyUVVFrqPbCu6wd/qm1JAwEAAA==
+X-Change-ID: 20261110-usb-port-pairing-af0f66f0ab2e
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Mathias Nyman <mathias.nyman@intel.com>, Chen-Yu Tsai <wenst@chromium.org>, 
+ Chen-Yu Tsai <wens@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587957; l=1431;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587973; l=3327;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=SkwWlNjcbiIUimcs4iIv+zOxIFtUHq1H2Qpz0WkqgFg=;
- b=AlThRHuxtJ9AiM2MPRZ+nBKGtidmigRvebqlaSPq5n1dGKgsE42ZiGxgJl2H9b6Hrc7i4+swD
- IMiRbZMjpl1Cnxa7fWQBbBXWWE3QuOPZ9fwYGe7VBsAWdq8lYqTo5ee
+ bh=94ljvUhZfOwcriwlLh+HVppbDrBWPBP8YRlEjtdMTao=;
+ b=yRzdjuLIBZz2A126kliJbvh1YvnIeRw1y5fu8QBIot7q1f80EXqrlI3kteaqoUIwqlR6DpKnj
+ YWHvVDy0DBoDPdejeeLbJ/9Vsn/H8xiduWQgZ39crdMjL0XcLOWBwq1
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Chen-Yu Tsai pointed out that root hub graph ports use the raw xHCI
+port number, as in DT and ACPI; v3 does that.
 
-On RK3588 the gamma LUT update writes the whole LUT_PORT_SEL register to
-select the write port, which clears the dclk source selection of video
-ports 0 and 2 and the VP0/VP1 merge enable held in the same register.
+On the RK3588, USB 3.0 host 2 is a SuperSpeed-only xHCI and the USB 2.0
+lines of its connector go to a separate EHCI. The USB core pairs the
+SuperSpeed port with the dead USB 2.0 port of the same xHCI. On the
+Orange Pi 5, whose USB 3 Type-A port has VBUS always on, a USB 3 device
+present at boot connects at 480 Mb/s to the EHCI before the xHCI is up
+and stays there.
 
-Only update the write select field.
+Patch 1 pairs the two ports through a usb-connector whose halves lead
+to different hubs or host controllers. Patch 2 resets such a device
+once when the SuperSpeed root hub starts, so that it retries
+SuperSpeed. A device that ignores the reset (SanDisk Ultra Fit) stays
+at high speed.
 
-Fixes: 4f537776340d ("rockchip/drm: vop2: add support for gamma LUT")
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
+The Orange Pi 5/5B DT goes to the Rockchip tree separately; its EHCI
+"ports" node needs Chen-Yu's usb-hcd binding [1].
+usb_of_get_connect_type() still looks up root hub ports by root hub
+port number; Chen-Yu has fixes for those lookups. His M.2 series [2]
+finds a hub port's graph port with fwnode_graph_get_port_by_id(); this
+series does not depend on it.
+
+Tested on an Orange Pi 5 (RK3588S) with a v7.3 based kernel: a USB 3
+device present at boot came up at 5 Gb/s on host 2 in 4/4 boots and
+stayed there across 8 s2idle cycles, xHCI rebinds and unbind races.
+Type-C port pairing is unchanged. Not tested with an external USB 3 hub.
+
+Developed with Claude (Anthropic), which wrote the code and the commit
+messages. I reviewed every change.
+
+[1] https://lore.kernel.org/all/20261014082037.1774672-2-wenst@chromium.org/
+[2] https://lore.kernel.org/all/20260916075745.3549953-1-wenst@chromium.org/
+
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Changes in v3:
+- Patch 1: find root hub ports in the graph by the raw controller port
+  number (usb_hcd_find_raw_port_number()) on both sides (Chen-Yu Tsai)
+- Patch 1: don't skip a connector peer whose connect_type is "not
+  used"
+- Shorter commit messages and comments; patch 2 code unchanged
+- Link to v2: https://patch.msgid.link/20261112-usb-port-pairing-v2-0-45f5a1a29f1f@gmail.com
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index de3da292b05a..0c300279399a 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1621,8 +1621,9 @@ static void vop2_crtc_atomic_set_gamma_seamless(struct vop2 *vop2,
- 						struct vop2_video_port *vp,
- 						struct drm_crtc *crtc)
- {
--	vop2_writel(vop2, RK3568_LUT_PORT_SEL,
--		    FIELD_PREP(RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL, vp->id));
-+	regmap_update_bits(vop2->map, RK3568_LUT_PORT_SEL,
-+			   RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL,
-+			   FIELD_PREP(RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL, vp->id));
- 	vop2_vp_dsp_lut_enable(vp);
- 	vop2_crtc_write_gamma_lut(vop2, crtc);
- 	vop2_vp_dsp_lut_update_enable(vp);
+Changes in v2:
+- Dropped v1 patch 1 (generic-ehci binding) for Chen-Yu Tsai's
+  usb-hcd binding (Chen-Yu Tsai, Rob Herring)
+- Patch 2: reset only when the SuperSpeed root hub starts, never a hub,
+  only on USB 2.0 root hub ports of another controller; cancel in
+  hub_quiesce(), runtime PM reference, freezable hub_wq (Sashiko)
+- v1 patch 4 (DTS) split out (Krzysztof Kozlowski)
+- Link to v1: https://patch.msgid.link/20261110-usb-port-pairing-v1-0-9307e29d2ed2@gmail.com
 
--- 
-2.55.0
+---
+Arun Iyengar (2):
+      usb: core: Pair ports of different hubs through their connector
+      usb: hub: Retry SuperSpeed for a device stuck on its USB 2.0 peer
+
+ drivers/usb/core/hub.c  | 109 ++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/core/hub.h  |   3 ++
+ drivers/usb/core/of.c   |  98 +++++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/core/port.c |  67 +++++++++++++++++++++++++++--
+ include/linux/usb/of.h  |   8 ++++
+ 5 files changed, 281 insertions(+), 4 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261110-usb-port-pairing-af0f66f0ab2e
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
