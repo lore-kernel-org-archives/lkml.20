@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577768;
-	b=fnu9lNGjB6PtQNpkCA/kNUwl4nKwpAyHMl79typqQj2p0bEeAm/dhNyiIYlNGqFjW+BC
-	 M+ygy+qTGBsk8rL4ayODIwBG2e4BwfkWM/i8CrkEfVhAj1dMwWgiwZSxVDsI4RX2zHoj7
-	 wKnnC/VXK90iL1aUF8jN//gcCB2XFyhn5ZI99d4PMnkMFzICuyuDb6oxyatCIlWGuaWIg
-	 vdzmLZ6sXoEzpYdwZdbxy+uEen0Hq7HIg9PDcU6cpuiMm0Jyl+mMYOPTsqWlqg1MWcuFh
-	 s9P8ByNM88pKctj8IHtfGrbxOYN4Mq9pCKSysP0pUNe6aFCUpFONBZacEQ23k2x2F7A==
+	t=1794577787;
+	b=xYfCmGb9x+j7AbdKseSOl4V74ELXyBhZ5csUXSvJ1hkRJcY3/DQplpHR0Z+g0UoOBhPq
+	 3be5nVJj9Erlf34EOuW6ZcqapU0wEC2T30twBSOKRcpWEfpa62sT1goGtnN25Hjk12I61
+	 cAqWd6Q/e9/e4qNM/7W1NXbkFd2SnyM+Q94d5lzkc7XS04iwtwTvmTel8OC2qbyw9BGth
+	 M80cng9CL1HEDJcbhFIjaeaIzW4cTFJuvzxMF1EghCYLOc/XgSMOXOslcCDNQlHZKC86d
+	 Mj/qG8IJ1TZeCJtPgfO0bE3+bi7Y1pIyR3UW03fzRIKwq635Y3LoTjCBA4tUVi/6luw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577787;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=3v73r32eIAJAgWPi1LsXT3feGTevyTVBk7sdUb/TcA8=;
-	b=gUF93ipimMvcJfI4YjcWAFoIVClJkonhWwjz1nrJrByLK9RklTEDz4ecgDexehXmJ3cs
-	 sKsc+5foXRupt0iMPHvqKsEugcBHOy+pFbZzIEcgAXIg7dTZUOi5AsoHav5QTvOGFT7N5
-	 +ww3X8zpgFjfGn/1jfqF7tGBp/VGgWewT7I9pABAAORsRP1dIwhaiCebmwx1KYqjnENrb
-	 1tsTa7GEk0XP9l35ifs51RY1FjanU07OUGx2HWMt7oe5Ktvw+e201mWYm8PAxPdDDCrop
-	 SAfyZ5UgBF5D+N+CsoHQKwAaKPdtmCEEAcbYWoyPy3RkOHGAuRLmEfcoDtZyTABf+IA==
+	bh=JhiXYpkQzjLGTthVjpwYYHAyy2NJiDkV7bui1K5fAuo=;
+	b=XONq/btrsyZTeQnsdYViibjFeVjPPhacJ51jeM26rEzkB1HgZWXNqMyZg+f7YJ4HElwi
+	 D8d9neuqfJSqcHR+PuHZoF6L8N1lCHUb7xSRCN4NkdntwcTDkrLsDPxLZq27ZvpxGe0hu
+	 EC3s7uy2QUKZMBi4hXsq7yn6FCXr7zioclPC4eFm9ycsDLcHGzC+QFchle5PFH84Ecv1n
+	 ir1YqdamQGL1kqXjxRu0v3ByR82f0xlgNwrinut18pVrJn+RrVEyYWFjiKO9QU07TYTpx
+	 IPm6I4bWrOaPfFAMY7SMvfhuMcwAdhYMzFLo8gk0RKIwOFsdteeGyWc42htS0D6uGbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iYprxckR;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="Zog8kNj/";
+	arc=none smtp.remote-ip=209.85.214.197
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDABD606A33E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDABD606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632DE606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 632DE606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iYprxckR
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ac8f449d1bso764951a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:49:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Zog8kNj/
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ee184a2474so4046865ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:49:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794577767; x=1795182567; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794577787; x=1795182587; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3v73r32eIAJAgWPi1LsXT3feGTevyTVBk7sdUb/TcA8=;
-        b=iYprxckRt6x0jveQ7KIO6R+oa6tFiYQfSlMcbZeYNkZElf1SB6bHrK9uNemcL5oERW
-         JhBhmjD7LEkzuwclSSGtFi8rLnFij9YqELQAndFPhuWI9gCQC10TQDtD8DoiOnpSH0j2
-         HVjFKRqbxI13gzT/MYxeD/jL8356LwhFULpVEx6CDY8d5wA1hfQQpOq6O4L8pqpiDPp6
-         HbI63zWl1Ozdh3NXXVXkDOnJO/DgRq1C2QmRF0R3mwzq5LUSDPowEpJb4meLFazbRWGf
-         Ez8ljTE+47qpn1tkWgbwYUJo1cThf1QiMHn3kI1ljYZOpvksMa5d85Mf4VwYBml1Ckrq
-         a5Gw==
+        bh=JhiXYpkQzjLGTthVjpwYYHAyy2NJiDkV7bui1K5fAuo=;
+        b=Zog8kNj//F+tJ47iZ4rd/vRdwfHcPmZr5PIpEYASYfSU0uIpdAaAQbKb2iSjKuGrJC
+         LmUEbEK0fotsAIirWG4OVuVjWqDlP7pjuqWSA8ipK/qrk7DYRZNuaVDxOvHgO8kfS5gP
+         iAjTP1uaV81zzy4WrR3/1ArFc86+k1PfnfcpRkgSeqWInm7zP0pERW/SD5cgU0GHTp/g
+         QLtTRskr0/3u+qWWtQxU1Y2cafkDY01Es0N0hG0T1L7SoYF7+CpvMvrqir+NdpRFWV0W
+         0f7V7cL5Svjza55mLbBuxfs/sAB4CwLy/CiFck2gS9zBwaFsk35GRMhzzzKtluEwoiP7
+         jd7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794577767; x=1795182567;
+        d=1e100.net; s=20260707; t=1794577787; x=1795182587;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3v73r32eIAJAgWPi1LsXT3feGTevyTVBk7sdUb/TcA8=;
-        b=p4wdzWG2dXDt6mkS5xsbfYc3sx2C3l5cHyWkj+pPGRkqrdu2dY9GD79rnO1YWRj9yS
-         E0zsLfneFxtJE2n3r4DLArTiQZSTytjXCAla+H3bWBVcjq9KWHm4m8GwlNbnx/F1/vBb
-         F7pVBPkeQwlESbFsA5iCWv2yeED4cHhOSj41oCFX8dF71kZXuWg7v8ehVqgPdHQpL9WB
-         wCKYI3eL5IkC+7179X3KkH+lRs8Zep770Gd02+01t0ahCocDWwFMgMCmt47s4GKRrzrA
-         iDto9jccfKVs/oaAIVKrI5PZjb+QYDguwkzAKgpwyzO5BQZlB3lIR0to0c0Y4Gtt1HFP
-         +DVg==
-X-Forwarded-Encrypted: i=1; AL+hErEsMI2NNGD3QsrWEylBKdgSuuk3DGvR98vXblZhaTGnOjQGJCam33mGaTrJiRR3x3iTOpzOIAGekze6R6Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ujdN6zFq6IpyNOCvsMKYqdj+TqzG+53OgtxZF1b7P44QXOORc
-	9wSOQ2fH8+/IXm3/HVTAsBu1K7Em7YXMjSuw+nQOncFvkF0ZfQnpiHvRtpKavhrJK6cjRG0/U0S
-	tWAymVA==
-X-Received: from pga12.prod.google.com ([2002:a05:6a02:4f8c:b0:cca:d82:9104])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:17c8:b0:3ac:7842:bd50
- with SMTP id 98e67ed59e1d1-3b1b0a428admr2241920a91.15.1794577767011; Fri, 13
- Nov 2026 05:49:27 -0800 (PST)
-Date: Fri, 13 Nov 2026 05:46:40 -0800
-In-Reply-To: <20260731150846.1728164-1-dmaluka@chromium.org>
+        bh=JhiXYpkQzjLGTthVjpwYYHAyy2NJiDkV7bui1K5fAuo=;
+        b=HTBOcC+yQxb5YDNOj5tJKUsIUuhuwGQYkxInB3vAUEKuasI0s4ndp2MyLSdFt3S7bM
+         1P1w35J1H30Url2xzrW9sv3P719wF0gsyi1MILDvVBn3de3ATTY1903P+miiyWntCLVo
+         mCUN0PIHHoQsOTjoQRym4P58tHjo10wfSvjYT2mRXIandGK79JC7OI/oE1YHphneIYU3
+         3Tc9++05ap1p/u+rpmKo0Ruplz+TLCjCHjgcRH/176i0NIRyTQLO1FrznLmkl3L30LMf
+         3VlvnbSUVVXRvMrnTjOFvQSmsaJz/9AxnkZIhyWw+refWWtVWklGGTQ3ZwiRTZQyJEtS
+         f2dg==
+X-Forwarded-Encrypted: i=1; AL+hErGChEcHaPrJbEdtakmJwj6Alm97SLfE8s9D3TEvQ4hMqXiw22WnWNwuJTsxDWPhDt+iyW6CtI+pll9CttI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9h5zb00JVhARabCJXNa8+9l8maOGBgBdWRe4zhg/l1RfgCXw//
+	6sf6cL1zq/kt2jMmb24B+9mYkkyWq5YaiQbe2GmbE7WufT3lnVAcsWhkN5xmCV0XfrASSFXvGH9
+	sp+fKVQ==
+X-Received: from plnd4.prod.google.com ([2002:a17:903:1984:b0:2e9:6b18:1067])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:eccc:b0:2e8:e17d:c8c3
+ with SMTP id d9443c01a7336-2ee0dcd18admr25455115ad.62.1794577786632; Fri, 13
+ Nov 2026 05:49:46 -0800 (PST)
+Date: Fri, 13 Nov 2026 05:46:44 -0800
+In-Reply-To: <20261027001600.2742995-1-ingyujang25@korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,40 +79,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20260731150846.1728164-1-dmaluka@chromium.org>
+References: <20261027001600.2742995-1-ingyujang25@korea.ac.kr>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <179441846682.83214.17243719876978660073.b4-ty@b4>
-Subject: Re: [PATCH v2 0/4] KVM: x86: Fix off-by-one in max_vcpu_ids bounds checks
+Message-ID: <179441787804.77218.13995076862430553653.b4-ty@b4>
+Subject: Re: [PATCH] KVM: x86: Move PIT existence checks into the PIT ioctl helpers
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Dmytro Maluka <dmaluka@chromium.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Mathias Krause <minipli@grsecurity.net>, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Vineeth Pillai <vineeth@bitbyteword.org>, Chuanxiao Dong <chuanxiao.dong@intel.com>, 
-	Aashish Sharma <aashish@aashishsharma.net>, Grzegorz Jaszczyk <jaszczyk@chromium.org>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Ingyu Jang <ingyujang25@korea.ac.kr>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
 
-On Fri, 31 Jul 2026 15:08:41 +0000, Dmytro Maluka wrote:
-> max_vcpu_ids and KVM_CAP_MAX_VCPU_ID are exclusive, i.e. the maximum
-> allowed vcpu_id value is max_vcpu_ids minus one, not max_vcpu_ids.
+On Tue, 27 Oct 2026 09:16:00 +0900, Ingyu Jang wrote:
+> kvm_vm_ioctl_get_pit() and kvm_vm_ioctl_get_pit2() always return 0,
+> so the error checks on their return values in kvm_arch_vm_ioctl()
+> never trigger.
 > 
-> Fix the sanity checks for KVM_SET_BOOT_CPU_ID and KVM_CAP_MAX_VCPU_ID
-> and the selftests for them (added in series [1]) to fail when
-> bsp_vcpu_id is incorrectly set to max_vcpu_ids, not to a value below
-> max_vcpu_ids.
+> Move the !kvm->arch.vpit checks from the callers into the PIT ioctl
+> helpers, so that these error checks handle the missing PIT case.
 > 
 > [...]
 
 Applied to kvm-x86 misc, thanks!
 
-[1/4] KVM: selftests: Fix treating KVM_CAP_MAX_VCPU_ID as inclusive
-      https://github.com/kvm-x86/linux/commit/9b04ebe5c085
-[2/4] KVM: x86: Fix off-by-one in max_vcpu_ids bounds checks
-      https://github.com/kvm-x86/linux/commit/c36d436e7335
-[3/4] KVM: selftests: Improve bsp_vcpu_id and max_vcpu_ids out-of-bound tests
-      https://github.com/kvm-x86/linux/commit/201aaeb1df8f
-[4/4] Documentation: KVM: Clarify that KVM_CAP_MAX_VCPU_ID is exclusive
-      https://github.com/kvm-x86/linux/commit/ea6d489ae6c2
+[1/1] KVM: x86: Move PIT existence checks into the PIT ioctl helpers
+      https://github.com/kvm-x86/linux/commit/9e03a08bda04
 
 --
 https://github.com/kvm-x86/linux/tree/next
