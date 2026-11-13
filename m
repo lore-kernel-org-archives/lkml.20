@@ -1,90 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794587895;
-	b=0hksE7khAE/wNlmVWI1SOMeVcHW4DrU7hFvHc8rQTnOLa5mXfi9D1gOxKIQ+3eIPeJVp
-	 VXR7qkUQwZ5R08QU+4ZtpUDTKg3zgkduTeAdrPHgAv9+tzLzVoJNLTqMls/7oeIuR2pvi
-	 5Z7KfIuV5mKIiVCWWNcnRT9sB5ZFx3oMvf47B26AIP+x1R+0zSE/zNFkP1nFBTD3xdpMj
-	 j1WOY3vIJRXIgNiJgkw0LnK2VvLC8G1VUsv9p/iEciQRxKSYjaTbsqkWckmc5SSLXf/pf
-	 pQoDoJEmiQ5GSyUX4ky/RBMufDxqU0CeLBqC3samC4xh5dgcAaIV8tNMs9ELxiexukg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587895;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZBtOs8SUuvYS9eK9oBm2MAuuDuF7zij1f4x3ajNRRgw=;
-	b=3AxaynFEKIqyMRLY8w/Exi1ywOqbZNvKH/7PJWPX1L9YnpZRuhTkWVLxXKm2qiYA6sWI
-	 W2dnXvV4bM5Vt9F1q6bIrO4sZ5/qNZ5uS4q/1XQsEbEfSyubJ4zKOuiTQDHLCR4thsKxo
-	 AoBUoORq9VCOrWHokogcmRoswfJ42uspBPMGLisGyrOvvkjVu1mXAvmciYZ6/3SkF2VKA
-	 /RxH8DDN1HXXzR37hOxkuIvkYnJHJfe6DcWg+WpXAQfqj8GItAyXtraSu3z46QdSgpOop
-	 GyP0yS0C0NywI3MmzqgAbdHKvIktZPUSxWFAskiWuA7njFAiz8JyTcgBoahQAx655cQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="XI/sgWPq";
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794587930;
+	b=Wz+FdJuFmC5QP0NmxlHpGwj25sfLXECZHUma31otMewtPjFFxTzu10L6wPpwTQsMXkNB
+	 WpEQq6RpKf+Q+dzIq4P7QGRyrM4cC4u/+IKJBpMKAtGoUBWFdamNYzBoI53zKHqQ4axYw
+	 VkQaB8YFmGiNyAn+RoQqTVa4ExKhNwvJNdVEbTuNSfCmFOwqT6YBFPckM68S7eOtgXtIM
+	 mP9THCG3wdjcBlK+iYYHtd4Sbg58X6TKXASrc13dmgcQmTyXjOWhqvrTvCG2E0X4jZKnn
+	 4L+QQ6f2SprnNE/YSObPjnW4tH51pOMlzTEzuwB30VcYE3XWzHba92FybNKNLpXs+OA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587930;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=GLd3QVwK7lA3DRraSPd91wrloby7B/AUObiRFqJYDz8=;
+	b=mrJasB+ZO2K7Bof3Hgu8IyzLMjc1yxoraHFI0GrAb1PFzfybEYk7ZAbfFrzIEvK8QUES
+	 NzQF62QKPQn+xidghpkg3x7OpliZ8OiVcxxFRXMw0EblTFXkuEshTPWtICLiu6+0SPi/4
+	 OM+MTBwLu4ipc1TIJyrikV9RSUd2zJ3XCYImtjzfv6bXLt1qVplvNtWXeVGS048oKShkM
+	 Jfcd2wzv//JZBXm+0wIsK7IejVjGvdjgkbjAEV51bLLOPV6nU6D4AcwQtvq/F+AVZBn8U
+	 4x3j1CyyMbz1ScMuCaNnWx49I6Tq2gKIoy59jS7W91ujRR/0RCcA8en3HOWdopUB8Yg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRwcOVz1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7F1606A332;
+	Fri, 13 Nov 2026 16:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRwcOVz1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794587929;
+	b=vIFO0eZ54QPWGfaNZhX33Toxy3+hzM9n425eI5fZ+YKcwyRdMDgCVFTVbMZxW90VvC/9
+	 pS6XJZHWboZQpYTpncBs1Zueg9pDJ8Z44zFn7alHHeqiMD0AleGQ91sfPDNjX8vqhdpA7
+	 v8iMcbnDMtd717Sc+TrWWLEyGPzIRJODtM6qgfgwXgToCR9m+VTlXqv0ESrOprfNU1tS8
+	 OQCXDuR8ablSpTwGzB9E7veNq7dGtgPdv0CsL3XbjPWGS5F1WTQ81o6fimTi/Jeis3tuk
+	 /f6VTKJKequYDw2OiuRbvfXeiwE+unx070ns02p7q18ovtmatufhAeFbht/B8iqA2/Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794587929;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=GLd3QVwK7lA3DRraSPd91wrloby7B/AUObiRFqJYDz8=;
+	b=yUdc6Oqd8oiXL+Wc37Xg5B71J4/xILt6aH3ZRvUOZf05uBjDUzREqWFOFhzN1ym3t7vZ
+	 BX0AGOhZRcgjrF94AAn3vTFaGey53kAdstaGn3srCwlwnDsYhOHJJmQvx043HYA8cZ3Aa
+	 qrE7hW6YFT5G4hFC9otjCzKEV3TBqeGET9MZdJiawInBUKKIWCLv6YeXFgpc+8a35xiqn
+	 m0mTQTJ0GcdnxFZpBaBxw7P72HqHbEdnwwUuI69V/7nAXLXOz0o4ujilsumMsVIXfW/Rc
+	 dDcwMAb58HVbCn6ZzZ1cKlTCsEeAKYOOorh01Y+yHVkFTufmkRkwzGfRd8wQkwSSyJA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01484606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:38:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01484606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XI/sgWPq
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4d28f75d62so299513166b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:38:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794587893; x=1795192693; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZBtOs8SUuvYS9eK9oBm2MAuuDuF7zij1f4x3ajNRRgw=;
-        b=XI/sgWPqHbvaIZhTDwyYZNjUMym/RZxGPxbTeMcQWx7qLmn0k7JpZrzz91nymKqvkc
-         r1T5Y6LdJI+UWGUKcI6xkm4yvF60raEDFBAU063eiZuqIOol9bYq/+8IWDOHP72H1+nz
-         I2J09sD2qnq5n0Pkt2Id89FpM7fnevLP9w1sk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794587893; x=1795192693;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZBtOs8SUuvYS9eK9oBm2MAuuDuF7zij1f4x3ajNRRgw=;
-        b=Z9TcLUM1VWAKBY2ZomfSmGwl2ElhqC2ICy2M4KV5m7Y9MRWFs2U9bggUsLzSML6UAn
-         Wwyp2UJgpf+qtGpAswVDfnU4lo+aSXkWSdkhDsnQ/jVOkghoAeGZWIbL72WVoOMIiz1M
-         +h/2Bl5yBAsjuyLGxrbydHKpq0rLZipMZ8CQqvP+49wzQzCUXea8C17kTHh1Lp3L18A5
-         dL9oYkSRiIiVG+MgTAumYn1zRhQUpRKTLrEk0PCVBxC1cKJSoN1AZehuNbTRu7GgiCyh
-         jxwoNDJW45ASfNO5ZHkYR4iZU4sQKrCwikG936uvadlf5RsMBRdufyDX3TD42S0BCmDJ
-         bnkQ==
-X-Forwarded-Encrypted: i=1; AL+hErFc1D/HUCuHACi5dYUd4tNxdd6QHU17E0qP0iSLT1Ec1Br60uSpLfO5+6zr9s9XDb1wNqMgUtxZrwqdFak=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+A5Q0UMtTCZoupbCI0pwFdHZpL+pW7sDTAwWV02+zlCVeQAjHo
-	Epsw2kPMpgOSWQFq8jhy5F5Letj0Fd42TSR0eu1G9eE4VLUxfTSCfCEP8xGxvEe1y3OFGBwN/Tf
-	YOqf/5Ehe
-X-Gm-Gg: AYBFou3ESpR9c8+A0Qwv6E+IDaoopn7To5akKE2WCOwf6mlgo8CSzWaKNbHUFZ7QSFg
-	4x67TqNTDYEy10nzY3jufxKMWFTxKQmPrcPI5LrmmxST27+Dj8oresKbmg1Cvp1wypN55WV3bg1
-	NBxyB9DjumxfqBfhsJTnldr6fPlTsg6Y6UPsU6f9jcA6I9nbUVtytpXOvVtxZXVzk7QI4OrI9Ks
-	GpNaSNBb1WMLvAr6yJmcqtxUeRKHx0gS+0rniRtJ1QxcSAHKI5gqVtpLHBdWrF0tgvYh5PN2DYc
-	Ld7LCL8aTcByooglpLcwCahiUwPJEJ8eMeOBLZOBNAJFwhdYNZTaoFy4X573S0ocaOkYAY2aD6y
-	BZMtR5ScNUMdaHbtSQNJNovIFvSePOC7+bCoi6GmfUoTAm8su9AyaxrgH2I6az0Bf8edCfYqugl
-	V1zQhDfQZmKrJsQIw2k9o62sHTFvFoijZObc8zzRduLEEfIVfjOx0pj3omFSufwBXinlfKYAC70
-	bE6/r4Ct5s5AOSzjw2DtbWJJoixrauhfCDvKkZ9z4cmETAGGa8T3R378lRSdSrinOItfEIU/V5d
-	O41jdhIu/NbhTzpM0TLmAD1gOQp3HYohV1q646WL4OqNk91QOtZXV2OwBhnd29Wz9hah/Q==
-X-Received: by 2002:a17:907:6d06:b0:c2e:2944:d6cb with SMTP id a640c23a62f3a-c5096328166mr258566466b.13.1794587893247;
-        Fri, 13 Nov 2026 08:38:13 -0800 (PST)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com. [209.85.221.50])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b9164bsm123156666b.82.2026.11.13.08.37.59
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 08:37:59 -0800 (PST)
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-491971ac844so1404138f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:37:59 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEcqD/287EkdHKuX7vpCmaGMSID1Xq1VVOYchPyzH1uVRDWg4wAXHhedfcRHfoSZOqwK7aO1SQ0Irbk/94=@vger.kernel.org
-X-Received: by 2002:a05:6000:4201:b0:48e:870:7791 with SMTP id
- ffacd0b85a97d-49c71e3d623mr7912453f8f.26.1794587878240; Fri, 13 Nov 2026
- 08:37:58 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id C77C91F000C4;
+	Fri, 13 Nov 2026 16:38:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794587929;
+	bh=GLd3QVwK7lA3DRraSPd91wrloby7B/AUObiRFqJYDz8=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=ZRwcOVz1fTopoSdNnFEhZoXufHagEPWvoDZv5OZ/sLPhIqApJHa25I0VL/FCYKGpp
+	 Q3wmUdk8AygRE+nlYBJ9M9ROcQsHnwuvdZuGhzD8N8bM7rTpOrD2W5gQWb4TjQy5P1
+	 2ZsKQsCW7S9xDd2nJ7U7rgJJWeyP3YrWfTPx5gVWSDUNtF/iSHm6Ob47iEWhOonZm0
+	 KYr/lYx0l3DZMOyvOV7iBvO03tEUOpynq+cGyBCVa6g3o00FIkjENy6nXuOWuLJuId
+	 zd6xgJ8F8CzbQcP4ZZeKEcf9CTrRXRklPp+MlJNd7xXz47P7HNCtRN0Bu3jNStbxPH
+	 f9JDXBQtD7qSA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 223A949992;
+	Fri, 13 Nov 2026 16:38:48 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Subject: [PATCH 0/9] RK3588: Enable the PHP SMMU
+Date: Fri, 13 Nov 2026 16:38:46 +0000
+Message-Id: <20261113-mmu600-php-v1-0-231196049a3b@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,47 +83,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112154444.417-1-_@tawheed.cc>
-In-Reply-To: <20261112154444.417-1-_@tawheed.cc>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 13 Nov 2026 08:37:46 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=VMbAusUr0GpSaL3cRexqLt3mEkdk1OP96ZXtwT3rvSWQ@mail.gmail.com>
-X-Gm-Features: AclHuK_-H1omPIi3kNtcH0DdX5XIsoE0vQ7Cu-PsOqPjOrjRqcY_iHAPS8_aqcw
-Message-ID: <CAD=FV=VMbAusUr0GpSaL3cRexqLt3mEkdk1OP96ZXtwT3rvSWQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel-edp: Add LGD LP129WT112684 panel
-To: Tawheed Makhdoomi <_@tawheed.cc>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2N0W4CIRBFf2XDc6dhQDBsTON/GB8GGJSmKF12T
+ RPjv5fVpm9zkjvn3EXjKXMT43AXE99yy9dLB3wbRDjT5cSQY2ehpLKIqKGUxUoJ9VxBartNvE1
+ opRP9oU6c8s9Tdji+uC3+k8O8Gv4WE38vvTK/ZqJwa/SsjMPuP9J6BW4aasgMNa6nBO3Yb5JDZ
+ 5Tbnwrlr/dwLR+r11Nj6FDyPA5BeyI2CQmN3ZgQI8XglXfkY+RkYlIOk3Hi+Hj8Aj6BXwAAAQA
+ A
+X-Change-ID: 20261113-mmu600-php-0367fe7f1609
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ David Wu <david.wu@rock-chips.com>, Damien Le Moal <dlemoal@kernel.org>, 
+ Niklas Cassel <cassel@kernel.org>, Serge Semin <fancer.lancer@gmail.com>, 
+ netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org, 
+ Pranjal Shrivastava <praan@google.com>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev, 
+ Shawn Lin <shawn.lin@rock-chips.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587927; l=2938;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=Jmo5oZh4/PhZlA1l9HdDGiyc/oiQRtE0uFFYTpbR1r8=;
+ b=LclplOwvlOIHkFOlOW5OQnvIF078toyrzCc0cl4+5/NgniHUdg1bY9c9ymu8UBH1xAs51lm01
+ A+/isLOIibdBFDd0lHBhlsHMVBXeTuzftGlgXghFJ5QxBCWx6E4SoAH
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 
-Hi,
+The RK3588 PHP SMMU (MMU600_PHP) is disabled because nothing programs
+the StreamIDs of its masters (GMAC0/1, SATA0-2, USB3OTG_2) in the PHP
+GRF. Program them, attach the masters and enable the SMMU.
 
-On Thu, Nov 12, 2026 at 7:44=E2=80=AFAM Tawheed Makhdoomi <_@tawheed.cc> wr=
-ote:
->
-> Add the LG Display LP129WT112684 12.9" 2880x1920 eDP panel, used in the
-> Microsoft Surface Pro X (SQ1). It uses the same timings as the other
-> LGD LP129WT* panel already in the table (0x06b2).
->
-> Without this entry the panel is driven with conservative timings and
-> probe hits the "Unknown panel" WARN.
->
-> Panel ID: LGD 0x0555, EDID descriptors "LGD_DV1.0_" / "LP129WT112684".
->
-> Signed-off-by: Tawheed Makhdoomi <_@tawheed.cc>
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 1 +
->  1 file changed, 1 insertion(+)
+Shawn Lin asked whether mmu600_php should be enabled too; Heiko asked
+for the same handling as the PCIe SMMU [3].
 
-Please follow the example of other recent commits to this file and
-include the EDID in the commit message. Also, when you say "It uses
-the same timings as the other ..." does this mean "I have the
-detasheet and verified that it uses the same timings" or does this
-mean "I have no idea, so I picked what the nearby panels do". Please
-be explicit about how you arrived at the timings in the commit
-message.
+Patch 7 needs [1]. Please hold the last patch until [2] is merged:
+PD_PHP is off in deep suspend and the SMMU resumes in bypass (GBPA read
+as 0).
 
--Doug
+Tested on an Orange Pi 5 (RK3588S), 7.3-based with [2] (my Tested-by
+is [4]):
+- SATA0 root, GMAC1 and a USB3 disk translated: 1 GiB sha256-checked
+  on each; three reboots; no SMMU events or bus errors;
+- deep suspend 3/3 with all three translated; s2idle 3/3 with USB3OTG_2
+  and GMAC1. TF-A v2.15 kept the StreamIDs; patch 6 restored six zeroed
+  for the test (pm_test=core).
+Not tested: GMAC0, SATA1/2, the series without [2], the reset (no
+driver uses it).
+
+Developed with Claude (Anthropic), which wrote the code and the commit
+messages. I reviewed every change.
+
+[1] https://lore.kernel.org/r/20261113-smmu-v3-pcie-pd-v3-0-39eb4f919529@gmail.com
+[2] https://lore.kernel.org/r/20260929034510.2023173-1-praan@google.com
+[3] https://lore.kernel.org/r/9_7qTfdNSViwtNUGq9D13w@sntech.de
+[4] https://lore.kernel.org/r/179455903885.2418534.14656921897583011972@gmail.com
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+Arun Iyengar (9):
+      dt-bindings: net: rockchip-dwmac: Allow iommus
+      dt-bindings: ata: rockchip,dwc-ahci: Allow iommus
+      dt-bindings: soc: rockchip: grf: Allow a clock for the RK3588 PHP GRF
+      soc: rockchip: grf: Assign the StreamIDs of the RK3588 PHP SMMU masters
+      arm64: dts: rockchip: Add the PHP GRF clock on RK3588
+      soc: rockchip: grf: Restore the RK3588 PHP StreamIDs after system suspend
+      arm64: dts: rockchip: Add the clock and reset of the RK3588 PHP SMMU
+      arm64: dts: rockchip: Attach the masters of the RK3588 PHP SMMU
+      arm64: dts: rockchip: Enable the RK3588 PHP SMMU
+
+ .../devicetree/bindings/ata/rockchip,dwc-ahci.yaml |   3 +
+ .../devicetree/bindings/net/rockchip-dwmac.yaml    |   3 +
+ .../devicetree/bindings/soc/rockchip/grf.yaml      |  12 ++-
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |   8 +-
+ arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi     |   2 +
+ drivers/soc/rockchip/grf.c                         | 103 +++++++++++++++++++++
+ 6 files changed, 128 insertions(+), 3 deletions(-)
+---
+base-commit: c3baae5f1a15645cddadcb2b9abddef5df291f59
+change-id: 20261113-mmu600-php-0367fe7f1609
+prerequisite-message-id: <20261113-smmu-v3-pcie-pd-v3-0-39eb4f919529@gmail.com>
+prerequisite-patch-id: 51134fb38514fa92f20d3831e7905b02c7fbaae6
+prerequisite-patch-id: c59ab0be12ec964dc1698dfa3e0d5bfae82d0c54
+prerequisite-patch-id: 845e9980a7e0de45c746b7d8b6fd439033e08fdd
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
+
+
