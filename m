@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794531345;
-	b=dNyL+jPfslZm30swjvfLRWD2HGAohNislGihkes1HA01/kEvCyUqYXtpufEJV+PFz5Do
-	 DaDsGl/N8HsIM8A0rsGwMAAttQGsHlkttXim1BeKyukjjdNCxoBOonGnQYdoqtJom4T2u
-	 qjK+qM6ZnGVG/GnCmiWYH2qsm1kQvq3WocOVc+9sP0KF8IocVCKEaif0Mh0IRK4dhgXtl
-	 ZJg+DbzY2MLuGmiHiXASMuT1vVGHutBA7XaYXWq9MpTUTJoABw2Wks3g1UsmaXEnxxp8d
-	 JM7F35rGSEbhxqEQiDHWlxlgKuzz38iZ9uSdGnUd7oBtXthlMo/2qRJI1C0Li54vC8Q==
+	t=1794531347;
+	b=TWzFX2Ggr8LNU7mMqcBBEBjgOZ5+kJKxGeiHQXP6/1985ZX01fSQeibuA/XucBrhgrko
+	 C6qqEIYw30M0WsvcCgYvG5BHWYoU/oqpUpEyP4ZDEh/8dLlWkO4K4h1yPwpW81e+AYGY8
+	 L94YkK5afzQ95nDrTxFjvVURVuhxqL2IrqACt2y2lcWuQE22iG7mU5MLMsEdabaznXZDI
+	 BKEEwKQBXE0LJTQcKlRGiQVxAY5rOlaD3maMuQLk9nZmtJDhTnjJG6CJNO77rW6c1DNxq
+	 pTsQq8IZoaTl47fF3sP6hpQqnO6pS7nmVVzX6TY1r2DS0v4DK+Wn8wn3DmNsthILa6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794531345;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794531347;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
 	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=0tUZ/r90AwSeslzGso6dCb5vC4FbswESQba0fvf+Foo=;
-	b=0CGdvZ8RY2Wel8tPkxaooi8Pj/a5QId+uGhApyS+Rek+AaPVYsnfe0JUWz5GOwoRf6fV
-	 bhFQ42R5vY25lYXjm1mC7AkN4I/hVj9Sy2x7cZ82jenInaLfCrrUNwDUBmvS80kf4nBPb
-	 9SAIUzpOPFUmNDJPMmz5YS1t3OTXhTOywd+thlSp5mONWqDrk9GRQWop7AV8PuLk01JyP
-	 o/Y7YfHLHd0+guUJXGMSlFpP/x6DA8udnkxNIrqP8LPHfq7UBRuau4aZ+ggL/MAHBPaVL
-	 kZZUOAkBlcJULtNXpqUIomjVLkOyC2IDVMNUSts3pV4Yqthb38SbpX19nm4TL8nOQDA==
+	bh=jcVy99/4546IpPlUV+chsxZxg6fKFHtjcBIv8IBgnDA=;
+	b=HjpuWhbHAxk0nyjXK3dZckZE8APkGs/2RZ9dVBn5YslCkaBihueg5st/ebEx1J/lP0hy
+	 3Xu5mKPlKlkJvPIjjd4+n4UhJUZAyY+ZcveERxiOGhtvvASt/gyCfPL0prKQzSFDdgi4q
+	 DwTiWug9qkPPRM5Q73pibZdz7WPLDTkAUfUvuA2ljNw1BkdlldmbOIPtreXC8n+Bk0ijQ
+	 EzqhPLgH2YkxwB5hQ7aewrpn6NvNd5FO0GaXLx41Bp6vcKvlDd/WK0BuM5EcfYMncAZPT
+	 LL1t9C2Xs1BjdEFGFu5bmAUEClZY4jSO+qUWLlQVUMr2jG2dJJEkwxro9XmcXXOxvwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lPKSbQ+v;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lbX7Xkre;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5C3606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:55:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D5C3606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28BE5606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:55:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28BE5606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lPKSbQ+v
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso862524f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:55:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lbX7Xkre
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-491846221ffso326580f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:55:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794531344; x=1795136144; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794531340; x=1795136140; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0tUZ/r90AwSeslzGso6dCb5vC4FbswESQba0fvf+Foo=;
-        b=lPKSbQ+v6cn0qckNZ2HObZqsWk1yflt0gbSiGlrodWsODQWWsX8iNNAe/NiVO7iZ7K
-         pxsKAgVOAe01/xg1mq2bEoXzeKmqT3eiHSQW0hUIspOlUMg5aOoNqKoBSQopIKlrxgA4
-         5upzWRZcqdU74/2IGFFH+DYcZ7RXy45EEvY/nIwEVwWM8pzaNyptVAlRvgc0xagJ5uTS
-         KB3XF3mEz8jm04ufGZclHmxIaSvhwbmRdNlox3Hi3gZ9m/lwj+w5XtEyuEsjsZkMuPTd
-         ByppVfwoDb5r6hyYUseRFotpWidghcACbYAHKRmQ0y6P252Rn4VeYz6tjgxivGAZq9Fy
-         npbQ==
+        bh=jcVy99/4546IpPlUV+chsxZxg6fKFHtjcBIv8IBgnDA=;
+        b=lbX7XkreAKRNKOu5bAAr78H5T54rlJTQ+uR1EUX5bsk5/uqD3MSuwb5tv4C5IgnNeB
+         /xFLviFjffv29Y4A6i4p9ESY3p//U32kUVrP6/heuTyMixYJ+MTCgu7Xc+gRySu5Iity
+         +vYENv1ugwa8Map53en9lcSuS7np9EDqY4nA3rVGk4qxz5H/P5miXu22NmtXXHrLoqm+
+         fWQwyl9ni4L6I8m1pxTTqBFC3p2JqByRwHUEIFNy8KUfRJrD55J/wN7a0ZWJ5SX+HWxA
+         AcSij5PmZOQdzDGw/IV4F27lA7imS+nAbkzEIBaCqJRoHgzTGIjPHpUxDWDzNfFNRWxo
+         zABw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794531344; x=1795136144;
+        d=1e100.net; s=20260707; t=1794531340; x=1795136140;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0tUZ/r90AwSeslzGso6dCb5vC4FbswESQba0fvf+Foo=;
-        b=GnydfZqzehHIwJnCjq2jhQWpWFNScaWcIPBa/NxnhpLG5NFfIRNsvXsPrPAS6sDo+B
-         +bBikpN4bthaLG8N/reqxBRDCyNoUCogPLFQwINL22THz8h5HAdtp7bK9Sj10Db14aIH
-         Blry7JuBvG/HI+WL01PBYz+4sBV1z03TLRLI1yKOtsCUboFXITRQp7zGwpDqA5899XO9
-         y74eyIuv0z/UNpjP0iicnYEsMdUC6nLp5tRNAYMxwdKKQBTWZEN7u4Am4cdGdihvFqz9
-         mW3+Ys99RqZFRja9ImniiCsYeRblFIlhd5l/m/7jZripDbC3A6aTKMz6IXgNY1aq2xPG
-         HZnA==
-X-Forwarded-Encrypted: i=1; AL+hErFHuDM6ZjjtH5xE15WwjF2VdOhXersj75ZiCNOCqflJDEuGQR5+rFOkmhwWvO/u/kiMjNyUq/e7RdPIZLQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QYOjKlQOw+jn4Br50If4ZoWIQkvLW2/nCwedHeehGBZKdwW1N
-	dhOrMekJAivgoRFwPFmwPtDoDZOclUG0Xt1SA9WSxWK3GZiq0M+YPfPYPvLo+T73PY4=
-X-Gm-Gg: AYBFou3QS3twLapr6/xTi9wvgY0ZSlskqnexnIJv1KoEQDN50ZO6rpsN9n2tjinCA77
-	nmS+RbAX3BnKd+fo2xDDuLogUXIiabu1n9u9ogkXvH6QofyfidmzIN79F5uEJumbwX9/e7U2dr1
-	sKZ9dDfXfwnE5u4lr3iHXDRzwPBC0cwMREBJrv1CbVI2HLvUc/Ig6W6BJ3PE3fF8ZYa01xSL8oj
-	nI+BUOOKVr7T5zC8SHnwuznTInszS8jyQnPer/damVKUx6iavOKeicQU9rdkeC+pGG17WVT4qpI
-	yCu2mMbbj184MLO6BGDJ+yOUQqpcxVXiGG1Heda5HnJbHpUGVNnAn1l7yYbCgmJlU8MMqq6fPSx
-	/2/dR/Rwren98y7fRud+W1eB9hh7SEpqHkzqPlUBU0tnl5DOZdfUXM6rN0zUhI3ijDCXskwQB1s
-	wwnIOr6rFh+R94LfDdYeD8nsrlEpmrZRQ6AYshka9xZaCqpHUYvutvO/zr7aJtDKYQ87keO+xOa
-	Mydhl8Hp5nL6lMttAFVraLsOy7wxrljIvCbCZxzkTTSGidW6EdJTQNx0WD6amcwic1gDYsJvIi/
-	enaBDiAaB+vfe2Q2/5NcwKDEBuvFz7JqEhbIT10Lgxw=
-X-Received: by 2002:a05:6000:47ca:b0:488:8347:a110 with SMTP id ffacd0b85a97d-49c6f5e9818mr1560854f8f.7.1794531343598;
-        Thu, 12 Nov 2026 16:55:43 -0800 (PST)
+        bh=jcVy99/4546IpPlUV+chsxZxg6fKFHtjcBIv8IBgnDA=;
+        b=t6pXZ3x3MkM18HXmKpMbn0da92cUFt/kDTb03P1VeXiRMhCqu6Fr/VbujqUV9uQ6Y0
+         3TnDqoUGdpqs5VZDHQkqmG1OYkuTQIWplWmmHl5mR8PUxnW7gd+Tw/l6CYJtYtkmLdGw
+         lYS2naJnMF9OGcO626LLaaqPbsTxM1onHIX5W6dy9XU+yQm8EJPG5/pQywgi1M/bIFK0
+         cVQ1KoYMg7ecAeC8CCGMIWYQd4W97vKoFOD5A8/FbjqnjG5zzK3whL44PBBLni4kWjcV
+         M+3IHAJ6b1IY01APu2jVzMAcbgmdLVkS1rlHdIsi+yf0Pk8UkaMVd81jwOyGpZ2L2VBu
+         mD1g==
+X-Forwarded-Encrypted: i=1; AL+hErGetcZgem2SmKT7V0jGID9RP59aCy5PxxV7zp9Hcw3zE6w+U+EgkXjY0LZEci9IQWYwXBC6XvcDHuvZRDM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Gy9NHs80gVsuD360rurvL+9l+SEatYwiZhAHfuMfuTvk8RgZY
+	nY6PmnvraDG4qSdKWJLFxdIjqmD6bTNG00zdDWQcVvoIliqtCMLE5a0qa2An/8vxsnM=
+X-Gm-Gg: AYBFou2g6GBRH+d9RVY3NOaqmzqYBN59aUrMQMPA9e3CBmNZ2debnr9RhOQgzJlGZT/
+	otyaHYCRfgRjW2K6/DdgUNlN8xn/gO/SBjQsLAAtUTjlEXY1kFoCKED1tXxwGOXsWDENLUrrdjP
+	MFgvSK5Xwur9xsDQ5P4bGVMbyjwHqOAfWi0p3PBYSi8ObL8HgO7F1Ohlm/JC5l1f7uEqzjKKKIE
+	C3dKiKjm7e880UvDUPHbGxAa+xxO9utVLcgxImahH8nXvB0+zftai/bMnJuDVW7tRhAXbQbcF88
+	uQ0kXDh3CVLCWrmfCMT69hAx6wPgd9bnNTQZOnf0bFgppenhbDByw2n19lddHXUeKK1fiyHxuOZ
+	+xqTjOAwJydmpcZK3phF4SkflNSqECojQezAtqJVpf1qlGlhcxxCXm0qtiMG0jQG2A5tz5u2hvJ
+	qX6s3yAUvhZB1dHBlLTkfNvTYNefr9kyvI5tJW1GbzNruF9OuJz2M3HO1Vn7mP1MZTMWtSwuZgR
+	PaAfRDxEeeyqZl0Uj8slk8z7AKGvr9SwTzN0xSajuIGPNXhscV4qoOZvpSikS8YmIr9/qVQyob5
+	wsSEDRoEOVALzN7gneXI2mDnXt8boVB9SuZAYHSPSw==
+X-Received: by 2002:a05:6000:29d3:b0:48e:6a23:4a09 with SMTP id ffacd0b85a97d-49c731641bamr1485962f8f.54.1794531340462;
+        Thu, 12 Nov 2026 16:55:40 -0800 (PST)
 Received: from [192.168.0.167] ([109.78.26.158])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8e794sm2106178f8f.59.2026.11.12.16.55.40
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8e794sm2106178f8f.59.2026.11.12.16.55.37
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 16:55:42 -0800 (PST)
-Message-ID: <39881cfa-6f44-41fb-aade-041d9cdf2f9e@linaro.org>
-Date: Fri, 13 Nov 2026 00:55:39 +0000
+        Thu, 12 Nov 2026 16:55:39 -0800 (PST)
+Message-ID: <c5444a64-ad14-403e-8453-0bb0a16dcfa8@linaro.org>
+Date: Fri, 13 Nov 2026 00:55:37 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,8 +91,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] Revert "media: qcom: iris: use disable_irq()
- during power-off"
+Subject: Re: [PATCH v2 2/3] media: qcom: iris: Wait for threaded IRQ
+ completion during power-off
 To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
  Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
@@ -104,49 +104,123 @@ To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
  Stefan Schmidt <stefan.schmidt@linaro.org>,
  Hans Verkuil <hverkuil@kernel.org>
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Joonhoe Kim <26rote@gmail.com>, Birk Skyum <birk.skyum@pm.me>
 References: <20261111-fix-disable-irq-safely-v2-0-8e13f68c2ef9@oss.qualcomm.com>
- <20261111-fix-disable-irq-safely-v2-1-8e13f68c2ef9@oss.qualcomm.com>
+ <20261111-fix-disable-irq-safely-v2-2-8e13f68c2ef9@oss.qualcomm.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <20261111-fix-disable-irq-safely-v2-1-8e13f68c2ef9@oss.qualcomm.com>
+In-Reply-To: <20261111-fix-disable-irq-safely-v2-2-8e13f68c2ef9@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 11/11/2026 09:05, Vishnu Reddy wrote:
-> iris_vpu_power_off() is always called with core->lock held.
+> +void iris_acquire_core_lock(struct iris_core *core)
+> +{
+> +	mutex_lock(&core->lock);
+> +
+> +	while (READ_ONCE(core->irq_disabling)) {
+> +		mutex_unlock(&core->lock);
+> +		wait_event(core->irq_disable_waitqueue, !READ_ONCE(core->irq_disabling));
+> +		mutex_lock(&core->lock);
+> +	}
+> +}
+> +
 
-This statement is not true : int iris_hfi_pm_suspend(struct iris_core *core)
+> +static void iris_vpu_disable_irq(struct iris_core *core)
+> +{
+> +	WRITE_ONCE(core->irq_disabling, true);
+> +	mutex_unlock(&core->lock);
+> +	disable_irq(core->irq);
+> +	mutex_lock(&core->lock);
+> +	WRITE_ONCE(core->irq_disabling, false);
+> +	wake_up_all(&core->irq_disable_waitqueue);
+> +}
+> +
 
-And TBH as I look at the code I wonder if it should have a lockdep 
-assert if that lock is a requirement...
+Ouch, this is some mad amount of jumping through hoops.
 
-  The threaded
-> IRQ handler also requires core->lock to proceed. If the handler is woken
-> and queued around the same time power-off is entered, it cannot acquire
-> core->lock because it is held by the power-off caller. disable_irq() waits
-> for the handler to complete, resulting in a deadlock.
-> 
-> Fixes: b9c2215bdedc9c ("media: qcom: iris: use disable_irq() during power-off")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_vpu_common.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> index 243bd845349f..1e183fc4e58c 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> @@ -240,7 +240,7 @@ void iris_vpu_power_off(struct iris_core *core)
->   	iris_unset_icc_bw(core);
->   
->   	if (!iris_vpu_watchdog(core, core->intr_status))
-> -		disable_irq(core->irq);
-> +		disable_irq_nosync(core->irq);
->   }
->   
->   int iris_vpu_power_on_controller(struct iris_core *core)
-> 
+As General Pierre François Joseph Bosquet said of the Charge of the 
+Light Brigade in the Crimean war "C’est magnifique, mais ce n’est pas la 
+guerre" - It is magnificent, but it is not war.
 
-Looking at the next patch I'm fully recoiling.
+Why do we have to hold core->lock over iris_vpu_power_off() at all ?
+
+- What is the data-structure or
+- Logical state (the state variable I suspect)
+- Or guarantee of atomicity
+
+We are providing holding that lock ?
+
+These are pretty much rhetorical questions - the above locking scheme 
+can't be right. It implies we are doing something wrong and not really 
+fixing that wrong thing.
+
+Holding the lock across power_off() seems to be that wrong thing.
+
+disable_irq_nosync() seems to be a correct fix - so if our locking is so 
+muddled we have to go to the above - there better be a fully reasoned 
+and unavoidable reason why.
+
+Perhaps I'm being overly reductive here but - why not "just" refactor 
+the code so that the power-off comes after the piece held in the lock ?
+
+i.e. push that into a worker and then do a synchronous wait on the worker ?
+
+The chatbot told me I was wrong about the worker because "it would 
+deadlock" and I can't be bothered burning the tokens to tell it "I 
+didn't mean hold the lock in the worker"
+
+It did make the point that it thinks the only thing being protected by 
+the lock is
+
+intr_status = readl(core->reg_base + WRAPPER_INTR_STATUS);
+...
+writel(CLEAR_XTENSA2HOST_INTR, core->reg_base + CPU_CS_A2HSOFTINTCLR);
+
+Which venus does like this:
+
+static irqreturn_t venus_isr(struct venus_core *core)       /* 
+hfi_venus.c */
+{
+	status = readl(wrapper_base + WRAPPER_INTR_STATUS);
+	...
+	writel(1, cpu_cs_base + CPU_CS_A2HSOFTINTCLR);
+	return IRQ_WAKE_THREAD;
+}
+
+i.e. power off in the IRQ.
+
+Perhaps even simpler - just do the power-off directly outside of the 
+locked section... once the IRQ is quiescent ?
+
+Either way I don't think we have a good reason to hold this lock and can 
+certainly find a way not to hold it - assuming the only thing we care 
+about is kicking that register - do it in the IRQ why not else do a 
+worker with a rendezvous or even more straight forward.
+
+void iris_core_deinit(struct iris_core *core)
+{
+	bool power_off = false;
+	int ret;
+
+	ret = pm_runtime_resume_and_get(core->dev);
+
+	mutex_lock(&core->lock);
+	if (core->state != IRIS_CORE_DEINIT) {
+		iris_fw_unload(core);
+		power_off = !ret;
+		iris_hfi_queues_deinit(core);
+		core->state = IRIS_CORE_DEINIT;
+	}
+	mutex_unlock(&core->lock);
+
+	if (power_off)
+		iris_vpu_power_off(core); <- this ?
+
+	if (!ret)
+		pm_runtime_put_sync(core->dev);
+}
+
+---
+bod
