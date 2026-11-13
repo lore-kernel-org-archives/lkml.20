@@ -1,59 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575363;
-	b=unS/i+R8nF3dK4vXru4418Tfv1prbh8BW8blAk+eyYjrxa1rau4RU+dCQ3PHhafxbpcR
-	 tOTCeyqGRKqDEO0RL1Wka7TIy+NNO/FJ2+xZBzmlT+Vt6fdVTt++yhV1ODf/+PwUVqkbw
-	 eFWsQrGVe+t3FD6aAD1f7sgSzQt/C9PKAzeqQL1yuAOrpHJtPga5wN+9uNgBllClNpiM5
-	 wQA9T0V/rMRI/nP9EuO8nuKbMlJkwq4ViHr2QKbKdvcMwdwIYRD7PFof9oAG0to+Fg5y1
-	 UcpTwFs479/YfJPG5hzDO4GlTqj/vrHiDTgCGQlFhctQ7oiYTT3jORRehsw8ZJrlhzg==
+	t=1794575400;
+	b=fvox95v5SW4FZ0bJFudYv1bJtZAy01zF8ojlILHqAZ/ay1iBmRjT7eD53Mhj0cKdSo0J
+	 BXG6ZOf+AJ8SmcruJEWJiRNZfat+ZuZdpBNZRVcct2/KjAwKCxN5UXtEHJINlYA5jRT0Q
+	 0J6l3XD4iLPEbg9M8AO4cL3Pgz33c7dXIhUpfFa3zT9LkjeOhMrXgPpC5iwiYwj5GomkI
+	 nmvalMN4GybuGoTx2OzQIBNJ36U4UBW6ZmambQbcGMOYwoiXepw7DMNcNiR97YjE+YQXf
+	 xFW+p2YANWTOlpxRSQFh+5/+hrvbx9vtXxMyy03xpNHR99Mmmu52vQc/yVl0mCvhkyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575363;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-AI-Review-Draft;
-	bh=Y7h+yCRAr82VOkhpTfQVqsVcVOgFIcVy2auuIa6V7sE=;
-	b=JAsyxgXBHG+/YxMi7guOGMUYPDuPY48aBjNO5fvQsVqVwS+G7TixauM118oU4dHq/mdu
-	 sE3Pxxizyg995c56r/qhjwvcCOWHEaq32a9fRZUmEUkY4hLvnwyNLt9Lhtav/4QvMY49X
-	 kyD9MUJOTUYAFDCr38bIq73F4krZCJFU+oY/NnC/qhU5rXaAC4Dt27xu/Wt3RlkIbllfd
-	 OxoWCwxAziyKGTeu6Vh9GoycjWaS6qr6PHkXgxCqoNhzVbTd72lpAxTdd+BSglJP3vbqy
-	 M2lwwNhSpS9iyvrdkFbPZl8p+A92ZYjK2qHk9Zw0bQ0jr1xidXFNT//+Uiru9utH9ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575400;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=UGpozxc5A71n0YtBFvahDsepqP8hUjGxDWMrgIIYyVA=;
+	b=QzHoPYtqWvy8qVulcVVxeYnpJoU7QoM5FV7a2fn892WeBYj9w/zppTiAzpmBvrbfcHFm
+	 zis0GnG9D966tYDQU+AXCCSN/m/jVLSg9dIDfUysmIQt92qCqkuAxBWP45nOR3VzQwNIB
+	 BirpDaRk/9+HzzUZKVsfqrz2GnDrsrbYB+Jg41vjFKB+s5QVRRrOQmQZSYv9r3Tgaf3HA
+	 jJJh+a+fNS9m6RxXCZhzXg2y96RcaA/ZKQ1+VbNrniKQWzutLzwWLtZ1Pejzn5c2evBs4
+	 FAsBr6lWikWhJ4+3m9bs9I44uJGmbu14MhNsBcncODOKEy2eBA1s2CaRtE/vPvz5Xxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBtH531r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=d4tYK06J;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67BC8606A330;
-	Fri, 13 Nov 2026 13:09:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE8D606A32E;
+	Fri, 13 Nov 2026 13:10:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CE8D606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBtH531r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06B9B1F000C5;
-	Fri, 13 Nov 2026 13:09:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794575363;
-	bh=Y7h+yCRAr82VOkhpTfQVqsVcVOgFIcVy2auuIa6V7sE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iBtH531rFbnt6bjGnqahjuymVPXkgFvztTPbCkaNxBvHpaM8d8uBKuMW6knCP1ZNo
-	 4qzH/GX0s8KsZ7FV7hhT8h4lnRlR6FgSITFflLhUclyLSYQS03Lr81Tx7Btkv5hBeu
-	 bx//Q2A4WpmPFgbrxy9FO7vpdizBKoF4ONjW/DwgPznue6vAo8K5NMYYG3MR7+tY2j
-	 VqBHGYnu57rlbSnonnjRlHcIv15VcklN0gk8th78Sf8EH1cDWWroEdj6BpTXtqmvo7
-	 bbM3mJ5bWYZnVdsmuaUoTzDtnNjsiDKMqCicuv2Gza5MdqtUCGP+WbaxKPGpnc6nWg
-	 hXNUbRMyvYrjw==
-Date: Fri, 13 Nov 2026 13:09:18 +0000
-From: Lee Jones <lee@kernel.org>
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: stable@vger.kernel.org, Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	linux-omap@vger.kernel.org, mfd@lists.linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=d4tYK06J
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=UGpozxc5A71n0YtBFvahDsepqP8hUjGxDWMrgIIYyVA=; 
+	b=d4tYK06JyuRSphC2q+1jJ/PkmSrhrX/4nWFQPmTyjPIEmJ2dQmIntywfvbpjKXf4mSj6WiAIg23
+	zKVekrI4JXBJGthGC+9nw7fkux38tSHXkvG7frI3zH2WyBLLQPS1IsQXjGbvVP4ZQvPKGYFqOGlDN
+	+u1mhmq658G6m7wP5puRggMHnyF1kD7RRRoIdTOZMDqJuOItQfNTheWhKgzy0BtE2lCxk4bXJIrXI
+	objyyBQ+MJtGlTeN0tXysDpO00aAEXnVXm6j4a71GUT8P9vvHYbYq9rhkfV+CPNpLhJ0UB3dyxhMu
+	NO9B5UPo25E/J3W9FZt/nkLwZjO4NTHJU+5g==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xRr2O-0000000EfNo-3YiM;
+	Fri, 13 Nov 2026 21:09:53 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 13 Nov 2026 21:09:52 +0800
+Date: Fri, 13 Nov 2026 21:09:52 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: David Yang <mmyangfl@gmail.com>
+Cc: linux-crypto@vger.kernel.org, Olivia Mackall <olivia@selenic.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/6] mfd: palmas: Fix potential IRQ action leaks on
- removal
-Message-ID: <179370041880.793788.14407997006744050474@kernel.org>
-References: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn>
- <fe4ee2ff4b3ad6675a46a169d6de6410db32b652.1793377422.git.liguangshuo@mail.sdu.edu.cn>
+Subject: Re: [PATCH v2 0/2] hwrng: histb: fix the FIFO batch timeout
+Message-ID: <avcMIMHcnpL5xNUf@gondor.apana.org.au>
+References: <20261104114108.2378751-1-mmyangfl@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,50 +70,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <fe4ee2ff4b3ad6675a46a169d6de6410db32b652.1793377422.git.liguangshuo@mail.sdu.edu.cn>
-X-AI-Review-Draft: <fe4ee2ff4b3ad6675a46a169d6de6410db32b652.1793377422.git.liguangshuo@mail.sdu.edu.cn>
+In-Reply-To: <20261104114108.2378751-1-mmyangfl@gmail.com>
 
-On Sat, 31 Oct 2026, Guangshuo Li wrote:
+On Wed, Nov 04, 2026 at 07:41:03PM +0800, David Yang wrote:
+> The poll timeout in histb_rng_wait() was derived for a single word, while
+> the device feeds the FIFO in batches. Fix the timeout, and print with
+> dev_*() so that the messages name the device.
+> 
+> v2:
+>  - reword
+> v1: https://lore.kernel.org/r/20261103041403.4071708-1-mmyangfl@gmail.com
+> 
+> David Yang (2):
+>   hwrng: histb - fix read timeout
+>   hwrng: histb - use device messages
+> 
+>  drivers/char/hw_random/histb-rng.c | 20 ++++++++++++++------
+>  1 file changed, 14 insertions(+), 6 deletions(-)
+> 
+> -- 
+> 2.53.0
 
-> The remove callback deletes the IRQ chip before managed OF children
-> are removed. Their later free_irq() calls cannot find the disposed IRQ
-> descriptors, potentially leaking interrupt actions. Depopulate the
-> children before deleting the IRQ chip and auxiliary I2C clients.
->
-> This issue was found by our static analysis tool under development.
->
-> Fixes: 124e9deb1c40 ("mfd: palmas: Use devm_of_platform_populate()")
-> Cc: stable@vger.kernel.org
-> Assisted-by: OpenAI:gpt-6-astra
-> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-> ---
-> Build-tested the changed object with x86_64 defconfig plus COMPILE_TEST
-> and the driver dependencies (W=1).
-> No runtime or fault-injection testing was performed.
->
->  drivers/mfd/palmas.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/mfd/palmas.c b/drivers/mfd/palmas.c
-> index 7fc886f4f80e..8a0b7b1e89d7 100644
-> --- a/drivers/mfd/palmas.c
-> +++ b/drivers/mfd/palmas.c
-> @@ -677,6 +677,9 @@ static void palmas_i2c_remove(struct i2c_client *i2c)
->  	struct palmas *palmas = i2c_get_clientdata(i2c);
->  	int i;
->
-> +	if (i2c->dev.of_node)
-> +		devm_of_platform_depopulate(&i2c->dev);
-
-I think it would be nice to devm_* regmap_add_irq_chip() instead.
-
-If you also convert the auxiliary I2C clients and 'pm_power_off'
-teardown to devm, you could drop palmas_i2c_remove() altogether.
-
-> +
->  	regmap_del_irq_chip(palmas->irq, palmas->irq_data);
->
->  	for (i = 1; i < PALMAS_NUM_CLIENTS; i++) {
-
+All applied.  Thanks.
 -- 
-Lee Jones
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
