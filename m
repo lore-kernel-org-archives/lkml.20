@@ -1,79 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602434;
-	b=cOqmuBcQLObCfNONREtUmQXANyrB7VrGvg/COHCzqJeIfkZRk/E1d9H0KgncTVo+SSWs
-	 s2CCBOes3E67eLZN7e1HFskofBpLvNeO16/SdZsn1oq6NJrfouv/eb7d8sPkQB9P4nNQ0
-	 kIzBgKjwRpUBlqCaoxuMEo/DBk+7Xgt9GXmDHWHqnaoEsUPC6dAxXekV+12fKKNYboYxa
-	 /hfMea54Mys3YctqlicICI1vsq4vGPPCkXD8n+jk6uI+7/PWxeN9RpKQIb+W8C4xLA7ia
-	 vkfH3YFy6a9mfCYAyKQCjGRjDudGAaK+93pp4C1Kny8IPUqm4arNjS6tYy/4zMzPG5A==
+	t=1794602445;
+	b=wG4qXvOgzo7tF9RVMnXq9KmdD5CgHzCiw+XgrXe71Tw9cZa2gMu5tH9n4t++PabdMnpj
+	 Pv86t2Map0Za1qEQm/K0gXRU8Hhx6+TJhPwtSXWhFxl4GxNp/VyEkxwepHpI4Vce9JK2F
+	 QFoC5DtbEx46XX6flXLVhEVt7cusx8T50g8ijLm65GDOz6m8S46Esnz4t+HwxiuUA7Ns8
+	 mzmOgEJFsK65v5OFs1LD1izcYnkq2tSoksF8fZrAFVVu6Yvh+UU/46y2Hzp2+Q0rnFbk+
+	 wsehr0MjEDmO+p0vxvK07U3wK/Az9QtKlDCVBIztf2ak68PpVIc09sG/0a3t/o1m9Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602434;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=YqOyLeJF1LZn52GyfM0b3GDfTRLm5jSkYKCfEBCotc0=;
-	b=GFhrtTLG9dpiz6QUnNrCCR2Z2g0BIdQ0jaUW7U7lJZs6AsMJhLUFYkbtcGupMYm69avn
-	 hC7GFN7WoQsXUz+lWkzJP51KkDzZaG6OONPrI7yJIGntCaHvHLOjkdJTwanjDQ9ahXI9B
-	 oldj+BR9pDVMXaK6f0QB5GJ6Qpnjd1OQVlIJB1oiWLjwnnVLmpj4LLBYYTr7Sb6nzSRmP
-	 z8+SbLw03NU0EYCdCBO3PqAbUWILlRd/iZyRWHk0SntYt9zTQLU305mQodJaF1cJQ/D8O
-	 PeWCyXngCiHgviyNyFoQw7JpTNhu11npr0YthNl+GoXWlCLvwk/obFBZc7j43Kyljfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602445;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=cQWS3D95HYvPb7PWVOlG0meKch2x/9ofLSM7aTh6608=;
+	b=UijTu2cB0b94OrQJic0CFNvbYdWu40495P5tVC+6XrfTHnNbiw7CPBM9QxIUHZLmogrk
+	 0iHDlP2ZxH3bS6Tl9z9uTGc2Epw2opQfUrNyBZF5FEYVEwr9lQW9lCr+3Q6bTP50eXU7l
+	 RlVcwmopOeF4SemD9KezwORYtQyHB/4RE9MdYK2g5J4Um+CNUcccM57kj+VCkyF2F9xTF
+	 3rRBq+z1VOhrsk0nUlJCEo+/GeP0KuZtoR/xFbTf07Ktm8AW5MyKYbauibZRXhqAmOLtr
+	 kqi3LShthJZXMcmqGuxAl3mgTC9gYX6FnzQYwpmEO7tLMqy8PffvHAxhD8m5G08SvVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gompa.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=eQYxRWKB;
+	arc=none smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D00606A885
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:40:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2D00606A885
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gompa.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-86103aaac12so2014028a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:40:33 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794602433; x=1795207233;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8513C606A88B
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:40:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8513C606A88B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=eQYxRWKB
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ac97e45a79so15527261fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:40:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794602444; x=1795207244; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YqOyLeJF1LZn52GyfM0b3GDfTRLm5jSkYKCfEBCotc0=;
-        b=BxWZM4z79YPKgQHHNXCVqCL9vFiK8HK3VwI4c8UASwRaymKKwvDgVpB5oHZ6d6kPd3
-         AkHAYbGZ1V/dXWLQwD3iiu9Gq3XZBnYhAqQFsV1S46/WfIkX/epZTAE6XEMOugDT0aWn
-         49JKrWhXYxHdXgsVHHVkT6q2HD51WMWXjl2LQ2qphc49mCQsOW4ZYKqti/dEmIIB8qHM
-         g926nur6dIUEoVX1L4GWy9QkCVVfQz+xTYckTlLa4+iMaeWg7x6y99DXB+YLn+6rDh2e
-         s7ml7vLxQEoNV3N/RTmlmmhBG2VQRH1tRSn/ZQLv8XOrIoAQt4+atPaG4xWXOAENhiyQ
-         i+5A==
-X-Forwarded-Encrypted: i=1; AL+hErFIjRhYexFbK9sRT4HBGEB5wkHFJQfh7jGb7O7zwjr8IQBM9fzPL/7DWALrDL4tvsxh/owGrfcQXevNsTI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sVEa8jcbLBUv8beHb16g8sT2UwgBQ3rFQ520oPeDi11I6l3vQ
-	hs+4BQEKe4xMAyji0QEImOb3gN+POlXvD+LeMEj+iZTnAU70zOdQg3Z2nknZdVBw
-X-Gm-Gg: AYBFou1DfxUsLsT8wcsXcHlsC1z4PO9OxSKNAi63cdfXSj1IeHU6grfFGsBF171RLfE
-	0rSm6lklHidg/tyU6exNvN7pT9nNuP+aX7sISO+7NqX/f7pOjCjgkjKN6SpwOTh+OZ4RxCqMwHx
-	1ZA5imJihzbLJNuk4FHxXgKw6eGMMIXwit5JfJGFJuWNouhq4w+Irr3L9hQoovnL6P+cqs74SCt
-	vA/2S9410lDt1OuMlQNxl2iGl3TLfNzB08MdadEnFieEqISUjU32tiKb7zkC4Y/dS67bjOd5TGK
-	MPWPbGLYfPuLX4bM7b7D6Kze+/A4dmrHVWHY3Zp8FggE1qPCBAPLptEpvJ+RN1kta5h8dAluMW2
-	rsLlXgOexB00ekOQDhVDYkJEA+ShHjdy4NSRtqkhkqTd2NTDHGNsLMy6vemsoUvGg07yNMfAjg2
-	GD2IZ4T1uigVvAfErzGSN69H//XtvqF5L/mQ7rq85CwBKLy3S43tG56nK6M7U5FP7qi3OYyv2S5
-	vPZGx6aQnUWa7+7nvdjGaLEt2JCJyvV+Z+/Ejnx/GqzIjIj1y3NPT7YvfY4YwBDuajfuEdMfend
-	HZubxPDAzIyvAmzhZ+njqqnfO7uJBG8ZcnPcpZJqV/a1DTQvpeAcjadC9bE2mvbNFMWw3HuEWo6
-	5Bz75/xLYXyoofsYDBmy50WgNUtTALara0tX6LSGkzSUVnhZXY96Xi8sm1sw3ssN1l2HLIqESBK
-	tZ
-X-Received: by 2002:a05:6808:6415:b0:4e7:f052:460c with SMTP id 5614622812f47-56e6582c8e2mr2077025b6e.23.1794602432718;
-        Fri, 13 Nov 2026 12:40:32 -0800 (PST)
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com. [209.85.210.43])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e70d6572csm2979414b6e.15.2026.11.13.12.40.32
+        bh=cQWS3D95HYvPb7PWVOlG0meKch2x/9ofLSM7aTh6608=;
+        b=eQYxRWKBoSn33nCjMTJbVBy19a6PeaxPkO0l+OrePpRAzD3hW5cilo/AeFE/FMsx6S
+         S8xP42iKIP/NxI3wDqPhv1u22L6K9zqmP41RLuYLIsgjOpTfcuc2dmhmN6p4lMhFfP98
+         5PFBFqkAJKvNbVc/OmcCgp+x7p0oQmqrCkVAg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794602444; x=1795207244;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cQWS3D95HYvPb7PWVOlG0meKch2x/9ofLSM7aTh6608=;
+        b=TqSJdfVTUt15eCCna4ZzYc7Ep4ypRyBaZ/tVDhl77ageQHGLBh3AmfCWdATwHfHefU
+         heA27KpsLunh+p5OC1FSM8iLvOdAzpxsrnn1d4Abv6tQ02z+QntxDjfezsGGbJfyMVSD
+         CWnNk/JEALxIskgzjvtNYnFntSD+QAKfEQN20S7DI1n1m7qTL2/hv6+Kt8mB8HcV7i1G
+         vJ47J5ANXMrfoMiT8jVI5iql+2fKTGBPvpjnggCskh940Lg+dYHeplgVxsSjN6t68j84
+         fzEK2Io3wAR9IElRJWHayMEo8N1cwkH5I5RzD2ZTDjcm686WKRQ+X95Z6evYJJuKobZx
+         b7sQ==
+X-Forwarded-Encrypted: i=1; AL+hErHS7NDnuuMc/TTpuNBeeyotDVlQOhjHkpwVZulSHqp0IN+KGf2ofUa6d5CJmgXgdf+SfnZ/T1Ezse3oRNU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9y4NeYU57HHiKTl8V7/iufYY1NG13B6FSkOT6Be/mPILQ6FVzq
+	9s8f1N2Mi8Em4VPd7cP71w5xD+OO2SouFoJTQY01N0jXisNC8SAewSIoraaSs1ixdSMeSz2yXAL
+	8AztoeNA2
+X-Gm-Gg: AYBFou1d9BlrxPalTwkU8p+hI9iqpQVXmO9zeYHJUMLng2VLRMaZENSG2T+831b7krU
+	VlhCHaUInSsdCjlP7P6F7yq6te1RqZKuJgoI3XUiR6yLGil54dxiPI2Z+xa4RbF/u8YplQbOopI
+	p4Yc6TZI80G1Rdmc8qcq54OMJ3XdW1gMnmP/5m4Eb4VKHvpTWxs2K4zQ7eLQ4DP3yd4Kb/pjAYL
+	jliXOjZjeCtywfDWiLJdYDRO4y8sn9TXLjccHWra1BRz+7Ute9oZ6VntJis+O5Wzsp0ysZRN0Zq
+	BmO3Geb4115Me0ONB0+Eby3pIaCqVZW/0FouDsfk7pvj7dnCi8zmdNJL3r5CyXkUzH7HHGggUXA
+	BQBSY3Wg8CgEsck5QBWhGaKKxQ+avHIzD8397TIbfnJf8DrweiC22npdbjJcLXCjNaBNcI5KJ6A
+	nZAFku46Zn/S7b4pkQqU7pqOHh1YdWSREgYWw2HKVo4DJGQ8WIuJoi66fOGXs18FWVB+AuzhLxq
+	NOcF6zfkJ7qDYzSrJNRaB7yIiL7EaeRBqfsM0zzRrNR5caob8975XRSh7mOt0msFBgQ+o4Y3kxS
+	9ruMytepE6DnfVkTrNXa9W5IQZsdg/cBS5EydW0CB2tY+CUgC95g0E/E8JmrLgOrsG93bSEIGKQ
+	s43yf3tjr5heDFQ==
+X-Received: by 2002:a05:651c:41cf:b0:3ab:4f5e:3edc with SMTP id 38308e7fff4ca-3ae2b4f0263mr10829831fa.15.1794602443656;
+        Fri, 13 Nov 2026 12:40:43 -0800 (PST)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com. [209.85.167.43])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c17135c232sm1090848e87.80.2026.11.13.12.40.43
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 12:40:32 -0800 (PST)
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-84e513877a3so2130403a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:40:32 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHycUKiO63zmnwQmLRoyFom+1UDc6JdsP7CSzjdK2+fGpotKNS6xUmSYjJVrKlF316eog9Ud5tKYeuBPBc=@vger.kernel.org
-X-Received: by 2002:a05:6830:1cc2:b0:7f9:555:1df0 with SMTP id
- 46e09a7af769-86289878845mr2035460a34.12.1794602431926; Fri, 13 Nov 2026
- 12:40:31 -0800 (PST)
+        Fri, 13 Nov 2026 12:40:43 -0800 (PST)
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bccb867d6fso1991171e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:40:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHC6WIMYytFK+5B1VH02CqVAHmbZOM/GevmTB02MNOvKa27gi3fwrjAzhhMYI03Xw/Dsgjbq83W0Z9hCis=@vger.kernel.org
+X-Received: by 2002:a05:600c:8b05:b0:4a4:4d57:8462 with SMTP id
+ 5b1f17b1804b1-4bb55a99ed0mr76502555e9.24.1794601957270; Fri, 13 Nov 2026
+ 12:32:37 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,173 +94,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108-b4-apple-mtp-keyboard-v5-0-e2c97b82669a@gmail.com>
-In-Reply-To: <20261108-b4-apple-mtp-keyboard-v5-0-e2c97b82669a@gmail.com>
-From: Neal Gompa <neal@gompa.dev>
-Date: Fri, 13 Nov 2026 15:39:55 -0500
-X-Gmail-Original-Message-ID: <CAEg-Je9ffh8v9PKn-pRc7DLjD0h9oP64ZB_FR5B0K=YfctJx2w@mail.gmail.com>
-X-Gm-Features: AclHuK99xhj_lrjZso--3IknqiDF9swsBuRbZJPQdiHng0qFnjGS4Y8OcMsuew0
-Message-ID: <CAEg-Je9ffh8v9PKn-pRc7DLjD0h9oP64ZB_FR5B0K=YfctJx2w@mail.gmail.com>
-Subject: Re: [PATCH v5 0/8] Add support for Apple Silicon DockChannel internal keyboards
-To: michael.reeves077@gmail.com
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, Jassi Brar <jassisinghbrar@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>, asahi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-input@vger.kernel.org, 
-	Yureka Lilian <yureka@cyberchaos.dev>, Hector Martin <marcan@marcan.st>, 
-	Sasha Finkelstein <k@chaosmail.tech>
+References: <20261020153652.2907186-1-dianders@chromium.org>
+ <20261020083501.RFC.5.I4a691041bb6d31e5ab2fde8cd4139ca72ee72c5b@changeid>
+ <CAFLszTh6vmFGVD4_Reewe9p4QqQjN=CVJ3SgfQKosAhedJpAQA@mail.gmail.com>
+ <CAD=FV=V7neyofHdv-LdAtFaEhAcWEHHNRYAKrr5f2EHXWmKAuA@mail.gmail.com>
+ <CAFLszTiVvuaMUsRHjhRTFxFf8Q2hbN1a1K-G=QFv4DyXNpWY6w@mail.gmail.com> <CAD=FV=XAj0f7vm89eCor2Ea7_nHaZmE-6VC+vsQ4vXido7Kj0A@mail.gmail.com>
+In-Reply-To: <CAD=FV=XAj0f7vm89eCor2Ea7_nHaZmE-6VC+vsQ4vXido7Kj0A@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 13 Nov 2026 12:32:25 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=U1JfzYKJDBjCkNGTAZCG6QAC76WrPCqj7MPJR0rDCAbQ@mail.gmail.com>
+X-Gm-Features: AclHuK8SHFgoyjCXNJrs3RjG85XKuoNtkqoClolncw8zp41l0jasiLh2oN-rCLw
+Message-ID: <CAD=FV=U1JfzYKJDBjCkNGTAZCG6QAC76WrPCqj7MPJR0rDCAbQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 5/7] kbuild: fit: Add opt-in FIT_FACTOR_DTBS support
+ using fdtfactor
+To: Simon Glass <sjg@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
+	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
+	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
+	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Marco Elver <elver@google.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 8, 2026 at 2:25=E2=80=AFAM Michael Reeves via B4 Relay
-<devnull+michael.reeves077.gmail.com@kernel.org> wrote:
->
-> This series introduces support for the internal keyboards on Apple
-> Silicon M2 and M3 MacBook models.
->
-> On these platforms, built-in input devices are managed by a dedicated
-> coprocessor running an RTKit-based operating system. Communication
-> between this coprocessor and the main processor is carried out over a
-> low-latency hardware byte FIFO interface called DockChannel.
->
-> To support this input path, the series introduces a few new components:
-> - An apple-dockchannel mailbox driver to handle the low-level
->   byte-stream FIFO.
-> - A DockChannel HID transport driver (apple-hid) that boots the
->   coprocessor using the RTKit framework and encapsulates the HID
->   protocol over the mailbox.
-> - Minor additions to the apple-rtkit and hid-apple drivers to support
->   the TraceKit endpoint and integrate the keyboards into the existing
->   input-quirks framework.
-> - Devicetree bindings and DTS updates to describe the nodes on M2 and
->   M3 laptops.
->
-> The transport driver is based on an original out-of-tree implementation
-> by Hector Martin, but it has been significantly rewritten for upstream
-> inclusion to use the standard Linux mailbox framework and align better
-> with upstream HID design patterns and reduce reliance on hacks.
->
-> While the coprocessor manages both the keyboard and the trackpad, this
-> series only enables keyboard support. The keyboard can be initialised
-> without loading external firmware, whereas the trackpad requires
-> firmware. Trackpad support will be submitted in a subsequent series
-> once these base transport layers are established.
->
-> Tested on: MacBook Air M3 (J613).
->
-> Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
->
-> Changes in v5:
-> - Link to v4: https://lore.kernel.org/all/20260925-apple-mtp-keyboard-fin=
-al-v4-0-304c267518f4@gmail.com/
-> - Drop ASC mailbox and DART binding patches which were picked up and are =
-in apple-soc/dt-7.5
-> - Simplify HID transport reg-names from coproc-asc/sram to asc/sram (sugg=
-ested by Rob Herring).
-> - Replace the empty STM child node with the 'apple,has-stm' boolean prope=
-rty (suggested by Rob Herring).
-> - Drop the keyboard child node and move 'hid-country-code' to the parent =
-node (suggested by Rob Herring).
-> - Simplify the transport driver to filter supported interfaces in C and d=
-rop fwnode handling.
-> - Collect Reviewed-by from Rob Herring on the DockChannel mailbox binding=
-.
-> - Rebase on v7.4-rc1
->
-> Changes in v4:
-> - Link to v3: https://lore.kernel.org/all/20260918-apple-mtp-keyboard-fin=
-al-v3-0-e356464e454b@gmail.com/
-> - Describe the DockChannel interrupt pair in DT (suggested by Yureka Lili=
-an).
-> - Serialize command transactions and finish STM setup before signalling r=
-eady.
-> - Keep IRQ flag reads and acknowledgements under the controller lock.
-> - Clarify teardown synchronization and use the explicit-bounds HID API.
-> - Preserve interface-start errors and allow waiting again for delayed rea=
-diness.
-> - Simplify FIFO writes, IRQ startup and compatible matching.
-> - The command and IRQ changes address Sashiko feedback.
->
-> Changes in v3:
-> - Link to v2: https://lore.kernel.org/all/20260918-apple-mtp-keyboard-fin=
-al-v2-0-a5c685e50b60@gmail.com/
-> - Fix failed-probe cleanup and interface publication ordering.
-> - Fix report lengths/types and reject replacement descriptors.
-> - Terminate serial replies and encode checksums as little endian.
-> - Honor HID_QUIRK_IGNORE_SPECIAL_DRIVER.
-> - Clarify the DockChannel TX byte register layout.
-> - All changes above address Sashiko feedback.
->
-> Changes in v2:
-> - Link to v1: https://lore.kernel.org/asahi/20260630-apple-mtp-keyboard-f=
-inal-v1-0-506d936a1707@gmail.com/
-> - Rebase onto latest upstream and add M3 Pro/Max device-tree support.
-> - Use an optional STM node to decide whether to wait for device IDs
->   (suggested by Yureka Lilian).
-> - Rename bindings to match the t8112 fallback (suggested by Conor Dooley)=
-.
-> - Fix FIFO MMIO write width (suggested by Yureka Lilian) and run mailbox
->   interrupt handling in the IRQ thread.
-> - Remove the duplicate report fixup (suggested by Sasha Finkelstein)
->   and redundant HID dependency (suggested by Julian Braha).
-> - Fix teardown and the missing HID stop callback; simplify interface look=
-up.
->
-> ---
-> Michael Reeves (7):
->       dt-bindings: mailbox: apple: Add DockChannel mailbox
->       dt-bindings: input: apple: Add DockChannel HID transport
->       mailbox: apple: Add DockChannel FIFO controller
->       HID: apple: Add support for DockChannel HID keyboards
->       HID: apple: Add DockChannel HID transport driver
->       arm64: dts: apple: Add MTP DockChannel HID nodes
->       arm64: dts: apple: Enable DockChannel HID on M2 and M3 laptops
->
-> Sasha Finkelstein (1):
->       soc: apple: rtkit: Add tracekit endpoint
->
->  .../input/apple,t8112-dockchannel-hid.yaml         |   92 ++
->  .../bindings/mailbox/apple,t8112-dockchannel.yaml  |   88 ++
->  MAINTAINERS                                        |    5 +
->  arch/arm64/boot/dts/apple/t602x-die0.dtsi          |   47 +
->  arch/arm64/boot/dts/apple/t602x-j414-j416.dtsi     |   24 +
->  arch/arm64/boot/dts/apple/t6030.dtsi               |   47 +
->  arch/arm64/boot/dts/apple/t6031-die0.dtsi          |   47 +
->  arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi     |   19 +
->  arch/arm64/boot/dts/apple/t8112-j413.dts           |   19 +
->  arch/arm64/boot/dts/apple/t8112-j415.dts           |   19 +
->  arch/arm64/boot/dts/apple/t8112-j493.dts           |   21 +-
->  arch/arm64/boot/dts/apple/t8112.dtsi               |   47 +
->  arch/arm64/boot/dts/apple/t8122-j504.dts           |   22 +
->  arch/arm64/boot/dts/apple/t8122-j613.dts           |   22 +
->  arch/arm64/boot/dts/apple/t8122-j615.dts           |   22 +
->  arch/arm64/boot/dts/apple/t8122.dtsi               |   48 +
->  drivers/hid/Kconfig                                |    2 +
->  drivers/hid/Makefile                               |    2 +
->  drivers/hid/dockchannel/Kconfig                    |   14 +
->  drivers/hid/dockchannel/Makefile                   |    3 +
->  drivers/hid/dockchannel/apple-hid.c                | 1167 ++++++++++++++=
-++++++
->  drivers/hid/hid-apple.c                            |  118 +-
->  drivers/mailbox/Kconfig                            |   12 +
->  drivers/mailbox/Makefile                           |    2 +
->  drivers/mailbox/apple-dockchannel.c                |  357 ++++++
->  drivers/soc/apple/rtkit.c                          |    2 +
->  include/linux/hid.h                                |    1 +
->  include/linux/mailbox/apple-dockchannel.h          |   29 +
->  28 files changed, 2251 insertions(+), 47 deletions(-)
-> ---
-> base-commit: 1d368e025d7c4fe63c8bf68ccb4bc3c9772ab75c
-> change-id: 20261108-b4-apple-mtp-keyboard-94f1cf08ef11
->
+Following up on one piece of my earlier reply:
 
-Series LGTM.
+> The idea is that fdtfactor and the overlay fixes will all land in the
+> upstream dtc project. Then as part of this series we will bring both
+> in, so we should be all good.
 
-Reviewed-by: Neal Gompa <neal@gompa.dev>
+Thinking about this more, we won't actually be able to sync and run
+`fdtfactor` itself from `scripts/dtc/`. `fdtfactor` is a Python script
+that relies on `pylibfdt` (similar to `scripts/make_fit.py`), and the
+upstream kernel maintainers have pushed back against building `pylibfdt`
+from the kernel tree's copy of `dtc`. Since `fdtfactor` needs a matching
+`pylibfdt` installed on the host anyway, `fdtfactor` will simply remain
+an optional external host dependency when `FIT_FACTOR_DTBS=1` is used.
 
+By contrast, `fdtoverlay` is a C host tool already built in
+`scripts/dtc/`, so we _will_ still sync the `libfdt` overlay
+`/__local_fixups__` updates into `scripts/dtc/libfdt/` once they land
+upstream, meaning composite DTBs built by kbuild are still covered.
 
---=20
-=E7=9C=9F=E5=AE=9F=E3=81=AF=E3=81=84=E3=81=A4=E3=82=82=E4=B8=80=E3=81=A4=EF=
-=BC=81/ Always, there's only one truth!
+In v2 I've documented the optional `fdtfactor` external dependency in
+`Documentation/process/changes.rst` and
+`Documentation/kbuild/kbuild.rst` (as well as in the commit message).
+
+-Doug
