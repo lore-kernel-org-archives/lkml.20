@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794578009;
-	b=GZHOB+9oXnWOoBgzX2yqEBd/XlKkrdsJnn7EOINCNtMqRXNN6FXmqguE3052b/yzr3Y3
-	 mrKVwCEQgVbou5rHKF/LUaXonPP4dX2o2I31jXfI4A/UqSfv317EadJ4wwY9afAlfpOx+
-	 7gllU45uuyy1lqVUSnJxqCu8PbofRRU2U6RFVxl45zGPxAiCbIXOYol8gDyCPDd6Cx7eN
-	 RBbnovoZ1S+cfy2K3OsqyefYVgMfk1a0NkLD5HCfeEbJuZZgvar2AkIUeMKRWsQzwtM7x
-	 wdZtSsqcNSzOwjjBplgoSu4trVQ2eIi9uk1bdMzZ8STLrzDcl2LXDpvPYmV1IfVER5A==
+	t=1794578015;
+	b=JMhRqIQk6uuVR9uvGgQnvAQiM73PudJcSBaWTRHoyS3l9J5pzMeOQpdQ7YTWMTIX2jRI
+	 iBL+MJPJuPnDIw19uMwI5uVu/TkWIrWRKRUJxQR+yFor7PbYc9qWXT4jsPdnxK51ZVLW8
+	 Ysi+vl3/WgsQdJNSh2qWLQSYti8BaPc4neEbiR0obiNpMYQ3GrEFwpUuwho/b3+1VnvLR
+	 jWVRPEGeVqZchPpod85kwKfb/jai8zLiDlnUjzmGu0r4Crq+4eX1DOO0e8ixyoz+30/f/
+	 9sGbSOalMGp1Urcd0ETaPq3FERGntQu7yxn6/6pItGdxtNgLzeqW6ypijG/7qkHfdQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578009;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=OpvfzW9Dt2ae2NU+aWz0za7rartm1yMIX237xsigiwk=;
-	b=PGwC0BJ2ygKuJ3OEGgJ8oCfEMhVoytC1vYPmnBbVgcWVCFRA+ZZ5zyu4qJ+uA0RcZwj3
-	 USsR4ixNLX3RRYHHJIZUqNEMQ1y+xo8APtdLjDZWnk6QXJ3CqA+n+EUBvESKcrbJZT9lO
-	 bJCUeMiWF4zgTxlP3AHIx8BLUL+MHrZVtUWjnxx7jSik0QTx9nOJFy15Wb7FZUtAmnzhL
-	 mdJ7hdvcj6SRlqtXDCYyM6EFBfrXNdXqPAcQ5rtxzGWMVyOp16ZwUd1oljfUeqxpvLppf
-	 hqVodif103vKESA7zjzzoswlv/m6h/syGVYFkJstES3H2l+7H0847ceBaL/Aqg+USSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578015;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=F+S1OY2DdV1BNoaCvOeQiRudx9V3jy52LLaoOUct0hw=;
+	b=PKLjiFyHdPfa3Q8rT6WOXbBpJCa5V9wW3cKTre0vuN13vLkNfAFtYgGQdb1DqlQRP4hP
+	 zgUgY71pcUZo5nw5/ICCPCQxGmJAqSyPEJVhRGE7s6z/OyhCZdQlhIvFBXbli7NbcDrgP
+	 RWq6Imw1ZqOOjUrsxwm9nyfGl16upGJ4PrI/F9vPewxM6aI26y8OJICdM9FS5WNiNqyIv
+	 1ceX/H6gHOMT3kYLs9zm4NZZDJFt5b6sKf6Za/jbZQxf/6WAASqJgj3DZbHwO7BLtWtBt
+	 VuuqnoMGd4tKWeyqsgMAiTJeI9+DMK7QbPuoqbS8arHGbMHQBtyWFHda+VE5yUMpd3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="IyRE+h6/";
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJ2BZ3MG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80758607412C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:53:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80758607412C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91530606A336;
+	Fri, 13 Nov 2026 13:53:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IyRE+h6/
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2eced5a4cb9so8233395ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:53:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794578009; x=1795182809; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OpvfzW9Dt2ae2NU+aWz0za7rartm1yMIX237xsigiwk=;
-        b=IyRE+h6/BprbiT9YfKqROdO8bQAo+A9P5DBpWh7NAFxsTtHmRb+PVB5foakalhsJLd
-         //dRxsU74v70M8ZO1jT99iOuMazMM8iqLyrZx1WAEt1BUTP4FKjYMYPPFNI97wq+wt02
-         lfjJE07r/cctnslWn/iqQVQmSSfRNdwiTbfXFSygjUlo+g6GKgv5Luz2SAuCbiNANTMk
-         oYKThmDNsjeKbGRyB+ZLHPyVHvIZy4k64/K2ghexG51Edu589TTsc/CZm98VspHefSBZ
-         gxoYYRO/HhDZPMP8MehkGZYX1ZiGTzy7mDHjrcuCZdTGDEj0E1yEQTLXR+ChBQPA4KCd
-         Y9ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794578009; x=1795182809;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OpvfzW9Dt2ae2NU+aWz0za7rartm1yMIX237xsigiwk=;
-        b=Uu5OcQKn/pXMii+b1tft+ZurSREtC78f/6vizbwVnTJoAYXhC1Z8ItlbJXxa56LHcG
-         brXnNSIFZYzi5sguMdd2Wf3dqA4yLZBhNVeOJpZU6n3yeIaGuJxbPF6ywFuwYyb8Md/2
-         3EF1xavnAJwJadRkiL5tgTGqH4X9tHNAMFmRkZiJgUDIqJMJx1ulIO8Qm7rfhNC1diW/
-         yZgdZB2Uqq8npsqHnPCVBPkelCbxZifeZSZkKcGy/TIzymGkhpwdSl8XklrefUB/kakd
-         OeJjnbe+nLYB0358ZlDmex0MjHexu8E+vpXM0FzvYkDRq4oRcLuUg8AIgIwKQYo4a+cC
-         Yofg==
-X-Forwarded-Encrypted: i=1; AL+hErF8Gb4P8s1bz9X9y1YSbsPTJ97w5uM1q1Fio8MLklOncUpTSm0EEkg4gb8lTv37anmBh2mUhAafXsFhE4E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fa5b6MktJzO91tQ9TdEBvX42BY/h1A6zhvSReR7tatzUmslvx
-	bFo4OFT7oYB0MfClDjD/W/0CznvKc844JKlcCw/I4YLlEBJ4jjP5zqqNQ6SkdRYdgvGmx+wTdoM
-	beJTqAA==
-X-Received: from plbkr11.prod.google.com ([2002:a17:903:80b:b0:2ed:8abb:208a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2c7:b0:2e9:9a19:c5b
- with SMTP id d9443c01a7336-2ee0dd2382emr24969425ad.47.1794578008628; Fri, 13
- Nov 2026 05:53:28 -0800 (PST)
-Date: Fri, 13 Nov 2026 05:47:43 -0800
-In-Reply-To: <20261030213747.2611815-1-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJ2BZ3MG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A96DE1F000C4;
+	Fri, 13 Nov 2026 13:53:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794578015;
+	bh=F+S1OY2DdV1BNoaCvOeQiRudx9V3jy52LLaoOUct0hw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BJ2BZ3MGUjHrpJK2WU7o4+s+G1Vt2Y3ele2N7f2wYl9cj2J5BiJa4dMJkE7R9m2+i
+	 5fP4GK1XegErUtYmoejk1Z2beYCrpbFjIZ3EtUVilM//iFmgMf6c432nHQkfoOjGbl
+	 kGW1rlQv8mNOiNqDBoJ7lotLP+4/AheWVE3ARwYeegbVxUP721CMGTMNMHmlaTsObT
+	 sZdKSXNfJWPZ6e8FtjOz2zOqbirBpUBmH4BvyygHEcGQxXgK+QMb+QZDADgdDR9N9C
+	 hsTa8ePQNvbfRNPfRYSivlL/IFI7ChHHEU68sPRHiBlu9mp7ESvWaMGTxHx2t1ykOI
+	 mqEt74VWGywBw==
+Date: Fri, 13 Nov 2026 13:53:29 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Mina Hui-Min Chou <minachou@andestech.com>
+Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, jic23@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be,
+	magnus.damm@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	randolph@andestech.com, cyyang772@andestech.com,
+	tim609@andestech.com, az70021@gmail.com
+Subject: Re: [PATCH v2 18/19] riscv: errata: andes: limit the IOCP workaround
+ to RZ/Five
+Message-ID: <20261113-helping-elsewhere-cbcf0c8f67ce@spud>
+References: <20261113071143.1446167-1-minachou@andestech.com>
+ <20261113071143.1446167-19-minachou@andestech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,43 +63,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261030213747.2611815-1-seanjc@google.com>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <179441819203.80207.10000872984066251793.b4-ty@b4>
-Subject: Re: [PATCH v3 0/5] KVM: nVMX: Honor L1-owned CR0 bits for LMSW
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mahmoud Abumandour <ma.mandourr@gmail.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IzdCK0dvvo63ja0a"
+Content-Disposition: inline
+In-Reply-To: <20261113071143.1446167-19-minachou@andestech.com>
 
-On Fri, 30 Oct 2026 14:37:42 -0700, Sean Christopherson wrote:
-> Fix a bug where KVM ignores vmcs12's CR0 guest/host mask when emulating an
-> LMSW from L2, i.e. an LMSW tha exits to L0 but not to L1.
-> 
-> v3:
->  - Handle the read_shadow in handle_set_cr0() (and for CR4, because why not).
->  - Kill off kvm_lmsw() entirely.
->  - Add a bunch of comments to the selftest to explain the dangers of running
->    with CR0.TS=1.
->  - Test MOV CR0 as well as LMSW.
->  - Add a patch to take full ownership of the must-be-1 CR0 and CR4 bits.
-> 
-> [...]
+--IzdCK0dvvo63ja0a
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Applied to kvm-x86 vmx, thanks!
+On Fri, Nov 13, 2026 at 03:11:42PM +0800, Mina Hui-Min Chou wrote:
+> The SBI-based IOCP check was added for Renesas RZ/Five (R9A07G043F),
+> the only upstream-supported SoC whose AX45MP has no IOCP. It matches
+> the AX45MP marchid and the mimpid of the RZ/Five core, but it is built
+> into every kernel with ERRATA_ANDES_CMO, so the SBI call is issued even
+> when the kernel does not support RZ/Five.
+>=20
+> Move the match into soc_is_r9a07g043f() and make it also require
+> ARCH_R9A07G043. Kernels without RZ/Five support then skip the SBI call
+> and take the generic Andes cache errata path. No other upstream-
+> supported SoC uses this AX45MP mimpid, so their behavior does not
+> change.
 
-[1/5] KVM: nVMX: Preserve L1-owned bits in CR{0,4} read shadows
-      https://github.com/kvm-x86/linux/commit/3193e9153882
-[2/5] KVM: nVMX: Honor L1-owned CR0 bits when emulating intercepted LMSW for L2
-      https://github.com/kvm-x86/linux/commit/7e538a7bb16b
-[3/5] KVM: nVMX: Synthesize #GP if L2 writes a "bad" CR0 value via LMSW
-      https://github.com/kvm-x86/linux/commit/7672fa397f00
-[4/5] KVM: nVMX: Take full ownership of the post-VMXON CR{0,4} must-be-1 bits
-      https://github.com/kvm-x86/linux/commit/565c14684d6f
-[5/5] KVM: selftests: Verify KVM handling of L1-owned CR0 bits on writes from L2
-      https://github.com/kvm-x86/linux/commit/798e54a8c0bc
+But a device using this soc that doesn't have a dts in mainline won't
+function properly, so this is fragile. Why not just do it properly and
+check for RZ/Five specifically?
+Can check for of_machine_is_compatible() probably?
 
---
-https://github.com/kvm-x86/linux/tree/next
+>=20
+> While at it, rename ax45mp_iocp_sw_workaround() to
+> r9a07g043f_iocp_sw_workaround(), as the check is only used for RZ/Five.
+>=20
+> Signed-off-by: Mina Hui-Min Chou <minachou@andestech.com>
+> ---
+>  arch/riscv/errata/andes/errata.c | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/arch/riscv/errata/andes/errata.c b/arch/riscv/errata/andes/e=
+rrata.c
+> index 530d2df216e0..f2535a81b1e2 100644
+> --- a/arch/riscv/errata/andes/errata.c
+> +++ b/arch/riscv/errata/andes/errata.c
+> @@ -25,7 +25,7 @@
+> =20
+>  #define ANDES_SBI_EXT_IOCP_SW_WORKAROUND	1
+> =20
+> -static long ax45mp_iocp_sw_workaround(void)
+> +static long r9a07g043f_iocp_sw_workaround(void)
+>  {
+>  	struct sbiret ret;
+> =20
+> @@ -39,6 +39,13 @@ static long ax45mp_iocp_sw_workaround(void)
+>  	return ret.error ? 0 : ret.value;
+>  }
+> =20
+> +static bool soc_is_r9a07g043f(unsigned long arch_id, unsigned long impid)
+> +{
+> +	return IS_ENABLED(CONFIG_ARCH_R9A07G043) &&
+> +	       arch_id =3D=3D ANDES_AX45MP_MARCHID &&
+> +	       impid =3D=3D ANDES_AX45MP_MIMPID;
+> +}
+> +
+>  static void errata_probe_andes_cache(unsigned int stage, unsigned long a=
+rch_id, unsigned long impid)
+>  {
+>  	static bool done;
+> @@ -51,8 +58,8 @@ static void errata_probe_andes_cache(unsigned int stage=
+, unsigned long arch_id,
+> =20
+>  	done =3D true;
+> =20
+> -	if (arch_id =3D=3D ANDES_AX45MP_MARCHID && impid =3D=3D ANDES_AX45MP_MI=
+MPID) {
+> -		if (!ax45mp_iocp_sw_workaround())
+> +	if (soc_is_r9a07g043f(arch_id, impid)) {
+> +		if (!r9a07g043f_iocp_sw_workaround())
+>  			return;
+>  	} else if (riscv_isa_extension_available(NULL, ZICBOM)) {
+>  		return;
+> --=20
+> 2.34.1
+>=20
+
+--IzdCK0dvvo63ja0a
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavcWWQAKCRB4tDGHoIJi
+0qzAAQC7B7sPqS4BTa1bnyUteSZr78QNByD/8OtF59kGw57czQD8CYG7GE3WQIFL
+BKxtBdTljwnjq94bH8XP/9L5YptDHwU=
+=+VjA
+-----END PGP SIGNATURE-----
+
+--IzdCK0dvvo63ja0a--
