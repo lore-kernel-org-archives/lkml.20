@@ -1,89 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794547545;
-	b=Il34h7RfyAMNqLsqDMGK67lObwSwfSamcjvuHqAA6YgvoCTpw999nEXFKnqN4CMcXYXK
-	 R2WVCJGtEpOJ4g11ZeYW1mPj+XGXy6nYf59Xe/En1dOWsmJsbrmL4OKJdpvRS75ccBBjx
-	 /duep0Kosjur8rugbjRFHPRel4B69GAg4VwNZB2r6HKCvCs2r0sKf4Cba4Auer30szzU8
-	 xcDwPKMZQXTY/A6d0vTUiLe371SVxXgRCi9nMV1sY2uz08RglM2nuyF+o8CKLLuxDcHWQ
-	 igBQCfl8HyetIWLvA3mEYpFBShiNeWo4OSM69kh73SygJQASsBhnzz/8H2GyhkYqpkg==
+	t=1794547706;
+	b=5J6wG8138NgrJ+Rtzli52ycWTOs/Q8/86DJsl6icOKzg0NV8nPVtw5vBWRHnkTuJJwQs
+	 e1weSaq8LX+W8zxg5MWi6WJZABr4uC8USaOwekwgxXjLpNogBeKYuVcsyI+5DEaJqXIAE
+	 PGtMV0/OYUyVmJhJYku7JJo5FI2TWFvAlmJnJbWvcrsoHkSZ9Z3TtCmOjwx5bPHeyVvsZ
+	 gA2nfFfv/T/aTh3pjGJ3rkLhpGi3AyhYxPdfqGp3Bqcb4LYFjrC3P65MUxp6++PKpbCY6
+	 3ttPDU/OPTpU2NX5edJiI5WQS6InBNtYn0GURe183DKxDmVbZfVDDaSwaEwuHMLq3xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794547545;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=hc26nAXdEa9s0ljd85iZeQt/CoG3wZSNWTf75pTYhKo=;
-	b=CR5+5+Rop+nWmc3ckhG92TYVV4GODgUp9pi4DDDhZW1juESKXV9Ow/a6uxG1/Yfqg+LG
-	 N4rLaNZXVH7i9OENBKYB29D5E8GO2Cmelo2me33QP1CgYL71/FIfv3JXl6MQ5uBPNQHmv
-	 zMvWdKmTlNMZ3ZgYOzLTkvZue/9d3a7F/XKiCl5xa+gtZFfmGDIZQo7+rTtKXc7TWpiy7
-	 vKVRE3WsaJec/ZX0dZIzdswaaobpkYmRyZq5sc3URCRiiGTuSwJq/giFY7lnPRA6+q+x2
-	 eZsDStzoEfr5uDGUeiGC/K0x2WS92vzD3EQFVhdfwNiQ8vtlAUGuXMg6i8w3jIGm5UQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794547706;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=cqeUZDKASaczhIXZLCB0TEXhtB+A7gj3n3l57g855N8=;
+	b=kdNdezytdPWM+y1/K1vQ606sXd5mPmzu85yFXdtH5qkZyKmUfPBQ9bzAfyxlF3w9Kkbz
+	 lIDZDL8nDEIyBdfjQA3ITkjRRJnaXjbxfqPgaH6Rdjwl381UQDhrOFT7pxz/y4G+6/xO3
+	 QVcxGNdwBMwJX8MiZ35FxUAeciyEJi4jr3zG0IqToLJ2hcI9RKGstJ7ZFyCcDn19BYUKT
+	 WbWtfNeTNCnOgvTep/AS/42MNu6/QgfOWkBClJI7Pqs5z0kPOYIjxP8jXHaTM2un9AqdQ
+	 9nb+Wh26idCOYpz7uR48qjL9/xzIVJcjAC6ouy8zJYC2IaXdpNWfLnjSrEDjVbjSUEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UGX37Xq1;
-	arc=none smtp.remote-ip=209.85.222.42
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=GZqjtZns;
+	arc=none smtp.remote-ip=54.254.200.128
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA00F606A894
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:25:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA00F606A894
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC27606A31C;
+	Fri, 13 Nov 2026 05:28:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC27606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UGX37Xq1
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-97ccbba8e86so162816241.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:25:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794547544; x=1795152344; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hc26nAXdEa9s0ljd85iZeQt/CoG3wZSNWTf75pTYhKo=;
-        b=UGX37Xq1B5mND896ZmBiiD31YFttEBfrFng2/axVOm0A99AW1tB2HuU2+66VnwdebZ
-         JJUWmInL3Uc9n7/1tFdsRdHT2DwM+sx79sLrlFqBBsWuWolkPlZICq14uIIGGm+mgkpQ
-         R9sgILAPPmKhjweQQUCk7TajMrLDwPCkwYbzhzxzNaX0f+1pO0oaWmbniQKHCgX3cnx5
-         pPXSTZG3FDw04nwO9VqusZGLDgOT6ASMmWE7NB1YFSGlYeIHW1eeFyATc3kcm5KoXA07
-         Ap4/3X68liHTQCsn7g3VD51Fh4u80w+AgUwVfxPCMps1DQFjbRKeM0BI15mismYwyG8/
-         Jlpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794547544; x=1795152344;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hc26nAXdEa9s0ljd85iZeQt/CoG3wZSNWTf75pTYhKo=;
-        b=A0fnZ0r0E5G9AhYy4S0BuoatJ5GJXXOSPA394yOrSXNGbPVkO5hskorjoFjwzyHIbI
-         hBAuW7LKQlozmtK9qS/ddwS1zALzZA/PXrPOuYMcVkqisap8Fip5N52lvJWVmjkbXcz5
-         f0b1UMsPNDZpDCSQu163NGlZGK0+StbLOSSlbSk3v33D9Dvrb5CGbjwaQhtVvsP397pQ
-         bLJA5SJW7Lxb8swCDAIFWY5wl/rNGbdy9Ym5ejyGw9NkXgyqRE66dsXKb9RhwV4iUBuM
-         CQh+JY3tZ3NWgrMxwWJa53ZdVQ4wHzIuyLXymY/Zup41QlkrL1wsKtry/GoodJcGuKsS
-         QeYg==
-X-Forwarded-Encrypted: i=1; AL+hErFOdxLUBk8+AodaGLkPPm3Z6KAGVIqskRE8NcVUQn0xmvIgQ0GVAMwbkdOYq9Tu/TbZzmaBV+gAizL8v3E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xvKVon6H0UuxQnK09x4FbU8KXC9pC2jDjOCtCTcl1+D55t1A+
-	4cU+84dFt0S6se6VyRJCAuQ4cVUWR8/aNRfgkcuwX47Yi3dRU8bxlZK5
-X-Gm-Gg: AYBFou0/tptgA2RQIZRiDHVvbZaHrLc2+CIi/oVOMmtL2XYPBhpNthTzIMOeN7545N4
-	D0lMwX1TnrpVmwEJjNsnMNhaKabHUbwQ8O7U7obyJK0EdbWt8jViNI53AwaaOyysC6gdc6I5EL7
-	NuVm6GL+q32p/2r07cdVWwKrnFfoCNJG1HikI2JGzZNlfCuTze29zaMMXojY50RbOwWAMvisGWS
-	ekBtbqCC2NBEi1oBsZA0ym6UJdL+v6cuD9KKZ0zsM7HNZUuLyn8+vUmS6zaxqNFHj+w+81pD9Ax
-	8mat/2+iF3JLmnGTLRrK9Z2bS7A84gMRDy+sSf3WYDBN6E8xcm2Bas33X4zmzieiJjZgS+ThDPY
-	mi09sJSs3cfUTdrmBqPV36ktIVGH69TAMP6iEtb9Fk3PCX8RcWOX0XsaEX27B0pIwHcboVxP4td
-	yPsuOzusW+Ol5BdZczr2+QaT+bY+LokkMPngfAKHP/yRyp9IW/0c2cWcpgt1rXPi6Xqiktb5ugz
-	mYrb2oZp6TQfIzOMAOVd3VtcBpbs/gNLCYuKybiEIWStrmhSSYh36mTPHh+ZbJKXjlzLZJsb0pd
-	KK0LLv6S4OdDhj8kHg==
-X-Received: by 2002:a05:6102:84d3:b0:7a7:19aa:f0d8 with SMTP id ada2fe7eead31-7d64db55f53mr255794137.37.1794547543655;
-        Thu, 12 Nov 2026 21:25:43 -0800 (PST)
-Received: from [192.168.0.8] ([2a09:bac5:565c:aa::11:1e5])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c8425d142sm880439241.5.2026.11.12.21.25.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 21:25:42 -0800 (PST)
-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-Date: Thu, 12 Nov 2026 23:25:33 -0600
-Subject: [PATCH 2/2] iio: gts-helper: fix duplicate NOTE section in struct
- iio_itime_sel_mul
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=GZqjtZns
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794547676;
+	bh=cqeUZDKASaczhIXZLCB0TEXhtB+A7gj3n3l57g855N8=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=GZqjtZnsonl5s9oUVQF+4x+72rqd8cpi7DLONAAfLsfGwyKc+7kUD8psIvR5KvdUj
+	 Ntk1Sc/yxkk7xpjsd00LggMMW+3LOwo7EY9BI7haYyDK80qF6H92fz7DXS0LKmO2Rj
+	 rw+qf1VM5h8AwEf16xcZ7MQ1tkFkXgL9WatRyRe8=
+X-QQ-mid: zesmtpsz8t1794547662ta86139ba
+X-QQ-Originating-IP: cNYf+E+YWAajSD+0Aud+jwDTYgxDR1pyX5ZTg8DzUQQ=
+Received: from PEC004119 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 13 Nov 2026 13:27:40 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 16882870533920003161
+EX-QQ-RecipientCnt: 5
+From: Haowen Tu <tuhaowen@uniontech.com>
+To: johan@kernel.org
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haowen Tu <tuhaowen@uniontech.com>
+Subject: [PATCH] USB: serial: oti6858: restart polling after TX allocation failure
+Date: Fri, 13 Nov 2026 13:27:38 +0800
+Message-ID: <2274A9F7B5D45D06+20261113052738.1479779-1-tuhaowen@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,56 +69,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261112-iio-kernel-doc-v1-2-e382fc9a47c2@gmail.com>
-References: <20261112-iio-kernel-doc-v1-0-e382fc9a47c2@gmail.com>
-In-Reply-To: <20261112-iio-kernel-doc-v1-0-e382fc9a47c2@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794547535; l=1234;
- i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=REpyrtxy5vZO221Dtg+htmXzpUSwT6gPJO/n9pSAGjE=;
- b=GSO9P+m5JPtXXPWKWzRwPML3VIgPHLZ/x48mpri8vGZ8iGFZIDjVe8WQAqsQJOo7KmiomGElR
- JPKBHs2dHlhAQrg0atZ/mLz4oFXW/+dRaCGKsSZhrFf3OIa2UY0CITt
-X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
- pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: OMQrLjQu6P6m4wwZQP27emlNuWKg+oZnEwraSHhZhG718BuOK/Rdb/W5
+	tioHBGOm5zOdbqAd59sSkuMFGnqW9EU0lEWSU9BO8IQIAefTOaxaceIYuieolp6g8VXSU7o
+	t9ypNxKaA8MveYjYsEo/AV0v3qBo1WtW8ErlcGqxTb4zSQXpItBYqyYyaeGUa2VTOorYzly
+	2x4ppgrAnIp2Tysn25RL6zi1SJ0og0v3hhtZSYeW1aHOqqaaZAzsrWF2Rbxka2wjuZ6huXJ
+	rGBk14KmXVRcL9QKEx2wYkp+d9UMQHmDUz+Gj9Z9x9XO+1ZmRihaTYCzqRDBafGv8PxtfKN
+	VbtpNOVDLjqpx3liwXazUdTw179cInNh/Jbn83q6rFaoSpgYx592ot/cNpQqU5TgXSXFJnf
+	0aCQ/0aC+adBPZdmufMkPydQcfwPNZllv8VptjG6smEbh1je4ppuETyZNvO/l8d/P9mDSoV
+	s8mgZbhDuq4cyPuTrcMXRc8QAS55GZQjF3XTyW6AuMJ55IUbDE11swuZBeklDngwQ02+wiQ
+	rvtT7aM9PNg4Becgk1jOzHXcK4/sn4SI6I4r3gmQJmSCbO4Iap2Wu1WEb638FEsd1bKQtA5
+	Pv5ojjS3rjj2Tza3BpD1PcbLGRyXN1qEP6JBALa+IipbUy9vY5hOchfj2z9XuJZ0t0tv6zV
+	zRMBH5VMKXSh23Oc3BgmFt+JX+qRW0AcKmj/5vlq/DT0MXkDJI9Lxe98QGWHviz/FRH0hJU
+	uvjHEibmpC9Qf3mK5h3af5uwo3x/gMV1WDemTBZ5NZhKAFkM0iuvC+ar7QP6r6DSwPE2LNx
+	W7fwCleIL75UFqeEe8DJOcIo35y0H+IpKquNTkWzx52WJxcOnTpLOWc2mjGHGaJ1/JLSI0v
+	CHQkdUWEXuw0zvlrstqKYZbALA1AeX97vG5Q8gMCJ7q3N1eWJrq03EdFMwrkr1q0M7h9VfQ
+	TeUyo7vFu45pt332raXDpUi3ZD9Zs/Ti87SMtQs6JpQYGApoPJWyNa955oddYvY3492Z1c9
+	rK5mMVBvOYHJjs9xcqb4tvHsDnQj5ALgAoTOf6aQ==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-Replace the repeated 'NOTE:' prefixes in struct iio_itime_sel_mul
-kernel-doc comments with plain sentences to avoid the duplicate section
-name warning.
+The status interrupt callback stops polling when it schedules send_data().
+The work function then sets write_urb_in_use before allocating a one-byte
+buffer for the transmit-buffer query. If that allocation fails, it returns
+without clearing the flag or resubmitting the status interrupt URB. With
+no write URB submitted either, nothing restarts polling and queued data
+can no longer make progress.
 
-Verified with ./scripts/kernel-doc, checkpatch.pl --strict, and a W=1
-build of drivers/iio/industrialio-gts-helper.o.
+Use usb_control_msg_recv() to manage the DMA-safe query buffer. Allocation
+failures then follow the existing control-transfer error path, which
+leaves the FIFO untouched, clears write_urb_in_use and restarts polling.
+Adjust the return-value check for the helper's zero-on-success convention.
 
-Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+Fixes: d2126326bd71 ("USB: oti6858: fix DMA buffer on stack")
+Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
 ---
- include/linux/iio/iio-gts-helper.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/usb/serial/oti6858.c | 19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
 
-diff --git a/include/linux/iio/iio-gts-helper.h b/include/linux/iio/iio-gts-helper.h
-index 0c4b2e9fbe1e..3f07a46ddff2 100644
---- a/include/linux/iio/iio-gts-helper.h
-+++ b/include/linux/iio/iio-gts-helper.h
-@@ -47,9 +47,9 @@ struct iio_gain_sel_pair {
-  * @time_us:	Integration time in microseconds. Time values must be positive,
-  *		negative values are reserved for error handling.
-  * @sel:	Selector (usually register value) used to indicate this time
-- *		NOTE: Only selectors >= 0 supported.
-+ *		Note that only selectors >= 0 are supported.
-  * @mul:	Multiplication to the values caused by this time.
-- *		NOTE: Only multipliers > 0 supported.
-+ *		Note that only multipliers > 0 are supported.
-  */
- struct iio_itime_sel_mul {
- 	int time_us;
-
+diff --git a/drivers/usb/serial/oti6858.c b/drivers/usb/serial/oti6858.c
+index c6364e8ff71f..917bc68c0f3a 100644
+--- a/drivers/usb/serial/oti6858.c
++++ b/drivers/usb/serial/oti6858.c
+@@ -261,7 +261,7 @@ static void send_data(struct work_struct *work)
+ 	struct usb_serial_port *port = priv->port;
+ 	int count = 0, result;
+ 	unsigned long flags;
+-	u8 *allow;
++	u8 allow;
+ 
+ 	spin_lock_irqsave(&priv->lock, flags);
+ 	if (priv->flags.write_urb_in_use) {
+@@ -281,18 +281,13 @@ static void send_data(struct work_struct *work)
+ 		count = port->bulk_out_size;
+ 
+ 	if (count != 0) {
+-		allow = kmalloc(1, GFP_KERNEL);
+-		if (!allow)
+-			return;
+-
+-		result = usb_control_msg(port->serial->dev,
+-				usb_rcvctrlpipe(port->serial->dev, 0),
+-				OTI6858_REQ_T_CHECK_TXBUFF,
+-				OTI6858_REQ_CHECK_TXBUFF,
+-				count, 0, allow, 1, 100);
+-		if (result != 1 || *allow != 0)
++		result = usb_control_msg_recv(port->serial->dev, 0,
++					      OTI6858_REQ_T_CHECK_TXBUFF,
++					      OTI6858_REQ_CHECK_TXBUFF,
++					      count, 0, &allow, sizeof(allow), 100,
++					      GFP_KERNEL);
++		if (result || allow != 0)
+ 			count = 0;
+-		kfree(allow);
+ 	}
+ 
+ 	if (count == 0) {
 -- 
-2.56.0
+2.50.1
 
