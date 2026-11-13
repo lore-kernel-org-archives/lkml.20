@@ -1,65 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794553049;
-	b=P99myXUnt13IT87V9eUWeW7Z83ULB4ubt+wJN5QXQ+E2c3BRjZYTjXU9mbl9s3EsKQVp
-	 1tVpoGDcjtvk7/pVQANStluwdBWLCedx3mgcnuBzYvFbNHB+YGsKoz5z3SYiV4DwTJ7Ts
-	 nUuiPeWOzE/gS0OuldKHTGd3+FiJsofJQ5CL3VfLBFSTTpgRYm1PIdGMQDxu7/mu2O+IG
-	 j1kmRA+MdJ0kib6vDZma23J2R1cqKawIjXtj6vgwifFxUqS2I6EStTBLw1twaiMkOs8u4
-	 Xl6fGyKRRPH4fA6Jo8t6WPb9AfedE8QLHWDuuc31ON8ge864Chet1BMNQDbbCoIN5Fg==
+	t=1794553069;
+	b=wSfWZU+wa0PmYKMZc8PXPhM9tREFckZNpKzTbx1Vz3k94Gvi/Hd0XlU0RNUogASywFlZ
+	 6GZOrtyMXG509E4EJTKk8mg6eD9cu30uH1ZLfB/mcztLMQqUBN+fKxSE5EsnqXnQJ/T49
+	 Sv0wjhKLG1lqNO2YP9Dlg8iCbay/YAxYxoG7MsNjQ2hbk3+P7YJ7y4kYobAjfxdvtkOEa
+	 JT73Na7aNusBiGDBhHc7+KbywEHOdTRt40vxzoKm0Ka+wx5mPi74z9ylPkSZBfE27jWIN
+	 h/xtIXMLSS/B8nJEyb7PM22OoKW8eQP7F1hLnXvzk5myENYQmzG14x5z7EqGzV6d3jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794553049;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TSIZ/NIMpDoAtTyHaUk17MQMdrZ8OXOHr5Xy7o+2duM=;
-	b=deOXiFp/TxGmOgpCVlOaU5Mym7vYFGRPqFbK6HV9FJkh5g6KJOAfLq1XBCtkNZ4QupZK
-	 27EDa7O3zPUCn0dqCdiKMLeKstJehDdznV1FW9PmkuAzHiAB1Q1DhTDdbUL2MN5/wgtHK
-	 nOmtqFWwqEFNvMedqzccxYHUBQl7lwCRzWXIL8VPh46CIe4MBJshczUYoLyz0z6lAsU46
-	 miCcI1SgQwM9gyaFRgZzkaVdKazx75sZeet741nEi6i07eFl5fbMmD6HbdHj1vG3Xz9ev
-	 KS5hvIlTsBPiHV1kKHLTIJj64NXB7ChdPsITVqZya9PkPS7DxfB5U2Jfsj/2RDuMy+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794553069;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=LqcDjoJpZYd3Z1siuLQrffCZ2eBZqKukhyBi4gD1u2U=;
+	b=OYZ381iWjhOGLYDTmWE13E1I0t93AH8nugGnpa+8btElAIDkb5qYKj+m9hlMdFdX18bf
+	 7ZAonwgVWLZF1fQcWU6f11Sd2vNIQEFQf/WNpIJIXZ9r9L00nrj2G/nJI9YLubJqYPQt6
+	 GkpVgTnozmCY+e93RP/ZS6D17yX+RIdSQoPKkXLuPBA46+gjAqiHsDuJfDpO+/Q3nWuNP
+	 7A2l+0Ukfm7wi9c5pvBQh1Tx0Vaikhqzhh2OTmxbz5o5CV7spQ/Ei3qaGS3652r2AtKQf
+	 T/xTyne1aOORQiDhQUis6izcLuaNeppNSaZsLHMq8PszVNRlvqz9fwJIYGs5a8OxMcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HxYR6zhl;
-	arc=none smtp.remote-ip=95.215.58.173
-Received: from mta1.migadu.com (out-173.mta1.migadu.com [95.215.58.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=m+LB025J;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08DE2606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:57:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08DE2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA12606A321;
+	Fri, 13 Nov 2026 06:57:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CA12606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HxYR6zhl
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yLGnhnvrP+1DLPZgeP3cQbQNdkVKbbC/M18T1Cb2bRQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794553046; v=1; x=1795157846;
- b=HxYR6zhlUn+7PUJeFfH2tQF4JmucVsarcnKEpygqzjaKzyHQ3Lmpmm3D+ExbcDUymphcxPeU
- mPzpD0pdzKfuZTIKUPX8H+CbPudyYx42hT/X9EMVz9Q1kfyF9WHdArbQgFdkwePOWIPnPQFNWpD
- cDeLXkHBvOZtoQ+aU7Y2yU84=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b374c89bdcf8feb7;
-	Fri, 13 Nov 2026 06:57:25 +0000
-X-Mizu-Trace-ID: b374c89bdcf8feb7
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 13 Nov 2026 07:57:23 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: linux-wireless@vger.kernel.org, Mehmet Fide <mehmet.fide@gmail.com>,
- Ping-Ke Shih <pkshih@realtek.com>
-CC: Tzu-En Huang <tehuang@realtek.com>, Yan-Hsuan Chuang <yhchuang@realtek.com>,
- Kalle Valo <kvalo@kernel.org>, Stanislaw Gruszka <sgruszka@redhat.com>,
- Brian Norris <briannorris@chromium.org>, linux-kernel@vger.kernel.org,
- mehmet.fide@screeningeagle.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_3/3=5D_wifi=3A_rtw88=3A_reset_th?=
- =?US-ASCII?Q?e_stations_outside_of_RCU_on_firmware_recovery?=
-In-Reply-To: <20261111213239.569224-4-mehmet.fide@gmail.com>
-References: <20261111213239.569224-1-mehmet.fide@gmail.com> <20261111213239.569224-4-mehmet.fide@gmail.com>
-Message-ID: <699D1E7C-1793-44A7-AF57-CFE16AD036E6@linux.dev>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=m+LB025J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794553051;
+	bh=LqcDjoJpZYd3Z1siuLQrffCZ2eBZqKukhyBi4gD1u2U=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=m+LB025JGdaSKwFFraY/SiA90prUTmMKtLCevddUz0a2HkM8pMQaC2Dw1HDLmaz6w
+	 R3NXs7w0qSf1OSGRu0VcspHQq3teA67u4aixQupsbTNe+4S+kKenegRJvKa7cSaUKc
+	 hOH0zf1zIcZn3QUVC+BYVecEOdvNospLTV2PzPhQ=
+X-QQ-mid: esmtpgz16t1794553046t2f118e79
+X-QQ-Originating-IP: wQ9qTzv5+oRDiWvSqKEsM2b3ogjsAG/eOGlRStq9y4w=
+Received: from PEC004119 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 13 Nov 2026 14:57:24 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 15401069445647339368
+EX-QQ-RecipientCnt: 7
+From: Haowen Tu <tuhaowen@uniontech.com>
+To: gupt21@gmail.com
+Cc: jikos@kernel.org,
+	bentiss@kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haowen Tu <tuhaowen@uniontech.com>
+Subject: [PATCH] HID: mcp2221: Use the direction field for high GPIO outputs
+Date: Fri, 13 Nov 2026 14:57:23 +0800
+Message-ID: <0122335B0140275C+20261113065723.1514843-1-tuhaowen@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,46 +71,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: N3mvcAHX73MW1lnHX7MaOi6Iu0Nijpdo+ERygBWYDcKOSWpL1IP6PIhl
+	GhuGiTMlgf48MwjL/67WemBDQb0RcH51buoWCudDTPgIpIMUWAwFI+8VXyjbWL2deS/bs/5
+	YKlDH6BJJTMHU2cM8ON1ZIvOP4fTAuFxqKlVH8eNQTuH1SVVjhO/hdqzjGUgUpUVXkSrIAU
+	dMLI73ws9Vy9rbh4NhxX+28Swx2oielIOL0xHt4OsPwKxqa22Ay+qYiv44SNjMazSCXJ9Fx
+	GIMg1CMKwM1yCDjCI9ka+q+C6UW9278xODERxgPFYSFqc57+qH/mgwQABgLOciZDZUG9Fzc
+	vwDxqjGeSHlTJLtd3rRni77Bjv71r6P7pjPQZVEdbTozEr4AdQ8ykkUhVSlP4K4NuSDKwmQ
+	Qma6NZh1zOcyxQ+2E65lbzdw7Qubsrapyjl2Mt8MSVfp/QwvQKVaItioSJv/MHDccanXq9R
+	TVImKq5KqbeADWPiJ/plTm3QI7KMZ3VQEOjgCGAI22aP+Fys1G6BnzDeqCBs2iCdSSc1C6M
+	tDbcFKgg6Q622X/GyIxNPNQ4XV8rFKkagFO6bgI9rkOeweXG5D7pDGrxfAFbj+D2rA28Q5e
+	HWgCdxCaM/IMkeVht95URWXvFTrT0b5evjR6ldEaTstBEh3WZOSnk2Z5FSwLyy5BeSsZoCx
+	LZ0Y43TGbYzLT+GKNnS45vRBBQbnegoNB7U4srg82LeDlQnTKdNrBeVyzG7/1KVLHHst7tw
+	wFcZdn9IquA4pZbGWkPtb385vTOW+PFyXwNGUNO17AcrSWZZiHFBWnrd+reBmFJSmtsalc0
+	c8FXQWJFk4ymgeJ10iBChqaBlc4uj4HCdZXpYBhwNB8skTYIQ7VAX+2NZgL0Ln2OouosgLZ
+	NMHPs73pm1bAD5px4faEr2wRjyXE4958micgqvg7+MJgxI5hAAIhz29yWg1Dzliv37WOBvq
+	UQPVDtxgzb0bBAk/AK8Q9HL1KJjkifEYDeq/FbmLaP8Hp1pDul7ysA1SsYoLS7p79MwUmmT
+	k6vbcyhZPhc/JRl5e1faWnzSmhqM8=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-Hi Mehmet,
+The GPIO_GET response handler stores the pin value in mcp->status and the
+pin direction in mcp->gpio_dir. Consequently,
+mcp_send_data_req_status() returns either zero or one on a successful
+GPIO_GET request.
 
-Thanks for the fix. It looks good to me, though I have one small comment
-below, but I don't think it should block the patch.
+mcp_gpio_get_direction() treats any nonzero return as an error and returns
+it directly. For a high output this returns one, which means
+GPIO_LINE_DIRECTION_IN, instead of checking the output direction reported
+by the device.
 
-> diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-> index ce65a1a80840..8e7ae747b900 100644
-> --- a/drivers/net/wireless/realtek/rtw88/main.c
-> +++ b/drivers/net/wireless/realtek/rtw88/main.c
-> @@ -664,7 +664,7 @@ static void __fw_recovery_work(struct rtw_dev *rtwdev)
->       WARN(1, "firmware crash, start reset and recover\n");
->
->       rtw_iterate_keys_atomic(rtwdev, NULL, rtw_reset_key_iter, rtwdev);
-> -     rtw_iterate_stas_atomic(rtwdev, rtw_reset_sta_iter, rtwdev);
-> +     rtw_iterate_stas(rtwdev, rtw_reset_sta_iter, rtwdev);
->       rtw_iterate_vifs_atomic(rtwdev, rtw_reset_vif_iter, rtwdev);
+Only return early for negative errors so both pin levels use gpio_dir to
+determine the direction.
 
-One difference to the atomic iterator: rtw_collect_sta_iter() allocates
-an entry per station with GFP_ATOMIC and silently skips the station when
-that fails:
+Fixes: ca6961d8a851 ("HID: mcp2221: fix get and get_direction for gpio")
+Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
+---
+ drivers/hid/hid-mcp2221.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-        stas_entry = kmalloc_obj(*stas_entry, GFP_ATOMIC);
-        if (!stas_entry)
-                return;
+diff --git a/drivers/hid/hid-mcp2221.c b/drivers/hid/hid-mcp2221.c
+index 3f05d6e288f9..3358b7d0c5e4 100644
+--- a/drivers/hid/hid-mcp2221.c
++++ b/drivers/hid/hid-mcp2221.c
+@@ -810,7 +810,7 @@ static int mcp_gpio_get_direction(struct gpio_chip *gc,
+ 	ret = mcp_send_data_req_status(mcp, mcp->txbuf, 1);
+ 	mutex_unlock(&mcp->lock);
+ 
+-	if (ret)
++	if (ret < 0)
+ 		return ret;
+ 
+ 	if (mcp->gpio_dir == MCP2221_DIR_IN)
+-- 
+2.50.1
 
-For the other rtw_iterate_stas() users that only loses one update, but
-here it skips rtw_sta_remove(). So if I read it right, the reconfig then
-adds that station again with rtw_sta_add(), sta_cnt stays one too high
-from then on (rtw8822c_cfo_track() for example resets its tracking unless
-sta_cnt is 1), and the old macid of an AP client is never released.
-
-It needs the allocation to fail during a recovery, so it is very
-unlikely, and I don't see a simple way around it without the wiphy lock.
-Just mentioning it, I am fine with the patch as is.
-
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-
-Best regards,
-Luka Gejak
