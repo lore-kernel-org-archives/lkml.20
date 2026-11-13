@@ -1,79 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794597161;
-	b=GCIzg1Je9gXKTAotevY9i6LJY3RzS6V9JCPhmA9V8uILDsNqo5mke1us3SVZiPvI3Fgt
-	 iW1qUvvXJn60wLJ4Co3CsWp81+Npz7isjS6Y/AEcyfyoIMHA6E8VAZe1cesx3wp3DsrKl
-	 gPh6qbJ0gWalJMtu8QkUObWKuwQjBvgjahGCULkwABYMZjLoxgG12BqaZDjQK7scnXPNo
-	 BBlB0aLn7u53O12zMTMxSExCKEDGHUK5pQa7uWOD1o14Guop40LVqodmRQhWSX9PXal4X
-	 wpco8tNeIWCpTHpZNuriGg9XsgspXMn5EnB2bB3TKJ/PnIl7FC6eI8qBd0TGs2TXtvg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597161;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hLZtGA46uUnhosvnrSpHGWny2vwTfNqO81vS+IzHZrg=;
-	b=q9++LMF0udxmJl0QU2cJBFXwNiUvjbrTNGh8JCmGYv4MBiCCTjS9JdqHMS5S2+S4oy5U
-	 SYZ6ADYqyy27rde/SVkDdLTJSLZa6l8cfPUgYPgXllyX6ZTqxWDR0opb3gnoHY6QuRGPj
-	 OxyX5j7jVXNlb52OOcKUOgu+nZKL/6ez1jEZAaCY0hzjdS1oOv/2HXxLtq17tkUpo/y2d
-	 /WO2LjdT56f9/SErhkTBs7yjes7zeCRIrtCvaKXYFbnXH/x94XqzooDP6UkQB+weiS9mU
-	 FFvLubxi0+5tgrM3URQSXZEelSs3DFpKbWBc5/gQ87DtyUmZq37WSt+wZpnyhUk1nkQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W7NxPW5R;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC3C606A334;
-	Fri, 13 Nov 2026 19:12:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W7NxPW5R
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794597161;
-	b=t59zogXt8EYW/vo/pYhyEgQXGJa4YE9NiuEo8mF3XDrgkcTTtvkpVT0LcEKjMtg6S35C
-	 y0ym7mD8D694abINXtERcnIAtMZpW/0szW0hOzxAEGG7JF0DFHzbblVt3et3n1uZTBI3R
-	 ly3K4cxOUCpo3DeB2psNY26/c3jUq2Z60dzWg86kaoy1WE5zPYCdEAp6GBp7B1JHVtrpL
-	 3/hSTwRFaAlwZr4ZXO744h3f2H/b0q1alBmus8XJTAUbNCV8SNMA1HC6ENjFWb7aup3JX
-	 yJOzwv91vVB8Ug3gbgH6/7iGuDyzZpLrRJI5c2bomUmj3uV4/dkt+wgQOhAfoA4Q3Pg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794597161;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hLZtGA46uUnhosvnrSpHGWny2vwTfNqO81vS+IzHZrg=;
-	b=xUaa3sTVJzkyL97+qOd2qZ0+WTgu39I18asIyeeD1Pdf9CjBIJN55MCFDE0q4hyE0EcI
-	 BCwehLBB+DFC6+vMs5xeY1KAs1TUu5cecTsgx333a6sYC764aoZrn5PIVZKqy/GzHrqSa
-	 eTn1bxarB6vS2zgl8vBrlgQmp+aRX16JdFrpT8pCkXGY2hMaS/DoWV7Jo0uL/U24CQU0y
-	 +LOSDp3l+xLXZtkZ8wgzpNwryTE4Zw0+LuabsLojA1jxLuiZM9KK+uyl6OGwCNH7HQ2ss
-	 tZXzU6rvRCtfW/bQRj6fTkK+rzEpYKfPbDwfbzbFEr8WR10A0eGPoKZCv3GePDNHQ/A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794597183;
+	b=bPfUkVPiBX8XMAs3k+D7Jij3Jz/Awe3KtZbm3ZjVOG22f66D6Xq3SRN6covJyJLDCNb2
+	 2yH36is9vX7J2pCJZYVgRsyMRBJrKnf0hQxDGuaPbGRgkOLQ5Ar5FZn9B4ERlIw6HvQC5
+	 a0KcpJKxAQMITGiKfTQqswJNosKsGdjXliNF02R2bmvMI3YHjcxAH1YK+XpN/wb0XL7TU
+	 QPnZhQHQS2UA8H76ZW/1XJe86AZlgAyfk2HkcT+ddcA7RJG88ITJqsAvOXnYsu2LTI0sh
+	 YM5T0r0Qhm8YvHUNwm58bNlc8+8wRumL7GpMi6+5irAIB6GjLpclmany3qVdC7Blemw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597183;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=eAWSWKem9zfHt+XlC1XEIj2qyzJSlOK0o6wdT7kCa6s=;
+	b=3XUlmfPz+P2/oNLJPpmHE6yrs1n4gBAToDNQ/AxatNdq07Gkpyru2vwgqRXlbB5YgIHo
+	 7EOBLirTuB3lzKtfR19y7EyGO0Wz5oDYFlTW9KWu9o4dGAN7hDZ/h2o0DXXQfLOTW8rKs
+	 Nzde1Ue9B/17mH32Q6KzOeVBr3WY8b4jeQPTRteqwZ9McnTiD0Dl27Pa17xPdcqZvr+fA
+	 fhgkqAv1nuIGf5K8Ni/PrZIHWKwnNLNWys+1aGf8bI6fgXJppnzXWKJNrYK/ZxAkQ6Amf
+	 gxs+gcxqb4jnw/af//wRQqeKZ8r2Fnr0JHdnkwPvz8Hw8DCUfG6DzZ+SXL1IHMBxNIw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oXY1S+42;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DF7A21F000C4;
-	Fri, 13 Nov 2026 19:12:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597161;
-	bh=hLZtGA46uUnhosvnrSpHGWny2vwTfNqO81vS+IzHZrg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=W7NxPW5RybjlOtaDm9qMqP9JGvSVC3YQdPg3G+1FX7tUlghT/SVIaX3MbMAanxNyf
-	 2JZNyLNz3e47IZnX8O4bMzr0Ssl1xrJkprEG0y58Lvu9UKxAk6FzoHDzjV+Ekmmer3
-	 XTMeCwSFKEcy3he/vTdV3B/z198PCUwbmDUEnSIES1g/IhWRNnATpMxozTTPD/gfgg
-	 H0ag6G4aiiySQ/2wj6741UX7UpLw62dZ6tybJQmfVvh7ke+s29PY/uG/TOe57MrRlX
-	 uhybmAAbrRrP767gUqV7BUGt5QM+qk1dPBTskYHmx7hOC5IlV0sMcm/h/ONfrxw21V
-	 89YTmfC90mUCA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 71F8549A75;
-	Fri, 13 Nov 2026 19:12:40 +0000 (UTC)
-From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Date: Fri, 13 Nov 2026 20:12:29 +0100
-Subject: [PATCH wireless-next] wifi: wlcore: Don't report RSSI events on
- the P2P device
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C1F606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:13:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95C1F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oXY1S+42
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-375bac6bd21so949024eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:13:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794597182; x=1795201982; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eAWSWKem9zfHt+XlC1XEIj2qyzJSlOK0o6wdT7kCa6s=;
+        b=oXY1S+42BV7NNyfWaDuFnEGCkQn8J5xQTP5/OgRXLZzEwu7vpqZjowcORyZEK5+ROV
+         wFzDb3MK+Ys8ubJ7UV5d2WJqe+iWZqfbQevoK9Jr3wVmq08kP0h4mxyW3VI/GxVKDgRO
+         V9NWdINTSA2zY3MqD2XU/H0ovhSe1vt3KwPse4uS6nDQfk0uFT+0YdLSB2Ix7FKdz+Xw
+         Laa48ry1AKbVyd6kEtMb/3m28rJm/piTVtCzWCPzXJIlYl7o4RbflJrp0tQLiEdFknXT
+         q5C1qlBNVtLCenZNEAjrscQYPg6b9eSHk+UPMC4NzOqVbfSfpAFzlHCE5g4IRgUoMjlH
+         X0Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794597182; x=1795201982;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eAWSWKem9zfHt+XlC1XEIj2qyzJSlOK0o6wdT7kCa6s=;
+        b=2J0HKF+PiFEUjeEsdpC8UOVd7ZfavZ+1GF1mSJknwPIdz7dAb0Vkp5Db8tuKGWYMtb
+         7KqFxTJcHrt6cZeH8CypGkNksRxBwi5wwYBkWbcRVM1WyEmzOgxbP5/RE/CgoVKfyNQf
+         NoOUU/5mQw64XMyl3r4SCz1qyO+fwtp2c9fbO1Dvjr6Fv8tasJ9lCnUrHTFFwP4SOrv0
+         nil7FFwPp0DFJVvvQoQmC6CtHwkj+XcUHDHigaYokCJnqg2tZc6J6AnXXXqUSqnsjaDe
+         bn0P+fE0boKjHhznYTUT0xpxZ2SCth4b9A7F3ZBYMT6AtguBaghlPgeoshu1KM2mZZGq
+         XQ+w==
+X-Forwarded-Encrypted: i=1; AL+hErFKxngy0xoYy9JfEqrgNIrs2gEUbTVDtopAbN3GIQOWYWMdxchz7zbysiiC050blKyr608+jZB9QJm5VQs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9fznzy8Mu7PXK0EOH3R0MCwr0fMt08EfjeJa9eprtAc2yyZrWI
+	r3TVVbrRMGxF37NRgvdwEr/VHKOlXoLurxhHPN4vLlXNjC03rAXpvFV4FTQBG/CEsyP9fCmTBcH
+	/4lIcA2I72Q==
+X-Received: from dycnm5.prod.google.com ([2002:a05:7300:d185:b0:35a:c4b6:314b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:20c8:20b0:36a:37:1404
+ with SMTP id 5a478bee46e88-37966e3af34mr2810296eec.13.1794597181337; Fri, 13
+ Nov 2026 11:13:01 -0800 (PST)
+Date: Fri, 13 Nov 2026 11:12:31 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,119 +75,179 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-upstream-wlcore-p2p-rssi-v1-1-754bd625daca@tsv-stahl-riesa.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0Q6CMBAEf4Xcs5dATdD6K8aHCquewdLcFSEh/
- LtV922ymVnJoAKjU7WS4i0mYyzQ7CrqHiHewdIXJle7tinjKVlWhBfPQzcqOLnEaiZ8DN6jdf5
- Q73sqelLcZPmlzzSLYoAZRyyZLv/bpusTXf7mads+Avpj6IsAAAA=
-X-Change-ID: 20261111-upstream-wlcore-p2p-rssi-8a99e629703d
-To: linux-wireless@vger.kernel.org
-Cc: Johannes Berg <johannes@sipsolutions.net>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, linux-kernel@vger.kernel.org, 
- Patrick Fischer <admin@tsv-stahl-riesa.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794597159; l=3844;
- i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
- bh=HaLsB5FeE4e7mOdZ4s/ZKiZhR7ChbgmoXjUw6qN7ook=;
- b=2cHA0+InI1KT1A9ZFgrZG//bS45GCpNqhMjtHwb7EdWajV3IMaDEr63gN40QPqpd0ChS99Mq5
- lnMEF7NPN6+CbNrB2wihngbtumu4oHIEhEDZKbj+XdkT4rtVfTPEWBv
-X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
- pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
-X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
- auth_id=1251
-X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
-Reply-To: admin@tsv-stahl-riesa.de
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261113191234.2509964-1-irogers@google.com>
+Subject: [PATCH v3 0/3] perf pmu: Add tool-provided NVMe PMU
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>
+Cc: Christoph Hellwig <hch@infradead.org>, Daniel Wagner <dwagner@suse.de>, Yuzhuo Jing <yuzhuo@google.com>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Tomas Glozar <tglozar@redhat.com>, Michael Jeanson <mjeanson@efficios.com>, 
+	Dmitrii Dolgov <9erthalion6@gmail.com>, Alexandre Chartre <alexandre.chartre@oracle.com>, 
+	Leo Yan <leo.yan@arm.com>, German Gomez <german.gomez@arm.com>, 
+	Anubhav Shelat <ashelat@redhat.com>, linux-perf-users@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+This series adds a tool-provided PMU for NVMe controllers using libnvme,
+following the same pattern as the existing tool, hwmon, and drm PMUs.
+Each discovered controller is exposed as an 'nvme_<ctrl>' PMU (with
+alias '<ctrl>', e.g. 'nvme_nvme0' and 'nvme0') providing events from
+standard NVMe log pages: SMART / Health Information, Endurance Group
+Information, Flexible Data Placement (FDP) Statistics, Error
+Information, and Zoned Namespaces (ZNS) Changed Zones.
 
-A P2P device vif has no netdev, but wl12xx_init_vif_data() makes it
-BSS_TYPE_STA_BSS, so wl12xx_for_each_wlvif_sta() in
-wlcore_event_rssi_trigger() visits it as well. Its rssi_thold and
-last_rssi_event stay 0, and 0 is NL80211_CQM_RSSI_THRESHOLD_EVENT_LOW.
-A metric above 0 therefore looks like a change to HIGH, and
-ieee80211_cqm_rssi_notify() ends in cfg80211_cqm_rssi_notify(), which
-dereferences the NULL sdata->dev:
+Motivation / Use Cases
+======================
+While standalone tools such as nvme-cli can dump individual log pages on
+demand, exposing NVMe controller log metrics as a perf tool PMU allows
+storage metrics (host/media bytes written, write amplification and FDP
+efficiency, read/write command counts, controller busy time, error
+counters, and device temperature) to be sampled on a unified timeline
+alongside CPU hardware counters, kernel/block events, uncore counters,
+and hwmon/drm sensors in 'perf stat' (including interval mode '-I', CSV
+'-x', JSON '-j', and perf metric formulas), without custom wrapper
+scripts. Discovery and log-page probing are gated behind
+PERF_TOOL_PMU_TYPE_NVME_MASK so commands that do not request NVMe events
+incur zero overhead.
 
-  Internal error: Oops: 5 [#1] SMP ARM
-  PC is at cfg80211_cqm_rssi_notify+0x18/0x108
-  LR is at wlcore_event_rssi_trigger+0x84/0xa0 [wlcore]
-  Call trace:
-   cfg80211_cqm_rssi_notify from wlcore_event_rssi_trigger
-   wlcore_event_rssi_trigger from wl18xx_process_mailbox_events
-   wl18xx_process_mailbox_events from wl1271_event_handle
-   wl1271_event_handle from wlcore_irq_locked
-   wlcore_irq_locked from wlcore_irq
-   wlcore_irq from irq_thread_fn
+Example Output
+==============
+Listing available NVMe events (unsupported log pages on the controller
+are marked deprecated and hidden from default 'perf list'):
 
-The oops kills the IRQ thread with wl->mutex held, so the driver does
-not recover: everything that takes the mutex hangs, and the interrupt
-is disabled as unhandled.
+ $ perf list nvme
 
-A real RSSI trigger reports a negative value in dBm and does not take
-this path. Here, on a WL1801 (Tegra Note 7) with wpa_supplicant running,
-the metric was +54 because the event mailbox held firmware statistics
-instead of event data: reading the firmware statistics through debugfs
-once a second during an iperf3 upload overwrote the mailbox. That is a
-separate problem, but any bogus metric above 0 crashes the same way.
+ List of pre-defined events (to be used in -e or -M):
 
-Skip P2P device vifs. Connection quality monitoring does not apply to
-them, and wlcore_event_beacon_loss() also leaves them out, by their
-invalid role_id.
+ nvme:
+   smart_crit_comp_time
+        [Critical composite temperature time. Unit: nvme_nvme0]
+   smart_ctrl_busy_time
+        [Controller busy time. Unit: nvme_nvme0]
+   smart_data_units_read
+        [Data units read (in 1000s of 512-byte units). Unit: nvme_nvme0]
+   smart_data_units_written
+        [Data units written (in 1000s of 512-byte units). Unit: nvme_nvme0]
+   smart_host_read_commands
+        [Host read commands. Unit: nvme_nvme0]
+   smart_host_write_commands
+        [Host write commands. Unit: nvme_nvme0]
+   smart_media_errors
+        [Media errors. Unit: nvme_nvme0]
+   smart_num_err_log_entries
+        [Number of error log entries. Unit: nvme_nvme0]
+   smart_power_cycles
+        [Power cycles. Unit: nvme_nvme0]
+   smart_power_on_hours
+        [Power on hours. Unit: nvme_nvme0]
+   smart_temperature
+        [Temperature. Unit: nvme_nvme0]
+   smart_unsafe_shutdowns
+        [Unsafe shutdowns. Unit: nvme_nvme0]
+   smart_warning_temp_time
+        [Warning temperature time. Unit: nvme_nvme0]
 
-Fixes: 7845af35e0de ("wlcore: add p2p device support")
-Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
----
-Tested on a Tegra Note 7 (WL1801, firmware 8.9.0.0.83,
-wpa_supplicant with its P2P device) with v7.3 plus this patch; the
-patched files are the same in v7.3 and wireless-next. Load was a 600 s
-iperf3 upload at about 47 Mbit/s while the debugfs firmware statistics
-were read once a second:
+ $ perf list --details nvme_nvme0/smart_temperature/
 
-- without the patch: oops as above after about 285 s of upload,
-  WLAN dead until reboot;
-- with the patch: 86 RSSI trigger events with bogus positive metrics,
-  no oops, upload ran to the end with 0 failed frames.
+ List of pre-defined events (to be used in -e or -M):
 
-Without the statistics reads the same upload produced no RSSI trigger
-event at all. I will send the fix for the overwritten event mailbox
-separately, once I have checked it on the device.
+ nvme:
+   smart_temperature
+        [Temperature. Unit: nvme_nvme0]
+     nvme_nvme0/config=0x20001/
 
-I did not add Cc: stable, as I only know of the debugfs statistics as a
-way to get a positive metric here.
+Interval 'perf stat' output (captured with mocked libnvme SMART log
+responses on /dev/nvme0):
 
-Tool use (see Documentation/process/generated-content.rst): this patch,
-its changelog and this note were prepared with an LLM coding assistant
-(Claude Code). It found the cause from the oops registers and the
-driver source and wrote the change and the texts from my logs and
-instructions. I reviewed the change and ran the tests on the device.
----
- drivers/net/wireless/ti/wlcore/event.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ $ perf stat -a -I 500 -e smart_temperature,smart_data_units_read,\
+   smart_data_units_written,smart_host_read_commands,\
+   smart_host_write_commands -- sleep 1
+ #           time             counts unit events
+      0.500432960                311 K    smart_temperature
+      0.500432960         36,864,000 B    smart_data_units_read
+      0.500432960         12,288,000 B    smart_data_units_written
+      0.500432960                900      smart_host_read_commands
+      0.500432960                270      smart_host_write_commands
+      1.001068028                311 K    smart_temperature
+      1.001068028         36,864,000 B    smart_data_units_read
+      1.001068028         12,288,000 B    smart_data_units_written
+      1.001068028                900      smart_host_read_commands
+      1.001068028                270      smart_host_write_commands
 
-diff --git a/drivers/net/wireless/ti/wlcore/event.c b/drivers/net/wireless/ti/wlcore/event.c
-index 6c3a8ea9613e..eb5db3c5ec27 100644
---- a/drivers/net/wireless/ti/wlcore/event.c
-+++ b/drivers/net/wireless/ti/wlcore/event.c
-@@ -117,6 +117,10 @@ void wlcore_event_rssi_trigger(struct wl1271 *wl, s8 *metric_arr)
- 
- 	/* TODO: check actual multi-role support */
- 	wl12xx_for_each_wlvif_sta(wl, wlvif) {
-+		/* A P2P device has no netdev to report the event on */
-+		if (wlcore_is_p2p_mgmt(wlvif))
-+			continue;
-+
- 		if (metric <= wlvif->rssi_thold)
- 			event = NL80211_CQM_RSSI_THRESHOLD_EVENT_LOW;
- 		else
+Changes in v3:
+- Remove accidental internal tracking tags from commit messages
+  (Christoph Hellwig).
+- Document use cases and include actual 'perf list' and 'perf stat'
+  example output in the cover letter and Patch 2 commit message, and
+  document NVMe events in Documentation/perf-list.txt (Christoph
+  Hellwig, Namhyung Kim).
+- Rely on $(FEATURE_CHECK_LDFLAGS-libnvme) from pkg-config when building
+  test-libnvme.bin instead of hardcoding -lnvme, and add test-libnvme.bin
+  to FILES in tools/build/feature/Makefile.
+- Report smart_temperature in native Kelvins ('1K') to avoid unsigned
+  uint64_t underflow on sub-zero Celsius or 0 K readings; metrics can
+  convert Kelvin to Celsius.
+- Support advertised 'config=0x...' raw encodings, 'event=<name>', and
+  standard event qualifiers ('name=', 'metric-id=', 'cpu='), and guard
+  NULL term->config when formatting parse errors.
+- Check xyarray__new() allocation failure (-ENOMEM), propagate initial
+  log read errors (-EPERM / -EOPNOTSUPP) in evsel__nvme_pmu_open(), and
+  bound incremental open error unwind by start_cpu_map_idx.
+- Use an aligned union of NVMe log structures in nvme_pmu__read_val(),
+  use valid Endurance Group ID 1 (0 is reserved in NVMe) for Endurance
+  Group and FDP logs, fix Endurance Group data/media unit scaling to
+  billions of bytes ('1000000000B') per NVMe Base Spec, wire up
+  perf_pmus__find_by_type() for NVMe PMU types, and propagate
+  nvme_pmu__check_alias() errors in perf_pmu__check_alias().
+- Expand unit tests to cover alias PMUs, 'event=', 'config=0x...',
+  'name=' qualifiers, unit/scale checks, and invalid term rejection.
 
----
-base-commit: 5dbf2415ca9821a611d09308e3b29d2c37e7cd77
-change-id: 20261111-upstream-wlcore-p2p-rssi-8a99e629703d
+Changes in v2:
+https://lore.kernel.org/linux-perf-users/20260609165726.786694-1-irogers@google.com/
+- Include test-libnvme.c in test-all.c and add libnvme to
+  FEATURE_PKG_CONFIG.
+- Use get_unaligned_le*() helpers when reading NVMe log fields.
+- Move baseline initial_values xyarray from tool-owned evsel->priv into
+  struct evsel's tool union (evsel->nvme.initial_values) and free it in
+  evsel__exit().
 
-Best regards,
---  
-Patrick Fischer <admin@tsv-stahl-riesa.de>
+v1:
+https://lore.kernel.org/linux-perf-users/20260609070348.541964-1-irogers@google.com/
 
+Ian Rogers (3):
+  perf build: Add libnvme feature detection
+  perf pmu: Implement tool-provided NVMe PMU
+  perf tests: Add NVMe PMU event parsing test
+
+ tools/build/Makefile.feature           |   5 +-
+ tools/build/feature/Makefile           |   4 +
+ tools/build/feature/test-all.c         |   5 +
+ tools/build/feature/test-libnvme.c     |  11 +
+ tools/perf/Documentation/perf-list.txt |  10 +-
+ tools/perf/Makefile.config             |  12 +
+ tools/perf/tests/Build                 |   1 +
+ tools/perf/tests/builtin-test.c        |   1 +
+ tools/perf/tests/nvme_pmu.c            | 303 +++++++++++
+ tools/perf/tests/tests.h               |   1 +
+ tools/perf/util/Build                  |   1 +
+ tools/perf/util/evsel.c                |  13 +-
+ tools/perf/util/evsel.h                |   4 +
+ tools/perf/util/nvme_pmu.c             | 691 +++++++++++++++++++++++++
+ tools/perf/util/nvme_pmu.h             | 144 ++++++
+ tools/perf/util/pmu.c                  |  17 +
+ tools/perf/util/pmu.h                  |   8 +-
+ tools/perf/util/pmus.c                 |  24 +
+ tools/perf/util/pmus.h                 |   1 +
+ 19 files changed, 1250 insertions(+), 6 deletions(-)
+ create mode 100644 tools/build/feature/test-libnvme.c
+ create mode 100644 tools/perf/tests/nvme_pmu.c
+ create mode 100644 tools/perf/util/nvme_pmu.c
+ create mode 100644 tools/perf/util/nvme_pmu.h
+
+-- 
+2.56.1.703.gf848ed807c-goog
 
