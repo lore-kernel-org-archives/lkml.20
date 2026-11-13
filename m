@@ -1,97 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794572340;
-	b=zzLY6SXLbhDiaosN3iHdvKzG7o7LzPSulsjoY1d5p/UAWaryy0Sio/9Xh9mVHKC5Sxvu
-	 z/k8NezywpPR7TiG7+dozNqq18YSuBJVOVTm7ItIrb7NQV/wStP/1vymTd0zqapK+dmiT
-	 dIBQ/oVuEgxMFvsvTfCRYvq3cd8GjJS93iTI4vRXt51yh2B4yNWeWTCKMjIEc/pu+d+SK
-	 /u0YdiPTB7CrGOsoRC/c70pxVXQHkyDJvIVKH37k3FIwL1mOGx31qjg9kQ6Ok84zPMvLu
-	 doLEkND+5dIluEH9SG4i6o1FCe1RvIU1TrIz9DAVpVdUXyEXkjzIwmH+ni/R2UjVNsQ==
+	t=1794572362;
+	b=VSR0e/MyY3zWozQXi/17YAAOTznFiP5WMRXjLn5NtzOxXOca79lUvZqfVCf3oxR+fQys
+	 lmsps55qBcnkTvADCdFRVGbsLNQwfVxtb2Dt6BGoNFJB+qH6eVIQM4L/kM7fMCq2HPwyx
+	 Ve8VEPw0tSG9TfSWkD0WC9sGard+a2T67P3PB7YrV6Ty9d0/haZiR5prQE4DleAcJmaD6
+	 Sd1fGgVTL8neocvGd02j103rAqAejkV1BKIM8dWWkCAZms6jh9N7f0WscLVEN3u+xnR1E
+	 7zML3tDI9wJwgf3270BFurJcmJHzkKBxmwqYYos0uXB6wucXESXNTUujp5ClYSY9tww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794572340;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9GQJLLepWwoaxFgy0WwYMme3cDh2Nvdn33ep+PsXVNo=;
-	b=v4t5DrB/hlqdGqIRFnhrkIxQhvQee3AeeOCAHi8QdJdVqW+bSWgpkjjymedmz9LDzk0E
-	 IFuNHi+VvbhRb7f5DSewckNwWkK0GGphy1oTuhBnMaSOIPUGSYtR+bqVl68py1TCxTNGx
-	 HiI/f8D/FEiaRF4TMH4B//7mWuAuqLicJ7Rjxt56fxxz+8B+Hg5N63XXEt2QMcmVMdHi0
-	 nozjYupMrwyLzBLVispWi8FJs3L6zTxiI5dG7sXwtwRCPOG0XPpFsTBiKjuJBAw5rHm/A
-	 N9sWcfl0UYyGEdUeG/9EBWG/YyVn9uLYK9X8CrHweKRfemL45UA/3CaYDTrN0a5qyXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794572362;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=NInaYM5/ulsk78/rKQK71fJZph826pB2bolPCV0acww=;
+	b=h6f15Rds7aPjKp/hzYZkeEQaNGS6A+rxGNa3z9zV7ufpET17PY/LYLDmy2GrjGt1OQtn
+	 NTls1oPeSq3S68w9U5upV65LEOuL3s/yWr1XEIcvxqfBNGOh/k86FYqHH4f/+Ozf5CecV
+	 vaKR51OLpyTmBRzhi3BYsuT8aW1rWEw7r383fmdjMpovzyFAB/LUeRmY/3zgfBaG7OKtv
+	 CwuZo41Xlgq0bZI2Fjhn7qlx0XnWtZXQGQKZTuaUWcDGaJx4O3P+C6mmAD0LYPNiXzM+n
+	 VBD3Vn9TRRccgYVSiSGvJo1C8oBr8qR4mp51HQufHPaNY6KSV+xZy6dA2UyYAhzgtog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=codewreck.org;
+	spf=(null) smtp.mailfrom=codewreck.org;
+	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=E1IES2KV;
+	arc=none smtp.remote-ip=62.210.214.84
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AF960A2613
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:18:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06AF960A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-491aaed7565so352221f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:18:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794572338; x=1795177138;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9GQJLLepWwoaxFgy0WwYMme3cDh2Nvdn33ep+PsXVNo=;
-        b=d5o9dm1/16wR+gRT8J33Tt829PwKPZka4fzXpEA50w4LU+746cKyhKe46Df0Dt//Cw
-         eysZGeWOHA+AAnK23l34iGubizRf7y94gPnozyPUtszlCEDy/kZBdw29Cd6dmI2j0IDH
-         ufuLqJ6oKCgUN/2rVX01OPYZn/ovWmgXz/s1TcLW/8Imt0KQcSVqGRYH2tHYJEx56jCQ
-         uEPo1UdHt5XFNpGXBph3fuQgoz2YDmKQal0aTtZhTuVptFiWbA8yNN6bV6/CdTQamI6t
-         AHrG5da83KFGupwacE/FlsdcU0bk5VHKk+KFTE1OIv0WtW8yE6AL+NiNLC96UQWaMS16
-         oiUA==
-X-Forwarded-Encrypted: i=1; AL+hErGZfBnipe5bp78staHW+5NS4UBXqKVVxjj0jS5/3Hi4PvkIOjTeDEaMcPdcmzM63azW6ddhYvotLAsEWfU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jRKiqYHO/zIwWUZYePa7B3xk2YR/Pc//KESXEwaUn/iLFl0Mn
-	tgAhhRYYQCSvPftcISAERnXV7jo/xqhfTlKe/xKWfCUl27ek0793+U6Y
-X-Gm-Gg: AYBFou1h6l/03gHWcmbrnOIHTISLwQODF2PgdM+PXPtfDq7fErYlivBHRy7AR3NaNHe
-	0qWFrduqtMutqaOPcrQVrUB+Rvi6sKmwc24N+hKXzr7qLlXIgkqTU9b33SGht69fAbvgMcJKvyv
-	T0VM4ys95z3jvJ08NedAPlclngb5lsnG4mTkXODnbk6VWIG61gA9ih3o+FBhIeDz1EGDtSDvS6v
-	zef68GOkMVKAYzRP3Fa77rFlWhONfo5N8EolO3AHtXx7e3KTMLJ4Cee2L42rx7SaS12CKlVDSLd
-	8Lnz5k/4rGLG/bN5/15c+T05JEALfwEQT+oXf4FSaq+CvdFAeIqjaipW6dLOGXsF1AXQ1hF+0iP
-	UV+FdSlk01FFPzk68az7oMI0wbzJLUVU5ADTKXeN8Gbb/5/mfJy4ammD5MxVb2FyYhSDwjXmoOi
-	DC/jeOciXGk4JVb+EzNRWglpsWGUYKtC2ojsYfget+ArebSY+gZvBS+NwwHOPMk7z8IdtHxnruw
-	81PlQBZZQBQEu0nokMqtwkaMhNDjPnKOSFCPlA0uHNB5fSPkAqX9yFyVRQy8wQtU8a8aIMcXhKl
-	CdEKC8v5IN4ND3BwpsHl6i+jFP8mftVEhkS+xZB1F+++nYxhqcpS6YtyhzWCWGfEHLQ2pfNPneN
-	ZPgNkTA7Ohbj0ayT1GV13IPQXfzIfXTIpkksx0HUQe3cfoGQ=
-X-Received: by 2002:a05:6000:2c04:b0:491:3fdd:af42 with SMTP id ffacd0b85a97d-49c72c9c049mr5208825f8f.37.1794572338269;
-        Fri, 13 Nov 2026 04:18:58 -0800 (PST)
-Received: from threads.localdomain ([84.70.166.92])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c605e5b2fsm5167103f8f.40.2026.11.13.04.18.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 04:18:57 -0800 (PST)
-From: Lucas Tanure <tanure@linux.com>
-To: xianwei.zhao@amlogic.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 5/7] arm64: dts: amlogic: t7: add the ethernet pinctrl nodes
-Date: Fri, 13 Nov 2026 12:18:50 +0000
-Message-ID: <20261113121852.334604-6-tanure@linux.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261113121852.334604-1-tanure@linux.com>
-References: <20261113121852.334604-1-tanure@linux.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A596606A332;
+	Fri, 13 Nov 2026 12:19:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A596606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=tempfail smtp.mailfrom=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=E1IES2KV
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 58E4F14C2D6;
+	Fri, 13 Nov 2026 13:19:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1794572351;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NInaYM5/ulsk78/rKQK71fJZph826pB2bolPCV0acww=;
+	b=E1IES2KVgYEB6pOuIqY3HGLBMX1AFtAm0XtC08mfjPnUlijVCi7/vHqpOvEHcBDRZ3KJQa
+	iDJ7mpQjjNoha05y5p1VK+S57OcLA5AR9x9zV+6jd3rt96pj1iKJljZctBdaI2kEduObrJ
+	k3hlUmlXS+nfzkShN13dZgVlh9kAv3NyLsP1zhNc1iPysCy0w/U4l1f+YR88lvVOZ6XLId
+	TEThieEH4us11BfqoC9CRavIV2DKviKArlyArxIVgtDvhIozTenJ3eOtH9RbchW9cp7tVp
+	Jcsd8U4GkSck9wq3bkWB3nCoj4RdiNf86lspYpMTy15LOQ3N3plt1lKa4JEB4Q==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 284c54b0;
+	Fri, 13 Nov 2026 12:19:04 +0000 (UTC)
+Date: Fri, 13 Nov 2026 21:18:49 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Jiawen Liu <1298662399@qq.com>
+Cc: broonie@kernel.org, cl634@andestech.com, william.zhang@broadcom.com,
+	kursad.oney@broadcom.com, jonas.gorski@gmail.com,
+	bcm-kernel-feedback-list@broadcom.com, anand.gore@broadcom.com,
+	f.fainelli@gmail.com, rafal@milecki.pl, olteanv@gmail.com,
+	han.xu@nxp.com, haibo.chen@nxp.com, yogeshgaur.83@gmail.com,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev
+Subject: Re: [PATCH 4/4] spi: nxp-fspi: disable runtime PM on probe failures
+Message-ID: <avcAKdwmS3nZ2Uk_@codewreck.org>
+References: <20260620083931.1120616-1-1298662399@qq.com>
+ <tencent_8FC0B8DFAF4AE67AEBA20548045D53A77707@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,63 +73,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <tencent_8FC0B8DFAF4AE67AEBA20548045D53A77707@qq.com>
 
-The SoC brings its ethernet interface out on bank Z, but no pin groups
-were described, so a board had no way to hand those pins over to the
-MAC.
+Jiawen Liu wrote on Sat, Jun 20, 2026 at 12:39:31PM +0400:
+> @@ -1389,6 +1397,11 @@ static int nxp_fspi_probe(struct platform_device *pdev)
+>  		return ret;
+>  
+>  	return devm_spi_register_controller(&pdev->dev, ctlr);
 
-Describe them as the two sets a board actually needs: the nine pins the
-interface always uses, and the five extra ones RGMII adds for its wider
-data path.
-
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Lucas Tanure <tanure@linux.com>
+Should failures in devm_spi_register_controller() also go through the
+error path, or is the current code as intended?
+e.g. something like
 ---
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 30 +++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ret = devm_spi_register_controller(&pdev->dev, ctlr);
+if (ret)
+	goto err_disable_pm;
+return 0;
+---
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index 6894c06a836b..7bd53ec16607 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -376,6 +376,36 @@ mux {
- 					};
- 				};
- 
-+				eth_pins: eth {
-+					mux {
-+						groups = "eth_mdio",
-+							 "eth_mdc",
-+							 "eth_rgmii_rx_clk",
-+							 "eth_rx_dv",
-+							 "eth_rxd0",
-+							 "eth_rxd1",
-+							 "eth_txen",
-+							 "eth_txd0",
-+							 "eth_txd1";
-+						function = "eth";
-+						drive-strength-microamp = <4000>;
-+						bias-disable;
-+					};
-+				};
-+
-+				eth_rgmii_pins: eth-rgmii {
-+					mux {
-+						groups = "eth_rxd2_rgmii",
-+							 "eth_rxd3_rgmii",
-+							 "eth_rgmii_tx_clk",
-+							 "eth_txd2_rgmii",
-+							 "eth_txd3_rgmii";
-+						function = "eth";
-+						drive-strength-microamp = <4000>;
-+						bias-disable;
-+					};
-+				};
-+
- 				i2c0_ao_d_pins: i2c0-ao-d {
- 					mux {
- 						groups = "i2c0_ao_sck_d",
+> +
+> +err_disable_pm:
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +	pm_runtime_disable(dev);
+> +	return ret;
+>  }
+>  
+>  static int nxp_fspi_runtime_suspend(struct device *dev)
+
 -- 
-2.56.1
-
+Dominique Martinet | Asmadeus
