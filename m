@@ -1,80 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794587813;
-	b=JCcDw69rWV1ny1RAzcmlpqNdQJBkEtKULaXhpVik4goznQCMk1dt8CxCNagrDk5++38F
-	 Qj711XFmso2AgojTIOQT44H1py79psqTkUePPJafPrPK4Bn2IfR0yMZ+OZWbGmD/Ybedm
-	 x87Ldhj3JrEgZ25dqSno7kXP1ZSz9zM4HGcOw5mIxvEZsRL0nKydEGV7d7jXfRuZn6C3f
-	 YUyauXAV3NKu/E28wi8ySUt2sGz2mqCUccdqRd9WbQFmcBS9E/M0/IL6uKHd1Lo45G6SI
-	 LPqfMMxiGWsgslHFOH1+QiC+kabIFyMZHRfKIADlr5PIpMxr+4MMuEYZow2DaGP+7fg==
+	t=1794587895;
+	b=0hksE7khAE/wNlmVWI1SOMeVcHW4DrU7hFvHc8rQTnOLa5mXfi9D1gOxKIQ+3eIPeJVp
+	 VXR7qkUQwZ5R08QU+4ZtpUDTKg3zgkduTeAdrPHgAv9+tzLzVoJNLTqMls/7oeIuR2pvi
+	 5Z7KfIuV5mKIiVCWWNcnRT9sB5ZFx3oMvf47B26AIP+x1R+0zSE/zNFkP1nFBTD3xdpMj
+	 j1WOY3vIJRXIgNiJgkw0LnK2VvLC8G1VUsv9p/iEciQRxKSYjaTbsqkWckmc5SSLXf/pf
+	 pQoDoJEmiQ5GSyUX4ky/RBMufDxqU0CeLBqC3samC4xh5dgcAaIV8tNMs9ELxiexukg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587813;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=W0073ALJig0hMJYwab+InzC0jgWWQhNHsIl2BaOpc4k=;
-	b=VaSJqTiAc0D/pcskwlzUJibmoR3c3hqu19QcYLlZrnZqkEVUEGXe9EG8bKIchEC/uh6l
-	 Sl1LK6ycvIqCVQqFgovt30iXzwNnMzfLYrZBEJeXmREXeztZcVnEoU1UKAHl2oBZhReyL
-	 2YT9LQdBz/e6jwtnuYSX1c/MoLba+WZx7K30AvEkdfgBG2XCfbsvecXEa1OaeTzutoesk
-	 tVL5x7oQeUSZYMFK8sWW4h+/QeTtgalIyItvIOx7tEY3pXQbg4O9LK/A/qsUOJEQvjIl5
-	 ChtE4xAhQLZkDHJ3pHpTrV2pcStUITJ7wJkWYcb+wdf31xCnZRZBHFIOgPCyHaQ7Asg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587895;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZBtOs8SUuvYS9eK9oBm2MAuuDuF7zij1f4x3ajNRRgw=;
+	b=3AxaynFEKIqyMRLY8w/Exi1ywOqbZNvKH/7PJWPX1L9YnpZRuhTkWVLxXKm2qiYA6sWI
+	 W2dnXvV4bM5Vt9F1q6bIrO4sZ5/qNZ5uS4q/1XQsEbEfSyubJ4zKOuiTQDHLCR4thsKxo
+	 AoBUoORq9VCOrWHokogcmRoswfJ42uspBPMGLisGyrOvvkjVu1mXAvmciYZ6/3SkF2VKA
+	 /RxH8DDN1HXXzR37hOxkuIvkYnJHJfe6DcWg+WpXAQfqj8GItAyXtraSu3z46QdSgpOop
+	 GyP0yS0C0NywI3MmzqgAbdHKvIktZPUSxWFAskiWuA7njFAiz8JyTcgBoahQAx655cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=R1GKYOCs;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=g4cNNxiP;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="XI/sgWPq";
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9FC606A323;
-	Fri, 13 Nov 2026 16:36:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C9FC606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01484606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:38:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01484606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=R1GKYOCs;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=g4cNNxiP
-Date: Fri, 13 Nov 2026 17:36:47 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794587809;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W0073ALJig0hMJYwab+InzC0jgWWQhNHsIl2BaOpc4k=;
-	b=R1GKYOCsZa5n9FFnsbM0LFknAZHzWH1x1tXSLHs8OH40lTClLpnJF0GLi4+JttsIpiFBNF
-	2IbiKrE+UgXAH0OEfDaawxZpbCBstl0oOBFdFv2LwtPVe/XC1xKqDziefyGXA9WSEozBlh
-	ONaUHy7IaQ+DA+p2D8/nmscDlHS3Vxv+PNr1IARDOm+iY6DvKOi91FK94ukS5XGhy2+lua
-	rmEagEaHKPlylq6iC6WKRrp095vNd9FPh/tQaIV/EOst89kYxqcb1Qv9/lgIAufnsCSMvf
-	ecoEo86jFdNY/YSSVWLjsKQd//+LCErac69kNuyfekUARj91f0yQ4NGcOOJquw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794587809;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W0073ALJig0hMJYwab+InzC0jgWWQhNHsIl2BaOpc4k=;
-	b=g4cNNxiPjikLIqtG448C3HF4/MmQKqJMYOMCVFurPsXXcwvn0POibBP7qBawynCQxZUT8y
-	waDBRi8dBnS77fDg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: paulmck@kernel.org, rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH RFC 5/7] rcu: Add rcutree.boost_disable to disable
- priority boosting at runtime
-Message-ID: <20261113163647.OrW62pCV@linutronix.de>
-References: <20261111213826.2035045-1-joelagnelf@nvidia.com>
- <20261111213826.2035045-6-joelagnelf@nvidia.com>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XI/sgWPq
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4d28f75d62so299513166b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:38:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794587893; x=1795192693; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZBtOs8SUuvYS9eK9oBm2MAuuDuF7zij1f4x3ajNRRgw=;
+        b=XI/sgWPqHbvaIZhTDwyYZNjUMym/RZxGPxbTeMcQWx7qLmn0k7JpZrzz91nymKqvkc
+         r1T5Y6LdJI+UWGUKcI6xkm4yvF60raEDFBAU063eiZuqIOol9bYq/+8IWDOHP72H1+nz
+         I2J09sD2qnq5n0Pkt2Id89FpM7fnevLP9w1sk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794587893; x=1795192693;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZBtOs8SUuvYS9eK9oBm2MAuuDuF7zij1f4x3ajNRRgw=;
+        b=Z9TcLUM1VWAKBY2ZomfSmGwl2ElhqC2ICy2M4KV5m7Y9MRWFs2U9bggUsLzSML6UAn
+         Wwyp2UJgpf+qtGpAswVDfnU4lo+aSXkWSdkhDsnQ/jVOkghoAeGZWIbL72WVoOMIiz1M
+         +h/2Bl5yBAsjuyLGxrbydHKpq0rLZipMZ8CQqvP+49wzQzCUXea8C17kTHh1Lp3L18A5
+         dL9oYkSRiIiVG+MgTAumYn1zRhQUpRKTLrEk0PCVBxC1cKJSoN1AZehuNbTRu7GgiCyh
+         jxwoNDJW45ASfNO5ZHkYR4iZU4sQKrCwikG936uvadlf5RsMBRdufyDX3TD42S0BCmDJ
+         bnkQ==
+X-Forwarded-Encrypted: i=1; AL+hErFc1D/HUCuHACi5dYUd4tNxdd6QHU17E0qP0iSLT1Ec1Br60uSpLfO5+6zr9s9XDb1wNqMgUtxZrwqdFak=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+A5Q0UMtTCZoupbCI0pwFdHZpL+pW7sDTAwWV02+zlCVeQAjHo
+	Epsw2kPMpgOSWQFq8jhy5F5Letj0Fd42TSR0eu1G9eE4VLUxfTSCfCEP8xGxvEe1y3OFGBwN/Tf
+	YOqf/5Ehe
+X-Gm-Gg: AYBFou3ESpR9c8+A0Qwv6E+IDaoopn7To5akKE2WCOwf6mlgo8CSzWaKNbHUFZ7QSFg
+	4x67TqNTDYEy10nzY3jufxKMWFTxKQmPrcPI5LrmmxST27+Dj8oresKbmg1Cvp1wypN55WV3bg1
+	NBxyB9DjumxfqBfhsJTnldr6fPlTsg6Y6UPsU6f9jcA6I9nbUVtytpXOvVtxZXVzk7QI4OrI9Ks
+	GpNaSNBb1WMLvAr6yJmcqtxUeRKHx0gS+0rniRtJ1QxcSAHKI5gqVtpLHBdWrF0tgvYh5PN2DYc
+	Ld7LCL8aTcByooglpLcwCahiUwPJEJ8eMeOBLZOBNAJFwhdYNZTaoFy4X573S0ocaOkYAY2aD6y
+	BZMtR5ScNUMdaHbtSQNJNovIFvSePOC7+bCoi6GmfUoTAm8su9AyaxrgH2I6az0Bf8edCfYqugl
+	V1zQhDfQZmKrJsQIw2k9o62sHTFvFoijZObc8zzRduLEEfIVfjOx0pj3omFSufwBXinlfKYAC70
+	bE6/r4Ct5s5AOSzjw2DtbWJJoixrauhfCDvKkZ9z4cmETAGGa8T3R378lRSdSrinOItfEIU/V5d
+	O41jdhIu/NbhTzpM0TLmAD1gOQp3HYohV1q646WL4OqNk91QOtZXV2OwBhnd29Wz9hah/Q==
+X-Received: by 2002:a17:907:6d06:b0:c2e:2944:d6cb with SMTP id a640c23a62f3a-c5096328166mr258566466b.13.1794587893247;
+        Fri, 13 Nov 2026 08:38:13 -0800 (PST)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com. [209.85.221.50])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b9164bsm123156666b.82.2026.11.13.08.37.59
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 08:37:59 -0800 (PST)
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-491971ac844so1404138f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:37:59 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEcqD/287EkdHKuX7vpCmaGMSID1Xq1VVOYchPyzH1uVRDWg4wAXHhedfcRHfoSZOqwK7aO1SQ0Irbk/94=@vger.kernel.org
+X-Received: by 2002:a05:6000:4201:b0:48e:870:7791 with SMTP id
+ ffacd0b85a97d-49c71e3d623mr7912453f8f.26.1794587878240; Fri, 13 Nov 2026
+ 08:37:58 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,55 +94,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111213826.2035045-6-joelagnelf@nvidia.com>
+References: <20261112154444.417-1-_@tawheed.cc>
+In-Reply-To: <20261112154444.417-1-_@tawheed.cc>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 13 Nov 2026 08:37:46 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=VMbAusUr0GpSaL3cRexqLt3mEkdk1OP96ZXtwT3rvSWQ@mail.gmail.com>
+X-Gm-Features: AclHuK_-H1omPIi3kNtcH0DdX5XIsoE0vQ7Cu-PsOqPjOrjRqcY_iHAPS8_aqcw
+Message-ID: <CAD=FV=VMbAusUr0GpSaL3cRexqLt3mEkdk1OP96ZXtwT3rvSWQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: Add LGD LP129WT112684 panel
+To: Tawheed Makhdoomi <_@tawheed.cc>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-11-11 16:38:23 [-0500], Joel Fernandes wrote:
-> CONFIG_RCU_BOOST is now enabled automatically for preemptible RCU and
-> cannot be turned off, so rcutorture's BUSTED-BOOST scenario, which is
-> meant to show that rcutorture detects broken priority boosting, can no
-> longer break it.  Add a boot parameter that makes rcu_initiate_boost()
-> do nothing, giving that scenario a way to break boosting.
+Hi,
 
-It has:
-|         depends on (RT_MUTEXES && PREEMPT_RCU && RCU_EXPERT) || PREEMPT_RT
-|         default y if PREEMPT_RT
+On Thu, Nov 12, 2026 at 7:44=E2=80=AFAM Tawheed Makhdoomi <_@tawheed.cc> wr=
+ote:
+>
+> Add the LG Display LP129WT112684 12.9" 2880x1920 eDP panel, used in the
+> Microsoft Surface Pro X (SQ1). It uses the same timings as the other
+> LGD LP129WT* panel already in the table (0x06b2).
+>
+> Without this entry the panel is driven with conservative timings and
+> probe hits the "Unknown panel" WARN.
+>
+> Panel ID: LGD 0x0555, EDID descriptors "LGD_DV1.0_" / "LP129WT112684".
+>
+> Signed-off-by: Tawheed Makhdoomi <_@tawheed.cc>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-which I read as always enable on PREEMPT_RT and on PREEMPT_RCU only with
-RCU_EXPERT enabled which off by default.
-But BUSTED-BOOST always enabled RCU_EXPERT which means it is always
-enabled. Hmm.
+Please follow the example of other recent commits to this file and
+include the EDID in the commit message. Also, when you say "It uses
+the same timings as the other ..." does this mean "I have the
+detasheet and verified that it uses the same timings" or does this
+mean "I have no idea, so I picked what the nearby panels do". Please
+be explicit about how you arrived at the timings in the commit
+message.
 
-> --- a/kernel/rcu/tree_plugin.h
-> +++ b/kernel/rcu/tree_plugin.h
-> @@ -1270,6 +1270,9 @@ static int rcu_boost_kthread(void *arg)
->  	return 0;
->  }
->  
-> +static bool boost_disable;
-> +module_param(boost_disable, bool, 0444);
-> +
->  /*
->   * Check to see if it is time to start boosting RCU readers that are
->   * blocking the current grace period, and, if so, tell the per-rcu_node
-> @@ -1284,7 +1287,7 @@ static void rcu_initiate_boost(struct rcu_node *rnp, unsigned long flags)
->  	__releases(rnp->lock)
->  {
->  	raw_lockdep_assert_held_rcu_node(rnp);
-> -	if (!rnp->boost_kthread_task ||
-> +	if (boost_disable || !rnp->boost_kthread_task ||
-
-Could you instead make this a parameter of rcutorture (and not rcu's)
-and then check it behind IS_ENABLED(CONFIG_RCU_TORTURE_TEST)?
-That way non-testing code does not have this additional read and the
-variable parameter and so on.
-
-Maybe tell rcu_spawn_one_boost_kthread() not to populate the tread this
-thread in case.
-
->  	    (!rcu_preempt_blocked_readers_cgp(rnp) && !rnp->exp_tasks)) {
->  		raw_spin_unlock_irqrestore_rcu_node(rnp, flags);
->  		return;
-
-Sebastian
+-Doug
