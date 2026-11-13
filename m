@@ -1,100 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794567685;
-	b=MNVkZwjtn4tYzLSOOYaCjYb+1UlXipksmoF6waM0GlB+IetsPG63tgohpsqrR/eyouGv
-	 9tVysN7CcMKPSpyivOpiWSj5xJUJlVXaP52PJT+L0RiH6fEB3D4qcf03EEWbDujL5o7/T
-	 xld/K5oNw55EhkP/uQS/nYm0+lBXV9Qr/Fdwn+FYtPAEYHlG/lHPXJsslZelWqo8/pnVG
-	 Ii6p5t2lOfkvXlatEP9EJBmJHSagvrhYW5BqIYHo4t+yTJfhtITHCZ7Rg1Ef7aFaCwUOi
-	 U9LS7yEzdSM1RHefB3ESDxaCW1x+se3RwGKtXDF1ICyEWbvS2pg2BVRQ5963uwQ57nQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567685;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.137
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794567719;
+	b=fj5nwcZxDCEaNcXTROJAwmh8yO0YVW6S0A4AVvnIMIJFXiILS7j/jykTISQXOLGo8EHu
+	 vcG45G0QKf/EDArDxLiLtYm9jS+U1UzCDEhMaoDmIjbGxhLOiNtYP6Q4w25NWkKh8VtTd
+	 7weMlgCXYTvYiRpRjHlNiRXo31zSXslsLvhmQ16vAZYPrzOa13LOYG8JeVT1+n7D8R3AF
+	 aAGbozg+QglXksNUPbC1JpCImebe/Um4Yioo0nKWt2Kopsop346DOnk6JcfVoK1jahdZs
+	 NThqzKKWMNtdEi7rcFx43HwUH8+oINX2WVnI0w2hv4yZQYeaW38LzcUEwTHMH/4gTTA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567719;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=EhSLziMRwdiehgWLSf2hbf4dn4hmC+KU+DWMadGd+hk=;
-	b=aRgbOLsjonRzdV2mqTxFOV3EreU1sSnfEftEfGPIEeKY6IC4ew5kl0Th93ez2n/YFD0Y
-	 RD1yddX87Ei67n0q96NT1DyJJ9456EblhNdnP19t91BLbqG+jURN6e2W7V73Qy63RclBg
-	 HEi03rvBmfZYHtYJ+D+Jh0XrVBVN+xe9qJh15Z/jlsZVZFH4aWxBoSBalurB3ih6ayPGj
-	 c3knyBuJrHO+1FkK3Xjl5zNdqGIFdA1LNFdnywcRLu35RKf/i+6RMbmcv6VtQm2ckKr0q
-	 00drPN0xST5dGG7w1kZPlUawo87gdjYxRxsfq/N9uTXkSs9QFlkUL8UBbWKt/g1+S/g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gM7anwqP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:X-Mailer;
+	bh=rWzmNEep0iX5uEZI1S/qGXTXdilbvqQY8SkirUZFpaM=;
+	b=edTIMw3WNrrIdJXjnH3f0rlERffm2p2/1BrXXcWyFUtY604lRGgHMwTtI1nzY/BU5Fgq
+	 rljRYVhkKQhS+Wtydv6tuki4xx6lSFISES/zEDNo6sLS58kgpFXaECMwgvalbfuqgmn4e
+	 lc1418PuvdW2kS2fkXky6H7tVwvZyTEca6O/mcg/SPHYZBcMZUCJ6nlrsge7CDhXgMYWK
+	 TMUsUJNjG5ecI2VyqKOQ2HR3NC8lR9zLI3Andg5ZBIHy8xbnTGQ0QZocojmDNhx7/Bjcv
+	 g6Xr/x24aMUF9DqXWgMxL+WL3+kXsEPSMzzt2g0H9Ss/s7hYR+3U6Ob2wHJ7ceY+dig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NeO4Av02;
+	arc=none smtp.remote-ip=74.125.227.137
+Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298BA606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:01:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 298BA606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 214D7606A895
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:01:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 214D7606A895
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gM7anwqP
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b581b6b0e9so1169346a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:01:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794567683; cv=none;
-        d=google.com; s=arc-20260327;
-        b=m2eXDvJTKDkP9OVqsxV440xNCKFXmA70uKVHMCuWZ+gpFxqLMvDErQVFJNunWWD3np
-         h0VLPTWmQ0+z2k2Yikx1AG+IM61Qp1r8LHbe2EOB0AGUYo/dcrtudiKT4Ia0D0zDC0FV
-         oa7gyoMcUpKftDhjoS078SvJItcAaXgPWepUygiSwhdbs2JiZZyZ526xTvMozifgI6JQ
-         UJqhx8qkIfXa093793hODyjCt5C22HhCmP/8wSe9+v/ZRY5/NU9jchWRr7sgENymfgH/
-         q6bwCd0tRb7asda6+GF8bpuVhheToA9pkkZ8JUb2WD1Kl3js9FFkuvBeJz70/b1Zci+f
-         TQmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=EhSLziMRwdiehgWLSf2hbf4dn4hmC+KU+DWMadGd+hk=;
-        fh=45FAFP4C0rMNRtTl/qS6hofmGC/BTVke/1NfpCGanP0=;
-        b=fHeYE/LerPLKvV1GAf/5IkLO8WD5jhhh8ybGa1855h+/RPbu1m3WG6yhNXOAS47dEt
-         PWpiNyxZdj+wV+lEEAce9mtdCNq0xSHnqU6PxYbw4IBdypVIStAaQqYk5yCvMoCRvDz9
-         bZzv3ge0OoGQ5nmVg91aofByj/lSEXgfks3cr/POO7GO5DOKnD43EfOjtptCEJmWpilo
-         K7pbT6HrML2byf+NR+Gy+yyxaOqXsCndFGUqYU+n069FyZpw7Geys9xPGxJGsSd/PCWU
-         8NeqxpCZFMO2v3/coTjBONZ2FeaNy0Gpo4EQ6KG2uBq8uH1tS4kTVLpQBHZFX7H2sO4W
-         jKEA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NeO4Av02
+Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3b18c01238eso202601a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:01:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794567683; x=1795172483; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794567718; x=1795172518; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EhSLziMRwdiehgWLSf2hbf4dn4hmC+KU+DWMadGd+hk=;
-        b=gM7anwqPc6kf1KPuU0sHreJsXNGPWMw6uQsDOjTYUJ/sGIqVH7Q9/GUmBv1oV/sbv+
-         bg2CTphEFLwiLGxYNT6nCTZ37BM/cg70n/mSunhzpQsBNLWUHrgND9OiU3Ib6KpbSvza
-         i4lwEH8DreGew2XU6/qX2H9RfgB9UChtZoQNavK1lr7jON9PbqT/+PL8YRxGJjFq738s
-         DG93cXHbiqQUUfyOTTPu+pOzoCOOILF37M6GoB1GLHrtsJEljQJRpqCsoViKeFqfrQK5
-         I0FHY/y+ijCl52hijhZ9hbKa5+0bj5fKmVnkiuzrZCp8Ku5WIk5kQskS43H5O2pG7KU1
-         JN0g==
+        bh=rWzmNEep0iX5uEZI1S/qGXTXdilbvqQY8SkirUZFpaM=;
+        b=NeO4Av02mt66gW5iSyZSWnxHKa5d3kti5aWxj9UnBPVzjlLCDPecR7obp/9NHPELUa
+         7hEGjuL7LZjWSzgcTHZtgl+cLxmAZfDXJlXd+paPU+w6cOsv/RPzVHxYbwMSGCYs2Tcp
+         zj81/ZAE/sOzZK/n8GVKrUkyl8Yz4pVKqkd3X+jkzdyibnjj8OGlpXmtLOeT0ozi+1rs
+         yuWPtPXgMD/KYIdYzBQQEfwumoqPPhd7UbF4mbXFRgWvod12rEKU85cZ/P71g0kcTUwm
+         46Qnr9/t6XHcBvMtkZ2Od3MZkpX4+Wha04q2DT6EPYGwpa/NB66eQ6F5T3WIb/E7PWyY
+         LzZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794567683; x=1795172483;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EhSLziMRwdiehgWLSf2hbf4dn4hmC+KU+DWMadGd+hk=;
-        b=Ady6sPtcNUV3IjuRUlFsuO+bTkHWwoRYb0B2WNHK5w4xEj5jNM42PeNMMectdN9Tq3
-         EQg/FQG9FoeCV9ydYgkDuu7g7mpigw+b+DX/2Qj9/VAa4GRevLfk4qHhghsPSVk13xGT
-         GSdcnGgxxinh6vMk+h0O0G2wCc9wMFeRdo/+gDo3Fn2jK4ZsV8xYFvL6Hqy1hmef8vXa
-         7+L26tjk9ayEWue+sDm2kKUX5NStrryS5LMlLcwMIFMcy+0Zc3b4hFV0mGp+pm/AwCVQ
-         gkrcKiLpx+Ng7RTliv190hbazQ8kx1UjhIMS+Y7SOJ+n0xUOoTA09G6gJ6qsMW1T3rfF
-         2m4g==
-X-Forwarded-Encrypted: i=1; AL+hErETWY/nSgtnhh5B9wUtF0ra83mFxpNAD5SR2qVUI114zoMkdWneDln30lybyE+S1HUlUiCtZCDBsm+OhLs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xhukxmO1ge4qLsRS81lqL7Kyv5PIzZD5wXu6WCwP1/UmjmXjm
-	yVM8WrirsShEdpSAEjlDWxNlqE5pN+wpkl8FaYqlr5dAycMXTwmkhXCyezlcqd23CZpbHYGPPNf
-	/iybyzz4w/+XaXtkDZ3Z4qXcxKE/zfj0LXZCrDPIj9Q==
-X-Gm-Gg: AYBFou21Bw+Ea6jtF2G/g/1ZZgvqiTtPta7opyJDCxihRYXd8LwJXSaR1OgqIfcaIx9
-	aUJ9Jkp7V39/Y/aJvztMcoNTjeWpzRI62jDr5AHEfgYCXvoiyrSAY2ONPjJ7306RId7SF8gHtHd
-	tywhVDDi1FFuEaoZNLqmJVePevHuw6S4gZxmxLGn61YvspaFqyuDS5uQtdgDzBP5TMivPlregeq
-	kqasQ88iiwwfUr36QQVKfWe6lq5quRT7zP4vCA0Voit+9Jiq2KSZWbcNq6b612AKTcTQDM11/BI
-	p3RWHXQU6kGXg0kra8hA6yS1BRh/qjd1/mhyFcqLTTIaN6/leo94+ExYqPrUOkCwuIGMy0x224W
-	cR+UQcstN9J+qEXLfQ7Dq/rd168dDh2bmBG44Dvb+8Y9CNGbGsWjG+4eERLI2w3EuPqWAIUsEJU
-	5/SnkUY3ZUX+y2OZo=
-X-Received: by 2002:aa7:d1d0:0:b0:6b6:face:56ff with SMTP id
- 4fb4d7f45d1cf-6b7c0c1cecdmr1517334a12.33.1794567683121; Fri, 13 Nov 2026
- 03:01:23 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794567718; x=1795172518;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rWzmNEep0iX5uEZI1S/qGXTXdilbvqQY8SkirUZFpaM=;
+        b=QO2Z+8ion97QSEe59ia2gd8+RE9nGsoAR8flRvXMcFKjhY178x1w7VdrWSIGxYzZYu
+         8y5NcLjEyo6383Aa6oTmyZJNGgShwUa7mau7zbJGFXckJIXHPPslBm4P2iK1+GTjGJzE
+         PLs/gJ6AsT4MwmDpoUww7Oxtb4vyPf+vfqNuMNcEl4NjbASEy+X7aFWFd5ziD7jDTM/7
+         5gBZzfE8N2myvUPYTmn61jyt38s8mLN5fTTy0VZqbY4DXy8c8K7KSpxxsG2e65jNVyri
+         MmQ6g3GiJb7+HcaMI38qruQ9arH0KZhiftJq08GlkPYs06YPU5ehnLCFpjD+lsJlRpHB
+         Bf6Q==
+X-Forwarded-Encrypted: i=1; AL+hErH5hjiXV7utBMMS54xn90tBILo62F/eThIGRa5Xt6HQR6HS7F7YnM1IF7GMJPce49XNcP51woEeuSQn20c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/joFxegcgUZYaTsoeoQc7w45A+S8bn7BRPpJ1SjHPNRCRRHPL1
+	7LakDoiC8Tfgbtq9JHadp8DJVfQAmix8uYOszrxuUoK7noqM29lRTn2/
+X-Gm-Gg: AYBFou1+QdbjtC1qB5DaV3LHahTlDvlNbT/uY6kzfmg+32EUvFj7O6KMMP+jECp2Kg3
+	EGN1tZI6ha/0UNxwX1Ivyl+rY+oevvOsKSGFezL11HK0sfYApvprlnGQky94i0Gwhadptr5WuxA
+	hqbDL2ZCE4Ryd1OhHIJ79A1NDdhp85qaGLqNONz687VTZauozWRZMjFtTn9Kf4e2sjAyaJSCnXH
+	Hl1FWNp/jgRchAqw5wW+Iaql6A84yyekcN1hTFn5hKaIK+7mrgx9KV+wNDV/6xye05bgTzF8U/N
+	/T80GhgCnf+C86TDK5JQI7RSkQNrwxRn+MKHqYLqmWfcekOf+jQas+5rM6D4oM7+rT5UCUPjgw4
+	kLSdnilH4SEpj+BaLcr0C39zM1t0g9qvGrUEDSucwx2I0na1dnltDFxGfl46gZKGXl3h0Q8rN2Z
+	B+rc5NuSJ4/25Njsb9qDVuhxwus+bekY00jYwdCGx/dN9VTarmWZtSXvief9QmXb7g1amR8/qzD
+	Q/MIMJSzuoDujAE02tyOGQ99F9mS41zEnOCpd6MJTbxtqQFaIxnNdDTBo6xAkJrFCCpYAWBEsx0
+	7zA9E9Q8fuZh8v8Q6pMe
+X-Received: by 2002:a17:90b:1d03:b0:3ac:c005:cf07 with SMTP id 98e67ed59e1d1-3b1b0b47a08mr1923159a91.42.1794567718314;
+        Fri, 13 Nov 2026 03:01:58 -0800 (PST)
+Received: from hhost ([120.231.212.132])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce460csm8992762a91.5.2026.11.13.03.01.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 03:01:57 -0800 (PST)
+Date: Fri, 13 Nov 2026 19:01:47 +0800
+From: Xingyuan Mo <hdthky0@gmail.com>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: "open list:XFS FILESYSTEM" <linux-xfs@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	Xingyuan Mo <hdthky0@gmail.com>
+Subject: [PATCH] xfs: validate dquot buffer geometry in dquot log recovery
+Message-ID: <20261113110128.4001610-1-hdthky0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,394 +95,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CGME20261113104835epcas5p4771d9933265138321769ebe010ee7334@epcas5p4.samsung.com>
- <20261113110612.3265841-1-raghav.s@samsung.com> <973576304.21794567482719.JavaMail.epsvc@epcpadp2new>
-In-Reply-To: <973576304.21794567482719.JavaMail.epsvc@epcpadp2new>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Fri, 13 Nov 2026 11:01:11 +0000
-X-Gm-Features: AclHuK_4eW2y5x1TJUXLIaUHvbg5Y5qQ1j28UjXn0i-1LLBtpN9OCJGbji06uaU
-Message-ID: <CADrjBPpwrT=njcZZjprSt9UHdGTO6Zyf1Bg3j8PWW2uqcJXeYQ@mail.gmail.com>
-Subject: Re: [PATCH v3 02/14 RESEND] dt-bindings: clock: exynos8855: add top &
- peric clock definitions
-To: Raghav Sharma <raghav.s@samsung.com>
-Cc: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com, 
-	alim.akhtar@samsung.com, sboyd@kernel.org, bmasney+clk@redhat.com, 
-	jbrunet+clk@baylibre.com, robh@kernel.org, conor+dt@kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com, 
-	pokala.reddy@samsung.com, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email 2.43.0
 
-On Fri, 13 Nov 2026 at 10:58, Raghav Sharma <raghav.s@samsung.com> wrote:
->
-> Add device tree clock binding definitions for CMU_TOP & CMU_PERIC
->
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
-> ---
+xlog_recover_dquot_commit_pass2() has never really validated the dquot
+log item. The only check on qlf_len is a DEBUG-only ASSERT, and
+qlf_boffset goes straight into xfs_buf_offset() to pick the dquot slot
+inside the chunk buffer:
 
-Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+        dqb = xfs_buf_offset(bp, dq_f->qlf_boffset);
+        ...
+        memcpy(ddq, recddq, item->ri_buf[1].iov_len);
 
->  .../clock/samsung,exynos8855-clock.yaml       | 133 +++++++++++
->  .../dt-bindings/clock/samsung,exynos8855.h    | 206 ++++++++++++++++++
->  2 files changed, 339 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
->  create mode 100644 include/dt-bindings/clock/samsung,exynos8855.h
->
-> diff --git a/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml b/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
-> new file mode 100644
-> index 000000000000..486b7347ad44
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
-> @@ -0,0 +1,133 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/samsung,exynos8855-clock.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Samsung Exynos 8855 SoC clock controller
-> +
-> +maintainers:
-> +  - Raghav Sharma <raghav.s@samsung.com>
-> +
-> +description: |
-> +  Exynos 8855 clock controller is comprised of several CMU units, generating
-> +  clocks for different domains. Those CMU units are modeled as separate device
-> +  tree nodes, and might depend on each other. Root clocks in that clock tree are
-> +  two external clocks:: OSCCLK/XTCXO (76.8 MHz) and RTCCLK/XrtcXTI (32768 Hz).
-> +  The external OSCCLK must be defined as fixed-rate clock in dts.
-> +
-> +  CMU_TOP is a top-level CMU, where all base clocks are prepared using PLLs and
-> +  dividers; all other clocks of function blocks (other CMUs) are usually
-> +  derived from CMU_TOP.
-> +
-> +  Each clock is assigned an identifier and client nodes can use this identifier
-> +  to specify the clock which they consume. All clocks available for usage
-> +  in clock consumer nodes are defined as preprocessor macros in
-> +  'include/dt-bindings/clock/samsung,exynos8855.h' header.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - samsung,exynos8855-cmu-peric
-> +      - samsung,exynos8855-cmu-top
-> +
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 4
-> +
-> +  clock-names:
-> +    minItems: 1
-> +    maxItems: 4
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  samsung,sysreg:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle to system registers interface.
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: samsung,exynos8855-cmu-peric
-> +
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: External reference clock (76.8 MHz)
-> +            - description: CMU_PERIC NOC clock (from CMU_TOP)
-> +            - description: CMU_PERIC MMC_CARD clock (from CMU_TOP)
-> +            - description: CMU_PERIC IP clock (from CMU_TOP)
-> +
-> +        clock-names:
-> +          items:
-> +            - const: oscclk
-> +            - const: bus
-> +            - const: mmc_card
-> +            - const: ip
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: samsung,exynos8855-cmu-top
-> +
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: External reference clock (76.8 MHz)
-> +
-> +        clock-names:
-> +          items:
-> +            - const: oscclk
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: samsung,exynos8855-cmu-top
-> +    then:
-> +      properties:
-> +        samsung,sysreg: false
-> +    else:
-> +      required:
-> +        - samsung,sysreg
-> +
-> +required:
-> +  - compatible
-> +  - "#clock-cells"
-> +  - clocks
-> +  - clock-names
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/samsung,exynos8855.h>
-> +
-> +    cmu_peric0: clock-controller@15400000 {
-> +        compatible = "samsung,exynos8855-cmu-peric";
-> +        reg = <0x15400000 0x8000>;
-> +        #clock-cells = <1>;
-> +
-> +        clocks = <&xtcxo>,
-> +                 <&cmu_top CLKCMU_DOUT_PERIC_NOC>,
-> +                 <&cmu_top CLKCMU_DOUT_PERIC_MMC_CARD>,
-> +                 <&cmu_top CLKCMU_DOUT_PERIC_IP>;
-> +        clock-names = "oscclk",
-> +                      "bus",
-> +                      "mmc_card",
-> +                      "ip";
-> +        samsung,sysreg = <&sysreg_peric>;
-> +    };
-> +
-> +...
-> diff --git a/include/dt-bindings/clock/samsung,exynos8855.h b/include/dt-bindings/clock/samsung,exynos8855.h
-> new file mode 100644
-> index 000000000000..cd445bb45070
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/samsung,exynos8855.h
-> @@ -0,0 +1,206 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright (c) 2026 Samsung Electronics Co., Ltd.
-> + * Author: Raghav Sharma <raghav.s@samsung.com>
-> + *
-> + * Device Tree binding constants for Exynos 8855 clock controller.
-> + */
-> +
-> +#ifndef _DT_BINDINGS_CLOCK_EXYNOS8855_H
-> +#define _DT_BINDINGS_CLOCK_EXYNOS8855_H
-> +
-> +/* CMU_TOP  */
-> +#define FOUT_SHARED0_PLL                  1
-> +#define FOUT_SHARED1_PLL                  2
-> +#define FOUT_SHARED2_PLL                  3
-> +#define FOUT_SHARED3_PLL                  4
-> +#define FOUT_SHARED4_PLL                  5
-> +#define FOUT_MMC_PLL                      6
-> +#define MOUT_SHARED0_PLL                  7
-> +#define MOUT_SHARED1_PLL                  8
-> +#define MOUT_SHARED2_PLL                  9
-> +#define MOUT_SHARED3_PLL                  10
-> +#define MOUT_SHARED4_PLL                  11
-> +#define MOUT_MMC_PLL                      12
-> +#define CLKCMU_MOUT_PERIC_NOC              13
-> +#define CLKCMU_MOUT_PERIC_MMC_CARD         14
-> +#define CLKCMU_MOUT_PERIC_IP               15
-> +#define CLKCMU_DOUT_PERIC_NOC              16
-> +#define CLKCMU_DOUT_PERIC_MMC_CARD         17
-> +#define CLKCMU_DOUT_PERIC_IP               18
-> +#define DOUT_SHARED0_DIV1                 19
-> +#define DOUT_SHARED0_DIV2                 20
-> +#define DOUT_SHARED0_DIV3                 21
-> +#define DOUT_SHARED0_DIV4                 22
-> +#define DOUT_SHARED1_DIV1                 23
-> +#define DOUT_SHARED1_DIV2                 24
-> +#define DOUT_SHARED1_DIV3                 25
-> +#define DOUT_SHARED1_DIV4                 26
-> +#define DOUT_SHARED2_DIV1                 27
-> +#define DOUT_SHARED2_DIV2                 28
-> +#define DOUT_SHARED2_DIV3                 29
-> +#define DOUT_SHARED2_DIV4                 30
-> +#define DOUT_SHARED3_DIV1                 31
-> +#define DOUT_SHARED3_DIV2                 32
-> +#define DOUT_SHARED3_DIV3                 33
-> +#define DOUT_SHARED3_DIV4                 34
-> +#define DOUT_SHARED4_DIV1                 35
-> +#define DOUT_SHARED4_DIV2                 36
-> +#define DOUT_SHARED4_DIV3                 37
-> +#define DOUT_SHARED4_DIV4                 38
-> +#define FOUT_MMC_PLL_DIV1                  39
-> +#define FOUT_MMC_PLL_DIV2                  40
-> +#define CLKCMU_MOUT_PERIS_GIC              41
-> +#define CLKCMU_MOUT_PERIS_NOC              42
-> +#define CLKCMU_DOUT_PERIS_GIC              43
-> +#define CLKCMU_DOUT_PERIS_NOC              44
-> +#define FOUT_MMC_PLL_CLKOUT_DIV2           45
-> +#define CLKCMU_MOUT_HSI_NOC                46
-> +#define CLKCMU_MOUT_HSI_UFS_EMBD           47
-> +#define CLKCMU_DOUT_HSI_NOC                48
-> +#define CLKCMU_DOUT_HSI_UFS_EMBD           49
-> +#define CLKCMU_MOUT_USB_NOC                50
-> +#define CLKCMU_MOUT_USB_USB20DRD           51
-> +#define CLKCMU_DOUT_USB_NOC                52
-> +#define CLKCMU_DOUT_USB_USB20DRD           53
-> +#define FOUT_MIF_SWITCH_PLL               54
-> +#define MOUT_MIF_SWITCH_PLL               55
-> +#define FOUT_MMC_PLL_DIV3                  56
-> +#define FOUT_MMC_PLL_DIV4                  57
-> +#define FOUT_MIF_SWITCH_PLL_DIV1           58
-> +#define FOUT_MIF_SWITCH_PLL_DIV2           59
-> +#define FOUT_MIF_SWITCH_PLL_DIV3           60
-> +#define FOUT_MIF_SWITCH_PLL_DIV4           61
-> +#define CLKCMU_MOUT_AUD_CPU                62
-> +#define CLKCMU_MOUT_AUD_NOC                63
-> +#define CLKCMU_MOUT_CPUCL0_SWITCH          64
-> +#define CLKCMU_MOUT_CPUCL0_NOCP            65
-> +#define CLKCMU_MOUT_DSU_SWITCH             66
-> +#define CLKCMU_MOUT_CPUCL1_SWITCH          67
-> +#define CLKCMU_MOUT_CIS_CLK0               68
-> +#define CLKCMU_MOUT_CIS_CLK1               69
-> +#define CLKCMU_MOUT_CIS_CLK2               70
-> +#define CLKCMU_MOUT_CIS_CLK3               71
-> +#define CLKCMU_MOUT_CIS_CLK4               72
-> +#define CLKCMU_MOUT_CMU_BOOST_TOP          73
-> +#define CLKCMU_MOUT_CMU_BOOST              74
-> +#define CLKCMU_MOUT_CMU_BOOST_CPU          75
-> +#define CLKCMU_MOUT_CMU_BOOST_MIF0         76
-> +#define CLKCMU_MOUT_CSIS_NOC               77
-> +#define CLKCMU_MOUT_CSTAT_NOC              78
-> +#define CLKCMU_MOUT_CSTAT_BYRP             79
-> +#define CLKCMU_MOUT_DPU_NOC                80
-> +#define CLKCMU_MOUT_G3DCORE_SWITCH         81
-> +#define CLKCMU_MOUT_M2M_NOC                82
-> +#define CLKCMU_MOUT_M2M_JPEG               83
-> +#define CLKCMU_MOUT_M2M_GDC                84
-> +#define CLKCMU_MOUT_MIF1_NOCP              85
-> +#define CLKCMU_MOUT_MFC_NOC                86
-> +#define CLKCMU_MOUT_MIF0_NOCP              87
-> +#define CLKCMU_MOUT_NOCL0_NOC              88
-> +#define CLKCMU_MOUT_NOCL1A_NOC             89
-> +#define CLKCMU_MOUT_RGBP_NOC               90
-> +#define CLKCMU_MOUT_YUVP_NOC               91
-> +#define CLKCMU_MOUT_ALIVE_NOC              92
-> +#define CLKCMU_MOUT_CSIS_DCPHY             93
-> +#define CLKCMU_MOUT_CSIS_OIS               94
-> +#define CLKCMU_MOUT_ICPU_NOCD_0            95
-> +#define CLKCMU_MOUT_ICPU_NOCD_1            96
-> +#define CLKCMU_MOUT_GNPU0_NOC              97
-> +#define CLKCMU_MOUT_GNPU0_XMAA             98
-> +#define CLKCMU_MOUT_SDMA_NOC               99
-> +#define CLKCMU_MOUT_DNC_HTU               100
-> +#define CLKCMU_MOUT_DNC_NOC               101
-> +#define CLKCMU_MOUT_PSP_NOC               102
-> +#define CLKCMU_MOUT_G3D_NOCP              103
-> +#define CLKCMU_MOUT_USI_NOC               104
-> +#define CLKCMU_MOUT_USI_IP                105
-> +#define CLKCMU_MOUT_CPUCL0_DBG_NOC        106
-> +#define CLKCMU_MOUT_BOOST_RCO             107
-> +#define CLKCMU_MOUT_MIF0_SWITCH           108
-> +#define CLKCMU_MOUT_MIF1_SWITCH           109
-> +#define CLKCMU_MOUT_NOCL1B_NOC            110
-> +#define CLKCMU_MOUT_CPUCL2_SWITCH         111
-> +#define CLKCMU_MOUT_CMU_BOOST_MIF1        112
-> +#define CLKCMU_MOUT_CSTAT_MCSC            113
-> +#define CLKCMU_MOUT_G3D_HTU               114
-> +#define CLKCMU_DOUT_AUD_CPU               115
-> +#define CLKCMU_DOUT_AUD_NOC               116
-> +#define CLKCMU_DOUT_CPUCL0_SWITCH         117
-> +#define CLKCMU_DOUT_CPUCL0_NOCP           118
-> +#define CLKCMU_DOUT_DSU_SWITCH            119
-> +#define CLKCMU_DOUT_CPUCL1_SWITCH         120
-> +#define CLKCMU_DOUT_CIS_CLK0              121
-> +#define CLKCMU_DOUT_CIS_CLK1              122
-> +#define CLKCMU_DOUT_CIS_CLK2              123
-> +#define CLKCMU_DOUT_CIS_CLK3              124
-> +#define CLKCMU_DOUT_CIS_CLK4              125
-> +#define CLKCMU_DOUT_CMU_BOOST_TOP         126
-> +#define CLKCMU_DOUT_CMU_BOOST             127
-> +#define CLKCMU_DOUT_CMU_BOOST_CPU         128
-> +#define CLKCMU_DOUT_CMU_BOOST_MIF0        129
-> +#define CLKCMU_DOUT_CSIS_NOC              130
-> +#define CLKCMU_DOUT_CSTAT_NOC             131
-> +#define CLKCMU_DOUT_CSTAT_BYRP            132
-> +#define CLKCMU_DOUT_DPU_NOC               133
-> +#define CLKCMU_DOUT_G3DCORE_SWITCH        134
-> +#define CLKCMU_DOUT_M2M_NOC               135
-> +#define CLKCMU_DOUT_M2M_JPEG              136
-> +#define CLKCMU_DOUT_M2M_GDC               137
-> +#define CLKCMU_DOUT_MIF1_NOCP             138
-> +#define CLKCMU_DOUT_MFC_NOC               139
-> +#define CLKCMU_DOUT_MIF0_NOCP             140
-> +#define CLKCMU_DOUT_NOCL0_NOC             141
-> +#define CLKCMU_DOUT_NOCL1A_NOC            142
-> +#define CLKCMU_DOUT_RGBP_NOC              143
-> +#define CLKCMU_DOUT_YUVP_NOC              144
-> +#define CLKCMU_DOUT_ALIVE_NOC             145
-> +#define CLKCMU_DOUT_CSIS_DCPHY            146
-> +#define CLKCMU_DOUT_CSIS_OIS              147
-> +#define CLKCMU_DOUT_ICPU_NOCD_0           148
-> +#define CLKCMU_DOUT_ICPU_NOCD_1           149
-> +#define CLKCMU_DOUT_GNPU0_NOC             150
-> +#define CLKCMU_DOUT_GNPU0_XMAA            151
-> +#define CLKCMU_DOUT_SDMA_NOC              152
-> +#define CLKCMU_DOUT_DNC_HTU               153
-> +#define CLKCMU_DOUT_DNC_NOC               154
-> +#define CLKCMU_DOUT_PSP_NOC               155
-> +#define CLKCMU_DOUT_G3D_NOCP              156
-> +#define CLKCMU_DOUT_USI_NOC               157
-> +#define CLKCMU_DOUT_USI_IP                158
-> +#define CLKCMU_DOUT_CPUCL0_DBG_NOC        159
-> +#define CLKCMU_DOUT_NOCL1B_NOC            160
-> +#define CLKCMU_DOUT_CPUCL2_SWITCH         161
-> +#define CLKCMU_DOUT_CMU_BOOST_MIF1        162
-> +#define CLKCMU_DOUT_CSTAT_MCSC            163
-> +#define CLKCMU_DOUT_G3D_HTU               164
-> +
-> +/* CMU_PERIC */
-> +#define CLK_MOUT_PERIC_IP_USER             1
-> +#define CLK_MOUT_PERIC_MMC_CARD_USER       2
-> +#define CLK_MOUT_PERIC_NOC_USER            3
-> +#define CLK_MOUT_PERIC_I2C                 4
-> +#define CLK_MOUT_PERIC_UART_DBG            5
-> +#define CLK_MOUT_PERIC_USI00               6
-> +#define CLK_MOUT_PERIC_USI01               7
-> +#define CLK_MOUT_PERIC_USI02               8
-> +#define CLK_MOUT_PERIC_USI03               9
-> +#define CLK_MOUT_PERIC_USI04               10
-> +#define CLK_MOUT_PERIC_USI09_USI_OIS       11
-> +#define CLK_MOUT_PERIC_USI10_USI_OIS       12
-> +#define CLK_DOUT_PERIC_NOCP                13
-> +#define CLK_DOUT_PERIC_UART_DBG            14
-> +#define CLK_DOUT_PERIC_USI00_USI           15
-> +#define CLK_DOUT_PERIC_USI01_USI           16
-> +#define CLK_DOUT_PERIC_USI02_USI           17
-> +#define CLK_DOUT_PERIC_USI03_USI           18
-> +#define CLK_DOUT_PERIC_USI04_USI           19
-> +#define CLK_DOUT_PERIC_USI09_USI_OIS       20
-> +#define CLK_DOUT_PERIC_USI10_USI_OIS       21
-> +#define CLK_DOUT_PERIC_USI_I2C             22
-> +#define CLK_GOUT_CMU_PERIC                 23
-> +#define CLK_GOUT_SYSREG_PERIC              24
-> +#define CLK_GOUT_UART_DBG_PERIC            25
-> +#define CLK_GOUT_USI_PERIC                 26
-> +
-> +#endif /* _DT_BINDINGS_CLOCK_EXYNOS8855_H */
-> --
-> 2.34.1
->
->
+Both the offset and the length of the memcpy come from the journal of
+the filesystem being mounted, so a crafted log can make mount time
+replay write past the end of the chunk buffer. Sub-page block sizes
+get an exact-size kmalloc for the buffer, so an offset of one blocksize
+lands right on the KASAN redzone; larger offsets are wild writes. On
+CRC filesystems the dd_lsn load in between is out of bounds too. The
+recovery regions are allocated to the logged length, so a short region
+0 also turns the qlf_* dereferences into out-of-bounds reads.
+
+Make this code validate the item like the rest of log recovery does:
+both regions must be exactly the expected size, qlf_len must be 1, and
+qlf_boffset must point inside the buffer that is about to be read.
+The readahead path gets the region length and qlf_len checks too.
+
+I reproduced this on a v4 filesystem with 512-byte blocks and user
+quota enabled: force a few dquot transactions into the log, crash the
+box so they stay dirty, rewrite qlf_boffset of the on-disk XFS_LI_DQUOT
+items to 512 (one block past bp->b_addr) and mount. Without the fix,
+replay trips KASAN:
+
+BUG: KASAN: slab-out-of-bounds in xlog_recover_dquot_commit_pass2+0x32a/0x500
+Write of size 104 at addr ffff88801c8b0200 by task mount/430
+CPU: 0 UID: 0 PID: 430 Comm: mount Not tainted 7.4.0-rc2-00021-gb3dfbde62cf1 #44 PREEMPT(lazy)
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x73/0xb0
+ print_report+0xd1/0x610
+ kasan_report+0xff/0x130
+ kasan_check_range+0x10c/0x1c0
+ __asan_memcpy+0x3f/0x70
+ xlog_recover_dquot_commit_pass2+0x32a/0x500
+ xlog_recover_items_pass2+0x7d/0x1b0
+ xlog_recover_commit_trans+0x585/0x630
+ xlog_recovery_process_trans+0xe2/0xf0
+ xlog_recover_process_ophdr+0xf8/0x1d0
+ xlog_recover_process_data+0x126/0x270
+ xlog_recover_process+0x132/0x210
+ xlog_do_recovery_pass+0x6be/0x8f0
+ xlog_do_log_recovery+0x65/0x90
+ xlog_do_recover+0x7d/0x2b0
+ xlog_recover+0x1bc/0x2d0
+ xfs_log_mount+0x17b/0x2c0
+ xfs_mountfs+0x70a/0xe70
+ xfs_fs_fill_super+0xaca/0xf60
+ get_tree_bdev+0x14/0x20
+ xfs_fs_get_tree+0x19/0x20
+ vfs_get_tree+0x54/0x170
+ path_mount+0x4ad/0x13a0
+ __x64_sys_mount+0x1dd/0x210
+ do_syscall_64+0x10b/0x5f0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
+
+With the fix the same image is rejected without any out-of-bounds
+access, and a pristine dirty log still recovers fine:
+
+XFS (loop2): log mount/recovery failed: error -117
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Xingyuan Mo <hdthky0@gmail.com>
+---
+ fs/xfs/xfs_dquot_item_recover.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/fs/xfs/xfs_dquot_item_recover.c b/fs/xfs/xfs_dquot_item_recover.c
+index b8854316ac756..3172efb94c277 100644
+--- a/fs/xfs/xfs_dquot_item_recover.c
++++ b/fs/xfs/xfs_dquot_item_recover.c
+@@ -47,7 +47,9 @@ xlog_recover_dquot_ra_pass2(
+ 
+ 	dq_f = item->ri_buf[0].iov_base;
+ 	ASSERT(dq_f);
+-	ASSERT(dq_f->qlf_len == 1);
++	if (item->ri_buf[0].iov_len != sizeof(struct xfs_dq_logformat) ||
++	    dq_f->qlf_len != 1)
++		return;
+ 
+ 	xlog_buf_readahead(log, dq_f->qlf_blkno,
+ 			XFS_FSB_TO_BB(mp, dq_f->qlf_len),
+@@ -84,7 +86,7 @@ xlog_recover_dquot_commit_pass2(
+ 		xfs_alert(log->l_mp, "NULL dquot in %s.", __func__);
+ 		return -EFSCORRUPTED;
+ 	}
+-	if (item->ri_buf[1].iov_len < sizeof(struct xfs_disk_dquot)) {
++	if (item->ri_buf[1].iov_len != sizeof(struct xfs_disk_dquot)) {
+ 		xfs_alert(log->l_mp, "dquot too small (%zd) in %s.",
+ 			item->ri_buf[1].iov_len, __func__);
+ 		return -EFSCORRUPTED;
+@@ -110,13 +112,22 @@ xlog_recover_dquot_commit_pass2(
+ 	 */
+ 	dq_f = item->ri_buf[0].iov_base;
+ 	ASSERT(dq_f);
++
++	if (item->ri_buf[0].iov_len != sizeof(struct xfs_dq_logformat))
++		return -EFSCORRUPTED;
++
+ 	fa = xfs_dquot_verify(mp, recddq, dq_f->qlf_id);
+ 	if (fa) {
+ 		xfs_alert(mp, "corrupt dquot ID 0x%x in log at %pS",
+ 				dq_f->qlf_id, fa);
+ 		return -EFSCORRUPTED;
+ 	}
+-	ASSERT(dq_f->qlf_len == 1);
++	if (dq_f->qlf_len != 1)
++		return -EFSCORRUPTED;
++
++	if (dq_f->qlf_boffset > BBTOB(XFS_FSB_TO_BB(mp, dq_f->qlf_len)) -
++				  sizeof(struct xfs_dqblk))
++		return -EFSCORRUPTED;
+ 
+ 	/*
+ 	 * At this point we are assuming that the dquots have been allocated
+-- 
+2.43.0
+
