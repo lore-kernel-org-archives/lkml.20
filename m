@@ -1,55 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794571071;
-	b=NtevoAwjIz0xQHrKxhbxb6VvvFqViGeWyA5NdOTT6RUOPjNy+2swCUQVqyeCjBytG2Uw
-	 /bTcaxdSyy3PDz2fZd+L5h1H0L3OwOR0UccH1H9xSSNDgVJrmIYlumIhx1ZyDTP6l+u4l
-	 bwLyEA45kbWfNAsfrWP5jm1ciZvaiPc9UtijuT7ldArtJxsKtzIwgRoOMxb3c80eitHyM
-	 KYdUKeSyP6gSZqa0QOOHbF8U/SDX/kr+rQd5oCaJo8EeYkyVR/2ZYynOyaxi3svxjZP7i
-	 yuhmtwFdJIjFATx1xor6xW5doBKxGgso3aLY7ucFpkYoAT1HkkiAjgbVV0YNUfMyJxQ==
+	t=1794571109;
+	b=0ORCv4RNPXeJ47SCxMhAtPCTKRIcfsCdz6K6oMer8mla39loNlgySuVACqdW2G9R5zUC
+	 9hICK1kCoFw4dfH4w3yG7fAaY1B1DANzE8x2D4rZhg2lFRgv8Jwfg7bWLwXB0+7gj9vBf
+	 z6tS1u8H7LZwbP6s+CcFLNuQQ9VE3FF4ID/9yhSonMOSQuWLrxKwleQmn5PN/Ms63MwDU
+	 J8CGdUMvLlJ9xeQZXjMEdXdAxUCVICojFBKkPcFvpbXyIrKiK+Z7U0hXaS9cm0J2da0++
+	 0MlsNSYh1ORBGqlHPX5I6QOU1EHyrfvm/R8Q7yj35DQ9W3nGNcso4Y1ARdbPMvMzvYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794571071;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=L4YjZ/1ljkh/HjE3eGpUGCJNzVMxyRxT8CIi/utfosY=;
-	b=GKFRGZT8dHjgErhBlhwxjP/aI8cQnlTJ3W0CAgEhHtCPfAGJCFp+U/41O48AQCSVyGzH
-	 ZjjxHU1mVRD3cBJ/Po9p7zYo2UyNfPwoNqGpxT6yU9pvvu2b2CzYg2pHV5L0/zSb3lKsf
-	 JiL1Mfcx+lNNKRTyYLaEIjop+zbhbyEuFlPGZWxeP5CZGA+NHmgOprNyTlZgxPxK/Zo7w
-	 VyCZHgCgG47iv7Le3Nzkr4d6OC5PJN5qLoN1w384ls8/w5IPoUf1mxYp8HtsfyMvQWigq
-	 zQF3qWS5P3HvwKz3dMhGhM8c8wPmcwTI9SfLqWJey5Cw7+AuSkBeHSp5sv1hG89G++Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794571109;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=NSdHvJ1c4zpPbn3GmTZcrFFhDVtyN2FOhraiFJ68E5o=;
+	b=CnmAZZ7+DY7TcRajSbnuxUAJhFfFhyc4c2abVEu7GXAtc/J18LEs+LqBAKLp9cKuVBxL
+	 sZZ3Rb7a7wTi2OOd8gvG15Plo67T/P0WgB+OC2CdSRlZmPHZxOGtA735pmwpOPk429JGn
+	 WG2y4pzPopK9wMHLBUbqpRFaQlWdSI7zrFFWXM3KBgSovQ0ZCsxVjykd0WNq+f/R3PsKj
+	 B6Gtpdb42Ry6pGuXeWkBph555ypxfevZdZtU0jIvddDHZSCMFGAfZF/MPhoRZOL7TBPtW
+	 QOIrdR2yECldMq+0neEpBc4AQMZ4lTSSAqu8t9UbRk/ZsVH2RFV6QZbjGMkRCO8O8lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42EBE606A335;
-	Fri, 13 Nov 2026 11:57:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42EBE606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="s0gU/OWm";
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBBE606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:58:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EBBE606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s0gU/OWm
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so4415175e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:58:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=L4YjZ/1ljk
-	h/HjE3eGpUGCJNzVMxyRxT8CIi/utfosY=; b=SQwYcv8j++txssD3y7dbhZGSG1
-	11uxRg3jZlByBcpk/3k2btKI+Ua4xj8s5D+GW/gCZ9yJHFCbel49c12smPXn1LW2
-	NicdmGcdwRqeizitAfJwtYrjRhEYA7nKvnYUwNnW5oe5xxEfU814C9KLSFX5yChV
-	WRPSUaip73SBYycE8=
-Received: from LAPTOP-FRMFRHCN.localdomain (unknown [240e:454:4310:e495:3439:1db1:93eb:3bc3])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkBmav0s+_ZqWp2NAQ--.2840S2;
-	Fri, 13 Nov 2026 19:57:34 +0800 (CST)
-From: Haoli Zhang <26031212468@stu.xidian.edu.cn>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+54648a6c1187a7ef46a6@syzkaller.appspotmail.com,
-	stable@vger.kernel.org,
-	Haoli Zhang <26031212468@stu.xidian.edu.cn>,
-	Jinning Zhang <25031212117@stu.xidian.edu.cn>,
-	Bin Yu <byu@xidian.edu.cn>
-Subject: [PATCH] media: em28xx: clear dev->v4l2 when v4l2 init fails
-Date: Fri, 13 Nov 2026 19:56:54 +0800
-Message-Id: <20261113115654.642-1-26031212468@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=gmail.com; s=20260707; t=1794571107; x=1795175907; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NSdHvJ1c4zpPbn3GmTZcrFFhDVtyN2FOhraiFJ68E5o=;
+        b=s0gU/OWm8v6mJwnBITQZHRyZGMnBastiVUUJwJ2grcp9wWCzIeqbZDGsdqUNCmEdK4
+         o+pImQoBBA/w8RERNzYVlVY2C+JvnkGPwFEapewM9oGDxf4hYi+ZjE7KjtAUuayw+NEe
+         6cmf377gs9AYu3Uz7NhknAparrBPlDUhxuC1rw/tkRbrDS/PscoPpbjs9/TbkcTrIig9
+         HAHmteYPcZu8tIGnotVcY9HpR3w/vxtGpqip+B2Xhjh++yveRZpYhDxE/jPxDpHk8uFc
+         m4dv7PSytl7uJ2SMIP0N9tHj2FVGa/eQjWNquFtIDvTgqol2+FCa5xi/HMSL1slKwnCF
+         k6vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794571107; x=1795175907;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NSdHvJ1c4zpPbn3GmTZcrFFhDVtyN2FOhraiFJ68E5o=;
+        b=I3xNpWspmtj6BAKmskT+Z2Z2CStua8WB1Q2iUGvq+SXct+fs4y/NFX2hAjNnGfsWHF
+         z3dsS1gdmlpC7v05MCfpbqfpJZ9RLdABqa/EYnZm6AXWmB5TgJw/uT1GHqJcPxPVU5KP
+         e3o3R0Ic3mPjYjAcXJDYCDqpa9ol936MziV/Zi2nkRFW7MUMk9UnMFH/r3P4IiyBndii
+         Z4tXsyK2M+qo2RkEApMxrPWm/pQqhOIQgcSJ2P7AV5e1thD2hT4dE9zy3kARRlvz9KKD
+         JyW9FkO6Kkzhf0RoTfWN5iVfjTWL6+ylxoBkm5ABUrChipmXcd70maCAyF+srxB0zq9s
+         irZg==
+X-Forwarded-Encrypted: i=1; AL+hErFoHFLSN4qATOp/0nXdETSlaYG8gdQWigqAQ0Mj8xeqCuHJEGF1Qpqk1XIAZuk8SaIz4OQ4EE/rAw2AV80=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9O1e452mpRmYlL0o82HhLnRLPZnYpeqxE8MHVkS+++BhMZsBpW
+	NXn2Y0zUG2jx8If+NjYEIh29OO+gF8EtHU1XNmMh23Zya4osKNTFso89
+X-Gm-Gg: AYBFou2zlzIuX+NPXKTkKK/Qy7evw5h96ieCFizZzMSb1aVHdtZZbmHch4sHGfjnjIK
+	r9XqAOU+x1PMk6EBrwTtw7ShSS7E3SJLqbnH8+EhmUl6H2m25tWGBIMyKtfp1rPiHNFv/byzIEy
+	+bt+DG1pkm4Wjtm/NiVO/Wu9XUYu/idPAgV0oVLBSYNOvcWCOnVuZyWcNEELS3PVwaBSKZB3Dya
+	T8/ISGq4iG4CkrpznVGTfQu1/phaM954aBTtJPbO4vFwpGFmS6cAOhIabNeBpP3jpEFbT4a9T9F
+	sik61Eqy/ADupFGUCKe3FiuOU8LIOc87tpA5CBz+yAeqhlR3xwLBFnBwLIHaxBwk3/2oYhNZifZ
+	2GkBgcRViEU7q2leEMtIBEzt8XM6ZXu3igIta/JyV8IQD160E4FRLwT2BtPW6LY86heh0xmzXDD
+	pajj/0V9O8qWGqnN623ABz1OIdF8CUBa0RmBVACbfB2g4sjFyS9kg9K/Tj/FlQE1GxVS0fCXXiQ
+	8hAxG+QOoXWbcZ7Ad6rozIQijzU8DG6/JFVWpr7cxtv+V2bE+avkCLb2cS/1s4NVYUaxPn3GU93
+	sc9NTO6n4hw/BXyXbhDEyjd3Ax02nULoC4kropOQvB20hII3mJab9gPjkk/nuICmmAs=
+X-Received: by 2002:a05:600c:4e49:b0:4a1:78c5:79f5 with SMTP id 5b1f17b1804b1-4bb55aa999dmr44030125e9.33.1794571106573;
+        Fri, 13 Nov 2026 03:58:26 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2538b9sm252917195e9.1.2026.11.13.03.58.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 03:58:26 -0800 (PST)
+Date: Fri, 13 Nov 2026 11:58:24 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Martin Belanger <martin.nvme.dev@gmail.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph
+ Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Hannes Reinecke
+ <hare@kernel.org>, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Martin Belanger <martin.belanger@dell.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] nvme-tcp: use an aligned buffer for the TLS
+ record type
+Message-ID: <20261113115824.2f96b66b@pumpkin>
+In-Reply-To: <bc96a186-5a19-4896-8465-ccd1df5a33bf@gmail.com>
+References: <20261111-nvme-tcp-live-ctrlrec-v2-0-6295202b84de@gmail.com>
+	<20261111-nvme-tcp-live-ctrlrec-v2-1-6295202b84de@gmail.com>
+	<20261112223707.3bf1e1a6@pumpkin>
+	<bc96a186-5a19-4896-8465-ccd1df5a33bf@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,74 +105,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkBmav0s+_ZqWp2NAQ--.2840S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CF1UXF1UCw1rXFy8Zw1rXrb_yoW8tFykpa
-	9rWFWYyryYyr4qgw17Jw1UWr10yFn5t3y5CrW7Kw1qkrn3GrWxCrZaqryUuFs0y393AFWj
-	qFyDJw4xWFW5uFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
-	x2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vEY41l42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUbg4SUUUUU
-X-CM-SenderInfo: yswqjiasrskluy6v33wo0lvxldqovvfxof0/1tbiAQUQEWr11lZwpAACsM
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-em28xx_v4l2_init() publishes dev->v4l2 before the initialization is
-complete. If a later step fails, the error path unregisters any video
-nodes and drops the initial v4l2_device reference, but leaves dev->v4l2
-set until the release callback runs.
+On Fri, 13 Nov 2026 06:34:06 -0500
+Martin Belanger <martin.nvme.dev@gmail.com> wrote:
 
-em28xx_init_extension() does not propagate an extension init failure, and
-em28xx_close_extension() later invokes the extension's fini() callback.
-The extension init and close paths are serialized by
-em28xx_devlist_mutex, so clearing dev->v4l2 before init returns makes the
-later fini() see NULL and avoid another v4l2_device_put(). Otherwise, the
-reference count can reach zero while a video node still holds a reference.
+> On 11/12/26 17:37, David Laight wrote:
+> > Is that right?
+> > You are changing something that was CMSG_LEN(1) to one of CMSG_SPACE(1).
+> >
+> > I've a feeling it would be right if it was a struct, not a union.  
+> 
+> I think the union is right. buf[] covers the whole control message:
+> the header, the data and the padding. CMSG_SPACE(1) already includes
+> sizeof(struct cmsghdr). The cmsghdr member only gives the buffer its
+> alignment. With a struct, the header would be counted twice.
+> 
+> On x86_64, CMSG_LEN(1) is 17 and CMSG_SPACE(1) is 24. The union is 24
+> bytes with 8-byte alignment. put_cmsg() writes CMSG_LEN(1) bytes and
+> sets cmsg_len to 17, as before. It then advances msg_control by
+> min(CMSG_SPACE(1), msg_controllen), so CMSG_SPACE() is the size it
+> expects.
 
-The open callback checks dev->v4l2 under dev->lock, so an open waiting for
-init cleanup sees NULL and fails with -ENODEV. Clear dev->v4l2 while still
-holding dev->lock to protect that check.
+Ok, you are changing the size - which is what I noticed.
+In this case it makes the on-stack buffer 4 bytes bigger - which
+probably doesn't matter.
 
-Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-Reported-by: syzbot+54648a6c1187a7ef46a6@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=54648a6c1187a7ef46a6
-Cc: stable@vger.kernel.org
+I'm sort of surprised it is 8 byte aligned.
+Historically it would have been 4 byte aligned, and the kernel still
+has to handle requests from 32 bit apps where I'm pretty sure the buffer
+will only be 4 byte aligned.
+But I've not checked and it isn't really relevant here.
 
-Co-developed-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
-Signed-off-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Haoli Zhang <26031212468@stu.xidian.edu.cn>
-
----
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index 47441e98173d330c773dede5596872ad85678649..046b52f1afc53bd5f5b3944194eb1b9eadeabea1 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -3127,10 +3127,15 @@
- 			 "V4L2 device %s deregistered\n",
- 			 video_device_node_name(&v4l2->vdev));
- 		vb2_video_unregister_device(&v4l2->vdev);
- 	}
- 
-+	/*
-+	 * Prevent open() from using this failed instance and fini() from
-+	 * dropping its initial reference a second time.
-+	 */
-+	dev->v4l2 = NULL;
- 	mutex_unlock(&dev->lock);
- 
- 	/*
- 	 * Drop the initial reference. em28xx_free_v4l2() will be called
- 	 * once the last video_device node release has decremented the
--- 
-2.47.0
+David
 
