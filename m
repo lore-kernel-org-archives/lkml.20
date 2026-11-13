@@ -1,102 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794560730;
-	b=aOFSRzchtoc5jHkRbJD6OxgF7vOGrxjekx7+7ZieekK30AWIKzGwy+TXMbafezjLdTsM
-	 Al2wq+GpdLR6MhidNg9MrolbAmSQIHtUyImBhH8zGek5ARoPk0Hf2ZzN0BLejvIk6HSly
-	 Za6c8lEDsYE/k5aeTlksVLHsw4G4jKHResQn131ufBuGpl69gdEkBTWUMnFveSdlr57gy
-	 ZPRSo1B17KXFWLIpihGaCszXS0DHrWUAmyCtiFEMtxUaIxLcrD1tmJ23Bmg+Uap7g4BiG
-	 l27M/uWADJZfcew84tFBxpiTgR2u+AjMqh9r4nQ7mk5lfWzKVApSoxsfTQBDq8IeEWQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794560730;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794560803;
+	b=sv0V24PBKbGj0Aik/CuES0aNRLmrhn1ZYE9M6bZa7HrnOXUrJS12545QnXa7mT/54/Eg
+	 ppvKMr/sRH7UDkQzMrYbtP289pASlNCZfDfGI0Em5xGj+AIV4GQyTupZM7PYr9O1FQNO2
+	 qEZ38tlPedaGO1q5Ce3sfy1R8vYgjLo08turlq82vVpdhw0Qq3hU/QNYZOj65VY6Xp6KP
+	 iPPIEE/qxAyP7ahZqzCNKht9FLuH+NTtJHV0IamkP+sTKqxi2NCe0K3z7hm/hOv4d9NuX
+	 GLIUqEKEz8qO02FgVRk1rMzqNWTR/Zg3vIP0i5wbSySeR9BwlvIpn+K879XV00NxQuw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560803;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oWh4MmDr+U9A4o1fTENfwkiyBKg+wCiaiL/wQQiKIDA=;
-	b=J2+5nDsxTUqwUUgCidQ86zOdyCmpkHaPrrRuL5jzN0eazk5ePpcKjeFa4OrSWtiL6nQh
-	 DWKd21XCNPNeFIfS7EvsLCu6ixtHoxccwfJxIF7sZabLEpJbkpwbK5hEe8xAUHwygVgQa
-	 3Ab+TrAnkXQM4hsTFwzFyUPEw0G4zFDs0ivtYjxQ617lODdSoqrrBYh1oePN6ZQrMuref
-	 G1UKDT6YcHFhszrIzv2JOuuId+f3TYxb108RPVmoRqd9w7K8f9+4TD6omDaYY9NKNl0Yg
-	 grXSeVX6oh1pDu3wLBoSKhRK11A+qKzRCb9/Kvr7oSWhilr9y3cjolsiq6ZRXgTT77w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yR4iZDKf1+Vf0ovm389mmcqGuYYva2In1RmaTbco9xM=;
+	b=45Dz9bu6BmqDz0XDxCr8yYfLZOwr5l0v01+s/JT2YTaZ5kC8Niv9NTRFBJWJwXkzYtf0
+	 6qaPN4cxPccSb24fDuGP9vMDr8VOxMs2gA/vBktQ7gytJsa7d5l8eSmYsjQvtujtCxsf5
+	 AQ8ni9mfdW0aZHOWGCH9+VFWePBY9Vn7sl4sviigYzjCGphgVoSUoPKpLiAxfWDk7uOlY
+	 osjWShUBVMK9y8ixLtlX1cb5gNwR8N0j7az5V/JOPTqG1EVMGU4yW2MyCXQgsYvBWAzzk
+	 G4bTCd7tyiMMaZFryBBLh9XYTt/Xg0n6wOMJ3yvIH2/2+PyKawwEp+IOv7nCxxGlsyA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ohOfsXYU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="LD/kQkxN";
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2328606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:05:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2328606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27F2606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:06:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A27F2606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ohOfsXYU
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b3b57a31f7so6270317b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:05:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794560729; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sA0LYW/WxKOiV0XbNjlJdJdaRFvIuXNuaz6JGEjLNoq64ol4HxS2l38oixyFvzKghp
-         2cEijz3rb6vhEXIVlHMGrk8HZkfBvWe/29fDbYrvzvnewZJWCohBQZ5FYiU9/p0mdBVB
-         y8a4lQLnsnTrmD8eH6T2wHNJ7lr0Tw5d8QEyGX4zs8Z8dR+C63AQS3YhdpQZ2A1t+NOB
-         6UtQLHPrNQOXr1bWy41XqZKu6ZAn6k/ArpqVYF3prSrvYhneggxufD5616NfwqwZz0q6
-         GB25RwkwcUKTI+nqS3CchdC5xknHaWQ2MU1pZNRq8a7m1C7BQJo4+McSmPbe2OZ1XyAT
-         63hA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oWh4MmDr+U9A4o1fTENfwkiyBKg+wCiaiL/wQQiKIDA=;
-        fh=0fvaKJqU028/LKROPgzz16bCs1xUUYicpJF+18pnJKk=;
-        b=JKdZsr0W2G/8DuWbxF1ENm8zXN6v2uAmLSL9+28mfhCiv5xV2hWVcyRPigpvYJgfV8
-         52lgsNTc4vzfXez9vy1eTWQHF0JyBa3sToQRaG8pMdgXrxNAZkKbrB4DGMJl8kdBADZx
-         cphvKZLo/m9RjzfHgAkLbJxc5zm+Ng13OTgMyCG7lwYcXqpRq+iNJxqc8sy+wujZ+Y1S
-         CQ63sVpBNCXP+LmKjE7tX2Y7we6OwQy4WSFCHA3i7QGuPR6LVpnMg/Kfuw8WKm+DKnm4
-         VB9OGAaRypk8hpLFULLK/YhOLK+Yob7n1/tZC2p2c6ZdxX3lWoWalNAVshg6/jHefwhY
-         u/YQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LD/kQkxN
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b244fb7fffso685599c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:06:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794560729; x=1795165529; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oWh4MmDr+U9A4o1fTENfwkiyBKg+wCiaiL/wQQiKIDA=;
-        b=ohOfsXYUEXtUaJnoqTPwKxD8hi5D0bZ0ULn+2Ip8lqt2RtdypQp6xbRXPthdmTWv0T
-         bebq12qwuGvU4/ITuA8v00J6GjJpT4Q70XkRRg5ezSBFZmoONPt1WQkmz0IAp1JHujJA
-         FhSPMRSIuhISE2Vml3sEMYwVgMZ6Ug+SYaFHZ7M/jQ1jnojelYx1h/RWH1kAlvyTIeQn
-         5ql/KiwFQkTipqUMZGMy0BtYQIR6705Nco01CFNq9sNqKVs/uiL5r6FjIHdQ+OcTxEVN
-         qfj8/490YmGq5B/79pmiWAC8bGHhVx0wHqDOgV9oII08mjpgFLJXQDw3cTGXd51D7kmt
-         HnSg==
+        d=gmail.com; s=20260707; t=1794560802; x=1795165602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yR4iZDKf1+Vf0ovm389mmcqGuYYva2In1RmaTbco9xM=;
+        b=LD/kQkxNUSUYz5GtHET+4tkjmJ1aM+dLc5LFSvVRdL8gI36pz2MfxpgTVXcDGovrcF
+         RK7AybNnjXY0CJGK1faKowrPJRWVEd+LVcjmJBJZ+OLci9TxbtvwWeh1B1MIbHpICHsC
+         SKI7SsGmQEmIw9KaNxhIcqp9r2Bu1yWyoyGpgRXnr5lJjJeg+nTBy9JBMrtVVRy8Qd3C
+         5bleGrQzw2C0eEoD3g8YkOaxKTF3xlqz3JtprY78XKLptrhanOPH219EZwk/KaG06J6Q
+         rEQ9bRyMvkuvu+SH2eUcqYv0tF4HLWFsjnV9z0UgSoO+0VqRzf6qpMCnF+L/f9vxPsLp
+         /2LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794560729; x=1795165529;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oWh4MmDr+U9A4o1fTENfwkiyBKg+wCiaiL/wQQiKIDA=;
-        b=DjCajjMUwWFOK6zay0NH+25nl80bIWDVKG3oryfit49lKqOhh9aAbjagQ/sTeLFnYZ
-         15KAwr+yrLvZ52XMyvIdGPftUJmTbfBb0bdqAN2PP+qIwFjhbEeqo9h6Lo5IuKwyLcE3
-         60xTPdq/rJV+XxidJKhq7bD5Qn/YPaX313To1JA4Arh/CPyzk1BGyMqSW+zA5eIiUUJj
-         WOUPoSo9ezviEP0TveeS63JhxxN1yNtHzj/Kte90ZheGJUcwRG2AGgR+K1DdEiiF6bYq
-         0P0IywVUbjmCzwQCBlWeseZ3Wis2eyrzGb5YYXqqSxuNfgj7UW9kPgH+vctZb54ulG3D
-         CoIg==
-X-Forwarded-Encrypted: i=1; AL+hErEoDS6tyguJLOcuC2z4rgtwnbbNqyi9CvpyKsm1HYQvqh3ZFl9O5c6bSTd9QbGok5UORxSnK10cXdd9GL4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JYOLv73qnSNdcD9tgvsHCHQNcPQHWXUxZ/+4UQZbwc8+SiiGg
-	5lTzqg68HKJRSMULR4F/gmR+1u7R4RNROQA6HGpSJrtek6Xy8WuUNmXCDGqriIRF3DTsWN1XJgw
-	DrT4N+XCemTJnJ4KcBTZKn+pwhDWrXCQ=
-X-Gm-Gg: AYBFou2+rNs7/B1ZGIjyePiFDRj52WSLEON6+tnwR+1NNz51fFzJ6ZkQb88DsDbSVHn
-	f9Pnchakol7J59ecziiQDpII1pdI82o+Q82UFSRFCkOJ3DCAVCkYNsPi7p/HfbCJ+L1aPv4MH24
-	oMg9yNqQSwF9shJYoar4P2ziBU1OeXD5YYbEJbmZ6Xu5SsRg9BWuDO503qztU7d8ngIYKEIbyYu
-	nDxkDxTgqqjv5J/1fI5S+62OGPzXlNbk+WZLye6fWZE7CQMW9r+OybsNkQfR4KDuRZq5zXVteOy
-	uPo9mp0/yWwYfTL72LGowD6Gdkp3wPVgqyCwGk7svEmqpOcOPeC1ScD74crvkbN/+Q206FutIZP
-	rB+d4LR/ca+cJPeDqsf4It2VN+n8ZDY1E3r+hazvD8hV/10dVzwQ0w63IBFf2Zn+RVMVeOb8qoH
-	yiXEo564KcMCsftvHfuzJgA3JdX9HSsJkkiVMDryswpsA6IsiuhRoMydx/k1Rlv9uccRsawl/pQ
-	1K0p6cEl1cOV3Ab1zKVudHKnxOFx7NdlVCUoSqDEhuSbb4R4YhVfxcnmjLMwA==
-X-Received: by 2002:a05:690c:d94:b0:8b3:8d8:e997 with SMTP id
- 00721157ae682-8b4aa2dd6fbmr11603087b3.81.1794560729005; Fri, 13 Nov 2026
- 01:05:29 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794560802; x=1795165602;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yR4iZDKf1+Vf0ovm389mmcqGuYYva2In1RmaTbco9xM=;
+        b=wWE1XKusrVH3/S8Q7Cr9x/pPHyuw5vO44uuD1BU703CAMvketZggBveDNtwyPZpCN5
+         zDk3kYmKiBh8cMkeSMZ727pJv91Voh2LGwz3GwL9/0LK6MwLtjwCmyR8+wRFG6do4yIq
+         9IxwCU/vqtEzIbVCsQESn0JJa2ZieGj1as8sBsDP2BBsgNeeS17tKRvFhhMFzcLg/j9A
+         YD/DwTm7lHQDdIP1tqyAQ3UVccIk8qhcQkT6m43MqaRZwhfbrpJro+8gFjeFQSQR1ccG
+         fn3Ri5vHEZXVqoAJrvecnEPyWm8vsyHLfJHC7BkeqLhCKdxgYOGu4Aq2azYDHMH1lbbX
+         8kIA==
+X-Gm-Message-State: APuU4Z8yn4j2C3CmlOt9lc+WuQOEXq+t3cuC1DXHGPtjOFYzNtQe+/ha
+	S54mxIFQh/JPfDnBOsAS9AGCQmDsFsV1JjwKKIZ/0QCZOELVQm9zkvYu
+X-Gm-Gg: AYBFou2ROJMUMq233LFFo0Iwh4wt5eiDv/HCKInNpyjpeVdpVJycfrpdB/Z5UEU/238
+	m1QrGbLam65iSDkOPkL/BmKydAFsLVEsKtlJp+BcVCmLkkB/wT6uox4nKDS/0IvyVlVyDmpYcrg
+	HnRdeTpmF1LMqBX7ho3+7qcP6Cdi8sWDthopHU0uTljGgDezf1IisK6rypQhO2pEwQd0GmKODhn
+	bQLQDtCpJUuFOt2OaAs41XJLszmnTZg2nn1579zLFPmV7g/8nt+2V40L4va5zsEy5NFjhJa3Km5
+	lW/8j+JDilT6yIA7eU2k/hEFcL9SV7lm8QLSUHe1jpfzxrSZ7uA5UKNcypt1pnpJKoSKHJxfxEx
+	8VYgfLhirTbggYC33aF7A2+AJxymQkbG78DkwYHCnCeLaQr563ptrh6Qa1lxDYFks+BhSeNN7r9
+	23/n7BQXxsLvYT+n8BqVg4LM6FKsXXLRwoxZmJyluPPD2c1M616Rv/S4RH8lKEa7iwhBNd+mbP3
+	L/Gjpf+l8FgZnGerWU5jePRuFHyDPMJltvsJEy+b9synmPIq2jj83J4HThaptywDKAicgcniNfa
+	cVRuENGiBp+b5BQlzkQ0/WTroSv154nki6wxbCup3wnPGTdDb6hQ
+X-Received: by 2002:a05:701b:205b:20b0:1ae:59d6:91cd with SMTP id a92af1059eb24-1b50313ab0emr1801317c88.38.1794560801726;
+        Fri, 13 Nov 2026 01:06:41 -0800 (PST)
+Received: from localhost.localdomain ([103.149.158.176])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50316e008sm5522272c88.6.2026.11.13.01.06.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 01:06:41 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: tiwai@suse.de
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	sreekuttan2156239@gmail.com
+Subject: Re: Gentle Reminder: Pending Patch Review
+Date: Fri, 13 Nov 2026 09:06:19 +0000
+Message-ID: <20261113090619.2873-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <87bj7tqi8q.wl-tiwai@suse.de>
+References: <87bj7tqi8q.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,87 +98,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAHp75Vf_Ope66gaYtwa-or=r9_1n6wUq7=gs2f5kQX=fDS02JA@mail.gmail.com>
- <SN1PR12MB25284C20A14AC881C1AD6FB0A57F2@SN1PR12MB2528.namprd12.prod.outlook.com>
-In-Reply-To: <SN1PR12MB25284C20A14AC881C1AD6FB0A57F2@SN1PR12MB2528.namprd12.prod.outlook.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 13 Nov 2026 11:04:52 +0200
-X-Gm-Features: AclHuK9IXFCbX1SxdhOA9CB3GFGT2GFIdve4YkuzFr6P_3jVDvAlox3VwshETyI
-Message-ID: <CAHp75VcNL9juKhcRQYMH8WdnQJephKb1APuucqLNtk960_s78g@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 1/2] regmap: add regmap_reg_field_* APIs
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: andy@kernel.org, broonie@kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 10:53=E2=80=AFAM Victor Chernyakin
-<chernyakin.victor.j@outlook.com> wrote:
->
-> > > -#define REG_FIELD(_reg, _lsb, _msb) {          \
-> > > -                               .reg =3D _reg,    \
-> > > -                               .lsb =3D _lsb,    \
-> > > -                               .msb =3D _msb,    \
-> > > -                               }
-> > > +#define REG_FIELD(_reg, _lsb, _msb) ((struct reg_field){ \
-> > > +                               .reg =3D _reg,             \
-> > > +                               .lsb =3D _lsb,             \
-> > > +                               .msb =3D _msb,             \
-> > > +                               })
-> > >
-> > > -#define REG_FIELD_ID(_reg, _lsb, _msb, _size, _offset) {       \
-> > > -                               .reg =3D _reg,                    \
-> > > -                               .lsb =3D _lsb,                    \
-> > > -                               .msb =3D _msb,                    \
-> > > -                               .id_size =3D _size,               \
-> > > -                               .id_offset =3D _offset,           \
-> > > -                               }
-> > > +#define REG_FIELD_ID(_reg, _lsb, _msb, _size, _offset) ((struct reg_=
-field){ \
-> > > +                               .reg =3D _reg,                       =
-         \
-> > > +                               .lsb =3D _lsb,                       =
-         \
-> > > +                               .msb =3D _msb,                       =
-         \
-> > > +                               .id_size =3D _size,                  =
-         \
-> > > +                               .id_offset =3D _offset,              =
-         \
-> > > +                               })
-> >
-> > So, you convert them to compound literals. This change may be good on
-> > its own (see other similar changes in the kernel).
-> > The only problem you have is the outer parentheses. They should be
-> > dropped. If you need them, it's a problem on the user's side of this
-> > macros.
->
-> In this comment:
->
-> https://lore.kernel.org/all/auzCxxkUB9p6WKNC@ashevche-desk.local/
->
-> ...I got the impresssion that you were *against* dealing with it
-> on the user's side (in REG_FIELD_GENMASK), and I agreed:
+Hi Takashi,
 
-Yes, that's true and I confirm that it's not a business to handle
-expressions in REG_FIELD_GENMASK(). We imply that the parameter there
-is a regfield.
+Thanks for the update. Understood.
 
-> if it > can be handled in REG_FIELD, why make users worry about it?
+I'll wait until the procfs refactoring is complete and follow up on the patch afterward.
 
-But REG_FIELD is also a macro, it's not their business either.
+Thanks for your time!
 
-> But now it seems you're saying the opposite.
-
-Nothing is opposite. The statement is the same, dealing with the
-expressions should be done on the caller's side in REG_FIELD_GENMASK()
-and REG_FIELD() (as the latter is also a macro).
-
-> Can you clarify
-> your stance?
-
-I assume you are trying to have a use of it like in __uart_port_tx().
-See also uart_port_tx().
-
---=20
-With Best Regards,
-Andy Shevchenko
+Best regards,
+Sreeraj
