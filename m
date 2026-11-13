@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794598840;
-	b=uhqWq1hR9UPi8deV1Iw0+/N6Jx5XzJ5F9cvvwcyz2pPjVDaQnZ2mDK8HsRODQulPBrTh
-	 VWb+8slhN8gw2GNTuRqFnqA32oSNNVp3MJZq43OcfOsET3e1R4iDii0LvzodTVstyJMqW
-	 olhDCDcW2IW9AjtSE0rDpdO/dpI6VZ75T9NJK6vh2nyp79T/yLVmwjNh12kSDX5jx7PG7
-	 crsUCKVo6J+cKPUZpVRNtyPb6qSdvt+79ruj5BupNrPvZtYorNBnBoMyCGennhOinviNH
-	 VnB1ysutY+WXGbyTzQSkBHoOlNY6TTvy1UIlMI1yZYXDB7DAyH40DfE8TCleO2cq9rQ==
+	b=cr58JBVNUgAcRqGr6ZrnMenlAOVwjCKsdv1TN1cOP+RoKUcnK91GqiZ8b84joZimemit
+	 x/dUuScSGOZDDbjPDg1tcQzZkpSjwnwR1sPW9h1nd6B0IEkma+T29YPwyFwg6naO7dH1h
+	 g9sKOZXfTahOq+vJ1gGBcihRD9PoGh+xx0N/+kJywgHWDGGDmUw/7SvA7APUIPWMpYlp0
+	 9SczLiQRvrRN8U4MWuQUeRMbfF1YPr0XY99vZozc7MppZKeRifUKdUxPBCOyNWsAzANFB
+	 E4T4/9Rfll2gQ1oRF4Bz3qciYy2A2KfYG3vzIpzbJgz/BbMRpWNrTDgjx5dfuICq/Zw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794598840;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qrk9fKm+b1kNDtPLA6VtXnU0ubuHPuCETIzFTgwq880=;
-	b=tOSbboNrpZXOpFaxj8Ogc7cxVotg1DJdridquqAdAVjfB7Dc9VVqBzjWeTdCCmeGf0YF
-	 qYxt+uS/f03B+UKXrvJnfc2OJH/yOAPrx6UAIaQfVfdmaQ7jK40j1iOkJxgi87X6t2KEo
-	 jtWy2COW42TufNDN+5Rjp5L9ISsSWXXCLODToNClWY7RgW3KwblzKHPOVC+Hr65Z5FCTc
-	 fahr7JWLt2743IuHaMzqsCPT+kfIxFs7waDnwN9htEYlWXdpvJVibcV8E7GmnNhjHHUhY
-	 bnLBu5HSNpiH/GNmMQyv4E2zX+jRuuXx3NCzdB8OgH715qyYR12kjpc17EW+ffGvH1w==
+	bh=7SAxWA/AqtLYv0LJ6fqo0Mn17BiPmqtk2U3uaoLE5HI=;
+	b=XiMkaFIytEQp5XtiJQPGojML83KiADh/Vm76aXqaccYIP5kbbCzZBeUd+1CXt94R3kd2
+	 Tb+3f3q+VYDaU7cPUSSknJGliaZx7mLqt3lAvwBCiBtTN3qCWqKg+54trs1fLreGgQloE
+	 QByPY0g37oFUCjgpv4K+g5ufVaFGnHoAj2vcDDjdimVVca7Tew/Bhjt+Gsj6MARYX3Df2
+	 4t823PfjySv2lYPS/vJUUYKzBcNjTyaAuqC5ZwbpTZTW18XfxVxxsyNvAzmq+NnWXNC9X
+	 1bfkpbFxyYabykVW1SYI6gk56uySatzstOJXp98wDL3r+J0JQmAehaqJb01dMq4EsgA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W0flahbq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X5qcIXxP;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CEB606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BAB606A323
 	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:40:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W0flahbq
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X5qcIXxP
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794598840;
-	b=xckd6qHOK/uGBnlJxlxmNf4e2nSqeuDkO23RnUPDWu7Wak39w4eHZjetE5MwXzt8X1kj
-	 9J1sLiZoUWiXNFBQO3r2lBTEz1xQH/+Kfl8D4VI+CsJGMoZoHNuDjZ/YkqV4zuvD1It2i
-	 gLdkkeMxRSL8RwCJ2AzOG9FqLwwWnJG7TinveyakAiz2Yj3KqkrS0gXbEsbY3f9HPQKeF
-	 ocawO+AnMXjTlRWWhiEYA0ynbbLTOsBRkCATANoQQE/BV57uqFbi2THgm2ear/JMJoj4j
-	 oDzpOHKQmASYDhFe+t0H5d73ijt0vE8RNK/qfAEtYI9+FZPWg33e2gXwAZBCJMD0XKQ==
+	b=EBOIxlyD6kLUiewSF2enIl4bPwKlDuBmOqItVYhETTPS/wx+82ASxle9E3oEqbvI6e2J
+	 kJ7+d44UC69a+8shhd1AKP4PNGZs5/+2MyWJlURWNIBWWZOZHMlv0kMrcsLAYRjyacEUC
+	 9zFEne/1Ca9HBfCO5vtSO+457RX2OpvZcUslPYC6TaPu2ly581HUa/P25F9SY37OgVpeu
+	 Lvzmyd13CpXg5yla9vzFevcoj2avKBeO3obSyf5PsYJTO9KmEaf1do4C6LxDz3s+Q1cZe
+	 DjyjYrf4iSaE0O6IpkBnSMG9NKcj6DhhSVHz5F0j2BZxDeJ4hjg75/4EbsOr1Lz7/aQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794598840;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qrk9fKm+b1kNDtPLA6VtXnU0ubuHPuCETIzFTgwq880=;
-	b=gIEQZe2F87hTgWoIEdRbw7hqaUecoSYlGSqwANQoZTR7G9BjgfC1nF0TGZngLSeXA9U0
-	 4arTyZJxDWudZNqQDawmVizEotjCIqnMepwb3lO2D2kHxPttMWzZQ553+n6+Xgebid5F9
-	 /BVcJjJFZ9ARNlJHQ1zTBLOcsOJm5r3Hzgf94cUG1UrTNfZMoXtLdAnxbVtHbgoClyASY
-	 xb6kOSFdv1epafGL6DPH9aJWnBW73BmoYSGzxmpjnLMgbRqHzi1o1giiKci6VEhFJcQ0U
-	 2wU2Wf0QeA5B/x3WDF9xXtHmhJMaEtGuBhLv0BmZyzPsPa1N7hjoNKGYWVpS0d7bw6Q==
+	bh=7SAxWA/AqtLYv0LJ6fqo0Mn17BiPmqtk2U3uaoLE5HI=;
+	b=Y+X2Y37TqAlcKXTrLmN7EYBS9dpU6WW9t2mWiWI2PygQpP8ZSeIgwD85W3UvlLomKnkn
+	 dlevS6eFOaJk8xJL2p2S9G4q741sHXaqk7e9105txY2MmGDabvF8gfzGXUw1VlhGvp1Vk
+	 00bY8040ivwpGiQoZAENxnCumDARGBkT604zl4fu+XrlukKek2ji2R+wsXuE07cQI0H6m
+	 8WYN/+Do8V2QD/pXs8qy/EEFF1Gu34w55urAL6sM+fh0VAtCgLH27a23QvmkvzpMP0rcu
+	 V3Tf3LzG+6joXrDDxw6tEh2dmXMyMkvEDMhYGu+AksiSBtF6+HKgf9HZCKv/xh1kZUw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7D1FA1F000C4;
+	by smtp.kernel.org (Postfix) with ESMTPS id 936231F000C7;
 	Fri, 13 Nov 2026 19:40:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794598840;
-	bh=qrk9fKm+b1kNDtPLA6VtXnU0ubuHPuCETIzFTgwq880=;
+	bh=7SAxWA/AqtLYv0LJ6fqo0Mn17BiPmqtk2U3uaoLE5HI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=W0flahbqhVm0p/gv+o0EmwlNdVOGTjH7DWtcDGeZxqeWVhPgpCiR/jev06zsbKcWM
-	 3QKDJ0NoO2jWQOrH3wcQ5f+96VhCbjkFRhD8WrvnOf/xTnbp5qSbS6wcDKGrvg7yBu
-	 pIb4uSznE+OmgtRDNf1NuDGEYpoJIFWVFuv/PBd3KgF+ti6fJoYLlbMMYMpaq72cWC
-	 /oyCFldcdH3KpJ3WdfOSm0pIbjRm/mZenVyXTFQiCPxXXNJZdN682/pinmaVUQwrpf
-	 rFwtXU3DGEGxBA6+bjXcVJmVLNK4a+aadIrDoEDRI9CtZ1G2/oDADRkP7DGjgY7C26
-	 D9Q70yLVo4b4Q==
+	b=X5qcIXxPGb4Vjl9t6LqDgP6IxrNXmLK/VPPqvaoWcMMzSKHRVi6R6Jmnr3Z/Q3IjK
+	 YSFq1JV1/s41z+Lnma7cpt2grareRnx5ne+pZa+QnjA3gO+g2sXiigae4QJa4sF/63
+	 2s4TS1JDev+13qrYMx3634dyr5nOVzo56/wXCkayHRPpBUmWuwLWtYgXF2DlSDxohk
+	 PpWpYtsS2/W33ICE064uBV4/SfGo3R+EXLcJUxkFAOE+yqGLLsGTdhSy8CcJ84g8KZ
+	 H5coOfJ5h7Z6tuAUUhIc7pUpqQ9GNfQRydrCxSJ1NeRze5JouOBEU8pQ26t6A6qgLM
+	 P1Q0NBo54QSZg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F090549A97;
-	Fri, 13 Nov 2026 19:40:38 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 2687149AA7;
+	Fri, 13 Nov 2026 19:40:39 +0000 (UTC)
 From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
-Date: Fri, 13 Nov 2026 19:40:38 +0000
-Subject: [PATCH v2 1/3] drm/amd/display: Add helpers to check PSR and
- Replay events
+Date: Fri, 13 Nov 2026 19:40:40 +0000
+Subject: [PATCH v2 3/3] drm/amd/display: Send a changed ABM level once per
+ commit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-amdgpu-psr-abm-update-next-v2-1-27ce790856ea@hsal.es>
+Message-Id: <20261113-amdgpu-psr-abm-update-next-v2-3-27ce790856ea@hsal.es>
 References: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
 In-Reply-To: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -98,363 +98,108 @@ Cc: Roman Li <Roman.Li@amd.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Hugo Sales <hugo@hsal.es>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14271; i=hugo@hsal.es;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3679; i=hugo@hsal.es;
  h=from:subject:message-id;
- bh=MfVTCLx/oMjGtOBIEiL+NW97vKMUKzElNui5Z1Lcp90=;
- b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsr6nb/t1q0va7GeX+8Wvx45y3M6snV566FDCL7uJH
- FtXnn8lGlPSUcrCIMbFICumyKJ7w5OBZeLkmTlFz5fAzGFlAhnCwMUpABN5KsXIcEhQdrO7GJeo
- 4r+++Bci/212u2mfWCstqnf15d0K4WVB3xj++1icyN0ZvcSclSM4eVqRzdvQ/6dFxVfN+dG0ndu
- mt/M5PwC9g0wl
+ bh=LlOJID8gdQUbNTNGo+hW6h93h+A/dK5Q46QGvGs1m3s=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsr6nb9Nb6fzsH797mre8wZ45cQvjs9cK/roRe/7ro
+ g7+lT+fbVXrKGVhEONikBVTZNG94cnAMnHyzJyi50tg5rAygQxh4OIUgIkETWZk2HKYKTJOcuaK
+ X+/rdgaFT37WYnv3jt05SbH8XNP7F9akWzEynAx055901DCkzPahxNI/vhueVRSuX1Cyf37Ur1i
+ 5SN+pzABAtEx6
 X-Developer-Key: i=hugo@hsal.es; a=openpgp;
  fpr=193D095149CF7E8737B39064D912B0DB205A91C1
 X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
 X-Original-From: Hugo Sales <hugo@hsal.es>
 Reply-To: hugo@hsal.es
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 From: Hugo Sales <hugo@hsal.es>
 
-amdgpu_dm can set and clear a PSR or Replay event on a stream, but has no
-way to ask whether one is already set. An upcoming patch sets the
-hw_programming events around an ABM level update. When one was already
-set before the update, something else set it and will clear it, so the
-patch has to leave it alone
+When a commit changes the ABM level and also has planes on that CRTC,
+the connector update loop in amdgpu_dm_atomic_commit_tail() sends the new
+level to DC, and amdgpu_dm_commit_planes() sends it again. The panel
+leaves self-refresh for each send, so one level change takes it out of
+PSR or Replay twice
 
-Add amdgpu_dm_psr_event_is_set() and amdgpu_dm_replay_event_is_set(),
-with KUnit tests. The Replay tests get an alloc_replay_dm() helper for
-the power module setup that the existing tests repeated
+Record the CRTCs whose level the connector loop sent, and skip the second
+send for them in amdgpu_dm_commit_planes()
 
 Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  24 +++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h  |   2 +
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |  25 +++++
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h   |   3 +
- .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |  60 ++++++++++++
- .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        | 102 +++++++++++++++------
- 6 files changed, 188 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-index dbad0a6d3a2b4..181ddf36dde0e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-@@ -194,6 +194,30 @@ bool amdgpu_dm_psr_set_event(struct amdgpu_display_manager *dm, struct dc_stream
- }
- EXPORT_IF_KUNIT(amdgpu_dm_psr_set_event);
- 
-+/**
-+ * amdgpu_dm_psr_event_is_set() - check whether a PSR event is set for a stream
-+ * @dm: pointer to amdgpu_display_manager
-+ * @stream: pointer to dc_stream_state
-+ * @event: PSR event type
-+ *
-+ * Return: true if PSR is enabled on @stream and @event is set, false otherwise
-+ */
-+bool amdgpu_dm_psr_event_is_set(struct amdgpu_display_manager *dm,
-+				struct dc_stream_state *stream, enum psr_event event)
-+{
-+	unsigned int psr_events;
-+
-+	if (!stream || !stream->link ||
-+	    !stream->link->psr_settings.psr_feature_enabled)
-+		return false;
-+
-+	if (!mod_power_get_psr_event(dm->power_module, stream, &psr_events))
-+		return false;
-+
-+	return psr_events & event;
-+}
-+EXPORT_IF_KUNIT(amdgpu_dm_psr_event_is_set);
-+
- #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- /**
-  * amdgpu_dm_psr_get_dc_feature_mask() - Get DC feature mask for KUnit tests.
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
-index e442e7ed82ec1..b777bc9cda1df 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
-@@ -41,6 +41,8 @@ bool amdgpu_dm_psr_is_active_allowed(struct amdgpu_display_manager *dm);
- bool amdgpu_dm_psr_set_event(struct amdgpu_display_manager *dm,
- 		struct dc_stream_state *stream, bool set_event,	enum psr_event event,
- 		bool wait_for_disable);
-+bool amdgpu_dm_psr_event_is_set(struct amdgpu_display_manager *dm,
-+				struct dc_stream_state *stream, enum psr_event event);
- 
- #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- bool link_supports_psrsu(struct dc_link *link);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-index ee2e4754b0894..3ed4b4fce50f2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-@@ -208,3 +208,28 @@ bool amdgpu_dm_replay_set_event(struct amdgpu_display_manager *dm,
- 					 set_event, event, wait_for_disable);
- }
- EXPORT_IF_KUNIT(amdgpu_dm_replay_set_event);
-+
-+/**
-+ * amdgpu_dm_replay_event_is_set() - check whether a replay event is set for a stream
-+ * @dm: pointer to amdgpu_display_manager
-+ * @stream: pointer to dc_stream_state
-+ * @event: replay event type
-+ *
-+ * Return: true if replay is enabled on @stream and @event is set, false otherwise
-+ */
-+bool amdgpu_dm_replay_event_is_set(struct amdgpu_display_manager *dm,
-+				   struct dc_stream_state *stream,
-+				   enum replay_event event)
-+{
-+	unsigned int replay_events;
-+
-+	if (!stream || !stream->link ||
-+	    !stream->link->replay_settings.replay_feature_enabled)
-+		return false;
-+
-+	if (!mod_power_get_replay_event(dm->power_module, stream, &replay_events))
-+		return false;
-+
-+	return replay_events & event;
-+}
-+EXPORT_IF_KUNIT(amdgpu_dm_replay_event_is_set);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
-index 021bf02555166..4970911d55954 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
-@@ -40,4 +40,7 @@ bool amdgpu_dm_link_setup_replay(struct dc_stream_state *stream,
- bool amdgpu_dm_replay_set_event(struct amdgpu_display_manager *dm,
- 		struct dc_stream_state *stream, bool set_event,
- 		enum replay_event event, bool wait_for_disable);
-+bool amdgpu_dm_replay_event_is_set(struct amdgpu_display_manager *dm,
-+				   struct dc_stream_state *stream,
-+				   enum replay_event event);
- #endif /* AMDGPU_DM_AMDGPU_DM_REPLAY_H_ */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
-index 0a484ea7c0e8e..19c6792b1bed5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
-@@ -627,6 +627,62 @@ static void dm_test_psr_set_event_updates_event(struct kunit *test)
- }
- /* End of tests for amdgpu_dm_psr_set_event() */
- 
-+/* Tests for amdgpu_dm_psr_event_is_set() */
-+
-+/**
-+ * dm_test_psr_event_is_set_psr_not_enabled() - Disabled PSR reports no event.
-+ * @test: KUnit test context.
-+ */
-+static void dm_test_psr_event_is_set_psr_not_enabled(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_stream_state *stream = alloc_test_psr_stream(test);
-+	struct psr_caps caps = {0};
-+	struct core_power *core_power;
-+
-+	caps.psr_version = 1;
-+	core_power = create_test_power_module(test, stream, &caps);
-+	dm->power_module = &core_power->mod_public;
-+	stream->link->psr_settings.psr_feature_enabled = false;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_psr_event_is_set(dm, stream, psr_event_vsync));
-+}
-+
-+/**
-+ * dm_test_psr_event_is_set_get_event_fails() - Failed power event read reports no event.
-+ * @test: KUnit test context.
-+ */
-+static void dm_test_psr_event_is_set_get_event_fails(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_stream_state *stream = alloc_test_psr_stream(test);
-+
-+	dm->power_module = NULL;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_psr_event_is_set(dm, stream, psr_event_vsync));
-+}
-+
-+/**
-+ * dm_test_psr_event_is_set_reports_events() - Only events in mod_power are set.
-+ * @test: KUnit test context.
-+ */
-+static void dm_test_psr_event_is_set_reports_events(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_stream_state *stream = alloc_test_psr_stream(test);
-+	struct psr_caps caps = {0};
-+	struct core_power *core_power;
-+
-+	caps.psr_version = 1;
-+	core_power = create_test_power_module(test, stream, &caps);
-+	dm->power_module = &core_power->mod_public;
-+
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_psr_event_is_set(dm, stream, psr_event_vsync));
-+	KUNIT_EXPECT_FALSE(test,
-+			   amdgpu_dm_psr_event_is_set(dm, stream, psr_event_hw_programming));
-+}
-+/* End of tests for amdgpu_dm_psr_event_is_set() */
-+
- /* Tests for amdgpu_dm_psr_is_active_allowed() */
- 
- /**
-@@ -738,6 +794,10 @@ static struct kunit_case dm_psr_test_cases[] = {
- 	KUNIT_CASE(dm_test_psr_set_event_get_event_fails),
- 	KUNIT_CASE(dm_test_psr_set_event_already_set),
- 	KUNIT_CASE(dm_test_psr_set_event_updates_event),
-+	/* amdgpu_dm_psr_event_is_set */
-+	KUNIT_CASE(dm_test_psr_event_is_set_psr_not_enabled),
-+	KUNIT_CASE(dm_test_psr_event_is_set_get_event_fails),
-+	KUNIT_CASE(dm_test_psr_event_is_set_reports_events),
- 	/* amdgpu_dm_psr_is_active_allowed */
- 	KUNIT_CASE(dm_test_psr_is_active_allowed_no_streams),
- 	KUNIT_CASE(dm_test_psr_is_active_allowed_null_link),
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_replay_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_replay_test.c
-index 6f633b1bbaca9..1849e2b6022e0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_replay_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_replay_test.c
-@@ -505,17 +505,11 @@ static void dm_test_replay_set_event_missing_power_module(struct kunit *test)
- 							    replay_event_vsync, false));
- }
- 
--/**
-- * dm_test_replay_set_event_already_set - Verify no-op when event already active
-- * @test: KUnit test context
-- *
-- * When the requested event is already in the desired state, the function should
-- * return true without calling mod_power_set_replay_event().
-- */
--static void dm_test_replay_set_event_already_set(struct kunit *test)
-+static struct amdgpu_display_manager *alloc_replay_dm(struct kunit *test,
-+						      struct dc_stream_state *stream,
-+						      unsigned int replay_events)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 262170b611502..3077744b2d2d5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3895,7 +3895,8 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 				    struct drm_device *dev,
+ 				    struct amdgpu_display_manager *dm,
+ 				    struct drm_crtc *pcrtc,
+-				    bool wait_for_vblank)
++				    bool wait_for_vblank,
++				    bool abm_sent)
  {
- 	struct amdgpu_display_manager *dm;
--	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
- 	struct core_power *core_power;
- 	struct power_entity *map;
+ 	u32 i;
+ 	u64 timestamp_ns = ktime_get_ns();
+@@ -4245,7 +4246,8 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		}
  
-@@ -528,13 +522,27 @@ static void dm_test_replay_set_event_already_set(struct kunit *test)
- 	map = kunit_kzalloc(test, sizeof(*map), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, map);
+ 		acrtc_state->stream->abm_level = acrtc_state->abm_level;
+-		if (acrtc_state->abm_level != dm_old_crtc_state->abm_level) {
++		/* The connector loop in amdgpu_dm_atomic_commit_tail() may have sent it */
++		if (!abm_sent && acrtc_state->abm_level != dm_old_crtc_state->abm_level) {
+ 			bundle->stream_update.abm_level = &acrtc_state->abm_level;
+ 			stream_update_needed = true;
+ 		}
+@@ -5230,6 +5232,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 	struct drm_connector_state *old_con_state = NULL, *new_con_state = NULL;
+ 	struct dm_crtc_state *dm_old_crtc_state, *dm_new_crtc_state;
+ 	int crtc_disable_count = 0;
++	u32 abm_sent = 0;
  
--	/* Wire the power module so mod_power_get_replay_event() succeeds */
--	map->stream = ctx->stream;
--	map->replay_events = replay_event_vsync;
-+	map->stream = stream;
-+	map->replay_events = replay_events;
- 	core_power->map = map;
- 	core_power->num_entities = 1;
- 	dm->power_module = &core_power->mod_public;
+ 	trace_amdgpu_dm_atomic_commit_tail_begin(state);
  
-+	return dm;
-+}
-+
-+/**
-+ * dm_test_replay_set_event_already_set - Verify no-op when event already active
-+ * @test: KUnit test context
-+ *
-+ * When the requested event is already in the desired state, the function should
-+ * return true without calling mod_power_set_replay_event().
-+ */
-+static void dm_test_replay_set_event_already_set(struct kunit *test)
-+{
-+	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
-+	struct amdgpu_display_manager *dm = alloc_replay_dm(test, ctx->stream, replay_event_vsync);
-+
- 	ctx->link->replay_settings.replay_feature_enabled = true;
+@@ -5255,6 +5258,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 		struct dc_stream_status *status = NULL;
+ 		bool abm_changed, hdr_changed, scaling_changed, output_color_space_changed = false;
+ 		struct dm_sr_hold sr_hold = {};
++		bool updated;
  
- 	/* Event already set — should return true without calling set */
-@@ -551,32 +559,66 @@ static void dm_test_replay_set_event_already_set(struct kunit *test)
-  */
- static void dm_test_replay_set_event_already_clear(struct kunit *test)
- {
-+	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
-+	struct amdgpu_display_manager *dm = alloc_replay_dm(test, ctx->stream, 0);
-+
-+	ctx->link->replay_settings.replay_feature_enabled = true;
-+
-+	/* Clearing an event that's already clear — should return true */
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_replay_set_event(dm, ctx->stream, false,
-+							   replay_event_vsync, false));
-+}
-+
-+/* Tests for amdgpu_dm_replay_event_is_set() */
-+
-+/**
-+ * dm_test_replay_event_is_set_feature_disabled - Disabled Replay reports no event
-+ * @test: KUnit test context
-+ */
-+static void dm_test_replay_event_is_set_feature_disabled(struct kunit *test)
-+{
-+	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
- 	struct amdgpu_display_manager *dm;
-+
-+	dm = alloc_replay_dm(test, ctx->stream, replay_event_vsync);
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_replay_event_is_set(dm, ctx->stream,
-+							       replay_event_vsync));
-+}
-+
-+/**
-+ * dm_test_replay_event_is_set_missing_power_module - Missing power module reports no event
-+ * @test: KUnit test context
-+ */
-+static void dm_test_replay_event_is_set_missing_power_module(struct kunit *test)
-+{
- 	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
--	struct core_power *core_power;
--	struct power_entity *map;
-+	struct amdgpu_display_manager *dm;
+ 		memset(&stream_update, 0, sizeof(stream_update));
  
- 	dm = kunit_kzalloc(test, sizeof(*dm), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, dm);
-+	ctx->link->replay_settings.replay_feature_enabled = true;
+@@ -5339,14 +5343,16 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 		dc_exit_ips_for_hw_access(dm->dc);
+ 		if (abm_changed)
+ 			sr_hold = dm_hold_self_refresh(dm, dm_new_crtc_state->stream);
+-		dc_update_planes_and_stream(dm->dc,
+-					    dummy_updates,
+-					    status->plane_count,
+-					    dm_new_crtc_state->stream,
+-					    &stream_update);
++		updated = dc_update_planes_and_stream(dm->dc,
++						      dummy_updates,
++						      status->plane_count,
++						      dm_new_crtc_state->stream,
++						      &stream_update);
+ 		dm_release_self_refresh(dm, dm_new_crtc_state->stream, sr_hold);
+ 		mutex_unlock(&dm->dc_lock);
+ 		kfree(dummy_updates);
++		if (abm_changed && updated)
++			abm_sent |= drm_crtc_mask(&acrtc->base);
  
--	core_power = kunit_kzalloc(test, sizeof(*core_power), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, core_power);
--
--	map = kunit_kzalloc(test, sizeof(*map), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, map);
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_replay_event_is_set(dm, ctx->stream,
-+							       replay_event_vsync));
-+}
+ 		drm_connector_update_privacy_screen(new_con_state);
+ 	}
+@@ -5440,7 +5446,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
  
--	/* Wire the power module — replay_events has NO vsync bit */
--	map->stream = ctx->stream;
--	map->replay_events = 0;
--	core_power->map = map;
--	core_power->num_entities = 1;
--	dm->power_module = &core_power->mod_public;
-+/**
-+ * dm_test_replay_event_is_set_reports_events - Only events in mod_power are set
-+ * @test: KUnit test context
-+ */
-+static void dm_test_replay_event_is_set_reports_events(struct kunit *test)
-+{
-+	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
-+	struct amdgpu_display_manager *dm;
+ 		if (dm_new_crtc_state->stream)
+-			amdgpu_dm_commit_planes(state, dev, dm, crtc, wait_for_vblank);
++			amdgpu_dm_commit_planes(state, dev, dm, crtc, wait_for_vblank,
++						abm_sent & drm_crtc_mask(crtc));
+ 	}
  
-+	dm = alloc_replay_dm(test, ctx->stream, replay_event_vsync);
- 	ctx->link->replay_settings.replay_feature_enabled = true;
- 
--	/* Clearing an event that's already clear — should return true */
--	KUNIT_EXPECT_TRUE(test, amdgpu_dm_replay_set_event(dm, ctx->stream, false,
--							   replay_event_vsync, false));
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_replay_event_is_set(dm, ctx->stream,
-+							      replay_event_vsync));
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_replay_event_is_set(dm, ctx->stream,
-+							       replay_event_hw_programming));
- }
- 
- static struct kunit_case dm_replay_test_cases[] = {
-@@ -611,6 +653,10 @@ static struct kunit_case dm_replay_test_cases[] = {
- 	KUNIT_CASE(dm_test_replay_set_event_missing_power_module),
- 	KUNIT_CASE(dm_test_replay_set_event_already_set),
- 	KUNIT_CASE(dm_test_replay_set_event_already_clear),
-+	/* amdgpu_dm_replay_event_is_set */
-+	KUNIT_CASE(dm_test_replay_event_is_set_feature_disabled),
-+	KUNIT_CASE(dm_test_replay_event_is_set_missing_power_module),
-+	KUNIT_CASE(dm_test_replay_event_is_set_reports_events),
- 	{}
- };
- 
+ 	/* Enable writeback */
 
 -- 
 2.56.0
