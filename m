@@ -1,150 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.81
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794560501;
-	b=lkLToRuV8Y8ncIlQA5c/QKDkyux/6iXXC5VscO2WiK/YaM5sH4R4bUrm6DIm1XMECD/D
-	 mT0kSFKP+vf0c/NTRlbGv3FpfYh6CGvN9od4mJsMq23k0gxbwI6+fozdZ4cIRP7P8YXhf
-	 koCsf/L8n/urwLNelNTCtXUBYv6ZLVb/oqSLNZlY8G0xXWizmiUHddkvHUlWMcPG5V/Gj
-	 3l/iq96uvbH4pnrdFimbIkvS87Cx4X3D30Yaf+378jjU2ErPHsnoA0yDS+Gl4nI8g2u30
-	 XGpVZF5kTrwXqsCE4+4Z0QME9nudWSDrZuWVWsa8TaBljKQRF9tZOD4H5p+E1zvkF0g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794560501;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ClOJP3Vfon+7zyTmqN+42zRtp/WiDI67PrjSerHQXgg=;
-	b=NPy2Gy+WHR8xOzBPisqpOu23di+Cd1x6NUCs8H/zmTBNWrSidWs0Uf29UK9VKUwfuEiM
-	 T8ZvwryYOGgy7CzND+C1sEKanlV7gXq74OglAL2NhD7sz9HddXRR9xAuIQWbMjcwRbDTW
-	 SmYVaWRPaNm75gZbJ2J5OISpLLEZpEfYsfbVWKDVYeMO3Rpz9vu7lgf870twyFULtMXn6
-	 d+GcU1yi4HJsmvQS+HSjYJw167cvTcc/Dr1wP8gsLnBm9Mby57D/3einNhGHlR+oQX+9/
-	 JHmLXAQGerNqcdQRX8dQFak9K9AORgr8ACEAvpfRh/ty1+3oSQMtHiWiZG7GBtb1oOw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	dkim=pass header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b="J53zv//N";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.81
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023081.outbound.protection.outlook.com [52.101.127.81])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794560509;
+	b=B4jmh4SVyx/4CCCcKn5HKT+HSMDzdYFzKqnWXnYTrn/pStJfNcP8Ps2wb2j7I23MS6HK
+	 BxkXUYeFgwHi85TJvl09ewaNr0AHQ5LBLhmPB4BPlsvaFPp9Iq6VRqSQkP0IoXUrO18uw
+	 2sGqEbLzXTNquNLpADgL2AWbchjUExScESOBliKZLt8Y2Os7eo8tlS0y95ucLW1XBK7qu
+	 +c58v6CfChNRdSxD8EBkE+/DmQg29Yyy9FrMGbf4CzhuvuRmaqHUP8BNs7tDCNbHNnpDD
+	 qTYEWtL5RRwiBECUxhoR6UfVWsROOBCqzc803pRK5T5zOUjpgvyarjaJQ1qbdmpDCdA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560509;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=M6B8f0IfLCQpM2CN85V5qfdLHaKaGk88JdSAU1srRdw=;
+	b=VXBwQzAvxiQmToBqrVNTRT8RASeJyJO+Rl2MEBNjYWuj5oXX9YxM/eZjcfaXOJbeuHo/
+	 ALaXQthA2TexAQ42Wsb9z/eISIBnrGT/UPOhXNg1rVoO4WNVUwtDHRD+BqCjEPmRVZCr8
+	 UwwCfAj/cim8skDiJE7A58m3qlHCUlLWYezaesv/94fSYIknsl72prLnwRFcxPKOBoh3Y
+	 pS9qg0FRd2G7MpQRRSAo+0jtL6tNjKAE5GQ2oM8jlahz13ZYv6lCESlO9BSZnhGviBAe8
+	 pfpanwX+Prs1dAMs8Ao/v63Mbk9rpWdCxHUFAIWBlvonG0Z37FzH0Wiyc4PG+wGNPbA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WE6EFMsU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FC2606A332;
-	Fri, 13 Nov 2026 09:01:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43FC2606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2472C606A886;
+	Fri, 13 Nov 2026 09:01:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=J53zv//N
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eMmBDLkHQdj0RHnhfy/cVGy0lrWR9hGH7qul05sSha32n259GiVAexA9b7Tc4HmD/kJuRulb+iQayoVOVrvBk/R23ZZAeEvoKR2LwmDl/aVqCfBHK5A9WbQXH+f/5ojSMFtuByk2kveDm5kZOtvYFfo5sYm68Bd0l1AfnMF0BIOvMF4DihD10xBmwBMDyoCCf2r+G8GvxseVUd9CzWWd0yWCV0qOI/qJXa51ZDJWtaGeBMoFcGr0RRdrN79uwldhbpTubzwYzz5vx3eBAd1DsHPedGPO/Psa2+Y3eDddD/X5iv4snKOFKdvVglEesdLEryl2E5iulfNcCTA03CvOCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ClOJP3Vfon+7zyTmqN+42zRtp/WiDI67PrjSerHQXgg=;
- b=Zff78qnooE4+50YXHO0ppa00aoXgdLdGg/eX6lVmHdcY1Sn4z+TJZ6r2syO0mSR33BQYr9UGn4SAhT9+COJznuVK4n6+mAc4+tRBsNkiJPYx4xqcp316cat2sv75GRirGfrsSbdadF/BiO8meZQsQz7aBJ6QIFjVw1CK5Z20AkWBSS9eg3D4nO6HHXwshKe9bmE2P1wQM9e9reHAQmIaOFfKUSuN/xBQu+x6wPeKwwWPuaYNDE32gp6uz6w2WqqR6d3HrecNntpoWtWqx4nTQ6acJiEn8mKqEd4DmtjBHyMMG6qiscRGNf9oRJ0HAE4hwMOmRzJLn0XRmIc/bCw3xA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ClOJP3Vfon+7zyTmqN+42zRtp/WiDI67PrjSerHQXgg=;
- b=J53zv//NQ1Ca7QFxOCapa4mSS10Q8ZvkGlymw+znPWLLjpOxbwvYPJGi8DdJe62cEpsACqURPpyYaeE12nmSmbiZ2BihIKBmEfmbUydQAB7QtLKPpANUGdUh55Eq7+3ttkie7s4nQFSpmxedCcU1CYuIGWmfgJEGq7zcINIG00ukpuCk6IhWSlbzOJMQxt3qhoMzgxJ8TRpEX+cbe+VBgXrmUwnX/54yxSdpm2QMTGevE2GWd4MEdwZgB0ig2MPljMN7MzcRl6yD7lbWT9n4xmjDhzDiXarlTkTD8g1EZCfSD3VBW3VG92kba4XD0fTGFHp15LUgN+Fr3mA7YrH8YA==
-Received: from KL1PR06MB6942.apcprd06.prod.outlook.com (2603:1096:820:129::9)
- by OSNPR06MB8518.apcprd06.prod.outlook.com (2603:1096:604:495::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.0; Fri, 13 Nov
- 2026 09:01:37 +0000
-Received: from KL1PR06MB6942.apcprd06.prod.outlook.com
- ([fe80::5058:b315:12b6:d44f]) by KL1PR06MB6942.apcprd06.prod.outlook.com
- ([fe80::5058:b315:12b6:d44f%6]) with mapi id 15.21.0615.007; Fri, 13 Nov 2026
- 09:01:37 +0000
-From: Jammy Huang <jammy_huang@aspeedtech.com>
-To: Myeonghun Pak <mhun512@gmail.com>, Eddie James <eajames@linux.ibm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-CC: Joel Stanley <joel@jms.id.au>, Andrew Jeffery
-	<andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, Billy
- Tsai <billy_tsai@aspeedtech.com>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "openbmc@lists.ozlabs.org"
-	<openbmc@lists.ozlabs.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Ijae Kim <ae878000@gmail.com>
-Subject: RE: [PATCH v2 2/2] media: aspeed: drain IRQ work before stopping the
- engine
-Thread-Topic: [PATCH v2 2/2] media: aspeed: drain IRQ work before stopping the
- engine
-Thread-Index: AQHdcNAacPW34AflK0GKSOOWj4eNn7cqF/JA
-Date: Fri, 13 Nov 2026 09:01:37 +0000
-Message-ID:
- <KL1PR06MB6942FDCF4F29809B40AF0AD6F17F2@KL1PR06MB6942.apcprd06.prod.outlook.com>
-References: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
- <20261109235731-aspeed-v2-2-mhun512@gmail.com>
-In-Reply-To: <20261109235731-aspeed-v2-2-mhun512@gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KL1PR06MB6942:EE_|OSNPR06MB8518:EE_
-x-ms-office365-filtering-correlation-id: 6283b2f1-8b53-49e9-baaa-08df4164b986
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|38070700021|56012099006|261022105027099003|261021121427099003|261021123027099003|261022075727099003|261026140227099003|261026121527099003|4143699003|261028144727099003|261102123227099003|10067099003|261009220027099003|261009221227099003|261009221727099003|261009223027099003|261009223327099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- i3nvAWnyv6eX5A9LDIkDzPvZh1VRRAEESxaZbftgRZp/922RwT0/9DkdIwhZA1jKeXTChtVAoSflZRVhsEhQOiRVJw43AW1+o38g42gpp9aF4LhDjR6C1k5XEmrkKmCnMAqrgwyGRc6+BmrG3dBnHDmkfIkco2ZVjkY0eNEMaIX3Ri+Do7lTc7i20skR3gCenzfum1kUvrJHLtU2O1yqIc9r26z6gyTCFBKxwo0BmL0pKyswguO2FJYRoI1Akts5LTarDv3MCrsA40TQl4Ex0o9lvay9AoOoorYqw3u5nwzJZleb5qwFjtQpRkvtZjKTggs1qwljvBhuxD+6I/6xspWQYaOGEC8PEo/HU3cpkqU0edqro2Klu1STtoOZS0YqwHn1d/usX9Od8lCZoYvi36yXFlGI1zw6mtJmJ3e3N7XYW2z4iciO7uTNyiwpV7Es4258yLRnl8rx0aw7CrbpNzGpLG9jWZmUQsM6eC0qFOFVnl5V0ojoXtWtzgRPa8lmdQNJr+sUECaBwzBfd/msc4/zxjmgBg1K/4a4GQQsC5l4KQZfUwO5czS9EgwfSsAzXjuaeg+A9l32i0x+A278TsgjrM25ruxVI+l6omyDqDN3AfsWN2KHoU6m8uKCOe9yAqxktQXNnRktCBbXTORvSD9Xqssr4fHVVtjDm+yHKPhoIUvECHWcwYoZMY1D5TrBJDAF7PiqqtVVf7oaPE3cRl1cig5Sx28TO0I1BeutHdk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR06MB6942.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(38070700021)(56012099006)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(261026140227099003)(261026121527099003)(4143699003)(261028144727099003)(261102123227099003)(10067099003)(261009220027099003)(261009221227099003)(261009221727099003)(261009223027099003)(261009223327099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?fxJF/GBecuGZXxXivnZyIB0QZCxrR914UWYIR9auL5lTWAyIAvq7zzJCip1p?=
- =?us-ascii?Q?krM23FDpsKmhEJa+TQLnmgBRKAsxKSnsuI3Y57b/Mg4GHL7vlZE/WperLJuw?=
- =?us-ascii?Q?qXxwJReM5KtlgL0QjaWR3VtD3GBAP3Nm4QMxqkr7KLnzbfHWdPEgsLmo7MPX?=
- =?us-ascii?Q?rTwd6nuM/kUtwvJHNbdvDB7fSQsXpLG1i5iOCXbcoBUdH9ETAgvfrrKfTjvR?=
- =?us-ascii?Q?2iNKUcIYe9zRstn6/AhcGlMX7ghssrZLnj5cL2TbCALlyUtFcO5D4AASMYrt?=
- =?us-ascii?Q?ErwgU/GyG9S906oq3SZZOK65zpw8XzUfD9CWR80OVFz/ysvOmdU3/2fAFPdy?=
- =?us-ascii?Q?IvLyF6pan3qaoPstR6rA3F7DtJYx+S7KisLR1JlMRP64MaiABl3OrMTct9B1?=
- =?us-ascii?Q?obn01aVIazUJ0R8Kre+9jtsDvc50JUzLRPBNuKA1TAVauJHd/dNraCPeucfY?=
- =?us-ascii?Q?fmnIyN9pxh68tMW1nzFxxt8DRLDX1lUURY3RBxyxgW3EVIXenuHqQKdBDlXi?=
- =?us-ascii?Q?a/IuhbhwF1UQBJSisOn4XPxLadBGpq/dMFqPKIOTXNSBNtPPDEVuA2sYau9l?=
- =?us-ascii?Q?Gqe3bHQe6q2AXoHt6NJaUNAX5m9Udz4E0S6dV0sSJ7DNFTYt8RuJowVu+6/T?=
- =?us-ascii?Q?hObZXR+KadM+rKbPrBxR0UaVji4Qe5gZ9lYWYtrKbKj5nTX0GLZTfzrTIkog?=
- =?us-ascii?Q?PtU7ttFuRvIlweZH6mVh+JmxKDsUyJz0+70XJiatNnCZUyxn03jp1tii6GTf?=
- =?us-ascii?Q?lu71S/WxyB7GGFQU5KehYahswe7wk+rxCbHaqgXiUcox3OvXp7A1qeRrSSIM?=
- =?us-ascii?Q?DT9qiC7t5xOkyUHMvBVl9biKzrXL2LRN6vHX9Mtmhg9CkESFTYPEJxrGiXnM?=
- =?us-ascii?Q?tBG6Q04ggRTkv2CsRyemmQUtEeo5FEjuEFKa+2bDxyb4F22tUsxkdeQ08FK+?=
- =?us-ascii?Q?1ZQrIBrHgUD576ApDfrzzrbORu2qxxOgVnmDtAqqNZm3PZzYR6egZWD+a0hd?=
- =?us-ascii?Q?BQEoZzGOxP+clwjOufnLEhOMjhc59aMNAHnFm77kh0TuWN04acj9JgpbkAgn?=
- =?us-ascii?Q?T0fq4RSHncMINlVe2RTpts6a8OPt6ROhMYNmKfDyfa6UMaH/YgOD9m6J4BfY?=
- =?us-ascii?Q?mbEmKcAUK9M0Od8NhR6mb1z29oiJc/AYlmyl1ntRS474YWJk/2NDpDmJp5fP?=
- =?us-ascii?Q?zX2rXR6Ka1NfodfNYPOnpwxogwfpyS1aS4tj8D/1zEMhkH+nls9dliBbTXay?=
- =?us-ascii?Q?vWAL7B1z45FNw8SEyv1jDzEy7c/j69ypuaGe7YhwpSfR2WRsq6obvCxs+RRD?=
- =?us-ascii?Q?nLIaJm1XnQKTuZ/3aXmUHMIAoqrxsSKwA2CGVm+YHnL18+1YqTBOajesNg2Y?=
- =?us-ascii?Q?b/FCt/sQb/7komXm4xghiYllFLeLYgN7mSeoJx5mVhtq4KpFJwVWjAyt4M/W?=
- =?us-ascii?Q?k4PKvxoNP3QgEaSgKOc41DNpeN1HGk2HbCUo6ONEZKusBLOUo1tuSHe3F1qR?=
- =?us-ascii?Q?rPvvKeXkmcgo5UwT3m+iEkyQAxmZrXAJthcHgIQpJTRaFw3f/syejr2wPEy2?=
- =?us-ascii?Q?cALQLQK0TvMjm++6inh7G9vovuphuSE7dE9Zj1uoLFaBntkwxDD8PKBP6N81?=
- =?us-ascii?Q?JxNvihBZNufxjcnQQxKk5vR93duY48GHREQL6z9i2++zhZiCaq9kYV9dtJ7Z?=
- =?us-ascii?Q?CZOrEHTs/UII48dp3HcN8PMJDrCrb/H6HBygQbYWewCZjQR0aHDnxLqks2TB?=
- =?us-ascii?Q?hPO4TSJFcA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WE6EFMsU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02021F000CA;
+	Fri, 13 Nov 2026 09:01:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794560508;
+	bh=M6B8f0IfLCQpM2CN85V5qfdLHaKaGk88JdSAU1srRdw=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=WE6EFMsUyMnowKzvAHr9vnxGBEHn+Rg21j+T3LKafH709q8yTd6nWRLdHn5c1acHU
+	 2apMniFhLz9r6ZCdNuo/dzf2tVUccyZS6EPNHaDE3CT34e0vQ0wcJBh9AAp/ztm+Nv
+	 AXx9u9JwwxSMYFHqqZoDhcK4tqI4e26yt/MtB7T2hsm7XKkjkJNZiY5vkJ/E2FJHX/
+	 n4vXqG8/+i0WXFEXZMQryk92nmg69ls7oVQshtpFJYBDno4s0gTQOG0G8OJ/CRgJIC
+	 FHGVN1nAk60MMsQ3kRyPtEzBlcOHAr434jgPiGsaSjjZfg24raeQN+4glU9dqg89m6
+	 8QCMBv567sRRw==
+Message-ID: <5042d545-24ae-4567-a39c-a28bcb1d1ed1@kernel.org>
+Date: Fri, 13 Nov 2026 10:01:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -154,130 +51,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	yQk9adyvWBLhXCuYkuZhjKHRQHpJcyD8d3MEo5WuBSqohuD2xaRc1FU2hguDzeGQR3elT+mpkOQnxHPvA9z1RsXj6N7I64zwGfYHZN2EptP4cWEqoFHsoMPWdM9iTqAJJ0iji1GYNn0xQTb9Fo8UETmocEIpCtuvsTWobCfrODRaB/oGBLxYNWk42X80nTAkhMmtefosjBtasy8Zdy0dmL+FPwZnmN+X0xRKdUalXetpDgKNXqoLrHlQJKFUimClq/1VOhsycti+C/iTxbIZzTNiE6DMxG75IpUSV+HITi5bJ1xhq65urkUrM9VnYAs8UZrD91q2hhKYFzrRG/VhiA==
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR06MB6942.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6283b2f1-8b53-49e9-baaa-08df4164b986
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2026 09:01:37.4759
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lo02Ek88oihxVsh7xmf7CYwoQvpxNIz+L8YEPQPVPlOvnLc8hoAbNHXrARxkAQTwgCa/18Sfl5VPc9dEL4gZK8Gk2p+oTtE3l0rGnZS4mZs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSNPR06MB8518
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v3 00/10] media: synopsys: hdmirx: support an HDMI bridge
+ in front of the receiver
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>
+Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+Content-Language: en-US, nl
+In-Reply-To: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Myeonghun,
+Hi Sascha,
 
->=20
-> Last close cancels resolution work while its IRQ producer is still live.
-> A handler can queue work after cancellation and buffer cleanup. The worke=
-r
-> can then turn clocks back on after stop has cleared VIDEO_STOPPED.
-The stop() and worker changes look right to me. The release reorder
-doesn't seem needed; details below.
+On 05/10/2026 15:28, Sascha Hauer wrote:
+> The Synopsys HDMI receiver driver assumes the HDMI connector belongs to
+> it: the connector's +5V line arrives on hpd-gpios, and there is nothing
+> between the source and the receiver. On the board this series comes from
+> that is not the case. An HDMI bridge owns the connector, the receiver
+> sits behind it, and the two are described by an OF graph endpoint.
+> 
+> Three things follow from that, and the series is arranged in that order.
+> 
+> Patch 1 comes before them and is a fix for the driver as it is. The
+> driver data is devm allocated, but an open file descriptor keeps the
+> video device alive past unbind, so the last close works on freed memory.
+> The media device the series adds would have been torn down the same way,
+> which is why the fix leads the series. It stands on its own and is
+> marked for stable.
+> 
+> Patches 2-3 give the driver a media device and register the video device
+> as an entity with a sink pad. On their own they add a graph with one node
+> in it; they exist so that there is somewhere for the bridge to appear.
+> 
+> Patches 4-5 add the endpoint to the binding and bind the remote subdev
+> through a v4l2 async notifier, linking its source pad to the receiver's
+> sink pad. Such a board cannot provide hpd-gpios, so the binding requires
+> either hpd-gpios or the port. Without an endpoint in the device tree the
+> driver keeps working exactly as before, so boards wired straight to the
+> connector are unaffected.
+> 
+> Patch 6 is fallout from the wait for signal lock, which was bounded by an
+> iteration count whose duration came from the 5V debounce it called
+> each time round. That debounce goes away on a board with no hpd-gpios
+> later in the series, so the wait gets a real timeout first.
+> 
+> Patches 7-10 are the 5V state itself. Patch 7 stops probe requiring an
+> interrupt for hpd-gpios. Patch 8 makes v4l2_device_unregister_subdev()
+> wait for notifications already in flight. Nothing kept a subdev from
+> notifying a v4l2_device that was unbinding it; that is not new with this
+> series, as asynchronously bound subdevs sending V4L2_EVENT_SOURCE_CHANGE
+> race the same way today. Patch 9 adds V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT,
+> and patch 10 has the receiver set v4l2_dev.notify and take the state from
+> whatever is bound in front of it. The notification is only an edge, as
+> the 5V interrupt is with hpd-gpios: the hotplug worker then asks the
+> subdev through g_input_status(), so nothing is cached that could go
+> stale against bind or unbind. Without a det_irq there is nothing to
+> disable across suspend and remove either, so patch 10 disables the
+> hotplug work items themselves instead of cancelling them. Patch 8 is
+> what lets the notify callback read sd->v4l2_dev while the subdev is
+> being unbound.
+> 
+> V4L2_CID_DV_RX_POWER_PRESENT is otherwise the only place this state is
+> published - adv7604, adv7842, tc358743 and tda1997x all set that control
+> from their cable detect interrupt and stop there - while a format change
+> already gets an in-kernel notification through v4l2_subdev_notify_event().
+> An earlier version of this series hooked the control with
+> v4l2_ctrl_notify() instead. That reaches into another device's control
+> handler, and the only thing it bought was working with those four
+> drivers unmodified, which turns out to be worth nothing: they are HDMI
+> sinks, so none of them could sit in front of an HDMI receiver anyway.
+> 
+> Nothing in tree sends the new notification yet. The driver for the device
+> on this board does, and the alternative was a mechanism that no in-tree
+> driver could have used either.
+> 
+> There is no in-tree device tree using the new port yet: the board is not
+> upstream, and the device in front of the receiver, a Lontium LT86102UXE
+> 1:2 HDMI splitter, has no driver upstream either. I would rather send the
+> infrastructure for review now than sit on it until the board lands.
+> 
+> Tested on that board, and build tested for arm64 at each patch with W=1.
+> 
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 
-Series structure: this patch fixes a real race, while 1/2 is hardening
-for a probe path that can't currently hit the problem. Please add the
-irq field here and put this patch first, so it can be backported on
-its own with the Fixes: tag, independent of how 1/2 changes.
+As mentioned in my reply to patch 1/10 I'll take that one. But for the remaining
+9 patches I need to see the 'v4l2-compliance -m /dev/mediaX -s' output to make
+sure the media device topology is sane and streaming works as expected.
 
->=20
-> Release the VB2 queue before shutting down the engine, since streamoff ca=
-n
-> need capture and mode-detect interrupts. Disable and join the IRQ, drain =
-work,
-> stop the engine and free its buffers before re-enabling the IRQ. Check
-> VIDEO_STOPPED before enabling clocks in the worker.
->=20
-> Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Use the v4l2-compliance version from the v4l-utils git repo so you have the latest
+code.
+
+I also need more time to review the v4l2 core notify patches. Apologies for not
+doing that sooner, I hadn't noticed before that this series made core changes as well.
+
+I haven't looked at that notify code for years, so I will need to refresh my
+memory.
+
+My plan is to merge patch 1/10 today in our next branch. It is probably best
+if you post a v4 rebased to that and including the v4l2-compliance output in
+the cover letter.
+
+Regards,
+
+	Hans
+
 > ---
-> No hardware testing.
->=20
+> Changes in v3:
+> - new patch 1: free the driver data from the v4l2_device release callback
+>   instead of devres, an open file descriptor keeps the video device alive
+>   past unbind. The media device cleanup Sashiko flagged on the old patch
+>   1 was the same problem, which predates the series (Sashiko on patch 1)
+> - v4l2-device: wait for the SRCU grace period on every subdev
+>   unregistration, not only when the v4l2_device has a notify callback,
+>   as the reader dereferences v4l2_dev either way (Sashiko on patch 7)
+> - Link to v2: https://lore.kernel.org/r/20260924-hdmirx-media-v2-0-c12f641d8b0f@pengutronix.de
+> 
 > Changes in v2:
-> - Split normal last-close ordering into a separate patch.
-> - Balance IRQ disable/enable within stop; add no reopen state.
->=20
->  drivers/media/platform/aspeed/aspeed-video.c | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/media/platform/aspeed/aspeed-video.c
-> b/drivers/media/platform/aspeed/aspeed-video.c
-> --- a/drivers/media/platform/aspeed/aspeed-video.c
-> +++ b/drivers/media/platform/aspeed/aspeed-video.c
-> @@ -1423,6 +1423,7 @@
->  static void aspeed_video_stop(struct aspeed_video *video)  {
->  	set_bit(VIDEO_STOPPED, &video->flags);
-> +	disable_irq(video->irq);
->  	cancel_delayed_work_sync(&video->res_work);
-OK. One side effect: if res_work is already in
-aspeed_video_get_resolution(), it waits for a mode-detect IRQ that
-can't arrive, so close may block for about MODE_DETECT_TIMEOUT while
-holding video_lock. That's acceptable around a mode change, but please
-add a comment here and mention it in the commit message.
+> - dt-bindings: squash "add the source port" and "make hpd-gpios optional"
+>   into one patch and require exactly one of hpd-gpios and port (Conor)
+> - dt-bindings: drop the OS-specific sentence from the port description
+>   (Conor)
+> - hdmirx: take graph_mutex around media_create_pad_link() in the async
+>   bound callback, the media device is already registered (Sashiko)
+> - new patch 7: v4l2-device: wait for notifications when unregistering a
+>   subdev, so a notification cannot outlive the unbind of the receiver
+>   (Sashiko on patch 9)
+> - hdmirx: ask the subdev in front for the 5V state on every notification
+>   instead of caching what the notification carries, and disable the
+>   hotplug work items across probe, suspend and remove instead of gating
+>   the workers on a flag and cancelling once more after the notifier is
+>   unregistered
+> - Link to v1: https://lore.kernel.org/r/20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de
+> 
+> ---
+> Gerald Loacker (6):
+>       media: synopsys: hdmirx: add media device infrastructure
+>       media: synopsys: hdmirx: add media entity for video capture device
+>       media: synopsys: hdmirx: add async subdevice support
+>       media: synopsys: hdmirx: give the signal lock wait a real timeout
+>       media: synopsys: hdmirx: skip the 5V detect interrupt without a GPIO
+>       media: synopsys: hdmirx: get the 5V state from the upstream subdev
+> 
+> Sascha Hauer (4):
+>       media: synopsys: hdmirx: free the driver data when the last user is gone
+>       dt-bindings: media: snps,dw-hdmi-rx: add a port for a bridge in front
+>       media: v4l2-device: wait for notifications when unregistering a subdev
+>       media: v4l2-subdev: notify the bridge when the source power changes
+> 
+>  .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml |  21 +-
+>  Documentation/driver-api/media/v4l2-subdev.rst     |   8 +-
+>  drivers/media/platform/synopsys/hdmirx/Kconfig     |   1 +
+>  .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 355 +++++++++++++++++----
+>  drivers/media/v4l2-core/v4l2-device.c              |  42 +++
+>  include/media/v4l2-device.h                        |  15 +-
+>  include/media/v4l2-subdev.h                        |  12 +
+>  7 files changed, 386 insertions(+), 68 deletions(-)
+> ---
+> base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+> change-id: 20260904-hdmirx-media-fe7eb952b2be
+> 
+> Best regards,
 
->=20
->  	aspeed_video_off(video);
-> @@ -1438,6 +1439,7 @@
->=20
->  	video->v4l2_input_status =3D V4L2_IN_ST_NO_SIGNAL;
->  	video->flags =3D 0;
-> +	enable_irq(video->irq);
->  }
-
->=20
->  static int aspeed_video_querycap(struct file *file, void *fh, @@ -1847,1=
-1
-> +1849,11 @@
->  	struct aspeed_video *video =3D container_of(dwork, struct aspeed_video,
->  						  res_work);
->=20
-> -	aspeed_video_on(video);
-> -
->  	/* Exit early in case no clients remain */
->  	if (test_bit(VIDEO_STOPPED, &video->flags))
->  		goto done;
-> +
-> +	aspeed_video_on(video);
-Looks fine for me.
-
->=20
->  	aspeed_video_init_regs(video);
->=20
-> @@ -1901,15 +1903,17 @@
->=20
->  static int aspeed_video_release(struct file *file)  {
-> +	bool last;
->  	int rc;
->  	struct aspeed_video *video =3D video_drvdata(file);
->=20
->  	mutex_lock(&video->video_lock);
->=20
-> -	if (v4l2_fh_is_singular_file(file))
-> +	last =3D v4l2_fh_is_singular_file(file);
-> +	rc =3D _vb2_fop_release(file, NULL);
-> +
-> +	if (last)
->  		aspeed_video_stop(video);
-> -
-> -	rc =3D _vb2_fop_release(file, NULL);
-I don't see what this fixes. In the original order, stop() gates the
-clocks, which halts the engine, and clears VIDEO_FRAME_INPRG, so
-stop_streaming() returns the buffers right away without needing any
-interrupt.
-
-With the new order, closing while streaming can wait up to
-STOP_TIMEOUT, then reset and re-run mode detect (another
-MODE_DETECT_TIMEOUT), only for stop() to shut everything down.
-
-Please drop this hunk and update the commit message and changelog to
-match.
-
-Thanks,
-Jammy>=20
->  	mutex_unlock(&video->video_lock);
->=20
