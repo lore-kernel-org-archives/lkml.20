@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794595872;
-	b=2eRfipvj+IPH7xRrRhOZDh8EWmDcquRAlfXM2tI7rluUiMYlgp72osUFRDQi/hUVLizp
-	 vCX67ReIiesEgqYjxRmCuysIpoQHdkNxgmCHhqRfa0g36+aZt7rdkPsB/NQFFHfBJyian
-	 IqCj98o5VbhikHdoGRZ6IUD1zhS3ewz3dhnuELpn9NRGdJbPcxUM+24gUcHNPnzq1o/gD
-	 0bTGQXgIZqWTfbS+JOYK3dA+g0ClEZFh95V92CzP7eGbHMlk01N0PWryg++8S+iOmtC1/
-	 IpqtjD1W5e9BvCiWykY69R0E/p5z+3ayJ+qmf8SH+j/ei6aZZGywdoQfb0OL+GzLwZQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595872;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PG96/Jcs6VqZrpoFOO7d4fr+8hgP9c+7Ydjha4gz5aA=;
-	b=2t4+p1ZBQDg+E3xskGPO/cjXaYSsRfZOehvyv/WY7Gn+/eKiIlmNZuE9OjM0IyEzHwAm
-	 tIRqm9SocbmqXRcmWOwZa0Oeqrr/659ZT4To25X8ICCHh2dZROt0513COQ+iyfK1OUMhd
-	 w9D4r+smQtK37si9V10p21+kWjr2odNt9LCrKlqdlId13aROj6z8iFqO3NcPbiYlitePH
-	 iTSvaXckUXr1z94hA1BQrZwyJ0T0ug51ZEHNiAxpEsIt8pSpIjkcSw1a/REN/NIrNh9g2
-	 RlnZ88LoyrxFqcBxo4JvkM5+Bq4gL8amXcbKPKjpHQZDezQCwDwSlfUTRnRZH5EMPtQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hSAWBETR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794595919;
+	b=wwT44mCmJAXujwHOBTwoySBWXm59QPo2XSLnuUta0aPTR6cAciX8kGIAvQPKZXaYG5hb
+	 23vocNa3ZwghGlmoZ3XeM4B9A93Bcr03ZeQbV+JJRUkxh7LGhc+hMusz6kUm3S2/C+IP3
+	 vDmvPFv2xJMr8E72/vdxjFYyC2tRtLl1wdSa5lkdWuJdlqDPm7u1CxmCzvdYMK7AHFJ9C
+	 BC71Jvh8hfxEexktnZoxx3nZKy4ngkO9tmDpD9kS0FsFWtPpZGwA5U1CvkJdPpgQTQS5R
+	 Qg5yCNZi+XG9WyWr8EzWphVGgCy6FCyMecaNQ7fx8o/GFuB/Qd8qFVn295VZmmdp64A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595919;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=5muRXWS1rFjtRwmxUHcdPdK+9QBRwjjtk/I3ke8eqss=;
+	b=v+atrSPL295N4ACiyTOZlPvhatfk6lRidnFbe2yD7c8jGM+TPnFe0KCu4tvKy2Rn1nAF
+	 rLp79Ttkpgjj1RTMidHxlPsuFfmomifgBL/mA0nStASLdURjfSS7lCgBfcmiXfL3DCok6
+	 lFbP90DmJpQj9O257/NQoHx6UzdJi+8kquSFUGK1unAn58Nv4mFSeFfP18Y75DQB46TnV
+	 MWGMA9lL65KHBkI+S6yjmbIaofwnekU29uqMros0MCopX8JVGfOFeBst/RG/D4hIW+omc
+	 RV5YSyShiKp72Vd6tr2vjEuSBiDMvC0ANtuHGuA1/sDP8qfmH+G1bhOa7L1fMT4ygOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzAFPkN7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB18F606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:51:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB18F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26038606A323;
+	Fri, 13 Nov 2026 18:51:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hSAWBETR
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so14205455e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:51:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794595870; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NUpw8bQ2VJTEjgSrA0glDyldGDSjgk+B41/l61nA/nr0raNEfuD8DmzasD6Vm8a4eG
-         i2QmlS3mCueli3n63N+cCPtepJ08w7DWjBDpFRyJB+orLjnhigfC4s3agj0OHfZRQe/e
-         wsOrY+mNM9yBw+7PmQohDSY6A1qp49dDtPC4pesDxbDcqwtXbCP7sd5Oxo4b9Zegrg7l
-         cka6cM0Wt8aJ1xTIgmCK/JwYtnf6twGNcqoJlUI32y8vK19imcXdNOeg5YjESlBDcVIw
-         Dll8DsTJrE3JHwosCxJ223TomI20c+7yC5qZWRBkl4mO7XHxXWYbBq8u8FH85MmM8U26
-         tf1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PG96/Jcs6VqZrpoFOO7d4fr+8hgP9c+7Ydjha4gz5aA=;
-        fh=D3A9PJ/TKTzwzTh3jtVjZrwUIlVWe60WglosgrKq014=;
-        b=cwScL5QObLt495r83U63gti5etE7cAodpXXS5Ouzi+GVP56dlK/hW/p8EDMgIZCszE
-         iIvwKcW3thV0FqmPn4d2cWL0z43ApQwQFQwtyITTOcsJT12SdOQP2zGLbIYNlqYMN9Td
-         bHB5NaFcESHf1lmRyD8ICnKukB5VCTt55dsvX0ASGHDrvPOPAgW8ULiKKST7xv7BhOJi
-         pB7e/hqlLltfhJ33sF4MP4XU6MKrKV20V+V9x90qEGR4Q9qTycPBfmBW3fjYTzwnhqFq
-         P6mIW2uMm7XGH+kJlYPcIBFUc350elnBnK1ayVtXG3N4erCb+O8wNJE/cXh5fHwySPWL
-         fbsQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794595870; x=1795200670; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PG96/Jcs6VqZrpoFOO7d4fr+8hgP9c+7Ydjha4gz5aA=;
-        b=hSAWBETRKkqPK67oyLRJKiYO0TrhYJhC9rGLoSRSMCbB3NtqvaLFLO/1KtEtZgKQCR
-         kl4Rt06CZf9sft4pzMC5jBe46pBoyU9i4HdZPx1a154GeZcfwCV6N3yOWptR4I/xFu0F
-         IKsOWXXo57nC71HfIJD1rd9VSPPKxrEPfTcoTUBz5LJdhRWm8DXHBkrvt0Jce/PS+5Lz
-         eOFfMvKdAmcZ3D72A8T7P2LJJmndLcH85QdrIEeyYeEBxkVdx2aZiSr02A+NwVQc8MBI
-         rNtZISQF8Dd9OIuDthSHYhEfbo7mq7BereKBjjNptoTkMLlkeO/0FtMyyVKMOqMUm14D
-         58iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595870; x=1795200670;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PG96/Jcs6VqZrpoFOO7d4fr+8hgP9c+7Ydjha4gz5aA=;
-        b=21cu2/4ABsNfSJe/pg+uND5XSg545ZxaxxRy6hzF5oAxpAQ+MiKFsstjqyt+1k8y1j
-         CM9RA215NIJaf+hOsE6Za5lb2toFFlHf3BWVKxFIowOrUx1wEi6XLtKs+Zm75krV3UQC
-         AiokTKifh9OVGaiZAS01cbmViksafQQDGC7QCsEEUJic42c8aJIOp6eMiCm11tKSY06U
-         RHVypuk8tsGBxTHMl0mcHF49Y6uPZsArETaGSbnQ88/iY25Pp1uKSoQ57ydEsMIszqko
-         T3EanJjYyXWunU4kXhVl/Be7aGplqGISiiXfY/yhAXlppybIk9k7l/x6Brds9mBp3UuH
-         R0VA==
-X-Forwarded-Encrypted: i=1; AL+hErF0Av44EhEdXDflVYIDaEy4QWxg6tmbSiEs5nPvzLOFa7kbnIpicbOWUvIaYhunLX2FjKOJMfFyk7Wa1ik=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2xi/pZNbZmTlYQzhRC5Rwj51GHIzx5BMmvaBQc5rZUsbvzMyB
-	7Z/YRsqIho9hPbu9lr8ipsvkDClSIYtD+Vp5FeHqcvfvz8aeEjduBR7aRsdjFMrW1PDI9tNPbEb
-	qoM15wXDQh0Nn6DnRxThWNfWh9+A+eHGvW5+6gSo=
-X-Gm-Gg: AYBFou3ar0O3fAbYFPeHgQZDXZACi2jHdi3U5AprWm/7r3VeHB2o9AfLRma99/x9dS2
-	wedZgt9BwQuI77CrKHl/0tDBKq7Ly2mmOPjVJUZXDxYj1XJNN9xdfXQPg/lSoZYGiIn8xCHs/Tz
-	vHkwyrXD0pNW9BeddM7JLdnOFfb8kJeSrMLX8ihZVo8ggg4gUYzlOoT8rI+n4OUCAS3mbRvqEAC
-	uNdLutFyRDsDuW77OSn7RnpxrM7AIG46XWULSQ9j0crOk4BbF4NveEmqmD82efEOxkqnZH8c/3n
-	a06VB4kqtl1nbHk/O5q8FW0St4M6gds0mGjTYd1vvWQoRLPawAIAJmps9w2/1ajaFEOleovfUI7
-	iZKV5w5CaKZUCMthAmGgS9zAA9fVmWMnGMQZfPIsfHoCGPVZ76X2kWdzsWydNTO3LrP6Cfkbh8i
-	Ic4lOjcraTdmZmZCN2Mic=
-X-Received: by 2002:a05:600c:a596:b0:4b5:d95c:2380 with SMTP id
- 5b1f17b1804b1-4bb55a86fb2mr37797165e9.11.1794595870121; Fri, 13 Nov 2026
- 10:51:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzAFPkN7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91B0F1F000C4;
+	Fri, 13 Nov 2026 18:51:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794595918;
+	bh=5muRXWS1rFjtRwmxUHcdPdK+9QBRwjjtk/I3ke8eqss=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XzAFPkN7MUXlKgAkmPOQRLSCSAt2PwqC0Kcv+HnyUqadeayf26mt5dOB87zAhmnsL
+	 rCM/LOn1v4X8mo04YABi6kewxSg+rOZSdDxrb5UOebeOVDzcvlJzot+uNTf8h7Ixtr
+	 dhn82CAc62qemGvmxq0ChSKEdR1156L63Gfde8CamKm69f2i7gWALhNCtLos241caU
+	 SMUSWuXj2DhPLnm+iDL0xVjmBG9PQVccC5ep41dBb7XuYBjXOcqMPAR+VbhxURTeMW
+	 Ivqjv+vG9iPHvq9/l7fzKDH3I7PS44kkVRvz88GIIpeGHqch7+hqspqTFss6NGgs+4
+	 90lFUZKzvLglA==
+Message-ID: <3314e44d-dbfe-45da-a1b0-8337784a5e86@kernel.org>
+Date: Fri, 13 Nov 2026 19:51:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,174 +51,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260817131843.45121-1-husong@kylinos.cn> <CAO9r8zPqJncFKQbF3tGe1d4sg-4dLQ3dQRGze_vab26wWrXTqA@mail.gmail.com>
- <179438454803.6.16655549133383619919.zswap-rstat-counters@gmail.com>
-In-Reply-To: <179438454803.6.16655549133383619919.zswap-rstat-counters@gmail.com>
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Fri, 13 Nov 2026 10:50:58 -0800
-X-Gm-Features: AclHuK8qDdaLN3_3l5l7WveJFIgdzXS_I6AwWx-xXQnBC1wCSuS09VZUPCEPOi8
-Message-ID: <CAJnrk1YzYswBKv5F3=FF_o_4Pywgw0ifLq0tXYSWO7TARnFRJQ@mail.gmail.com>
-Subject: Re: [PATCH] mm: memcg: use ratelimited stats flush in obj_cgroup_may_zswap()
-To: Chengfeng Lin <lin2530632123@gmail.com>
-Cc: Yosry Ahmed <yosry@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Song Hu <husong@kylinos.cn>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, yunzhao@cloudflare.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/9] mm/mprotect: add MM_CP_PERM_UPGRADE
+To: =?UTF-8?Q?Carlos_L=C3=B3pez?= <clopez@suse.de>, kvm@vger.kernel.org,
+ linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-riscv@lists.infradead.org, seanjc@google.com, pbonzini@redhat.com,
+ akpm@linux-foundation.org, peterx@redhat.com, ljs@kernel.org,
+ imbrenda@linux.ibm.com, borntraeger@linux.ibm.com, frankja@linux.ibm.com,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>
+References: <20261112142039.907090-2-clopez@suse.de>
+ <20261112142039.907090-7-clopez@suse.de>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20261112142039.907090-7-clopez@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 12:12=E2=80=AFAM Chengfeng Lin <lin2530632123@gmail=
-.com> wrote:
->
-> Hi Joanne, Yosry, and all,
->
-> With existing rstat updates retained, hierarchical per-CPU counters reduc=
-ed
-> single-worker PAGEOUT CPU by 44.69% and whole-program CPU by 21.78% in th=
-is
-> bare-metal test.
->
-> One worker uses MADV_PAGEOUT on 32 MiB of compressible anonymous memory i=
-n
-> a private cgroup, with THP disabled and memory.zswap.max=3D64 MiB. The li=
-mit
-> is not reached. The host is an i7-12700KF with 20 online logical CPUs,
-> full preemption, LZO and zsmalloc. Unlimited controls change only the
-> zswap limit to max.
->
-> A matched parent/commit/parent test of 0efc297a3c49
-> ("cgroup/rstat: avoid disabling irqs for O(num_cpu)") showed:
->
->   CPU time, ms / 32 MiB         Parent A   Commit    Parent B
->   PAGEOUT                       17.180     24.464    17.316
->   Whole test program            46.215     53.419    46.235
->
-> PAGEOUT increased by 7.216 ms (41.84%) and whole-program CPU by 7.193 ms
-> (15.56%). Both versions stored 8192 pages and performed 8192 limit-check
-> flushes: a finite zswap limit forces a stats flush before each store.
->
-> To limit interrupt-disabled time, the commit
-> releases and reacquires the rstat lock after processing each possible CPU=
-,
-> with cond_resched() in between and cpu_relax() if it does not reschedule.
-> Previously this was conditional on rescheduling or lock contention.
-> Per-page flushing repeats these extra operations.
->
-> On MM baseline 2967f3ccdb5f, I adapted Joanne's hierarchical per-CPU opti=
-on
-> [1]. The limit pre-check uses dedicated counters, retaining MEMCG_ZSWAP_B
-> rstat updates and the IRQ-latency protection. Extra updates are included:
->
->   CPU time, ms / 32 MiB         Base A     Counter   Base B
->   PAGEOUT                       23.903     13.113    23.514
->   Whole test program            49.247     38.569    49.363
->
-> PAGEOUT CPU fell by 10.595 ms (44.69%) and whole-program CPU by 10.737 ms
-> (21.78%). Stores were unchanged; forced flushes fell from 8192 to zero.
-> These two comparisons use different baselines.
->
-> Both comparisons used fresh A/B/A boots, two warmups and nine clean
-> samples per condition per boot. PAGEOUT return drift was 0.80%/-1.63%,
-> with maximum within-boot CV of 2.82%/3.55%. PAGEOUT measures worker CPU;
-> whole-program CPU includes preparation, re-access, verification
-> and cleanup, but not external cgroup setup or host-wide background work.
->
-> A single-worker unlimited control changed PAGEOUT/whole-program CPU by
-> +0.41%/+0.86%, with PAGEOUT CV up to 4.74%; there was no clear difference=
-.
->
-> A supplementary A/B/A test compared the MM baseline with the counter
-> derivative, with eight workers pinned to different P cores, each processi=
-ng
-> 32 MiB (256 MiB total). Their shared cgroup had memory.max=3D2 GiB and
-> memory.swap.max=3D1 GiB.
-> The zswap limit remained 64 MiB; compressed usage was about 18.75 MiB,
-> below the limit. Counter-kernel means follow, with baseline-relative chan=
-ges:
->
->   Eight-worker metric, per 256 MiB   Finite limit          Unlimited
->   Summed PAGEOUT CPU                199.238 ms (-84.04%)  196.272 ms (+1.=
-17%)
->   Summed re-access/verify CPU        215.365 ms ( -1.36%)  214.950 ms (+0=
-.09%)
->   Whole-program CPU                 663.404 ms (-61.39%)  660.535 ms (+0.=
-24%)
->   Whole-program elapsed time         94.618 ms (-58.26%)   95.183 ms (+0.=
-99%)
->
-> Both kernels stored 65,536 pages. Finite-limit forced flushes fell from
-> 65,536 to zero; unlimited controls performed none. Counter-kernel PAGEOUT
-> CVs were 4.51%/4.91%, with baseline return drift of +5.10%/+0.97%.
-> All nine finite-limit counter samples were below both baseline groups,
-> but baseline drift limits the precision of the gain estimate.
-> The small unlimited increase does not
-> establish a regression. Re-access and elapsed-time CVs were at most 2.81%=
-.
->
-> Elapsed time includes preparation and cleanup; it is not summed CPU time.
-> The re-access metric includes reading and verifying the data; zswap
-> decompression was not timed separately.
->
-> Both kernels passed bounded leaf/ancestor-limit, dynamic-limit,
-> cross-CPU-freeing and cgroup-offlining checks. Deep cgroup hierarchies, C=
-PU
-> hotplug, and 32-bit systems were not tested.
->
-> I hope these results help assess the benefit and update cost of dedicated
-> counters while retaining the existing statistics. The reproducer sources =
-and
-> the measured counter patch are attached.
->
-> [1] https://github.com/joannekoong/linux/commit/9092e0057f038ffca43ae3f35=
-faf58c33b1d7c9b
->
+On 11/12/26 15:20, Carlos López wrote:
+> Add a change_protection() flag for changes that only add permissions,
+> so that MMU notifier users can keep their mappings and fault in the new
+> permissions later. mprotect() sets it when the new VMA flags only add
+> read, write or execute permissions, or VM_ACCOUNT, which does not affect
+> the page tables. Any other change, such as a different protection key,
+> is not an upgrade.
+> 
+> Signed-off-by: Carlos López <clopez@suse.de>
+> ---
+>  include/linux/mm.h |  2 ++
+>  mm/mprotect.c      | 13 +++++++++++++
+>  2 files changed, 15 insertions(+)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 6af3b7008f1a..001829a61405 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -3585,6 +3585,8 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen);
+>  #define  MM_CP_UFFD_RWP_RESOLVE            (1UL << 5) /* resolve rwp */
+>  #define  MM_CP_UFFD_RWP_ALL                (MM_CP_UFFD_RWP | \
+>  					    MM_CP_UFFD_RWP_RESOLVE)
+> +/* Whether this change only upgrades/adds permissions */
+> +#define  MM_CP_PERM_UPGRADE                (1UL << 6)
+>  
+>  bool can_change_pte_writable(struct vm_area_struct *vma, unsigned long addr,
+>  			     pte_t pte);
+> diff --git a/mm/mprotect.c b/mm/mprotect.c
+> index 84bcfe0281d3..8c0fcd10f5a3 100644
+> --- a/mm/mprotect.c
+> +++ b/mm/mprotect.c
+> @@ -767,6 +767,17 @@ static const struct mm_walk_ops prot_none_walk_ops = {
+>  	.walk_lock		= PGWALK_WRLOCK,
+>  };
+>  
+> +static bool vma_flags_is_perm_upgrade(vma_flags_t old_vma_flags,
+> +				      vma_flags_t new_vma_flags)
 
-Hi Chengfeng,
+Two tab indent.
 
-Thank you for benchmarking this and sharing your results. Would you
-mind using your setup to test how this compares to the hierarchical
-per-CPU option?:
+> +{
+> +	vm_flags_t old = vma_flags_to_legacy(old_vma_flags);
+> +	vm_flags_t new = vma_flags_to_legacy(new_vma_flags);
+> +	/* VM_ACCOUNT does not affect page tables */
+> +	vm_flags_t mask = VM_READ | VM_WRITE | VM_EXEC | VM_ACCOUNT;
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 091401cecf39..d2b0db311a7d 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -6324,8 +6324,7 @@ bool obj_cgroup_may_zswap(struct obj_cgroup *objcg)
-                        break;
-                }
+Why is VM_ACCOUNT a permission upgrade? At best it's "no change".
 
--               /* Force flush to get accurate stats for charging */
--               __mem_cgroup_flush_stats(memcg, true);
-+               mem_cgroup_flush_stats(memcg);
-                pages =3D memcg_page_state(memcg, MEMCG_ZSWAP_B) / PAGE_SIZ=
-E;
-                if (pages < max)
-                        continue;
+What am I missing?
 
-I ran a quick test on this back in August and saw these results:
-"Quick benchmarks at depth=3D4 with zswap.max set at every level, 20
-workers on 80 cpus:  rstat forced =3D ~7,600 stores/s, rstat unforced =3D
-~300k stores/s, and hierarchical per-cpu counters =3D ~440k stores/s.
-The hierarchical per-cpu counters outperforms rstat unforced on the
-stores given that it removes the flush, but we already see massive
-improvements from using rstat unforced over rstat forced". I'm curious
-if you see the same results on your more-well-thought-out benchmarking
-setup.
+Also, what you really care about is "no permission downgrade", and "no
+permission upgrade" is not the inverse of that ;)
 
-I don't think the flush needs to be forced here for zswap. The
-kerneldoc for obj_cgroup_may_zswap() describes it as an "optimistic
-pre-check" and I think it currently already functions as an estimate
-rather than an exact state of truth. imo, it'd be preferable to go
-with non-forced flushing than hierarchical per-cpu counters, as it
-incurs zero additional overhead on updates and is code-wise simpler.
-For fixing the writeback problem, we're planning to go with this as
-well instead of hierarchical per-CPU counters [2].
 
-Thanks,
-Joanne
+-- 
+Cheers,
 
-[1] https://lore.kernel.org/linux-fsdevel/CAJnrk1YO5E6ETxn9RmM-LWRQSRxwF9iE=
-akAPz6veMPjaKMAEOQ@mail.gmail.com/
-[2] https://lore.kernel.org/linux-fsdevel/CAJnrk1b5asARJ_g176DsoNCvf+iFqzPb=
-OtVveeuPxTPZDmnuKw@mail.gmail.com/
+David
