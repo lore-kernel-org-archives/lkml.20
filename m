@@ -1,73 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794587973;
-	b=UJA5H3oZJZt557ihdcFQHS+iciDtSMWIqGNnasC9UAiPh8Wniv9WF3hbQq/ngswirQmU
-	 IpGBtyVTYwurJdOGT0l2FWnOtogrEL7pBvobtlakmsvNnaq8cOLEk4wDUWMcIfIuQCLds
-	 mD3oHNyctNLQZXAG1ygK1A3DzhaFkIyZUC14CykYreDEDmcMDFdj+321XKmxgnSCuCnmY
-	 fJSY+0tfpwum+2ElJ42n9EIkZKHZk0aoYUKbOXFYVXAiiUi+CedtPDWx7kh34jGU1Y1PS
-	 Xdvn/PJAKOGw6vC03CqtnsUhMfMkus2f/Xl1FgzE85i1GAplGHkrF7p41tVqp0jNWog==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587973;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=ZIaozk2aBHaH1oFJEjjG6pq54xGfHGZXMiLG49FuxWM=;
-	b=OCNriIX5sDAPrs96esMs2t5ekKzx22mVJGdLUJA+ys6fJhAnVe2Wg06gpHwP4ahDiNOg
-	 H1r4Q1xFQmxjNTFV2C4ffpHjYWXX4Buua3Sc2u0yK/wS8fBphog5LWzx6lLEMNAZJ1fHm
-	 UEqPrzXDatsmdvNYx3k75N0c58FbRhumjwXhLUY+lJWVbCqIEmBL79bulYkBwbTlwnqkG
-	 rreNL3uU8x7tjH+8SRbcHM1QK76QO7qMAyX997Mgd2VQ/7ARsSlkoXsZHKT+HKwtx231C
-	 tVG5PJJYE5Ldo+9C6bX2ynM2hV4HlmztURZETzwW6Xwdl7X1AHsZ1oHAmVx0LeWYFrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=Y27pSlBF;
-	arc=none smtp.remote-ip=212.27.42.3
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794587975;
+	b=1w0S0iew49lQWFLbzZ4+SW99eDMtFvczJe9bZlUtQVHg/tFHRHqH35vjeLe8cj+tDWJR
+	 TAlGHSVunpU9HOKb8nI4ljvgsE9T0+NttaD3ELyrbC1FPVkyHoUcpfckwBd4M/H4a8wJE
+	 eiGAjdoE3zUNxxTMcjnKLjqtQD55GHxTI9wrR/lS729YEoZdXyppadoWrhm1mXFKY/rbu
+	 GtnZfHuzQ1j+/RS2qB+t8fPUB7ogqViWxw47r094wyO7Pr/SIw+h02vLNNtbzCideTJj7
+	 MswddjPWNGV4n01hEYAs7XlyGynFo3YZ7q9P6pddRgKDBfT6LC9LIzW/9SyLYIg82kg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587975;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ClaLbNPT9fn//Ri7dN2dG8Uqr0Pid+IJD2HQ7h3HiW8=;
+	b=q13cmoaRyKcpeoq98xVsBJxV+vHc44Sn2MmTMXUv28lDeMgcMbRBer+q0nCk5kKqW5t+
+	 G2cqVhSPg+yRmmHEwxclXNZhlcPR7QhF6+XE/+ncbeENfTpFchAPGJM6s/Givkjlyw3Ni
+	 +hwqnXRnY1LRuXF5PMDxj8mTismat6Ns38cBVOg0JcLfFAutLmRZhHumdOlImTJnORp3t
+	 FWzldyURc2D/ZeVxwQ2ODRhKkK5iaoUN2LkHNfoJr2kyBmUS9RTwXut4aN+PNOPcb6yfg
+	 Be/WpJ+vzJ9u7YWstEnd4x127VjLw/NirH1DAX6L+mR1uoi+qdQROGSFNvCR5H7qHow==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VskLNzIR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886DF60A263C;
+	Fri, 13 Nov 2026 16:39:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VskLNzIR
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794587975;
+	b=yrvu/aJaAB/VOJpJIRI51rmtZ+AYNGbOGYseB0+YlB9Eom3GE08UAVH2w3p0ZBBVx5aL
+	 Jt0yhKERQFakglEIbCFrRaDlc308YBYfjbmQ7uow2sPjKYPrk41JIw0YZxYux9ObfWGVo
+	 BnKpYevjQ6XGhAWxi8RUJHkSocHxtrmc+U3EsB+64e+M7cL/F/SZRdE6ReKf0Ko9SjRJy
+	 AfQceFmqJDPRgRt9o/rJ63rPq+5UtCkG8pdCoFZQ8uGHf51xoBn/svC4VWzte05dxLI+p
+	 02tGjv16dO1xUqBpYOLlYcOqM1yhi3gJVPDeg5AjGuge1GyJOVK1ELrjblSg2U5AI/w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794587975;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ClaLbNPT9fn//Ri7dN2dG8Uqr0Pid+IJD2HQ7h3HiW8=;
+	b=jzRKzFjMbnJTh7ZiNwskI2WUhpOmJ5HmTAS8YDaRxo96n1jPTlAFMOpeKxqo9jkUQnxT
+	 GoqR6J9VecCqwbdARJ3IdDtbYM5ddsGSg3DvqQT0ZhFu52i8FMJNC2oGVukxtGP7RihHe
+	 cHkDwPejhGt7hvWR+RNH0HT10KjM/22pWLYmkUbpIlSGBI7kGb6BR1Au8pjtxe6OBdI/j
+	 10+NDRbY8N8nyFQpRMlayiLuEkwG/ldx3vYKSP87f7xUHTkZzzoSCI8tOcVVMPBHSCwSn
+	 3C6/1yTcyI8oiRtaZDNrvrbk9UxitMK9ez+EDu6nvEW4brg7/iqhOBZ+dQYDBVxNuRw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0CD606AFE3;
-	Fri, 13 Nov 2026 16:39:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A0CD606AFE3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=Y27pSlBF
-Received: from L30177.local (unknown [158.255.110.170])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp3-g21.free.fr (Postfix) with ESMTPSA id ECC3913F8AE;
-	Fri, 13 Nov 2026 17:39:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1794587970;
-	bh=Nq5VMxuAxZkNVKKpbGt5VbkTDNOsTH++OiONsbi9n9A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Y27pSlBF6JC60hVZAj8IPVqa48C/9DgkKqOkQDESe2muCIMq1QiH0t2hpY74zGNor
-	 OtZzOAz4r2ULrN4s+CBzg/XtDOlc9O89iXA+G0s6SUgY7mlQnzDErXQV+ELA5RNaVW
-	 PK2PDB4K43IBDzZj9SO+65cyDlC491QsHI1NYeRwF/XtNGdaiyb8ChPIcKkIUVC2In
-	 dvO1b1pdQocvaDngZ6qUQv0TZJtqExY4YIAmBF+5gHhlvome38PHRk5sKV9ag8cLbe
-	 xkXCmw2A00qeLS/JkZrIUoxtz0CyY8rdsqNrklwxDAO/6T8FiPaISATPfhBBiQvTEd
-	 tKScOcofIrrdA==
-Date: Fri, 13 Nov 2026 17:39:05 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: Christophe Leroy <chleroy@kernel.org>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev
-Subject: Re: [PATCH v3 3/5] soc: fsl: guts: add the RCW override of any RCWSR
-Message-ID: <avc9KbxQ4dxlibGQ@L30177.local>
-References: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-0-5a0063f1da9e@free.fr>
- <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
+	by smtp.kernel.org (Postfix) with ESMTPS id 5271C1F000C5;
+	Fri, 13 Nov 2026 16:39:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794587975;
+	bh=ClaLbNPT9fn//Ri7dN2dG8Uqr0Pid+IJD2HQ7h3HiW8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=VskLNzIRLVMrYfL+HXuJHzUJCi9z0PRAOyDscsyLVPYLYJMh/khmJE+IPn5sLyldN
+	 9BjX5DUa6Juq++mk3uPTRDhGfpD/sYzjczGKKgijfxdEksWy0JC2lwL+iV6AQXwLCq
+	 s7AEq4N3YPLp9twWAyqdU3VL8aeA9Viq3DedZ6YImiartLZMIDztLbufndOJWMMtI+
+	 6cHNQGRVUFCuhhpJSU9Pwbvh1U1Dd4kkvYo8snwgxLezyEt9OvWO8o64C1fqustAb4
+	 bUybJqocAYGGRT1crbCCEn9OpEMYjK3HPO1YtDAltZj6bRCyndlYa+3UrCItM+EMb6
+	 YJPxIOcGdPylQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D88B9499C1;
+	Fri, 13 Nov 2026 16:39:33 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Fri, 13 Nov 2026 16:39:34 +0000
+Subject: [PATCH v3 1/2] usb: core: Pair ports of different hubs through
+ their connector
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,28 +83,310 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261113-usb-port-pairing-v3-1-d6c6edb4341c@gmail.com>
+References: <20261113-usb-port-pairing-v3-0-d6c6edb4341c@gmail.com>
+In-Reply-To: <20261113-usb-port-pairing-v3-0-d6c6edb4341c@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Mathias Nyman <mathias.nyman@intel.com>, Chen-Yu Tsai <wenst@chromium.org>, 
+ Chen-Yu Tsai <wens@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587973; l=9572;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=sbuAYiPAT5lKGtgYSFiTntfB+mIyzcPYe62fONSyJck=;
+ b=V7L20a5FjJnbNChjcmibGDcnHnemKQVc4cwWdmlrYwftAAzzm8yQU69S2OQTN5b1/5G4iAw6F
+ 9LUBFoxbntNBRVX+5WBwJvgJyrynpoqzAqnSZQq1CsFIFgbL/nMQMmd
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Christophe, or Vladimir,
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Le 08/11/26 11:06, Vincent Jardin via B4 Relay a écrit :
-> From: Vincent Jardin <vjardin@free.fr>
-> 
-> fsl_guts_rcw_rmw() only serves the SerDes lane modes. Export it for
-> other fields of the RCW:
->  - fsl_guts_rcw_read() reads a status register
->  - fsl_guts_rcw_override() changes fields of one under rcwcr_lock and
->    waits for the status register to follow
->  - fsl_guts_rcw_override_supported() tells whether the DCSR view of DCFG,
->    which holds the override registers, is mapped
+The USB core pairs the USB 2.0 and SuperSpeed ports of a USB 3 connector
+by port number within one xHCI, or by ACPI location. On the RK3588, USB
+3.0 host 2 is SuperSpeed-only and the connector's USB 2.0 lines go to a
+separate EHCI: the SuperSpeed port is paired with a dead USB 2.0 port and
+the EHCI port has no peer.
 
-May I ask for your advise on this topic ?
+A usb-connector has its USB 2.0 lines on graph port 0 and its SuperSpeed
+lanes on graph port 1. When the two lead to different hubs or host
+controllers, pair the two ports through the connector. Root hub ports are
+found in the graph by the controller's port number, as in ACPI.
 
-I am looking for the review of this serie, then I'll adapt it
-for u-boot along with the integration of Linux.
+This also applies the peer runtime PM rules to such connectors.
 
-thank you,
-  Vincent
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ drivers/usb/core/hub.h  |  2 +
+ drivers/usb/core/of.c   | 98 +++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/core/port.c | 67 +++++++++++++++++++++++++++++++--
+ include/linux/usb/of.h  |  8 ++++
+ 4 files changed, 171 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/usb/core/hub.h b/drivers/usb/core/hub.h
+index 9ebc5ef54a32..6b55216c7da0 100644
+--- a/drivers/usb/core/hub.h
++++ b/drivers/usb/core/hub.h
+@@ -97,6 +97,7 @@ struct usb_hub {
+  * @usb3_lpm_u2_permit: whether USB3 U2 LPM is permitted.
+  * @early_stop: whether port initialization will be stopped earlier.
+  * @ignore_event: whether events of the port are ignored.
++ * @connector_peer: the peer is chosen by a connector, not by port number.
+  */
+ struct usb_port {
+ 	struct usb_device *child;
+@@ -118,6 +119,7 @@ struct usb_port {
+ 	unsigned int is_superspeed:1;
+ 	unsigned int usb3_lpm_u1_permit:1;
+ 	unsigned int usb3_lpm_u2_permit:1;
++	unsigned int connector_peer:1;
+ };
+ 
+ #define to_usb_port(_dev) \
+diff --git a/drivers/usb/core/of.c b/drivers/usb/core/of.c
+index a6ee20d8774e..1b26d2083525 100644
+--- a/drivers/usb/core/of.c
++++ b/drivers/usb/core/of.c
+@@ -145,6 +145,104 @@ enum usb_port_connect_type usb_of_get_connect_type(struct usb_device *hub, int p
+ }
+ EXPORT_SYMBOL_GPL(usb_of_get_connect_type);
+ 
++static bool usb_of_is_connector(const struct device_node *np)
++{
++	return of_device_is_compatible(np, "usb-a-connector") ||
++	       of_device_is_compatible(np, "usb-b-connector") ||
++	       of_device_is_compatible(np, "usb-c-connector");
++}
++
++/*
++ * Return the node owning the far end of @con's endpoint on @con_port, and in
++ * @port the graph port of that end.
++ */
++static struct device_node *usb_of_connector_remote(struct device_node *con,
++						   u32 con_port, u32 *port)
++{
++	struct device_node *ep, *remote;
++	struct of_endpoint endpoint;
++
++	ep = of_graph_get_endpoint_by_regs(con, con_port, -1);
++	if (!ep)
++		return NULL;
++
++	remote = of_graph_get_remote_endpoint(ep);
++	of_node_put(ep);
++	if (!remote)
++		return NULL;
++
++	if (of_graph_parse_endpoint(remote, &endpoint)) {
++		of_node_put(remote);
++		return NULL;
++	}
++	*port = endpoint.port;
++
++	ep = remote;
++	remote = of_graph_get_port_parent(ep);
++	of_node_put(ep);
++
++	return remote;
++}
++
++/**
++ * usb_of_get_connector_peer() - find a port's peer through its connector
++ * @hub: hub to which the port belongs
++ * @port: graph port of the port: the controller's port number on a root hub,
++ *	  else the hub port number
++ * @superspeed: whether @hub is a SuperSpeed hub
++ * @peer_port: returns the graph port of the peer
++ *
++ * A USB connector has its USB 2.0 lines on graph port 0 and its SuperSpeed
++ * lanes on graph port 1. Some SoCs route the two to different host
++ * controllers; the two ports can then only be paired through the connector.
++ *
++ * Return: the node of the hub or host controller with the peer port, with its
++ * refcount incremented, if @port is the @superspeed half of a connector whose
++ * other half leads to a different node. NULL otherwise.
++ */
++struct device_node *usb_of_get_connector_peer(struct usb_device *hub, u32 port,
++					      bool superspeed, u32 *peer_port)
++{
++	struct device_node *np = hub->dev.of_node;
++	struct device_node *ep, *con, *remote, *peer = NULL;
++	u32 remote_port;
++
++	if (!np || !of_graph_is_present(np))
++		return NULL;
++
++	ep = of_graph_get_endpoint_by_regs(np, port, -1);
++	if (!ep)
++		return NULL;
++
++	con = of_graph_get_remote_port_parent(ep);
++	of_node_put(ep);
++	if (!con)
++		return NULL;
++
++	if (!usb_of_is_connector(con) || !of_device_is_available(con))
++		goto out;
++
++	/* The connector's half for our speed must lead back to this port */
++	remote = usb_of_connector_remote(con, superspeed ? 1 : 0, &remote_port);
++	if (!remote)
++		goto out;
++	of_node_put(remote);
++	if (remote != np || remote_port != port)
++		goto out;
++
++	/* Peers on the same node are paired without the connector's help */
++	peer = usb_of_connector_remote(con, superspeed ? 0 : 1, peer_port);
++	if (peer && (peer == np || !*peer_port ||
++		     !of_device_is_available(peer))) {
++		of_node_put(peer);
++		peer = NULL;
++	}
++out:
++	of_node_put(con);
++	return peer;
++}
++EXPORT_SYMBOL_GPL(usb_of_get_connector_peer);
++
+ /**
+  * usb_of_get_interface_node() - get a USB interface node
+  * @udev: USB device of interface
+diff --git a/drivers/usb/core/port.c b/drivers/usb/core/port.c
+index b4452b665f59..6a65dc6f14e7 100644
+--- a/drivers/usb/core/port.c
++++ b/drivers/usb/core/port.c
+@@ -649,10 +649,52 @@ static int match_location(struct usb_device *peer_hdev, void *p)
+ 	return 0;
+ }
+ 
++/* Root hub graph ports use the controller's port number, as in ACPI */
++static u32 usb_port_graph_id(struct usb_device *hdev, int port1)
++{
++	if (hdev->parent)
++		return port1;
++	return usb_hcd_find_raw_port_number(bus_to_hcd(hdev->bus), port1);
++}
++
++struct usb_connector_peer {
++	struct usb_port *port_dev;
++	struct device_node *np;
++	u32 port;
++};
++
++/* Link the port to @peer_hdev's port at graph port cp->port, if it has one */
++static int match_connector_peer(struct usb_device *peer_hdev, void *p)
++{
++	struct usb_connector_peer *cp = p;
++	struct usb_hub *peer_hub = usb_hub_to_struct_hub(peer_hdev);
++	struct usb_port *peer;
++	int port1;
++
++	if (!peer_hub || peer_hdev->dev.of_node != cp->np ||
++	    hub_is_superspeed(peer_hdev) == cp->port_dev->is_superspeed)
++		return 0;
++
++	for (port1 = 1; port1 <= peer_hdev->maxchild; port1++) {
++		if (usb_port_graph_id(peer_hdev, port1) == cp->port)
++			break;
++	}
++	if (port1 > peer_hdev->maxchild)
++		return 0;
++
++	/* No connect_type check: the connector shows the port is used */
++	peer = peer_hub->ports[port1 - 1];
++	if (!peer)
++		return 0;
++
++	link_peers_report(cp->port_dev, peer);
++	return 1; /* done */
++}
++
+ /*
+  * Find the peer port either via explicit platform firmware "location"
+- * data, the peer hcd for root hubs, or the upstream peer relationship
+- * for all other hubs.
++ * data, a connector described in the device tree, the peer hcd for root
++ * hubs, or the upstream peer relationship for all other hubs.
+  */
+ static void find_and_link_peer(struct usb_hub *hub, int port1)
+ {
+@@ -660,6 +702,7 @@ static void find_and_link_peer(struct usb_hub *hub, int port1)
+ 	struct usb_device *hdev = hub->hdev;
+ 	struct usb_device *peer_hdev;
+ 	struct usb_hub *peer_hub;
++	struct usb_connector_peer cp;
+ 
+ 	/*
+ 	 * If location data is available then we can only peer this port
+@@ -671,7 +714,23 @@ static void find_and_link_peer(struct usb_hub *hub, int port1)
+ 		/* we link the peer in match_location() if found */
+ 		usb_for_each_dev(port_dev, match_location);
+ 		return;
+-	} else if (!hdev->parent) {
++	}
++
++	/*
++	 * If a connector routes the two halves of this port to different
++	 * hubs or host controllers, the connector alone decides the peer.
++	 */
++	cp.np = usb_of_get_connector_peer(hdev, usb_port_graph_id(hdev, port1),
++					  port_dev->is_superspeed, &cp.port);
++	if (cp.np) {
++		cp.port_dev = port_dev;
++		port_dev->connector_peer = 1;
++		usb_for_each_dev(&cp, match_connector_peer);
++		of_node_put(cp.np);
++		return;
++	}
++
++	if (!hdev->parent) {
+ 		struct usb_hcd *hcd = bus_to_hcd(hdev->bus);
+ 		struct usb_hcd *peer_hcd = hcd->shared_hcd;
+ 
+@@ -703,7 +762,7 @@ static void find_and_link_peer(struct usb_hub *hub, int port1)
+ 	 * does not have location data
+ 	 */
+ 	peer = peer_hub->ports[port1 - 1];
+-	if (peer && peer->location == 0)
++	if (peer && peer->location == 0 && !peer->connector_peer)
+ 		link_peers_report(port_dev, peer);
+ }
+ 
+diff --git a/include/linux/usb/of.h b/include/linux/usb/of.h
+index de42f14bd280..4be581bd2758 100644
+--- a/include/linux/usb/of.h
++++ b/include/linux/usb/of.h
+@@ -20,6 +20,8 @@ int of_usb_update_otg_caps(struct device_node *np,
+ 			struct usb_otg_caps *otg_caps);
+ enum usb_port_connect_type usb_of_get_connect_type(struct usb_device *hub, int port1);
+ struct device_node *usb_of_get_device_node(struct usb_device *hub, int port1);
++struct device_node *usb_of_get_connector_peer(struct usb_device *hub, u32 port,
++					      bool superspeed, u32 *peer_port);
+ bool usb_of_has_combined_node(struct usb_device *udev);
+ struct device_node *usb_of_get_interface_node(struct usb_device *udev,
+ 		u8 config, u8 ifnum);
+@@ -49,6 +51,12 @@ usb_of_get_device_node(struct usb_device *hub, int port1)
+ {
+ 	return NULL;
+ }
++static inline struct device_node *
++usb_of_get_connector_peer(struct usb_device *hub, u32 port, bool superspeed,
++			  u32 *peer_port)
++{
++	return NULL;
++}
+ static inline bool usb_of_has_combined_node(struct usb_device *udev)
+ {
+ 	return false;
+
+-- 
+2.55.0
+
+
