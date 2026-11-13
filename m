@@ -1,101 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794611221;
-	b=HOP/E+D+o4pnTI6HkjMZaVcO+AOgyi7Itm2XwtOw5h10SAhJqjqofUf+hkwQPTHN+mpY
-	 131LwV5szXx56kOpvtK+vMqdBCfdz4fO6RHrGMxxmUYulZ7DV4owaGTKp8plZdTuLeTPI
-	 TuPseL5lR2na5ayEVUh+IaaOhntkhhxKl1CJrQxt8Gt6rKGc9gEr4jFthDJk+jE/CfTI4
-	 F1amIj8wuFt0u2gtD5NFfN9YtBP1hJSv8dIOZ4L6RXIeWqRNIobWhgMUrfmIgDPTGIE/x
-	 NbmmXS/EAkuL+IS1XpiXjLkcVDHeaG4KEI9InYAVmdhbdXP3z/tld08jMlD63EmnTeg==
+	t=1794611345;
+	b=NT2e5HJMwyz+AaL9jXI6n0MPpMnZSF1QdR1x5cigT8/4u2L2kO/O9a7FGuI/0oQQtX6b
+	 qAENUagN2BSlkOI2KvOZnWcE8J6vE2/PdKUWqYSHqFBLUX/VCyxqjsNV/PKcdtchLMMDD
+	 y8Q2FgvUazGYy0IEolWZZ7iq5SJfkreUSuB/lXIeHdY2OeOI9pr3Kp93oentbPym2EyOr
+	 E078ySjTpgYrnG1a38BkVgJJQCh3jaIhjdaBXhA/Ko5vQBemWaLt1RCGWT7tJheMdImaj
+	 eHsglcQ3VhIXqrdbHrmMmOcpRV2PpFjKLRUH2S1dUjGoVKgdlmMvjKvPkvwtiAWbmKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794611221;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=6zeTznwnJoyafe0tC+JcmtPeL712XSkLRnDXgIueIPg=;
-	b=oGSotsMinZTaZxVDyWJ4b0cnAcK1HrtXGtGkLPbpBZJN2CohOhUjNvuNYqNUCGS2pszv
-	 gffPYlFZd994qqmlSRcqAZ5SMRaC91QB+IYEILVPkFYlMlx/T5sO7c4s8vOUV1ioTkF44
-	 1UolbUEjeYQwmWZl6Jkpor3vSs9Ne+TE4UTSZgJyh2RUmuWk4WS6PFO6gRDDPTskB1y41
-	 +JJEZp35hbPJouhF/3+b6hU+mQ1tjNRMLul+8AUlNCq+nnMeQ3HkXsIX8x/gHCZhsqjDF
-	 iUUV25I0bqTD9Y5YMXPmRc4cupG3yMY4qNzuEpKbY4aKz7zPv48OfHjzLChaFhFdLlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794611345;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5DlzMUMtEfBl4sH+z/6/msTIw6TRSjv0D6qDnAX+XMg=;
+	b=dYzZ2HTg/q4hd/aNLAAFkWUzPfefuUvXDRgsDzWQmG/6h30F5s2pwqBcNQDsjMn0yDhU
+	 gWH+MRJgrP3zDGfTEKvYqwOGKYqUszjzklXpf7HzBHORH5HTVSYxGoAQt2FEtWMC8weg2
+	 UiVKQ5eWMcH0d9amrNoacludAAda8jDgNmOP9S/TJ7niSbWX6L+3upvBKCKoeH/zH/3xx
+	 xRbB9HihM2zWyJoUvuStCx53twhGDIzU5ZGMkiwPxb4a1Tk2GNRci93lunXgp2l6muZ4Y
+	 dCqRwlMQ17rTd6TSyaiEVkl8W6Z5Ku5KkCxMafOJ7utjgduGBoICBTB/BAhVhCXbsVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QefPzyJn;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=XDxqczw+;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855DC606A338
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:06:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 855DC606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7933D606A329
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:09:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7933D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QefPzyJn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794611221; x=1826147221;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=FTcdjq9kdwJz7zVfgduw3HyP+X9UuhRTU3gVxE5yf5k=;
-  b=QefPzyJned2IrI7vCSpyY8ZLcNSxbgYeivr+pdrO2jUGoIgu3EGoxS2v
-   BbOYD8H3kTBBQDndw8WXGgHft0nNh7IaaKpAIGB1Y5MQDSQftPsXmKG8L
-   0Z2Zh0L4decgOMhuo3j8TpG4bJEu2czn1GtItY39VohcqDtoGoXI5Fk3O
-   fbEkxX00qg15Q1M8k6kbuuFlbG310gZNUGR9+MrAO+tnZQmL3Sl6QRFAt
-   6wBSAqnAtXHeF5BebDpjdTlnsoChQdPhTJNNWpog5ZBB0+iM5bZuloudV
-   R2jv8nzB0lLDHC1x39M4ag/+KDZrifj0CwIGxCxTzqK7p65t6e3EDVyby
-   A==;
-X-CSE-ConnectionGUID: lhlyOaqVSnK6E1nakQRKuw==
-X-CSE-MsgGUID: zpAO3aJpRemnPoRQdRSLeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3442651"
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="3442651"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 15:06:59 -0800
-X-CSE-ConnectionGUID: j5i6jYVMTlii8YUPW/y9CA==
-X-CSE-MsgGUID: awO5RD7gSY+MNN2I28ShOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="8883617"
-Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.108.28]) ([10.125.108.28])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 15:06:59 -0800
-Message-ID: <13d982ce42116f876f01a77bae7f02d3800f08fc.camel@linux.intel.com>
-Subject: Re: [Patch v4 17/22] sched/cache: Avoid cache-aware scheduling for
- memory-heavy processes
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Jirka Hladky <jhladky@redhat.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: "Chen, Yu C" <yu.c.chen@intel.com>, Ingo Molnar <mingo@redhat.com>, K
- Prateek Nayak <kprateek.nayak@amd.com>, "Gautham R . Shenoy"
- <gautham.shenoy@amd.com>, Vincent Guittot	 <vincent.guittot@linaro.org>,
- Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann
- <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben
- Segall	 <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin
- Schneider	 <vschneid@redhat.com>, Madadi Vineeth Reddy
- <vineethr@linux.ibm.com>, Hillf Danton <hdanton@sina.com>, Shrikanth Hegde
- <sshegde@linux.ibm.com>, Jianyong Wu	 <jianyong.wu@outlook.com>, Yangyu
- Chen <cyy@cyyself.name>, Tingyin Duan	 <tingyin.duan@gmail.com>, Vern Hao
- <vernhao@tencent.com>, Vern Hao	 <haoxing990@gmail.com>, Len Brown
- <len.brown@intel.com>, Aubrey Li	 <aubrey.li@intel.com>, Zhao Liu
- <zhao1.liu@intel.com>, Chen Yu	 <yu.chen.surf@gmail.com>, Adam Li
- <adamli@os.amperecomputing.com>, Aaron Lu	 <ziqianlu@bytedance.com>, Tim
- Chen <tim.c.chen@intel.com>, Josh Don	 <joshdon@google.com>, Gavin Guo
- <gavinguo@igalia.com>, Qais Yousef	 <qyousef@layalina.io>, Libo Chen
- <libchen@purestorage.com>, 	linux-kernel@vger.kernel.org, "Luck, Tony"
- <tony.luck@intel.com>, Reinette Chatre <reinette.chatre@intel.com>, Philip
- Auld <pauld@redhat.com>, Joe Mario <jmario@redhat.com>
-Date: Fri, 13 Nov 2026 15:06:58 -0800
-In-Reply-To: <CAE4VaGAZavgRWDf=ukaj_EJvOO52hTpAYKPe1JEtUE3E2q0y0w@mail.gmail.com>
-References: <cover.1775065312.git.tim.c.chen@linux.intel.com>
-	 <339bb2636c7306e17540268a9295a8e673b92804.1775065312.git.tim.c.chen@linux.intel.com>
-	 <20260409124642.GC3126523@noisy.programming.kicks-ass.net>
-	 <a2d7e7b2-5a4c-48bc-b567-61e3cbd17786@intel.com>
-	 <20260410092057.GG3126523@noisy.programming.kicks-ass.net>
-	 <CAE4VaGAZavgRWDf=ukaj_EJvOO52hTpAYKPe1JEtUE3E2q0y0w@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=XDxqczw+
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33fb4680717so4400727eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:09:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1794611343; x=1795216143; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5DlzMUMtEfBl4sH+z/6/msTIw6TRSjv0D6qDnAX+XMg=;
+        b=XDxqczw+fhNCa5AT80FKOoJM6Ou3zh6RfXXx+DM/pNL8ZMxraPW2kO3doqaHkVmNF3
+         uDe28tAUfDd1xKaE8lrESwZxTLQrTEO587sFSdjD9nVv5CYdVlXFckIfZILP2Mc00zI+
+         fyJjy/CKt7RywPBU8e1v5SiBILoWKHGLoIKFn3m3jkXkYJ59L9YBF7KguyzMRkTFmmBg
+         2r1310P1aFqsutcsuq/r+FsKbWN/nxE0fyCJxGYZ6iJDv2fmyQHlhhQdfctS6CXF0wgF
+         FYfN07y5mx0Obeji+cDo3Cqr7H79D5Zsw0nyKHmP4Xav54MRv+Xcdwmy64eWcP2BJVjt
+         NLyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794611343; x=1795216143;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5DlzMUMtEfBl4sH+z/6/msTIw6TRSjv0D6qDnAX+XMg=;
+        b=E6NYFEqpy1XmGFyJP9MABquWM+t0J4yvd92pw05bHPCt47af14QfJIK536Tugy86fG
+         GVIietznBZxpYmHkYXriEaOM6MvSrM9onMFSxP1jJdcGQ+XT+vcg4PGFRZvngLIb9NtY
+         99+Ud+UahFDrNqXvEuAdr7P/NARlrIW96LYN7fIHWhwCnzQSI12Pv2ez3SF4vZBjaBaa
+         ++krvLbVe9ww4olbNnkxwQtFLpVTESh5JUnZO2+lSod66ZHzC4qlB7gntPq81+JVRVCQ
+         jwuAvZzCtNyYGeSxm8qyjH/IKRM7wCPbUTfRby95ZKwGkCZyCwPgV3ks+aKIm894MQZe
+         9kKA==
+X-Forwarded-Encrypted: i=1; AL+hErF1lLBJZ9gQ/IHJY+JTBOfYncj75vV5IE/5LVW2I36Il6HyfRxI44iGAUI/DybGLAugiddPZEwR+5D5I7k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TY089W63IeA03+P/5l2OZjk2/VQ4flU3HEmg9FFqPvUThZdER
+	x+Jl2Z/j+VGtXzcvU6zdJac6MfaNVlMhXI34dyHyJ3ONh7cD0Vz0q6GkLMLN/hyjla0=
+X-Gm-Gg: AYBFou2kzR/RxE8Z8qwF8xIYx5bw/aeRWIrb0sLT/vIvXLDjBr7t+Crp1SQPKmYwYjb
+	/3wzStfOXcCm7rcrqun2e/J89peISEF3Gmr/PcCSnowsFgi6cpanWkK0YFcR6aHFVzKxp4Xbyee
+	fgNe79E4Cwqw4cWOYnrdrXmR/jWfask6MC36aRQv5gkEXqyVzJ+WFCExW+CqZx78V2Y0fnx/mMw
+	kpa6pz51QwijNAlNg2q9IGgLe/bO3Qp7kzx0vZjTn4Dwbl8uRaZkv7PUt9G1rwwRavXLmw7SlNK
+	BhZuUulYzIMPzeITjlk1wMriP5/y+wrwMT0J9R9uLSdkoaef/hRGlq54fwh5o4Leq/J6eJJSkvr
+	DCvJOv4qBb/wRbAyIdTykKN4laBarh3EYtOm71kA3WdG5uZgtadyN2ja2L9dEfKrgLMI/I15vDb
+	3zuA/wcLO6izDQUM3FaFKu6yUcAyCBHtQ4ZUatPACUIsMTX/BBTzt/4NW/XS2UtT9wOgaFpi0pQ
+	3k3yOC19gwXDY0kOO2I6Ev4g1bpV4OcdwGkzUtLTxSb0r4TeT3OvLpk2SYdqWUMbuj47PiKI6vb
+	min+5IfMk6fPpWh3uxIjYiJXt+VaOewsKRr5WGbUsCcTAvW8IXRgoNF+0b0UdhkH9GlByK1F6w=
+	=
+X-Received: by 2002:a05:7301:db16:b0:376:9e80:2bf5 with SMTP id 5a478bee46e88-379680cf4b9mr3687174eec.38.1794611343074;
+        Fri, 13 Nov 2026 15:09:03 -0800 (PST)
+Received: from apollo.purestorage.com ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3795378d73dsm10737887eec.2.2026.11.13.15.09.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 15:09:02 -0800 (PST)
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Mohamed Khalfella <mkhalfella@purestorage.com>
+Subject: [PATCH] RDMA/rxe: Do not re-execute completed local ops after a retry
+Date: Fri, 13 Nov 2026 15:08:31 -0800
+Message-ID: <20261113230831.2682071-1-mkhalfella@purestorage.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,225 +99,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-11-13 at 17:29 +0100, Jirka Hladky wrote:
-> Hi Peter, Chen Yu, Tim,
->=20
->=20
->=20
+Local operations (IB_WR_REG_MR, IB_WR_LOCAL_INV, IB_WR_BIND_MW) are
+executed inline by rxe_requester() through rxe_do_local_ops(), which
+marks the wqe wqe_state_done and advances qp->req.wqe_index past it.
+Unlike wire operations, nothing is posted to the network and no ack is
+expected.
 
-[snip]
+The completer only consumes wqes from the head of the send queue, in
+order. A done local op wqe therefore stays in the queue until every
+older wqe has completed, so it can sit behind a SEND or RDMA WRITE that
+is still waiting for an ack. With nvme-rdma, which posts REG_MR + SEND
+for every I/O, the queue regularly looks like:
 
-> THE FOOTPRINT ESTIMATE NEVER LEAVES ZERO (MG class D, 64 threads)
->   Traced live on the stock kernel with bpftrace (comm-filtered),
->   across three CAS-on runs:
->=20
->     - grp->footprint: 0 in 44,670 and 40,638 task_cache_work()
->       samples over two full runs (min =3D max =3D 0), while ~7M pages
->       (26.4 GiB) were resident. NUMA balancing was active: 8k-20k
->       hint faults and up to 3.3M pages migrated per run.
->     - In those two runs the footprint write never executed: all
->       ~8k-13k task_numa_placement() calls per run (one per hint
->       fault, via task_numa_fault()) returned at the scan_seq gate.
->=20
->   WHY THE SIGNAL NEVER ACCUMULATES
->   1. grp->footprint is only written in task_numa_placement(),
->      which runs only when mm->numa_scan_seq changes. That counter
->      increments only in reset_ptenuma_scan(): when the NUMA scanner
->      has wrapped the whole address space.
->   2. The scanner walks the 26.4 GiB of mappings at ~0.3-1 GiB/s
->      (traced via mm->numa_scan_offset and change_prot_numa()
->      return values), so one sweep takes 30-40s or more. The 43s
->      benchmark completed 0 sweeps in two runs, 1 sweep (at t=3D33s)
->      in a third. The accounting runs at most once per task per
->      run.
->   3. The signal is also small: a run accumulates only 8k-20k
->      hint-fault events, 0.1-0.3% of the working set, below the
->      108 MiB threshold even when a sweep does complete.
->   4. And it is a rate signal, not a size: the increment is
->      diff =3D numa_faults[MEMBUF] - numa_faults[MEM] / 2, which is
->      zero at any steady fault rate.
->=20
->   Cadence, coverage and formula each independently hold the
->   footprint orders of magnitude below the resident set.
->=20
->   exceed_llc_capacity() is evaluated on every tick and every scan
->   epoch, but with footprint at 0 the comparison
->=20
->       llc_bytes * scale  <  footprint * PAGE_SIZE
->=20
->   is never true, so grp->cpu is never reset. After a 1.8s warm-up it
->   pointed at the same LLC for all 44,661 remaining samples.
->=20
->   Without NUMA balancing the check never triggers, as sched-cache.rst
->   documents. With CAS on and numa_balancing=3D0 the same run takes
->   42.2s, the same as with NUMA balancing on (42.0s).
->=20
-> WHAT THE AGGREGATION COSTS (MG class D, 64 threads)
->   - With CAS on, 97% of thread-samples are on one node. The 26.4 GiB
->     working set starts ~50/50 across the nodes and NUMA balancing
->     then pulls it to the busy node (numa_maps 3.3M/2.7M pages ->
->     6.7M/0.2M; 1.42M pages migrated during the run).
->   - The cost is not on the CPU side: average CPU utilization is
->     essentially unchanged (6164% vs 6029% - about 61 of the 64
->     threads on-CPU in both configurations), and wakeup latency is
->     49us on average, 0.73ms max (perf sched). What grows is
->     UserTime, +48%: the threads keep running, each operation just
->     stalls longer on memory.
->   - The cost is the placement itself, not migration or remote
->     accesses:
->       a) 32 threads: memory fully converges to the busy node well
->          before the run ends, and the run is still 46% slower;
->       b) CAS on with numa_balancing=3D0: no migrations, pages stay
->          65/35, and the runtime is unchanged (42.2s);
->       c) CAS off with the process simply taskset-pinned to one
->          socket (memory 100% local from first touch, no
->          migrations): 40.3s, within the CAS-on range (40.6-42.9s).
->     64 memory-streaming threads on one socket get about two thirds
->     of the throughput they get spread across both sockets (Mop/s
->     -34%), wherever the pages live. So the only effective fix is to
->     not aggregate such a process in the first place.
->=20
+  SEND(A) pending, REG_MR(B) done, SEND(B) pending, REG_MR(C) done ...
 
-Thanks for your detailed analysis of the regression on NAS MG
-and its root cause. Much appreciated.
+When a retransmit timeout fires or a NAK arrives, req_retry() rewinds
+qp->req.wqe_index to the consumer so that every unacked wqe is resent.
+Its loop skips wqe_state_done entries when resetting DMA state, but
+rxe_requester() itself has no such check. After the rewind it walks
+forward through the queue, reaches REG_MR(B), sees WR_LOCAL_OP_MASK and
+calls rxe_do_local_ops() on it a second time.
 
-> QUESTIONS
->   1. Was the sweep-boundary gating of this accounting known or
->      intended? For a workload with a large address space it means
->      the footprint sees at most one update per run; for a shorter
->      one, none at all.
+rxe_reg_fast_mr() rejects the repeated registration because the MR is
+already RXE_MR_STATE_VALID, not FREE. The wqe is given
+IB_WC_LOC_QP_OP_ERR and the QP is moved to the error state. The
+completer then flushes the entire send queue with IB_WC_WR_FLUSH_ERR,
+including the wqe that failed, so the consumer never sees the real
+error status. nvme-rdma logs only "SEND ... failed with status WR
+flushed (5)" and tears down the controller.
 
-Not intended. Your reading of the code is right. The footprint is
-only written from task_numa_placement(), and that function returns
-early unless mm->numa_scan_seq has moved, which happens once per full
-sweep of the address space. The cadence is fine for NUMA placement.
-But it may be too long for large footprints. The tests we
-validated against had a small enough RSS that the first sweep finished
-within the first seconds of the run.
+Any packet loss that triggers a retry while a later request is queued
+is enough to hit this. On a soft-RoCE setup with a few hundred lost
+frames per run every controller reconnect traced back to the same
+rxe_dbg_mr() line:
 
-One correction to your point 3. numa_faults counts pages, not fault
-events. A THP hint fault adds HPAGE_PMD_NR (512) pages per fault. Your
-3.3M migrated pages from 8k-20k faults suggests THP was in use. If so,
-one completed sweep would push the footprint to millions of pages, far
-above the 27.6k pages that equal a 108 MiB LLC. Two things would help
-confirm this:
+  rxe1: mr#776 rxe_reg_fast_mr:  mr->lkey = 0x3084c not free
 
-  - Was THP enabled for the MG run?
-  - In the third run, did grp->footprint become non-zero after the
-    sweep completed at t=3D33s?
+Skip local op wqes that are already done when the requester reaches
+them again after a rewind. Advance wqe_index past them exactly as a
+successful execution would and continue with the next wqe. The MR keeps
+its registered state and the completer still reports the wqe in order
+with its original status. Only local ops can be in wqe_state_done ahead
+of the consumer on an RC QP, since wire operations stay pending until
+acked, so the check cannot match anything else.
 
-If both are yes, then sweep cadence is the problem and the size
-estimate is not.
+Fixes: 001345339f4c ("RDMA/rxe: Separate HW and SW l/rkeys")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+---
+ drivers/infiniband/sw/rxe/rxe_req.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
->   2. Could the check fail closed when there is no usable estimate
->      (warm-up, footprint still 0, NUMA balancing off)? RSS is a poor
->      estimate of the working set, as Peter said, but it is an upper
->      bound: if RSS fits in the LLC, so does the working set. Using it
->      only on the permit side - aggregate without a footprint estimate
->      only if RSS fits - would keep the gains for small processes and
->      not aggregate the ones we cannot judge. The costs are
->      asymmetric: a missed aggregation forfeits a gain, a wrong one
->      cost 65% here.
+diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+index 4f353abd76f5..fdb55366d668 100644
+--- a/drivers/infiniband/sw/rxe/rxe_req.c
++++ b/drivers/infiniband/sw/rxe/rxe_req.c
+@@ -723,6 +723,20 @@ int rxe_requester(struct rxe_qp *qp)
+ 		goto err;
+ 	}
+ 
++	/*
++	 * A retry rewinds wqe_index to the send queue consumer. Local
++	 * operations that were already executed may still sit in the
++	 * queue behind an unacked wqe waiting for in-order completion.
++	 * Re-executing them fails (e.g. REG_MR on an MR that is no
++	 * longer free) and would move the QP to the error state, so
++	 * skip them instead.
++	 */
++	if ((wqe->mask & WR_LOCAL_OP_MASK) &&
++	    wqe->state == wqe_state_done) {
++		qp->req.wqe_index = queue_next_index(q, qp->req.wqe_index);
++		goto done;
++	}
++
+ 	if (rxe_wqe_is_fenced(qp, wqe)) {
+ 		qp->req.wait_fence = 1;
+ 		goto exit;
+-- 
+2.56.0
 
-I think you have a point. I see two ways to fix this issue,
-and they are complementary.
-
-Fix 1:
-
-  - When footprint is 0, or NUMA balancing is off, compare the RSS of
-    the mm against llc_bytes * scale. Aggregate only if RSS fits.
-  - Once a footprint estimate exists, use it as today.
-
-RSS is not used as the estimate here, only as an upper bound while
-there is no footprint from the sweep. That is consistent with Peter's
-objection in April. It also closes the NUMA-balancing-off gap that
-sched-cache.rst documents.
-
-The downside: a process with a large RSS but a small hot set will not
-be aggregated until an estimate exists, and with a very large RSS that
-can be the whole run. A process that runs for less than one sweep
-never gets an estimate at all.
-
-Fix 2:
-
-On the cadence side: accumulate the pages reported by
-task_numa_fault() into the footprint as they arrive within the
-current sweep, instead of waiting for task_numa_placement(). The
-footprint then grows during the first sweep and the check trips
-quickly for your MG run. At the sweep boundary task_numa_placement()
-only applies the decay of the previous window, so the steady state
-value is unchanged.
-
-The downside: for a workload like yours there is still a short window
-where we aggregate before the footprint crosses the LLC size. With
-THP each hint fault adds 512 pages, so the 27.6k pages of a 108 MiB
-LLC are reached after about 54 faults. At the few hundred faults per
-second you measured that is under a second once scanning starts, and
-scanning starts after the 1s scan delay. That is about the 1.8s
-warm-up you saw before grp->cpu settled.
-
-Fix 2 depends on NUMA balancing. Fix 1 also covers
-your numa_balancing=3D0 run.
-
-I lean toward doing both: Fix 2 for the cadence, Fix 1 for NUMA
-balancing off and for the first sweep. Peter, is the RSS bound
-acceptable when it is used only as a gate and never as the estimate?
-
-
->   3. Our data supports Peter's point that LLC hit/miss information
->      would be the better signal: the damage is purely memory-side
->      (UserTime +59% at flat CPU% in the 112-thread run), and a
->      memory-streaming process would show a low hit rate regardless
->      of how well its footprint is estimated. Is anyone looking at
->      that?
-
-I am not aware of patches posted along these lines.=C2=A0
-
-The two possible routes are RDT (CMT llc_occupancy and MBM bandwidth per RM=
-ID)
-and PMU miss counters. RDT needs an RMID per cache group, which
-resctrl owns.  Mixing RMID management with scheduler will be tricky.
-
-The scheduler does not own the PMU, so the PMU route is
-unlikely to be accepted. Near term the usable signals are the RSS
-bound above and user hints through prctl to enable/disable
-cache aware scheduling or modify tuning knobs per sched group.
-
-
->   4. Chen Yu mentioned that you are reworking the footprint
->      accounting for the prctl v2 series [2]. Could the detection fix
->      be part of that rework?
->=20
-
-The v2 work on footprint is about correctness, not cadence.=20
-
-Fix 2 I mentioned above touches the same footprint code that the=C2=A0
-v2 series reworks, so the two are not independent. I think we
-would consider whether to add the proposed fixes in the same
-series or leave it as a follow on.
-
-Would you consider testing the patches when we post them?
-We will CC you.
-
-Tim
-
-> [1] <50a8055e38958cdc39e07435aaad56e4719b2bd3.1794507151.git.tim.c.chen@l=
-inux.intel.com>
-> [2] <5c912bd3-8701-4395-a118-4ee6e09233e2@intel.com>
-> [3] NAS Parallel Benchmarks: https://www.nas.nasa.gov/software/npb.html
->     MG is the multigrid kernel: four V-cycles of 27-point stencil
->     sweeps over a 3D grid hierarchy (finest grid 512^3 for class C,
->     1024^3 for class D) solving a Poisson equation. Each sweep
->     streams through a few double-precision arrays - a 3.3 GiB working
->     set for class C, 26.4 GiB for class D - far beyond any LLC, with
->     little reuse between sweeps: the kernel is memory-bandwidth-bound
->     by construction.
->=20
-> The per-run logs, the placement/migration/sweep traces, and the
-> bpftrace scripts behind them are available if useful.
->=20
-> Regards,
-> Jirka Hladky
-> Red Hat
->=20
