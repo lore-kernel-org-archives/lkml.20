@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794536984;
-	b=Nlw9LP73fOndT657C9Kd2q8eu9rQHgrgxzbPIYs6XZlx8PkBDF7PYwOkf0PpeWQfDcQP
-	 N0YrjQGMN5DrHKREIaIXcfPvXmNmLRemId/5X4N3L8Zo+NS0e+46qhycJdv7KCY66erFD
-	 BtFIoCbCscj+zRHmbAqumhiiN8XDgJUXU67vs6jbBKAIhzV8Krvo/QWhvUUIlIYPGTKKQ
-	 IgbRr/HXyznP7DKydneipUqqRgI161IwjofvQFct9/1L36Sw2DpuK+S+k6C+qQbcQwFFB
-	 ge3v0UTsd1NoKlNTq6xCZEYp2fNvN47NkYMxBad0t4YuxHg1FIkkj6aNrO43qEavLVw==
+	t=1794536986;
+	b=ssYajeQ21O9G7BWveCCi0MDg5PSSVDI+EoHwsQvfpugFs39Ypp3RMapdQiSyh0kUbJ//
+	 5EVNUN+G5YDDAVHGMpaCFu3SSEiW4Eg5xJT27WN8PN2itLvIjmTRHofv2O9j9FUZK1gGB
+	 gyAgwoIRVO0hOoPSoUG8/W9ubcUxzVCReNOof8LEM4NWApzcuks/d5XwYv8tnbDWhkJrP
+	 OhlAIgTlplv1b+nas6JXEPREGIcBLRE2roxU4Y4VZqYXQzMoA9heZ3WDeBUesQq1zqtMG
+	 cm/ZAG25/FRtt9IgOI4j/Ccjiw8n4kmF4xiDGpJR30kTeX9ZL3jQQXJZuN/wQeWsmmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794536984;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794536986;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=uDx3QXV13JGuIpjRQ0OV+D6x+l2ABszc9Xk6Hk+7MWA=;
-	b=fxKCj7olvy6twGbIusWdLo8UlRE3r/2NeLYnV+y3xlfD8F4ZcO7p2DPl/GIQv1uuKU/6
-	 qKVubfsDlDVAfMXY2rtNPkW2YD5SMhbq6jWuwYhEYRy6pTtpFHu9s9e1vy7QGe98htw5x
-	 LIZnPyA+RKTq9FLcU7b2mDlBQ0xVLDgunVFSOOe9ChNGmyibJh2ExM+gRW64TJDT338E7
-	 EOfSraFbcG/Of/GIoqJEEwmtPuUnXgpdYLD9Fd+H8/3l80UnR0g4BsR2gsSWkJW6ZxY5H
-	 OIPlp4xDdb7fQ2ZxR+LbkdUOwW/pcjsiiuywdg+mtA6UB2d+giztB2GK9aHlGdaK+Ig==
+	bh=7I35fCoKkVfk5KSv8b+fmiXqz9ZRpBgphgxQccwd6TU=;
+	b=ZD7FPYDzI5CQ7Ka8mBZstS5ofhgs4Ua/d27769mBfGDhD6HZ/0dWgaWqbPVoK33uK5yn
+	 iuCWs7F7Nmi552klxMNMIAvBRWR2o/SBL47LzRDWJMubNWRVBozeH3iUV2/DWGKZY9URr
+	 2JD+bUYmj5MB2wiCTAkPrleaziJ6ZpsmJb2QpZEUA/zDVcthFi/k+IZTRLqhX7wvBvjzM
+	 FtCVf/xTGPObApDKWmnh4qlv69LNufzLPbTtV6izPU7vwYJgJJ1lWf6sQRQ0mOm0f+fCv
+	 llOg+YS65RBeubK4F+LJggdU/zBjnP/E22hpMpH2PWwyIDzH35DT6whIbGJrgs8aUkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W9ZNtN+c;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BEe0gk9r;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB24D606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:29:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB24D606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AADA606A89F
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:29:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AADA606A89F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W9ZNtN+c
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8b9c51097e2so270733b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:29:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BEe0gk9r
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8b6b22be970so140156b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:29:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794536983; x=1795141783; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794536985; x=1795141785; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uDx3QXV13JGuIpjRQ0OV+D6x+l2ABszc9Xk6Hk+7MWA=;
-        b=W9ZNtN+c83+LJXITyz+JvRMPGAu12mQN+kefo556qAM12XMIbFOiGoxgzaPc3hRrde
-         iiEs4Itd0opDrpUN+1FS0b4xIQb5aiMTg7klO9bgLoluMgAiT95r67G+6lHgVLmrx6Tb
-         YUJyxeAAn+PyoT04xIo41/TsVj7qqT0Mmt0WPZiv5ijOPaNxS0H0CyXpF1Szlu8vA740
-         bbg858U/UN/YbOMVPfzwxXzcvvXcrjPNiSz6yRPcXmgRIpO2BJYlO1HDW8o/MEARC0fA
-         39VPyIV8LWu0uNItDBXA1HxoFa1YEAjJC9nGv0TNFppFlu4CvOKCgnWpyw0q+SWKbxq+
-         Vvrw==
+        bh=7I35fCoKkVfk5KSv8b+fmiXqz9ZRpBgphgxQccwd6TU=;
+        b=BEe0gk9rJJ/sCix7PNHn8gpFi2QFKUvMayh5qS4PioR+eiEtn4ZoOu9CULd/95dokj
+         Wlf80o950cLiMHjUwJk5Dwjuh1ggHVwObo2kRFNXwKEzyck5lOJzCezS2W6SL2L0BsAa
+         MaHeaPYM6LTYVPuVUECBkKc7XG8BjHKOBoCg5ETRKE6708q/37g+TxQzOO6wzEGl65jR
+         hr5NoFh56rtHi7K6MG+rCVuQiXBFG8xY9E+kyOnTAw0k5nE8BzFSqRceUoz3Kb7SUn8t
+         kf4X9jPVoikGWft+7yggmKMmkBOt9Ukg1iVw5PT5dYZ62dktmDOY2jxf0+UvtzM44t8g
+         zbjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794536983; x=1795141783;
+        d=1e100.net; s=20260707; t=1794536985; x=1795141785;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uDx3QXV13JGuIpjRQ0OV+D6x+l2ABszc9Xk6Hk+7MWA=;
-        b=pvgMYSEm0d6C+2hSlDUvXo5aSzyQzvuCNpoEbZecLTYjtdpviOBppetd4Vfyq7aXVE
-         GRi1rfkAV18NhwRzBvsezt9eclvkLwGB2emOs38I+umbgnVDIBPekAgPJccqsh/LyhPt
-         SHosytuIFuiAzwGXa2du4PMAU4jflih+rK17Jr88R/0vjyhNsqxpBMo4hIeR/SWorR/p
-         +GJgcXV/DXXDTmh5ggd0kRqlSRt5yds1GMdrYKrp11/1/+rBFHHs/d/YCC+vfam3fCoh
-         mE5FtqZQ5oo+jTym9XYnZkvx2Jr7BEl568ag8YhqddwiAhdt4MVZMJFj4ESzp+K1tZ9O
-         qbZw==
-X-Forwarded-Encrypted: i=1; AL+hErGMZcucbVxz4OgEWPtWHCQ/mofMRCZNVRTQZxLmXMNBUqkIb2nHc7fWqARlScdULGYDq3P1UT+vO28R3SM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XfwkcsPzEseIeLOYIlEd9Z3q75AzGxHl0qNCU+9Nbi+YDmZsz
-	JJodnP9/piv3BwgHFSf+mI7Y8HPLIkNvBl32vpPKVsYH5QgB11i7TfDoz1BeX2YOxxJWXg==
-X-Gm-Gg: AYBFou3IJmpscTmfAlqo4kouoG0jWe4C2aRrPQFvaY0v9kna3IjD3FtjK4pO3OFzKYr
-	grdgHRQHtgsh2JR7wDiCWMdOoKUE+OEONDemMd6SLqt50AjguRDJIJdfBJDK9vnpuGZwjYuOLgb
-	weYZgMBDie6Kpb6Ts221BVWrz89H/IB/pRAjRvLALdWEKbmrs6Jad/5CmEphkVwah04sQyCttp8
-	EOTTxwS6+y/LNvfIPvfgVq4yWrchuRS8mlb8f7akfAvGWh7Vj0ZPJHoTH2bTnIpcsRDDXR4Ek/E
-	0sXB+rG5ThdMSREP+JlvLBoMFM8gVVibD3bVaKEGibW+fA/9VLuJj5oJG4jdv9lk8rsCF3VOruz
-	Aa9/QfzDlIybTqJS5/kQTQBCb6Nwq9lZAbwgrs5qITxrdBfGPWHHYADpGCwm9700dZWdqtelYJu
-	hcJF+5et6Uidt4b/hTDb4iEchL+eEeP/bHwWgR3vfAD/tUvEM2qhZ4OJ4RUcyIaPMRQ8aeMcFu6
-	2gX3wEuzfehB+fSP4FSjAiiXvpWqbw6WbFwcqzSI3E94/1Dhs6wb8OElhvpAHqvj7fhIwWZDgM6
-	o0tDYP241n7USs4+uIcVT45+UZ0ZOd8/HyTaEXUo
-X-Received: by 2002:a05:6a00:aa07:b0:880:4b56:dc2c with SMTP id d2e1a72fcca58-8beb696f1f1mr1344865b3a.34.1794536982925;
-        Thu, 12 Nov 2026 18:29:42 -0800 (PST)
+        bh=7I35fCoKkVfk5KSv8b+fmiXqz9ZRpBgphgxQccwd6TU=;
+        b=x0qL8Yo93qjlLndb+6PhKUwjmeymhwt68AwC5nkncwcVE8j4B0faH0+rB72uph3+Z3
+         iUC56TV8mcF4+m91+nqZ1NAYdwoN8rUiJuTtP/LMIgbwH2wOmfdDm6qzsSKItFdNf1rs
+         QS++kAzsBcx/CiLswDRTSpgSGtlVSyFbZq2f96e7QBky/xY4i1SMYfNGca/pjZ38GfsB
+         0HN74/EDxo0/8tZuy/EK55u12GhQqEXqQu9v5tfG6/3fyqZ7EahoNH5YIn9D8RlZ/3Vo
+         PV31k/zZ73NfyG1/mUcUgZfir4mPykS/hO1nng7YlOHbe36TMKBUtMthOHdkBK9i/PaV
+         TfVA==
+X-Forwarded-Encrypted: i=1; AL+hErEG3mtOKUkpxGgKVee0IFmqUiFsJR0vucfQuMf5qD6WJoZzv2f7RQak6brOdQ9BBYISAdW8WQWfJX2Ts3s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/4riNA8Qiu+TKcEbAPP5izRklp3pzHc/azPaqD60xpCLBXG5s2
+	jnDFWPMVawUqedQkH4aBM5PIo9E0ozprKxdZYtO2e4k2z8bcp7Klcr3/
+X-Gm-Gg: AYBFou0exUk8a16q46+DRCHHPGtqzXzYsuutP0uJ7ps5EpfSpNwCawXDehZ54U6mbo/
+	M97H/Au6kh6axUO94A2rszWPbROP0Z7QyPmyw1Amaf8aINuqsNquIHG4bd41cNGhuL4s5F4JMKd
+	ECjisimQfOPtHcGJot6BceYsKWSpJI7Cz2C5wczq+kC66fZdQDlFvig9g4g5ztTvHOCLZALcJBM
+	Wk1BwTZOyWyPVOa3bIn8+1oeAIHBQmHTlNDyRz52xdLYIaqzJOo7LZfR8QbQ1QC3aRr2tz/wvig
+	tkdrQut/d4vGl1iiZEGC1+NhxpOJD4flB3NGbVS2tHfhvNzWn9BM7qbZlOUuPqc4tC8sgSSzWPq
+	isW8RHKj5QLr55yMrY3OXvNucyDSYws77FMXF2Ldb08ngb3Of1lTCZbjosRLowA4/ay5g5AmnOw
+	jGRnL/fcwy9gnRoT0qf0Nhr4NWHsDJlpEb6bDiD2ZrTm0TXgGEbkNDD6vMxFf5VnTn4wJkI53LY
+	HuALmOX8WybJWILH7Ru7MBhOxJbxTi3KWt4Ss0UX0FWwIZ2ndNs27h47lJoFHRyGIRzr7bW8Gtx
+	raLqiFhXbOiYHh43dQfU6i3/5nwjsI8tZSsS+Ia6
+X-Received: by 2002:a05:6a21:6444:b0:3e2:2fb7:844a with SMTP id adf61e73a8af0-3f7a9bfa3c6mr670282637.61.1794536985497;
+        Thu, 12 Nov 2026 18:29:45 -0800 (PST)
 Received: from fedora ([2601:600:cb86:7af0::c952])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a8682sm335547b3a.10.2026.11.12.18.29.40
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a8682sm335547b3a.10.2026.11.12.18.29.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 18:29:42 -0800 (PST)
+        Thu, 12 Nov 2026 18:29:45 -0800 (PST)
 From: Aiden Hecker <heckeraiden@gmail.com>
 To: Huang Rui <ray.huang@amd.com>,
 	Mario Limonciello <mario.limonciello@amd.com>,
@@ -93,9 +93,9 @@ Cc: Ingo Molnar <mingo@redhat.com>,
 	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Aiden Hecker <heckeraiden@gmail.com>
-Subject: [PATCH v2 1/2] cpufreq: amd-pstate: Enable hybrid CPU capacity scaling on heterogeneous Zen CPUs
-Date: Thu, 12 Nov 2026 18:29:33 -0800
-Message-ID: <20261113022934.13397-2-heckeraiden@gmail.com>
+Subject: [PATCH v2 2/2] platform/x86/amd/hfi: Rank SMT siblings below primary cores for ITMT packing
+Date: Thu, 12 Nov 2026 18:29:34 -0800
+Message-ID: <20261113022934.13397-3-heckeraiden@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261113022934.13397-1-heckeraiden@gmail.com>
 References: <20261113022934.13397-1-heckeraiden@gmail.com>
@@ -110,213 +110,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On heterogeneous AMD Zen 5 / Zen 5c processors (X86_FEATURE_AMD_HTR_CORES,
-such as Ryzen AI 7 350 Family 1Ah Model 60h), physical Zen 5 cores
-(5.09 GHz, CPPC highest_perf 196..208) and dense Zen 5c cores (3.51 GHz,
-CPPC highest_perf 135) alternate inside a single shared 16 MiB L3 CCX.
+On heterogeneous AMD processors (X86_FEATURE_AMD_HTR_CORES) with 2-way
+SMT enabled on both Zen 5 and Zen 5c cores, amd_set_hfi_ipcc_score()
+assigns identical ITMT priorities to primary threads and their SMT
+siblings.
 
-Currently amd-pstate records prefcore_ranking and nominal_perf per CPU,
-and disables amd_pstate_prefcore when amd_hfi is active, but neither
-driver initializes x86 hybrid capacity scaling. As a result, all logical
-CPUs remain at uniform capacity 1024 across the shared L3 domain.
-
-Record per-CPU highest_perf and nominal_perf when X86_FEATURE_AMD_HTR_CORES
-is present and program arch_enable_hybrid_capacity_scale(),
-arch_set_cpu_capacity(), and topology_set_cpu_scale() once asymmetry is
-observed across online CPUs. SMT siblings are explicitly synchronized to
-the same capacity value so SD_SHARE_CPUCAPACITY never triggers asymmetric
-SMT warnings, while rebuild_sched_domains() is deferred to a workqueue.
+Scale secondary SMT sibling ITMT priorities slightly below their primary
+thread sibling (7/8 of the primary IPCC score) using
+topology_sibling_cpumask(). This preserves the SMT > dense-core advantage
+of classic Zen 5 SMT siblings ahead of Zen 5c cores while guiding
+SD_ASYM_PACKING to prefer idle physical cores first.
 
 Developed with coding assistance from Antigravity (Google DeepMind).
 
 Tested-by: Aiden Hecker <heckeraiden@gmail.com>
 Signed-off-by: Aiden Hecker <heckeraiden@gmail.com>
 ---
- drivers/cpufreq/amd-pstate.c | 121 +++++++++++++++++++++++++++++++++++
- 1 file changed, 121 insertions(+)
+ drivers/platform/x86/amd/hfi/hfi.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 4bedfbfc1..3f4b6a2b0 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -36,9 +36,13 @@
- #include <linux/io.h>
- #include <linux/delay.h>
- #include <linux/uaccess.h>
-+#include <linux/cleanup.h>
-+#include <linux/cpuset.h>
-+#include <linux/mutex.h>
- #include <linux/power_supply.h>
- #include <linux/static_call.h>
- #include <linux/topology.h>
-+#include <linux/workqueue.h>
+diff --git a/drivers/platform/x86/amd/hfi/hfi.c b/drivers/platform/x86/amd/hfi/hfi.c
+index 86a7f4332..d7e35a2bf 100644
+--- a/drivers/platform/x86/amd/hfi/hfi.c
++++ b/drivers/platform/x86/amd/hfi/hfi.c
+@@ -12,6 +12,7 @@
  
- #include <acpi/processor.h>
- #include <acpi/cppc_acpi.h>
-@@ -88,6 +92,23 @@ static int cppc_state = AMD_PSTATE_UNDEFINED;
- static bool amd_pstate_prefcore = true;
- static struct quirk_entry *quirks;
+ #include <linux/acpi.h>
+ #include <linux/cpu.h>
++#include <linux/cpumask.h>
+ #include <linux/debugfs.h>
+ #include <linux/gfp.h>
+ #include <linux/init.h>
+@@ -261,11 +262,26 @@ static void amd_hfi_remove(struct platform_device *pdev)
  
-+struct amd_hybrid_cpu_cap {
-+	u32 highest_perf;
-+	u32 nominal_perf;
-+};
-+
-+static DEFINE_PER_CPU(struct amd_hybrid_cpu_cap, amd_hybrid_caps);
-+static DEFINE_MUTEX(amd_hybrid_cap_lock);
-+static u32 amd_hybrid_max_perf;
-+static bool amd_hybrid_cap_enabled;
-+
-+static void amd_hybrid_cap_workfn(struct work_struct *work)
-+{
-+	rebuild_sched_domains();
-+}
-+
-+static DECLARE_WORK(amd_hybrid_cap_work, amd_hybrid_cap_workfn);
-+
- /*
-  * The numeric EPP value programmed for each named preference. First dimension
-  * is CPU type (TOPO_CPU_TYPE_ANY for non-hybrid, TOPO_CPU_TYPE_PERFORMANCE/
-@@ -969,6 +990,99 @@ static void amd_pstate_init_prefcore(struct amd_cpudata *cpudata)
- 	sched_set_itmt_core_prio((int)READ_ONCE(cpudata->prefcore_ranking), cpudata->cpu);
- }
- 
-+static void amd_pstate_record_hybrid_cap(struct amd_cpudata *cpudata)
-+{
-+	struct amd_hybrid_cpu_cap *cap;
-+	union perf_cached perf;
-+	u32 highest_perf;
-+
-+	if (!cpu_feature_enabled(X86_FEATURE_AMD_HTR_CORES))
-+		return;
-+
-+	perf = READ_ONCE(cpudata->perf);
-+	highest_perf = READ_ONCE(cpudata->prefcore_ranking);
-+	if (!highest_perf)
-+		highest_perf = perf.highest_perf;
-+
-+	guard(mutex)(&amd_hybrid_cap_lock);
-+	cap = per_cpu_ptr(&amd_hybrid_caps, cpudata->cpu);
-+	cap->highest_perf = highest_perf;
-+	cap->nominal_perf = perf.nominal_perf;
-+}
-+
-+static void amd_pstate_sync_hybrid_capacity(void)
-+{
-+	u32 max_perf = 0, min_perf = U32_MAX;
-+	bool updated = false;
-+	int cpu;
-+
-+	if (!cpu_feature_enabled(X86_FEATURE_AMD_HTR_CORES))
-+		return;
-+
-+	guard(mutex)(&amd_hybrid_cap_lock);
-+
-+	for_each_online_cpu(cpu) {
-+		const struct cpumask *sib_mask = topology_sibling_cpumask(cpu);
-+		u32 sib_max = 0;
-+		int sib;
-+
-+		/*
-+		 * SMT siblings share SD_SHARE_CPUCAPACITY and must expose identical
-+		 * arch_scale_cpu_capacity() values to avoid scheduler warnings.
-+		 */
-+		for_each_cpu(sib, sib_mask) {
-+			u32 p = per_cpu(amd_hybrid_caps, sib).highest_perf;
-+
-+			if (p > sib_max)
-+				sib_max = p;
-+		}
-+		if (!sib_max)
-+			continue;
-+
-+		for_each_cpu(sib, sib_mask)
-+			per_cpu(amd_hybrid_caps, sib).highest_perf = sib_max;
-+
-+		if (sib_max > max_perf)
-+			max_perf = sib_max;
-+		if (sib_max < min_perf)
-+			min_perf = sib_max;
-+	}
-+
-+	if (!max_perf || min_perf >= max_perf)
-+		return;
-+
-+	if (!amd_hybrid_cap_enabled) {
-+		if (!arch_enable_hybrid_capacity_scale())
-+			return;
-+		amd_hybrid_cap_enabled = true;
-+		updated = true;
-+	}
-+
-+	if (max_perf != amd_hybrid_max_perf) {
-+		amd_hybrid_max_perf = max_perf;
-+		updated = true;
-+	}
-+
-+	for_each_online_cpu(cpu) {
-+		struct amd_hybrid_cpu_cap info = per_cpu(amd_hybrid_caps, cpu);
-+		unsigned long prev_cap;
-+
-+		if (!info.highest_perf || !info.nominal_perf)
-+			continue;
-+
-+		prev_cap = arch_scale_cpu_capacity(cpu);
-+		arch_set_cpu_capacity(cpu, info.highest_perf, max_perf,
-+				      info.highest_perf, info.nominal_perf);
-+		topology_set_cpu_scale(cpu, arch_scale_cpu_capacity(cpu));
-+
-+		if (arch_scale_cpu_capacity(cpu) != prev_cap)
-+			updated = true;
-+	}
-+
-+	if (updated)
-+		schedule_work(&amd_hybrid_cap_work);
-+}
-+
- static void amd_pstate_update_limits(struct cpufreq_policy *policy)
+ static int amd_set_hfi_ipcc_score(struct amd_hfi_cpuinfo *hfi_cpuinfo, int cpu)
  {
- 	struct amd_cpudata *cpudata;
-@@ -1130,6 +1244,7 @@ static int amd_pstate_cpu_init(struct cpufreq_policy *policy)
- 	if (ret)
- 		goto free_cpudata1;
- 
-+	amd_pstate_record_hybrid_cap(cpudata);
- 	amd_pstate_init_prefcore(cpudata);
- 
- 	ret = amd_pstate_init_freq(cpudata);
-@@ -1769,11 +1884,14 @@ static int amd_pstate_register_driver(int mode)
- 	if (amd_pstate_prefcore)
- 		sched_set_itmt_support();
- 
-+	amd_pstate_sync_hybrid_capacity();
++	const struct cpumask *sib_mask;
++	int prio;
 +
+ 	for (int i = 0; i < hfi_cpuinfo->nr_class; i++)
+ 		WRITE_ONCE(hfi_cpuinfo->ipcc_scores[i],
+ 			   hfi_cpuinfo->amd_hfi_classes[i].perf);
+ 
+-	sched_set_itmt_core_prio(hfi_cpuinfo->ipcc_scores[0], cpu);
++	/*
++	 * Rank secondary SMT siblings slightly below primary threads so
++	 * SD_ASYM_PACKING fills idle physical cores first while still keeping
++	 * classic Zen 5 SMT siblings ordered ahead of dense Zen 5c cores.
++	 */
++	prio = hfi_cpuinfo->ipcc_scores[0];
++	if (cpu_feature_enabled(X86_FEATURE_AMD_HTR_CORES)) {
++		sib_mask = topology_sibling_cpumask(cpu);
++		if (!cpumask_empty(sib_mask) && cpumask_first(sib_mask) != cpu)
++			prio = (prio * 7) / 8;
++	}
++
++	sched_set_itmt_core_prio(prio, cpu);
+ 
  	return 0;
  }
- 
- static int amd_pstate_unregister_driver(int dummy)
- {
-+	cancel_work_sync(&amd_hybrid_cap_work);
- 	cpufreq_unregister_driver(current_pstate_driver);
- 	amd_pstate_driver_cleanup();
- 	return 0;
-@@ -1985,6 +2103,7 @@ static int amd_pstate_epp_cpu_init(struct cpufreq_policy *policy)
- 	if (ret)
- 		goto free_cpudata1;
- 
-+	amd_pstate_record_hybrid_cap(cpudata);
- 	amd_pstate_init_prefcore(cpudata);
- 
- 	ret = amd_pstate_init_freq(cpudata);
-@@ -2149,6 +2268,8 @@ static int amd_pstate_cpu_online(struct cpufreq_policy *policy)
- 		return ret;
- 
- 	cached_floor_perf = freq_to_perf(perf, cpudata->nominal_freq, cpudata->floor_freq);
-+	amd_pstate_record_hybrid_cap(cpudata);
-+	amd_pstate_sync_hybrid_capacity();
- 	return amd_pstate_set_floor_perf(policy, cached_floor_perf);
- }
- 
 -- 
 2.56.1
 
