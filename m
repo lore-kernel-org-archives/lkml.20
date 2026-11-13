@@ -1,39 +1,39 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794547955;
-	b=nQpP2AbUxFV2uAgSSCBJQVFv1V0nvByyOXzyZzPFNEpGnHuBjxF5JVTHRJkswe/YvHGL
-	 g0TBRLT02zyvLjo0k4tP7R3Kr4OwRl1a3I/+msxK4HHlo0Caa3k1HsxLm6LmEn3OsbxR0
-	 ySm99FGmD9vvA2FKus4cUaNn5iB76x0/j+6tZHwDxDieXE0qZEOAvrMggaFDgHgwggM9N
-	 zuXoLmOGRfaLaRtpBE24XeMCxewsQWDxhXqzfDHyYY/0YDUYrN26wcl83FruNBKTEiJo4
-	 IblSBvRY8jRl7WU1nKZFrcODN4r4GBdcL/bzg/Zkx00FUasce5yu/WYGT3XVuYNEmeQ==
+	t=1794547961;
+	b=3QZV7kSo6ATZMfB27tKmRDkalzcaau6/7tW2XPO6Gx5HDLNUG9RFEAGuKpO0wIWLAmBz
+	 B7avIRDh5/hmT/D1oZA8h4hHKA/0L5H0vlqbkzlmLV/uZFV2OgTvWiiYW/+VAb8ehsm5A
+	 dY5tJZiKP23H1RwCpsbln16T13aSI6rbM1gw41SlBioRy05mz8uba5gX+JgFYiecZI8J/
+	 Kx12PUVycJiN498kv/3GcogEaUsGDEXP9GDinvfQxnOEVa6868ldM9z6c4uxNJJeAFseX
+	 xKj9eMRzYTcPc13iGcSOfVR1bP06NvrR3uDmw9BUriX67veudS1NO/Fp1lHdfHwIIUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794547955;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794547961;
 	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=CIXe5LJ4qzFLroExPsOBA24IMOj8Guk7Wz5iq+3EgJc=;
-	b=czKI5cX0pk9pF3xIQxzh+fHRUvW8W0QI982BMoVwG5rHHVf70DZVW0STKCaQ4HBC+LGq
-	 6Xz7Yp6/BslYox2aHjlGo41JFUqqoYDDG+DgT/Bf3vGuOE9yPiPfbHiRzw93ZEVuxCR+y
-	 bIXq0FmXCrayaZ0rF3X/GV4hNHMmLpi0gv5o2bzMHxQm7fV8U5wdlgXXU7mF+AUcDfsnF
-	 /ZaIGm/DqfRmFqM/TLPDE7mupRnaC1t1bM9bfA7ADCQswZtcoK2pQt+yBtDX7inrg9W4Y
-	 wEtHxHM5KgacyevQsrEWJpoAJAL6yhUfYjCGVf9TWS8zz6/JRcZfba77LTGGm6Q/z9Q==
+	bh=1+dNKzClzbvHLPMUhTvsZ4k+mtZkDXxX8lvsXl4r+xA=;
+	b=uIx9MFHg1C9ZCmbCd8nEyPnAq2kOno1U4pMv01JN+LbqvQCBj3pIGR3VwR1cukYult++
+	 gJ4z0a/Cu0tFT0L08YqwnPyoIC2o38x4WbbEKMQxX6PjGyRB8SIDuYgw99jaJXZrU5Z9r
+	 DwfcrAabhLLFDLPBpdXKXfXvDr0DNsmCPyz+UIi2MBt2fuSJoa/iIqmAossVfWnQb6Pf6
+	 NWp8p98wlioy/0X/3YoGyAbQmw6hg3hD5DpsI1xldm1lNeU0ye4d1oojeGKU6L9fDT4vX
+	 m9SrRZwphx+ctTz/SI1zQigujrNeWRIs8ICNoSP0Ab4FRNgterRJGo+WjcnmRLzA8Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kaihong.com;
 	spf=pass smtp.mailfrom=kaihong.com;
-	arc=none smtp.remote-ip=115.124.28.170
-Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com [115.124.28.170])
+	arc=none smtp.remote-ip=115.124.28.51
+Received: from out28-51.mail.aliyun.com (out28-51.mail.aliyun.com [115.124.28.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45BCE606A336;
-	Fri, 13 Nov 2026 05:32:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45BCE606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D9A606A8A3;
+	Fri, 13 Nov 2026 05:32:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28D9A606A8A3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kaihong.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaihong.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1246013|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_enroll_verification|0.00493924-0.00066682-0.994394;FP=3278358288537443492|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083032240;MF=wangxiaolei01@kaihong.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.k13i.Ms_1794547944;
-Received: from nj-vm-261.pxvirt.local(mailfrom:wangxiaolei01@kaihong.com fp:SMTPD_---.k13i.Ms_1794547944 cluster:ay29)
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.3319117|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0156776-0.00224241-0.98208;FP=17113666552651007620|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=wangxiaolei01@kaihong.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.k13i.Rk_1794547950;
+Received: from nj-vm-261.pxvirt.local(mailfrom:wangxiaolei01@kaihong.com fp:SMTPD_---.k13i.Rk_1794547950 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Fri, 13 Nov 2026 13:32:28 +0800
+          Fri, 13 Nov 2026 13:32:31 +0800
 From: Xiaolei Wang <wangxiaolei01@kaihong.com>
 To: linusw@kernel.org,
 	florian.fainelli@broadcom.com,
@@ -51,9 +51,9 @@ Cc: linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Jonathan Bell <jonathan@raspberrypi.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/4] pinctrl: bcm: Fix off-by-one and out-of-bounds access in fsel_get()
-Date: Fri, 13 Nov 2026 05:32:18 +0000
-Message-Id: <20261113053221.3131068-2-wangxiaolei01@kaihong.com>
+Subject: [PATCH v2 3/4] pinctrl: bcm: Use pinconf_generic_dt_free_map in brcmstb
+Date: Fri, 13 Nov 2026 05:32:20 +0000
+Message-Id: <20261113053221.3131068-4-wangxiaolei01@kaihong.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261113053221.3131068-1-wangxiaolei01@kaihong.com>
 References: <20261113053221.3131068-1-wangxiaolei01@kaihong.com>
@@ -68,50 +68,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The FSEL field is a 1-based function number: 0 means GPIO, 1..n_funcs
-map to funcs[0..n_funcs - 1], and n_funcs + 1 and above are rejected.
-brcmstb_pinctrl_fsel_get() indexes funcs[] with the raw value instead
-of subtracting one, so readbacks are shifted by one slot: value 8
-indexes funcs[8], past the array end, while 0 is reported as funcs[0]
-instead of GPIO. The setter programs the mux correctly, so only the
-debugfs readback is affected.
+Replace the hand-written dt_free_map callback with the generic
+pinconf_generic_dt_free_map() helper, which wraps
+pinctrl_utils_free_map(). This drops the duplicated free loop and
+pairs the callback with the pinconf_generic_dt_node_to_map_all()
+already used for dt_node_to_map.
 
-Map 0 and out-of-range values back to GPIO, warn on the latter, and
-index funcs[] with fsel - 1. Tested on Raspberry Pi 5 with KASAN: the
-"alt8" readback no longer splats, and field 0 reports GPIO.
+The driver already selects GENERIC_PINCONF, so no Kconfig change is
+needed.
 
 Fixes: 657cbf9b24ba ("pinctrl: bcm: Add STB family pin controller driver")
 Cc: Jonathan Bell <jonathan@raspberrypi.com>
 Cc: Phil Elwell <phil@raspberrypi.com>
 Cc: stable@vger.kernel.org
 Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Reviewed-by: Andrea della Porta <andrea.porta@suse.com>
 Signed-off-by: Xiaolei Wang <wangxiaolei01@kaihong.com>
 ---
- drivers/pinctrl/bcm/pinctrl-brcmstb.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/pinctrl/bcm/pinctrl-brcmstb.c | 15 +--------------
+ 1 file changed, 1 insertion(+), 14 deletions(-)
 
 diff --git a/drivers/pinctrl/bcm/pinctrl-brcmstb.c b/drivers/pinctrl/bcm/pinctrl-brcmstb.c
-index f46b27155c3c..2b942ca7196b 100644
+index 2b942ca7196b..e81c5b295a05 100644
 --- a/drivers/pinctrl/bcm/pinctrl-brcmstb.c
 +++ b/drivers/pinctrl/bcm/pinctrl-brcmstb.c
-@@ -66,7 +66,16 @@ static unsigned int brcmstb_pinctrl_fsel_get(struct brcmstb_pinctrl *pc,
+@@ -180,26 +180,13 @@ static void brcmstb_pctl_pin_dbg_show(struct pinctrl_dev *pctldev,
+ 	seq_printf(s, "function %s", fname);
+ }
  
- 	val = readl(pc->base + BIT_TO_REG(bit));
- 	fsel = (val >> BIT_TO_SHIFT(bit)) & pc->pin_funcs[pin].func_mask;
--	func = pc->pin_funcs[pin].funcs[fsel];
-+
-+	if (!fsel)
-+		return pc->func_gpio;
-+
-+	if (fsel > pc->pin_funcs[pin].n_funcs) {
-+		dev_warn(pc->dev, "invalid fsel %d for pin %u\n", fsel, pin);
-+		return pc->func_gpio;
-+	}
-+
-+	func = pc->pin_funcs[pin].funcs[fsel - 1];
+-static void brcmstb_pctl_dt_free_map(struct pinctrl_dev *pctldev,
+-				     struct pinctrl_map *maps,
+-				     unsigned int num_maps)
+-{
+-	int i;
+-
+-	for (i = 0; i < num_maps; i++)
+-		if (maps[i].type == PIN_MAP_TYPE_CONFIGS_PIN)
+-			kfree(maps[i].data.configs.configs);
+-
+-	kfree(maps);
+-}
+-
+ static const struct pinctrl_ops brcmstb_pctl_ops = {
+ 	.get_groups_count = brcmstb_pctl_get_groups_count,
+ 	.get_group_name = brcmstb_pctl_get_group_name,
+ 	.get_group_pins = brcmstb_pctl_get_group_pins,
+ 	.pin_dbg_show = brcmstb_pctl_pin_dbg_show,
+ 	.dt_node_to_map = pinconf_generic_dt_node_to_map_all,
+-	.dt_free_map = brcmstb_pctl_dt_free_map,
++	.dt_free_map = pinconf_generic_dt_free_map,
+ };
  
- 	if (func >= pc->func_count)
- 		func = fsel;
+ static int brcmstb_pmx_free(struct pinctrl_dev *pctldev, unsigned int offset)
 -- 
 2.34.1
 
