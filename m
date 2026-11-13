@@ -1,60 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558296;
-	b=dyiEO8VzP0anhJzau7ZOar9OqkR9NPuwyweynsuC4pWJSdaqjLCngMVonYlptqnwpQID
-	 +NqfXVPlTUW2XB2hEMHZHoILXZn1zPlyNy9sdtlHM21PnHop144XKACnay+sE3wYnLvWo
-	 2lHlHQn0Ja7QgNPwvvmZy0cXBSvjIXwNwfrB/r5ATpAhYb/zZHXSQw7qhc+c8gm6KaCpY
-	 uy51MLSV8wf3/mf8NeBwrO2x/kUC7VToO+sLdzTupIQSf9Qtl7bJCRL/S6x79+K6GbzID
-	 +t4Y9KKxGR0Z8LiutJctz8YUHlFFYf9lroo3Q61evkPL30gkVscHR33S1ejVRIvZ5cw==
+	t=1794558352;
+	b=Odi3bp+O8IZ35/PI6Ih+raEXq7YDArjYaS4BUwWHxfEedpuIckbT9A4EeXAbSRfySOa4
+	 CUMkDArlgDaCMzuCjJDx0QpOPocaA6jLlcKEaNNmgsH8dQRG2R7/sc2m70I4wO1Bq4f66
+	 p+kBKdMGSfxYSg6CxYjuJEJEYM5DTnpJ3kY+WqZJgrrZl/GPKiERPCLLbX5aJjkIQFGb1
+	 hssfh5dLzf2W90c6G9XStqwBUx+W2oOKDq7Mkyh4rGzrNq9Mr5Xozr7FttWoZ61reKbUe
+	 8yIml042z3ge4fFkffiofSXhKyIV3XcAXsZMbhNX2jM7UC3ENZxAGiR+V1lPVGnZwJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558296;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dUJYjdN1mbViyPCa9Ii5oLF+ArhVXAoKywBoKaNLkG8=;
-	b=T5andkQD5jPRnMQbYqgGLPVGUuq+DD8UHkFtXJyuiuaZAfF001KWUv0MIGo9+Rc/G9iK
-	 gVbsMuM4DOMnQx+DZWqnsfPl4UMCGXKz/J+oarGJeel4exYBZCi27z8+Xsqy57dUJqUVb
-	 sBT8hrj534D5LJlLO9u9byTdkJQzNN6Zq331laI/wyBghxws9hBG/t3jipvMx38XOqhE7
-	 SVm3cSyLyok/ntb9OpakmCVH6OI9VPfjmGIAeAcbLJCLb8vonO4tmlKoph489CiLWwB+w
-	 XiA8i/eV9pnl6zstKufl4n9KiFOO9lofRow746fSqFaS486TkoqkWa3sHxBo5wNYUCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558352;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fOyA+/mIxQw8aulmJJ6drlntxz+JUhzM5Zq2n9iEbYU=;
+	b=LGnTr2M3VLOOibdOKRt/JoyDh6uoA4NtsyYGENsCeRWr+elG9BPfrGZQQLcvGL+07U+7
+	 ciVezRBJsRIpMsYVuTabmybI9r8mjAdrBF6WZmfQLgT0+HPugUvD98NqSHXxmkaEQCiUf
+	 l94UZ8SwH9SNAyKFmnv7otYXf36EiXCH+IBblkaTqENA32C2k7QR5VT+USsqnhMqapHmO
+	 KmUDRgJk/ipkmxR7YUelTRuERJD45CG5cK7fpTLjF7RF3F1xR1E/aoCdBDEOs9JK+K6ZH
+	 fzusxqZocpw/FMLN6h/hTLwi/MXYexbl7dIovsREImd6H11P+Pw8o7glc+M37ZHTajg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fpi3rK7v;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342D5606A327;
-	Fri, 13 Nov 2026 08:24:55 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=b8os27o2;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 259DD606A31C;
+	Fri, 13 Nov 2026 08:25:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 259DD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fpi3rK7v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095351F000C5;
-	Fri, 13 Nov 2026 08:24:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794558295;
-	bh=dUJYjdN1mbViyPCa9Ii5oLF+ArhVXAoKywBoKaNLkG8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fpi3rK7vqXLZnf+x3lbCmQPmVELMx4JG82zA5/Hdy2qRkz7G25g8TetmxTnp0J+g5
-	 J5fggYQBkJ2J7YtpJD+0slSLVc9jhp/3f5+3W0L/kfnG1EsCd//PkUDNV+rrDmv8fV
-	 dMVHLqwNS6LVC/h/eKhTtcAFRbI2XzA3IXVB4PDlsAf5LZ+L5EqPiF40ZGLQb6VGVA
-	 TNjm5lmBTBZih6Mjqj2GOjBWolMOfqQYW07yEGIxHnLuG6O9ekezESLSQ7vtWW6lju
-	 QX5U4BZVKKdi2+zo3BDtXXPjjP4MRGr+M1BYI+BNDg2ces8+9/eyPhRECki3AQswUx
-	 d660E13XTDiZw==
-Date: Fri, 13 Nov 2026 09:24:52 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Christophe Roullier <christophe.roullier@foss.st.com>, Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] arm64: dts: st: add LTDC pixel clock controller
- on stm32mp23
-Message-ID: <20261113-ape-of-inevitable-research-df4777@quoll>
-References: <20261110-ups_mp25_clk_syscfg-v2-0-624559bb8ec7@foss.st.com>
- <20261110-ups_mp25_clk_syscfg-v2-4-624559bb8ec7@foss.st.com>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=b8os27o2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=b8os27o2WF93BP5j5fLBwLzoEpXglGJ2tTkraxcy0bwjYBjbqf2vJTcaIdlZqp8HPlL9l5rrEjkU1
+	 TDoOLxsn0ieiAEzRGtI9/aDJEbOMpX4/UUVkRZKirKjgyerUEGGMzfQSqz0DvoKBnrayj7gFDZ0yHQ
+	 BCbOByYrQHpRnFn4=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af6c98beda-8a1a3;
+	Fri, 13 Nov 2026 16:25:48 +0800 (CST)
+X-RM-TRANSID:2ee86af6c98beda-8a1a3
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af6c988111-1e8d6;
+	Fri, 13 Nov 2026 16:25:48 +0800 (CST)
+X-RM-TRANSID:2ee66af6c988111-1e8d6
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhujun2@cmss.chinamobile.com
+Subject: [PATCH v3] iio: potentiostat: lmp91000: Handle configuration write errors
+Date: Fri, 13 Nov 2026 16:25:46 +0800
+Message-ID: <20261113082546.176582-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,45 +71,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261110-ups_mp25_clk_syscfg-v2-4-624559bb8ec7@foss.st.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 02:10:24PM +0100, Gabriel Fernandez wrote:
-> Describe the LTDC pixel clock multiplexer of the SYSCFG as a
-> clock-controller sub-node and use it as the LTDC "ref" clock instead of
-> the SYSCFG node itself, whose deprecated "#clock-cells" property is
-> removed.
-> 
-> Only the LTDC kernel clock is available as parent on STM32MP231; the
-> LVDS and DSI clocks are added on STM32MP235.
-> 
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> ---
->  arch/arm64/boot/dts/st/stm32mp231.dtsi | 9 ++++++++-
->  arch/arm64/boot/dts/st/stm32mp235.dtsi | 8 +++++++-
->  2 files changed, 15 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> index fefbf6f4f153..df446f0c1539 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> @@ -4,6 +4,7 @@
->   * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
->   */
->  #include <dt-bindings/clock/st,stm32mp25-rcc.h>
-> +#include <dt-bindings/clock/st,stm32mp25-syscfg-clk.h>
->  #include <dt-bindings/interrupt-controller/arm-gic.h>
->  #include <dt-bindings/regulator/st,stm32mp25-regulator.h>
->  #include <dt-bindings/reset/st,stm32mp25-rcc.h>
-> @@ -1121,10 +1122,16 @@ exti1: interrupt-controller@44220000 {
->  		syscfg: syscon@44230000 {
->  			compatible = "st,stm32mp23-syscfg", "syscon";
->  			reg = <0x44230000 0x10000>;
-> -			#clock-cells = <0>;
+lmp91000_read_config() ignores errors when unlocking and programming
+the TIA and reference registers. Probe can then succeed even though
+the hardware configuration does not match the parameters used to
+interpret measurements.
 
-This breaks users.
+Check the configuration writes and return the first error. After a
+successful unlock, attempt to restore write protection even if a
+configuration write fails. Return a relock error when both configuration
+writes succeeded.
 
-Best regards,
-Krzysztof
+lmp91000_probe() returns either error before registering the IIO device,
+so the caller does not need to distinguish their source. Preserve the
+configuration error if restoring write protection also fails.
+
+Fixes: 67e17300dc1d ("iio: potentiostat: add LMP91000 support")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+---
+Changes in v3:
+- Declare the loop counter separately from the return code (Andy Shevchenko).
+- Explain how probe handles configuration and relock failures.
+
+Changes in v2:
+- Use an explicit error path to restore write protection and return the
+  original configuration error, as suggested by Jonathan Cameron.
+- Return the final lock write result directly on the successful path.
+
+ drivers/iio/potentiostat/lmp91000.c | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/iio/potentiostat/lmp91000.c b/drivers/iio/potentiostat/lmp91000.c
+index 00cb3fea97ca..1e07917ff76a 100644
+--- a/drivers/iio/potentiostat/lmp91000.c
++++ b/drivers/iio/potentiostat/lmp91000.c
+@@ -205,7 +205,8 @@ static int lmp91000_read_config(struct lmp91000_data *data)
+ {
+ 	struct device *dev = data->dev;
+ 	unsigned int reg, val;
+-	int i, ret;
++	int ret;
++	int i;
+ 
+ 	ret = device_property_read_u32(dev, "ti,tia-gain-ohm", &val);
+ 	if (ret) {
+@@ -250,13 +251,25 @@ static int lmp91000_read_config(struct lmp91000_data *data)
+ 		return ret;
+ 	}
+ 
+-	regmap_write(data->regmap, LMP91000_REG_LOCK, 0);
+-	regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
+-	regmap_write(data->regmap, LMP91000_REG_REFCN,
+-		     LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_REFCN_50_ZERO);
++	ret = regmap_write(data->regmap, LMP91000_REG_LOCK, 0);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
++	if (ret)
++		goto relock;
++
++	ret = regmap_write(data->regmap, LMP91000_REG_REFCN,
++			   LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_REFCN_50_ZERO);
++	if (ret)
++		goto relock;
++
++	return regmap_write(data->regmap, LMP91000_REG_LOCK, 1);
++
++relock:
+ 	regmap_write(data->regmap, LMP91000_REG_LOCK, 1);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int lmp91000_buffer_cb(const void *val, void *private)
+-- 
+2.51.0
+
+
 
