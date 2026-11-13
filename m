@@ -1,64 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.85.191
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794612166;
-	b=dFLZ730vOtdMD8cMvGO3WYQD9bdBwKwHnnVTRUaaIyOvAhnK4E+ZhydbleCmcWURCyW3
-	 4GmEMjsoezTpbtiBU4fzE2y+T4aMG1CA76bGNke/FCrK5YDu0VEgIrzTCDG1DTPbE+HGb
-	 1PhMBOFasqSRl/EeEy/tvLLDG+C0aoptg/mfkncZKwwMpjQFN8T3/4+fiHLrXhMmyrElC
-	 X/v4NA09yHasWaNtSwEmcF4z4BG3G3EV6dwCVV62IsgUNS+wI0pYSD9/pwlhjvkN3uc+O
-	 vSxH8HOIJA+sQRzVqU2asSnDlOoFO2lsWckN3j3zYTldyjlhMcxD2NIdSHN9NphzfYQ==
+	t=1794612224;
+	b=2jsBoTyA1R/EsQCMde2Ge77VMJjnzDInb5w3LjVUtizC/QcyUYlI3nuJErTWtN5V4hAj
+	 xmlRqELoKgv5/L39nb7aYlWBhJOAXTaK1ztZt2k9q4MWwAW/QLiXHUGgdvDk0HLyy6k39
+	 DR/LQNNAyoD5Dw+or52Mg0E3KxwiCtAjwutw77sueUGGBxY9UZySFCP7kAh6L/+fmZEJP
+	 +MroDTenRHkJVsaKm1qeckx8V+m9pPzqXbWQeZz1tZVBCMG/s0NClFj3uimZrq//tnDSn
+	 IkJWCe64bOQQ2th8pFIdfzHNmdameECcCSp4aATDgg6R2u8yvfa14unNsPIvd3C5fvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794612166;
-	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
-	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Info-Out:
-	 X-Proofpoint-Spam-Details-Enc:X-JNJ;
-	bh=wB33Rd8IFdkb3XFAAM6k6kjymub1eMkpRMHxe0P8Lew=;
-	b=ZCTgL7133vP664H5GeLbRedON1m/4TjnToWGZlTwY8rZmyaeel3XGch+CM8HMgMM3TPF
-	 95nxwe7rrtIjzRmwuFDO18L3K/jTZd9b4EhClSIPFQDLqTCb6fPHJs1wWxeWQsJtZmCVb
-	 BBC5RwUObHRJK8c7weH7baPgkho+GbqLaZC/pyEnMBpZ4RcPO+9YGsJ67slCbuTQ9tJcS
-	 BYq5Wjsh6pX07tszC5y5EpnD80qMH5aP7j3imwRK8a31d6ly1lXcf0ZfN6xGYY8CVNcS8
-	 nWQVjaAJB1rmZYtYTrvq/DsxFiLF/xDqDMbtCGnksX9AzucwFlV4+quf/AD+yQQQaPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794612224;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=n1JnhbVBgueQUGPOfbMsicw9lgrwh0tLzLrH+3x5E3Q=;
+	b=MFNuN9ZDEYWvWZMlXkHSYNWU8gam8EJxc+y0ppycoq7jo/xN+TDdPjlIE3veLiZEfsFu
+	 jcfG+QF5naKeZkLvGZL73xYuCs4Cz8KI5aP1tA2rxu5QFEiI1Nb4WkOW7KClEL4UhgrGz
+	 xELThG7F/ZIFxAUrTIbJXK8QXv8XjURIORvGTeizusQJNKqzUKDMuhx+4GB2n/n2WiyQ2
+	 J5t1wePetYOlNLXO7FaKJpNHdL9ZBvejGqCDbv9rRM+FDhs51RwdiTNq/NObt1dMiG9TO
+	 I27RJCCshR4mJAx+wp2E09jaaJcmpvQd1xL+ue6irqUh5kjFJpFQPXifIGFpR+vHWfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=matias.me;
-	spf=pass smtp.mailfrom=matias.me;
-	dkim=pass header.d=matias.me header.i=@matias.me header.a=rsa-sha256 header.s=sig1 header.b=SStbd86w;
-	arc=none smtp.remote-ip=57.103.85.191
-Received: from outbound.qs.icloud.com (qs-2006f-snip4-11.eps.apple.com [57.103.85.191])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=tCbXW+Wr;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3DA606A89F
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:22:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC3DA606A89F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=matias.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matias.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E38F606A89D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:23:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E38F606A89D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=matias.me header.i=@matias.me header.a=rsa-sha256 header.s=sig1 header.b=SStbd86w
-Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-2d-60-percent-5 (Postfix) with ESMTPS id 0816B180012D;
-	Fri, 13 Nov 2026 23:22:34 +0000 (UTC)
-X-ICL-RepId: 01a1d738-5223-78be-9368-a9d6679bb046
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=matias.me; s=sig1; t=1794612157; x=1826148157; bh=wB33Rd8IFdkb3XFAAM6k6kjymub1eMkpRMHxe0P8Lew=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=SStbd86worBKE6izaq3UX+c/i0wqq6aatgb9ifBjLreMVNWaxH1D3+Th8mr9HSkTSprFvOu+92y+8dr32vxTPyRymBPVi3qJau/pPmN4NIAaMYXDuoIVNdaXCqkPW/7kQPnlAiEEUodJM+EeoeEBMC2uaYQjPVNiyULCvdyD+i6lWIbASLEWlTnHy7+VBMA3d086goEcg9uQTf9wvctapWWbND2/TTnxIPLo0laPODjxSqKRWS5JhGqtwhozXCl5XCCPjEbuqBL4sveCZdHOdcYibvHHd1qoiaVZ0Gq1oFoeq3ub3gvdwpoCWUInlbxHd3KLKiaD/wvDoFbvZ/0F+A==
-mail-alias-created-date: 1705102286191
-Received: from localhost.localdomain (unknown [17.57.155.37])
-	by p00-icloudmta-asmtp-us-east-2d-60-percent-5 (Postfix) with ESMTPSA id 01D431800120;
-	Fri, 13 Nov 2026 23:22:31 +0000 (UTC)
-From: =?UTF-8?q?Mat=C3=ADas=20Mart=C3=ADnez?= <hello@matias.me>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Antheas Kapenekakis <lkml@antheas.dev>,
-	Denis Benato <denis.benato@linux.dev>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	"Derek J . Clark" <derekjohn.clark@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Armin Wolf <W_Armin@gmx.de>
-Subject: [PATCH v6] HID: ayaneo: Add AYANEO 3 detachable controller driver
-Date: Fri, 13 Nov 2026 20:22:28 -0300
-Message-ID: <20261113232228.17553-1-hello@matias.me>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=tCbXW+Wr
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b155f50c24so2743169a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:23:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794612217; x=1795217017; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n1JnhbVBgueQUGPOfbMsicw9lgrwh0tLzLrH+3x5E3Q=;
+        b=tCbXW+WrfPS1Agh2MeonhuC6upoaBbK35jLNXkGQwrd6gDEpdmtnqaswQkwQAt5vKJ
+         3PHKIutIkYVg+7OOEAXF4XxgGY+hYDvLEgbSEWGv5PQhLB52ZFqpDOlgCeV8OI19tZfG
+         Hd8+CxnEK+dW1qB/I7skybF6AuFIw+K8QuhO8ju8FyaCVfDuuF+FbrYIl7grWuJnhS/0
+         TpgWED1cEsdgz9gWPROfhxLo75oYb9//VFJtXeaj7TbBmki0mG3FXn3pwXakoZLTAEvu
+         GXOr3HMi+s1cODkY2yE0pdjVNomaUJCh759i8KElMqyYp1umr1PymGkLlkAncVh+gKIJ
+         9A2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794612217; x=1795217017;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n1JnhbVBgueQUGPOfbMsicw9lgrwh0tLzLrH+3x5E3Q=;
+        b=uVNW9FK+wytvs8pDKi+sxWTfVTYEE/BrUFxqJBKeKmz/zS00hxLUiA7fkBgO+ybxYs
+         e0FgBSACRRXDd+UMgXFtzKLBENMutbXB4PNWcr1WoBljkD1FvfWw9ifw0Ry5JbelX7iI
+         ofZKbeBZtL+A2I7MhB6VZqeKM/tDFtV1RQYKoH0xXwF+lQhW/f8Yxl9ivhg+2n4Lmj4Y
+         2eWBCOygMdUQU0gOUBnm+WNjzvmXCCco7LJ8J8UfjMyXkLteScBrBeh1yY//uUHQG3/y
+         9P6EjW/eUPGYFE4uPCmmfzicwXn85YvtzyIRIyRoF0+zZXc2bAVFcsZAoTYIr4IR9Ow2
+         Bp5A==
+X-Forwarded-Encrypted: i=1; AL+hErHQ/RZ0vqhkuTbA6Bel608ktgZstJ3Lw9R3QbLNwaClR3RjYLJyk05xGHFZMVc699IIBWma9upkDdTPRig=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8h5NGIgdzurjZ1BBuj3Vt9mi/o1cRJ0E2omSyz/tlQtHquaWlh
+	OLSS+aXHAPEgKsRB6Vh14uUDMP3wK6vmwxthrhXlTRMGlWMzruH+uFoaXfQ4lr0uPi0=
+X-Gm-Gg: AYBFou161FEdfdskWVbUP9muuZ6alBXOwtndw+odBUMwuwS4f/mA8QvDUH6cPZZYuvd
+	YqBxu3S7n5pglZPzERMK+PbhXV9cumHkpbwCyf5Z7T4Psb08QSMeyJGjuGg0y42V4i6LWyGeD8b
+	K7W2o974Q+HBz0m0sIplviR8n6U+pT17SmVKFOp1eq/SYq+O+zeCrwDqm0qjqIb2WuKeDUToQVN
+	GvAxEoocigC+wOPzlCc9SVid219p8gTtCqOdr2mdQmq6x95hwp6v6lPPne0wepdea4QvB9Lvv4s
+	Hp1FK6AI8F7m/bQjDB6v+Q14+NMSR40JhcTFhLfmDdb3pIO7TF9eY0+J6d/69V21LlSByZ/0vvM
+	PL7UoFejz/vlL/3qS7fDz+wqlbNCKuoebTJDeKf0pcZLBW1n+KrVd7wcxFlm8rMiaINigosXOFf
+	GokHRlRoTII+0aj5RJxkpgplal49BiGedVMHnEVV35yyYZhilc19PDgqScrf6MOlvjlbkNAJKEC
+	/jHw5E61rs0wbCwcBFOYijXa6HskoQCrvTyk/LT9V02OoCuRAQn1bafnqfHBA02GQD7HuA+KzvF
+	XXqeezQLKYE64hBGH/kuOG8x6YNQGPwMh42CrURyZ+W1M0oRHSO6fBcgIhSGvxCCjsNkyCUsfwN
+	sVR0Ev1httJeqmlIgHB3szbqxmWi0Ah5V+jmTaQ==
+X-Received: by 2002:a17:90b:4b10:b0:3b0:cc6f:1046 with SMTP id 98e67ed59e1d1-3b1b0dce88cmr3645762a91.67.1794612217106;
+        Fri, 13 Nov 2026 15:23:37 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:f861:b117:6318:c068])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce55c1sm11566515a91.3.2026.11.13.15.23.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 15:23:36 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: michael.christie@oracle.com,
+	martin.petersen@oracle.com,
+	lduncan@suse.com,
+	cleech@redhat.com,
+	James.Bottomley@HansenPartnership.com
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] scsi: libiscsi: do not complete a task sent with a reserved ITT
+Date: Sat, 14 Nov 2026 08:23:21 +0900
+Message-ID: <20261113232322.395246-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,1173 +99,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 8DXCH31Au5P1o212-inL9snWELjtz4gP
-X-Proofpoint-GUID: 8DXCH31Au5P1o212-inL9snWELjtz4gP
-X-Authority-Info-Out: v=2.4 cv=Pc/yRyhd c=1 sm=1 tr=0 ts=6af79bbb
- cx=c_apl:c_pps:t_out a=bsP7O+dXZ5uKcj+dsLqiMw==:117
- a=bsP7O+dXZ5uKcj+dsLqiMw==:17 a=IkcTkHD0fZMA:10 a=MKtGQD3n3ToA:10
- a=1oJP67jkp3AA:10 a=zJRp6_cAMcgA:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=oKWskjvWRiluUD3ZU1sA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA5MyBTYWx0ZWRfXzVJL1kkddUzQ
- exFUuWsU4Z1POkNKYFdXzgvwo5VAqUV0LZVxVJaQ9nalrNh+abXSdYjL/kikrskyxbnMtvQS4Wm
- Kmpm76sbmxUGtaYtTfEf7OGSJuhi2DSVry5cFmRscdnS7aXVxf+qnRL1/PbpQvAXbCNpxvXHx+c
- CkB4qsStZ5Tq1XCXfTOPkJQ5qpqkIQc9yZaIKtt7grzAS5bmSlLUtn8DQQrlfSqo+e9kB9E09sb
- BO7LhnRws+ek8vNGLwf4X1RDkwmfUrpSrlgjOv1+8DiMfmSGcdAIPXGFr7tPhAKwpOHRZY/N71t
- hVx6/br4MMRksOpOv41tJosns4ShAEyMdMbzp6CVOoOGIRExAnkwOfGtlURhwY=
-X-JNJ: AAAAAAABQ+sy03G+WUI4rknQOFR+qPX7fv1ZIer+Hs43ylsFUDWEx86wrM+RH3Tolm7pTL
- mDrjHZI8DGtGRsU1M0ce6YrT5IFm2JrGdSbpdCpo/uL4a3JvWGQMZdbeBo8aJO8rIYpu4X
- tKXXztQj4AN207EBb0/Xlc2XvRexcp87uTKa5AbUdSQ+sBmHWMlZb2JY7wn5QTfW3Z9Yz9
- whl7LGp4q8xftCa6HPToBmVNEd5wjvLTpzTHBg0Reb1Q6Uk8s5hU97mJBBbV3ZRv6L38y6
- X09yQslyCrM+v+RjwlA6jgIvndmOdTgbuHX2ltJreYj3O8dmzGWWI+zxFKW49OZpD6VvZL
- gVo8j8SplQmX4phZQF7t1BFXJchxTGIGy/lIfW4Pivbh/j3H698UK1RCb3M3ilsV11AotW
- S7kH6beqYEa6HTXkOkbrlmomjWmxg7XVblmXC1ysSlcGnYAgiEnxSMc42t1SOxtpK+pzaS
- 2/1K0A7RdqbREcXOSv7u9I5dqLeSIABxisdcDZCQ/spOXrOHmWecG5lzWhc94cyXhyltOL
- FOCZxmbJPAeavcke8h00+R93tCRsPFsJEVgjlI0eAbCjnbse2AEcZGPUwNK3z0clH+RweJ
- +HWKT5//ZluKvCCYzNGHG/3CVjx9nhHhfI0Oo3WaaBiC/rYzpFyvnSZmLgX17xFnvi8D94
- x6Z0V93BQkKLHRctGHw04JOjFO8NmuxeJyI3kndCvPCbqhEoApqdnT3sTv2ORCyVe2kt/X
- z2R3D+QlY1FAQW6It9Qir8dStwczJeHNuFPozUkQq0ixo7hA6FYKanaXgzKox/FjG9yzPl
- I/4D5Sv+WEKJJdPQYx9RI7UKzFw5DgtnKUtFVXC0bnuiuoSdJW+qI+6y5Bo0i0wfaFVecs
- VuO7HDPtIKG2EaDAz5R5KVJHQFfVYPCNcg7+oEJUtxrCbK9AbiX12cqEpDIGTmMWvCpS4p
- eBVUaef2pugiEyulEPTyC0cRtVXzybqCrOP+z85kUga/INQzWB2ltluFoL6Cbn4z74GRXP
- qTF58M3F2tcEkU3afEX4WnX99Jh+yOyKHPK7w9OKIixwiT+dlLGM2PLqlcAs+uJyGOVvf7
- tSUnBbzMv5vBjYxUvqr8zu7h67UP2Tj1EKzKGt6Tb6YLQ8w2+YcvbliRpFmA2w/X3L7SzG
- 4kjJIkfCrvA7MCvh8T8Nn/BvKch/hVg+PLijOMRLgJi78iKqD6YgRGR+H7o6A+7mXTElJF
- QCg5EJZQznEVtkQfHotFO77Rs4E+Z1UkhOM2ra9/Gx26wuoMwfYeoM8wN0q+PNSlPeLjP5
- w09zn2CCj/IKLincjgvccAWB2t+FJAnCMKgcNTYTKavjSu1Uo8DMgDF1xzC+yfhSLbeTrw
- r4+URgGVefjYEPdKrns=
 
-The AYANEO 3 handheld has a detachable controller with swappable
-modules ("Magic Modules"). The controller exposes three USB HID
-interfaces behind 1c4f:0002 (a generic SigmaMicro VID/PID): a gamepad,
-a keyboard for the extra buttons, and a vendor interface accepting
-65-byte commands.
+A NOP-Out sent in answer to a target NOP-In carries RESERVED_ITT.
+iscsi_send_nopout() puts RESERVED_ITT in the header and
+iscsi_alloc_mgmt_task() keeps it there, because the build_itt() assignment
+is skipped for a reserved ITT, so nothing that identifies the task ever
+reaches the wire.  No response is expected for such a PDU, so the one
+reference the task holds belongs to the transport, which drops it once the
+PDU has been sent: libiscsi_tcp and iser do that from their transmit
+completion, bnx2i and qedi from their local NOP completion.
 
-Add a driver claiming every interface of the shared ID. Interfaces
-other than the AYANEO 3 vendor interface are started as transparent
-generic devices, with reset_resume mirrored from hid-generic:
-hid-generic yields any device that another driver's id table matches,
-so refusing those probes would leave the input interfaces driverless
-when the driver is present at boot.
+task->itt is not touched by any of this.  It stays the task-pool index, so
+session->cmds[] still names the task, and iscsi_itt_to_task() looks a task
+up by that index alone.  A management response or a Reject PDU naming the
+index therefore finds a task that is ISCSI_TASK_RUNNING with no scsi_cmnd
+attached, passes both tests, and reaches iscsi_complete_task(), which drops
+the reference the transport is about to drop as well.  The window opens
+when iscsi_prep_mgmt_task() publishes ISCSI_TASK_RUNNING and closes when
+the transport has sent the PDU, and a target that stops reading holds it
+open for as long as it likes: iscsi_xmit_task() keeps the task in
+conn->task with an extra reference while the transmit keeps failing with
+-EAGAIN.
 
-On the vendor interface the driver provides module identification
-(module_left/module_right sysfs attributes), software eject of the
-modules (eject sysfs attribute, blocking until the firmware confirms
-the release handshake and a minimum settle time has passed), a
-configuration reset (reset), rumble strength selection
-(rumble_intensity), and RGB control of the joystick rings as a
-multicolor LED class device ("<device name>:rgb:joystick_rings";
-userspace such as InputPlumber matches the function suffix). The
-firmware's fixed-tempo effects are exposed through the LED effect
-attribute (monocolor, breathe, rainbow), matching the attribute names
-established by hid-lenovo-go.
+A Task Management Function Response naming the pool index was accepted in
+all 11 runs of a KASAN kernel whose window was held open for 200 ms, and
+every one of them ended in:
 
-This complements the ayaneo-ec platform driver, which exposes module
-attach state and controller power. A full physical eject is performed
-by writing to eject and then cutting power through ayaneo-ec's
-controller_power attribute; that orchestration is deliberately left
-to userspace.
+  ------------[ cut here ]------------
+  refcount_t: underflow; use-after-free.
+  WARNING: lib/refcount.c:37 at refcount_warn_saturate+0xad/0xe0, CPU#0: kworker/u8:4/50
+  Modules linked in:
+  CPU: 0 UID: 0 PID: 50 Comm: kworker/u8:4 Not tainted 7.4.0-rc2-00472-g76215e83dc82-dirty #1 PREEMPT(lazy)
+  Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  Workqueue: iscsi_q_2 iscsi_xmitworker
+  RIP: 0010:refcount_warn_saturate+0xad/0xe0
+  Code: a9 9b b7 03 67 48 0f b9 3a 5b 5d c3 cc cc cc cc 48 8d 3d a6 9b b7 03 67 48 0f b9 3a 5b 5d e9 1a 11 33 02 48 8d 3d a3 9b b7 03 <67> 48 0f b9 3a 5b 5d e9 07 11 33 02 48 8d 3d a0 9b b7 03 67 48 0f
+  RSP: 0018:ffffc90000347b18 EFLAGS: 00010246
+  RAX: 0000000000000003 RBX: ffff88800a74a878 RCX: ffffffff823c2735
+  RDX: 0000000000000000 RSI: 0000000000000004 RDI: ffffffff85f3c370
+  RBP: 0000000000000003 R08: 0000000000000001 R09: ffffed10014e950f
+  R10: ffff88800a74a87b R11: ffff88800c8f26e8 R12: 0000000000000000
+  R13: 1ffff92000068f6b R14: ffff88800c75c5c8 R15: ffff88800c8f2400
+  FS:  0000000000000000(0000) GS:ffff8880e55a8000(0000) knlGS:0000000000000000
+  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  CR2: 00007f10f26585f0 CR3: 0000000005672002 CR4: 0000000000770ef0
+  PKRU: 55555554
+  Call Trace:
+   <TASK>
+   iscsi_xmit_task+0x1c8/0x770
+   ? iscsi_sw_tcp_pdu_init+0x268/0xb00
+   ? __pfx_iscsi_xmit_task+0x10/0x10
+   ? _raw_spin_lock_bh+0x84/0xe0
+   ? iscsi_prep_mgmt_task+0x381/0x600
+   iscsi_xmitworker+0x1c8/0x8b0
+   process_one_work+0x697/0x1060
+   ? __pfx___schedule+0x10/0x10
+   ? __pfx_process_one_work+0x10/0x10
+   ? _raw_spin_lock_irq+0x81/0xe0
+   ? __pfx_iscsi_xmitworker+0x10/0x10
+   ? assign_work+0x11d/0x370
+   worker_thread+0x45b/0xd10
+   ? __pfx_worker_thread+0x10/0x10
+   kthread+0x2c8/0x3b0
+   ? recalc_sigpending+0x15c/0x1e0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x36e/0x5a0
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x572/0xdc0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+  ---[ end trace 0000000000000000 ]---
 
-The protocol was reverse engineered in the Handheld Daemon project by
-Antheas Kapenekakis. Tested on an AYANEO 3: module identification,
-RGB solid, breathing and rainbow at several brightness levels, rumble
-level selection, gamepad and keyboard input through the transparent
-interfaces, a full eject/reinsert/repower cycle with the re-enumerated
-interfaces binding cleanly, and repeated driver unbinds under a
-concurrent brightness-write load.
+The slot is back in the task pool by then, so a concurrent allocation can
+hand it out while iscsi_xmit_task() is still working on it.
 
-Signed-off-by: Matías Martínez <hello@matias.me>
+Refuse such a task in both receive-side lookups.  A task whose
+task->hdr->itt is RESERVED_ITT is one the target was never told about, so
+no response can name it legitimately.  The test is on the task the lookup
+returned rather than on the received ITT, and iscsi_alloc_mgmt_task()
+copies the caller's header for every transport, so task->hdr->itt is
+RESERVED_ITT there and nowhere else.  It is evaluated last, after the state
+test, so it only runs on a task that has been prepared.  With it in place
+the same injection was refused in all 10 runs, and a target NOP-In, the
+NOP-Out answering it and the initiator's own pings are unaffected.
+
+Fixes: 3e5c28ad0391 ("[SCSI] libiscsi: merge iscsi_mgmt_task and iscsi_cmd_task")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
-Changes in v6 (from Ilpo Järvinen's review unless noted):
-- Migrate the mutex_intr acquisitions from scoped_cond_guard() to the
-  ACQUIRE()/ACQUIRE_ERR() cleanup macros.
-- Pack the vibration field with FIELD_PREP() and a named mask, name the
-  checksum start offset, and return the sum from ayaneo_checksum().
-- Use ARRAY_SIZE() and U8_MAX for the literal counts and 255s, and min()
-  for the open-coded clamps.
-- Add explicit includes for array_size.h, bitfield.h, container_of.h and
-  minmax.h.
-- Reverse-xmas-tree the eject_store declarations, rename the effect_store
-  locals, and reflow two wrapped lines.
-- Fix a jiffies underflow in eject_store: the minimum-settle wait read
-  jiffies twice, so a tick crossing the deadline between the reads could
-  wrap the subtraction into a multi-year sleep. Read it once. [sashiko-bot]
+This applies on top of
 
-No functional change beyond the jiffies fix. Rebuilt and smoke-tested on
-an AYANEO 3 (7.3.3 kernel): load, module identification, rumble and
-effect writes, LED. Thanks to Ilpo for the review.
+  https://lore.kernel.org/all/20261113145140.282504-1-yhlee@isslab.korea.ac.kr/
+  ("scsi: libiscsi: only complete a task that has been sent")
 
-Notes
------
-eject scope: a write-only eject attribute that drives a firmware release
-handshake follows existing practice. greybus exposes the same on its
-detachable modules (drivers/greybus/module.c, DEVICE_ATTR_WO), and ACPI
-uses an eject attribute for ejectable hardware
-(drivers/acpi/device_sysfs.c). This driver only performs the firmware
-handshake and leaves the power cut to userspace through ayaneo-ec. If the
-HID maintainers would prefer eject left entirely to userspace, the
-module-identification and LED parts stand on their own.
+which is where the ISCSI_TASK_RUNNING test being extended here comes from.
+The review that pointed this out is
 
-effect/effect_index are documented in this driver's own ABI file, as
-sysfs-driver-hid-lenovo-go and -go-s already document the same per-device
-LED attributes. A follow-up could consolidate the three into one shared
-description, but it crosses into the hid-lenovo-go maintainers' files.
+  https://lore.kernel.org/all/sashiko-outbox-213058@kernel.org/
 
-The id_table matches the generic SigmaMicro 1c4f:0002 (shared with
-unrelated keyboards, see hid-quirks.c) because the AYANEO 3 controller
-presents under that ID; the non-vendor interfaces are started
-transparently so they are not stranded.
+It raises a second issue as well - the window between the state store in
+iscsi_prep_mgmt_task() and iscsi_get_task() in iscsi_xmit_task() - which
+this patch does not address.  Closing that one means taking the transmit
+reference before the state is published, which is a different change.
 
-On a surprise disconnect the final LED-off write during unregister can
-log a benign -ENODEV; setting LED_HW_PLUGGABLE would silence it, left as
-a follow-up.
+The 200 ms window above was held open by a test-only module parameter that
+is not part of this patch.
+ drivers/scsi/libiscsi.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-checkpatch flags the -ENOSYS check in ayaneo_send() as a misuse; it is
-the standard hid_hw_output_report() fallback.
+diff --git a/drivers/scsi/libiscsi.c b/drivers/scsi/libiscsi.c
+index 83d726043d3e8d..220e89d541af68 100644
+--- a/drivers/scsi/libiscsi.c
++++ b/drivers/scsi/libiscsi.c
+@@ -1177,8 +1177,9 @@ static int iscsi_handle_reject(struct iscsi_session *session,
+ 				task = iscsi_itt_to_task(session, conn,
+ 							 rejected_pdu.itt);
+ 			/* Pairs with the release when the task is prepared. */
++			/* A reserved ITT means the transport owns the task. */
+ 			if (!task || smp_load_acquire(&task->state) != ISCSI_TASK_RUNNING ||
+-			    task->sc) {
++			    task->sc || task->hdr->itt == RESERVED_ITT) {
+ 				iscsi_conn_printk(KERN_ERR, conn,
+ 						 "Invalid pdu reject. Could "
+ 						 "not lookup rejected task.\n");
+@@ -1318,8 +1319,9 @@ int __iscsi_complete_pdu(struct iscsi_session *session, struct iscsi_conn *conn,
+ 	case ISCSI_OP_NOOP_IN:
+ 		task = iscsi_itt_to_task(session, conn, hdr->itt);
+ 		/* Pairs with the release when the task is prepared. */
++		/* A reserved ITT means the transport owns the task. */
+ 		if (!task || smp_load_acquire(&task->state) != ISCSI_TASK_RUNNING ||
+-		    task->sc)
++		    task->sc || task->hdr->itt == RESERVED_ITT)
+ 			return ISCSI_ERR_BAD_ITT;
+ 		break;
+ 	default:
 
-v3: https://lore.kernel.org/linux-input/20260917160722.89391-1-hello@matias.me/
-v4: https://lore.kernel.org/linux-input/20260925061941.75121-1-hello@matias.me/
-v5: https://lore.kernel.org/linux-input/20261113212729.15925-1-hello@matias.me/
-
- .../ABI/testing/sysfs-driver-hid-ayaneo       |  75 ++
- MAINTAINERS                                   |   7 +
- drivers/hid/Kconfig                           |  17 +
- drivers/hid/Makefile                          |   1 +
- drivers/hid/hid-ayaneo.c                      | 881 ++++++++++++++++++
- 5 files changed, 981 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-ayaneo
- create mode 100644 drivers/hid/hid-ayaneo.c
-
-diff --git a/Documentation/ABI/testing/sysfs-driver-hid-ayaneo b/Documentation/ABI/testing/sysfs-driver-hid-ayaneo
-new file mode 100644
-index 000000000..525b08277
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-driver-hid-ayaneo
-@@ -0,0 +1,75 @@
-+What:		/sys/bus/hid/drivers/hid-ayaneo/<dev>/module_left
-+What:		/sys/bus/hid/drivers/hid-ayaneo/<dev>/module_right
-+Date:		September 2026
-+KernelVersion:	7.4
-+Contact:	Matías Martínez <hello@matias.me>
-+Description:
-+		Reports the type of the module currently inserted in the
-+		left/right slot of the AYANEO 3 detachable controller, as
-+		the raw identifier reported by the controller firmware in
-+		hexadecimal (e.g. "0x04"). Bits 0-5 encode the module
-+		type, bit 6 indicates the module is inserted rotated.
-+
-+		Reading these attributes queries the controller and can
-+		take up to a second.
-+
-+What:		/sys/bus/hid/drivers/hid-ayaneo/<dev>/eject
-+Date:		September 2026
-+KernelVersion:	7.4
-+Contact:	Matías Martínez <hello@matias.me>
-+Description:
-+		Write-only. Writing "left", "right" or "both" asks the
-+		controller firmware to release the corresponding
-+		module(s). The write blocks until the firmware confirms
-+		the release handshake (typically a few seconds). The
-+		module is physically released once controller power is
-+		subsequently cut through the ayaneo-ec platform driver's
-+		controller_power attribute. That final step is left to
-+		userspace.
-+
-+What:		/sys/bus/hid/drivers/hid-ayaneo/<dev>/reset
-+Date:		September 2026
-+KernelVersion:	7.4
-+Contact:	Matías Martínez <hello@matias.me>
-+Description:
-+		Write-only. Writing "1" asks the controller firmware to
-+		perform a quick reset of the controller configuration.
-+
-+What:		/sys/bus/hid/drivers/hid-ayaneo/<dev>/rumble_intensity
-+Date:		September 2026
-+KernelVersion:	7.4
-+Contact:	Matías Martínez <hello@matias.me>
-+Description:
-+		Controls the vibration strength of the AYANEO 3 controller
-+		rumble motors. Reading returns the selected level. Supported
-+		writes are the values listed by rumble_intensity_index.
-+		Defaults to "medium", matching the firmware default.
-+
-+What:		/sys/bus/hid/drivers/hid-ayaneo/<dev>/rumble_intensity_index
-+Date:		September 2026
-+KernelVersion:	7.4
-+Contact:	Matías Martínez <hello@matias.me>
-+Description:
-+		Read-only. Space-separated list of the supported
-+		rumble_intensity values: "off low medium high".
-+
-+What:		/sys/class/leds/<dev>:rgb:joystick_rings/effect
-+Date:		September 2026
-+KernelVersion:	7.4
-+Contact:	Matías Martínez <hello@matias.me>
-+Description:
-+		Controls the firmware LED effect of the joystick rings.
-+
-+		Values are "monocolor", "breathe" or "rainbow", as listed
-+		by the effect_index attribute. "rainbow" is a
-+		firmware-timed colour cycle whose hue and tempo are fixed
-+		by the firmware: brightness scales its amplitude and the
-+		multi_intensity values are ignored while it is selected.
-+
-+What:		/sys/class/leds/<dev>:rgb:joystick_rings/effect_index
-+Date:		September 2026
-+KernelVersion:	7.4
-+Contact:	Matías Martínez <hello@matias.me>
-+Description:
-+		Read-only. Space-separated list of the supported effect
-+		values: "monocolor breathe rainbow".
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4a69da715..7be0ff5b5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4535,6 +4535,13 @@ F:	Documentation/devicetree/bindings/spi/axiado,ax3000-spi.yaml
- F:	drivers/spi/spi-axiado.c
- F:	drivers/spi/spi-axiado.h
- 
-+AYANEO 3 CONTROLLER HID DRIVER
-+M:	Matías Martínez <hello@matias.me>
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/ABI/testing/sysfs-driver-hid-ayaneo
-+F:	drivers/hid/hid-ayaneo.c
-+
- AYANEO PLATFORM EC DRIVER
- M:	Antheas Kapenekakis <lkml@antheas.dev>
- L:	platform-driver-x86@vger.kernel.org
-diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index 2481bc01c..1babbee85 100644
---- a/drivers/hid/Kconfig
-+++ b/drivers/hid/Kconfig
-@@ -205,6 +205,23 @@ config HID_AUREAL
- 	help
- 	Support for Aureal Cy se W-01RN Remote Controller and other Aureal derived remotes.
- 
-+config HID_AYANEO
-+	tristate "AYANEO 3 detachable controller support"
-+	depends on USB_HID
-+	depends on DMI
-+	depends on LEDS_CLASS_MULTICOLOR
-+	help
-+	  Provides support for the detachable controller ("Magic Modules")
-+	  of the AYANEO 3 handheld: module identification, software eject
-+	  and RGB control of the joystick rings. Complements the ayaneo-ec
-+	  platform driver, which handles module attach state and controller
-+	  power.
-+
-+	  Say Y or M here if you have an AYANEO 3.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called hid-ayaneo.
-+
- config HID_BELKIN
- 	tristate "Belkin Flip KVM and Wireless keyboard"
- 	help
-diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-index 43a8eb0f3..116dafb2d 100644
---- a/drivers/hid/Makefile
-+++ b/drivers/hid/Makefile
-@@ -35,6 +35,7 @@ obj-$(CONFIG_HID_APPLETB_KBD)	+= hid-appletb-kbd.o
- obj-$(CONFIG_HID_CREATIVE_SB0540)	+= hid-creative-sb0540.o
- obj-$(CONFIG_HID_ASUS)		+= hid-asus.o
- obj-$(CONFIG_HID_AUREAL)	+= hid-aureal.o
-+obj-$(CONFIG_HID_AYANEO)	+= hid-ayaneo.o
- obj-$(CONFIG_HID_BELKIN)	+= hid-belkin.o
- obj-$(CONFIG_HID_BETOP_FF)	+= hid-betopff.o
- obj-$(CONFIG_HID_BIGBEN_FF)	+= hid-bigbenff.o
-diff --git a/drivers/hid/hid-ayaneo.c b/drivers/hid/hid-ayaneo.c
-new file mode 100644
-index 000000000..abb754a2a
---- /dev/null
-+++ b/drivers/hid/hid-ayaneo.c
-@@ -0,0 +1,881 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * HID driver for the AYANEO 3 detachable controller ("Magic Modules").
-+ *
-+ * The AYANEO 3 controller exposes three USB HID interfaces behind
-+ * VID 0x1c4f PID 0x0002 (a generic SigmaMicro ID): a gamepad, a
-+ * keyboard for the extra buttons, and a vendor interface (application
-+ * usage 0xff000001) accepting 65-byte commands.
-+ *
-+ * On the vendor interface the driver provides module identification,
-+ * software eject, RGB control of the joystick rings (as a multicolor
-+ * LED class device), rumble intensity and configuration reset. Other
-+ * interfaces are started as transparent generic devices.
-+ *
-+ * It complements the ayaneo-ec platform driver, which exposes module
-+ * attach state and controller power. A full eject is: write to this
-+ * driver's "eject" attribute, then power the controller off through
-+ * ayaneo-ec's controller_power once the eject completes.
-+ *
-+ * The protocol was reverse engineered in the Handheld Daemon project by
-+ * Antheas Kapenekakis.
-+ *
-+ * Command format (65 bytes, unnumbered report):
-+ *   [0]   report id (0)
-+ *   [1:3] little-endian sum of bytes 7..64
-+ *   [3]   command
-+ *   [4]   subcommand
-+ *   [5:]  payload
-+ * The device replies with a 64-byte report echoing the subcommand at
-+ * byte 3.
-+ *
-+ * Copyright (C) 2026 Matías Martínez <hello@matias.me>
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/build_bug.h>
-+#include <linux/cleanup.h>
-+#include <linux/completion.h>
-+#include <linux/container_of.h>
-+#include <linux/delay.h>
-+#include <linux/dmi.h>
-+#include <linux/hid.h>
-+#include <linux/led-class-multicolor.h>
-+#include <linux/minmax.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/spinlock.h>
-+#include <linux/sysfs.h>
-+#include <linux/unaligned.h>
-+#include <linux/workqueue.h>
-+
-+#include "hid-ids.h"
-+
-+#define AYA3_REPORT_SIZE	65
-+#define AYA3_RESP_SIZE		64
-+#define AYA3_CHECKSUM_STARTOFFSET	7
-+
-+/*
-+ * Empirical timings, inherited from Handheld Daemon's implementation of
-+ * this protocol and validated on hardware: the device answers within
-+ * 300ms or not at all, needs about half a second to settle after a
-+ * reset before accepting new configuration, and completes an eject
-+ * handshake within a few seconds. A minimum settle also separates the
-+ * eject command from the power cut (AYA_MIN_EJECT in Handheld Daemon).
-+ */
-+#define AYA3_CMD_TIMEOUT_MS	300
-+#define AYA3_CMD_ATTEMPTS	3
-+#define AYA3_RESET_SETTLE_MS	500
-+#define AYA3_EJECT_POLL_MS	400
-+#define AYA3_EJECT_POLLS	20
-+#define AYA3_EJECT_MIN_MS	3000
-+
-+/* Subcommands (byte 4). Byte 3 is 0x00 except for the config command. */
-+#define AYA3_SUBCMD_CHECK	0x08
-+#define AYA3_CMD_CONFIG		0x21
-+#define AYA3_SUBCMD_CONFIG	0x09
-+
-+/* Bits that stay set in the eject status byte after an eject completes */
-+#define AYA3_EJECT_DONE_MASK	0x11
-+
-+/* Application usage of the vendor interface's first collection */
-+#define AYA3_APP_USAGE		(HID_UP_MSVENDOR | 0x0001)
-+
-+/* Config command eject/reset field */
-+#define AYA3_EJECT_LEFT		0x07
-+#define AYA3_EJECT_RIGHT	0x70
-+#define AYA3_RESET		0x88
-+
-+/* Config command RGB modes */
-+#define AYA3_RGB_SOLID		0x01
-+#define AYA3_RGB_PULSE		0x02
-+#define AYA3_RGB_RAINBOW	0x03
-+#define AYA3_RGB_OFF		0xff
-+
-+/* Config command vibration levels, stored in the high nibble */
-+#define AYA3_VIBRATION_MASK	GENMASK(7, 4)
-+enum aya3_vibration {
-+	AYA3_VIBRATION_LOW	= 0x1,
-+	AYA3_VIBRATION_MEDIUM	= 0x2,
-+	AYA3_VIBRATION_HIGH	= 0x3,
-+	AYA3_VIBRATION_OFF	= 0x4,
-+};
-+
-+/* Firmware LED effects selectable through the LED "effect" attribute */
-+enum aya3_effect {
-+	AYA3_EFFECT_MONOCOLOR,
-+	AYA3_EFFECT_BREATHE,
-+	AYA3_EFFECT_RAINBOW,
-+};
-+
-+static const char * const ayaneo_effect_names[] = {
-+	[AYA3_EFFECT_MONOCOLOR]	= "monocolor",
-+	[AYA3_EFFECT_BREATHE]	= "breathe",
-+	[AYA3_EFFECT_RAINBOW]	= "rainbow",
-+};
-+
-+struct aya3_rgb {
-+	u8 mode;
-+	u8 r;
-+	u8 g;
-+	u8 b;
-+} __packed;
-+
-+/* csum is the little-endian sum of bytes 7..64; unk* fields are zero. */
-+struct aya3_config {
-+	u8 report_id;
-+	__le16 csum;
-+	u8 cmd;
-+	u8 subcmd;
-+	u8 unk5[3];
-+	struct aya3_rgb right;
-+	struct aya3_rgb left;
-+	u8 unk16[4];
-+	u8 eject;
-+	u8 unk21;
-+	u8 sensitivity[2];
-+	u8 vibration;
-+	u8 unk25[7];
-+	u8 magic;
-+	u8 unk33[32];
-+} __packed;
-+static_assert(sizeof(struct aya3_config) == AYA3_REPORT_SIZE);
-+
-+/* Replies echo the subcommand they answer at byte 3 */
-+struct aya3_resp {
-+	u8 unk0[3];
-+	u8 subcmd;
-+	u8 unk4[15];
-+	u8 eject_status;
-+	u8 unk20[12];
-+	u8 module_left;
-+	u8 module_right;
-+	u8 unk34[30];
-+} __packed;
-+static_assert(sizeof(struct aya3_resp) == AYA3_RESP_SIZE);
-+
-+struct ayaneo {
-+	struct hid_device *hdev;
-+	/* DMA-safe command buffer; guarded by lock */
-+	u8 *xfer;
-+	/* Serializes commands and cached-config access */
-+	struct mutex lock;
-+	/* Protects the reply-matching state shared with raw_event */
-+	spinlock_t resp_lock;
-+	struct completion resp_done;
-+	struct aya3_resp resp;
-+	u8 resp_expect;
-+	bool resp_pending;
-+
-+	/* No traffic is sent unless userspace asks; persists across resets. */
-+	bool configured;
-+
-+	u8 rgb[3];
-+	u8 brightness;
-+	u8 effect;
-+	u8 vibration;
-+
-+	struct led_classdev_mc mcled;
-+	struct mc_subled subleds[3];
-+};
-+
-+static int ayaneo_send(struct ayaneo *aya)
-+{
-+	int ret;
-+
-+	ret = hid_hw_output_report(aya->hdev, aya->xfer, AYA3_REPORT_SIZE);
-+	if (ret == -ENOSYS)
-+		ret = hid_hw_raw_request(aya->hdev, aya->xfer[0], aya->xfer,
-+					 AYA3_REPORT_SIZE, HID_OUTPUT_REPORT,
-+					 HID_REQ_SET_REPORT);
-+	if (ret < 0)
-+		return ret;
-+	return 0;
-+}
-+
-+/**
-+ * ayaneo_cmd() - send the command in aya->xfer and wait for the reply
-+ * @aya: driver data with the fully built 65-byte command in @aya->xfer
-+ * @resp: destination for the reply, or NULL to discard it
-+ * @attempts: how many times to send before giving up
-+ *
-+ * The device echoes the subcommand byte of the command it is answering,
-+ * which ayaneo_raw_event() uses to match replies. Unanswered commands are
-+ * retried up to @attempts times.
-+ *
-+ * Context: process context. The caller must hold @aya->lock, which
-+ *          protects @aya->xfer and the reply state.
-+ * Return: 0 on success, -ETIMEDOUT if every attempt went unanswered, or
-+ *         a negative errno if sending failed.
-+ */
-+static int ayaneo_cmd(struct ayaneo *aya, struct aya3_resp *resp, int attempts)
-+{
-+	int attempt, ret;
-+
-+	lockdep_assert_held(&aya->lock);
-+
-+	for (attempt = 0; attempt < attempts; attempt++) {
-+		scoped_guard(spinlock_irqsave, &aya->resp_lock) {
-+			reinit_completion(&aya->resp_done);
-+			aya->resp_expect = aya->xfer[4];
-+			aya->resp_pending = true;
-+		}
-+
-+		ret = ayaneo_send(aya);
-+		if (ret) {
-+			scoped_guard(spinlock_irqsave, &aya->resp_lock)
-+				aya->resp_pending = false;
-+			return ret;
-+		}
-+
-+		if (wait_for_completion_timeout(&aya->resp_done,
-+						msecs_to_jiffies(AYA3_CMD_TIMEOUT_MS))) {
-+			/*
-+			 * raw_event clears resp_pending before completing, so
-+			 * nothing else writes aya->resp: the copy is safe unlocked.
-+			 */
-+			if (resp)
-+				memcpy(resp, &aya->resp, sizeof(*resp));
-+			return 0;
-+		}
-+	}
-+	scoped_guard(spinlock_irqsave, &aya->resp_lock)
-+		aya->resp_pending = false;
-+	return -ETIMEDOUT;
-+}
-+
-+static u16 ayaneo_checksum(const u8 *buf)
-+{
-+	u16 sum = 0;
-+	int i;
-+
-+	for (i = AYA3_CHECKSUM_STARTOFFSET; i < AYA3_REPORT_SIZE; i++)
-+		sum += buf[i];
-+	return sum;
-+}
-+
-+static int ayaneo_check(struct ayaneo *aya, struct aya3_resp *resp,
-+			int attempts)
-+{
-+	memset(aya->xfer, 0, AYA3_REPORT_SIZE);
-+	aya->xfer[4] = AYA3_SUBCMD_CHECK;
-+	return ayaneo_cmd(aya, resp, attempts);
-+}
-+
-+/*
-+ * The config command sets RGB, vibration and the eject/reset field at
-+ * once. It can also carry joystick sensitivity; those bytes are left
-+ * zero so the firmware setting is not clobbered on every RGB update.
-+ */
-+static int ayaneo_send_config(struct ayaneo *aya, u8 eject)
-+{
-+	static const struct aya3_config template = {
-+		.cmd = AYA3_CMD_CONFIG,
-+		.subcmd = AYA3_SUBCMD_CONFIG,
-+		.magic = 0x01,
-+	};
-+	struct aya3_config *cfg = (struct aya3_config *)aya->xfer;
-+	u8 mode = AYA3_RGB_OFF;
-+	int ret;
-+
-+	if (aya->effect == AYA3_EFFECT_RAINBOW) {
-+		if (aya->brightness)
-+			mode = AYA3_RGB_RAINBOW;
-+	} else if (aya->rgb[0] || aya->rgb[1] || aya->rgb[2]) {
-+		mode = aya->effect == AYA3_EFFECT_BREATHE ?
-+			AYA3_RGB_PULSE : AYA3_RGB_SOLID;
-+	}
-+
-+	*cfg = template;
-+	cfg->right.mode = mode;
-+	if (mode == AYA3_RGB_RAINBOW) {
-+		/*
-+		 * The firmware generates hue and tempo itself. The RGB
-+		 * payload only scales the amplitude. Handheld Daemon
-+		 * derives it as HSV(275, 100, brightness), which is
-+		 * (7/12 * v, 0, v) in RGB.
-+		 */
-+		cfg->right.r = aya->brightness * 7 / 12;
-+		cfg->right.g = 0;
-+		cfg->right.b = aya->brightness;
-+	} else {
-+		cfg->right.r = aya->rgb[0];
-+		cfg->right.g = aya->rgb[1];
-+		cfg->right.b = aya->rgb[2];
-+	}
-+	cfg->left = cfg->right;
-+	cfg->eject = eject;
-+	cfg->vibration = FIELD_PREP(AYA3_VIBRATION_MASK, aya->vibration);
-+	put_unaligned_le16(ayaneo_checksum(aya->xfer), aya->xfer + 1);
-+
-+	ret = ayaneo_cmd(aya, NULL, AYA3_CMD_ATTEMPTS);
-+	if (!ret)
-+		aya->configured = true;
-+	return ret;
-+}
-+
-+static int ayaneo_raw_event(struct hid_device *hdev, struct hid_report *report,
-+			    u8 *data, int size)
-+{
-+	struct ayaneo *aya = hid_get_drvdata(hdev);
-+	const struct aya3_resp *resp = (const struct aya3_resp *)data;
-+
-+	/* Transparent interfaces have no driver data */
-+	if (!aya)
-+		return 0;
-+
-+	guard(spinlock_irqsave)(&aya->resp_lock);
-+
-+	if (!aya->resp_pending || size < AYA3_RESP_SIZE)
-+		return 0;
-+	/*
-+	 * Replies carry no sequence number, only the subcommand echo. A
-+	 * late reply to a timed-out command can thus complete a newer
-+	 * command with the same subcommand. Such replies are snapshots
-+	 * of the same query milliseconds apart, so this is harmless.
-+	 * Replies to a different subcommand are dropped here.
-+	 */
-+	if (resp->subcmd != aya->resp_expect)
-+		return 0;
-+
-+	memcpy(&aya->resp, data, sizeof(aya->resp));
-+	aya->resp_pending = false;
-+	complete(&aya->resp_done);
-+	return 0;
-+}
-+
-+static ssize_t ayaneo_module_show(struct device *dev, char *buf, bool right)
-+{
-+	struct ayaneo *aya = dev_get_drvdata(dev);
-+	struct aya3_resp resp;
-+	int ret;
-+
-+	ACQUIRE(mutex_intr, lock)(&aya->lock);
-+	ret = ACQUIRE_ERR(mutex_intr, &lock);
-+	if (ret)
-+		return ret;
-+
-+	ret = ayaneo_check(aya, &resp, AYA3_CMD_ATTEMPTS);
-+	if (ret)
-+		return ret;
-+
-+	return sysfs_emit(buf, "0x%02x\n",
-+			  right ? resp.module_right : resp.module_left);
-+}
-+
-+static ssize_t module_left_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	return ayaneo_module_show(dev, buf, false);
-+}
-+static DEVICE_ATTR_RO(module_left);
-+
-+static ssize_t module_right_show(struct device *dev,
-+				 struct device_attribute *attr, char *buf)
-+{
-+	return ayaneo_module_show(dev, buf, true);
-+}
-+static DEVICE_ATTR_RO(module_right);
-+
-+static ssize_t eject_store(struct device *dev, struct device_attribute *attr,
-+			   const char *buf, size_t count)
-+{
-+	struct ayaneo *aya = dev_get_drvdata(dev);
-+	unsigned long deadline;
-+	struct aya3_resp resp;
-+	int ret, err, i;
-+	u8 eject;
-+
-+	if (sysfs_streq(buf, "left"))
-+		eject = AYA3_EJECT_LEFT;
-+	else if (sysfs_streq(buf, "right"))
-+		eject = AYA3_EJECT_RIGHT;
-+	else if (sysfs_streq(buf, "both"))
-+		eject = AYA3_EJECT_LEFT | AYA3_EJECT_RIGHT;
-+	else
-+		return -EINVAL;
-+
-+	ACQUIRE(mutex_intr, lock)(&aya->lock);
-+	ret = ACQUIRE_ERR(mutex_intr, &lock);
-+	if (ret)
-+		return ret;
-+
-+	deadline = jiffies + msecs_to_jiffies(AYA3_EJECT_MIN_MS);
-+
-+	ret = ayaneo_send_config(aya, eject);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Wait for the firmware to report the eject as done: no bits outside
-+	 * AYA3_EJECT_DONE_MASK set, matching Handheld Daemon's verification.
-+	 * The in-progress state is reported from the first poll, and the
-+	 * minimum-time floor below guards the power-cut step regardless.
-+	 */
-+	ret = -ETIMEDOUT;
-+	for (i = 0; i < AYA3_EJECT_POLLS; i++) {
-+		if (msleep_interruptible(AYA3_EJECT_POLL_MS)) {
-+			ret = -EINTR;
-+			break;
-+		}
-+		err = ayaneo_check(aya, &resp, 1);
-+		if (err == -ETIMEDOUT)
-+			continue;	/* busy mid-eject, keep polling */
-+		if (err) {
-+			ret = err;
-+			break;
-+		}
-+		if (!(resp.eject_status & ~AYA3_EJECT_DONE_MASK)) {
-+			ret = 0;
-+			break;
-+		}
-+	}
-+
-+	/*
-+	 * The firmware wants a minimum time between the eject command and the
-+	 * power cut that follows this write.
-+	 */
-+	if (!ret) {
-+		unsigned long now = jiffies;
-+
-+		if (time_before(now, deadline) &&
-+		    msleep_interruptible(jiffies_to_msecs(deadline - now)))
-+			ret = -EINTR;
-+	}
-+
-+	return ret ? ret : count;
-+}
-+static DEVICE_ATTR_WO(eject);
-+
-+static ssize_t reset_store(struct device *dev, struct device_attribute *attr,
-+			   const char *buf, size_t count)
-+{
-+	struct ayaneo *aya = dev_get_drvdata(dev);
-+	bool value;
-+	int ret;
-+
-+	ret = kstrtobool(buf, &value);
-+	if (ret)
-+		return ret;
-+	if (!value)
-+		return count;
-+
-+	ACQUIRE(mutex_intr, lock)(&aya->lock);
-+	ret = ACQUIRE_ERR(mutex_intr, &lock);
-+	if (ret)
-+		return ret;
-+
-+	ret = ayaneo_send_config(aya, AYA3_RESET);
-+	if (ret)
-+		return ret;
-+	msleep(AYA3_RESET_SETTLE_MS);
-+	ret = ayaneo_send_config(aya, 0);
-+	return ret ? ret : count;
-+}
-+static DEVICE_ATTR_WO(reset);
-+
-+/*
-+ * Rumble intensity names, index-aligned with the wire values through
-+ * ayaneo_rumble_levels below.
-+ */
-+static const char * const ayaneo_rumble_names[] = {
-+	"off", "low", "medium", "high",
-+};
-+
-+static const u8 ayaneo_rumble_levels[] = {
-+	AYA3_VIBRATION_OFF,
-+	AYA3_VIBRATION_LOW,
-+	AYA3_VIBRATION_MEDIUM,
-+	AYA3_VIBRATION_HIGH,
-+};
-+
-+static ssize_t rumble_intensity_show(struct device *dev,
-+				     struct device_attribute *attr, char *buf)
-+{
-+	struct ayaneo *aya = dev_get_drvdata(dev);
-+	u8 level;
-+	int i;
-+
-+	/*
-+	 * Single-byte snapshot; writers serialize on aya->lock, and a
-+	 * racing update is harmless, while taking the mutex here would
-+	 * block trivial reads behind a multi-second eject.
-+	 */
-+	level = READ_ONCE(aya->vibration);
-+
-+	for (i = 0; i < ARRAY_SIZE(ayaneo_rumble_levels); i++) {
-+		if (ayaneo_rumble_levels[i] == level)
-+			return sysfs_emit(buf, "%s\n", ayaneo_rumble_names[i]);
-+	}
-+	return -EINVAL;
-+}
-+
-+static ssize_t rumble_intensity_store(struct device *dev,
-+				      struct device_attribute *attr,
-+				      const char *buf, size_t count)
-+{
-+	struct ayaneo *aya = dev_get_drvdata(dev);
-+	u8 previous;
-+	int ret;
-+
-+	ret = sysfs_match_string(ayaneo_rumble_names, buf);
-+	if (ret < 0)
-+		return ret;
-+
-+	ACQUIRE(mutex_intr, lock)(&aya->lock);
-+	if (ACQUIRE_ERR(mutex_intr, &lock))
-+		return -EINTR;
-+
-+	previous = aya->vibration;
-+	aya->vibration = ayaneo_rumble_levels[ret];
-+	ret = ayaneo_send_config(aya, 0);
-+	if (ret) {
-+		aya->vibration = previous;
-+		return ret;
-+	}
-+	return count;
-+}
-+static DEVICE_ATTR_RW(rumble_intensity);
-+
-+static ssize_t rumble_intensity_index_show(struct device *dev,
-+					   struct device_attribute *attr,
-+					   char *buf)
-+{
-+	ssize_t count = 0;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ayaneo_rumble_names); i++)
-+		count += sysfs_emit_at(buf, count, "%s ", ayaneo_rumble_names[i]);
-+
-+	if (count)
-+		buf[count - 1] = '\n';
-+
-+	return count;
-+}
-+static DEVICE_ATTR_RO(rumble_intensity_index);
-+
-+static struct attribute *ayaneo_attrs[] = {
-+	&dev_attr_module_left.attr,
-+	&dev_attr_module_right.attr,
-+	&dev_attr_eject.attr,
-+	&dev_attr_reset.attr,
-+	&dev_attr_rumble_intensity.attr,
-+	&dev_attr_rumble_intensity_index.attr,
-+	NULL
-+};
-+
-+static const struct attribute_group ayaneo_group = {
-+	.attrs = ayaneo_attrs,
-+};
-+
-+static int ayaneo_led_set(struct led_classdev *cdev, enum led_brightness value)
-+{
-+	struct led_classdev_mc *mc = lcdev_to_mccdev(cdev);
-+	struct ayaneo *aya = container_of(mc, struct ayaneo, mcled);
-+	int ret, i;
-+
-+	ACQUIRE(mutex_intr, lock)(&aya->lock);
-+	ret = ACQUIRE_ERR(mutex_intr, &lock);
-+	if (ret)
-+		return ret;
-+
-+	led_mc_calc_color_components(mc, value);
-+	aya->brightness = min(value, U8_MAX);
-+	for (i = 0; i < ARRAY_SIZE(aya->subleds); i++)
-+		aya->rgb[i] = min(aya->subleds[i].brightness, U8_MAX);
-+
-+	ret = ayaneo_send_config(aya, 0);
-+	if (ret)
-+		hid_err(aya->hdev, "failed to update RGB config: %d\n", ret);
-+	return ret;
-+}
-+
-+static ssize_t effect_show(struct device *dev, struct device_attribute *attr,
-+			   char *buf)
-+{
-+	struct led_classdev *cdev = dev_get_drvdata(dev);
-+	struct ayaneo *aya = container_of(lcdev_to_mccdev(cdev),
-+					  struct ayaneo, mcled);
-+	u8 effect;
-+
-+	/*
-+	 * Single-byte snapshot; writers serialize on aya->lock, and a
-+	 * racing update is harmless, while taking the mutex here would
-+	 * block trivial reads behind a multi-second eject.
-+	 */
-+	effect = READ_ONCE(aya->effect);
-+
-+	return sysfs_emit(buf, "%s\n", ayaneo_effect_names[effect]);
-+}
-+
-+static ssize_t effect_store(struct device *dev, struct device_attribute *attr,
-+			    const char *buf, size_t count)
-+{
-+	struct led_classdev *cdev = dev_get_drvdata(dev);
-+	struct ayaneo *aya = container_of(lcdev_to_mccdev(cdev),
-+					  struct ayaneo, mcled);
-+	int val, ret;
-+	u8 old_val;
-+
-+	val = sysfs_match_string(ayaneo_effect_names, buf);
-+	if (val < 0)
-+		return val;
-+
-+	ACQUIRE(mutex_intr, lock)(&aya->lock);
-+	ret = ACQUIRE_ERR(mutex_intr, &lock);
-+	if (ret)
-+		return ret;
-+
-+	old_val = aya->effect;
-+	if (old_val == val)
-+		return count;
-+	aya->effect = val;
-+	ret = ayaneo_send_config(aya, 0);
-+	if (ret) {
-+		aya->effect = old_val;
-+		return ret;
-+	}
-+	return count;
-+}
-+static DEVICE_ATTR_RW(effect);
-+
-+static ssize_t effect_index_show(struct device *dev,
-+				 struct device_attribute *attr, char *buf)
-+{
-+	ssize_t count = 0;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ayaneo_effect_names); i++)
-+		count += sysfs_emit_at(buf, count, "%s ", ayaneo_effect_names[i]);
-+
-+	if (count)
-+		buf[count - 1] = '\n';
-+
-+	return count;
-+}
-+static DEVICE_ATTR_RO(effect_index);
-+
-+static struct attribute *ayaneo_led_attrs[] = {
-+	&dev_attr_effect.attr,
-+	&dev_attr_effect_index.attr,
-+	NULL
-+};
-+
-+static const struct attribute_group ayaneo_led_group = {
-+	.attrs = ayaneo_led_attrs,
-+};
-+
-+/*
-+ * The final LED write issued by the unregister needs its reply; callers
-+ * keep IO working (probe leaves it started, remove re-enables it).
-+ */
-+static void ayaneo_unregister_led(struct ayaneo *aya)
-+{
-+	led_classdev_multicolor_unregister(&aya->mcled);
-+	flush_work(&aya->mcled.led_cdev.set_brightness_work);
-+}
-+
-+static int ayaneo_register_led(struct ayaneo *aya)
-+{
-+	struct led_classdev *cdev = &aya->mcled.led_cdev;
-+	int ret, i;
-+
-+	aya->subleds[0].color_index = LED_COLOR_ID_RED;
-+	aya->subleds[1].color_index = LED_COLOR_ID_GREEN;
-+	aya->subleds[2].color_index = LED_COLOR_ID_BLUE;
-+	/*
-+	 * Full intensity by default so brightness writes produce light
-+	 * before userspace sets multi_intensity (querying the firmware
-+	 * for its value would break the no-probe-traffic policy).
-+	 */
-+	for (i = 0; i < ARRAY_SIZE(aya->subleds); i++)
-+		aya->subleds[i].intensity = U8_MAX;
-+	aya->mcled.subled_info = aya->subleds;
-+	aya->mcled.num_colors = 3;
-+
-+	cdev->name = devm_kasprintf(&aya->hdev->dev, GFP_KERNEL,
-+				    "%s:rgb:joystick_rings",
-+				    dev_name(&aya->hdev->dev));
-+	if (!cdev->name)
-+		return -ENOMEM;
-+	cdev->color = LED_COLOR_ID_RGB;
-+	cdev->brightness = 0;
-+	cdev->max_brightness = U8_MAX;
-+	cdev->brightness_set_blocking = ayaneo_led_set;
-+
-+	/*
-+	 * Not devm: the LED must be unregistered before hid_hw_stop(), or a
-+	 * racing brightness write could reach a torn-down transport.
-+	 */
-+	ret = led_classdev_multicolor_register(&aya->hdev->dev, &aya->mcled);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * The multicolor class adds its own groups at registration, so the
-+	 * effect attributes are added after and tied to the LED device.
-+	 */
-+	ret = devm_device_add_group(cdev->dev, &ayaneo_led_group);
-+	if (ret)
-+		ayaneo_unregister_led(aya);
-+	return ret;
-+}
-+
-+static const struct dmi_system_id ayaneo_dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "AYANEO"),
-+			DMI_MATCH(DMI_BOARD_NAME, "AYANEO 3"),
-+		},
-+	},
-+	{}
-+};
-+
-+static int ayaneo_probe(struct hid_device *hdev, const struct hid_device_id *id)
-+{
-+	struct ayaneo *aya;
-+	int ret;
-+
-+	ret = hid_parse(hdev);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * The VID/PID is a generic SigmaMicro ID shared by the gamepad,
-+	 * keyboard and vendor interfaces, and by unrelated devices on
-+	 * other machines. Refusing those probes would strand them, as
-+	 * hid-generic yields any device that another driver's id table
-+	 * matches. Everything that is not the AYANEO 3 vendor interface
-+	 * is therefore started as a transparent generic device, exactly
-+	 * as hid-generic would have started it.
-+	 */
-+	if (!dmi_check_system(ayaneo_dmi_table) || !hid_is_usb(hdev) ||
-+	    !hdev->maxcollection ||
-+	    hdev->collection->type != HID_COLLECTION_APPLICATION ||
-+	    hdev->collection->usage != AYA3_APP_USAGE) {
-+		hdev->quirks |= HID_QUIRK_INPUT_PER_APP;
-+		return hid_hw_start(hdev, HID_CONNECT_DEFAULT);
-+	}
-+
-+	aya = devm_kzalloc(&hdev->dev, sizeof(*aya), GFP_KERNEL);
-+	if (!aya)
-+		return -ENOMEM;
-+
-+	aya->xfer = devm_kzalloc(&hdev->dev, AYA3_REPORT_SIZE, GFP_KERNEL);
-+	if (!aya->xfer)
-+		return -ENOMEM;
-+
-+	aya->hdev = hdev;
-+	aya->vibration = AYA3_VIBRATION_MEDIUM;
-+	init_completion(&aya->resp_done);
-+	spin_lock_init(&aya->resp_lock);
-+	ret = devm_mutex_init(&hdev->dev, &aya->lock);
-+	if (ret)
-+		return ret;
-+	hid_set_drvdata(hdev, aya);
-+
-+	ret = hid_hw_start(hdev, HID_CONNECT_HIDRAW);
-+	if (ret)
-+		return ret;
-+
-+	ret = hid_hw_open(hdev);
-+	if (ret)
-+		goto err_stop;
-+
-+	/*
-+	 * Report delivery is off during probe by default, but the LED and
-+	 * attributes go live below and their first commands need replies, so
-+	 * leave IO started.
-+	 */
-+	hid_device_io_start(hdev);
-+
-+	ret = ayaneo_register_led(aya);
-+	if (ret)
-+		goto err_close;
-+
-+	ret = sysfs_create_group(&hdev->dev.kobj, &ayaneo_group);
-+	if (ret)
-+		goto err_led;
-+
-+	return 0;
-+
-+err_led:
-+	ayaneo_unregister_led(aya);
-+err_close:
-+	hid_hw_close(hdev);
-+err_stop:
-+	hid_hw_stop(hdev);
-+	return ret;
-+}
-+
-+static void ayaneo_remove(struct hid_device *hdev)
-+{
-+	struct ayaneo *aya = hid_get_drvdata(hdev);
-+
-+	if (!aya) {
-+		hid_hw_stop(hdev);
-+		return;
-+	}
-+
-+	/*
-+	 * The HID core stops report delivery before remove, but the final
-+	 * LED write and the group removal's in-flight attribute callers
-+	 * still need replies. Re-enable IO for the teardown writes.
-+	 */
-+	hid_device_io_start(hdev);
-+	sysfs_remove_group(&hdev->dev.kobj, &ayaneo_group);
-+	led_classdev_multicolor_unregister(&aya->mcled);
-+	/*
-+	 * A brightness store racing the unregister can requeue
-+	 * set_brightness_work after led_classdev_unregister()'s flush, so
-+	 * flush it again before stopping IO, while the transport is up.
-+	 */
-+	flush_work(&aya->mcled.led_cdev.set_brightness_work);
-+	hid_device_io_stop(hdev);
-+	hid_hw_close(hdev);
-+	hid_hw_stop(hdev);
-+}
-+
-+static int ayaneo_reset_resume(struct hid_device *hdev)
-+{
-+	struct ayaneo *aya = hid_get_drvdata(hdev);
-+	int ret;
-+
-+	/* Transparent interfaces: mirror hid-generic's reset_resume */
-+	if (!aya) {
-+		if (hdev->claimed & HID_CLAIMED_INPUT)
-+			hidinput_reset_resume(hdev);
-+		return 0;
-+	}
-+
-+	ACQUIRE(mutex_intr, lock)(&aya->lock);
-+	ret = ACQUIRE_ERR(mutex_intr, &lock);
-+	if (ret)
-+		return ret;
-+
-+	if (aya->configured)
-+		return ayaneo_send_config(aya, 0);
-+	return 0;
-+}
-+
-+static const struct hid_device_id ayaneo_devices[] = {
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_SIGMA_MICRO,
-+			 USB_DEVICE_ID_SIGMA_MICRO_KEYBOARD) },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(hid, ayaneo_devices);
-+
-+static struct hid_driver ayaneo_driver = {
-+	.name = "hid-ayaneo",
-+	.id_table = ayaneo_devices,
-+	.probe = ayaneo_probe,
-+	.remove = ayaneo_remove,
-+	.raw_event = ayaneo_raw_event,
-+	.reset_resume = ayaneo_reset_resume,
-+};
-+module_hid_driver(ayaneo_driver);
-+
-+MODULE_AUTHOR("Matías Martínez <hello@matias.me>");
-+MODULE_DESCRIPTION("AYANEO 3 detachable controller driver");
-+MODULE_LICENSE("GPL");
-
-base-commit: 720806515cb6921ab05caaa6f470f7054b56385e
+base-commit: 490919d772221958cfad04c458fdf2300416c33f
 -- 
-2.54.0 (Apple Git-157)
+2.43.0
 
