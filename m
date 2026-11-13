@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794601065;
-	b=B3al9iL0+anuxZRNMYuVoziax+o13ivaJ7ZTrtYrWRpZhX2MRaj8RlcgG/paUJi1aAn2
-	 gYUEOdfztG3RKeuwM38Vo+4Jxxv/vC7OeOmfTpGxkdR7CgaCQYeQFPOyq1CRL3JNOQqww
-	 FT6W3xn55kUJmtCXwcpFM8wUxI/9jequY9wL7uFNmOkdTLO+g+UiMEYq8ZWoLRpZEgfnD
-	 bD8lOaSB/2OVqWlqKy3G7e2P8IT+QSzs5dH/BPj3jGnmRpDZ031x8c21HqEG+7VCAXdgX
-	 LL/HB2qipTM6jTz9UfgOTkpJOGMcxNncLr+m0sNG+WZA0jqy/BvucVQ6sw6jmXNk5sQ==
+	t=1794601133;
+	b=SM0CwUrruMrEyfcNV2qpfA6HefPjsoUikBdnVRAVpK8EhDKN3yu/py2E5yl8td6Gh+Hr
+	 zDP5PHBtoJJJpmipEYovq/EcphmtuP2gXKrq88+lRgZ35K/B8+weAfZF6pPvwZdspyFXK
+	 OGierj3fcp3oAvJGr2oQNnKMOui/tDwlK8Bo2bmiGad4Q58KrVPCKaLfPNZW+6DIMl1ge
+	 hvv+beKd0CaQzcW8On+0TMPEDl7w1kyk0nG3OiX7fZtq8bItj3KHtm8JdpEmYmQ/8HEU6
+	 Q3pfWcrhTPSskYKTp0333Krgdrzz3P6/nd34bYyLh7e/x06qMbnLRlJzSqMCRIRwXXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601065;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=FRvflSbgl0Z7xG/0mliZyvs/63qm34rb220QxXX8xtw=;
-	b=2+W98in7oNpm7Cs0P9XPHX2h0k9Aymw9bwQ6MFbmEGeGDcqnXxW+nCPIRsN4PveuGLwi
-	 boxxwvkCMbmcNZx5zsI9RPM/e0JnyduBhZXeViuOVMLLKhlOCNdMLKGc73FvkpABE/0x6
-	 eYf/y0xw7w5m+WXvCCrEOSDdpRENj5+BkIFhjunTMxFr6nQ4ZbW+/rja+6c9r0l4g0UNW
-	 1Ftqv8GieGfhXbBttJZU/12j6su8aRzXF8GK2+uFgVF+S94DeFPSLVNNZJErPCiAQwHLN
-	 fTj3mJ7c9rdwuCGFHO6VNaIQPKZ+vgVlF5GyqzemdLSFb7tOrMwhDaWTUEsN40396/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601133;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=RR3Y/NZUPFI501cKXclm/UeWrDA7HHS1VJgbIHKj7OI=;
+	b=xz4kGYcoi71H3AqPjKn2zUTMBut72Ba7w3QZpqsSMB8SfaEUt6izq0WQ871wtejYX3vR
+	 sHlggx2zu/VOm7PtnL7C9ZZQ78gXn/ECtVChezLnkB86htje+9vf++Q2JwY3HJgmxR1Ti
+	 25SfCpDw1rbLpPhOTuSpFZtMmJoOIfOtIlsAs6NyNxxJk0RYUjnNsDpwjnlur0WK57R2Y
+	 +bI1i5LUockhkmd6RqzKRAQKW+ysfT4JE0+uH8+7LlEnciTnwXVOwL8atIYqZPw8GWL1M
+	 ftn+k+HMzds8nCnDZxLuKgcpVq8lu6hgbjYR5EHiLNXbhJqktO4m3i0dwRYgR9jjzQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f1YGr27B;
-	arc=none smtp.remote-ip=209.85.167.45
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fIeOsCGd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E37D606A338
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:17:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E37D606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5BF606A323;
+	Fri, 13 Nov 2026 20:18:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f1YGr27B
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso1701638e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:17:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794601063; x=1795205863; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FRvflSbgl0Z7xG/0mliZyvs/63qm34rb220QxXX8xtw=;
-        b=f1YGr27BGAiQ1k/7gbgyOYz0GgvQ3N7ipameYPsZdesh99WEUSAbkcBhDjBq6Il8LT
-         746FWwOQ3Ho6AMjFQTusNWvN5ZB5EHzHEyfhczcIvJqqK80ikUBW59sz31xozQNdWj5G
-         JDuvGzoYJ/qrXxMOgoKdIEq16R8NljXiwjD0awprbDdDBB4gRpyGW1Nf9l15RqzSWrqu
-         4BJLuUlRLLiT3KX0kEViASA19UexkpKuPWjDVJXfvqFOm5igU+SEB4/+zksxzSIYV531
-         iSlAIVleXN0eRXl+/V1kcB7Oz9661sEjHZ1CgQpVq25/8CAkotXwUsoZvoPdeHQUUTOV
-         Wr5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794601063; x=1795205863;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FRvflSbgl0Z7xG/0mliZyvs/63qm34rb220QxXX8xtw=;
-        b=Ql1LSpxD22P5PWtgtL1e6oXeswDH63stCmZoNzd0IpfP6Q8ni5HQWROR3m5MZW+klK
-         UcqSq5tfiCFu04IrcnqKTjatiJKxR7lIbBVbZBxIsktAS6uAtEWhwF/QxsSJ7JJB2Voc
-         NszrOrSodzW8KYvRc2H7KqWLUZVCm2hU6ar4TCabI95kdH1B9sJe/U6jrPuQMaVvuUqM
-         2TgMoGKKTAi1h/ewzW1ZItCYteJUN/6WnY4/fksz0miWa2fL7fy1ykKaX1CWUzTWU9yl
-         ZRXPieHckprJKsTU1xjUD14nN4MkpwUIFNcrJ6hmcbDC+M3TIKyjxmsc3i8YiI8vBNrp
-         7pHw==
-X-Forwarded-Encrypted: i=1; AL+hErEc2E4TGu2GOa2EdDpGc00gEsgnLstxvVvtFHcGD9DoeSs4sg4W4svKCwEV51xsq4zszetPWNBi3j9sbd8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ziAn2Eojw+dmU7xMup6Z6MxLV24prkRRPWfZF2XebnPOeRQRG
-	6fMicUGIipebK/SkuPMuuTVaQ08dgBlfwRlFAz397u1+68xRkcip28c0
-X-Gm-Gg: AYBFou3nWvbLG2mIshWHjJzWWUFFu//UedN42YIiEhK+cp6muGbSEhB58xeBPqNN6uS
-	cYVItcX5SFgYtaaj/bPGfZS8dWaHc+FO5VaA6ntlnpFDBlvcbe6s/s8Lov+Gs0DuTzUYCtaU1at
-	zZ5/2CBN+uIfd3SvR6RvwvsZq7kyqdvNTiiReT1qFd6RlvboF/Dm5UE9TTmUzkwTYvjaXPXkrnp
-	+0kDHqrKxgRdN88qIAxxHqt5ynxUKK76S3XMJrLnXkeL4FRVxuYE35CCDkL7G7DmWrhRPyvPbAY
-	1cu9wSNEJhsxqlqj3vDS//Fz6DLLJZX1OepBLu9DQX9vF0fLOdYBScVGDBV33mQqrM/0BAoqbWU
-	mcv/qHerUeZgeMdl3w214EYiaP3ePtWAVniPwCgUDUFIMA9z6UZqLWlCfcALu0dQUkccRkpqnYY
-	UzbT1jDlq/21mISLysHZiVDxmd242DhUo13DrBBtf5hQ0L95j3bSDCqYlZ488GVSohQS/bhLeiE
-	2QlR8dQsaECb4s9cx5zkWOQmkIfJif2G5HHPEatImI/4coiQmtfukzMqSZoXUg6Eco6I3K/UHmr
-	f8a5SE9GhDcOlRqCKQK7v8bRrWozpcfUjUUnsAtNC4vh2lUOUZfJkhm+tY8u1QvzmYr9av3CMHy
-	XuUk4T7cE8NpDfwoYMnztb8RzsdW7yA52IV6SGw==
-X-Received: by 2002:a05:6512:3e29:b0:5bf:a193:7a5b with SMTP id 2adb3069b0e04-5c1709c2eeamr1739274e87.34.1794601061732;
-        Fri, 13 Nov 2026 12:17:41 -0800 (PST)
-Received: from yantra.. (nekmmqsrubyk7w1qlch-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:2fd0:3310:f4e5:7f91])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171346e7dsm1057729e87.49.2026.11.13.12.17.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:17:41 -0800 (PST)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: kapoorarnav43@gmail.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: pressure: dps310: don't wait for new temperature in trigger handler
-Date: Fri, 13 Nov 2026 22:17:36 +0200
-Message-ID: <20261113201736.58553-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112214929.497589-1-kapoorarnav43@gmail.com>
-References: <20261111195118.36853-1-zoone.rupert@gmail.com> <20261112214929.497589-1-kapoorarnav43@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fIeOsCGd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AB0F1F000C4;
+	Fri, 13 Nov 2026 20:18:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794601133;
+	bh=RR3Y/NZUPFI501cKXclm/UeWrDA7HHS1VJgbIHKj7OI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fIeOsCGdnxwvFJMUPt1Xo/qhLodE1HQwNmuXbr31ALXJuAgdwOFGvA1kIxYMRvCXm
+	 iQYJ7uI8+01PbMxvv1/N+VJ2f/Ij34JTgImZrOPreMn7rFxr7up6YhexXClvbrXFzc
+	 ZBh9VpDIPrhnfN+Z/szMfhUI6Uxv8s773oYU5PJ3a4Sm8ojgXZASMPWrfJmYdBmNM4
+	 1agCsYuBHrOFItJBWni7s9sup8AV7IGF5rKr7MghgPF4lDQI0aP1eknDAP4pZdn4BP
+	 Z663i7PhxEMDA0xwRpaM8gJDgGwUZmUF8NZ9mM1uX/Rofjw0eyjbekqJohTFAeGemN
+	 E+h4vdmz0tOFA==
+Message-ID: <cc480b1f-6b90-44c8-9306-83d1c125a9cf@kernel.org>
+Date: Fri, 13 Nov 2026 21:18:46 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,32 +51,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: use PFN_PHYS() in phys_mem_access_prot()
+To: Ivan Ezequiel Rodriguez <ivanrwcm25@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261113193812.1239880-1-ivanrwcm25@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261113193812.1239880-1-ivanrwcm25@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Fri, 13 Nov 2026 03:19:29 +0530
-Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+On 11/13/26 20:38, Ivan Ezequiel Rodriguez wrote:
+> From: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+> 
+> phys_mem_access_prot() stores "pfn << PAGE_SHIFT" in a phys_addr_t.
+> The shift is evaluated as unsigned long, so on a 32-bit kernel with
+> CONFIG_PHYS_ADDR_T_64BIT an address above 4 GiB is truncated before
+> uncached_access() compares it with __pa(high_memory).
+> 
+> mmap_mem_prepare() already shifts in phys_addr_t, so the mapping is
+> accepted and then left cacheable. PFN_PHYS() casts before the shift.
+> 
+> On a MIPS32 XPA Malta guest, mmap of /dev/mem at 0xf00000000 without
+> O_DSYNC used the boot CCA. The same mapping with O_DSYNC was uncached.
+> With PFN_PHYS() both are uncached.
+> 
+> Fixes: 7e6735c3578e ("/dev/mem: use phys_addr_t for physical addresses")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+> ---
+>  mm/char-mem.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/mm/char-mem.c b/mm/char-mem.c
+> index c5761ddedbd7..53ce0034a4c1 100644
+> --- a/mm/char-mem.c
+> +++ b/mm/char-mem.c
+> @@ -272,7 +272,7 @@ static pgprot_t phys_mem_access_prot(struct file *file, unsigned long pfn,
+>  				     unsigned long size, pgprot_t vma_prot)
+>  {
+>  #ifdef pgprot_noncached
+> -	phys_addr_t offset = pfn << PAGE_SHIFT;
+> +	phys_addr_t offset = PFN_PHYS(pfn);
+>  
+>  	if (uncached_access(file, offset))
+>  		return pgprot_noncached(vma_prot);
 
-> Maybe I'm getting this wrong, but isn't there a case the new path
-> doesn't cover? Nothing reads a temperature at probe, so if a pressure
-> only buffer is enabled shortly after probe and the first pressure
-> result is ready before any temperature result,
-> dps310_refresh_temp_locked() finds TMP_RDY clear and the pressure is
-> compensated with temp_raw still 0.
 
-You're right. After a reset the chip has pressure ready about 3 ms
-after measurement starts and temperature about 7 ms. On my board probe
-takes longer than that, so I could only see it by dropping the first
-temperature result in a test build. The first scan then reads 1.2 kPa
-high.
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-> Would it make sense to do the same here with a flag set
-> when a temperature has been read, and wait for one temperature in
-> dps310_refresh_temp_locked() only while it's unset? That would cover
-> direct pressure reads and after the first sample the scans stay at the
-> pressure rate as your patch intends.
+I'm relying on Andrew to pick this up.
 
-I'd rather read one temperature in probe. That covers direct reads
-too, costs a few ms at most and needs no flag. I'll send v2 with that.
+-- 
+Cheers,
 
-Thanks,
-Rupesh
+David
