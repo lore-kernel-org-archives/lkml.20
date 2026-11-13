@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794551528;
-	b=WStAGrtMrI76yigl6oscoeXziZeDNuBbPRWtqoL8UxV9tg9jhqtKzokX1piccIk7qxPB
-	 o56toctea2nirAQD+z04A4Jz66uI0zOL1U90Vt/czlKA/Wa+U2ISBxATqum/CvfWgjTOm
-	 XYC5DB4yyXp16mf7wDHprGKacRkt8xexNUfzlD0NLmcE8JP6JiR7PmZ9kGCF7KCBj439A
-	 eW1ekGtyll2H820E6LIGTy/r9FHspe2h1MvHERtpcEHU+4Gy9RyQm1mQnferZ15Qjg7Ze
-	 vjRr6Xbtfgd/s8UxhLUzsXav0t2OQ48yF7dljseI9TQP+TbiBsSbUKxKgHIHBFYZDZQ==
+	t=1794551526;
+	b=joBuBAiw/xKhnUXaD/ULBX37GEFX9HTpnWyUUXZRtFVF/ImehRkuCXSIpUlB0n9vQKj2
+	 eFTQgeMTmTqH66d79LlFIiQAuanTgZyYVxXjHBC+ewUqoBvlMUXTxQNoBhsL/nvy2wy1q
+	 9Y3Xp8wVfh1lTQ6fU00eM5OKQSWy7tSij3WljKiwh17PwnjWYBljqD+JlDmKz2U4MeQpL
+	 LbwqWlSh5UHJXwlMuEABsJa4swnvy0rxMGVAY2Iv7E+8i7cw+yM7OISKMplccA6rvhc+O
+	 SD4I0q09wXCM0M2mw4p5sRbtp6/XIXIPM3FXR+kRFfzo65WjfjYrMj0Wmpn1Rnv5oFA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551528;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551526;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/a8ZdYMjKdjyxeutmun7giyIq/yME3tgGN4xCdwr0Kg=;
-	b=Yf0Hq3iEkzW49g39pIZwVyg5ylukLqBDAJegaA3fgzH0gL8mUu2wKmFN+SN69/4nJ/JI
-	 c+1y2R4YjaLFfw1/M3MzphENxp6/py+JhyRuzhixlDxVHqivjh9EY3n7D/Sx5x+j6b/4L
-	 81092La7RB4Gu6ePzt2CXe+grsYSNkB9rD3P7tNpLFaGwbHS692y9c2wsLCYbsLyCwyqw
-	 6kiWOVzxwxxl9U/je2jRXOXrtrUKh3owlutj2AInRCtty9MpoeJMxBRqersplqyVLau26
-	 WPJIq1zDwpgx8i+kiYUuFDDlb1O2xeEY5ujWRXpbuEJM/6Bcrx62VsTi900ndNIYflQ==
+	bh=Rn5NC5M6S7P+0sU6hmMr4eVn46o88VMmOkhGJrNZnLo=;
+	b=BEZF/GuTx0Ai/mGq5LEi5LncAMuOTdr91R+wDCIcPanPZeRq2AtioWIy79wiZaKmCc27
+	 ndDv8Pr0Nn2m3Fav4aICRzWUWXjqmU+nDqcyeu7GcSCL90KfEwK4jh+XZR9IF9OZzFaCB
+	 ojm0zwBgam0m26fEGfywGPf5XtGVNqnYM4UcAxhYtlBeM9z80MhRNebNtISi0jMuTmX+n
+	 GDP6DToFY3lvjHTvQOQ3hJH4iZrhZV12SvItKACRok+vkmzQtOoA1smrH6w+S1a7oRLxn
+	 EjhmeJTIEQ99+xkl3iAffHU6udpEkYdjpxbtnowsK6Zdj2aafh5XViO+8Ts2AQ//Gbg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XMW5FwKj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNkOUr1p;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39234606A8AA;
-	Fri, 13 Nov 2026 06:32:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E5A606A31C;
+	Fri, 13 Nov 2026 06:32:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XMW5FwKj
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNkOUr1p
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794551527;
-	b=j0mzwpzCXJitxy66iUD3G43/dPaTbv9NRrVfNFZg12sneFtgfaqLJ5D3MwlPNX+Gaeag
-	 AdNUxnGHmVhLcArqUm86XtKYaWOp3YoSsiR2PiG0La77IAnfqh7ysqjhoUgpZAVM1dxOY
-	 c/ljvjxAkZlmOH0vthpT73TWefh6Rk7YP0EluJomHDdJiZmDfBiY+SOffhYAX6nnkue5P
-	 gJI+Qt0TvMxQwVVTgIXQwiHm2VKqsj+RlOGg8pcMDjAdjJEUY0PF69r/XBqQqsSNZ3/d4
-	 caNHaBxt1UdBlwObtId7ADiN+iTzwyi2WZYaw/Nbk/x/7Q0wG8g80tIoaukLn+fybfw==
+	t=1794551526;
+	b=rlZE5gJGJCliEx+Yxi0zGiAlAdjJKY671Dgyv38kVX+K8hualqbZW+EmrzS6e+oYZcKJ
+	 ohchIgO481Rp8p5NXi8AAL6f8XhYbcD2CkcWAHhzTF9MsidhB/BSaq9lheO5V1dzgu1Hn
+	 TXbrlT15DVRBTPDhHtFpOkq/KEIjTxoqwjNyeCVwqXdzuDeEFaOjpgceVAZ5Ijsi/phOk
+	 yPubcOptXS1OtRe/Hs6vPypkz7ddk0RP0gI+Wmi0Kq976SNb6aEkzfTaq+AVwfHrU2OZ7
+	 pq7frvkLnjszSY/bizwC1E7oKPhRdycdXH8+roazJfu3uQk/gom/9yqssQm16YO/cFA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794551527;
+	c=relaxed/relaxed; t=1794551526;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/a8ZdYMjKdjyxeutmun7giyIq/yME3tgGN4xCdwr0Kg=;
-	b=L+FR2H+pOyGiH/jfVKGytwnSw269GKcz7yqrLdrraftN/t9WHt8zinZqTG1wekPWrY98
-	 w4+t/IbIcS8s4qkS1MK6hUlPvHy4B5BflyzrC9HCxxLu3mjGGL8ud9TT9JN6/4NdmQPsn
-	 atXgrsGe211eXXHlBZoii6dTi38iFRNX9u8eGNISr4+K5zHs/TKn9cxfrHmLif0SzFvYG
-	 Bz4KA+hkR7SSogHz27L8YWWkromcUFTaQmRKNxYc/Gg4+nZ48MjBNfdBS+3vmPuTDyp5O
-	 KM5eHDqOVDzRfzsTtB/8ISlYzEA+9kAAPIe127Oc8FcP34GEL9natwDYyswABRKkF5A==
+	bh=Rn5NC5M6S7P+0sU6hmMr4eVn46o88VMmOkhGJrNZnLo=;
+	b=atrt5NG7Y/MKMJJT5LDuno6VcEc4rR6KyBvlismE/xj606btRH3SdvBvTy6iL7NzD76I
+	 92gknLpGNjCAYEx6VIX++/3gP9a/oo2dezKI+os7q/9RHKuEa+KNVNhaclDtBsA9OZgvX
+	 0irqjytfYjhzNZUbJ7VWgwTPJsAZbwj/0oT5G930RdnP7EJMn8yxH+EniTiGvuZUUjSB4
+	 29XiOXPM1HZc96adov5aqLNz651V7JkPOSCKmcroGXfyta6d3e3HFhd3OgoV6E4Ig+dOn
+	 kE6ev2bs9Peqyrf4JsYolMbcrtsMh2EzdsrKPEmJ8tq+pe8YT/WvM2Cv2JdVXPgF4+g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3B3001F000C8;
+	by smtp.kernel.org (Postfix) with ESMTPS id 133D21F000C5;
 	Fri, 13 Nov 2026 06:32:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794551527;
-	bh=/a8ZdYMjKdjyxeutmun7giyIq/yME3tgGN4xCdwr0Kg=;
+	s=k20260515; t=1794551526;
+	bh=Rn5NC5M6S7P+0sU6hmMr4eVn46o88VMmOkhGJrNZnLo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=XMW5FwKj8ZRCJVoGl6cktlg1F3Qg1ilYgmSXLhsXLTo3h8DYrkV6gW6indAWL7xGF
-	 swZ732exeqK52zObb9FAgq/V+QUQ016vVmq0qqqZx+QNiPwNFL8izb2Pp/AxI57oUF
-	 e5Cm7NNNkQfUAXlBgzXnWfere88DYf2JnHYSmCIRr0J/Fyj5JdqvOIy5VdcKth15TN
-	 B0wnkIf3G9jclD3E2i0pUeALMyIr+jDpr3wzrZS8p2Np2Fg+NPfC74pG/0+s4KoBTN
-	 ASEUZw0MYLl5nS2N4TpJwS6mjVxSWyeRRF/leT4pPrhwtStcFW6sxx2UEXS9nWJTrZ
-	 +uDKh1pD/ZjNQ==
+	b=QNkOUr1pVzNQHkvQH4RcdjxpPOM0zsYs/IkDiAIv9eBlSyAhbmaLeeOSsUHxMkdRp
+	 N3y8YJGF5RDdB7t9Bc8D0hOf4nTEUmmhbm0AtvSycRW7xDF+aC4arghIvQLdUqK8k8
+	 dXvyXQ6h8JPVx3vzMNIflmzFRWLargtkYxKnHI1i8GOYau3892BS78/vIZgnAqOPAV
+	 gzRAX24LwflYiy87Ll54LVH9swt9zWa3MqMuYROXcyTJqyzEGiYpblz3rSbETup3EU
+	 F4i/1GKO+W5isUennkjwpQ020AdWrRgPtPkIXnC3fHZFlKpFEI+p+z09JdjPv3qwIu
+	 UfNSY0ijmJT5w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B7AFE47634;
+	by lkml.kernel.org (Postfix) with ESMTP id 8F6DE4762C;
 	Fri, 13 Nov 2026 06:32:04 +0000 (UTC)
 From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 06:31:58 +0000
-Subject: [PATCH wireless-next 4/4] wifi: brcmfmac: Add support for PNO
- version 3
+Date: Fri, 13 Nov 2026 06:31:56 +0000
+Subject: [PATCH wireless-next 2/4] wifi: brcmfmac: Advertise HE
+ capabilities
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-6ghz-v1-4-0b9a67e413a9@gmail.com>
+Message-Id: <20261113-6ghz-v1-2-0b9a67e413a9@gmail.com>
 References: <20261113-6ghz-v1-0-0b9a67e413a9@gmail.com>
 In-Reply-To: <20261113-6ghz-v1-0-0b9a67e413a9@gmail.com>
 To: Arend van Spriel <arend.vanspriel@broadcom.com>
@@ -93,11 +93,11 @@ Cc: asahi@lists.linux.dev, linux-wireless@vger.kernel.org,
  linux-kernel@vger.kernel.org, Michael Reeves <michael.reeves077@gmail.com>, 
  Yureka Lilian <yureka@cyberchaos.dev>, Daniel Berlin <dberlin@dberlin.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794551523; l=18699;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794551523; l=8895;
  i=michael.reeves077@gmail.com; s=20261107; h=from:subject:message-id;
- bh=znwZr59ftThX1Axn8Dzkx0IEAMnR46WJkHUVTn1IqyA=;
- b=CN4EbDA5H4RJYr/+3ZQS1BcW6z8S6YGc1g7BJU9E0TusDtGMCIDNLjUnzczWo73OyNaGTxBCL
- Zg2Bd0yli/bBzZnjE6qQgPSHSXAMh4VPnxMFVLtbXA17M0uJO+mkLOV
+ bh=VOaAajPWI3q3N4RP08nZvmHQLhXU8MQD7XxBDr/BKG0=;
+ b=wKJ9V+RedI+doDaUoFgOY6tBh7GtEzSprFb/HPsVq4GZRp1hS/olZXE/JYTK4scFteqT9ntRg
+ yn4u8s539xqD16XHxthDmcGLCdslYNOioEaYBGfNMIXvrf4egeNqy3C
 X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
  pk=ykwkLcuByJYb/cdLc2UuoYP03pIzwrscEZg30+4tJL8=
 X-Endpoint-Received: by B4 Relay for michael.reeves077@gmail.com/20261107
@@ -108,562 +108,232 @@ Content-Transfer-Encoding: 7bit
 
 From: Michael Reeves <michael.reeves077@gmail.com>
 
-Recent firmware versions introduce version 3 of PNO settings and result
-events. Unlike prior versions that only provide raw channel numbers,
-version 3 provides complete chanspecs, resolving band ambiguity for
-overlapping channel numbers (e.g. 6 GHz).
+The driver currently does not report HE (802.11ax) capabilities, which
+are mandatory in cfg80211 for 6 GHz band operation.
 
-Query the firmware's PNO version during driver attach. Use version 3
-configuration structures if supported by the firmware, and parse
-incoming PNO scan results based on the event version.
+Advertise HE capabilities for the station interface type when the
+firmware indicates HE support. Determine the 160 MHz capability bits
+from the firmware-reported bandwidth limits, and generate the supported
+MCS map based on the number of spatial chains.
+
+Move band setup prior to wiphy registration so cfg80211 validates HE
+capabilities at registration time.
 
 Tested-by: Yureka Lilian <yureka@cyberchaos.dev>
 Co-developed-by: Daniel Berlin <dberlin@dberlin.org>
 Signed-off-by: Daniel Berlin <dberlin@dberlin.org>
 Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
 ---
- .../broadcom/brcm80211/brcmfmac/cfg80211.c         |  94 ++++++--------
- .../broadcom/brcm80211/brcmfmac/fwil_types.h       |  65 ++++++++++
- .../net/wireless/broadcom/brcm80211/brcmfmac/pno.c | 144 ++++++++++++++++++---
- .../net/wireless/broadcom/brcm80211/brcmfmac/pno.h |  41 +++++-
- 4 files changed, 267 insertions(+), 77 deletions(-)
+ .../broadcom/brcm80211/brcmfmac/cfg80211.c         | 126 +++++++++++++++++++--
+ .../broadcom/brcm80211/brcmfmac/cfg80211.h         |   2 +
+ .../broadcom/brcm80211/brcmfmac/fwil_types.h       |   3 +
+ 3 files changed, 124 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 90db55c0ab7a..2450dd0c1e99 100644
+index c4ef4f6d3a06..12545ae15e9e 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -3828,17 +3828,12 @@ brcmf_alloc_internal_escan_request(struct wiphy *wiphy, u32 n_netinfo) {
+@@ -7451,7 +7451,7 @@ static void brcmf_update_ht_cap(struct ieee80211_supported_band *band,
+ 	band->ht_cap.mcs.tx_params = IEEE80211_HT_MCS_TX_DEFINED;
  }
  
- static int brcmf_internal_escan_add_info(struct cfg80211_scan_request *req,
--					 u8 *ssid, u8 ssid_len, u8 channel)
-+					 u8 *ssid, u8 ssid_len, u8 channel,
-+					 enum nl80211_band band)
+-static __le16 brcmf_get_mcs_map(u32 nchain, enum ieee80211_vht_mcs_support supp)
++static __le16 brcmf_get_mcs_map(u32 nchain, int supp)
  {
- 	struct ieee80211_channel *chan;
--	enum nl80211_band band;
- 	int freq, i;
- 
--	if (channel <= CH_MAX_2G_CHANNEL)
--		band = NL80211_BAND_2GHZ;
--	else
--		band = NL80211_BAND_5GHZ;
--
- 	freq = ieee80211_channel_to_frequency(channel, band);
- 	if (!freq)
- 		return -EINVAL;
-@@ -3894,28 +3889,6 @@ static int brcmf_start_internal_escan(struct brcmf_if *ifp, u32 fwmap,
- 	return 0;
+ 	u16 mcs_map;
+ 	int i;
+@@ -7504,6 +7504,112 @@ static void brcmf_update_vht_cap(struct ieee80211_supported_band *band,
+ 	}
  }
  
--static struct brcmf_pno_net_info_le *
--brcmf_get_netinfo_array(struct brcmf_pno_scanresults_le *pfn_v1)
--{
--	struct brcmf_pno_scanresults_v2_le *pfn_v2;
--	struct brcmf_pno_net_info_le *netinfo;
--
--	switch (pfn_v1->version) {
--	default:
--		WARN_ON(1);
--		fallthrough;
--	case cpu_to_le32(1):
--		netinfo = (struct brcmf_pno_net_info_le *)(pfn_v1 + 1);
--		break;
--	case cpu_to_le32(2):
--		pfn_v2 = (struct brcmf_pno_scanresults_v2_le *)pfn_v1;
--		netinfo = (struct brcmf_pno_net_info_le *)(pfn_v2 + 1);
--		break;
++static void brcmf_update_he_cap(struct ieee80211_supported_band *band,
++				struct ieee80211_sband_iftype_data *data,
++				u32 bw_cap[], u32 nchain)
++{
++	struct ieee80211_sta_he_cap *he_cap = &data->he_cap;
++	struct ieee80211_he_cap_elem *elem = &he_cap->he_cap_elem;
++	struct ieee80211_he_mcs_nss_supp *mcs = &he_cap->he_mcs_nss_supp;
++	__le16 mcs_map = brcmf_get_mcs_map(nchain,
++					   IEEE80211_HE_MCS_SUPPORT_0_11);
++	bool bw160 = bw_cap[band->band] & WLC_BW_160MHZ_BIT;
++
++	memset(data, 0, sizeof(*data));
++	data->types_mask = BIT(NL80211_IFTYPE_STATION);
++	he_cap->has_he = true;
++
++	elem->mac_cap_info[0] = IEEE80211_HE_MAC_CAP0_HTC_HE |
++				IEEE80211_HE_MAC_CAP0_TWT_REQ |
++				IEEE80211_HE_MAC_CAP0_TWT_RES;
++	elem->mac_cap_info[1] = IEEE80211_HE_MAC_CAP1_TF_MAC_PAD_DUR_8US |
++				IEEE80211_HE_MAC_CAP1_TF_MAC_PAD_DUR_16US;
++	elem->mac_cap_info[2] = IEEE80211_HE_MAC_CAP2_BSR |
++				IEEE80211_HE_MAC_CAP2_BCAST_TWT;
++	elem->mac_cap_info[3] = IEEE80211_HE_MAC_CAP3_OMI_CONTROL |
++				IEEE80211_HE_MAC_CAP3_MAX_AMPDU_LEN_EXP_EXT_1 |
++				IEEE80211_HE_MAC_CAP3_FLEX_TWT_SCHED;
++	elem->mac_cap_info[4] = IEEE80211_HE_MAC_CAP4_AMSDU_IN_AMPDU;
++
++	if (band->band == NL80211_BAND_2GHZ) {
++		if (band->ht_cap.cap & IEEE80211_HT_CAP_SUP_WIDTH_20_40)
++			elem->phy_cap_info[0] |=
++				IEEE80211_HE_PHY_CAP0_CHANNEL_WIDTH_SET_40MHZ_IN_2G;
++		elem->phy_cap_info[8] |=
++			IEEE80211_HE_PHY_CAP8_20MHZ_IN_40MHZ_HE_PPDU_IN_2G;
++	} else {
++		if (bw_cap[band->band] & WLC_BW_80MHZ_BIT)
++			elem->phy_cap_info[0] |=
++				IEEE80211_HE_PHY_CAP0_CHANNEL_WIDTH_SET_40MHZ_80MHZ_IN_5G;
++		if (bw160) {
++			elem->phy_cap_info[0] |=
++				IEEE80211_HE_PHY_CAP0_CHANNEL_WIDTH_SET_160MHZ_IN_5G;
++			elem->phy_cap_info[8] |=
++				IEEE80211_HE_PHY_CAP8_20MHZ_IN_160MHZ_HE_PPDU |
++				IEEE80211_HE_PHY_CAP8_80MHZ_IN_160MHZ_HE_PPDU;
++		}
++	}
++
++	elem->phy_cap_info[1] = IEEE80211_HE_PHY_CAP1_LDPC_CODING_IN_PAYLOAD;
++	elem->phy_cap_info[2] = IEEE80211_HE_PHY_CAP2_NDP_4x_LTF_AND_3_2US |
++				IEEE80211_HE_PHY_CAP2_UL_MU_FULL_MU_MIMO |
++				IEEE80211_HE_PHY_CAP2_UL_MU_PARTIAL_MU_MIMO;
++	elem->phy_cap_info[3] = IEEE80211_HE_PHY_CAP3_DCM_MAX_CONST_TX_QPSK |
++				IEEE80211_HE_PHY_CAP3_DCM_MAX_TX_NSS_2 |
++				IEEE80211_HE_PHY_CAP3_DCM_MAX_CONST_RX_16_QAM |
++				IEEE80211_HE_PHY_CAP3_SU_BEAMFORMER;
++	elem->phy_cap_info[4] =
++		IEEE80211_HE_PHY_CAP4_SU_BEAMFORMEE |
++		IEEE80211_HE_PHY_CAP4_BEAMFORMEE_MAX_STS_ABOVE_80MHZ_4 |
++		IEEE80211_HE_PHY_CAP4_BEAMFORMEE_MAX_STS_UNDER_80MHZ_8;
++	elem->phy_cap_info[5] =
++		IEEE80211_HE_PHY_CAP5_NG16_SU_FEEDBACK |
++		IEEE80211_HE_PHY_CAP5_NG16_MU_FEEDBACK |
++		IEEE80211_HE_PHY_CAP5_BEAMFORMEE_NUM_SND_DIM_UNDER_80MHZ_2;
++	elem->phy_cap_info[6] =
++		IEEE80211_HE_PHY_CAP6_CODEBOOK_SIZE_42_SU |
++		IEEE80211_HE_PHY_CAP6_CODEBOOK_SIZE_75_MU |
++		IEEE80211_HE_PHY_CAP6_TRIG_SU_BEAMFORMING_FB |
++		IEEE80211_HE_PHY_CAP6_TRIG_MU_BEAMFORMING_PARTIAL_BW_FB |
++		IEEE80211_HE_PHY_CAP6_TRIG_CQI_FB |
++		IEEE80211_HE_PHY_CAP6_PARTIAL_BW_EXT_RANGE |
++		IEEE80211_HE_PHY_CAP6_PPE_THRESHOLD_PRESENT;
++	elem->phy_cap_info[7] =
++		IEEE80211_HE_PHY_CAP7_HE_SU_MU_PPDU_4XLTF_AND_08_US_GI |
++		IEEE80211_HE_PHY_CAP7_MAX_NC_1;
++	elem->phy_cap_info[8] |=
++		IEEE80211_HE_PHY_CAP8_HE_ER_SU_PPDU_4XLTF_AND_08_US_GI;
++	elem->phy_cap_info[9] =
++		IEEE80211_HE_PHY_CAP9_TX_1024_QAM_LESS_THAN_242_TONE_RU |
++		IEEE80211_HE_PHY_CAP9_RX_1024_QAM_LESS_THAN_242_TONE_RU |
++		IEEE80211_HE_PHY_CAP9_RX_FULL_BW_SU_USING_MU_WITH_COMP_SIGB |
++		IEEE80211_HE_PHY_CAP9_RX_FULL_BW_SU_USING_MU_WITH_NON_COMP_SIGB;
++
++	mcs->rx_mcs_80 = mcs_map;
++	mcs->tx_mcs_80 = mcs_map;
++	if (bw160) {
++		mcs->rx_mcs_160 = mcs_map;
++		mcs->tx_mcs_160 = mcs_map;
++	} else {
++		mcs->rx_mcs_160 = cpu_to_le16(0xffff);
++		mcs->tx_mcs_160 = cpu_to_le16(0xffff);
++	}
++
++	band->n_iftype_data = 1;
++	band->iftype_data = data;
++}
++
++static bool brcmf_he_enabled(struct brcmf_if *ifp)
++{
++	u8 enable = 0;
++
++	if (brcmf_fil_xtlv_data_get(ifp, "he", BRCMF_HE_CMD_ENABLE,
++				    &enable, sizeof(enable)))
++		return false;
++
++	return enable;
++}
++
+ static int brcmf_setup_wiphybands(struct brcmf_cfg80211_info *cfg)
+ {
+ 	struct brcmf_pub *drvr = cfg->pub;
+@@ -7520,8 +7626,10 @@ static int brcmf_setup_wiphybands(struct brcmf_cfg80211_info *cfg)
+ 	u32 txstreams = 0;
+ 	u32 txbf_bfe_cap = 0;
+ 	u32 txbf_bfr_cap = 0;
++	bool he_enable;
+ 
+ 	(void)brcmf_fil_iovar_int_get(ifp, "vhtmode", &vhtmode);
++	he_enable = brcmf_he_enabled(ifp);
+ 	err = brcmf_fil_iovar_int_get(ifp, "nmode", &nmode);
+ 	if (err) {
+ 		bphy_err(drvr, "nmode error (%d)\n", err);
+@@ -7571,6 +7679,9 @@ static int brcmf_setup_wiphybands(struct brcmf_cfg80211_info *cfg)
+ 		if (vhtmode)
+ 			brcmf_update_vht_cap(band, bw_cap, nchain, txstreams,
+ 					     txbf_bfe_cap, txbf_bfr_cap);
++		if (he_enable)
++			brcmf_update_he_cap(band, &cfg->he_iftype_data[i],
++					    bw_cap, nchain);
+ 	}
+ 
+ 	return 0;
+@@ -8598,18 +8709,19 @@ struct brcmf_cfg80211_info *brcmf_cfg80211_attach(struct brcmf_pub *drvr,
+ 	if (brcmf_feat_is_enabled(ifp, BRCMF_FEAT_DUMP_OBSS))
+ 		ops->dump_survey = brcmf_cfg80211_dump_survey;
+ 
++	/* cfg80211 validates the band capabilities when registering */
++	err = brcmf_setup_wiphybands(cfg);
++	if (err) {
++		bphy_err(drvr, "Setting wiphy bands failed (%d)\n", err);
++		goto priv_out;
++	}
++
+ 	err = wiphy_register(wiphy);
+ 	if (err < 0) {
+ 		bphy_err(drvr, "Could not register wiphy device (%d)\n", err);
+ 		goto priv_out;
+ 	}
+ 
+-	err = brcmf_setup_wiphybands(cfg);
+-	if (err) {
+-		bphy_err(drvr, "Setting wiphy bands failed (%d)\n", err);
+-		goto wiphy_unreg_out;
 -	}
 -
--	return netinfo;
--}
--
- /* PFN result doesn't have all the info which are required by the supplicant
-  * (For e.g IEs) Do a target Escan so that sched scan results are reported
-  * via wl_inform_single_bss in the required format. Escan does require the
-@@ -3928,19 +3901,19 @@ brcmf_notify_sched_scan_results(struct brcmf_if *ifp,
- {
- 	struct brcmf_pub *drvr = ifp->drvr;
- 	struct brcmf_cfg80211_info *cfg = drvr->config;
--	struct brcmf_pno_net_info_le *netinfo, *netinfo_start;
- 	struct cfg80211_scan_request *request = NULL;
- 	struct wiphy *wiphy = cfg_to_wiphy(cfg);
--	int i, err = 0;
- 	struct brcmf_pno_scanresults_le *pfn_result;
-+	struct brcmf_pno_netinfo netinfo;
-+	int i, err = 0;
- 	u32 bucket_map;
- 	u32 result_count;
- 	u32 status;
--	u32 datalen;
+ 	/* If cfg80211 didn't disable 40MHz HT CAP in wiphy_register(),
+ 	 * setup 40MHz in 2GHz band and enable OBSS scanning.
+ 	 */
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.h
+index 1aa99390a951..3168a262109e 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.h
+@@ -368,6 +368,7 @@ struct brcmf_cfg80211_wowl {
+  * @vif_event: vif event signalling.
+  * @wowl: wowl related information.
+  * @pno: information of pno module.
++ * @he_iftype_data: per band HE capabilities registered with the wiphy.
+  */
+ struct brcmf_cfg80211_info {
+ 	struct wiphy *wiphy;
+@@ -401,6 +402,7 @@ struct brcmf_cfg80211_info {
+ 	struct brcmf_cfg80211_wowl wowl;
+ 	struct brcmf_pno_info *pno;
+ 	u8 ac_priority[MAX_8021D_PRIO];
++	struct ieee80211_sband_iftype_data he_iftype_data[NUM_NL80211_BANDS];
+ };
  
- 	brcmf_dbg(SCAN, "Enter\n");
- 
--	if (e->datalen < (sizeof(*pfn_result) + sizeof(*netinfo))) {
-+	if (e->datalen < (sizeof(*pfn_result) +
-+			  sizeof(struct brcmf_pno_net_info_le))) {
- 		brcmf_dbg(SCAN, "Event data too small. Ignore\n");
- 		return 0;
- 	}
-@@ -3964,9 +3937,8 @@ brcmf_notify_sched_scan_results(struct brcmf_if *ifp,
- 		goto out_err;
- 	}
- 
--	netinfo_start = brcmf_get_netinfo_array(pfn_result);
--	datalen = e->datalen - ((void *)netinfo_start - (void *)pfn_result);
--	if (datalen < result_count * sizeof(*netinfo)) {
-+	err = brcmf_pno_check_results(data, e->datalen, result_count);
-+	if (err) {
- 		bphy_err(drvr, "insufficient event data\n");
- 		goto out_err;
- 	}
-@@ -3980,17 +3952,20 @@ brcmf_notify_sched_scan_results(struct brcmf_if *ifp,
- 
- 	bucket_map = 0;
- 	for (i = 0; i < result_count; i++) {
--		netinfo = &netinfo_start[i];
--
--		if (netinfo->SSID_len > IEEE80211_MAX_SSID_LEN)
--			netinfo->SSID_len = IEEE80211_MAX_SSID_LEN;
--		brcmf_dbg(SCAN, "SSID:%.32s Channel:%d\n",
--			  netinfo->SSID, netinfo->channel);
--		bucket_map |= brcmf_pno_get_bucket_map(cfg->pno, netinfo);
--		err = brcmf_internal_escan_add_info(request,
--						    netinfo->SSID,
--						    netinfo->SSID_len,
--						    netinfo->channel);
-+		err = brcmf_pno_get_netinfo(&cfg->d11inf, data, e->datalen, i,
-+					    &netinfo);
-+		if (err) {
-+			bphy_err(drvr, "insufficient event data\n");
-+			goto out_err;
-+		}
-+
-+		brcmf_dbg(SCAN, "SSID:%.*s Channel:%d\n",
-+			  netinfo.ssid_len, netinfo.ssid, netinfo.channel);
-+		bucket_map |= brcmf_pno_get_bucket_map(cfg->pno, &netinfo);
-+		err = brcmf_internal_escan_add_info(request, netinfo.ssid,
-+						    netinfo.ssid_len,
-+						    netinfo.channel,
-+						    chanspec_band_to_nl80211(netinfo.band));
- 		if (err)
- 			goto out_err;
- 	}
-@@ -4104,11 +4079,13 @@ brcmf_wowl_nd_results(struct brcmf_if *ifp, const struct brcmf_event_msg *e,
- 	struct brcmf_pub *drvr = ifp->drvr;
- 	struct brcmf_cfg80211_info *cfg = drvr->config;
- 	struct brcmf_pno_scanresults_le *pfn_result;
--	struct brcmf_pno_net_info_le *netinfo;
-+	struct brcmf_pno_netinfo netinfo;
-+	int err;
- 
- 	brcmf_dbg(SCAN, "Enter\n");
- 
--	if (e->datalen < (sizeof(*pfn_result) + sizeof(*netinfo))) {
-+	if (e->datalen < (sizeof(*pfn_result) +
-+			  sizeof(struct brcmf_pno_net_info_le))) {
- 		brcmf_dbg(SCAN, "Event data too small. Ignore\n");
- 		return 0;
- 	}
-@@ -4126,16 +4103,19 @@ brcmf_wowl_nd_results(struct brcmf_if *ifp, const struct brcmf_event_msg *e,
- 		return -EINVAL;
- 	}
- 
--	netinfo = brcmf_get_netinfo_array(pfn_result);
--	if (netinfo->SSID_len > IEEE80211_MAX_SSID_LEN)
--		netinfo->SSID_len = IEEE80211_MAX_SSID_LEN;
--	memcpy(cfg->wowl.nd->ssid.ssid, netinfo->SSID, netinfo->SSID_len);
--	cfg->wowl.nd->ssid.ssid_len = netinfo->SSID_len;
-+	err = brcmf_pno_get_netinfo(&cfg->d11inf, data, e->datalen, 0,
-+				    &netinfo);
-+	if (err) {
-+		bphy_err(drvr, "insufficient event data\n");
-+		return err;
-+	}
-+
-+	memcpy(cfg->wowl.nd->ssid.ssid, netinfo.ssid, netinfo.ssid_len);
-+	cfg->wowl.nd->ssid.ssid_len = netinfo.ssid_len;
- 	cfg->wowl.nd->n_channels = 1;
- 	cfg->wowl.nd->channels[0] =
--		ieee80211_channel_to_frequency(netinfo->channel,
--			netinfo->channel <= CH_MAX_2G_CHANNEL ?
--					NL80211_BAND_2GHZ : NL80211_BAND_5GHZ);
-+		ieee80211_channel_to_frequency(netinfo.channel,
-+					       chanspec_band_to_nl80211(netinfo.band));
- 	cfg->wowl.nd_info->n_matches = 1;
- 	cfg->wowl.nd_info->matches[0] = cfg->wowl.nd;
- 
+ /**
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h
-index f4e8eeeffa08..9dd2de048275 100644
+index 37d9414546d5..f4e8eeeffa08 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h
-@@ -1107,6 +1107,46 @@ struct brcmf_pno_param_le {
- 	__le32 slow_freq;
+@@ -1375,4 +1375,7 @@ struct brcmf_eventmsgs_ext_le {
+ 	u8 mask[] __counted_by(len);
  };
  
-+/**
-+ * struct brcmf_pno_param_v3_le - PNO scan configuration parameters
-+ *
-+ * @version: PNO parameters version.
-+ * @length: size of this structure.
-+ * @scan_freq: scan frequency.
-+ * @lost_network_timeout: #sec. to declare discovered network as lost.
-+ * @flags: Bit field to control features of PFN such as sort criteria auto
-+ *	enable switch and background scan.
-+ * @rssi_margin: Margin to avoid jitter for choosing a PFN based on RSSI sort
-+ *	criteria.
-+ * @bestn: number of best networks in each bucket.
-+ * @mscan: number of scans recorded which is equal to or less than bestn.
-+ * @repeat: minimum number of scan intervals before scan frequency changes
-+ *	in adaptive scan.
-+ * @exp: exponent of 2 for maximum scan interval.
-+ * @slow_freq: slow scan period.
-+ * @min_bound: minimum bound for PFN backoff.
-+ * @max_bound: maximum bound for PFN backoff.
-+ * @pfn_lp_scan_disable: disable low power scan interleaving.
-+ * @pfn_lp_scan_cnt: number of low power scans before a high power scan.
-+ */
-+struct brcmf_pno_param_v3_le {
-+	__le16 version;
-+	__le16 length;
-+	__le32 scan_freq;
-+	__le32 lost_network_timeout;
-+	__le16 flags;
-+	__le16 rssi_margin;
-+	u8 bestn;
-+	u8 mscan;
-+	u8 repeat;
-+	u8 exp;
-+	__le32 slow_freq;
-+	u8 min_bound;
-+	u8 max_bound;
-+	u8 pfn_lp_scan_disable;
-+	u8 pfn_lp_scan_cnt;
-+};
++/* "he" iovar sub-command ids */
++#define BRCMF_HE_CMD_ENABLE	0
 +
- /**
-  * struct brcmf_pno_config_le - PNO channel configuration.
-  *
-@@ -1160,6 +1200,31 @@ struct brcmf_pno_net_info_le {
- 	__le16	timestamp;
- };
- 
-+/**
-+ * struct brcmf_pno_net_info_v3_le - information per found network.
-+ *
-+ * @bssid: BSS network identifier.
-+ * @chanspec: channel spec.
-+ * @SSID_len: length of ssid.
-+ * @pad: padding.
-+ * @flags: flags.
-+ * @SSID: ssid characters.
-+ * @RSSI: receive signal strength (in dBm).
-+ * @timestamp: age in seconds.
-+ *
-+ * Version 3 results use the header of &struct brcmf_pno_scanresults_v2_le.
-+ */
-+struct brcmf_pno_net_info_v3_le {
-+	u8 bssid[ETH_ALEN];
-+	__le16 chanspec;
-+	u8 SSID_len;
-+	u8 pad;
-+	__le16 flags;
-+	u8 SSID[32];
-+	__le16 RSSI;
-+	__le16 timestamp;
-+};
-+
- /**
-  * struct brcmf_pno_scanresults_le - result returned in PNO NET FOUND event.
-  *
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.c
-index ba62ab41bae1..ec8cd81de9cf 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.c
-@@ -5,6 +5,7 @@
- #include <linux/netdevice.h>
- #include <linux/gcd.h>
- #include <net/cfg80211.h>
-+#include <brcmu_wifi.h>
- 
- #include "core.h"
- #include "debug.h"
-@@ -13,7 +14,8 @@
- #include "cfg80211.h"
- #include "pno.h"
- 
--#define BRCMF_PNO_VERSION		2
-+#define BRCMF_PNO_VERSION_2		2
-+#define BRCMF_PNO_VERSION_3		3
- #define BRCMF_PNO_REPEAT		4
- #define BRCMF_PNO_FREQ_EXPO_MAX		3
- #define BRCMF_PNO_IMMEDIATE_SCAN_BIT	3
-@@ -30,6 +32,7 @@
- #define GSCAN_RETRY_THRESHOLD			3
- 
- struct brcmf_pno_info {
-+	u8 version;
- 	int n_reqs;
- 	struct cfg80211_sched_scan_request *reqs[BRCMF_PNO_MAX_BUCKETS];
- 	struct mutex req_lock;
-@@ -102,23 +105,16 @@ static int brcmf_pno_channel_config(struct brcmf_if *ifp,
- static int brcmf_pno_config(struct brcmf_if *ifp, u32 scan_freq,
- 			    u32 mscan, u32 bestn)
- {
-+	struct brcmf_pno_info *pi = ifp_to_pno(ifp);
- 	struct brcmf_pub *drvr = ifp->drvr;
--	struct brcmf_pno_param_le pfn_param;
-+	u8 pfn_mscan = 0;
-+	u8 pfn_bestn = 0;
- 	u16 flags;
- 	u32 pfnmem;
- 	s32 err;
- 
--	memset(&pfn_param, 0, sizeof(pfn_param));
--	pfn_param.version = cpu_to_le32(BRCMF_PNO_VERSION);
--
--	/* set extra pno params */
- 	flags = BIT(BRCMF_PNO_IMMEDIATE_SCAN_BIT) |
- 		BIT(BRCMF_PNO_ENABLE_ADAPTSCAN_BIT);
--	pfn_param.repeat = BRCMF_PNO_REPEAT;
--	pfn_param.exp = BRCMF_PNO_FREQ_EXPO_MAX;
--
--	/* set up pno scan fr */
--	pfn_param.scan_freq = cpu_to_le32(scan_freq);
- 
- 	if (mscan) {
- 		pfnmem = bestn;
-@@ -136,15 +132,40 @@ static int brcmf_pno_config(struct brcmf_if *ifp, u32 scan_freq,
- 			goto exit;
- 		}
- 		mscan = min_t(u32, mscan, pfnmem);
--		pfn_param.mscan = mscan;
--		pfn_param.bestn = bestn;
-+		pfn_mscan = mscan;
-+		pfn_bestn = bestn;
- 		flags |= BIT(BRCMF_PNO_ENABLE_BD_SCAN_BIT);
- 		brcmf_dbg(INFO, "mscan=%d, bestn=%d\n", mscan, bestn);
- 	}
- 
--	pfn_param.flags = cpu_to_le16(flags);
--	err = brcmf_fil_iovar_data_set(ifp, "pfn_set", &pfn_param,
--				       sizeof(pfn_param));
-+	if (pi->version == BRCMF_PNO_VERSION_3) {
-+		struct brcmf_pno_param_v3_le pfn_param = {
-+			.version = cpu_to_le16(BRCMF_PNO_VERSION_3),
-+			.length = cpu_to_le16(sizeof(pfn_param)),
-+			.scan_freq = cpu_to_le32(scan_freq),
-+			.flags = cpu_to_le16(flags),
-+			.bestn = pfn_bestn,
-+			.mscan = pfn_mscan,
-+			.repeat = BRCMF_PNO_REPEAT,
-+			.exp = BRCMF_PNO_FREQ_EXPO_MAX,
-+		};
-+
-+		err = brcmf_fil_iovar_data_set(ifp, "pfn_set", &pfn_param,
-+					       sizeof(pfn_param));
-+	} else {
-+		struct brcmf_pno_param_le pfn_param = {
-+			.version = cpu_to_le32(BRCMF_PNO_VERSION_2),
-+			.scan_freq = cpu_to_le32(scan_freq),
-+			.flags = cpu_to_le16(flags),
-+			.bestn = pfn_bestn,
-+			.mscan = pfn_mscan,
-+			.repeat = BRCMF_PNO_REPEAT,
-+			.exp = BRCMF_PNO_FREQ_EXPO_MAX,
-+		};
-+
-+		err = brcmf_fil_iovar_data_set(ifp, "pfn_set", &pfn_param,
-+					       sizeof(pfn_param));
-+	}
- 	if (err)
- 		bphy_err(drvr, "pfn_set failed, err=%d\n", err);
- 
-@@ -517,6 +538,8 @@ int brcmf_pno_stop_sched_scan(struct brcmf_if *ifp, u64 reqid)
- 
- int brcmf_pno_attach(struct brcmf_cfg80211_info *cfg)
- {
-+	struct brcmf_if *ifp = brcmf_get_ifp(cfg->pub, 0);
-+	struct brcmf_pno_param_v3_le param = {};
- 	struct brcmf_pno_info *pi;
- 
- 	brcmf_dbg(TRACE, "enter\n");
-@@ -524,6 +547,11 @@ int brcmf_pno_attach(struct brcmf_cfg80211_info *cfg)
- 	if (!pi)
- 		return -ENOMEM;
- 
-+	pi->version = BRCMF_PNO_VERSION_2;
-+	if (!brcmf_fil_iovar_data_get(ifp, "pfn_set", &param, sizeof(param)) &&
-+	    le16_to_cpu(param.version) == BRCMF_PNO_VERSION_3)
-+		pi->version = BRCMF_PNO_VERSION_3;
-+
- 	cfg->pno = pi;
- 	mutex_init(&pi->req_lock);
- 	return 0;
-@@ -565,8 +593,86 @@ u64 brcmf_pno_find_reqid_by_bucket(struct brcmf_pno_info *pi, u32 bucket)
- 	return reqid;
- }
- 
-+static bool brcmf_pno_get_layout(const struct brcmf_pno_scanresults_le *res,
-+				 size_t *hdr_len, size_t *size)
-+{
-+	switch (le32_to_cpu(res->version)) {
-+	case 3:
-+		*hdr_len = sizeof(struct brcmf_pno_scanresults_v2_le);
-+		*size = sizeof(struct brcmf_pno_net_info_v3_le);
-+		return true;
-+	case 2:
-+		*hdr_len = sizeof(struct brcmf_pno_scanresults_v2_le);
-+		*size = sizeof(struct brcmf_pno_net_info_le);
-+		return false;
-+	default:
-+		WARN_ON_ONCE(1);
-+		fallthrough;
-+	case 1:
-+		*hdr_len = sizeof(*res);
-+		*size = sizeof(struct brcmf_pno_net_info_le);
-+		return false;
-+	}
-+}
-+
-+int brcmf_pno_check_results(const void *data, u32 datalen, u32 count)
-+{
-+	const struct brcmf_pno_scanresults_le *res = data;
-+	size_t hdr_len, size;
-+
-+	if (datalen < sizeof(*res))
-+		return -EINVAL;
-+
-+	brcmf_pno_get_layout(res, &hdr_len, &size);
-+	if (datalen < hdr_len || (datalen - hdr_len) / size < count)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+int brcmf_pno_get_netinfo(struct brcmu_d11inf *d11inf, const void *data,
-+			  u32 datalen, u32 idx, struct brcmf_pno_netinfo *ni)
-+{
-+	const struct brcmf_pno_scanresults_le *res = data;
-+	const struct brcmf_pno_net_info_v3_le *v3;
-+	const struct brcmf_pno_net_info_le *v1;
-+	struct brcmu_chan ch = {};
-+	size_t hdr_len, size;
-+	bool is_v3;
-+
-+	memset(ni, 0, sizeof(*ni));
-+
-+	if (datalen < sizeof(*res))
-+		return -EINVAL;
-+
-+	is_v3 = brcmf_pno_get_layout(res, &hdr_len, &size);
-+	if (datalen < hdr_len || (datalen - hdr_len) / size <= idx)
-+		return -EINVAL;
-+
-+	if (is_v3) {
-+		v3 = data + hdr_len + idx * size;
-+		ni->ssid_len = min_t(u8, v3->SSID_len, IEEE80211_MAX_SSID_LEN);
-+		memcpy(ni->ssid, v3->SSID, ni->ssid_len);
-+		memcpy(ni->bssid, v3->bssid, ETH_ALEN);
-+		ch.chspec = le16_to_cpu(v3->chanspec);
-+		d11inf->decchspec(&ch);
-+		ni->channel = ch.control_ch_num;
-+		ni->band = ch.band;
-+	} else {
-+		v1 = data + hdr_len + idx * size;
-+		ni->ssid_len = min_t(u8, v1->SSID_len, IEEE80211_MAX_SSID_LEN);
-+		memcpy(ni->ssid, v1->SSID, ni->ssid_len);
-+		memcpy(ni->bssid, v1->bssid, ETH_ALEN);
-+		ni->channel = v1->channel;
-+		ni->band = v1->channel <= CH_MAX_2G_CHANNEL ?
-+			   BRCMU_CHAN_BAND_2G : BRCMU_CHAN_BAND_5G;
-+	}
-+
-+	return 0;
-+}
-+
- u32 brcmf_pno_get_bucket_map(struct brcmf_pno_info *pi,
--			     struct brcmf_pno_net_info_le *ni)
-+			     const struct brcmf_pno_netinfo *ni)
- {
- 	struct cfg80211_sched_scan_request *req;
- 	struct cfg80211_match_set *ms;
-@@ -581,8 +687,8 @@ u32 brcmf_pno_get_bucket_map(struct brcmf_pno_info *pi,
- 			continue;
- 		for (j = 0; j < req->n_match_sets; j++) {
- 			ms = &req->match_sets[j];
--			if (ms->ssid.ssid_len == ni->SSID_len &&
--			    !memcmp(ms->ssid.ssid, ni->SSID, ni->SSID_len)) {
-+			if (ms->ssid.ssid_len == ni->ssid_len &&
-+			    !memcmp(ms->ssid.ssid, ni->ssid, ni->ssid_len)) {
- 				bucket_map |= BIT(i);
- 				break;
- 			}
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.h
-index 25d406019ac3..a47918244e1a 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.h
-@@ -12,6 +12,24 @@
- 
- /* forward declaration */
- struct brcmf_pno_info;
-+struct brcmu_d11inf;
-+
-+/**
-+ * struct brcmf_pno_netinfo - network found by a PNO scan.
-+ *
-+ * @bssid: BSS network identifier.
-+ * @ssid: ssid characters.
-+ * @ssid_len: length of ssid.
-+ * @channel: control channel number.
-+ * @band: band of the channel, one of the BRCMU_CHAN_BAND_* values.
-+ */
-+struct brcmf_pno_netinfo {
-+	u8 bssid[ETH_ALEN];
-+	u8 ssid[IEEE80211_MAX_SSID_LEN];
-+	u8 ssid_len;
-+	u8 channel;
-+	u8 band;
-+};
- 
- /**
-  * brcmf_pno_start_sched_scan - initiate scheduled scan on device.
-@@ -60,6 +78,27 @@ void brcmf_pno_detach(struct brcmf_cfg80211_info *cfg);
-  */
- u64 brcmf_pno_find_reqid_by_bucket(struct brcmf_pno_info *pi, u32 bucket);
- 
-+/**
-+ * brcmf_pno_check_results - validate PNO scan results buffer length.
-+ *
-+ * @data: PNO scan results event data.
-+ * @datalen: length of @data.
-+ * @count: number of network entries reported in the results header.
-+ */
-+int brcmf_pno_check_results(const void *data, u32 datalen, u32 count);
-+
-+/**
-+ * brcmf_pno_get_netinfo - extract a network from PNO scan results.
-+ *
-+ * @d11inf: chanspec conversion functions.
-+ * @data: PNO scan results event data.
-+ * @datalen: length of @data.
-+ * @idx: index of the network in the results.
-+ * @ni: network information to fill in.
-+ */
-+int brcmf_pno_get_netinfo(struct brcmu_d11inf *d11inf, const void *data,
-+			  u32 datalen, u32 idx, struct brcmf_pno_netinfo *ni);
-+
- /**
-  * brcmf_pno_get_bucket_map - determine bucket map for given netinfo.
-  *
-@@ -67,6 +106,6 @@ u64 brcmf_pno_find_reqid_by_bucket(struct brcmf_pno_info *pi, u32 bucket);
-  * @netinfo: netinfo to compare with bucket configuration.
-  */
- u32 brcmf_pno_get_bucket_map(struct brcmf_pno_info *pi,
--			     struct brcmf_pno_net_info_le *netinfo);
-+			     const struct brcmf_pno_netinfo *netinfo);
- 
- #endif /* _BRCMF_PNO_H */
+ #endif /* FWIL_TYPES_H_ */
 
 -- 
 2.56.0
