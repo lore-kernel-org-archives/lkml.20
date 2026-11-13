@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794580945;
-	b=1PNL1vX/0AzVnHoW13eWYn4bXh1ivB0RS+W0O0kXbAyKBIUcFWxyKdbbSBn6EpiFVv03
-	 LrinqJzm6d8waGOUS1DogTCr5uK7hBAngdHnV4Kpc1ZtVfdzpBdy9zXujOg3rkDLRYJRS
-	 zRjAWlC3QZJV1A0y1EOkZ9BSH24GdzO2FKykw4ZQGOi62UCyTKYLAWxOI5KszDFcmvMpH
-	 8fxCDpAVyvjh+12rhglQlcHwex8jeFRQFyVN2d7gjiULBMXVo7uplV9wsT36XLKjKyZKG
-	 jWOuXuVCcughTInxYl44SCeIcdLGyN2HhgAOr84xqEEXskJMBM3gIJalUMZY/rC7Wmg==
+	t=1794580950;
+	b=a6kjJLe/uP8JkVJgnN4l2wuJCJKDSJU8hpYJVeruSnel7kfom08+bcrs0JTQhz1hG4c3
+	 9b9xyyJxTY+ALLC7xbZQHLe8ywJ5hTkO/ekSNq+ZplTz/ICGK4IOsLutcLrDJ3cl8irHQ
+	 6Gm191s6YLuuqBjNk+M6k02DcA9JtnQ4ZoOimua79vmZNQCzGf/Tf93P2335DN3dX68tC
+	 z5BlL9Rq2C1ySXEuQga1hG/P+fOG9UhuPKCb6j8G/uFSUSN5Y/O1Bvo3qyqDNiP/SwgQQ
+	 8xq7QFiElE1nDpSlyAJs9TdJDu2vXmVm/uZjM3Oppd1Y54+3FGU6zxzBoz5HVVTYyTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794580945;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794580950;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tw0RNCHx45b0sxvoNuphiQaKWihW8yBZX9bRA3H3IZQ=;
-	b=pwfW06p0RkJI2zLO/6IncmGcG34bjlQ83GsGqZzywT1z6qfF/xuZ6w42VS+Zrg8urZ58
-	 W1FShDV7PFWWu2f2vZWVSTHNKauGoQr4ft3BEBCtFqVWGKusnaGrQRyvosx1ZLncy8rTO
-	 bIIJqSQJC3SBa6q8qauzB4HvkD+GjTO1rve9syF1E83JVNE1SOpGtHuRFPUxTzWgBKTg2
-	 29DKQK8D0JDBcAZWBlK6q08IzNV+QexGOVV4euNd/RNUPA+4q/tzZgem1T15FN/7R7bbS
-	 3EhwmcDuRmZekdohBRwyrKursgnKfJyqgJHW+TxcVGEK5O0QggIjesZzsWf5ZZxGxsA==
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=Bx5JSIj4taaYF57uIG81WZuKix9lw9kbm56fQE4YOhg=;
+	b=U48DYVtACcOf5xtCitn2mM5wIDR+W7vmKX69+NHaye4bysqEFfzE3py4ewTL8vp+cDxH
+	 7AjxbwxCBDFq40nwRI+uiuPBLeuAYuoHOrjfkdiED+JugcrdMkvwx6g0tR/QgxV+4+AnV
+	 kSkqOaiLjwXRxW+/qUm00cDDgHxcnKdpz88O84Tk48TSYHU+N+kCINAc1wrKLT8AfRgnV
+	 jyW7JH+EhjwlWmnQhAh0CuZ8o1wt+aftPcRpYejV3ov5a8ICIpqfdlt7w9OjHThMb07bx
+	 DoT6sKfB+bm+RfX6FZ3uhllzvVjZdlCxxUJ9XLH0tTkYyp441fULbKF6mKG8DE5EsIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZ1S8rzG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iwPpLg8k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E16E7606A323;
-	Fri, 13 Nov 2026 14:42:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790EB606A32D;
+	Fri, 13 Nov 2026 14:42:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZ1S8rzG
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 073611F000C4;
-	Fri, 13 Nov 2026 14:42:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iwPpLg8k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DA601F000C7;
+	Fri, 13 Nov 2026 14:42:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794580944;
-	bh=tw0RNCHx45b0sxvoNuphiQaKWihW8yBZX9bRA3H3IZQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RZ1S8rzG7ljUrsJLih0vleRn5hAOMU/eQr9oeb8ub2PX25P6xFCKYC5ovF9P57fEz
-	 pYZ7ApM+kxEPzH+d/ixDmnBcGxO/bdI+l4Etxa1XvDtlePeR4TW8GTY/w/80WUC9p6
-	 8hlJx2IGq1UvWRiLX18CycTdamgWMUDJYVe/LALSXj0UMYVMAE/qI3rVi8ZMpIHhBg
-	 Fy3CKQu7tovXdYly632+UV19l+5kyACeJSCK5k0oKe7ql+oTbuHeNPJWBNbndelIs1
-	 XAatk8VSdyzhLqd2lq4uTRmNQYIwzvfWAxaajmVTCEpCSe0hgshqXJIKwsMi0VDsR4
-	 HRezN2hQBdZdA==
-Date: Fri, 13 Nov 2026 16:42:20 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	surenkj@amazon.com, noodles@meta.com, linux-doc@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH v3 1/2] tpm: Disable a TPM that stops responding
-Message-ID: <avchzL3uEXHbvNv_@kernel.org>
-References: <20261113-tpm_unresponsive-v3-0-8138c8e283b8@debian.org>
- <20261113-tpm_unresponsive-v3-1-8138c8e283b8@debian.org>
+	s=k20260515; t=1794580950;
+	bh=Bx5JSIj4taaYF57uIG81WZuKix9lw9kbm56fQE4YOhg=;
+	h=Date:From:To:Cc:Subject;
+	b=iwPpLg8keaB1k9ef6yh4iyY8CXXuNq6f+yxhPAmsLbkoRlhDZdLFKuxyT6FWsyEXj
+	 SYsYJ9sg5O3gB8CoSddumpkoweapMSClhriJyNWZt/8gGCRyVKW3AIjvahVzVjQ20R
+	 Vp3+8seStKnpqG2Q1oPX2CQOCLFyZi9CBBs2ay33UmGyi+VhEQy1GcvWKk5UMxzf/o
+	 bXdK88Kuu/y05g046wXbp4kGhT8qFfrTSPJaaqUHxtAO5j//w3FBsi+9ek7eTrk6hJ
+	 i/7HwQH6WhKzPA9e8cU0H6EfRek3LIy7HmmG8f8ELM5Yb658FrxhU0TtM2IvMvzV56
+	 jte1vF+dlRNLQ==
+Date: Fri, 13 Nov 2026 14:42:25 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Brian Masney <bmasney@redhat.com>, Jerome Brunet <jbrunet@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+	Brian Masney <masneyb@kernel.org>, Kees Cook <kees@kernel.org>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the clk tree with the origin tree
+Message-ID: <avch0WAFqmKQHd_1@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,89 +59,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="R3xg1ru6BtpYPMXW"
+Content-Disposition: inline
+
+
+--R3xg1ru6BtpYPMXW
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261113-tpm_unresponsive-v3-1-8138c8e283b8@debian.org>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 13, 2026 at 02:38:58AM -0800, Breno Leitao wrote:
-> A TPM that stops responding fails each command only after the transport
-> timeout, and its callers keep sending more: the hwrng thread every 10
-> seconds forever, and userspace through /dev/tpmrm0. Each attempt holds
-> tpm_mutex for the whole timeout and logs an error:
-> 
->   tpm tpm0: invalid TPM_STS.x 0xff, dumping stack for forensics
->   tpm tpm0: tpm_try_transmit: send(): error -62
->   tpm tpm0: tpm_try_transmit: send(): error -62
->   ...
-> 
-> The core already stops using a TPM it cannot trust: tpm_try_get_ops()
-> fails with -EIO once TPM_CHIP_FLAG_DISABLE is set, which
-> tpm2_load_null() does when it cannot restore the null key. Set the same
-> flag once 60 commands in a row have timed out.
-> 
-> A completed command, whatever its TPM return code, resets the count.
-> Some TPMs stall for half a minute, time out a handful of commands, and
-> then recover, so a short streak must not disable them.
-> 
-> With only the hwrng retrying every 10 seconds, 60 timeouts take more
-> than ten minutes. A userspace poller gets there sooner, but each of its
-> commands still waits out the transport timeout.
-> 
-> The limit is the tpm.max_missed_responses boot parameter, so that slow
-> pre-production parts, such as FPGA prototypes, can raise it, or set it
-> to 0 to never disable the TPM. A disabled TPM stays disabled until the
-> driver is rebound or the machine reboots.
-> 
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
->  Documentation/admin-guide/kernel-parameters.txt |  8 ++++++++
->  drivers/char/tpm/tpm-interface.c                | 14 ++++++++++++++
->  include/linux/tpm.h                             |  1 +
->  3 files changed, 23 insertions(+)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index 1e8317483844d9..cedea8bd468aba 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -7682,6 +7682,14 @@ Kernel parameters
->  			causing a major performance hit, and the space where
->  			machines are deployed is by other means guarded.
->  
-> +	tpm.max_missed_responses= [HW,TPM]
-> +			Number of commands in a row that may time out before
-> +			the TPM is disabled. It stays disabled until the
-> +			driver is rebound or the machine reboots. Set to 0
-> +			to never disable the TPM.
-> +			Format: <unsigned int>
-> +			Default: 60
-> +
->  	tpm_crb_ffa.busy_timeout_ms= [ARM64,TPM]
->  			Maximum time in milliseconds to retry sending a message
->  			to the TPM service before giving up. This parameter controls
-> diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
-> index e0385b16616b46..977e205807033d 100644
-> --- a/drivers/char/tpm/tpm-interface.c
-> +++ b/drivers/char/tpm/tpm-interface.c
-> @@ -40,6 +40,11 @@ module_param_named(suspend_pcr, tpm_suspend_pcr, uint, 0644);
->  MODULE_PARM_DESC(suspend_pcr,
->  		 "PCR to use for dummy writes to facilitate flush on suspend.");
->  
-> +static unsigned int tpm_max_missed_responses = 60;
+Hi all,
 
-This looks good but I started to think this number. I guess it is high
-because there's never reset-to-zero for chip->nr_missed_responses.
+Today's linux-next merge of the clk tree got a conflict in:
 
-I think three or four trials at most should be enough, and when there 
-is a successful transmission chip->nr_missed_responses should reset.
+  drivers/clk/socfpga/clk-s10.c
 
-One thing that bothers me in the commit message is a piece of
-information that is missing: when does it start to return error?
-From the get go?
+between commit:
 
-I mean based on provided information one could presume that this
-could be also fixed at driver init by doing a few smoke tests
-and don't let it fully ever initialize.
+  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
+oc_obj() family")
 
-"A TPM that stops responding fails" is not very locked in scenario.
+=66rom the origin tree and commit:
 
-Br, Jarkko
+  51805c5218c7e ("clk: socfpga: stratix10: register the SP timer clocks ear=
+ly")
+
+=66rom the clk tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/clk/socfpga/clk-s10.c
+index aad66f8d069d2,1976789b5166a..0000000000000
+--- a/drivers/clk/socfpga/clk-s10.c
++++ b/drivers/clk/socfpga/clk-s10.c
+@@@ -382,33 -397,112 +397,111 @@@ static int s10_clk_register_pll(const s
+  	return 0;
+  }
+ =20
+- static int s10_clkmgr_init(struct platform_device *pdev)
++ static struct stratix10_clock_data *s10_clk_data;
++=20
++ static struct stratix10_clock_data *s10_clk_data_alloc(void __iomem *base)
+  {
+- 	struct device_node *np =3D pdev->dev.of_node;
+- 	struct device *dev =3D &pdev->dev;
+  	struct stratix10_clock_data *clk_data;
+- 	void __iomem *base;
+- 	int i, num_clks;
++ 	int i;
+ =20
+- 	base =3D devm_platform_ioremap_resource(pdev, 0);
+- 	if (IS_ERR(base)) {
+- 		pr_err("%s: failed to map clock registers\n", __func__);
+- 		return PTR_ERR(base);
+- 	}
+-=20
+- 	num_clks =3D STRATIX10_NUM_CLKS;
+- 	clk_data =3D devm_kzalloc_flex(dev, *clk_data, clk_data.hws, num_clks);
+ -	clk_data =3D kzalloc(struct_size(clk_data, clk_data.hws, STRATIX10_NUM_C=
+LKS),
+ -			   GFP_KERNEL);
+++	clk_data =3D kzalloc_flex(*clk_data, clk_data.hws, STRATIX10_NUM_CLKS);
+  	if (!clk_data)
+- 		return -ENOMEM;
++ 		return NULL;
+ =20
+  	clk_data->base =3D base;
+- 	clk_data->clk_data.num =3D num_clks;
++ 	clk_data->clk_data.num =3D STRATIX10_NUM_CLKS;
+ =20
+- 	for (i =3D 0; i < num_clks; i++)
+- 		clk_data->clk_data.hws[i] =3D ERR_PTR(-ENOENT);
++ 	for (i =3D 0; i < STRATIX10_NUM_CLKS; i++)
++ 		clk_data->clk_data.hws[i] =3D ERR_PTR(-EPROBE_DEFER);
+ =20
++ 	return clk_data;
++ }
++=20
++ static void s10_clk_register_early(struct stratix10_clock_data *clk_data)
++ {
+  	s10_clk_register_pll(s10_pll_clks, ARRAY_SIZE(s10_pll_clks), clk_data);
+ =20
++ 	s10_clk_register_c_perip(s10_early_perip_c_clks,
++ 				 ARRAY_SIZE(s10_early_perip_c_clks), clk_data);
++=20
++ 	s10_clk_register_cnt_perip(s10_early_perip_cnt_clks,
++ 				   ARRAY_SIZE(s10_early_perip_cnt_clks),
++ 				   clk_data);
++=20
++ 	s10_clk_register_gate(s10_early_gate_clks,
++ 			      ARRAY_SIZE(s10_early_gate_clks), clk_data);
++ }
++=20
++ /*
++  * The registered clocks keep using the mapping and clk_data, so neither =
+is
++  * released once the early clocks have been registered.
++  */
++ static int s10_clkmgr_setup(struct device_node *np)
++ {
++ 	struct stratix10_clock_data *clk_data;
++ 	void __iomem *base;
++=20
++ 	base =3D of_iomap(np, 0);
++ 	if (!base) {
++ 		pr_err("%s: failed to map clock registers\n", __func__);
++ 		return -ENOMEM;
++ 	}
++=20
++ 	clk_data =3D s10_clk_data_alloc(base);
++ 	if (!clk_data) {
++ 		iounmap(base);
++ 		return -ENOMEM;
++ 	}
++=20
++ 	s10_clk_register_early(clk_data);
++ 	s10_clk_data =3D clk_data;
++=20
++ 	return 0;
++ }
++=20
++ static int s10_clkmgr_add_provider(struct device_node *np)
++ {
++ 	static bool added;
++ 	int ret;
++=20
++ 	if (added)
++ 		return 0;
++=20
++ 	ret =3D of_clk_add_hw_provider(np, of_clk_hw_onecell_get,
++ 				     &s10_clk_data->clk_data);
++ 	if (ret)
++ 		return ret;
++=20
++ 	added =3D true;
++=20
++ 	return 0;
++ }
++=20
++ static void __init s10_clkmgr_early_init(struct device_node *np)
++ {
++ 	if (s10_clkmgr_setup(np))
++ 		return;
++=20
++ 	if (s10_clkmgr_add_provider(np))
++ 		pr_err("%s: failed to add clock provider\n", __func__);
++ }
++=20
++ CLK_OF_DECLARE_DRIVER(stratix10_clkmgr, "intel,stratix10-clkmgr",
++ 		      s10_clkmgr_early_init);
++=20
++ static int s10_clkmgr_init(struct platform_device *pdev)
++ {
++ 	struct stratix10_clock_data *clk_data;
++ 	int i, ret;
++=20
++ 	if (!s10_clk_data) {
++ 		ret =3D s10_clkmgr_setup(pdev->dev.of_node);
++ 		if (ret)
++ 			return ret;
++ 	}
++=20
++ 	clk_data =3D s10_clk_data;
++=20
+  	s10_clk_register_c_perip(s10_main_perip_c_clks,
+  				 ARRAY_SIZE(s10_main_perip_c_clks), clk_data);
+ =20
+
+--R3xg1ru6BtpYPMXW
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr3IdEACgkQJNaLcl1U
+h9D5Sgf/br1IrC5Ga/GctaBdJ+Shz230XXIgTF8GfCl9sStLxMr64FC3qNS3Q1CZ
+ZtJwKjUT9NeCm+tBXbYP6CcMBTehLNzlJcBxblGGM6SE6uYv5HfaYgJNXlxOmtlo
+fJWf5ZyxpOEy4L3bEQKuHKdcXAHDqeH7OdHSL7XNJ2PdqiKVC1QMZGv9b3ezL0Xe
+JFsd109wkXEBPKbA4ZnCqtw2Dn/YUXCqskjW5h7AGQj4gaptsrWdmKcupg0WE+CT
+lRYhytx2N8/WBBwgSH9NO0OC/tunbT01CU8aYuRnltCuvQ3eCIp4a9QiZY8OVYGN
+3nM3i+IO4qy2cnZn0ghbUqMdlfWTQA==
+=NidW
+-----END PGP SIGNATURE-----
+
+--R3xg1ru6BtpYPMXW--
