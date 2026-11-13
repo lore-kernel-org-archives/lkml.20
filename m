@@ -1,55 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794578984;
-	b=Aa+6dlD3m41tvzfcVzLnBcgFu3EF7suOWqEsV6T6rjlJ74rSM6xJVHVLyvFeAqai09Y7
-	 gMx+Nxe/iOpULOGGiYUweXgTMtbMj208N/KTMbUlpTZwzG9mSOZw4ra/I+ASzrlVooVMD
-	 6vwRLf1HVhvOS9RncHEhkr+UMeN+1MjifNz09tdAOc5fJ1a0tIEy+vBeTmbzxO+g+5dSv
-	 Oo1SJUAm4tRk9koVhQZj7DYK4DBEDoRAIuotU+XmaTfJHzJYzh1BuKMu4Wtv1UA+KhBeo
-	 kZVeHqT/U60A2xpnEheQOYOJ0S+jRwxeqogctMoM2v91AcPCa41DVGluFRwTqTrYLFw==
+	t=1794578991;
+	b=i5PpsodkYA+z/TGzwVL1C+vnJTzTnX4inxayhSW0q01iOSXM03dSWa20dRsi9Swyiqp1
+	 N5jk5ZnWO1pBIGHiZ4Dc9NQmugAULEn2AIRMyVpwSAGVW42tkYujOdXzZjHWSNz5yIYnr
+	 2tg95jbQbBsDAwDCdPMnOFWJJcaKgpu8RRo87FNR1ieru9JaZ/PlEu9ru/6/73ce00EXk
+	 fwIfjAY9n7gaQcQ3w5/I2L/1MeO1Zl5tUkxiQ0UDku6ReMoDAto2z+qEY0bqs01YObdmy
+	 GaMyleQW9Yy20vbcD2AfXD6C2Jopzvi36O2/oUC0KhFCVtG++ioz+71wxJZjyf8pDDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578984;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=K/7V8VCjsHb9RdeR+9MCXXwOeyIzjc5Oa04EgPHLl9k=;
-	b=hkJs4Z+TR5IsAhsWzgNJstvEJhqubV9jvVOsXGyxAsA52DhfQLgwKM+vk7kqYJZiUCKj
-	 R8TkmgubNIX3HBanZT4FfvL5ke8Eno+tt7jXD3Oy6onj9lAAdjfOzmcISj5repWeXOFwI
-	 HPI3NhG7O2wKvUcz/WuL2CSHyMc5vh2d3P01ymyxiYUzQ0550SA9zdM/lL3b+O0tqWP5k
-	 DlXiXjUWjG4LEDOZ+Fn0zH3fMauOBsytcR5qSzlNBUwjmHnvEA83rU/U1YDGk17h8Unvn
-	 KA0FwsLyGb0VAgIQd7OBycavksEd99Yn5Ia7j8G+bj72iDt/c9VL8RgANX0uBu7jTUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578991;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=bAL0mG7gDM0Ds4mwj8nZj0AtHGkdJ+5sP2blMTQt1jA=;
+	b=TTHvdmMTnGVEyU6cHUnIIlX7zxkGCe/D40kgm6hF+bGXMFnKmvcdZXr93xOJy+pOryZY
+	 koQlVqQUN8MSaY1lih4PpSqQZKcEr2Ufk9if6qiUVZrc1DDJaCe/ALuHATyS8IVAWXDPK
+	 RTu0xIfs8wflFcnY2bEmVq/N69xDmvTJ1mGPxEM8qyQlPmh7AomZArh7p1Fc+7jrMXJKU
+	 MLi5pTGQP8+FEZyX8mJUdYCiq2E4XGm6RTnmwA2Zsaz2LJwlbYfY6Q2Mu1RJgyLZTeiVX
+	 vRstYd/97UyzOm6YdFSJmLKqfd12Xg5brf/SQCrcYU4n+VX7k4JnJq/1Zv4u20v6cTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbSqIud0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=emFOdmK1;
+	arc=none smtp.remote-ip=203.205.221.149
+Received: from out203-205-221-149.mail.qq.com (out203-205-221-149.mail.qq.com [203.205.221.149])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCA2606A330
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:09:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23514606A32E;
+	Fri, 13 Nov 2026 14:09:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23514606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbSqIud0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AAC21F000C9
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:09:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794578984;
-	bh=K/7V8VCjsHb9RdeR+9MCXXwOeyIzjc5Oa04EgPHLl9k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DbSqIud0cwb4WztQQK3YepIowWJWgqbi98doAuDpEu+DnH8lcYR7i7tKTNr5leKmG
-	 51+8dj5k3JbUQpPII/KtR3yTsBZQrTV5TAQ2iTADMzqj18y+h6XacndeTTbz8xmcEm
-	 qdMEniuLMtk3GVqhkbYlNfD2au9prhNh2ZfDUW6eaXYCdu/FRymLg+VzsFSlXt5pm+
-	 CtH8UVIq6vLFaSVgaBPrwT/bKygrMB+V8L6en+KG8dsVt1ZYWdgj77JMcJmOeS6spD
-	 KGfbIZDcbD1SdYY+vMEJ0W/CfGbGuLH6X8H4l6jjx1VfwxYVkCUU5erC/QRCXfE++U
-	 bHNVIXGRCYFeA==
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c468bd799ecso196162766b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:09:44 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHmcUrDTDuPxP5EcjQTvnnMTJlXFHIcrfxZyqxHKEt4hA3aUM3FE4hHLPT8Kuvp/ullQWAjQSKAkLnf48s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TqvIByCW+q3eJ+pbUPHF2qjYXGMTYKERWMFaRRcVdJr7djYZL
-	zy2kcXL7c4YZEFREypPiFl7V+i2ohllTcPpZmhHflhMjL9qw44RbhbqMgGuDPnNgqXM9ybo++WZ
-	8JCDmH2mny6YjuNRGUfiI6nUfWScJSoc=
-X-Received: by 2002:a17:907:3f23:b0:c50:93b6:52fa with SMTP id
- a640c23a62f3a-c509614e782mr225471866b.2.1794578983245; Fri, 13 Nov 2026
- 06:09:43 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=emFOdmK1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794578981; bh=bAL0mG7gDM0Ds4mwj8nZj0AtHGkdJ+5sP2blMTQt1jA=;
+	h=From:To:Cc:Subject:Date;
+	b=emFOdmK1wpaeWv4vxDtWixwyL5bqDFRhmA5YbZnPm9cuADLfsUA6QlDmZ7CegpAU5
+	 6mWJ9veZNQ++ZSECnN5VeFh/sFz5hjR7FlEKCo95V80eG7bCAnSOhlrmMgZQEZ/4Kz
+	 FvmjwgnzjtmUq/l3yLxaTf7/qhzB+VGUq/2SNNFI=
+Received: from [172.18.4.77] ([202.113.185.209])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 2668D40C; Fri, 13 Nov 2026 22:09:38 +0800
+X-QQ-mid: xmsmtpt1794578978tyc0xg9qc
+Message-ID: <tencent_3088A959D4B80F725457EAC737C488ABD306@qq.com>
+X-QQ-XMAILINFO: NC4p7XQIBeahJNh9TIiqCTt1EqrLWJ0DItzm73BWZg/6vMQutgNqMe6pr9wIaL
+	 k9v4f3/nFdZWCSd/DlrAijMOipUCW/jOUIvJNi2yJOEynstjqPf5J2fIRTyeopMj4wk+NTZjAWiM
+	 SqI4Mrow/ldJNVZmBMnFn7OJubsNmZon1uZ/QhVAz30EzS3C5FtRM98Tb2b2wbA0uJqZOZh4Ftg2
+	 8Uh0RMxDWT0yjOP5r+F6/x618B/xdT5MlzPSl/AjgSn1JC6xBsAyBq2K1/oY2EJVzK8oawyxFTDD
+	 w7Tn/FRWWr1lwAdhUbPXIWrQFsLGzqA+7LZUws9BsNUmmZ6jkCiaU+WtVX4fEXD/gQFsZ53Foek0
+	 3NB0ONK7qi5RT92In09HvK4FFpUDSwKfCJ823Oden35I0f/Z8V/96G1AegAYaKWvc5I9s2XjDOnZ
+	 vUTBcQzFOBhCYBm/XKjlJvtRAXqW2yF2mIzU6BBiqFKsuw7irGXx1lyKkKGVv/NdcyUCiAN47RL4
+	 /pTsFOBrRvqgShY8ctDpsOXsubAp7JReasj/gpZCkmM5WNAYT32Cj2Z5vwWpgBZ1g8w5UkyrloE6
+	 TrSvz7nKfRYD+dwBvoL23U1t8mU1e0Is684a7bVVIPrGZG+zkANR8tu0p1JDvN8pzefald/UFIdX
+	 2HrRTMsweTiPkKTG33qP2unMRm+YrVahLb6IfJ+ZXtqc59aDDGiphWhnPW+zgpHlPEaFpaVJbdwU
+	 y2QgutFOV0haWNrneMtI7FqmlAquzxdUhJ9qvZklEIXMq80SxySM4a5KaUESGNgq+ZlQ5h7IO6ot
+	 ZP3/th5MBDwUSp+mfRycTpiZ3Mx50p5E18xEUBlSoh5Pcz3UMCT75UlaNYWHMAAiHWun72WPv+vE
+	 VVrt3hmBd6n6l13uC4A3SuODxZENs8BT4pl9OkBdE0uXYDXT8ePH9ihQTaDF4GLLVKnegt+wldFj
+	 t0JtUgPFiZy3NW0IhIBfly0GeFbdu8cesVL+87CcDMIYwO1+Xkf2JWalCrfGbBHRu2UE+M0k+39R
+	 qZSkQ6k8GfBS1HTVbs5uOBiDksOm0tzLkfiwnXmymgWVODd1gkqMbWKMhRhv/cM8BxiNKKAg==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Luis Chamberlain <mcgrof@kernel.org>
+Cc: Petr Pavlu <petr.pavlu@suse.com>, Sami Tolvanen <samitolvanen@google.com>,
+ Igor Solodrai <ihor.solodrai@linux.dev>, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [Bug report] x86-64 module loader: relocation r_offset and symbol
+ index are used without bounds checks - OOB write on module load
+X-OQ-MSGID: <mod-r-offset-oob-20261113@qq.com>
+Date: Fri, 13 Nov 2026 12:00:00 +0800
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,206 +79,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <b47282f1514a9012ac51d0915afb83782c3c0050.1794417398.git.len.brown@intel.com>
- <CAFEp6-0yj-+7uYnj5PCvaP39ruQ=xduBbQgJc7MyakuPLJhmvw@mail.gmail.com>
- <CAJvTdKnnqZJrZ6bgaxsyy6QttGwgh5RL=De9ggV3KhMPDau_BQ@mail.gmail.com> <CAFEp6-2sLZkNQqDg7seE0ipZbuve_TZMjgNHV4ubW0Qs80Pyhg@mail.gmail.com>
-In-Reply-To: <CAFEp6-2sLZkNQqDg7seE0ipZbuve_TZMjgNHV4ubW0Qs80Pyhg@mail.gmail.com>
-From: Len Brown <lenb@kernel.org>
-Date: Fri, 13 Nov 2026 11:09:30 -0300
-X-Gmail-Original-Message-ID: <CAJvTdKmGp6t44CP-smrjbm3aoXeTWvyUUM1Uv1w8UxEo3OSPJw@mail.gmail.com>
-X-Gm-Features: AclHuK-RaTixMtTtZ7q46GYj4ej54XklcWHntBt63Yarwvzt-TopRwMi-CY67Bk
-Message-ID: <CAJvTdKmGp6t44CP-smrjbm3aoXeTWvyUUM1Uv1w8UxEo3OSPJw@mail.gmail.com>
-Subject: Re: [PATCH] bus: mhi: pci_generic: Fix erroneous system suspend abort
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: rafael@kernel.org, Manivannan Sadhasivam <mani@kernel.org>, linux-pm@vger.kernel.org, 
-	mhi@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000d19a49066028fad1"
 
---000000000000d19a49066028fad1
-Content-Type: text/plain; charset="UTF-8"
+From: Guikun Yang <yangguikun19@qq.com>
+To: Luis Chamberlain <mcgrof@kernel.org>
+Cc: Petr Pavlu <petr.pavlu@suse.com>, Sami Tolvanen <samitolvanen@google.com>,
+    Igor Solodrai <ihor.solodrai@linux.dev>, linux-modules@vger.kernel.org,
+    linux-kernel@vger.kernel.org
+Subject: [Bug report] x86-64 module loader: relocation r_offset and symbol
+ index are used without bounds checks - OOB write on module load
 
-> > This 1-line fix should be applied NOW, without waiting for internal
-> > mhi internal or development.
->
-> Fair enough, but would only ignoring error on -EBUSY would work for
-> you? as this is clearly something which is not relevant for system
-> wide suspend cases.
+Hi Luis, Petr, Igor,
 
-Although I've seen only -EBUSY, I would turn that around...
-Are there ANY mhi suspend cases that merit aborting system wide suspend?
-If there are, then check for those and explicitly abort system suspension.
-(experience shows that these scenarios are quite rare, and it would
-be remarkable if there were such a condition here)
+Loading a crafted x86-64 module where one relocation entry's r_offset
+(or its symbol index) points outside the target section ends in a wild
+read and, for a target that is mapped and zero-filled, a controlled
+out-of-bounds write. Both the ELF validity check and
+__write_relocate_add() itself leave these two fields completely
+unchecked. A/B reproducer below.
 
-> Also would it be possible to add a small inline comment saying we
-> purposely ignore this because of buggy mhi suspend handling.
+  Oops: general protection fault, probably for non-canonical address
+  0xe00013fff8040000: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN NOPTI
+  KASAN: maybe wild-memory-access in range [0x0000bfffc0200000-...]
+  RIP: memcmp+0x67/0x1d0
+  RDI: 0000bfffc0200000
+  Call Trace:
+   apply_relocate_add+0x20e
+   load_module+0x40f7
+   __do_sys_init_module
 
-I agree.  I'll add a comment to clarify.
+## The gap
 
-> With your patch what happens on the system resume path? is the MHI
-> device recovered?
+__write_relocate_add() (arch/x86/kernel/module.c) takes the target
+address and symbol pointer straight from the relocation entry:
 
-This laptop is generally quite a good suspend-resume regression test bed.
-It does actually have a wireless modem, but AFAIK, the device itself
-is always unused.
+  loc = (void *)sechdrs[sechdrs[relsec].sh_info].sh_addr
+          + rel[i].r_offset;
 
-$ lspci -nnk | grep -B 2 -A 3 -i mhi
-08:00.0 Unassigned class [ff00]: Quectel Wireless Solutions Co., Ltd.
-Device [1eac:1007]
-Subsystem: Quectel Wireless Solutions Co., Ltd. Device [1eac:100c]
-Kernel driver in use: mhi-pci-generic
-Kernel modules: mhi_pci_generic
+  sym = (Elf64_Sym *)sechdrs[symindex].sh_addr
+          + ELF64_R_SYM(rel[i].r_info);
 
-I have over 28,000 suspend resume results on its local drive, dating
-back to Linux-7.2.
-The most recent 3,000 cycles included this one line patch and showed no issues.
-There were 9 suspend failures on a run of 2,500 suspend cycles run Nov
-8 - Nov 9.
-I've attached the mhi messages, as they'd wrap if I pasted them here.
+  ...
+  if (memcmp(loc, &zero, size))   /* wild read */
+  ...
+  write(loc, &val, size);         /* val = sym->st_value + r_addend */
 
-Twice we see this:
-mhi-pci-generic 0000:08:00.0: Unbalanced pm_runtime_enable!
+r_offset is a 64-bit value from the module file, with no check against
+the target section size. r_info's symbol index is likewise unchecked
+against the symbol table entry count. apply_relocations() in
+kernel/module/main.c only verifies infosec < e_shnum and SHF_ALLOC.
 
-perhaps a hint?
+The ELF validity layer does not cover these either:
+elf_validity_cache_sechdrs() validates sh_offset/sh_size (file-side,
+via validate_section_offset()), and the recent series added checks for
+section types and the symbol string table - but nothing bounds the
+per-entry r_offset or the symbol index of the relocation entries.
 
-thanks,
--Len
+## This is the same pattern that f9d69d5e7b fixed for st_shndx
 
-ps. apology for the previous top-post.
+f9d69d5e7b ("module: Fix kernel panic when a symbol st_shndx is out of
+bounds", December 2025) added a bounds check for st_shndx indexing
+sechdrs[] in simplify_symbols():
 
---000000000000d19a49066028fad1
-Content-Type: text/plain; charset="US-ASCII"; name="mhi.dmesg.txt"
-Content-Disposition: attachment; filename="mhi.dmesg.txt"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mwf1y58o0>
-X-Attachment-Id: f_mwf1y58o0
+  if (sym[i].st_shndx >= info->hdr->e_shnum) { ... return -ENOEXEC; }
 
-c3VzcGVuZC0yNjExMDgtMjM1NzA2L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVz
-Zy50eHQ6WyAgODU4LjY1ODExM10gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogZmFpbGVk
-IHRvIHN1c3BlbmQgZGV2aWNlOiAtMTYKc3VzcGVuZC0yNjExMDgtMjM1NzA2L2xlbmItdGhpbmtw
-YWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WyAgODU4LjY1ODEzM10gbWhpLXBjaS1nZW5l
-cmljIDAwMDA6MDg6MDAuMDogUE06IHBjaV9wbV9zdXNwZW5kKCk6IG1oaV9wY2lfc3VzcGVuZCBb
-bWhpX3BjaV9nZW5lcmljXSByZXR1cm5zIC0xNgpzdXNwZW5kLTI2MTEwOC0yMzU3MDYvbGVuYi10
-aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbICA4NTguNjU4MTQ5XSBtaGktcGNp
-LWdlbmVyaWMgMDAwMDowODowMC4wOiBQTTogZHBtX3J1bl9jYWxsYmFjaygpOiBwY2lfcG1fc3Vz
-cGVuZCByZXR1cm5zIC0xNgpzdXNwZW5kLTI2MTEwOC0yMzU3MDYvbGVuYi10aGlua3BhZC10MTYt
-Z2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbICA4NTguNjU4MTU5XSBtaGktcGNpLWdlbmVyaWMgMDAw
-MDowODowMC4wOiBQTTogcGNpX3BtX3N1c3BlbmQgcmV0dXJuZWQgLTE2IGFmdGVyIDE1MTQ1IHVz
-ZWNzCnN1c3BlbmQtMjYxMTA4LTIzNTcwNi9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVf
-ZG1lc2cudHh0OlsgIDg1OC42NTgxNjJdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBN
-OiBmYWlsZWQgdG8gc3VzcGVuZCBhc3luYzogZXJyb3IgLTE2CnN1c3BlbmQtMjYxMTA5LTAyMzMy
-My9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsxMDI0MC42MjE0MjZd
-IG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IGZhaWxlZCB0byBzdXNwZW5kIGRldmljZTog
-LTE2CnN1c3BlbmQtMjYxMTA5LTAyMzMyMy9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVf
-ZG1lc2cudHh0OlsxMDI0MC42MjE0ODRdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBN
-OiBwY2lfcG1fc3VzcGVuZCgpOiBtaGlfcGNpX3N1c3BlbmQgW21oaV9wY2lfZ2VuZXJpY10gcmV0
-dXJucyAtMTYKc3VzcGVuZC0yNjExMDktMDIzMzIzL2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2Zy
-ZWV6ZV9kbWVzZy50eHQ6WzEwMjQwLjYyMTUwMV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAu
-MDogUE06IGRwbV9ydW5fY2FsbGJhY2soKTogcGNpX3BtX3N1c3BlbmQgcmV0dXJucyAtMTYKc3Vz
-cGVuZC0yNjExMDktMDIzMzIzL2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50
-eHQ6WzEwMjQwLjYyMTUxMF0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IHBjaV9w
-bV9zdXNwZW5kIHJldHVybmVkIC0xNiBhZnRlciA4OCB1c2VjcwpzdXNwZW5kLTI2MTEwOS0wMjMz
-MjMvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMTAyNDAuNjIxNTEz
-XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQTTogZmFpbGVkIHRvIHN1c3BlbmQgYXN5
-bmM6IGVycm9yIC0xNgpzdXNwZW5kLTI2MTEwOS0wMjQyMDYvbGVuYi10aGlua3BhZC10MTYtZ2Vu
-LTNfZnJlZXplX2RtZXNnLnR4dDpbMTA3NjMuNzczNjkwXSBtaGktcGNpLWdlbmVyaWMgMDAwMDow
-ODowMC4wOiBmYWlsZWQgdG8gc3VzcGVuZCBkZXZpY2U6IC0xNgpzdXNwZW5kLTI2MTEwOS0wMjQy
-MDYvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMTA3NjMuNzczNzA1
-XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQTTogcGNpX3BtX3N1c3BlbmQoKTogbWhp
-X3BjaV9zdXNwZW5kIFttaGlfcGNpX2dlbmVyaWNdIHJldHVybnMgLTE2CnN1c3BlbmQtMjYxMTA5
-LTAyNDIwNi9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsxMDc2My43
-NzM3MTZdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBkcG1fcnVuX2NhbGxiYWNr
-KCk6IHBjaV9wbV9zdXNwZW5kIHJldHVybnMgLTE2CnN1c3BlbmQtMjYxMTA5LTAyNDIwNi9sZW5i
-LXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsxMDc2My43NzM3MjJdIG1oaS1w
-Y2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBwY2lfcG1fc3VzcGVuZCByZXR1cm5lZCAtMTYg
-YWZ0ZXIgMzQgdXNlY3MKc3VzcGVuZC0yNjExMDktMDI0MjA2L2xlbmItdGhpbmtwYWQtdDE2LWdl
-bi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzEwNzYzLjc3MzcyNV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6
-MDg6MDAuMDogUE06IGZhaWxlZCB0byBzdXNwZW5kIGFzeW5jOiBlcnJvciAtMTYKc3VzcGVuZC0y
-NjExMDktMDQ0NjU2L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzE4
-MjU0LjUyOTYxNV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogZmFpbGVkIHRvIHN1c3Bl
-bmQgZGV2aWNlOiAtMTYKc3VzcGVuZC0yNjExMDktMDQ0NjU2L2xlbmItdGhpbmtwYWQtdDE2LWdl
-bi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzE4MjU0LjUyOTYzMl0gbWhpLXBjaS1nZW5lcmljIDAwMDA6
-MDg6MDAuMDogUE06IHBjaV9wbV9zdXNwZW5kKCk6IG1oaV9wY2lfc3VzcGVuZCBbbWhpX3BjaV9n
-ZW5lcmljXSByZXR1cm5zIC0xNgpzdXNwZW5kLTI2MTEwOS0wNDQ2NTYvbGVuYi10aGlua3BhZC10
-MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMTgyNTQuNTI5NjUxXSBtaGktcGNpLWdlbmVyaWMg
-MDAwMDowODowMC4wOiBQTTogZHBtX3J1bl9jYWxsYmFjaygpOiBwY2lfcG1fc3VzcGVuZCByZXR1
-cm5zIC0xNgpzdXNwZW5kLTI2MTEwOS0wNDQ2NTYvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJl
-ZXplX2RtZXNnLnR4dDpbMTgyNTQuNTI5NjYwXSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4w
-OiBQTTogcGNpX3BtX3N1c3BlbmQgcmV0dXJuZWQgLTE2IGFmdGVyIDQ4IHVzZWNzCnN1c3BlbmQt
-MjYxMTA5LTA0NDY1Ni9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0Olsx
-ODI1NC41Mjk2NjJdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBmYWlsZWQgdG8g
-c3VzcGVuZCBhc3luYzogZXJyb3IgLTE2CnN1c3BlbmQtMjYxMTA5LTA0NDgyMS9sZW5iLXRoaW5r
-cGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsxODMzOS41Mjg4MTddIG1oaS1wY2ktZ2Vu
-ZXJpYyAwMDAwOjA4OjAwLjA6IGZhaWxlZCB0byBzdXNwZW5kIGRldmljZTogLTE2CnN1c3BlbmQt
-MjYxMTA5LTA0NDgyMS9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0Olsx
-ODMzOS41Mjg4MzFdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBwY2lfcG1fc3Vz
-cGVuZCgpOiBtaGlfcGNpX3N1c3BlbmQgW21oaV9wY2lfZ2VuZXJpY10gcmV0dXJucyAtMTYKc3Vz
-cGVuZC0yNjExMDktMDQ0ODIxL2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50
-eHQ6WzE4MzM5LjUyODgzOV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IGRwbV9y
-dW5fY2FsbGJhY2soKTogcGNpX3BtX3N1c3BlbmQgcmV0dXJucyAtMTYKc3VzcGVuZC0yNjExMDkt
-MDQ0ODIxL2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzE4MzM5LjUy
-ODg0NV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IHBjaV9wbV9zdXNwZW5kIHJl
-dHVybmVkIC0xNiBhZnRlciAzMSB1c2VjcwpzdXNwZW5kLTI2MTEwOS0wNDQ4MjEvbGVuYi10aGlu
-a3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMTgzMzkuNTI4ODQ3XSBtaGktcGNpLWdl
-bmVyaWMgMDAwMDowODowMC4wOiBQTTogZmFpbGVkIHRvIHN1c3BlbmQgYXN5bmM6IGVycm9yIC0x
-NgpzdXNwZW5kLTI2MTEwOS0wNTMyMjYvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2Rt
-ZXNnLnR4dDpbMjA5ODQuNjAxMzEyXSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBmYWls
-ZWQgdG8gc3VzcGVuZCBkZXZpY2U6IC0xNgpzdXNwZW5kLTI2MTEwOS0wNTMyMjYvbGVuYi10aGlu
-a3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMjA5ODQuNjAxMzQ2XSBtaGktcGNpLWdl
-bmVyaWMgMDAwMDowODowMC4wOiBQTTogcGNpX3BtX3N1c3BlbmQoKTogbWhpX3BjaV9zdXNwZW5k
-IFttaGlfcGNpX2dlbmVyaWNdIHJldHVybnMgLTE2CnN1c3BlbmQtMjYxMTA5LTA1MzIyNi9sZW5i
-LXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsyMDk4NC42MDEzNTRdIG1oaS1w
-Y2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBkcG1fcnVuX2NhbGxiYWNrKCk6IHBjaV9wbV9z
-dXNwZW5kIHJldHVybnMgLTE2CnN1c3BlbmQtMjYxMTA5LTA1MzIyNi9sZW5iLXRoaW5rcGFkLXQx
-Ni1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsyMDk4NC42MDEzNTldIG1oaS1wY2ktZ2VuZXJpYyAw
-MDAwOjA4OjAwLjA6IFBNOiBwY2lfcG1fc3VzcGVuZCByZXR1cm5lZCAtMTYgYWZ0ZXIgNTUgdXNl
-Y3MKc3VzcGVuZC0yNjExMDktMDUzMjI2L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9k
-bWVzZy50eHQ6WzIwOTg0LjYwMTM2MV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06
-IGZhaWxlZCB0byBzdXNwZW5kIGFzeW5jOiBlcnJvciAtMTYKc3VzcGVuZC0yNjExMDktMDUzMjQw
-L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzIwOTk3LjUzNDI3OF0g
-bWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogVW5iYWxhbmNlZCBwbV9ydW50aW1lX2VuYWJs
-ZSEKc3VzcGVuZC0yNjExMDktMDUzMjQwL2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9k
-bWVzZy50eHQ6WzIwOTk3LjU2MTIwM10gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogVW5i
-YWxhbmNlZCBwbV9ydW50aW1lX2VuYWJsZSEKc3VzcGVuZC0yNjExMDktMDUzNTE5L2xlbmItdGhp
-bmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzIxMTU3LjcxNTI0OF0gbWhpLXBjaS1n
-ZW5lcmljIDAwMDA6MDg6MDAuMDogZmFpbGVkIHRvIHN1c3BlbmQgZGV2aWNlOiAtMTYKc3VzcGVu
-ZC0yNjExMDktMDUzNTE5L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6
-WzIxMTU3LjcxNTI2NF0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IHBjaV9wbV9z
-dXNwZW5kKCk6IG1oaV9wY2lfc3VzcGVuZCBbbWhpX3BjaV9nZW5lcmljXSByZXR1cm5zIC0xNgpz
-dXNwZW5kLTI2MTEwOS0wNTM1MTkvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNn
-LnR4dDpbMjExNTcuNzE1Mjc3XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQTTogZHBt
-X3J1bl9jYWxsYmFjaygpOiBwY2lfcG1fc3VzcGVuZCByZXR1cm5zIC0xNgpzdXNwZW5kLTI2MTEw
-OS0wNTM1MTkvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMjExNTcu
-NzE1Mjg3XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQTTogcGNpX3BtX3N1c3BlbmQg
-cmV0dXJuZWQgLTE2IGFmdGVyIDQxIHVzZWNzCnN1c3BlbmQtMjYxMTA5LTA1MzUxOS9sZW5iLXRo
-aW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsyMTE1Ny43MTUyOTFdIG1oaS1wY2kt
-Z2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBmYWlsZWQgdG8gc3VzcGVuZCBhc3luYzogZXJyb3Ig
-LTE2CnN1c3BlbmQtMjYxMTA5LTA1NDExNC9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVf
-ZG1lc2cudHh0OlsyMTUxMi4zNDgyODldIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IGZh
-aWxlZCB0byBzdXNwZW5kIGRldmljZTogLTE2CnN1c3BlbmQtMjYxMTA5LTA1NDExNC9sZW5iLXRo
-aW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cudHh0OlsyMTUxMi4zNDgzMzVdIG1oaS1wY2kt
-Z2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBwY2lfcG1fc3VzcGVuZCgpOiBtaGlfcGNpX3N1c3Bl
-bmQgW21oaV9wY2lfZ2VuZXJpY10gcmV0dXJucyAtMTYKc3VzcGVuZC0yNjExMDktMDU0MTE0L2xl
-bmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzIxNTEyLjM0ODM1NV0gbWhp
-LXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IGRwbV9ydW5fY2FsbGJhY2soKTogcGNpX3Bt
-X3N1c3BlbmQgcmV0dXJucyAtMTYKc3VzcGVuZC0yNjExMDktMDU0MTE0L2xlbmItdGhpbmtwYWQt
-dDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzIxNTEyLjM0ODM2NV0gbWhpLXBjaS1nZW5lcmlj
-IDAwMDA6MDg6MDAuMDogUE06IHBjaV9wbV9zdXNwZW5kIHJldHVybmVkIC0xNiBhZnRlciA3NyB1
-c2VjcwpzdXNwZW5kLTI2MTEwOS0wNTQxMTQvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXpl
-X2RtZXNnLnR4dDpbMjE1MTIuMzQ4MzY4XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQ
-TTogZmFpbGVkIHRvIHN1c3BlbmQgYXN5bmM6IGVycm9yIC0xNgpzdXNwZW5kLTI2MTEwOS0wOTE0
-MjkvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXplX2RtZXNnLnR4dDpbMzQzMDguMDg1Nzgz
-XSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBmYWlsZWQgdG8gc3VzcGVuZCBkZXZpY2U6
-IC0xNgpzdXNwZW5kLTI2MTEwOS0wOTE0MjkvbGVuYi10aGlua3BhZC10MTYtZ2VuLTNfZnJlZXpl
-X2RtZXNnLnR4dDpbMzQzMDguMDg1NzkzXSBtaGktcGNpLWdlbmVyaWMgMDAwMDowODowMC4wOiBQ
-TTogcGNpX3BtX3N1c3BlbmQoKTogbWhpX3BjaV9zdXNwZW5kIFttaGlfcGNpX2dlbmVyaWNdIHJl
-dHVybnMgLTE2CnN1c3BlbmQtMjYxMTA5LTA5MTQyOS9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19m
-cmVlemVfZG1lc2cudHh0OlszNDMwOC4wODU4MDFdIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAw
-LjA6IFBNOiBkcG1fcnVuX2NhbGxiYWNrKCk6IHBjaV9wbV9zdXNwZW5kIHJldHVybnMgLTE2CnN1
-c3BlbmQtMjYxMTA5LTA5MTQyOS9sZW5iLXRoaW5rcGFkLXQxNi1nZW4tM19mcmVlemVfZG1lc2cu
-dHh0OlszNDMwOC4wODU4MDddIG1oaS1wY2ktZ2VuZXJpYyAwMDAwOjA4OjAwLjA6IFBNOiBwY2lf
-cG1fc3VzcGVuZCByZXR1cm5lZCAtMTYgYWZ0ZXIgMjUgdXNlY3MKc3VzcGVuZC0yNjExMDktMDkx
-NDI5L2xlbmItdGhpbmtwYWQtdDE2LWdlbi0zX2ZyZWV6ZV9kbWVzZy50eHQ6WzM0MzA4LjA4NTgw
-OV0gbWhpLXBjaS1nZW5lcmljIDAwMDA6MDg6MDAuMDogUE06IGZhaWxlZCB0byBzdXNwZW5kIGFz
-eW5jOiBlcnJvciAtMTYK
---000000000000d19a49066028fad1--
+That check is in the current tree. The relocation entries in
+__write_relocate_add() index memory the same way (an ELF-controlled
+offset into an array base) and are still unchecked:
+
+  simplify_symbols():   st_shndx -> sechdrs[st_shndx]   /* bounded */
+  __write_relocate_add(): r_offset -> base + r_offset    /* unbounded */
+
+391e982bfa (2022) already accepted that a crafted module file is a
+realistic input ("It is trivial to craft a module to trigger OOB
+access"), and the elf_validity_check() series exists precisely to
+defend against malformed ELF. The relocation entries are the part of
+that input that the validity layer does not reach.
+
+## Impact: more than a crash
+
+The memcmp(loc, &zero, size) / write(loc, &val, size) pair means the
+loader reads the target first and only writes if it is zero. With a
+non-canonical r_offset this is a deterministic #GP (reproduced). With
+a r_offset aimed at a mapped, zero-filled kernel address, the write
+lands - val is sym->st_value + r_addend, both attacker-controlled
+within the module. Since init_module() can be retried with different
+r_offset values, this is a usable probe-and-write primitive against
+kernel memory, not just a crash.
+
+## Reproduction
+
+The carrier module is a real xt_mark.ko built from the same tree as
+the test kernel (vermagic, this_module size, all 11 undefined symbols
+matching), so the only variable is the eight modified bytes
+(.rela.text[0].r_offset at file offset 0x17a0, changed to
+0xc00000000000 so loc lands in the non-canonical range):
+
+  before: init_module -> 0, delete_module -> 0 (module loads, unloads)
+  after:  init_module -> Oops (trace above)
+
+Same-tree build, same boot, single field changed. The A/B pair and
+the init_reloc.c reproducer are available on request.
+
+## Suggested fix
+
+In apply_relocations(), before dispatching to per-arch
+apply_relocate_add(), verify each entry points inside its target
+section and its symbol index inside the symbol table. This covers all
+architectures (arm64, powerpc, riscv, s390, loongarch have the same
+raw `base + rel[i].r_offset` form):
+
+  for (i = 1; i < info->hdr->e_shnum; i++) {
+          ...
+          if (info->sechdrs[i].sh_type == SHT_REL ||
+              info->sechdrs[i].sh_type == SHT_RELA) {
+                  for (j = 0; j < sechdrs[i].sh_size / sizeof(*rel); j++) {
+                          /* bounds per entry, arch-dependent size */
+                          ...
+                  }
+          }
+  }
+
+or, minimally, a per-arch check at the top of each relocation loop:
+
+  loc_off = rel[i].r_offset;
+  if (loc_off > sechdrs[sechdrs[relsec].sh_info].sh_size - sizeof(u64))
+          return -ENOEXEC;
+  if (ELF_R_SYM(rel[i].r_info) >=
+      sechdrs[symindex].sh_size / sizeof(Elf_Sym))
+          return -ENOEXEC;
+
+(The minimal per-arch form matches how f9d69d5e7b added the st_shndx
+bound locally in simplify_symbols().)
+
+Tested on 7.3.0; arch/x86/kernel/module.c is unchanged in mainline as
+of 2026-11-13.
+
+Thanks,
+Guikun Yang
+
