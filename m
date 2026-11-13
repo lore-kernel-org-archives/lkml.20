@@ -1,63 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794529432;
-	b=4lhCpJWiHOS6A0gzkp9WUVr9dMt4Lpc3NxHgr9/tfFUEW46n+zHdvPqPHQrf7pTkXke5
-	 aL81gVufsDdcRgkO1bGUEvZuwsKUak2/jcjPq9ajHPJMIBaVaHTQbuY6KAlqyz5nxUT/a
-	 45nmmrJdbR/3UAjz/Su4UPV6YQ7qS+68GNmNA6JfTE+M42vx5Fpt8MqnrYj2Uei6Kf1dv
-	 z+QJMjY+u/+GADaQg8+G2DBIXz9hLA1Jcwxw0dBu4mz9i1I2uuiVac9XbB6mIlQUhckBn
-	 /T5McPveuJ/ow8/CiiBdF5AjWT86OXJE28+vYdHLffL7nxbPCMpGzm876EXpbLgNkzg==
+	t=1794529660;
+	b=mnvN932OpIiMGYc2NRD0YG9EmO2H9y2nnM73yK5rhHT4iWgU+AQ3LgCoZRyFFBThvSAH
+	 nC8tYue4HeTZfJPxrzSj1TBw5irXNJE55WB6/e2suREvTFUSBiF/EGFgqsiZzrr4Hced2
+	 lKe7fdXCFmYcvAQCvhUuG9ZHStcyeVKb7YbPb9T+D2uCjNAuyQH595S0b/EcHolRi2VoJ
+	 cYrYHfNh0xOlOwyMBN9Zdof/7WV3Pi2z+7pjaGkwR75nFTUZg8SZp809KsG4Vb5w9ODUx
+	 LeVfSPd2INs/0SFVOBpx46g+vsn56CtYpMk3igLEB0tvfYFcZwIHTSHhMhm0KC6wtxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794529432;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=uySeS/3n+f/dnCpiQL/nNK6+E4iD/pjRor5eQt8LbnY=;
-	b=w4QWwHInXcK/vqk9logc0LXDs99eJk4orkVN7WJH3x5XNeY0Upy6lZbh+isF9DLkFLax
-	 w6IRHFsH5ZyymnOxzq8keCxhYaSIo/v/Agw5OlCV2DBz6QM70utSaG0qifH693hVYC5Ni
-	 zMNey3jFybpUZ27Iigx1VvpzjJi44SMDkOJvO7QJuZIUr/wli21CMgmMIbd76i1lJjMLk
-	 n2qppAiqzECqrN/kimmX8I+JPxmvJ6bZjJsmqGL+7MYuRV/33D81VSGi384XU6eYaWcuy
-	 wLorUEzopCLlzlkw8a6laMTa3zMlRNTszLuj+1R3L0brBKGe79jZw8kad09jx8LFi3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794529660;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=J4uyCKwoU2ZUCtJEnB2UmwB5w4/Naib62nyhZDy72sc=;
+	b=aR0kWvppmXgd13VPLcv5mz3/mxbXRgQdKz1kV/X2qJxCLHj0/wTU2eXafhDlOON02dLV
+	 J+5p6EeE+ECrz5h7sfKU81823ZQCz8q4PDEqSR5jc7IapicIYNCDeqFNXT0WEHF56vLgP
+	 VzZlQhL1HdpykwstJoYCdRfX6O2uCpoWph1xItYd/zSOSGHMDYuice/zdOg734MGSNhIO
+	 xiXkkUR119cqG9ZM/gcC/ANGDlVmkC+Nn9BCBHHUXG60mYGfJciaWK6IMsCKU8XXffhom
+	 Hhfvop8gefStTVFeMPFO9fAPhWcLXcz7hQaO0XttP47eeUb1HsXHUsyqmNGVoCxCxgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=OjYVUbaq;
-	arc=none smtp.remote-ip=212.27.42.3
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EKlCtyFR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D379606A31C;
-	Fri, 13 Nov 2026 00:23:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D379606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD82606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:27:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=OjYVUbaq
-Received: from L30177.local (unknown [82.65.104.223])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp3-g21.free.fr (Postfix) with ESMTPSA id AAF0613F88D;
-	Fri, 13 Nov 2026 01:23:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1794529423;
-	bh=pVXU+tvezYWROo5H00YtuV+H1jOsfuEbNPNc7yBOEno=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OjYVUbaqwpsVIWs84XPFSxLn19HuKXqyvjazjzvXsaQ3inXsjimEerMORNEgzZUdU
-	 ttkbRUroQsjqnZCzn0mxSGaR6Goa/Wimue7DZaHhrAEOjUQtOQyz3PG0UO1sJIUjgW
-	 WlcYkFutGR9wL5MALQnNt7EKTX1PGuTbOBwRuL+NWWd+lUoZgq6Q0QHR0z7o/oUXkZ
-	 nFa8/3J3+iC1oWvNGlo73IVPerKTQlHUvVA6Vru/8hvqYEX8kio3xxwoc7tfZDbTnS
-	 dyPNg/inK7HX8qYK8COqw/LDW++6apGpAMrI+iBABATjPzL5nZNSN+elHGqgzCPAIw
-	 Wgra/likqwKNA==
-Date: Fri, 13 Nov 2026 01:23:34 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: Sahil Malhotra <sahil.malhotra@oss.nxp.com>
-Cc: horia.geanta@nxp.com, pankaj.gupta@nxp.com, herbert@gondor.apana.org.au,
-	davem@davemloft.net, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] crypto: caam - never share the gcm and skcipher
- descriptors serially
-Message-ID: <avZYhjJsa6Ih7nBG@L30177.local>
-References: <20261109-for-upstream-caam-shdsc-share-never-v1-v1-1-65a1dd146db2@free.fr>
- <20261112101440.673231-1-sahil.malhotra@oss.nxp.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EKlCtyFR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3FF91F000C4;
+	Fri, 13 Nov 2026 00:27:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794529659;
+	bh=J4uyCKwoU2ZUCtJEnB2UmwB5w4/Naib62nyhZDy72sc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=EKlCtyFR0G3LjMnWtYrdKkTgBAehi0VR4yOuK+2aRnoodEo+e1zmWIfkZTHLjYB1P
+	 pMSxyfyQ0J0Ri07DLyGs/JZxFILKGtIY+BkEeQRW7wJpPeGqeemXoa8tbeg0Wce32L
+	 dyK4nVN/Bzh+LcPW6JZ9e5fRVWKngprMwyRK+Xp0=
+Date: Thu, 12 Nov 2026 16:27:38 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Mika =?ISO-8859-1?Q?Penttil=E4?= <mpenttil@redhat.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Alexandru Elisei
+ <alexandru.elisei@arm.com>, linux-mm@kvack.org,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>, Leon
+ Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>, Matthew Brost
+ <matthew.brost@intel.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>, Danilo
+ Krummrich <dakr@kernel.org>
+Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
+Message-Id: <20261112162738.d689b46268e077ac06f41d91@linux-foundation.org>
+In-Reply-To: <ec4431f1-e70d-477c-b09a-eedc35d97691@redhat.com>
+References: <20261103061629.972669-1-mpenttil@redhat.com>
+	<avWpWBl1nPcRVmpQ@raptor>
+	<79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
+	<avXoJSGh5xjGFgod@raptor>
+	<20261112164752.GA3692174@nvidia.com>
+	<ec4431f1-e70d-477c-b09a-eedc35d97691@redhat.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,33 +69,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261112101440.673231-1-sahil.malhotra@oss.nxp.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sahil,
+On Thu, 12 Nov 2026 19:01:58 +0200 Mika Penttil=E4 <mpenttil@redhat.com> wr=
+ote:
 
-> So this needs to be tested on other platforms before it can go in.
-> If you have numbers on other SoCs with fewer DECOs, that would be
-> helpful. We can also run it on i.MX boards on our side, if you don't
-> have access to other boards.
+>=20
+> On 11/12/26 18:47, Jason Gunthorpe wrote:
+> > On Thu, Nov 12, 2026 at 04:24:05PM +0000, Alexandru Elisei wrote:
+> >> Hi Mika,
+> >>
+> >> On Thu, Nov 12, 2026 at 04:00:09PM +0200, Mika Penttil=E4 wrote:
+> >>> Hi Alexandru!
+> >>>
+> >>> On 11/12/26 13:56, Alexandru Elisei wrote:
+> >>>> Hi Mika,
+> >>>>
+> >>>> I want to help getting this series merged, and I've been familiarizi=
+ng myself
+> >>>> with hmm and device migration, please bare with me if the questions =
+I'm asking
+> >>>> are obvious or downright silly.
+> >>> Thanks for the interest and willing to help! I am preparing a v18 of =
+the
+> >>> series and plan to post it early next week.
+> >> The series is big, and as far as I can tell the MM people are hard at =
+work
+> >> reviewing bug fixes. It might be better to wait a while, to give peopl=
+e a
+> >> chance to have a look? I know that if I see a series being reposted of=
+ten,
+> >> I am less inclined to review the patches since probably a new iteration
+> >> will be posted soon. But I can only speak for myself, you know best.
+> > It is at v17 and it is still getting high severity sashiko errors
+> v14 was first that sashiko managed to review. There was a regression in
+> last posting, but also false potsitives, and sashiko reports same issue
+> then 3-4 times, so the reality is not that bad.=A0
 
-No, I do not have other CPUs than the LX2160 : your feedbacks with i.MX
-is welcomed.
+Pining for the days when all we had to deal with was checkpatch. =20
 
-> If the regression shows up, one option is to pick the share mode at
-> probe time from CHA_NUM_MS[DECO_NUM]: NEVER only when there is more than
-> one DECO, SERIAL otherwise.
- ...
-> Do you have similar numbers for authenc and xts, since they use the
-> same kind of descriptors?
 
-Since SERIAL vs NEVER impacts the performance depending on the CPU and
-on the selected crypto algorithm as you suggest, the code should be more
-dynamic, instead of a single option that slows down all the other cases.
+Mika, afaict the entire patchset is a performance optimization, yet you
+say "I don't have a benchmark showing a gain".
 
-How could we keep "selecting" the best one for each case ?
+Recipients look at patchsets wondering "why should I spend time on
+this", especially in these times.  It's best to answer this question
+right there in the first sentence of the [0/N].  That means numbers,
+and the better they are, the more attention the patchset will get.
 
-Best regards,
-  Vincent
+>  Documentation/mm/hmm.rst               |   45 +
+>  drivers/gpu/drm/nouveau/nouveau_dmem.c |  402 ++++++++-
+>  drivers/gpu/drm/nouveau/nouveau_dmem.h |   12 +
+>  drivers/gpu/drm/nouveau/nouveau_svm.c  |  155 ++--
+>  drivers/gpu/drm/nouveau/nouveau_svm.h  |    5 +
+>  include/linux/hmm.h                    |   51 +-
+>  include/linux/migrate.h                |   59 +-
+>  lib/test_hmm.c                         |  174 +++-
+>  lib/test_hmm_uapi.h                    |   21 +-
+>  mm/Kconfig                             |    1 +
+>  mm/hmm.c                               | 1075 ++++++++++++++++++++++--
+>  mm/migrate_device.c                    |  618 +++-----------
+>  tools/testing/selftests/mm/hmm-tests.c |   56 ++
+>  13 files changed, 1984 insertions(+), 690 deletions(-)
+
+also, yikes!
