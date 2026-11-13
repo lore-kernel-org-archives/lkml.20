@@ -1,88 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585561;
-	b=bDJcK8XS32JwCGMqpymcWCFxjc6yuGZQRT/RQsFUo2OD6uDA+ztBvH9QlvJWBesFHrr9
-	 BurnfCKKHvYB51JI9qKMOWA4FaAheKIUpEjBTvtWf/ldwoqc1MsNsGIWFnjSW8mdJHTaW
-	 PvWmVsgVgSP5FR9iRU0zuAFgWGmf+J/O+YjfT31za3ZKM9yvx05QoYhEEumwBubW/sB8W
-	 1lPVcYPGlCquU4ibnDaAWgklNLLxw/ot55KZtkPeIyluPyoe+l1X3eEzRCdzUlJeWlO7u
-	 /0jP/McHLcr8QSrO2TOYuPsC8vNqDdniYPc6UQKeGeLT/R+zKHlT5uwKTSIkoh56Hmg==
+	t=1794585575;
+	b=INvyBC7gkjG9q9VoA34uRiHqbCeUsTcW/g2UUBknNBJnHdBYFHi2Qq+kF6S2laMtNrFm
+	 1tAF/Bd16U9wDpdia494jhSocRPy3d1VnXHqB/I7amrPnXyLOnANey+TxVYqsNSXkIMcb
+	 NeGdcWgnhBWTbjEh0RD3kXGlcUPLFXtAj3au/94ovhHdqvIyc32wfBIbJItE2QFuaXOBC
+	 tislJAYufKvG5pMawswaUrUPLy9Nth+29uotSFNbH7oGkwxvrE5ol+896H6s5aDptWQoE
+	 Z9vUAv73KhWe7PWF+EybpOTd9vioLhFo8g/qskdWk8OD7rZAYWF679gfpe/FQUtICfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585561;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=BUQE0kUGDk8M7CIw9MtJvjFLkWAN6uJ898YNqYUmUwc=;
-	b=4CHVUo5fiBc+mTO+6K1XRgRN+G9e90dXZVqoLgFe4UjNzkiQmAXia0AL2ooMFW2zH5u+
-	 CqwVStBSVJaLm3sxMbHri2GKB+exyqfC1r6DeKLHHpIpqtpc4klUO+d6i4yJjeOLr47uH
-	 b5KhxwNj2feZVxOk9objqOLSD79HYfnQS2tlsu9Rs/kuKiUCIlWo6CWDd1P/EE6NQaKem
-	 Z9vGu3TYFXUc+wTx0LKsaU3x97LfTtt0SixwMQerqz+bf8QZSnzBB+4yLIuD9IG6iN2fH
-	 BStdo/0pF7K7JCzlPiziM2UExRXx3Yx2dw6tivIJ0oZ4ALB+a5ytrCgS0BnvxK8oxVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585575;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=YK5qULkzf7ooh118Tvb3RLqnjqawl89i+ZXQ4lfC3CU=;
+	b=ii6bL3bVO6Ye09o5StbSYmO7rc1NUTc54aBS9Cgo4QUzAGug91oYGohZGi5HdvWy/Fv8
+	 b9rd1OdhFOVGrDdBchwzasXG9SnQjyw+JAmjGQra+vCy1GnQ6CDwmtJZ60mqnM1M1umqB
+	 u85adTBox346UVCOWATkuU66Lcc5mPwvB/Oj0JefzchmLwkWw46pS88MBAXf5kb8frJrZ
+	 z92eAQ55wqE3rXldvQcfmU1rjI6QvpXx1dN0uAkNrESA/yV7EEcnMaE6LU0Mip3+1B/ZL
+	 CXCjYTSSlbg4xb4S3lcQ7R2SkZdUzPyj95BTENCyHtJHVQJ9+RePGLu6ak4OkulTHWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ucla.edu;
-	spf=pass smtp.mailfrom=g.ucla.edu;
-	dkim=pass header.d=g-ucla-edu.20260707.gappssmtp.com header.i=@g-ucla-edu.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=M0MsmaQf;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=VzDCrXz5;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HkZDHMOF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=VzDCrXz5;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HkZDHMOF;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A97606BAA7
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:59:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8A97606BAA7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ucla.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ucla.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E478606BABC;
+	Fri, 13 Nov 2026 15:59:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E478606BABC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=g-ucla-edu.20260707.gappssmtp.com header.i=@g-ucla-edu.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=M0MsmaQf
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1b50a4bd2f3so978656c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:59:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=g-ucla-edu.20260707.gappssmtp.com; s=20260707; t=1794585560; x=1795190360; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BUQE0kUGDk8M7CIw9MtJvjFLkWAN6uJ898YNqYUmUwc=;
-        b=M0MsmaQfXw3SdSpoPe4h9XZ18fSnFZFRBfnciYbJlZ8Z2sT9qqqEsxgy6D1Em8vb/X
-         i8bPYhD0lRLuPsmuMG584W1QX194l3camiQjotLmnO9LeRXZ8pjDh20XQOvMOsZR3LnY
-         bYbOHpOFbOlOzIGsZ/xd1QlLuzSockK/FE1TWemfVQPqYuQyMWciOebTmeIRZ89oJx4R
-         G14UNvtnS7ymyTbN2es1Oa46SHoriheYmi6SAM1Wb0r6fpbiwoMpCqm3dkLvHAAZE8fz
-         yB3JN+iOVjlTQZBZDLByWXWWXyJCGyp1DK+9xv/LT+X+lGHpC2aOWCc/CKnenIj/bvRa
-         IMsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794585560; x=1795190360;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BUQE0kUGDk8M7CIw9MtJvjFLkWAN6uJ898YNqYUmUwc=;
-        b=BQnP+vjITVjgfv1p3q0nSmt7rCWRXFRcdIJHzHD4wum5F+15IPQjRObwGvlAy9cr9Y
-         DsbrCDuli2EZatSF/rzS9m1LkNeDgxjdj+ADH9fh9NsAQSzc5BXRqYX7XBnzWWEYntvO
-         ZDLpnFGnuIuml2SOc45gU53xzAShjRBB2X8rkjCwjDoM7WBIOYJuPKrQx95NGGj2L679
-         K9n+/podGhKfrAFEQ0XOUnYmEyYLv56JICFDmQCuxjFaF0NWkUxUoaERhLcvltmmfVhE
-         CedD4Zv9C2NG82/MAa6vR9Pb0j4dwwGFV9p7iyWsx0JhGAYv3uzeT3RVZvh4nybgvwSU
-         e+UA==
-X-Forwarded-Encrypted: i=1; AL+hErGHMpHcwKU5wdTdbZR1cS/VvTDnM9bVsyI7aFjzUHcjspx+E/3IfCcAtv5srw0cSg3NeqhluODaVdukEfI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96A6wX5PsFBTsgPwimFCaV4gXhojIsWNjPAViLBEA2r5S2CLhC
-	jEOWJTNmf5LRU2NkJxTcd6JnEAN6XZyE6pDqM2lJ3qKuf9x9GJYRoHDwlYhyXiqZ7XI=
-X-Gm-Gg: AYBFou3YzqrOCmoqiujR1ImFMfM+P2mj+IWsdhSzxSYtqwUIju79lKzkVHEYtFtVreI
-	shtRscpTDl2XnfMGeLBbpI1rTh8Z7a5OAkucps+nNgQs8aJjQNQt7Qi0KOZ9330blI/GGTczhz/
-	dFPwYLRLyxMRFfYAvEerMAI/yLJu2dVdNuoXuNx+1+VWa3yQwNfPQZYZYDuNsBIqsfX0kbTj85p
-	ov0c6UR3OjhZfb/SrKHQe1gRnqk5TqQHAKl+3xEAK12gypeXGJ/Br4oa9pJO2MuAlk7q8/kx26F
-	6YCTyxLuwsRfHF8um28iZ6TfPeovqs3W9uJNbrQrEiVP84kHtIGiDhicICuZCbt7mr/VlOb0dAQ
-	x0P87IfmAVra5ZGjsTeWgRU8kZXCEWyuW89xYmgHgsaHSnvoCVii3yBwQJ1JwDnxUwwl89p2BUa
-	dH5G3GSQ/KD75/YljXvubS47a+rdaS+xlXYg4Lb1FOKDzRN1Q2iEmjwmdDw7i3CUUJ8zP6Pc/Q4
-	OOkQ3g/4QMLQ46cT5zRtmm1dVFO8MNmk1NQ1XTvQ/+7SwzpDIlYHTWIiV/11uxrmKLu6RUNulW5
-	qu6to4YW7nGk8TPpI8jclYvd7WqPCQ==
-X-Received: by 2002:a05:701b:4590:20b0:1b3:b53e:b4c5 with SMTP id a92af1059eb24-1b503137aafmr2631085c88.38.1794585559658;
-        Fri, 13 Nov 2026 07:59:19 -0800 (PST)
-Received: from [127.0.1.1] ([131.179.95.34])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031bc518sm7868383c88.15.2026.11.13.07.59.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:59:18 -0800 (PST)
-From: Jason Angelov <jasonangelov@ucla.edu>
-Date: Fri, 13 Nov 2026 07:58:57 -0800
-Subject: [PATCH 3/3] mm/damon/tests/core-kunit: test
- DAMOS_FILTER_TYPE_AGE_MS interval changes
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=VzDCrXz5;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HkZDHMOF;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=VzDCrXz5;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HkZDHMOF
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 06CFF21F07;
+	Fri, 13 Nov 2026 15:59:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794585571; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YK5qULkzf7ooh118Tvb3RLqnjqawl89i+ZXQ4lfC3CU=;
+	b=VzDCrXz5jPyMOdbYzZbm5W3ASbGhNyzhTiWsJ3TcODlV31ustoZZY8ZsnxzVhVRc8vnOoj
+	/OoWYmEqI/X9TquEGwQd+GLerG/bZhD5XwAhEvcXUELUzW7b41BAhKY0fT5YshUVI+al3N
+	l3dcx2RhD4ItnfVdZdk+ZTBUnjMWqzs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794585571;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YK5qULkzf7ooh118Tvb3RLqnjqawl89i+ZXQ4lfC3CU=;
+	b=HkZDHMOFdP44PbXekWBQkQ2XMotATh+UoZvr/fDiUkc/GUMp6L3vILiqwdxr0w5YLYqJ4M
+	1wU6GYoEODp+SGBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=VzDCrXz5;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=HkZDHMOF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794585571; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YK5qULkzf7ooh118Tvb3RLqnjqawl89i+ZXQ4lfC3CU=;
+	b=VzDCrXz5jPyMOdbYzZbm5W3ASbGhNyzhTiWsJ3TcODlV31ustoZZY8ZsnxzVhVRc8vnOoj
+	/OoWYmEqI/X9TquEGwQd+GLerG/bZhD5XwAhEvcXUELUzW7b41BAhKY0fT5YshUVI+al3N
+	l3dcx2RhD4ItnfVdZdk+ZTBUnjMWqzs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794585571;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YK5qULkzf7ooh118Tvb3RLqnjqawl89i+ZXQ4lfC3CU=;
+	b=HkZDHMOFdP44PbXekWBQkQ2XMotATh+UoZvr/fDiUkc/GUMp6L3vILiqwdxr0w5YLYqJ4M
+	1wU6GYoEODp+SGBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C3D51344A;
+	Fri, 13 Nov 2026 15:59:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id yAHVN+Ez92rsVgAAD6G6ig
+	(envelope-from <ematsumiya@suse.de>); Fri, 13 Nov 2026 15:59:30 +0000
+Date: Fri, 13 Nov 2026 12:59:28 -0300
+From: Enzo Matsumiya <ematsumiya@suse.de>
+To: Wong Steve <shyckless@gmail.com>
+Cc: pc@manguebit.org, linkinjeon@kernel.org, linux-cifs@vger.kernel.org, 
+	sprasad@microsoft.com, smfrench@gmail.com, ronniesahlberg@gmail.com, 
+	bharathsm@microsoft.com, linux-kernel@vger.kernel.org, 
+	daniel.birtwhistle@gehealthcare.com, samba-technical@lists.samba.org, tom@talpey.com
+Subject: Re: [PATCH] smb: client: fail SMB2 responses with a bad signature
+Message-ID: <avcoB7XgP3i0xd9C@suse.de>
+References: <20261113-smb2-sign-v1-1-937ee7c20f08@gmail.com>
+ <avb81ry-kS6GfWkO@suse.de>
+ <CA+X8Sdi6adfL0jr=t9jDoJ5M+AWHxAw7NzQaVaOoT4O+awfEPA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,133 +113,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-test-age-ms-filter-v1-3-b99eab2f71bb@ucla.edu>
-References: <20261113-test-age-ms-filter-v1-0-b99eab2f71bb@ucla.edu>
-In-Reply-To: <20261113-test-age-ms-filter-v1-0-b99eab2f71bb@ucla.edu>
-To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: damon@lists.linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Jason Angelov <jasonangelov@ucla.edu>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <CA+X8Sdi6adfL0jr=t9jDoJ5M+AWHxAw7NzQaVaOoT4O+awfEPA@mail.gmail.com>
+X-Rspamd-Queue-Id: 06CFF21F07
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-13.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[manguebit.org,kernel.org,vger.kernel.org,microsoft.com,gmail.com,gehealthcare.com,lists.samba.org,talpey.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email]
+X-Spam-Score: -13.51
 
-DAMOS_FILTER_TYPE_AGE_MS defines an inclusive range for age in
-milliseconds to filter for target regions.
-Aggregation interval can be changed by users or intervals
-auto-tuning features.
+On 11/13, Wong Steve wrote:
+>On 11/13, Enzo Matsumiya wrote:
+>> However, I still think the error should only be returned if signing is
+>> required (*) AND rc == -EACCES.
+>>
+>> Any other error should always be returned unconditionally.
+>>
+>> (*) Note that "signing required" at that point means that either/both
+>> client and server required signing, and the other side agreed -- it
+>> doesn't really matter who asked for it.
+>
+>Thanks for looking at it.
+>
+>I think the existing server->sign check already covers that.
+>cifs_enable_signing() only sets server->sign when the server requires
+>signing and the client allows it, or when the client requires it (mount
+>option or SecurityFlags) and the server supports it. Both sides merely
+>supporting signing doesn't turn it on.
+>
+>smb2_verify_signature() is only called under that check, so the new
+>return passes on -EACCES for a mismatch, and any other error from it
+>(e.g. from smb3_calc_signature()) as well.
+>
+>Is there a case I'm missing where server->sign is set but signing isn't
+>required in your sense?
 
-Add a kunit test for each:
+Not really, you're 100% correct, sorry.
 
-- convert region age to milliseconds, correct behavior at boundaries
-for defined filter range
-- DAMOS_FILTER_TYPE_AGE_MS filter keeps correct behavior even when
-aggregation interval changes
+I just remembered that there's a very specific exception to that, and it's
+currently not handled;  SMB 3.1.1 tcon requests (!anonymous && !guest) are
+signed unconditionally, but the responses are never verified because
+they're gated by server->sign.
 
-Signed-off-by: Jason Angelov <jasonangelov@ucla.edu>
----
- mm/damon/tests/core-kunit.h | 81 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+While your patch fix this indirectly, I couldn't find in the spec
+whether such tcon responses should also fail if signing isn't required.
 
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index fb84d30a712d..6de7c2531702 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -1837,6 +1837,86 @@ static void damos_test_age_ms_filter_is_core(struct kunit *test)
- 	KUNIT_EXPECT_FALSE(test, damos_filter_for_ops(DAMOS_FILTER_TYPE_AGE_MS));
- }
- 
-+static void damos_test_age_ms_filter_interval_changes(struct kunit *test)
-+{
-+	/* Filter window: 200-400 ms.  Start: 100 ms interval, age 0. */
-+	struct damos_filter filter = {
-+		.type = DAMOS_FILTER_TYPE_AGE_MS,
-+		.matching = true,
-+		.range_min = 200,
-+		.range_max = 400,
-+	};
-+	struct damon_attrs attrs = {
-+		.sample_interval = 5000,
-+		.aggr_interval = 100000,
-+		.min_nr_regions = 3,
-+		.max_nr_regions = 3,
-+	};
-+	struct damon_ctx *ctx;
-+	struct damon_target *t;
-+	struct damon_region *r;
-+	int err;
-+
-+	ctx = damon_new_ctx();
-+	if (!ctx)
-+		kunit_skip(test, "ctx alloc fail");
-+	t = damon_new_target();
-+	if (!t) {
-+		damon_destroy_ctx(ctx);
-+		kunit_skip(test, "target alloc fail");
-+	}
-+	damon_add_target(ctx, t);
-+	r = damon_new_region(0, DAMON_MIN_REGION_SZ);
-+	if (!r) {
-+		damon_destroy_ctx(ctx);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+	KUNIT_EXPECT_EQ(test, damon_set_attrs(ctx, &attrs), 0);
-+
-+	/* below window: age 1 = 100 ms */
-+	r->age = 1;
-+	KUNIT_EXPECT_FALSE(test, damos_filter_match(ctx, t, r, &filter,
-+			ctx->min_region_sz, &err));
-+
-+	/* inside window: age 2 = 200 ms */
-+	r->age = 2;
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
-+			ctx->min_region_sz, &err));
-+
-+	/*
-+	 * change aggregation interval 100 -> 200 ms:
-+	 * inside window: age rescaled 2 -> 1, still 200 ms
-+	 */
-+	attrs.aggr_interval = 200000;
-+	KUNIT_EXPECT_EQ(test, damon_set_attrs(ctx, &attrs), 0);
-+	KUNIT_EXPECT_EQ(test, r->age, 1u);
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
-+			ctx->min_region_sz, &err));
-+
-+	/* inside window: age 2 = 400 ms. */
-+	r->age = 2;
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
-+			ctx->min_region_sz, &err));
-+
-+	/*
-+	 * change aggregation interval 200 -> 50 ms:
-+	 * inside window: age rescaled 2 -> 8, still 400 ms.
-+	 */
-+	attrs.aggr_interval = 50000;
-+	KUNIT_EXPECT_EQ(test, damon_set_attrs(ctx, &attrs), 0);
-+	KUNIT_EXPECT_EQ(test, r->age, 8u);
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
-+			ctx->min_region_sz, &err));
-+
-+	/* above window: age 9 = 450 ms. */
-+	r->age = 9;
-+	KUNIT_EXPECT_FALSE(test, damos_filter_match(ctx, t, r, &filter,
-+			ctx->min_region_sz, &err));
-+
-+	damon_destroy_ctx(ctx);
-+}
-+
- static void damos_test_filter_out(struct kunit *test)
- {
- 	struct damon_target *t;
-@@ -2599,6 +2679,7 @@ static struct kunit_case damon_test_cases[] = {
- 	KUNIT_CASE(damon_test_commit_ctx_keeps_quota),
- 	KUNIT_CASE(damon_test_valid_probe_params),
- 	KUNIT_CASE(damos_test_age_ms_filter_is_core),
-+	KUNIT_CASE(damos_test_age_ms_filter_interval_changes),
- 	KUNIT_CASE(damos_test_filter_out),
- 	KUNIT_CASE(damos_test_apply_scheme_filtered_sz),
- 	KUNIT_CASE(damos_test_apply_scheme_filter_sz_unchanged),
+Anyway, I think this can be discussed later in a follow up patch.
 
--- 
-2.53.0
+@Paulo, @Namjae:
+Reviewed-by: Enzo Matsumiya <ematsumiya@suse.de>
 
+
+Cheers,
+
+Enzo
