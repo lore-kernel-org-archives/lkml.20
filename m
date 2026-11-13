@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606579;
-	b=pEZDHh2HxM2jiPx2CHfmYI6EnzuHgJfNtZM8gzU/4PzBm4n/HHBogfWULakmetoEiebZ
-	 KFLDLpEqAh2VIY13cuLWrl63HDf34WHzXc8Hp7i+HU1mBuGl/5hXjSAAV0ALoukFvlQ9Y
-	 EDohsq5k37w2tPIwjBTNGZz9b2L1m2SxO61dwLxB5lDUTq8Nl8qRX+2E0SGCVEJft0s3z
-	 rvbaRSxURwNonlLls+21MPq9bVtBer3VnfX0rsEj7LmtPKHkhw0hIXF+HYVDfivVwwStf
-	 frBLNBD4/BiiKutfunOHcprV/CVtag3LSX9ZI8JFyqSiWpCPq1SHWRGGVw2V2rLuioQ==
+	t=1794606582;
+	b=GUiw5lT9Af+wCxwdm3Kbf5QjTHIgaHA6wVqqJyYFA5JzpMDaulcFPdOZVTGo3zyPVRt0
+	 v8rnqq2ajXzKa7HehwfoCeOv7Q1lTLRz31pIHj7T5u/q1a7PlvQNvmm3U8kSiSWHfi3tl
+	 9FT99l3Jutux+kXJFDCy19pl7dzIRnn/7RbWF/tA3WRB8SK2py2jYMA/PpacG2JegaMGF
+	 mQZ7cV4o9nIG+SVbVI8ejuIfKk6ovE/KY3YcQ7aRlMuy551276tJK/cATAuY1qsJC5+C7
+	 +dPzaU98y+fwWMjXZJAeEvmDydlnFQTSdQJin5wLWv5xLd6I96WLzrqfOQr/tY/M4Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606582;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=jq86rbtmHCfGTCXyNqVfJhMxh4HVi2BgNiFw4kBONdY=;
-	b=rss1WLpfo6LhekbtsR2CLWTWx0aHTqCxwDniX0aotKQgWBPeCjnfU9PTp41J0Tty4CjY
-	 Jq5RzxIUuj6IBXrdTSwGvC6dDuIc1WfHzYnE6p3Fg474QC2F7CJ685cgvPm9FUh3jSEVX
-	 MT3v8OdKmwYZ6Dh+yNMs4qzxL0xuthWH3LAZaksGt1GWRK4a/n5gxo81/MWrnFvJ3+qJ3
-	 tXB4hAKMa50DeE4Z/7st3VvnnT22DAVpundChHbbX3+q2/+IYMDnn9KNmZCY9LK5bZh3J
-	 lFDh+p9Jf6y1UNVdkwZVndzBowvfFVgqxr381am+dLa8xDE3C/KX2i5BKF89US8/c6A==
+	bh=6TbHZoX/BlYBOr1K+nonbwDLBEmDmf3lXau0dRjbxaA=;
+	b=LctVwF5OAyXVx30sK8KyZD81ROR6Pw5zgGRLbFLBikUuecS5tYXoitE4ghOos+hPK+Vd
+	 xNYUT+07f9t/k63vRND+EApZYn9KaeJpMEy8XN+L36v/Nit5e2DBWaNshfifn54kxDdMv
+	 CFrzhi5JzEhA9CMxwqLDX66ptTPqmsmfgmbV9r7HTAS6Uc6eOrDrnEn9L/7XZqJalDNwi
+	 AlYgtvVDxjhEaRKU3pgNBaKvB2lcxALNHsLNeGah35ve20bjLHr8XPnW8lCNans0ntcX7
+	 E0sykRsF50Xd+I81CZrKEAp6nq65IFV8aVtCLg02giRhBcVnL6bd95MkeJ3x4rpdw3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MRc+sJEo;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=p1HOHlJo;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD8560A2639
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:49:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AD8560A2639
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E0E60A5BCB
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:49:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1E0E60A5BCB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MRc+sJEo
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e95f8543c9so17869615ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=p1HOHlJo
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-378722fd4a3so1684114eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794606578; x=1795211378; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794606581; x=1795211381; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jq86rbtmHCfGTCXyNqVfJhMxh4HVi2BgNiFw4kBONdY=;
-        b=MRc+sJEogaGVA9SE2NRCCcYksZyuJqR/PLrq6+5Nwc3H4l6q4lg9fAXTdEanuXfYp0
-         5ttWZfAACGa7sKq5FqtE9hj+kTwKW5V/gyKVBlOb4NicWuuR/Te9tMGIszd5CJZDaH1H
-         fb+7r4yw5v6kaGB9+ADQGpapUMw2ASvMlEnQWPOwfhY+mTsoVu94ct0vr81PcKG+CSHj
-         d6f6VzTlsz2EXHdQ9dAsV3m3wTySam4g98+C5W2CAA/LZADSC8dsUrapLFU3adQ72YCx
-         q63zeOZBkgBbK0/5vHnydbBXv+bTXhYPo9/tzloVaUCaFlPV5y0omqLjiky1cJaECsU6
-         j+Pw==
+        bh=6TbHZoX/BlYBOr1K+nonbwDLBEmDmf3lXau0dRjbxaA=;
+        b=p1HOHlJosggpU4ZHrS3STEbwHSMP8/zvE/U0v95nrdM1BARb4gygYpQdOUthsHFRmh
+         vFxsHKM0aE64wFoZOqYp21qB4tuIOd8eXEPKAXd4nkfmyCTbiYPEveNjRmxY7TabSZts
+         gsDYfWEC+L0hLUgmFEGLrZawboxN7A1DPjIPjLsMLwI3pRmO/E6MZuYmOAdkrF4JPEDm
+         qAZyIV3YRIX1SbLuyKScCPYb6qb/VN1m4XB74teW1skdtj0WX5+YCHZZo3wiWju0h6Qa
+         XZTLrYv9K7QnJinrbuq3XJOQ6G82azv5QqryuKqya5vxE3QN/FA0GLgt4NC6KmUK3Weq
+         BGyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606578; x=1795211378;
+        d=1e100.net; s=20260707; t=1794606581; x=1795211381;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jq86rbtmHCfGTCXyNqVfJhMxh4HVi2BgNiFw4kBONdY=;
-        b=OxE1vNDAOKoOEV3R6z3kJDETnHF5xTFkIsbt0vGnc4EmDuSrcrZpEEcYouozorLvnz
-         4n1p3Or8e5TVeoR5BPrybinomjtVeDbi5SGKYc0ca3APnLagbJDc+cQsTLBAuAgyyC2M
-         Y6QbwjW4xOfJAmbsZ7k1ZsLLUFUYNLjbmsOvDxVwMeUbExuQ6QV21NJRJnubbB2RfFVw
-         CaXRKOLDMajI05kVYQqGdjZrCN+wAGpae6dgK0vgRAWl8d+y3JAPaeQSnnVA7AAOmmtT
-         Z686FqJD43hDoZ7LHeR6z2F3bvH8LDygfoOmuwGefQ0MzFCGCNaxq1FbxSFLRn/fBmVh
-         qoYw==
-X-Forwarded-Encrypted: i=1; AL+hErHHpMb5peKDmIRvCW/iPfGa8Su5HbNXdUQUUHh0WR7cW5/Bp8eaIFnNb4kw7qu3Za3qur+be6DiAnSf5Es=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++R7uQp21fDeRzSGchCZywamO9ihBKAbptc9PpX0fKg6hZchAV
-	m+rsJwX8buTCtr1fIEzHvfqi1z/AsA4QWcBgoMmNYOkhdkSwcQVmFW9oKOzwCGe2j3V6CBHUwwI
-	GgqFychFyvA==
-X-Received: from pllo11.prod.google.com ([2002:a17:902:778b:b0:2e9:4bf0:5f17])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e80e:b0:2ed:2176:244f
- with SMTP id d9443c01a7336-2ee0df868acmr37197735ad.51.1794606577577; Fri, 13
- Nov 2026 13:49:37 -0800 (PST)
-Date: Fri, 13 Nov 2026 13:48:34 -0800
+        bh=6TbHZoX/BlYBOr1K+nonbwDLBEmDmf3lXau0dRjbxaA=;
+        b=Z+oCgPW7hxchtbQ5AaleGang4lW2A1FWZe+2+C8yfaR6pwe+iugVhcI3lPGcDypRSE
+         3EPOc+K3yUEmpVVcgU2n7VvuW/UfJpanom/WVNT1tEbxSIGET5jpjmoy2tmDn3jFZvwC
+         YJJeU+6hXfo0p0SJJY4ZDlb9YL+7+nPIjxsdpKF281QVRJ8aayjWEydBIKZoHisBIXt7
+         Nyi/ROancDZAwcHadA9XdDI8sIOGZc/lOmrAeEnhe6Ud+U49cnhQ6+MNJSpxjnWItCvi
+         rZKoTadTsqUdu3LpbWPbewjStU3hnirgG3fS+F3nLpT0U+9ucuSg/cM5lxACLLVKj1bT
+         K9DA==
+X-Forwarded-Encrypted: i=1; AL+hErGXAyQATK6h2vfVaXd9gS+Ar4QTOVsH1m16Az7t6uSkKaFKhx8cYaoSl0kyf9X+2zcSrscZZXlgXGpiloQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9HVsjPnz6rGXN453NPoqwWGvduMyv1zuIvTWCnMk1HGPeurrJ
+	Iw6inTp/7Nik9SXerFVInYwBIcsvwQnlxXnI+2RLIthOxe1FDPfLk6P7RJEBcYeM158g2N/Z3MN
+	EbMzdPAU4AQ==
+X-Received: from dycaa11.prod.google.com ([2002:a05:7301:540b:b0:36d:ad72:d847])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:8114:b0:36e:a321:5353
+ with SMTP id 5a478bee46e88-37963371e09mr3567244eec.2.1794606579908; Fri, 13
+ Nov 2026 13:49:39 -0800 (PST)
+Date: Fri, 13 Nov 2026 13:48:35 -0800
 In-Reply-To: <20261113214850.3329699-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261113214850.3329699-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113214850.3329699-11-irogers@google.com>
-Subject: [PATCH v1 10/26] perf ftrace: Use generic hashmap for profile_hash
+Message-ID: <20261113214850.3329699-12-irogers@google.com>
+Subject: [PATCH v1 11/26] perf trace: Use generic hashmap for syscall_stats
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -91,145 +91,139 @@ Cc: Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
 	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Convert perf_ftrace::profile_hash to DECLARE_HASHMAP(ftrace_profile_map,
-char *, struct ftrace_profile_data *) and use the typed hashmap__* and
-hashmap__for_each() wrappers.
+Convert trace and thread_trace syscall_stats maps in builtin-trace.c to
+DECLARE_HASHMAP(syscall_stats_map, long, struct syscall_stats *) and
+replace direct struct hashmap_entry and map->sz accesses with
+hashmap__for_each() and hashmap__size().
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/builtin-ftrace.c | 43 ++++++++++++++++++++++---------------
- tools/perf/util/ftrace.h    |  7 ++++--
- 2 files changed, 31 insertions(+), 19 deletions(-)
+ tools/perf/builtin-trace.c | 43 ++++++++++++++++++++------------------
+ 1 file changed, 23 insertions(+), 20 deletions(-)
 
-diff --git a/tools/perf/builtin-ftrace.c b/tools/perf/builtin-ftrace.c
-index ac0107f5b891..02b4bf12451e 100644
---- a/tools/perf/builtin-ftrace.c
-+++ b/tools/perf/builtin-ftrace.c
-@@ -1228,7 +1228,7 @@ static int prepare_func_profile(struct perf_ftrace *ftrace)
- 	ftrace->graph_tail = 1;
- 	ftrace->graph_verbose = 0;
+diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+index 128efe1be8c3..dcd7890db8ac 100644
+--- a/tools/perf/builtin-trace.c
++++ b/tools/perf/builtin-trace.c
+@@ -141,6 +141,9 @@ struct syscall_fmt {
+ 	bool	   hexret;
+ };
  
--	ftrace->profile_hash = hashmap__new(profile_hash, profile_equal, NULL);
-+	ftrace->profile_hash = ftrace_profile_map__new(profile_hash, profile_equal, NULL);
- 	return ftrace->profile_hash ? 0 : -ENOMEM;
++struct syscall_stats;
++DECLARE_HASHMAP(syscall_stats_map, long, struct syscall_stats *);
++
+ struct trace {
+ 	struct perf_env		host_env;
+ 	struct perf_tool	tool;
+@@ -187,7 +190,7 @@ struct trace {
+ 	 * into the key, but this would make the code inconsistent with the
+ 	 * per-thread version.
+ 	 */
+-	struct hashmap		*syscall_stats;
++	struct syscall_stats_map	*syscall_stats;
+ 	double			duration_filter;
+ 	double			runtime_ms;
+ 	unsigned long		pfmaj, pfmin;
+@@ -1658,7 +1661,7 @@ struct thread_trace {
+ 		struct file   *table;
+ 	} files;
+ 
+-	struct hashmap *syscall_stats;
++	struct syscall_stats_map *syscall_stats;
+ };
+ 
+ static size_t syscall_id_hash(long key, void *ctx __maybe_unused)
+@@ -1671,22 +1674,22 @@ static bool syscall_id_equal(long key1, long key2, void *ctx __maybe_unused)
+ 	return key1 == key2;
  }
  
-@@ -1347,17 +1347,22 @@ enum perf_ftrace_profile_sort_key {
- 
- static enum perf_ftrace_profile_sort_key profile_sort = PFP_SORT_TOTAL;
- 
-+struct ftrace_profile_entry {
-+	char *name;
-+	struct ftrace_profile_data *data;
-+};
-+
- static int cmp_profile_data(const void *a, const void *b)
+-static struct hashmap *alloc_syscall_stats(void)
++static struct syscall_stats_map *alloc_syscall_stats(void)
  {
--	const struct hashmap_entry *e1 = *(const struct hashmap_entry **)a;
--	const struct hashmap_entry *e2 = *(const struct hashmap_entry **)b;
--	struct ftrace_profile_data *p1 = e1->pvalue;
--	struct ftrace_profile_data *p2 = e2->pvalue;
-+	const struct ftrace_profile_entry *e1 = a;
-+	const struct ftrace_profile_entry *e2 = b;
-+	struct ftrace_profile_data *p1 = e1->data;
-+	struct ftrace_profile_data *p2 = e2->data;
- 	double v1, v2;
+-	return hashmap__new(syscall_id_hash, syscall_id_equal, NULL);
++	return syscall_stats_map__new(syscall_id_hash, syscall_id_equal, NULL);
+ }
  
- 	switch (profile_sort) {
- 	case PFP_SORT_NAME:
--		return strcmp(e1->pkey, e2->pkey);
-+		return strcmp(e1->name, e2->name);
- 	case PFP_SORT_AVG:
- 		v1 = p1->st.mean;
- 		v2 = p2->st.mean;
-@@ -1386,8 +1391,10 @@ static int cmp_profile_data(const void *a, const void *b)
- 
- static void print_profile_result(struct perf_ftrace *ftrace)
+-static void delete_syscall_stats(struct hashmap *syscall_stats)
++static void delete_syscall_stats(struct syscall_stats_map *syscall_stats)
  {
--	struct hashmap_entry *entry, **profile;
--	size_t i, nr, bkt;
-+	struct ftrace_profile_entry *profile;
-+	size_t i, nr;
-+	char *key;
-+	struct ftrace_profile_data *val;
+-	struct hashmap_entry *pos;
+-	size_t bkt;
++	long key;
++	struct syscall_stats *val;
  
- 	nr = hashmap__size(ftrace->profile_hash);
- 	if (nr == 0)
-@@ -1400,20 +1407,22 @@ static void print_profile_result(struct perf_ftrace *ftrace)
- 	}
+ 	if (!syscall_stats)
+ 		return;
+ 
+-	hashmap__for_each_entry(syscall_stats, pos, bkt)
+-		zfree(&pos->pvalue);
+-	hashmap__free(syscall_stats);
++	hashmap__for_each(syscall_stats, key, val)
++		free(val);
++	syscall_stats_map__free(syscall_stats);
+ }
+ 
+ static struct thread_trace *thread_trace__new(struct trace *trace)
+@@ -2865,7 +2868,7 @@ static void thread__update_stats(struct thread *thread, struct thread_trace *ttr
+ 				 int id, struct perf_sample *sample, long err,
+ 				 struct trace *trace)
+ {
+-	struct hashmap *syscall_stats = ttrace->syscall_stats;
++	struct syscall_stats_map *syscall_stats = ttrace->syscall_stats;
+ 	struct syscall_stats *stats = NULL;
+ 	u64 duration = 0;
+ 
+@@ -5210,25 +5213,25 @@ static int entry_cmp(const void *e1, const void *e2)
+ 	return entry1->msecs > entry2->msecs ? -1 : 1;
+ }
+ 
+-static struct syscall_entry *syscall__sort_stats(struct hashmap *syscall_stats)
++static struct syscall_entry *syscall__sort_stats(struct syscall_stats_map *syscall_stats)
+ {
+ 	struct syscall_entry *entry;
+-	struct hashmap_entry *pos;
+-	unsigned bkt, i, nr;
++	unsigned int i, nr;
++	long id;
++	struct syscall_stats *ss;
+ 
+-	nr = syscall_stats->sz;
++	nr = hashmap__size(syscall_stats);
+ 	entry = malloc(nr * sizeof(*entry));
+ 	if (entry == NULL)
+ 		return NULL;
  
  	i = 0;
--	hashmap__for_each_entry(ftrace->profile_hash, entry, bkt)
--		profile[i++] = entry;
-+	hashmap__for_each(ftrace->profile_hash, key, val) {
-+		profile[i].name = key;
-+		profile[i].data = val;
-+		i++;
-+	}
+-	hashmap__for_each_entry(syscall_stats, pos, bkt) {
+-		struct syscall_stats *ss = pos->pvalue;
++	hashmap__for_each(syscall_stats, id, ss) {
+ 		struct stats *st = &ss->stats;
  
- 	assert(i == nr);
- 
--	//cmp_profile_data(profile[0], profile[1]);
- 	qsort(profile, nr, sizeof(*profile), cmp_profile_data);
- 
- 	printf("# %10s %10s %10s %10s   %s\n",
- 	       "Total (us)", "Avg (us)", "Max (us)", "Count", "Function");
- 
- 	for (i = 0; i < nr; i++) {
--		const char *name = profile[i]->pkey;
--		struct ftrace_profile_data *p = profile[i]->pvalue;
-+		const char *name = profile[i].name;
-+		struct ftrace_profile_data *p = profile[i].data;
- 
- 		printf("%12.3f %10.3f %6"PRIu64".%03"PRIu64" %10.0f   %s\n",
- 		       p->st.n * p->st.mean / 1000, p->st.mean / 1000,
-@@ -1422,12 +1431,12 @@ static void print_profile_result(struct perf_ftrace *ftrace)
- 
- 	free(profile);
- 
--	hashmap__for_each_entry(ftrace->profile_hash, entry, bkt) {
--		free((char *)entry->pkey);
--		free(entry->pvalue);
-+	hashmap__for_each(ftrace->profile_hash, key, val) {
-+		free(key);
-+		free(val);
+ 		entry[i].stats = ss;
+ 		entry[i].msecs = (u64)st->n * (avg_stats(st) / NSEC_PER_MSEC);
+-		entry[i].syscall = pos->key;
++		entry[i].syscall = id;
+ 		i++;
  	}
- 
--	hashmap__free(ftrace->profile_hash);
-+	ftrace_profile_map__free(ftrace->profile_hash);
- 	ftrace->profile_hash = NULL;
+ 	assert(i == nr);
+@@ -5238,7 +5241,7 @@ static struct syscall_entry *syscall__sort_stats(struct hashmap *syscall_stats)
  }
  
-diff --git a/tools/perf/util/ftrace.h b/tools/perf/util/ftrace.h
-index 950f2efafad2..5ed52e66b8cb 100644
---- a/tools/perf/util/ftrace.h
-+++ b/tools/perf/util/ftrace.h
-@@ -3,12 +3,15 @@
+ static size_t syscall__dump_stats(struct trace *trace, int e_machine, FILE *fp,
+-				  struct hashmap *syscall_stats)
++				  struct syscall_stats_map *syscall_stats)
+ {
+ 	size_t printed = 0;
+ 	int lines = 0;
+@@ -5255,7 +5258,7 @@ static size_t syscall__dump_stats(struct trace *trace, int e_machine, FILE *fp,
+ 	printed += fprintf(fp, "                                     (msec)    (msec)    (msec)    (msec)        (%%)\n");
+ 	printed += fprintf(fp, "   --------------- --------  ------ -------- --------- --------- ---------     ------\n");
  
- #include <linux/list.h>
+-	for (size_t i = 0; i < syscall_stats->sz; i++) {
++	for (size_t i = 0; i < hashmap__size(syscall_stats); i++) {
+ 		struct syscall_entry *entry = &entries[i];
+ 		struct syscall_stats *stats = entry->stats;
  
-+#include "hashmap.h"
- #include "target.h"
- 
- struct evlist;
--struct hashamp;
-+struct ftrace_profile_data;
- struct stats;
- 
-+DECLARE_HASHMAP(ftrace_profile_map, char *, struct ftrace_profile_data *);
-+
- struct perf_ftrace {
- 	struct evlist		*evlist;
- 	struct target		target;
-@@ -18,7 +21,7 @@ struct perf_ftrace {
- 	struct list_head	graph_funcs;
- 	struct list_head	nograph_funcs;
- 	struct list_head	event_pair;
--	struct hashmap		*profile_hash;
-+	struct ftrace_profile_map	*profile_hash;
- 	unsigned long		percpu_buffer_size;
- 	bool			inherit;
- 	bool			use_nsec;
 -- 
 2.56.1.703.gf848ed807c-goog
 
