@@ -1,102 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.115
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794581566;
-	b=lqLMCrtqxyo5tx2AKE5lBZl90MfXeDAehCmSZV0u5Uvh+s/ZHCGwyjLXF/RO85uixl7d
-	 E+swYZ7n//iWK2O5zvFI10g0QZz2LI6UDr8wJiKQMO5Nyg7dV/3QMq+fl9c0+uVC3i7iF
-	 T2ahEiqW9d+hedvCEesk3H35cd9nWjhB47E6CnrRbf/+7bp9mM/6H+CEM+R7mKQbsdGpa
-	 e9w7qczRzFWLRinxJF4vBL6Dv2P0yg1NZ/qy3yOyZ0xf1jMlLQEjyGS8BjhInfRKB/WS0
-	 lNeGnPGj/l6mPRt1J9XXL/45MlANClxnlYPHbCync7PoUdMfoBQUKgRVpZ+sz3qzGzg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581566;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=g0QwBnmmZ+kU4UhAVE8puaAmGDWEskaD+4oXiSvyBxE=;
-	b=RRvL+FgF3AFG2vfHbyNUslqhlG5nlfJavBBStZDrDNggip7YTZcqg/DEXE9oPgrNAJ/E
-	 4EbO81b1K39PKeE4dE8n9rFxBgeKmZ5A9QBE2sMspDHkD4dBknuTSyNhLxTWdcL2sOv3g
-	 wVF/iDl6HywybaJp/wc47Avr6ZgiIRbC/DZ1fbI0U0lmzc//G7+8asEUjiVkU/QJu+3bv
-	 QyzpG+fmjczPE+6/SQDnXcPK70cNkI30j5Z2pe8ajD3wEDh7oiFjBa24BE60UmRHncsKs
-	 LZgBsp8GBVWXo1B2lFJ9pucqf0WEXd3RmNWMmsxeyNTMMgabXChfLhq1kE+erp1XzmA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=nToJWI0c;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.115
-Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020115.outbound.protection.outlook.com [52.101.191.115])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.174
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794581572;
+	b=kJqhMmITpDTzz+LYV9q6Nf+sJ6aMmMjttAxJS9WIwRoLNvjMH9v1wWK4LFUVmFYK41hd
+	 BM+i7QqNEc9EsvDb53E8vF7B265iS/T99wPwhtVttgQCyH6yMDvQ8DBfe7zW3d62xqpF7
+	 6Aro90hVvH/7MGSOyP0PAbpSb8ljGBz8WUqXWF295fWPc07qyBnY40PP1USt5yMVMHkH2
+	 JDPEbKiw/KUMUVsOxBg3a3vMuPhqZwSxX0V1ALN7umoWtK+4FZdaOruTF+Un1dt5IdjO9
+	 rrRR6gsS7yw5uDWdyIvzqbWjoND6EAMsZJKNQgCcnR163oTrzd3zlaOM2Y501T47zCg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581572;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Infomaniak-Routing;
+	bh=x15c4RWQyZd3P3XWS5iWIOHM9youpfWPrHBtj/xpwJs=;
+	b=w20KC/XMAnoMrNFNZfIocbbZoVx4LtRU3075rVyAQRpf6HtMXCLv8giA0Rxgpg4KZcK2
+	 eGtN/gxeZTfMLbCRDL6KZYMxYyIWmhc4MyyyTvwTjC+OuKXb4SLDZCVqjd3NlhHWucUme
+	 kXpgbF0oOcel5EUEj4b/98NXvm8GdYDiLsM/3syJbBoNDFuhC7hSt5ICvXEZ39kknUoZk
+	 vYMv8GP7IMSOBjRcINdljgqiAUhCYoqY+qOs/HSXL0odFUrcEKJvtPpCKhZtUBeKQN4Qz
+	 rD2LTTxltmbbQirwWdkkcDg8bYPIpfgFHOUW6/VoQsJoFrIVPk9oNwDA6W0msckW7zA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=0leil.net;
+	spf=pass smtp.mailfrom=0leil.net;
+	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=ZQuENgGV;
+	arc=none smtp.remote-ip=84.16.66.174
+Received: from smtp-42ae.mail.infomaniak.ch (smtp-42ae.mail.infomaniak.ch [84.16.66.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96B1606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:52:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C96B1606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3EB606A330
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:52:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D3EB606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=nToJWI0c
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o8WWs1gxVIy5XkjbMLnehtJrmKFHNC2pIj7r9j6f8UTC148pbTNUJJaesss4fU+q9r1qiqepbmbHRyhHPI+5dS9cRVZ5DYIWhT8abro4yt460cuOKy1DS+sDnY+L8eWmqBr25qC7ej5//zbk4QEa48Rz9vkmKhc2TE2YaBgCE7ApneHtUNir0D22skuRBfGmG5i4m5DQIYFt86alOAv7WH0l6ih+by53rkuzxowA8s38hYmo8F1u/YYGRZIwINIrvfLodtpn5dZS+Shoa1K9TBMU9GrtkCzUv5cD7+vE1wGbQ+kbf37exiWN0FXBLMSyRQL/bn3MZxNHM/3blW0EJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g0QwBnmmZ+kU4UhAVE8puaAmGDWEskaD+4oXiSvyBxE=;
- b=YmZehmdb18udSOP0PKDofuhezjrch+M9NsiWiWx3yfbEvHLyinq4qPsgfqOkNNPVLUKygACBu10Z0jK2fnsvzLvlLdXN59h4igbkNATdTSVErAreUk508BXebb83oLV9BNM4OoGB8cnClIn6BHu4S2SvmTB+AwzSFwivlTaqdgSKfGdPXHhHaKo37zlvElFfRnKVFfOiefg4nhzeTxXPU4ZeAKqH+FwvNVx7gmHZWP5qO2NMvekcWztC1Y7VIPDNwAFQJo8TEYRCa01zRaMNCHgjhqIqB2I8kLYwlE7T5fXahlA7YubLLJiNFGLz/1hqCmg9pQDhElnu+8oMa/WoUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g0QwBnmmZ+kU4UhAVE8puaAmGDWEskaD+4oXiSvyBxE=;
- b=nToJWI0cwvytRHjWddgdlGykU98c/ezxt1Vvxb8yjwlOIFxLTo+eb0nb4Mab71OdbYB5VllyHup06dqELmIiKJjZHr8i7fnAAeX0MJDZvwOeTvKQKcBZXfrbBPRBQ3iYJjXUtufeueDhvshiwp3MeJxeqCtkgmN4j0FPspzef2EvrJq+x1Z8F9vfFn4AQ0vayVggxHwdPdLZ18wUem2/AKgEX3BDVvL01NVf5BSj23vwxsGQJPwHvIeDoe+UmsRnnz0lCV3pW96uEmmvg9b95dWO8ne+FzQbX1TFbxbke8UDP1KMSsfXOLguqtpae43hS+CKZQ68zi7hf5r6LNa5kA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YT4PR01MB9752.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:e6::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Fri, 13 Nov
- 2026 14:52:41 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.008; Fri, 13 Nov 2026
- 14:52:41 +0000
-Message-ID: <7b3aa2f3-aeae-45f9-a8a8-8d8b56fed90d@efficios.com>
-Date: Fri, 13 Nov 2026 09:52:40 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/mmcid: Bound the CID allocation busy wait
-To: Thomas Gleixner <tglx@linutronix.de>,
- Peter Zijlstra <peterz@infradead.org>,
- Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org
-References: <20260918013454.1850369-1-xujiakai24@mails.ucas.ac.cn>
- <20260918104349.GL776954@noisy.programming.kicks-ass.net>
- <877bjiem45.ffs@fw13> <87mrs8bhp4.ffs@fw13>
- <bd4c03e6-7ea6-4a21-9a3e-74ea9d36fe17@efficios.com> <87eccossye.ffs@fw13>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <87eccossye.ffs@fw13>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0154.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::33) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=ZQuENgGV
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jR0c11csJzG96;
+	Fri, 13 Nov 2026 15:52:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
+	s=20231125; t=1794581568;
+	bh=x15c4RWQyZd3P3XWS5iWIOHM9youpfWPrHBtj/xpwJs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=ZQuENgGVmSOmWaut1R7uWdqbIQ6qVS/7CNF/69Uy4+rkSNiDf2doV3KumepG6sRNO
+	 euH0vFObNVUPQCsnp3UWGH9hZbXgqEtylrFFsgvE9uEkT8LFS4RL4c+H6OV1EHiGyp
+	 lj2TEyD1N9tKiB+/KFd6MqRc50FvEghF8t6FFOJ4Gg3vrDQa4j8/VJVoIVJd8/IQ7E
+	 k3CQZD3tKyxAysjRcbukO8pwVsRlxUwa07MC9jjcUpDzOQdkL7v2vkQVLwOB8bJSQn
+	 KLE/lzBsd6hw42SLXZOjVPWeM+aiQvWx0UmHnDk89OscoyS1LcRh+SfLj0GquTl4Vg
+	 m5G0tDvaxRE/g==
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jR0bz6QKHzmtk;
+	Fri, 13 Nov 2026 15:52:47 +0100 (CET)
+From: Quentin Schulz <foss+kernel@0leil.net>
+Date: Fri, 13 Nov 2026 15:52:24 +0100
+Subject: [PATCH v2 2/2] arm64: dts: rockchip: enable OV9281 CAM1 P15 on
+ RK3588 Jaguar
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,107 +61,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT4PR01MB9752:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8bc1b4eb-ab04-48a7-bd6a-08df4195c476
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|261028144727099003|261102123227099003|261026121527099003|261026140227099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|56012099006|4143699003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	1G+6kXqi1LAtmNjHi/TA09HmumFpymgv0aT4CX+epluIIxVdwr8arGvrd1UgeIp5r2L6/48ddYprNkgZHRZKA61JUxYT13uY90KH2WduZoVM39xB+kmXe+3tKJLbnu/Is7C+0S4FJzelsgP69jB8pumtWnnenznEavCp+N58meXzh2ldueQJoPWV13Q0Vbb++yEIO2Xi2hKhJYzK0QKKYIbC5zVcoBVMtXHX0Ubf/cj/xvFcKK84b1ndAqRNpDkwVa5HJxSHEiArJbjpspkX1+8s4r3MjAoMrCXKwBxnZWtM3b8CoTFdkB63YdB9Zu31zb1EJopBy4uWu1+4bS6/aayyn9+5U1hkUUSDEY4xhgrhwx3EkRrJT77idmGM0ZCjoOXa3PgG6grzHnvz2yopaJ7yiI7NFj3WC1KqcNARVzH2MewAuSCHPCVFwtUSseXJnos/3vMWUiJ4De/ASpNGAqF0re2heZ/NUCfMh4Bs928VrEunfN67JYK9rCBDtH0tXD4e9Rd9uC4PwKcdtmoPThtZLD+1DlEGVcEtVtOyX9HZKuCuykGTZH0IM/77+jzE53PpMa6imtW+TFUFzC3iczBNA5wBbLbZ0MjkQ+hxWqc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WDdxVmI4K0wzQmR0M2tEWXFUU3h3eHRBdmV6eDVtYnZycEV4bkJZWjh4WnRl?=
- =?utf-8?B?OFdndUc4S08rOVpqc2xHQ0xwTDcrU01lNzRha05URk1OUWVPeDdvTDgvbDFF?=
- =?utf-8?B?TG9aVGZXVlI1Vmt4ZmRxU2VtS1ROWHRUUitSZzVqcTJtQjV1Z2RGWExjOVBo?=
- =?utf-8?B?TW93WjNLKzA2eXh2QWU5dFBpRGNqVktaeVBXYTdReC9uaWE2bmtSZk1RV0E0?=
- =?utf-8?B?ZFdjY3VHODRMQ0ExS0JvZlphU0FjZW5CeXZTQ2RsZmJVRFN3ZlNDNGhiRjND?=
- =?utf-8?B?QTZXRXRnRkxJaU41NnN5RDdEa2UrNlVpRkdhUVhJenNmaUNHanNiYVBGbkZK?=
- =?utf-8?B?L092eWtxUmNnVm4zT09rM2Z6V0Z0a2lvQXZ0WTFSd1BjNXVZeTB0SkkrUXpQ?=
- =?utf-8?B?QTJxN2RrU0kxYmUvTnJUUE9vY2h4UXY3dFRZTytPSllielNMZGhWa3YxZlJs?=
- =?utf-8?B?dTFGNGttV1gzOEE4UjN0USsraFcramJ2K0lHZWNPSk1iWHptRWttbVZWWStz?=
- =?utf-8?B?SlBIbWF4SUlOUVlIZk9OUGIrOE5IT1Y2eUcwZER5bGdialVOcUFYVU5tWEUy?=
- =?utf-8?B?eUhHUE0rUDA1aURoSEJRT1JyS1REdis3Y3Jyam1vUEk3VUlQbGo4MG94MDVD?=
- =?utf-8?B?eml3VG1aVXZ2OGl4T2VtbWNxZW5sTnZldlFOeWpkcTNwRk9RUFo5OWljdE9U?=
- =?utf-8?B?MGZYeFp2RFVoYUtXbEtYcFc3b01mN0RyL0tJZnFxeDhlZTZiSGtYam5XM3BV?=
- =?utf-8?B?TVl5Z2FHczRiakQwbW9kOTNxbTE4VVNwcjRXVGI0NUNEc2NQSElxd3BhbWox?=
- =?utf-8?B?YnRBdjdDSUk4OTd3dEo4NGdHTnV2YnZNWGN3dmsvMk5nK0pseFdNcHpmWTFi?=
- =?utf-8?B?ZlJ5UWp4R09qNWpwOUFkUzZFcVpvWDlaZkFTMHRGa1ZqSlBLTGV0YVN1d0Ir?=
- =?utf-8?B?S1VTY3RsSDNHUTBKQjNTWEI4dmxhOEp6a0MzQUJ2dERMRzlySitwVnc3YTVx?=
- =?utf-8?B?b09yU1QrN0ZZd0NKTHhiVTdGQXc0VUVyQ2s4Sy9yWFRjaUY2NU1xRmVxSGtR?=
- =?utf-8?B?TkdSdlZ2MTNKVUU4VnBXUHVrVUUxUWIrajhMZ3prR2ZEL1pScW5FMXk2ZHhC?=
- =?utf-8?B?V2FwTHhOWXNTeWxKVXhRanZDaC93NzNJRVY4aUhFWnpMM1U5TXM2Y202RjVT?=
- =?utf-8?B?TzFjeVdpRFBIeFlzbU9JUTRlOWt1MXFQbFlJbVdoaFFScEVWNEpCTkxYWlo1?=
- =?utf-8?B?R0xZMHZhVFpPZjNPT2pBVkxKaU9LQ1dwYXl4YjJZTmU5V2M5MVBLaWJtU3hX?=
- =?utf-8?B?ZnQzYzBhYmVxdmdaQnhURXNLdGFESjNVVHRzQzJBNi9EMk1DOE5KaW1VRjMr?=
- =?utf-8?B?V2JmSTJib3JMSHhlYmV3Si9WTWFVcGxDQ3h1alRtdTJHTUhEc09UazdmcWJv?=
- =?utf-8?B?d1FEZ2pTTDBVcnR1WklYQjBZeEFYS3RuMkhmWW9YMEx4UnVmOHVLajkxekEr?=
- =?utf-8?B?Zm14bGZ0RCtzR082Z01zYXJKOC9TV096MmVmbmRwL1pDaWxGSFpzc1crQXFa?=
- =?utf-8?B?Q2xvTzN3Vyt1NlV4clpSTU5hOHFBL1BtK1plbFpkNEIxOWxOcFhjaUVCbFRi?=
- =?utf-8?B?MG5GM3g0MllKdGpTTHFPd01JL3hTMmVLZ1MydEJCdG5YMWRWUlNmaDBKWmoy?=
- =?utf-8?B?SytNRW9XUDRVNTdXcFBacStyZkpZWlRMQTdKZC9LcFVONVdsSXBwYnlaSHVn?=
- =?utf-8?B?bDY0cG4wRFU2SXdwWVNIZmYrSTZ2LzBGd0RkcmcwZE5kdDQ4S2poRnJVOGdS?=
- =?utf-8?B?NEllQll5TUY5Y2o2eVR3WWpkMFlsV2NSQktZbU9pOWdXWTIrL05LbnBmcHM5?=
- =?utf-8?B?empvOW5KSE1uMHhrdGdoVmFicEVzWEE0WG1SbjBGV21IYjNJdStwSWVDc29I?=
- =?utf-8?B?N3I4NDlOK3BJY0xxQ1FhQ0tlRkZNZ0dGSTVDckYrd1U4RG1DNzFqMzJoWmQw?=
- =?utf-8?B?MXhjTTJacVVnUVJZZVV3M0lObEg1a3FUV2JQa2dEK3dhS0hYaHFkWFI3ejdM?=
- =?utf-8?B?Z3pFOHEyU2ZMalFnaEpBUC9kYWpONWRMY0RXVmFRVWlhWGRwVmtKcTE5MXRw?=
- =?utf-8?B?U2F4blRadkhMbWZ2d0JPd3NhanlCdFJDYk9CKzAwRkR2bjN6ZTkyTDgyV0pj?=
- =?utf-8?B?ajl2cHpUbzhkUUtYRWlSZHNxWHJDN0ROUTE2SlpYMnZBUTF2ZDFXOXJHREds?=
- =?utf-8?B?Z2pQK2Y4VCt3ZjR5cGhYNFBIWnRjUUdaZCtKNGtlM1N1cmtYSW5yZkg0RHdG?=
- =?utf-8?B?MjJyMStVVUN2ZC81a3NVWVdGcUkwUVRiTlFlazJta2ZJdUhiTGJvRzNZZUYx?=
- =?utf-8?Q?V/iTtjvLE+L2l/f3FWZD3ID7k8T+fhhRYEy3P?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8bc1b4eb-ab04-48a7-bd6a-08df4195c476
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 14:52:41.2810
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vxRoHDYs5z6MeyfpC0A4c8mGrmxAIIGh4qRJsKEngt27ABxhYs4CvMTi/+oXCVTyihvaXO1cUTPNH0sZRqKGkcYnyhBXIWkfHdsrDHyJzLk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT4PR01MB9752
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-jaguar-cam0-cam1-v2-2-3e9377e3c882@cherry.de>
+References: <20261113-jaguar-cam0-cam1-v2-0-3e9377e3c882@cherry.de>
+In-Reply-To: <20261113-jaguar-cam0-cam1-v2-0-3e9377e3c882@cherry.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Quentin Schulz <quentin.schulz@cherry.de>
+X-Mailer: b4 0.17-dev
+X-Infomaniak-Routing: alpha
 
-On 2026-11-13 09:32, Thomas Gleixner wrote:
-> On Wed, Nov 11 2026 at 20:48, Mathieu Desnoyers wrote:
->> On Tue, Oct 20 2026 at 15:54, Thomas Gleixner wrote:
->> I have a reproducer for a lockup that starts from the stale state you
->> describe. It needs two more things: the execve() fails, and the task is
->> moved to another CPU during that execve().
-> 
-> That has been reported already privately to me and a few others and the
-> reporter provided a similar patch as you.
-> 
-> While both variants seem simpler, I prefer the explicit
-> re-initialization for the failed exec() case.
-> 
-> It's a NOOP for newly initialized MMs and avoids the pointless fixup
-> dance for the last user in the common case.
-I integrated your approach, tested it and wrote a commit message for
-it. My reproducer passes with it, and so do my other mm_cid tests, on
-guests with 2 to 64 CPUs.
+From: Quentin Schulz <quentin.schulz@cherry.de>
 
-Do you want to take care of it yourself, or should I route it through
-an mm_cid fixes series I am preparing? If you want me to pick it up, I
-need your Signed-off-by.
+RK3588 Jaguar has two proprietary camera connectors, P14 and P15. This
+adds support for the only camera module we currently have for this
+connector, on P15.
 
-The series has four other fixes of mine, selftests for them, and
-Weiming Shi's teardown fix.
+The camera module has a 2-lane OV9281 camera sensor, an IMU, a
+magnetometer and an EEPROM.
 
-One of those four was found by a Spin model of the per task / per CPU
-state machine. I then confirmed it on a real kernel, with delays
-inserted by hand in the window. The model is not part of the series. I
-can send it if you want to look at it.
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+---
+ arch/arm64/boot/dts/rockchip/Makefile              |   4 +-
+ .../dts/rockchip/rk3588-jaguar-p15-ov9281.dtso     | 119 +++++++++++++++++++++
+ 2 files changed, 122 insertions(+), 1 deletion(-)
 
-Thanks,
-
-Mathieu
+diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+index cf977e883c374..e89e3123cb719 100644
+--- a/arch/arm64/boot/dts/rockchip/Makefile
++++ b/arch/arm64/boot/dts/rockchip/Makefile
+@@ -205,6 +205,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-can1-can2-uart4.dtbo
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-ethernet-switch.dtbo
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p14-ov9281.dtbo
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p15-ov9281.dtbo
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-pre-ict-tester.dtbo
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-lubancat-5io.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-mnt-reform2.dtb
+@@ -339,7 +340,8 @@ rk3588-jaguar-can1-can2-uart4-dtbs := rk3588-jaguar.dtb \
+ 
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p14-ov9281-p15-ov9281.dtb
+ rk3588-jaguar-p14-ov9281-p15-ov9281-dtbs := rk3588-jaguar.dtb \
+-	rk3588-jaguar-p14-ov9281.dtbo
++	rk3588-jaguar-p14-ov9281.dtbo \
++	rk3588-jaguar-p15-ov9281.dtbo
+ 
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-ethernet-switch.dtb
+ rk3588-jaguar-ethernet-switch-dtbs := rk3588-jaguar.dtb \
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p15-ov9281.dtso b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p15-ov9281.dtso
+new file mode 100644
+index 0000000000000..507fca0948243
+--- /dev/null
++++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p15-ov9281.dtso
+@@ -0,0 +1,119 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2026 Cherry Embedded Solutions GmbH
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/clock/rockchip,rk3588-cru.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/media/video-interfaces.h>
++#include <dt-bindings/pinctrl/rockchip.h>
++
++&csi_dphy1 {
++	status = "okay";
++};
++
++&csi4 {
++	status = "okay";
++};
++
++&csi4_in {
++	csi4_input: endpoint {
++		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++		data-lanes = <1 2>;
++		link-frequencies = /bits/ 64 <400000000>;
++		remote-endpoint = <&cam1_output>;
++	};
++};
++
++&i2c7 {
++	#address-cells = <1>;
++	clock-frequency = <400000>;
++	#size-cells = <0>;
++
++	magnetometer@1e {
++		compatible = "st,lis2mdl";
++		reg = <0x1e>;
++		interrupt-parent = <&gpio1>;
++		interrupts = <RK_PB0 IRQ_TYPE_EDGE_RISING>;
++		pinctrl-0 = <&cam1_imu_int3>;
++		pinctrl-names = "default";
++		vdd-supply = <&vcc_2v8_imu>;
++		vddio-supply = <&vcc_1v8_s3>;
++	};
++
++	eeprom@50 {
++		compatible = "st,24c64", "atmel,24c64";
++		reg = <0x50>;
++		pagesize = <32>;
++		vcc-supply = <&vcc_1v8_s3>;
++	};
++
++	camera@60 {
++		compatible = "ovti,ov9281";
++		reg = <0x60>;
++		assigned-clocks = <&cru CLK_MIPI_CAMARAOUT_M2>;
++		assigned-clock-rates = <24000000>;
++		avdd-supply = <&vcc_2v8_cam>;
++		clocks = <&cru CLK_MIPI_CAMARAOUT_M2>;
++		dovdd-supply = <&vcc_1v8_s3>;
++		dvdd-supply = <&cam_vcc_1v2>;
++		pinctrl-0 = <&cam1_rst &mipim0_camera2_clk>;
++		pinctrl-names = "default";
++		reset-gpios = <&gpio4 RK_PC6 GPIO_ACTIVE_HIGH>;
++
++		port {
++			cam1_output: endpoint {
++				data-lanes = <1 2>;
++				link-frequencies = /bits/ 64 <400000000>;
++				remote-endpoint = <&csi4_input>;
++			};
++		};
++	};
++
++	imu@6a {
++		compatible = "st,lsm6dsr";
++		reg = <0x6a>;
++		interrupt-parent = <&gpio2>;
++		interrupts = <RK_PC4 IRQ_TYPE_EDGE_RISING>;
++		pinctrl-0 = <&csi1_imu_int1 &cam1_imu_cs &cam1_imu_sa0>;
++		pinctrl-names = "default";
++		vdd-supply = <&vcc_2v8_imu>;
++		vddio-supply = <&vcc_1v8_s3>;
++	};
++};
++
++&pinctrl {
++	cam1-p15 {
++		cam1_imu_cs: cam1-imu-cs {
++			rockchip,pins = <4 RK_PB1 RK_FUNC_GPIO &pcfg_output_high>;
++		};
++
++		cam1_imu_int3: cam1-imu-int3 {
++			rockchip,pins = <1 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		cam1_imu_sa0: cam1-imu-sa0 {
++			rockchip,pins = <2 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		cam1_rst: cam1-reset {
++			rockchip,pins = <4 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		csi1_imu_int1: csi1-imu-int1 {
++			rockchip,pins = <2 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++};
++
++&vicap {
++	status = "okay";
++};
++
++&vicap_mmu {
++	status = "okay";
++};
 
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+2.56.1
+
