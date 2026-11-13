@@ -1,111 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564867;
-	b=FJL2/1Sob6t+HZuG+STp+V1Nw7Mu50GfM9ACYFmRvociJv4pzkQqQmOqDFFgoI+csC/J
-	 WHwlHPWr8QtSp3aWN6caNGMS3LjrQRVrxJNxJa/CLyzHiCTlF6p3EuriYUTDkFYAjkeUL
-	 AAS/IqO6m3RNgp7mV8TwiqbqmIs/5TwprodIYQN8uN4kAEvPpsE133Qcljlg+X6eXOEUe
-	 K/MyUQreQ4g4eBFVmS144xIJKXpK0xYPLBy5Ri9vfNLyBBgiNsoTJkk13j9EzF4Slhk9z
-	 +kNIxavIqYqa7dNHtCABCI8rAb2dpfgL7pqf6nabOTGQUZF6uszSRLwaxjJrD8Sc0Eg==
+	t=1794564865;
+	b=IX82+eaVZTv8KkdgSk6sLCT3sq1+7KlQEL5NKiFsfcgpVYq8DJUPwiVJGZR0zsWqbunN
+	 qpiiviOo067+V9KFYeuR3JPIAN8f738Yh75vjNfVJuXuNTRGgYDLK63n/7A5LxOhR70M8
+	 TvWOl9QZC9zAU/VP46nMjd4TyarJIFqoQ2b7t6fIfRbaNLX54eG9u3oQg6cAHXW6dpdjv
+	 zQtDhGysx2IENMDnA7iu1/6gWAMESgpRfsMgZQ/Kj9gAdSCdMPql2Vc+Ah7A+rPXwOlUS
+	 /RoXXBunyW/gwV+S9sSaXs22e0GOWNb7/fz/9o7zNiCvadt4nysS/ZoCNsyh7awna+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564867;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ZsOlRIP84+cd0ceqPpUVOhUaXHip+vkj83YXh3mKpJs=;
-	b=HLrcqhKMAg1MtuGFdrpEoWT/41v1EDLbzftvvyal1Wx7tsCIfMu8cueiKnqsQ08hJUNa
-	 lQAXWYWKdqf8+DFX9KbS43rp1EzDQ2ibw90SrF/R42epeHU5z0K8o1GwiRKe2h+w+hLO+
-	 V3NqWO6nIzpviJVjRFZeBW+B5YLRMwurMzPKWMO6Hm7+Sg88jvPh+P8bqr3/zHye5ebKC
-	 aYXi0wQZuWs7lUf94r9CqwxvFofvro4FGLfgFK1nt36x7i3A/xZsJfp6dJEqzfo2Zi9yT
-	 7h9rVZHtNPxMs3LrP/OsmBjI9d4O4Mrgb/jEgYs2iXhjs4L6mhlzWp7XLPTyp2cSMBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564865;
+	h=DMARC-Filter:DKIM-Signature:Mime-Version:X-Lms-Return-Path:
+	 Content-Type:To:From:Date:Content-Transfer-Encoding:Cc:Received:
+	 X-Mailer:X-Original-From:Subject:Message-Id;
+	bh=I1JA9FJ/SP/+WEbDXsjWk6ef9MGFbfHr+CbxzhoP4+E=;
+	b=iL58n9spTlnQ3C2zh0JV/y8nERT1PvvIs/KkD2SiSKAfb/zOaOW1Uk3z/SlhNkHnZZDm
+	 hKcqQZiEwP4OJ1lRUQS/alQ0IAx9NyQ5SlyR5DbeQL6uCH6zdlpOeJl0REbskvSAgNSm+
+	 MSaobga6PgGa8VgOohXIy10g8gzWFoy6r3D9nU2PWsgemMczTK4lcCj8EqqYAKNxdAZsS
+	 DNDlQgoNIXrOONyiWARlf2whljtVcfRBDOT42HCPa/IEQ6XHQPdtkzdFiImiTIjujxulv
+	 fmBRGP6M2C1HGfcFSZ4WLgZ/BPL2FxDI+tE20rMliJcKA0qnTFi2Nn9XgOVxwBZ7Tpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mlEZuqpP;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a2A56IHW;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=lanxincomputing.com;
+	spf=pass smtp.mailfrom=lanxincomputing.com;
+	dkim=pass header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=CS5T5Imy;
+	arc=none smtp.remote-ip=209.127.231.39
+Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEC8606A8B1
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:14:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDEC8606A8B1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD151606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD151606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mlEZuqpP;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a2A56IHW
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD8VEhb4163569
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:14:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZsOlRIP84+cd0ceqPpUVOhUaXHip+vkj83YXh3mKpJs=; b=mlEZuqpPF39alVmw
-	XApYRuTPVfcUjxNT7dsmKkyxJoShSvtBNG+fLek1nLHG70UzKQRbzrcvnkLKFYwK
-	DEfLzqXRzlr8qZ0mJp+KNcOHGf2U1t1nYMgV8RNUzHqFwKioGKfbuJpwj8oSIzKl
-	LxVXHOlPqZvCwOBn4oqVl5vtESxQcv7LlRKJTO9l8w3shUxM54tiLIguftfH/beJ
-	L6DY+IveQp47j4Ua7BKxWSJNA6oPow9lEbHwMHnuzxS6fshlU5fjZjbqOtf8VpAv
-	RfoLRt9GEYMawZ4SUQ4hQmxDS07WleaqdVj0Aj0E7OoEZHnpHuAbKxW2wwQYhjlb
-	7XbDAw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwh0ak8pq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:14:25 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-530cd3dff25so1880351cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:14:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794564865; x=1795169665; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZsOlRIP84+cd0ceqPpUVOhUaXHip+vkj83YXh3mKpJs=;
-        b=a2A56IHWfz1Y/iMrxV/OtURhgg43OmJZPKyPYHBigugByNwOv7JDh2CQwY8i3kAjip
-         mfF8ViBhuayCRal30yAG1f/0Ak2B4XC+vqSzIZL5cOxH/zpb3ZoVmhZfJNTfaU6gXPAy
-         rrbl7/D3Ag4v3JJv0suWyJhcO4IZXt0BnKS5B/E0w9tQyOj/wb9eHArMtsRtgNIdtc08
-         Xl0c54vLzzXJQk+0oUYOVehbIZO+tfRK8oopWGUPxez6rQDa4NM///1N5Vdyp1lR92DH
-         k9ZXiLItg2Kd6x9FdRLv3Xc8gXy/lpkON4gGsBGijTYBcTzAAmOdDg3Mu/iibtRJDJ26
-         yTEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794564865; x=1795169665;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZsOlRIP84+cd0ceqPpUVOhUaXHip+vkj83YXh3mKpJs=;
-        b=sDad31byCnxSN+np0jngXTqvAYxnGJjTE9143LA2Qjj71mDeqGy+bJXZtUtJbmoAkQ
-         TZBYUuvcXs8uGw2otb+cShCPQSFjTGwc45+OMyDb8EIq4flgGBVLQjGY4Iz4QLwmgslO
-         VNnOel5bFP0O5rcLDjTBIJMcVT0M1cmxDrLLPvoi/aeJnE7mBMxSCETT2IiQjhp5n4i9
-         nhoPG9m/86ufvAr7jumqL/8UeUoM/TtHpk6HAiNMbAIBacNCXBeAvIPpcWEK1m3uDwf7
-         p4guNjxfyRHra7QiLySsdiJAGSxZG+zxBB411BQdUwD2yhg8bRg7w67LH5JbkrSoLFrk
-         /uxw==
-X-Forwarded-Encrypted: i=1; AL+hErEBsiRG1a4elWiyvMVH/Z/QVB/poZwuhaya3Okjyf4ZPXLbWZ1B9mWnezFm9uKlms54lB97OvG9qDiheHA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Relhet6FIwT3Zr7GjZRgO+1Qr+pkaec2xDge9Y4RopH2VffMC
-	MyBLO+dyiCGI4EHYPbap6/Jyvl6ok6eIRRSZHunX+3OqI8/TpO3MEdV8U2077RmeWe+rkXpKhuH
-	Zm7Zo2reG/XM9dgEzMJGaRU8GfHg/fwzAPmPoaR34+BQox9z5zaotJrO2QQjdc4FoOGM=
-X-Gm-Gg: AYBFou2eaTQGqOT0DnjPSv4TlZKneNXMHdpw+GaGLVbvd3REPik43e/lnsGmeyHvsBX
-	y4a1P82zcEOGEc8hI0e1ZwfIvhET+Bj4BAr7SX25vAhaoVA1SS9foR/ZJ/b61W3W4vbr9dOUEd1
-	A3W7dPFgVIkPUpxx6OaEuLbW577srE4gSQUF2aszhXMRKK+d9ZWxmkt+4DAglZD7V6T3wX/aP8O
-	B2EUd3w1dYDc13t5hVC/w9Y8LL1tfLKAGKQXfyC3CyF9/v//+QcLB7+Fn4cqllqMO27dVhfP8cZ
-	iHUjdExI18m5OyhaaA+1Pkp963jBKAakVwHgczdWZi8NVVY9f5hmVLs3lpvNafkrZQsORbZq25L
-	VWZP9RIBtjibgc1Rx/LxpHoVVGQOOH/CcogZaV9FHmPbM/Xs2hrhzDfX5saa2Z9FJdTieDEc=
-X-Received: by 2002:ac8:1009:0:b0:54d:2f0d:a83f with SMTP id d75a77b69052e-55ac667e23bmr32303351cf.3.1794564864802;
-        Fri, 13 Nov 2026 02:14:24 -0800 (PST)
-X-Received: by 2002:ac8:1009:0:b0:54d:2f0d:a83f with SMTP id d75a77b69052e-55ac667e23bmr32302991cf.3.1794564864268;
-        Fri, 13 Nov 2026 02:14:24 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c264d99csm729164a12.36.2026.11.13.02.14.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 02:14:23 -0800 (PST)
-Message-ID: <58b64727-4b36-4328-9abd-116b984eb7af@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 11:14:20 +0100
+	dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=CS5T5Imy
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1794564858;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=I1JA9FJ/SP/+WEbDXsjWk6ef9MGFbfHr+CbxzhoP4+E=;
+ b=CS5T5ImyRIr7b9g1zL7JIDLKYCSNavpZovZeZfKFsTTz2qkF/fSo8VehDdsombFhc6eYHE
+ VT/Vy8AtKrp7Y2kWdb0r4O3KHbTOqTIgZyx0XeW/a6jTVre4IbBkv9TJ+NcPYp7TBtLebv
+ /07cA6xrKMm0ra52s58PBUlnXG6LZm4+Dj5M37R81jkuM7rw8niYpJ1jZ3OZXPEPBsi+1C
+ ssZOA4iWHlNErtVNNvLdB3HZg2vafSuagslKjhx85ZOhA2w7U0BFFCEU52IKtj/Ev22iF7
+ U2/0S7mJHhb3waclcFl4jmNxbfHGYCyG63f//zRIcuQNCtWmMrdk12UnaBVqcw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,129 +51,154 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] dt-bindings: dma: qcom-gpi: Add QSPI protocol
- identifier
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dmaengine@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
- <20261106-qspi_upstream_series-v1-2-21f43042dd60@oss.qualcomm.com>
- <20261109-wandering-miraculous-mamba-0cf21a@quoll>
- <2fc8f7ea-651e-466e-9346-c47e0a38c5bb@oss.qualcomm.com>
- <20261111-daring-salamander-from-tartarus-4c72bd@quoll>
- <c9427a03-8b45-4e35-a29d-7ebe30f07ed7@oss.qualcomm.com>
- <5b6e4031-4c52-4b67-82c2-0033d13b15d6@kernel.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <5b6e4031-4c52-4b67-82c2-0033d13b15d6@kernel.org>
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26af6e2f8+187bd2+vger.kernel.org+xiangwencheng@lanxincomputing.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA0MCBTYWx0ZWRfX+Z4vL1DAkoGA
- ZF/3ciI3qTNlD5KIzM3EA0lCteGorbrAFxUq0oSNN7E47tD/4jFGJTNTS8rRIWRkZS32APh5PmZ
- DSWCfjwlCNCQzjiY0g7FjM5BeJg+zOs=
-X-Proofpoint-GUID: 0Ef6z3XWyIZcuBrYsttXYRNblbtTKHt4
-X-Authority-Analysis: v=2.4 cv=N+e8hG9B c=1 sm=1 tr=0 ts=6af6e301 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=NEAV23lmAAAA:8 a=O3q0-ZaapwhYWF49y_EA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA0MCBTYWx0ZWRfX8ek8C/lVBF8/
- zpYBvu7qQi+B+71Dq/I6p2yCzG6vQKlVz88mFexA/mAbSVAgHgrjbxF6gC8nJkVjIxPpP1DQxU1
- /aJFp5N3sFQydTbv7YPtn3stoo3QYjfo1MqcC+u7S71oA2aoCIQdDq3O+IpciBAId6VF8a+8mCi
- jO//OE4v6ljdtAdDzduP/4HlzFZLwH4x7izb6h2ZB4ZfPNVmLuNVKdRdSDWvd6sPqQIIcaOA3WV
- Mf1JQj7SPqpSpkij05JM/g6STO4rAzA/rXKHTEh9dMpbzOoYgHqoSUgjiKe2FCZg4sx0bD2IFZA
- YBcwHRt5oX/24WBaM0PWEs44Uj5tp2qODk993n7rjx0+DjPYyvnrrSBY1GNv9a8mR5dks+2kXNg
- r1mYC10VxYAYNOEZxZHH53Ag9MEgOKCK9moj6dSpapFFnOhzEUKSzehLa8Wl26BnROMspwRps+o
- sRO2MlHt6yZHU1cUnCg==
-X-Proofpoint-ORIG-GUID: 0Ef6z3XWyIZcuBrYsttXYRNblbtTKHt4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_03,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0 priorityscore=1501
- phishscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130040
+To: <anup@brainfault.org>
+From: "BillXiang" <xiangwencheng@lanxincomputing.com>
+Date: Fri, 13 Nov 2026 18:13:57 +0800
+Content-Transfer-Encoding: 7bit
+Cc: <xb@ultrarisc.com>, <atish.patra@linux.dev>, <pjw@kernel.org>, 
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>, 
+	<pbonzini@redhat.com>, <graf@amazon.com>, 
+	<kvm-riscv@lists.infradead.org>, <kvm@vger.kernel.org>, 
+	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
+	<xiangwencheng@lanxincomputing.com>
+Received: from lanxin-ThinkBook-16-G5-IRH.lan ([123.120.4.67]) by smtp.feishu.cn with ESMTP; Fri, 13 Nov 2026 18:14:16 +0800
+X-Mailer: git-send-email 2.53.0
+X-Original-From: BillXiang <xiangwencheng@lanxincomputing.com>
+Subject: [PATCH v4] RISC-V: KVM: Serialize and atomize the IMSIC's TOPEI read-and-clear operation
+Message-Id: <20261113101358.3007601-1-xiangwencheng@lanxincomputing.com>
 
-On 11/12/26 2:57 PM, Krzysztof Kozlowski wrote:
-> On 12/11/2026 14:47, Jyothi Kumar Seerapu wrote:
->>
->>
->> On 11/11/2026 6:07 PM, Krzysztof Kozlowski wrote:
->>> On Mon, Nov 09, 2026 at 08:03:29PM +0530, Jyothi Kumar Seerapu wrote:
->>>>
->>>>
->>>> On 11/9/2026 7:12 PM, Krzysztof Kozlowski wrote:
->>>>> On Fri, Nov 06, 2026 at 08:31:20PM +0530, Jyothi Kumar Seerapu wrote:
->>>>>> Add QCOM_GPI_QSPI to identify QSPI (Quad SPI) channels in GPI DMA
->>>>>> specifiers. Its value, 9, matches the GENI serial engine firmware
->>>>>> protocol ID for QSPI.
->>>>>
->>>>> What is GENI serial engine firmware? How does the Linux rely on it that
->>>>> we add bindings for it?
->>>>
->>>> Hi Krzysztof,
->>>> GENI firmware runs on the serial engine’s programmable sequencers and
->>>> implements protocols such as SPI and QSPI. Linux configures the engine and
->>>> submits transfers to it.
->>>> The existing GPI DMA specifier includes a client protocol ID. Linux programs
->>>> this ID into the DMA channel and selects the corresponding descriptor
->>>> format. QCOM_GPI_QSPI adds the QSPI protocol encoding 9 to that interface.
->>>> I will clarify this in the commit description in V2.
->>>
->>> Does not really answer. I see no reason why GENI firmware needs ABI for
->>> Linux.
->>>
->> This extends the existing GPI DMA binding, not a GENI firmware ABI.
-> 
-> OK, so it is not ABI for the firmware. Period. Let's stop discussing this.
+The TOPEI read-and-clear must be atomic with respect to
+interrupt injection (set_bit in EIP). Otherwise an
+interrupt injected between the topei read and the
+clear_bit could be silently dropped.
 
-It is a firmware ABI, the various protocols each have their own magic
-number and the firmware needs to know the right one. The GPI DMA driver
-uses exactly that information and programs it into the core:
+Signed-off-by: BillXiang <xiangwencheng@lanxincomputing.com>
+---
+v4:
+ - pass topei value to __imsic_swfile_extirq_update()
 
-gpi_of_dma_xlate():
-  gchan->protocol = args->args[2];
+v3:
+ - fix undefined eflags
 
-gpi_alloc_chan():
-  gpi_write_reg(gpii, gpii->regs + GPII_n_CH_k_SCRATCH_0_OFFS(id, chid),
-                GPII_n_CH_k_SCRATCH_0(pair_chid, chan->protocol, chan->seid));
-							^^
+v2:
+ - fix patch file curruption
 
-It doesn't necessarily _have to_ be the DT ABI, but since it's
-bijective, an identity mapping seems like the sanest choice. The
-holes are a result of some of the other protocols not being
-supported upstream (yet?).
+v1: https://lore.kernel.org/kvm-riscv/20260923070332.1376132-1-xiangwencheng@lanxincomputing.com/
+---
+ arch/riscv/kvm/aia_imsic.c | 47 +++++++++++++++++++++++++-------------
+ 1 file changed, 31 insertions(+), 16 deletions(-)
 
-
-
-But we already know this value in most cases (if the firmware is
-present). Once upon a time I tried to de-multiplex the GENI nodes:
-
-https://github.com/quic-kdybcio/linux/commits/topic/single_node_genise/
-
-particularly:
-
-https://github.com/quic-kdybcio/linux/commit/02e4671d8f9c3743a8e1a520cae75a455912eca7
-
-which (for x1e80100.dtsi) only keeps a single node per QUP instance
-(and not NUM_PROTOCOLS nodes for each one)
-
-But I think for removing this completely we'd need to move this
-information into a new property (qcom,protocol?) which would encode
-exactly the same value to convey that to the fw loader.
-
-FWIW I can pick up that work again if we agree on the bindings.
-
-Konrad
+diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
+index c1af23e79ae0..0a6b20f3a28d 100644
+--- a/arch/riscv/kvm/aia_imsic.c
++++ b/arch/riscv/kvm/aia_imsic.c
+@@ -607,26 +607,25 @@ static void imsic_vsfile_cleanup(struct imsic *imsic)
+ 		kvm_riscv_aia_free_hgei(old_vsfile_cpu, old_vsfile_hgei);
+ }
+ 
+-static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
++static void __imsic_swfile_extirq_update(struct kvm_vcpu *vcpu, u32 topei)
+ {
+ 	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
+ 	struct imsic_mrif *mrif = imsic->swfile;
+-	unsigned long flags;
+-
+-	/*
+-	 * The critical section is necessary during external interrupt
+-	 * updates to avoid the risk of losing interrupts due to potential
+-	 * interruptions between reading topei and updating pending status.
+-	 */
+-
+-	raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
+ 
+-	if (imsic_mrif_atomic_read(mrif, &mrif->eidelivery) &&
+-	    imsic_mrif_topei(mrif, imsic->nr_eix, imsic->nr_msis))
++	if (imsic_mrif_atomic_read(mrif, &mrif->eidelivery) && topei)
+ 		kvm_riscv_vcpu_set_interrupt(vcpu, IRQ_VS_EXT);
+ 	else
+ 		kvm_riscv_vcpu_unset_interrupt(vcpu, IRQ_VS_EXT);
++}
++
++static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
++{
++	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
++	struct imsic_mrif *mrif = imsic->swfile;
++	unsigned long flags;
+ 
++	raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
++	__imsic_swfile_extirq_update(vcpu, imsic_mrif_topei(mrif, imsic->nr_eix, imsic->nr_msis));
+ 	raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, flags);
+ }
+ 
+@@ -912,12 +911,15 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *vcpu, unsigned long isel,
+ 	struct imsic_mrif_eix *eix;
+ 	int r, rc = KVM_INSN_CONTINUE_NEXT_SEPC;
+ 	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
++	unsigned long flags;
+ 
+ 	/* If IMSIC vCPU state not initialized then forward to user space */
+ 	if (!imsic)
+ 		return KVM_INSN_EXIT_TO_USER_SPACE;
+ 
+ 	if (isel == KVM_RISCV_AIA_IMSIC_TOPEI) {
++		raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
++
+ 		/* Read pending and enabled interrupt with highest priority */
+ 		topei = imsic_mrif_topei(imsic->swfile, imsic->nr_eix,
+ 					 imsic->nr_msis);
+@@ -934,16 +936,20 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *vcpu, unsigned long isel,
+ 					  eix->eip);
+ 			}
+ 		}
++		if (wr_mask)
++			__imsic_swfile_extirq_update(vcpu, topei);
++
++		raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, flags);
+ 	} else {
+ 		r = imsic_mrif_rmw(imsic->swfile, imsic->nr_eix, isel,
+ 				   val, new_val, wr_mask);
+ 		/* Forward unknown IMSIC register to user-space */
+ 		if (r)
+ 			rc = (r == -ENOENT) ? 0 : KVM_INSN_ILLEGAL_TRAP;
+-	}
+ 
+-	if (wr_mask)
+-		imsic_swfile_extirq_update(vcpu);
++		if (wr_mask)
++			imsic_swfile_extirq_update(vcpu);
++	}
+ 
+ 	return rc;
+ }
+@@ -1034,6 +1040,7 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vcpu *vcpu,
+ 	unsigned long flags;
+ 	struct imsic_mrif_eix *eix;
+ 	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
++	struct imsic_mrif *mrif = imsic->swfile;
+ 
+ 	/* We only emulate one IMSIC MMIO page for each Guest VCPU */
+ 	if (!imsic || !iid || guest_index ||
+@@ -1050,9 +1057,17 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vcpu *vcpu,
+ 	if (imsic->vsfile_cpu >= 0) {
+ 		writel(iid, imsic->vsfile_va + IMSIC_MMIO_SETIPNUM_LE);
+ 	} else {
++		/*
++		 * Serialize the EIP set + external-irq update against the
++		 * TOPEI read-and-clear path so that an injected interrupt
++		 * cannot be silently lost when the guest acknowledges a
++		 * different (or the same) interrupt concurrently.
++		 */
++		raw_spin_lock(&imsic->swfile_extirq_lock);
+ 		eix = &imsic->swfile->eix[iid / BITS_PER_TYPE(u64)];
+ 		set_bit(iid & (BITS_PER_TYPE(u64) - 1), eix->eip);
+-		imsic_swfile_extirq_update(vcpu);
++		__imsic_swfile_extirq_update(vcpu, imsic_mrif_topei(mrif, imsic->nr_eix, imsic->nr_msis));
++		raw_spin_unlock(&imsic->swfile_extirq_lock);
+ 	}
+ 
+ 	read_unlock_irqrestore(&imsic->vsfile_lock, flags);
+-- 
+2.53.0
