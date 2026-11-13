@@ -1,85 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794608919;
-	b=LHCI1Ee7hQDxQZNjXMt4kUh3YV4nAWIxX/a5ZKdEOmYpGpH573X/TAINolp4/xvfY6qg
-	 NNnZQrC4gCTmdkGGAlKh6rTlUSOsqzhbmQC3rIiZpul+P1bmXTU8FBs0S4clgt6Jk6d0+
-	 romcgS0F5hiAHqK4h2LzzsJJTN2C9Y01ZsWJxkbgeHU4jeRtJkGO/5RKx7edB2Lrw0zLV
-	 X27kXaLIPy0i1Axh1eyJzJYCZAyLEgnUQ3JHd1CJENjdgjvKFS+3GMaSzCTfJVujEq5np
-	 JHpAzO1TQgjbVrt+u+eqJX8ekTLt6MbQbjKn1XnzZt3Wa7ONbYTxmeUWC/PDTf0oH2Q==
+	t=1794608982;
+	b=kO9UfwakDlEk8r1S3bfgogdUaXgekBq8FIK5UHgcphN5I/+8TM2LnA0zf/y5CNaqmJLx
+	 HWR5vK0fanTwppUYJiL3MGGYwrUQS5wNgDlDZKIc3pwEbN53KgZnNglzAzs3PKuv2WNj2
+	 oNkzIQWE38oLBk3Dk1z/rMnBBxbnBsbe8WSHqf9pHHPNZkM6eyrycs6MI9P43W/CCCCQ0
+	 hPUTaLsbDtLIxlG6T4lHe5pewEerGQ6Zv0P6a8a9zrnmtYliIGTuWthrQ/QCYY6gowl12
+	 G/iBgELsxDKhdCy5nSCQhpqb7TlbPdorcdzvr4f0fTXnh/ErwhzDrHUo/TF2XYFUVEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608919;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=f8Yyu14PmVzE14sqQ8IHgz22ahJAxs1j9mX0HpcMRXc=;
-	b=C+E2j2ePk3veLqNp328nX2A+ytxbKZxL/xxKfHavFY8odr4PBklZghyo7qFaLt78ldJU
-	 tseyY3hfGgGfjaJk1UMPdqzcR4lMS90WS7919vvmvCkZie2fo6+3mIej6ixBJOuyRR+hK
-	 xIU5ewXW26NQLpvXwEZ2VXGGylSGnq3n/anAL3H5uDIhkpZPEBsUG8QfbAr4MQkx2/Du1
-	 i5Y9T0fFOgaQErm88JrtaBQHbnI8owr7nVMh6r815NDPM6wcxJqIAbVyzRloEdqPRIXRx
-	 I6c54YAuP+7cXnsIVkHNRaQeZuslqQD1wf3o3IEwDaTCPRPZsLCSDjbBvZmtvJFoPeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608982;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8l4U3zQpJVwCIUSroFNMy3UbW7wsKixV4Iy1YuhTSWU=;
+	b=f4J2X3eQA71NNK+IIMKjJFScak40ONk7Epr4agBDgXly50lbIyFiJvo/d+FlvmFcjsjh
+	 gJ78nZVHSpE51UoY2HTfgZxfHg5y+0f4vI12skkHib5sFtk5R1/n2wajqkMFrHDkegAFa
+	 4H5X/fqr6HUoTYLYAqgHLH12npkNWaHaV4iVf1dg7moHnyD082AviY5BU/hAN5da4+Oyd
+	 qiCYYCSpUR5/re74YeGFnnsw8m7ar04JifiYa2XITugP8sJCyriPf6A6nRY4TItjLRlXY
+	 pLMuMk5CP8RQ9e7cP81Tv+daTBPeKUS+mplOOA3HR8lW10Hpx1pfuZI8Q4EoiG75ZkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=fD4Rzlh4;
-	arc=none smtp.remote-ip=209.85.210.50
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o4KUS8tM;
+	arc=none smtp.remote-ip=95.215.58.51
+Received: from mta1.migadu.com (out-51.mta1.migadu.com [95.215.58.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72B3606A329
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:28:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B72B3606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D62606A8A6
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:29:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72D62606A8A6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=fD4Rzlh4
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-8439fe796ebso1880602a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:28:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1794608914; x=1795213714; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f8Yyu14PmVzE14sqQ8IHgz22ahJAxs1j9mX0HpcMRXc=;
-        b=fD4Rzlh4SOf+qn7cQa3+U4U7FnQpmRbMeUH+EJBfZl5XIBR2UfdITSAhw1J0PADSPT
-         u7x579MUqcDS6LuueeZe3WA9CXiOWumX7kEOltxZThWV3nUdE5028o5LJJ9WfyERMAWt
-         dE2+YD8cM9X72ni31r2n41mEqMC/ozw71ss4U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794608914; x=1795213714;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f8Yyu14PmVzE14sqQ8IHgz22ahJAxs1j9mX0HpcMRXc=;
-        b=y2jeUOcduidgGLZRVsgVj0iiPuS3XDCAoX/jVC3vJ0CM15umiWUResUQknV9cIrmaD
-         R8BMBSRf9zGubirUkJsVBwjsfAD96sacoyQZBnLz+ErjnGU+twKn0FblgP8rFHsog3Ro
-         UcU+nj5iJRoM3iwE6E64ZL3G6o8+Lhd9ok3YuVmOZFx1rCFQlY/E+kZ3R/o+uGSehxKO
-         XjC33ZM56AjKUN55ZACjkHpm9bC+CzeY4rv21M68m99BFuQqMLlAnFC/+n4SdgGPZTwD
-         B5cYaITW7LqAAFnxzjmO8m8rBjGljvZutc7cmqfhlw7EmhvKmQ5Jv9RfMdq4kzPooY8d
-         UChQ==
-X-Forwarded-Encrypted: i=1; AL+hErE3MhIVlJLmg9id3X00+hVL69HB0ynM42FCqIlWxtGYEbDrHuXKaDm+fiTptUMGo6LiKkiefFz7SUdz/iU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RmeEye49i/ZDkrAwdsJPEK3CBptgfd374Z2r6jtCAjShyPJZs
-	ae2GBIN5R5AkxPzt4m1PNLmB7PRR8/e3isdrwlDCAiTqW6ebJu25p7XKxsyBqRkypi8=
-X-Gm-Gg: AYBFou2dGTKNzTAdwpcmg9SdVIcfTRqfiMFxFq1f1QCulsyufBkyE43q311zu8kbtpW
-	dlzeYfSoGQTT4jNnPTFHtO4YRYCLvPjQc8Bu2ptF34TqaFctqw8gz2/Yuz6oScUsvLcC2hJbqeu
-	bpL9YM1SxJCG1820m55me60KOoj5MS/QknGPwy6XJuG95ZxVFwmpSQto4BE4UcjsbnVBw+bhiPE
-	J0eZsZ6JT8++5BgJBsb8QZiB/hESfSj2EDFwIPT6XAMep2UMjTRvwpdLILo0TIxd4a/BhlxSXdC
-	k7E9qmG1He1BrBKoMNAQda8jF/wnsrdmVLea2QpTnJ8RNkNJ2y6ksbn9hCBazWnEfpLtnQEWQLc
-	rdKNstUDvSpKqx+SP/Rt5ZGQtPr4PG+79GbH/J4XL6aOs5wdKUcuCCF92fvKiwjAmSt/+lAgqF0
-	L03473XHasnvT03BZ0a93X0v3rL0TKogF0knc6pSfJ/cF/L5og/AbJ8ZYaRcq2lgf0lQSVenmqg
-	vbh8wpkxUjopuwWWzw0z347VeaDd7bYafmIr0IIlQgpchanjQMaDP/OgQvFlfjZF1TyAWPRUlXG
-	o97i8Yh03zUvwAgif5g62FUGUi3xcdywQlLTXQ==
-X-Received: by 2002:a05:6830:2692:b0:829:2af1:a07d with SMTP id 46e09a7af769-86289818d7emr3591229a34.5.1794608914557;
-        Fri, 13 Nov 2026 14:28:34 -0800 (PST)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880e9abbsm3427767a34.9.2026.11.13.14.28.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 14:28:33 -0800 (PST)
-Message-ID: <278205d9-75a9-4f0a-86de-fac192db4edb@linuxfoundation.org>
-Date: Fri, 13 Nov 2026 15:28:30 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o4KUS8tM
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n8IEDs7xrnCjPmghkJPxe401M0h/LXYpjYH/vz+UzOY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794608978; v=1; x=1795213778;
+ b=o4KUS8tMtk9ZwwtfYhEktsl05SPIWtBpT2be1y9/8DcWjy52uuJ5jZje86BcSGAwpqk7+zH7
+ 8BWDHmZ4sdjrXbEExFaK6Q6ILjU/NZkuxeVhRBqivfWSfr12M1/RGr7vBYLiHWqhpsjyerJB5lp
+ sVxRZTc2tFtdcY8vfhsDrgHk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1e59735e2ce6f26e;
+	Fri, 13 Nov 2026 22:29:38 +0000
+X-Mizu-Trace-ID: 1e59735e2ce6f26e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b749b4c2-cd42-4a3d-b74d-af38648b9b1f@linux.dev>
+Date: Fri, 13 Nov 2026 14:29:33 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,45 +59,229 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/670] 6.12.118-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261113153811.177190860@linuxfoundation.org>
+Subject: Re: [EXT.MSG] Re: [PATCH RFC bpf-next 0/2] bpf: Do not let preemption
+ cause false recursion drops in trampoline progs
+To: Peter Zijlstra <peterz@infradead.org>,
+ Martin Kelly <martin.kelly@crowdstrike.com>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Mike Bazov <mikeba@sentinelone.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>,
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
+ Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
+ Thomas Gleixner <tglx@kernel.org>
+References: <20261025-b4-bpf-trampoline-preempt-v1-0-198dcdc0c6ac@sentinelone.com>
+ <DMIIV9CE0PN4.309YUGIXQUZNF@gmail.com>
+ <CAPnbwjrB_je6jXt3BGD-1q1yFs_wFd-Yh9KzixKzLK_X3Stuag@mail.gmail.com>
+ <DML75890DWIX.EYB690LPBM1O@gmail.com>
+ <CAPnbwjpv3bkGAKVjc7Eywgo-H4X6uDLYPJWFuSakGs_sBdgr3w@mail.gmail.com>
+ <DMM2FJ2SNYYO.24TEJ05OOR08E@gmail.com>
+ <CAH=2mMABxvf+GNr7vUKNkGvyU-gmaXKMGNJHg4URUCW_eyuxGg@mail.gmail.com>
+ <20261105122604.GB1779021@noisy.programming.kicks-ass.net>
 Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261113153811.177190860@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: "JP Kobryn (CrowdStrike)" <jp.kobryn@linux.dev>
+In-Reply-To: <20261105122604.GB1779021@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 11/13/26 08:42, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.118 release.
-> There are 670 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 11/5/26 4:26 AM, Peter Zijlstra wrote:
+> On Wed, Nov 04, 2026 at 05:12:15PM -0800, Martin Kelly wrote:
+>> We have noticed this issue independently in testing of our own security
+>> agent and have hit the same false recursion skips on 7.0 and 7.1
+>> kernels. More details and measurements below.
+>>
+>> On Tue, Nov 3, 2026 at 6:24 PM Alexei Starovoitov
+>> <alexei.starovoitov@gmail.com> wrote:
+>>> Today a fentry prog never runs twice at the same time on one cpu.
+>>> Existing progs rely on that for their per-cpu maps.
+>>>
+>>>   task A, cpu 0                     task B, cpu 0
+>>>   buf = lookup(&percpu_scratch)
+>>>   fill buf
+>>>   <preempted>
+>>>                                     buf = lookup(&percpu_scratch)
+>>>                                     fill buf
+>>>                                     output(buf)
+>>>   output(buf)   <- data of B
+>>>
+>>> A plain (*cnt)++ in a per-cpu map loses updates the same way.
+>>> Today B is skipped and recursion_misses counts it.
+>>> With the per-task check A sends a corrupted event and nothing counts it.
+>>
+>> Our programs avoid writing to per-CPU arrays because of corruption on
+>> PREEMPT_RT kernels, where trampolines have always been preemptible and
+>> thus can corrupt these structures. So for us, an opt-in flag that allows
+>> preemption (instead of skipping) would work well and not regress current
+>> programs that don't opt in. A verifier scan for per-CPU arrays could
+>> also work, but it would need to distinguish read-only vs write access to
+>> those maps.
 > 
-> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
-> Anything received after that time might be too late.
+> This seems weird; your task-B bpf prog would never run due to the
+> prog_active thing.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.118-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
+>> In a process-heavy workload on a 2-vCPU VM (~1M fork+exec of
+>> short-lived processes, ~606/second) we recorded the following number of
+>> recursion_misses on a 7.0.9 and a 7.1.5 kernel. Both kernels use lazy
+>> preemption with PREEMPT_RCU enabled. The miss rate has increased
+>> significantly, which we suspect is due to the HRTICK change.
+>>
+>>                                   7.0.9 (HRTICK off) 7.1.5 (HRTICK on)
+>>                                   ================== =================
+>> security_file_permission fentry   1 in 61,580        1 in 1,568
+>> security_inode_getattr fentry     1 in 59,242        1 in 1,707
+>> do_file_open fexit                1 in 813,983       1 in 2,503
+>> sched_process_exec raw_tracepoint 1 in 1,000,816     1 in 500,408
+>>
+>> The sched_process_exec raw_tp had few misses (1-2) but is included just
+>> to show that raw_tp can have misses as well since tracepoints became
+>> preemptible.
 > 
-> thanks,
+> So HRTICK will still only set RESCHED_LAZY, which should not tickle
+> preempt_enable() into a reschedule. RESCHED_LAZY is acted upon in only 2
+> distinct spots:
 > 
-> greg k-h
+>  - return to userspace; it will reschedule.
+>  - the periodic tick; it will upgrade RESCHED_LAZY to RESCHED.
 > 
-Compiled and booted on my test system. No dmesg regressions.
+> This would suggest you're seeing a lot of tick driven promotion. One
+> reason could be due to HRTICK setting LAZY and the normal tick happening
+> very shortly after it. 
+> 
+> You've not mentioned your CONFIG_HZ setting? Anyway, something daft like
+> the below would make promotion less aggressive (also, clearly I couldn't
+> come up with a decent name for the intermediate step :-).
+> 
+> 
+>> Possible approaches
+>> ===
+>> We don't have a preferred mechanism and are generally open to any
+>> approach that would help reduce these recursion_misses. Whatever the
+>> mechanism, it would be ideal to cover raw_tp programs too, since
+>> a46023d5616e made those preemptible.
+>>
+>> We'd be happy to help test or develop patches if needed.
+> 
+> I would strongly prefer all BPF programs that attach to known
+> preemptible sites to use a per-task recursion counter or something of
+> that sort.
+> 
+> This per-cpu active count stuff is quite mad; and I think I've told
+> Alexei that plenty of times.
+> 
+> 
+> ---
+> diff --git a/include/asm-generic/thread_info_tif.h b/include/asm-generic/thread_info_tif.h
+> index 528e6fc7efe9..feed08b51a62 100644
+> --- a/include/asm-generic/thread_info_tif.h
+> +++ b/include/asm-generic/thread_info_tif.h
+> @@ -22,33 +22,35 @@
+>  #define _TIF_NEED_RESCHED	BIT(TIF_NEED_RESCHED)
+>  
+>  #ifdef HAVE_TIF_NEED_RESCHED_LAZY
+> -# define TIF_NEED_RESCHED_LAZY	5	// Lazy rescheduling needed
+> +# define TIF_NEED_RESCHED_MEH	5
+> +# define _TIF_NEED_RESCHED_MEH	BIT(TIF_NEED_RESCHED_MEH)
+> +# define TIF_NEED_RESCHED_LAZY	6	// Lazy rescheduling needed
+>  # define _TIF_NEED_RESCHED_LAZY	BIT(TIF_NEED_RESCHED_LAZY)
+>  #endif
+>  
+>  #ifdef HAVE_TIF_POLLING_NRFLAG
+> -# define TIF_POLLING_NRFLAG	6	// idle is polling for TIF_NEED_RESCHED
+> +# define TIF_POLLING_NRFLAG	7	// idle is polling for TIF_NEED_RESCHED
+>  # define _TIF_POLLING_NRFLAG	BIT(TIF_POLLING_NRFLAG)
+>  #endif
+>  
+> -#define TIF_USER_RETURN_NOTIFY	7	// notify kernel of userspace return
+> +#define TIF_USER_RETURN_NOTIFY	8	// notify kernel of userspace return
+>  #define _TIF_USER_RETURN_NOTIFY	BIT(TIF_USER_RETURN_NOTIFY)
+>  
+> -#define TIF_UPROBE		8	// breakpointed or singlestepping
+> +#define TIF_UPROBE		9	// breakpointed or singlestepping
+>  #define _TIF_UPROBE		BIT(TIF_UPROBE)
+>  
+> -#define TIF_PATCH_PENDING	9	// pending live patching update
+> +#define TIF_PATCH_PENDING	10	// pending live patching update
+>  #define _TIF_PATCH_PENDING	BIT(TIF_PATCH_PENDING)
+>  
+>  #ifdef HAVE_TIF_RESTORE_SIGMASK
+> -# define TIF_RESTORE_SIGMASK	10	// Restore signal mask in do_signal()
+> +# define TIF_RESTORE_SIGMASK	11	// Restore signal mask in do_signal()
+>  # define _TIF_RESTORE_SIGMASK	BIT(TIF_RESTORE_SIGMASK)
+>  #endif
+>  
+> -#define TIF_RSEQ		11	// Run RSEQ fast path
+> +#define TIF_RSEQ		12	// Run RSEQ fast path
+>  #define _TIF_RSEQ		BIT(TIF_RSEQ)
+>  
+> -#define TIF_HRTIMER_REARM	12       // re-arm the timer
+> +#define TIF_HRTIMER_REARM	13       // re-arm the timer
+>  #define _TIF_HRTIMER_REARM	BIT(TIF_HRTIMER_REARM)
+>  
+>  #endif /* _ASM_GENERIC_THREAD_INFO_TIF_H_ */
+> diff --git a/include/linux/sched.h b/include/linux/sched.h
+> index 1c93da75226e..d5f9176e1a75 100644
+> --- a/include/linux/sched.h
+> +++ b/include/linux/sched.h
+> @@ -2117,7 +2117,9 @@ static inline void set_tsk_need_resched(struct task_struct *tsk)
+>  
+>  static inline void clear_tsk_need_resched(struct task_struct *tsk)
+>  {
+> -	atomic_long_andnot(_TIF_NEED_RESCHED | _TIF_NEED_RESCHED_LAZY,
+> +	atomic_long_andnot(_TIF_NEED_RESCHED |
+> +			   _TIF_NEED_RESCHED_MEH |
+> +			   _TIF_NEED_RESCHED_LAZY,
+>  			   (atomic_long_t *)&task_thread_info(tsk)->flags);
+>  }
+>  
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 04b62c16fa8c..f8e225dc2504 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -5854,8 +5854,17 @@ void sched_tick(void)
+>  	hw_pressure = arch_scale_hw_pressure(cpu_of(rq));
+>  	update_hw_load_avg(rq_clock_task(rq), rq, hw_pressure);
+>  
+> -	if (dynamic_preempt_lazy() && tif_test_bit(TIF_NEED_RESCHED_LAZY))
+> -		resched_curr(rq);
+> +	/*
+> +	 * Two-stage promotion of LAZY to RESCHED, ensuring there is at least
+> +	 * one full tick of respite.
+> +	 */
+> +	if (dynamic_preempt_lazy()) {
+> +		if (tif_test_bit(TIF_NEED_RESCHED_MEH))
+> +			resched_curr(rq);
+> +
+> +		else if (tif_test_bit(TIF_NEED_RESCHED_LAZY))
+> +			 set_thread_flag(TIF_NEED_RESCHED_MEH);
+> +	}
+>  
+>  	donor->sched_class->task_tick(rq, donor, 0);
+>  	if (sched_feat(LATENCY_WARN))
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+Hi Peter,
+We tested this patch on d48723711bae with CONFIG_HZ=1000, SCHED_HRTICK=y,
+PREEMPT_{DYNAMIC,RCU}=y, and lazy preemption enabled, and saw roughly 60% fewer
+recursion misses.
 
-thanks,
--- Shuah
+The test runs two tasks using the default sched policy pinned to the same CPU
+for 30s. One calls getpgid() continuously. The other does the same but sleeps 1ms
+between calls. Meanwhile a bpftrace fentry program on __x64_sys_getpgid does
+some bounded work to widen the preemption window each invocation:
+
+kfunc:vmlinux:__x64_sys_getpgid
+{
+    @entered = count();
+    @entered_tid[tid] = count();
+
+    $i = 0;
+    $last = nsecs;
+    while ($i < 10000) {
+        $last = nsecs;
+        $i++;
+    }
+    @last_ts[tid] = $last;
+}
