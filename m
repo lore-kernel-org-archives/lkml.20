@@ -1,44 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794533792;
-	b=ayPYFQ7DoDvxDN11UVDlpDixER/VVLdbtD6ctXVHb6Uiaz0v9UOhj4HLHk6Md3safHxp
-	 kb3YWQHsFbF4pz+PaRYbX5Fl4lnItE7aCmiuCaoNQGsxBEQbia56mjPOVCLLUk7NEvAga
-	 wSSqnpu9DGfMxn6ypIViXdeC0v7PO8I1BWyjClhuPdP6ou2U3nd+ljF5A0fpXYVFguY0p
-	 kYOxvr3C3EDhUcgKnKVHnBZBwvx6G1mpNj5L0ildcuMRuJvZTSSD5jWIdrVacEyhpu7Df
-	 RzFp4ngZFuPljiMsQ17VkLgwHLQ4Sma4yXrF0uxb+qC7fSPFf8RNutWEmHNxhTBQS7w==
+	t=1794533815;
+	b=u1kiaKoGQ/SKORPrFXw/esrDUIXHuia9gEecG/X6757EmjxUQSibkHF8GOZc5YG268a9
+	 WYT4cg6ywcHAzY9yyhdfMC9+8LHkAkz1X3kPnX8QbW8kB7oGjJooP9gq3ZrHIziXsTjmo
+	 yokNVoDUDMW2b5dPLMhXIE4Y8ncp6J2frfte+1rQysusInOP29qe88C0iUt+3gAemMnNj
+	 6jHZikRz6HZbukcujq/pxLN8piV7YioaBQZ37bkqcxYO8J9mI01th02rs8hUn8yjMkGuQ
+	 b98Z5OIZnelGQEUPqkrS3xHE8QpqvH1Gc5sLgpv5YzDB1aJn+1FlWFNrke1BYmgYjZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794533792;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=yUomd9KXnjseidZCb+3NrIiSfYZB9y809aXsxz/VNIE=;
-	b=5J/Va29f+IQZsruv7nwPz4UPWWnD8rNhNovcaiPBtKWB0rgMu4qqrCgaN14JXwVM7rcT
-	 7MNfnP4kxUdN7twpZTVOkgMgIlG8Sn0r1MvNIbdyZIJt6V7o2YzBmOylzuxQvRgsDA6QX
-	 AB06yGbTRKlW9IG1VEpEX5gDjGMFd/FbEpm3YIsOePpYrF/X5OMYT82Hk3s3ex2LIfRDW
-	 UN1urqR3uBz8NBwclAmjgwzwd8B0enVPc/XSZVmqwivvvIs8wiSGIb9fPM2GS26jpg1ef
-	 cuy5qhxapgxJVdHUEJMH9AspCE0SSZ6K9F9+kqc7xIpagMBDtPq9IRJXP6gvpUJq2kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794533815;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=arMA0v5t1o98BajxZAqpCJPUMRuqqdv471JMZzK6vk8=;
+	b=UbMe+QHfFZAqf1euV4V14f5pl7JvJFV/4G+buoU3KCpdiscJy6RefKh0l27iVl+8mGiS
+	 ZIOmvkk41LtyU7utz/3bGSk/1uOQNX7iR7AALF5xqkqwbhj26kjNwiYP2Xd+a3hSFAo5k
+	 RVuvtz8gGu0aIY7GeRmqQX/1XRuwLCBY4MfrOFzwwPh2qQ8JXk1HjODhIHNTZ9BEdVQqO
+	 9/Q1bGICxRyV26Qg3h5O1g1Rp6igrVxczRgB1Xna8nb8p+32aOPTOgQIiNjVHF4MvT1Qe
+	 NIhdfhVxoY9Oo3YVoCURMe8BuQqJBEJsXyNPclNe7l0Qx2RRuKM/2+cwhhjeGzxoI+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=NRK1Ogzd;
-	arc=none smtp.remote-ip=160.236.53.19
-Received: from mail-m1602365319.xmail.ntesmail.com (mail-m1602365319.xmail.ntesmail.com [160.236.53.19])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NSbPldpL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45317606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:36:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45317606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50012606A321;
+	Fri, 13 Nov 2026 01:36:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=NRK1Ogzd
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5483f8bd3;
-	Fri, 13 Nov 2026 09:36:19 +0800 (GMT+08:00)
-Message-ID: <781db207-ca0e-4e41-8706-c0769b58385f@rock-chips.com>
-Date: Fri, 13 Nov 2026 09:36:16 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NSbPldpL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD2E31F000C4;
+	Fri, 13 Nov 2026 01:36:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794533814;
+	bh=arMA0v5t1o98BajxZAqpCJPUMRuqqdv471JMZzK6vk8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NSbPldpLgz4V6yCT5f2eIjnWlQqFg/91G4ZwJaqJkWdXQ/RdIDx7vKcKh+kmn6+RT
+	 ffI3QvvK5Vz/fLdEzNRi/6YV2tPL1njOZDJeF7ziub2vRX+jfUMzz2KTHm9wv4JNwV
+	 kyRpjfMJ53BS88y+8htuT/VUacCo8JnnpOLBa36caXSs3+lCkTT0RBhjQlxHBcpuZJ
+	 DUHGLve2kZYetHSyE0ZzY7rDsmHrQntu8T/amkbgm0Gd3AHRrKBAXlgK69+AHiKsvZ
+	 EoS0wTziKM3wyTLCh8dpJHnAsJ+IgpTOR9zNUTzL7Bhv+7B+k1Q1ND6wgNnMPsyqk9
+	 qg3NV+aZ2Oidw==
+Date: Fri, 13 Nov 2026 01:36:46 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Di Wu <diwux@google.com>,
+ dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+ bleung@chromium.org, groeck@chromium.org, tzungbi@kernel.org,
+ linux-iio@vger.kernel.org, chrome-platform@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: cros_ec: use sysfs_emit() in show callbacks
+Message-ID: <20261113013646.4c2f8456@jic23-hlaptop>
+In-Reply-To: <20261112220218.1adae5e5@pumpkin>
+References: <20261111072608.3490763-1-diwux@google.com>
+	<avR-KT-6e77EexZn@ashevche-desk.local>
+	<20261112020439.37b0da70@jic23-hlaptop>
+	<20261112220218.1adae5e5@pumpkin>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,94 +65,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/9] drm/rockchip: vop2: Fix the HDMI sync polarity on
- RK3588
-To: aiyengar1990@gmail.com
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Piotr Zalewski <pZ010001011111@proton.me>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
- <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1d28c68f003a7kunm3ed8a3c2a36d2
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTUJIVhlOH0ofTR1CH00aGlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=NRK1OgzdCmB0whylUbps83DuQoBR+n4HlZoHbh9r3cb/rRAS1LmfPW6CJBFracLEP2OjBWzSwHIRlCOx5ZgWV4+srjQntk06TeTXvD8Xvua0J5PX+oSN0N2tCeZvWAtxonYwNljqL5muGYLMjOh2y6mgMc0Cg8AlBD5CZYQ3ncY=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=yUomd9KXnjseidZCb+3NrIiSfYZB9y809aXsxz/VNIE=;
-	h=date:mime-version:subject:message-id:from;
 
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+On Thu, 12 Nov 2026 22:02:18 +0000
+David Laight <david.laight.linux@gmail.com> wrote:
 
-Oh wow, nobody even noticed this.
-
-On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
+> On Thu, 12 Nov 2026 02:04:39 +0000
+> Jonathan Cameron <jic23@kernel.org> wrote:
 > 
-> rk3588_set_intf_mux() passes the POLFLAG bits of the mode to
-> rk3588_get_hdmi_pol(), which decodes them as DRM mode flags: the
-> VSYNC_POSITIVE bit is taken for DRM_MODE_FLAG_NHSYNC and POLFLAG_DCLK_INV
-> for DRM_MODE_FLAG_NVSYNC. As a result GRF_VO1_CON0 marks the HSYNC of
-> every +HSync/+VSync mode (e.g. all 1080p, 2160p CTA modes) as negative
-> and both syncs of -HSync/-VSync modes (e.g. 720x480, 640x480) as
-> positive.
+> > On Wed, 11 Nov 2026 16:39:37 +0200
+> > Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> >   
+> > > On Wed, Nov 11, 2026 at 07:26:08AM +0000, Di Wu wrote:    
+> > > > Replace sprintf() and snprintf() with sysfs_emit() in the sysfs show
+> > > > and ext_info read callbacks. sysfs_emit() is aware of the sysfs buffer
+> > > > PAGE_SIZE limit and is the preferred helper for show callbacks.      
+> > > 
+> > > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> > > 
+> > > ...
+> > >     
+> > > > -	return sprintf(buf, "%d.%06u\n",
+> > > > -		       latency / 1000,
+> > > > -		       (latency % 1000) * 1000);
+> > > > +	return sysfs_emit(buf, "%d.%06u\n",
+> > > > +			  latency / 1000,
+> > > > +			  (latency % 1000) * 1000);      
+> > > 
+> > > As David said, since you touched these lines, make the less amount of them
+> > > while at it.
+> > > 
+> > > (But no need to resend, usually Jonathan is kind to tweak this small thing.)
+> > >     
+> > Done and applied.
+> > 
+> >   
 > 
-> The bits in GRF_VO1_CON0 are set for a negative sync; that is how the
-> vendor kernel programs them (vop2_get_hdmi_pol(), called with the mode
-> flags, sets them for DRM_MODE_FLAG_NHSYNC/NVSYNC on RK3588). Decode the
-> POLFLAG bits accordingly.
-> 
-> Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> I just looked at that line again.
+> Why is it multiplying the remainder by 1000?
+> It could be:
+> 	return sysfs_emit(buf, "%d.%03u000\n", latency / 1000, latency % 1000);
+> if the 6 digits after the decimal point are required.
 
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Good point, I guess unrelated change that we could have on top.
+Those trailing zeros shouldn't matter.
 
-> ---
->  drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> index 659fd0a3ab63..7c48b440cb29 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> @@ -1687,12 +1687,16 @@ static u32 rk3588_get_mipi_port_mux(int vp_id)
->  		return 0;
->  }
->  
-> -static u32 rk3588_get_hdmi_pol(u32 flags)
-> +/*
-> + * The HDMI sync polarity bits in GRF_VO1_CON0 are set for an active low
-> + * (negative) sync.
-> + */
-> +static u32 rk3588_get_hdmi_pol(u32 polflags)
->  {
->  	u32 val;
->  
-> -	val = (flags & DRM_MODE_FLAG_NHSYNC) ? BIT(HSYNC_POSITIVE) : 0;
-> -	val |= (flags & DRM_MODE_FLAG_NVSYNC) ? BIT(VSYNC_POSITIVE) : 0;
-> +	val = (polflags & BIT(HSYNC_POSITIVE)) ? 0 : BIT(HSYNC_POSITIVE);
-> +	val |= (polflags & BIT(VSYNC_POSITIVE)) ? 0 : BIT(VSYNC_POSITIVE);
->  
->  	return val;
->  }
-> 
-
--- 
-Best, 
-Chaoyi
+> David
 
