@@ -1,58 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567092;
-	b=XHRjyVwuR3pMcY2q3RhVKb7nDy38AWRP7zcWwoLc6wr+5x90KIGrggGrjkIIfNhvp7xA
-	 KohI1THWcY2VEwLUMhOqwDMB5nj+eFNSVgW22t4swSRlJtRIFgVMnRwSRl9HyK9lvHnQ1
-	 +Ypl6vHnAY2GdCjlYvL82krgk6RAo0tBK2Xkq3i2t/Cc8dH8UcWp3ts/Ib2XkmabQ1AyK
-	 US4rr6FbkmioR2uYHgm0NFYTFa40TyzNqC4fqI6Ot/PrLUVcO9qzpOMi6kJBTK/y7yrkM
-	 LPmTdOC1RGIMGbfa8jEuJxL81SRq22Wk6+RdwwuRfjAKMXRezRWrTDTcm0/ehsQbkEQ==
+	t=1794567100;
+	b=nDmW5IVidE9BucMXCI+nEmal407vLHIclB+SrYzVND3fA/mHRQ+KvnHWZsQg68db6gW0
+	 9PAAz5kiZvkYVhT8GXyYHTYGvXsBuqjZj0JnWflroOZjWps90Pr2fdztIhxT10QIfvHBt
+	 QSZtPqbLkLUjygzRfISpPo77egehiJsL9ocwsIeCkDE30TN0t47VHg5bCt92jw0I80QBK
+	 tvwsfqwc9gftL/0A5rcPf7C/dewqgE4EvsEc3MrFWKsRgSDKA7OFSxKqTa/S7L9LD8QGZ
+	 J4NHPePbaNqSr4m0XYss/WHdarMux6iuJdVt/Gri/8KjAxV0YbjgcCcx/moYRrdifkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567092;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lNfFaUTSdkkBp8Tqa8Jl9FkXvNAOBU8E/OtT28v8o88=;
-	b=rfGPCFjZdW9igw1bUyrX/LMQ4tHETFwx2LiqviM42ies4LhaCDSanUmVxFRfgUgyhOW+
-	 a1G0GRHRfGYrHmTNyImxvU4Xf6ugZ9aXg7XlNDqU+suOijkt6TNjy3zxgyQWxIa87KNtV
-	 seWpx0LoMCxR/U6oHBAOv6N+3kdB/50L+J/cbs/AO9xvK3Rp7VlfU3doY++B76FlNqOhi
-	 MnjbTd5Y15jVxU8pE9qMu6H9gLJzj4voHv4dAwK9yjx850GqAVXvejEXJgO6kEmTFvODe
-	 T5nNmv2fwOAmRKd63ALRxkYt5fI1u3aVkz2auQT9boZYbZQLhvSmu9COD3Dy5i2DbAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567100;
+	h=DMARC-Filter:DKIM-Signature:Cc:References:X-Lms-Return-Path:To:From:
+	 Date:X-Original-From:Received:Subject:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:In-Reply-To:X-Mailer;
+	bh=kN5lk7yu4kprln47vl3Hl9+FKo1eS5442VgRAIn6R3s=;
+	b=fXCZM/o3dOFPHM/splBeT57711rnt1aAap0G8pmKJCmK1Tj2b+qqvc9euB0Zxv5AZ7XS
+	 zyVB3vA32ffrSOxub3CzwH+99ayzQdffgWbH3MaEmS1OJ+LHHeAGNHw5q05DvnykIsBhX
+	 gMl6mjIuqk62ITRsXFxaIsNlDCh7w5GPydkvqU19I6Bx8fg7yNKbebX6GNZSOjyLVtk29
+	 m4avHSJdQhuTfWEibUIMifEwyNl2Oj86dBXIuG71bJMluDkVW61KXMDcV1sluL514MreX
+	 9j2K7/XsV351XuE9OLTn9etp5h5YiEU5OsVIREi5Pq5+5q8exsrP8L6KfmllKqkwUrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UlRJBaQm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=oss.cipunited.com;
+	spf=pass smtp.mailfrom=oss.cipunited.com;
+	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=SCimQal3;
+	arc=none smtp.remote-ip=209.127.231.18
+Received: from va-2-18.ptr.blmpb.com (va-2-18.ptr.blmpb.com [209.127.231.18])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E558960A261B;
-	Fri, 13 Nov 2026 10:51:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00443606B25A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:51:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00443606B25A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UlRJBaQm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7AC41F000C4;
-	Fri, 13 Nov 2026 10:51:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794567091;
-	bh=lNfFaUTSdkkBp8Tqa8Jl9FkXvNAOBU8E/OtT28v8o88=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UlRJBaQmQsw5V/e5FTX6HfETAEv29/bV0GS27Myu2wd/Eq5Ds8M6UK8inUYzgZH7f
-	 /VCTquaPd86OuW+bAWWd5Dz7SAribwihhYFyCj5yy+Pv8KWUqBnRohOo/d51oJem3x
-	 IqUUrAllfdPMTBB35z909mMmI6Lvld+Gp1+DpjZCSQPMkv8W5f2q8iInxUfGoxWaJH
-	 wrYhnecoEubyuD7yEvJ9K5WXE9FBMlK16lCBUDoLQzPECbvKpgp4LsMN9+w8AZJHaH
-	 d7LLatUaHUpjgp3BF0kI6oz1B7JPgCSVK69qZnixgNFcHy0TYFk0+miS/wwegYxM2X
-	 RJlbDZzBYvBGw==
-Date: Fri, 13 Nov 2026 11:51:28 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, Mark Jackson <mpfj@newflow.co.uk>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
-Subject: Re: [PATCH 3/7] dt-bindings: arm: omap: document BeagleBone family
- board compatibles
-Message-ID: <20261113-burgundy-malkoha-of-art-eba2fc@quoll>
-References: <20261111-ti-omap-dts-fix-v1-0-19022d1ff4b4@gmail.com>
- <20261111-ti-omap-dts-fix-v1-3-19022d1ff4b4@gmail.com>
+	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=SCimQal3
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2303200042; d=oss.cipunited.com; t=1794567094;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=kN5lk7yu4kprln47vl3Hl9+FKo1eS5442VgRAIn6R3s=;
+ b=SCimQal3/0i8vvlmlRafygqO/r0nq0tjN9oAG6DfCcDyhG4ShOV6tYMo7XHGUatz9HXhpM
+ jYk9g9j2Iuezo9oUgY8Bf327L7eDnuD/kzu9R2s0+NXNNBcbEJPW3uHPrROytav9AGKZOn
+ ODGp76RV//72muoDvBv6j6AUndryOYvH02EBhexqFE42/R2S1JLn7I1iCJnXynlj2PWdGT
+ 0V4e8i0iI1ht9mofuQhNFcXClqNo/uwuT4GJgoAfKnLX1SMYkDHXrFsLAYl0qjcQkC3Zbe
+ r+SpB25Zw/gTir5tpI9IOgXD/OrtDX0mHjQX9t4nCYIWB2ZiTKIudiBLVctC2Q==
+Cc: "Rong Zhang" <i@rong.moe>, "Yao Zi" <me@ziyao.cc>, 
+	"Icenowy Zheng" <uwu@icenowy.me>, 
+	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
+	<linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Rong Zhang" <rongrong@oss.cipunited.com>, 
+	"Conor Dooley" <conor@kernel.org>
+References: <20261113-mips-ls7a-wdt-v2-0-e8abd6b2f77c@oss.cipunited.com>
+X-Lms-Return-Path: <lba+26af6ebb4+e289c4+vger.kernel.org+rongrong@oss.cipunited.com>
+To: "Keguang Zhang" <keguang.zhang@gmail.com>, 
+	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
+	"Guenter Roeck" <linux@roeck-us.net>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Conor Dooley" <conor+dt@kernel.org>, 
+	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
+From: "Rong Zhang" <rongrong@oss.cipunited.com>
+Date: Fri, 13 Nov 2026 18:51:13 +0800
+X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
+Received: from [127.0.1.1] ([171.15.157.139]) by smtp.feishu.cn with ESMTPS; Fri, 13 Nov 2026 18:51:31 +0800
+Subject: [PATCH v2 6/8] MIPS: Loongson64: dts: ls7a-pch: Bind UART nodes to miscellaneous clock
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,28 +71,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111-ti-omap-dts-fix-v1-3-19022d1ff4b4@gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-mips-ls7a-wdt-v2-6-e8abd6b2f77c@oss.cipunited.com>
+In-Reply-To: <20261113-mips-ls7a-wdt-v2-0-e8abd6b2f77c@oss.cipunited.com>
+X-Mailer: b4 0.17-dev-ce4c1
 
-On Wed, Nov 11, 2026 at 01:22:33AM +0530, Bhargav Joshi wrote:
-> Several AM335x boards derive from the original BeagleBone or BeagleBone
-> Black and chain multiple board compatibles before "ti,am33xx", causing
-> dtbs_check warnings against omap.yaml.
-> 
-> Document BeagleBone family boards (BeagleBone Black, PocketBeagle, Bosch
-> SHC), BeagleBone Black variants (OSD3358-SM-RED, SanCloud BeagleBone
-> Enhanced, BeagleBone Black Wireless, BeagleBone Green), and BeagleBone
-> Green Wireless.
-> 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
->  Documentation/devicetree/bindings/arm/ti/omap.yaml | 28 ++++++++++++++++++++++
->  1 file changed, 28 insertions(+)
+The Loongson-7A's UART controllers are driven by an internal 50MHz clock
+source called miscellaneous clock. The clock is nonconfigurable for
+board manufacturer and software.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Therefore, the LS7A UART nodes don't need to be fixed up by
+lefi_fixup_fdt_serial(), and can safely use clocks nodes rather than
+clock-frequency ones.
 
-Best regards,
-Krzysztof
+Suggested-by: Conor Dooley <conor@kernel.org>
+Link: https://msgid.link/20261111-oboe-shack-11c3e3ce0830@spud/
+Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
+---
+ arch/mips/boot/dts/loongson/ls7a-pch.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi b/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
+index 2ef1ad10a8ec..7ba7bbb9c013 100644
+--- a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
++++ b/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
+@@ -39,7 +39,7 @@ lpc: interrupt-controller@10002000 {
+ 		ls7a_uart0: serial@10080000 {
+ 			compatible = "ns16550a";
+ 			reg = <0x0 0x10080000 0x0 0x100>;
+-			clock-frequency = <50000000>;
++			clocks = <&pch_misc_clk>;
+ 			interrupt-parent = <&pic>;
+ 			interrupts = <8 IRQ_TYPE_LEVEL_HIGH>;
+ 			no-loopback-test;
+@@ -49,7 +49,7 @@ ls7a_uart1: serial@10080100 {
+ 			status = "disabled";
+ 			compatible = "ns16550a";
+ 			reg = <0x0 0x10080100 0x0 0x100>;
+-			clock-frequency = <50000000>;
++			clocks = <&pch_misc_clk>;
+ 			interrupt-parent = <&pic>;
+ 			interrupts = <8 IRQ_TYPE_LEVEL_HIGH>;
+ 			no-loopback-test;
+@@ -59,7 +59,7 @@ ls7a_uart2: serial@10080200 {
+ 			status = "disabled";
+ 			compatible = "ns16550a";
+ 			reg = <0x0 0x10080200 0x0 0x100>;
+-			clock-frequency = <50000000>;
++			clocks = <&pch_misc_clk>;
+ 			interrupt-parent = <&pic>;
+ 			interrupts = <8 IRQ_TYPE_LEVEL_HIGH>;
+ 			no-loopback-test;
+@@ -69,7 +69,7 @@ ls7a_uart3: serial@10080300 {
+ 			status = "disabled";
+ 			compatible = "ns16550a";
+ 			reg = <0x0 0x10080300 0x0 0x100>;
+-			clock-frequency = <50000000>;
++			clocks = <&pch_misc_clk>;
+ 			interrupt-parent = <&pic>;
+ 			interrupts = <8 IRQ_TYPE_LEVEL_HIGH>;
+ 			no-loopback-test;
+
+-- 
+2.55.0
