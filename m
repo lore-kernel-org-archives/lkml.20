@@ -1,80 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794569549;
-	b=APl4xCiJPk8RyJDW9qhzR0d8FU/UxyNXtwONaYygW4LGQIF4ukQqNcR2XrkUEyUSMe9l
-	 aerV0cK8CkO2a8makNe6AznJ0vY0c3YyEJws303Sf+Qt/v2I6fsKYmK1yd4vnisv1H9Em
-	 6pn3ZcxgRaGIZkHEPrsaeGezNDk2nZf6YVy5KmeWw/9/bSzCKtpVhpL4JJS1JN/3XTLO4
-	 0wrfvWWeZevBa4tU+GVcVIq2u1VC8bET/jVrFwqu0Ie3JnfugFdn8jh9Y18jB2gBjON5L
-	 nqIaHj4XWwooRGzjg0HXGVi3wbEDTVyrFNz2kRitVpQla7w8Zvgs0YeHAo+sp/q4RvQ==
+	t=1794569894;
+	b=WIF4L82LRIc1cWIhbF6E1Z1R7doEN83TsbAaKlZwhVtiJ9TvBvigbODHPnlUUUzy6Qbn
+	 Ljx2S6mzut335RNSCcHkPLBnsmQItqKQ3Z1wmS5okr2ALjgq2DwhFl/U5fDbqJClURxWd
+	 lKHcDH8ZQ2f/tL0A7onazkjoatG+Vie9ie54JFdWAzHSpq4ailvBitOliiqUMfm1BQ5Z4
+	 gRA2Lu4NL40SwkrwQoS/D3lFHFOL95xUkd82j0nOTSQy5k4JH2ye9kXLwWT4jll5wSn+z
+	 USFaih97gFoHOHDlPP08gG14NEvYBeHGZLVkqyL8nvz/0sunv0BR5ndIR+p7lz7tUaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794569549;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794569894;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=bQD74olywWfshX8oLEh4zN2PHAYJH5OrOG1cvasnjS4=;
-	b=F2n/0WYKVYurC/YYq+ocYQ87dOcufVwPhI/abGj4RVA41tKFbs2H9IIe7T3BcczdDEFe
-	 EF/VZ6PnkV8fKW5nwoL0E7zvbADmatAkPF8e1Rvzv2RE1oKae564s4MB5aRN2OgGUBVbk
-	 oyal+ekGj1Og6C71GgEmJ1GCxxF0d3se5G/Pztj59J09MWxkwEMV85M1mQ5JTSdRKFMae
-	 fqj98GdqBdfBnvJ9GuZJZhZfsnzyFUMUV7TF4FYEanlhtKkBK000mOaoYqNwMT4ub22sw
-	 +76jtJzs8qn5WylBMu8vaoBq8OSPhZMUrAouoDcZ79y+Y6ApIOpekMqOOF7Dg06vvcA==
+	bh=DyYt9/DWMV0EyHpbAMNA++QZYC/8eNT5egYzuTC+VI8=;
+	b=mXWinc4MRM+KeNkLqLPSvBNlnnrXLg0JIUiUafdgn1KAa8bADb6gg69HJjZ4EqFtSXJv
+	 D/r20tz6eVwnMmAlcsPWHHVP46sC21KGD1Ko0GP/zyeQknYU+ljKiAXVj+dhAmK84mYji
+	 RvUjpn3s/NFoEcAg5Z+KkKrznn8pRxwEPWIljpyJC2QFe0KDdRkLo2ngffZAlVUJaDwbz
+	 j3kjb1NQalb8xsnlktsLswmIZq3tDtnSOpaqB0vPgTdtkRdDCgnEfSGYeyz9+WfioEnf/
+	 JIDLBcgqPmxWu5WxnV9ZjNkrk/nV6p97OOt4S1h7UReqWQIFpYvBZmmu9BdtiZThvwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lDSD+J+3;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=VCZSs2+Z;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218FF606A8AB;
-	Fri, 13 Nov 2026 11:32:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 218FF606A8AB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A30B606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:38:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A30B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lDSD+J+3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794569549; x=1826105549;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=nuvqR0YlUzf5WQYSytDfXMvmJsxteY/kcctS1jEB9qI=;
-  b=lDSD+J+3JOAcEEq7PRRay4jItcX/vtmq/ULhYqPod+ZDTmJs4/YuCcJ8
-   GxeriJMySzzIVjxGwa8sK708ObLtH4sq6e2iJl5Roiil/HNSyqnvJa9RR
-   coxQAdjzGU8x15crxclArNZzww7M6BA6A9/LjwKIfj+qZi+p8yzXf5qOJ
-   9Cn+Goo9UgeASeseFGrOzJRRc8pFCsF2IdRlqBUJ5QFtIcSfjOt8zuV46
-   +eX6wT/tUiIIwIylItojynw6GUpONYy/bMfIQXXis+2Cq7JEgC2HO+DwB
-   kVkObgXABEXi929FhGmg/fcBNWdCQizn683Hiyjo7e+WzS4jOVx7T1igm
-   A==;
-X-CSE-ConnectionGUID: AvX9v+cHQyuwpCLcVB8wdQ==
-X-CSE-MsgGUID: SQ8ds4HPS9emYN5QkVmslA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3246948"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3246948"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 03:31:40 -0800
-X-CSE-ConnectionGUID: qAij8h+1ThSQ6Wds6vWvLw==
-X-CSE-MsgGUID: EAoxJgwNRmGsJIA7eNujNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="9235610"
-Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
-  by fmviesa009.fm.intel.com with ESMTP; 13 Nov 2026 03:31:37 -0800
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: broonie@kernel.org,
-	linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	amade@asmblr.net,
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=VCZSs2+Z
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so13207275e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:38:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1794569892; x=1795174692; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DyYt9/DWMV0EyHpbAMNA++QZYC/8eNT5egYzuTC+VI8=;
+        b=VCZSs2+ZGVdHQ04oXSJdZjvF5y1D9vqsZ2iaiROWDPTfdhNFPI2Zj8BspmlOw6304u
+         J1hpe/W+BSrSem7rccM+ivbX3k0gkLPJAArQhKflWIq8wu7RKYfO9gUXDk40/i3lyCfo
+         hS32/TPYuB1usvRVxM6NFxLMccLHqfeJ0NRa4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794569892; x=1795174692;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DyYt9/DWMV0EyHpbAMNA++QZYC/8eNT5egYzuTC+VI8=;
+        b=X3SzD1Y+pWAU9SocqY4u9N0lWVajcn5PC1kG3eviYEg1lrO6KJ3G9kyUoByFM/Kl8g
+         Xg56Dsv2ni0PziRSpL1ncN48EpVovTu5xFoyGdq5ulgFWgWQv9f2UeptUzd26KLHF+ph
+         C8ldW7BkpfcSCDozIyQi9ho1qlTHEcgXwTAxfVTYS1Yk5VexQn1OSgooLIDbz5eWG5wh
+         50q6u2CaJXyKzN9AJW1754Q2p2TCfKRSVWe0UI3lbmeaHizENWbo3Z9CGnkdGlQIjZQS
+         ziHEN8TnBicHgnQzzAqdr3s8eXtMIFUlOJxb615WeUbKIidbfARATCG7vmVjdUpHzZWE
+         8HsA==
+X-Forwarded-Encrypted: i=1; AL+hErG5TA9tYEX2p/OvTHSg/nfaqDWXHx6/et2wbZl+cLtcUu2q1O7GcXuDQBjvGf11OGtHPWuEh+1THEL3M+s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bKASFLSQ2eaJokpl0pIhzH0h6Cj4H2hh0KiRTcGoLKYcv2Dha
+	VL79Muf+HhrG2YSsoE7Qwf1VstqFKVG34VqHREl2z2EyQdt2aw/G6hOekwPraLTpdYc=
+X-Gm-Gg: AYBFou3Tzk+hbTnADJVTDbuVRsFBB202Jw3lU6pBm7Ij4Kbv2/MndpUaEyNdvlEJTQR
+	QkTIam6gGoWULwxnhpePVOyNW9AGhn9SvjOM8hc8FAV8Q32bSzxf9FfTrbro66O/Qme6y9wi6d7
+	xVBausSDNcuYCx1G1WqQgdJclWR+xdwrGNm2n0qyOuxK8d1haVpkTEEyvnAaDB7F69nBHYNaT6E
+	ylBCemPoRn9WTrr16UhdP5rPWjWAFciK1yVIFjuKaNBoeROfSHfDhQ7WTzSn3qkJ78LuytMSG94
+	+Q3M8TvCBestMJk/sW6adPiEpLILqvXceEZncPINLOcqnMqazjXF6UaiG9s/mbxdm5m7cszvThM
+	WY7k4rjHq7tn23etAyvaU0I+qr4A3rHZ/YnuerykJFcsqRiOUALEkQTj//iT3rzkkn34ML8l5ef
+	8FBmStgYMx4uGQQLcmUSjMhd8uXadxGZMYiqb5tsTVnNrHP2oqmS/ecGR8My0PmxYe/mv5kFfte
+	SURqSyukfySMf0yR/BpQPcSI3tGqIRa+z+wrkw/PNyFTq95P7ThJVkrceQ9malw7wpZPwPn0VBn
+	8aL1XeydPgYb/0crDdbQjKf1v0Gied4asAr2OLZq95wOcWIMxiOsHcGjTK5d9e9qiMP8clfmuiT
+	E
+X-Received: by 2002:a05:6000:26ce:b0:48c:571a:a1aa with SMTP id ffacd0b85a97d-49c70de38a0mr4829044f8f.19.1794569891720;
+        Fri, 13 Nov 2026 03:38:11 -0800 (PST)
+Received: from thinkpat.amarulasolutions.com ([2a07:7e81:b71d:0:3e39:d071:1d81:5914])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm5448492f8f.1.2026.11.13.03.38.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 03:38:11 -0800 (PST)
+From: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+To: devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 08/11] ASoC: Intel: avs: Streamline wording used for board configs
-Date: Fri, 13 Nov 2026 12:38:37 +0100
-Message-Id: <20261113113840.3067489-9-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261113113840.3067489-1-cezary.rojewski@intel.com>
-References: <20261113113840.3067489-1-cezary.rojewski@intel.com>
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-amarula@amarulasolutions.com,
+	michael@amarulasolutions.com,
+	dario.binacchi@amarulasolutions.com,
+	Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+Subject: [PATCH v3 0/3] arm64: dts: rockchip: Add support for Axelera Embedded 111c
+Date: Fri, 13 Nov 2026 12:38:05 +0100
+Message-ID: <20261113113808.1779860-1-patrick.barsanti@amarulasolutions.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,44 +102,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Have all the boards follow the same naming pattern in Kconfig.
+The Axelera Embedded 111c is an SBC based on the Rockchip RK3588
+SoC. It offers efficient AI compute for multi-stream computer vision and
+generative AI applications in a compact design.
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/avs/boards/Kconfig | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Product page [1].
 
-diff --git a/sound/soc/intel/avs/boards/Kconfig b/sound/soc/intel/avs/boards/Kconfig
-index 82f50207bb2f..770267bf9c1e 100644
---- a/sound/soc/intel/avs/boards/Kconfig
-+++ b/sound/soc/intel/avs/boards/Kconfig
-@@ -23,7 +23,7 @@ config SND_SOC_INTEL_AVS_MACH_DA7219
- 	  If unsure select "N".
- 
- config SND_SOC_INTEL_AVS_MACH_DMIC
--	tristate "DMIC generic board"
-+	tristate "generic DMIC board"
- 	select SND_SOC_DMIC
- 	help
- 	  This adds support for AVS with Digital Mic array configuration.
-@@ -41,7 +41,7 @@ config SND_SOC_INTEL_AVS_MACH_ES8336
- 	  If unsure select "N".
- 
- config SND_SOC_INTEL_AVS_MACH_HDAUDIO
--	tristate "HD-Audio generic board"
-+	tristate "generic HD-Audio board"
- 	select SND_SOC_HDA
- 	help
- 	  This adds support for AVS with HDAudio codec configuration.
-@@ -49,7 +49,7 @@ config SND_SOC_INTEL_AVS_MACH_HDAUDIO
- 	  If unsure select "N".
- 
- config SND_SOC_INTEL_AVS_MACH_I2S_TEST
--	tristate "I2S test board"
-+	tristate "test I2S board"
- 	help
- 	   This adds support for I2S test-board which can be used to verify
- 	   transfer over I2S interface with SSP loopback scenarios.
+This series aims to introduce basic support for the board,
+which includes the console, the eMMC, the two Gigabit Ethernet ports,
+the four USB ports and the HDMI connector.
+
+Changes in v3:
+- Address Heiko's comment about the incorrect Signed-off-by chain.
+- Address Heiko's comment about the dts name being too generic.
+- Address Heiko's comment about the deprecated
+  "regulator-suspend-microvolt" property.
+- Add Copyright header on dts.
+- Add Krzysztof's Acked-by.
+
+Changes in v2:
+- The board was renamed by Axelera between v1 and v2, from "Metis
+  Compute Board" to "Embedded 111c". Address the name change. Drop
+  Conor's Acked-by on the bindings, since the compatible changed. Keep
+  it on the vendor-prefix.
+- Address Heiko's comment about regulator node names starting with
+  "regulator-".
+- Address Heiko's comment about non-existent "mem-supply" binding.
+- Address Heiko's comment about dropping the unneeded "Use rgmii-rxid
+  mode to disable rx delay inside Soc" comment; checkpatch complains
+  about uncommented rgmii-rxid, so take the one from
+  rk3588-youyeetoo-yy3588.
+- Address Heiko's comment about reset lines of the phy nodes being
+  incorrectly described in the gmac node; note that these are still not
+  described in the phy node because GPIO3_B7 defaults to pull-down,
+  which causes the rgmii_phy1 node to never come up; rgmii_phy0's
+  reset GPIO, GPIO4_B3, defaults to pull-up, so that node does not
+  encounter the same issue. Moving the reset to the parent mdio node
+  instead did the trick.
+- Address Sashiko's high severity comment about hdmi0 node mixing M0 and
+  M1 pinmux groups; use the existing hdmim1_tx0_hpd pinctrl group
+  instead of redefining it. HPD is wired to M1 while CEC and DDC use the
+  M0 pins. Verified hot-plug detection on external display.
+- Address Sashiko's medium comment about "full-pwr-cycle-in-suspend" and
+  missing "vmmc-supply" and "vqmmc-supply" on the eMMC node; drop the
+  former, add the latter two.
+- Address Sashiko's medium comment about the pmic node lacking a pinctrl
+  assignment for the interrupt pin; add it.
+- Address Sashiko's medium comment about the "vcc3v3_hubreset" regulator
+  hack; describe the two GL3523 hubs linked with peer-hub.
+- Address Sashiko's low comment about defined-but-never-referenced
+  regulators without regulator-always-on property; drop them, alongside
+  their pinctrls.
+- Mux PCIEX4_PERST_N as GPIO, to match it being used via reset-gpios.
+- Drop the unused input.h include.
+- Drop the unused rtc label.
+- Drop the local PCIe x1 pinctrl groups, which duplicated the
+  pcie30x1m1_1_* groups in rk3588-base-pinctrl.dtsi.
+
+Link to v1: [2].
+Link to v2: [3].
+
+[1]: https://axelera.ai/axelera-products/embedded/111c
+[2]: https://lore.kernel.org/all/20260522174918.61523-1-patrick.barsanti@amarulasolutions.com
+[3]: https://lore.kernel.org/all/20261020113717.189082-1-patrick.barsanti@amarulasolutions.com
+
+Patrick Barsanti (3):
+  dt-bindings: vendor-prefixes: Add Axelera AI
+  dt-bindings: arm: rockchip: Add Axelera Embedded 111c
+  arm64: dts: rockchip: Add Axelera Embedded 111c
+
+ .../devicetree/bindings/arm/rockchip.yaml     |   5 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../rockchip/rk3588-axelera-embedded-111c.dts | 810 ++++++++++++++++++
+ 4 files changed, 818 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-axelera-embedded-111c.dts
+
 -- 
-2.34.1
+2.53.0
 
