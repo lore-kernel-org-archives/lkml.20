@@ -1,47 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794573488;
-	b=ZDwcjTzRYZgcASE0xi1tkRQzkjlLfEu1NOM0JeEx7aXhPCu2DwQbFZqi679GOKkh5wI4
-	 8QVHfvMb8lwMwBb56QNeK4Nyo3c8k37owW2+5THO1F07TC5Q6JcAQFX66McgXsKbNJJOp
-	 u4uu//aeukPrtop5GooTGnw4wb/Vu+ZB8dwmhnH/Has+4SW9tHNXhZwW5eRJUiSpJiphA
-	 6Ct1r6CgYCVKGxFf8zdp3GDaFu2cKqWL2ImpTNU/NMNhpJW10hgaWBwR6XcaOfdslxFpa
-	 O4aPMBhU8g+rIhQl22FzF4xtJ07ZZoIpLzzC43cVR4WnLMdM3Q9I1RCYUxk5ru1BfVQ==
+	t=1794573510;
+	b=FScI0wO+3YMEopXoYNlYtR21A1GvqDsTvRGmtWI1oajicf/+GRzZ1ZLHftVffEJGaMYe
+	 kFI/qOWQPKWvx5/QtKxxyMGGWCnJgC3S2pvtkIMQyycmxftDX4byX4pNiaFIIH/cDsEH7
+	 JftVMIG2OGPE4qre+zRRYWmkAu+MTEj+7oYjUXFc/f2bxJUixZv2hdTKXWKkrbPZis0Qx
+	 iZTRqEy3WpYq3pw15zgfEvV5WepFJP8wVhgan8K8DQHXio7xTr5hATOTspe0OxVKmL8D+
+	 Rm14sGJlHeXGlDS4Ye8hb2d3ErcuwCJ0pltb7zbr3yONDx3FvsBFlXFxE1wuH3fAnfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794573488;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=op12/FNxtzMjYZ2XBGncVTvz9Ic13GaEAyhOHqfepzY=;
-	b=YibfTOrylarJQVv3XBaA0O2Os5kOtktRUDzC5LV5U3tui7+U6H1SR1ppGcJhe3VocSLS
-	 AVS3l9k1yoIKNy7k/m2jBvUy5lAruMmureRE5XgRDc0pYed28zByGKGfgcjNg0Ue6yYC4
-	 Kq3M+5LvJ3QO+cj7wyRkKOPRclkGyT6N2vNkNlStrIFQw5jJfPgk8XYeiYzBwbWqMiW9W
-	 20NtSt0XOg915dNESiYiCpvvNP2fjD5Bq7bqGTLQai+v7PE2YrrGmqL2t30ZaSAOWz19/
-	 fJquYouunYfdBaeGlFqx6J25rODD0c8tnmbyryCzmReIxakMcbR2SKCs5oKHykd66Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794573510;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=Ny+1veWg8VD0eIDxFJ1X48Kguf5Oe9PbJZTpbcgMiOk=;
+	b=jkG7TykmuuD+Z55+xrhOCgvTGEPlrObZZ9e2TcKsjg7CMSf9olTxVQtlCUoU/Ipbft/M
+	 65h6EP0PNSRYYISMHrd4/am5E6Blyxtq8DFE3gElSxsa9XR/Pn3bGJk6+lGxLtRxmbz5E
+	 wcFRMYZwIqf+UjWLLV9SCa38DBiT8yI5nGCei94mn/qu3qVphpOkQCSTsjKINqB4O7DI+
+	 MFgHADUlnscKV1t52S4T9RWRgpXnny+AVpEAiSrR0+HIJDusV5VeV8jsXWSKqP3zV9Y2x
+	 n875el7+gnIKgjqG5tNyliUWHFEKeHFNcHDDIc4sfKRCKVM1c5ZZnpg65C5TPU+G/5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UrIXAiul;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=amutable.com;
+	spf=pass smtp.mailfrom=amutable.com;
+	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Bz2+TnPI;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E27606A323;
-	Fri, 13 Nov 2026 12:38:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDC8606A338
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:38:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBDC8606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UrIXAiul
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C9E51F000C4;
-	Fri, 13 Nov 2026 12:37:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794573487;
-	bh=op12/FNxtzMjYZ2XBGncVTvz9Ic13GaEAyhOHqfepzY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UrIXAiulAlh5l+emGRr+Is0DKNy2jfg0CJE+DKG6TiQXuGZ1I7ifl8A6H+qc63vZ2
-	 0aSj05WBsvSj5DU/m6qFKN+gRAMcfKcRS8fTUAK+GOiix2CsAVAPpQpT8yeQSRNZ9Z
-	 GfruoQ7sNuyQXwRlsZKwr5FDWzsgvJZEKYT8H42PwBRXc3zoRfz4F+xSwqgGyqsf+P
-	 43NuCkB6cA869Pc5YiorgyCWZTwMqOpvJKX1T5FvfgMjGqFxuitoPTzwmlvIAMi+tx
-	 h//F4rvvN1bv+gJoajyYnBaXPr4jflUzTRDol4+uB/MmbyTRgCJ0p9hNAYAX8/HMOb
-	 Ff6+xcLaMy9Wg==
-Message-ID: <834ac9d1-92b9-4813-ba63-73bc2f6de4ca@kernel.org>
-Date: Fri, 13 Nov 2026 13:37:56 +0100
+	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Bz2+TnPI
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so9108315e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:38:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794573508; x=1795178308; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Ny+1veWg8VD0eIDxFJ1X48Kguf5Oe9PbJZTpbcgMiOk=;
+        b=Bz2+TnPIApHKvsf08kyiSuJZ5AWViHONwTwuNXVAuo2u8JGXjKnEoxSd3hG/r/h3b1
+         tdsUEBtaZSOWfU3+mD3LjyqvBKt9Vc6RBsvkZZTD05u5eCDGhnWto1Wbu/C0r64DVVdd
+         h2TGnt6meedDH7Iwjf2Hw2JxWOY8jwAvEAcAC10FURsf5jjp4p/KJzFYjzuPwuYFNKea
+         Iij0h8HoPs5opXKf2XwMBJpd5hsYSV0+BHP/DvKdCCgwNFtbeIFAwqDf2ag0NBOCbqs2
+         OXWiZmXbdGCixyOlqQBMgrkFkrhg1VmbSdmvvBdeQ4Vz+QMvhYl+k9AO6FJ5UW1pg6b2
+         DVuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794573508; x=1795178308;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ny+1veWg8VD0eIDxFJ1X48Kguf5Oe9PbJZTpbcgMiOk=;
+        b=HwaTiuKaD6Zsc7Irsxn558+smKqcttK4kbHcJOS+SGXiBLT2WPMKG2izgKOzgFui37
+         RQQDr0/DqVd9gLKA8/445lI4rRY2eOHZ3qSInrMa496mmqbpxtGW8eUgCYDYQEvZtf4k
+         Um0STt/YAhSMnePcY6DbRR0H9lpqyfn7NGbNhPBp0Irl1xVC8YLmKzQzYldWcuVMdz8g
+         e6fKt54r2IE1nHQmcImnKACIwJi4jM1iKleiwEXdWoIVg08MgKA5TyXi0wuo4vE5s+FL
+         LKdbP0UYJtHFjww9Opre/oxwm9slw0PZQJy+OImt/Si8WeWUJAdtA0283rbs8vkhLYdd
+         cq3g==
+X-Forwarded-Encrypted: i=1; AL+hErFSyViwTg+tMETWIaZVw+BAbJ7Ki6rx4Rhi+IOd3XF4A2TTgvoLERlcE2sxFWb6sQI9GvJjgh2JmFeEI+Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yyVvFYZ+bJbLs7+HXpG4J7CsLr+W6ouJ9/ty94la1ThAVnQFI
+	3a2I2VfLWTVx4cuj6LCW7/dzYLWh1+3fNNC7afq3pKK3mdrMCr3t3Ap2fglPAVlxRHIv
+X-Gm-Gg: AYBFou2AbRuCltgSRWjIec0hGCchsBHg/pRfLRKIfE6stJRR7hBab3l8Qt2LZko60RT
+	4u1mYoX4IhkaD7FrzEGDR86fPQ0b+cRCwxi/SS1rCkAi001qyqTY1ValNv6/LJZktxoi2phTot1
+	gXvrveIZpe4wgzBBpg2VnqdpdEB2kGg3c3jFLlx4B3aMs/4vyKlDt/aT/p9JhsXxJdYD4xz9zqD
+	c6kqthB5bda33Bmcjuq2iIK+p8syFy0eze8zUu/8nKssgaWVIigZFfAfSVbdqf4h7iAXo4vtnKt
+	xsl0wTqzOOHeukRgiozRlA1jCZrcU1gI4zl48fIYpfGxEOIfMku8wAe0b0k5siwJMe6NOE+31ne
+	Faj83ImGdw4SEEimLEr+bRZqOwHCCmUdn9hi3IPZ66Ogh8HvoNVjtHfV8BlAp+uyYv8gvHg3qIf
+	pkWh1VkN4pWBHEKgwbax91XWPQ1oKCs4qr/IsnNOt6KkkXXQ9oLWeMrHFzjAXZE+A3as4qkSYc0
+	NMSur0r2H820GTgocNce6+8GpAt56XhgRhkABsKxQPxT4E6Z5qtC6/q+J/izHp8uMcmT+laiLKa
+	cbeyCeWQEO6hmrv8o+zcZ5hoRLDrq4IrgOgpOBzcaP4V2vqs+hgE149AuNVAyno=
+X-Received: by 2002:a05:600c:a596:b0:4b5:d95c:2380 with SMTP id 5b1f17b1804b1-4bb55a86fb2mr24790785e9.11.1794573508217;
+        Fri, 13 Nov 2026 04:38:28 -0800 (PST)
+Received: from [10.0.0.233] (tmo-086-54.customers.d1-online.com. [80.187.86.54])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571cfa2esm48348475e9.2.2026.11.13.04.38.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 04:38:27 -0800 (PST)
+Message-ID: <28a33fa649dcaae2eadcc934ec49fa591ec1c283.camel@amutable.com>
+Subject: Re: [PATCH RFC 20/41] apparmor: use fc_init_pseudo() for apparmorfs
+From: Alexander Mikhalitsyn <alex@amutable.com>
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, Josef
+ Bacik	 <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, 	driver-core@lists.linux.dev,
+ linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, 	fuse-devel@lists.linux.dev,
+ linux-efi@vger.kernel.org, 	xen-devel@lists.xenproject.org,
+ ocfs2-devel@lists.linux.dev, 	linux-s390@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, 	linux-usb@vger.kernel.org, Amir Goldstein
+ <amir73il@gmail.com>, 	linux-erofs@lists.ozlabs.org,
+ linux-kselftest@vger.kernel.org
+Date: Fri, 13 Nov 2026 13:38:25 +0100
+In-Reply-To: <20261110-work-loop-pseudo-v1-20-4c998976c6c7@kernel.org>
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+	 <20261110-work-loop-pseudo-v1-20-4c998976c6c7@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,100 +114,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/5] iommu/of: Make OF_IOMMU depend on OF_ADDRESS
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Vasant Hegde <vasant.hegde@amd.com>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
- Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
- Eric Auger <eric.auger@redhat.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Joerg Roedel
- <jroedel@suse.de>, Srinath Mannam <srinath.mannam@broadcom.com>,
- Oza Pawandeep <quic_poza@quicinc.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Alex Williamson <alex@shazbot.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- virtualization@lists.linux.dev, devicetree@vger.kernel.org,
- kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
- <20261106-add_iommu_ranges-v7-3-5c0f72083e52@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261106-add_iommu_ranges-v7-3-5c0f72083e52@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 06/11/2026 18:14, Vikash Garodia wrote:
-> The OF_IOMMU code relies on OF address parsing helpers, but the
-> dependency on OF_ADDRESS is not expressed in Kconfig. As a result,
-> of_iommu.c contains CONFIG_OF_ADDRESS guards and a __maybe_unused
-> annotation to handle configurations where OF_ADDRESS is disabled.
-> 
-> Make OF_IOMMU depend on OF_ADDRESS and remove the now unnecessary
-> preprocessor guards and __maybe_unused annotation.
-> 
-> The only architecture supporting OF without OF_ADDRESS is SPARC, which
-> does not use OF_IOMMU, so no functional change is intended.
-> 
-> Suggested-by: Rob Herring <robh@kernel.org>
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+On Tue, 2026-11-10 at 10:14 +0100, Christian Brauner wrote:
+> Initialize apparmorfs as a pseudo filesystem. This raises SB_I_PSEUDO
+> and
+> also SB_I_NOEXEC and SB_I_NODEV. apparmorfs never holds executables
+> or
+> device nodes.
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
+
 > ---
->  drivers/iommu/Kconfig    | 2 +-
->  drivers/iommu/of_iommu.c | 4 +---
->  2 files changed, 2 insertions(+), 4 deletions(-)
-
-
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-
-Best regards,
-Krzysztof
+> =C2=A0security/apparmor/apparmorfs.c | 2 ++
+> =C2=A01 file changed, 2 insertions(+)
+>=20
+> diff --git a/security/apparmor/apparmorfs.c
+> b/security/apparmor/apparmorfs.c
+> index a99366467217..351ea3a7120e 100644
+> --- a/security/apparmor/apparmorfs.c
+> +++ b/security/apparmor/apparmorfs.c
+> @@ -21,6 +21,7 @@
+> =C2=A0#include <linux/rcupdate.h>
+> =C2=A0#include <linux/fs.h>
+> =C2=A0#include <linux/fs_context.h>
+> +#include <linux/pseudo_fs.h>
+> =C2=A0#include <linux/poll.h>
+> =C2=A0#include <linux/zstd.h>
+> =C2=A0#include <linux/string.h>
+> @@ -263,6 +264,7 @@ static const struct fs_context_operations
+> apparmorfs_context_ops =3D {
+> =C2=A0
+> =C2=A0static int apparmorfs_init_fs_context(struct fs_context *fc)
+> =C2=A0{
+> +	fc_init_pseudo(fc);
+> =C2=A0	fc->ops =3D &apparmorfs_context_ops;
+> =C2=A0	return 0;
+> =C2=A0}
