@@ -1,110 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596124;
-	b=GjFN9n0YZOqQ51XBbm6sb8Ytv4xssLZx2FyKwsQ+1HFsN7x+OsoX/BP2kDgCmIVJJj8d
-	 qzNZTHRxMRPJOebIN+zZp1Ffal0uqgpdN78JLl6g9755Vbpq0C6yZispKBlZ09b7uZIHT
-	 FCoG0eIJEsTdpTXKVTBS7F2NYxYH30B3XfZpZpOTukcmLoooA7/FSraxmWb/EeIMzFGFq
-	 /NxuyRKbpAsOk3llZYyJc4WQ0HUZPuLI8xfxFBXksSH7smvfuFQrod7knKMVW1hXyGDq3
-	 v8PeS8O6NxoVjGm9ET7NOqajIhRaYaHOYVWPispeqbu+rNNvVa7otgRMF4HXv0N4kTA==
+	t=1794596149;
+	b=0jGQOX2Y2Trmw60Axuz8aR7W4DDMmLBLyM85/WtCZFIQBxLeq1IxF9g9wKlCtpV+SVFG
+	 EFgEcNRZvllxqYlP45w9a/VieR/gNHVHD97PxtsOT2UfAdErSYxhfTaDu0qVKR//kfxot
+	 5qZxcxK9UMpntO1RNHE5HpO+gdHyMaFENiMXJnDPlr5eC6Ju25lGQov9MpLy/hsOMhQuj
+	 fmnTuhFETG+zmr+lboCnqs7Dw+3vyO0qeijMXper8tjT7hwnBa1Lx1cEbcyGg7xHkM4Pb
+	 3LXaV4eYQM5Tjtefu6GqniKTPBnb4ZiSc1oHe6Ih2RFAycYNu2ZdQY3xE5b82zazEww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596124;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=bdPwvW1k6EwZBKyeXaX5G0pPP/JDCE9kBeczaNyCHcs=;
-	b=w+3GLrn1C2irf4UtP+yy00szrOWfohogVsyWiIPyNzNY8gYWCuK1eOIqNSjl5PCyuJKb
-	 XbAALpuAWhwjWv/jZ0CVpy8wUOIXzxjRjKXSUZhrnybq2A7Fb0TGIBdRmEuSdJv2v6end
-	 pB4N9r+boQD52RfPLkgmnQRzpr+II3nImZpVS0T235v+CGw3aN0risHQD3AZx3KQhsIPK
-	 NqjoOGnnq3t9lGRz9VP7712M7/In4ZNFA5/VplYgFPkQURjDy8c/15vDn1AI+fv+vgPvp
-	 86YkdzBexn0QRjRKaSFCBib5O0xmAP7bhEABfbYWxlktirIkcSHkmsh8+INSu9p+J0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596149;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=IL2ZDHTivJXAZxExPQOlakmXtpTkWanMmcraAEGCXQ0=;
+	b=D2cZZVxl6uaU2/9RqQvCeQtsniuc3mv0s+jfdChICeNCFSopnabqtkUdTyPT/iM+NVeO
+	 p4xT8v/UeWxQY29SqczIsxhrsGvkgd4jwVrz/qJfL+93d+3O19tJCHaeE8RXJcXcL2Qps
+	 RU68uSEN/jsVFCHbqIOfpZyw4DJyZfvlmb64xz49F9g+MgI8B2UwImbgX8lwJ8FDoQ6iq
+	 a2+ygFk4vPQJcfxeB2ZXxhi+R09UJx7JXLt/xLGndS1nwhdqT7cuIW/w9QGuyFz3K4itd
+	 5KbytkDy9zdZYTaCGTazuUrpvIHTWBlnVvNpod2n35advRn+U2EihtPr6vAIin8e41w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=C+cBIRvS;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CWTyaMqm;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhbHX4Lz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B366F606A33F
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:55:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B366F606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23602606A330
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:55:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=C+cBIRvS;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CWTyaMqm
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFRSXc3296060
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:55:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bdPwvW1k6EwZBKyeXaX5G0pPP/JDCE9kBeczaNyCHcs=; b=C+cBIRvSaqDUF3L4
-	ReZv7t9bjfGKXoNLE7GVOKof3PhMZfKpDZeV5rcihTts1ZwGaWvLCUHIzGZOEmFs
-	b18YgMlyzdJ7pCrMscmqer9313Kg1RozSqdaLJ4Qj0e7BmyJ+TZSBWh/TORi/YFI
-	UjtGakuvm4GWxp7aUBMZIWroIb2atPMmpAIzyWbN2P769tGzfUZSKaF1i+pnLsLl
-	IQmt79HNWULC4yGXZB4eWSupvNBufWY4DmmvhwpLdeYV4kkDPodUwEbbhiNGZdp/
-	9Lr8SWUm1Uxe8MntKszFWGjiuLv0NdiaEdhFjz4Ugr02lDL3KxEhHJNTBxIVSgfQ
-	VFpGTA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwvu6tpyf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:55:22 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-378722fd4a3so1504484eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:55:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794596122; x=1795200922; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bdPwvW1k6EwZBKyeXaX5G0pPP/JDCE9kBeczaNyCHcs=;
-        b=CWTyaMqmzK0bVdjoRMo46ftLqI+XZLEPfZwKW7d1q7oedE+ctWPGP0BPXeYdv7FYnI
-         u9ehNOOnJJ+7LicB8EYgL7xtJP3Pu4UUyZOyQ82NyFZX2oXne+3CQIiR5AcQLw+7gny9
-         BfS0qxz4AEEayISpyFeydg9p3+krj8x0xUy6xeYi/hKjdj3SoNbPisTYpgRoOaE0Eckk
-         bbSM+tC1JCxvCpkiW23NbWPrFZrRWB/wlIEWPb0PBxUHYg589zKbtzEK8vYRfogJD7wu
-         OZUPjuNQqdYFcrxwvh5Cz7RqnzcBqbuiD1MhcaAFg2AviPNKtyFjLwdwRT2fUDDZiMg5
-         Q0Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794596122; x=1795200922;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bdPwvW1k6EwZBKyeXaX5G0pPP/JDCE9kBeczaNyCHcs=;
-        b=ReVdimdJH/oj9jSekHont57raPbBFBgiCyRV/IOY1fYcT8rHchpuOQI/x1d+FGR27P
-         MA+NxJfxRRybFZ+am7Zy3C3SHxzfXuxvNjcBCqSa+s8+s4pF62iTmgr/hzE3llC8jhQa
-         J2JIfCGtNagclXXTUAucLZUBOk0bbSxHPQd8wF4bDM/R3qwQaIbsPuqSO4OVKskidEHY
-         glsQ1shNAIdarL/SHZssl/Wt0dAUY0N0r0dKsst16r3kYWtjKumQRBp+KzFYj5zu2G4W
-         mBQgT7T+Gy+GGG6CgYbpGoCD2OO5Ly5m36rTRQ6q96LYigUf4IrHma6HiN9DrWA9TWit
-         W3FQ==
-X-Forwarded-Encrypted: i=1; AL+hErF1jWH1g+WBKqksOTcLOR/sXEMNAqowi/l/q/XMfwWQZecnhz+Idad0lsFy5YcJAUmBpmOU9wTKzuBI+1w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8PSjtTP+5wvRCPGcmB02kl6+P7LGs6t9e1JQfOOeY37hTg2LCS
-	kbtzpEV1rr64kjNG+WD4wbQ+LHezpbEIebfl1GhGlvs/O60PFmYataWX1r4yTmp36pUjZLrA7Ie
-	0WFt+Lr9cHgUiPl4sGWs+gJu1OA37OM42S9ovJVXFSc3wCVSZtzzTOOhRApyX9yHXmn0=
-X-Gm-Gg: AYBFou2+i9c2n+sSM+vjz3vkdmKorY+m1ZIYG4P1p8Xas6YR49wKy9mbWOOjew5/nWS
-	d7alPK+wd/eJKPx09i483oLsNdPn6y18/Wzc5jTtPF2NxsHi1+PVqGNecAejrQgIvAnhAJsi8HV
-	ukdjJO91mQrAullU6hV4VWk+WzeawKAJ399SD8ECxhTfCcMJCf/jJ2X3ZER/m3BuzX0Is80wRJa
-	gAYlT03HeWUYsyRZTB2vDb6RInN/kQ6f9lm2KHVMXqmu8RVj9YkdDWYutOvA0mDKpSdjg/7A6Cn
-	sdWJbSugckbn2iDwfzh9bk/27XQiNlG/46uDSygNxTrn7l2+d/kVb3d2j/qamG4AshCM61O0JVd
-	3w6EdI7ZqzLu1m7MFzJ1tReQ9UKB+4fCluLFWQefncyRuVIU5dYqObKnnhgY0iMwJbJ4/xS4tBd
-	u3YhuS+z5qDkYlqVin
-X-Received: by 2002:a05:693c:83c3:20b0:377:678:231b with SMTP id 5a478bee46e88-37966a591dfmr3191967eec.25.1794596121581;
-        Fri, 13 Nov 2026 10:55:21 -0800 (PST)
-X-Received: by 2002:a05:693c:83c3:20b0:377:678:231b with SMTP id 5a478bee46e88-37966a591dfmr3191946eec.25.1794596120993;
-        Fri, 13 Nov 2026 10:55:20 -0800 (PST)
-Received: from [192.168.11.102] ([124.123.81.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563df84fsm17585787eec.20.2026.11.13.10.55.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 10:55:20 -0800 (PST)
-Message-ID: <03e7af46-7fcd-445e-9210-395bbb8b5410@oss.qualcomm.com>
-Date: Sat, 14 Nov 2026 00:25:16 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhbHX4Lz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AC8A1F000C4;
+	Fri, 13 Nov 2026 18:55:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794596148;
+	bh=IL2ZDHTivJXAZxExPQOlakmXtpTkWanMmcraAEGCXQ0=;
+	h=From:To:Cc:Subject:Date;
+	b=mhbHX4LzYZ11AhyNACAQLD0O9t57YnPG/RlnHVUXt4NcbyM+Kr4eeiKtOllZEn8+2
+	 1aIB2ECFvMIG/LHeQptTJtT8ujO3JYoxDg2I2OLdduSTbd8OJCFyLex2Xob+B3Y6L3
+	 8P/1DYKaleD9/TJ0BmWqro2nu+46D1Mmanzgx/m6hkSV5+InB2cnR69wm5jRz7UTTn
+	 6GW31ITJJFYy+kmeRCE7459EoW2vyII8uIHJxWMQ8au2PGnz2Z607iX/v9oKvrch5V
+	 2prXYp1Jslv4n9nrM/CpXjZwlTZrG0hmr9hjV0zPfT2b7l5z1Wg9TVWJGwg5DhFpu4
+	 eICOyzOD3QL+A==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Cc: axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	hui.zhu@linux.dev,
+	kasong@tencent.com,
+	kunwu.chan@gmail.com,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	liuxiang.277@bytedance.com,
+	lyugaofei@xiaomi.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	ridong.chen@linux.dev,
+	rppt@kernel.org,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhangbo56@xiaomi.com,
+	zhuhui@kylinos.cn,
+	sidchintamaneni@gmail.com,
+	"Barry Song (Xiaomi)" <baohua@kernel.org>
+Subject: [PATCH v8 00/16] mm: mglru: fix swappiness behavior
+Date: Sat, 14 Nov 2026 02:55:25 +0800
+Message-Id: <20261113185541.70203-1-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,85 +82,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] wifi: ath: simplify copying a peer's PPE
- thresholds
-To: christophergriffin05@gmail.com, Jeff Johnson <jjohnson@kernel.org>
-Cc: Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-        linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-References: <20261110-ath-peer-ppe-thres-loop-v2-0-fced87507920@gmail.com>
-From: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261110-ath-peer-ppe-thres-loop-v2-0-fced87507920@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfX0bQSWazaW7cd
- 6xEzxsfNJJO9bFa4/X7tr1z3qgGCuLeQhe1bIV0OtLZI7Au5EaDsLKdcXYrtG7g4CukGHwwxjIC
- CWmje9TfO9++zqBKjmdfrFhAT+CaPQ82GGgRsGQNIXHC1twMEPy6cd5XKBXR6tutPcCyWyBaHFQ
- PBYSoOWlwB0PH7yNVzoFL72txXuQaRcBT6QAEBDuua5Ce5MKhwkbLcTrGcjmtpGPeS5I1GTOZxp
- gI8V7e18tsLDqRrL24s2LmYD1KRZK9GRysvZu+1Q6ZGu4m1iHaktWfyhtzOZrAhlZZ98+E4DdTA
- U4bjKosgzvC0mlqsIXYhKwRHgnrPRBWwCceKfvh0BAKSzYze1lHOKqeDyRXP78yqif9JQEM1CX+
- V1ewatQTW6XXeLX9eFbbRuWkesjRpt6IJz4EYP2npttchs4y6mGWAeoI1zBpDgDzlB6N7KvBm6a
- IjGJKRzi0xwAjUifPsg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfX9+/2CPGMR30E
- CEx+SUWHftRVigpwPb9C4mpuW1hHQr99gHPE8Ik0wOMH0Eaxy0HAH+mpzSOCukzRr1rWg8DxyRA
- 8tdTKB/2CdbETjfQtCbVJhi+CutKHf8=
-X-Proofpoint-GUID: 3yTiCuidzqiMVZ8CkTIr6h7Qe4LDFq16
-X-Proofpoint-ORIG-GUID: 3yTiCuidzqiMVZ8CkTIr6h7Qe4LDFq16
-X-Authority-Analysis: v=2.4 cv=JfcpPkKV c=1 sm=1 tr=0 ts=6af75d1a cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=WcLwt0pvHDAIUQ3iVSLIEw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=pGLkceISAAAA:8
- a=_siAQXIdv8hbVOeHdhMA:9 a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
- a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 malwarescore=0 phishscore=0 clxscore=1015
- impostorscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130075
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 11/10/2026 8:07 PM, Christopher Griffin via B4 Relay wrote:
-> Rameshkumar suggested this while reviewing the PPE threshold bit-order
-> fix [1]: the loop that copies a peer's PPE thresholds into the WMI
-> layout shifts each bit in from the top, where it can put it in place.
-> ath11k and ath12k carry the same loop, so one patch each. No functional
-> change; the patches don't depend on the bit-order series.
-> 
-> Compile tested only (W=1, both drivers). A userspace copy of the old
-> and the new loop gives the same output for every 6-bit value in every
-> RU slot.
-> 
-> The patches, this letter and that test were written with Claude, an AI
-> coding assistant.
-> 
-> [1] https://lore.kernel.org/all/b60c4c56-483b-406e-92ab-643b0fdf2dc8@oss.qualcomm.com/
-> 
-> ---
-> Changes in v2:
-> - Dropped the paragraph about the equivalence test from both changelogs
->    (Rameshkumar).
-> - Kept the one-line note on AI use in the changelogs:
->    Documentation/process/generated-content.rst asks for it in changelogs
->    and cover letters.
-> - Rebased on ath-next.
-> - Link to v1: https://patch.msgid.link/20261106-ath-peer-ppe-thres-loop-v1-0-f6bb5fe9ffb3@gmail.com
-> 
-> ---
-> Christopher Griffin (2):
->        wifi: ath11k: simplify copying a peer's PPE thresholds
->        wifi: ath12k: simplify copying a peer's PPE thresholds
-> 
->   drivers/net/wireless/ath/ath11k/mac.c | 3 +--
->   drivers/net/wireless/ath/ath12k/mac.c | 3 +--
->   2 files changed, 2 insertions(+), 4 deletions(-)
-> ---
-> base-commit: d0fbb39d65dc9dcb4175fa6b23e473dec3670f4d
-> change-id: 20261106-ath-peer-ppe-thres-loop-ce5c2b2e68e1
-> 
-Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Classic LRU respects swappiness, while MGLRU only weakly
+honors it when selecting the scan type. The fallback logic
+can easily override the bias established by
+get_type_to_scan(). As a result, swappiness has a much
+smaller overall impact when changing from 1 to 200, as
+shown by the data presented later in this cover letter.
+
+In this patchset, patches 1-8 from Kairui introduce a model that uses
+refaults to determine nr_to_scan[] for both file and anon in MGLRU.
+For each reclaim operation, we calculate how many file and anon
+folios to scan, similar to CLRU, rather than relying on
+get_type_to_scan() and fallback mechanisms to decide what to
+reclaim, which have proven rather unreliable in honoring swappiness.
+This model also allows scanning and reclaiming from the two youngest
+generations, including the youngest generation itself. This can help
+resolve OOM situations[1] and reduce the need for aging.
+
+As Kairui mentioned, the OOM reproducer was demonstrated
+previously [2], and that series was merged in v7 [3].
+The problem was largely alleviated as described, but not
+completely fixed. Under higher memory pressure, the system
+could still hit OOM. Before this series, Kairui could still
+reproduce OOM after hundreds of iterations. With the fixing
+patch in this series applied, the problem no longer occurs.
+
+Patch 9 from Barry fixes a cold/hot inversion exacerbated by patches
+1–8 (which also exists in mainline) and improves reclaim efficiency.
+
+Patches 10-15 from Gaofei and Barry optimize aging based on folio
+distribution imbalance and improve reclaim behavior at extreme
+swappiness values such as 1 and 200.
+
+Patch 16 from Bo Zhang addresses the GFP_NOIO issue in MGLRU.
+
+After the patchset, the results track CLRU across the full swappiness
+range (see table below), with more file scanning at low swappiness
+and more anon scanning at high swappiness.
+
+pgsteal_file
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            6,620,680     745,968       6,190,575
+36           807,807       508,974       525,304
+71           553,144       417,700       405,545
+106          402,880       402,474       348,365
+141          240,293       337,797       305,170
+176          187,682       330,045       231,038
+200          0             343,949       256
+
+pgsteal_anon
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            4,436,199     2,671,934     5,103,813
+36           2,858,117     3,032,747     3,134,511
+71           3,042,392     2,827,735     3,170,171
+106          3,292,622     3,184,314     3,225,293
+141          3,612,869     2,999,000     3,590,478
+176          3,827,154     3,134,127     3,873,163
+200          13,825,283    3,269,753     14,399,074
+
+pgscan_file
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            11,853,625    877,311       12,715,103
+36           1,016,826     582,783       612,867
+71           662,823       474,772       443,149
+106          496,374       451,285       364,203
+141          277,109       382,604       327,444
+176          206,261       372,059       236,838
+200          0             393,608       256
+
+pgscan_anon
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            20,804,386    5,847,747     7,142,640
+36           17,830,330    6,740,075     6,297,912
+71           18,357,293    6,126,194     7,046,149
+106          19,938,920    6,431,355     7,876,121
+141          19,609,579    5,997,762     9,672,762
+176          21,612,749    6,071,032     11,195,357
+200          44,776,474    6,544,125     30,225,030
+
+refault_file
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            6,523,070     667,302       6,103,539
+36           722,110       431,585       448,161
+71           477,062       340,241       331,108
+106          327,610       324,747       272,266
+141          161,827       265,959       228,015
+176          115,551       258,515       172,882
+200          0             268,049       212
+
+refault_anon
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            867,728       552,829       1,415,594
+36           419,635       657,745       668,238
+71           536,299       611,345       672,096
+106          580,742       693,689       728,319
+141          706,151       639,850       817,954
+176          706,499       685,086       949,643
+200          4,693,850     733,273       5,475,622
+
+With a normal swappiness setting (without extreme bias), I
+see almost no noticeable performance difference between
+the two versions.
+
+For example, with `swappiness=60`, the average results
+over 5 rounds are:
+
+metric          W/o patch     W/ patch
+real            1m49.273s     1m49.051s
+user            25m33.186s    25m31.778s
+sys             3m41.851s     3m40.721s
+
+[1] https://github.com/ryncsn/emm-test-project/tree/master/file-anon-mix-pressure
+[2] https://lore.kernel.org/all/20260318-mglru-reclaim-v1-0-2c46f9eb0508@tencent.com/
+[3] https://lore.kernel.org/linux-mm/20260428-mglru-reclaim-v7-0-02fabb92dc43@tencent.com/
+
+v8:
+* Fixed Gaofei Lyu's name;
+* for debugfs proactive reclaim, use DEF_PRIORITY;
+* refine no-populatable aging (limit frequency, allow an aging
+  after eviction returns 0 scanned)
+* refine "restrict eviction accounting to eligible zones" for
+  potential premature OOM;
+* Collect Baolin's reviewed-by tag, thanks!
+v7 link:
+  https://lore.kernel.org/linux-mm/20261111232603.9934-1-baohua@kernel.org/
+
+v7:
+* fix a build error of bisect and address some other sashiko minor comments;
+* add no-populatable aging;
+v6 link:
+  https://lore.kernel.org/linux-mm/20261110202025.25736-1-baohua@kernel.org/
+
+v6:
+* rebase on top of mm-new(a lot of conflicts due to recent active mglru
+  developments);
+* only count eligible zones below sc->reclaim_idx for
+  lruvec_evictable_size() and lru_gen_imbalanced();
+* GFP_NOIO further fixing by Bo Zhang, exclude unreclaimable type
+  in lruvec_evictable_size().
+* Add Kunwu's reviewed-by, thanks!
+* RFC v5 link:
+ https://lore.kernel.org/linux-mm/20261022220203.91911-1-baohua@kernel.org/
+
+RFC v5:
+* Remove the aging optimizations, which have been merged - thanks for Baolin,
+  Baoqun, Lian Wang, Kairui, Kunwu, Ridong reviewing on this;
+* Add Kairui's model for determining nr_to_scan[] for both types.
+* Fix cold/hot inversion for rejected folios - Barry.
+* Improve and clean up imbalanced aging, and optimize extreme
+  swappiness values of 1 and 200 - Gaofei, Barry.
+* Address the GFP_NOIO issue in MGLRU - Bo Zhang.
+* RFC v4 link:
+ https://lore.kernel.org/linux-mm/20260812121658.69965-1-baohua@kernel.org/
+
+RFC v4:
+* Clean up isolate_folios() based on Baolin's feedback. Thanks!
+* Further improve isolate_folios() and scan_folios(), including
+  handling of exhausted reclaim types.
+* Add fixes and performance improvements to inc_min_seq(),
+  and reduce lock contention.
+* Improve the handling of imbalanced aging and remaining
+  generation-based aging.
+*  RFC v3 link:
+ https://lore.kernel.org/linux-mm/20260731083843.37811-1-baohua@kernel.org/
+
+RFC v3:
+ - Added Ridong's patch of improving isolate_folios() readability;
+ - for lru_gen_imbalanced(), apply some suggestions from Zicheng
+   and Kairui, considering lruvec size and use macro;
+ - drop "mm: mglru: only fall back when reclaim is running at high
+   priority"
+ - mitigate aging for balanced swappiess value(near middle 100)
+   as swappiness bias is less a concern for them; but slightly
+   increased aging overhead might not be good.
+ *  RFC v2 link:
+   https://lore.kernel.org/linux-mm/20260726122123.7614-1-baohua@kernel.org/
+
+RFC v2:
+ - Quickly address a few issues raised in the Sashiko comments so
+   reviewers can ignore v1 and review a cleaner version instead.
+   https://sashiko.dev/#/patchset/20260726012946.18684-1-baohua@kernel.org
+   Thanks, Sashiko!
+
+Barry Song (Xiaomi) (5):
+  mm/mglru: Avoid placing rejected folios below populated gen
+  mm/mglru: Run aging when one type has no populatable folios
+  mm/mglru: Restrict eviction accounting to eligible zones
+  mm/mglru: Reduce LRU lock contention by shrinking folio batches in
+    inc_min_seq
+  mm/mglru: Make swappiness=1 file reclaim more aggressive
+
+Bo Zhang (1):
+  mm/mglru: Avoid scan anon while swapcache is low for GFP_NOIO
+    allocation
+
+Gaofei Lyu (2):
+  mm/mglru: Run aging when pages are rare outside the youngest gen
+  mm/mglru: Avoid prolonged anon reclaim with swappiness=200
+
+Kairui Song (8):
+  mm/mglru: report evictable sizes per type
+  mm/mglru: extract lruvec_populated_min_seq() helper
+  mm/mglru: reclaim from the oldest populated gen
+  mm/mglru: lift the forced protection of reclaimer
+  mm/mglru: skip zones above reclaim_idx instead of rotating them
+  mm/mglru: return for unavailable anon reclaim earlier
+  mm/mglru: balance anon and file scan budget by refault rate
+  mm/mglru: lift youngest gen protection for higher priority
+
+ include/linux/mm_inline.h |  22 +-
+ mm/trace_vmscan.h         |   4 +-
+ mm/vmscan.c               | 516 +++++++++++++++++++++++++-------------
+ mm/vmscan.h               |   5 +-
+ 4 files changed, 366 insertions(+), 181 deletions(-)
+
+-- 
+2.39.3 (Apple Git-146)
+
