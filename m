@@ -1,57 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794534535;
-	b=QqP0Cc9QnLpK2Eit6Vh9lPw3z3xGVyrwONqvGVGYZFpFqPUg1VNDvXeNmNnBZkdFPHSZ
-	 cI/AP34KpWOoAgaAFAdGv6d9wa1C/BAF9lhQmXhFxNJkCBLvSdSS+0m/PcOqW48wMZO+O
-	 67LkT59psPlA8LNtPQXgEXo1fUKqtpzsz1CzsAxCCvUmpa3IJG4nOGN0IfZ4rOxLCzoct
-	 8rPW2XJB355PK/RpLZwxht2XzkUb2DcgZ18SzLPFbO808Je+dlRMHMbbm0e1qiEVPqmMr
-	 yT79EpT9SggiladHgk8TbwPHhCIj4JpMUm8/CLfYXKClT8vB+dthd5BsagOyvJ261Ug==
+	t=1794534583;
+	b=pZz/Ve4ZZEbQr9DNKyOzkKoAm0pzN2mtD9CefnyRq3Pf4oMXFh0CUAaS1mL3f7LoHy7z
+	 SmtmVS+lBPfu0xRBKFk3tkpyeRN6D7G98cCks4kkrhpEQan8B3k0d1LyJrXTsF5JpF+5a
+	 XlZoFleDcl9kvu7JzWu5C8S0fPWx3dG1B9+a+Qu0R4HTEQkP6gmZbgOF8Z/er1BvaMrKF
+	 mwlkdTTv84B4MYqa89OqOwd2HApjfqnxmhulOhfbROUHjzv8iwESfya4NXujWVifrSEeC
+	 PLacLtJGmpbt0WEkhA8TpzN461kb3uva2cLi2PvcDNVPp4RNeDCQCTCPN7d+mZKI3/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794534535;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+t2Wz+7xHGJsYmdZFUvkouxudHhMKG8B+4FhaqdWGpM=;
-	b=jCo9/U6VydfBeHkjhkbAHkNuQIMMYdA3JqnqSo6+1RcIVmF+dWp1GK2KTB6DLxq3vfN6
-	 yWAkJCaB/JOHvK8X3bVg9sXSar1Xmfkocf/Kr1mZxKC04AVpPnS51SPCqVa+IvRM1FiWc
-	 C8tI5iiWCPGfuvdUT2c1ZEyz4reyvb29xYh4aXe1DVWMjYbaIsUyBZZy3kLia8iG+y303
-	 T4jx5VMOUXxvgD2Uzd8PTVyJH+PaO4YGXootBNXc+adDb1ChXCny1h/VMWzLjm0BEXQGp
-	 CZYG3DfciRLjqvUCIOebqmOcBsB7euXOIPnamL+8uPkWgM/xQQBxkepw3LE5i1wiVKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794534583;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=m9EQ9AqcRYXv3YcRpptxp+HixtfQsEg44OaJxaIMFkw=;
+	b=QBguprel9gOwaE0LHQ2HMKtTFZcrEsH+Lgr9wDUXZyaoCpVmIe9jL/Jg0J4lLwjFPTWT
+	 pwdRz9mHys7Wr+9elzoqkvsvWDHFQLXF5MjfNrwKIy4seROtNBmIaw09Wvi+WJqm83ZJO
+	 GRPpB3BDa08RuoutyBXPi8QMl3bD8Ys+zf9ylMcO6L+LW9Q8QSWQhuEv5Bi6oH0j+m4XF
+	 2lR77NJiqp+qaqNJQaHmbnhdSvrdh5ccrl4vTSag5tVwUC4y/b822eYGMxm2+2VZQNGIj
+	 r/0XCT9Q1b2hxhwj3qDzYm9Z6oGx58o7Yg/48/wGmjcqUfCJzYDxWe+YE2/Jdmo28MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGqKFfR1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=inf.ufrgs.br;
+	spf=pass smtp.mailfrom=inf.ufrgs.br;
+	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=EU2G10y2;
+	arc=none smtp.remote-ip=143.54.11.23
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95819606A330;
-	Fri, 13 Nov 2026 01:48:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6747B606A31C;
+	Fri, 13 Nov 2026 01:49:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6747B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGqKFfR1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E40181F000C7;
-	Fri, 13 Nov 2026 01:48:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794534535;
-	bh=+t2Wz+7xHGJsYmdZFUvkouxudHhMKG8B+4FhaqdWGpM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RGqKFfR14FqCDbj8hteCgpex08X+i7U9RKSxhx6f1tB3HnkRWrlq7h4Q+9nZ5vizd
-	 FRDjlhmzNqKkgNuSqdEEZ7hIAondo41S3G2fZ0tV3Shz5tOEVVxcyhk5jc4lDO0SvQ
-	 PWA5rdsuACWmj/ZV4lD+UNVw4OgOPdo+hns0xTnrXTclk3E1XyBzIfNkFaKNBd+CZv
-	 AoqdZqojyAJwKI3tG9WTQugOVFSj7Bjmi906+9Sg5inYDxJpphyqd5CIT8quPzbEUA
-	 PM9qDViimUSY44BcIxxrE1+egZgRhklNMsHG3HXEvmq215W/e35+LPleUY6Zu70GJy
-	 222sozkcYhFLA==
-Date: Fri, 13 Nov 2026 01:48:49 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>,
- andriy.shevchenko@intel.com
-Cc: andy@kernel.org, dlechner@baylibre.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, nuno.sa@analog.com
-Subject: Re: [PATCH v9 0/4] iio: cdc: add Texas Instruments FDC1004 driver
-Message-ID: <20261113014849.06ab464d@jic23-hlaptop>
-In-Reply-To: <MW2PR12MB252344E62EC2FDEB8237D5DBA5712@MW2PR12MB2523.namprd12.prod.outlook.com>
-References: <avSBP7Ib1dYpu_Ek@ashevche-desk.local>
-	<MW2PR12MB252344E62EC2FDEB8237D5DBA5712@MW2PR12MB2523.namprd12.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=EU2G10y2
+Received: from DESKTOP-PJTTJ93.localdomain (unknown [189.6.233.4])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id B1410120351;
+	Thu, 12 Nov 2026 22:49:39 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1794534579;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m9EQ9AqcRYXv3YcRpptxp+HixtfQsEg44OaJxaIMFkw=;
+	b=EU2G10y2Ue0rZMQ/jJYVSuglcP2P/o4s73iOCQd3J4TWeWfqg6eIt2nO+x42nl4qDKibIr
+	/xZ4gl71ihJqJ6wqOPn/mWOiiGIOdF/3djYgaqt+izNQlyvwocMTvYmiKVmKT4VE9J2S+E
+	F2J3W3FEVK2Um0YEwCId0kNdpp9NdZ3Gc0yA9wZPqcm42pzycFhW+h0t5c7ETf59d9sXBW
+	QKCPn/R3Ru5t98Zw+dp2zpiLcuPdn35i8+sNCpEK565Ppz5N+iz31swQGYhQLP9vyP5JE2
+	3byHWgUAha1L0PP/dI7WYjn0ZzzwesnLycp99P2mt/EPGeqlbgzEjlK+sthycQ==
+Date: Thu, 12 Nov 2026 22:49:37 -0300
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: linux-fsdevel@vger.kernel.org, brauner@kernel.org, djwong@kernel.org, 
+	hch@lst.de, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 6/8] fat: add iomap buffered I/O support
+Message-ID: <avZrAxczb507gDls@DESKTOP-PJTTJ93.localdomain>
+References: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
+ <20261031164326.278125-7-matheus.aalmeida@inf.ufrgs.br>
+ <87a4njtlgb.fsf@mail.parknet.co.jp>
+ <avVAmq-ntuzsJzXA@DESKTOP-PJTTJ93.localdomain>
+ <878q2yaba4.fsf@mail.parknet.co.jp>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,33 +67,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <878q2yaba4.fsf@mail.parknet.co.jp>
 
-On Wed, 11 Nov 2026 09:16:12 -0600
-Victor Chernyakin <chernyakin.victor.j@outlook.com> wrote:
+On Thu, Nov 12, 2026 at 02:06:43PM +0900, OGAWA Hirofumi wrote:
+>Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+>
+>> On Mon, Nov 09, 2026 at 12:03:00AM +0900, OGAWA Hirofumi wrote:
+>>>Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+>>>
+>>>> Use iomap for buffered I/O, replacing buffer_heads. Remove
+>>>> fat_get_block(), fat_write_begin(), fat_write_failed() as the iomap path
+>>>> makes them unnecessary.
+>>>>
+>>>> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+>>>> ---
+>>>>  fs/fat/fat.h   |   4 +-
+>>>>  fs/fat/file.c  |  72 +++++++++++++++++++----
+>>>>  fs/fat/inode.c | 157 +++++--------------------------------------------
+>>>>  fs/fat/iomap.c |  84 ++++++++++++++++++++++++++
+>>>>  4 files changed, 164 insertions(+), 153 deletions(-)
+>>>>
+>>>
+>>>[...]
+>>>
+>>>> diff --git a/fs/fat/file.c b/fs/fat/file.c
+>>>> index 8689cbbdad13..723b671d5b4b 100644
+>>>> --- a/fs/fat/file.c
+>>>> +++ b/fs/fat/file.c
+>>>
+>>>[...]
+>>>
+>>>> +static int fat_cont_expand(struct inode *inode, loff_t new_size);
+>>>> +
+>>>> +static ssize_t fat_file_write_iter_buffered(struct kiocb *iocb,
+>>>> +					    struct iov_iter *iter)
+>>>> +{
+>>>> +	struct inode *inode = file_inode(iocb->ki_filp);
+>>>> +	struct msdos_sb_info *sbi = MSDOS_SB(inode->i_sb);
+>>>> +	loff_t offset, old_size, old_alloc, keep_alloc;
+>>>> +	ssize_t ret;
+>>>> +
+>>>> +	inode_lock(inode);
+>>>> +	ret = generic_write_checks(iocb, iter);
+>>>> +	if (ret <= 0)
+>>>> +		goto out;
+>>>> +
+>>>> +	ret = file_modified(iocb->ki_filp);
+>>>> +	if (ret)
+>>>> +		goto out;
+>>>> +
+>>>> +	offset = iocb->ki_pos;
+>>>> +	old_size = i_size_read(inode);
+>>>> +	if (offset > old_size) {
+>>>> +		/* We need to fill this hole */
+>>>> +		ret = fat_cont_expand(inode, offset);
+>>>> +		if (ret)
+>>>> +			goto out;
+>>>> +	}
+>>>> +
+>>>> +	inode_dio_wait(inode);
+>>>> +	old_alloc = inode_get_bytes(inode);
+>>>> +	ret = iomap_file_buffered_write(iocb, iter, &fat_iomap_write_ops,
+>>>> +					NULL, NULL);
+>>>> +	keep_alloc = max(old_alloc, round_up(i_size_read(inode),
+>>>> +					     sbi->cluster_size));
+>>>> +	if (inode_get_bytes(inode) > keep_alloc)
+>>>> +		fat_truncate_blocks(inode, keep_alloc);
+>>>
+>>>What is doing by this fat_truncate_blocks?
+>>>
+>>
+>> It's trimming the clusters past EOF and keeping the fallocate KEEP_SIZE
+>> preallocation. I can add a comment stating this.
+>
+>Hm, I wonder mostly why this truncate without checking "ret"...
+>
+>Thanks.
+>
 
-> > > > Changes in v9:
-> > > > - Patch 4
-> > > >   - Added comment explaining why we set use_single_read = true
-> > > > 
-> > > > - Link to v8: https://lore.kernel.org/SN1PR12MB2528F139EE6C0B4576C3A0CCA5722@SN1PR12MB2528.namprd12.prod.outlook.com  
-> > > 
-> > > I think I gave a tag, why it's not here, please?  
-> > 
-> > I meant for the patch 4/4.  
-> 
-> I addressed your comments and then forgot to edit the patch description :(
-> Could you give it again under this version, so that it's picked
-> up if it's merged?
+It is meant as a cleanup for a failed or short write, serving the same
+role as fat_write_failed(). I'll add a ret check for readability.
 
-I snaffled Andy's tag from v8 given clearly he expected it to be here.
-
-Applied to the testing branch of iio.git.
-
-I'll let the bots poke at that for a few days at least before
-pushing out as togreg which linux-next picks up.
-
-thanks,
-
-Jonathan
+Thanks,
+Matheus
