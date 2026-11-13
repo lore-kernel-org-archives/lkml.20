@@ -1,79 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794573217;
-	b=Nft3mhnbvjnRQdNjJZe6ALC75KbeEjm1zTAV1SkoYat9uJg1FPnSk1zUTwOWstiU1d7u
-	 Z3c37cqCXRLkFgXEWp6OzgL1F7/5wXI8I1eDYZCzGetCeJGENHIx9BDC/7lrqOsH9bteb
-	 E3rT/k2LckWrt7bJ4w1ewwmOWenGpFf9ShqYTFHHypY5HcYklqY/iadIIjCwFyerlmDxK
-	 wvtD2/szV9Oe4iF/HGe5Tyfq46MTTgY1gfpmXDYiBXRmanJT7WCFk7kj6nxQR24OhEsng
-	 WSKT+AoGd4q0RvFz3t4p4RujqnW1k8omEEq/J7Ki91FQXCtt/3yUu1XiOU8rCaqW3/w==
+	t=1794573262;
+	b=vkZrLq3H25VDt9biRxrx/Qk9SGkKTtTZxHRNbYaplDcGL4kN/xesHiaE9JJ1GYLBx14J
+	 PD51P5AQQr+kzYmlvuFqVSn7PW7zk/Jgq24UYR49FpRJuHspxjeSbehHFjt/9DTFc/qAE
+	 GNa3VmfIWiirzaxIswkvFyChOMGZJFKTwJeUcyZcnbvhu9zeZFoNk4MSe2xBOTLbkKKGL
+	 UOMZgAJi5UdrunbhU/eRuOJ/9N57F0howpaGOM9QynLoqh9NbScLD311v0mYL8OoTes22
+	 JBNZIp7eew+H/3f9jlDsqwGrLuJMsE5j71nKR7z+RtUPXM0GUlcMC7hD7uhtB2gyiOg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794573217;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6A4dlvKzHL/3QSzbVbK4UA6r+QZeFEpkCIzP0GJe8Y0=;
-	b=n+2bHo86wsM0olZUh3wEWz2LoyNdgwDenXhSqfaA65ehpzYMnaOMRktM4WoQI5pn+0to
-	 O5t/SB02LL6AO/YYKdarSA+QC2+LBQXDy0qC7cuMdfqqU6DAd1pLlF41l3iuIkJqXipnD
-	 DXnC6WKiQEbVLlhjaW1gTgESPgegHZJuMZ2qYjC4ecHr1JgZHvSRim1QxbCIZslHR1Fur
-	 rm1duPYDacTK7dcXe8ovKIstHGiuCH6xiCY6JdCgEQvcyd2Z2AzSlLL5Qyxk8qWn8SwAM
-	 dIy7mx90ATBaG1j0puya7eSudDRvXmJT2Gh5YrJwZ3sNiq86KqOcfd+5/ox/zO5Tmvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794573262;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=o1oE6vxk9h9z2LQK48DVMJ62sicjZCTdBUSKLRc7HkE=;
+	b=iaM8GHQ3GqzYM0HFy+o9wORT/mEaz5IAI9FiRux8gEo+8FngSvvR3OdANYeIHwcQlJKV
+	 Dj85Kwo9SgpTV6q42dmOq1zzsHPwc9sx2xuZGW1xgWCoWJKq8wO2Dz6qaAlJmMwLZFTgS
+	 gDx91BgOfosWqULBZ671XiDhBRoY5jYcdpdx1Iv38m8KmfbfFy2WNISue7hFZmhIN2/7b
+	 +mREa3OYM2264ZjPIAoM3bafNbq0nF3lq/qRcvgZnwhZdUT4srXFlNtSdJ3a/ktSW3Dc1
+	 jEnF8SU9b5HmL0fT9ecG+nbXrd7yvh2ZEn+EyH+qMv0qsVkNNPzNArBL6s94lmggWmw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q/wCunKC";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0A0606A897;
-	Fri, 13 Nov 2026 12:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q/wCunKC
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794573217;
-	b=Fh3F7E6/r786ltZ9styNPhq0GcetXQsGGjBwfjeG+/8onSBNclwIK3r0Gq570TUCPxBb
-	 j+p0/aHjwe4nky4855IO1yQJciK5PZ9FTjfVkViBs8zg12qDWIE9rHIaofExzC4qbWtfi
-	 ZcOWcpZFfUAQCDkAd/rTUFbyOu8laruYO1tWyyhDrH/c5TUijO6kNe2yVR0ktHssuZ8mJ
-	 v5z6pEdlYjWhNdRCAb1cXFrUTkZmk8DoQyj3v/NxgERY3mkLjKA1skDKSvIBqNwhiL69V
-	 pWMUXm4cfsKoEL4nb9w2F5mFBs9Qu8if1qHdF3uKK1HCUwmT76+Gt1cgHdg8BgX39Xw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794573217;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6A4dlvKzHL/3QSzbVbK4UA6r+QZeFEpkCIzP0GJe8Y0=;
-	b=3BPjXQYpQwAyAXQh7+OIHCjLSuK+w0omjJBPbjH8EjJjt4cmVybWYwWtuSZMTWSd4ma4
-	 UhuwSAzBPgeIm6tJmtKJPhH03eeoPGZmM9ZlVnjAigab1H8aCiKDSyJysrIK8wINogE/g
-	 CdhUtvYQJ3Hzd6A66wIBQFbbvdzMa9NFw4Kh8vZa/xWjBCYZwTJffc3ug3yTKen1Sn/zw
-	 2mCJG5IqlP7Btfy+Squ57bbIXhz4veMcusuROQ2xZj+e7FImSjuuyM6T5APw60iLVlGbx
-	 QvQblui4pielzzzLvBaaARBFtsvh0OdblOXUvk5ZnYS2Sz4OOc0WsWUoh5AWXjNKOWQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=QEKZAJhY;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=VaUuWToB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2E07C1F000CF;
-	Fri, 13 Nov 2026 12:33:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794573217;
-	bh=6A4dlvKzHL/3QSzbVbK4UA6r+QZeFEpkCIzP0GJe8Y0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Q/wCunKClR+Z14HVXaG4Ca7MWmdcOOCEV6FFDWvXNubfrip0ca4TcbTu3aUgxyeDK
-	 B/nh580ZC21M0+3CdclNdJkI06xNw2Gd6+TqBQve5quIXc+iMou8f5QpPkVk/NxDTA
-	 G/Wd7PNQ4wDg4i0ULE9ZSag9iQoXsuZVABwgvAZ0p/muPVx6piQwf8SfHAYifiP+rt
-	 uuXjkLlmbpAWJ+zPBXwZ5PTw2G/NT5HjmWNsMs5dlticxbEYk/If21ryiAA+3o+HJc
-	 RQm2TOn0vErDklVjf4R/tpLLgXWk8feO05gdDCoLl6TTQnRxi4HFqhOsa85MaQ6InO
-	 wmiOIaIBCyBqw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DC33E477A8;
-	Fri, 13 Nov 2026 12:33:33 +0000 (UTC)
-From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Date: Fri, 13 Nov 2026 14:33:36 +0200
-Subject: [PATCH v6 6/8] iio: imu: adis16607: Add FIFO-based buffered
- capture
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF364606A899;
+	Fri, 13 Nov 2026 12:34:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF364606A899
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=QEKZAJhY;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=VaUuWToB
+ARC-Seal: i=1; a=rsa-sha256; t=1794573236; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=DuIPRE9O/YnflkbSywKk+eUf71Vq1P05CkDg80482YRtC3ZKhAOY5X3PFYDDWBZgsK
+    YEIDLxq01NsEnPFQq5m1JLCxmUPnnKONNi81DGnTpQ7iNKGSVExekEdSFEsdqvNsS2DB
+    nSv2Y0lSpNEoqlRz3vJs2t+1K4Z9ja2CnUbiJJh4GEnivLpdiVytlOzyUGxiO8uA9vOR
+    gUB3LP6jhVW0wEOw5yFFcDXqjN1e0mtn3UoPgIm26FNCPMlBJh34gio7KOc7AVa6HnJv
+    0e8/JZkiqIhg0IHCGUbh+Yh87YxvLAxqlEhZ1MkgmaPaXPMfZYKaTY4gY1eibUS2TezM
+    YXlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794573236;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=o1oE6vxk9h9z2LQK48DVMJ62sicjZCTdBUSKLRc7HkE=;
+    b=SFvetpeqkM00zK/SBNUHMIdcRIONenbc/6fmX1wU85tTzPyndRWgi2605ak5qdG4cb
+    BBfgLiURdYUSi34Uxdmnn42uMLRAKiWFZkxjOveTg+d5WRXc7cXzxvvDoXPQNGSGCVBi
+    /ZqIm2xugjvpgsKIb0TEcIx8WKF4OAJiXQa0MTioi7eR8mxBMJ6nEmLiAY7VHzTx74ZV
+    ZwGAMuPfKKC1zNIfhBoPTOHNtsdlr0Sp9/EHSdPo/e/OjN4lTfJKACQtUAjuL12plqkV
+    ploOO1ACR0RRHRGw4R5cmMhv3ydURzsJf5KyHW954qL275rf+fOlPjHrYAwTKG6vYnds
+    DUkw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794573236;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=o1oE6vxk9h9z2LQK48DVMJ62sicjZCTdBUSKLRc7HkE=;
+    b=QEKZAJhYuF4dH7/mmMPb2abUMLHiHNH0qRyMSGJbWLdu0NO2COHlY4eVzO1sPLhLc3
+    O9pZmxqh6s9Zg+9GChT5B8aKAzZr/aS1khtfiTIkE0Cs2Q79JJVLcGRe1UsU0S/5tP9T
+    49kHQKYMY0WJQWjSaWM8iFUbPlRpJ5+6XMpDYhk+BXDpJX9Xc3NsgrfZRtxxFPVkE2/Z
+    5J9cbJW/ZwKfIPVo3svfq6VGUeoNfaWgclXpio4oFNpNTz3yyf/omDMZeOjedtt2Vc7w
+    8J5Ft+blrvUCPsZ0oH549z7y0V4rYI1hlHXKYWXhLR5Lj3FnrV9zSXyKrDqEVshVl+fI
+    iB9Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794573236;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=o1oE6vxk9h9z2LQK48DVMJ62sicjZCTdBUSKLRc7HkE=;
+    b=VaUuWToBrHJ6WDwKfJvDqWVkXoeLXCfkRBC/l6noRageCAkvoEFwty1Kp8OmxGWtv0
+    cF0RzxRUrm5NcsthBvBg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2ZoHmMiNHYIZPrro6QPZGBqKLoYar6phQmxG"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22ADCXsGcj
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Fri, 13 Nov 2026 13:33:54 +0100 (CET)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,594 +93,288 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-adis16607-v6-6-3f678719942a@analog.com>
-References: <20261113-adis16607-v6-0-3f678719942a@analog.com>
-In-Reply-To: <20261113-adis16607-v6-0-3f678719942a@analog.com>
-To: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
- Alexandru Ardelean <alexandru.ardelean@analog.com>, 
- Radu Sabau <radu.sabau@analog.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Antoniu Miclaus <antoniu.miclaus@analog.com>, 
- Robert Budai <robert.budai@analog.com>, 
- Ramona Gradinariu <ramona.gradinariu@analog.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux@analog.com, 
- Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794573212; l=18559;
- i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
- bh=A+w3V5RpzQA0KZjZwjfxdewsXcZlv2nZBDsactbDBUk=;
- b=RDXLI9QO+XmQhDXB6C6yYugBnGpvzruE8ihRccr5TPyyJxMVTjvPGtAg8D+qqJV0qS/NzenEn
- 8/SY1+HJ2oZBrypBGNwuoYQ4DyLAuPqTO5Dro8u6+0pLEgRK52jQrW1
-X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
- pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
-X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
- auth_id=1094
-X-Original-From: Radu Sabau <radu.sabau@analog.com>
-Reply-To: radu.sabau@analog.com
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v2 5/9] MIPS: Ingenic: Update Ingenic XBurst
+ implementation IDs
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <8da96916856e73c3ed368eeb8d28891750206a71.camel@crapouillou.net>
+Date: Fri, 13 Nov 2026 13:33:23 +0100
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Paul Burton <paulburton@kernel.org>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>,
+ "Christophe Leroy, David Heidelberg" <david@ixit.cz>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Takashi Iwai <tiwai@suse.de>,
+ Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+ Paul Boddie <paul@boddie.org.uk>,
+ Olivier Louvignes <olivier@mgcrea.io>,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ letux-kernel@openphoenux.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <7FF80C33-895A-40AD-8149-70A7F5B42E54@goldelico.com>
+References: <cover.1794471031.git.hns@goldelico.com>
+ <2e21dc4889ec55bf210dfc205bfadb57acb93eda.1794471031.git.hns@goldelico.com>
+ <f91a0c53b35ff28bed26622f46d562b5a6150008.camel@crapouillou.net>
+ <3892D527-E3F1-49CA-8557-2C62E2C015C4@goldelico.com>
+ <8da96916856e73c3ed368eeb8d28891750206a71.camel@crapouillou.net>
+To: Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-From: Radu Sabau <radu.sabau@analog.com>
+Hi Paul,
 
-Add buffered capture via the device's hardware FIFO - the only
-capture mode this driver supports. Popping the FIFO uses a dedicated
-command and payload format (FIFO_DATA_CMD, 52 bytes, no checksum).
+> Am 12.11.2026 um 16:49 schrieb Paul Cercueil <paul@crapouillou.net>:
+>=20
+> Le jeudi 12 novembre 2026 =C3=A0 16:37 +0100, H. Nikolaus Schaller a =
+=C3=A9crit :
+>> Hi Paul,
+>>=20
+>>> Am 12.11.2026 um 15:03 schrieb Paul Cercueil <paul@crapouillou.net>:
+>>>=20
+>>> Hi Nikolaus,
+>>>=20
+>>> Le jeudi 12 novembre 2026 =C3=A0 09:10 +0100, H. Nikolaus Schaller a =
+=C3=A9crit :
+>>>> Add PRID implementation constants for Ingenic XBurst and XBurst II
+>>>> processors and handle the corresponding implementation IDs in
+>>>> cpu_probe_ingenic().
+>>>>=20
+>>>> The PRID table is updated based on Programming Manuals and hardware =
+tests:
+>>>> - jz4780: 0x3ee1024f (confirmed on CI20 board)
+>>>> - x1000:  0x2ed1024f (unconfirmed)
+>>>> - x1600:  0x00d00000 (confirmed on LX16 board)
+>>>> - X1830:  0x00d00100 (unconfirmed)
+>>>> - X2000:  0x00132000 (read out from LX20 board)
+>>>> - X2600:  0x001320xx (confirmed 0x00132000 on LX26 board)
+>>>>=20
+>>>> Additionally, clean up extra spaces in the comments for
+>>>> PRID_IMP_XBURST_REV2 and PRID_IMP_XBURST2.
+>>>>=20
+>>>> Distinguish XBurst1 implementations with different SIMD ISA =
+revisions
+>>>> and identify XBurst II processors using PRID_IMP_XBURST2.
+>>>> The XBurst II classification follows the Ingenic vendor kernel.
+>>>>=20
+>>>> Keep the existing writecombine handling unchanged, since no
+>>>> independent evidence justifies changing the cache attribute for
+>>>> XBurst II.
+>>>>=20
+>>>> Public references:
+>>>> - Ingenic Community, public SoC datasheets and programming manuals:
+>>>>   https://github.com/Ingenic-community/datasheets/tree/main/X
+>>>>   Includes the X1600 programming manual (X1600_PM_20220117.pdf)
+>>>>   and documentation for other X-series SoCs, including X1000,
+>>>>   X1830 and X2000.
+>>>> - Ingenic, XBurst1 CPU Core Programming Manual:
+>>>>   =
+https://cdn.hackaday.io/files/1855627939084608/XBurst1_Core_PM.pdf
+>>>>   Documents the XBurst1 core architecture and CP0 configuration.
+>>>> - Ingenic, XBurst Instruction Set Architecture Programming Manual:
+>>>>   =
+https://www.setphaserstostun.org/ci20/X1000_M200_XBurst_ISA_MXU_PM.pdf
+>>>>   Documents the original XBurst SIMD instruction set.
+>>>> - Ingenic, XBurst2 CPU Core Programming Manual:
+>>>>   =
+https://www.manualslib.com/manual/2646351/Ingenic-Xburst-2-Cpu-Core.html
+>>>>   Documents the XBurst2 core architecture.
+>>>> - Ingenic, MIPS-LINUX toolchain R6.0.0 release notes:
+>>>>   https://www.ingenic.com.cn/news-detail/nid-343.html
+>>>>   Distinguishes MSA, MXA and MXU/MXU2 support in the toolchain.
+>>>> - Ingenic, MIPS-LINUX toolchain R6.2.1 release notes:
+>>>>   https://www.ingenic.com.cn/news-detail/nid-348.html
+>>>>   Documents MXU3 support and identifies X2000 as an MSA target.
+>>>>=20
+>>>> The public references document the available CPU, SoC and ISA
+>>>> information. The PRID implementation handling follows the Ingenic
+>>>> vendor kernel.
+>>>>=20
+>>>> AI assistance: ChatGPT was used to help review the PRID =
+definitions,
+>>>> compare the Ingenic vendor implementation with the upstream code,
+>>>> and draft the commit message with public references. The code =
+changes,
+>>>> hardware observations, and final patch were reviewed by the =
+authors.
+>>>>=20
+>>>> Co-developed-by: Paul Boddie <paul@boddie.org.uk>
+>>>> Signed-off-by: Paul Boddie <paul@boddie.org.uk>
+>>>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+>>>> ---
+>>>>=20
+>>>> Notes:
+>>>>     Changes in V2:
+>>>>     - removed the PRID_IMP_XBURST2_R2 definition and hints for an =
+x2100 as
+>>>>       there is no public reference
+>>>>     - merged into single commit changing the PRID definitions and =
+code
+>>>>     - reviewed details and rewrote commit message
+>>>>    =20
+>>>>     Open Issue:
+>>>>     Olivier Louvignes <olivier@mgcrea.io> pointed out that he has
+>>>>     simply reused the definition of the X1830 for the X1600. This
+>>>>     sets c->writecombine differently (_CACHE_CACHABLE_WA) from
+>>>>     _CACHE_UNCACHED_ACCELERATED as we do here.
+>>>>     Both settings appear to work but it needs expert comment which
+>>>>     is the right/better one.
+>>>>=20
+>>>>  arch/mips/include/asm/cpu.h  | 9 +++++----
+>>>>  arch/mips/kernel/cpu-probe.c | 7 +++++++
+>>>>  2 files changed, 12 insertions(+), 4 deletions(-)
+>>>>=20
+>>>> diff --git a/arch/mips/include/asm/cpu.h =
+b/arch/mips/include/asm/cpu.h
+>>>> index add26f08e8029..79fd9a0747cf2 100644
+>>>> --- a/arch/mips/include/asm/cpu.h
+>>>> +++ b/arch/mips/include/asm/cpu.h
+>>>> @@ -47,7 +47,7 @@
+>>>>  #define PRID_COMP_CAVIUM 0x0d0000
+>>>>  #define PRID_COMP_LOONGSON 0x140000
+>>>>  #define PRID_COMP_INGENIC_13 0x130000 /* X2000, X2100 */
+>>>> -#define PRID_COMP_INGENIC_D0 0xd00000 /* JZ4730, JZ4740, JZ4750,
+>>>> JZ4755, JZ4760, X1830 */
+>>>> +#define PRID_COMP_INGENIC_D0 0xd00000 /* JZ4730, JZ4740, JZ4750,
+>>>> JZ4755, JZ4760, X1830, X1600 */
+>>>>  #define PRID_COMP_INGENIC_D1 0xd10000 /* JZ4770, JZ4775, X1000 */
+>>>>  #define PRID_COMP_INGENIC_E1 0xe10000 /* JZ4780 */
+>>>> =20
+>>>> @@ -186,9 +186,10 @@
+>>>>   * These are the PRID's for when 23:16 =3D=3D PRID_COMP_INGENIC_*
+>>>>   */
+>>>> =20
+>>>> -#define PRID_IMP_XBURST_REV1 0x0200 /* XBurst=C2=AE1 with =
+MXU1.0/MXU1.1 SIMD
+>>>> ISA */
+>>>> -#define PRID_IMP_XBURST_REV2 0x0100 /* XBurst=C2=AE1 with MXU2.0 =
+SIMD
+>>>> ISA */
+>>>> -#define PRID_IMP_XBURST2 0x2000 /* XBurst=C2=AE2 with MXU2.1 SIMD
+>>>> ISA */
+>>>> +#define PRID_IMP_XBURST 0x0000 /* XBurst1 */
+>>>> +#define PRID_IMP_XBURST_REV1 0x0200 /* XBurst1 with MXU1.0/MXU1.1 =
+SIMD
+>>>> ISA */
+>>>> +#define PRID_IMP_XBURST_REV2 0x0100 /* XBurst1 with MXU2.0 SIMD =
+ISA */
+>>>> +#define PRID_IMP_XBURST2 0x2000 /* XBurst2 with MXU2.1 SIMD ISA */
+>>>> =20
+>>>>  /*
+>>>>   * These are the PRID's for when 23:16 =3D=3D PRID_COMP_NETLOGIC
+>>>> diff --git a/arch/mips/kernel/cpu-probe.c =
+b/arch/mips/kernel/cpu-probe.c
+>>>> index 489612ed9d498..69b68d00b66f7 100644
+>>>> --- a/arch/mips/kernel/cpu-probe.c
+>>>> +++ b/arch/mips/kernel/cpu-probe.c
+>>>> @@ -1768,6 +1768,13 @@ static inline void cpu_probe_ingenic(struct
+>>>> cpuinfo_mips *c, unsigned int cpu)
+>>>> =20
+>>>>   switch (c->processor_id & PRID_IMP_MASK) {
+>>>> =20
+>>>> + /* XBurst=C2=AE1 with ISA */
+>>>> + case PRID_IMP_XBURST:
+>>>> + c->cputype =3D CPU_XBURST;
+>>>> + c->writecombine =3D _CACHE_UNCACHED_ACCELERATED;
+>>>> + __cpu_name[cpu] =3D "Ingenic XBurst";
+>>>> + break;
+>>>=20
+>>> What SoCs actually use PRID_IMP_XBURST? The JZ4730?
+>>=20
+>> The x1600 has a PRID of 0x00d00000.
+>>=20
+>> It is a little confusing how these numbers have been assigned over =
+time.
+>>=20
+>> +#define PRID_IMP_XBURST 0x0000 /* XBurst1 */
+>> +#define PRID_IMP_XBURST_REV1 0x0200 /* XBurst1 with MXU1.0/MXU1.1 =
+SIMD ISA */
+>> +#define PRID_IMP_XBURST_REV2 0x0100 /* XBurst1 with MXU2.0 SIMD ISA =
+*/
+>>=20
+>> Obviously the x1600 is newer than X1830 (likely PRID_IMP_XBURST_REV2)
+>=20
+> Obviously? ;)
 
-The samples go to a kfifo buffer that a threaded interrupt handler
-fills, with no IIO trigger: the device raises one interrupt per
-watermark, not per sample, so there is nothing to trigger on. The
-watermark-met condition is signaled via DEV_NOK on the device's one
-interrupt pin, which stays asserted until DIAG_STAT is read and
-cleared. The interrupt is therefore level-triggered and oneshot, so
-the line stays masked until the handler has read DIAG_STAT, and it is
-enabled only while the buffer is. DEV_NOK fires on any DIAG_STAT flag,
-not just FIFO_THRESH_MET, so the handler checks that specific bit
-before popping anything. DR_GPIO_MASK stays enabled unconditionally:
-DR pulses drive the FIFO controller's internal sample enqueue,
-independent of pin routing.
+Well,
+if REV1 is encoded as 0x02, and REV2 as 0x01, then 0x00 must be REV3 :)
 
-Watermark is configurable via the standard hwfifo_set_watermark
-callback and the usual hwfifo_* sysfs attributes. Changing the sampling
-frequency while the buffer is enabled returns -EBUSY, as the decimation
-can't change during capture.
+>=20
+> I thought that their SoC versions were ordered, with the only =
+exception being
+> the JZ4725B being newer than the JZ4740 as a sort-of beta JZ4750.
+>=20
+>> or jz4780 and x1000 being PRID_IMP_XBURST_REV1.
+>>=20
+>> So it may or may not be a PRID_IMP_XBURST_REV3? But we don't know.
+>=20
+> Can you check if the X1600 supports MXU? A IMP value of 0 might mean a =
+Xburst
+> CPU with no XMU support, maybe?
 
-Signed-off-by: Radu Sabau <radu.sabau@analog.com>
----
- drivers/iio/imu/Kconfig     |   2 +
- drivers/iio/imu/adis16607.c | 416 +++++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 415 insertions(+), 3 deletions(-)
+The Programing Manual of the X1600 only mentions MXU as missing in the =
+auxiliary MCU.
 
-diff --git a/drivers/iio/imu/Kconfig b/drivers/iio/imu/Kconfig
-index 8b91426f60d0..af6910e2c862 100644
---- a/drivers/iio/imu/Kconfig
-+++ b/drivers/iio/imu/Kconfig
-@@ -69,6 +69,8 @@ config ADIS16607
- 	tristate "Analog Devices ADIS16607 and similar IMU driver"
- 	depends on SPI
- 	select IIO_ADIS_LIB
-+	select IIO_BUFFER
-+	select IIO_KFIFO_BUF
- 	help
- 	  Say yes here to build support for Analog Devices ADIS16607-2
- 	  and ADIS16607-3 inertial sensors containing triaxis
-diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
-index f5dc37c54191..377e7c46f860 100644
---- a/drivers/iio/imu/adis16607.c
-+++ b/drivers/iio/imu/adis16607.c
-@@ -10,8 +10,12 @@
- #include <linux/build_bug.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
-+#include <linux/iio/buffer.h>
- #include <linux/iio/iio.h>
- #include <linux/iio/imu/adis.h>
-+#include <linux/iio/kfifo_buf.h>
-+#include <linux/iio/sysfs.h>
-+#include <linux/interrupt.h>
- #include <linux/math.h>
- #include <linux/minmax.h>
- #include <linux/module.h>
-@@ -42,8 +46,11 @@
- #define ADIS16607_REG_Y_DELTANG		0x1A
- #define ADIS16607_REG_Z_DELTANG		0x1C
- #define ADIS16607_REG_TEMP		0x20
-+#define ADIS16607_REG_FIFO_WORD_CNT	0x2B
- #define ADIS16607_REG_USER_GPIO_CFG	0x2F
- #define ADIS16607_REG_SPI_HALFDUPLEX	0x32
-+#define ADIS16607_REG_USER_DATA_CFG	0x34
-+#define ADIS16607_REG_USER_FIFO_CFG	0x35
- #define ADIS16607_REG_SOFT_RESET	0x36
- #define ADIS16607_REG_SELF_TEST		0x39
- #define ADIS16607_REG_DEC_RATE		0x3A
-@@ -54,8 +61,29 @@
- 
- /* Masks */
- #define ADIS16607_RESET_GPIO_MASK	GENMASK(2, 0)
-+#define ADIS16607_DR_GPIO_MASK		GENMASK(11, 9)
-+#define ADIS16607_DEV_NOK_MASK		GENMASK(14, 12)
-+#define ADIS16607_DATA_CNTR_EN_MASK	BIT(14)
-+#define ADIS16607_BURST32_MASK		BIT(15)
- #define ADIS16607_BOOTLOADER_BUSY_MASK	BIT(0)
- 
-+/* FIFO masks */
-+#define ADIS16607_FIFO_THR_MASK		GENMASK(10, 0)
-+#define ADIS16607_FIFO_FLUSH_MASK	BIT(15)
-+#define ADIS16607_FIFO_THR_MET_MASK	BIT(0)
-+#define ADIS16607_FIFO_DATA_CMD		0xA9
-+
-+/* FIFO limits */
-+#define ADIS16607_MAX_FIFO_WM		38
-+#define ADIS16607_FIFO_WORDS_PER_SAMPLE	26
-+#define ADIS16607_FIFO_DATA_LEN		52
-+
-+/* FIFO_DATA read - Half-Duplex: 2-byte command phase, then the FIFO data */
-+#define ADIS16607_FIFO_DATA_CMD_SIZE	2
-+
-+/* Largest scan: 12 channels of 24 bits stored as 32, plus 16-bit temperature */
-+#define ADIS16607_SCAN_DATA_SIZE	(12 * sizeof(s32) + sizeof(s16))
-+
- /* Self-test registers and masks */
- #define ADIS16607_REG_SELF_TEST_DATA(x)	((x) + 0x23)
- #define ADIS16607_SNSR_SELF_TEST_MASK	BIT(6)
-@@ -86,6 +114,12 @@ struct adis16607 {
- 	const struct adis16607_chip_info *info;
- 	unsigned long clk_freq_mHz;
- 	u16 dec;
-+	u16 fifo_watermark;
-+	/* IIO buffer for reordered data - sized for max channels */
-+	IIO_DECLARE_BUFFER_WITH_TS(u8, data, ADIS16607_SCAN_DATA_SIZE);
-+	/* Scratch buffer used for FIFO pop operations, see adis16607_fifo_pop() */
-+	u8 fifo_buf[ADIS16607_FIFO_DATA_CMD_SIZE + ADIS16607_FIFO_DATA_LEN]
-+		__aligned(IIO_DMA_MINALIGN);
- };
- 
- enum {
-@@ -228,6 +262,333 @@ static const struct adis_ops adis16607_ops = {
- 	.reset = adis16607_reset,
- };
- 
-+/*
-+ * FIFO/burst data offsets for each channel (in bytes from the data start,
-+ * i.e. after the 4-byte command prefix).
-+ * Each 32-bit inertial channel occupies 4 bytes (MSW + LSW), TEMP is 2 bytes.
-+ *
-+ * FIFO data layout (52 bytes, DATA_CNTR enabled, no checksum):
-+ *   Offset 0-3:   ACCEL_X  (32-bit: MSW, LSW)
-+ *   Offset 4-7:   ACCEL_Y
-+ *   Offset 8-11:  ACCEL_Z
-+ *   Offset 12-15: GYRO_X
-+ *   Offset 16-19: GYRO_Y
-+ *   Offset 20-23: GYRO_Z
-+ *   Offset 24-27: DELTVEL_X
-+ *   Offset 28-31: DELTVEL_Y
-+ *   Offset 32-35: DELTVEL_Z
-+ *   Offset 36-39: DELTANG_X
-+ *   Offset 40-43: DELTANG_Y
-+ *   Offset 44-47: DELTANG_Z
-+ *   Offset 48-49: TEMP (16-bit)
-+ *   Offset 50-51: DATA_CNTR (16-bit)
-+ *
-+ * Each 32-bit value encodes 24-bit sensor data as:
-+ *   value_24bit = (MSW << 8) | (LSW >> 8)
-+ */
-+static const u8 adis16607_burst_offsets[] = {
-+	[ADIS16607_SCAN_ACCEL_X] = 0,
-+	[ADIS16607_SCAN_ACCEL_Y] = 4,
-+	[ADIS16607_SCAN_ACCEL_Z] = 8,
-+	[ADIS16607_SCAN_GYRO_X] = 12,
-+	[ADIS16607_SCAN_GYRO_Y] = 16,
-+	[ADIS16607_SCAN_GYRO_Z] = 20,
-+	[ADIS16607_SCAN_DELTVEL_X] = 24,
-+	[ADIS16607_SCAN_DELTVEL_Y] = 28,
-+	[ADIS16607_SCAN_DELTVEL_Z] = 32,
-+	[ADIS16607_SCAN_DELTANG_X] = 36,
-+	[ADIS16607_SCAN_DELTANG_Y] = 40,
-+	[ADIS16607_SCAN_DELTANG_Z] = 44,
-+	[ADIS16607_SCAN_TEMP] = 48,
-+};
-+
-+/*
-+ * Pop a single sample from FIFO using FIFO_DATA command (0xA9).
-+ * Returns the raw FIFO data in the provided buffer.
-+ */
-+static int adis16607_fifo_pop(struct adis16607 *st, u8 *data)
-+{
-+	struct spi_message msg;
-+	struct spi_transfer xfer = {
-+		.tx_buf = st->fifo_buf,
-+		.rx_buf = st->fifo_buf,
-+		.len = ADIS16607_FIFO_DATA_CMD_SIZE + ADIS16607_FIFO_DATA_LEN,
-+	};
-+	int ret;
-+
-+	/* FIFO data command */
-+	st->fifo_buf[0] = ADIS16607_FIFO_DATA_CMD;
-+
-+	spi_message_init(&msg);
-+	spi_message_add_tail(&xfer, &msg);
-+
-+	ret = spi_sync(st->adis.spi, &msg);
-+	if (ret)
-+		return ret;
-+
-+	/* Copy data starting after command bytes */
-+	memcpy(data, st->fifo_buf + ADIS16607_FIFO_DATA_CMD_SIZE, ADIS16607_FIFO_DATA_LEN);
-+	return 0;
-+}
-+
-+/*
-+ * Process a single FIFO sample and push to IIO buffer.
-+ * FIFO data format differs from regular burst - no DIAG_STAT, data starts immediately.
-+ *
-+ * FIFO data layout (52 bytes):
-+ *   Offset 0-3:   ACCEL_X (32-bit)
-+ *   Offset 4-7:   ACCEL_Y (32-bit)
-+ *   Offset 8-11:  ACCEL_Z (32-bit)
-+ *   Offset 12-15: GYRO_X (32-bit)
-+ *   Offset 16-19: GYRO_Y (32-bit)
-+ *   Offset 20-23: GYRO_Z (32-bit)
-+ *   Offset 24-27: DELTVEL_X (32-bit)
-+ *   Offset 28-31: DELTVEL_Y (32-bit)
-+ *   Offset 32-35: DELTVEL_Z (32-bit)
-+ *   Offset 36-39: DELTANG_X (32-bit)
-+ *   Offset 40-43: DELTANG_Y (32-bit)
-+ *   Offset 44-47: DELTANG_Z (32-bit)
-+ *   Offset 48-49: TEMP (16-bit)
-+ *   Offset 50-51: DATA_CNTR (16-bit)
-+ */
-+static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
-+				       u8 *fifo_data, s64 timestamp)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	u16 msw, lsw;
-+	s32 val24;
-+	int bit, offset = 0;
-+
-+	memset(st->data, 0, sizeof(st->data));
-+
-+	iio_for_each_active_channel(indio_dev, bit) {
-+		u8 burst_off;
-+
-+		/* Skip the soft timestamp channel - it has no burst offset */
-+		if (bit >= ARRAY_SIZE(adis16607_burst_offsets))
-+			continue;
-+
-+		burst_off = adis16607_burst_offsets[bit];
-+
-+		if (bit == ADIS16607_SCAN_TEMP) {
-+			/* TEMP is 16-bit */
-+			put_unaligned_be16(get_unaligned_be16(&fifo_data[burst_off]),
-+					   &st->data[offset]);
-+			offset += 2;
-+		} else {
-+			/* All other channels are 24-bit stored as 32-bit */
-+			msw = get_unaligned_be16(&fifo_data[burst_off]);
-+			lsw = get_unaligned_be16(&fifo_data[burst_off + 2]);
-+			val24 = sign_extend32(((u32)msw << 8) | (lsw >> 8), 23);
-+			put_unaligned_be32(val24, &st->data[offset]);
-+			offset += 4;
-+		}
-+	}
-+
-+	iio_push_to_buffers_with_ts(indio_dev, st->data, sizeof(st->data),
-+				    timestamp);
-+}
-+
-+/* Called with the adis lock held, so dec and clk_freq_mHz match each other */
-+static u64 adis16607_sample_period_ns(struct adis16607 *st)
-+{
-+	u64 period_ns;
-+
-+	/* clk_freq_mHz is in millihertz, hence the MILLIHZ_PER_HZ factor */
-+	period_ns = NSEC_PER_SEC;
-+	period_ns *= MILLIHZ_PER_HZ;
-+	period_ns *= st->dec + 1;
-+
-+	return DIV_ROUND_CLOSEST_ULL(period_ns, st->clk_freq_mHz);
-+}
-+
-+/*
-+ * Drain the device FIFO. Triggered by the DEV_NOK interrupt, which fires on
-+ * any DIAG_STAT flag, not just FIFO_THRESH_MET - the DIAG_STAT read below
-+ * both checks which flag(s) raised the interrupt and clears the latched
-+ * status, and must happen before any FIFO pop, or we'd pop for nothing on
-+ * an unrelated flag.
-+ */
-+static void adis16607_fifo_drain(struct iio_dev *indio_dev, s64 irq_timestamp)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	u8 fifo_sample[ADIS16607_FIFO_DATA_LEN];
-+	u16 diag_stat, word_cnt, sample_cnt;
-+	u64 period_ns;
-+	s64 timestamp;
-+	int ret;
-+
-+	adis_dev_auto_lock(&st->adis);
-+
-+	ret = __adis_read_reg_16(&st->adis, ADIS16607_REG_DIAG_STAT, &diag_stat);
-+	if (ret)
-+		return;
-+
-+	/* Check if FIFO threshold is met */
-+	if (!(diag_stat & ADIS16607_FIFO_THR_MET_MASK))
-+		return;
-+
-+	/* Read FIFO word count */
-+	ret = __adis_read_reg_16(&st->adis, ADIS16607_REG_FIFO_WORD_CNT, &word_cnt);
-+	if (ret)
-+		return;
-+
-+	/* Calculate number of complete samples */
-+	sample_cnt = word_cnt / ADIS16607_FIFO_WORDS_PER_SAMPLE;
-+	if (!sample_cnt)
-+		return;
-+
-+	/*
-+	 * irq_timestamp is the IRQ-fire time, i.e. when the newest (last
-+	 * enqueued) sample tipped the FIFO over watermark. The FIFO pops
-+	 * oldest-first, so back-date the first popped sample's timestamp by
-+	 * the batch duration - the loop then counts back up to irq_timestamp
-+	 * for the newest sample, instead of projecting past it.
-+	 */
-+	period_ns = adis16607_sample_period_ns(st);
-+	timestamp = irq_timestamp - (s64)(sample_cnt - 1) * period_ns;
-+
-+	/* Pop and process each sample */
-+	for (unsigned int i = 0; i < sample_cnt; i++) {
-+		ret = adis16607_fifo_pop(st, fifo_sample);
-+		if (ret)
-+			return;
-+
-+		adis16607_fifo_push_sample(indio_dev, fifo_sample, timestamp);
-+		timestamp += period_ns;
-+	}
-+}
-+
-+static irqreturn_t adis16607_irq_thread(int irq, void *p)
-+{
-+	struct iio_dev *indio_dev = p;
-+
-+	adis16607_fifo_drain(indio_dev, iio_get_time_ns(indio_dev));
-+
-+	return IRQ_HANDLED;
-+}
-+
-+/* FIFO sysfs attributes */
-+IIO_STATIC_CONST_DEVICE_ATTR(hwfifo_watermark_min, "1");
-+IIO_STATIC_CONST_DEVICE_ATTR(hwfifo_watermark_max, __stringify(ADIS16607_MAX_FIFO_WM));
-+
-+static ssize_t hwfifo_watermark_show(struct device *dev,
-+				     struct device_attribute *attr,
-+				     char *buf)
-+{
-+	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-+	struct adis16607 *st = iio_priv(indio_dev);
-+
-+	return sysfs_emit(buf, "%u\n", st->fifo_watermark);
-+}
-+
-+static ssize_t hwfifo_enabled_show(struct device *dev,
-+				   struct device_attribute *attr,
-+				   char *buf)
-+{
-+	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	u16 val;
-+	int ret;
-+
-+	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_USER_FIFO_CFG, &val);
-+	if (ret)
-+		return ret;
-+
-+	return sysfs_emit(buf, "%d\n", (val & ADIS16607_FIFO_THR_MASK) ? 1 : 0);
-+}
-+
-+static IIO_DEVICE_ATTR_RO(hwfifo_watermark, 0);
-+static IIO_DEVICE_ATTR_RO(hwfifo_enabled, 0);
-+
-+static const struct iio_dev_attr *adis16607_fifo_attributes[] = {
-+	&iio_dev_attr_hwfifo_watermark_min,
-+	&iio_dev_attr_hwfifo_watermark_max,
-+	&iio_dev_attr_hwfifo_watermark,
-+	&iio_dev_attr_hwfifo_enabled,
-+	NULL
-+};
-+
-+static int adis16607_buffer_postenable(struct iio_dev *indio_dev)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	struct adis *adis = &st->adis;
-+	u16 threshold;
-+	int ret;
-+
-+	adis_dev_auto_lock(adis);
-+
-+	/* Flush FIFO to start clean */
-+	ret = __adis_write_reg_16(adis, ADIS16607_REG_USER_FIFO_CFG,
-+				  ADIS16607_FIFO_FLUSH_MASK);
-+	if (ret)
-+		return ret;
-+
-+	/* Enable FIFO with watermark threshold (in word count) */
-+	threshold = st->fifo_watermark * ADIS16607_FIFO_WORDS_PER_SAMPLE;
-+	ret = __adis_write_reg_16(adis, ADIS16607_REG_USER_FIFO_CFG,
-+				  threshold & ADIS16607_FIFO_THR_MASK);
-+	if (ret)
-+		return ret;
-+
-+	enable_irq(adis->spi->irq);
-+
-+	return 0;
-+}
-+
-+static int adis16607_buffer_predisable(struct iio_dev *indio_dev)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+
-+	/* Waits for a running handler, so no drain races the FIFO disable */
-+	disable_irq(st->adis.spi->irq);
-+
-+	return 0;
-+}
-+
-+static int adis16607_buffer_postdisable(struct iio_dev *indio_dev)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	struct adis *adis = &st->adis;
-+	u16 diag_stat;
-+	int ret;
-+
-+	adis_dev_auto_lock(adis);
-+
-+	/* Disable FIFO */
-+	ret = __adis_write_reg_16(adis, ADIS16607_REG_USER_FIFO_CFG, 0);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Leave the device clean at the end of a session, so the next one
-+	 * does not start on leftover samples and a still-latched
-+	 * FIFO_THR_MET.
-+	 */
-+	ret = __adis_write_reg_16(adis, ADIS16607_REG_USER_FIFO_CFG,
-+				  ADIS16607_FIFO_FLUSH_MASK);
-+	if (ret)
-+		return ret;
-+
-+	return __adis_read_reg_16(adis, ADIS16607_REG_DIAG_STAT, &diag_stat);
-+}
-+
-+static const struct iio_buffer_setup_ops adis16607_buffer_ops = {
-+	.postenable = adis16607_buffer_postenable,
-+	.predisable = adis16607_buffer_predisable,
-+	.postdisable = adis16607_buffer_postdisable,
-+};
-+
-+static int adis16607_set_watermark(struct iio_dev *indio_dev, unsigned int val)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+
-+	val = clamp(val, 1, ADIS16607_MAX_FIFO_WM);
-+	st->fifo_watermark = val;
-+
-+	return 0;
-+}
-+
- /*
-  * Check if the delta between two values is within specified range.
-  */
-@@ -315,7 +676,8 @@ static int adis16607_sensor_self_test(struct adis16607 *st)
- 
- /*
-  * Called by __adis_initial_startup() right after reset, before self-test:
-- * SPI Half-Duplex locking, dev_id verification and the bootloader check.
-+ * SPI Half-Duplex locking, dev_id verification, the bootloader check,
-+ * enabling 32-bit burst mode + DATA_CNTR and the DR/DEV_NOK pin routing.
-  */
- static int adis16607_init(struct adis *adis)
- {
-@@ -356,7 +718,29 @@ static int adis16607_init(struct adis *adis)
- 	if (digital_status & ADIS16607_BOOTLOADER_BUSY_MASK)
- 		return dev_err_probe(dev, -EBUSY, "bootloader is busy\n");
- 
--	return 0;
-+	/* Enable 32-bit burst mode and DATA_CNTR - one-time, used by FIFO pops */
-+	ret = __adis_update_bits_base(adis, ADIS16607_REG_USER_DATA_CFG,
-+				      ADIS16607_BURST32_MASK | ADIS16607_DATA_CNTR_EN_MASK,
-+				      ADIS16607_BURST32_MASK | ADIS16607_DATA_CNTR_EN_MASK, 2);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * DR_GPIO_MASK and DEV_NOK_MASK are updated here rather than written
-+	 * blind, so this doesn't clobber the RESET_GPIO_MASK bit already
-+	 * configured earlier in probe(). Per datasheet, DR pulses are what
-+	 * drive the FIFO controller's internal enqueue logic. DR and
-+	 * DEV_NOK are separate physical pins, so enabling DR_GPIO_MASK here
-+	 * does not put DR's full-sample-rate pulses onto the interrupt line
-+	 * - DEV_NOK_MASK routes the aggregate "any DIAG_STAT flag asserted"
-+	 * signal onto the one physically-wired interrupt pin, which is what
-+	 * actually fires on FIFO_THRESH_MET, at the (much lower) watermark
-+	 * rate, not the sample rate.
-+	 */
-+	return __adis_update_bits_base(adis, ADIS16607_REG_USER_GPIO_CFG,
-+				       ADIS16607_DR_GPIO_MASK | ADIS16607_DEV_NOK_MASK,
-+				       FIELD_PREP(ADIS16607_DR_GPIO_MASK, 1) |
-+				       FIELD_PREP(ADIS16607_DEV_NOK_MASK, 1), 2);
- }
- 
- /*
-@@ -593,7 +977,12 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
- 	u32 tmp;
- 
- 	switch (info) {
--	case IIO_CHAN_INFO_SAMP_FREQ:
-+	case IIO_CHAN_INFO_SAMP_FREQ: {
-+		/* The decimation must not change while the buffer is running */
-+		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-+		if (IIO_DEV_ACQUIRE_FAILED(claim))
-+			return -EBUSY;
-+
- 		if (val < 0 || val2 < 0)
- 			return -EINVAL;
- 
-@@ -601,6 +990,7 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
- 		tmp = val * MILLIHZ_PER_HZ +
- 		      val2 / (MICROHZ_PER_HZ / MILLIHZ_PER_HZ);
- 		return adis16607_set_freq(st, tmp);
-+	}
- 
- 	default:
- 		return -EINVAL;
-@@ -700,6 +1090,7 @@ static const struct iio_info adis16607_info = {
- 	.read_raw = adis16607_read_raw,
- 	.write_raw = adis16607_write_raw,
- 	.debugfs_reg_access = adis_debugfs_reg_access,
-+	.hwfifo_set_watermark = adis16607_set_watermark,
- };
- 
- static const char * const adis16607_status_error_msgs[] = {
-@@ -792,6 +1183,8 @@ static int adis16607_probe(struct spi_device *spi)
- 	indio_dev->info = &adis16607_info;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
- 
-+	st->fifo_watermark = ADIS16607_MAX_FIFO_WM;
-+
- 	st->adis.ops = &adis16607_ops;
- 
- 	ret = devm_regulator_get_enable(dev, "vdd");
-@@ -830,6 +1223,23 @@ static int adis16607_probe(struct spi_device *spi)
- 	if (ret)
- 		return ret;
- 
-+	ret = devm_iio_kfifo_buffer_setup_ext(dev, indio_dev, &adis16607_buffer_ops,
-+					      adis16607_fifo_attributes);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * DEV_NOK is the OR of the DIAG_STAT flags and stays high until
-+	 * DIAG_STAT is read. Use a level interrupt so a flag raised while it
-+	 * is already high is not lost; ONESHOT keeps it masked until the
-+	 * handler has read DIAG_STAT. It is enabled along with the buffer.
-+	 */
-+	ret = devm_request_threaded_irq(dev, spi->irq, NULL, adis16607_irq_thread,
-+					IRQF_TRIGGER_HIGH | IRQF_ONESHOT | IRQF_NO_AUTOEN,
-+					indio_dev->name, indio_dev);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_iio_device_register(dev, indio_dev);
- 	if (ret)
- 		return ret;
+X1600: mentions only as missing in the auxiliary MCU
+X1000: Enhanced MXU implements XBurst SIMD instruction set release I and =
+release II
+X1830: The MXU2.0(SIMD128) instruction set has been implemented by =
+XBurst=C2=AE engine, and is one part of the CPU
+X2000: mentions only as missing in the auxiliary MCU
+	but Ingenic SIMD instruction set architecture: 128bit MXA
+X2600: same
+JZ4780: Media Extension Unit (MXU) Ingenic SIMD instruction set II fully =
+pipelined
 
--- 
-2.43.0
+So MXU is only available in X1000 and X1830. If the data sheet is right.
 
+Is there some runtime check? Hardware capabilities register to look =
+into?
+The PRID values are known but not their exact meaning.
+
+But if we take these as MXU-Flags we would have:
+
+- jz4780: 0x02 (confirmed on CI20 board)
+- x1000:  0x02 (unconfirmed)
+- x1600:  0x00 (confirmed on LX16 board)
+- X1830:  0x01 (unconfirmed)
+- X2000:  0x20 (confirmed and read out from LX20 board)
+- X2600:  0x20 (confirmed 0x00132000 on LX26 board)
+
+So the lower 4 bits could indeed encode the MXU revision
+and the upper 4 bits the XBurst revision.
+
+x1600:		0x00	none		XBURST
+jz4780/x1000:	0x02	MXU2.0		XBURST_REV1	(REV has been =
+swapped?)
+x1830:		0x01	MXU1.0		XBURST_REV2 	(REV has been =
+swapped?)
+x2000/2600:	0x20	MXA/XBURST2	XBURST2
+
+IMHO, in that case defining PRID_IMP_XBURST =3D 0x0000 would be correct.
+Maybe the _REV is misleading and should be _MXU_REV?
+
+But that is quite some speculation.
+
+Any thoughts?
+
+BR,
+Nikolaus
+
+
+>=20
+>>>=20
+>>> If it's really used somewhere, you'll also need to add a compatible =
+string
+>>> for
+>>> it in Documentation/devicetree/bindings/mips/cpus.yaml. I guess just
+>>> "ingenic,xburst".
+>>=20
+>> Ok, will check.
+>=20
+> "ingenic,xburst" if it does not support MXU, I should clarify.
+>=20
+> Cheers,
+> -Paul
+>=20
 
