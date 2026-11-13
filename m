@@ -1,88 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558196;
-	b=RMnB3hCUXGPCa/EleXj/WIK1BrKKOGcAymv+/SZnp1JsCGZGsjaGRr1vEevZEeiDyveb
-	 KW34b1P1pi4hP3myZJdVFWenWufMKhj+5GC70HXMK05NOa2KtuPlSk3+xoE9myrsyHg4R
-	 O4tO/jtn/PxJNzuEiO03kgXVSU8r59PgntrQg/DmlV1l6m/PHlQMi87m9xPXBmRn3YMNt
-	 HmF+SdCA1IIprSjnsWmjhoD3W042eKdwqQnwxwmxelbKWjMYgospnjk5j30dBaZ4sgb6P
-	 e7ta9CJR/fLiWTCm49h1VnORsYuatsAnzx1EeqiLpcOI+b067r/g11DRTrH63plK5ag==
+	t=1794558197;
+	b=iZNoE367rEV5z3PQQWMYQ4XharCnzch7kIZmIJ8/2uybne7i0y37u/hxfpsHfrawqf9w
+	 bP4MccvEJQW4ipjhI+eAvSX/FqH/4qP9MZmcZFBrRocFlosSOQLY+IgNuGWfTm9IoimzB
+	 bhmw4DLWo5oqOoEGPYN1waioEOBRsEvvlm3djXm1alg74or8a/cUIk2mL83B9bWMnGddC
+	 8nZDRNYSJSAE9OV4ZlAkW1aSYiDYL8L1IHWDBajty775TJ1dhQOkTjSd2CN/IriiMuxtC
+	 jgA0VEDjVqL9Gp3lPfAfn1lN821GYhy6Ty0dFRVDnnou3JtVuGVjznJ9Mqb+pxWSvPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558196;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=wHNcz0x2zQ0XCDwUzPG9BY9oVjTOs+uGYQ78vuDg2ls=;
-	b=3LHQjh1qkUtb02mGBIqNsaERCpgH3kRTHBy2Cgw33Y13S9ZUQCMyUCA4Hh8N2OCZrkgC
-	 jw94gHgbdyUrTXoXRWe5VjO/DUqbOML6PLAyPZypLlj6gxwze/NC3gbur3bmIOFPLtTf8
-	 wF18hl7iJNfMABqAHZ+1SB/CKjBD9mrZg7UuspkG18RIZLQeGhOj9nkiKerHKBJftei7g
-	 f2f+Vh3N09XlOyIZpz5M+A6BsnkYylTuPZdSbeYm61cDeWS+dzUdTDMcaYVbuu5CCNNh+
-	 gSRZDtI/mGqQv3+xdQt4zpHKg4gSjq27W0CJrlpX1ifLZ1vf8oh1wV1cY4el8mKUu5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558197;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Dl62qA8RPRg3DFAObvPL2Fn4f72QQhDJ3yuNQH7rz3s=;
+	b=ZpCTzEGQoDQX/B9MffO/sslIFbpaD1HJ1URZ9sy1ZvWPCh/1qFYeuTJOCzUckDXYy9Xn
+	 6R8LTtUZDpfdla65w+kV1kuRN3j4gVNvl/AMZE7xT9CfQ0Bsqm49+swDL03t4bPwbtlZ1
+	 9ea8t7eIOSsMZ7/b1l8uQIE7Yrv51V9Bxax1nNzO9OleKhb8d+Z1NNyMGZ2QL+nAz75vu
+	 4aKDXP7b/XBgPfOPRZIujT5xo2tkGUfDAxVQtG5aEg2tEbsg5h28/Pt1lurKhpsGWgKpV
+	 iuoWlf8ddgkQW9LkFCTbRENYUXHtOYoBXeg38RLhPjK9r/CbtqCOH16nAKcHEzWZPxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lHXx43Eq;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=GA7hn9dE;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649C7606A889;
-	Fri, 13 Nov 2026 08:23:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 649C7606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5A9606A88F;
+	Fri, 13 Nov 2026 08:23:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E5A9606A88F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lHXx43Eq
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AD8Mx0nA602344, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794558179; bh=wHNcz0x2zQ0XCDwUzPG9BY9oVjTOs+uGYQ78vuDg2ls=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=lHXx43EqJIRi0jzcnDVvZPITB7oYl7cvwfEQlr8ea8Ktp8a2H3ihZ9go4iWGBi/Y2
-	 TDvwzlo3QrThn0GVlm91nYp3AezEAbcti1C7ZQdADs+8or6y0iMqZvRUzrwOt4I+Lo
-	 BGqNRiCIvOzGi+r86XH/LWSVoZOMPi5xJFsEp8nh9wQp01rxNkUjHo9tV3lOG759eJ
-	 63i+FicoWqNnkniMrp4jSETKtHXzyKOg3rA8kLACLo5NqxfTUcM9Xe88EbTFmAR6SX
-	 QiwbuLQx9r6zFr90iSB40Cun1pA8fe7UhjElBI5h/Ux1siHKRyHP7LvAl65X6TSz3+
-	 3nJKArBq7b2cA==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AD8Mx0nA602344
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 13 Nov 2026 16:22:59 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 13 Nov 2026 16:22:59 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 13 Nov 2026 16:22:59 +0800
-Received: from RTKEXHMBS03.realtek.com.tw ([fe80::d2b4:cd25:1a3e:aca8]) by
- RTKEXHMBS03.realtek.com.tw ([fe80::d2b4:cd25:1a3e:aca8%9]) with mapi id
- 15.02.2562.056; Fri, 13 Nov 2026 16:22:59 +0800
-From: Zong-Zhe Yang <kevin_yang@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>, Kalpesh Solanki
-	<skalpesh942@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
-CC: "kvalo@kernel.org" <kvalo@kernel.org>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: RE: [PATCH v5 1/3] wifi: rtw88: clear RTW_FLAG_RESTARTING on stop and
- start failure
-Thread-Topic: [PATCH v5 1/3] wifi: rtw88: clear RTW_FLAG_RESTARTING on stop
- and start failure
-Thread-Index: AQHdcqo3L5nzYrwr1UGT1rk58sg+cbcrixbw//+ICoCAAIssAA==
-Date: Fri, 13 Nov 2026 08:22:58 +0000
-Message-ID: <0172ea8ade124189b52d5839d4f33a2e@realtek.com>
-References: <20261112131401.236433-1-skalpesh942@gmail.com>
- <20261112131401.236433-2-skalpesh942@gmail.com>
- <ee602061ce314b5a9741094b7b93836e@realtek.com>
- <9D4D810E-69D3-470C-BA90-3BBAC0788CC9@linux.dev>
-In-Reply-To: <9D4D810E-69D3-470C-BA90-3BBAC0788CC9@linux.dev>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=GA7hn9dE
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 73A104572F;
+	Fri, 13 Nov 2026 19:23:09 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1794558189;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Dl62qA8RPRg3DFAObvPL2Fn4f72QQhDJ3yuNQH7rz3s=;
+	b=GA7hn9dEF5/cQsaPf1Y9eQ16v4GzRV1R6INqVnQ1hItWEUts4gFs+UcnnLkVMyEA5E5g02
+	HXOKET9CNz1Q/goBuG9k/O7yt1f3CPxPqW+sDPhRj3uQc6zhcyJSjMI5fbzanUEIe13gHV
+	SjhLq2QYH/xSU4chjJBVlICSAGn1SYiSsRTaOWVpqXiRWwLGPmgVHvmDdXQSrsdEFbbnjo
+	0F1YcRTT32tevmMtAsHY2uUBva5ndp3JcyjNxgDlq1J5pspZCi8DAKHnAuzYRVQ/V9qhw+
+	46bQbUE3UScxLfhSIjZw71rpZbXk22oi8AdoZpVkhU4l0QMgfjmOUO/ijCJHvg==
+X-GPT-Reason: legitimate; the email is a technical patch submission
+	for a Linux kernel driver (rtw88) which is consistent with the
+	personal/professional context of the recipient alastair@d-silva.org;
+	the From domain (d-silva.org) matches the sender's identity and
+	the content; the message contains highly specific technical refactoring
+	details (register sizes, HISR behavior) and standard Linux kernel
+	mailing list metadata (Acked-by, Reviewed-by, Signed-off-by) with
+	no signs of marketing, phishing, or urgency.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: linux-wireless@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: [PATCH rtw-next v10 4/4] wifi: rtw88: sdio: Split rtw_sdio_rx_isr into 8051 and 3081 variants
+Date: Fri, 13 Nov 2026 19:22:42 +1100
+Message-ID: <20261113082242.2773369-5-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261113082242.2773369-1-alastair@d-silva.org>
+References: <20261113082242.2773369-1-alastair@d-silva.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,21 +81,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiANCj4gT24gTm92ZW1i
-ZXIgMTMsIDIwMjYgNzo1MjoyMyBBTSBHTVQrMDE6MDAsIFpvbmctWmhlIFlhbmcNCj4gPGtldmlu
-X3lhbmdAcmVhbHRlay5jb20+IHdyb3RlOg0KPiA+IEluIHRoaXMgY2FzZSwgSSBzYXcgeW91IGNs
-ZWFyIFJUV19GTEFHX1JFU1RBUlRJTkcgaW4gcnR3X29wc19zdG9wLg0KPiA+IEhvd2V2ZXIsIHRo
-ZSByZWNvbmZpZyBmbG93IG1pZ2h0IG5vdCBoYXZlIGV2ZW4gcnVuIGF0IHRoYXQgbW9tZW50Lg0K
-PiA+DQo+ID4gSG93IGFib3V0IGNsZWFyaW5nIFJUV19GTEFHX1JFU1RBUlRJTkcgd2hlbiBkcml2
-ZXIgZ2V0cw0KPiA+IElFRUU4MDIxMV9SRUNPTkZJR19UWVBFX1NVU1BFTkQ/DQo+IA0KPiBBcyBm
-YXIgYXMgSSBjYW4gc2VlIHRoYXQgbWlzc2VzIHRoZSBzdG9wIGNhc2UuIElmIHRoZSBsYXN0IGlu
-dGVyZmFjZSBnb2VzIGRvd24NCj4gZHVyaW5nIGEgcmVjb3ZlcnksIHRoZSByZXN0YXJ0IHdvcmsg
-ZmluZHMgb3Blbl9jb3VudCBhdCAwIGFuZA0KPiBtYWM4MDIxMSBzZW5kcyBuZWl0aGVyIFJFU1RB
-UlQgbm9yIFNVU1BFTkQsIHNvIHRoZSBmbGFnIHdvdWxkIHN0YXkgc2V0Lg0KPiBTdXNwZW5kIHdp
-dGhvdXQgV29XTEFOIGFsc28gZ29lcyB0aHJvdWdoIGRydl9zdG9wKCksIHNvIHJ0d19vcHNfc3Rv
-cCgpDQo+IGNvdmVycyBib3RoLg0KDQpJIG1pc3NlZCB0byBjb25zaWRlciB0aGlzIGNvcm5lciBj
-YXNlLiBNeSBwcmV2aW91cyBwb2ludCB3YXMgSSBkb24ndCB3YW50DQpSVFdfRkxBR19SRVNUQVJU
-SU5HIHRvIGJlIGNsZWFyZWQgdG9vIGVhcmx5IChhc3N1bWVkIG9wZW5fY291bnQgIT0gMCkuDQoN
-CkkgZG9uJ3Qgc2VlbSB0byBoYXZlIG90aGVyIHdheSBmb3IgdGhpcyBjYXNlIGV4Y2VwdCBieSBj
-bGVhcmluZyBpdCBpbiBkcnZfc3RvcCgpLg0KU28sIGtlZXAgdGhlIGNvZGUuIFRoYW5rcy4NCg==
+Split rtw_sdio_rx_isr() into separate 8051 and 3081 variants to be
+clear. The two differences between the architectures are:
+- Register size: REG_SDIO_RX0_REQ_LEN is 16-bit on 8051, 32-bit on 3081.
+- HISR behavior: 8051 re-reads REG_SDIO_HISR on each iteration, while
+  3081 drains based on rx_len without re-reading HISR.
+
+This is a refactoring without any logic changes.
+
+Assisted-by: LLM
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+---
+ drivers/net/wireless/realtek/rtw88/sdio.c | 58 +++++++++++++----------
+ 1 file changed, 33 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index 6100e691a5ca4..c26ce1b6b38b2 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1473,17 +1473,13 @@ static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 	return 0;
+ }
+ 
+-static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
++static void rtw_sdio_rx_isr_8051(struct rtw_dev *rtwdev)
+ {
+ 	u32 rx_len, hisr, total_rx_bytes = 0;
+ 	int ret;
+ 
+ 	do {
+-		if (rtw_chip_wcpu_8051(rtwdev))
+-			rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
+-		else
+-			rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
+-
++		rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
+ 		if (!rx_len)
+ 			break;
+ 
+@@ -1493,33 +1489,45 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ 
+ 		total_rx_bytes += rx_len;
+ 
+-		if (rtw_chip_wcpu_8051(rtwdev)) {
+-			/* Stop if no more RX requests are pending, even if
+-			 * rx_len could be greater than zero in the next
+-			 * iteration. This is needed because the RX buffer may
+-			 * already contain data while either HW or FW are not
+-			 * done filling that buffer yet. Still reading the
+-			 * buffer can result in packets where
+-			 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
+-			 * end of the buffer.
+-			 */
+-			hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
+-		} else {
+-			/* RTW_WCPU_3081 chips have improved hardware or
+-			 * firmware and can use rx_len unconditionally.
+-			 */
+-			hisr = REG_SDIO_HISR_RX_REQUEST;
+-		}
++		/*
++		 * Stop if no more RX requests are pending, even if
++		 * rx_len could be greater than zero in the next
++		 * iteration. This is needed because the RX buffer may
++		 * already contain data while either HW or FW are not
++		 * done filling that buffer yet. Still reading the
++		 * buffer can result in packets where
++		 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
++		 * end of the buffer.
++		 */
++		hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
+ 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
+ }
+ 
++static void rtw_sdio_rx_isr_3081(struct rtw_dev *rtwdev)
++{
++	u32 rx_len, total_rx_bytes = 0;
++	int ret;
++
++	do {
++		rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
++		if (!rx_len)
++			break;
++
++		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		if (ret)
++			break;
++
++		total_rx_bytes += rx_len;
++	} while (total_rx_bytes < SZ_64K);
++}
++
+ static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
+ {
+ 	if (hisr & REG_SDIO_HISR_TXERR)
+ 		rtw_sdio_tx_err_isr(rtwdev);
+ 	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
+ 		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
+-		rtw_sdio_rx_isr(rtwdev);
++		rtw_sdio_rx_isr_8051(rtwdev);
+ 	}
+ 
+ 	/*
+@@ -1549,7 +1557,7 @@ static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
+ 	if (hisr & REG_SDIO_HISR_TXERR)
+ 		rtw_sdio_tx_err_isr(rtwdev);
+ 	if (hisr & REG_SDIO_HISR_RX_REQUEST)
+-		rtw_sdio_rx_isr(rtwdev);
++		rtw_sdio_rx_isr_3081(rtwdev);
+ 
+ 	/*
+ 	 * Unmasking HIMR re-asserts the IRQ line if new packets arrived or if
+-- 
+2.53.0
+
