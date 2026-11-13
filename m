@@ -1,89 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559757;
-	b=PHHhIKJv+gOPjntiOEDJs+r1b7CpvmmugpYjJmJYjFdtW7yeFHA++HflwZaOlbo0+q+l
-	 qTKu67gyazvxkJUFrRvztY/zTwmR3k0jB/fkr7xVGEbElIT9CuPxnAR9hwOcg+2swRq3z
-	 VkvFJYlnHTbNdmKvdB+w7SzcpCi6YhcfKiAd/vzGagasxyvcRSS3HDQy/NmskDjtr2LSk
-	 4eAcJpOa3SQ/Whqru2mJH7aA/5+DsWeAVo/YSzq6e23uKEliqcbXtrKWz0uAUZ2lIBHRQ
-	 a9laHQgXSQuJNLK9bWFTdLjx9gnt6C6QlkPvgWDbeGhw7T+2XPtoYW0ZT6iQg4EFIwg==
+	t=1794559759;
+	b=c0QImL7Z35Uwdyd+FedGeGlcCLpJRdOwCdxNsrvuYhgykM63uoNr3fWLjAupkwNmTTgI
+	 /5NHw5bXzIpEGng9bjFFeHLCwcfF7okz/ckybNAa0lvWmwVbgDjsQQ3NY7KUjsSr1mcyg
+	 Rj7H9rzpmAzIv2OqCAVaYryeNnB1jRJTAbVvpRR0tJ9O/uyOgFXZBtkoWdiudaLz8S+T1
+	 xQfgFYwKN8jLGCdXnqqsjFRvJlbu0+GnAI3v23ezanrdMMCq01Lljgz/T+hIhTV3Ug99K
+	 gkceDEWq8rzVIEN+0kofb8omNa6lOV/XpitqYPtejP/mUBMrY09PuGuXb4pdwLoOiLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559757;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559759;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=QXnJ3F0cJh2FPK/O6i6bjfEGXgvxbjb5q9E73TUH7NY=;
-	b=rn4FaSHbawMyDam30clrZJA2uHDfA27nLVrS7a4yO3BwZrGPXhXih06u3vL5JjRSixj8
-	 XuMxlKjV2eE9j4xICcAWVME3hsUlAEcKqz0nccn0v78mlFd59X8RRKbgz1iPlMhNPxex7
-	 B4hnLWICXvApz3/YoU/9lbyOTpx8PvKLtp7CZqF+Lp0msvIDFP8VrSLvY5JbIIScZ8Gcn
-	 0W8kI926sq/3+RWAadD1OL5ISRNfHEHxKOqJq2yjUHIWYKEk7VqObcpuQ84mrl0HIey4n
-	 WvysK36G3r/JcYwy2pe/du+p4Cwj9hg/QgrjnMMOrcsAp/F7f+EBpb4YItgASrglObA==
+	bh=cFbMSFFnfKBUiAHD1MzzGaz+GKQc6wEXvQbNeHmYNps=;
+	b=uYrUDJXUNoVwkIDRVP0Bfyfsvh2bqPWhb8VPA3HyV4NlEKyOY4ELEapVK82nE/J2O1Ys
+	 ydPqqWWurg58MDyMF5RUgrePC5U768Jequ/xP9lwjKg11u114h/01iW46IXSBAxuQJHFT
+	 BcLzrP24ZwvtEYKHt/5XTRY1ANcYSsjDQSTqMmAz31ocKKb9cJEHWPJ1NAx/MPltc9GLB
+	 OCME/UgfJ1I41fl0FSpkubqEvs+3RwwZcQ3IjtqkBwZiHOYQ5bQ7CxtSqn2yVJRm1Xbkf
+	 m+eQix7EkLLtvkLZkTWSHmFP2gq9JsUA2PHIhf6/bs1PtiicKQBN7q8ECEh30nvzu6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qJSwRDwn;
-	arc=none smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ac6sZwOc;
+	arc=none smtp.remote-ip=209.85.160.51
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BF5606A8BE
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:49:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9BF5606A8BE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD6860A3808
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:49:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FD6860A3808
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qJSwRDwn
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-823e4047037so956701a34.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:49:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ac6sZwOc
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-499f20c7054so717421fac.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:49:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794559756; x=1795164556; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794559758; x=1795164558; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QXnJ3F0cJh2FPK/O6i6bjfEGXgvxbjb5q9E73TUH7NY=;
-        b=qJSwRDwnJozevxznlezum5QEPEjGaMnHQbJxXVdNkauF0Izd0zdZHMh1BEeCcU3INC
-         e7Paz6N1dNiaqFe/SnYxEKJZliXk0S+DjvQxo/DsjSVhnM0gmo27hxROU4rSS9XiWBFN
-         8ZwI+O+oVzH1sF5h4nUU+GP/60DHWYN+V3d9Ir0RgmylkqNSNHuw8AkZEv8sDZPCjkw7
-         JA/RrppBY2w7VrLzS+QZMssgulA6XmrIJ4LTU7aldXeCtiH5Kjgr23WKLcAT6R/GyPr9
-         K4IwUdFZdf4HaOydgFpllA1wL+rxivXE25DsOlLOpaTGbGcygeBFEqtKbyk1h/3j+qmO
-         IvDg==
+        bh=cFbMSFFnfKBUiAHD1MzzGaz+GKQc6wEXvQbNeHmYNps=;
+        b=ac6sZwOcrVoj5nwpklwQUYFFCVrRGiuRbsBHvbD/MSZ2oqacujlkOyLOsvpJo5qBYF
+         8E+MGZTUSu2ReaD2UkVvWQ8vy7DRS0UmX1NYDlRjXopVXdWVv5WTjOUTIycos4W9w43A
+         NzHgGWjyVIt5yZy81xdeF/pUVo9JVKvgUv2WmNHD6OIzMLKWh1I0uRdE9CsEnIpXbuus
+         G94Fw1Fp+btDuhbm2KVhWMp/LbeXnMFqn1+U6plp/um34GWDPB81diG6mT9Yiwj4Z9fz
+         tOqxUQeJClpsuyI5EyYcgtuVls5wTSI6Z28FoMlhEQ8V00eKCkpMYmlX6NUOO5n/yV2p
+         boYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559756; x=1795164556;
+        d=1e100.net; s=20260707; t=1794559758; x=1795164558;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QXnJ3F0cJh2FPK/O6i6bjfEGXgvxbjb5q9E73TUH7NY=;
-        b=rhQDxD3N+Sxo8ZsE+4XxfeCek/qO6xK374XZmGqtxabytLaDAHv4w4VPt1QqYDESaz
-         CiY0Ny4SiaR2Bq6Bjp4/crHrEbn9cEwSQ9FL/pDkVRoXtuioF/zbjcNt0uojAKhtuq5Z
-         2B3SJb7z9wZYOOYMp2DmdMeKsN7efWZOwxQDmEyF4dCJCu0hgjo4nIsTyXm+bJBaJ2PG
-         RXIx/MJRGd0hbbpuxjx+Y2GMC4Iut0jddcqWIriZ7e9x99ZLtVlzm/qnI7c/LKw4SYSi
-         lflp1WrL/n19DnCK+xW+dpxlTJvWx/QLjlgQ5NUb5EnDNphNs5x5VOd1n0vsp9JAemjS
-         rFGw==
-X-Forwarded-Encrypted: i=1; AL+hErG2hw+DtGNe5X4n53jwh6w6XwgyylyHk09N17GUjK/sbA2w6Z+SLnSMVM8p2opQkKFWVsND1E0WiQd+fZM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/MFsqRnYGdgo9yfQQNZqv0uqR8wn8KZtNqQT2RLAeh967WladA
-	8AqB7fN8KEcPDpwiNpVT2Rv609w8atktbi7z4tiS8/qznLjOd1q4HJQS
-X-Gm-Gg: AYBFou3BzMHP7Rlm94fzY6MH+18ZmvTqoEmO/tuVlinq7w5S0niS8tV+5XiGjWdEiDO
-	JKHcKbprX5/h5+T2Sl+RRZh5jGMymo3Zoi5DC3++KxooxrPCZ8X3ckVllk1VS3t54b45npJTtqv
-	nGS1/LCFWKp/Uf6SiPMOKuAuMlImVszIPDxRZbidUpsXsDUSpNR5Joz1AHrcewU6DQI2Z3Fr9Pq
-	BY9iaa8fx55LavSRnpKXpGA/B72XeNmdWc4MUJaM4i0ionjSLE1UQ7YfzCTATXkPInr1asI/elY
-	unThuXgTyvElnyK84rQY4dASTZnfkkVI6uwUDQDnmzX8HfdD6nsawFxvwaEJbCqfczm731M3hKH
-	VryE4sVa4vO/GKBBO2huKl6NMYiBuJGrMe1lZW4sSaVdvcrb6Rgsl1ui675Keg30xx4MbRgYCoK
-	ZiVq2GeQ62/FScjC+cjaQHPxUMkX0LZaroEV4nlUOSWDGp7nc7KYDtUZChbdMbgXcR52bYDxLQo
-	faLbcj9+hCI67F/gEQTbyg8tmrif/nMj1tPRIyXjTb93X1L1tGn7VVtCkSd0NX4kWrg8O+RqwZc
-	N6uR7NEUCdSnrRJN6RBeQWbFC5jf3D8002jrFaYdl1axi9Tlrd2skV7r3Tbw+ftOv7xaxgSB6Sq
-	ZX9WRUaON9T+iHv6p+upIkBMJqNulAaAfqg6xGmoNVwhCKsJfOCctRynrbSqCNFNytXWeaYZuLc
-	cn7skmHkAAOIzDNwxkwG/oWuTgSqQf6d3sOh2W6Cf/BXpCnP/f4v8=
-X-Received: by 2002:a05:6830:915:b0:843:56a6:c881 with SMTP id 46e09a7af769-862898287c0mr2085688a34.8.1794559755689;
-        Fri, 13 Nov 2026 00:49:15 -0800 (PST)
+        bh=cFbMSFFnfKBUiAHD1MzzGaz+GKQc6wEXvQbNeHmYNps=;
+        b=d2Jj6uN2aAV+K0B8uLfY6I2pvXhi3kXJTrMkDqr2efF8WNU+mnOy8yq86HqpjtHIoS
+         5jRIiXTbcM+nxe/tEsKfJPrUzT/RTrnuw9JdqbK7OAZrDc3AFZFdl/FoMUsVVoir7PZr
+         lspZI3+ZoYU+bBMGMQE5rWsn3R+ufgUj4nF/aOALMZOkl0p5r8ujeYNL5i+spg8O6xD2
+         7BYnvTi6elQQrocTm0p7F0fluCtPbZivz01W9r2CWWRkdtZAq7+ZWFFxQhIyrqRqSG5t
+         r1yfE3+jindIcFYE6GnWe6eXMblYlWZBDxVaSH1j+5sHxX7EXlSGP/tlZzv28sc935fW
+         g49Q==
+X-Forwarded-Encrypted: i=1; AL+hErHrXTYQ5OapKWGmKepqPowhQSplfuJjeYaXtQ3VIfkrXrxJbF7iVQUI+KI4uemQyE43iOgE4Ikw1xdZXTs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/YxHsmWcH9ckjuH9pRCIMyUvy5cwEhkmgsi7i6rPZzHH0E38T3
+	vj3/AEUQojJhMReEns8Jv2JuCIqLgK6Qh6gTJE4+eoZLe1RRMZFjDjW/
+X-Gm-Gg: AYBFou2XilZ0HX392UFhuFhEZE6+YKs4PZjBny0wcNW+nehfsAvIkV0j8sveAiFVPAJ
+	fE/rqWf4baACuUJcJu8aabDsekAf+jnYDMRiQLVAyxVi7i/7AHqoa4sX39wYQukabW2M/90YiFP
+	m0tN3PqRRS54XKittVvxSskOMKcTXwyalqPlvKkvqMBZe/qXAYz8o/TZf6/nhqgCOxeHwTDHejb
+	KCIUZYFF9nIg7VD3RrI0VtRHtKPAEtxELeEz9Kh6qzZGTSlwgHLYW2PnWZDlhjFUBYeeLsemUBR
+	W20SZXA+eBxKfbVa1uE7C30ZaIzlWT2ji2f6Hp5b9oPk9kFfcwDkfzhMln1DzQ1nFZmw5/gXAjL
+	3pFi0uo3pI8Gbf8RIZWNodd7pBV2aHi/tcJJ8L2RJs95WzijIsH+A77LTlkdtCIlvhejA6YtU5R
+	4GeNc6zPiISyXpnJnntITRXjEvtiZbzqcGc4VkD7Sm9JN+ypF/LwrgTnyQd0lJBboSp3CBfy0Pm
+	EMoRR5hz+DJ26qUxK6lKTqGRvUWkuUTjkMSjhOrSw0hOAcCSezSDLEpJg36ruJVYvTTwbM3yS7S
+	IQ9KtfbP/68DI95Vm22MkWvm9GXA9pdYv4Zni8yDB202vpMWTL6rAg0tDpEDXjo2htCmxC4+PHN
+	6J3h+QIagGYqFj2JXXxbS7uFkO1w8vNBBKHHpTL5X2PkZGC0mfLysIp38UQpn6zbEnVoYnVBCkV
+	FKKfQEogzDRnNjvl4MphlbJCDhivOIQ33DnUM7r7/1V0qJoB8HFcRy
+X-Received: by 2002:a05:6870:8102:b0:494:75ba:c6d2 with SMTP id 586e51a60fabf-4afdf287529mr2110921fac.13.1794559758352;
+        Fri, 13 Nov 2026 00:49:18 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628817d979sm2034202a34.22.2026.11.13.00.49.14
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628817d979sm2034202a34.22.2026.11.13.00.49.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 00:49:15 -0800 (PST)
+        Fri, 13 Nov 2026 00:49:17 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 13 Nov 2026 01:48:41 -0700
-Subject: [PATCH net 2/4] net: phy: propagate MII register write errors
+Date: Fri, 13 Nov 2026 01:48:43 -0700
+Subject: [PATCH net 4/4] net: phylink: reinitialize the PHY after an MII
+ reset
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-submit-phy-mii-reset-v1-v1-2-02a55f352a91@gmail.com>
+Message-Id: <20261113-submit-phy-mii-reset-v1-v1-4-02a55f352a91@gmail.com>
 References: <20261113-submit-phy-mii-reset-v1-v1-0-02a55f352a91@gmail.com>
 In-Reply-To: <20261113-submit-phy-mii-reset-v1-v1-0-02a55f352a91@gmail.com>
 To: Heiner Kallweit <hkallweit1@gmail.com>, 
@@ -108,53 +109,63 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-phy_mii_ioctl() ignores MDIO write failures and can report success after a
-failed write. It also updates the cached link settings and may restart
-auto-negotiation or reinitialize the PHY even though the requested write
-failed.
+phylink handles SIOCSMIIREG with a raw MDIO write, bypassing the reset
+handling in phy_mii_ioctl(). A BMCR reset of the attached Clause 22 PHY
+therefore clears hardware state without running the driver initialization
+callbacks. The PHY worker continues using the old software state.
 
-Check the write result before updating the cached settings or invoking
-those follow-up operations, and return the MDIO error to the caller.
+Delegate BMCR reset writes for the attached Clause 22 PHY to
+phy_mii_ioctl(), which quiesces the PHY worker across reset completion and
+driver initialization. Select this path in the register-write helper after
+the Clause 45 cases, retaining raw access for the other register writes.
 
-Fixes: 00db8189d984 ("This patch adds a PHY Abstraction Layer to the Linux Kernel, enabling ethernet drivers to remain as ignorant as is reasonable of the connected PHY's design and operation details.")
+Fixes: 9525ae83959b ("phylink: add phylink infrastructure")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/phy/phy.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ drivers/net/phy/phylink.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
-index fce9bc7be330..4ac72a1b4f42 100644
---- a/drivers/net/phy/phy.c
-+++ b/drivers/net/phy/phy.c
-@@ -350,6 +350,15 @@ int phy_mii_ioctl(struct phy_device *phydev, struct ifreq *ifr, int cmd)
- 			prtad = mii_data->phy_id;
- 			devad = mii_data->reg_num;
- 		}
-+
-+		if (mdio_phy_id_is_c45(mii_data->phy_id))
-+			ret = mdiobus_c45_write(phydev->mdio.bus, prtad, devad,
-+						mii_data->reg_num, val);
-+		else
-+			ret = mdiobus_write(phydev->mdio.bus, prtad, devad, val);
-+		if (ret < 0)
-+			return ret;
-+
- 		if (prtad == phydev->mdio.addr) {
- 			switch (devad) {
- 			case MII_BMCR:
-@@ -388,12 +397,6 @@ int phy_mii_ioctl(struct phy_device *phydev, struct ifreq *ifr, int cmd)
- 			}
- 		}
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index e885da1c2831..2f0e3a30615c 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -3570,10 +3570,13 @@ static int phylink_phy_read(struct phylink *pl, unsigned int phy_id,
+ 	return mdiobus_read(pl->phydev->mdio.bus, phy_id, reg);
+ }
  
--		if (mdio_phy_id_is_c45(mii_data->phy_id))
--			mdiobus_c45_write(phydev->mdio.bus, prtad, devad,
--					  mii_data->reg_num, val);
--		else
--			mdiobus_write(phydev->mdio.bus, prtad, devad, val);
--
- 		if (prtad == phydev->mdio.addr &&
- 		    devad == MII_BMCR &&
- 		    val & BMCR_RESET)
+-static int phylink_phy_write(struct phylink *pl, unsigned int phy_id,
+-			     unsigned int reg, unsigned int val)
++static int phylink_phy_write(struct phylink *pl, struct ifreq *ifr)
+ {
++	struct mii_ioctl_data *mii = if_mii(ifr);
+ 	struct phy_device *phydev = pl->phydev;
++	u16 phy_id = mii->phy_id;
++	u16 reg = mii->reg_num;
++	u16 val = mii->val_in;
+ 	int prtad, devad;
+ 
+ 	if (mdio_phy_id_is_c45(phy_id)) {
+@@ -3608,6 +3611,10 @@ static int phylink_phy_write(struct phylink *pl, unsigned int phy_id,
+ 					 reg, val);
+ 	}
+ 
++	if (phy_id == phydev->mdio.addr && reg == MII_BMCR &&
++	    (val & BMCR_RESET))
++		return phy_mii_ioctl(phydev, ifr, SIOCSMIIREG);
++
+ 	return mdiobus_write(phydev->mdio.bus, phy_id, reg, val);
+ }
+ 
+@@ -3697,8 +3704,7 @@ int phylink_mii_ioctl(struct phylink *pl, struct ifreq *ifr, int cmd)
+ 			break;
+ 
+ 		case SIOCSMIIREG:
+-			ret = phylink_phy_write(pl, mii->phy_id, mii->reg_num,
+-						mii->val_in);
++			ret = phylink_phy_write(pl, ifr);
+ 			break;
+ 
+ 		default:
 
 -- 
 2.53.0
