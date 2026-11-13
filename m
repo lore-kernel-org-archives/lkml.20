@@ -1,78 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.66.141
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590140;
-	b=izZbuT9zYqPezTOJm4flINwAHqiY3r2tHAFMVoGf6sqfgTCgVfmoqKVP4reQDYiVI4HH
-	 cowFlobwBYdGg/orHa1+d564Ntddriw7yNJr3PjvipGM+UuktO1YrLW39Y9DjaeEEH1g1
-	 Hqw5Bb/315okVEJB4romuOYAgkWnVt4aHWBGBJs5gzDDm4mn0M7VXH3vc0WcZ4E1WwDkC
-	 M0sLDiqh5d3otYfJWmE1jbLVNFgsx58ygCmf+iCgyDJKvq96UJdq7Wi7pzlYwIYymDyte
-	 G3ZAw2oAOu1zbuUiBsrizUIUmMa9FqpyXf07hxvLN0tlg5cEujUuWkNGPkCQvU3wNzQ==
+	t=1794590163;
+	b=1qGkwGzkI5ejzcTUClzNxdEDASWIqPR4nonmKxEUS8QYz1hMWjAD4Q2jQHDiB8jSIQ5f
+	 1Q8ygXtpK/HGcYmUuRnHpZlO6wsHqjE+FcaykeE2uvFzubwjUwSpo2CDt5mavj3Qke0M6
+	 jIcKtRy+BMzlTyU+PN65ao/PEzH0D/OtdUiYge/GmQukbnWX4XW3enKKna4yPfSVLE2OC
+	 qI1AVJ47L7s+NaAa5IM7wx4elIfIsm1+r72qj91mcQuS5wABPBxRare7aSiVDTX/r9btZ
+	 Nzj739QDuxKA7iwQUzsqcH9bhkT+CmRMwLFXRR5ZE8R2S40LNO4laECHre5X9j6qmoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590140;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1vMesprYhFeENWisDIzJhcy04vIcu8PwjlxWvClS8Hs=;
-	b=Vk6X/9KiWoJ0ZUfA2TBPjZWXhq985VnfNsuSPvzWuXllhubmv8daOmW4uS5HcZy17/g0
-	 i1la+ohJZRrvYhxyH44ft8M8SvSv97tg9hM1OKn1uVhWUZpWpj+89uZKYSICjkkd7GTC0
-	 MwT/FiUkoOBuvMHWx+VxntJ5B8+Os7ppZhZs+yXrqPQdyQH1WvWnR6msCF+55sF7bB6sg
-	 eSLozKoQJJz05WkrA9UYizJ3KQtyLk2kyDnRL8CwDl76a5S5Lqb0ATtP5H0cRJihI6ZQY
-	 yiOu95ldI4OATU9hB5k0keGmZhs3U19n8ZARu+eQ6DVRjHthV+FUDJKeLDwIYMgun9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590163;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
+	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Authority-Info-Out:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-JNJ;
+	bh=tBz0CGsSO8Y0L5vFYQnYGkjpR8lPwZ5lNwEzHdELXr4=;
+	b=4SQawyrwnjSmrgf+pdlvjzBMUwFqtfbnrb4WwhNM3oNPFZlHHdjXXxY69rfi/neJKLdD
+	 VUapw7S/XuQ8YCWPdTBCfUmsrHDs8gYcMOZnFFSfAawEx8zIrZ01akIzEsJaS6hZ/AdM3
+	 Z1fJ7745DwtK1JoFYZWMz1RxTjLMVxUrvLfhdW++1aUHPldp8WyVz3JvRO7mExKsdHJ6r
+	 4YY/7aqqoEfp7rOizzw/i5lAmn0Ri/MK0T+8K1YGzS49f7+WLC5xJ6H8dR8t16MBjHtww
+	 NC9T1GP+dRiF9RrgAvHbhSvfWzXtB7GzAFkRH27CYYpOSfMw9L0jmvqt8Gy+LEBWf8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EyVRa/9f";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=tawheed.cc;
+	spf=pass smtp.mailfrom=tawheed.cc;
+	dkim=pass header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b=u8EmjHoD;
+	arc=none smtp.remote-ip=57.103.66.141
+Received: from outbound.pv.icloud.com (pv-2005e-snip4-11.eps.apple.com [57.103.66.141])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED688606E20D;
-	Fri, 13 Nov 2026 17:15:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9225A606D4AE
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:16:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9225A606D4AE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tawheed.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tawheed.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EyVRa/9f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEB021F000C4;
-	Fri, 13 Nov 2026 17:15:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794590139;
-	bh=1vMesprYhFeENWisDIzJhcy04vIcu8PwjlxWvClS8Hs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EyVRa/9fVvx9+Qbm0nTockS2FVMvizEhoCsvvuFlwnODla6jIfcftkyAaI4hWexcL
-	 pUSC3y3CyEo3ZLC4Njyo7cK13k1/EWsLdIFajb3d+ckXZG5Vu+0JFU09dKEenWwrvD
-	 ogQeZhOCJCpIw8TLahIIifIrGlbU5C9wR5wM3kjyZIhPlMBc4Zyz+9khmFDS/6Dw4B
-	 0WMkPMTrRxZhEMnLsL1DVMXbrsAfV1h6Ow81B9z8COrDULGtlrD6hMy9kT/iuqWRNe
-	 uUZ1zefj5znLTMOE/lpnyaGwMN4kxrLFr3QihAO3Lpvc6z9jzl1W7Ck74qEAI7MvJb
-	 lFvhNdGfk4Mgg==
-Date: Fri, 13 Nov 2026 17:15:31 +0000
-From: Simon Horman <horms@kernel.org>
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>, Julian Anastasov <ja@ssi.bg>,
-	Allison Henderson <achender@kernel.org>,
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	"D. Wythe" <alibuda@linux.alibaba.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>, linux-kernel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	bridge@lists.linux.dev, linux-security-module@vger.kernel.org,
-	mptcp@lists.linux.dev, lvs-devel@vger.kernel.org,
-	linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
-	linux-sctp@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: Re: [PATCH net-next 08/14] rds: annotate data-races around core rds
- sysctls
-Message-ID: <20261113171531.GR18859@horms.kernel.org>
-References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
- <20261109025425.328445-9-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b=u8EmjHoD
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-100-percent-6 (Postfix) with ESMTPS id 62EDF1801B20;
+	Fri, 13 Nov 2026 17:15:52 +0000 (UTC)
+X-ICL-RepId: 01a1d5e8-99b9-70ee-9274-c2d0c6a69ba6
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tawheed.cc; s=sig1; t=1794590162; x=1826126162; bh=tBz0CGsSO8Y0L5vFYQnYGkjpR8lPwZ5lNwEzHdELXr4=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=u8EmjHoDdp8GMbROFI+lllGp50iJIqkomgyzjZ5Q1KllwikhnlFb2R2ic6vJU3iasiFqkfjMeYeXfAIjCYERz5GkF3c0lQ00l3lexJWGibP/V6ZamLvHCnAuhXf5Rgf81ibq7N1vmIOmkJFvalcXJ4GFCAMLlVaHqYsklf3S8jZYxj79mJINmAl27WvlFkYeYNaCdj4tdS7mq7GaujWoP/0aQ6TR2tbeDNHzjHTA82Xrl04SNIkqDNOFuP067ld57HbM7TlJM00O8DCI+Oh5DuGEqEUYrn8Ew7fdyOXY7uz/nb2B2BPM8a35+5zzO3KZOT02Pb5tpZEkNfweR168CQ==
+mail-alias-created-date: 1711150425226
+Received: from DESKTOP-HUABEFD.localdomain (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-100-percent-6 (Postfix) with ESMTPSA id 918D01801B61;
+	Fri, 13 Nov 2026 17:15:50 +0000 (UTC)
+From: Tawheed Makhdoomi <_@tawheed.cc>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Douglas Anderson <dianders@chromium.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/panel-edp: Add LGD LP129WT112684 panel
+Date: Fri, 13 Nov 2026 12:15:40 -0500
+Message-ID: <20261113171540.446-1-_@tawheed.cc>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,24 +68,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109025425.328445-9-jiayuan.chen@linux.dev>
+Content-Transfer-Encoding: 8bit
+X-Authority-Info-Out: v=2.4 cv=I87w19gg c=1 sm=1 tr=0 ts=6af745cb
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=HxOO8S7qDNDRVQTpMkN7:22
+ a=0OSefl1wAvM1iDVUJ7Ah:22 a=VwQbUJbxAAAA:8 a=kr8jYOqCoWP1efnyqfUA:9
+X-Proofpoint-GUID: M_PNZHOS99GjYu9OqssTlEtd5IGxRrde
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA2OCBTYWx0ZWRfX0/ks+Waq9qYT
+ fN+b77VujlVsexUEpSeUKjWqy4otdigcdHBh3/WihbCxS9Sz5kuCzikReENsfYlraZGGgP2lLNV
+ yk2gXpN5zr4QRuuZ/5+S/022IC8bcIWFh0YMWwBs8LEOxogEFR6ZFvBZfQCI0xhYtnoiEaIbNCT
+ m+t2tlwCL58DXaVVdDkxar+We0ecz6dy2Eu+88WAvsdrE57vPa9ol2R4nkj9wjHU96MKt9d7qH2
+ +dqFsg0J3Y7NgBXaZVliqxIZQmBeK1l8NjYHVXKbZdZWnmOeraAGzIbUhRaNyZbNoCrqTWL+4TM
+ /5fDOmgEKmSbDZu6TwYWJqdtXLGuwVT7cFPwbjoMDNcXZ09KURQVNXu+Di9lkQ=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA2OCBTYWx0ZWRfX54YFGxE359vc
+ ijBW+Jojob1hnzUZ1hOoKNJ3pxbQkYvTb34Zd57X09neHgsPrTE0hEUpJTor4BGL3m2rOByNSC5
+ 9jdeWz5XenRXisiMdnbDNKK/vJkldGg=
+X-Proofpoint-ORIG-GUID: M_PNZHOS99GjYu9OqssTlEtd5IGxRrde
+X-JNJ: AAAAAAABThJ3j+bTqVM0/YzE43oVZsczGDHvY2JBimkv6NXaeDFer5vcRaTqwdRS2EunOX
+ yCSu95IVQASfdSRt+mQs58V2oebNjxc7Ut0V+Nvo351jKJJ343jDGiKq/Myj9ulIkQGqn2
+ CKD7EcDzTHnWaZOelGs7raMLAykf4fBNlHv3pVPmkWXmzZ2VwnokxHhWaRudGzGEf97Umq
+ 0UCrKGg0j7bV8RBcpQHO2DT0C+QMqAznIL5RN+rTyhOEOTp/vu8Aw+aZzlldIEuUTFaY6T
+ 9R+Ec3F3WsBmiNs0KYTXIlFYfpctzV98uM4gjR9Dd22XAPOU4A4gaGNGr/VQxJfwFKvypr
+ pepkAsrldvJXV0pdMRjZXxcq+gRuokI8+89nq7WKYLcbVGPMrDXNo2a5JY03FNq+Pa9OeM
+ 81N6CiLTqt5PqUUAl6SDGeBlgVomtguLHdM3NUzfANkuKTzlaekhgcdJhGr6ppOQZWBBmz
+ /EbFUu95tmDnvCGJjvGhZKlJ2yupReNUrxF504WVwyBCzrSgmUwwo0YITIxRccBpyNEqv7
+ niQP4dX8P9d8+Jr0WHojNxNQ6duMGe7SCSgOwExhwyzOYwKdyRLHi7AKV77p51M7tBsAtp
+ wl6EGbEVg6ok58D6ywANoe35jaN5pIvVfPFh9dKxmk1128Q3E8/XzgqiuPhaYpn1mrnxc+
+ rxPEtQYMVlJdefypAmS57dkep+uIRUnNpdB5ODZOVj1l7Ppnr0HIT4ok749jKcBHmEV9R/
+ /X6eh+ozdE2heBvezAgGzA4Pr8zrBjp1GiKYMX8bhc7C4IqAQjjpmISLAp3oEzr4hcI2W+
+ 6FL7aQ7zBupDvAoUKeJMHmux5eGdg53tf4MHS90SSyDZKl9Lr3zydKmLuDLikXWK0JpYa3
+ MSTbEGRdBNFUqwbXmJFKSB4gvn58A1Bv3aer6lLLHGvD67YVHGdAsz9o+D+Bi3RZ7uf59R
+ 7OWaJn+DeXnM4TK4ewkhqZC+WdnKshA1KGn/n2n0kYcrLxJdZhrADWFXzD5xwGBpf4TGht
+ dE5pdXzvKqm8mrFK2wghM2L2hPi7C1kP74bRzspSEYKXxGLQpYEWr21zUYv0fKuTjAQ0K+
+ wSRrGXZ+3723q7ZJQSzP9mbgwJq0Y9BVP6i/Jgp/sPoJBkKwkPy1WfsJfY18nwwoWNLMC+
+ zoktM8VVR289MomM5lII+W1zx/oA3TMK6NG7syB0W/Wh5dFIuLxlLHWYA3GQVS766NVsV7
+ R6wOBO0gLXiJRV76WD05CBUInBRB5sesm8miLbGjOGumPuJtvd3jLciIPvosjRIiyQ0wI4
+ got/sjyiTm7uovyLTgTe5bjc7i7svKIXH+DLNg2YP9mJdzpu+lpQSlh/GiXVLsumgjzJXW
+ NRR/283TNEnfKt+j3paIhajZAqfFaNQxVw==
 
-On Mon, Nov 09, 2026 at 10:52:07AM +0800, Jiayuan Chen wrote:
-> reconnect_min_delay_ms, reconnect_max_delay_ms, max_unacked_packets,
-> max_unacked_bytes and ping_enable are read without any lock while their
-> sysctl handlers update them with WRITE_ONCE(). Add READ_ONCE() to the
-> readers.
-> 
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Add the LG Display LP129WT112684 12.9" 2880x1920 eDP panel used in the
+Microsoft Surface Pro X (SQ1). Without this entry the panel is driven
+with the conservative fallback timings and probe hits the "Unknown
+panel" WARN.
 
-As per my remarks on another patch. Networking does prefer lines
-80 columns wide or less. But I am inclined to turn a blind eye
-to the in the case of longer lines introduced by this patch because
-they are not that much longer and addressing them seems rather tedious.
-That said, I would not object to them being fixed.
+I don't have a datasheet for this panel, so the timings are a guess
+based on similar panels: delay_200_500_e200_d200 is what the other LGD
+12.9" panel in the table (0x06b2, LP129WT232166) and most other LGD
+entries use. With this entry the panel is detected and the display comes
+up on every one of the 38 boots logged so far on my Surface Pro X (SQ1).
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+EDID, read from /sys/class/drm/card1-eDP-1/edid:
 
-...
+00 ff ff ff ff ff ff 00 30 e4 55 05 a0 28 09 00
+00 1c 01 04 a5 1b 12 78 03 ee 95 a3 54 4c 99 26
+0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 de 8a 40 78 b0 80 37 70 30 20
+55 04 12 b7 10 00 00 19 00 00 00 fd 00 1e 3c 00
+00 24 04 0a 48 14 14 14 14 00 00 00 00 fe 00 4c
+47 44 5f 44 56 31 2e 30 5f 0a 20 20 00 00 00 fe
+00 4c 50 31 32 39 57 54 31 31 32 36 38 34 00 41
+
+  Manufacturer: LGD
+  Model: 0x0555
+  Made in: 2018
+  Alphanumeric data strings: 'LGD_DV1.0_', 'LP129WT112684'
+  DTD 1: 2880x1920 60.000 Hz 3:2 (274 mm x 183 mm), pixel clock 355.50 MHz
+
+Signed-off-by: Tawheed Makhdoomi <_@tawheed.cc>
+---
+Changes in v2:
+- Include the EDID in the commit message.
+- Say explicitly that the timings are a guess (no datasheet) and how
+  they were picked, as Doug asked.
+- v1: https://lore.kernel.org/r/20261112154444.417-1-_@tawheed.cc
+
+ drivers/gpu/drm/panel/panel-edp.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index f7add22cc..8f7d7a3b2 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2190,6 +2190,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x052c, &delay_200_500_e200_d200, "LP133WF2-SPL7"),
+ 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x0537, &delay_200_500_e200_d200, "Unknown"),
+ 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x054a, &delay_200_500_e200_d200, "LP116WH8-SPC1"),
++	EDP_PANEL_ENTRY('L', 'G', 'D', 0x0555, &delay_200_500_e200_d200, "LP129WT112684"),
+ 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x0567, &delay_200_500_e200_d200, "Unknown"),
+ 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x05af, &delay_200_500_e200_d200, "Unknown"),
+ 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x05f1, &delay_200_500_e200_d200, "Unknown"),
+-- 
+2.43.0
