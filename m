@@ -1,44 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=47.251.158.250
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794536125;
-	b=aaRvIfcnxExn4FH9AeHfbZz8nRSjp9Ij8yO2QY1h04GXofBCA9vr4TeGK6dKpftmS/XT
-	 pqV69M4Ms92BkcpJixOxyIGZGb3EfMufmTK+zN5QMc5oVF5rfXuss/nlu6KnulcjKTdNo
-	 Nez9cCsZnPKporv4/RpygH9fqLrZhDF9ocNkYR6y/APAV5GWbmS7IxN5EXJyX2BzbVep9
-	 dGyOoOXnUaNstceBkW/RgvJFKJ2HTSY7+oq748QJp6O8w80xYAeOsbHWMaRiZowgvH8lG
-	 hOSeiuFK72sBq6tMuRFUyIA0L3cDAAHWgoXQ4lYxLVZvlmI47q/Ncwvlr2COUWZZ/FQ==
+	t=1794536239;
+	b=COzADknVvkcn6ZRIa0RQcubRK01+EjsvWnfyeziEyvNvgV3eTMuHEXW/9PRGweWkdJBj
+	 NH96ZlPSgUP08+DdiZkuFqDikQgj+fuDJsx7Z9A3FPyVztJmctqqoolX25BgIhaFOFaZn
+	 a/D9aUmlBJ3R5gleR7oUA0UFxnWbFEwcvIEFSbLkoS/omgHvb9do7AXR6RnKhNruR8Z8G
+	 C3KCqydzR4PG+sFrFzzyTs2G1OySURLGBOeZjxEjbkY3fRPDpkMDxZq9MqwbfTiWszw17
+	 cH7c1Bkg7kXyxcRJIi42NhdqOI/AGjiwiflIgsUeDkjMj/j/ZajtbdEN0u2PRu/flcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794536125;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=1GtwLE2dW7ZsjXW/2HfhRMJDb/gDxI8w5UnCKK1RLMU=;
-	b=E8juTPlpJeKTpnaB4okofNCEd4vChX247q9q96YTKv3DpUfG305mwhF+xGOOOTkkiRn/
-	 avnUhWsX0DYMfG+PjuCBqvm5of1F8tnHV7xFvWx6Qp4ek98fBeQ7g5vkNLG6z41fYek1H
-	 jsGfY358MdbmN+33ySISv/+WjoszB20f7PA5YUH7zMrKLdmmAlzTVak8W6t3JmPB9mrAM
-	 kkmA1heI62FYd3uB50TEb6YQ8x5Fh3t6AspCeHQoMfNR3+SH7SdyntP0K1JItxChVFlYi
-	 VVJMdojdCtkq+SQ1rENp+t31Lzkaq9g1UDbEu2vJrZkoKZG8TDG5A5I79/mjKlLEEKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794536239;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6K2ZQ58mfhfrypYFAVRN9Vv3y7y6wCLRsHy328DMCaQ=;
+	b=pd4JmbDlX+P4ZcFnzZyo/v3XVh+45JH+/q/7anhF+Vqsy6CGyOCw10GxFZo9wcabSy3l
+	 gt+xSvLLycgGd+HzcgPV2k8zamoDTJI0/w80bDxQxxOY8MLDVhs8e+k3UOjoNlk0sqOYz
+	 gYCHIUcGywx9YMsQqva1uO4pmZ1GUPB9mgcgGPaUs4jcuCHB722twjB69evFXtnxcJo9U
+	 GOoPol0CJ5sSH+pmt2Wa6krNJVIqRlZtXBt4lXPSuIHBKkrqA2LC3eJTmpgCyzyzJHCe+
+	 F4hV6rm4X5BWSj05ImLlinSIxcDDesJibKD9U4dysmtzPscMhSVQDtQBvMcWhaNufnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="i0tdbp/K";
-	arc=none smtp.remote-ip=47.251.158.250
-Received: from mail-m158250.netease.com (mail-m158250.netease.com [47.251.158.250])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TQxOi3rO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF9C606A32D;
-	Fri, 13 Nov 2026 02:15:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AF9C606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1E4606A31C;
+	Fri, 13 Nov 2026 02:17:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=i0tdbp/K
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54857d4c9;
-	Fri, 13 Nov 2026 10:15:12 +0800 (GMT+08:00)
-Message-ID: <b961a36f-e7ef-498c-ac4d-efe90f76e289@rock-chips.com>
-Date: Fri, 13 Nov 2026 10:15:09 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TQxOi3rO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 078671F000C4;
+	Fri, 13 Nov 2026 02:17:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794536239;
+	bh=6K2ZQ58mfhfrypYFAVRN9Vv3y7y6wCLRsHy328DMCaQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TQxOi3rOwLFY/tgl0aHU5xWmlFZNin0cbTN0hBrfwxUysOVLvuBFl4T0GBU+7zwW5
+	 W/WyFebtCw/7E2P+eE005jUvSvx5lr8iWg6cjrDWZ7f8hqw6ajoj0BaP1rHRPiP2/k
+	 ty09/QqyfM5tXvas85evPrhhwrSzBaGhe3FolNelyYoz70L2VdjTCKHuVCVIi1Ul+H
+	 IwmXKdPGEM2GEV5Me4FOqZmnmXJzKjo4OyrKhxfO6I4F0x5afl7d033HB01Ogn4Uf8
+	 CaJIpkLO4kjJXzQgEzzBc7H/qg7ttsM6OpXWQ74TWb9hXAwZlBjmvJ80gevFz3uyJN
+	 kh5L2C6dhPinA==
+Date: Fri, 13 Nov 2026 02:17:10 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rupesh Majhi <zoone.rupert@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: iio: pressure: infineon,dps310: Add
+ interrupts
+Message-ID: <20261113021710.7211ade3@jic23-hlaptop>
+In-Reply-To: <20261110154254.39092-2-zoone.rupert@gmail.com>
+References: <20261110154254.39092-1-zoone.rupert@gmail.com>
+	<20261110154254.39092-2-zoone.rupert@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,96 +65,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: rockchip: Describe the Type-C port on RK3576
- EVB1
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261106-rk3576-evb1-husb311-v1-1-99c2f57ea2a5@flipper.net>
- <dd59d491-82b0-4047-ae98-f8070f6be112@rock-chips.com>
- <CAKTNdwHbxnknob9NdjqWUcGU2fURO5B7V4kTTK+fvEYjNDOLCA@mail.gmail.com>
- <dd25880e-be2d-4adc-8384-fa4a7160a4df@rock-chips.com>
- <CAKTNdwGHS5M4yNKEqfKV8hEJRAYf3wnY1Z6jOWQx7e4cipTF9A@mail.gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <CAKTNdwGHS5M4yNKEqfKV8hEJRAYf3wnY1Z6jOWQx7e4cipTF9A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1d2b0016003a7kunmdd9bb254ad509
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGhlMVhgYSBhLSktOGhhDT1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=i0tdbp/Kds+rR0Vm/TwItaI+X9++Dl3d3CwCBEFhKDTwiVN2vyiHG5m6TEngBlzppXetupZmxmqDOdz8y12q3NvIHKrGYg8GNBBJxV2g3TNRRBC6SrxEE21pZ9V3lkPpfgwQQjmRPHxETdKlSsbiocadM+SWMj27RiYnYsfFObw=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=1GtwLE2dW7ZsjXW/2HfhRMJDb/gDxI8w5UnCKK1RLMU=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 11/12/2026 9:25 PM, Alexey Charkov wrote:
-> On Thu, Nov 12, 2026 at 5:01 AM Chaoyi Chen <chaoyi.chen@rock-chips.com> wrote:
->>
->> Hi Alexey,
->>
->> On 11/11/2026 6:45 PM, Alexey Charkov wrote:
->>> Hi Chaoyi,
->>>
->>> On Wed, Nov 11, 2026 at 1:31 PM Chaoyi Chen <chaoyi.chen@rock-chips.com> wrote:
->>>>
->>>> Hi Alexey,
->>>>
->>>> On 11/7/2026 1:52 AM, Alexey Charkov wrote:
->>>>> RK3576 EVB1 has its USBDP PHY routed to a Type-C port with a HUSB311 CC
->>>>> controller and a fixed-voltage VBUS supply.
->>>>>
->>>>> Describe it in the device tree, including the wiring for both the USB and
->>>>> the DP side.
->>>>>
->>>>> This makes the data roles follow the Type-C port's negotiation, so the
->>>>> port stops being host only. It also leaves the VBUS regulator to be
->>>>> managed by TCPM instead of being hardwired via the tangentially related
->>>>> phy-supply on a USB controller. DP lanes are also muxed dynamically by
->>>>> the USBDP PHY based on the Type-C port's negotiation, so the hacky fixed
->>>>> lane muxing also goes away.
->>>>>
->>>>
->>>> Have you tested this? As far as I know, dw-dp driver does not support
->>>> Type-C HPD yet.
->>>
->>> I did - it works fine for me under Linux with Sebastian's patches. My
->>> primary motivation, however, was U-Boot, where the current phy-supply
->>> hack breaks USB data role switching, due to VBUS being forced
->>> always-on. With this patch it works, and now the DT actually describes
->>> the hardware, as it is supposed to.
->>>
->>
->> Oh, I almost forgot about that. I think it should be this patch series[0], right?
->>
->> But I think we probably need more than just this series, because
->> richtek,rt1711h does not register the HPD bridge, so we will get this:
->>
->> [   14.828983] auxiliary aux_bridge.aux_bridge.0: deferred probe pending: aux_bridge.aux_bridge: failed to acquire drm_bridge
->>
->> Maybe you have already added the corresponding patch yourself?
->> Another option is to use the generic AUX HPD patch[1]. :)
->>
->> [0]: https://lore.kernel.org/linux-rockchip/20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com/
->> [1]: https://lore.kernel.org/all/20261020072816.180-1-kernel@airkyi.com/
+On Tue, 10 Nov 2026 17:42:53 +0200
+Rupesh Majhi <zoone.rupert@gmail.com> wrote:
+
+> DPS310 signals new results and a full FIFO on its SDO pin. In I2C mode
+> the same pin sets the address LSB, and interrupt polarity must be the
+> opposite of how SDO is strapped.
+
+Some hardware engineer is presumably proud they made that work!
+
+I'm not sure why we never had the SPI part of this binding but
+given it's not there and it gets more complicated wrt to this
+that can be addressed if anyone ever adds SPI.
+
+Anyhow, to me this looks fine.
+
+Jonathan
+
+
 > 
-> Yes, on my daily-use branch [0] I've got a local commit enabling the
-> HPD bridge specifically for TCPCI (69b7c806b334). But that's all
-> driver territory, so out of scope for DT discussion ;-)
+> Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+> ---
+> Cc: Paulius Zaleckas <paulius.zaleckas@gmail.com>
 > 
-> [0] https://github.com/flipperdevices/flipper-linux-kernel
-
-Great! Also worked for me.
-
-Tested-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-
--- 
-Best, 
-Chaoyi
+>  .../bindings/iio/pressure/infineon,dps310.yaml         | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml b/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
+> index 416117dfd927..cded6e0af147 100644
+> --- a/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
+> +++ b/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
+> @@ -23,6 +23,12 @@ properties:
+>    reg:
+>      maxItems: 1
+>  
+> +  interrupts:
+> +    maxItems: 1
+> +    description:
+> +      New result or full FIFO, on SDO pin. SDO also selects I2C address, so
+> +      interrupt is active high at 0x76 (SDO low) and active low at 0x77.
+> +
+>    "#io-channel-cells":
+>      const: 0
+>  
+> @@ -42,6 +48,8 @@ additionalProperties: false
+>  
+>  examples:
+>    - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+>      i2c {
+>          #address-cells = <1>;
+>          #size-cells = <0>;
+> @@ -49,6 +57,8 @@ examples:
+>          dps: pressure-sensor@76 {
+>              compatible = "infineon,dps310";
+>              reg = <0x76>;
+> +            interrupt-parent = <&gpio0>;
+> +            interrupts = <17 IRQ_TYPE_LEVEL_HIGH>;
+>              #io-channel-cells = <0>;
+>              vdd-supply = <&vref1>;
+>              vddio-supply = <&vref2>;
 
