@@ -1,60 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794570843;
-	b=gzDI+9rawN4jzK3E2kmb56TLkjAG4AKhE6cmyqUrDC8/H8iM7sT9cN474nwS42iIIWmX
-	 BgCDIm6X0SEdffjTvcWSvGYThe/xqhvolyJqUzSdOsliZBYqt857tSg8Y3bcjHEKjomT3
-	 iQVKec/cAbzBU/lTAPYL5L7QLgSlxeZfYgeMebgWGToTsflgXV4pCW3mHZf2hmkOVADuA
-	 u5If530wEkwWLCBc+SP3DNM+SQM1lc2BpX0IHbBJ3OgoMtFPn+kS77dU/AHckObXOJham
-	 XZ+P915xh8+MVyI9Lg27uFx2XrhODUu7sNjN1uDDNrogJSXYCqw6q/htG7jKlx5QntQ==
+	t=1794570848;
+	b=A6XjidinAGt46vlxgOlnk0JeYlhCwcOZ8vnKq9N1lMK7OxVAi6bCYLEdBNPNkX1v483n
+	 b8lXCDsKvFTINdmTzWS+481PFmnTl8SfM8ULHPyzNtsZ/EAZ9xtcpvq/G/c8Fwy5F+pRn
+	 MWufqp359gjM/lb8QQOzFNme11VrIWA1MiJX5rcP0ykmIdw+BLXKNFkkIMBPRGIejjPr0
+	 Co1zxNiOlUiBWN0CT1Kt3sub1Ft+5FspkE/zNo6xofdoj6Vj0CAhUnQ+9tiMwh6+ek1OI
+	 IvSkoera5B139Scmzj1t8TgQXym/jK52YTpyhq1fs9hu7Yo/3tYU+iK+5HmceXK4cHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794570843;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794570848;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Debian-User;
-	bh=O3L1hntt+mGRgmPOsIU6DlCvda++WQq/ELFEBmtXqXI=;
-	b=sHgG/m26nOXPgFZbucWmTC3f0SwqwkZhmGWtgoq8GI+5jOZLzp77pBshd2Cl+QI3tq96
-	 HS9lNkEHVkQvvu9sh+nNDUiUlg/ru/2KfNLeWorqC+S6vr4EaGL9bZs7k89epwU9xUZ4E
-	 nQZ6EqgXincpMKeraKwPYtYw08PtcZokzDIMXxhPWm662rU30cGplxJCGWzRJAnnFtRhx
-	 9PtDAIHDlGIB9gWRquYCGX2BU03AOEBKDmeJHj1e/Bm7U5Niio0g/rfPUeFLPjZfwg09c
-	 8Ow+JXt4cudHPP1RsJr+0nW1bM0JpBJt+VCSuZsEosZg2Mfr+fDM+mdEDHDZ/GdnYNg==
+	bh=G+lYotQNwdxfkBFSIeUojHCFQQyxXxiBjs1TYiuhj1w=;
+	b=nJyk4GvAlBUIvBCFLUWAmtVX6LK0oElQY+itzutIjhZ7kbYzTu1qzGI8NXMcyhS4HWtM
+	 XnDyycckevg31a+OaYCcq6QrTTecBGSEK1KCYFBQARVSB3968Ck0X8h5Xc4mZJ25Znnti
+	 BdFGWRhRAUlpc0I4yeEhi1i9HhyML+O09mKCqtdnRWNMed0CsnPX6neDosZ/CrCK+ns+G
+	 DyEPhRm5/zNxV4pL+WgVPlQN9cwcICHs9sRGu6e1hWMsC2PZ0HpuhUKPmGMbU7bgRNPJy
+	 nxOJB85HVypxCuxITjjVTRUX50w0+PAhN7IiLwlnPzqazMtotNP5bhFh0oV9qHXPgyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=debian.org;
 	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="VLTFp1/t";
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=BOU2kMQy;
 	arc=none smtp.remote-ip=82.195.75.108
 Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B507606A323;
-	Fri, 13 Nov 2026 11:54:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B507606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B856606A330;
+	Fri, 13 Nov 2026 11:54:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B856606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=VLTFp1/t
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=BOU2kMQy
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=O3L1hntt+mGRgmPOsIU6DlCvda++WQq/ELFEBmtXqXI=; b=VLTFp1/t+zSzvxPCuf+S5kbz/T
-	LaEUQQwQ6SlHA/7vohSSKGE1kW7Xkh4dtl/VwagRPDxoVl2YBlUbnmnd1WdTU6EuWuRVCOpGZb9kS
-	fcLi5AJ8zmU0BP711wK6jwjlnjvhhAUYnYMfY2Q0KH8mVYbX8ox1kw8I3op+i2dcrr72vgANqJ/hm
-	3teeuBOKO3NqIlfsxMfasgGcy7+Icsl4aucvOp+Z6Ik9CtamKXjepsKZn8juX38vRLOoY4uXZin1J
-	zHAO5tXPxznAV3nB/NurFhmtVGm/lTukwi/p1wkk8F6YPbB22FzKN8319axOKEXYKhMovK3Xx/9nD
-	a13BJgFg==;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=G+lYotQNwdxfkBFSIeUojHCFQQyxXxiBjs1TYiuhj1w=; b=BOU2kMQy5uNVc/B49Xl7Ih/dQr
+	wRtqRuT5bNpnGZoYrW5A95vqYGrHRnLKqynmUpZmMvPldD82eSQ1vqxJbpgAB2hWESPyP/TzFQlgb
+	Uuy6l7kWLUao0PFhVwZ2xQ6Z38yVLUZgryDHp1uzmm2e3zHaQv+LZHNyDo8JK89H2C3vAFfHw0s2P
+	zgUkmUuuqrDfeoT0IBSVBIaDnJlFpBtOUAUmLnDPArS0FrZ+ShumwR46XSmOeJSz3RljZLwvGWLx5
+	kNfEnyfKBXjklfsuTRVnMC3HTqErbxm/GetFK0zylSUQVaWABcb9Igb3oT5vaTeQa3QApr9fcMZzM
+	M2KlqBYw==;
 Received: from authenticated-user
 	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.96)
 	(envelope-from <leitao@debian.org>)
-	id 1xRpqt-00EjRc-1e;
-	Fri, 13 Nov 2026 11:53:56 +0000
+	id 1xRpr3-00EjRl-0S;
+	Fri, 13 Nov 2026 11:54:05 +0000
 From: Breno Leitao <leitao@debian.org>
-Subject: [PATCH RFC 0/3] fs/pipe: copy a run of pipe buffers in one user
- access section
-Date: Fri, 13 Nov 2026 03:51:43 -0800
-Message-Id: <20261113-pipe-pool-regression-smap-v1-0-b0dc69558ab3@debian.org>
+Date: Fri, 13 Nov 2026 03:51:45 -0800
+Subject: [PATCH RFC 2/3] iov_iter: add copy_bvecs_to_iter_full()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,10 +64,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANT59moC/x3MQQrCQAwF0KsMf91AZypVZit4ALfSRZ3GGtBOS
- ECE0rsXPcB7K5xN2JHDCuOPuNQFOcQmoDzHZWaSCTkgtamPse1JRZm01hcZz8b+A+TvUSl2pRz
- L1N0Pp4QmQI0f8v3fN1wvZwzbtgN69g4RcAAAAA==
-X-Change-ID: 20261106-pipe-pool-regression-smap-13cc7cd3b482
+Message-Id: <20261113-pipe-pool-regression-smap-v1-2-b0dc69558ab3@debian.org>
+References: <20261113-pipe-pool-regression-smap-v1-0-b0dc69558ab3@debian.org>
+In-Reply-To: <20261113-pipe-pool-regression-smap-v1-0-b0dc69558ab3@debian.org>
 To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
  Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
  x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
@@ -78,69 +75,133 @@ To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
  Andrew Morton <akpm@linux-foundation.org>
 Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
  linux-block@vger.kernel.org, Breno Leitao <leitao@debian.org>, 
- kernel-team@meta.com, Mateusz Guzik <mjguzik@gmail.com>
+ kernel-team@meta.com
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2021; i=leitao@debian.org;
- h=from:subject:message-id; bh=4jLrtdhmOCVJiOwO0M+p6XVXhCeaTA7Xqo8KTLt9UZ0=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9vpOoHE1ti6a8QEI4HSizzNtvk11ePEbcp9HT
- Wd1J2BK7hmJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavb6TgAKCRA1o5Of/Hh3
- bdGcD/9h6zid4Vm6P3p9V9R9lWGlvOsHd/tM6446mryfwbyadcMlD4qM6fzDcUqICHbd5LVC+BE
- G0bDStfv3Q8J6Kreg9oVyFcBchw1ubdkfwVZ3kOHt4+DYanLFr+fyg3i+6LH3LsRWEQeH5rEpKu
- zbJGFJfq0z0770l+IfdNZib66HC6/YOQCI4LpjLkM3F7SXYQrzHurdM65tbMfupB5E2w9hNCc19
- 4NMMWN8lwOLUqTfzzqtHiWysxYiItvxVJYJxzHZDClXzuE2ObJI/jCYkKTIQniMY3bCrnZRdRwo
- au3DBWrzuFVe7SH3/XodqKf/PAYroKa91xH1vEWXa0ENnGzHqyv5LO/FVVEOZOtK7H3LzA0UrCv
- Bc8meyIMuV6Jn0NoabKEKaARt6uI7wvd/NgfNR3Hc1zMgM0k3k4ZGoY1YJQ0Nt+xALvWkaSBXoy
- tO57BYu4ZyLnWC2khFIyjMmnacyWB3SqYTx2soRyFCiyNvPiTBg7x7clZ+uzCyOzn3PYXqhRhDR
- xt7UKueUokHdpCDHHei3XdkKgVg0kEpaeK+bTNVp2LKR97v3YpyLUG88NFuHz7dwdWirJOuiVic
- M/JoMu0BYXgNl50B/QzfGoMDYLojdEroD+hcHOUHgv2KGrOFvRkZJ3kHsuESZS1eBEpORl5CI6E
- Yp7J5ZrzlVCmM+w==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3728; i=leitao@debian.org;
+ h=from:subject:message-id; bh=U/NRLZWrctGe+2fy7wNHdm+hsE9iuqTyfUNWsdpX00I=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9vpOiU+J8qKVmXoilto/l5+P6XKCUpQR9lV9o
+ dq7l17WpMqJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavb6TgAKCRA1o5Of/Hh3
+ bfh4D/9f1DwpbTVDgHLVwxRELZ22BsB9GDWgT1det7iGn1FvNAZpBbH8Y944lUL6NxrsB6LSRdp
+ VlP8VI1W/ovYZRcad9cZFUmWcE14Beo4b70qXIED6x12WkJuk3zY55MHTK7Mffs+sTEh49WVbQd
+ GWd5wblRaAwMNcxzsyGnGsbRxD+Ue3RVnRVSEKJkbK+sSz6cgMHuww5tKO+EAeUY+ASfgoXgdl9
+ f1ITY+Mceqt8Hzeenn0Nviz1f9QApEYoJitvqG3sJm/rBJL0HN2CcYiGI8qtflW4BFVKFZ0K67f
+ WZS51LFglPdl7K+zQ5W6LK8/uGBK26eiRX75m8pqs+R3GxwadY+Csic1BBSf2v7tIu5uUS8LJDP
+ LgPJ7mI9C8HVnrMCiq1QHyhflpwWJmP1wy9QtHzkFe6BzHZYkWSX6ROYamOAChKLN7Czjr5GUCI
+ 98wn852rCduoN6Xd4/rVk7c95jwmhUL5iMNGp6Xw0WMCmyHUTqHynqUs5aL4eUP3ur94eaaW49G
+ 7vaXelZQD49mkA6Tpxj4GpjlzyleuFCOYjet+ItfSuOVcgw+g1rWfs4Pvcx/surQNS2wtngz2SI
+ n43xHf2lgqGRkanLmWhe03ll3Xa79RTiYjblhO/hLJ1PxJUb8ZWxk/hSInvS933NtUXj/CuuiKh
+ dE/XlTXuZv2ZLiQ==
 X-Developer-Key: i=leitao@debian.org; a=openpgp;
  fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
 X-Debian-User: leitao
 
-anon_pipe_read() opens and closes a user access section for every pipe
-buffer it copies, which on x86 is a STAC/CLAC pair per page. Mateusz
-suggested [1] doing the copies under one section instead.
+copy_page_to_iter() opens and closes a user access section for every
+page it copies to a user buffer. On x86 that is a STAC/CLAC pair per
+page, even when the caller holds a batch of pages, as anon_pipe_read()
+does, that one section could cover.
 
-Patch 1 splits the STAC/CLAC out of copy_user_generic(), so that its
-rep movs body can run inside a caller's user access section.
+Add copy_bvecs_to_iter_full(), which copies an array of pages to an
+iov_iter like a copy_page_to_iter() loop, but all or nothing: after a
+short copy the iterator is reverted, as copy_from_iter_full() does.
 
-Patch 2 adds copy_bvecs_to_iter_full(), which copies an array of pages
-to an iov_iter, all or nothing, in one section when the destination is
-a plain user buffer.
-
-Patch 3 uses it in anon_pipe_read() for up to 16 anonymous buffers that
-the read consumes whole.
-
-This is an RFC. A single patch PoC [2] behaved as Mateusz expected but
-was "on the uglier side" [3], so the user access part moved out of
-fs/pipe.c into lib/iov_iter.c. The main question is whether that helper
-is welcome there, or, make the party a bit uglier.
-
-Benchmark wise, see the numbers on the last patch.
-
-[1] https://lore.kernel.org/all/CAGudoHF3de_55YvdztPs7QiYs25u6nPEV=uMOzfr=bWmwof69g@mail.gmail.com/
-[2] https://lore.kernel.org/all/avMQxhpHhIPM_6HP@gmail.com/
-[3] https://lore.kernel.org/all/CAGudoHFe8XgtKZohfn0Q=EH0EeXozTZq+UPJKN0BEmLnEG2s=Q@mail.gmail.com/
+For a plain user buffer (ITER_UBUF) on architectures that provide
+unsafe_copy_user_generic(), all the copies run inside one scoped user
+write access. It keeps the usercopy fault injection and the
+instrumentation that copy_to_user_iter() does for every copy. Every
+other destination gets the copy_page_to_iter() loop.
 
 Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
-Breno Leitao (3):
-      x86/uaccess: Split the STAC/CLAC out of copy_user_generic()
-      iov_iter: add copy_bvecs_to_iter_full()
-      fs/pipe: copy a run of anonymous buffers in one user access section
+ include/linux/uio.h |  2 ++
+ lib/iov_iter.c      | 61 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 63 insertions(+)
 
- arch/x86/include/asm/uaccess_64.h | 20 +++++++++++--
- fs/pipe.c                         | 44 +++++++++++++++++++++++++++-
- include/linux/uio.h               |  2 ++
- lib/iov_iter.c                    | 61 +++++++++++++++++++++++++++++++++++++++
- 4 files changed, 124 insertions(+), 3 deletions(-)
----
-base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261106-pipe-pool-regression-smap-13cc7cd3b482
+diff --git a/include/linux/uio.h b/include/linux/uio.h
+index 76e4103b9ec423..7ab25080b0edea 100644
+--- a/include/linux/uio.h
++++ b/include/linux/uio.h
+@@ -197,6 +197,8 @@ size_t fault_in_iov_iter_writeable(const struct iov_iter *i, size_t bytes);
+ size_t iov_iter_single_seg_count(const struct iov_iter *i);
+ size_t copy_page_to_iter(struct page *page, size_t offset, size_t bytes,
+ 			 struct iov_iter *i);
++bool copy_bvecs_to_iter_full(const struct bio_vec *bv, unsigned int nr,
++			     struct iov_iter *i);
+ size_t copy_page_from_iter(struct page *page, size_t offset, size_t bytes,
+ 			 struct iov_iter *i);
+ size_t copy_folio_from_iter_atomic(struct folio *folio, size_t offset,
+diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+index de7a48205e0117..2df0539228be84 100644
+--- a/lib/iov_iter.c
++++ b/lib/iov_iter.c
+@@ -387,6 +387,67 @@ size_t copy_page_to_iter(struct page *page, size_t offset, size_t bytes,
+ }
+ EXPORT_SYMBOL(copy_page_to_iter);
+ 
++#ifdef unsafe_copy_user_generic
++static bool copy_bvecs_to_ubuf_full(const struct bio_vec *bv, unsigned int nr,
++				    struct iov_iter *i)
++{
++	char __user *dst = i->ubuf + i->iov_offset;
++	size_t len = 0, off = 0;
++	unsigned int k;
++
++	for (k = 0; k < nr; k++)
++		len += bv[k].bv_len;
++	if (len > iov_iter_count(i) || should_fail_usercopy())
++		return false;
++
++	might_fault();
++	scoped_user_write_access_size(dst, len, efault) {
++		for (k = 0; k < nr; off += bv[k].bv_len, k++) {
++			void *src = page_address(bv[k].bv_page) +
++				    bv[k].bv_offset;
++
++			instrument_copy_to_user(dst + off, src, bv[k].bv_len);
++			if (unsafe_copy_user_generic((__force void *)dst + off,
++						     src, bv[k].bv_len))
++				goto efault;
++		}
++	}
++	iov_iter_advance(i, len);
++	return true;
++
++efault:
++	return false;
++}
++#endif
++
++/*
++ * Copy the pages in @bv to @i one after the other, like copy_page_to_iter(),
++ * but all or nothing: after a short copy @i is reverted. For a plain user
++ * buffer the copies share one user access section where the architecture
++ * allows it.
++ */
++bool copy_bvecs_to_iter_full(const struct bio_vec *bv, unsigned int nr,
++			     struct iov_iter *i)
++{
++	size_t copied = 0, n;
++	unsigned int k;
++
++#ifdef unsafe_copy_user_generic
++	if (iter_is_ubuf(i))
++		return copy_bvecs_to_ubuf_full(bv, nr, i);
++#endif
++	for (k = 0; k < nr; k++) {
++		n = copy_page_to_iter(bv[k].bv_page, bv[k].bv_offset,
++				      bv[k].bv_len, i);
++		copied += n;
++		if (n != bv[k].bv_len) {
++			iov_iter_revert(i, copied);
++			return false;
++		}
++	}
++	return true;
++}
++
+ size_t copy_page_to_iter_nofault(struct page *page, unsigned offset, size_t bytes,
+ 				 struct iov_iter *i)
+ {
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+-- 
+2.53.1-Meta
 
