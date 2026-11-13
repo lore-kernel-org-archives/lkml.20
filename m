@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794567420;
-	b=Ci4+3wR8TNH3z/sCzuT51iqrS7sNKu4YqomthxFThraQfK9lafPeuCmQdLlnL8PIN+O6
-	 OtPPoQsHpdhvOkmknvzoAWXDQ/zH6gWRr145AY5gCrnqIyplBRbCrhkduB6XSeT1KQM6T
-	 iRjwemRk50ZYgpgTSCqpHI+usmZnlXpX53x/aizMfNsWUXhkmvbd4RJy5rZgPYLp6cx8Y
-	 SUXL9Tx6p/crHzKcPo9LucuzP8veOx/0j4NxWaIsrr+h4T4JofZ+KVzTY1Cf1YjadAXz3
-	 ON7IZryu5TxBn+txPsplQT33S0vrjB5znpovXcuuGWBGCC26Mw2tngg0gEuwIPPBuTA==
+	t=1794567470;
+	b=J+WbgkLqg3ITDGr+WLZiQoDJBgfljYjKhYnu562bJlOtiPo6xTDqCE1FzVLidi9rXQNY
+	 nNl8m6JM0/I+l4uIRtHSJ0VkLZBbqf+9w2z5AlckiE8CUrtmVtpZdYf1rIT7LJLr16ldZ
+	 xNhztAofLkGPlGkc3yBOfYizqz5Kwki6QuwtE18ZMaWlUOdUf70GEWjNXRCbjdClzVuAW
+	 Kbbult4eJBY3mE7uzFz+9nPMW2m6/nMB6K+9mBcJG5K7xo8TWMtjZI39DcvnO12jLPs3f
+	 +Aa0jOQpYQi+KeNoDNrhI9KI3Zfnq1BY5B/wn00qKxoyMLExInkCsEb42j1K/EfD1fA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567420;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567470;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=h148AzK7ulcLWc0NU3jZpboHW5vO/KJ9aeMyUmTns1k=;
-	b=iSxsUDJAtrjYqazWItTlOaId2G8odptCpFmmx+8WL2hLC/Hk32GpHlewDdcV4t1Q5S9l
-	 N9+WsFoDoO9/ix38RdDFHGpGmFE8AZNU0lxE1/WQT7nRVYDDRdjy78ihvJ/trcn/EZ8Iu
-	 iJ4g+4Y83bB6iYf+fmHbyj2tEFZfachEdM7+JfvWih3TteM3kbvVY+TIo5kQq4idmzQ/b
-	 EPmIEJERUM51+C9ANyrrQQQkf64SxjwL6ta+P8KBdRND+iTnL79yWN3pHRdv0njbk37jF
-	 S0xk2mXRq8+gDp8mSXEGSLHDaQP4WNfsw+CYXqsvp9gaJZpAWPJ8pIC/2LFNekxUM3g==
+	bh=3ITo2z6iHp4Fr/581PoD6+mp3Wi9H+KH5+bmHlHXFqw=;
+	b=0PeOYcTIRBBjSeTWRiTBchiMj4Y8Y/sln6KGcLw9rLTkkqQKOJGHv6Mvcup3WB939mvZ
+	 +Q+0MDUpp3RH2lO1h02gOLsK1sUYxICmSQ5DrM0mNvz9OiWcJPI7cKvMHfYS7G+SyWopj
+	 4iNuKp2HnGzmuWHyMk8gnPGdu4FL9FEX9wYpoITSnf39gbfqMuJjF0MFcKz4Z+lDfjVZG
+	 bToH0MWGjjW03nCbG9KrGMltOwYxBmMmAIv+F1VWM2vTyGb8ouD+Klu2V4hqjCir+fXO6
+	 wpg2H2ASf7BL3oYJH9l7cB6sx3J78Lv+H+Ex+qFopkCwXBPhsEXZZtiF+r0Ywdj/b9Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oSSMMszi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AeF7+1yG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E53606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:57:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29E53606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9118606A8B2
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:57:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9118606A8B2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oSSMMszi
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc758830601so1290795a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:57:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794567419; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AeF7+1yG
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b577addee9so1588814a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:57:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794567468; cv=none;
         d=google.com; s=arc-20260327;
-        b=GfANee6Il896eyxhTDm1Z9AhhUcUwEc0/QJvRFV3Nu+GvxCJNUP60OlzAjbfYqSwcT
-         tP5b+z0hsI3VPMtb88wxUVAmikrjd4CizBBHRwto4rmdWTRoPr2czXqimj4egCfa0KKL
-         KgMT9dFf/yMU90GNMfwfAka/8oj8SAF6FhOOFpwYfC3B3Wx0MGxeNYSmAmgMMqSGe7RC
-         TQ/ETu5x/M+2KuDyFwjDUxvxRqEmqydfJrID0dNA1dKdlxhBs8LpHaDpVOKcH+UanlVO
-         MeqfiZyh29tq9IL/YbRQsAu2wjXLDk+e5q61tbaZrhx5ruYG14DhhKH5NG7U9NNTxRbM
-         BMVw==
+        b=M7o7lz9a8oqO1Dw2b25WgqqONbCvvvul86FS7zqP4TpKOojg94Fh3sg9w6IJFQoHJ0
+         u9W/gc0DsNgEv5Rik9QDZPcAiRRRtrgaQ+J1FMom6gRlXmDwxC02aUHdV7cNx/FNe+lj
+         Pd1xE0Z81cy+NQ8/USwsO12EC+Aw1f3QWVm0MLmXtVBWb+yIAxj9zNQMrxy/Z59ZqNf3
+         vIGmOMmpQfDPekmBLX+jPdyPuoogL8CshmJmgNg/P4ZGy0Ib4IYJXaFLIYa8Z2Al5PEM
+         RA3gSxEq3mHHnbfUz3JY4g1tEB9H4eEKV21D9z1fL1Hh51q4HMoFwe8SyvP7mD3Nl5/i
+         oBjw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=h148AzK7ulcLWc0NU3jZpboHW5vO/KJ9aeMyUmTns1k=;
-        fh=hTYSl3mjJqlcq0jSWyWPVYruADdbiKU/Ogt/VO+ho+I=;
-        b=W4OI4wVqeYH0rfZU7zeYdAIr7gcPRo6PIHB3M/hQs2TY9UeTiMqiVMCMQGt5uPmily
-         MWU50+ncJa7nQ4RThwqRXKvcXcyiYk4InyLcRu7hnoNUK84yUbKvakOqsq6X4fNFrbGm
-         LmB0osGnfEreyqK/Ku1upUU9M+zfcGdS2KFnNcG+1roCsTfkv6gPvPc3wISOOPOyaNow
-         O2uBTO8vWzAXGdP7cg+DCAAmTljDhkAe+udJdfwOfyMVGdaVuj486a9MP4G8z6OdVPdh
-         gxGFJlLzGyZZUb6PYJFNmLB/gUkULCh5VKu7xoL5NIT7RsZD6KvY4uzAwavL3CgC239V
-         Vukw==;
+        bh=3ITo2z6iHp4Fr/581PoD6+mp3Wi9H+KH5+bmHlHXFqw=;
+        fh=BfM60IyymZYfjmTOtTaBw4nL835bz1ixHQzOVFWLsAw=;
+        b=iWS5DD3FXowu7IwVd87OE4e+nsM4YMcP5dx+1q7hjZPP7lpdytP+9/l11DuNVcW8dt
+         TrvrP05oaA5jy1IUiMTzQv6W3a6JNIzH6zevpfXENHmK3n++5uQaUH+IwMwVnQRmkpZl
+         Mh7SxBQL0veemtKL6lL9S3zULuDEecbbkMgYDL14aWpllkgBMAhP1FLFvH/ghyVpYpL7
+         pOJndvfVSRXdrPAB/JXD98LCpGv/eCk+tDa/rKL4vC8C/Se6U6WTDUDasHaZC9Ra3J/i
+         Zd3UTO3vr4k/J2KZoTXMLALoWUJLs+k78Qr5RjUdCcDS6pRmcuuxGcqOR6LkNRgUyNZL
+         zl0w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794567419; x=1795172219; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794567468; x=1795172268; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=h148AzK7ulcLWc0NU3jZpboHW5vO/KJ9aeMyUmTns1k=;
-        b=oSSMMsziL7w6nW47/r8iQSeinVJ38aAA1LMs3FVdDbSdFpg/klmLvVGMa2XNtc/L++
-         qk+1oI4pOmoNAM2Sp+wJp6f1GzvqwIvaSPVHsRXkDEDmi0H/nyYKqQ5+xTUkwN/XJ1aB
-         lhIBS8TnoviuNl3qZk6EyysgPOPl1pH4Wefyh1koiZ0i5FTHW1jyvr5iBVxcRqCHFW0N
-         uN5FQLfq4Qc+wBBGzRMVFoydK7pIBrWo87Y3Ja9x0PV7XfOgqPtUwsSp/PkVZR1sU1cY
-         a0wVy4gycR3P98dRB726mwhv3llAloTH5tKnfwCYXAgxzrNSd6x7O+FrYd1nB4eNJsYs
-         Qgqw==
+        bh=3ITo2z6iHp4Fr/581PoD6+mp3Wi9H+KH5+bmHlHXFqw=;
+        b=AeF7+1yGPsZ3QmfWQDKuaH4XlBf4fgKulM1JWAT7w6hasBaoiDc0GGcbM20gyy7oNO
+         j21U+7iUbis+Xdebn4EYFBsDglN772fKbxdeaNCqRrdckQJ+dnZpTw0UbxbUXvnZpwLZ
+         TPrEWOrDkwKj2jh+YC1sLLS3RqspzA0MaL83n4vmbczTHKfypWXugHYAAlWxLriOhkHQ
+         e2Us+G7V8bFuYV08OM4oEXyilnNAwYBkC5TnpOtVOQMrLx6n1DKbY94g5Itgp5Io33rO
+         OAXb5K5AuaxWrM9wvYxoqazJJK7V9ATH6tH2LjM3Anjr5F+ht0QWFpjenlkz5qwjM/Kq
+         URkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794567419; x=1795172219;
+        d=1e100.net; s=20260707; t=1794567468; x=1795172268;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=h148AzK7ulcLWc0NU3jZpboHW5vO/KJ9aeMyUmTns1k=;
-        b=qJpjim4B4y+zyDalZSnAS4krdfTf4QATLmVdNjHe+Hr/alKcqMkfqvYJfYAPVY2wlP
-         +j08k63OMKNe0+Ldk9uj0RlexlOAJKCV7WlQoDYNq+deOu1WMsYrbm6qOATjeWIH9vaM
-         hyEhfCKntN5vLcL5tLxfFV+EqOw1IpQrKOfuDanA+dA7pPzFgkYPPmzZQazsA36qnABF
-         OAizwLLStefXtuFxPXL3GSn0RxIdHt6XA8AhEsRDkjG3BcBMP8d2Ijt0nPWPrLc03VZq
-         c+V9mLRT4BcmTbKsnfWrYU3Qca/9ceBVypzeD6rNp9jP9fUmryAINX9u0/aNcKgipW91
-         r7lQ==
-X-Forwarded-Encrypted: i=1; AL+hErFWo2ZZUbR7bwOpNIn84l6DXJrDUtPhuOLRdNNL+xwrQyg2v2qhEGZA2Vf0RgY/5lvoRDOW8HhvKZfP5wM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8oUM5H/oZpppIlxzaYXTMSgCPDxhFNWQ+jxoqHSY9EunMYvWeP
-	znCKUHyj3MIve8F7irCUHbIWABAvFWwSDFBMqSgkrsdB+71g/NdFVOXRfcPjsRye2pYtjTOGTJK
-	tK6UGAVshXPW9wY4DsKjvDKoQo4RBXaLnXkTUkjmC
-X-Gm-Gg: AYBFou2ZQtKN+EhrY/ExbeVlVEmddRs6U1ikx4gvhSi5IYtlzvcFutGNctr+OB300Az
-	bWF05SVUhkC+Q0c+ceZlH3y1fVMd6eXzRRVCXS5FJEvHa85kObQwb1hEGt0e2pywxPnXckcmnoZ
-	c7B6ninBtY5/W5XlegtBY0klDrfHDvi/ITP71ZVJesOJ3qfFEHJJF/sUUiKBfUW7Zw9mMb7S1Xr
-	KeanHkvRsi3xJQQ33P4BEeUtBu5igeioGaSPHP4UEJNu4YJK8KbmCALGIJk1P8E6Ilx9aV+F4xt
-	2uaHHsONXIko3GeuPR/t3vtvcCXmF8/YaVa3OKjhVDUl0PlcktSrq1o9pwfPmoPys24y8SgyKLw
-	5vmNbNkGADduygQuFPfVD5SKmsZw3KMjOHERvbdhFFdK2UjVs4k6SW5MAJBLYoXoI/HNd
-X-Received: by 2002:a05:701b:2810:b0:1af:2ba7:e44b with SMTP id
- a92af1059eb24-1b503068de7mr2114022c88.3.1794567418689; Fri, 13 Nov 2026
- 02:56:58 -0800 (PST)
+        bh=3ITo2z6iHp4Fr/581PoD6+mp3Wi9H+KH5+bmHlHXFqw=;
+        b=zVw2+6+anpe99IsD4gRcDhJSg75wlnhCaaqOCdXr23PZx+BnOBxPUXNmDwZbvbxm36
+         Vln9cTDi4jb2+NYXFnMx+SVq9XA1rZrnqScgdw6t3OqJJuyAEdPn7DNVJxsXCsXC5f/y
+         W0+iDh0rG3HmK5zADuCoFTDONm+k40qfyAnXjyMe42D0VOIHRGe1ADmVwWp7nWbfb6AA
+         mPFMTzKmCEUacoM2YykRYUF6sZxnkCyPNA6MbXZb9bEiWXtFOPoFbAuCWYX0tDHsXkfU
+         4I1XDMEV1jy63m3wLXZqhnCnurrcvvh9yYRhJ3OJ8q+MxpUx3VawqPJWfMrl0nP+a9mO
+         /9LQ==
+X-Forwarded-Encrypted: i=1; AL+hErHX3+SaSETiODGvg8uRWDRqM9ZztIQuTeCoh5rBfhmRFngWcTwDzgQ2efkzsZfH7gfESbvtxBqij9aeN2M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7xc/h5e1EUGqCS4R+AdzX74nbWew2Rl/AK4VAzcb3CBQkWJPd
+	nDN4+Brqcfk6w6ASZau1LphVpVCvdhYMQ1dlZt+XhDR1LO2ZUQsjX9+bM36BYUc+Ubj1NxmYHUa
+	QxHkGF/s/j6pMpB2YVnMh5fBrifTezQDRdGLGHwLDpg==
+X-Gm-Gg: AYBFou3Zn5rcXaU+IHOCIaDv6YXr4Pd6s/X9Pdb9DtkIvHGbl4Lma3BpijZLFV/6dKd
+	Fqd9rt5iyM09pyK7ZaO0jkIjaZ369GvRSWZ/5aNEumBH1IONI1g8eS5S/YviriPipDav4MmoKrA
+	hy2+EdGDpVf0SV3YXf4oyWrMZ6k/J8ZAC4fh2fzEBaFuADDCNNH49MI8VZWLm7Ws0OpSdRMIVwg
+	BrXhwaGG7K69BDRDCHgqrK2oqTXm16kpx8TaTfZYzgdp9eEk5PytcyRrXg7xdnYuZHwwBAfoydv
+	BHBnKxg8lPumUNS3mshq6BpCn3y45vsrMhWLT8SvZ/c33VTXfV0Yy0lgw2+JdwPtDvD2V3Ch20e
+	p5kXfDR/GQqPd2WjbodCsZSLHhVG1VNdHZNX2P/UKsCgWnjKwYxCzZivV8/EMwsq3p36Y6S8G+n
+	eFiWwYfy7Z0AFWy+0=
+X-Received: by 2002:a05:6402:1ecf:b0:6b7:bffa:6f24 with SMTP id
+ 4fb4d7f45d1cf-6b7c05c0611mr1899644a12.0.1794567468098; Fri, 13 Nov 2026
+ 02:57:48 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,70 +104,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1794506262.git.chris@chrisdown.name>
-In-Reply-To: <cover.1794506262.git.chris@chrisdown.name>
-From: Marco Elver <elver@google.com>
-Date: Fri, 13 Nov 2026 11:56:20 +0100
-X-Gm-Features: AclHuK8EymS8R4ke35k_Ts4zDwGVpBzqd0W1daXPPjdA8aiWj2M9LBxfbR3z3Fk
-Message-ID: <CANpmjNP0cWB_670hYj7p+Dd=do1qEu4XHeW+c7sTv-MXi0UBTg@mail.gmail.com>
-Subject: Re: [PATCH v3 0/6] mm/slab: Support selecting slab hardening features
- at boot
-To: Chris Down <chris@chrisdown.name>
-Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
-	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Kees Cook <kees@kernel.org>, 
-	GONG Ruiqi <gongruiqi@huaweicloud.com>, Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org, 
-	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
+References: <CGME20261113104832epcas5p4e1e9a3dedeb0c9c60cb80c23eb5d930d@epcas5p4.samsung.com>
+ <20261113110612.3265841-1-raghav.s@samsung.com> <20261113110612.3265841-2-raghav.s@samsung.com>
+In-Reply-To: <20261113110612.3265841-2-raghav.s@samsung.com>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Fri, 13 Nov 2026 10:57:36 +0000
+X-Gm-Features: AclHuK8LZ5o_QWvk6RKRY0YNYG96oQjtDx2eCj61VNIttrc76E2ZwU1wIUFE6TM
+Message-ID: <CADrjBPrwZ+dH3==Z46PwEVtYR4xWdzS2T0ZFHHWR4+g=a87cTg@mail.gmail.com>
+Subject: Re: [PATCH v3 01/14 RESEND] dt-bindings: soc: samsung: Exynos8855
+ SYSREG compatibles
+To: Raghav Sharma <raghav.s@samsung.com>
+Cc: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com, 
+	alim.akhtar@samsung.com, sboyd@kernel.org, bmasney+clk@redhat.com, 
+	jbrunet+clk@baylibre.com, robh@kernel.org, conor+dt@kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com, 
+	pokala.reddy@samsung.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 13 Nov 2026 at 09:51, Chris Down <chris@chrisdown.name> wrote:
+On Fri, 13 Nov 2026 at 10:53, Raghav Sharma <raghav.s@samsung.com> wrote:
 >
-> Slab hardening settings are currently all build time choices. This means
-> that, unfortunately, hosts with different requirements end up needing
-> separate kernel images. At Meta, for example, some hosts are built with
-> these options and the rest of the fleet isn't, and that's one of the
-> things that keeps those kernels apart.
+> From: Alim Akhtar <alim.akhtar@samsung.com>
 >
-> This series does two things:
+> Add exynos8855 sysreg compatibles in bindings
 >
-> - SLAB_FREELIST_HARDENED and SLAB_FREELIST_RANDOM are cheap enough with
->   sheaves that it makes more sense to just enable them by default than
->   to make them switchable. With both on, system level benchmarks didn't
->   change measurably, only slowpath heavy microbenchmarks did [1].
+> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+> Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
+> ---
+
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+
+>  .../bindings/soc/samsung/samsung,exynos-sysreg.yaml       | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 >
-> - SLAB_BUCKETS and KMALLOC_PARTITION_CACHES cost memory (Harry measured
->   about 1 MiB and 18 MiB respectively after boot on a 64 CPU VM [2]), so
->   they get slab_buckets= and kmalloc_partition= boot parameters, which
->   default to on when the option is built in.
+> diff --git a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+> index fcdb9ffd2644..845e0caba15a 100644
+> --- a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+> +++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+> @@ -31,6 +31,10 @@ properties:
+>                - samsung,exynos5-sysreg
+>                - samsung,exynos7870-cam0-sysreg
+>                - samsung,exynos7870-disp-sysreg
+> +              - samsung,exynos8855-hsi-sysreg
+> +              - samsung,exynos8855-peric-sysreg
+> +              - samsung,exynos8855-peris-sysreg
+> +              - samsung,exynos8855-usb-sysreg
+>                - samsung,exynos8895-fsys0-sysreg
+>                - samsung,exynos8895-fsys1-sysreg
+>                - samsung,exynos8895-peric0-sysreg
+> @@ -103,6 +107,10 @@ allOf:
+>                - samsung,exynos850-cmgp-sysreg
+>                - samsung,exynos850-peri-sysreg
+>                - samsung,exynos850-sysreg
+> +              - samsung,exynos8855-hsi-sysreg
+> +              - samsung,exynos8855-peric-sysreg
+> +              - samsung,exynos8855-peris-sysreg
+> +              - samsung,exynos8855-usb-sysreg
+>                - samsung,exynos8895-fsys0-sysreg
+>                - samsung,exynos8895-fsys1-sysreg
+>                - samsung,exynos8895-peric0-sysreg
+> --
+> 2.34.1
 >
-> Whether those two should be folded into a single slab_hardening= is
-> still open [3].
-
-A coarse slab_hardening= option can easily be replaced by
-documentation. While less knobs is better, an intransparent coarse
-variant of slab_hardening= just makes the admin wonder "what does that
-actually to, and do I want it?". They still have to go and look up
-what it actually does, and at that point it doesn't add much value
-(alternative suggestion below).
-
-> > > light: "I'm willying to sacrifice _some_ memory and CPU for security"
-> > > full: "I'm willying to sacrifice more overhead for security
-
-Who will decide what is light and full? I think there just won't be
-any consensus reached.
-
-One thing that users may want is an "all off" option, similar to
-mitigations=off, should they wish to get max performance back with a
-single option. So you could consider slab_hardening=off. But at that
-point it may be more consistent to drop slab_buckets= and
-kmalloc_partition= in favor of arguments to slab_hardening=, such as
-slab_hardening=nobuckets,partition. This would mirror mitigations=,
-and should cater to the usecase of slab_hardening=off to get max
-performance with a single option.
-
-But I would not add options such as 'light', 'full'.
-
-Thanks,
--- Marco
