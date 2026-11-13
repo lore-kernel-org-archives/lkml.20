@@ -1,47 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575553;
-	b=OtNtJfUC4/VDxvoi3GUPeKbj5RdW+VvLb0wE2BZBROxJkOQ4Wozw9PLKKFiUbrpSJtVg
-	 EggoZZDa9MQh2girlYyftD/TQL9DHZmeeXhHqcSoi70NFLO+VM1xlF4xYlAafs4hRyVHL
-	 7ZWIMUfT2NJ344mpPIDNv00o0K6YX2kbDUXuntdkzVLPwfcrmNTGQKdAohpLTaLYxCX8C
-	 Y4sYDJupu+spufzUwQBPs+ZBw6D0ffVBaS0ddE4Lh1ByGksHPLW2/UKho8Ge3y/q96Lcs
-	 l7+/0RYojgA6Cb1ec2nkZ1QqIrmg2Q1+xGvyGmATskF4T6EUuXnoolS8Xu30LZ1NvUg==
+	t=1794575572;
+	b=ZiSycuOO3Gzawg3YY7DwNXku4tRD5hUUyj99b73c1WeRzGbRO3ofEvpn3CQshVvANGFQ
+	 5fBSaulXTitNurD5pxj4fUShsApakfj0yU9fiMpYhG4jFwNhoCtgxn1utp7henK5RAwYR
+	 f8vq76fa58QQVBEBUDMbXPH7vfcT/g/EVolT5AsCxcvi4VR/+ILXlCb6u7+BYPieAT2Zt
+	 AxJoY5H2C5zkTOT8B22Cm4z81gZAxOm0iawsDEUYef2eJMSkkMofJkmlzsd+x9nWkvNA7
+	 /1s2E+tAVwsWJDTrj9e2ZOWmAWA91acN8X4KhXBfHhswapVvM1X/9a3MRC+4xj4wEMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575553;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JDTskCr6byt+CPgVHJglwH2im2lWr8kUW2XfmG7M0F8=;
-	b=PhAPVYKY6zCJVis2BnyF6zPb/K/ckCttxbFsHbPiJ2iBq5lkwssvzedmlQVRoa0dzgdP
-	 v6vMVLc9lIrMuJ+PWoqoqBaXUnBaTxK2cfU7+Fq3XJEJbgFf9ziu619tkvFNKh8AV5Cyt
-	 o1fWZsLCIpZV+N62UCrDVbsk2+3Tub5NMJMXvThPNwcGmia/4ACl5ybwjATXkNBmaJVkj
-	 d87Mrs9Pi1/Cz726pA0ppFBrbXdZ9TyI4XsHAc0Q+v5RmDxBa4POc7BFStXJDQfLM9T4t
-	 7BOF/X9YCChl0ocpwk1cO81oZfyj2QbvjZ3EMloFkMSTNpALrcOSceZ8cFiMpUHj0Wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575572;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8PiBOHe9Tj+hW0OzsLVTDu5yoYjdKw6FZzkrALHidwQ=;
+	b=fF7IFHLm4exF3FQgoRA+jDs6xe8UtG7Hf0G981rPpBnk6FG0lHxKTXr74kWas1+mG23S
+	 OmhYi/p0atIcp+6TkPhisH1SFt/FrO2fWdes2E/lFnDNWyFVit/EqMvlWSxIIGMSH3Uk8
+	 ZV4UMehFiprmesAzx0eNcTa29EtenCL2h/ysN4NeX9wPu3roA9lMyGZ+7EZbGrb6lQs0V
+	 LPAm+QJlJ9P7tHPxBGWuu6xhwCnIX7dTtbTXTKMxA7nNOCGEdCfQglSA2mYHY7kf3DtoY
+	 dkgk8okPJID3443Y/wB0889I2WOO3lnHfyn7akPErlvhfONb9brIVc2XOwLWAB8jmxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jiLHJoH9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B8iTE0pO;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66605606A88F;
-	Fri, 13 Nov 2026 13:12:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE50606A333
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:12:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFE50606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jiLHJoH9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2992C1F000C7;
-	Fri, 13 Nov 2026 13:12:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794575553;
-	bh=JDTskCr6byt+CPgVHJglwH2im2lWr8kUW2XfmG7M0F8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jiLHJoH9k7Udw7fqIqR+VEbXxY3uQVSq4otgF3wMeLuLPPuCvH98OKUUVKna31nue
-	 vgHHW5ZcFebuevuGAwRqw9dwOYQAeFN4vSr+R32A1HrQfCLHT6Fn6CKhWo/P7PGGQ5
-	 /n/W11dxvzUq0QcB1MVgRMtsoNdd7Zjnj3EjTMyvW2uuhk0dMhEZPAWx9weSgl7cMc
-	 0dNjLtyvzdGKzVIEgkmA7QvYJqoPZHBlBPYdPc2G7z7kCw0IC9Tgtl041cGanYJVgZ
-	 PLt6/N+taVVvtevhifHVvqUuD6zjgg48OIDq3tMTEtgjVNL5ywNuqrFrxxFEWUrbUl
-	 4vBsAB2Wdz6zg==
-Message-ID: <b72ccd2c-d26a-4559-b09f-1a0a2207add8@kernel.org>
-Date: Fri, 13 Nov 2026 14:12:28 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B8iTE0pO
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1b3ada81853so768608c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:12:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794575571; x=1795180371; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8PiBOHe9Tj+hW0OzsLVTDu5yoYjdKw6FZzkrALHidwQ=;
+        b=B8iTE0pOCImi9swzNfOAkjgmdLZCmCK+3TJdQf6/8RpDUNaY8c0IkTeo7IkhBzuCmg
+         FQlGZQCbhQ0ZNYbFvUFUHbQmKqwvO5o6TjyeVpSZgV/vBep85dI7tbPVYk/GLWO2QoLM
+         AzV4AYJlEl57A+thuBklzyIIr4Jaz50tDzt2FO0q5v8giUiBcPIg+pW9VWWduHJ5nZok
+         2a99iAAtX4OPpOHZ2oZTVk3HefgJb9I94IGy/zIdnoZsXW5R6K52EVySzlmxtBXd7ouG
+         wT1XQtK/NSEqL9Flt6T4SCSckFW7ixc0RZ8Ai4BwUyD+T76Lkc8mDhM28hnZ7zVYP0eu
+         GUeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794575571; x=1795180371;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8PiBOHe9Tj+hW0OzsLVTDu5yoYjdKw6FZzkrALHidwQ=;
+        b=UVRfOlcyA5WYbrYverTV1MADze1WcbmuTWeI15aYj/HWSZ4k657IVO7qnfPwIWAO/H
+         KH+FUCgyjr2xLUDlyhYB3iYnwQ4/vkTiNJxb1jCaX9rQKUPVE8gDgMA2SbDQuRKeoheX
+         lM+KLdVPbA+vSolVDoBdChSB4ighgQ/R+iPls4kOCFKkW3brlr21NuS2UvC2bitqyJI8
+         tFA/HiFTeDAZZS6gtgTKIJvCwgqHB5kHYCQTNbpuH8uNEhRqa+iuG7fQwlz2NYgHWQSf
+         0FUanwbHZBGroRTEUJltB+gw0z32nUI1uxp6B9p6+g9sHhZzSP626FgEEYOMblx1s/7v
+         SJYw==
+X-Forwarded-Encrypted: i=1; AL+hErEMJ9i6+D47HwhvjFYmzIzwhTKkh9kqONYKyWOTskkZMRGcVGDxAdJU440ZK4OuWE/sx92wwgvOeoP9jg8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/ony8uJ+aouWmKaH/l4MVvNwNbcm3ZRIBg3d5P2myZF2XA+QG
+	bGtAHd3ZPrH3fqXYlyJ/mvJUm7yQF7J/M/yLeOsnJceQ78RFGLBKtCE=
+X-Gm-Gg: AYBFou3yRY8VkOzcoCkd9agdpO7Pzy7T7N0IqwMZRzzp/wXmovK0sMeUndeVjOR5emy
+	F3KEZ/uJbYVaRMapsUpNoVGqHGtL6E15x8Ui1JYKk6MKzyQGtRBf5akbJpMWy5QrA3xjL71xwnd
+	1b65fIqW4V2wAxllF2xk697BSojU9DRlJyjYgr/EO5L70dCcDw4b7scoy/JVYVA84+3ZUhKAVSE
+	gdW19rP+yXkesoOEloOCZx/bGe/PPXfqMsU1fbmBok7t4zoUGiogJuDQTr2djKDgPJXbHWQ6tCt
+	cRSTbtmmD2PZ1QoGf1Yz10cmCwhmFNnXZ7ulWqxJPuxm/TqWATwtD4ZaiAQriD1FDnABdiQ1yIr
+	f+ePuDCFqZT74LDI0zM3qxH9b7u6M1QxntVvj1561tU8lxp2XpCAY3uHUKfKiW/66ftM3G05+qm
+	WWBAv569+BSWnQZqpDXyqix3qUuw+BjXSVlpFMq7ix5PPayfix8ZCC1S/T6KZIOrlnYIVR2Q/c4
+	sLlKYkuZ7eBLhZCXj7t5zZTvCRcXvihy0DlL/W0VhOb0LZE7mbX2JO654Tfv5alm086naqh0X3S
+	9peaunLWggYnnYPgqS8QsgSEIht5iIw4eov/c+VeT9gPULhLMpn2fZvc0F6zfN/JVQ==
+X-Received: by 2002:a05:701b:418c:10b0:1a8:ff0b:a4e1 with SMTP id a92af1059eb24-1b5030fc737mr2542914c88.18.1794575570865;
+        Fri, 13 Nov 2026 05:12:50 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.205.242.248])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b98e5sm7830420c88.14.2026.11.13.05.12.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 05:12:50 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: 
+Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	linux-acpi@vger.kernel.org (open list:ACPI),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] ACPI: processor: Use Apple-specific methods for P/C-states
+Date: Fri, 13 Nov 2026 08:12:40 -0500
+Message-ID: <20261113131243.28214-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,78 +97,292 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] power: supply: Add Silicon Mitus SM5714 fuel gauge
- driver
-To: Asdlerto Korry <korryasdlerto@gmail.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261111-sm5714-fuel-gauge-v1-0-b9d163fff6ff@gmail.com>
- <20261111-sm5714-fuel-gauge-v1-2-b9d163fff6ff@gmail.com>
- <20261113-fuzzy-awesome-shellfish-2d93c0@quoll>
- <CAARotke5983-NFonNAnLbpzhEU2QZ=mt9CSNi=CdBxVshcpD_A@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAARotke5983-NFonNAnLbpzhEU2QZ=mt9CSNi=CdBxVshcpD_A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13/11/2026 14:10, Asdlerto Korry wrote:
-> Hi Krzysztof,
-> 
-> Thank you for looking at it. As far as I can see, this series
-> (<20261111-sm5714-fuel-gauge-v1-0-b9d163fff6ff@gmail.com>) was sent
-> only once, on Nov 11, and I could not find an earlier posting of the
-> SM5714 binding or driver on lore. Could you point me to the one you
-> mean? If I missed it, sorry for the noise.
-> 
+Use APSS and ACST instead of _PSS and _CST when available on Intel Macs
+as they include better P/C-States.
+These methods are used in macOS (X86PlatformPlugin.kext),
+and when not found we fallback to generic _PSS and _CST methods.
 
-How did you look? Pasting SM5714 gives me obvious results.
+Changes in v2:
+- Improved description of the patch
+- Replaced goto's and if statement's with new functions
+- Added support to differentiate _PSS and APSS in debug info/error info
+- Added support to differentiate _CST and ACST in debug info/error info
+- Used Package instead of variable for ACST description
 
-Best regards,
-Krzysztof
+Link to v1:
+https://lore.kernel.org/all/20261015204450.1270-1-atharvatiwarilinuxdev@gmail.com/
+
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+---
+ drivers/acpi/acpi_processor.c    | 80 +++++++++++++++++++++-----------
+ drivers/acpi/processor_perflib.c | 43 +++++++++++++----
+ 2 files changed, 86 insertions(+), 37 deletions(-)
+
+diff --git a/drivers/acpi/acpi_processor.c b/drivers/acpi/acpi_processor.c
+index 5fbab5417..bbe471b3c 100644
+--- a/drivers/acpi/acpi_processor.c
++++ b/drivers/acpi/acpi_processor.c
+@@ -18,6 +18,7 @@
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
++#include <linux/platform_data/x86/apple.h>
+ #include <linux/platform_device.h>
+ 
+ #include <acpi/processor.h>
+@@ -815,6 +816,22 @@ bool acpi_processor_claim_cst_control(void)
+ }
+ EXPORT_SYMBOL_NS_GPL(acpi_processor_claim_cst_control, "ACPI_PROCESSOR_IDLE");
+ 
++static int acpi_processor_apple_acst(acpi_handle handle, struct acpi_buffer *buffer)
++{
++	acpi_status status;
++
++	if (!x86_apple_machine)
++		return 0;
++
++	status = acpi_evaluate_object(handle, "ACST", NULL, buffer);
++	if (ACPI_FAILURE(status)) {
++		buffer->length = ACPI_ALLOCATE_BUFFER;
++		buffer->pointer = NULL;
++		return 0;
++	}
++
++	return 1;
++}
+ /**
+  * acpi_processor_evaluate_cst - Evaluate the processor _CST control method.
+  * @handle: ACPI handle of the processor object containing the _CST.
+@@ -837,28 +854,35 @@ int acpi_processor_evaluate_cst(acpi_handle handle, u32 cpu,
+ 	acpi_status status;
+ 	u64 count;
+ 	int last_index = 0;
+-	int i, ret = 0;
++	int i, ret = 0, base = 0;
++	bool using_acst = false;
+ 
+-	status = acpi_evaluate_object(handle, "_CST", NULL, &buffer);
+-	if (ACPI_FAILURE(status)) {
+-		acpi_handle_debug(handle, "No _CST\n");
+-		return -ENODEV;
++	using_acst = acpi_processor_apple_acst(handle, &buffer);
++	if (using_acst)
++		base = 1; /* ACST is a 4 field package we need to skip the first field */
++
++	if (!using_acst) {
++		status = acpi_evaluate_object(handle, "_CST", NULL, &buffer);
++		if (ACPI_FAILURE(status)) {
++			acpi_handle_debug(handle, "No _CST\n");
++			return -ENODEV;
++		}
+ 	}
+ 
+ 	cst = buffer.pointer;
+ 
+-	/* There must be at least 2 elements. */
+-	if (!cst || cst->type != ACPI_TYPE_PACKAGE || cst->package.count < 2) {
+-		acpi_handle_warn(handle, "Invalid _CST output\n");
++	/* There must be at least 2 elements for _CST and at least 3 elements for ACST. */
++	if (!cst || cst->type != ACPI_TYPE_PACKAGE || cst->package.count < base + 2) {
++		acpi_handle_warn(handle, "Invalid %s output\n", using_acst ? "ACST" : "_CST");
+ 		ret = -EFAULT;
+ 		goto end;
+ 	}
+ 
+-	count = cst->package.elements[0].integer.value;
++	count = cst->package.elements[base].integer.value;
+ 
+ 	/* Validate the number of C-states. */
+-	if (count < 1 || count != cst->package.count - 1) {
+-		acpi_handle_warn(handle, "Inconsistent _CST data\n");
++	if (count < 1 || count != cst->package.count - 1 - base) {
++		acpi_handle_warn(handle, "Inconsistent %s data\n", using_acst ? "ACST" : "_CST");
+ 		ret = -EFAULT;
+ 		goto end;
+ 	}
+@@ -882,24 +906,24 @@ int acpi_processor_evaluate_cst(acpi_handle handle, u32 cpu,
+ 
+ 		memset(&cx, 0, sizeof(cx));
+ 
+-		element = &cst->package.elements[i];
++		element = &cst->package.elements[base + i];
+ 		if (element->type != ACPI_TYPE_PACKAGE) {
+-			acpi_handle_info(handle, "_CST C%d type(%x) is not package, skip...\n",
+-					 i, element->type);
++			acpi_handle_info(handle, "%s C%d type(%x) is not package, skip...\n",
++					 using_acst ? "ACST" : "_CST", i, element->type);
+ 			continue;
+ 		}
+ 
+ 		if (element->package.count != 4) {
+-			acpi_handle_info(handle, "_CST C%d package count(%d) is not 4, skip...\n",
+-					 i, element->package.count);
++			acpi_handle_info(handle, "%s C%d package count(%d) is not 4, skip...\n",
++					 using_acst ? "ACST" : "_CST", i, element->package.count);
+ 			continue;
+ 		}
+ 
+ 		obj = &element->package.elements[0];
+ 
+ 		if (obj->type != ACPI_TYPE_BUFFER) {
+-			acpi_handle_info(handle, "_CST C%d package element[0] type(%x) is not buffer, skip...\n",
+-					 i, obj->type);
++			acpi_handle_info(handle, "%s C%d package element[0] type(%x) is not buffer, skip...\n",
++					 using_acst ? "ACST" : "_CST", i, obj->type);
+ 			continue;
+ 		}
+ 
+@@ -907,8 +931,8 @@ int acpi_processor_evaluate_cst(acpi_handle handle, u32 cpu,
+ 
+ 		obj = &element->package.elements[1];
+ 		if (obj->type != ACPI_TYPE_INTEGER) {
+-			acpi_handle_info(handle, "_CST C[%d] package element[1] type(%x) is not integer, skip...\n",
+-					 i, obj->type);
++			acpi_handle_info(handle, "%s C[%d] package element[1] type(%x) is not integer, skip...\n",
++					 using_acst ? "ACST" : "_CST", i, obj->type);
+ 			continue;
+ 		}
+ 
+@@ -947,8 +971,8 @@ int acpi_processor_evaluate_cst(acpi_handle handle, u32 cpu,
+ 				cx.entry_method = ACPI_CSTATE_HALT;
+ 				snprintf(cx.desc, ACPI_CX_DESC_LEN, "ACPI HLT");
+ 			} else {
+-				acpi_handle_info(handle, "_CST C%d declares FIXED_HARDWARE C-state but not supported in hardware, skip...\n",
+-						 i);
++				acpi_handle_info(handle, "%s C%d declares FIXED_HARDWARE C-state but not supported in hardware, skip...\n",
++						 using_acst ? "ACST" : "_CST", i);
+ 				continue;
+ 			}
+ 		} else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
+@@ -956,8 +980,8 @@ int acpi_processor_evaluate_cst(acpi_handle handle, u32 cpu,
+ 			snprintf(cx.desc, ACPI_CX_DESC_LEN, "ACPI IOPORT 0x%x",
+ 				 cx.address);
+ 		} else {
+-			acpi_handle_info(handle, "_CST C%d space_id(%x) neither FIXED_HARDWARE nor SYSTEM_IO, skip...\n",
+-					 i, reg->space_id);
++			acpi_handle_info(handle, "%s C%d space_id(%x) neither FIXED_HARDWARE nor SYSTEM_IO, skip...\n",
++					 using_acst ? "ACST" : "_CST", i, reg->space_id);
+ 			continue;
+ 		}
+ 
+@@ -966,8 +990,8 @@ int acpi_processor_evaluate_cst(acpi_handle handle, u32 cpu,
+ 
+ 		obj = &element->package.elements[2];
+ 		if (obj->type != ACPI_TYPE_INTEGER) {
+-			acpi_handle_info(handle, "_CST C%d package element[2] type(%x) not integer, skip...\n",
+-					 i, obj->type);
++			acpi_handle_info(handle, "%s C%d package element[2] type(%x) not integer, skip...\n",
++					 using_acst ? "ACST" : "_CST", i, obj->type);
+ 			continue;
+ 		}
+ 
+@@ -975,8 +999,8 @@ int acpi_processor_evaluate_cst(acpi_handle handle, u32 cpu,
+ 
+ 		obj = &element->package.elements[3];
+ 		if (obj->type != ACPI_TYPE_INTEGER) {
+-			acpi_handle_info(handle, "_CST C%d package element[3] type(%x) not integer, skip...\n",
+-					 i, obj->type);
++			acpi_handle_info(handle, "%s C%d package element[3] type(%x) not integer, skip...\n",
++					 using_acst ? "ACST" : "_CST", i, obj->type);
+ 			continue;
+ 		}
+ 
+diff --git a/drivers/acpi/processor_perflib.c b/drivers/acpi/processor_perflib.c
+index 9e25d6124..9b9533649 100644
+--- a/drivers/acpi/processor_perflib.c
++++ b/drivers/acpi/processor_perflib.c
+@@ -17,6 +17,7 @@
+ #include <linux/cpufreq.h>
+ #include <linux/slab.h>
+ #include <linux/acpi.h>
++#include <linux/platform_data/x86/apple.h>
+ #include <acpi/processor.h>
+ #ifdef CONFIG_X86
+ #include <asm/cpufeature.h>
+@@ -313,6 +314,23 @@ static void amd_fixup_frequency(struct acpi_processor_px *px, int i)
+ 	}
+ }
+ 
++static int acpi_evaluate_apple_apss(acpi_handle handle, struct acpi_buffer *buffer)
++{
++	acpi_status status;
++
++	if (!x86_apple_machine)
++		return 0;
++
++	status = acpi_evaluate_object(handle, "APSS", NULL, buffer);
++	if (ACPI_FAILURE(status)) {
++		buffer->length = ACPI_ALLOCATE_BUFFER;
++		buffer->pointer = NULL;
++		return 0;
++	}
++
++	return 1;
++}
++
+ static int acpi_processor_get_performance_states(struct acpi_processor *pr)
+ {
+ 	int result = 0;
+@@ -323,16 +341,21 @@ static int acpi_processor_get_performance_states(struct acpi_processor *pr)
+ 	union acpi_object *pss = NULL;
+ 	int i;
+ 	int last_invalid = -1;
++	bool using_apss;
+ 
+-	status = acpi_evaluate_object(pr->handle, "_PSS", NULL, &buffer);
+-	if (ACPI_FAILURE(status)) {
+-		acpi_evaluation_failure_warn(pr->handle, "_PSS", status);
+-		return -ENODEV;
++	using_apss = acpi_evaluate_apple_apss(pr->handle, &buffer);
++
++	if (!using_apss) {
++		status = acpi_evaluate_object(pr->handle, "_PSS", NULL, &buffer);
++		if (ACPI_FAILURE(status)) {
++			acpi_evaluation_failure_warn(pr->handle, "_PSS", status);
++			return -ENODEV;
++		}
+ 	}
+ 
+ 	pss = buffer.pointer;
+ 	if (!pss || pss->type != ACPI_TYPE_PACKAGE) {
+-		pr_err("Invalid _PSS data\n");
++		pr_err("Invalid %s data\n", using_apss ? "APSS" : "_PSS");
+ 		result = -EFAULT;
+ 		goto end;
+ 	}
+@@ -360,7 +383,8 @@ static int acpi_processor_get_performance_states(struct acpi_processor *pr)
+ 		status = acpi_extract_package(&(pss->package.elements[i]),
+ 					      &format, &state);
+ 		if (ACPI_FAILURE(status)) {
+-			acpi_handle_warn(pr->handle, "Invalid _PSS data: %s\n",
++			acpi_handle_warn(pr->handle, "Invalid %s data: %s\n",
++					 using_apss ? "APSS" : "_PSS",
+ 					 acpi_format_exception(status));
+ 			result = -EFAULT;
+ 			kfree(pr->performance->states);
+@@ -384,8 +408,8 @@ static int acpi_processor_get_performance_states(struct acpi_processor *pr)
+ 		if (!px->core_frequency ||
+ 		    (u32)(px->core_frequency * 1000) != px->core_frequency * 1000) {
+ 			pr_err(FW_BUG
+-			       "Invalid BIOS _PSS frequency found for processor %d: 0x%llx MHz\n",
+-			       pr->id, px->core_frequency);
++			       "Invalid BIOS %s frequency found for processor %d: 0x%llx MHz\n",
++			       using_apss ? "APSS" : "_PSS", pr->id, px->core_frequency);
+ 			if (last_invalid == -1)
+ 				last_invalid = i;
+ 		} else {
+@@ -402,7 +426,8 @@ static int acpi_processor_get_performance_states(struct acpi_processor *pr)
+ 
+ 	if (last_invalid == 0) {
+ 		pr_err(FW_BUG
+-			   "No valid BIOS _PSS frequency found for processor %d\n", pr->id);
++			   "No valid BIOS %s frequency found for processor %d\n",
++			   using_apss ? "APSS" : "_PSS",  pr->id);
+ 		result = -EFAULT;
+ 		kfree(pr->performance->states);
+ 		pr->performance->states = NULL;
+-- 
+2.55.0
+
