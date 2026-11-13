@@ -1,93 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794580726;
-	b=YfoHXLNH2ff3HOzVxMnZJW2UGMVAYplLjCuZXBaRvpRJdqsCUV8BdN1QEEAsqf9gvdej
-	 a5gOeK5eEo5IvHS0kW+Kqvtz3dkfBBQEv77v9GhQljRf8OstD679rZ9YT2g1/24yZ1DnA
-	 RRDs8KLkhiWLK4hkAeMJep93Xip43MDyXVD8ZnLCEUKADUpZvod4QDR+RZztsnuT8T1j1
-	 QsVLu/W32KegteHfIJixlxM+OnU1hvZccMO2vhXp9/CNUOeaDT7Ka26ieA7CqIl9pcUjK
-	 deiS/KI3drx+a18SlhlBpehcJwkL9jjuyr+x7hMI6rMzCLH2LYM8wBWDR8I6UXN6hXg==
+	t=1794580727;
+	b=Lw/X2Im+j6KGzAyVSzxugCbY+lPBZsVts2TiB4eMhz8xA7xS/5Iu8pnZ7S+0daggiScE
+	 uHCBs/bHlUHbgc6NdtHHqTx9p6CvpyK+cGb2wRmCc19xwpACAvTudQkEusRV5HCSRRaqg
+	 pQl2PnIOP8Uh6TgcVW41gGfqEEvyvQCNndGeAxc6D+YR6tuqkMhwmt0MFzAQwWAho+N9H
+	 aGe5KXYqJEK8bLVQw7qQN9AsIrZLqQdqgdRhd1YBnxNeQlFPVrYdEN5/l3S7ZYWkreXOS
+	 MudVJ2Uz2kcEkxvvtC/lBC7vAfrnBaH4QghzKM7ChiXDSTn2OocBFOh//EUKEJGO/zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794580726;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IRWBGtqrZPXx8x92wU4vc4uRLqmLqWYndUt9UqAkaxw=;
-	b=mSQnFkNfLV28ufu0d7U4oUnFa0MHZ6fbp7kCPwPj/Me4aVSvAi2FZz2LuvRuKbzedACD
-	 FLUPkBP9aNls6Ga4aull9Z3q3MDqUjKRlTgeJSLHvpSO5hgAbX6PF6gVxhbCkqEKlCa+t
-	 p8Y4LIFqs94y8K3k0EG4faKuwiO7vayv2E6hkqEseQXiF4xpcj5qZEjQWsBKLJTm/vVn7
-	 /4CjTc9UNUxBMVNHTpWtq1Hg1KzdcB2n5ra5hfPhC+q2LfKPTP4BcfRD59Qd/Lt3dCSZ4
-	 vBoRmfMW3OfUlYQae5IfRQS32Qfbd0Y376o+pi+3N7gypTVrKgOKr0lrNTqdLgz9hYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794580727;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=bd+MnsWaafBvoeddMR/ju46S5+pnRf2ye93uIRHVHlY=;
+	b=Uj4SNmqQntk1Uun711DSJnzzZorT+xglZyhVuoDGFHLDFDLFKmD4RVOLXoJjP1MjQFzP
+	 e6vsq0BMaPDhgyFUbcab5BFubduxjrps/jl4S/AXLzTI9EOcXcP9+PWZG/JJqx7PtEstj
+	 vSS31deESOPhczeSEQoY0I6fMekoAFJXwiALkb1Xsnv1QxapoALl/GiEs5s9Xns4DJQK1
+	 K/TGWyn2HVdJvmjp4ni8xXrE7OeEN6CvnxgJouNf8YBt3/9VtJ/ya1mNz3p1OgYvetsFE
+	 sCMFps8IILSrw2ztSh3XcTuWdBnq+v/mvrVTMr4AekMN4TNA5Ws3+XUhVmzJZyMQoaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i+bwO0Yw;
-	arc=none smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEkqMQuD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C38606A88F
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:38:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42C38606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8BF606A33B;
+	Fri, 13 Nov 2026 14:38:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i+bwO0Yw
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b71b012e3cso1510673a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:38:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794580725; x=1795185525; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IRWBGtqrZPXx8x92wU4vc4uRLqmLqWYndUt9UqAkaxw=;
-        b=i+bwO0YwHZSqJ/OWf2iNSXGIbyqr2rpBr/CULyfCzIOJnjMTIDzB5ToQY0j0CztL/2
-         DdZg9Elp9IWS5Dp7dZpIC2Dc6S42UHUZRI6Hr+1HERjNC3YC3AA7/3ypHGnuY0WtTZwH
-         Btl30lmFY+mOHVpm2Gi9T6rwSpUBt7Prf4KWapSWlJsspORZ0HYq/UQxRgq2U3mN9ESd
-         GZ7b4c8onEagpGJYivd0serVF3MJCVfjTfa5Y8fX9OC9D7tesYGj4JACWIu8pjIUXBlG
-         9LLRKeJ8u02+psgEao+Ash9ndndvC94ICGthRjHPgm+mcc2NTexbkR9t5zMG5OPfkpKn
-         UMyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794580725; x=1795185525;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IRWBGtqrZPXx8x92wU4vc4uRLqmLqWYndUt9UqAkaxw=;
-        b=f5K8P/FpSh315IRgqYRmPN2FLuy7HhJBUDPOqQVzzsjw3T5TBO1ckRnh5FXk56f+zZ
-         PCy4T0ifOu9kWOqKspCdfvugGI5+1wbl5OixBnRw2dIJUlnguz0mWhWyMhYyy3p8gHGc
-         BwxpuoxjmohQIjT91m2e72pSMpvFqSgfpvhiIw8gja+SX2Fc30eb6A/+uQ6bqdORMNFF
-         d52+g6MCSZGROsahezR/KfndmKRMiN/b45vvQgZXs8rk+XOrB+PnpqTAwihTAjWLGO/G
-         rBAcrCBxlTxQDzxvHEjRojGWbQ+KptCzIHx+pb6n9AZ1VlGoFDtFevjavnNI1L9BGX6+
-         sw/g==
-X-Forwarded-Encrypted: i=1; AL+hErFBDAoqFHY2NW1t97SjteJpGdz2ElN9Ls/8GZd4xCXmC70zI0mBrl0H1ZJP6sf3w6eN+ZR40BjzWC2u7WY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2+AGfpeJTrH6RCxpyTHQTuGfUG8rCs4TC562ofdp7vixwjhBT
-	+CsOYBpGbuQdjgqiDz21HhMtL5dQvXNzKTj6dKrs749GFU04tfES/Ahe
-X-Gm-Gg: AYBFou21b9zVM7A7ZWu5PCD8HzGsqhrAyMv54HUXvTRcms0/kLNtbKKhhz3CzYxCQbk
-	WjerwYXsOC9iW0v1spVb0wsrr2ooU5ckvaeHeGw0aq9GSKE2+84k0vMyIeORDZ9fzGcK4aHWCSD
-	IJ7poY2jvI2XIipTDXRW6c6Yvm6n4lZ+uinBRf/+g2Q41wUm30g6K/rF+jJ31+NmCOsqaeAcifK
-	s3Aui1dAHJXNiRu7HHS+cFuayTD+HCJ/nE38JKjFJK+rHCW1Zd75ez2MJRkI5t1Ix/TILGesHcN
-	CvDogywj/STXScqxFy+uzgcCJ+OUA3B4Nf8bszbUx6/wRqWNCeLl9nQeFDuM+9nQ660EFX03S10
-	aIDcqOH5mMVjfQTT0RuAwFELRbKqXbU4wce3vJrloICqXUqwH+ghGGEfyQClFi6iG5TdamSiz/H
-	EqNVcDnUBWcct7Gf5yf3ZELIlQtx/izWN88eE6KGiuewE/gqLeSR9AijAsm56SpwMYZIBc8S4ai
-	BgVZDPFEkpuXBXHS0XzRXsSHjjCnSM2kzpgcsHSB8DqyPBWVZYf39f7QGuFGjizu+juMwGHKuJG
-	pM1jug/yuEva8ezmOuJFQaL4mHv4juwRtfDXde2bIg==
-X-Received: by 2002:a05:6402:2350:b0:6b5:76fb:98d6 with SMTP id 4fb4d7f45d1cf-6b7c0bad1e1mr2454194a12.21.1794580724343;
-        Fri, 13 Nov 2026 06:38:44 -0800 (PST)
-Received: from fedora ([194.36.27.30])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c21b5cc4sm1091364a12.3.2026.11.13.06.38.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 06:38:43 -0800 (PST)
-From: Pavel Skripkin <paskripkin@gmail.com>
-To: eric.piel@tremplin-utc.net,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Pavel Skripkin <paskripkin@gmail.com>
-Subject: [PATCH] hp_accel: add support for HP Pavilion Gaming Laptop
-Date: Fri, 13 Nov 2026 17:38:35 +0300
-Message-ID: <20261113143835.143209-1-paskripkin@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEkqMQuD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D19F41F000C8;
+	Fri, 13 Nov 2026 14:38:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794580726;
+	bh=bd+MnsWaafBvoeddMR/ju46S5+pnRf2ye93uIRHVHlY=;
+	h=Date:From:To:Cc:Subject;
+	b=XEkqMQuDx/xMpuxcUjduqBFYq9E2NwIaBQPSfxeUzgnOR77sR5X/I4S5Gx8xFbuke
+	 goFTCCJES7k6bLT/IBDmuZRk5OVTempa3KpxoOWC0Ywx8/brSWtdwvm+FGevJr49XO
+	 fuVLy/HPf0rAPuxm0vjGcJ1ljM+E3w7mpNIw+RLjWzbZAV1Y5+iLbIRCdzWxT7PXPW
+	 Ion4xuJmINJhhneVXGUxD2PlDQ743sw7iMcCQZhB3tS+XEvLewQb3PYvfsfDAlSJ4N
+	 1OY+z0qyU28mcuIuuqPYHrhP4XBwJW6sT38grnB24bcd2eIBsvXG83tuHANjJ25Ta6
+	 giAPc7gEMLeyg==
+Date: Fri, 13 Nov 2026 14:38:42 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Brian Masney <bmasney@redhat.com>, Jerome Brunet <jbrunet@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+	Brian Masney <masneyb@kernel.org>, Kees Cook <kees@kernel.org>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the clk tree with the origin tree
+Message-ID: <avcg8idxqPxoVmxw@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,27 +59,417 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="AVWuBmSGffOcuXjz"
+Content-Disposition: inline
 
-Accelerometer in that laptop uses inverted X axes.
 
-Signed-off-by: Pavel Skripkin <paskripkin@gmail.com>
----
- drivers/platform/x86/hp/hp_accel.c | 1 +
- 1 file changed, 1 insertion(+)
+--AVWuBmSGffOcuXjz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/platform/x86/hp/hp_accel.c b/drivers/platform/x86/hp/hp_accel.c
-index 40e1b9fb1b6d..46ae98deb919 100644
---- a/drivers/platform/x86/hp/hp_accel.c
-+++ b/drivers/platform/x86/hp/hp_accel.c
-@@ -233,6 +233,7 @@ static const struct dmi_system_id lis3lv02d_dmi_ids[] = {
- 	AXIS_DMI_MATCH("HPZBook15", "HP ZBook 15", x_inverted),
- 	AXIS_DMI_MATCH("HPZBook17G5", "HP ZBook 17 G5", x_inverted),
- 	AXIS_DMI_MATCH("HPZBook17", "HP ZBook 17", xy_swap_yz_inverted),
-+	AXIS_DMI_MATCH("HPPavilion15ec", "HP Pavilion Gaming Laptop 15-ec1xxx", x_inverted),
- 	{ NULL, }
- /* Laptop models without axis info (yet):
-  * "NC6910" "HP Compaq 6910"
--- 
-2.56.0
+Hi all,
 
+Today's linux-next merge of the clk tree got a conflict in:
+
+  drivers/clk/socfpga/clk-agilex.c
+
+between commit:
+
+  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
+oc_obj() family")
+
+=66rom the origin tree and commit:
+
+  0b95e3ec699a8 ("clk: socfpga: agilex: register the SP timer clocks early")
+
+=66rom the clk tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+This just throws away Kees' change.
+
+diff --combined drivers/clk/socfpga/clk-agilex.c
+index 3d4d9f35b927e,445d814e2f3ac..0000000000000
+--- a/drivers/clk/socfpga/clk-agilex.c
++++ b/drivers/clk/socfpga/clk-agilex.c
+@@@ -5,6 -5,7 +5,7 @@@
+  #include <linux/slab.h>
+  #include <linux/clk-provider.h>
+  #include <linux/of.h>
++ #include <linux/of_address.h>
+  #include <linux/platform_device.h>
+ =20
+  #include <dt-bindings/clock/agilex-clock.h>
+@@@ -232,24 -233,49 +233,49 @@@ static const struct stratix10_pll_cloc
+  	  0, 0x9c},
+  };
+ =20
++ /*
++  * The SP timers are probed from time_init() and cannot defer, so their
++  * l4_sp_clk and its parents are registered from of_clk_init(). Everything
++  * else is registered when the platform driver probes.
++  */
++ static const struct n5x_perip_c_clock n5x_early_perip_c_clks[] =3D {
++ 	{ AGILEX_MAIN_PLL_C1_CLK, "main_pll_c1", "main_pll", NULL, 1, 0, 0x54, 8=
+},
++ 	{ AGILEX_PERIPH_PLL_C1_CLK, "peri_pll_c1", "periph_pll", NULL, 1, 0, 0xA=
+8, 8},
++ };
++=20
++ static const struct stratix10_perip_c_clock agilex_early_perip_c_clks[] =
+=3D {
++ 	{ AGILEX_MAIN_PLL_C1_CLK, "main_pll_c1", "main_pll", NULL, 1, 0, 0x5C},
++ 	{ AGILEX_PERIPH_PLL_C1_CLK, "peri_pll_c1", "periph_pll", NULL, 1, 0, 0xB=
+0},
++ };
++=20
++ static const struct stratix10_perip_cnt_clock agilex_early_perip_cnt_clks=
+[] =3D {
++ 	{ AGILEX_NOC_FREE_CLK, "noc_free_clk", NULL, noc_free_mux, ARRAY_SIZE(no=
+c_free_mux),
++ 	  0, 0x40, 0, 0, 0},
++ };
++=20
++ static const struct stratix10_gate_clock agilex_early_gate_clks[] =3D {
++ 	/*
++ 	 * The l4_sp_clk feeds a 100 MHz clock to various peripherals, one of th=
+em
++ 	 * being the SP timers, thus cannot get gated.
++ 	 */
++ 	{ AGILEX_L4_SP_CLK, "l4_sp_clk", NULL, noc_mux, ARRAY_SIZE(noc_mux), CLK=
+_IS_CRITICAL, 0x24,
++ 	  3, 0x44, 16, 2, 0x30, 1, 0},
++ };
++=20
+  static const struct n5x_perip_c_clock n5x_main_perip_c_clks[] =3D {
+  	{ AGILEX_MAIN_PLL_C0_CLK, "main_pll_c0", "main_pll", NULL, 1, 0, 0x54, 0=
+},
+- 	{ AGILEX_MAIN_PLL_C1_CLK, "main_pll_c1", "main_pll", NULL, 1, 0, 0x54, 8=
+},
+  	{ AGILEX_MAIN_PLL_C2_CLK, "main_pll_c2", "main_pll", NULL, 1, 0, 0x54, 1=
+6},
+  	{ AGILEX_MAIN_PLL_C3_CLK, "main_pll_c3", "main_pll", NULL, 1, 0, 0x54, 2=
+4},
+  	{ AGILEX_PERIPH_PLL_C0_CLK, "peri_pll_c0", "periph_pll", NULL, 1, 0, 0xA=
+8, 0},
+- 	{ AGILEX_PERIPH_PLL_C1_CLK, "peri_pll_c1", "periph_pll", NULL, 1, 0, 0xA=
+8, 8},
+  	{ AGILEX_PERIPH_PLL_C2_CLK, "peri_pll_c2", "periph_pll", NULL, 1, 0, 0xA=
+8, 16},
+  	{ AGILEX_PERIPH_PLL_C3_CLK, "peri_pll_c3", "periph_pll", NULL, 1, 0, 0xA=
+8, 24},
+  };
+ =20
+  static const struct stratix10_perip_c_clock agilex_main_perip_c_clks[] =
+=3D {
+  	{ AGILEX_MAIN_PLL_C0_CLK, "main_pll_c0", "main_pll", NULL, 1, 0, 0x58},
+- 	{ AGILEX_MAIN_PLL_C1_CLK, "main_pll_c1", "main_pll", NULL, 1, 0, 0x5C},
+  	{ AGILEX_MAIN_PLL_C2_CLK, "main_pll_c2", "main_pll", NULL, 1, 0, 0x64},
+  	{ AGILEX_MAIN_PLL_C3_CLK, "main_pll_c3", "main_pll", NULL, 1, 0, 0x68},
+  	{ AGILEX_PERIPH_PLL_C0_CLK, "peri_pll_c0", "periph_pll", NULL, 1, 0, 0xA=
+C},
+- 	{ AGILEX_PERIPH_PLL_C1_CLK, "peri_pll_c1", "periph_pll", NULL, 1, 0, 0xB=
+0},
+  	{ AGILEX_PERIPH_PLL_C2_CLK, "peri_pll_c2", "periph_pll", NULL, 1, 0, 0xB=
+8},
+  	{ AGILEX_PERIPH_PLL_C3_CLK, "peri_pll_c3", "periph_pll", NULL, 1, 0, 0xB=
+C},
+  };
+@@@ -257,8 -283,6 +283,6 @@@
+  static const struct stratix10_perip_cnt_clock agilex_main_perip_cnt_clks[=
+] =3D {
+  	{ AGILEX_MPU_FREE_CLK, "mpu_free_clk", NULL, mpu_free_mux, ARRAY_SIZE(mp=
+u_free_mux),
+  	   0, 0x3C, 0, 0, 0},
+- 	{ AGILEX_NOC_FREE_CLK, "noc_free_clk", NULL, noc_free_mux, ARRAY_SIZE(no=
+c_free_mux),
+- 	  0, 0x40, 0, 0, 0},
+  	{ AGILEX_L3_MAIN_FREE_CLK, "l3_main_free_clk", "noc_free_clk", NULL,
+  	  1, 0, 0, 1, 0, 0},
+  	{ AGILEX_L4_SYS_FREE_CLK, "l4_sys_free_clk", NULL, noc_mux, ARRAY_SIZE(n=
+oc_mux), 0,
+@@@ -292,12 -316,6 +316,6 @@@ static const struct stratix10_gate_cloc
+  	  1, 0x44, 0, 2, 0x30, 1, 0},
+  	{ AGILEX_L4_MP_CLK, "l4_mp_clk", NULL, noc_mux, ARRAY_SIZE(noc_mux), 0, =
+0x24,
+  	  2, 0x44, 8, 2, 0x30, 1, 0},
+- 	/*
+- 	 * The l4_sp_clk feeds a 100 MHz clock to various peripherals, one of th=
+em
+- 	 * being the SP timers, thus cannot get gated.
+- 	 */
+- 	{ AGILEX_L4_SP_CLK, "l4_sp_clk", NULL, noc_mux, ARRAY_SIZE(noc_mux), CLK=
+_IS_CRITICAL, 0x24,
+- 	  3, 0x44, 16, 2, 0x30, 1, 0},
+  	{ AGILEX_CS_AT_CLK, "cs_at_clk", NULL, noc_mux, ARRAY_SIZE(noc_mux), 0, =
+0x24,
+  	  4, 0x44, 24, 2, 0x30, 1, 0},
+  	{ AGILEX_CS_TRACE_CLK, "cs_trace_clk", NULL, noc_mux, ARRAY_SIZE(noc_mux=
+), 0, 0x24,
+@@@ -454,31 -472,165 +472,165 @@@ static int n5x_clk_register_pll(const s
+  	return 0;
+  }
+ =20
+- static int agilex_clkmgr_init(struct platform_device *pdev)
++ static struct stratix10_clock_data *agilex_clk_data;
++=20
++ static struct stratix10_clock_data *agilex_clk_data_alloc(void __iomem *b=
+ase)
++ {
++ 	struct stratix10_clock_data *clk_data;
++ 	int i;
++=20
++ 	clk_data =3D kzalloc(struct_size(clk_data, clk_data.hws, AGILEX_NUM_CLKS=
+),
++ 			   GFP_KERNEL);
++ 	if (!clk_data)
++ 		return NULL;
++=20
++ 	clk_data->base =3D base;
++ 	clk_data->clk_data.num =3D AGILEX_NUM_CLKS;
++=20
++ 	for (i =3D 0; i < AGILEX_NUM_CLKS; i++)
++ 		clk_data->clk_data.hws[i] =3D ERR_PTR(-EPROBE_DEFER);
++=20
++ 	return clk_data;
++ }
++=20
++ static void agilex_clk_register_early(struct stratix10_clock_data *clk_da=
+ta)
++ {
++ 	agilex_clk_register_pll(agilex_pll_clks, ARRAY_SIZE(agilex_pll_clks), cl=
+k_data);
++=20
++ 	agilex_clk_register_c_perip(agilex_early_perip_c_clks,
++ 				    ARRAY_SIZE(agilex_early_perip_c_clks), clk_data);
++=20
++ 	agilex_clk_register_cnt_perip(agilex_early_perip_cnt_clks,
++ 				      ARRAY_SIZE(agilex_early_perip_cnt_clks),
++ 				      clk_data);
++=20
++ 	agilex_clk_register_gate(agilex_early_gate_clks,
++ 				 ARRAY_SIZE(agilex_early_gate_clks), clk_data);
++ }
++=20
++ static void n5x_clk_register_early(struct stratix10_clock_data *clk_data)
++ {
++ 	n5x_clk_register_pll(agilex_pll_clks, ARRAY_SIZE(agilex_pll_clks), clk_d=
+ata);
++=20
++ 	n5x_clk_register_c_perip(n5x_early_perip_c_clks,
++ 				 ARRAY_SIZE(n5x_early_perip_c_clks), clk_data);
++=20
++ 	agilex_clk_register_cnt_perip(agilex_early_perip_cnt_clks,
++ 				      ARRAY_SIZE(agilex_early_perip_cnt_clks),
++ 				      clk_data);
++=20
++ 	agilex_clk_register_gate(agilex_early_gate_clks,
++ 				 ARRAY_SIZE(agilex_early_gate_clks), clk_data);
++ }
++=20
++ /*
++  * The registered clocks keep using the mapping and clk_data, so neither =
+is
++  * released once the early clocks have been registered.
++  */
++ static int
++ agilex_clkmgr_setup(struct device_node *np,
++ 		    void (*register_early)(struct stratix10_clock_data *))
+  {
+- 	struct device_node *np =3D pdev->dev.of_node;
+- 	struct device *dev =3D &pdev->dev;
+  	struct stratix10_clock_data *clk_data;
+  	void __iomem *base;
+- 	int i, num_clks;
+ =20
+- 	base =3D devm_platform_ioremap_resource(pdev, 0);
+- 	if (IS_ERR(base))
+- 		return PTR_ERR(base);
+-=20
+- 	num_clks =3D AGILEX_NUM_CLKS;
+-=20
+- 	clk_data =3D devm_kzalloc_flex(dev, *clk_data, clk_data.hws, num_clks);
+- 	if (!clk_data)
++ 	base =3D of_iomap(np, 0);
++ 	if (!base) {
++ 		pr_err("%s: failed to map clock registers\n", __func__);
+  		return -ENOMEM;
++ 	}
+ =20
+- 	clk_data->clk_data.num =3D num_clks;
+- 	clk_data->base =3D base;
++ 	clk_data =3D agilex_clk_data_alloc(base);
++ 	if (!clk_data) {
++ 		iounmap(base);
++ 		return -ENOMEM;
++ 	}
+ =20
+- 	for (i =3D 0; i < num_clks; i++)
+- 		clk_data->clk_data.hws[i] =3D ERR_PTR(-ENOENT);
++ 	register_early(clk_data);
++ 	agilex_clk_data =3D clk_data;
+ =20
+- 	agilex_clk_register_pll(agilex_pll_clks, ARRAY_SIZE(agilex_pll_clks), cl=
+k_data);
++ 	return 0;
++ }
++=20
++ static int agilex_clkmgr_add_provider(struct device_node *np)
++ {
++ 	static bool added;
++ 	int ret;
++=20
++ 	if (added)
++ 		return 0;
++=20
++ 	ret =3D of_clk_add_hw_provider(np, of_clk_hw_onecell_get,
++ 				     &agilex_clk_data->clk_data);
++ 	if (ret)
++ 		return ret;
++=20
++ 	added =3D true;
++=20
++ 	return 0;
++ }
++=20
++ static void __init
++ agilex_clkmgr_of_init(struct device_node *np,
++ 		      void (*register_early)(struct stratix10_clock_data *))
++ {
++ 	if (agilex_clkmgr_setup(np, register_early))
++ 		return;
++=20
++ 	if (agilex_clkmgr_add_provider(np))
++ 		pr_err("%s: failed to add clock provider\n", __func__);
++ }
++=20
++ static void __init agilex_clkmgr_early_init(struct device_node *np)
++ {
++ 	agilex_clkmgr_of_init(np, agilex_clk_register_early);
++ }
++=20
++ CLK_OF_DECLARE_DRIVER(agilex_clkmgr, "intel,agilex-clkmgr",
++ 		      agilex_clkmgr_early_init);
++=20
++ static void __init n5x_clkmgr_early_init(struct device_node *np)
++ {
++ 	agilex_clkmgr_of_init(np, n5x_clk_register_early);
++ }
++=20
++ CLK_OF_DECLARE_DRIVER(n5x_clkmgr, "intel,easic-n5x-clkmgr",
++ 		      n5x_clkmgr_early_init);
++=20
++ static struct stratix10_clock_data *
++ agilex_clkmgr_get_clk_data(struct platform_device *pdev,
++ 			   void (*register_early)(struct stratix10_clock_data *))
++ {
++ 	int ret;
++=20
++ 	if (!agilex_clk_data) {
++ 		ret =3D agilex_clkmgr_setup(pdev->dev.of_node, register_early);
++ 		if (ret)
++ 			return ERR_PTR(ret);
++ 	}
++=20
++ 	return agilex_clk_data;
++ }
++=20
++ static int agilex_clkmgr_finish(struct platform_device *pdev,
++ 				struct stratix10_clock_data *clk_data)
++ {
++ 	int i;
++=20
++ 	for (i =3D 0; i < AGILEX_NUM_CLKS; i++)
++ 		if (clk_data->clk_data.hws[i] =3D=3D ERR_PTR(-EPROBE_DEFER))
++ 			clk_data->clk_data.hws[i] =3D ERR_PTR(-ENOENT);
++=20
++ 	return agilex_clkmgr_add_provider(pdev->dev.of_node);
++ }
++=20
++ static int agilex_clkmgr_init(struct platform_device *pdev)
++ {
++ 	struct stratix10_clock_data *clk_data;
++=20
++ 	clk_data =3D agilex_clkmgr_get_clk_data(pdev, agilex_clk_register_early);
++ 	if (IS_ERR(clk_data))
++ 		return PTR_ERR(clk_data);
+ =20
+  	agilex_clk_register_c_perip(agilex_main_perip_c_clks,
+  				 ARRAY_SIZE(agilex_main_perip_c_clks), clk_data);
+@@@ -489,35 -641,17 +641,17 @@@
+ =20
+  	agilex_clk_register_gate(agilex_gate_clks, ARRAY_SIZE(agilex_gate_clks),
+  			      clk_data);
+- 	of_clk_add_hw_provider(np, of_clk_hw_onecell_get, &clk_data->clk_data);
+- 	return 0;
++=20
++ 	return agilex_clkmgr_finish(pdev, clk_data);
+  }
+ =20
+  static int n5x_clkmgr_init(struct platform_device *pdev)
+  {
+- 	struct device_node *np =3D pdev->dev.of_node;
+- 	struct device *dev =3D &pdev->dev;
+  	struct stratix10_clock_data *clk_data;
+- 	void __iomem *base;
+- 	int i, num_clks;
+ =20
+- 	base =3D devm_platform_ioremap_resource(pdev, 0);
+- 	if (IS_ERR(base))
+- 		return PTR_ERR(base);
+-=20
+- 	num_clks =3D AGILEX_NUM_CLKS;
+-=20
+- 	clk_data =3D devm_kzalloc_flex(dev, *clk_data, clk_data.hws, num_clks);
+- 	if (!clk_data)
+- 		return -ENOMEM;
+-=20
+- 	clk_data->base =3D base;
+- 	clk_data->clk_data.num =3D num_clks;
+-=20
+- 	for (i =3D 0; i < num_clks; i++)
+- 		clk_data->clk_data.hws[i] =3D ERR_PTR(-ENOENT);
+-=20
+- 	n5x_clk_register_pll(agilex_pll_clks, ARRAY_SIZE(agilex_pll_clks), clk_d=
+ata);
++ 	clk_data =3D agilex_clkmgr_get_clk_data(pdev, n5x_clk_register_early);
++ 	if (IS_ERR(clk_data))
++ 		return PTR_ERR(clk_data);
+ =20
+  	n5x_clk_register_c_perip(n5x_main_perip_c_clks,
+  				 ARRAY_SIZE(n5x_main_perip_c_clks), clk_data);
+@@@ -528,8 -662,8 +662,8 @@@
+ =20
+  	agilex_clk_register_gate(agilex_gate_clks, ARRAY_SIZE(agilex_gate_clks),
+  			      clk_data);
+- 	of_clk_add_hw_provider(np, of_clk_hw_onecell_get, &clk_data->clk_data);
+- 	return 0;
++=20
++ 	return agilex_clkmgr_finish(pdev, clk_data);
+  }
+ =20
+  static int agilex_clkmgr_probe(struct platform_device *pdev)
+
+--AVWuBmSGffOcuXjz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr3IPEACgkQJNaLcl1U
+h9CxlAf/aKjwDdkZZMa5FuOXMfgrDLQY7YsEfKSCrAbaQjQ63ySf9H2zXvMBWSVc
+pl3IcPw25yjNbiID56Afl0wSl3KvdhZrlAWqhujWpQsaPQxYQz75NS4vAnNjj4Fd
+TXG3dM+d/uwZHjO645mucCwc4WJ5t8Hb5PRTT0HlMszRDo34z0RTVFUqm9tCIP20
+/mga1JGPmJ8UzxXOcx0+q2YgVTLe90mL4lp4mow72VcyFRp9fRtbEAJE9aBFk4MC
+YwVmz7emGnbVMzv7ipGYIeZJdsnvxLc1nKukXCTuQUD0T/nFXZSar30DZdaN6E1y
+HrxsEVDuHtS0S5Wt6H+2x4QF9ySl6w==
+=/Uyq
+-----END PGP SIGNATURE-----
+
+--AVWuBmSGffOcuXjz--
