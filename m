@@ -1,75 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794599768;
-	b=lrCgqI6tAOPbKCnp0YFqQTqF1yYDGZSzJBEi05ztK/snp8JMhvQpNsdTGi7p1LyPz3LG
-	 fVYKoR5fqP8BL1uzqsPlaih0jyGJ/NAOtEBw4Eka8Ye/z0qi4y33on/8sClNzd2/pKwuf
-	 hAMGoAM7TZaXCY1pJybsFPqygGBWT0UY4AcJFriG+RsXfEFvIFoC9f7HcvDyG50ScYcoS
-	 GL0SnU1Nio7iVwwGs2k49p8Ef3/uNSxJD+2sojIEMLaF36O6tWNAAsV8848l2rjt8gq/U
-	 6YKCfEYPgSbl9Yx58z/jCmZm9YfBFjeCHufR4ELn4iJzC0yLph5CD98MSoXRZBmKqLA==
+	b=uotrjZ1DAZJayrwZMEESlhIPXbvmnQMoI/hKa6IiHpB++tmDEqmKMM1jYL9uwOx2TGf3
+	 6dNQFASe23B4AV7YT4scxxPfRugTmDrUlUAAD1HOn2iEHY27HrRgbnxCjv5V69tIQBfIV
+	 Ejx5eRTil2p4J8EhqiKB8xkBU7M4Rfw8v3lwLgSrw9LrFtXzxjd2fl9OM5orTJUVlINuO
+	 H7TXLF/3R9VGOwctOb13Xuhatv6LLCQONRNZGG7X0aW+NEbQle8N2mvopJNaLBR6k35Vy
+	 h6V113bcoILt2u814ThYVNjji3XNMkGRNeApr9dMiaWJRZ6ychjwTH/tMuHj/zGofdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794599768;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=WELn3GhU1Eg5SUTEbadLXYqD8v//LkauV1EZunnpVjw=;
-	b=UQXZ+1QEUuuv6KyDKjff0Qa70C+3i0gXgQmDuHVIEHaWXPE7Afj0lpaR6BJp8x9vnKnA
-	 HwHew28XhYym9a1/Fd5dQ4e6UgmKWnl4Zh9HP00OzdYCD89pI0vNX8RO7N1x8+MJ7ME7d
-	 d/uXCZsWzEsL3rFwhoWbflS25mP7XkOBHNKt2VNDXjVwsbe9zVXhew/B7oBdxsbNXwoyM
-	 6sLczwlNQJzFPyZo5PnrzpUS/d+i31gfatMH2001qdx+pk1WhHuE+sCusJKD6kJvFwaE9
-	 oLUzsyp1ApYgApbvChk330tL9xNuRNkKn/DprcGvZFVDxjeYZ1BWc4kXUDoUoRDoKBQ==
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=IYzxrdxB6QZ0WZq97fRAoxslmFNvUVJkMtc4FLhOjLU=;
+	b=Cx+AAYa/O5qlmYQEWzQx240TKoRokOzDQ6o890MsVqhO6bH6x9ml9qzvrZR2iHftZ2i6
+	 yYg/X9gRWN2CTyyjas+lYgc5U49jyCrdmINI+cVCvVT7h67i6Pkw3G3n6kOost0lwv9wE
+	 rxtsrsDK+RVBiXt4jr1QzEhqEL9rmRHMCkR5bpcUIkXLkaVhwtLGPfGloS5pwGcC7z1op
+	 T9hDh+5X7q+xasfKQQHS8AiI9KIRYiwGDK/qI0zqgT9lF+GV3bVuLKYSMCM5qIxXc8sDr
+	 /s6x+siLIv+aXDXB2Uuk+gTN+Xufi9Vw8Tbud9OJ1r564N95ob9myrQgUIVImnrrEjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EWTDXPZi;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=A17b7TL9;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=j9fNUdNQ;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6F860A260A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:56:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A6F860A260A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1CA606F347
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:56:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A1CA606F347
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EWTDXPZi
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-370230d93efso5995710eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:56:07 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=A17b7TL9;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=j9fNUdNQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794599765;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=IYzxrdxB6QZ0WZq97fRAoxslmFNvUVJkMtc4FLhOjLU=;
+	b=A17b7TL9dS62FMwaBhLPU1WmVYEsWZVsqb35LJmzpW7OYxJ0aV+/irehG1rgQKVSZlE6Si
+	r4ztnCawDXwI+L9DxylX17KMRrSNjliqzcskqf5DmFzsO+VSR6r93tdNyVgTHy9xepVSpi
+	/Sm8netbJalGHdU3z0zBnbsYs6xaboI=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-33-Ymw90dVXOD6_Bf7Hwjrblg-1; Fri, 13 Nov 2026 14:56:04 -0500
+X-MC-Unique: Ymw90dVXOD6_Bf7Hwjrblg-1
+X-Mimecast-MFC-AGG-ID: Ymw90dVXOD6_Bf7Hwjrblg_1794599763
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a70b42bab0so8766425e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:56:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794599767; x=1795204567; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1794599763; x=1795204563; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WELn3GhU1Eg5SUTEbadLXYqD8v//LkauV1EZunnpVjw=;
-        b=EWTDXPZizTU/7dkuSUJrlUy1v1Hn7bohuRgYuy6ftQdrNkEYSLUdQSCNcWT4MluGcP
-         uvsxNB6aRam6oyo9V1B46jozKFb9Gk+YjnJn+zvTmrzEmyW0zRgykdDx9pH1dihE74s7
-         cFrhy3cdl46Rla2RGa61n9bXve2d3TtB0WqP2NOJdLPh6IASDAWXe/Owxl/Ey9QGmk0M
-         eHTlQs+gD61wzSEQZIbZqCw/uBn9D6LbiE2q+YWWvdCSeJG/0M0siSsF05+mnGHmSrbS
-         RXyy4IYNfhRZSIot5N1cZ8rMksr7wnKZzlRipx4op3nBYkZyw1e0Ox8llIpYQwwJhGl8
-         x0bg==
+        bh=IYzxrdxB6QZ0WZq97fRAoxslmFNvUVJkMtc4FLhOjLU=;
+        b=j9fNUdNQY+Dpo927hL8NG8vN0L2tprIMIEaYpY1auSSv4ZXNUyfdpSOidUEAF+bYIZ
+         tXuX5QNB8L2NWzlIlmCVYnmitfICbcUiyk/kJAxw6BRZeJ92N1+aDVC+Fkkwib0yuAGp
+         5cLZ1VnZy7HydpydIKrln7WJvo6av1OeajgclpfwW3vOIXrYpGOMh8+7Fj0zhBdioLjx
+         0E2vkZuIr6FZdK2imkzaOy9+/gBw9OfbHawHpDMJFQfX56Vklgf8yGkc/+W5AtFx27oH
+         sARDQXczyJBl3DRnXcHL5NU/Ngwp8cg1gySNg63ZrVPFUpUt16gdoJjr1c5q8S29wlIA
+         s7pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794599767; x=1795204567;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794599763; x=1795204563;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WELn3GhU1Eg5SUTEbadLXYqD8v//LkauV1EZunnpVjw=;
-        b=NbZE9pft7096x5g8dYfCsN5oymA0yHWeqCkL141VhwJHkwLejFGmT8HvpCjfqzBJWe
-         N2KgD2VFxI0BZ3pvZ1fa4MCkwKPSy2FlrNybz9awcS/LQBBs9eOLIOtLGn0zkLbqszOr
-         T65eEEetrPEPn0id9je0LheEE0c1jIlpQLkr0YYHTXl/WEYL4Sri28uqoFgkQPNK4azv
-         6jnUYd2pI64B8XwMMBpl8R+NrAMoS4ibSACqmWYCoULk/EiKbrCZo9+qHHlHnZlAf5sT
-         K4Jo1RigpLet46PTNkJstdregUk4f+IVSnd01axBh/dZYybxzevN964OoKn8pQkO7qzL
-         /FEg==
-X-Forwarded-Encrypted: i=1; AL+hErHuywGNvGvelbpjfsgUSH/zQy2l0mAl8tCOKzsLE18owQDaUFp9hSN9zz/jNB3qWrFolPsiw5yevd+wWts=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+J61vXIpkTAkOzGPTsPJFHD8f3mBpPAPIXatnkwaKWrZc65Xgm
-	EudTPGTHQ5Xepi0SYgT/UGHewaLfu9JcHpZCuIMupM9ynEonW3kcb4GuF8N0V1O934bozT7Uw9K
-	+2DE+qXAjKw==
-X-Received: from dldyr6-n2.prod.google.com ([2002:a05:701b:4506:20b0:1ad:6e8:8d5b])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4194:20b0:1b3:aee5:20c5
- with SMTP id a92af1059eb24-1b5030fbe7emr3829397c88.22.1794599766364; Fri, 13
- Nov 2026 11:56:06 -0800 (PST)
-Date: Fri, 13 Nov 2026 11:55:46 -0800
-In-Reply-To: <20261113195601.2872738-1-irogers@google.com>
+        bh=IYzxrdxB6QZ0WZq97fRAoxslmFNvUVJkMtc4FLhOjLU=;
+        b=yyLJkgzz5NOvw6IzCGXuIemSXQTIOK7k0Py9Eaz5ZgMHknGDEYwjajkAkaHEs+Bn1d
+         29I1BxoKVHftSC/hnS2i7EynL2ZCgDPrM1hpjsdXe+MM3KDuY1arJi7GnoZmQPPN/Lk8
+         aYal5Wy0Mvlr7ZOUKIPE06FUCNJ7Llj1t/ZXxx1QFADg4zKM1lqZdSQ7yd/z/UFseiW6
+         MrjAUId7J3vJSI3x6/Y422VyUxnXK2F1briAS3iafheYEiqZchVgM1zC26wekGDAdzHk
+         /kLVBao2APEtY27NS8hpSEe96XbqopfX8oGZ+CoQNEk/7WeNqGQOU0oOdMqW6/DpRCBE
+         bBtQ==
+X-Forwarded-Encrypted: i=1; AL+hErHfX28fwvC5UhsMMw5bTu1tO9fqChIUhKtDGr8XUVT9oAbfy51bgN17wiPNA4K1SbtAI1MWDCmIFhbpeUM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jejyATcfYkUtGGIaChtZn/WWQl4xhlkhcw6/TcIiiEG1ombcx
+	Fn15zoXiqwxxoOuKPGoS8drI4FYmNCIKjbyOeECDKgfaH7IpaQULE+wNzMdqA73XVfHDzZzUwf/
+	10fzoNumibrLXY5Txfx4MWSU7gxY0Qa6sJ89qlEqHxiMYlAXf3bPYyawOpecXOUkIfKeFEArpIQ
+	==
+X-Gm-Gg: AYBFou3+kGf/pTa9klF4KvCngG8/49H3w9uvuuaop12pdoJzA9GA4W0/J/rdDnQtZ8j
+	mOsM9e9f43Asm253n7XA8UlSZhqTOBTY6zOdVSmdriWVOevRIYxGsWhaCPYNhHYK1to9TYAw7bc
+	lRRWclIRayqM2WM/hTXRUTjd4ydor/Ti0GnUkIcAuzK/n3SBlO/e8ZKzrFv6tN0FOkDOPWDR725
+	NCYlMOX0tGIfIDoVwrA9s12D6jmlY1KH/cLJEbcTK6ac3XCSwqnrP6yxhcNw4c2+4FKPHkp1/Eu
+	Y/bM5hruNZ6LUjZtyWXrqIMNraMRRecC1K+2ghOmq/VtmQrNpqUxWiDLx3TxrxeBsTtQjTz7Q/S
+	WukNHPYLb6nkLyj1tRSevYW/CnYk6lK0GXI0DZNAAzrCB
+X-Received: by 2002:a05:600c:354a:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4bb55a61152mr79579305e9.5.1794599762851;
+        Fri, 13 Nov 2026 11:56:02 -0800 (PST)
+X-Received: by 2002:a05:600c:354a:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4bb55a61152mr79579015e9.5.1794599762435;
+        Fri, 13 Nov 2026 11:56:02 -0800 (PST)
+Received: from [192.168.0.9] ([47.64.115.75])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5b4a3fcdsm49435525e9.0.2026.11.13.11.56.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 11:56:01 -0800 (PST)
+Message-ID: <1125f201-ec86-4139-98a0-fef8e8efe6b4@redhat.com>
+Date: Fri, 13 Nov 2026 20:55:59 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,114 +111,127 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261113195601.2872738-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113195601.2872738-2-irogers@google.com>
-Subject: [PATCH v2 01/16] perf pmus: Expose duplicate uncore PMU scanning helpers
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] alpha: Use symbol assignment in SYM_END
+To: Linus Walleij <linusw@kernel.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>
+References: <20261103-alpha-compile-v1-1-9e93e2260a9f@kernel.org>
+Content-Language: en-US
+From: Thomas Huth <thuth@redhat.com>
+Autocrypt: addr=thuth@redhat.com; keydata=
+ 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
+In-Reply-To: <20261103-alpha-compile-v1-1-9e93e2260a9f@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Export perf_pmus__scan_skip_duplicates() and add
-perf_pmu__num_duplicates() to count numbered PMU instances sharing a
-common prefix (such as uncore_imc_0..uncore_imc_7) so subcommands like
-'perf sysinfo' can collapse duplicate uncore PMUs by default and report
-their instance count.
+Am 03.11.26 um 10:09 schrieb Linus Walleij:
+> Alpha uses the .set directive to select assembler options, so the
+> symbol assignment emitted by the generic SYM_END macro fails to assemble.
+> This breaks COMPILE_TEST builds left and right, e.g.:
+> 
+>    Error: junk at end of line, first unrecognized character is `,'
+>    Error: .size expression for bcm6846_runner_start does not evaluate to a constant
+> 
+> Override SYM_END to use an ordinary symbol assignment for the calculated
+> size. Preserve the symbol type, size and local size symbol while leaving
+> other architectures unchanged.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202611031620.n4ptlpo7-lkp@intel.com/
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+> The generic SYM_END uses .set for symbol assignment, but Alpha interprets
+> .set as an assembler mode directive. Provide an Alpha override using
+> ordinary assignment.
+> 
+> Tested the unchanged Runner wrapper with an Alpha-targeted GNU assembler
+> 2.46.1: the original header reproduces the reported errors, while the
+> fixed header assembles without warnings. Symbol sizes and the embedded
+> Runner bytes were checked. A full Alpha allyesconfig build was not run.
+> 
+> This patch was prepared with LLM assistance.
+> ---
+>   arch/alpha/include/asm/linkage.h | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/arch/alpha/include/asm/linkage.h b/arch/alpha/include/asm/linkage.h
+> index aa8661fa60dc..a3f0302c92d0 100644
+> --- a/arch/alpha/include/asm/linkage.h
+> +++ b/arch/alpha/include/asm/linkage.h
+> @@ -6,4 +6,12 @@
+>   #define SYSCALL_ALIAS(alias, name)					\
+>   	asm ( #alias " = " #name "\n\t.globl " #alias)
+>   
+> +#ifdef __ASSEMBLY__
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/util/pmus.c | 26 +++++++++++++++++++++++++-
- tools/perf/util/pmus.h | 21 +++++++++++++++++++++
- 2 files changed, 46 insertions(+), 1 deletion(-)
+I'm currently trying to convert all __ASSEMBLY__ statements into __ASSEMBLER__:
 
-diff --git a/tools/perf/util/pmus.c b/tools/perf/util/pmus.c
-index b924ff6180e4..931a129bb45b 100644
---- a/tools/perf/util/pmus.c
-+++ b/tools/perf/util/pmus.c
-@@ -485,7 +485,7 @@ struct perf_pmu *perf_pmus__scan_matching_wildcard(struct perf_pmus *pmus,
- 	return NULL;
- }
- 
--static struct perf_pmu *
-+struct perf_pmu *
- perf_pmus__scan_skip_duplicates(struct perf_pmus *pmus, struct perf_pmu *pmu)
- {
- 	bool use_core_pmus = !pmu || pmu->is_core;
-@@ -522,6 +522,30 @@ perf_pmus__scan_skip_duplicates(struct perf_pmus *pmus, struct perf_pmu *pmu)
- 	return NULL;
- }
- 
-+size_t perf_pmu__num_duplicates(const struct perf_pmu *pmu)
-+{
-+	const struct list_head *head;
-+	const struct perf_pmu *pos = pmu;
-+	size_t base_len;
-+	size_t count = 1;
-+
-+	/* Core PMUs are never duplicates, see perf_pmus__scan_skip_duplicates(). */
-+	if (!pmu || !pmu->pmus || pmu->is_core)
-+		return 1;
-+
-+	head = &pmu->pmus->other_pmus;
-+	base_len = pmu_name_len_no_suffix(pmu->name ?: "");
-+	list_for_each_entry_continue(pos, head, list) {
-+		size_t pos_len = pmu_name_len_no_suffix(pos->name ?: "");
-+
-+		if (pos_len != base_len ||
-+		    strncmp(pmu->name ?: "", pos->name ?: "", base_len))
-+			break;
-+		count++;
-+	}
-+	return count;
-+}
-+
- struct perf_pmu *perf_pmus__scan_for_uncore_id(struct perf_pmus *pmus,
- 					       struct perf_pmu *pmu, const char *compat)
- {
-diff --git a/tools/perf/util/pmus.h b/tools/perf/util/pmus.h
-index 2b784cf648f3..44b5dc2fd36c 100644
---- a/tools/perf/util/pmus.h
-+++ b/tools/perf/util/pmus.h
-@@ -134,6 +134,26 @@ struct perf_pmu *perf_pmus__scan(struct perf_pmus *pmus, struct perf_pmu *pmu);
-  */
- struct perf_pmu *perf_pmus__scan_core(struct perf_pmus *pmus, struct perf_pmu *pmu);
- 
-+/**
-+ * perf_pmus__scan_skip_duplicates() - Iterate over PMUs in @pmus, skipping
-+ *                                     numbered duplicate instances of
-+ *                                     non-core PMUs.
-+ * @pmus: The PMU collection to scan.
-+ * @pmu: Previous PMU returned, or NULL to start from the first PMU.
-+ *
-+ * Return: Next distinct prefix struct perf_pmu, or NULL when done.
-+ */
-+struct perf_pmu *perf_pmus__scan_skip_duplicates(struct perf_pmus *pmus, struct perf_pmu *pmu);
-+
-+/**
-+ * perf_pmu__num_duplicates() - Count consecutive PMUs sharing @pmu's prefix.
-+ * @pmu: Representative PMU returned by perf_pmus__scan_skip_duplicates().
-+ *
-+ * Return: Number of PMU instances (including @pmu) sharing its base name,
-+ * always 1 for core PMUs.
-+ */
-+size_t perf_pmu__num_duplicates(const struct perf_pmu *pmu);
-+
- /**
-  * perf_pmus__scan_for_event() - Iterate over PMUs in @pmus that have @event.
-  * @pmus: The PMU collection to scan.
-@@ -260,6 +280,7 @@ struct perf_pmu *perf_pmus__add_test_hwmon_pmu(struct perf_pmus *pmus,
-  * Return: Pointer to the fake struct perf_pmu.
-  */
- struct perf_pmu *perf_pmus__fake_pmu(void);
-+
- /**
-  * perf_pmus__find_core_pmu() - Return the first core PMU in @pmus.
-  * @pmus: The PMU collection to search.
--- 
-2.56.1.703.gf848ed807c-goog
+  https://lore.kernel.org/all/20261023064908.66707-1-thuth@redhat.com/
+
+Could you please use __ASSEMBLER__ here, too?
+
+  Thanks,
+   Thomas
+
+
+> +/* Alpha uses .set for assembler options, not symbol assignments. */
+> +#define SYM_END(name, sym_type)				\
+> +	.type name sym_type ASM_NL			\
+> +	.L__sym_size_##name = . - name ASM_NL		\
+> +	.size name, .L__sym_size_##name
+> +#endif
+> +
+>   #endif
+> 
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261103-alpha-compile-efdde587115c
+> 
+> Best regards,
+> --
+> Linus Walleij <linusw@kernel.org>
 
