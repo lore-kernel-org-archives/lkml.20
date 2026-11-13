@@ -1,63 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794613980;
-	b=Hqbu4NniGx6Wz1Zi6onYzn3yWZltlwSD/ccpxcuRN9Ld6+FhvmQRlVXNe2psctOVC+gR
-	 d851lNT68zGZdj/97Acau2pLIx4fe/KB47CPI3/shOtAzI8iEr/PscWgrD6tAts5adlVU
-	 LKf0cex0XOst0Q7mPAT/cxNar4uUYaCn02tGMuuoQuaS5ALQkq0RAYJ6F1BLUG9qnkMCj
-	 0sifIXuTEmGw/XobfSHF40Kz/uQCN74GrR2VRVFY7obHdpTu/whVX57H2H+IB4feCYSnu
-	 7FzWdMEXptonJYUa45Flf9psi5K3fR8aqONsCa2DUO7aZgNbLU2MkIo02EFKqufS+yA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794613980;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=k1w3+O9veVvG69u+4DyKuDfq5j8qNZ69yw6d6sshB+g=;
-	b=FsdzJkiVKU2NkHDRSwBR/fZ9tKbm3hLFYbJTxKoLWSko8Qme80Ph2iIM9zeH9Hei/Ow2
-	 W9L7wsap0moonE72VfQiUe7oZ1e6g7/CES2QWbUg3dQpfWbjLEtK+aqVmFWr+tFVIQhcd
-	 T3zCSpsTbjOUcvg2119W32SSquiVrV3c/o2zzNW+u3Yv+5wZ6BUDKVh3K3CM6qkAoZFS2
-	 ORQtdnzE/u30+1lLBDWtTQl3LCpLNVplOjuuyAWPZAYJknn8JjHLJkxIFWUTZpCqOft5R
-	 zU2z5w7s8InTW+lhrvB5nyq1tbfeO8BEMF1zd/AXq1tzTLNq1TYPMVfA97E2gIqpwiQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ph4ntom-rev.uz;
-	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
-	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=zuwbA+bn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.54
-Received: from sender6-of-o54.zoho.com (sender6-of-o54.zoho.com [165.173.180.54])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794614011;
+	b=IVMtYNrGBWjAcd17Xb7//PQsqqH8gXKS/suLcZibLZftQ7c9lNhTy9zHLudpg6/Ho/1T
+	 ZqJpd7topnvWFgmepAsPALXBMLUCPjkzc+vDSc2NLHH74c9/I6Uw4OOXapbQGsw/IG06q
+	 gJkH5uS+JPRS0/PqcShaO3SgyUDuvJP1KQfr5JMt+xSd/ekF94u1gPtJeod3cdsf7IpkK
+	 ZNpJNkns3bMSKtWxmi2DQB00uq+L+wicgX+tz2PhBNHnZeBZCCXET+tJqrG5zE4PKRSWP
+	 VQ0AuLkhbMjd1mTwq5oA/CdGH9o0XQRVdVOrAVtdHZZyanZOvRkbTCNI3mKF6OlK09g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794614011;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ofzMkWeqC39zfEblKpdCI+AgTlcnHO+vyCGyUjjgVpI=;
+	b=37LxqthBdnu0mOPa48YXwfPz/X1fHbuFMI1HOzs3guopTL/VMyLo6CdjP7Ba8WlX1NcP
+	 ZFzKITZvy+Rnjks1LwIFaFds43l8f4DQ8vqkbxyV9a2bTT6kzvA7H/O85PNVEioSIynQb
+	 K6q9dmHK1BI8/is9N0cw3voiIF6jKTEeLuPCYfqgTB0/QWikjlHXOlP65/9eiA7valMJJ
+	 /1wERPS8nOfQvPDtW61JxweLqmZtM0FDU05o4TOYtcTmixBrHiMwPZwRnp4Djob+n16u8
+	 6niCusIB0WhtyF4S8m5DISIrA/H0T1FJSes6S4s0FJ1OTf7lhZxULWLo7h3qYvcYrdg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=DYi87pQB;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A92606A336;
-	Fri, 13 Nov 2026 23:52:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31A92606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC92606A336;
+	Fri, 13 Nov 2026 23:53:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AC92606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=zuwbA+bn
-ARC-Seal: i=1; a=rsa-sha256; t=1794613938; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=COtcxXcZ7394OhDFX5Ea+FiGcZP13EwXEMWKgiFHNL/XC+noNFf3kiggK62SzQu8AyjNwAK1B0z4fGcDKtQ1O614lFTOOUzZUZqvcNrulrgtnIcsQVHka1eUa/dh1rBxyLrePIgi5WV4DPklNg94iS+P/tLMgmRIEtZCKZh5Saw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794613938; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=k1w3+O9veVvG69u+4DyKuDfq5j8qNZ69yw6d6sshB+g=; 
-	b=deiJzB3PIlXPCUE1J2QR5Wdreed+t5Syb3orLNf2IdtuNzTAD+X82I5Q4W6eHKtJChZ3UmX4bCCymzcdEfDDnBkM3xmd5veX6k0Wl5j/SnRnkwMpT5g3iLzF80I8VEWNaAgTDY5axWT5s9x0noi1AHsWip31HiFogrHw2+Uwguo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ph4ntom-rev.uz;
-	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
-	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
-DKIM-Signature: a=rsa-sha256; b=zuwbA+bnWimizSaUUmpuhzOlaCa8lnr96WHtNICL7CdtR2KCB007ol0k4Y0dS3Ko4iFlZ3pEghct8djNNrShRotHBfeRppUiTvAwEiRLB7K19+9WHM0eaQPc8KRQUcuiyb1C1bssdYlo2w3nlpV+VCIKVTIzuWNhM5IPByZETxK4yDaMqGMKuvdgd1PlIjBVGV41/ytCS9ouuyuTC2UBOmZSaaa3qvlCgLgqOq/faHKTDxkwEYYAkvf5ivoxvmcXGo3CuttxtlR5e9IkR/9cUWgeT7Ei5gEwQlzvcTAerybQrsKPBItcbCITfdlQTo6LqTRiNHcOFRrC+DrShIXT6w==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=k1w3+O9veVvG69u+4DyKuDfq5j8qNZ69yw6d6sshB+g=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794613938098567.1809972158901;
-	Fri, 13 Nov 2026 15:52:18 -0800 (PST)
-From: Enver Ikromov <owner@ph4ntom-rev.uz>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Enver Ikromov <owner@ph4ntom-rev.uz>
-Subject: [PATCH rtw-next v5 01/10] wifi: rtw89: avoid NULL vif dereference in rtw89_ops_tx()
-Date: Sat, 14 Nov 2026 04:52:02 +0500
-Message-ID: <20261113235211.1911-2-owner@ph4ntom-rev.uz>
-X-Mailer: git-send-email 2.56.0.windows.4
-In-Reply-To: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
-References: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=DYi87pQB
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 066C740E0184;
+	Fri, 13 Nov 2026 23:53:29 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id YzEvr1eMUUKw; Fri, 13 Nov 2026 23:53:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794614005; bh=ofzMkWeqC39zfEblKpdCI+AgTlcnHO+vyCGyUjjgVpI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DYi87pQBTBLGdOlVAxfY/jDFJ8i7MBr9lRudWLSi85+miQTxO8Z9pHPst+PrRivQQ
+	 audgX3QkI32n6LviWC2oD0zutowQJzrCdhG32/9Urn7OF4E0nEFYEelx9mfL93ndkc
+	 9mQAisxyOCW8ymx+jnPZzdzC9Uf/whF9D5fYyBB/UQCK0nMzCfgWcQQY9KST5xqAbW
+	 YnJYC3zFSdVf1Wdzm9BZlicmQDhixd2nK8bwpAPsRWoNAbfzyrZ00KvmMrJLY8lbWc
+	 ZsKCiyuDy60ZH8iTp0z+rZgvJLTQ8+ppYHyGBcu30qMILI/m+5x6+Dni4h/pjVDe7N
+	 bX3vbZn4WJRo5uDltmL23UTs6cfhc19WeqdEbo7SdddfGuUD3Z8MCMgWMzd1aCQ3eb
+	 eI3oqN7tTT41Y5nSt27h/OIi9YHc+QAzZZL7BmOTMmsSa6uPK/AxZLHIGYxKn5wYhF
+	 +zZvP4yeijzn4iRuMB/NRv94RJ6QBK0J+h6zQc90wtscqpxxF1iPSXqjlagn7o6ATf
+	 FShyPyHYdL6Vr8igt0WT9KjwLmMgbb7sdi6e89bsBBFkgwdiAXmX/GgytGrB9GSQgq
+	 ssBPhFPK0yHGebomUrWDoBk4DRo9kTJ6N4y+CrxTYN1TgbTXHarPXhD5yLuU8pL/jI
+	 khArxatRbstVezAbLcrmFfsk=
+Received: from stx.tnic (unknown [209.52.143.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 20CF940E019C;
+	Fri, 13 Nov 2026 23:53:11 +0000 (UTC)
+Date: Fri, 13 Nov 2026 15:53:05 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Breno Leitao <leitao@debian.org>
+Cc: Tony Luck <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Qiuxu Zhuo <qzhuo@nvidia.com>,
+	Qiuxu Zhuo <qiuxu.zhuo@intel.com>, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Rik van Riel <riel@surriel.com>,
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] x86/mce: Rate-limit messages from corrected error
+ floods
+Message-ID: <20261113235305.GEavei4ZaT6cVVy_mm@fat_crate.local>
+References: <20261113-mci_ratelimit-v3-0-ada38c5a6c88@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,55 +85,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261113-mci_ratelimit-v3-0-ada38c5a6c88@debian.org>
 
-rtw89 sets IEEE80211_HW_WANT_MONITOR_VIF but not
-IEEE80211_HW_QUEUE_CONTROL. For frames transmitted on a monitor
-interface, ieee80211_tx_frags() therefore passes
-info->control.vif == NULL to the driver whenever local->monitor_sdata
-does not exist, e.g. when a raw frame is sent on a monitor interface
-while a station interface is also up and the frame's addr2 does not
-match any running interface.
+On Fri, Nov 13, 2026 at 04:49:13AM -0800, Breno Leitao wrote:
+> A machine check bank that reports corrected errors at a high rate
+> makes the MCE code print two messages without any bound: "Machine
+> check events logged" for every error mce_log() queues, and "CMCI storm
+> detected" / "CMCI storm subsided" every time the bank enters or leaves
+> storm mode.
+> 
+> One host printed about 100 million "Machine check events logged" lines
+> an hour. On another, the storm notices were 82% of everything it wrote
+> to the kernel log.
+> 
+> Patch 1, from Rik, restores the two-per-minute limit that "Machine
+> check events logged" had before it moved into mce_log(). It is a fix
+> and is tagged for stable.
+> 
+> Patch 2 puts both storm notices behind one ratelimit, with the default
+> interval and burst.
 
-rtw89_ops_tx() unconditionally converts the vif with vif_to_rtwvif()
-and dereferences rtwvif->offchan, so such a frame makes the kernel
-access memory at a small offset from NULL.
+Yeah, maybe I wasn't too explicit in my question, sorry. I was asking more about
+whether it would make sense to have a single:
 
-Drop frames without a vif, as there is no MAC ID or port they could
-be transmitted on.
+static DEFINE_RATELIMIT_STATE(shut_up_too_load_mce_prints, DEFAULT_RATELIMIT_INTERVAL,
+                             DEFAULT_RATELIMIT_BURST);
 
-Fixes: a0e97ae3f332 ("wifi: rtw89: add ieee80211::remain_on_channel ops")
-Cc: stable@vger.kernel.org
-Signed-off-by: Enver Ikromov <owner@ph4ntom-rev.uz>
----
- drivers/net/wireless/realtek/rtw89/mac80211.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+which all the mce printks can use?
 
-diff --git a/drivers/net/wireless/realtek/rtw89/mac80211.c b/drivers/net/wireless/realtek/rtw89/mac80211.c
-index 9134cdc..5a12639 100644
---- a/drivers/net/wireless/realtek/rtw89/mac80211.c
-+++ b/drivers/net/wireless/realtek/rtw89/mac80211.c
-@@ -23,11 +23,18 @@ static void rtw89_ops_tx(struct ieee80211_hw *hw,
- 	struct rtw89_dev *rtwdev = hw->priv;
- 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(skb);
- 	struct ieee80211_vif *vif = info->control.vif;
--	struct rtw89_vif *rtwvif = vif_to_rtwvif(vif);
- 	struct ieee80211_sta *sta = control->sta;
- 	u32 flags = IEEE80211_SKB_CB(skb)->flags;
-+	struct rtw89_vif *rtwvif;
- 	int ret, qsel;
- 
-+	if (unlikely(!vif)) {
-+		ieee80211_free_txskb(hw, skb);
-+		return;
-+	}
-+
-+	rtwvif = vif_to_rtwvif(vif);
-+
- 	if (rtwvif->offchan && !(flags & IEEE80211_TX_CTL_TX_OFFCHAN) && sta) {
- 		struct rtw89_sta *rtwsta = sta_to_rtwsta(sta);
- 
+I.e., a single ratelimit for all. Or even:
+
+	mce_print_ratelimit(...)
+
+which does that.
+
+The mce code is full of homegrown shit like per-CPU vars left and right and
+other hackery which got grown for some reason back then and I don't want to
+add more if not absolutely necessary.
+
+I hope that makes more sense.
+
+Thx.
+
 -- 
-2.56.0.windows.4
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
