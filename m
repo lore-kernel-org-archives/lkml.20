@@ -1,85 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794547750;
-	b=BIsFcHp8z2xroauOJ30Ow2zQQXeOWpAtJTvvAR+hhb58tPntwXYQCGu6HG5Cc7qPO2Lg
-	 Cp+XYyqUNyhwYU7TpFyEs7Caj+i/2nYgiA6FkmZfmUcsBZZaZvQbz3Nn/J++p+8N07qKL
-	 +c7mz6T9lbblWdS1DpV2q1VuC0h1n0EFm9K/UOpGsddA8/49k6XuTxgUkcHS/AnMI8bFM
-	 GNGGn2xUMOnQLehVBt/BK8ZTE/kpnZljmBkHp31BJxSJ7hLz9v1lp6+KAZJosF5eynPpd
-	 PRnuvZOootPJ1TaeGe2s/4xC7dX8fpse5ETJv28N8MR+OfkIrP9+XypQxtv9n/GMWRQ==
+	t=1794547794;
+	b=TEFr/22kHAeQ5r/70lMBBMrKH/f2bfU3RT25cxTMrfXPGCHNr96tMz4i5+D/WrM8rg/u
+	 UjqOLoYh79eJYAdXVPg9EN8A9nWm6Y3Dz27BPPnYMY/Tr0WneOj/Emz0GgTHL54wFAW24
+	 RSOdC+4OPJ+mFEzhxjKpmRTWrBZoKsYzCR3LJCJDZBQNgwBYoRH0Ng8dTf9ygiiDPhwvS
+	 Vx8IK8xhnAYtDcUnphhJtShHgPEH2nav8L5ith4eM6c1lTMQdE/p1CU83M9z4R0dzsfrH
+	 ocFHgRhyaszcUhUWjkZc7cwkY0EIISXsXjyT1at1S+QzfgoTSoz/5Q9NX6xpKlRBuJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794547750;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794547794;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=+cbGdzty0Be5iX/0odAUgwQdHjrUYqcWpVwGe9DdZsU=;
-	b=BZPdl/ZN+62QHAKABTiFqQfVyYQ6vmTC5fHhlwAYSvaznIT1J+4v7v5MZBVPogntOkj8
-	 636Cuzo/ClS2JWgcr3gWBQ8Mgz03jHNzEKwGEtGjMhCLysW86bHz/4YqlOconDZklWGC8
-	 AxMQTPqF+rcqNF+qCq8vPhbs7w/yHCH2N12CtOGDavY5CkAle4ynM3DgaOZtYhpuxOdyc
-	 p97WwF4VZx45s3ZZf4EkzbCef7qtIzZOPmxZ3Ixi3PVyZDYmaZSkPe34+ZlRbS2PL9v6z
-	 2Jk5sWB8fSOisTrq2CG1jGhrK+IfbDuP8B0tbwquUob/xMJt3/sd+FoY3tfIONK4PUg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mlE9let+1WH34apTkg1oO0ao602xCJxSBtyBTlH+r18=;
+	b=M3Cn7CCzN/cVKOtNCsZkvheTuNNM/xuhxrHtKAUW2Ti+nifZKFMWZWu3svjHyjD1f3CN
+	 60nZtFpuzBhNbbmc1iZ+oiPWh40od0rumaHhmjsLAkwWvxtzSI7kXpZq3bjod7LYj3Xto
+	 XljOUa/ZsYJuncgwigzw3aC/XhdKdFAhO238xpjKuTdHUy/K28Bd/wcPjASHj7I6yKeI5
+	 +R1uX4lKqLyR9GrpADng/gsr8+aeQdPtkAKxJw7eWwit0KuxjkdzMnjBtkczqCIqjynX1
+	 zsESIWho6Twaq5//kpncMw0FRP34U/BS1a45gfbScKVJrXT2Slqeou7vfywqVmN+XVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nuDb05wM;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PTTr5Bwh;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DFF606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:29:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51DFF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFAD606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:29:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BFAD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nuDb05wM
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so3588875e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:29:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PTTr5Bwh
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-37600b0db49so1479221eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:29:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794547748; x=1795152548; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+cbGdzty0Be5iX/0odAUgwQdHjrUYqcWpVwGe9DdZsU=;
-        b=nuDb05wM8tSVk/INX8fUBYDhM6xMOtiC6nePWwjK47bDKQR8vHWbethb+2hVR21wor
-         2LctxYz05PWWXdRkemyD8CPS94jg+MnJYVI0RQMYZ5DKToSn4qE1ETlbSFXB6iesYLn9
-         NpHAl4+pjKM+ETmqU9A9KmnJauU5TGCs4Z2dTwEfKuaK5AqH5EvUvfv5Yfbe9fI3PZI/
-         QJLx9CJEA3Ifbr+aEqm4DRuD5cfnqMa4LjDRfVd0Je6irROjrAYASne+B+fwEk3wtDeO
-         ZvGnI9GAz/dHh7xOtkFqjWyAGVFOKqHi5abURAabQBsLT4pCgdiXWisY5+qrMbjXrj9p
-         pFpg==
+        d=gmail.com; s=20260707; t=1794547792; x=1795152592; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mlE9let+1WH34apTkg1oO0ao602xCJxSBtyBTlH+r18=;
+        b=PTTr5BwhmRs2/AFfoHlX1JH2aGlF6UyCg8JCt4429REj5J56HKY0blS17xm0FUl1Fn
+         Yjlcc1SkPzH7ARelj2G0DI6MEaQiquUAg476OW579h8IdNP2BHGN8ZpfvUHAavRK6OmE
+         nssTGjFiXu+d2qaQVA7sVgnDE0j6AEkl33pUaT9Jy6QnYETF201nnpsOegB26yZXyAQZ
+         VAoSGPJdtRPcsBH5VjvpIW8ZKtdNbP4xRtRyukIpadR870cjko8ayzjSZKdU3aLK+Z4g
+         3oE5Uxlw5JeDzh7ului9/65e424iwZuQvjFBvJX8hUzROTjucYDhTSHURrOtBUMs2dP1
+         eGng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794547748; x=1795152548;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+cbGdzty0Be5iX/0odAUgwQdHjrUYqcWpVwGe9DdZsU=;
-        b=OcSx07+ZZIqN+lzcMe3qTUjVm62PKbEaoUhaHyuPwlnQQ/aWnzWEtI1ZbeRJnTInxE
-         5zIabuRKmb13W2XlShaG+2ssPbarex4AQHV7lr0Vtyepvk6nxGp3F3RPHmdmwWvbUulw
-         b3eZIjNd4VUIodZVZLzGh50JEzO8eOZbu6+9Wnuv5hDRTHWfqze3z+ks9tZsoMtysRDf
-         4UO1yT1vf/K1GDIuAg1vkev7BG5HAE0ET1QhSiTazn4yLrg+Tv6r+jzi4zPN7baeEU8Z
-         IqG5bpgjc0JXJjACPurLLlMTl50QrAM9JqZdlqoDr1pXzIvypDRsin5qqkZ9igxoXe0W
-         BSoQ==
-X-Gm-Message-State: APuU4Z8/Rz1JC+iGFUqO+Hs/VwulxpEhF4O2zZIo2aDLHXUcY5SvLBM5
-	bHhdu13terqNnvrI5/8u5F8661Poa0BFedH74RNWSapNPYPeYxGfu/prexDPkYi36xs=
-X-Gm-Gg: AYBFou0gHE0KoHr8PSW9l7qLHfoEzmAJLnoX4iCcbsgh6BwKCrByCyxshEsKUaRPP1P
-	TiLBfAkmZ5s+zDNLqn/Va9L49s7/vTgCboSrIvrrOsS4RstkPcFVdkPQago8zRLTbqLfDUjzx43
-	gQcdFAVv45bXEGaErQkhsneQmOcGeP2oiuQwG4Y3c+2g9zNPEEWfTHGbpHozwTkXr1o1afwuQQY
-	HyGcndKvq6X5H0pMlNgtNRIThLai9jEUBRYDG2cDZl7GrkANY8o5ZxZbYnnk6WIZ7t0AOaY0Jj0
-	kdxI9C6taMAIUXw+Lcard0bLA3Dq0xZj9ejbJXuprFWvxGC6cENvzzx+fwSBqVVoZdEADG1UPub
-	KcLDL5gRmRvITKSA/0qR80PxA17uJ0rMJ6pxYduJlYLe3+2W6ay1xf2dO1NnPsWbrSRhR+0+yF6
-	mHNX722GQijQG+pbK4f6A+P/05EKU35Xgz5swO8JyQ9grtaBy4iiU691LWxeRcTS12jNxeNvBKg
-	Z6AFEcLbRAzYXqqFWYJmG1cJLzuCKR/0U3AbJ74IDoMDjaSdDj4+8HURLc1VciezKqgE7AHTi7M
-	P/gyWn5xlcE2LUpy3CNy9lzZejNkVcd+hyMQce5uN/eKQOUN0MFV2xK+
-X-Received: by 2002:a05:600d:2:b0:4ba:761:c0c5 with SMTP id 5b1f17b1804b1-4bb55a581e6mr21673295e9.5.1794547747666;
-        Thu, 12 Nov 2026 21:29:07 -0800 (PST)
-Received: from [127.0.1.1] (82-230-44-19.subs.proxad.net. [82.230.44.19])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb571f976esm11572365e9.3.2026.11.12.21.29.06
+        d=1e100.net; s=20260707; t=1794547792; x=1795152592;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mlE9let+1WH34apTkg1oO0ao602xCJxSBtyBTlH+r18=;
+        b=jRTKQmWp9sdo70279U06g6XjjC2XOnxPAZF7dI9plzzglkH5bwp5z+j8YxAoyQqjYm
+         HEfOM9sN2EpwwAwX9Zhe1gX4GMhmHO2OBrng6ea5FIPJy+ZntI4JmMRTnL4RYXaMoGx5
+         UQ9vk8xtjBtyAmuuMxigQa1C/ibJIWqm59QsZ2/XLuFUKDFi5JbN5c7RtHOym27VgDQA
+         JmoOiHGGJmYOYP87LjiHBu8fyQ0rQSkSgacrGViF0GqMK4/MwbiLxX54l56PuICkJLy1
+         xiVUOymzQGqKclgc61rDvcR5h1Ee7KQY1oaqMTLtSSchyvIkH/Oi7HtNsnYSsX8N0ImN
+         gKzA==
+X-Forwarded-Encrypted: i=1; AL+hErGvfosztUWXNKmk8DYk/MenFi3BMAJwlUXy4JsiJKN5DhnP2zE7N+Isq3BijMxfrfZDdUSzGf3pJIPYBHk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8trIatmYuAXS2RpVKP7v0sMRveBCC+pZqhEh6vaSHHrgjmzymZ
+	NJqGo8IjVZ2F1zwwBxbs8q2W846PdDrcgMnuEVV0BrwS9BHBjX6TJdTj
+X-Gm-Gg: AYBFou2NI5gaGKrxXHNXdYQQaOdw5bKPo7xCLJUpU+tjRku1/tGSCUqberKmiGGZXn8
+	tn2fA2iENhBNNaBTGHXeR0ZJ9iwyfQb5Zmw4+V3B//zQF7sD8sUZW1Rc9EYWei3aukVlB9B6iuH
+	AUS8We63zc4BHyghs18PWInqOuTq2oK6mhfxIKqo3quBu7WfirusRqdRWFkr3PE5/VFZKqRQYL/
+	7ut7l3YmlyRoPOwVAuhcBWrmhE48PtWRRah+PC0aOwW+ICpQnYqGiRqDzBQhK6SON+OV4cAorxv
+	0rz7A8jfw2Aw8Qe3eCibqMWAleRD1sJCpaogZNFrsUpCZIxf2iqMgESrlXRDso5DNbFZASjfTkr
+	6SVNvjj8HzX1b9iRmWGkphbgG9KkF9I7tPXXyKIS2lEiRuxV0YNfkD/eDtORAo7OabhFU31RjKB
+	2DuR2Kpi7x6Xpbzi+XqC5VWAHuRV0SMvpHQWHUph7K35gOY9s5/1ecSw1v3fZXyOa0ftV8/Rgyb
+	LC76ZIEZNhdmhqolf0RemwJF2+2Oa3xfg197ZIDCo1hKII+h5m2xbBJE5u0pivPwUJG11AaIMAt
+	ZgGM1Lfc+8AO5gKe2/XOmSH+OWZEpHJX9ZSWM+cFgzJGYWF8tUPBZw08Tb9pRhcV8pfU01Uyomm
+	FJuXUdNMuqQMRocVeaGtlM4H762pU0rLLxEd8pXSE9vm1YMnPWZceN749S+fhRWyhh9eoJh7zOw
+	yi8Q==
+X-Received: by 2002:a05:7301:2783:b0:379:2c7e:7dff with SMTP id 5a478bee46e88-3792c7e7f16mr1623959eec.26.1794547791950;
+        Thu, 12 Nov 2026 21:29:51 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378c2fesm3832840eec.1.2026.11.12.21.29.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 21:29:06 -0800 (PST)
-From: Alexandre Mergnat <amergnat@baylibre.com>
-Date: Fri, 13 Nov 2026 05:29:02 +0000
-Subject: [PATCH v2] regulator: mt6363: Serialize BUCK_TOP key access
+        Thu, 12 Nov 2026 21:29:50 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: [PATCH v3] uprobes: Use flexible array for xol_area bitmap
+Date: Thu, 12 Nov 2026 21:29:48 -0800
+Message-ID: <20261113052948.2668076-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,173 +108,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-rgp-91-mt6363-key-lock-v2-1-adbd48f0f830@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAB2g9moC/3WPy27CMBBFfyXyulP5EdsZVvxHxcJ2JuBCCLVN1
- Ajl32sC2y6vdOfcMw+WKUXKbNc8WKI55jhda5AfDQsndz0SxL5mJrk0QnAN6XgDFDAWo4yCMy1
- wmcIZjPUaUfakXcfq8S3REH838NfhlfPdf1MoT9q7kejnXhfLq8a8ywRhGsdYdo1F3irVBdW10
- vRWBj3Y0GPLZfDoqo6SzrpBsyf9FHOZ0rJ9MYsN9hbG/4RnAQLIKc+VswbR7r1bLtEn+qwK7LC
- u6x969KygHQEAAA==
-X-Change-ID: 20261105-rgp-91-mt6363-key-lock-67b5992de5a8
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, 
- Alexandre Mergnat <amergnat@baylibre.com>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-The bits that select the FAST mode of the bucks only accept writes
-while the BUCK_TOP key is unlocked. mt6363_regulator_set_mode() unlocks
-the key, updates the bit and locks the key again, but the regulator
-core only locks the buck being changed. When two bucks change mode at
-the same time, one of them can lock the key between the unlock and
-the mode write of the other. The PMIC then ignores that write, and
-regulator_set_mode() returns 0 while the buck stays in its previous
-mode. mt6363_va15_set_voltage_sel() unlocks and locks the same key,
-so it can also lock it during a buck mode change.
+The XOL slot bitmap has the same lifetime as struct xol_area, but it
+is currently allocated separately.  That adds another allocation
+failure path and a matching cleanup branch without buying any extra
+flexibility.
 
-Hold a mutex from each unlock of the key to its relock, in the FAST bit
-writes and in the VA15 voltage setter.
+Store the bitmap as a regular array and allocate it together
+with the xol_area. The bitmap remains zero-initialized, while the
+allocation and error handling become simpler.
 
-Fixes: 3c36965df808 ("regulator: Add support for MediaTek MT6363 SPMI PMIC Regulators")
-Signed-off-by: Alexandre Mergnat <amergnat@baylibre.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 ---
-The race was reproduced on hardware.
+ v3: use normal array
+ v2: add Acked-by. remove Assisted-by
+ kernel/events/uprobes.c | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
 
-The new mutex is static because probe already stores per-device state
-in the static regulator table, so the driver only supports one PMIC.
-A follow-up series could make that table constant and move this state,
-with the mutex, into per-device data.
----
-Changes in v2:
-- Drop the gotos from mt6363_va15_set_voltage_sel() instead of mixing
-  them with guard() (Mark Brown)
-- Include linux/cleanup.h for guard()
-- Link to v1: https://patch.msgid.link/20261109-rgp-91-mt6363-key-lock-v1-1-ea3b03a76997@baylibre.com
----
- drivers/regulator/mt6363-regulator.c | 53 +++++++++++++++++++++---------------
- 1 file changed, 31 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/regulator/mt6363-regulator.c b/drivers/regulator/mt6363-regulator.c
-index e6c4bd851fef..b4f5f33779b5 100644
---- a/drivers/regulator/mt6363-regulator.c
-+++ b/drivers/regulator/mt6363-regulator.c
-@@ -4,6 +4,7 @@
- // Copyright (c) 2025 Collabora Ltd
- //                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+index caf444762a27..c5c90b53d4cc 100644
+--- a/kernel/events/uprobes.c
++++ b/kernel/events/uprobes.c
+@@ -108,7 +108,6 @@ static LIST_HEAD(delayed_uprobe_list);
+  */
+ struct xol_area {
+ 	wait_queue_head_t		wq;		/* if all slots are busy */
+-	unsigned long			*bitmap;	/* 0 = free slot */
  
-+#include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/devm-helpers.h>
- #include <linux/err.h>
-@@ -12,6 +13,7 @@
- #include <linux/irqdomain.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/of_device.h>
- #include <linux/of_irq.h>
-@@ -114,6 +116,8 @@ struct mt6363_regulator_info {
- 	int virq;
+ 	struct page			*page;
+ 	/*
+@@ -117,6 +116,7 @@ struct xol_area {
+ 	 * the vma go away, and we must handle that reasonably gracefully.
+ 	 */
+ 	unsigned long			vaddr;		/* Page(s) of instruction slots */
++	unsigned long			bitmap[BITS_TO_LONGS(UINSNS_PER_PAGE)];	/* 0 = free slot */
  };
  
-+static DEFINE_MUTEX(mt6363_buck_top_lock);
-+
- #define MT6363_BUCK(match, vreg, min, max, step, en_reg, lp_reg,	\
- 		    mset_reg, ocp_intn)					\
- [MT6363_ID_##vreg] = {							\
-@@ -388,6 +392,23 @@ static int mt6363_buck_unlock(struct regmap *map, bool unlock)
- 	return regmap_bulk_write(map, MT6363_BUCK_TOP_KEY_PROT_LO, &buf, sizeof(buf));
+ static void uprobe_warn(struct task_struct *t, const char *msg)
+@@ -1762,14 +1762,9 @@ static struct xol_area *__create_xol_area(unsigned long vaddr)
+ 	if (unlikely(!area))
+ 		goto out;
+ 
+-	area->bitmap = kcalloc(BITS_TO_LONGS(UINSNS_PER_PAGE), sizeof(long),
+-			       GFP_KERNEL);
+-	if (!area->bitmap)
+-		goto free_area;
+-
+ 	area->page = alloc_page(GFP_HIGHUSER | __GFP_ZERO);
+ 	if (!area->page)
+-		goto free_bitmap;
++		goto free_area;
+ 
+ 	area->vaddr = vaddr;
+ 	init_waitqueue_head(&area->wq);
+@@ -1782,8 +1777,6 @@ static struct xol_area *__create_xol_area(unsigned long vaddr)
+ 		return area;
+ 
+ 	__free_page(area->page);
+- free_bitmap:
+-	kfree(area->bitmap);
+  free_area:
+ 	kfree(area);
+  out:
+@@ -1824,7 +1817,6 @@ void uprobe_clear_state(struct mm_struct *mm)
+ 		return;
+ 
+ 	put_page(area->page);
+-	kfree(area->bitmap);
+ 	kfree(area);
  }
  
-+static int mt6363_buck_top_update_bits(struct regmap *map, unsigned int reg,
-+				       unsigned int mask, unsigned int val)
-+{
-+	int ret;
-+
-+	guard(mutex)(&mt6363_buck_top_lock);
-+
-+	ret = mt6363_buck_unlock(map, true);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(map, reg, mask, val);
-+
-+	mt6363_buck_unlock(map, false);
-+	return ret;
-+}
-+
- static int mt6363_regulator_set_mode(struct regulator_dev *rdev,
- 				     unsigned int mode)
- {
-@@ -400,13 +421,9 @@ static int mt6363_regulator_set_mode(struct regulator_dev *rdev,
- 
- 	switch (mode) {
- 	case REGULATOR_MODE_FAST:
--		ret = mt6363_buck_unlock(regmap, true);
--		if (ret)
--			break;
--
--		ret = regmap_set_bits(regmap, info->modeset_reg, info->modeset_mask);
--
--		mt6363_buck_unlock(regmap, false);
-+		ret = mt6363_buck_top_update_bits(regmap, info->modeset_reg,
-+						  info->modeset_mask,
-+						  info->modeset_mask);
- 		break;
- 	case REGULATOR_MODE_NORMAL:
- 		cur_mode = mt6363_regulator_get_mode(rdev);
-@@ -416,13 +433,8 @@ static int mt6363_regulator_set_mode(struct regulator_dev *rdev,
- 		}
- 
- 		if (cur_mode == REGULATOR_MODE_FAST) {
--			ret = mt6363_buck_unlock(regmap, true);
--			if (ret)
--				break;
--
--			ret = regmap_clear_bits(regmap, info->modeset_reg, info->modeset_mask);
--
--			mt6363_buck_unlock(regmap, false);
-+			ret = mt6363_buck_top_update_bits(regmap, info->modeset_reg,
-+							  info->modeset_mask, 0);
- 			break;
- 		} else if (cur_mode == REGULATOR_MODE_IDLE) {
- 			ret = regmap_clear_bits(regmap, info->lp_mode_reg, info->lp_mode_mask);
-@@ -508,20 +520,17 @@ static int mt6363_va15_set_voltage_sel(struct regulator_dev *rdev, unsigned int
- 	struct regmap *regmap = rdev->regmap;
- 	int ret;
- 
-+	guard(mutex)(&mt6363_buck_top_lock);
-+
- 	ret = mt6363_buck_unlock(regmap, true);
- 	if (ret)
- 		return ret;
- 
- 	ret = regulator_set_voltage_sel_pickable_regmap(rdev, sel);
--	if (ret)
--		goto va15_unlock;
--
--	ret = regmap_update_bits(regmap, MT6363_RG_BUCK_EFUSE_RSV1,
--				 MT6363_RG_BUCK_EFUSE_RSV1_MASK, sel);
--	if (ret)
--		goto va15_unlock;
-+	if (!ret)
-+		ret = regmap_update_bits(regmap, MT6363_RG_BUCK_EFUSE_RSV1,
-+					 MT6363_RG_BUCK_EFUSE_RSV1_MASK, sel);
- 
--va15_unlock:
- 	mt6363_buck_unlock(rdev->regmap, false);
- 	return ret;
- }
-
----
-base-commit: 7904338c38426d72c5f7cd9402cb9a20232a7af5
-change-id: 20261105-rgp-91-mt6363-key-lock-67b5992de5a8
-
-Best regards,
---  
-Alexandre Mergnat <amergnat@baylibre.com>
+-- 
+2.56.1
 
