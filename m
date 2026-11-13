@@ -1,187 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.162.66
-ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794586122;
-	b=Zjt3CUc0cjricE3R2VFWsN/kPzcWO77hJDVGmoJEFOFaVHk5t+G4nWb5QTWmL1BmM8+z
-	 mksrqOTm0uR58ZCo+qcsbivVQ6RGBiBkj0lX2toIJRORkHEWTw/GxiJ6sraUAaReRtr+J
-	 a3k0NEVLvhC6uE/PSj1JC6tH8qe0wH6elTBUCa1YlKGz7dHDKl3d03z7veiK6WsheJRIT
-	 LsOpzUJmi109jFWu2W/0kuBG5rQp0W/dY8iH3mLhrTWLM5X5k/Bd2irVlrkQeb89+OQqu
-	 OFFaaKWIvzehDJgukZ9W1ek49h2SlkU6FBuZXJcJEtvppQL7GeUmlUJ8ZgReBB+UWuQ==
-ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794586122;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
-	 DKIM-Signature:Authentication-Results-Original:Received:Received:From:
-	 Subject:Date:Message-Id:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-ClientProxiedBy:
-	 MIME-Version:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
-	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam-Untrusted:
-	 X-Microsoft-Antispam-Message-Info-Original:
-	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-EOPAttributedMessage:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
-	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=OFmn5D1w/9s9cA7yHY4Wcn1s0toNXyKoWVPSKmaAm1M=;
-	b=K9rmOjZ2lH9Lj0fqLRZTlp5NzxRGYEG5x49rJ3qUbG0XJkWupRglCJXfhSRP2+oDDL3d
-	 hj3FlXKmpSPPrqaMznPs/2HQwVhy4B/dVneClIE9z+DtL4KOR9K4PyZNAWMs5xTQka8n1
-	 I5BQexnsFsh3YWXiVUATXRgmSTw5bMweVffj+jTCgBriAgbOA6amAFpIz5osHAQdeUJrj
-	 M2ss1U6uOxJv+i8S60ZKgAIvOL8qGqiU4WQ3SUye0TWiEOoM+2nLctzrAfAUOFDGRZmGa
-	 vdaRGhChR9+BhRalrNLRP1hoI7FHRqw9IwOm67SCQncpyopIlSHXmQ9RXQJV4KaDNOQ==
-ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=V0KNpKp9;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=V0KNpKp9;
-	arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.162.66
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013066.outbound.protection.outlook.com [40.107.162.66])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794586125;
+	b=vmir1yiBfr0dHLIgXmJc8u42uBMnf6/moKthiOG1M9h7QaPSLf0nzcxl0oHfIqJLvV0t
+	 VI+heFBeR6U3DCoF3QfLwVR/zxZcZ2gZqBtaWSAp0JXZO5ygj1Y6/uLA/aJstyctRwbKR
+	 AgP3cOoIZV2gP1025JM4pUVZv6VqrhXtGGalvmvxez43YKpE/D4H7SWIC/bpLGEqCsHx+
+	 NLwy6dUqBSuL3bV+F24t6qd4LIRaXOxDg4mv3gp1CFf8VZ5Ra9izOToEeZUPb5mRudDzy
+	 ydgvy0mtQOkGOTD6E4SVX7QvS3NsZ5x79gbkyjETRbu6Cr9fb+YC03EfhrUUDSg2EJg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794586125;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=c8TFvUX1hEZOaHnYgxRbDWuNTMm4qLIKVwFQcFF2K+4=;
+	b=aq3O7PvcZ8o7bUhv7FBjrK6s8HqehS1dnivKRyIxcM1H2cItb0GepPPTi6llTY1z3ykJ
+	 qC4fZTVfpPmdsKUDciOw0rU7SrWtlqhQdt75mAffIdE/Ywlab502baWukYpSXqrgAFGHs
+	 ziu7Euyl6cpXBKEIxIX7YL+S6+uBGrwVRRSmCR9avyhTRtWw15JFFSBJKX94VZs+nnCvb
+	 ctRBjAYwcMiaQ2vamVL8iTUqEC5dQsAQlzl3rmtmTc43PReB/a2kfk0Lpza4fs047JWIm
+	 jCzd3HYizrMfnp5V7nsCLZNtLL0P00IbrhNZdQzh+vOtkg5qVvgP8RpjjAbCuhVhS/Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=DaTcV7eJ;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E632C606EB8A;
-	Fri, 13 Nov 2026 16:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E632C606EB8A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802A46070FFD
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:08:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 802A46070FFD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=V0KNpKp9;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=V0KNpKp9
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=TWDjek7VrGDBIUujAvKKexvhPHKFTeP9UhA3QUjxMiSWNDx/5RLCJIqgCqMKdngLtKHcIPDez2gAZs9A78nhjg8FhOjKsV6xJOhBAZEolHTtAUcEFAKVrEyj2P3+ua6NXRMiVoKNiXJ2xkOSfYN1WuOUm49rgYmc67qd8i61vURzAfaCFTjGAENHvuKLtb62FZxG2WI//OrvKIgBDtvmNanMnJeAObLbZ+2wEKMtJb0/2myg/9hOdY99JxLNzw3anaf+ewfIRlrEM8sXvTgEg70NSazGMz6yXEvoSK9WyftgaGL9yHWnbkjoR1zZ/b+V32vABXaZEqqk8nK4UhHTMg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OFmn5D1w/9s9cA7yHY4Wcn1s0toNXyKoWVPSKmaAm1M=;
- b=xNFxzJZL+MqwNDajF4Y7nVbkK47wA6gfbJ/kwjJEUKW5Dc9oq0aCLV1AisZ/Pz+D7gnsSEsRBmjrKCj0xgajaiyK7TYwPaYA7GHcpUtepjOX5mPDAmQsJlGBPyYjwdMAE18cDakxzfDal7HOzFGZvshf/nJ2XiourQQdEyiDdYkaRToJLpLz9ZIqytthN+ANJ2ZN3XuiunnDYxG0QDXJptF4jHBaN0icnD7ke2L6j3txhaZlIFs+4eg0hFDR/lQQ4PNcnAiOSFyS3/CHeZkmLnnmVFSL7R9BEWnOjKAzLizieRdV21qq2RYy7ACQ/d15qBB5SKZkPcbTRzaKYsvj7A==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=gmail.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OFmn5D1w/9s9cA7yHY4Wcn1s0toNXyKoWVPSKmaAm1M=;
- b=V0KNpKp9YDXoO4hcPUzkAzn4mU0IaE7cZ9DwqkMGO/QzNu0zlNPt3XtOGsLCgC9R8vd0r5DMTEhCVP+xMssXnFnWTwVkNkJKpVKIVknhxgSOITMm3Pjh1S1+n+umLLjRBD6RCu5fbE/YdmJllzJMYLuD9FE060RPewaSMJOmKH4=
-Received: from AM9P195CA0022.EURP195.PROD.OUTLOOK.COM (2603:10a6:20b:21f::27)
- by PR3PR08MB5580.eurprd08.prod.outlook.com (2603:10a6:102:8c::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 16:08:33 +0000
-Received: from AM7PEPF00000054.EURPRD83.prod.outlook.com
- (2603:10a6:20b:21f:cafe::8) by AM9P195CA0022.outlook.office365.com
- (2603:10a6:20b:21f::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Fri, 13
- Nov 2026 16:08:33 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM7PEPF00000054.mail.protection.outlook.com (10.167.242.40) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.0
- via Frontend Transport; Fri, 13 Nov 2026 16:08:29 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uFlJHGaiadeYi1AaoHU+Iq3wVZrYNzIJ0XxGvoejgZkFz3ZVzQoGPXyvbK2ijab6ldLR2zImB2eRlNqH0QteNpg3Enff7TLuLhwRoV0pfydSg6CMun7gqOgmJy5RiW8cq9sSR4v29g7EUqyOcn1t7ox6ICJjrTTPl+Wictb8ymmCn7AqXd2L6tKmmywwoguwy93EGlz027W3jB+s9RYQzn2PRADxojpJN4+O46Y89LSwhBaZ+AVEkY056p/HLwiJpWHJycOj6LEIZxrndFGoDl8ANnaQlgZzBXHwnbRAUJAbpQsuSLAAYGJsMqBIfqIWRsH5HiKtBcRlvIxQkGYSVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OFmn5D1w/9s9cA7yHY4Wcn1s0toNXyKoWVPSKmaAm1M=;
- b=lCej6tIo2YqzNd0clf1CEytJ24wKPpjXuRNooMomUz40WSi/cLUgz7N6l6LvbHqiFmX7MProPiWmy2WC9hbD8aRhfKnQQkBdSXD4eG54eSh1gPyUfWSmRdRR9Ip6SBXlVLbR6SaC8Nlf+dA1hZMbRGmCL69w104LeljiJpKCEN6UfoZ/ax1dZK0lM3D24FZLxtJHe5AVv6NXwhXuLzb5o43qqHqeGm75DpOjGDDDFBZkG8cMEgprachpvDR67HhS7YrxgtZ2JY8o6jPJLqzy6KIt/z3o8GVLxhb8f3dX0aJq09rVjhi4UwPdvnq8lgK0ecIa9RjivITrwlBw4WfYgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OFmn5D1w/9s9cA7yHY4Wcn1s0toNXyKoWVPSKmaAm1M=;
- b=V0KNpKp9YDXoO4hcPUzkAzn4mU0IaE7cZ9DwqkMGO/QzNu0zlNPt3XtOGsLCgC9R8vd0r5DMTEhCVP+xMssXnFnWTwVkNkJKpVKIVknhxgSOITMm3Pjh1S1+n+umLLjRBD6RCu5fbE/YdmJllzJMYLuD9FE060RPewaSMJOmKH4=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from AS8PR08MB10291.eurprd08.prod.outlook.com
- (2603:10a6:20b:629::15) by AMDPR08MB11367.eurprd08.prod.outlook.com
- (2603:10a6:20b:717::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 16:07:51 +0000
-Received: from AS8PR08MB10291.eurprd08.prod.outlook.com
- ([fe80::9f01:508:17aa:279c]) by AS8PR08MB10291.eurprd08.prod.outlook.com
- ([fe80::9f01:508:17aa:279c%6]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
- 16:07:51 +0000
-From: Bence Csokas <bence.csokas@arm.com>
-Subject: [PATCH v3 0/2] Add struct_offsetofend() for pointer arithmetic
-Date: Fri, 13 Nov 2026 17:07:30 +0100
-Message-Id: <20261113-offsetof-v3-0-714df7053893@arm.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAMI192oC/22OzQ7CIBCEX6XhLIaflraefA/jgcJiMWkxgETT9
- N2FerAHj7M738wsKIC3ENCpWpCHZIN1cxb8UCE1yvkG2OqsESNMUEoa7IwJEJ3BRjApBa87QzT
- K9ocHY19b1OX61eE53EHFwhfHIAPgwctZjeU0yRDBl8doQ3T+vY1ItAT86UsUE1zThptGUQJan
- aWfjspNqLQltsMo22EsY6wVoKHjfS/aH7au6wfYxw++AAEAAA==
-X-Change-ID: 20261105-offsetof-f62aa6348f0d
-To: Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Philipp Stanner <phasta@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
- Cristian Marussi <cristian.marussi@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@kernel.org>, Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Selvin Xavier <selvin.xavier@broadcom.com>, 
- Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Chengchang Tang <tangchengchang@huawei.com>, 
- Junxian Huang <huangjunxian6@hisilicon.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
- Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
- Guenter Roeck <groeck@chromium.org>, Nilesh Javali <njavali@marvell.com>, 
- GR-QLogic-Storage-Upstream@marvell.com, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Julia Lawall <Julia.Lawall@inria.fr>, 
- Nicolas Palix <nicolas.palix@imag.fr>
-Cc: Bence Csokas <bence.csokas@arm.com>, linux-hardening@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, arm-scmi@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, intel-gfx@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
- linux-hyperv@vger.kernel.org, netdev@vger.kernel.org, 
- linux-wireless@vger.kernel.org, chrome-platform@lists.linux.dev, 
- linux-scsi@vger.kernel.org, cocci@inria.fr
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: PR3P193CA0037.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:102:51::12) To AS8PR08MB10291.eurprd08.prod.outlook.com
- (2603:10a6:20b:629::15)
+	dkim=pass (2048-bit key) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=DaTcV7eJ
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so7076555e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:08:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli.us; s=google; t=1794586123; x=1795190923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c8TFvUX1hEZOaHnYgxRbDWuNTMm4qLIKVwFQcFF2K+4=;
+        b=DaTcV7eJhctQsQ3BcKcHVi3tLOUumD7GnJBDEv7djL3j8w3f72wwfZVIpS0uK0RXfW
+         tkARLM3sZA4Tz4utgrouoc+1oaUWpsy4SA7Z9rhOAYe0vCasT428FSkA/7BIkFOEtnSQ
+         A3Wmcwadjh+YbWrsJwmCL8+kC7JVOFPj++2ZHdDL9str4SyPoypkoaMFtPmW0opVsO4M
+         NDgSP+4N4Ch1NOTxRZGIUx+3PgIC5BB67iAjc5eWkVNh3CwZO5XoThIvSq0JO4b4KI30
+         JKVVpbeQjgmQmUu4DI/jm2kT7TpaLUVlMJa0fdiyPq+vvBzThxZ8olxG6xOwRbTalz00
+         nu8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794586123; x=1795190923;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c8TFvUX1hEZOaHnYgxRbDWuNTMm4qLIKVwFQcFF2K+4=;
+        b=gkPteaupKm1YYwb94tVv67DhorJ+5VOHteW61+D8jD9UuoJSqTZc7xmnbYpF5naCnR
+         5bRXCCbVi2JfPloS5xGVkXEvauvY9rISEIvdTT08HCjgIuNGzQEUbWl+6cDXhM1xdf86
+         jpgDV/yGvm+65ak3Ld+kKVlAFOOvF/NEDYLS6t1vTOFJoVsDjpb9kQ7f1lEk73ZCNYO2
+         igowzLfzpvbt35bMGNIvRXIzq9ic4Itd+d7ewUXt51mtBBld+TlTww9Cu8qIkZCMkVfQ
+         7VqJVbXlrBbmT1Z/oRIMj/jHK2wbttM1KwdcpQcGlJgQWxUfrRNrvdvQsWSuZDL4iDYD
+         RRKQ==
+X-Gm-Message-State: APuU4Z8X0CtMF30PuTQchIT+0lMfsmpi9yuknQzf9Ha6ra8LFP8NnUOO
+	2WjVXGbR0UAf5BSxrvcyvCOTKJOFQu6Jy4gNNgXIZXAERJ7MdXi0pOnsnW36AVtViD8=
+X-Gm-Gg: AYBFou0Mp4DTyDx//hdCj5hYgiOWj9ET8ZxQxLceQN1ghpG8KbfNWkVRYXIXJSblw/Q
+	NxQ7QbSTBynWXehgP7bYNNeM352nlnKoQ56tUKHtUVWI/H5+xiDx9FpKmigggc9HffXt4tArBLw
+	eTpIek4MAJJWe8d71sZuQQeKFXCvH/7WF8ZTj2a0uL30bOa5kLV0N+ifufje6BBZRX/sOFUO6kg
+	uj7ZmVzGPSVVXlbf2iIwHMKcUIFkn5O2D6SCNbj9iPGSM806kY3+xqlf3H9fcg6/JDXt7QVHarT
+	HgPvVNYGhYQQweBprDQgNpA2PsZUFoMSwcCKzj47V7yl7XHSOgW6vz6+WWbg9scgdy/utnx3Vtv
+	7nqo8WAtWTHXI914rb9PvTBjbPVTtbCynh9SjoXVwrakvMGKCbk5VKJ4V7b4nzp6BjJcBfaVINO
+	1J6l42LBnRxYPQImSbSoafQ2NPOBF8wIDAaGq94DSYpzHeAyrDf/jLFYPfNnDpP/VvPCbnqD9FX
+	Wb6Eym2hrKT6GlAvgoHIDkcU4OT2ZDK2zX6Tn+sfc217dPqN37+d2EJViI/ZkSQfRUw6xlj8Xcb
+	criRFtpNJrW4FX9OihvUG3ukUqRbOijoPlRvvSzi
+X-Received: by 2002:a05:600c:3509:b0:4a1:fc98:1cb1 with SMTP id 5b1f17b1804b1-4bb55c5f579mr61042745e9.2.1794586122529;
+        Fri, 13 Nov 2026 08:08:42 -0800 (PST)
+Received: from localhost ([140.209.217.212])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55af2901sm68947475e9.13.2026.11.13.08.08.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 08:08:41 -0800 (PST)
+From: Jiri Pirko <jiri@resnulli.us>
+To: linux-coco@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	x86@kernel.org,
+	kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	jgg@ziepe.ca,
+	david.quigley@intel.com,
+	lukas@wunner.de,
+	ksinyuk@kernel.org,
+	rodrigo.vivi@intel.com,
+	cedric.xing@intel.com,
+	sameo@meta.com,
+	drdeeglaze@gmail.com,
+	James.Bottomley@HansenPartnership.com,
+	aik@amd.com,
+	jpiotrowski@nvidia.com,
+	qinkun@google.com,
+	pgonda@google.com,
+	jic23@kernel.org,
+	alistair.francis@wdc.com,
+	ankita@nvidia.com,
+	suzuki.poulose@arm.com,
+	kas@kernel.org,
+	rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com,
+	dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com,
+	peter.fang@intel.com,
+	jarkko@kernel.org,
+	zohar@linux.ibm.com,
+	yeoreum.yun@arm.com,
+	aneesh.kumar@kernel.org,
+	dave.jiang@intel.com,
+	nik.borisov@suse.com,
+	sergii.dmytruk@3mdeb.com
+Subject: [PATCH RFC v2 0/9] attestation: Add a common subsystem and TDX support
+Date: Fri, 13 Nov 2026 17:08:29 +0100
+Message-ID: <20261113160838.2512652-1-jiri@resnulli.us>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -191,182 +125,275 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	AS8PR08MB10291:EE_|AMDPR08MB11367:EE_|AM7PEPF00000054:EE_|PR3PR08MB5580:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5f94a5f-ca65-427e-c2bf-08df41a05ce9
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|921020|10067099003|11063799006|56012099006|261022075727099003|261022115727099003|261026140227099003|261026121527099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|261021135927099003|261102123227099003|261009221727099003|261009223327099003|261009221227099003|261009223027099003|261009220027099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original:
- 0GqxmAlMIXtyeH7PxXVmri8kRG8z7DrPE99+VFM/M9YhLgxgI43m+DCi64tgSMBPy7Khu2V1mDmNEdB8ylSBOv3lk8ruIJ+kvIBnz01NT42ALaL3J+REErLpZWjD3HckeOOCEY1ZYJGFME3HnlBWnXp5At09pSj+POqMUxC0Ya8pNAcNi867CAU0q2Qe9aQErK1nDs4PceazVWxuHjl2JJvctu5mos/DE+ByBYKzk3KlTvNAMD5BZ4LZ354sJehIjweohNSqA8kutEqLnfb6OUfAeMSgXtG6LYCKnVIO7h0M0uvYR6rIz/+Y+edm3xSYsbfQ4QqA6glRkgo7f4q2LTcBzt/EJCtgopGS/OM2Hf2WeA94XO0ZWxt16X49OehRMM1RSuIgxH3JIXeEZvy0JzbRSazRkQMyoS9n6UaQJtzpClApOpilpc4XMXzAJ9btC1dr+Kog24iZZIj94Z+QLzrCZIrB1iQtqNgNPsb9uLgKjdX/LGjwucbtTgyKa6cOuQV/rbQT+EmTh+ZYI3vzezl5F3j68gzUG8x4C85Yph9rTj4jzqbVM9McUAY6DykP2nRD8JHgNodU5NDhg4MwhhPOSc8gGx9sEG/x+E814i4kOcLpz/lMIF6nUPFENXZDbuVTUQOkITqwcG/TIsZtvmpkmJ9vBmAs/GDmP5doLRg=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB10291.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(261022075727099003)(261022115727099003)(261026140227099003)(261026121527099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261021135927099003)(261102123227099003)(261009221727099003)(261009223327099003)(261009221227099003)(261009223027099003)(261009220027099003)(18002099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- pxeCfIZBP1VabGwKwB+kksErX+diPKbSFzRb8XWSnkwcYzMkMnS4wLOc6dAqNnnP4HJWUR9wPTF0Ln4CSvbdDYVqvSRH0Q5rZQM7f3J0JEfEKj7tPBQr1B3rBXOiZrTnjTzzuKYLtcQX2rC3TIK1F5rt1HM3iTtqmjl8YgmM4ixsOwNvNOwFoAqkIth2v7Hgcg9wKQecIvO8jmHdRU0P8vcvfaK1XB2ug7DzqhkI8bJ+9xKrJTLHriXqTtyR37XYD+BMerb4qX9wFxpLdtM3c/d8sFFc2rZzKgDH2j/psOHi8Ra4Xj+WFglN2eBk9HnuZQdiee3Hy93cO+euuaFq5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR08MB11367
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7PEPF00000054.EURPRD83.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	9cb5beae-4aae-4c78-f29b-08df41a04471
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|14060799003|1800799024|7416014|376014|35042699022|36860700016|23010399003|82310400026|921020|10067099003|11063799006|56012099006|261021135927099003|261022115727099003|261028144727099003|261022105027099003|261026140227099003|261026121527099003|261022075727099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|261009223327099003|261009221227099003|261009220027099003|261009221727099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	4FqW7Ed4WCxy2wfi70Swd7wVEk8I+1PL5BUOPT3HQBRRFKd7/GPGNmn4ySptpOUnd9gZcYsXlrtU1qIaP6GeyGQ3ZRecS4aFJCi5GzmLbXAlfunTqGCLkihDi6ZxjfAiwGq0OOv5iFUsLlVe1QTt2vqn3EcfZjdnS3EQPdpH2e+SX25b4PMi9qRHm7GNvH9oMMnqDs2ogVyKMzRAvRuRdwbtCZub8mIVBHLZSe/Vljhxvmx087KkHGpWIV96rkVZcuNNsCKE99zr8ytpC2q+CTMbSjf81vIJWqiiU6Qz5wI0u41WLgkBH9IqTbdZ5dybDpfhHqiaNV7OUwUDdzhPvsDI9el6vHvAF7GQ/h7QNdEWKFOzhdOamDH6CgecsPOUGnk0LtguxvLtjxWSsQu19Ddbz2Ta6ZjDsrt03Z6N94rDVrgJo83XOQPWOsgoBG9zkUXKCIaE6JXzG1+MK3UpcavQOh4MFDG5H4az+2PklBPGDgAJwmiAJlOTspmUmuR4QjqmCrMD4DZ8r1SBYwmZIB+iZ6M6LIfUET4bMob6NzJVYLIuZeVelQXtHNbft6v8W32xEY5bxuzfL4Hr8dn8in437tXATlQCbPMjisZkmhSrVo9K/NB68A4tL0yZoWMlkszTnFAV3orB9P4QJ3WzgItDq4J1tO45ZjCQax+pf8ZoGAb32tkg6sP4Xp/UcowdHpWaeiTn//5NzW+jO+Ef3A==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(14060799003)(1800799024)(7416014)(376014)(35042699022)(36860700016)(23010399003)(82310400026)(921020)(10067099003)(11063799006)(56012099006)(261021135927099003)(261022115727099003)(261028144727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261022075727099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(261009223327099003)(261009221227099003)(261009220027099003)(261009221727099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	BbPnTU1BiPykaUsQkAF1l0r2Trnk+ZBHkf+4OFC8zdWbxOdliNY/WcPYwBrst0uhG7XgI5wfaOvUY33XjMtyf6B9z8r0TSafiFONulT7zEqI06LKthqCY1izISdvAb+L6yjGuuzmlMNK6TAfI50FFlrBN1wC7FT4Gybrayvzu9gmgLuxbYs/XGAptJCPBnwrTr0xy+FGu5YZqVEbJnucKOKXDgQjmR9oQVnv8hzcc+xalsSsGvdRxwm51/xhxv1yvCt1HXG98emDGiYv9C9W6UDcI7EjBR3uH557IWMxH7hK17GrHSX/HSifNH72G9LCUdHBLylbBNwhZOeT1gl2qG8EHixUOkjZPAuQvBgP8BfKTNs6r86eG50pwKamBdOb2m4eOtUzCCl/WrbuzeUBrQApgK8krz1v23WMCRfWkMcm7c57RpHbwpPTvQk/N6f4
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 16:08:29.7288
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5f94a5f-ca65-427e-c2bf-08df41a05ce9
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7PEPF00000054.EURPRD83.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5580
+Content-Transfer-Encoding: 8bit
 
-A common usage pattern for offsetof() is the following:
+From: Jiri Pirko <jiri@nvidia.com>
 
-  offsetof(typeof(*ptr), member)
+Linux has several attestation interfaces, each tied to one technology.
+Extending a measurement takes device-specific flows for TPM, CCA, TDX
+and SEV, none of them discoverable, and requesting a signed quote takes
+another set, SPDM included. A new root of trust has no logical home
+short of squeezing it into tsm_report and tsm_mr: tsm_report covers
+reports alone, the MRs went to tsm_mr, and SPDM fits neither.
 
-This is exactly the definition of struct_offset(). Some call sites use
-offsetofend() instead of offsetof(). Add this variant, then replace all
-call sites with the corresponding macros.
+This series adds a common attestation subsystem. Its goal is to support
+platform, TEE and device roots of trust through one model, including
+TPM2, TDX, SEV-SNP, Arm CCA, FIRME, Caliptra and PCI/TSM-backed
+devices, so that a program extends a register or asks for evidence
+without knowing the hardware behind it. This first series implements
+the common subsystem and a TDX provider. The native TDX interfaces,
+/dev/tdx_guest, tsm_report and tsm_mr, stay as they are.
 
-Signed-off-by: Bence Csokas <bence.csokas@arm.com>
----
-Changes in v3:
-- Add Coccinelle patch to tree instead of just the commit msg
-- Fix Sashiko issues in prefix, commit msg and doc-comment
-- Link to v2: https://patch.msgid.link/20261112-offsetof-v2-0-276ede839967@arm.com
+RFC v1 [1] posted this and CTLV as one patchset. For convenience, v2
+splits it in two, and this series applies on top of the CTLV series,
+posted alongside as
 
-Changes in v2:
-- Use struct_offset() instead of reinventing it
-- Rename offsetofendp() to struct_offsetofend()
-- Merge the two treewide patches
-- Link to v1: https://patch.msgid.link/20261105-offsetof-v1-0-4153f5c10edc@arm.com
+  [PATCH RFC v2 00/15] ctlv: Add a schema-driven TLV uAPI for character devices
 
-To: Kees Cook <kees@kernel.org>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Marcel Holtmann <marcel@holtmann.org>
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>
-To: Christian König <christian.koenig@amd.com>
-To: Philipp Stanner <phasta@kernel.org>
-To: Sudeep Holla <sudeep.holla@kernel.org>
-To: Cristian Marussi <cristian.marussi@arm.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Tvrtko Ursulin <tursulin@ursulin.net>
-To: Lyude Paul <lyude@redhat.com>
-To: Danilo Krummrich <dakr@kernel.org>
-To: Zack Rusin <zack.rusin@broadcom.com>
-To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-To: Selvin Xavier <selvin.xavier@broadcom.com>
-To: Kalesh AP <kalesh-anakkur.purayil@broadcom.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-To: Leon Romanovsky <leon@kernel.org>
-To: Chengchang Tang <tangchengchang@huawei.com>
-To: Junxian Huang <huangjunxian6@hisilicon.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans de Goede <hansg@kernel.org>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Haiyang Zhang <haiyangz@microsoft.com>
-To: Wei Liu <wei.liu@kernel.org>
-To: Dexuan Cui <decui@microsoft.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-To: Jes Sorensen <Jes.Sorensen@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-To: Benson Leung <bleung@chromium.org>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Guenter Roeck <groeck@chromium.org>
-To: Nilesh Javali <njavali@marvell.com>
-To: GR-QLogic-Storage-Upstream@marvell.com
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-To: "Martin K. Petersen" <mkp@kernel.org>
-To: Julia Lawall <Julia.Lawall@inria.fr>
-To: Nicolas Palix <nicolas.palix@imag.fr>
-Cc: linux-hardening@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-bluetooth@vger.kernel.org
-Cc: linux-media@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linaro-mm-sig@lists.linaro.org
-Cc: arm-scmi@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: intel-gfx@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org
-Cc: linux-rdma@vger.kernel.org
-Cc: linux-hyperv@vger.kernel.org
-Cc: netdev@vger.kernel.org
-Cc: linux-wireless@vger.kernel.org
-Cc: chrome-platform@lists.linux.dev
-Cc: linux-scsi@vger.kernel.org
-Cc: cocci@inria.fr
+Each attestation device has a node, /dev/attestation/attestationN,
+that speaks CTLV: a request is checked against the family's schema and
+executed at once, rather than assembled through several files. The
+base family, ctlv-attestation, has what every provider shares, so a
+tool written against it works with any provider. TDX's family,
+ctlv-attestation-tdx, inherits it and adds no ops. It fills the base
+family's extension points: device-get's info with the TD's MRCONFIGID,
+MROWNER and MROWNERCONFIG, and evidence-vendor-format with the two TDX
+Quote formats.
 
----
-Bence Csokas (2):
-      overflow: Add offsetofend() variant of struct_offset()
-      treewide: Use struct_offset()
+The base family's ops, as ctlvgen --signatures prints them, with the
+purpose of each:
 
- drivers/bluetooth/btmrvl_main.c                    | 12 +++++-----
- drivers/dma-buf/dma-resv.c                         |  2 +-
- drivers/firmware/arm_scmi/base.c                   |  2 +-
- drivers/gpu/drm/drm_edid.c                         | 26 +++++++++++-----------
- drivers/gpu/drm/i915/gem/i915_gem_object.c         |  4 ++--
- drivers/gpu/drm/i915/i915_active.c                 |  2 +-
- drivers/gpu/drm/i915/i915_sw_fence_work.c          |  2 +-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c            | 12 +++++-----
- drivers/infiniband/hw/bnxt_re/qplib_fp.c           |  2 +-
- drivers/infiniband/hw/hns/hns_roce_cq.c            |  4 ++--
- drivers/infiniband/hw/hns/hns_roce_qp.c            |  6 ++---
- drivers/media/usb/uvc/uvc_v4l2.c                   |  4 ++--
- drivers/net/hyperv/rndis_filter.c                  |  2 +-
- drivers/net/wireless/intel/iwlwifi/iwl-drv.c       |  2 +-
- drivers/net/wireless/intel/iwlwifi/mvm/rs-fw.c     |  2 +-
- drivers/net/wireless/intel/iwlwifi/mvm/rs.c        |  2 +-
- .../net/wireless/intel/iwlwifi/pcie/ctxt-info-v2.c |  5 ++---
- drivers/net/wireless/realtek/rtl8xxxu/core.c       |  2 +-
- drivers/net/wireless/realtek/rtw88/fw.c            |  2 +-
- drivers/net/wireless/realtek/rtw89/core.c          |  2 +-
- drivers/net/wireless/realtek/rtw89/fw.c            |  8 +++----
- drivers/net/wireless/virtual/mac80211_hwsim_main.c |  4 ++--
- drivers/platform/chrome/cros_ec_lightbar.c         |  4 ++--
- drivers/scsi/qla2xxx/qla_gs.c                      |  2 +-
- drivers/scsi/qla2xxx/qla_mbx.c                     |  2 +-
- drivers/scsi/qla2xxx/qla_os.c                      |  2 +-
- drivers/scsi/qla2xxx/qla_tmpl.c                    |  4 ++--
- drivers/scsi/scsi_transport_fc.c                   |  2 +-
- include/linux/overflow.h                           | 12 ++++++++++
- scripts/coccinelle/api/struct_offsetof.cocci       | 14 ++++++++++++
- 31 files changed, 89 insertions(+), 64 deletions(-)
----
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
-change-id: 20261105-offsetof-f62aa6348f0d
+  # What the device supports, fixed for its life, and its family's fields.
+  device-get() ->
+      { caps: { evidence?: { objects[16]: { id, class, formats[4]?,
+                                            vendor-formats[4]?, max-length,
+                                            challenge-lengths[8]?: { length?,
+                                                                     min-length?,
+                                                                     max-length? } } },
+                mr?: { flags } }, info: device-info }
 
-Best regards,
---  
-Bence Csokas <bence.csokas@arm.com>
+  # Evidence: each object named, written to a blob the caller supplies,
+  # a signed one made by the call over the challenge.
+  evidence-get(challenge?, objects[16]: { id, data: out blob }) ->
+      { results[16]: { format?, vendor-format?, length }, mr-generation? }
+
+  # Describe every MR, or the one an ID names.
+  mr-get(id?) -> { items[]: { id, mr-desc } }
+
+  # One MR's values, a digest per bank, and the MR generation they
+  # reflect.
+  mr-read(id) -> { mr-generation, mr-values[hash-algo]: mr-value }
+
+  # Extend banks of one MR by the caller's digests.
+  mr-extend(id, mr-values[hash-algo]: mr-value) -> { mr-generation }
+
+An mr-desc is an MR's name, its banks, what it allows and its register
+index, and an mr-value one bank's hash algorithm and digest. The
+userspace ABI gives each op's request, reply, errors and access.
+
+On TDX, evidence-get returns the Quote over a 64-byte challenge,
+labelled a legacy or a DICE one, and, where ACPI describes it, the
+CCEL event log. The MRs are MRTD, which cannot be extended, and RTMR0
+to RTMR3, all SHA-384. With ctlvctl from the CTLV series and
+CTLV_SPEC_DIR pointing at Documentation/ctlv/specs, the simulator's
+output, rewritten for a TD, its lengths left out:
+
+  # The device and its family chain.
+  $ ctlvctl list
+  attestation/attestation0        ctlv/ctlv-attestation/ctlv-attestation-tdx
+
+  # What it supports.
+  $ ctlvctl exec attestation/attestation0 device-get
+  # device-get, 1 fragment, generation 0
+    device-get caps
+      device-get caps.evidence
+        device-get caps.evidence.objects
+          device-get caps.evidence.objects.id 0
+          device-get caps.evidence.objects.class signed
+          device-get caps.evidence.objects.vendor-formats quote
+          device-get caps.evidence.objects.vendor-formats quote-dice
+          device-get caps.evidence.objects.max-length 131048
+          device-get caps.evidence.objects.challenge-lengths
+            device-get caps.evidence.objects.challenge-lengths.length 64
+        device-get caps.evidence.objects
+          device-get caps.evidence.objects.id 1
+          device-get caps.evidence.objects.class event-log
+          device-get caps.evidence.objects.formats ccel
+          device-get caps.evidence.objects.max-length ...
+      device-get caps.mr
+        device-get caps.mr.flags extend
+    device-get info
+      device-info.mrconfigid hex:000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      device-info.mrowner hex:000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      device-info.mrownerconfig hex:000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+  # A Quote over a 64-byte nonce, written to quote.bin.
+  $ nonce=$(openssl rand -hex 64)
+  $ ctlvctl exec attestation/attestation0 evidence-get --json \
+          '{"challenge":"hex:'"$nonce"'",
+            "objects":[{"id":0,"data":{"file":"quote.bin"}}]}'
+  # evidence-get, 1 fragment, generation 0
+    mr-generation 0
+    evidence-get results
+      evidence-get results.vendor-format quote
+      evidence-get results.length ...
+
+  # Every MR.
+  $ ctlvctl exec attestation/attestation0 mr-get
+  # mr-get, 1 fragment, generation 0
+    mr-get items
+      mr-get items.id 0
+      mr-desc.name mrtd
+      mr-desc.supported-hash-algorithms HASH_ALGO_SHA384
+      mr-desc.caps 0
+    mr-get items
+      mr-get items.id 1
+      mr-desc.name rtmr0
+      mr-desc.supported-hash-algorithms HASH_ALGO_SHA384
+      mr-desc.register-index 0
+      mr-desc.caps extend
+    ...
+
+  # The value of RTMR0, MR 1.
+  $ ctlvctl exec attestation/attestation0 mr-read id=1
+  # mr-read, 1 fragment, generation 0
+    mr-generation 0
+    mr-values
+      mr-value.hash-algo HASH_ALGO_SHA384
+      mr-value.data hex:b57a300eac0c9b8593bafbadee812f8915456913c28010dab20d700446169bdd56e1af87ce94d66c8fd2d456b3e42826
+
+  # Extend RTMR3, MR 4, by a file's SHA-384 digest.
+  $ digest=$(sha384sum app.img | cut -d' ' -f1)
+  $ ctlvctl exec attestation/attestation0 mr-extend --json \
+          '{"id":4,"mr-values":[{"hash-algo":"HASH_ALGO_SHA384",
+                                 "data":"hex:'"$digest"'"}]}'
+  # mr-extend, 1 fragment, generation 0
+    mr-generation 1
+
+This series is the first part. The branch [2] has the whole work,
+building on it: CTLV's events, the MR journal with IMA as its first
+user, memfd and dma-buf evidence blobs, an mr-extend that hashes the
+caller's data, evidence acceptance and device security, a simulation
+provider, KUnit tests and selftests.
+
+The series adds 3480 lines:
+
+  attestation core, C               1340
+  generated files                    770
+  TDX provider, C                    470
+  docs                               462
+  family specifications              206
+  ABI snapshots                      170
+  registry, build                     62
+
+Changes since RFC v1, each patch listing its own:
+
+- Each evidence object has an ID, a class, signed or event-log, and
+  the formats it may have: from evidence-format for a layout a
+  standard defines, from evidence-vendor-format, whose values the
+  device's family gives, for a vendor's. A signed object lists the
+  challenge lengths it takes.
+- evidence-get names objects by ID, may omit the challenge, and takes
+  output blobs of any length, failing with the length one needs.
+- TDX labels each Quote, returns the CCEL log, and leaves the
+  TDREPORT to /dev/tdx_guest.
+- The MR journal and its notifications are left out, until IMA uses
+  the subsystem.
+- mr-extend may extend some of an MR's banks, and every MR can be
+  read.
+- mr-get, a query, describes every MR or the one its optional id
+  names, and mr-dump is gone.
+- Attestation has its own class and /dev/attestation/ nodes, and the
+  TDX provider is part of tdx-guest instead of a module of its own.
+- The specs are written as op trees and records, with a comment on
+  every item, and a userspace ABI document describes the family.
+
+The patches:
+
+  1      the base family's specification and generated files
+  2      the userspace ABI
+  3-5    the provider and instance core, the MRs, and the CTLV ops
+  6      how to write a provider
+  7      tdx-guest's native attestation service, for the provider
+  8-9    the TDX family's specification and implementation
+
+Note to reviewers: the uAPI, in 1 and 2, and the provider API, in 3
+and 6, matter most at this stage.
+
+[1] https://lore.kernel.org/all/20261015145053.3664509-1-jiri@resnulli.us/
+[2] https://github.com/jpirko/linux_mlxsw/commits/wip_attestation_all_2
+
+Jiri Pirko (9):
+  attestation: Add the base family specification and generated files
+  Documentation: attestation: Add userspace ABI
+  attestation: Prepare provider and instance core
+  attestation: Prepare measurement registers
+  attestation: Add CTLV operation handling
+  Documentation: attestation: Describe how to write a provider
+  tdx-guest: Expose the native attestation service API
+  attestation: Add the TDX family specification and generated files
+  attestation: Add the TDX family implementation
+
+ .../ctlv/abi/ctlv-attestation-tdx.yaml        |  21 +
+ Documentation/ctlv/abi/ctlv-attestation.yaml  | 147 +++++
+ Documentation/ctlv/abi/families.registry.yaml |   2 +
+ Documentation/ctlv/families.yaml              |   2 +
+ Documentation/ctlv/generated-files.yaml       |  14 +
+ .../ctlv/specs/ctlv-attestation-tdx.yaml      |  25 +
+ .../ctlv/specs/ctlv-attestation.yaml          | 181 +++++++
+ Documentation/driver-api/attestation.rst      |  99 ++++
+ Documentation/driver-api/index.rst            |   1 +
+ .../userspace-api/attestation-tdx.rst         |  59 +++
+ Documentation/userspace-api/attestation.rst   | 294 ++++++++++
+ Documentation/userspace-api/index.rst         |   1 +
+ Documentation/virt/coco/tdx-guest.rst         |   8 +
+ MAINTAINERS                                   |  13 +
+ drivers/Kconfig                               |   2 +
+ drivers/Makefile                              |   1 +
+ drivers/attestation/Kconfig                   |  16 +
+ drivers/attestation/Makefile                  |   5 +
+ drivers/attestation/core/core.c               | 500 ++++++++++++++++++
+ drivers/attestation/core/ctlv.c               | 499 +++++++++++++++++
+ drivers/attestation/core/internal.h           |  34 ++
+ drivers/attestation/core/mr.c                 |  64 +++
+ .../generated/ctlv_attestation_gen.c          | 179 +++++++
+ .../generated/ctlv_attestation_gen.h          | 204 +++++++
+ drivers/virt/coco/tdx-guest/Kconfig           |   4 +-
+ drivers/virt/coco/tdx-guest/Makefile          |   6 +
+ drivers/virt/coco/tdx-guest/attestation.c     | 313 +++++++++++
+ .../coco/tdx-guest/ctlv_attestation_tdx_gen.c |  65 +++
+ .../coco/tdx-guest/ctlv_attestation_tdx_gen.h |  44 ++
+ drivers/virt/coco/tdx-guest/internal.h        |  48 ++
+ .../coco/tdx-guest/{tdx-guest.c => main.c}    | 137 ++++-
+ include/linux/attestation.h                   | 243 +++++++++
+ include/uapi/ctlv/ctlv_attestation_gen.h      | 234 ++++++++
+ include/uapi/ctlv/ctlv_attestation_tdx_gen.h  |  42 ++
+ include/uapi/ctlv/ctlv_families_gen.h         |   2 +
+ 35 files changed, 3480 insertions(+), 29 deletions(-)
+ create mode 100644 Documentation/ctlv/abi/ctlv-attestation-tdx.yaml
+ create mode 100644 Documentation/ctlv/abi/ctlv-attestation.yaml
+ create mode 100644 Documentation/ctlv/specs/ctlv-attestation-tdx.yaml
+ create mode 100644 Documentation/ctlv/specs/ctlv-attestation.yaml
+ create mode 100644 Documentation/driver-api/attestation.rst
+ create mode 100644 Documentation/userspace-api/attestation-tdx.rst
+ create mode 100644 Documentation/userspace-api/attestation.rst
+ create mode 100644 drivers/attestation/Kconfig
+ create mode 100644 drivers/attestation/Makefile
+ create mode 100644 drivers/attestation/core/core.c
+ create mode 100644 drivers/attestation/core/ctlv.c
+ create mode 100644 drivers/attestation/core/internal.h
+ create mode 100644 drivers/attestation/core/mr.c
+ create mode 100644 drivers/attestation/generated/ctlv_attestation_gen.c
+ create mode 100644 drivers/attestation/generated/ctlv_attestation_gen.h
+ create mode 100644 drivers/virt/coco/tdx-guest/attestation.c
+ create mode 100644 drivers/virt/coco/tdx-guest/ctlv_attestation_tdx_gen.c
+ create mode 100644 drivers/virt/coco/tdx-guest/ctlv_attestation_tdx_gen.h
+ create mode 100644 drivers/virt/coco/tdx-guest/internal.h
+ rename drivers/virt/coco/tdx-guest/{tdx-guest.c => main.c} (79%)
+ create mode 100644 include/linux/attestation.h
+ create mode 100644 include/uapi/ctlv/ctlv_attestation_gen.h
+ create mode 100644 include/uapi/ctlv/ctlv_attestation_tdx_gen.h
+
+-- 
+2.56.0
 
