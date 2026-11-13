@@ -1,70 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794570457;
-	b=zME0e72LeDE2d/h6tyV8S0oaluH7wNfYb/uxr5bhYhc1jR5LvOWQtyv52Tdn9Or6zEba
-	 76wFeYGLqzKOr32y3idpBQOmrMy6EOjqeMmfhoO7tulwbCH5dHvFr1T44poTfuqoYxFn1
-	 24gk9RgSmFhEMLXnwBrOlwJ18223mxwjI/wr7NRhVuv4t84+ePB+S0DkQzAJa+g9KMiW9
-	 dXY2UkJD7d3I1Aw1NX+DZWE+HH0syhJdwLldRLkITP+//I4cmo8i7RKx8hqCApMUfE1Bg
-	 ByVbI5Hz2FfA23tbnPdcA0jsddbDMIuEbvyUc2qK0vwkJumobOfK6kNJCOfjJWWMqsw==
+	t=1794570451;
+	b=lcjt5tkfi42tj71u5zl4e+tntIduqEiCXAvMkMUbxl/CMYT6/aInMhwchJIZY/LeX77y
+	 lN7+ta7AWQ26+VMRQdGAekgXUNbFoPNhGGuNa9Q0RJiGdLJp2CXux/l6LzlbIfWVMY/GM
+	 +L1AiEHKyTNz3go4OwC5ZgUkLW5OFV6xhnI+Bdb98m3lwML/Zdhew/OxVq593gBlLa4MU
+	 Gurb0YsuKhJ2/Oqoz5vN2uIBtnEfdNQhT6K+zS+ZFYFOWeoB8+rwMje270Lkuq01pkpvF
+	 /M6HEnT3cRIjC8NMBVeVRFzHsvGA+II25J5v/B7j0CFhhev8mrP5TWIqN8SNzHQlTVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794570457;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-MBO-RS-ID:X-MBO-RS-META;
-	bh=hw6iuwPNz9xqHLB6VPecRpVOyJoujoDzeolzbUQLp+8=;
-	b=EDArw+zlSGSC5HD4tlq0tqlCCT84sBpsRgsk2Ve3ZI328gEZu5uGDB4vtIpsq1c6gRY2
-	 7XgzrNae4malF6jCajN4LyUuXHn3WhGJCCnOkyiXXriesgRgV5ZDVxbYgAZPEW9G9OaOM
-	 gzWrXyiTuWQix4zqSW+OrvLvMLkNLDwtjtqYzPUSkohL33UO6D8GiMotKiXBVwftwTMlD
-	 CnBaiHEdc7JRSClj55jlXkTOQ48DX3lI2EdGHT0Tvj2ENMBk4xIQ6BpB7JbusTrBEQAGA
-	 4eh5xnOA+Rma+cGs2F+3G+4yaXObChWcRHh7QxKFY5kkN99HLcE4opneIt4oql1QLWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794570451;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=QRKjoaIFdZcdNI6xhQFS3ddkteDcVtqc9gdnFl/fkT8=;
+	b=ygItnJmGsZ7rQBskE27z2T91IOEtJhBQ0tiy8sLdyIV7pDlwT5vPzIHtVZ9Q3VfWuQG1
+	 Sql9bp/bGQw1mMvKySJaRhgwytTwCl1nCQiLXm96qQzT8Hr6jd5P4PM2ZusjeeCu8TXql
+	 Lf08T+P8tGi6E3/FqnrfnvJfThxf0fAMxbh2ue8IiRhkwsHd4P5plAtPXGKcMBQBw9Geh
+	 nnpcw7IzfO027D0ZQMU6AF857xtY03ZIjFRr4cF27D0jxj64IdU3bsZ2IaITn76toU3v/
+	 WUl43jl1kgYNeFNLLWMxjixjC94iBChdJJdo6tz8cHVe1eH5cRkVDrYenKddXxaz7Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=x0E1WDdV;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ELviE2qh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10E4606A883;
-	Fri, 13 Nov 2026 11:47:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F10E4606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280E5606A333;
+	Fri, 13 Nov 2026 11:47:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=x0E1WDdV
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jQwV70xgdzKr56;
-	Fri, 13 Nov 2026 12:47:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794570447;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=hw6iuwPNz9xqHLB6VPecRpVOyJoujoDzeolzbUQLp+8=;
-	b=x0E1WDdVP4c9oqpyfQAwOc/vjGHZ2uDFSX5kPvZydwf1eOVyH3B0NUpQonNZLTDwQttkFS
-	pKnceJtSKU2t4esGm59G7LYVP1XOSKwOoiuFrpXzA9CxW1bBjGJa5esXD1mpwGEuWbMkuu
-	9ku6OJtwufgLAaXb/7LnLEUhfyH8V83kudYCEk5dt46NF7YHXMhF90YQIuHG6zztsAtZkw
-	zS/HlowPvka107q5puvkiuMD/LpDCWcP8TgHBFq5N7VxzB2bI6oaSLqCuoUD49kOfWBo2t
-	pYMtEgj/F5dGglax32wYH5Z9vp7yGCb9pUtTUngdTFD1mL1jFm8Bq39b4msGGg==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: Thomas Richard <thomas.richard@bootlin.com>,
-	Lee Jones <lee@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Helge Deller <deller@gmx.de>,
-	Petri Karhula <petri.karhula@novatron.fi>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] backlight: cgbc_bl: Fix kernel-doc
-Date: Fri, 13 Nov 2026 12:45:52 +0100
-Message-ID: <20261113114552.895592-2-manuelebnerli@mailbox.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ELviE2qh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C3E1F000C4;
+	Fri, 13 Nov 2026 11:47:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794570450;
+	bh=QRKjoaIFdZcdNI6xhQFS3ddkteDcVtqc9gdnFl/fkT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ELviE2qhjHKkgD7NBAi295Va5GnITUxC5rM/CetbA9/lc6h4Xl32j7t1F65j4uzUf
+	 C+mpzF9848sWd9EwDQ/LPFTT4biPOKLxmKgsg+ABasx66tUUaMe1CEn8S9r+7RqPcH
+	 YCGQhMcViMCz1gR+TyesYhxplyLR9BOkD602l02N6pzIvYY2GLvaDwe1e7DKMTRegf
+	 nj15n8UJn6Y3EhCUZbAMd/y1K9rlXCWxA+s7KK72dHv9GYMEqqAeW2clqWpMhhv2Sv
+	 TOCktHbmUynvB5U+fAntaw/5z/5yn54RrKJ/UL7kKwGlA0J/+aE4KemAyBtzOjPhod
+	 lrpklC+/uvkEQ==
+From: netdev-bot+sinfo@kernel.org
+To: Haoran Wang <haoranwangsec@gmail.com>
+Cc: Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
+ UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: 
+ Re: [PATCH net-next] net: sparx5: check DT port reg against array size
+Date: Fri, 13 Nov 2026 11:47:29 +0000
+Message-ID: <179457044999.2168702.11721926329454503825@kernel.org>
+In-Reply-To: <179457014579.23820.10657909253312598784@gmail.com>
+References: <179457014579.23820.10657909253312598784@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,41 +63,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 76b2e7b13eb03885d2a
-X-MBO-RS-META: d8ac538mishf1rhdaakw5ozqknkm43q5
 
-This comment describes a struct as a kernel-doc. Format as such, fixing:
-  $ ./scripts/kernel-doc --none drivers/video/backlight/cgbc_bl.c
-  Warning: drivers/video/backlight/cgbc_bl.c:29 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
-   * CGBC backlight driver data
+Hi!
 
-Fixes: b516456e9f91 ("backlight: Add Congatec Board Controller (CGBC) backlight support")
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
-[v2]
- added 'cgbc_bl: ' to title (Thomas Richard)
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-[v1]
- https://lore.kernel.org/all/20261112192744.850142-1-manuelebnerli@mailbox.org/
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
----
- drivers/video/backlight/cgbc_bl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
 
-diff --git a/drivers/video/backlight/cgbc_bl.c b/drivers/video/backlight/cgbc_bl.c
-index 3be140284e..63408fe40f 100644
---- a/drivers/video/backlight/cgbc_bl.c
-+++ b/drivers/video/backlight/cgbc_bl.c
-@@ -27,7 +27,7 @@
- #define CGBC_BL_MAX_BRIGHTNESS     100
- 
- /**
-- * CGBC backlight driver data
-+ * struct cgbc_bl_data - CGBC backlight driver data
-  * @dev: Pointer to the platform device
-  * @cgbc: Pointer to the parent CGBC device data
-  * @current_brightness: Current brightness level (0-100)
--- 
-2.56.0
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
