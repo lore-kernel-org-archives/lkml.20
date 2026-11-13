@@ -1,92 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606319;
-	b=2bRIZc2xWZr9UVa6DUHSyB+Ed2faKT4SRsNPeMYpCcmOhVDCp6VriyFXUtgrtXDxPQpm
-	 GpqcQ+i0A87D5EUr0ZU0Vkla39zw01gylaPh5Z7kNoR1peW9wVmaLZjA6YZ79zo7+I8lB
-	 8uP6sUda/UKymAdiF52lwcSt5znnzbPBAvTfXFJCdOfVjRwomVGMQApoRkWgDlDYLTQ+X
-	 fzn6h0jrADMPhC8qdZGv1VVjIZqVshp+SqDNjYXz1xALuAUCoGJ8I7uuFEb2q0/K6Vupi
-	 n3sNRnYqCHXEJaoULX+0NfEPRHOet9v24lThojcVcLJGVIdmf4x7YNrURq5pWgpM4RA==
+	t=1794606334;
+	b=KncPCTECpjXTghu9itGPUS7dJmM6IEBaSumP3grHJ+O3yk8qDk+XsuPg/6TGmuEjT+no
+	 8D8HMRnW9HTF3D5VsMwSzU0YTht6CqyXZk8HdHXAIESYzVtokEszpTpbdrhUjCxtA5iUl
+	 S/8BC1pBZ1AA+h5nbb2MCSsyfhPyMM5ls0dNrylnJvWaV0gyWMRF28v8CfmedRrRHJROy
+	 BF/3D7WboInmWEmwxreBupe8O3n6it++/K38YM3ltZhV8FXJFaNbDSneBgwMOdabQouxD
+	 rNuYp0L8KKkgN0dG3RHHGWazsYt/V59QgnGNd1k78ibgXBDTckTNPriHhawSt5ERjeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606334;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=n7PzzPHa/4mCBK10OYpFHdY2nQ0SUiiLZ/8MiqaUUMw=;
-	b=VBvi+EPHq3mp/jhy/rbMS+z+Hj8uladhdIJY2fJ/6jIJn4NU7pdQrTb10Y8+t6bRLjuw
-	 QGWGA/4A450DisTXprm2J6OxJYBa+XHMMa8m+1gdt/qEpXxNAvOy6yohuF0hJRx/T5XA+
-	 WkiE9rSPQiI12Q+5V2gzjHpBHONc7X1PfXR61EVoET4nBxldIUj8wGrFceKBmoTKgjAZv
-	 C6pok9RuRIjGso5dEkqd3ABMOp15syIP3AmG5flMCJrpUX437Gj5KC2e4EEE2Q9P7khOZ
-	 42SezKbnoV9nAssOFoHEp9WuTNRmMLBeuOkZ6ByWJ79t4PA+f3KmtuxLgGDYdYIldNQ==
+	bh=oMXbsyiEGd3VJre2l0muSyjhtmpej/ppRBC0ERFe5Es=;
+	b=CU7wL+asmAfXijw7Y2WzebnReMWqOj/g8oni5HRcE9YA8nL8hNozdFTB1XLU7hVWWqFR
+	 7dCS+yX8fOCUGR9iPZmiqrr3eyyeDe1/lEiV8gKaoeDfHtr9nqd6b/WvWDWSBmrKSlYbf
+	 0amf/Bio5KnSQ5Ypk9ArKTCgoA0e8UJDlQL9Hj1Pou2seKM11TJ1QM7uiPaXqNajofSG7
+	 VevMvKEZAjhHkoaiThfM89iOsm2zysO4/k4WapTmm76FY+HJFna0Cj6VBIPMXWHNeImLn
+	 /f2yR3O2qak7g2CrL8uXhtyHcmMOOEyhLS7pEpsCapTWw61I6PWkqJKicO+/EAYuhIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X2kmQ9jA;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dal8tLTA;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D804E606A880
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:45:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D804E606A880
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6E3606A332
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:45:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F6E3606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X2kmQ9jA
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so24076715e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:45:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dal8tLTA
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso8871455e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:45:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794606317; x=1795211117; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794606331; x=1795211131; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n7PzzPHa/4mCBK10OYpFHdY2nQ0SUiiLZ/8MiqaUUMw=;
-        b=X2kmQ9jAZauNlJWXZXIdL+UMkH2O8fV3yqTUNDTPDhKVBRW0TF6c4k1+ZQocEwvhdH
-         Jrf+A/+QlSk5RuBXHyEm+zSGeP96jNBIfB7PmBzJ/7qgPiW6sWmK0fjDqV3qoEPbRWyZ
-         vGlV3gyAwFMLminwBDLQbbPj+6eH5nn+rsYAu3FfVavkPK9u3XXqNItOCt2WrEPF/Toa
-         hsVEM4cgbhjcbiBO+Yg3Orp+faF++rAoMORfiAI49C8d9QgQ7Sd9BdcXQLIT6WTf03kN
-         v230k1OGSQCXq+4lnUUfLGh7eDR+wJsdH4bt6jDAyD2kFm2NnswR2hhHELywQsqKfNk9
-         ywJQ==
+        bh=oMXbsyiEGd3VJre2l0muSyjhtmpej/ppRBC0ERFe5Es=;
+        b=dal8tLTARw6m+y19/sxHsfMmMtlBlTjYwEBaRS2Lp/3b/IpkP+EA+egE3x25NEGx1M
+         UE6ewBuusn/dzEG28w7NrIkYHySFEGIzGcyui8nAtkwyzTeutuje93Su6bvgli+EvsJj
+         uCG5w+axTaaT9R+3eZ5KJRtHfUtujbS36JmXS1grShbuFBOA52nXxOlCi8K3PrEWU/DY
+         8SSKwJLE02IoKx8ln9N5yeAb4kDyZvQ3RAR+Mq2fIpKoka9JZZRMfNOQMAwJJjZlz709
+         qNrzMVRGGgU4v2bJHIAjf91Ze4YssnazTXCpjvb7op7rNmciavRFrZGKt9RnysChoFNY
+         Eu4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606317; x=1795211117;
+        d=1e100.net; s=20260707; t=1794606331; x=1795211131;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=n7PzzPHa/4mCBK10OYpFHdY2nQ0SUiiLZ/8MiqaUUMw=;
-        b=JKXn8oWguH8ermMoepNVYW7HMtph1Q5pcqT+FnjPfYM8cmm10jTa67fJTOCv+yTv/P
-         46dN92l1d9SD7PP2+mbxZneVqotAYJgr7HCRg2+e1NYErvdUdHzTyPE6q+yDdqzghkm2
-         6/l2LuQvNBIpNWuZ9lS1qsh0NOP+Q7fzG+wddNSXmO6COJ72+7ln8uP/A4+dQXDVPaBg
-         3PxeoQQZP9QqG/E9ldCNe2v7y2rmiu/jxMrr4mJoU0OcaZWqC1gs0mjyGCXRBAPUWchB
-         T9FQiaQyDTwic2jCOPAzM3xQBclF/pgpBwpQcl8NyosO1Hk5iHFbIqOO5VH4vEnpjz90
-         rcng==
-X-Forwarded-Encrypted: i=1; AL+hErGsOibfWDdu+r4Ku85rHDrK+iE8euZTzKfcnze56Xq0R7NqBjn6MeqV6V2GCQTXIuhvtcdnNMqoKnYOiRw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rP+/7uFV7Y6Haag2zwbH35EQ+mryuLb04XWvC5NAtchiDG19l
-	HZHy9wFl51+V/bj9QxSb451CyBoXV+HXlKF/fkiZwMHlGjl54hl/9xRX
-X-Gm-Gg: AYBFou0zhi3uNEZSQz/EKpw5KZ8Upn+4jI2pF1pld+78C0xleyvU9LOi1ldoVYKTcsJ
-	kx6bOnqAOw82w/cUZJJyZgBh5OwMSFzAwQJhXdYeoeEtihgHstsHweeIozYiWYEV/3Wt5BMLWYq
-	cNpdbMBGFCNQG8Xy/a+rsZjvzc5tViklQCnqbV2nDbe5Wd5j8q2LqXN6osaBa+JewfLWRJgDlOl
-	BjEAK9KRx+AKcNMbZn/kXm6NMniEp3M3B5uvycMkL4txaOl0Wm2gE1J0ObxP7h13M4HWs9sSWK0
-	8+3AprKK3MtSKH9FSW3f0ogaQLzpqtOHdlAYDifxI+G9r2a1PhScwUhH2lo7trc8CpcA57Co8Cb
-	o4M4GV+F9jUL0BupPxxpBrXNcatlKd2A3OhQqUXcBxSOJDpKbi8ZXGFhpwAYZpJ342EadZYC6di
-	czn9roC3J08UYQVLVEubHOF0xBZ/MNM+wkm/cl67dRjovgXRJthlli56ik6EDjIRjal/1L56OHI
-	11eKsKzuio2gh8RJnhd9rjeBXbcT+z5rDrIU0Y/3xcW+4bvG5bK2NuCZ4QnNL9s+YC5iuWKXxxd
-	o1vhmdTIkkK8sRrHX85FOG/3rt8B9Kot3vnmjUd5KNOnFBjbfg==
-X-Received: by 2002:a05:600c:1daa:b0:4a1:d087:f6ab with SMTP id 5b1f17b1804b1-4bb55a4ea8emr79392275e9.18.1794606317190;
-        Fri, 13 Nov 2026 13:45:17 -0800 (PST)
+        bh=oMXbsyiEGd3VJre2l0muSyjhtmpej/ppRBC0ERFe5Es=;
+        b=EFRFZDZN6JTaPdFdHIvkqHglwvSQwaheiAvQIyiwaw3nk/mvCilYSf4n8U9j+We9tC
+         DX0BIDyiASrWG+xxyX6FZcdnJJso61dCW87mDpVi/KBm81Du4nAgB+rAKS+d6bYgDDkF
+         DZN5iRa2FNcusQn9NSBXoqLU3rjGWvQcz650QvZTlszToU1KDwt7mVqKv10kgfrWgdIv
+         5rfVnDpk9RJvNldClFHY1e8TkU4PZ7L6LYQJ0BfRAWAhDlLIHT0/f9tHkNXxEYCJHhAH
+         oUWchG9UI15v77S9e3hTRZHu70kZfCE617LRgGPC1NV2R4yQhgEpNYBCeMNOVa6AUI7L
+         aVBA==
+X-Forwarded-Encrypted: i=1; AL+hErHFIC6JLm/MyDkNmF9pGkLEB3PpkMcXc6Evbl81rthNTEsDr9Ovw03Ty0sDemy335ak1a6M+yW3VMeeA4E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ouT8nCxxatpFuJ2APoF0eWmtRkCEepTSfdG+DpzLmjGVzh1o5
+	PPARLY5uCuMRPXTPYHM1/M0k7Bhb0aaRCSEUGYtdGfPfZBRbdkXku7N988Pi6jni+LU=
+X-Gm-Gg: AYBFou12SO74l/GtpfdNUZvnDyGmOAP2ka9lm5L7pocY++V8/QHWFV9cGtl+58y9r6I
+	o4kjQaHCYfFegjEAv19GN4ldiIXnPlKPoSPZnTEqTTr5WsG+WJULsBEYMkmsNmeZK3yAJ4C3ks7
+	EVGhu1pt0eYOvDHDuFoSD/+xq6IXXt43xWHzDiRLttEIEQtUjCPGbR4zLUOe92GdvoJN8CCaAEN
+	5PkUte2ZhposEKl8xbo9r7oeHXcFz7JjzRpDm1RUQuQE6OFR7SjLqimn2bUvTbx50lWD4qIs33Z
+	TwMI8F4LfJfP2KaeK427HRgO5iuhdVxJuWtrTjw25Jtpbl+1DS1nVV9xOlFpbppkkXqCGixLnZg
+	tFtqpBa8x2aHxj9EpLRXCxzsqZIJXBMeE6d1fUYuDzMJ8nGuK2rBtbJKf9e+FQo4emjXZDftTR0
+	EM6NvC+TidbGa4aNX5EAhJFkFQDTMF4ByWaZmwwiLsGyfztPPMMic1lWIWN09Am9PhfKTuZgDbf
+	p6mNsc7IT2raDgyWUCJdf831FRFLuEtT2EAJ4XaJ06EOJh4HBRtIWnItkbzf5ROrjOpSg9mtnuz
+	8Z4XXuv5a+dtVLwzdGV7fDkylUczNTtgNJXwKgGCJRsN2oaUD3U=
+X-Received: by 2002:a05:600c:46c9:b0:4a1:f8cb:7d70 with SMTP id 5b1f17b1804b1-4bb55aa51ecmr89431065e9.24.1794606330704;
+        Fri, 13 Nov 2026 13:45:30 -0800 (PST)
 Received: from vivobook-s16.fritz.box ([2a02:908:e843:f280:6cae:291b:a1:8362])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55acdccfsm96131245e9.8.2026.11.13.13.45.16
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5a32d336sm8542479f8f.0.2026.11.13.13.45.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 13:45:16 -0800 (PST)
+        Fri, 13 Nov 2026 13:45:29 -0800 (PST)
 From: "Ingo A. Kubbilun" <ingo.kubbilun@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
+To: Douglas Anderson <dianders@chromium.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	"Ingo A. Kubbilun" <ingo.kubbilun@gmail.com>
-Subject: [PATCH] firmware: qcom: scm: allow QSEECOM on ASUS Vivobook S16 S3607QA
-Date: Fri, 13 Nov 2026 22:45:04 +0100
-Message-ID: <20261113214514.229363-1-ingo.kubbilun@gmail.com>
+Subject: [PATCH] drm/panel-edp: add BOE NE160QDM-NX4 (0x0d25)
+Date: Fri, 13 Nov 2026 22:45:21 +0100
+Message-ID: <20261113214526.231324-1-ingo.kubbilun@gmail.com>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,7 +104,8 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Enables the uefisecapp client (EFI variables, efibootmgr, RTC offset).
+16" panel of the ASUS Vivobook S16 S3607QA. Without the entry the
+driver warns "Unknown panel BOE 0x0d25, using conservative timings".
 
 Developed with the help of an AI coding assistant (Anthropic Claude),
 which drafted the changes from the Windows ACPI tables, existing device
@@ -108,21 +114,21 @@ submitter.
 
 Signed-off-by: Ingo A. Kubbilun <ingo.kubbilun@gmail.com>
 ---
- drivers/firmware/qcom/qcom_scm.c | 1 +
+ drivers/gpu/drm/panel/panel-edp.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index 030e4ba90812..8dd0d38291b4 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -2228,6 +2228,7 @@ static const struct of_device_id qcom_scm_qseecom_allowlist[] __maybe_unused = {
- 	{ .compatible = "acer,swift-go-sfa14-11" },
- 	{ .compatible = "asus,vivobook-s15" },
- 	{ .compatible = "asus,vivobook-s15-x1p4" },
-+	{ .compatible = "asus,vivobook-s16-s3607qa" },
- 	{ .compatible = "asus,zenbook-a14-ux3407na" },
- 	{ .compatible = "asus,zenbook-a14-ux3407qa" },
- 	{ .compatible = "asus,zenbook-a14-ux3407ra" },
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index bc16d6e30a5a..6ead44ca6d7b 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2078,6 +2078,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf2, &delay_200_500_e200, "NV156FHM-N4S"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf6, &delay_200_500_e200_d100, "NV140WUM-N64"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cfa, &delay_200_500_e50, "NV116WHM-A4D"),
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d25, &delay_200_500_e80, "NE160QDM-NX4"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d45, &delay_200_500_e80, "NV116WHM-N4B"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d73, &delay_200_500_e80, "NE140WUM-N6S"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d98, &delay_200_500_e50_po2e200_d100, "NV140FHM-N5B"),
 -- 
 2.47.3
 
