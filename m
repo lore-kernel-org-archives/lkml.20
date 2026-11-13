@@ -1,110 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564919;
-	b=3NNS4TC8exQOIBJ4io/Unc4rsUxKk08OynLtB88JVZPSIj0hGRADGnQRq7bMwo7P7Paj
-	 ZeUJxOTnchIkbJrqG7QgO8LjvCsuscS5D2+9UML/U+US43QiHI7EEWrNXKfEdb3boJM7/
-	 rdXxlC3dd7C3sn70CBJsYvIJATJyEXfN6lO2ZDgnRzxlevij8x5qEA7JntSoVCxL6LqBm
-	 FspSct/CynXyFQ16zZo9j0r3vRXnsBNQSStbR4yNidzSjjnb7bMWFWh7HdbncWiPrJkNe
-	 QE0AZY7taFBoDMB7Zoo8tF73gQEBxDJx5sQnSkhwC6JiHvGF40Z/zfwDt2iSpbHfUKQ==
+	t=1794564950;
+	b=PVoFQ4knJV2/nY/X0ZYsA8S7s/oY/hNNgxi1KE33CBnPR6KgxwWvsOpJcwPh9vIdNl2n
+	 UqVbf7NS0u+b0JYtVa5p8raOmXR+5kkVjFD9YIkUaKmYTmPLYqKECvQuUmaPs2/fcr5GT
+	 Dxa6yCwaYGBJOJO4/mnfWfrfIuyRtzZHKyrq1VR0RrkoMDOHZng+0SuwKSeUj25/nAMuF
+	 +M3s+vs6vg8Ns/0p1w58mtwbv4/Ok+oXUirWZkgfd92LQJU7Xrb9x0baRVs6eI8/sg01N
+	 G2s3RHy+LZo6Hg0+NeKuqvU/LLUxcJbPvWMvmux2jdauOVnPMpHPHlBFzH46BkYfrvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564919;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=QtOsdPCKGJ1fBhMqXd/zLQfd50NEx4L7veNiE/G2OUE=;
-	b=hDParwTPAuD1zEFICNrErKD6DHZ2n3sUQlpaBB83k3vk03FcEUXfSWFZbRS54RcgX3NI
-	 cTx2SsQ1FAD6sIp+6xfOOqJlHEfpXXFIkp4pmWc1NTU6WbrYBwnNGDEoBuWQPnKrTS2At
-	 6SOvaG5LVE7ZocRzzdrqACZxhe18Mc8hKkJnrmM5e3BNGMx/tUV09ndGy6Ghur5bhWHZU
-	 48RcbiD1B0SiJKkHUAzteTf25jfgbjyxsHW+GpuzOUqn+wRh5yULAQHnWRitKTFQEQZgp
-	 cihez2957ZLiaal4mD4KhboT4pIFjo2w6MkDO17cwIPv16vUlRBrbRtKVT9w31uo2sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564950;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=P5Qh9qW/+Ju810c4VDZfB+2DBWmN3dBrCSMEnmUX1RM=;
+	b=hMBC34g0hOgNFVH5F3NBMb0Nnitp/O1BoUIYAfVm3zQ27oteLxAMlaQ58J+GmBE0Prwm
+	 tELacM55jpS/lD1r//7w7EAj9vmOXjedM7ZtBm2Et2xsOBFkd5qFMAYQsQhV+xrnJ997z
+	 yK9Veq16xHm2/tzFOs7aOx9uKdVc4c3yhwQ6XZBav8q9HJTSr7rVNrexsnQ4WoXj8Qv1o
+	 +19Dypqh/5d/PVuH8XvsDiqn+4JJNxHxmpUQb3G1NIocfD+A83sXLPSowyBvV12NipHHi
+	 Qm/2Xi2JKbCOSvcZRoCBEags1ABjOvtjMbI1PDxALjaRtyUMi/sC6brunNzNn7xNJiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=amutable.com;
-	spf=pass smtp.mailfrom=amutable.com;
-	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XokUN4uh;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iJnDaTl3;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2879606A8B9
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:15:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2879606A8B9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1BB606A338;
+	Fri, 13 Nov 2026 10:15:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB1BB606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XokUN4uh
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so3785155e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:15:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794564917; x=1795169717; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=QtOsdPCKGJ1fBhMqXd/zLQfd50NEx4L7veNiE/G2OUE=;
-        b=XokUN4uhZ5cnIDNPS9kLjfaPp8ZSmyDY7nHz3ffF9uftFGQzzc0NaUd0CPxl6tmm/G
-         EB2bqVZrrrQULKzHfxmMlarOF7+NP4G1EuGLp1x7hwkFzcf5DKQIlYH5+zTWTg0qLXK8
-         Q27+pu7matN83z4kFimCCYFY9EtcVBpSYh+f+WbPWczzC82gi2dU1+IxENiNgIvD4ssI
-         1POQJndyP8zOY9I/drEtHc8Rir/wcokVwFCL8xkdsULqRcKqvw/m2pftg5e6OYSufYMA
-         FPm06vn59Z5lYx4UA2FpKr0UjB0BBdejlJLIE+RKFWt9/d0/clXrD3SuYpmwDbHdW+74
-         JQJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794564917; x=1795169717;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QtOsdPCKGJ1fBhMqXd/zLQfd50NEx4L7veNiE/G2OUE=;
-        b=KAWD+nT4aBW87ZEJ/2uG6JnHOxt2yR1veGpglRviKMRVm3AxxkVZLuWnz+x1/H7uKI
-         u9prSqYbTGRv3LOz34Zf5bCAMcRdwuU+o1oGGlZY4Z+IRLMHW/HPBIa0efVuhBiMHPov
-         zSXTHg3VQOD2euGjrAfVvD76/AJ43dpJLVrybfBplS/eidFKn+Ka6uYGWGN8nxlhUoPc
-         oY9pyc8bu4r9Nw6LhsPJ+ObGNNsD+5xepBmqQrwGDJ/GSJBl9/elFFaU2b9GapOH/lHy
-         LxiimIiUXBicWqiBoJhPiKgjiz0AgfrdRv3eRWEztrml13bAlop0a2FprbHnHw3ZNEu4
-         nneQ==
-X-Forwarded-Encrypted: i=1; AL+hErFOjX+HGbz5Cv9lWGh5uSXMMdJd1Gv/7OJmBhqmopWNAoTs/Dy8pqE8s4GM9UrLFwLcDKAvSHzzl4qalAk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8W55deCnraPZDf56YW+nnE45C501xwjJp922kYmm5WU3HSCZuw
-	MIe7Y8Jh/xkzpQhhHyE/3n/jgj6f5rwoKnm3ohHGHpoiprm3kFVL5iIlIlV4qtprT/ds
-X-Gm-Gg: AYBFou2xrpwi0dojduKDRsFyVryZT3AJvyIz/nhdqSAPAzbTewypwF2XX7nWjgrzOci
-	vH1i9RlyxfsE9CNgXINoy9le4HHmEyZdYL4mUUglG6GJhuRqXc0dN06kt9DxMhT4/f35MLeTXf+
-	W7p4/pr6ITdBDTsWZKdyVst81aOxJsZtd3SWyjF8acDbp+Ch3bzBvbQgPdzuSxKFD5d+/tBHM4c
-	6Whe188i7JW+U9LoWCvgcDgzFZuwRUI8Sv4Tq87QJkokgztgl/PiHYVDyuXbQinx5zjRr8PAQxO
-	x+xsv/B7lGXpLxxjqAJeYo+TwzJPZzueaknV3BMRDgJiGVQ3ybahsNzust0gkH0JFjPRMwhe8c0
-	rUrDN2oMM11wL2cwMw3ueR04rSn1w7GgmpJVbDmGhZDt9mdeft3LG2eOO/HN7HSnLDz51X71AY9
-	oLZIn+FoUXQy1qgqOUkr7Za9XPG7z85blNAEvFNtcd/EWtfA+GoFexVboaU/ADoO3hA+FQRhfQF
-	1XtahnA1BD/ofCGH8s63yE0Qv11TkFwIk9DSr5wbXeg4TTZ5Xdoqoj2DVYQ9a1l5vNpgmLQAnuF
-	ZDZYubQ4P0Fi/VqntR3nbtsXpH+PJyO63ahXrnvwIE2pbI1m8BvOtz043mvyfsc=
-X-Received: by 2002:a05:600c:4f84:b0:4a7:7f3f:6f8e with SMTP id 5b1f17b1804b1-4bb5599ade1mr43492835e9.0.1794564916955;
-        Fri, 13 Nov 2026 02:15:16 -0800 (PST)
-Received: from [10.0.0.233] (tmo-086-54.customers.d1-online.com. [80.187.86.54])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb56680ea9sm31982365e9.0.2026.11.13.02.15.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 02:15:16 -0800 (PST)
-Message-ID: <e2edfa06d185acd86b46945622b6eb6dff97b307.camel@amutable.com>
-Subject: Re: [PATCH RFC 33/41] fs: add file_is_pseudo()
-From: Alexander Mikhalitsyn <alex@amutable.com>
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, Josef
- Bacik	 <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
- target-devel@vger.kernel.org, 	driver-core@lists.linux.dev,
- linux-mm@kvack.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
-	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
- netdev@vger.kernel.org, 	fuse-devel@lists.linux.dev,
- linux-efi@vger.kernel.org, 	xen-devel@lists.xenproject.org,
- ocfs2-devel@lists.linux.dev, 	linux-s390@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, 	linux-usb@vger.kernel.org, Amir Goldstein
- <amir73il@gmail.com>, 	linux-erofs@lists.ozlabs.org,
- linux-kselftest@vger.kernel.org
-Date: Fri, 13 Nov 2026 11:15:14 +0100
-In-Reply-To: <20261110-work-loop-pseudo-v1-33-4c998976c6c7@kernel.org>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
-	 <20261110-work-loop-pseudo-v1-33-4c998976c6c7@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iJnDaTl3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794564949; x=1826100949;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=eYzEcy33qmGlhN38956oty9IuuGWX2i7eY9WGNxoZvk=;
+  b=iJnDaTl3armevXS0nMGY17vqEf+RxLyDXI5mJ9Gpedht63mx9RoJrdh8
+   GUhHsipE88ly0me9Grpd4ptqzo+bB2SwY7oOtxG1y7yNjVr8ykfcVU6gS
+   VicH4mR5OUztSSNbDiJyR9Bi5eEUDqph3VPSJo3mYKKR0LtssLesTfGP4
+   6e094n93Vep9SPU9wJoq75NzSWxgPM4XEB8cZXe9jGxmgDymSR0NomViU
+   aciMVqyoVFV4PlWoAVqhjYuPHGRWI69kMtlh+EMxD0XasHjhnGU3bOC2c
+   yD4TZdHEkbThfV9zHHsGK01DdHGtMI+bT7dGoZeAADPOF5ghyLw4g4kPu
+   g==;
+X-CSE-ConnectionGUID: Wldz7em6Rt2V5lOnwJ4VZg==
+X-CSE-MsgGUID: Jk+T8IZ/RF2fUguXdghW3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3238321"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3238321"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 02:15:49 -0800
+X-CSE-ConnectionGUID: MHIuKf8mTWW1AtU3zCtbjQ==
+X-CSE-MsgGUID: 0bM3YITwRq+1sfDa+KSFwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="9049891"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa002.fm.intel.com with ESMTP; 13 Nov 2026 02:15:47 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 609A699; Fri, 13 Nov 2026 11:15:46 +0100 (CET)
+Date: Fri, 13 Nov 2026 11:15:46 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Changyul Lee <lcy8047@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] usb: typec: Check the alternate mode ID allocation
+Message-ID: <avbjUqq5P1Vrollc@black.igk.intel.com>
+References: <20261111154503.3621477-1-lcy8047@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,56 +81,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111154503.3621477-1-lcy8047@gmail.com>
 
-On Tue, 2026-11-10 at 10:14 +0100, Christian Brauner wrote:
-> Add a helper to check whether a file is a regular file on a pseudo
-> filesystem. Only regular files count. Device nodes on pseudo
-> filesystems
-> such as devpts, binderfs or the block devices on bdevfs are what they
-> are.
->=20
-> Look at the inode that actually provides the data via d_real_inode().
-> overlayfs accepts sysfs, cgroup2, debugfs, tracefs, configfs and
-> securityfs as lower layers and reads of such an overlayfs file are
-> served by the file on the pseudo filesystem. Checking the overlayfs
-> inode would miss that.
->=20
-> No functional changes.
->=20
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Wed, Nov 11, 2026 at 10:45:03AM -0500, Changyul Lee wrote:
+> typec_register_altmode() stores the return value of altmode_id_get()
+> in an unsigned int without checking it. When ida_alloc() fails, the
+> error code becomes the ID, and the alternate mode is registered under
+> a name such as "port0-partner.4294967284". A second failure on the same
+> partner then fails with a duplicate name:
+> 
+>   [    0.423055] sysfs: cannot create duplicate filename '/devices/platform/altfail/typec/port0/port0-partner/port0-partner.4294967284'
+> 
+> Return the error when the ID allocation fails.
+> 
+> Fixes: 8a37d87d72f0 ("usb: typec: Bus type for alternate modes")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 
-Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
 > ---
-> =C2=A0include/linux/fs.h | 12 ++++++++++++
-> =C2=A01 file changed, 12 insertions(+)
->=20
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index 99caef43ff3c..407ffb6342ec 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -2553,6 +2553,18 @@ static inline const struct inode
-> *file_user_inode(const struct file *f)
-> =C2=A0	return file_inode(f);
-> =C2=A0}
-> =C2=A0
-> +/*
-> + * Regular files on pseudo filesystems are kernel interfaces and
-> must not be
-> + * used as storage. Look through stacking filesystems at the inode
-> that
-> + * provides the data.
-> + */
-> +static inline bool file_is_pseudo(const struct file *file)
-> +{
-> +	const struct inode *inode =3D d_real_inode(file-
-> >f_path.dentry);
+> Changes in v2:
+> - Add Cc: stable@vger.kernel.org
+> 
+> v1: https://lore.kernel.org/all/20261111041446.3072716-1-lcy8047@gmail.com/
+> 
+> Found with a static analysis tool we are developing.
+> 
+> Reproduced in QEMU (x86_64) with a test module that registers a port,
+> a partner and 63 partner alternate modes, and then two more with
+> failslab (task-filter) making ida_alloc() fail with -ENOMEM. Without
+> this patch, the first of the two is registered as
+> "port0-partner.4294967284" and the second fails with -EEXIST and the
+> error above. With it, both return -ENOMEM. Same result in three runs
+> each.
+> 
+>  drivers/usb/typec/class.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+> index 54c7810b563b..29fb13ca9f28 100644
+> --- a/drivers/usb/typec/class.c
+> +++ b/drivers/usb/typec/class.c
+> @@ -641,11 +641,14 @@ typec_register_altmode(struct device *parent,
+>  		       const struct typec_altmode_desc *desc,
+>  		       const struct device_type *type)
+>  {
+> -	unsigned int id = altmode_id_get(parent);
+> +	int id = altmode_id_get(parent);
+>  	bool is_port = is_typec_port(parent);
+>  	struct altmode *alt;
+>  	int ret;
+>  
+> +	if (id < 0)
+> +		return ERR_PTR(id);
 > +
-> +	return S_ISREG(inode->i_mode) && (inode->i_sb->s_iflags &
-> SB_I_PSEUDO);
-> +}
-> +
-> =C2=A0static inline struct file *file_clone_open(struct file *file)
-> =C2=A0{
-> =C2=A0	return dentry_open(&file->f_path, file->f_flags, file-
-> >f_cred);
+>  	alt = kzalloc_obj(*alt);
+>  	if (!alt) {
+>  		altmode_id_remove(parent, id);
+> 
+> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+> -- 
+> 2.43.0
+
+-- 
+heikki
