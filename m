@@ -1,62 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794586613;
-	b=M21qTHjqZkJ91q+5RYSsD+Qb0SyxRUM6PXlyjv3V08V7bw5c/CC7O4N2CVMEL2EmjQiv
-	 nUngzGQ18bWHh70P0+pdv/MiIfejusYgPrgX0Pd6EEiy7397Z9mbFwjv2RBqZLyrlz2+G
-	 K6m8yV2+woTy4+5MzBmEKR0YrtnLjUD1LWt8iu/GIuygypHgxxSZTCrsvzOoLZm/VtVQx
-	 8fW8wSooW21JHh6gDVe/EpL16HNLR1Nf86g8MlZXyN9fmN9ANdsWZATCqOsuckpW+29sc
-	 XEo6bhczbVx0apHWLQ5OZYhsIysNu3RtIlk7zNMMrk8Tp+KA0wfhYI1Ri+leRzzAdRQ==
+	t=1794586655;
+	b=RLBUS862xpCaIRQywMcufnEoxOg7ilzBNOu/QnnSb42UVKvUJcYl4AJLIOCG/yDVMy3+
+	 kd7uVqU42Ot2+yBv5Kpf+paCwIVHbfVwPtdEWvYBZ07AUR1+a4Jz1vW+Rk5pVWTXchevu
+	 rmlitlfjTFfSVditp9zczOoZxLZZjrh+GE0anKVHqk5zCdLfV8tod6i8WKxHd0neEkjyL
+	 Sm/Gg02myWzJ4fovP90M8DewhlFPZNl0Egouecxv+HPEv03Qs/hwa4ei4hKeGtU7wLz+e
+	 /GFSzYFn6VDaVQ0Kp0miqthj3Sx7M1zMLKlVaHRjKh4H5lMVGZLefB1pgNXQu/qExMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794586613;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=CVtKY2baAFqQRZbKIAhuVTcQeg51Dsb2Tf0U1oZ+Jro=;
-	b=AWRICsqMXUsm0rrn9Wj/AHZYDhJtjuKfvBbi15QpXvMADNKe5ZOLPMaPbAPmO/6AH6CW
-	 DhpXg8TdRHjGIjPK+HzvgDkjLOWTF6tApEI6WO8PMqwCJTurcAmegJchrZ4tD7MsjtelW
-	 p9BR/7dKxkrMxOYbfDQ5nwkbNzyoa1mLzvqMikhvUzuP1yu/+yw/uUlVQt60+XQvEfIk0
-	 kv0aUwlu6eYguZg1ashe30v4xMlrLKgQzRkCPo2+xiqkIPuzMnV2DXOz26NqHVdErzalL
-	 kZe5mmXg/IYZvwND18LPLN6HKjACDBjis1j2xiLpH2c74qVCY30S1F9XkgHA92+17qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794586655;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=b3U6MCdDzdZgylBNSuWirvYPWE1+TH01NTWEY/nVWgI=;
+	b=thKaffnj9Ap2XicD45WyaAi0Y/PFm+0Hs0qwz4eBl1AsIGXy9QSPHlQRrgjRxt/ZFcmX
+	 9BVoJ2QxHpBa1llM0gM4ZIGev9UJhyCq1n6CXjbG+UbY4fkth80jNSa2LpFntgk7nxi4p
+	 /Z3l2bgZHoRPolj60WFmxqhd/VV6ZNXNPQJyJhm9g3ssApaU8FN4owjv+tGg1pO1jYdo9
+	 TFHEJQL5GEMcVEgzX4LC5FLXcdRHLF6mV1YS5DjlBT0b+/ZguIyx5oCIqHDtKfrlDCu4+
+	 YbJgERW7WscvDXxNmwbNf8tfVUhX+Yl2XMyRKTVnmP1ubnVVgGX6wJsu/jcTZOpPdTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ou9UlLra;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bW7BLm3U;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2989606AE0F;
-	Fri, 13 Nov 2026 16:16:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E40606B2C9
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:17:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00E40606B2C9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ou9UlLra
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD991F000C5;
-	Fri, 13 Nov 2026 16:16:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794586612;
-	bh=CVtKY2baAFqQRZbKIAhuVTcQeg51Dsb2Tf0U1oZ+Jro=;
-	h=Date:From:To:Cc:Subject;
-	b=ou9UlLra4LK+xJLE/zAyTNqUJTN29nb19guDGIaorpNjG7Yg41XCOF26QNTvepmcJ
-	 XzJn03IadGfZcWNl5WsW/z3Nc5+4sHoWXsWendDUDEOHjuPqQIvsgIhyU17Wo5hkCX
-	 GcMwc1+EBRMv3i/iTMzf+HLSo52CXKhDiCgsNsruntVpiLi+d6WOAxdzcN4lFxg20A
-	 uIEzdaTDyZ3HLCb9LedBOV6wfJy1N7+Oj0bnUh3XPIoyn2B/LmZcSiEY4kIEuV6L8d
-	 DcYy7BWVFLzb1rmQbRNRM/Z2tkT26t8vcmyfJBpSRVu5olldaKBLtY2QMAV9m38MGw
-	 v9tMLMSjpRqFg==
-Date: Fri, 13 Nov 2026 16:16:47 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	DRM XE List <intel-xe@lists.freedesktop.org>
-Cc: Daniel Charles <daniel.charles@intel.com>,
-	Dave Airlie <airlied@redhat.com>,
-	DRI <dri-devel@lists.freedesktop.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Matt Roper <matthew.d.roper@intel.com>,
-	Raag Jadav <raag.jadav@intel.com>,
-	Riana Tauro <riana.tauro@intel.com>,
-	Satyanarayana K V P <satyanarayana.k.v.p@intel.com>,
-	Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Subject: linux-next: manual merge of the drm-xe tree with the drm-fixes tree
-Message-ID: <avc376Z6nj4HlOnJ@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bW7BLm3U
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4d28f75d62so294486166b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:17:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794586653; x=1795191453; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=b3U6MCdDzdZgylBNSuWirvYPWE1+TH01NTWEY/nVWgI=;
+        b=bW7BLm3ULaZG9+TXG6uTGyNRM4dzUALgQQXOu8Ffj+OFQFVZBk0Mdsy9MlkuUPxRJK
+         tDNCLmxqs+qrouVMNevyEN6I5JIkG5Swa4QT7YdCg+2R+gFJiA3Pb03kwtHcA8OFcLlM
+         CYGMI+PRRBqgbyPjW+QESdLduyH/AIZr/Nlz4ppEqCz6p8mcCQuPmVwbt2rk+0RHwGm+
+         HZMdyMRZsfSeCacCFTTflgXw8edX4MoTl0sozirPmUJ4VW9aU8ZIJ/JFyHzXIhUc/rT6
+         hdd0Sd25iimAJNtD2SBIYneKlbV+mgbw9Il5mNBBMxw6B+fAfRU5fFaAzC+5cGfAdtOn
+         pdCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794586653; x=1795191453;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b3U6MCdDzdZgylBNSuWirvYPWE1+TH01NTWEY/nVWgI=;
+        b=d2emAv8jqQJwNvtxf0jDwWfLKGm1sIyYbGCnS10Q2rJPSHVYRKLpTZgftDSjDNxXxz
+         A3C6YhMWrDnY4Mkt1IB//hh1LzDeWYib9+pGz4IKz1tIysT/AT2OQ++VItgmkOU/c1Ju
+         2KHmY05W6PtaqU/Y2n96JFe2sI46QVyF4/aUPZLmrunEObu0qDQ3YpW5X56dh4b9Ya7s
+         YxWafK5/Ij3ZVvarJVVnTvm8X+TtbswidT6aRS6LGJmHM8tnFGeSzmydTlIToQJSa6V5
+         nSd03C1kGEwXw9qUYThqquYeKGonkr+rxDIVw9iV+QNDLYXv94lIBmH8SDDKN4nQjvsB
+         3AVg==
+X-Forwarded-Encrypted: i=1; AL+hErF3IZ8KawD7W9E/xpvycdpqwZ90by020Nu4PHAwNigC7B8WttpDyZFaPm7Osc71YFV9yQHWYnx9n4PWr/M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3PffPih1dVbhp7Onnc6c4Q1ckPgxwRKom6BMiu/UoImHJ5GGZ
+	slc3RJ0MrG9X1d64uEnZKlXm0gxwDzzBCvSXdbBODw8vpy/J1cUqWx/1JmRuHFZbZx0=
+X-Gm-Gg: AYBFou2kXgSadlFdO6DGyMw9hXM8T5+321m1xzSHdfRF6gZxMXrYzTIE1VQWLiK+nwo
+	knW/5hjI6W/i9pQeCKnRsF7cWTWl+9z4smvvWwycpxOQqJXDkX1f0U8oaFexrF9juaow3z+7yXH
+	IR+4CtasvD8JRJnkKbdP1r9EuIJUD9yhN6NcgmjNmoAghuu5y1/1YeUOMrMuKHTdM6XdqONy7UA
+	MDUgkwLosmR8vu2lx1CK1aOPL686KR/RorJl4ny91yKqaqpbl1+/yAFepQPIUwEukG4ykJj4qT+
+	ZHOUXB1G0G6yS81VZdpvEqdZm+JyyfulOOLP+ymCcdmy6WviIKiSsCTSAF1iIz7rLvc6KoONiwh
+	9fKJ7ZtbvbaKnHiE06LWrL0Rqg8gfGc4AFYEeZ9YMNuWzBw6vV8OAJ1SxjeEJANq95uoOsHaOpc
+	qLFrmbgd1c+/LTTPypGFt2rfsr+1lQfGQEJhiFRpC68AegcI/v4V0ANRhqI79Y47V/qryRCHQuZ
+	WQRqn4TYS+bK27HA5fUAe2obNDrTm5ECjl8CxrIZCKDKfuYAxilifrsZh+OTdqp3A/oIurl4kw8
+	Oz37JF/p4uIE8sG9iL2uMjNcXbDO5w0=
+X-Received: by 2002:a17:907:3f02:b0:c4c:eb17:3da with SMTP id a640c23a62f3a-c509636a83emr347881466b.22.1794586653209;
+        Fri, 13 Nov 2026 08:17:33 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b6091dsm118589566b.57.2026.11.13.08.17.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 08:17:31 -0800 (PST)
+Date: Fri, 13 Nov 2026 17:17:29 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Breno Leitao <leitao@debian.org>, printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH printk v2 2/6] console: Introduce unsafe flush policy
+ flags
+Message-ID: <avc4GVqYdpL8r3Un@pathway.suse.cz>
+References: <20261111181942.593695-1-john.ogness@linutronix.de>
+ <20261111181942.593695-3-john.ogness@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,271 +102,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XMSiqA4Qoh9OzPbI"
-Content-Disposition: inline
-
-
---XMSiqA4Qoh9OzPbI
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261111181942.593695-3-john.ogness@linutronix.de>
 
-Hi all,
+On Wed 2026-11-11 19:25:18, John Ogness wrote:
+> Prepare for per-console atomic flushing policies by introducing a
+> new nbcon-specific console field @unsafe_flush_flags to store the
+> unsafe flush policies for a console. The policies are represented
+> by bits, specified by enum nbcon_unsafe_flush_flags.
+> 
+> Currently it is expected that any @unsafe_flush_flags bits are set
+> prior to console registration and do not change while registered.
+> 
+> No functional change.
+> 
+> Signed-off-by: John Ogness <john.ogness@linutronix.de>
+> ---
+>  include/linux/console.h | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+> 
+> diff --git a/include/linux/console.h b/include/linux/console.h
+> index 06d01f1743512..beb1ee04535b7 100644
+> --- a/include/linux/console.h
+> +++ b/include/linux/console.h
+> @@ -194,6 +194,29 @@ enum cons_flags {
+>  	CON_NBCON_ATOMIC_UNSAFE	= BIT(9),
+>  };
+>  
+> +/**
+> + * enum nbcon_unsafe_flush_flags - Unsafe atomic flush policy flags
+> + * @NBCON_PANIC_FLUSH:		In panic, unsafe flush before kexec or reboot.
+> + * @NBCON_PANIC_PRINTK:		In panic, unsafe flush on each printk().
 
-Today's linux-next merge of the drm-xe tree got conflicts in:
+Do we need to distinguish between flush in printk() and an explicit flush?
 
-  drivers/gpu/drm/xe/xe_lmtt.c
-  drivers/gpu/drm/xe/xe_pm.c
+IMHO, there is no reason. We usually call the explicit flush because
+we want to trigger it. But printk(), called in the same context,
+should trigger/do it as well.
 
-between commits:
+> + * @NBCON_NORMAL_NOTHREAD:	During normal operation, when printing
+> + *				kthreads are unreliable or have been shutdown,
+> + *				unsafe flush on each printk() or on explicit
+> + *				flushing.
 
-  fc0ba46fd8278 ("drm/xe: Access GT MMIO after pcode init")
-  a17c5ed0dc715 ("drm/xe/pm: Apply tile workarounds after PCODE initializat=
-ion")
-  3654a4d734df9 ("drm/xe/pf: Program LMTT directory pointer from each GT's =
-init path")
+Do we need to distinguish between panic and non-panic paths when the
+kthreads do not work?
 
-=66rom the drm-fixes tree and commits:
+IMHO, this is more about that the system is going down and the
+kthreads do not work.
 
-  641ffb2132839 ("drm/xe/pm: Apply tile workarounds after PCODE initializat=
-ion")
-  a8653bee6a040 ("drm/xe/pf: Program LMTT directory pointer from each GT's =
-init path")
-  c9edd9cf7e613 ("drm/xe/pf: Use multicast writes for early-generation LMTT=
- config")
-  be082ef8157b7 ("drm/xe/pm: skip BO eviction on iGPU for non-hibernation s=
-leep")
-  ff03d9510426e ("drm/xe/pm: Introduce xe_device_suspend/resume()")
+Also what about emergency context when the system is about
+to continue?
 
-=66rom the drm-xe tree.
+> + * @NBCON_KDB:			Unsafe flush kdb output.
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+OK, let's assume that we want to set a policy where we allow
+the unsafe takeover in the following contexts:
 
-diff --git a/drivers/gpu/drm/xe/xe_lmtt.c b/drivers/gpu/drm/xe/xe_lmtt.c
-index 8fba3c01fac29..ea2a3eeefccd7 100644
---- a/drivers/gpu/drm/xe/xe_lmtt.c
-+++ b/drivers/gpu/drm/xe/xe_lmtt.c
-@@ -220,14 +220,8 @@ static void lmtt_setup_dir_ptr_gt(struct xe_gt *gt, u3=
-2 config)
- 	struct xe_reg reg;
- 	u32 val_read;
-=20
--	if (GRAPHICS_VER(xe) < 20) {
--		reg =3D LMEM_CFG;
--		xe_mmio_write32(&gt->mmio, reg, config);
--		return;
--	}
--
- 	if (xe_gt_is_main_type(gt)) {
--		reg_mcr =3D XE2_LMEM_CFG_MCR;
-+		reg_mcr =3D GRAPHICS_VER(xe) < 20 ? LMEM_CFG_MCR : XE2_LMEM_CFG_MCR;
- 		xe_gt_mcr_multicast_write(gt, reg_mcr, config);
- 		val_read =3D xe_gt_mcr_unicast_read_any(gt, reg_mcr);
- 		xe_gt_assert_msg(gt, val_read =3D=3D config, "LMEM_CFG_MCR: %#x !=3D %#x=
-\n",
-diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
-index 61d68c09189f7..f73f68bd449b8 100644
---- a/drivers/gpu/drm/xe/xe_pm.c
-+++ b/drivers/gpu/drm/xe/xe_pm.c
-@@ -167,59 +167,38 @@ static void xe_rpm_lockmap_release(const struct xe_de=
-vice *xe)
- }
-=20
- /**
-- * xe_pm_suspend - Helper for System suspend, i.e. S0->S3 / S0->S2idle
-+ * xe_pm_needs_bo_evict() - Check if bo eviction is needed
-+ * @xe: The xe device.
-+ * @hibernate: Hibernation event
+  NBCON_ALLOW_UNSAFE_NEVER
+  NBCON_ALLOW_UNSAFE_RESTART
+  NBCON_ALLOW_UNSAFE_EMERGENCY
+  NBCON_ALLOW_UNSAFE_KDB
+
+, where
+
+  + NEVER might actually allow it when explicitely enabled in
+    nbcon_panic_flush_unsafe(). The word "never" just has a simple
+    semantic in the context of the other values
+
+  + RESTART would allow the unsafe takeover in printk()/flush()
+    when the system is doing halt/reboot/crash_kexec...
+
+  + EMERGENCY would allow it even in NBCON_PRIO_EMERGENCY context.
+
+  + KDB would allow it in KDB context
+
+
+And I would get the context the following way:
+
+enum nbcon_allow_unsafe get_nbcon_allow_unsafe_request(void)
+{
+	enum nbcon_prio prio;
+
+/*
+	 * The kdb check is copied from vprintk() implementation.
+	 * We should put it into a helper.
+	 */
+#ifdef CONFIG_KGDB_KDB
+       /* Allow to pass printk() to kdb but avoid a recursion. */
+	if (unlikely(kdb_trap_printk && kdb_printf_cpu < 0))
+		return NBCON_ALLOW_UNSAFE_KDB;
+#endif
+
+	prio = nbcon_get_default_prio();
+
+	/* FIXME: What about SYSTEM_SUSPEND?
+	if (prio == NBCON_PRIO_PANIC || system_state > SYSTEM_RUNNING)
+		return NBCON_ALLOW_UNSAFE_RESTART;
+
+	if (prio == NBCON_PRIO_EMERGENCY)
+		return NBCON_ALLOW_UNSAFE_EMERGENCY;
+
+	return NBCON_ALLOW_UNSAFE_NEVER;
+}
+
+IMHO, this better fits the existing terminology and design.
+And it should be much easier to understand by developers
+and users.
+
 + *
-+ * Return: %true if bo eviction is needed, %false otherwise.
-+ */
-+bool xe_pm_needs_bo_evict(struct xe_device *xe, bool hibernate)
-+{
-+	return IS_DGFX(xe) || hibernate;
-+}
-+
-+/**
-+ * xe_pm_suspend - Helper for System suspend, i.e. S0->S3 / S0->S2idle / S=
-0->S4
-  * @xe: xe device instance
-+ * @hibernate: true if preparing for S4 hibernation, false for < S4 suspend
-  *
-  * Return: 0 on success
-  */
--int xe_pm_suspend(struct xe_device *xe)
-+int xe_pm_suspend(struct xe_device *xe, bool hibernate)
- {
--	struct xe_gt *gt;
--	u8 id;
- 	int err;
-=20
- 	drm_dbg(&xe->drm, "Suspending device\n");
- 	xe_pm_block_begin_signalling();
- 	trace_xe_pm_suspend(xe, __builtin_return_address(0));
-=20
--	err =3D xe_pxp_pm_suspend(xe->pxp);
-+	err =3D xe_device_suspend(xe, hibernate, false);
- 	if (err)
--		goto err;
-+		drm_dbg(&xe->drm, "Device suspend failed %d\n", err);
-+	else
-+		drm_dbg(&xe->drm, "Device suspended\n");
-=20
--	xe_late_bind_pm_suspend(&xe->late_bind);
--
--	for_each_gt(gt, xe, id)
--		xe_gt_suspend_prepare(gt);
--
--	xe_display_pm_suspend(xe);
--
--	/* FIXME: Super racey... */
--	err =3D xe_bo_evict_all(xe);
--	if (err)
--		goto err_display;
--
--	for_each_gt(gt, xe, id) {
--		err =3D xe_gt_suspend(gt);
--		if (err)
--			goto err_display;
--	}
--
--	xe_irq_suspend(xe);
--
--	xe_display_pm_suspend_late(xe);
--
--	xe_i2c_pm_suspend(xe);
--
--	drm_dbg(&xe->drm, "Device suspended\n");
--	xe_pm_block_end_signalling();
--
--	return 0;
--
--err_display:
--	xe_display_pm_resume(xe);
--	xe_pxp_pm_resume(xe->pxp);
--err:
--	drm_dbg(&xe->drm, "Device suspend failed %d\n", err);
- 	xe_pm_block_end_signalling();
- 	return err;
- }
-@@ -232,71 +211,18 @@ int xe_pm_suspend(struct xe_device *xe)
-  */
- int xe_pm_resume(struct xe_device *xe)
- {
--	struct xe_tile *tile;
--	struct xe_gt *gt;
--	u8 id;
- 	int err;
-=20
- 	xe_pm_block_begin_signalling();
- 	drm_dbg(&xe->drm, "Resuming device\n");
- 	trace_xe_pm_resume(xe, __builtin_return_address(0));
-=20
--	err =3D xe_pcode_ready(xe, true);
-+	err =3D xe_device_resume(xe, false);
- 	if (err)
--		return err;
-+		drm_dbg(&xe->drm, "Device resume failed %d\n", err);
-+	else
-+		drm_dbg(&xe->drm, "Device resumed\n");
-=20
--	for_each_tile(tile, xe, id)
--		xe_wa_apply_tile_workarounds(tile);
--
--	for_each_gt(gt, xe, id)
--		xe_gt_resume_early(gt);
--
--	xe_display_pm_resume_early(xe);
--
--	/*
--	 * This only restores pinned memory which is the memory required for the
--	 * GT(s) to resume.
--	 */
--	err =3D xe_bo_restore_early(xe);
--	if (err)
--		goto err;
--
--	xe_i2c_pm_resume(xe, true);
--
--	xe_sysctrl_pm_resume(xe);
--
--	xe_irq_resume(xe);
--
--	for_each_gt(gt, xe, id) {
--		err =3D xe_gt_resume(gt);
--		if (err)
--			break;
--	}
--
--	/*
--	 * Try to bring up display before bailing from GT resume failure,
--	 * so we don't leave the user clueless with a blank screen.
--	 */
--	xe_display_pm_resume(xe);
--	if (err)
--		goto err;
--
--	err =3D xe_bo_restore_late(xe);
--	if (err)
--		goto err;
--
--	xe_pxp_pm_resume(xe->pxp);
--
--	if (IS_VF_CCS_READY(xe))
--		xe_sriov_vf_ccs_register_context(xe);
--
--	xe_late_bind_pm_resume(&xe->late_bind);
--
--	drm_dbg(&xe->drm, "Device resumed\n");
--	xe_pm_block_end_signalling();
--	return 0;
--err:
--	drm_dbg(&xe->drm, "Device resume failed %d\n", err);
- 	xe_pm_block_end_signalling();
- 	return err;
- }
-@@ -461,6 +387,9 @@ static int xe_pm_notifier_callback(struct notifier_bloc=
-k *nb,
- 		struct xe_validation_ctx ctx;
-=20
- 		reinit_completion(&xe->pm_block);
-+		if (!xe_pm_needs_bo_evict(xe, action =3D=3D PM_HIBERNATION_PREPARE))
-+			break;
-+
- 		xe_pm_block_begin_signalling();
- 		xe_pm_runtime_get(xe);
- 		(void)xe_validation_ctx_init(&ctx, &xe->val, NULL,
-@@ -485,6 +414,9 @@ static int xe_pm_notifier_callback(struct notifier_bloc=
-k *nb,
- 	case PM_POST_SUSPEND:
- 		complete_all(&xe->pm_block);
- 		xe_pm_wake_rebind_workers(xe);
-+		if (!xe_pm_needs_bo_evict(xe, action =3D=3D PM_POST_HIBERNATION))
-+			break;
-+
- 		xe_bo_notifier_unprepare_all_pinned(xe);
- 		xe_pm_runtime_put(xe);
- 		break;
+> + * NBCON unsafe atomic flushing always occurs at the end of panic() before
+> + * the kernel enters an infinite loop. Users may choose to perform unsafe
+> + * flushing in additional scenarios where the current kernel is ending in
+> + * order to increase the chances of seeing console messages, even if it is
+> + * not safe to do so.
+> + */
+> +enum nbcon_unsafe_flush_flags {
+> +	NBCON_PANIC_FLUSH	= BIT(0),
+> +	NBCON_PANIC_PRINTK	= BIT(1),
+> +	NBCON_NORMAL_NOTHREAD	= BIT(2),
+> +	NBCON_KDB		= BIT(3),
+> +};
+> +
+>  /**
+>   * struct nbcon_state - console state for nbcon consoles
+>   * @atom:	Compound of the state fields for atomic operations
+> @@ -326,6 +349,7 @@ struct nbcon_write_context {
+>   * @data:		Driver private data
+>   * @node:		hlist node for the console list
+>   *
+> + * @unsafe_flush_flags:	Unsafe atomic flush policy. See enum nbcon_unsafe_flush_flags
+>   * @nbcon_state:	State for nbcon consoles
+>   * @nbcon_seq:		Sequence number of the next record for nbcon to print
+>   * @nbcon_device_ctxt:	Context available for non-printing operations
+> @@ -461,6 +485,8 @@ struct console {
+>  	 */
+>  	void (*device_unlock)(struct console *con, unsigned long flags);
+>  
+> +	unsigned int		unsafe_flush_flags;
 
---XMSiqA4Qoh9OzPbI
-Content-Type: application/pgp-signature; name="signature.asc"
+I would call it:
 
------BEGIN PGP SIGNATURE-----
+	unsigned int		allow_unsafe_policy;
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr3N+4ACgkQJNaLcl1U
-h9BLqAf/a3VOhfxKmfNmCvWN2ecgw9zW1XzW85UjqSaB8G+zpEtW4dYS6Z1nfuoi
-uKQfq5WhY/uibOk++SEfu7ImvrcesgyeIiyfKyud1NZOU9gHtjqBLY6QNmoEdrbY
-QizOViLZzd/2EdDSnSrxvK8CfVvbhBPiQHrm58s1Dh54f3IGCQZZsWL7XU5Kdblv
-vjt7r0ukVD0amxvJOqisObSOhRhLFBtfzLbaDLHhiirkB7TdmMwgVjq6yg1YPS1+
-Z4Cx4E1FVDPm/NAQamngiBzyosfZGK/M+4RIKkqB41f9uv3QJ3FfYfWmcCe2W2GZ
-LNtT6dfWmMA28P9x/UTgh2IwQAwvmg==
-=+BY7
------END PGP SIGNATURE-----
+> +
+>  	atomic_t		__private nbcon_state;
+>  	atomic_long_t		__private nbcon_seq;
+>  	struct nbcon_context	__private nbcon_device_ctxt;
 
---XMSiqA4Qoh9OzPbI--
+And the net console would get initialized to:
+
+	.allow_unsafe_policy = NBCON_ALLOW_UNSAFE_RESTART | NBCON_ALLOW_UNSAFE_KDB;
+
+
+And nbcon_allow_unsafe_takeover would get implemented as:
+
+static bool nbcon_allow_unsafe_takeover(struct console *con)
+{
+	allow_unsafe_request = get_nbcon_allow_unsafe();
+
+	if (con->allow_unsafe_policy & get_nbcon_allow_usafe_request())
+		return true;
+
+	return panic_nbcon_allow_unsafe_takeover;
+}
+
+What do you think, please?
+
+Best Regards,
+Petr
