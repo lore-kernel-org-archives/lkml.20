@@ -1,122 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794538334;
-	b=eCpu9G6Y9BIg2oEeaZuS6VMgwHQVhUoq/rQLvA8YzguOvuWgmSZ7WqvhodNVPlc0yrPf
-	 XHowgUm2zpx1NwYYp+PCXGzQ6G8iHRfSqWuDhXmGN3w8CN426c1e4ndEl4nHFbO8VYFm2
-	 TAuwJgGvQHkP3kCMDubZ3qiuSAbhA4Cr0jMgBJrrXIl1p5cdSaQrlxWLg/QTAkCcMUWe1
-	 PKLeOZzZd38xJTtDNXoTty0+fZGIqMHgP8xiRv+WG8Oqv4fGv0g84jzTaoTKcQ0gZHPtd
-	 nP8f9w2/bHPENXjYk5wNDLpFv6Kg0aHrDWaKWxchybMyI9j7sOm9ETWRwcs9ORjDS6w==
+	t=1794538392;
+	b=MVAs+z9Kdu6g+ocEFk0EENJCppTDmVHvsnEwsjnCjshkQwKvurmK8kpR+ch73cbU8hL/
+	 o/1SQkfRYSOb+5kYVv0TxexfdnLpL1iydLbaNIlwuNy1B+13yLQuPQVZNc4AbmMNBF9of
+	 fgrBcaN75yLTXNqyUchGY0k46LpM/Lq4LcsfiSt4lic0LCjYgga6S3LULQ3JIslhMB4fI
+	 nNq8A7fR+5z16R29C7AEk3loUeygKtFb9kBtwDNHyKXYZysSxB3MfH93h1beDBGOOOL4b
+	 rE/qmuiNytj4KVmLHiHr4HMfDkE6/w9kexBgWZ2gjQY1Z4JSucBBQHKclY4N2L4yw2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794538334;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=MU2+tmmCPa26DXQExpMSKDNbgJ1/fyIMIRynINL7wAE=;
-	b=JlN7fLQ6iuxFl1Na1uG0tk5jwKj52w5d4NzfG+KvGNIU/s2j1dh8legg8mcuYW0sFtFa
-	 pY4yLpbmaOD+l7bgS3gWjJk8fEgX4OOvnIvsncUdStFO0q8fInt2uCkS9ZJhv7l/pcJAs
-	 UM3WVUIAyrl0dbD9/mNZRTWcb1xcOpqjsgWH5lQtKaZA7AKvzE+0P4PUSpwKeGAnz9+PB
-	 rfkoxjeJshRRa/px7+kPJoYW0E8oE4srR5hqQ7A0Lk9acu+vjrMSpf+DWkFyPFkKxoRc/
-	 NZ4wrC/S9r+1gcEdrL8uhdipxOYTrXGUBBFPzgoB5UR/0cK7wNkGO1VzxNyZJpNJvJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794538392;
+	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=qKeJBKYSKrXzA2DdXk+Uv7PAsSWBeJIQUutMePGjhzg=;
+	b=xLF5E6zr7iv+SYR86SkBNG93Dn7buoP/sKVBsO/uFn8H4FSS5e49216gOeeuQryV9bQZ
+	 r+b0R7xq70bG7j15hgeYRg8SNXU3x2JVsLNJr7aH/KhLdyIW7MQ4+0T7y68ZLpZIif6Od
+	 g8IC45JLXcyeJRpQz6ub/2nsQrQ/VZTqP0iXAGDaF9oFlpES8v8e5NuzCwjon64HqV6Lw
+	 9An8PWNEKMm3eqXMHltKFfg9a6RwTSCQYcJYIdra0TrYoIq6rFHQmZCE9tVGVWGq3YXtc
+	 Xhlgq5pd+J2GxTjn8i6bGDitl6NhtrGFvpe2fOi0YhsTbdy1wTxUEAOmjbMI3iVf+Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=X3CLyaDf;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FUOoJ3F4;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F325606A883
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:52:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F325606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=X3CLyaDf;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FUOoJ3F4
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD2KCHN2636848
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:52:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=MU2+tmmCPa2
-	6DXQExpMSKDNbgJ1/fyIMIRynINL7wAE=; b=X3CLyaDfMtzkIwaFplQPGeVstFM
-	Q5gGWmDtDwy4Cnz6EMbicmdiQepEeWHMsWJysf7SHQYnBKRvWOpeWtzEDFteIZYz
-	0ZKV6ydaJs0ZIUkWVIDzifSy0WqpDhzEAulPCl5lrwPuaed22dnjzXoIcY7djyuf
-	nzoSqCtTICnf6yTPeACHG5r/mLVl1xzeqR1yptt6ZiQ55CQrJE9dAlGvoahS8IV+
-	/6P7M3qmO85Q3a8a6+CLW4u0QFx9NYoeFS1IpuMnR8iEnXo1B3Yrs6lZ6RlldRRy
-	V106EwLq3ZYOFF+iKB/14+Uei7wFn6y4268s5vRLFt5NfX2grqbQ/ewrlRA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw6re4as8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:52:13 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e987ec84afso4031725ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:52:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794538333; x=1795143133; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MU2+tmmCPa26DXQExpMSKDNbgJ1/fyIMIRynINL7wAE=;
-        b=FUOoJ3F4IWTHhsYo586UB3V715kZIrzVBOfEs8h1PXVGAtOKN4U/Hhd6QI/Sio7sS7
-         XSacMMkbqSAVGqTl81Yts2uDvMps7ghl/ah4kIWc7nbiLM/fRDG3/HLvq5Rd6DWSvWRG
-         +ZpyV0RQwoZ4KuDD/gYiPt4iuOfXXxjnp72r1GAdhUCmFPIfY7n9G/sQts9eaTJoi7o8
-         nRL4NUvty4hb4NnPqlCOd9eiE8qCuJ1CejL+jdMwnUAouCPYSEWkgzpTznrx4BtDfPwE
-         0ahwBNxnjN6urYiGrQk5mHViS/XJTHwfYqwXB0KzSZivfzXCZAOYZVo0HD+LxbPVSII8
-         Gk2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794538333; x=1795143133;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MU2+tmmCPa26DXQExpMSKDNbgJ1/fyIMIRynINL7wAE=;
-        b=PVtkgFfhUF8UxDfkytxtpOZeubsmcHZ3UFNu7TOA4v4q6c1L/axgbnVY05gyzSoplp
-         g0sB76ajyO+rCo49tlk5s2PG7p1xqndS78LL84Fa/2R2NPVw1HHTqt5F8tKW0Q/d7yEQ
-         PDOOHWRH4LdkK+Ey4daDrzgDkpsMwCEIujdSvGYFBxdjtfK3sBwOvoVAVZ3eF6CrNHCl
-         /3wimGyXhE6/C0aLhZKc4WRWzEnGpNx4sRZKu/BQ7fpmU3uKlp7BvEZAR8Rkvou5R4+q
-         NKPtPr5ytJStAfwnnnm8Nk43OrxEJRcL6AOdrldFyjhLvDJPdv/pdddBOvX8lThp9PmB
-         z4gw==
-X-Forwarded-Encrypted: i=1; AL+hErHSlqWA6MJV2WZAgZYlKcNsZRmyvOmjbwfmasIxE6y0WDYok/ATMVVa8Tn7leBapEGZyBKeONkmw386s6k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9i48TtzMrEtagzIhJos4fPW2wmRqZ8Exv1KGvhEEueYEs5e1qv
-	0w76lYwbDunadSYNS+zzG+/kUUMYQKBcNOILJD/TygDTvQDEO1kNmMxUrPKSqa+R5umQC3EujVT
-	6nPgh6trGtGdA0uZWH9ET0NE53VjZ9Wnsu0rAaUf9nzyY4YT53haEkj+FDnrJ2h1t3e8=
-X-Gm-Gg: AYBFou0c1uTIApyELEIPqhZWoksIeiesPgyr02qH4TxdFO7mwGHo2FRAtri2kvZNCGQ
-	FylclyToDSp4OlyXEyg5LlNvGmG0fQRsoHnRgBgnmZlKsFyl+6EhmV6S2S7l5rTVMJQpcjRhCCY
-	mnbdXwSMXqtmkEj4VaRN8f8h7cdZGD+TQAeOH02k+IZJ8K50G+5LxI485/LB52x1lGzhBt9m3ju
-	1jyQFfTxXGAQCSJhKnxe842AupHg3rJHhSHgYcEoA8oTa2YuJlNTxTiom6tcxNjZZe62CrArmJ8
-	4F4sKqnvrMDQuIMHKf5QRTvKKTNaKqFrMyREO07Xbns22ldA5zDWMlBLCcP82uxRsE+QcPpekN3
-	aXDuRTXHWL9BQ0T2cwNEBfxEWhXnrV11JUgY+mwl6NRMQ4F9CX9MJqikEPchl4U2yYykXDvhGqz
-	s2MEvKW7o=
-X-Received: by 2002:a17:902:c94e:b0:2dd:ad74:ac32 with SMTP id d9443c01a7336-2ee0dad0617mr11244305ad.27.1794538333042;
-        Thu, 12 Nov 2026 18:52:13 -0800 (PST)
-X-Received: by 2002:a17:902:c94e:b0:2dd:ad74:ac32 with SMTP id d9443c01a7336-2ee0dad0617mr11244075ad.27.1794538332498;
-        Thu, 12 Nov 2026 18:52:12 -0800 (PST)
-Received: from ap-cloud-sh02-lnx.qualcomm.com ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0fa0b3c6sm3044435ad.68.2026.11.12.18.52.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 18:52:12 -0800 (PST)
-From: Songwei Chai <songwei.chai@oss.qualcomm.com>
-To: andersson@kernel.org, alexander.shishkin@linux.intel.com,
-        mike.leach@linaro.org, konrad.dybcio@oss.qualcomm.com,
-        suzuki.poulose@arm.com, james.clark@arm.com, krzk+dt@kernel.org,
-        conor+dt@kernel.org
-Cc: Songwei Chai <songwei.chai@oss.qualcomm.com>, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        coresight@lists.linaro.org, devicetree@vger.kernel.org,
-        gregkh@linuxfoundation.org, songchai@qti.qualcomm.com,
-        Jie Gan <jie.gan@oss.qualcomm.com>
-Subject: [PATCH v17 10/10] qcom-tgu: Add reset node to initialize
-Date: Fri, 13 Nov 2026 10:49:35 +0800
-Message-Id: <20261113024935.3173715-11-songwei.chai@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261113024935.3173715-1-songwei.chai@oss.qualcomm.com>
-References: <20261113024935.3173715-1-songwei.chai@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AABB606A88B;
+	Fri, 13 Nov 2026 02:53:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AABB606A88B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 56b8724edf0d11f19a56ed5b684f684d-20261113
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_7B
+	HR_CTT_TXT, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED
+	SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+	CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
+	GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:4f9bbadd-e78c-4769-a1dd-5c2cd0e23a33,IP:10,
+	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:-15
+X-CID-INFO: VERSION:1.3.19,REQID:4f9bbadd-e78c-4769-a1dd-5c2cd0e23a33,IP:10,UR
+	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-15
+X-CID-META: VersionHash:7db8b62,CLOUDID:4af21d31961f732c8794b7d6542fc9f3,BulkI
+	D:261113104019IM9075YM,BulkQuantity:2,SF:10|38|66|78|102|127|153|841|865|8
+	98,TC:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:41,QS
+	:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,A
+	RC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 56b8724edf0d11f19a56ed5b684f684d-20261113
+X-User: lihongfu@kylinos.cn
+Received: from macbook.local [(114.244.3.119)] by mailgw.kylinos.cn
+	(envelope-from <lihongfu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1341907876; Fri, 13 Nov 2026 10:53:00 +0800
+From: Hongfu Li <lihongfu@kylinos.cn>
+Date: Fri, 13 Nov 2026 10:52:37 +0800
+Subject: [PATCH v2] selftests/mm: mlock2-tests: fix fclose(NULL) in
+ is_vmflag_set()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,164 +77,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: WMaTnbq-9VabKFxvWk6lUAr2nct-K-kh
-X-Proofpoint-GUID: WMaTnbq-9VabKFxvWk6lUAr2nct-K-kh
-X-Authority-Analysis: v=2.4 cv=NJhAaE6g c=1 sm=1 tr=0 ts=6af67b5d cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=u6OCHy2KTxjFLSf8iyQA:9 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAxMCBTYWx0ZWRfX5KZ2ZSPw4Fdr
- XBtGk6INtCtMEbWS1A390VFujYiYBjC26X7vinX5ijKi74AUUbJp/ZQNjACLiiiby15QpiKbBn3
- SkGNRPmlcD+ufYa8cRgI0yfMuUi9HH8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAxMCBTYWx0ZWRfXyH7Zscg+TpRJ
- PcSiOFQ15Pm7xzLsodoUL9gSXKLJsc+XOKOkBTjXkFf5Y/uNSLGwN6f219XGN5VlnCnOGOlIjYr
- 2lPPHt6iJri/AWhKAvKOcd1rWoVFUTdLwCbWumSR2Ez0aVQhe56Ot4PQbgf66lABd8TN0TIDyZ+
- BuBmiJ3zfR56HR4SO35oh0ZfhS3C9UnqDsGXDb7anKLJ7I0fE/W+9gJqWc5GtclvzdRqzdKTFcO
- rAWo4DdVCESwok8ibNsI3/eFM47voVMi6PzWcZQ1YNnhlf9Eyg+iyNHz9xmHnXGwHTdzc8HTVOA
- CUj2mi7FoO2jip1Y51PDRjNyY17pleevLrmhKIjpBWkdo9xnjXdi+54foH0T0vB9LUE7J9/SbdD
- 0b5LRnS1gCs3LBRS2WJNdkU8WhsZejKd2X8AseSmAOVL9TsErjHBgdFxA+S3DXLlxet1dL4N4oH
- TUhO3810aqkUQEHF46w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
- malwarescore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130010
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-for-mlock2-v2-1-f62195fc8394@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBAFf4Xs2RraYIue/A/DAdqtrGBrWmwkh
+ H+X4tXjJPPmLRAxEEa4FAsETBTJuw3EoQDdt+6OjMzGIEohOS8rZn1gz9HrQbBWKltL05rqXMM
+ 2eAW09Nljt+bH8d09UE+5kI2e4uTDvL8lnr2/4cQZZyeF0hhVadGZ6zCP5Hw8agfNuq5f/hNIs
+ 7cAAAA=
+X-Change-ID: 20261104-for-mlock2-a67f86dad498
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: hongfu.li@linux.dev, linux-mm@kvack.org, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ "Liam R.Howlett" <liam@infradead.org>, Hongfu Li <lihongfu@kylinos.cn>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794538380; l=2033;
+ i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
+ bh=c5NvTkyLv8vVmdu1qrQ3QDkHHLM9VqONXM8ZX64SW3A=;
+ b=8msNcvfbPWNkjRBc55Y3yhcUCTKNn80xye5iwBTmLuI+t+agi89Y5Yqv/WWCI0aHBzW2dabOv
+ aQpO35FY8oZDjv7tZmhqPAfT/w7reiAigPaMTzGYMqj0xR9lgJG1tGC
+X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
+ pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-Add reset node to initialize the value of
-priority/condition_decode/condition_select/timer/counter nodes.
+is_vmflag_set() jumps to the shared 'out' label when
+seek_to_smaps_entry() fails. smaps is NULL on that path, and the
+code at the 'out' label calls fclose(smaps) unconditionally.
+fclose(NULL) is undefined behaviour, so the test crashes before
+it can report a test result.
 
-Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
-Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
+Return early on that error path instead, so smaps is always valid
+at the 'out' label.
+
+get_value_for_name() follows the same pattern. Return early on the
+seek_to_smaps_entry() error path there as well, and drop the now
+redundant 'if (smaps)' guard on the fclose().
+
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 ---
- .../ABI/testing/sysfs-bus-amba-devices-tgu    |  7 ++
- drivers/hwtracing/qcom/tgu.c                  | 85 +++++++++++++++++++
- 2 files changed, 92 insertions(+)
+Changes in v2:
+- Convert get_value_for_name() in the same way, as suggested by Liam R.Howlett.
+- Update the commit message.
+---
+ tools/testing/selftests/mm/mlock2-tests.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-index e0ea5419188e..c0f10678e4df 100644
---- a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-+++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-@@ -51,3 +51,10 @@ KernelVersion:	7.5
- Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
- Description:
- 		(RW) Set/Get the counter value with specific step for TGU.
-+
-+What:		/sys/bus/amba/devices/<tgu-name>/reset_tgu
-+Date:		November 2026
-+KernelVersion:	7.5
-+Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
-+Description:
-+		(Write) Write 1 to reset the dataset for TGU.
-diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
-index 1cb131a3c521..2386c71ab8d1 100644
---- a/drivers/hwtracing/qcom/tgu.c
-+++ b/drivers/hwtracing/qcom/tgu.c
-@@ -251,6 +251,18 @@ static ssize_t tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
- 	int i, j, k, index = 0;
+diff --git a/tools/testing/selftests/mm/mlock2-tests.c b/tools/testing/selftests/mm/mlock2-tests.c
+index 144b550813a6..455f1c841dec 100644
+--- a/tools/testing/selftests/mm/mlock2-tests.c
++++ b/tools/testing/selftests/mm/mlock2-tests.c
+@@ -66,7 +66,7 @@ static bool is_vmflag_set(unsigned long addr, const char *vmflag)
+ 	smaps = seek_to_smaps_entry(addr);
+ 	if (!smaps) {
+ 		ksft_print_msg("Unable to parse /proc/self/smaps\n");
+-		goto out;
++		return false;
+ 	}
  
- 	CS_UNLOCK(drvdata->base);
-+
-+	/*
-+	 * Quiesce the detection engine before mutating any comparison input.
-+	 * This function is also reached from reset_tgu_store() while the TGU is
-+	 * already running (TGU_CONTROL == 1); rewriting the priority/condition/
-+	 * timer/counter registers register-by-register on a live engine could
-+	 * feed a transient, half-updated match into CTI/interrupt consumers.
-+	 * Programming with CONTROL == 0 and only re-enabling at the end keeps the
-+	 * program-then-enable ordering for every caller.
-+	 */
-+	writel(0, drvdata->base + TGU_CONTROL);
-+
- 	for (i = 0; i < drvdata->num_step; i++) {
- 		for (j = 0; j < MAX_PRIORITY; j++) {
- 			for (k = 0; k < drvdata->num_reg; k++) {
-@@ -470,8 +482,81 @@ static ssize_t enable_tgu_store(struct device *dev,
+ 	while (getline(&line, &size, smaps) > 0) {
+@@ -103,7 +103,7 @@ static unsigned long get_value_for_name(unsigned long addr, const char *name)
+ 	smaps = seek_to_smaps_entry(addr);
+ 	if (!smaps) {
+ 		ksft_print_msg("Unable to parse /proc/self/smaps\n");
+-		goto out;
++		return value;
+ 	}
+ 
+ 	while (getline(&line, &size, smaps) > 0) {
+@@ -123,9 +123,8 @@ static unsigned long get_value_for_name(unsigned long addr, const char *name)
+ 	}
+ 
+ out:
+-	if (smaps)
+-		fclose(smaps);
+ 	free(line);
++	fclose(smaps);
+ 	return value;
  }
- static DEVICE_ATTR_RW(enable_tgu);
  
-+/*
-+ * Element counts for drvdata's shadow tables, shared so the reset path
-+ * below can't drift from how each array is actually sized/indexed.
-+ */
-+#define TGU_PRIORITY_COUNT(drvdata) \
-+	(MAX_PRIORITY * (drvdata)->num_step * (drvdata)->num_reg)
-+#define TGU_CONDITION_DECODE_COUNT(drvdata) \
-+	((drvdata)->num_step * (drvdata)->num_condition_decode)
-+#define TGU_CONDITION_SELECT_COUNT(drvdata) \
-+	((drvdata)->num_step * (drvdata)->num_condition_select)
-+#define TGU_TIMER_COUNT(drvdata) \
-+	((drvdata)->num_step * (drvdata)->num_timer)
-+#define TGU_COUNTER_COUNT(drvdata) \
-+	((drvdata)->num_step * (drvdata)->num_counter)
-+
-+static ssize_t reset_tgu_store(struct device *dev,
-+			       struct device_attribute *attr, const char *buf,
-+			       size_t size)
-+{
-+	struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
-+	unsigned long value;
-+	int i, ret;
-+
-+	if (kstrtoul(buf, 0, &value) || value != 1)
-+		return -EINVAL;
-+
-+	/*
-+	 * Hold the mutex across the whole sequence so it cannot race with
-+	 * enable_tgu_store()/tgu_dataset_store(): the enabled check and the
-+	 * hardware access stay consistent. No PM reference is taken or dropped
-+	 * here - the shadow tables are plain memory, and the hardware is only
-+	 * touched when the device is already resumed via the enable reference.
-+	 */
-+	guard(mutex)(&drvdata->lock);
-+
-+	memset(drvdata->priority, 0,
-+	       TGU_PRIORITY_COUNT(drvdata) * sizeof(*drvdata->priority));
-+
-+	/*
-+	 * Every decode register is about to be overwritten with the neutral
-+	 * 'NOT' value below, so there is nothing for a prior memset to zero;
-+	 * calculate_array_location()'s step/reg indices for TGU_CONDITION_DECODE
-+	 * densely cover the whole 0..TGU_CONDITION_DECODE_COUNT(drvdata)-1 range
-+	 * with no gaps, so a flat loop over that range reaches every decode
-+	 * register.
-+	 */
-+	for (i = 0; i < TGU_CONDITION_DECODE_COUNT(drvdata); i++)
-+		drvdata->condition_decode[i] = TGU_CONDITION_DECODE_NOT;
-+
-+	memset(drvdata->condition_select, 0,
-+	       TGU_CONDITION_SELECT_COUNT(drvdata) *
-+		       sizeof(*drvdata->condition_select));
-+
-+	memset(drvdata->timer, 0,
-+	       TGU_TIMER_COUNT(drvdata) * sizeof(*drvdata->timer));
-+
-+	memset(drvdata->counter, 0,
-+	       TGU_COUNTER_COUNT(drvdata) * sizeof(*drvdata->counter));
-+
-+	/* If the TGU is running, apply the cleared configuration immediately. */
-+	if (drvdata->enabled) {
-+		ret = tgu_write_all_hw_regs(drvdata);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	dev_dbg(dev, "Qualcomm-TGU reset complete\n");
-+
-+	return size;
-+}
-+static DEVICE_ATTR_WO(reset_tgu);
-+
- static struct attribute *tgu_common_attrs[] = {
- 	&dev_attr_enable_tgu.attr,
-+	&dev_attr_reset_tgu.attr,
- 	NULL,
- };
- 
--- 
-2.34.1
+
+---
+base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
+change-id: 20261104-for-mlock2-a67f86dad498
+
+Best regards,
+--  
+Hongfu Li <lihongfu@kylinos.cn>
 
