@@ -1,95 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794608183;
-	b=U9+TRynDPPAfeeHmSZXmbHHjI8eenFHfvcUM+egk2baq9HqsdFk7HFYsWGgKm3SbVo+C
-	 4Cua/s9J6Vb2a76EJY9jTd8WdI1jrhsKaigX84OW4UMwBQ3Y3ZeR/OsJolxY3oo095uAI
-	 g9fNh3iMYlbMbQ7u9rV6pIwCMGh/HWcmYatclmPZfQriK7Dg69EXp9G9x09hBnwAPHGkG
-	 82o4Gazq7TT3D7F7RQ4gWWZA3HYs/WGjbYq5xsSxa+vGSB828lXanyWJ46RPygfIsj9Kn
-	 hjEVJuyk4Mz6IHHGw2HaGVXS6W6luXsRbbAjN+tAn6DALbIeWtID00lA4j47TDhj7HA==
+	t=1794608201;
+	b=ATAgdYHDEk9YZfl90O+ypSqYE+k3bX++BSz8RuNh/NB2F/y8zY+Dtpo83GbahUbJvLPF
+	 T/dZ1df3KN8pBqBsGqQn0x3MhLMxGQw9+8IhIdWfEbXTmUkdzIHvFNk4fwuwrE7ELXXkT
+	 xXTaxn67mxRIf6lPyEPtoOB69uTKYNTmfWFWy0GgeK0z0dlX9mm+Iw0SAJqEybmhXAouw
+	 glxYgFLcop6G4aNGgU2IH5GdnPg38ahNmPKvFbKjWTWX/hyrYdhJgya8Np+6TL5sPeRwx
+	 OT9kD9v5tKTKHsJsdVQyAmCKLCSMQuCcxI+FgTHc9+ssBDUrX0ZlmofCwdlr187LXvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608183;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SoW2Aa9wnKqCBhzzqwgKhpO45URIDTy0erzxkHEcwYI=;
-	b=Ic1+8wSjqtZRUbjgfCVf/YbVZVF6FW6awkmitPSxF2ChzPNl/YLcp4byttivTsZetEIf
-	 sH8TgVzelOaoEYxdPPcenHOF4hMPjSemnPok/qN3hQQKr4pIPoxVq+9Yfe8l9pj79p9tF
-	 OYJpDkqS6knoZR+UrJV+euIBlnxb5NBw9ziGmBz4wASoGtCTJkZRy+rbInRfLvlNQKK9k
-	 900SLB27sPy9BDOGnPFVd1rvSzPT32a8AITfv5fWcEfb5DQTSRIqe9FPBKfDRuFSjdoIb
-	 I6bROdyP6XkFytxCwwnQ56aqDg9IsHQFZaOSv7QFuJ3p15gMd06nW4sq9GBs/MdV1Jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608201;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=07ep7E3t/zTIZImeWja6Vo87wy8J7vuG0Sw0cdppt+o=;
+	b=sQzbCqke/f+CngJ8Aq4dYVH8pu2VcY30LyiHgnaUI21bsvQjuGfPM0KbvsiWoeOgPCPU
+	 a8kT3Xa4WdCrG+OjazaFL2PgJij4EhKxEMtb2G7rvwqdwuqJz7Mo4AlgOMNlY9uKbkBos
+	 2TMdAEDn0XLghkDD+tWwVl9S9zUZxUs5pxXwi7t2SHtMGqZkYuO16YN7Ta10OKStoWjsS
+	 QKQlgC3jX9+zpjkeqLt71ZUtSJ8j4MsLX1+NIOCvxbB9Ihmb5n+Z3eLiIQWCCGBRaW5Ms
+	 4j3TW6CNaZ1yi3S0bh5cZDVJky+aLBdFiwEPXHq4Vy6h/0J7UBph/8yiuAJR5E7u24g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CeV24HrL;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="F7rT//sb";
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=JKWePy5e;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97982606A882
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:16:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97982606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1CB606A336
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:16:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A1CB606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CeV24HrL
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49d05d51553so8298675e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:16:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=F7rT//sb;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=JKWePy5e
+Received: from pps.filterd (m0167070.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADLmVP22758425
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:16:39 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=07ep
+	7E3t/zTIZImeWja6Vo87wy8J7vuG0Sw0cdppt+o=; b=F7rT//sbLAORqUQMxmvB
+	TBuGYuf+zUKrcS6K52tTE3r2XHyb0xxQwQhjqHHiIfZog4E9g7ZQl8gRVBLITHke
+	AJuoWCYAKLFwmmsl6r2G0UOexNc5IMsTwMhQwRQpRYWnkouAgzBxOsMCRSgLJ0PH
+	+I/o4OlJNXt264o2Y6Z+FE51htktnBsDGQ5JDmpgJvSbGzFj+7q0r9hVTl988kEd
+	DdtigUo+10bJC85i/nXj3mPuKV6sGN1ORlboO4SZBhOFPb89FUGhIAnj9qTKcUua
+	bYYCZccQFhTxhS058qTuLaKUTY46uh0yNXPSsw8/BGcjycKQjdLgJnxF+xNckdWx
+	dA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hx534khqq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:16:39 -0500 (EST)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f33438950so317439685a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:16:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794608181; x=1795212981; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SoW2Aa9wnKqCBhzzqwgKhpO45URIDTy0erzxkHEcwYI=;
-        b=CeV24HrLv37ZW3bFRXPn5UY/rcNajvccUekt8DDHJOsPiKnb9WRTPnyHZsTl6bMBFO
-         zZctgSiGmMHcQqszCdpuFsAJU39bqQNkctyS+1qXKGmO64NQcovcZlEuApkX6CUJzvYb
-         1Wak53Pmdyhwi8dCxs72wctw3WVxyRlbcOzVF52guutvu4ysCu04B7qzb3b8rzZaJXjE
-         7JLQc6OR/eM52kzbA3hQ+oTAvftyCoWMFcFoqfFcB/K6qFLrPZTYQcTt3nay/nzm1dPy
-         hcKAZ9rt1NW6bgMSmWF5C7Wn1jCBcgV0x06jUO9AB5npJT9oGcVixW1pRnx+W+DwKAzZ
-         66WA==
+        d=columbia.edu; s=lionmail; t=1794608198; x=1795212998; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=07ep7E3t/zTIZImeWja6Vo87wy8J7vuG0Sw0cdppt+o=;
+        b=JKWePy5eKMKhf+qkki66IyDGaXCdQBZBJT/hY7Urb/SXsOTmcMRKldNxgil+ESFVVD
+         irlAiOluEiJk+OVF1ESqeErT1Yz2ZkrXL5nJjuEs2z9NNQA/crrP51Vvb5QnBXLKDCBY
+         h1urXU7yPlLqOMMMYYmeGm42d7X4EbzS5h8rX3Vgh4o41h7jHKBE0UwaHmdp+T0fDunx
+         tr276Ut5zH+wGbjs4+h23PvBMyqbznesCobdgv/ebkAh77UU/7pwcEl5gYIX0cEufnzC
+         wRjoSHC5vsNwbdG5ReqEoTvsTiaRBd+kqMRj8mvqFi4Hd8Ybf4zMkgGSKU6sI3KC7Bqg
+         5s3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794608181; x=1795212981;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794608198; x=1795212998;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SoW2Aa9wnKqCBhzzqwgKhpO45URIDTy0erzxkHEcwYI=;
-        b=qLQhRsuYr+FyMt/5ymtoNgY7LK9QAVRNIT80lWZoTbkWUPzSLF9hzAl1ucqIs7QbtZ
-         lrljV1ArRtu8wSYXuzCP1OQde0msRRiigQsJmfv0SW24XXtpoWmpNCzy/Mui9DbsVTS2
-         cCX4OcX2ZezkHCO9WBBJe4aN6/le+5WNim/WfYqMy8bEcp1H9hIB1DEo0AeyJ9mO4Xy/
-         5qGgK7GIhLnEoZHU49Pt3ySE+kx29phAEK6+z/2YkIwffrBntJyOY9nWqK+MbHJPMy3q
-         oULYT8fJGyIP/3yit/nMhTbVlQ3WHeDyiUNwvm1YRnUcwi/Zv1fVOYJxkaUkX/qHbcQs
-         7rMA==
-X-Forwarded-Encrypted: i=1; AL+hErGXsHNK7JxhJTjpQOZTC3xxMGR+mHcZE33yHuukWrRc2IXcrBMweOgDu25sVDaFl2kopN1Q75mdKgqR13U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Dm4DneM+E6OcinfcaOSOH8SyZytNiqPpuGNy+nfEMb2uptupc
-	GMz4RxNd1oTnuEZHQVXTL7yRpwV4TZ/YLIgryiHVmTi3ssFhITYRrniM
-X-Gm-Gg: AYBFou0a3m1AugHPfK/5BtSq/K0+3j3h23XrbgBKqz6+a81Q/Ny7LcvT4SEOG+0ya8s
-	nf9W3NXGnI3DYxvnh50RrtY+igRVTMx0FVefWA/rCGSm5/iyG8hr30Ig/jJkSbnr6inkpXATulP
-	hhhm2XiTzulpu3z54dgConJes4+Ogk11vzNE0lu939B70dErjVBPi48gwoAVLDlKiWAB+EDlMo9
-	sI17ATQI1hSt+yCzjWMKVO5wGolvulMniZYlCDED2uTOcrQVnnm5WVGie4M0OwR+lR1YDPzh4BO
-	z2cPNeCkavnAvMG7cC7IdxVdirr8DqGSaBrpbj0+1Cgr7ov+h0J4LwQFpzfbeCHEHH4xEqYY8Mq
-	AtA7sVlCyIcM8k2Fsi6YZ8GdlNbgW9lfpoCjixeeOal6r5iejkRT8IukOQ2vR7m6vV0w64GKHTp
-	1es42vdrL7v7KhNVyr5FMWLUSo3MyNxuAxbHLQFXVKu25birjio+lHUgjVL56AZdHzTAytSLv6q
-	0k2jU+/ZXaEWbBcDmPgtmNYjNVUqnSaexg9S7KNtuX83gnn9MWAvHgtlghu6ltIBBlH5SMP+qzl
-	1LuhMhuSDwz2qxFAgmMNUtfwvuIhx3fDvVacH9ZAissQgjU=
-X-Received: by 2002:a05:600c:3487:b0:4a4:f48e:78fa with SMTP id 5b1f17b1804b1-4bb55a4ea9dmr86275815e9.12.1794608180781;
-        Fri, 13 Nov 2026 14:16:20 -0800 (PST)
-Received: from infinity ([2001:b07:5d26:7a6a:365a:60ff:fe0d:cfc6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ac0e1esm84635595e9.3.2026.11.13.14.16.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 14:16:20 -0800 (PST)
-From: koraynilay <koray.fra@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	koraynilay <koray.fra@gmail.com>
-Subject: [PATCH] ksmbd: decode and honor DOS attribute validity flags
-Date: Fri, 13 Nov 2026 23:16:10 +0100
-Message-ID: <20261113221610.392113-1-koray.fra@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=07ep7E3t/zTIZImeWja6Vo87wy8J7vuG0Sw0cdppt+o=;
+        b=wQevg0j1h0yaPd5TarY1XzMOAZYXz07OVhQl/Be5mDwDGIRmJBKVUwncbC/2LIQ0MN
+         imqzpaobDOCp0DUYQOwg+FK+9TlgfxkSXS4g7fptkrAgESR7t38oPRimaUoMfcPoADgF
+         k0BxbQGE519gO6HWPgYr4X2crf+SRv2ZdP/+ikD1PObYCZ3QV9VFOXRuYHTGEq59rVuF
+         if5yBKs1gUYSMNXcITP/nA9MFLPqI6Z/Uc98FRTlAF8Izqbmim36lQYS2BDHlV4QXaeH
+         qL1/8NQsgZ2ZHKxliieGwsGFYvW/Ur8yACbpnM68+1K0m2NcOXg2U1hjvPyRU6L7Pfap
+         JTRQ==
+X-Forwarded-Encrypted: i=1; AL+hErF0EONzec30/IXTOLq0mmBBDXsrQXF1YHlPICPVm9bNCVkJw6mqhVS2VxcfPYbB1V3iri774yWkqKjdjBE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DPRN/77ZMRVMXiSxdi0FrQGvlbQBtKUi4ezPqZaS+fri/mjYh
+	0aMaGNH+hDfzJTsQVvgoS4cqCI/Hl1WAfUPrGkHMA3VKBZqFm9XW7Zm8W7A32AGw/pbYT3mQPQn
+	Lrh6Oir9gM2Atds7sD9VYJso8u5QIFexg8k11i/9494aYLhFo3u7ege6xzcIfEA==
+X-Gm-Gg: AYBFou3Y3Q83x2P54kjZpPGSEFHeJoKO3Q7q7tkCQDHPHA7HKzrcZNdCbMxQjKQWhwX
+	6CNlCUDLuEyTgXhEoXp+E7mQzdfmWmoX6ZJC+Dz/tWA80DRqWJeZW+Tu2UhUdY5lpC75x6EmPJD
+	NduuhugD3BJZn2m6tln2V/NbenZ9jvYvy1j72FgwtJBm84IKE6xdFDAr1LTha2drGIhtTVjf3mQ
+	/9TfKjNZooIh3AXHQFQrruGkrq5JI8URDdBtNIdJ6qwgxyrRlfuaLap8rO66BkXA9XT5Ucx+J91
+	2uQ2Ja1i696KSv/KSjeasjoppL4YlGcV+DQ8vLrIi6iYxyUcln0ZjtMohYJrhKWFK2g7MAmPkEJ
+	YNT9a17nD/X2UaDqSZLzYbUdLprAtH0zQ+M4oK9uFj6y7T/uAFNKKmvhQ4FZg+1BWtyB4err84j
+	jJT2J3L7H6XRaJDtxyYTiBEQANqCA=
+X-Received: by 2002:a05:620a:628f:b0:946:44bf:9169 with SMTP id af79cd13be357-9494ba7e00fmr662818185a.17.1794608198201;
+        Fri, 13 Nov 2026 14:16:38 -0800 (PST)
+X-Received: by 2002:a05:620a:628f:b0:946:44bf:9169 with SMTP id af79cd13be357-9494ba7e00fmr662808985a.17.1794608196819;
+        Fri, 13 Nov 2026 14:16:36 -0800 (PST)
+Received: from [10.207.116.169] (nat-128-59-178-153.net.columbia.edu. [128.59.178.153])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c836b60sm281564785a.17.2026.11.13.14.16.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 14:16:35 -0800 (PST)
+Message-ID: <e4b60f0b-ccb4-4a7e-83e0-81fa1fd0c88d@columbia.edu>
+Date: Fri, 13 Nov 2026 17:16:32 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,257 +116,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/12] fs/proc/task_mmu: write-protect device-private THPs
+ in PAGEMAP_SCAN
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+        Mike Rapoport
+ <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
+        James Houghton <jthoughton@google.com>,
+        Andrea Arcangeli <aarcange@redhat.com>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Balbir Singh <balbirs@nvidia.com>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+        Pedro Falcato <pfalcato@suse.de>,
+        =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+        Andrei Vagin <avagin@gmail.com>,
+        Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+        Muhammad Usama Anjum <usama.anjum@arm.com>,
+        David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+        Matthew Brost <matthew.brost@intel.com>,
+        Joshua Hahn <joshua.hahnjy@gmail.com>,
+        Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+        Ying Huang
+ <ying.huang@linux.alibaba.com>,
+        Alistair Popple <apopple@nvidia.com>,
+        Baolin Wang <baolin.wang@linux.alibaba.com>,
+        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+        Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>,
+        Muchun Song <muchun.song@linux.dev>,
+        Oscar Salvador <osalvador@suse.de>,
+        =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>,
+        Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org
+References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-5-00713d368976@columbia.edu>
+ <avYQteUm963AKJQ7@gremlin>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <avYQteUm963AKJQ7@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=dqFOmFg4 c=1 sm=1 tr=0 ts=6af78c47 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Y+j3KQtDOE8TDC6EXH/Ajw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=svvvyxlR1OQQkelhaPoB:22
+ a=jLqENXc96tZTD5fVGMQA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: x8SX785V8FHSvUHxVTIP1NJY43jchfr3
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA4OCBTYWx0ZWRfX8VKPmCyB7KaM
+ 0RrK2R9MC4TV0gWOR+x4IsxmqRz9O7IPNcY9roia/ulmtROKH45JMlgDv2uYYkdhwpU5p5g59Bi
+ Aat5G7fmsUTX2N7vaGL/pt6y/chmFmfL+cEOgtyl3TSM28vmqMnW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA4OCBTYWx0ZWRfX8utl32BzWiRY
+ aMJLfnuYZkKeBIzwTYF7S3Xacth506ad1zRpo2PeZ0ioctyJqwRGmwITU+BjmBmgzflvXxkngst
+ ZcAGvn7tCuu6Z7DDsTqt5uBa6nDDXcODhFXgT3CN/azEfXwAx1IuPJaWbbQhhd59PgR5bswEWk0
+ a37SB7qj1H6YMnaEL7u9FopvdB8EkdDx+QYzs5q+Uu1AugMKNcEqoH0rKKe9Ux4lN2JJNxTSJbA
+ DjchBqh3hB3VxJ//HmbaxA29hYdP/KbQq6D8O3Qc0oVdrCOLNbdRj1dlOAMMeGKk/9+RQd0nBNK
+ Gt3lpMaBxXspE5L9EQrL13ZJJrAN3XY96UT6vVkiXv8S1zdXH2nxRf9UL0IMVPHxHatTDBNzhaS
+ 6hSEhVBLv+AFastqhEbCmOZNPzrrTQruGpTovjllasX/yewyhe6atnalXLesWiVrQZRmes5zJHd
+ PXHDh1trSI6ddrSBiwQ==
+X-Proofpoint-GUID: x8SX785V8FHSvUHxVTIP1NJY43jchfr3
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11965
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=10 impostorscore=10 lowpriorityscore=10 clxscore=1015
+ priorityscore=1501 malwarescore=0 suspectscore=0 adultscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611130088
 
-Currently, when setting file attributes via FSCTL_SET_SPARSE,
-FSCTL_SET_COMPRESSION or FileBasicInformation, ksmbd hardcodes
-flags = 0x51 (XATTR_DOSINFO_ATTRIB | XATTR_DOSINFO_CREATE_TIME |
-XATTR_DOSINFO_ITIME). This injects unrequested creation time and itime
-into user.DOSATTRIB on disk, even though the client only requested an
-attribute modification.
+On 11/12/26 2:34 PM, Lorenzo Stoakes (ARM) wrote:
+> On Wed, Nov 11, 2026 at 12:55:13PM -0500, Tal Zussman wrote:
+>> PAGEMAP_SCAN with PM_SCAN_WP_MATCHING write-protects a huge PMD through
+>> make_uffd_wp_pmd(), which handles a present THP and a migration entry
+> 
+> It's crazy to me that we write-protect page tables through a procfs interface
+> like this. But I guess we have to live with it now.
+> 
+> I suppose that answers my q about this on a previous commit...
+> 
+>> but does nothing for a device-private THP. The PMD never gets the uffd
+>> bit.
+> 
+> Sigh yeah. Device-private feels like another 'just have to happen to know to
+> update X million open-coded parts of the code'.
+> 
+> We really need to find a way to abstract this stuff.
+> 
+>>
+>> pagemap_thp_category() reports a non-present PMD without the uffd bit as
+>> written. A user tracking writes with async uffd-wp therefore sees every
+>> page of a device-private THP as written on every scan, whether it was
+>> written to or not. This requires a driver that migrates THPs to device
+>> memory.
+>>
+>> A device-private PMD must be write-protected like any other huge PMD. To
+>> fix it, pass it to set_uffd_wp_swp_pmd() as well, which downgrades a
+>> writable entry and sets the uffd bit. When the THP migrates back,
+>> set_pmd_migration_entry() carries the uffd bit over to the migration
+>> entry, so the write protection is kept.
+>>
+>> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+>> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+>> ---
+>>  fs/proc/task_mmu.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+>> index 53780a454432..752f1b13d47a 100644
+>> --- a/fs/proc/task_mmu.c
+>> +++ b/fs/proc/task_mmu.c
+>> @@ -2524,7 +2524,8 @@ static void make_uffd_wp_pmd(struct vm_area_struct *vma,
+>>  		old = pmdp_invalidate_ad(vma, addr, pmdp);
+>>  		pmd = pmd_mkuffd(old);
+>>  		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
+>> -	} else if (pmd_is_migration_entry(pmd)) {
+>> +	} else if (pmd_is_migration_entry(pmd) ||
+>> +		   pmd_is_device_private_entry(pmd)) {
+> 
+> Could this not just be !pmd_none() + cover all softleaf entries? Or is that not
+> valid?
+> 
+> It seems completely insane to have to specifically spell out all the
+> possibilities, open-coded, everywhere.
+> 
 
-Furthermore, ndr_decode_dos_attr() discards the validity flags on read
-by reading them into NULL. When reading a file with an attribute-only
-xattr (flags = 0x01, where create_time on disk is 0), ksmbd treats the 0
-as a valid timestamp and reports NTTIME(0) instead of falling back to
-the underlying filesystem's btime. Modifying any attribute via
-set_file_basic_info() then clobbers the xattr back to 0x51.
+So we actually have a helper for exactly this that I didn't notice before...
+pmd_is_valid_softleaf() is equivalent. !pmd_none() should work but I think
+the existing helper is better.
 
-Fix this by:
-1. decoding da->flags in ndr_decode_dos_attr() and only updating
-   create_time and itime if their validity flags are set (in
-   smb2_update_xattrs() and ksmbd_vfs_fill_dentry_attrs());
-2. reading existing attributes and only setting XATTR_DOSINFO_ATTRIB in
-   fsctl_set_sparse(), __ksmbd_vfs_set_compression(), and
-   set_file_basic_info() so unrequested timestamps are not injected.
-
-Reproducer, with /tmp as the local filesystem folder exported as [test]
-in ksmbd.conf and /mnt as the smb folder mounted with mount -t cifs:
-
-  mount -t cifs //127.0.0.1/test /mnt -o username=user,password=pass
-
-test with sparse (for compression, use chattr +c instead of fallocate):
-
-  echo data > /tmp/sparse.txt
-  chmod 777 /tmp/sparse.txt
-
-  stat -c 'Local btime (%n): %w' /tmp/sparse.txt
-  getfattr -n user.DOSATTRIB -e hex /tmp/sparse.txt
-
-  # punching hole via CIFS triggers FSCTL_SET_SPARSE
-  fallocate -p -o 0 -l 4 /mnt/sparse.txt
-  getfattr -n user.DOSATTRIB -e hex /tmp/sparse.txt
-
-  stat -c 'CIFS btime (%n):  %w' /mnt/sparse.txt
-  smbclient //127.0.0.1/test -U user%pass -c 'allinfo sparse.txt'
-
-  # evict cache so btime is read fresh again
-  umount /mnt
-  mount -t cifs //127.0.0.1/test /mnt -o username=user,password=pass
-  stat -c 'CIFS btime (%n):  %w' /mnt/sparse.txt
-
-which prints:
-
-  Local btime (/tmp/sparse.txt): 2026-11-13 21:13:27.167926440 +0000
-  /tmp/sparse.txt: user.DOSATTRIB: No such attribute
-
-  # file: tmp/sparse.txt
-  user.DOSATTRIB=0x000004000400000051000000200200000000000000000000209542d3b373dd01
-     0x51 = 0x1 | 0x10 | 0x40 -----^^         |      unrequested --^^^^^^^^^^^^^^^^
-   (ATTRIB | CREATE_TIME | ITIME)             |   creation time = btime
-                                     SPARSE --^
-  CIFS btime (/mnt/sparse.txt):  2026-11-13 21:13:27.167926400 +0000
-  [...]
-  create_time:    Fri Nov 13 21:13:27 2026 UTC
-  [...]
-  CIFS btime (/mnt/sparse.txt):  2026-11-13 21:13:27.167926400 +0000
-
-test with setmode:
-
-  echo data > /tmp/attrib.txt
-  chmod 777 /tmp/attrib.txt
-
-  stat -c 'Local btime (%n): %w' /tmp/attrib.txt
-  getfattr -n user.DOSATTRIB -e hex /tmp/attrib.txt
-
-  # modify attribute via CIFS
-  smbclient //127.0.0.1/test -U user%pass -c 'setmode attrib.txt +r'
-  getfattr -n user.DOSATTRIB -e hex /tmp/attrib.txt
-
-  stat -c 'CIFS btime (%n):  %w' /mnt/attrib.txt
-  smbclient //127.0.0.1/test -U user%pass -c 'allinfo attrib.txt'
-
-  # evict cache so btime is read fresh again
-  umount /mnt
-  mount -t cifs //127.0.0.1/test /mnt -o username=user,password=pass
-  stat -c 'CIFS btime (%n):  %w' /mnt/attrib.txt
-
-which prints:
-
-  Local btime (/tmp/attrib.txt): 2026-11-13 21:13:27.195647069 +0000
-  /tmp/attrib.txt: user.DOSATTRIB: No such attribute
-
-  # file: tmp/attrib.txt
-  user.DOSATTRIB=0x000004000400000051000000210000000000000000000000f6cf46d3b373dd01
-     0x51 = 0x1 | 0x10 | 0x40 -----^^       |        unrequested --^^^^^^^^^^^^^^^^
-   (ATTRIB | CREATE_TIME | ITIME)           |     creation time = btime
-                                 READONLY --^
-  CIFS btime (/mnt/attrib.txt):  2026-11-13 21:13:27.195647000 +0000
-  [...]
-  create_time:    Fri Nov 13 21:13:27 2026 UTC
-  [...]
-  CIFS btime (/mnt/attrib.txt):  2026-11-13 21:13:27.195647000 +0000
-
-After this patch, the outputs should be:
-
-sparse:
-
-  Local btime (/tmp/sparse.txt): 2026-11-13 21:20:25.856425751 +0000
-  /tmp/sparse.txt: user.DOSATTRIB: No such attribute
-  # file: tmp/sparse.txt
-  user.DOSATTRIB=0x0000040004000000010000002002000000000000000000000000000000000000
-          0x01 = 0x1 (ATTRIB) -----^^         | no creation time --^^^^^^^^^^^^^^^^
-                                     SPARSE --^
-  CIFS btime (/mnt/sparse.txt):  2026-11-13 21:20:25.856425700 +0000
-  create_time:    Fri Nov 13 21:20:26 2026 UTC
-  CIFS btime (/mnt/sparse.txt):  2026-11-13 21:20:25.856425700 +0000
-
-setmode:
-
-  Local btime (/tmp/attrib.txt): 2026-11-13 21:20:25.976415893 +0000
-  /tmp/attrib.txt: user.DOSATTRIB: No such attribute
-  # file: tmp/attrib.txt
-  user.DOSATTRIB=0x0000040004000000010000002100000000000000000000000000000000000000
-          0x01 = 0x1 (ATTRIB) -----^^       |   no creation time --^^^^^^^^^^^^^^^^
-                                 READONLY --^
-  CIFS btime (/mnt/attrib.txt):  2026-11-13 21:20:25.976415800 +0000
-  create_time:    Fri Nov 13 21:20:26 2026 UTC
-  CIFS btime (/mnt/attrib.txt):  2026-11-13 21:20:25.976415800 +0000
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3") # ndr decode/basic info
-Fixes: f44158485826 ("cifsd: add file operations") # ksmbd_vfs_fill_dentry_attrs
-Fixes: 159e727f763d ("ksmbd: persist FSCTL_SET_SPARSE state") # sparse
-Fixes: 0fb327626ad9 ("ksmbd: support file compression attributes") # compression
-Cc: stable@vger.kernel.org
-Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.5.3
-Signed-off-by: koraynilay <koray.fra@gmail.com>
----
-This should be (hopefully) the last of the fixes needed to implement ptime[1].
-Thanks for testing all of them and merging them <3
-
-Best,
-koraynilay
-
-[1]: https://lore.kernel.org/all/20261101015551.786044-1-koray.fra@gmail.com/T/#t
-
-
- fs/smb/server/ndr.c     |  2 +-
- fs/smb/server/smb2pdu.c | 35 +++++++++++++++++++++++------------
- fs/smb/server/vfs.c     |  8 +++-----
- 3 files changed, 27 insertions(+), 18 deletions(-)
-
-diff --git a/fs/smb/server/ndr.c b/fs/smb/server/ndr.c
-index 7e546c22e284..b5190528340f 100644
---- a/fs/smb/server/ndr.c
-+++ b/fs/smb/server/ndr.c
-@@ -256,7 +256,7 @@ int ndr_decode_dos_attr(struct ndr *n, struct xattr_dos_attrib *da)
- 		return -EINVAL;
- 	}
- 
--	ret = ndr_read_int32(n, NULL);
-+	ret = ndr_read_int32(n, &da->flags);
- 	if (ret)
- 		return ret;
- 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 806748ac2cb8..605f45e6801b 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3733,8 +3733,10 @@ static void smb2_update_xattrs(struct ksmbd_tree_connect *tcon,
- 	if (rc > 0) {
- 		if (store_dos_attrs) {
- 			fp->f_ci->m_fattr = cpu_to_le32(da.attr);
--			fp->create_time = da.create_time;
--			fp->itime = da.itime;
-+			if (da.flags & XATTR_DOSINFO_CREATE_TIME)
-+				fp->create_time = da.create_time;
-+			if (da.flags & XATTR_DOSINFO_ITIME)
-+				fp->itime = da.itime;
- 		} else {
- 			fp->f_ci->m_fattr &=
- 				~(FILE_ATTRIBUTE_COMPRESSED_LE |
-@@ -8905,12 +8907,24 @@ static int set_file_basic_info(struct ksmbd_file *fp,
- 	    (crtime > 0 || file_info->Attributes)) {
- 		struct xattr_dos_attrib da = {0};
- 
--		da.version = 4;
--		da.itime = fp->itime;
--		da.create_time = fp->create_time;
--		da.attr = le32_to_cpu(fp->f_ci->m_fattr);
--		da.flags = XATTR_DOSINFO_ATTRIB | XATTR_DOSINFO_CREATE_TIME |
--			XATTR_DOSINFO_ITIME;
-+		rc = ksmbd_vfs_get_dos_attrib_xattr(idmap, fp->filp->f_path.dentry, &da);
-+		if (rc <= 0) {
-+			da.version = 4;
-+			da.flags = 0;
-+		}
-+
-+		/*
-+		 * itime gets preserved when reading the xattr if already present
-+		 * otherwise don't write it as it wasn't asked for by the client
-+		 */
-+		if (crtime > 0) {
-+			da.create_time = fp->create_time;
-+			da.flags |= XATTR_DOSINFO_CREATE_TIME;
-+		}
-+		if (file_info->Attributes) {
-+			da.attr = le32_to_cpu(fp->f_ci->m_fattr);
-+			da.flags |= XATTR_DOSINFO_ATTRIB;
-+		}
- 
- 		rc = ksmbd_vfs_set_dos_attrib_xattr(idmap, &filp->f_path, &da,
- 				true);
-@@ -11743,10 +11757,7 @@ static inline int fsctl_set_sparse(struct ksmbd_work *work, u64 id,
- 						     fp->filp->f_path.dentry, &da);
- 		if (ret <= 0) {
- 			da.version = 4;
--			da.itime = fp->itime;
--			da.create_time = fp->create_time;
--			da.flags = XATTR_DOSINFO_CREATE_TIME |
--				XATTR_DOSINFO_ITIME;
-+			da.flags = 0;
- 		}
- 
- 		da.attr = le32_to_cpu(fp->f_ci->m_fattr);
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 0c95d4668370..f48c6b37b78a 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -1936,7 +1936,8 @@ int ksmbd_vfs_fill_dentry_attrs(struct ksmbd_work *work,
- 		rc = ksmbd_vfs_get_dos_attrib_xattr(idmap, dentry, &da);
- 		if (rc > 0) {
- 			ksmbd_kstat->file_attributes = cpu_to_le32(da.attr);
--			ksmbd_kstat->create_time = da.create_time;
-+			if (da.flags & XATTR_DOSINFO_CREATE_TIME)
-+				ksmbd_kstat->create_time = da.create_time;
- 		} else {
- 			ksmbd_debug(VFS, "fail to load dos attribute.\n");
- 		}
-@@ -2475,10 +2476,7 @@ static int __ksmbd_vfs_set_compression(struct ksmbd_work *work,
- 		rc = ksmbd_vfs_get_dos_attrib_xattr(idmap, dentry, &da);
- 		if (rc <= 0) {
- 			da.version = 4;
--			da.itime = fp->itime;
--			da.create_time = fp->create_time;
--			da.flags = XATTR_DOSINFO_CREATE_TIME |
--				XATTR_DOSINFO_ITIME;
-+			da.flags = 0;
- 		}
- 
- 		da.attr = le32_to_cpu(fp->f_ci->m_fattr);
-
-base-commit: e9399de313199e9ffc1035755479a65ae4b3c5cf
-prerequisite-patch-id: 049ae0eba275b5be35a238833107e0b251a55aa2
--- 
-2.56.0
+>>  		pmd = set_uffd_wp_swp_pmd(pmd);
+>>  		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
+>>  	}
+>>
+>> --
+>> 2.39.5
+>>
+> 
+> --
+> Cheers, Lorenzo
+> 
 
