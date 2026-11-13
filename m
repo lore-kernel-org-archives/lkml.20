@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537345;
-	b=KT3EBTjcts79C/YRP9Mi0KwB00TuhOp9geNojBpxrmXd6p8KmH2A7VUf8I2mvLMUWtuh
-	 5qKFn08kSzL1nr0vYB8EKkGZ7nmVWGoFplMmK00fEQc0nbVu16qrDS+J7X80mzzjEkNWp
-	 S03qKXSnWI4U9pYFvtxkPNw7mO//TsaRcBc6tWfZTHbNbS9UsGXoBPoY760RbvMejDUPw
-	 jXQcx/Tdss5pJlA4KSIcgSyBD4JdVDaSBSXHJOGcu69+t6k0wEBBeIftbZ6ukN4om8a39
-	 1rf1Fld9RkJwB0ED8f6pco+FFvHj0MmmmPt9DdWSejaTvTVqZShdkLTZhz0cnbY2Muw==
+	t=1794537448;
+	b=YrCQcebi9V4MKNFZ+ID4w671ujzNvKGTvtKZFGh+Fg4a/pF9Ifc72dKwsJXVKQSsncii
+	 bIGyfGdkxELeYoq8RImSEnwaaoipH732tgvdRm6y4Y4dZQO8pIY5yaWJ6fRrpH0RjJlgc
+	 AJl1IcrM7+VlZvYypAUlo/Ry3vWYJaySp5511sSSVoKI60J3WLR1nO0X6fo+E1jiBFZBK
+	 cBiVZ5e32PRJQOLpRvlvWmWugvqmdjuumx7joPZptYfilIgLv+tpYEaExibwkcs2UWqg8
+	 snWuS0foYeV6aBMMMhK77CZgNRtG+OgauJfppxlZL57c5k3sXHnZvQTF0VFGVWLOqQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537345;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1AxAtbzl4o18Dc8S2gGBClHTTNXWSJfjlQEN5YnJVP8=;
-	b=Db0VN68I6iw3I7AV7fFER+DKByI405Jndval1z57jKb25V9mwSsJGKFOnPmVU540ho7z
-	 FaraepMBThYGP8YIaVvy6Hz3mbe+qxETvDvbwL204UivxgHjgy6S1lODFwyOlZWvcrBbV
-	 urxq5WoAZLr8rdEEmQAeyOYaWQeTDT1vevwcg/679bw/qiEUpZg8CN/ElLI22GUc75/gY
-	 pjJrbjTnDnHoq6D76S0JbS3vErx7XCAJhiaHYgIsVtzN12x2GfDtc0C0ZGB/AirF1tquU
-	 kFrDcjSeyecm+MXPbKJlrYdVTVf8LhC3VbFJXwZAHJTme6VybDZJHEv/ah/LiKtL6hQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537448;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=c7xVO+NmGklllKi/pnNJQ5f6BZkQyZyz+72UU6VKSbA=;
+	b=UCsf9yzVMzQvbu3Rt0M06tV+e4POlPCUQhcDEhPamean/wIFAdquKiwFap7chiTptUdr
+	 WV7Xn1dI6OPcO9aUgz6VSfLcFns2MRAlXaGCafZAhrBow+4qMNw0V+96P3fxusu04ieid
+	 N3/MMwnfWrUwaIw6Yfje/jBJQG1Ahl5V8aFuA+cmTCm4gWSfOD1Qm7DMfjRCtXkx3zfMv
+	 e7XDduMEtaAC3oRc3frcHML2U0+1izfqGTPmi24O8+m4cFVBg+Vda6p2AOi08YkUagjA3
+	 Tv4pujTBFjVhfswoNbACEZHYRHfs4m83anJKsFXe9bQk1V4h7A4hr5h35ess17I0Aog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XNOj/6KS";
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HDvZ6ex5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F52606A31C;
-	Fri, 13 Nov 2026 02:35:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0C3606A31C;
+	Fri, 13 Nov 2026 02:37:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNOj/6KS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E7E11F000C4;
-	Fri, 13 Nov 2026 02:35:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794537345;
-	bh=1AxAtbzl4o18Dc8S2gGBClHTTNXWSJfjlQEN5YnJVP8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XNOj/6KSTfv/2SzV949emJkrw8rux9axLtj3Zfxm/nA34D9iEQTAAnJDKTWdEoQo0
-	 ZyUXBNwMqXX0/gR7BileAWjtPyAj7gUskaJZe4zVxfABW97qVOOF+6dfRz/zCw5a5G
-	 aJAtXp3Y2sL29Y/mlKgpO0O9hrzN6sBo4mhtLhVZ3EpJxCyRXQUR2iIpel1ze5KAmr
-	 H0tSEROneypuQUXkAt1Mn/SmAM4ryM+222HGqdbEDT+G6MUhnq7KGtlYQy59VO1tR0
-	 OHRmkqcXZrCB+aw7vQM8KpjloNZ31J59+BivSgyJT2ijdwpfQXh/v0AYyJuFdGW2l2
-	 FuJUGeka40kUw==
-Date: Thu, 12 Nov 2026 18:35:42 -0800
-From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: Longjun Luo <luolongjuna@gmail.com>
-Cc: peterz@infradead.org, mbenes@suse.cz, pmladek@suse.com, 
-	joe.lawrence@redhat.com, song@kernel.org, puranjay@kernel.org, nathan@kernel.org, 
-	ndesaulniers@google.com, morbo@google.com, justinstitt@google.com, 
-	live-patching@vger.kernel.org, llvm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 00/11] objtool/klp: DWARF-based cross-build symbol
- correlation
-Message-ID: <avZ20mdxRnzTPY4c@jpoimboe>
-References: <20261104133158.3187525-1-luolongjuna@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HDvZ6ex5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D32821F000C4;
+	Fri, 13 Nov 2026 02:37:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794537448;
+	bh=c7xVO+NmGklllKi/pnNJQ5f6BZkQyZyz+72UU6VKSbA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HDvZ6ex5mndLiwSybBItN1+QPlX1KOoZqAvJ+RsPkPLPX828lEASG07GMcjmVOP7w
+	 wNOxlWkKtT+wuid9MBOoC0w06gT4wqs6y4+6qvmSIIuoUH6VfKZ2f9WPXChjWfM5uH
+	 h4QCONLhbPu7nyc6ogBQJGTRB9wYoKrq3vJmHaHo=
+Date: Thu, 12 Nov 2026 18:37:27 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
+Cc: Suren Baghdasaryan <surenb@google.com>, Lorenzo Stoakes
+ <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato
+ <pfalcato@suse.de>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, ahuang12@lenovo.com
+Subject: Re: [PATCH mm-unstable 1/1] fs/proc/task_mmu: advance seq_file
+ position on interrupted VMA lookup
+Message-Id: <20261112183727.68afda9533aff699eea12cdd@linux-foundation.org>
+In-Reply-To: <20261112140101.647-1-adrianhuang0701@gmail.com>
+References: <20261112140101.647-1-adrianhuang0701@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,48 +59,31 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104133158.3187525-1-luolongjuna@gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 09:31:46PM +0800, Longjun Luo wrote:
-> Responses to v1 Review (Guide)
-> ------------------------------
-> 
-> Thanks to Josh for reviewing v1. v2 responds as follows:
-> 
-> 1. `CONFIG_DEBUG_INFO` and split/reduced DWARF: as suggested, `klp-build`
->    now requires `CONFIG_DEBUG_INFO` and uses Kbuild's debug flags
->    (Patch 6). Reduced and split DWARF are supported (Patch 5). See
->    "Compatibility Limits and Build Requirements".
-> 
-> 2. Repeated macro statics and the one-line test: building on the
->    referencing-function idea, unchanged-function references resolve
->    repeated statics (Patch 9). The tree-wide test reduces v1's
->    `no correlation` warnings from 682/764 to zero (GCC/Clang). See
->    "Evaluation and Performance Overhead".
-> 
-> 3. Upgrading `no correlation` to an error and explicit annotations:
->    following this direction, v2 rejects ambiguous data references and
->    allows verified new data (Patch 10). See Case D for the
->    state-inheritance boundary, its kernel-wide impact, and proposed
->    annotations.
-> 
-> 4. Referencing functions, ThinLTO naming flags, and Full LTO: in ELF, the
->    referencing function only approximates the defining scope, and
->    `STT_FILE` and `.llvm.<hash>` suffixes only approximate the defining
->    TU. Definition identity distinguishes inlined helpers' state and
->    survives LTO renaming and `STT_FILE` merging; see Cases A-B.
-> 
-> 5. Toolchain reliability and performance: v2 cross-checks DWARF against
->    ELF and measures checksum/diff costs, including a separate memory
->    prototype. See "Design Overview", "Evaluation and Performance
->    Overhead", and "Open Questions and Next Steps".
- 
-Going forward, please reply directly to the review comments (including
-sashiko reviews), as threaded emails are much easier to follow/discuss
-than a summary like the above.
+On Thu, 12 Nov 2026 22:01:01 +0800 "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com> wrote:
 
--- 
-Josh
+> Commit 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under
+> per-vma lock") introduced the possibility of returning -EINTR
+> from proc_get_vma() when the VMA lookup is interrupted.
+
+OK, but what's causing the interruption?
+
+> When this happens in m_next(), proc_get_vma() returns an error
+> pointer without updating the position index. Consequently,
+> seq_read_iter() reports:
+> 
+>   seq_file: buggy .next function m_next did not update position index
+> 
+> The above buggy message is reproduced by the following command:
+> 
+>   # stress-ng --vma 0 -t 60
+
+afaict "stress-ng -t" can send SIGALRM, but mmap_read_lock_killable()
+only responds to fatal signals.
+
+So please clarify: exactly what is causing this to happen?
+
+
