@@ -1,55 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=157.90.84.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581236;
-	b=DYI52pDxHprN0pLFDxKtlO2J5EYwtlW1v9R9+vSHwoVsblLBXZX988GUBJZrwKo6i2TK
-	 v6VSjeBIPhrgmEgb31ONkskMgvYNFJO/lKB268v9W8TEt5ZRpBPp97npwHphkfuRbIJox
-	 Sm5wHlGQAGe6XJ3qBVTBet6aUiFEArkvyMxoaYwf0QmetjMyhlPB8IEuYKSTdk2+1prw+
-	 9Im+p3QC4SDsHQyoovF3iv6PpP/YRpUL3EkKsBEUqxxHikcrCYkbiaJjZ1RwwnSlSyxeM
-	 QsZ2UqgRJlljUflQWWNFQM6oE4ZtY6gm9qdldLK5rk7zVKBWMnKiKHFcZZ/O20pAEVg==
+	t=1794581284;
+	b=ggTCgUO2WWNObfv1PXbWfgfA1q418KS4XnNk++3M/wo+pcPZTpBBoqzi4kXr2N4ybpsh
+	 12q7iVSVZvKJFjDvQlCJyK1z1KA8d5/m/rqHIxN2Ph26acy9zOhJl+T+V/GAe86C3le+Q
+	 lbP9htGyWgU0g/6zCUEBZBK0wH/+GpBJlqzPbR7usloYHxaTFea0uDIvHHE/mpPtsloVt
+	 IGBdgAM8PpsKnZ0W8YKvQ374MZgrcJLas9/5M5jjFoVrxDcKVpafaeCzp00Dh4HuDYFkV
+	 j2+wtHuZP95bq70cyDOrP8vEW47bJAPQjLzVxas5bgZ28+lz/41MMG/AcCpwradYGiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581236;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ArsSqsLjh+Rg9eIzAD28wSJrk/9VBuSn5KkM3umAEgM=;
-	b=rprwy3VOpFEnFRODp1kYmjUk2y5wT9QW92tDhRgrrr2gxy31m/XcGNGusv1EhAcaorCy
-	 KpmzB4wznu6QHvJ9l6CW5nhKP5n9K1AIR4wKUVBBylJLEOPJSoXbke0XZpsGOEMdZZWaR
-	 6FG3KYKaDNpYUr8ZVnXPW8CRRBViSuY/JmqAKdcLfFtwG7LgNodQZY4NjybubJpOW4i7h
-	 d/c1UcTzoP/snoBTfocuk6xdLNrEG6MkUKHiSKayM+9ZNrc2jUgxWT/mz7WOL2v+BYlgX
-	 G0mOBwm3CmgFrFPlyPP9u1BOT/JsrS3KRFyGOb3iRBPZfWhKDK0BuhU/xCUfGjXSOaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581284;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=hzAADba+0iq0bsd1y8CVOAXzcIDIRK3t2toPd9Ehwgk=;
+	b=LVGQI2rIJDzhH5xLehLCnLKzTEGgA6qcRpU698FFXRX5cQzqTZGjoKHEkTPexjl6RLWv
+	 eGAraXHbJzFj5yxPy4QKqmrms/ThUSJi3zdgu4vBJUoKIo6+SEAla3hPw8eEmQ5EgZItv
+	 k0Z014OvZd5BSJAN3BjMXT9QWgUjwA+teQkEUzMlUHDoFGl6HtGz++tP/trO5B5WBBhpO
+	 YzkbAsTqu9TFE8YLWU5WvWezo3EWdCnl+c9G6X+pPDcARrrJjafDIKOhJUZBqFcRmX7qU
+	 DXdYrHc0cVH3ZMTWplWS45ZsKLNbAxP/K4c74txLeHibSgYsTgCyhVygt9E95pEo25g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I1jpB+6r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=tuxedocomputers.com;
+	spf=pass smtp.mailfrom=tuxedocomputers.com;
+	dkim=pass header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=Yn9rhCSb;
+	arc=none smtp.remote-ip=157.90.84.7
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6E756606A32E;
-	Fri, 13 Nov 2026 14:47:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46F3606A323;
+	Fri, 13 Nov 2026 14:48:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E46F3606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I1jpB+6r
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 80C701F000C4;
-	Fri, 13 Nov 2026 14:47:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794581236;
-	bh=ArsSqsLjh+Rg9eIzAD28wSJrk/9VBuSn5KkM3umAEgM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I1jpB+6rH3enPLTEU7YUk1uWR2+8NZKzvswPr6dVtgLOQm8gWlbhLI91/PacXPjdB
-	 vZo9Uzx7s2lOc1MNt6GKuE4FhEAVE+h4lsecDUFu+ofSO1K8tSeFvP5hMpGSjiyx42
-	 OhbVuaX48awKjhvyQw0x1bMvb3xoWcjIBH/QOsO7GBPmMDey5OVV1ZG7GtNMQ6dvMJ
-	 K+NLKHJduMKR3E4siRua/sMvqHqjKf1SpYIaMC4+g4IZXBb1ehdUbfjFvdMuGLDwSw
-	 rcvf93tLNvSntPh/MKRRlzgxcoGopRMcC/68qbgZKlbwaBOUTb9F1sAExW9OC/xp4Y
-	 fJxlVe1wIvE3w==
-Date: Fri, 13 Nov 2026 16:47:12 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Stefan Berger <stefanb@linux.ibm.com>
-Cc: keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dhowells@redhat.com, Florian Bauckholt <florian.bauckholt@cispa.de>
-Subject: Re: [PATCH] KEYS: Fix signature input size for KEYCTL_PKEY_VERIFY
-Message-ID: <avci8LBkAbfOUWIH@kernel.org>
-References: <20261113140311.1375048-1-stefanb@linux.ibm.com>
- <avcaQGqHKnNFNFSG@kernel.org>
- <avcadBCRBGUXDapR@kernel.org>
- <5c9ba3d6-cf55-4a8d-914d-2c85f7b7f5cf@linux.ibm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=Yn9rhCSb
+Received: from wsembach-tuxedo.fritz.box (business-024-134-105-141.24.134.pools.vodafone-ip.de [24.134.105.141])
+	(Authenticated sender: wse@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPA id EF7A72FC0197;
+	Fri, 13 Nov 2026 15:47:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1794581275;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=hzAADba+0iq0bsd1y8CVOAXzcIDIRK3t2toPd9Ehwgk=;
+	b=Yn9rhCSbS2hR/W5udv0+rjxF0z8eqkF5IOstLY6eTAovUqJ8UmcSKeQjr33gplFtiMaJBX
+	4/EwCOCNGYEvDnD75gRh4TGqAft0noM6/DTvBw8Ue5IPdgFtEAMGhNzGYxetsE9ooiOicU
+	ptUkNpGFn2bWhP/SLeUJTyAqK5qosOI=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=wse@tuxedocomputers.com smtp.mailfrom=wse@tuxedocomputers.com
+From: Werner Sembach <wse@tuxedocomputers.com>
+To: Armin Wolf <W_Armin@gmx.de>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Werner Sembach <wse@tuxedocomputers.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] platform/x86: uniwill-laptop: Remove cTGP control from unsupported devices
+Date: Fri, 13 Nov 2026 15:47:46 +0100
+Message-ID: <20261113144749.59958-1-wse@tuxedocomputers.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,64 +67,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5c9ba3d6-cf55-4a8d-914d-2c85f7b7f5cf@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 09:45:05AM -0500, Stefan Berger wrote:
-> 
-> 
-> On 11/13/26 9:11 AM, Jarkko Sakkinen wrote:
-> > On Fri, Nov 13, 2026 at 04:10:12PM +0200, Jarkko Sakkinen wrote:
-> > > On Fri, Nov 13, 2026 at 09:03:11AM -0500, Stefan Berger wrote:
-> > > > Revert the changes made for signature verification in cb481e59ea6c back
-> > > > to the old behavior where effectively the params->in2_len was set to the
-> > > > length of the user provided buffer uparams.in2_len (out_len is an alias
-> > > > for in2_len due to the union). We cannot use the max_sig_size in the
-> > > > case of signature verification since this is neither the true size of the
-> > > > input buffer nor would it pass tests of size indicators found in the ASN.1
-> > > > in the buffer comparing against the input buffer size.
-> > > > 
-> > > > Fixes: cb481e59ea6c ("KEYS: fix overflow in keyctl_pkey_params_get_2()")
-> > > > Cc: Jarkko Sakkinen <jarkko@kernel.org>
-> > > > Cc: Florian Bauckholt <florian.bauckholt@cispa.de>
-> > > > Signed-off-by: Stefan Berger <stefanb@linux.ibm.com>
-> > > > ---
-> > > >   security/keys/keyctl_pkey.c | 2 +-
-> > > >   1 file changed, 1 insertion(+), 1 deletion(-)
-> > > > 
-> > > > diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
-> > > > index 15b6bf6399b5..794fa3d01911 100644
-> > > > --- a/security/keys/keyctl_pkey.c
-> > > > +++ b/security/keys/keyctl_pkey.c
-> > > > @@ -160,7 +160,7 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
-> > > >   		    uparams.in2_len > info.max_sig_size)
-> > > >   			return -EINVAL;
-> > > > -		params->out_len = info.max_sig_size;
-> > > > +		params->in2_len = uparams.in2_len;
-> > > >   		break;
-> > > >   	default:
-> > > >   		return -EOPNOTSUPP;
-> > > > -- 
-> > > > 2.56.0
-> > > > 
-> > > 
-> > > 
-> > > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-> > 
-> > Did we have reported-by and closes tags for this?
-> 
-> Let me add this here for v2:
-> 
-> Link: https://lore.kernel.org/linux-crypto/473700a3-f5d7-4a7a-b89a-12c51adcc3df@cispa.de/T/#t
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> 
-> Once Florian added his Tested-by: to v1 should I then add this?
-> 
-> Cc: stable@vger.kernel.org
+Some devices like the InfinityBook Pro series have Dynamic Boost support,
+but the cTGP setting is actually ignored.
 
-Nah, I don't care about Sashiko tags, no need to add em.
+This commit adds the ability to still initialize DB, but hide the noop cTGP
+sysfs attribute and applies this to the respective devices.
 
-Go ahead and add Florian's tested-by.
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+---
+ drivers/platform/x86/uniwill/uniwill-acpi.c | 26 ++++++++++++++-------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
-Br, Jarkko
+diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
+index e2a6a704e942e..c0a75bc6e66db 100644
+--- a/drivers/platform/x86/uniwill/uniwill-acpi.c
++++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
+@@ -366,10 +366,12 @@
+ #define UNIWILL_FEATURE_PRIMARY_FAN		BIT(8)
+ #define UNIWILL_FEATURE_SECONDARY_FAN		BIT(9)
+ #define UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL	BIT(10)
+-#define UNIWILL_FEATURE_USB_C_POWER_PRIORITY	BIT(11)
+-#define UNIWILL_FEATURE_KEYBOARD_BACKLIGHT	BIT(12)
+-#define UNIWILL_FEATURE_AC_AUTO_BOOT		BIT(13)
+-#define UNIWILL_FEATURE_USB_POWERSHARE		BIT(14)
++/* Mutually exclusive with the cTGP control feature */
++#define UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY	BIT(11)
++#define UNIWILL_FEATURE_USB_C_POWER_PRIORITY	BIT(12)
++#define UNIWILL_FEATURE_KEYBOARD_BACKLIGHT	BIT(13)
++#define UNIWILL_FEATURE_AC_AUTO_BOOT		BIT(14)
++#define UNIWILL_FEATURE_USB_POWERSHARE		BIT(15)
+ 
+ enum usb_c_power_priority_options {
+ 	USB_C_POWER_PRIORITY_CHARGING = 0,
+@@ -1004,7 +1006,9 @@ static int uniwill_nvidia_ctgp_init(struct uniwill_data *data)
+ {
+ 	int ret;
+ 
+-	if (!uniwill_device_supports(data, UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL))
++	if (!uniwill_device_supports_any(data,
++					 UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL |
++					 UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY))
+ 		return 0;
+ 
+ 	ret = regmap_write(data->regmap, EC_ADDR_CTGP_DB_CTGP_OFFSET, 0);
+@@ -2577,7 +2581,9 @@ static int uniwill_suspend_usb_powershare(struct uniwill_data *data)
+ 
+ static int uniwill_suspend_nvidia_ctgp(struct uniwill_data *data)
+ {
+-	if (!uniwill_device_supports(data, UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL))
++	if (!uniwill_device_supports_any(data,
++					 UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL |
++					 UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY))
+ 		return 0;
+ 
+ 	return regmap_clear_bits(data->regmap, EC_ADDR_CTGP_DB_CTRL,
+@@ -2686,7 +2692,9 @@ static int uniwill_resume_usb_powershare(struct uniwill_data *data)
+ 
+ static int uniwill_resume_nvidia_ctgp(struct uniwill_data *data)
+ {
+-	if (!uniwill_device_supports(data, UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL))
++	if (!uniwill_device_supports_any(data,
++					 UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL |
++					 UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY))
+ 		return 0;
+ 
+ 	return regmap_set_bits(data->regmap, EC_ADDR_CTGP_DB_CTRL,
+@@ -2910,7 +2918,7 @@ static struct uniwill_device_descriptor phxtqxx_phxagxx_phxaqxx_phxpgxx_descript
+ 		    UNIWILL_FEATURE_GPU_TEMP |
+ 		    UNIWILL_FEATURE_PRIMARY_FAN |
+ 		    UNIWILL_FEATURE_SECONDARY_FAN |
+-		    UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL |
++		    UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY |
+ 		    UNIWILL_FEATURE_USB_C_POWER_PRIORITY |
+ 		    UNIWILL_FEATURE_KEYBOARD_BACKLIGHT,
+ 	.kbd_led_single_color = true,
+@@ -3106,7 +3114,7 @@ static int phxarxx_phxaqxx_probe(struct uniwill_data *data)
+ 
+ 	if (value & HAS_GPU)
+ 		data->features |= UNIWILL_FEATURE_GPU_TEMP |
+-				  UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL;
++				  UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY;
+ 
+ 	return 0;
+ };
+-- 
+2.43.0
+
