@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604687;
-	b=DNBjqxR6kan9tOj1bI1QXUpCVe7x24q+zHj6qqk/H/x+IyfWEzwrftAvW5NAco6zaFKA
-	 ZD/Q5ss3HCX4TUQ27HmK8rpTsb6JkSxfHxyEiMO+fQfgC5H8rs9CzrzYmkQcHQRLGmmhy
-	 FwkH9hVDGXWDS/1/qjLw3WkH40J7GqXRaEEJ1VqSCbPFvySvkDxElK92wd3hiCVvTKTzz
-	 rUDURGUCoqOfltLmj9fOuhZKfu2Zp1dUheyrhlCn9fotA7S5Hrscz6DLUQVvE9tCr+xCc
-	 Hon7v70OkihSTD4W7PfrmFYi0gI7Q/Yjf+lH+EmN0JYx7fGmab3PHL8lMXA6Pxx10xQ==
+	t=1794604690;
+	b=5enJa+kDbemNaCIgKO802puyjv9ZZvN471ZQRRWmE3j6+KRcheKtA1+L1N0ThXoWK1eT
+	 PKOCyP56BBdJCSlo5UlJ6MJYoxLUYtax5FwgQZre0X8sROUYfL+VwuzbllqkfXfcOq7HU
+	 Ffd45DV96QVwPl5WoMJRS/RalmOCJ6jto29h5Nn0aNCF4+LMbt3vMIv+J1mrpf2H35Vr3
+	 JCnuOUl/e672CWnSWBaO36dn5oXAdE1FpCU0QXsECB/6838VmkllZuhhbWaUgt04sb/VJ
+	 eWJHDtrqJCb3NwVR9kfqCt1XB79Owm57U7O67bnjCsuW57W4KhnRjkI15a1VkgjiYfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604687;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TI669XTmYP7FbcAC88TL2XD6yh6R2SK28TzCrSk5RdA=;
-	b=S0XF7g1YBV0z3bEV1xVYLD5QKLvp2KcfIGrD+cz63j3wWRbZKqWqQbAIV1ogW0JJJPfs
-	 A1iPJcrALvAuV5K9+dZZfOdGBPYTgoUyHI83bawh1nCt2fg7jpVmQfhHFvgxAE3Tjz6Dy
-	 ai6VNw5rnMTiXddi59OdXtPQO1pOJg5RedGVtGMf2D6CrIyxZZ/u8EvRXD0YBnlUG4utT
-	 NhB5iiBgKBv9g1u8eXUu1hMlI6q4Ap1KMxwH0dp/uBjxyJDh4TGbR6azFnEdJq8r/vXtc
-	 laiKHlPsrT+LtxddvrGRM62XkmjciDjm0hlgsGANLWtzqLPpf/bqnQ+hfFIx02C55BA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604690;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type:Content-Transfer-Encoding;
+	bh=9vqpt0IFr8008rX5aatdg032iJZtTAHNaLQJVOcXEVc=;
+	b=v7HIywAJVGcdgt0k1zjaqoU+ByDg+lRnHraCqlBq0IuElxpXjdUUHhrJSXr74q/wKul6
+	 wuXf6lvlbywuzBVg4hP1mSkQOEQmn1693h6P3NEawRPU7jcumEBv6WoRjwI4adtfLt5Wc
+	 KJ+SVUlKCExvbE7iq4ENZtnrbh6pwqVWpSTaEbRbzVNWKHAxeRP3qkBiEmfgscAhKfipv
+	 YfqIveLtjcTo3FIgv/Tt/lr14WLt6pE5MM4J5T+TjXFK5wBQwHZrNMzZjdQPsu7b3SVUr
+	 /d+d9Jm+mfqS3gR8QWZ7BJMYW4LF8SSVIaV53vSJ74z4U2jAGeklaOEgRw8A/sJgc0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CA5BO0L8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F52606A32E;
-	Fri, 13 Nov 2026 21:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CA5BO0L8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E0BE1F000C6;
-	Fri, 13 Nov 2026 21:18:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794604686;
-	bh=TI669XTmYP7FbcAC88TL2XD6yh6R2SK28TzCrSk5RdA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CA5BO0L8AuZJgiguVAwnoShvwd2dDWCM4Smhq2jprJ2ZQf5ZGyzU1ewh/5Tjb3q20
-	 k7IOtFLsKXE8IlRHoj4LB4HODq8+Efee2OEhZqxBuwMRE+WiCzgQLybkuj40BM9lGN
-	 s3VzfvS2uSEeJtJBTYzVyo1aO62ZeMQcdDPTLif83E70x/itvgTwF1+1xb2zRrQ3yp
-	 lFgi7F7pfcEQ2nmkmQGI3D/H1hyiBstL2qqGOHA0x81fDfKHIZoP+9m992+RV3fNNW
-	 lmuaN0sBGsx6+IhqPPixS9D+q32mVi6H7fuQNvRe1t4ECiLW0saKF17LcPvwIcUAkF
-	 N0RCQRFabjEHw==
-Date: Fri, 13 Nov 2026 21:18:00 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/madvise: zap markers from guard regions
-Message-ID: <avd8-uVPf6BSqwEQ@gremlin>
-References: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
- <f8b0f20d-90dd-496d-97e9-9a232124e3e0@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4C1606A881
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:18:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC4C1606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-5682eb98dafso2414096b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:18:09 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794604689; x=1795209489;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :date:mime-version:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9vqpt0IFr8008rX5aatdg032iJZtTAHNaLQJVOcXEVc=;
+        b=h4T1BKHrtYseT6qiKwBKnz4UvU62PzhSdBdx0fUjsBL6vMxj+PBB4pcULWGbzer2dk
+         7JKwp+zLLc06aEJIiMzVgNidbYSpsixHdi7Hp+Ni67o6c15jAHbhrrlpa1blJqfWeuho
+         XSEkuxyNbPB7VnNHJY6ZFYRJoWIFArBafI8Mqr9VazP5athojgBP+zG//+kNe03Ra5zZ
+         /HDNuyjR/NKW5lAZeFkqFjZRoEguaSpweAxPsCw3RnyE+C5SLP8T6qkgznhzQXI6hakf
+         +RBoPYUs48kkCz31OXfTixGPgr9wYCLVnTP/j291sMbdCUa8LNs6FZ17wZ0PR0imkF/R
+         AjhQ==
+X-Forwarded-Encrypted: i=1; AL+hErGmAdzxlZz9AfupaiImNkXA6SVBUJvf7j9K6MUFhkZ8JkutKxq46GTIL3msl7yB/lIZCEFm5Syv/UC1OD8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9u9uJWygilnoFJP3IQV566JdfF48Yf85+qSWjqqXG1C0XiRynx
+	y0cBF5b17YgPBFAq70SyUz0+2UJNl+JOb5sGmORHcm44fMKOs3HUOvWD5plwJZ4PnwNtSRK+DrF
+	VAJnMGGmdlNnkIlcVrfoGDu64IPx0+v1TlALP1o32SEWmO1QmWMR4wJGeId8=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,168 +58,581 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f8b0f20d-90dd-496d-97e9-9a232124e3e0@kernel.org>
+X-Received: by 2002:a05:6808:c2b5:b0:4dc:1374:99ae with SMTP id
+ 5614622812f47-56e65735230mr3158095b6e.56.1794604688881; Fri, 13 Nov 2026
+ 13:18:08 -0800 (PST)
+Date: Fri, 13 Nov 2026 13:18:08 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af77e90.ff6dfe28.557e.0029.GAE@google.com>
+Subject: [syzbot] [kernfs?] possible deadlock in ovl_copy_up_start (6)
+From: syzbot <syzbot+da1d15f707a556f6e48c@syzkaller.appspotmail.com>
+To: driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, tj@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 13, 2026 at 10:10:49PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/13/26 22:04, Lorenzo Stoakes (ARM) wrote:
-> > In order to establish guard regions, guard markers are installed in the
-> > page tables of a mapped VMA.
-> >
-> > However, problems arise when one tries to combine this with registering a
-> > VMA for userfaultfd, as such operations may themselves need to install page
-> > table markers such as uffd-wp.
-> >
-> > When the installation is attempted the guard marker prevents these markers
-> > being applied, which can lead to unexpected results (especially if the
-> > guard regions are later removed.)
-> >
-> > This is especially problematic because guard region installation causes the
-> > regions to be zapped first, meaning that the removal of userfaultfd-tracked
-> > ranges will not be logged in this case.
-> >
-> > Additionally, the uffd-wp page table marker will be propagated regardless
-> > for file-backed mappings as the zap being performed does not clear these
-> > markers.
-> >
-> > This is problematic, as it can cause repeated failure to install guard
-> > markers resulting in an infinite loop.
-> >
-> > Therefore, update guard region installation to invoke the zap with the
-> > ZAP_FLAG_DROP_MARKER flag applied.
-> >
-> > Both before and after this change, uffd remove events will not trigger on
-> > guard region installation, nor will write protect state be propagated after
-> > guard region removal.
-> >
-> > This makes sense as conceptually, guard regions mark a part of a VMA as
-> > effectively unmapped at the page table level, and removing the markers is
-> > like mapping the VMA again, over which operation uffd markers would in any
-> > case be lost.
-> >
-> > A survey of open source users indicates nobody is relying on installing
-> > guard regions in uffd-armed VMAs. Software including glibc, android,
-> > tcmalloc and CRIU were checked.
-> >
-> > This change means that any already established guard regions are removed on
-> > zap. These will be overwritten with the newly installed guard markers on
-> > success.
-> >
-> > However, if this fails for some reason (fatal signal likely the only
-> > reasonable cause), guard regions may remain removed, and concurrent faults
-> > may succeed in the interim in the range.
-> >
-> > Since the installation failing guarantees nothing about the range being
-> > installed into, and since success overwrites with guard markers, this isn't
-> > an issue.
-> >
-> > Since MADV_DONTNEED does something similar, abstract the zapping to
-> > zap_range() and call it from both places.
-> >
-> > Fixes: f807123d578d ("mm: allow guard regions in file-backed and read-only mappings")
-> > Reported-by: Tal Zussman <tz2294@columbia.edu>
-> > Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-9-00713d368976@columbia.edu/
-> > Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-10-00713d368976@columbia.edu/
-> > Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu/
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> > v2:
-> > * Updated to just zap everything as per David + Tal.
-> >
-> > v1:
-> > https://lore.kernel.org/r/20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org
-> > ---
-> >  mm/madvise.c | 28 +++++++++++++++++++---------
-> >  1 file changed, 19 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/mm/madvise.c b/mm/madvise.c
-> > index 0214efd2a014..4f7728583207 100644
-> > --- a/mm/madvise.c
-> > +++ b/mm/madvise.c
-> > @@ -850,6 +850,19 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
-> >  	return 0;
-> >  }
-> >
-> > +static void zap_range(struct madvise_behavior *madv_behavior,
-> > +		      zap_flags_t flags)
->
-> Two ... ;) But maybe it's consistent like that in the file, didn't check.
+Hello,
 
-I'm a bit exhausted, can you or Andrew just fix up whitespace like this on
-application?
+syzbot found the following issue on:
 
-It'll be easier when I have the VMA tree.
+HEAD commit:    6d582d78fad9 Add linux-next specific files for 20261112
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=3D169916fd580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3D95f6af5dfe89cd1=
+b
+dashboard link: https://syzkaller.appspot.com/bug?extid=3Dda1d15f707a556f6e=
+48c
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
 
->
-> > +{
-> > +	const struct madvise_behavior_range *range = &madv_behavior->range;
-> > +	struct zap_details details = {
-> > +		.reclaim_pt = true,
-> > +		.zap_flags = flags,
-> > +	};
-> > +
-> > +	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
-> > +			      range->start, range->end - range->start, &details);
-> > +}
-> > +
-> >  /*
-> >   * Application no longer needs these pages.  If the pages are dirty,
-> >   * it's OK to just throw them away.  The app will be more careful about
-> > @@ -872,13 +885,7 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
-> >  static long madvise_dontneed_single_vma(struct madvise_behavior *madv_behavior)
-> >
-> >  {
-> > -	struct madvise_behavior_range *range = &madv_behavior->range;
-> > -	struct zap_details details = {
-> > -		.reclaim_pt = true,
-> > -	};
-> > -
-> > -	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
-> > -			      range->start, range->end - range->start, &details);
-> > +	zap_range(madv_behavior, 0);
-> >  	return 0;
-> >  }
-> >
-> > @@ -1217,9 +1224,11 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
-> >
-> >  		/*
-> >  		 * OK some of the range have non-guard pages mapped, zap
-> > -		 * them. This leaves existing guard pages in place.
-> > +		 * them. This also drops any PTE markers in the range,
-> > +		 * including existing guard markers, which we reinstall on
-> > +		 * the next attempt.
-> >  		 */
-> > -		zap_vma_range(vma, range->start, range->end - range->start);
-> > +		zap_range(madv_behavior, ZAP_FLAG_DROP_MARKER);
-> >  	}
-> >
-> >  	/*
-> > @@ -1845,6 +1854,7 @@ static bool madvise_batch_tlb_flush(int behavior)
-> >  	case MADV_DONTNEED:
-> >  	case MADV_DONTNEED_LOCKED:
-> >  	case MADV_FREE:
-> > +	case MADV_GUARD_INSTALL:
->
-> Huh why that change? Not spelled out above.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-It's just the established way madvise interacts with TLB maintenance.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/f69f3ef14401/disk-=
+6d582d78.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/cf338d53804b/vmlinux-=
+6d582d78.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/98aa6b0c26da/bzI=
+mage-6d582d78.xz
 
-Anything that uses madv_behaviour->tlb has to return true here so
-madvise_init_tlb() and madvise_finish_tlb() do the right thing.
+AI-generated root cause summary:
+Lockdep detected a false positive circular dependency between overlayfs
+directory locking, superblock write protection, IMA integrity locking, and
+kernfs file locking. OverlayFS by design acquires an inode's i_rwsem
+(&ovl_i_mutex_dir_key) followed by ovl_inode_lock (&ovl_i_lock_key) on the =
+same
+inode during copy-up, and then takes upper filesystem freeze protection
+(sb_writers). A reverse chain was registered because do_open() holds sb_wri=
+ters
+across security_file_post_open(), kernfs open files share a single &of->mut=
+ex
+class, IMA shares &ima_iint_mutex_key[0] across all non-stacked filesystems
+(both upper-fs regular files and kernfs files), and resume_store() performs=
+ a
+full VFS path walk (lookup_bdev) under &of->mutex that re-enters OverlayFS
+directory locking. Because the intermediate lock instances belong to disjoi=
+nt
+objects on different filesystems, no actual deadlock can materialize at run=
+time.
 
-(I didn't really want to spell out something that's just a code convention
-in the commit message, esp. when I get feedback about the messages being
-too long...)
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=3Dda1d15f70=
+7a556f6e48c
 
->
-> Apart from that LGTM.
->
-> --
-> Cheers,
->
-> David
+IMPORTANT: if you fix the issue, please add the following tag to the commit=
+:
+Reported-by: syzbot+da1d15f707a556f6e48c@syzkaller.appspotmail.com
 
---
-Cheers, Lorenzo
+overlayfs: workdir is in-use as upperdir/workdir of another mount, mount wi=
+th '-o index=3Doff' to override exclusive upperdir protection.
+overlayfs: getxattr(12/file1, "trusted.overlay.origin", "", 0, 0) =3D -61
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D
+WARNING: possible circular locking dependency detected
+syzkaller #0 Tainted: G             L    =20
+------------------------------------------------------
+syz.0.4657/23299 is trying to acquire lock:
+ffff8880587977a8 (&ovl_i_lock_key[depth]){+.+.}-{4:4}, at: ovl_inode_lock_i=
+nterruptible fs/overlayfs/overlayfs.h:731 [inline]
+ffff8880587977a8 (&ovl_i_lock_key[depth]){+.+.}-{4:4}, at: ovl_copy_up_star=
+t+0x56/0x330 fs/overlayfs/util.c:744
+
+but task is already holding lock:
+ffff888058797438 (&ovl_i_mutex_dir_key[depth]#2){++++}-{4:4}, at: inode_loc=
+k include/linux/fs.h:1027 [inline]
+ffff888058797438 (&ovl_i_mutex_dir_key[depth]#2){++++}-{4:4}, at: vfs_setxa=
+ttr+0x12b/0x370 fs/xattr.c:343
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #4 (&ovl_i_mutex_dir_key[depth]#2){++++}-{4:4}:
+       down_read+0x45/0x320 kernel/locking/rwsem.c:1574
+       inode_lock_shared include/linux/fs.h:1042 [inline]
+       lookup_slow+0x46/0x80 fs/namei.c:1979
+       walk_component fs/namei.c:2325 [inline]
+       lookup_last fs/namei.c:2839 [inline]
+       path_lookupat+0x3f5/0x8c0 fs/namei.c:2864
+       filename_lookup+0x265/0x5d0 fs/namei.c:2893
+       kern_path+0x3d/0x150 fs/namei.c:3087
+       lookup_bdev+0xc8/0x2b0 block/bdev.c:1268
+       resume_store+0x181/0x500 kernel/power/hibernate.c:1292
+       kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:575 [inline]
+       vfs_write+0x612/0xba0 fs/read_write.c:667
+       ksys_write+0x150/0x270 fs/read_write.c:1016
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #3 (&of->mutex){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       kernfs_file_read_iter fs/kernfs/file.c:251 [inline]
+       kernfs_fop_read_iter+0x18b/0x6a0 fs/kernfs/file.c:291
+       __kernel_read+0x4ca/0x960 fs/read_write.c:512
+       integrity_kernel_read+0x89/0xd0 security/integrity/iint.c:28
+       ima_calc_file_hash_tfm security/integrity/ima/ima_crypto.c:222 [inli=
+ne]
+       ima_calc_file_hash+0x451/0x890 security/integrity/ima/ima_crypto.c:2=
+80
+       ima_collect_measurement+0x51b/0xa00 security/integrity/ima/ima_api.c=
+:300
+       process_measurement+0x1272/0x1c10 security/integrity/ima/ima_main.c:=
+425
+       ima_file_check+0xdc/0x130 security/integrity/ima/ima_main.c:686
+       security_file_post_open+0xb3/0x260 security/security.c:2777
+       do_open fs/namei.c:4959 [inline]
+       path_openat+0x179e/0x20e0 fs/namei.c:5122
+       do_file_open+0x23e/0x4a0 fs/namei.c:5151
+       do_sys_openat2+0x115/0x200 fs/open.c:1492
+       do_sys_open fs/open.c:1498 [inline]
+       __do_sys_openat fs/open.c:1838 [inline]
+       __se_sys_openat fs/open.c:1833 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1833
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #2 (&ima_iint_mutex_key[depth]){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       process_measurement+0x7d0/0x1c10 security/integrity/ima/ima_main.c:3=
+19
+       ima_file_check+0xdc/0x130 security/integrity/ima/ima_main.c:686
+       security_file_post_open+0xb3/0x260 security/security.c:2777
+       do_open fs/namei.c:4959 [inline]
+       path_openat+0x179e/0x20e0 fs/namei.c:5122
+       do_file_open+0x23e/0x4a0 fs/namei.c:5151
+       do_sys_openat2+0x115/0x200 fs/open.c:1492
+       do_sys_open fs/open.c:1498 [inline]
+       __do_sys_openat fs/open.c:1838 [inline]
+       __se_sys_openat fs/open.c:1833 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1833
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (sb_writers#5){.+.+}-{0:0}:
+       percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
+       percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
+       __sb_start_write include/linux/fs/super.h:19 [inline]
+       sb_start_write include/linux/fs/super.h:125 [inline]
+       ovl_start_write+0x115/0x290 fs/overlayfs/util.c:32
+       ovl_do_copy_up fs/overlayfs/copy_up.c:992 [inline]
+       ovl_copy_up_one fs/overlayfs/copy_up.c:1221 [inline]
+       ovl_copy_up_flags+0xe90/0x3890 fs/overlayfs/copy_up.c:1275
+       ovl_fileattr_set+0x204/0x580 fs/overlayfs/inode.c:669
+       vfs_fileattr_set+0xa2b/0xd10 fs/file_attr.c:306
+       ioctl_fssetxattr+0x349/0x3b0 fs/file_attr.c:372
+       do_vfs_ioctl+0x914/0x15a0 fs/ioctl.c:573
+       __do_sys_ioctl fs/ioctl.c:602 [inline]
+       __se_sys_ioctl+0x82/0x170 fs/ioctl.c:590
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&ovl_i_lock_key[depth]){+.+.}-{4:4}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       ovl_inode_lock_interruptible fs/overlayfs/overlayfs.h:731 [inline]
+       ovl_copy_up_start+0x56/0x330 fs/overlayfs/util.c:744
+       ovl_copy_up_one fs/overlayfs/copy_up.c:1214 [inline]
+       ovl_copy_up_flags+0xaf7/0x3890 fs/overlayfs/copy_up.c:1275
+       ovl_xattr_set+0x395/0x5e0 fs/overlayfs/xattrs.c:54
+       __vfs_setxattr+0x442/0x480 fs/xattr.c:223
+       __vfs_setxattr_noperm+0x12a/0x660 fs/xattr.c:257
+       vfs_setxattr+0x151/0x370 fs/xattr.c:344
+       do_setxattr fs/xattr.c:662 [inline]
+       filename_setxattr+0x296/0x630 fs/xattr.c:690
+       path_setxattrat+0x408/0x450 fs/xattr.c:734
+       __do_sys_lsetxattr fs/xattr.c:775 [inline]
+       __se_sys_lsetxattr fs/xattr.c:771 [inline]
+       __x64_sys_lsetxattr+0xbf/0xe0 fs/xattr.c:771
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &ovl_i_lock_key[depth] --> &of->mutex --> &ovl_i_mutex_dir_key[depth]#2
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&ovl_i_mutex_dir_key[depth]#2);
+                               lock(&of->mutex);
+                               lock(&ovl_i_mutex_dir_key[depth]#2);
+  lock(&ovl_i_lock_key[depth]);
+
+ *** DEADLOCK ***
+
+locks held by syz.0.4657/23299: 2, on CPU#0:
+ #0: ffff888035472478 (sb_writers#12){.+.+}-{0:0}, at: mnt_want_write+0x41/=
+0x90 fs/namespace.c:534
+ #1: ffff888058797438 (&ovl_i_mutex_dir_key[depth]#2){++++}-{4:4}, at: inod=
+e_lock include/linux/fs.h:1027 [inline]
+ #1: ffff888058797438 (&ovl_i_mutex_dir_key[depth]#2){++++}-{4:4}, at: vfs_=
+setxattr+0x12b/0x370 fs/xattr.c:343
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 23299 Comm: syz.0.4657 Tainted: G             L      syz=
+kaller #0 PREEMPT(full)=20
+Tainted: [L]=3DSOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Goo=
+gle 11/06/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+ ovl_inode_lock_interruptible fs/overlayfs/overlayfs.h:731 [inline]
+ ovl_copy_up_start+0x56/0x330 fs/overlayfs/util.c:744
+ ovl_copy_up_one fs/overlayfs/copy_up.c:1214 [inline]
+ ovl_copy_up_flags+0xaf7/0x3890 fs/overlayfs/copy_up.c:1275
+ ovl_xattr_set+0x395/0x5e0 fs/overlayfs/xattrs.c:54
+ __vfs_setxattr+0x442/0x480 fs/xattr.c:223
+ __vfs_setxattr_noperm+0x12a/0x660 fs/xattr.c:257
+ vfs_setxattr+0x151/0x370 fs/xattr.c:344
+ do_setxattr fs/xattr.c:662 [inline]
+ filename_setxattr+0x296/0x630 fs/xattr.c:690
+ path_setxattrat+0x408/0x450 fs/xattr.c:734
+ __do_sys_lsetxattr fs/xattr.c:775 [inline]
+ __se_sys_lsetxattr fs/xattr.c:771 [inline]
+ __x64_sys_lsetxattr+0xbf/0xe0 fs/xattr.c:771
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x00007f47a49a94d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 =
+48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff f=
+f 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f47a5807028 EFLAGS: 00000246 ORIG_RAX: 00000000000000bd
+RAX: ffffffffffffffda RBX: 00007f47a4c25fa0 RCX: 00007f47a49a94d9
+RDX: 0000000000000000 RSI: 0000200000000380 RDI: 0000200000000340
+RBP: 00007f47a4a3804e R08: 0000000000000002 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f47a4c26038 R14: 00007f47a4c25fa0 R15: 00007ffc5b6de328
+ </TASK>
+overlayfs: setxattr(12/file0, "trusted.overlay.impure", "y", 1, 0) =3D 0
+overlayfs: mkdir(index/#5d, 040000)
+overlayfs: ...mkdir =3D 0
+overlayfs: setxattr(index/#5d, "trusted.overlay.origin", "\0=EF=BF=BD!\0\00=
+12=EF=BF=BD,=EF=BF=BD\023dO<\202\024=EF=BF=BD(4xI+=EF=BF=BD=EF=BF=BD=EF=BF=
+=BD\202V\0\0\0\0\0\0\0", 33, 0) =3D 0
+overlayfs: rename(index/#5d, file0/file1, 0x0)
+overlayfs: setxattr(file0/file1, "trusted.upperdir", "", 0, 2) =3D -61
+kcov: kcov_task_exit: t =3D ffff888029733e80, kcov->t =3D ffff888029733e80
+ffff888029b44000 name hci5 bus 0
+hci5: Updating devcoredump state from IDLE to IDLE.
+hci5: err 0x13
+hci5 ffff888029b44000
+hci5:=20
+hci5: err 0x13
+hci5: cancelling interleave scan
+All LE pending actions cleared
+hdev hci5
+hcon ffff888037a84000 reason 22
+hcon ffff888037a84000 conn ffff888037a0a800, err 103
+hci5 hcon ffff888037a84000 chan ffff888077237700
+hci5 hcon ffff888037a84000 handle 200
+hci5: hcon ffff888037a84000
+hcon ffff888037a84000
+hci5: conn ffff888037a84000
+device: 'hci5:200': device_unregister
+kernfs runtime_status: removing
+kernfs control: removing
+kernfs runtime_suspended_time: removing
+kernfs runtime_active_time: removing
+kernfs autosuspend_delay_ms: removing
+kernfs power: removing
+kernfs device: removing
+kernfs subsystem: removing
+kernfs hci5:200: removing
+kernfs uevent: removing
+PM: Removing info for No Bus:hci5:200
+kobject: 'hci5:200' (ffff888037a84cf8): kobject_uevent_env
+kobject: 'hci5:200' (ffff888037a84cf8): fill_kobj_path: path =3D '/devices/=
+virtual/bluetooth/hci5/hci5:200'
+kernfs hci5:200: removing
+kobject: 'hci5:200' (ffff888037a84cf8): kobject_cleanup, parent 00000000000=
+00000
+kobject: 'hci5:200' (ffff888037a84cf8): calling ktype release
+kobject: 'hci5:200': free name
+hci5 orig refcnt 11
+hcon ffff88807cc40000 reason 22
+hcon ffff88807cc40000 conn ffff888037a0f000, err 103
+hci5 hcon ffff88807cc40000 chan ffff8880597fe100
+hci5 hcon ffff88807cc40000 handle 201
+hci5: hcon ffff88807cc40000
+hcon ffff88807cc40000
+hci5: conn ffff88807cc40000
+device: 'hci5:201': device_unregister
+kernfs runtime_status: removing
+kernfs control: removing
+kernfs runtime_suspended_time: removing
+kernfs runtime_active_time: removing
+kernfs autosuspend_delay_ms: removing
+kernfs power: removing
+kernfs device: removing
+kernfs subsystem: removing
+kernfs hci5:201: removing
+kernfs uevent: removing
+PM: Removing info for No Bus:hci5:201
+kobject: 'hci5:201' (ffff88807cc40cf8): kobject_uevent_env
+kobject: 'hci5:201' (ffff88807cc40cf8): fill_kobj_path: path =3D '/devices/=
+virtual/bluetooth/hci5/hci5:201'
+kernfs hci5:201: removing
+kobject: 'hci5:201' (ffff88807cc40cf8): kobject_cleanup, parent 00000000000=
+00000
+kobject: 'hci5:201' (ffff88807cc40cf8): calling ktype release
+kobject: 'hci5:201': free name
+hci5 orig refcnt 7
+hdev hci5 event 4
+hdev 0000000000000000 len 8
+hci5: Cleanup of MSFT extension
+hdev hci5 event 8
+hci5 orig refcnt 6
+channel 3 len 6
+channel 3 len 8
+hdev hci5 event 2
+hdev 0000000000000000 len 8
+kernfs runtime_status: removing
+kernfs control: removing
+kernfs runtime_suspended_time: removing
+kernfs runtime_active_time: removing
+kernfs autosuspend_delay_ms: removing
+kernfs power: removing
+kernfs device: removing
+kernfs subsystem: removing
+kernfs rfkill88: removing
+kernfs uevent: removing
+kernfs name: removing
+kernfs type: removing
+kernfs index: removing
+kernfs persistent: removing
+kernfs state: removing
+kernfs soft: removing
+kernfs hard: removing
+kernfs hard_block_reasons: removing
+PM: Removing info for No Bus:rfkill88
+kobject: 'rfkill88' (ffff88802cb86118): kobject_uevent_env
+kobject: 'rfkill88' (ffff88802cb86118): fill_kobj_path: path =3D '/devices/=
+virtual/bluetooth/hci5/rfkill88'
+kernfs rfkill88: removing
+kobject: 'rfkill88' (ffff88802cb86118): kobject_cleanup, parent 00000000000=
+00000
+kobject: 'rfkill88' (ffff88802cb86118): calling ktype release
+kobject: 'rfkill88': free name
+kernfs runtime_status: removing
+kernfs control: removing
+kernfs runtime_suspended_time: removing
+kernfs runtime_active_time: removing
+kernfs autosuspend_delay_ms: removing
+kernfs power: removing
+kernfs subsystem: removing
+kernfs hci5: removing
+kernfs uevent: removing
+kernfs reset: removing
+PM: Removing info for No Bus:hci5
+kobject: 'hci5' (ffff888029b455d8): kobject_uevent_env
+kobject: 'hci5' (ffff888029b455d8): fill_kobj_path: path =3D '/devices/virt=
+ual/bluetooth/hci5'
+kernfs hci5: removing
+hci5 orig refcnt 2
+kobject: 'hci5' (ffff888029b455d8): kobject_cleanup, parent 000000000000000=
+0
+kobject: 'hci5' (ffff888029b455d8): calling ktype release
+All LE connection parameters were removed
+hci5: Unregister MSFT extension
+kobject: 'hci5': free name
+syz_tun: bond_netdev_event received NETDEV_GOING_DOWN
+net syz_tun: siw: event 10
+In tnode_resize ffff888022f14120 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff888058988020 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff888067c91820 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff888051684520 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff88807d0908a0 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff88804393b1a0 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff88802af88420 inflate_threshold=3D50 threshold=3D25
+trie_flush found=3D1
+In tnode_resize ffff888022f14120 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff888058988020 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff888067c91820 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff888051684520 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff88807d0908a0 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff88804393b1a0 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff88802af88420 inflate_threshold=3D50 threshold=3D25
+trie_flush found=3D1
+IPv6: walker ffffc90003727140 adjusted by unlink of ffff88803831b000
+IPv6: walker ffffc90003727140 adjusted by unlink of ffff88803ba18000
+IPv6: walker ffffc90003727140 adjusted by unlink of ffff888039a5f800
+IPv6: fixing tree: plen=3D128 iter=3D0
+IPv6: W ffffc90003727140 adjusted by delnode 1, s=3D4/2
+IPv6: fixing tree: plen=3D120 iter=3D1
+IPv6: W ffffc90003727140 adjusted by delnode 2, s=3D2
+IPv6: fixing tree: plen=3D97 iter=3D2
+IPv6: walker ffffc90003727140 adjusted by unlink of ffff88803ba18400
+IPv6: fixing tree: plen=3D128 iter=3D0
+IPv6: W ffffc90003727140 adjusted by delnode 1, s=3D4/2
+IPv6: fixing tree: plen=3D120 iter=3D1
+IPv6: W ffffc90003727140 adjusted by delnode 2, s=3D2
+IPv6: fixing tree: plen=3D73 iter=3D2
+IPv6: walker ffffc90003727140 adjusted by unlink of ffff88803ba18800
+syz_tun: bond_netdev_event received NETDEV_DOWN
+net syz_tun: siw: event 2
+Deleting ac141400/24 dsfield=3D0x00 t=3Dffff88803002c6b8
+Deleting ac1414ff/32 dsfield=3D0x00 t=3Dffff88803002c6b8
+Deleting ac1414aa/32 dsfield=3D0x00 t=3Dffff88803002c6b8
+In tnode_resize ffff888051684520 inflate_threshold=3D50 threshold=3D25
+In tnode_resize ffff88802af88420 inflate_threshold=3D50 threshold=3D25
+syz_tun (unregistering): bond_netdev_event received NETDEV_UNREGISTER
+net syz_tun: siw: event 6
+syz_tun (unregistering): bond_netdev_event received NETDEV_PRE_UNINIT
+net syz_tun: siw: event 18
+kernfs rps_cpus: removing
+kernfs rps_flow_cnt: removing
+kobject: 'rx-0' (ffff888059944c50): kobject_cleanup, parent ffff888013a47b5=
+0
+kobject: 'rx-0' (ffff888059944c50): auto cleanup kobject_del
+kobject: 'rx-0' (ffff888059944c50): auto cleanup 'remove' event
+kobject: 'rx-0' (ffff888059944c50): kobject_uevent_env
+kobject: 'rx-0' (ffff888059944c50): fill_kobj_path: path =3D '/devices/virt=
+ual/net/syz_tun/queues/rx-0'
+kernfs rx-0: removing
+kobject: 'rx-0' (ffff888059944c50): calling ktype release
+kobject: 'rx-0': free name
+kernfs tx_timeout: removing
+kernfs traffic_class: removing
+kernfs xps_cpus: removing
+kernfs xps_rxqs: removing
+kernfs tx_maxrate: removing
+kobject: 'tx-0' (ffff888050658420): kobject_cleanup, parent ffff888013a47b5=
+0
+kobject: 'tx-0' (ffff888050658420): auto cleanup kobject_del
+kobject: 'tx-0' (ffff888050658420): auto cleanup 'remove' event
+kobject: 'tx-0' (ffff888050658420): kobject_uevent_env
+kobject: 'tx-0' (ffff888050658420): fill_kobj_path: path =3D '/devices/virt=
+ual/net/syz_tun/queues/tx-0'
+kernfs tx-0: removing
+kobject: 'tx-0' (ffff888050658420): calling ktype release
+kobject: 'tx-0': free name
+kernfs queues: removing
+kobject: 'queues' (ffff888013a47b50): kobject_cleanup, parent 0000000000000=
+000
+kobject: 'queues' (ffff888013a47b50): calling ktype release
+kobject: 'queues' (ffff888013a47b50): kset_release
+kobject: 'queues': free name
+kernfs runtime_status: removing
+kernfs control: removing
+kernfs runtime_suspended_time: removing
+kernfs runtime_active_time: removing
+kernfs autosuspend_delay_ms: removing
+kernfs power: removing
+kernfs subsystem: removing
+kernfs syz_tun: removing
+kernfs uevent: removing
+kernfs tun_flags: removing
+kernfs owner: removing
+kernfs group: removing
+kernfs rx_packets: removing
+kernfs tx_packets: removing
+kernfs rx_bytes: removing
+kernfs tx_bytes: removing
+kernfs rx_errors: removing
+kernfs tx_errors: removing
+kernfs rx_dropped: removing
+kernfs tx_dropped: removing
+kernfs multicast: removing
+kernfs collisions: removing
+kernfs rx_length_errors: removing
+kernfs rx_over_errors: removing
+kernfs rx_crc_errors: removing
+kernfs rx_frame_errors: removing
+kernfs rx_fifo_errors: removing
+kernfs rx_missed_errors: removing
+kernfs tx_aborted_errors: removing
+kernfs tx_carrier_errors: removing
+kernfs tx_fifo_errors: removing
+kernfs tx_heartbeat_errors: removing
+kernfs tx_window_errors: removing
+kernfs rx_compressed: removing
+kernfs tx_compressed: removing
+kernfs rx_nohandler: removing
+kernfs statistics: removing
+kernfs netdev_group: removing
+kernfs type: removing
+kernfs dev_id: removing
+kernfs dev_port: removing
+kernfs iflink: removing
+kernfs ifindex: removing
+kernfs name_assign_type: removing
+kernfs addr_assign_type: removing
+kernfs addr_len: removing
+kernfs link_mode: removing
+kernfs address: removing
+kernfs broadcast: removing
+kernfs speed: removing
+kernfs duplex: removing
+kernfs dormant: removing
+kernfs testing: removing
+kernfs operstate: removing
+kernfs carrier_changes: removing
+kernfs ifalias: removing
+kernfs carrier: removing
+kernfs mtu: removing
+kernfs flags: removing
+kernfs tx_queue_len: removing
+kernfs gro_flush_timeout: removing
+kernfs napi_defer_hard_irqs: removing
+kernfs proto_down: removing
+kernfs carrier_up_count: removing
+kernfs carrier_down_count: removing
+kernfs threaded: removing
+PM: Removing info for No Bus:syz_tun
+kobject: 'syz_tun' (ffff888037e107e0): kobject_uevent_env
+kobject: 'syz_tun' (ffff888037e107e0): fill_kobj_path: path =3D '/devices/v=
+irtual/net/syz_tun'
+kernfs syz_tun: removing
+kobject: 'syz_tun' (ffff888037e107e0): kobject_cleanup, parent 000000000000=
+0000
+kobject: 'syz_tun' (ffff888037e107e0): calling ktype release
+kobject: 'syz_tun': free name
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
