@@ -1,53 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794593948;
-	b=eJdSpmBwAwWGT60N4eLUSlSpDX24/W1dE1Zvp0wc2e2gTGhMqFsGAbsLlJXAflfWHkJU
-	 p0pAVzZilGsGHd+hZg+m+1Eiy3Cl0G+GofgAPTs8T7ixQM/FVIiS6UcKbpj4Di+soo6Ke
-	 Hu4z+sfajBukeQwBkG7M9PnOoUL3Z1NHv0V2d7Jt7aRX3DyxWlEHmP0IVbQVCtTbG3uaP
-	 RK2hFfQmUGje1Hhr3IEFTXyj+Tk979ASo3pHekHR8yGORdxssqh/juGlMoBnGwbkOb99Z
-	 0RbBwJ6Kla+wfevFNF+3d4Nld4/8jU6R0bChLIDK5P/Pd1K/0nExyFlzkOGCeLdf8Lg==
+	t=1794593980;
+	b=EutDeQD5bHu7Gm/PZWEz9GyvhISGck+SplfZoA+ZtmjJ/rRU1Ogpf/tUyTwP5G4YpDMU
+	 1kNd/uooH9TReHlEqpQAEznr+hseTMQJSO6zppWlNLjFsTGLkVIG1a3dCBUmWItpoK2hO
+	 CAGmp0e8Ue10P7IorXZlrdO/E5E3LQQ1cVGUoi7p8RDyOqwKWq6DHsze1A+D6pJrhBPNM
+	 iPxSIZiD2gVC9c4Mx0mT6ADmq0frU3ZoWC/7hSWwNUyH5FgB1uXCRde8D/OzcG4JrOF4X
+	 QNV8Q2CVlHi4B+ulfRFIruQjHZvTy5jN6JQ1ovpMmymYscggeC7vBUN6G1pMRiI2cdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794593948;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tY3hrmAgaHjp3VWbBdwPfASlyBa0YGJnlba8Eg0Cs1k=;
-	b=rAQi7fb2NycjxzrmhoM+CgKLgHY13uO93mIu36juFYWcuEcaxC21mI1Cs/jUmReq4ZAJ
-	 kiEE0JD8Q+g3v17ocQWVFTMh0optSLVkJhhDCnWyDuYbDvFtk3Y34J812LqkCh2CHJ6E/
-	 gILR+zOdeEDYVZWQkH4QhgaodxhsLfQ9iccIW4x5I8s3uC/FOaDrxXmFit/NJSULETTM7
-	 zOj/p4KObaHJLZFmUgi1bDhAHeUPUBFoulBsQFQ9J50aGwuz8jusqZZ8GMsoIuOcnMvHQ
-	 xmSCIBEnJCfKHKq57OC7NknxekKTvtuPozFEq4UtJB2uqYIFfXiYMeQOTXUfhmshVOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794593980;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CENXtX1/W/MRp/DcAqbUbrZhUcyfT59CNNpcWDlZbsw=;
+	b=ROBo76l30Bq4w8khyOY1m08MKMqEcbpQfLlhkPdEpCPbyasS5nwNmpwZTxmkbriVPLrJ
+	 9ooHt+Ji3jgzHYWcLkJcG7G08T5Oy2lSfW1oUcgfPoj/sjJQun8QsXMfe2HpPt2Mvq4JC
+	 9vTJfZ4ZbhvlVzEYQM2xjcccVMUHsk8iv60YBknwkzVQ+xDiMnQJhZZqDUrwvIMA8Ryc6
+	 uiyl5rfyUmfqfgcyF3m5d/c75ElNJPuancggYAwMlLeLbTyMV4Ec6WB9amRyjSwkG5JSD
+	 4vQtwoeACv5ic2VThyUMUUg/g9yhhIZN9PW8kMrP3yPlZxsCUOmnFF/w0KFw5UqyTvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYRPkJPQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZBWNIUpT;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A391A606A32E;
-	Fri, 13 Nov 2026 18:19:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD72606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:19:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FD72606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYRPkJPQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 063D81F000C4;
-	Fri, 13 Nov 2026 18:19:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794593948;
-	bh=tY3hrmAgaHjp3VWbBdwPfASlyBa0YGJnlba8Eg0Cs1k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eYRPkJPQkjFvhY8zmvJejgxxwbsSwaTH7o9dcrvqgqJ5oOVKOjdjgMShiszXa6s93
-	 1wEntHNdNRS9yRE39+lEB9jRJkI7uMynlGYah6lg+aB+X2jHNeAxYPreCfG10wSewp
-	 k1N/bM/MYYGQCeqTzYIjDca9zc61yP8C3XQfboCJ5DJA97mNygBAxugNOC2zKg+FLh
-	 nrXMWTZG42Ce38C0gjxQkyZnkULKsgJxruipU4ortDxiXaGnnGBcDBGNUZTCt4qGmz
-	 fcrncca+Hcx1S/5jbHhqXzSZOdfrZvdiIq5SrZ84Qlt7jmUbL02YMUvyxUq77jjvBJ
-	 61IUU7aRZ2sVw==
-Date: Fri, 13 Nov 2026 19:19:04 +0100
-From: Niklas Cassel <cassel@kernel.org>
-To: shao.mingyin@zte.com.cn
-Cc: dlemoal@kernel.org, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RESEND 0/5] ata: fix platform driver probe, removal and
- locking issues
-Message-ID: <avdUmHKYnEyju1N1@ryzen>
-References: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZBWNIUpT
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso17362265e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:19:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794593978; x=1795198778; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CENXtX1/W/MRp/DcAqbUbrZhUcyfT59CNNpcWDlZbsw=;
+        b=ZBWNIUpTzZN2uRy2q5KN3dzd4ycS0bX6OSapit7Dfuzls/o9BmSymtEAwV7D27WPTE
+         hs2DUXs+VCbAkp8mweL3beZ0hwRFeg6YdlQ3qPGHYJZysT0eKtlw8Hqab+1yn94ijLx2
+         L4jPimLmXFBPMhCSww94GpHH+C0XH4lY+Eeiajw9FWKnBPIzjFYP+yjyLxRSDfrN+lTR
+         b7mAaD4WZ5Xun2QqTd8mkpXF8/f6k2en5DCF+g2y77HKoyldTdiei7mNxJiwSdi3TLvC
+         TuohG4BTazDqiA7sQRueapEuMgTSes3gDb8c566mbYEbzV/i8BXGidgSzYRUbwJR90mn
+         xTpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794593978; x=1795198778;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CENXtX1/W/MRp/DcAqbUbrZhUcyfT59CNNpcWDlZbsw=;
+        b=w9UI0OhmtSkvpJP8kgNHLLnipaWFHOjBLAYVM4VK7z4IHrrmWP2rDeK3dNj13CC7aM
+         CXiYpQsg2WceSAKq3jx7CvfZlosan3814BqKNOzKN5Ujp4rnDBEKKo/3QWLOap9phD9u
+         63kQK7MubMuXgj154ga94FOkBUEJ4dGLIMKgBblKdIm5oZiI7I1YvVOMKE+EUqbwZ/D1
+         RrfDa9DiTQtbWmy3qULTWkJNJqeIDwXr5ld8TSfbd86gNWCtLoYTaU1eBv6UYoZ2KOOb
+         ZqR6ZLnq9md4TchQ3sWAG3vzmB0lja8ZQzWObjzSdv7tfDrEwbgQXO5L9ELL7JnzqWAk
+         O/Fw==
+X-Forwarded-Encrypted: i=1; AL+hErFNYmJCb0bhbqGPsYfMZK2YU/V+hhOlWURazQiVeo5iF6ZHziuSrfbc3vOlbH3cxb/QPnjJhEkU+mDsOCA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VIdBwamrifb/9mEe5EZSUWsuA3dzKujov65i6A93li1cay8m2
+	peI0YfjKE9MkPbpq7GvDBHAhhScBhVxljlKSgDfT6ItvIKuRwGFpSAAD
+X-Gm-Gg: AYBFou2mBnvqm0zN91mc25SyInLNYXjulb40xfQp1ftHG5E0ERyngpx1UTmdnwz2fdd
+	jXlNleGd8THWK9Mu5Ahq/NyCLSw94nUjRQ1kCuDGFYjHdfrYh9alOV7fNW4uC/ERnQwzEQVPUSF
+	yRuxZs7YvCPqiaWNwAsby+o8hoh0xSKVPbS/anM8jLAl64IxeJOfrh7AnfgOkBAKerFfuweOPUt
+	yUfDIqbDBn74Qa9CZHeKtMiPErsd/oBrrYi8jvb3rxTMaImKUaSLVpjVx51vcRX2bg82eQrM1O+
+	fqnJB2JwDenGeHPt7YIicxemScRt990GmXhRfvSj8fSJgDN1RscZ4zX30p+er+60+BF6nud0rCX
+	+jJBlLLwOOg99pUFPR8ECk9ts4cYGdPNajSNzoBsXhZ+WuPfgMNlSAiq4egvi9isO/PCKM1VP2r
+	NJz9TI2V5TLuKw+aA+mZ5F1Xgw4pO6nSWgdGLxDFNNQ/GqZwz0Fl6JOCHqyVkTbSK2917QCXDw6
+	vi4/qThIAQn6Ycrxri6z3WdKLVmzTG0/Gt02Rx91PXi5GIGJMze8WbQD/qW6vstdiBAUTwtafBM
+	untOPTOnF5BzoIKIGexNGcEgQjzEJszknqgyoZlgPY9otPfukI52+SfRktiKMinTPaiq8CjwdEs
+	DtA==
+X-Received: by 2002:a05:600c:34d0:b0:4a2:133:45e1 with SMTP id 5b1f17b1804b1-4bb55a59f41mr72807635e9.24.1794593978271;
+        Fri, 13 Nov 2026 10:19:38 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-65-71.play-internet.pl. [109.243.65.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5667a8aesm54253275e9.1.2026.11.13.10.19.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 10:19:37 -0800 (PST)
+Message-ID: <7e634bef-6d23-4a57-b3e6-b5585045ca19@gmail.com>
+Date: Fri, 13 Nov 2026 19:19:36 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,62 +93,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
-
-Hello Shao,
-
-On Sat, Nov 14, 2026 at 02:03:05AM +0800, shao.mingyin@zte.com.cn wrote:
-> The ATA platform drivers in this series have independent defects in
-> their probe, removal or locking paths.  They share the same shape:
-> state established in probe is not checked, torn down or serialized
-> consistently.
-> 
-> Patch 1 fixes recursive locking in the IXP4xx CF PIO callback, which
-> can hang the first data transfer, including IDENTIFY during probe.  Patch 2
-> returns the host activation error from the Buddha probe path instead of
-> reporting a successful bind.  Patch 3 makes the QorIQ and Seattle
-> drivers inherit ahci_platform_ops so that host teardown runs host_stop.
-> Patch 4 stops only the Gemini SATA bridges that started successfully.
-> Patch 5 serializes the controller-wide SGPIO update in the Seattle LED
-> callback.
-> 
-> Each patch touches one driver, except patch 3, which covers the QorIQ
-> and Seattle AHCI platform drivers.  The patches are independent and any
-> subset can be applied; the order lists the more severe failures first.
-> 
-> All five patches carry QEMU A/B test descriptions after the --- line.
-> 
-> This is a resend of [1].  Patches 1/5 and 3/5 lost their final
-> context line in transport, so git apply reported a corrupt patch;
-> 5/5 had the same trailing line.  The diff content is unchanged; all
-> five patches now end with the format-patch signature, which keeps the
-> blank context line in place.  Sorry for the noise.
-> 
-> [1] https://lore.kernel.org/all/20261112221230052E8YTrPU5pi8AJJy6dnh9E@zte.com.cn/
-> 
-> Shao Mingyin (5):
->   ata: pata_ixp4xx_cf: avoid recursive locking in the PIO callback
->   ata: pata_buddha: propagate host activation errors
->   ata: ahci: release QorIQ and Seattle platform resources on removal
->   ata: pata_ftide010: stop only successfully started Gemini bridges
->   ata: ahci_seattle: serialize SGPIO register updates
-> 
->  drivers/ata/ahci_qoriq.c     |  2 +-
->  drivers/ata/ahci_seattle.c   |  8 ++++----
->  drivers/ata/pata_buddha.c    |  6 ++----
->  drivers/ata/pata_ftide010.c  | 37 +++++++++++++++++++------------------
->  drivers/ata/pata_ixp4xx_cf.c |  5 +----
->  5 files changed, 27 insertions(+), 31 deletions(-)
-> 
-> ---
-> base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-
-This series looks good to me.
-
-Unless any review comment shows up, I will apply it early next week.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] RISC-V: KVM: Order IMSIC VS-file write before releasing
+ vsfile_lock
+To: Anup Patel <anup.patel@oss.qualcomm.com>
+Cc: Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261023142550.148604-1-oleksii.kurochko@gmail.com>
+ <CABBgwmuBBbyBytwRBTeAqF=0c1m+TFK8E3yPopGNQAsrMFO2vg@mail.gmail.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <CABBgwmuBBbyBytwRBTeAqF=0c1m+TFK8E3yPopGNQAsrMFO2vg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-Kind regards,
-Niklas
+
+On 11/13/26 9:00 AM, Anup Patel wrote:
+> On Fri, Oct 23, 2026 at 7:56 PM Oleksii Kurochko
+> <oleksii.kurochko@gmail.com> wrote:
+>>
+>> kvm_riscv_vcpu_aia_imsic_inject() writes the interrupt identity to the
+>> SETIPNUM register of the vCPU's IMSIC VS-file while holding vsfile_lock
+>> for reading. The lock keeps the VS-file from being switched under the
+>> injector: kvm_riscv_vcpu_aia_imsic_update() and
+>> kvm_riscv_vcpu_aia_imsic_release() take it for writing to move the vCPU
+>> to a new VS-file or to the SW-file, then read and clear the old VS-file
+>> and free its HGEI line.
+>>
+>> On RISC-V, writel() is followed only by mmiowb_set_pending(). The
+>> trailing "fence o,w" is deferred to spin_unlock() by the mmiowb()
+>> tracking, and rwlocks don't take part in that tracking:
+>> queued_read_unlock() issues just "fence rw,w" before the AMO, which
+>> doesn't order device output. So the SETIPNUM write can still be in
+>> flight after another hart has observed vsfile_lock being released. If
+>> the old VS-file is read and cleared before the write lands, the
+>> interrupt is lost. If the HGEI line has already been handed out
+>> again, the interrupt ends up in another vCPU's VS-file.
+>>
+>> Add an explicit RISCV_FENCE(o, w) after the write to the VS-file, which
+>> is what spin_unlock() would issue via mmiowb().
+>>
+>> Fixes: db8b7e97d613 ("RISC-V: KVM: Add in-kernel virtualization of AIA IMSIC")
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> ---
+>> Why RISCV_FENCE(o, w) and not mmiowb():
+>>
+>> - Since the mmiowb() rework in v5.2 (e.g. commit 60ca1e5a200c
+>>    ("mmiowb: Hook up mmiowb helpers to spinlocks and generic I/O
+>>    accessors")), mmiowb() is an implementation detail of the spinlock
+>>    code. Explicit invocations were removed from drivers by commit
+>>    fb24ea52f78e ("drivers: Remove explicit invocations of mmiowb()") and
+>>    from the documentation by commit 915530396c78 ("Documentation: Kill
+>>    all references to mmiowb()"), so adding a new direct caller would go
+>>    against that.
+>>
+>> - RISCV_FENCE(o, w) states exactly the ordering needed here (device
+>>    output before the store that releases the lock), which is fine for
+>>    arch-specific code, and it is the same instruction mmiowb() expands to
+>>    on RISC-V. wmb() ("fence ow,ow") would also work but is stronger than
+>>    required.
+>>
+>> Scope: this only orders the write before the lock release. Whether a
+>> write that is already in global memory order is guaranteed to have
+>> taken effect in the old VS-file before kvm_riscv_vcpu_aia_imsic_update()
+>> or kvm_riscv_vcpu_aia_imsic_release() reads and clears it is a separate
+>> question, see https://github.com/riscv/riscv-aia/issues/172. If it
+>> isn't, these paths will also need to drain the old VS-file, and such a
+>> drain depends on the ordering added here.
+>> ---
+>>   arch/riscv/kvm/aia_imsic.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
+>> index f17dc559a709..807bb73a129a 100644
+>> --- a/arch/riscv/kvm/aia_imsic.c
+>> +++ b/arch/riscv/kvm/aia_imsic.c
+>> @@ -1056,6 +1056,13 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vcpu *vcpu,
+>>
+>>          if (imsic->vsfile_cpu >= 0) {
+>>                  writel(iid, imsic->vsfile_va + IMSIC_MMIO_SETIPNUM_LE);
+>> +               /*
+>> +                * rwlocks don't participate in mmiowb() tracking, so order
+>> +                * the write to the VS-file before releasing vsfile_lock,
+>> +                * i.e. before the vCPU can be moved off this VS-file and
+>> +                * the VS-file read and cleared.
+>> +                */
+>> +               RISCV_FENCE(o, w);
+> 
+> Another fence after every writel() is a big hammer in the path.
+> 
+> If the intention is to have correct contents when VS-file is read then
+> better place to add a fence is at the start of imsic_vsfile_local_read().
+Thanks for the review.
+
+I don't think a fence in imsic_vsfile_local_read() helps here. The
+problem is on the writer's side, and imsic_vsfile_local_read() runs on
+a different hart.
+
+The SETIPNUM write is done by whichever hart calls
+kvm_riscv_vcpu_aia_imsic_inject(), which can be any CPU (irqfd,
+ioctl, ...). imsic_vsfile_local_read() runs on the old vsfile_cpu, via
+the IPI from imsic_vsfile_read(). A fence only orders the accesses of
+the hart that executes it, so a fence on the reading hart can't make
+another hart's MMIO store land.
+
+Without the fence, this can happen:
+
+   hart A (inject)            hart B (update/release)    hart C (old 
+vsfile_cpu)
+   read_lock()
+   writel(SETIPNUM)
+     (store still in flight)
+   read_unlock()
+                              write_lock()
+                              switch VS-file
+                              write_unlock()
+                              IPI ------------------->
+                                                        fence  <-proposed
+                                                        read+clear VSfile
+                              free HGEI
+   SETIPNUM lands: the interrupt
+   is lost, or ends up in another
+   vCPU's VS-file if the HGEI was
+   already reused
+
+Hart A's unlock can become visible before its SETIPNUM write has
+reached the IMSIC, because read_unlock() doesn't order device output.
+Nothing that hart B or hart C does afterwards can wait for that write.
+Only hart A can hold back its unlock until the write is ordered, and
+that is what the fence o,w after writel() does.
+
+With the fence:
+
+   hart A (inject)            hart B (update/release)    hart C (old 
+vsfile_cpu)
+   read_lock()
+   writel(SETIPNUM)
+   fence o,w
+   read_unlock()
+                              write_lock()
+                              switch VS-file
+                              write_unlock()
+                              IPI ------------------->
+                                                       read+clear VS-file
+                              free HGEI
+
+The SETIPNUM write is now ordered before the unlock, so it is also
+ordered before everything hart B does after taking the lock, and,
+through the IPI, before hart C reads the old VS-file. It can no longer
+arrive after the read or after the HGEI is freed.
+
+About the cost: this is the same fence that every writel() under a
+spinlock already gets. On RISC-V, writel() only sets mmiowb pending and
+spin_unlock() then issues "fence o,w". We need it explicitly here only
+because vsfile_lock is an rwlock. It runs once per injected MSI, and
+only when the vCPU has a VS-file.
+
+The only way I see to keep it out of the inject path is for
+update/release to IPI every CPU that might be injecting and run
+"fence o,w" there before the old VS-file is read. That is much heavier
+and moves the cost to vCPU migration, so I'd rather keep the fence in
+inject. Let me know if you'd still prefer the other way.
+
+One more thing, not directly connected to this patch: could you please
+also take a look at https://github.com/riscv/riscv-aia/issues/172?
+The fence makes sure that the SETIPNUM write is ordered before hart C
+reads the old VS-file, but hart C reads it through CSRs
+(vsiselect/vsireg), not through memory. As far as I can tell, the spec
+doesn't say whether a write that is already in global memory order is
+guaranteed to be visible in eip at that point. If it isn't,
+update/release will also need to drain the old VS-file before reading
+it. Such a drain would build on this fence rather than replace it, since
+it only works if the write is ordered before the unlock.
+
+~ Oleksii
