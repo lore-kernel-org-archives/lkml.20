@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577845;
-	b=ytXVpWxI8hXeZM6pHyr8jHgFNfCVyNmimuHj0KygnsghKokv1aWGgKVXFLXDlaIu1E6x
-	 7RCFlUlCHT9cMKSZ9E3E/IUSJ6tgcgC4OdOw/1m3ZhAeQXijQSrtKWVoiXGGDQ6IV8LL5
-	 2dQ/CP0ZQ2GkDlTEadZ16uweOmVYdqNcCET/iR78iyUO8XfBQg/Me6op/BIg76WXEKYGh
-	 5L+e/LT/Ke+zr6/J5M2cUrYcIDjnubbvEAK+PP6wlU1vGkvzKW9fTUYQFidVWtSdd7gZ1
-	 n8VgQcrLkixH0u33DAOLDYQTwY5GMjbRfg/QVLSJCaH4mxxbAN2qDbneo0YJeCkLDGQ==
+	t=1794577856;
+	b=mzRvWFoRWiIEWC1bf03ln7SMZ+G+TMlEZKWlk5vD0fihMnaa+bB9049btepcmSgbboK7
+	 lmEq2enNViUoUVALmWFGfyzs6oxpnO7f1TnUrZHB3VGTkfWUjUy6hYSawYBvNiJQb63SM
+	 /zduHiMVECVC/mJJ0jmwghGJ8SHa+VRqBxC2KmS3w4MYI7dflFnCnQjVydiKUSjmcMPnU
+	 eh6+tQJQPd43TyqbSpAF1H0QI4UWFOrGBWoeEiO+jFrVo0jiuf1syhC1lHvIoSDZilM3I
+	 XuGKSpbrejASqhKtw9TlIDE7IFhBblsEuKta1aJhzvvGzUVTa8OkMVJVE+WgKM6s6kA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577845;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577856;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=7KC/jzhA6RLmbmW13sveH0g3SUGHoHCdp6LEjm+AauA=;
-	b=eEBPb4voZBj3X0tL/JQ5rmfiE5pXZRrU0e+XnBrN47A5OLGT5d/BDfcyhQpwvvPQ5yLq
-	 rKKMhk0D26XgFReNZy3s5jL8XAJU24BlQl5bAPJq/7LsTfjf41sfCQuU9Yrpt8i27wbpa
-	 G3xpNutGGzirkPo8De1loWWH9TAyQFlIRzRmop33ICK96NnWOMZapf4uGKbUoRBhM9rV1
-	 w0gB2yFD88eDq3n2QIMpTCZ7WEbXZdKFCIgIj5nKYIBZ91e42KOmv/sMAjWnwcEMg7KSc
-	 i67faV0bUlR8oB3Q6+FlsjQwQ8Yzx2XqOcGAgy1GwniZ8Gqb6/jAbCPXCb6QV3kqZHg==
+	bh=5yckwOBS7WejdenQlSVU1d+F+ViL007aqlGTgu3O5JE=;
+	b=JJgAbGPokegZY9jP9c6YGHFTAVentcS7PyMU5zPQupraMixFRs75drzX6f1RSu8Ds4io
+	 UObIQ6fTv7BlJP/n/OMnfsIZfavDVupb/9ECSaDFdaneC4LhOid2RU+p4gFeTfXzJCIGx
+	 jcVa6VtDlYy/aDOImAe+UA7Oj/n20RpTJres4AHIIULcG1CTMrwHfPio6QwqqjitIB+SK
+	 1RnxdsBXF0snFDrXfAXOCAngW2tch3EF/dcDjLaTB1iO5faVT5O17cFdjpXHUVnDDNVHE
+	 mJVtljyMXixIRwvMGk4FFN+L+KFgfjKAWyfPgcAEI4SiCE1tGpxXCEgNN/kp15zp5Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LK9865A7;
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nZaxX0Qv;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A02606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:50:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85A02606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E5E606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:50:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8E5E606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LK9865A7
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b0a7cbf164so1214267a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:50:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nZaxX0Qv
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e95f8543c9so12455445ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:50:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794577844; x=1795182644; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794577855; x=1795182655; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7KC/jzhA6RLmbmW13sveH0g3SUGHoHCdp6LEjm+AauA=;
-        b=LK9865A7WHNj6wG6aHXKfytG49uKqrrIecj/DM0KFF2BEoXB6jQtAKHJV9J4U6GLPD
-         GJQKs/hQyDFPXvc2Al65XEQ8rXHPcyBAGhtT2/0Wr7u23UB1pPAVz9DIiXva0Pihxa7u
-         4VB8Yarc6Zo3/bMMPYuuwzlbEJ+qaKrpb4tOCReQOUX10chiYIO0BpobYF335pkq5V0o
-         VoWjM83ZJQx9E6trhgacw6QXaGeJbTXx5IH7gDjrX4ryiafYeGyCtU3klbVsW/4KlHsz
-         Hf1UaQUhZzzbKM9J/hstYCzEZy4wiv6qdaZAcDU0WuUCrGHoAIZOvk3bE+tsxBrBFTw9
-         kRUA==
+        bh=5yckwOBS7WejdenQlSVU1d+F+ViL007aqlGTgu3O5JE=;
+        b=nZaxX0QveTvXUZQ6FF+rYtycsnzLY0zhEJLylL199xZlKGoAmM6tgqiunZdzyyitv6
+         z0gNLWUVrUfa1bWxDMcxQND7Hz+Cuy5jt2Q5V6Bu4y91FRyFo+9LO1xeHKqF/WZqErgY
+         vRjX2igNmOyyCn01Z6XN+4ojjwj9mu5tIUG6G6l+6Kbq8gi749835gGRZ7LTpQ5wBC4O
+         6FLuG3pixe0qZ5Qka90firpYf5Z+kHSugnGzEXnZiJYa89IYqidXk71eKdxityoIkUmb
+         DOu7cNDspZ8bgucF0ulPJ83IT6wEJwCNq+6SGApCz/XN9Kp+iVExufIwAHRdvBgjSqJX
+         v0Eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794577844; x=1795182644;
+        d=1e100.net; s=20260707; t=1794577855; x=1795182655;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7KC/jzhA6RLmbmW13sveH0g3SUGHoHCdp6LEjm+AauA=;
-        b=Ws8Lt1Pvg7HUAXGVD2ULuf8rmlP6eynvWutc4OEOl5y+3O9haERAvR5qiQNqCcqaTa
-         uXO6Bsc+ZDCF6popAThdNwqDtGxCB5bgCBPb4igQPLQSLjKJ5Ne42KltXHvaZnyQUVyD
-         V9ugwEtFUFGWe2nUgCJFzRo3ZRmeKIyQ62HtiUDhxAZkt726Bfhyjxe59NpX2vay4BcS
-         UlReQ6vkmmeY3qWcy1MNwYtinGlQ6MszfZYvDWLCQXQk2uBhs6AUb790Rqa5ct93o9RJ
-         vvBeiratEs51k4FELhZOaapqjSD1knlk4dC7vcZ2yNVa2+wlby2EIIRDELPNXPiEdLdr
-         /WKg==
-X-Forwarded-Encrypted: i=1; AL+hErE6EKuV1zs1a+1J/pjyfiZsG3lMvOkoOuBnsR8tWUkipuHqO4+eVPpXfO2IYvr3aMuqviAYYLw2BaOvYB0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+ExArsbWe8P1Dm9mJMoHULYS/u1fKwW6NI1yPAQ4pB/WPEjR1
-	RUTLElUpWz4FwwA3/5c+mggKdDPCOeXzxNplmUazWjriityNfkyAjJ0sDVvdcuJdLM3eomprhtD
-	7fwMjiQ==
-X-Received: from pjbse4.prod.google.com ([2002:a17:90b:5184:b0:3ad:c8d8:70c3])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:e7c6:b0:3ac:d79f:8229
- with SMTP id 98e67ed59e1d1-3b1b0d55ce6mr2419927a91.61.1794577843489; Fri, 13
- Nov 2026 05:50:43 -0800 (PST)
-Date: Fri, 13 Nov 2026 05:47:00 -0800
-In-Reply-To: <20261030212721.2606393-1-seanjc@google.com>
+        bh=5yckwOBS7WejdenQlSVU1d+F+ViL007aqlGTgu3O5JE=;
+        b=vbGndXBleuIrIxjN+Jo8jsWx70jgWRJijKmovAhVKXcCiw3F33VvsZmUaMH8FLn+S5
+         ZSnng9biH/49+m048zkzjd0v2g5y18CgkwI5e++jIzXRasEmPTRkh5ozw3bRq+eLbv3W
+         rnfFAPeM4dc0w1r2frFk/cKqNErKhDmHfdJwRYpudAe/es/Dml6669bMLMGvIfrsGlkY
+         GQ1FAOoFuG2sXcIyXJopJJVnMBIoro/UuiRTrUWzb4M3wzQIxZ/CBtBDROvziU5WIrrV
+         qsshSuEtuwmOkO+31IWl+AHaZc8sUXUBNExSDNCmtgTqFSGAdTMwnYiREZFj3yPWniOt
+         KJfw==
+X-Forwarded-Encrypted: i=1; AL+hErE7cLE++PZIbC3TMgTKztWqCHqWjedlvjMX7Ic9SE3WPQF52dR2eRD3q6afx9gVqyoybiHFVqCBH3QaIAE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z86W4HyC/TzmePi2JhBLEyJ0WDDhe7iXnUM6tVfTH7nRQqbge7c
+	p1KXNHs20drUNHrOQ0SgAq+liIRsFxLLGL+bItyydb4z0PIStqBVDWBcKdRf7vTPxJDAp+8JjbT
+	CPsrSJQ==
+X-Received: from plki12.prod.google.com ([2002:a17:903:1a0c:b0:2ed:1d20:a33a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d591:b0:2e9:7ace:ccd9
+ with SMTP id d9443c01a7336-2ee0df8f7cemr26087855ad.52.1794577854829; Fri, 13
+ Nov 2026 05:50:54 -0800 (PST)
+Date: Fri, 13 Nov 2026 05:47:04 -0800
+In-Reply-To: <20261022022209.300964-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,45 +79,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261030212721.2606393-1-seanjc@google.com>
+References: <20261022022209.300964-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <179441820022.80329.1253216692880356989.b4-ty@b4>
-Subject: Re: [PATCH v3 0/7] KVM: x86: More EFER.LMA vs. CR4.PAE fixes
+Message-ID: <179441773300.75844.312134211621387845.b4-ty@b4>
+Subject: Re: [PATCH] KVM: x86/mmu: WARN and flush TLBs if TDP MMU replaces
+ present SPTE with MMIO SPTE
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko Bot <sashiko-bot@kernel.org>
+	Stefan Teodorescu <fane@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-On Fri, 30 Oct 2026 14:27:14 -0700, Sean Christopherson wrote:
-> Revert a change I made years ago to allow userspace to stuff EFER before
-> configuring guest CPUID, as configuring CPUID and feature MSRs before anything
-> else is now a hard requirement (though I suspect I was just a bit overzealous
-> at the time).  The biggest problem with that change, other than creating what
-> should be impossible state, is that it also bypassed this check:
-> 
-> 	if (is_paging(vcpu) &&
-> 	    (vcpu->arch.efer & EFER_LME) != (efer & EFER_LME))
-> 		return 1;
+On Wed, 21 Oct 2026 19:22:09 -0700, Sean Christopherson wrote:
+> If KVM is buggy and manages to replace a shadow-present SPTE with an MMIO
+> SPTE in the TDP MMU, WARN but emit a TLB flush to prevent a potential use-
+> after-free.  It should be impossible for KVM to resolve a GFN to a memslot
+> and then later find no memslot, but due to flaws in KVM's handling of GFNs
+> that can be generated by the guest[*], KVM can/wrap truncate GFNs when
+> walking SPTEs and resolve two different GFNs to the same SPTE.
 > 
 > [...]
 
-Applied to kvm-x86 misc, thanks!
+Applied to kvm-x86 mmu, thanks!
 
-[1/7] Revert "KVM: x86: Skip EFER vs. guest CPUID checks for host-initiated writes"
-      https://github.com/kvm-x86/linux/commit/be2456d2d8c4
-[2/7] KVM: x86: Treat EFER.LMA, not EFER.LMA, as an EFER MMU role bit
-      https://github.com/kvm-x86/linux/commit/1db15faf1f4b
-[3/7] KVM: x86: Reject clearing EFER.SVME via KVM_SYNC_X86_SREGS if L2 is active
-      https://github.com/kvm-x86/linux/commit/d164d4e9fb35
-[4/7] KVM: nSVM: Synthesize #GP instead of SHUTDOWN if L2 attempts to clear EFER.SVME
-      https://github.com/kvm-x86/linux/commit/bc45c91a154c
-[5/7] KVM: x86: Recompute EFER.LMA instead of inheriting the current value on EFER writes
-      https://github.com/kvm-x86/linux/commit/a9ec87610ccf
-[6/7] KVM: selftests: Update nSVM EFER test to expect #GP when clearing SVME in L2
-      https://github.com/kvm-x86/linux/commit/1c7d26871fac
-[7/7] KVM: selftests: Expect failure when trying to set EFER that violates vCPU model
-      https://github.com/kvm-x86/linux/commit/e0160d1e1d42
+[1/1] KVM: x86/mmu: WARN and flush TLBs if TDP MMU replaces present SPTE with MMIO SPTE
+      https://github.com/kvm-x86/linux/commit/94b5cb50abec
 
 --
 https://github.com/kvm-x86/linux/tree/next
