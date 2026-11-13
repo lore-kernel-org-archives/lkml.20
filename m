@@ -1,89 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559046;
-	b=mWbZgWbnq9RVG2F5c5KuxaU2l4WqbhkEAYdHNRrkk23Fym7c/9adqEwRZDYY7XMiDN3c
-	 5w5ZMPT23JrR3m+syhJpD+upCrWyq+TLxQm8BKuj4AN81LTgCtFNnZSdQZfqWgyqsb+nY
-	 8JMlydXJNxmPm0mUiFzy0IzCPty09zQMbyYBE9qrf8jX8zYJx62zrgucar0zz7P5kYKMz
-	 9ngDX3NtckeT6+M8TAtWcqHj4JuxAuo2QXCgDqv0MED+VSgUwJBopD1Ocd/gN+5tuJApk
-	 l+YfAkmsWTIjyErT2ck5/+yRitCmNLlZt7UtDfFw/cbvfzaQfo5apALMB1afjsshOdA==
+	t=1794559048;
+	b=TWW0OtUHFJi41cLloqnd3PaiKmmKLrfjqKrt3lzDX61q7QfirO4L3Q/SHZEZ2dZyhrQe
+	 1qVDGTPSiEEpZrkeHCAT1E7lmtBMhvbTSMWD5zdnUrSb9qhDI27O/Spy++yLLbcW9JvoP
+	 m7mRknjcPgmPK1BmT9fzely6SwVg1clMtqrHcCpPlyLJJ3eg2udBwJNHGAeZE+qE5O6CE
+	 AXZ8+jQEItZ5srLIZuhnR5ogvn6RL9+UIULBp7TXKyDQ+A0nLmFYZk3bWfuzeu+uvwtH5
+	 l2mMm0viVQZjSUky29KL5nOLXMdHIn7tzKH00G1k0jtPI+hfNfpsR/pjExCGwOo/1FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559046;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559048;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:Message-ID:In-Reply-To:References:From:Subject:To:Cc:
 	 MIME-Version:Content-Type:Content-Disposition:User-Agent;
-	bh=gEzmF9s3oRqFQx1peFT0I39gTTaUDMkIiUegklzJqx8=;
-	b=Z/dPgCYvpjVgW+4b1oRbHgRs4o5U41IKUeHErxqHAH5tvf3O+hfFlqu2iA44Ankdps0A
-	 +SQ1HLEgoznzN0ycoNmKTa7A2Iw3rwk/O5brD42QUSbqJ/2z0dLbNKDgGaQ4RpjvSGIOX
-	 dVoYkw9HK3AY+s4sfeQNdnDVx/YRsJ3fx64nEMhCf5shu/+Ax6FgqqHy1Atcvyaa9XQsg
-	 Nt6WkzuxTGd7gFJfihtugCqpWOOPYYdQT9JUaNpmnd39v12X9CrzStI34HPuSQWG0kONJ
-	 llK7VvFJYfbyql5p7iLxItoHLir3CB9/Zcz4af0rOK/XSffCj1lG7pCP0vN/V0QZZsA==
+	bh=+eCsDnbhPqUbpA9xaS6S0ip6SewmaxOg+pnShqolIyw=;
+	b=ivhZ2MgtbGsl3CVQyHrveTQ0Tl7+2RpPKGgpy/3q7ecvwRsipIYZk9rrcuIUIDM4yXWl
+	 z9VIHkYV2YtuKyBxWrzeK2vvfnoHBfFd5dy4Ag2KxiTbr+vDSawsOIVpS3mU3h/ULZqsT
+	 AL3O9PaVdmFPeH136ipjr4tYxJidq+5p4KNj0P8SbH2j0tK0891yMO5RYqoQVpLgi1C2N
+	 lZ4F73kEBqU6tSgSXm5fFXQHB5RMJ+FV80tniHCNGRcHGvZGLAQciufDJL55HzPd5Tdyl
+	 oclHrX8BxSfTXqz7rkDsIDe2tQ6P470M0rD5pa9n7Y1LYPHGrEiE7HhiE5stUn36GAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrisdown.name;
 	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=gJQ3Lj2p;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=SgCe+KSs;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED2360A380C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:37:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED2360A380C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9927560A381D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:37:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9927560A381D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=gJQ3Lj2p
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3b09a83d12aso1045199a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:37:25 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=SgCe+KSs
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9ae391a05so3618355ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:37:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794559045; x=1795163845; darn=vger.kernel.org;
+        d=chrisdown.name; s=google; t=1794559047; x=1795163847; darn=vger.kernel.org;
         h=user-agent:content-disposition:content-type:mime-version:cc:to
          :subject:from:references:in-reply-to:message-id:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=gEzmF9s3oRqFQx1peFT0I39gTTaUDMkIiUegklzJqx8=;
-        b=gJQ3Lj2pJkf6fs6vXad059bYGTkbJD9HJFhX71S0XIKPeqJoam0O+rViwVVtsZaaiS
-         qHGJnzL2VEDJe6j2JGNYg5NhIepzQ6zcxpn8mm5jaCQTQTPnfqOfewa98DOIUlIKZ0y0
-         XcM7lJe0W/ZRyFQmLWh3VyttnxS6N+34dX0vo=
+        bh=+eCsDnbhPqUbpA9xaS6S0ip6SewmaxOg+pnShqolIyw=;
+        b=SgCe+KSsRyjkOzf4OHsVlb3Hf9FWal04KpQVs268s1oTe1DFawntXydtZWS/qEKPBg
+         IDuVfMnscTgBMqG0b3Wb9hVl35YjiXJtE7qxIdgZyfRnVDtmTiT1MI6nTVvsL6JVv2II
+         aACYWV0ZTLjMgpNYMolodetslbD/vKtmC9+lM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559045; x=1795163845;
+        d=1e100.net; s=20260707; t=1794559047; x=1795163847;
         h=user-agent:content-disposition:content-type:mime-version:cc:to
          :subject:from:references:in-reply-to:message-id:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gEzmF9s3oRqFQx1peFT0I39gTTaUDMkIiUegklzJqx8=;
-        b=c6PPqzyHzva2NVvdVKXfQY5pq3qTegeO9XAjefMQZ95SpYVxHOh3qjVDNQfE0mXFep
-         vKjBn/BAEjEW0bmdKv3JjN3WozMVILTgAR+hM05uKUTo6eBeEYdC9ca9f+Cv+33d9XOE
-         KHW0zwuxMpSVKQGvmpYQBZtsQbRMDWYvTMHrx4KFW6yms5And3K6Sw97r1kFsmZJ9Gdt
-         IEz7IiqM6ZpiV5jO3iFL4y9hDkpCEWJotx9ia//jT1y+6ycNbAPPNBpxfBs1g/GPS3EH
-         ZepOfmcNwNmAtNZs+4hyZ2Efkj3fy/OfpsvBNy4pxQ2b0xFmP6e2R44jhLXUFnH6B9C+
-         IC9w==
-X-Forwarded-Encrypted: i=1; AL+hErHiQQ4qtIHiW1Axn+CM4LGIPKMZVmK6gA2gFDEsKbt1g0nM/PPdJp4ar2u1U9+CuvDToo7b4/JbNm/YBXo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z85cLQTxGmjnQ2jOz3VmZg6NrctPzv3M1R1gtL6YaoBBD/kdExQ
-	196GCrPReCjR22bJQ3w9X8uOB6gOgNIh0VLrsld9M6PwCV7U5QLKxxrZG16QsnKGoEQ=
-X-Gm-Gg: AYBFou10OB/PqnP+V+SKCLy3HyAV3XNdR3x/o6Lk9yb50p5k9b0PXPkArlZcBmhggh+
-	JYvfORtFTZkBKZlKs0Wj9XORNSuvTAR6sJ8MycSORpeC3j0NIqsN6OD1m2yz9tpZ53X10MO99eJ
-	E6ln56oSxLtfh6ojkdqdKKXTwFpqmr6thEOKj9GYOymnja9P7olLpeKcGeFI5iM1ifcU2FnbZ+3
-	Wg+69lX5FUuDTwF5D02oLnRuOaaMY8Rb9PU5NMN15yn2UsvsuBMZ9ehFQBBEMpk+wTM4AVq6Auv
-	3+z4fNjtYihnWzvSGS09QEVcvrCHPbw947AgZc9oHRDKkSvJOQGek2/xy0POnQdj/RNCFC45vLt
-	Blks39a8BVBreivbag8qhW5257cjMEv4HaSw9r6nIfab2XCfYUQXpQ5cxiZ5Z/vVMP7LhVDQiH1
-	8U/a0JLTWL+boHlqIRPU7Yzq5kfhf/pTPEue0g0DqzVow4MHsZUx8fVKv5JtbH9vjLzF9zl0j9Q
-	M7UE1V4TPN42361+KEjM1qL9OxyilTp+0UpAqs4H2O8Bn3S7zb9ftXZ0bbb57Nr6po5mm7QAS7s
-	1UBkc/2a0hcmcao/6yBSTgu1fd1dDlrTBK4tfP/2gAiCjm6IgW2rbcoKcAsGtovVAWGWtI3mYFj
-	EB/iiPSjxEblagcK6JZK7HeO1csRw7GBecrewvja7mfgPz+KmOJ4/Lm1k2h/lSVRyCPSquxmsFB
-	BybbXZGhWV9BmJVquvzy2cml+4ILpuOm+zmuFKJB0BW+f2s4SHHXsyu4KTOKY=
-X-Received: by 2002:a17:90b:4d0b:b0:3b0:b03b:699f with SMTP id 98e67ed59e1d1-3b1b089e039mr1673991a91.1.1794559044956;
-        Fri, 13 Nov 2026 00:37:24 -0800 (PST)
+        bh=+eCsDnbhPqUbpA9xaS6S0ip6SewmaxOg+pnShqolIyw=;
+        b=o9NQ1x5D63xi3vIx7uRIFfOih3U/FDc70o6Xg44Uw3iv3xrflBDxO+Ntg0IFbJpTEQ
+         3cb13B8/4ZYPvVOSLsgGAYtg6kIp5m98IkqupS5/f/hJDHGeSnbcVQ608FO+TQEVy2K/
+         F6LGHF8G0/jLe/Xvir+e1emq4zstFTLIwahJuLRlsKL9DIpDq2rWtJoMai0CEahZeCAu
+         fEGWWk3br0lVqwfbtB3vmwvOaSMxqYmcfYVc28ev3IF3z1jq3sSFd8AANvemIGNPYmDN
+         gby/0aXtT5mdIufzlvGY4crh3P9QYeP4Q6c+qvq/0BzMB9+65Fh0AtjwdTZNv56PCFVD
+         r9zw==
+X-Forwarded-Encrypted: i=1; AL+hErFyt6PEi1MSx011s/GS35sonBf52VhGEbR/g5XraI/RRC8vncNTj+fFdGdZu7EQPGV1fRdsUJWgU69JjC8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8oY2UWhBBwzi1BAhoJQk0oOGYfilT+Q+l8/nVWaShQh1NT37au
+	nlyj4ceCKtQg0ap3RyZLQirQke1nDFY5Dub/famXLWl+9pXAEB0EK+smUEv8EZvlwco=
+X-Gm-Gg: AYBFou0DB7pHnjd5Bq6nzgr5hcEhh8XMZHcDqdqH9Euo2j3wN57FHA21bUvh4OekmSb
+	ONE1QrKY21GLskujif3vYNfZOn/7GTi4hsAkx5UeIjdEY8Yi11qg7aBHi7SxYIUU1Sh+ilX/WYH
+	SnLM6O/bVpHWzVHH0T91qhovOip7ty0p5c64ZD3rf31OQPtpOlp6H54U7P3arLrOUbsgS5xLuI7
+	zHm8a0pRj2srsggW8uANENOK8Us5rN9FNHRqqo605kxAPEBKN+dyl12Vjzrz3jxQ+gCtdxx4qLU
+	CPDDpJ0rQxQNi4eM+Sg7RNAvsYSoX7XLns8X/5i8S9IJPrnjfTO+SmZ+w29d+wKnKWgtPjTUoUt
+	LLm65Bim13hyVc442r+m5rvMmAbYeMO8P/KeTd9CmUqu3nPkBhoyDQCN2n7V9YQaJy8FdmEmQf7
+	JUTwX5mGvW0i5TMFWRZ2tmeLOkhB38JbL0LilOckApRgq0Hp2pV+h+LkeGBt72EXZaFl+y7OfMz
+	/0Sv1nJZs1ec9hN5MQw7H/G2hGxpuOZ5E+x+jChYFyP2UE4ITG97kO1NBPmT8BZkAllRpvnJdBq
+	146cNBRCw5HeMgdhJuv+7vGK7rtGoeQRyNLhdzN6rJ40WmZaTC3Wr3BCTYoE5g3CzWNhLft2c+C
+	2VORse2guYut2TGbvb4FJbKNM6jvXz4gDUpOrptc0mJBMAPy+cV34Qy7Z567G90xNXN43aPOEsP
+	jX2m25DyNWm1JckExROK/QRMJmUax28RH8RMKnUGB3JFV/a3FoQBO1Bfbm/5VT
+X-Received: by 2002:a17:903:9cc:b0:2e8:3b2d:c0e1 with SMTP id d9443c01a7336-2edf224a995mr38643685ad.41.1794559047053;
+        Fri, 13 Nov 2026 00:37:27 -0800 (PST)
 Received: from [172.22.0.2] ([50.175.87.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3b708adsm1085683a91.4.2026.11.13.00.37.22
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f7e48e2sm6802375ad.36.2026.11.13.00.37.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 00:37:23 -0800 (PST)
-Date: Fri, 13 Nov 2026 00:37:21 -0800
-Message-ID: <95e5cba24df5d646f1baff74016a1a224f92aa13.1794554867.git.chris@chrisdown.name>
+        Fri, 13 Nov 2026 00:37:26 -0800 (PST)
+Date: Fri, 13 Nov 2026 00:37:24 -0800
+Message-ID: <a8bc6ee26d1cf35df5b0a13e971d3726a1a51042.1794554867.git.chris@chrisdown.name>
 In-Reply-To: <cover.1794554867.git.chris@chrisdown.name>
 References: <cover.1794554867.git.chris@chrisdown.name>
 From: Chris Down <chris@chrisdown.name>
-Subject: [PATCH v2 2/3] sched/core: Add sched_stack_end_check= boot parameter
+Subject: [PATCH v2 3/3] lkdtm/bugs: Add CORRUPT_STACK_END to test the
+ scheduler stack end check
 To: Peter Zijlstra <peterz@infradead.org>,
     Ingo Molnar <mingo@redhat.com>,
     Kees Cook <kees@kernel.org>
@@ -126,99 +127,71 @@ Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
-CONFIG_SCHED_STACK_END_CHECK makes schedule_debug() check the magic at
-the end of the outgoing task's stack and panic if it has been
-overwritten.
+There's no existing test for the stack end check in schedule(), so add
+one.
 
-Right now this can only be configured by setting the Kconfig option at
-build time. At Meta we have it on for some hosts and off for others,
-since it is helpful but adds cost on context switching. That means today
-we have to build separate kernels for each, which is less than ideal.
-
-Make this configurable at boot time with sched_stack_end_check=, and
-keep the Kconfig option as its default. In benchmarking sched pipe and
-sched messaging performance is unaffected.
-
-The other callers of task_stack_end_corrupted() are left as they are.
-They have never depended on CONFIG_SCHED_STACK_END_CHECK, and they only
-look at the magic once an oops or a might_sleep() report is already
-being printed, or when the stack tracer records a new maximum.
+CORRUPT_STACK_END overwrites the magic at the end of the current task's
+stack and then calls schedule(). That should panic when the check is
+enabled. When it isn't, the test restores the magic and uses
+pr_expected_config_param() to say whether that was expected.
 
 Signed-off-by: Chris Down <chris@chrisdown.name>
 ---
- .../admin-guide/kernel-parameters.txt         |  8 +++++
- kernel/sched/core.c                           | 33 +++++++++++++++----
- 2 files changed, 35 insertions(+), 6 deletions(-)
+ drivers/misc/lkdtm/bugs.c               | 21 +++++++++++++++++++++
+ tools/testing/selftests/lkdtm/tests.txt |  1 +
+ 2 files changed, 22 insertions(+)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 0b3c140babd9..c106f744b5a4 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -6825,6 +6825,14 @@ Kernel parameters
- 			core priority to both SMT siblings, so this option
- 			does not favor either sibling.
- 
-+	sched_stack_end_check= [KNL]
-+			Format: <bool>
-+			Check the magic value at the end of the outgoing
-+			task's stack (and its shadow call stack, if any) on
-+			every call to schedule(), and panic if it has been
-+			overwritten.
-+			Default set by CONFIG_SCHED_STACK_END_CHECK.
-+
- 	sched_verbose	[KNL,EARLY] Enables verbose scheduler debug messages.
- 
- 	schedstats=	[KNL,X86] Enable or disable scheduled statistics.
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 175b52a7ea79..9e5b3c62c697 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -6144,18 +6144,39 @@ static noinline void __schedule_bug(struct task_struct *prev)
- 	add_taint(TAINT_WARN, LOCKDEP_STILL_OK);
+diff --git a/drivers/misc/lkdtm/bugs.c b/drivers/misc/lkdtm/bugs.c
+index 2761685cf4f8..a39cde7495d3 100644
+--- a/drivers/misc/lkdtm/bugs.c
++++ b/drivers/misc/lkdtm/bugs.c
+@@ -215,6 +215,26 @@ static noinline void lkdtm_CORRUPT_STACK_STRONG(void)
+ 	__lkdtm_CORRUPT_STACK((void *)&data);
  }
  
-+static DEFINE_STATIC_KEY_MAYBE_RO(CONFIG_SCHED_STACK_END_CHECK, sched_stack_end_check);
-+
-+static int __init setup_sched_stack_end_check(char *str)
++static void lkdtm_CORRUPT_STACK_END(void)
 +{
-+	bool enable;
++	unsigned long *stack_end = end_of_stack(current);
 +
-+	if (kstrtobool(str, &enable)) {
-+		pr_warn("Unable to parse sched_stack_end_check=\n");
-+		return 1;
++	if (READ_ONCE(*stack_end) != STACK_END_MAGIC) {
++		pr_err("FAIL: stack end magic is already corrupted\n");
++		return;
 +	}
 +
-+	if (enable)
-+		static_branch_enable(&sched_stack_end_check);
-+	else
-+		static_branch_disable(&sched_stack_end_check);
++	pr_info("Corrupting stack end magic and calling schedule() ...\n");
++	WRITE_ONCE(*stack_end, ~STACK_END_MAGIC);
++	schedule_timeout_uninterruptible(1);
 +
-+	return 1;
++	/* Still alive, so let's restore the magic so nothing else trips over it. */
++	WRITE_ONCE(*stack_end, STACK_END_MAGIC);
++	pr_err("FAIL: corrupted stack end was not detected by the scheduler\n");
++	pr_expected_config_param(CONFIG_SCHED_STACK_END_CHECK,
++				 "sched_stack_end_check");
 +}
-+__setup("sched_stack_end_check=", setup_sched_stack_end_check);
 +
- /*
-  * Various schedule()-time debugging checks and statistics:
-  */
- static inline void schedule_debug(struct task_struct *prev, bool preempt)
- {
--#ifdef CONFIG_SCHED_STACK_END_CHECK
--	if (task_stack_end_corrupted(prev))
--		panic("corrupted stack end detected inside scheduler\n");
-+	if (static_branch_maybe(CONFIG_SCHED_STACK_END_CHECK,
-+				&sched_stack_end_check)) {
-+		if (task_stack_end_corrupted(prev))
-+			panic("corrupted stack end detected inside scheduler\n");
+ static pid_t stack_pid;
+ static unsigned long stack_addr;
  
--	if (task_scs_end_corrupted(prev))
--		panic("corrupted shadow stack detected inside scheduler\n");
--#endif
-+		if (task_scs_end_corrupted(prev))
-+			panic("corrupted shadow stack detected inside scheduler\n");
-+	}
- 
- #ifdef CONFIG_DEBUG_ATOMIC_SLEEP
- 	if (!preempt && READ_ONCE(prev->__state) && prev->non_block_count) {
+@@ -885,6 +905,7 @@ static struct crashtype crashtypes[] = {
+ 	CRASHTYPE(EXHAUST_STACK),
+ 	CRASHTYPE(CORRUPT_STACK),
+ 	CRASHTYPE(CORRUPT_STACK_STRONG),
++	CRASHTYPE(CORRUPT_STACK_END),
+ 	CRASHTYPE(REPORT_STACK),
+ 	CRASHTYPE(REPORT_STACK_CANARY),
+ 	CRASHTYPE(UNALIGNED_LOAD_STORE_WRITE),
+diff --git a/tools/testing/selftests/lkdtm/tests.txt b/tools/testing/selftests/lkdtm/tests.txt
+index bec57a02913a..2d856ed77a64 100644
+--- a/tools/testing/selftests/lkdtm/tests.txt
++++ b/tools/testing/selftests/lkdtm/tests.txt
+@@ -10,6 +10,7 @@ EXCEPTION
+ #EXHAUST_STACK Corrupts memory on failure
+ #CORRUPT_STACK Crashes entire system on success
+ #CORRUPT_STACK_STRONG Crashes entire system on success
++#CORRUPT_STACK_END Crashes entire system on success
+ ARRAY_BOUNDS call trace:|UBSAN: array-index-out-of-bounds
+ FAM_BOUNDS call trace:|UBSAN: array-index-out-of-bounds
+ PTR_BOUNDS call trace:|UBSAN: array-index-out-of-bounds
 -- 
 2.56.1
 
