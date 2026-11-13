@@ -1,91 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794588371;
-	b=Z47Y9VNfKOJkdmd/xNp+cNuGoMB2D2Ueh7g69OoRxTqHSSZJcHe+qa0Ipbpb0x8LyyA7
-	 i6vkS03aV0LyjzVaxQeyDmWqodDXgNsMPvW15euGJfyFbs6XUJKcf8Y7ownBYZSIIO4Mu
-	 /LwTR4TnvW2qtjzNPLjqhFJIBsXzv08yB80uhVyu4Xkf9c0XHDoDf68/v3+oKGqfH+6yk
-	 l9uE6PxR1qGYTeDNE1itsgdeQFuo3yrh3i+1MHqreWMT0rmnsPJId1CGt9OU3RJ44FTkI
-	 8egXAPPuIIlmJCI9wNgbsXZ26pVMqnLwoYqJZ6GRieAddbD7Y5hfjJQD+z8DuianL5w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588371;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7adDJu+xJ9rJRwV/7K7rSG0s5vC11B4S7V3+Mb90FEk=;
-	b=rq2dItAZh/tTrI8xMabOZhWUoiOduQy3ckNuzhXlD7Y647P9pIYVYh7TvPDETcJWby0o
-	 9vWGJ9Q+LHaIO7ccsy3qwIqTRlxg6g/Iiz11pzqXYuErol3gHUQxRt2mT2cs35+QvDG9V
-	 /wlijw5weIUkKrHVyWCJT593NFYkqrgMDlJl/jG7cUH132O7S6aF9L1XVbpb152qcQjZe
-	 j/WIzRSg7YouMak1CcURqHGrppnQgIS9FjUqZZqoZkW4KhlBGilNsFjk2ShqKl/oyEeKH
-	 uXakYmlq5/HhvzqtBaU8uwqPIbHDVuKWg6pZqwyzrjcEX9qGTwYSau22+t7/oLBrD6A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="S/8/O/LJ";
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794588381;
+	b=337YU5YQC8IJxtarzSg28oz79SPMtxz9vfjTx9gHEufTRHpwhUnVBrkeQh4FZSdCJTEM
+	 j/Cl0uY8662Cwl168XtZAfN+eHG62SoFfDD42kA0xos1XZtATf6JNSi/wUQfr855owA1s
+	 QKVixgjBazeFBADX17fYtHxeySiwkdka2sACGoFzOr+rqYMEyhpq4Sa07ejkncWwi05/l
+	 4r04nzqqjUJhyDO6kxDokyBv1KwswuFMX4V48YRRRlCEs7E+zxBoC0Ym6H4LmSPA0838R
+	 AfW536iFND6i9WYoHfa5ARl113S4S+SXzKEj5GANFFFNneQk+/geDmvf1dWuID1Ty8Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588381;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Reason;
+	bh=Y9DULNjmW5mCgTcyYQoCbLRJfZbQUvCEGwkw6HD6e80=;
+	b=XQONOz5CnjNe7F5saIDJxxKYsw3bM1Jc3DKtJI4c28pLdj3O8se18v95xsO1zxGUb1P7
+	 erVGTVdB2rSyJCKlY/4rAjOYeO19egIeZhKL4HcWmJM4AYMTIfSDd9oafcWjIa+EV7Dtl
+	 BPsSx3c3tN5GRAImyi2stdSjI+JeAWg5a4pIvIO5PCP1r2JkILclDbaKDFgHbaWHc/0Sz
+	 kLTr3lP2bNYaxWokg3IeZT9KMf+cEkAo8hAHgjElH7K+1eNEGY1F7JZq4nSZgdqoPi2d3
+	 ulTWshXhZqBdMG6tt9cWcISacRRY6rq/d+FfTl4yla4kkdAVfOATLppl8a4aSl2t6kQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=opensource.cirrus.com;
+	spf=pass smtp.mailfrom=opensource.cirrus.com;
+	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=jBD479vK;
+	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=gC7cMG2F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70464606E233
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:46:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70464606E233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F27606EBE0;
+	Fri, 13 Nov 2026 16:46:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42F27606EBE0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S/8/O/LJ
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9ae391a05so7271005ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:46:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=jBD479vK;
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=gC7cMG2F
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFsn0J589497;
+	Fri, 13 Nov 2026 10:46:14 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=Y9DULNjmW5mCgTcyYQ
+	oCbLRJfZbQUvCEGwkw6HD6e80=; b=jBD479vKVDcCusWDTTswUMPtuTvXf2jfi/
+	I77I/qfbGynstgU0hBSs25patG3uIgjoygEeya1pj9dax+rTcYLWfQ/+B/NTgyS0
+	So2FnrP7DJFT43suBWtg9KtKN5fR5aFwrlXk8dAI5XyrhvM+UPyTQM0c41kEtbsi
+	X7QD7pg+lF/WcVOgehg792kTWZnwUAG+c0ZIpV3M9uUe1pbrilt95PNZv78ioqDh
+	ngaBO0VsoWfO1kzYZSkmU04gRDI3K5Ry7F8nP86qZf/oquPMnbqODXpMthg/W82G
+	FBGcyK2B2dpH660WIo1pSfREHp0z/F16Kh0hWjxrxXbgQGbNlXLw==
+Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11020131.outbound.protection.outlook.com [52.101.85.131])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hwcfpj5nc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 13 Nov 2026 10:45:02 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v1eRA1uJ0OYY/HmCY6o/s9HZm9DrynXhvelANyZKiYVXHU35qMAoduecRQ0Gy4zOkgETg5zQJ/R8VIOAvELso/b6ARm0MzMtlDeHxzLU1T4fzDkrM9P2rThVrH98mcQEtlOp4o2K3TAOv+OBY3/BJaWdZKLzqabo33Rnxs1vJ44XHztt5z09Et9GydmigtKZNQRJHZZUj7N+CWLzGX8s63JeGMWakmMPW05SnpRsvBYloNxnq8L/xXB5JNoiCauMR46CloCtQYe6j2Ovn/0JS54OgYpYI3gLiUy65ONw3dYM0/ODXSl9L/186i7B52Orq2nO3J9t51OjpzI1VggFqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y9DULNjmW5mCgTcyYQoCbLRJfZbQUvCEGwkw6HD6e80=;
+ b=NMlB3oPT5SPJkH3EWNy5E5cf5es+HXPy1edy8Qky9AZvGfSD6aI0bFQG0QtN3gAdfLk7FEEN03smTIUvEPPwBGOyTDxRpuBLGaLPXqunwsmIGDCDh5pIgAog3T51FytIvHb0RxCWMvDBwYH1QesKNS74lEfo0xVYAE8kHqaOb8n9SMJWPRN19iTpNR54R+QWYN86FVT/eH3MjKDKqPFF8D3kX1iD78nDih95naxIw3/rmwhXaTHyKvBcnfmbwvgGJWdN4ir16s/BvvoX9pRUnJXNy+kX70ZRbCagY4KSm7Sh1AR7niii+w89Nh7oBzZONWDC45aA9PHrU+FoNBQFoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=kernel.org
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794588371; x=1795193171; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7adDJu+xJ9rJRwV/7K7rSG0s5vC11B4S7V3+Mb90FEk=;
-        b=S/8/O/LJKEzeClFPb6i2ohZGtTKtLDzfJindxVJE8tQvas8wsiyFQxM9e/ialrRJZb
-         zlDySdTOa5SKcaD8Oa2hFb0MZRAg6o7ui9hEP4z6d/mS8a44w4BZguSqE2Oa1c9Q/TNa
-         uTctn5HeYoIb4RurMLijI0QmDxPq3TCp2kBeoSWd/a8N6yTFVdksODLOw/nEuRkJmzeb
-         nuB9iwsEzjuc6BnZVGB3wrj52WD0YoF98pA9YJ6k6tOhsr0jDr3ZiJ+rydOYf5FypLQ2
-         srLzi02ftCc9O/nu13CpOeyRJMX6I6kSXQAtuUP/CiAh+e0NCmC2C6YjFrGTGdXZejol
-         +T7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794588371; x=1795193171;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7adDJu+xJ9rJRwV/7K7rSG0s5vC11B4S7V3+Mb90FEk=;
-        b=OSiZLUugYHTjMabmxzGh8J9AAbk0nVJG2cRZ4HnAvHmpGB6HE4ZULSUUMATytudKkQ
-         QdbaHGcczDCAYvkJXgiYw+SBx9j9xwsKPB5+T1ykT0nrSw23YAG2N+El97+lOc4E6IS4
-         ND1ieIWMrRVqzcx4S+G6w5EZQNtmZFVm2dS2iA6nFWg7ig59tPWMVI0p5SP0wGsRltoC
-         qxt8hwBJZbxZezZ5wbjKXX+1gzWXb7YG/vvjZnn5KONItLmGEi6rcUiIWKYA7cgEGIqp
-         XJUoeb5fT5kYm0QC8oiO5kCEdhcbRSzXs9JktZEwOEGu0EyRuXcmy9yrnQQ+J1EOgorn
-         F2mQ==
-X-Forwarded-Encrypted: i=1; AL+hErEh3bV8jQun/5a+SZgX85D1F21UMuVuPCfg6QfohGPH9BrhqssOPK3ztePATkxM/yII1vLS0gg2tIYhH4Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/zzZXRCpcT4LhT+gE7NBX5wc4QjxcQcL6wUdt//LSqnshMeHkv
-	7SwINWEcHB1SRFbQWGZTUf5eft6NHo503cp67yIeKKWpmgcWo70iqXdA
-X-Gm-Gg: AYBFou1/ukpqADWNLDKIXe9mh/Zk7MANLKIIcoU4jhMGXnL3DQiDooCaEYKNeAYu9A7
-	I4UX7KdgMSAT3QXaXieExyirxNEnewNGr/wc6KqljM3wusE7CpGcvl+6+XleBIlKH5Ff2EPtg6q
-	H++i03z2T2Z4iyMKhE+ieT28NwFceZbL3i4Z+u/xnHDp57p2uWKnX4v/TTNpERxzpDT3aE/rtav
-	e3JiAW18kDHpX79Vz68zy8oSXfasOIt887mXLbnwwxTJ5Y2mLZrcjGjK8F+ZbwI5SRVyzQlkxmn
-	Yhq4nWcoI3OGctlioGo43UTJYw7+58xwo6qyBsnDv57hDwijaB4+MnAYHGYdEnKpAUnkYwN69vF
-	IkgJq/p1JfFBc7GXDAupbApqklqRLG7I1B+u5xdOz+B2jQYtt/k+qJIPQTZcOMHKc1zGUSS2RG7
-	k8YRhg5PaM8ZUa/K2Bf5JVHqiK9em/b7JRbNX3ff3A0B+TfifIurmpVGR54vtc8FQdnvjDDmzoZ
-	N3uz7R0OHw09OnjwtuYCJ9BHX48DF/UOjtnODrJHBw/ehX/+JARewyDrRJUY1GxobUoJrSEhDh4
-	fz3nPIQkieYYVvDIQ4O3nCn3l5NL/x4f8eP0Qj7puRt9NF2y4A==
-X-Received: by 2002:a17:903:22c3:b0:2ea:f85d:a076 with SMTP id d9443c01a7336-2edf21c0a32mr46602165ad.35.1794588370521;
-        Fri, 13 Nov 2026 08:46:10 -0800 (PST)
-Received: from localhost.localdomain ([112.170.44.210])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f868231sm12908475ad.50.2026.11.13.08.46.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 08:46:08 -0800 (PST)
-From: Junyoung Jang <graypanda.inzag@gmail.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: Junyoung Jang <graypanda.inzag@gmail.com>,
-	ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] fs/ntfs3: validate dlen before copying filename dup in do_action()
-Date: Sat, 14 Nov 2026 01:46:04 +0900
-Message-ID: <20261113164605.782979-1-graypanda.inzag@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y9DULNjmW5mCgTcyYQoCbLRJfZbQUvCEGwkw6HD6e80=;
+ b=gC7cMG2Fuf9GPLS8MIV/UQuvJXKwCOEN4wCkizqYATL/InWpPR45jH0HxcNgr1uJ2FkWZ4OG1QVFZJEkPyQU4/1/y/lr4Eqg6T4EA/uAcqeCDXgfJrK/LW19Mu1jPI1LrV9jMED6lgIaKJFhIpd1gv8OGe4K1rCIY2z5HP7Ve7Y=
+Received: from DM6PR07CA0130.namprd07.prod.outlook.com (2603:10b6:5:330::22)
+ by SA3PR19MB9503.namprd19.prod.outlook.com (2603:10b6:806:49b::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Fri, 13 Nov
+ 2026 16:42:57 +0000
+Received: from CY8PEPF00000050.namprd05.prod.outlook.com
+ (2603:10b6:5:330:cafe::2c) by DM6PR07CA0130.outlook.office365.com
+ (2603:10b6:5:330::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Fri, 13
+ Nov 2026 16:42:57 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ CY8PEPF00000050.mail.protection.outlook.com (10.167.247.53) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Fri, 13 Nov 2026 16:42:56 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 9D11A406555;
+	Fri, 13 Nov 2026 16:42:54 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 88C50820273;
+	Fri, 13 Nov 2026 16:42:54 +0000 (UTC)
+Date: Fri, 13 Nov 2026 16:42:48 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 01/10] soundwire: bus: Hold bus_lock when looking up
+ slave devices
+Message-ID: <avc+COuQMX74xTHD@opensource.cirrus.com>
+References: <20261103095445.81414-1-lee@kernel.org>
+ <20261103095445.81414-2-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,115 +132,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103095445.81414-2-lee@kernel.org>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PEPF00000050:EE_|SA3PR19MB9503:EE_
+X-MS-Office365-Filtering-Correlation-Id: ebd1d48d-13e0-4deb-8cae-08df41a52b7c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|61400799027|82310400026|10067099003|11063799006|4143699003|261021123027099003|261021121427099003|261102123227099003|261026121527099003|56012099006|261009223027099003|22082099003|18002099003|16102099003;
+X-Microsoft-Antispam-Message-Info:
+	qSDyZwIEHmOJ6wMxXJnWSeN21Rtmh59I731oetDqtIt6VRlZQ/vPiu3+KPhW/FeVmmbms/+9OUlmSzoCsIUYUcZKVNm2lQyZwgfm/IA4m31ZNc5IJlNednUHiZzIvuvi3YNCc6Al6+6su2YvsabcoYEd8nd+IIASqCqpl1hyfIqXIF2wefD+ASmZqY7GrXfO9pFcIrn97FPb/E1vTaOtYr+e9pn/2yILYrjIsr78X4yl1UybRvNp7B7+IsON9PbBrvMfcmAOeqRWcSAiWXGuAdyUAtLlF95gOcOzXaLyzOFiBNCf+sYrC+9rfwBjsoo22xEuqNeMXOqlyaSsf8/dbW/XhcsqvpAsijV5QUhz4PqJuV2NHdLf4EQx6I6RGnlDRqUShqG1/3ukaxWQaP+GnM2pyj86YELKedobj8is9uTxZV6ZnX0t6a96c2VbLRhObxTn4vlaYcltr3c14X1RH75TigIrbFLe0XImuR/GvhuZg2v1qmpI9FZnZa75tka14JqD5Man7J2PVTUHWkI2+ZLKoMcICQ3mq8cxyURdhc7TRtk+fvQDPaexe3XGO9o7DH5LwKeJ2UL+IckydeZ0gTOV8+ejZOM5JXmt9dYVBPESeqZiyZltoL9mu53burhtw791nSPb4ub3j7fRZBnWsQ==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(61400799027)(82310400026)(10067099003)(11063799006)(4143699003)(261021123027099003)(261021121427099003)(261102123227099003)(261026121527099003)(56012099006)(261009223027099003)(22082099003)(18002099003)(16102099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	j/YUufuesqOkn8ozbclGG93PoDqp/4TOLPUi7YQ7cL/ZdWODO3n3e4kX+avku90TVDFXFFwmi3n591QqrNmV/1ZYhQA/uukBNZM7VdccObL0ITAwAddwtY5IQfqQAGdYE3cRg8FSfZqZLJbMVBEnSJaofPovCBcNgLyzAaedSy80WXKeS30K9eZbzhaBJGfX9jrJyirjtZ6eZ2r5tLyNJRehi53tyzhUribA/bwGL9iej+u6QdQjtk7935rhPWTksJxXGWEIfasb0WoVqEMdSFOiB3hqsa99h0E+F9Sf0Hl/Xkrpu3fke+ep5SCXGyIoYENzT/tJCCQJ6LXXiBK3aH6nBDuf981Xau1RSM1YNu7YwtVwBNN0rCG6zMI8Zkgg1yNitXiFayTRCm68sfgpLL+DxE5wwYo5b8rWg4XZoSVS803c+fEmmU3DPcP/ISFA
+X-Exchange-RoutingPolicyChecked:
+	U9YwT8HrjLR9R6z5lFX5jljtuctC/pGMoIjwipl1g1pw2zCUQTGJnkrbSM+v2Vl+WPGTUE/jKUATtwr2O5V/1vwrhc1YGKz9AFvRpCREcByYARUuMvWeSFwB0yQV+O9O7JqyUdv+U1yqwgPSOocjl7tWIx8MljLr7oVIoEsadCoqTjepYHyT18Tnj44De1ZajHKKw7akxeEc4uK/QCekioxBThNZ3eIhFnBg3BhZ+PI35sm1HyBJNJDPRxprjrK4fuReNaEJcX+1JG8I28r8OHgcDrN5eh48O/etE1F+SQqbdZewBDEPYdz4eDxHnFjEAPsFviSpiyIvxuECgVjlsA==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 16:42:56.1999
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebd1d48d-13e0-4deb-8cae-08df41a52b7c
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CY8PEPF00000050.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR19MB9503
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA2NiBTYWx0ZWRfX3SuwEaW9ER7q
+ z4NA4jv+QBMZP6HEhlkFnbOoomQpaTBVAFcYYUAYj9JebgTimzNgrD/EiOL6wztCAC9vbeXPGAe
+ vtG2czC2VKnJlym/9IvBUTp6qVYTv7EfhIw+jsmQp7VrVJGy5nKjYwthzC00H2hwdhXNvDvOFHM
+ vO4rdPW3mgwSBHVdi5KzxpAV0S0RX8KarILCX0yi8WN/B4OwuvZC/z37bt3Ao8v2NsL6LGJd1ug
+ ZM1EOEjQBq91OKzA9tYqJ3tboGWC+b49rC1pRYP+F68vybE+yKzAHyf4CmScGM6/DPksjJwOz9h
+ X8ejp2H5C7qbHXXxhK6LiZQlOew+MWnwTNvpMY8VRe46Gd/rMxtdJzTHzxagsr0Wj5EPeh7Lm0z
+ k8SX7TXyBzpDC7uSaga19Xjjd0x9ODaw2NK3VbnN+XQW0f8gtjUmzDCXXo87SXJTHOlDDv7LHBc
+ 9x8aDa5+zUEaf+lYgZA==
+X-Proofpoint-GUID: H4IpcAJ7-sRFcOC-k1yf2upZPRoh5eRU
+X-Proofpoint-ORIG-GUID: H4IpcAJ7-sRFcOC-k1yf2upZPRoh5eRU
+X-Authority-Analysis: v=2.4 cv=Woi+otfv c=1 sm=1 tr=0 ts=6af73e8e cx=c_pps
+ a=/Z3c8qHbY2P/IDgIPrWVhw==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=w1d2syhTAAAA:8 a=_Mand1OKYCNjoHo-9yUA:9
+ a=CjuIK1q_8ugA:10 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA2NiBTYWx0ZWRfX1I+f4EoQtWDC
+ W4Ikw8TtqtMZ8LYy7a2DYCNpp4K8gobsGd90cqXq6/BvZdm5CieckZBG/ObWB6co4jtv2hfyEVn
+ K2QRl/1aKoew7Ok3M9fQV983iNO0XuM=
+X-Proofpoint-Spam-Reason: safe
 
-In log_replay(), data and dlen are derived from the on-disk redo_off/len
-and undo_off/len fields. When handling UpdateFileNameRoot and
-UpdateFileNameAllocation in do_action(), the code unconditionally copies
-sizeof(fname->dup) (56 bytes) from data:
+On Tue, Nov 03, 2026 at 09:53:45AM +0000, Lee Jones wrote:
+> sdw_get_slave() iterates over bus->slaves and requires bus->bus_lock to
+> be held by the caller.  However, sdw_handle_slave_status() and
+> sdw_clear_slave_status() drop bus->bus_lock immediately before calling
+> sdw_get_slave().  If a concurrent slave teardown unlinks the node via
+> list_del_init() and frees the slave while bus->bus_lock is dropped,
+> sdw_get_slave() can spin forever on the self-referential list entry or
+> dereference freed memory.
+> 
+> Keep bus->bus_lock held across the sdw_get_slave() lookup in
+> sdw_handle_slave_status() and sdw_clear_slave_status().
+> 
+> Closes: https://sashiko.dev/#/bug/linux-b0e65a93-dfd4-4e3d-a96c-8f13ba0aafd2
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
 
-    memmove(&fname->dup, data, sizeof(fname->dup));
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Tested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Neither handler checks that dlen is at least sizeof(fname->dup), and the
-generic log record validation does not enforce this operation-specific
-minimum.
-
-A crafted journal record with client_data_len=0x98, redo_off=0x90,
-redo_len=1, and the multi-page flag set passes the record range check
-(0x90 + 1 <= 0x98), allocates a 152-byte buffer in find_log_rec(), and
-triggers a 48-byte KASAN slab-out-of-bounds read past the end of that
-buffer during a read-write mount:
-
-  BUG: KASAN: slab-out-of-bounds in do_action.isra.0+0x353f/0x83c0
-  Read of size 56 at addr ffff888007d9bc90 by task busybox/67
-  Call Trace:
-   <TASK>
-   __asan_memmove+0x23/0x60
-   do_action.isra.0+0x353f/0x83c0
-   find_log_rec+0x277/0x500
-   ...
-  The buggy address belongs to the object at ffff888007d9bc00
-   allocated 152-byte region [ffff888007d9bc00, ffff888007d9bc98)
-
-Validate that dlen is at least sizeof(fname->dup) before copying in both
-UpdateFileNameRoot and UpdateFileNameAllocation, jumping to dirty_vol on
-a short payload.
-
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-Cc: stable@vger.kernel.org
-Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
----
-Notes / Reproducer:
-
-- Tested on Linux 7.4.0-rc2 (067c5c24cef2) x86-64 in QEMU/KVM with
-  CONFIG_NTFS3_FS=y, CONFIG_KASAN=y, CONFIG_KASAN_INLINE=y, and
-  CONFIG_FORTIFY_SOURCE=n (patched kernel mounts cleanly with 0 KASAN
-  splats).
-- Note that previously posted patches bounding the destination index
-  entry or checking off + len <= client_data_len do not catch this case,
-  because the destination entry is valid and 0x90 + 1 <= 0x98 holds.
-- Disclosure: Assisted by a custom LLM-based tool; all results,
-  including the root-cause analysis, reproducer, and patch, were
-  manually reviewed and verified by a human.
-
-To reproduce:
-1. Fetch windows-interrupted-1.img.gz from:
-   https://raw.githubusercontent.com/antimatter-studios/rust-fs-ntfs/main/test-disks/windows-interrupted-1.img.gz
-2. Patch 3 bytes using poc.py below (`python3 poc.py windows-interrupted-1.img.gz short-source.img`)
-   and mount read-write (`mount -t ntfs3 -o force short-source.img /mnt`).
-
-Reproducer script (poc.py):
-
-  #!/usr/bin/env python3
-  # SPDX-License-Identifier: GPL-2.0-only
-  import argparse, gzip, hashlib
-  from pathlib import Path
-
-  BASE_SHA256 = "c45659e95104eca5f793c3f21061f42705a01783e62d1c7a46c63e4089db0b9a"
-  TRIGGER_SHA256 = "0e176bdd374e73dc3f40163320d6d69bfe36fe664735a50001a3bcbcad2ec2e4"
-  CHANGES = (
-      (0x292F878, 0x00, 0x01),  # LFS_RECORD_HDR.flags: separate allocation
-      (0x292F884, 0x28, 0x90),  # LOG_REC_HDR.redo_off low byte
-      (0x292F886, 0x38, 0x01),  # LOG_REC_HDR.redo_len low byte
-  )
-
-  parser = argparse.ArgumentParser()
-  parser.add_argument("fixture_gz", type=Path)
-  parser.add_argument("output_img", type=Path)
-  args = parser.parse_args()
-
-  image = bytearray(gzip.decompress(args.fixture_gz.read_bytes()))
-  assert hashlib.sha256(image).hexdigest() == BASE_SHA256
-  for offset, old, new in CHANGES:
-      assert image[offset] == old
-      image[offset] = new
-  assert hashlib.sha256(image).hexdigest() == TRIGGER_SHA256
-  args.output_img.write_bytes(image)
-
- fs/ntfs3/fslog.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-index bb8d40bb5869..29840814c82e 100644
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -3568,6 +3568,8 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 
- 		e = Add2Ptr(attr, le16_to_cpu(lrh->attr_off));
- 		fname = (struct ATTR_FILE_NAME *)(e + 1);
-+		if (dlen < sizeof(fname->dup))
-+			goto dirty_vol;
- 		memmove(&fname->dup, data, sizeof(fname->dup)); //
- 		mi->dirty = true;
- 		break;
-@@ -3753,6 +3755,8 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		}
- 
- 		fname = (struct ATTR_FILE_NAME *)(e + 1);
-+		if (dlen < sizeof(fname->dup))
-+			goto dirty_vol;
- 		memmove(&fname->dup, data, sizeof(fname->dup));
- 
- 		a_dirty = true;
--- 
-2.43.0
+Thanks,
+Charles
