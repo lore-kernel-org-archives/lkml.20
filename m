@@ -1,92 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794611794;
-	b=PzvQCNS5SRea/mpRemxpRwrUoekUlAxt4MQ3IMgNh9S9ay6LA40GjDAN90j/nW2Sx2Pa
-	 g9I2WQcS7x2GtHdLxq0IP2C1lwv2nvf1LqKGq2x9kVM1D/Di1Nrqap02UZq7N0xgS17xi
-	 FP3EJht8k5zrgpBVUbETrGqed6zCqbqlzu+in2JpXwMzf8FmhgWzlK+TslyPWkz1I9mDl
-	 vMFlGfrCdtkyoLydwbrx74mB0aedMPJZxtHjf9pzZtqlsXsnajepsD8fIBkTWcmnpc+S2
-	 q4Rs+Rp0oVc+8aYlN5TqEkQ79cOfVORN2qPXYvT7u9lU2Dgkr2/2C1hYdzcjVkvYBnA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794611794;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=B61Pzgho1QEzJ7TAhjDAzykpmBiR4YFWAuFRQ9Hawn0=;
-	b=dv7waoVQxbVp1twkasM78tNzJ2pjTExhIYPjbSgTiDNygi8N/kflajCUcE8FADLplt4T
-	 xtDV9JYvqzf3FGptnQlFTqqH1hNsPmoq+8AhEY57E8VLI3vCdNIWGquF6lmBUVVHy44A1
-	 kUIkk+kVmf7c2G8QbALWDpglztxC4HrWE7cpsJpPxs/k4hqZYeOTCK5sPK8ANoW5GYMTi
-	 W7MB1r18iFTyLbd80wzwydCKGdWdl6aJsPqC1rMYpPrzQ+Z6170DCBYRjDQP6TawnRr3j
-	 8N+Ovb9IKjpJvaCT73m3uPjJqqwGDjfya1MXrNfkBteRNKxGfYPed1IEFUmstOqZyHQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zs36U6Qw;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794612013;
+	b=1/nvyoVvS1GxgnHLlZBReoLIrPvMWDAGrz+6M28AwT0hng5WA2qqhps3Fhbh0WtA+SDq
+	 TmXCtHHxqIVujFVz4gFvwGQGgfQAddaBLKWRTcZZyFKsng/9e9GruaF93neKAIhRlIYq+
+	 8UOiXfoNSLJYtb88lrIprFewAhhA9ONMKVrtEARnQipJPCruui1UYPLU6aDPkrMZyYP28
+	 Y2jDYaDrmZ93ijrEclH3h1fs0bzoP272M1ywXUlLRHgykfz5NvY/pbl9LWDIx8VZe3HrM
+	 aEvvjlZeracb8OUNbjaebSm+pw5ugJ5VJvLrOvScrf55btglDjxQn9Jpi0kOONpHYWg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794612013;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=396mrwK6+J7I5FsFadAXxxySHp8JW5xQvIYTLzX9T0E=;
+	b=Z114hdl6azby+bjoTCTrSLTpx7HebzYyStym3kxS0e0vpI3I2sFSS4rda2qU30jkOLVZ
+	 lyuy/2DKcQpSFM7TPfwhGJgwqUXyy5Ch2CwAemrgT+j0G8sxcxgy6oqeMSL9g85VX7I4B
+	 QBitImi+LhdFQiqMKW8RWY9lPgQjPJKfv22kQ09jW3FDe7cQ6PknzzadpcTQfKdKNTHCf
+	 n1JmDzRQx3ECRIPVIWtYGJh3TbW4UKYgsEl3lEYm4PQzgZBLvlDg0TXlYCzJ8lA6+Vwfd
+	 yEt/ftF/sCm90CxQaOvzad4Gt/VdEyDQf96RDrVOUlLlTO7hpm8Jyh++9HRUvFq2xKw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=bSMnCDyQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDE8606A339
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:16:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFDE8606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89448606A330;
+	Fri, 13 Nov 2026 23:20:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89448606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zs36U6Qw
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e977109392so8791115ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:16:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794611792; x=1795216592; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B61Pzgho1QEzJ7TAhjDAzykpmBiR4YFWAuFRQ9Hawn0=;
-        b=Zs36U6QwtPY6yyOJFmf7Q1I6/sz92RF2XgU7zP04h1EkvjEUh7staS8tHyR6rq7NRb
-         9pf/mUP58lJHQ0yQuloB8g01pw+8CvhFNh088a3OaFo7L2dB3wf8T3FDblQLuCdf1v2i
-         ELHsfL49lpUNHfHbJ+xqc494fMEQwYTJnquDGrLITcyIGH/kus4DNCD4XeGvYRiN5CES
-         f2hiWyjrc8bWPdbVnkfxLj/PaNDozMMnvvM2Y3wkBpIvEHeFDoo6lW5M9updcXBksCsJ
-         aFHdZy+Dm+dfaQ43StkfF/k3AAW34sFsfOUB5QYn6SvPs3Aj/Hv30uQjI2BXUt7eiuOD
-         rsBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794611792; x=1795216592;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B61Pzgho1QEzJ7TAhjDAzykpmBiR4YFWAuFRQ9Hawn0=;
-        b=jOAaWVQaXUH1KWfkLsgnKC0C0D9p5Tdkr+7DNacLhxP9joBADCHRwDPlmNjWxZOGDi
-         asjFyLkby4MCS0NoJFB9IuxBDy6gDJpwv3G+QF4z9D+1ABmqT1O/xUja2kbR5zu/K8QQ
-         HvH0enXiHYzAdIUWYW88fXn8Ze0p9IyN5617Yn43ECW3AhT5cJ4n0vFRyTOlPnsxxmvq
-         mHWwE5/QYztnPWyUxxJA8R4FVKMMyOu7XYgD0GaLlMmiTBGIcGDKU1T8Y6CtcN3RYocG
-         bB/VqfM8JfoKWG2PRQgsZcnF8TIPhTtgdUsy2n/TMGbUj9CGB2ib3BlbDT5Kbi7D8qhC
-         lm/g==
-X-Forwarded-Encrypted: i=1; AL+hErHUa8SCqVrakYGRUELUv3XaWlzTKpwLPVlqh3Qznak6VRSMlzgOY9zAjgXodu+6Z1VPizRb7o7QgbZYFYY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+leJ9F/GHezO//sXU4dqSJwQz1GPxH4qhrWxk7j69x4OxFD4rr
-	Lsv7/xRCi5n9uT8jUtbqAFrUb2+L0+uhjVmq6Fu2i55mnc/UlUwXSvMf1YCAH6Gn5mY=
-X-Gm-Gg: AYBFou3Q49qP1pKtx75MIlxY1wef0haKA87iDz9XJOAeyOXlvyk18uhvSnz9SeT+RVc
-	vIWI3ucsng0O8DEV2psVMYJVLH4wN3nhyVaqVEJTzTI90wyHghvrXyec9oH/rovvpbwZg2aEC+8
-	2+isFXfeR0/kVxjqi+airlzxKMYBdwrfwAZMWxJgvmFr5O8GBBKCQWu9ZiEoUqpyhrptgXlyiBB
-	57AxjABTN7NHPHt9pvUi9SSFtC38N/SWCrHBpcGHVhCRoMMEY6Gp4Tblc4X4yPYQVN6VV+Umx+y
-	+ykQiq4w1eregVOBFCo1UZZ3d4tBSHIoIRCy0hLnB7n08SJLViyICZdg1+PyzHj07sUsETMInlV
-	ibr3+97uWsowAoaRwgwmsNmgl0hCL5JZG3824XzW9MJAXPOIU6jyW7fpNR+RIbBPEz8qUARMUI0
-	ZlBoblaUX1Xu4qFEOJD27/hRQOhk3On1rnk7dCXgbjyJZFbtVZfMuyYHKRBI3MCtZmHLzETf9NI
-	sc3tGbEy0sZPrG+nw3i4Q9og6pBEo8/Gqy8HspLfZxKQagSB2WMKdlMdr3ruj+hPcA/Q41geFJk
-	tWST5r43gv94Ao8TIcudasHgrgkKTEEfTwoc9ft8Zx+wze4=
-X-Received: by 2002:a17:902:f687:b0:2ed:3c11:67e with SMTP id d9443c01a7336-2ee0dad0688mr45369915ad.24.1794611792061;
-        Fri, 13 Nov 2026 15:16:32 -0800 (PST)
-Received: from lenoq.localdomain ([49.43.112.89])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f862426sm16398055ad.46.2026.11.13.15.16.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 15:16:31 -0800 (PST)
-From: Priyanshu Singh <singhpriyanshu9838@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?UTF-8?q?Oscar=20Alejandro=20S=C3=A1nchez=20Lucero?= <aleszlucero@gmail.com>,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Priyanshu Singh <singhpriyanshu9838@gmail.com>
-Subject: [PATCH v2] staging: octeon: fix asymmetric output buffer pool accounting
-Date: Fri, 13 Nov 2026 23:16:22 +0000
-Message-ID: <20261113231622.17907-1-singhpriyanshu9838@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=bSMnCDyQ
+ARC-Seal: i=1; a=rsa-sha256; t=1794611993; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=aAQBU41mKIkR/itcVu2Jv0cVvvszPNuNWnrIe9/92kwK+ALxQhz2zn/7tcaXccdy5HNgZsdJf0obqrHI+EEkyUBPHrTFk+FeGXlx54e4BvP1wNyvdMIBIOEtHaPUxZHcf8sVo1WIil7exWta+ni65qVWi4lv9U8tscGGcTzu9gw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794611993; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=396mrwK6+J7I5FsFadAXxxySHp8JW5xQvIYTLzX9T0E=; 
+	b=IJBe7MdfGVPOznTUBuKTJCUrJ21JGjks/7jg9VPY2aMH7df8EPIab9PHw3jzdfNNs9VEnNgYu/qlViHA/2/hZKC6vnQXm2NfCS/D+uQMlVNJMVqgOjgkYykj328Za6/Y1o7M0zo7DOSiZy+tOTb7xY5HhJvctJS0no8DlBFz7XI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=bSMnCDyQNSUHmc+xnbyHDkeLBa7V8jCscjNLWHTT0KDuZvJvy1VttKXIKr9zzc8RqqsVFqiu4EA8ticrBYzNHQr/I1APuyoE3yRzYLoVTvYCwCp3JMh7w+539DzeuJAyvp7k4oiNB0GZc5LiZIoTykf2oLb7owMKkZTgyx8Ozyw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=396mrwK6+J7I5FsFadAXxxySHp8JW5xQvIYTLzX9T0E=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179461199111667.75435217143877;
+	Fri, 13 Nov 2026 15:19:51 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id 4148B1803FC; Sat, 14 Nov 2026 00:19:46 +0100 (CET)
+Date: Sat, 14 Nov 2026 00:19:46 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Peter Chen <peter.chen@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Igor Paunovic <royalnet026@gmail.com>, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org, kernel@collabora.com, 
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Subject: Re: [PATCH v18 0/7] usb: dwc3: introduce Rockchip glue driver
+Message-ID: <aveY4hjCgstjkmy7@venus>
+References: <20261021-b4-rockchip-dwc3-rockchip-glue-v18-0-60000d03fca2@collabora.com>
+ <avZvYlYyL3Doc8qt@hu-petche-lv.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,81 +73,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="y273ql62b2nj3j4n"
+Content-Disposition: inline
+In-Reply-To: <avZvYlYyL3Doc8qt@hu-petche-lv.qualcomm.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.590.96
+X-ZohoMailClient: External
 
-In cvm_oct_configure_common_hw(), when CVMX_FPA_OUTPUT_BUFFER_POOL differs
-from CVMX_FPA_PACKET_POOL, 1024 output buffers are allocated and added to
-the hardware Free Pool Allocator (FPA) pool. However, in cvm_oct_probe()
-(err_tx:) and in cvm_oct_remove(), cvm_oct_mem_empty_fpa() is called with
-128 instead of 1024 as the expected buffer count.
 
-This asymmetric accounting causes cvm_oct_free_hw_memory() to report a
-false warning ("Freeing of pool 2 had too many buffers (-896)") upon
-draining the pool.
+--y273ql62b2nj3j4n
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v18 0/7] usb: dwc3: introduce Rockchip glue driver
+MIME-Version: 1.0
 
-Define CVM_OCT_NUM_OUTPUT_BUFFERS in ethernet-defines.h and use this
-constant across cvm_oct_configure_common_hw(),
-cvm_oct_probe(), and cvm_oct_remove() to ensure symmetric allocation
-and deallocation.
+Hi,
 
-This was found via manual code inspection and is compile-tested only.
+On Thu, Nov 12, 2026 at 06:01:06PM -0800, Peter Chen wrote:
+> On 26-10-21 20:05:25, Sebastian Reichel wrote:
+> > - drop generic PHY reset notifier API; I discussed this series at Linux
+> >   Plumbers Conference with Vinod Koul and he prefers a local driver
+> >   hack/quirk instead
+>=20
+> Hi Sebastian and Vinod,
+>=20
+> Sorry to jump out late, do we really decide to use private callback betwe=
+en
+> USB controller and USB Combo PHY, and notify PHY's reset events for
+> controller? Many platforms which support USB/DP altmode feature need this
+> requirement, besides Rockchip, Qualcomm and the platforms use Cadence USB
+> controller and PHY also need this.
+>=20
+> For this scenario, USB controller works at USB3 mode (also configures PHY=
+ for
+> USB3) first. Later, Type-C/DP event tells PHY that it needs to work for D=
+P(4lane),
+> since this event doesn't go to controller now, sudden switch PHY from USB3
+> to DP (4lane) will turn off PIPE clock, and cause all controller's event =
+which
+> needs PHY (PIPE) clock abnormal, that's the reason why controller needs
+> this PHY switch (reset) notification and let the controller know it needs
+> to work at USB2 mode from now on.
 
-Signed-off-by: Priyanshu Singh <singhpriyanshu9838@gmail.com>
----
-v1 -> v2:
- - Make it clear in commit message that, this was found via code inspection
-   and is compile-tested only.
- - Fix missing space typo in commit message.
+This is similar to the Rockchip requirements. But the issue is
+partially covered within the PHY by muxing the clock differently
+(which is also somewhat of a hack, as common clock framework is not
+aware of this). FWIW I expected more platforms to run into this over
+time. Having combined PHYs for USB-C handling makes a lot of sense.
 
- drivers/staging/octeon/ethernet-defines.h | 2 ++
- drivers/staging/octeon/ethernet.c         | 9 ++++++---
- 2 files changed, 8 insertions(+), 3 deletions(-)
+But I think it makes sense to proceed with this considering it is a
+Fix. It has been going on for a very long time already and meanwhile
+the problem is already there right now. Moving this from the
+internal custom API to an official API is always possible as a
+follow-up - it's all within the kernel, neither DT nor userspace ABI
+is involved. Also having some users makes it easy to figure out how
+the common API should look like.
 
-diff --git a/drivers/staging/octeon/ethernet-defines.h b/drivers/staging/octeon/ethernet-defines.h
-index c060374a3da2..3ce7c125ccfd 100644
---- a/drivers/staging/octeon/ethernet-defines.h
-+++ b/drivers/staging/octeon/ethernet-defines.h
-@@ -37,4 +37,6 @@
- 
- #define TOTAL_NUMBER_OF_PORTS		(CVMX_PIP_NUM_INPUT_PORTS + 1)
- 
-+#define CVM_OCT_NUM_OUTPUT_BUFFERS	1024
-+
- #endif /* __ETHERNET_DEFINES_H__ */
-diff --git a/drivers/staging/octeon/ethernet.c b/drivers/staging/octeon/ethernet.c
-index dea5696a6642..e0e6d40602f0 100644
---- a/drivers/staging/octeon/ethernet.c
-+++ b/drivers/staging/octeon/ethernet.c
-@@ -162,7 +162,8 @@ static void cvm_oct_configure_common_hw(struct platform_device *pdev)
- 			     num_packet_buffers);
- 	if (CVMX_FPA_OUTPUT_BUFFER_POOL != CVMX_FPA_PACKET_POOL)
- 		cvm_oct_mem_fill_fpa(pdev, CVMX_FPA_OUTPUT_BUFFER_POOL,
--				     CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE, 1024);
-+				     CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE,
-+				     CVM_OCT_NUM_OUTPUT_BUFFERS);
- 
- #ifdef __LITTLE_ENDIAN
- 	{
-@@ -974,7 +975,8 @@ static int cvm_oct_probe(struct platform_device *pdev)
- 			      num_packet_buffers);
- 	if (CVMX_FPA_OUTPUT_BUFFER_POOL != CVMX_FPA_PACKET_POOL)
- 		cvm_oct_mem_empty_fpa(pdev, CVMX_FPA_OUTPUT_BUFFER_POOL,
--				      CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE, 128);
-+				      CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE,
-+				      CVM_OCT_NUM_OUTPUT_BUFFERS);
- 
- 	return ret;
- }
-@@ -1009,7 +1011,8 @@ static void cvm_oct_remove(struct platform_device *pdev)
- 			      num_packet_buffers);
- 	if (CVMX_FPA_OUTPUT_BUFFER_POOL != CVMX_FPA_PACKET_POOL)
- 		cvm_oct_mem_empty_fpa(pdev, CVMX_FPA_OUTPUT_BUFFER_POOL,
--				      CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE, 128);
-+				      CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE,
-+				      CVM_OCT_NUM_OUTPUT_BUFFERS);
- }
- 
- static const struct of_device_id cvm_oct_match[] = {
--- 
-2.53.0
+Greetings,
 
+-- Sebastian
+
+>=20
+> So, it is more like a general requirement, but not quirk for special plat=
+form.
+>=20
+> Peter
+>=20
+> > - rework USBDP and DWC3 rockchip glue for the local driver quirk
+> >   using direct function calls
+> > - Ensure that the reset handler in DWC3 is only called when the PHY is
+> >   initialized (and thus DWC3 is running)
+> > - Also set vbus in the last patch when dwc3 is configured to device only
+> >   mode (in contrast to dual-role mode being in device mode).
+> >=20
+> > Changes in v16:
+> > - Link to v15 (sorry, I missed force setting the revision for this
+> >   part in the series split, so the series says v1 in the patch subject):
+> >   https://patch.msgid.link/20260915-b4-rockchip-dwc3-rockchip-glue-v1-0=
+-763bb546824e@collabora.com
+> > - Update first patch to also build the PM functions even when
+> >   PM is disabled
+> > - Add new patch for defining an empty usb_udc_vbus_handler stub
+> >   when USB_GADGET is disabled
+> > - Add dependency to Rockchip DWC3 glue, which disallows the
+> >   configuration with USB_DWC3_ROCKCHIP=3Dy and USB_GADGET=3Dm
+> > - Collect tags
+> >=20
+> > Changes in v15:
+> >  - Link to v14: https://patch.msgid.link/20260813-rockchip-usbdp-cleanu=
+p-v14-0-b5ad9c68fa11@collabora.com
+> >  - Avoid #ifdef for CONFIG_PM in the new glue driver (Thinh Nguyen)
+> >  - Do not add #if IS_ENABLED around the DT compatible blacklist in the
+> >    generic driver, using the glue driver should be mandatory as the
+> >    generic driver results in arbitrary system hangs. Thinh Nguyen sugge=
+sted
+> >    updating Kconfig for this, but did not clarify what that means.
+> >    Current Kconfig works the same way as the other mandatory glue
+> >    drivers.
+> >  - Split series to simplify review
+> >=20
+> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> > ---
+> > Sebastian Reichel (7):
+> >       phy: rockchip: usbdp: Track PHY power state
+> >       phy: rockchip: usbdp: Add reset hook support for dwc3
+> >       usb: dwc3: rockchip: introduce glue driver
+> >       usb: dwc3: core: add post PHY registration hook for platform glue
+> >       usb: dwc3: rockchip: add USBDP PHY reset quirk
+> >       usb: gadget: define stub for usb_udc_vbus_handler
+> >       usb: dwc3: rockchip: fix USB-C reconnect in gadget mode
+> >=20
+> >  drivers/phy/rockchip/phy-rockchip-usbdp.c |  82 ++++++++++-
+> >  drivers/usb/dwc3/Kconfig                  |  13 ++
+> >  drivers/usb/dwc3/Makefile                 |   1 +
+> >  drivers/usb/dwc3/core.c                   |  17 ++-
+> >  drivers/usb/dwc3/core.h                   |   9 ++
+> >  drivers/usb/dwc3/dwc3-rockchip.c          | 227 ++++++++++++++++++++++=
+++++++++
+> >  drivers/usb/dwc3/trace.c                  |   3 +
+> >  include/linux/phy/rockchip-usbdp.h        |  31 ++++
+> >  include/linux/usb/gadget.h                |   5 +
+> >  9 files changed, 383 insertions(+), 5 deletions(-)
+> > ---
+> > base-commit: 8f56fdf3d8cb9f1dbdc93bf9ac816698aa6f70b7
+> > change-id: 20260914-b4-rockchip-dwc3-rockchip-glue-979ea3735d43
+> >=20
+> > Best regards,
+> > -- =20
+> > Sebastian Reichel <sebastian.reichel@collabora.com>
+> >=20
+> >=20
+>=20
+> --=20
+>=20
+> Thanks,
+> Peter Chen
+
+--y273ql62b2nj3j4n
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr3mwoACgkQ2O7X88g7
++pragA/9FzXXAxsGqNAe5lp4EQDO7Y3egVEb59vzkimcTXPurGE/l4kePSGKJAg4
+MWxXZ1F9OXKrbef+ruuzAE0SpV0QedcA+VFhgxMsB68j37twnkngzmpEiESkyNHR
+/QPiUk0KYTqZyYDSeGmmvUiJWSyOLouIKKPs+hSxJ9CuLdF2+agbPuL7aNRcRK3t
+6HQX6nM1QlcCXoLXhUo57rtplRGngj3l4HAGxrcptCTY6mRAt4gyiFg7cBUB6BNS
+noUZ+GL1sW1wdFB9BMtRoR+ghTir5i+PQpy0TKx/TeEY4WVriTI0j4DCDnIFbpGw
+PxRph0W+C6x+Am65L/LC4wBcL5yhlgNJCJeg+RXK7YJPGZTn5vX1VHUhiRa6wXCJ
+3h8lHZJigfiiGEPbMUvgB+hHCdJBRVCiR7lu8GMS1thwcpcN87x+x7immvgG+sk/
+62Z6mrGVy1ANECRBuNicQ68Nge0HKv6Ea2j1a3Ql1k5ZO8OSe9SZi3qutYUKtGtG
+vk/w+ANGpGKbD3nnHQFLTywivg1ygndoOPVqrTGGWsRFY6yglkm4EvEndMe2khFe
+zaTBuIg63ivrqZ0EQ9kV1vmSHWxgRRgxLK44pjzxCWeoOX3B6ilfEsDSLHoKtAac
+gAUXovjWlFWb6IRTtUtoQsbY5C6HraVIwxniPSO1cuoZx0QFmk8=
+=xdRH
+-----END PGP SIGNATURE-----
+
+--y273ql62b2nj3j4n--
