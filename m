@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.102
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794578689;
-	b=yB00sL3wgXhTTowj9Y7qehUOrvD67+JVazKh3d8x+H7NqLHDHlfJUez03iwR4A2+m+n3
-	 D1Jz/PipfkHrqJPzXRY52pMQ/ZVpBg61VNG3vNtFt7MuSu6kn6fXVz4LACpdJHlUkoQ0H
-	 e/yJmay39PZC857OWkH25Twl8nz6hfPqnKt/iAWrAhi/7yiG58aQ1jsIVg44t07zESgl1
-	 rKofwT7nj0e/qfsV551Rf0UxRxVxnAXzPrLGjtp7Cj8bZ1uknuMWh1nVdM1J4mxOVK6UG
-	 xHgHZZRvtHnCwryxlVXxfvVuE6FRUsLr2ifDBuhC/mPdVtlyrGfFxATPzImaXZL57VA==
+	t=1794578717;
+	b=PrPVvDbNx0c+OwIiVeseZhstP1M3LmtVcXQJFT4jwSO6bbkIt0ygwI5U3Yw2kI/Kma2n
+	 xEZPumiFl/FEQrf2kc6jkomgNFUR+mz0oE6lEfZ4KRj9ckgA+dYtvgq4UdDP662SKMz7e
+	 W+TtnVmqzk2UuINb/+zqi7bQYgpIeWR38fFaBQZVgmqhbh6T9z0lFhDV4O34UredXa4dh
+	 6v34wKOs4V4mPXNKP8eCMARWIYoAMKGUEeNNbN/1cC4G/TQ2rvUWwJ4oHviEO1LxJoIJ6
+	 BUDLHh2EfJVYMkIyL3cZy6WznOcLPKM5mI+r3li5sn73rWeE/F74iM7j/eCrLwy2fUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578689;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578717;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=BsarNdDcELDCRT4vRowZfLgwyV4i1A1v6qpcoSVNtx8=;
-	b=va79bQ930WkZ/SKIDb2zowdcsBKfO26lTHBjDrby4JfFGvndUT2hj19VUZSWmtZQ4MRR
-	 TPjqtZKYzVdmNpUm0RmSw8cKaIIqqtpcuAVpPWTc7ahBpZHmjWl0MjF5THqZuv6sPsWFh
-	 sgwmUIHQxK63+SC+doDBo3JpJmwrFRwztfhHBFNT5QqyfcxY+F0Rb9EBjuX+d6OpX/afG
-	 uDTum9/Qv4scw+yOMPqG08G93JgOcEq2x3+3LCGZpbbKJZGmshR21NDVUUABTL/6j3CKx
-	 wzndCXFiEl9KGdKevbqSSwQ0RYBOD2keY1z//DQAEn/ehrpGt3dWIia4/vxHj/vQrzA==
+	bh=SlpQ/7a9Yqm+ZiMx7oXq59cdcuwXe5p5JRNVxMV8F3c=;
+	b=iXFIUg2bRiROgQCvqI5Fo1+qqGUdFQx0IdiHWuoOKt7fqKNy7EO1kWI073czsNtZit+J
+	 GajbOTs6Hzb1IcXKdZKOUUJYUbwhk/ZWkVfRshB0Mq8LQYmtCxHZl+mS/tmWOrXS9dRTk
+	 nLgDMwKHDVA93Z/+YF1RJUYd+JCiqPBiOxG/K3IuLhSr4BS9c6JEaMLSJlSPPKBxlcf8D
+	 /9LCnUTc3yzsztdjBwIwBkrxqPZHofs4kSYjGvRLO57BALgE9nOQNXm9qECWSEY417V5l
+	 2GKaOMtQQsfDY63yf3NGouwKA+RSywSXT3xvmWUUck+WK7PGgeWVRl7/dq4MwkpNJhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=O9azDaxF;
-	arc=none smtp.remote-ip=91.218.175.197
-Received: from mta0.migadu.com (out-197.mta0.migadu.com [91.218.175.197])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RPKyxyV4;
+	arc=none smtp.remote-ip=95.215.58.102
+Received: from mta1.migadu.com (out-102.mta1.migadu.com [95.215.58.102])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F56606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:04:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45F56606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED579606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:05:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED579606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=O9azDaxF
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RPKyxyV4
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZOfYh6YPB2Sv6k4DdDXOwO25Wt/mi8Pvf9+HOTqR3EY=;
+DKIM-Signature: a=rsa-sha256; bh=lORxiaT4S+dXvPTgqqdRAwscXD8NtfpinPOcyAdcH5Q=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794578687; v=1; x=1795183487;
- b=O9azDaxFQiNr+oLOhYhRPRNUyuZ/gTpr63cgMQ/hII4gKKW3OcJeYJK+YR9ATKrztuonxP0V
- yoKG58moblLbZ+gIIsTM1mzt8qwz6tUNVJq9dD/HTz6HFWldxXTMPo7B6Fkr+ruI3YYXWxK33op
- EELDNlevPUwJH+wlhiMXH4bU=
+ t=1794578715; v=1; x=1795183515;
+ b=RPKyxyV4XVVSaH7EYU/l0Guy/0ZJoz4wyT/wDw1qJwKjoLMOvety7nTN3iViFQJXFEDPssXs
+ boVmojR4LOteQ8jkXbAklhlndFva92QPWmr6k//fuvyN6xTr0NH8ZikG2Mi3uchRo6peHBtwvXT
+ oLpVMcqW3PTP9Bo1klmqxonQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id d5dff555396fe74e;
-	Fri, 13 Nov 2026 14:04:47 +0000
-X-Mizu-Trace-ID: d5dff555396fe74e
+Received: by mta10.migadu.com with ESMTPS id 22ebd3595901d641;
+	Fri, 13 Nov 2026 14:05:14 +0000
+X-Mizu-Trace-ID: 22ebd3595901d641
 X-Migadu-Flow: FLOW_OUT
 From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Fri, 13 Nov 2026 22:04:16 +0800
-Subject: [PATCH net-next 1/6] bonding: check XDP support before enslaving
- changes state
+Date: Fri, 13 Nov 2026 22:04:17 +0800
+Subject: [PATCH net-next 2/6] bonding: finish XDP setup before publishing
+ the slave
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,7 +62,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-bond_enslave_restruct-v1-1-364c549e78db@kylinos.cn>
+Message-Id: <20261113-bond_enslave_restruct-v1-2-364c549e78db@kylinos.cn>
 References: <20261113-bond_enslave_restruct-v1-0-364c549e78db@kylinos.cn>
 In-Reply-To: <20261113-bond_enslave_restruct-v1-0-364c549e78db@kylinos.cn>
 To: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -79,87 +79,123 @@ X-Mailer: b4 0.16.0
 
 From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-The XDP capability checks (ndo_bpf/ndo_xdp_xmit) and the slave XDP
-program count check in bond_enslave() run after the slave has already
-been opened, attached and made visible to the datapath. In particular
-the slave can become bond->curr_active_slave, or be published via
-bond->slave_cnt, before we verify that slave_dev->netdev_ops->ndo_xdp_xmit
-exists, so bond_xdp_xmit() may call a NULL ndo_xdp_xmit.
+bond_enslave() currently runs the fallible XDP setup
+(dev_xdp_propagate()) after the slave has already been published:
+slave_cnt is incremented, ns maddrs are added and the active slave
+may have been selected. If XDP setup then fails, the error path
+jumps to err_sysfs_del and leaks:
 
-Move both checks to the validation section at the top of bond_enslave(),
-before the first state change. On failure nothing has been mutated yet,
-so the function can return directly. The dev_xdp_propagate() setup is
-left in place for now and still uses the same error path.
+  - the promiscuity/allmulti increments and synced addresses applied
+    to the slave earlier in the function, which are only undone on
+    an immediate allmulti failure,
+  - the ns maddrs added just before the failure, which no enslave
+    error path ever removes.
 
-Error messages and errno values are unchanged (-EOPNOTSUPP with the
-same netlink extack strings), and the success path is unaffected
-beyond running the read-only checks earlier.
+Move dev_xdp_propagate() to the last fallible step, right after the
+promiscuity/allmulti/address-sync block and before
+WRITE_ONCE(bond->slave_cnt), so that no handled fallible call
+follows the publication of the slave and a failure can no longer
+leak slave_cnt or ns maddrs.
+
+bond_xdp_set_features() is moved along with this reordering so XDP
+features are updated before the slave is published. Route the XDP
+failure through a new err_set_xdp label that undoes the promiscuity,
+allmulti and address-sync state, mirroring what __bond_release_one()
+does.
 
 Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
 ---
- drivers/net/bonding/bond_main.c | 35 +++++++++++++++++++----------------
- 1 file changed, 19 insertions(+), 16 deletions(-)
+ drivers/net/bonding/bond_main.c | 52 +++++++++++++++++++++++++----------------
+ 1 file changed, 32 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index 9249a79a168e..340af4c3fa20 100644
+index 340af4c3fa20..80b6c18ee9c2 100644
 --- a/drivers/net/bonding/bond_main.c
 +++ b/drivers/net/bonding/bond_main.c
-@@ -1948,6 +1948,23 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
- 		return -EPERM;
+@@ -2313,22 +2313,11 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+ 		}
  	}
  
-+	/* Check XDP support before any state change, so a slave without
-+	 * XDP can never become visible to bond_xdp_xmit().
-+	 */
-+	if (bond->xdp_prog) {
-+		if (!slave_ops->ndo_bpf || !slave_ops->ndo_xdp_xmit) {
-+			SLAVE_NL_ERR(bond_dev, slave_dev, extack,
-+				     "Slave does not support XDP");
-+			return -EOPNOTSUPP;
-+		}
-+
-+		if (dev_xdp_prog_count(slave_dev) > 0) {
-+			SLAVE_NL_ERR(bond_dev, slave_dev, extack,
-+				     "Slave has XDP program loaded, please unload before enslaving");
-+			return -EOPNOTSUPP;
-+		}
-+	}
-+
- 	/* set bonding device ether type by slave - bonding netdevices are
- 	 * created with ether_setup, so when the slave type is not ARPHRD_ETHER
- 	 * there is a need to override some of the type dependent attribs/funcs.
-@@ -2311,15 +2328,8 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
- 		unblock_netpoll_tx();
- 	}
- 
--	if (!slave_dev->netdev_ops->ndo_bpf ||
--	    !slave_dev->netdev_ops->ndo_xdp_xmit) {
--		if (bond->xdp_prog) {
--			SLAVE_NL_ERR(bond_dev, slave_dev, extack,
--				     "Slave does not support XDP");
--			res = -EOPNOTSUPP;
--			goto err_dec_slave_cnt;
--		}
--	} else if (bond->xdp_prog) {
-+	/* XDP capability and prog-count were already validated above */
-+	if (bond->xdp_prog) {
+-	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
+-	netdev_compute_master_upper_features(bond->dev, true);
+-	bond_set_carrier(bond);
+-
+-	/* Needs to be called before bond_select_active_slave(), which will
+-	 * remove the maddrs if the slave is selected as active slave.
++	/* XDP capability and prog-count were already validated above.
++	 * Setup runs as the last fallible step before the slave is
++	 * published, so no undo of this block can ever be needed and
++	 * a failure here cannot leak slave_cnt or ns maddrs.
+ 	 */
+-	bond_slave_ns_maddrs_add(bond, new_slave);
+-
+-	if (bond_uses_primary(bond)) {
+-		block_netpoll_tx();
+-		bond_select_active_slave(bond);
+-		unblock_netpoll_tx();
+-	}
+-
+-	/* XDP capability and prog-count were already validated above */
+ 	if (bond->xdp_prog) {
  		struct netdev_bpf xdp = {
  			.command = XDP_SETUP_PROG,
- 			.flags   = 0,
-@@ -2327,13 +2337,6 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
- 			.extack  = extack,
- 		};
- 
--		if (dev_xdp_prog_count(slave_dev) > 0) {
--			SLAVE_NL_ERR(bond_dev, slave_dev, extack,
--				     "Slave has XDP program loaded, please unload before enslaving");
--			res = -EOPNOTSUPP;
--			goto err_dec_slave_cnt;
--		}
--
- 		res = dev_xdp_propagate(slave_dev, &xdp);
+@@ -2341,19 +2330,35 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
  		if (res < 0) {
  			/* ndo_bpf() sets extack error message */
+ 			slave_dbg(bond_dev, slave_dev, "Error %d calling ndo_bpf\n", res);
+-			goto err_dec_slave_cnt;
++			goto err_set_xdp;
+ 		}
+ 		if (bond->xdp_prog)
+ 			bpf_prog_inc(bond->xdp_prog);
+ 	}
+ 
++	bond_xdp_set_features(bond_dev);
++
++	/* Must called before bond_update_slave_arr() or bond_select_active_slave() */
++	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
++	netdev_compute_master_upper_features(bond->dev, true);
++	bond_set_carrier(bond);
++
++	/* Needs to be called before bond_select_active_slave(), which will
++	 * remove the maddrs if the slave is selected as active slave.
++	 */
++	bond_slave_ns_maddrs_add(bond, new_slave);
++
++	if (bond_uses_primary(bond)) {
++		block_netpoll_tx();
++		bond_select_active_slave(bond);
++		unblock_netpoll_tx();
++	}
++
+ 	/* broadcast mode uses the all_slaves to loop through slaves. */
+ 	if (bond_mode_can_use_xmit_hash(bond) ||
+ 	    BOND_MODE(bond) == BOND_MODE_BROADCAST)
+ 		bond_update_slave_arr(bond, NULL);
+ 
+-	bond_xdp_set_features(bond_dev);
+-
+ 	slave_info(bond_dev, slave_dev, "Enslaving as %s interface with %s link\n",
+ 		   bond_is_active_slave(new_slave) ? "an active" : "a backup",
+ 		   new_slave->link != BOND_LINK_DOWN ? "an up" : "a down");
+@@ -2363,8 +2368,15 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+ 	return 0;
+ 
+ /* Undo stages on error */
+-err_dec_slave_cnt:
+-	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt - 1);
++err_set_xdp:
++	if (!bond_uses_primary(bond)) {
++		if (bond_dev->flags & IFF_PROMISC)
++			dev_set_promiscuity(slave_dev, -1);
++		if (bond_dev->flags & IFF_ALLMULTI)
++			dev_set_allmulti(slave_dev, -1);
++		if (bond_dev->flags & IFF_UP)
++			bond_hw_addr_flush(bond_dev, slave_dev);
++	}
+ 
+ err_sysfs_del:
+ 	bond_sysfs_slave_del(new_slave);
 
 -- 
 2.56.0
