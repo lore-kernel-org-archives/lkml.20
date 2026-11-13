@@ -1,98 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559743;
-	b=lhAoKdSR/6a7vbdw4wu4OeoqzqDDmx3x5s/joq13HFmfgD5Ec0lU1pnzYG1rqxoBo1vZ
-	 bv8pQqN45Mvxdntb/OVFuvYy7+zEcnPzpCkJRhrx8HoJGNoqPQq4IDuvWkJhNHo/utbDE
-	 ITVHY0mkmN5nfLqw0Jt/V8bTi/zfqi+3MhNmD6ix9WaY/l8iBG86eXNiR8Q1lSIfdrp55
-	 SjzgBnmSUImU/euy7QO+lHVhuxu+yugGo9tIzHYt6fPPfiauZIoCIdF231YChp0RsC00k
-	 6WtRAAI8ZAOS+Sa1488+BO5/reMLUCiGufBqh3d+8qLnBv5GtPwMIx7he+XijLgBXUA==
+	t=1794559755;
+	b=hhZwAng35eNCNNeIpL7jIsCJHcsdaOC9+j7EMitBTv2hhpYbges86j2Bu9nZSDxuAXoc
+	 71tbs/yDGRy3VRbK2EBBbjMVihYEF0+MzWrdmhDjwdi8MMaIvvGyaLJJzSB/psI84tyvm
+	 BVW/3OZ9Nhg+9Sc7Iu0ySwHs6GcLPGo2kqlBBdBfpHnsVrLtCP4cAlRM3KfKjQ8xKLor8
+	 UDtTkax0ii5OdEPdnQdsnAiqDd4ltgXIXHt5431FftOVzt/M9E25a2EkMpTS0dSiPcipo
+	 ovQfyYniDHhd5XBWgVe14mpvegj63A+gEvt2gIvpe+fhNHr5q5SJhAs9n4hLmkPeGCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559743;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559755;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qx6anf3hBdJB8SU0X3cTGKNeyaZPKU1W0S8sS4JiQgM=;
-	b=cO1pAinXXt/8Rx7PrAgU9gIJdOum0UOhckKlTHdZ0ChmX95CYaBKROIdA179i0+VCiVC
-	 ozSDz429e+V215CTF76qrdQ/QZxoo2IJYdUr+GEBkmqpktFp19Pz8Xyhtl9QGCHR1VIL8
-	 ev4PmmTPqZ1AadRgJGSwYGEyS5jabonLSD+QdVrEj2U/eClnj9SPD1lHX79gnyQG3K9yn
-	 cz0FP2K9H99jXX7s4iH1XVLBtUoesgI6pf51FIXaOjSUiDos8g8GfrCo0aZhDNxYGFvrz
-	 YepCiH6OCZWaZLWjh3FJNbI3mRoPXTDwfh8AJxPp2dmHyozrDgxeMJdiEq3BJ/ZvofA==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=CxJEPSxKZkA5JInxRotIu8NqmleT1f29t/E9d4ZVi80=;
+	b=LPyVAnPYX/Dsa5baQO1uAkuVkdHDOM/ibShQA3cQv9IvvHTWp/E1AKFg9qm52iNeEWHP
+	 Buzw5z8kxvZnJirH7IthzkW+qdmqiSwCwuMsHJJHQyH5m9sHH7aHRiJkT8U47mqR9ACYU
+	 wqATgkHOxqrWfXIOI5aVwCzymJXKVNOnauGYO6F005C500OG93nc7aHLTikXz7hFK34jh
+	 esbudT9/JABJD24ju2tzxR0PSPXNl4PXTnYJ+gXjabkCpu6ZBlciwcgJTYffSookP97Pp
+	 gFP1r2s6cVB2yKPOHUy0WSkJY8FE63TWti5sCxVBEF+QW0iIbpVqeKfzwYl8PkdLscw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uXbDGLQb;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DE7Oc838;
+	arc=none smtp.remote-ip=209.85.210.43
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A382606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:49:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A382606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1210E606A896
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:49:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1210E606A896
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uXbDGLQb
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ed1b9e8f43so4701925ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:49:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DE7Oc838
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-85d363fb73cso742755a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:49:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794559742; x=1795164542; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qx6anf3hBdJB8SU0X3cTGKNeyaZPKU1W0S8sS4JiQgM=;
-        b=uXbDGLQbF0w26QAw6MJrM+Gn/WE9SHb8OtRQkAj9lO266801X+jv0LVPreBz6oz94a
-         B92xhj2j1To789uEuSuRZKr3zzsuxMeBmH0dbBnMJnT54gk68b70J1d5rKe7c45aS80R
-         Hg7JVCq2OYsF4ORvO93oQGyjExlaRb9HVQBZGLLvF94c9QBrEFXVB16EPcRyrXIxKm31
-         vh50ZnIGEI+CSKCCOrTQezfbF6rb160F8KYZoNI3fcxRDUz8kQ0PqGfhBB5JkUnV3buX
-         j/5Gy7hNjzBDPzunZypx2PLkuIroU/j8E+codgCOSinm05fSiidcjrrlDIOKtWVWFv2U
-         gq6Q==
+        d=gmail.com; s=20260707; t=1794559753; x=1795164553; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CxJEPSxKZkA5JInxRotIu8NqmleT1f29t/E9d4ZVi80=;
+        b=DE7Oc838yKNszWJy1P1XzJd6Wq2+LyuJsByCk9qAizJpewW87iGgH+RSzzkiYFQlfP
+         g6e3TI80TiSu2JKvCdwAiDHcgcksrd2eSUFt0GDHVVD+9VkHzfbgfeHK9ekPvciIlNX+
+         S6MFCnL2AwaXzKKb8jz+N/qFJe1m14U5x8blA/hlE2kJ07h/OdjHgTepC04mYHux63Mr
+         iHoi9GZbXSQ/6NBevQQLwTNmuXr3tTq/zszPbGTel4sfBSqv8lhG1xf4xCL7/jtfdbBO
+         9e7faft9PmGkR5435uQYufb+8jtP5J4LdrZ8B7EFVXlgZJABUZa/G37CCMuQkEEPEeIv
+         Wkeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559742; x=1795164542;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qx6anf3hBdJB8SU0X3cTGKNeyaZPKU1W0S8sS4JiQgM=;
-        b=KkSgNalBf71mqTjAEbudhC0SkIux64GshN3eWBQpkWDR/RCdsipvsVFTSKy+MIew+w
-         jcLlRbdxx1HrzaCuIdXp/MwpTl9WaSEaK4od/dV/o/ZtwWP5DmH1KO/tUXrO2s++OZDV
-         NiaB8nM9bknS/n+9/1OOR5M5ThCuLRi3S6+UQu6sBXNl6V2+8vQzT2uE6OzTIaQwoAPO
-         T+ZXqkfjXnP1/lyW56qO5VPwyMVEtemPm/VmWF4L8Y0Lna1m+8WgF2L6njEddwc4ozUN
-         RKK9Pf2OzqBRV8klsE641d7Wy8lEBgYuaoKxEdWlX8fui+hAM/ASLctuqPKvUfVUL9sv
-         eXQg==
-X-Forwarded-Encrypted: i=1; AL+hErH+2GBWYk/vEyJMfla2nks87fw/W1ymIE8Yq6J3bz6l9nsA22ORQw2PDMHE6XJScdapHaM8no5/8RlmNoA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9psHRYiQ6NDgWlL9ZFQolJ88D41TRVxItOPdpWmHr21Fpb99Is
-	Yq9wB4ffgBnBbvGd9iKcF1lKOrPDslCXYaKFwBJPwxCxd8C6KB1ywTWN
-X-Gm-Gg: AYBFou00MwjEGa7BpGO4Zje8Z4qKAGNWsPSEYHUauPWuPGyB8Epqd1dhSueXvXA3ihc
-	jd5KGvF+tqYSrde1JoNr+146zPWKt7qI2XGcMqnOp320zROVi17gidD7fLASB9/qLR2ZM/8PLCy
-	/9BfnEz9811JXNJXiwbU4fF80J+nuLYgWF+fLAWHGVmzs3V4GtEYz8jqOloe/13hhG6btqKS2FV
-	bgo4GH8q4xST61AAOO078cLt3/+WRiTQ0pOLxab0Sa5Ne0MjXAbPXX+eS/Y94DtPw3y6gbwl5DB
-	+PGwcZEYg7+iQ2dP+5XI+0RahqC8OgSEXHknPhd+H+9X/iPkY7qD30aIP4dABlBM3JwUeHCETRG
-	xxfjNzrpW4ejy8ZtM3ID1a4VRCcj2+7GW6g0NjQ+6ZikP7YXYLm1b99ZtSBa5yfCxPKsOrVV20E
-	QR3n/eDgsDDSdWyovjg0T6E5yWItWCG07yOhxTw1KRowRS57kRA9rW9HO4vdRcfrzPag+7wB3Oz
-	pp6UXnw+7XAYExbInQZJYxhoycrCQZFtOMYWC1/vVOAviGBwcjYg3yCsNImqjGjB3eetuC9tVDg
-	0uYOSSjk4LRKYa9UUbOKXqtyu4Cz1dwNgSSPgmHsTxaHX8qt2gCs+/5rjjL/R3cwPnAXVQhXbq4
-	yW2Ek
-X-Received: by 2002:a05:6a20:a11c:b0:3e0:eae8:7525 with SMTP id adf61e73a8af0-3f7a8bd20camr1630922637.64.1794559742523;
-        Fri, 13 Nov 2026 00:49:02 -0800 (PST)
-Received: from fyhsueh.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bececcce76sm742540b3a.5.2026.11.13.00.48.59
+        d=1e100.net; s=20260707; t=1794559753; x=1795164553;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CxJEPSxKZkA5JInxRotIu8NqmleT1f29t/E9d4ZVi80=;
+        b=gJLWPVnNQ8bG4M5QDmSY1fOFem2CUs/OTw1zmzDpi80PflbZ6nMsOvdJWg9X2Wwsj9
+         pKgn4QYyp5rKj83DoYAQW9QKdZy3o8M8QGfHfSpEIHU+y05I+LymoxUgfipGbSUoYgis
+         e4+Y6Y7vXoR/qP79jLd0S9MrQcLDO66TGYWayfMXIOhB//Pg+WaW/ne1ZKRvrhmUDQ6z
+         Z4RnJ9Ty04uCEzNIUSh5XjSRYy2XHEUUrxSmyrMpDJa6sqc8kUI8dc8wup7IWaunz0Yj
+         xJvKP0Ill4hXHT7VfgT2keM6Hut/c9gqCAaI0m3xt0V3bebtL3NUUpwXHwgmhSSBvgrS
+         W5LQ==
+X-Forwarded-Encrypted: i=1; AL+hErHrUtl51u6XxUlyHX/Wj0ARL07kHdefAVyxOZf9IXSm+LiZsOltX3Reqj2fHZpV7RaUtaDnTjUYJYajBZU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+RhXTz9m3hMIRL/xWQFQnCw6fE/JemM3DurEi7204tWfqdfWJW
+	Puc5Sf3Fz4BAIa2deL1I512Q33Rn4fFQaC4151PQvwxQXUDvNXVBfJgK
+X-Gm-Gg: AYBFou0YRRdoddWL8EVtKmQBXD/9Cmj7j07aHV5xdI61GLoZDPJVtVOITchN2HysxF0
+	8sv+GJ3LbQ+uR0VszmLxczfdgxysmPY6NjmSgn4Tg+gC9NQ2AxAaDlcp1khSDmlYGouVdHH75Lm
+	QArRtVNfvJYui0c9gakPYekwB8RRnDT2tW3zGfdSinw2zUnoKNX7uM/bLU/7F/8+D8+uUkC6pk/
+	haSWAnkK7vthkztuJQQQueV5ViCg8T2uCozD3zvpXltG4hr364q+b+rjUGaDk9ESeYITuxuc5Si
+	AsStUHCwv68XovueQxPdyM8lQwa0DeWJDflxPec3nU/e6x04Ov1EePskRNYgEnu2c/kEUEh2pOP
+	g3GgtABS73Av0FXk0DXreT/M3hVolrt1Cea0fAzhHmVkrhABc6HAsLvWBCj43JN/9Fi4nJH0G1p
+	ga55OWBg6h8SP/w+irdXKa6KNNIxnztqDUli6rI0liU3w6n2lzAjYPt3gc/66F3ea7xGyFZzl8U
+	jP8geZLcVDh3OlYu9WY1VTDLSUuuYBI9qS+5ka/wEr1D2J08liryOYe6gzEeOSQTi3OIU5ohl0N
+	jrCJyD31gkFTDfnBpSmQ3zRsy9YOuckDfirhtyBn1wPjFBQo9RhUrUJj+yHB+BPbS+2IywcyYt7
+	CYoqLkprwWi/afUNYGjnaONEz8+2GSQv+Xm9xl//MmgQSWSDnUhG81cI0xFenb2lPAcOg+BjdNF
+	/yI9gr17cAWwTg5sWsl/5i0j6T96Ac+r++4ObQ0QySJApJQ4hC9YM=
+X-Received: by 2002:a05:6830:4c03:b0:7fa:ac4f:79a with SMTP id 46e09a7af769-862898708ccmr1498843a34.22.1794559752867;
+        Fri, 13 Nov 2026 00:49:12 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628817d979sm2034202a34.22.2026.11.13.00.49.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 00:49:02 -0800 (PST)
-From: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
-To: dmitry.torokhov@gmail.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] Add Nuvoton MA35D1 keypad controller support
-Date: Fri, 13 Nov 2026 16:48:50 +0800
-Message-ID: <20261113084852.32727-1-fyhsueh4linux@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 13 Nov 2026 00:49:11 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH net 0/4] net: phy: restore driver state after userspace MII
+ resets
+Date: Fri, 13 Nov 2026 01:48:39 -0700
+Message-Id: <20261113-submit-phy-mii-reset-v1-v1-0-02a55f352a91@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,39 +94,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6W8swvdCIL+ingw8WlXaCzZWJTSf
+ zfqcQZmFjiL0XHoFhTO5vbIDXTTIQ3nfKPYpTFCH3aquhV/xtGqTMNbRjMpdFaZVTTumXqGSFW
+ 0eiq82ut3PiKz4vSXrb8z1e8T6/oBsefl/IAAAAA=
+X-Change-ID: 20261113-submit-phy-mii-reset-v1-1b9ec0e2be11
+To: Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Michael Chan <michael.chan@broadcom.com>, Hauke Mehrtens <hauke@hauke-m.de>, 
+ Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-The Nuvoton MA35D1 SoC provides a hardware matrix keypad
-controller supporting up to eight rows and eight columns.
+An MII ioctl reset needs to restore the PHY driver's configuration and
+software state before the PHY worker can access the device again.
 
-This series adds the Device Tree binding and input driver
-for key press/release events, clock management, and system
-suspend/resume support.
+This was observed while testing AC200 receive statistics: a userspace
+BMCR reset cleared the hardware counters, and the next update interpreted
+the decrease as counter wraparound.
 
-Tested on a Nuvoton MA35D1 board with a 4x1 keypad
-configuration and a 1 MHz KPI clock using evtest.
+First remove b44's spinlock around the sleeping phylib ioctl. Make phylib
+propagate failed writes, wait for reset completion and keep the PHY worker
+disabled until driver reinitialization finishes. Then use this path for
+phylink BMCR reset requests targeting the attached Clause 22 PHY.
 
-Feng-Yi Hsueh (2):
-  dt-bindings: input: Add Nuvoton MA35D1 keypad controller
-  Input: keyboard: Add Nuvoton MA35D1 keypad driver
-
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-Changes since v1:
-  - dt-bindings: add optional resets and reference input.yaml.
-  - dt-bindings: fix interrupt, clock, and keymap formatting.
-  - input: use guard(mutex) in suspend/resume callbacks.
-  - input: rename error variables from ret to error and
-    explicitly return 0 on successful resume.
-  - input: remove the unnecessary linux/mod_devicetable.h include.
+James Hilliard (4):
+      net: b44: keep phylib ioctls outside the spinlock
+      net: phy: propagate MII register write errors
+      net: phy: quiesce the state machine during MII resets
+      net: phylink: reinitialize the PHY after an MII reset
 
- .../bindings/input/nuvoton,ma35d1-keypad.yaml |  75 ++++
- drivers/input/keyboard/Kconfig                |  11 +
- drivers/input/keyboard/Makefile               |   1 +
- drivers/input/keyboard/ma35d1_keypad.c        | 407 ++++++++++++++++++
- 4 files changed, 494 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml
- create mode 100644 drivers/input/keyboard/ma35d1_keypad.c
+ drivers/net/ethernet/broadcom/b44.c |  4 ++--
+ drivers/net/phy/phy.c               | 42 +++++++++++++++++++++++++++++++------
+ drivers/net/phy/phy_device.c        |  2 +-
+ drivers/net/phy/phylib-internal.h   |  1 +
+ drivers/net/phy/phylink.c           | 14 +++++++++----
+ 5 files changed, 50 insertions(+), 13 deletions(-)
+---
+base-commit: ead6fa9a0ab194f02a2f36d634b193e9c5f9a1c6
+change-id: 20261113-submit-phy-mii-reset-v1-1b9ec0e2be11
 
--- 
-2.43.0
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
