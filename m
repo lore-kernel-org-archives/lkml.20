@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794598841;
-	b=WVD9ANi5CJjpZRNFfD3Z4Du40/ZhtZw+Iibx6me44iPmiYYrZ7jbkpEYY/a4dnf8f2a2
-	 b8BE5U2voYif1PWdp6v3LWzlvb1nIvaBV6oj3+0bPAw9wvPBQKik7KAWSkwdzAepp/CoH
-	 Z8zC3S39JRyC5ddJ5OQ2cP6X7cnyyf/J83no4tROw9+W9sy/5uC7E3AA/931A0AepWkl9
-	 az3jCdRTRtHyTxPEjGYm4Yf4HsK2waypooXaFmsfAW6OT//hedqYNpWNfG7lWxUdK/foB
-	 zfwNSlF9vDwcuOhwhfgI3KqBef/9Jwf+Thia2aDFjpUkdGakOcB34khLhMFo44VuOuA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598841;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BPepXkgxN2/CunE+vUYRGUqFnou6gzA2QcmaiD1UYUk=;
-	b=C96OhkaEgy7sQQfE3WnKXVGLVmoCaXNrAbYqm0hb/4TMAOxmgihJakLJqAaB3MMhsIM/
-	 GdHnlUhOsNkh6eVHgQ6T8h8Ay094FqyPYmC8g490KmFmjxajiYXPoF8dLma+ZS2WjsASG
-	 2MCq8hovWxj9DT/f8UV6w2Gprm9C4hDG2pb/lcIndP1aMtiqmg2oxnUyImfLiham3i+sP
-	 7hGgSMukyb7+rdmWOAsuMNIvbneHP8wZufH1nsv8yJ0kMSim0hdwRAbGKBWnkG9Oroepc
-	 iDpo5e8lJynk+eSCX3vrjNCj3LpYrkIhmAzmuuFt28Hr6yCHHrd3USr57GUAVTpHaaw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elazThG7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BBD606A337
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:40:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elazThG7
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794598840;
-	b=iqTjfjruRbDHRunBjpnx3yjq6YIR6bQjjy8WIZXX+g72G8ZC4DWdBzR/tEaFfvK/ZiNW
-	 vYNZ/YQCLYBqaCJO2XbrVQtpJksiV1tdusMxb3Cerseunmb6iZoyLyaqbHfoPeXNq8XVN
-	 Y+5o0NqAUKM2vR8xyKV6515aopMTagaGtqpBeWLociiblpD41V4eCXoohfro58v3mcw0j
-	 pRhxkv9wq8DwFNMrvt43sWrXGSpSQK74EBg2Y3ozMz/PmRShdrlth2Y58Z0P6zS+MfhTA
-	 DNemThcAyzt/eWCJrhvNO0cLQ0AHcGNYtCNLgUy2070lajgtFN3kEAe8POuW9xWzOYA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794598840;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BPepXkgxN2/CunE+vUYRGUqFnou6gzA2QcmaiD1UYUk=;
-	b=hjVUL7919blvIb4j5AgIClQ5ufBDiHXxgFuJrX3fqhlSe1YkKLCWh95OlnEdMMV04c7p
-	 hK+QzWd9RWbSLL45OkUievb6n+ouubKiCojo9/my3TCIeFM0py/85hLDzHgSMN+uXOBSu
-	 CGJdx821M96wNUkEvqvKv8QBGFRYl32gplevhCuhxI3Ex6QlNYtOgBK29ZnkJUEB+Q7se
-	 w/Atb0K2ruke6wLzmWHHlvrFt0jk7CZWXf0/5lgl4zRZIh6unQWVGwQhm2F+hS5HRaKOg
-	 k+XYzvuC9tJsIke5GIohL18g8/Tqi6qTMkfaT9KzwsUHVpZedNZ7u3DdHf1MZ1DNOCQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794598872;
+	b=Gpb94FgGINk8Mx1CUMZuPN3qHmlCq/fjDKWFTd/to/U8Uzqbf8mtb6N+1QqzaIhOpa+8
+	 rvu2x/6aCuwXnF9xTN0ksHMqI4wO6h/cMuOI7UFlMaT3/JS+pKL7CapcJKiMp75svAjgy
+	 fHZsjR2DXouYqKSDb1j7uF58XSl3tF09OV4N21chzlzw4SN+l96hzqVNa2frr76Bihpey
+	 YnHUZDWHxrx/qeb35Vjr/cRufoyfCrZD1bzFK7JNcrdd7KlQygAIiGr6XcEXp3Kv3LtiF
+	 Kk/9WQ3+gUje+EL6MC4bXHAfIYIzM9RCAyYQI3LndC2xZ5RGaSD+D9gE8fJl0kzim3Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598872;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=rFhcFK7/zd+xhQ8fW4dOWf9BdumBCXdBWAPxNYD5E5Y=;
+	b=svHdscj7MDd+z2zLGJKCHNyJEnR5XVHlsFcljdp6f1XjTZ1RcwswWMVNAlKLRDBJI5e5
+	 p9LecSvGmwp4cebHIYMIiLYS47EIOHXSMdI7+nYURQ7gpu8UGepxLCBUQJzkuPfM3+GSm
+	 kw3zVYDc/ARoBizf9eKeptZlRTc9r0GZ4h9QzQ6Glvc91mgtUh0k6jm5TDqXwNPd4Yuf3
+	 Ti5/JPm06UA3lEsBsasbe5dWoHD/uxQBigOvT5iDCgDXOgQnIYP12Wc8QPHdLCxUuQBOn
+	 ym5LqHWnfaqKN6dqks9AUdC8LMqlY30WsQsUtfrtSJ6TsjWlfOO+Cf2LZ/7pmasr4Bg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b="ZNHrF2/h";
+	arc=none smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7F6FF1F000C6;
-	Fri, 13 Nov 2026 19:40:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794598840;
-	bh=BPepXkgxN2/CunE+vUYRGUqFnou6gzA2QcmaiD1UYUk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=elazThG7cdNCZfnsJ6GFeL379t+eCdHKuSacgLnlJYWQi62P/INepGOPDQSrh97cU
-	 nAKgDoRl/LBXKidGXeyJ3eqpVP/o0ewCgm2lNkA2KcgWlvNTFkwnlbhqn1WVDdxeny
-	 K1V4r4i3FfOVCmQ8vfXYj0AX4fLSzZd07NKVJaoj6TR4OQ3wF+ggH/SM6AsnIYIPcK
-	 nxYaX9v1/wXYNGnVP9UXZIJ+lZOVzEIXzB6IgjXgx67QPif66OTGmQjnHQAQc3bRFp
-	 LFcnB8S9uxUd33s9viO5cFCry2GIoItoU2MskmSFWzV/nn0FOCNtm37FJqm03R7PkC
-	 OhWZE3m9oqruQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 11B3F49AA3;
-	Fri, 13 Nov 2026 19:40:39 +0000 (UTC)
-From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
-Date: Fri, 13 Nov 2026 19:40:39 +0000
-Subject: [PATCH v2 2/3] drm/amd/display: Leave self-refresh before an ABM
- level update
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D824606A332
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:41:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D824606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=ZNHrF2/h
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5430f70c827so24381521cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:41:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1794598870; x=1795203670; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rFhcFK7/zd+xhQ8fW4dOWf9BdumBCXdBWAPxNYD5E5Y=;
+        b=ZNHrF2/haGgJJ3YhZJtarvMKEvQx992AcLULsAKI8Ew+keAp509JP1ZAhWWO7Tw5Fa
+         5kgsE+Z/yJGjcts8r4id75BFZJuN23UiqJcYJ0O7/Am/2cbsvCJQ0Vk8XkixgxJqw5PU
+         RHlUt5M2zEwTub1ZMmxc8DHijjCtvvNbv2N/8PaW3PUbZScGsxJ7nOeDPYZN68I7xnvB
+         Edqxo9TiSZIph+AhheKn+DZdxAUMwM3tuC61hgclKxYExc7K6/azt4ouWpTGimsSTXmb
+         40egRRu58OS5SaQK142lucoWy8QbkbVYDMpoo2ye3R4/OVMWxXLvJZRTmq5nPlMAF+Ei
+         /0lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794598870; x=1795203670;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rFhcFK7/zd+xhQ8fW4dOWf9BdumBCXdBWAPxNYD5E5Y=;
+        b=oijZkqxcXnvwp0pBFidOmLHYxy0kmF59XLMYKVenMeyBFN7MfdvQ7WYam6UEyH04ST
+         gfOoBV0uB8bt+ypkQrQUZqFlu8xTmHDjMyCvsVo9Im0hyCT3zLwz8qFET9mgGCuD7kvW
+         VAXGbONj8Zbxz9RuxdTFsZEniBXJVoOKc00BARlC0LS7JM9rBstFJMDvo+CtaziX1muh
+         UdrpIJbWw/XuTvi5/qXNleJLT6EapuAS1Al92oAUAnxEudob3fmB2vwACxHd9CyIBpFM
+         s2fYkXB6K1Ejc7A2Bmj11qXKKxyPtFgkqmhT1K9jnJxuBbdBVGfZQ+yuuYCHy5rlDJHx
+         F+0A==
+X-Forwarded-Encrypted: i=1; AL+hErFvdq9Kd1D80DW89EziYvXttPTMAeEZzFGSrMlJiW/dgkeaaVUzTz1cftnfJEhvV2DX6n5oUr0mPEpVYi4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+62Q6ohFvCitkXQWDEyHbKe7T1F/cmCEGJY+j1xeEKMuS6PyeS
+	2MGbUlL261wY4ck1gpYMensHY6YRBbC6hAaqv/vKgSoNNpwOUA7b7q3UbGMMfhflkQ==
+X-Gm-Gg: AYBFou1TeTMhNpGWcKtUWoyrzMHJ3gIro8znwEqI73UU3Fj2x3NyzZeBt/SLXsfAnnY
+	3/04Ee5PaxCKUV2lkwKgubM7dPg+LABqUXDKMdl45V0pXVajI5/v1Rnu2SDEczBRf6h8Q3/ndYb
+	+paBEeK5WcSGBshPZNCskH0eJfwPZQvutSZRBE2rbky0mdr2Ygn/xML3KGRnQwCm5CNwNBBDCBz
+	dbO09cmL12kXJy9f2WJ/thQnTjhJCr70nN3DayjXxL435p1aW1RtzAhIFfdMMCI67Jpq0E0yard
+	nRumxVMdlX5NqAa/jNTRDecT16/KSPprzJlT9SzkQx/MVtPUOgRvUisL0BbANCvVEE+CzsSkiZn
+	3mIsDKmJxLALPaXyRLCzcuRF2ZkJAolX6HsIKljIMzGtDNpwfUP5g5bNiyjPyIYqisy8x81Ngwp
+	rfaBsj2IjRNhJ8pTgNkfrTy/IVeMW0MvQ+oNjCDoCOctmm/Zw25At5VC24cftMPK/A5vLwSiDWe
+	pexK5QN48410s74iraKFxNskAUiNYvoZJtp+DSBnV+vBSJDAVfb+5HDKT8u8TizT+rVSfI8lZat
+	cF8SfvBMzpKbi3ed6nsy8nbfGsIKALWTj5G0QK6PhwCZi/jj5LRQweg6CoJ9ccBbUiW+XAis/w=
+	=
+X-Received: by 2002:a05:622a:4005:b0:535:384d:68ac with SMTP id d75a77b69052e-55ac6c7bc64mr53336161cf.13.1794598870411;
+        Fri, 13 Nov 2026 11:41:10 -0800 (PST)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55bd520d5a3sm9848131cf.0.2026.11.13.11.41.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 11:41:09 -0800 (PST)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: slava@dubeyko.com
+Cc: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] hfs: avoid reusing occupied CNIDs after deletion
+Date: Fri, 13 Nov 2026 14:41:03 -0500
+Message-ID: <20261113194103.3825961-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2bbc10eb1dd5ee69329a9307f14fd15b1815b898.camel@dubeyko.com>
+References: <20261112110128.4082071-1-hengyul@cs.unc.edu> <2bbc10eb1dd5ee69329a9307f14fd15b1815b898.camel@dubeyko.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,208 +102,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-amdgpu-psr-abm-update-next-v2-2-27ce790856ea@hsal.es>
-References: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
-In-Reply-To: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Roman Li <Roman.Li@amd.com>, 
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, 
- Chenyu Chen <chen-yu.chen@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Hugo Sales <hugo@hsal.es>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7318; i=hugo@hsal.es;
- h=from:subject:message-id;
- bh=aPK+/O58ErSzPhBOIOuBjn+oOrhfRqck5lqxBkYi52s=;
- b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsr6nb2N8qsSrJa2eI6bcF5rD5Xf6hqKc4wzmk1wLq
- 6UOl9hz8naUsjCIcTHIiimy6N7wZGCZOHlmTtHzJTBzWJlAhjBwcQrARKqkGRka+xtD5rhHL3Dm
- jLLht5C7Nc8g+crSpomfZ02Krz6iPfMnw1+RV4EJ3PklVeFrmYRfy53szz1+Irfy9eqXW7P4Z07
- LO8QBAF1PRQU=
-X-Developer-Key: i=hugo@hsal.es; a=openpgp;
- fpr=193D095149CF7E8737B39064D912B0DB205A91C1
-X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
-X-Original-From: Hugo Sales <hugo@hsal.es>
-Reply-To: hugo@hsal.es
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Hugo Sales <hugo@hsal.es>
+Hi Slava,
 
-Writing panel_power_savings while the eDP is in PSR hangs DMUB on a
-Cezanne laptop (DCN 2.1)
+On Thu, 2026-11-12 at 14:34 -0800, Viacheslav Dubeyko wrote:
+> I am still not sure that this approach could work. If we haven't the
+> thread records in the b-tree, then we sort records by parent CNID. But
+> folder can contain child with any CNID. So, if we keep the largest CNID
+> in use, then, technically speaking largest CNID - 1 can be located at
+> any node (it doesn't matter if it is used or not). Even if we found
+> node #1 with largest CNID, then it doesn't mean that largest CNID - 1
+> is located at the same node #1. And even if we cannot find the largest
+> CNID - 1 value, then it doesn't mean that this value hasn't been
+> allocated already as child CNID of some parent CNID (because records
+> are ordered by parent CNID). Are you sure that this approach will
+> finally work?
 
-An abm_level change on its own is a fast update, so the commit skips
-amdgpu_dm_commit_streams(), where amdgpu_dm_mod_power_update_streams()
-sets the events that keep the panel out of self-refresh. The ABM level
-then reaches DMUB through amdgpu_dm_commit_planes(), or through the
-connector update loop in amdgpu_dm_atomic_commit_tail(), with the panel
-still in self-refresh
+Yes. The patch never searches for a CNID, neither the largest one nor
+largest - 1. It only needs the maximum of the CNIDs of all file and
+directory records, and a maximum does not depend on the order of the
+records:
 
-Raise the PSR and Replay hw_programming events before both updates and
-clear them once DC has the new level. Leaving them for
-amdgpu_dm_enable_self_refresh() would keep PSR off on an idle desktop
-until an unrelated commit came along. An event that a full update, a
-modeset or a PSR SU dirty rect change set before the update stays set,
-for that code to clear
+- max_cnid of a leaf node is the largest DirID / FlNum of its file and
+  directory records. The CNID is read from the record data, not from
+  the key, so the parent ID and the thread records do not matter.
+- max_cnid of an index node is the largest max_cnid of its children.
 
-Fixes: 8c322309e48e ("drm/amd/display: Enable PSR")
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-v1 was tested on an ASUS ROG Flow X13 (GV301QH, Cezanne, DCN 2.1, PSR1 eDP)
-with PSR turned on through amdgpu.dcfeaturemask=0xa and "drm/amd/display:
-Don't require DMUB PSR caps before DCN 3.0" [1], which DCN 2.1 needs for
-PSR to come up at all, but, as far as I can tell, the same bug would
-manifest on other DMUB versions that use PSR and ABM
+So the root holds the largest CNID in use, wherever the records are.
+When the record with the largest CNID is removed, only the nodes on the
+path from its leaf to the root are computed again; every other node
+keeps its value. For example:
 
-On 7.3 without this patch, writing 3 to panel_power_savings while
-psr_state reads 6 makes DMUB fail within a second. The log fills with
-"DMCUB error - collecting diagnostic data" and the panel shows vertical
-lines. amdgpu doesn't attempt a GPU reset, and the errors go on until a
-reboot
+              root: 20
+             /        \
+     leaf A: 19      leaf B: 20
+     (16, 19, 17)    (20, 18)
 
-With the fix, I let psr_state reach 6 before each of these steps:
+  rm 20: leaf B -> 18, root = max(19, 18) = 19, next_id = 20
+  rm 19: leaf A -> 17, root = max(17, 18) = 18, next_id = 19
 
-- turn ABM on, from level 0 to 3
-- change the level, from 4 to 1
-- turn ABM off, from 1 to 0, which takes the immediate disable path
-- switch power-profiles-daemon to balanced and back to power-saver,
-  which sets a new level each time
+Both times largest - 1 was in the other leaf, and it was counted because
+that leaf keeps its own maximum.
 
-None of them logged a DMCUB error. Both kernels had [2] applied as well
+next_id is then set to max + 1. Every CNID in use is <= max, so max + 1
+is free. Deleted CNIDs below max are never reused, so we never need to
+know which CNIDs are free. A red-black tree of deleted CNIDs would only
+be needed to reuse those holes.
 
-I tested v2 the same way. I let psr_state reach 6 before each of these
-writes: 0 to 4, 4 to 1, 1 to 4, 4 to 0, and the back-to-back writes
-1 2 3 4 and 0 3 0. None logged a DMCUB error. psr_state left 6 within
-7 ms of each write, and PSR was enabled again about 115 ms later. With
-ABM on, the panel went back into self-refresh about 18 seconds after the
-write
+To check it, a debug build compared every cached max_cnid with the
+value computed from the records after each catalog insert and remove:
+about 88,000 full-tree checks on 2,000 files with random operations and
+4 writers, plus a run under memory pressure that freed 55,630 nodes and
+read them again. There was no mismatch.
 
-Commit 8c322309e48e ("drm/amd/display: Enable PSR") only paused PSR for
-full updates. The power module events used here came with commit
-3c108046e1d6 ("drm/amd/display: Add power module on Linux"), so a
-backport before that needs another way to leave PSR
+> Why do we need this flag? If node is created, then it should have valid
+> max_cnid.
 
-[1] https://lore.kernel.org/r/20261029171219.2842014-1-hugo@hsal.es
-[2] https://lore.kernel.org/r/20261029165420.2255749-1-hugo@hsal.es
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 60 +++++++++++++++++++++++
- 1 file changed, 60 insertions(+)
+max_cnid is not on disk, so a node that hfs_bnode_find() has just read
+does not have it. For a leaf node it could be computed from that node
+alone, but for an index node it needs every node below it. Computing it
+at read time would read the whole catalog at mount, and again for an
+index node that hfs_release_folio() freed and that is read again later.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index dfbc384fbbdb4..262170b611502 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3841,6 +3841,56 @@ STATIC_IFN_KUNIT void dm_arm_vblank_event_pre_programming(struct amdgpu_crtc *ac
- }
- EXPORT_IF_KUNIT(dm_arm_vblank_event_pre_programming);
- 
-+struct dm_sr_hold {
-+	bool psr;
-+	bool replay;
-+};
-+
-+/*
-+ * DMUB can hang if an ABM level reaches it while the panel is in
-+ * self-refresh. A commit that changes only the ABM level is a fast update and
-+ * skips the hold in amdgpu_dm_mod_power_update_streams(), so hold PSR and
-+ * Replay off around the DC update. Holds that something else already set stay
-+ * as they are, for their owner to clear. dc_lock keeps the backlight path,
-+ * amdgpu_dm_mod_power_update_streams() and the self-refresh code in
-+ * amdgpu_dm_commit_planes() from changing them in between.
-+ * amdgpu_dm_mod_power_setup_streams() sets them without dc_lock, but only for
-+ * a modeset stream, earlier in the same commit tail
-+ */
-+static struct dm_sr_hold dm_hold_self_refresh(struct amdgpu_display_manager *dm,
-+					      struct dc_stream_state *stream)
-+{
-+	struct dm_sr_hold hold;
-+
-+	lockdep_assert_held(&dm->dc_lock);
-+
-+	hold.psr = !amdgpu_dm_psr_event_is_set(dm, stream, psr_event_hw_programming);
-+	hold.replay = !amdgpu_dm_replay_event_is_set(dm, stream, replay_event_hw_programming);
-+
-+	if (hold.psr)
-+		amdgpu_dm_psr_set_event(dm, stream, true, psr_event_hw_programming, true);
-+	if (hold.replay)
-+		amdgpu_dm_replay_set_event(dm, stream, true, replay_event_hw_programming, true);
-+
-+	return hold;
-+}
-+
-+/*
-+ * Nothing else may commit on an idle desktop, so drop the hold right after the
-+ * update rather than leaving it to amdgpu_dm_enable_self_refresh()
-+ */
-+static void dm_release_self_refresh(struct amdgpu_display_manager *dm,
-+				    struct dc_stream_state *stream,
-+				    struct dm_sr_hold hold)
-+{
-+	lockdep_assert_held(&dm->dc_lock);
-+
-+	if (hold.psr)
-+		amdgpu_dm_psr_set_event(dm, stream, false, psr_event_hw_programming, false);
-+	if (hold.replay)
-+		amdgpu_dm_replay_set_event(dm, stream, false, replay_event_hw_programming, false);
-+}
-+
- static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 				    struct drm_device *dev,
- 				    struct amdgpu_display_manager *dm,
-@@ -3868,6 +3918,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 	bool dirty_rects_changed = false;
- 	bool updated_planes_and_streams = false;
- 	bool stream_update_needed = false;
-+	struct dm_sr_hold sr_hold = {};
- 	struct {
- 		struct dc_surface_update surface_updates[MAX_SURFACES];
- 		struct dc_plane_info plane_infos[MAX_SURFACES];
-@@ -4224,11 +4275,16 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 			amdgpu_dm_replay_set_event(dm, acrtc_state->stream, true,
- 				replay_event_immediate_flip, true);
- 		}
-+		if (bundle->stream_update.abm_level) {
-+			dc_exit_ips_for_hw_access(dm->dc);
-+			sr_hold = dm_hold_self_refresh(dm, acrtc_state->stream);
-+		}
- 		update_planes_and_stream_adapter(dm->dc,
- 					 planes_count,
- 					 acrtc_state->stream,
- 					 stream_update_needed ? &bundle->stream_update : NULL,
- 					 bundle->surface_updates);
-+		dm_release_self_refresh(dm, acrtc_state->stream, sr_hold);
- 		updated_planes_and_streams = true;
- 
- 		/**
-@@ -5198,6 +5254,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
- 		struct dc_info_packet hdr_packet;
- 		struct dc_stream_status *status = NULL;
- 		bool abm_changed, hdr_changed, scaling_changed, output_color_space_changed = false;
-+		struct dm_sr_hold sr_hold = {};
- 
- 		memset(&stream_update, 0, sizeof(stream_update));
- 
-@@ -5280,11 +5337,14 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
- 
- 		mutex_lock(&dm->dc_lock);
- 		dc_exit_ips_for_hw_access(dm->dc);
-+		if (abm_changed)
-+			sr_hold = dm_hold_self_refresh(dm, dm_new_crtc_state->stream);
- 		dc_update_planes_and_stream(dm->dc,
- 					    dummy_updates,
- 					    status->plane_count,
- 					    dm_new_crtc_state->stream,
- 					    &stream_update);
-+		dm_release_self_refresh(dm, dm_new_crtc_state->stream, sr_hold);
- 		mutex_unlock(&dm->dc_lock);
- 		kfree(dummy_updates);
- 
+The flag means "max_cnid of this node has been computed".
+hfs_btree_max_cnid() computes only the nodes without it, and only when
+the newest file or directory is deleted. The first such delete after
+mount still reads the whole catalog once; later ones only recompute the
+nodes on the path of the removed record. The flag is also cleared when
+the largest CNID of a node is removed, and on a split, because records
+move to the new node.
 
--- 
-2.56.0
-
-
+Thanks,
+Hengyu
