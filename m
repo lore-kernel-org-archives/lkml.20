@@ -1,82 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794556160;
-	b=BeH9y6A0zpTbMaV7dZ0I7ZUk93nVfosPuhn7VtgwfkF0AzXo0+AiA0jAe6/MSG/hGHwF
-	 w2Zi7Sa66uZpGo5pXBTP0j45/7SFGRgBQB26DsY4D7g3GtZw061CYA6SSyjfvswzhLWnz
-	 3sAvzh7LXweTzhNbX18C6TotN5eAFy2QBZNUc/MYhoO9nS6jXyZEeRUfbpAUqXhDH3Gvc
-	 4DqHcsC7R9klP6xzZtdt/skrtEt45Yf3FJHUNp4jnpKzoAZhPr3GrB1MaDiv62DeMuLFH
-	 jHzSobUilci81MEonLgIjUn2YnOksQptCMz9y0ojmTggFXj1Bgi0r6QJDUk4ddErrcA==
+	t=1794556196;
+	b=dWJB+Jix5oqm0xGlrraWF29oupiSAa6I6d29q1xvjolmRT4ETSwu6urpxVX/rjLvH9Jv
+	 TLPFRnVcX5DDmfbXIrN1jdM7nqt/E5aGSqM7KVf9m6NtA5e67Dd+iTppW9K7fM4UCR6mP
+	 yNSX78AbmM/4/qHS2YDMoYtT3gbmvROG0L5pJNTy+En52skNguu+QPD3h8GFX0jeO2YJC
+	 0c45rpb3kyZ1ekp1ct7LCCTI5Sc2KmH5KoTw/C1PJsZSA6kiUUd63ek3Iukl5H3GQ8JK/
+	 K0IfsZhWp2UrAcsM/kFymDa1rh8iiRLa6N1jI55F/npJiFKMi2v4vT1mWvg4TFdWI2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794556160;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=yD3zIB455QGIB/nplw1nErpdlc6MJJqOdHe0pjiY9Ao=;
-	b=EgAQaMzAraC65t3JXxD/oGUKFx4J01LAn5C68x9LhpBUvJtp4tzTtZjoq4EVgHeXZxyU
-	 ABPNYh8Ftr8qDK51z7LHmY4UqSKgAITl1sm6i6uTqDldjvpRSXR3WS6VFq/tYmHBjGMfm
-	 FVnM0UskGXjPuONoEZjLzJqQ2GN4z18q3DAWSPLq7JZveI7RRgr3uwISmmu+JKIqa+YRt
-	 jNhEGgsJOGvabdz7E6W8PpdvZs8qsNZt0tVlJFBCZTwAluLugv9Emz5DAHpB5yTAMJtFY
-	 M2CAWB4lwnS3pPiaxh9TDMZAeObXxgSSDJlfD3JJKVaitOc+3u6PM+JFEZ7t7uPD4ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794556196;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/UGO+TUxlocXzADNZ4hhNDhS1UF9RKNge9oTGNXBIBk=;
+	b=M80CR+9Tjbtbo3vi3AiQ+uEM92bi9bd2q5jz28KrDTAcMePP7pO9KzIZ6/qoLeu6lfpj
+	 49eNJGOQPz4EM5PwmrPnVhlK8lCjb30ZRFPpL4lIOACcVelDubDitsK3VAKbZ1+E9qrwR
+	 Jfe1g74WgxcXyhWSPyr70RZ2V4Tq3ZQ8sLKYvf2NjXKvNP/JeJdZubFIrvvb78nRRTAMA
+	 mDrSa4H9cIGPBOckYeD0HFtY1pICdQANRwMgenLEP0xuZ1fmKTF1eo/ENbcBQStbUd9Ld
+	 vx+9XJjhA56/mwYBbkSITbe1OETKrxM13/KfxECMKUSAEmlaWdajq/3zfr+2B6/hANA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CD3DczT8;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZPoSME/R";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D031A606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:49:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D031A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8A4606A31C;
+	Fri, 13 Nov 2026 07:49:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CD3DczT8
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD5Ec8K1898471;
-	Fri, 13 Nov 2026 07:49:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=yD3zIB
-	455QGIB/nplw1nErpdlc6MJJqOdHe0pjiY9Ao=; b=CD3DczT8fxjWk/eHhaL2j/
-	EXGdFdiSuOGlt4x7EnI/xlpw2blskQEglVrZ5lMhe5p9JqKoMj/h+PduRoziNCdb
-	aQXlnhnG7tHpDKpoMfMU2WWxxWWqi1WGBNR9KNwMjpb6MzMF3qNNm+xMwoP7DWHA
-	bVur0tgXJAeNsoMeudt7qtnGXGDCcQHQpAxacv/d7z9PpJKD6ta9VdXu7BWn+7Q/
-	64UXyTQE3Pj7dpZI4QdFrl1BC+bG4u0dlyc9XndDcT3KqQHPLPFlr1G47iFt8bD5
-	JiXksrfVgYN7R2bsk99qHsVedgozFU84kH5W1T7J2TBq36FdxCgDeK74eFyL+Iwg
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsuq7abbu-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 07:49:04 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD5Z1Pe1832382;
-	Fri, 13 Nov 2026 07:49:03 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hvkq10de4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 07:49:03 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AD7mxD832571866
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 13 Nov 2026 07:48:59 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7E27C20043;
-	Fri, 13 Nov 2026 07:48:59 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 608C820040;
-	Fri, 13 Nov 2026 07:48:56 +0000 (GMT)
-Received: from [9.39.16.227] (unknown [9.39.16.227])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 13 Nov 2026 07:48:56 +0000 (GMT)
-Message-ID: <24f5303f-19d9-41c4-826d-b2a777008e87@linux.ibm.com>
-Date: Fri, 13 Nov 2026 13:18:55 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZPoSME/R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4191F000C4;
+	Fri, 13 Nov 2026 07:49:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794556196;
+	bh=/UGO+TUxlocXzADNZ4hhNDhS1UF9RKNge9oTGNXBIBk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZPoSME/R7NAQTwd025SGMaQtwQBgiQ8PP8D2HkjqxpCyEZ3igd1/c93XGbzARTrVW
+	 npdDjvzLZAkj8C3BA55JwNbbSa2geYbEgOOp6Cf+R9jNjQ+3YSl9ctWKv4MrP1gT66
+	 /OEt9xWN3htNtg4CKq6sRhwbMlpkwt1y3j6VGnhpp9zjwFqaOwJA6h6fdIm6Ql7LMc
+	 AUWroW4EI3JxfaRFl3KDIXMpF9xjPjsnWFRl6F/GlnP2CzsA8W4GhPg2s/Qy8w7KZX
+	 Q239bKC0NPQoOAbZIQ3CsXgjJUTA0cfzhI1Ya8AgJb774qU6NbpIvJ21vJiC4YnjiC
+	 R4u/jBllLicsQ==
+Message-ID: <6f256993-24e5-457e-bcba-7bad2defc9ee@kernel.org>
+Date: Fri, 13 Nov 2026 08:49:48 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,158 +52,123 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] KVM: PPC: Use ppc_hard_irq_disable before guest
- entry
-To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com,
-        linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
-Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        linux-kernel@vger.kernel.org, msuchanek@suse.de, ritesh.list@gmail.com,
-        harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com,
-        venkat88@linux.ibm.com, mkchauras@gmail.com
-References: <20261112130913.4124175-1-sshegde@linux.ibm.com>
- <20261112130913.4124175-4-sshegde@linux.ibm.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add Novatek NT37802
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Jayant Shekhar <jshekhar@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261109-jshekhar-nt37802-v2-0-a8e9efdcabd7@oss.qualcomm.com>
+ <20261109-jshekhar-nt37802-v2-1-a8e9efdcabd7@oss.qualcomm.com>
+ <9b05fd08-7bfc-462b-81b8-a560350f4235@kernel.org>
+ <c19f662d-8d04-47c9-a458-838e46521f2d@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Narayana Murty N <nnmlinux@linux.ibm.com>
-In-Reply-To: <20261112130913.4124175-4-sshegde@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAzMCBTYWx0ZWRfX878ZmJvolgTZ
- Wt/zK4a4coekuNhgGDwBt98tGyYCnApZHn1e+iSVKCdZr2NqucL1X0WNQwE3YRd7ILv+hJh43OM
- FBnOFLqZCwzM+zaw+rEK5HAz7rs/qPs=
-X-Authority-Analysis: v=2.4 cv=HbCB3SE8 c=1 sm=1 tr=0 ts=6af6c0f1 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=jkjrswUoTJZ6kdcGLO8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: mkgzvKllCj9yNTLhZCzhE44HrOLi1nYS
-X-Proofpoint-GUID: 9y4abnksacH48eUbDO8BLwBJ5BUJdio_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAzMCBTYWx0ZWRfXy9B8pG/BP3GH
- pGEb4DU1rNasanq3oGI+MESGqZ1exOJo+hchupNyiMXAJdTb+nGii0W38aCx5AETl+4TEP6DSR6
- ZmHVFzKPYr1Qun3Ddq55rPKW18aTq8CdatZEaMrcoksfsR7zVvjGXAZqMpdm4vnDDUvF5Zk/2XW
- RG2GL44aoltImdmNPNkEswkmICKpGzCE5kAoXbu6uznVda96vSvKr/+LUreyYky2Ns8EC+z0YQy
- R4i/e+w1PpZv1bv4jrw5qD/DWR19Xyb7tI4f1f2RMwMNAGiz42EGGeCAaQ+5gk44HNBxCuqUFBm
- hGHUJQwZRLZ+KVgcLJdXh4jKvQH6udcf8eecIHLoztz2/tZK8ODAE7J54cbbftSPENPhKvx9b24
- eaTbwep6J6s/i9E8y4tyop5zNh2EY0nc3puZAbiZbmrjAhFEAdDMTCoauxC9WZFEGo09t26ulWD
- 5Bb3qyTDQVvsrgpQidg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_02,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 phishscore=0
- impostorscore=0 priorityscore=1501 clxscore=1015 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611130030
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <c19f662d-8d04-47c9-a458-838e46521f2d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On 12/11/2026 10:37, Jayant Shekhar wrote:
+> 
+> On 09-11-2026 18:48, Krzysztof Kozlowski wrote:
+>> On 09/11/2026 07:27, Jayant Shekhar wrote:
+>>> Document the Novatek NT37802 AMOLED DSI command-mode panel.
+>>>
+>>> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+>>> ---
+>>>   .../bindings/display/panel/novatek,nt37801.yaml    | 49 ++++++++++++++++++++--
+>>>   1 file changed, 45 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+>>> index 1b38c1d0af68..be318cc84d52 100644
+>>> --- a/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+>>> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+>>> @@ -4,26 +4,30 @@
+>>>   $id: http://devicetree.org/schemas/display/panel/novatek,nt37801.yaml#
+>>>   $schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>   
+>>> -title: Novatek NT37801 AMOLED DSI Panel
+>>> +title: Novatek NT37801 and NT37802 AMOLED DSI Panels
+>>>   
+>>>   maintainers:
+>>>     - Krzysztof Kozlowski <krzk@kernel.org>
+>>>   
+>>>   description:
+>>> -  Naming is inconclusive and different sources claim this is either Novatek
+>>> -  NT37801 or NT37810 AMOLED DSI Panel.
+>>> +  Naming is inconclusive and different sources claim the NT37801 panel is
+>>> +  either Novatek NT37801 or NT37810. The NT37802 panel uses the same common
+>>> +  DSI interface and regulator supplies, and additionally requires EXVDD.
+>> What is EXVDD supply? The example DTS suggests it is something fake.
+> 
+> 
+> Its not fake, it would be something like below:
 
-On 12/11/26 6:39 PM, Shrikanth Hegde wrote:
-> After applying preempt disable patch, i.e PATCH 2/3, Christian reported
-> a subsequent warning stopping his board to boot properly.
-> 
-> WARNING: at .kvmppc_fix_ee_before_entry+0x10/0x28, CPU#0: qemu-system-ppc/4667
-> CPU: 0 UID: 1000 PID: 4667 Comm: qemu-system-ppc Tainted: G        W           7.3.0-rc4-2-powerpc64-smp #1 PREEMPT
-> Tainted: [W]=WARN
-> Hardware name: varisys,CYRUS5040 e5500 0x80240012 CoreNet Generic
-> NIP [c00000000005dc3c] .kvmppc_fix_ee_before_entry+0x10/0x28
-> LR [c00000000005f298] .kvmppc_handle_exit+0x5b4/0x5e8
-> Call Trace:
-> [c000000086587780] [c00000000005ee10] .kvmppc_handle_exit+0x12c/0x5e8 (unreliable)
-> [c000000086587830] [c000000000062068] .kvmppc_resume_host+0xb8/0x10c
-> 
-> It triggers below warning...
-> 
-> static inline void kvmppc_fix_ee_before_entry(void)
-> {
->          trace_hardirqs_on();
-> 
->          /*
->           * To avoid races, the caller must have gone directly from having
->           * interrupts fully-enabled to hard-disabled.
->           */
->          WARN_ON(local_paca->irq_happened != PACA_IRQ_HARD_DIS);
-> 
-> This happens since kvmppc_prepare_to_enter does first local_irq_disable
-> followed by hard_irq_disable. This leaves a small window where interrupt
-> may occur and it could set the irq pending bit in PACA.
-> 
-> That local_irq_disable was necessary for PPC32 to track the lockdep
-> state etc. On PPC64 hard_irq_disable is good enough. There is no need to
-> do both. Use the new irq api to do the necessary one.
-> 
-> Fixes: 12013e3d4695 ("KVM: powerpc: Use generic xfer to guest work function")
-> Reported-by: Christian Zigotzky<chzigotzky@xenosoft.de>
-> Closes:https://lore.kernel.org/all/b8f82519-9ae5-c247-e020- 
-> e79c627e57df@xenosoft.de/
-> Tested-by: Christian Zigotzky<chzigotzky@xenosoft.de>
-> Reviewed-by: Mukesh Kumar Chaurasiya (IBM)<mkchauras@gmail.com>
-> Signed-off-by: Shrikanth Hegde<sshegde@linux.ibm.com>
-> ---
->   arch/powerpc/kvm/booke.c   |  3 +--
->   arch/powerpc/kvm/powerpc.c | 14 +++-----------
->   2 files changed, 4 insertions(+), 13 deletions(-)
-> 
-> diff --git a/arch/powerpc/kvm/booke.c b/arch/powerpc/kvm/booke.c
-> index aed7b476b7eb..1ba28848e8bc 100644
-> --- a/arch/powerpc/kvm/booke.c
-> +++ b/arch/powerpc/kvm/booke.c
-> @@ -722,8 +722,7 @@ int kvmppc_core_prepare_to_enter(struct kvm_vcpu *vcpu)
->   	if (vcpu->arch.shared->msr & MSR_WE) {
->   		local_irq_enable();
->   		kvm_vcpu_halt(vcpu);
-> -		local_irq_disable();
-> -		hard_irq_disable();
-> +		ppc_hard_irq_disable();
->   
->   		kvmppc_set_exit_type(vcpu, EMULATED_MTMSRWE_EXITS);
->   		r = 1;
-> diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
-> index 9194cf492d1c..4ee3d7bfe917 100644
-> --- a/arch/powerpc/kvm/powerpc.c
-> +++ b/arch/powerpc/kvm/powerpc.c
-> @@ -81,13 +81,7 @@ int kvmppc_prepare_to_enter(struct kvm_vcpu *vcpu)
->   	int r;
->   
->   	WARN_ON(irqs_disabled());
-> -	/*
-> -	 * local_irq_disable() first: on 32-bit, hard_irq_disable() alone is a
-> -	 * raw MSR[EE] clear that bypasses the lockdep/irq-tracing state, and
-> -	 * the xfer_to_guest_mode helpers assert IRQs are seen as disabled.
-> -	 */
-> -	local_irq_disable();
-> -	hard_irq_disable();
-> +	ppc_hard_irq_disable();
->   
->   	while (true) {
->   		xfer_to_guest_mode_prepare();
-> @@ -101,8 +95,7 @@ int kvmppc_prepare_to_enter(struct kvm_vcpu *vcpu)
->   			 */
->   			local_irq_enable();
->   			r = kvm_xfer_to_guest_mode_handle_work(vcpu);
-> -			local_irq_disable();
-> -			hard_irq_disable();
-> +			ppc_hard_irq_disable();
->   			if (r) {
->   				/*
->   				 * The generic helper does not set the exit
-> @@ -134,8 +127,7 @@ int kvmppc_prepare_to_enter(struct kvm_vcpu *vcpu)
->   			local_irq_enable();
->   			trace_kvm_check_requests(vcpu);
->   			r = kvmppc_core_check_requests(vcpu);
-> -			local_irq_disable();
-> -			hard_irq_disable();
-> +			ppc_hard_irq_disable();
->   			if (r > 0)
->   				continue;
->   			break;
-The changes look good to me.
+OK, how is the pin named on NT37802 side?
 
-Using ppc_hard_irq_disable() directly on PPC64 avoids the soft-disable 
-to hard-disable window, while preserving the software IRQ mask and 
-tracing state required by the guest-entry path. The BookE halt path and 
-the guest-work retry paths are covered as well.
+> 
+>      display_panel_vdd: regulator-display-panel-vdd {
+>          compatible = "regulator-fixed";
+>          regulator-name = "display-panel-vdd";
+>          regulator-min-microvolt = <1100000>;
+>          regulator-max-microvolt = <1100000>;
+>          startup-delay-us = <233>;
+>          gpio = <&pmd8028_e1_gpios 2 GPIO_ACTIVE_HIGH>;
+>          enable-active-high;
+>          regulator-boot-on;
+>          pinctrl-0 = <&sde_disp0_vdd_active>;
+>          pinctrl-names = "default";
 
-Reviewed-by: Narayana Murty N nnmlinux@linux.ibm.com
+Looks like something for backlight honestly.
 
+Best regards,
+Krzysztof
