@@ -1,60 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794528212;
-	b=e1vYEwOV/ISAa8zj88q3qGS+cDxEKhn2b/xI4pa5HCetyG8YS7RBp+QJC5+Ww3uhyM9+
-	 LF8PayEZHjqsMe9B85HWODrRjbjy0C9O6hWqn0w0gK5dUYZXCwKiz2NxyxJMGvOJNbea1
-	 tvYbmFEI+xBbWtGF8mTHd8mB5NDZUqG1D/jDf0jjGQIrI06OeBdkFP/SAagygO2O+T8bl
-	 mg5ldaR99g0Kt5NP11uv6XfQbEkeYGsI4jMCmpzFzbhWjNpgxONBqHs/K4dMOzYnTUFkV
-	 z6JOFUH/EgSaqJ3Y2A5BrvscoTTduKy28ZEKu9cfeV2SLhAgat4jwzJOcDQkZ7n6R7A==
+	t=1794528319;
+	b=ObHKyf4ATUQg8nGnEoiGMZY+Dea43U/QaoczS65irkwvH3btPONDHrturVr3H/jiUlx5
+	 k1ILU4gVGskmT+LUX2qeftXCmEyPzr6OjevFUTLehxD7WNckBAAjRQpWkqzpN5/W2KE0O
+	 QOIkwfn1CftuyHsZO452f6glgux+smS8dUKMcKWoPkfLtgCEN6YJgSdlXYm1Hx1jXVNqR
+	 HRS8kCZjQoOkOi9wut5WUgQ3rxY+8Pf0BDLdKJBvqPeR3oDHs8+LlyQt+V8gJA7gY7y7m
+	 tljnYIVcpxSglBTumEjWqNPBXOuELL+Q3H5j/UKHmnI0T0saBVVwboLvcwNZ1tjfJEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794528212;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=mD7pZSBd7EvZHJEFH4uAL2i4QQbvrCkQsbm2ULwufSI=;
-	b=rCCKw86+fqQafii4Dpt1RHUJc85XDm6BLqf1phv0/zxtTG5jCm66mQNLhPYE40cgq6Fp
-	 Lr/2tS6ilu2MzBb/ir0s7iqkpurRg3rC5nyR1I33TU8tKv0ejSmOs2xo3eaSRlLCoo5ld
-	 GLXnHzMu/RpmFaJLO33CL3gHd12EBw4LOnUYpDwskdb6cXdlZm2mvUUtl0pLKdrouu99w
-	 cebEBWN2n4O9v6vg0sM+0VQ4yAzUHFqjOSgsqikdtIV+zhyC93E1xSaH6j02zN4GZG8gh
-	 QtATPiTsH7ve5Npb6rnpMEiYkrjOLyOrgUL+ZOhhAYkbVgc/ALth5hWQLcWGvj5TeuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794528319;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ZP7w34GShAuXcCWiodI7YmsdXNmvF5TzQf1yjJvKrG8=;
+	b=d24S/wxvXeTDj6kUb0oIbquXz2OILiFoRb7AU9m4llxWH/DHapNqVtmdOqyECrIzibdh
+	 pVHxc32WRz7urO9jH7BDb44vua9FjvO8CAYNRqQ4XalFIqyZsPfNuKc4Xupz+nMUXQvpx
+	 /YTecqtmAfVfnPResLuzxjk12tXB2diCjAXjj1Leohn/GzX1QbfeBiqSJ+NIzo9x+/0sh
+	 a4NXKulyIo0WPEhhqfUY8rDcfFmBrftH36bsfBWvwwbKiuoe1wMyFL9fY0YDxc44iCyHG
+	 8K9juynRsdIBwryoYwdCY7dJBPNpiFgkPb08VHR6UMqwlzKWgtvxiCbZw3P1JSzIoPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lKnUUyyd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DmDmIqDs;
+	arc=none smtp.remote-ip=209.85.217.53
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69D8606A321;
-	Fri, 13 Nov 2026 00:03:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C38606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:05:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3C38606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lKnUUyyd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AC451F000C4;
-	Fri, 13 Nov 2026 00:03:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794528211;
-	bh=mD7pZSBd7EvZHJEFH4uAL2i4QQbvrCkQsbm2ULwufSI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lKnUUyydyueSLUDTINIjBGZO+7VYgYenYVCem5b8nts8ODqjuL/5sPwOWDPZKEJFk
-	 TRLumq6fElvERg0T1zYfu3jL9HI6lktNoEpuceP9Gi9CU3bCPS+3adwnsKsyMz5VQx
-	 3DfZJ2yKl0k21MXXYSRMYpo5Tmefr7tjFCKAMhskyNIgYcZbyuf1mXli89Xwyz6C/N
-	 PuqHiZzQqHWSI4kBaxFu6L6BmntDXDzl0LEC1aiT0otwprrkjsOkwgsg3wD460AAH3
-	 1Vezd4xpD5kKwz7R4F7h0atab0sN+XWKY+Olta5tTG+WqrW0zESBQsW9j3daJqhJB3
-	 Qv0w3yF9zxsWw==
-Subject:
- Re: [PATCH wpan] ieee802154: atusb: complete each transmitted frame only once
-From: netdev-bot+sashiko@kernel.org
-To: joasantonio108@gmail.com
-Cc: stefan@datenfreihafen.org, alex.aring@gmail.com, miquel.raynal@bootlin.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, linux-wpan@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 13 Nov 2026 00:03:30 +0000
-Message-ID: <179452821058.2199510.6478538599475344430@kernel.org>
-In-Reply-To: <20261110-atusb-tx-once-v1-1-43e2b92f2072@gmail.com>
-References: <20261110-atusb-tx-once-v1-1-43e2b92f2072@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DmDmIqDs
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7cc3eb09dd2so80504137.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:05:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794528318; x=1795133118; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZP7w34GShAuXcCWiodI7YmsdXNmvF5TzQf1yjJvKrG8=;
+        b=DmDmIqDsd3KGpm3pYfSBm6QfRSeIJaviqKbucIixjaB2kq+0Uq/HX0AqFy02tySaaa
+         Qasz/xY0ZgxEaiLqbAmrfPtK8sdbsfG9DN5C8SYcR/++KtBTGbx00Bbvc+Ak6kUYclTj
+         bLBS2xO10lpVwFda9Abuk9p6yYUi/hYA005qCZtVscxZENGD0FOgt+r7Dok96HK1zf7b
+         oF2K6A5jk/ZYZdCHz1yI2OlArvWk/HXMFoIC8kBl3ssryTugnB9UXOyMZvA0LIMc7V22
+         JFDZmNfldjBnPKSzdsK5KnSEQdhHWfv6cpmHKJbbrqn3ZzdKZMFwBoHJMgUPy6a4AAbC
+         6s2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794528318; x=1795133118;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZP7w34GShAuXcCWiodI7YmsdXNmvF5TzQf1yjJvKrG8=;
+        b=jy9Tznbxr+oH+FUiJEGSObGvvd5u5wcb/+UjtKMJzS2WRVPWIMOlrljtz+tWZjRAVG
+         pepFDYhNTMJ7gQ53eQ0JtkJiw/ejQrWA0rKeYlNouzHYmgdzhuZ9FQ5SuMi2k6G06r31
+         vh86n7GCI3E5cIs3H2/C03xJK0n3Fb9ZZWXPWAZFgUyTAATzetItMkybeXG6HGS4zApN
+         QLJL8/dlGibm1S+IV/8PYP2xRwzNqC4lyydoQhyS1OiI7qJ9ctCY64f6SWJHazMu4CNI
+         zoOyYMLOolsmYYCKs8p+92L6bxvKcikQOzSM6Rw2BX88m74BMOoTM73QeiQFmrGrpIdU
+         xWdw==
+X-Forwarded-Encrypted: i=1; AL+hErEzacAKSBk5BCfhMwgwXy+JJjl7YsdSrswiyetuyJLbEOBZSthXPPjyIGQ50Ad7hpOrQugBVFBGRFYakww=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZxktAEEP+VLXy7rykihp7worzwPca8YUhxWVli2dPC3ENBguC
+	P53AQn59XRI/PjGPdP3iNwiCUAs6WpyYJnt3kAZHAiS3fq/RooUo2bV3
+X-Gm-Gg: AYBFou30NIVJpMaKDfMiDLBAtWe7qX/zmKpjA7hK6c2DZRfQFD6ZpH/bnIUBS+U/9Os
+	LrytMoX7khItfw0mg5vBak1r7/iCxcU1jFG3Q81w6q/sIY/GAGvlqZpI7n5Aad2PF+P0nZ2wgGg
+	PP/UiE6qyCXIkI2Uh/EGi3FLvizH40jCPnyZZlMDr/tsYPF3FmD7qvbJXrjzl3N/1qAhuD500Zk
+	YcwOTZ7r8hJM/1ATrkl80PMUoZVjanXeQ8FNkFWNghkO3xwW0YFVQTqfcE2h4VyJerFIggIBWWp
+	YgrP1+xWUSGfZgq4PhWpB0jWos+7geP+u8lm5oQu5ywbEUb5cRj9k8uksVRC2WdyDtbSo8Zv+kY
+	WP7RYQ6e70tZje+ise+NEqUgEg86nPNlL5E/UrvdoOqSSMN3ZvUwlaC/LFN5PPM3pveUYLMO7UB
+	M2GbqVWDbnB5z749MoYsQqiF2/Fql+yMxm6C4v8NxKR9M4ncJ8hLszmHzuXixzWA5MUIgyOqntP
+	GHcqkJeFx77Ca0luPYVpBrJoEazA35fjGfLYIR7D+jQHQMSQ7yYThqD/dw/M/kVggmgyt+fOPma
+	QVAJvMQP9PQ313+fG7OeutTWPTn+EHK4lyzxc5InCSF8HH3B64Go6hUb2Lzx+PKr7AdlrXW2tvF
+	wrVvxOwEnBrCZq2va78wNe0Wshy7+BCTKUyoJrbwWmdizZ7RN9ZJT13N7vXKSRN/pCB0o/KGIAJ
+	Ua625mRXfm
+X-Received: by 2002:a05:6102:32d1:b0:7c3:a6f0:99cb with SMTP id ada2fe7eead31-7d64db100cbmr246150137.33.1794528316894;
+        Thu, 12 Nov 2026 16:05:16 -0800 (PST)
+Received: from gmail.com (15.60.86.34.bc.googleusercontent.com. [34.86.60.15])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c8424fb8fsm546119241.3.2026.11.12.16.05.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 16:05:16 -0800 (PST)
+Date: Thu, 12 Nov 2026 19:05:15 -0500
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Jan Koester <jan.koester@tuxist.de>, 
+ linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Karol Wachowski <karol.wachowski@linux.intel.com>, 
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>, 
+ Oded Gabbay <ogabbay@kernel.org>, 
+ Jens Wiklander <jenswi@kernel.org>, 
+ Sumit Garg <sumit.garg@kernel.org>, 
+ Christian Brauner <brauner@kernel.org>, 
+ netdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, 
+ op-tee@lists.trustedfirmware.org, 
+ linux-fsdevel@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.31eb7df44411@gmail.com>
+In-Reply-To: <20261112153841.1661720-1-jan.koester@tuxist.de>
+References: <cover.1792552161.git.jan.koester@tuxist.de>
+ <20261112153841.1661720-1-jan.koester@tuxist.de>
+Subject: Re: [RFC PATCH v2 0/3] uid_r: convert tun, ivpu and tee
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,287 +116,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Jan Koester wrote:
+> Hi,
+> 
+> Building the UUID/GUID id RFC (uid_r v2,
+> <cover.1792552161.git.jan.koester@tuxist.de>) with a distribution
+> config instead of the one I had tested with turned up three users of
+> kuid_t/kgid_t it doesn't build with: kuid_t is a tagged union now and
+> has no .val, and it no longer fits READ_ONCE()/WRITE_ONCE().
+> 
+> 1/3 tun: TUNSETOWNER/TUNSETGROUP write the owner and group under RTNL,
+>     tun_fill_info() may read them without it. Mark that read as
+>     data_race() instead of READ_ONCE(). Only classic ids from
+>     make_kuid()/make_kgid() are ever stored there.
+> 
+> 2/3 accel/ivpu: the per-user context limits are keyed by
+>     __kuid_val(). UUID and GUID users share the (uid_t)-1 bucket, which
+>     only makes the limit stricter for them.
+> 
+> 3/3 tee: the TEE_IOCTL_LOGIN_USER client UUID is derived from the
+>     classic uid. With __kuid_val() alone every UUID or GUID user would
+>     get the same one and could act as any other such user towards the
+>     TEE, so those logins are refused with -EPERM, like ublk refuses
+>     unprivileged devices to them in the series.
+> 
+> These belong into the series before the patch that lets kuid_t and
+> kgid_t hold a UUID or a GUID and will be folded in there in v3; I'm sending
+> them now so that the reviewers of these drivers see what uid_r means
+> for them.
+> 
+> Jan Koester (3):
+>   tun: read the owner and group without READ_ONCE()
+>   accel/ivpu: key user limits by __kuid_val()
+>   tee: refuse user logins of UUID and GUID users
+> 
+>  drivers/accel/ivpu/ivpu_drv.c |  2 +-
+>  drivers/net/tun.c             |  8 ++++----
+>  drivers/tee/tee_core.c        | 13 +++++++++++--
+>  3 files changed, 16 insertions(+), 7 deletions(-)
 
-Critical: 0 · High: 1 (3) · Medium: 1 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] In atusb_xmit(), the new error-path clear does not close the
-  double-free it is meant to close.
-- [Medium] atusb_tx_done() takes the pending skb with xchg() (line 206)
-  before it compares the reported seq with expect, and the seq-mismatch…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  atusb_tx_done() frees the pending skb on any device report, without…
-- [High] This problem wasn't introduced by this patch, but
-  atusb_disconnect() kills and frees tx_urb (lines 1080-1081) and never…
-- [High] This problem wasn't introduced by this patch, but
-  atusb_disconnect() calls usb_free_urb(atusb->tx_urb) (line 1081)…
-
---
-
-ieee802154: atusb: complete each transmitted frame only once
-
-This patch changes atusb_tx_done() to take the pending skb out of
-atusb->tx_skb with xchg(), and to ignore completion reports when no
-frame is pending. It also clears atusb->tx_skb in atusb_xmit() when
-usb_submit_urb() fails, so no stale pointer is left after mac802154
-frees the skb.
-
-> diff --git a/drivers/net/ieee802154/atusb.c b/drivers/net/ieee802154/atusb.c
-> index 5f7fc4ee7a071..2460eb19b72b1 100644
-> --- a/drivers/net/ieee802154/atusb.c
-> +++ b/drivers/net/ieee802154/atusb.c
-> @@ -195,21 +195,26 @@ static void atusb_tx_done(struct atusb *atusb, u8 seq, int reason)
->  {
->  	struct usb_device *usb_dev = atusb->usb_dev;
->  	u8 expect = atusb->tx_ack_seq;
-> +	struct sk_buff *skb;
->  
->  	dev_dbg(&usb_dev->dev, "%s (0x%02x/0x%02x)\n", __func__, seq, expect);
-> +
-> +	/* The device may report a tx completion when no frame is pending,
-> +	 * or more than once for the same frame.  Complete each frame only
-> +	 * once.
-> +	 */
-> +	skb = xchg(&atusb->tx_skb, NULL);
-> +	if (!skb)
-> +		return;
-> +
-
-[Severity: Medium]
-Is a duplicate report handled if it arrives after the next frame has
-been queued? The pending skb is taken before seq is compared with
-expect. A stale report therefore consumes whatever frame is pending
-when it arrives.
-
-Consider this sequence:
-
-  report with seq N
-    atusb_tx_done()
-      ieee802154_xmit_complete(skbN)
-        ieee802154_release_queue()
-
-  atusb_xmit(skbN+1)
-    atusb->tx_skb = skbN+1;
-    atusb->tx_ack_seq++;          /* now N+1 */
-    usb_submit_urb(atusb->tx_urb, GFP_ATOMIC)
-
-  duplicate report with seq N
-    atusb_tx_done()
-      expect = N+1
-      skb = xchg(&atusb->tx_skb, NULL);   /* skbN+1 */
-      seq != expect
-        ieee802154_xmit_hw_error(atusb->hw, skbN+1)
-
-Here skbN+1 is freed with IEEE802154_SYSTEM_ERROR while its control URB
-may still be using skbN+1->data. When the real report for N+1 arrives,
-tx_skb is NULL, so that report is dropped.
-
-The code before this patch also failed the pending frame on a seq
-mismatch. The new comment, though, says duplicate reports for the same
-frame are handled.
-
-There is a related ordering problem. expect is read before the xchg(),
-and atusb_xmit() writes tx_skb and tx_ack_seq with plain stores. A
-report for N could read the stale expect == N, take skbN+1, and
-complete it as a success.
-
-Could the skb be consumed only when the reported seq matches the seq
-recorded for that skb, checked atomically with the hand-off, and the
-report ignored otherwise? Or could the comment be narrowed to match
-what is actually handled?
-
->  	if (seq == expect) {
->  		/* TODO check for ifs handling in firmware */
->  		if (reason == IEEE802154_SUCCESS)
-> -			ieee802154_xmit_complete(atusb->hw, atusb->tx_skb, false);
-> +			ieee802154_xmit_complete(atusb->hw, skb, false);
->  		else
-> -			ieee802154_xmit_error(atusb->hw, atusb->tx_skb, reason);
-> +			ieee802154_xmit_error(atusb->hw, skb, reason);
-
-[Severity: High]
-This is a pre-existing issue, but can the skb be freed here while the
-control URB that carries skb->data is still in flight?
-
-atusb_xmit() passes skb->data directly as the transfer buffer of
-tx_urb. The URB completion handler records no state:
-
-static void atusb_xmit_complete(struct urb *urb)
-{
-	dev_dbg(&urb->dev->dev, "atusb_xmit urb completed");
-}
-
-The seq check does not protect against this, because the device learns
-the seq from wIndex of the control request. A device can ACK the SETUP
-stage, NAK the control OUT data stage, and meanwhile send a 1-byte
-report on the bulk-in endpoint:
-
-  atusb_in() -> atusb_in_good() -> atusb_tx_done()
-    -> ieee802154_xmit_complete() -> dev_consume_skb_any(skb)
-
-The HCD still has skb->data mapped. When the device finally accepts the
-data stage, it receives memory that has been freed and may have been
-reallocated.
-
-This completion also releases the mac802154 queue. The next
-atusb_xmit() then rewrites atusb->tx_dr and the fields of the
-still-active tx_urb in usb_fill_control_urb(). usb_submit_urb() hits
-WARN_ONCE("URB %p submitted while active\n") and returns -EBUSY. When
-the original URB completes, the HCD unmaps it using the overwritten
-transfer_buffer_length.
-
-Could skb ownership be tied to completion of the control URB? For
-example, the frame could be completed only after both the URB
-completion and the device report have been seen.
-
->  	} else {
-> -		/* TODO I experience this case when atusb has a tx complete
-> -		 * irq before probing, we should fix the firmware it's an
-> -		 * unlikely case now that seq == expect is then true, but can
-> -		 * happen and fail with a tx_skb = NULL;
-> -		 */
-> -		ieee802154_xmit_hw_error(atusb->hw, atusb->tx_skb);
-> +		ieee802154_xmit_hw_error(atusb->hw, skb);
->  	}
->  }
->  
-> @@ -351,6 +356,8 @@ static int atusb_xmit(struct ieee802154_hw *hw, struct sk_buff *skb)
->  			     (unsigned char *)&atusb->tx_dr, skb->data,
->  			     skb->len, atusb_xmit_complete, NULL);
->  	ret = usb_submit_urb(atusb->tx_urb, GFP_ATOMIC);
-> +	if (ret)
-> +		atusb->tx_skb = NULL;
-
-[Severity: High]
-Can the skb still be freed twice on this path? atusb_xmit() publishes
-the skb with a plain store, before it reads skb->data and skb->len and
-before it submits:
-
-	atusb->tx_skb = skb;
-	atusb->tx_ack_seq++;
-	...
-	usb_fill_control_urb(..., skb->data, skb->len, ...);
-
-atusb_xmit() runs with only BH disabled. In the meantime,
-atusb_tx_done() can run on another CPU from the bulk-in URB completion,
-or from hardirq on HCDs that complete in IRQ context:
-
-  CPU0                                CPU1
-  atusb_xmit()
-    atusb->tx_skb = skb;
-                                      atusb_in_good()
-                                        atusb_tx_done()
-                                          xchg(&atusb->tx_skb, NULL)
-                                          ieee802154_xmit_complete()
-                                            dev_consume_skb_any(skb)
-                                            atomic_dec_and_test(...)
-    usb_fill_control_urb(..., skb->data, skb->len, ...)
-    ret = usb_submit_urb(...);   /* fails */
-    atusb->tx_skb = NULL;
-    return ret;
-  ieee802154_tx()
-    err_wake_netif_queue:
-      atomic_dec_and_test(&local->phy->ongoing_txs)
-      kfree_skb(skb);
-
-The error path cannot tell whether the driver still owns the skb or
-atusb_tx_done() has already completed it. The result is a second
-kfree_skb() of the same skb. ongoing_txs also underflows, after which
-the wait_event() in ieee802154_sync_queue() never completes.
-
-The device can force the submit to fail. It can report frame N early
-while it NAKs the data stage of N's control transfer. Frame N+1 is then
-sent while tx_urb->hcpriv is still set, and usb_submit_urb() returns
--EBUSY. An unplug can also make the submit fail with -ENODEV.
-
-Even when the submit succeeds, usb_fill_control_urb() can read
-skb->data and skb->len of an skb that is already freed. The URB is then
-submitted with freed memory as its transfer buffer.
-
-Would it work to read skb->data and skb->len before publishing, and on
-failure do something like this?
-
-	if (cmpxchg(&atusb->tx_skb, skb, NULL) != skb)
-		return 0;
-
-Or, more robustly, could publish and submit be serialized against
-completion with an irqsave spinlock?
-
->  	dev_dbg(&usb_dev->dev, "%s done (%d)\n", __func__, ret);
->  	return ret;
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but atusb_disconnect() kills
-and frees tx_urb without completing the skb still held in
-atusb->tx_skb:
-
-drivers/net/ieee802154/atusb.c:atusb_disconnect() {
-	...
-	usb_kill_anchored_urbs(&atusb->rx_urbs);
-	atusb_free_urbs(atusb);
-	usb_kill_urb(atusb->tx_urb);
-	usb_free_urb(atusb->tx_urb);
-
-	ieee802154_unregister_hw(atusb->hw);
-	...
-}
-
-If a frame is pending when the device is unplugged, or the device never
-sends its report, is the skb leaked and phy->ongoing_txs never
-decremented?
-
-This can also deadlock. ieee802154_mlme_tx() takes rtnl_lock() and then
-waits in ieee802154_sync_queue() with no timeout:
-
-	wait_event(local->phy->sync_txq, !atomic_read(&local->phy->ongoing_txs));
-
-ieee802154_mlme_tx() is called from mac802154_transmit_beacon_req() and
-mac802154_transmit_beacon(). If such a transmit is pending when the
-device goes away, the waiter holds RTNL forever. atusb_disconnect() ->
-ieee802154_unregister_hw() -> rtnl_lock() then blocks behind it.
-
-Now that atusb_tx_done() uses xchg(), could disconnect complete the
-pending frame after usb_kill_urb(atusb->tx_urb) and before
-unregistering?
-
-	skb = xchg(&atusb->tx_skb, NULL);
-	if (skb)
-		ieee802154_xmit_hw_error(atusb->hw, skb);
-
-[Severity: High]
-This is also a pre-existing issue. In the atusb_disconnect() sequence
-above, usb_free_urb(atusb->tx_urb) runs before
-ieee802154_unregister_hw().
-
-The wpan interfaces stay registered until ieee802154_unregister_hw() ->
-ieee802154_remove_interfaces() closes the netdevs under RTNL. Their TX
-queues are awake whenever no frame is pending. Can a sender on another
-CPU reach the freed URB in that window?
-
-  ieee802154_subif_start_xmit()
-    ieee802154_tx()
-      drv_xmit_async()
-        atusb_xmit()
-          usb_fill_control_urb(atusb->tx_urb, ...)
-          usb_submit_urb(atusb->tx_urb, GFP_ATOMIC)
-
-atusb_xmit() does not check atusb->shutdown. This path would write into
-a freed URB and then submit it. After a sysfs unbind the device is
-still attached, so the freed URB could even reach the HCD.
-
-Could tx_urb be freed only after ieee802154_unregister_hw()? Or could TX
-be stopped before the URB is killed and freed?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110-atusb-tx-once-v1-1-43e2b92f2072%40gmail.com
+I only received this cover letter. Also do not see the patches on
+https://lore.kernel.org/all
