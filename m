@@ -1,97 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582703;
-	b=DMFf9fwPujMs9aAxH8DZoMJMWuWDDVqx7AGj0yvndFkr2iFMYyaivReF49WGInHvArzy
-	 hdY5iJiHMyrgb/oVFtlQQFgvvIVNB4ZpVNuYhO1dWhHBNKAogxlx+Ia9isSssHT0gZoMw
-	 eZXOhIaGR2Ejf65t5sC/T7JL4L0lmdJN9T1Bn+WDf+WfE6piz0yMf/IGcrTPZzNWy2c0c
-	 SXjxee6daz2ls8zJhDDcsdVH4XXJW3KBZ86Kblhcfk1ow8ODSTYttn7H6feQWGW2mh4KD
-	 Fifflyuu1Q/1QQGkU5zXH3hRXp/M4qN03fJBfsLOEwEhb9lhauyPL3MARalIj2dNiaw==
+	t=1794582873;
+	b=JDh8nQ/CKte/RZzFkDmBbJSoWBYOLAsqnJMGuSfnBPUsO5xV83mLyZIg/goKLn8uSABX
+	 9odeTJiSEjI6GR9I3oFy8i0AeYu79nJ/oCtseto/XWhE/MocRKN1VOFb2unkcajY7HzHY
+	 iQVw/Bhbtqq+ZC1Vg1puZo7IDwhXcpy3mI3rE8NewH3KABuAfHcGkUz+YUcD33TPGsTy3
+	 2v/DEramqCf25aonXnNqdxtYJMa2/dPXQTBqtk+HiyCpO7toEAwqbU9VW3irqimtnqKTu
+	 npSg6Vr5Typ2BbDuowh+QkeMXUPTmlT2qCbp5DdsN7cskynlGHxONBM3SB01vXJk2rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582703;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=zpKzZMLZvo+ZN8WTIJeGkISnYHTZ26QRKQ/OOgDz+pE=;
-	b=PxZ1PiC5XDTYYhfkgjGp7WeGDOfS146whjB5GBkbem/AJ7Mb7TLh6oq7OEgqWZKZo5+K
-	 kIUQutg1WnmGvzpv4UREP0LiLuDr76kF0X40N2+E0PYlTMtZ7oHGz9Hzuua0IYoixxEA1
-	 uszn7BqLs/KKk25bJh7Xlo+p7kc7588wFThiB+dxlkPYEr02T2drvTdmmU0VH1W9iRrS0
-	 n1uUQLJp+1n3e5kzCtbctf8EwbJIO23hQvNqIJ5ZocmFdGSkxRwbaCMQyBOJ/xzsv5d0p
-	 aUmwdAuRngIfud0ns6meVe0zKhefkdNNr+Eepi6nP9DItdMVr4CWhNDRBknRdyLMcSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582873;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=7PZQk9at42RPP00VjylZfLgVP0j8otNjkZjY5qVieyc=;
+	b=Vqvm+x8QSg428/wRPkPrJxZ58KiHoc6n3AnfAbxY6Y1sQTCTd/ZBI3kwpLwby/hJikX4
+	 qlOSjHNATH1Vhv9c4iLQiMs/I18j7CSltDy9waLK3/XwH1AEAreXvE0LpuK8iVUauy3vd
+	 qcrBkWatZFTc9IH6GjwIPK98bk8nI1xXkBsupgJj3e+7O/6QsArY7akH2I3udlrB0kZGJ
+	 r+i6p2l0wnQoK34pSCEnzc1l32Begv8GtIgZ/Z1qLRJySsXYUljVOt7Fi7LklmAt1FWOs
+	 FzZys5eNRL/9Z0CgmtsZ8R8mzZTGMEbSBQlC85I5l9psr4YHiQdTGzZo99q7X+l9xVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=gpnFN32x;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="noVGVDY/";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HJQad12g;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CB1606A323;
-	Fri, 13 Nov 2026 15:11:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6CB1606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B423D606A327;
+	Fri, 13 Nov 2026 15:14:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B423D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=gpnFN32x;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=noVGVDY/
-Date: Fri, 13 Nov 2026 16:11:37 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794582699;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zpKzZMLZvo+ZN8WTIJeGkISnYHTZ26QRKQ/OOgDz+pE=;
-	b=gpnFN32x+Ihdmj2mY9lPq7eES7du1+qVkvmWmY+obfl5Lzle7HJBJAZ9OCUmKoPtyvNdwl
-	7WR8kRIsJ6Fi79nNMxyFoa0+EA5KCo4lSbg8O/3TwR4wM2rri4FSVVj3ngN9Zfv0+8kr9x
-	9drZzCd8GxyWIVVY7Srvhg1ie6hp8ZtWS/A76OkcQA1y28i50BsadJI5mW0LCZt1QA8Kjy
-	hqFIuLmvLQ6mz9+xG1bSZeOtZR/onO8lORuu/L6mCRu8TfeqmRZNNg74c6l93eqvb5areG
-	gOt/5fsLtFyBGgdOSHNLWgrE/KUaszzYe6KptMhrAtXbvvdCELhprSIVWOaJTQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794582699;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zpKzZMLZvo+ZN8WTIJeGkISnYHTZ26QRKQ/OOgDz+pE=;
-	b=noVGVDY/N66pB5YBRfX9UPJNmb7M5sxRVKGR1FuyawjVQtKLtOmJxi8QMlbdwImx/95hws
-	dfXtFj+6IAxC8ZDQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Juri Lelli <juri.lelli@redhat.com>
-Cc: linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
-	rcu@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	luca abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yurand2000@gmail.com>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
-	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
-	Qais Yousef <qyousef@layalina.io>,
-	John Ogness <john.ogness@linutronix.de>
-Subject: Re: [PATCH v3 1/8] sched/deadline: Reject debugfs dl_server writes
- for not-active CPUs.
-Message-ID: <20261113151137.Skd8_m_D@linutronix.de>
-References: <20261113-sched_dl-v3-0-a76ffa1cdeee@linutronix.de>
- <20261113-sched_dl-v3-1-a76ffa1cdeee@linutronix.de>
- <avcjQMlVELcauQld@jlelli-thinkpadt14gen4.remote.csb>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HJQad12g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794582873; x=1826118873;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0E09P4cshhR0pA962/xhxsk8LxaAyvozUk3q+5rP5tU=;
+  b=HJQad12gBxW/YSELY9h6hvndzh7d1/Chy9oFShEqEyP53uHoN7Q/+8h8
+   Vhn2IHzFXRaiAh1wquSxB2bGkPoRqcl3noPuuZdTiaJcrbk7e37ifht9B
+   C4NX3K0SvjL60GsWnKjXO+3hZZd7owSc8X10IIOomU6YYXCbQP8/3Zuna
+   Br1BHwZYfDotSjiDjZOqLzfWascZT+JIpFFHfQPW/Ifz9MbVmeFlxfITj
+   YY47AjKNP8o87zA7nRZl1Q8+2xrdDQuCkaTXwROQORKfzp9OO/vOALC4w
+   xEYnfXLA/MhsntANUIGPEZtXrOea6xyzEdwLYTnNkJsr1krktw9EkT738
+   g==;
+X-CSE-ConnectionGUID: G97+oQKiREi+48JkHadm4g==
+X-CSE-MsgGUID: bff+tO2bT3qwrWPKxXKZtw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3265151"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3265151"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:14:32 -0800
+X-CSE-ConnectionGUID: 1knF8BGSReeEVyZXaL2Llw==
+X-CSE-MsgGUID: pZGnz9HKS3ysu7EE8Z9NtA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="9265561"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:14:29 -0800
+Date: Fri, 13 Nov 2026 17:14:27 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Cc: Amit Kucheria <amitk@kernel.org>,
+	Thara Gopinath <thara.gopinath@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kamal.wadhwa@oss.qualcomm.com,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Subject: Re: [PATCH v2] thermal: qcom-spmi-adc-tm5-gen3: move hardirq actions
+ into threaded handler
+Message-ID: <avcpU3P1jw8NESMu@ashevche-desk.local>
+References: <20261113-adctm5_gen3_hardirq_removal-v2-1-a0c9c4800941@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,35 +85,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avcjQMlVELcauQld@jlelli-thinkpadt14gen4.remote.csb>
+In-Reply-To: <20261113-adctm5_gen3_hardirq_removal-v2-1-a0c9c4800941@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 2026-11-13 15:48:32 [+0100], Juri Lelli wrote:
-> Hello,
-Hi,
-
-> > --- a/kernel/sched/debug.c
-> > +++ b/kernel/sched/debug.c
-> > @@ -410,7 +410,7 @@ static ssize_t sched_server_write_common(struct file *filp, const char __user *u
-> >  			return  -EINVAL;
-> >  		}
-> >  
-> > -		if (!cpu_online(cpu_of(rq)))
-> > +		if (!cpu_active(cpu_of(rq)))
-> >  			return -EBUSY;
+On Fri, Nov 13, 2026 at 05:23:03PM +0530, Jishnu Prakash wrote:
+> adc_tm5_probe() registers the ADC_TM interrupt with both a primary
+> handler and thread function (adctm5_gen3_isr/adctm5_gen3_isr_thread)
+> with IRQF_ONESHOT. The primary handler calls adc5_gen3_read(), which
+> takes the SPMI regmap's lock (a regular, non-raw spinlock) from hardirq
+> context. With CONFIG_PROVE_LOCKING enabled, this leads to a warning
+> about an attempt to take a lock in an invalid wait context:
 > 
-> Mathieu's approach [1] looks safer to me. sched_cpu_deactivate() calls
-> set_cpu_active(false) without rq->lock, so a write that passed the
-> cpu_active() check can still be in flight until sched_set_rq_offline()
-> (which the !cpus check then has to cover). On the online side,
-> set_cpu_active(true) runs before the domains rebuild, so the check lets
-> the write through against the def rd's accounting. rq->online is only
-> changed under the rq->lock this write already holds.
+>   swapper/0/0 is trying to lock:
+>   ffff000b67201018
+>   (qcom_spmi_pmic:259:(&spmi_regmap_config)->lock){....}-{3:3}, at:
+>   regmap_lock_spinlock+0x20/0x40
+>   other info that might help us debug this:
+>   context-{2:2}
+> 
+>   Call trace:
+>   regmap_lock_spinlock+0x20/0x40
+>   regmap_raw_read+0x88/0x328
+>   regmap_bulk_read+0x10c/0x340
+>   adc5_gen3_read+0x38/0x50 [qcom_spmi_adc5_gen3]
+>   adctm5_gen3_isr+0x90/0x130 [qcom_spmi_adc_tm5_gen3]
+> 
+> There is no requirement for any of the work done in the primary handler
+> to run in hardirq context. Drop the primary handler and move all the
+> actions in it to the threaded handler, which removes the invalid wait
+> context warning.
+> 
+> Note that both handlers used a local variable to hold the index of the
+> SDAM whose IRQ was triggered ('sdam_num' in the primary handler and
+> 'sdam_index' in the thread function). These are the same value under
+> different names and 'sdam_index' is kept now, since that is the name
+> used for it at other places in the file.
 
-Okay. In that case let me drop this bit.
+But this is not the point. The point should be semantics of the variable
+and not frequency of use.
 
-> Thanks,
-> Juri
+...
 
-Sebastian
+> -static irqreturn_t adctm5_gen3_isr(int irq, void *dev_id)
+> +static irqreturn_t adctm5_gen3_isr_thread(int irq, void *dev_id)
+>  {
+>  	struct adc_tm5_gen3_chip *adc_tm5 = dev_id;
+> -	int ret, sdam_num;
+> +	int sdam_index, ret;
+>  	u8 tm_status[2];
+>  	u8 status, val;
+
+I probably missed to point that at the same time we can split semantically
+different variables.
+
+	struct adc_tm5_gen3_chip *adc_tm5 = dev_id;
+	u8 tm_status[2];
+	u8 status, val;
+	int sdam_index;
+	int ret;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
