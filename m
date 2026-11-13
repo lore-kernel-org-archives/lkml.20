@@ -1,69 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794592598;
-	b=QnZKVfykB1tw+4lrja8z63VM+kk/7Lld+3KFN0IYkiiiHzm2ZpTRcbAc+2dSg19Gjqob
-	 IWWkd/WYaWhgfC+3RBQa43bVjTe7dXjlU1Rdn+r+6QlNnTDgI7sMth3U9+v7K8WF6QQCg
-	 C0w7axZhXkrcPJqKkY2ZsEoTEs6gJ9CITiI5sNxH/maAB91kG3gGzIO+rWspaWNfsdkv3
-	 t+y0QHLIQA410XdysiJyb1miQtaXmkaTxQANNweeL/cAopI3i8/I9ymeR24bEaXyMzPcg
-	 6juye8/koZrQ0vTCltYEiHyz0shq0V9EbfxcBG7wio/VcW0lPy0cw72WaJFB2DtIRmw==
+	t=1794592638;
+	b=2WliTlk4+KgczOvblmP/pEWj/pP59HjV2MXztlhmlDlLShOf+SLIAY7AMIVyHLvuKNlo
+	 5xlveUCj6sYyQtKiVhT8jX5ndf/AIUiE819NhOxoj6rfo+k/TfzXu2nOK3LKmeLVqcaZS
+	 vhRjajfkWzBov9J7Gaqnu6n8cagrnwx2auwQj80w6knPXUgyq0K5YMypIFdwW6VVqx7YN
+	 nvSadvEy7bj3bBUvcvY24FniS8OJ14gGOq5lcZQ3KyJpjieh1eNRg08ANwm0YzPXgID/x
+	 WM6p9+4A4LNN+tNV3jFwkQ5VGbwe6pIKx77mOAkqQHUGTsKpybwMlQaHGnTJB/mrbQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794592598;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=1jArcVD2zXLu7nIwu5fc5e4hQBQ9eNZl6bcyQU3clWI=;
-	b=x5ZbFqWvw29gEm5DhkyEPxWVeDAINBYArn+GTkMdpDqY1cBVRDqt/+ueV8OnORblUYs8
-	 6WmhlwnFFBBoPSycQuf3x22kOqc0CXS5MeU5PCaT1agXZ1BLf3T3vFAtWYBHxPdXvAuad
-	 C6EAjX9+8dbTmJeV8jZNKHZyymHBe+PFCldARQ+R47r+7QzkQfe2g7dkOorxCJ3gXJ7X0
-	 uUCDumVoNH5SNNJGyQ4pJ0hBs1d/h+npZtVlxUYRAPzDAkvr5PZmQ1r8AUc6fY8Ei33W8
-	 0PVNEw2Lxy9j+ecdhdyju+h8FcigfLNLnKStxkmzM8x8gf7rKqqdv+rMeoig7pxTM9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794592638;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=an3TW83ZdtfT2MwoqXi8iWyGphn95qAGXKqfNkWAXfk=;
+	b=jySZ+pEMRH0JHteCcW9eVaFwuPWx37spf2A0Uqkd15QYc0i5pK7ikKFo02CNvaFYP78B
+	 llozas3TPnnRTiLB9thd2jVgBc3qw+kCWnZtp8DOOaHU+0LBhx8p19WQQLv0sqEkLixXN
+	 VXZ+5hdSyXP2bSr9tTeCPiFMDuG+OZ1HLA6f8WjAsa8OaWPYeU2OsvAu0Ql+xqxFTOH4k
+	 x+xAun5qDFwzHxSg9dMz/M531bTtJvZIy6RfulTlG6fCkFtu+s6Y9I2mE4EbvBfA6Mo0d
+	 u3uC+Sa/CO05gb5LRhge3qFFkFauuDUuVf3g5WEUQ1AIwEhyI4/xQTGab901QAyWdXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=BWfb1NTw;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HUVTzdTO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5F3606B213;
-	Fri, 13 Nov 2026 17:56:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C5F3606B213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633CD606B224;
+	Fri, 13 Nov 2026 17:57:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=BWfb1NTw
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jR4h45klJz5BNRf;
-	Sat, 14 Nov 2026 01:56:36 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794592596;
-	bh=K/u/yUdi2m6dk93ntxHCfaABwW9WEA6J2Tq9rcsx3UE=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=BWfb1NTwudRa1LyAPre2ClgTzQPtPqpuTSYnCYQ92qcOYsIkJwCYqS3fIky56bmpo
-	 S6hdwDws1NEBrDbWpK4kHuIC4If4E2Az+lyFXprQr9PC2zISTjdo7BlcnRP1AlUlKf
-	 VR2Zyj0OqXwfus9XdHyN6r0d+O+fr1IQ2mMYks8lWGRJqwdn6SyWZCMyl858khXQeb
-	 uFj5MRcN4kjvCQy7RtTREotBqA5MWKuehK46EjgyUXult7iaRFKnpfP+3BT5MvCGOI
-	 yt7aUQR8sIjTfcRsgNIBHXbICcKL6KcW8mOE0PZUuw8mlqMLTmMjOIGCzd8WhKDcPw
-	 OrZaZMHOOOJNA==
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 6ADHuSuE067393;
-	Sat, 14 Nov 2026 01:56:28 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sat, 14 Nov 2026 01:56:30 +0800 (CST)
-X-Zmail-TransId: 2afc6af74f4e2b4-161f9
-X-Mailer: Zmail v1.0
-Message-ID: <20261114015630303OS2WiLVksNJwaEHon-qEE@zte.com.cn>
-In-Reply-To: <20261114015622273t9IBdo0FnDVvP3kTsQiZs@zte.com.cn>
-References: 20261114015622273t9IBdo0FnDVvP3kTsQiZs@zte.com.cn
-Date: Sat, 14 Nov 2026 01:56:30 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HUVTzdTO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1C891F000C5;
+	Fri, 13 Nov 2026 17:57:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794592638;
+	bh=an3TW83ZdtfT2MwoqXi8iWyGphn95qAGXKqfNkWAXfk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=HUVTzdTObPbrQD+EOn05mAd+BTMQFwEc/ZUvuZCKcd/vf7lKJq0kT7ZcH9NLnyaGm
+	 KaXuz7PSAr01AJvL5lqregQzuCk0kfb1MoZcWUfkQCCT1GxQZaC9MGOs5i8Xgt00U5
+	 a4aNzIoYwq/RWI7UUe7DkFlY4w+PSkVYpJX3RMt5CVX31DNu9luDTvNtk4jT8kOANr
+	 2p+8kQ8JeWiCfQrEY5XY/1Ic26E5QoYcdoHKFxP0ztOYXbqQFLeCqn//b2L5mXkIwf
+	 Q+auTfQ57M3bAcYsUGGZHyy41SMNimO7MnfZgERORhM6TK1PaJqXz9D45kiBEAoXsv
+	 z+AN0vOtgs7nQ==
+From: Vincent Mailhol <mailhol@kernel.org>
+Date: Fri, 13 Nov 2026 18:57:05 +0100
+Subject: [PATCH v2 1/3] kbuild: make rq-offsets-file an explicit
+ preparation dependency
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,75 +52,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIFJFU0VORCB2NCAyLzRdIGF0YTogbGliYXRhLXNjc2k6IHJlamVjdCB1bnN1cHBvcnRlZCBBVEEtMzIgc2VydmljZSBhY3Rpb25z?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6ADHuSuE067393
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sat, 14 Nov 2026 01:56:36 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF74F54.000/4jR4h45klJz5BNRf
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-reduce-single-build-dependencies-v2-1-93ba1f6c4e46@kernel.org>
+References: <20261113-reduce-single-build-dependencies-v2-0-93ba1f6c4e46@kernel.org>
+In-Reply-To: <20261113-reduce-single-build-dependencies-v2-0-93ba1f6c4e46@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+ Vincent Mailhol <mailhol@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1024; i=mailhol@kernel.org;
+ h=from:subject:message-id; bh=9viEUNJwwz+O3SrkICAMO/5gG9D0++zxZl0+mSGfRXs=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDFnf/asiZ97qY9KoyitVDOGw2ayxcpLW+olKsTVXJnz6P
+ WG13ibGjoksDGJcDJZiiizLyjm5FToKvcMO/bWEmcPKBDJEWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
+ gQwdIwYuTgGY6qtsDP9UhTxqeKseBt48o+rCHR+wqWPj7bWzxYsmhLks/7aA8/hFRoY9VovEFhy
+ ctHLZuVfn77VeNambqOLypnypxltbV6/vu/dxAgA=
+X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
+ fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+The generated rq-offsets.h header is included by linux/sched.h and must
+exist before compiling ordinary objects. Currently that header is
+prepared indirectly through the missing-syscalls target.
 
-ata_scsi_var_len_cdb_xlat() returns 1 for an unsupported service action
-without setting sense data. ata_scsi_translate() then completes the
-command with the SCSI result still zero, reporting SAM_STAT_GOOD even
-though no ATA command was issued and no data was transferred.
+Make prepare depend directly on rq-offsets-file. Because rq-offsets-file
+depends on offsets-file, that other dependency can be removed.
 
-Set ILLEGAL REQUEST/INVALID FIELD IN CDB before returning, with the
-field pointer referring to the SERVICE ACTION field at byte 8.
+Keep the rq-offsets-file dependency in missing-syscalls so that the
+check can still run independently.
 
-Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
 ---
-Changes in v4:
-- Code and commit message unchanged; retain Damien Le Moal's Reviewed-by tag.
-Previous version: https://lore.kernel.org/all/20261112220121378caZJpnCPmheSAmKX1Hl8g@zte.com.cn/
+ Kbuild | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v3:
-- Code unchanged; retain the Damien Le Moal Reviewed-by tag.
-Previous version: https://lore.kernel.org/all/20261111223130666omUZ0JoWtfZjRFRrWPse8@zte.com.cn/
-
-Changes in v2:
-- No code changes; regenerate against the series base and keep the
-  Reviewed-by tag.
-v1: https://lore.kernel.org/all/20261104221102824qAKUWNkiSgZ1yRnQM8hI9@zte.com.cn/
-
-Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiled
-the translation functions verbatim with SCSI/device stubs. For service
-action 0x1234, completion changed from result 0 to ILLEGAL REQUEST,
-INVALID FIELD IN CDB; the invalid-field helper received field pointer 8.
-A valid ATA_32 service action remained accepted.
-
- drivers/ata/libata-scsi.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 8d321197803a839d9586e9f1436d1fbe3f5383c6..e2847fb32e78b93fd0c8fd3b57e78ae3b17654b6 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -5034,7 +5034,13 @@ static unsigned int ata_scsi_var_len_cdb_xlat(struct ata_queued_cmd *qc)
- 	if (sa == ATA_32)
- 		return ata_scsi_pass_thru(qc);
+diff --git a/Kbuild b/Kbuild
+index a6a0192dea08..5a65be2d51b0 100644
+--- a/Kbuild
++++ b/Kbuild
+@@ -87,7 +87,7 @@ $(atomic-checks): $(obj)/.checked-%: include/linux/atomic/%  FORCE
+ # A phony target that depends on all the preparation targets
  
--	/* unsupported service action */
-+	/*
-+	 * Unsupported service action.  Set the sense data explicitly, as
-+	 * returning 1 without it makes ata_scsi_translate() complete the
-+	 * command with the SCSI result still zero, that is, with
-+	 * SAM_STAT_GOOD.
-+	 */
-+	ata_scsi_set_invalid_field(qc->dev, scmd, 8, 0xff);
- 	return 1;
- }
+ PHONY += prepare
+-prepare: $(offsets-file) missing-syscalls $(atomic-checks)
++prepare: $(rq-offsets-file) missing-syscalls $(atomic-checks)
+ 	@:
  
+ # Ordinary directory descending
+
 -- 
-2.27.0
+2.56.1
+
