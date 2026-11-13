@@ -1,82 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794555984;
-	b=LXRp5kFw2dDVKaaAhPcTwvDKhB9/sLRkG9QXxX2v97BPY6TeDiUG0CS7UMIKTbE8fTLL
-	 mqMGt6uiUYI4L5UcI6dADqTCnbG0LBsHV3LDrOOinlPFRCYpTUkyvo80rbtRckKmcaX/2
-	 Jkri8LbdU21ZdngZstKlYCb9KxlCI2fwsbbpfvt6Jaq7Gu/pELdOP8mea3FffBXfd5xlr
-	 yf0FS/HhZJLzi7Q57go0cwAotJNu1G4YS6p5bnoSiOp8j8bDQtIAZGy7ERso0SzSX8/Xh
-	 b7GcUmTIMQPr+SYjG+3y374Qes63logk2zp8RNHeS5lv2Ud7uByPMgpJLBReB7OOpNw==
+	t=1794555995;
+	b=TIqIikCOoWEfWrwIsk+VP96mn/IhiCxwh9Fyn7SrTsJx+7Ate5sYbNTkHqles9ZdeYDM
+	 /q8Oe381D+gEpSxqkV7gnFwX/VHqoGKsK+BnD0e6r+TvI3GnC3kOrPWkwf/vVvQPiLsM1
+	 t9hMRshEs4lCAQNDGC/6OavY2ZNT03W/K4/0pxeQ4SdVjjV/u3mh+UZj6MemxdLCD/lSI
+	 Zcm4jUeZH+m8K6xedIzpHFdWUk8hqST4/D4gG49HWSk+8Seg1k47IQHQNrrTJ87OEEV08
+	 Dfzh2+Y6fAQ8Mz244yk9YP9JVdzYHG7Cm1aOgtONayekxB9xBnEHqg11s1fLEajobuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794555984;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=NNFrSaFiZGWo2MAIc2ZSt7Lu2TpA/9uN4I2ONI0kRdU=;
-	b=KW1qugHxgskyvcmj47W22Tn/ni9GaxYi452aurLopM0QJ1PKpGl8HDjAAi2p8zzecjDd
-	 5/Rr+N6RDyd4gpHvCPUuICpSkJQwXox84sdNM8yzGKu4+/H2Uy+AgQy7yUVsDXzosG4BE
-	 dv41irFShpLKVlDJ2ugb/pOeMmNJ6fwOYVmEVHnA2ZvvTq5+JrrJRRv6s2jZ7RY77TjwL
-	 HkBwkUlmhN457/2ToXKYmVQcKJyRPGRsxa/kenrQVOPGFA9YsLxGgD+48rGGs4sJ1ovQO
-	 R6O/zhCujiPN1aRE+l9yXOpgU0UZcmZTOfBrWMh0wgrfjs2x1ENkGgVQwgjRMBwoR4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794555995;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=822a26UQTpzALUF2v5NcjZf5+NNRawax+al5Y0ThRAg=;
+	b=kzauTvIdzVTwM7QDLtiMF9sjw8rAAW09/eUnSRilB1I6tG8nTVaOMeE5YkxlTmXyg6oa
+	 S7IHxmCDgRGIgwoLWs1J98JR9JQORZfJg7YgP4zc9XNLtVB29Gk3EscBdbpycCXyZKVr4
+	 jm35kREaszaw/3m8lw/FHKJa5hMVSEamInvjZn+cDeDJ/wSDjumrzb4BKT/0x0jBso5gS
+	 hzxXLA1YKJJNWDoFNajeVmD05BM3thfXhA0i7+oj+SLX69YSP2pdKskENZziMaox+iOD1
+	 XsPcOCS692amdFW5004Kmhh7KJMDvs0BOFrKVstentBB7G5chy2hBGOv6ZiFzYXP+cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lj4NdmBV;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EjjkW8Zn;
+	arc=none smtp.remote-ip=95.215.58.31
+Received: from mta1.migadu.com (out-31.mta1.migadu.com [95.215.58.31])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04248606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:46:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04248606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561CF606A337
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:46:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 561CF606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lj4NdmBV
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD7FiZf2173333;
-	Fri, 13 Nov 2026 07:46:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=NNFrSa
-	FiZGWo2MAIc2ZSt7Lu2TpA/9uN4I2ONI0kRdU=; b=lj4NdmBV164u8ztpib3Doj
-	OLDlVAF4g/jTBETmqbRhuOXp8OPa34EgnDvTaW8j3pZQ3XSKptcWIimWAFx1DaOc
-	VTxMobayKgOqtH8ncF4JlfIi+7b8PNdclF/sl3ffvAdG5Wm99L3rA9NSyTF8cVQu
-	wU+V79mycD6sJ989bzg+uO62cY2j9rYblDlynbQ1qsctHqO5W/Jouoe0nWHMqctJ
-	1ABkhtgWd4m13hiKYJPsGueh3mjioiwQpCSwYbjt/6saNQExWsoweo+F8vVR76Xd
-	FhlFKSWkSx1v40Afe0jSVlgCWn9SU4WH6MwlaCQ95FtFEJmfXFV2PAB7kBchjDsw
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsumv94r1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 07:46:06 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD5KDJZ1776746;
-	Fri, 13 Nov 2026 07:46:05 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hwd85b6t1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 07:46:05 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AD7k2Tn30147034
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 13 Nov 2026 07:46:02 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EBBD920043;
-	Fri, 13 Nov 2026 07:46:01 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D119B20040;
-	Fri, 13 Nov 2026 07:45:58 +0000 (GMT)
-Received: from [9.39.16.227] (unknown [9.39.16.227])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 13 Nov 2026 07:45:58 +0000 (GMT)
-Message-ID: <8a88f1bc-2ff5-4d6d-8f7c-1182b256d855@linux.ibm.com>
-Date: Fri, 13 Nov 2026 13:15:57 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EjjkW8Zn
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cZ2JcvavG8dTDoX6w01E1tMZFPmQ8BIV3mXJZzmljcU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794555992; v=1; x=1795160792;
+ b=EjjkW8ZnGGmdwFDW5qdl6sDzsgeiHvLi31iz3BBPUe7p8mX7TuBagR5XZSo7GkfDwCzqqAL2
+ NNumfSnnmDL4w142zjQeK94//HQz2haLz+08NabP6spfT7jqUgjduyvc8tCCwzJ1bMwZI+LR5lV
+ SAXO/hpp+UJsXcZLrkxY0pEc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 70574e2b07ad1e61;
+	Fri, 13 Nov 2026 07:46:32 +0000
+X-Mizu-Trace-ID: 70574e2b07ad1e61
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 13 Nov 2026 08:46:31 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ho Jie Feng <hjf3108@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
+CC: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v3_2/5=5D_wifi=3A_rtw88=3A_88?=
+ =?US-ASCII?Q?xxa=3A_receive_VHT_SU_beamformed_transmissions?=
+In-Reply-To: <20261112173246.3201729-3-hjf3108@gmail.com>
+References: <20261112173246.3201729-1-hjf3108@gmail.com> <20261112173246.3201729-3-hjf3108@gmail.com>
+Message-ID: <466A842E-68A6-4F5B-B0CB-8EF314AF34DA@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,116 +66,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] KVM: PPC: BookE: Load FP and Altivec before
- enabling the interrupts
-To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com,
-        linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
-Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        linux-kernel@vger.kernel.org, msuchanek@suse.de, ritesh.list@gmail.com,
-        harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com,
-        venkat88@linux.ibm.com, mkchauras@gmail.com
-References: <20261112130913.4124175-1-sshegde@linux.ibm.com>
- <20261112130913.4124175-3-sshegde@linux.ibm.com>
-Content-Language: en-US
-From: Narayana Murty N <nnmlinux@linux.ibm.com>
-In-Reply-To: <20261112130913.4124175-3-sshegde@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAzMCBTYWx0ZWRfX6fgTPRPDx9AN
- Jmipqjb8YSZHtegR7QmsfOx+znWRAPn0IzZCQzcx1Yb3mraWpRpHKf+DqA7jWsPBCHP6N0nbCgq
- MRjudsQnzbBCUYl9EsC/ClvQ+Qc06NA=
-X-Authority-Analysis: v=2.4 cv=GISdgeNK c=1 sm=1 tr=0 ts=6af6c03f cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8 a=7zvpPTbqLWkq6IA-fN0A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: O8kOlERyROXO3xBswdO-Z0TxPGYUQD1-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAzMCBTYWx0ZWRfXxyxZfZezlFxr
- IVZI5Z/UPOltHvj+C8fiUvlpRFmgh9bCGgAzbjEbLK9kulv2PCllZfR+V2Uw/h0WwBI1CdmlSqH
- XmLQuVHcmlF9T5fMHD8qYpy8FALCWuGZAnMvM2iTKuLs47tnFh1ZUt4vp3k5JYN20EAF6IH5enc
- UR8MPgql/cj2eXqFSGm2rz3xNYGGsPtlfcXGYMdDjxEdz/DOGueUo17gwjuDCUggsEEs19QXMmk
- gbNeEK03QWOz6+JcHteiSLL38s9GNd6Rc/Nuvk1U2m92pDjss7T0rNGDviayoxUocFOW9mDKoBb
- m3vIFgbqJ2uk/dyaTDDG4AK0nWSNMPMIAoNNi4KRegmVJyiDmq007lBNYlDFi7IhMyt53Q4ZUJz
- wbbOTfIf3Dkibp4PVEfjpBat4uCI0fgCa5s5hSk31+5jF9wlZZYR+4J/KdWrwJcvEEUmCLQZKL4
- meFFxjeJjl2U/Wzla0g==
-X-Proofpoint-ORIG-GUID: 1nyDaK8FP75mDiLpG1vaYqvVshQ8bL45
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_02,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130030
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hi Shrikanth,
+Hi Jie Feng,
 
-On 12/11/26 6:39 PM, Shrikanth Hegde wrote:
-> Christian reported that booting preemptible kernel on FSL Cyrus+ board
-> causes boot hang.
-> 
-> The logs pointed that system was busy in printing below warning.
-> 
-> WARNING: at .enable_kernel_fp+0x30/0x78, CPU#3: qemu-system-ppc/4884
-> Modules linked in:
-> CPU: 3 UID: 1000 PID: 4884 Comm: qemu-system-ppc Not tainted 7.3.0-rc1-powerpc64-smp-preempt #1 PREEMPT
-> NIP [c000000000003338] .enable_kernel_fp+0x30/0x78
-> LR [c00000000005de84] .kvmppc_load_guest_fp+0x30/0x80
-> Call Trace:
-> [c000000085ca7700] [c00000000005de84] .kvmppc_load_guest_fp+0x30/0x80
-> [c000000085ca7780] [c00000000005f2a0] .kvmppc_handle_exit+0x5bc/0x5cc
-> [c000000085ca7830] [c00000000006204c] .kvmppc_resume_host+0xb8/0x10c
-> 
-> Which is...
-> 
-> void enable_kernel_fp(void)
-> {
->          unsigned long cpumsr;
->          WARN_ON(preemptible());
-> 
-> And...
-> 
-> Though irq's are hard disabled after kvmppc_prepare_to_enter, but
-> kvmppc_fix_ee_before_entry enables the softmask's IRQ state.
-> That causes the irqs_disabled to return false.
-> Hence leading to the warnings.
-> 
-> Fix it by re-ordering the code to load the FP and Altivec
-> before enabling the softmask IRQ state.
-> 
-> Suggested-by: Narayana Murty N <nnmlinux@linux.ibm.com>
-> Fixes: 3efc7da61f6c ("KVM: PPC: Book3E: Increase FPU laziness")
-> Reported-by: Christian Zigotzky <chzigotzky@xenosoft.de>
-> Closes: https://lore.kernel.org/all/33342fbf-eb7b-bde6-2c8c-254fe8bfb993@xenosoft.de/
-> Tested-by: Christian Zigotzky <chzigotzky@xenosoft.de>
-> Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> ---
->   arch/powerpc/kvm/booke.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/arch/powerpc/kvm/booke.c b/arch/powerpc/kvm/booke.c
-> index 13ad4cf5fa71..aed7b476b7eb 100644
-> --- a/arch/powerpc/kvm/booke.c
-> +++ b/arch/powerpc/kvm/booke.c
-> @@ -1404,10 +1404,9 @@ int kvmppc_handle_exit(struct kvm_vcpu *vcpu, unsigned int exit_nr)
->   		if (s <= 0)
->   			r = (s << 2) | RESUME_HOST | (r & RESUME_FLAG_NV);
->   		else {
-> -			/* interrupts now hard-disabled */
-> -			kvmppc_fix_ee_before_entry();
->   			kvmppc_load_guest_fp(vcpu);
->   			kvmppc_load_guest_altivec(vcpu);
-> +			kvmppc_fix_ee_before_entry();
->   		}
->   	}
->   
+Thanks for the new version. A question and a comment below.
 
-This address my previous comment, feel free to add Reviewed-by Narayana 
-Murty N <nnmlinux@linux.ibm.com>
+On November 12, 2026 6:32:41 PM GMT+01:00, Ho Jie Feng <hjf3108@gmail.com>
+wrote:
 
-thanks,
-Narayana.
+> diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
+> index e243738809..fe93c93b1a 100644
+> --- a/drivers/net/wireless/realtek/rtw88/main.c
+> +++ b/drivers/net/wireless/realtek/rtw88/main.c
+
+[ ... ]
+
+> @@ -1621,10 +1622,13 @@ static void rtw_init_vht_cap(struct rtw_dev *rtwdev,
+>                      0;
+>       if (rtwdev->hal.rf_path_num > 1)
+>               vht_cap->cap |= IEEE80211_VHT_CAP_TXSTBC;
+> -     vht_cap->cap |= IEEE80211_VHT_CAP_MU_BEAMFORMEE_CAPABLE |
+> -                     IEEE80211_VHT_CAP_SU_BEAMFORMEE_CAPABLE;
+> -     vht_cap->cap |= (rtwdev->hal.bfee_sts_cap <<
+> -                     IEEE80211_VHT_CAP_BEAMFORMEE_STS_SHIFT);
+> +     if (rtw_bf_support && chip->bfer_su_max_num) {
+> +             vht_cap->cap |= IEEE80211_VHT_CAP_SU_BEAMFORMEE_CAPABLE;
+> +             vht_cap->cap |= rtwdev->hal.bfee_sts_cap <<
+> +                             IEEE80211_VHT_CAP_BEAMFORMEE_STS_SHIFT;
+> +     }
+> +     if (rtw_bf_support && chip->bfer_mu_max_num)
+> +             vht_cap->cap |= IEEE80211_VHT_CAP_MU_BEAMFORMEE_CAPABLE;
+
+In v2 this was its own patch, 3/7 "correctly expose beamformee
+capabilities", after Bitterblue asked on v1 for it to be split out. Was
+folding it back in here intended? I couldn't find it in the v3 changelog.
+
+I can see a reason for it. Without this part, an AP that is also a MU
+beamformer makes rtw_bf_assoc() take the MU branch and return at
+bfer_mu_max_num, so the new config_bfee code would never run for it. If
+that is why, maybe mention it in the changelog, and in the commit message
+too, since this is core code and the support_bf check now hides the
+beamformee caps on every chip when beamforming is turned off.
+
+[ ... ]
+
+> diff --git a/drivers/net/wireless/realtek/rtw88/rtw8812a.c b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
+> index 55f1d3d324..5d58dff4fc 100644
+> --- a/drivers/net/wireless/realtek/rtw88/rtw8812a.c
+> +++ b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
+> @@ -931,7 +931,7 @@ static const struct rtw_chip_ops rtw8812a_ops = {
+>       .phy_calibration        = rtw8812a_phy_calibration,
+>       .cck_pd_set             = rtw_phy_cck_pd_set,
+>       .pwr_track              = rtw8812a_pwr_track,
+> -     .config_bfee            = NULL,
+> +     .config_bfee            = rtw88xxa_bf_config_bfee,
+>       .set_gid_table          = NULL,
+>       .cfg_csi_rate           = NULL,
+
+As far as I can see, 8812a, 8821a and 8814a are now the first chips that
+can become a SU beamformee without a cfg_csi_rate op. Once rtw_bf_assoc()
+has set bfee.role, the watchdog goes through
+
+        rtw_vif_watch_dog_iter()
+          rtw_dynamic_csi_rate()
+
+and there new_csi_rate_idx is only written by that op:
+
+        u8 new_csi_rate_idx;
+        ...
+        rtw_chip_cfg_csi_rate(rtwdev, rtwdev->dm_info.min_rssi,
+                              bf_info->cur_csi_rpt_rate,
+                              fix_rate_enable, &new_csi_rate_idx);
+
+        if (new_csi_rate_idx != bf_info->cur_csi_rpt_rate)
+                bf_info->cur_csi_rpt_rate = new_csi_rate_idx;
+
+So if I read it right, it compares and stores an uninitialized value
+there. cur_csi_rpt_rate has no other user on these chips, so it seems
+harmless for now, but I think KMSAN would report it. Maybe
+rtw_dynamic_csi_rate() could return early when the chip has no
+cfg_csi_rate op?
+
+Best regards,
+Luka Gejak
