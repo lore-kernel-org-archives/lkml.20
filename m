@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794597300;
-	b=pWxs+dga1hkGdMISxlmr8GzRq32huentz/mqQbqi2ECxGK/7k4CZTJ1XBrTfsY5SVB4f
-	 jCjhuYj01QFgZZhjjeNIDKWusK0JbibJrq2QIb0t+9YSNfhDGxYpKZIIBx73Bb6uh2ipd
-	 aOT71AdHNmO2BVFRYfMwbUs1RpkK5mnT9o0ro+w+r3HIFcggiqMAyNDtFJHjcePYhQsJb
-	 EX/+U5P40sBLm8lDDcox0Qh2anpB3OyfAsoeukLD40fdTdfqbtpnqVSo/Upg7k6VLnsPB
-	 YSDalgJ9eFESZoBzGwW0Rn7sN0dWdKeZwyagoT0BPeEI/smApyuQH0ZhYyDCo7eAgaA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597300;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=V4Lkji1HX8R+QyAlAik1p8btRedCNisoSjayriZIZjc=;
-	b=blKywdE1fl7epDbTwlHGf2g7KSVh60WDUvzPEyh3XisFfcXKsocQlqPmih1l4Q0BVcd/
-	 pFUQN46Xfu+n/UsQqBIBTp7iyGjhZ2Hj7Ed9xiibEqJLeFMamMZuTqoG1dJn7woEEu0jM
-	 75xZY/fj67eGWM+5YgJfAJJHTBOSzJwU7Pm/UsUwz1wGF915enCpAJLJ8fFshiRydqeaB
-	 v54hSM6OM2CGoxlll7ylVZtOdrULas7Pum/FUjIZqeT3ZQbrJWlkwodYBH62OR95iZ/vu
-	 U3gDgAnm0UHn+3zwgQAym1cPdJAPWhn81PeBDf5mGdEG+s/T3etaj4/+TFz6MqrshOw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NxInhMNU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794597340;
+	b=aPAKUrqABf9sZTegqE6toKgZkcBuFKjr3ihaFaNReLXU+zHenzaGeMm9T9oTQ37mZkTg
+	 vPgrCTgV9jIVR6z+KocVz1GkLzyXsjWowGSqgqyq2633eh8/ZftyYJ9wX/1G95ztyNMQs
+	 jh7e2qo5mGtm5VDcVkw8wNH0ghCdJhecC1QU90N+AUsuvC6/Ks0rflM9TLWgUBY3kFDmx
+	 u3VKfB9bTAa4cc4kqXR3RgwD9u1OVaqve3rVTf+ghA0WPvE8IlNz0RMwx3VMifbiTaliE
+	 g8p77vVtEN/sxhBMlY0M/oMxHhMT0H4d/jPHDVWbCZhZBzF5zY8RKYAOtbnFOPPBW3Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597340;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hwPuVq7T8FdelkrZoqjLG70zrzZ/KbjEwFQO6WatOkU=;
+	b=r74YsRHlUP8dIThaKtYdVZfihWJzbrMzS0JN8uhmH+RnZINYPzqN+UyvBXqZNa3Mmnw+
+	 5idYb68VpVYvWmxVdoGm9hXwMRt9x9tuI/SXPW8jNWtyY/zXYQJdUi/z/sFsyWmnN/1QH
+	 Lp0Y8V/lH14LWkuVla8wGwwl6PGNqc8TdcVPlGiUtPlZ71xl5LKakBCeRy1Ay8+wNnUW3
+	 m/tOhkRnEDma9cj0+5sz/PD0RCIQOz/HuIbZusUuw+F/r/6pp89H9PYF7lTTWj42La/Qg
+	 3ba5S1mR+qucQ+rmgG/7IpujHWkzZYYfz9kOdI8uWagiUTp11TpIeRqW0BpkvNLwvpQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LjmXZN4T;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E40606A339
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:15:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77E40606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD47F606A327;
+	Fri, 13 Nov 2026 19:15:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NxInhMNU
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67be7b9abc8so1105019d50.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:15:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794597299; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dliq4L2Oo7Fg6Ge7AFXDJoK5uosSH6oXwqGbdn9P4mhPZLmaX+TA5yCXCYqvqJdVS7
-         4zam4TbqssH7yyN7zDsgoJuNPpA89Nf93QtlT6q32Q/eoUjoeQ1vuSnsXQQOWbpewF+t
-         K5qsnVKZ05lfn1Vl/6m05CS5xFe2B0qO+CTBd3CPn20+G+3JIFZrt3ahGwWjUe7FR+84
-         DLGXzawfStoYZ6ifv0n+nqSNqb/9VhAv7NYxjhFZi234YqKMMu9zaoSzC2g8ixxf/U6G
-         meCX4Y9IsEAH3L3Bvc9pwP4fLstf63kpX55//s48Poa7pPg9B/8T238OJrBv0Xal/Pmy
-         oQ7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=V4Lkji1HX8R+QyAlAik1p8btRedCNisoSjayriZIZjc=;
-        fh=PSsm5ZaXSjdKvyllCiHo5FXqDjtAcjsGzcnL+5eabm8=;
-        b=TmjWBGpSYmY58tAuOyRUnpv7Yah8wsxKKLll1H7/gL04a1WFHSvPqXoSj3CgOopE1Q
-         Fk17KdkzDAT8jo90LToOJB0RhluSWlA/R2obBqm6crVF3cCQUixBwJS/vEvMcBaQK0fh
-         8u4FABKFZdwZYwLKmyWmcbfNAEj0pB40h0IGOChU7KuyQeF8/80tikde7ohmAQHpogIw
-         3ItaoAI+scw6g9qOJL5zRL8JT6rHsTpo6EbpHXJX5aK9ypRr//nvc0ypKEw/w0LKoo0j
-         etYcUA2pgrmcx5Jd46HuzcwZcff3cdQm6+QIBbPOvkZus16TLwLRPn8+vL0bkHs/jcKE
-         pHsg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794597299; x=1795202099; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=V4Lkji1HX8R+QyAlAik1p8btRedCNisoSjayriZIZjc=;
-        b=NxInhMNUsk1V/GHuk1KJEYz7215Gz/JpAe8IOmddxaqdRdV3SRBV6i4ekftDaqb5kM
-         aNmI8zGb87pgvjwzaq6B89gecxVmqqFLzJusRJwwA3OwsIbA7BuQYtGaP4A8sNt2kleZ
-         NyW/BoJyCMWS3aBm3XxNxhxB0a8kUb9niJY76q1Z01Fj89zGHdS3otf2dIInzkQ6dwgY
-         zPx2UsPTrqqDaAYBr1oYlOxUYjfbGzKIBzmWbo7NkAr6Af2D+gpiKLvLSJOG7P+9uVfv
-         G8kpWf+CLRYJcUAj9aYqW2QJGz5ZH38aJ7wMXHvqEbRl72V9Ut8yE2FpGX0/IdgDmid7
-         SmQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794597299; x=1795202099;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V4Lkji1HX8R+QyAlAik1p8btRedCNisoSjayriZIZjc=;
-        b=jt9hgxkxrKj3ILLzOMFC1TH7KIuwRELMCdSKXAjIfHUXcVeh4L7KHqxP7xcMnJ/lKG
-         vF/frNdCztGNoqCJFCBc2NtPSAQIb53iOBRvrhWe+KXdCsFeiHT0xABOpSxH1IkyOmbU
-         Sds8IolP/K9upYZo0LbUOT6j22G0LeXRblVnLaO8pmBGqEjkqgA7Nf/FpzhFypMAV2PK
-         CCi2d3rjYyWcilZMFpogn5BmJO06I6U6gSIMhXVrxbtyMw91fhjMuH245Y3DXIfQbgfg
-         B9bs9tzXht7Ujhx4ErKPUzGbgBz1z+jvimTOoPSYBphYO4B3g5vVvrJoUo/Bwbg8SA6r
-         OUmw==
-X-Forwarded-Encrypted: i=1; AL+hErH45aOcPexXln4GrMGn5/jnvPThI0qTsAO84oMh5zFGkV+sOqH2K4CEOdH5K2TLOee7mqc61mFeB3lI+cA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LU/4J5l1YCdFEclcwUuzM73iewL7cpWuuyKdD0Yspo6Q9l4ck
-	h3QhpxeqjHuDaFfVzECFWC1ON6jmCzMfkb/kGL6gOYno1nqsnnH8LtRcrpJ7zFy4K5jexl40u7g
-	P1VEv9Mju2EfU6Lb5sDKQ7Qb5GRyUdWQ=
-X-Gm-Gg: AYBFou1hOsvXd+aVkyN7oPQw0GlTIOPDmL8ep2Olh/R9pj1hyt8uUFKFViGYgd5sw0D
-	+W9NirThwf9s7G2WdTKOMvTLByn0ymN12FjZLayKjVPjbXIx2Y4tBn/2DXhreDEs4yuB7WY0wn/
-	QlHtM7hOQ9nX2Lq+vw340dzxa/pJ7rok1W/oR+Er6ncpcrOxNR6Fne5bzh6w7XQwSyKlWo3Dn4d
-	G4h+d6HeHtm5e07IMRIi0REOipNl9yc5tsU4nOzyWYq+LEDKu4Qx2yD/Y+WcgyvcDMsWlb9TpZa
-	53lMbJKiX3/EI+CWh5F/P549a2E89FGT376ckuvfwC3dy4lrZykVOv+VjuAqSHegO6YQh1Tqo1m
-	bhbr9SwJda5OgOzUgvyHaSQqLhqQGro4KlVmx0g==
-X-Received: by 2002:a05:690e:1188:b0:67d:98b7:8861 with SMTP id
- 956f58d0204a3-67d98b79810mr345876d50.48.1794597299405; Fri, 13 Nov 2026
- 11:14:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LjmXZN4T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34681F000C4;
+	Fri, 13 Nov 2026 19:15:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794597340;
+	bh=hwPuVq7T8FdelkrZoqjLG70zrzZ/KbjEwFQO6WatOkU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LjmXZN4TxOHWUMeds0ZDPxwPCBanIIeDnosnRa9n71ZxOThzbLrZgo8dJNYMXfqwj
+	 mW/DpaVwx5UkWp/+j4UaZ3V6+W7fDsNZb3CDJbdrpQeHrBwsnOB4an6C2KWXWHxcdN
+	 A0LR0HWkvBY/UKYBWCJ6b8qEzT4YCefgJxwv1S4ewW1U0mhkaFtqSVfjrtdEWnHKmO
+	 OgVRoeK4MHUrpXzMBIJ+45gKib4aXMDx4tCerHrLm51CAvJAbb8qI246UZLsLACGPH
+	 9lB2uXB3KBe87fpe69pC69v1a+e3nhCYIAd3V7GUSRQFSnNQ/R5WoGEFdjNXxQKUB4
+	 vQ7k5qcNPlGcA==
+Message-ID: <0d6e29f8-54fc-427a-a979-1a8c6f4e3f06@kernel.org>
+Date: Fri, 13 Nov 2026 20:15:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,52 +51,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
- <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com> <20261111004732-GKB2005@kernel.org>
-In-Reply-To: <20261111004732-GKB2005@kernel.org>
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Fri, 13 Nov 2026 20:13:00 +0100
-X-Gm-Features: AclHuK_kboH0z5fWoPol696e94WfTnxywiDJDP5pOyMB6ipnYxJpzrLU0NPVDpw
-Message-ID: <CABdCQ=MPPuTQ-3aCds7F6C1AZ2c79HVJXGjtqN9_jHpKo+0E2w@mail.gmail.com>
-Subject: Re: [PATCH RFC 1/2] riscv: dts: spacemit: k1: add PowerVR GPU device node
-To: Yixun Lan <dlan@kernel.org>
-Cc: Alessio Belle <alessio.belle@imgtec.com>, 
-	Luigi Santivetti <luigi.santivetti@imgtec.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, imagination@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/madvise: disallow guard region installation in
+ uffd-armed VMAs
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
+References: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
+ <0e3e876e-c3df-4660-ad89-a5f0fd7dedc8@kernel.org> <avcNcL6svEOTg_3r@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <avcNcL6svEOTg_3r@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Yixun,
+On 11/13/26 14:59, Lorenzo Stoakes (ARM) wrote:
+> On Fri, Nov 13, 2026 at 12:59:00AM +0100, David Hildenbrand (Arm) wrote:
+>> On 11/12/26 18:38, Lorenzo Stoakes (ARM) wrote:
+>>> In order to establish guard regions, guard markers are installed in the
+>>> page tables of a mapped VMA.
+>>>
+>>> However, problems arise when one tries to combine this with registering a
+>>> VMA for userfaultfd, as such operations may themselves need to install page
+>>> table markers such as uffd-wp.
+>>
+>> How does this interact with UFFDIO_POISON markers that can outlive even
+>> userfaultfd registration?
+> 
+> The zap clears poison markers, as is standard. It's really horrible this logic.
+> 
+> So the code path for zap used by the guard install (via zap_vma_range()) is:
+> 
+> zap_vma_range()
+>   -> zap_vma_range_batched() with NULL zap_details
+>     -> __zap_vma_range()
+>       -> zap_p4d_range()
+>         ...
+>         -> zap_pte_range()
+>           -> do_zap_pte_range()
+>             -> zap_nonpresent_ptes()
+> 
+> And zap_details is NULL.
+> > In zap_non_present_ptes():
+> 
+> 	...
+> 	} else if (softleaf_is_uffd_wp_marker(entry)) {
+> 		if (... !zap_drop_markers(details))
+> 			return 1;
+> 	} else if (softleaf_is_guard_marker(entry)) {
+> 		...
+> 		if (!zap_drop_markers(details))
+> 			return 1;
+> 	} else if (softleaf_is_hwpoison(entry) ||
+> 		   softleaf_is_poison_marker(entry)) {
+> 		if (!should_zap_cows(details))
+> 			return 1;
+> 	} ...
+> 
+> And zap_drop_markers() checks zap_details && zap_details->flags &
+> ZAP_FLAG_DROP_MARKER.
 
-El mi=C3=A9, 11 nov 2026 a las 1:47, Yixun Lan (<dlan@kernel.org>) escribi=
-=C3=B3:
->
-> Hi Iker,
->
-> You could drop "RFC" prefix next time..
->
-> This patch generally looks good, while note that it has to
-> wait for power domain to be kicked in
+Right, my intuition tells me to just nuke that thing by setting
+ZAP_FLAG_DROP_MARKER.
 
-That makes perfect sense, I already noted it in the cover letter and
-I'm fine waiting until that one is merged.
+MADV_GUARD, is just like munmap() another form of "zap it all and protect it".
+>>> This is especially problematic because guard region installation causes the
+>>> regions to be zapped first, meaning that the removal of userfaultfd-tracked
+>>> ranges will not be logged in this case.
+>>
+>> Again, similar to trying to uffd-wp-protect'ing a hwpoison marker (which will be
+>> ignored), and then zapping that.
+>>
+>> Isn't guard marker installation/removal just another form of zapping?
+> 
+> I mean users being weird could decide to use it for that rather than
+> MADV_DONTNEED, but zapping is a side effect really.
+> 
+> Really the idea is that you might have users who, for whatever reason,
+> faulted in some range, and now want to make that a guard range, so for
+> convenience we zap it for them :)
 
->
-> On 20:56 Thu 15 Oct     , Iker Pedrosa wrote:
-> [...]
-> > Disabled by default; boards enable it individually.
-> >
-> As GPU is integrated within SoC, I'd rather see it enabled by default,
-> so will not only one specific board befenit from this patch,
-> besides, I see no reason why people should disable it by default?
+I think not just convenience. There was this problem with faultaround / THP
+placement IIRC ...
 
-This is one of the reasons I sent it with the RFC tag since I didn't
-know how to proceed. I'll make sure to enable it by default in the
-next version.
+I'd just zap everything that's there. That's literally what the user asked for.
+
+> 
+>>
+>> So to me this all sounds like "if user space does something stupid, it's user
+>> space's fault".
+> 
+> Unfortunately, as per Tal's series, there's more to it than that (linked in
+> Closes: tags).
+> 
+> You can get an infinite syscall restart (ugh) if you do this on a shmem
+> range (Tal's 9/12) so it's a kernel bug that _has_ to be fixed.
+> 
+> The other bits are just about a user losing track of uffd stuff if they
+> guard/unguard, as you say.
+> 
+> But every other zap code path does the uffd remove event stuff, so this is
+> still an exception.
+> 
+> If you support uffd, you have to add a whole bunch of horrifying, awful,
+> terrible open-coded uffd crap, e.g. the userfaultfd_remove() etc. And you
+> have to drop the bloody lock and reacquire it too and make sure all that
+> works correctly (...!)
+> 
+> Anyway there's basically 3 options here:
+> 
+> 1. do something like what Tal's series does - add a TON of complexity for a
+>    use case that nobody uses to get behaviour on something nobody sane
+>    should care about (i.e. uffd/guard/unguard/expect uffd correctness).
+> 
+> 2. Zap with ZAP_FLAG_DROP_MARKER, and silently lose uffd-wp state but
+>   'support' uffd. It does fix the 9/12 bug but then subtly breaks uffd.
+
+Right, that's what I would do.
+
+MADV_GUARD_INSTALL zaps everything.
+
+It already zaps swap entries, migration entries, hwpoison entries ... so just
+zap everything.
+
+[...]
+
+> 
+> If you're really concerned though, we could go with option 2, which will
+> just make UFFD behave differently for guard regions.
+> 
+
+Not really concerned, it's just the most consistent one for me. Zap everything.
+The user asks for it, like he would ask with munmap().
+
+> (I regret, obviously, ever allowing this for uffd ranges. And we _all_
+>  regret that uffd was _ever_ allowed to be merged in this state...)
+Yeah ...
+
+-- 
+Cheers,
+
+David
