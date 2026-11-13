@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595138;
-	b=Aa3cfMwtct/dB7F5rdFo8IZ0LI4h4Z3iMN+7GvSjGbcdXPXPfPBu0iRF6EIuAJaXSVQu
-	 Z/2rR1YdMUainIqxgMIAPWtZ4/AJq/VXa70WNS9S3mp90w3soemzdcmQ44o3FCaf8ZGx6
-	 SXEH9awWKRqvI4AYrnQd0U7GcHF3UN1vDs06yFx6FU0AfedyqjAwAHHf1QAwsIE5pYHH9
-	 2NLj7XohRRfNmR/4zoG5J8JY0kz5RN2OE4YmsKh0yQGLPJdkBdjn0SjQ2SK7Qy4FefgUC
-	 juB5ifqGQPYK5of/xLlTDzB905VIrGPKp+lG1q5HhRpG4XTalWzA1LUk+XSKi70UOhA==
+	t=1794595133;
+	b=hbcdcxT1guCc4yj6jYxlXltXfYllqJqf7dFltJfQb0n7YXL1Ao3Eb8dJoArUP6x919wX
+	 0wJ+dGVKKO0qxm31KJsvuZZsXLuu2AnVEiQlXOwF03K+hFjYZKnJaULki7vBSzdT9Xvy3
+	 hG4wSWHUW5x6IN1QJ/RreiuT9DYM8SvKrGJPslk9kkcKAqJT/EoZP5bCVHK2ewkj99UPI
+	 hWLeatcGnnkjVtBfA/TPo2o9HzEWHk1Gw8V+m8sZMq+tNeookmc07W5XCVaKEQoezqmuP
+	 yRV2oubVGx7eW5wuPzAocqLFSIAX0lrQfST4TU6a+rsNkf7m/ODdfRmtvtCAt9+/eSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595138;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595133;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=gCqI7AFJSm7yT2e0YzwxWTL/r2BSJJig2ptF13VV/YI=;
-	b=pMhdh1pE0+NRDk1hlSpiDmcavvywDKFQvwpzTrOWY5vzpAyFfC3nqDhYPh2b6Es9UVKa
-	 GBFz9on+6PiaE+uTM1Djwop9/0lnjZ5Fqc4uyvu9jGT6PLUG/YhWZT2T7QimrtAHGCkhS
-	 S5QydmKRJnkpzkU+yVGGPoyAzQ4sHpgBbKT+Ha/a3hK6Wsrg6xlaeJsM7+neJMDUdlYV3
-	 o602buYJ2+KEsR+6XhQpinvf5elo+mehtg0GzPZByQtYYlPVm71LL7OHa2RvzLevt0pn0
-	 TCqjLmx55N89dX2q+HeVlnn8Vk0i1G0ue0BAxNnwd0dt9Pn6fpaVWa9rp3iaZjbw1ew==
+	bh=EYIDNpVzER8Z0Xx9q7GZ/NAesPklqBLcGef+EFqtLPU=;
+	b=0uT10SqqxTHMc2M/TTvTaBKuXDSjQHIKJ2LK/LA5VGS431bvbffJVlWysXiDScRggdnp
+	 GyyHUfdYrQjBayVLoxGNWMHPsD1XjZGuy5w8uSIxeEp08GeAkLy5c9UCFCu9hVJM+ayU9
+	 gRTR4npwsR6faMJ+5XzFEIS8LdDApU5jDCsmIuL4jTAAcZK7vWQEu1IkiCegkR111LoRi
+	 WcsK2QcCmH1tGJwHY5a5hop48MhPtkL6Lew6dxtFlMHyFKOIbjCO+v91XlXmlMdPQh1lQ
+	 Sn9zvpxok9Z9bY6s1F0kIUPythov1GG98Im874/X/VaTBvF3OyQZDriTggSe9nxszOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PXpoVMrH;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=FAhF5vyo;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43306070B62
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:38:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C43306070B62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225C360A5BC1
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:38:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 225C360A5BC1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PXpoVMrH
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4919a880834so639333f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:38:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=FAhF5vyo
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-492690dd5daso1673987f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:38:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794595136; x=1795199936; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794595131; x=1795199931; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gCqI7AFJSm7yT2e0YzwxWTL/r2BSJJig2ptF13VV/YI=;
-        b=PXpoVMrHuknv4HiZDDhdZpDM2IF2GKjA+thkFlOMj2EVqS+sFUuYFEK7i909UYJ1Gj
-         AWbIbe/J29CuFBnzpmMFRWGsTLSm6GAX6ypfRX3eBMX+EWet28SDr1maO27GWDrrP/LK
-         OZo4n6t1zYIAtmVSv+ZtdNWssdSu8sd0i1aR8o/0i5GRZPCGcnmZ6UJXVfyPvenkeJ1l
-         kx2FwjkNM7W7UrY3qIXDARD+tDmn6C65dPN7Ci5NpNEMUaebugwFDDCrXZKpdaly4sz+
-         T7/ONVYYBIyc+vde4US7NR5vFczN4AfXA3o4Xt7DP13NKa25XutRNhqd9UeL5ILxj3a+
-         1LqQ==
+        bh=EYIDNpVzER8Z0Xx9q7GZ/NAesPklqBLcGef+EFqtLPU=;
+        b=FAhF5vyoV6XKr4XzB6+bdr17F3jZQyI0k0N9QaUuIIlHA8m1DBBRFefsqeg6p9d+uL
+         3uMaoiI7VIBAbxLKBGupKO4io5DgTlqFr6sVraV+SI3jBiivSb4kLOQd3kQzQtMnQSmb
+         hZcEEDX8/yTwzBOeOHRc/iMG3RxOLWhdVzxEu/AqMtVJAl+Wh2hYzKjRNc2O0+vwYclJ
+         LPcrjKpen5wyLXNLPUH9FP2sTkrMnDLWNNvBNKiBN0IaYujyn33bqVMxXMT1CVHWvZP8
+         RvzkiR34U+c05QvIi5Ckay4+30vUI0KgQD2fM2T7Wp/BXqTxnuIK/okenFuR5Ntq7sdk
+         rnNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595136; x=1795199936;
+        d=1e100.net; s=20260707; t=1794595131; x=1795199931;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gCqI7AFJSm7yT2e0YzwxWTL/r2BSJJig2ptF13VV/YI=;
-        b=11wffUykU7GDLYGRvFJx9WxsHp4FxN73IRyz+PgFUrutr+yCzH8PtGUGtk22NuS6SL
-         m/hvnZnai15bLmrCEd0l9IAoa1d41p6kT/rbt73tXpqecCft9womvQO8AjhN/9g2KAZO
-         9BIM0DgJysi+wq3qvp/z7DBcfp7nwDOQ53BD64xqsj333dhwYZ4jlDOTJgl/V0vnUX6k
-         ExQc/8wCf+RLhQLL6l+TfnLCouiheE8nwBD80lOGCJ0Z17a/rdBzHJT5ae4Ay+lw7qar
-         sur9fSsAF30p8q5YRzVFTlUHVP8umdEpYa1XZofPp9+Lr7ighMu9lUNqA23bwniTuE7R
-         EwMA==
-X-Forwarded-Encrypted: i=1; AL+hErHDfI4Aqav9ePfXGGu/EnY/haoGSZrEn2nXmuiTdsABRUqMXuNpE8xfy1fXKdRlcIcdGhZ3fLYy1BKXAtw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vWo9JLB96hIOGQb0CGA5AfoRyrAMdLFvDFpIupcaPG2468TDc
-	tCD1bMlyN7ai4mC2PoL+dal6i8QTl5SzMYygW0kk0WK4jmwdMbmjVVbzJbTyxsXYlc4=
-X-Gm-Gg: AYBFou2/Jr9fmawqqrpJFLEbzW9PVw+yimNUBUilTv+lDQSX5vUcQQzj87ZXtKp0zbC
-	u4s8weV3lH8NAj6WaiEdBviJtNINJFxBR/r7ZrHzkNFW7CY54jUInapPSiZ18fiY2qQphTOz/uG
-	Cok3cYV6t8xC/LZTPRSmMdwx2PJN6n27rPo3RL4EQ7vI8WZD5G2Q9cxYMLivjvvyykkhDqdrrst
-	Pagij0Zn5OJIQBEqOivnFjNV8NSWKM/v22exw07ZmCEMamOBlbwZyj0BytDOVeomYOkbTtJTQy8
-	gtSej0aSu/X1g4auUDZrST/zDchiJKZ4Y0axKnPGCB4PliLh+UZsS6FcpNKTM7uuVu+i4bRLKDx
-	9cS/n8lOw7UP3xYRbp3dLe9X6yYbRsI+EJUzUMVYNDxU8HLEaC9MhrNWKElarbR8xuTYg8lm1C/
-	h/4CEbifDW7Goci5Z0PF3dMtaO5f3Nwgu/C6GOx4IxWwysI4S6pPBiUc/vEGjFk7TIDSAGRROFy
-	tMifjAvnMBZj2fgJZHsO9qRGNTxsJxrKGTJPljCHgDwXfYdf5hLqveCzygU2X2DkewLK1yiYpUF
-	HgRhsC/P+cf+IHQFmT5Th76Rm6jQorphLjmFllVdOpE=
-X-Received: by 2002:a05:6000:29ce:b0:48d:e101:5707 with SMTP id ffacd0b85a97d-49c70ed9147mr5538400f8f.13.1794595135879;
-        Fri, 13 Nov 2026 10:38:55 -0800 (PST)
+        bh=EYIDNpVzER8Z0Xx9q7GZ/NAesPklqBLcGef+EFqtLPU=;
+        b=Y7hB0mAvXFN5ffXERxh/avteaEDlSeW6BxqSnE0ARzdUU1DnpSeLzhtCiLoF8HP1J/
+         hFCuCkSpa5yySMldFmgniJrbQIg+ymU6EwGVhgDJo0DSOvktWjLLjhtvWbMz/dI39tH+
+         qcM63yJ5fo7DIVdt1jYTBvMs2dHVL9XGL3ixWBdBa2O/9YVkYxoqbB1c0dIjT76bc9jc
+         fwRglM0Zzuh3J5v/7WHSyJ0QMlKyTPxF1z5DyELju6LqhKBzsUkS1M4Db/qm33hvnzAJ
+         9MnAhs89y7xT+AmtYq5cjq1GnchnXZ1aDXAgBf5KX94AY49j7pv0vqvYb3nBy57FQyK8
+         HsMQ==
+X-Forwarded-Encrypted: i=1; AL+hErGCjU61eyr16voVGYff/Si8rdKmXaeVrO9dpJtqcXJFTkGlpwrblsWGT6vY4VK0Jej0opJr7vgctjcXbFM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/QZTk0q4yJ5S9iLa9V+j4c9CEco7Wm/+YZGjGS0RupIKV5shJr
+	lzeCdUvKWYR7NFO/6BpTkEPvwCaVY5ZGhovfajs45Z0udmGB/BCnuJBhTEJJ8r2j154=
+X-Gm-Gg: AYBFou1iUxMkayIMjxnUVFSqHwKFnNSnPIIfGXME32OVHskMi5EwEVyDBpu+Vmbofw4
+	DkYzzlXi2WoddK77Z3VO7s7V1RIaRgywsNo87BWXjNRLinTwtIvArpeIvd0fwGNfXh14ks2T05Y
+	ULtOKyQj80Bmx7qQc+RdNQSvDn6NKOuzbRYxqEjAdZbi9vKiTVKxIk9DPaP2C9C4ZJpIW8UbJg0
+	fb/BYb2m6+Sbppmimq15CIVkCqy/Gt8q6b3qJq2+o93WlYo38NhoWBjKo9wDoHlF6yNotOANP7Y
+	G6qr9daemTai62tyNQCLU5MDtKP58DFP2pMkzbKch28B75y63bJJeeqCG+zpmAZ9Yn2T3jDs/3B
+	UxzI4N37FoVvH0VgMq5kXNY+VFQ91P26JHOJnKuVZ4bHaRI0qTPiOp8yLgdfq8/a0yqQ47i3JSg
+	cDpkl0jt6p1nsPnbXNWTWsjesjWaeM15U2j6feZ5TGK+ZsfZOnhoDv/8XjPnvooaX4WkpDykjXZ
+	nI3WWL0/OPGr7tWu/uw8NJuGfH/hbCblTKuzHRFs+urmWu2fNqyCbA25cKnPnbGSqSed3sCF+Ar
+	9KqXNk6cbMYtPLfbU6OyHLYM9xGLhlbObkEI2DVM8xU=
+X-Received: by 2002:a05:6000:220e:b0:48a:fbcf:6f43 with SMTP id ffacd0b85a97d-49c71f334b0mr8528536f8f.54.1794595131343;
+        Fri, 13 Nov 2026 10:38:51 -0800 (PST)
 Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.54
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:38:55 -0800 (PST)
+        Fri, 13 Nov 2026 10:38:50 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 13 Nov 2026 19:38:31 +0100
-Subject: [PATCH RFC 17/23] ASoC: qcom: add SM8650 LPASS CPU driver
+Date: Fri, 13 Nov 2026 19:38:27 +0100
+Subject: [PATCH RFC 13/23] ASoC: qcom: lpass: support mapping I2S ports to
+ multiple LPAIFs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-topic-sm8650-el2-v1-17-5183f6aab9fc@linaro.org>
+Message-Id: <20261113-topic-sm8650-el2-v1-13-5183f6aab9fc@linaro.org>
 References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 In-Reply-To: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -112,751 +113,269 @@ Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
  linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
  linux-gpio@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=25018;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7993;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=bDEwmA2dlTOdyE5yENgIP5y/OxR1bKic+ol9Zn9xOGs=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91km5FpdJbnb/J+BVm1n+J5pAgv2V36c4DcBgo9V
- +vxgfnWJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZJgAKCRB33NvayMhJ0WGyD/
- 4hcWizEiskHQhVsIvuBRLjUuvGLvx6RS0mrWGUx8bB6MzeU1bdxpZascbG6pwCN7O45BOclWlh2zfF
- C5F6qbfIMBq+x977OHtm3qf5/zGStwmyrm94lGOBZpqCTGEpcM3/O6R8ny/r4DniVAprdb2+XCL3ZL
- 39toBi39QXPybrnLyaGsESqGK4o2V1cc2EazA35UHyw0s8smd55v5vfjvdqTi3TAfDak/U2DFc7J2A
- LoWunV7iG3BN7M8Koi5FPJMDGXpuGi/uai7+6wIfo1Kf+4A6dy+YTQGHj/AwC/vtZXr7qo3LdRX1wY
- 2fJ3yO4V6uwgnETRp7EIL3MLti6ZQdKjjDZnpn/kaHtYj3hXRNXt1b2UXxc+2swiIdnm+G0SfnzX8Y
- Q9a/WLsf88bvC1fEnWndu9M0b4pvxdFI12NKQvlYyFTMHaFoTme5vqSFnvD5rzOpo/sOsLjw/gzPv3
- E9ZWYSisk+6o/tsVQ68wiv+ffwyBixMPwbHXLr9/56QphVjJOE2JppdzsXduG21VbClS4IFsJ4qlZq
- lMw0TDBgmUHVD0PoFfljDUxexvE46VPCBs/8j8WCrtfi0bjOmGjHNo/bBoWbVo53ufspnsTyZlLt++
- bfbB7cu3tbXINsAe2j0mKi5mU/4aKqnzt/X4SvXogGHKloGBS0LZtjnijgoQ==
+ bh=9KnJtzJ/SJwJ+6EhothCBqJQpy4w3/kO7YhjVuAQIi8=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91kkTmKN3zdd/INW2MIHee//qDFh3rWxLb1FNskX
+ spctTX2JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZJAAKCRB33NvayMhJ0TMtD/
+ 0ecaTX5XJK6W6LiKRxaOeEEQ3+PBTin7TeMHMeEamLy3jlD3ePyxgnG8CPkwsegJSFkGDvUuFXuivQ
+ XGEZVgcFeHn8zj6p+8k/sBxlJ2bah9+fe06pQ55lc10NSJRjY217H6o65G92R6vKf6JbJNQzuWBcNN
+ BDEcAQ8ZWzYl0oo6t0vYnd2BM8jsnMP8NqOJrwRd43jhTNBcd0cVDt/RK8Y3RzTxHniUgPOaEDbeIR
+ wl17bggN5Mgx35m2/gsPyM2NmTge6A664wIM89W3XruVW3AC2rvKk/fNajZT9w2UIIs3oPKYCLeu3x
+ pgkY1vAVfxocYqm09GN5PX7m+aVaWfBK8K4YXfYlIZXBYSfVzr+AXScfuybzSfNx2XZHN2GidH4BNx
+ 1/jg+ppAE6yfeSVi5Kjaxwg9sf8Q8PTS1pHpFz2/qTVakkIzBocI1NYPx6XOmkKMsk34ScdebauL3O
+ U+h/cAxTHT3TncWW11eVnunN4Wo56IfeRI3H7pWFeKQDpiVz8i3PJmj5mxecaJpisjXXvKuBiRVshC
+ C7inSlmh3NMTUbqayPrmjoOid7A5qgYhcyzz1W8rOf22XGE8laB9KLS0bzDWW7//SfIQ/VLP/iS4YS
+ fRW7+1z/idUhUzdK5ean5idwXwcWkW02dohPbdkDIH5COnbK/SHPTY3wAHOQ==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Without the ADSP firmware, the SM8650 LPASS audio interfaces must be
-driven directly by the application processor.
+Now we have all the plumbing to support multiple MI2S ports
+on multiple LPAIFs, add the optional descriptor and parse it
+to probe the associated LPAIF when defined in the DT node.
 
-Add the SM8650 lpass-cpu variant with the Primary, Secondary, Tertiary,
-Senary & Septenary MI2S, DP and codec DMA DAIs, their LPAIF instances,
-clocks and LPM DMA buffers.
+When the descriptor is not provided, the behaviour is kept
+as before and the 8 MI2S ports are mapped to the core
+LPAIF.
+
+Since an LPAIF address space can only be mapped by the MI2S
+handling or the VA/RXTX/WSA handlers, if somehow the DT
+declared some invalid setup (I2S port on WSA and WSA codec),
+the probe would fail.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- sound/soc/qcom/Kconfig        |  12 +
- sound/soc/qcom/Makefile       |   2 +
- sound/soc/qcom/lpass-sm8650.c | 651 ++++++++++++++++++++++++++++++++++++++++++
- sound/soc/qcom/lpass.h        |   2 +-
- 4 files changed, 666 insertions(+), 1 deletion(-)
+ sound/soc/qcom/lpass-cpu.c      | 73 +++++++++++++++++++++++++++++++++++++----
+ sound/soc/qcom/lpass-platform.c | 27 ++++++++++++---
+ sound/soc/qcom/lpass.h          | 23 ++++++++++++-
+ 3 files changed, 110 insertions(+), 13 deletions(-)
 
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index f6d810931a9a..d9b626cd1bc9 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -47,6 +47,18 @@ config SND_SOC_LPASS_SC7280
- 	select SND_SOC_LPASS_HDMI
- 	select SND_SOC_LPASS_CDC_DMA
- 
-+config SND_SOC_LPASS_SM8650
-+	tristate "Qualcomm SM8650 LPASS CPU DAI support"
-+	depends on COMMON_CLK
-+	select SND_SOC_LPASS_CPU
-+	select SND_SOC_LPASS_PLATFORM
-+	select SND_SOC_LPASS_HDMI
-+	select SND_SOC_LPASS_CDC_DMA
-+	help
-+	  Support for the MI2S, codec DMA & DP interfaces of the Qualcomm
-+	  SM8650 LPASS, when driven by Linux instead of the ADSP firmware.
-+	  Say Y or M if you want to use audio on such SM8650 based boards.
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index f8b9b2ec9055..411eecd9cbb9 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -1079,6 +1079,8 @@ static void of_lpass_cpu_parse_dai_data(struct device *dev,
+ 			data->mi2s_capture_sd_mode[port_id] =
+ 				of_lpass_cpu_parse_sd_lines(dev, node,
+ 						    "qcom,capture-sd-lines");
 +
- config SND_SOC_STORM
- 	tristate "ASoC I2S support for Storm boards"
- 	depends on GPIOLIB
-diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-index cf50b7a24bcf..b2c5f9f387b6 100644
---- a/sound/soc/qcom/Makefile
-+++ b/sound/soc/qcom/Makefile
-@@ -8,6 +8,7 @@ snd-soc-lpass-ipq806x-y := lpass-ipq806x.o
- snd-soc-lpass-apq8016-y := lpass-apq8016.o
- snd-soc-lpass-sc7180-y := lpass-sc7180.o
- snd-soc-lpass-sc7280-y := lpass-sc7280.o
-+snd-soc-lpass-sm8650-y := lpass-sm8650.o
- 
- obj-$(CONFIG_SND_SOC_LPASS_CPU) += snd-soc-lpass-cpu.o
- obj-$(CONFIG_SND_SOC_LPASS_CDC_DMA) += snd-soc-lpass-cdc-dma.o
-@@ -17,6 +18,7 @@ obj-$(CONFIG_SND_SOC_LPASS_IPQ806X) += snd-soc-lpass-ipq806x.o
- obj-$(CONFIG_SND_SOC_LPASS_APQ8016) += snd-soc-lpass-apq8016.o
- obj-$(CONFIG_SND_SOC_LPASS_SC7180) += snd-soc-lpass-sc7180.o
- obj-$(CONFIG_SND_SOC_LPASS_SC7280) += snd-soc-lpass-sc7280.o
-+obj-$(CONFIG_SND_SOC_LPASS_SM8650) += snd-soc-lpass-sm8650.o
- 
- # Machine
- snd-soc-storm-y := storm.o
-diff --git a/sound/soc/qcom/lpass-sm8650.c b/sound/soc/qcom/lpass-sm8650.c
-new file mode 100644
-index 000000000000..42050f56a484
---- /dev/null
-+++ b/sound/soc/qcom/lpass-sm8650.c
-@@ -0,0 +1,651 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Based on lpass-sc7280.c:
-+ * Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
-+ * Copyright (c) 2026, Linaro Limited. All rights reserved.
-+ */
-+
-+#include <linux/module.h>
-+#include <sound/pcm.h>
-+#include <sound/soc.h>
-+#include <linux/pm.h>
-+
-+#include <dt-bindings/sound/qcom,lpass.h>
-+
-+#include "lpass-lpaif-reg.h"
-+#include "lpass.h"
-+
-+static struct snd_soc_dai_driver sm8650_lpass_cpu_dai_driver[] = {
-+	{
-+		.id = MI2S_PRIMARY,
-+		.name = "Primary MI2S",
-+		.playback = {
-+			.stream_name = "Primary Playback",
-+			.formats	= SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
-+	}, {
-+		.id = MI2S_SECONDARY,
-+		.name = "Secondary MI2S",
-+		.playback = {
-+			.stream_name = "Secondary MI2S Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops	= &asoc_qcom_lpass_cpu_dai_ops,
-+	}, {
-+		.id = MI2S_TERTIARY,
-+		.name = "Tertiary MI2S",
-+		.playback = {
-+			.stream_name = "Tertiary MI2S Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops	= &asoc_qcom_lpass_cpu_dai_ops,
-+	}, {
-+		.id = MI2S_QUATERNARY,
-+		.name = "Quaternary MI2S",
-+		.playback = {
-+			.stream_name = "Quaternary MI2S Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops	= &asoc_qcom_lpass_cpu_dai_ops,
-+	}, {
-+		.id = MI2S_QUINARY,
-+		.name = "Quinary MI2S",
-+		.playback = {
-+			.stream_name = "Quinary MI2S Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops	= &asoc_qcom_lpass_cpu_dai_ops,
-+	}, {
-+		.id = MI2S_SENARY,
-+		.name = "Senary MI2S",
-+		.playback = {
-+			.stream_name = "Senary MI2S Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops	= &asoc_qcom_lpass_cpu_dai_ops,
-+	}, {
-+		.id = MI2S_SEPTENARY,
-+		.name = "Septenary MI2S",
-+		.playback = {
-+			.stream_name = "Septenary MI2S Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops	= &asoc_qcom_lpass_cpu_dai_ops,
-+	}, {
-+		.id = LPASS_DP_RX,
-+		.name = "Hdmi",
-+		.playback = {
-+			.stream_name = "DP Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S24,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops	= &asoc_qcom_lpass_hdmi_dai_ops,
-+	}, {
-+		.id = LPASS_CDC_DMA_RX0,
-+		.name = "CDC DMA RX",
-+		.playback = {
-+			.stream_name = "WCD Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops	= &asoc_qcom_lpass_cdc_dma_dai_ops,
-+	}, {
-+		.id = LPASS_CDC_DMA_TX3,
-+		.name = "CDC DMA TX",
-+		.capture = {
-+			.stream_name = "WCD Capture",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 1,
-+			.channels_max	= 1,
-+		},
-+		.ops	= &asoc_qcom_lpass_cdc_dma_dai_ops,
-+	}, {
-+		.id = LPASS_CDC_DMA_VA_TX0,
-+		.name = "CDC DMA VA",
-+		.capture = {
-+			.stream_name = "DMIC Capture",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 4,
-+		},
-+		.ops	= &asoc_qcom_lpass_cdc_dma_dai_ops,
-+	}, {
-+		.id = LPASS_CDC_DMA_WSA_RX0,
-+		.name = "CDC DMA WSA RX",
-+		.playback = {
-+			.stream_name = "WSA Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops	= &asoc_qcom_lpass_cdc_dma_dai_ops,
-+	},
-+};
-+
-+static int sm8650_lpass_alloc_dma_channel(struct lpass_data *drvdata,
-+					  int direction, unsigned int dai_id)
-+{
-+	const struct lpass_variant *v = drvdata->variant;
-+	unsigned long *ch_map;
-+	unsigned int port_id;
-+	int chan = 0;
-+
-+	switch (dai_id) {
-+	case MI2S_PRIMARY ... MI2S_QUINARY:
-+	case MI2S_SENARY ... MI2S_SEPTENARY:
-+		port_id = mi2s_port_id(dai_id);
-+		ch_map = &drvdata->mi2s_lpaif[port_id]->dma_ch_bit_map;
-+		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+			chan = find_first_zero_bit(ch_map, v->rdma_channels);
-+
-+			if (chan >= v->rdma_channels)
-+				return -EBUSY;
-+		} else {
-+			chan = find_next_zero_bit(ch_map,
-+						  v->wrdma_channel_start +
-+						  v->wrdma_channels,
-+						  v->wrdma_channel_start);
-+
-+			if (chan >= v->wrdma_channel_start + v->wrdma_channels)
-+				return -EBUSY;
-+		}
-+		set_bit(chan, ch_map);
-+		break;
-+	case LPASS_DP_RX:
-+		chan = find_first_zero_bit(&drvdata->hdmi_dma_ch_bit_map,
-+					   v->hdmi_rdma_channels);
-+		if (chan >= v->hdmi_rdma_channels)
-+			return -EBUSY;
-+		set_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
-+		break;
-+	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
-+		chan = find_first_zero_bit(&drvdata->rxtx_dma_ch_bit_map,
-+					   v->rxtx_rdma_channels);
-+		if (chan >= v->rxtx_rdma_channels)
-+			return -EBUSY;
-+		break;
-+	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
-+		chan = find_next_zero_bit(&drvdata->rxtx_dma_ch_bit_map,
-+					  v->rxtx_wrdma_channel_start +
-+					  v->rxtx_wrdma_channels,
-+					  v->rxtx_wrdma_channel_start);
-+		if (chan >= v->rxtx_wrdma_channel_start + v->rxtx_wrdma_channels)
-+			return -EBUSY;
-+		set_bit(chan, &drvdata->rxtx_dma_ch_bit_map);
-+		break;
-+	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
-+		chan = find_next_zero_bit(&drvdata->va_dma_ch_bit_map,
-+					  v->va_wrdma_channel_start +
-+					  v->va_wrdma_channels,
-+					  v->va_wrdma_channel_start);
-+		if (chan >= v->va_wrdma_channel_start + v->va_wrdma_channels)
-+			return -EBUSY;
-+		set_bit(chan, &drvdata->va_dma_ch_bit_map);
-+		break;
-+	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
-+		chan = find_first_zero_bit(&drvdata->wsa_dma_ch_bit_map,
-+					   v->wsa_rdma_channels);
-+		if (chan >= v->wsa_rdma_channels)
-+			return -EBUSY;
-+		break;
-+	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
-+		chan = find_next_zero_bit(&drvdata->wsa_dma_ch_bit_map,
-+					  v->wsa_wrdma_channel_start +
-+					  v->wsa_wrdma_channels,
-+					  v->wsa_wrdma_channel_start);
-+		if (chan >= v->wsa_wrdma_channel_start + v->wsa_wrdma_channels)
-+			return -EBUSY;
-+		set_bit(chan, &drvdata->wsa_dma_ch_bit_map);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return chan;
-+}
-+
-+static int sm8650_lpass_free_dma_channel(struct lpass_data *drvdata, int chan, unsigned int dai_id)
-+{
-+	unsigned int port_id;
-+
-+	switch (dai_id) {
-+	case MI2S_PRIMARY ... MI2S_QUINARY:
-+	case MI2S_SENARY ... MI2S_SEPTENARY:
-+		port_id = mi2s_port_id(dai_id);
-+		clear_bit(chan, &drvdata->mi2s_lpaif[port_id]->dma_ch_bit_map);
-+		break;
-+	case LPASS_DP_RX:
-+		clear_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
-+		break;
-+	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
-+	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
-+		clear_bit(chan, &drvdata->rxtx_dma_ch_bit_map);
-+		break;
-+	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
-+		clear_bit(chan, &drvdata->va_dma_ch_bit_map);
-+		break;
-+	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
-+	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
-+		clear_bit(chan, &drvdata->wsa_dma_ch_bit_map);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int sm8650_lpass_init(struct platform_device *pdev)
-+{
-+	struct lpass_data *drvdata = platform_get_drvdata(pdev);
-+	const struct lpass_variant *variant = drvdata->variant;
-+	struct device *dev = &pdev->dev;
++			set_bit(port_id, &data->lpaif_port_enable);
+ 		} else {
+ 			dev_err(dev, "invalid dai id: %d\n", id);
+ 			continue;
+@@ -1121,12 +1123,33 @@ static int lpass_cpu_init_lpaif(struct platform_device *pdev, int idx,
+ 	struct regmap_config cfg = lpass_cpu_regmap_config;
+ 	struct device *dev = &pdev->dev;
+ 	void __iomem *base;
+-	int ret;
 +	int ret, i;
 +
-+	drvdata->clks = devm_kcalloc(dev, variant->num_clks,
-+				     sizeof(*drvdata->clks), GFP_KERNEL);
-+	if (!drvdata->clks)
-+		return -ENOMEM;
++	/* Only probe an LPAIF if one of the port is described in DT */
++	if (v->mi2s_desc) {
++		const struct lpaif_mi2s_desc *desc = &v->mi2s_desc[idx];
++		bool enabled = false;
 +
-+	drvdata->num_clks = variant->num_clks;
++		for (i = 0; i < desc->port_desc_count; ++i) {
++			unsigned int port_id = mi2s_port_id(desc->port_desc[i].id);
 +
-+	for (i = 0; i < drvdata->num_clks; i++)
-+		drvdata->clks[i].id = variant->clk_name[i];
++			if (test_bit(port_id, &drvdata->lpaif_port_enable)) {
++				enabled = true;
++				break;
++			}
++		}
 +
-+	ret = devm_clk_bulk_get(dev, drvdata->num_clks, drvdata->clks);
-+	if (ret) {
-+		dev_err(dev, "Failed to get clocks %d\n", ret);
-+		return ret;
++		if (!enabled)
++			return 0;
 +	}
+ 
+ 	base = devm_platform_ioremap_resource_byname(pdev, reg_name);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
+ 
++	/* Keep the legacy regmap name for the core LPAIF */
++	if (idx)
++		cfg.name = reg_name;
+ 	cfg.max_register = LPAIF_WRDMAPER_REG(v, v->wrdma_channels +
+ 					      v->wrdma_channel_start);
+ 
+@@ -1247,11 +1270,25 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+ 		drvdata->va_cdc_dma_lpm_buf = res->start;
+ 	}
+ 
+-	drvdata->num_lpaif = 1;
++	if (variant->mi2s_desc) {
++		if (variant->num_mi2s_desc > LPASS_MAX_LPAIF)
++			return -EINVAL;
+ 
+-	ret = lpass_cpu_init_lpaif(pdev, 0, "lpass-lpaif");
+-	if (ret)
+-		return ret;
++		drvdata->num_lpaif = variant->num_mi2s_desc;
 +
-+	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
-+	if (ret) {
-+		dev_err(dev, "sm8650 clk_enable failed\n");
-+		return ret;
++		for (i = 0; i < variant->num_mi2s_desc; i++) {
++			ret = lpass_cpu_init_lpaif(pdev, i,
++						   variant->mi2s_desc[i].reg_name);
++			if (ret)
++				return ret;
++		}
++	} else {
++		drvdata->num_lpaif = 1;
++
++		ret = lpass_cpu_init_lpaif(pdev, 0, "lpass-lpaif");
++		if (ret)
++			return ret;
 +	}
+ 
+ 	if (drvdata->hdmi_port_enable) {
+ 		drvdata->hdmiif = devm_platform_ioremap_resource_byname(pdev, "lpass-hdmiif");
+@@ -1283,8 +1320,30 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+ 
+ 		port_id = mi2s_port_id(variant->dai_driver[i].id);
+ 
+-		drvdata->mi2s_lpaif[port_id] = &drvdata->lpaif[0];
+-		drvdata->mi2s_intf[port_id] = port_id;
++		if (variant->mi2s_desc) {
++			unsigned int lpaif_idx, lpaif_port;
++			const struct lpaif_mi2s_desc *desc;
 +
-+	return 0;
-+}
++			for (lpaif_idx = 0; lpaif_idx < variant->num_mi2s_desc; ++lpaif_idx) {
++				desc = &variant->mi2s_desc[lpaif_idx];
 +
-+static int sm8650_lpass_exit(struct platform_device *pdev)
-+{
-+	struct lpass_data *drvdata = platform_get_drvdata(pdev);
++				for (lpaif_port = 0;
++				     lpaif_port < desc->port_desc_count;
++				     ++lpaif_port) {
++					if (desc->port_desc[lpaif_port].id !=
++							variant->dai_driver[i].id)
++						continue;
 +
-+	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
-+	return 0;
-+}
++					drvdata->mi2s_lpaif[port_id] =
++						&drvdata->lpaif[lpaif_idx];
++					drvdata->mi2s_intf[port_id] =
++						desc->port_desc[lpaif_port].intf;
++				}
++			}
++		} else {
++			drvdata->mi2s_lpaif[port_id] = &drvdata->lpaif[0];
++			drvdata->mi2s_intf[port_id] = port_id;
++		}
+ 
+ 		drvdata->mi2s_osr_clk[port_id] = devm_clk_get_optional(dev,
+ 					     variant->dai_osr_clk_names[i]);
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index 2400a6d16bb8..a953db262aa0 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -1375,6 +1375,8 @@ static int lpass_platform_pcmops_suspend(struct snd_soc_component *component)
+ 	}
+ 
+ 	for (i = 0; i < drvdata->num_lpaif; i++) {
++		if (!drvdata->lpaif[i].drvdata)
++			continue;
+ 		map = drvdata->lpaif[i].map;
+ 		regcache_cache_only(map, true);
+ 		regcache_mark_dirty(map);
+@@ -1398,6 +1400,8 @@ static int lpass_platform_pcmops_resume(struct snd_soc_component *component)
+ 	}
+ 
+ 	for (i = 0; i < drvdata->num_lpaif; i++) {
++		if (!drvdata->lpaif[i].drvdata)
++			continue;
+ 		map = drvdata->lpaif[i].map;
+ 		regcache_cache_only(map, false);
+ 		ret = regcache_sync(map);
+@@ -1468,6 +1472,10 @@ static int lpass_platform_init_lpaif(struct platform_device *pdev, int idx,
+ 	const struct lpass_variant *v = drvdata->variant;
+ 	int ret;
+ 
++	/* Only continue if already initialized by lpass-cpu */
++	if (!lpaif->drvdata)
++		return 0;
 +
-+static int sm8650_lpass_dev_resume(struct device *dev)
-+{
-+	struct lpass_data *drvdata = dev_get_drvdata(dev);
-+
-+	return clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
-+}
-+
-+static int sm8650_lpass_dev_suspend(struct device *dev)
-+{
-+	struct lpass_data *drvdata = dev_get_drvdata(dev);
-+
-+	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops sm8650_lpass_pm_ops = {
-+	SYSTEM_SLEEP_PM_OPS(sm8650_lpass_dev_suspend, sm8650_lpass_dev_resume)
-+};
-+
-+/* MI2S mapping over LPAIF instances */
-+static const struct lpaif_mi2s_desc sm8650_lpaif_mi2s_desc[] = {
-+	{
-+		.reg_name = "lpass-lpaif",
-+		.irq_name = "lpass-irq-lpaif",
-+		.lpm_type = LPASS_LPM_NONE,
-+		.port_desc = (const struct mi2s_port_desc[]) {
-+			{ .intf = 0, .id = MI2S_PRIMARY, },
-+			{ .intf = 1, .id = MI2S_SECONDARY, },
-+		},
-+		.port_desc_count = 2,
-+	},
-+	{
-+		.reg_name = "lpass-rxtx-lpaif",
-+		.irq_name = "lpass-irq-rxtxif",
-+		.lpm_type = LPASS_VA_CDC_LPM,
-+		.port_desc = (const struct mi2s_port_desc[]) {
-+			{ .intf = 0, .id = MI2S_QUATERNARY, },
-+		},
-+		.port_desc_count = 1,
-+	},
-+	{
-+		.reg_name = "lpass-va-lpaif",
-+		.irq_name = "lpass-irq-vaif",
-+		.lpm_type = LPASS_VA_CDC_LPM,
-+		.port_desc = (const struct mi2s_port_desc[]) {
-+			{ .intf = 0, .id = MI2S_QUINARY, },
-+		},
-+		.port_desc_count = 1,
-+	},
-+	{
-+		.reg_name = "lpass-wsa-lpaif",
-+		.irq_name = "lpass-irq-wsaif",
-+		.lpm_type = LPASS_RXTX_CDC_LPM,
-+		.port_desc = (const struct mi2s_port_desc[]) {
-+			{ .intf = 0, .id = MI2S_SENARY, },
-+		},
-+		.port_desc_count = 1,
-+	},
-+	{
-+		.reg_name = "lpass-aud-lpaif",
-+		.irq_name = "lpass-irq-audif",
-+		.lpm_type = LPASS_RXTX_CDC_LPM,
-+		.port_desc = (const struct mi2s_port_desc[]) {
-+			{ .intf = 0, .id = MI2S_SEPTENARY, },
-+			{ .intf = 1, .id = MI2S_TERTIARY, },
-+		},
-+		.port_desc_count = 2,
-+	},
-+};
-+
-+static const struct lpass_variant sm8650_data = {
-+	.i2sctrl_reg_base		= 0x1000,
-+	.i2sctrl_reg_stride		= 0x1000,
-+	.i2s_ports			= 3,
-+	.irq_reg_base			= 0x9000,
-+	.irq_reg_stride			= 0x1000,
-+	.irq_ports			= 5,
-+	.rdma_reg_base			= 0xe000,
-+	.rdma_reg_stride		= 0x1000,
-+	.rdma_channels			= 3,
-+	.rxtx_rdma_reg_base		= 0xe000,
-+	.rxtx_rdma_reg_stride		= 0x1000,
-+	.rxtx_rdma_channels		= 10,
-+	.wsa_rdma_reg_base		= 0xe000,
-+	.wsa_rdma_reg_stride		= 0x1000,
-+	.wsa_rdma_channels		= 10,
-+	.hdmi_rdma_reg_base		= 0x64000,
-+	.hdmi_rdma_reg_stride		= 0x1000,
-+	.hdmi_rdma_channels		= 1,
-+	.dmactl_audif_start		= 1,
-+	.wrdma_reg_base			= 0x1a000,
-+	.wrdma_reg_stride		= 0x1000,
-+	.wrdma_channel_start		= 5,
-+	.wrdma_channels			= 3,
-+	.rxtx_irq_reg_base		= 0x9000,
-+	.rxtx_irq_reg_stride		= 0x1000,
-+	.rxtx_irq_ports			= 5,
-+	.rxtx_wrdma_reg_base		= 0x1a000,
-+	.rxtx_wrdma_reg_stride		= 0x1000,
-+	.rxtx_wrdma_channel_start	= 5,
-+	.rxtx_wrdma_channels		= 7,
-+	.va_wrdma_reg_base		= 0x1a000,
-+	.va_wrdma_reg_stride		= 0x1000,
-+	.va_wrdma_channel_start		= 5,
-+	.va_wrdma_channels		= 3,
-+	.va_irq_reg_base		= 0x9000,
-+	.va_irq_reg_stride		= 0x1000,
-+	.va_irq_ports			= 5,
-+	.wsa_irq_reg_base		= 0x9000,
-+	.wsa_irq_reg_stride		= 0x1000,
-+	.wsa_irq_ports			= 5,
-+	.wsa_wrdma_reg_base		= 0x1a000,
-+	.wsa_wrdma_reg_stride		= 0x1000,
-+	.wsa_wrdma_channel_start	= 5,
-+	.wsa_wrdma_channels		= 7,
-+
-+	.loopback			= REG_FIELD_ID(0x1000, 17, 17, 3, 0x1000),
-+	.spken				= REG_FIELD_ID(0x1000, 16, 16, 3, 0x1000),
-+	.spkmode			= REG_FIELD_ID(0x1000, 11, 15, 3, 0x1000),
-+	.spkmono			= REG_FIELD_ID(0x1000, 10, 10, 3, 0x1000),
-+	.micen				= REG_FIELD_ID(0x1000, 9, 9, 3, 0x1000),
-+	.micmode			= REG_FIELD_ID(0x1000, 4, 8, 3, 0x1000),
-+	.micmono			= REG_FIELD_ID(0x1000, 3, 3, 3, 0x1000),
-+	.wssrc				= REG_FIELD_ID(0x1000, 2, 2, 3, 0x1000),
-+	.bitwidth			= REG_FIELD_ID(0x1000, 0, 1, 3, 0x1000),
-+
-+	.rdma_dyncclk			= REG_FIELD_ID(0xe000, 21, 21, 3, 0x1000),
-+	.rdma_bursten			= REG_FIELD_ID(0xe000, 20, 20, 3, 0x1000),
-+	.rdma_wpscnt			= REG_FIELD_ID(0xe000, 16, 19, 3, 0x1000),
-+	.rdma_intf			= REG_FIELD_ID(0xe000, 12, 15, 3, 0x1000),
-+	.rdma_fifowm			= REG_FIELD_ID(0xe000, 1, 5, 3, 0x1000),
-+	.rdma_enable			= REG_FIELD_ID(0xe000, 0, 0, 3, 0x1000),
-+
-+	.wrdma_dyncclk			= REG_FIELD_ID(0x1a000, 22, 22, 3, 0x1000),
-+	.wrdma_bursten			= REG_FIELD_ID(0x1a000, 21, 21, 3, 0x1000),
-+	.wrdma_wpscnt			= REG_FIELD_ID(0x1a000, 17, 20, 3, 0x1000),
-+	.wrdma_intf			= REG_FIELD_ID(0x1a000, 12, 16, 3, 0x1000),
-+	.wrdma_fifowm			= REG_FIELD_ID(0x1a000, 1, 5, 3, 0x1000),
-+	.wrdma_enable			= REG_FIELD_ID(0x1a000, 0, 0, 3, 0x1000),
-+
-+	.rxtx_rdma_dyncclk		= REG_FIELD_ID(0xe000, 21, 21, 10, 0x1000),
-+	.rxtx_rdma_bursten		= REG_FIELD_ID(0xe000, 20, 20, 10, 0x1000),
-+	.rxtx_rdma_wpscnt		= REG_FIELD_ID(0xe000, 16, 19, 10, 0x1000),
-+	.rxtx_rdma_intf			= REG_FIELD_ID(0xe000, 12, 15, 10, 0x1000),
-+	.rxtx_rdma_fifowm		= REG_FIELD_ID(0xe000, 1, 11, 10, 0x1000),
-+	.rxtx_rdma_enable		= REG_FIELD_ID(0xe000, 0, 0, 10, 0x1000),
-+
-+	.rxtx_rdma_codec_enable		= REG_FIELD_ID(0xe050, 30, 30, 10, 0x1000),
-+	.rxtx_rdma_codec_pack		= REG_FIELD_ID(0xe050, 29, 29, 10, 0x1000),
-+	.rxtx_rdma_codec_fs_sel		= REG_FIELD_ID(0xe050, 25, 27, 10, 0x1000),
-+	.rxtx_rdma_codec_fs_delay	= REG_FIELD_ID(0xe050, 21, 24, 10, 0x1000),
-+	.rxtx_rdma_codec_intf		= REG_FIELD_ID(0xe050, 16, 19, 10, 0x1000),
-+	.rxtx_rdma_codec_ch		= REG_FIELD_ID(0xe050, 0, 7, 10, 0x1000),
-+
-+	.rxtx_wrdma_dyncclk		= REG_FIELD_ID(0x1a000, 22, 22, 7, 0x1000),
-+	.rxtx_wrdma_bursten		= REG_FIELD_ID(0x1a000, 21, 21, 7, 0x1000),
-+	.rxtx_wrdma_wpscnt		= REG_FIELD_ID(0x1a000, 17, 20, 7, 0x1000),
-+	.rxtx_wrdma_intf		= REG_FIELD_ID(0x1a000, 12, 16, 7, 0x1000),
-+	.rxtx_wrdma_fifowm		= REG_FIELD_ID(0x1a000, 1, 11, 7, 0x1000),
-+	.rxtx_wrdma_enable		= REG_FIELD_ID(0x1a000, 0, 0, 7, 0x1000),
-+
-+	.rxtx_wrdma_codec_enable	= REG_FIELD_ID(0x1a050, 30, 30, 7, 0x1000),
-+	.rxtx_wrdma_codec_pack		= REG_FIELD_ID(0x1a050, 29, 29, 7, 0x1000),
-+	.rxtx_wrdma_codec_fs_sel	= REG_FIELD_ID(0x1a050, 25, 27, 7, 0x1000),
-+	.rxtx_wrdma_codec_fs_delay	= REG_FIELD_ID(0x1a050, 21, 24, 7, 0x1000),
-+	.rxtx_wrdma_codec_intf		= REG_FIELD_ID(0x1a050, 16, 19, 7, 0x1000),
-+	.rxtx_wrdma_codec_ch		= REG_FIELD_ID(0x1a050, 0, 7, 7, 0x1000),
-+
-+	.va_wrdma_dyncclk		= REG_FIELD_ID(0x1a000, 22, 22, 3, 0x1000),
-+	.va_wrdma_bursten		= REG_FIELD_ID(0x1a000, 21, 21, 3, 0x1000),
-+	.va_wrdma_wpscnt		= REG_FIELD_ID(0x1a000, 17, 20, 3, 0x1000),
-+	.va_wrdma_intf			= REG_FIELD_ID(0x1a000, 12, 16, 3, 0x1000),
-+	.va_wrdma_fifowm		= REG_FIELD_ID(0x1a000, 1, 11, 3, 0x1000),
-+	.va_wrdma_enable		= REG_FIELD_ID(0x1a000, 0, 0, 3, 0x1000),
-+
-+	.va_wrdma_codec_enable		= REG_FIELD_ID(0x1a050, 30, 30, 3, 0x1000),
-+	.va_wrdma_codec_pack		= REG_FIELD_ID(0x1a050, 29, 29, 3, 0x1000),
-+	.va_wrdma_codec_fs_sel		= REG_FIELD_ID(0x1a050, 25, 27, 3, 0x1000),
-+	.va_wrdma_codec_fs_delay	= REG_FIELD_ID(0x1a050, 21, 24, 3, 0x1000),
-+	.va_wrdma_codec_intf		= REG_FIELD_ID(0x1a050, 16, 19, 3, 0x1000),
-+	.va_wrdma_codec_ch		= REG_FIELD_ID(0x1a050, 0, 7, 3, 0x1000),
-+
-+	.wsa_rdma_dyncclk		= REG_FIELD_ID(0xe000, 21, 21, 10, 0x1000),
-+	.wsa_rdma_bursten		= REG_FIELD_ID(0xe000, 20, 20, 10, 0x1000),
-+	.wsa_rdma_wpscnt		= REG_FIELD_ID(0xe000, 16, 19, 10, 0x1000),
-+	.wsa_rdma_intf			= REG_FIELD_ID(0xe000, 12, 15, 10, 0x1000),
-+	.wsa_rdma_fifowm		= REG_FIELD_ID(0xe000, 1, 11, 10, 0x1000),
-+	.wsa_rdma_enable		= REG_FIELD_ID(0xe000, 0, 0, 10, 0x1000),
-+
-+	.wsa_rdma_codec_enable		= REG_FIELD_ID(0xe050, 30, 30, 10, 0x1000),
-+	.wsa_rdma_codec_pack		= REG_FIELD_ID(0xe050, 29, 29, 10, 0x1000),
-+	.wsa_rdma_codec_fs_sel		= REG_FIELD_ID(0xe050, 25, 27, 10, 0x1000),
-+	.wsa_rdma_codec_fs_delay	= REG_FIELD_ID(0xe050, 21, 24, 10, 0x1000),
-+	.wsa_rdma_codec_intf		= REG_FIELD_ID(0xe050, 16, 19, 10, 0x1000),
-+	.wsa_rdma_codec_ch		= REG_FIELD_ID(0xe050, 0, 7, 10, 0x1000),
-+
-+	.wsa_wrdma_dyncclk		= REG_FIELD_ID(0x1a000, 22, 22, 7, 0x1000),
-+	.wsa_wrdma_bursten		= REG_FIELD_ID(0x1a000, 21, 21, 7, 0x1000),
-+	.wsa_wrdma_wpscnt		= REG_FIELD_ID(0x1a000, 17, 20, 7, 0x1000),
-+	.wsa_wrdma_intf			= REG_FIELD_ID(0x1a000, 12, 16, 7, 0x1000),
-+	.wsa_wrdma_fifowm		= REG_FIELD_ID(0x1a000, 1, 11, 7, 0x1000),
-+	.wsa_wrdma_enable		= REG_FIELD_ID(0x1a000, 0, 0, 7, 0x1000),
-+
-+	.wsa_wrdma_codec_enable		= REG_FIELD_ID(0x1a050, 30, 30, 7, 0x1000),
-+	.wsa_wrdma_codec_pack		= REG_FIELD_ID(0x1a050, 29, 29, 7, 0x1000),
-+	.wsa_wrdma_codec_fs_sel		= REG_FIELD_ID(0x1a050, 25, 27, 7, 0x1000),
-+	.wsa_wrdma_codec_fs_delay	= REG_FIELD_ID(0x1a050, 21, 24, 7, 0x1000),
-+	.wsa_wrdma_codec_intf		= REG_FIELD_ID(0x1a050, 16, 19, 7, 0x1000),
-+	.wsa_wrdma_codec_ch		= REG_FIELD_ID(0x1a050, 0, 7, 7, 0x1000),
-+
-+	.hdmi_tx_ctl_addr		= 0x1000,
-+	.hdmi_legacy_addr		= 0x1008,
-+	.hdmi_vbit_addr			= 0x610c0,
-+	.hdmi_ch_lsb_addr		= 0x61048,
-+	.hdmi_ch_msb_addr		= 0x6104c,
-+	.ch_stride			= 0x8,
-+	.hdmi_parity_addr		= 0x61034,
-+	.hdmi_dmactl_addr		= 0x61038,
-+	.hdmi_dma_stride		= 0x4,
-+	.hdmi_DP_addr			= 0x610c8,
-+	.hdmi_sstream_addr		= 0x6101c,
-+	.hdmi_irq_reg_base		= 0x63000,
-+	.hdmi_irq_ports			= 1,
-+
-+	.hdmi_rdma_dyncclk		= REG_FIELD_ID(0x64000, 14, 14, 4, 0x1000),
-+	.hdmi_rdma_bursten		= REG_FIELD_ID(0x64000, 13, 13, 4, 0x1000),
-+	.hdmi_rdma_burst8		= REG_FIELD_ID(0x64000, 15, 15, 4, 0x1000),
-+	.hdmi_rdma_burst16		= REG_FIELD_ID(0x64000, 16, 16, 4, 0x1000),
-+	.hdmi_rdma_dynburst		= REG_FIELD_ID(0x64000, 18, 18, 4, 0x1000),
-+	.hdmi_rdma_wpscnt		= REG_FIELD_ID(0x64000, 10, 12, 4, 0x1000),
-+	.hdmi_rdma_fifowm		= REG_FIELD_ID(0x64000, 1, 5, 4, 0x1000),
-+	.hdmi_rdma_enable		= REG_FIELD_ID(0x64000, 0, 0, 4, 0x1000),
-+
-+	.sstream_en			= REG_FIELD(0x6101c, 0, 0),
-+	.dma_sel			= REG_FIELD(0x6101c, 1, 2),
-+	.auto_bbit_en			= REG_FIELD(0x6101c, 3, 3),
-+	.layout				= REG_FIELD(0x6101c, 4, 4),
-+	.layout_sp			= REG_FIELD(0x6101c, 5, 8),
-+	.set_sp_on_en			= REG_FIELD(0x6101c, 10, 10),
-+	.dp_audio			= REG_FIELD(0x6101c, 11, 11),
-+	.dp_staffing_en			= REG_FIELD(0x6101c, 12, 12),
-+	.dp_sp_b_hw_en			= REG_FIELD(0x6101c, 13, 13),
-+
-+	.mute				= REG_FIELD(0x610c8, 0, 0),
-+	.as_sdp_cc			= REG_FIELD(0x610c8, 1, 3),
-+	.as_sdp_ct			= REG_FIELD(0x610c8, 4, 7),
-+	.aif_db4			= REG_FIELD(0x610c8, 8, 15),
-+	.frequency			= REG_FIELD(0x610c8, 16, 21),
-+	.mst_index			= REG_FIELD(0x610c8, 28, 29),
-+	.dptx_index			= REG_FIELD(0x610c8, 30, 31),
-+
-+	.soft_reset			= REG_FIELD(0x1000, 31, 31),
-+	.force_reset			= REG_FIELD(0x1000, 30, 30),
-+
-+	.use_hw_chs			= REG_FIELD(0x61038, 0, 0),
-+	.use_hw_usr			= REG_FIELD(0x61038, 1, 1),
-+	.hw_chs_sel			= REG_FIELD(0x61038, 2, 4),
-+	.hw_usr_sel			= REG_FIELD(0x61038, 5, 6),
-+
-+	.replace_vbit			= REG_FIELD(0x610c0, 0, 0),
-+	.vbit_stream			= REG_FIELD(0x610c0, 1, 1),
-+
-+	.legacy_en			=  REG_FIELD(0x1008, 0, 0),
-+	.calc_en			=  REG_FIELD(0x61034, 0, 0),
-+	.lsb_bits			=  REG_FIELD(0x61048, 0, 31),
-+	.msb_bits			=  REG_FIELD(0x6104c, 0, 31),
-+
-+	.clk_name			= (const char*[]) {
-+							"core_cc_sysnoc_mport_core",
-+						},
-+	.num_clks			= 1,
-+
-+	.dai_driver			= sm8650_lpass_cpu_dai_driver,
-+	.num_dai			= ARRAY_SIZE(sm8650_lpass_cpu_dai_driver),
-+	.dai_osr_clk_names		= (const char *[]) {
-+							"core_cc_ext_mclk0",
-+							"core_cc_ext_mclk0",
-+							"core_cc_ext_mclk0",
-+							"core_cc_ext_mclk0",
-+							"core_cc_ext_mclk0",
-+							"core_cc_ext_mclk0",
-+							"core_cc_ext_mclk0",
-+							},
-+	.dai_bit_clk_names		= (const char *[]) {
-+							"core_cc_ext_if0_ibit",
-+							"core_cc_ext_if1_ibit",
-+							"audio_cc_ext_if5_ibit",
-+							"audio_cc_ext_if1_ibit",
-+							"aon_cc_ext_if1_ibit",
-+							"audio_cc_ext_if2_ibit",
-+							"audio_cc_ext_if4_ibit",
-+							},
-+	.mi2s_desc			= sm8650_lpaif_mi2s_desc,
-+	.num_mi2s_desc			= ARRAY_SIZE(sm8650_lpaif_mi2s_desc),
-+	.init				= sm8650_lpass_init,
-+	.exit				= sm8650_lpass_exit,
-+	.alloc_dma_channel		= sm8650_lpass_alloc_dma_channel,
-+	.free_dma_channel		= sm8650_lpass_free_dma_channel,
-+};
-+
-+static const struct of_device_id sm8650_lpass_cpu_device_id[] = {
-+	{.compatible = "qcom,sm8650-lpass-cpu", .data = &sm8650_data},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, sm8650_lpass_cpu_device_id);
-+
-+static struct platform_driver sm8650_lpass_cpu_platform_driver = {
-+	.driver = {
-+		.name = "sm8650-lpass-cpu",
-+		.of_match_table = of_match_ptr(sm8650_lpass_cpu_device_id),
-+		.pm = pm_ptr(&sm8650_lpass_pm_ops),
-+	},
-+	.probe = asoc_qcom_lpass_cpu_platform_probe,
-+	.remove = asoc_qcom_lpass_cpu_platform_remove,
-+	.shutdown = asoc_qcom_lpass_cpu_platform_shutdown,
-+};
-+
-+module_platform_driver(sm8650_lpass_cpu_platform_driver);
-+
-+MODULE_DESCRIPTION("SM8650 LPASS CPU DRIVER");
-+MODULE_LICENSE("GPL");
+ 	lpaif->irq = platform_get_irq_byname(pdev, irq_name);
+ 	if (lpaif->irq < 0)
+ 		return -ENODEV;
+@@ -1499,12 +1507,21 @@ int asoc_qcom_lpass_platform_register(struct platform_device *pdev)
+ {
+ 	struct lpass_data *drvdata = platform_get_drvdata(pdev);
+ 	const struct lpass_variant *v = drvdata->variant;
+-	int ret;
++	int i, ret;
+ 
+-	ret = lpass_platform_init_lpaif(pdev, 0, "lpass-irq-lpaif",
+-			IRQF_TRIGGER_RISING);
+-	if (ret)
+-		return ret;
++	if (v->mi2s_desc) {
++		for (i = 0; i < v->num_mi2s_desc; i++) {
++			ret = lpass_platform_init_lpaif(pdev, i,
++							v->mi2s_desc[i].irq_name, 0);
++			if (ret)
++				return ret;
++		}
++	} else {
++		ret = lpass_platform_init_lpaif(pdev, 0, "lpass-irq-lpaif",
++						IRQF_TRIGGER_RISING);
++		if (ret)
++			return ret;
++	}
+ 
+ 	if (drvdata->codec_dma_enable) {
+ 		ret = regmap_write(drvdata->rxtx_lpaif_map,
 diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
-index 699b9a07eb5a..5304ff073b63 100644
+index 4407996fb145..70d64bf3f073 100644
 --- a/sound/soc/qcom/lpass.h
 +++ b/sound/soc/qcom/lpass.h
-@@ -166,7 +166,7 @@ struct lpaif_mi2s_desc {
- 	const char *reg_name;
- 	const char *irq_name;
- 	enum lpass_lpm lpm_type;
--	struct mi2s_port_desc *port_desc;
-+	const struct mi2s_port_desc *port_desc;
- 	unsigned int port_desc_count;
+@@ -20,7 +20,7 @@
+ #define LPASS_AHBIX_CLOCK_FREQUENCY		131072000
+ #define LPASS_MAX_PORTS			(LPASS_MAX_PORT)
+ #define LPASS_MAX_MI2S_PORTS			(8)
+-#define LPASS_MAX_LPAIF				(1)
++#define LPASS_MAX_LPAIF				(7)
+ #define LPASS_MAX_DMA_CHANNELS			(8)
+ #define LPASS_MAX_HDMI_DMA_CHANNELS		(4)
+ #define LPASS_MAX_CDC_DMA_CHANNELS		(8)
+@@ -148,6 +148,19 @@ struct lpass_lpaif {
+ 	struct snd_pcm_substream *substream[LPASS_MAX_DMA_CHANNELS];
  };
  
++struct mi2s_port_desc {
++	unsigned int intf;	/* LPAIF Interface */
++	unsigned int id;	/* DAI ID */
++};
++
++/* Extended LPAIF MI2S layout */
++struct lpaif_mi2s_desc {
++	const char *reg_name;
++	const char *irq_name;
++	struct mi2s_port_desc *port_desc;
++	unsigned int port_desc_count;
++};
++
+ /* Both the CPU DAI and platform drivers will access this data */
+ struct lpass_data {
+ 
+@@ -184,6 +197,7 @@ struct lpass_data {
+ 	/* LPAIF instance and interface index of each MI2S port */
+ 	struct lpass_lpaif *mi2s_lpaif[LPASS_MAX_MI2S_PORTS];
+ 	unsigned int mi2s_intf[LPASS_MAX_MI2S_PORTS];
++	unsigned long lpaif_port_enable;
+ 
+ 	/* low-power audio interface (LPAIF) registers */
+ 	void __iomem *hdmiif;
+@@ -498,6 +512,13 @@ struct lpass_variant {
+ 	const char * const *dai_osr_clk_names;
+ 	const char * const *dai_bit_clk_names;
+ 
++	/*
++	 * Optional LPAIF MI2S instances layout when all the MI2S
++	 * ports are not available on the core LPAIF.
++	 */
++	const struct lpaif_mi2s_desc *mi2s_desc;
++	int num_mi2s_desc;
++
+ 	/* SOC specific clocks configuration */
+ 	const char **clk_name;
+ 	int num_clks;
 
 -- 
 2.34.1
