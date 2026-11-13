@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794556464;
-	b=yWq2RmN2jeTREC9sIPsBoUBaUgs0hMbBnjhSfojv4d5G/+gLjM9sAbjvo9mU8F36Hsao
-	 LkpAvoZMBogo3+m9npOfS2vWCgruPwVmmvZA2Ry6ZQdo4uCD8hzFUllVq0P3nCEfqZsN5
-	 Qd/xlXfcmFRHCMRIbfZMwTXOHNP5z/+5mzrtTxbZi9SgK8CIw4jOeChddj6IyR3IAyxPU
-	 TIMKfz+dHoN+gvnil7LchRPIyYN/jtZIfDJ7dHdu+vP4Xrlfnqvmovxy86qX/GaWvdGk0
-	 dQqZI0MP9E/H1HY6VZk4GbuVo6IPUEhbyRJf4iehN4/zhQsiFRwtQTKJ85qxgCHOT3A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794556464;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794556475;
+	b=Efpnw4+a32vjJg02IClqnkIwZqXiRSGgi3H5RXnBaRqvFQYHnNxa6kUKi1LlOV7XD1nn
+	 IAtrmlMA4qW3lqlONe/jNaJeqELSyUfYovI3FkhZS1hXZW56YpxHIn+NkEfKV1uPLQBs/
+	 lp26AKra3sYD8fP2EW67ltktWAPe/TqfxBn+wn7pWIkeuGopZzM2s9JNk+wszZaBr0Wcz
+	 p/uD9mYmoV4bqrM7dNHpQP0H1D5ARJlHF+zCX0ISGTbEAK2OdF/SC5f961Fgm61JYyLhk
+	 R8MwTgloBSy2tujuztWhP/QOmYB555B+YPSnrz2rlAEwWkt4LFVXTaWs1T+OA13dr1Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794556475;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=jLWs2ipoib4sqkrDJNqUZN3ZZXCrx/V1Jn/vcRzhZf0=;
-	b=BFyG+wF4ncWxyyyHKsTRMq7wK2y9cwl4D2WMrzyPpDU0AW25eH4hdHkln9Lx94zOSKYD
-	 KmceBxbpw4NXaY9e1JvfMsJRSiH+Ksq1JZd7jsPDz0+8fdx5BMzhksYVhwakjC1mpOjoK
-	 Y2BH1PLC4tssmfRTEdbr6X0EtD7Y1CdmklAcWWGMffw+ImgQTHuiXs76rrLJwLmwAscWL
-	 z3nFjWYNBwodCqUWM3Tc8qAemQ9bU+WJ4ASWcvdixC4iZiCHMTWZVjgCavJU9tHvYuJtC
-	 3XO0lE3Nh8scfZShYXHaNizO0AF0ZKVL6YDCRxf0ulEQUo04KEYGZ7+ZHYyJSNOLs4g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/oSrBPXKrNYnAzFH4eNjIUEYe3r0QmvR+RTmTsBOz3A=;
+	b=NLfNlePA9qdUXTqpgqGqjOyOX0SKsiqtV2Ym5bUwmkvxRngyPDVdpGGXeaeXdHkPIW0O
+	 lQpsJWlgyKn+2mxgy/dcb2MBmwg7fj57BM2wmXad7nx1FBq3xXUodkVcwEM+Ts/xswP+r
+	 l+oCtu2/uL1CeagmpoEANk49RhfaO+eKAH+MFFtHensfzNHRWSthOLc+Lss0hDhcK7AgY
+	 xnHgA9y86exqX8wnzqnpQEBjC6WoYJRd2Q51kdW8xWqTff57717w5msmYE6KuGu6HaEQM
+	 Ypi7WPg4UTYPz4pJP0qtPX/nc+fDlb8jo3sD3FcRTTQlWGC5iLgh+XSSlTQNOeLge9g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lWBfalc5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YyBq9a4Q;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A05D606A33F
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:54:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A05D606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B287F606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:54:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B287F606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lWBfalc5
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ab43d1dbceso1352281fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:54:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794556463; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TGOhBc9dThBYD1nm6WNlAZwDth/tLvm2mSvhBawv1BUUQxHvEm2qZVnxmqYpy3JlMx
-         N4n2MYBtU+ZzczKc6MSPmyGAoZ/rO/bDTbsyjwLqzLeKNgV9ko0cwm8iN1P4Jlpg1biM
-         brgJYbuwyCNpo0JDmj/4ntudCjncJlE/QSWX0u+BuBt/fOCEx60SzJzvwDFTaXg+MaUI
-         4i3V1vIQ9d2e+OURKKA32LTb4Gcj+561Ey5lcqHgIrlwfFdmE+NQYoGIhH3w/+CfN+y2
-         nQYO1QtIrZqK8fZrkka6SwisdP2qLmjZLGy86N9mwliNxjmFHqBMGa8ksM8NdFExmzxW
-         LI3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jLWs2ipoib4sqkrDJNqUZN3ZZXCrx/V1Jn/vcRzhZf0=;
-        fh=a7o/APlawXzo0BZSTdWAEaabe8ZiBb/6E3p4rLaO6dI=;
-        b=e39xWPz6zLUs9ZurZcmGXo3VdLjpI+iGyn3wX4p9RXrQfRIObXNloV8jsi8/Pxwsux
-         +tybBcl/bVejqEUeP1lYYkY3ggvCm4QxE1dLwQXZZpBKeuPuu+lDrQfKiSZoDL62dBSD
-         DHa3xpbOb1OafsaR5SEXt5o2yeS2J7uL1i6nz2glog+XRlsxjKh0oEph2efSyAGL1d6D
-         noy1bI0FO9uHgQryF8xT/JhO6VznHqma67mEDazEIkr+YMhhMvQXoWGMWjQNNXS4Kl4y
-         qaxJK8mAfi8GIs7rwhcEbhd2BrsQ8HnJ0UmEiID5ahWd0NnRGndhD/H0bm+OOwz9AHWi
-         gvxA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YyBq9a4Q
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b155f50c24so1185454a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:54:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794556463; x=1795161263; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jLWs2ipoib4sqkrDJNqUZN3ZZXCrx/V1Jn/vcRzhZf0=;
-        b=lWBfalc5odhHJQWPB0IRkDdkAm39vie6sBqtg8GNvSOoS9CHH/JhdjaTbIhIyVAckk
-         GC3OB9V4gEMXN+jAMZPKOjBKUwtvBNfCBZHLMLPWFlZ3YzpBiIHNu7ovHm884isdQsVY
-         CqP63Ase+zOCljdTJKMKuS7udyN5XNbtaORQGTZgVgSsPqnjGz+6+nUsQlEJAi0h6UMo
-         uIpgGhI1fWB4yZ1mZLyTLJu2gAHkLxAT5Ygda7E7aNNiSzbg8tUH7yXumwmJQMVcoXmb
-         cpygLUps/5aVKjZRECROZAlcCSnUSF6i8qCt1tPQgGDud5mnI9ml5bPRVixIOjUqthxr
-         KkGw==
+        d=gmail.com; s=20260707; t=1794556474; x=1795161274; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/oSrBPXKrNYnAzFH4eNjIUEYe3r0QmvR+RTmTsBOz3A=;
+        b=YyBq9a4Q7vAVmzwzza210l117Y9lnAiiEByG3r5U6I7jz++rmkhnn+WStvd7xK43w0
+         hV+Trpjr9sSTNEwIs2691auUWlhgZe+WvgLfbjgpsNJys+OP0XJVjhwpIA6xLq/1B7Xh
+         ubjHGDNOWAThXMfoKaMf3JvIhEc7kizNgFcDDHm44KX6DPi5Wb2YjUE2n2xhsqr1G5wl
+         qgWu7Khwn43s4KKmeClLnxWF9L8Wt/fQ1PjHS8FCEiaoLWpTN3U8aoYVA7i1xNfoADqK
+         QM+wC1FZFQZafmG1IlnB1XkX7UzNRZIiJY5nCRFY9l2yQX9pISUOrggU4m3XicKW0lyn
+         4zOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794556463; x=1795161263;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jLWs2ipoib4sqkrDJNqUZN3ZZXCrx/V1Jn/vcRzhZf0=;
-        b=EbYI0iSwGSmGBtyKouXmhv0z5gx2EN0Degax3krOcBacwpT98lqNPn68/yOejgA2W1
-         WqHpif6h+B/CXR0Wq3K9ui/mk7getRuGCH51uCgSP06VI5I9Iu3PQaEQUE7dEzqjhoBK
-         9MDSt3qEeJcOEasRMCYb7Fndu4no3d107+/W0/hRt48CYISLUqK2n86aPdomhSt+CrKa
-         UF3W895vzhKkMkS6Ick/0W9fdhC4pwUwUHzHSyagmX7ty1bvM4PKzblOsRPvdwRWv6pZ
-         eKECLSQVbKY/GKcMYuxUYF5CJNSnaamSnond9JKeVhVbZYwTKremLObRGG0RVm2KASmo
-         tVTg==
-X-Forwarded-Encrypted: i=1; AL+hErE1wUpS9hYie+YycnUR7V1sljCAOL1iIlfE3kMwY+22qWivB5ZpMpTxWhFr5999qQ5izOay4EIXj0isn7E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FfgO0eNDy4OabqOFG3WNVCfwmRnQ10xyQ/3ycrdUMJr5nR32r
-	GLckHjCEvvX0HsxRenqwAho+ChBRqZkLTgQ1a+7P6wx29ipSHaiXdI4GEre1DI19vXkliptGb3m
-	tX7YjX9Wez+EkVlZrLVZFCLjJIr4BZNg=
-X-Gm-Gg: AYBFou0wnLl2Lm67GhT+bUXri+nJ7tppZhu4EPqSru2p+3zYX+uGVVhiAymIaZnYgxq
-	peYTIMt//jb3oY3wEYayJI3nmAXnlNM55yMP6uPhTl7Vm8q5eJek2MbASImsb4bXzB3rypKMpTA
-	xBEk1kq+bd+zc3/ZBkXnGXCiHnDaf/DJ4iV/SPtfA0pAe2znGIl7QPWYTsmGMzpyox/sIKeaise
-	8IRWFaszMw8/Wi1ElNq6gP6LkVqYzcpeNxXw834PtYHspYiVqSsdkebUSm5l65U7/EtLkTjr1nj
-	ej9M9/GmunCdFUq2l2hwjQqjAVMOhcNkILRMde2NkbSvbu3BtetcRfBcYvBsb7PXtPus+SnQ7FP
-	FhhrGaqC7SuigLS0SuRzfX5bUzfGlZv5k2Iqh2OXCLyhMKAcnn8IUC5D4m+eWxOry11R0HBU=
-X-Received: by 2002:a05:6512:3da4:b0:5bf:ce1f:cd22 with SMTP id
- 2adb3069b0e04-5c170434e66mr787433e87.0.1794556462452; Thu, 12 Nov 2026
- 23:54:22 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794556474; x=1795161274;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/oSrBPXKrNYnAzFH4eNjIUEYe3r0QmvR+RTmTsBOz3A=;
+        b=f6csgreIw5SK5jl3l+pM2b0Rad3NEAnYKFdNvakFoPQt3gr/qfDt0gbmhlZ42yJoMK
+         tK2M4RTWzMJUcuzyW0m2pcHvUXZR0yyjrCcAMjMvGqbFi/5d1SB+y5EJgFaR+0DUnGHK
+         brNYOICVbj77f0jt0k6URIX7FwWnErUipJKrNEOzo172UIBFb2p6RUTdAjleGXo1nXbz
+         mHWuSR73hbw/GT06JEdBKNnecTEHje6yAB3+V9Yj2m2doiHRscgAbH/7UV7ufDnArvvd
+         TEbwE2mqQjAtUmuGxqnT8t3SdAbrTM8HQ2F3Ml1DrJ8bTeRGr37wMDlyr0G9zIy9/iNx
+         FUTg==
+X-Forwarded-Encrypted: i=1; AL+hErFXYwZVKwK7hPCRFozEhzVsBsfFYBBAzWzukGkaVKyR3FbiOoc5dY+ozwxe0HmMSZc47M3vGsu7NjZRynY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Ugq9uC5Z/TfbQJRQM7GCyovCZzpfvUk113K7mvqO1+ET0EpbE
+	5pujlHFMfo3x7qwo+gz95mAVRJ+Xf8ozLF+3zTJiyFfzcsCcPJw3ARga
+X-Gm-Gg: AYBFou02t+UFqYX+YRK2ie5k1RbYdXHNpo+VQhPeT0umTzCdjjiK7l7yJFda5xinhUm
+	1qSGL3CMYYyDmtQ6Y9Q/rt9lSrJNzQpt5S3qkUYe2gOdIWsZE9rM42Q4dehPfAPCJzxHT5S/1Yq
+	ZN/vBpnQWHHQde1euLi6gzB2eoMqbRogLlBaLC410KqW+zD7ZCi8YmvB9CLB2dF++jo3VUQkEcd
+	ippa6EGAR2cfg7FHk8AWjvCX9q0EuLn+zbyr3crRvUsUMHFbIBumXaZB+6Tb65ZCuuMd4eg6MuJ
+	Ev4w7Y7RO3ruyuMJCEKfM+ZyTmStl93TC3CkYlO6OtqnTlrRnM/TvHwPuj6C8EuW7w53Ky6eW8M
+	jNP72wU3HQbPmSc5F+PTwd0EnbdQ3e2oaqEuy5Hczx1Bt+ahkVjVJLBP892eT18lUcnwZv1KJ3R
+	ql8f7yCjadto+msYkArfWCED4zfLWjun2aK2o5LARO7adzxwprY+KE21eeGvXQooi8d8WA+IPz+
+	bWfY9WrKFLY4OciS+tiv7XTq2yYVpoOiXaNZ2SzlFP5hlueMY6ezyo0aAcf5EFpe4vYyilBc5DZ
+	GutniJkiMYbZMtBCMybKALlsV5WSPuRTJKk=
+X-Received: by 2002:a17:90b:2247:b0:3a8:49f2:8ddb with SMTP id 98e67ed59e1d1-3b1b0d4f314mr1396218a91.60.1794556474024;
+        Thu, 12 Nov 2026 23:54:34 -0800 (PST)
+Received: from localhost ([176.210.133.73])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3eaf732sm1024539a91.3.2026.11.12.23.54.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 23:54:33 -0800 (PST)
+From: Vladislav Zaharov <vladazaharova2018@gmail.com>
+To: dakr@kernel.org,
+	joelagnelf@nvidia.com
+Cc: acourbot@nvidia.com,
+	aliceryhl@google.com,
+	ecourtney@nvidia.com,
+	gary@garyguo.net,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	vladazaharova2018@gmail.com
+Subject: [PATCH] gpu: nova-core: mm: keep a page table page before installing its PDE
+Date: Fri, 13 Nov 2026 14:54:22 +0700
+Message-ID: <20261113075422.943779-1-vladazaharova2018@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,63 +101,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
- <20261112-hantro-robust-v2-2-18561fd48838@gmail.com> <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
- <f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com>
-In-Reply-To: <f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Thu, 12 Nov 2026 23:54:10 -0800
-X-Gm-Features: AclHuK-bvo5dDl4JVbgBvuOoQVFelHqw3mvt8zCrdDgOeg2cHm6xn5vl5OrzWyU
-Message-ID: <CAEy9hNU2ox76TFKtdisqUHDxZ=3gPVBDBcjz_W8RtCpCpK5d7g@mail.gmail.com>
-Subject: Re: [PATCH v2 2/6] media: verisilicon: Don't hold the VPU in reset
- after remove
-To: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
-	Andrzej Pietrasiewicz <andrzej.p@collabora.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
-	Hans Verkuil <hverkuil@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>, 
-	Tharit Tangkijwanichakul <tharitt97@gmail.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-> Le 12/11/2026 =C3=A0 11:19, Philipp Zabel a =C3=A9crit :
->> If vsi-iommu accesses require these bus interface resets to be
->> deasserted at certain points, why doesn't it request its own reset
->> controls?
->>
->> Depending on implicit assumptions like another driver not asserting its
->> exclusively controlled resets seems fragile.
+install_mappings() writes the PDE of a new page table page before moving
+the page into page_table_allocs. If push_within_capacity() then fails,
+the page is dropped and its VRAM freed while the PDE still points at it.
 
-The AV1 node lists these resets for hantro only. vsi-iommu would need
-them in its own node and binding, and both drivers would have to move
-to shared reset controls. Device trees without them would still hit
-the SError. With this patch hantro never asserts the AV1 resets, so
-vsi-iommu no longer depends on what hantro does with them.
+Move the page into page_table_allocs first, so that a failure leaves no
+PDE pointing at freed memory.
 
-> There is a side note on IOMMU doc saying that once the IOMMU has been
-> enabled it can't be disabled for security reasons.
-> That means that writing 0 on VSI_MMU_AHB_CONTROL_BASE register in vsi_iom=
-mu_disable()
-> could raise an SError so I would suggest to remove this line from IOMMU d=
-river.
+The problem was found by an LLM-assisted code review.
 
-I only see the SError after hantro_remove() has asserted the BIU
-resets. vsi_iommu_suspend() does the same write on every autosuspend in
-normal use, and that has not faulted here.
+Fixes: 4e4182282d4e ("gpu: nova-core: mm: Add multi-page mapping API to VMM")
+Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
+---
+I could not reproduce the failure, as it needs push_within_capacity() to
+fail. With the change, the MM self-tests still pass on a GB203.
 
-I don't think dropping the write is enough on its own. With the resets
-still asserted, the AV1 domain is powered off when the IOMMU suspends,
-which is the fault 8e26d4c20ed2 fixed for hantro's own suspend. The
-next bind then resumes the IOMMU, and vsi_iommu_enable() writes its
-registers, before hantro_probe() deasserts the resets. I have not
-tested that.
+ drivers/gpu/nova-core/mm/pagetable/map.rs | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-If you would like the write gone as well, I can send
-that as a separate vsi-iommu patch.
+diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova-core/mm/pagetable/map.rs
+index f7774b9cc972..e678197ec009 100644
+--- a/drivers/gpu/nova-core/mm/pagetable/map.rs
++++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
+@@ -209,8 +209,15 @@ pub(super) fn install_mappings(
+                 let (install_addr, page) = node.to_key_value();
+                 let page_vram =
+                     VramAddress::from_raw(page.alloc.iter().next().ok_or(ENOMEM)?.offset());
++                let level = page.level;
+ 
+-                if page.level == M::DUAL_PDE_LEVEL {
++                // Keep the page before pointing a PDE at it, so that a failure here cannot leave a
++                // PDE pointing at freed VRAM.
++                page_table_allocs
++                    .push_within_capacity(page.alloc)
++                    .map_err(|_| ENOMEM)?;
++
++                if level == M::DUAL_PDE_LEVEL {
+                     let new_dpde = M::DualPde::new_small(Pfn::from(page_vram));
+                     new_dpde.write(pramin, install_addr)?;
+                 } else {
+@@ -218,10 +225,6 @@ pub(super) fn install_mappings(
+                     new_pde.write(pramin, install_addr)?;
+                 }
+ 
+-                page_table_allocs
+-                    .push_within_capacity(page.alloc)
+-                    .map_err(|_| ENOMEM)?;
+-
+                 cursor = next;
+             }
+ 
 
-Arun
+base-commit: 0ff9e5b9ff6736c37593cd7db89f4593ec4f8e86
+-- 
+2.56.0
+
