@@ -1,100 +1,140 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.51
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.7
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794612589;
-	b=CuoRg0tIEGCW3TN5yFByKIs9hiRSegSTMy+79ijvX6m61Hn07s9ffuTOoji55BAkasGI
-	 pGXEa/7P5B2A/QRENu1tgvYiIoJX9OzTsMWjiFeBfaCbED5MadG0uS1ewqaSY2lN+XGj1
-	 n5S7jhLK1qcX7eg3oMfovwn5WR1ty2AdudnVTZZp0tqhKHN5wz9FUltL39y2ZwyVlx0QJ
-	 ZQa+5LJcQ10tOTufNjytgEXY0QB+dFjggpAt2UrzYYWDHu7JHWSfU3DDVtn0qUQX9O73W
-	 +Mvfs9mRCYIdj++0r6rm0P0fUelQYraABNGld0/HZSsKBB8E2ACibxkGt5tZPaAmZsQ==
+	t=1794612677;
+	b=P3kstZrW1AcJ1IiD0R39KuDuP57/cMDwplrDE/QOvawoYgtQgYzSdhxTlRuhYvWsGt7U
+	 pd/eO4966Q0j8VsU7K3dS/oWuXl25WBwBSOUGBUYLCThs+9ZjivizHFQTwKdsKzDOyBNZ
+	 ix1qMtTTqmoG/ok1OVvAIqJ8j4JCfp107iMDH9e1AS6Vsa3SPzo/CuDThFCIUSO858hy3
+	 uU703olMXE6MEkJiuRbHU/TkpfDK8vtVC3aIllNtsjO/YP3cK2tGiuEnxHo4Xa8kPQgOd
+	 a+BXqEg4sXD+UhkjsUmAkG+naF9MydkCdi8sPyKww9IlBO/HpSabtMS6v5qEIKelIIQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794612589;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/CPvoBmvudjbMIuQu1O/W4K6EMPzGyR+i3qZppxVutw=;
-	b=E/r5Oj6mLOBnTYj+j3Qs45xlKeXtFYaFEHCJAfC/clu3pJoUjA44/0cQSDnJOa/oU8M7
-	 Ih1jFNj3xO+m/hrvjdN4wRDpLDww5CUjK0dX5voQVrTZdbDUpfoWhWkJmEzTiKxHZEhZC
-	 TUdfF4nIZtANbFbLe2od6DdYcN7y3Iq3dFl1R4UK3SHZ7C9x+qm2LH/b5ZXFRLJYOX9Rt
-	 8SIIdEB6TmvLEZCrQn2ZtU3no7/fFA3PuMYIePkfxsqZPFB50rnYarS75nbeGF6gwke8F
-	 cK0EH6836OQOQAttETVH94T4S/KF8nrLizi0+nQIfglAql+7XwrSIE19iPQEG+ktVkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794612677;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:
+	 Subject:Content-Language:To:CC:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=vRqtzNNH5aCuMOJYYJ1Mfr7Pwydu9gxAUf4/rzSydIc=;
+	b=f82+Xk/50TDbHPWIYloAVUWe8yKV78EDw2G2GgxkV37odrmPI5Y2bJMQKGBu+rBlY387
+	 MHfGjhKXWuwAMF2OGfdfsR3A96dyz7nn4Rjsm0+2Stu7ijmlt+5ydXEzc+OV/n9K8sYLO
+	 uPs9GE14OuhiZznJ0Y+a4CryExgTWyEsriS+1JjuLqwuXtp5Eyd44rzzTpHyIdWwpN/om
+	 R3OAerSnCKsBmqVHPTM/YFnXGN7XhiOoMh5TBHWFaR4WQBFuAvzIgvONqz1WaSzRd35E5
+	 Ilns1XpsjidnVvDImpA8szDJSc8TEJW54Ej77R8bBC9qb1yj0fBbzjjgfHPj2NhUwig==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HtDl2jZh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.51
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QY9qxg4v;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=Yym9sFfz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271A8606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:29:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 271A8606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8208606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:31:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8208606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HtDl2jZh
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91eed03da8bso38513976d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:29:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794612587; cv=none;
-        d=google.com; s=arc-20260327;
-        b=odbar9g2MkTAMqtGF33DNLqQg4FRf2RTttraaJryVwKaDAYLQS8T7/QfvLjbuapJ7a
-         THQfJm+deHJwmZKdWnwRdMW+DLxRXEt+nGuFG69qPI3lys0sLNV7gHSGiptJRrRiB2zG
-         zwni61YIicMbOEjQPwJ/aEZF6PfZ9UNi4SlfY1bfIDU89BBYjcVGsr+r9S64yvxbbLO4
-         85tiTDnWu/MRaFTDvZilzjsVXy3AC3D7OECmD0qhP0ksVTzHa4d/C3SuIBo3XjUwDx7T
-         9liPJOMG1+w1SsKlaZWn0ttx2K6M1XV4j7kpsg7YHv9j1WUqSgMkiAVkO9HLcAlD8nCy
-         H+bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/CPvoBmvudjbMIuQu1O/W4K6EMPzGyR+i3qZppxVutw=;
-        fh=2+xSM1X0Wrr1Nm79g7b3RfqB4cHHAjjHUZAQ0BAH3ek=;
-        b=kvZYjllBDbD9F75foRZpjrOAK6QsaErPBtL+aCMTc+BunzhdpQp4Ts65XrplnNUqm5
-         3dlg7+qvfdGrThsg1c3U356WuXpZGI3EY1/++Pdx3fxlYC+lBcX3WGL5cPklwAFt6GMn
-         4l7VykdvDMZXh4wgWgv5rzb3IKdzEOzYKE9hpQTScVVYw1AYPmnyzE76MNQIqCO1eDKP
-         I0pN6Wncf+EYDDvTw2nFnFxl8yPSTd2CSoLePnvHfNEUE2gEllOjhBK4DMfCCyQDZAI4
-         9uaEyv99KSf/jdsDG1suMWLQWlYMsSwzclEEFWVtAKYaCbKO0VBq2+vfQKcAEkOaIyAl
-         K0Rw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794612587; x=1795217387; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/CPvoBmvudjbMIuQu1O/W4K6EMPzGyR+i3qZppxVutw=;
-        b=HtDl2jZhzIS3ukNAez0ze32dQI3sfJX8ra3GrnE+EyZRjfpKx5faEScn0Q4et12QJq
-         9u2389vrNrjuMuhp9jBZQ55bOim3ET6VeJNqykuUQ6TcCVF/xwGg6awifpbXo2kl+2NJ
-         HqSBZWEXDBluBZuqSQgYbY/duTQDcw4xX+guc9EjdohrBOr4jSPIl9GX/ApiCLJxS1z1
-         vzjq1jkWO/ok1f+xLniXsvjTwIALHef/ZTER/bYoyWS70bCxDyOU0CnG7GOSrOJNuf1a
-         LKE5XcMyAiXoNT2gbLFp2IEKmOy2L+tqd0hgKDzR7y2M1DTocGYJCsjT/BkUimAzK8uQ
-         ddkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794612587; x=1795217387;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/CPvoBmvudjbMIuQu1O/W4K6EMPzGyR+i3qZppxVutw=;
-        b=cKebyxuPpgdOfIQDUdBWj3CKONlvfMs5WQ4YeYgnFxWg+TH4yJ4h7GNONCP0Nt2W8X
-         LVpHbDqzI5VV2etmJUpjIW5Jypmmi5qWSq4WG+9Qc/hGCKy5o1K3yR7sGEugoCFeSRTF
-         QC3BQSRjzVNAkV1LIZk3chpCpcn6LCeOryjaO6qBeSrMLRLJzQaoWGj+5niDySUTi8PD
-         yi5Cerzq6hOBkqGGEA6Tpmsiy5HEQmhm+EOyR1NTfMNYiIPSdkOVAh0XVtpTBv5Geuze
-         XNTS5i3wWM9ibTgDk356O8b2U8lvNSUzhmRASlYyvRcFyUgV0s6oBDa1fLxij/avehJx
-         ZAyA==
-X-Forwarded-Encrypted: i=1; AL+hErG25PJhQDEI2l0HNWjrE7/P2V+0W6Esb1PvBUm1OkEiU0zTzVe1oFbCQwZD1pdv/FS7W55+lSNmijVPkQU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MGZj3E5vGE06UVZ5OJVAucPF9SStrCJTkGm7TNCx+zkpz1iA0
-	pjFpu4arHBhgIvxWEeJUApYtEgAi1QcKTaPwm1Nr79Of5JB9DIOWaEjYDQFi0zcwIqoUR94q3JQ
-	Q8I81CbhrzSbsD8D50/X3YeYcg+/yOE4=
-X-Gm-Gg: AYBFou1P5PUPAjpEGu6ZWmgGcxlvWo9S0NWO9JosoDKyY7MQW8BdbSxa7m4R589EF29
-	WrOZQm+F0dicdx9FLQyOIKZcI0sw+zU1rF9i3WxyIJ+BXAuJBLlwPUHy9oaUSPJTKsGq/J20FDv
-	CEFUCIxlu8XhhmJGWOB6mD/fH+IvQKtXw1GPlAwclWaVknJFCxtGha3aMgVRF6UBbxo5aq7EPf1
-	DKR2W3clzq7L+Auy04OcD/3yU3roXiPh63UHUeI1s1USiOP15fGcbgP7sW0rtl1kTbp3E1khgq+
-	IA6Pw7ZYT99XqKh5gMnsanXuQdjK/5FHdj8jlCJj21DXIOMD35JvU2i0BbQT8ddjAT3WFYejQFW
-	vkpjnolMBWUXNU6fAUyHeQApX0LOBTTsaxATg
-X-Received: by 2002:a05:6214:508c:b0:91c:79eb:ea55 with SMTP id
- 6a1803df08f44-91f24217e76mr64365356d6.28.1794612586932; Fri, 13 Nov 2026
- 15:29:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QY9qxg4v;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=Yym9sFfz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794612675; x=1826148675;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=0PuXZnxk8f4G630X7RHa5NW42p6gzkY092kbd6tIPds=;
+  b=QY9qxg4vLpsulpYjtG4lsRYQwScnuQkkiIiS5tkA1nOA1IzEFcA4/eRj
+   upGqVfVKhOuj0mAdw8ybW1/9ceDbIRkCN9ho4ce573fUyak87A6njMrRq
+   RkhHvqphKKXmVgmCamB7DJKBugXuSgbmjK6suN0llK9RdRVkYg2itjnFO
+   ugeGXYk/sOaNAzWPrcE6Ra6hSpH/xwUuzy92lVsPTmyxEltyT+dM/p31U
+   fOh4uJd8ZcC6BSEy/kMopLM/izkEQJ7lyUqtDrI9rcn2LBORMbT54Ytbk
+   DvC88A9aeGayNEBFlFEyAhLQmWtBYhc1GXogQaczVfuCUINzbqsWDOMKl
+   w==;
+X-CSE-ConnectionGUID: lS0Me5CwRC+hAoshSBhWRQ==
+X-CSE-MsgGUID: On62AzjtQiuG8gXVPzkXzw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3293536"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3293536"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 15:31:14 -0800
+X-CSE-ConnectionGUID: MIoNkVE7QX27HUV9i5qRGA==
+X-CSE-MsgGUID: pqMHGKgwRaqYE8OiqzM2Sg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="9207594"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 15:31:14 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 15:31:13 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 15:31:13 -0800
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.36) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 15:31:12 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GTDcofgEV69y/rI9exgNlv0SRaCnFEPgqlDbekAZ6H2ECAM/jB5JNiyxdG0N7NDT+Wtd0p2r2c9up6Ovk2xqRQodLa6jgVlZ3aobm4bhodl0kVvHSd3GfffaB8aEJN/zz5tuOCGhr8fLus0NEUC//sLW8ri2B/gOyj9/ovi+fdskrohTBO8oor0KZiu9ffw2dH0tYAn666H/MePEkJdaFFgYqid/3MHf0nm+J5Bc8ZmQqOQUSrAFPPXEhQkrvUGIcmSLkzniT5V/74Paibz8tekzkzcVrMPy0+S1rFOCMGcdEutsmhxKoPQYKgI+icJ1sUQRRz8Bs37tSDrcPoRkPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vRqtzNNH5aCuMOJYYJ1Mfr7Pwydu9gxAUf4/rzSydIc=;
+ b=WRtjQkiTgcxphTsv7Nhql7yT2bb29vGuCkXJcDUJ+5iHdkfsWuC5GEAZ7AQIm7T3k6d4Y0K/D4ciA3SLrsUPCfCkyexWh+tSAk1nZRBNv34nAgWqFz/lZ2nXYbNJHp0THv23CxUrZf5m8jUOO38118q8oUd/xeS6RIAPdoExwIrVdXA/w2qbcyxVHfim4zZ301Lg9k03D69fNxiU1p0Jeir7UT9EDnaNTXhIfrVfxF9N9aelgXaJOzvlKrnv4S5e3lVEsBYXryI6hXY4RTIZy1Wyt7c+6WE5LHSRQlMM59q4zRZxs5JNsiyzCKsYhftoaP+ZqFxSySuGXJQivnIkiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vRqtzNNH5aCuMOJYYJ1Mfr7Pwydu9gxAUf4/rzSydIc=;
+ b=Yym9sFfzmfg/JoRbX0T5ZdjmwyKHh1KeGMi9bLK9BvxnswkT3LD1hwYL+VbBt8ysvogX3YYVFpBULzt/K88r+jYgGH7joMH/y7yGdQxsPXuGkntUNXpUfQc6hm2xRyZTswCG9AN9PU4DUKDUoClSmRNWI2one0J3r+XKotSjTc4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CY8PR11MB7846.namprd11.prod.outlook.com (2603:10b6:930:79::14)
+ by DS3PR11MB746707.namprd11.prod.outlook.com (2603:10b6:8:43a::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Fri, 13 Nov
+ 2026 23:31:11 +0000
+Received: from CY8PR11MB7846.namprd11.prod.outlook.com
+ ([fe80::cae0:d05c:b2fc:c395]) by CY8PR11MB7846.namprd11.prod.outlook.com
+ ([fe80::cae0:d05c:b2fc:c395%7]) with mapi id 15.21.0592.010; Fri, 13 Nov 2026
+ 23:31:06 +0000
+Message-ID: <74eca949-2c86-4293-99b4-6b2dfc5935d9@intel.com>
+Date: Fri, 13 Nov 2026 15:31:03 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] x86/mce: Add CPU_SUP_* dependencies for
+ Intel/Zhaoxin MCE features
+Content-Language: en-US
+To: Vincent Mailhol <mailhol@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
+	<hpa@zytor.com>
+CC: <linux-kernel@vger.kernel.org>
+References: <20261113-processor_select_is_not_an_expert_feature-v2-0-ae630b1f2e28@kernel.org>
+ <20261113-processor_select_is_not_an_expert_feature-v2-1-ae630b1f2e28@kernel.org>
+From: Sohil Mehta <sohil.mehta@intel.com>
+In-Reply-To: <20261113-processor_select_is_not_an_expert_feature-v2-1-ae630b1f2e28@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4P221CA0026.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:303:8b::31) To CY8PR11MB7846.namprd11.prod.outlook.com
+ (2603:10b6:930:79::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,199 +144,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110020632.4003499-1-svv@google.com> <20261110020632.4003499-4-svv@google.com>
-In-Reply-To: <20261110020632.4003499-4-svv@google.com>
-From: Jason Gerecke <killertofu@gmail.com>
-Date: Fri, 13 Nov 2026 15:29:35 -0800
-X-Gm-Features: AclHuK8dkjAO0euguxtIZM-3wnI68NThCiMuckOj0XFkMajC1vM8NY1sp3w5JCY
-Message-ID: <CANRwn3S63O+WRTGhpcNR__ybSuYUb2uEJavUY3b9Uaa_vEhWXQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] HID: wacom: report ABS_TWIST alongside ABS_Z for pen twist
-To: Siarhei Vishniakou <svv@google.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>, Ping Cheng <ping.cheng@wacom.com>, 
-	Jason Gerecke <jason.gerecke@wacom.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Henrik Rydberg <rydberg@bitmath.org>, linux-input@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR11MB7846:EE_|DS3PR11MB746707:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71970b57-e68a-49ad-950b-08df41de30a2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|261022075727099003|261021121427099003|56012099006|261102123227099003|261026140227099003|261028144727099003|261026121527099003|261021123027099003|10067099003|261022105027099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: kWIUkq3+dzfFbn8gKmpku+QueDUv8uhQCfXB24fPG3eB6v+Efy1oC8y6sqMg7XwHoJKz4NG6+/AwhdbX6OdJyVkqOVWcX8FpTvZuxcMzneWAa4k3oKcvU3F97d/6E06poF6IrfDopKZTvx++uF0ggoWs98CHL0XFxLkcE76y9/Mqcm8tQ+t6MQfddhulHMjCTbPpffao0oz13UgPKYriAH8Nv9EX7QqKlSVaryhHIL8y3vv7mpLPNfN3CjoLOTpEHV791X3Dc09nPlAhGJS3ysjgW8uLkL3wKwxQ88UrI6EZe6Gq/083tWEentIPSTCrFOrDX9lyaIHQ3rJVe6PMnBJWzJYX2O3+Mcfv8L7NfrL3JkMzxTeUgTILQmrs23QzARmtmyBJa6p3i94VgcsrEbKc3Ea/r47oJaOOAr8UlCd4j41bbTvBJTygNLK0LImksPy2eGwLU6RAV91/paf+DlVwTw+jkJv/GC5Xq7Bl8+0yhHnOHIG76MMxz6GHg7460Neh2b8AhEPTywcnkXPrZuMHg40tLj/bQ+9meTVqJFr7lHy5XKunt7zDADQoNhCL+01Ffueuc2innPQ5QOJVZJbbZSv/9As/7gg5tFBpUVT6/yx+p+nMV6Ywo1T3mz1EJ7pZIuCTjzvTgEHEcj/YfcOkM42weG6/MimAzDpRsiM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR11MB7846.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(261022075727099003)(261021121427099003)(56012099006)(261102123227099003)(261026140227099003)(261028144727099003)(261026121527099003)(261021123027099003)(10067099003)(261022105027099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WjdFNGcyaTRoMW9EYkhuS0pWbjhlTTZXUmN4TFA5Rm4vZldzeGd2bGE0bkhw?=
+ =?utf-8?B?eHFJQWcvZnhHTVpOeDNjU1pmenZHUi9oK1NOMTNRZThvVU56MmpCU0s3TVZD?=
+ =?utf-8?B?UlpzYjF3d2F1OWM5eWM1cXdxZWZOc1hrd2pRN3VaSDkrZUUwNFZRQm9IOVVJ?=
+ =?utf-8?B?Z3FjL3p0aVRaY2c5RWc0R0Eya2dvOWZoZ3pmMVhzRkxvQUpjbUM1VDRXY1ds?=
+ =?utf-8?B?OGdRc1NVdVN4blphM2E4eFVvYXFKRmF1UlJYSG9PYm5SMkQ3dWFIcE5aekNr?=
+ =?utf-8?B?T1VYNHZ5VkFkV3gzZG9KREVuc1NScFArWmJEOU5ZYjUvWWxFUDZjN2tkM2t2?=
+ =?utf-8?B?bmV5c1gwOVBCMGl5OW5Sa2krcUxuL3VxWmdCM052TFdlQUYwcmpISWRoZkc0?=
+ =?utf-8?B?MmVWMUVBMG91Sm84OHV2OVQ5Ky9MVGVHNlVRV2JLTHp2MjJpdTFHb3EzcHFM?=
+ =?utf-8?B?V2FsdzZQRktKZ3hqcFZ5MmljcWRkL1lUcXpNT29YTFY0aDNGaThyMXVCMWky?=
+ =?utf-8?B?R2RkbHVaeGZjZXpEU04vaXUzb2thenE1NG9MSjNpOXlLZzV6V0xTcHMvNlJj?=
+ =?utf-8?B?TDM4RUYvcXZaVlQ1dS9ESG1aVzN6RWlpdW9iYUNOOEVJeUs1SmlGemN4QnZF?=
+ =?utf-8?B?dnF5REdsVWFlOG8xazd1c2lDMFJ0MXdHUFU2U2xFbEI3QXJQMytwYVB3bzFl?=
+ =?utf-8?B?LzBrV1lpcDNFdjZrdkF5Y3dEWG9xaXBIeG5ZcEZLOVpYTy92dXFvUklPNEcz?=
+ =?utf-8?B?b2xaakt6SnY1NTJ3d3hUdnhyc3RhSVQyYkpoUFBrT09vSlY2RExRRkxmcnAv?=
+ =?utf-8?B?bkVIR1lpOUtPV01kcHl1M2Vmd2lJUC9CakI0Qldwd1FnWSttQmYvN1dXWUd2?=
+ =?utf-8?B?U3JzaHFhdW5McDJ4WEtZL1h1SWlWWDAreExoRTBSL3dDSVBMWHlhZFExUHAv?=
+ =?utf-8?B?eW5HanFOWnFVTUFkMFlFVEVCSUkzTkpzZUMwMTNSYVI1Ty9CQ3dKYW9wN1Ni?=
+ =?utf-8?B?Y08vTE5NRVJGbkw2cElGaFJ4RjBpd3Rya0M3OE91eGl2Vk9ZcVNrMSt0RFda?=
+ =?utf-8?B?bXdwRkZmNStjemw2dWZMTW1RWXlxeG53UXJXVVJ4ci9oV0lHQXRLRUh5cmpQ?=
+ =?utf-8?B?NWthTWZKNWxBdm9CaTdQYmZjSytnejRlbW5Qbnl3ZXJJeFgveUhLdUhxd0xj?=
+ =?utf-8?B?eTlydC9NUGNtYmx2eWh6MWVGQXR0S2xkODBBbElQMU16RSs4cWxmQmJTSWM3?=
+ =?utf-8?B?SFhqK1VKTit1MlhmZ245cFRSR2VqdmR1cHJJK0UrTXEvZ0xvQklMc21rRUp1?=
+ =?utf-8?B?ZUpFbzhnQWhOU2VEZG8vTmMzMXFVVDVOUlNqZFZYWmdhejF3RjVkVW5ud0Rk?=
+ =?utf-8?B?QldZR3FBaGdBUDJjVEhHSWI5TjdLVUhHWkVDVmxBcVVicmpRaVdOeUJvT1Nz?=
+ =?utf-8?B?U2NBa01QMmNLZmVPZzJQU0RmYmhCSkpWRlhrb1d2Q0k3R2ZlblhuZVgzZ3Fr?=
+ =?utf-8?B?Tkw2NFptNHRkWEkwcWsvKzdMUG5mZlRtVUlsSk43K2hQWFo4QmViMUd0MWFz?=
+ =?utf-8?B?elcxVHd4ZFVtTVQ1NVBWMjB6TDlsS0lUMzQxeEE4cjErOWZFc2RiV09saU4w?=
+ =?utf-8?B?YnduSFdmSWsySk56R0FuYWZjeGoycWxySUhRYkMzVkJod29rUDB4TlBNSkZT?=
+ =?utf-8?B?K0JQYStJK0g0cUVuMmZnVlpBMElqMWRiTUlVeSs2VnRpN21CbnZMTGxuYTJN?=
+ =?utf-8?B?djlIYmwvVWliTjZma0gyNzdNWkZWSVR3aG8wN2pTaFRBejJKa1dDbXRidG0v?=
+ =?utf-8?B?ek5BN2duby9pMnRiOHBKMlVwVjF6YTZrdTdlZVRHRXlrTEc3andXaXB1S3FD?=
+ =?utf-8?B?LzhvdXk5aEtsd3E4c3hrb2J1K1BaSm1sSk9wTnROa2tRWE1NdnZvOWFnZHNH?=
+ =?utf-8?B?MVRvenBFNkcwM2tGVmpZQ2xNMU5RaEJscXFxNXV5TGxRQlFFcUFFQy95NFhw?=
+ =?utf-8?B?Tkk1dk9CN0dYc3V4TkVnMlB0YzE1Z05JV2ZiWkpkOHZTWG02RXVPOG91TEIr?=
+ =?utf-8?B?Nytua3R3TkdMNncvNFlGSU1rTFZLU0t3SGZ5S1ZMckVaR1JlQ0xHMjBtM1FE?=
+ =?utf-8?B?RFptbWZ0M254dHpFZXlEZGlFWEIrZUxvWWtsUG10Nkdod2w0c1lzSWtUZVFQ?=
+ =?utf-8?B?REN3TFJKWkdQczI5YysrZmxxVXVOYS9yZG42MTBGZGpLdkdIb2V0anMxbHdw?=
+ =?utf-8?B?SGxsV2N1dE1LWGt0QmU1ZHpYR2tQT0pKa0Y1M1BPRStNaGZSTHVCNmJhTjY0?=
+ =?utf-8?B?M0tOMlBobk53bTdMQS9sVUp5TmlWemI0WHJTeUVOdDZyMGtMZHpaUT09?=
+X-Exchange-RoutingPolicyChecked: Nan7rqofqW6LoTh/kczQ1cm54J4yBKHiFlKzNILbhqKgmAeIu9iROdMvIgoIrKyW32PmQJ967OMVpRM6HTc8X+XC3CTIJQzEXrUWIHFV7OE4V0qd4aAi/7PQvk+4pp8/nn32UaEFt2PVGW5ysRqcaO0s8+pYKiAfO9tfvrwL3VN3Lka9wnoa6sjD2p/0BgnjWHU3HfeDUbP6LasBsVnR1JPWZfrZiP1lwmw73RTRZ6O4HDSpSEgZdUe2m7BPz3RWQGSDTZYyOmzxSkkytpWarkV2173/ijW3WaPVahlxPpxRwC9Gk24nYzcip8p2NE3SymPAIePeiGZ+IANYAE/4GQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71970b57-e68a-49ad-950b-08df41de30a2
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7846.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 23:31:06.7701
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NBYBKBpB8kYE5BRa7budQhitgIiuSP5sZKd1kzi9aAjEkhVLh/N0chfmhGo6n/C7VKlMYwQwb4uKsqY0lM0vLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR11MB746707
+X-OriginatorOrg: intel.com
 
-On Mon, Nov 9, 2026 at 6:21=E2=80=AFPM Siarhei Vishniakou <svv@google.com> =
-wrote:
->
-> Historically, Wacom tablets reported stylus barrel rotation (twist)
-> via ABS_Z because a dedicated evdev axis did not exist. Now that we
-> have this axis, report pen twist on ABS_TWIST in addition to ABS_Z.
->
-> Keep reporting ABS_Z to maintain backward compatibility for existing
-> applications that support Wacom devices.
->
-> Signed-off-by: Siarhei Vishniakou <svv@google.com>
+On 11/13/2026 9:59 AM, Vincent Mailhol wrote:
+> Intel-style MCE features are only used on Intel and Zhaoxin CPUs.  Gate
+> X86_MCE_INTEL on CPU_SUP_INTEL || CPU_SUP_ZHAOXIN.
+> 
+> Update the prompt and help text to mention both supported CPU vendors.
+> 
+
+Can we add a little bit more on why this change is needed? Is it mainly
+correcting user visible documentation or to reduce the built kernel size?
+
+> Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
 > ---
->  drivers/hid/wacom_wac.c | 35 +++++++++++++++++++++++++++++------
->  1 file changed, 29 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-> index 614f2adab563..7676bc26a027 100644
-> --- a/drivers/hid/wacom_wac.c
-> +++ b/drivers/hid/wacom_wac.c
-> @@ -802,8 +802,10 @@ static void wacom_exit_report(struct wacom_wac *waco=
-m)
->                 input_report_key(input, BTN_STYLUS2, 0);
->                 input_report_key(input, BTN_TOUCH, 0);
->                 input_report_abs(input, ABS_WHEEL, 0);
-> -               if (features->type >=3D INTUOS3S)
-> +               if (features->type >=3D INTUOS3S) {
->                         input_report_abs(input, ABS_Z, 0);
-> +                       input_report_abs(input, ABS_TWIST, 0);
-> +               }
->         }
->         input_report_key(input, wacom->tool[idx], 0);
->         input_report_abs(input, ABS_MISC, 0); /* reset tool id */
-> @@ -981,6 +983,7 @@ static int wacom_intuos_general(struct wacom_wac *wac=
-om)
->                         t =3D (data[7] & 0x20) ? ((t > 900) ? ((t-1) / 2 =
-- 1350) :
->                                 ((t-1) / 2 + 450)) : (450 - t / 2) ;
->                         input_report_abs(input, ABS_Z, t);
-> +                       input_report_abs(input, ABS_TWIST, t);
->                 } else {
->                         /* 4D mouse 2nd packet */
->                         t =3D (data[6] << 3) | ((data[7] >> 5) & 7);
-> @@ -1411,6 +1414,7 @@ static void wacom_intuos_pro2_bt_pen(struct wacom_w=
-ac *wacom)
->                                 input_report_abs(pen_input, ABS_TILT_Y,
->                                                  (signed char)frame[8]);
->                                 input_report_abs(pen_input, ABS_Z, rotati=
-on);
-> +                               input_report_abs(pen_input, ABS_TWIST, ro=
-tation);
->                                 input_report_abs(pen_input, ABS_WHEEL,
->                                                  get_unaligned_le16(&fram=
-e[11]));
->                         }
-> @@ -1935,7 +1939,7 @@ static void wacom_map_usage(struct input_dev *input=
-, struct hid_usage *usage,
->         int resolution;
->
->         if (equivalent_usage =3D=3D HID_DG_TWIST) {
-> -               resolution_code =3D ABS_RZ;
-> +               resolution_code =3D ABS_TWIST;
->         }
+>  arch/x86/Kconfig | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+> index 58dce0b66179..91b3bc7deafd 100644
+> --- a/arch/x86/Kconfig
+> +++ b/arch/x86/Kconfig
+> @@ -1158,10 +1158,10 @@ config X86_MCELOG_LEGACY
+>  
+>  config X86_MCE_INTEL
+>  	def_bool y
+> -	prompt "Intel MCE features"
+> -	depends on X86_MCE && X86_LOCAL_APIC
+> +	prompt "Intel and Zhaoxin MCE features"
+> +	depends on X86_MCE && X86_LOCAL_APIC && (CPU_SUP_INTEL || CPU_SUP_ZHAOXIN)
+>  	help
+> -	  Additional support for intel specific MCE features such as
+> +	  Additional support for Intel and Zhaoxin MCE features such as
+>  	  the thermal monitor.
 
-Requesting a comment here just to make sure that anyone that is only
-casually reading doesn't think this code is dead. Setting *some* kind
-of radial axis here (be it ABS_RZ or ABS_TWIST) is critical to
-ensuring HID properly calculates the resolution for ABS_Z, and that
-might not be obvious when you see HID_DG_TWIST forcing the
-resolution_code to ABS_TWIST.
+The thermal monitor is no longer part of X86_MCE_INTEL since commit
+9223d0dccb8f ("thermal: Move therm_throt there from x86/mce"). If we are
+correcting this entry then can we remove the reference to the thermal
+monitor?
 
->
->         resolution =3D hidinput_calc_abs_res(field, resolution_code);
-> @@ -2332,6 +2336,7 @@ static void wacom_wac_pen_usage_mapping(struct hid_=
-device *hdev,
->                 break;
->         case HID_DG_TWIST:
+>  
+>  config X86_MCE_AMD
+> 
 
-Also requesting a comment for this case that explains that the usage
-here is mapped twice for backwards-compatibility, and that the order
-matters since the latter call will override `usage->type` and
-`usage->code`, preventing wacom_wac_pen_event from automatically
-emitting an ABS_Z event.
+config X86_MCE_AMD
+	def_bool y
+	prompt "AMD MCE features"
+	depends on X86_MCE && X86_LOCAL_APIC
+	help
 
->                 wacom_map_usage(input, usage, field, EV_ABS, ABS_Z, 0);
-> +               wacom_map_usage(input, usage, field, EV_ABS, ABS_TWIST, 0=
-);
->                 break;
->         case HID_DG_ERASER:
->                 input_set_capability(input, EV_KEY, BTN_TOOL_RUBBER);
-> @@ -2522,10 +2527,21 @@ static void wacom_wac_pen_event(struct hid_device=
- *hdev, struct hid_field *field
->                 return;
->
->         /* send pen events only when the pen is in range */
-> -       if (wacom_wac->hid_data.inrange_state)
-> -               input_event(input, usage->type, usage->code, value);
-> -       else if (wacom_wac->shared->stylus_in_proximity && !wacom_wac->hi=
-d_data.sense_state)
-> -               input_event(input, usage->type, usage->code, 0);
-> +       if (!wacom_wac->hid_data.inrange_state) {
-> +               if (!wacom_wac->shared->stylus_in_proximity ||
-> +                   wacom_wac->hid_data.sense_state)
-> +                       return;
-> +               value =3D 0;
-> +       }
-> +
-> +       input_event(input, usage->type, usage->code, value);
-> +       /*
-> +        * ABS_Z was used to report twist data, because ABS_TWIST was not=
- yet
-> +        * defined at the time. For compatibility purposes, also report t=
-wist
-> +        * via ABS_Z.
-> +        */
+The next entry looks slightly odd after the change. I was wondering why
+the AMD one doesn't need to depend on any CPU_SUP_* whereas the Intel
+one does?
 
-I think this comment could be a little more clear, perhaps referencing
-the double-mapping in wacom_wac_pen_usage_mapping (and how we need to
-send data out of both ABS_TWIST and ABS_Z but that `usage->type` and
-`usage->code` can only be set to one of those two)
-
-Jason (she/they)
----
-Now instead of four in the eights place /
-you=E2=80=99ve got three, =E2=80=98Cause you added one  /
-(That is to say, eight) to the two,     /
-But you can=E2=80=99t take seven from three,    /
-So you look at the sixty-fours....
-
-> +       if (equivalent_usage =3D=3D HID_DG_TWIST)
-> +               input_report_abs(input, ABS_Z, value);
->  }
->
->  static void wacom_wac_pen_pre_report(struct hid_device *hdev,
-> @@ -3741,6 +3757,7 @@ void wacom_setup_device_quirks(struct wacom *wacom)
->                 __clear_bit(BTN_TOOL_PENCIL, wacom_wac->pen_input->keybit=
-);
->                 __clear_bit(BTN_TOOL_AIRBRUSH, wacom_wac->pen_input->keyb=
-it);
->                 __clear_bit(ABS_Z, wacom_wac->pen_input->absbit);
-> +               __clear_bit(ABS_TWIST, wacom_wac->pen_input->absbit);
->                 __clear_bit(ABS_DISTANCE, wacom_wac->pen_input->absbit);
->                 __clear_bit(ABS_TILT_X, wacom_wac->pen_input->absbit);
->                 __clear_bit(ABS_TILT_Y, wacom_wac->pen_input->absbit);
-> @@ -3823,6 +3840,8 @@ int wacom_setup_pen_input_capabilities(struct input=
-_dev *input_dev,
->         case CINTIQ_COMPANION_2:
->                 input_set_abs_params(input_dev, ABS_Z, -900, 899, 0, 0);
->                 input_abs_set_res(input_dev, ABS_Z, 287);
-> +               input_set_abs_params(input_dev, ABS_TWIST, -900, 899, 0, =
-0);
-> +               input_abs_set_res(input_dev, ABS_TWIST, 287);
->                 wacom_setup_cintiq(wacom_wac);
->                 break;
->
-> @@ -3835,6 +3854,8 @@ int wacom_setup_pen_input_capabilities(struct input=
-_dev *input_dev,
->         case INTUOS4S:
->                 input_set_abs_params(input_dev, ABS_Z, -900, 899, 0, 0);
->                 input_abs_set_res(input_dev, ABS_Z, 287);
-> +               input_set_abs_params(input_dev, ABS_TWIST, -900, 899, 0, =
-0);
-> +               input_abs_set_res(input_dev, ABS_TWIST, 287);
->                 fallthrough;
->
->         case INTUOS:
-> @@ -3855,6 +3876,8 @@ int wacom_setup_pen_input_capabilities(struct input=
-_dev *input_dev,
->
->                 input_set_abs_params(input_dev, ABS_Z, -900, 899, 0, 0);
->                 input_abs_set_res(input_dev, ABS_Z, 287);
-> +               input_set_abs_params(input_dev, ABS_TWIST, -900, 899, 0, =
-0);
-> +               input_abs_set_res(input_dev, ABS_TWIST, 287);
->
->                 wacom_setup_intuos(wacom_wac);
->                 break;
-> --
-> 2.56.0.455.g6c5a503b38-goog
->
->
