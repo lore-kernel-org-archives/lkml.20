@@ -1,54 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794578991;
-	b=BQn0fJUkU2RScP4BjT/zQnCwpK2L0e/XHEpKjdtaGOAHL5p19UerpkUJFl4ASTlon39H
-	 KkB3zyoLnVDp7UHqqgpWJZuO6k2byucqpcD/lp+2zpRv3KJD1lIDodGuDQwOo7T68oq/e
-	 AyPWKagd3czJzIP1WnNbCn7wo2W3IzuUhcejelZOFXgt7mcRtS9AN6v+ha6W64LdGQHAs
-	 gcO36NxWt9iRKbLVX9VOJtntzR8yUZ+UXvUCjR0lx+q6+2zwDz/CA4dphgmHfnTAARAsW
-	 sv8N2ue0mEk/g0e4XdzaxmMC0e6CFgsQJC1kpoD8QjGV07/fe8FkzDVKFiPSRjlkhuA==
+	t=1794579004;
+	b=rH5ajH4oiVgYuM+FlgL4KSmuXvfC/TSuBSTnP8VkSW0vTKtACSlR7CNO4Za9nWhlBIYR
+	 dzlwQcvFoRgLasGCmAzK3U3TL5wUpTEjkpCd84l1zvMoBcBMoLSyraxlgpvtIJt2ibC6H
+	 lBatQFCtThGu5vww2GjQTPgCxf15loQG8KaA3GmBVeh7kIatg6b/PjFBio+UrNAyhOQmo
+	 XXTFimZ+6xB/wIoBM6eq2Pn0So8BqhWlhhctGa1k3n9ADFWrPchXpPwPHUjArPB5m/NSB
+	 aCSQFACQN9ACBadH8mp0il6ErQPxNvlLFQ1S/NOelTYH0Kb2tGI9azAmrK01egDXkHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578991;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
-	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=91M3ZRzTa6r+vtYF4xUq8fttGYwuNmT1C5OHT99A86Q=;
-	b=2csjLfEAA/wtB/uUP0NNxPABQfHShjH4NR1wUuMzUwWswhtCCLVGj812hGIRKRWTwb3w
-	 WRI5I6BpCn2GHwqo7UCmnhaZPLX6OS1rQxzuos7lK3pkArXuKu89F6Grc3+pPr15Srm/W
-	 S/tMdUjFblQCA5k9C+Y5is0J6xAUmUA7rHw1SV/c+KJ+DQ0EoW7ylh41w0yIUDVzDG/92
-	 I0CcK8XDPOucb4hiutCVfOA8dqyQ/fEO/UwmR5XNsDd3ttuDmnbvu5bYsmKBs0enrS76p
-	 CwkxTCQM9Zm+t8tcI8TcWF0IigCp5gStUQceZR/m6n5OpamvbHidvLFZ6ZVJbMomhrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794579004;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=oc5tqgUx2jgGl39zoG7TRqGoMncEFONZmst1nlS9KHg=;
+	b=YTv4lj9tOmdqENzVVdCEtAGutyzf8NfFM8ba/S1sWwufktC8Lo2IbEpgTky2wJk2RS0r
+	 Qe1rXOjf+fB1k4uTV4lcaszmWcT6UQs8gpoFEoUbn7mXfSKIxTsWi57nG5N9rk6lq1O+S
+	 KWCuh4KwL9NXgftXdiW9h9BPrWxzNY9Cnyg4/Ki1vnjIxUg55B7X5VS+5frzZh9p4r/vg
+	 KNLdQBAU6iSse3XQAjVhAwWRMklB0xzPofipI1PaCXvQufhSkZZz0huVPnFCoUQhOQKt5
+	 dvSbEIHNycm68xit0rVuBFslVn6k2CbqzsVbfD/E9gqwNFI5Af03vscbL6LrRQONUxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=HG4M0Kco;
-	arc=none smtp.remote-ip=45.254.49.198
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=boOmEMDF;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84227606A323;
-	Fri, 13 Nov 2026 14:09:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84227606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130C5606A323;
+	Fri, 13 Nov 2026 14:10:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 130C5606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=HG4M0Kco
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 549b5a75f;
-	Fri, 13 Nov 2026 22:09:37 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>
-Cc: arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] powercap: arm_scmi: Fix potential stale zones after a skipped leaf
-Date: Fri, 13 Nov 2026 22:09:35 +0800
-Message-ID: <20261113-4e14e563a1-powercap-scmi@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=boOmEMDF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794579004; x=1826115004;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NTiwvRZrh4h1yNEnLF6InFjE9odSaqV2VRbkYVv00UM=;
+  b=boOmEMDFMGyijuKHa0ZzOu2GDS3fzpg3tfxRAwy2dwV9W35J0x723sI6
+   h8OFcntUxToz6qrIG47G4qbHPpHDq6axRv3mcy3LjeG1IlIfcP6iIXPRI
+   LitSxWVoxnoPScMU+DDw2ftlin6WKw5NtBi1C7GxcxVIPYOKoxtQnAe37
+   b6YZIshZ9W+3Vyma2PLLVSvRb+OX3qwo/S3Zm3/tcAzDbW5ZTeO5qTC74
+   0FTwiIAalhTsYzQkrmSF0+dXFNPSD0MrQCYYzOc+ycPwy0lynRSq03tfu
+   6Db7z6+1AYLU4yM+4FNNHLt3hXUaxQFIxGQsjDzrSdU8tew0jMpEvGsFX
+   Q==;
+X-CSE-ConnectionGUID: RLiSwbFAR/GvoObnCzSftg==
+X-CSE-MsgGUID: tmRHbv+qQ0iVOefi0++7wg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3477707"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3477707"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:10:03 -0800
+X-CSE-ConnectionGUID: AAfmjh9MQYCCU4mIiNf7CQ==
+X-CSE-MsgGUID: 1toIfdcIRzGzl4mnE80QTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="8953701"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:09:57 -0800
+Date: Fri, 13 Nov 2026 16:09:54 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
+	"Sa, Nuno" <Nuno.Sa@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Alexandru Ardelean <alexandru.ardelean@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Miclaus, Antoniu" <Antoniu.Miclaus@analog.com>,
+	"Budai, Robert" <Robert.Budai@analog.com>,
+	"Gradinariu, Ramona" <Ramona.Gradinariu@analog.com>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	linux <linux@analog.com>, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v6 0/8] iio: imu: Add support for the ADI ADIS16607
+Message-ID: <avcaMvcntGjnKPAK@ashevche-desk.local>
+References: <20261113-adis16607-v6-0-3f678719942a@analog.com>
+ <LV9PR03MB84148ACD16DBA8896A81582DF77F2@LV9PR03MB8414.namprd03.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,47 +94,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1d53e10eb03a1kunmfd39574c48410
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSUoYVhlNT0kZS05MSkpLSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=HG4M0KcoHMatbqoiBpR5vaR5b1PH1rT1sVRJEI7eCjcJqQFgIjdk1BkdbWdLItdQjr8b6kvfwtV/3DzoavR66zUWjZ1ACPpOoQHf0yDXQAWjnvg12Q4WBdrXJWR6eFRjmTm/AqHQvxaa1wlJZPVgGXUk0kj6wQ9wrP6bu8KGVqQ=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=91M3ZRzTa6r+vtYF4xUq8fttGYwuNmT1C5OHT99A86Q=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <LV9PR03MB84148ACD16DBA8896A81582DF77F2@LV9PR03MB8414.namprd03.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-scmi_zones_register() skips leaf zones that cannot be registered, but
-returns the last leaf error when that leaf ends the traversal. Probe
-then fails without unregistering the successfully registered zones,
-whose private data is device-managed.
+On Fri, Nov 13, 2026 at 12:41:04PM +0000, Sabau, Radu bogdan wrote:
+> > -----Original Message-----
+> > From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+> > Sent: Friday, November 13, 2026 2:34 PM
 
-Return success after completing the traversal. Keep the existing error
-return and full rollback for a failed non-leaf zone.
+...
 
-This issue was found by our static analysis tool under development.
+> > Patches 5-8 add the driver in functional groupings, as requested in
+> > v1 review:
+> >  - Patch 5: base driver - probe, raw channel reads, decimation/sample
+> >    frequency, startup and self-test via adislib, debugfs identity
+> >    entries. No buffered capture yet.
+> >  - Patch 6: buffered capture via the device's hardware FIFO, into a
+> >    kfifo buffer filled from a threaded interrupt (no IIO trigger).
+> 
+> Note: this series implements the FIFO buffered capture with a kfifo
+> buffer for the adis16607 only, using its own threaded interrupt instead
+> of adislib's has_fifo trigger path. I tested it on hardware and it
+> behaves better than the trigger-based version in v5: the interrupt now
+> fires once per watermark batch instead of roughly once per sample, and
+> capture stays clean across repeated buffer enable/disable cycles.
+> 
+> I plan a follow-up series that updates adislib and the other affected
+> devices (the adis16475 FIFO variants) to use a kfifo buffer as well, and
+> then converts this driver to use the adislib helpers.
+> 
+> If you would rather have it handled here, I can instead do the adislib
+> and adis16475 changes in this series, as patches ahead of the driver.
 
-Fixes: 3e767d6850f8 ("powercap: arm_scmi: Remove recursion while parsing zones")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
----
- drivers/powercap/arm_scmi_powercap.c | 1 +
- 1 file changed, 1 insertion(+)
+As you explained above I think the proper change is update the library followed
+by the driver.
 
-diff --git a/drivers/powercap/arm_scmi_powercap.c b/drivers/powercap/arm_scmi_powercap.c
-index ab66e9a3b1e2..edc1e2823ec3 100644
---- a/drivers/powercap/arm_scmi_powercap.c
-+++ b/drivers/powercap/arm_scmi_powercap.c
-@@ -407,6 +407,7 @@ static int scmi_zones_register(struct device *dev,
- 							       node);
- 		}
- 	}
-+	ret = 0;
- 
- out:
- 	kfree(zones_stack);
+-- 
+With Best Regards,
+Andy Shevchenko
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+
