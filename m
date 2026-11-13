@@ -1,89 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559755;
-	b=oPuM/dcpG+j7EDdEcUYbIbxO5bEzXvVoh7gyCazHZbUTCGCGE2DVozedELuuJ5ILp0FZ
-	 UXUNSDXGwnHDPe1vkUisTHQNlOl91WNuumH9NVY2lrVPggnjkpi8l+5Y2QEzOGNf7HTA+
-	 NlV/KoQQSxBY2LcklkItsEM+ySYL3qXeAXwkIPF3SjA/ErkekLBjlAWlrngiB6+V1+QnT
-	 0ulIU/+lic6nu49X+UNTIZ+iP9rbFEFj0649WkVJNoE69SW9Qmttp5qXdMMM4VfBEY5RK
-	 jsL89T9dXNKQpGx0EkcbwGY/lpfv1JXXKwEoT/onSEG9oZPR3Wohr9nIEED1yxk16fQ==
+	t=1794559758;
+	b=CQa4jIzSPoe1KBiCfECxwH0lfKyjm1/0LapKBzxaaPLEFs7BPHWTrfTYkxZuAXwvcmkX
+	 30VJLqJ5iuqOPOUNXnBrUiG6Qw5khShKIZhuCWZ6Dgp/ZbL5Lx9lzaQt9Uh4MW+ekbU2Y
+	 JtydY9ukVqGi90kPERFJDiPP1OPz6MfdYC+JLMhJqrcuBOp/42LO4fv+5pziO1gCqYYLn
+	 THFwfMHZYWMJ/1g9fbxE2h6rGpWRmQHoR1Whv/XkI35PJ7k4W4E93ddXeKV/9PXs6jZrt
+	 q4hY/ZBXjNO6s9d3XcXizaGEvcAaRtwnKjLOGfUFOrV0Nuh0zxJuJkYIUjWO97Uogdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559755;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559758;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=IuL3dRBiD3SJ5KZPCb6prNb4XCfFwTEE4VTqJH9O0rM=;
-	b=Yb3TOqIyNSCm0/T1j0+Ou/805jZ1ehCc0f+7hh0YsyySe2u1/ZzCCz5ZGaummpM+L/EA
-	 YqeqYLF2nbG6X8UZgeSQZACezSf9CtWQs+fIHPDoGjnbQI7j0syp428vrZGG+5FnVpE18
-	 pbb0IOEezPwGKz9jjUHlZGpiudNiXPNXnE7k5j0rtZBclmB9FH7uid78pva5O1669cS4s
-	 vbAIREjPb+laX9BGnmUcVYTsyy79YMvlD9O17UsudPmKAWTzFReioLMUya8myRtRHaCXr
-	 wvJp/WmiEMKpdWaBf5I/coG3Q1bmHE1vNxsfz4CI8dVw+wskK+nZIdxi5mt8rylwV6Q==
+	bh=4rqhIjJS9gtiSswzyzrQGj9FsyK4TI/z+J8ZIwdTjok=;
+	b=1D2eAMS//ePQEOIcAKevo/Pp9tVgElRoV1OTGgrytZimULvaVLYR/JRvsV7hsLXoOZ9K
+	 3wOTGPZreBfjWIThP9DYvdxRYu8Lsf9OJvBOAoX8D7KhAZvXXf8Vcvbsx8EDluHu6w0xQ
+	 mXrcQrmm4wrzMyXw+0hcj8JJn3KJ19L6X/S38VAUpnKRH2nqIpFnRzXh8IWbFG9OSOMXt
+	 dkyOxm+bLzQ/CbDOKuGwpO6Q7/C75yDI60AUxhHRY8uVvnnvp12gqZfS8ob1TvdsYyi5t
+	 MuqORRO9r7hvBkbS6IjnJEzdAxhmrO1lum264upXWIsCQRI3S02ypyh0DbxVxA5xyEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Qxz1/Avq";
-	arc=none smtp.remote-ip=209.85.210.51
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DKUK5U9g;
+	arc=none smtp.remote-ip=209.85.210.50
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79990606A8A1
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:49:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79990606A8A1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40743606C191
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40743606C191
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qxz1/Avq
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-84d5e56f876so806232a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:49:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DKUK5U9g
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-8446af403b5so720843a34.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:49:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794559754; x=1795164554; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794559757; x=1795164557; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IuL3dRBiD3SJ5KZPCb6prNb4XCfFwTEE4VTqJH9O0rM=;
-        b=Qxz1/Avqk0MJFrqIxkdchDZmhqJ94fiLcoltn4yObo5jfeh5z3Cc+J73XF5Ej6YWue
-         0d6QVEQ0pLzJxQpWSRGOmr1CWjqw6Hz3ZbRNFQvr+ovz98sjSzlScdld19/EKZi4BQpS
-         +hlzlh5ps4IIUz0lp/An7ajphKNCM/WYjfRa5KxW5aKrPdaRkBevLdSKnZWrlCIqMUw0
-         DQoaJgyXRkhe1V9B4q6jCHOwHNMbWe/JdlfPxxZSD7j+7KdmYtpcwHGk+LaeaRnpMVAI
-         HLmVm6bHIG8CbYTRXjMOtK82uPMdq4mwA9ErYuuaOVvaHP9PTpoQUtU/CXsFIxbGV7wz
-         ytLQ==
+        bh=4rqhIjJS9gtiSswzyzrQGj9FsyK4TI/z+J8ZIwdTjok=;
+        b=DKUK5U9gGeUJWk2mqTHfjf7C1eMdGZMW06/68FFMXasZ617H5gy/KsNTI+pjfV8/zi
+         KlvUIcJ+0htOzjihHdr2rZwFpS+jBZ+Heq4OpBfTBvzGzfeeIPkIrJxIV515/muEiyMK
+         sZEqYzR32P4dc9xKzKwBXJ/5+Eq/sOUe0NMeQ6uebt7e9j98HKMYTS3gudAzgFneTulp
+         xfxRYuk0qWsN5baBRcM6fae7J7c2VXVWLu5HU3ReJR8Ehr6daJTVodBH4u9VrFikCopa
+         XcEa1APKv6HcuiCuw7A0BKCAqD/94sSLK+V+Udw/mZ01AOTY9eMTowuF3dEiJTNLbb4Y
+         /pRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559754; x=1795164554;
+        d=1e100.net; s=20260707; t=1794559757; x=1795164557;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IuL3dRBiD3SJ5KZPCb6prNb4XCfFwTEE4VTqJH9O0rM=;
-        b=PfOWd/hjK2DP2i4XfUFfSmegfF8tCEypf8hGwfQTBie28IE13Y/nMciY5mIYDJ5bBD
-         VAxhnaXssM2vA0KAjzIFi0UR+L9URb8VxTuy8AtUZj+5uR0IpJK4KjZLDdRkMGMAcBn+
-         TBLW+h+JknfKF0HCQorI/wslZ1RdE98ncpGcBgtaeQvLlmT8wWzJ2uW2sFTwCTCh6Y9C
-         of3xQU4/KzVDimn5gOOqTtlUaNy+S2hEzdGrYR3Iax8y6HCCg0HmAJ2g+yC4m+Hzqyb3
-         y2YYpnyMWZTERL3ghEG32pE7UrP6Go9xGHmI/PlL/haMz1XtJgii+xNRuIS+YNZXluvT
-         UmCg==
-X-Forwarded-Encrypted: i=1; AL+hErEeXvmzgT8jZSKygbb6nGCuJg01Gk305odRj9/E+vsVir8pK794opX4XN34VesEW+S/y/JUKt3myOMV96U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/6AILbjwp1PAZZ8HMqMIrMfQV94NfBu4HfhdrnFToDyEnJm+dj
-	jIx+bmZhxXb/j6C/6zq/+UeaqH7lexxklRc1wGNP+V4gl4Zkdye+8tJp
-X-Gm-Gg: AYBFou0ca7KoicSQIAoy45JCYYKNk1+Tma0j+u1J0WSUhaxC5l/6S4quMQRfKJ3+S/+
-	Xk+B0KIdGulr7FgTmVEkaCuyyyoEac6JprLgYC7UyeWNgUi71xUNkkWDqHoyo09eIBLtG2jqq9e
-	WFQaNDOv9dvd3mzQGVf4qSyqbt+i5r15Wk6uCvAqTGKQj3c+2W06WbLWiKzn4W/YtvA1JRFH5dl
-	Dew9JNFOaOoYB7NfuUdsL9s9waIttJKJ1Zl/GIuYBe1IPpkMUXibSyBTcpDemgvkYZqgrjgYVkq
-	ebl8FayETy4faqQWwRp+c/uBMhcfma6CYhwJmtSkViolQpdpbSxpi3j7ad0oe2H+oVSgSgXU5La
-	78oo3SnlK4HqymZWnk3om6aPN1BadLUeRCcPRUAH4X4Ys/fGoKWucTLY/8nLHBqDisA8fz4/Jz+
-	+iVA/efwtGNRfqqUIHm2bAeghn+dNPZgAJIzYyeiHnd4DI5aARiEFcTN10ef1O63R7KtR3idvkx
-	oW1McSnUY/tU2/5rxXq/lE9hA0/2kEdGJdKFwBr5+Zl5AwDO4KgeWqZEn1s2actDhQEVThQdoSs
-	S8Rtpk33sMeo54QpLpAZ/TIUr3D3Q1mSnpW77/DNOAOMb4zdNdyDGYfG5C8fT7RiWoJiOd3GTCG
-	RUZoLDjD3ab1KSJ9PuU2hwUC97E1bZ517KSHkET3yMjwKhRWREnTfNvbyxf1NuyLfcmo9xb75ho
-	HAayU0PNe1ltuQ6WZQ+KFaOU794vDEvISsAwbgKFZCK4/oHbM6L9c=
-X-Received: by 2002:a05:6830:4104:b0:821:a0a4:5016 with SMTP id 46e09a7af769-8628985a066mr2039409a34.18.1794559754339;
-        Fri, 13 Nov 2026 00:49:14 -0800 (PST)
+        bh=4rqhIjJS9gtiSswzyzrQGj9FsyK4TI/z+J8ZIwdTjok=;
+        b=OyJdKBgjZnGIZUotildwr9IxofjKEsKYDw2jCvz/gn9NTJT8CvkfisV4lTqMRQ7Yp6
+         7bZoWpynuurGuiCzoqymDbmUIkL3Coo08dC4lVOwsxjOCLYcKl7xrCE1ralhdQ3hGbti
+         muK7rqtrOFLrWaEyOSSq92KJ9ZY5tHLkl4vnjJxyeWQ6xjq4I8n++tPltI3p40GaOlhd
+         xyT3rgECRbAEps3fAYVNKG/80MJqi9hhZNjH7NBT0O0mg8WOOwp64kUnksqQfDEGm6wp
+         ui68JPug83S/dOpU2GXTZjDKYCrOXoAgaQZ1XEJaalsZcJLOfWjEA5/r+y9DkQVSI9DB
+         TQcA==
+X-Forwarded-Encrypted: i=1; AL+hErGqkO1MMY1nr4WrclmB36FK67cXPKpnNhDferA9HOOpWZBuna7ikgXZC2TMhRwCl8jIxvuWXnqPeP+Mi2U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0LSNEeCOopX9yhNhx3agPX1ac9Vh1j42gOww5Wtmg8unij32h
+	OezzAC1edlGsHOCYy3ORV3LdX6eNjSnFF7uir3uNBk6VPFXDT2sh83FE
+X-Gm-Gg: AYBFou0bCENj28Tt9uDG+tztpUUIgvD3SJ3YLFJzAVRf1Fn3k6l9u4vlaJtsRgtDp5q
+	spPq+0l1pwlWfCBulRFVV5okwoCA3ldGsQUU8qa+u6OtKGzMAuCtLiGjbsuApRG4vj7jjyyI/ea
+	xfmXmjAHXm1smhZ0WE/au9mvwzLbPP1Ay9msE9IERYDOzuQtZEOwv5CesHi8osMZFJiho6VXcA7
+	zt2WmQEssx8oaoVsBON2iEB6cz4q5BU4qj5ij6RQ1IduDBe8XFERMwshNp7Y7piSpQhJGVUPGK+
+	KilPl0PC9b3ZYUbyaLmNVp5mj3L+VMhlS7fSs8P2+jZYuYWSq43X3TLGoF8GqM2ED4JcKe2tc48
+	+LPY7ryqQWT4SvgRoFu2YbUuN93ExNGJ22YgRHkwCwTGSR+ROp9YFuCi+lCRpbua8hBOJccTwht
+	OEf2ByOu57Yw9wTK+wTaxTcwGpQvHRKTYn1D4aFNXSHuK8bQgQwXVmqHSonKkFVjdWxWpsoaejF
+	YStNePtxdDXRkNH8hgiqEr8QSoIyTRMQi4JK2cyllUvVcE+HbmUmviezmM05K26Asj8PrKfBGQY
+	QoJaQHB/VMOGd1/xDfGCUMvlYSstwnrU0ePG76Ye/yuZnEp6m3If5/xNZxbWxpU9YtH0gpUagz+
+	cA8IU5bJmLsL4eC4z2DO6jWQCkyQEOFHalVSIIhuIZSqG2+uXXFF08v8TS8PgMkXU4pmKUglLwS
+	VM0Wr5XQF+wYwScjTYIWEdIZzui2vQlaLvqi4R+DJN1m90hkWCHrk=
+X-Received: by 2002:a05:6830:3115:b0:81a:adf1:ae71 with SMTP id 46e09a7af769-86289739f14mr2026123a34.4.1794559756988;
+        Fri, 13 Nov 2026 00:49:16 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628817d979sm2034202a34.22.2026.11.13.00.49.13
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628817d979sm2034202a34.22.2026.11.13.00.49.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 00:49:13 -0800 (PST)
+        Fri, 13 Nov 2026 00:49:16 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 13 Nov 2026 01:48:40 -0700
-Subject: [PATCH net 1/4] net: b44: keep phylib ioctls outside the spinlock
+Date: Fri, 13 Nov 2026 01:48:42 -0700
+Subject: [PATCH net 3/4] net: phy: quiesce the state machine during MII
+ resets
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-submit-phy-mii-reset-v1-v1-1-02a55f352a91@gmail.com>
+Message-Id: <20261113-submit-phy-mii-reset-v1-v1-3-02a55f352a91@gmail.com>
 References: <20261113-submit-phy-mii-reset-v1-v1-0-02a55f352a91@gmail.com>
 In-Reply-To: <20261113-submit-phy-mii-reset-v1-v1-0-02a55f352a91@gmail.com>
 To: Heiner Kallweit <hkallweit1@gmail.com>, 
@@ -108,41 +109,103 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-b44_ioctl() holds bp->lock with interrupts disabled while calling
-phy_mii_ioctl() for an external PHY. That helper takes sleeping MDIO
-mutexes and can wait for a PHY reset to complete.
+phy_mii_ioctl() performs a BMCR reset write and calls phy_init_hw() while
+the PHY state machine remains active. The worker can access the PHY after
+reset but before the driver has restored its configuration and software
+state. A statistics update in this window can interpret cleared hardware
+counters as a wraparound.
 
-Keep the spinlock around the legacy internal-PHY ioctl only. External
-PHY register accesses are serialized by the MDIO bus mutex, as they
-already are when called from the PHY state machine.
+Disable and drain the state-machine work before resetting the attached
+Clause 22 PHY. Reenable it and trigger a new check afterward, including on
+failure. Disabling the work also prevents interrupt notifications from
+queuing it during reinitialization.
 
-Fixes: 86f4ea63e696 ("b44: add phylib support")
+Wait for BMCR_RESET to clear before calling phy_init_hw(). Drivers without
+a soft_reset callback otherwise begin initialization while the requested
+reset may still be in progress. Share phy_poll_reset() internally for this
+wait and propagate its read errors or timeout before initializing the PHY.
+
+Do not hold the PHY mutex across phy_init_hw(): some driver initialization
+callbacks acquire that mutex themselves.
+
+Fixes: 00db8189d984 ("This patch adds a PHY Abstraction Layer to the Linux Kernel, enabling ethernet drivers to remain as ignorant as is reasonable of the connected PHY's design and operation details.")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/ethernet/broadcom/b44.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/phy/phy.c             | 27 +++++++++++++++++++++++++++
+ drivers/net/phy/phy_device.c      |  2 +-
+ drivers/net/phy/phylib-internal.h |  1 +
+ 3 files changed, 29 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/broadcom/b44.c b/drivers/net/ethernet/broadcom/b44.c
-index f994636fbd5f..e9f116dfaad9 100644
---- a/drivers/net/ethernet/broadcom/b44.c
-+++ b/drivers/net/ethernet/broadcom/b44.c
-@@ -2126,14 +2126,14 @@ static int b44_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
- 	if (!netif_running(dev))
- 		goto out;
- 
--	spin_lock_irq(&bp->lock);
- 	if (bp->flags & B44_FLAG_EXTERNAL_PHY) {
- 		BUG_ON(!dev->phydev);
- 		err = phy_mii_ioctl(dev->phydev, ifr, cmd);
- 	} else {
-+		spin_lock_irq(&bp->lock);
- 		err = generic_mii_ioctl(&bp->mii_if, if_mii(ifr), cmd, NULL);
-+		spin_unlock_irq(&bp->lock);
- 	}
--	spin_unlock_irq(&bp->lock);
- out:
- 	return err;
+diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
+index 4ac72a1b4f42..5da8a699446c 100644
+--- a/drivers/net/phy/phy.c
++++ b/drivers/net/phy/phy.c
+@@ -297,6 +297,30 @@ void phy_ethtool_ksettings_get(struct phy_device *phydev,
  }
+ EXPORT_SYMBOL(phy_ethtool_ksettings_get);
+ 
++static int phy_mii_ioctl_reset(struct phy_device *phydev, u16 val)
++{
++	int ret;
++
++	/* Keep the worker out until the driver has restored its state. */
++	disable_delayed_work_sync(&phydev->state_queue);
++
++	ret = phy_write(phydev, MII_BMCR, val);
++	if (ret < 0)
++		goto out;
++
++	ret = phy_poll_reset(phydev);
++	if (ret)
++		goto out;
++
++	phydev->autoneg = AUTONEG_ENABLE;
++	ret = phy_init_hw(phydev);
++out:
++	if (enable_delayed_work(&phydev->state_queue))
++		phy_trigger_machine(phydev);
++
++	return ret;
++}
++
+ /**
+  * phy_mii_ioctl - generic PHY MII ioctl interface
+  * @phydev: the phy_device struct
+@@ -349,6 +373,9 @@ int phy_mii_ioctl(struct phy_device *phydev, struct ifreq *ifr, int cmd)
+ 		} else {
+ 			prtad = mii_data->phy_id;
+ 			devad = mii_data->reg_num;
++			if (prtad == phydev->mdio.addr &&
++			    devad == MII_BMCR && val & BMCR_RESET)
++				return phy_mii_ioctl_reset(phydev, val);
+ 		}
+ 
+ 		if (mdio_phy_id_is_c45(mii_data->phy_id))
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index b39e945cebd7..8b0c1f28963b 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -1232,7 +1232,7 @@ EXPORT_SYMBOL(phy_disconnect);
+  *   standard phy_init_hw() which will zero all the other bits in the BMCR
+  *   and reapply all driver-specific and board-specific fixups.
+  */
+-static int phy_poll_reset(struct phy_device *phydev)
++int phy_poll_reset(struct phy_device *phydev)
+ {
+ 	/* Poll until the reset bit clears (50ms per retry == 0.6 sec) */
+ 	int ret, val;
+diff --git a/drivers/net/phy/phylib-internal.h b/drivers/net/phy/phylib-internal.h
+index 38ee294f3c96..680823633d98 100644
+--- a/drivers/net/phy/phylib-internal.h
++++ b/drivers/net/phy/phylib-internal.h
+@@ -24,6 +24,7 @@ void of_set_phy_timing_role(struct phy_device *phydev);
+ int phy_speed_down_core(struct phy_device *phydev);
+ void phy_check_downshift(struct phy_device *phydev);
+ int phy_scan_fixups(struct phy_device *phydev);
++int phy_poll_reset(struct phy_device *phydev);
+ 
+ int mdiobus_register_device(struct mdio_device *mdiodev);
+ int mdiobus_unregister_device(struct mdio_device *mdiodev);
 
 -- 
 2.53.0
