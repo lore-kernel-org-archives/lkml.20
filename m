@@ -1,116 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794599027;
-	b=EaHD7oEbjZF7ZTqc18P8+mEK4F7n+0jzpBlv478FQ+rwCWQw1m14OVki2b56NJWVSHsQ
-	 TbZ0nPWfvF5VBYEbTQusylYZZsZD14JZS3hqh80JzEJb8yyfH9I1sZSYYFigG13+yo33R
-	 x9P6K42sT907R7PFyzuZvkFirycGyosjAlvlVQv33uDmMseuBit4OUc0lnoh/JUwi0Bm4
-	 EaaF3cn5PmAG7TCx4qAnuDWRtvpDSsNu1SXYYfKOfx52jkb1MVJH4s1krM0i+1BwF87ij
-	 lW2fExeqMR0Q5lmG1/w2MJEHxTUQtbtot8Ro1cUmSFU55nzLLxUzf2XwFMt2493crNg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794599027;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Ii57/go5pMgEms/fJPZsdT1dCLnL8gw/d6vRRrzYB+g=;
-	b=rqr4tqqD4FL2K7lV1PKGUBORINdqgtXIaPrrkkJ9L94wZtHLmewfzLEESu1L0TWpDkGT
-	 ghkDU0NP5Qja8JOp37yo3z7MD9OUyOL/EaNRu8/IForyFWZs611BcVWYFCXllgnEQuGee
-	 Xz3s5D8EePFsKANjcqVvDVqZ6F9OMyYzISOqdedZsyt9wzB4UB1iyxb0BMC+MaWCVU5OJ
-	 M5+bv//TcFD3hhroJk4mIrfkXoo9YwJClClBzr8lmhhSwT/XClPC5epghOljYpDPmRA8m
-	 sMN4kC9qEP2uK2EWj9vsvUHPhmLGniIxxJ2Brayj0mysbsvWwq2u9gEqfjI2PcsIYgA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Rce89IyF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.28
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010028.outbound.protection.outlook.com [52.101.61.28])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794599076;
+	b=kFVdNEg/W8JYsd8vOJD83OhN+SdEl/z8QOUqWa+d3gVBSDpnyPNMmN4zU1B/6QWL+1v0
+	 0tpbaIlFH33kvQHj8RZw8OVXxfA9ST6di+yRUqxJy9Q24FI3CqjtjPvq6am8DzgEVBOy9
+	 copakvtvTP8i2F6EU2fDQOonOuP92rO5PmvhVnw7CebgSr8puM+vqEgoqU5qFrxNgYxLt
+	 NnIgFOFpqK/ZymzcE5Svrup0ABLpxZa+Js5R9D1rBseurb792BjUI98Ln5IJ8moP+/sE0
+	 3rbi5b6yV3ckAQM8dzynoCn2VaiFDjuASgAKtv2n5C+X7t1m2qy+Qlr8wkOY29Xk/nw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794599076;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=pFZkk8GSif8a+05DQi0f2eWQqaqvJmxfe/oV6ObPwzg=;
+	b=0IaA/vtsU9sQi0OZyBla95JYORbpTSC46RaUCy/CwBRuWzv35A93onw6Qv7Tz2pJZR8A
+	 x9z81JPzL6WXLS7Xp6K/kjZ0GUShgwev7Thy2zubh5Ea7RVbD/Ruv+wvkyhm0LKayFFv7
+	 NzUGlTcM5dpwErsZBTjgqeCVg03G4VGD2T7OeGGolEpf28dvJGcD1mHA9xrH1yjJDMRC6
+	 fLtM5dkW9AK2YuMNqAxRrkZ6d0ZWsJilSCOPZe0y1wY/No3+MdyBQIHPPdhwi73mNFIXj
+	 iAmzHXgvbckEgNTjlN3dKi5E1rMgfb/4sP30ShSgClM557rgtAQINje6BeykDZ1GYGQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZBV0ug5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDBE606A327;
-	Fri, 13 Nov 2026 19:43:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDDBE606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3497606A333;
+	Fri, 13 Nov 2026 19:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Rce89IyF
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rNuz6dunSyVaIcl+FqX88hL9kXu5WCtDbyG/F1ep9Eodb7CpYhn4LoQNgvbXgbcjM/LjRBe+2b+chfCeAsFQAm1Bp7TURn8z0Ngb7FF5GJk92DFbbYLElydaQuciv6xBRko9ByuSFsUTIHiqdVL2TeVdmHPP7svUzKZOY+fmg5TS8H3Cu0E1VWiTjwPEnjL/WaFKLjZM0FxMq4hbAH66OqrMZtdRwKThjNweBNTVo6I3SrlpMnZ9Edw3foFk6CR6Q9Y6FJ0Vkx7egTkTvFHNoPhZ+kIMty2AsMeOVI7CxuL2ezbKoA3E6L4jpCev5MaPmaTFMtPUB+WQazzLBVNTAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ii57/go5pMgEms/fJPZsdT1dCLnL8gw/d6vRRrzYB+g=;
- b=t5bjRktbxsBtUAbCSKsVBHU3nQviVLqL5vrwSLtjSDTqlp/NPt8c5ADoIhL+MsqxV1ShbTt0gsrp6RBuAxp7OApjXxeJZGG5XZPcTLJt6vmuKDOIz+s2qvQLtMsPDBwDKXmbqKFEeCjmH8QaI9nZtwXONEHmcC89MMQfIRvsmaUVH3L++Jz/x16IMzyzIVu03ZeIutaWGQMKd9hTLkEHvPgTpSlJVKhTWYnGsW0SWWQWVhnpqjmacIQHxibs9WspwUrgnRr9Yre3ZhypE22dLyRjBw3Iwh6wMhHOKRvRlm7RKIbLNMmdj6glKdWOTNBXeIdjdM9dU7wTEXq/rY20QA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ii57/go5pMgEms/fJPZsdT1dCLnL8gw/d6vRRrzYB+g=;
- b=Rce89IyFKqs0QUpAp871IxqO6AmrjvFnJ62DegnLIfYXDB6hc1oOa6nBi7gjVw9tYsJH674XFTVpIduRPGJEEtLVhowNGM7AONwMM3LiFQIeNpybBiWBx6FUC7MU1hU+Vk14bV54kmwK9Dwh5KsTvmVVTKzYYhj82HD75SpxfagdGoBwAgqZ0OPTw4sZ/nUoBjRREf0UdmuWsUJK7qWiink1LEJjV5ktI+tzHPiirHYgJCsQE2cZEgPRo+s7dzZ37ecx1ceDDUIUxz4yRg5+SmJMsMWo63Y4Sp9H6Gg4w/cktCqQCcVbZs/ZtGz7WPXUp0CCmoZEppQTXSO/Dtg2MQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DM6PR12MB4234.namprd12.prod.outlook.com (2603:10b6:5:213::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 19:42:20 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.007; Fri, 13 Nov 2026
- 19:42:20 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>,
- Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>,
- =?utf-8?b?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
- Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>,
- Chris Mason <mason@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>,
- "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 09/13] mm/migrate_device: fix use-after-free of the anon
- rmap
-Date: Fri, 13 Nov 2026 14:42:17 -0500
-X-Mailer: MailMate (3.0r7038)
-Message-ID: <FE09C34D-45A3-47B2-BF63-DF85936C752A@nvidia.com>
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-9-3d2454362e8d@kernel.org>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-9-3d2454362e8d@kernel.org>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BN9PR03CA0795.namprd03.prod.outlook.com
- (2603:10b6:408:13f::20) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZBV0ug5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45C921F000C4;
+	Fri, 13 Nov 2026 19:44:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794599076;
+	bh=pFZkk8GSif8a+05DQi0f2eWQqaqvJmxfe/oV6ObPwzg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YZBV0ug52ZeDeHR13YHljC2hoLrQVK1kJBT85iIp9A17ndKdf1Yv2NXChIIOGufPS
+	 iNGmWho69ov3rs0ZR3gpNuSRIUUPVym5mbxm3PYun1euzRvRSmuLjd6QbMe/lJ9EzR
+	 EyE2yQrNHPGDTbOPQGwl0AIioMb7PHIWKJ/3XDSr88ocNKQ95rpmI38Wnx/eSu+dLW
+	 uCV7DCLVj6P8gizgt55ktVMhIZ3Y0b/ZFnKYuHblff3g2Nf1eavRURSXdNMCVFkFro
+	 9DLVvVA6qqjJmEFR8e6D+KMMrO3KDTr+pjMv9Sv8MPJD9nCasLCpDhZbzG7hOIfDMf
+	 PrEnHQVyAEqUA==
+Date: Fri, 13 Nov 2026 13:44:33 -0600
+From: Rob Herring <robh@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Kan Liang <kan.liang@linux.intel.com>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] libperf mmap: In user mmap rdpmc avoid undefined
+ behavior
+Message-ID: <20261113194433.GA3321047-robh@kernel.org>
+References: <20250914182437.1959331-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,110 +64,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM6PR12MB4234:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70f27778-1612-44fb-47e7-08df41be3b6f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|10067099003|11063799006|4143699003|261026121527099003|56012099006|261021123027099003|261021121427099003|261009223027099003|261102123227099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	N/U0zk247uFumxEjjGS1n6ZpS6zhqpDeEryHJH5rSlm5DqiCF2k0C2Qc8Oe02R8qLacAlCVUSJCpDhRx85Xrfq8owxSbjHNZPxOyKDL4A9hZkyWIonwCNhXlVRqg40bchwbjVJhVtw07e0rPugBVNzAcUIJZBpVHEDSRUcwOfQi44yOBNibpCoes6D2NlVbJSobJAezSdni4JMxqJZQ89WPnx3/OpoRvoAaCcSYeZ26WZZwnMsXlhiDzCTcxllZEXE8mEVLimUtK7rnNrpS2I0NX7/7k+up/9OnBI9RyohS6x7/PUT5rvVPJ9bXQozU51cnCstPV6NBxSZJw/TK2QiLRukRygJQf7cC2Zx2yTEu94eThBNu8kQJCp3ICmP7ZfvGpzZlvUOSPgL5uCzDT+PODpcgbUMgHKiiEPSv44pzB6bG4x9tKPxyeRjez3uzN3XWB/bm/p4h/IiJ7AqCuEUG0gLsW1Ref2Xqvwfir/A+OW8wtWtV4bSCZZ4qA+0trVGwImL/zV492ofPHSlP9y5WgEUFrrSnqo+2LmiU9lge/TJypa14V5EtYYPFg5Mn5OP3jKheI7/wdSu27mQBJmA3nnr725PInaoxKId9keH33Xkm2vAVkSYLUxo2ioRi16+LpOulleZNEQ503FZ+lLz74asSSz7PtWQ234xd6ei0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(10067099003)(11063799006)(4143699003)(261026121527099003)(56012099006)(261021123027099003)(261021121427099003)(261009223027099003)(261102123227099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?aGzf468z16PY4smz519C8xjKzQjg/nblt9/z+c71QopC6oQcm3NR1Pn96Cwp?=
- =?us-ascii?Q?KR6ewFZ+aERFw+TXIO3VQMAsEt6BxejSHqR7ytdTz9qNeE5nQJ3/sUhJxxSn?=
- =?us-ascii?Q?SeZaRRKLzN8UW5FUCmiYHBHuPwuSO/VVRxdwkyZ/WWNJGqA4+mVipz/SUhBP?=
- =?us-ascii?Q?Tu9Qd+u8byYHLVWhHLfB3RqnNtqrcSE9YFLskzdm3nNXAjCLwByyVCjyuZ6j?=
- =?us-ascii?Q?q/CU1pzoRHdCbhUsO3ljTYv1AOeujsMa/wVtNgEa9RjjRC1gGriFUKXUwt0o?=
- =?us-ascii?Q?RUwhQxRrPJO017E77YiRfURdNulhMVcXOTo5e+kc3nlRVKfxIg2OFo2Cq51H?=
- =?us-ascii?Q?SpMgGepwsPL23l8MWEGZwZn9jZORYPvEsmoLJjfwLgElCLP0qjm9SAc3o7bh?=
- =?us-ascii?Q?GEcRLzr24/BpaRobFxQpLQmhPxbJffNfuzqqIRtD//4zIHPwG+eDZgsj8pjY?=
- =?us-ascii?Q?06EVt84aKqC9IU9JQE9jMGtNY4O0s6Tl7rpCQ5ik3voJjVAzNaeBSHN0vpEY?=
- =?us-ascii?Q?jmCOBpeOUcQJXeoOuh1Q6/eor1ENWUP9Afa2yyHUAIe1wvvIiO/mfX/YULT5?=
- =?us-ascii?Q?bboJYLP9ydvnWJZXM4UeqQwPoVTiJiqTfVUFIjWc8ST9VMOtdvjpJdoSmJnj?=
- =?us-ascii?Q?VCCe3IEVpddBi0Zk/2zaZLz4kxyM4/maMroCgXnZNmyhBLpnIOBDJlydsikI?=
- =?us-ascii?Q?nPFnWACEvSkXQMjYMapd1963U0Qge0giR+n4F+T7l6svx4WP0VgwGzLl3+Yj?=
- =?us-ascii?Q?5HlUZY6RSlM3fnbx3CiXRBZC8lv9g4VdkTE6cyvvy8ykG9XQP2qIGNdq9Bre?=
- =?us-ascii?Q?b5sylVLf4dm3Hdq2k7y2ggKKGgzEpX8UnrtVPVqEgs7CwZZwb1Vw9DhlRwxM?=
- =?us-ascii?Q?ZXfR6lwYl/s3zYzyql88O+CgEffQBn9td8B3MAMCDYY6HZ+IBXOux55RaLtZ?=
- =?us-ascii?Q?gHDDTV5aNd5dy+DlusB9/s1k9TV0C9mM9Ey7ZzJy8FX/hggSkWfryd/E6dUX?=
- =?us-ascii?Q?gM8zrstZ9zNbPdHGGjSM0C/JC32rau283xoYXuw7VgJh7O9lDhuO+7IHtlc8?=
- =?us-ascii?Q?kSPyrDVsrls9FpH8xRVbOfxGg8kksTkVrIEFwAKHxrDylCRMy+qs/1tDzV9O?=
- =?us-ascii?Q?1qeTZEuFf0mlUXvFpm2xj2Tq6VDPhCpjQkopKRTc8yPqg87SPbXdsQdhcU/6?=
- =?us-ascii?Q?ygn78ThHLTnDm9o6qIaDZ1e33pEtLT+EoogBhGpHVwwMJobYOpSOTZVmthLX?=
- =?us-ascii?Q?pTa0N3aAu50yKHWXfP05t6a4P3IH1PvxOqq82PyZZ5y0f3OjL8khHgLgl6va?=
- =?us-ascii?Q?5X1YWBG/JFBiPRgjpHAH8PvughW42ffQOkuwIjrqb+yC9+yLQrTzeuV2Pop9?=
- =?us-ascii?Q?2uUJpHcJ3rIB0TcUDp6PaPbH+Kn35M4X7s5Kaqg7kalf+TyTrC8V27xwaSIq?=
- =?us-ascii?Q?QCCgVu4PrgIb1Rf6vw866mtMFLtzBFnPif4idV9cTQQi5siJZW1cGfdrZgLf?=
- =?us-ascii?Q?aCXSV8JYWFnIfWRNLUt5m6GzamHeYypBthvC96w+p++ZJGJXaYp7h6D7bJPj?=
- =?us-ascii?Q?ZjVV8zPwBXNxH2BkM+cDekS9VrJuIeVrB3QD40w4iCgpVUj1Vtz9vPg380Un?=
- =?us-ascii?Q?TdYZFnhsBHFCsflefpStrcGVmvsf0NibJrguoh0+hdPUEmZKZN/8JBdOsYtN?=
- =?us-ascii?Q?UyNLPrjimKVf/riC/ruqr24E+YgzK+fyuABFsv3sdhTzoDir?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70f27778-1612-44fb-47e7-08df41be3b6f
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 19:42:20.8140
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yBedyoEXiJYPGfuYVTeiAPX+z7xIfdIEH2NkUJwHMKRBWNTONpxGQUo/3XIkw3uV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4234
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250914182437.1959331-1-irogers@google.com>
 
-On 11 Nov 2026, at 13:13, Lorenzo Stoakes (ARM) wrote:
+On Sun, Sep 14, 2025 at 11:24:37AM -0700, Ian Rogers wrote:
+> A shift left of a signed 64-bit s64 may overflow and result in
+> undefined behavior caught by ubsan. Switch to a u64 instead.
 
-> A munmap() of anonymous memory can result in a use-after-free of the
-> anonymous rmap if a concurrent device memory migration occurs and the
-> migration runs without the mmap_lock held.
->
-> This can occur for a long-term pin of device-coherent memory, or a driver
-> evicting its device memory by PFN.
->
-> Consider:
->
->     eviction                        munmap()
->     ========                        ========
->     migrate_device_range()
->       migrate_device_unmap()
->         try_to_migrate()
->                                     zap the migration entry
->                                     unlink_anon_vmas()
->                                       last VMA: free the anon_vma
->     migrate_device_finalize()
->       remove_migration_ptes()
->         /* locks and walks the freed anon_vma */
->
-> If munmap() runs before try_to_migrate() instead, the folio is no longer
-> mapped and gets no migration entry. The walk still runs, and follows the
-> stale folio->mapping to the freed anon_vma.
->
-> Resolve this by pinning the anon rmap of each folio which possesses one in
-> migrate_device_range(), migrate_device_pfns() and
-> migrate_device_coherent_folio() before its PTEs are replaced, and
-> unpinning it once the walk is done.
->
-> A folio which is no longer mapped cannot be pinned and has no migration
-> entries to remove, so skip it rather than migrating it.
->
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: e778406b40db ("mm/migrate_device.c: add migrate_device_range()")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+This change was just brought to my attention...
+
+> 
+> Signed-off-by: Ian Rogers <irogers@google.com>
 > ---
->  include/linux/migrate.h |  1 +
->  mm/migrate_device.c     | 39 ++++++++++++++++++++++++++++++++++++++-
->  2 files changed, 39 insertions(+), 1 deletion(-)
->
+>  tools/lib/perf/mmap.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/lib/perf/mmap.c b/tools/lib/perf/mmap.c
+> index c1a51d925e0e..ec124eb0ec0a 100644
+> --- a/tools/lib/perf/mmap.c
+> +++ b/tools/lib/perf/mmap.c
+> @@ -508,7 +508,7 @@ int perf_mmap__read_self(struct perf_mmap *map, struct perf_counts_values *count
+>  		idx = READ_ONCE(pc->index);
+>  		cnt = READ_ONCE(pc->offset);
+>  		if (pc->cap_user_rdpmc && idx) {
+> -			s64 evcnt = read_perf_counter(idx - 1);
+> +			u64 evcnt = read_perf_counter(idx - 1);
 
-Thought about other possible solutions, like checking folio refcount,
-skipping zapped migration entry, or checking if anon_vma is freed,
-to avoid adding a new MIGRATE_PFN_*, but none works. So
+According to uapi/linux/perf_event.h, this needs to be signed to sign 
+extend the counter value:
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+        /*
+         * If cap_user_rdpmc this field provides the bit-width of the value
+         * read using the rdpmc() or equivalent instruction. This can be used
+         * to sign extend the result like:
+         *
+         *   pmc <<= 64 - width;
+         *   pmc >>= 64 - width; // signed shift right
+         *   count += pmc;
+         */
 
-Best Regards,
-Yan, Zi
+It looks like a left/right shift has gone from implementation defined to 
+undefined behavior. According to the internet, the right way would be 
+something like this:
+
+u64 sign_bit = 1ULL << (width - 1);
+s64 val64 = (s64)(((raw & ((1ULL << width) - 1)) ^ sign_bit) - sign_bit);
+
+>  			u16 width = READ_ONCE(pc->pmc_width);
+>  
+>  			evcnt <<= 64 - width;
+
+The left and then right shift here is probably redundant. I suppose 
+there could be garbage in the upper bits to zero out, but I think 
+read_perf_counter() should ensure there isn't.
+
+Did the need for signed values go away or was wrong to begin with?
+
+At a minimum, the header comments which documents the proper sequence no 
+longer matches the implementation.
+
+Rob
