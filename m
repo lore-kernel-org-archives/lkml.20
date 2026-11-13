@@ -1,55 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794540375;
-	b=j5/CoDgcByt1CErQ5PCtzMie2o6MmReDa21Rxw1YxOtf6T2mpyoNAIXo/eT3xgFpThNx
-	 6txD6HstFhLn27+2G2KXCMjlsmlLy5IscdA6HNDuZuC4sjpZfBLAakOfPtRlSSkJ/oH7g
-	 WGJmUu1kiKxvqmFxLJ17rpxhBJnbRZI9cEWZFveza/AUEgRVXzVBI3i56RP6XEgLpCpkI
-	 C7cVedlQ6dI71PWxDsPSsip+oh/fbFpSDwX7Ml/8u1FryYipxlNdr6j2bf5h1QsWduS5C
-	 vd9Rj4rv3iEfUt4cdS8UAPi5TJnFWTnslXSZ4CpgCYzHdUPmPvmv9JEiQILioPbg5CA==
+	t=1794540377;
+	b=UywP5fN0X68knfbboDDJ4zC1V9M0/YOGBDzXq5QcvYhvAgrNHkugbL+ZK27U8zsThikw
+	 U5N4eAQtuJDikvQNiP6vogAC+HI7dpHJTJJRx0YgLG9Wy+WthMQsKhTcfiV3TU3yWlYIL
+	 6jyywQDULnfwawUZIO/sVNGd83Yf3rX7TkDDxspU+htPz8idwti2+kEHtM5ewbiQMQMK/
+	 E0bC8pIKqi38nHN2aj0ozG0p3stsF/jfQVAhkq9bPFDXB2pV/al5/ZIVzmQQmwlZtiL5T
+	 f7EWo64hjiDwT/ig6Rawd05DPky3YA2FuEQlfAyjLtVJDpvCKuD+ZYBJ7zQnApmZ7mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794540375;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=417pJEna1raurgsv7ENLMfGf8yuMXWK58o/ChkD7YuA=;
-	b=nfFsdzEF77ZJePihd4P9yVw78qxciVD1vQUQ+/3rzrtj+k3QtvUXXTkAXo3byfIPdaVW
-	 ylRUjQz7iL8zfGaNwyIveUFrINk4FCTBp63ikqJr/uSZXmzL4h82JpG6cpEbuVx88wwQU
-	 D3ZgKeMoavYmAqwGRTtgzsv5jY+8CNTY8L+P1IxWgMRAfMcr4nW4b1iPIUAPFycNOxC0k
-	 tDN6FWrwLcudiZF3H1ueEFvjX6BU9mWmfcJ2ZPe10av8ypwkEeY658fRc1unA0CFYddJP
-	 ZEr5DveKai+6o/j+bx4dgyCurwRRlYvHyRVgFJW7ixEgiL0KJi0c34VpUxa29o4aGjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794540377;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:X-NTES-SC:Content-Transfer-Encoding:Content-Type:
+	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=BZbhWSVYwvqc81XMzZhg6WVKBpMD+fjDJv5nXh/22Ao=;
+	b=Ai/eDMy6HR+c5t13R28flV1pcKSVG2kCQ0UI+5F8XO2K8bCW+pAOk1tuAO9ib6msBB/h
+	 nOu86wCQoewolR774XvqpaCmve8qOxV8OWxcOoXUqUI4uTBoPl6gR2TbrzjA7cuveE8y/
+	 zJIVpOTKa2AyurQ/01HRvCn9laPio8HANZ0eL+oi9S/aDdFTChvX1wi9ckR2t0svXCddt
+	 MEyDLxJv71kKpY4rsuYhtGTBOw+1jVo5YbZ9eYbROWsknKVoP7Qdj3sPqdDBLsd7VMmmR
+	 3VXr6RbkyG+nU/pd2liAfJZEEYfZY3iqVRtBgNA7+B5+MsstonLPHtC0jN+Foyj828w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XjMIGn9T;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=lZxQR8GH;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0C9606A31C;
-	Fri, 13 Nov 2026 03:26:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F948606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:26:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F948606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XjMIGn9T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852B61F000C4;
-	Fri, 13 Nov 2026 03:26:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794540375;
-	bh=417pJEna1raurgsv7ENLMfGf8yuMXWK58o/ChkD7YuA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XjMIGn9Tk3GYj6kUNLctq2fVWzIA7wq3Tz8ZKxI6rYifGkvjY+tHy0DRor8hB+Uve
-	 Ft748nw1mooWJ2kqM3/BTTxo8E24hDj6v04UD9TWReyEZbW4ryMsVo1KeKFJkSrnQy
-	 q5z8y4IzycX26waOfWeL+wMLo5ItUdLo2+t2VwzEPrUXP6jXM4MIG5Q+r+QodRfGRF
-	 1AGs0z/QxrOpM4HltyZK6nl12e6M4nyR9sV+jH7QnPcVfdsqMAp9k4zqkspdkF6ikY
-	 NtIO9+FISp2UvC2yxzFMw3Dh/VmqrEsQe82lQWu98CntM/TNX/7qTA6YwQhL0DSV4w
-	 lsvGWwJppJyKQ==
-Date: Thu, 12 Nov 2026 19:26:13 -0800
-From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: Longjun Luo <luolongjuna@gmail.com>
-Cc: peterz@infradead.org, mbenes@suse.cz, pmladek@suse.com, 
-	joe.lawrence@redhat.com, song@kernel.org, puranjay@kernel.org, nathan@kernel.org, 
-	ndesaulniers@google.com, morbo@google.com, justinstitt@google.com, 
-	live-patching@vger.kernel.org, llvm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 00/11] objtool/klp: DWARF-based cross-build symbol
- correlation
-Message-ID: <avZ9Ku61M8z-2axF@jpoimboe>
-References: <20261104133158.3187525-1-luolongjuna@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=lZxQR8GH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=BZbhWSVYwvqc81XMzZhg6WVKBpMD+fjDJv5nXh/22Ao=; b=l
+	ZxQR8GHVSwvMd8ogI0RPV33NbdGqc8S1i0vAa17kQ7OncLg4+GEoBCG69wcbssBR
+	kG7OoM2CZYywtuoOciBh0tQBkIkmHGMdt6IKUC4itrRusK4a8fy3X6YO4HPsYDLB
+	GEiqg6EnMRbDfKldyX9n+X8XjRcdkwHWPRLMORmkcM=
+Date: Fri, 13 Nov 2026 11:26:01 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: agruenba@redhat.com
+Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: INFO: task hung in gfs2_glock_nq on v7.3-rc2
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2SBvmfv0st5yieY+kdmEsTju82UcS4ufQl245Xc98Fnj/m0QAgUkVjHWLvy8SkMRGyrhS9cglw1fpzYbByNLzbvb2TVHdLyK981b7X0g==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,78 +60,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104133158.3187525-1-luolongjuna@gmail.com>
+Message-ID: <2b1d6f3b.2f1d.1a1d2f0d896.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:hygvCgD3l6FKg_ZqjlY2AA--.1613W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC+QpL-Gr2g0rngQAA33
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Wed, Nov 04, 2026 at 09:31:46PM +0800, Longjun Luo wrote: > Open Questions and Next Steps
-> -----------------------------
-> 
-> This is a substantial change: 1,755 of the 4,010 added lines are tests,
-> and about 1,300 implement the DWARF reader and identity layer. Before
-> preparing a merge-ready series, I would like explicit maintainer guidance
-> on how to stage its integration. My proposed sequence is:
-> 
-> - Submit Patches 1-3 separately with their regression tests.
-> - Prepare the identity representation, DWARF reader, and ELF cross-checks
->   as a foundation that can be reviewed separately from twin matching.
-> - Integrate the matching changes in Patches 7-10 together: reference
->   extension pairs repeated statics, and the reference checks reject
->   remaining ambiguous data references.
-> - Submit the memory optimizations separately and pursue explicit state
->   annotations in a separate RFC.
-> 
-> This RFC retains upstream expectations for the three policy tests to
-> make the behavior changes visible. For the merge-ready series, I will
-> update their assertions to reflect the agreed policy and move Patch 11's
-> tests alongside the changes they cover.
-> 
-> I plan to add triple-based DWARF correctness tests in upstream compilers,
-> using known source definitions and optimization variants to check
-> coverage, non-conflict, and attribution accuracy (with clones, pieces,
-> anonymous scopes, and folding checked according to their respective
-> semantics) without locking in a specific DIE layout or suffix scheme. My
-> earlier bug reports and fixes on IPA-ICF, weak-override attribution, and
-> assembly CU selection [2-6] provide concrete test inputs, and the same
-> attribution model applies to consumers such as AutoFDO [7].
-> 
-> I would appreciate feedback on four questions:
-> 
-> 1. Would maintainers prefer to integrate the identity representation and
->    reader first, then evolve twin matching in a follow-up series, or keep
->    them together for integration?
-> 2. Is constraining candidates by the identity triple and extending twins
->    via checksums and unchanged-function references the right foundation
->    for correlation, and how should the final ELF fallback be bounded?
-> 3. Is the handling boundary in Case D reasonable, and should explicit
->    state annotations (such as `KLP_NEW_STATIC()` / `KLP_DEL_STATIC()`) be
->    pursued in a separate RFC?
-> 4. How should we structure upstream compiler tests around the identity
->    triple to protect both DWARF producers and livepatch consumers?
-
-There are a LOT of words in this cover letter.  The whole thing is a bit
-overwhelming to try to review, much less answer these questions.  Please
-don't use LLM-generated text, as it can be very difficult to follow.
-
-Also, I noticed the cover letter has several back-references to v1,
-adding to my confusion.  The cover letter should be self-contained, such
-that a reviewer can easily understand what the patch series does without
-first studying v1.
-
-DWARF is the most controversial and complex part of this series.  Before
-going there, we should look at whatever can be improved *without*
-relying on DWARF.  That will then make it much easier to evaluate what
-additional benefits can be provided by DWARF later on.
-
-klp-build is very much a pragmatic tool, and most likely will never be
-able to handle all possible AI-imagined edge cases.  It should always be
-used with caution, with someone (or something) double checking its
-results at the end.
-
-I suggest splitting up the patch series, focusing on fixing the more
-realistic and tractable issues first.  Maybe even one issue at a time.
-Human reviewer attention is spread very thin right now, please make
-legibility a top priority.
-
--- 
-Josh
+CkhpLAoKCnN5emJvdCByZXBvcnRlZCAiSU5GTzogdGFzayBodW5nIGluIGdmczJfZ2xvY2tfbnEi
+IG9uIExpbnV4IDYuMS4gVGhlIHNhbWUgZmFpbHVyZSBpcyBzdGlsbApyZXByb2R1Y2libGUgb24g
+djcuMy1yYzIgd2l0aCB0aGUgYWRhcHRlZCByZXByb2R1Y2VyIGRlc2NyaWJlZCBiZWxvdy4KCgpU
+aGUgcmVwcm9kdWNlciBtb3VudHMgYSBjcmFmdGVkIEdGUzIgbWV0YSBpbWFnZSwga2VlcHMgYSBk
+aXJlY3RvcnkgZGVzY3JpcHRvciBhbGl2ZSwgYW5kIHBlcmZvcm1zIHBhdGggbG9va3VwcyBpbiB0
+aGUgbW91bnRlZCBmaWxlc3lzdGVtLiBUaGUgYWRhcHRlZCBzeXogcHJvZ3JhbSBrZWVwcyB0aGUg
+aW1hZ2UgYW5kIG1vdW50IGNhbGwgdW5jaGFuZ2VkIGFuZCBhZGRzIGV4cGxpY2l0IG9wZW5hdCBs
+b29rdXBzIGZvciBHRlMyIG1ldGEgZW50cmllcywgbWFraW5nIHRoZSByZWNvcmRlZCBsb29rdXAg
+cGF0aCBkZXRlcm1pbmlzdGljLgoKClRoZSB0YXJnZXQgY29uc29sZSByZXBvcnRzIGEgaHVuZyB0
+YXNrIGJsb2NrZWQgaW4gZ2ZzMl9nbG9ja193YWl0IGFuZCBnZnMyX2dsb2NrX25xLCByZWFjaGVk
+IGZyb20gX19nZnMyX2xvb2t1cCB0aHJvdWdoIGxvb2t1cF9zbG93LgoKClRoZSBsb29rdXAgcmVt
+YWlucyBibG9ja2VkIHdoaWxlIGFjcXVpcmluZyB0aGUgZGlyZWN0b3J5IGdsb2NrLiBUaGUgcmVw
+b3J0IHNob3dzIGEgcmVwcm9kdWNpYmxlIHdhaXQgY29uZGl0aW9uLCBub3QgYSBiaXNlY3RlZCBy
+b290IGNhdXNlLgoKClRoaXMgaXMgYSBmb2xsb3ctdXAgZm9yIHRoZSBleGlzdGluZyBzeXpib3Qg
+cmVwb3J0IGh0dHBzOi8vc3l6a2FsbGVyLmFwcHNwb3QuY29tL2J1Zz9leHRpZD05MGY5YzUzYThl
+MTE4MWFhM2Y0Yiwgbm90IGEKYmlzZWN0ZWQgcm9vdCBjYXVzZS4gVGhlIHRhcmdldCByZXBvcnQg
+c2hhcmVzCjExIGtleSBmcmFtZXMgd2l0aCB0aGUgc291cmNlIGNyYXNoIHJlcG9ydC4KCgpSZXBy
+b2R1Y2VyOgrCoHN5eiByZXByb2R1Y2VyOsKgaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3LzExWWVK
+S21ZCgoKY29uc29sZSBvdXRwdXQ6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy93emU2TDRjYQpr
+ZXJuZWwgY29uZmlnOiBodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS90ZXh0P3RhZz1LZXJu
+ZWxDb25maWcmeD04NzJjMDQ0NjYxNzk4MzNmCgoKS2VybmVsOgrCoCBIRUFEIGNvbW1pdDogZGYy
+OTA4MDkwY2RhMzY4YjAxZmY0MzcwOWY1MTg5MDA3NmM1NjE1NwrCoCBnaXQgdHJlZTogbGludXgt
+c3RhYmxlCsKgIGtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzIKwqAgdGVzdGVkIHRhZzogdjcuMy1y
+YzIKCgpMZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCgpU
+aGFua3MuCgo=
