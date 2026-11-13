@@ -1,47 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597340;
-	b=aPAKUrqABf9sZTegqE6toKgZkcBuFKjr3ihaFaNReLXU+zHenzaGeMm9T9oTQ37mZkTg
-	 vPgrCTgV9jIVR6z+KocVz1GkLzyXsjWowGSqgqyq2633eh8/ZftyYJ9wX/1G95ztyNMQs
-	 jh7e2qo5mGtm5VDcVkw8wNH0ghCdJhecC1QU90N+AUsuvC6/Ks0rflM9TLWgUBY3kFDmx
-	 u3VKfB9bTAa4cc4kqXR3RgwD9u1OVaqve3rVTf+ghA0WPvE8IlNz0RMwx3VMifbiTaliE
-	 g8p77vVtEN/sxhBMlY0M/oMxHhMT0H4d/jPHDVWbCZhZBzF5zY8RKYAOtbnFOPPBW3Q==
+	t=1794597363;
+	b=s7HWWn2TkQBiSrDoDvdz9uEmybzaLTeXR0xBJfzAoJ8V8lGfg7F+k0xPyt7XYZOj16PH
+	 nYc7T81ae+BAnmfPen+0w8ORVvYs1uCLmjvbVkNA7crNu2jC5d8W+W850GN4ZgFFthuUy
+	 Hvz1uUNWjm6RpfE0wJKU3IQ5rCQaU9t9dKmGthCw1ISnGCzAKNN9zTAl/J5SV0ERhm78F
+	 /1HN96/V2DxjZ0z+3IJNNE1wsMs84UHoLnpMeDpXY0PyVNWq0Ecw44rnJw3i2J9bEVxre
+	 bRDQ/39VW4vgFfC/lZFFLs6NPbW+a2ii0rXfpOIc7emZ717+1232yYDdWCJwAPLFVvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597340;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=hwPuVq7T8FdelkrZoqjLG70zrzZ/KbjEwFQO6WatOkU=;
-	b=r74YsRHlUP8dIThaKtYdVZfihWJzbrMzS0JN8uhmH+RnZINYPzqN+UyvBXqZNa3Mmnw+
-	 5idYb68VpVYvWmxVdoGm9hXwMRt9x9tuI/SXPW8jNWtyY/zXYQJdUi/z/sFsyWmnN/1QH
-	 Lp0Y8V/lH14LWkuVla8wGwwl6PGNqc8TdcVPlGiUtPlZ71xl5LKakBCeRy1Ay8+wNnUW3
-	 m/tOhkRnEDma9cj0+5sz/PD0RCIQOz/HuIbZusUuw+F/r/6pp89H9PYF7lTTWj42La/Qg
-	 3ba5S1mR+qucQ+rmgG/7IpujHWkzZYYfz9kOdI8uWagiUTp11TpIeRqW0BpkvNLwvpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597363;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=smnu7VD9Pz1vXy8ma2OlP4P/s5o4CZDhpsXj1YzIp78=;
+	b=2yYCdh1Hj0hlSMnnQIeMPTdjM8AGPLuJXpgoaUqXmd//o1Ojnz3q/DI2f/8NUdLTbo3O
+	 uTQC0281FszadDcYNK2C1Ii2As0bQmFK1Jl3p6yx6DZpbqUnCK8bkVk6JpYqS6URjF+75
+	 D3eWbjUnnqZYPKF43Keqz6MQuj3IsTjIM+0tB22Or2YL4v0bsVb1Qepusm1qmY68ZerMN
+	 xAUhin9ZfqcfpOg4kho3LgbOjNREU3Ls8vCRkG16EECBF6IsQ9KcIf1PnrXFpAtL3K7kW
+	 3dlVf9oTXFZPTRw1kNpVKBYkV9TZ8uOPCSczwHZC6L9AsgHN0LgrhmXTZNi/VGMCEug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LjmXZN4T;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MJ96ANHU;
+	arc=none smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD47F606A327;
-	Fri, 13 Nov 2026 19:15:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072D2606A336
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:16:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 072D2606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LjmXZN4T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34681F000C4;
-	Fri, 13 Nov 2026 19:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597340;
-	bh=hwPuVq7T8FdelkrZoqjLG70zrzZ/KbjEwFQO6WatOkU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LjmXZN4TxOHWUMeds0ZDPxwPCBanIIeDnosnRa9n71ZxOThzbLrZgo8dJNYMXfqwj
-	 mW/DpaVwx5UkWp/+j4UaZ3V6+W7fDsNZb3CDJbdrpQeHrBwsnOB4an6C2KWXWHxcdN
-	 A0LR0HWkvBY/UKYBWCJ6b8qEzT4YCefgJxwv1S4ewW1U0mhkaFtqSVfjrtdEWnHKmO
-	 OgVRoeK4MHUrpXzMBIJ+45gKib4aXMDx4tCerHrLm51CAvJAbb8qI246UZLsLACGPH
-	 9lB2uXB3KBe87fpe69pC69v1a+e3nhCYIAd3V7GUSRQFSnNQ/R5WoGEFdjNXxQKUB4
-	 vQ7k5qcNPlGcA==
-Message-ID: <0d6e29f8-54fc-427a-a979-1a8c6f4e3f06@kernel.org>
-Date: Fri, 13 Nov 2026 20:15:34 +0100
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MJ96ANHU
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b335eeb340so13034487b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:16:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1794597362; x=1795202162; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=smnu7VD9Pz1vXy8ma2OlP4P/s5o4CZDhpsXj1YzIp78=;
+        b=MJ96ANHUD31SsK/+X3IbvX/qJUeo2NwA9VYta5uaqCSNpDt1S38ccpMLpbOkxUpwkN
+         mIMsQvL2tMtHFJCbVAbwmrvEhr0Iajg1hzk4kH1g1emsQwOs/8o8qYnbGsW9KIw0IeKt
+         TUB819w185X/mwZRZOPKBO4CXxv60/xkleUO1lhqHJVhFHzTOmSiBbtf8U13Jf95I+qe
+         70GnRjd8e2Tu7xWT0Qpqc7fsI/58Obhzer+jgFenwi3bkbkD6unxPWQoC9UFpA0DReWd
+         cA1CkmeWcaGREsXQ/YJW32yn9M0B9FDAxNjp+JMeRdwXkxpaXNlkBJELJUjPdVMbq8Au
+         sVjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794597362; x=1795202162;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=smnu7VD9Pz1vXy8ma2OlP4P/s5o4CZDhpsXj1YzIp78=;
+        b=s1mk5e+tCrS01vsVTknaHgQKnKR/E87Rpm3UB++BnI+nJlnA5VD+ZbMwZcV3tHH70L
+         PMGTei6zDUl04uUHu8Z1f4flUZNQvrWq0OppAJRBx6Yj+bLYOubtOETFFeKzad9DorGy
+         u3el63M6ahqJ5uOBe/5wvwTeOR/acd9hauvzWL4TsfbBaJx5XsIcnjgOP5dBzkJB2gd7
+         J/stP1NbkMaqk8k8JPfqOICE2tGdU1CYLXdaGU658giZayvMxOXvJFKPltd4sVYSfykA
+         TRlLxHxPhdsm0V6VoacWUiKkRUKYuBusDj+yCsG6aDMiZhEUW88cay7vWbhjvcW2xxXI
+         +FeQ==
+X-Forwarded-Encrypted: i=1; AL+hErESyxGNOgh153ngA9GPu7oTK3gFNV/8WpSC+lZUzu9VWaxLFOgo3y7/VooLBPs6QOmSsWwII+gYvm6+UuI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/t2+7rA2A9NSFPp9REY6nVeATXPCGzLLpqEvcGP/zBp8KlT7G6
+	xg7kfTk3xEJPnyyCOc0bKjZGBd5ucxAH34Sw/x9MwKI46UuntASAFT4YLMCeUVU/xu7OQDQyvlr
+	9h61WCYg=
+X-Gm-Gg: AYBFou2H5VtKabcpSoSvJkExkrBQy5QGCMm076nMVlTC6Bm5LR5+xP/pyjLx5k9WQWb
+	S+PpHYmS6Ved7JWmmEu3/qrWvtJth00ZR/77sOxoZLA/IxyyUzkLreBujb3+z/ire4SSu725msv
+	YPMYvYlHrwnBlhilpP6y9zbDEBLBTtvDXYAf2aCrbLaD5eDBAA4HR4sgE7oF1BEGYUS/xUAxaSU
+	T63QLFbli6+upvIqVzm7VEuPXGeT7DjmNNBq8jV3OjsL9CAi8rBEYZo5yEMVwcNmJbKCOV9NjDl
+	FnVmXxGzAmqXwo2kC0UhCprzsWQv10MJRo9j81I+hEC6tMdy6ew9FfNB/DbOicUJpbczMu+mG/N
+	3Din2p51H24Hprek85tfNQtDEwev3jQk5nRakP6uJs39axgVQiALcEEhLjuAByBWyOOEcl3PNgr
+	gauTlO39esRLiJ9cw6KtbmLo7U9qI+w0nSQl631lbKaFLZ9CeMRenYFUvhQ03mvf/pdDkEmInp1
+	zUvm/HEYWLx/P3I0P/mtoMKFwxXrZY6kh76RO0d0zPywSX8Z+nC5Iavku3Vo+MnKdS6yxSMJLQa
+	04PtRgZQH2fff335ySV+ZTUaXRfT5/Yyzm9K9S2ZKrnRn6yyIijuUPtypc91sMtQKE3O4M8bdFA
+	RI3BIJBrzgj+Jf0SEYqrlmVb4g0Scgfy1akoOsHpdRuIYJOwVM0+353NXdbvOlUitEco6jJXs6x
+	O3qoyJugCGsFNHWewvNU4=
+X-Received: by 2002:a05:690c:c18e:b0:8b3:38f3:8655 with SMTP id 00721157ae682-8b4aa2c1ef8mr16008637b3.75.1794597361992;
+        Fri, 13 Nov 2026 11:16:01 -0800 (PST)
+Received: from ?IPv6:2600:1700:6476:1430:93fe:5aa0:2dc4:7807? ([2600:1700:6476:1430:93fe:5aa0:2dc4:7807])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa7eeaf9sm27417987b3.4.2026.11.13.11.16.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 11:16:01 -0800 (PST)
+Message-ID: <ac65982941adb490a5a953557fdd76c649872d97.camel@dubeyko.com>
+Subject: Re: [Bug report] hfsplus: extents-tree search_key buffer is 24
+ bytes but hfs_bnode_read_key() bounds key reads against 518 - slab OOB
+ write on fsync
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Guikun Yang <yangguikun19@qq.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
+	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Fri, 13 Nov 2026 11:16:00 -0800
+In-Reply-To: <tencent_F85118A9AFDF9B230D4E8FA672510A3E2F08@qq.com>
+References: <tencent_F85118A9AFDF9B230D4E8FA672510A3E2F08@qq.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+ NFdvziOa4FgUBC4X71upsZIoZJeii2V/Jtc3B4g==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,193 +139,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/madvise: disallow guard region installation in
- uffd-armed VMAs
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Shuah Khan <shuah@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
-References: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
- <0e3e876e-c3df-4660-ad89-a5f0fd7dedc8@kernel.org> <avcNcL6svEOTg_3r@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <avcNcL6svEOTg_3r@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/13/26 14:59, Lorenzo Stoakes (ARM) wrote:
-> On Fri, Nov 13, 2026 at 12:59:00AM +0100, David Hildenbrand (Arm) wrote:
->> On 11/12/26 18:38, Lorenzo Stoakes (ARM) wrote:
->>> In order to establish guard regions, guard markers are installed in the
->>> page tables of a mapped VMA.
->>>
->>> However, problems arise when one tries to combine this with registering a
->>> VMA for userfaultfd, as such operations may themselves need to install page
->>> table markers such as uffd-wp.
->>
->> How does this interact with UFFDIO_POISON markers that can outlive even
->> userfaultfd registration?
-> 
-> The zap clears poison markers, as is standard. It's really horrible this logic.
-> 
-> So the code path for zap used by the guard install (via zap_vma_range()) is:
-> 
-> zap_vma_range()
->   -> zap_vma_range_batched() with NULL zap_details
->     -> __zap_vma_range()
->       -> zap_p4d_range()
->         ...
->         -> zap_pte_range()
->           -> do_zap_pte_range()
->             -> zap_nonpresent_ptes()
-> 
-> And zap_details is NULL.
-> > In zap_non_present_ptes():
-> 
-> 	...
-> 	} else if (softleaf_is_uffd_wp_marker(entry)) {
-> 		if (... !zap_drop_markers(details))
-> 			return 1;
-> 	} else if (softleaf_is_guard_marker(entry)) {
-> 		...
-> 		if (!zap_drop_markers(details))
-> 			return 1;
-> 	} else if (softleaf_is_hwpoison(entry) ||
-> 		   softleaf_is_poison_marker(entry)) {
-> 		if (!should_zap_cows(details))
-> 			return 1;
-> 	} ...
-> 
-> And zap_drop_markers() checks zap_details && zap_details->flags &
-> ZAP_FLAG_DROP_MARKER.
+On Thu, 2026-11-12 at 22:00 +0800, Guikun Yang wrote:
+> Hi,
+>=20
+> Appending to a file on a crafted HFS+ image ends in a
+> slab-out-of-bounds write into a 24-byte allocation. The extents tree
+> sizes its search key buffer from max_key_len, but
+> hfs_bnode_read_key() bounds the copy against the generic union size
+> (518), so any on-disk key length between 10 and 516 passes the bound
+> check and overflows the extents-tree buffer - and the reject path
+> itself memsets 518 bytes into the same 24-byte allocation.
+>=20
+> =C2=A0 BUG: KASAN: slab-out-of-bounds in hfsplus_bnode_read+0x30/0x5f0
+> =C2=A0 Write of size 502 at addr ffff888005fb4100 by task init/1
+> =C2=A0=C2=A0 hfsplus_bnode_read -> hfs_bnode_read_key
+> =C2=A0=C2=A0 hfs_brec_insert -> __hfsplus_ext_write_extent
+> =C2=A0=C2=A0 hfsplus_ext_write_extent -> hfsplus_write_inode
+> =C2=A0=C2=A0 hfsplus_file_fsync -> do_fsync
+> =C2=A0 Allocated by task 1:
+> =C2=A0=C2=A0 hfsplus_find_init (kzalloc 24) -> hfsplus_ext_write_extent
+> =C2=A0 The buggy address is located 0 bytes inside of
+> =C2=A0=C2=A0 allocated 24-byte region, cache kmalloc-32
+>=20
+> ## The size mismatch
+>=20
+> hfs_find_init() sizes the search key per tree
+> (fs/hfsplus/bfind.c:22):
+>=20
+> =C2=A0 ptr =3D kzalloc(tree->max_key_len * 2 + 4, GFP_KERNEL);
+>=20
+> The extents tree's max_key_len is validated at mount to
+> HFSPLUS_EXT_KEYLEN - 2 =3D 10 (fs/hfsplus/btree.c:318), so its search
+> key is 24 bytes. The catalog tree's is 516*2+4 =3D 1036.
+>=20
+> hfs_bnode_read_key() bounds the read with the generic key union
+> (fs/hfsplus/bnode.c):
+>=20
+> =C2=A0 if (node->type =3D=3D HFS_NODE_LEAF || ...)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 key_len =3D hfs_bn=
+ode_read_u16(node, off) + 2;=C2=A0=C2=A0 /* raw disk
+> u16 */
+> =C2=A0 else
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 key_len =3D tree->=
+max_key_len + 2;
+>=20
+> =C2=A0 if (key_len > sizeof(hfsplus_btree_key) || key_len < 1) {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memset(key, 0, siz=
+eof(hfsplus_btree_key));=C2=A0=C2=A0=C2=A0=C2=A0 /* 518 */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_err("hfsplus: I=
+nvalid key length: %u\n", key_len);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
+> =C2=A0 }
+> =C2=A0 hfs_bnode_read(node, key, off, key_len);
+>=20
+> sizeof(hfsplus_btree_key) is the union of cat (518), attr (268) and
+> ext (12) keys - 518. That bound is correct only where the buffer is
+> the catalog one. For the extents tree it means:
+>=20
+> - key_len 10..516 passes the check and memcpy writes key_len bytes
+> =C2=A0 into a 24-byte allocation (502 with a crafted key length of 500)
+> - key_len 517..65535, or any odd value, takes the reject path, which
+> =C2=A0 memsets 518 bytes into the same 24-byte allocation
+>=20
+> Both paths are out-of-bounds writes; the second one fires even for a
+> "rejected" key.
+>=20
+> ## Why the disk value reaches this point
+>=20
+> The bnode loader validates key_size only against the record entry
+> size (fs/hfsplus/bnode.c:601):
+>=20
+> =C2=A0 key_size =3D hfs_bnode_read_u16(node, off) + 2;
+> =C2=A0 if (key_size >=3D entry_size || key_size & 1)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto node_error;
+>=20
+> A record with key length 500 in a 3814-byte slot passes: 502 < 3814
+> and even. The binary-search path that does check against
+> max_key_len (hfs_brec_keylen(), fs/hfsplus/brec.c:71) only runs for
+> the records it probes; placing the crafted record's cnid above the
+> search key keeps the search converging past it without ever probing
+> it. When an insert then forces a node split, hfs_bnode_split() moves
+> records verbatim into the new node, and brec.c:169 calls
+>=20
+> =C2=A0 hfs_bnode_read_key(new_node, fd->search_key, 14);
+>=20
+> on the new node's first record - the crafted one - with no
+> max_key_len bound in between.
+>=20
+> ## Reproducer
+>=20
+> The trigger is write(2) + fsync on a file whose data fork has 8
+> extents followed by a non-contiguous allocation, forcing
+> hfsplus_ext_write_extent() to insert into the extents tree and split
+> the crafted leaf:
+>=20
+> =C2=A0 # positive: ext leaf rec2 key_len =3D 500
+> =C2=A0 python3 mk_hfsplus_ext.py base_file.img run.img
+> =C2=A0 python3 trigger_write.py run.img pos.log=C2=A0=C2=A0=C2=A0=C2=A0 #=
+ KASAN OOB write 502
+>=20
+> =C2=A0 # negative: same image, only that field differs
+> =C2=A0 python3 mk_hfsplus_ext.py base_file.img run.img neg=C2=A0=C2=A0 # =
+key_len =3D
+> 10
+> =C2=A0 python3 trigger_write.py run.img neg.log=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 # clean, write
+> returns 4096
+>=20
+> The negative control differs from the positive image in exactly one
+> field - the crafted key length - and parses normally, printing
+> "vda1 <lv...>"-equivalent extents output with no KASAN report.
+> Positive 4/4, negative 3/3. Each run regenerates from the base image
+> (the mount consumes it by writing the real extents tree back).
+>=20
+> ## Relation to the existing fixes
+>=20
+> bb5e07cb92 ("hfs/hfsplus: fix slab-out-of-bounds in
+> hfs_bnode_read_key", 2024) added the 518 bound and the memset reject
+> path after syzbot hit the same function through fs/hfs and the
+> catalog tree, where the buffer is 1036 bytes and the bound holds.
+> The extents tree's buffer (24 bytes) was never covered by that fix -
+> the bound is larger than the buffer it protects, so the check is
+> inert there and the reject path is itself an overflow.
+>=20
+> ## Suggested fix
+>=20
+> Bound against the actual buffer, not the union:
+>=20
+> =C2=A0 if (key_len > tree->max_key_len + 2 || key_len < 1) {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memset(key, 0, tre=
+e->max_key_len + 2);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_err("hfsplus: I=
+nvalid key length: %u\n", key_len);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
+> =C2=A0 }
+>=20
+> This covers both the memcpy and the reject-path memset for every
+> tree with one change. The extents tree additionally can never see
+> a key_len above 12 on a well-formed volume (HFSPLUS_EXT_KEYLEN),
+> so max_key_len + 2 is the natural bound.
+>=20
+> The reproducer (image builder for positive and negative cases,
+> serial logs) is available on request.
+>=20
+> Tested on 7.3.0; fs/hfsplus/bnode.c is unchanged in current
+> mainline as of 2026-11-12.
+>=20
 
-Right, my intuition tells me to just nuke that thing by setting
-ZAP_FLAG_DROP_MARKER.
 
-MADV_GUARD, is just like munmap() another form of "zap it all and protect it".
->>> This is especially problematic because guard region installation causes the
->>> regions to be zapped first, meaning that the removal of userfaultfd-tracked
->>> ranges will not be logged in this case.
->>
->> Again, similar to trying to uffd-wp-protect'ing a hwpoison marker (which will be
->> ignored), and then zapping that.
->>
->> Isn't guard marker installation/removal just another form of zapping?
-> 
-> I mean users being weird could decide to use it for that rather than
-> MADV_DONTNEED, but zapping is a side effect really.
-> 
-> Really the idea is that you might have users who, for whatever reason,
-> faulted in some range, and now want to make that a guard range, so for
-> convenience we zap it for them :)
+Please, send the formal patch for review and testing.
 
-I think not just convenience. There was this problem with faultaround / THP
-placement IIRC ...
-
-I'd just zap everything that's there. That's literally what the user asked for.
-
-> 
->>
->> So to me this all sounds like "if user space does something stupid, it's user
->> space's fault".
-> 
-> Unfortunately, as per Tal's series, there's more to it than that (linked in
-> Closes: tags).
-> 
-> You can get an infinite syscall restart (ugh) if you do this on a shmem
-> range (Tal's 9/12) so it's a kernel bug that _has_ to be fixed.
-> 
-> The other bits are just about a user losing track of uffd stuff if they
-> guard/unguard, as you say.
-> 
-> But every other zap code path does the uffd remove event stuff, so this is
-> still an exception.
-> 
-> If you support uffd, you have to add a whole bunch of horrifying, awful,
-> terrible open-coded uffd crap, e.g. the userfaultfd_remove() etc. And you
-> have to drop the bloody lock and reacquire it too and make sure all that
-> works correctly (...!)
-> 
-> Anyway there's basically 3 options here:
-> 
-> 1. do something like what Tal's series does - add a TON of complexity for a
->    use case that nobody uses to get behaviour on something nobody sane
->    should care about (i.e. uffd/guard/unguard/expect uffd correctness).
-> 
-> 2. Zap with ZAP_FLAG_DROP_MARKER, and silently lose uffd-wp state but
->   'support' uffd. It does fix the 9/12 bug but then subtly breaks uffd.
-
-Right, that's what I would do.
-
-MADV_GUARD_INSTALL zaps everything.
-
-It already zaps swap entries, migration entries, hwpoison entries ... so just
-zap everything.
-
-[...]
-
-> 
-> If you're really concerned though, we could go with option 2, which will
-> just make UFFD behave differently for guard regions.
-> 
-
-Not really concerned, it's just the most consistent one for me. Zap everything.
-The user asks for it, like he would ask with munmap().
-
-> (I regret, obviously, ever allowing this for uffd ranges. And we _all_
->  regret that uffd was _ever_ allowed to be merged in this state...)
-Yeah ...
-
--- 
-Cheers,
-
-David
+Thanks,
+Slava.
