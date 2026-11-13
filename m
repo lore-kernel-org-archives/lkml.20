@@ -1,75 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530151;
-	b=xD4tcuAcxXthn5O9exRdWv4oe7d4Wu0Trrdvd3RSHQTapqjIzticvI8tD1mNEdcMBLNl
-	 op1PVoLzpl/FmFhVZy0jbEUy7+GIMVn/9hxJpkykRES8mW258lMApHc2kPbLd3zK9UI4q
-	 IY9m5pwD6A/LXAZEHiOv9TFgapHMmGpu/bInd3JxOUBBRWE8ypY4NXwCJe4PG7GBX1fkD
-	 5SjOql4FLNyM+a2dLA38Ma3YYBBtQjT72cvc09ZCDBBbSR89Clwk4lEVPugxTqZQt06uG
-	 Fjy/0QXYdi8Lsu7+PJjF7PsVrK4rrYgOaTKAnVPIZsJfOntGgYglfLcPlwAvpiOxLlA==
+	t=1794530157;
+	b=Bgpxx3HoH1qLyxJdx82wq2+OI2jcty3bBYGHT4Sr/8S+l6C+WNisyjUMDsvUM9U8SxF9
+	 fJSdeRShpTg9lk3fwGy+xZTxlxPSSoy5GsQQ1h3p4if+hflxWLu0xw2F8JajcLRKtorcS
+	 gF46ezY440Ytgi2grdIBNXHyQVLvLY4SJmSgBRC4ybGFCByvCoIFJrtGRhJHoC8xzClXb
+	 PtJ0DQlEcBF/HciBTJy2E7RSh0j8HX9G2gytH5flryDj8i75r5Mu76CP/CYNyqdNEEgjI
+	 TRsGqIIuC0/hTwCKyz82cu+MdeDG1GyqNLrECljdMUPMQWFIvo8D7vffmMNsh+yd5gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530151;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530157;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=+/1cY6ZrJCVA1E38up//QamWrEv2l6bHlMUbtQACcqk=;
-	b=5P9RdocgEhzefzJ2r/xrCBVORkGZOnxA5X1cpMDRPyfR4m+DPx7MdtybqTpMY4WHUEya
-	 EmwiPpiDrwH8EMNBUVkGEG7Dy27CGgCLmR3ZScpwwVO8Zf3+jnKC2Kgs1C//bm5M6bKai
-	 xI5AV984Gv/fbpHGomCeoK2dVomgO2VfH/Zp+FG7vF3P7SxFw7ObWeHwW268vMSL28Vuw
-	 hnNgMA/++H3DKYihG5DrRILRWpG+Ou76GLXWxgsK/+3p/JgHqfcWAwAMpiuKYgJJFOlS0
-	 TxD2D6ssDGdhZpdeZe8HbT+7PrEpSYt4w2hfbX93WCCvQEOHOi9kzVGzyNEtzQ2Y2/Q==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=kTNrEmxNbCnmj9l3gKKv43Fyixiy3ZR1yX2zY41P3W0=;
+	b=0CJoCJAC7T2veRyLJ5ZOZovLAUcRo6reDqEe6dK3XO21hP1Kv4hq5wnNhC8Jl8V3TCQQ
+	 WsYzYoT2J0tsMsREc6eI0U1lKsAg8sAq2W/+h3da+7OImWjfeHbBdRC6FvIClHVX0XP9q
+	 16BIKZvVf8RVKOnsNQpSIGDSaC83UKZ8EE1ItG7oHCK3QIc3CeyOx8S3WkIg2OM1pbvRi
+	 dwjRiRvumsL7jhsVWga1NJimzYReCWXxVXj9S5bTSzadNhbU7w/9XVaBK3xt9IyYDrUEN
+	 fvqCp5Vx2DoWYWjzAEIKheTVzw6wSp8yDTQLf6YNHpwGh7huxxWF72ZpH8DirUKh2sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=R+PEhPOl;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pm4bRzhY;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523E76070098
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:35:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 523E76070098
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14D7606C25A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:35:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A14D7606C25A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=R+PEhPOl
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e8dd9b9743so5434265ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:35:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pm4bRzhY
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-491971ac844so386940f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:35:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794530150; x=1795134950; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+/1cY6ZrJCVA1E38up//QamWrEv2l6bHlMUbtQACcqk=;
-        b=R+PEhPOl675YIyMf6fGRwXb6xqHN7XybtWwHnsvqN+ucBJzHkIcMIIlZ5aDzigTili
-         xn8RjbZGkkviyvOBY0LLeW8Iphd3zVJx0PqDx+tbunrRFktAodjqwOJe/up/UGnjcuAj
-         Ct2PxiE7K9hC3DGrzok9Vhp5VS/OOo4deRMbbNB14WSkgB4F9VZwmQ4WvBZPrI5PPl63
-         E6zV2MIaS58XwRLukETOiROb1VSRMvDUjyOqooWKRrqwBfopfPmULdEvNDBeIxJmNFE9
-         M5K1vbeY5g4Z5Ha8/w+P2d+TgccIFQ6ShBOfv2nsWe65iLcQvBUqyyat13sT5kMEuO9C
-         KB1A==
+        d=gmail.com; s=20260707; t=1794530155; x=1795134955; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kTNrEmxNbCnmj9l3gKKv43Fyixiy3ZR1yX2zY41P3W0=;
+        b=pm4bRzhY2y3ustnK/cV3mx2MU4TpafN1DP6eVrVfEWP6zwyrwZ8WcDJbBpaSn4PCS1
+         q9/VX/T7EbPj4GABXhTxz1EpjBBlJ5C6LjvWS8+R1MyrkwtZqFceJNwX44oFw+7COG4F
+         1gfOA+vK6jEPJTD/xSnbdkkUcNMj3shVBA1DlbgDKzaydRB4LWv4xwEw4b0FU73Ik21N
+         +vouDhlWEkCOD4DZamc4To4pzA8LXBUO2O7oFaIdM7cWs47aP2/ISYgSiypk/Ibch+NN
+         iUQoIvdKBDkOBgZw/fIiTtBmgSBvjcKDT5zuJIZZ/Wp8eQMkuKNaarb7YNm3NG1cX3MH
+         ShMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794530150; x=1795134950;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+/1cY6ZrJCVA1E38up//QamWrEv2l6bHlMUbtQACcqk=;
-        b=Coi269Mz+CyQojaNXN+G3wwti4GwV2/vdLr2BppFuE/9lSyJAqdrobVGMyGTuYdr/+
-         D68CCK7T6/NUoh6bKCrAZI6Mt2vMt9NKnrJSv/luhyULOLc7uTcsDnIXZR84V+zHM0Mx
-         LtHKs616Pd10W8FpZtIPkhBrpqfK3eM8rHnpX9FKEekKRVKmkx+6eBVU9BvDbD8PsG/a
-         Gt+fCjZMG7Ay462uuH/XGTOMfF3Y3AVsrstaC8P6+cWn+Gut9ftdRWgmZfZ+OLK+eAc+
-         M0dHEM0ojbnmsu/nNQaf8SO3y0RuU7WWMrQaYAXpQ8h/y0bVDqdJ63CbDJhjn9KriFZ8
-         Xdaw==
-X-Forwarded-Encrypted: i=1; AL+hErHpXOsWENke5fqnZ1vFxjLVUwAr4l+EGz+bO+K9K/nWT8JmhTs02EzOMvqcA9sXRuEeSbF22iG9QfE+kM4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9o+BeIoTBJmF5WC3bFj95i6A7ye0dY4JzrYwSBg09H0ptNPFYF
-	oIpDtGqnYBRiCVPqJpf7kDTGzqn8vk/Bp2U7s1wvNpci6mHd2oPwBgradeuA1M0CyYMZ6CPjCO5
-	g/ycl+ZWPpgZV31E1u/fe1p8HehLR0xcDQLskgQ==
-X-Received: from plmm12.prod.google.com ([2002:a17:902:c44c:b0:2ea:e1c7:d3a1])
- (user=sarthakkukreti job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:e5c7:b0:2e8:4066:d247 with SMTP id d9443c01a7336-2ee0dad1fc1mr9431415ad.33.1794530150245;
- Thu, 12 Nov 2026 16:35:50 -0800 (PST)
-Date: Thu, 12 Nov 2026 16:35:36 -0800
-In-Reply-To: <20261113003536.3622755-1-sarthakkukreti@google.com>
+        d=1e100.net; s=20260707; t=1794530155; x=1795134955;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kTNrEmxNbCnmj9l3gKKv43Fyixiy3ZR1yX2zY41P3W0=;
+        b=k3IWk9LNs7AodjAqQcrhGp0FeWYI4HV+Kq3cg0hzESTi9xPTYpcjAmkeH6/oa6ue3T
+         lTwKf9z2X3e7ZNFJPJnYt2jzaRdpiigXFOYDYXbwC/gwGmKiBvQPsDCEWJVb7iaIWDiY
+         uUIuyF4PdNw4eWMgqpFVGpTLEFSJ/PqFDYQ35BR5EntrsyxSNcCBLZTwE9yGgdVsvxOT
+         HX8K2JZd3aLyotMA2gCDBPzVqMYpHWVAS3DkguQmPhU679kEiRRP83AL0Iz4FDe7jwvX
+         c1oI/DhgKLmpgoiAKwiTW5hU5U9zhhFXHAbZrfX6W4dU3ZzxK8NtBcugjjy6N9ewyli4
+         QbhA==
+X-Forwarded-Encrypted: i=1; AL+hErHDMzJDNFh1IrXJdhlgzz4Eva786Sws3fW7T8HuzpDlvq2IYIicvon1HEjz9GtTWjHNj/XVCS3c/9kce5Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z843wSCAbOScmYUM32RYqI992GOabFf48IMan2yOrBGI+F0Ahm1
+	lT54TPGG9uCaOesYinAUS/o2HmCf7u+/vRWRe5imF+7ErCqWSn0jdpQh
+X-Gm-Gg: AYBFou3r/uhVjG6gjwvAn2Zj8/K6xLDiFohcFxQrSU3aTEHHrk3edzlIgkbgLl1HOg4
+	ncSIpsmLV1pJnRr0kDMXDRFoYea36F8D1D5OFJfSVxOIvVIQ93nMdJeZkKjs4BZSb3HVbk1P7g/
+	Nu3j9Pr5RB2OsyvBLoFbzc8aleW97E3mthDwrV4XvzmNNm+pFy1nWYOAttcBpZJbA9coIdZP5iA
+	o49oDBbuba4JoE/uBw/l4gsIe36MAdgFPct0axaImYZ7ElYWdQLw981B/c7OsaMQGi5M9GmIfeS
+	OP0JTPqKdMZuQnaaZPdLiCd7RHa/k/B8g+Y89CNcgzrn6b3xVYwgmnkK4as+hFyHaJb8QiFSJYu
+	bNYF4NDCxlvyHxQvTzcv+sQzTrsU+pb2mlbX4LKww8n5b+Iwnnxgruo7Lj9BDkTehTab6JyGrZf
+	J3HKpk3kE/u96lyBs8wNUd189CRM1sNRNbp7xx0YMaE+FR5cEJW9vFxrx+MzP5Fekn6ODSyrkv2
+	G//mWYEEwcjnHhB+6G9XNVi3re/jTYClwbrYoRKoOv+PCpMcwk/1TVjX3PdRYLsihUgI/vDmHuX
+	wiemfatV4U2QiSoRE8Eo499MqsFYyeHB2t1MAgYyt6zKhKI+YgM/Mz/rGt+OtuH8s0whec/9OPP
+	e8FjnTzFNmUbzs4CIL6GDZT/aaQMp0O7wJP8WWACM4pt7nPC2ukd3dkHZ+yuMTnXM1Cf2siwU/z
+	VKKWqxm6tIVSh0Sji+
+X-Received: by 2002:a05:6000:2508:b0:498:a72d:c097 with SMTP id ffacd0b85a97d-49c70ed7c56mr2426773f8f.19.1794530155089;
+        Thu, 12 Nov 2026 16:35:55 -0800 (PST)
+Received: from navid-pc ([2a01:4b00:a856:6220::a11])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c7da37b19sm1497029f8f.5.2026.11.12.16.35.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 16:35:54 -0800 (PST)
+From: Navid Ghahremani <ghahramani.navid@gmail.com>
+To: =?UTF-8?q?Stefan=20D=C3=B6singer?= <stefandoesinger@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	arnd@arndb.de,
+	krzk@kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org
+Subject: Re: [PATCH v2 20/24] spi: zx: Add ZTE ZX family SPI flash controller driver
+Date: Fri, 13 Nov 2026 00:35:53 +0000
+Message-ID: <20261113003553.3661566-1-ghahramani.navid@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <jjb8MyAPSXaXqHtedDkkwQ@gmail.com>
+References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-21-ghahramani.navid@gmail.com> <jjb8MyAPSXaXqHtedDkkwQ@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,74 +104,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261113003536.3622755-1-sarthakkukreti@google.com>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261113003536.3622755-4-sarthakkukreti@google.com>
-Subject: [PATCH 3/3] scsi: core: do not retry passthrough requests on
- disconnected targets
-From: Sarthak Kukreti <sarthakkukreti@google.com>
-To: Oliver Neukum <oneukum@suse.com>, Alan Stern <stern@rowland.harvard.edu>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: linux-usb@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Sarthak Kukreti <sarthakkukreti@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Unlike scsi_decide_disposition(), scsi_check_passthrough() matches
-SCMD_FAILURE_RESULT_ANY before checking the host byte and returns
--EAGAIN on DID_NO_CONNECT, DID_BAD_TARGET, and DID_TRANSPORT_FAILFAST.
-Callers using SCMD_FAILURE_RESULT_ANY (such as sd_sync_cache())
-therefore retry passthrough commands against disconnected targets.
+Hi Stefan,
 
-Return 0 from scsi_check_passthrough() when the host byte is
-DID_NO_CONNECT, DID_BAD_TARGET, or DID_TRANSPORT_FAILFAST, and update
-scsi_lib_test_any_failure().
+Thanks for looking at the changes. Since you plan to submit the driver
+yourself, I am dropping the SPI patches from my series, so this is just
+to answer your questions.
 
-Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
----
- drivers/scsi/scsi_lib.c      | 5 +++++
- drivers/scsi/scsi_lib_test.c | 9 ++++++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
+Stefan Dösinger wrote:
+> So IOW, this function should primarily configure ZX_QSPI_TIMING_REG. If the
+> target clock can't be achieved with the controller input clock (e.g. divider
+> is larger than ZX_QSPI_TIMING_REG supports or clock rate is lower than
+> requested SPI speed), then a change to the wclk is in order.
 
-diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
-index af27fd3df8d4..fa16a75e810c 100644
---- a/drivers/scsi/scsi_lib.c
-+++ b/drivers/scsi/scsi_lib.c
-@@ -219,6 +219,11 @@ static int scsi_check_passthrough(struct scsi_cmnd *scmd,
- 	if (!scmd->result)
- 		return 0;
- 
-+	if (host_byte(scmd->result) == DID_NO_CONNECT ||
-+	    host_byte(scmd->result) == DID_BAD_TARGET ||
-+	    host_byte(scmd->result) == DID_TRANSPORT_FAILFAST)
-+		return 0;
-+
- 	if (!failures)
- 		return 0;
- 
-diff --git a/drivers/scsi/scsi_lib_test.c b/drivers/scsi/scsi_lib_test.c
-index ae8af0e0047a..aafafe676098 100644
---- a/drivers/scsi/scsi_lib_test.c
-+++ b/drivers/scsi/scsi_lib_test.c
-@@ -184,8 +184,15 @@ static void scsi_lib_test_any_failure(struct kunit *test)
- 
- 	/* Match SCMD_FAILURE_RESULT_ANY */
- 	failures.failure_definitions = any_failure_defs;
--	sc.result = DID_TRANSPORT_FAILFAST << 16;
-+	sc.result = DID_ERROR << 16;
- 	KUNIT_EXPECT_EQ(test, -EAGAIN, scsi_check_passthrough(&sc, &failures));
-+
-+	sc.result = DID_NO_CONNECT << 16;
-+	KUNIT_EXPECT_EQ(test, 0, scsi_check_passthrough(&sc, &failures));
-+	sc.result = DID_BAD_TARGET << 16;
-+	KUNIT_EXPECT_EQ(test, 0, scsi_check_passthrough(&sc, &failures));
-+	sc.result = DID_TRANSPORT_FAILFAST << 16;
-+	KUNIT_EXPECT_EQ(test, 0, scsi_check_passthrough(&sc, &failures));
- }
- 
- static void scsi_lib_test_any_status(struct kunit *test)
--- 
-2.56.0.611.g1030f0b940-goog
+Agreed. I only changed the wclk because that is what worked on my
+board, and I never checked whether ZX_QSPI_TIMING_REG has a divider.
 
+> > +	ctrl->min_speed_hz = clk_round_rate(qspi->wclk, 1);
+> > +	ctrl->max_speed_hz = 50000000;
+> This looks wrong - the max speed is probably the highest possible wclk rate,
+> the lowest speed the lowest possible wclk rate divided by the highest possible
+> divider.
+
+Agreed.
+
+> > +	/* Ensure proper data sampling point */
+> > +	reg = readl_relaxed(qspi->io_base + ZX_QSPI_TIMING_REG);
+> > +	if (!FIELD_GET(GENMASK(17, 16), reg)) {
+> > +		reg |= FIELD_PREP(GENMASK(17, 16), 1);
+> > +		writel_relaxed(reg, qspi->io_base + ZX_QSPI_TIMING_REG);
+> > +	}
+> I don't know what this is doing. Can you elaborate?
+
+That value came over from the earlier driver I used on this board,
+which always wrote 1 to bits 17:16. There is no public register
+documentation for this SoC, so I kept it, and v2 only writes it when
+the field reads 0. The sampling point in the comment is my guess at
+what it does and I have not tried other values. If it matters for your
+driver, I can try 0 to 3 on my board and tell you which ones read the
+flash correctly.
+
+Best regards,
+Navid
