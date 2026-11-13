@@ -1,106 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794528938;
-	b=dF5IrJzix7kGmaWYKT3h3CUFBb6Aervn+qQdFjghflFekERT8pIqFcHy0lcbHvJ9ntEy
-	 2OnDAYzYOh283pY/R1VyZx1nijazbqLGgcLBj8uReT0QECJfxZniH2fztzl2Yl/K4nc50
-	 PvqQraeJyGbWuH5xkTfHvXMqckerpny/xxyr+AuJk3XRLELjuM84eKYLMFEVuN0ejWeRp
-	 wvVJJsKDnZiEQT3hlLaDn7r0oxuul8Z8qU4oMctBq8EIgT7AV4kjhsPmFbvIcuVCUTJE+
-	 frBNcevy0gOvEx2bOlS5tAWOOWDna6TOTMzvKidbEp+ncsE98+hDFCEEvPXszLnINGQ==
+	t=1794528940;
+	b=i52CdH8MSjn7/dq7W2XY5JQe8yPgBcnX7eL8IyJLilaCUMLYOcRYibpHvbo6PsTxdMWG
+	 9cJ0SnS9fQp1kepo0ghfjmiJMmT5e8c0g30/repc7bVHSDY4zeS8FKw0yxGEhtKqBvlSA
+	 FtYFBXbo3nqM3xZ3/uuwxJBCPVqr4G5Qce1O4VHAWkRVxuNSVOYiYFPlCfqPUdBMLYjZh
+	 KVx2shxxVQL7tNNVHVxYr4bSVPpORJneUiPg/zlbcF7Ul4ILhbEzaObxZJlkeQQtZAQU2
+	 xS3XDm669tYIsd+Dk0frHq2K/+2XQMeLEV19JjT0o8BQ7Yi5oMkJmU3FGrwnqZMmpRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794528938;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794528940;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Fy4WFW4Td97IvBSVlIHdYeCc7+bBQ4nJWzT+60QtQBo=;
-	b=GaXzhZ4DhgT8hdN7zurmBNmkOTng1eINnsvl9jhiYDsyoQM5u/E0i+IcVNiioQ6bvwNm
-	 P+l5tgUwQ//lr3OX0tpNBB3jR/3Q3Q7Exu1EoY0JYOe4xrtm/1J0iyezyBRUwKp2pspCb
-	 vGEuzcaIw3qHcTQ4Dt+nacWnBTOFQTQmMX4mr0g0iLBPdMTXw+bWtRBQcW/c6fZzt1FDh
-	 W4Aa8V/irdUe5rwIPa+cnbJuhjtmIXgjfkiGLKYAoNJVz6i3LTR73ph/6LMzZ7QDU9/PA
-	 WXxAWzKdl9+swsylb8BLE3PhgIsQrjU0xqrslxdynBtckYJyAaywrE/dljQT6j1QK3w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7/bS5xYsjMkVnYMzljD0H/p8sgP2J5T4P4gKE/iJBI4=;
+	b=ApIWI7OJXxo/Sf0vswcJTkDHWHmHNeJxnsEUYMmeKgTfzb5/9pIxKDGyAKkfRNRX3cc7
+	 myeJNgOTg4Yir7QjdmduoYLy6kpQeSMj70/80SQdouVKheT4sL9T4o4FpZHSf4Qrk/GxJ
+	 jC/4vLuIENkxSIotaBb0ZR9r4lXnx+jNkHFGyYR6eW4sudBLtRqlIeYlNlODNB8Dv/6HI
+	 fTgHpIxoWFELQsAjX4eNYXmIwnUG13H2PPw1xT87E172kWKVMGWxDNVGXYvbGP2bsINFV
+	 eLMjioUcLX9XwxwmjuSqrhrjsCEvtteeoR+DJ6k6GmmY9bXti/8bWWppfL+TIDvf1vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SVpco5us;
-	arc=none smtp.remote-ip=209.85.167.51
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kuR+Q7Nc;
+	arc=none smtp.remote-ip=74.125.225.137
+Received: from mail-wm2-f9.google.com (mail-wm2-f9.google.com [74.125.225.137])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FAA60A2633
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:15:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1FAA60A2633
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B268060A2637
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:15:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B268060A2637
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SVpco5us
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5c14e307f29so520752e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:15:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kuR+Q7Nc
+Received: by mail-wm2-f9.google.com with SMTP id 5b1f17b1804b1-49e6eb11e9cso1707115e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:15:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794528936; x=1795133736; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Fy4WFW4Td97IvBSVlIHdYeCc7+bBQ4nJWzT+60QtQBo=;
-        b=SVpco5ussGSCn0fL6muNLwvqer8Lfpvi+E1CqTTeZQuBkCxJvHQ+N3hG4z/neEEgeW
-         h3Dnsk4ODSPGYETfVQigcz8D1w5UlcfpZEw7fDWzdQbGH1sMN1vYtXIV3m01bKXyQ8oU
-         JUXfQ2y71PKrIJcmlsiDFUsaQY43MuF/A8XVstRowkQperjX+WimCda4RWnVkEUYcQ+M
-         liRsSNjupGie/ThC9MnIWL8b1Xs0K85L+6wal0RKS135Okd+DXFOMiQ/QgSQ2zn5THf7
-         r7nsEFCRN6U6Ohlawpxl2uEp7qpxTSsSiHn7ug3rNkQRAV2TR14ztfggqPcZIOmhMNSN
-         Oj7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794528936; x=1795133736;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794528938; x=1795133738; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Fy4WFW4Td97IvBSVlIHdYeCc7+bBQ4nJWzT+60QtQBo=;
-        b=CkpLCodmMR8TUss5KDEk6JO7VSaf8V51Qty+GImdSVoCG/bD+L/DKLqrU7l618x43z
-         eEL7Bc1IvDScXiAjP99rvUfA6Tk7P6JA6t/2yz0BRNDrQTK47rE/cd412Kt+QZKErsI4
-         pcTMq33iRZ+uxFkR2pAMzvj2NQp+ukQSg79VbjPkkoeiJ3n/K7+EBDWWBThNh/bRNiae
-         OYYfeFw/sdnPZqgPkRmN06dHtU42aGC9w0SZhwgFKPr9xCoYuUwvdwNs5QAiih0+iukB
-         LJLOC8GShriPZRRrolATNZfRQHG8xTzniuMD4IX21Am5QTc41w89KBsy1rgN+MLy+pEz
-         STcg==
-X-Gm-Message-State: APuU4Z8z8pyATqCpse8yvlT5GAYQcm7t4Z7txBHEv8Boy71nasAZt1/Y
-	4RyO71Blp7hWlKikN+hn6mmWEGmOkW0iCp87bE0j5q9OPVAKL/sIVX8P
-X-Gm-Gg: AYBFou1+8RpxVKmmhZqgrijVz/eVq3xhVMAYk0BfPwhTpFXN7jixHLFrPwYQo3tsZLU
-	IjiQ9TIi1cQOCloGXGCL7wbYSpd96gJW84K2DTav34NQu4BZ1kSpRPvGR3GtvEXvtsswOgQ2m1m
-	UWmJqBWLG+psPJp4yHN56xMQpuQsj1bwkdSsISzk6Hd2q3vn9Cyq4sOQSa82m6F8vr50DvRFk6t
-	LdiXxM/0SS0u+vr7OBCc8jkllhtC3pXibMaM/DIT6Oy8XlUIOE/Dr3O3g80ILXtMsT0A9pXlgWj
-	gEYoXLETOCy5NAI0LLeuKTz1JT6dPXYskX6++N56ztL0TOP+wv1busnIgHwn9FTAWl42rQrISDy
-	H2hRU2LDAFXRGfheU9187D0rfvTWEydzpNIxMEhWUva2FdqBDAB36GZxPIN7Ld8LtVATgr/VlpS
-	D58rnLGjoz99s6Uh1jvGIid0kN4pjGbywdjthg/CT6IG7De8z5QpylfyHQCQA9wKxRkwx5LIgfy
-	gFSun/YjxrZ949W8ykM1i/YiM8xe9BUcVb5uDFKDVR0r9wTJAggMYuTTni7TkNZA9JVcypIcuvD
-	QKnuvYslVm/CYofkK5+EO6c7VKgkrRNUQ6TJKgJmMG69+Z+aRMVVqzJkPPMyJqZagsg0yc1DHEz
-	74LpmO5QjOA==
-X-Received: by 2002:a05:6512:a8c:b0:5bf:ce85:50e3 with SMTP id 2adb3069b0e04-5c170a0f613mr334159e87.42.1794528935920;
+        bh=7/bS5xYsjMkVnYMzljD0H/p8sgP2J5T4P4gKE/iJBI4=;
+        b=kuR+Q7Ncmcmkw9nFvWbCyZmS19GKa8f0nPbP1R+xyzjld7CGdkvXs9BB+UB9Vcf+0L
+         MGxEvCIbFmAOs2K+CtWLQy6Jn1wvDeNzRIa0+BNtOH/9fwEOnc86KENI7QyquhxF+ywJ
+         xZriczIT8Bo4Io6tRVIwmdkjBmDJFImMmYe1dMYMgfikQ4q3q2La6DHZPJRFgsWXdLtr
+         XJKYQ4kbxkrX+oBV5jmlaL3C6XbXH25JKFa/SiInDFcnrss87/Sr7Ddb8yYi4rYIQA9m
+         Jlk+OuyCz0/8/q6mLk/LsmynoG0k7052MiMJubSQ2lbyTHz3qOD6/qOq4LflBTcxG/zF
+         Uwjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794528938; x=1795133738;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7/bS5xYsjMkVnYMzljD0H/p8sgP2J5T4P4gKE/iJBI4=;
+        b=t4htZ0KuzZn6FwjEGJFB/odAAEOcspoN1jXICXWYLxMckH9NR9JM2fw//zkuxeKSmg
+         tr/bxRSkWgMVhzJRByHGDOBCQl4lvHR/VSYSspARDDvclPiDnhxDOp+frVk1FAcfTn8X
+         Lb1NTHL+H9krIyiRhRn5ultdqOFcsF8+fmqJab/LFY2Y3PSD+mDq58TLUw05tS+8E8so
+         W0x13c9Y9Z6d3h7ad5Iz2LosfTAF9hZnI19V8fuoRUNB7CZbMtBph38N/bqDhOwA/gAC
+         PkfofK79/8Frh4ddTBS1tX/iCypCj275bJhvTkR/ZRYQ+9dzDEon6xEtQZWFB8ntmcXY
+         oRDQ==
+X-Forwarded-Encrypted: i=1; AL+hErG5MGrIDraYIMNg/le6+TeWnMiLIhunp5cNsf1j18XmbvPazCP7VsYMvhsPuJsvDvRdgD6e+Sux3HoQoEg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YDnwm+qvl6JqxjjxmMGPIH6L+dMF+9JkIGIQZ9dDeIv+1dmgx
+	sKSKckW5PphdrwVHPFMAzdn9dYDs6Uk6lkOQqJlC4L/FZFtszRypmUZD
+X-Gm-Gg: AYBFou2UFUzQJo4XNNqv7s0Ur6vVJpnSk46WLpjNCqQBYQWu8hcLTv44SqQCQE0EYPu
+	bNNPn078Gsijecpt2gadXCC1eSm4OrU/ncSCD4ceR/dncziNOHEnLoTRSbfra6Vnzs27q8T9UII
+	NVL2nvKEV2DHf962Lru1QNXd953gN59tSjT/rqurL0ab58f9TXdpXDCwEKLzSWV53IsX5abGGiq
+	JfO1pHqTUkJ5H3/K+yLlXCrgeWIoyb/pFUjM4hvVn5OkGTo4qccrsXuCY8Aaj+97ALAiRoq8lrb
+	JD+JnaAU2AFVxUtCTKyAW7fl3uHNYss9pCvb6GZthRr0h0EFWCoBJaqTUJT4UPB+laqHWr0LvL3
+	dsPryEX990x1vsFxpzKbDXTmLHBMMw6oUudkOsonK+gVuR0EK6BuTPlaZTQR6j518t327BX6qtn
+	Q6541DtrY17mKcFD5z6Lvy4qBkXCBjE5iaHvr+GAlSEaGP98pej6A4jc2Q8ZEHDTaMVtUrV1qxw
+	NtWNhtA5qpfodrQjk8ljRQfkzDPlShF0zONDRd2IIHQsa0W1QdH77W0Mw0cJjPz+fBGNx8ALFy7
+	ud7ULhuV3DFZqIpA/ug3HTjS8nYVh1WzQ+xt
+X-Received: by 2002:a05:600c:8b66:b0:4a4:7a8d:c436 with SMTP id 5b1f17b1804b1-4bb55c5f567mr16787315e9.11.1794528937859;
+        Thu, 12 Nov 2026 16:15:37 -0800 (PST)
+Received: from [192.168.1.7] ([31.94.68.191])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb52bab8bbsm52641475e9.13.2026.11.12.16.15.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
         Thu, 12 Nov 2026 16:15:35 -0800 (PST)
-Received: from SafoStation ([31.40.65.49])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c17133ca01sm200968e87.36.2026.11.12.16.15.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 16:15:35 -0800 (PST)
-From: Safocl Stollmannovic <safocl88@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Petr Mladek <pmladek@suse.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	printk@lists.linux.dev,
-	linux-pm@vger.kernel.org
-Subject: [PATCH 10/10] kernel: fix duplicate extern declarations
-Date: Fri, 13 Nov 2026 04:14:16 +0400
-Message-ID: <20261113001432.128201-11-safocl88@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261113001432.128201-1-safocl88@gmail.com>
-References: <20261113001432.128201-1-safocl88@gmail.com>
+Message-ID: <b9f69d90-73ef-4a22-a347-0d70f014a7de@gmail.com>
+Date: Fri, 13 Nov 2026 00:15:33 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,102 +92,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
+ PowerPlay for MCLK switch
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
+ <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
+ <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com>
+ <CADnq5_MRA2bQG5x9xiGAT5ddh0jHMqg=u2OhCPvJxPr3ddTurA@mail.gmail.com>
+Content-Language: en-US
+From: Richard Lane <richardlanedev@gmail.com>
+In-Reply-To: <CADnq5_MRA2bQG5x9xiGAT5ddh0jHMqg=u2OhCPvJxPr3ddTurA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Compiling a kernel module with a C++ compiler results in a duplicate
-echo ‘extern’ specifier error.
-This occurs because the code contains , and
-expands to  when processed by a C++ compiler.
-The  specifier must be removed.
-https://bugzilla.kernel.org/show_bug.cgi?id=222257
+On 10/11/2026 19:59, Alex Deucher wrote:
+> On Tue, Nov 10, 2026 at 1:49 PM Richard Lane <richardlanedev@gmail.com> wrote:
+>>
+>> On 09/11/2026 20:34, Alex Deucher wrote:
+>>> On Mon, Nov 2, 2026 at 3:31 AM Richard Lane <richardlanedev@gmail.com> wrote:
+>>>>
+>>>> When driving multiple displays or tiled panels with identical timings
+>>>> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Display
+>>>> Core's program_timing_sync() aligns the CRTCs into a timing sync group
+>>>> in hardware during dc_commit_streams().
+>>>>
+>>>> However, on DCE < 12, Display Core leaves
+>>>> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is not
+>>>> informed that the streams have synchronized vertical blanking intervals,
+>>>> SMU7 prevents MCLK switching at idle or causes modeset underflows.
+>>>>
+>>>> If all active streams belong to the same timing sync group
+>>>> (timing_sync_info.group_size == params.stream_count), report
+>>>> all_displays_in_sync = true to PowerPlay after committing the streams so
+>>>> SMU7 can safely downclock MCLK at idle.
+>>>>
+>>>
+>>> Looking at this a little deeper, the function bw_calcs() in
+>>> dce_calcs.c already calculates all_displays_in_sync using the helper
+>>> all_displays_in_sync().  Can you look into this and figure out why
+>>> that is not working as expected?  My concern with this patch is that
+>>> DCE and DCN have different logic for handling mclk switching so I'm
+>>> not sure it's safe to call dm_pp_apply_display_requirements() directly
+>>> from common code.
+>>>
+>>> Thanks,
+>>>
+>>> Alex
+>>
+>> Moving it to dce_clk_mgr.c and using resource_are_streams_timing_synchronizable() also works. Is that a solution?
+> 
+> I think that would be preferred, but in general, why doesn't the
+> current flow I described work?  The function bw_calcs() dce_calcs.c
+> already calculates the all_displays_in_sync flag using the helper
+> all_displays_in_sync().  Is all_displays_in_sync() not checking
+> something properly or is the overall call timing wrong such that
+> all_displays_in_sync() can't properly calculate whether all of the
+> displays are synced at the point that it gets called?
+> 
+> Alex
+> 
 
-Signed-off-by: Safocl Stollmannovic <safocl88@gmail.com>
----
- include/linux/lockdep.h      | 2 +-
- include/linux/printk.h       | 6 +++---
- include/linux/sched/task.h   | 2 +-
- include/linux/start_kernel.h | 2 +-
- include/linux/suspend.h      | 4 ++--
- 5 files changed, 8 insertions(+), 8 deletions(-)
+I think this could be limited to DCE 6,8,10 rather than DCE < 12 as in these
+cases DC uses dce100_validate_bandwdith() which doesn't call bw_calcs() and
+dce_pplib_apply_display_requirements() in dce_clk_mgr.c so
+pp_display_cfg->all_displays_in_sync is unset.
 
-diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
-index a6451ecbb..f436eab07 100644
---- a/include/linux/lockdep.h
-+++ b/include/linux/lockdep.h
-@@ -89,7 +89,7 @@ extern void lockdep_init(void);
- extern void lockdep_reset(void);
- extern void lockdep_reset_lock(struct lockdep_map *lock);
- extern void lockdep_free_key_range(void *start, unsigned long size);
--extern asmlinkage void lockdep_sys_exit(void);
-+asmlinkage void lockdep_sys_exit(void);
- extern void lockdep_set_selftest_task(struct task_struct *task);
- 
- extern void lockdep_init_task(struct task_struct *task);
-diff --git a/include/linux/printk.h b/include/linux/printk.h
-index f594c1266..09a28181e 100644
---- a/include/linux/printk.h
-+++ b/include/linux/printk.h
-@@ -136,7 +136,7 @@ struct va_format {
- })
- 
- #ifdef CONFIG_EARLY_PRINTK
--extern asmlinkage __printf(1, 2)
-+asmlinkage __printf(1, 2)
- void early_printk(const char *fmt, ...);
- #else
- static inline __printf(1, 2) __cold
-@@ -200,8 +200,8 @@ void __init setup_log_buf(int early);
- __printf(1, 2) void dump_stack_set_arch_desc(const char *fmt, ...);
- void dump_stack_print_info(const char *log_lvl);
- void show_regs_print_info(const char *log_lvl);
--extern asmlinkage void dump_stack_lvl(const char *log_lvl) __cold;
--extern asmlinkage void dump_stack(void) __cold;
-+asmlinkage void dump_stack_lvl(const char *log_lvl) __cold;
-+asmlinkage void dump_stack(void) __cold;
- void printk_trigger_flush(void);
- void console_try_replay_all(void);
- void printk_legacy_allow_panic_sync(void);
-diff --git a/include/linux/sched/task.h b/include/linux/sched/task.h
-index 90ed5bc3c..5cdef6b0f 100644
---- a/include/linux/sched/task.h
-+++ b/include/linux/sched/task.h
-@@ -61,7 +61,7 @@ extern struct task_struct init_task;
- 
- extern int lockdep_tasklist_lock_is_held(void);
- 
--extern asmlinkage void schedule_tail(struct task_struct *prev);
-+asmlinkage void schedule_tail(struct task_struct *prev);
- extern void init_idle(struct task_struct *idle, int cpu);
- 
- extern int sched_fork(u64 clone_flags, struct task_struct *p);
-diff --git a/include/linux/start_kernel.h b/include/linux/start_kernel.h
-index 09f994ac8..5855467ca 100644
---- a/include/linux/start_kernel.h
-+++ b/include/linux/start_kernel.h
-@@ -8,6 +8,6 @@
- /* Define the prototype for start_kernel here, rather than cluttering
-    up something else. */
- 
--extern asmlinkage void __init __noreturn start_kernel(void);
-+asmlinkage void __init __noreturn start_kernel(void);
- 
- #endif /* _LINUX_START_KERNEL_H */
-diff --git a/include/linux/suspend.h b/include/linux/suspend.h
-index a38150277..b97af3420 100644
---- a/include/linux/suspend.h
-+++ b/include/linux/suspend.h
-@@ -385,8 +385,8 @@ extern int swsusp_page_is_forbidden(struct page *);
- extern void swsusp_set_page_free(struct page *);
- extern void swsusp_unset_page_free(struct page *);
- extern unsigned long get_safe_page(gfp_t gfp_mask);
--extern asmlinkage int swsusp_arch_suspend(void);
--extern asmlinkage int swsusp_arch_resume(void);
-+asmlinkage int swsusp_arch_suspend(void);
-+asmlinkage int swsusp_arch_resume(void);
- 
- extern u32 swsusp_hardware_signature;
- extern void hibernation_set_ops(const struct platform_hibernation_ops *ops);
--- 
-2.56.1
+Richard
+
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+>> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+>> @@ -31,6 +31,7 @@
+>>  #include "dmcu.h"
+>>  #include "core_types.h"
+>>  #include "dal_asic_id.h"
+>> +#include "resource.h"
+>>
+>>  /*
+>>   * Currently the register shifts and masks in this file are used for dce100 and dce80
+>> @@ -319,8 +320,17 @@ static void dce_pplib_apply_display_requirements(
+>>         struct dc_state *context)
+>>  {
+>>         struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
+>> +       int j;
+>>
+>>         dce110_fill_display_configs(context, pp_display_cfg);
+>> +       pp_display_cfg->all_displays_in_sync = pp_display_cfg->display_count > 1;
+>> +       for (j = 1; j < context->stream_count; j++) {
+>> +               if (!resource_are_streams_timing_synchronizable(
+>> +                           context->streams[0], context->streams[j])) {
+>> +                       pp_display_cfg->all_displays_in_sync = false;
+>> +                       break;
+>> +               }
+>> +       }
+>>
+>>         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
+>>                 dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg);
+>>
+>> Richard
+>>
+>>>
+>>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+>>>> ---
+>>>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
+>>>>  1 file changed, 10 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>> index 74cd88d8d580..b4531383437e 100644
+>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
+>>>>         dc_exit_ips_for_hw_access(dm->dc);
+>>>>         WARN_ON(!dc_commit_streams(dm->dc, &params));
+>>>>
+>>>> +       if (params.stream_count > 1 &&
+>>>> +           dm->dc->current_state->stream_status[0].timing_sync_info.group_size ==
+>>>> +           params.stream_count) {
+>>>> +               struct dm_pp_display_configuration *pp_cfg =
+>>>> +                       &dm->dc->current_state->pp_display_cfg;
+>>>> +
+>>>> +               pp_cfg->all_displays_in_sync = true;
+>>>> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
+>>>> +       }
+>>>> +
+>>>>         bool frl_stream_found = false;
+>>>>
+>>>>         for (i = 0; i < params.stream_count; i++) {
+>>>> --
+>>>> 2.55.0
+>>
 
