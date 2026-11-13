@@ -1,101 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.34
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794581063;
-	b=Y1tYh/CBhKFrbW6SNh9hIm+7C2i0Yi6kDparsQ71eq9XH5mAVKMkbVumya91iaQBp6zr
-	 Rn6ICRl4bd7KEH43eRwMGDPSRvfGlc6fbxe0CNN8LN72Rs5fUNesocJgEDLE+ATx+Q1vm
-	 iudrVFdET2orMTeBdZmLS0tC3phAkXspcSQVd8KslF7YJtDb8G8xZgoph+9CSSodlbgeO
-	 VVz/9zJcq+BEVcJ9wUaaDcKVeVMAqtYeivjC1SUL2L3fhVu0fGR8szOE3qNXU0MeJ1/NF
-	 JkAQHlTgL0D1cVD4lHMtsoWW5P8VgEWqx6e++AvsRr7fxWj1bBcg0MsYDsPZc18dc2w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581063;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=tk9wlrWDUXO1lVweVNM5p2rIifI9hxafN2aho22NTwU=;
-	b=rWPfZceKulFyEFBcdBg9QF5C/tfh5I1vn2AV5n4XzByN1ZQDrZvbdetYQBWutwntkj3+
-	 kM1hoWtb2G97dsLgQh7Y2g5sHuPceJUo/PNQAjXhmPcZCQBRuPqN094d2Dosb4wxyhqKt
-	 Qjbjay54WcfXnS7zGuLCl/Acc95jASBEC6O4u05kAVqhPT30IgcpTwABYtJpDaSxW+w3W
-	 xE2WfbajQo+HX97kxVwNyCTfTr9daVz8PQouQpitQ5jZFJ5Q4wKOaCLllx1RdO9l5F1k0
-	 ZscZ8zKxC5EnXXVbSR2J8QsJEgVrBSKi8y0swT3eJ87xn1ZkZIf/sJEHmFsxew1R55A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ndDqXs3u;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.34
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011034.outbound.protection.outlook.com [40.107.208.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794581074;
+	b=lCXvx0BUXaSDyRX3gIsn4FgOdHH/TeVd3fNZM3EDD2ztBakQcr84p+St7bhd4Lioe30T
+	 1xsnNIwicU5dv1zQuYbRnRS9+qzEOWA17gVHVWKjsGBqAvXtNQQnLH2koaGmfcze15gCS
+	 HztKQ3PZ1EgFn5aVnf0pE4QeHtGmfGj5o3nDP91voiVZcmbZ/+Z/SMY4zGIXrzslp8zAR
+	 b/R8xIpUxnKY9d6RpgBNycbDQWtuMgC9gzMNFXTjNv79Wyod0KADeKHBdRAM5DWEVGyPv
+	 3UAaCzQvDR+23395yiRWG4mx7yKHohI7pVr3jqtL3uPKPaCpD3cYwVO7JYGgPlxlKyA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581074;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=PCohGcK4MbH0+m0C2E2oEI2m0dBP6JKw67OWX2Ixdd0=;
+	b=Um1AvFkCDVvxPuHrHnA5cbLPevxgMLRed3+qaRGVitro1/fzYHmu2hOYxrYEdEYKYx8O
+	 qr7QCO1i4pqzrDNY0WWnSGkU7EsG/Sy5v6c5f5bNTTNAoznqZkO5oK5O29InYxQgDdV24
+	 qCLspYENPSi5gk+FNinpdsXoWrrIb9zNKSBQqswk3hnctac4SKTfBXAicTSLKr/TdiTeW
+	 j4fy60QwnTeQZ3f7VQZ2k0iLTOPSGkfGQtr+xs7+3UnhI0hL/zBxzxs+3fRqxO9E8aWHc
+	 h2QbeozxJU8qUzTZaXGBXWMukZ0rBku7CNPJhQ6V1vOioCzb8+I2piQe5/6K1Vz7R/Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="QR/RmCXl";
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7CB606A32E;
-	Fri, 13 Nov 2026 14:44:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D7CB606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAA75606A331;
+	Fri, 13 Nov 2026 14:44:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAA75606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ndDqXs3u
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i71OVbPfH8RXiWveAe6RQP5kbSeZ6BH5UOxm+ITeAIdt47hVv5Zm3Le6/jKbiLRQUbi4mMZccwKRnq2dotSwKWCkFQKFuArAMUjMBwrow34JgMN9ffLWSCy3hyURqEV9CInvZzCqog9PxeT71e53OYYSMsrPupN3SAaPyJhS2AE8IWdoH2BG91BL0CKEEUvC3geOiWyfSFNFZsdlDVt7dLCnJ0uB/CJJDmqDKIXURt/JIgE4dDTRNQZxdAv+qB1YOQ/DfYysk4BSL85lGVMfA345lRpKS078FkNTcby8IgsE2z8O/n7exsMgGqdMmfM+xruMdSKAVGN++SVI5/yzAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tk9wlrWDUXO1lVweVNM5p2rIifI9hxafN2aho22NTwU=;
- b=SpVNsoDdp7fHg88iIsqSIgPHoZL42PijeaUy6ehzkVFEyrJRXjQ5DGiw1ItnYkuWLRymO6QY+SO6vn7HdqCYT4TnqBJhTVA51cuK168JX06Q5p5zchWWP2TmwYm/aElsLS8EDANO7K3lstKbpX47OlFYRb/rwRrQz5bJjci0fOgyijqCYll7POJDSw6oxIXG+keESXiEI9wdWvRyDIUr5A5oyxI/R6b1sZJo2hqqs77ZnAs5YtlwcYZf+nm7fc/hU9znXC+2L6xrdWPyatGsKJDDKU615n0wR3D3mLr+unvQ/W1L6q2Sb6d7KPJiedPMq7MULFxlo036ilt6p8McwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tk9wlrWDUXO1lVweVNM5p2rIifI9hxafN2aho22NTwU=;
- b=ndDqXs3urSSkPrlCo2yJPoM8ymhAS+sBiFN0Pgr/diEwYo7Dse5nxhT9MpLf7UGfQUtIKx5ZT8OPqzmTmGhPIvQauxEdktUQkxBzqlEcKYdrkOTMjjCcyaQ4Ezr3GRkTbkrfFWu13OiF/1a+evwR7W717Q8hECeEyurwPRyE/Yzrm90HsDP56xLkrhafBTDjmvhYMTPWDNIpj/JT9zpXRZl4rXYJVuY6h/8peQ5BxvRlLaeCIxXsinK+x31YJAfnpkrvp6OJKPGFh5NvjnfA9S90wpy46rCtbbW9gkLfbLZ5S2gwA9Z3g7pLVgozN/4fIp4HEylT4GATFAP+9T4SvA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHAPR12MB999248.namprd12.prod.outlook.com
- (2603:10b6:610:2ff::22) by PH7PR12MB6812.namprd12.prod.outlook.com
- (2603:10b6:510:1b6::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Fri, 13 Nov
- 2026 14:43:57 +0000
-Received: from CHAPR12MB999248.namprd12.prod.outlook.com
- ([fe80::4972:8062:d74e:b205]) by CHAPR12MB999248.namprd12.prod.outlook.com
- ([fe80::4972:8062:d74e:b205%6]) with mapi id 15.21.0615.007; Fri, 13 Nov 2026
- 14:43:57 +0000
-Message-ID: <251bb36e-3cb3-419f-b47f-30d464bd4239@nvidia.com>
-Date: Fri, 13 Nov 2026 16:43:48 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next V2 09/13] net/mlx5e: Use the correct DMA dev when
- data_direct is enabled
-To: netdev-bot+sashiko@kernel.org, tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- bobbyeshleman@meta.com, cjubran@nvidia.com, cratiu@nvidia.com,
- daniel@iogearbox.net, dw@davidwei.uk, erfansh@meta.com, gal@nvidia.com,
- Jacob.e.keller@intel.com, kaifengw@google.com, leon@kernel.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, mbloch@nvidia.com,
- mfleming@cloudflare.com, almasrymina@google.com, razor@blackwall.org,
- saeedm@nvidia.com, horms@kernel.org, sdf@fomichev.me, sdf.kernel@gmail.com,
- witu@nvidia.com
-References: <20261110183826.2927274-10-tariqt@nvidia.com>
- <179447641026.2199510.5931919267235772242@kernel.org>
-Content-Language: en-US
-From: Dragos Tatulea <dtatulea@nvidia.com>
-In-Reply-To: <179447641026.2199510.5931919267235772242@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MM0P280CA0032.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:b::6)
- To CHAPR12MB999248.namprd12.prod.outlook.com (2603:10b6:610:2ff::22)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QR/RmCXl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794581074; x=1826117074;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DyI5H6asWxx+tH3VejHSQI8D30gWxhl9i+ORCFAvja8=;
+  b=QR/RmCXlP7YeiKs4cIIQlvZUq5MI+AsMQylxmqVHyTMWw7lKwXW1Em/i
+   C8Za6TM3AWBodCXFoxBGHaSr08gZDp/2T1d33OsWoROoCgSzoPvIyAKgL
+   CKrY8ijrn5JUUe8Z3GKLModbDij415qNKB25Fy89aNmCaeMlcfguqUR7h
+   NYkRZ6mO+oCr5Kdd+CHSY9nDKc/X6Cb45xQTBkQvVYxQFzmyNBXJLeWr5
+   mSg01d6+9adGLilgryjfjXeZ5B43nnxQ5S4uwQTqtkv4pi/ChTIU6We76
+   s4RzzQE1maf4u0JUvpoxQhZK0K+cEVM8ZKkIG5WsXfTa1ZVN5prPz1YEZ
+   g==;
+X-CSE-ConnectionGUID: CTgI1O+eQmaJNplK+6hInw==
+X-CSE-MsgGUID: Z2Dq5KRQQLavbU3FEw0CpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3288677"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3288677"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:44:18 -0800
+X-CSE-ConnectionGUID: rwx0kEqrS7KcRwQIohl0qQ==
+X-CSE-MsgGUID: TsUR/GvvQFKYNdvTuscMYQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="8831426"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:44:10 -0800
+Date: Fri, 13 Nov 2026 16:44:08 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Andreas Schwab <schwab@linux-m68k.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Len Brown <lenb@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v5 7/7] string: Implement strstarts() with strprefix()
+Message-ID: <avciONW-b_WXoetv@ashevche-desk.local>
+References: <cover.1794574496.git.alx@kernel.org>
+ <382a44f7c68672ecead2436d9f569ee23f383830.1794574496.git.alx@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,196 +103,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHAPR12MB999248:EE_|PH7PR12MB6812:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6a25159-74ab-4c52-6b59-08df41948c06
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|10067099003|11063799006|5023799004|4143699003|261021121427099003|261026121527099003|56012099006|261102123227099003|261009223027099003|261028144727099003|261026140227099003|261022105027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	JrfFDe7eB7UqClqxU+is2MB8z4K0jgJp96S1BUf/nPZ4ElqzlCIGoXfnn/nu+Q+KYv/YLUEUQUV9t8kwYFKEUZoZYokTnSWxKsN6ri8AYL/JU1PKa+jaapknexqGpf7bwudUY/7fX7hojGHLIO+y2DLtN2yKaIOzjPxAXaZApAa+gkgr02NqN14hLvg7+0W7KPAhTo8Uql7wZwFtW+E1iHajhxTK1K4DNPrTRMjXSdyRFJpi0osJWx2VYCIbAVnM1o3X0c8Ds+Pgsr6zXfJHB7fkG/bKQ9CvYV52DYz/C4pPFlkinmjZ+h8Qg+nWQJcfH2V7dpgCTdibR3Ee55bybwVPslc+LVyuKKimxIu6/SkI5umZeWdBhcoE9cZaTHXR0B6GGAKvG3MpNxyO3caJdWvFwvcDDelVckKyigjSa0aqI7Xpb5FRlH3Xlb9bj+X2n7vVoXqyV58Uv04cAyL3sZdJz073hhoLkB6zjRibNAS/ljjPm0unLf4ZGCp8PuPPrFVOHVZDch2CnsmmVnwOcJqUBZdBiM5BNLWT+iDoKMr1J7EJZr2LkU0Czsn9oDoD9MnbANsbv7f/NOYsYybLdHvlhnFfi9wsgXgJiTRsabDCWPnBh40SYTSzbHgMdNz3ik4H57WsbnubOpkTLbuxlueSW8vGS0a4MReTH6J5ETM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHAPR12MB999248.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(10067099003)(11063799006)(5023799004)(4143699003)(261021121427099003)(261026121527099003)(56012099006)(261102123227099003)(261009223027099003)(261028144727099003)(261026140227099003)(261022105027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L3FmKzF4WU9wdjNoSXY3SmxMTHpVWnlab0NLWmg0eTgzRDZSSVBadko2Q2I3?=
- =?utf-8?B?T2pnakhUU0pON2k3SE5lcGR2ZU41UGxIaitGdVZMelVhU3JuczBzWE0wVUxM?=
- =?utf-8?B?cDk2aTVqdUovZytjN3VLanBqV0FUY3lRVm5tY2daRFFwdmhJQWpWbGhOQVVG?=
- =?utf-8?B?T1BMRFliVFdHNlRTelVoUnc1V2RGTDR0dEFSS2IvOHhSMWdqc2gzMWVpN2hE?=
- =?utf-8?B?dWtKM3NsNzBOOGZoUDRtRTlFR2ZWbnAxWWxoQlVEVkhGbHRkRE1jMmtWaEJl?=
- =?utf-8?B?WHBvZmdLZENSQ3QwdS9xelE4bHNRVSs5V013RGQ5ZEZQRTRZOHpRN21RWVpO?=
- =?utf-8?B?ZWh3dWhEdDNZQnBjU3lLK2tKZGlScExXUU5sTzBnTjBaZCsxL3FTV24wT1BO?=
- =?utf-8?B?NDNsOTVlT2xnY3A4c1pEOG1DNitlNVQycmpXazJEU0NtQ1NCalZqOTA0QWZC?=
- =?utf-8?B?b2lkcHB2c0N2eTB2N09oN016MDFkSGNzRyt1Y0RYNzhMbFRKbWNBVlhYaDJn?=
- =?utf-8?B?WlRSOGJ0T01FZEkzVEUrQWlqS2MrOHhBZ216WWo2dmpHaXdBNEZINnVydU9l?=
- =?utf-8?B?cTR6QlJCSTNHcEVYL3JHZG1sZWh3NmZTU1NiMjZkc2I5Znk0ZXNSa3NyL0F3?=
- =?utf-8?B?YTJLd1ZMQnlZcDEyZWtmUUZhQW9CWkNLTzdyd3lWY0psMDlXdzVYbjJIU2xS?=
- =?utf-8?B?bE5OSzN4ZWtncGZWakYyeGZYT0ZMMXB1Q3c1NjJpcVNyd0tKT1p6Nlh4L1Rl?=
- =?utf-8?B?UWRtS1dsU3dkVmZ3RERpV2pJOTFKY3BUcXk3ZjdrTkJXSE5NSkNkRW44ZEln?=
- =?utf-8?B?enh1K0R6alBpQWpYYmgwUG9IZkROOTg3M3l1dWZIOVY2THM3R3hRanNmVDRh?=
- =?utf-8?B?UFp5a2pwYzFtQStEa2N3bllSZXZ1UHMreWk5TnlpeHd5emNjOE81UzU4cEpJ?=
- =?utf-8?B?U0tLeGRzN0hCeUo3ZDdmUy92cUJoanMxN0JVZ2pTVVMzWitTK1NHK1JCYUpL?=
- =?utf-8?B?V00xbi90MEpTd05uclZzY3VCTEhrUTIzQ05WK052RndBTmhhcE5XemppU1Vx?=
- =?utf-8?B?cld6L2xZczBBaUdLTXhKT2xTVWtoWlpIV2dINmxNeFIyQXBWTXRWWjVmNkdu?=
- =?utf-8?B?R0J1TVNrb0tlaE9FRW9oOS94WXI0WFdrblRCcCtFN0R6RGVNNDdXVGpUL2RY?=
- =?utf-8?B?MDBmK205Q1FPWDc0Tk1qYy9qT3JncGdkbkxFSlZNYzZhSmViczkrNjJRdHoz?=
- =?utf-8?B?Ym9zL1RpcGdMbDRLVG1qalkvU1BGQVIvanZLN2dzZzFtVWJqVnNiUmJXdGpS?=
- =?utf-8?B?QzAwTHF5M29UUGltRzl6K2oyZSs3emVpQkU0YWRhTkhhZjRqdmlnUDRlVjZ3?=
- =?utf-8?B?RTFRVXVDUk9vZEhvNkdUTjgvbXB1V0J6Z0NvVDNvdjNsTm1ueW9mVjN1enND?=
- =?utf-8?B?dDZlelRMeXVQY2xvZVRzaEllMTF6NFRaTTU3dzhIMGh4RVhYODBUUnRndnBn?=
- =?utf-8?B?dWRNbDcxVm5KcktxdVBrSUg5WS9IQ242eDFudVZtL2hlVmJ4cG1tMkllbS9v?=
- =?utf-8?B?Umc2SXM1SmIrckl2aFAzVnlDOTEzNmhSTlBSZHhYVWhCSHBSZGtrVHZtY3p1?=
- =?utf-8?B?ekFIWmVZeFhSMmo0UEZTenJ2QWZ4bFBlRGlHNEQwQXh4cVYwOUV4bGxDR0I1?=
- =?utf-8?B?NDZ5S2FGOHVHV1pFT1hEZ21Ua2pZMzBKaTczSWpKY1dyMENwcHpkaXlsbnZL?=
- =?utf-8?B?NlNTa3NZWTBZczhZaEdncy83UlBXVDJNRHhkOEYycWc1WFplS1pmSkh1Nk03?=
- =?utf-8?B?ckRMYTBoSEFTNTVLOXhiZktWRFVQZ29VM3pDdUtmM2IwKytZSnRHNWVuaW9l?=
- =?utf-8?B?N1laU0dGS3RONFE3aWk2bWdEVkRVOXluck9CS3dRN1ZTYnI2akd4bFBwSEhY?=
- =?utf-8?B?NHc2UzQ4MEdnN0xocW1FcEV4U3pqeit1d0JZVkNST3YzWEE2ZzRHdXR3dGFl?=
- =?utf-8?B?emp3cjRPby9ZbTVNTTdYQlRRYVdGenNuMFNIQm9sQnRFUHM3eDE1NnBoN1R2?=
- =?utf-8?B?OFozWnlWaFUvamhZTkJJV1UrLzFzdjBxTVkzcUxqbmVkUkY2Y0J0RjVwRlFJ?=
- =?utf-8?B?aHMwN21jL3V5ZDBvMFpxRzh5WU9iNElrSTQ3MkRUQ3Y1NHVFdGQyUlNwc0xE?=
- =?utf-8?B?Y2ZuR0Qxd1BxblhTbndBYzdYL1dWS3ljSHhCMDBsZzlDU2c1NlBBL2N1M3ZR?=
- =?utf-8?B?WGpCdzR2eDNPNFBFR0ZNOHZySDFVVnQwbXZ3ZEpqUHZMTVdDczNCRHBKOHZ0?=
- =?utf-8?B?YUUrOHQ4a3B5bmJ0TkM5aUo1L2FrUW9LUm9vSWN3aFNLbnVIRVNNZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6a25159-74ab-4c52-6b59-08df41948c06
-X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999248.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 14:43:57.1367
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rJ8wV2biTWdGe0bNRZe30Hv2OiK6PPaGI1+6mkHfuc0MxCgVZcKewXc16/Wy/aziOAVntWqA8ZBybLvC8EWaYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6812
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <382a44f7c68672ecead2436d9f569ee23f383830.1794574496.git.alx@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 12.11.26 10:40, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
-> 
-> Low priority / nit picks for your consideration:
-> 
-> - [Low] This patch makes the data-direct PCI device (dd_dev->device) the
->   DMA device for the page_pool of data-direct RQs (mlx5e_alloc_rq,…
-> - [Low] mlx5e_get_dma_dev() (en_main.c:965-976) reads
->   mdev->data_direct->dev with READ_ONCE() through…
-> 
-> --
-> 
-> net/mlx5e: Use the correct DMA dev when data_direct is enabled
-> 
-> This commit adds mlx5e_get_dma_dev(). When data_direct is enabled it
-> returns the data direct device instead of the PF PCI device. The helper
-> is used for the RQ page_pool DMA device and for .ndo_queue_get_dma_dev,
-> and the latter now refuses to return a device in data-direct mode when
-> RX queues are leased.
-> 
->> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
->> index 5b99099e4ed0c..ebd41f24330d0 100644
->> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
->> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
->> @@ -962,6 +962,19 @@ static void mlx5e_rq_free_shampo(struct mlx5e_rq *rq)
->>  	kvfree(shampo);
->>  }
->>  
->> +static struct device *mlx5e_get_dma_dev(struct mlx5_core_dev *mdev,
->> +					bool data_direct)
->> +{
->> +	struct mlx5_data_direct_dev *dd_dev;
->> +
->> +	if (!data_direct)
->> +		return mlx5_core_dma_dev(mdev);
->> +
->> +	dd_dev = mlx5_data_direct_get_dev(mdev->data_direct);
->> +
->> +	return dd_dev ? dd_dev->device : NULL;
-> 
-> [Severity: Low]
-> Is anything keeping dd_dev alive between the READ_ONCE() in
-> mlx5_data_direct_get_dev() and the dd_dev->device dereference here?
-> 
-> The unbind side clears the pointer, runs the notifier chain, and then
-> frees the device:
-> 
-> mlx5_data_direct_remove()
->     mlx5_data_direct_dev_unreg(dev)
->         ...
->         mlx5_data_direct_do_unbind()
->             WRITE_ONCE(reg->dd.dev, NULL);
->             blocking_notifier_call_chain(&reg->users,
->                                          MLX5_DATA_DIRECT_UNBIND, NULL);
->     pci_disable_device(pdev);
->     kfree(dev->vuid);
->     kfree(dev);
-> 
-> At this commit, mlx5e_data_direct_event() only logs on
-> MLX5_DATA_DIRECT_UNBIND. It takes none of the locks the readers hold,
-> which is priv->state_lock in mlx5e_queue_get_dma_dev() and in the channel
-> open path that reaches mlx5e_alloc_rq().
-> 
-> If a reader has already loaded a non-NULL dd_dev, can it dereference it
-> after kfree(dev)? The returned struct device pointer is also used
-> without taking a reference.
-> 
-> This does not look reachable at this commit. set_pflag_data_direct()
-> still returns -EOPNOTSUPP, so data_direct is never true here.
-> 
-> Later in the series, "net/mlx5e: Disable data direct on data direct
-> device unbind" makes the notifier take rtnl_lock(), netdev_lock() and
-> priv->state_lock before it returns. That serializes it against these
-> readers before kfree(dev) runs.
-> 
-You said it yourself. So nothing to change in this patch.
+On Fri, Nov 13, 2026 at 02:11:17PM +0100, Alejandro Colomar wrote:
+> The compiler should be able to optimize out the unused pointer
+> arithmetic done at the end, so performance-wise this shouldn't change
+> anything.
 
->> +}
->> +
->>  static int mlx5e_alloc_rq(struct mlx5e_params *params,
->>  			  struct mlx5e_rq_param *rq_param,
->>  			  struct mlx5e_rq_opt_param *rqo,
->> @@ -1105,7 +1118,11 @@ static int mlx5e_alloc_rq(struct mlx5e_params *params,
->>  		pp_params.flags     = PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
->>  		pp_params.pool_size = pool_size;
->>  		pp_params.nid       = node;
->> -		pp_params.dev       = rq->pdev;
->> +		pp_params.dev       = mlx5e_get_dma_dev(mdev, data_direct);
-> 
-> [Severity: Low]
-> With this change, the page_pool of a data direct RQ is created against
-> dd_dev->device. mlx5e_queue_get_dma_dev() also hands that device to
-> memory providers (devmem, io_uring zcrx), which map their buffers
-> against it.
-> 
-> What tears these down when the data direct device is unbound? At this
-> commit, this is the only mlx5e consumer of MLX5_DATA_DIRECT_UNBIND:
-> 
-> mlx5e_data_direct_event() {
->     ...
-> 	if (action == MLX5_DATA_DIRECT_UNBIND)
-> 		mlx5_core_dbg(priv->mdev, "data direct device unbound\n");
-> 
-> 	return NOTIFY_OK;
-> }
-> 
-> It doesn't close the data direct RQs, destroy their page pools, or
-> unbind the memory provider mappings. mlx5_data_direct_remove() then
-> runs pci_disable_device() and kfree(dev) right after the notifier
-> returns.
-> 
-> Could the page_pool and dmabuf mappings outlive the device they were
-> mapped against?
-> 
-> This also doesn't appear reachable at this commit, since
-> set_pflag_data_direct() in en_ethtool.c still returns -EOPNOTSUPP.
-> 
-> Later in the series, "net/mlx5e: Disable data direct on data direct
-> device unbind" rewrites mlx5e_data_direct_event(). The new version calls
-> netif_close() and netdev_unbind_dma_dev(), then clears
-> MLX5E_PFLAG_DATA_DIRECT. The flag only becomes settable later, in
-> "net/mlx5e: Enable the data direct netdev feature".
->
-Same.
- 
-Thanks,
-Dragos
+If strprefix() is not inline how would it be done? Or I missed the point?
+
+> This change de-duplicates the almost-identical implementations,
+> and better shows the relationship between the two functions.
+
+...
+
+>  static inline bool strstarts(const char *str, const char *prefix)
+>  {
+> -	return strncmp(str, prefix, strlen(prefix)) == 0;
+> +	return strprefix(str, prefix);
+>  }
+
+There is no sense to keep strstarts() at this point. Can it be simply
+redefinition? However, after looking at the uses in the kernel, I prefer
+to see the strprefix() be not implemented at all, just optimization against
+strstarts()/strends() if required can be performed.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
