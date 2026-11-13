@@ -1,64 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558390;
-	b=10KIq7/Mcnidv8WF0cCH19Kg+WteRZKV3gSulHs/gF/Tqh5Tw5T/EIRHScmQLOZWa9Bs
-	 0KLkY3PlfSQiZ7nGfFXxrZaXDqvQKeRNpoN2UqCrjC3xvoDO2I+a1bn78pPEOOqgmBcHs
-	 0UYDbzXjFnwpsK8WDEV+FfdNTwn06LDw3aY41xgm4DnxPJY/zHbVyfm+ady+QXYVpTnHM
-	 TOB91GWXWgpq8pZ/Mo1YGt3RAd9kniP9B+2ahiISOXqzdJoQQpSfKj/2/0Ais/2fgC7JI
-	 hcrO525tqzin5N2Zo75E1WkCgkEsz7eaU/QXDPiqgZjeYkYU4u5nt6zM/iCQNUh5xIg==
+	t=1794558476;
+	b=M9io2/nIzoh5cHiXaS6X/6tvN42haMsric+CFwZ5Djwm9U9zsWf7J9KJH4t9Z9WV7a1m
+	 taU81LbNHVZD7+PjyUeu0k6j60ff3p/Q0o84NAeMnm4XUxcXi0VboVas1visuzJ/kmExx
+	 OJyJWhxSsw0v+nIqCL63FRximxFhQBMduk36+0WDtGtzuAtycnKfyEHMpV1rNXTmVTJgs
+	 Bix6q41LIbWwkedrNqPCdV1FInivNl8bg/1d+63cJtpzfXWcG4zRb3W3+nfD5ab2uWIMh
+	 Kd+b9l5Q+AwPRyDQtthL5eXyaoR6U+kvWPBdbZOf1Ta6/1m6L4zU0lNsg5EeKlprcsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558390;
-	h=DMARC-Filter:DKIM-Signature:From:Message-Id:
-	 Content-Transfer-Encoding:Subject:Received:References:X-Original-From:
-	 User-Agent:To:Cc:Date:Mime-Version:Content-Language:X-Lms-Return-Path:
-	 Content-Type:In-Reply-To;
-	bh=8ix6MDEBpxMuClm/bHkXYW8egmY9AdoXZ7WOLRic6sg=;
-	b=SUYzI1wNaON+PoaCl5vNp7qQ+5PQ/+KcLL2aSAa8aqLmUDsbIDLcATFux8WyHl7Qswlu
-	 qVhCNPsaQLxmPnMsCVIvuwZlcE/HP3RR4bQEXXz6ZDHiay/yIugEFjqZ94HTSHkO9QCr3
-	 me79pcCgMMtNEB1/1uwg0BP/loU0aygyCfFzOFSxOTlJJxLkLO1ApwCrMHNvkTOnYPJw8
-	 ovLiAuamy/JzALLEIK5EgrRJNwhYAJB3WXgj1x30354MzuxQD0aQJYz1uh4X1ZzkzEzLZ
-	 7j77IG3p4zq8Spc5jWfbRqc44j5RoHIVQvchnUSGHVaF3ITZnfG35hR27TAopp2Ernw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558476;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=dM72oSYTKXSu25EPqpOTZBfasrv+wkrF735rHriHFPs=;
+	b=r1deCv6R8bIidihw/dtqtXvk/mYBHm6EUxmPN53dm1tQp7XWqXW6uk7+7S2eVVYxzOB2
+	 PDH3IlZCd9ftwc81263fxTnDLBB7qdd2AyGsLGQeWdK49nR9U6xbYHwu3ldftWLezLFT8
+	 U783L72NrvXkOGA9FjvTNrny0LZxZSTQrWAydbr6oI9XdKFEVIrISrC/XxPhuqbVUqML4
+	 VeHqlske0oOYvoTR4gL+WEwkvodYXObQheJIBzyHor8X1FTGZni8BAtJKJnulEisgnIyn
+	 W5ra1ZPsw1FgFMQCljLx4hDyHX1cFQbmCfwb6QOvPMnpxvuqrLfdjJb8A+HppnNd2Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=lanxincomputing.com;
-	spf=pass smtp.mailfrom=lanxincomputing.com;
-	dkim=pass header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=3Soqkxvu;
-	arc=none smtp.remote-ip=209.127.231.57
-Received: from va-2-57.ptr.blmpb.com (va-2-57.ptr.blmpb.com [209.127.231.57])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NyDdpyEM;
+	arc=none smtp.remote-ip=95.215.58.28
+Received: from mta1.migadu.com (out-28.mta1.migadu.com [95.215.58.28])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE03606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:26:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EE03606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009E4606A33D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:27:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 009E4606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=3Soqkxvu
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1794558379;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=8ix6MDEBpxMuClm/bHkXYW8egmY9AdoXZ7WOLRic6sg=;
- b=3SoqkxvunnzxGOiScwByYl/A3Y/EbsC982FNx6VBEBEkGENBEcbBt9E+kMuZUz8xh+DHO2
- sH+YK377JI5mtOF+IBNLiCh03R0s5tp4JXL9C8NM98UveE5L2ay8U3RA3oI8+J7mFac/E3
- zL1nmrMs11zrN4Em1/jGDC9ExIphIVh4g7PBTYEJyQqEoLGxqmm1LC6u7/x4f7X/9rfTDT
- gXUydvqiKthIwRGuS7KYmvVGOLWhVi1jlmXDP/RUZREXviuK7EkNsDSTcwBT3Hz8zDwGiL
- NCmvt6MPuBSbExtcZb2lEkVjMIYENjq/Qiqnb/YryehRL1oqWavpbm85H9SjAA==
-From: "BillXiang" <xiangwencheng@lanxincomputing.com>
-Message-Id: <7434d1a7-c5d8-4d97-a8f6-ab9bf881d299@lanxincomputing.com>
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3] RISC-V: KVM: Serialize and atomize the IMSIC's TOPEI read-and-clear operation
-Received: from [127.0.0.1] ([123.120.4.67]) by smtp.feishu.cn with ESMTPS; Fri, 13 Nov 2026 16:26:15 +0800
-References: <20260923091658.1421475-1-xiangwencheng@lanxincomputing.com> <CAAhSdy0Fp5R9v1O7gEoVriBBfnSapTgQ52ZLn5+QJOMxnn1z3w@mail.gmail.com>
-X-Original-From: BillXiang <xiangwencheng@lanxincomputing.com>
-User-Agent: Mozilla Thunderbird
-To: "Anup Patel" <anup@brainfault.org>
-Cc: <xb@ultrarisc.com>, <atish.patra@linux.dev>, <pjw@kernel.org>, 
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>, 
-	<pbonzini@redhat.com>, <graf@amazon.com>, 
-	<kvm-riscv@lists.infradead.org>, <kvm@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Fri, 13 Nov 2026 16:26:13 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NyDdpyEM
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nYLdUbk5QLSfx/0QfCJHyY1+wwz8sy2W4IX1D6WfX7w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794558474; v=1; x=1795163274;
+ b=NyDdpyEMeQylZEbb4ptsrUQJGSig1MhNvbhQfhXI/6HJTb1Zgb/mntVouDnnG5C80geFLpyG
+ bglD+45ZlJiwvkeMU1mEe7F84RSbNRx8vE7ryNuvoiB2/KINg4Jtqi/ZwPacdFFBwb0dKzmsbGG
+ u1M/JFtaXR3YUihsD1JjDI78=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c52c70c0dd39456d;
+	Fri, 13 Nov 2026 08:27:53 +0000
+X-Mizu-Trace-ID: c52c70c0dd39456d
+X-Migadu-Flow: FLOW_OUT
+From: Ruben Wauters <ruben.wauters@linux.dev>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: Ruben Wauters <ruben.wauters@linux.dev>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Ruben Wauters <rubenru09@aol.com>
+Subject: [PATCH] MAINTAINERS: Update Ruben Wauters email address
+Date: Fri, 13 Nov 2026 08:25:57 +0000
+Message-ID: <20261113082738.6447-1-ruben.wauters@linux.dev>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,162 +68,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Language: en-US
-X-Lms-Return-Path: <lba+26af6c9a9+b8342a+vger.kernel.org+xiangwencheng@lanxincomputing.com>
-Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <CAAhSdy0Fp5R9v1O7gEoVriBBfnSapTgQ52ZLn5+QJOMxnn1z3w@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 11/13/2026 1:36 PM, Anup Patel wrote:
-> On Wed, Sep 23, 2026 at 2:47=E2=80=AFPM BillXiang
-> <xiangwencheng@lanxincomputing.com> wrote:
->>
->> The TOPEI read-and-clear must be atomic with respect to
->> interrupt injection (set_bit in EIP). Otherwise an
->> interrupt injected between the topei read and the
->> clear_bit could be silently dropped.
->>
->> v3:
->>   - fix undefined eflags
->>
->> v2:
->>   - fix patch file curruption
->>
->> v1: https://lore.kernel.org/kvm-riscv/20260923070332.1376132-1-xiangwenc=
-heng@lanxincomputing.com/
->>
->> Signed-off-by: BillXiang <xiangwencheng@lanxincomputing.com>
->> ---
->>   arch/riscv/kvm/aia_imsic.c | 42 +++++++++++++++++++++++++-------------
->>   1 file changed, 28 insertions(+), 14 deletions(-)
->>
->> diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
->> index c1af23e79ae0..c440088651ec 100644
->> --- a/arch/riscv/kvm/aia_imsic.c
->> +++ b/arch/riscv/kvm/aia_imsic.c
->> @@ -607,26 +607,25 @@ static void imsic_vsfile_cleanup(struct imsic *ims=
-ic)
->>                  kvm_riscv_aia_free_hgei(old_vsfile_cpu, old_vsfile_hgei=
-);
->>   }
->>
->> -static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
->> +static void __imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
->>   {
->>          struct imsic *imsic =3D vcpu->arch.aia_context.imsic_state;
->>          struct imsic_mrif *mrif =3D imsic->swfile;
->> -       unsigned long flags;
->> -
->> -       /*
->> -        * The critical section is necessary during external interrupt
->> -        * updates to avoid the risk of losing interrupts due to potenti=
-al
->> -        * interruptions between reading topei and updating pending stat=
-us.
->> -        */
->> -
->> -       raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
->>
->>          if (imsic_mrif_atomic_read(mrif, &mrif->eidelivery) &&
->>              imsic_mrif_topei(mrif, imsic->nr_eix, imsic->nr_msis))
->>                  kvm_riscv_vcpu_set_interrupt(vcpu, IRQ_VS_EXT);
->>          else
->>                  kvm_riscv_vcpu_unset_interrupt(vcpu, IRQ_VS_EXT);
->> +}
->> +
->> +static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
->> +{
->> +       struct imsic *imsic =3D vcpu->arch.aia_context.imsic_state;
->> +       unsigned long flags;
->>
->> +       raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
->> +       __imsic_swfile_extirq_update(vcpu);
->>          raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, flags);
->>   }
->>
->> @@ -912,12 +911,15 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *=
-vcpu, unsigned long isel,
->>          struct imsic_mrif_eix *eix;
->>          int r, rc =3D KVM_INSN_CONTINUE_NEXT_SEPC;
->>          struct imsic *imsic =3D vcpu->arch.aia_context.imsic_state;
->> +       unsigned long flags;
->>
->>          /* If IMSIC vCPU state not initialized then forward to user spa=
-ce */
->>          if (!imsic)
->>                  return KVM_INSN_EXIT_TO_USER_SPACE;
->>
->>          if (isel =3D=3D KVM_RISCV_AIA_IMSIC_TOPEI) {
->> +               raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags)=
-;
->> +
->>                  /* Read pending and enabled interrupt with highest prio=
-rity */
->>                  topei =3D imsic_mrif_topei(imsic->swfile, imsic->nr_eix=
-,
->>                                           imsic->nr_msis);
->> @@ -934,16 +936,20 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *=
-vcpu, unsigned long isel,
->>                                            eix->eip);
->>                          }
->>                  }
->> +               if (wr_mask)
->> +                       __imsic_swfile_extirq_update(vcpu);
->=20
-> The __imsic_swfile_extirq_update() also calls imsic_mrif_topei() so it is
-> better to pass topei value to __imsic_swfile_extirq_update().
+Due to issues from my mailhost with sending and receiving patches, I am
+moving to a linux.dev address.
 
-Thanks for the review. I'll incorporate it into v4.
+Signed-off-by: Ruben Wauters <ruben.wauters@linux.dev>
+---
+ .mailmap    | 1 +
+ MAINTAINERS | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-Regards,
-Bill
+diff --git a/.mailmap b/.mailmap
+index 7fb33babc931..70491b2d8199 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -820,6 +820,7 @@ Ronak Doshi <ronak.doshi@broadcom.com> <doshir@vmware.com>
+ Muchun Song <muchun.song@linux.dev> <songmuchun@bytedance.com>
+ Muchun Song <muchun.song@linux.dev> <smuchun@gmail.com>
+ Ross Zwisler <zwisler@kernel.org> <ross.zwisler@linux.intel.com>
++Ruben Wauters <ruben.wauters@linux.dev> <rubenru09@aol.com>
+ Rudolf Marek <R.Marek@sh.cvut.cz>
+ Rui Saraiva <rmps@joel.ist.utl.pt>
+ Sachin Mokashi <sachin.mokashi@intel.com> <sachinx.mokashi@intel.com>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c4f4e48774d0..17bd2c76f737 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8337,7 +8337,7 @@ F:	Documentation/devicetree/bindings/display/panel/panel-edp.yaml
+ F:	drivers/gpu/drm/panel/panel-edp.c
 
->=20
->> +
->> +               raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, f=
-lags);
->>          } else {
->>                  r =3D imsic_mrif_rmw(imsic->swfile, imsic->nr_eix, isel=
-,
->>                                     val, new_val, wr_mask);
->>                  /* Forward unknown IMSIC register to user-space */
->>                  if (r)
->>                          rc =3D (r =3D=3D -ENOENT) ? 0 : KVM_INSN_ILLEGA=
-L_TRAP;
->> -       }
->>
->> -       if (wr_mask)
->> -               imsic_swfile_extirq_update(vcpu);
->> +               if (wr_mask)
->> +                       imsic_swfile_extirq_update(vcpu);
->> +       }
->>
->>          return rc;
->>   }
->> @@ -1050,9 +1056,17 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vc=
-pu *vcpu,
->>          if (imsic->vsfile_cpu >=3D 0) {
->>                  writel(iid, imsic->vsfile_va + IMSIC_MMIO_SETIPNUM_LE);
->>          } else {
->> +               /*
->> +                * Serialize the EIP set + external-irq update against t=
-he
->> +                * TOPEI read-and-clear path so that an injected interru=
-pt
->> +                * cannot be silently lost when the guest acknowledges a
->> +                * different (or the same) interrupt concurrently.
->> +                */
->> +               raw_spin_lock(&imsic->swfile_extirq_lock);
->>                  eix =3D &imsic->swfile->eix[iid / BITS_PER_TYPE(u64)];
->>                  set_bit(iid & (BITS_PER_TYPE(u64) - 1), eix->eip);
->> -               imsic_swfile_extirq_update(vcpu);
->> +               __imsic_swfile_extirq_update(vcpu);
->> +               raw_spin_unlock(&imsic->swfile_extirq_lock);
->>          }
->>
->>          read_unlock_irqrestore(&imsic->vsfile_lock, flags);
->> --
->> 2.53.0
->=20
-> Regards,
-> Anup
+ DRM DRIVER FOR GENERIC USB DISPLAY
+-M:	Ruben Wauters <rubenru09@aol.com>
++M:	Ruben Wauters <ruben.wauters@linux.dev>
+ S:	Maintained
+ W:	https://github.com/notro/gud/wiki
+ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+--
+2.56.1
