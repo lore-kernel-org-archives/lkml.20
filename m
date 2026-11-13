@@ -1,68 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794571559;
-	b=2IcOGyX7scSefHPowG5fs6H3f8PfZgpy0vOLy7omThSLya2JJ29Cr9kVyI6uFlJRcP/Z
-	 oashYN6RPWOuuWYcTtcq39m6T6hcXlp+XB07ixNma4O/rs/LxhYum3y1rXkzU4Eo4kr+Y
-	 UqALI2QH/qm47WIKX6J/3KO7siABEv0/tOeVSBM/l0fyKlLiuqZf3m86scR1up6CRZpeR
-	 qtkMHxWBJ3/CjMVFpl6L0w+d6oI3vrftktqLVM5duKbRRf8EMLXlW1Q6947K5NCHOoUl6
-	 AQ/XQNzatYv6KiPuMWRQhmu+dQLb4Wp9faTI1cEAsVw6j9CMUGGJz/c+XmJuDCQzqcQ==
+	t=1794571561;
+	b=utLn4hWRf5ZuN56iPpguWmsaODHDso3XnxFz5i8UbC1kiNCkle1uVDNqQ4d+fCDAjZOZ
+	 fT0satzN9c9cc8YQXucOC2LUEO7TtzLdEqhjipcEWGnIk4T2MBWBXEPaGS3xk4ozq6zmJ
+	 aEg1sHqRmrLx1c22/BNugmmRdKL/ShDT4uWjJtwQ+te1rHUKGC+bMEc1YJasjMs/iyU0Q
+	 WIf/Ol/DI9PZnILdnE0gKzQ4GJEuD1iSY5d71aleKRzT9/ou5efKI/YhdU8pzudyUt7e5
+	 HqDBUB4q/62mV8NwuCMmZXw9FyA9p9qNBMjo5Dtv5lgIGmbUg7pfaLaa211TsNt0kfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794571559;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ew8hOC13o9wfy+m40ApTMAeA1rhG3tv6pgX/NAGeWFg=;
-	b=G6S5OznqkerFBM+M0+nL/r3MF7nWDNSftmWsDDuRg4R7uInfQRsw1zZXM4Lw/GbX/iJL
-	 OhEHy0vsujJrmF6Wj5MjeG0sKrhCKKRTjZTP8utFgwXzefN9YxW2EshRDUMCw+MhHeMSW
-	 3/+OWlAEfCs9IJAUrwiWze2nawXF+hfTix0lDEIsQ9Evu3OU0oipnj4es1zvNXsZnqy2E
-	 AqjlZQaqncJFJnUenE0dweGVgjeDEKfI+9WxYb9SS0s9EhSeTPskG7j6cT9BmY5WuNF+G
-	 4tpHM0co6XAszwDTvJcMFK5Yzxja82vMTpiIy6gQ7Igkjty14DVlqWmg67JviiWNLTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794571561;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=EfXphdCKIXv9Uwxy9CfujdrOz6OEGjuhAJtXv6fdipE=;
+	b=UmOj2r8nKPAoJ8X1AxThwTdB9/1DCcpopXpLEoV6FLXIiD2P659adyy+x4K34Ybg38ZK
+	 rqJ4Zc5FfNG/mEnKcqOjRjwjHqdhpWAVxTwBz5PcUE2srlRs7z3gdzEYctNClHEzUJUPM
+	 KbpTPfpg97ODY5YMAtayHV4VnxZpa3ssWSXN3+VaQv7j1ZYuXFXFcLZ60ivCtpZ22GqUh
+	 EiJ7qNZoAizpWf80ul+wEpxLQHmbLkAf2f0hWeuln/NXd3hVIg2EPsBhg08asLgFJzTP0
+	 yU+YAvwbz/8rJuNfZVuDqcfh0IlvYsOHjpIG5tR9E9Y01VidaWYhvOT1zoK++y93+hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mu99j7RL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=eC89Kk81;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE6F606A88F;
-	Fri, 13 Nov 2026 12:05:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410B8606AEB2;
+	Fri, 13 Nov 2026 12:06:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 410B8606AEB2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mu99j7RL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E9A61F000C4;
-	Fri, 13 Nov 2026 12:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794571559;
-	bh=ew8hOC13o9wfy+m40ApTMAeA1rhG3tv6pgX/NAGeWFg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mu99j7RLydX3ZksQxHNiqiV8a9C3HGC7C1B9GQzP3i7C2+X8JW5Nsl3ld9KFTB67b
-	 rTQi6bipXdld3U/uSYywJut+ua83KWwKn6KOM6cBbQ9OazBf9YJBKXJOG9raq88INl
-	 6748FiobUagmQyYCWbJzCZjOYLV+iqHT4vmAdGQoY1QFh/4D3MvGnzABWwgyfZZ8nC
-	 qc/PYUysfEen/3hzq4svDwJ/RgFoGqU9AMuqKy2lrFD2S6tqSL9RYtMASWBjIQDY4d
-	 YydpyRu0sSvtrB/5rpTSYMdQ5Eh2XX5FTmVV3wKdx/zsKDlnmB+0OS7/K3AkwYAiXw
-	 nHkUQpXGCnGXw==
-Date: Fri, 13 Nov 2026 13:05:49 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v4 0/6] Add strprefix() and fix a bug with it
-Message-ID: <avb862Pr0NKPVPQg@devuan>
-References: <cover.1794425425.git.alx@kernel.org>
- <avTIWshl9klX0obF@devuan>
- <avXYmk5sZKS0rm92@ashevche-desk.local>
- <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=eC89Kk81
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=EfXphdCKIXv9Uwxy9CfujdrOz6OEGjuhAJtXv6fdipE=; b=eC89Kk81kDpWNqbfCrZjZHvmhG
+	l5h5zFhDa9igeCZM89483crp2z2ytus1UmspG1vq9dQw7kc5ZwOHaah01eKtQm38B+BQTmxhHI7pq
+	2HF9gAy9JhLz42JZVZ4TS0ttcys/UYYH2umbCKMiUXhB2POzjdQh8/mF2/zMJUQWnq01LpERv4hUc
+	9rJ72h5wGGi2GdCDGq3wFaesLLBSRkcR+00GQMgVbA/hDr5HFw3iGvuNGKhoH+ekWe4TDp4lxveaX
+	qR3FUzmWP3Twg86qBFOGLLYUQZ6BglZleurVWysKezKzyUAejnm4MzVrEms3Sei5JtmAm+kw9TyP6
+	tnWPjzGQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xRq2Q-00EjoI-2X;
+	Fri, 13 Nov 2026 12:05:51 +0000
+Date: Fri, 13 Nov 2026 04:05:44 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, michael.chan@broadcom.com, 
+	pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch, edumazet@kernel.org, horms@kernel.org, 
+	shuah@kernel.org, almasrymina@google.com, sdf@fomichev.me, dtatulea@nvidia.com, 
+	asml.silence@gmail.com, bobbyeshleman@meta.com, daniel@iogearbox.net, 
+	razor@blackwall.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH net-next v4 3/5] net: devmem: use niov_shift in
+ net_devmem_get_niov_at()
+Message-ID: <avb9CdqQ00h-Dwrr@gmail.com>
+References: <20261111224740.2744522-1-sdf@fomichev.me>
+ <20261111224740.2744522-4-sdf@fomichev.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,87 +72,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="l2hgnnxajsc5hpxz"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
+In-Reply-To: <20261111224740.2744522-4-sdf@fomichev.me>
+X-Debian-User: leitao
 
+On Wed, Nov 11, 2026 at 02:47:38PM -0800, Stanislav Fomichev wrote:
+> TX bindings use PAGE_SIZE net_iovs, and the TX lookup hard-codes it.
+> Derive the index and offset from binding->niov_shift instead, so TX
+> bindings can use larger net_iovs. No functional change, TX bindings are
+> still created with PAGE_SHIFT.
+> 
+> Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
+> Reviewed-by: Mina Almasry <almasrymina@google.com>
+> Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
 
---l2hgnnxajsc5hpxz
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v4 0/6] Add strprefix() and fix a bug with it
-Message-ID: <avb862Pr0NKPVPQg@devuan>
-References: <cover.1794425425.git.alx@kernel.org>
- <avTIWshl9klX0obF@devuan>
- <avXYmk5sZKS0rm92@ashevche-desk.local>
- <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
-MIME-Version: 1.0
-In-Reply-To: <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
-
-Hi Bart,
-
-> Date: 2026-11-13 10:25:00+0100
-> From: Bartosz Golaszewski <brgl@kernel.org>
->
-[...]
-> > Are you sure that it's okay to use asm/bug.h APIs in string.h?
-> > The include/linux/string.h along with the backed C implementations is r=
-eally
-> > special in the kernel. Hint: check which stages of kernel boot use it.
-> >
->=20
-> Agreed. I'd just move the implementation into lib/string.c and not do a
-> static inline function here.
-
-Hmm, thanks!  I'll do that.
-
-
-Have a lovely day!
-Alex
-
->=20
-> Bart
-
---=20
-<https://www.alejandro-colomar.es>
-
---l2hgnnxajsc5hpxz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr2/RMACgkQ64mZXMKQ
-wqmNSw/+NhDKyBjn0lq0zuI2m5yLY3P6tSCdyIBSR8OKvV5HIUio9mh8ljNal/ym
-Sz0hjW4t9OVFiCg4UARs3vPAujQq7jO/vSAa3C2PWQT46VE9RK8aNskYMmFWXuWd
-/DcT6X54849AYkHr7FP5+q+l8Q2HFMnXGV+Delvdb/82rKB04/wRMBbFefcJMi92
-Z9Ks9wf1Y0JsCjcLHYZIgXD0w3RhzLM33+Cq5jdJtVeTOiBSPLZYywEDeFEBwrJ+
-dPkGu2/yKZbN3db4knaI8n8NYmcAYrVehn2XaD0PcYigSCt4IryJjkodh54Z7BOL
-fsod+nYMQt6xTt4nE6+g2UgHFhAjxnIjsgr8Rd3josxeqnQJCheCcMUgNIiZR1SA
-GFo/CmMtE9IMtffygFSkSt86VQRpSIH49pkeSNwdb40izuxkLmahKBTfUW4tRiYm
-NQcO7je5MPGGnM3qSOZSq2EebLlpck0CohvFJvzAKJ7od11NiOIISgnFQ6DuUSqX
-zUUTaJt+q2Mt+DcHQj0RFxgWs8xUuacQhaItoGcljBZSM1t5GoamUxGzQqpT6Jp5
-0/Im57WXfZxwYbLBbm71EGkOdaNOfb/Gf3g+N34lBjCn7/bxd642ooo4FD2Rq61Q
-Y8jtSDFA9KFhFTV/Q2NPiBI48xDhzabFoQguGK28sPybiAZK4Uk=
-=BE9Y
------END PGP SIGNATURE-----
-
---l2hgnnxajsc5hpxz--
+Reviewed-by: Breno Leitao <leitao@debian.org>
