@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595176;
-	b=Rl7mB5iL7f4UBURWbfkSQ/+77T+FqAKLi39/6ekaK/U0/BkF7N9LoTjN4rw4oXV6xjIr
-	 UhJkEs2rmmxP9/52HO+FO8ho1lv/smi/iuY/CQjQg1rNKc4RIBm5EZUeUz6oTRZ7nMg6r
-	 uhpYnuyVEqi5eLvvwtrtKbJX3bXRkCkGxnkSOh6O3mI7PV/Aq0kEoqIpx8bwpPMAghVuP
-	 /3u5bcDE8/5Zpa3lsCGbZJYSuQufpcQLsUNKEuWNY+3hRviAafSYywpYgBU+aF/ihLUKP
-	 wn61Xx5917ZpwZt2rS2CmzNCCxh/93BSqKeYoScyWx5g+F35Kc9Ofhdy2xhlYtYN9IA==
+	t=1794595180;
+	b=MF9CZaMQiXbhbuRSFCM7IRbh7mervYuGL2Vmc8Ne59tuhaIkxH8EIHgJR8cvzkszyS6W
+	 obMKVHAg/cln7otjfhFdWA10rC3cU8tcmgRUpQM7NKtHL8yNtWwcYcY9zKexbzMAq2zsa
+	 lpwj2ad3p2rWzGkuJIWBT/rkoN8yHuCFkY5gPI4wb0i7Nejg2TA4N/BLqyqsKECaBPloj
+	 K3zkUtBL+P9BCU+MCMuuOvVwa+FZ1vy3hq005HlTJXo8r/YsYxk9Bvax46EU5luocp4Kb
+	 Smj/HMRW9cUMYm84ycDJ2XMNrECKtnBROHgBwGIzKhkigMHD/ZmSz1v+cwpTf6EZL6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595176;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595180;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=GKkUaPjQ9HSzLxoN+bG5qq5nVAC+gnIY9tY/xC5NK/w=;
-	b=k6LnxQNU7DwMZDUGXNQ8zTP7MteNBl7jXPHD1rKmiUW6HUL148O9Rg7MJGeG4TdfQSeC
-	 rg5+8kR6XO7Mb2E5YyGAFxOlJcHF8n+P6Xn09t041b+nyLhtk5M7i0JTOGHhnCibx4050
-	 fZ2MjBUGMAoWu87Wuxdn6TJDNgQaarsjo9yzHoblBqtBEmQCjAiJ+MUumyTB2xqgH01/m
-	 J33K68IehSI4UXnFVEPQg18VtMUDne5VpODAuKCx6ZUOKecaYsiBum+GoL8GhAmmZNhQF
-	 DZAEPGZYgRmcoqAWnm5WPMvLzxh0ZRV9sqUCA5N9Z8ncswqn8O0Db4mSAsvt+qLMK4Q==
+	bh=wv23z+xItheor5swVqHxPfU5ZMgwYhfd4id4yMFTyJ8=;
+	b=CJr+K8CUDsF+U+tqGC4pJyxqZgHS97I0LUyRpmuDsU6qPzH+7+IoTtrilm2QhLt1KxMk
+	 kIYJLHts1LV4nx9QgmXuKIaeD/2JQlYKbz8xUr0ZuMvvwXSUZ9YMmE4jdqkNiZGL6oQFt
+	 FTGqdn9me2BKg1QcZa7/dbRk2+z0rahHB3m8XhCNodjPP6IneImySkCwbBY/RbUGFs+RG
+	 kzQFRotYuv5A8mW4tRfnpGzhf6xGkageM4XGHbaDOzg831AxbuiPA2nqCTGwnjzOAn/VD
+	 nQUBnIsMuXqGeqLgfzs8KyczuxbwoYP8bLaPOA1hYn7vwF3efMvEriy08NkTle0rfKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BmHjhcH6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NrT4untO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A822D606A895
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:39:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF86B6071039;
+	Fri, 13 Nov 2026 18:39:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BmHjhcH6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 825151F000C5;
-	Fri, 13 Nov 2026 18:39:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NrT4untO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1631F000C4;
+	Fri, 13 Nov 2026 18:39:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794595176;
-	bh=GKkUaPjQ9HSzLxoN+bG5qq5nVAC+gnIY9tY/xC5NK/w=;
+	s=k20260515; t=1794595179;
+	bh=wv23z+xItheor5swVqHxPfU5ZMgwYhfd4id4yMFTyJ8=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=BmHjhcH6TeFUyYov3GX1U2GnMc+q5WbxbFGB2usDXgoFKGVeKBh4t5qwUfHVe2qbQ
-	 WMGwYa92xwygNHcyaRNrPHrEGaJYC3asZo5W4B2f9daj3M+UK5nh6wsK5FJECJjSEN
-	 Cr5aGrYLXgBW4CbwJm6JK6Hrqx+qipB1DAstEAjvxRlOtvsf5c9KE5CBDgAzfM7nNo
-	 K7UNBcT79d+A/4gvACtz5LvCHn9OV5BWdvD6dqqIK7rcvu30NTIHPXN6YWjdbF5pwW
-	 UmwRkdji0zNIHNlFIghcZAIAHWqS1LAxliFycv8i+B93RWkn/VWZ25aWFGfNsV4Y03
-	 px4M9jj3OtIUQ==
+	b=NrT4untOez6Twbg0ubjU58ouUNc0LvqR6OZzJBuXGE73B73VXJTMgrI+5xEZ6AQyZ
+	 KrgyOPPw+7WkIAJZy73B39CJCZvDgHkG6F4Bd/j2wORTf+VIVKP6BLcwi0HtkO0BwE
+	 BgJglbgGfwVjOjJe8eEznZGqFpbn7oQmaWpXGVhd2IuamM3AFS53MX0vHEnVNv8ErY
+	 30R6sxCbwlsAMCanVJn7ZVb3XYPOhJGMyyYY5X2oy2SRFSoCtKg75APwfk7llxNTDO
+	 0u1VEgBiKijOZPi8/rkuyKschJ6879X99UpeGoWlmrSipQxes0wMZIaQ0klKe01GLI
+	 iNBo6ZNLCSC1Q==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 77598392E998;
-	Fri, 13 Nov 2026 18:39:36 +0000 (UTC)
-Subject: Re: [GIT PULL] erofs fixes for 7.4-rc3
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B453E392E998;
+	Fri, 13 Nov 2026 18:39:39 +0000 (UTC)
+Subject: Re: [GIT PULL] smb client fixes for 7.4-rc3
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <avYqFWIxinR9JB0O@MacBookPro.fritz.box>
-References: <avYqFWIxinR9JB0O@MacBookPro.fritz.box>
+In-Reply-To: <e7592016e8a893d7c859ba1e6ee0db61@manguebit.org>
+References: <e7592016e8a893d7c859ba1e6ee0db61@manguebit.org>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <avYqFWIxinR9JB0O@MacBookPro.fritz.box>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs.git tags/erofs-for-7.4-rc3-fixes
-X-PR-Tracked-Commit-Id: 7906eac042a4d6facd3b2dcebfe7179fedfcf1f2
+X-PR-Tracked-Message-Id: <e7592016e8a893d7c859ba1e6ee0db61@manguebit.org>
+X-PR-Tracked-Remote: https://git.manguebit.org/linux.git tags/cifs-fixes-7.4-rc3
+X-PR-Tracked-Commit-Id: 25912ed3b75dcf5ff623dcb549b925dd0d0948f7
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: b970ee43be13fc45851e957469807cac049c10ce
-Message-Id: <179459517518.1691752.5818346831969815186.pr-tracker-bot@kernel.org>
-Date: Fri, 13 Nov 2026 18:39:35 +0000
-To: Gao Xiang <xiang@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-erofs@lists.ozlabs.org, LKML <linux-kernel@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>, Zhan Xusheng <zhanxusheng@xiaomi.com>, Chao Yu <chao@kernel.org>
+X-PR-Merge-Commit-Id: 3db1c74a20f0552fadc2c6886a43feee8894fa19
+Message-Id: <179459517838.1691752.14559133858484764698.pr-tracker-bot@kernel.org>
+Date: Fri, 13 Nov 2026 18:39:38 +0000
+To: Paulo Alcantara <pc@manguebit.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-cifs@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Thu, 12 Nov 2026 22:05:25 +0100:
+The pull request you sent on Fri, 13 Nov 2026 11:10:56 -0300:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs.git tags/erofs-for-7.4-rc3-fixes
+> https://git.manguebit.org/linux.git tags/cifs-fixes-7.4-rc3
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/b970ee43be13fc45851e957469807cac049c10ce
+https://git.kernel.org/torvalds/c/3db1c74a20f0552fadc2c6886a43feee8894fa19
 
 Thank you!
 
