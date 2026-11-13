@@ -1,95 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584455;
-	b=vvmbx5FHLfbNbMF01PeDaOYfBPyx6+lqWooIKR1nImef0Jv+RziwRoasw3LqyOk3cOKM
-	 rl1Ldg2RrPq8mDCvfiQfAKYGjo9XlpRP05D8D6ps4mIfOUs/sy3gq/hBn1G00s7OO3HkA
-	 N4s60PFoVlwS/h3sUQlS1NPFW/StF2TmE4nSmI6VTYuajvOnQSWOy5bO2IDLSuHIKHE6g
-	 moaNltzxef5cxZSxqMIk/ENO+lxdyxr06yer0k2mgaK6TQtiLSNbjTPgZrOMNwb/m/Fbx
-	 /1oxCLjmWiMNGtEi2t21F8g5eeNVZQbDcOYxESf/bCdaPOmY3TbsODYbAiMvswBNU2A==
+	t=1794584458;
+	b=4m8Lok2679k6BN7FIyrSjD+oE+7rze8vdyICXx8o2BcOMyNbZDeqE5V6qdwQfH6ZgRCv
+	 Y5hn7kQcx1pMGe+hyV30Upw81jvSZ90gsKR7DwXWkxSV74fzRiItt++SKs8ovVD33iXZJ
+	 NbLd1tEvzf4Rf3/3/91Ler6vWlMsqRZzB0QSojXYTnXKxpFC8xAPdBMVPP1wI/DG8Wr0m
+	 hXOnUwi1I51GDb/OVy0e8KpVEIP1kg+xY9C28M6YqwbC92YeDS1vqTUREBRvKIOv+83aM
+	 XFTs8b0xkZDtGiUt4GVuSV6j5nqYSIt5BrFXDx7ZuJqVcB3ftBWfd+oxNseUg/T6WDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584455;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584458;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=M/5AfdX/Z0i/Rm+LooPoSTOr+dHyCrjT6srdLcYz5lY=;
-	b=isf9D3bKVG+0/slT1KvCQ7+vWmuEE91Z7REAz9k3WPLxmdi2goaOYE9lAvW9KOuHCxsO
-	 HjzVI0gByMGtDB81+/d8PYpznRXZNrepWtdgkawfyRhOo68yskpPWB6NUfFjAG+EuULaM
-	 1aOAHF4aYbmpDqdcM/YCBOW0dLY0Dc5oQgsckN3x5YQAfBEqK83c9nTSvqECsrcQuFhCH
-	 WcJQx9fVla+PnL7T73sSV4swwN1mYlRZGtQ7/RsamPlYUzaL3vga4t7MbmV1OzWZNfdRn
-	 CNx25lVJyav7LoZ3RNct6r8RdAWiLKdfiG/dD8eUgfgKnr/Qwbdg/Uaux61BlxTH16w==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=4GT8+Mmr8OYn6xUMx+uYQ3KeEz5BsFTJd3z2yKiJr1Y=;
+	b=pPssrBn+Mzoxum5K4khgGO3MKPsmFaSgcRXcLDkusUfoMu1i/6eo2azygzVqODHwhYtC
+	 +6MXdNUyWf1onzreWi3YaR+xbts4zdufA0yqbiiWWx3QoafJhJfJ/MZUKscW5jOqdCrd5
+	 OGUbGtei5NdgMwHBOx8EZkPgLSwKggTnex1hGCRul3e2b/I8+mGE+xfE6px3TjYcJt7FN
+	 hP22rVOawOryD97WguLTwoEF0U2Fd70W4rclzpACTjZWe9IdNAUpvhJaPw7x4ZNg9E9hb
+	 7lf+Iz37cJc5+Qu3bE+YpSUUlgNb3a4KwLZFOomG8Y2DmPKMVFQwJYsBQsVGQKZOaZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AbTQAM7Z;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AD3FUUY4;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7D6606A327;
-	Fri, 13 Nov 2026 15:40:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B7D6606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DD0606A881;
+	Fri, 13 Nov 2026 15:40:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0DD0606A881
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AbTQAM7Z
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AD3FUUY4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794584455; x=1826120455;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HYt69qA5pD83okxtiPgkSwKaBYtyhJX/GokhDg6mGag=;
-  b=AbTQAM7Z8D4B7nubOOKXPzBW8Ok6rioYbXWZZTchOJp6A8SFy2hYIm+L
-   VLxYD9pBf2mDyLn4ATRgFxUVYU1quBTnKg4xyA+cPmy/JqiCM+V1yqMfR
-   re9Z4Cotl/NI3E8ooq0ZT37xxK1sZyqWiG7QtdXyvkTm1I14TLOOdYSjr
-   fvYeObvcmepZtc6P+UgoBqDfA8e23amiYcpN/k8bQTEAT2Scwbe8TSxiQ
-   bid0Y+KOzQFPn6nU4sVqnlrQgxHmaT8olclbfV0LFHLh2Ux0WnF93adUZ
-   xF+hggt/9tz1hpEFyw9s/VbDFPFVUKZlTPd9EvMhY7ew/7dUYG7n8d4+w
+  t=1794584458; x=1826120458;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=XW9+ctSAsRi1UZ6OAm7aUEQJe5hNybzu4A7OLgjs9Wk=;
+  b=AD3FUUY4ynSEK0N9SnpAahM+Ge8S7QEoGS6gCusRWlmdJFpO9p9YVm6/
+   SOzIvfs1NoSE/AZJxkOSR8By/Qqcgc+hCv1CiwLUxtghnXS0tveZLzKQn
+   u3imIwgfca+Y/vuIOac3RziSPG2LmKNee1KoDlTdvOiHBHNxR/dQwBFGF
+   6eoSl7nCTb+ceAJkImYSYqYlavkrMpAUP4pkokl720fGH4hiRgoZg/3DV
+   B21IDZtnFPyCx4iWtl+CmxZ9mXDPQG7jqlTUhD9YmjRrOLmfPVN3Hvywf
+   bbvp0VjUOF2rTLwmZDL8WAHAgQLUym4y0Ky2vLzaY9B99mc10HQZNM68A
    w==;
-X-CSE-ConnectionGUID: cHGKfiPnQK6R1Bk+cHm0dw==
-X-CSE-MsgGUID: aCAS+WrvSK6kho9lj+YDXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3378286"
+X-CSE-ConnectionGUID: AQwh4vz8RtKlCE1O9aezmQ==
+X-CSE-MsgGUID: djy0H95WRA2iGMl5qqL+3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3278976"
 X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3378286"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:40:54 -0800
-X-CSE-ConnectionGUID: KWT4RppXRsG0aNLHEpi2SA==
-X-CSE-MsgGUID: HInV2e6jSwydOlqN47o/Sw==
+   d="scan'208";a="3278976"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:40:57 -0800
+X-CSE-ConnectionGUID: X7oXsXksRnOn5cEv9RlEUw==
+X-CSE-MsgGUID: hHon+IRjTZukSp35DTGh4w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="9220464"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:40:48 -0800
-Date: Fri, 13 Nov 2026 17:40:45 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Rodolfo Giometti <giometti@enneenne.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Angelo Dureghello <adureghello@baylibre.com>,
-	Tobias Sperling <tobias.sperling@softing.com>,
-	Eason Yang <j2anfernee@gmail.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	duje@dujemihanovic.xyz, Joshua Crofts <crofts@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Victor Chernyakin <chernyakin.victor.j@outlook.com>,
-	herve.codina@bootlin.com, thomas.petazzoni@bootlin.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: adc: add driver for Texas Instruments
- TLA2528 adc
-Message-ID: <avcvfUcFwdJWjvs8@ashevche-desk.local>
-References: <20261113151543.2241604-1-maxime.chevallier@bootlin.com>
- <20261113151543.2241604-3-maxime.chevallier@bootlin.com>
+   d="scan'208";a="10851533"
+Received: from vyassate-mobl1.gar.corp.intel.com (HELO soc-5CG42912VT.clients.intel.com) ([10.247.253.251])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:40:55 -0800
+From: Sankara Tankala <sankara.narayana@intel.com>
+To: rafael@kernel.org,
+	daniel.lezcano@kernel.org
+Cc: rui.zhang@intel.com,
+	lukasz.luba@arm.com,
+	srinivas.pandruvada@linux.intel.com,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sankara Tankala <sankara.narayana@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] thermal: int340x: processor_thermal: Fix Nova Lake-S PCI device ID
+Date: Fri, 13 Nov 2026 21:10:01 +0530
+Message-ID: <20261113154001.2081-1-sankara.narayana@intel.com>
+X-Mailer: git-send-email 2.53.0.windows.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,80 +83,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113151543.2241604-3-maxime.chevallier@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 04:15:42PM +0100, Maxime Chevallier wrote:
-> Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
-> channels, that can also be configured as 16-bit averaging channels.
+Nova Lake-S uses the same processor thermal PCI device ID as Nova
+Lake-H, 0xD703. The 0xAD03 ID added for Nova Lake-S is the Arrow
+Lake-S ID (PCI_DEVICE_ID_INTEL_ARL_S_THERMAL).
 
-I forgot to check if there is a justification of the brand new driver,
-I assume there is.
+The ARL-S entry comes first in the PCI ID table, so the NVL-S entry
+never matched. However, proc_thermal_rfim_add() matches on the device
+ID alone, so Arrow Lake-S, which has DLVR, wrongly gets the Nova Lake
+DLVR register map.
 
-> This is a very simple driver, allowing reading raw values for each
-> channel. GPIO mode isn't supported for now, as well as buffered mode and
-> the 16-bit averaging mode.
+Replace the separate NVL_H and NVL_S IDs with a single NVL ID, 0xD703,
+and drop the 0xAD03 entries.
 
-Some nit-picks below, but they do not prevent from this patch being accepted,
-so
+Fixes: af1b80b94126 ("thermal: int340x: processor_thermal: Add Nova Lake processor thermal device")
+Fixes: dbd911a07f14 ("thermal: intel: int340x: Add DLVR support for Nova Lake")
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Sankara Tankala <sankara.narayana@intel.com>
+---
+ .../intel/int340x_thermal/processor_thermal_device.h       | 3 +--
+ .../intel/int340x_thermal/processor_thermal_device_pci.c   | 7 +------
+ .../thermal/intel/int340x_thermal/processor_thermal_rfim.c | 3 +--
+ 3 files changed, 3 insertions(+), 10 deletions(-)
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
-...
-
-> +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
-> +{
-> +	__be16 data;
-> +	int ret;
-> +
-> +	guard(mutex)(&tla2528->lock);
-> +
-> +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
-> +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
-> +	if (ret)
-> +		return ret;
-
-Ideally this needs a comment explaining in short why regmap IO accessors may
-not be used.
-
-> +	ret = i2c_master_recv(tla2528->client, (char *)&data, sizeof(data));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != sizeof(data))
-> +		return -EIO;
-> +
-> +	*val = be16_to_cpu(data) >> 4;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +	ret = regmap_write(tla2528->regmap, TLA2528_GENERAL_CFG_ADR,
-> +			   TLA2528_GENERAL_CFG_RST);
-
-With locally defined
-
-	struct regmap *map;
-	...
-	map = devm_regmap_*init*(...);
-	...
-	tla2528->regmap = map;
-	...
-	ret = regmap_write(map, TLA2528_GENERAL_CFG_ADR, TLA2528_GENERAL_CFG_RST);
-
-this can kill two birds with one stone:
-- make this one line (yes, 82 characters is okay)
-- keeping data structure free from error pointers
-
-> +	if (ret)
-> +		return ret;
-
+diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
+index b79937a386ec..87d8ff9c7173 100644
+--- a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
++++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
+@@ -27,8 +27,7 @@
+ #define PCI_DEVICE_ID_INTEL_JSL_THERMAL	0x4E03
+ #define PCI_DEVICE_ID_INTEL_LNLM_THERMAL	0x641D
+ #define PCI_DEVICE_ID_INTEL_MTLP_THERMAL	0x7D03
+-#define PCI_DEVICE_ID_INTEL_NVL_H_THERMAL	0xD703
+-#define PCI_DEVICE_ID_INTEL_NVL_S_THERMAL	0xAD03
++#define PCI_DEVICE_ID_INTEL_NVL_THERMAL	0xD703
+ #define PCI_DEVICE_ID_INTEL_RPL_THERMAL	0xA71D
+ #define PCI_DEVICE_ID_INTEL_SKL_THERMAL	0x1903
+ #define PCI_DEVICE_ID_INTEL_TGL_THERMAL	0x9A03
+diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c
+index 7d6fee59ade2..f218ee247ab4 100644
+--- a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c
++++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c
+@@ -501,12 +501,7 @@ static const struct pci_device_id proc_thermal_pci_ids[] = {
+ 	  PROC_THERMAL_FEATURE_DVFS | PROC_THERMAL_FEATURE_WT_HINT |
+ 	  PROC_THERMAL_FEATURE_POWER_FLOOR | PROC_THERMAL_FEATURE_PTC |
+ 	  PROC_THERMAL_FEATURE_SOC_POWER_SLIDER) },
+-	{ PCI_DEVICE_DATA(INTEL, NVL_H_THERMAL, PROC_THERMAL_FEATURE_RAPL |
+-	  PROC_THERMAL_FEATURE_DLVR | PROC_THERMAL_FEATURE_DVFS |
+-	  PROC_THERMAL_FEATURE_MSI_SUPPORT | PROC_THERMAL_FEATURE_WT_HINT |
+-	  PROC_THERMAL_FEATURE_POWER_FLOOR | PROC_THERMAL_FEATURE_PTC |
+-	  PROC_THERMAL_FEATURE_SOC_POWER_SLIDER) },
+-	{ PCI_DEVICE_DATA(INTEL, NVL_S_THERMAL, PROC_THERMAL_FEATURE_RAPL |
++	{ PCI_DEVICE_DATA(INTEL, NVL_THERMAL, PROC_THERMAL_FEATURE_RAPL |
+ 	  PROC_THERMAL_FEATURE_DLVR | PROC_THERMAL_FEATURE_DVFS |
+ 	  PROC_THERMAL_FEATURE_MSI_SUPPORT | PROC_THERMAL_FEATURE_WT_HINT |
+ 	  PROC_THERMAL_FEATURE_POWER_FLOOR | PROC_THERMAL_FEATURE_PTC |
+diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
+index 96279756177f..1832f13634d8 100644
+--- a/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
++++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
+@@ -472,8 +472,7 @@ int proc_thermal_rfim_add(struct pci_dev *pdev, struct proc_thermal_device *proc
+ 			dlvr_mmio_regs_table = lnl_dlvr_mmio_regs;
+ 			dlvr_mapping = lnl_dlvr_mapping;
+ 			break;
+-		case PCI_DEVICE_ID_INTEL_NVL_H_THERMAL:
+-		case PCI_DEVICE_ID_INTEL_NVL_S_THERMAL:
++		case PCI_DEVICE_ID_INTEL_NVL_THERMAL:
+ 			dlvr_mmio_regs_table = nvl_dlvr_mmio_regs;
+ 			ddr_data_rate_reg = &nvl_ddr_data_rate_reg;
+ 			break;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
