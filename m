@@ -1,60 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.57
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558358;
-	b=C9SXfwpQ8M5DA3icNb1Rp+qsPdaIWI9VzyRyeURiFR7WD3syff7T8TJi1ddX59ERePo6
-	 Mt3WAkgZHG2j3Z1/uldP44cMZIi5i7rErJ7/9bSJxIJfMFVB/BySlWYbcQ3Q3N0qA66ld
-	 RX0Ptdfc6AWOrvPb/JSylUTQ3UHzoBiiAT9lqC6AGViWz5H0gBML4l7oZVMLR/S7kLs9n
-	 ShDqjatKV63Qu20tY3rixeXy/IyKR9X6Vl5ROvaAkzHY/7rZrQ7sjvng7AA853E5qZapm
-	 DKQ36+Un9mRGbROk9uO7ADYjJW9/ReW9jvZvNRCWFSkmF5waQ2wbg6nIR0MO5c2scdw==
+	t=1794558390;
+	b=10KIq7/Mcnidv8WF0cCH19Kg+WteRZKV3gSulHs/gF/Tqh5Tw5T/EIRHScmQLOZWa9Bs
+	 0KLkY3PlfSQiZ7nGfFXxrZaXDqvQKeRNpoN2UqCrjC3xvoDO2I+a1bn78pPEOOqgmBcHs
+	 0UYDbzXjFnwpsK8WDEV+FfdNTwn06LDw3aY41xgm4DnxPJY/zHbVyfm+ady+QXYVpTnHM
+	 TOB91GWXWgpq8pZ/Mo1YGt3RAd9kniP9B+2ahiISOXqzdJoQQpSfKj/2/0Ais/2fgC7JI
+	 hcrO525tqzin5N2Zo75E1WkCgkEsz7eaU/QXDPiqgZjeYkYU4u5nt6zM/iCQNUh5xIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558358;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=FGbd/iu2bJV8eXi7tvqHXFX25ugqVjT7gk/mtRxAUdY=;
-	b=dAvAw2kLCl8LMWPBiFT8rdWBen1YJleGEWOqc3XhEYm71u95uybVUcdsEv86RCazab2/
-	 zt15B2MghdX1gPzZrymSdAL5rfVzm6iJaHLJNmhCVn+NFrGxouYO8h6XirLQPodi2oVRf
-	 Ik6bUYRJ3+uE1ZlBMvyIGDg8ZSl+khZt0XgSdk1KC2WZL/gxu3vj5Cbc9Ew3RUmWcxrlH
-	 NQYjfpCAWdBYXNYUT2gJNH++h0q0QerMqnXW62As5nJ+5kc4sTfc0C6s48wcI3LdymjOm
-	 uf93JEuLsOSy5DbPxoevAKCVoT0NFVwQms85jidLBMLDV0MYnEogRN8y3Iy/ypCGzhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558390;
+	h=DMARC-Filter:DKIM-Signature:From:Message-Id:
+	 Content-Transfer-Encoding:Subject:Received:References:X-Original-From:
+	 User-Agent:To:Cc:Date:Mime-Version:Content-Language:X-Lms-Return-Path:
+	 Content-Type:In-Reply-To;
+	bh=8ix6MDEBpxMuClm/bHkXYW8egmY9AdoXZ7WOLRic6sg=;
+	b=SUYzI1wNaON+PoaCl5vNp7qQ+5PQ/+KcLL2aSAa8aqLmUDsbIDLcATFux8WyHl7Qswlu
+	 qVhCNPsaQLxmPnMsCVIvuwZlcE/HP3RR4bQEXXz6ZDHiay/yIugEFjqZ94HTSHkO9QCr3
+	 me79pcCgMMtNEB1/1uwg0BP/loU0aygyCfFzOFSxOTlJJxLkLO1ApwCrMHNvkTOnYPJw8
+	 ovLiAuamy/JzALLEIK5EgrRJNwhYAJB3WXgj1x30354MzuxQD0aQJYz1uh4X1ZzkzEzLZ
+	 7j77IG3p4zq8Spc5jWfbRqc44j5RoHIVQvchnUSGHVaF3ITZnfG35hR27TAopp2Ernw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S35aIuAu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=lanxincomputing.com;
+	spf=pass smtp.mailfrom=lanxincomputing.com;
+	dkim=pass header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=3Soqkxvu;
+	arc=none smtp.remote-ip=209.127.231.57
+Received: from va-2-57.ptr.blmpb.com (va-2-57.ptr.blmpb.com [209.127.231.57])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC82E606A31C;
-	Fri, 13 Nov 2026 08:25:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE03606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:26:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EE03606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S35aIuAu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74BB61F000C4;
-	Fri, 13 Nov 2026 08:25:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794558358;
-	bh=FGbd/iu2bJV8eXi7tvqHXFX25ugqVjT7gk/mtRxAUdY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S35aIuAu1fbIotDQ7NLNQELFhwzIYjYRBbiXmfpAugW8LbxOBgrJhraxGTYQ3EJLk
-	 15yXnxv0eNYTfOQnQW1TARXkZrEpSMMuBD4wSNc/0NddaTsDWuvh0oAMb7P0FNS+Pr
-	 kVGFwIrmxWiECrg5SLBCYSifL0rkmM7egttM5X9jCAgvWcoJ11rVKovC3CtX+t2JsI
-	 msf/5IWKsQeW6MtoSa1q4BFK0lgJHeX6ubLx2KdZLQAeb7vxWyAq82HTfKla10YZ3m
-	 XJaWJAOlScUKZinJuR7P4lj6yyD9EU4kwnFAhMs8nuXpTtKeNK+ARSknELYXztMnB5
-	 /NMA0Y2N+kAOQ==
-Date: Fri, 13 Nov 2026 09:25:55 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Christophe Roullier <christophe.roullier@foss.st.com>, Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 5/5] arm64: dts: st: add LTDC pixel clock controller
- on stm32mp25
-Message-ID: <20261113-mottled-maroon-marmot-b45b14@quoll>
-References: <20261110-ups_mp25_clk_syscfg-v2-0-624559bb8ec7@foss.st.com>
- <20261110-ups_mp25_clk_syscfg-v2-5-624559bb8ec7@foss.st.com>
+	dkim=pass (2048-bit key, unprotected) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=3Soqkxvu
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1794558379;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=8ix6MDEBpxMuClm/bHkXYW8egmY9AdoXZ7WOLRic6sg=;
+ b=3SoqkxvunnzxGOiScwByYl/A3Y/EbsC982FNx6VBEBEkGENBEcbBt9E+kMuZUz8xh+DHO2
+ sH+YK377JI5mtOF+IBNLiCh03R0s5tp4JXL9C8NM98UveE5L2ay8U3RA3oI8+J7mFac/E3
+ zL1nmrMs11zrN4Em1/jGDC9ExIphIVh4g7PBTYEJyQqEoLGxqmm1LC6u7/x4f7X/9rfTDT
+ gXUydvqiKthIwRGuS7KYmvVGOLWhVi1jlmXDP/RUZREXviuK7EkNsDSTcwBT3Hz8zDwGiL
+ NCmvt6MPuBSbExtcZb2lEkVjMIYENjq/Qiqnb/YryehRL1oqWavpbm85H9SjAA==
+From: "BillXiang" <xiangwencheng@lanxincomputing.com>
+Message-Id: <7434d1a7-c5d8-4d97-a8f6-ab9bf881d299@lanxincomputing.com>
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3] RISC-V: KVM: Serialize and atomize the IMSIC's TOPEI read-and-clear operation
+Received: from [127.0.0.1] ([123.120.4.67]) by smtp.feishu.cn with ESMTPS; Fri, 13 Nov 2026 16:26:15 +0800
+References: <20260923091658.1421475-1-xiangwencheng@lanxincomputing.com> <CAAhSdy0Fp5R9v1O7gEoVriBBfnSapTgQ52ZLn5+QJOMxnn1z3w@mail.gmail.com>
+X-Original-From: BillXiang <xiangwencheng@lanxincomputing.com>
+User-Agent: Mozilla Thunderbird
+To: "Anup Patel" <anup@brainfault.org>
+Cc: <xb@ultrarisc.com>, <atish.patra@linux.dev>, <pjw@kernel.org>, 
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>, 
+	<pbonzini@redhat.com>, <graf@amazon.com>, 
+	<kvm-riscv@lists.infradead.org>, <kvm@vger.kernel.org>, 
+	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Fri, 13 Nov 2026 16:26:13 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,47 +67,162 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261110-ups_mp25_clk_syscfg-v2-5-624559bb8ec7@foss.st.com>
+Mime-Version: 1.0
+Content-Language: en-US
+X-Lms-Return-Path: <lba+26af6c9a9+b8342a+vger.kernel.org+xiangwencheng@lanxincomputing.com>
+Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <CAAhSdy0Fp5R9v1O7gEoVriBBfnSapTgQ52ZLn5+QJOMxnn1z3w@mail.gmail.com>
 
-On Tue, Nov 10, 2026 at 02:10:25PM +0100, Gabriel Fernandez wrote:
-> Describe the LTDC pixel clock multiplexer of the SYSCFG as a
-> clock-controller sub-node and use it as the LTDC "ref" clock instead of
-> the SYSCFG node itself, whose deprecated "#clock-cells" property is
-> removed.
-> 
-> Only the LTDC kernel clock is available as parent on STM32MP251; the
-> LVDS and DSI clocks are added on STM32MP255.
-> 
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> ---
->  arch/arm64/boot/dts/st/stm32mp251.dtsi | 9 ++++++++-
->  arch/arm64/boot/dts/st/stm32mp255.dtsi | 8 +++++++-
->  2 files changed, 15 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> index dac3d2d23ff0..8d644153dbcb 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> @@ -4,6 +4,7 @@
->   * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
->   */
->  #include <dt-bindings/clock/st,stm32mp25-rcc.h>
-> +#include <dt-bindings/clock/st,stm32mp25-syscfg-clk.h>
->  #include <dt-bindings/interrupt-controller/arm-gic.h>
->  #include <dt-bindings/reset/st,stm32mp25-rcc.h>
->  #include <dt-bindings/regulator/st,stm32mp25-regulator.h>
-> @@ -2076,10 +2077,16 @@ exti1: interrupt-controller@44220000 {
->  		syscfg: syscon@44230000 {
->  			compatible = "st,stm32mp25-syscfg", "syscon";
->  			reg = <0x44230000 0x10000>;
-> -			#clock-cells = <0>;
+On 11/13/2026 1:36 PM, Anup Patel wrote:
+> On Wed, Sep 23, 2026 at 2:47=E2=80=AFPM BillXiang
+> <xiangwencheng@lanxincomputing.com> wrote:
+>>
+>> The TOPEI read-and-clear must be atomic with respect to
+>> interrupt injection (set_bit in EIP). Otherwise an
+>> interrupt injected between the topei read and the
+>> clear_bit could be silently dropped.
+>>
+>> v3:
+>>   - fix undefined eflags
+>>
+>> v2:
+>>   - fix patch file curruption
+>>
+>> v1: https://lore.kernel.org/kvm-riscv/20260923070332.1376132-1-xiangwenc=
+heng@lanxincomputing.com/
+>>
+>> Signed-off-by: BillXiang <xiangwencheng@lanxincomputing.com>
+>> ---
+>>   arch/riscv/kvm/aia_imsic.c | 42 +++++++++++++++++++++++++-------------
+>>   1 file changed, 28 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
+>> index c1af23e79ae0..c440088651ec 100644
+>> --- a/arch/riscv/kvm/aia_imsic.c
+>> +++ b/arch/riscv/kvm/aia_imsic.c
+>> @@ -607,26 +607,25 @@ static void imsic_vsfile_cleanup(struct imsic *ims=
+ic)
+>>                  kvm_riscv_aia_free_hgei(old_vsfile_cpu, old_vsfile_hgei=
+);
+>>   }
+>>
+>> -static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
+>> +static void __imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
+>>   {
+>>          struct imsic *imsic =3D vcpu->arch.aia_context.imsic_state;
+>>          struct imsic_mrif *mrif =3D imsic->swfile;
+>> -       unsigned long flags;
+>> -
+>> -       /*
+>> -        * The critical section is necessary during external interrupt
+>> -        * updates to avoid the risk of losing interrupts due to potenti=
+al
+>> -        * interruptions between reading topei and updating pending stat=
+us.
+>> -        */
+>> -
+>> -       raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
+>>
+>>          if (imsic_mrif_atomic_read(mrif, &mrif->eidelivery) &&
+>>              imsic_mrif_topei(mrif, imsic->nr_eix, imsic->nr_msis))
+>>                  kvm_riscv_vcpu_set_interrupt(vcpu, IRQ_VS_EXT);
+>>          else
+>>                  kvm_riscv_vcpu_unset_interrupt(vcpu, IRQ_VS_EXT);
+>> +}
+>> +
+>> +static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
+>> +{
+>> +       struct imsic *imsic =3D vcpu->arch.aia_context.imsic_state;
+>> +       unsigned long flags;
+>>
+>> +       raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
+>> +       __imsic_swfile_extirq_update(vcpu);
+>>          raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, flags);
+>>   }
+>>
+>> @@ -912,12 +911,15 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *=
+vcpu, unsigned long isel,
+>>          struct imsic_mrif_eix *eix;
+>>          int r, rc =3D KVM_INSN_CONTINUE_NEXT_SEPC;
+>>          struct imsic *imsic =3D vcpu->arch.aia_context.imsic_state;
+>> +       unsigned long flags;
+>>
+>>          /* If IMSIC vCPU state not initialized then forward to user spa=
+ce */
+>>          if (!imsic)
+>>                  return KVM_INSN_EXIT_TO_USER_SPACE;
+>>
+>>          if (isel =3D=3D KVM_RISCV_AIA_IMSIC_TOPEI) {
+>> +               raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags)=
+;
+>> +
+>>                  /* Read pending and enabled interrupt with highest prio=
+rity */
+>>                  topei =3D imsic_mrif_topei(imsic->swfile, imsic->nr_eix=
+,
+>>                                           imsic->nr_msis);
+>> @@ -934,16 +936,20 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *=
+vcpu, unsigned long isel,
+>>                                            eix->eip);
+>>                          }
+>>                  }
+>> +               if (wr_mask)
+>> +                       __imsic_swfile_extirq_update(vcpu);
+>=20
+> The __imsic_swfile_extirq_update() also calls imsic_mrif_topei() so it is
+> better to pass topei value to __imsic_swfile_extirq_update().
 
-DTS with this was already released for a year, so you really should not
-break its users for no reason.
+Thanks for the review. I'll incorporate it into v4.
 
-Best regards,
-Krzysztof
+Regards,
+Bill
 
+>=20
+>> +
+>> +               raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, f=
+lags);
+>>          } else {
+>>                  r =3D imsic_mrif_rmw(imsic->swfile, imsic->nr_eix, isel=
+,
+>>                                     val, new_val, wr_mask);
+>>                  /* Forward unknown IMSIC register to user-space */
+>>                  if (r)
+>>                          rc =3D (r =3D=3D -ENOENT) ? 0 : KVM_INSN_ILLEGA=
+L_TRAP;
+>> -       }
+>>
+>> -       if (wr_mask)
+>> -               imsic_swfile_extirq_update(vcpu);
+>> +               if (wr_mask)
+>> +                       imsic_swfile_extirq_update(vcpu);
+>> +       }
+>>
+>>          return rc;
+>>   }
+>> @@ -1050,9 +1056,17 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vc=
+pu *vcpu,
+>>          if (imsic->vsfile_cpu >=3D 0) {
+>>                  writel(iid, imsic->vsfile_va + IMSIC_MMIO_SETIPNUM_LE);
+>>          } else {
+>> +               /*
+>> +                * Serialize the EIP set + external-irq update against t=
+he
+>> +                * TOPEI read-and-clear path so that an injected interru=
+pt
+>> +                * cannot be silently lost when the guest acknowledges a
+>> +                * different (or the same) interrupt concurrently.
+>> +                */
+>> +               raw_spin_lock(&imsic->swfile_extirq_lock);
+>>                  eix =3D &imsic->swfile->eix[iid / BITS_PER_TYPE(u64)];
+>>                  set_bit(iid & (BITS_PER_TYPE(u64) - 1), eix->eip);
+>> -               imsic_swfile_extirq_update(vcpu);
+>> +               __imsic_swfile_extirq_update(vcpu);
+>> +               raw_spin_unlock(&imsic->swfile_extirq_lock);
+>>          }
+>>
+>>          read_unlock_irqrestore(&imsic->vsfile_lock, flags);
+>> --
+>> 2.53.0
+>=20
+> Regards,
+> Anup
