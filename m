@@ -1,54 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794538697;
-	b=cwlwHCuYtsTx9kZTL2nA9ytH4pQQquURrUayoMFjMk/hOKO1D58fQoqFz4YNZleUu/3f
-	 gchrA4X2jC7QG8rZaos/boY7ZAhP6BaixlQQhQmIBzeOjlOAEyoN8SzYYnVO6iFRVkq80
-	 3pXzCBHlpBvw0fqGU5sku2s/9sp2SKnIPMnfZC2Pf5RK3jkdD2Z+nFczHmj59fsHhd7RB
-	 HijswdPLfSuNIOPwPTjQKPU7P8kjLvkqvTAOy92Y8A6Tff/Rt4t7U/KKg4+1sRQRIoH95
-	 /bHShn3J6sdYJ03oDEnFH4wHTDqdrMPZOlzz6YK2UsG/aAYpbxe+s5A2ypeXLu007sw==
+	t=1794538771;
+	b=lAFA6iYk/XbYACh26EMQU7GZsiCiVDut8yTynb+1tEqBbiyey/t1K/HEM4yItRb+CItn
+	 eZmVxrdpYFcmwDqTPLyBqMUaD3MGztsPHawdBA+S5dFqSZw0epK0aa9L4yn+mofs0Vpvr
+	 FZtPO49OHbNAXtY24QVNY0MeOPhQmPUj7XQyYEf/kb3rMItzYfT8JuMUYXHraPDn+IrXJ
+	 zh5Y1i0DtOLw3ikGVWqHEeWlKQ+yHiVhtXhcfJxWY5hQGdtUC82pfX1HOhftgRE1d8v76
+	 eRfSsAp8ocD41YCusOpqqAw4k8XgltL3OtJbdqqZSkliz2AIa9iwQbVOC76c62Pni7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794538697;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KsErnpxVH5I9VR4RHXusJqUJMR99navlKOjFGXUa6QU=;
-	b=MkBHJ5qXSTLaIFExnyzv2QUxGl6Bt0b/UZ4AgzXowXiiOehf3s60ubr3leQ7PTcrux05
-	 psqYN/PpjX/CNAVQYxxfpi1/EI85dOphukaDM4JWERqNV+KDifUThRwjJtu7AZyjjVtWJ
-	 amHbtG4A3grIEWiS+4T0tBSpmvNvOGbk4JYc+8NO9IVlF5x4AhU1zjA0C8d6WxC2HYQHX
-	 JFXFBIR10bb3yohnVcIt4gGoP7ox7mFwqjCJgieWMpbWmJzKgrddaK4k4d2nEe+zLAg9t
-	 GjxNsIqAKGx5CZkWeGY9p7+gj0sXujEx5QKtKuwnelJSnMbMkQFcmK537NJtKrKLV8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794538771;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=7f0VgzKYfj5CawodwOdHpH247rLlZpKsDV1GNlXMq38=;
+	b=pateghbGXSeFjUkuQ4S7POs2jBo0yReNdnuVFUa9g8Ls5lJaByiv7ZG/ablZICUS6qMS
+	 r3B1llb5a/GMyL/b1SJF7hV8+4XRHsxEplmWpaOb61ymaFhtmHJp2mNG3aHYKYhPb/Tt7
+	 Nkqt97ipprIJdRgB6QiEjQKCceilQh0LGhzUcZDKgM7ftpSnw9gUrx865HlkqrMjrutxJ
+	 pB9nWTQPi9BAwDmBTyqsPq1eyGKe7RCeZ5vBIlZz+W8kermSg5vSMQln+VTEYUAXus3cZ
+	 JALuGM0q7MqMMDu2OJaXlTkBkVkSrrSTxY1FLs2PdoiwIsphLJJc0p2/wDcX1CSJj4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ANlLRg0V;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Qdg4MUZ5;
+	arc=none smtp.remote-ip=210.79.60.64
+Received: from mail-m6064.netease.com (mail-m6064.netease.com [210.79.60.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649B9606A31C;
-	Fri, 13 Nov 2026 02:58:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E9F606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:59:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22E9F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ANlLRg0V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7851F000C4;
-	Fri, 13 Nov 2026 02:58:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794538697;
-	bh=KsErnpxVH5I9VR4RHXusJqUJMR99navlKOjFGXUa6QU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ANlLRg0VdMF5PRwjWp3M6DpjVX0NZnKUoaM5reptp7LZi+xx+oTdOqEwTv5h98Asi
-	 cG6KM3n3rzl+1HdPJ4mrVd0Gp5JytyN8ilqZAff8r7iKy0LNAAOcQ3XqFkP9QrtuFR
-	 n6eIiiogQPOklKnaubLcP2F0wWESEZ5mm9hPYtcuMYN9vpwvMp3SUFfDCEfU1covtL
-	 oarUiYlfZGmgYwxuIlvmX7oSr99YgDNx5p9jojC/aAoh6BL/QnoDQxnkRwt+TFJjFA
-	 ydrsx/4MpPFgD82VtjQZyfHX0orrxFmLRtt4ouZ/imSxoWCoekotGW8X89d1qd27Hr
-	 JfO8y82xws+Fw==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
-Cc: akpm@linux-foundation.org, rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] tools/bootconfig: Close only opened braces in compact output
-Date: Fri, 13 Nov 2026 11:58:14 +0900
-Message-ID: <undine-1794538694073445946-7fde07ae541bfa5c@undined.local>
-X-Mailer: UndineD 0.1
-In-Reply-To: <6ad67e4cda05238cd173c99e820a85de2c13f5fc.1794337724.git.edumucelli@gmail.com>
-References: <cover.1794333957.git.edumucelli@gmail.com> <cover.1794337724.git.edumucelli@gmail.com> <6ad67e4cda05238cd173c99e820a85de2c13f5fc.1794337724.git.edumucelli@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Qdg4MUZ5
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 548728669;
+	Fri, 13 Nov 2026 10:59:19 +0800 (GMT+08:00)
+Message-ID: <72fb3540-e08e-40be-8f3d-63727063be6a@rock-chips.com>
+Date: Fri, 13 Nov 2026 10:59:18 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,46 +48,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/9] drm/rockchip: vop2: Don't use uninitialised
+ dividers on RK3588
+To: aiyengar1990@gmail.com, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
+ <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Piotr Zalewski <pZ010001011111@proton.me>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
+ <20261112-vop2-fixes-v2-2-8218c1cf8ac8@gmail.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20261112-vop2-fixes-v2-2-8218c1cf8ac8@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1d2d8660c03a8kunm99272d8254646
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZS04dVkMfH0hJGk5CGUtOQlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Qdg4MUZ5Y5J5AttCyLUfn9lIM32IW8XAcaVforshf1MHKrWmIjs5KPzF7sr5ykNqk4XWdPqxd/kZqOSYOCZRct3O6ZciBOTaddFdowkjYuaDeHkiVOJ+Pputz/rl2wt+RHFdr6fNS8xAE5b+cJEXtrfgF7Tdnc0btK8nXnye/dY=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=7f0VgzKYfj5CawodwOdHpH247rLlZpKsDV1GNlXMq38=;
+	h=date:mime-version:subject:message-id:from;
 
-On Tue, 10 Nov 2026 20:08:45 +0100, Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com> wrote:
-> [...]
-> Extend the mixed-value/subkey sample to cover the lost sibling.
->
-> Fixes: e5efaeb8a8f5 ("bootconfig: Support mixing a value and subkeys under a key")
-> Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+Hi Arun,
 
-This basically looks good to me.
+On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> rk3588_calc_cru_cfg() converts all four dividers to their register
+> encoding with ilog2(), but only sets the ones the interface uses:
+> dclk_out_div is left uninitialised for HDMI, eDP and DPI, and
+> if_pixclk_div/if_dclk_div for DP and DPI. The garbage is then written to
+> RK3588_VP_CLK_CTRL; on an Orange Pi 5 the dclk_out divider of the HDMI
+> video port reads back as 3 (/8) in every mode.
+> 
 
-Just have a comment below.
+The comments are not entirely accurate. The divider relationship is:
 
+dclk_out_div: HDMI(dsc mode), DP and MIPI
+if_pixclk_div: All interfaces
+if_dclk_div: HDMI and eDP
+
+> Start all dividers at 1. dclk_out only feeds DP and MIPI (and HDMI with
+> DSC, which is not supported), so for the other interfaces keep it at the
+> dclk_core rate, as the vendor kernel does for HDMI with DSC, instead of
+> letting it run at the full DCLK rate.
+> 
+> Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 > ---
-> Changes in v2:
-> - Determine whether braces were opened from the key children instead of
-> [...]
-
-> diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-> --- a/tools/bootconfig/main.c
-> +++ b/tools/bootconfig/main.c
-> @@ -68,6 +68,23 @@ static int xbc_show_value(struct xbc_node *node, bool semicolon)
-> +/* Match the conditions under which the compact formatter opens braces. */
-> +static bool xbc_node_needs_braces(struct xbc_node *node)
-> +{
-> +	struct xbc_node *child = xbc_node_get_child(node);
-
-Nit: You can use `xbc_node_get_subkey(node)` here instead of manually
-fetching the first child and skipping the value node:
-
-```
-	struct xbc_node *child = xbc_node_get_subkey(node);
-```
-
-Thanks,
-
+>   drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 12 ++++++++++++
+>   1 file changed, 12 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> index c44648e1bc0d..659fd0a3ab63 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> @@ -1579,6 +1579,15 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+>   	unsigned long if_pixclk_rate;
+>   	int K = 1;
+>   
+> +	/*
+> +	 * Not every interface uses every divider: dclk_out only feeds DP and
+> +	 * MIPI, the interface dividers are unused for DP. Start from 1 so that
+> +	 * no divider is left uninitialised when its value is converted below.
+> +	 */
+> +	*dclk_out_div = 1;
+> +	*if_pixclk_div = 1;
+> +	*if_dclk_div = 1;
 > +
-> +	if (child && xbc_node_is_value(child))
-> +		child = xbc_node_get_next(child);
+>   	if (vop2_output_if_is_hdmi(id)) {
+>   		/*
+>   		 * K = 2: dclk_core = if_pixclk_rate > if_dclk_rate
+> @@ -1648,6 +1657,9 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+>   	}
+>   
+>   	*dclk_core_div = dclk_rate / dclk_core_rate;
+> +	/* An unused dclk_out must not run faster than dclk_core */
+> +	if (!vop2_output_if_is_dp(id) && !vop2_output_if_is_mipi(id))
+> +		*dclk_out_div = *dclk_core_div;
+>   	*if_pixclk_div = ilog2(*if_pixclk_div);
+>   	*if_dclk_div = ilog2(*if_dclk_div);
+>   	*dclk_core_div = ilog2(*dclk_core_div);
+> 
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+I think we can drop the previous divider initialization, and configure 
+the correct dividers for specific interfaces.
+
+- dclk_core_div and if_pixclk_div just remain unchanged.
+- if_dclk_div is set for HDMI and eDP interfaces; all others are set to 0.
+- dclk_out_div is set for DP and MIPI interfaces; the rest are set to 0.
+
+Best regards,
+Damon
+
