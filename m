@@ -1,105 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794543674;
-	b=Ln918PmuxYrwRK7pZRHwh4hE2Qh+OaGG4WkeyBAXX4FNKwsqKc+08nQr1WnEtOxZ+8sh
-	 8VtDHkY3/9TgP39zwp/sedilChJReaE8+nUtSJHKWyJPceV32btsyMHiafAU/SZPMG9ZM
-	 qk5zj3/YpRZ77DHfOtxq59xxxlUH2xH46W2ZDTBl917PrQTww8WWjfJxcbVZ0u44OPt/v
-	 4MJqKr6Wa2J6ZWyVSxc7bq8C3gUBJVG/pFpswxEt77jlrTudKRNtTLP8/qkh9IDgVd2KS
-	 SJzrXJiDiuAW5eAGEjEMO6oySC0q7p7GX7XONlk2BhIbq5KnXvfpjovGTHPPLee5ouw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794543674;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794543738;
+	b=fJkwG5g6YJiX+pJ86+qD3PPzcyLoP0k44m04GLyCmgNH1nKf4S7tcqreuO7greRHLhRR
+	 EPb2gy0aneQ1XEA0SzrzGt8PNxEHOz58hxRmqZKqoZVRmSone2XC7aLGaL5zxdEkzQGBf
+	 dHaWTxGIZLBzBeaZy+KVKRUFngwlayxg15lpOefbNnhiufqYsImKt11/MFmhEbmRr9UeP
+	 xlltT+VtHyPlIlsoookjfsIMEmMqM+5JvygYslO29Nx3zhIGERhYS+0DzHcRsY7Qv+rJi
+	 mPLVouL0AhBBwQ2of2dQ0ssGHOJtGBNwksMPnY7/g3bVmtFVdKuhAvj/lsLMuJtY6wQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794543738;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=BdNFe7I+aOZIYc5jfAvJU39qKEvdsp2/ywq7TpQP4oM=;
-	b=Z/GPyG5xWYxi+AvNXvJ9Fyql/y7vvVEDvfurgUdzsyAFQd0YW7JiZ8QchVRLNaqc43iJ
-	 4i49CHupTpLESNjK/R3cPjbvCjTyXKu0DkQRyIJSNj+8WvcfTq1s/+VNC04quJu0mZm+g
-	 JwncohvBj+QH5IZc2wmtuY/pcNiVHS7dEOgBWcHKWBY1uVPDa+diaXtAMhF9eJCAhrliy
-	 RjBM2edmvR+Q0fNMDoxFfsc2H6XEh3Ykw/+5G/dXFxvCoxs7clYSklgGgZGRCpnwXktbt
-	 XXIdnfjY8Zs7lOQvFSaBZ3cRROdFdGmMnpRqT34KBSRVfGugzZLbkLcYlpkRFXan1BA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zpeqGzgkBsHUF5zjr/0o42AjYScikuGzKIUBtwN8qSA=;
+	b=uW9JLsGGuOr504sA49JuRCJneBSAw7aKnIRC28bBDMJcJuJ8D1FkJ80QQyLhZF0ZNJdP
+	 SVrDq06KIysxH3bdTTzVqYP0pWEEav3IBtSov8PX+tUXQcxdcUmh6hcbE3PZQB7Vj957p
+	 6XhOGKBWKtknnEUOBiUypL9UJiXgqpN3Wa3YuQj/6fBVQBypBTx5i8uBdLGQyVcY+CRmY
+	 FHu2jM4KgXOIGbEDH5lkR/GEHG7YPbhJVd7nkaiTpCnkOFc+2HLTLRvy7+9U8xgc5H3EX
+	 D9ePVlZ152DAi+MImNi3MPmIUJCZM8WvA2GNI9x75D1f9Xf2rgf/UM+AbiWSHGpwhqg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OcOP6SPw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T9nlG7GI;
+	arc=none smtp.remote-ip=209.85.222.182
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11014606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:21:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11014606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53449606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:22:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53449606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OcOP6SPw
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53664b4860bso9346831cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:21:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794543672; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ppGlXYRtf+SmSs9dLTkfc5qx6b2o6HjC9eF8pwyq/ifcTTreR8EuX42BfFGiloJrlj
-         6NRU917rnX4so7xxHJZIIpnYqHrDb53rEr16ehmMLLHoJLx/IFFD6kCf+A/pJpjWwIq7
-         BWulQmBCcmcGGSF3vZa9R5HaXJfIhycCGRhHlYcAk24apfgeuzS8jJBSAYZcqu7BoIz5
-         Q8kq+2PfpITZi6Yn41jzGEWACNn9xoNfNB98y1E5v1bK3WTIX9+frlflCVu14YF4m89e
-         jK0L9UjNTvLELilrHiscfdYUEvK9yGSzvK765ZJj1GifM2m95uAodlQ5tsiSCyHe4tsZ
-         RjKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=BdNFe7I+aOZIYc5jfAvJU39qKEvdsp2/ywq7TpQP4oM=;
-        fh=RAOfUOQzLq7ey2zWxDTJkZ5J592dN1/a1rIliRyO7Tc=;
-        b=JN4qqkgej3FLkl/YCBFJrColbLAAJ1PU31qdfLI0mm0JB3C7UJYFvgiU8XkJZMWz6M
-         Elj6zoOhmzirCcyOiktd/Gle+yEi3FwLZMEFeD/KrxfOWSc8r/xdHwa1oNL835+C+JeF
-         cBeY1PHvPS2O+dipZVvGgsys+QglmJJIpYtFkxE1lqwrMOOouAIEJcHZiriI9a0OB20H
-         c8hltlPgL9hHeyA4EssFYBVe5lUbOs4mIOlHxvtGLDtoqlPCgGQXdS28DuEYZHQSx2PH
-         XTajFnttc5rxKzV40KYcKnE5AnX6of6TOfML2pdLrZmCyEoxsg8hw5eWKZ7XLB5p0TyN
-         1N2w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T9nlG7GI
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e4c00d71aso85162585a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:22:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794543672; x=1795148472; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BdNFe7I+aOZIYc5jfAvJU39qKEvdsp2/ywq7TpQP4oM=;
-        b=OcOP6SPwfGVjfk2vk7Kf3JWIasna8TKF5+LlJEBONoNmpJXqQrJvILfKRrsFawcrdm
-         IvE9pAsj3dXuzzQ8AE5TbZS/R9QMlZRAPMD1CtMapbUPY0IftEKFV1+Y28xZFSgLaRWX
-         DoLvd+aqdCs/sNUNZcbl1Nvy1ciTiuidyK41HlSjCLeAwMlnRbmXNNKXaTF4yq3v+TeN
-         X2V+M+PTuv5Jw6FN99QfkFGxCM+o4A4fTueWz1k4063wiX0wlMi1KxJmbJBBpt4Juumt
-         3bfKWTDBuCLriIUR3uG0JBbQ/rvmRNAp7QeFQKNKf2huongfnqyhbgrNA5gmr8rnLxfS
-         65dQ==
+        d=gmail.com; s=20260707; t=1794543737; x=1795148537; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zpeqGzgkBsHUF5zjr/0o42AjYScikuGzKIUBtwN8qSA=;
+        b=T9nlG7GIUb5RoyvvlJpX9tW/JjbWjc80qOYRsirNuNvga+cfTfj2DB0/T3odVWckua
+         5beGgZqbFsj36scUnef21+K+lhQMNymd1a22h2R2/XwGMRfACBfdWLPDEcfnUeLtEo8+
+         IQye1PTY2Vi0SRjBdV5169aX1HgPXZLh+GBd12atNqoY8+5QhXztxOSVBwkAqksE/mKD
+         Dz8u037lMkSryvPCLFB/iyOuX93i9ChPUI5hFSUoCFR7RaN89Sy0fP02PGYGLRyqKt9s
+         T2gxI+NDMNb9kn0NCAbzpU4gus0Zq7BqUqEH4cr7B1+W5pF2j+3kKjzNyrR4ZZ4+SwUm
+         sXFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794543672; x=1795148472;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794543737; x=1795148537;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BdNFe7I+aOZIYc5jfAvJU39qKEvdsp2/ywq7TpQP4oM=;
-        b=NrQJouxX6VHQHJOshqCvgWM8fQw8sqQ8mu9r4vi0dZn4IbCPVJzayFhh2UgtR8u0rx
-         qPb9L+OXJmLKtIDdkZg7rjjFCOW+mVY23zJtu0GFgLisPJKuD0oLlvi+zu4yBh1OtnMD
-         lyzCH+c8/cH7hD2x7y+jDrDmIWJHyTPJm7PHm6IJ9GRad3UV0HKXLvTw9edR3DqnazKy
-         VpqXjD7u/y5sQMz5X8wpmdP3mTyni7Ufc+GfuQo2nCLp6jZX+LpE9oAn/BMoMBXK9m5N
-         OsIkzA3XC1HjRZlBqRLJhH77vHEv1DSGUXC/5WukSUMOIu7MUYf6a/75vkB5JMEtoMMh
-         0Ccg==
-X-Forwarded-Encrypted: i=1; AL+hErFXGKnTLbN4b/PB8fwB7wp3IdchvBBiV5ZTWXdvHzHOw5TyJoJ1XNLytrdh1TCzlfIc0IH/GYiDuWZqmwo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/OS+Z4nHY+j1AoXw2dpLmVtqMGT2mDNNzUZU8qI52jP46H3Zis
-	VJhOQPD5rpXjN2T7Z/ga+Fj+kr4VKJiToNAt+MD+KzItsvQWiaZevR3dxt8ZO2ycTRXUCzgqfIF
-	yMOPwPO4ZObsgT29W7UXHW3BCMDZqtSo=
-X-Gm-Gg: AYBFou1PEk3rF81BJ3xFjlUkKj4ktEkg3R6spxjNm84ycH1gmY9Ls7Owb62q37C+bEC
-	MDVCA7jLQxcBR07FmF3hh9tjn28WRminH9d5H3CJqXTIXdXX/VjkVCjnoa0uj/3a+xkuqjrGF76
-	+zI4BxyD8Mbza71jECoH0zgN/V2l3nxGGvHuYRZQOKaVGqDOs+JTjVw61zoGJNEPr+rARwJP9oB
-	zDI68WqKYYrbp10+l/DXDBdxtg6rQnjcjZogHwlYBBxHODHjAiC4rtchX5EGkO862TIRKptYhUy
-	WXtM81vw8stlxI09wujH7HYq7y+MiAoEk469gIfTO136vYOu1TYYST1nqfHgY1WslHB1FjXiysI
-	JnNNFFKxTebspXjAoQ/3oY2aqoX7nglx33YbjeROZggan1p0tHnKY2nxD2ptQ0cs0bRf+99ePP2
-	ly2Nf0Ulean58Ubj7S354ENbf3/X7oGry6/kmQ
-X-Received: by 2002:a05:622a:a58a:b0:536:35e1:b5 with SMTP id
- d75a77b69052e-55ac3363fccmr24163281cf.1.1794543671941; Thu, 12 Nov 2026
- 20:21:11 -0800 (PST)
-Received: from 138594053405 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 12 Nov 2026 23:21:10 -0500
-From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-In-Reply-To: 20261113011234.45270-1-diegomancera.dev@gmail.com
-References: 20261113011234.45270-1-diegomancera.dev@gmail.com
+        bh=zpeqGzgkBsHUF5zjr/0o42AjYScikuGzKIUBtwN8qSA=;
+        b=q2WxOGW9ZGoggi8qam228DpfdH9mhHi2Scw+T2PcN9Yv8I/G6+CpuA/ZsVex1jvuAl
+         Y8++dVVs68I/o5t+eIkkWbvevCXp4km1sxm4MGHe19Tkq+NqJY5rN04AcNPUoehNEnAs
+         w1vDFoZN6uzs2WLvSUSp34E+9S292ZaHCxjQaqO+3Ut/WkES4Sp/q+/u+P2AI2cTz4Yp
+         5hrojWXgX0EZY47Ai7LPuDhmEk784uEC15c+BtPGizsKG6XzRhYf/kfVu8ZvX4Y4+PYl
+         Wt2snqF4mqICRO7PCizXb3gHWxqMmpQz/LZFWdFXs+Sw2x+BMGcfPxRpb+hIEa8+dCRI
+         LUFg==
+X-Forwarded-Encrypted: i=1; AL+hErE3itRUmDbowqwBhiQ+HD77FpvnL3JcncSHVL/M0MpofyrrL6YGthDZ3Y57tOMQ/tX0mKDIYIR1KJDhJr8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/fBuYiGJj2f2Hix0Y9Xz9VAEKzuUfzHGV4H+YFcTrbMhdFQ7Eh
+	S7PTYUJWZqTEAdlBFKNJAa9mH63lvKIuFq1GhWpHHGoBGq0ZZLvkqAkI
+X-Gm-Gg: AYBFou2TTiOW2T7IRZBGrzCZmuFKiqhDoJFJOtaKZTlCMZCOsh65jiYU3T25RcWk83M
+	SbD1GADs3UYkp2C07eGcuoGtUcLKyAAlGHdkskuCg9sz2YdVYLJpsHsS31xgnipXTR9xTW8B2aA
+	md+KLB/Aypwwr4o+B5ikKG8Qof6+pf4hk/Uw/0x7YHC6yxy9lFLjrHg895Km/wQuqafeiSYls7G
+	MbrvjGf2bnGLGHAU1mbGYsR/6oDB3XzREFGZJzfLBset/ZW7nQYYZOq4Zfk7V0kmYTQM3WfD4AO
+	GndWGPYdd4uA306Q9vKBJbaj5r2/szmDS8hfvDzPXvYu+NTF5ZD3+9SHnZ3dRsY3xYoOREvH+ag
+	lcP0HPF4bKXkc3algXsf7h3E3b8Oe3iuzyhxloiOYN7BbaayekrFDp4qwhDDxHPgDq0AI2RxcSA
+	xAAaJBiqDF81b1coe14jjBLeCrn3Z/fpKG8fQsxZb1/B8ptnBICJ+Qhj3lYmltw3wNyw6FDaapa
+	dAWxiNt2WV5zAzoS4RV2ZkdpDcCUeA5uOlD5xKtVMr08Id322JbpScZO5dv4Nhrst8NWaM+OIXp
+	usoX9BI+fm4cnatp5Vv1vBG0YvIsml8p5sVst4vjDIadjKpVNYDMylki1AZV8kjw99dv8fRH95s
+	=
+X-Received: by 2002:a05:620a:6192:b0:939:b099:d52f with SMTP id af79cd13be357-9494ba7dfd0mr224512985a.20.1794543737300;
+        Thu, 12 Nov 2026 20:22:17 -0800 (PST)
+Received: from linux.. ([8.34.174.240])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8a8757sm96426485a.31.2026.11.12.20.22.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 20:22:16 -0800 (PST)
+From: Changyul Lee <lcy8047@gmail.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] powercap: Hold control_type->lock when removing a zone ID
+Date: Thu, 12 Nov 2026 23:22:14 -0500
+Message-ID: <20261113042214.2155381-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,65 +97,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Thu, 12 Nov 2026 23:21:10 -0500
-X-Gm-Features: AclHuK8Vg0T6W_EJcB7LJOxNFCo5T5bVUA5gjr-c9q7orQ4IGb3OUxb4r-MnfVs
-Message-ID: <CALruWrWRWRU84AkDocSnNMSRp+WQD5ic9G_3peE50BvQR5iGBg@mail.gmail.com>
-Subject: [PATCH v2] media: em28xx: clear dev->v4l2 when v4l2 init fails
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com, 
-	diegomancera.dev@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-In em28xx_v4l2_init(), if an error occurs after video_register_device()
-succeeds, the unregister_dev error path unregisters the video devices and
-drops the initial v4l2_dev reference, but leaves dev->v4l2 set.
+powercap_register_zone() allocates the zone ID from the parent IDR
+under control_type->lock, but powercap_release() removes it without
+that lock. powercap_unregister_zone() calls device_unregister() after
+dropping the lock, so removing one zone can change the IDR at the same
+time as registering another zone of the same control type. The IDR can
+then hand out an ID that is still in use, so device_register() fails
+with -EEXIST, or keep an ID that was removed. intel_rapl_tpmi can do
+this, as all packages share one control type and each package device
+is bound and unbound on its own.
 
-An em28xx_v4l2_open() call already in progress (such as from v4l_id)
-that blocked on dev->lock while em28xx_v4l2_init() held it will then
-find dev->v4l2 still non-NULL and succeed on an unregistered node
-instead of returning -ENODEV. When the device is later disconnected,
-em28xx_v4l2_fini() also sees dev->v4l2 is still set and calls
-v4l2_device_put() a second time, dropping the refcount to zero and
-freeing v4l2 while v4l_id still holds it, causing a slab-use-after-free
-in v4l2_open().
+Take control_type->lock in powercap_release(). The device_register()
+error path of powercap_register_zone() drops the last reference with
+the lock held, so drop the lock before put_device() there.
 
-Fix this by clearing dev->v4l2 under dev->lock in the unregister_dev
-error path of em28xx_v4l2_init().
-
-Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1a7507a194fff09e5c44
-Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+Fixes: 75d2364ea0ca ("PowerCap: Add class driver")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 ---
-Changes in v2:
-- Drop the non-standard 'Assisted-by: Gemini' trailer that failed checkpatch.
+Found with a static analysis tool we are developing.
 
-Note: compile-tested drivers/media/usb/em28xx/em28xx_video.o with
-allmodconfig (no warnings); not runtime-tested locally against the
-syzbot reproducer.
+This is on top of commit 3d1c2693d809 ("powercap: Do not release the
+zone when device_register() fails") in linux-pm.
 
- drivers/media/usb/em28xx/em28xx-video.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Reproduced in QEMU (x86_64, KASAN, lockdep) with a test module that
+runs four kthreads for 20 seconds. Each kthread registers and
+unregisters a top-level zone of one control type in a loop. Without
+this patch, powercap_register_zone() failed with -EEXIST 7 to 12 times
+per run in three runs, the highest zone ID was 4 to 8 although at most
+four zones existed at a time, and up to four IDs were left in the IDR
+at the end. With it, there was no failure, the highest ID was 3 and the
+IDR was empty at the end, in all three runs. The module also makes one
+device_register() fail on purpose, and with this patch that error path
+ran without a lockdep report.
+Not tested on Intel RAPL hardware.
 
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c
-b/drivers/media/usb/em28xx/em28xx-video.c
-index 84424284d486..f78325a41124 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -3129,6 +3129,12 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 		vb2_video_unregister_device(&v4l2->vdev);
+ drivers/powercap/powercap_sys.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/powercap/powercap_sys.c b/drivers/powercap/powercap_sys.c
+index eacbc3c96db1..e9aa1feb5e3c 100644
+--- a/drivers/powercap/powercap_sys.c
++++ b/drivers/powercap/powercap_sys.c
+@@ -388,11 +388,15 @@ static void powercap_release(struct device *dev)
+ 
+ 	if (dev->parent) {
+ 		struct powercap_zone *power_zone = to_powercap_zone(dev);
++		struct powercap_control_type *control_type =
++						power_zone->control_type_inst;
+ 
+ 		/* Store flag as the release() may free memory */
+ 		allocated = power_zone->allocated;
+ 		/* Remove id from parent idr struct */
++		mutex_lock(&control_type->lock);
+ 		idr_remove(power_zone->parent_idr, power_zone->id);
++		mutex_unlock(&control_type->lock);
+ 		/* Destroy idrs allocated for this zone */
+ 		idr_destroy(&power_zone->idr);
+ 		kfree(power_zone->name);
+@@ -561,8 +565,8 @@ struct powercap_zone *powercap_register_zone(
+ 		 * ->release(), which may free the zone.
+ 		 */
+ 		power_zone->ops = NULL;
+-		put_device(&power_zone->dev);
+ 		mutex_unlock(&control_type->lock);
++		put_device(&power_zone->dev);
+ 
+ 		return ERR_PTR(result);
  	}
 
-+	/*
-+	 * Clear dev->v4l2 to prevent an in-progress em28xx_v4l2_open() from
-+	 * succeeding on an unregistered node (returning -ENODEV instead) and
-+	 * to prevent em28xx_v4l2_fini() from tearing down the instance again.
-+	 */
-+	dev->v4l2 = NULL;
- 	mutex_unlock(&dev->lock);
-
- 	/*
+base-commit: 3d1c2693d8091a6529cf7ed8079c4968527d58b4
 -- 
-2.56.1
+2.43.0
+
