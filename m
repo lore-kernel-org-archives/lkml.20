@@ -1,49 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794587217;
-	b=HLRnUBpKzXhN1yeoXDjoIqHUcYqMNKhGnYmmfZI0gI8HHwb4JLKFVD6M7lSHcCLsJZh4
-	 5fWqENnqzfH16MGsIe8MB6tw4tqGpuXy7JtpnX2+vjrvs7ASsoJ3J/dsE6tZmxPWSggCA
-	 mrEffgLD191v/YMOEXcns32HS9lcEGn6TloU/TK99iZcTT5BmuW/LHzRnZQISpt2GMP1J
-	 8JDdzOw16ydvgg0kmBx0/LS7pZ93Lf+f9UGfvH7qlEg2dhJL85RusImgmsAiTlglzti5l
-	 PgSELfSzeNJ1PJWp9jQSJDFxZo4yOD9agrpCozPIQT11IUVvD3VFANPTB96knR1e7tA==
+	t=1794587234;
+	b=4JblMK8Ly7qBYEb0ownzsy2cMy17loZ6iln2nmPKoTYkNiWK+nXAl7i1qNkyAnNL30Ay
+	 tnGRleeUJDh25qk1yrpsWGNuR5AvAq4QTQgKKRUSt5uWIGt58zuryx7zaiSbNqGpmspMJ
+	 D6+6wFk86iuVcDtg4u753nubFnaWO09hofr/USAuJ9t7uum1b4myEPaM38sJ4r+2f2zZO
+	 vQXkqpnhF1WWJyWNr3snoVul6eZ8QBTikXiLZ8P1NlitrQTvzvO6wvYqo6kh/GUc/hj3/
+	 6lsmwasBH98Trgw8kd/WJ2Ym/KxwonNQ3K+cN/dxWMlSOJM0QBbzklrOxHyPTlGOZ8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587217;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=QhfGUW32CZ1pQ3WZy3XxoZITm270vtUPhzCkGIyBM7o=;
-	b=XM+PTte80Z/2/QQ+3fChg+PDnlgo28CkvwU1OuIvjLONjx7UT6lhD2dICJJT/nLBi970
-	 xrlVXs2VYGfLocRyMERYkmsZYccK+jPHPgev8ephcjo6CO6VfqjIdUQyHDXvlf0nlwWnT
-	 zCyyXUWTGsuHlbZpPIfishZalnkTOKtilehbbkaXFrrMagkAJ566nvaDzHcKi2o9zT3k1
-	 nK/ZSI6sRp+hqWFlm6wAOiEBBitQykgm+pQWat9oH0uX2XyxC4BY2AOOwdKqoQbY/EHdO
-	 h8ne414UkNfomZsU1C+8Z9oB9qR59Ms8pqJBiCaZsQrUebvebxJ2uQ8UnEhIRCxrfYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587234;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nH+4fuf6JFUHnT4EFq7h99rEDt8N7Ykz0lHqkyH7S6o=;
+	b=S9ZXiHJizn5BE4QP2/nwjiePED7sMyU5vHpev611zK0lyw5/IpwOSEKpik5C/eGIlTbt
+	 NlMdv8iY/ACSLvJ1xOGiSL8MuQ/3AU2QGYo1UqHznmMVcja5OddhRm39xu5XVdKZTotww
+	 ND8TvsjRn63cqy5Y3koBE11VxQbZQmcG3YLSeh7b1H714uBrJlu15StpaX1Ono98UH00P
+	 nhIbLxO3AN8dL1L0RgeC6XEry66J8sxaO+tECRx3B/h4y4Dkuwx13FdjG+yPFRfwWMJuO
+	 vvtdWFCo9nox6pCaF3/zM6gvUlsqY7/Vhzec/PUK99KL2GNEqkCuqMS/7N3cT9qFqqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=um0Z1Mgu;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A2D84606BA8E;
-	Fri, 13 Nov 2026 16:26:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2D84606BA8E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZLRd3oUp;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD19D606B2ED
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:27:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD19D606B2ED
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=um0Z1Mgu
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9D37E143D;
-	Fri, 13 Nov 2026 08:26:52 -0800 (PST)
-Received: from [10.57.67.215] (unknown [10.57.67.215])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 343483F673;
-	Fri, 13 Nov 2026 08:26:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794587215; bh=dx8muCVYeDPy2QKy19aHXLOssocMH92hk+wTEOh+S2c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=um0Z1MguqXQ8blB8JQE/qq8Zfq1bjvAzBvhOvIMT2Q6WCh2xsGWLNMiYlpJJx/RT8
-	 0/q22nwbKtcU1lUiKqeDaCDNKTHPeR8Ew8RenrzpRN/Kx6x1f+sGSI6pNMCsZk0kdw
-	 vBmst7zYpt+0NFsc/w8bPy44Rc8krIKETT+fI79E=
-Message-ID: <020d220a-6f21-46a9-a0d6-51e56a7b3a5a@arm.com>
-Date: Fri, 13 Nov 2026 16:26:50 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZLRd3oUp
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b094fb376cso167280a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:27:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794587233; x=1795192033; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nH+4fuf6JFUHnT4EFq7h99rEDt8N7Ykz0lHqkyH7S6o=;
+        b=ZLRd3oUpIuGnrFvB1x4yFiEVgk9qDw5/LfvhoJ3PGm1P9Ouo11Rmm9fmcH+9GHtSRS
+         611Lyem4MLdavVvPctHeySkJ0AiG0BiABkntSKJP1Q98ooL64h0KvnJVuJABy2NZ5Hj/
+         mAUHCdVhTc82gaBIy4aKKnvQ+ergQNABycoTCgMK/LGiFCaOsW3fjwM02edekw22SkU9
+         MNY77CFgrkVHXwhnZ56qomkYz1qnlm9MFH49IXlK4QR0K7t5bObUKq7gDAwqafHCCE6Q
+         Lz/FkqbaRFKg9tXHmB7rgjmeEi4owFaDpXxf18QUUhAlaEFRwFp0tOoMMjfrJod2y414
+         SE6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794587233; x=1795192033;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nH+4fuf6JFUHnT4EFq7h99rEDt8N7Ykz0lHqkyH7S6o=;
+        b=RCR8V6yE3cI++dMyQnFlpqnxm7I31Qy04+2WP6YwK4Y5bXN/ydS7LT9s613EBxBldZ
+         fn6t82RYCZRym8ubYsOKe9UakA41LX+JiQSsV6orJfmFUYY+hk7aE2xUfV1Yek4AWoHn
+         LF12TAzHK6z6/x9JMoLQxhap2/P42cgI/qdHjg40/J1CWnvRW5iTazOqunsqum67ksBe
+         DaHWzSLPGwdOYEBlt4XyFMKTSdnLoyQwkPFZ2kr0VlNt7Zt99GFnBknvwxaSToL3Ny6S
+         qJleb9jh2tEjQb5Je30qQXUmvSRx9LgPatQqF9wQRdlgEahq9Oj26B9LfGFe1ff/3oUz
+         f5TQ==
+X-Forwarded-Encrypted: i=1; AL+hErFFcPLh5sebNsV+7nLZpH3Ws0XLnmsK5GPPE3k4zHbpXyBdHMhQFfDB9s7byc/cKJVLEK64WKEY+X93dtI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/YlcdEqBR7nkycObWSOO3VAP4URzchK0qC/j4unA4maaq6wcZv
+	FZxYd+Iz+QjTT0nXKcAUHf4lqFbZ8ij+pB6pjG/4bmHYqGDRnVP0v4nh
+X-Gm-Gg: AYBFou0WOUN83X2rX9RSyIWOfCmac/WM36/cbpxxfP+vvkI1sPD5HSHgNHTR81S5Hw3
+	zLHP8fkjyjIZrCru5YrwA7fpjqOqrdDMuW12RrGSNF3ekrjhjQDvPXPAoIJHUW8XAmwxLiTVGfE
+	caG0DVQH1VWig5peEwi0nRMOgQdM0K+aSIh3FxexuZsTyrXGs7J+V9s57LzKm6bWYH3auT8h4Ur
+	TEzK5PVXNXEBCGfE++ZK8R6jg03ttrLm1brveqTZu1tHzX8KOmgvj3ZY4/Qlezo+9IDN/Re10JS
+	pMcS82Gtbv/rplUkB6eEkXFD+FQUsOKQJhoupgiWd0bcRgX4yFPBcrL5GMH+6jkPSi0QYJt76ob
+	X1pIkqfaBTzjwsgqYrPX3cBzTKgFUtoI0fcVf94HSU6Yll5np+5+43w3Y4r9VKgKDPZMUsV5Q7K
+	0RDA9g1fcT62NHub73/l44boayA/dmP3K13kn7Xq61RMZo56HmzuCHBaEVyal+0mFCG/kYr6kpo
+	p05N/aPwb1g3Ajc8pOScZqXW2kd++aL4wY/vKkGxqc7AE02XlqSWafBzj9PWeIVTxuvqHsEvWPK
+	s5yAr+3/KnmF4eWLdo3RXFYiqhk47UI6qD4LIJ8V3Ksdv+nEW6hmPyiJXBvUofgXaVeZbdpNz0l
+	1C58=
+X-Received: by 2002:a17:90b:568f:b0:3ae:629:ca12 with SMTP id 98e67ed59e1d1-3b1b0b506dbmr4305114a91.3.1794587233028;
+        Fri, 13 Nov 2026 08:27:13 -0800 (PST)
+Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1bfb607e7sm712916a91.3.2026.11.13.08.27.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 08:27:09 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>
+Cc: Akash Goel <akash.goel@arm.com>,
+	Karunika Choo <karunika.choo@arm.com>,
+	Lukas Zapolskas <lukas.zapolskas@arm.com>,
+	Chris Diamand <chris.diamand@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Jiwoo Kim <arpe1618@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/panthor: Don't access gpu_contexts of a destroyed heap pool
+Date: Sat, 14 Nov 2026 01:26:51 +0900
+Message-ID: <20261113162648.110226253-1-arpe1618@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,166 +108,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/12] KVM: arm64: CCA: Tear down RTTs
-Content-Language: en-GB
-To: Steven Price <steven.price@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
- Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
- <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
- Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
- Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
- Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
- <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
- Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Kohei Enju <enju.kohei@fujitsu.com>
-References: <20261111145758.217946-1-steven.price@arm.com>
- <20261111145758.217946-8-steven.price@arm.com>
- <e1690e53-70fb-47fe-bd06-4758b1e196d2@arm.com>
- <6c362b9e-6ac3-4cbb-8e9d-d666f87ef8c2@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <6c362b9e-6ac3-4cbb-8e9d-d666f87ef8c2@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 13/11/2026 15:05, Steven Price wrote:
-> On 13/11/2026 01:04, Suzuki K Poulose wrote:
->> On 11/11/2026 14:57, Steven Price wrote:
->>> The RMM owns the stage 2 page tables for a realm, and KVM must request
->>> that the RMM creates/destroys entries as necessary. The physical pages
->>> to store the page tables are delegated to the realm as required, and can
->>> be undelegated when no longer used.
->>>
->>> Creating new RTTs is the easy part, tearing down is a little more
->>> tricky. The result of realm_rtt_destroy() can be used to effectively
->>> walk the tree and destroy the entries (undelegating pages that were
->>> given to the realm).
->>>
->>> Tear down a created Realm whether it is still new or has been activated.
->>> Unmap the Realm IPA space once during stage-2 teardown. Defer
->>> destruction of non-root RTTs until final Realm destruction, after
->>> REALM_TERMINATE and before destroying the RD; root RTTs remain until the
->>> RD has gone away.
->>>
->>> Signed-off-by: Steven Price <steven.price@arm.com>
->>>
+panthor_heap_grow() and panthor_heap_return_chunk() compute the heap
+context offset from pool->gpu_contexts before taking pool->lock.
 
-...
+The tiler OOM work holds references on the group, its VM and the heap
+pool when it calls these functions, but nothing stops
+panthor_vm_destroy() from destroying the pool in the meantime.
+panthor_heap_pool_destroy() frees the gpu_contexts BO under pool->lock
+and marks the pool as destroyed by clearing pool->vm, but leaves
+pool->gpu_contexts pointing to the freed BO. VM destruction doesn't
+wait for the work either: panthor_sched_prepare_for_vm_destruction()
+only flushes the scheduler tick work, and only when the VM is active,
+and evicting the group doesn't help, as group_unbind_locked() uses
+cancel_work(), which doesn't wait for a tiler OOM work that is already
+running. Such a work can then read the freed BO.
 
->>>      #endif /* __ASM_KVM_RMI_H */
->>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->>> index 9df3f8d5b4ef..be014f6c00e7 100644
->>> --- a/arch/arm64/kvm/mmu.c
->>> +++ b/arch/arm64/kvm/mmu.c
->>> @@ -1145,9 +1145,25 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct
->>> kvm_s2_mmu *mmu, unsigned long t
->>>        return err;
->>>    }
+Take pool->lock before dereferencing pool->gpu_contexts, and return
+-EINVAL if the pool has been destroyed, as panthor_heap_create()
+already does.
 
-...
+The problem was found through AI-assisted source code review. The fix
+is compile-tested only and there is no reproducer, as I don't have
+Mali CSF hardware.
 
->>>    void kvm_uninit_stage2_mmu(struct kvm *kvm)
->>>    {
->>> -    kvm_free_stage2_pgd(&kvm->arch.mmu);
->>> +    if (kvm_realm_is_created(kvm))
->>> +        kvm_realm_uninit_stage2(&kvm->arch.mmu);
->>> +    else
->>> +        kvm_free_stage2_pgd(&kvm->arch.mmu);
->>
->> We added kvm_free_stage2_pgd() from kvm_destroy_realm() for Realms in
->> the previous patch. Should we move that here since, this is where we
->>
->> 1. Deal with tearing down stage2
->> 2. And more importantly we are skipping it for Realms.
-> 
-> I'm not quite sure what you're asking for here. We can't free the stage2
-> PGD while the realm is existing (because the RMM has the pages) - so we
-> defer it.
+Fixes: 9cca48fa4f89 ("drm/panthor: Add the heap logical block")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+---
 
-I understand. My point is, we are deferring the stage2 free for Realm
-in this patch, without explicitly showing where it is done. We have
-introduced that as part of kvm_destroy_realm() in Patch 6.
+Notes:
+    This conflicts trivially with Osama Abdelkader's pending "drm/panthor:
+    Fix race when retrieving the new chunk in panthor_heap_grow()", as both
+    change the local variables at the top of panthor_heap_grow(). I can
+    rebase on top of it if it lands first.
+    
+    While looking at this, I also noticed that panthor_heap_create() reads
+    pool->vm without pool->lock when allocating the initial chunks, in
+    panthor_alloc_heap_chunk(), so a concurrent VM destroy can make
+    panthor_kernel_bo_create() hit its drm_WARN_ON(!vm). That doesn't touch
+    freed memory and is left for a separate patch.
 
-My recommendation is to add kvm_free_stage2_pgd() to kvm_destroy_realm()
-in this patch, where we are showing when this is deferred to. e.g.,
-this patch functionally leaves the reader with no clue when this is
-actually freed.
+ drivers/gpu/drm/panthor/panthor_heap.c | 44 +++++++++++++++++++-------
+ 1 file changed, 33 insertions(+), 11 deletions(-)
 
-Does that make sense ?
+diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
+index 99311abdf1..e55f7e648d 100644
+--- a/drivers/gpu/drm/panthor/panthor_heap.c
++++ b/drivers/gpu/drm/panthor/panthor_heap.c
+@@ -90,7 +90,7 @@ struct panthor_heap_pool {
+ 	/** @vm: VM this pool is bound to. */
+ 	struct panthor_vm *vm;
+ 
+-	/** @lock: Lock protecting access to @xa. */
++	/** @lock: Lock protecting access to @xa, @vm and @gpu_contexts. */
+ 	struct rw_semaphore lock;
+ 
+ 	/** @xa: Array storing panthor_heap objects. */
+@@ -371,16 +371,27 @@ int panthor_heap_return_chunk(struct panthor_heap_pool *pool,
+ 			      u64 heap_gpu_va,
+ 			      u64 chunk_gpu_va)
+ {
+-	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
+-	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
+ 	struct panthor_heap_chunk *chunk, *tmp, *removed = NULL;
+ 	struct panthor_heap *heap;
++	u32 heap_id;
++	u64 offset;
+ 	int ret;
+ 
+-	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
+-		return -EINVAL;
+-
+ 	down_read(&pool->lock);
++
++	/* The heap contexts are gone if the pool has been destroyed. */
++	if (!pool->vm) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
++	offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
++	heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
++	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
+ 	heap = xa_load(&pool->xa, heap_id);
+ 	if (!heap) {
+ 		ret = -EINVAL;
+@@ -435,16 +446,27 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
+ 		      u32 pending_frag_count,
+ 		      u64 *new_chunk_gpu_va)
+ {
+-	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
+-	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
+ 	struct panthor_heap_chunk *chunk;
+ 	struct panthor_heap *heap;
++	u32 heap_id;
++	u64 offset;
+ 	int ret;
+ 
+-	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
+-		return -EINVAL;
+-
+ 	down_read(&pool->lock);
++
++	/* The heap contexts are gone if the pool has been destroyed. */
++	if (!pool->vm) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
++	offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
++	heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
++	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
+ 	heap = xa_load(&pool->xa, heap_id);
+ 	if (!heap) {
+ 		ret = -EINVAL;
 
-
-> 
->>>        kvm_mmu_free_memory_cache(&kvm->arch.mmu.split_page_cache);
->>>    }
->>>    diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
->>> index 69c628cfb6c7..b904e6541fb0 100644
->>> --- a/arch/arm64/kvm/rmi.c
->>> +++ b/arch/arm64/kvm/rmi.c
->>> @@ -11,16 +11,193 @@
->>>    #include <asm/kvm_pgtable.h>
->>>    #include <asm/virt.h>
->>>    +static inline unsigned long rmi_rtt_level_mapsize(int level)
->>> +{
->>> +    if (WARN_ON(level > KVM_PGTABLE_LAST_LEVEL))
->>> +        return PAGE_SIZE;
->>> +
->>> +    return (1UL << ARM64_HW_PGTABLE_LEVEL_SHIFT(level));
->>> +}
->>> +
->>
->> We agreed to use kvm_granule_size() instead of this ?
->>
->> https://lore.kernel.org/all/cb183290-3fee-4535-aa3e-5cc172c2323a@arm.com
-> 
-> That was a screw-up when I was squashing fixes back in - the next patch
-> removes the code. I'll fix this up in the next version so it never
-> appears. Thanks for pointing it out.
-> 
->>>    u32 kvm_rmm_ipa_limit(void)
->>>    {
->>>        return u64_get_bits(rmi_feat_reg(0), RMI_FEATURE_REGISTER_0_S2SZ);
->>>    }
->>>    +static int get_start_level(struct realm *realm)
->>> +{
->>> +    return 4 - max(2, stage2_pgtable_levels(realm->ia_bits));
->>
->> I don't think we need this "max()". ia_bits is guaranteed to be
->>> = 32bit (ARM64_MIN_PARANGE_BITS, see kvm_init_ipa_range()), implying
->> that we have at least 2 levels on all page sizes.
-> 
-> Ah, very true - Sashiko complained, but I hadn't noticed
-> ARM64_MIN_PARANGE_BITS provided an effective minimum. I'll remove the
-> max() and add a comment.
-> 
->>> +}
->>> +
->>> +static void free_rtt(phys_addr_t phys)
->>> +{
->>> +    kvm_account_pgtable_pages(phys_to_virt(phys), -1);
->>> +    if (rmi_free_delegated_page(phys))
->>> +        kvm_account_pgtable_pages(phys_to_virt(phys), 1);
->>
->> Is there a reason why remove the account before freeing ? Could we do
->> this after we have reclaimed it ?
-> 
-> Sashiko again:
-> 
->> Does calling kvm_account_pgtable_pages() after rmi_free_delegated_page()
->> access the page after it has already been freed and uncharged from its
->> memcg?
-> 
-> Basically the problem is that rmi_free_delegated_page() frees the page
-> back to the allocator. So doing the account after freeing means that
-> technically the page could have been reused.
-
-Thanks, for the explanation, that makes sense.
-
-Cheers
-Suzuki
+base-commit: bafda823590ddf7031ecb765d673572fae7ab44a
+-- 
+2.43.0
 
