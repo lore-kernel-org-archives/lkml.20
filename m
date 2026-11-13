@@ -1,101 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794531384;
-	b=4NdKfWCbcypyFvNzc6nJtgr5Ej2nFF9Q6MQpYOfkFT6lL6qb9fwmQlcQlvkh9ifH4Fv+
-	 z1AFYbvTtz/C9r+pCr+kS13NBmjBfy0NX2xNXEg/XG/RanqtN05CBjIaPW98xqZ5ob6ML
-	 qColrTv2qIb3DUjUocCwoVuN+WOYnyzHYHmwLd0VRH0RyWA3NSTFRUUYSYDcYMkkOTVu/
-	 2n2Fd4X4rFV/8/T0GP6wk5fXTek8D9ozfNuhjXbY8X6DaNdEiYTMRL5mRdsSIVlxmeUD/
-	 q4HLmlT78gxqFwtiYTcUhiJuCSVqKE0bW4g1cNrgHeejQrCSfL3dFTXWtyAMmVQ8Dng==
+	t=1794531454;
+	b=S87/eRV4mqHE6Re1yjr6ufT2MuToEbftJalF5QAxJmR1Nm97g1yZpMGU8tUG0bdCq2wM
+	 +rQLo8Yg9WA8lNQh3Z3W02w2GfCA7OOYp4i3cUgzaO/3k6SsGNBht2/p0iD8zipiNUFRj
+	 up7qQGP7B2yWkbbH0irzpVfzOpk7m5lClSoYEKfGQNLalrnhbRAjLLYzdMPERpGXfExlp
+	 13Gtphs6Uv2rWObdi0C5J8QIo3T9TP47OfVJGCegBNOStm/USlxHfJkdVtgbwsm/SNze+
+	 6kdW5/WnHVLA0J7fhaJ8HXDQosSdOtl0KGw4MswiHXH5oE0fE1cvUpRLTBkkIXIE33A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794531384;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CtRGBfCvPjk6NMUwk6EELxmj4aN2F/fvH5mMHwm0bys=;
-	b=G1A4zKS77dEM6A+V15lURus8XQjGHAdTZbzbCtrkQktWqHuPU4xRw5FmiUb8sqGo/9dl
-	 t8+IdBgNkYqPn9uteir/smTqdphFjI27hGKOnngIkI3Z1KszwnElFwescL8dgI1ICGKLx
-	 ybFyTFrhNanZ33ZDzwi3Q/OwLxLSvCXjKRjN2bnTwMoxgTSE64sK73VK/oZrx8Lle/deY
-	 b0pe3Zs6VTlnxi5XlJhK6mH2AcEnzW/+fKrGpsI9TsRRLUDuOd3VhW9HcED5U5Ua/k6+P
-	 uzItHfGHY2cKkhstwNczvrWOxOUpL3RX+PI8W56SG7jxAUfdg8MmvoP6TGqVj8OiEOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794531454;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:Autocrypt:In-Reply-To:Content-Type;
+	bh=31V3qdlSdnz4MOuLMwp5hpdA+AchzM1x7ZW8LBpE0QI=;
+	b=F9Ygye07CEPO/qDawoMemMk/yboQIm2n9WZIf0VomV0UbTG+QapaJ97FLn5P2DNTjNLY
+	 g30DePrUlPYKCdZZjnFEbtw4VbpZe51fgurjF6pmYE+RmsKj3gFRtLEb4cqZvKaByr8p/
+	 D7ykD49CdtP0aUVIK+Tv2fbh/G0LY4BS5/oCiAeH2pChpy3EVijHiHPkyZwaMPRkiHz77
+	 aQewerJOVjF/Ub1Vo3Eevz3AVzeONIp8r58JVRwJvbztkfKO4+g9vfbnQfpHFJ6fuucF+
+	 1lgHkQIvNnqycm8N/A8WE2iKNulng07upUjMeG5NQyJOiuDQduST06fP7/fosbmz2wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jU4YwV6e;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=erebion.eu;
+	spf=pass smtp.mailfrom=erebion.eu;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=DWWUaiHf;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b="pYpX/OdJ";
+	arc=none smtp.remote-ip=142.132.183.134
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62754606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:56:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62754606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF713606A323;
+	Fri, 13 Nov 2026 00:57:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF713606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jU4YwV6e
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b1535be329so354831a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:56:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794531383; x=1795136183; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CtRGBfCvPjk6NMUwk6EELxmj4aN2F/fvH5mMHwm0bys=;
-        b=jU4YwV6etKf8umE12U/D8ulvXvMFFk+wVQjTZKhg8yB4tuEr3cGD/RHs+s18XN4nyu
-         UXTkAeqNrsRPCSx3BsOQeMLuDMG6sfaH8eC6QKINMRcr1epCtDlf7GvhmxBIsXHzTk9+
-         tImPdyFkqB+PRDhwRTRqFlS90dCTQVr+Wnwa7aHZeyQNlf308fXtlTo6nPOHJXBDjEet
-         WVz/KepZuzbdjes+qitSxLKPRufrachLMbALur0VTLDmuS2wrvvJQEgyE3ISSPHjUow2
-         r93LC7GxvaRl4LiLzmwAdutBqGLclM8zhIIdfxdKbg2Rsyx0me4Jh/Mk761IQ+VxPknj
-         BbmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794531383; x=1795136183;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CtRGBfCvPjk6NMUwk6EELxmj4aN2F/fvH5mMHwm0bys=;
-        b=qTB+FdPZB4ClUTF9fB066imUjsMoPePB1+GmDYj9dCxwMJRE3NPyHGvpNXo1O6idi4
-         8pfm7jddtw7BARum7JqAm2h5jQNhhb5KmR3ShZ/GACWWjQLZcoo3LdUvU9HDqLS/o6nr
-         1pat+OQKU9HMe6izMJ8K8Aeim9RNiUuuMPBJhI7am3FJEWqCjrnF5pghtoYIN/US6OnF
-         zk2WFqU5YXGfVLcklDL+ZwWl6lclabdlAkb0AHgY7hKfx/0lRq5BI48j6nIgOIwLwysA
-         PeUGpb2OV3LsMCD1ik2mfnUfpFZA4CHWbssr0WJvrM0ZA1hUQ3YcXCPXYme71d3Rj7JK
-         1Q+g==
-X-Forwarded-Encrypted: i=1; AL+hErGmA5FB6c/OABDLDatVa1BpXEJZEvfztOOUPQ/4TrFWP0oeQK1UFy1FFE3EfPo69LyFgoNu4TVo2ZXyhKM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z806vIp2nPvWKBfzC0iz4LAuUqc5G8qlzK46JcXpwX32Ew/roBL
-	lieYcaAmGhONOidrK+xnHSMusqoAr1JxpKXAJlM+NIkH918lQBzXUQKV
-X-Gm-Gg: AYBFou0pj+3hA3RI4v/Eudrg/EMivtZRXx1wNn3LwwxfokbZsUbhKFubkx07s23syrC
-	szfOgVtxA77uskIv+ahp5wdwhmBSbWrHCImopVE0xZbW0y6au39NKFHOfyZvMKtOYrTRwAKdHcR
-	xQTTkMvmDHjqJwNisCdyN6Cz1vYY7FeITL4rfRJg8E9orN24IPGcz11FPrR2zuSUJ5W4UTPrMh9
-	8I33OAeX79ys2o/0mmSLIZfoMjBUxsNjeDwmOtwuR6I6yUYrtCh2YirJJM/kMxY2eqU+t69sixe
-	payvBX3dY+Mi92v3N7xig6/Fx6jMg01M+gAf1e//8NeLKOlnR3oynVTgzysdMm1eG76E9GDmXLC
-	+aOinLi17BhGHHa5oju/RQ1CmqQadvNMDplJljF+wAhwg9R6gTpW02XWYGqVzurJyIA4li+FO3E
-	5ckewUNCHnWl2qRVxqG4NFsugqwC4cdzNwzw+bdhNjPTUYKCuRGpLrzLrbDt1Q733Bv0RULGaFu
-	++CaX/cEWxl8N7Hv4X3r6YEMKhCVnQ5SRD5tkSPKStxhcfB/GoL5eXZKVdJfYPr9OudVk5+gcys
-	s6MWiY2KtcqZaw1S/Q3WDpnHcB2piBxJxSvly9M0ensYItX3ehbg67o3ob4JaCNwzinSVSEEKNw
-	fVHhAd4O7KHd9+gUhVZ7IVKLU00J1JR8FmW5brLS6bjT13HCDZ7Irg2B7qUS5bsCtpb889/VF7a
-	DllQXvYZvQFcNLTMxZkChm9Q4YaxyyG+sKtg2CjmyZ2/fhtUGqbVb8Mc11yMIZ3zuClQKOQBFD8
-	GN63NVwB0jhSiOnS1U3NBri
-X-Received: by 2002:a17:90a:d883:b0:3a4:b74a:795c with SMTP id 98e67ed59e1d1-3b1b09f3b50mr619305a91.16.1794531383375;
-        Thu, 12 Nov 2026 16:56:23 -0800 (PST)
-Received: from lenovo.localdomain (42-155-215-210.ipv4.nexon.net.au. [210.215.155.42])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f75c86asm2351735ad.23.2026.11.12.16.56.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 16:56:22 -0800 (PST)
-From: Miro Kropacek <miro.kropacek@gmail.com>
-To: deller@gmx.de
-Cc: geert@linux-m68k.org,
-	schmitzmic@gmail.com,
-	lilinmao@kylinos.cn,
-	linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-kernel@vger.kernel.org,
-	Miro Kropacek <miro.kropacek@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fbdev: atafb: Restrict SuperVidel handling to the Falcon
-Date: Fri, 13 Nov 2026 10:56:16 +1000
-Message-ID: <20261113005616.402721-1-miro.kropacek@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=DWWUaiHf;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=pYpX/OdJ
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1794531415; bh=31V3qdlSdnz4MOuLMwp5hpd
+	A+AchzM1x7ZW8LBpE0QI=; b=DWWUaiHf2Zzhf66WBFqKi55LlUGCRU3F28bM+847Ubmi6Pvrfp
+	j4o67zcS2QCznaX4eLWg+BtM7Ix0ypcf4/Aw==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1794531415; bh=31V3qdlSdnz4MOuLMwp5hpd
+	A+AchzM1x7ZW8LBpE0QI=; b=pYpX/OdJ+Tu95tgwvaMZdmFQdITa/e1E7ZnzLskAMWiWgZIs5S
+	ZF6P3nhbNEc4TcAUg0gtDt8GKnhJeK3yPfcC7ByQI4PKIW/HRaJN9hiFNf0+rXgjmamZc9/XbHR
+	Tsa3GdeTkedManOnlP4p2QP4cWQKVWWYFh4Ws4TFJ8/gbseREFwbUReOIzBsQNKbkfJy8PsyXsZ
+	OsE20YOckyFY1fg4MRCFp7l+5HYQqnx2B2NQ6vwPK4r1qGNAbXeIZ98ulVPSkDXrPo3ObcNGjlU
+	jfNUma1obwoA2/SscF5xIh6oku5/FCZViwSPzm9QN7PtSl7W943FtrfsI2sKEPLlLIQ==;
+Message-ID: <2b9c85e9-58d7-4e31-b908-db3b0d0bd871@erebion.eu>
+Date: Fri, 13 Nov 2026 01:56:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,84 +57,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/12] arm64: dts: qcom: sm6350-lena: Enable ADSP,
+ CDSP, IPA & MPSS
+Content-Language: en-GB
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ Luca Weiss <luca.weiss@fairphone.com>
+References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+ <20261102-pdx213-upstream-3-v3-4-cdc3be96d257@erebion.eu>
+ <d176aebe-bc30-4585-8b71-821a30657a0d@oss.qualcomm.com>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <d176aebe-bc30-4585-8b71-821a30657a0d@oss.qualcomm.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------EX2iq1P6U067v00X4SWZvkHm"
 
-A framebuffer at 0xa0000000 or above is taken as being in SuperVidel
-RAM. A TT with a VME graphics card such as the Nova has its framebuffer
-there too, so in 8bpp it gets the Falcon palette registers instead of
-the card's VGA DAC, and in 8, 16 and 32bpp the SuperBlitter, which it
-does not have.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------EX2iq1P6U067v00X4SWZvkHm
+Content-Type: multipart/mixed; boundary="------------RvxOpiSSF6PfCDrX939QHyOK";
+ protected-headers="v1"; hp="clear"
+Message-ID: <2b9c85e9-58d7-4e31-b908-db3b0d0bd871@erebion.eu>
+Date: Fri, 13 Nov 2026 01:56:54 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/12] arm64: dts: qcom: sm6350-lena: Enable ADSP,
+ CDSP, IPA & MPSS
+Content-Language: en-GB
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ Luca Weiss <luca.weiss@fairphone.com>
+References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+ <20261102-pdx213-upstream-3-v3-4-cdc3be96d257@erebion.eu>
+ <d176aebe-bc30-4585-8b71-821a30657a0d@oss.qualcomm.com>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <d176aebe-bc30-4585-8b71-821a30657a0d@oss.qualcomm.com>
 
-The SuperVidel exists only for the Falcon, so check for the Falcon video
-hardware as well.
+--------------RvxOpiSSF6PfCDrX939QHyOK
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Fixes: 51df976c3268 ("fbdev: atafb: Add support for further video bit depths on atafb:external")
-Fixes: d463633d63e6 ("fbdev: atafb: Add support for SuperVidel's SuperBlitter")
-Cc: stable@vger.kernel.org
-Reported-by: Christian Zietz <czietz@gmx.net>
-Signed-off-by: Miro Kropacek <miro.kropacek@gmail.com>
----
- drivers/video/fbdev/atafb.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+T24gMTEvMi8yNiAxMjo1OSwgS29ucmFkIER5YmNpbyB3cm90ZToNCj4gRldJVyBhbGwgb3Ro
+ZXIgZGV2aWNlcyBoYXZlIGFuIHVwcGVyY2FzZSAnUycgZm9yIFNvbnkgaGVyZSwgSSdkDQo+
+IGxpa2UgdG8ga2VlcCB0aGF0IGNvbnNpc3RlbnQNCj4gDQo+IEtvbnJhZA0KDQpUaGFuayB5
+b3UsIGRpZG4ndCBub3RpY2UhDQoNCi0tIA0KZXJlYmlvbg0KDQpYTVBQOiBlcmViaW9uQGVy
+ZWJpb24uZXUNCg0KQWNjZXB0ZWQgbGFuZ3VhZ2VzOiBHZXJtYW4sIEVuZ2xpc2gsIFN3ZWRp
+c2gsIE5vcndlZ2lhbiwgRGFuaXNoDQoNCg==
 
-diff --git a/drivers/video/fbdev/atafb.c b/drivers/video/fbdev/atafb.c
-index c32576cb1720..5d9265caa9ab 100644
---- a/drivers/video/fbdev/atafb.c
-+++ b/drivers/video/fbdev/atafb.c
-@@ -2065,6 +2065,15 @@ static void st_ovsc_switch(void)
- 
- #ifdef ATAFB_EXT
- 
-+/*
-+ * Only a Falcon can have a SuperVidel; a TT with a VME graphics card can
-+ * have its framebuffer in the same address range.
-+ */
-+static bool ext_is_supervidel(void)
-+{
-+	return ATARIHW_PRESENT(VIDEL_SHIFTER) && external_addr >= 0xa0000000;
-+}
-+
- static int ext_encode_fix(struct fb_fix_screeninfo *fix, struct atafb_par *par)
- {
- 	strcpy(fix->id, "Unknown Extern");
-@@ -2083,8 +2092,7 @@ static int ext_encode_fix(struct fb_fix_screeninfo *fix, struct atafb_par *par)
- 		 * SuperVidel 8bpp chunky (fb in SV RAM) uses the Falcon palette
- 		 */
- 		int visual = (external_vgaiobase ||
--			      (external_depth == 8 &&
--			       external_addr >= 0xa0000000)) ?
-+			      (external_depth == 8 && ext_is_supervidel())) ?
- 					 FB_VISUAL_PSEUDOCOLOR :
- 					 FB_VISUAL_STATIC_PSEUDOCOLOR;
- 		switch (external_pmode) {
-@@ -2181,7 +2189,7 @@ static int ext_encode_var(struct fb_var_screeninfo *var, struct atafb_par *par)
- 		var->transp.offset = 24;
- 		var->transp.length = 8;
- 	} else if (external_pmode == FB_TYPE_PACKED_PIXELS &&
--		   external_depth == 8 && external_addr >= 0xa0000000) {
-+		   external_depth == 8 && ext_is_supervidel()) {
- 		/* SuperVidel 8bpp chunky: palette has 8 bits per channel.
- 		 * Without this, fb_get_color_depth() sees length 0 and
- 		 * fbcon falls back to its 2-color palette — the console
-@@ -2245,7 +2253,7 @@ static int ext_setcolreg(unsigned int regno, unsigned int red,
- 		return 0;
- 	}
- 	if (external_pmode == FB_TYPE_PACKED_PIXELS && external_depth == 8 &&
--	    external_addr >= 0xa0000000) {
-+	    ext_is_supervidel()) {
- 		/* SuperVidel native 8bpp chunky scans out via the Falcon
- 		 * palette registers, honoring all 8 bits per channel
- 		 */
-@@ -3336,7 +3344,7 @@ static int __init atafb_probe(struct platform_device *pdev)
- 		memset (screen_base, 0, external_len);
- 
- 		/* framebuffer in SV RAM: enable the SuperBlitter */
--		if (external_addr >= 0xa0000000 &&
-+		if (ext_is_supervidel() &&
- 		    ((external_pmode == FB_TYPE_PACKED_PIXELS &&
- 		      external_depth == 8) ||
- 		     (external_pmode == -1 &&
--- 
-2.43.0
+--------------RvxOpiSSF6PfCDrX939QHyOK--
 
+--------------EX2iq1P6U067v00X4SWZvkHm
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCavZgVgUDAAAAAAAKCRCOr0AybgKufeOR
+AQDVK3MOSV1de4DgpwUZLclbSokb5/z2o/pm06MTPj1OKwEAoxATUApa46KC2SnV8619BKM+EufD
+BsBloLmGfnS5og0=
+=8KR5
+-----END PGP SIGNATURE-----
+
+--------------EX2iq1P6U067v00X4SWZvkHm--
