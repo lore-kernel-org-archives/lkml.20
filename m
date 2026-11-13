@@ -1,92 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794608028;
-	b=uiam8rUGab7S2aPT/1iqC+FzZGuGTonE+qXmV7CA07CX/1DdE6i6WpaXEk3ubGwksswo
-	 p+H8pi0JjFKdcwlAwAfg7bxQIE4bJfhlj+PFmOy/LqPCzTYEpMeIIvaqm4+uSdfA+yG+1
-	 fBTJH15dSmO8hmulGz9n5mYGScqlRxjhY4/spXMDHBsoPwv5dRthlv3BxDjhSOQuo09ER
-	 0Abhm2PBipOcUORiwC3DKbLiqp3DUiSDEzfR8EuZSbOSSjsm+X5Q6mS21N/8p1F4+dWOc
-	 dXQ9Nrw/Tx+AgcrZ8nqXEWf15hW6NWZJrLILu6CYFMju3GE+n6tcUYYQ/bcmL3HUvbw==
+	t=1794608035;
+	b=gxB0iRiX6fX0Qsymk3BfCiTt2m9cD95kqjbDmUTKdE2JxsPSpTEQzvh1gP469Kb7jgLm
+	 BVwiapbNunob1UjvJ1hZw+qdT58/PHclHOlVgH4GzGHoflgcqalPQMtkyvZa9oYZqyE7M
+	 IdYC5gjwSxeWhSPp2v/ISPR478AL+afrArEAn/LYuUXlnqbP1Lune9t/Br5FSPjZ+zIwN
+	 1TdvXuLY4K8WkDbPMFDRolm9Z3QXze64NkchUxopF90dXCdzynC2C/hbySzT9VMKVL3nB
+	 Yw7MStC5qi2ZxJpPEJfg/2FYqJCD486uN9kdFsAZTFNBBqhyrGisB8a4F5492/2zGgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608028;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Provags-ID:
-	 X-Spam-Flag:UI-OutboundReport;
-	bh=1APlPunBoDj1BI8mj+IbyZx7pU1qnOexHufDgnUoh0s=;
-	b=TfeTVWJggKcr1AjdQw/Maf5jmgzV1orOxoUw2kZXWeLu8SwFzo9DkVSZFNeXFryO5dg2
-	 qdNyg5GppIw+5kGV6nK/w9u0h9hLLLqpQsGxanELPsUGlxHe2p2gPiD4mqjlj8M1DGA58
-	 r2iU4UV15XMxndinXMYrKgc2wxfOj1Z7z6Fv+HfeWWoDUxT4gBsWxv0DcYrN/qjV/2Gpt
-	 L2pIZE9yE9hfjiCKOSzCCx0uQ6ahBUeLvcbakF0WosO9U5JVAnfC9hSDF9Lu6fTqaeIBk
-	 mrIFqg0UQ02wqRPNgOEBa+PCk3Zml2TOZjidr9VWZlhREC6iu9XoljZ53Iv18HGFNYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608035;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=NexZ2xLQ4LexIAyhPn8eStBsD+iuDC+wM/nvMrZ5LMk=;
+	b=rcPQhvMEcqilgVQN1fss1At4iBpHXoWbNdhAAuiRlcVKcB/ylXE3rJL+ntVBlfaLC0fP
+	 NLTyPQ1/tpENTGF82McVhDe9cd8LQ9JC6d+2+dOviIF1qHE+P0aQ0NpHTgjL7SgoeBTuu
+	 wnEAAc1cwft3BMj9lQxAEj1iqi9tzVQAt4hqDzHT01QGRUmz3SyF+ERVo5n84xz9Tn7UG
+	 mGjUoC8Q72kb4JZdmrr/jUdkPjCFvUaEa4UggDb3IstN8nDQZgwHrmH1aV5prSiwOJ0GN
+	 G4Cf+FjboEWR4XS5xoGPUIn/Jtx8mPasw9hwM9OTi98EJHDS+TphJtCh6oefEjgxF3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=f3lix.dev@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=iSRJgcQM;
-	arc=none smtp.remote-ip=212.227.17.21
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=d9EHKR6J;
+	arc=none smtp.remote-ip=74.125.82.69
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB2F606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:13:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CB2F606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264F1606A330
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:13:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 264F1606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=f3lix.dev@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=iSRJgcQM
-DKIM2-Signature:  i=1; m=1; t=1794608025;
- mf=PGYzbGl4LmRldkBnbXguZGU+;
- rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.de;
- s=s31663417:rsa-sha256:Qpe5yqnIellwkk91oaMe3ZCK6Tdo
-   kP09v99hVzrqsh0Jkogg83D7r1lgvoJrC0qDFb6YomfPC3Q5JYyKyo4tuM2TqTSILbof0l4AwGK
-   A5Tgtxl1BTm45yeg5b409twIBkuthsoLDNI9eDdocK4ZwyLLQN4Kvkjo1nY47G9BuDIIsL8fjUj
-   acrIhN7FO8TNAtw6pjgFCLaoeRTTPlnSWDEzLFWuQ7GEj++bM6vzwuCQoxY0M658B19Xh01SyL7
-   ThkMzPfY4JuyYrv/P5E8H1G/wUoJrIFX3k8HCtk85gVOVLcOi3OXZ0eiGxA17v2krpUSOXGYVmy
-   FxWD5uB88ccarA==;
-Message-Instance:  m=1;
- h=sha256:
-   ByK8lr/d/c2qF6jNv7YOjfg5LqffyJh8MlJqbLkRYdE=:
-   BAh+AYGkQfGwvejFJXmMQBzbqktADkrcebCYjF38WtA=,
-  sha512:
-   KJei4gKmMC3I15uiipcaslebHWZmOdo1uRw3KDWzaTX2cMqqwSJXlmz5bEzRjJPqH0/064lsiHt7ZOjoAOuE/g==:
-   tALft6IDZZlS6rg/CRS/VzdZL+jUaJQ1csnYHq3F1tHXeVODUandGF2CqIlAkaaZSCMWuutihB7+Obg7A6V1zw==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1794608021; x=1795212821; i=f3lix.dev@gmx.de;
-	bh=1APlPunBoDj1BI8mj+IbyZx7pU1qnOexHufDgnUoh0s=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=iSRJgcQMZ4Iidss5JiSQbnuMN8vF6yeKEeLyWtS/EGysqMrp99AvtL+JUsGl0cQ9
-	 oTBZNePoaTZdMcpmoiFn3pzsycSmu4Qm21qMwS1CJRZkCZwG9cdsBCZN3YQiO6sGP
-	 S+JfWwgePHiU19Wh7a8LuE3ETmJb86rYKM4fqA6TXWcfrI7GLTJZOoB5qGCdcmP6e
-	 TIKw5/BFSCbOdMxAZMdMLgnWoQjKdtHieZiGKKMXEt+qlGBIsgeLFqVEBxojknOeJ
-	 tPjAVvRXWAO4toONK3hNBLpw8O5toM/ha2x/ZBBn/YzfrQdoENxy2exntjwQGl11b
-	 M1KdEUSgfM07ITN+fg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N4QsY-1wQiGp2dxG-00yS7C; Fri, 13
- Nov 2026 23:13:41 +0100
-From: Felix Hoffmann <f3lix.dev@gmx.de>
-To: Jann Horn <jannh@google.com>,
-	Matteo Rizzo <matteorizzo@google.com>,
-	Tamas Koczka <poprdi@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	linux-mm@kvack.org
-Cc: Kees Cook <kees@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mm/slub: Flush virtual-slab work before cache destruction
-Date: Fri, 13 Nov 2026 23:13:30 +0100
-Message-ID: <20261113221330.162567-1-f3lix.dev@gmx.de>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=d9EHKR6J
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b3a348a6dbso2693722c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:13:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794608034; x=1795212834; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NexZ2xLQ4LexIAyhPn8eStBsD+iuDC+wM/nvMrZ5LMk=;
+        b=d9EHKR6JclNFrRqlma/gegOnYEs8CGlfm9OVyxkdh+j70S4CRO8bf4suzcL32L/erp
+         HjpKEftmM3vX2rkwT8iKePx6VhubP/KQG4uDrYMfeckOw1ZElyXNNE+broyp3f458C9F
+         FvpCpznCuOUVu+KcA+kPeRPzOfOqjOCmMHku9AX1eDLdNhRslm/FCrJUxkZJBqQYJPtE
+         IXhnbRk+8/9PUktOL1LwrT9pHTMocIPg27t5enT0/pe3q/j3cMJrXf0xgoS9gKpV7qjW
+         x9BYaCCTO+sQ13y0dPs3KyTwbciGZCPcPs38bAc9sGLe3QCjEn6iQXCLaVvyP1J4Poqz
+         Um3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794608034; x=1795212834;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NexZ2xLQ4LexIAyhPn8eStBsD+iuDC+wM/nvMrZ5LMk=;
+        b=AWr6dKt04cb328pOeh0zoTULgCNK3uizLPdWQ2N8bqArTyGZFGTzDRpuLkuFS8igmu
+         nEabgkfcobxkSvPw58PjEfm/+fHHOc8nvgIOc9LuoG9STKVJ7YalToMeNOQaFyR5bwDQ
+         vYN/cE2+kFKwEPLoPiga1439ZhlYH5+tFFBd5Ju5QMyzLtVvEElzhLBWC7U54zpQfBV5
+         Ezg6O1Xqrz8QPP+rdkNr293sRUDBRKZzsGed58piQEQ71hgUnLE4+oBTEwrK5jg4kYaP
+         IsdS/BpsrLCh2oNqb/YX6wHV3KJSjdl1OBKwvP8LrNt5A+38I1lpauTzwW5q00pgOxur
+         Ssvg==
+X-Forwarded-Encrypted: i=1; AL+hErH+ytluTFG4C4Q0GxxsEl47X8tJb5Q3e34xV4+RcNjZOV2X/Q9nzY9UUUadKvd9MLDiBk1G050uz2dn8IE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ql/L84vDyls7qzy95c4EkB6ni6TdMdM9hWx7d/JpTqpQiyBZZ
+	lzXOs4wVhVoRyxpde7GLXfdFGeCWxpM5emSDbNzPcipVli+1yG7D502KQEPG0qORub1Slj1EFDM
+	nxI64PihsXqKfTQ==
+X-Received: from dlep20-n1.prod.google.com ([2002:a05:701b:4594:10b0:1b2:375c:827])
+ (user=wusamuel job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:701b:21c3:b0:1b3:a8a3:c6de with SMTP id a92af1059eb24-1b50306c4e1mr3614192c88.5.1794608033867;
+ Fri, 13 Nov 2026 14:13:53 -0800 (PST)
+Date: Fri, 13 Nov 2026 14:12:45 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,175 +75,130 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:akNYmqQvLVur68rWWgy3sX/p77RzGQ7hIrKAsCvMWSFrYKJc3po
- T7IziOU5S91CgQHKN98TLrwiU2X2HcLM9qjQnNIMy+pdfr8cpmmWmyHyTgCu/19D0I1Wlez
- QjnR3606oYQxdIOYPD6Ns27beobS1DSURa2ZACCjYF1yOWrEL83CA1fNfU6WndU0aSiWPZq
- JABrloYamZeIFvp7q68oA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:1nLtmfppK6U=;RANPJBYQr2ShfjpeY6cGH3nihSM
- 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
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+Message-ID: <20261113221248.3535369-11-wusamuel@google.com>
+Subject: [PATCH bpf-next v3 0/9] kallsyms: Add KALLSYMS_QUERY_BY_NAME and
+ KALLSYMS_QUERY_BY_ADDR ioctls
+From: Samuel Wu <wusamuel@google.com>
+To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
+	David Laight <david.laight.linux@gmail.com>, Samuel Wu <wusamuel@google.com>, 
+	kernel-team@android.com, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-modules@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-Under CONFIG_SLAB_VIRTUAL, freeing a slab queues it to
-slub_tlbflush_work. The worker later follows slab->slab_cache to take the
-cache's virtual-slab lock and update its lists.
+/proc/kallsyms is the primary interface for userspace to query the kernel
+symbol table. However, resolving even a handful of symbols or addresses
+requires reading and parsing the entire text file, which is often several
+megabytes and takes thousands of read() syscalls.
 
-__kmem_cache_shutdown() can report success after the last slabs have been
-removed from the cache's accounting but before that deferred work runs.
-The cache can then be released while queued slabs still refer to it. When
-the worker runs, it dereferences the freed kmem_cache and corrupts its
-lists.
+This patchseries adds two ioctl() commands to interface /proc/kallsyms:
+1. KALLSYMS_QUERY_BY_NAME: Finds a symbol by name, or be prefix with the
+   KALLSYMS_QUERY_NAME_PREFIX flag. The default is to search vmlinux
+   followed by modules, but userspace can specify a specific section with
+   the optional module_filter. Each call returns one match along with the
+   match position, such that subsequent ioctl() calls can continue with a
+   (position + 1) call.
+2. KALLSYMS_QUERY_BY_ADDR: Finds the symbol that covers query_addr. A
+   caller that needs an exact match can compare input, query_addr, with
+   the output, sym_addr.
 
-Flush the virtual-slab worker after confirming that every cache node is
-empty and before allowing cache destruction to proceed. This drains both
-queued and running work that can still reference the cache.
+Both commands fill a shared struct kallsyms_query_sym, with fields:
+address, size, and optional name and module buffers. Buffer lengths are
+in/out; on -ENAMETOOLONG the required sizes are still returned. As with
+the text file, return values adhere to the same permissions (such as at
+open() time), otherwise the ioctls fails with -EPERM.
 
-Fixes: 0d6f38b78adda ("mm/slub: allocate slabs from virtual memory")
-Signed-off-by: Felix Hoffmann <f3lix.dev@gmx.de>
-=2D--
-Tested on x86-64 with KCSAN enabled:
+For version compatibility, each struct carries its own size, so the
+command values do not change when the structs grow.
 
-  - on the unmodified SLAB_VIRTUAL feature kernel, a stress module that
-    repeatedly created, filled, emptied and destroyed a non-mergeable cach=
-e
-    triggered list corruption in slub_tlbflush_worker() and panicked the
-    kernel almost immediately
-  - with this change, the identical module completed 10,000 cache
-    create/destroy cycles (81.92 million allocation/free pairs) without a
-    BUG, warning, KCSAN report or panic
-  - the fixed KCSAN kernel and the external stress module build with W=3D1
+libbpf uses KALLSYMS_QUERY_BY_NAME to resolve typeless ksyms. It matches
+exact names plus "<name>.llvm." prefixes, as well as indicates if there
+is name ambiguitiy; this keeps the semantics identical, while still
+getting the performance benefit.
 
-The reproducer and complete console logs are available privately on reques=
-t.
- mm/slub.c | 5 +++++
- 1 file changed, 5 insertions(+)
+1. libbpf typeless ksym (8CPU Cuttlefish VM, BPF):
+   Metric                      Text parse  KALLSYMS_QUERY   Change
+   --------------------------  ----------  ---------------  ------------
+   Resolve 11 typeless ksyms   152.6 ms    4.41 ms          ~35x
 
-diff --git a/mm/slub.c b/mm/slub.c
-index b4c64b2bbd334..dbfd42b31a0a2 100644
-=2D-- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -8541,6 +8541,11 @@ int __kmem_cache_shutdown(struct kmem_cache *s)
- 		if (n->nr_partial || node_nr_slabs(n))
- 			return 1;
- 	}
-+
-+#ifdef CONFIG_SLAB_VIRTUAL
-+	/* The TLB flush worker still dereferences slab->slab_cache. */
-+	kthread_flush_work(&slub_tlbflush_work);
-+#endif
- 	return 0;
- }
-=20
-=2D-=20
-2.43.0
+2. Perfetto symbolization (8CPU x86-64 VM, 175k-line):
+   Metric                      Text parse  KALLSYMS_QUERY   Change
+   --------------------------  ----------  ---------------  -------
+   Init                        131.0 ms    0.04 ms          ~3000x
+   50k symbolizations          28.6 ms     3.5 ms           ~8x
+   traced_probes VmRSS         15.0 MB     4.5 MB           -70%
+   traced_probes VmHWM         23.7 MB     4.5 MB           -80%
+
+Note: Main reason v3 numbers are slower than v2 is that ambiguity
+resolution in libbpf requires extra ioctl() calls.
+
+Changes in v3:
+- Add new and missing ioctls in ioctl-number.rst (Randy)
+- Split into two ioctls() BY_NAME and BY_ADDR (Andrii, David)
+- Add shared struct for both commands (Andrii)
+- Add optional name and module inputs (Andrii)
+- Encode size 0 in commands and keep the sizes in structs (Andrii)
+- Add an optional module_filter (Andrii)
+- BY_NAME searches vmlinux, modules, ftrace, BPF JIT and kprobes (Andrii)
+- Add one-by-one pagination for BY_NAME (Andrii, David)
+- Add prefix matching (David)
+- Do not return hidden BPF JIT symbols (bpf-ci)
+- libbpf: retain semantics (match ".llvm", fail on ambiguous matches) and
+  fall back to text parser on error (bpf-ci, Andrii)
+- Added module_kallsyms_find_name() as a separate patch
+- Selftests: report skips with a reason (sashiko)
+- v2 link: https://lore.kernel.org/all/20261023001603.560210-8-wusamuel@google.com/
+
+Changes in v2:
+- Replaced the BPF syscall approach in libbpf with the more generalizable
+  KALLSYMS_QUERY ioctl() on /proc/kallsyms, per Andrii
+- Added KALLSYMS_QUERY_BY_ADDR for address-to-symbol lookup
+- Added proc and bpf selftests and procfs documentation
+- v1 link: https://lore.kernel.org/all/20261009130708.1370675-1-wusamuel@google.com/
+
+Samuel Wu (9):
+  Documentation: ioctl-number: Add PROCFS_IOCTL_MAGIC range 0x10-0x11
+  module: Add module_kallsyms_find_name()
+  kallsyms: Add KALLSYMS_QUERY_BY_NAME ioctl to /proc/kallsyms
+  kallsyms: Add KALLSYMS_QUERY_BY_ADDR ioctl to /proc/kallsyms
+  docs/procfs: Document KALLSYMS_QUERY_* ioctls on /proc/kallsyms
+  tools: Copy KALLSYMS_QUERY_* definitions to linux/fs.h
+  selftests/proc: Add KALLSYMS_QUERY_* ioctl tests
+  libbpf: Resolve typeless ksyms via KALLSYMS_QUERY_BY_NAME ioctl
+  selftests/bpf: Test typeless module ksym resolution
+
+ Documentation/filesystems/proc.rst            |   9 +
+ .../userspace-api/ioctl/ioctl-number.rst      |   2 +
+ include/linux/kallsyms.h                      |   7 +
+ include/linux/module.h                        |  13 +
+ include/uapi/linux/fs.h                       |  56 +++
+ kernel/kallsyms.c                             | 379 ++++++++++++++++++
+ kernel/module/kallsyms.c                      |  57 +++
+ tools/include/uapi/linux/fs.h                 |  56 +++
+ tools/lib/bpf/libbpf.c                        |  99 ++++-
+ .../testing/selftests/bpf/prog_tests/ksyms.c  |   9 +
+ .../testing/selftests/bpf/progs/test_ksyms.c  |   4 +
+ tools/testing/selftests/proc/.gitignore       |   1 +
+ tools/testing/selftests/proc/Makefile         |   1 +
+ .../selftests/proc/proc-kallsyms-query.c      | 248 ++++++++++++
+ 14 files changed, 939 insertions(+), 2 deletions(-)
+ create mode 100644 tools/testing/selftests/proc/proc-kallsyms-query.c
+
+-- 
+2.56.0.679.gc527c65306-goog
 
