@@ -1,95 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794570277;
-	b=Oi7uotN0Cv8VQvef2VQxnsdVSYpzlcvtEWrVjuTstXUOaUIHI5D4mSHptit65DKdDs71
-	 TCE4CIMHJ/bHk+g+otCTJeDe2veVJVnYdZCR8Hs6oAEquXhog5JXouWIwdOkVYz9nnld5
-	 jJMUdRvG3Yc/mm0bkHSjPp0xYzi7C5VpX+JAVJ8dKtjtuNTb4cG46jVur+CImIXeo+f6Z
-	 bdRZK0BQt6DEkpwfhW63KbanihlrmCCOHX1NdKhxghHDzin/YdqdlDhCppEvS4tj3nteE
-	 ewcS8sUGRPf9WYmGxBXsuWu6WjTu3R3L9lIgitIvDxjXjHYFz/dGDBbhuUvUF8GToJg==
+	t=1794570376;
+	b=xgfbXeS+tRLJUp96HxHPsyaDT9gpGG676USj9EZ4h7AiyjRyzQh526iCfGAB//DxlPdl
+	 /PjpbvtBF0qa1rlBHCJMJQbuagzGJxuz8bIc1kxFG49lMjMZ+CXv+57ZAfu2OELhtJev5
+	 d4fZqZTIejT2oto8GlEAnkycqlx2ujbV/C+rAEeyYQ5a/5e+EKd6VpLGi3dbUVu7cNlIp
+	 +aCbfENpQZTJstR4CDktN0urhbdgbfapCNzHPumI5TUHfp4UTXgevcrIWSGGnpnZRKBKP
+	 ROHNQUrlK9EE4JhVD24YE9d2nBPcBbzaC4uYD6NdUZ37pDZMIXOIG06QiSsOHHnvqeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794570277;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6FQtbu1IeNWQL+nRxPR7Un1AFMuLEx5nRaWh0Cnhh7U=;
-	b=xrDDIcKp5MNo3U9iFA9YcgBt91BDBJ39QKtIzZnyH/aqRG7aB7hNM8w3CoNjMoDNLShc
-	 CbKvGFCqqbqoqafU9AauaNpYZtezfKAaqOiruuLSH4Ey9BKhXb/+eaGnvxgYAeGGMDzQo
-	 K94dgGDGXDC4LqC60jRrw+K8nooxxwvyqlIgHwnogd7Fe/vEdk8ujXX+PkcK8q6tnYc1r
-	 yKuDUItEZuPLIDB3LTmqBXiqr7Xj6nhMMdePI4NdEzJA9RdXlxDzHjLAlJP9xa/ijiN2k
-	 iuWQdkXDXJimT48Dn1Urt2PlKhM/+dXK86VTtKDmhtGnkBH2zni7DrHnlfWSdlzQcbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794570376;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=TyVGa26JC/uGgJ7whYShkyz6YZUGS9gFVl0P9cF9qL0=;
+	b=DGDjtGB+srY38CoyOVCn2wiXuDPBs5do5dGFUWiDPA9LDxP6tSIflBMt/U7s09OQEoZs
+	 mGxNWeOcnUVtbtk/fI7pwhodfEWfMrghgNtkfpNDJ1zs6qRAcMaZsU+Q44h9R9DYh30xe
+	 bsa18K/MR5QOW9SOUAqupnkd1+eMfE/FSS3CmjrTefFInFaXIYSktJTtRpjMm9Su7UlU6
+	 ahqx8udeMNo+aTH5918GUJb7+dMkM7YYTxilKsitXLs7odXoNBSrDTYuk4o9qQPEr2jXl
+	 9DCbQp7YRioT7X3/pZ/a+2lPlHqm9l4gXm2Khn3HcQFra3Ar/bK+SHaBJVIe5YLlWkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ionos.com;
-	spf=pass smtp.mailfrom=ionos.com;
-	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=GwdwQBnK;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nkbBNS3d;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436E8606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:44:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 436E8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF68C606A323;
+	Fri, 13 Nov 2026 11:46:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF68C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=GwdwQBnK
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so13010195e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:44:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1794570274; x=1795175074; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6FQtbu1IeNWQL+nRxPR7Un1AFMuLEx5nRaWh0Cnhh7U=;
-        b=GwdwQBnKqkp6TTNZ9OmiXiyE2jPX8cmna7duS+fz2q3bZliFxpVnGlm66PGJ9QENFh
-         Usm6o+Xsyc7zAXRVHuERpqOj+/DtryKyrGooKt13RfSPlcNWF8IicTMcP7ycxDUjc3BX
-         V0Jcc4l9My/LL2WmSI76jcYSb6GdhF3zMro+R8qQfoTTPf+AlHyl2kg2o9dsclj/A8Me
-         1zp4aQ9l9n4HFtkKyiRgzF+TLT7o8eDHvSJM2dfXwnGspshgrV/WHz0Fx43A4/C3Ftub
-         heuYTKscKK3WtwL6jWeiAu8wwApYDfgzPF8pYZRDBCbHP3vDE580IhT/08oj75jLCGYa
-         RCJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794570274; x=1795175074;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6FQtbu1IeNWQL+nRxPR7Un1AFMuLEx5nRaWh0Cnhh7U=;
-        b=MBvp5RrwLa82L8hJKn8dkSNR9zU2PVaWVWv06T7xB8VaEPWQZ3HF7RQTSwPhO+pzMX
-         7yheYD3PEIEfdb9HaDkHhwtcDJdafuw4ggsMwcf55eViCRMSVHFHMw/deF0esKu0Vkvv
-         J1Z9ZroxMcSYHVhsFLf6n3pF4W4RjhIdufDba50O1JLrML/s2iDkCjv+9LW8btkQHx6u
-         kEcgWe+sspknrr2GFeV6CNdj4tBLabjYarNNwZmd8RBxWnR3K1wsRG84ZNxng5uNykUO
-         mzS1mOuqfzfiFit8DzPaJDPd2e//96YgGjzC2tgBc9YfTiaSaR+JnYg96fBhzvGF3sY3
-         0pjA==
-X-Forwarded-Encrypted: i=1; AL+hErG6rJXp0izj5PKpKFUMCxvf5Dc+pQcIQHkEHS+dvq39j5PaMS8BBYXTvjeDvIK0e6ALijX0TOoH/eZb4EA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/gewjAayqzGOG8Kf5j9sB2x2AJwpAC1W3qgvB23iRFWLdBSWzK
-	f7WsVoEQHcBoVbeAx/w96kmy1slE9Wi31CJlDUI/uhb+d1lVHExNz0Xdvn3zh0rjdy4kMD75CR5
-	fW29nK90=
-X-Gm-Gg: AYBFou0uFgh54K9gLtLuW+y6UcFIo2a3/CFsncbFIzSPBaAbbqf/nOZsNgYXrRU1e8T
-	1DpX2z37dRAuY0fpa0Wf3j4Izxxl+OvBUrmuy5UBtzR30h5a2+75DknUKBbgEvBFNfXZswcB/am
-	UBeupIkWrT6cEan+E1EftAf5/PqVnOWkv3MjP2qbAK3bUK1ziUPig74BDrgAEpJM+QqhGo2FfOd
-	es/IxtJI9rhgdka4IVaKdNJawJGNrgeVu0g4Kwq479jbw/05WcZP4EOYn1fDILQa/zgQk/55BYm
-	JeTL3rmNPNbIaWhF8u3gqghZTRZKo/u0S6s7o12s8N9GIiqA8gYG82JV9OgaFFdswBw1cNMCDs2
-	BgIkeJSXVSk84+beKJeyNyHU8yHTuHB9mvUnwKsYJxRoeKL1MA15IdnbRueJb+rN/kPeKinvgYJ
-	y3nvlvlKvCO9hhp7qyAC5X0gjzWKbqc/h+6OuRHxJLkq877+1E2ZbHLMFd74CUPdpCfotBGVZgf
-	hlDb0zi2LI6+r5Tp/wiA+FrK5ud9rnAwoM0qU44NMItruKS/yNZ4SY4xYD+02n0g5xa73WsP8++
-	ZsHiDjMFDPVaM1jLs37JP6vumeuXuHZLM4UZeqnUKGxf5x74ge+TwpQRshD2hTNYs1c7h07Z285
-	2Gbn19VV0TgobDtN2+V2Vvp5y+dOWpBYbjPdAOVFF5rD8bR49OTtc
-X-Received: by 2002:a05:600c:512:b0:4a2:a9:ed87 with SMTP id 5b1f17b1804b1-4bb55a5aa47mr33165155e9.19.1794570274477;
-        Fri, 13 Nov 2026 03:44:34 -0800 (PST)
-Received: from raven.intern.cm-ag (p200300dc6f4cbe00023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f4c:be00:230:64ff:fe74:809])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5a32d336sm5505806f8f.0.2026.11.13.03.44.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 03:44:34 -0800 (PST)
-From: Max Kellermann <max.kellermann@ionos.com>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>
-Cc: Max Kellermann <max.kellermann@ionos.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] fs: pack fields `i_state` and `i_fsnotify_mask`
-Date: Fri, 13 Nov 2026 12:44:26 +0100
-Message-ID: <20261113114427.1845888-1-max.kellermann@ionos.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nkbBNS3d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794570376; x=1826106376;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=Z8desejJBfQSLXa87yxXVf7t4IHFDbmztAMtftjTCOk=;
+  b=nkbBNS3dUfTA+g9XCW430n5deG5qUYyeW3rs//ZTvxaRE+rrw4as9pTJ
+   P5CJaAkCqnj6hlik+nbFdijVQUyrIEAMtiErfA/KhjEN7v4AavDenv92h
+   uRaCQDpWcOK2Mc6f54ysZF//xYvx9dA7pfS2+eEMuSL2Zyn8uD/E7w7Lg
+   lH4ViczLqUIWbdUe4XIjLXHDvRLEk0nrm0/otfifKEFcQI+Khk4j1OOy0
+   bqMDOqV3gZI4v3h/i5PVpyEk8AtYlO/aUJV0+6XLmjcleY5+R7F1kKSdM
+   rnbLaJLelYDjU9xa+r4KZojlDtTUjRhBUsukJN1bXqqLntz3we/EjV8E3
+   Q==;
+X-CSE-ConnectionGUID: eQBE1nwXS0qDCcnuDHOGbQ==
+X-CSE-MsgGUID: nHpCI/4wRNGFq4K4mweNXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3402772"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3402772"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 03:46:15 -0800
+X-CSE-ConnectionGUID: OxDEuhDzQ4+1Ik74aexGeg==
+X-CSE-MsgGUID: cFJ+KkAHQJuz5oWXRjL4yw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="9452710"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.214])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 03:46:11 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Eliav Farber <farbere@amazon.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+In-Reply-To: <20261113104459.35839-1-farbere@amazon.com>
+References: <20261113104459.35839-1-farbere@amazon.com>
+Subject: Re: [PATCH v6 5/7] platform/x86: uniwill-wmi: use
+ devm_blocking_notifier_chain_register()
+Message-Id: <179457036671.7575.8196717476385072185.b4-ty@b4>
+Date: Fri, 13 Nov 2026 13:46:06 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,56 +86,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-Both were 32 bit fields followed by a 32 bit hole.  This reduces size
-of `struct inode` by 8 bytes.
+On Fri, 13 Nov 2026 10:44:53 +0000, Eliav Farber wrote:
 
-Moving `i_fsnotify_marks` there as well so they can be in the same
-cacheline.
+> Replace the blocking_notifier_chain_register() +
+> devm_add_action_or_reset() pattern with a single call to
+> devm_blocking_notifier_chain_register(), removing the
+> devm_uniwill_wmi_unregister_notifier() callback.
 
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
----
-v1->v2: move `i_fsnotify_marks` up as well because "should better be
-  in the same cacheline because these two are accessed on some
-  performance sensitive paths" (Jan Kara)
----
- include/linux/fs.h | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 5b3a100aba77..fec047cc3327 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -813,7 +813,13 @@ struct inode {
- 
- 	/* Misc */
- 	struct inode_state_flags i_state;
--	/* 32-bit hole */
-+
-+#ifdef CONFIG_FSNOTIFY
-+	__u32			i_fsnotify_mask; /* all events this inode cares about */
-+
-+	struct fsnotify_mark_connector __rcu	*i_fsnotify_marks;
-+#endif
-+
- 	struct rw_semaphore	i_rwsem;
- 
- 	/* Timestamp for writeback list ordering and age checks (jiffies). */
-@@ -863,13 +869,6 @@ struct inode {
- 		unsigned		i_dir_seq;
- 	};
- 
--
--#ifdef CONFIG_FSNOTIFY
--	__u32			i_fsnotify_mask; /* all events this inode cares about */
--	/* 32-bit hole reserved for expanding i_fsnotify_mask */
--	struct fsnotify_mark_connector __rcu	*i_fsnotify_marks;
--#endif
--
- 	void			*i_private; /* fs or device private pointer */
- } __randomize_layout;
- 
--- 
-2.53.0
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
+
+The list of commits applied:
+[5/7] platform/x86: uniwill-wmi: use devm_blocking_notifier_chain_register()
+      commit: 4a53f320115d5f7c21c8fd899b362b5719a51946
+[6/7] reboot: use devm_blocking_notifier_chain_register()
+      (no commit info)
+[7/7] power: supply: cros_pchg: use devm_blocking_notifier_chain_register()
+      (no commit info)
+
+--
+ i.
 
