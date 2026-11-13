@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794539641;
-	b=ikYsQOLGFeyA6J6vMzywfq+SsfdCI5Nf45L6dEU+1JtRuYTYt0XFRLo9SlUnUix9SbxY
-	 HQmYXhHkEyJ/JjHNcJPwF9SBgBShqvehYjFVY78k8ziXXS+tvNYNXefP2xXWuF45qfCOs
-	 ZyXdt+QodF1+VbJE5QrpLHENSe68vJitquayvynR6NJ4/8fsoHYFu0nhLVqtL7p/3H2Ou
-	 gZ1MGFw/Dzcy+Cv3RCP/jkESQGUZMREw9x5lui859aLD//NB0DFP7Ei08nnAM/bBNveJD
-	 SKLDKq5+1xmlfr3F7ldo4n1fe1OhiiRlLusowuu0e8HHcqRLq8zEVyXb4Wpgtl/4/8g==
+	b=CrrNIGZECCr9UYJsbI+OTjYTqsW83P3zyazmMdTNwfb6z25irqQWywgiSYrrFvjQj9WW
+	 jmC6hgYLsYqcKa1/63Ns027jyF/zzBiyXvOQZK9sJpf1i9asnmptjZnj0L8/vAlvfYjCl
+	 270Vq12LaQCthfLMl6UvFgvT5auE3a/t9RsHXcqeaOepjngFpuEhFbyK+YzaCXpeaNDUQ
+	 fvh0rF+gJyhqFUWnyPB3TQacg//0lGW3bBpwd7b3U327HSVSH4asnfyEd9YoAfvrjo7Z1
+	 pUC0AXRzWrxxSqdtXyWosJ77L6tkrK7NTsQo8Vz6BlS1lPYhrHZGnMRTKvcuu8STA+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794539641;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=IaVog86Jm/7BPHoJKA6L79YCvmTQudSwcC4bCe/+BNI=;
-	b=UX1L4xS9FPjklQEZcoKbnmRUvyJj2MQFAEQRSn9V4jySEiiGdfZ+ONiHi2ukTC5jsT+N
-	 +KUywcvBP0TMenirufWLqdngYSFSa3g9FNFdOomC6CBmkl4WBfER2d0rC+ZaNL2YgIdJy
-	 Snr29UadPDvAiH9Cw6Aam1T+5YpqwXdIjnYOLPz0Y0oRgEFxoyIU7p89lEIc1LMKJnXti
-	 uCM2NjvhP2pODA0Bo6cE3YFKkrZmNviQZb9AOnzi7TZSCReI4/BI/vKui9N2ng7J3KQbT
-	 OR9ir8Mu0cdTpZsE649/Nr08Q9BvxuuF0SCsmN8q3L5l1bQ3TO+EzPmKM+NvdV1j9yg==
+	bh=k+VTHngtUIqLSYN13mnqJruEgfstyF2MN3VfSxypVXM=;
+	b=Nk4uQQqPIjgORMoo0I3r6tYNqnJFMoKfv0JGraSmBzOsSJv4k+DVx+a+jPBjGpe+Tc55
+	 Ortxo73SQU1/FHsMiSvNvvUVw5HOd8wmCP5k6x7HKp15ZJ8O9BMb2ppRwlsNPSU8Z971j
+	 Xgb/y9IvpPuPoLXl8OfsCVbh48f/06jk/meOlqsfcdGPMzaq1S9uRO00yUR0RzRNBPtB/
+	 GndNJA4jSWuKlNbM3Jx9vy+2PBI1KPPNv9Pg+QhCRlc+posQRAkX5w5cQquwMbxB82Sgi
+	 ejsDL3GA8Rhb7iWVHzZcGg9a0OfrjT53BD1dU7HHDXuS4p5XaVj47xZ8fWrtuOReneQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=J1DcfFIG;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jDblbLzw;
 	arc=none smtp.remote-ip=220.197.31.5
 Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D66606A897;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF35960A2605;
 	Fri, 13 Nov 2026 03:13:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3D66606A897
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF35960A2605
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=J1DcfFIG
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jDblbLzw
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
 	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=IaVog86Jm/7BPHoJKA6L79YCvmTQudSwcC4bCe/+BNI=;
-	b=J1DcfFIGyv6FyIl8xuWO5hvAqglRDa+C0KNa8KD0SiUEWugAqg5Mo97IKNu+xr
-	fXKl7iS+CVgV/n9andCb3C26Ca1ZjqByabCQOokCILxTw2HbCbzO3PJQLoK/sXSg
-	N9fzv8ify+0Nq70q/dg0xdghtSwadQID92kNMdogxSs88=
+	Content-Type; bh=k+VTHngtUIqLSYN13mnqJruEgfstyF2MN3VfSxypVXM=;
+	b=jDblbLzwstp+KSl+WelTtjRdcrn5VKTtXXHsutQ7hvl3u1CgcZXRW+StxmAZFn
+	WuQataDb3E8jcRE0J9VRcLfPYho8mq3etBdJecQu5Hq44H5TLHumDB/tz4Y4ugWm
+	CziMYb6s89jJxf+sW+GKf8cvn3ZrpkQNCZhYaHB0c4mvw=
 From: Chaosheng Qu <quchaosheng000406@163.com>
 To: netdev-bot+sashiko@kernel.org
 Cc: Robin van der Gracht <robin@protonic.nl>, Oleksij Rempel <o.rempel@pengutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>, Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH net v7 2/4] can: j1939: validate the EDPO packet number
+Subject: Re: [PATCH net v7 1/4] can: j1939: arm the abort timer under the session list lock
 Date: Fri, 13 Nov 2026 11:11:13 +0800
-Message-ID: <179453947398.30993.18128641012782298880@163.com>
-In-Reply-To: <179452018139.488853.4180903963444412204@kernel.org>
-References: <179410166345.60581.5430129940541091934@163.com> <179452018139.488853.4180903963444412204@kernel.org>
+Message-ID: <179453947397.30993.11677929413398880016@163.com>
+In-Reply-To: <179452017919.488853.15478724062923628521@kernel.org>
+References: <179410166345.60581.16722127854597502548@163.com> <179452017919.488853.15478724062923628521@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,33 +59,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDHzxNYgPZqFCfaHA--.11325S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWruFyrtF4xtr48ur1fZF1xAFb_yoWDuFg_ua
-	4vq3W8Jw18t3ZrKayUWrn8Zay7GFyjyr15tryqqa4IkryvkF47Zry0qa4fuw1jgr4YqF95
-	Crnxt3y7Kwn0qjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_hFx3UUUUU==
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDABmOBGr2gFmtugAA3B
+X-CM-TRANSID:QCgvCgBn+qFUgPZq0TtuFg--.7318S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tFyDKrWxXr15Cw13tw1fZwb_yoW8uFyUpw
+	43Kry3trs8WF4ay3ykXFW8WrWIvrnxZFZ7tF17K34SyrsxCF48tFZrKFW2ga9xtwna93ya
+	9w17Wrn8Xa18ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U5uciUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xaNA2r2gFYZEgAA36
 
 Hi,
 
-The Medium is right. j1939_session_cancel() only touches the rxtimer, so the
-txtimer stayed armed on the aborting session. On the transmitter the
--ENOBUFS retries ran up to J1939_XTP_TX_RETRY_LIMIT and replaced session->err
-with -ENETUNREACH; on the receiver they sent a CTS or an EOMA, and each of
-those ends in j1939_tp_set_rxtimeout(session, 1250), which replaces the abort
-timeout. v8 adds j1939_session_timers_cancel() before the abort, and v9 has
-it.
+1/4 was rewritten in v8 and v9 is current, but both High findings were real
+in v7 as posted.
 
-Fixes: 9d71dd0c7009 and Cc: stable are in since v8.
+The commit message claim was wrong. Only j1939_session_cancel() took
+active_session_list_lock; j1939_tp_set_rxtimeout() still did cancel, get and
+start without it, so the lock only serialized the cancels against each other.
 
-Two things I got wrong in this patch, from your review of it on v9. Once
-j1939_xtp_rx_cts_one() bounds the CTS, an out-of-range EDPO on the
-transmitter side can only come from a frame this host did not build, since
-J1939_ECU_LOCAL_SRC is set from the source address alone. ECTS_TOO_BIG blames
-a responder CTS that was valid in that case, so the next version uses
-BAD_EDPO_OFFSET for both roles. And the comment refers to "4/4", which means
-nothing after merge; it will name j1939_xtp_rx_cts_one() instead.
+The double-arm is the same problem, and the WAITING_ABORT re-arm is what made
+it reachable: the second caller found the state already changed and armed on
+top of the timer the first one had queued. Two gets, one expiry, one put, so
+the session and its netdev reference leak and unregister_netdevice() waits.
+
+v8 moves the lock into j1939_tp_set_rxtimeout() and routes both armers
+through one helper:
+
+	if (hrtimer_try_to_cancel(&session->rxtimer) == 1)
+		j1939_session_put(session);
+	j1939_session_get(session);
+	hrtimer_start(&session->rxtimer, ms_to_ktime(msec),
+		      HRTIMER_MODE_REL_SOFT);
+
+and drops the WAITING_ABORT re-arm, so only the ACTIVE -> WAITING_ABORT
+transition arms the abort timer.
+
+Still open: try_to_cancel() returns -1 while the callback runs and does not
+dequeue a timer requeued from it, so an arm that races the expiry can still
+take a reference it cannot pair. Your review of v9 1/4 says the same thing.
+The next version needs an armed flag taken under the list lock.
+
+The Medium was real too. On a receiver the second timers_cancel()/cancel()
+pair re-armed the abort timer, then deactivate_activate_next() moved the
+session to DONE without cancelling it, so the expiry skipped the
+WAITING_ABORT branch, took the generic else and queued RX_ABORT for a
+finished session. v9 has no re-arm and j1939_xtp_rx_rts_session_active()
+deactivates for both roles.
+
+Lows, all accepted: the subject was retitled in v8; the Fixes should be
+d966635b384b, not 9d71dd0c7009; abort_sent never distinguished anything,
+since __j1939_session_cancel() always sets WAITING_ABORT and skips the abort
+for broadcasts; and restarting the 500ms deadline on every cancel is a real
+behaviour change the v7 message did not describe.
 
 Thanks,
 Chaosheng
+
+pw-bot: cr
 
