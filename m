@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794568568;
-	b=AbcAwhGfqRPRfRQ0W6H3qJXXcD5/Yyn4NzaJn3evSL2TFHIJEe8DO9JXUxTQnFVpPpKv
-	 Z5DCmaLAeN00KhcQcNmUPyFT5Rha4nAXKPTVYqEnVcdx4yDPjy8me0v47szE77Nho93bO
-	 lBVWvxckS2+GCyRKAjQmpeN3ukIxCSe5s64wmThkB3WPVml//pFXuTN78lTJXBPhEOEkC
-	 AhK1eyG45AFyBja+P5i+vh5P8LctU2A0gSGVcED877EQV72fSGR1caCWml1L3OKyMq2WD
-	 HZbw0XvI0lLSw6Oi4ofDcgnJrV1w+itWt02CEjlJZ6g6hobwLF36yWDafyU/fGdljMQ==
+	t=1794568659;
+	b=uneNqpQpNJA5OdpclXPzpFedU5WKf/BAf0kd4QpiUejIfdQ6sdIhKUG65Ct8iAHVeLW4
+	 bj5xzU04pwK2pGILVaBZK9pzS0Say8RozXMVboYYzsec3jPHtDu1RSYRhiTHh48hwwFsm
+	 8gDYVLSJ0kfBXUbo86ZEMV/x4DQq271qNaLct2EUtQ6aLi498vYaCK5ViRCvgHMMAIwfY
+	 NyzJ7j3yKkg6YTcIbELOc18mcNRR7Fg2DGwKHb4ceD8+PZbC2o4Nxh7L0d4SUcfNffcmp
+	 8ma5lhGiAPtSiu2HV+L4XMDxe5HIe7e2LbWc1E97CuLP7txv8cWGrq053swRv2Gx2zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794568568;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568659;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cjsu9/5ej+ntzXZUPugJjG27uarENToyBzhqO2/xyvE=;
-	b=pzio+UM0AssTxktsGVNrg3fKMtjpJ0d1/fhvh3dn/w3Yq7s8/mYH0zDz1ODXSGfrmE4w
-	 weDsaJlIbC1vGl8DZP/IJRYXSZRurn17XJYT4JTYcSfJDU8VT6lkbzftCeGTauZduHZ7d
-	 WOAq6Lcd2N5d+F43frbc9bNmpYkIauJY9kMJmKOCLGw+MkZR4t5M5JstevOulfM5v8nND
-	 +FedXOWmoSfpvwYaeM1MNXDkAQGd5cUSYhFjvDi6j/OOhDEcuD9jkBL3p/AXq9FYzMEDe
-	 E9z8Gpm2WJWDVGQsZJ1z3j0Wp4W4PxotE9RCWZnSNALXHTT7xTraN030koH4sULD4lA==
+	bh=RxDC3JC5sxsmcIw+iwVyTq67rnUm+waYnxxk9UNp7sQ=;
+	b=UFvVtXZpOYeFV8JQPrGD+NM6qzpfChK6w9LAIakQm2eu1nSAJa8whmvif/MszVCyFcWb
+	 H82k0Begt5M9GYWyExXY/QmADZhNQK6T2vo0KEI9LMMJ2YGSpiQp3UbEaa40rARNlA05Q
+	 I/CcY5qANcOMPChcWCbagzuD0el/z+6yimkK35Zx7qdnkAW1H0mUV1zFPZcOzabm3RtXZ
+	 1VM+piQUF1676St92PxICsmeqJZdVSiBrkm4Vq0oqWBMF6LKldBaMK5W8E8CsAAy9Xj0T
+	 /ajm4vzsLP3P3FIOb9PRvNMdyMBSbm11AIoyNwWMAe96aIxFScgYsPqp1tm9MPMdlvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ja0Jjemo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJiALC8Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33112606A31C;
-	Fri, 13 Nov 2026 11:16:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D46606A31C;
+	Fri, 13 Nov 2026 11:17:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ja0Jjemo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 174671F000C4;
-	Fri, 13 Nov 2026 11:16:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJiALC8Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA4301F000C4;
+	Fri, 13 Nov 2026 11:17:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794568567;
-	bh=cjsu9/5ej+ntzXZUPugJjG27uarENToyBzhqO2/xyvE=;
+	s=k20260515; t=1794568658;
+	bh=RxDC3JC5sxsmcIw+iwVyTq67rnUm+waYnxxk9UNp7sQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ja0Jjemo9Q0Vgk2M06FtvFDkVqdzKX1IodhRlb5oUbvAsgneHGm6FPlLMxSmlKzIU
-	 xWkrFmbaV8Hrr56eiM5I2puOGg3cnYelhn5U+vJTDC7AUmEj7MnpJlnI/ti9bB0gMd
-	 CpbuFE5JLBSmQhQeYOIxuB0h0Ba/IZ1/zlBIV9CQLmXkzxi9qhmoFxbAn1GpmdtcF5
-	 SLG6hiyumKtG55PRJkcju2Bem9//c2vFAL0k/pwguiuqgdkjvkaK3LvTi/Azdy5a0V
-	 V7UXMeRzWLyOtHJCWdaX/2kEDKv+nXgzirmHMI5/TJZvld1v5mIz0J/WPqpEasnnO+
-	 duGo3LPnpxIxQ==
-Date: Fri, 13 Nov 2026 12:16:04 +0100
+	b=WJiALC8ZD7cWnd/0L88GvIYWcpka1nWOj0/rkT8BGw/c69CDrEHkxdZ+MKBBin63P
+	 Wi/W+ns6mhqjscVmKu8Aw4YiAtTfwaL9txYiPiieeiEUqfrcmVo8R5hZOChdEnbO9r
+	 YiKpAXrt1cYiIjsM9Ff8ZD6bIkUvC8jKsvW7ZWMcpKKv3Ah38889iNV9mwW4STfCZW
+	 Y/K5aKUNA/UqfgAIoImt9o9a67iQ/bEL22+qzNWPfIiJwK8fEm3TNdz9UeOg/NLdSD
+	 B7VRIpXokoj0qjf/g4UGxXNoJTxbBg8NhRbaPgYi8NJ+XeEl8ZYOulGC/QhxcVWaUK
+	 V9A5OTOirVcEA==
+Date: Fri, 13 Nov 2026 12:17:35 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
+To: Aditya Choudhury <mail@inferno0230.in>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, Kees Cook <kees@kernel.org>, 
-	Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 5/5] arm64: dts: mediatek: mt8173-amazon-suez: Add the
- PMIC AUXADC
-Message-ID: <20261113-hypersonic-inventive-kittiwake-956033@quoll>
-References: <20261111-rbrue-suez-upstreaming-amazon-suez-dts-v1-0-77b47cdea702@gmail.com>
- <20261111-rbrue-suez-upstreaming-amazon-suez-dts-v1-5-77b47cdea702@gmail.com>
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SM7550
+Message-ID: <20261113-ambitious-solemn-narwhal-cbaeec@quoll>
+References: <20261112-sm7550-soc-id-v1-v1-0-57299906d81a@inferno0230.in>
+ <20261112-sm7550-soc-id-v1-v1-1-57299906d81a@inferno0230.in>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,24 +61,22 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111-rbrue-suez-upstreaming-amazon-suez-dts-v1-5-77b47cdea702@gmail.com>
+In-Reply-To: <20261112-sm7550-soc-id-v1-v1-1-57299906d81a@inferno0230.in>
 
-On Wed, Nov 11, 2026 at 12:19:54PM -0600, Ryan Brue wrote:
-> Describe the MT6397's AUXADC and the battery pack's thermistor on it.
-> The SoC's AUXADC only has the board thermistors, and the charger has no
-> ADC, so this is the only way to measure the battery.
-> 
-> The thermistor is a 47 kOhm NTC behind a 24 kOhm pull-up to 1.2 V.
-> 
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
-> ---
-> The thermistor numbers were referenced from the vendor kernel.
-> ---
->  arch/arm64/boot/dts/mediatek/mt8173-amazon-suez.dts | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
+On Thu, Nov 12, 2026 at 10:30:26AM +0000, Aditya Choudhury wrote:
+> Add the ID for the Qualcomm SM7550 SoC, whose internal codename is crow.
 
-Adding new board is one commit.
+From where did you get internal codename? Downstream does not use the
+proper codenames.
+
+> 
+> Signed-off-by: Aditya Choudhury <mail@inferno0230.in>
+> ---
+>  include/dt-bindings/arm/qcom,ids.h | 1 +
+>  1 file changed, 1 insertion(+)
+
+Where is any user of this? Why do we need such SoC patches separate from
+the actual new SoC?
 
 Best regards,
 Krzysztof
